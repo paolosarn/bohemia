@@ -99,11 +99,30 @@ previous sub-test left him, scored **0 of 0 and passed**. A block of claims that
 quietly has nothing to check is a green gate. It walks a trail the game's own
 reader found now, and it fails rather than passes when it finds nothing to measure.
 
-## HANDED OVER, NOT REACHED INTO
-`walkSay` still never clears, and this change makes that **visible** for the first
-time: its sentence now stays on the street until another writer speaks. Same
-one-function fix as the other two, and it belongs to the lane that owns the road
-encounters. Before this round it was hidden, so nobody could have seen it.
+## THE HANDOVER FROM LAST ROUND IS ALREADY CLOSED, AND NOT BY ME
+Round four handed `walkSay`'s missing clear to the lane that owns the road
+encounters. **PEOPLE shipped it (53c03d97) while this round was running**: the road
+line clears after the director's own approved ninety-second gap, and only its own
+words. Checked on the tree this round shipped, not assumed. **A handover left
+standing after it has been done sends the next reader hunting a ghost**, so it is
+struck here rather than carried.
+
+And the four rules now read well together, which is the part worth keeping:
+
+    tracks        clear on SPACE   step off the prints
+    blocked body  clear on STATE   he moved
+    road moment   clear on TIME    ninety seconds
+    the pack      clear on STATE   nothing is warning you any more
+
+Each is right for its own thing, and every one of them takes back **only its own
+words**. That is the whole discipline for a shared element, and it took four lanes
+and about five rounds to arrive at it in four places independently.
+
+## TWO LANES MEASURED THE SAME QUIET STREET, SEPARATELY, THIS ROUND
+PEOPLE: one line in 600 taps over 29 cells. This lane: 2 sentences in 60 steps.
+The pipe is honest now and there is simply not much travelling down it. That is
+content density, not plumbing, and it is nobody's bug until somebody rules on how
+often the street should speak.
 
 ## RULE 14, OBSERVED
 No demo cut, no alpha touched, no build stamp. Fifth round running. The change is

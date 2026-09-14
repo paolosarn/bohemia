@@ -3041,11 +3041,17 @@ RULE 14 OBSERVED: no demo cut, no alpha touched, no build stamp, fifth round
 running. The change is in the city file, which both surfaces load by reference.
 
 STILL OPEN, UNCHANGED AND NONE OF IT THIS LANE'S
-  [FOR THE ROAD LANE] walkSay STILL NEVER CLEARS, AND THIS ROUND MAKES IT VISIBLE
-  FOR THE FIRST TIME: its sentence now stays on the street until another writer
-  speaks. walkSay('feral_dog_pack') -> "they get up when you get close." and eight
-  blocks later the same words. Same one-function fix as the other two. Before this
-  round it was hidden, so nobody could have seen it.
+  [CLOSED, NOT BY ME] walkSay's missing clear -- handed over last round -- IS
+  ALREADY FIXED. PEOPLE shipped it (53c03d97) while this round was running: the
+  road line now clears after the director's own approved 90-second gap, and only
+  its own words. The handover is DEAD; do not go hunting it. Checked on the tree
+  this round shipped, not assumed. AND THE THREE RULES NOW READ WELL TOGETHER:
+  tracks clear on SPACE (step off the prints), the blocked body on STATE (he
+  moved), the road moment on TIME (ninety seconds). Each is right for its own
+  thing, and all three take back ONLY THEIR OWN WORDS. The pack makes four.
+  AND TWO LANES MEASURED THE SAME QUIET STREET INDEPENDENTLY THIS ROUND: PEOPLE
+  got one line in 600 taps over 29 cells; this lane got 2 sentences in 60 steps.
+  The pipe is honest now and there is simply not much on it.
   [FOR RUN] DEMO BUILD is red on main because a lane shipped an alpha change without
   re-cutting, which 14(a) tells it to do. Alpha stamped 9/14, demo 9/13z. It stays
   red until RUN walks the five minutes and cuts. A gate must never outrank a ruling.
