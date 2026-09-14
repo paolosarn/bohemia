@@ -65,6 +65,41 @@ function EAR() {
   wrap('synthV', 'v');
   wrap('drumV', 'd');
 
+  /* *** AND THE FOOTSTEPS COME THROUGH A DIFFERENT DOOR, which is the fourth fault
+     this instrument had and the one that would have shipped a false headline. The
+     first fixed run said THREE SOUNDS IN FIVE MINUTES AND NO FOOTSTEPS while proving
+     the player walked 29 cells. It is not true: stepSfx() builds its own event name
+     and renders straight out of the step bank -- it NEVER passes through playSFX -- so
+     an ear hooked only on playSFX is structurally deaf to every footstep in the game.
+     AN EAR AT ONE DOOR CANNOT HEAR WHAT COMES THROUGH ANOTHER.
+     Worse, this was already written down: gates/every_sound_is_reachable_gate.py hooks
+     the message for exactly this reason and its own comments say the hour chime bypasses
+     playSFX too. I wrote a hook set without reading the known-good one. So this now
+     matches that gate's doors: the city's own messages, and BOH_SFX.render for a count
+     of what was really rendered. */
+  window.addEventListener('message', function (e) {
+    const m = e && e.data; if (!m) return;
+    try {
+      if (m.type === 'BOHEMIA_STEP' && m.surface) E.asks.push({ t: at(), k: 'sfx', n: 'step_' + m.surface });
+      if (m.bohemiaCitySfx && m.bohemiaCitySfx.ev) E.asks.push({ t: at(), k: 'sfx', n: m.bohemiaCitySfx.ev });
+      if (m.bohemiaCitySting && m.bohemiaCitySting.fig) E.asks.push({ t: at(), k: 'sfx', n: 'sting:' + m.bohemiaCitySting.fig });
+    } catch (err) {}
+  });
+  E.renders = 0;
+  try {
+    if (typeof BOH_SFX !== 'undefined' && BOH_SFX.render) {
+      const r = BOH_SFX.render;
+      BOH_SFX.render = function () { E.renders++; return r.apply(this, arguments); };
+    } else E.errs.push('no BOH_SFX.render');
+  } catch (err) { E.errs.push('BOH_SFX hook threw'); }
+  /* CAN A FOOTSTEP SOUND AT ALL IN THIS BUILD? stepSfx returns silently when the step
+     bank is empty ("nothing judged -> silence, on purpose"), so the bank's own size is
+     the difference between "the game chose not to" and "the game cannot". */
+  try {
+    E.stepBank = (typeof STEP_BANK !== 'undefined' && STEP_BANK)
+      ? Object.keys(STEP_BANK).map(k => k + ':' + (STEP_BANK[k] || []).length) : null;
+  } catch (err) { E.stepBank = 'unreadable'; }
+
   /* THE METER IS THE HALF THAT CANNOT LIE. A call log says what was ASKED FOR; only
      a meter says what came out. The analyser goes on the very end of the chain --
      the limiter if it is reachable, because that is the only node that sees
@@ -166,6 +201,7 @@ function EAR() {
       let M = null; try { M = MUS; } catch (e) {}
       return {
         asks: E.asks, meter: E.meter, notes: E.notes, errs: E.errs,
+        renders: E.renders, stepBank: E.stepBank,
         meterOn: E.meterOn || null,
         acState: (M && M.AC) ? M.AC.state : null,
         acTime: (M && M.AC) ? +M.AC.currentTime.toFixed(2) : null,
@@ -204,7 +240,8 @@ function EAR() {
        worthless without it. */
     walkMoved: [out.walk1 && out.walk1.moved, out.walk2 && out.walk2.moved],
     padMissing: !!out.padMissing,
-    musicNotes: e.notes, song: e.song, acState: e.acState, meterOn: e.meterOn,
+    musicNotes: e.notes, rendersOfEffects: e.renders, stepBank: e.stepBank,
+    musicNotesSong: e.song, acState: e.acState, meterOn: e.meterOn,
     meterSamples: m.length,
     longestSilenceSec: worst, longestSilenceEndedAt: worstAt,
     pageErrors: out.pageErrors, consoleErrors: out.consoleErrors, earErrs: e.errs,
