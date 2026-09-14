@@ -13099,6 +13099,58 @@ since 9/6, it also holds 19 QUESTS (BUILD). The front page's chat-19 line says a
 chat with an empty queue takes QUESTS, and DYNASTY's queue went empty at Q16. The
 lane and its first row were claimed and pushed BEFORE any work started. ***
 
+ROUND 36 [half now] PART TWO SHIPPED, THE ROW IS DONE. QUESTS, BUILD.
+  engine/bohemia_haggle.js     the three shapes, who is exposed, and the break mark
+  slices/BOHEMIA_CITY_WORLD.html  the inlined copy synced, the mark wired to resolve
+  gates/ask_for_more_gate.js   48/0, check 3c changed WITH the design, not loosened
+  NO DEMO RE-CUT. Rule 14(a). TAB: RUN (the morning card).
+
+THE THREE SHAPES ARE WORDS' AND NOT MINE, off their Q21 round two, from research
+on how migrants pick a smuggler (reputation, guarantees, escrow -- the
+"substitutes for trust"): "ASK 1 is half on delivery. ASK 2 is a third party who
+already holds things for strangers. ASK 3 is going first on something small,
+priced so that being robbed is survivable. NOBODY SAYS TRUST ME, and the section
+bans it, because it is what somebody says who has no shape to offer."
+    half of it now, before I go                           -> THEY are exposed
+    leave it with somebody who holds things for strangers -> NOBODY is exposed
+    I will go first, on something small                   -> YOU are exposed
+
+*** WHAT A SHAPE CHANGES IS WHO IS EXPOSED, NEVER WHAT IT PAYS. *** Everything
+costs one. Driven on the real card: each shape takes, names who carries the risk,
+shows its line, closes the other two (one shape per deal) and still settles at
+exactly one battery.
+
+TWO TRAPS CAUGHT, AND THE FIRST IS THE ONE WORTH KEEPING:
+1. room() -- how many asks land before the offer is withdrawn -- was documented
+   as "THE ROOM IS THE SIZE OF THE MENU". The menu just grew from three rows to
+   five. That reasoning would have SILENTLY made the offer harder to lose the
+   moment a shape was added: a rule written as a count of rows, changed by a
+   feature that adds rows. It is the number of KINDS of ask (a different one, or
+   a shape), not the row count. The number did not move; the reason it is 2 is
+   now true instead of accidentally true.
+2. breakMark() was nearly shipped with NO CALLER. A finished thing nothing calls
+   is a bug this repo keeps paying for. It fires where the quest RESOLVES now, on
+   the same hook the pay and the ground capture already use, into the deed ledger
+   that already exists.
+
+AND THE CITY CARRIES ITS OWN COPY OF THE MODULE: synced, and the live card
+verified to really offer all five rows. Last round's three-copies lesson applied
+rather than re-learned -- the gate's own live line was still printing three asks
+until the inlined copy was replaced, which is exactly how that bug hides.
+
+THE GATE CHANGED WITH THE DESIGN AND SAYS SO. Check 3c pinned "two swaps and one
+up front"; it now pins two swaps and three shapes, plus four new checks: one
+shape per deal, who is exposed per shape, that no shape moves the price, and that
+only the they-are-exposed shape can mark you. A check rewritten to match new
+behaviour is only honest if it stays as tight; this one did.
+
+HANDOFF NOTE, FROM CLAUDE.md's 9/13 amendment: my working copy of this file was
+178 insertions and THIRTY-FOUR DELETIONS against main when I went to write, which
+is the exact loss the amendment describes (read at the start of a round, written
+back an hour later). I threw my copy away, committed the code alone, rebased, and
+wrote this block onto the current file instead. The rule works; it only works if
+you actually look at the diff before writing.
+
 ROUND 35 [half now] AN-ASK-CARRIES-A-SHAPE, PART ONE SHIPPED. QUESTS, BUILD.
   slices/BOHEMIA_CITY_WORLD.html         the guard moved to where the row is DRAWN
   gates/every_row_does_something_gate.js 14/0, REGISTERED, two mutations bite
