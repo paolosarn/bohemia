@@ -9363,6 +9363,106 @@ THIS LANE'S ROLE, FIXED: 16 COOK, the production artist.
 THIS LANE'S SESSION SLUG: cook-mce6r5.
 
 
+COOK (cook-mce6r5): 9/14 LATEST -- *** [streets fixed] ROUND 3: THE GROUND IS DONE, THE
+HOUSES ARE 4%, AND A NUMBER I PUBLISHED LAST ROUND WAS NOT TRUE. *** TAB: RUN (the walked
+city), but NOTHING ON HIS SCREEN CHANGED THIS ROUND and that is the correct outcome.
+
+NOTHING WAS COOKED, ON PURPOSE. Rule 12 killed my own plan and rule 14(g) got the work.
+
+WHAT I CAME IN TO BUILD. My round-2 handoff said round 3 was the house pools: hroof 14,
+hwall 4, hwindow 3, hdoor 3, hboarded 3, all 16x16, all blurred x2.75 into the 44px bake,
+with 44px approved art waiting in the bank. I measured the premise first:
+
+    hyard          605 cells  72%  (fixed r2)     hroof             11 cells  1.3%
+    street pools   203 cells  24%  (fixed r1)     hwall faces        1 cell   0.1%
+    procedural dirt 22 cells  2.6%                perimeter faces   22 cells  2.6%
+
+THE HOUSES ARE 4% OF HIS FIRST FIVE MINUTES. Cooking them would have been the street
+mistake a third time: a round spent on a sliver because it was next on MY list instead of
+next on HIS screen. Not wrong, just not next. It would also have been risky for a reason
+the file names hide and a contact sheet showed in one look: the bank's wall and roof tiles
+are STRUCTURAL ROLES, not interchangeable variants (wall_base, wall_under_eave,
+wall_end_l/r, roof_ridge, roof_eave, roof_hipTL/BL/TR/BR). In a random-variant pool a hip
+corner lands in the middle of a flat wall. Only three map cleanly by name and material
+(wall_0/1/2 -> hwall, wall_window -> hwindow, wall_boarded -> hboarded), and HROOF MUST NOT
+BE SWAPPED AT ALL: the live pool carries three roof COLOURS, the bank's roofs are all
+terracotta, so the swap costs variety on top of placing corners wrong.
+
+*** A NUMBER I PUBLISHED LAST ROUND WAS NOT TRUE, AND IT REACHED A RECORD, A HANDOFF, A
+BOARD ROW AND A COMMIT MESSAGE NINETEEN LANES READ. *** Round 2 said "138 of 841 cells
+(16%) draw with no pool at all, by flat colour". THE REAL NUMBER IS ZERO.
+
+My probe read c.markPool || c.gArtPool || ('flat '+c.g) and called everything that fell
+through "no tile art". A cell carrying no POOL is not a cell carrying no TILE: texFor(col)
+resolves the colour to a pool through SA_MAP at DRAW time, and anything it does not know
+falls to texForKind, which GENERATES its texture procedurally AT 44px. I asked the cell what
+it carried; the renderer asks a different question a moment later. Asked the page's own
+texFor for all 841 cells: seen 841, tiled 841, UNTILED 0. Not one cell in his first five
+minutes is a flat fill. The 105 cells of #8a8a86 are the street pool r1 cooked; the 22 of
+#8a7a5e are the procedural dirt kind, already full resolution. There was never a 16% hole.
+The round-2 record is CORRECTED IN PLACE with the reason written out, not quietly edited.
+
+Third time in three rounds that a clean number from the wrong oracle nearly became a fact,
+and THE FIRST TIME IT GOT PAST ME. THE RULE THIS LANE NOW HOLDS: A PROBE THAT REPORTS AN
+ABSENCE MUST BE ASKED THE SAME QUESTION THE RENDERER ASKS, IN THE RENDERER'S OWN WORDS,
+BEFORE THE ABSENCE IS A FINDING.
+
+WHAT DID SHIP: THE ONE DRIVER NOW DRIVES BOTH SURFACES (tools/bohemia_drive_the_demo.js,
+extended not replaced, per rule 14g). Pointed at the ALPHA it failed on a game that boots
+perfectly, for two reasons that would each make a lane report the alpha broken:
+  1. IT GUESSED HOW LONG THE DOOR TAKES. Two blind waits, 15 s for the splash and 22 s for
+     the city frame, tuned to the demo on one machine. Both now POLL for what they were
+     waiting for, keeping the old numbers as the ceiling.
+  2. THERE ARE TWO FRONT DOORS AND ONLY ONE OPENS. The alpha carries BOTH #fronttap and
+     #front. The driver picked #fronttap with an || and clicked it; measured, the splash sat
+     there with #fronttap present and display:block for EIGHTY SECONDS while nothing
+     happened. Tapping #front opened it first try. It now taps BOTH with a real finger.
+WHY IT MATTERS BEYOND THIS ROUND: every building lane ships to the ALPHA and only THE RUN
+re-cuts the demo. EYES E26 measured it this round -- demo 9/13z, alpha 9/14a, "six lanes
+shipped against last round's list and the demo he opens is the same demo". A driver that
+can only reach the demo can only ever measure work that is at least one cut old.
+MERGED WITH SOUNDS, WHO EXTENDED THE SAME FILE THE SAME ROUND: their beforeTap hook is kept
+exactly where they put it, before the tap, and now fires after the door is SEEN rather than
+after a blind 15 s -- the same moment or earlier, never later. Regression-tested on BOTH:
+demo opens in 60 s with 23 controls and state mode human / hzoom 44 / hx 6205 / hy 6271
+unchanged; alpha opens and answers 841 cells.
+
+WHERE THE ROW STANDS: every one of the 841 cells around him is on a real tile, and all four
+pools making up 95% of them are cooked (road + sidewalk + markings r1, yard r2). THERE IS NO
+REMAINING ART LIE ON THE GROUND OF HIS FIRST FIVE MINUTES THAT THIS LANE CAN FIND BY
+MEASURING.
+
+STILL OPEN, AND NONE OF IT IS THIS LANE'S NEXT BY SCREEN AREA:
+  1. The sidewalk repeat: BOHEMIA_CITY_WORLD.html:36538 and :36577, c.gArtVariant=_sw%3.
+     36 distinct sidewalk tiles exist, three are ever drawn. The per-plot seed beside it is
+     Paolo's 7/14 desert-dominance ruling and must stay; the MODULUS is what is wrong.
+     LIFE + CITY / WORLD. Open since round 1.
+  2. walk_kerb and road_gutter: approved, 44px, undrawn. The suburb has 15 cell codes and
+     not one is a kerb, because Paolo's 7/31 ruling puts the walk HARD AGAINST the kerb, so
+     a kerb is an EDGE on the road side of the walk, not its own cell. The marking pass at
+     :40481 already resolves oriented pools from neighbours and __rotTex already exists.
+     ART: exists. PLACEMENT: LIFE + CITY / WORLD.
+  3. The house pools, per the measurement above. COOK, when 4% is the biggest thing left.
+  4. 40 of the 42 tiles Paolo approved on 7/28 are still drawn ZERO times (r2 placed the
+     three yards). That is bigger than any one row and nobody owns it.
+
+GATES: pre-push pass green (REFERENCE CHECK 11/0, REUSE-FIRST 206/4, PIXEL CRAFT 30/0, CITY
+TAB 64/0, ALPHA LOADS 20/0). The 4 are other lanes' files. Full suite unmeasured since
+9d0c8a4e. No art changed; no demo re-cut (rule 14a).
+Record: records/COOK_THE_GROUND_IS_DONE_AND_A_NUMBER_I_GOT_WRONG_9_14_26.md
+
+AND A HOUSE RULE THIS LANE BROKE TWICE WITHOUT NOTICING. The handoff gate (PLUMBER, 9/13)
+keys a block on its header ending in the word LATEST and fails any commit where a header
+HEAD carries is gone. When I prepend a new block I had been DEMOTING my old one's header
+from '9/13 LATEST' to '9/13' -- which to that gate is indistinguishable from deleting a
+lane's current state, and it went red the moment I ran it. Rounds 1 and 2 did the same and
+nobody ran the gate. NEVER EDIT AN EXISTING BLOCK HEADER. Prepend and leave every header
+below exactly as it is; the newest block is the topmost one, not the one that says LATEST.
+
+STILL PENDING PAOLO, unchanged:
+  [magenta piece] -- purple means the Amalgamation, but the Anarchists' own colour #c026a0
+  is a purple. A/B/C are on the board and below.
+
 COOK (cook-mce6r5): 9/13 LATEST -- *** [streets fixed] ROUND 2: THE STREET IS 8% OF HIS
 SCREEN. THE YARD IS 72%, AND IT WAS THREE SIXTEEN-PIXEL TILES. *** TAB: RUN (the walked
 city). Three quarters of the ground he stands on changed.
