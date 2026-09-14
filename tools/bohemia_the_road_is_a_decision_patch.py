@@ -183,8 +183,12 @@ function roadChoose(ev, act){
       say:'You do not have it. They can see that you do not have it.' };  /* draft:true */
     try{
       /* A TRANSFER, NOT A DRAIN. The purse's own words: a drain is destroyed and
-         gone, a transfer moved to another holder. The crew HAS the cut. */
-      BohemiaPurse.transferOut(purseGet(),'resources',o.pay,
+         gone, a transfer moved to another holder. The crew HAS the cut.
+         __EVERY_POCKET__ -- AND NOW THEY REALLY DO. This was a one-legged
+         transferOut for as long as it existed: the sentence above was the
+         intention and the game destroyed the batteries instead. The crew is the
+         holder the event already names, so hand() delivers to it. */
+      BohemiaPockets.hand('player', 'crew:'+ev.id, 'resources', o.pay,
         'paid on the road: '+ev.id, 'roadpay:'+ev.seq,
         (typeof DAY!=='undefined'&&DAY.day)?DAY.day:0);
     }catch(_e){}

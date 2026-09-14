@@ -17664,8 +17664,65 @@ NEW FRONT-PAGE RULE 8 (added 9/13), and it binds this lane: IF YOUR DIFF TOUCHES
 engine/, REBUILD THE TWO DERIVED SLICES (the RUN slice and the demo) IN THE SAME
 COMMIT. PLUMBER found the RUN slice drifting +45/-6 behind two engine ships.
 
-HOLDING: nothing. [owe lines] THE-NIGHT-CARD-SAYS-THE-SAME-LINE-EIGHT-TIMES is
-SHIPPED 9/14. IT WAS THIS LANE'S FIRST FIVE-MINUTE BREAK UNDER RULE 14.
+HOLDING: nothing. [every pocket] THERE-IS-EXACTLY-ONE-PURSE-IN-THE-WHOLE-GAME is
+SHIPPED 9/14. Before it this round: [owe lines], this lane's first five-minute break
+under rule 14.
+
+*** [every pocket]: EVERY BATTERY HE PAID WAS BEING DESTROYED. ***
+MEASURED FIRST (rule 12) and the board's premise was wrong where it mattered. The
+line said the swap primitive "is built, works and is half-called". THERE IS NO SWAP:
+no function anywhere in engine/ takes two purses, and transferIn() HAD ZERO CALLERS
+IN THE GAME -- not half-called, the receiving half had never run once. So all four
+payment sites on the walked surface were ONE-LEGGED transferOut calls: the batteries
+left him and arrived nowhere.
+THE NUMBER, driven with the city's own rent-night call over a week:
+    ledger says moved-to-another-holder   10
+    actually in anybody's hands            0
+    the valley's money supply        9 -> 0
+HIS BALANCE WAS THE MONEY SUPPLY OF LAS VEGAS, and it only ever fell. And the road
+site's own comment said "a transfer moved to another holder. The crew HAS the cut"
+while the game destroyed it. That is rule 14(d) -- promises and does nothing -- inside
+the economy instead of on a card.
+AND THE GAME ALREADY NAMED WHO SHOULD HAVE RECEIVED, at all four sites, in the ref:
+the crew, r.faction, r.who, the person's id. The receiver was the only missing part.
+SHIPPED: engine/bohemia_pockets.js, the book of holders, and hand() as the one road
+between any two -- transferOut on one purse, transferIn on the other, ATOMIC,
+unwinding leg one the way convert() has inside one purse since 7/31.
+WHO HOLDS ONE IS ECONOMY Q40's ruling, TWO POCKETS AND A WAREHOUSE: the player plus a
+treasury for each of the 14 factions that can hold ground, derived off the faction
+graph and never typed, and NO POCKET FOR A SHOP (it holds goods in ledger.stocks; the
+naive read is 28,844 ledgers, this is 15). A lender, a crew or a person you wronged
+gets one THE MOMENT THEY ARE HANDED SOMETHING. Treasuries ship EMPTY.
+NO SAVE KEY, ON PURPOSE: his own purse is memory-only (PURSEV, nothing writes it to
+storage), so treasuries that outlived it would MINT batteries across a reload. When
+his purse gets a save key these ride the same one.
+ON THE WALKED SURFACE, driving the game's REAL blockRent() and loanNight(), not a
+copy: 15 holders from the first frame, three rent nights take him 40 -> 37 and leave
+the Mob holding 3, a loan repayment really reaches CHURCH (a holder who did not exist
+before), supply 40 before and 40 after, 0 page errors.
+PROOF: gates/every_pocket_gate.js, 56 checks, mutation-tested four ways -- drop the
+receiving leg -> 6; delete the unwind -> 3; revert one city site to a bare transferOut
+-> 5 (including the supply going 40 -> 37 on the real surface); type the faction list
+into the module -> 1. THAT LAST ONE PASSED AT FIRST: the check scanned source with
+strings stripped, and strings MUST be stripped for the mention-vs-use checks (every
+payment site's comment contains the word transferOut), so the stripper blinded it. It
+is now behavioural -- add a fifteenth faction to the graph, watch the module find it,
+take it away, watch it go. records/BOHEMIA_EVERY_POCKET_9_14_26.md
+
+TWO THINGS THIS ROUND COST ME, BOTH WORTH KEEPING:
+  A. TWO OF THE FOUR PAYMENT SITES ARE OWNED BY PATCH TOOLS (the_road_is_a_decision,
+     city_paid_means_paid) AND BOTH ARE IDEMPOTENT-BY-PRESENCE. Editing the tool
+     printed "already applied" and CHANGED NOTHING IN THE PAGE. A source edit is not
+     a shipped edit, again. Both the tool and the page had to change, and the gate now
+     checks they agree or the next run of either tool quietly puts the bug back.
+  B. DERIVED FRESH GOES RED ON ANY UNCOMMITTED CHANGE TO A DERIVED FILE, and the
+     failure reads "+0/-0 ... *** NEW ***" which looks like a phantom. It is not: the
+     gate resets its throwaway worktree to HEAD before EVERY maker (git checkout -- .
+     plus git clean -fd), which throws away the working-tree overlay it just made, so
+     the maker re-derives from HEAD's sources and is compared against your edited ROOT
+     file. +0/-0 is git finding no diff INSIDE the worktree while the gate finds one
+     against ROOT. COMMIT FIRST, THEN RUN IT. Do not go looking for drift that is not
+     there; I ran the maker by hand and the city came out BYTE IDENTICAL.
 
 MEASURED FIRST AND IT SHARPENED THE DIAGNOSIS. FACTIONS reported 916 px in a 780
 window with WHO YOU OWE at 270 px and EIGHT IDENTICAL LINES. Measured here with more

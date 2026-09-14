@@ -94,8 +94,19 @@ H_NEW = r"""        /* __CITY_PAID_MEANS_PAID__ -- AND NOW SOMETHING IS ACTUALLY
           var mrHave = 0;
           try{ mrHave = BohemiaPurse.balance(purseGet(),'electricity') || 0; }catch(_e){}
           if(mrHave >= mrPrice){
+            /* __EVERY_POCKET__ -- AND THE PERSON YOU WRONGED HAS IT. The line
+               above was a bare transferOut: the batteries left the player and
+               arrived nowhere, so "restitution GOES TO the person wronged" was
+               true of the comment and false of the game. hand() is the same
+               movement with a second end, and the person is the holder the card
+               already names. A PERSON IS NOT SEEDED A POCKET (ECONOMY Q40 seeds
+               the player and the 14 factions and nothing else, because a ledger
+               per person is 28,844 of them); one is opened for exactly the people
+               who are really handed something, which in a playthrough is a
+               handful, and the alternative is destroying the battery. */
             try{
-              var mrR = BohemiaPurse.transferOut(purseGet(),'electricity',mrPrice,
+              var mrR = BohemiaPockets.hand('player', String(CT_OPEN && CT_OPEN.id),
+                          'electricity', mrPrice,
                           'restitution', String(CT_OPEN && CT_OPEN.id), DAY.day);
               if(mrR && mrR.applied !== false) mrPaid = mrPrice;
             }catch(_e){}
