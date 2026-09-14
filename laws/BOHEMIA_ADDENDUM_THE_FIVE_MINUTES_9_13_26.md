@@ -33,6 +33,16 @@ phone and the walk holds; a re-cut that adds a feature and breaks the walk is re
 The demo therefore stops being the sum of everyone's last commit and becomes one
 person's whole. (The alpha keeps moving; that is where the parts come together before
 they are allowed in front of him.)
+AMENDED 9/14 (coordinator, from EYES E26 round 3, 51f8b3fe: "the demo did not change
+this round, and the fixes are one cut away from him"; demo stamped 9/13z, alpha 9/14a,
+six lanes shipped against his list and he opens the same demo): ONE HAND WAS RIGHT,
+ONE CUT A WEEK WAS NOT. THE RUN RE-CUTS THE DEMO AT THE START OF EVERY RUN ROUND,
+before its own claim: walk the five minutes with the one driver, then cut, then
+verify the stranger's list is NOT WORSE than the last cut (a ratchet, never "the five
+minutes hold", or the demo never updates), then continue its claim. The studios'
+daily build is the model: the build goes out every day and is allowed to be
+imperfect, never allowed to be worse. A fix that does not reach him in one round of
+RUN is a fix he has not been given.
 
 ## 4. WHAT HE NAMED, EACH ONE A JOB, EACH ONE FIRST IN ITS LANE
 - "The streets don't look like streets... even the streets and the sidewalks, it's all

@@ -22908,183 +22908,6 @@ touch fights, a road card stops, nightfall stops, one tap stops. Not a teleport 
 fog/sight/night map ([travel map]) follows it, not a precondition.
 (NOTE: the (dv) block above was dropped from this file by another lane's rebase at 765e8c5f
 and is restored here verbatim from 1241e42a.)
-THEN (dw) PAOLO: "I wanna be able to fast travel like yesterday, bro, in the demo, bro."
-Deciphered: URGENT (the idiom), not calendar. His SECOND ask (9/6 [travel map] said "top of
-this lane" and sat ninth for a week under another claim; my failure). Measured: no fast
-travel exists anywhere; the latch comment says NOT FAST TRAVEL in capitals; every piece
-exists (city tap picks the tile, step rule, zoom handoff, party contact, road cards, reach).
-RULED: records/BOHEMIA_RULING_FAST_TRAVEL_LIKE_YESTERDAY_9_13_26.md. RUN [fast travel] is
-the FIRST line of RUN, the MODE line tells the holder to pause its claim and take it this
-round: tap a place on the CITY view, the trip runs in game time on the beat at the world's
-speed, marker moves among tracks and parties, arrive on the street at that tile; a party
-touch fights, a road card stops, nightfall stops, one tap stops. Not a teleport menu. The
-fog/sight/night map ([travel map]) follows it, not a precondition.
-(NOTE: the (dv) block above was dropped from this file by another lane's rebase at 765e8c5f
-and is restored here verbatim from 1241e42a.)
-THEN (dx) PAOLO PLAYED THE DEMO: "it looks like shit... the streets don't look like
-streets... glitchy, buggy AI experience, nothing's complete... I would like to see [the
-tiny parts] come more together." Verbatim: records/BOHEMIA_PAOLO_PLAYED_THE_DEMO_9_13_26.md.
-LAW: laws/BOHEMIA_ADDENDUM_THE_FIVE_MINUTES_9_13_26.md, FRONT-PAGE RULE 14: the demo's
-first five minutes on a phone is the only measure; ONLY RUN re-cuts the demo (every other
-lane ships to the alpha); every building lane's first job is a break he named; the
-six-open top-up is SUSPENDED for building lanes; a card that promises and does nothing is
-the worst bug; nobody answers him with gate or commit counts. FIRST LINES: RUN [fast
-travel] then [dead cards]; UI [no tabs] (LOCKED 9/6, unshipped a week, moved to first);
-COMBAT [first fight]; DIRECTION [streets read]; COOK [streets fixed]; LIFE+CITY [freeway
-reads]; PLUMBER [demo errors]; EYES E26 [five minutes]; PEOPLE [cats stay] (NOTES ARE
-RULINGS: cats approved). THE BREAK LIST lives on the front page under rule 14. MY OWN
-FAILURES named in the record: topping up to six manufactured breadth; every lane re-cutting
-the demo made it nobody's whole; two LOCKED rulings sat a week in queues; I reported commit
-counts as progress. (Coordinator blocks (dv)/(dw) are restored here if a lane's rebase
-dropped them; this is the second time.)
-THEN (dy) VAMILY, 11 commits (only four lanes ran). FACTIONS [who follows] SHIPPED (46 can
-come, 0 would follow on day one, ties are facts never a score; and [down not dead] now
-covers your company); it re-cut the demo twice AFTER rule 14 landed mid-round, noted, not
-punished. LIFE+CITY claimed [freeway reads]; its [tiles not slabs] r1 found the city already
-draws ~9,000 tile images and the 1.7% fallthrough is airbase/airport/estate/gated tiles the
-bank lacks (note on COOK [city from above]). PEOPLE held [lock them] under 14b and named THE
-TRAP: the DEMO BUILD gate's 'regenerating changes nothing' leg goes red for every non-RUN
-ship and the obvious fix is the forbidden re-cut -> RULE 14f (that leg quarantined, nobody
-re-cuts) and RUN [demo pinned] second line (the demo carries the sha it was cut from).
-MY OWN THING: I DROVE THE DEMO MYSELF at phone size, served (file:// throws 13 fetch errors
-a phone never sees): records/BOHEMIA_COORDINATOR_THE_FIVE_MINUTES_I_SAW_9_13_26.md, six frames in records/target/COORDINATOR_FIVE_MINUTES_9_13_*.
-ZERO page errors. The street at walk zoom is a stack of flat bands (head-on brick wall,
-beige, kerb strip, asphalt) with no ground plane; the zoomed-out view already reads as a
-city; thirteen controls before one step; the first card is an 8.5-hour round trip for one
-battery with three haggle buttons; text under the gear, a card on the rail, an orange bar
-down the street edge, a bubble with no speaker; no fight, no car; four cats. Written to the
-front page as THE COORDINATOR'S BREAK LIST (premises) and as premise notes on [streets
-read], [streets fixed], [freeway reads], [no tabs], [dead cards], [demo errors], [first
-fight], [every card], [first ask].
-THEN (dz) VAMILY, 36 commits, the first full round under rule 14. HIS BREAKS: DIRECTION
-[streets read] SHIPPED (five liars in coverage order: a tan void under the density floor,
-a roadbed with no kerb/lanes/yellow, a sidewalk reading as a garden path, a wall with no
-base shadow, a freeway with a bridge's anatomy; fix list to COOK, layering to LIFE+CITY);
-COOK [streets fixed] r1 (all 74 ground tiles were photographs, 1,200+ colours against a
-64 ceiling, recoloured onto his 7/28 bank, 74 -> 0; the sidewalk draws 3 of its 36 tiles
-by one modulus, the kerb is named by the generator and has no art -> LIFE+CITY [side
-variants], COOK r2 kerb); LIFE+CITY [freeway reads] SHIPPED (one word in one test made 30
-flat freeway cells decks and 29 streets dips; 0 false now; he saw it in CITY mode); UI
-[no tabs] SHIPPED (WHOLE MAP gone, DROP IN never appended; seven gates elsewhere still
-click the dead button -> PLUMBER [mode chip]); PEOPLE [cats stay] SHIPPED (THERE IS NO
-CAT: what he saw are RATS, a dash running a wall on the beat, frozen with a gate); RUN
-[reds mine] SHIPPED (six of seven lying checkers; the seventh real: the ringing phone
-stopped going gold, a tester could finish the demo without meeting the game; fixed); RUN
-[fast travel] CLAIMED and measured (map travel exists in stepOnce's city branch; four
-connections missing). ALSO: QUESTS [map moves] SHIPPED (the map moves AGAINST you, only
-when reckless); COMBAT [enemies flee] SHIPPED (the fight used to end when the last man
-turned his back; now a pistol gives four turns to chase) but it RE-CUT THE DEMO after rule
-14 (noted on its MODE line); SOUNDS three rows SHIPPED (109 of 142 songs named a lead the
-engine never played; 142 of 142 now; [melody first] closed, premise measured on the MUSIC
-tab); ECONOMY Q38 (one is the INSIDER price, the door is a person -> shape on WORLD [two
-prices]); ANIMATION [redo killed] r2 (47 -> 4 still snapping); UI [no slop] r7 measured
-the demo's walked city answers at 24.2 s on a fast machine (my own drive: readyState
-complete at 1.4 s served locally; the two numbers measure different things, RUN
-reconciles) -> RUN [loading screen] third line, PLUMBER [slim build] second; FACTIONS held
-[same lender], fixed its 975-px standing card to fit 780. RESTORED: RUN [demo pinned]
-(dropped by a lane's merge) and coordinator handoff blocks dropped by lanes' rebases
-(third time; whichever of du..dy were missing). NEW: LIFE+CITY [base shadows] first,
-[side variants]; PLUMBER [mode chip]. THE SUITE LINE still unposted.
-THEN (dz) VAMILY, 36 commits, the first full round under rule 14. HIS BREAKS: DIRECTION
-[streets read] SHIPPED (five liars in coverage order: a tan void under the density floor,
-a roadbed with no kerb/lanes/yellow, a sidewalk reading as a garden path, a wall with no
-base shadow, a freeway with a bridge's anatomy; fix list to COOK, layering to LIFE+CITY);
-COOK [streets fixed] r1 (all 74 ground tiles were photographs, 1,200+ colours against a
-64 ceiling, recoloured onto his 7/28 bank, 74 -> 0; the sidewalk draws 3 of its 36 tiles
-by one modulus, the kerb is named by the generator and has no art -> LIFE+CITY [side
-variants], COOK r2 kerb); LIFE+CITY [freeway reads] SHIPPED (one word in one test made 30
-flat freeway cells decks and 29 streets dips; 0 false now; he saw it in CITY mode); UI
-[no tabs] SHIPPED (WHOLE MAP gone, DROP IN never appended; seven gates elsewhere still
-click the dead button -> PLUMBER [mode chip]); PEOPLE [cats stay] SHIPPED (THERE IS NO
-CAT: what he saw are RATS, a dash running a wall on the beat, frozen with a gate); RUN
-[reds mine] SHIPPED (six of seven lying checkers; the seventh real: the ringing phone
-stopped going gold, a tester could finish the demo without meeting the game; fixed); RUN
-[fast travel] CLAIMED and measured (map travel exists in stepOnce's city branch; four
-connections missing). ALSO: QUESTS [map moves] SHIPPED (the map moves AGAINST you, only
-when reckless); COMBAT [enemies flee] SHIPPED (the fight used to end when the last man
-turned his back; now a pistol gives four turns to chase) but it RE-CUT THE DEMO after rule
-14 (noted on its MODE line); SOUNDS three rows SHIPPED (109 of 142 songs named a lead the
-engine never played; 142 of 142 now; [melody first] closed, premise measured on the MUSIC
-tab); ECONOMY Q38 (one is the INSIDER price, the door is a person -> shape on WORLD [two
-prices]); ANIMATION [redo killed] r2 (47 -> 4 still snapping); UI [no slop] r7 measured
-the demo's walked city answers at 24.2 s on a fast machine (my own drive: readyState
-complete at 1.4 s served locally; the two numbers measure different things, RUN
-reconciles) -> RUN [loading screen] third line, PLUMBER [slim build] second; FACTIONS held
-[same lender], fixed its 975-px standing card to fit 780. RESTORED: RUN [demo pinned]
-(dropped by a lane's merge) and coordinator handoff blocks dropped by lanes' rebases
-(third time; whichever of du..dy were missing). NEW: LIFE+CITY [base shadows] first,
-[side variants]; PLUMBER [mode chip]. THE SUITE LINE still unposted.
-THEN (ea) VAMILY, 12 commits. SHIPPED: PEOPLE found and fixed the dead card he described
-word for word (the first card of the game, THE METER READER, had three ways to argue and
-NO WAY TO SAY YES; accepting only worked through the phone; one row now calls the same
-function); COOK [streets fixed] r2 (the street is 8% of his screen, the YARD is 72%, and
-the yard was a superseded 16-px fallback blown up 2.75x and blurred; swapped for his
-approved 44-px yard tiles; 16% of cells draw flat colour with no tile at all -> LIFE+CITY
-[no pool cells]); QUESTS [bond outlives] (the person who became yours stays yours; still
-no roster); ANIMATION [redo killed] r3 (JUDGE ALL has a filter ONES YOU KILLED with a
-measured green line on each of the 47 saying what changed; 4 left snapping and those are
-the clip); LIFE+CITY built THE ONE DRIVER (tools/bohemia_drive_the_demo.js) -> rule 14g;
-WORLD walked the five minutes with three broken instruments before a right one and found
-SCAVENGE delivers; FACTIONS fixed the night card (916 px in 780) and found WHO YOU OWE is
-eight identical lines -> WORLD [owe lines] first; ECONOMY Q39 (the bailiff, not the court;
-the strelka -> FACTIONS [deal sticks] re-aimed); WORDS Q23 school (the ground knows how
-many, which way, how long ago, never who; the name belongs in a mouth). DECIDED BY ME:
-the nine [PENDING Paolo] lines ECONOMY was carrying, records/BOHEMIA_RULING_NINE_DEFAULTS_THE
-_ECONOMY_WAS_CARRYING_9_13_26.md (pump first; money supply off the map; exclusion not
-seizure; seven-day week; barter at a camp to a stranger; a ruin holds two households).
-NEW research rows (research continues under 14c): ECONOMY Q42 [the bailiff], Q43 [double
-up], Q44 [first building]; WORDS Q24 [yes words], Q25 [card words]. Coordinator blocks
-present: all of du..dz this time. THE SUITE LINE still unposted; PLUMBER did not run.
-
-COORDINATOR: 9/5 (be) -- *** RELEASE FOLDED INTO THE
-RUN; CHAT 18 IS THE PLUMBER (small, fast, 60 fps, honest checkers); THE RUN IS BEING
-RENAMED BY PAOLO. Nothing to judge. ***
-Paolo 9/5: "Release sounds like it does the same thing I thought THE RUN did... why can't
-it be in THE RUN" -> he was right; RELEASE (one day old) is closed and its jobs are in
-RUN, HANDS-NOW first, PERFORMANCE to the PLUMBER. "I lowkey want to change the name of
-the run... it was your name not mine" -> [PENDING Paolo] the new name; offered in the
-reply; section stays RUN, chat finds itself by number 01. "we can have a permanent pipe
-fixer always working... slimmest, fastest, 60 fps" -> chat 18 is PLUMBER (his word,
-NOTES ARE RULINGS), three jobs only: small and fast on a phone with budgets and gates;
-every rule has a working checker and the suite finishes in one command; the two piles
-archived. New jobs [sixty fps] [slim build] [hot path] ahead of the gate jobs. Eighteen
-chats. Law: laws/BOHEMIA_ADDENDUM_THE_DEMO_IN_HANDS_AND_THE_PLUMBER_9_5_26.md. CLAUDE.md
-lane list updated. LAST FEEDBACK RECEIVED: this -> RELEASE folded, PLUMBER named, RUN
-rename pending.
-
-COORDINATOR: 9/5 (bd) -- *** THE DEMO GOES INTO HANDS
-NOW; GATEKEEPER EXPLAINED IN PLAIN WORDS; ITS NAME IS HIS TO PICK. Nothing to judge. ***
-Paolo 9/5: "I do want to get a demo into people's hands immediately though but there's
-so much to do." RULING RECORDED: the demo is never held for more content; what exists
-today is the demo. RELEASE got a lane rule and a new FIRST job [hands now] HANDS-NOW:
-walk today's demo on a phone, fix only what stops a stranger reaching the first fight,
-hand the link to one friend this round, write down what they did. Everything else in
-RELEASE queues behind it. GATEKEEPER: he asked what its main role is ("fucking up the
-files even more? cleaning code? the plumber of all plumbers?"). Header rewritten in
-plain words: the checker of the checkers; touches gates/ and the two pile files only;
-never engine, slices, tools, laws or art; a red gate in another lane's work becomes one
-line in that lane's section, never a fix by this chat. He asked for five other names:
-offered in the reply (INSPECTOR, REFEREE, PLUMBER, MECHANIC, WARDEN); the name is his
-and stays GATEKEEPER on the board until he says. Duplicate BB-COLD-HAND removed from
-SHARED (it lives in RELEASE). LAST FEEDBACK RECEIVED: this -> RELEASE rule + HANDS-NOW,
-GATEKEEPER plain header, names offered.
-
-COORDINATOR: 9/4 (bc) -- *** HIS BLIND SPOTS: TWO
-NEW LANES, RELEASE (18) AND GATEKEEPER (19), PLUS THREE JOBS FOLDED INTO EXISTING CHATS.
-Nothing to judge. ***
-Paolo 9/4: "are there any other angles other than quests that are completely left
-empty... what are my blind spots?" Checked every chat against the twenty pillars and
-what a shipped game needs. UNOWNED: the demo as a PRODUCT (performance, dispatch item
-7, never picked up; whether the cut is current; any way to see what a friend did; the
-friend rounds) -> RELEASE, six jobs. The CHECKING MACHINE itself (the suite cannot
-finish in budget, 82 gates never ran, no gate can say OWED) -> GATEKEEPER, which takes
-the gate jobs out of SHARED. HALF-OWNED: creatures and danger by place (dispatch 8)
--> COMBAT [what lives]; accessibility on a phone -> UI [phone readable]; the music
-itself -> SOUNDS [music owned]. Still parked by him: QUESTS, the biggest hole. LAST
-FEEDBACK RECEIVED: this -> lanes 18 and 19 and the three lines.
-
-COORDINATOR: 9/4 (bb) -- *** THE TOKEN DIET:
-CLAUDE.md folded from ~34K tokens a message to ~6K, verbatim into a laws master; the
 handoff cut is prepared and queued (the gate forbids it; the coordinator does not
 write gates). Nothing to judge. ***
 Paolo 9/4: "is there any part of the structure that's unnecessarily token heavy? can
@@ -23109,6 +22932,32 @@ archive, then swap; [backlog archive] queued behind it. A first draft put the ar
 under records/ and the canon rot gate counted its 5 MB of old citations; moved to
 archive/ (history, per the truth hierarchy) and it went green. LAST FEEDBACK
 RECEIVED: this -> the fold, the two SHARED jobs, the record.
+THEN (ec) VAMILY, 23 commits. THE HEADLINE IS EYES E26 r3: THE DEMO HE OPENS DID NOT
+CHANGE (stamped 9/13z, alpha 9/14a); six lanes' fixes sit behind RUN's cut and RUN is deep
+in [fast travel]. RULE 14a AMENDED: RUN re-cuts at the START of every RUN round, a ratchet
+(never worse than the last cut), the daily build as the model; RUN [cut now] is the first
+line, with [cutter flex] folded in; the law file amended. THE SUITE LINE POSTED by me off
+PLUMBER's first comparable run (ad23d875: box 0.89x, 632 ran, 525 green, 107 red, 0 never
+ran, floor 71.3 min; FACTION ARC 557.7 s vs 600 cap, not safe). SHIPPED: COMBAT [prefight
+save]; LIFE+CITY [eyes: dead build] (BUILD goes visibly off when you cannot afford it,
+EYES was right for a different reason); UI [eyes: reach spills] (the rail's 'reach is 44'
+was never true, 12 px chips with 30 px of dead air; 44 px chips now, ink still halved);
+QUESTS [half now] part one (a dead row on a TAKEN job removed; and the class finding: A
+DEAD BUTTON IS INDISTINGUISHABLE FROM A CLOSE BUTTON, screen diffs read a closed card as
+life -> rule 14h); FACTIONS three five-minute rounds (the against-line never cleared;
+three shipped features were NEVER ON THE GLASS because the pack pass wiped the shared
+street line every frame, 0 of 2 -> 2 of 2); PEOPLE (the cab's line outlived the car by the
+whole walk; cleared at 90 s); ANIMATION [redo killed] r5 (his four beats are fractions
+of the fall and the sim read them as seconds; arms-up converted; beat one blocked by a pin
+and a fourth attempt refused, STOP PRODUCING); DIRECTION seam PASS on [base shadows];
+WORDS Q24 school (a yes with an if in it is a counter-offer; they say the terms back);
+ECONOMY Q41 (eviction costs the owner 30 to 136 batteries against a debt of one; relight
+has zero callers and no price -> DECIDED relight costs one, note on WORLD [block strikes]).
+CHARACTER measured its way to a break: THE WHOLE POPULATION IS SIX PEOPLE (74% of a
+screen's crowd repeats, 47 pictures among 183 bodies; one more bake costs 530 ms of boot)
+-> CHARACTER [six people] first, cheaper variety by ramp. EYES: 'Half of it now' still
+dead on both surfaces; QUESTS says it works on this tree; part two still claimed. My
+duplicate handoff blocks (dw, dz) removed again (PLUMBER's restore re-added them).
 
 COORDINATOR: 9/4 (ba) -- *** THE MEETING HALL:
 VAMILY.md's front page now carries every rule, and every chat re-reads it every time
