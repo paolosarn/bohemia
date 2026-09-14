@@ -1339,7 +1339,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 9/14m - THE BAG OF RICE IS THE TUTORIAL</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 9/14p - DEAD BUTTONS GONE</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -9419,7 +9419,45 @@ const CITY_CAST_LOOKS = [
   { id:'cape', why:'a hanging cape, the only trailing hem',
     dials:{height:0.55,belly:-0.30,arms:0.15,shoulders:-0.10,hips:-0.20},
     worn:{hair:'SHAG',base:'BONE HENLEY',back:'ROAD CAPE',neck:'TRAILING SCARF',
-          legs:'CUTOFF DENIM SHORTS',feet:'TALL MOTO BOOTS'} }
+          legs:'CUTOFF DENIM SHORTS',feet:'TALL MOTO BOOTS'} },
+  /* ==== SIX MORE, AND THEY COST NOTHING AT BOOT (9/14, CHARACTER) ==================
+     THE STREET IS SIX PEOPLE, measured on his phone: 183 bodies on one screen, 47
+     different pictures among them, 74% of the crowd a repeat of somebody standing right
+     there, eleven identical people visible at once. Six bodies x eight facings = 48, and
+     the screen shows 47. That is the entire variety of the valley he walks through, and it
+     is what "nothing's complete" looks like from the inside.
+     EVERY ONE OF THESE IS A DIFFERENT OUTLINE, not a different colour. Same rule the first
+     six were built under (STRUCTURE-NOT-COLOR, and the greyscale test the silhouette gate
+     holds): strip the colour and twelve different shapes must remain. Every garment named
+     is st:'canon' and already ships; nothing is cooked here.
+     THEY ARE LAZY ON PURPOSE. One more baked body costs a measured 530ms of frozen page,
+     so baking twelve at boot would double a 3.2s freeze and trade one of his complaints for
+     another. These arrive after the game is already running, one at a time.
+     His table to retune: which shape belongs to whom is taste, same as the first six. */
+  { id:'apron', why:'narrow at the shoulder and widest at the hem -- a bell, the opposite of the cape',
+    dials:{height:-0.10,belly:0.35,arms:-0.40,shoulders:-0.55,hips:0.75},
+    worn:{hair:'DEEP TAPER',base:'RUST HENLEY',outer:"SMITH'S APRON",
+          legs:'WIDE PLEAT TROUSER',feet:'RANCH BOOTS'} },
+  { id:'poncho', why:'a barrel -- widest in the middle, narrow at both ends',
+    dials:{height:0.20,belly:0.80,arms:-0.30,shoulders:-0.20,hips:-0.35},
+    worn:{hair:'CURTAIN CUT',base:'SOOT TANK',outer:'OXBLOOD PONCHO',
+          legs:'CROPPED WORK TROUSER',feet:'SANDWALKERS'} },
+  { id:'bedroll', why:'a horizontal bar across the shoulders, the only one that reads wide at the top',
+    dials:{height:-0.15,belly:0.10,arms:0.15,shoulders:0.55,hips:0.00},
+    worn:{hair:'TEMPLE TAPER',base:'DUST PLAID SHIRT',back:'BEDROLL',head:'DUST WORK CAP',
+          legs:'DUST TROUSERS',feet:'WRAPPED BOOTS'} },
+  { id:'shorts', why:'the only break at the knee -- bare leg between hem and boot',
+    dials:{height:-0.20,belly:-0.35,arms:-0.10,shoulders:-0.15,hips:-0.05},
+    worn:{hair:'COIL CROWN',base:'STRIPED TEE',legs:'CHARCOAL SHORTS',
+          feet:'STACKED SOLE BOOT'} },
+  { id:'satchel', why:'the thinnest column in the valley -- narrow at every height',
+    dials:{height:0.70,belly:-0.65,arms:-0.50,shoulders:-0.45,hips:-0.55},
+    worn:{hair:'DRY TAPER',base:'OLIVE HOODIE',back:'SALVAGE SATCHEL',head:'CHARCOAL WATCH CAP',
+          legs:'BONE WIDE TROUSER',feet:'SLATE SNEAKERS'} },
+  { id:'shortcoat', why:'widest at the shoulder and tapering all the way down -- a wedge',
+    dials:{height:0.05,belly:-0.30,arms:0.55,shoulders:0.80,hips:-0.40},
+    worn:{hair:'LAYERED FALL',base:'FADED BLACK LONGSLEEVE',outer:'LEATHER JACKET',
+          head:'OXBLOOD SLOUCH BEANIE',legs:'BLACK DENIM',feet:'BONE SNEAKERS'} }
 ];
 window.CITY_CAST_LOOKS = CITY_CAST_LOOKS;
 function citySendCast(){
@@ -9479,8 +9517,82 @@ function citySendCast(){
     fr.contentWindow.postMessage(out,'*');
   }catch(_e){ CCAST=null; return false; }
   CCAST=null;
+  cityBakeRestLater();
   return true;
 }
+/* ==== __THE_STREET_IS_SIX_PEOPLE__ -- THE REST OF THE CAST, AFTER THE GAME IS RUNNING.
+   (9/14, CHARACTER, from the break this lane measured its way to.)
+
+   MEASURED ON HIS PHONE, at the size he actually sees them: 183 bodies on one screen and
+   47 different pictures among them. 74% of the crowd is a repeat of somebody standing
+   right there and eleven identical people are visible at once, because CITY_LOOKS is 6 and
+   six bodies in eight facings is 48 sprites for a whole valley.
+   AND IT IS NOT THE SHRINK, which is the control that makes the number worth reading: 114
+   distinct at native size against 112 at the 32px he sees. Two pictures. Sharper or bigger
+   would change nothing; the bodies are the same bodies.
+
+   *** AND THE OBVIOUS FIX IS WRONG, MEASURED RATHER THAN ASSUMED. *** One more baked body
+   costs 530ms of frozen page and the six already cost about 3.2 seconds, so raising
+   CITY_LOOKS to twelve would double a freeze he already calls "glitchy, buggy". That trades
+   one of his complaints for another, which is not a fix.
+
+   SO THE BOOT COST BARELY MOVES, AND HERE IS THE MEASURED NUMBER RATHER THAN A CLAIM.
+   Timed on the real surface, alternating the two so machine drift could not favour either:
+       lazy pass OFF (the six only)   5487ms, 5426ms
+       lazy pass ON  (six + later)    5622ms, 5612ms
+   About +150ms, under 3%. NOT ZERO -- the first draft of this comment said "does not move
+   at all" and the control falsified it, which is why the number is here instead. Against
+   the +3,200ms that baking six more at boot would have cost, that is the whole point.
+   citySendCast still bakes exactly CITY_LOOKS bodies and posts them exactly as before; this
+   runs AFTERWARDS and delivers the rest ONE AT A TIME, each on its own idle callback, each
+   posted with `append` so the city adds it to the cast instead of replacing it. A body arriving late is a crowd getting MORE varied
+   while he walks, never a person appearing out of nothing -- the same shape as the faction
+   bake, which proved this bus works without a visible stall.
+   NO NEW MECHANISM: same withLook borrow-and-give-back, same bake56, same 56px frames, the
+   same four breath phases on the 120 BPM clock, the same message the first cast uses. */
+let CREST=null;                                   /* the lazy pass, once per session */
+function cityBakeRestLater(){
+  if(CREST) return false;
+  const all=(window.CITY_CAST_LOOKS||[]).length;
+  if(all<=CITY_LOOKS) return false;               /* nothing beyond the boot six */
+  CREST={i:CITY_LOOKS};
+  const idle=(fn)=>(window.requestIdleCallback
+    ? requestIdleCallback(fn,{timeout:2500}) : setTimeout(fn,300));
+  const step=()=>{
+    const fr=document.getElementById('cityFrame');
+    if(!fr||!fr.contentWindow){ CREST=null; return; }   /* city closed: stop, do not spin */
+    const src=(window.CITY_CAST_LOOKS||[])[CREST.i];
+    if(!src){ CREST.done=true; return; }
+    const L={id:src.id,dials:src.dials,worn:src.worn,age:src.age||'adult',dirs:{}};
+    const PD=['shirt','jacket','pants','shoes','hat','glasses','hair'];
+    const kW=window.G_WORN, kD=G.bodyVar, kA=G.age, kE={};
+    PD.forEach(s=>{ if(s in G.equipped){ kE[s]=G.equipped[s]; G.equipped[s]=''; } });
+    try{
+      window.G_WORN=L.worn; G.bodyVar=L.dials; G.age=L.age;
+      rebuildFromRig();
+      for(const d of DIRS){
+        L.dirs[d]={idle:bake56(d,'idle',0.25,true),
+                   breathe:CAST_PHS.map(ph=>bake56(d,'idle',ph,true))};
+      }
+    }catch(_e){ CREST=null; return; }
+    finally{
+      /* PUT HIS BODY BACK. These are GLOBALS and leaving one installed silently reshapes
+         every other surface in the game -- the same guarantee citySendCast makes. */
+      window.G_WORN=kW; G.bodyVar=kD; G.age=kA;
+      for(const s in kE) G.equipped[s]=kE[s];
+      try{ rebuildFromRig(); }catch(_e){}
+      try{ HD_CACHE.map.clear(); FRAME_CACHE.map.clear(); }catch(_e){}
+    }
+    try{ fr.contentWindow.postMessage(
+      {type:'BOHEMIA_CITY_CAST',w:56,h:56,packed:true,append:true,
+       looks:[{id:L.id,dirs:L.dirs}]},'*'); }catch(_e){}
+    CREST.i++;
+    if(CREST.i<all) idle(step); else CREST.done=true;
+  };
+  idle(step);
+  return true;
+}
+if(typeof window!=='undefined') window.cityBakeRestLater=cityBakeRestLater;
 /* __CITY_FACTIONBODY__ -- BAKE ONE FACTION LOOK AND POST IT.
    Everything here is citySendCast's own machinery, asked for a single look:
    the same withLook borrow-and-give-back (these are GLOBALS -- leaving one
@@ -14874,11 +14986,40 @@ const CITYMUS={on:false,watch:null,
        the audio thread brings the music back at the end of the phrase even if
        every timer in this document dies. endRest() below can still pull it back
        EARLIER, which is what a fight needs; this is the floor, not the plan. */
+    /* __THE_REST_HAS_A_FLOOR__ (9/14, SOUNDS lane) -- THE STREET MAY NEVER GO
+       SILENT, AND UNTIL NOW IT DID, FOR FIFTEEN SECONDS AT EVERY SONG CHANGE.
+       MEASURED on the demo he played, five real minutes with an ear on the end of
+       the chain: exactly ONE silence of two seconds or more in the whole five
+       minutes, 14.5s of it, with this object's own `resting` flag true for every
+       sample, ninety music notes scheduled into it, and the bed -- the thing this
+       rest was built to reveal -- asked for once every 117 seconds.
+       AND THE 9/11 RECORD FOR THIS VERY CODE CLAIMS "a DUCK not a stop so the beat
+       and the bed survive". It ramped to ZERO and held zero for the phrase. A DUCK
+       TO ZERO IS A STOP; I shipped a stop and wrote down a duck.
+       So the ramp lands on a FLOOR. 12% of HIS captured level, about eighteen
+       decibels down: deep enough that the bed, a footstep and a voice sit clearly
+       on top, shallow enough that the valley never dies. THE NUMBER IS MINE AND
+       SAYING SO MATTERS -- his law's figures (wilderness 30-40 dBA, night about 7 dB
+       under day) describe how loud a PLACE is, not how deep a musical duck goes, and
+       quoting them here would borrow authority the law does not give. What the law
+       does give is the rule this obeys: THERE IS NO SILENT OUTDOORS. */
+    var floor=this.restGain*0.12;
     try{ g.gain.cancelScheduledValues(t0);
       g.gain.setValueAtTime(this.restGain,t0);
-      g.gain.linearRampToValueAtTime(0,t0+1.2);
-      g.gain.setValueAtTime(0,t0+len);
+      g.gain.linearRampToValueAtTime(floor,t0+1.2);
+      g.gain.setValueAtTime(floor,t0+len);
       g.gain.linearRampToValueAtTime(this.restGain,t0+len+0.25); }catch(e){ return false; }
+    /* __THE_REST_ASKS_THE_BED__ -- AND THE REST TELLS THE BED TO SPEAK, which is
+       what the 9/11 record said the rest was FOR and never wired: the two were
+       strangers, so the street went quiet and nothing filled it. The bed's own gate
+       is `if(now < this.next) return;`, so zeroing next lets its one-second tick
+       play at the top of the rest; the half-phrase timer asks once more in the
+       middle. No new sound and no new cook -- air_day, air_night and air_inside are
+       approved, and the bed picks by place and by power exactly as it already does.
+       Wrapped and swallowed: a rest must never fail because the bed is missing. */
+    try{ if(window.__AMB){ window.__AMB.next=0;
+      setTimeout(function(){ try{ if(CITYMUS.resting && window.__AMB) window.__AMB.next=0; }catch(_e){} },
+        Math.round(len*1000/2)); } }catch(_e){}
     this.resting=true; this.restUntil=Date.now()+this.restLen();
     return true; },
   /* RESTORE IS IDEMPOTENT AND IS THE ONLY WAY OUT, so no path can leave the
@@ -34742,7 +34883,26 @@ var DEMO_CITY_CSS = [
      the glyph is redundant in both. In map mode it was even rendering in a
      different colour from the triangles it sat on. */
   '.pb{color:transparent !important;text-shadow:none !important}',
-  '#topbar #devbtn,#devbtn,#topbar #devtray,#devtray{display:none !important}'
+  '#topbar #devbtn,#devbtn,#topbar #devtray,#devtray{display:none !important}',
+  /* *** THE THUMB FLOOR ABOVE WAS ACCUSED OF THIS AND IT IS INNOCENT. ***
+     VAMILY [cutter flex]. The board says one line in this file causes Paolo's
+     "one button, ready to go, I press it, nothing happens", because
+     display:flex !important on #topbar>* and #blstack>* beats the INLINE
+     display:none the game hides a useless chip with. The reasoning is sound and
+     THE CONCLUSION IS WRONG, measured on the glass with the one driver: disable
+     this entire stylesheet at runtime and MARKET IS STILL ON SCREEN.
+     THE REAL CAUSE IS IN THE WALKED CITY, so it was never demo-only and the alpha
+     had it too: the 9/6 halving sheet declares
+         #blstack > .uihalf{ ... display:flex!important ... }
+     which is id+class, out-specifies the id+universal here, and sits in a later
+     stylesheet. It wins twice over. The fix went there, next to its cause.
+     THE RULE BELOW STAYS ANYWAY, and it is not decoration: it covers any chip in
+     these two bars that the game hides inline and the halving sheet does not
+     claim, which is every one that is not .uihalf. It is a second lock on the
+     same door, written knowing it is not the lock that was open. */
+  '#topbar>[style*="display: none"],#topbar>[style*="display:none"],'
+    + '#blstack>[style*="display: none"],#blstack>[style*="display:none"]'
+    + '{display:none !important}'
 ].join('\n');
 
 (function(){
