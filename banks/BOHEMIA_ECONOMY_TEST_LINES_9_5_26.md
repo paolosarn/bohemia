@@ -3313,3 +3313,86 @@ YYYYYYY3 somebody who will not ask for it back draft:true
   of this section had 2 of 12, which is 17% and OVER the cap; YYYYYYYY4 lost its
   one word before this shipped. Written down rather than silently corrected,
   because a cap nobody counts against is not a cap.
+
+## CCCCCCCCC. HE CAME BY AGAIN
+## (round 42, the visit. A real collector recovers one time in four, so mostly he
+##  just turns up and goes away. Said by people who have stopped counting.)
+
+- CCCCCCCCC1 `draft:true` — "Third time this week. He doesn't even come in now."
+  (the failure rate as a domestic fact. VOICE CARD: name the one thing only this
+  person would name, and it is that he stopped coming in.)
+- CCCCCCCCC2 `draft:true` — "He's not going to do anything. That's not me being
+  brave, that's just what happens." (nobody in Bohemia is wise, so the speaker
+  disclaims the courage he is showing.)
+- CCCCCCCCC3 `draft:true` — "We talked about the weather. Then he left." (the
+  whole visit in seven words, and the anticlimax is the point.)
+- CCCCCCCCC4 `draft:true` — "Ya, I know his name. He knows mine." (Spanish
+  register, one word. Two people locked in a routine neither of them wants.)
+
+## DDDDDDDDD. THEY WILL NOT DEAL WITH YOU
+## (round 42, the sign that already exists. Exclusion, not seizure: the ladder in
+##  our own files goes watch, follow, refuse, and refuse was reserved for this.)
+
+- DDDDDDDDD1 `draft:true` — "Nobody's taking it off you. They're just not selling
+  to you." (the ruling in fourteen words, and the first half is the reassurance
+  that makes the second half land.)
+- DDDDDDDDD2 `draft:true` — "Go on and try. I'd rather you heard it from them."
+  (somebody fumbles: he knows and will not say it, which is kinder and worse.)
+- DDDDDDDDD3 `draft:true` — "It's not a rule anybody wrote. It's just how it is
+  until you square it." (the sign as custom, not policy, which is what it really
+  is in the record.)
+- DDDDDDDDD4 `draft:true` — "They're watching. That's all they're doing. So far."
+  (the bottom rung, and the last two words are the whole ladder.)
+
+## EEEEEEEEE. THE WALL OF NAMES
+## (round 42, the thing that backfires. Shaming a man who already missed makes him
+##  default harder. These lines are about seeing it coming, never about landing
+##  on it.)
+
+- EEEEEEEEE1 `draft:true` — "You don't want to be on that. Nobody comes off it
+  well." (the deterrent working, which is the only way it works.)
+- EEEEEEEEE2 `draft:true` — "I read it every time I walk past and I don't know
+  why." (the wall as a thing people look at, and the speaker cannot explain
+  himself, which is honest.)
+- EEEEEEEEE3 `draft:true` — "Since they put him up there he's got worse, not
+  better." (the backfire, observed by somebody who has not worked out that it is
+  a pattern.)
+- EEEEEEEEE4 `draft:true` — "Take it down. It's doing the opposite of what you
+  wanted." (contract it: the cut sentence explained the mechanism at length.)
+
+## FFFFFFFFF. THE WHOLE STREET OWES
+## (round 42, contagion. Nobody collects from a street that all owes the same
+##  person, and the bigger and more alike the street the more certainly it goes
+##  under together.)
+
+- FFFFFFFFF1 `draft:true` — "It's not just us. Go knock on any door on this side."
+  (the standoff discovered, and the invitation is the evidence.)
+- FFFFFFFFF2 `draft:true` — "One of them went short and then it was all of us. I
+  still don't know how that works." (contagion said by somebody living inside it
+  and not understanding it, which is exactly right.)
+- FFFFFFFFF3 `draft:true` — "He can't come after everybody. He knows that better
+  than we do." (the arithmetic from the debtors' side, in nobody-is-wise language.)
+- FFFFFFFFF4 `draft:true` — "Nobody's organised anything. It just went quiet and
+  stayed quiet." (a strike that is not a strike, which is what the record
+  describes and what round 35 refused to let the bank make heroic.)
+
+## GGGGGGGGG. WHAT IS NOT HERE, ON PURPOSE (round 42)
+
+- No line contains a number, a debt, a rate, a fee or a count of nights. This is a
+  round about what collection costs and nothing costs anything out loud.
+- No line uses the words debt, collector, bailiff, default, arrears, interest,
+  exclusion or seizure. It is said as coming by, not selling to you, and a wall.
+- No line has anybody seized, hit, or threatened. The whole finding is that force
+  costs more than the debt, and a bank writing threats would argue with its record.
+- No line names a faction, a street, a town or the man who is owed. MAP LAW.
+- No line explains contagion, shaming or why the visit fails. Nobody in Bohemia is
+  wise; FFFFFFFFF2 says "I still don't know how that works" on purpose.
+- No line decides how many nights earn which sign, whether a wall of names ships,
+  or whether anybody can answer for the player's debt. Those are the things
+  section 4 refused.
+- No line has the player speaking, and no line calls him a deadbeat.
+- No line makes the street win. FFFFFFFFF4 is a shrug that stayed quiet, because
+  which way a standoff goes is not the bank's to settle.
+- Spanish register: 1 of 16 lines, 6%, under the 15% he set on 8/26. One word
+  inside an English sentence, not respelled. Last round's draft ran over the cap
+  and was caught before shipping; this one was counted while it was written.
