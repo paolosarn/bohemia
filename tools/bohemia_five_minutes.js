@@ -118,11 +118,31 @@ const sleep = (ms) => new Promise(r => setTimeout(r, ms));
        trap 3). Fall back to the words only when there is no id. */
     let ok = false;
     const sel = c.id ? '#' + c.id : 'text="' + c.text.replace(/"/g, '') + '"';
-    try { ok = await d.tapEl(sel); } catch (e) { ok = false; }
+    /* DID THE TAP EVEN REACH THE CONTROL? (fixed 9/14, after the first real walk.)
+       The first five-minute walk reported 162 DEAD TAPS of 230 -- 70% -- and the
+       number was WRONG. Verified on the glass one at a time from a clean state, all
+       eight named buttons (MUSIC, SAVE, PHONE1, OUTFIT, MARKET, SCAVENGE, BUILD HERE,
+       STANDING) CHANGE THE SCREEN. What the walk had actually measured was itself:
+       cycling through controls opens a panel, the panel then sits over the next
+       button, the tap lands on the panel, and nothing changes -- which is correct
+       behaviour being counted as a bug.
+       So a tap only counts at all if the topmost thing at those coordinates IS the
+       control. Anything else is a tap the player would never have made, and counting
+       it is how an instrument reports its own confusion as the game's. */
+    let reached = false;
+    try {
+      ok = await d.tapEl(sel);
+      if (ok) reached = await d.fr.evaluate((q) => {
+        const el = document.querySelector(q); if (!el) return false;
+        const r = el.getBoundingClientRect();
+        const top = document.elementFromPoint(r.x + r.width / 2, r.y + r.height / 2);
+        return !!(top && (top === el || el.contains(top) || top.contains(el)));
+      }, sel);
+    } catch (e) { ok = false; }
     await sleep(900);                       /* nearly two beats to answer */
     const post = await shot();
     const changed = pre && post ? pre !== post : null;
-    taps.push({ text: c.text, id: c.id, tapped: !!ok, changed });
+    taps.push({ text: c.text, id: c.id, tapped: !!ok, reached: !!reached, changed });
     if (taps.length % 25 === 0) {
       const el = ((Date.now() - t0) / 1000).toFixed(0);
       console.log('    ' + el + ' s   ' + taps.length + ' taps   '
@@ -135,8 +155,9 @@ const sleep = (ms) => new Promise(r => setTimeout(r, ms));
   await d.close();
   const after = SPEED.measure();
 
-  const driven = taps.filter(t => t.tapped);
-  const dead = taps.filter(t => t.tapped && t.changed === false);
+  const driven = taps.filter(t => t.tapped && t.reached);
+  const blocked = taps.filter(t => t.tapped && !t.reached);
+  const dead = driven.filter(t => t.changed === false);
   const secs = ((Date.now() - t0) / 1000).toFixed(0);
 
   console.log('\n  ==================  THE FOUR NUMBERS  ==================');
@@ -144,7 +165,8 @@ const sleep = (ms) => new Promise(r => setTimeout(r, ms));
   console.log('    STALLS        ' + String(fm.stalls).padStart(6)
     + '   gaps over one beat (' + BEAT + ' ms); worst ' + fm.worst.toFixed(0) + ' ms');
   console.log('    DEAD TAPS     ' + String(dead.length).padStart(6)
-    + '   of ' + driven.length + ' taps that landed, on the glass');
+    + '   of ' + driven.length + ' taps that REACHED their control, on the glass'
+    + (blocked.length ? '   (' + blocked.length + ' more were covered by something and do not count)' : ''));
   /* THE RAW COUNT OVER 16.7 ms IS ALMOST ALWAYS MOST OF THEM AND NOBODY CAN ACT ON
      IT. A 60 s wiring run read 2,106 of 3,346 -- 63% -- because the average frame
      was 18.2 ms, so nearly every frame clears the line by a hair. The number he can
@@ -199,7 +221,8 @@ const sleep = (ms) => new Promise(r => setTimeout(r, ms));
     numbers: { pageErrors: errs.length, stalls: fm.stalls,
                deadTaps: dead.length, slowFrames: fm.slow,
                droppedFrames: fm.dropped, fps: +(fm.frames / (+secs || 1)).toFixed(1) },
-    of: { tapsLanded: driven.length, tapsTried: taps.length, frames: fm.frames,
+    of: { tapsReached: driven.length, tapsBlocked: blocked.length,
+          tapsTried: taps.length, frames: fm.frames,
           worstGapMs: +fm.worst.toFixed(0) },
     floorsFailed: floors,
     deadByName: dead.reduce((a, t) => (a[t.text] = (a[t.text] || 0) + 1, a), {}),
