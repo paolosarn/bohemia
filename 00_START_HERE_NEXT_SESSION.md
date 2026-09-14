@@ -11308,7 +11308,58 @@ AFFILIATED_RATE (0.30) and REACH_CELLS (12) remain his.
 
 --------------------------------------------------------------------------------
 
-PEOPLE (people-7h9sfy): 9/14 LATEST -- *** THE STREET SAID ONE THING IN FIVE
+PEOPLE (people-7h9sfy): 9/14 (b) LATEST -- *** HALF THE STREET'S POOL CANNOT
+FIRE, AND LAST ROUND'S HEADLINE TO HIM WAS WRONG. c7bad95b. ***
+FIRST, THE CORRECTION, BECAUSE IT REACHED HIS SCREEN. Last round this lane told
+him "five minutes of walking gets you almost nowhere", off 600 taps that covered
+29 cells. The taps were 25ms apart and THE GAME WALKS ON THE BEAT -- measured at
+four tap rates, about 1.3 to 1.9 cells a second at 120 BPM -- so that was FIFTEEN
+SECONDS of walking, not five minutes. He moved 29 cells because that is what
+fifteen seconds buys. Nothing was broken about it.
+WALKED AGAIN FOR FIVE REAL MINUTES OF WALL CLOCK: 921 taps, 28 minutes of GAME
+time spent, 1 line said, 0 cards, 0 fights. The conclusion survived and the
+numbers are different: it is not that he cannot move, it is that twenty-eight
+minutes of game time produced one thing.
+AND IT IS NOT THE GROUND: every neighbour of where he stands, eight directions,
+six points along a walk, 48 of 48 OPEN. Through the game's own stepper he walks
+26 cells in one direction without a refusal.
+SO THE DIRECTOR WAS ASKED DIRECTLY and over ~34 minutes of its own clock the walk
+director FIRED TWICE and the road director ZERO, against an approved gap of 90
+seconds that would allow about twenty-two.
+*** THE CAUSE IS NOT THE PACING, IT IS THAT HALF THE POOL CANNOT FIRE. *** The
+director never invents an animal, which is RIGHT and is NOT loosened, but two of
+the moments it offers wait on animals the valley does not draw and the filter
+drops them SILENTLY. AND THE TWO FAIL DIFFERENTLY: feral_dog_pack waits on
+`dogs`, a REAL kind at zero everywhere on purpose and frozen as canon (a dog is a
+BODY and a body is character art); coyote_shadow waits on `coyotes`, WHICH IS NOT
+A KIND AT ALL -- the valley draws flies, rats and ravens, so nothing can ever
+answer it yes. A NAME, not a density.
+MEASURED, day moments: suburb where he wakes offers 4 and can fire 2; PARK offers
+2 and can fire NONE; town 2 of 3, desert 1 of 2, industrial 3 of 4; downtown,
+commercial, gated, estate whole. SEVEN of twenty-five can never fire. And the road
+director has NO SUBURB ROW, so where he wakes it can never offer a card.
+NOTHING AUTHORED, NO FILTER LOOSENED. A coyote, or the dog off zero, is CONTENT
+and canon and his; loosening the filter would fix the emptiness by making the game
+lie about what is in front of him. What shipped is the missing part: the silent
+drop is now VISIBLE and RATCHETED at seven so it can only shrink, with the
+district he wakes in required to have something left. Controlled both ways -- a
+third dead row reds it, and stripping the suburb to its two dead ones reds it
+twice and takes the director claim with it at "fired 0".
+AND TWO OF THIS LANE'S OWN GATES NEEDED WORK, BOTH CAUGHT HERE. MOMENT ENDS went
+red on the blocked-body claim because ANOTHER LANE SHARPENED THAT RULE mid-round
+(it now also requires he has WALKED AWAY before clearing, which is better):
+repointed, never loosened, it asserts both halves now. Then it went red AGAIN with
+no code change on its own instrument check, which tapped ONE pad button that
+happened to be blocked -- ONE BLOCKED DIRECTION IS A FACT ABOUT THE STREET, NOT
+ABOUT THE HARNESS. It tries all eight now; three runs back to back, 18/0 each.
+NOT MINE: ROAD ON FOOT red with "0 moment(s) on foot", identical claim-for-claim
+and count-for-count on clean origin/main. Same fact from the other side.
+No stamp this round: the diff is checkers and records, nothing he can see changed.
+NEXT: [lock them] still held. The emptiness of the five minutes is now measured
+end to end and the remaining levers are content and canon, which are his.
+Record: records/BOHEMIA_THE_POOL_IS_REAL_9_14_26.txt ***
+
+PEOPLE (people-7h9sfy): 9/14 -- *** THE STREET SAID ONE THING IN FIVE
 MINUTES AND NEVER STOPPED SAYING IT. Fixed and gated, 53c03d97. ***
 Paolo 9/13: "it's like this glitchy, buggy AI experience where nothing's complete."
 THE CARDS CAME BACK CLEAN, which is worth knowing: every arm of every encounter
