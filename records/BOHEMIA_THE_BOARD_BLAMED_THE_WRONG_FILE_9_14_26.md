@@ -1,7 +1,7 @@
-# THE BOARD BLAMED THE WRONG FILE, AND THERE IS NO WAY INTO THE MAP (RUN, 9/14/26)
+# THE BOARD BLAMED THE WRONG FILE, AND SO DID I (RUN, 9/14/26)
 
-VAMILY round. Three things happened, in this order, and the second one is the one
-that matters most to him.
+VAMILY round. Four things, and the second is a correction of something I said out
+loud before I had measured it properly.
 
 ## 1. THE DEAD BUTTON: THE CUTTER WAS INNOCENT
 
@@ -47,41 +47,51 @@ that the halving sheet does not claim. A rule that cannot win is the same trap a
 the inert `.pb{width:44px}` this lane found on 9/13; the difference is that this
 one is written down as a second lock rather than sold as the fix.
 
-## 2. *** THERE IS NO WAY INTO THE MAP, AND IT WAS ALREADY BROKEN ***
+## 2. *** I REPORTED THE MAP UNREACHABLE AND I WAS WRONG. THE MAP IS FINE. ***
 
-The one driver's own header records, 9/13: *"the way into CITY mode is the PINCH,
-and it works on the first hard squeeze (HZOOM 44 -> 11, mode human -> city). The
-round button is deliberately quiet when nothing is in front of you and the CITY
-chip is built but never appended, **so the pinch is the only door** -- and it
-opens."*
+I am leaving the whole mistake in rather than editing it out, because the shape of
+it is the useful part.
 
-It does not open. Four hard squeezes on the demo:
+WHAT I SAID: four hard pinches on the demo, `mode human hzoom 44` every time, the
+zoom never moving, reproduced against the demo already on main. I called it the
+biggest thing on the page and said it blocked `[fast travel]` outright.
 
-    before    mode human   hzoom 44
-    pinch 1   mode human   hzoom 44
-    pinch 2   mode human   hzoom 44
-    pinch 3   mode human   hzoom 44
-    pinch 4   mode human   hzoom 44
+WHAT IS ACTUALLY TRUE, measured with an instrument that has a proven positive
+result on this same box: **THE PAD SAYS WHAT IT WILL DO gate crosses the seam, 12
+passed 0 failed.** The pinch works. The map is reachable. Fast travel is not
+blocked by the seam.
 
-**The zoom does not move at all.** Not "does not cross the seam" -- does not move.
-And this is not mine: I stashed every change I had made, ran the same probe against
-**the demo that is already on main**, and got the identical five lines. No page
-errors either time.
+### THE TWO BROKEN INSTRUMENTS, BOTH MINE
 
-### WHY THIS IS THE BIGGEST THING ON THIS PAGE
+1. **A CARD OVER THE GLASS.** The opening stacks cards now: GET UP closes the wake
+   card and THE JOB OFFER opens behind it. Every pinch harness in this round
+   cleared ONE card, so a full-screen card was sitting on the canvas. Measured at
+   the pinch point: `elementFromPoint` returned a `DIV`, the card read
+   `display:flex class="on"`, and the canvas received **zero pointerdowns**. A
+   pinch that never reaches the canvas is indistinguishable from a seam that has
+   stopped working.
+2. **`.click()` IS NOT A FINGER.** With the offer card up, eight synthetic clicks
+   in a row did not close it, while real taps at the same coordinates did. The one
+   driver's own header names this as its trap 3 and I walked into it anyway.
 
-- It is on his own break list: *no fast travel from the map*.
-- The seam is how the game shows you it is one world at two scales. With it shut,
-  the demo is a street and nothing else.
-- **It blocks this lane's claimed job outright.** The `[fast travel]` ship test
-  begins "zoom out, tap a place". You cannot tap a place on a map you cannot reach.
+And a third, which is real and belongs to the shared tool rather than to me:
+**the one driver cannot pinch at all.** `navigator.maxTouchPoints` is 1 in its
+context, so a two-point CDP touch delivers one pointer. Every "the seam is dead"
+line I produced through the driver was meaningless. Raising it with
+`Emulation.setTouchEmulationEnabled` reports 5 and still yields one pointer, so the
+fix is not one line and is written down here rather than guessed at.
 
-The seam code itself reads fine: `setHZoom` crosses when a pinch asks for a zoom
-wider than the widest walked stop while already standing on it. That branch cannot
-run if HZOOM never leaves 44, so the gesture is not reaching the zoom at all. Named
-here rather than guessed at; finding what eats the gesture is the next thing this
-lane does, ahead of the rest of fast travel, because fast travel cannot exist
-without it.
+### WHAT I SHOULD HAVE DONE, IN ONE SENTENCE
+
+I had a gate that pinches and that I had watched go green hours earlier; I reached
+for a new probe instead of the instrument with the proven positive, and then I
+bisected with it, and the bisect was honest work built on a broken ruler. **When an
+old instrument and a new one disagree, the old one that has passed is the witness.**
+
+### WHAT THE GATE NEEDED, AND IT IS NOT A LOOSENING
+
+PAD SAYS now clears EVERY card with REAL TAPS instead of one card with a synthetic
+click. The assertions are untouched. 7/5 -> 12/0.
 
 ## 3. THE CUT: SIX LANES' WORK REACHED HIM
 
@@ -108,11 +118,30 @@ already landed in the walked city.
     offer cards promise and do nothing       one closed: MARKET is gone when there
                                              is no market. The rest is [dead cards].
     no fight met in five minutes             NOT RE-MEASURED THIS ROUND
-    no fast travel from the map              *** WORSE THAN RECORDED: there is no
-                                             way to the map at all. Reproduced on
-                                             main's own demo, four pinches, zoom
-                                             never moves. ***
-    glitches                                 no page errors in the walk
+    no fast travel from the map              the MAP IS REACHABLE (I said otherwise
+                                             and was wrong, see section 2). Fast
+                                             travel itself still does not exist.
+    glitches                                 no page errors in the walk, but see
+                                             the gear loop below
+
+## 4. *** AND THE COLD HAND FOUND A REAL ONE: THE GEAR IS A TRAP ***
+
+THE COLD HAND presses the loudest thing it can reach, forty times, and never reads
+a word. Its trail on this build:
+
+    front > padring > daycardIn > daycardIn > dcbtn > dcgo > blstack > dcgo >
+    gearbtn > setclose > gearbtn > setclose > gearbtn > setclose > ...
+
+**Thirty-two of forty presses are the settings gear opening and closing.** The
+clock does not move: `1d 360m -> 1d 360m over 40 presses`. Once a stranger is past
+the cards, the loudest thing on his screen is SETTINGS, and opening it and closing
+it is a loop that goes nowhere.
+
+This gate was 7/0 on 9/13 and is 5/2 now, so something changed under it. It is the
+same family as the ringing phone going grey a round earlier: the game's own
+pointing loses to a control that is merely bright. It is named here and is the next
+thing this lane looks at; it is not fixed in this round and this round does not
+pretend otherwise.
 
 ## THE LESSON
 
@@ -120,3 +149,10 @@ Two rounds running, this lane has found a written-down cause that was wrong, and
 both times the same thing settled it: **turn the accused off and see if the symptom
 goes away.** A stylesheet you can disable at runtime will tell you in one second
 what a day of reading CSS will not.
+
+AND THE SHARPER ONE FROM SECTION 2: **a broken instrument does not look broken, it
+looks like a broken game.** Two rounds ago a gate that could not see an SVG group
+said the walk pad had stopped speaking. This round a probe that could not clear a
+card said the map was gone. Both times the game was fine. The defence that works is
+not more care, it is keeping an instrument with a PROVEN POSITIVE and reaching for
+that one first.

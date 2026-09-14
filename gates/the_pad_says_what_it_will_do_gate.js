@@ -109,11 +109,34 @@ const done = () => {
     if (!city) { await browser.close(); srv.close(); done(); }
     await page.evaluate(() => { const n = document.getElementById('openNot'); if (n) n.click(); });
     await SETTLE(page, 1300);
-    await city.evaluate(() => {
-      const c = document.getElementById('daycard');
-      if (c && getComputedStyle(c).display !== 'none') {
-        const b = c.querySelector('.dcgo') || c.querySelector('.dcbtn'); if (b) b.click(); }
-    });
+    /* *** CLEAR EVERY CARD, NOT ONE, AND TAP THEM WITH A REAL FINGER (9/14, RUN).
+       This cleared ONE card with a synthetic .click() and it stopped being enough,
+       which cost most of a round to find because of what it looks like when it
+       fails. The opening stacks cards now -- GET UP closes the wake card and the
+       JOB OFFER opens behind it -- so one click left a full-screen card sitting on
+       the canvas. Measured at the pinch point: elementFromPoint returned a DIV, the
+       card read display:flex class "on", and the canvas got ZERO pointerdowns. A
+       pinch that never reaches the canvas looks exactly like a seam that has
+       stopped working, and I very nearly reported the map as unreachable because of
+       it. A CARD OVER THE GLASS IS NOT A BROKEN GAME, IT IS A HARNESS STANDING IN
+       ITS OWN WAY -- the same trap the one driver's header names as trap 2.
+       And .click() is not a finger: with the offer card up, eight synthetic clicks
+       in a row did not close it while real taps at its coordinates did. */
+    for (let k = 0; k < 8; k++) {
+      const done_ = await city.evaluate(() => {
+        const c = document.getElementById('daycard');
+        if (!c || getComputedStyle(c).display === 'none') return true;
+        const b = c.querySelector('.dcgo') || c.querySelector('.dcbtn');
+        if (!b) return true;
+        const r = b.getBoundingClientRect();
+        return { x: r.x + r.width / 2, y: r.y + r.height / 2 };
+      });
+      if (done_ === true) break;
+      const fEl = await page.$('iframe#cityFrame');
+      const fb2 = fEl ? await fEl.boundingBox() : { x: 0, y: 0 };
+      await page.mouse.click(fb2.x + done_.x, fb2.y + done_.y).catch(() => { });
+      await SETTLE(page, 900);
+    }
     await SETTLE(page, 1600);
 
     /* WHAT HIS EYE ACTUALLY GETS, off computed style rather than off the rule I
