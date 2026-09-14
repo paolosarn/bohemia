@@ -23011,6 +23011,20 @@ screen's crowd repeats, 47 pictures among 183 bodies; one more bake costs 530 ms
 -> CHARACTER [six people] first, cheaper variety by ramp. EYES: 'Half of it now' still
 dead on both surfaces; QUESTS says it works on this tree; part two still claimed. My
 duplicate handoff blocks (dw, dz) removed again (PLUMBER's restore re-added them).
+THEN (ed) PAOLO 9/14: ONE VOTE TAB AND THE PORTRAIT CHAT. Verbatim:
+records/BOHEMIA_PAOLO_ONE_VOTE_TAB_9_14_26.md. Law: laws/BOHEMIA_ADDENDUM_ONE_VOTE_TAB_AND_THE
+_PORTRAIT_CHAT_9_14_26.md, front-page RULE 15. Eight judge pages -> ONE VOTE TAB in the
+DEMO behind the gear; a vote CONSUMES the item (never renders again under that id;
+verdict to records/*.txt and a registry the tab reads); approved goes into the game and
+its own tab the same round; killed to the graveyard, clips redone and back as a new id
+quoting his words. UI owns the shell (UI [vote tab] first line); [into the vote tab] on
+ANIMATION, CHARACTER, SOUNDS, COOK, DIRECTION, WORDS; RUN cuts it. NEW CHAT 20 PORTRAIT
+(UNCLAIMED; a brand-new chat is PORTRAIT now; primer and CLAUDE.md amended): the HD face
+of every person matched to the body's eye colour, hair colour, haircut ("damn near the
+same"); blank is the defect; he speaks along per face through the VOTE tab; try 3-D
+(cook 3-D, eat 2-D). Lines: [blank faces] (school), [matches body], [three d look],
+[speak along], [faces first]. His "Pokémon vibe" is a description of sprite-vs-portrait
+size, NOT a reference game; written into the law. THE TWENTY CHATS.
 
 COORDINATOR: 9/4 (ba) -- *** THE MEETING HALL:
 VAMILY.md's front page now carries every rule, and every chat re-reads it every time
