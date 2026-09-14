@@ -2250,81 +2250,81 @@ STILL CARRIED, AND STILL NOBODY'S:
 NEXT: Q19 [caught out] round one, school. It pairs with QUESTS [check the claim] and it sits
 directly on top of Q2's finding that a lie is caught by the question and never by the manner.
 --- (this line was a bare row of equals signs, which is a git conflict marker; it sat between two lanes' blocks and belonged to neither, and it made gates/nomarkers_gate.js red for every lane that ran the suite. Replaced 9/11 by QUESTS with a plain rule. Nobody's handoff text was touched.)
-ANIMATION (animation-lr9y9i): 9/13 (e) LATEST -- *** HIS HEAD WAS OUT OF THE
-FRAME. Both headshot clips drew a HEADLESS body for the whole fall, and the cause
-was four cameras still written for a 56-row canvas on a 112-row rig. Fixed. TAB:
-ANIMATION, clips headshot and headshot-2. Build 9/13zy. ***
+ANIMATION (animation-lr9y9i): 9/14 LATEST -- *** HIS FOUR BEATS ARE FRACTIONS OF
+THE FALL AND THE SIM READ THEM AS SECONDS. Beat four now lands. TAB: ANIMATION,
+clip headshot. Build 9/14d. ***
 
-ROW STILL CLAIMED: [redo killed]. Rounds: 1 re-analysed the 47, 2 fixed the rig
-cause of the ten still broken, 3 put the answer in front of him in JUDGE ALL
-(ONES YOU KILLED), 4 is this. RULE 14: alpha and workshop only; RUN cuts the demo.
+ROW STILL CLAIMED: [redo killed]. Rounds: 1 re-analysed the 47; 2 fixed the rig
+cause of the ten still broken; 3 put the answer in front of him (JUDGE ALL, ONES
+YOU KILLED); 4 got his head back inside the frame; 5 is this.
+RULE 14: alpha and workshop only; RUN cuts the demo.
 
-HIS OWN LAW IS THE ONE THIS BROKE. TRACKING CAMERA (7/2/26): "the whole body stays
-in frame for the entire fall, every knock direction, at STABLE SCALE."
+HIS SPEC, section 9 of laws/BOHEMIA_ADDENDUM_ANIMATION_REBUILD_AND_ANATOMY_7_2_26.md,
+verbatim: "4 beats: head snaps back on impact (0 to 0.08), torso/body gives FIRST
+and knees fold (0.10 to 0.45), arms hold UP on inertia while the body drops (0.15
+to 0.35), torso falls BACK ... arms come in slightly LAST (0.72 to 1)."
 
-WHAT WAS ON SCREEN, measured from a deterministic reset with the ragdoll stepped by
-hand so the answer does not depend on when the probe looked:
-    t=0    body -16 to  72   height 88   canvas is 112 rows
-    t=0.45 body -11 to  67   height 78
-    t=1    body  -3 to  54   height 45
-Sixteen rows of head above the top edge for the whole fall, and the drawn sprite's
-top pinned at row 0 in EVERY frame. MOTION VISIBLE had been red on main for both
-clips on exactly this ("the top of the sprite drops (0px)").
+THE FIND. Those are FRACTIONS -- the fourth beat ends at 1, and nothing about a
+ragdoll ends one second after it starts. The windows in hsStep were 0.08, 0.18,
+0.22 and 0.24 SECONDS and the fall settles at 3.22s, so every beat ran over about
+a fifth of its length and all of them were finished inside the first 7% of it. The
+number 0.08 is in both, once as a fraction and once as seconds. THAT IS THE SECOND
+UNIT BUG IN THIS FILE IN TWO ROUNDS -- last round it was four cameras still typed
+for a 56-row canvas on a 112-row rig. Worth looking for a third.
 
-THE CAUSE, and it is worth knowing because there may be more of it in this file:
-FOUR camera blocks -- the tracking pan, the crumple pan, the fixed-frame corpse and
-the ragdoll centroid -- had 28, 27, 34, 50, 53, 54, 52, 2 and 3 TYPED OUT BY HAND.
-Every one of those is a 56-row canvas. BAKED is 112x112 with RIG_RS 2, and a body
-just STANDING spans 88 rows (head 14, feet 102), so the oversize branch fired on
-every frame of every fall and centred a 112-space body on ROW 28 -- the middle of a
-canvas half this one's height. The law's own line "the per-frame body span always
-fits" was false for the same reason: the pan was not absorbing an overflow, it was
-creating one.
+ONLY THE ARMS-UP WINDOW IS CONVERTED, AND THE MEASUREMENT IS WHY. All four were
+converted first and each beat measured with its own ruler, in his own windows:
+    measured                    seconds(before)  arms-up only  all four
+    B1 head travel vs waist      6.1 / 4.1        5.1 / 4.1     5.1 / 4.1
+    B2 knee peak -> end          38 -> 1          38 -> 5       16 -> 17
+    B3 hand lag behind the body  13%              17%           53%
+    B4 hand closes to the chest  5.1 px           16.0 px       0.6 px
+Damping the legs across a third of the fall drops the body 30px instead of 12
+inside beat three, which is what lifts the lag to 53% -- and it lands the body
+where the arms never come in, so HIS FOURTH BEAT DIES TO BUY HIS THIRD. Arms-up
+alone improves three of four and worsens none. BEAT FOUR LANDS: 5.1 -> 16.0px.
 
-FIX: one derivation, rigFrame(), four callers. At RIG_RS 1 on a 56 canvas it
-reproduces every number that was typed before, so the original rig is provably
-untouched. Body now 14..102 standing and never leaves the canvas; headshot sprite
-top drops 8->10, headshot-2 16->22; MOTION VISIBLE 24/0, and that is one fewer
-standing red on main for everybody.
+BEAT ONE IS NOT BUILT AND THREE ATTEMPTS ARE WHY -- READ THIS BEFORE TRYING A
+FOURTH. An impulse on headTop+neck (2.6), on headTop alone (5.0), and exempting the
+head from the horizontal speed cap inside the snap window so a bigger kick could
+survive: ALL THREE MEASURED 5.1px of head travel against the waist's 4.1, identical
+to three figures AND identical to the build with no kick at all. Something
+downstream pins the head's ANGLE. It is not the speed cap (removing the exemption
+changed nothing) and not the impulse size (2.6 and 5.0 are the same number on
+screen). Suspect the RIGID LIMB LAW chain in hsPose or a neck constraint in
+hsStep's iteration. FIND THE PIN FIRST. A fourth kick is the STOP PRODUCING tell.
 
-GATE: gates/his_head_is_in_the_frame_gate.js, in the suite as HEAD IN FRAME.
-Twelve claims, 4 mutations caught. TWO OF THEM ONLY AFTER THE GATE WAS REPAIRED,
-and both repairs are the lesson:
-  - THE CONTROL WAS VACUOUS. It compared IDLE's head to the rest rig, and idle
-    never passes through any of these four blocks, so a mutation that shoved the
-    frame thirty rows down passed the control and every other claim. A control has
-    to be a body the code actually touches. It is the headshot's own first frame
-    now: the standing pose, which does go through the pan and already fits.
-  - THE BOTTOM EDGE WAS COLLECTED AND NEVER ASSERTED. A corpse shoved thirty cells
-    DOWN passed everything. His law says the WHOLE body; a foot out of the bottom
-    is as far out as a head out of the top.
+GATE: gates/his_four_beats_gate.js, in the suite as FOUR BEATS. Seven claims. It
+READS HIS FOUR WINDOWS OUT OF THE LAW FILE rather than copying them, so the code
+cannot drift from his text. CONTROL: the CRUMPLE keeps its own timings in seconds
+(Paolo 7/17 ruled a head shot destroys motor control instantly and v2 is flaccid;
+a change that swept every window into fractions would have taken that ruling with
+it). And it PRINTS the three beats still not built on every run, so the clip is
+never read as finished because a gate went green.
+4 mutations caught, the fourth only after the code claim was tightened: it looked
+for hsIn('armsUp') ANYWHERE, the elbow line still matched, and the elbow alone
+still carries beat four so the data claim could not see it either. Both call sites
+are named now.
 
-PRE-PUSH PASS (rule 13a): the 55 gates that draw a body. 49 green, 6 red, and all
-six are the standing set with identical numbers, each verified red on a clean
-checkout earlier in this lane's rounds: RIG CHECK, FIELD SURGERY, OUTFITS 13
-(0.072), CAST SHAPES (0.084), CITY CAST, FACE THUMB (freshness, now 27.4h behind
-the alpha -- CHARACTER/COOK rebake with tools/bohemia_face_candidates.js).
-MOTION VISIBLE has LEFT that list this round.
+PRE-PUSH PASS (rule 13a): the 56 gates that draw a body. 50 green, 6 red, and all
+six are the standing set with the same numbers, each verified red on a clean
+checkout in this lane's earlier rounds: RIG CHECK, FIELD SURGERY, FACE THUMB
+(freshness, CHARACTER/COOK rebake with tools/bohemia_face_candidates.js), OUTFITS
+13, CAST SHAPES, CITY CAST.
 FULL SUITE: no SUITE LINE on the front page yet; PLUMBER [suite line] owns it.
 
 WHAT IS LEFT OF THE ROW.
-  1 HIS FOUR BEATS, and this is a RULING so it gets built to his text whatever any
-    measurement says. Section 9 of laws/BOHEMIA_ADDENDUM_ANIMATION_REBUILD_AND_
-    ANATOMY_7_2_26.md, verbatim: "head snaps back on impact (0 to 0.08), torso/body
-    gives FIRST and knees fold (0.10 to 0.45), arms hold UP on inertia while the
-    body drops (0.15 to 0.35), torso falls BACK with a hard resistance clamp so it
-    NEVER folds into the waist, arms come in slightly LAST (0.72 to 1)."
-    MEASURED against the fall now, three of the four do not land:
-      head snaps back 0-0.08   the head moves ONE row in that window
-      knees fold 0.10-0.45     the knee angle goes 15 degrees to 1 -- it STRAIGHTENS
-      arms hold UP 0.15-0.35   the hand drops 68->90 while the waist drops 63->87,
-                               so the arms travel WITH the body instead of lagging
-      arms come in last        this one does happen
-    Step it with HS.manual=true and hsStep(1/60); the fall settles at frame 193.
-  2 clips whose keys are too far apart to read as motion (crouch-aim-2h NW goes
-    arm-down at k2 to arm-out at k3 with nothing between). POSEHOLD key density.
-  3 the pose defect on NE in his own frame: the head sits up and to the right of
+  1 beat one, above: find the pin.
+  2 beats two and three: their windows are still in SECONDS with their real units
+    named in the code. Moving them is not the job -- the table above shows moving
+    windows just trades beats. The job is the MECHANISM: for the knees to fold the
+    waist has to drop between planted feet, and for the arms to hold up the hands
+    need to resist while the torso goes.
+  3 clips whose keys are too far apart to read as motion (crouch-aim-2h NW is
+    arm-down at k2 and arm-out at k3, nothing between). POSEHOLD key density.
+  4 the pose defect on NE in his own frame: the head sits up and to the right of
     the shoulders with a visible gap.
+  5 the 47 are repaired and visible in JUDGE ALL; the next verdict is HIS.
 
 Nothing [PENDING Paolo].
 UI (ui-kmqmrf): 9/11 LATEST -- *** [phone object] SHIPPED. THE FEED IS A PHONE YOU CAN SEE. ***
