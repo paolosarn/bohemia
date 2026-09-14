@@ -99,6 +99,22 @@ function EAR() {
     E.stepBank = (typeof STEP_BANK !== 'undefined' && STEP_BANK)
       ? Object.keys(STEP_BANK).map(k => k + ':' + (STEP_BANK[k] || []).length) : null;
   } catch (err) { E.stepBank = 'unreadable'; }
+  /* AND THE TWO THINGS THAT DECIDE WHY A SILENCE IS A SILENCE: whether the street is
+     RESTING (the duck this lane shipped on 9/11, one phrase between songs) and whether
+     the ambience BED ever gets asked for. A hole and a rest look identical on a meter;
+     only these two say which one you are listening to. */
+  E.rest = []; E.bed = 0;
+  try {
+    if (window.__AMB && window.__AMB.pick) {
+      const pk = window.__AMB.pick;
+      window.__AMB.pick = function () { const r = pk.apply(this, arguments);
+        E.bed++; E.asks.push({ t: at(), k: 'bed', n: String(r) }); return r; };
+    } else E.errs.push('no __AMB.pick');
+  } catch (err) { E.errs.push('AMB hook threw'); }
+  E.restTick = setInterval(function () {
+    try { E.rest.push({ t: at(), resting: !!CITYMUS.resting, on: !!CITYMUS.on,
+                        step: MUS.step }); } catch (e) {}
+  }, 500);
 
   /* THE METER IS THE HALF THAT CANNOT LIE. A call log says what was ASKED FOR; only
      a meter says what came out. The analyser goes on the very end of the chain --
@@ -198,10 +214,11 @@ function EAR() {
     out.ear = await d.page.evaluate(() => {
       const E = window.__ear;
       try { clearInterval(E.tick); } catch (e) {}
+      try { clearInterval(E.restTick); } catch (e) {}
       let M = null; try { M = MUS; } catch (e) {}
       return {
         asks: E.asks, meter: E.meter, notes: E.notes, errs: E.errs,
-        renders: E.renders, stepBank: E.stepBank,
+        renders: E.renders, stepBank: E.stepBank, rest: E.rest, bed: E.bed,
         meterOn: E.meterOn || null,
         acState: (M && M.AC) ? M.AC.state : null,
         acTime: (M && M.AC) ? +M.AC.currentTime.toFixed(2) : null,
@@ -241,6 +258,8 @@ function EAR() {
     walkMoved: [out.walk1 && out.walk1.moved, out.walk2 && out.walk2.moved],
     padMissing: !!out.padMissing,
     musicNotes: e.notes, rendersOfEffects: e.renders, stepBank: e.stepBank,
+    bedAsked: e.bed,
+    secondsResting: e.rest ? +(e.rest.filter(r => r.resting).length * 0.5).toFixed(1) : null,
     musicNotesSong: e.song, acState: e.acState, meterOn: e.meterOn,
     meterSamples: m.length,
     longestSilenceSec: worst, longestSilenceEndedAt: worstAt,
