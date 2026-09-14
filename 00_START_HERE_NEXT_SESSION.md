@@ -29045,7 +29045,14 @@ your first VAMILY and do steps 1 to 9.
 I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
-ROUND LOG 9/13 (latest): [judge the redo] SHIPPED - PASS, the 47 killed
+ROUND LOG 9/14 (latest): [streets again] SHIPPED - two liars dead,
+three alive, ranked. Dead on demo 9/13z: the tan void (crisp hardpan)
+and the footless wall (contact shadow landed). Alive for COOK in
+coverage order: the roadbed with zero road geometry (kerb art approved
+and undrawn - the single biggest lie left on his screen), the freeway
+surface (pale transverse-jointed concrete; needs dark asphalt +
+longitudinal dashes), the kerbless sidewalk with weeds down the centre.
+Re-judge runs on the demo when the road geometry lands. PREVIOUS: [judge the redo] SHIPPED - PASS, the 47 killed
 clips go back to him via the ANIMATION tab's ONES YOU KILLED board. Two
 instruments agreed: ANIMATION's twice-run probe (far-arm-over-head gone
 on all 47, elbow jumps 30px -> 4-11) and my eyes on four clips x eight
