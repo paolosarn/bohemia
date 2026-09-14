@@ -203,7 +203,69 @@ const done = () => {
      FAV.owedOf(save, 'SOCIAL_FORCES') === 0);
 }
 
-/* ---- 8. on the surface he walks, and in the demo ----------------------- */
+/* ---- 8. *** ONE LINE PER LENDER, NOT ONE PER ACCOUNT *** ([owe lines], 9/14)
+   FACTIONS measured the card he meets at the end of EVERY day on a phone: 916 px in
+   a 780 window, and this block was 270 px of it. Measured again with more accounts
+   open: 405 px and ELEVEN items, THE BIGGEST BLOCK ON THE CARD. Nothing was
+   duplicated -- no two lines were ever byte-identical -- but one outfit can hold
+   three accounts, so eleven sentences of the same shape read as the same line over
+   and over, and the card ran off the bottom of the phone. -------------------- */
+{
+  const many = O.book({ favours: { CARTEL: 3, CHURCH: 3, NETWORK: 3 },
+                        rent: { MOB: { nights: 2, lastDay: 5 }, CHURCH: { nights: 2, lastDay: 6 } },
+                        loans: { CARTEL: { nights: 1, lastDay: 1 }, CHURCH: { nights: 1, lastDay: 1 } } });
+  const perAccount = O.lines(many), perLender = O.lenderLines(many);
+  ok('the accounts are still all there (' + many.length + ')', many.length === 7);
+  ok('*** AND THE CARD SAYS ONE LINE PER LENDER, NOT ONE PER ACCOUNT *** ('
+     + perAccount.length + ' accounts -> ' + perLender.length + ' lines)',
+     perLender.length < perAccount.length && perLender.length === 4);
+  ok('one outfit owed three ways is ONE line ("' + perLender[0] + '")',
+     perLender.filter(l => /^CHURCH/.test(l)).length === 1);
+  ok('and that line still says all three things',
+     /lent/.test(perLender.find(l => /^CHURCH/.test(l)))
+     && /taken free/.test(perLender.find(l => /^CHURCH/.test(l)))
+     && /nights unpaid/.test(perLender.find(l => /^CHURCH/.test(l))));
+  ok('*** EVERY LINE STILL NAMES ITS LENDER ***, which is the whole of this row',
+     perLender.every(l => /^[A-Z][A-Z ]+:/.test(l) || /^and \d+ more/.test(l)));
+  ok('biggest first (' + perLender.map(l => l.split(':')[0]).join(', ') + ')',
+     O.lenders(many)[0].total >= O.lenders(many)[O.lenders(many).length - 1].total);
+  /* COUNTS ONLY. The same refusal the per-account line makes: what a favour or a
+     night is WORTH is a weight and weights are his. */
+  const counted = [3, 2, 1];
+  perLender.forEach(l => {
+    const nums = (l.match(/\d+/g) || []).map(Number);
+    ok('no number in "' + l.slice(0, 34) + '..." that is not a count',
+       nums.every(n => counted.indexOf(n) >= 0));
+  });
+  ok('the line is shorter than the sentence it replaced ('
+     + Math.max(...perLender.map(l => l.length)) + ' vs '
+     + Math.max(...perAccount.map(l => l.length)) + ' chars)',
+     Math.max(...perLender.map(l => l.length)) < Math.max(...perAccount.map(l => l.length)));
+}
+
+/* ---- 9. IT IS BOUNDED, AND THE REST IS COUNTED OUT LOUD ----------------- */
+{
+  const all = {}, rent = {}, loans = {};
+  ['REMNANTS','CARTEL','CHURCH','MOB','CARAVANS','TRADES','VOLUNTEERS','BLUES','REDS',
+   'ANARCHISTS','NETWORK','HOMELESS','COLORFUL','KARENS','SOCIAL_FORCES','AMALGAMATION']
+    .forEach((f, i) => { all[f] = 3; rent[f] = { nights: 2, lastDay: i }; loans[f] = { nights: 1, lastDay: i }; });
+  const worst = O.book({ favours: all, rent: rent, loans: loans });
+  const lines = O.lenderLines(worst);
+  ok('the worst case really is every outfit (' + worst.length + ' accounts, '
+     + O.lenders(worst).length + ' lenders)',
+     worst.length === 48 && O.lenders(worst).length === 16);
+  ok('*** AND THE BLOCK IS BOUNDED however many you owe *** (' + lines.length + ' lines)',
+     lines.length === O.SHOW + 1);
+  ok('*** THE REST IS COUNTED, NEVER SILENTLY DROPPED *** ("'
+     + lines[lines.length - 1] + '")',
+     /^and 11 more you owe$/.test(lines[lines.length - 1]));
+  ok('the cap is a named constant, not a bare number in a loop', O.SHOW === 5);
+  const few = O.lenderLines(O.book({ favours: { MOB: 1 } }));
+  ok('and owing one outfit says one line and no remainder',
+     few.length === 1 && !/more you owe/.test(few[0]));
+}
+
+/* ---- 10. on the surface he walks, and in the demo ----------------------- */
 (async () => {
   let chromium;
   try { chromium = require('/opt/node22/lib/node_modules/playwright').chromium; }

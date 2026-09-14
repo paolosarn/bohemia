@@ -194,6 +194,70 @@
     return out;
   }
 
+  /* ---- ONE LINE PER LENDER, WHICH IS [owe lines] (9/14) ------------------
+     FACTIONS measured the card he meets at the end of EVERY day, on a phone: 916 px
+     in a 780 window, and WHO YOU OWE was 270 px of it. Measured again here with
+     more accounts open: 405 px and ELEVEN items, THE BIGGEST BLOCK ON THE CARD,
+     bigger than the day itself.
+     THE CAUSE IS say() BEING RIGHT ABOUT THE WRONG UNIT. It writes a full sentence
+     per ACCOUNT, and one outfit can hold three -- a favour, a night of rent and a
+     loan -- so the Church says three long sentences in a row. Nothing is
+     duplicated (no two lines are byte-identical; the merge in book() works), they
+     are just eleven sentences of the same shape, and on a phone that reads as the
+     same line over and over. A card that runs off the bottom of the screen is his
+     "nothing's complete".
+     SO THE UNIT BECOMES THE PERSON, WHICH IS WHAT THE CARD IS ABOUT ANYWAY: this
+     list answers WHO DO I OWE, and a lender is one person whatever they are owed
+     for. Counts only, no amounts, biggest first -- the same refusals as before. */
+  function lenders(rows) {
+    var by = {}, order = [];
+    for (var i = 0; i < (rows || []).length; i++) {
+      var r = rows[i]; if (!r || !(r.n > 0)) continue;
+      var g = by[r.who];
+      if (!g) { g = by[r.who] = { who: r.who, total: 0, lastDay: 0, kinds: {} }; order.push(g); }
+      g.total += r.n;
+      g.kinds[r.kind] = (g.kinds[r.kind] || 0) + r.n;
+      if ((r.lastDay | 0) > g.lastDay) g.lastDay = r.lastDay | 0;
+    }
+    /* BIGGEST FIRST, then the more recent, then the name -- the same ordering the
+       per-account list uses, so the two can never disagree about who is worst. */
+    order.sort(function (a, b) {
+      return (b.total - a.total) || (b.lastDay - a.lastDay)
+          || (a.who < b.who ? -1 : a.who > b.who ? 1 : 0);
+    });
+    return order;
+  }
+
+  /* WHAT ONE LENDER'S LINE SAYS. Short enough to sit on a phone, and it still names
+     the lender, which is the whole of [debt carried]. draft:true. */
+  var SHORT = { favour: 'taken free', rent: 'nights unpaid', loan: 'lent' };
+  function lenderSay(g) {
+    if (!g || !(g.total > 0)) return '';
+    var bits = [];
+    for (var i = 0; i < KINDS.length; i++) {
+      var k = KINDS[i].kind, n = g.kinds[k] | 0;
+      if (!n) continue;
+      bits.push(k === 'loan' ? (n + (n === 1 ? ' battery ' : ' batteries ') + SHORT[k])
+                             : (n + ' ' + SHORT[k]));
+    }
+    return g.who + ': ' + bits.join(', ');
+  }
+  /* HOW MANY LENDERS THE CARD SHOWS BEFORE IT COUNTS THE REST. NOT A NUMBER
+     INVENTED HERE: the nightfall card already caps its faction tally at four and its
+     followers list at five, so a short list with the remainder named is this card's
+     own convention. Owing all sixteen outfits at once is a real state and sixteen
+     lines is the floor for naming every one of them, which is the whole problem.
+     AND THE REST IS COUNTED OUT LOUD, never silently dropped: a card that quietly
+     hides who you owe is lying by omission, which is the opposite of this row. */
+  var SHOW = 5;
+  function lenderLines(rows) {
+    var g = lenders(rows), out = [];
+    for (var i = 0; i < g.length && i < SHOW; i++) { var s = lenderSay(g[i]); if (s) out.push(s); }
+    var rest = g.length - out.length;
+    if (rest > 0) out.push('and ' + rest + ' more you owe');            /* draft:true */
+    return out;
+  }
+
   /* ---- WHO, WITHOUT THE BILL --------------------------------------------
      The names, deduped, in the book's own order. THIS IS THE HALF THAT OUTLIVES
      YOU: "you inherit LESS and you inherit THE PEOPLE HE OWED, still standing
@@ -246,8 +310,9 @@
     };
   }
 
-  var API = { KINDS: KINDS, FOLD_FIELD: FOLD_FIELD,
+  var API = { KINDS: KINDS, FOLD_FIELD: FOLD_FIELD, SHORT: SHORT, SHOW: SHOW,
               book: book, say: say, lines: lines, creditors: creditors,
+              lenders: lenders, lenderSay: lenderSay, lenderLines: lenderLines,
               billDies: billDies, whyDies: whyDies, atFold: atFold };
   if (HASREQ) module.exports = API;
   root.BohemiaOwing = API;
