@@ -262,7 +262,15 @@ const done = () => {
         advance(20 * 60);
         for (let k = 0; k < 8; k++) {
           const t = (document.getElementById('daycardIn') || {}).textContent || '';
-          if (/lent you/.test(t)) { R.onCard = true; R.cardText = t; break; }
+          /* THE CARD'S WORDING MOVED AND THE CLAIM DID NOT ([owe lines], 9/14).
+             This used to look for "lent you", the per-ACCOUNT sentence. The card
+             now says one line per LENDER -- "CARTEL: 1 battery lent" -- because
+             eleven sentences of the same shape ran off the bottom of the phone.
+             The property this check exists for is unchanged: A LOAN SHOWS UP ON
+             THE CARD HE ALREADY READS, WITH THE LENDER NAMED. So it is pinned to
+             that and not to a sentence, and it accepts either wording rather than
+             pretending the old one is the only truth. */
+          if (/lent you|battery lent|batteries lent/.test(t)) { R.onCard = true; R.cardText = t; break; }
           const go = document.querySelector('#daycardIn .dcgo')
                   || document.querySelector('#daycardIn .dcx');
           if (!go) break; go.click();
