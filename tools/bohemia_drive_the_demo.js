@@ -78,6 +78,14 @@ async function open(opts) {
   await page.goto('http://127.0.0.1:' + port + '/slices/'
     + (opts.file || 'BOHEMIA_DEMO.html'), { waitUntil: 'load', timeout: 300000 });
   await page.waitForTimeout(opts.boot || 15000);
+  /* EXTENDED 9/14 (SOUNDS, rule 14g: every lane that walks the five minutes uses this
+     or extends it). A HOOK BEFORE THE TAP, because some instruments have to be in
+     place BEFORE the door opens or they measure the wrong five minutes. The ear is
+     the case that forced it: the front tap is the first sound in the game and the
+     song takes the beat off the pulse a moment later, so a recorder installed after
+     the tap misses the only part nobody has ever checked. It is a no-op unless a
+     caller passes it, so no existing use of this driver changes. */
+  if (typeof opts.beforeTap === 'function') await opts.beforeTap(page);
   await page.evaluate(() => {
     const f = document.getElementById('fronttap') || document.getElementById('front');
     if (f) f.click(); });

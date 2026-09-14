@@ -1,0 +1,187 @@
+/* ============================================================================
+   FIVE MINUTES, BY EAR (9/14/26, SOUNDS lane)
+
+   RULE 14 (Paolo 9/13, LOCKED): THE DEMO'S FIRST FIVE MINUTES ON A PHONE IS THE ONLY
+   MEASURE OF THE GAME. His break list names streets, a freeway, two buttons, dead
+   cards, no fight, no fast travel and glitches. NOT ONE OF THEM IS A SOUND, so under
+   14(b) this lane holds -- and rule 12 says a lane MEASURES the premise instead of
+   taking it. NOBODY HAS EVER MEASURED WHAT A STRANGER HEARS IN THOSE FIVE MINUTES.
+   This does that, and either finds this lane a break or says it holds with a number.
+
+   IT USES THE ONE DRIVER (rule 14g) and extends it with `beforeTap`, because the ear
+   has to be in place BEFORE the door opens: the front tap is the first sound in the
+   game and the song takes the beat off the pulse a moment later, so a recorder
+   installed after the tap measures the wrong five minutes.
+
+   WHAT IT RECORDS, all on the real audio path, on the real demo, on a phone profile:
+     * every sound the game ASKS FOR (playSFX by name, synthV and drumV by voice),
+       with the wall-clock second it was asked for;
+     * what the master bus ACTUALLY PUT OUT, metered every 250 ms, so silence is
+       MEASURED silence and not inferred from a missing call -- a call that renders
+       nothing and a call that was never made look identical from the call log alone;
+     * the AudioContext's own state, because a suspended context makes every one of
+       those calls a lie;
+     * the longest run of silence, which is the thing a stranger actually notices;
+     * page errors and console errors, filtered for the audio ones.
+
+   THE ROUTE IS A STRANGER'S, not a test's: boot, the card, stand still and listen,
+   walk, pinch out to the city, listen there, pinch back, walk again. Five minutes of
+   wall clock from the tap, timed, never faked.
+
+   NEVER REPORT A BREAK YOU HAVE NOT REPRODUCED. For sound that means the meter and
+   the call log have to agree before anything here is called a break.
+
+   USE IT:  node tools/bohemia_ears_five_minutes.js [BOHEMIA_DEMO.html] [seconds]
+   ========================================================================== */
+'use strict';
+const path = require('path');
+const fs = require('fs');
+const D = require('./bohemia_drive_the_demo.js');
+
+const FILE = process.argv[2] || 'BOHEMIA_DEMO.html';
+const SECS = parseInt(process.argv[3] || '300', 10);
+const OUT = process.argv[4] || path.join(__dirname, '..', 'records',
+  'BOHEMIA_EARS_FIVE_MINUTES_' + FILE.replace(/\W+/g, '_') + '.json');
+
+/* installed in the PAGE, not the city frame: the whole sound engine lives in the
+   shell and the frame only posts messages to it */
+function EAR() {
+  window.__ear = { asks: [], meter: [], t0: performance.now(), notes: 0, errs: [] };
+  const E = window.__ear;
+  const at = () => +((performance.now() - E.t0) / 1000).toFixed(2);
+
+  const wrap = (name, kind) => {
+    const real = window[name];
+    if (typeof real !== 'function') { E.errs.push('no ' + name); return; }
+    window[name] = function (a) {
+      try {
+        if (kind === 'sfx') E.asks.push({ t: at(), k: 'sfx', n: String(a) });
+        else { E.notes++; if (E.asks.length < 4000) E.asks.push({ t: at(), k: kind, n: String(a) }); }
+      } catch (e) {}
+      return real.apply(this, arguments);
+    };
+  };
+  wrap('playSFX', 'sfx');
+  wrap('synthV', 'v');
+  wrap('drumV', 'd');
+
+  /* THE METER IS THE HALF THAT CANNOT LIE. A call log says what was ASKED FOR; only
+     a meter says what came out. The analyser goes on the very end of the chain --
+     the limiter if it is reachable, because that is the only node that sees
+     everything mixed. */
+  E.startMeter = function () {
+    try {
+      const AC = window.MUS && MUS.AC; if (!AC) { E.errs.push('no AC'); return; }
+      const tap = window.__LIMITER || window.__OUTBUS || MUS.OUT || MUS.MAST || AC.destination;
+      const an = AC.createAnalyser(); an.fftSize = 2048;
+      try { tap.connect(an); } catch (e) { E.errs.push('meter could not connect'); return; }
+      const buf = new Float32Array(an.fftSize);
+      E.meterOn = (window.__LIMITER ? 'LIMITER' : (window.__OUTBUS ? 'OUTBUS' : 'MAST'));
+      E.tick = setInterval(() => {
+        an.getFloatTimeDomainData(buf);
+        let pk = 0, sq = 0;
+        for (let i = 0; i < buf.length; i++) { const v = Math.abs(buf[i]); if (v > pk) pk = v; sq += v * v; }
+        E.meter.push({ t: at(), pk: +pk.toFixed(5), rms: +Math.sqrt(sq / buf.length).toFixed(5),
+                       st: AC.state });
+      }, 250);
+    } catch (e) { E.errs.push('meter threw: ' + e.message); }
+  };
+  return true;
+}
+
+(async () => {
+  const out = { ok: true, file: FILE, secs: SECS, when: new Date().toISOString() };
+  let d = null;
+  try {
+    d = await D.open({
+      file: FILE,
+      beforeTap: async (page) => { await page.evaluate(EAR); }
+    });
+    /* the meter can only start once the tap has built the audio graph */
+    await d.page.evaluate(() => { try { window.__ear.startMeter(); } catch (e) {} });
+
+    const console_ = [];
+    d.page.on('console', m => { if (m.type() === 'error') console_.push(String(m.text()).slice(0, 180)); });
+
+    const t0 = Date.now();
+    const left = () => SECS * 1000 - (Date.now() - t0);
+    const step = async (label, ms, fn) => {
+      if (left() <= 0) return;
+      out.route = out.route || [];
+      out.route.push({ at: +((Date.now() - t0) / 1000).toFixed(1), did: label });
+      if (fn) await fn();
+      const w = Math.min(ms, Math.max(0, left()));
+      if (w > 0) await d.page.waitForTimeout(w);
+    };
+
+    /* A STRANGER'S FIVE MINUTES, and the first minute is STANDING STILL on purpose:
+       that is the one thing this lane has an open row about and has never measured on
+       the demo he plays. */
+    await step('stand still and listen', 60000);
+    await step('walk', 90000, async () => {
+      /* the pad is the control a player uses; a real finger on it, repeatedly */
+      for (let i = 0; i < 24; i++) {
+        if (left() <= 0) break;
+        const ok = await d.tapEl('#pad').catch(() => false);
+        if (!ok) { out.padMissing = true; break; }
+        await d.page.waitForTimeout(500);
+      }
+    });
+    await step('pinch out to the city', 45000, async () => { await d.pinchOut(); });
+    await step('pinch back to the street', 45000, async () => { await d.pinchIn(); });
+    await step('walk again', 60000, async () => {
+      for (let i = 0; i < 16; i++) {
+        if (left() <= 0) break;
+        await d.tapEl('#pad').catch(() => false);
+        await d.page.waitForTimeout(500);
+      }
+    });
+    while (left() > 0) await d.page.waitForTimeout(Math.min(2000, left()));
+
+    out.ear = await d.page.evaluate(() => {
+      const E = window.__ear;
+      try { clearInterval(E.tick); } catch (e) {}
+      const M = window.MUS;
+      return {
+        asks: E.asks, meter: E.meter, notes: E.notes, errs: E.errs,
+        meterOn: E.meterOn || null,
+        acState: (M && M.AC) ? M.AC.state : null,
+        acTime: (M && M.AC) ? +M.AC.currentTime.toFixed(2) : null,
+        musPlaying: !!(M && M.playing),
+        song: (M && M.fac && M.fac()) ? M.fac().n : null,
+        step: (M && M.step != null) ? M.step : null,
+        players: ['CITYMUS', 'MENUMUS', 'FIGHTMUS', 'INTERIORMUS']
+          .filter(n => typeof window[n] !== 'undefined')
+          .map(n => ({ n: n, on: !!window[n].on })),
+        pulse: (typeof window.__pulseState === 'function') ? window.__pulseState() : null
+      };
+    });
+    out.state = await d.state();
+    out.pageErrors = d.errs.slice(0, 10);
+    out.consoleErrors = console_.slice(0, 10);
+  } catch (e) {
+    out.ok = false; out.why = String(e && e.message || e).slice(0, 400);
+  } finally { if (d) await d.close().catch(() => {}); }
+
+  fs.mkdirSync(path.dirname(OUT), { recursive: true });
+  fs.writeFileSync(OUT, JSON.stringify(out, null, 1));
+  const e = out.ear || {};
+  const sfx = (e.asks || []).filter(x => x.k === 'sfx');
+  const names = {}; for (const s of sfx) names[s.n] = (names[s.n] || 0) + 1;
+  const m = e.meter || [];
+  let quiet = 0, worst = 0, worstAt = null;
+  for (const r of m) {
+    if (r.pk < 0.002) { quiet++; if (quiet * 0.25 > worst) { worst = quiet * 0.25; worstAt = r.t; } }
+    else quiet = 0;
+  }
+  console.log(JSON.stringify({
+    ok: out.ok, why: out.why, file: FILE,
+    secondsWalked: out.route ? out.route[out.route.length - 1].at : null,
+    soundsAsked: sfx.length, distinctSounds: Object.keys(names).length, names: names,
+    musicNotes: e.notes, song: e.song, acState: e.acState, meterOn: e.meterOn,
+    meterSamples: m.length,
+    longestSilenceSec: worst, longestSilenceEndedAt: worstAt,
+    pageErrors: out.pageErrors, consoleErrors: out.consoleErrors, earErrs: e.errs,
+    out: path.relative(path.join(__dirname, '..'), OUT)
+  }, null, 1));
+})();
