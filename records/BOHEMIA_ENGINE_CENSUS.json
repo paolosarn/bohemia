@@ -2,21 +2,21 @@
  "what": "Which engine modules the shipped game actually carries. Written by gates/engine_census_gate.js.",
  "why": "The [dead modules] row called 29 modules dead including a 281 KB one that is LIVE. The game INLINES engine modules, so a module unreachable as a file can be running code whose canon copy is that file. Deleting one breaks ENGINE SYNC quietly.",
  "how": "A module is LIVE if the shipped slices carry its inline marker, or if at least 65% of its body lines over 45 characters appear verbatim in the shipped text.",
- "taken": "2026-09-12T23:20:23.355Z",
+ "taken": "2026-09-14T00:24:20.437Z",
  "counts": {
-  "modules": 183,
-  "inlinedWithMarker": 109,
-  "codePresentNoMarker": 42,
-  "absentFromGame": 32,
-  "absentButRead": 26,
+  "modules": 187,
+  "inlinedWithMarker": 111,
+  "codePresentNoMarker": 45,
+  "absentFromGame": 31,
+  "absentButRead": 25,
   "absentButCarried": 9,
   "orphaned": 1
  },
  "kb": {
-  "modules": 3989,
-  "inlinedWithMarker": 2086,
-  "codePresentNoMarker": 1562,
-  "absentFromGame": 341,
+  "modules": 4047,
+  "inlinedWithMarker": 2108,
+  "codePresentNoMarker": 1603,
+  "absentFromGame": 336,
   "orphaned": 15
  },
  "inTheShippedGame": [
@@ -27,6 +27,7 @@
   "bohemia_arterial.js",
   "bohemia_asking.js",
   "bohemia_asks.js",
+  "bohemia_backhouse.js",
   "bohemia_ballpark.js",
   "bohemia_battery.js",
   "bohemia_belonging.js",
@@ -63,6 +64,7 @@
   "bohemia_desert.js",
   "bohemia_direct_bq.js",
   "bohemia_district_kit.js",
+  "bohemia_down.js",
   "bohemia_downtown.js",
   "bohemia_dress.js",
   "bohemia_drivein.js",
@@ -84,6 +86,7 @@
   "bohemia_fuse.js",
   "bohemia_garage.js",
   "bohemia_golf.js",
+  "bohemia_ground.js",
   "bohemia_haggle.js",
   "bohemia_hazard.js",
   "bohemia_hostiles.js",
@@ -94,6 +97,7 @@
   "bohemia_interior_ground.js",
   "bohemia_introductions.js",
   "bohemia_jail.js",
+  "bohemia_kept.js",
   "bohemia_known.js",
   "bohemia_ladder_data.js",
   "bohemia_ladderwalk.js",
@@ -123,6 +127,7 @@
   "bohemia_powerbuild.js",
   "bohemia_powergrid.js",
   "bohemia_production.js",
+  "bohemia_pumps.js",
   "bohemia_purse.js",
   "bohemia_quest_runtime.js",
   "bohemia_quirk.js",
@@ -195,10 +200,6 @@
   },
   {
    "module": "bohemia_brownout.js",
-   "keptAliveBy": "1 gate/tool"
-  },
-  {
-   "module": "bohemia_down.js",
    "keptAliveBy": "1 gate/tool"
   },
   {

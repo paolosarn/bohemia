@@ -387,3 +387,67 @@ Any future work on gate runtimes here has to be **paired in the same window** �
 run B, run A again — or it is measuring the hour. A single timing on this box is not
 evidence. That applies to the 71.9 minute floor too: it is built from a census of one
 run, and that run happened at one particular speed.
+
+
+---
+
+## ROUND 10: THE FIRST COMPARABLE RUN, AND THE SPLIT WAS RIGHT AFTER ALL
+
+The first full run taken since the runner started stamping how fast the box is:
+
+```
+  BOX SPEED: 25.8 ms (baseline 29.1 ms) = 0.89x   -- a FASTER than baseline day
+  632 gates ran      525 GREEN     107 FAIL
+  12,925 s of gate work                    215.4 min
+  FLOOR                                     71.3 min   on a 0.89x box
+  no NEVER RAN line at all: every gate got a turn
+```
+
+**The floor finally carries its ratio.** 71.3 minutes measured at 0.89x is a number the
+next run can be compared against. Every earlier version of that figure was a statement
+about an afternoon.
+
+### THE SPLIT WORKED, AND MY CORRECTION OVER-CORRECTED
+
+```
+  FACTION ASK COST    GREEN    5 passed     390.0 s
+  FACTION ARC         GREEN   97 passed     557.7 s
+```
+
+**Both halves passed inside the suite, and 102 checks on the faction system ran there
+for the first time.** That was the entire point of the split.
+
+Two rounds ago I wrote that the split had failed, because in that run both halves hit
+the 600 s cap. That run was on a slow box. This one is on a fast one and FACTION ARC
+lands at 557.7 s — inside the cap with 42 seconds to spare.
+
+So the honest position is neither of my earlier ones. The split was right. My claim
+that it worked was verified on a quiet box and was not yet earned. My correction that
+it had failed was measured on a slow box and went too far. **Both readings were about
+the hour.** The yardstick exists so that the next person does not have to choose
+between two wrong stories.
+
+It also means FACTION ARC is not safe — 557.7 s at 0.89x is over the cap the moment
+the box is 8% slower, which it routinely is. Splitting it further is real work, not
+paranoia.
+
+### A NEW ONE: TIME TO PLAY HAS GROWN EIGHT TIMES OVER
+
+```
+  run 1     76.2 s   FAIL
+  run 2     97.4 s   FAIL
+  run 3    600.1 s   FAIL  -- killed at the cap
+```
+
+It has been red in all three, so the failure is not new. What is new is that it now
+hits the ceiling and is killed, which means **it no longer checks anything** — the same
+red-over-nothing that FACTION ARC was in.
+
+Box speed cannot explain it. Run 3 was on a **faster** box (0.89x), and the widest
+variance ever measured here is 2.5x against an 8x jump. Most of that growth is real.
+
+What cannot be pinned is exactly how much, because runs 1 and 2 carry no ratio — they
+predate the yardstick. That gap closes by itself from here.
+
+It is RUN's gate (a friend on a phone can actually play), named for them rather than
+touched by this lane.

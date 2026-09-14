@@ -1,6 +1,11 @@
 {
-  "takenFrom": "full.log",
-  "observedWallSeconds": null,
+  "takenFrom": "full3.log",
+  "observedWallSeconds": 7397.0,
+  "boxSpeed": {
+    "ms": 25.8,
+    "baselineMs": 29.1,
+    "ratio": 0.89
+  },
   "settings": {
     "JOBS": 4,
     "BROWSER_JOBS": 3,
@@ -8,65 +13,65 @@
     "cpus": 4
   },
   "targetSeconds": 600.0,
-  "gatesInTable": 593,
-  "gatesWithATime": 527,
-  "gatesWithNoTimeInThisLog": 66,
+  "gatesInTable": 632,
+  "gatesWithATime": 558,
+  "gatesWithNoTimeInThisLog": 74,
   "work": {
-    "browserSeconds": 11564.8,
-    "browserGates": 265,
-    "pureSeconds": 1186.7,
-    "pureGates": 258,
-    "soloSeconds": 249.8,
+    "browserSeconds": 11603.2,
+    "browserGates": 291,
+    "pureSeconds": 1095.9,
+    "pureGates": 263,
+    "soloSeconds": 225.8,
     "soloGates": 4,
-    "totalSeconds": 13001.3
+    "totalSeconds": 12924.9
   },
   "lanes": {
-    "browserLaneSeconds": 3854.9,
-    "pureLaneSeconds": 296.7,
-    "soloPhaseSeconds": 249.8
+    "browserLaneSeconds": 3867.7,
+    "pureLaneSeconds": 274.0,
+    "soloPhaseSeconds": 225.8
   },
   "longestSingleGate": {
-    "name": "FACTION ARC",
-    "seconds": 600.0,
+    "name": "TIME TO PLAY",
+    "seconds": 600.1,
     "verdict": "FAIL",
     "browser": true,
     "solo": false,
-    "slowFlag": false
+    "slowFlag": true
   },
-  "floorSeconds": 4104.7,
+  "floorSeconds": 4093.5,
   "floorIfBrowserJobs": {
-    "2": 6032.2,
-    "3": 4104.7,
-    "4": 3141.0
+    "2": 6027.4,
+    "3": 4093.5,
+    "4": 3126.6
   },
   "slowest": [
     {
-      "name": "FACTION ARC",
-      "seconds": 600.0,
-      "verdict": "FAIL",
-      "browser": true,
-      "solo": false,
-      "slowFlag": false
-    },
-    {
-      "name": "OPENING",
-      "seconds": 438.5,
-      "verdict": "GREEN",
-      "browser": true,
-      "solo": false,
-      "slowFlag": false
-    },
-    {
-      "name": "COLD HAND",
-      "seconds": 266.0,
+      "name": "TIME TO PLAY",
+      "seconds": 600.1,
       "verdict": "FAIL",
       "browser": true,
       "solo": false,
       "slowFlag": true
     },
     {
-      "name": "COMMITMENT",
-      "seconds": 200.2,
+      "name": "FACTION ARC",
+      "seconds": 557.7,
+      "verdict": "GREEN",
+      "browser": true,
+      "solo": false,
+      "slowFlag": false
+    },
+    {
+      "name": "OPENING",
+      "seconds": 405.5,
+      "verdict": "GREEN",
+      "browser": true,
+      "solo": false,
+      "slowFlag": false
+    },
+    {
+      "name": "WHAT YOU HEARD",
+      "seconds": 184.4,
       "verdict": "GREEN",
       "browser": true,
       "solo": false,
@@ -74,23 +79,23 @@
     },
     {
       "name": "PEOPLE",
-      "seconds": 188.1,
+      "seconds": 162.9,
       "verdict": "GREEN",
       "browser": true,
       "solo": false,
       "slowFlag": true
     },
     {
-      "name": "CARD FOLD",
-      "seconds": 170.9,
-      "verdict": "FAIL",
+      "name": "COMMITMENT",
+      "seconds": 160.9,
+      "verdict": "GREEN",
       "browser": true,
       "solo": false,
       "slowFlag": false
     },
     {
-      "name": "WHAT YOU HEARD",
-      "seconds": 141.1,
+      "name": "CARD FOLD",
+      "seconds": 136.0,
       "verdict": "GREEN",
       "browser": true,
       "solo": false,
@@ -98,7 +103,15 @@
     },
     {
       "name": "SFX WIRED",
-      "seconds": 137.6,
+      "seconds": 129.0,
+      "verdict": "GREEN",
+      "browser": true,
+      "solo": false,
+      "slowFlag": true
+    },
+    {
+      "name": "FACTION TOWNS",
+      "seconds": 127.8,
       "verdict": "GREEN",
       "browser": true,
       "solo": false,
@@ -106,47 +119,55 @@
     },
     {
       "name": "ART ARRIVES",
-      "seconds": 131.5,
-      "verdict": "GREEN",
+      "seconds": 107.4,
+      "verdict": "FAIL",
       "browser": true,
       "solo": false,
       "slowFlag": false
     },
     {
-      "name": "GRAVEYARD",
-      "seconds": 128.4,
+      "name": "CANVAS SCALE",
+      "seconds": 104.1,
       "verdict": "GREEN",
       "browser": false,
       "solo": false,
-      "slowFlag": false
+      "slowFlag": true
     },
     {
       "name": "CLIP HEALTH",
-      "seconds": 123.7,
+      "seconds": 103.2,
       "verdict": "GREEN",
       "browser": true,
       "solo": false,
       "slowFlag": true
     },
     {
-      "name": "PEOPLE GATHER",
-      "seconds": 120.9,
-      "verdict": "GREEN",
-      "browser": true,
-      "solo": false,
-      "slowFlag": false
-    },
-    {
-      "name": "SCALE TRUTH",
-      "seconds": 118.1,
+      "name": "GRAVEYARD",
+      "seconds": 102.2,
       "verdict": "GREEN",
       "browser": false,
       "solo": false,
       "slowFlag": false
     },
     {
+      "name": "PEOPLE GATHER",
+      "seconds": 101.7,
+      "verdict": "GREEN",
+      "browser": true,
+      "solo": false,
+      "slowFlag": false
+    },
+    {
+      "name": "VOICE SURFACES",
+      "seconds": 99.9,
+      "verdict": "FAIL",
+      "browser": true,
+      "solo": false,
+      "slowFlag": true
+    },
+    {
       "name": "UI VOCAB",
-      "seconds": 116.3,
+      "seconds": 97.8,
       "verdict": "FAIL",
       "browser": true,
       "solo": false,
@@ -154,23 +175,39 @@
     },
     {
       "name": "ENDING",
-      "seconds": 114.8,
+      "seconds": 97.6,
       "verdict": "GREEN",
       "browser": true,
       "solo": false,
       "slowFlag": false
     },
     {
-      "name": "WORN PERSIST",
-      "seconds": 105.0,
+      "name": "SCALE TRUTH",
+      "seconds": 97.4,
+      "verdict": "GREEN",
+      "browser": false,
+      "solo": false,
+      "slowFlag": false
+    },
+    {
+      "name": "LATE ART",
+      "seconds": 97.3,
+      "verdict": "FAIL",
+      "browser": true,
+      "solo": false,
+      "slowFlag": true
+    },
+    {
+      "name": "FIRST TEACHING",
+      "seconds": 93.8,
       "verdict": "GREEN",
       "browser": true,
       "solo": false,
       "slowFlag": true
     },
     {
-      "name": "LATE ART",
-      "seconds": 104.3,
+      "name": "SOMEONE LENDS",
+      "seconds": 92.9,
       "verdict": "GREEN",
       "browser": true,
       "solo": false,
@@ -178,31 +215,23 @@
     },
     {
       "name": "THE RUN",
-      "seconds": 103.3,
+      "seconds": 90.8,
       "verdict": "FAIL",
       "browser": true,
       "solo": false,
       "slowFlag": false
     },
     {
-      "name": "FIRST TEACHING",
-      "seconds": 102.7,
+      "name": "WORN PERSIST",
+      "seconds": 90.3,
       "verdict": "GREEN",
       "browser": true,
       "solo": false,
       "slowFlag": true
     },
     {
-      "name": "VOICE SURFACES",
-      "seconds": 101.7,
-      "verdict": "FAIL",
-      "browser": true,
-      "solo": false,
-      "slowFlag": true
-    },
-    {
-      "name": "WALK THE WORLD",
-      "seconds": 92.2,
+      "name": "FIRST FIGHT",
+      "seconds": 85.3,
       "verdict": "GREEN",
       "browser": true,
       "solo": false,
@@ -210,7 +239,7 @@
     },
     {
       "name": "PAD RING",
-      "seconds": 89.1,
+      "seconds": 84.6,
       "verdict": "GREEN",
       "browser": true,
       "solo": false,
@@ -218,23 +247,7 @@
     },
     {
       "name": "COLD OPEN",
-      "seconds": 89.0,
-      "verdict": "GREEN",
-      "browser": true,
-      "solo": false,
-      "slowFlag": false
-    },
-    {
-      "name": "WORLD MODEL",
-      "seconds": 88.5,
-      "verdict": "GREEN",
-      "browser": false,
-      "solo": false,
-      "slowFlag": false
-    },
-    {
-      "name": "FIGHT MUSIC",
-      "seconds": 88.1,
+      "seconds": 84.1,
       "verdict": "GREEN",
       "browser": true,
       "solo": false,
@@ -242,43 +255,35 @@
     },
     {
       "name": "ONE ENGINE",
-      "seconds": 86.2,
+      "seconds": 83.2,
       "verdict": "GREEN",
       "browser": true,
       "solo": false,
       "slowFlag": false
     },
     {
-      "name": "FEEDBACK",
-      "seconds": 83.4,
+      "name": "AGAINST",
+      "seconds": 81.7,
       "verdict": "GREEN",
       "browser": true,
       "solo": false,
-      "slowFlag": false
+      "slowFlag": true
     },
     {
-      "name": "ROAD ON FOOT",
-      "seconds": 80.9,
+      "name": "FIGHT MUSIC",
+      "seconds": 79.5,
       "verdict": "FAIL",
       "browser": true,
       "solo": false,
-      "slowFlag": true
-    },
-    {
-      "name": "SUN MODE",
-      "seconds": 79.7,
-      "verdict": "GREEN",
-      "browser": true,
-      "solo": false,
-      "slowFlag": true
-    },
-    {
-      "name": "LANGUAGE",
-      "seconds": 79.6,
-      "verdict": "GREEN",
-      "browser": true,
-      "solo": false,
       "slowFlag": false
+    },
+    {
+      "name": "WALK THE WORLD",
+      "seconds": 78.7,
+      "verdict": "GREEN",
+      "browser": true,
+      "solo": false,
+      "slowFlag": true
     }
   ],
   "timedGateNames": [
@@ -307,6 +312,7 @@
     "ASSET ROUNDUP",
     "ATTEMPT",
     "BACK LIMB",
+    "BACK OF HOUSE",
     "BANK LAW",
     "BANKS USED",
     "BANNER",
@@ -321,6 +327,7 @@
     "BLOB INTEGRITY",
     "BLOCKING CHUNK",
     "BODY VARIATION",
+    "BOND OUTLIVES",
     "BONE SCALE",
     "BORDER 1PX",
     "BOSS LADDER",
@@ -338,6 +345,7 @@
     "CARRY",
     "CAST SHAPES",
     "CASTING",
+    "CATS STAY",
     "CEMETERY",
     "CENTURY RECORD",
     "CENTURY STAYED",
@@ -370,6 +378,7 @@
     "CLOTHES FOLLOW",
     "CMU BLOCK",
     "COALITION",
+    "COAT ON LEGS",
     "COLD BOOT",
     "COLD HAND",
     "COLD OPEN",
@@ -397,6 +406,7 @@
     "DAY PAYS",
     "DEAD CODE",
     "DEAD VALLEY",
+    "DEBT CARRIED",
     "DEED BRIDGE",
     "DEMO",
     "DEMO BLOCKERS",
@@ -408,6 +418,7 @@
     "DERIVED FRESH",
     "DEVIATION",
     "DIRECT",
+    "DIRECT QUESTS",
     "DISTRICT FILL",
     "DISTRICT KIT",
     "DISTRICT REG",
@@ -415,6 +426,7 @@
     "DOOR JAMB",
     "DOOR SWING",
     "DOORWAY",
+    "DOWN NOT DEAD",
     "DOWNTOWN",
     "DRAINS SHOWN",
     "DRAW BUDGET",
@@ -462,7 +474,10 @@
     "FIGHT MUSIC",
     "FIGHT ROOM",
     "FIRE STATION",
+    "FIRST ASK",
     "FIRST BYTES",
+    "FIRST FIGHT",
+    "FIRST MINUTE",
     "FIRST MORNING",
     "FIRST NIGHT",
     "FIRST TEACHING",
@@ -489,6 +504,7 @@
     "GOLF",
     "GRAVEYARD",
     "GRIME",
+    "GUNS CLOSE",
     "HAIR",
     "HAIR 8 FACINGS",
     "HAIR GRAVEYARD",
@@ -497,6 +513,8 @@
     "HANDOFF",
     "HAZARD",
     "HAZARD LOOK",
+    "HE CAN HEAR IT",
+    "HEAD IN FRAME",
     "HEADWEAR",
     "HEAR THE CROWD",
     "HERO BEAT",
@@ -528,6 +546,7 @@
     "ISO HOUSE",
     "ITEM SCALE",
     "JAIL",
+    "JOINT SNAP",
     "JUDGE SURFACE",
     "KIT BINDING",
     "LAB PORT",
@@ -546,12 +565,14 @@
     "LEGIBILITY",
     "LIBRARY",
     "LIFE",
+    "LIFT MOVES",
     "LIGHT",
     "LIGHT AGREES",
     "LIGHT REGISTRY",
     "LIGHTS BILL",
     "LINE COLOR",
     "LIT BLOCK HUMS",
+    "LOCKED RATCHET",
     "LOGO",
     "LOOK",
     "LOOP",
@@ -566,12 +587,15 @@
     "LOOP SEAM",
     "LOOP SLICE",
     "LOOP TALK",
+    "LOOT KEPT",
     "MAIN SPINE",
     "MAKE IT RIGHT",
     "MALL",
     "MANDATE",
     "MANDATE FACE",
     "MAP BOUND",
+    "MAP MOVES",
+    "MAP NAMES IT",
     "MAP SIZE",
     "MAP TAB",
     "MARKET",
@@ -586,7 +610,9 @@
     "MUSIC",
     "MUSIC REACH",
     "NAME THE TAB",
+    "NAMED LEAD",
     "NAV CLUSTER",
+    "NEAR HAND",
     "NECK + HAIR",
     "NEGLECT COSTS",
     "NO BULLSHIT Qs",
@@ -598,6 +624,7 @@
     "NO PRISON",
     "NO READER",
     "OCCUPANCY",
+    "OFFER YES",
     "ON THE WAY",
     "ONE BUILDING",
     "ONE DOOR PRED",
@@ -614,6 +641,7 @@
     "ORGAN REACH",
     "OUTFITS 13",
     "OWN CANVAS",
+    "OWN POWER",
     "PACK",
     "PAD RING",
     "PAD SAYS",
@@ -632,6 +660,7 @@
     "PHONE OBJECT",
     "PHONE READABLE",
     "PHONE RINGS",
+    "PICKUP",
     "PITS",
     "PIXEL BIBLE",
     "PIXEL CRAFT",
@@ -657,6 +686,7 @@
     "RETREAT",
     "REUSE FIRST",
     "RF4 TEARDOWN",
+    "RICE CLOCK",
     "RIG CHECK",
     "RIG IS LAW",
     "RIG NO-DRIFT",
@@ -681,6 +711,7 @@
     "SCALE TRUTH",
     "SCENE",
     "SCHOOL",
+    "SCREEN FACE",
     "SEE IT COMING",
     "SEE THROUGH",
     "SEEN BY HIM",
@@ -701,8 +732,11 @@
     "SKILL GAP",
     "SKY TOUCH",
     "SLICE V11",
+    "SLOP COUNT",
     "SOLAR",
+    "SOMEONE LENDS",
     "SONG LOCK",
+    "SOUND CARD",
     "SOUND MESSAGE",
     "SPATIAL SOUND",
     "SQUARE ICONS",
@@ -743,6 +777,7 @@
     "THE FEED",
     "THE JOB PAYS",
     "THE ONE LINK",
+    "THE ROUT",
     "THE RUN",
     "THE THUMB",
     "THIS WEEK",
@@ -793,6 +828,7 @@
     "WARDROBE WIRED",
     "WAREHOUSE",
     "WASH",
+    "WATER LIFTED",
     "WATERPARK",
     "WEATHER",
     "WEBKIT",
@@ -810,9 +846,9 @@
     "ZOOM IDENTITY",
     "ZOOM SEAM"
   ],
-  "reds": 85,
-  "redRerunSeconds": 3402.1,
-  "underOneSecond": 184,
+  "reds": 93,
+  "redRerunSeconds": 3025.0,
+  "underOneSecond": 202,
   "missingFromThisLog": [
     "STREET CONTRACT",
     "BOUGHT BEATS PAINTED",
@@ -835,7 +871,10 @@
     "SOUND REACHABLE",
     "MATERIAL COOKED",
     "CITYMUS ROTATION",
+    "PLATE COSTS TAPE",
+    "FIGHT KNOWS DAY",
     "FIGHT MOVES YOU",
+    "YOU KILLED THIS",
     "LIMB SEPARATION",
     "JUDGE LIST MOVES",
     "VALLEY BREATHES",
@@ -844,15 +883,12 @@
     "RENDER LIKE RIG",
     "ANIM FABRICATION",
     "FIGHT FLOOR CACHE",
+    "COMPANY IN ASKS",
+    "CHECK THE CLAIM",
     "TERRAIN SURFACE",
     "INTERIOR GROUND",
     "QUEST PLACEMENT",
     "DIALOGUE CATALOGUE",
-    "ONE THING THAT IS THEIRS",
-    "STREET EXCHANGE",
-    "POPULATION DIAL",
-    "AUTHORED UNREAD",
-    "FACTION POSTURE",
-    "OPENS ON THE GAME"
+    "ONE THING THAT IS THEIRS"
   ]
 }

@@ -1,4 +1,33 @@
 EYES AND EARS (eyes-5vql33): 9/14 (af) LATEST -- *** E26 WALKED AGAIN. THE DEMO DID NOT CHANGE, AND THE REASON IS MEASURED: THE FIXES ARE ONE CUT AWAY FROM HIM. *** TAB: the demo is what he plays; the alpha is where the fixes landed. Record: records/BOHEMIA_EYES_E26_ROUND_3_THE_FIX_IS_ONE_CUT_AWAY_9_14_26.md. Walks: records/BOHEMIA_EYES_E26_WALK_DEMO_9_14_26.json and ..._WALK_ALPHA_9_14_26.json. Shots: records/eyes_e26_walk_demo/ and _alpha/. THE STRANGER'S LIST is rewritten on the front page.
+PLUMBER (plumber-ont6t5): 9/14 LATEST -- *** CHAT 18. ROUND 25. [suite runs] CONTINUING. THE FIRST
+COMPARABLE FULL RUN, AND THE SPLIT WAS RIGHT AFTER ALL.
+First full run since the runner began stamping how fast the box is: BOX SPEED 0.89x (a FASTER than
+baseline day), 632 gates ran, 525 green, 107 fail, 12,925 s of gate work, FLOOR 71.3 min AT 0.89x. THE
+FLOOR FINALLY CARRIES ITS RATIO, so the next run can be compared against it rather than against an
+afternoon. AND THERE WAS NO "NEVER RAN" LINE AT ALL -- every gate got a turn.
+*** THE SPLIT WORKED: FACTION ASK COST GREEN 5/0 in 390.0 s, FACTION ARC GREEN 97/0 in 557.7 s. 102
+CHECKS ON THE FACTION SYSTEM RAN INSIDE THE SUITE FOR THE FIRST TIME. ***
+TWO ROUNDS AGO I SAID THE SPLIT HAD FAILED, because in that run both halves hit the 600 s cap. That run
+was on a slow box. So NEITHER of my earlier positions was right: the claim that it worked was verified
+on a quiet box and was not yet earned, and the correction that it had failed was measured on a slow box
+and went too far. Both readings were about the hour. That is exactly why the yardstick exists, and it is
+the cleanest demonstration of it I could have asked for.
+IT ALSO MEANS FACTION ARC IS NOT SAFE: 557.7 s at 0.89x goes over the cap the moment the box is 8%
+slower, which it routinely is. Splitting it further is real work, not paranoia.
+[FOR RUN] TIME TO PLAY HAS GROWN EIGHT TIMES OVER: 76.2 s, then 97.4 s, now 600.1 s and KILLED AT THE
+CAP. It has been red in all three, so the failure is not new -- being KILLED is, and a killed gate
+checks NOTHING, which is the same red-over-nothing FACTION ARC was in. Box speed cannot explain it: run
+3 was on a FASTER box (0.89x) and the widest variance ever measured here is 2.5x against an 8x jump, so
+most of that growth is real. How much exactly cannot be pinned, because runs 1 and 2 predate the
+yardstick and carry no ratio. That gap closes by itself from here. Named for RUN, not touched by us.
+WHAT IS LEFT ON THE ROW: split FACTION ARC further so it is not hostage to an 8% swing; the 71.3 min
+floor itself (sharding cannot fix it -- less browser work or more machines, a fork not a coding task);
+retire the dead ([dead gates]).
+
+WORDS (words-8dqrnq): 9/13 (b) LATEST -- *** Q22 [debt words] SCHOOL DONE, ROUND ONE OF TWO. NO TEST
+LINES WRITTEN, WHICH IS THE RULE. A LENDER NEVER SAYS DEBT, HE SAYS HELP. AND THE DEBT CARD IS
+PLAYER-FACING TEXT THAT NO CHECKER THIS LANE OWNS HAS EVER READ. *** TAB: LIFE (the card), and the
+research itself is NOT IN A TAB. No game code touched, ever.
 
 UI (ui-kmqmrf): 9/13 (e) LATEST -- *** [eyes: reach spills] SHIPPED. THE REACH WAS NEVER 44. ***
 [no slop] still CLAIMED and untouched: an EYES bounce-back on a shipped row beats my queue.
