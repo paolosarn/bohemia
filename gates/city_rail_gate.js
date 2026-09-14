@@ -249,6 +249,46 @@ const LOOK = () => {
      + (reach.stolen && reach.stolen.length ? ' -- STOLEN: ' + reach.stolen.join(' ') : ''),
      !reach.err && reach.stolen && reach.stolen.length === 0);
 
+  /* ==== [one door] -- OUTFIT AND STANDING WERE TWO DOORS ONTO ONE ROOM =============
+     CHARACTER walked the five minutes and found them (9/13). Same shape as PRETTY MAP /
+     DROP IN, which this gate already guards above. Two legs, because removing a door is
+     only honest if the ROOM survives: the second door is gone, AND what it opened is still
+     reachable one tap inside the one that stayed.
+     WHY STANDING IS THE ONE THAT STAYED, measured rather than preferred: in this game OUTFIT
+     means your CREW ("YOUR OUTFIT AND THEIRS ARE AT WAR"), not your clothes -- and I read it
+     as clothes anyway with the whole codebase open, because the game also has a CLOTHES tab.
+     A stranger has the same collision and none of the context. */
+  const door = await c.evaluate(() => {
+    const up = id => { const e = document.getElementById(id); if (!e) return false;
+      const cs = getComputedStyle(e), r = e.getBoundingClientRect();
+      return cs.display !== 'none' && cs.visibility !== 'hidden' && +cs.opacity !== 0
+             && r.width > 0 && r.height > 0; };
+    return { outfit: up('outfitbtn') };
+  });
+  ok('the OUTFIT door is gone from the strip -- one room, one door'
+     + (door.outfit ? ' -- STILL THERE' : ''), !door.outfit);
+
+  const room = await c.evaluate(() => new Promise(res => {
+    try { cardHide(); } catch (_e) {}
+    const b = document.getElementById('rungbtn'); if (!b) return res({ err: 'no standing button' });
+    b.click();
+    setTimeout(() => {
+      const who = document.getElementById('standingWho');
+      if (!who) return res({ err: 'no way in to the directory from standing' });
+      who.click();
+      setTimeout(() => {
+        const p = document.getElementById('outfitpanel');
+        const open = !!(p && getComputedStyle(p).display !== 'none'
+                        && p.getBoundingClientRect().height > 100);
+        res({ open, txt: open ? (p.textContent || '').replace(/\s+/g, ' ').slice(0, 40) : '' });
+      }, 600);
+    }, 600);
+  }));
+  ok('and the room it used to open is still reachable, one tap inside STANDING -- a door you '
+     + 'remove must not take its room with it (' + (room.err || room.txt || '') + ')',
+     !room.err && room.open === true);
+  await c.evaluate(() => { try { ctOutfitClose(); cardHide(); } catch (_e) {} });
+
   ok('no page error while doing any of it' + (errs.length ? ' -- ' + errs[0] : ''), errs.length === 0);
   await b.close(); srv.close();
   done();

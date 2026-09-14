@@ -1,3 +1,57 @@
+UI (ui-kmqmrf): 9/14 LATEST -- *** [one door] SHIPPED. AND I READ "OUTFIT" AS CLOTHES. ***
+Rule 14(b): a break he named is this lane's first job, so [no slop] stays CLAIMED and untouched.
+
+THE ROW WAS RIGHT IN SUBSTANCE, WRONG IN DETAIL, AND THE DETAIL CHANGED THE FIX. CHARACTER found
+OUTFIT (top strip) and STANDING (left rail) both opening faction business. Opened both and read
+them: they are NOT the same panel. OUTFIT is the directory of all SIXTEEN crews -- where each is,
+met or not, what they want, what they pay, zero clothing top to bottom. STANDING is your own
+position -- rung, territory, this ground, rent tonight, who would come with you. Two useful views,
+one subject. So the directory was NOT deleted: it moved INSIDE standing as a WHO IS OUT THERE row
+(130x44, so it meets the thumb law from [every card]) and the second door came off the strip.
+
+*** AND I READ "OUTFIT" AS CLOTHES WITH THE WHOLE CODEBASE OPEN. *** I had already written that
+the button was MISLABELLED before the game's own strings corrected me: "YOUR OUTFIT AND THEIRS ARE
+AT WAR". An outfit in this game is a CREW. The label was right and I was wrong -- and that mistake
+IS the evidence for which door survives, not a footnote: a stranger has the same collision with
+the CLOTHES tab and none of my context. STANDING says the same thing in words nobody can mistake,
+and it already sits with the game's verbs while the strip holds MUSIC, SAVE and PHONE, which are
+machine controls.
+
+city_rail_gate 15/0. TWO legs, because A DOOR YOU REMOVE MUST NOT TAKE ITS ROOM WITH IT: the
+OUTFIT door is gone, AND the room is still reachable one tap inside STANDING. Mutation-proved both
+ways -- put the door back, first leg fails; orphan the room, second fails.
+
+A PROBE THAT LIED TO ME FOR ONE RUN, AND IT WAS MINE. My first walk reported the new row MISSING
+and the directory unreachable. It was not: the harness never dismissed the wake card, so STANDING
+was never opened and I was reading the morning card. Its own tail gave it away (I'LL TAKE IT / GET
+UP). The harness now presses GET UP, VERIFIES it is gone, and REFUSES TO REPORT if it is not --
+which is exactly what tools/bohemia_eyes_thumbs.js already does, and I should have copied it
+instead of re-learning it.
+
+A CORRECTION TO MY OWN HANDOFF FROM LAST ROUND: I said seven gates pressing #modechip each need
+"one identical line, swapMode() instead of the click". FOR ONE OF THE SEVEN THAT IS WRONG.
+the_action_button_does_actions_gate is 16 passed 2 FAILED on clean origin/main and its failing
+legs assert "the camera toggle still exists" and "a thumb can actually press it" -- they assert
+the button SHOULD EXIST, which his ruling deleted. That needs its owner to decide what to assert
+now, not a one-liner. I generalised from the two I had actually fixed.
+
+*** RULE 15 LANDED MID-ROUND AND IT IS THIS LANE'S: ONE VOTE TAB (Paolo 9/14, LOCKED). *** 15(d):
+UI owns the shell, the queue, the registry and the vanish gate; every lane registers candidates
+and reads verdicts back; RUN cuts it into the demo. 15(a) also ENDS the standalone option sheets
+this lane has shipped every round: everything that wants his thumb goes to the VOTE tab behind the
+gear and NOWHERE ELSE. This round's sheet was written before the rule landed and is the last of
+its kind -- there is nowhere else for options to go until the tab exists. [vote tab] is next and
+it is a big one: a queue, a registry, and a gate that makes a voted item VANISH and never render
+again under that id.
+
+[PENDING Paolo] nothing. Sheet: slices/BOHEMIA_FIVE_WAYS_ONE_DOOR_9_14_26.html
+
+PER RULE 13: pre-push pass green -- city rail 15/0, thumb 19/0, half size 7/0, phone object 18/0,
+rom face 14/0, feed 15/0, alpha loads 20/0, readable ruler 7/0. THE SUITE LINE still unposted:
+full suite unmeasured since 7efb22cf. Rule 14(a): demo untouched, RUN cuts it.
+
+Record: records/BOHEMIA_ONE_DOOR_9_14_26.md
+
 ECONOMY (economy-knxaeh): PAOLO'S PERMANENT INSTRUCTION, 9/5, EXPANDED VERSION.
 HIS WORDS, WORD FOR WORD, SO THEY SURVIVE ANY MEMORY RESET. THIS SUPERSEDES THE
 EARLIER SHORTER VERSION FURTHER DOWN THIS FILE. THIS BLOCK IS NEVER DELETED.

@@ -416,7 +416,22 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font-family:var(--
     <div id="musbtn">MUSIC</div>
     <div id="savebtn">SAVE</div>
     <div id="phonebtn">PHONE<span id="phonebadge"></span></div>
-    <div id="outfitbtn">OUTFIT</div>
+    <!-- __ONE_DOOR__ -- THE OUTFIT BUTTON IS GONE (CHARACTER walked the five minutes, 9/13).
+         OUTFIT and STANDING were two doors onto one room: the same shape as his PRETTY MAP /
+         DROP IN complaint, which this lane shipped the round before.
+         MEASURED BEFORE REMOVING IT, by opening both on the real surface and reading what
+         came up. They are NOT the same panel -- OUTFIT is the directory of all sixteen
+         factions (where each one is, whether you have met them, what they want, what they
+         pay) and STANDING is your own position (your rung, this ground, the rent, who would
+         come with you). Two different USEFUL views, one subject. So the directory is not
+         thrown away: it moves INSIDE standing, one tap further in, which is what "two doors
+         onto one room" should cost.
+         AND WHY STANDING IS THE ONE THAT SURVIVES: in this game OUTFIT means your CREW --
+         "YOUR OUTFIT AND THEIRS ARE AT WAR" -- not your clothes. I read it as clothes anyway,
+         with the whole codebase open in front of me, because the game also has a CLOTHES tab.
+         A stranger has none of that and the same collision. STANDING is plain English for the
+         same thing, and it already sits on the left rail with the game's verbs rather than up
+         in the strip with MUSIC, SAVE and PHONE, which are machine controls. -->
     <div id="devbtn">TOOLS</div>
   </div>
   <div id="devtray"><!-- __BUILDERS_TOOLS_IN_A_DRAWER__ -- the builder's tools, out of the way -->
@@ -70491,8 +70506,19 @@ function showStanding(){
      button: no data-act, so the card's own click delegate never matched it and
      the card could not be closed at all. A real button now, on the same path the
      working cards use. */
+  /* __ONE_DOOR__ -- the faction directory used to be its own button in the top strip. It is
+     the same subject as this card, so it lives here now, one tap in. draft:true. */
+  h += '<div class="dcgo" id="standingWho">WHO IS OUT THERE</div>';   /* draft:true */
   h += '<div class="dcgo" data-act="close">CLOSE</div>';   /* draft:true */
   cardShow(h, cardHide);
+  /* bound where the card really is, which is the lesson the CLOSE row above already paid for */
+  try{
+    var _who=document.getElementById('standingWho');
+    if(_who) _who.addEventListener('click', function(){
+      try{ cardHide(); }catch(_e){}
+      try{ ctOutfitOpen(); }catch(_e){}
+    });
+  }catch(_e){}
   /* __CITY_FAMILY_EVENTS__ -- AND THE BUTTON IS BOUND WHERE THE CARD REALLY IS.
      THE FIRST CUT BOUND THIS IN ctDraw, WITH THE PERSON CARD'S OTHER BUTTONS,
      and it could never have worked: this row renders on the STANDING card, which
