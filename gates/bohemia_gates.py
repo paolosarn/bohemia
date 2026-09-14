@@ -2285,6 +2285,21 @@ GATES = [
      "longer exists; and all nine controls pass, including the octave-error control round "
      "one made mandatory and the control for the note log being blind to half the ways this "
      "engine makes a note, which is a mistake this lane made and turned into a control.", True),
+    # 9/14: THE FIVE MINUTES (Paolo 9/13) made the demo's first five minutes on a phone the
+    # only measure of the game. So the distance between that measure and the work is a number
+    # the fleet needs on screen. It is a METER, not a gate: it prints and it never fails,
+    # because only THE RUN may re-cut the demo and E3 measured that a checker failing on
+    # something its reader cannot fix gets muted inside a week.
+    ('DEMO STALENESS', ['node', 'gates/demo_staleness_meter.js'],
+     "EYES AND EARS lane 17, 9/14, E26 [five minutes]: HOW FAR THE THING HE JUDGES BY HAS "
+     "FALLEN BEHIND THE THING EVERY LANE SHIPS INTO. Prints both build stamps, the commits on "
+     "main since the demo file last changed, how many of those touched the alpha, and whether "
+     "the fight inside the demo still carries a typeface a law bans by name while the alpha's "
+     "does not. REPORT-ONLY BY DESIGN AND IT NEVER EXITS NON-ZERO: a red suite over one lane's "
+     "cadence would punish 18 lanes for a cut only THE RUN is allowed to make, and a gate whose "
+     "reader cannot fix it gets muted. The enforcement belongs in RUN's own [demo pinned] row; "
+     "this is the measurement that row needs. --selftest proves it reports a fabricated gap "
+     "rather than printing zeros because it read nothing.", False),
     ('LOCKED RATCHET', ['node', 'gates/locked_ratchet_gate.js'],
      "EYES AND EARS lane 17, 9/12, E17 [locked ignored]: A RULING HE MARKED LOCKED THAT THE "
      "BUILD CONTRADICTS. 1,046 lines in laws/ carry the word; 856 are a real lock, 330 of those "

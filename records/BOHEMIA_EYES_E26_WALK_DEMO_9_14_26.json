@@ -1,6 +1,8 @@
 {
   "ok": true,
-  "when": "2026-09-13T23:37:22.085Z",
+  "which": "demo",
+  "file": "BOHEMIA_DEMO.html",
+  "when": "2026-09-14T21:28:35.969Z",
   "law": "THE FIVE MINUTES (Paolo 9/13)",
   "lines": [
     {
@@ -10,190 +12,82 @@
       "promised": "TAP TO ENTER"
     },
     {
-      "at": "00:09",
+      "at": "00:11",
       "did": "tapped the front screen",
       "happened": "the screen changed",
       "promised": "that tapping enters the game"
     },
     {
-      "at": "00:20",
+      "at": "00:26",
       "did": "looked at the first screen without touching anything",
-      "happened": "23 things with words on them, big enough to tap: \u2699 / HUMAN MODE / SUBURB \u00b7 ON FOOT / DAY 1 \u00b7 06:00 / MUSIC / SAVE / OUTFIT / \u2715 / 06:00 \u00b7 light until 22:00 / nobody has picked it up yet / Pays one battery / Make it a bag instead / Make it a favour instead / Half of it now, before I go / I'LL TAKE IT / GET UP / SLEEP / BIKE",
+      "happened": "23 things with words on them, big enough to tap: ⚙ / HUMAN MODE / SUBURB · ON FOOT / DAY 1 · 06:00 / MUSIC / SAVE / OUTFIT / ✕ / 06:00 · light until 22:00 / nobody has picked it up yet / Pays one battery / Make it a bag instead / Make it a favour instead / Half of it now, before I go / I'LL TAKE IT / GET UP / SLEEP / BIKE",
       "promised": ""
     },
     {
-      "at": "00:21",
+      "at": "00:36",
       "did": "tapped \"Make it a bag instead\" (the biggest thing on screen)",
       "happened": "the screen changed",
       "promised": "Make it a bag instead"
     },
     {
-      "at": "00:23",
+      "at": "00:46",
       "did": "tapped \"GET UP\" (the only thing on the card that is not an offer)",
       "happened": "the screen changed",
       "promised": "GET UP"
     },
     {
-      "at": "00:26",
+      "at": "00:51",
       "did": "held the walk dial down for two and a half seconds",
       "happened": "the world moved (8 arrows on the dial)",
       "promised": ""
     },
     {
-      "at": "00:29",
+      "at": "01:33",
+      "did": "went looking for \"cbbuild\" on purpose",
+      "happened": "it was NOT on screen on this route, and it is still built in slices/BOHEMIA_CITY_WORLD.html, so this walk says nothing about it",
+      "promised": ""
+    },
+    {
+      "at": "01:34",
+      "did": "went looking for \"cbbig\" on purpose",
+      "happened": "it was NOT on screen on this route, and it is still built in slices/BOHEMIA_CITY_WORLD.html, so this walk says nothing about it",
+      "promised": ""
+    },
+    {
+      "at": "01:44",
       "did": "tapped \"Half of it now, before I go\" (a card or offer)",
-      "happened": "the screen changed",
+      "happened": "NOTHING CHANGED",
       "promised": "Half of it now, before I go"
     },
     {
-      "at": "00:32",
+      "at": "01:54",
       "did": "tapped \"I'LL TAKE IT\" (a card or offer)",
-      "happened": "the screen changed",
+      "happened": "NOTHING CHANGED",
       "promised": "I'LL TAKE IT"
     },
     {
-      "at": "00:34",
+      "at": "02:04",
       "did": "tapped \"OUTFIT\" (the map or the zoom)",
       "happened": "the screen changed",
       "promised": "OUTFIT"
     },
     {
-      "at": "00:38",
-      "did": "tapped \"DAY 1 \u00b7 06:02\" (new on screen)",
+      "at": "02:17",
+      "did": "tapped \"DAY 1 · 06:02\" (new on screen)",
+      "happened": "NOTHING CHANGED",
+      "promised": "DAY 1 · 06:02"
+    },
+    {
+      "at": "02:26",
+      "did": "tapped \"TWO COINS FOR THE FERRYMAN\" (new on screen)",
       "happened": "the screen changed",
-      "promised": "DAY 1 \u00b7 06:02"
+      "promised": "TWO COINS FOR THE FERRYMAN"
     },
     {
-      "at": "00:39",
-      "did": "tapped \"THE CUSTOM\" (new on screen)",
-      "happened": "the screen changed",
-      "promised": "THE CUSTOM"
-    },
-    {
-      "at": "00:40",
-      "did": "tapped \"WHO WOULD VOUCH FOR YOU\" (new on screen)",
-      "happened": "the screen changed",
-      "promised": "WHO WOULD VOUCH FOR YOU"
-    },
-    {
-      "at": "00:42",
-      "did": "tapped \"NOBODY YET\" (new on screen)",
+      "at": "02:36",
+      "did": "tapped \"headlights. nobody in it.\" (new on screen)",
       "happened": "NOTHING CHANGED",
-      "promised": "NOBODY YET"
-    },
-    {
-      "at": "00:43",
-      "did": "tapped \"THE VALLEY\" (new on screen)",
-      "happened": "NOTHING CHANGED",
-      "promised": "THE VALLEY"
-    },
-    {
-      "at": "00:44",
-      "did": "tapped \"CHURCH\" (new on screen)",
-      "happened": "NOTHING CHANGED",
-      "promised": "CHURCH"
-    },
-    {
-      "at": "00:46",
-      "did": "tapped \"SOUTHWEST \u00b7 RIGHT AROUND HERE\" (new on screen)",
-      "happened": "NOTHING CHANGED",
-      "promised": "SOUTHWEST \u00b7 RIGHT AROUND HERE"
-    },
-    {
-      "at": "00:47",
-      "did": "tapped \"COLORFUL\" (new on screen)",
-      "happened": "the screen changed",
-      "promised": "COLORFUL"
-    },
-    {
-      "at": "00:48",
-      "did": "tapped \"SOUTHWEST \u00b7 A LONG WAY OFF\" (new on screen)",
-      "happened": "the screen changed",
-      "promised": "SOUTHWEST \u00b7 A LONG WAY OFF"
-    },
-    {
-      "at": "00:50",
-      "did": "tapped \"BLUES\" (new on screen)",
-      "happened": "the screen changed",
-      "promised": "BLUES"
-    },
-    {
-      "at": "00:51",
-      "did": "tapped \"EAST \u00b7 A LONG WAY OFF\" (new on screen)",
-      "happened": "NOTHING CHANGED",
-      "promised": "EAST \u00b7 A LONG WAY OFF"
-    },
-    {
-      "at": "00:52",
-      "did": "tapped \"MOB\" (new on screen)",
-      "happened": "the screen changed",
-      "promised": "MOB"
-    },
-    {
-      "at": "00:54",
-      "did": "tapped \"NORTH \u00b7 A LONG WAY OFF\" (new on screen)",
-      "happened": "the screen changed",
-      "promised": "NORTH \u00b7 A LONG WAY OFF"
-    },
-    {
-      "at": "00:55",
-      "did": "tapped \"THEY PAY: ENFORCEMENT OF A DEAL\" (new on screen)",
-      "happened": "NOTHING CHANGED",
-      "promised": "THEY PAY: ENFORCEMENT OF A DEAL"
-    },
-    {
-      "at": "00:56",
-      "did": "tapped \"REDS\" (new on screen)",
-      "happened": "NOTHING CHANGED",
-      "promised": "REDS"
-    },
-    {
-      "at": "00:58",
-      "did": "tapped \"THEY PAY: CREDIT\" (new on screen)",
-      "happened": "NOTHING CHANGED",
-      "promised": "THEY PAY: CREDIT"
-    },
-    {
-      "at": "00:59",
-      "did": "tapped \"NETWORK\" (new on screen)",
-      "happened": "the screen changed",
-      "promised": "NETWORK"
-    },
-    {
-      "at": "01:00",
-      "did": "tapped \"NORTHWEST \u00b7 THE FAR SIDE OF THE VALLEY\" (new on screen)",
-      "happened": "NOTHING CHANGED",
-      "promised": "NORTHWEST \u00b7 THE FAR SIDE OF THE VALLEY"
-    },
-    {
-      "at": "01:04",
-      "did": "tapped \"THE WIND LEARNS WORDS\" (new on screen)",
-      "happened": "the screen changed",
-      "promised": "THE WIND LEARNS WORDS"
-    },
-    {
-      "at": "01:05",
-      "did": "tapped \"\u2715 DEMOLISH TO DESERT\" (new on screen)",
-      "happened": "the screen changed",
-      "promised": "\u2715 DEMOLISH TO DESERT"
-    },
-    {
-      "at": "01:09",
-      "did": "tapped \"DESERT \u00b7 ON FOOT\" (new on screen)",
-      "happened": "NOTHING CHANGED",
-      "promised": "DESERT \u00b7 ON FOOT"
-    },
-    {
-      "at": "01:10",
-      "did": "tapped \"\u2696 BUILD\" (new on screen)",
-      "happened": "NOTHING CHANGED",
-      "promised": "\u2696 BUILD"
-    },
-    {
-      "at": "01:12",
-      "did": "tapped \"\u26ed BUILD BIG 2\u00d72\" (new on screen)",
-      "happened": "NOTHING CHANGED",
-      "promised": "\u26ed BUILD BIG 2\u00d72"
+      "promised": "headlights. nobody in it."
     }
   ],
   "errors": [
@@ -205,11 +99,11 @@
       "kind": "requestfailed",
       "msg": "https://fonts.googleapis.com/css2?family=VT323&family=Space+Grotesk:wght@400;500;700&display=swap",
       "from": "about:srcdoc",
-      "why": "net::ERR_CONNECTION_RESET"
+      "why": "net::ERR_CERT_AUTHORITY_INVALID"
     },
     {
       "kind": "console",
-      "msg": "Failed to load resource: net::ERR_CONNECTION_RESET"
+      "msg": "Failed to load resource: net::ERR_CERT_AUTHORITY_INVALID"
     },
     {
       "kind": "console",
@@ -231,134 +125,561 @@
       "name": "CHANGE PROBE: a deliberate change registers as a change",
       "pass": true,
       "detail": "text signature moved"
+    },
+    {
+      "name": "DEAD READS DEAD: a planted button with no handler is called dead",
+      "pass": true,
+      "detail": "verdict was \"did nothing\", with the world running"
+    },
+    {
+      "name": "ALIVE READS ALIVE: a planted button that writes one word is called alive",
+      "pass": true,
+      "detail": "verdict was \"did something\", off a single word"
+    },
+    {
+      "name": "NO FALSE ZERO: every item an earlier round called dead was pressed on purpose",
+      "pass": false,
+      "detail": "cbbuild: NOT ON SCREEN on this route, but it is still in the game; cbbig: NOT ON SCREEN on this route, but it is still in the game"
+    },
+    {
+      "name": "THE WORLD MOVES ON ITS OWN: the null window is measured, not assumed",
+      "pass": true,
+      "detail": "2 of 28 windows with no input at all still moved the screen. So equality was the wrong test and every earlier \"the tap worked\" on this game is unsafe."
     }
   ],
   "numbers": {
-    "time_until_something_is_tappable_s": 2.95,
-    "my_first_tap_at_s": 3.13,
-    "extra_walk_rounds": 114,
+    "time_until_something_is_tappable_s": 3.59,
+    "my_first_tap_at_s": 3.9,
+    "ledger_after_warmup": {
+      "words": 8,
+      "pixel_samples": 566
+    },
+    "extra_walk_rounds": 54,
     "time_to_first_fight_s": "NONE",
-    "walk_ended_at_s": 300.3,
+    "walk_ended_at_s": 301.2,
     "dead_affordances": 2,
-    "tapped_and_inert_but_never_claimed_to_be_a_button": 10,
+    "things_i_actually_pressed": 8,
+    "alive_on_one_press_only": 2,
+    "words_the_world_writes_by_itself": 8,
+    "named_items_pressed_on_purpose": 0,
+    "named_items_not_reachable_on_this_route": 2,
+    "named_items_removed_from_the_game": 0,
+    "named_items_still_dead": 0,
+    "tapped_and_inert_but_never_claimed_to_be_a_button": 2,
+    "null_windows_measured": 28,
+    "null_windows_that_moved_on_their_own": 2,
+    "worst_null_window": {
+      "word_moves": 6,
+      "words_that_moved": [
+        "THE",
+        "STEP",
+        "BACK",
+        "AND",
+        "SEE",
+        "CITY"
+      ],
+      "pixel_fraction": 0,
+      "warmup": true
+    },
     "page_errors": 0,
     "console_errors": 3,
     "failed_requests": 1
   },
   "dead": [
     {
-      "at": "01:10",
-      "text": "\u2696 BUILD",
-      "id": "cbbuild",
+      "at": "01:44",
+      "text": "Half of it now, before I go",
+      "id": "",
       "where": "frame",
-      "size": "69x29",
-      "looked_tappable_because": "a button or link"
+      "size": "320x44",
+      "looked_tappable_because": "a row inside the day card",
+      "pressed_twice": true,
+      "novel_movement_either_time": "none",
+      "evidence": [
+        {
+          "novel_words": [],
+          "novel_cells": 0,
+          "world_moved_in_the_null_window": 0
+        },
+        {
+          "novel_words": [],
+          "novel_cells": 0,
+          "world_moved_in_the_null_window": 0
+        }
+      ]
     },
     {
-      "at": "01:12",
-      "text": "\u26ed BUILD BIG 2\u00d72",
-      "id": "cbbig",
+      "at": "01:54",
+      "text": "I'LL TAKE IT",
+      "id": "",
       "where": "frame",
-      "size": "112x28",
-      "looked_tappable_because": "a button or link"
+      "size": "320x44",
+      "looked_tappable_because": "a row inside the day card",
+      "pressed_twice": true,
+      "novel_movement_either_time": "none",
+      "evidence": [
+        {
+          "novel_words": [],
+          "novel_cells": 0,
+          "world_moved_in_the_null_window": 0
+        },
+        {
+          "novel_words": [],
+          "novel_cells": 0,
+          "world_moved_in_the_null_window": 0
+        }
+      ]
     }
   ],
   "inert": [
     {
-      "at": "00:42",
-      "text": "NOBODY YET",
-      "id": "",
+      "at": "02:17",
+      "text": "DAY 1 · 06:02",
+      "id": "hclock",
       "where": "frame",
-      "size": "64x14",
-      "looked_tappable_because": "nothing said so"
+      "size": "54x12",
+      "looked_tappable_because": "nothing said so",
+      "pressed_twice": true,
+      "novel_movement_either_time": "none",
+      "evidence": [
+        {
+          "novel_words": [],
+          "novel_cells": 0,
+          "world_moved_in_the_null_window": 0
+        },
+        {
+          "novel_words": [],
+          "novel_cells": 0,
+          "world_moved_in_the_null_window": 0
+        }
+      ]
     },
     {
-      "at": "00:43",
-      "text": "THE VALLEY",
+      "at": "02:36",
+      "text": "headlights. nobody in it.",
+      "id": "packline",
+      "where": "frame",
+      "size": "196x25",
+      "looked_tappable_because": "nothing said so",
+      "pressed_twice": true,
+      "novel_movement_either_time": "none",
+      "evidence": [
+        {
+          "novel_words": [],
+          "novel_cells": 0,
+          "world_moved_in_the_null_window": 0
+        },
+        {
+          "novel_words": [],
+          "novel_cells": 0,
+          "world_moved_in_the_null_window": 0
+        }
+      ]
+    }
+  ],
+  "pressed": [
+    {
+      "text": "Make it a bag instead",
       "id": "",
       "where": "frame",
-      "size": "346x40",
-      "looked_tappable_because": "nothing said so"
+      "verdict": "did something",
+      "presses_with_novel_movement": 2,
+      "evidence": [
+        {
+          "novel_words": [
+            "Pays",
+            "one",
+            "One",
+            "Fine.",
+            "A",
+            "bag,",
+            "then"
+          ],
+          "novel_cells": 1,
+          "world_moved_in_the_null_window": 0
+        },
+        {
+          "novel_words": [
+            "and",
+            "back",
+            "bag,",
+            "block.",
+            "Ask",
+            "again",
+            "they",
+            "take"
+          ],
+          "novel_cells": 2,
+          "world_moved_in_the_null_window": 0
+        }
+      ]
     },
     {
-      "at": "00:44",
-      "text": "CHURCH",
+      "text": "GET UP",
       "id": "",
       "where": "frame",
-      "size": "38x14",
-      "looked_tappable_because": "nothing said so"
+      "verdict": "did something",
+      "presses_with_novel_movement": 1,
+      "evidence": [
+        {
+          "novel_words": [
+            "TO",
+            "1",
+            "on",
+            "DAY",
+            "06:00",
+            "light",
+            "until",
+            "22:00"
+          ],
+          "novel_cells": 1,
+          "world_moved_in_the_null_window": 0
+        },
+        {
+          "novel_words": [],
+          "novel_cells": 0,
+          "world_moved_in_the_null_window": 0
+        }
+      ]
     },
     {
-      "at": "00:46",
-      "text": "SOUTHWEST \u00b7 RIGHT AROUND HERE",
+      "text": "Half of it now, before I go",
       "id": "",
       "where": "frame",
-      "size": "237x14",
-      "looked_tappable_because": "nothing said so"
+      "verdict": "did nothing",
+      "presses_with_novel_movement": 0,
+      "evidence": [
+        {
+          "novel_words": [],
+          "novel_cells": 0,
+          "world_moved_in_the_null_window": 0
+        },
+        {
+          "novel_words": [],
+          "novel_cells": 0,
+          "world_moved_in_the_null_window": 0
+        }
+      ]
     },
     {
-      "at": "00:51",
-      "text": "EAST \u00b7 A LONG WAY OFF",
+      "text": "I'LL TAKE IT",
       "id": "",
       "where": "frame",
-      "size": "243x14",
-      "looked_tappable_because": "nothing said so"
+      "verdict": "did nothing",
+      "presses_with_novel_movement": 0,
+      "evidence": [
+        {
+          "novel_words": [],
+          "novel_cells": 0,
+          "world_moved_in_the_null_window": 0
+        },
+        {
+          "novel_words": [],
+          "novel_cells": 0,
+          "world_moved_in_the_null_window": 0
+        }
+      ]
     },
     {
-      "at": "00:55",
-      "text": "THEY PAY: ENFORCEMENT OF A DEAL",
-      "id": "",
+      "text": "OUTFIT",
+      "id": "outfitbtn",
       "where": "frame",
-      "size": "346x16",
-      "looked_tappable_because": "nothing said so"
+      "verdict": "did something",
+      "presses_with_novel_movement": 2,
+      "evidence": [
+        {
+          "novel_words": [
+            "TO",
+            "YOU",
+            "you",
+            "at",
+            "ON",
+            "FOR",
+            "OUTFIT",
+            "in"
+          ],
+          "novel_cells": 0,
+          "world_moved_in_the_null_window": 0
+        },
+        {
+          "novel_words": [
+            "TO",
+            "YOU",
+            "you",
+            "at",
+            "ON",
+            "FOR",
+            "OUTFIT",
+            "in"
+          ],
+          "novel_cells": 0,
+          "world_moved_in_the_null_window": 0
+        }
+      ]
     },
     {
-      "at": "00:56",
-      "text": "REDS",
-      "id": "",
+      "text": "DAY 1 · 06:02",
+      "id": "hclock",
       "where": "frame",
-      "size": "26x14",
-      "looked_tappable_because": "nothing said so"
+      "verdict": "did nothing",
+      "presses_with_novel_movement": 0,
+      "evidence": [
+        {
+          "novel_words": [],
+          "novel_cells": 0,
+          "world_moved_in_the_null_window": 0
+        },
+        {
+          "novel_words": [],
+          "novel_cells": 0,
+          "world_moved_in_the_null_window": 0
+        }
+      ]
     },
     {
-      "at": "00:58",
-      "text": "THEY PAY: CREDIT",
-      "id": "",
+      "text": "TWO COINS FOR THE FERRYMAN",
+      "id": "musbtn",
       "where": "frame",
-      "size": "346x16",
-      "looked_tappable_because": "nothing said so"
+      "verdict": "did something",
+      "presses_with_novel_movement": 1,
+      "evidence": [
+        {
+          "novel_words": [
+            "TWO",
+            "COINS",
+            "FOR",
+            "FERRYMAN",
+            "MUSIC"
+          ],
+          "novel_cells": 0,
+          "world_moved_in_the_null_window": 0
+        },
+        {
+          "novel_words": [],
+          "novel_cells": 0,
+          "world_moved_in_the_null_window": 0
+        }
+      ]
     },
     {
-      "at": "01:00",
-      "text": "NORTHWEST \u00b7 THE FAR SIDE OF THE VALLEY",
-      "id": "",
+      "text": "headlights. nobody in it.",
+      "id": "packline",
       "where": "frame",
-      "size": "283x14",
-      "looked_tappable_because": "nothing said so"
+      "verdict": "did nothing",
+      "presses_with_novel_movement": 0,
+      "evidence": [
+        {
+          "novel_words": [],
+          "novel_cells": 0,
+          "world_moved_in_the_null_window": 0
+        },
+        {
+          "novel_words": [],
+          "novel_cells": 0,
+          "world_moved_in_the_null_window": 0
+        }
+      ]
+    }
+  ],
+  "null_windows": [
+    {
+      "word_moves": 0,
+      "words_that_moved": [],
+      "pixel_fraction": 0.0003
     },
     {
-      "at": "01:09",
-      "text": "DESERT \u00b7 ON FOOT",
-      "id": "hslot",
-      "where": "frame",
-      "size": "64x12",
-      "looked_tappable_because": "nothing said so"
+      "word_moves": 0,
+      "words_that_moved": [],
+      "pixel_fraction": 0
+    },
+    {
+      "word_moves": 0,
+      "words_that_moved": [],
+      "pixel_fraction": 0
+    },
+    {
+      "word_moves": 0,
+      "words_that_moved": [],
+      "pixel_fraction": 0.0003
+    },
+    {
+      "word_moves": 0,
+      "words_that_moved": [],
+      "pixel_fraction": 0.0092,
+      "warmup": true
+    },
+    {
+      "word_moves": 0,
+      "words_that_moved": [],
+      "pixel_fraction": 0.0108,
+      "warmup": true
+    },
+    {
+      "word_moves": 2,
+      "words_that_moved": [
+        "06:01",
+        "06:02"
+      ],
+      "pixel_fraction": 0.0133,
+      "warmup": true
+    },
+    {
+      "word_moves": 0,
+      "words_that_moved": [],
+      "pixel_fraction": 0.0126,
+      "warmup": true
+    },
+    {
+      "word_moves": 0,
+      "words_that_moved": [],
+      "pixel_fraction": 0,
+      "warmup": true
+    },
+    {
+      "word_moves": 0,
+      "words_that_moved": [],
+      "pixel_fraction": 0,
+      "warmup": true
+    },
+    {
+      "word_moves": 0,
+      "words_that_moved": [],
+      "pixel_fraction": 0,
+      "warmup": true
+    },
+    {
+      "word_moves": 6,
+      "words_that_moved": [
+        "THE",
+        "STEP",
+        "BACK",
+        "AND",
+        "SEE",
+        "CITY"
+      ],
+      "pixel_fraction": 0,
+      "warmup": true
+    },
+    {
+      "word_moves": 0,
+      "words_that_moved": [],
+      "pixel_fraction": 0
+    },
+    {
+      "word_moves": 0,
+      "words_that_moved": [],
+      "pixel_fraction": 0
+    },
+    {
+      "word_moves": 0,
+      "words_that_moved": [],
+      "pixel_fraction": 0
+    },
+    {
+      "word_moves": 0,
+      "words_that_moved": [],
+      "pixel_fraction": 0
+    },
+    {
+      "word_moves": 0,
+      "words_that_moved": [],
+      "pixel_fraction": 0
+    },
+    {
+      "word_moves": 0,
+      "words_that_moved": [],
+      "pixel_fraction": 0
+    },
+    {
+      "word_moves": 0,
+      "words_that_moved": [],
+      "pixel_fraction": 0
+    },
+    {
+      "word_moves": 0,
+      "words_that_moved": [],
+      "pixel_fraction": 0
+    },
+    {
+      "word_moves": 0,
+      "words_that_moved": [],
+      "pixel_fraction": 0
+    },
+    {
+      "word_moves": 0,
+      "words_that_moved": [],
+      "pixel_fraction": 0
+    },
+    {
+      "word_moves": 0,
+      "words_that_moved": [],
+      "pixel_fraction": 0
+    },
+    {
+      "word_moves": 0,
+      "words_that_moved": [],
+      "pixel_fraction": 0
+    },
+    {
+      "word_moves": 0,
+      "words_that_moved": [],
+      "pixel_fraction": 0
+    },
+    {
+      "word_moves": 0,
+      "words_that_moved": [],
+      "pixel_fraction": 0
+    },
+    {
+      "word_moves": 0,
+      "words_that_moved": [],
+      "pixel_fraction": 0
+    },
+    {
+      "word_moves": 0,
+      "words_that_moved": [],
+      "pixel_fraction": 0
+    }
+  ],
+  "named": [
+    {
+      "id": "cbbuild",
+      "said": "EYES round 2 and 3 called it dead",
+      "result": "NOT ON SCREEN on this route, but it is still in the game",
+      "lives_in": "slices/BOHEMIA_CITY_WORLD.html"
+    },
+    {
+      "id": "cbbig",
+      "said": "EYES round 2 and 3 called it dead",
+      "result": "NOT ON SCREEN on this route, but it is still in the game",
+      "lives_in": "slices/BOHEMIA_CITY_WORLD.html"
+    }
+  ],
+  "undecided": [],
+  "alive_on_one_press_only": [
+    {
+      "text": "GET UP",
+      "id": ""
+    },
+    {
+      "text": "TWO COINS FOR THE FERRYMAN",
+      "id": "musbtn"
     }
   ],
   "shots": [
-    "records/eyes_e26_walk/00_00_splash.png",
-    "records/eyes_e26_walk/01_01_entered.png",
-    "records/eyes_e26_walk/02_02_first_tap.png",
-    "records/eyes_e26_walk/03_03_walked.png",
-    "records/eyes_e26_walk/04_04_cards.png",
-    "records/eyes_e26_walk/05_05_map.png",
-    "records/eyes_e26_walk/06_06_end.png"
+    "records/eyes_e26_walk_demo/00_00_splash.png",
+    "records/eyes_e26_walk_demo/01_01_entered.png",
+    "records/eyes_e26_walk_demo/02_02_first_tap.png",
+    "records/eyes_e26_walk_demo/03_03_walked.png",
+    "records/eyes_e26_walk_demo/04_04_cards.png",
+    "records/eyes_e26_walk_demo/05_05_map.png",
+    "records/eyes_e26_walk_demo/06_06_end.png"
   ],
   "first_screen": [
     {
       "where": "shell",
       "id": "gearbtn",
-      "text": "\u2699",
+      "text": "⚙",
       "looks_tappable_because": "pointer cursor",
       "w": 44,
       "h": 44,
@@ -378,7 +699,7 @@
     {
       "where": "frame",
       "id": "hslot",
-      "text": "SUBURB \u00b7 ON FOOT",
+      "text": "SUBURB · ON FOOT",
       "looks_tappable_because": "",
       "w": 64,
       "h": 12,
@@ -388,7 +709,7 @@
     {
       "where": "frame",
       "id": "hclock",
-      "text": "DAY 1 \u00b7 06:00",
+      "text": "DAY 1 · 06:00",
       "looks_tappable_because": "",
       "w": 54,
       "h": 12,
@@ -428,7 +749,7 @@
     {
       "where": "frame",
       "id": "",
-      "text": "\u2715",
+      "text": "✕",
       "looks_tappable_because": "pointer cursor",
       "w": 44,
       "h": 44,
@@ -438,7 +759,7 @@
     {
       "where": "frame",
       "id": "",
-      "text": "06:00 \u00b7 light until 22:00",
+      "text": "06:00 · light until 22:00",
       "looks_tappable_because": "a row inside the day card",
       "w": 320,
       "h": 15,
@@ -521,9 +842,9 @@
       "text": "SLEEP",
       "looks_tappable_because": "a chip in the top bar",
       "w": 44,
-      "h": 12,
+      "h": 44,
       "x": 35,
-      "y": 823
+      "y": 807
     },
     {
       "where": "frame",
@@ -531,9 +852,9 @@
       "text": "BIKE",
       "looks_tappable_because": "a chip in the top bar",
       "w": 44,
-      "h": 12,
+      "h": 44,
       "x": 35,
-      "y": 781
+      "y": 733
     },
     {
       "where": "frame",
@@ -541,19 +862,19 @@
       "text": "MARKET",
       "looks_tappable_because": "a chip in the top bar",
       "w": 44,
-      "h": 12,
+      "h": 44,
       "x": 35,
-      "y": 738
+      "y": 659
     },
     {
       "where": "frame",
       "id": "workbtn",
-      "text": "SCAVENGE \u00b7 8H",
+      "text": "SCAVENGE · 8H",
       "looks_tappable_because": "pointer cursor",
       "w": 54,
-      "h": 12,
+      "h": 44,
       "x": 40,
-      "y": 696
+      "y": 585
     },
     {
       "where": "frame",
@@ -561,19 +882,19 @@
       "text": "BUILD HERE",
       "looks_tappable_because": "a chip in the top bar",
       "w": 44,
-      "h": 12,
+      "h": 44,
       "x": 35,
-      "y": 654
+      "y": 511
     },
     {
       "where": "frame",
       "id": "rungbtn",
-      "text": "\u25c6 STANDING",
+      "text": "◆ STANDING",
       "looks_tappable_because": "a chip in the top bar",
       "w": 44,
-      "h": 12,
+      "h": 44,
       "x": 35,
-      "y": 612
+      "y": 437
     },
     {
       "where": "frame",
@@ -581,12 +902,9 @@
       "text": "walking your own block.",
       "looks_tappable_because": "a chip in the top bar",
       "w": 88,
-      "h": 12,
+      "h": 44,
       "x": 57,
-      "y": 569
+      "y": 363
     }
-  ],
-  "which": "demo",
-  "file": "BOHEMIA_DEMO.html",
-  "note": "this round's demo walk, taken before the tool learned its surface argument"
+  ]
 }

@@ -1,0 +1,34 @@
+{
+  "what": "what the screen does with nobody touching it",
+  "when": "2026-09-14T21:12:10.360Z",
+  "window_ms": 1200,
+  "seconds": 60,
+  "controls": [
+    {
+      "name": "NO INVENTED MOVEMENT: two samples taken back to back show no churn",
+      "pass": false,
+      "detail": "1 words moved with no time passing: ⚙"
+    },
+    {
+      "name": "NOT BLIND: a planted word is seen arriving",
+      "pass": true,
+      "detail": "churn was [\"__EYES_PLANTED_WORD__\",\"✕\",\"light\",\"until\",\"22:00\",\"Something\"]"
+    }
+  ],
+  "samples": 50,
+  "windows_that_moved": 1,
+  "churn": {
+    "COINS": 1,
+    "FERRYMAN": 1
+  },
+  "ranked": [
+    [
+      "COINS",
+      1
+    ],
+    [
+      "FERRYMAN",
+      1
+    ]
+  ]
+}

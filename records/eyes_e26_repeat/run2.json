@@ -1,0 +1,574 @@
+{
+  "ok": true,
+  "which": "demo",
+  "file": "BOHEMIA_DEMO.html",
+  "when": "2026-09-14T20:52:25.499Z",
+  "law": "THE FIVE MINUTES (Paolo 9/13)",
+  "lines": [
+    {
+      "at": "00:03",
+      "did": "opened the link and waited",
+      "happened": "a front screen: \"POST-ECONOMIC APOCALYPSE - LAS VEGAS TAP TO ENTER DEMO - BUILD 9/13z - THEY ARE RUNNING, DO I CHASE\"",
+      "promised": "TAP TO ENTER"
+    },
+    {
+      "at": "00:11",
+      "did": "tapped the front screen",
+      "happened": "the screen changed",
+      "promised": "that tapping enters the game"
+    },
+    {
+      "at": "00:26",
+      "did": "looked at the first screen without touching anything",
+      "happened": "23 things with words on them, big enough to tap: ⚙ / HUMAN MODE / SUBURB · ON FOOT / DAY 1 · 06:00 / MUSIC / SAVE / OUTFIT / ✕ / 06:00 · light until 22:00 / nobody has picked it up yet / Pays one battery / Make it a bag instead / Make it a favour instead / Half of it now, before I go / I'LL TAKE IT / GET UP / SLEEP / BIKE",
+      "promised": ""
+    },
+    {
+      "at": "00:28",
+      "did": "tapped \"Make it a bag instead\" (the biggest thing on screen)",
+      "happened": "the screen changed",
+      "promised": "Make it a bag instead"
+    },
+    {
+      "at": "00:30",
+      "did": "tapped \"GET UP\" (the only thing on the card that is not an offer)",
+      "happened": "the screen changed",
+      "promised": "GET UP"
+    },
+    {
+      "at": "00:34",
+      "did": "held the walk dial down for two and a half seconds",
+      "happened": "the world moved (8 arrows on the dial)",
+      "promised": ""
+    },
+    {
+      "at": "00:36",
+      "did": "tapped \"Half of it now, before I go\" (a card or offer)",
+      "happened": "the screen changed",
+      "promised": "Half of it now, before I go"
+    },
+    {
+      "at": "00:39",
+      "did": "tapped \"I'LL TAKE IT\" (a card or offer)",
+      "happened": "the screen changed",
+      "promised": "I'LL TAKE IT"
+    },
+    {
+      "at": "00:42",
+      "did": "tapped \"OUTFIT\" (the map or the zoom)",
+      "happened": "the screen changed",
+      "promised": "OUTFIT"
+    },
+    {
+      "at": "00:48",
+      "did": "tapped \"DAY 1 · 06:02\" (new on screen)",
+      "happened": "the screen changed",
+      "promised": "DAY 1 · 06:02"
+    },
+    {
+      "at": "00:50",
+      "did": "tapped \"headlights. nobody in it.\" (new on screen)",
+      "happened": "the screen changed",
+      "promised": "headlights. nobody in it."
+    },
+    {
+      "at": "00:51",
+      "did": "tapped \"THE CUSTOM\" (new on screen)",
+      "happened": "NOTHING CHANGED",
+      "promised": "THE CUSTOM"
+    },
+    {
+      "at": "00:52",
+      "did": "tapped \"WHO WOULD VOUCH FOR YOU\" (new on screen)",
+      "happened": "the screen changed",
+      "promised": "WHO WOULD VOUCH FOR YOU"
+    },
+    {
+      "at": "00:54",
+      "did": "tapped \"NOBODY YET\" (new on screen)",
+      "happened": "the screen changed",
+      "promised": "NOBODY YET"
+    },
+    {
+      "at": "00:55",
+      "did": "tapped \"THE VALLEY\" (new on screen)",
+      "happened": "NOTHING CHANGED",
+      "promised": "THE VALLEY"
+    },
+    {
+      "at": "00:56",
+      "did": "tapped \"CHURCH\" (new on screen)",
+      "happened": "the screen changed",
+      "promised": "CHURCH"
+    },
+    {
+      "at": "00:58",
+      "did": "tapped \"SOUTHWEST · RIGHT AROUND HERE\" (new on screen)",
+      "happened": "the screen changed",
+      "promised": "SOUTHWEST · RIGHT AROUND HERE"
+    },
+    {
+      "at": "00:59",
+      "did": "tapped \"COLORFUL\" (new on screen)",
+      "happened": "NOTHING CHANGED",
+      "promised": "COLORFUL"
+    },
+    {
+      "at": "01:00",
+      "did": "tapped \"SOUTHWEST · A LONG WAY OFF\" (new on screen)",
+      "happened": "the screen changed",
+      "promised": "SOUTHWEST · A LONG WAY OFF"
+    },
+    {
+      "at": "01:02",
+      "did": "tapped \"BLUES\" (new on screen)",
+      "happened": "the screen changed",
+      "promised": "BLUES"
+    },
+    {
+      "at": "01:03",
+      "did": "tapped \"EAST · A LONG WAY OFF\" (new on screen)",
+      "happened": "NOTHING CHANGED",
+      "promised": "EAST · A LONG WAY OFF"
+    },
+    {
+      "at": "01:05",
+      "did": "tapped \"MOB\" (new on screen)",
+      "happened": "NOTHING CHANGED",
+      "promised": "MOB"
+    },
+    {
+      "at": "01:06",
+      "did": "tapped \"NORTH · A LONG WAY OFF\" (new on screen)",
+      "happened": "NOTHING CHANGED",
+      "promised": "NORTH · A LONG WAY OFF"
+    },
+    {
+      "at": "01:07",
+      "did": "tapped \"THEY PAY: ENFORCEMENT OF A DEAL\" (new on screen)",
+      "happened": "NOTHING CHANGED",
+      "promised": "THEY PAY: ENFORCEMENT OF A DEAL"
+    },
+    {
+      "at": "01:09",
+      "did": "tapped \"REDS\" (new on screen)",
+      "happened": "the screen changed",
+      "promised": "REDS"
+    },
+    {
+      "at": "01:10",
+      "did": "tapped \"THEY PAY: CREDIT\" (new on screen)",
+      "happened": "NOTHING CHANGED",
+      "promised": "THEY PAY: CREDIT"
+    },
+    {
+      "at": "01:12",
+      "did": "tapped \"NETWORK\" (new on screen)",
+      "happened": "the screen changed",
+      "promised": "NETWORK"
+    },
+    {
+      "at": "01:13",
+      "did": "tapped \"NORTHWEST · THE FAR SIDE OF THE VALLEY\" (new on screen)",
+      "happened": "the screen changed",
+      "promised": "NORTHWEST · THE FAR SIDE OF THE VALLEY"
+    },
+    {
+      "at": "01:16",
+      "did": "tapped \"SUBURB · RIDING\" (new on screen)",
+      "happened": "the screen changed",
+      "promised": "SUBURB · RIDING"
+    },
+    {
+      "at": "01:18",
+      "did": "tapped \"DAY 1 · 13:59\" (new on screen)",
+      "happened": "NOTHING CHANGED",
+      "promised": "DAY 1 · 13:59"
+    },
+    {
+      "at": "01:19",
+      "did": "tapped \"TWO COINS FOR THE FERRYMAN\" (new on screen)",
+      "happened": "NOTHING CHANGED",
+      "promised": "TWO COINS FOR THE FERRYMAN"
+    },
+    {
+      "at": "01:23",
+      "did": "tapped \"PALE RIDER\" (new on screen)",
+      "happened": "the screen changed",
+      "promised": "PALE RIDER"
+    }
+  ],
+  "errors": [
+    {
+      "kind": "console",
+      "msg": "Potential permissions policy violation: clipboard-write is not allowed in this document."
+    },
+    {
+      "kind": "requestfailed",
+      "msg": "https://fonts.googleapis.com/css2?family=VT323&family=Space+Grotesk:wght@400;500;700&display=swap",
+      "from": "about:srcdoc",
+      "why": "net::ERR_CERT_AUTHORITY_INVALID"
+    },
+    {
+      "kind": "console",
+      "msg": "Failed to load resource: net::ERR_CERT_AUTHORITY_INVALID"
+    },
+    {
+      "kind": "console",
+      "msg": "Potential permissions policy violation: clipboard-write is not allowed in this document."
+    }
+  ],
+  "controls": [
+    {
+      "name": "COLD START: nothing in storage at first paint",
+      "pass": true,
+      "detail": "0 keys []"
+    },
+    {
+      "name": "ERROR CATCH: a planted page error is captured",
+      "pass": true,
+      "detail": "1 errors seen so far"
+    },
+    {
+      "name": "CHANGE PROBE: a deliberate change registers as a change",
+      "pass": true,
+      "detail": "text signature moved"
+    }
+  ],
+  "numbers": {
+    "time_until_something_is_tappable_s": 3.01,
+    "my_first_tap_at_s": 3.19,
+    "extra_walk_rounds": 108,
+    "time_to_first_fight_s": "NONE",
+    "walk_ended_at_s": 300.7,
+    "dead_affordances": 0,
+    "tapped_and_inert_but_never_claimed_to_be_a_button": 10,
+    "page_errors": 0,
+    "console_errors": 3,
+    "failed_requests": 1
+  },
+  "dead": [],
+  "inert": [
+    {
+      "at": "00:51",
+      "text": "THE CUSTOM",
+      "id": "",
+      "where": "frame",
+      "size": "346x39",
+      "looked_tappable_because": "nothing said so"
+    },
+    {
+      "at": "00:55",
+      "text": "THE VALLEY",
+      "id": "",
+      "where": "frame",
+      "size": "346x40",
+      "looked_tappable_because": "nothing said so"
+    },
+    {
+      "at": "00:59",
+      "text": "COLORFUL",
+      "id": "",
+      "where": "frame",
+      "size": "51x14",
+      "looked_tappable_because": "nothing said so"
+    },
+    {
+      "at": "01:03",
+      "text": "EAST · A LONG WAY OFF",
+      "id": "",
+      "where": "frame",
+      "size": "243x14",
+      "looked_tappable_because": "nothing said so"
+    },
+    {
+      "at": "01:05",
+      "text": "MOB",
+      "id": "",
+      "where": "frame",
+      "size": "19x14",
+      "looked_tappable_because": "nothing said so"
+    },
+    {
+      "at": "01:06",
+      "text": "NORTH · A LONG WAY OFF",
+      "id": "",
+      "where": "frame",
+      "size": "256x14",
+      "looked_tappable_because": "nothing said so"
+    },
+    {
+      "at": "01:07",
+      "text": "THEY PAY: ENFORCEMENT OF A DEAL",
+      "id": "",
+      "where": "frame",
+      "size": "346x16",
+      "looked_tappable_because": "nothing said so"
+    },
+    {
+      "at": "01:10",
+      "text": "THEY PAY: CREDIT",
+      "id": "",
+      "where": "frame",
+      "size": "346x16",
+      "looked_tappable_because": "nothing said so"
+    },
+    {
+      "at": "01:18",
+      "text": "DAY 1 · 13:59",
+      "id": "hclock",
+      "where": "frame",
+      "size": "54x12",
+      "looked_tappable_because": "nothing said so"
+    },
+    {
+      "at": "01:19",
+      "text": "TWO COINS FOR THE FERRYMAN",
+      "id": "musbtn",
+      "where": "frame",
+      "size": "98x12",
+      "looked_tappable_because": "nothing said so"
+    }
+  ],
+  "shots": [
+    "records/eyes_e26_walk_demo/00_00_splash.png",
+    "records/eyes_e26_walk_demo/01_01_entered.png",
+    "records/eyes_e26_walk_demo/02_02_first_tap.png",
+    "records/eyes_e26_walk_demo/03_03_walked.png",
+    "records/eyes_e26_walk_demo/04_04_cards.png",
+    "records/eyes_e26_walk_demo/05_05_map.png",
+    "records/eyes_e26_walk_demo/06_06_end.png"
+  ],
+  "first_screen": [
+    {
+      "where": "shell",
+      "id": "gearbtn",
+      "text": "⚙",
+      "looks_tappable_because": "pointer cursor",
+      "w": 44,
+      "h": 44,
+      "x": 30,
+      "y": 63
+    },
+    {
+      "where": "frame",
+      "id": "hmode",
+      "text": "HUMAN MODE",
+      "looks_tappable_because": "",
+      "w": 44,
+      "h": 12,
+      "x": 30,
+      "y": 11
+    },
+    {
+      "where": "frame",
+      "id": "hslot",
+      "text": "SUBURB · ON FOOT",
+      "looks_tappable_because": "",
+      "w": 64,
+      "h": 12,
+      "x": 92,
+      "y": 11
+    },
+    {
+      "where": "frame",
+      "id": "hclock",
+      "text": "DAY 1 · 06:00",
+      "looks_tappable_because": "",
+      "w": 54,
+      "h": 12,
+      "x": 196,
+      "y": 12
+    },
+    {
+      "where": "frame",
+      "id": "musbtn",
+      "text": "MUSIC",
+      "looks_tappable_because": "",
+      "w": 27,
+      "h": 12,
+      "x": 272,
+      "y": 11
+    },
+    {
+      "where": "frame",
+      "id": "savebtn",
+      "text": "SAVE",
+      "looks_tappable_because": "",
+      "w": 24,
+      "h": 12,
+      "x": 303,
+      "y": 11
+    },
+    {
+      "where": "frame",
+      "id": "outfitbtn",
+      "text": "OUTFIT",
+      "looks_tappable_because": "",
+      "w": 30,
+      "h": 12,
+      "x": 367,
+      "y": 11
+    },
+    {
+      "where": "frame",
+      "id": "",
+      "text": "✕",
+      "looks_tappable_because": "pointer cursor",
+      "w": 44,
+      "h": 44,
+      "x": 342,
+      "y": 218
+    },
+    {
+      "where": "frame",
+      "id": "",
+      "text": "06:00 · light until 22:00",
+      "looks_tappable_because": "a row inside the day card",
+      "w": 320,
+      "h": 15,
+      "x": 195,
+      "y": 237
+    },
+    {
+      "where": "frame",
+      "id": "",
+      "text": "nobody has picked it up yet",
+      "looks_tappable_because": "a row inside the day card",
+      "w": 320,
+      "h": 15,
+      "x": 195,
+      "y": 314
+    },
+    {
+      "where": "frame",
+      "id": "",
+      "text": "Pays one battery",
+      "looks_tappable_because": "a row inside the day card",
+      "w": 320,
+      "h": 15,
+      "x": 195,
+      "y": 380
+    },
+    {
+      "where": "frame",
+      "id": "",
+      "text": "Make it a bag instead",
+      "looks_tappable_because": "a row inside the day card",
+      "w": 320,
+      "h": 44,
+      "x": 195,
+      "y": 420
+    },
+    {
+      "where": "frame",
+      "id": "",
+      "text": "Make it a favour instead",
+      "looks_tappable_because": "a row inside the day card",
+      "w": 320,
+      "h": 44,
+      "x": 195,
+      "y": 473
+    },
+    {
+      "where": "frame",
+      "id": "",
+      "text": "Half of it now, before I go",
+      "looks_tappable_because": "a row inside the day card",
+      "w": 320,
+      "h": 44,
+      "x": 195,
+      "y": 526
+    },
+    {
+      "where": "frame",
+      "id": "",
+      "text": "I'LL TAKE IT",
+      "looks_tappable_because": "a row inside the day card",
+      "w": 320,
+      "h": 44,
+      "x": 195,
+      "y": 579
+    },
+    {
+      "where": "frame",
+      "id": "",
+      "text": "GET UP",
+      "looks_tappable_because": "a row inside the day card",
+      "w": 68,
+      "h": 44,
+      "x": 69,
+      "y": 637
+    },
+    {
+      "where": "frame",
+      "id": "sleepbtn",
+      "text": "SLEEP",
+      "looks_tappable_because": "a chip in the top bar",
+      "w": 44,
+      "h": 44,
+      "x": 35,
+      "y": 807
+    },
+    {
+      "where": "frame",
+      "id": "bikebtn",
+      "text": "BIKE",
+      "looks_tappable_because": "a chip in the top bar",
+      "w": 44,
+      "h": 44,
+      "x": 35,
+      "y": 733
+    },
+    {
+      "where": "frame",
+      "id": "mktbtn",
+      "text": "MARKET",
+      "looks_tappable_because": "a chip in the top bar",
+      "w": 44,
+      "h": 44,
+      "x": 35,
+      "y": 659
+    },
+    {
+      "where": "frame",
+      "id": "workbtn",
+      "text": "SCAVENGE · 8H",
+      "looks_tappable_because": "pointer cursor",
+      "w": 54,
+      "h": 44,
+      "x": 40,
+      "y": 585
+    },
+    {
+      "where": "frame",
+      "id": "buildbtn",
+      "text": "BUILD HERE",
+      "looks_tappable_because": "a chip in the top bar",
+      "w": 44,
+      "h": 44,
+      "x": 35,
+      "y": 511
+    },
+    {
+      "where": "frame",
+      "id": "rungbtn",
+      "text": "◆ STANDING",
+      "looks_tappable_because": "a chip in the top bar",
+      "w": 44,
+      "h": 44,
+      "x": 35,
+      "y": 437
+    },
+    {
+      "where": "frame",
+      "id": "note",
+      "text": "walking your own block.",
+      "looks_tappable_because": "a chip in the top bar",
+      "w": 88,
+      "h": 44,
+      "x": 57,
+      "y": 363
+    }
+  ]
+}

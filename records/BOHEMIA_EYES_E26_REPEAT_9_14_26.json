@@ -1,0 +1,73 @@
+{
+  "file": "slices/BOHEMIA_DEMO.html",
+  "md5": "f5f706f61a0e905437e7a36d54e7004c",
+  "runs": 3,
+  "held": {
+    "time_to_first_fight_s": "NONE",
+    "dead_affordances": 0,
+    "page_errors": 0,
+    "console_errors": 3,
+    "failed_requests": 1,
+    "dead_button_labels": [],
+    "a_control_failed_in_any_run": false
+  },
+  "moved": {
+    "time_until_something_is_tappable_s": [
+      3.02,
+      3.01,
+      3.07
+    ],
+    "tapped_and_inert_but_never_claimed_to_be_a_button": [
+      11,
+      10,
+      10
+    ]
+  },
+  "per_run": [
+    {
+      "numbers": {
+        "time_until_something_is_tappable_s": 3.02,
+        "my_first_tap_at_s": 3.21,
+        "extra_walk_rounds": 109,
+        "time_to_first_fight_s": "NONE",
+        "walk_ended_at_s": 301.5,
+        "dead_affordances": 0,
+        "tapped_and_inert_but_never_claimed_to_be_a_button": 11,
+        "page_errors": 0,
+        "console_errors": 3,
+        "failed_requests": 1
+      },
+      "dead": []
+    },
+    {
+      "numbers": {
+        "time_until_something_is_tappable_s": 3.01,
+        "my_first_tap_at_s": 3.19,
+        "extra_walk_rounds": 108,
+        "time_to_first_fight_s": "NONE",
+        "walk_ended_at_s": 300.7,
+        "dead_affordances": 0,
+        "tapped_and_inert_but_never_claimed_to_be_a_button": 10,
+        "page_errors": 0,
+        "console_errors": 3,
+        "failed_requests": 1
+      },
+      "dead": []
+    },
+    {
+      "numbers": {
+        "time_until_something_is_tappable_s": 3.07,
+        "my_first_tap_at_s": 3.24,
+        "extra_walk_rounds": 109,
+        "time_to_first_fight_s": "NONE",
+        "walk_ended_at_s": 300.3,
+        "dead_affordances": 0,
+        "tapped_and_inert_but_never_claimed_to_be_a_button": 10,
+        "page_errors": 0,
+        "console_errors": 3,
+        "failed_requests": 1
+      },
+      "dead": []
+    }
+  ]
+}

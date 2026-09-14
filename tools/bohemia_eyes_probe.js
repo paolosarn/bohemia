@@ -179,7 +179,51 @@ async function probeSurface(page, label, out){
   out.push({ where: label, offGlass, cutText, faintText, textRects, bytes: shot.length });
 }
 
+/* IT WAS RED ON A SERVER IT NEVER STARTED (measured 9/14, EYES E26 round 4).
+   The EYES gate has been failing with net::ERR_CONNECTION_REFUSED on 127.0.0.1:8099 -- not on
+   anything about the game. This file asks for its pages over http (it needs real requests, so
+   file:// will not do) and expected somebody else to have a static server running. Nobody
+   does, most of the time. So the gate was chronically red, and a chronically red gate is the
+   muted gate this lane exists to prevent: it is one of the suite's reds and it has been holding
+   nothing for an unknown stretch.
+   It starts its own server now, only when the port does not already answer, and takes it down
+   again on the way out. If a server IS already there, it is used untouched -- two suites
+   sharing a box must not fight over a port. */
+const httpMod = require('http');
+const ROOT = path.resolve(__dirname, '..');
+async function portAnswers(port) {
+  return new Promise((res) => {
+    const req = httpMod.get({ host: '127.0.0.1', port: +port, path: '/', timeout: 1200 },
+      (r) => { r.resume(); res(true); });
+    req.on('error', () => res(false));
+    req.on('timeout', () => { req.destroy(); res(false); });
+  });
+}
+function serveRepo(port) {
+  const TYPES = { '.html': 'text/html', '.js': 'application/javascript', '.json': 'application/json',
+                  '.css': 'text/css', '.png': 'image/png', '.jpg': 'image/jpeg', '.svg': 'image/svg+xml',
+                  '.woff': 'font/woff', '.woff2': 'font/woff2', '.wasm': 'application/wasm' };
+  const srv = httpMod.createServer((req, res) => {
+    let rel;
+    try { rel = decodeURIComponent((req.url || '/').split('?')[0]); } catch (e) { rel = '/'; }
+    /* never serve outside the repo, however the path is spelled */
+    const abs = path.resolve(ROOT, '.' + rel);
+    if (!abs.startsWith(ROOT)) { res.writeHead(403); res.end('no'); return; }
+    fs.readFile(abs, (err, buf) => {
+      if (err) { res.writeHead(404); res.end('not found'); return; }
+      res.writeHead(200, { 'Content-Type': TYPES[path.extname(abs).toLowerCase()] || 'application/octet-stream' });
+      res.end(buf);
+    });
+  });
+  return new Promise((ok) => srv.listen(+port, '127.0.0.1', () => ok(srv)));
+}
+
 async function run(){
+  let mine = null;
+  if (!(await portAnswers(PORT))) {
+    mine = await serveRepo(PORT);
+    console.log('  (started a static server on ' + PORT + ' because nothing answered there)');
+  }
   const browser = await chromium.launch();
   const report = { at: new Date().toISOString(), surfaces: [] };
   /* --surface lets the checker be pointed at a deliberately broken copy, which is how
@@ -217,6 +261,7 @@ async function run(){
     await ctx.close();
   }
   await browser.close();
+  if (mine) await new Promise(r => mine.close(r));
   const text = JSON.stringify(report, null, 1);
   if (OUT) fs.writeFileSync(OUT, text);
   for (const s of report.surfaces) {

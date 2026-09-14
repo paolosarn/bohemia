@@ -58,6 +58,20 @@ const BUDGET_MS = 5 * 60 * 1000;
 
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 
+/* THE FILES THE PAGE ACTUALLY FETCHES, off E11's browser-measured census rather than a grep of
+   src= (which misses what script writes at runtime). Used only to tell "my route cannot reach
+   it" apart from "it is not in the game any more". */
+const SOURCE = (() => {
+  try {
+    const list = JSON.parse(fs.readFileSync(path.join(ROOT, 'records',
+      'BOHEMIA_EYES_BUNDLE_9_6_26.json'), 'utf8')).bundle || [];
+    return list.filter(f => /\.html$/.test(f)).map(f => {
+      try { return { file: f, text: fs.readFileSync(path.join(ROOT, f), 'utf8') }; }
+      catch (e) { return { file: f, text: '' }; }
+    });
+  } catch (e) { return []; }
+})();
+
 (async () => {
   const { chromium } = pw();
   const b = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium',
@@ -67,7 +81,14 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
 
   const out = { ok: true, which: WHICH, file: FILE, when: new Date().toISOString(),
                 law: 'THE FIVE MINUTES (Paolo 9/13)',
-                lines: [], errors: [], controls: [], numbers: {}, dead: [], inert: [] };
+                lines: [], errors: [], controls: [], numbers: {}, dead: [], inert: [],
+                /* 9/14: a zero in dead[] used to be unreadable, because it meant EITHER
+                   nothing was dead OR the route never pressed the thing. pressed[] is the
+                   denominator that makes the zero mean something. null_windows[] is what the
+                   world did with nobody touching it, which is the only reason a verdict here
+                   can be attributed to a finger at all. */
+                pressed: [], null_windows: [], named: [], undecided: [],
+                alive_on_one_press_only: [] };
   const err = [];
   page.on('pageerror', e => err.push({ t: null, kind: 'pageerror', msg: String(e.message).slice(0, 220) }));
   page.on('console', m => { if (m.type() === 'error') err.push({ kind: 'console', msg: m.text().slice(0, 220) }); });
@@ -88,32 +109,96 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
   };
 
   /* WHAT THE SCREEN IS, as two signatures a camera could take: the visible words, and the
-     drawn pixels of every canvas. Both must be unchanged for a tap to have done nothing. */
+     drawn pixels of every canvas.
+     9/14, AND THIS IS THE FIX THAT MATTERED MOST: these used to be compared with !==, so ANY
+     movement counted as "the tap did something". The world has a CLOCK in its own words
+     ("DAY 1 - 06:02") and a canvas that keeps drawing, so on this game a dead button reads
+     alive whenever the clock ticks inside the 1.2 s window. Equality cannot separate the tap
+     from the world. So the signature now carries the words as a LIST and the canvases as raw
+     bytes, and a verdict is a DISTANCE compared against a NULL WINDOW measured with no
+     input at all. */
   const sig = () => page.evaluate(() => {
     const txt = (document.body.innerText || '').replace(/\s+/g, ' ').trim().slice(0, 4000);
+    /* A SINGLE ICON GLYPH IS NOT A WORD, AND IT FLICKERS (measured 9/14). The self-movement
+       probe's own control failed on ONE character, a gear, appearing and vanishing between two
+       reads taken with no time in between. innerText reflects what is rendered, so a glyph
+       mid-paint can be there and then not. It is dropped by SHAPE -- one character, no letter
+       and no digit in it -- never by a list of specific glyphs, because a list would go stale
+       the first time a new icon shipped. */
+    const realWord = (w) => !(w.length === 1 && !/[a-z0-9]/i.test(w));
+    const words = txt.split(' ').filter(w => w && realWord(w));
     let pix = '';
-    for (const c of document.querySelectorAll('canvas')) {
+    const bytes = [];
+    const grab = (c) => {
       try {
         const s = document.createElement('canvas'); s.width = 24; s.height = 24;
-        s.getContext('2d').drawImage(c, 0, 0, 24, 24);
+        const g = s.getContext('2d'); g.drawImage(c, 0, 0, 24, 24);
         pix += s.toDataURL().slice(-160);
-      } catch (e) { pix += 'x'; }
-    }
+        const d = g.getImageData(0, 0, 24, 24).data;
+        const a = []; for (let i = 0; i < d.length; i += 4) a.push(d[i], d[i + 1], d[i + 2]);
+        bytes.push(a);
+      } catch (e) { pix += 'x'; bytes.push([]); }
+    };
+    for (const c of document.querySelectorAll('canvas')) grab(c);
     /* frames draw the world; ask them too */
     for (const f of document.querySelectorAll('iframe')) {
       try {
         const d = f.contentDocument;
         if (!d) continue;
-        pix += (d.body.innerText || '').replace(/\s+/g, ' ').slice(0, 500);
-        for (const c of d.querySelectorAll('canvas')) {
-          const s = document.createElement('canvas'); s.width = 24; s.height = 24;
-          s.getContext('2d').drawImage(c, 0, 0, 24, 24);
-          pix += s.toDataURL().slice(-160);
-        }
+        const ftxt = (d.body.innerText || '').replace(/\s+/g, ' ').slice(0, 500);
+        pix += ftxt;
+        for (const w of ftxt.split(' ')) if (w && realWord(w)) words.push(w);
+        for (const c of d.querySelectorAll('canvas')) grab(c);
       } catch (e) {}
     }
-    return { txt, pix, now: performance.now() };
-  }).catch(() => ({ txt: '', pix: '', now: 0 }));
+    return { txt, pix, words, bytes, now: performance.now() };
+  }).catch(() => ({ txt: '', pix: '', words: [], bytes: [], now: 0 }));
+
+  /* HOW FAR APART TWO SCREENS ARE. Words as a set difference (so the clock ticking is ONE
+     word, not a whole new screen) and canvases as the fraction of the 24x24 samples whose
+     colour moved by more than 8 of 255, which is the same ruler the held-press control used
+     when it measured 93.9% of the world moving. */
+  /* A SET WAS THE WRONG SHAPE AND IT MADE THE LIVE CONTROL FAIL (measured 9/14). The planted
+     live button appends the SAME word every press. Against a set of words, the second press is
+     invisible -- the word was already there -- so a button that demonstrably works read
+     UNDECIDED. Words are COUNTED now, so a repeat is a change. */
+  const counts = (ws) => { const m = new Map(); for (const w of ws || []) m.set(w, (m.get(w) || 0) + 1); return m; };
+  const dist = (a, b) => {
+    const A = counts(a.words), B = counts(b.words);
+    const which = [];
+    for (const [w, n] of A) if ((B.get(w) || 0) !== n) which.push(w);
+    for (const [w, n] of B) if ((A.get(w) || 0) !== n) if (!A.has(w)) which.push(w);
+    const ab = a.bytes || [], bb = b.bytes || [];
+    let moved = 0, total = 0;
+    const cells = [];
+    for (let i = 0; i < Math.min(ab.length, bb.length); i++) {
+      const x = ab[i] || [], y = bb[i] || [];
+      for (let j = 0; j < Math.min(x.length, y.length); j += 3) {
+        total++;
+        if (Math.abs(x[j] - y[j]) > 8 || Math.abs(x[j + 1] - y[j + 1]) > 8 ||
+            Math.abs(x[j + 2] - y[j + 2]) > 8) { moved++; cells.push(i + ':' + j); }
+      }
+    }
+    return { word_moves: which.length, words_that_moved: which.slice(0, 40),
+             pixel_fraction: total ? +(moved / total).toFixed(4) : 0,
+             cells_that_moved: cells };
+  };
+
+  /* THE NOISE LEDGER, AND IT IS THE FIX THAT THE CONTROLS FORCED (9/14).
+     A margin over the last null window was not enough: the world's own writing is BURSTY and a
+     burst is longer than one 1.2 s window, so it straddles the null window and the watch window
+     unevenly and the difference reads as a finger. Two planted controls failed in OPPOSITE
+     directions and proved it.
+     So the tool now keeps a ledger of everything the screen has EVER been seen doing with
+     nobody touching it: every word whose count moved in a null window, and every pixel sample
+     that moved in one. A tap counts only if it moves something that has NEVER moved on its own.
+     That is evidence accumulated across the whole run instead of a threshold guessed once. */
+  const noiseWords = new Set(), noiseCells = new Set();
+  const learn = (d) => { for (const w of d.words_that_moved) noiseWords.add(w);
+                         for (const c of d.cells_that_moved) noiseCells.add(c); };
+  const novel = (d) => ({
+    words: d.words_that_moved.filter(w => !noiseWords.has(w)),
+    cells: d.cells_that_moved.filter(c => !noiseCells.has(c)).length });
 
   let t0 = 0;
   const stamp = (now) => {
@@ -245,22 +330,62 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
 
     /* ---- THE FIXED TAP SCRIPT ------------------------------------------- */
     const tapAndWatch = async (c, why) => {
-      const bs = await sig();
+      /* NULL WINDOW, TAP, NULL WINDOW, TAP -- AND THE VERDICT HAS TO SURVIVE BOTH (9/14).
+         The first cut of this took ONE null window and compared the tap against it, and it
+         failed its own control: a planted button with no handler was called alive because four
+         words arrived in its watch window that no finger asked for. The self-movement probe
+         then named the source -- the world writes its OWN clock and its OWN song title, rarely
+         (1 window in 50) but really. A wider margin would only have hidden that, and a list of
+         words to ignore would go stale.
+         A rare burst does not land in BOTH of two tap windows. So each candidate is now
+         measured twice, each time against its own fresh null window, and the answer is three
+         ways, not two: alive if the tap beat its null both times, dead if it beat it neither
+         time, UNDECIDED if once. Undecided is not dead and it is never counted as dead -- a
+         one-shot control (a card that closes) is genuinely undecidable this way and saying so
+         is the honest answer. */
+      const beats = [], evidence = [];
       let landed = 'the tap was refused (not visible to a finger)';
-      try {
-        await page.mouse.click(c.x, c.y, { delay: 40 });
-        landed = null;
-      } catch (e) {}
-      if (landed === null) {
+      let bs = null, as = null, tapMove = null, nullMove = null;
+      for (let attempt = 0; attempt < 2; attempt++) {
+        const n0 = await sig();
         await sleep(1200);
-        const as = await sig();
-        const changed = as.txt !== bs.txt || as.pix !== bs.pix;
+        const n1 = await sig();
+        nullMove = dist(n0, n1);
+        out.null_windows.push({ word_moves: nullMove.word_moves,
+                                words_that_moved: nullMove.words_that_moved,
+                                pixel_fraction: nullMove.pixel_fraction });
+        learn(nullMove);                       /* the world teaches the ledger, always */
+        bs = n1;
+        try { await page.mouse.click(c.x, c.y, { delay: 40 }); landed = null; } catch (e) { break; }
+        await sleep(1200);
+        as = await sig();
+        tapMove = dist(bs, as);
+        const nv = novel(tapMove);
+        evidence.push({ novel_words: nv.words.slice(0, 8), novel_cells: nv.cells,
+                        world_moved_in_the_null_window: nullMove.word_moves });
+        /* NOVEL means never seen moving with nobody touching it. One word is enough, because
+           one word is exactly what a real control changed in the planted live test. */
+        beats.push(nv.words.length > 0 || nv.cells > 20);
+      }
+      if (landed === null) {
+        const hits = beats.filter(Boolean).length;
+        /* A ONE-SHOT CONTROL IS ALIVE ON ITS FIRST PRESS AND DEAD ON EVERY PRESS AFTER, which
+           is correct behaviour for a card that closes. So ANY novel movement is alive, and only
+           TWO presses with nothing novel at all is dead. The 1-of-2 count is reported, so the
+           weaker evidence is visible instead of hidden inside the word "dead". */
+        const changed = hits > 0;
+        if (hits === 1) out.alive_on_one_press_only.push({ text: c.text, id: c.id || '' });
+        out.pressed.push({ text: c.text, id: c.id || '', where: c.where,
+                           verdict: changed ? 'did something' : 'did nothing',
+                           presses_with_novel_movement: hits, evidence: evidence });
         line(as.now, 'tapped ' + JSON.stringify(c.text) + (why ? ' (' + why + ')' : ''),
              changed ? 'the screen changed' : 'NOTHING CHANGED',
              c.text);
         if (!changed) {
           const row = { at: stamp(as.now), text: c.text, id: c.id, where: c.where,
-                        size: c.w + 'x' + c.h, looked_tappable_because: c.looks_tappable_because || 'nothing said so' };
+                        size: c.w + 'x' + c.h, looked_tappable_because: c.looks_tappable_because || 'nothing said so',
+                        pressed_twice: true, novel_movement_either_time: 'none',
+                        evidence: evidence };
           if (c.looks_tappable_because) out.dead.push(row); else out.inert.push(row);
         }
         return changed;
@@ -356,6 +481,144 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
            walkRes.walked ? ((walkRes.moved ? 'the world moved' : 'THE WORLD DID NOT MOVE')
                              + ' (' + walkRes.of + ' arrows on the dial)') : walkRes.why, '');
       out.shots.push(await snap('03_walked'));
+    }
+
+    /* 3z. WARM THE LEDGER BEFORE ANY VERDICT. Eight windows of holding completely still, so
+       the world has shown what it does by itself before a single tap is judged against it. An
+       empty ledger would make the first taps the least trustworthy ones, and the first taps are
+       the ones a stranger's five minutes is mostly made of. */
+    for (let i = 0; i < 8; i++) {
+      const w0 = await sig(); await sleep(1200); const w1 = await sig();
+      const d0 = dist(w0, w1);
+      out.null_windows.push({ word_moves: d0.word_moves, words_that_moved: d0.words_that_moved,
+                              pixel_fraction: d0.pixel_fraction, warmup: true });
+      learn(d0);
+    }
+    out.numbers.ledger_after_warmup = { words: noiseWords.size, pixel_samples: noiseCells.size };
+
+    /* 3a. RULE ZERO FOR THE NEW VERDICT (9/14). The detector was rebuilt this round, so it
+       has to be proved in BOTH directions ON THE LIVE SURFACE, with the world running and the
+       clock ticking, which is the only hard case. Two buttons are planted at the bottom of the
+       real page: one with no handler at all, one that writes a word. The dead one must come
+       back dead and the live one must come back alive. If either control fails, the numbers
+       below describe nothing and the run says so. */
+    await page.evaluate(() => {
+      const mk = (id, label, live) => {
+        const b = document.createElement('button');
+        b.id = id; b.textContent = label;
+        b.style.cssText = 'position:fixed;left:8px;bottom:' + (live ? 8 : 52) +
+          'px;z-index:2147483647;padding:10px 14px;font-size:14px';
+        if (live) b.addEventListener('click', () => {
+          const s = document.createElement('span');
+          s.id = '__eyes_live_said'; s.textContent = ' __EYES_LIVE_BUTTON_SPOKE__ ';
+          document.body.appendChild(s);
+        });
+        document.body.appendChild(b);
+      };
+      mk('__eyes_dead_btn', 'EYESDEADCONTROL', false);
+      mk('__eyes_live_btn', 'EYESLIVECONTROL', true);
+    });
+    const ctlBox = await page.evaluate(() => {
+      const one = (id) => { const e = document.getElementById(id); const r = e.getBoundingClientRect();
+        return { x: r.x + r.width / 2, y: r.y + r.height / 2, w: Math.round(r.width), h: Math.round(r.height) }; };
+      return { dead: one('__eyes_dead_btn'), live: one('__eyes_live_btn') };
+    });
+    /* the verdict is THREE ways now, so a control has to read the verdict and not a boolean:
+       an UNDECIDED returns false from tapAndWatch and must never be scored as "called dead". */
+    const verdictOf = () => (out.pressed.length ? out.pressed[out.pressed.length - 1].verdict : 'nothing pressed');
+    await tapAndWatch({ ...ctlBox.dead, text: 'EYESDEADCONTROL',
+      id: '__eyes_dead_btn', where: 'a planted control', looks_tappable_because: 'a planted control' },
+      'CONTROL: a button with no handler');
+    const deadVerdict = verdictOf();
+    await tapAndWatch({ ...ctlBox.live, text: 'EYESLIVECONTROL',
+      id: '__eyes_live_btn', where: 'a planted control', looks_tappable_because: 'a planted control' },
+      'CONTROL: a button that writes one word');
+    const liveVerdict = verdictOf();
+    const deadSaysDead = deadVerdict === 'did nothing';
+    const liveSaysAlive = liveVerdict === 'did something';
+    /* TAKE THE CONTROLS ALL THE WAY OUT. getElementById returns the FIRST match, and the
+       paired press appends the live control's span twice, so the old cleanup left one behind --
+       the wandering loop then found "__EYES_LIVE_BUTTON_SPOKE__" and put my own scaffolding in
+       his list. Remove by query, not by id, and never leave the instrument in the picture. */
+    await page.evaluate(() => {
+      for (const e of document.querySelectorAll('[id^="__eyes_"]')) e.remove();
+    });
+    /* the two planted controls are not findings; take them back out of the counts */
+    out.dead = out.dead.filter(d => !/^__eyes_/.test(d.id || ''));
+    out.inert = out.inert.filter(d => !/^__eyes_/.test(d.id || ''));
+    out.undecided = out.undecided.filter(d => !/^__eyes_/.test(d.id || ''));
+    out.lines = out.lines.filter(l => !/EYESDEADCONTROL|EYESLIVECONTROL|EYES_LIVE_BUTTON_SPOKE/.test(l.did || ''));
+    out.pressed = out.pressed.filter(d => !/^__eyes_/.test(d.id || '') && !/__EYES_/.test(d.text || ''));
+    out.inert = out.inert.filter(d => !/__EYES_/.test(d.text || ''));
+    out.dead = out.dead.filter(d => !/__EYES_/.test(d.text || ''));
+    out.controls.push({ name: 'DEAD READS DEAD: a planted button with no handler is called dead',
+                        pass: deadSaysDead,
+                        detail: 'verdict was "' + deadVerdict + '"' + (deadSaysDead ? ', with the world running'
+                          : ' -- anything but "did nothing" means the world is being read as the finger') });
+    out.controls.push({ name: 'ALIVE READS ALIVE: a planted button that writes one word is called alive',
+                        pass: liveSaysAlive,
+                        detail: 'verdict was "' + liveVerdict + '"' + (liveSaysAlive ? ', off a single word'
+                          : ' -- it missed a real change, so every dead count is inflated') });
+
+    /* 3b. THE NAMED LIST, AND IT IS THE FIX FOR A FALSE ZERO (9/14).
+       Three clean back-to-back walks of a byte-identical demo all reported ZERO dead buttons,
+       and round 3 of this same job reported TWO. Nothing was fixed in between: only THE RUN
+       re-cuts the demo and the file's md5 never moved. The cause was measured -- in all three
+       walks the route NEVER PRESSED "BUILD" at all. So a zero in dead[] was unreadable: it
+       meant either nothing is dead or I never touched the thing. It went on his front page as
+       a fact and two lanes acted on it.
+       So every item this lane has ever called dead is now pressed ON PURPOSE, BY ID, every
+       run, before the free wandering starts. A named item that is missing from the screen is
+       reported MISSING, never silently passed -- that is the same false zero one level up. */
+    const NAMED = [
+      { id: 'cbbuild', said: 'EYES round 2 and 3 called it dead' },
+      { id: 'cbbig',   said: 'EYES round 2 and 3 called it dead' },
+    ];
+    for (const n of NAMED) {
+      if ((await sig()).now - t0 > BUDGET_MS) break;
+      const box = await page.evaluate((id) => {
+        const walk = (doc) => {
+          const e = doc.getElementById(id);
+          if (e) {
+            const r = e.getBoundingClientRect();
+            const cs = doc.defaultView.getComputedStyle(e);
+            if (r.width > 0 && r.height > 0 && cs.display !== 'none' && cs.visibility !== 'hidden')
+              return { x: r.x + r.width / 2, y: r.y + r.height / 2, w: Math.round(r.width),
+                       h: Math.round(r.height), text: (e.innerText || e.textContent || id).trim().slice(0, 40) };
+          }
+          return null;
+        };
+        let f = walk(document);
+        if (f) return f;
+        for (const fr of document.querySelectorAll('iframe')) {
+          try { const d = fr.contentDocument; if (!d) continue;
+                const r = walk(d); if (r) { const o = fr.getBoundingClientRect();
+                  return { x: r.x + o.x, y: r.y + o.y, w: r.w, h: r.h, text: r.text }; } } catch (e) {}
+        }
+        return null;
+      }, n.id);
+      if (!box) {
+        /* NOT ON SCREEN AND GONE FROM THE GAME ARE DIFFERENT ANSWERS, and collapsing them
+           would be the same false zero one more time. A control that was REMOVED is a valid
+           fix under rule 14(d) ("deliver it or remove it"); a control that still exists and
+           my route cannot reach is a hole in my route. So the source is asked too. */
+        const where = SOURCE.find(s => s.text.includes('id="' + n.id + '"') || s.text.includes("id='" + n.id + "'"));
+        out.named.push({ id: n.id, said: n.said,
+          result: where ? 'NOT ON SCREEN on this route, but it is still in the game'
+                        : 'GONE FROM THE GAME: no element with this id is built any more',
+          lives_in: where ? where.file : null });
+        line((await sig()).now, 'went looking for "' + n.id + '" on purpose',
+             where ? ('it was NOT on screen on this route, and it is still built in ' + where.file
+                      + ', so this walk says nothing about it')
+                   : 'it is GONE from the game, which is a fix, not a miss', '');
+        continue;
+      }
+      const alive = await tapAndWatch({ x: box.x, y: box.y, w: box.w, h: box.h, text: box.text,
+                                        id: n.id, where: 'named by an earlier round',
+                                        looks_tappable_because: 'this lane called it dead before' },
+                                      'pressed on purpose, because a round called it dead');
+      out.named.push({ id: n.id, text: box.text, size: box.w + 'x' + box.h,
+                       result: alive ? 'it does something now' : 'STILL DOES NOTHING', said: n.said });
     }
 
     /* 4. every card or offer that appears, in the order it appears, tapped once */
@@ -454,7 +717,34 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
     out.numbers.time_to_first_fight_s = fight ? 'a fight surface was on the page' : 'NONE';
     out.numbers.walk_ended_at_s = +((end.now - t0) / 1000).toFixed(1);
     out.numbers.dead_affordances = out.dead.length;
+    out.numbers.things_i_actually_pressed = out.pressed.length;
+    out.numbers.alive_on_one_press_only = out.alive_on_one_press_only.length;
+    out.numbers.words_the_world_writes_by_itself = noiseWords.size;
+    out.numbers.named_items_pressed_on_purpose = out.named.filter(n => /does something now|STILL DOES NOTHING/.test(n.result)).length;
+    out.numbers.named_items_not_reachable_on_this_route = out.named.filter(n => /NOT ON SCREEN/.test(n.result)).length;
+    out.numbers.named_items_removed_from_the_game = out.named.filter(n => /GONE FROM THE GAME/.test(n.result)).length;
+    out.numbers.named_items_still_dead = out.named.filter(n => n.result === 'STILL DOES NOTHING').length;
+    out.controls.push({
+      name: 'NO FALSE ZERO: every item an earlier round called dead was pressed on purpose',
+      pass: out.named.length > 0 && out.named.every(n => /still does nothing|does something now|GONE FROM THE GAME/i.test(n.result)),
+      detail: out.named.map(n => n.id + ': ' + n.result).join('; ') || 'no named items' });
     out.numbers.tapped_and_inert_but_never_claimed_to_be_a_button = out.inert.length;
+    /* WHAT THE WORLD DOES WITH NOBODY TOUCHING IT. If this is not zero, then the old
+       detector -- any change means the tap worked -- was reading the world and calling it a
+       button, and every 'it works' verdict it ever printed is unsafe. */
+    const nw = out.null_windows || [];
+    const nz = nw.filter(x => x.word_moves > 0 || x.pixel_fraction > 0.10).length;
+    out.numbers.null_windows_measured = nw.length;
+    out.numbers.null_windows_that_moved_on_their_own = nz;
+    out.numbers.worst_null_window = nw.reduce((m, x) =>
+      (x.word_moves > (m.word_moves || 0) ? x : m), { word_moves: 0, pixel_fraction: 0 });
+    out.controls.push({
+      name: 'THE WORLD MOVES ON ITS OWN: the null window is measured, not assumed',
+      pass: nw.length > 0,
+      detail: nz + ' of ' + nw.length + ' windows with no input at all still moved the screen. '
+        + (nz > 0
+           ? 'So equality was the wrong test and every earlier "the tap worked" on this game is unsafe.'
+           : 'The world held still, so the old equality test was not the cause of the disagreement.') });
     out.numbers.page_errors = err.filter(e => e.kind === 'pageerror' && !/__eyes_planted_error__/.test(e.msg)).length;
     out.numbers.console_errors = err.filter(e => e.kind === 'console').length;
     out.numbers.failed_requests = err.filter(e => e.kind === 'requestfailed').length;
