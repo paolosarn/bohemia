@@ -11004,7 +11004,50 @@ AFFILIATED_RATE (0.30) and REACH_CELLS (12) remain his.
 
 --------------------------------------------------------------------------------
 
-PEOPLE (people-7h9sfy): 9/13 (d) LATEST -- *** HE GOT IN THE CAB, WAS TOLD IT
+PEOPLE (people-7h9sfy): 9/14 LATEST -- *** THE STREET SAID ONE THING IN FIVE
+MINUTES AND NEVER STOPPED SAYING IT. Fixed and gated, 53c03d97. ***
+Paolo 9/13: "it's like this glitchy, buggy AI experience where nothing's complete."
+THE CARDS CAME BACK CLEAN, which is worth knowing: every arm of every encounter
+card was pressed and all of them deliver. GIVE HIM SOMETHING and PAY THE CUT
+refuse honestly when he is broke, with the reason on the card. DROP HIM, TAKE THE
+RAMP and TAKE BOTH CREWS each hand a real roster to the fight. GET IN, LET IT GO,
+WALK ON all deliver.
+THE ROUND IS THE WALK. 600 taps, turning at walls like a player: 29 cells of
+ground, ONE line said -- "headlights. nobody in it." -- no cards, no fights, and
+that line STILL ON SCREEN at the end, over empty street. The cab it described
+"waits its ninety seconds. Pulls off."
+AND THIS LANE ALREADY KNEW BETTER, IN THIS FILE, IN CAPITALS: trackSay solved
+exactly this for its own words ("a line that was true one cell ago and is a lie
+now, which is worse than silence"). walkSay set the text and nothing could take it
+back. Length is not a new number: the director's own approved MIN_GAP_S.
+THREE WRITERS, THREE RULES, ONE DEBT. The first cut routed the blocked-body line
+through this same timer; ANOTHER LANE FIXED THAT LINE THE SAME ROUND with a STATE
+rule and theirs is right, so I took theirs and kept mine where it belongs. Tracks
+SPATIAL, body STATE, moment TIME -- and every one of them takes back ITS OWN WORDS
+only. Their write-up found the half I had not: one writer that does not tidy up
+SILENCES every writer that does, because the tidy ones refuse to clear text they
+did not write.
+*** THE INSTRUMENT WAS WRONG SEVEN TIMES THIS ROUND AND ONE OF THEM WAS THE GATE.
+*** Stale handles after a card redraw; arrow keys that do not walk him (the pad
+does); a card-clear that did not take; calling roadChoose for the fight arms,
+which is not the path the button takes; looking for the fight in the CITY frame
+when it opens in the SHELL, so all three fight arms work and I had them written
+down as dead; holding one direction into a wall for 600 taps and calling it a
+walk. AND THE GATE: its first cut called the tick directly and STAYED GREEN when
+the call THE GAME makes was deleted. It drives the game's path now and that
+deletion turns it red. BEFORE BELIEVING A NEGATIVE, PROVE THE INSTRUMENT CAN
+PRODUCE A POSITIVE -- another lane's rule, now this lane's.
+NOT MINE, MEASURED TWICE BY HAND: ROAD ON FOOT red with "0 moment(s) on foot",
+identical claim-for-claim and count-for-count on clean origin/main. THE WALKED
+STREET BARELY PRODUCES ANYTHING. The director is STARVED, not broken -- it paces
+on time and 600 taps spend about one minute of game clock. Whether that is the
+pacing or the fact that he cannot cover ground is not this lane's to rule.
+Stamp 9/14k. Demo cutter not run.
+NEXT: [lock them] still held. The break-list method has now paid three rounds
+running; keep measuring his sentences against this lane's own surfaces.
+Record: records/BOHEMIA_THE_MOMENT_ENDS_9_13_26.txt ***
+
+PEOPLE (people-7h9sfy): 9/13 (d) -- *** HE GOT IN THE CAB, WAS TOLD IT
 DROVE OFF, AND DID NOT MOVE ONE CELL. Fixed and gated, aaca9718. ***
 Paolo 9/13: "it says a car is gonna pull up on me and then nothing happens." Last
 round fixed the first half of that sentence (the job offer with no way to accept).
