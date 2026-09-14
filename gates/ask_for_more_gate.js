@@ -143,9 +143,35 @@ const t0 = H.open(P.Q);
 ok('3b and the offer says what that is, in words ("' + H.sayPay(H.pays(P.Q)) + '")',
    /^Pays one /.test(H.sayPay(H.pays(P.Q))));
 const menu = H.asks(t0);
-ok('3c the menu is the two other currencies and taking it up front (' + menu.length + ')',
-   menu.length === 3 && menu.filter(a => a.kind === 'swap').length === 2
-   && menu.filter(a => a.kind === 'upfront').length === 1);
+/* 3c CHANGED WITH THE DESIGN AND SAYS SO RATHER THAN BEING LOOSENED. Until
+   [half now] part two the menu was two swaps and one "up front", and this check
+   read `menu.length === 3 && ... kind === 'upfront'`. An ask can now carry one
+   of THREE SHAPES (WORDS Q21 round two: half on delivery, a third party who
+   holds things for strangers, going first on something small), so the menu is
+   two swaps and three shapes. The check is not relaxed -- it still pins the
+   exact composition, and it still pins that only ONE shape can be taken. */
+ok('3c the menu is the two other currencies and all three shapes (' + menu.length + ')',
+   menu.length === 5 && menu.filter(a => a.kind === 'swap').length === 2
+   && menu.filter(a => a.kind === 'shape').length === 3);
+const shapeIds = menu.filter(a => a.kind === 'shape').map(a => a.shape).sort().join(',');
+ok('3c2 and they are his three, by name (' + shapeIds + ')',
+   shapeIds === 'first,held,upfront');
+const afterShape = H.ask(t0, 'held');
+ok('3c3 *** one shape per deal: once a shape is agreed none is offered again ***',
+   H.asks(afterShape).filter(a => a.kind === 'shape').length === 0);
+ok('3c4 and the shape says WHO is exposed, which is what a shape is for',
+   H.riskOf(afterShape).exposed === 'nobody'
+   && H.riskOf(H.ask(t0, 'upfront')).exposed === 'them'
+   && H.riskOf(H.ask(t0, 'first')).exposed === 'you');
+ok('3c5 *** and no shape changes what it PAYS: everything costs one ***',
+   ['upfront', 'held', 'first'].every(id => {
+     const st = H.settle(H.ask(t0, id));
+     return st && Object.keys(st).length === 1 && st[Object.keys(st)[0]] === H.ONE;
+   }));
+ok('3c6 only the shape where THEY are exposed can mark you for keeping it',
+   !!H.breakMark(H.ask(t0, 'upfront'))
+   && H.breakMark(H.ask(t0, 'held')) === null
+   && H.breakMark(H.ask(t0, 'first')) === null);
 const swap = menu.find(a => a.kind === 'swap');
 const t1 = H.ask(t0, swap.id);
 ok('3d an ask lands and the terms actually move',

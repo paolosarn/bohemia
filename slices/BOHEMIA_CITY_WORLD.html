@@ -52661,6 +52661,23 @@ function dayAfterQuest(r){
   /* __THE_BOND_OUTLIVES_THE_DAY__ (9/13): the casting is kept at the ending,
      because the ending is the last instant it still exists. */
   try{ if(DQ.rt&&DQ.rt.state.done) ctKeepCast(); }catch(_e){}
+  /* __AN_ASK_CARRIES_A_SHAPE__ -- AND THE SHAPE HAS A CONSEQUENCE, OR IT IS A
+     LABEL. (9/13, [half now] part two.) If the deal was shaped so that THEY
+     fronted something and the job did not get done, the street sees that you
+     kept it. Only that one shape can leave this mark: you cannot be accused of
+     keeping what you were never handed, so "they go first" and "somebody holds
+     it" leave nothing, which is the whole point of choosing a shape.
+     THE ROW IS WIRED RATHER THAN BUILT AND LEFT: a finished thing with no caller
+     is a bug this repo keeps paying for, so this rides the resolve hook the pay
+     and the ground capture already use, and hands its row to the deed ledger
+     that already exists. No new standing system and no invented number. */
+  try{
+    if(DQ.rt&&DQ.rt.state.done&&DQ.rt.state.outcome==='FAIL'&&!window.__SHAPE_MARKED){
+      var _bm=BohemiaHaggle.breakMark(OFFER&&OFFER.terms);
+      if(_bm){ ctHaggleMark(_bm); window.__SHAPE_MARKED=1; }
+    }
+  }catch(_e){}
+
   try{ if(DQ.rt&&DQ.rt.state.done) ctGroundTake(); }catch(_e){}
   updQline();
   if(r&&r.card){ showChoice(r.card); }
@@ -65439,9 +65456,15 @@ function ctGenSave(){
   var ONE = 1;
 
   /* HOW MUCH ROOM THERE IS, AND IT IS NOT A BALANCE NUMBER: two asks land and the
-     third ends it, because there are exactly two things to ask for (a different
-     one, and up front) and a third ask can only be repeating yourself at somebody
-     who has already said yes twice. The room is the size of the menu. */
+     third ends it, because there are exactly two KINDS of thing to ask for -- a
+     different one, or a shape -- and a third ask can only be repeating yourself
+     at somebody who has already said yes twice.
+     *** AND IT IS THE NUMBER OF KINDS, NOT THE LENGTH OF THE MENU. (9/13, when
+     the menu grew from three rows to five.) *** The old note said "the room is
+     the size of the menu", which was true when the menu was one swap-pair plus
+     one shape and would have been a TRAP the moment a shape was added: room
+     would have grown with the row count and the offer would quietly have become
+     harder to lose. Two kinds, two asks, whatever the menu happens to list. */
   function room() { return 2; }
 
   /* ---- 1. WHAT THE JOB PAYS, READ OFF THE QUEST ITSELF ------------------- */
@@ -65495,13 +65518,80 @@ function ctGenSave(){
          : String(c || '');
   }
 
+  /* ==================================================================== */
+  /*  THE THREE SHAPES AN ASK CAN CARRY  (9/13, [half now] part two)         */
+  /* ==================================================================== */
+  /* WORDS Q21 ROUND TWO IS THE SOURCE AND THE THREE ARE THEIRS, not mine. From
+     their school on how people ask across distrust, off the research on how
+     migrants pick a smuggler -- reputation, guarantees, escrow, the "substitutes
+     for trust":
+
+       "You propose a SHAPE instead of asking for trust, and each ask carries a
+        different one. ASK 1 is half on delivery. ASK 2 is a third party who
+        already holds things for strangers. ASK 3 is going first on something
+        small, priced so that being robbed is survivable. NOBODY SAYS TRUST ME,
+        and the section bans it, because it is what somebody says who has no
+        shape to offer."
+
+     *** WHAT A SHAPE CHANGES IS WHO IS EXPOSED, NEVER HOW MUCH IT PAYS. ***
+     EVERYTHING COSTS ONE, and this module's whole existing discipline is that an
+     ask changes the SHAPE of the one and never its size. A shape is the same one
+     battery arranged so that a different person is carrying the risk of the
+     other one walking away. That is the thing the row asks for -- "the shape
+     changes what the player risks" -- and it needs no number to say it.
+
+     ONE SHAPE PER DEAL. You propose A shape; you do not stack all three. The old
+     code carried `upfront` as a bare boolean, which could only ever express one
+     of the three and could not say who was exposed.
+
+     AND NO NAME IS INVENTED FOR THE THIRD PARTY. "Somebody who holds things for
+     strangers" is the shape; WHO that is in this valley is a ruling nobody has
+     made, so the words say the role and never a person or a place. */
+  var SHAPES = {
+    upfront: { id: 'upfront', exposed: 'them',
+               say:    'Half of it now, before I go',                 /* draft:true */
+               agreed: 'Half now. And you are holding it if you walk' /* draft:true */ },
+    held:    { id: 'held', exposed: 'nobody',
+               say:    'Leave it with somebody who holds things for strangers',
+               agreed: 'It sits with them until the job is done' },
+    first:   { id: 'first', exposed: 'you',
+               say:    'I will go first, on something small',
+               agreed: 'You go first. If they walk, it was cheap to find out' }
+  };
+  var SHAPE_ORDER = ['upfront', 'held', 'first'];
+
+  /* shapeOf(t) -- the shape this deal took, or null while it has none. */
+  function shapeOf(t) {
+    return (t && t.shape && SHAPES[t.shape]) ? SHAPES[t.shape] : null;
+  }
+
+  /* riskOf(t) -- who is carrying the risk, in words. A deal with no shape has
+     nobody carrying it, which is the honest answer and not "safe". */
+  function riskOf(t) {
+    var sh = shapeOf(t);
+    if (!sh) return { exposed: 'nobody', shape: null, say: null };
+    return { exposed: sh.exposed, shape: sh.id, say: sh.agreed };
+  }
+
+  /* breakMark(t) -- WHAT THE STREET SEES IF THE DEAL BREAKS, and only when the
+     player is the one holding something that is not theirs. A deed row in the
+     shape bohemia_deeds.publish already takes, so nothing new is built and no
+     standing number is invented.
+     A shape where THEY are exposed is the only one that can leave this mark:
+     you cannot be accused of keeping what you were never handed. */
+  function breakMark(t) {
+    var sh = shapeOf(t);
+    if (!sh || sh.exposed !== 'them') return null;
+    return { kind: 'kept_what_was_fronted', clout: 'reckless', delta: 0, faction: null };
+  }
+
   /* ---- 2. OPENING THE TERMS --------------------------------------------- */
 
   /* open(quest) -- the negotiation as it stands before anybody says anything.
      asked:0, nothing changed, and the offer still on the table. */
   function open(quest) {
     var p = pays(quest);
-    return { pays: p, currency: p.currency, upfront: false,
+    return { pays: p, currency: p.currency, upfront: false, shape: null,
              asked: 0, open: true, withdrawn: false, said: null, mark: null };
   }
 
@@ -65519,8 +65609,14 @@ function ctGenSave(){
                    say: 'Make it a ' + word(c) + ' instead' });       /* draft:true */
       }
     }
-    if (!t.upfront) out.push({ id: 'upfront', kind: 'upfront',
-                               say: 'Half of it now, before I go' }); /* draft:true */
+    /* ONE SHAPE PER DEAL: once a shape is agreed, none of the three is offered
+       again. Before that, all three are on the table in his order. */
+    if (!t.shape) {
+      for (var k = 0; k < SHAPE_ORDER.length; k++) {
+        var sh = SHAPES[SHAPE_ORDER[k]];
+        out.push({ id: sh.id, kind: 'shape', shape: sh.id, say: sh.say }); /* draft:true */
+      }
+    }
     return out;
   }
 
@@ -65539,14 +65635,14 @@ function ctGenSave(){
      the player what an ask would do before they commit to it. */
   function ask(t, id) {
     if (!t || !t.open) return t;
-    var n = { pays: t.pays, currency: t.currency, upfront: t.upfront,
+    var n = { pays: t.pays, currency: t.currency, upfront: t.upfront, shape: t.shape,
               asked: t.asked + 1, open: true, withdrawn: false, said: null, mark: null };
 
     /* *** THE THIRD ASK IS THE ONE THAT ENDS IT. *** Not a roll, not a threshold
        anybody can tune: you were told, in words, before you opened your mouth. */
     if (t.asked >= room()) {
       n.open = false; n.withdrawn = true;
-      n.currency = null; n.upfront = false;
+      n.currency = null; n.upfront = false; n.shape = null;
       n.said = 'They take it back. Somebody else will do it';         /* draft:true */
       n.mark = markFor();
       return n;
@@ -65560,8 +65656,13 @@ function ctGenSave(){
       n.currency = picked.currency;
       n.said = 'Fine. A ' + word(picked.currency) + ', then';         /* draft:true */
     } else {
-      n.upfront = true;
-      n.said = 'Half now. And you are holding it if you walk';        /* draft:true */
+      /* A SHAPE. `upfront` stays true only for the shape that really is half up
+         front, because settle() and the surface both still read it and a flag
+         that quietly meant "any shape" would be a lie to every existing reader. */
+      var sh = SHAPES[picked.shape];
+      n.shape = sh.id;
+      n.upfront = (sh.id === 'upfront');
+      n.said = sh.agreed;                                             /* draft:true */
     }
     return n;
   }
@@ -65615,7 +65716,9 @@ function ctGenSave(){
     CURRENCIES: CURRENCIES, ONE: ONE, room: room,
     pays: pays, sayPay: sayPay, word: word,
     open: open, asks: asks, warning: warning, ask: ask,
-    markFor: markFor, settle: settle, changed: changed, say: say
+    markFor: markFor, settle: settle, changed: changed, say: say,
+    SHAPES: SHAPES, SHAPE_ORDER: SHAPE_ORDER,
+    shapeOf: shapeOf, riskOf: riskOf, breakMark: breakMark
   };
   if (HASREQ) module.exports = API; else root.BohemiaHaggle = API;
 })(typeof globalThis !== 'undefined' ? globalThis : this);
