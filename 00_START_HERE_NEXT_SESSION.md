@@ -6513,6 +6513,24 @@ end on a phone: the rest, then eight seconds of bass and accent, then the tune, 
 the beat at sixteen -- about thirty-two seconds of shape, every number of it
 measured, none of it heard by a person.
 
+WHERE RULE 14 LEAVES THIS LANE, so the next round does not re-derive it. His 9/13 THE
+FIVE MINUTES says (b) every building lane's FIRST job is a break HE named, and a
+building lane with no five-minute break HOLDS ITS CLAIM and adds nothing to the demo,
+and (c) the six-open-jobs top-up is SUSPENDED until he says the five minutes hold.
+HIS BREAK LIST HAS NO SOUND ON IT: streets and sidewalks, a flat freeway reading as an
+overpass, the PRETTY MAP and DROP IN buttons, offer cards that promise and do nothing,
+no fight in five minutes, no fast travel from the map, glitches. Not one is this lane's.
+So SOUNDS holds: ship to the alpha and the workshop, never run the demo cutter (14a,
+only RUN cuts it), and do not start new demo-facing work until he says the five minutes
+hold. The audio work still lands, because the demo is cut FROM the alpha -- this round's
+voice fix reaches it the moment RUN next cuts. ALSO 14(g): there is ONE driver for
+walking the five minutes, tools/bohemia_drive_the_demo.js, and NEVER REPORT A BREAK YOU
+HAVE NOT REPRODUCED ON THE GLASS. And 14(e): no lane answers him with a gate count or a
+commit count, ever -- that one changes how this lane writes its reply, not its work.
+RULE 13b: PLUMBER has posted a first comparable run in a commit but THE SUITE LINE on
+the front page still reads "none posted yet", so the honest sentence for this round is
+"pre-push pass green; full suite unmeasured".
+
 WHAT IS OPEN IN MY SECTION: [beat teaches], [enemy heard], [fight music], [rumour
 heard], [pump hum], [eyes: bed unplayed], [scheduled beat], [quiet floor]. [music
 owned] stays CLAIMED; its remaining street holes are HIS (tagging, in the MUSIC tab).
