@@ -133,10 +133,39 @@ ok('A2 only art that stands up can take a tap off the ground, at the gap the art
     return fr.evaluate(() => CB.sel ? CB.sel.join(',') : 'null');
   };
 
+  /* *** THE ZOOM IS DRIVEN, NOT ASSIGNED, AND THAT WAS THIS GATE'S OWN FLAKE. ***
+     This used to do `MODE='city'; TW=t; render()`. The game recomputes TW from CZOOM
+     every frame and repaints, so the forced frame's CB_DREW was overwritten by the
+     loop's before the census could read it -- A RACE. Measured on ONE unchanged tree,
+     two runs back to back:
+         run 1   TW=18 0/0   TW=30 15/16   TW=48 11/12
+         run 2   TW=18 0/0   TW=30  0/0    TW=48 11/12
+     and the gate reported 6 pass / 0 fail BOTH TIMES, because a zoom that measured
+     nothing was skipped rather than failed. GREEN FOR THE WRONG REASON, twice, on the
+     row whose ship test is this gate being green.
+     setZoomAt() is the game's own control -- it sets CZOOM, derives TW, and calls
+     renderSoon() -- so the zoom SURVIVES the next frame and the census reads a record
+     the game actually drew. And the zooms are asked for as CZOOM values, clamped by
+     the game's own zoomBounds(), rather than as TW numbers this gate made up. */
   const out = { zooms: [] };
-  if (fr) for (const TW of [18, 30, 48]) {
-    await fr.evaluate(t => { MODE = 'city'; TW = t; TH = t / 2; panX = 0; panY = 0; render(); }, TW);
-    await page.waitForTimeout(350);
+  if (fr) await fr.evaluate(() => {
+    if (typeof MODE !== 'undefined' && MODE !== 'city') { try { transition(); } catch (e) {} } });
+  await page.waitForTimeout(2500);
+  const ZOOMS = fr ? await fr.evaluate(() => {
+    const b = zoomBounds();
+    return [0.34, 0.62, 1.00].map(f => Math.max(b[0], Math.min(b[1], b[0] + (b[1] - b[0]) * f)));
+  }) : [];
+  if (fr) for (const Z of ZOOMS) {
+    await fr.evaluate(z => { setZoomAt(z); }, Z);
+    await page.waitForTimeout(900);
+    /* AND WAIT FOR ART TO BE ON THE GLASS. The hero plates load lazily, so an early
+       census legitimately sees none -- which is a slow start, not a broken picker, and
+       must not be reported as either. */
+    for (let w = 0; w < 25; w++) {
+      const n = await fr.evaluate(() => { let k = 0; CB_DREW.forEach(v => { if (v.im) k++; }); return k; });
+      if (n >= 8) break;
+      await page.waitForTimeout(400);
+    }
     const rec = await fr.evaluate(() => {
       const out = [];
       CB_DREW.forEach((v, k) => {
@@ -213,7 +242,7 @@ ok('A2 only art that stands up can take a tap off the ground, at the gap the art
       fn++; if (sel === t.x + ',' + t.y) fh++;
       if (fn >= 12) break;
     }
-    out.zooms.push({ TW: rec.TW, buildings: hit, buildingsOf: n, ground: fh, groundOf: fn });
+    out.zooms.push({ TW: Math.round(rec.TW), buildings: hit, buildingsOf: n, ground: fh, groundOf: fn });
   }
 
   const B = out.zooms.reduce((a, z) => a + z.buildings, 0);
@@ -225,7 +254,8 @@ ok('A2 only art that stands up can take a tap off the ground, at the gap the art
      scored ZERO: tapping the building you were looking at never once selected it. */
   ok('B1 *** TAPPING A BUILDING SELECTS THAT BUILDING *** — ' + B + ' of ' + BN
      + ' driven taps across three zooms, and it was 0 of 38 before this round',
-     BN >= 12 && B / Math.max(1, BN) >= 0.85);
+     BN >= 12 && B / Math.max(1, BN) >= 0.85
+     && out.zooms.every(z => z.buildingsOf >= 5));   /* every zoom pulled its weight */
 
   /* B2. AND FLAT GROUND DID NOT REGRESS, which is the half a fix like this usually
      breaks: the ground inversion was already exact and must stay exact. */
@@ -235,11 +265,16 @@ ok('A2 only art that stands up can take a tap off the ground, at the gap the art
 
   /* B3. EVERY ZOOM, not an average over three. A picker that works at one zoom and not
      another is the bug wearing a different hat. */
-  /* a zoom with a handful of buildings on screen cannot carry a ratio; judge the ones
-     with a real sample and say how many the others had */
-  const weak = out.zooms.filter(z => z.buildingsOf >= 5 && z.buildings / z.buildingsOf < 0.8);
-  ok('B3 it holds at every zoom, not on average ('
-     + out.zooms.map(z => 'TW' + z.TW + ' ' + z.buildings + '/' + z.buildingsOf).join(', ') + ')',
+  /* *** AND A ZOOM THAT MEASURED NOTHING IS A FAILURE, NOT A SKIP. *** This used to
+     read `z.buildingsOf >= 5 &&` inside the filter, so a zoom with no sample was
+     EXCLUDED from the leg that promises every zoom -- and on the flaky runs two of the
+     three were excluded and the gate still said it held at every zoom. A leg that
+     answers "all of them" by dropping the ones it could not see is worse than no leg:
+     it is an alibi. If this gate claims a zoom, that zoom has to carry a real sample. */
+  const weak = out.zooms.filter(z => z.buildingsOf < 5 || z.buildings / z.buildingsOf < 0.8);
+  ok('B3 it holds at EVERY zoom, and every zoom carried a real sample ('
+     + out.zooms.map(z => 'TW' + z.TW + ' ' + z.buildings + '/' + z.buildingsOf).join(', ') + ')'
+     + (weak.length ? '  -- THIN OR EMPTY: ' + weak.map(z => 'TW' + z.TW + ' ' + z.buildings + '/' + z.buildingsOf).join(', ') : ''),
      out.zooms.length === 3 && weak.length === 0);
 
   ok('B4 nothing threw' + (errs.length ? ' -> ' + errs[0] : ''), errs.length === 0);
