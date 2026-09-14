@@ -271,17 +271,29 @@ def main():
     ok('the end of a 64-bar pass STARTS A REST instead of cutting straight to '
        'the next song (rest began after %s ms)' % rr.get('began'),
        rr.get('began') is not None)
-    ok('THE MUSIC ACTUALLY GOES QUIET in it (master gain %s)' % mid.get('gain'),
-       below(mid.get('gain'), 0.02))
+    # *** THIS CLAIM ASKED FOR A STOP AND THE RECORD BESIDE IT PROMISED A DUCK
+    # (corrected 9/14). It wanted the master under 0.02, which on a master of 0.8 is a
+    # ramp to ZERO, and that is what shipped: measured on the demo he played, the only
+    # silence of two seconds or more in his whole five minutes was 14.5 SECONDS of this
+    # rest, with ninety music notes scheduled into it. The 9/11 record for this very
+    # code says "a DUCK not a stop so the beat and the bed survive". A DUCK TO ZERO IS
+    # A STOP. The rest now lands on a floor at 12% of his level, so the claim is the
+    # one the record always meant: MEANINGFULLY QUIETER, AND NOT NOTHING. ***
+    _mg = mid.get('gain')
+    ok('THE MUSIC ACTUALLY GOES QUIET in it, and NOT TO NOTHING -- there is no silent '
+       'outdoors, and a rest that reaches zero is a hole (master gain %s, wanted a real '
+       'number above 0 and under 0.25)' % _mg,
+       isinstance(_mg, (int, float)) and _mg > 0.0 and _mg < 0.25)
     ok('AND THE BEAT NEVER STOPS -- the 120 BPM law is about a clock that keeps '
        'running (transport playing: %s, step %s)'
        % (mid.get('beat'), mid.get('step')), mid.get('beat') is True)
-    ok('AND THE BED STILL SOUNDS WITH THE MUSIC MASTER AT ZERO -- it is what the '
-       'gap is FOR, and it proves the duck cannot reach the SFX bus (%s, %s '
-       'renders while the master sat at %s)'
-       % (mid.get('bed'), mid.get('bedPlaysWhileDucked'), mid.get('gainStillDucked')),
+    _gd = mid.get('gainStillDucked')
+    ok('AND THE BED STILL SOUNDS UNDER THE DUCKED MUSIC -- it is what the gap is FOR, '
+       'and it proves the duck cannot reach the SFX bus (%s, %s renders while the master '
+       'sat at %s)'
+       % (mid.get('bed'), mid.get('bedPlaysWhileDucked'), _gd),
        mid.get('bed') and above(mid.get('bedPlaysWhileDucked'), 0)
-       and below(mid.get('gainStillDucked'), 0.02))
+       and isinstance(_gd, (int, float)) and _gd > 0.0 and _gd < 0.25)
     ok('the rest lasted about one phrase (%s ms)' % rr.get('restMs'),
        rr.get('restMs') is not None and 13000 <= rr.get('restMs') <= 22000)
     ok('the music came back after it (master gain %s)' % aft.get('gain'),
@@ -292,9 +304,10 @@ def main():
 
     # ---- THE THREE HAZARDS ------------------------------------------------
     fi = d.get('fight') or {}
-    ok('HAZARD 1, a fight during a rest: the rest was taken and the master was '
-       'ducked (%s)' % fi.get('duckedTo'),
-       fi.get('taken') and below(fi.get('duckedTo'), 0.02))
+    _fd = fi.get('duckedTo')
+    ok('HAZARD 1, a fight during a rest: the rest was taken and the master was ducked '
+       'to a floor rather than to nothing (%s)' % _fd,
+       fi.get('taken') and isinstance(_fd, (int, float)) and _fd > 0.0 and _fd < 0.25)
     ok('and the music comes back ON THE NEXT BEAT, not at the end of the phrase '
        '(%s ms) -- danger is now' % fi.get('backMs'),
        below(fi.get('backMs'), 2000))

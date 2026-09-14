@@ -14980,11 +14980,40 @@ const CITYMUS={on:false,watch:null,
        the audio thread brings the music back at the end of the phrase even if
        every timer in this document dies. endRest() below can still pull it back
        EARLIER, which is what a fight needs; this is the floor, not the plan. */
+    /* __THE_REST_HAS_A_FLOOR__ (9/14, SOUNDS lane) -- THE STREET MAY NEVER GO
+       SILENT, AND UNTIL NOW IT DID, FOR FIFTEEN SECONDS AT EVERY SONG CHANGE.
+       MEASURED on the demo he played, five real minutes with an ear on the end of
+       the chain: exactly ONE silence of two seconds or more in the whole five
+       minutes, 14.5s of it, with this object's own `resting` flag true for every
+       sample, ninety music notes scheduled into it, and the bed -- the thing this
+       rest was built to reveal -- asked for once every 117 seconds.
+       AND THE 9/11 RECORD FOR THIS VERY CODE CLAIMS "a DUCK not a stop so the beat
+       and the bed survive". It ramped to ZERO and held zero for the phrase. A DUCK
+       TO ZERO IS A STOP; I shipped a stop and wrote down a duck.
+       So the ramp lands on a FLOOR. 12% of HIS captured level, about eighteen
+       decibels down: deep enough that the bed, a footstep and a voice sit clearly
+       on top, shallow enough that the valley never dies. THE NUMBER IS MINE AND
+       SAYING SO MATTERS -- his law's figures (wilderness 30-40 dBA, night about 7 dB
+       under day) describe how loud a PLACE is, not how deep a musical duck goes, and
+       quoting them here would borrow authority the law does not give. What the law
+       does give is the rule this obeys: THERE IS NO SILENT OUTDOORS. */
+    var floor=this.restGain*0.12;
     try{ g.gain.cancelScheduledValues(t0);
       g.gain.setValueAtTime(this.restGain,t0);
-      g.gain.linearRampToValueAtTime(0,t0+1.2);
-      g.gain.setValueAtTime(0,t0+len);
+      g.gain.linearRampToValueAtTime(floor,t0+1.2);
+      g.gain.setValueAtTime(floor,t0+len);
       g.gain.linearRampToValueAtTime(this.restGain,t0+len+0.25); }catch(e){ return false; }
+    /* __THE_REST_ASKS_THE_BED__ -- AND THE REST TELLS THE BED TO SPEAK, which is
+       what the 9/11 record said the rest was FOR and never wired: the two were
+       strangers, so the street went quiet and nothing filled it. The bed's own gate
+       is `if(now < this.next) return;`, so zeroing next lets its one-second tick
+       play at the top of the rest; the half-phrase timer asks once more in the
+       middle. No new sound and no new cook -- air_day, air_night and air_inside are
+       approved, and the bed picks by place and by power exactly as it already does.
+       Wrapped and swallowed: a rest must never fail because the bed is missing. */
+    try{ if(window.__AMB){ window.__AMB.next=0;
+      setTimeout(function(){ try{ if(CITYMUS.resting && window.__AMB) window.__AMB.next=0; }catch(_e){} },
+        Math.round(len*1000/2)); } }catch(_e){}
     this.resting=true; this.restUntil=Date.now()+this.restLen();
     return true; },
   /* RESTORE IS IDEMPOTENT AND IS THE ONLY WAY OUT, so no path can leave the
