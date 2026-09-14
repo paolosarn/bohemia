@@ -1,0 +1,111 @@
+BOHEMIA -- THE MOMENT ENDS (9/13/26, PEOPLE lane)
+A five-minute break measured onto this lane's own surface. Not a board row.
+
+PAOLO 9/13, five minutes on a phone:
+  "it's like this glitchy, buggy AI experience where nothing's complete."
+THE FIVE MINUTES says they hold when, among other things, nothing glitches.
+
+================================================================================
+WHAT THE ROUND WENT LOOKING FOR, AND WHAT IT FOUND INSTEAD
+================================================================================
+The lane is still held, so the method is the one that has worked three rounds
+running: take each of his sentences and measure it against this lane's own
+surfaces. The cards were the target. They came back clean:
+
+  every arm of every encounter card, pressed   all deliver
+  GIVE HIM SOMETHING / PAY THE CUT             refuse honestly when he is broke,
+                                               with the reason on the card
+  DROP HIM / TAKE THE RAMP / TAKE BOTH CREWS   all three hand a real roster to
+                                               the fight, 1 body, 4 bodies, 4+
+  GET IN / LET IT GO / WALK ON                 all deliver
+
+That is a good answer and it is not the round. The round is what the walk showed.
+
+================================================================================
+*** A FIVE-MINUTE WALK SAID ONE THING AND IT NEVER STOPPED SAYING IT ***
+================================================================================
+Walked the demo like a player, turning at walls the way anybody would:
+
+  600 taps                        29 cells of ground, hemmed in
+  lines the street said           1  -- "headlights. nobody in it."
+  cards offered                   0
+  fights                          0
+  and that one line               STILL ON SCREEN at the end of the walk
+
+The cab's own words are "Waits its ninety seconds. Pulls off." The sentence
+outlived the car by the entire walk, sitting over empty street.
+
+AND THIS LANE ALREADY KNEW BETTER, IN THIS FILE, IN CAPITALS. trackSay solved
+exactly this for its own words and wrote down why:
+  "STEP OFF THE PRINTS AND THE GROUND STOPS SAYING THEY ARE THERE ... a line that
+   was true one cell ago and is a lie now, which is worse than silence."
+walkSay never got the same treatment. It set the text and the display and there
+was nothing anywhere that could take it back.
+
+================================================================================
+HOW LONG IS NOT A NEW NUMBER
+================================================================================
+The moment lasts the director's own approved gap, MIN_GAP_S, which is the figure
+out of his verdict ("~90s min gap") and is already the clock this director paces
+on. The line is up exactly as long as it takes before another moment is allowed.
+Measured on the game's own clock: up at +15, +30, +45, +60, +75 seconds, gone at
++90. Nothing was picked here.
+
+================================================================================
+THREE WRITERS, THREE RULES, AND THE ONE THING THEY ALL OWE
+================================================================================
+The first cut of this routed the blocked-body line through the same timer. WHILE
+IT WAS BEING BUILT, ANOTHER LANE FIXED THAT EXACT LINE with a STATE rule -- it
+clears when nobody is in your way any more -- and theirs is the right one: a
+person still standing in the doorway has not stopped being true after ninety
+seconds. Took theirs, kept mine where it belongs:
+
+  the tracks     SPATIAL   step off the prints and they go
+  the body       STATE     nobody in your way any more and it goes
+  the moment     TIME      a cab that drove off has no state left to check
+
+ONE OWNER PER LINE, NOT ONE RULE FOR ALL LINES. What every one of them owes is
+the same: take back ITS OWN WORDS and nobody else's, because the line is shared
+and eating somebody else's sentence is the worse bug.
+
+AND THAT LANE FOUND THE HALF I HAD NOT: one writer that does not tidy up SILENCES
+EVERY WRITER THAT DOES, because the tidy ones correctly refuse to clear text they
+did not write. A stale sentence does not just sit there, it locks the line.
+
+================================================================================
+*** THE INSTRUMENT WAS WRONG SEVEN TIMES THIS ROUND, AND ONE OF THEM WAS THE GATE
+================================================================================
+Every one returned a clean "nothing happened", and none of them was the game:
+  1. pressed every button in one pass, three read dead -- the card REDRAWS and
+     every handle after the first was pointing at a dead element
+  2. 120 arrow-key presses moved him nowhere: the keys do not walk him, the pad does
+  3. a card-clear that did not take, so 200 more presses hit a card eating them
+  4. called roadChoose for the fight arms, which is not the path the button takes
+  5. looked for the fight in the CITY frame when it opens in the SHELL -- all
+     three fight arms work and I had them written down as dead
+  6. held one direction into a wall for 600 taps and called it a five-minute walk
+  7. *** AND THE GATE ITSELF. *** Its first cut called walkSayTick directly. The
+     negative control proved it worthless: I deleted the call THE GAME makes and
+     the gate stayed green, because it was driving my function instead of the
+     game's path. Same defect the combat lane wrote up this same round.
+THE RULE, which is another lane's and is now this lane's too: BEFORE BELIEVING A
+NEGATIVE, PROVE THE INSTRUMENT CAN PRODUCE A POSITIVE. The gate taps the pad and
+requires him to move before it measures anything, and it never calls the tick.
+
+NEGATIVE-CONTROLLED THREE WAYS, all through the game's own path:
+  delete the call that ticks the moment      2 red, "gone by +99999s"
+  delete the call that clears the body line  1 red
+  let the clear eat any text at all          1 red, the tracks' sentence gone
+
+================================================================================
+MEASURED AND NOT FIXED
+================================================================================
+ROAD ON FOOT is red with "0 moment(s) on foot" and is IDENTICAL claim-for-claim
+and count-for-count on a clean origin/main worktree (10 passed, 2 failed). This
+round measured the same thing by hand twice. THE WALKED STREET BARELY PRODUCES
+ANYTHING: 600 taps, 29 cells, one line, no card. The director is not broken, it is
+STARVED -- it paces on time, and on foot 600 taps spend about one minute of game
+clock. Whether that is the pacing or the fact that he cannot cover ground is not
+this lane's to rule. Named with the numbers so it is not rediscovered.
+
+TAB: CITY, the walked street. A moment says its piece and then stops saying it.

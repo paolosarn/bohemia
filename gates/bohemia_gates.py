@@ -5179,6 +5179,21 @@ GATES = [
      "longer' means something. Being down is a QUESTION against the clock, so a save left on a shelf comes "
      "back healed with nothing to tidy. And it is on the card he already opens, saying how long and saying "
      "the promise out loud", False),
+    ('MOMENT ENDS',    ['node', 'gates/the_moment_ends_gate.js'],
+     "PAOLO 9/13: 'it's like this glitchy, buggy AI experience where nothing's complete.' MEASURED ON THE "
+     "DEMO, WALKED LIKE A PLAYER: a five-minute walk said ONE thing, 'headlights. nobody in it.', and it "
+     "was STILL ON SCREEN twenty-nine cells later over empty street, long after the cab was gone -- the "
+     "cab's own words are 'Waits its ninety seconds. Pulls off.' AND THIS LANE ALREADY KNEW BETTER IN THIS "
+     "FILE: trackSay solved exactly this for its own words and wrote why in capitals, that a line true one "
+     "cell ago and a lie now is worse than silence. walkSay and ctAgainstSay both wrote the shared street "
+     "line and neither could take it back. ONE OWNER now puts a moment up and takes it down; the tracks "
+     "keep their own SPATIAL rule because it is the right one for prints. The length is not a new number: "
+     "it is the director's own approved MIN_GAP_S, his '~90s min gap'. Holds that the line is said, stays "
+     "long enough to read, comes down at the gap on the game's own clock, that the body-in-your-way line "
+     "comes down too, and that it NEVER eats somebody else's sentence. *** AND THIS GATE NEVER CALLS THE "
+     "TICK ITSELF -- its first cut did, and the negative control proved it worthless: deleting the call "
+     "the GAME makes left it green. It drives the game's own path now, and that deletion turns it red ***",
+     False),
     ('LIFT MOVES',     ['node', 'gates/the_lift_moves_him_gate.js'],
      "PAOLO 9/13, five minutes on a phone: 'it says a car is gonna pull up on me and then nothing "
      "happens.' Rule 14(d): a card that promises and does nothing is the worst bug in the game. MEASURED "

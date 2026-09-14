@@ -37971,14 +37971,64 @@ var WALK_LINES = {
   ghost_robotaxi:      'headlights. nobody in it.'                   /* draft:true */
 };
 
-function walkSay(got) {
+/* __THE_MOMENT_ENDS__ (9/13, PEOPLE, from his five minutes: "it's like this
+   glitchy, buggy AI experience"). WHAT WAS PUT ON THE STREET'S LINE AND WHEN, so
+   it can take its own words down again and nobody else's.
+
+   ONE OWNER FOR PUTTING A MOMENT UP AND TAKING IT DOWN. Three things write this
+   element -- the walked encounter, the body in your way, and the tracks -- and
+   only the tracks ever cleared. Two of the three went through their own copy of
+   "set text, set display" and neither could undo it, so a second clearer with a
+   second opinion about when was the obvious next bug. The tracks keep their own
+   rule on purpose: theirs is SPATIAL (step off the prints and it goes) and it is
+   the right rule for prints on the ground. This is the rule for a MOMENT. */
+var _walkWrote = '', _walkAt = -1;
+function streetSay(txt) {
   var l = document.getElementById('packline');
-  if (!l) return;
-  var txt = WALK_LINES[got.id];
-  if (!txt) return;
+  if (!l || !txt) return 0;
   l.textContent = txt;
   l.style.display = 'block';
+  _walkWrote = txt;
+  try { _walkAt = T.min; } catch (_e) { _walkAt = -1; }
+  return 1;
+}
+function walkSay(got) {
+  var txt = WALK_LINES[got.id];
+  if (!txt) return;
+  if (!streetSay(txt)) return;
   try { PACK_SAID = 1; } catch (_e) {}
+}
+/* *** AND THE MOMENT ENDS, BECAUSE A LINE THAT WAS TRUE ONE CELL AGO IS A LIE
+   NOW. *** trackSay solved exactly this for its own words, in this same file and
+   in capitals: "STEP OFF THE PRINTS AND THE GROUND STOPS SAYING THEY ARE THERE
+   ... a line that was true one cell ago and is a lie now, which is worse than
+   silence." walkSay never got the same treatment.
+
+   MEASURED ON THE DEMO: a five-minute walk said "headlights. nobody in it."
+   once, and it was STILL ON SCREEN twenty-nine cells later, over empty street,
+   long after the cab was gone. The cab's own words are "Waits its ninety
+   seconds. Pulls off." The line outlived the car by the whole walk.
+
+   HOW LONG IS NOT A NEW NUMBER. The moment lasts the director's own approved
+   gap, MIN_GAP_S, which is the pacing figure out of his verdict ("~90s min
+   gap") and already the clock this director runs on: the line is up for exactly
+   as long as it takes before another moment is allowed. Nothing was picked here.
+
+   AND IT ONLY CLEARS ITS OWN WORDS, which is trackSay's rule and matters more
+   here than there: the street line is SHARED by the pack, the tracks and the
+   road, so wiping it unconditionally would delete somebody else's sentence. */
+function walkSayTick() {
+  if (!_walkWrote) return;
+  var l = document.getElementById('packline');
+  if (!l) { _walkWrote = ''; return; }
+  if (l.textContent !== _walkWrote) { _walkWrote = ''; return; }   /* somebody else owns it now */
+  var now = -1; try { now = T.min; } catch (_e) { return; }
+  if (_walkAt < 0 || now < _walkAt) { _walkAt = now; return; }     /* a new day rewound the clock */
+  var gap = 90; try { gap = BohemiaEncounters.MIN_GAP_S; } catch (_e) { }
+  if ((now - _walkAt) * 60 < gap) return;
+  l.textContent = ''; l.style.display = 'none';
+  _walkWrote = ''; _walkAt = -1;
+  try { window.__WALK_CLEARED = (window.__WALK_CLEARED || 0) + 1; } catch (_e) { }
 }
 
 function roadDirector(){
@@ -52553,6 +52603,10 @@ function dayDistrictCheck(){
      behind a sentence that is already a lie. */
   try{ ctAgainstClear(); }catch(_e){}
   try{ trackSay(); }catch(_e){}
+  /* __THE_MOMENT_ENDS__ -- beside trackSay, because they write the same line and
+     the one that clears already lives here. One place that owns taking the
+     street's sentence down, rather than two that disagree about when. */
+  try{ walkSayTick(); }catch(_e){}
   const d=dayWhere();
   if(!d||d===_lastDistrict)return;
   _lastDistrict=d;
