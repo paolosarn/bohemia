@@ -71,8 +71,16 @@ function EAR() {
      everything mixed. */
   E.startMeter = function () {
     try {
-      const AC = window.MUS && MUS.AC; if (!AC) { E.errs.push('no AC'); return; }
-      const tap = window.__LIMITER || window.__OUTBUS || MUS.OUT || MUS.MAST || AC.destination;
+      /* MUS IS A TOP-LEVEL const, NOT A PROPERTY OF window, and this instrument's
+         first run forgot that after this very session had already written it down.
+         `window.MUS && MUS.AC` short-circuits to false, so the meter never started
+         and the run reported no AudioContext on a page whose music was provably
+         playing (1,473 notes in the call log). A GUARD THAT NAMES THE WRONG SCOPE
+         SILENCES THE MEASUREMENT, NOT THE GAME. Bare reference in a try, which is
+         what resolves a const in the script's own scope. */
+      let M = null; try { M = MUS; } catch (e) {}
+      const AC = M && M.AC; if (!AC) { E.errs.push('no AC'); return; }
+      const tap = window.__LIMITER || window.__OUTBUS || M.OUT || M.MAST || AC.destination;
       const an = AC.createAnalyser(); an.fftSize = 2048;
       try { tap.connect(an); } catch (e) { E.errs.push('meter could not connect'); return; }
       const buf = new Float32Array(an.fftSize);
@@ -105,6 +113,34 @@ function EAR() {
 
     const t0 = Date.now();
     const left = () => SECS * 1000 - (Date.now() - t0);
+    /* *** THE PAD IS A RING WITH A DEAD CENTRE, AND THE FIRST RUN TAPPED THE CENTRE.
+       Measured in the city file: eight wedges from radius 50 to 86 in a 180 box, with
+       a 40-radius face in the middle that is not a direction. So forty taps on the
+       middle of the pad were forty taps on nothing, and the run reported no footsteps
+       in five minutes about a player who never took a step. A TAP ON A CONTROL IS NOT
+       AN INPUT TO IT.
+       This taps a WEDGE (north, 68/180 of the box above centre) and then PROVES the
+       player moved by reading the engine's own hx/hy before and after. If the walk did
+       not walk, that is reported as an instrument failure and NOT as silence. */
+    const walkN = async (taps) => {
+      const before = await d.state();
+      const h = await d.fr.$('#pad');
+      if (!h) { out.padMissing = true; return { before: before, after: before, moved: 0 }; }
+      const b = await h.boundingBox();
+      if (!b) { out.padMissing = true; return { before: before, after: before, moved: 0 }; }
+      const cx = b.x + b.width / 2, cy = b.y + b.height / 2;
+      const up = (68 / 180) * b.height;
+      for (let i = 0; i < taps; i++) {
+        if (left() <= 0) break;
+        await d.tapAt(cx, cy - up);
+        await d.page.waitForTimeout(600);
+      }
+      const after = await d.state();
+      const moved = (before.hx == null || after.hx == null) ? null
+        : Math.abs(after.hx - before.hx) + Math.abs(after.hy - before.hy);
+      return { before: before, after: after, moved: moved };
+    };
+
     const step = async (label, ms, fn) => {
       if (left() <= 0) return;
       out.route = out.route || [];
@@ -118,30 +154,16 @@ function EAR() {
        that is the one thing this lane has an open row about and has never measured on
        the demo he plays. */
     await step('stand still and listen', 60000);
-    await step('walk', 90000, async () => {
-      /* the pad is the control a player uses; a real finger on it, repeatedly */
-      for (let i = 0; i < 24; i++) {
-        if (left() <= 0) break;
-        const ok = await d.tapEl('#pad').catch(() => false);
-        if (!ok) { out.padMissing = true; break; }
-        await d.page.waitForTimeout(500);
-      }
-    });
+    await step('walk', 90000, async () => { out.walk1 = await walkN(40); });
     await step('pinch out to the city', 45000, async () => { await d.pinchOut(); });
     await step('pinch back to the street', 45000, async () => { await d.pinchIn(); });
-    await step('walk again', 60000, async () => {
-      for (let i = 0; i < 16; i++) {
-        if (left() <= 0) break;
-        await d.tapEl('#pad').catch(() => false);
-        await d.page.waitForTimeout(500);
-      }
-    });
+    await step('walk again', 60000, async () => { out.walk2 = await walkN(24); });
     while (left() > 0) await d.page.waitForTimeout(Math.min(2000, left()));
 
     out.ear = await d.page.evaluate(() => {
       const E = window.__ear;
       try { clearInterval(E.tick); } catch (e) {}
-      const M = window.MUS;
+      let M = null; try { M = MUS; } catch (e) {}
       return {
         asks: E.asks, meter: E.meter, notes: E.notes, errs: E.errs,
         meterOn: E.meterOn || null,
@@ -178,6 +200,10 @@ function EAR() {
     ok: out.ok, why: out.why, file: FILE,
     secondsWalked: out.route ? out.route[out.route.length - 1].at : null,
     soundsAsked: sfx.length, distinctSounds: Object.keys(names).length, names: names,
+    /* THE CONTROL ON THE WALK: cells moved, read off the engine. A footstep claim is
+       worthless without it. */
+    walkMoved: [out.walk1 && out.walk1.moved, out.walk2 && out.walk2.moved],
+    padMissing: !!out.padMissing,
     musicNotes: e.notes, song: e.song, acState: e.acState, meterOn: e.meterOn,
     meterSamples: m.length,
     longestSilenceSec: worst, longestSilenceEndedAt: worstAt,
