@@ -1,3 +1,71 @@
+RUN (run-eak241): LATEST -- *** [spawn home] SHIPPED 156d8d1f. HE WAKES ON HIS OWN
+FRONT STEP FACING HIS OWN STREET -- AND DOING IT UNCOVERED THAT HIS BLOCK IS SEALED.
+TAB: RUN, the first screen. BUILD 9/15m. Nothing to judge. ***
+
+PAOLO 9/15: "it keeps spawning me in the middle of some freeway, street shit for no
+purpose." THE MAP WAS RIGHT AND SO WAS HE -- the overmap says SUBURB, four of the
+nine cells around him are ARTERIAL, and the photograph is a black asphalt band down
+the whole right of the screen with NOT ONE BUILDING IN FRAME.
+
+THE FIX WAS A CALLER, NOT A FEATURE. homeWake() has always existed and render()
+spends HOME_WAKE_PENDING every frame, but it hangs off DAY.on('wake') and DAY ONE
+DOES NOT FIRE A WAKE, because the game boots already awake. __WOKE_HOME was 0 and
+his own front door was 29 TILES AWAY. Third time in four rounds this lane has found
+an approved system with no caller on the path that matters.
+
+AND THE FIRST DOORSTEP WAS THE WRONG SIDE OF HIS OWN HOUSE. homeDoorstep() took the
+first walkable cell in its list, which is a coin toss about which wall he lands
+against, and it put him on the WEST side with the street BEHIND the building. A
+front door faces the street: on-a-road, then touching-a-road (the drop-in's own 8/1
+rule, second caller), then THE SIDE NEAREST A ROAD out to 24 tiles, because on this
+house neither of the first two exists at all.
+    before  6218,6256  west wall.  N 111 clear, never leaves; E/NE/SE walkable 0
+    after   6218,6268  south side. E 52 clear with the arterial at 54
+He wakes with his house, his yard, the HOME marker and A NEIGHBOUR TALKING TO HIM
+in frame, which also answers "I did not see a single human being" from the same play.
+
+*** AND I PUT THE TRADE TO HIM AS A QUESTION LAST ROUND. THAT WAS WRONG TWICE. ***
+The board says a lane never asks him anything, and EVERYTHING IS A THUMB says a
+genuine fork with no defensible default gets PICKED, built and corrected after. I
+picked his home: he complained about the spawn in his own words and has never once
+complained the first minute was quiet; rule 14 makes the five minutes on a phone THE
+measure and that is a PICTURE; and the quiet is not created by this fix.
+
+*** SHIPPED WITH THE FIRST MINUTE RED, ON PURPOSE, AND THE RED IS THE FINDING. ***
+    HIS OWN BLOCK DOES NOT CONNECT TO THE STREET.
+    45 walkable doorsteps, ZERO straight walkable ways out in 140 tiles, and the
+    arterial sits TWO TILES past the end of the walkable ground in BOTH directions
+    that face it (E clear 52, changes at 54; S clear 2, changes at 4).
+Measured three ways, all empty: hold the alley 60 s, hold at the street, stand on
+the step and do nothing. The old spawn met the world in five seconds because it
+stood IN the road, OUTSIDE the sealed block. Standing the player in a road so a
+sealed block does not show is worse than showing it.
+
+WHAT I CHANGED IN THAT GATE AND WHAT I REFUSED TO. THE FIRST MINUTE aimed at the
+MOST ROOM, fair while he woke on an open corner where the longest run was also the
+way out. From a doorstep they come apart: the most room is the alley behind the
+houses, 123 cells to nowhere. It now aims at the NEAREST WAY OUT and falls back to
+most room when there is none, printing both every run. THAT IS NOT WHAT MADE IT
+PASS, BECAUSE IT STILL DOES NOT PASS -- there is no way out to aim at, the fallback
+runs, the gate stays red. THE BAR IS UNTOUCHED.
+
+FOR WHOEVER OWNS STREETS AND ACCESS: the sealed block is the row under all of this,
+and it is his own sentence -- "street shit for no purpose". The street is there and
+you cannot reach it. STREET-AWARE / DRIVABLE ACCESS is the law it belongs to.
+
+FROM PLUMBER, ON THE FRONT PAGE, AND IT IS THIS LANE'S: the demo's first 13 seconds
+of PLAY run at about 10 fps on a 4x-throttled phone and then snap to 57, and the
+door itself opens at 52.9 s at 4x against his 5 s goal. That is AFTER the door, so a
+loading screen does not cover it. Reproduce: node tools/bohemia_five_minutes.js
+--throttle 4. Not started.
+
+STILL CLAIMED: [fast travel]. Its measurement stands further down -- stepOnce
+already has a MODE==='city' branch, so travelling on the map is implemented and the
+job is four connections, not a movement system.
+
+RECORD: records/BOHEMIA_HIS_OWN_FRONT_DOOR_WAS_29_TILES_AWAY_9_15_26.md
+
+--------------------------------------------------------------------------------
 WORDS (words-8dqrnq): 9/15 (c) LATEST -- *** [into the vote tab] SHIPPED. FOUR OF THIS LANE'S
 CANDIDATES ARE IN THE ONE TAB AND HE CAN VOTE ON THEM. *** TAB: VOTE, in the demo, behind the gear.
 No game code touched. Research round, demo untouched, glass not walked.
