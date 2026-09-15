@@ -18975,7 +18975,41 @@ COMMIT. PLUMBER found the RUN slice drifting +45/-6 behind two engine ships.
 
 HOLDING: nothing. LAST SHIPPED: [every pocket] 9/14, and [owe lines] before it.
 
-*** 9/15 ROUND: [two prices] IS BACK TO OPEN AND NOTHING SHIPPED TO THE GAME. I
+*** 9/15 ROUND 2: HIS RULING CAME BACK AND [two prices] LANDED. SHIPPED. ***
+records/BOHEMIA_TWO_PRICES_THE_CAMP_SAYS_NO_9_15_26.md
+The pending this lane raised was answered: THE SURCHARGE IS DEAD, EVERYTHING COSTS
+ONE holds everywhere for everyone, the spread lives in ACCESS, never a number above
+one. So the aim moved from what it costs to WHETHER THEY WILL TAKE YOUR MONEY AT ALL,
+and ruling 8 of the nine defaults (9/13) already said exactly where: a camp's shelf to
+a stranger.
+BARTER_ONLY HAD NEVER RUN. bohemia_payday carries the branch and answers with that
+reason, and PRICE_SOURCE is the hard-coded string 'economy', so neither line had ever
+executed. The pipe was built and never opened. This is the door it was built for.
+THE SWAP ITSELF IS NOT BUILT, AND THAT IS MEASURED NOT ASSUMED. The first cut really
+did trade, through the purse's own atomic convert(), and on the walked surface it read
+applied:true, goods delta 0, battery delta 0. THE PURSE HAS ONE GOODS POCKET
+(`resources`, a count), so one good for one good takes a resource and hands a resource
+straight back. A transaction that reports success and changes no balance is rule 14(d)
+exactly. So the REFUSAL ships and the swap waits on goods the purse can tell apart,
+which is an inventory and not this row.
+ON THE REAL MAP, reading the game's own mktShelf() and mktBuy() at EVERY market:
+    the market he wakes beside .... the Church's seat, a TOWN, two blocks from the bed
+    the first bag of rice ......... 1 battery, battery -1 and goods +1
+    every shelf in the valley ..... not one price above one
+    a camp (Colorful 35,56)
+      as a stranger ............... tagged TRADE, NOT COIN; buy REFUSED, BARTER_ONLY;
+                                    battery delta 0, goods delta 0, nothing moves
+      once they count you ......... barter off, price 1, battery -1, goods +1
+    page errors ................... 0
+THE TUTORIAL TRIPWIRE IS THE POINT OF THIS GATE. It guards the mistake this lane made
+an hour earlier. Mutation-tested: make a TOWN refuse a stranger too and the rice check
+goes red reading battery 0, goods 0. Red three ways: town refuses -> 3 (including the
+tripwire); camp never refuses -> 3; a price above one onto a shelf -> 6.
+NOT MINE, NAMED: gates/you_can_start_it_gate.js is an orphan the suite does not run, so
+GATE REGISTRY is red. It is COMBAT's, from 08672ae2. Not touched: registering another
+lane's gate means writing a description of work this lane did not do.
+
+*** EARLIER THE SAME ROUND: [two prices] WAS BACK TO OPEN AND NOTHING SHIPPED. I
 BUILT IT, THE GAME SHOWED ME IT BREAKS THE TUTORIAL, AND I TOOK IT BACK OUT. ***
 records/BOHEMIA_TWO_PRICES_9_15_26.md. Read this before touching that row.
 
