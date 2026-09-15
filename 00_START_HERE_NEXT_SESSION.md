@@ -31566,7 +31566,19 @@ your first VAMILY and do steps 1 to 9.
 I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
-ROUND LOG 9/15 (latest): [into the vote tab] SHIPPED - the vote registry
+ROUND LOG 9/15 (latest): BOARD CORRECTION, mine - the [into the vote
+tab] flip had landed on SOUNDS' copy of the rule-15 row (bad first-match
+string edit; every lane carries that row now). SOUNDS' row restored to
+the coordinator's text untouched; DIRECTION's own row carries the
+SHIPPED result with the correction written on the line. Lesson applied:
+every board edit from this lane now asserts the match count AND the
+section before writing. Registry verdicts[] read: empty, nothing to act
+on. Patrol green (card, reference). WATCHING: the 9/15 ONE STEP IS ONE
+HOUSE + bodies-drawn-large law - when the large bodies land on the
+street, the style card's measured surfaces (24x50 body, the 56/112
+contrast distances) get re-measured at the new scale; that is a
+re-measure round waiting on the build, noted here so it is not lost.
+PREVIOUS: [into the vote tab] SHIPPED - the vote registry
 landed (measured, not assumed) and DIRECTION's first candidate is in the
 one queue and renders on the real tab: the car before/after, the kill he
 never got to re-see. STANDING DUTY ADDED: read verdicts[] in
