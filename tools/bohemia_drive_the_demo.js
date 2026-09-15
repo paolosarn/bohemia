@@ -75,6 +75,40 @@ async function open(opts) {
   const errs = [];
   page.on('pageerror', e => errs.push(String(e).slice(0, 160)));
 
+  /* EXTENDED 9/15 (PLUMBER, rule 14(g): every lane that walks the five minutes uses
+     this or extends it). TWO THINGS PAOLO ASKED FOR BY NAME ON HIS SECOND PLAY:
+     "it's kinda not running as smoothly as I would like, MAYBE IT'S CAUSE THINGS ARE
+     LOADING IN REAL TIME."
+
+     (1) opts.throttle -- a CPU throttling rate, the same knob DevTools uses. This
+         container is not a handset and never was; every fps number this fleet has
+         posted was measured on a machine several times faster than the thing in his
+         hand, which is why "57 fps" and "not running smoothly" can both be true.
+     (2) loads -- every response the page takes, with the millisecond it landed and
+         how big it was, so "what loads while he is playing" is a LIST and not a
+         feeling. `firstPaint` is stamped the moment the city frame exists, and
+         anything after that is loading DURING play.
+
+     Both are off unless a caller asks, so no existing use of this driver changes. */
+  const t00 = Date.now();
+  const loads = [];
+  let firstPaintAt = null;
+  page.on('response', (r) => {
+    const u = r.url();
+    const rel = u.replace(/^https?:\/\/[^/]+/, '').split('?')[0];
+    /* SIZE FROM DISK, NOT FROM THE HEADER. This little server streams the file and
+       never sets content-length, so every row read 0 KB on the first cut and "28 files
+       arrived during play" came with no weight attached. A list of names is an
+       accusation; a list of names and megabytes is a measurement. */
+    let bytes = 0;
+    try { bytes = fs.statSync(path.join(ROOT, rel.replace(/^\//, ''))).size; } catch (e) {}
+    loads.push({ at: Date.now() - t00, url: rel, status: r.status(), bytes });
+  });
+  const cdpEarly = await ctx.newCDPSession(page);
+  if (opts.throttle && opts.throttle > 1) {
+    await cdpEarly.send('Emulation.setCPUThrottlingRate', { rate: opts.throttle });
+  }
+
   await page.goto('http://127.0.0.1:' + port + '/slices/'
     + (opts.file || 'BOHEMIA_DEMO.html'), { waitUntil: 'load', timeout: 300000 });
   /* WAIT FOR THE DOOR, DO NOT GUESS HOW LONG IT TAKES (COOK 9/14, [streets fixed] r3).
@@ -133,6 +167,8 @@ async function open(opts) {
     return !!fr;
   }, opts.settle || 22000);
   if (!fr) { await browser.close(); server.close(); throw new Error('no city frame'); }
+  /* the city frame exists: from here on, anything that arrives is loading DURING PLAY */
+  if (firstPaintAt === null) firstPaintAt = Date.now() - t00;
   /* and the frame existing is not the world being there */
   await until(() => fr.evaluate(() => typeof MODE !== 'undefined' && MODE === 'human'
     && document.querySelectorAll('.pb').length === 8), opts.world || 120000);
@@ -252,6 +288,12 @@ async function open(opts) {
 
   return {
     page, fr, ctx, browser, errs,
+    /* what loaded, and where the door was in that list (PLUMBER 9/15) */
+    loads, cdp: cdpEarly,
+    firstPaintMs: () => firstPaintAt,
+    bootAt: () => t00,          /* the driver's zero, so a caller can share one axis */
+    throttle: opts.throttle || 1,
+    lateLoads: () => loads.filter(l => firstPaintAt !== null && l.at > firstPaintAt),
     state: () => fr.evaluate(() => ({
       mode: typeof MODE !== 'undefined' ? MODE : '?',
       tw: typeof TW !== 'undefined' ? +TW.toFixed(1) : null,

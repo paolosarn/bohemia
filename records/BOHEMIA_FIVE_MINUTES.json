@@ -1,36 +1,286 @@
 {
- "what": "The demo's first 300 s on a phone, as four numbers. Written by tools/bohemia_five_minutes.js for VAMILY row [demo errors].",
+ "what": "The demo's first 60 s on a phone, as four numbers. Written by tools/bohemia_five_minutes.js for VAMILY row [demo errors].",
  "why": "PAOLO 9/13: \"it's like this glitchy, buggy AI experience where nothing's complete.\" Rule 14 makes these five minutes the only measure of the game.",
- "taken": "2026-09-14T21:08:39.005Z",
- "secondsWalked": 301,
+ "taken": "2026-09-15T04:57:30.981Z",
+ "secondsWalked": 61,
  "boxSpeed": {
-  "start": 1.04,
-  "end": 1.03,
+  "start": 0.77,
+  "end": 0.72,
   "baselineMs": 29.1
+ },
+ "cpuThrottle": 6,
+ "framesPerSecondBuckets": [
+  4,
+  4,
+  5,
+  6,
+  2,
+  7,
+  4,
+  5,
+  4,
+  4,
+  3,
+  4,
+  4,
+  54,
+  55,
+  55,
+  59,
+  55,
+  55,
+  38,
+  2,
+  44,
+  57,
+  58,
+  51,
+  59,
+  57,
+  55,
+  55,
+  59,
+  47,
+  23,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  4,
+  16,
+  60,
+  56,
+  55,
+  58,
+  57,
+  56,
+  58,
+  58,
+  57,
+  58,
+  58,
+  59,
+  55,
+  54,
+  60,
+  53,
+  56,
+  57,
+  60,
+  32
+ ],
+ "loadingDuringPlay": {
+  "why": "PAOLO 9/15: \"maybe it's cause things are loading in real time.\" Ruling 5.",
+  "doorMs": 79366,
+  "beforeTheDoor": 3,
+  "afterTheDoor": 30,
+  "afterTheDoorMB": 75.91,
+  "list": [
+   {
+    "sinceDoorMs": 2339,
+    "kb": 5087,
+    "url": "/slices/BOHEMIA_DEMO.html",
+    "status": 200
+   },
+   {
+    "sinceDoorMs": 5216,
+    "kb": 2,
+    "url": "/slices/BOHEMIA_CITY_TILES_LATE.js",
+    "status": 200
+   },
+   {
+    "sinceDoorMs": 5216,
+    "kb": 68,
+    "url": "/slices/BOHEMIA_CITY_FLOORS.js",
+    "status": 200
+   },
+   {
+    "sinceDoorMs": 5220,
+    "kb": 597,
+    "url": "/slices/BOHEMIA_CITY_TILEFORMS.js",
+    "status": 200
+   },
+   {
+    "sinceDoorMs": 5222,
+    "kb": 1571,
+    "url": "/slices/BOHEMIA_CITY_PROPS.js",
+    "status": 200
+   },
+   {
+    "sinceDoorMs": 5223,
+    "kb": 1581,
+    "url": "/slices/BOHEMIA_CITY_TILES_01.js",
+    "status": 200
+   },
+   {
+    "sinceDoorMs": 6814,
+    "kb": 1581,
+    "url": "/slices/BOHEMIA_CITY_TILES_01.js",
+    "status": 200
+   },
+   {
+    "sinceDoorMs": 7797,
+    "kb": 1571,
+    "url": "/slices/BOHEMIA_CITY_PROPS.js",
+    "status": 200
+   },
+   {
+    "sinceDoorMs": 7929,
+    "kb": 2679,
+    "url": "/slices/BOHEMIA_CITY_TILES_02.js",
+    "status": 200
+   },
+   {
+    "sinceDoorMs": 8085,
+    "kb": 2597,
+    "url": "/slices/BOHEMIA_CITY_TILES_03.js",
+    "status": 200
+   },
+   {
+    "sinceDoorMs": 8282,
+    "kb": 1541,
+    "url": "/slices/BOHEMIA_CITY_TILES_04.js",
+    "status": 200
+   },
+   {
+    "sinceDoorMs": 8398,
+    "kb": 4094,
+    "url": "/slices/BOHEMIA_CITY_TILES_05.js",
+    "status": 200
+   },
+   {
+    "sinceDoorMs": 8609,
+    "kb": 3983,
+    "url": "/slices/BOHEMIA_CITY_TILES_06.js",
+    "status": 200
+   },
+   {
+    "sinceDoorMs": 8897,
+    "kb": 4084,
+    "url": "/slices/BOHEMIA_CITY_TILES_07.js",
+    "status": 200
+   },
+   {
+    "sinceDoorMs": 12066,
+    "kb": 3921,
+    "url": "/slices/BOHEMIA_CITY_TILES_08.js",
+    "status": 200
+   },
+   {
+    "sinceDoorMs": 14506,
+    "kb": 3796,
+    "url": "/slices/BOHEMIA_CITY_TILES_09.js",
+    "status": 200
+   },
+   {
+    "sinceDoorMs": 17816,
+    "kb": 2,
+    "url": "/slices/BOHEMIA_CITY_TILES_LATE.js",
+    "status": 200
+   },
+   {
+    "sinceDoorMs": 20627,
+    "kb": 0,
+    "url": "/slices/BOHEMIA_CITY_TILES_READY.js",
+    "status": 200
+   },
+   {
+    "sinceDoorMs": 144806,
+    "kb": 5087,
+    "url": "/slices/BOHEMIA_DEMO.html",
+    "status": 200
+   },
+   {
+    "sinceDoorMs": 164319,
+    "kb": 5087,
+    "url": "/slices/BOHEMIA_DEMO.html",
+    "status": 200
+   },
+   {
+    "sinceDoorMs": 187039,
+    "kb": 2102,
+    "url": "/slices/BOHEMIA_CURRENT_SLICE.html",
+    "status": 200
+   },
+   {
+    "sinceDoorMs": 199080,
+    "kb": 2679,
+    "url": "/slices/BOHEMIA_CITY_TILES_02.js",
+    "status": 200
+   },
+   {
+    "sinceDoorMs": 199108,
+    "kb": 2597,
+    "url": "/slices/BOHEMIA_CITY_TILES_03.js",
+    "status": 200
+   },
+   {
+    "sinceDoorMs": 199125,
+    "kb": 1541,
+    "url": "/slices/BOHEMIA_CITY_TILES_04.js",
+    "status": 200
+   },
+   {
+    "sinceDoorMs": 199169,
+    "kb": 4094,
+    "url": "/slices/BOHEMIA_CITY_TILES_05.js",
+    "status": 200
+   },
+   {
+    "sinceDoorMs": 199223,
+    "kb": 3983,
+    "url": "/slices/BOHEMIA_CITY_TILES_06.js",
+    "status": 200
+   },
+   {
+    "sinceDoorMs": 199258,
+    "kb": 4084,
+    "url": "/slices/BOHEMIA_CITY_TILES_07.js",
+    "status": 200
+   },
+   {
+    "sinceDoorMs": 199291,
+    "kb": 3921,
+    "url": "/slices/BOHEMIA_CITY_TILES_08.js",
+    "status": 200
+   },
+   {
+    "sinceDoorMs": 199329,
+    "kb": 3796,
+    "url": "/slices/BOHEMIA_CITY_TILES_09.js",
+    "status": 200
+   },
+   {
+    "sinceDoorMs": 199337,
+    "kb": 0,
+    "url": "/slices/BOHEMIA_CITY_TILES_READY.js",
+    "status": 200
+   }
+  ]
  },
  "numbers": {
   "pageErrors": 0,
-  "stalls": 1,
-  "deadTaps": 48,
-  "slowFrames": 10968,
-  "droppedFrames": 194,
-  "fps": 57.8
+  "stalls": 9,
+  "deadTaps": 1,
+  "deadTapsCeiling": 3,
+  "slowFrames": 1374,
+  "droppedFrames": 120,
+  "fps": 34.9
  },
  "of": {
-  "tapsReached": 77,
-  "tapsBlocked": 57,
-  "tapsTried": 239,
-  "frames": 17402,
-  "worstGapMs": 1550
+  "tapsReached": 12,
+  "tapsBlocked": 2,
+  "tapsThatMovedTheScreenAndVanished": 2,
+  "tapsTried": 27,
+  "frames": 2131,
+  "worstGapMs": 8133
  },
  "floorsFailed": [],
  "deadByName": {
-  "SUBURB · ON FOOT": 8,
-  "DAY 1 · 13:57": 8,
-  "MUSIC": 8,
-  "SAVE": 8,
-  "PHONE1": 8,
-  "OUTFIT": 8
+  "SUBURB · DAY 1 · 06:00": 1
  },
  "errors": []
 }

@@ -3512,6 +3512,26 @@ GATES = [
      'it holds the part a machine can. Both teeth were proven to bite with throwaway files before '
      'it shipped. First run: 23 advertised, 23 on disk, 23 run',
      False),
+    ('LOADING IN PLAY', ['node', 'gates/loading_during_play_gate.js'],
+     'A BUDGET ON THE ROUGHNESS PAOLO FELT. 9/15, PLUMBER lane, row [sixty fps]. He played the '
+     'demo a second time: "it is kinda not running as smoothly as I would like. MAYBE IT IS CAUSE '
+     'THINGS ARE LOADING IN REAL TIME." Coordinator ruling 5 sent that here by name, asking for '
+     'fps on a throttled phone profile AND the loading during play NAMED. Measured: the door '
+     'opens after 3 files, then 30 more files and 75.9 MB stream in behind him, the last landing '
+     '227 s into play. That is the demo shell warm-fetch queue working as designed, and the size '
+     'is what nobody was watching. This gate is a RATCHET, not a target: there is no defensible '
+     '"right" number of megabytes and inventing one would be a guess with a decimal point on it, '
+     'but it must never grow without somebody deciding it should. Pinned off two of its own runs '
+     '(63.9 MB, 27 files in a 75 s window, both times) and not off the walk -- the first cut was '
+     'estimated from the walk totals and went red on its own first run. Every ceiling is paired '
+     'with a floor (the door was reached, files arrived BEFORE the door so the log is listening, '
+     'frames were painted) because this lane has shipped three gates that were green while '
+     'measuring nothing. WHAT IT CANNOT SEE, SAID OUT LOUD: the test server sets no cache headers '
+     'and this container cannot reach the live site, so whether a real host would re-download the '
+     'twelve chunks the shell asks for twice is UNKNOWN here; either way the bytes are parsed on '
+     'the main thread while he plays.',
+     600),
+
     ('DERIVED FRESH', ['node', 'gates/derived_freshness_gate.js'],
      'NOTHING IS BAKED ONCE, MADE MECHANICAL. 9/12, PLUMBER lane, row [nothing baked]. '
      'laws/BOHEMIA_LAW_NOTHING_IS_BAKED_ONCE_9_6_26.md ends with the sentence "This one gets a '

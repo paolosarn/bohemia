@@ -754,6 +754,65 @@ full suite unmeasured since 7efb22cf. Rule 14(a): demo untouched, RUN cuts it.
 
 Record: records/BOHEMIA_ONE_DOOR_9_14_26.md
 
+PLUMBER (plumber-ont6t5): 9/15 LATEST -- *** CHAT 18. ROUND 27. CLAIMED [sixty fps] BECAUSE PAOLO'S
+SECOND PLAY NAMES THIS LANE AND THIS ROW BY NAME (ruling 5), AND HIS BUG BEATS MY QUEUE. ***
+HIS WORDS: "it's kinda not running as smoothly as I would like, maybe it's cause things are loading in
+real time." Ruling 5 asks for fps on a THROTTLED phone profile, one number, and the loading during play
+NAMED. Both are done.
+*** THE FINDING: HE MEETS THE WORST PART OF THE GAME FIRST, AND THIS BOX WAS HIDING IT. ***
+This container is not a handset. Every fps number this fleet has ever posted was taken on a machine
+several times faster than the thing in his hand, which is exactly how "57.8 fps" and "not running
+smoothly" are both true about the same build. The walk now takes a CPU throttle rate. A ladder, all four
+runs inside ONE window on one box (0.77x-0.88x of baseline, because a wall clock taken hours apart is
+about the hour and not the code):
+  1x   door 13.4 s   58.4 fps walk   53.3 fps first 15 s   worst stall 1.2 s
+  4x   door 52.9 s   53.4 fps walk    9.8 fps first 15 s   worst stall 8.8 s
+  6x   door 79.4 s   34.9 fps walk   11.0 fps first 15 s   worst stall 8.1 s
+At 4x, frames painted second by second: 4, 8, 6, 4, 6, 8, 7, 10, 7, 7, 9, 7, 5, 2 -- THEN 57, 56, 57.
+THIRTEEN SECONDS AT TEN FRAMES A SECOND, THEN IT SNAPS. Identical shape at 6x. At 1x the dip is three
+seconds and shallow, which is why nobody has ever seen it. A whole-walk average buries it, and those
+thirteen seconds are a sixth of his five minutes and the first thing he touches.
+NOT MINE TO FIX and I did not touch it: it lives in the demo shell's boot and the city frame's first
+paint, which are RUN's and LIFE+CITY's. One line each on the front page, per this lane's bounds.
+HIS THEORY, NAMED: the door opens after 3 files; then 30 more files and 75.9 MB stream in behind him,
+the last landing 227 s after the door (at 4x: 31 files, 80.9 MB, last at +311 s, past the end of his
+five minutes). It is `warmTheWorld` in the demo shell working as designed and its own comment argues
+the design well. THE SIZE IS WHAT NOBODY WAS WATCHING. Twelve chunks are asked for twice in 75 s.
+SHIPPED: `--throttle N` on the walk; the driver extended (rule 14(g)) to take a CPU throttle rate, log
+every response with its landing time and its size ON DISK, and stamp the door; boot ceilings scale with
+the rate or a throttled boot makes the driver throw "no city frame" on a game that boots fine (trap 5 in
+its own header); a per-second frame counter, which is what found the thirteen seconds.
+NEW GATE gates/loading_during_play_gate.js, in the suite as LOADING IN PLAY, GREEN 6/0. A RATCHET on
+what streams in behind the player: 63.9 MB and 27 files in a 75 s window, PINNED OFF TWO OF ITS OWN RUNS
+rather than off the walk -- the first cut was estimated from the walk's totals and went red on its own
+first run, which is the correct outcome and why it is pinned this way now. Four floors before any
+ceiling (door reached; files arrived BEFORE the door so the log is listening; frames painted; the window
+saw loading at all), because this lane has shipped three gates that were green while measuring nothing.
+*** A TEST I BUILT AND DELETED BEFORE IT REACHED THE BOARD. *** I tried to prove his theory by splitting
+the walk into seconds where a file landed and seconds where none did. Two ways of lining up the load
+clock with the frame clock gave two answers off the SAME run: 45.3 vs 55.3 fps (gap 10.0, 7 busy
+seconds) and 51.7 vs 55.4 (gap 3.7, 25 busy seconds). A test that changes its verdict with its
+arithmetic is not evidence. Deleted. What replaced it needs no alignment at all and turned out louder.
+After three published numbers I had to take back in two rounds, the difference this time is that the
+weak one never reached his screen.
+ALSO: a block replacement in the walk file DELETED THE FLOORS and the next run crashed on the missing
+variable instead of quietly reporting a walk with nothing under it. The crash was luck. Floors restored
+and two added (the door was reached; a file arrived before the door).
+WHAT I COULD NOT CHECK, SAID OUT LOUD: the test server sets no cache headers and this container's
+network policy blocks the live site (403 to CONNECT on paolosarn.github.io), so whether a real browser
+re-downloads those twelve chunks or reads them from disk is UNKNOWN from here. Either way the bytes are
+parsed on the main thread while he plays.
+ROW STAYS CLAIMED, NOT SHIPPED. [sixty fps] wants 60 walking, 60 in the fight, first play under 5 s.
+None of the three is met (13.4 s / 52.9 s against 5; 58.4 / 53.4 against 60; the fight is still
+unmeasured under throttle) and front-page rule 6 says a half-done job marked SHIPPED is worse than an
+open one. What it has that it did not have before: numbers taken on a profile that is not lying about
+the machine, and a location for the worst part of the five minutes.
+STILL OPEN IN MY SECTION: [handoff cut], [suite runs] (handed back OPEN), [dead gates], [mode chip],
+[cannot fail], [pre-push pass], [suite line].
+Records: records/BOHEMIA_NOT_RUNNING_SMOOTHLY_THE_FIRST_THIRTEEN_SECONDS_9_15_26.md, raw
+records/BOHEMIA_FIVE_MINUTES.json.
+[PENDING Paolo] nothing.
+
 PLUMBER (plumber-ont6t5): 9/14 (b) LATEST -- *** CHAT 18. ROUND 26. [demo errors] ROUND 1 POSTED,
 AND THE HEADLINE IS THAT I STOPPED ON THE FOURTH VERSION OF ONE NUMBER INSTEAD OF SHIPPING A FOURTH
 GUESS. ***

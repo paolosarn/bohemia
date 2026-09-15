@@ -56,15 +56,37 @@ const BEAT = 500;            /* 120 BPM, the law */
 const FRAME = 1000 / 60;     /* the only frame budget in the building */
 const RECORD = 'records/BOHEMIA_FIVE_MINUTES.json';
 
+/* THROTTLE. PAOLO 9/15, his second play: "it's kinda not running as smoothly as I would
+   like, maybe it's cause things are loading in real time." Coordinator ruling 5 sends
+   that to this lane by name and asks for fps "on a THROTTLED phone profile".
+   THIS CONTAINER IS NOT A HANDSET. Every fps number this fleet has ever posted was
+   taken on a machine several times faster than the thing in his hand, which is exactly
+   how "57.8 fps" and "not running smoothly" can both be true statements about the same
+   build. `--throttle N` slows the CPU by N, the same knob DevTools uses.
+   NO SINGLE NUMBER IS HONEST HERE, because nobody in this repo has ever measured a real
+   iPhone, so picking one multiplier would be a guess wearing a decimal point. The tool
+   takes a rate and prints it, and the round runs a LADDER (1x, 4x, 6x) so the shape of
+   the fall is visible instead of one invented figure. */
+const TH = (() => { const i = process.argv.indexOf('--throttle');
+  return i > 0 && process.argv[i + 1] ? +process.argv[i + 1] : 1; })();
+
 /* Installed in the page: every animation frame, and how long since the last one.
    rAF is what the game paints on, so this is the same clock the player's eye is on. */
 const WATCH = `(function(){
-  window.__fm = { frames: 0, slow: 0, dropped: 0, stalls: 0, worst: 0, last: 0, t0: 0 };
-  
+  window.__fm = { frames: 0, slow: 0, dropped: 0, stalls: 0, worst: 0, last: 0,
+                  t0: Date.now(), sec: [] };
+  /* FRAMES PER SECOND, SECOND BY SECOND (added 9/15 for Paolo's ruling 5).
+     He said two things in one breath: "it's kinda not running as smoothly as I would
+     like" and "MAYBE IT'S CAUSE THINGS ARE LOADING IN REAL TIME." Those are a symptom
+     and a theory, and one whole-walk average cannot test the theory -- it smears the
+     bad seconds into the good ones. A bucket per second can be laid against the moment
+     each file landed, and then his theory is either true here or it is not. */
   function tick(t){
     const f = window.__fm;
     if (f.last) { const dt = t - f.last;
       f.frames++;
+      var s = Math.floor((Date.now() - f.t0) / 1000);
+      f.sec[s] = (f.sec[s] || 0) + 1;
       if (dt > ${FRAME}) f.slow++;
       if (dt > ${FRAME} * 2) f.dropped++;
       if (dt > ${BEAT}) f.stalls++;
@@ -86,8 +108,17 @@ const sleep = (ms) => new Promise(r => setTimeout(r, ms));
   console.log('\nTHE FIVE MINUTES, COUNTED -- ' + SECONDS + ' s on a phone\n');
   console.log('  ' + SPEED.line(before));
 
-  const d = await D.open();
+  /* A THROTTLED BOOT IS A SLOWER BOOT, so the door and city-frame ceilings scale with
+     the rate. Leaving them at their 1x values would make the driver throw "no city
+     frame" on a game that boots perfectly, which is the exact failure the driver's
+     own header warns about (trap 5). */
+  const d = await D.open({ throttle: TH,
+    boot: 15000 * Math.max(1, TH), settle: 22000 * Math.max(1, TH) });
   await d.fr.evaluate(WATCH);
+  if (TH > 1) console.log('  CPU THROTTLED ' + TH + 'x -- this container is not a handset, '
+    + 'and every fps number this fleet has posted was taken on a faster machine than his.');
+  console.log('  door reached at ' + (d.firstPaintMs() / 1000).toFixed(1) + ' s, after '
+    + d.loads.length + ' file(s)');
 
   /* THE WHOLE PHONE, NOT JUST THE CANVAS. (fixed 9/14, second wrong number.)
      The first two walks clipped the picture to the canvas, and MUSIC, SAVE, PHONE1
@@ -184,6 +215,11 @@ const sleep = (ms) => new Promise(r => setTimeout(r, ms));
   }
 
   const fm = await d.fr.evaluate(() => window.__fm);
+  /* WHAT LOADED WHILE HE WAS PLAYING. His own theory, in his own words, and until now
+     nobody in this repo had a list to answer it with. Taken before close() so the
+     page is still the page. */
+  const late = d.lateLoads();
+  const doorMs = d.firstPaintMs();
   const errs = d.errs.slice();
   await d.close();
   const after = SPEED.measure();
@@ -228,14 +264,82 @@ const sleep = (ms) => new Promise(r => setTimeout(r, ms));
     + ', ' + (100 * fm.slow / (fm.frames || 1)).toFixed(0) + '% -- true but nearly always true)');
   console.log('  ========================================================');
   console.log('    walked ' + secs + ' s, box ' + before.ratio + 'x at the start, '
-    + after.ratio + 'x at the end');
+    + after.ratio + 'x at the end' + (TH > 1 ? ', CPU throttled ' + TH + 'x' : ''));
 
-  /* THE FLOORS, AFTER THE NUMBERS SO THEY ARE ALWAYS VISIBLE, AND BEFORE ANY VERDICT */
+  /* *** THE LOADING THAT HAPPENS DURING PLAY, NAMED. (PAOLO 9/15, ruling 5.) *** */
+  console.log('\n  WHAT LOADS WHILE HE IS PLAYING ("maybe it\'s cause things are loading'
+    + ' in real time" -- Paolo 9/15)');
+  console.log('    the door opened at ' + (doorMs / 1000).toFixed(1) + ' s, after '
+    + (d.loads.length - late.length) + ' file(s). AFTER THAT, ' + late.length
+    + ' more file(s) arrived while he was playing.');
+  if (late.length) {
+    const mb = late.reduce((a, l) => a + (l.bytes || 0), 0) / 1048576;
+    console.log('    ' + mb.toFixed(1) + ' MB of it, and the last one landed '
+      + ((late[late.length - 1].at - doorMs) / 1000).toFixed(1) + ' s after the door.');
+    console.log('    in the order he met them:');
+    for (const l of late.slice(0, 25)) {
+      console.log('      +' + ((l.at - doorMs) / 1000).toFixed(1).padStart(6) + ' s  '
+        + ((l.bytes || 0) / 1024).toFixed(0).padStart(6) + ' KB  ' + l.url.slice(-58));
+    }
+    if (late.length > 25) console.log('      ... and ' + (late.length - 25) + ' more');
+  } else {
+    console.log('    NOTHING. Everything the demo fetches is in before the door opens,'
+      + ' so his theory does not hold on this surface and the cause is elsewhere.');
+  }
+
+  /* *** THE FIRST SECONDS OF PLAY, ONE BAR EACH. ***
+     PAOLO 9/15: "it's kinda not running as smoothly as I would like."
+
+     I tried to answer that by splitting the walk into seconds where a file landed
+     and seconds where none did. I BUILT THAT TEST AND THEN THREW IT AWAY, because
+     two different ways of lining up the load clock with the frame clock gave two
+     different answers off the SAME run -- 45.3 against 55.3 fps one way, 51.7
+     against 55.4 the other. A test that changes its verdict with its arithmetic is
+     not evidence, and this lane has already published three numbers this week that
+     it had to take back.
+
+     What is in this block instead needs no clock alignment at all: the frames
+     painted in each of the first seconds of play, straight off the counter. It is
+     the weaker claim and it is the one that survives. It is also, as it turns out,
+     the louder one. */
+  if (fm.sec && fm.sec.length > 30) {
+    const at = (k) => (fm.sec[k] === undefined ? 0 : fm.sec[k]);
+    const head = [], HEAD_S = 15;
+    for (let k = 0; k < HEAD_S; k++) head.push(at(k));
+    const rest = [];
+    for (let k = HEAD_S; k < fm.sec.length - 1; k++) if (fm.sec[k] !== undefined) rest.push(fm.sec[k]);
+    const avg = (v) => v.length ? v.reduce((a, b) => a + b, 0) / v.length : 0;
+    console.log('\n  HOW SMOOTH IS IT, SECOND BY SECOND ("it\'s kinda not running as smoothly'
+      + ' as I would like" -- Paolo 9/15)');
+    for (let k = 0; k < Math.min(22, fm.sec.length); k++) {
+      console.log('    +' + String(k).padStart(3) + ' s  ' + String(at(k)).padStart(3)
+        + '  ' + '#'.repeat(Math.round(at(k) / 2)));
+    }
+    console.log('    the first ' + HEAD_S + ' seconds of play averaged ' + avg(head).toFixed(1)
+      + ' frames a second');
+    console.log('    the other ' + rest.length + ' seconds averaged ' + avg(rest).toFixed(1));
+    if (avg(head) < avg(rest) - 10) {
+      console.log('    *** THE WHOLE-WALK AVERAGE HIDES THIS. He meets the worst part of the'
+        + ' game first, and then it clears. ***');
+    }
+  }
+
+  /* THE FLOORS, AFTER THE NUMBERS SO THEY ARE ALWAYS VISIBLE, AND BEFORE ANY VERDICT.
+     (RESTORED 9/15 -- a block replacement in this file deleted them, and the very next
+     run crashed on the missing variable instead of quietly reporting a walk with no
+     floor under it. The crash was luck; the lesson is that the guard is the part of
+     this tool that matters and it must never be collateral in an edit.)
+     A walk that drove no taps, or saw no frames, agrees that the demo is perfect. */
   const floors = [];
   if (driven.length < 10) floors.push('only ' + driven.length + ' taps landed: a walk that '
     + 'pressed nothing agrees the demo is perfect');
   if (fm.frames < 100) floors.push('only ' + fm.frames + ' frames seen: the frame watcher '
     + 'was not running, so the frame counts mean nothing');
+  if (doorMs === null || !(doorMs > 0)) floors.push('the door was never reached, so there '
+    + 'is no "during play" and every load number above is about nothing');
+  if (d.loads.length - late.length < 1) floors.push('no file arrived BEFORE the door: the '
+    + 'load log is not listening, and a small "during play" number would be an instrument '
+    + 'failure reported as good news');
   if (floors.length) {
     console.log('\n  *** THIS WALK DOES NOT COUNT ***');
     for (const f of floors) console.log('      ' + f);
@@ -263,6 +367,16 @@ const sleep = (ms) => new Promise(r => setTimeout(r, ms));
     taken: new Date().toISOString(),
     secondsWalked: +secs,
     boxSpeed: { start: before.ratio, end: after.ratio, baselineMs: before.baselineMs },
+    cpuThrottle: TH,
+    framesPerSecondBuckets: fm.sec,
+    loadingDuringPlay: {
+      why: 'PAOLO 9/15: "maybe it\'s cause things are loading in real time." Ruling 5.',
+      doorMs: doorMs, beforeTheDoor: d.loads.length - late.length,
+      afterTheDoor: late.length,
+      afterTheDoorMB: +(late.reduce((a, l) => a + (l.bytes || 0), 0) / 1048576).toFixed(2),
+      list: late.map(l => ({ sinceDoorMs: l.at - doorMs, kb: Math.round((l.bytes || 0) / 1024),
+                             url: l.url, status: l.status })),
+    },
     numbers: { pageErrors: errs.length, stalls: fm.stalls,
                deadTaps: dead.length, deadTapsCeiling: dead.length + shut.length,
                slowFrames: fm.slow,
