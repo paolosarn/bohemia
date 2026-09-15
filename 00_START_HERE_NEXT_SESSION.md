@@ -8668,7 +8668,103 @@ walk census). Then [music owned] THE-MUSIC-ITSELF.
 
 ------------------------------------------------------------------------
 
-LIFE + CITY (city-1eztay): 9/15 (a) LATEST -- *** [no pool cells] SHIPPED, AND THE ROW'S PREMISE
+LIFE + CITY (city-1eztay): 9/15 (b) LATEST -- *** [lot lattice] SHIPPED. ONE STEP IS ONE LOT,
+AND THE LOT WAS ALREADY IN THE REPO. *** MODE: BUILD. TAB: none yet -- nothing on screen changed
+for him this round, this is the ground under RUN's step. Demo NOT re-cut (rule 14a).
+
+PAOLO 9/15, LOCKED, rule 16 THE STEP IS A HOUSE. This lane owns the lattice: what a lot is in
+fine cells, where a step may land, what blocks a step, the arrival point for a city tap.
+
+THE ROW'S PREMISE WAS WRONG AND SO WAS RUN'S COPY OF IT. Both rows say "a lot is FN=32 fine
+cells". FN IS 128, and the 7/6 VALLEY SCALE LAW says one FN cell is 96 m and calls it A
+NEIGHBOURHOOD, NOT A LOT, in those words. The 32 is a dead comment in the population module from
+before the 7/30 relock. Taken literally a step would have been 96 m, a city block. Rule 12 again:
+a premise handed down is still a premise, and this one was false in two lanes' rows at once.
+
+THE GAME ALREADY HAD A LOT AND NOBODY LOOKED. engine/bohemia_suburb.js packs houses on a stride
+LOTW = widest model + gap = round(16/0.75) + 3 = 24 fine cells = 18 m. LOT_FINE IS THAT NUMBER,
+read out of the generator by the gate on every run, so the law's "a second copy anywhere is the
+bug" has a machine holding it instead of a comment. Derived from it and never typed: one step is
+18 m, two minutes at the reach module's 9 m a minute, real-time travel 24x faster, a body half a
+lot tall (his to correct in play).
+
+MEASURED FROM THE DEMO'S DOOR WITH THE ONE DRIVER (rule 14g), five places, 288 m square each, on
+the game's own cellAt().walk:
+  - LOT CORNERS, the lattice anybody would write first, ARE DEAD: a suburb goes 45% standable
+    with a 23% biggest island. Lot centres are better and collapse to 53% one lot size over,
+    because a lot centre is where the house is. A fixed offset cannot be the landing.
+  - SO THE LANDING IS A CELL YOU CAN STAND ON: road, then touching a road, then any ground,
+    nearest the lot centre. The road order is Paolo's 8/1 NO DISTRICT IS A PRISON rule, already
+    obeyed by the drop-in spiral, so the lattice node and the arrival point are THE SAME CELL by
+    construction rather than two rules agreeing by luck.
+  - THE RESULT SURPRISED ME AND IT IS THE FINDING OF THE ROUND: the lot lattice is MORE connected
+    than the fine one in every district measured. Door 83.5% -> 94.1%, downtown 84.9% -> 93.4%,
+    commercial 85.8% -> 99.2%, gated 81.3% -> 98.8%. A lot step crosses a one-cell fence gap that
+    a fine step has to walk all the way around. Coarsening the step stitches the world, it does
+    not cut it up.
+  - THE ONE UGLY NUMBER IS NOT THE LATTICE'S: a suburb tile off the door reads 24.6% at lot scale
+    and 16.5% AT FINE SCALE in the same window -- that ground is already cut into pieces by fences
+    today. Named for whoever owns suburb generation. Not fixed here: one system, one session.
+
+A STEP IS REFUSED unless a body can walk between the two lots' landings WITHOUT LEAVING THE TWO
+LOTS. One step is one move; a move needing a detour through a third lot is a walk, not a step. It
+is also what stops a body cutting the corner of a house. A lot with no walkable cell has no
+landing and is not steppable, which is what a building is.
+
+SHIPPED: engine/bohemia_lattice.js (BOH_LATTICE, declared canon in the sync registry the day it
+was written); inlined in slices/BOHEMIA_CITY_WORLD.html and published as __proof.lattice /
+__proof.latCtx; latCtx() built in exactly one place, no cache on purpose (a cached landing goes
+stale the moment he builds); the city drop-in arrives on a node; tools/bohemia_lot_lattice_probe.js
+re-runs the whole measurement; gates/lot_lattice_gate.js WHERE A STEP MAY LAND 36/0, in the suite,
+mutation-tested three ways (LOT_FINE 24->32 reds A3/B4, dropping the wall test reds C10, cutting
+the wiring reds D2/E1).
+
+THE MISTAKE I MADE, AND WHAT CAUGHT IT. The first cut snapped EVERY arrival, and the drop-in path
+runs once at boot -- so it moved his spawn eight cells and reddened three of this lane's own
+checkers on the screen he wakes to: 903 of 903 cells drawing bank art fell to 892, walks meeting a
+crowd fell 13 of 16 to 8, driven taps 6/0 to 5/1. None of those is about the lattice; all three
+are the same fact, that eight cells is a different first screen. All three were green on clean
+main a minute later, which is how I knew it was mine. Rule 14 (the first five minutes is the only
+measure) and PARALLEL SESSIONS (the door is RUN's, [spawn home] was claimed) say the same thing:
+THE LATTICE SNAPS TRAVEL AND LEAVES THE DOOR ALONE. Gate leg E1 now goes red if any lane starts
+snapping the door. A CHANGE THAT IS RIGHT EVERYWHERE IS STILL WRONG AT THE DOOR.
+
+TWO THINGS FOR OTHER LANES, BOTH MEASURED, NEITHER FIXED HERE:
+ 1. FOR RUN [step is a house]: the player still moves one fine cell a press. That is your row and
+    this is the ground under it -- read BOH_LATTICE, do not write a second constant, and the gate
+    will tell you if anybody does. For RUN [fast travel]: call BOH_LATTICE.arrive(hx,hy,latCtx())
+    when the tap lands instead of writing a second landing rule.
+ 2. FOR RUN AND EYES: THERE IS NO DROP IN CONTROL IN THE DEMO'S DOM AT ALL. #modechip does not
+    exist, and a sweep of every element in city mode whose text matches DROP/MAP/GO/ENTER/LAND
+    returns two zero-size district labels and nothing else. His break list says that button
+    "exists"; it does not. So the only city-to-street arrival that runs in the demo today is the
+    boot, and pinching back in always returns him to his feet (the 8/27 LOOKING IS NOT TRAVELLING
+    rule, working as designed).
+
+RULE 13(b), THE REDS, AND TWO OF MINE ARE RED ON MAIN AND ARE NOT MINE. Pre-push pass green on
+everything that reads my diff: WHERE A STEP MAY LAND 36/0, ENGINE SYNC clean, SUITE HONESTY,
+VALLEY SCALE, and this lane's other gates. Full suite: 107 red at ad23d875, none of them mine.
+BUT, measured on CLEAN origin/main at c84f043d, after RUN's [spawn home] (8575f2cb) moved where he
+wakes: NO CELL GOES UNTEXTURED fell from 903 of 903 to 769 of 903, and A CROWD TO WALK INTO from
+13 of 16 to 9 of 16. Both are mine by authorship and NEITHER is caused by my diff -- I checked out
+clean main and ran them to be sure. HIS NEW FRONT STEP HAS 134 CELLS OF FLAT PAINT ON SCREEN:
+112 of dead dirt #8a7a5e and 22 of the suburb's decorative gravel #9b968a, two colours with no
+entry in SA_MAP. Rule 14 makes that his first screen and therefore the game. THE FIX IS SMALL AND
+I AM NOT TAKING IT UNASKED: two SA_MAP entries routing those colours at approved pools the game
+already treats as that ground (the footstep classifier already calls dead dirt "dirt" and the
+gravel "rock"). Which pool is DIRECTION's call, and the spawn is RUN's. Named with numbers rather
+than shipped quietly, and my gate is what caught it inside an hour of the commit landing.
+
+NEXT IN THIS LANE (the board order): [eyes: shape rows] THREE DEAD ROWS ON THE DAY CARD, whose
+answer text is already written in the world file (EYES E26 round 5, rule 14d). Then [side variants],
+[tiles not slabs] (1.7% measured on it), [buildings appear], [power buildings], [owner shown],
+[bill lands], [shelves seen].
+
+Record: records/BOHEMIA_WHERE_A_STEP_MAY_LAND_9_15_26.md
+
+------------------------------------------------------------------------
+
+LIFE + CITY (city-1eztay): 9/15 (a) -- *** [no pool cells] SHIPPED, AND THE ROW'S PREMISE
 IS FALSE. NOTHING WAS MISSING: 903 CELLS OF 903 ON SCREEN DRAW APPROVED BANK ART, ZERO
 PROCEDURAL. slices/ UNTOUCHED, because there was nothing to fix. *** MODE: BUILD. TAB: none, no
 game code changed, so no build stamp. Demo NOT re-cut (rule 14a).
