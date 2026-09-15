@@ -9253,7 +9253,100 @@ walk census). Then [music owned] THE-MUSIC-ITSELF.
 
 ------------------------------------------------------------------------
 
-LIFE + CITY (city-1eztay): 9/15 (b) LATEST -- *** [lot lattice] SHIPPED. ONE STEP IS ONE LOT,
+LIFE + CITY (city-1eztay): 9/15 (c) LATEST -- *** [eyes: shape rows] SHIPPED. THE THREE ROWS ARE
+NOT DEAD. THE CARD MOVES UNDER HIS FINGER, AND THAT IS WORSE. *** MODE: BUILD. TAB: CITY, the
+first card a stranger sees. Demo NOT re-cut (rule 14a); this is in the live part of the bundle,
+so it reaches him on the next deploy.
+
+EYES E26 called three rows on the day card dead on rounds 4, 5 and 6, two independent walks each:
+'Half of it now, before I go', 'I will go first, on something small', 'I'LL TAKE IT'. Driven row
+by row FROM A CLEAN DOOR with a real finger at phone size, every one of them works on the first
+press: the first moves the terms to the upfront shape and the card to 'One battery, half of it up
+front'; the second to the first shape; the third takes the job and the card says 'You took it. It
+is yours until the day is out.' NOT ONE OF THEM IS DEAD.
+
+THE REAL BUG IS THE SECOND PRESS. Measured at phone size, in page pixels:
+  the finger lands on a shape row at    y=473
+  one shape spends all three, the card loses three rows and RE-CENTRES as it shrinks
+  'Make it a favour instead' arrives at y=491   -- 18 px away, INSIDE THE SAME 44 PX BOX
+THE ROOM IS TWO ASKS. So a double tap on the first card of the game spends his last ask on a deal
+he never chose, and a third tap on whatever slid in next withdraws the offer and the job is gone
+before he ever took it. The gate reproduces exactly that on the old code: a second tap in the same
+place takes asked from 1 to 2. That is not "a card that does nothing", it is a card that does
+something expensive and invisible, which is the same complaint from the other side.
+
+AND IT IS WHY A CAREFUL INSTRUMENT KEPT READING THEM DEAD, WHICH IS THE FINDING WORTH CARRYING.
+EYES fixed this exact shape in round 5 for a panel that CLOSES: "once the panel is gone the same
+screen point belongs to whatever is underneath, so press two measured a different element and
+agreed with itself." A panel whose CONTENTS MOVE reads identically, and that half was still open.
+A SCREEN POINT IS NOT AN ELEMENT, EVEN WHEN THE PANEL SURVIVES. EYES: your verdict needs the
+element identity, not just the panel identity, or any list that shrinks under a press reads dead.
+
+FIXED, AND THE RULE IS ONE SENTENCE: THE MENU NEVER CHANGES HEIGHT.
+ - every row keeps its slot for the life of the card: two swap slots (there are always exactly two
+   currencies that are not the current one) and the three shapes in the haggle module's own order.
+   Nothing in the drawing decides what may be asked; it decides where the answer goes.
+ - a spent row is drawn IN PLACE, dashed and dimmed, with NO data-act at all, so a tap on it cannot
+   reach the dispatcher even if a style is overridden later.
+ - the shape he chose is marked CHOSEN, not spent. "This is the deal you made" and "this is gone"
+   are different sentences and the card should not say them the same way.
+ - the yes keeps its slot too, and taking the job dims the rows in place instead of display:none,
+   which was the same bug on the one path that does not redraw.
+ - the three lines that only appear after a press (the warning, what was agreed, "You took it") get
+   RESERVED BLANK SLOTS, because on a vertically centred card one new line moves everything: 8 px
+   of drift after an ask, 13 px after taking the job. Both are zero now.
+This finishes this lane's own 9/13 ruling. A button that cannot work must not look like one, AND IT
+MUST NOT MOVE EITHER.
+
+THE GATE, AND MY FIRST MUTATION TEST PASSED WHEN IT SHOULD NOT HAVE, TWICE OVER.
+gates/nothing_moves_under_his_finger_gate.js, 20/0, in the suite. Leg B3 is the one that matters:
+after a press, no row a finger can use may sit within half a row of the point pressed. The first
+cut counted DOM NODES instead of visible rows, so a collapsing card looked the same size; and the
+mutation I used was itself a no-op, because #daycardIn .dcbtn sets display:flex and beats
+.dcbtn.spent on specificity, so the rows never actually hid. I only found both by measuring the
+layout directly instead of trusting the green. A GREEN GATE OVER A MUTATION THAT DID NOT MUTATE IS
+THE SAME LIE AS A GREEN GATE OVER A GATE THAT NEVER RAN. The real mutation (the old behaviour: do
+not draw the spent rows) reds four legs: rows 7 -> 4, 80 px of drift, and B5 "a second tap spends
+nothing" at asked 1 -> 2, which is the bug itself.
+
+TWO OTHER FILES TOUCHED, BOTH DELIBERATELY:
+ - tools/bohemia_drive_the_demo.js, extended under rule 14(g): open({keepCards:true}) stops at the
+   door with the day card still standing, and d.clearCards() dismisses it when the caller is ready.
+   You cannot test a row on a card the driver has already thrown away. Default unchanged, so no
+   existing use of the driver moves.
+ - gates/the_yes_goes_where_the_offer_is_gate.js (PEOPLE's) WIDENED, NOT WEAKENED. It read only the
+   first 300 characters of the card, a convenience that held only while taking the job COLLAPSED the
+   card; now that the rows stay, the took line sits past that window while the card says exactly what
+   the leg asks for. It now reads the whole card AND checks the took line sits above GET UP, which is
+   what its own words ("where the yes was") already claimed. 22/0.
+
+NAMED, NOT DECIDED: the card offers FIVE ways to argue and the budget is TWO, and the warning only
+appears after the second ask. That is correct under the module's own rule (he is told before the ask
+that costs him) and still means a stranger reading five rows cannot tell that pressing three ends the
+job. A double tap is harmless now. Whether the menu should say how much room is left from the start
+is a words-and-design call, so it is on the board here and not shipped.
+
+RULE 13(b), THE REDS: pre-push pass green on everything that reads this diff -- NOTHING MOVES UNDER
+HIS FINGER 20/0, THE YES GOES WHERE THE OFFER IS 22/0, ASK FOR MORE 48/0, CARD FOLD 18/0, ATTEMPT
+15/0, WHERE A STEP MAY LAND 36/0, ENGINE SYNC clean, SUITE HONESTY, and this lane's four other
+surface gates, all re-run after main moved 682 lines of the walked city under me. Full suite: 107
+red at ad23d875, none of them mine. STILL TRUE FROM LAST ROUND AND STILL NOT MINE: NO CELL GOES
+UNTEXTURED and A CROWD TO WALK INTO are red on clean main since RUN's [spawn home] moved the spawn;
+his new front step carries 134 cells of flat paint, 112 of dead dirt #8a7a5e and 22 of decorative
+gravel #9b968a, two colours with no SA_MAP entry. The pool is DIRECTION's call and the spawn is
+RUN's, so it is named with numbers and not taken unasked.
+
+NEXT IN THIS LANE (board order): [sealed block] THE-STREET-IS-THERE-AND-YOU-CANNOT-REACH-IT, which
+the coordinator added this round and which is the same fact my [lot lattice] measurement found from
+the other side -- a suburb tile off the door is 16.5% connected AT FINE SCALE today, so the ground
+is cut up before any lattice touches it. Then [side variants], [tiles not slabs] (1.7% measured on
+it), [buildings appear], [power buildings], [owner shown], [bill lands], [shelves seen].
+
+Record: records/BOHEMIA_NOTHING_MOVES_UNDER_HIS_FINGER_9_15_26.md
+
+------------------------------------------------------------------------
+
+LIFE + CITY (city-1eztay): 9/15 (b) -- *** [lot lattice] SHIPPED. ONE STEP IS ONE LOT,
 AND THE LOT WAS ALREADY IN THE REPO. *** MODE: BUILD. TAB: none yet -- nothing on screen changed
 for him this round, this is the ground under RUN's step. Demo NOT re-cut (rule 14a).
 
