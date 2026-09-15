@@ -8161,7 +8161,62 @@ walk census). Then [music owned] THE-MUSIC-ITSELF.
 
 ------------------------------------------------------------------------
 
-LIFE + CITY (city-1eztay): 9/14 (a) LATEST -- *** [tap crash] SHIPPED. THE SHIP TEST WAS "GREEN
+LIFE + CITY (city-1eztay): 9/15 (a) LATEST -- *** [no pool cells] SHIPPED, AND THE ROW'S PREMISE
+IS FALSE. NOTHING WAS MISSING: 903 CELLS OF 903 ON SCREEN DRAW APPROVED BANK ART, ZERO
+PROCEDURAL. slices/ UNTOUCHED, because there was nothing to fix. *** MODE: BUILD. TAB: none, no
+game code changed, so no build stamp. Demo NOT re-cut (rule 14a).
+
+  THE ROW asked me to give 138 bare cells a pool. They already have one. COOK measured 16% and
+MY OWN FIRST PROBE MEASURED 20.2% -- two lanes, two instruments, one number, and it read like
+corroboration. IT WAS THE SAME MISTAKE TWICE: we both read c.gArtPool and took its absence for
+"no art".
+
+  THE ROADWAY DOES NOT USE gArtPool. There is a second, older route: texFor() looks the cell
+COLOUR up in SA_MAP, which already maps all eleven roadway colours to approved pools. Counted by
+route on the real screen: hyard 618, COLOUR:STREET 168 (the cells the row called bare), side 52,
+street 51, face:perimeter 14 (the 14 solids my probe also called bare). 903 of 903, 0 procedural.
+
+  AND THE FLAT PAINT THAT IS REAL IS NOT THE GROUND -- this is what made the wrong answer feel
+confirmed. 19.8% of painted pixels DO come from fillRect, and I had measured that myself on 9/13
+and quoted it back as agreement. Grouped by style and size it is dangerMark(), the danger overlay,
+working exactly as designed: #140a06 and #c2401c at 44x44 x2139 each, at 0.22 alpha OVER the art,
+its own comment saying "the grain of the material still shows through", plus one full-screen sky
+rect. A STATE PAINTED OVER ART AT LOW ALPHA IS NOT A MISSING TILE. Two different questions -- how
+many pixels are flat, how many cells lack art -- and I let the first stand in for the second.
+
+  *** AND MY OWN GATE FAILED ITS FIRST MUTATION RUN, WHICH IS THE ONLY REASON ANY OF THIS IS
+RIGHT. *** I wrote it, it said 903 of 903, and BOTH mutations passed. texFor() ALWAYS returns
+something: when the pool lookup misses it generates a texture with TEXKIND and caches it, so
+"texFor returned a tile" is trivially true and measures nothing. I had written the exact gate this
+lane keeps filing notes about. saTex() returns NULL when the bank has nothing; switched to it and
+the mutations bite -- point #8a8a86 at a dead pool and it reads 735 of 903 AND NAMES "ground
+#8a8a86 168", which is the row's own claim reproduced exactly. Empty the street pool: 684 of 903.
+
+  *** THE STANDING NOTE, AND IT IS FOR THE WHOLE FLEET: TWO LANES AGREEING IS NOT CORROBORATION
+WHEN THEY ASKED THE SAME QUESTION. *** COOK and I got 16% and 20% independently, and the closeness
+of the two numbers is exactly what stopped either of us checking. We had not confirmed each other;
+we had made the same mistake with the same field, and a third reading of gArtPool would have
+"confirmed" it again. What broke it was asking a DIFFERENT question -- not "does the cell carry a
+pool?" but "does the renderer end up with a bank tile?" INDEPENDENT MEANS A DIFFERENT ORACLE, NOT
+A DIFFERENT LANE. And the smaller one, paid for again: an instrument that cannot return "no" is
+not an instrument.
+
+  RULE 13(b), MY REDS NAMED: pre-push pass green; full suite 107 red at ad23d875, MINE ARE NONE.
+All eleven gates this lane owns or that read its files are green -- NO CELL GOES UNTEXTURED 7/0,
+A BUTTON THAT CANNOT WORK 9/0, A WALL HAS FEET 9/0, A FLAT THING READS FLAT 9/0, TAP PICKS 6/0,
+NEVER EMPTY 14/0, A CROWD TO WALK INTO 9/0, THE ONE THAT IS YOU 7/0, ON THE WAY 8/0, ALIVE 16/0,
+SUITE HONESTY 26/0. COMBAT LAB is 929/3 and those three are COMBAT's own mechanics, verified
+identical on a clean checkout on 9/13.
+  Record: records/BOHEMIA_TWO_LANES_ONE_WRONG_ORACLE_9_15_26.md
+
+  NEXT: [lot lattice] WHERE-A-STEP-MAY-LAND is this lane's new first line and it is PAOLO 9/15
+under rule 16, THE STEP IS A HOUSE -- one step is one lot, on the street and the fight board, for
+every character, with bodies drawn larger and the clock per step re-derived so distances, days and
+rent stay true. That is the next round.
+
+------------------------------------------------------------------------
+
+LIFE + CITY (city-1eztay): 9/14 (a) -- *** [tap crash] SHIPPED. THE SHIP TEST WAS "GREEN
 TAP_PICKS ON MAIN" AND IT WAS ALREADY GREEN WHEN I GOT HERE -- WHICH WAS WORSE THAN RED. ***
 MODE: BUILD. TAB: none, no slices/ change, so no build stamp: nothing on his screen moved.
 

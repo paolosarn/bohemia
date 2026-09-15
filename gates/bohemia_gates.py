@@ -6152,6 +6152,21 @@ GATES = [
      'believing a negative, prove the instrument can produce a positive. The pinch now asks the '
      'page who is under each finger and picks a clear axis, so a rail added later cannot '
      'silently break it again. Mutation: force the old across-the-rail axis, 2 red.', False),
+    ('NO CELL GOES UNTEXTURED', ['node', 'gates/no_cell_goes_untextured_gate.js'],
+     'VAMILY [no pool cells]. THE ROW\'S PREMISE IS FALSE AND TWO LANES REACHED IT THE SAME '
+     'WRONG WAY. The row: "138 cells, SIXTEEN PERCENT, flat colour with no pool and no tile art '
+     'at all"; my own first probe agreed at 20.2%. Both were reading c.gArtPool and taking its '
+     'absence for no art. THE ROADWAY DOES NOT USE gArtPool -- it gets its tile through a second, '
+     'older route, texFor() looking the cell COLOUR up in SA_MAP, which already maps all eleven '
+     'roadway colours to approved pools. Measured with saTex (which returns null when the bank has '
+     'nothing): 903 cells of 903 draw BANK ART, 0 procedural -- hyard 618, colour:street 168, side '
+     '52, street 51, face:perimeter 14. AND THE FLAT PAINT THAT IS REAL IS NOT THE GROUND: 19.8% of '
+     'painted pixels come from fillRect, and grouped by style it is dangerMark(), the danger '
+     'overlay, working as designed at 0.22 alpha OVER the art, plus the sky. A state painted over '
+     'art is not a missing tile. THE GATE ITSELF FAILED ITS FIRST MUTATION RUN: it asked texFor, '
+     'which ALWAYS answers because it generates a texture when the pool misses, so both mutations '
+     'passed. Switched to saTex and they bite -- drop the street key and it reads 735 of 903 and '
+     'NAMES the bare kind, empty the street pool and it reads 684 of 903.', False),
     ('A BUTTON THAT CANNOT WORK', ['node', 'gates/a_button_that_cannot_work_gate.js'],
      'LIFE + CITY, answering EYES E26 stranger-walk item 2 on this lane\'s own surface: "TWO '
      'REAL BUTTONS THAT DO NOTHING: BUILD (cbbuild, 69x29) and BUILD BIG 2x2 (cbbig, 112x28). '
