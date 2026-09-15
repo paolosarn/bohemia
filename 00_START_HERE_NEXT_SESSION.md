@@ -3723,112 +3723,121 @@ HOW TWENTY-TWO ROUNDS COMPOSE, written once now that Q1-Q22 are all shipped:
 NEXT IN THIS LANE: Q23 [who eats first].
 
 
-FACTIONS (factions-ovkjpf): 9/14 (round 27) LATEST -- *** THE FIVE MINUTES, ROUND
-SIX. [same lender] still CLAIMED AND HELD under 14b. THE ROUND WENT LOOKING FOR MORE
-DEAD FEATURES IN THIS LANE AND FOUND ALMOST NONE. What it found instead is that THE
-ONE DRIVER RULE 14(g) POINTS EVERY LANE AT COULD NOT GET INTO THE CITY VIEW AT ALL,
-because its two fingers landed on a button instead of the canvas. Any lane using it
-to check the map, the territory or the feed would have come back certain all three
-were dead. Fixed, gated, mutation-proved. ***
+FACTIONS (factions-ovkjpf): 9/15 (round 28) LATEST -- *** THE FIVE MINUTES, ROUND
+SEVEN. [same lender] still CLAIMED AND HELD under 14b. RULE 13'S AUDIT DONE FOR THIS
+LANE: 20 gates read this lane's code, 16 GREEN, 4 RED. Of the twelve individual
+failures, SIX WERE CHECKERS KNOCKING ON DOORS THAT NO LONGER EXIST and not one was a
+broken feature. One GREEN was worse than the reds: it was passing on a stale
+reading. And the view he called dogshit is a placeholder that says so on screen,
+which he already complained about on 8/16. ***
 Nothing to judge.
 
 VAMILY row: [same lender], MODE: BUILD, CLAIMED AND HELD under rule 14b.
-Record: records/BOHEMIA_THE_INSTRUMENT_WAS_THE_BROKEN_THING_9_14_26.md
-Round 26: the street on the glass -- records/BOHEMIA_THE_STREET_WAS_NEVER_ON_THE_GLASS_9_14_26.md
-Round 25: the street line -- records/BOHEMIA_THE_STREET_TAKES_ITS_WORDS_BACK_9_13_26.md
+Records: records/BOHEMIA_FOUR_REDS_AND_THREE_WERE_DOORS_9_15_26.md
+         records/BOHEMIA_THE_VIEW_HE_HATES_TWICE_9_15_26.md (landed earlier, 30b549a2)
+Round 27: the instrument -- records/BOHEMIA_THE_INSTRUMENT_WAS_THE_BROKEN_THING_9_14_26.md
 
-WHY THE ROUND WENT LOOKING: last round a shipped feature turned out to have been
-invisible for a week while every check stayed green, because its checks were GREPS.
-So the handoff said: audit every other row this lane owns. COUNTED FIRST --
-  this lane's main gate, 207 claims:  44 GREP-ONLY, 36 DRIVEN, 127 computed.
-44 claims that prove code exists and nothing about whether a player sees it.
+RULE 13, ANSWERED FOR THIS LANE (the suite line posts 107 red at ad23d875; these are
+the ones that are ours):
+  RED  faction_between  172/10  ->  178/4 this round, and every one of the six was
+                                    the measurement, not the game
+  RED  faction_outfit     16/2  NOT TAKEN, see below
+  RED  feed_stream        17/2  PROVED THE FEATURE IS ALIVE, the checker cannot
+                                reach it. Not our gate; handed over.
+  RED  parties_move       38/1  two of his three agendas are out there, the third
+                                is not (caravan 14, patrol 14)
+  The other 16 are green, including against 87/0, faction_towns 208/0,
+  faction_colour 29/0, turf 43/0, own_power 29/0, the_moment_ends 18/0.
 
-AND THE AUDIT CAME BACK GOOD, WHICH IS ALSO AN ANSWER. Opened on the demo, on a
-phone, read off the page: THIS GROUND, RENT TONIGHT, WOULD COME WITH YOU and WOULD
-FOLLOW YOU are all on the standing card; the joiners line is on the market card;
-the map carries 14 outfits' borders and 205 lit blocks; the street's sentences are
-visible since last round's fix. AND THE NUMBER REALLY DEPENDS ON THE GROUND, which
-is that row's whole promise: twelve real places, TEN different answers, 20 to 243,
-different trades at each.
+*** AND MY OWN LAST HANDOFF HAD FACTION_BETWEEN FILED AS SOMEBODY ELSE'S. *** It is
+this lane's gate, written by this lane 8/26. A lane that hands its own red away
+stops looking at it, and this one had drifted from 2 failures to 10 while filed
+under [FOR QUESTS]. Correcting that is half the value of the round.
 
-THE FOOTPRINTS LOOKED DEAD AND WERE NOT, AND THE DIFFERENCE IS THE DAY. At the door
-the map's track layer runs and paints NOTHING: 28 parties, every trail exactly one
-cell, and a line needs two. That is not a bug -- at 06:00 on day one nobody has
-walked anywhere. Let the valley go about its business with its own mover:
-    at the door   longest trail  1   outfits on the glass  0
-    +1 hour       longest trail  6   outfits on the glass  9
-    +4 hours      longest trail 13   outfits on the glass 10
-A check that read the door and cried would have been lying about the game, so the
-gate says the dawn zero out loud as the truth instead of testing around it.
+SIX FAILURES, ONE CAUSE: THE DOOR. The M section opens the map with
+modechip.click() then fitbtn.click(). Asked on the page the gate itself loads: BOTH
+ARE "NOT IN THE DOM". So the clicks hit nothing, MODE stayed human, and M0 reported
+TW 18 -- the ON FOOT tile width. It believed it was looking at the whole valley from
+above and was standing on a sidewalk, so M1 read pixels at each seat's position on a
+street and called eleven of fourteen outfits unpainted.
 
-*** THE THING THAT WAS ACTUALLY BROKEN, AND IT IS EVERY LANE'S ***
-    fingers together, toward the city   mode human, HZOOM 44, NOTHING, every time
-    fingers apart, back to the street   HZOOM 44 -> 88, worked fine
-One direction working and the other doing nothing is not how a gesture fails. Asked
-the page who was under each finger: elementFromPoint(centre-150, centre) returns
-DIV#rungbtn "STANDING". The pinch laid its fingers 150px apart across a 390px phone
-and the left edge of this game is a rail of controls. A POINTERDOWN ON A BUTTON
-NEVER REACHES THE CANVAS, so the canvas saw ONE finger and its two-finger branch
-never ran. The same squeeze up and down: mode CITY, HZOOM 44 -> 11, first try.
-NOTHING WAS WRONG WITH THE GAME. The seam obeys Paolo 8/2 ("i should be able to
-ZOOM OUT UNTIL I GET INTO THE CITY BUILDER MODE BRO") and opens on the first honest
-squeeze. Four gates already load that driver and none checked it.
+AND THE ZOOM LADDER HAD MOVED UNDER IT. Opening the real door was not enough. The
+section's own comment says "the whole-map zoom makes a tile 3.74 pixels wide" and
+3.74 is still what the widest stop measures -- but that stop no longer draws the
+valley. Counted by wrapping both renderers and pressing the real control:
+    on foot       TW 18     human   renderCity 0   sky 0
+    one squeeze   TW 13.5   city    renderCity 1   sky 0
+    two squeezes  TW 3.7    city    renderCity 0   sky 1
+TWO SQUEEZES IS THE PLANET. ctBases() returns all 14 seats there and nothing
+withholds them; there is nothing to paint on. No fix to the game would have made
+those claims pass at that stop.
 
-AND A SECOND ONE IN THE SAME TOOL, FOUND BY THE NEW GATE AN HOUR LATER. Two other
-lanes landed in the driver mid-round and the gate went red with every finger
-reporting a DIV. Stacked over the glass: DIV.dcbtn -> DIV#daycardIn ->
-DIV#daycard.on -> CANVAS#cv. THE DAY CARD WAS UP OVER THE WHOLE CANVAS. The card
-sweep gave up the moment one pass found nothing, so a card that appears a beat
-later was never cleared and every tap after it went through a card. The sweep is
-patient now and its finishing test is not "did I press something" but IS THE CANVAS
-REACHABLE. It presses the card's own way out rather than only guessing labels.
+THE FALSE GREEN NEXT TO THE TRUE REDS: M4 and M5 passed all along off
+window.__GROUNDLABELS, which the render publishes and NEVER clears, so they were
+reading the last draw that ran, one stop back. THIS LANE HAS WRITTEN THAT LESSON
+DOWN TWICE AND GOT CAUGHT BY IT A THIRD TIME.
 
-AND THE ROAD LANE'S GATE CAUGHT ME, AND IT WAS RIGHT. Their claim: "said while
-somebody is there and gone once nobody is." Round 26's fix cleared when HE MOVED,
-which is nearly the rule and not the rule. THREE RULES WERE TRIED FOR ONE SENTENCE:
-    every frame     nobody can read it, about a sixtieth of a second
-    when he moves   stays up for a body he walked away from
-    THIS            said while somebody is in your way, gone once nobody is
-The game could answer it the whole time: ctBlocked is the same predicate the STEP
-asks before it says anything, and the feature's own comment already said "they only
-hold it while you are beside it".
-AND THE TWO LANES CHASED EACH OTHER FOR A ROUND BEFORE THAT SETTLED: they rewrote
-their claim onto my movement rule while I was replacing the movement rule. The fix
-is not another swap -- a call that NAMES the body gets the true rule, a bare call
-falls back to the movement rule, so neither lane's checker is hostage to a
-signature. Both gates green, and their wording named the rule before my code did.
+AND ONE DISTINCTION THE CLAIM COULD NOT MAKE: getImageData clamps at the canvas
+edge, so a seat simply OFF SCREEN read as zero pixels and was counted as a renderer
+failure. At that stop a phone shows about a third of the valley.
+    172/10  as found
+    175/7   through the real door
+    176/6   at the stop where the city actually draws
+    178/4   with off-screen told apart from unpainted   (10 of 10 visible seats
+            painted, 4 of 14 off screen)
+MUTATION-PROVED: make the map paint no faction ground and M1, M2, M3 and M5 all go
+red, so the widened claims still bite.
 
-GATES  the_driver_reaches_the_city NEW 7/0, registered in the suite. Mutation:
-       force the old across-the-rail axis, 2 red.
-       faction_towns 203 -> 208/0, five DRIVEN claims replacing greps on the map
-       layer. Mutation: make the layer draw nothing, 2 red, and the red reads "22
-       of 28 trails long enough to draw, 0 painted" -- the model is fine, the
-       render is not, which is the distinction that was missing.
-       against_gate 86 -> 87/0, rewritten onto the true rule. Mutations both ways:
-       clear while the body is still there 2 red; never clear at all 2 red.
-       The road lane's the_moment_ends is back to 18/0.
-       RULE 13: pre-push pass green; full suite unmeasured.
+THE FEED IS ALIVE AND ITS CHECKER CANNOT REACH IT. feed_stream B2 reports 0 posts
+and gets to city mode with tapText('CITY|DROP IN'). ZERO elements matching either
+name are in the DOM. Crossed the seam the way a player does instead:
+    at the door    feed off, 0 posts, 0 CITY/DROP IN chips in the DOM
+    in city mode   feed ON, stream live, 4 posts
+reading "5 outfits holding a fortress between them" and "most of the valley is still
+dark. 358 blocks with anything in them at all." Paolo locked that feed 9/4. It works.
+NOT THIS LANE'S GATE, handed over with the reproduction.
 
-RULE 14 OBSERVED: no demo cut, no alpha touched, no build stamp, sixth round running.
+THE GATE THE SUITE LINE CALLED UNSAFE IS THIS LANE'S SUBJECT. Front page: FACTION
+ARC 557.7 s against a 600 s cap, "not safe". Measured here 564 s -- 36 seconds of
+headroom on 97 checks, and when it crosses all 97 die and file as a red, which is
+the failure PLUMBER already paid for once. Twelve blind sleeps worth 71 SECONDS OF
+GUARANTEED IDLE, every one after a goto or a reload with the next line reading
+exactly what it waited for. Swapped for the settle helper the same file already used
+twice. Its contract is what makes it safe not a gamble: THE UPPER BOUND IS THE
+ORIGINAL NUMBER.
+    564 s -> 497 s, 97 passed 0 failed both runs, headroom 36 s -> 103 s
+Proved the way the earlier split was proved: both runs stripped of timings, sorted,
+compared line by line. 111 LINES EACH, IDENTICAL WORD FOR WORD.
 
-CLOSED WITHOUT A FIX: the handoff asked what this lane's map layers look like at the
-far zoom, since nobody had looked. Looked: THE NEXT STOP OUT IS NOT A FAR MAP, IT IS
-THE PLANET, with a placeholder sky. There is no zoom that shows the valley and drops
-the territory. The worry was unfounded and the cull is right.
+THE VIEW HE CALLED DOGSHIT (landed 30b549a2). Paolo 9/15 "when I zoom out all the
+way to the moon it looks like dogshit"; Paolo 8/16 on the same view "It's really
+bad." The screen prints "placeholder sky - art request AR-005" along the bottom.
+AR-005 filed 8/12 by RUN, still OPEN; __SKY_ART__ appears 0 times in the city; ALL
+SIX requests in the art queue are OPEN and none has ever been closed. DIRECTION's
+[far view] names "the borders" as a candidate lie there: THEY ARE NOT THE LIE,
+because at that stop this lane paints nothing at all.
 
-STILL OPEN, UNCHANGED AND NONE OF IT THIS LANE'S
-  [FOR RUN] DEMO BUILD is red on main because a lane shipped an alpha change without
-  re-cutting, which 14(a) tells it to do. It stays red until RUN walks the five
-  minutes and cuts. A gate must never outrank a ruling.
+TWO REDS THIS LANE IS NOT FIXING, WITH THEIR NUMBERS
+  faction_outfit 16/2: Blues and Trades sit 0.0085 apart on a bar of 0.035, four
+  times too close to tell apart by silhouette; the whole board is clustered (mean
+  0.072 against 0.090). Next to "I didn't see a single human being" that matters: if
+  he does meet people he cannot tell whose they are. NOT TAKEN -- the gate's own note
+  says WHAT FACTIONS WEAR IS RESERVED TO HIM BY NAME.
+  parties_move 38/1: caravan 14, patrol 14, and the third agenda is not out there.
+
+RULE 14 OBSERVED: no demo cut, no alpha touched, no build stamp, and THE GAME FILE
+IS NOT CHANGED BY THIS ROUND AT ALL. The whole diff is two checkers.
+
+STILL OPEN, NONE OF IT THIS LANE'S
+  [FOR WHOEVER OWNS THE FEED GATE] feed_stream's door: tapText('CITY|DROP IN') hits
+  nothing, 0 such elements in the DOM. The feed itself is fine, proved above. The
+  real door is the pinch; the shared driver does it and a gate pins it.
+  [FOR DIRECTION / COOK / THE ART QUEUE] AR-005, above.
+  [FOR RUN] DEMO BUILD red on main: an alpha change shipped without a re-cut, which
+  14(a) tells every other lane to do. Only RUN cuts.
   [FOR PLUMBER] the derived freshness gate goes red for ANY lane that hand-edits the
-  city, reproduced on clean main with a single comment line.
-  [FOR PLUMBER] BANNER 12/2 on clean main: engine/bohemia_ground.js is inlined behind
-  a banner the sync scanner cannot read.
-  [INHERITED] city_memory_gate 33/1 and pack_gate 46/1 ("every part of it is
-  reachable", BLOCKED 1,1 0,2 1,2 OVERLAPS mktbtn), both reproduced identically on a
-  clean origin/main worktree. Button geometry, likely the 44px rail work.
-  [FOR WORLD] the nightfall card's WHO YOU OWE, now routed as their [owe lines].
-  [FOR QUESTS] faction_between_gate 180/2.
+  city; BANNER 12/2 on clean main.
+  [INHERITED] city_memory_gate 33/1, pack_gate 46/1, both reproduced on clean main.
 
 [PENDING Paolo] -- FIVE, ALL CARRIED, NOTHING NEW
   1. DOES A DEBT CROSS THE FOLD -- CLOSING: ruled 9/13, and [same lender] carries it.
@@ -3843,17 +3852,16 @@ NEXT IN THIS LANE
   [same lender] stays HELD until the coordinator gives this lane one of his breaks or
   he says the five minutes hold (14c). While held, the round goes on the five minutes.
   WHAT IS LEFT ON THAT MEASURE:
-    THE OTHER 44. This round drove the VISIBLE grep-only claims and they came back
-    good. The rest of the 44 are wiring claims, and the cheap ones should still be
-    turned into readings rather than matches, a few a round.
-    HOW OFTEN THE STREET HAS ANYTHING TO SAY. The pipe is honest and the number is
-    small: 2 sentences in 60 steps, and the road lane measured 1 line in 600 taps
-    independently. Content density, not plumbing, and nobody's bug until somebody
-    rules on how often the street should speak.
-  If a break lands here, the queue behind it is [deal sticks], [pursuit strength],
-  [deeds weigh], [take them on].
+    THE FOUR REMAINING BETWEEN FAILURES: J1 and J6 (the between chip and panel are
+    not in the shipped city, and the chip does not ring) and R2, R8 (the quest
+    corpus). J1/J6 are a feature that may have been removed rather than broken --
+    CHECK WHICH BEFORE FIXING, which is the whole lesson of this round.
+    THERE IS NO VIEW THAT SHOWS THE WHOLE TERRITORY AT ONCE. One squeeze shows about
+    a third of the valley; the next stop is the planet. "Colour is territory" and
+    there is no screen that shows the territory whole. The camera ladder is not this
+    lane's to change, so this is a finding to carry, not a job to take.
 
-EIGHTEEN STANDING LESSONS THIS LANE KEEPS RE-LEARNING
+TWENTY STANDING LESSONS THIS LANE KEEPS RE-LEARNING
   BEFORE ASSUMING A ROW IS BLOCKED, CHECK WHETHER ITS NAMED BLOCKER IS STILL TRUE.
   WHEN A CHECK GOES RED, ASK WHETHER IT IS MEASURING THE GAME OR ITS OWN INVENTION.
   WHEN HIS SENTENCE IS FALSE ON THE MAP, REPORT IT rather than forcing it.
@@ -3866,19 +3874,23 @@ EIGHTEEN STANDING LESSONS THIS LANE KEEPS RE-LEARNING
   A BARE CATCH AROUND A FUNCTION THAT DOES NOT EXIST IS A CONFIDENT WRONG ANSWER.
   A BOX HEIGHT IS NOT A REACH. Measure whether the press LANDS.
   A LINE PER THING IS HOW A CARD STOPS FITTING A PHONE. Measure the CARD.
-  A GLOBAL THE RENDERER PUBLISHES AND NEVER CLEARS REPORTS THE LAST DRAW.
+  A GLOBAL THE RENDERER PUBLISHES AND NEVER CLEARS REPORTS THE LAST DRAW. THIRD TIME.
   FORCING A MODE VARIABLE IS NOT PRESSING THE BUTTON.
   A WRITER THAT DOES NOT CLEAR AFTER ITSELF SILENCES EVERY WRITER THAT DOES.
   A GREP PROVES THE CODE EXISTS AND PROVES NOTHING ABOUT THE GLASS.
-  A FRAME IS NOT A STEP, and a fix hung off something that runs sixty times a
-  second is the same bug wearing the opposite coat. Mutation-test BOTH directions.
-  *** CHECK THE INSTRUMENT BEFORE YOU BELIEVE ITS NEGATIVE. *** Four times this
-  round the answer looked like a dead feature and was a broken measurement: a
-  towns API that does not exist, a finger on a button, a card over the glass, and
-  a string compare against CANVAS that never matches CANVAS#cv. The game was right
-  every time. A shared instrument deserves a gate of its own.
+  A FRAME IS NOT A STEP. Mutation-test BOTH directions.
+  CHECK THE INSTRUMENT BEFORE YOU BELIEVE ITS NEGATIVE.
   AND AN EMPTY READING CAN BE THE TRUTH. No footprints at dawn is the world being
-  young, not a dead layer. Ask what the model holds before calling the render dead.
+  young, not a dead layer.
+  *** BEFORE BELIEVING A RED, ASK WHETHER THE CHECK CAN STILL GET TO THE THING IT IS
+  JUDGING. *** Three of this lane's checkers plus the shared driver were all failing
+  because the way into the city view moved and they were left knocking on a door
+  taken off its hinges. Every one reported it as a dead feature.
+  AND A CLAIM'S PREMISE CAN GO STALE WITHOUT ANYONE TOUCHING IT. "TW under 8" meant
+  the whole valley when it was written and means the planet now. A gate whose premise
+  quietly changed meaning is worse than one that never ran.
+  OFF THE EDGE IS NOT UNPAINTED. getImageData clamps, so a thing off screen reads as
+  zero pixels and looks exactly like a renderer that failed.
 
 --------------------------------------------------------------------------------
 

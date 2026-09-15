@@ -1152,7 +1152,8 @@ async function onTheGround() {
   const { chromium } = requirePlaywright();
   const { settle: SETTLE } = require(path.join(ROOT, 'gates/bohemia_settle.js'));
   const browser = await chromium.launch();
-  const page = await browser.newPage({ viewport: VIEW });
+  /* A TOUCH SCREEN, because the door into this view is a PINCH. See below. */
+  const page = await browser.newPage({ viewport: VIEW, hasTouch: true, isMobile: true });
   try {
     await page.goto('file://' + CITY);
     await SETTLE(page, 9000);
@@ -1164,24 +1165,97 @@ async function onTheGround() {
       if (x.length) x[0].click();
     });
     await SETTLE(page, 2000);
-    await page.evaluate(() => {
-      if (typeof MODE !== 'undefined' && MODE !== 'city') {
-        const m = document.getElementById('modechip'); if (m) m.click();
+
+    /* *** THE DOOR THIS SECTION USED HAS NOT EXISTED FOR SOME TIME, AND SIX
+       CLAIMS HAVE BEEN FAILING ABOUT A VIEW THEY NEVER REACHED. *** (9/15.)
+
+       It opened the map by clicking #modechip and then #fitbtn. Asked outright on
+       the very page this gate loads: BOTH ARE "NOT IN THE DOM". So the clicks hit
+       nothing, MODE stayed 'human', and M0 reported TW 18 -- which is the ON FOOT
+       tile width. The section believed it was looking at the whole valley from
+       above and it was standing on a sidewalk, so M1 read pixels at each base's
+       position on a street and found 11 of 14 outfits "unpainted". A red that
+       describes a feature nobody looked at is worse than no claim at all, and
+       this lane has now found the same defect in three of its own checkers in one
+       round.
+
+       THE REAL DOOR IS THE PINCH, and it is the only one: the round mode button is
+       deliberately quiet when nothing is in front of you and the CITY chip is
+       built but never appended. setHZoom() carries the seam itself -- at the
+       widest walked stop, asking to go wider calls swapMode() -- which is Paolo's
+       8/2 ruling ("i should be able to ZOOM OUT UNTIL I GET INTO THE CITY BUILDER
+       MODE BRO") in code.
+
+       SO THIS SQUEEZES, with real touches, ON THE VERTICAL AXIS. The axis is not a
+       detail: the left edge of this game is a rail of controls, and fingers laid
+       across the middle put one of them on #rungbtn, where a pointerdown never
+       reaches the canvas and the whole gesture does nothing. That cost the shared
+       driver a round (gates/the_driver_reaches_the_city_gate.js pins it). */
+    const squeeze = async (from, to) => {
+      const box = await page.evaluate(() => {
+        const c = document.querySelector('canvas'); const r = c.getBoundingClientRect();
+        return { cx: r.x + r.width / 2, cy: r.y + r.height / 2 };
+      });
+      const cdp = await page.context().newCDPSession(page);
+      for (let i = 0; i <= 20; i++) {
+        const r = from + (to - from) * i / 20;
+        await cdp.send('Input.dispatchTouchEvent', {
+          type: i === 0 ? 'touchStart' : 'touchMove',
+          touchPoints: [{ x: box.cx, y: box.cy - r, id: 1 },
+                        { x: box.cx, y: box.cy + r, id: 2 }] });
+        await page.waitForTimeout(28);
       }
-    });
-    await SETTLE(page, 2000);
-    await page.evaluate(() => {
-      const f = document.getElementById('fitbtn');
-      if (f && f.style.display !== 'none') f.click();
-    });
+      await cdp.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
+      await SETTLE(page, 2500);
+    };
+    /* *** AND ONE SQUEEZE, NOT TWO, BECAUSE THE ZOOM LADDER MOVED UNDER THIS
+       SECTION. *** (9/15.) This section was written when the widest stop WAS the
+       whole valley -- its own comment still says "the whole-map zoom makes a tile
+       3.74 pixels wide", and 3.74 is exactly what the widest stop still measures.
+       But that stop no longer draws the valley at all. Counted by wrapping the two
+       renderers and pressing the real control:
+
+           on foot        TW 18     human   renderCity 0   sky 0
+           one squeeze    TW 13.5   city    renderCity 1   sky 0
+           two squeezes   TW 3.7    city    renderCity 0   sky 1
+
+       TWO SQUEEZES IS THE PLANET. The sky renderer draws it, the city renderer
+       does not run, and the screen says so in words along the bottom: "placeholder
+       sky - art request AR-005". So M1 to M3 were asserting that faction ground is
+       painted on a screen that is drawing a planet, and no amount of fixing the
+       game would ever make them pass there. ctBases() returns all 14 bases at that
+       stop and nothing withholds them; there is simply nothing to paint on.
+
+       THE LABELS ARE WHY THIS WAS NOT OBVIOUS: M4 and M5 passed, off
+       window.__GROUNDLABELS -- which the render publishes and never clears, so they
+       were reading the LAST draw that ran, one stop back. A false green sitting
+       next to the true reds. Cleared before reading now, the same discipline the
+       border and track globals already needed.
+
+       So this stops where the city actually draws. What is NOT claimed here, and
+       is this lane's finding rather than its fix: at that stop a phone shows about
+       a third of the valley, and the next stop out is the planet, so THERE IS NO
+       LONGER ANY VIEW THAT SHOWS THE WHOLE TERRITORY AT ONCE. The camera ladder is
+       not this lane's to change. */
+    await squeeze(110, 20);     /* across the seam, to where the city is drawn */
     await SETTLE(page, 2500);
 
     const probe = () => page.evaluate(() => {
+      /* DID THE CITY ACTUALLY DRAW THIS FRAME? The render publishes
+         __GROUNDLABELS and NEVER clears it, so reading it cold reports whichever
+         draw last ran -- which is how M4 and M5 sat green next to true reds while
+         looking at a planet. Clear it, draw, and see whether it comes back. */
+      const cityDrew = (() => {
+        delete window.__GROUNDLABELS;
+        try { render(); } catch (_e) {}
+        return window.__GROUNDLABELS !== undefined;
+      })();
       const ox = Math.round(cv.width / 2 - (city.x - city.y) * TW / 2 + panX);
       const oy = Math.round(cv.height / 2 - (city.x + city.y) * TH / 2 + panY);
       const bases = ctBases() || {};
       const ctx = cv.getContext('2d');
-      const out = { TW: TW, basesNull: !ctBases(), marker: {}, label: {},
+      const out = { TW: TW, cityDrew: cityDrew, basesNull: !ctBases(),
+                    marker: {}, label: {},
                     mine: null, nearest: null, count: 0 };
       try { out.mine = BohemiaBetween.mine(); } catch (_e) {}
       const N = v => String(v || '').toUpperCase().replace(/[\s_]/g, '');
@@ -1208,7 +1282,16 @@ async function onTheGround() {
           if (isMineCol(d[i], d[i+1], d[i+2])) mineHit++;
           else if (isThemCol(d[i], d[i+1], d[i+2])) themHit++;
         }
-        out.marker[n] = { mine: mineHit, them: themHit };
+        /* *** OFF THE EDGE IS NOT THE SAME AS UNPAINTED, AND THIS CLAIM COULD NOT
+           TELL THEM APART. *** (9/15.) getImageData clamps at the canvas edge, so
+           a seat that is simply not on screen reads as zero pixels and was counted
+           as "nothing on the map says anybody holds it" -- an alarm about a
+           renderer that is doing its job. At this stop a phone shows roughly a
+           third of the valley, so some seats being off screen is the expected
+           state, not a defect. Recorded per base so the claim can say which. */
+        const onScreen = p.sx >= 0 && p.sx <= cv.width && cy >= 0 && cy <= cv.height;
+        out.marker[n] = { mine: mineHit, them: themHit, onScreen: onScreen };
+        if (!onScreen) out.offScreen = (out.offScreen || 0) + 1;
         /* THE LABEL BAND above this marker, for the two that get named at this
            zoom. Counting TEXT-COLOURED pixels in each one is what catches the
            defect that actually happened: CUSTOM's plate painted over the front
@@ -1232,20 +1315,31 @@ async function onTheGround() {
 
     const R1 = await probe();
 
-    ok('M0 THE MAP IS OPEN AND ZOOMED ALL THE WAY OUT. TW is the width of one '
-      + 'cell in screen pixels; the whole 96x96 valley on a phone makes it tiny, '
-      + 'and that is the condition this feature has to survive',
-      R1.TW < 8 && R1.count >= 10,
-      JSON.stringify({ TW: R1.TW, bases: R1.count }));
+    ok('M0 THE MAP IS OPEN AND THE CITY IS WHAT IS BEING DRAWN ON IT. The old '
+      + 'condition here was "TW under 8", which USED to mean the whole valley on '
+      + 'a phone and now means you have gone past the valley to the planet, where '
+      + 'the sky renderer draws and the city renderer does not run at all. A gate '
+      + 'whose premise has quietly changed meaning is worse than one that never '
+      + 'ran: it fails honestly-looking claims about a surface nobody is looking at',
+      R1.TW > 8 && R1.TW < 18 && R1.count >= 10 && R1.cityDrew === true,
+      JSON.stringify({ TW: R1.TW, bases: R1.count, cityRendererRan: R1.cityDrew }));
 
-    const painted = Object.entries(R1.marker).filter(([, v]) => v.mine + v.them > 0);
-    ok('M1 *** EVERY OUTFIT\'S GROUND IS ACTUALLY PAINTED ON THE MAP. *** Read '
-      + 'as PIXELS off the real canvas at each base\'s own iso position, not as '
-      + 'a string in the source. renderCity() did not call ctBases() once before '
-      + 'this: you could open the map of the whole valley and nothing on it said '
-      + 'anybody held any of it, while the canon says LIGHT=TERRITORY, CLUSTERED '
-      + 'POWER, OWNED, and nobody patrols the dark',
-      painted.length === R1.count,
+    /* EVERY SEAT THE PLAYER CAN ACTUALLY SEE FROM HERE. A seat off the edge of
+       the screen has nothing to be wrong about. */
+    const visible = Object.entries(R1.marker).filter(([, v]) => v.onScreen);
+    const painted = visible.filter(([, v]) => v.mine + v.them > 0);
+    ok('M1 *** EVERY OUTFIT\'S GROUND THAT IS ON SCREEN IS ACTUALLY PAINTED. *** '
+      + 'Read as PIXELS off the real canvas at each base\'s own iso position, not '
+      + 'as a string in the source. renderCity() did not call ctBases() once '
+      + 'before this: you could open the map and nothing on it said anybody held '
+      + 'any of it, while the canon says LIGHT=TERRITORY, CLUSTERED POWER, OWNED. '
+      + 'AND "OFF THE EDGE" IS NOT "UNPAINTED": getImageData clamps at the canvas '
+      + 'edge, so a seat that is simply not on this screen used to read as zero '
+      + 'and be counted as a renderer failure. At this stop a phone shows about a '
+      + 'third of the valley, so seats being off screen is the expected state '
+      + '(' + painted.length + ' of ' + visible.length + ' visible seats painted, '
+      + (R1.count - visible.length) + ' of ' + R1.count + ' off screen)',
+      visible.length > 0 && painted.length === visible.length,
       JSON.stringify(R1.marker));
 
     /* *** THIS CLAIM WAS DECORATION UNTIL A MUTATION PROVED IT. *** It used to
@@ -1257,15 +1351,19 @@ async function onTheGround() {
            screen-sized (shipped)   min 24 px per marker, avg 31, max 44
            tile-sized   (the bug)   min 11 px per marker, avg 15, max 25
        20 sits between the two minima with margin on both sides. */
-    const areas = Object.values(R1.marker).map(v => v.mine + v.them);
-    const worst = Math.min.apply(null, areas);
-    ok('M2 AND EVERY ONE OF THEM IS BIG ENOUGH TO SEE, not merely present. The '
-      + 'first version sized the diamond in TILES, and at this zoom a tile is '
-      + 'under four pixels wide -- correct in the source, a smudge in the '
-      + 'render, found by screenshotting it. Measured floor: the shipped marker '
-      + 'paints at least 24 pixels per base and the tile-sized bug paints 11',
-      R1.TW < 8 && worst >= 20,
-      JSON.stringify({ TW: R1.TW, worstMarkerPixels: worst, areas }));
+    const areas = Object.values(R1.marker).filter(v => v.onScreen)
+                        .map(v => v.mine + v.them);
+    const worst = areas.length ? Math.min.apply(null, areas) : 0;
+    ok('M2 AND EVERY ONE HE CAN SEE IS BIG ENOUGH TO READ, not merely present. '
+      + 'The first version sized the diamond in TILES, and at this zoom a tile is '
+      + 'a few pixels wide -- correct in the source, a smudge in the render, found '
+      + 'by screenshotting it. Measured floor: the shipped marker paints at least '
+      + '24 pixels per base and the tile-sized bug paints 11. Counted over the '
+      + 'seats that are on screen, for the same reason as M1: a seat past the edge '
+      + 'has no pixels to be too small',
+      areas.length > 0 && worst >= 20,
+      JSON.stringify({ TW: R1.TW, onScreenSeats: areas.length,
+                       worstMarkerPixels: worst, areas }));
 
     const mineRow = R1.mine ? R1.marker[R1.mine] : null;
     ok('M3 YOUR OWN GROUND READS DIFFERENTLY FROM THEIRS. "That one is mine" is '

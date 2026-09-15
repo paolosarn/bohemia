@@ -54,6 +54,21 @@
    ============================================================================ */
 'use strict';
 const { settle: SETTLE } = require(__dirname + '/bohemia_settle.js');
+/* *** THE SUITE LINE CALLED THIS GATE "NOT SAFE" AND IT WAS RIGHT. *** (9/15,
+   FACTIONS.) The front page posts 557.7 s against a 600 s GATE_CAP; measured here
+   it is 564 s, so 36 seconds of headroom on a gate carrying 97 checks of the
+   faction system. When it crosses, all 97 are killed and filed under the reds --
+   which is exactly the failure PLUMBER already paid for once: "102 working checks
+   on the faction system read as a failure for weeks and would have sent somebody
+   hunting a bug that is not there."
+   TWELVE BLIND SLEEPS WORTH 71 SECONDS OF GUARANTEED IDLE, every one of them
+   sitting directly after a goto or a reload with the next line an evaluate that
+   reads exactly what the sleep was waiting for -- the shape settle() was written
+   and measured for (86 after a goto, 6 after a reload, in its own header). Two
+   sites in this same file already used it. ITS CONTRACT IS WHAT MAKES THIS SAFE
+   RATHER THAN A GAMBLE: the upper bound is the original number, so the worst case
+   is today's behaviour and the gate cannot get slower. Proved the way PLUMBER
+   proved their split: both runs stripped of timings and compared line by line. */
 const path = require('path');
 
 const ROOT = path.dirname(__dirname);
@@ -925,7 +940,7 @@ function requirePlaywright() {
     const spawnPage = await browser.newPage({ viewport: VIEW });
     await spawnPage.addInitScript(STAND_BESIDE);
     await spawnPage.goto('file://' + CITY);
-    await spawnPage.waitForTimeout(6000);
+    await SETTLE(spawnPage, 6000);
     await spawnPage.evaluate(SPARSE);
     const reach2 = await spawnPage.evaluate(() => {
       const cell0 = ctCell(), roster = ctValleyRoster(), bases = ctBases() || {};
@@ -1012,7 +1027,7 @@ function requirePlaywright() {
       await pg.addInitScript(STAND_BESIDE);
       try {
         await pg.goto('file://' + CITY);
-        await pg.waitForTimeout(6000);
+        await SETTLE(pg, 6000);
         await pg.evaluate(SPARSE);
         return await pg.evaluate(() => {
           const pick = __pickAffiliated();
@@ -1108,7 +1123,7 @@ function requirePlaywright() {
       await pg.addInitScript(STAND_BESIDE);
       try {
         await pg.goto('file://' + CITY);
-        await pg.waitForTimeout(6000);
+        await SETTLE(pg, 6000);
         await pg.evaluate(SPARSE);
         return await pg.evaluate(() => {
           /* *** THIS WALK NEEDS AN OUTFIT WHOSE ACT CAN REPEAT, AND IT USED TO
@@ -1308,7 +1323,7 @@ function requirePlaywright() {
       await pg.addInitScript(STAND_BESIDE);
       try {
         await pg.goto('file://' + CITY);
-        await pg.waitForTimeout(6000);
+        await SETTLE(pg, 6000);
         await pg.evaluate(SPARSE);
         return await pg.evaluate(() => {
           const R = ctValleyRoster(), out = { pop: {} };
@@ -1517,7 +1532,7 @@ function requirePlaywright() {
       await pg.addInitScript(STAND_BESIDE);
       try {
         await pg.goto('file://' + CITY);
-        await pg.waitForTimeout(6000);
+        await SETTLE(pg, 6000);
         await pg.evaluate(SPARSE);
         return await pg.evaluate(() => {
           const R = ctValleyRoster(), out = { pop: {} };
@@ -1717,7 +1732,7 @@ function requirePlaywright() {
       await pg.addInitScript(STAND_BESIDE);
       try {
         await pg.goto('file://' + CITY);
-        await pg.waitForTimeout(6000);
+        await SETTLE(pg, 6000);
         await pg.evaluate(SPARSE);
         return await pg.evaluate(() => {
           const R = ctValleyRoster(), cell = ctCell(), out = {};
@@ -1900,7 +1915,7 @@ function requirePlaywright() {
       await pg.addInitScript(STAND_BESIDE);
       try {
         await pg.goto('file://' + CITY);
-        await pg.waitForTimeout(6000);
+        await SETTLE(pg, 6000);
         await pg.evaluate(SPARSE);
         const seed = await pg.evaluate(() => {
           const R = ctValleyRoster(), row = R.filter(a => a.faction)[0];
@@ -1927,7 +1942,7 @@ function requirePlaywright() {
         });
         if (!seed) return null;
         await pg.reload();
-        await pg.waitForTimeout(6000);
+        await SETTLE(pg, 6000);
         const back = await pg.evaluate((s) => {
           const sv = ctBelongSave();
           return { gave: BohemiaBelonging.gaveOf(sv, s.fid),
@@ -1972,7 +1987,7 @@ function requirePlaywright() {
       pg.on('pageerror', e => errs.push(e.message));
       try {
         await pg.goto('file://' + CITY);
-        await pg.waitForTimeout(5000);
+        await SETTLE(pg, 5000);
         await pg.evaluate(SPARSE);
         await pg.evaluate(() => {
           /* THE FIRST PAYLOAD HERE TESTED THE WRONG THING, and the mutation said
@@ -1994,7 +2009,7 @@ function requirePlaywright() {
           } catch (_e) {}
         });
         await pg.reload();
-        await pg.waitForTimeout(6000);
+        await SETTLE(pg, 6000);
         return await pg.evaluate((e) => {
           const sv = ctBelongSave();
           const rules = (typeof BohemiaBelonging !== 'undefined' && BohemiaBelonging.RULES) || {};
@@ -2030,7 +2045,7 @@ function requirePlaywright() {
       await pg.addInitScript(STAND_BESIDE);
       try {
         await pg.goto('file://' + CITY);
-        await pg.waitForTimeout(6000);
+        await SETTLE(pg, 6000);
         await pg.evaluate(SPARSE);
         return await pg.evaluate(() => {
           const B = BohemiaBelonging, R = ctValleyRoster();
@@ -2111,7 +2126,7 @@ function requirePlaywright() {
       await pg.addInitScript(STAND_BESIDE);
       try {
         await pg.goto('file://' + CITY);
-        await pg.waitForTimeout(6000);
+        await SETTLE(pg, 6000);
         await pg.evaluate(SPARSE);
         return await pg.evaluate(() => {
           const R = ctValleyRoster();
