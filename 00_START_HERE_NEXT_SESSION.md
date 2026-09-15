@@ -1479,52 +1479,67 @@ ALSO STILL OPEN, not draw order: on NE in his own frame
 the right of the shoulders with a visible gap. That is the pose too.
 
 Nothing [PENDING Paolo].
-PEOPLE (people-7h9sfy): 9/13 (b) LATEST -- *** [cats stay] SHIPPED dcddcf95, AND
-THERE IS NO CAT IN THIS GAME. *** Paolo 9/13, walking the demo's five minutes:
-"I do see cats running around, that's cool." NOTES ARE RULINGS, so the row was to
-record which cats he saw and freeze them as canon. This lane now has a five-minute
-row, so rule 14b's hold is lifted for it; [lock them] stays held behind it.
-WHAT THE ROUND ACTUALLY FOUND. Measured in five places -- the engine, the alpha,
-the demo, the run slice, the banks -- and there is no cat anywhere. EVERY "cat" IN
-THIS REPO IS THE WORD CATEGORY: cat(d) is a district category, byCat is a wardrobe
-bucket, "misc street cat" in a 7/10 bank is a category label.
-AND A GREP THAT FINDS NOTHING IS NOT PROOF THAT NOTHING IS THERE, so I drove the
-demo at phone size, clicked through the splash the way a player does, walked the
-street, and asked every frame of the RUNNING page what it had. The answer was in a
-system I had not guessed the name of, which is the whole lesson: the file search
-was five confident misses and the running page answered in one.
-WHAT HE SAW ARE THE VALLEY'S ANIMALS (8/26, off his own "dogs and swarms of flies"
-and the 8/25 "the city is dead and DEAD IS NOT THE DEFAULT"): fly swarms drawn as
-specks over a walkable cell, a RAT drawn as a dash running the foot of a wall ON
-THE BEAT, and a raven as a silhouette on a roofline. Ten screens walked: up to 20
-animals on one, 18 fly swarms, 1 to 2 rats, 0 ravens.
-*** THE ONLY ONE THAT RUNS IS THE RAT. *** A swarm hovers and a raven sits. One or
-two dark dashes scurrying along a wall, on a phone, is exactly what reads as a cat.
-His approval is real and it lands on these; the noun is his word for a dash at
-phone size. SO NOBODY ADDS A CAT -- that would be inventing content off a misheard
-noun AND changing the very thing the row exists to freeze. The gate refuses a
-fourth kind by the exact name it would arrive under.
-THE FREEZE IS A GATE because a thing frozen without one is not frozen, it is merely
-unvisited: three kinds and no fourth, every density number in all eight districts,
-no district added underneath, THE DOG AT ZERO (he named it first on 8/26 and that
-lane still left it out in writing -- a dog is a BODY and a body is character art),
-the per-frame cap, the determinism that makes a freeze mean anything at all, and
-the animals still DRAWING on the real demo. Negative-controlled twice: a dog in
-downtown goes red naming the district; a fourth kind called "cats" goes red
-printing all four.
-MEASURED AND DELIBERATELY NOT FIXED, so the next ruling has numbers instead of a
-rediscovery: the raven is in the table and drew ZERO on his walk although it places
-best of the three valley-wide (245 of 305 rolls), and the rat places on 1.9% of its
-rolls valley-wide (10 of 521). He approved what he SAW, and a lane that improves
-the thing it was told to freeze has broken it.
-RULE 14 FOLLOWED: the diff is a gate and two records, touching no engine module and
-no slice, so nothing to resync and nothing to rebuild. THE DEMO CUTTER WAS NOT RUN.
-The stamp is not bumped either -- it exists so he can SEE which build he is on, and
-a new letter over a build with nothing new in it is the one way that stamp can lie.
-NEXT: [lock them] is still HELD; it is not a five-minute break. If this lane is
-given another break it takes that; otherwise the honest thing is to say so.
-Record: records/BOHEMIA_CATS_STAY_9_13_26.txt ***
-
+PEOPLE (people-7h9sfy): 9/15 LATEST -- *** [a human being] SHIPPED 7aa0cac6. THERE
+WAS ONE STANDING TWO CELLS FROM HIM AT THE DOOR, AND THE SPEECH BUBBLE WAS PAINTED
+OVER THEIR FACE. *** Paolo 9/15, his second play: "I didn't see a single human
+being. Very strange."
+THE MEASUREMENT CAME BACK THE OPPOSITE OF THE COMPLAINT. On the shipped cut, one
+driver, phone profile: first person on the glass 0.0 SECONDS after the door, 2 on
+screen at 10s, 30s and 60s, nearest one 2 cells directly above him. So the answer
+to "how long until a person" is IMMEDIATELY, and his sentence is still true. He
+looked at a person and did not see a human being. That is the whole round: not who
+is missing, but why what was there did not read.
+SO I LOOKED AT THE GLASS, WHICH IS WHAT SETTLED IT. His head: pale skin, green
+eyes, a mouth, white hair, a hat. The other person's: a dark brown blob with two
+faint dots, sitting INSIDE a near-black speech box. No mouth, no hair shape.
+THE CAUSE IS ARITHMETIC, NOT OPINION. The bark bubble lifted itself 0.9 of a CELL
+above the speaker's cell. A body is not drawn in cells, it is drawn on the ZOOM
+LADDER, and at the zoom the demo opens on that is 112 px against a 44 px cell. The
+bubble clears a head only while a body is under 1.9 cells tall; it is 2.5, so a
+panel at 0.92 alpha covered the top 28.4 px, which is the face. AND IT WAS NOT ONE
+UNLUCKY ZOOM: at every rung the ladder can put him on, the old lift covered the
+face at SEVEN OF TEN, worst 102 px at C = 64.
+*** THE LADDER WAS WRITTEN OUT TWICE IN THAT FILE AND THE BUBBLE COULD SEE NEITHER
+COPY, SO IT GUESSED. *** Two copies of a rule are how a third thing ends up
+disagreeing with both. There is ONE now, bodyLadder(C), and three readers. AND THE
+NEW LIFT IS NOT A NUMBER EITHER: the body's own top, sy + C - lad, minus the
+bubble's height and the padding it already had. Every value was already in the
+function. Nothing was picked.
+ON THE GLASS AFTER: brown hair, a face, green eyes, a mouth, a cream shirt with a
+red collar, blue jeans, dark boots, and the bubble sitting cleanly above them.
+THE GATE WATCHES THE CANVAS BECAUSE THE FIRST TWO CUTS DID NOT. Cut one recomputed
+the geometry in the gate and stayed GREEN with the old lift back in the page: it
+was checking my copy of the sum while the game kept the bug, the same defect this
+lane was caught in two rounds ago. Cut two watched the canvas but matched by size
+and saw 4,281 "bubbles", every ground tile and UI panel in the frame. Cut three,
+which shipped, reads both rectangles off the page by what they ARE: the bubble by
+its own ink, a body by the ladder's own rungs. Nine bodies, three bubbles.
+NEGATIVE-CONTROLLED, AND THE CONTROL IS THE STATE HE PLAYED: old lift back, RED
+twice, and the canvas claim measures the 28.4 px overlap ITSELF off real painted
+rectangles, the same number the arithmetic predicted; a second ladder copy, RED;
+restored, GREEN at worst overlap 0. One more instrument slip, named because it
+keeps happening: a claim that his words are in the record went red on a record that
+says exactly that, because the sentence wraps and the regex met the line break.
+THE FOUR ROUNDS BEFORE THIS ONE NEVER REACHED THIS BLOCK (the 9/13 handoff problem
+in person), so they are here in one line each: [offer yes] b39c33cb, the first card
+of the game had no way to say YES; [lift moves] aaca9718, he pressed GET IN and did
+not move one cell on foot; [moment ends] 53c03d97, a line stayed on screen long
+after the thing it described was gone; [pool is real] c7bad95b, HALF THE STREET'S
+POOL CANNOT FIRE because two moments wait on animals the valley does not draw, and
+round three's headline to him was wrong and is corrected in that record.
+MEASURED AND NOT FIXED: PERSON LOOK is red and is IDENTICAL on a clean origin/main
+worktree, so it is not this round's. The other person's FACE ITSELF is still low
+contrast at street size, dark features on dark skin. That is the new PORTRAIT
+lane's charter in its own words, "blank faces are the defect", and it is not
+touched here.
+RULE 14 FOLLOWED: the diff is the walked-city slice, a gate, its registration, the
+stamp and a record. THE DEMO CUTTER WAS NOT RUN; the demo loads the walked city by
+reference, so the fix reaches it with no re-cut. Stamp 9/15h.
+NEXT: [lock them] is still HELD and this lane will take it if given a round with no
+five-minute break in it. [PENDING Paolo], carried: what a long injury costs to
+treat; the 82-row deed table is still unweighted; whether a forgiven thing still
+stings; and the dog off zero or a coyote kind, which is content and canon.
+Record: records/BOHEMIA_A_HUMAN_BEING_9_15_26.txt ***
 UI (ui-kmqmrf): 9/13 (d) LATEST -- *** [every card] SHIPPED. AND ONE CONTROL NO INSTRUMENT COULD SEE. ***
 Took his bug over my queue: [no slop] still CLAIMED and untouched this round.
 
