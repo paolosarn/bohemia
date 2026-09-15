@@ -1,3 +1,62 @@
+WORDS (words-8dqrnq): 9/15 LATEST -- *** Q25 [card words] SCHOOL DONE, ROUND ONE OF TWO. NO TEST LINES
+WRITTEN, WHICH IS THE RULE. THE NIGHT CARD'S FIRST LINE IS 26 WORDS AND FOURTEEN NUMBERS, AND IT
+CARRIES ONE OF THE THREE THINGS A REAL CUT-OFF NOTICE MUST SAY. *** TAB: LIFE. No game code touched.
+Research round, demo untouched, glass not walked.
+
+RULE 13, THE SUITE LINE IS UP AND HERE IS MY HALF OF IT. 107 red at ad23d875. I ran every gate this
+lane owns and NONE OF THE 107 IS OURS: voice 118/0, dialogue catalogue 63/0, language 83/0 GREEN,
+attempt 15/0, handoff 8/0, voice audible 2/0. Six for six.
+
+RULE 12, I MEASURED MY OWN NAMED BLOCKER INSTEAD OF BELIEVING IT. The new row [into the vote tab]
+says "once UI [vote tab] lands". slices/BOHEMIA_VOTE_CURRENT.html already exists at 6.4 MB, which
+looks like it landed. IT HAS NOT: that file was last written by CHARACTER to re-shoot a FACE
+CANDIDATE BANK, it reads no registry at all, and UI's row is still OPEN. It is one of the old judge
+pages rule 15(a) says must stop presenting. So the blocker is real, and this lane does not start
+registering candidates into a surface that cannot consume a vote.
+
+CREDIT FIRST, BECAUSE THIS ROW COULD READ AS A CRITICISM AND SHOULD NOT. FACTIONS measured the night
+card on a phone with a real day walked into it: a short day ran 7 px over the window, a long one 142
+px over, and twelve of its thirty-one lines were theirs. They took twelve lines to three AND DROPPED
+NO NUMBER. The height problem was real and they solved it. What is left is a words problem their fix
+created, and that is this row.
+
+THE FINDING IS A COUNT, MEASURED ON THE SHIPPED TEXT:
+  line 1   26 words, FOURTEEN NUMBERS, two verbs (wanted, had)
+  line 2   8 words, one number, one verb (cut)
+  the numbers in line 1: 43, 20, 7, 10, 5, 7, 5, 2, 2, 3, 1, 3, 1, 0
+More than half of it is digits. Nothing in it is wrong. IT IS A LEDGER ROW AND THE CARD IS BEING
+ASKED TO BE A NOTICE.
+  A regulated cut-off notice must carry THREE things: HOW MUCH, BY WHEN, and HOW TO GET HELP.
+  how much you owe   PRESENT, buried at word three of a fourteen-number line
+  the deadline       ABSENT
+  how to get help    ABSENT
+One of three, and the one we have is the one he can least act on.
+
+AND THE CONSEQUENCE LINE IS NOT ABOUT HIM. "so they cut 43 of their own streets off" HAS NO "YOU" IN
+IT. It is a true sentence about what a faction did to its own property, and a stranger reads it as
+somebody else's news. What it MEANS, that the streets he was using are dark, is left for him to
+infer from a possessive.
+
+TWO DOCUMENTS GOT WELDED INTO ONE LINE. A bill's top says what you owe and when; the breakdown below
+is for CHECKING THE ARITHMETIC. Different readers, different moments. Ours puts the itemisation
+first and the consequence second, which is the opposite order. Even the Lebanese generator bill,
+which nothing regulates, makes a subscriber hold three figures at once (the amperage, the meter
+reading, the official rate) and that burden is exactly what people complain about.
+
+AND THE READING LEVEL IS ALREADY A LAW HERE. Oklahoma's eviction summons read at college level in a
+state where 27% get that far, which is why the forms were rewritten in plain language, with the
+standard being that a person understands it THE FIRST TIME THEY READ IT. Paolo's own 8/24 ruling is
+eighth grade for everything he reads, and the night card is a thing he reads at the end of every
+day. Fourteen numbers in one sentence is not eighth grade in any language.
+
+SIX THINGS HELD FOR ROUND TWO: three slots in the order WHAT HAPPENED TO YOU, HOW MUCH, WHAT YOU CAN
+DO; the sentence is about HIM in the second person; the telling and the checking are two texts and
+must not be welded; a deadline, because a notice without one is a complaint; a way out named, even a
+bad one; and NOT ONE NUMBER DROPPED, because FACTIONS kept them all under a hard height limit and
+round two inherits that constraint rather than solving its problem by deleting their data.
+
+NEXT: Q25 round two, the card's family. Then [into the vote tab] the moment UI's tab actually lands.
+Q4 to Q17 still owe their school rounds, one row at a time.
 EYES AND EARS (eyes-5vql33): 9/14 (ag) LATEST -- *** E26 ROUND 4. I RETRACTED TWO OF MY OWN NUMBERS OFF THIS PAGE AND FOUND THREE HOLES IN MY OWN INSTRUMENT, ALL MEASURED, ALL CLOSED. *** 9b8f85e. Record: records/BOHEMIA_EYES_E26_ROUND_4_A_ZERO_I_NEVER_PRESSED_9_14_26.md. TAB: the demo is what he plays; shots in records/eyes_e26_walk_demo/. THE STRANGER'S LIST is rewritten on the front page.
   HOLE 1, A ZERO WITH NO DENOMINATOR. Round 3 published 'two real buttons that do nothing'; round 4 walked a demo unchanged by ONE BYTE (md5 f5f706f6, fe1cca0) and found zero. New tools/bohemia_eyes_same_twice.py runs the walk N times SEQUENTIALLY (v1 ran them in parallel and caused the contamination it was built to measure -- one output path, one shot folder), hashes the file before and after, keeps each run. Three clean walks: dead 0/0/0, inert 11/10/10, first tappable 3.02/3.01/3.07, 85 taps -- AND THE ROUTE NEVER PRESSED BUILD ONCE. Closed: a NAMED LIST presses every item this lane ever called dead, by id, every run, and NOT-ON-SCREEN is told apart from REMOVED-FROM-THE-GAME by asking the source.
   HOLE 2, THE DETECTOR READ THE WORLD AND CALLED IT A FINGER. The verdict was equality on a signature carrying the game's clock and a live canvas. THREE ATTEMPTS, THE FIRST TWO FAILED THEIR OWN PLANTED CONTROLS: (1) a margin over one null window called a HANDLERLESS button alive; (2) the same verdict twice failed BOTH controls; (3) THE NOISE LEDGER passes both. Words COUNTED not setted (a set is blind to a repeat, which is what made the live control read UNDECIDED), eight warm-up windows of holding still, and a tap counts only if it moves something NEVER seen moving on its own. New tools/bohemia_eyes_what_moves_alone.js named the causes instead of leaving a threshold to guess: 12 words move untouched in 3 of 30 windows -- the clock, the music line, and a control that comes and goes.
