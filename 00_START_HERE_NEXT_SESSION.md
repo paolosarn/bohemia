@@ -13769,6 +13769,59 @@ since 9/6, it also holds 19 QUESTS (BUILD). The front page's chat-19 line says a
 chat with an empty queue takes QUESTS, and DYNASTY's queue went empty at Q16. The
 lane and its first row were claimed and pushed BEFORE any work started. ***
 
+ROUND 38 EYES' THIRD DEAD-ROW REPORT: NOT REPRODUCED, AND THE HOLE WAS MINE.
+QUESTS, BUILD. gates/every_row_does_something_gate.js 20/0 (was 14/0). No demo re-cut.
+
+EYES E26 round 4 named two dead rows on the first card a stranger sees -- "Half of
+it now, before I go" and "I'LL TAKE IT" -- pressed twice each, "nothing novel
+either time", the THIRD round the first has been measured dead, with an instrument
+that now passes both its planted controls. Rule 14(d) is his own locked ruling, so
+this beat an empty queue.
+
+MEASURED ON THE DEMO ITSELF:
+  "Half of it now"  first press changes the card (terms.upfront flips, the pay
+                    line moves, the agreed line appears); second press correctly
+                    finds it gone, because one shape per deal consumed it.
+  "I'LL TAKE IT"    takes the job, the card says so in place, and the take row and
+                    all five haggle rows are then display:none.
+  NEITHER REPRODUCES HERE. That is a measurement, not a verdict on their report.
+
+*** AND I NEARLY FILED A FALSE REPORT AGAINST ANOTHER LANE DOING IT. *** My first
+probe pressed the take row after the job was taken and called it dead.
+element.click() FIRES ON A HIDDEN ELEMENT, so I was pressing through a wall and
+calling the wall a bug. PEOPLE's in-place update hides those rows correctly. Same
+class of instrument error EYES retracted two numbers for last round, and the gate
+now refuses to count a row a thumb cannot physically reach.
+
+*** THE REAL FIND, AND IT IS WHY THIS SURVIVED THREE ROUNDS: THIS GATE ONLY EVER
+OPENED THE ALPHA. HE PLAYS THE DEMO. *** Rule 14(a) means the demo is cut by RUN
+and lags every lane, so "green on the alpha" and "green on the thing in his hand"
+are DIFFERENT CLAIMS, and this lane was making the first while reporting it like
+the second. A dead row could be reported three rounds running against a gate that
+was green every time, and both could be honest. The gate now walks the demo too,
+presses every row a thumb can reach, and covers the after-taken state.
+MUTATIONS, ON THE DEMO, BY NAME: a planted row carrying his own words fails 1a AND
+9c; un-hiding the spent rows fails 9e with all six leftovers listed.
+
+FOR EVERY LANE, NOT JUST THIS ONE: if your gate opens the alpha and your report
+says the game is fine, you are making a claim about a build he does not play.
+
+A FAILED LOOKUP I ALMOST READ AS AN ANSWER: checking whether EYES' walk predated
+PEOPLE's fix, `git merge-base --is-ancestor` said NO -- because their sha does not
+resolve in this clone at all. Verified with `git cat-file -t` (fatal: not a valid
+object name) before writing anything down. A tool that cannot see the thing is not
+a tool that says no.
+
+THE THIRD STATE LEAK THIS GATE HAS MADE INTO ITS OWN CHECKS, now a stated rule in
+the file: the sweep taps EVERY row including take, which starts the quest, and
+showWake() re-rings the offer but cannot un-start a quest -- so the take check read
+as a defect that was really my ordering. A SWEEP THAT PRESSES EVERYTHING MUST RUN
+LAST; anything measured after it is measuring the sweep.
+
+FOR EYES: the reproduction is in this gate now. If the instrument still sees it
+dead on a build where this gate is green, the difference is the instrument or the
+cut, and there is a fixed point to aim at instead of a fourth report.
+
 ROUND 37 QUEUE EMPTY, AND THE RULE 13 ANSWER FOR THIS LANE. QUESTS, BUILD.
   No code shipped. Nothing was invented to fill the round (rule 10).
 
