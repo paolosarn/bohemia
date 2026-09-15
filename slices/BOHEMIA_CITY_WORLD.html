@@ -1054,6 +1054,17 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font-family:var(--
 .dcbtn{display:block;width:100%;text-align:left;margin-top:9px;padding:11px 12px;border-radius:9px;
   background:#1b1813;border:1px solid var(--line);color:var(--ink);font-size:13px;line-height:1.45}
 .dcbtn:active{border-color:var(--acc);color:#fff}
+/* __NOTHING_MOVES_UNDER_HIS_FINGER__ (9/15, LIFE + CITY, [eyes: shape rows]).
+   A SPENT ROW KEEPS ITS PLACE. It is not pressable and it does not look pressable,
+   which is this lane's own 9/13 ruling about a button that cannot work; what is new
+   is that it does not VANISH, because a row that vanishes takes every row below it
+   up into the space his finger is still on. Measured on the demo at phone size: one
+   tap on 'Half of it now, before I go' at y=473 removed three rows, and
+   'Make it a favour instead' landed at y=491 -- 18 px away, inside the same 44 px
+   box. So a double tap spent his second and last ask on a different deal. */
+.dcbtn.spent{opacity:.42;border-style:dashed;color:var(--ink);pointer-events:none}
+.dcbtn.spent:active{border-color:var(--line);color:var(--ink)}
+.dcbtn.chosen{opacity:.75;border-color:var(--acc);pointer-events:none}
 .dcbtn .tag{display:block;font-size:10px;letter-spacing:var(--track-casing,.4px);color:var(--acc);margin-bottom:3px}
 .dcgo{margin-top:14px;padding:12px;border-radius:9px;background:#1b1813;border:1px solid var(--acc);
   color:var(--acc);font-size:12px;font-weight:700;letter-spacing:var(--track-casing,.4px);text-align:center}
@@ -54372,9 +54383,21 @@ function showWake(){
             IT IS NOT SHOWN WHEN THERE IS NOTHING TO TAKE: a job already taken,
             or an offer argued until they took it back, has no yes -- that is
             __ASK_FOR_MORE__'s whole cost and a live button would undo it. */
-         try{ if(!OFFER_TAKEN && !(o.terms && o.terms.withdrawn))
-                h+='<div class="dcbtn" data-act="take">I\'LL TAKE IT</div>'; /* draft:true */
+         /* __NOTHING_MOVES_UNDER_HIS_FINGER__ -- AND THE YES KEEPS ITS SLOT TOO.
+            It used to not be drawn at all once the job was taken or the offer
+            withdrawn, which is right about what it may do and wrong about where the
+            rows below it end up: removing it pulls GET UP up into the space his
+            finger is on. Drawn always, pressable only when there is something to
+            take, and with no data-act when there is not, so a tap cannot reach the
+            dispatcher. */
+         try{ var _yes=(!OFFER_TAKEN && !(o.terms && o.terms.withdrawn));
+              h+='<div class="dcbtn'+(_yes?'':' spent')+'"'
+                +(_yes?' data-act="take"':'')+'>I\'LL TAKE IT</div>'; /* draft:true */
          }catch(_e){} }
+  /* __NOTHING_MOVES_UNDER_HIS_FINGER__ -- the answer to the yes has its line from
+     the start, blank until he presses it. */
+  h+='<div class="sub" data-took-slot="1" data-draft="true" style="visibility:hidden">'
+    +'You took it. It is yours until the day is out.</div>';       /* draft:true */
   h+='<div class="dcgo" data-act="go">GET UP</div>';
   /* __THE_VALLEY_IS_A_PLACE__ -- the valley comes AFTER the card is gone, never under it. */
   cardShow(h,function(act){
@@ -54405,24 +54428,36 @@ function showWake(){
           var _in=document.getElementById('daycardIn');
           if(_in){
             /* the ways to argue and the yes are both spent now */
+            /* __NOTHING_MOVES_UNDER_HIS_FINGER__ -- SPENT IN PLACE, NOT HIDDEN.
+               display:none here pulled every row below up into the point he had
+               just pressed, which is the same bug the menu above was rebuilt to
+               kill, on the one path that does not redraw. They go dim and lose
+               their data-act instead, so the card is the same height after the
+               press as before it and a second tap reaches nothing. */
             var _rows=_in.querySelectorAll('[data-act^="hg:"],[data-act="take"]');
-            for(var _r=0;_r<_rows.length;_r++) _rows[_r].style.display='none';
+            for(var _r=0;_r<_rows.length;_r++){
+              _rows[_r].removeAttribute('data-act');
+              _rows[_r].className=(_rows[_r].className||'').replace(/\bspent\b/g,'').trim()+' spent';
+            }
             /* AND THE CARD STOPS SAYING NOBODY HAS PICKED IT UP, because
                somebody just did. A line that is true until he presses and false
                afterwards is the same lie in the other direction. */
             var _subs=_in.querySelectorAll('.sub');
             for(var _s=0;_s<_subs.length;_s++)
               if(/nobody has picked it up/i.test(_subs[_s].textContent||''))
-                _subs[_s].style.display='none';
+                _subs[_s].style.visibility='hidden';   /* __NOTHING_MOVES_UNDER_HIS_FINGER__: keeps its line */
             /* IT GOES WHERE THE YES WAS, NOT AT THE BOTTOM. Appended to the end
                it landed UNDER "GET UP", so the card read get up first and then
                told him what he had just done. The answer belongs where the
                question was. */
-            var _took='<div class="sub" data-draft="true" data-took="1">'
-              + 'You took it. It is yours until the day is out.</div>';  /* draft:true */
-            var _go=_in.querySelector('.dcgo');
-            if(_go) _go.insertAdjacentHTML('beforebegin', _took);
-            else _in.insertAdjacentHTML('beforeend', _took);
+            /* __NOTHING_MOVES_UNDER_HIS_FINGER__ -- IT FILLS A SLOT THAT WAS
+               ALREADY THERE. Inserting a new line here pushed GET UP down and slid
+               the centred card, 13 px measured, so the yes he had just pressed was
+               no longer under his finger. The slot is drawn blank with the card and
+               only its words arrive. */
+            var _slot=_in.querySelector('[data-took-slot]');
+            if(_slot){ _slot.textContent='You took it. It is yours until the day is out.';
+                       _slot.style.visibility='visible'; }        /* draft:true */
           }
         }catch(_e){}
         return;
@@ -54555,13 +54590,64 @@ function haggleHtml(o){
      two rules about one thing is how they drift apart.
      I could not reproduce EYES' exact route and I am not claiming their
      observation away: this closes the whole class rather than the one case. */
-  try{ if(typeof OFFER_TAKEN!=='undefined'&&OFFER_TAKEN) return h; }catch(_e){}
-  var list=BohemiaHaggle.asks(t);
-  var warn=BohemiaHaggle.warning(t);
-  if(warn) h+='<div class="sub">'+esc(warn)+'</div>';              /* draft:true */
-  for(var i=0;i<list.length;i++)
-    h+='<div class="dcbtn" data-act="hg:'+esc(list[i].id)+'">'+esc(list[i].say)+'</div>';
-  if(t.said&&!t.withdrawn) h+='<div class="sub">'+esc(t.said)+'</div>';
+  /* *** NOTHING MOVES UNDER HIS FINGER. (9/15, [eyes: shape rows].) ***
+     EYES E26 reported these three rows dead on three separate rounds, on two
+     independent walks each. DRIVEN ROW BY ROW FROM A CLEAN DOOR, EVERY ONE OF THEM
+     WORKS ON THE FIRST PRESS: 'Half of it now, before I go' moves the terms to
+     upfront and the card to 'One battery, half of it up front'; 'I will go first,
+     on something small' to first; 'I'LL TAKE IT' takes the job and says so. Not one
+     of them is dead.
+     THE REAL BUG IS THE SECOND PRESS, AND IT IS WORSE THAN A DEAD ROW. Measured at
+     phone size: the finger lands on a shape row at y=473. One shape spends all
+     three, the card loses three rows, the whole card re-centres as it shrinks, and
+     'Make it a favour instead' arrives at y=491 -- 18 px from the point he is still
+     touching, inside the same 44 px box. SO A DOUBLE TAP ON THE FIRST CARD OF THE
+     GAME SPENDS HIS SECOND AND LAST ASK ON A DEAL HE NEVER CHOSE, and a third tap
+     on what slid in next loses the job outright, because the room is two.
+     That is also exactly what made a careful instrument call the rows dead: press
+     two measured whatever had moved into the gap. EYES fixed this shape in round 5
+     for a panel that CLOSES; a panel whose CONTENTS MOVE reads the same way.
+     SO THE MENU NEVER CHANGES HEIGHT. Every row keeps its slot for the life of the
+     card. A spent row is drawn in place, dashed and dimmed, with no data-act at all
+     so a tap on it cannot reach the dispatcher -- this lane's own 9/13 ruling that a
+     button which cannot work must not look like one, plus the part that ruling
+     missed: it must not move either.
+     THE SLOTS ARE FIXED AND THE LIVE ROWS ARE STILL THE MODULE'S. Two swap slots
+     (there are always exactly two currencies that are not the current one) and the
+     three shapes in the module's own order. Nothing here decides what may be asked;
+     it only decides where the answer is drawn. */
+  var _taken=false; try{ _taken=(typeof OFFER_TAKEN!=='undefined'&&OFFER_TAKEN); }catch(_e){}
+  var live=(t.withdrawn||_taken)?[]:BohemiaHaggle.asks(t);
+  var warn=(t.withdrawn||_taken)?null:BohemiaHaggle.warning(t);
+  /* the warning keeps a slot of its own too, empty until it is earned, so the rows
+     below it do not jump down the moment it appears */
+  h+='<div class="sub" '+(warn?'':'style="visibility:hidden"')+'>'
+    +esc(warn||'Ask again and they take the job back')+'</div>';   /* draft:true */
+  var byId={}; for(var i=0;i<live.length;i++) byId[live[i].id]=live[i];
+  var swaps=[]; for(var i2=0;i2<live.length;i2++) if(live[i2].kind==='swap') swaps.push(live[i2]);
+  var rows=[], si=0;
+  for(var q=0;q<2;q++) rows.push(swaps[si++]||null);
+  for(var k=0;k<BohemiaHaggle.SHAPE_ORDER.length;k++){
+    var sid=BohemiaHaggle.SHAPE_ORDER[k];
+    rows.push(byId[sid]||{ spentId:sid, say:BohemiaHaggle.SHAPES[sid].say });
+  }
+  for(var r=0;r<rows.length;r++){
+    var row=rows[r];
+    if(!row){ h+='<div class="dcbtn spent">&nbsp;</div>'; continue; }
+    if(row.id){ h+='<div class="dcbtn" data-act="hg:'+esc(row.id)+'">'+esc(row.say)+'</div>'; continue; }
+    /* SPENT. The one he actually chose is marked as chosen rather than greyed out
+       with the rest, because "this is the deal you made" and "this is gone" are two
+       different things and the card should not say them the same way. */
+    var mine=(t.shape&&row.spentId===t.shape);
+    h+='<div class="dcbtn '+(mine?'chosen':'spent')+'">'+esc(row.say)+'</div>';
+  }
+  /* __NOTHING_MOVES_UNDER_HIS_FINGER__ -- AND SO DOES WHAT WAS AGREED. This line
+     only exists after an ask, so adding it pushed every row below down AND slid the
+     whole card, which is vertically centred, half that far up. Measured: 8 px of
+     drift on rows he can still press. The slot is always here; before he says
+     anything it is reserved and blank. */
+  h+='<div class="sub" '+(t.said?'':'style="visibility:hidden"')+'>'
+    +esc(t.said||'Half now. And you are holding it if you walk')+'</div>';
   return h;
 }
 /* HE ASKED. One ask, a new terms object, and the card redraws itself.

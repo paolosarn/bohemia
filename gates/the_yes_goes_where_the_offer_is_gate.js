@@ -119,7 +119,23 @@ function stripComments(s) {
         /* PRESS IT THE WAY A THUMB DOES */
         const el = [...document.querySelectorAll('[data-act="take"]')][0];
         if (el) el.click();
-        o.cardAfter = card().slice(0, 300);
+        /* THE WHOLE CARD, NOT THE FIRST 300 CHARACTERS (9/15, LIFE + CITY,
+           [eyes: shape rows]). The window was never the claim, it was a convenience
+           that held only while taking the job COLLAPSED the card. It does not any
+           more: the rows now stay in place, dimmed and unpressable, because a row
+           that vanishes pulls everything below it into the point the finger is still
+           on -- measured 18 px, inside the same 44 px box, which is how a double tap
+           spent his last ask on a deal he never chose. So the took line sits further
+           down the text than it used to and the 300-char window stopped reaching it
+           while the card said exactly what this leg asks for.
+           AND THE LEG IS STRONGER NOW, NOT WEAKER: it says "where the yes was", so
+           it checks that too, instead of taking a position on faith. */
+        o.cardAfter = card();
+        o.tookBeforeGetUp = (function () {
+          const t = o.cardAfter.toLowerCase();
+          const a = t.indexOf('you took it'), g = t.lastIndexOf('get up');
+          return a >= 0 && g >= 0 && a < g;
+        })();
         o.actsAfter = shown();
         o.takenAfter = (typeof OFFER_TAKEN !== 'undefined') ? OFFER_TAKEN : null;
         o.questAfter = (typeof DQ !== 'undefined' && DQ.Q) ? DQ.Q.id : null;
@@ -167,7 +183,8 @@ function stripComments(s) {
       /nobody has picked it up/i.test(R.cardBefore)
         && !/nobody has picked it up/i.test(R.cardAfter));
     ok('...and it tells him so in words, on the card, where the yes was',
-      /You took it/i.test(R.cardAfter), R.cardAfter.slice(-90));
+      /You took it/i.test(R.cardAfter) && R.tookBeforeGetUp === true,
+      R.cardAfter.slice(-90));
     ok('the ways to argue are spent too: a job already taken cannot still be haggled over',
       R.actsAfter.filter(a => /^hg:/.test(a || '')).length === 0
         && R.actsAfter.indexOf('take') < 0,

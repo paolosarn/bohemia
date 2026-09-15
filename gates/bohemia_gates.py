@@ -6358,6 +6358,25 @@ GATES = [
      'MEASURED BOTH WAYS because a control that is ALWAYS off is a different lie: broke '
      'disabled/0.45/"you have none of it", credited enabled/1.0/no title with afford ok and 5 '
      'in hand. Mutations: always-pressable reds B1/B2/B5, always-off reds B3/B4.', False),
+    ('NOTHING MOVES UNDER HIS FINGER', ['node', 'gates/nothing_moves_under_his_finger_gate.js'],
+     'VAMILY [eyes: shape rows], LIFE + CITY, answering EYES E26 under PAOLO 9/13 rule 14(d). '
+     'EYES called three rows on the day card dead three rounds running, on two independent '
+     'walks each. DRIVEN ROW BY ROW FROM A CLEAN DOOR, ALL THREE WORK ON THE FIRST PRESS: '
+     '"Half of it now, before I go" moves the terms to the upfront shape and the card to "One '
+     'battery, half of it up front"; "I will go first, on something small" to the first shape; '
+     '"I\'LL TAKE IT" takes the job and says so. THE REAL BUG IS THE SECOND PRESS AND IT IS '
+     'WORSE THAN A DEAD ROW: measured at phone size, the finger lands on a shape row at y=473, '
+     'choosing one shape spends all three, the card loses three rows and re-centres, and "Make '
+     'it a favour instead" arrives at y=491 -- 18 px away, inside the same 44 px box. The room '
+     'is TWO asks, so a double tap spends his last one on a deal he never chose and a third tap '
+     'loses the job. It is also why a careful instrument kept reading them dead: EYES fixed this '
+     'shape in round 5 for a panel that CLOSES, and a panel whose CONTENTS MOVE reads the same '
+     'way. FIXED: every row keeps its slot for the life of the card, spent ones drawn dashed and '
+     'dimmed with no data-act, and the two lines that only appear after a press (what was agreed, '
+     'and "You took it") get reserved blank slots so the centred card cannot slide. Leg B3 is the '
+     'one that matters: no pressable row within half a row of the point just pressed. Mutation '
+     '(spent rows not drawn, the old behaviour) reds B4 7->4 rows, B4b 80 px of drift and B5 '
+     '"a second tap spends nothing" at asked 1->2, which is the bug itself reproduced.', True),
     ('WHERE A STEP MAY LAND', ['node', 'gates/lot_lattice_gate.js'],
      'VAMILY [lot lattice], LIFE + CITY, under PAOLO 9/15 rule 16 THE STEP IS A HOUSE: '
      '"however long it takes right now to walk the length of a house, that would be done in '

@@ -227,7 +227,13 @@ async function open(opts) {
       if (clear) break;
     }
   };
-  await clearCards();
+  /* EXTENDED 9/15 (LIFE + CITY, [eyes: shape rows], rule 14g). KEEP THE CARDS UP.
+     The day card is the first thing in the game and three of its rows are reported
+     dead; you cannot test a row on a card this driver has already dismissed. With
+     opts.keepCards the boot stops at the door with the card still standing, and
+     d.clearCards() dismisses it whenever the caller is ready. Default unchanged, so
+     no existing use of this driver moves. */
+  if (!opts.keepCards) await clearCards();
   await page.waitForTimeout(1200);
 
   const box = await fr.evaluate(() => {
@@ -323,6 +329,7 @@ async function open(opts) {
         seen[t] = 1; out.push({ text: t, id: el.id || '' });
       }
       return out; }),
+    clearCards,
     close: async () => { await ctx.close(); await browser.close(); server.close(); }
   };
 }
