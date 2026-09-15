@@ -47,6 +47,18 @@ else (the cloud rule's discipline, one mechanism one card).
   a builder overlay the mayor toggles ON, off by default. The player sees
   roofs and roads, never filled district rectangles.
 
+## 2B. THE VALLEY HAS A RIM (amended 9/15, from his moon-zoom kill)
+At the widest zoom the city is a BASIN, not a stamp on cardboard. The
+surround is never flat fill: desert pavement texture at the valley floor
+(the terrain palette's own #6e6045 family), the wash lines darker
+(#4a422f), and the MOUNTAIN RIM closing the horizon (#5b5346, the same
+bedrock the walked terrain already owns) - Las Vegas reads from orbit as
+a bright grid held inside dark ranges, with the interstate's dark line
+running in and out. Every family named here already exists in the
+game's terrain legend; this is placement, not new art. Labels and
+markers SCALE WITH THE ZOOM: a label wider than the district it names is
+chart chrome, not a map.
+
 ## 3. WHAT MOVES AT THAT DISTANCE
 - THE CROWD IS DARK SPECKS THAT MOVE. A body collapses to a 2-3 px dot at the
   runway outer-garment value (0.15-0.38), read against bright ground or mid
