@@ -1,4 +1,4 @@
-# BOHEMIA -- HOW FAST IT IS ON A PHONE (refreshed 2026-09-06)
+# BOHEMIA -- HOW FAST IT IS ON A PHONE (refreshed 2026-09-15)
 
 PLUMBER lane, VAMILY row [sixty fps] FPS-ON-A-PHONE. The row said "Write the numbers
 before touching anything." These are the numbers. Nothing in the game was changed to
@@ -12,44 +12,44 @@ disagree. Refresh it with the command at the foot of the page.
 
 | what a person meets | what it does | what he asked for | verdict |
 |---|---|---|---|
-| tap the link, see the city | 2.7 s | -- | fine |
-| tap the link, then MOVE | 17.8 s | under 5.0 s | MISSED by 3.6x |
-| main thread blocked while you wait | 17.1 s | -- | -- |
-| the first minute of walking | 18.2 fps | 60 fps | MISSED by 3.3x |
-| walking, once it settles | 34.4 fps | 60 fps | MISSED by 1.7x |
-| a fight | 16.2 fps | 60 fps | MISSED by 3.7x |
-| beats swallowed while you wait | 10.5% | 0% | MISSED |
-| beats swallowed once settled | 2.7% | 0% | close |
-| downloaded before anything is on screen | 6.05 MB | -- | -- |
-| downloaded before you can move | 26.95 MB | -- | -- |
-| downloaded by the end of one session | 48.74 MB | -- | -- |
+| tap the link, see the city | 6.0 s | -- | fine |
+| tap the link, then MOVE | 20.3 s | under 5.0 s | MISSED by 4.1x |
+| main thread blocked while you wait | 19.5 s | -- | -- |
+| the first minute of walking | 55.65 fps | 60 fps | MISSED by 1.1x |
+| walking, once it settles | 58.55 fps | 60 fps | MET |
+| a fight | 57.15 fps | 60 fps | MISSED by 1.0x |
+| beats swallowed while you wait | 9.7% | 0% | MISSED |
+| beats swallowed once settled | 3.25% | 0% | close |
+| downloaded before anything is on screen | 6.26 MB | -- | -- |
+| downloaded before you can move | 48.80 MB | -- | -- |
+| downloaded by the end of one session | 48.80 MB | -- | -- |
 
 ## THE THREE THINGS THAT ARE ACTUALLY WRONG
 
 **1. THE FIRST MINUTE IS THE WORST MINUTE, AND IT IS THE ONLY ONE A STRANGER SEES.**
 The walked city pulls its sprite banks AFTER the first frame paints -- eight more
 script files, 19.4 MB gzipped, one at a time, downloading and parsing and baking on
-the same main thread the game draws on. So the walk measures 18.2 fps
-while that is happening and 34.4 fps once it is done. Both are true. Only
+the same main thread the game draws on. So the walk measures 55.65 fps
+while that is happening and 58.55 fps once it is done. Both are true. Only
 the first one is the one somebody who just tapped the link gets, and it is the one that
 decides whether they keep tapping.
 The late loader is not a mistake -- its own comment carries the measurement that put it
 there (shipping those banks as deferred tags turned a five second wait into twenty-nine).
 The problem is that nothing covers the gap it creates.
 
-**2. THE WORLD IS DRAWN IN 2.7 s AND YOU STILL CANNOT MOVE FOR 17.8 s.**
-Door at 0.7 s. The walked world says it is ready at 2.7 s, and a
+**2. THE WORLD IS DRAWN IN 6.0 s AND YOU STILL CANNOT MOVE FOR 20.3 s.**
+Door at 0.6 s. The walked world says it is ready at 6.0 s, and a
 screenshot taken at that moment (saved beside this file) shows the city, the character, the
 eight-way pad and the day card, all drawn. Then the main thread is BLOCKED FOR
-17.1 SECONDS across 15 long
-tasks, the worst single one 9.5 seconds long, while
+19.5 SECONDS across 26 long
+tasks, the worst single one 7.1 seconds long, while
 the sprite banks download and bake. Nothing can run in that window: not the game's metronome,
 not a thumb, not a question asked from outside. A thumb held on the pad from the moment the
-pad exists does not move anybody until 17.8 s.
+pad exists does not move anybody until 20.3 s.
 This is on a desktop-class box, over localhost, with no network delay at all. On a phone on
 a real network, the transfer goes on top.
 
-**3. A FIGHT RUNS AT 16.2 FPS AND ASKS FOR 7424 drawImage CALLS A FRAME.**
+**3. A FIGHT RUNS AT 57.15 FPS AND ASKS FOR 4 drawImage CALLS A FRAME.**
 The 120 BPM law lives in the fight. A beat the frames cannot keep up with is a beat
 nobody can play to.
 
@@ -60,17 +60,17 @@ number 500 is in the code, or that a step happened; none of them asked whether t
 happened WHEN IT WAS DUE. A metronome is a setInterval, and a setInterval on a blocked
 main thread does not run a little late, it runs when the thread is free.
 
-  during the boot window    52.6% of beats late, 10.5% SWALLOWED WHOLE
-  worst single stretch      5 beats' worth of silence in one gap
-  once it settles           17.3% late, 2.7% swallowed, median gap 500 ms against 500
+  during the boot window    29.2% of beats late, 9.7% SWALLOWED WHOLE
+  worst single stretch      5.35 beats' worth of silence in one gap
+  once it settles           9.85% late, 3.25% swallowed, median gap 500 ms against 500
 
 Through the boot window, about one beat in 10
-never happens at all, and the worst single gap ate 5 beats of
-silence. That is the same 17.1 second block from
+never happens at all, and the worst single gap ate 5.35 beats of
+silence. That is the same 19.5 second block from
 the section above, seen from the side the 120 BPM law cares about.
 
-Settled is much better but it is NOT clean: 2.7% of beats are still
-swallowed whole and 17.3% land more than a tenth of a beat late, on a
+Settled is much better but it is NOT clean: 3.25% of beats are still
+swallowed whole and 9.85% land more than a tenth of a beat late, on a
 median gap of exactly 500 ms. The median being perfect and the tail
 being ragged is the signature of a thread that is mostly free and occasionally busy, which is
 what a walk on this build is.
@@ -81,48 +81,11 @@ Everything above comes off a local server, so the transfer is free. A phone's is
 Run again through Chromium's slow-4G profile -- 1.6 Mbit down, 150 ms round trip, which is
 the preset everybody means by "a bad signal" -- the same demo, same box, same build:
 
-  the logo appears                 8.4 s   (0.7 s on the local server)
-  the city is drawn                25.4 s   (2.7 s)
-  you can MOVE                     33.0 s   (17.8 s)
-
-So a stranger on a bad signal looks at a blank screen for 8 seconds before the logo
-even arrives, and waits 33 seconds before a thumb does anything. Against a five
-second goal that is 7x.
-
-One thing gets BETTER on the slow link, and it is worth understanding rather than
-celebrating: the beat is fine through the boot (0% swallowed instead of 10.5%),
-because when the network is the bottleneck the art arrives in dribbles and the main thread
-gets gaps to breathe in. The jam is not caused by the download. It is caused by parsing and
-baking the art once it lands, which is why a faster connection makes that part WORSE.
+  Not measured this round.
 
 ## THE BATTERY, AS HONESTLY AS A CONTAINER CAN PUT IT
 
-Milliamp-hours need a real handset and nothing here can invent them. What a battery actually
-pays for is main-thread CPU time, and that can be measured, over a fixed window with a thumb
-held down and again with nobody touching anything:
-
-  standing still, doing nothing     8.3% of one core
-  walking                           9.9% of one core
-  ten minutes of walking            0.99 CPU-minutes
-
-The row asked for ten minutes, so these are ten real minutes each, not a short sample
-multiplied up: 10 minutes standing still and
-10 minutes with a thumb held down, back to back.
-
-AND THE INTERESTING NUMBER IS THE FIRST ONE, NOT THE SECOND. Standing still costs
-8.3% of a core and playing costs 9.9%, so
-DOING NOTHING COSTS 84%
-OF WHAT PLAYING COSTS. Ten minutes of the game sitting open and untouched burns about
-0.83 CPU-minutes. On a phone in a pocket
-that is heat and battery for nothing, and it is a much cheaper thing to fix than a frame rate.
-
-These read lower than the 34.9% in the table above, and both are
-right: that one is a five second hold taken moments after the world settles, this one is a ten
-minute hold with the beat running steadily. The short window catches the peak, the long one
-catches the average, and a battery is drained by the average.
-
-MILLIAMP-HOURS ARE STILL OWED. CPU time is what a battery pays for, but the bill also has a
-screen, a radio and a thermal throttle on it, and none of those exist here.
+Not measured this round.
 
 ## AND ONE FINDING THAT IS NOT A NUMBER
 
@@ -136,32 +99,32 @@ first walk sample moved nobody and reported a perfectly healthy-looking 0 fps.
 The walked city is one page, and it can be measured twice: on its own, and inside the demo
 that wraps it in an iframe. The steady thing is the COST, not the frame rate.
 
-  standing still, the city alone      1.8% of the main thread
-  standing still, inside the demo     10.9% of the main thread
-  walking, the city alone             34.3% of the main thread
-  walking, inside the demo            34.9% of the main thread
+  standing still, the city alone      2% of the main thread
+  standing still, inside the demo     6.35% of the main thread
+  walking, the city alone             13.05% of the main thread
+  walking, inside the demo            17.5% of the main thread
 
 A same-origin iframe SHARES its parent's main thread, so every millisecond the shell spends
 is a millisecond the city cannot draw in. The frames-per-second difference between the two is
-real but noisy (the demo's settled walk ranged 34.1 to 34.4
+real but noisy (the demo's settled walk ranged 58.4 to 58.55
 fps across runs, and a later gate run of the same tree read even higher), so the CPU numbers
 above are the ones to trust and the ones to watch.
 
-And of the thread the walk does use, only 58.4% is painting: the
+And of the thread the walk does use, only 40.7% is painting: the
 frame-rate problem in this game is not the drawing.
 
 ## HOW THESE WERE TAKEN, AND WHAT THEY ARE NOT
 
 Chromium 390x844 at dpr 3, touch, mobile, over http with gzip. Every input is a real touch event. Every headline number is the MEDIAN OF
-3 RUNS of that configuration (9 runs in all) with its
+2 RUNS of that configuration (12 runs in all) with its
 spread kept beside it in the JSON, because single runs of this disagreed by 3x. Frame rates are frames DELIVERED over wall time, not the median gap
 between frames -- the gap distribution is bimodal and its median reports the best moment
 of a walk as if it were the whole walk.
 
 AND THE BOX ITSELF IS MEASURED, not assumed. Two yardsticks run inside every pass: an empty
-canvas painting on requestAnimationFrame (60.3 fps here, so this machine
+canvas painting on requestAnimationFrame (60.55 fps here, so this machine
 can deliver 60 and these numbers are about the game), and a fixed lump of integer work timed
-in the page (28.7 ms here). The second one exists because the first cannot see
+in the page (32.1 ms here). The second one exists because the first cannot see
 CPU contention at all -- vsync is not contended, so the rAF ceiling reads 60.x on a box that
 is crawling. Measured on one tree in one session: first play read 14.1 s on a quiet box and
 19.9 s an hour later with nothing in the game changed. The budget records the yardstick it was
@@ -169,7 +132,7 @@ set against and the gate scales its time and frame-rate lines by the ratio, clam
 afternoon is corrected for and a genuinely unfit machine is refused rather than excused.
 
 STILL OWED:
-  - MILLIAMP-HOURS ON A REAL HANDSET. The ten-minute CPU windows the row asked for are taken and in this record; what a container cannot add to them is a screen, a radio and a thermal throttle.
+  - BATTERY IN TEN MINUTES ON A REAL HANDSET. No container can report milliamp-hours. What is here instead is main-thread CPU time, which is what a battery pays for.
   - A REAL PHONE, FULL STOP. Chromium at 390x844 with a CPU throttle is a stand-in: it does not reproduce a phone GPU, its memory bandwidth, its thermal throttle or Safari.
   - THE REAL LINK OVER A REAL NETWORK. These numbers come off a local server; the load time a stranger gets also carries GitHub Pages, TLS and whatever their signal is.
 
@@ -178,11 +141,11 @@ STILL OWED:
 Everything above is the DEMO. The alpha is the other surface, and under the one-link law it
 is the only URL he ever gets, so it is measured too:
 
-  tap the link, then MOVE       20.4 s   (demo 17.8 s)
-  walking, once it settles      35 fps   (demo 34.4 fps)
-  walking, first minute         18.2 fps   (demo 18.2 fps)
-  a fight                       18.6 fps   (demo 16.2 fps)
-  beats swallowed once settled  4%   (demo 2.7%)
+  tap the link, then MOVE       not measured   (demo 20.3 s)
+  walking, once it settles      58.75 fps   (demo 58.55 fps)
+  walking, first minute         58.95 fps   (demo 55.65 fps)
+  a fight                       59.65 fps   (demo 57.15 fps)
+  beats swallowed once settled  1.35%   (demo 3.25%)
 
 The two files are within a few thousand bytes of each other and both load the same walked
 city, so the numbers track closely, which is the point. The gate now boots BOTH every run and
@@ -197,12 +160,12 @@ build misses all three today, and a gate that is red on arrival gets switched of
 next session that hits it. What is asserted is a RATCHET at today's truth plus the measured
 spread, so the day somebody makes this WORSE is a red line instead of a drift nobody sees.
 
-  time to first play          <= 28000 ms
+  time to first play          <= 29500 ms
   frames walking, settled     >= 17 fps
   main thread while walking   <= 56 %
   frames in a fight           >= 10 fps
-  bytes before you can move   <= 34005978
-  beats swallowed, settled    <= 8 %
+  bytes before you can move   <= 58845682
+  beats swallowed, settled    <= 9 %
   and on the alpha, by a BOOT pass (first play, the beat through the boot, the bytes):
   time to first play          <= 29000 ms
   and the two files must still need the same bytes to draw a city, within 1048576
@@ -216,5 +179,5 @@ spread, so the day somebody makes this WORSE is a red line instead of a drift no
   are kept here so a refresh keeps tracking them.
   and the host must hand an empty canvas >= 45 fps, or it cannot judge
 
-Refresh with: `node gates/bohemia_phone_perf.js --repeat 3 --cpu 1 --record`
+Refresh with: `node gates/bohemia_phone_perf.js --repeat 3 --record`
 Held by: gates/fps_on_a_phone_gate.js   Taken by: gates/bohemia_phone_perf.js

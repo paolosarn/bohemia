@@ -1075,6 +1075,66 @@ full suite unmeasured since 7efb22cf. Rule 14(a): demo untouched, RUN cuts it.
 
 Record: records/BOHEMIA_ONE_DOOR_9_14_26.md
 
+PLUMBER (plumber-ont6t5): 9/15 (b) LATEST -- *** CHAT 18. ROUND 28. [sixty fps] CONTINUING, ROUND 2
+OF THE CLAIM. THE FIGHT MEASURED ON A PHONE-SHAPED CPU FOR THE FIRST TIME, AND THE RECORD THE WHOLE
+FLEET READS WAS WRONG IN THE BUILD'S FAVOUR. ***
+*** THE INSTRUMENT HAS MEASURED A PHONE-SHAPED CPU SINCE 9/5 AND THREW IT AWAY EVERY TIME. ***
+gates/bohemia_phone_perf.js defaults to cpus = [1, 4] and has always taken both. The refresh command
+written into its own record was "--repeat 3 --cpu 1 --record". So the 4x pass ran, printed, and was
+discarded, for nine days, and every speed number in the record, in the gate, and quoted by any lane
+describes a machine several times faster than the thing in his hand. That is how "the fight runs at 60"
+and Paolo's "it's kinda not running as smoothly as I would like" were both true on the same afternoon.
+FIXED END TO END: the refresh command no longer pins the throttle; the record carries an
+onAPhoneShapedCpu block; gates/fps_on_a_phone_gate.js PRINTS it beside the 1x numbers and FAILS if a
+future record has none, so it cannot quietly go back to describing the wrong machine.
+THE NUMBERS. One refresh, two repeats, one window. The throttle proved real inside the same run by the
+CPU yardstick: 31.75 ms at 1x against 136.7 ms at 4x, so 4.3x.
+  the fight              57.2 fps here   ->    7.1 fps at 4x   (alpha 60.1 -> 9.4)
+  boot blocked           19,530 ms       ->   71,758 ms        (26 long tasks -> 35)
+  worst single block      7,080 ms       ->   26,532 ms
+  city ready at          ~9,000 ms       ->   33,284 ms
+  beats LATE settled         9.9 %       ->     31.6 %, and 8.3% SWALLOWED WHOLE
+  THE WALKED CITY ALONE   58.5 fps       ->    58.4 fps
+*** THE LAST ROW IS THE FINDING. THE WALKED CITY DOES NOT CARE ABOUT THE THROTTLE AT ALL -- 58.5
+against 58.4 is not a small difference, it is no difference. Slow the CPU 4.3x and the city renderer
+delivers the same frame rate. So what collapses on a phone is NOT the world, NOT the tiles, NOT the
+walking. It is THE FIGHT (an 8x fall) and THE SHELL BOOT. That is a far narrower target than "the game
+is slow", and it is only visible because the control is measured at both rates in one run. ***
+AND THE 120 BPM LAW ON A PHONE: one beat in twelve never happens once settled. Nobody had that number,
+because nobody kept a throttled pass.
+THE OLD RECORD WAS WRONG IN THE BUILD'S FAVOUR: it said the fight ran at 16.2 fps with 7,424 drawImage
+calls a frame. It is 57.2 fps at 4 calls. SOMEBODY FIXED THE FIGHT AND NOBODY RE-MEASURED FOR NINE DAYS.
+A stale measurement is reassurance about a build that no longer exists, and it misleads in BOTH
+directions; this one would have sent somebody optimising a fight that was already fixed.
+*** A DEFECT IN THIS LANE'S OWN GATE, NAMED WITH ITS NUMBER AND DELIBERATELY NOT HALF-FIXED. ***
+The fight budget the gate holds is 10 fps. The build does 57. A 5.7x REGRESSION IN THE FIGHT WOULD PASS
+GREEN. The cause: the budget is "the worst case across the last six refreshes", and that rule's own
+written argument is explicitly about ONE UNCHANGED TREE (it replaced a one-way ratchet, correctly, for a
+metric whose spread is 40%). But a history entry carries no build identity, so a sample from the broken
+build anchors the budget straight across a real fix. The history shows it: fightLo 17.6, 25, 15.4, 15.6,
+then 54.3 today. NOT FIXED THIS ROUND ON PURPOSE: a new rule needs its own measurement of how wide this
+metric really swings across refreshes of one build, and inventing a clamp factor at the end of a long
+round is how a gate gets a number nobody can defend. NEXT LINE OF THIS ROW, rule 6.
+THE GATE'S REDS: it was 32 passed / 3 failed BEFORE I touched anything, and it is 34 / 2 now. The
+refresh FIXED one (bytes to first play was held against a stale 34 MB budget while the build fetches
+48 MB). The two that remain are RUN's and they are ONE BUG: #daycard is inset:0 and sits over all eight
+direction buttons on boot, so a driven thumb has nothing to press and the alpha never reaches its first
+step. Named on the front page, not fixed here -- this lane names a red in another lane's work.
+ALSO: repeatsThisRefresh is now on the face of the record. This refresh ran 2 repeats, not the
+documented 3 (wall clock), and a band from two passes should say so rather than let a reader assume.
+The throttled WALK sample is deliberately NOT carried: the instrument marks it INVALID because the
+driven thumb never moved anybody while the boot was still blocking, and an invalid sample must not be
+laundered into a record by copying its number.
+ROW STAYS CLAIMED. [sixty fps] wants 60 walking, 60 in the fight, first play under 5 s: walking is 58.6
+and the city alone holds 58.4 even at 4x (close), the fight is 57.2 here and 7.1 on a phone (missed),
+first play is 20,272 ms against 5,000 (missed).
+STILL OPEN IN MY SECTION: [slim build] (the coordinator re-aimed it at this lane's own ladder and marked
+it NEXT AFTER [sixty fps]), [handoff cut], [suite runs], [dead gates], [mode chip], [cannot fail],
+[pre-push pass], [suite line].
+Records: records/BOHEMIA_THE_FIGHT_IS_SIXTY_HERE_AND_SEVEN_ON_A_PHONE_9_15_26.md, and the refreshed
+records/BOHEMIA_PHONE_PERF_9_5_26.json / .md.
+[PENDING Paolo] nothing.
+
 PLUMBER (plumber-ont6t5): 9/15 LATEST -- *** CHAT 18. ROUND 27. CLAIMED [sixty fps] BECAUSE PAOLO'S
 SECOND PLAY NAMES THIS LANE AND THIS ROW BY NAME (ruling 5), AND HIS BUG BEATS MY QUEUE. ***
 HIS WORDS: "it's kinda not running as smoothly as I would like, maybe it's cause things are loading in

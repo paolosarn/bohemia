@@ -1339,13 +1339,72 @@ function buildRecord(summaries, runs) {
     refreshesKept: HISTORY_KEEP
   };
 
+  /* *** THE PHONE-SHAPED PASS, REPORTED AND NEVER ASSERTED. (9/15, PLUMBER, row
+     [sixty fps], after Paolo's second play: "it's kinda not running as smoothly as I
+     would like.")
+
+     THIS TOOL HAS MEASURED A 4x THROTTLE SINCE 9/5 AND THEN THROWN IT AWAY. The
+     default is `cpus = [1, 4]`, but the documented refresh is `--cpu 1 --record`, so
+     every number in this record, and therefore every number the gate holds and every
+     number this fleet has quoted, describes a machine several times faster than the
+     thing in his hand. That is how "the fight runs at 60" and "it is kinda not running
+     smoothly" are both true.
+
+     Measured 9/15, one window, the throttle proven real by the yardstick in the same
+     run (31.2 ms at 1x against 128.7 ms at 4x, so 4.1x):
+
+         the fight       59.9 fps at 1x     20.5 fps at 4x on the demo, 11.6 on the alpha
+         boot blocking   17.2 s at 1x      111.7 s at 4x, in 137 long tasks
+         the beat        10.3% late at 1x   15.6% late at 4x once settled
+
+     It is NOT asserted and it never fails anything, for the same reason the GOAL block
+     is only ever printed: a line that is red on arrival gets switched off by the next
+     session that hits it, and the ratchet that protects this build is the 1x one that
+     already works. This block exists so nobody can quote a frame rate again without
+     seeing what the same build does on a phone-shaped CPU. */
+  const p4 = find('demo', 4) || find('alpha', 4);
+  const a4 = find('alpha', 4);
+  const c4 = find('city-world-alone', 4);
+  const onAPhoneShapedCpu = p4 ? {
+    whatThisIs: 'The same build at a 4x CPU throttle, the knob DevTools uses. Reported, '
+      + 'never asserted. Nobody in this repo has ever measured a real handset, so 4x is a '
+      + 'stand-in with a stated multiplier, not a claim about any particular phone.',
+    cpuThrottle: 4,
+    yardstickMsAt1x: v(ctrl && ctrl.cpuYardstickMs, 'med'),
+    yardstickMsAt4x: v(c4 && c4.cpuYardstickMs, 'med'),
+    fightFps: v(p4.fightFpsDelivered, 'med'),
+    alphaFightFps: a4 ? v(a4.fightFpsDelivered, 'med') : null,
+    mainThreadBlockedMsDuringBoot: v(p4.mainThreadBlockedMsDuringBoot, 'med'),
+    longTaskCount: v(p4.longTaskCount, 'med'),
+    longestSingleBlockMs: v(p4.longestSingleBlockMs, 'med'),
+    worldReadyMs: v(p4.worldReadyMs, 'med'),
+    beatLatePercentSettled: v(p4.beatLatePercentSettled, 'med'),
+    beatMissedPercentSettled: v(p4.beatMissedPercentSettled, 'med'),
+    /* THE CONTROL IS THE POINT OF THIS BLOCK: the walked city on its own barely moves
+       under the throttle (55.2 -> 54.7 fps). So the renderer is not what collapses on a
+       phone; the SHELL BOOT is. That sentence is worth more than any single number
+       here, and it is only available because the control is measured at both rates. */
+    controlWalkFpsAt1x: v(ctrl && ctrl.walkFpsDelivered, 'med'),
+    controlWalkFpsAt4x: v(c4 && c4.walkFpsDelivered, 'med'),
+    walkNote: 'The throttled WALK sample is not carried here. The instrument marks it '
+      + 'INVALID (the driven thumb never moved anybody while the boot was still blocking) '
+      + 'and an invalid sample must not be laundered into a record by copying its number.',
+  } : null;
+
   return {
     history: history,
     what: 'BOHEMIA -- how fast the game is on a phone-shaped browser. Taken by ' +
           'gates/bohemia_phone_perf.js, held by gates/fps_on_a_phone_gate.js.',
+    onAPhoneShapedCpu: onAPhoneShapedCpu,
+    /* HOW THIN THIS SAMPLE WAS, ON THE FACE OF THE RECORD. The documented refresh
+       asks for 3 repeats; a refresh run with fewer is not wrong, but a reader must
+       not have to guess. A band computed from two passes is a band from two passes
+       and the record now says so out loud. (PLUMBER 9/15.) */
+    repeatsThisRefresh: (demo && demo.fightFpsDelivered && demo.fightFpsDelivered.n)
+      || (demo && demo.walkFpsDelivered && demo.walkFpsDelivered.n) || null,
     takenOn: new Date().toISOString(),
     staleAfterDays: 30,
-    refreshCommand: 'node gates/bohemia_phone_perf.js --repeat 3 --cpu 1 --record',
+    refreshCommand: 'node gates/bohemia_phone_perf.js --repeat 3 --record',  /* NO --cpu: the default is [1, 4] and the 4x pass fills onAPhoneShapedCpu. Pinning it to --cpu 1 is what threw the phone-shaped numbers away for nine days (PLUMBER 9/15). */
     host: hostFacts(),
     measured: M,
     goal: { timeToFirstPlayMs: 5000, walkFps: 60, fightFps: 60,

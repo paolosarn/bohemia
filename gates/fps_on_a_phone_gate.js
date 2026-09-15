@@ -160,6 +160,49 @@ gap('frames walking, first minute', M.walkFpsFirstMinute, G.walkFps, ' fps', fal
 gap('frames in a fight', M.fightFps, G.fightFps, ' fps', false);
 console.log('    (the goal is never asserted here -- see the header. The budget below is.)');
 
+/* ---- 3b. AND WHAT THE SAME BUILD DOES ON A PHONE-SHAPED CPU -------------- *
+   ADDED 9/15 (PLUMBER, row [sixty fps], after Paolo's second play: "it's kinda not
+   running as smoothly as I would like").
+
+   EVERY NUMBER ABOVE IS TAKEN ON A MACHINE SEVERAL TIMES FASTER THAN HIS PHONE, and
+   until this round nobody reading this gate was told so. The instrument has measured a
+   4x throttle since 9/5 and the documented refresh threw it away (`--cpu 1 --record`),
+   so "the fight runs at 60" went on the board while the same build ran the fight at 20
+   on a phone-shaped CPU. Both sentences were true and only one of them was printed.
+
+   The VALUES are reported and never asserted, exactly like the goal block: the ratchet
+   that protects this build is the 1x one, and a line that is red on arrival gets
+   switched off by the next session that hits it. What IS asserted is that the block
+   EXISTS -- a record with no phone-shaped pass is a record that has quietly gone back
+   to describing the wrong machine, and that is the failure this whole round was about. */
+const P = R.onAPhoneShapedCpu;
+console.log('\n  AND THE SAME BUILD ON A PHONE-SHAPED CPU (reported, never asserted):');
+if (!P) {
+  console.log('    THE RECORD CARRIES NO PHONE-SHAPED PASS. Refresh with ' + R.refreshCommand
+    + ' and do NOT pin it to --cpu 1.');
+} else {
+  const row = (label, a, b, unit) => console.log('    ' + label.padEnd(30)
+    + String(a == null ? '?' : a).padStart(9) + unit + ' at 1x  ->  '
+    + String(b == null ? '?' : b).padStart(9) + unit + ' at ' + P.cpuThrottle + 'x');
+  row('the fight', M.fightFps, P.fightFps, ' fps');
+  row('boot blocked the main thread', M.mainThreadBlockedMsDuringBoot, P.mainThreadBlockedMsDuringBoot, ' ms');
+  row('...in this many long tasks', M.longTaskCount, P.longTaskCount, '');
+  row('the worst single block', M.longestSingleBlockMs, P.longestSingleBlockMs, ' ms');
+  row('beats late once settled', M.beatLatePercentSettled, P.beatLatePercentSettled, ' %');
+  row('THE WALKED CITY ALONE', P.controlWalkFpsAt1x, P.controlWalkFpsAt4x, ' fps');
+  console.log('    the throttle is real: the yardstick reads ' + P.yardstickMsAt1x
+    + ' ms at 1x and ' + P.yardstickMsAt4x + ' ms at ' + P.cpuThrottle + 'x');
+  console.log('    ' + P.walkNote);
+  if (P.controlWalkFpsAt4x != null && P.controlWalkFpsAt1x != null
+      && P.controlWalkFpsAt4x > P.controlWalkFpsAt1x * 0.9) {
+    console.log('    *** READ THAT LAST ROW: the walked city on its own BARELY MOVES under'
+      + ' the throttle. The renderer is not what collapses on a phone. The SHELL BOOT is. ***');
+  }
+}
+ok('the record carries a phone-shaped pass, so nobody can quote a frame rate off this '
+   + 'gate without seeing what the same build does on a slow CPU', !!P,
+   'refresh with ' + R.refreshCommand + ', and never pin that command to --cpu 1');
+
 /* ---- 4. THE LIVE RUN ---------------------------------------------------- */
 if (process.argv.includes('--record-only')) {
   console.log('\n  --record-only: the live run was skipped, so the ratchet below held NOTHING ' +
