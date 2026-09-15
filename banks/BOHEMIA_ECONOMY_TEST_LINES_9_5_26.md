@@ -3469,3 +3469,80 @@ YYYYYYY3 somebody who will not ask for it back draft:true
   bank line about it would be this lane reaching where it is forbidden to.
 - Spanish register: 1 of 16 lines, 6%, under the 15% he set on 8/26. One word
   inside an English sentence, not respelled, counted while written.
+
+## MMMMMMMMM. THE PUMP IS STANDING RIGHT THERE
+## (round 44. Four to seven water plants on the map and on one seed in three not
+##  one of them has a live street in front of it. Nothing is missing but the wire.)
+
+- MMMMMMMMM1 `draft:true` — "It's not broken. Nobody's turned it on." (the whole
+  finding in seven words. VOICE CARD: the line is not the point, the point is how
+  flat he says it.)
+- MMMMMMMMM2 `draft:true` — "You can walk up and put your hand on it. That's what
+  gets me." (the thing being RIGHT THERE is the complaint, not its absence.)
+- MMMMMMMMM3 `draft:true` — "Big grey building, fence round it. You've been past it
+  a hundred times." (the plant described by somebody who never looked at it either.)
+- MMMMMMMMM4 `draft:true` — "Ya, that one. That one is the whole valley." (Spanish
+  register, one word, and the second sentence is the single point of failure said
+  without knowing the phrase.)
+
+## NNNNNNNNN. THE WIRE, NOT THE BUILDING
+## (round 44. The first job is not building a pump, it is getting power to the one
+##  that exists. Sandy's own lesson: water gets the generators first.)
+
+- NNNNNNNNN1 `draft:true` — "Don't build me another one. Get a line to that one."
+  (the deliverable, in a mouth, and the impatience is earned.)
+- NNNNNNNNN2 `draft:true` — "Everything wants the same power. The water should get
+  it first and nobody argues about that." (the priority stated as settled, which is
+  what it is in the record.)
+- NNNNNNNNN3 `draft:true` — "It's a hundred metres of nothing between the street and
+  the gate. A hundred metres." (contract it: the cut version explained circuits. The
+  repeat carries it instead.)
+- NNNNNNNNN4 `draft:true` — "Whoever owns that street owns the taps. Work it out."
+  (the faction consequence, discovered by somebody who did not set out to say it.)
+
+## OOOOOOOOO. THE TAPS WERE ALREADY DRY
+## (round 44, the coldest version. The valley can start with no running water and
+##  nothing on screen says so. Nobody in Bohemia is wise enough to explain it.)
+
+- OOOOOOOOO1 `draft:true` — "How long has it been like this? Nobody can tell me."
+  (the dry start, and the second sentence is the whole horror of it.)
+- OOOOOOOOO2 `draft:true` — "We carry it. That's the answer. We carry it."
+  (the repeat is the resignation and there is no number in it.)
+- OOOOOOOOO3 `draft:true` — "I thought it broke. It didn't break." (four words then
+  three, and the correction is worse than the first sentence.)
+- OOOOOOOOO4 `draft:true` — "They kept the lights on down there and let this go.
+  Somebody chose that." (the priority failure, blamed correctly and vaguely.)
+
+## PPPPPPPPP. ONE IS ENOUGH AND ONE IS ALL THERE IS
+## (round 44. One lit plant covers everybody, so a second adds nothing and losing
+##  the first takes everything.)
+
+- PPPPPPPPP1 `draft:true` — "One of them does the lot. That's the good news and the
+  bad news." (the finding, both halves, in one breath.)
+- PPPPPPPPP2 `draft:true` — "Build another and you've got two doing one job."
+  (a waste explained without arithmetic.)
+- PPPPPPPPP3 `draft:true` — "Somebody could shut that off tonight. I don't like
+  thinking about it, so I don't." (nobody in Bohemia is wise, and this one knows
+  exactly enough to be frightened and stops there.)
+- PPPPPPPPP4 `draft:true` — "It's fine. It's been fine." (the last line of the
+  section, and the tense change is the whole thing.)
+
+## QQQQQQQQQ. WHAT IS NOT HERE, ON PURPOSE (round 44)
+
+- No line contains a number, a litre, a foot, a kilowatt or a count of plants. The
+  round is entirely physics and not one figure is spoken.
+- No line uses the words pump, water treatment, reservoir, grid, circuit, utility
+  or infrastructure. It is said as that building, the wire, the taps and the lot.
+- No line explains why a plant needs the street it fronts. Nobody in Bohemia is
+  wise; NNNNNNNNN3 counts the metres and leaves it there.
+- No line names a faction, a street or a town, including in NNNNNNNNN4 which is
+  about ownership and still says "whoever". MAP LAW.
+- No line decides what lighting a plant costs, whether the valley should boot dry,
+  or whether more water buildings become buildable. Section 4 refused all three.
+- No line has the player speaking, and no line tells him to go fix it.
+- No line makes the dry start dramatic. OOOOOOOOO2 is people carrying water and
+  getting on with it, because that is what actually happens.
+- No line touches the build red or the retraction in section 0. That is a
+  correction to a record, not material for a person to say.
+- Spanish register: 1 of 16 lines, 6%, under the 15% he set on 8/26. One word
+  inside an English sentence, not respelled, counted while written.

@@ -122,105 +122,106 @@ your block top to bottom and confirm every line in it is yours.
 And this file is now ~88,000 lines carrying NINE ECONOMY blocks, most of them
 stale copies of this one. That is a real defect in a file every lane reads every
 round. It is a job for the coordinator to place (18 PLUMBER's remit), not
-something a lane should do to another lane's block.=== ROUND 36 REPORT: [first ten] SHIPPED ====== ROUND 37 REPORT: [carry cost] SHIPPED ====== ROUND 38 REPORT: [old price] SHIPPED ====== ROUND 39 REPORT: [protection court] SHIPPED ====== ROUND 40 REPORT: [how many pockets] SHIPPED ====== ROUND 41 REPORT: [who replaces you] SHIPPED ====== ROUND 42 REPORT: [the bailiff] SHIPPED ====== ROUND 43 REPORT: [double up] SHIPPED ===
-RECORD: records/BOHEMIA_ECONOMY_DAY_43_TWENTY_FIVE_EMPTY_HOMES_AND_THEY_DOUBLE_UP_ANYWAY_9_15_26.md (249 lines)
-BANK:   banks/BOHEMIA_ECONOMY_TEST_LINES_9_5_26.md sections HHHHHHHHH-LLLLLLLLL, +16 lines, 614 draft:true total
+something a lane should do to another lane's block.=== ROUND 36 REPORT: [first ten] SHIPPED ====== ROUND 37 REPORT: [carry cost] SHIPPED ====== ROUND 38 REPORT: [old price] SHIPPED ====== ROUND 39 REPORT: [protection court] SHIPPED ====== ROUND 40 REPORT: [how many pockets] SHIPPED ====== ROUND 41 REPORT: [who replaces you] SHIPPED ====== ROUND 42 REPORT: [the bailiff] SHIPPED ====== ROUND 43 REPORT: [double up] SHIPPED ====== ROUND 44 REPORT: [first building] SHIPPED ===
+RECORD: records/BOHEMIA_ECONOMY_DAY_44_THE_PUMP_IS_ALREADY_BUILT_AND_IT_IS_DARK_9_15_26.md (235 lines)
+BANK:   banks/BOHEMIA_ECONOMY_TEST_LINES_9_5_26.md sections MMMMMMMMM-QQQQQQQQQ, +16 lines, 630 draft:true total
 TAB:    NOT IN A TAB YET. MODE: RESEARCH. No engine code was touched. Rule 14: research
-        rounds continue and never touch the demo; only THE RUN re-cuts.
-HANDOFF: rebuilt under the 9/13 CLAUDE.md amendment, from the copy of the file on
-        origin/main READ IMMEDIATELY BEFORE WRITING.
+        rounds continue and never touch the demo; only THE RUN re-cuts. Rule 15 (ONE VOTE
+        TAB, 9/14): this lane presents nothing for a thumb and never has.
+HANDOFF: rebuilt from the copy on origin/main READ IMMEDIATELY BEFORE WRITING (9/13
+        CLAUDE.md amendment).
 
-THE FINDING THAT PROVES US WRONG: RULING 9'S TRIGGER CANNOT FIRE IN THIS VALLEY, AND THE
-RULING IS STILL RIGHT. It says a building holds a second household "WHEN THERE IS NOWHERE
-ELSE". Measured off the game's own numbers (OCCUPIED_RATE 0.038 against the 55,391
-dwellings the scale-model tool counts on the live map):
-    dwellings drawn          55,391
-    homes with somebody in    2,105  (3.8%)
-    *** EMPTY HOMES          53,286  (96.2%) ***
-    empty homes per occupied   25.3
-TWENTY-FIVE EMPTY HOUSES FOR EVERY OCCUPIED ONE. "Nowhere else" will never be true here.
-AND THE REAL RECORD SAYS THAT DOES NOT MATTER, because it was not true in America either:
-doubled-up households went 19.7m (17.0%) in 2007 to 21.8m (18.3%) in 2011, DURING A HOUSING
-CRASH, with vacant units everywhere. Of 900 US metros only 19 added more population than
-housing since 2000, and the literature says it outright -- "NOT A SHORTAGE OF UNITS, BUT
-RATHER A SHORTAGE IN THE LOW-INCOME PRICE POINTS". PEOPLE DO NOT DOUBLE UP BECAUSE THERE
-IS NO ROOM, THEY DOUBLE UP BECAUSE THEY CANNOT PAY FOR A ROOM. So ruling 9 is correct in
-its mechanism and wrong in its stated reason, and the fix is ONE CLAUSE: a building holds a
-second household WHEN A HOUSEHOLD CANNOT PAY FOR ITS OWN.
+*** FIRST, A CORRECTION TO MY OWN LAST ROUND. *** Round 43 section 4 built a conclusion on
+a number EYES E26 has now retracted, and the retraction is right. I wrote that the red gate
+BUILD COSTS ITS PRICE and their two dead BUILD buttons were "two honest instruments
+describing the same defect". Their words: "across 85 taps THE ROUTE NEVER PRESSED THOSE
+BUTTONS AT ALL. A zero was going out with no denominator under it, AND TWO LANES SHIPPED
+AGAINST IT." I am one of those two lanes. THE GATE HALF STANDS -- I ran it, it is red 9/5 --
+but the claim that a phone walk had independently measured those buttons dead IS WITHDRAWN.
+There was one instrument, not two.
+THE ROOT CAUSE IS MINE: I hold a rule for my own probes, prove every negative with a
+positive control, because a zero usually means the instrument never reached the thing. I
+DID NOT APPLY IT TO SOMEBODY ELSE'S NUMBER. From now a figure from another lane gets the
+same interrogation as a figure from my own code.
 
-THE NUMBERS FOR RULING 9:
-- THE CAP IS TWO AND THE RECORD BACKS IT. The whole 2008 crisis moved the doubled-up share
-  by 1.3 POINTS, 17.0% to 18.3%. It is a minority state, never the look of the street.
-  Where the pressure really landed was one cohort: 25-34s living with parents went 4.7m to
-  5.9m, up 25%. The crisis did not scatter everybody, it stopped one group ever leaving.
-- THE COST TO THE HOST IS NEGATIVE IN MONEY AND POSITIVE IN FRICTION, which inverts the
-  intuition. 72% of young adults living with parents CONTRIBUTE FINANCIALLY, 65% help with
-  groceries and utilities, 46% pay toward rent or the mortgage. The money moves TOWARD the
-  host. The real cost is the room, and the studies name it: coordinating kitchen time so a
-  parent could cook for their own children, and other people's noise wrecking bedtimes.
-  *** WHICH IS RULING 9'S OWN SENTENCE, "THE RENT IS SPLIT, THE ROOM IS NOT", CONFIRMED
-  WORD FOR WORD BY ACCIDENT. *** It is the best line in the ruling and should be the
-  mechanic verbatim.
-- IT LENGTHENS THE RECOVERY AND IT IS STICKY. Doubling up did not unwind when the economy
-  improved: "even with an improving job market, the share of young adults living in their
-  parents' homes continues to rise". And it tracks PRICE, not jobs -- among young adults
-  earning under $20,000, 34.7% lived with parents in high-cost areas against 26.6% in
-  low-cost ones, an eight-point spread produced by nothing but what a room costs. THE
-  MECHANISM THAT ABSORBS THE SHOCK IS THE SAME ONE THAT DELAYS THE REBUILD: a household
-  that doubled up does not need a ruin repaired. In a game whose century rule counts
-  buildings AND the people who stayed, that is a real trade: you keep the people and you
-  rebuild slower.
-- WHO MOVES IN WITH WHOM: kin first. A grandparent, an adult sibling, extended family, and
-  only then non-kin. A household is either a HOST or a GUEST and which one is the whole
-  social fact.
+THE FINDING THAT PROVES US WRONG: WATER DOES NOT COME BEFORE POWER. WATER IS POWER, AND THE
+PUMPS ARE ALREADY STANDING THERE IN THE DARK.
+    seed  1:  7 water plants,  0 front a live street   (0%)   grid  400/1690 live
+    seed  7:  4 water plants,  1 front a live street  (25%)   grid  391/1490 live
+    seed 42:  6 water plants,  1 front a live street  (17%)   grid  422/1561 live
+ON ONE SEED IN THREE THE VALLEY BOOTS WITH NO RUNNING WATER AT ALL, and on the other two it
+runs on exactly one plant.
+AND ONE LIT PUMP SUPPLIES THE ENTIRE VALLEY. bohemia_pumps.js carries real physics, not a
+dial: floor 2,028 ft, Lake Mead 1,040.5 ft, so the lift is 987.5 ft = 301 m at 0.00109 kWh
+a litre (g 9.81, efficiency 0.75, a litre of water is a kilogram by definition).
+    the valley drinks      18,524 L a day  (4 L a head x 4,631 living, measured round 43)
+    ALL FOUR PLANTS LIT    18,524 L, 20.26 kWh, 4 running
+    *** ONE PLANT LIT      18,524 L, 20.26 kWh, 1 running ***
+    all four DARK               0 L,     0 kWh, 4 dark
+ONE PUMP COVERS EVERYBODY AND A SECOND IS WORTH ZERO LITRES. So "the block's pump" is the
+wrong unit and the game's own physics says so: WATER IS A VALLEY UTILITY, NOT A BLOCK ONE,
+and the whole supply is a single point of failure that is sometimes already failed at boot.
+SO THE FIRST JOB IS NOT BUILDING, IT IS LIGHTING. pumpstation IS one of the 59 buildable
+types; watertreat and reservoir are in the enum and are NOT buildable. And building another
+adds nothing. A plant runs on `lit`, and the surface's own comment says why that is hard:
+"a plant is served by the STREET IT FRONTS, not the cell it stands on... circuits are
+contiguous street RUNS... 358 live cells in the valley and every one is arterial, freeway or
+downtown." THE PUMP IS NOT MISSING. THE WIRE TO IT IS.
 
-WHAT WE HAVE TODAY: the household already exists and already has a size. household(seed)
-rolls 1-4 off cuts [.30,.65,.85,1.0] -- 30/35/20/15 -- mean 2.20, so a living population
-of about 4,631. RESIDENTIAL names five kinds that can hold anybody and houseOccupied,
-inhabitedHomes, censusForPlot and agentsForPlot all answer. A SECOND HOUSEHOLD NEEDS NO
-NEW OBJECT: one house returns two household() rolls and a rule for when. And nothing
-anywhere makes a household unable to afford where it lives, which is round 40's missing
-pocket wearing another hat.
+THE REAL AISLE SAYS THE SAME THING:
+- PUERTO RICO AFTER MARIA, the cleanest statement of the dependency: "most of Puerto Rico's
+  water infrastructure -- cisterns, pumps, and pressure systems -- RUNS ON ELECTRICITY.
+  Without power, cistern pumps don't work." And the response was not to build water, it was
+  to POINT POWER AT WATER: federal projects powered hospitals, shelters, schools AND WATER
+  PUMPING STATIONS, and by the recovery assessment "all but two of the 114 drinking water
+  treatment plants run by PRASA were in operation, ALTHOUGH SOME WERE BEING POWERED BY
+  GENERATORS".
+- SANDY, and the lesson is a PRIORITY, not a build: give water and wastewater PRIORITY FOR
+  GENERATORS AND FUEL during power outages. Not build first -- be first in line for the
+  power that already exists. And the failure mode is a gift: emergency generators are NOT
+  designed for continuous use for days or weeks and started breaking down; COMPETITION FOR
+  GENERATORS ROSE AS THE OUTAGE CONTINUED; many ran out of fuel, some in basements that
+  flooded. What worked: elevating generators and fuel tanks, and retrofitting lift stations
+  with connections for portable generators. Their own first priorities: for water, RESTORE
+  PRESSURE; for wastewater, restore primary treatment and disinfection.
+- THE LIFELINE LITERATURE REFUSES A SINGLE ORDER AND SAYS WHY: "a water pump in the water
+  lifeline may need power, and the power network may need water." Lifelines are
+  interdependent and restorations get COORDINATED rather than ranked.
 
-*** A RED THAT IS NOT MINE, AND THE FIVE-MINUTE BREAK NOBODY HAS CONNECTED TO IT ***
-Rule 13(b) asks each lane to read THE SUITE LINE and name which reds are its own. The line
-posted 9/14 at ad23d875 -- 632 ran, 525 green, 107 RED, 0 never ran -- AND IT NAMES NONE OF
-THEM. So I swept the ten gates that read what this lane writes or the modules it reads.
-NINE GREEN. ONE RED: BUILD COSTS ITS PRICE, 9 pass / 5 fail --
-    B2 the panel names the price BEFORE the tap   -> THE TAG READS "null"
-    B3 a broke player is refused and told why      -> 0 -> 0 edits, "NO REFUSAL SHOWN"
-    B4 the plot goes down and the battery with it  -> edits 0 -> 0, batteries 1 -> 1
-    B5 the ledger audits clean                     -> NO ENTRY
-IT IS NOT MINE: this lane is RESEARCH, has never touched the builder panel or the walked
-surface, and is forbidden to. BUT LOOK AT IT NEXT TO WHAT EYES E26 HAS POSTED ON THE FRONT
-PAGE FOR THREE ROUNDS: "STILL TWO REAL BUTTONS THAT DO NOTHING ON THE DEMO: 'BUILD'
-(cbbuild) and 'BUILD BIG 2x2' (cbbig). Driven tap, no change in words or pixels for 1.2 s."
-THOSE ARE THE SAME BUTTONS. A stranger taps BUILD and nothing happens; the gate measures
-why -- the price tag is null, the tap produces zero edits, the battery never leaves the
-purse. One lane reporting the symptom on a phone, one gate reporting the cause in the
-suite, never once in the same sentence. And rule 14(d) says a card that promises something
-and does nothing is the worst bug in the game.
+THE DELIVERABLE: RULING 4 IS RIGHT THAT WATER IS THE FIRST THING AND WRONG THAT IT IS A
+BUILD. Keep costs-one and keep livable-therefore-rentable. CHANGE ONE CLAUSE: "power comes
+second" becomes "THE FIRST POWER GOES TO THE WATER". Power is not the second thing you
+build, it is how water happens at all. And change one verb: NOT BUILD THE PUMP, LIGHT IT.
+AND THE SMALL FIX UNDERNEATH: MAKES is ["solar","dam","battery"] and WATER IS NOT ONE OF
+THEM, so a building that lifts water produces nothing the economy counts -- while lift()
+really does land litres in the ledger's stocks.water. Two places disagreeing, same class as
+round 40's market singleton. Named, not fixed.
 
-ROUTED: WORLD [double up] change the trigger from "nowhere else" to "cannot pay", keep the
-cap at two, pay the host | COORDINATOR ruling 9 needs ONE CLAUSE changed and the rest is
-confirmed, "the rent is split, the room is not" word for word | WORLD [every pocket] a
-household that cannot pay is the precondition and one purse cannot express it | LIFE+CITY /
-PEOPLE a second household is a second roll and a rule, not a new object | WHOEVER OWNS THE
-BUILD SURFACE + RUN + EYES the build red IS the two dead buttons | PLUMBER the suite line
-reports 107 red and lists none, so no lane can do what rule 13(b) asks without sweeping for
-itself.
+ROUTED: COORDINATOR ruling 4 needs one clause changed and the rest is confirmed by both the
+physics and the record | WORLD / LIFE+CITY the valley can boot with ZERO lit water plants
+and nothing on screen says whether the taps run | WORLD MAKES has no water while lift()
+lands litres | FACTIONS a plant is served by the street it fronts, streets are held ground,
+and the grid can be doused -- WHOEVER HOLDS THE STREET HOLDS THE WATER, already true in the
+engine without anybody building it as a mechanic | EYES E26 the retraction is accepted in
+full and my half is corrected.
 
 GATES, rule 13: PRE-PUSH PASS GREEN -- economy 13/0, purse 28/0, payday 40/0, attempt 15/0,
 canon rot 13/0, demo blockers 22/0, language 83/0, handoff 8/0.
-FULL SUITE: 107 RED AT ad23d875, MINE ARE: NONE, MEASURED. Ten gates swept, nine green, one
-red on a surface this lane has never touched and is forbidden to, routed rather than
-claimed.
+FULL SUITE: 107 RED AT ad23d875, MINE ARE: NONE, MEASURED (round 43's sweep: ten gates,
+nine green, one red on a surface this lane is forbidden to touch).
 
-THE PROJECT-LEVEL HOLE, round 28 of naming it, and this instance is a new flavour: TWO
-HONEST INSTRUMENTS DESCRIBING THE SAME DEFECT IN TWO VOCABULARIES, ON TWO SURFACES, FOR
-THREE ROUNDS, WITH NOTHING THAT COULD EVER JOIN THEM UP. A phone walk says "this button
-does nothing"; a gate says "the tag is null and no entry was written". Both true, both
-posted, never in the same sentence until now.
+THE PROJECT-LEVEL HOLE, round 29 of naming it: THE PUMPS ARE CORRECT, THE GRID IS CORRECT,
+AND ON SEED 1 THEY HAVE NEVER MET. Seven water plants, zero on a live street, a working
+lift() that returns zero litres, and every gate green -- because no gate can ask "does the
+valley have water."
+
+THE PROBE THAT WAS WRONG, KEPT ON PURPOSE: lift(stations, agents) takes [{district, lit,
+faction, at}] OBJECTS, not bare district strings. My first call passed strings, so
+s.district was undefined, isPump(undefined) was false, every station was skipped -- AND
+"stations: 4" counted my array length BEFORE the filter. It printed "4 stations, 0 running,
+0 dark, 0 litres" and read exactly like a finding about the game. THAT IS THE SAME SHAPE AS
+THE MISTAKE IN SECTION 0, made twice in one round from two directions: A ZERO WITH NO
+DENOMINATOR UNDER IT.
 
 [PENDING Paolo] -- for the coordinator, one at a time:
   *** 1 TO 9 ARE RULED. The coordinator decided all nine on 9/13 under EVERYTHING IS
@@ -403,13 +404,13 @@ posted, never in the same sentence until now.
      is the kind of change he should meet in play rather than read about. Nothing
      is blocked on it; WORLD can build it under his existing law.
 
-NEXT IN THIS LANE: Q44 [first building], and then the queue is empty. Q44 tests the
-other ruling that leaned on a thin record (ruling 4, the pump before the power), so
-like this round it may correct a ruling rather than confirm it.
+NEXT IN THIS LANE: QUEUE EMPTY. Q1 through Q44 are all SHIPPED. The coordinator adds
+the next rows; until then this lane holds. Both of the last two rounds tested a ruling
+that leaned on a thin record and both came back with ONE CLAUSE to change and the rest
+confirmed, which is what a research lane is for.
 
 
 ================================================================================
-
 WORDS (words-8dqrnq): 9/15 LATEST -- *** Q25 [card words] SCHOOL DONE, ROUND ONE OF TWO. NO TEST LINES
 WRITTEN, WHICH IS THE RULE. THE NIGHT CARD'S FIRST LINE IS 26 WORDS AND FOURTEEN NUMBERS, AND IT
 CARRIES ONE OF THE THREE THINGS A REAL CUT-OFF NOTICE MUST SAY. *** TAB: LIFE. No game code touched.
