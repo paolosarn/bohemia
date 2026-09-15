@@ -2107,6 +2107,71 @@ ALSO STILL OPEN, not draw order: on NE in his own frame
 the right of the shoulders with a visible gap. That is the pose too.
 
 Nothing [PENDING Paolo].
+PEOPLE (people-7h9sfy): 9/15 (c) LATEST -- *** [a human being] ROUND TWO, 4c7301b8.
+HE WAS LOOKING AT HIMSELF. *** EYES E26 round 6 bounced this straight back at the
+lane on the row I had already shipped: "-> PEOPLE [a human being]: the work is
+EARLIER and UNFROZEN, not MORE." Paolo 9/15: "I didn't see a single human being."
+MEASURED ON THE DEMO, armed before any page script and READ OFF THE CALL STACK so
+the answer knows whose body it is:
+  the city draws its first anything      4,804 ms
+  THE PLAYER APPEARS                    12,493 ms
+  SOMEBODY ELSE APPEARS                 16,507 ms
+  HE IS ON THE GLASS ALONE FOR           4,014 ms
+That is his sentence in numbers. For four seconds there is one man on the screen
+and it is him, and everything before it is a blank or a frozen city.
+AND ALMOST NONE OF IT IS THIS LANE BEING SLOW. Of the 11,703 ms wait before
+another person, 11,481 ms (98%) is THE MAIN THREAD BEING HELD. Every draw
+bucketed by the second: second 4 is 3,128 draws and no people, second 5 is 3,869
+and no people, seconds 6 through 11 have NO ROW AT ALL because nothing was drawn,
+and second 12 has 7,290 draws and the first body. SIX WHOLE SECONDS WITH NO DRAW
+OF ANY KIND. The commonest sizes are 44x44 ground tiles and 704x704 chunk blits:
+the ground bake is what those eight seconds are spent on.
+WHICH HALF IS WHOSE. NOT THIS LANE'S: the thread being held, which EYES routed
+themselves to PLUMBER [sixty fps] at 28.9 s frozen out of the first 300. This
+round saw 30 to 34 blocks totalling 23 to 25 s in thirty seconds. THIS LANE'S:
+the 366 ms he is alone while the thread is FREE, and the promise it stays that
+small when the freeze is fixed, so people are already the first thing painted
+rather than a second problem found afterwards.
+THE GATE HOLDS A RATIO AND A TRIPWIRE AND THEY ARE DIFFERENT QUESTIONS, written
+down rather than hoped over. The RATIO describes the wait (90% or more of it must
+be the thread) and means the same thing on this box and on his phone, which a
+wall-clock ceiling never could. BUT IT CANNOT CATCH THIS LANE GETTING SLOWER: a
+delay injected inside an already-blocked window left it at 100% for three seconds
+and 93% for ten. So the TRIPWIRE is the time he is alone WHILE THE THREAD IS
+FREE, which belongs to nobody else. 366 ms against a beat of 500, and the
+injected delay pushed it to 1,351 ms and turned it red.
+*** MY INSTRUMENT WAS WRONG THREE TIMES AND THE THIRD ONE IS THE ROUND. ***
+ 1. a wrap that landed at 12.9 s reported "the pass has run 0 times" about a pass
+    that had already painted three bodies. The zero was the moment I started
+    looking. EYES published this exact error in round 4 and again in round 6 and
+    I made it a third time with their warning on the front page in front of me.
+ 2. a poller read PLAYER_CV false the whole way through, including after people
+    were plainly on the glass, because PLAYER_CV lives in the CITY frame and the
+    poller was reading the SHELL's window. Two windows, one name.
+ 3. IT COUNTED THE PLAYER AS A HUMAN BEING. A body was known by the ladder's own
+    rungs, which is right for "is this a body" and useless for "did he see a
+    PERSON", because the player is drawn on the same ladder. It reported the
+    first human being at 12.5 s; the stack says that is renderHuman drawing HIM
+    and the first peoplePass draw is four seconds later. A control aimed at
+    something else exposed it. THE TOOL SENT TO MEASURE HIS COMPLAINT MADE HIS
+    COMPLAINT. A body is not a human being until you know whose it is.
+AND ONE CLAIM PASSED TWICE BY LUCK: "how long after the thread came free did a
+body land" has no answer when the body lands INSIDE a block, and it does, because
+drawing is the work that starves the heartbeat. 38 ms, then 42 ms, then 9,492 ms
+with nothing about the game changed.
+NOTHING WAS ADDED TO THE POPULATION, which is what EYES asked for in the same
+sentence, and NO GAME CODE CHANGED: the walked city and the engine were proved
+byte-identical to HEAD after every control edit rather than assumed. The stamp is
+not bumped, because a new letter over a build with nothing new in it is the one
+way that stamp can lie.
+ONE MORE THING WORTH KNOWING FOR RULE 16: RUN's bigger step landed under this
+round and bodyLadder still picks from the SAME four rungs, so the detector above
+and [a human being]'s bubble fix both still hold on the bigger bodies.
+NEXT: the lane's queue is [enemies remember], [heir moment], [walking companion],
+[weights shape], [rumours travel], [creditor stands], [somebody hires you]. The
+EARLIER half of his sentence is now blocked on PLUMBER's freeze, not on this lane.
+Record: records/BOHEMIA_THE_PEOPLE_ARE_NOT_LATE_9_15_26.txt ***
+
 PEOPLE (people-7h9sfy): 9/15 (b) LATEST -- *** [lock them] SHIPPED 6b553bcb. THE
 FATHER FELL, AND THE GAME DID NOT SAY A WORD. *** Paolo 9/11: "there has to be a
 way to make it easy to lock characters they don't want to die, companions, people
