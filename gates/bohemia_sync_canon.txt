@@ -15,6 +15,9 @@ BOH_TILEPOOL     bohemia_tilepool.js
 BOH_BODYVAR      bohemia_bodyvar.js
 BOH_RESOLVE      bohemia_resolve.js
 BOH_SFX          bohemia_sfx.js
+# 9/15, LIFE + CITY [lot lattice]: the lot lattice under PAOLO 9/15 rule 16.
+# Declared on the day it was written, so the second carrier can never be a coin toss.
+BOH_LATTICE      bohemia_lattice.js
 
 # ---------------------------------------------------------------------------
 # THE SIX THAT WERE NEVER DECLARED (9/11, FACTIONS, closing the PLUMBER's 9/6

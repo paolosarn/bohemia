@@ -6260,6 +6260,24 @@ GATES = [
      'MEASURED BOTH WAYS because a control that is ALWAYS off is a different lie: broke '
      'disabled/0.45/"you have none of it", credited enabled/1.0/no title with afford ok and 5 '
      'in hand. Mutations: always-pressable reds B1/B2/B5, always-off reds B3/B4.', False),
+    ('WHERE A STEP MAY LAND', ['node', 'gates/lot_lattice_gate.js'],
+     'VAMILY [lot lattice], LIFE + CITY, under PAOLO 9/15 rule 16 THE STEP IS A HOUSE: '
+     '"however long it takes right now to walk the length of a house, that would be done in '
+     'one step." The law ends ONE NUMBER IN ONE PLACE and A SECOND COPY ANYWHERE IS THE BUG, '
+     'so leg A is that sentence as a checker: LOT_FINE in engine/bohemia_lattice.js must equal '
+     'the stride engine/bohemia_suburb.js actually packs houses on (widest model + gap = 24 '
+     'fine cells = 18 m), read out of the generator rather than pinned here. THE ROW\'S OWN '
+     'PREMISE WAS WRONG AND SO WAS RUN\'S COPY: both said "a lot is FN=32 fine cells"; FN is '
+     '128 and the 7/6 VALLEY SCALE LAW calls one FN cell A NEIGHBOURHOOD, NOT A LOT. Legs C '
+     'run the lattice on a world with a known answer (a solid lot has no landing, a wall on '
+     'the seam refuses the step, the clock per step is derived and never typed, arrive() hands '
+     'back null instead of inventing a doorstep). Leg E drives the demo and measures the thing '
+     'that would rot quietly: the biggest island of LOTS against the biggest island of fine '
+     'cells, because a coarser step is only honest if the world stays whole. Measured 9/15 at '
+     'the door: fine 83.5%, lots 94.1% -- the lot lattice came out MORE connected in every '
+     'district, since a lot step crosses a one-cell fence gap a fine step walks around. '
+     'Mutation-tested three ways: LOT_FINE 24->32 reds A3/B4, dropping the wall test in '
+     'stepLegal reds C10, cutting the tap\'s wiring reds D2/E1.', True),
     ('A WALL HAS FEET', ['node', 'gates/a_wall_has_feet_gate.js'],
      'VAMILY [base shadows], LIFE + CITY. DIRECTION [streets read] judged the demo\'s spawn '
      'street at phone size and routed item 4 of the verdict here: "THE WALL WITH NO FEET. It '
