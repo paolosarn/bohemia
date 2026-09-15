@@ -7735,6 +7735,120 @@ NEXT IN THIS LANE (top unblocked, in order)
 
 --------------------------------------------------------------------------------
 
+SOUND (sound-xk7pjp): 9/15 (c) LATEST -- *** A FIGHT STARTING MADE NO SOUND AT ALL.
+That is the sound half of PAOLO 9/15, "I don't even know how to engage in combat and
+when that shit starts." TAB: RUN, with the sound on, the moment a fight starts.
+Nothing to judge, nothing was cooked. ***
+
+Record: records/BOHEMIA_A_FIGHT_STARTING_MAKES_A_SOUND_9_15_26.md
+Tool: tools/bohemia_a_fight_starting_makes_a_sound.py (idempotent)
+Gate: gates/fight_start_heard_gate.py, registered as FIGHT START HEARD, 13 passed 0 failed
+
+MEASURED FIRST, WITH A CONTROL. Three funnels were tapped on the running alpha at
+once, each the single place its kind of sound must pass through: BOH_SFX.render (every
+one-shot in the game), STING.play, and a property setter on MUS.cur so every song
+change names its writer. Then an 8-second CONTROL window of street with nothing
+pressed, then a real street fight through the shell's own cityEncounterIn, then the
+same 8 seconds again.
+    CONTROL  song SLOW BLEED   0 stings  1 one-shot (a phone buzzing)  master 0.8
+    FIGHT    starts at 8.13 s
+             9.378 s  MUS.cur -> BLUES -> CARTEL  (the faction pick, two writes)
+             0 STINGS. 0 ONE-SHOTS. master 0.8 before, 0.8 after.
+THE WHOLE AUDIBLE TELL THAT A FIGHT HAD BEGUN WAS THAT THE SONG WAS A DIFFERENT SONG,
+1.25 SECONDS LATE, MID-PHRASE, AT THE SAME VOLUME -- which is what the street's own
+shuffle does by itself every 128 seconds. Without the control window that sentence
+would have been a claim with nothing to be wrong against.
+
+AND THE ASYMMETRY IS THE FINDING. The END of a fight has had a sting since 8/19 (win,
+loss), and so does getting paid, missing a job, finishing one and taking one. SIX
+FIGURES FOR SIX MOMENTS, AND NOT ONE OF THEM IS THE MOMENT THE DANGER ARRIVES.
+WE SCORED EVERY OUTCOME AND NEVER SCORED THE CAUSE.
+
+THE FIX IS ONE FIGURE AND ONE CALLER AND IT COOKS NOTHING. STING already does every
+hard part: no key of its own (it reads the root of whatever is playing and builds from
+intervals consonant in every scale in the file, which is why no figure has a third),
+it lands ON THE NEXT BEAT, and it owns its own bus so ducking the music master cannot
+swallow it. The seventh figure is the root struck low, then the same pitch class an
+octave up: two beats, one second at 120 BPM, RISING, which is the opposite of loss and
+means this is not over. An alarm is made by ATTACK and REGISTER, not by dissonance,
+and dissonance is forbidden in this family anyway -- a tritone written once is out of
+tune with almost all of 142 songs. The caller is FIGHTMUS.enter(), this lane's own
+module and the single place the shell learns a fight has begun (startEncounter calls it
+for a walked-into party, a quest fight and the cold open alike); it already carries
+if(this.on)return; so once per fight, and STING's GAP:2500 means two fights cannot
+burst. NOTHING IN COMBAT'S CODE IS TOUCHED.
+
+VOICE PICKED BY NUMBER, the way done picked bell on 8/20: 16 candidates rendered
+through the REAL synthV offline, four numbers each.
+    taiko         peak 0.450  rms 0.049  attack 0.0030 s  body 0.151 s   <- chosen
+    timpani       peak 0.384  rms 0.045  attack 0.0016 s  body 0.181 s
+    heartbeatsub  peak 0.160  rms 0.017  attack 0.0168 s  body 0.143 s
+    ironheart     peak 0.154  rms 0.032  attack 0.0299 s  body 0.240 s
+His complaint is that the moment is MISSABLE, so attack and level are the only two axes
+that matter. THE TWO THAT LOST ON NUMBERS ARE THE TWO I WANTED ON FEEL: heartbeatsub
+and ironheart are the body rather than the world, which is the right idea (the tell is
+your own adrenaline, not a machine somebody built), and they are 2.8x quieter with an
+attack ten times slower, so they would have been missable, which is the bug. A struck
+drum also needs no source in the fiction -- his own sound law asks for ethnic
+instruments for place and a drum machine on a battery, where an air-raid siren would
+have been a machine this valley does not have.
+
+*** AND THREE OF MY OWN INSTRUMENTS WERE WRONG, EVERY ONE CAUGHT BY A CONTROL. ***
+1. THE FIRST FIGURE CLIPPED. I wrote the second hit as the root AND the fifth together,
+   for size; rendered, the two notes land on the SAME 16th step and SUM to peak 0.9338
+   into a 0.8 master, 2.5x the loudest figure the family had (done 0.3769). TWO NOTES
+   THAT SUM ARE ONE LOUDER NOTE, and the fifth was decoration against the principle I
+   had written two lines above it. Sequential now: peak 0.4681, the loudest by peak
+   (1.24x done) and NOT the densest by rms (0.0386 against loss's 0.0565), which is
+   exactly what an alarm is.
+2. A GRID READ AT A DIFFERENT TIME THAN THE EVENT IS A DIFFERENT GRID. The first beat
+   check read MUS.nextT and MUS.step 400 ms AFTER capturing the notes and reported all
+   three 60 ms off the beat. Recomputed from the reading taken at the same instant as
+   the fight call, they sit at exactly 1.000 and 2.000 beats off the anchor. They were
+   never off the beat. The gate now reads the grid and fires the fight in one evaluate
+   and prints 0 ms.
+3. A TOLERANCE TIGHTER THAN WHAT THE INSTRUMENT CONTAINS MEASURES THE INSTRUMENT. One
+   claim asserted the distance from a wall clock to the note's scheduled time and
+   demanded it be under a beat. That number contains the engine's scheduling lookahead
+   and the round trip out of the browser, so it went RED IN THE PACK and GREEN ALONE.
+   It is re-bounded inside the transport's own frame (STING.when can only add 0 to 3
+   steps to nextT, so the ceiling is three steps, arithmetic no load can move) and the
+   wall-clock figure is printed, never asserted.
+AND THE MUTATION CONTROL CAUGHT A BUG IN ITS OWN HARNESS: the gate read the sting
+family BEFORE applying its mutation, so that claim passed with the figure deleted.
+A CONTROL THAT RUNS AFTER THE READING IT IS MEANT TO FALSIFY CONTROLS NOTHING.
+
+WHY THIS ROW IS NOT MARKED SHIPPED. [fight music] asks for three things and the other
+two already exist and have since 8/19: FIGHTMUS takes the music immediately going in
+and hands it back on a phrase end coming out, asymmetric on purpose. Only the MARK was
+missing. Rule 6 says a half-done job marked SHIPPED is worse than an open one, so the
+row stays OPEN with the measurement written into it, and this build lands under
+[music owned] (round 7) where the work belongs.
+
+WHAT [fight music] STILL WANTS, unmeasured and NOT claimed: whether the fight's own BED
+is the right pool at all (combat draws from MFACTIONS, the 14 faction songs, while the
+street draws creepers -- nobody has asked whether a gang's theme is what a random
+street scrap should sound like), and whether the come-down at the phrase end is audible
+to a person rather than only correct on the clock.
+
+CARRIED, STILL TRUE, RECORDED NOT ACTED ON: THE GAPS IN THE HYMNAL peaks 25.6x the
+median on a CANON song; MENU - LIGHTS ACROSS THE VALLEY peaks 1.064 (BURIED). Both are
+loud defects named and deliberately NOT re-balanced, because a level is his.
+
+UNHEARD BY A PERSON, said plainly: nobody has listened to this. The numbers say the
+drum hits twice, on the beat, louder by peak than anything else in the family and 1.6x
+under its own ceiling. Whether it reads as "a fight started" or as two thumps in the
+music is a thing only ears settle, and that is his five minutes.
+
+NEXT IN THIS LANE, in order: [beat teaches] THE-BEAT-IS-UNMISSABLE-IN-THE-FIRST-FIGHT
+is now unblocked and is the natural next round -- last round this lane held it because
+EYES reported NO FIGHT in five minutes, and COMBAT has since shipped a way to start
+one (the fight this round's gate starts is proof the route exists from the shell). Then
+[enemy heard] (hostile bodies on the street, a sound before they are on screen), then
+[quiet floor] with EYES E12's gap list. [into the vote tab] is SHIPPED and this lane
+registers candidates there; nothing in this round wants a thumb, because a mechanism
+with no content is not a candidate.
+
 SOUND (sound-xk7pjp): 9/15 (b) LATEST -- *** THE STREET WAS BEING OVERRULED WITHIN A
 SECOND OF GETTING THE MUSIC. The open question this lane ROUTED last round instead of
 guessing at is answered and fixed. TAB: RUN, with the sound on. Nothing to judge,

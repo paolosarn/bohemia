@@ -1391,7 +1391,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 9/15u - THE MACHINE HAS A FACE</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 9/15v - A FIGHT MAKES A SOUND</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -15502,6 +15502,17 @@ const FIGHTMUS={
       CITYMUS.on=false; CITYMUS.pend=false; CITYMUS.pendAt=null;
       if(CITYMUS.watch){clearInterval(CITYMUS.watch); CITYMUS.watch=null;}
     }catch(e){}
+    /* __A_FIGHT_STARTING_MAKES_A_SOUND__ (9/15) -- AND THE MOMENT IS MARKED.
+       See STING.FIG.fight for the measurement and the figure. This is the single
+       place the shell learns a fight has begun -- startEncounter calls it for a
+       walked-into party, a quest fight and the cold open alike -- and the
+       `if(this.on)return;` above means once per fight, while STING's own
+       GAP:2500 means two fights in a row cannot make a burst.
+       LAST, AND WRAPPED, so nothing about scoring the moment can stop a fight
+       from starting; and AFTER the stand-down, so the sting is scheduled against
+       the music state the fight actually begins in. STING owns its own bus, so
+       ducking the music master can never swallow it. */
+    try{ if(window.STING)STING.play('fight'); }catch(e){}
   },
   leave(){
     if(!this.on)return;
@@ -15613,6 +15624,40 @@ const STING={
        paid and missed so the four read as one size of life event. */
     taken:  { v:'coldpiano', g:0.19, sd:0.22, oct:0,
             n:[[0,0],[5,3]] },
+    /* __A_FIGHT_STARTING_MAKES_A_SOUND__ (9/15) -- IT IS STARTING.
+       PAOLO 9/15: "I don't even know how to engage in combat and when that shit
+       starts." Measured on the real alpha with BOH_SFX.render, STING.play and a
+       setter on MUS.cur all tapped at once: a street fight started at 8.13 s and
+       produced ZERO stings, ZERO one-shots and no level change. The only audible
+       tell was the song becoming a faction song 1.25 s later, mid-phrase, at the
+       same volume -- which is what the street's own shuffle does anyway.
+       WE SCORED EVERY OUTCOME AND NEVER SCORED THE CAUSE: win, loss, paid,
+       missed, done and taken are six figures for six moments, and not one of
+       them is the moment the danger arrives.
+       THE FIGURE IS THE ROOT AND NOTHING ELSE. An alarm is made by ATTACK and
+       REGISTER, not by dissonance, and dissonance is forbidden in this family
+       anyway -- a tritone written once is out of tune with almost all of 142
+       songs. The root is the one pitch that cannot be wrong in any key: struck
+       low on the beat, then the same pitch class an octave up on the next beat.
+       Two beats, one second at 120 BPM, RISING, which is the opposite of `loss`
+       and means this is not over. Danger is now, the same reason FIGHTMUS takes
+       the music immediately.
+       VOICE PICKED BY NUMBER, the way `done` picked bell: 16 candidates rendered
+       through the real synthV offline, and taiko has the fastest attack
+       (0.0030 s) of anything that also has level (peak 0.450) and body
+       (0.151 s). heartbeatsub and ironheart were the two I wanted on feel and
+       they lost on the only two axes his complaint is about -- 2.8x quieter,
+       attack ten times slower, so they would have been MISSABLE, which is the
+       bug. A struck drum also needs no source in the fiction, where a siren
+       would have been a machine this valley does not have.
+       AND THE FIRST CUT OF THIS FIGURE CLIPPED. It had the root AND the fifth on
+       the same 16th step, for size; rendered, the two notes SUM to peak 0.9338
+       into a 0.8 master, 2.5x the loudest figure here. Sequential now: peak
+       0.4681, the loudest in the family by peak (1.24x `done`) and NOT the
+       densest by rms (0.0386 against loss's 0.0565), which is what an alarm is.
+       TWO NOTES THAT SUM ARE ONE LOUDER NOTE. */
+    fight:  { v:'taiko',     g:0.26, sd:0.16, oct:-12,
+            n:[[0,0],[12,4]] },
     /* A MISSED JOB IS NOT A LOST FIGHT (8/22). QUESTSTING was playing `loss` --
        "falling, and it lands heavy", authored for losing a FIGHT -- when the
        player slept with the day's job unfinished. Caught by walking the demo:

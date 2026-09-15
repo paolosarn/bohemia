@@ -2533,6 +2533,27 @@ GATES = [
      "produced a permanently SILENT FIGHT); and OFF mid-rest leaves no rest "
      "behind. It also pins ONE formula for a phrase, because there were two and "
      "BOTH WERE WRONG by a factor of four", True),
+    ('FIGHT START HEARD',['python3', 'gates/fight_start_heard_gate.py'],
+     "PAOLO 9/15: 'I don't even know how to engage in combat and when that shit "
+     "starts.' MEASURED on the real alpha with three funnels tapped at once -- "
+     "BOH_SFX.render, STING.play and a property setter on MUS.cur -- against an "
+     "8-second CONTROL window of street with nothing pressed: a street fight "
+     "produced ZERO stings, ZERO one-shots and no level change, and the only "
+     "audible tell was the song becoming a faction song 1.25 s later, mid-phrase, "
+     "at the same volume, which is what the shuffle does on its own anyway. WE "
+     "SCORED EVERY OUTCOME AND NEVER SCORED THE CAUSE: win, loss, paid, missed, "
+     "done and taken are six figures for six moments and none of them is the "
+     "moment the danger arrives. This holds the seventh down, and it is mostly "
+     "the ways this lane has lied to itself before: it refuses a grep, it refuses "
+     "STING.play returning true (it wraps synthV, so it can only count notes the "
+     "ENGINE WAS HANDED), it runs a control window so the count has something to "
+     "be wrong against, it reads the beat grid IN THE SAME EVALUATE as the notes "
+     "(the first cut read it 400 ms late and reported every note 60 ms off a beat "
+     "they were exactly on), and it puts a CEILING on the level derived from the "
+     "loudest figure the family already had -- because the first figure shipped "
+     "this round peaked 0.9338 into a 0.8 master, two notes on one step summing. "
+     "The mutation control deletes the figure at runtime, and it caught this "
+     "gate reading the family list before applying its own mutation", True),
     ('ROOM SONG',['python3', 'gates/room_song_gate.py'],
      "CAN THIS SONG BE HEARD ANYWHERE? music_reach_gate (8/4) asks whether a "
      "song HE TAGGED can be heard, and a gate built around his tag table can "
