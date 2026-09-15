@@ -9933,6 +9933,85 @@ THIS LANE'S ROLE, FIXED: 16 COOK, the production artist.
 THIS LANE'S SESSION SLUG: cook-mce6r5.
 
 
+COOK (cook-mce6r5): 9/15 LATEST -- *** [car recook] ROUND 4: HE ZOOMED ALL THE WAY OUT AND
+THE GAME SHOWED HIM A PLACEHOLDER WITH THE WORD PLACEHOLDER ON IT. AR-005 CLOSED. *** TAB:
+RUN, then pinch out twice. Build 9/15a.
+
+PAOLO 9/15, second play, first line of this lane: "every time I see a car it looks like
+dogshit, I'm so confused... WHEN I ZOOM OUT ALL THE WAY IT LOOKS LIKE DOGSHIT."
+
+THE ROW SAID MEASURE WHICH SPRITE THE DEMO DRAWS AT EACH ZOOM BEFORE TOUCHING ANYTHING, so I
+drove the shipped demo with the one driver (rule 14g), pinched all the way out and
+photographed every band. THE WIDEST ZOOM DOES NOT DRAW A CAR. It draws a sky, and the game
+prints the reason in the bottom margin of his screen: "placeholder sky - art request AR-005".
+
+AR-005 was filed 8/12 BY RUN, ADDRESSED TO THIS LANE, AND HAD BEEN OPEN FOR A MONTH. Its own
+measured_gap: "the repository contains NO celestial art of any kind -- no planet, no moon, no
+star field in any bank... TWO OF THE FIVE ZOOM BANDS ARE THEREFORE UN-COOKED." One of them is
+the last image the dynasty ever sees (7/19 LOCKED, act 3 ends looking down at the planet).
+Rule 14(d) is the same sentence in the same law.
+
+WHAT WAS THERE: skyDisc() is a two-stop RADIAL GRADIENT with a stroked rim -- a smooth vector
+sphere in a game drawn entirely in banded pixels. The same fault this lane has cured three
+times. And the moon's seas were three translucent circles of one grey, evenly spaced, under a
+comment reading "so it reads as THE moon and not as a coin". It read as a coin.
+
+SHIPPED: both discs are now banded PIXEL art, drawn as square pixels on a grid whose step
+scales with the disc and is snapped to absolute screen coordinates. NOT a sprite, and that is
+the load-bearing choice: the radius moves continuously with the pinch, so a sprite would be
+resampled by a fractional factor every frame -- the banned non-integer scale, and the exact
+blur this lane measured on the 16 px yard tiles in [streets fixed] r3. A procedural grid is
+crisp at any size because it is never scaled, only re-stepped.
+Ramps, nothing copied: ground for the Mojave, terracotta's CORRODED END for the iron oxide,
+stucco's pale end for dry lakes and cloud, all verbatim from the 7/28 set he approved. The
+moon's ramp is DERIVED from asphalt (chroma out, value lifted, same seven steps) because the
+repo owns no cold grey. The one non-ramp colour is the atmospheric limb, blue on the
+request's own instruction; sky_touch_gate's arm against #7fa8c8 stays green.
+
+*** AND THE FIRST CUT LOOKED LIKE A PIZZA AND THE PICTURE CAUGHT IT AGAIN. *** Cooked it,
+photographed it on the glass, and the planet came out covered in bright orange. Sampled the
+shade function over 40,000 points rather than argue with it: iron oxide covered 18.2% of the
+disc and cloud another 21.2%, in terracotta's BRIGHT tones (#a05734, #c6683b, sat 0.42/0.55)
+against a ground ramp topping out at 0.22 -- three times louder than the world it sits in,
+over a fifth of the disc. Retuned to 6.4% and 8.5% on the corroded end (#78402a, #874a2e).
+THIS IS THE TAIL-LIGHT MISTAKE FROM THE CAR ROUND WEARING A PLANET: that one took its accent
+from the single most saturated pixel, this one took it too wide and too loud. Both scored
+fine. Both looked wrong.
+
+VERIFIED ON THE DEMO HE ACTUALLY PLAYED, AND IT REACHES HIM WITH NO RE-CUT:
+BOHEMIA_CITY_WORLD.html is loaded BY REFERENCE (const CITY_SRC=...), so art landing in the
+city file reaches both surfaces immediately. Rule 14(a) satisfied without the cutter.
+
+THE GATE ARM THAT WAS WAITING FOR THIS LANE: sky_touch_gate asserted the placeholder still
+SAYS it is a placeholder "because the real celestial art is AR-005 and belongs to the ART
+lane". I am the art lane. Flipped to assert the opposite (__SKY_ART__ present, placeholder
+line gone). AR-005 marked SHIPPED in records/requests/BOHEMIA_ART_REQUEST_QUEUE.json.
+
+STILL OPEN ON THIS ROW, AND IT IS THE NEXT ROUND:
+  1. THE CAR ITSELF, the walk-zoom half of his sentence. Measured: the 20 sprites in the prop
+     bank ARE the cooked art, 10-11 colours, inside the ceiling. But the loudest rust tone is
+     #c6683b at saturation 0.55 against a body that maxes at 0.21, over a median 8.4% of a
+     car -- the same accent-too-loud fault I just fixed on the planet, still sitting on the
+     car. Take the rust to terracotta's corroded end and cut the coverage, then LOOK.
+  2. The far-zoom CITY (not the sky): at city zoom the whole valley reads as grey-brown
+     speckle with no street, block or district legible. That is [city from above], also this
+     lane's, and it is the other half of "the far zoom looks like dogshit".
+
+FROM [streets fixed], unchanged and still open: the sidewalk spends 3 of its 36 tiles
+(BOHEMIA_CITY_WORLD.html:36538 and :36577, c.gArtVariant=_sw%3) -- LIFE + CITY / WORLD.
+walk_kerb and road_gutter are approved 44 px art and still undrawn. 40 of the 42 tiles Paolo
+approved on 7/28 are still drawn zero times.
+
+GATES: pre-push pass green (REFERENCE CHECK 11/0, REUSE-FIRST 207/4, PIXEL CRAFT 30/0, ART 45
+16/0, CITY TAB 64/0, ALPHA LOADS 20/0, ART REQUEST 35/0, SKY TOUCH 19/1). That one SKY TOUCH
+red is a redraw-budget arm and is BYTE-IDENTICAL ON MAIN -- verified by stashing this diff and
+re-running, not assumed. Full suite: 107 red at ad23d875; none named as this lane's.
+Record: records/COOK_THE_SKY_HE_ZOOMS_TO_9_15_26.md
+
+STILL PENDING PAOLO, unchanged:
+  [magenta piece] -- purple means the Amalgamation, but the Anarchists' own colour #c026a0
+  is a purple. A/B/C are on the board and below.
+
 COOK (cook-mce6r5): 9/14 LATEST -- *** [streets fixed] ROUND 3: THE GROUND IS DONE, THE
 HOUSES ARE 4%, AND A NUMBER I PUBLISHED LAST ROUND WAS NOT TRUE. *** TAB: RUN (the walked
 city), but NOTHING ON HIS SCREEN CHANGED THIS ROUND and that is the correct outcome.
