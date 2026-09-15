@@ -75,6 +75,22 @@ const done = async (b) => { if (b) await b.close(); if (SRV) try { SRV.close(); 
   ok('a real fight is open', !!cf);
   if (!cf) return done(browser);
 
+  /* *** WHERE A RUNNER STARTS IS A DISTANCE ON THE BOARD, NOT THE NUMBER 3. ***
+     AMENDED 9/15 by [house board] (V218), which turned the house board on and made
+     this gate go 7/4 the same hour -- correctly, and the gate was right to. Every
+     staging below used a hardcoded edist of 3, chosen when a pistol reached TWELVE
+     tiles, so 3 was well inside it. On a board where a pistol reaches ONE HOUSE, a
+     runner placed at 3 has already gone before the first tick and there is no chase
+     to measure. That is the wrong-ruler mistake this lane has now made five times:
+     a number written in the old unit and carried into a new one.
+     SO THE RUNNER BREAKS AT THE EDGE OF WHAT A PISTOL REACHES, asked of the shipped
+     maxRange on whatever board is live. On the body board that is min(3, 12) = 3, the
+     number every one of these arms was tuned against, so nothing about the old board
+     moves. On the house board it is 1, which is where a man actually is when he turns
+     and runs. The claims are untouched; only the ruler is. */
+  await cf.evaluate(() => { window.__CHASE_AT = function () {
+    try { return Math.max(1, Math.min(3, maxRange(wpnRange('pistol')))); } catch (e) { return 3; } }; });
+
   /* ---- 1. THE BREAK IS THE SHIPPED ONE, NOT A FLAG ----------------------- */
   const broke = await cf.evaluate(() => {
     /* A FULL ROOM, because the shipped rule needs one: the nerve roll wants half the
@@ -85,7 +101,7 @@ const done = async (b) => { if (b) await b.close(); if (SRV) try { SRV.close(); 
     try { G.encCurve = false; G.numEnemies = 8; fullResetCombat(); startGame(); } catch (e) {}
     G.over = false; G.win = false;
     for (const e of G.e) { e.dead = false; e.downed = false; e.broken = false; e.fleeing = false;
-      e._gone = false; e.edist = 3; e.hp = e.max || 60; }
+      e._gone = false; e.edist = __CHASE_AT(); e.hp = e.max || 60; }
     const men = G.e.length;
     /* half the room dies through the shipped death path, which is what the nerve roll
        actually reads -- no flag is set on anybody who then runs */
@@ -119,7 +135,7 @@ const done = async (b) => { if (b) await b.close(); if (SRV) try { SRV.close(); 
     const r = runners()[0];
     if (!r) return { noRunner: true, alive: aliveEnemies().length, runners: 0, chaseable: 0,
       fightOver: fightOver(), over: !!G.over, reach: maxRange(myRange()), runnerAt: null };
-    r.edist = 3; r._gone = false;
+    r.edist = __CHASE_AT(); r._gone = false;
     return { alive: aliveEnemies().length, runners: runners().length,
       chaseable: chaseable().length, fightOver: fightOver(), over: !!G.over,
       reach: maxRange(myRange()), runnerAt: r ? r.edist : null };
@@ -134,11 +150,11 @@ const done = async (b) => { if (b) await b.close(); if (SRV) try { SRV.close(); 
   const pool = await cf.evaluate(() => {
     let r = runners()[0];
     if (!r) { r = G.e[0]; r.dead = false; r.downed = false; r.broken = false; r.fleeing = true; r._gone = false; }
-    r.edist = 3;
+    r.edist = __CHASE_AT();
     const near = { inPool: modePool().some(e => e.fleeing), n: modePool().length };
     r.edist = 29;
     const far = { inPool: modePool().some(e => e.fleeing), chase: chaseable().length, over: fightOver() };
-    r.edist = 3;
+    r.edist = __CHASE_AT();
     return { near: near, far: far,
       /* the pool's own filters are what decide it, not a rule written for runners */
       poolSrc: String(modePool).indexOf('inMyRange') >= 0 && String(modePool).indexOf('smokeAt') >= 0 };
@@ -157,10 +173,19 @@ const done = async (b) => { if (b) await b.close(); if (SRV) try { SRV.close(); 
     const ids = Object.keys(WEAPON_RANGE || {});
     for (const w of ['pistol', 'rifle']) {
       if (ids.indexOf(w) < 0) { out[w] = { missing: true }; continue; }
+      /* V218 AMENDED: THE LIGHT IS PINNED, because the window is a claim about YOUR
+         GUN and the dark is a different claim. rangeMult halves reach at night, and on
+         the house board that collapses a rifle's two houses onto a pistol's one -- so
+         at night this arm is asking a question whose answer is "the same, and that is
+         correct". pickDayPhase is unseeded (a known defect on this lane's routed
+         list), so leaving it rolled made the arm a coin flip on the time of day rather
+         than a measurement of the rule. Morning is full light, which is the board this
+         claim has always been about. */
+      G.dayPhase = 'morning'; G._litT = 0;
       WEAPON = w;
       let r = runners()[0];
       if (!r) { r = G.e[0]; }
-      r.edist = 3; r._gone = false; r.fleeing = true; r.dead = false; r.downed = false;
+      r.edist = __CHASE_AT(); r._gone = false; r.fleeing = true; r.dead = false; r.downed = false;
       let turns = 0;
       while (turns < 60 && !fightOver()) { try { tickTurnEnd(); } catch (e) { break; } turns++; }
       out[w] = { turns: turns, reach: Math.round(maxRange(myRange()) * 10) / 10,
@@ -185,7 +210,7 @@ const done = async (b) => { if (b) await b.close(); if (SRV) try { SRV.close(); 
     const whileFighting = routAsk();
     /* now everybody but one is down and that one is running, in reach */
     for (let i = 1; i < G.e.length; i++) G.e[i].dead = true;
-    const r = G.e[0]; r.fleeing = true; r.dead = false; r.downed = false; r.edist = 3; r._gone = false;
+    const r = G.e[0]; r.fleeing = true; r.dead = false; r.downed = false; r.edist = __CHASE_AT(); r._gone = false;
     G._routSaid = false;
     const first = routAsk();
     const read = G.lastRead ? { t: G.lastRead.t, s: G.lastRead.s } : null;
@@ -206,7 +231,7 @@ const done = async (b) => { if (b) await b.close(); if (SRV) try { SRV.close(); 
     const r = G.e[0];
     r.fleeing = true; r.dead = false; r.downed = false; r._gone = false;
     /* one step INSIDE reach: nothing is said, the decision is still open */
-    r.edist = 3;
+    r.edist = __CHASE_AT();
     try { tickTurnEnd(); } catch (e) {}
     const midRead = G.lastRead ? G.lastRead.t : null;
     const midGone = !!r._gone;
@@ -233,7 +258,7 @@ const done = async (b) => { if (b) await b.close(); if (SRV) try { SRV.close(); 
   const paid = await cf.evaluate(() => {
     G.drops = [];
     const r = G.e[0];
-    r.fleeing = true; r.dead = false; r.downed = false; r.edist = 3; r._gone = false; r.hp = 1;
+    r.fleeing = true; r.dead = false; r.downed = false; r.edist = __CHASE_AT(); r._gone = false; r.hp = 1;
     const before = (G.drops || []).length;
     try { bodyFell(r); } catch (e) { return { err: String(e).slice(0, 120) }; }
     const d = (G.drops || [])[0] || null;

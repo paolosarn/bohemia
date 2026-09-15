@@ -3352,7 +3352,15 @@ ok('MECHANISM-MINE/CONTENTS-PAOLO\'S PAID OFF: v95\'s allowance table shipped EM
        BOOK can ask it for the rule instead of tonight's weather. V98's law is
        still byte-identical -- with no argument it is rangeMult(), exactly as
        before -- and the ceiling still wraps it. */
-    /function maxRange\(R,mult\)\{ const k=\(mult==null\)\?rangeMult\(\):mult; return Math\.min\(reachCeil\(\), Math\.max\(hd\(PT_BLANK\+2\), R\.max\*k\)\); \}/.test(demo) &&   /* V198 RE-POINTED */
+    /* V218 RE-POINTED, the fourth time this line has been re-pointed and the reason is
+       the same every time: this regex is pinned to maxRange's BYTES, and the claim it
+       is making is only about `R.max*k`. [house board] turned the house board on and
+       found that the FLOOR -- hd(PT_BLANK+2), a body-scale number divided by eight --
+       lands at 0.75 HOUSES, under adjacent, so at night a man standing one house away
+       could not be shot and there was nowhere closer to stand. The floor is now one
+       house on the house board and unchanged on the body board. THE NIGHT SCALING
+       INSIDE IT IS STILL BYTE-IDENTICAL, which is what V98's law is about. */
+    /function maxRange\(R,mult\)\{ const k=\(mult==null\)\?rangeMult\(\):mult; return Math\.min\(reachCeil\(\), Math\.max\(houseOn\(\)\?1:hd\(PT_BLANK\+2\), R\.max\*k\)\); \}/.test(demo) &&   /* V218 RE-POINTED */
     /inMyRange\(e\)\{ return !!e && \(e\.edist\|\|0\) <= maxRange\(myRange\(\)\); \}/.test(demo));
 
   ok('V160 THE CEILING IS ONE DOOR: every reach in the game -- yours, theirs, the sniper\'s and the V151 floor that hands him the edge over the field -- comes through maxRange, so a number added anywhere else cannot route around sight. His V151 ruling still stands underneath it: he outranges the field, he just cannot outrange his own eyes',
@@ -5547,10 +5555,18 @@ ok('V144 AND A CAPPED TICK NEVER LEAVES A BACKLOG for the next one to inherit, a
          binding list did not have it. Bound to the BODY-scale identity
          (hd = n => n, reachCeil = () => 16), which is exactly the board this
          claim has always been about. */
-      const f = new Function('REACH_CEIL', 'PT_BLANK', 'rangeMult', 'hd', 'reachCeil',
-        src + '; return effRange;')(16, 4, () => 1, n => n, () => 16);
-      const fDark = new Function('REACH_CEIL', 'PT_BLANK', 'rangeMult', 'hd', 'reachCeil',
-        src + '; return effRange;')(16, 4, () => 0.5, n => n, () => 16);
+      /* V218: AND houseOn JOINS THE BINDING LIST, for the exact reason the comment
+         above already gives about hd(). [house board] gave maxRange a house-scale
+         floor, so the sliced function calls houseOn() -- and a slice whose binding
+         list is short does not fail loudly, it throws into the catch below and every
+         number here reads null. That is what happened: three arms went red on a
+         missing binding, not on a broken claim. Bound to FALSE, the body-scale
+         identity, because this claim has always been about the body board -- the same
+         choice V198 made for hd and reachCeil one line up. */
+      const f = new Function('REACH_CEIL', 'PT_BLANK', 'rangeMult', 'hd', 'reachCeil', 'houseOn',
+        src + '; return effRange;')(16, 4, () => 1, n => n, () => 16, () => false);
+      const fDark = new Function('REACH_CEIL', 'PT_BLANK', 'rangeMult', 'hd', 'reachCeil', 'houseOn',
+        src + '; return effRange;')(16, 4, () => 0.5, n => n, () => 16, () => false);
       rifle = f({ eff: 20, max: 16 }); sniper = f({ eff: 30, max: 16 });
       pistol = f({ eff: 6, max: 12 }); dark = fDark({ eff: 20, max: 16 });
     } catch (e) {}

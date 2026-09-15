@@ -23080,6 +23080,86 @@ a memory reset. HE WILL NEVER TYPE ANYTHING BUT THE ONE WORD AGAIN. ***
     I will never paste anything to you again. From here on, the one word is the whole
     instruction.
 
+*** [house board] THE-FIGHT-AT-THE-SCALE-HE-NEEDS. V218. SHIPPED. ***
+PAOLO 9/15, rule 16 (laws/BOHEMIA_ADDENDUM_THE_STEP_IS_A_HOUSE_9_15_26.md): "I just entered
+combat and this is not at the scale that I needed it to be... implement it into combat too,
+right now it's not there." HE IS RIGHT AND THE REASON IS ONE WORD LONG.
+
+MEASURED FIRST, IN A REAL CITY FIGHT STARTED THE WAY HE STARTS ONE (the tap V217 shipped):
+    WHAT HE MET                    WHAT V198 BUILT AND NOBODY TURNED ON
+    a tile 12.2 px, 0.33 sprite    a tile 65.3 px, 1.75 sprite widths
+    35.3 tiles across the glass    6.6 tiles across the glass
+    pistol 12 tiles, rifle 16      pistol 1, rifle 2, sight 6
+*** THE WHOLE HOUSE BOARD IS BUILT AND THE FLAG THAT TURNS IT ON IS undefined. *** G.houseTile
+is read in one place, houseOn(), and was ASSIGNED NOWHERE IN THE GAME -- only by a dev button in
+the bench menu. His 9/4 ruling shipped 9/5 as a SWITCH and the switch has been off for every
+fight anybody ever played. Seventh time this lane has found the same shape (the pull-back, the
+loot, the city's clock, the medic's pick-up, the guns' close band, the walked street's twelve
+moments, the save at the bell) and the purest of them.
+
+AND THE BODY IS ALREADY THE RULED SIZE, measured off the INK and not off the scale constant: the
+person is 100 px of ink in a 112 px sprite, drawn at 33.3 px against a 65.3 px lot, SO HE STANDS
+0.51 LOTS TALL against the law's "about half a lot". The bodyScale for exactly half is 0.327, the
+shipped one 0.3333, TWO PERCENT APART. So bodyScale is NOT touched -- changing it would be
+inventing a number over a measurement. "Bodies are drawn larger" is delivered by the TILE growing
+around the body, which is the same thing from the other side.
+
+*** AND TURNING IT ON EXPOSED TWO REAL DEFECTS THAT THE DIAL HAD BEEN HIDING. BOTH FIXED HERE. ***
+(1) A DEAD FIRST TURN. Found by running my own gate THREE times instead of once: two runs in
+three, the first fight of the game had its one man at edist 1 and a pistol reaching 0.75, so he
+could not be shot AND WALKING COULD NOT HELP, because edist 1 IS adjacent. The reach floor was
+hd(PT_BLANK+2), a body-scale number divided by eight, landing at 0.75 HOUSES -- and nights drove
+reach down to it (rangeMult halves in the dark; on a board of 1s and 2s a half is under the
+floor). ON THE HOUSE BOARD THE FLOOR IS ONE HOUSE. The night still bites: a rifle in the dark
+comes down from two houses to one.
+(2) THE RULING WAS BEING ERASED ALTOGETHER, and this only shows in a live fight. Measured with
+the weapon switched under a real roster: longestFoeReach 3 (a sniper's house reach) + V151's edge
+0.375 = 3.375, so a PISTOL's myRange came back 3.375 and a RIFLE's came back 3.375, both clamped
+by the ceiling to 3. THE SAME NUMBER FOR BOTH GUNS. A pistol reaching three houses is not "like a
+dagger". V151's floor lifts you to the longest gun on the field plus an edge -- a small bonus on a
+12-to-16-tile board, the whole table erased on a board of 1s and 2s. NEWEST DATE WINS AND HE TYPED
+THE NUMBERS (9/4 names the house reaches, 9/15 re-affirms the scale, both after V151), so on the
+house board myRange returns the gun's own number. THE BODY BOARD KEEPS V151 EXACTLY. And V151's
+purpose survives: its reason was movement, and on a six-house board everybody has to close anyway.
+The proof is this lane's own rout row, which now reads the way the design says: A PISTOL BUYS YOU
+ONE TURN OF CHASE, A RIFLE TWO.
+
+NOT DONE, AND IT IS A MEASUREMENT NOT A SKIP: the row says "entry by camera with the cloud (small
+or no pull-back now that both sides share a scale)". THE TWO SIDES DO NOT SHARE A SCALE YET -- RUN
+[step is a house] is still OPEN and the walked street still moves one FINE cell a step at C 44.
+Shrinking V205's pull-back today would make the entry wrong for the street that exists. Rule 12:
+the premise measures FALSE, so the pull-back stays as ruled 9/6. Routed to RUN.
+
+gates/house_board_gate.js 17/0, THREE RUNS RUNNING. It taps a body on the street to start a real
+fight and measures the board it landed on with the fight's own functions: house scale with nobody
+having touched a dial; 1.75 sprite widths; 6.58 tiles across; pistol 1, rifle 2; a person 0.51
+lots tall off the ink; adjacent reachable at noon AND at night; the bench button still reaches the
+old board and its label now agrees. MUTATION-PROVED FOUR WAYS: default back off -> 7 red; shrink
+the person -> the half-a-lot arm; weld the dial on -> both button arms; floor back under adjacent
+-> the reachable and the day-or-night arms.
+PRE-PUSH PASS, ALL ON THE FINAL TREE: house_board 17/0, the_rout 11/0 (x3), first_fight 11/0,
+you_can_start_it 19/0, pickup 9/0, save_before_the_bell 8/0, plate_costs_tape 15/0, combat_lab
+929/3 (its three reds pre-date this and are unchanged).
+
+*** FOUR INSTRUMENTS WERE WRITTEN IN THE OLD UNIT, AND THE BOARD TURNING ON IS WHAT SAID SO.
+    OTHER LANES SHOULD EXPECT THE SAME WHEN RUN COARSENS THE STEP. ***
+- the rout gate staged every runner at edist = 3, a distance chosen when a pistol reached TWELVE
+  tiles. On a one-house board a runner at 3 is gone before the first tick. It now breaks at the
+  edge of what a pistol reaches, asked of the shipped maxRange on whatever board is live, so the
+  body board's number is still 3 and nothing those arms were tuned against moved.
+- that same gate left the TIME OF DAY rolled, and pickDayPhase is unseeded (already on this lane's
+  routed list). At night a rifle's two houses collapse onto a pistol's one, so the chase-window
+  arm was a coin flip on the weather. The light is pinned to morning for that one arm.
+- combat_lab SLICES maxRange out of the demo and runs it in Node with a binding list. The
+  house-scale floor made it call houseOn(), which was not in the list, so the slice threw into a
+  catch and THREE ARMS READ null -- red on a missing binding, not a broken claim. houseOn is now
+  bound to false, the body-scale identity, exactly as V198 bound hd and reachCeil one line above.
+- one combat_lab arm regexes maxRange's exact BYTES. Re-pointed, the fourth time in that line's
+  history; the night scaling it actually asserts is byte-identical.
+Record: records/BOHEMIA_COMBAT_THE_HOUSE_BOARD_IS_THE_BOARD_9_15_26.md  Build stamp 9/15q.
+[PENDING Paolo] carried forward from V198 and still open: where a scoped rifle stops on the house
+board. 3 is an attempt, not a decision.
+
 *** [start a fight] HE-DOES-NOT-KNOW-HOW-TO-START-A-FIGHT-OR-WHEN-IT-STARTS. V217. SHIPPED. ***
 PAOLO 9/15: "I don't even know how to engage in combat and when that shit starts." Both halves of
 the row are in: ON PURPOSE (a hostile body on the glass, TAPPED, starts the fight) and IT SAYS SO
@@ -23496,7 +23576,7 @@ ROUTED, NOT MINE TO FIX: EYES item 1 measured that THE FONT FIX IS REAL AND IS N
 carries 42 and 2 and none. Same for V216 and for everything six lanes shipped. Under rule 14(a) ONLY
 RUN RE-CUTS THE DEMO, so all of it is one cut away from the surface he actually opens.
 
-QUEUE STATE: [start a fight], [prefight save], [first fight], [enemies flee] AND [plates cost] ARE SHIPPED. [loot kept], [guns close] and [rescue her] are all SHIPPED (efd64c7 carries
+QUEUE STATE: [house board], [start a fight], [prefight save], [first fight], [enemies flee] AND [plates cost] ARE SHIPPED. [loot kept], [guns close] and [rescue her] are all SHIPPED (efd64c7 carries
 [guns close] and the key-guard fix; every sha read off main after the push). THE NEXT OPEN LINE IN
 THIS SECTION IS [armour morale] ARMOUR-AND-MORALE, but rule 14 may put another of his breaks first:
 re-read the front page before claiming.
