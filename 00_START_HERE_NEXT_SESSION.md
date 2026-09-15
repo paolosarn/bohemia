@@ -10688,6 +10688,84 @@ THIS LANE'S ROLE, FIXED: 16 COOK, the production artist.
 THIS LANE'S SESSION SLUG: cook-mce6r5.
 
 
+COOK (cook-mce6r5): 9/15 LATEST -- *** [car recook] ROUND 6: I DREW TWENTY BARRELS, LOOKED
+AT THEM, AND KILLED THEM. NOTHING SHIPPED TO THE GAME, ON PURPOSE. *** The slices are
+byte-identical to main; no art, no build stamp.
+
+NOTE FOR EVERY LANE, INCLUDING ME: this file now carries TWO blocks headed "9/15 LATEST"
+from this lane, and that is CORRECT, not a bug. The handoff gate keys a block on its header
+and fails any commit where a header HEAD carries is gone, so a lane must NEVER demote its
+own previous header when it prepends. THE NEWEST BLOCK IS THE TOPMOST ONE, not the one that
+says LATEST. I tripped that gate in [streets fixed] r3 by demoting; anchor on the FIRST
+occurrence when you write.
+
+WHAT I SET OUT TO DO. Round 5 measured why he is confused and it is not the paint: every
+prop is drawn at a fractional scale, the car worst of sixteen at 1.833x against ground drawn
+at exactly 1.000, smoothing off so it is not blurred but UNEVEN. The arithmetic is not in
+doubt: the stall a car's footprint buys is 2x4 cells at 44 px = 88x176; the master is 45x96;
+fit = min(88/45, 176/96) = 1.833. Round 5 killed both shortcuts with measurements (the
+shipped cars have ZERO transparent margin so a 2x-and-trim cuts the car; snapping puts it at
+a toy or overhangs by 16 px). THE MASTER HAS TO BE DRAWN AT 88x176. That still stands.
+
+SO I BUILT A CAR FACTORY AND IT DREW BARRELS. Twenty cars, five silhouettes from half-width
+profiles, panels shaded by value, glass, seams, arches, rust. ON THE NUMBERS IT WAS
+FLAWLESS: master 88x176, fit exactly 1.000, 8 colours against a ceiling of 64, generated
+rather than photographed. Then I rendered it beside the shipped cars and looked: A ROUNDED
+RECTANGLE WITH TWO DARK BANDS ACROSS IT. Fixed it once -- harder taper, greenhouse inset
+26%, wheels breaking the outline, rust as blobs -- STILL A BARREL.
+
+Second rejection of my own work, and STOP PRODUCING is unambiguous: "a second rejection ends
+the feature for the session... writing a fourth version of anything means you already
+failed". SO I STOPPED. The shipped photograph cars are wrong about resolution but they are
+unmistakably CARS. Replacing them with barrels that measure perfectly would have made his
+game worse with every gate green, which is the exact failure this lane has been punished for
+before, and the only thing that caught it was looking.
+
+WHY IT FAILED, IN ONE SENTENCE: A SILHOUETTE BUILT FROM HALF-WIDTH PROFILES CANNOT MAKE A
+CAR. A car's outline is not a smooth function of its length -- hard nose, a shoulder
+stepping out over the front arch, a flat door section, a step back in at the rear arch, a
+cut tail. Sampling a spline down the middle gives a lozenge. The readable shape has to come
+from an OBSERVED car, not from parameters.
+
+*** THE PATH THE NEXT ROUND SHOULD TAKE, AND IT IS NOT THIS ONE. *** The shipped photographs
+are RIGHT ABOUT SHAPE and WRONG ABOUT RESOLUTION, and those are separable:
+  1. take the shipped 45x96 master's ALPHA MASK ONLY -- it reads as a car because it came
+     from one;
+  2. upscale THE MASK to 88x176. A mask has no pixel grid to break: an edge scaled by 1.833
+     and re-thresholded is just an edge, and it cleans to a crisp one-pixel outline;
+  3. read the panels INSIDE the mask from the photograph's own value structure (roof
+     brightest, glass darkest, bonnet and boot between) -- the 9/7 recolour already did that
+     reading successfully;
+  4. RE-SHADE FROM SCRATCH on the new 88x176 grid, on the same approved asphalt +
+     corroded-terracotta ramps, with this round's rust and lighting rules.
+Shape from the photograph, every pixel authored at the size the stall gives. A DIFFERENT
+METHOD, not a third go at the same one.
+
+AND BEFORE THAT ROUND STARTS, CHECK RULE 16 (THE STEP IS A HOUSE). Measured this round: TPX
+is still 44 and PROP_FP.car is still [2,4,0], so the 88x176 stall SURVIVED [lot lattice]
+(LIFE+CITY, which found a lot is LOT_FINE=24 fine cells = 18 m, not the FN=32 the row
+claimed) and [house board] (COMBAT) both landing. But rule 16 makes bodies larger and a lot
+the step, so if the cell or the footprint moves, 20 new masters encode a constant that just
+changed. Measure before drawing.
+
+WHAT SURVIVES THIS ROUND: the measurement, already permanent in gates/prop_scale_gate.py
+(shipped r5, ratcheted, mutation-tested three ways, suite name PROP SCALE); the failure
+WRITTEN DOWN rather than quietly deleted -- graveyard/CARFAIL_BARREL_bohemia_car_factory_
+9_15_26.py, OUT of tools/ so it cannot be mistaken for shippable, two lines in
+gates/bohemia_graveyard.txt, picture at records/target/COOK_CARFAIL_BARREL_9_15_26.png; and
+the rust and lighting rules, which are sound and reusable (rust as blobs on the wheel arches
+and panel seams, NEVER a rim and never the middle of a roof; one light direction upper-left;
+glass broken but panels never missing).
+
+GATES: pre-push pass green (REFERENCE CHECK 11/0, PROP SCALE 7/0, PIXEL CRAFT 30/0, PROPS
+76/0, ALPHA LOADS 20/0, REUSE-FIRST 207/5 -- all five other lanes' *_patch.py). Full suite:
+107 red at ad23d875, none named as this lane's. No demo re-cut (rule 14a).
+Record: records/COOK_I_DREW_TWENTY_BARRELS_9_15_26.md
+
+STILL PENDING PAOLO, unchanged:
+  [magenta piece] -- purple means the Amalgamation, but the Anarchists' own colour #c026a0
+  is a purple. A/B/C are on the board and below.
+
 COOK (cook-mce6r5): 9/15 LATEST -- *** [car recook] ROUND 5: "I'M SO CONFUSED" IS
 ARITHMETIC, AND IT IS EVERY PROP IN THE GAME. SIXTEEN OF SIXTEEN DRAWN AT A FRACTIONAL
 SCALE. *** NOTHING ON HIS SCREEN CHANGED THIS ROUND and no build stamp, on purpose.
