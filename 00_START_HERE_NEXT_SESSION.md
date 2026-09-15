@@ -1,3 +1,62 @@
+UI (ui-kmqmrf): 9/15 LATEST -- *** [vote tab] SHIPPED. ONE PLACE HE VOTES, AND A VOTE MAKES THE
+THING LEAVE. [eyes: bar cut] SHIPPED TOO, AND IT WAS NEVER 3 PIXELS. *** TAB: the gear, in the game
+(and the VOTE tab in the workshop). Build 9/15i. RUN cuts it into the demo, rule 14(a).
+
+[vote tab] -- his 9/14 ruling, rule 15. THREE PIECES, AND THE SPLIT MATTERS MORE THAN ANY OF THEM.
+  1 THE REGISTRY  records/target/BOHEMIA_VOTE_REGISTRY.json. ONE file. A lane APPENDS one object per
+    candidate (id, kind, lane, sha, made, title, why, show{how,src}) and READS verdicts back out of
+    verdicts[]. Nobody draws a vote page again. THE FOLDER IS NOT A PREFERENCE: _config.yml and
+    pages.yml publish exactly three folders, and a page in slices/ has to fetch this in PRODUCTION.
+    Anywhere else 404s live while working perfectly on disk, which is the one way that config bites
+    and it is written at the top of the config for that reason.
+  2 THE TAB  slices/BOHEMIA_VOTE_TAB.html. One queue of every kind, NEWEST FIRST (the file is
+    appended to, so its end is the newest thing anybody made). Same three controls on every row
+    whatever the kind: up, down, a comment. Sun by default, night on a button, export .txt never
+    .json, comment box at the bottom, every control 44 at 390x844.
+  3 THE DOOR IS THE GEAR, NOT THE TAB BAR, and that is measured rather than assumed:
+    bohemia_cut_the_demo.js deletes every tab but RUN, so a VOTE tab alone reaches the workshop and
+    NEVER the thing he plays. SETTINGS grew NEW / VOTE ON WHAT IS NEW; it opens the queue full screen
+    and closes the settings card behind it (one subject, one door -- the same shape as PRETTY MAP /
+    DROP IN and OUTFIT / STANDING). The old 6.4 MB per-lane judge page is untouched and presents
+    nothing new.
+
+A VOTE CONSUMES, AND IT TAKES TWO MEMORIES. The phone remembers instantly so the row leaves the frame
+he taps in; the registry remembers forever so a cleared cache cannot resurrect a judged thing.
+Consumed if it is in EITHER, because localStorage alone dies with the cache and a browser cannot
+write a repo file. THE GATE'S STRONGEST LEG plants a verdict on a candidate a brand new browser
+profile has never seen and proves it is not drawn: that is his complaint, measured. A redo renders
+HIS OWN WORDS on the one it replaces. One step of undo, PUT THE LAST ONE BACK, reaches only the phone.
+
+FOR EVERY OTHER LANE: your [into the vote tab] row can land now. Append to items[], read verdicts[].
+The registry is seeded with THIS lane's eight unjudged sheets and is empty of everybody else's work.
+A registered path that does not exist is a gate failure, not a dead button he taps for nothing.
+
+THE DOOR LEG FAILED THREE TIMES AND EACH FAILURE WAS ME MEASURING THE WRONG THING. Waited for the
+gear (it hides on the splash on purpose). Aimed at the element carrying the words TAP TO ENTER: it
+reports a 0x0 box the whole time it is up, so the tap landed at (0,0) -- AND AN EARLIER PROBE PASSED
+BY ACCIDENT for exactly that reason, because a click at (0,0) still hits the full-screen splash. Then
+skipped the tap on that basis and sat on the splash for twenty seconds concluding the card never
+appears. The splash IS the button. Fourth time this lane has written the same sentence: a clean
+answer from the wrong oracle looks exactly like a fact.
+
+[eyes: bar cut] -- EYES E26 r4 reported 3 px. Reproduced at 21.4 px and 62.2 px; it moves with the
+MUSIC TRACK NAME in the bar at that moment, so a measured overflow of a box whose contents change is
+a snapshot and not a size. THE ROOT CAUSE IS A FLEX ROLE, NOT A WIDTH: #barleft could shrink and
+#barright could not, so the player's own state was the ONLY thing allowed to give way and the song
+title took whatever it wanted. Roles swapped, the title truncates, no width typed anywhere. Proved
+with a title four times too long: chip box 58.8 against scrollWidth 241 and clipped, state NOT
+clipped, no sideways scroll, nothing past the edge.
+
+PRE-PUSH PASS (rule 13): vote tab 28/0 (three mutations proved), top bar 15/0 (three new legs,
+mutation-proved), city rail 15/0, alpha loads 20/0, the phone 18/0, screen face 14/0,
+pages publish 18/0. Full suite: 107 red at ad23d875 (the suite line); none of those are named
+against this lane, and the four colour-collision reds in phone_readable_gate are still inherited from
+another lane's palette change, reported five rounds running.
+
+NEXT: [no slop] is still CLAIMED and untouched this round (monospace 42, rounded 60, borders 52 on
+the walked city; the casing register is the last of three still fixed-pitch). Then [tutorial ask] and
+[skin swap].
+
 EYES AND EARS (eyes-5vql33): 9/15 (ah) LATEST -- *** E26 ROUND 5. RULE 14(h) LANDED ON THIS INSTRUMENT AFTER MY LAST PUSH, AND I AM CORRECTING MY OWN ITEM 3 FROM LAST ROUND. *** Record: records/BOHEMIA_EYES_E26_ROUND_5_A_CLOSE_IS_NOT_A_YES_9_15_26.md. TAB: the demo is what he plays, walked on BUILD 9/14p; shots in records/eyes_e26_walk_demo/. THE STRANGER'S LIST is rewritten on the front page.
   THE CORRECTION. I wrote that GET UP 'works on the first press and does nothing on the second, exactly right for a control that fires once'. Wrong, and wrong in exactly the way 14(h) predicts: GET UP CLOSES THE DAY CARD (panel #daycardIn), and my old test saw the card vanish, called that movement and credited the button. Last round's noise ledger fixed FALSE DEATH, the world repainting and getting credited to a finger. IT DID NOTHING ABOUT FALSE LIFE. Both halves were needed and I had one. A card closing on GET UP is probably correct behaviour; the honest sentence is that my instrument cannot confirm it, which is a limit of the test and not a defect in the game.
   SHIPPED: THE VERDICT READS THE PANEL, NOT THE SCREEN. The nearest card-shaped ancestor of the control, and that panel's OWN words, so a change elsewhere on screen cannot be credited to it either. Three answers: DID SOMETHING (panel still open AND its own words moved AND a moved word is one the ledger has never seen moving untouched), THE PANEL CLOSED (proves nothing either way, never scored as working or dead), DID NOTHING (panel open, nothing new inside it, both presses).

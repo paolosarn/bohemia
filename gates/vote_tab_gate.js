@@ -116,6 +116,18 @@ const url = p => 'http://127.0.0.1:' + PORT + '/' + p;
      mean something: a lane cannot get a killed thing back by re-registering its id. */
   ok('no id is used twice', dupes.length === 0, dupes.join(', '));
 
+  /* A ROW HE TAPS AND NOTHING HAPPENS IS WORSE THAN NO ROW. Lanes register a path by
+     hand, so a typo or a renamed file lands here as a dead LOOK AT IT button and he has
+     no way to tell that from a thing that is simply broken. Paths are relative to
+     slices/, because that is where the page doing the showing lives. */
+  const missing = (reg.items || []).filter(it => {
+    const how = it && it.show && it.show.how;
+    if (how !== 'page' && how !== 'image' && how !== 'clip' && how !== 'audio') return false;
+    return !fs.existsSync(path.join(SLICES, it.show.src || ''));
+  }).map(it => it.id + ' -> ' + (it.show.src || '(none)'));
+  ok('every registered thing is actually there to be looked at',
+     missing.length === 0, missing.slice(0, 3).join(', '));
+
   /* ---- 2. THE PAGE ITSELF -------------------------------------------------- */
   if (!fs.existsSync(TAB)) { ok('the vote tab page exists', false); return done(); }
   const src = fs.readFileSync(TAB, 'utf8');
