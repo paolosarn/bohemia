@@ -1,5 +1,20 @@
 /* BOHEMIA -- THE DEMO STALENESS METER  (EYES AND EARS, E26 [five minutes], 9/14/26)
  *
+ * *** THIS METER WAS AIMED AT THE WRONG FILE FOR TWO ROUNDS, AND ITS HEADLINE NUMBER WENT ON
+ * HIS FRONT PAGE. READ THIS FIRST. (EYES E26 round 7, 9/15.) ***
+ *   UI corrected its own claim (5bed08dd) and .github/workflows/pages.yml confirms it, with a
+ *   comment dated 8/26: the deploy runs tools/bohemia_cut_the_demo.js AS A BUILD STEP, so THE
+ *   DEMO AT THE ONE LINK IS RE-CUT FROM THE ALPHA ON EVERY PUSH. What he taps is the alpha's
+ *   tip. It cannot be stale.
+ *   I did not take that on trust (rule 12, a dependency is a premise): the cutter run in an
+ *   isolated git worktree produced BUILD 9/15o, byte-matching the alpha's stamp, while the
+ *   COMMITTED slices/BOHEMIA_DEMO.html on disk said BUILD 9/15m, 2,097 bytes apart.
+ *   SO THE "109 COMMITS BEHIND" THIS TOOL PUBLISHED WAS TRUE OF A FILE NOBODY IS EVER SERVED,
+ *   and the sentence it printed -- "the five minutes he judges by is this old" -- was wrong.
+ *   It is now a BOOKKEEPING number: how far the committed file lags the alpha it is generated
+ *   from. That still matters (DEMO BUILD goes red on it, and every lane's local walk opens that
+ *   file) but it is not a number about what he plays, and it must never be printed as one.
+ *
  * WHY THIS EXISTS, IN ONE SENTENCE FROM HIS OWN LAW: "the demo's first five minutes on a
  * phone, played by a stranger, is the measure of the game" (Paolo 9/13, LOCKED). If that
  * measure is frozen at an old cut, every lane's fix is invisible to the only thing he
@@ -119,7 +134,9 @@ function report(m) {
     console.log('  shell). The other ' + (100 - s.frozen_share) + '% is ' + (s.files - 1) + ' files loaded BY PATH, so they are LIVE --');
     console.log('  ' + s.live_files_that_moved_since_the_cut + ' of them have changed since the cut and he has been playing every one.');
     if (s.busiest) console.log('  busiest live file: ' + s.busiest.file + '  ' + s.busiest.commits + ' commits since the cut');
-    console.log('  -> a fix is stuck ONLY if it lives in the shell. Everything else needs no cut.');
+    console.log('  -> and a fix is never stuck waiting for a cut: the deploy cuts on every push.');
+    console.log('     What a local walk of the committed file sees CAN be stale, which is a fact');
+    console.log('     about the instrument, not about him.');
   }
   const d = m.demo_fight_font, a = m.alpha_fight_font;
   if (d && a) {
@@ -131,8 +148,10 @@ function report(m) {
     }
   }
   if (m.commits_behind > 0) {
-    console.log('  NOT A FAILURE, AND NOT NOBODY\'S FAULT: only THE RUN re-cuts the demo, so this is a');
-    console.log('  number for the board, not a red light. The five minutes he judges by is this old.');
+    console.log('  WHAT THIS NUMBER IS AND IS NOT: the deploy re-cuts the demo FROM THE ALPHA on');
+    console.log('  every push, so the demo at the one link is the alpha\'s tip and is never stale.');
+    console.log('  This counts how far the COMMITTED demo file lags -- bookkeeping, and the file');
+    console.log('  every lane\'s local walk opens. It is NOT how old the five minutes he plays is.');
   }
 }
 
@@ -161,6 +180,7 @@ if (process.argv.includes('--selftest')) {
 
 const m = measure();
 report(m);
-console.log('DEMO STALENESS METER: reported, never fails. ' + m.commits_behind
-  + ' commits and ' + m.alpha_ships_behind + ' alpha ships behind.');
+console.log('DEMO STALENESS METER: reported, never fails. THE COMMITTED FILE is ' + m.commits_behind
+  + ' commits and ' + m.alpha_ships_behind + ' alpha ships behind the alpha it is cut from. '
+  + 'What he plays is the alpha tip, cut at deploy.');
 process.exit(0);

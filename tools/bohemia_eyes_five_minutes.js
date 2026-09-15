@@ -40,8 +40,20 @@ const ROOT = path.resolve(__dirname, '..');
    other lanes started shipping fixes to the ALPHA while the demo stayed one cut behind,
    the walk had to be able to answer two different questions: DID THE FIX WORK (alpha) and
    DID IT REACH HIM (demo). Same instrument, one argument. */
-const WHICH = (process.argv[2] === 'alpha') ? 'alpha' : 'demo';
+/* AND A THIRD SURFACE, ADDED 9/15, BECAUSE THE FIRST TWO WERE BOTH THE WRONG FILE.
+   UI corrected its own claim (5bed08dd) and the deploy workflow confirms it: since 8/26
+   .github/workflows/pages.yml runs tools/bohemia_cut_the_demo.js AS A BUILD STEP, so THE DEMO
+   AT THE ONE LINK IS RE-CUT FROM THE ALPHA ON EVERY PUSH. What he taps is the alpha's tip,
+   always. The only thing that can be stale is the COMMITTED slices/BOHEMIA_DEMO.html on disk,
+   and that committed file is exactly what every stranger-list walk of mine has been opening.
+   MEASURED HERE RATHER THAN TAKEN ON TRUST (rule 12): the cutter run in an isolated worktree
+   produced BUILD 9/15o, matching the alpha, while the committed file said BUILD 9/15m.
+   So "deploy" is the surface he plays, and it is what the list must be walked on from now.
+   Usage: node tools/bohemia_eyes_five_minutes.js [demo|alpha|deploy] [path] */
+const WHICH = ['alpha', 'deploy'].includes(process.argv[2]) ? process.argv[2] : 'demo';
 const FILE = WHICH === 'alpha' ? 'BOHEMIA_ALPHA_0_9.html' : 'BOHEMIA_DEMO.html';
+/* a deploy walk needs the cut, which lives outside the repo so nothing of RUN's is touched */
+const SURFACE = process.argv[3] || path.join(ROOT, 'slices', FILE);
 const OUT = path.join(ROOT, 'records', 'BOHEMIA_EYES_E26_WALK_' + WHICH.toUpperCase() + '_9_14_26.json');
 const SHOTS = path.join(ROOT, 'records', 'eyes_e26_walk_' + WHICH);
 
@@ -79,7 +91,7 @@ const SOURCE = (() => {
   const ctx = await b.newContext(PHONE);          /* fresh context = no stored save */
   const page = await ctx.newPage();
 
-  const out = { ok: true, which: WHICH, file: FILE, when: new Date().toISOString(),
+  const out = { ok: true, which: WHICH, file: FILE, surface: SURFACE, when: new Date().toISOString(),
                 law: 'THE FIVE MINUTES (Paolo 9/13)',
                 lines: [], errors: [], controls: [], numbers: {}, dead: [], inert: [],
                 /* 9/14: a zero in dead[] used to be unreadable, because it meant EITHER
@@ -211,8 +223,7 @@ const SOURCE = (() => {
   };
 
   try {
-    await page.goto('file://' + path.join(ROOT, 'slices', FILE),
-      { waitUntil: 'domcontentloaded', timeout: 90000 });
+    await page.goto('file://' + SURFACE, { waitUntil: 'domcontentloaded', timeout: 90000 });
     const first = await page.evaluate(() => performance.now());
     t0 = first;
 
