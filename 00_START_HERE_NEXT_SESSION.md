@@ -22376,6 +22376,82 @@ a memory reset. HE WILL NEVER TYPE ANYTHING BUT THE ONE WORD AGAIN. ***
     I will never paste anything to you again. From here on, the one word is the whole
     instruction.
 
+*** [start a fight] HE-DOES-NOT-KNOW-HOW-TO-START-A-FIGHT-OR-WHEN-IT-STARTS. V217. SHIPPED. ***
+PAOLO 9/15: "I don't even know how to engage in combat and when that shit starts." Both halves of
+the row are in: ON PURPOSE (a hostile body on the glass, TAPPED, starts the fight) and IT SAYS SO
+(the fight's own line at the bell says a fight has started and what to press).
+
+FOUR NUMBERS MEASURED FIRST, ON THE ALPHA, BEFORE A LINE WAS WRITTEN.
+(1) A TAP ON THE WALKED STREET DID NOTHING -- a real pointer in the middle of the glass produced
+ZERO encounters. The walked view's canvas handler pinches, resets the zoom on a double tap and
+measures drag, and tpTap was removed at the trigger on 8/24 (correctly, it rebuilt a dead judge
+panel). SO THERE WAS NO INPUT ANYWHERE IN THE GAME THAT MEANS "FIGHT THEM". Bumping works since
+V201 and bumping is not a decision, it is something that happens to you.
+(2) NOTHING IS ON THE GLASS AT THE DOOR AND NOTHING CAN BE. hostilePass asks for crews inside
+seeR = ceil(max(canvas)/C/2)+6, and the real numbers at house scale are C 44 on a 418x861 canvas,
+SO THE SEE RADIUS IS 16 FINE CELLS. Nearest crew to the spawn: 24, then 31, then 32. Bodies drawn
+at the door: 0. After a minute of walking: 0. Crew spacing is 90 cells. RUN's crews are real and
+they are EIGHT CELLS OUTSIDE the radius that can draw one.
+(3) A DIRECTED WALK AT THE NEAREST CREW IS WALLED IN: 20 fine cells, then 0 more in 140 render
+frames. The district he wakes in is 'suburb', which by design has no road row either.
+(4) SF_GRACE IS 40 STEPS and the measured walk rate is 20 cells a minute, so V201's own dial rules
+out a street fight for exactly the window the row is about.
+
+THE SPLIT THAT SHIPPED: GRACE IS ABOUT BEING JUMPED. SF_GRACE is the __NOT_YOUR_OWN_HOUSE__ lesson
+and it is UNTOUCHED; the bump path keeps every step of it. A fight he walks up to and taps is not
+an ambush, so the tap does not wait the grace out. The cooldown still holds and one crew is still
+one fight, both through the same SF_DONE and SF_LAST the bump path uses, so the two cannot
+disagree. AND IT GOES THROUGH THE ONE DOOR: cityHandOver, so the tap inherits V205's two-beat
+pull-back and cloud, V215's save, V207's day and V211's plate charge with NO new wire.
+The hit test reads HOST_HIT, ONE LINE ADDED TO RUN's draw pass recording the rectangle the frame
+actually blitted. That is deliberate: the alternative was a second copy of that geometry (lad
+switches on C, the sprite hangs UP from the cell and is centred on it) and a hit test derived from
+a copy drifts. Same rule as HOST_SPR three lines above it.
+AND THE STREET TELLS HIM, once per crew, off the crew's own state: "2 OF THEM HAVE CLOCKED YOU.
+TAP ONE AND IT STARTS." through streetSay, which already clears itself. [draft:true, WORDS owns it.]
+
+*** AND A HOLE UNDER THE BELL THAT NOBODY HAD LOOKED AT. *** Measured through the shipped door on
+the first fight of a fresh game, the readout said "READY -- read the horizon, pop on green". That
+is fullResetCombat's BENCH line: it does not say a fight has started and "pop on green" names a
+mechanic a first-time player has never seen. AND IT IS NOT MEANT TO BE THERE. V202 reserved that
+line for the teaching fight and BOTH readers stand down for it -- worldRead and plateRead each
+carry the comment "the lesson owns the readout" -- AND THE LESSON NEVER WROTE A LINE. A reservation
+nobody filled, so the first fight of the game has been telling him to read a horizon. Now it says
+A FIGHT HAS STARTED / press FIRE, then FIRE again on the beat, named off the real button (#fire is
+labelled FIRE in the cover phase and pressing it opens the dial). [draft:true.]
+
+gates/you_can_start_it_gate.js 19/0. It dispatches a REAL POINTER on the real canvas at the
+rectangle the frame blitted: tap on empty street 0 encounters; tap on a body -> why 'tapped',
+street true, room false, roster 2 (the crew's OWN count); a second tap nothing; the bump path in
+its grace still refuses; at the bell A FIGHT HAS STARTED / press FIRE. MUTATION-PROVED FOUR WAYS,
+each on its own arm: unwire the tap -> the tap arms red; make the hit test accept any point -> the
+empty-street arm red; silence the bell line -> both bell arms red; remove the street line -> the
+street arm red.
+THREE BROKEN INSTRUMENTS WERE FIXED BEFORE ANY OF IT WAS BELIEVED, and two are worth other lanes
+knowing: (a) A SYNCHRONOUS WALK LOOP NEVER RENDERS, so HOST_DREW stays empty and a probe reports
+zero hostiles at every distance; (b) THE DAY CARD IS OVER THE GLASS AT THE DOOR (#daycard, 418x853,
+z 40, pointer-events auto) and elementFromPoint at a body returns DIV#daycard -- three runs of this
+gate sent every tap into a card; (c) REACHABILITY IS TWO QUESTIONS: the frame said CANVAS#cv at a
+body while the SHELL said DIV#openInvite at the same screen point, and the finger lands in the
+shell. Also: THE DOOR TAKES TWO BEATS before it hands over, so a 600 ms wait reads a working tap
+as a dead one; and a WATCHING body walks a third of a cell per beat, so a rect read three seconds
+ago is a rect the body has left.
+NO DAMAGE BEFORE THE DIAL: nothing here touches a number in a fight; the roster size is the crew's
+own count, which RUN decided, exactly as the bump path reads it.
+Record: records/BOHEMIA_COMBAT_YOU_CAN_START_IT_9_15_26.md  Build stamp 9/15i.
+
+ROUTED OUT OF V217, MEASURED, NOT MINE:
+-> RUN [enemies exist] / [wake near]: A HOSTILE BODY CANNOT BE ON THE GLASS AT THE DOOR. See radius
+   16 cells, nearest crew 24, spacing 90, hostiles near the spawn 0, and a directed walk out of the
+   suburb stops dead after 20 cells. The tap works the moment a body is in frame. Nothing puts one
+   in frame where he wakes.
+-> RUN, rule 14(a): the CITY half of V217 reaches the demo immediately (88% of its bytes load by
+   path). The BLOB half -- the line at the bell -- is inside the frozen shell and waits for the next
+   cut, alongside the font fix from V214.
+-> WHOEVER OWNS THE COLD OPEN: #openInvite ("DAY 1 BEGINS BEFORE THE DAY ... WATCH / NOT NOW") is
+   pinned over the top of the walked city at z 39 with pointer-events auto, so a finger that lands
+   on it never reaches the city at all.
+
 *** [plates cost] BB-THE-FIGHT-EATS-TAPE -- NO TAPE, NO PLATE. V211. SHIPPED. ***
 MEASURED FIRST AND HALF OF IT WAS ALREADY BUILT BY ANOTHER LANE: the purse declares
 fight:plate, it spends `resources`, it ALREADY REFUSES at zero (INSUFFICIENT, wanted 1, short 1),
@@ -22711,7 +22787,7 @@ ROUTED, NOT MINE TO FIX: EYES item 1 measured that THE FONT FIX IS REAL AND IS N
 carries 42 and 2 and none. Same for V216 and for everything six lanes shipped. Under rule 14(a) ONLY
 RUN RE-CUTS THE DEMO, so all of it is one cut away from the surface he actually opens.
 
-QUEUE STATE: [prefight save], [first fight], [enemies flee] AND [plates cost] ARE SHIPPED. [loot kept], [guns close] and [rescue her] are all SHIPPED (efd64c7 carries
+QUEUE STATE: [start a fight], [prefight save], [first fight], [enemies flee] AND [plates cost] ARE SHIPPED. [loot kept], [guns close] and [rescue her] are all SHIPPED (efd64c7 carries
 [guns close] and the key-guard fix; every sha read off main after the push). THE NEXT OPEN LINE IN
 THIS SECTION IS [armour morale] ARMOUR-AND-MORALE, but rule 14 may put another of his breaks first:
 re-read the front page before claiming.

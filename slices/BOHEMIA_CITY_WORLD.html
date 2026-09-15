@@ -38641,6 +38641,10 @@ function stepOnce(di){
          one step is one place a body arrives, exactly as inEnter is the one
          place a body goes through a door. */
       try { streetFightOnStep(); } catch(_e){}
+      /* V217 __YOU_CAN_START_IT__: and if nobody jumped him, the street says who is
+         standing there and that tapping one starts it. After the fight check, never
+         before it: a line about a fight must not cover a fight. */
+      try { streetFoeSeen(); } catch(_e){}
       /* __CITY_AGAINST__ -- AND EVERY ENEMY IN SIGHT TAKES A STEP. WORLD MOVERS
          LAW: nothing moves until you do, so this is here and nowhere else.
          BESIDE THE STREET FIGHT, NOT INSTEAD OF IT: COMBAT and PEOPLE landed on
@@ -50155,6 +50159,7 @@ function wildPass(ox, oy, C) {
    has no state that means "attacks". COMBAT owns what happens on contact.
    ========================================================================== */
 var HOST_DREW = [], HOST_DENSITY = 1.0, HOST_DANGER = null, HOST_OWNER = {};
+var HOST_HIT = [];   /* V217 __YOU_CAN_START_IT__ (COMBAT): the rectangles this frame blitted, so a tap can be tested against the drawing */
 
 /* WHOSE CORNER IS THIS. The bases the RUN already placed, and nothing new.
    Cached per overmap cell because it is asked once per candidate spot.
@@ -50275,6 +50280,7 @@ var HOST_LASTB = -1;                /* the last beat this pass advanced on */
 
 function hostilePass(ox, oy, C){
   HOST_DREW = [];
+  HOST_HIT = [];   /* V217 __YOU_CAN_START_IT__: cleared with HOST_DREW, same frame, same rule */
   if (typeof BohemiaHostiles === 'undefined') return 0;
   if (!PLAYER_CV) return 0;               /* no body yet: draw nobody, never a placeholder */
   var danger = hostDanger();
@@ -50393,6 +50399,14 @@ function hostilePass(ox, oy, C){
       try { g.drawImage(pplTinted(dir, (k * 37 + 11) % 97, img), dx0, dy0, lad, lad); }
       catch(_e) { g.drawImage(img, dx0, dy0, lad, lad); }
       drawn++;
+      /* V217 __YOU_CAN_START_IT__ (COMBAT): AND WHAT WAS BLITTED IS RECORDED, so a
+         tap can be tested against the rectangle this frame really used. The
+         alternative was a second copy of this geometry in another function -- lad
+         switches on C, the sprite hangs UP from the cell (dy0 = sy + C - lad) and
+         is centred on it -- and a hit test derived from a copy is a hit test that
+         drifts. Same rule as HOST_SPR three lines up: record the thing that
+         happened, never the flag that chose it. One line, no behaviour. */
+      HOST_HIT.push({ crew: cw, x: dx0, y: dy0, w: lad, h: lad });
       /* RECORD ONLY WHAT LANDED ON THE GLASS. The cull allows a three-tile
          margin so nobody pops in at the edge, which is right for DRAWING and
          wrong for a record -- tier 1 got this wrong and a probe reported a
@@ -52405,6 +52419,14 @@ document.getElementById('bikebtn').addEventListener('click',()=>{
        third path can bring it back. The placement half is already unreachable
        (TP.on is pinned false and no button remains to set it), so nothing a
        player can reach is lost. */
+    /* V217 __YOU_CAN_START_IT__: A TAP ON A HOSTILE BODY STARTS THE FIGHT. It reuses
+       the walked view's OWN tap-versus-drag test (TP._tapMoved, set by the same
+       handler pair above) rather than inventing a second one, so a drag still looks
+       around and a pinch is still a pinch. A tap on anything else is unchanged and
+       does nothing, which is what it did before. */
+    if(MODE==='human' && typeof TP!=='undefined' && TP._tapStart && TP._tapMoved<8 && pts.size<=1){
+      try{ streetTapFight(TP._tapStart.x, TP._tapStart.y); }catch(_e){}
+    }
     if(typeof TP!=='undefined'){ TP._tapStart=null; }
     pts.delete(e.pointerId);
     const a=two();
@@ -59333,6 +59355,92 @@ function streetFightOnStep(){
   try{ CITY_CONTACT_POSTED=true; }catch(_e){}   /* V203 */
   return true;
 }
+/* ===== V217 __YOU_CAN_START_IT__ -- A FIGHT YOU CHOOSE ======================
+   PAOLO 9/15: "I don't even know how to engage in combat and when that shit
+   starts." Measured before writing this: a real tap on the walked street produced
+   ZERO encounters, because in MODE 'human' the canvas handler only pinches, resets
+   the zoom on a double tap, and measures drag. There was no input anywhere in the
+   game that means "fight them". Bumping a body works (V201) and bumping is not a
+   decision, it is something that happens to you.
+   ONE CREW IS STILL ONE FIGHT and the cooldown still holds, both through the same
+   SF_DONE and SF_LAST the bump path uses, so the two paths cannot disagree about
+   what has already happened.
+   AND IT DOES NOT WAIT OUT SF_GRACE, on purpose. Grace is the
+   __NOT_YOUR_OWN_HOUSE__ lesson: nobody gets JUMPED on his own doorstep. A fight he
+   walks up to and taps is not an ambush. Measured, that distinction is the whole
+   row: grace is 40 steps and the real walk rate is 20 fine cells a minute, so the
+   street cannot start a fight for the first two minutes of the game. The bump path
+   keeps every step of its grace. */
+var TAP_FOE_SAID = {};
+
+/* WHICH BODY DID HE TAP. HOST_HIT is the rectangle the frame actually blitted, so
+   this asks the drawing and never a copy of it. Back to front, because the last
+   body drawn is the one on top. */
+function streetTapFoe(sx, sy){
+  try{
+    if(typeof HOST_HIT==='undefined' || !HOST_HIT || !HOST_HIT.length) return null;
+    for(var i=HOST_HIT.length-1;i>=0;i--){
+      var r=HOST_HIT[i]; if(!r||!r.crew||!r.crew.at) continue;
+      if(sx>=r.x && sx<=r.x+r.w && sy>=r.y && sy<=r.y+r.h) return r.crew;
+    }
+  }catch(_e){}
+  return null;
+}
+
+/* THE TAP IS THE FIGHT. The same message the bump sends, with no room, so it lands
+   on a street board -- and through cityHandOver, the one door, which is where the
+   camera pull-back, the cloud, the save, the day and the plate charge already live.
+   why:'tapped' so every downstream reader can tell a chosen fight from an ambush. */
+function streetTapFight(sx, sy){
+  if(typeof INSIDE!=='undefined' && INSIDE) return false;
+  if(!(window.parent&&window.parent!==window)) return false;
+  try{ if(CITY_CONTACT_POSTED) return false; }catch(_e){}
+  var crew=streetTapFoe(sx, sy);
+  if(!crew || !crew.at) return false;
+  var ck='crew:'+crew.at[0]+','+crew.at[1];
+  try{ if(SF_DONE[ck]) return false; }catch(_e){}
+  try{ if(SF_STEPS - SF_LAST < SF_COOLDOWN) return false; }catch(_e){}
+  var cn=Math.max(1,Math.min(8,crew.count|0)), roster=[];
+  for(var i=0;i<cn;i++) roster.push({arch:(i%4===3)?'bot':'human'});
+  var fac=null; try{ fac=(typeof cityFactionHere==='function')?cityFactionHere():null; }catch(_e){}
+  if(!cityHandOver({type:'BOHEMIA_CITY_ENCOUNTER',
+    label:'out on the block', faction:fac, draft:true, roster:roster,
+    street:true, why:'tapped',
+    at:{gx:hx|0, gy:hy|0}})) return false;
+  try{ SF_DONE[ck]=1; SF_LAST=SF_STEPS; }catch(_e){}
+  try{ CITY_CONTACT_POSTED=true; }catch(_e){}
+  return true;
+}
+
+/* AND HE IS TOLD, ONCE PER CREW, BECAUSE A CONTROL NOBODY MENTIONS IS NOT A
+   CONTROL. It reads the state the crew's own model decided (close beats watch
+   beats idle) rather than inventing a second opinion about how close they are, and
+   it speaks through streetSay, the street's one shared line, which already clears
+   itself after the director's own gap.
+   [draft:true] the wording is an attempt; WORDS owns it. */
+function streetFoeSeen(){
+  if(typeof INSIDE!=='undefined' && INSIDE) return false;
+  try{ if(CITY_CONTACT_POSTED) return false; }catch(_e){}   /* a fight outranks a line about one */
+  if(typeof HOST_DREW==='undefined' || !HOST_DREW || !HOST_DREW.length) return false;
+  var rank={close:3,watch:2,idle:1}, cw=null, best=0;
+  for(var i=0;i<HOST_DREW.length;i++){
+    var c=HOST_DREW[i]; if(!c||!c.at) continue;
+    var r=rank[c.state]||1;
+    if(r>best){ best=r; cw=c; }
+  }
+  if(!cw) return false;
+  var ck=cw.at[0]+','+cw.at[1];
+  if(TAP_FOE_SAID[ck]) return false;
+  try{ if(SF_DONE['crew:'+ck]) return false; }catch(_e){}
+  TAP_FOE_SAID[ck]=1;
+  var n=Math.max(1,cw.count|0), who=(n===1)?'ONE OF THEM':(n+' OF THEM');
+  var txt=(cw.state==='close')?(who+' ARE COMING FOR YOU. TAP ONE AND IT STARTS.')
+        :(cw.state==='watch')?(who+' HAVE CLOCKED YOU. TAP ONE AND IT STARTS.')
+        :(who+' AND THEY ARE NOT FRIENDLY. TAP ONE AND IT STARTS.');
+  if(n===1) txt=txt.replace('ARE COMING','IS COMING').replace('HAVE CLOCKED','HAS CLOCKED');
+  return !!streetSay(txt);
+}
+/* ===== /V217 __YOU_CAN_START_IT__ ===== */
 function cityFightOnEnter(){
   if(!INSIDE||!cityFightRoll())return false;
   if(!(window.parent&&window.parent!==window))return false;
