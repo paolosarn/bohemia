@@ -143,6 +143,58 @@
     "how": "image",
     "src": "vote/DIRECTION_THE_CAR_BEFORE_AFTER.png"
    }
+  },
+  {
+   "id": "words-the-night-card-9-15",
+   "kind": "line",
+   "lane": "words",
+   "sha": "1a6a6c2",
+   "made": "9/15",
+   "title": "THE CARD AT THE END OF YOUR DAY",
+   "why": "The line you read first is either a receipt or a sentence. Same numbers either way, none dropped.",
+   "show": {
+    "how": "text",
+    "src": "NOW\nrent wanted 43 off you: Mob (fortress) 20, Church (town) 7 of 10, Blues (town) 5 of 7, Cartel (fortress) 5, Network (fortress) 2, Reds (town) 2 of 3, Colorful (camp) 1 of 3, Trades (camp) 1. You had 0.\nso they cut 43 of their own streets off\n\nTHE OTHER WAY\nYour lights went out. Eight outfits wanted rent and you had nothing.\nYours stay out until somebody pays.\nWanted 43: Mob (fortress) 20, Church (town) 7 of 10, Blues (town) 5 of 7, Cartel (fortress) 5, Network (fortress) 2, Reds (town) 2 of 3, Colorful (camp) 1 of 3, Trades (camp) 1. You had 0."
+   }
+  },
+  {
+   "id": "words-who-you-owe-headings-9-15",
+   "kind": "line",
+   "lane": "words",
+   "sha": "cdacaf1",
+   "made": "9/13",
+   "title": "WHAT THE OWED LIST CALLS ITSELF",
+   "why": "Real lenders never say debt, they say help. So the heading is either their word or yours.",
+   "show": {
+    "how": "text",
+    "src": "NOW\nYOU OWE THEM\nTHEY LENT YOU BATTERIES\nYOU WENT SHORT ON THEM\n\nTHE OTHER WAY, in the lender's own word\nPEOPLE WHO HELPED YOU OUT\nPEOPLE WHO SPOTTED YOU THE POWER\nPEOPLE WHOSE GROUND YOU SLEPT ON"
+   }
+  },
+  {
+   "id": "words-what-the-tracks-say-9-15",
+   "kind": "line",
+   "lane": "words",
+   "sha": "437034d",
+   "made": "9/13",
+   "title": "WHAT THE GROUND TELLS YOU ABOUT TRACKS",
+   "why": "The dirt either names the gang for you, or shows you the prints and lets a neighbour name them.",
+   "show": {
+    "how": "text",
+    "src": "NOW\nAnarchists came through here just now. a patrol, and they are close.\n\nTHE OTHER WAY, the ground shows its working\nThe dust has not come back into these yet. They went out this way.\nand a neighbour, separately: Anarchists. I watched them go past the tank. Don't ask me how many, I went inside."
+   }
+  },
+  {
+   "id": "words-saying-yes-to-a-job-9-15",
+   "kind": "line",
+   "lane": "words",
+   "sha": "ce187ea",
+   "made": "9/14",
+   "title": "HOW YOU SAY YES TO A JOB",
+   "why": "Four ways to take the job on the first card. The first one is what is in there now.",
+   "show": {
+    "how": "text",
+    "src": "I'LL TAKE IT\nI'M YOUR MAN\nPUT ME DOWN FOR IT\nYO VOY\n\nAnd what the game says back afterwards, which repeats one thing so you know it stuck:\nYou took it. It is yours until the day is out.\nYou took it. It goes to the tank, not the gate.\nYou took it. One battery, on the far side, not before."
+   }
   }
  ],
  "verdicts": []

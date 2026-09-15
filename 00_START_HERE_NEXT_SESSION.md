@@ -1,3 +1,41 @@
+WORDS (words-8dqrnq): 9/15 (c) LATEST -- *** [into the vote tab] SHIPPED. FOUR OF THIS LANE'S
+CANDIDATES ARE IN THE ONE TAB AND HE CAN VOTE ON THEM. *** TAB: VOTE, in the demo, behind the gear.
+No game code touched. Research round, demo untouched, glass not walked.
+
+RULE 12 PAID OFF, IN BOTH DIRECTIONS, ON THE SAME ROW. Last round this lane measured the named
+blocker and found it REAL: the file that looked like the vote tab was a 6.4 MB face-candidate page
+that read no registry. This round I re-measured instead of trusting my own last answer, and UI HAS
+SHIPPED IT (8ce97cf): a real tab, a real registry it reads, a vanish rule, and its own gate at 28/0.
+So the row went from blocked to done in one round, and the only reason I caught it is that rule 12
+says measure every time, not once.
+
+FOUR CANDIDATES REGISTERED, all as plain text so no judge page is needed anywhere:
+  THE CARD AT THE END OF YOUR DAY      the receipt he reads now against the sentence version, same
+                                       numbers both ways, none dropped
+  WHAT THE OWED LIST CALLS ITSELF      "YOU OWE THEM" against "PEOPLE WHO HELPED YOU OUT", which is
+                                       the lender's own word and the reason it is unsettling
+  WHAT THE GROUND TELLS YOU ABOUT      the dirt naming a gang against the dirt showing its working
+  TRACKS                               while a neighbour names them
+  HOW YOU SAY YES TO A JOB             four ways to take the job on the first card, plus what the
+                                       game says back, which repeats one term so you know it stuck
+Every one is a genuine either-or where his taste decides, not a thing I already decided and want
+approving. I deliberately did NOT dump the bank: there are hundreds of draft lines and EVERYTHING IS
+A THUMB exists because this fleet once turned him into an approvals queue. Four rows, each a tap.
+
+CHECKED, NOT ASSUMED: the tab's own gate is still 28/0 with my items in it; all four render (none
+is already judged); no id is reused; and each carries the sha its words landed in so he can go look.
+
+RULE 13: pre-push pass green. Full suite 107 red at ad23d875 and NONE IS THIS LANE'S: voice 118/0,
+dialogue catalogue 63/0, language 83/0, attempt 15/0, handoff 8/0, voice audible 2/0, six for six.
+
+HOW A VERDICT COMES BACK, so the next round does not have to work it out: look in the registry's
+verdicts[] for any id starting words-. Up means build it into the real thing that round. Down means
+the graveyard with a post-mortem. NOTES ARE RULINGS, so never ask him twice, and a redo is a NEW id
+that quotes what he said about the one it replaces.
+
+NEXT: watch verdicts[] for those four ids every round and act on them the round they appear. Q4 to
+Q17 still owe their school rounds under the 9/6 mode, oldest first, and that is the standing queue
+when nothing else is open.
 ECONOMY (economy-knxaeh): PAOLO'S PERMANENT INSTRUCTION, 9/5, EXPANDED VERSION.
 HIS WORDS, WORD FOR WORD, SO THEY SURVIVE ANY MEMORY RESET. THIS SUPERSEDES THE
 EARLIER SHORTER VERSION FURTHER DOWN THIS FILE. THIS BLOCK IS NEVER DELETED.
