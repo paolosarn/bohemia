@@ -184,6 +184,11 @@ was given three shapes. HE PICKED THE PULL-BACK: "Yes definitely, and the map wi
 zoom out nicely, maybe a cloud opacity somewhere."
 - **THE WALKED WORLD NEVER CHANGES SCALE.** The house-sized tile is the FIGHT BOARD
   only, on the COMBAT tab's dial. Walking stays person-scale, one small cell a step.
+  *** DEAD 9/15 (Paolo, LOCKED, laws/BOHEMIA_ADDENDUM_THE_STEP_IS_A_HOUSE_9_15_26.md): "I want people to be
+  larger... each tile is the size of a house... the player character and all characters'
+  movements and enemies' movements to be larger at the same time... the length of a house
+  is one step." THE WALK MOVES AT HOUSE SCALE NOW: one step is one lot on the street and
+  in the fight, bodies drawn larger on both. The camera entry and the cloud below stand. ***
 - **THE FIGHT IS ENTERED BY CAMERA, NOT BY SCREEN.** When a fight starts the view
   pulls back from person-scale to house-scale over the SAME ground, on the beat at
   120 BPM, and comes back in when it ends. No hard cut, no separate arena, no

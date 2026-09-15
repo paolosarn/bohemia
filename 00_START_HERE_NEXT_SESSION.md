@@ -23827,6 +23827,19 @@ nothing' was its own walk, all eight buttons work; EYES r4 retracted its two dea
 (zero, on an unchanged file); PEOPLE: over 34 game-minutes the walk director fired TWICE
 against ~22 allowed, the road director zero, which is why nothing happens on a walk;
 COOK r3: the houses are 4% of his screen and were not next.
+THEN (ef) PAOLO 9/15: THE STEP IS A HOUSE. Verbatim: records/BOHEMIA_PAOLO_THE_STEP_IS_A_HOUSE
+_9_15_26.md. Law: laws/BOHEMIA_ADDENDUM_THE_STEP_IS_A_HOUSE_9_15_26.md, front-page RULE 16. One step is one lot on
+the street and the fight board, for the player, every character, every enemy; bodies drawn
+larger on both (default about half a lot tall at walk zoom, he corrects in play); 120 BPM and
+one step per beat unchanged; the clock per step re-derived from walking speed so distances,
+days and rent stay true and real-time travel gets faster by the multiple; ONE constant in one
+place read by street, fight, bodies, seam and reach; NOT a rebuild (the art stays, the lattice
+coarsens). The 9/4 'walked world never changes scale' bullet is DEAD (law amended); CLAUDE.md
+pillar amended. FIRST LINES: RUN [step is a house] (owns the step and the constant), COMBAT
+[house board], CHARACTER [bigger bodies], LIFE+CITY [lot lattice]; notes on ANIMATION,
+PLUMBER, DIRECTION, [zoom meets]. Measured today: a step = one fine cell (44 px, 0.084 min), a
+lot = FN 32 fine cells, a body ~32 px; the fight draws ~15 px at the swap. His question
+answered in the law: yes it makes sense; no, not a remodel from the ground up.
 
 COORDINATOR: 9/4 (ba) -- *** THE MEETING HALL:
 VAMILY.md's front page now carries every rule, and every chat re-reads it every time
