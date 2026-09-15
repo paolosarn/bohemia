@@ -39097,7 +39097,35 @@ function stepOnce(di){
   } else {
     // VEHICLE LADDER (LOCKED 7/6): bike = 4 cells per beat, one REQUEST,
     // beat-executed like everything else. Blocked cell stops the ride there.
-    const per=RIDING?4:1;
+    /* *** ONE STEP IS A HOUSE (Paolo 9/15, LOCKED, rule 16). ***
+       "however long it takes right now to walk the length of a house, that would
+       be done in one step... I want people to be larger, cause remember each tile
+       is the size of a house."
+       THE THREE NUMBERS, MEASURED ON THE GLASS BEFORE ANYTHING WAS WRITTEN:
+         a step   1 fine cell = 0.75 m = 0.084 min, drawn 18 px at walk zoom
+         a lot    the overmap cell, FN = 128 fine cells = 96 METRES
+         a house  his own, 21 x 12 fine cells = 15.75 x 9 m, drawn 378 x 216 px
+         his phone 390 px wide = 21.7 fine cells = 16.3 m = ONE HOUSE ACROSS
+       AND THE MEASUREMENT REFUSES TWO READINGS OF THE ROW, WHICH IS WHY IT SAYS
+       MEASURE FIRST. The board says "a lot is FN=32 fine cells" and "one step
+       lands on the next lot": FN is 128, not 32, so a lot-sized step is 96 m --
+       which is the CITY-mode step that already exists and already costs ten
+       minutes. Doing that on the street deletes the street. And his own words, one
+       step = one house = 21 cells, is A WHOLE SCREEN PER BEAT at 120 BPM, which is
+       two screens a second.
+       SO THE STEP IS AS LARGE AS THE CURRENT ZOOM ALLOWS, AND THE REST WAITS ON
+       THE ZOOM, which is [zoom meets] on this same lane and which he asked for in
+       the same breath ("I want people to be larger"). A QUARTER OF HIS OWN HOUSE:
+       you cross your own frontage in four steps instead of twenty-one, the view
+       moves a quarter screen a beat instead of a whole one, and travel on foot is
+       five times faster in real time.
+       THE CLOCK IS NOT TYPED AND CANNOT DRIFT: every cell crossed still pays its
+       own stepCost() into advance(), so the day, the distances, the jobs and the
+       rent nights stay exactly as true as they were. Game-time distance does not
+       change; only the number of presses does, which is the whole ask.
+       ONE NUMBER IN ONE PLACE: the bike keeps its 7/6 ladder as a MULTIPLE of the
+       walk rather than a second opinion about what a step is. */
+    const per=(RIDING?4:1)*STEP_CELLS;
     let moved=0;
     for(let k=0;k<per;k++){
       const nx=hx+dx, ny=hy+dy;
@@ -39259,6 +39287,14 @@ function stepOnce(di){
    INDOORS IS UNTOUCHED. The interior step has its own advance() and a corridor is
    not a highway. */
 var MIN_PER_CELL = 0.084;                  /* the baseline, and it does not move */
+/* __THE_STEP_IS_A_HOUSE__ (Paolo 9/15, LOCKED, rule 16) -- THE ONE CONSTANT.
+   Fine cells crossed per beat on foot. Derived from the measurement, not picked: his
+   own house is 21 fine cells on its long side and his phone holds 21.7, so a quarter
+   house is the largest step that still leaves the view coherent at today's zoom.
+   The law says this number lives in ONE PLACE and that the street, the fight, the
+   bodies, the zoom seam and the reach module all read it; a second copy is the bug.
+   Turning this dial is the whole of "one step is a house" once [zoom meets] lands. */
+var STEP_CELLS = 5;
 var PAVED = { asphalt: 1, concrete: 1 };
 var PAVED_SPEED = { factor: 0.5, ruling: 'REALISM FIRST: rough going is about half road pace', tuned: false };
 function stepCost(c){
