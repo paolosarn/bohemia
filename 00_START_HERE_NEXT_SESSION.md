@@ -13448,7 +13448,83 @@ RIGHT NOW: (a) write this whole instruction, word for word, into your own handof
 
 I will never paste anything to you again. From here on, the one word is the whole instruction.
 
-THIS ROUND -- *** HIS BUG FIRST, AND THE CAST CHANGE WAS INNOCENT. THEN THE ROW:
+THIS ROUND -- *** WHAT A HOUSE ACTUALLY IS, AND THE BODY STOPS BEING CHOSEN OFF THE CELL.
+(sha ee31c367, rule 16 THE STEP IS A HOUSE, row [bigger bodies]) ***
+
+THE MEASUREMENT THE LAW ORDERS, MADE ONCE FOR ALL FOUR LANES SO NOBODY MAKES IT AGAIN.
+Twelve suburbs from the real district generator, every building footprint walked:
+    a fine cell            0.75 m
+    a HOUSE footprint      13 x 12 cells   9.8 x 9.0 m   median of 122 houses
+    a LOT, kerb to kerb    25 cells        18.8 m        median pitch between neighbours
+    an overmap tile        128 cells       96 m
+    a step today            1 cell         0.75 m
+    the body today        104 px painted at HC 44, which is 2.4 cells, 1.77 m
+18.8 m is a real American tract lot and 9.8 x 9.0 m is a real small house on it. The world
+is already at honest human scale, which is the good news: nothing has to be redrawn.
+
+TWO NUMBERS HANDED DOWN, BOTH WRONG, AND RULE 12 IS WHY I CHECKED.
+The law's own parenthetical: "a house is the city's lot cell (the overmap tile)".
+LIFE+CITY's row [lot lattice]: "a lot is FN=32 fine cells today".
+An overmap tile is 128 cells, 96 metres, a CITY BLOCK about five lots on a side. FN is 128,
+not 32. HIS RULING IS NOT IN QUESTION -- what a house IS in the world we built is a
+measurement, and a step of 128 cells would cross a whole block. THE ANSWER IS 25.
+
+THE RESULT THAT IS NOT OBVIOUS AND IS THE POINT OF THE ROUND.
+HE ASKED FOR PEOPLE TO BE LARGER AND THE BODY NEEDS NO NEW PIXEL. "About half a lot tall"
+at today's 104 px body means A LOT MUST DRAW ABOUT 208 px. Today a lot draws 1,100, which
+is exactly why you cannot see a house: the camera shows 8.6 cells, 6.4 metres of bare
+ground, and nothing on that screen reads as a street. At 208 px a phone shows about 1.8
+lots and THE PERSON IS 5.3 TIMES LARGER AGAINST THE WORLD WITH THE SAME SPRITE. What has to
+move is the ground under him, and that is RUN's zoom, not this lane's art.
+
+AND THE BUG THAT WAS WAITING FOR THE FIRST LANE TO ZOOM OUT.
+The body's size was chosen off the CELL size. The first commit that zooms out to show lots
+would have SHRUNK every person from 104 px to 28 px -- a quarter of their height, the exact
+opposite of his ruling, no error, no red gate, visible only when he played it. Measured at
+the lot camera: old ladder 28, new ladder 112. The body is chosen off THE LOT now, so a
+smaller cell cannot shrink a person.
+FIVE COPIES OF THAT LADDER EXISTED: the crowd, the player, the speech bubble's box, the
+indoor draw, and one helper. All five go through the helper now. Four of them would have
+drifted one at a time, and a speech bubble floating off somebody's head is how you find out.
+
+WHAT SHIPPED AND WHAT DID NOT, SAID PLAINLY.
+SHIPPED: the wire and the numbers. It is a NO-OP TODAY, proven rung for rung at ten zoom
+levels, and still a no-op after the step constant has been set and cleared.
+NOT SHIPPED ON PURPOSE: the new size. The law says the step and the body move AT THE SAME
+TIME and the step is RUN's. Growing the body on a camera that still shows 6.4 metres of
+ground puts a giant on a person-scale street and answers his ruling with a worse bug. The
+day RUN sets one number the crowd, the player, the bubble and the indoor body all move
+together and this lane has nothing left to do.
+
+-> FOR RUN [the step]: one step = 25 fine cells. A lot wants about 208 px at walk zoom, so
+   HC lands near 8. THE BODY NEEDS NO CHANGE; set the number and it follows.
+-> FOR LIFE+CITY [lot lattice]: a lot is 25 fine cells, not 32 and not 128. Lot corners
+   fall every 25; a house body occupies 13 of them.
+-> FOR COMBAT: the street body paints 104 px in a 112 box. The fight is a separate embedded
+   document and this lane did not touch it; matching that number is what the 9/13 verdict
+   "the person crosses at one size" actually means.
+
+- SHIPPED to the alpha. Build 9/15m. No demo re-cut (rule 14a, only RUN cuts the demo).
+- TAB: the people on the street in the RUN tab, and in CITY mode. Nothing new to open, and
+  nothing he can see changed this round, which is the intended outcome.
+- GATE: gates/body_scale_gate.js, NEW, 10/0, measured in the running city. Mutation-proven
+  three ways: break the no-op RED, point the sprite rung back at the cell RED, put a second
+  inline ladder back RED.
+- SUITE (rule 13): pre-push pass green -- body_scale 10/0, faction_colour 38/0,
+  city_cast_silhouette 6/0, a_crowd_to_walk_into 9/0, people_gather 14/0. Full suite: 107
+  red at ad23d875; the two carrying this lane's name (FACE THUMB, LOOK) were red on main
+  before this lane's last four ships, settled by commit dates, and nothing from this round
+  is in that line because the line predates it.
+- NEXT ROUND: [bigger bodies] is done on this lane's side and will need ONE more round the
+  moment RUN's constant lands, to look at it on the glass and correct the half-a-lot
+  default by eye. Until then the next OPEN line is [names lie] A-GARMENT-NAMED-COPPER-
+  RENDERS-GREEN.
+- [PENDING Paolo] unchanged and still carried: which faction colour file wins; the
+  Anarchists need a magenta garment and there are zero in 317 (the reserved purple band
+  blocks the obvious cook); the Cartel sits on the drab exemption list and not in the law
+  that names it.
+
+PREVIOUS ROUND -- *** HIS BUG FIRST, AND THE CAST CHANGE WAS INNOCENT. THEN THE ROW:
 THE STREET STOPS BEING A UNIFORM, AND HIS FACTION COLOURS CANNOT MOVE. (sha 62aea60f) ***
 
 PART ONE. He played and said he did not see a single human being, right after this lane
