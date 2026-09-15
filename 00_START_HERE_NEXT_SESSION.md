@@ -1,3 +1,119 @@
+WORDS (words-8dqrnq): 9/15 (d) LATEST -- *** Q4 [beat speech] SCHOOL DONE, ROUND ONE OF TWO.
+NO TEST LINES WRITTEN, banks/ UNTOUCHED, WHICH IS THE MODE. *** Q4 shipped 9/4 under the OLD
+one-round mode, two rounds before Paolo locked SCHOOL THEN WRITE on 9/6, and that mode says a
+question marked SHIPPED without both rounds is not shipped. This lane is paying the debt oldest
+first and Q4 is the oldest. Record:
+records/BOHEMIA_WORDS_Q4_SCHOOL_THE_BEAT_IS_TOO_SHORT_FOR_A_WORD_9_15_26.md
+
+WHAT SCHOOL FOUND, every number measured this round:
+
+(1) THE QUESTION'S FIRST CLAUSE HAS NO ANSWER. "How many words fit one beat" is zero. No
+published legibility floor lets a line occupy one beat: Netflix's floor is 5/6 second = 1.7
+beats, Ian Hamilton's single-word floor is 1 second = 2 beats, and common game accessibility
+practice is 1.5 seconds = 3 beats. At 14 cps a beat holds 7 characters and a 7-character line
+would still be held for the floor. THE SMALLEST UNIT A WORD CAN LIVE IN AT 120 BPM IS THE BAR.
+
+(2) THE BIG ONE, AND IT IS A REUSE FAILURE IN RESEARCH FORM. engine/bohemia_stage.js has carried
+the entire policy since 8/12, built from Paolo's own note that round, with Netflix, the BBC and
+general practice named in its own header: CPS 14, MIN_MS 833, MAX_MS 7000, BEAT_MS 500, rounded
+UP to a whole beat. Q4 went out on 9/4 and derived a words-per-bar table from 260 wpm reading-rate
+literature AND NEVER OPENED THAT FILE. Our corpus runs 5.05 chars per word, so 260 wpm is 21.9
+cps. THE RULER Q4 USED WAS 56% FASTER THAN THE CODE THAT SHIPS, and every conclusion downstream
+inherited the error. The rule this lane takes from it: READ THE REPO BEFORE READING THE
+LITERATURE. REUSE-FIRST is a law about research too, not only about tools.
+
+(3) Q4'S SAFE UNIT IS BACKWARDS. It published "SEVEN WORDS TO THE BAR IS THE SAFE UNIT" and
+argued for it as protection for the slower third of readers. Seven words is 35 characters:
+0.88 bars at 20 cps, 1.18 bars at 15, 1.26 bars at the 14 we actually ship. Seven is the FAST
+reader's unit. The slow reader's unit is SIX (30.3 chars, 2.02 s at 15 cps, one bar to within a
+fiftieth of a second). Off by one word, in the direction that breaks the argument.
+
+(4) THE VALUE Q4 TOLD US TO DESIGN OUT DOES NOT EXIST. It called the median quest line "2.4 bars,
+the worst possible value". 2.4 came out of the 21.9 cps ruler. The median say line is 94 chars:
+2.15 bars at 21.9 cps, 3.13 at 15, 3.36 at the shipped 14. A number produced by the wrong
+instrument got a design instruction written about it. Fourth time this lane has hit that class.
+
+(5) THE SHIPPED readMs() CUTS NEARLY A QUARTER OF OUR LINES SHORT. I loaded engine/bohemia_stage.js
+and ran its own readMs() over all 2,101 lines the game holds on a clock: 478 of them (22.8%) come
+back held for LESS time than that same module's reading speed asks for, every one of them pinned
+at the 7,000 ms Netflix ceiling. Worst is 276 characters (S27_THE_FIFTY_YEAR_SIGNATURE.bq#149):
+needs 19.7 s, gets 7.0 s, 64% of it unread. 345 say, 130 journal, 3 quirk. And 27.0% of all timed
+lines pile onto exactly 14 beats, which is the ceiling and not a property of the writing.
+*** MEASUREMENT HONESTY: THIS IS THE SHIPPED FUNCTION EXECUTED ON OUR CORPUS, NOT A BREAK
+REPRODUCED ON THE GLASS. *** I did not verify which of those 478 reach a stage-driven scene.
+Rule 14(g) says a break is not reported until it is seen, so this goes out as a MEASUREMENT to
+whoever owns that surface, with the command to reproduce in section 5 of the record, and this
+lane claims nothing about the demo. The honest reading: 7 seconds is a ceiling on a SUBTITLE
+because a subtitle is a shadow of speech that carries the meaning anyway. Our cards ARE the
+meaning. The fix is probably splitting the line, not raising the ceiling, and that belongs to
+the card's owner.
+
+(6) THERE ARE THREE CLOCKS AND Q4 BUDGETED ONE. Reveal (shipped dialogue tooling defaults 20 cps,
+up to 45 in fast implementations), hold (the reading budget, 14 to 20 cps with floor and ceiling),
+clear. Our median timed line is 62 chars: typed at 20 cps it takes 3.10 s to reveal against a
+4.43 s budget, leaving 1.33 s of hold; at 45 cps it reveals in 1.38 s and leaves 3.05 s. A 20 cps
+typewriter eats three quarters of a slow reader's budget, SO THE FASTER REVEAL IS THE ACCESSIBLE
+ONE, which is the opposite of the intuition. And karaoke, the oldest craft of putting words on a
+beat, adds LEAD-IN: a line appears about a second before it is sung, roughly 2 beats early. The
+reveal and the landing are different moments. Q4 wrote "reveal on a beat, clear on a beat" as
+though the reveal WAS the landing.
+
+(7) THE PART Q4 GOT RIGHT, NOW PROVEN A SECOND WAY, WHICH IS THE STRONGEST RESULT IN THE ROUND.
+Published lyric density: pop 4 to 10 syllables a bar, hip-hop 6 to 8 sparse and 10 to 13 dense.
+The READ bar, arrived at with no reference to music: 7.5 syllables at 15 cps, 10.0 at 20. Our own
+corpus: 43,936 syllables over 34,747 words (1.26 per word), 5,367 sentences, MEDIAN 6 SYLLABLES.
+Three independent measures, same 6-to-10 band, and 51.0% of our sentences already sit inside it.
+The bar is a real unit for English and was one long before this game existed. The beat is not.
+
+(8) A THIRD OF THE CORPUS HAS NO CLOCK AT ALL, and Q4 measured over it anyway. Of 3,014 spoken
+lines, 913 (30.3%) are player menus: 867 choice, 46 asking. The player holds those as long as
+they like. Their median is 23 chars against 62 for timed lines, so including them moves every
+number. On the 2,101 the game actually holds, at 15 cps with the 1.5 s floor: 1 bar 13.3%,
+2 bars 35.6%, 3+ bars 51.0%, and rounding every line up to a whole bar adds 19.3% to total hold.
+AND THE HEADLINE Q4 WAS REACHING FOR, RE-MEASURED UNDER THE SHIPPED POLICY: our lines land exactly
+on a bar boundary 18.6% of the time. Chance is 25%. Q4 measured 23.7% and said "no better than
+dice". The truth is WORSE than dice, and the reason is mechanical: readBeats rounds up to the
+nearest BEAT, and that is exactly what pushes a line off a BAR.
+
+(9) THIS LANE'S OWN VIOLATION, OWNED HERE. Q4 section 4 is built on Crypt of the NecroDancer and
+Hi-Fi Rush. Neither is on Paolo's named list (FF12 combat gambits, ROGUE FABLE 4 combat on the
+beat, BATTLE BROTHERS campaign, FFX interface and sound, FALLOUT 1 interface, POCKET CITY 2 city
+drop-in, Las Vegas the city), and Q4 was written 9/4, AFTER the 8/28 law and after the 9/5
+department split. Round two cites no reference game at all; its prior art is subtitle practice
+and lyric writing, which are trades rather than games.
+
+RULE 16 CHECKED, NOT ASSUMED: all of this hangs on the beat being 500 ms. BEAT=500 or BEAT_MS=500
+appears in seven places across engine/ and the city slice, each commented with the 120 BPM law,
+and THE STEP IS A HOUSE (9/15) fixes 120 BPM and one step per beat. The arithmetic holds. If the
+tempo ever did rise, the floor is what breaks first: above 120 BPM the 1.5 s floor swallows more
+than three beats and the bar stops being usable for a short line.
+
+WHAT ROUND TWO INHERITS (and must name which of these changed the lines, or school was done badly):
+the unit is the BAR never the beat; six words to the bar at the speed we ship; a sentence is 4 to
+10 syllables; the median timed line is near three bars; anything over 98 characters is clipped
+today; a choice is not timed at all.
+
+ROUTED OUT OF THIS ROUND: the held BUILD row SEVEN-TO-THE-BAR is misnamed by this research (it is
+SIX at the speed we ship); the row stays held while the lane is in research mode and the name is
+corrected when it is built, not before. To UI: three clocks not one, faster reveal is the
+accessible setting, and lead-in is a thing that exists. To UI/SOUNDS: the slow-reader hold stays
+an accessibility setting and Q4 was right about that.
+
+GATES, ALL SIX THIS LANE OWNS, GREEN THIS ROUND: voice 118/0, dialogue catalogue 63/0 (3,147
+lines, 51 sources, all sourced), attempt 15/0, handoff 8/0, language 83/0, voice audible 2/0.
+SUITE LINE: pre-push pass green; none of the suite's outstanding reds is this lane's.
+
+STANDING QUEUE, UNCHANGED: Q5 through Q17 still owe their school rounds under the 9/6 mode,
+oldest first, and that is what this lane pops when nothing else is open. Q4's ROUND TWO is now
+the top of it. The four held BUILD rows (BB-THE-SMALL-MOMENT, BB-STILL-SAYS-IT, BB-RESPONSIVE,
+SECOND-VOICE-PASS) stay held while the lane is in research mode.
+STANDING WATCH: verdicts[] in records/target/BOHEMIA_VOTE_REGISTRY.json, every round, for ids
+starting words-. Four are registered (words-the-night-card-9-15, words-who-you-owe-headings-9-15,
+words-what-the-tracks-say-9-15, words-saying-yes-to-a-job-9-15). Up means build it in that same
+round; down means graveyard with a post-mortem. NOTES ARE RULINGS, never ask him twice.
+HANDOFF DISCIPLINE, THE 9/13 AMENDMENT: this block was built by taking origin/main's copy of the
+file fresh and prepending a NEW head. Never demote another lane's head and never splice by index.
+
 ECONOMY (economy-knxaeh): PAOLO'S PERMANENT INSTRUCTION, 9/5, EXPANDED VERSION.
 HIS WORDS, WORD FOR WORD, SO THEY SURVIVE ANY MEMORY RESET. THIS SUPERSEDES THE
 EARLIER SHORTER VERSION FURTHER DOWN THIS FILE. THIS BLOCK IS NEVER DELETED.
