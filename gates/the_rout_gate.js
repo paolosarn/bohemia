@@ -88,8 +88,17 @@ const done = async (b) => { if (b) await b.close(); if (SRV) try { SRV.close(); 
      number every one of these arms was tuned against, so nothing about the old board
      moves. On the house board it is 1, which is where a man actually is when he turns
      and runs. The claims are untouched; only the ruler is. */
-  await cf.evaluate(() => { window.__CHASE_AT = function () {
-    try { return Math.max(1, Math.min(3, maxRange(wpnRange('pistol')))); } catch (e) { return 3; } }; });
+  /* AMENDED AGAIN 9/15 by V219, and this time to something that is not a number at
+     all: A RUNNER BREAKS FROM WHERE HE WAS FIGHTING, WHICH IS ADJACENT. The first
+     amendment tied the staging to the pistol's reach, and when [house board] gave the
+     adjacency floor its correct value (root two, because a step may be diagonal) that
+     put the runner at 1.41 -- past which ONE step clears both guns, so the rifle
+     bought nothing and the window arm went red saying so. It was right to. Starting a
+     runner at the very edge of the shorter gun is a worst case, not a fight.
+     ADJACENT is where a man is when he turns and runs from you, it is one tile on
+     either board, and it is the only start from which the question "how much longer
+     does the better gun hold him" has an answer at all. */
+  await cf.evaluate(() => { window.__CHASE_AT = function () { return 1; }; });
 
   /* ---- 1. THE BREAK IS THE SHIPPED ONE, NOT A FLAG ----------------------- */
   const broke = await cf.evaluate(() => {

@@ -3360,7 +3360,13 @@ ok('MECHANISM-MINE/CONTENTS-PAOLO\'S PAID OFF: v95\'s allowance table shipped EM
        could not be shot and there was nowhere closer to stand. The floor is now one
        house on the house board and unchanged on the body board. THE NIGHT SCALING
        INSIDE IT IS STILL BYTE-IDENTICAL, which is what V98's law is about. */
-    /function maxRange\(R,mult\)\{ const k=\(mult==null\)\?rangeMult\(\):mult; return Math\.min\(reachCeil\(\), Math\.max\(houseOn\(\)\?1:hd\(PT_BLANK\+2\), R\.max\*k\)\); \}/.test(demo) &&   /* V218 RE-POINTED */
+    /* V219 RE-POINTED, the fifth time, same reason: the claim is only about `R.max*k`
+       and this regex is pinned to the whole line's bytes. The house floor moved from 1
+       to root two because a step on this board may be DIAGONAL, so the nearest a body
+       can ever stand is root two, and a floor of 1 left a man on the corner
+       unshootable with nowhere closer to stand. The night scaling is still
+       byte-identical. */
+    /function maxRange\(R,mult\)\{ const k=\(mult==null\)\?rangeMult\(\):mult; return Math\.min\(reachCeil\(\), Math\.max\(houseOn\(\)\?Math\.SQRT2:hd\(PT_BLANK\+2\), R\.max\*k\)\); \}/.test(demo) &&   /* V219 RE-POINTED */
     /inMyRange\(e\)\{ return !!e && \(e\.edist\|\|0\) <= maxRange\(myRange\(\)\); \}/.test(demo));
 
   ok('V160 THE CEILING IS ONE DOOR: every reach in the game -- yours, theirs, the sniper\'s and the V151 floor that hands him the edge over the field -- comes through maxRange, so a number added anywhere else cannot route around sight. His V151 ruling still stands underneath it: he outranges the field, he just cannot outrange his own eyes',

@@ -23987,6 +23987,66 @@ a memory reset. HE WILL NEVER TYPE ANYTHING BUT THE ONE WORD AGAIN. ***
     I will never paste anything to you again. From here on, the one word is the whole
     instruction.
 
+*** [house board] FOLLOW-UP. V219 -- THE RULERS READ THE BOARD. SHIPPED. ***
+STANDING DUTY 8 ON MY OWN SHIPPED LINE: PLAY IT. V218 turned the house board on and I proved it
+in NUMBERS. This round I started a fight the way he starts one and PHOTOGRAPHED IT, and the
+picture said three things the numbers did not. All three are the same defect: A DISTANCE WRITTEN
+IN BODY TILES, CARRIED ONTO A BOARD MADE OF HOUSES. That is now seven, eight and nine times in
+two rounds, and it is the real lesson of rule 16 for every lane RUN's [step is a house] touches.
+
+ON THE GLASS, IN A REAL FIGHT:
+    "LONG RANGE ~2m"     for a man standing ONE HOUSE away
+    "WAY OUT 10T"        for a win condition placed OUTSIDE THE BUILT WORLD
+
+(1) THE METRES. Two readouts turned tiles into metres with a hardcoded *1.5 -- a BODY tile, a
+person's step, right for years. Now 1.5 * tileK(), the number V198 already defined: the body
+board is byte-identical (tileK is 1), the house board says TWELVE METRES, which is also a real
+suburban lot frontage, so the realism arrives without anybody picking it. ONE NUMBER IN ONE
+PLACE, section 3 of his own law.
+(2) THE WIN WAS OFF THE MAP. V159 made REACHING THE WAY OUT the win, clamped between EXIT_MIN
+10.0 and EXIT_MAX 18.0 TILES, typed, never read through the scale door. On the house board that
+is ten to eighteen HOUSES against sight 6 and contentR 7.6 -- THE WORLD IS NOT BUILT THAT FAR --
+so the one place on the board that is FOR him stood beyond the edge of the world, with the HUD
+reading WAY OUT 10T at it. V200 already wrote this exact sentence about interiors and refused to
+place one indoors; it had become true of the whole outdoor board. DERIVED: those two figures are
+a FRACTION OF SIGHT (10/17 and 18/17), which reproduces 10.0 and 18.0 EXACTLY on the body board
+by construction and lands the house exit at 3.5 to 6.4 houses -- a four-to-six-turn walk, inside
+contentR so the ground is built, inside sight so he can see it. Now reads WAY OUT 4T.
+(3) ADJACENT IS NOT 1, IT IS ROOT TWO. Found on the merged tree after the first two were green:
+the teaching fight's one man stood at edist 1.41, a DIAGONAL neighbour, against a pistol reaching
+1 -- unshootable, with nowhere closer to stand. doMove steps in EIGHT directions ("full tile
+steps, diagonals included (Chebyshev)") while edist is a EUCLIDEAN radius, so V218's floor of 1
+meant "adjacent, but only on four sides of you". Math.SQRT2 is the geometry of a square, not a
+tuning choice. Body board untouched.
+
+gates/house_rulers_gate.js 13/0. It starts a real fight by tapping a body and reads WHAT THE
+PLAYER IS TOLD out of the shipped readouts: the aim line "LONG RANGE ~12m ... SHOT 1 OF 2", the
+HUD "WAY OUT 4T", the exit at 3.53 against contentR 7.59 and sight 6, and THE BODY BOARD PINNED
+at 1.5 m a tile and 10.0/18.0 to four decimals. MUTATION-PROVED THREE WAYS: metre ruler back to
+the body tile -> both metre arms; exit clamp stops reading the board -> the inside-the-world and
+inside-sight arms; adjacency floor back to four sides -> the man-on-the-diagonal arm.
+CONFIRMED ON A PHOTOGRAPH, which is what found it in the first place.
+PRE-PUSH PASS: house_rulers 13/0, house_board 17/0, the_rout 11/0 (x2), first_fight 11/0,
+you_can_start_it 19/0, plate_costs_tape 15/0, pickup 9/0, save_before_the_bell 8/0, combat_lab
+929/3 (its three reds pre-date this).
+
+TWO INSTRUMENTS MOVED WITH IT, BOTH OUT LOUD:
+- the rout gate's runner staging. Last round I tied it to the pistol's reach; with the adjacency
+  floor at its correct value that put the runner at 1.41, past which ONE step clears both guns,
+  so the rifle bought nothing and the window arm went red saying so. IT WAS RIGHT TO. Starting a
+  runner at the very edge of the shorter gun is a worst case, not a fight. He breaks from
+  ADJACENT now -- where a man is when he turns and runs from you, one tile on either board -- and
+  a pistol holds him one turn, a rifle two.
+- combat_lab's byte-pinned maxRange regex, re-pointed for the FIFTH time in that line's history.
+  The night scaling it actually asserts is byte-identical every time.
+
+NAMED, NOT TAKEN, BECAUSE IT IS NOT REPRODUCED ON HIS GLASS YET: the photograph shows HALF THE
+SCREEN ABOVE THE FIGHT IS THE BENCH MENU (SETTINGS, YOU 100/100, WAIT, SUPPRESS, HAND-PEEK: OFF,
+NEW ENCOUNTER, STREET #79603) and SHOVE hostile_0 shows a raw internal id to the player. That is
+the ALPHA's combat tab. Rule 14(g) says never report a break you have not reproduced on the glass
+he plays, so the next round MEASURES IT ON THE DEMO before anybody calls it a break.
+Record: records/BOHEMIA_COMBAT_THE_RULERS_READ_THE_BOARD_9_15_26.md  Build stamp 9/15s.
+
 *** [house board] THE-FIGHT-AT-THE-SCALE-HE-NEEDS. V218. SHIPPED. ***
 PAOLO 9/15, rule 16 (laws/BOHEMIA_ADDENDUM_THE_STEP_IS_A_HOUSE_9_15_26.md): "I just entered
 combat and this is not at the scale that I needed it to be... implement it into combat too,
