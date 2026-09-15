@@ -1451,6 +1451,92 @@ archive escape built in from the start so [handoff cut] is unblocked rather than
 THE WARNING FOR EVERY LANE: do not write this file from a copy you read at the start of your round.
 Re-read it immediately before you edit, and check your own block is still there after any rebase.
 
+ANIMATION (animation-lr9y9i): 9/15 (b) LATEST -- *** ONE NUMBER FOR A BODY. His
+new ruling (rule 16, THE STEP IS A HOUSE) came in and it names this lane, so it
+beat the claim. TAB: ANIMATION. Build 9/15o. ***
+
+RULE 16 (Paolo 9/15) gives this lane exactly one job: "the rig at the new size,
+the clips unchanged in content", and gives the fleet one rule: "ONE NUMBER IN ONE
+PLACE... NOTHING IS BAKED ONCE. A second copy anywhere is the bug."
+[redo killed] STAYS CLAIMED and is untouched this round; his ask beat it (rule 8).
+
+=== WHAT WAS MEASURED BEFORE ANYTHING WAS TOUCHED
+The rig renders 112x112 with a 98-row standing body. The bake that ships bodies to
+the street HALVES it to 56 before sending. Across eight facings the halve keeps
+4,691 of 18,739 body pixels (25%) and a 49-row body, while 158 of 160 colours
+survive (99%). THE LOSS IS RESOLUTION, NOT PALETTE. The city then doubles it back
+up with Scale2x to draw it, inventing the pixels just discarded.
+AND IT WAS NOT A MISTAKE, IT WAS AN EXPIRED CONTRACT. The bake's own note says both
+exports "keep the size they PROMISE", and 56 WAS the rig's native size when that
+promise was made. The rig later moved to 112 (RIG_RS 2); COMBAT got the benefit
+(bake112 stops upscaling once the frame arrives at 112) while the city kept being
+handed a half-size body. Nothing was broken until his ruling made the cost real.
+
+=== THE SIX COPIES, AND THE SEVENTH
+The number lived in SIX places: twice in the bake, and in the w/h typed into each
+of the five senders (city player, city cast, the cast append, the faction cast, the
+run slice). THE SEVENTH WAS THE BAKE'S OWN NAME -- a function called bake56 that
+bakes at a constant is the copy that misleads the next reader. It is bakeCast now.
+SHIPPED: const CAST_PX=56, and every one of those places asks it.
+
+=== THE SAFETY CLAIM WAS PROVED, NOT ASSERTED
+At 56 this is BYTE-IDENTICAL to what shipped before: 48 baked frames (8 facings x
+3 clips x bordered and borderless) compared byte for byte through the real cast
+path against origin/main. 48 identical, 0 different. Re-proved a second time after
+rebasing onto another lane's [bigger bodies] work. That is why it is safe to land
+before RUN's step constant exists.
+GROWING THE STREET'S BODIES IS NOW ONE EDIT, and at 112 the halve stops happening
+by itself because f.CW===CAST_PX is true and the frame ships native.
+*** WHEN IT GROWS IS NOT THIS LANE'S CALL. *** The law gives RUN the one constant
+and gives this lane "the rig at the new size". Nothing about the street was changed
+here; the pipe was made ready and the cost measured so the decision is informed.
+NO COLLISION CHECKED, not assumed: origin/main carries 0 CAST_PX, and the other
+lane's [bigger bodies] work is the LATTICE ("a house is 25 cells"), not body pixels.
+
+GATES: ONE NUMBER FOR A BODY 9/0, NEW and in the suite. The load-bearing claim is
+BEHAVIOURAL, not a source scan (PLUMBER proved a scan cannot see a typed list once
+strings are stripped): it intercepts the real postMessage traffic and checks that
+what every sender PROMISES is what the bake actually SHIPS.
+*** THE CITY IFRAME IS LAZY AND THAT NEARLY MADE IT VACUOUS. *** #cityFrame does
+not exist until the CITY tab opens and every sender begins
+`if(!fr||!fr.contentWindow)return false`, so the FIRST CUT CAUGHT ZERO SENDERS AND
+SCORED "0 of 0 agree" AS A PASS -- the same vacuous-control trap this lane hit once
+on HEAD IN FRAME. The gate installs a target so the real sender code runs, and THE
+SENDER COUNT IS NOW ITS OWN CLAIM. CONTROL: combat's separate 112 promise untouched.
+Five mutations; moving the constant to 112 stays GREEN ON PURPOSE, because the gate
+forbids a SECOND COPY and never the ruling being executed.
+Record: records/BOHEMIA_ONE_NUMBER_FOR_A_BODY_9_15_26.md
+
+PRE-PUSH PASS (rule 13): the body and rig gates plus the shared ones, green on the
+merged tree. TWO REDS, NEITHER MINE, both verified on a clean origin/main checkout
+this round: CITY CAST (B6, the neighbour wears one of them) and RIG CHECK. HEAD
+FOLLOWS RIG flagged red once in my own harness and is NOT red: three consecutive
+direct runs exit 0 at 5/0, identical on clean main -- it was my runner starting
+browsers back to back, and I am saying so rather than routing a flake at somebody.
+FULL SUITE: 107 red at ad23d875. Mine are none that I have found; I have not run
+the other 105 and am not claiming them either way.
+
+WHAT THIS LANE STILL OWES ON RULE 16
+Its MODE line says: measure the eight facings AT THE NEW SIZE before the redo batch
+goes to the VOTE tab. The pipe is ready and the cost is known, but the eight facings
+at the new size cannot be measured until RUN sets the number, and INVENTING A SIZE
+HERE WOULD BE THE SECOND COPY THIS WHOLE ROUND EXISTS TO REMOVE. So it waits on
+RUN's constant, and that is a measurement, not a coordinator's line (rule 12).
+
+WHAT IS LEFT OF [redo killed], UNCHANGED THIS ROUND
+- Beats two and three are ONE problem: every beat reads differently per facing
+  (beat two's knee peak 37 to 159 degrees, beat three's hand lag 17% to 200%, beat
+  four holds on 1 of 8, beat one on 8 of 8). Two causes for beat three are measured
+  DEAD (a collapsing bone; the knock projection) and the gate prints both so nobody
+  re-runs them. The arm's inertia IS real in the sim; delivery to the screen fails.
+- Four clips still snap, all small, worst 12.6px. Pose problems, not rig problems.
+- POSEHOLD key density on clips whose keys are too far apart to read as motion.
+- The NE head-off-shoulders gap in his own frame. Pose too.
+- THE 47 ARE REPAIRED AND CANNOT REACH HIM until UI [vote tab] lands (rule 15).
+  Checked again this round: that row is still OPEN, so the blocker stands.
+
+Nothing [PENDING Paolo].
+
 ANIMATION (animation-lr9y9i): 9/15 (a) LATEST -- *** ONE FACING IS NOT A
 MEASUREMENT. A correction I owe on my own last round, two dead hypotheses, and no
 rig change on purpose. TAB: ANIMATION. No new build; nothing new for him to look
