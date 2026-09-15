@@ -2225,3 +2225,82 @@ BROTHER  Pass the salt.                                                [time off
 #   a haggle row phrased so it could be mistaken for accepting
 #   a haggle row with no answer written for it, which is a dead promise
 #   and a weighty ceremonial yes, because agreement is 1.75 words and always has been
+
+## Q25 ROUND TWO -- CARD WORDS, ARMED BY SCHOOL  (9/15/26)
+# Round one is records/BOHEMIA_WORDS_Q25_SCHOOL_A_CARD_THAT_LISTS_IS_NOT_A_CARD_THAT_TELLS_9_15_26.md
+# The night card's rent block. Tab: LIFE. All draft:true.
+#
+# THE SHIPPED ATTEMPT, which this replaces, and its author solved a real problem:
+#   rent wanted 43 off you: Mob (fortress) 20, Church (town) 7 of 10, Blues (town) 5
+#   of 7, Cartel (fortress) 5, Network (fortress) 2, Reds (town) 2 of 3, Colorful
+#   (camp) 1 of 3, Trades (camp) 1. You had 0.
+#   so they cut 43 of their own streets off
+# FACTIONS took twelve lines to three under a hard height limit and dropped no
+# number. THE HEIGHT FIX STANDS. This changes the ORDER and the PERSON, not the data.
+#
+# WHICH FINDINGS FROM SCHOOL CHANGED THESE LINES:
+# 1. THREE SLOTS, IN THIS ORDER: WHAT HAPPENED TO YOU, HOW MUCH, WHAT YOU CAN DO. A
+#    regulated cut-off notice must carry the amount, the deadline and how to get
+#    help. The shipped attempt carries one of the three and leads with the
+#    itemisation, which is the dispute view, not the notice view.
+# 2. THE SENTENCE IS ABOUT HIM, IN THE SECOND PERSON. "so they cut 43 of their own
+#    streets off" has no "you" in it and reads as somebody else's news.
+# 3. THE TELLING AND THE CHECKING ARE TWO TEXTS. One sentence he reads, one list he
+#    may read. Still three lines total, so the height fix is not undone.
+# 4. A DEADLINE, because a notice without one is a complaint.
+# 5. A WAY OUT NAMED, and see the note below, because ours has no price yet.
+# 6. NOT ONE NUMBER DROPPED. Every figure in the shipped attempt survives, in line 3.
+
+### THE RENT BLOCK, THREE LINES, TELLING FIRST   draft:true
+  1 THE TELLING   Your lights went out. Eight outfits wanted rent and you had
+                  nothing.
+  2 THE EXIT      Yours stay out until somebody pays.
+  3 THE CHECKING  Wanted 43: Mob (fortress) 20, Church (town) 7 of 10, Blues (town)
+                  5 of 7, Cartel (fortress) 5, Network (fortress) 2, Reds (town)
+                  2 of 3, Colorful (camp) 1 of 3, Trades (camp) 1. You had 0.
+# Line 1 is the notice and it is about HIM. Line 2 is the deadline and the exit.
+# Line 3 is FACTIONS' own itemisation, every number intact, demoted to the checking
+# text where a bill keeps its breakdown.
+
+### THE SAME BLOCK ON A SHORT NIGHT   draft:true
+  1 THE TELLING   One street went dark on you tonight. The Cartel wanted two for the
+                  two blocks of theirs you used, and you had none.
+  2 THE EXIT      It stays dark until somebody pays for it.
+  3 THE CHECKING  Wanted 2: Cartel (fortress) 2. You had 0.
+
+### WHEN HE PAID, WHICH THE CARD HAS NEVER SAID   draft:true
+  1 THE TELLING   Your lights stayed on. Four outfits wanted rent and you covered all
+                  of it.
+  2 THE EXIT      Nothing is owed on the ground you walked tonight.
+  3 THE CHECKING  Wanted 11, paid 11: Mob (fortress) 5, Blues (town) 4, Reds (town) 2.
+# A notice that only ever arrives when you fail teaches a player that the system is a
+# punishment. The same three slots, the same order, when it goes right.
+
+### WHEN HE PAID SOME OF IT   draft:true
+  1 THE TELLING   Some of your lights went out. You covered the Mob and nobody else.
+  2 THE EXIT      The rest stay out until somebody pays for them.
+  3 THE CHECKING  Wanted 11, paid 5: Mob (fortress) 5 paid, Blues (town) 4, Reds
+                  (town) 2. You had 5.
+
+### THE SPANGLISH   draft:true
+  1 THE TELLING   Se te fue la luz tonight. Eight outfits wanted rent off the ground
+                  you walked on y no tenías nada.
+  2 THE EXIT      Se quedan apagadas until somebody pays for them.
+
+### THE REFUSALS: WHAT THIS BLOCK WILL NEVER SAY   draft:true
+# BANNED, on the evidence in round one:
+#   an itemisation before the sentence that tells him what happened
+#   a consequence written from the faction's side, with no "you" in it
+#   a number dropped to make room, because the height fix already proved that
+#     unnecessary
+#   a line that scolds, since a notice states and does not lecture
+#   a price for getting the lights back, invented by this lane, because that is a
+#     price and prices are his
+#   and a card that speaks only when he fails
+
+### THE ONE SLOT THIS LANE CANNOT FILL, WRITTEN DOWN INSTEAD OF FAKED
+# A real cut-off notice names how to get the service back. Ours cannot yet: there is
+# NO relight anywhere in the engine, and WORLD's own comment says why, that what it
+# costs to get your lights back is a price and prices are Paolo's. So line 2 names
+# the SHAPE of the exit ("until somebody pays for them") and no number, which is the
+# attempt the 8/11 law asks for with the decision left where it belongs.

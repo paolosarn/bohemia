@@ -1,3 +1,59 @@
+WORDS (words-8dqrnq): 9/15 (b) LATEST -- *** Q25 [card words] SHIPPED WITH BOTH ROUNDS. THE LINE HE
+READS FIRST GOES FROM FOURTEEN NUMBERS TO ZERO, AND EVERY NUMBER IS STILL ON THE CARD. *** TAB: LIFE.
+No game code touched. Research round, demo untouched, glass not walked.
+
+I READ HIS SECOND PLAY FIRST. Every one of his seven rulings is routed to another lane (the car, the
+far zoom, the spawn, no human being, smoothness, and not knowing how a fight starts). NOT ONE IS
+THIS LANE'S, so I did not take anybody's row. Two of them will need words when their lane gets
+there, and the research is ready: the line that SAYS a fight has started, and the teaching line at
+the door. They belong to COMBAT [start a fight] and RUN [wake near], not here.
+
+FACTIONS' FIX STANDS AND I DID NOT TOUCH IT. They measured the card on a phone with a real day
+walked in, found a long day 142 px over the window, took twelve lines to three AND DROPPED NO
+NUMBER. This round changes the ORDER and the PERSON, not the data.
+                            SHIPPED              THIS ROUND
+  the line he reads first   26 words, 14 NUMBERS  11 words, ZERO numbers
+  "you" in the block        2                     4
+  the exit named            no                    yes
+  numbers dropped           n/a                   NONE, checked as a set
+  1 THE TELLING   Your lights went out. Eight outfits wanted rent and you had nothing.
+  2 THE EXIT      Yours stay out until somebody pays.
+  3 THE CHECKING  Wanted 43: Mob (fortress) 20, Church (town) 7 of 10, ... You had 0.
+Plus a paid night and a part-paid night, because a card that only speaks when you fail teaches a
+player the system is a punishment rather than a ledger.
+
+*** I MEASURED THE COST OF MY OWN WORK AND MY FIRST DRAFT WAS BAD. *** A notice needs more words
+than a receipt, and more words on a phone means more wrapped rows, and rows are exactly what
+FACTIONS spent a round winning back.
+  shipped block                                         6 rows
+  MY FIRST DRAFT                                       10 rows, +4  <- would have given back most of
+                                                                       the 142 px they cut
+  after tightening                                      8 rows, +2
+  if the checking text is set smaller, as a bill does    7 rows, +1
+So I tightened it instead of shipping it and calling it an improvement. THE ROW COUNT IS AN ESTIMATE
+FROM CHARACTER COUNTS, NOT A MEASUREMENT ON THE GLASS; I have not walked the demo and rule 14(g)
+forbids reporting what I have not reproduced there.
+
+MY OWN CHECK ALSO CAUGHT MY OWN LINE. The rewrite's second line first read "They stay out until
+somebody pays", which fails the very finding the round is built on (the sentence must be about HIM).
+It reads "Yours stay out" now.
+
+ONE SLOT THIS LANE CANNOT FILL, WRITTEN DOWN INSTEAD OF FAKED. A real cut-off notice says how to get
+the service back. THERE IS NO RELIGHT ANYWHERE IN THE ENGINE, checked, and WORLD's own comment says
+why: what it costs to get your lights back is a PRICE, and prices are Paolo's. So line 2 names the
+shape of the exit and no number. [PENDING Paolo] and it is a price, so it is his by the 8/11 law.
+
+ROUTED. FACTIONS own the block: the order change, with the honest warning that three lines of notice
+cost one to two wrapped rows more than three lines of receipt. UI gets the cheapest fix in the
+record: THE BREAKDOWN IS NOT THE SAME KIND OF TEXT AS THE SENTENCE ABOVE IT. Every bill sets the
+amount large and the itemisation small, and that one distinction buys back the height this costs.
+
+RULE 13: pre-push pass green. Full suite 107 red at ad23d875, and NONE IS THIS LANE'S: voice 118/0,
+dialogue catalogue 63/0, language 83/0, attempt 15/0, handoff 8/0, voice audible 2/0, six for six,
+re-run last round.
+
+NEXT: Q4 to Q17 still owe their school rounds under the 9/6 mode, oldest first. [into the vote tab]
+waits on a tab this lane measured as genuinely not landed.
 ECONOMY (economy-knxaeh): PAOLO'S PERMANENT INSTRUCTION, 9/5, EXPANDED VERSION.
 HIS WORDS, WORD FOR WORD, SO THEY SURVIVE ANY MEMORY RESET. THIS SUPERSEDES THE
 EARLIER SHORTER VERSION FURTHER DOWN THIS FILE. THIS BLOCK IS NEVER DELETED.
