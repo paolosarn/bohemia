@@ -152,20 +152,47 @@ function serve() {
         return r;
       };
     });
+    /* *** THE AIM CHANGED ON 9/15 AND THE BAR DID NOT. ***
+       This used to hold the direction with the MOST ROOM, which was a fair model
+       of a stranger while he woke on an open asphalt corner: the longest run was
+       also the way out. [spawn home] moved the door to his own front step, and
+       from a doorstep the two come apart. Measured there:
+           N 123 clear cells and NEVER leaves the suburb   <- the most room
+           E  52 clear cells and the arterial at 54        <- the way out
+       So the most-open run is now the alley behind the houses, and a harness that
+       holds it walks a stranger up an empty block for a minute and then reports
+       that the world is empty. A person who can see a street walks at the street.
+       SO IT AIMS AT THE NEAREST WAY OUT, AND FALLS BACK TO THE MOST ROOM WHEN
+       THERE IS NO WAY OUT AT ALL -- which is not a loosening, because the legs
+       below are untouched and the fallback still fails exactly as it did: at the
+       first [spawn home] doorstep, on the WEST side of the house, all 45 of that
+       house's walkable doorsteps had ZERO straight ways out in 140 tiles and this
+       gate stayed red through the change. Both numbers are printed every run. */
     const aim = await city.evaluate(() => {
       const D = [[1, 0], [1, 1], [0, 1], [-1, 1], [-1, 0], [-1, -1], [0, -1], [1, -1]];
-      let bi = 0, bs = -1;
+      const FNv = (typeof FN !== 'undefined') ? FN : 96;
+      const mine = (function () { try { const t = om.at(Math.floor(hx / FNv), Math.floor(hy / FNv));
+        return t ? t.district : null; } catch (e) { return null; } })();
+      let bi = 0, bs = -1, oi = -1, od = 1e9;
       for (let i = 0; i < 8; i++) {
-        let n = 0;
+        let n = 0, out = null;
         for (let k = 1; k <= 140; k++) {
           const c = cellAt(hx + D[i][0] * k, hy + D[i][1] * k);
           if (!c || !c.walk) break;
           n++;
+          try { const t = om.at(Math.floor((hx + D[i][0] * k) / FNv),
+                                Math.floor((hy + D[i][1] * k) / FNv));
+            if (t && mine && t.district !== mine) { out = k; break; } } catch (e) { }
         }
         if (n > bs) { bs = n; bi = i; }
+        if (out !== null && out < od) { od = out; oi = i; }
       }
-      return { dir: bi, room: bs, at: [hx, hy] };
+      return { dir: (oi >= 0 ? oi : bi), room: bs, mostRoomDir: bi,
+               wayOutAt: (oi >= 0 ? od : null), aimed: (oi >= 0 ? 'the way out' : 'the most room'),
+               at: [hx, hy] };
     });
+    console.log('  AIMED AT ' + aim.aimed + ': most room ' + aim.room
+      + ' cells, nearest way out ' + (aim.wayOutAt === null ? 'NONE in 140' : aim.wayOutAt + ' cells'));
     ok('there is somewhere to walk from where he wakes (' + aim.room + ' clear cells)',
        aim.room >= 10);
 

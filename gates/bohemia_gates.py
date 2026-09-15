@@ -1545,6 +1545,19 @@ GATES = [
      'source text, the iOS meta tags, the durable-storage request, and that the seven-day '
      'sentence is true in a tab and gone on the home screen. Mutation: point the demo back at '
      'the workshop manifest -> 4 red', True),
+    ('SPAWN HOME',     ['node', 'gates/spawn_home_gate.js'],
+     'VAMILY [spawn home]: PAOLO 9/15, after playing the cut -- "it keeps spawning me in the '
+     'middle of some freeway, street shit for no purpose." MEASURED ON THE GLASS: the map said '
+     'SUBURB and he was right anyway -- 4 of the 9 overmap cells around him were ARTERIAL and the '
+     'photograph was a black asphalt band down the whole right of the screen with not one building '
+     'in frame. HIS OWN FRONT DOOR WAS 29 TILES AWAY, homeDoorstep() answered it instantly, and '
+     'NOTHING HAD EVER CALLED homeWake(): it hangs off DAY.on("wake") and day one does not fire a '
+     'wake, because the game boots already awake. THE FIX WAS A CALLER, NOT A FEATURE, so this '
+     'gate guards the caller. It asserts NO coordinate -- where his house is belongs to the map '
+     'and the seed -- only that the day-one wake ran, that he is on his own doorstep, that his '
+     'house is ON SCREEN at phone size, and that it fires ONCE so it is a doorstep and not a '
+     'leash. MUTATION: delete the caller -> 3 red, and it measures the old state exactly, 17 '
+     'tiles from the house with the house 14 tiles out while the screen holds 10.', False),
     ('FIRST MINUTE',   ['node', 'gates/first_minute_gate.js'],
      'VAMILY [drop in]: what a stranger who taps the link DOES in their first sixty seconds, IN '
      'ORDER -- the pad, then something to look at, then somebody who wants something. All three '

@@ -51730,6 +51730,35 @@ function render(){ try{ dayDistrictCheck(); }catch(_e){}   /* __DAY_LOOP__ */
      touching your own footprint -- and every house's walk/driveway reaches the
      street by construction (D1 KERB + STREET-AWARE ACCESS, both gated), so it
      cannot strand you. NO DISTRICT IS A PRISON still holds. */
+  /* *** AND DAY ONE IS NOT A WAKE EVENT, SO THIS NEVER RAN ON THE DAY THAT
+     MATTERS (9/15, RUN, VAMILY [spawn home]). ***
+     PAOLO 9/15, after playing the cut: "it keeps spawning me in the middle of some
+     freeway, street shit for no purpose. We can do a little better than that."
+     MEASURED ON THE GLASS BEFORE ANYTHING WAS WRITTEN, with the one driver:
+         he wakes at 6205,6271. The map says SUBURB, not freeway -- but four of the
+         nine overmap cells around him are ARTERIAL, and the photograph is a black
+         cracked asphalt band down the whole right of the screen with empty tan dirt
+         under it and NOT ONE BUILDING in frame. The map is right and so is he.
+         homeDoorstep() answers [6218,6256] immediately, with no error.
+         window.__WOKE_HOME is 0 and HOME_WAKE_PENDING is false.
+     So his own front door is TWENTY-NINE TILES AWAY, the code to put him there has
+     worked the whole time, and NOTHING EVER CALLED IT: homeWake hangs off
+     DAY.on('wake'), and day one does not fire a wake -- the game boots already
+     awake. Walked those tiles with the pad and photographed the other end: a brick
+     house wall, its yard, two bins, and the HOME marker. The good picture was
+     always eight seconds away.
+     THE FIX IS A CALLER, NOT A FEATURE. This arms the flag the line below already
+     spends every frame, so the retry, the doorstep spiral and NO DISTRICT IS A
+     PRISON all keep working untouched.
+     THREE GUARDS, each for a thing that would otherwise break:
+       day 1 only      -- every later day already gets this from the wake event.
+       ONCE            -- it is a doorstep, not a leash; he must be able to walk off.
+       no restore      -- a returning player is wherever he saved. __RESTORE_OK is
+                          the honest signal and it arrives about 1.6 s after boot, so
+                          a restore that lands later simply overwrites this, which is
+                          the right order anyway. */
+  try{ if(!HOME_WAKE_DAY1 && MODE==='human' && typeof DAY!=='undefined' && DAY.day===1
+         && !window.__RESTORE_OK){ HOME_WAKE_DAY1=true; HOME_WAKE_PENDING=true; } }catch(_e){}
   try{ if(HOME_WAKE_PENDING&&MODE==='human') homeWake(); }catch(_e){}   /* __YOUR_HOUSE__ */
   try{ if(PHONE_ON)phonePush(false); }catch(_e){}   /* __PHONE_IN_POCKET__ */
   if(MODE==='city'){ screenFilter('city'); renderCity(); } else { screenFilter('human'); renderHuman(); } }
@@ -54999,8 +55028,49 @@ function homeDoorstep(){
   if(h.door)tries.push([h.door[0],h.door[1]+1],[h.door[0],h.door[1]-1],
                        [h.door[0]-1,h.door[1]],[h.door[0]+1,h.door[1]]);
   for(let x=h.x-1;x<=h.x+h.w;x++){ tries.push([x,h.y+h.h]); tries.push([x,h.y-1]); }
-  for(const t of tries){ const c=cellAt(t[0],t[1]); if(c&&c.walk)return t; }
-  return null;
+  /* *** AND IT USED TO TAKE THE FIRST WALKABLE CELL, WHICH IS A COIN TOSS ABOUT
+     WHICH SIDE OF HIS OWN HOUSE HE IS ON (9/15, RUN, [spawn home]). ***
+     Measured the moment day one started using this: it put him against the WEST
+     wall of his house with walls on three sides, and the eight directions read
+         N  walkable 111, never leaves the suburb      <- the most open run, and
+         W  walkable  30, never leaves the suburb         it goes nowhere
+         S  walkable  14, the arterial is 16 away      <- two tiles short
+         E/NE/SE walkable 0                            <- the house itself
+     so the way out was BEHIND THE HOUSE and the longest walk available led into
+     the middle of the block. THE FIRST MINUTE gate, which holds that a stranger
+     who holds one direction meets something, went red on exactly that.
+     THE PREFERENCE IS THE ONE THE DROP-IN ALREADY USES twenty lines from here
+     (NO DISTRICT IS A PRISON, 8/1): road, then touching a road, then any walkable
+     cell exactly as before. Same rule, same words, second caller -- so a doorstep
+     is the side of the house that faces the street, which is what a front door
+     means. NOTHING IS EXCLUDED: a house with no road anywhere still returns its
+     first walkable cell, so this can never strand him. */
+  const _road=(qx,qy)=>{ try{ const t=om.at(Math.floor(qx/FN),Math.floor(qy/FN));
+    return !!(t && /arterial|freeway|beltway|strip|interchange|road/.test(String(t.district)));
+  }catch(_e){ return false; } };
+  const _touches=(qx,qy)=>{ for(const [dx,dy] of [[1,0],[-1,0],[0,1],[0,-1]]){
+    const c=cellAt(qx+dx,qy+dy); if(c&&c.walk&&_road(qx+dx,qy+dy)) return true; } return false; };
+  let first=null, touching=null, nearest=null, nearestD=1e9;
+  for(const t of tries){ const c=cellAt(t[0],t[1]); if(!c||!c.walk) continue;
+    if(!first) first=t;
+    if(_road(t[0],t[1])) return t;                 /* on the street itself */
+    if(!touching && _touches(t[0],t[1])) touching=t;
+    /* AND IF NO SIDE OF THE HOUSE TOUCHES A ROAD, TAKE THE SIDE THAT FACES ONE.
+       Measured on the demo's own house: 45 walkable doorsteps and not one of them
+       is on or beside a road, so the first two preferences both come up empty and
+       the old code fell back to whichever cell happened to be first in the list --
+       which put him against the WEST wall with the street behind the building. A
+       front door faces the street even when the street is a block away. */
+    if(!touching){
+      for(let r=1;r<=24 && r<nearestD;r++){
+        let hit=false;
+        for(const [dx,dy] of [[r,0],[-r,0],[0,r],[0,-r],[r,r],[-r,-r],[r,-r],[-r,r]])
+          if(_road(t[0]+dx,t[1]+dy)){ hit=true; break; }
+        if(hit){ if(r<nearestD){ nearestD=r; nearest=t; } break; }
+      }
+    }
+  }
+  return touching || nearest || first;
 }
 /* THE LABEL. Same treatment as the CITY TALK name pass -- dark outline then
    #e8b84a -- because a second label style would be a second design. */
@@ -55106,6 +55176,8 @@ function homeArrow(cxp,cyp,C){
    From the next wake on -- after he has actually slept -- he wakes at his own door,
    which is the only day on which "you slept at home" means anything anyway. */
 var HOME_WAKE_PENDING=false;
+/* __YOUR_HOUSE__ -- the day-one arm is spent once and never again; see render(). */
+var HOME_WAKE_DAY1=false;
 function homeWake(){
   if(MODE!=='human'){ HOME_WAKE_PENDING=true; return false; }
   const s=homeDoorstep(); if(!s)return false;
