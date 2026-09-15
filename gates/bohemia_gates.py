@@ -5296,6 +5296,21 @@ GATES = [
      "longer' means something. Being down is a QUESTION against the clock, so a save left on a shelf comes "
      "back healed with nothing to tidy. And it is on the card he already opens, saying how long and saying "
      "the promise out loud", False),
+    ('LOCK THEM',      ['node', 'gates/lock_them_gate.js'],
+     "PAOLO 9/11: 'there has to be a way to make it easy to lock characters they don't want to die, "
+     "companions, people in your company, not endgame bullshit.' *** THE CONTROL IS THE WHOLE FINDING AND IT IS "
+     "THE STATE HE PLAYED: on the demo, first morning, the father falls with nothing locked and HE IS DOWN AND "
+     "THE CARD SAYS NOTHING; one tap, the same fall, the same day, and it says RAY IS DOWN, KNOCKED ABOUT, 7 "
+     "DAYS. The promise from [down not dead] covered two DERIVED lists -- the person you married and the "
+     "children you had, plus ctYours(), which is recomputed from bonds and witnesses every call and a witness "
+     "fades on a three-week halflife. So somebody could stop being covered between one morning and the next "
+     "with nothing said. A NAME HE TAPPED DOES NOT DECAY, which is why this is a mark and not another "
+     "computation, deliberately the opposite shape from the down module where being down IS the clock. "
+     "MEASURED FIRST: ctYours() 0, WOULD FOLLOW YOU nobody, 46 of 61 would come, and the only three people the "
+     "game can name as his are the family he was born to -- so the tap is on their names, on a card he already "
+     "opens, in the first hour. NOT ONE NUMBER IS NEW: no cap, no price, no rung, and the cost of a fall is the "
+     "injury the down module already rolled, withheld as the crew place they already had (46 -> 45 on the "
+     "glass). Judged the way rule 14(h) asks: the panel still OPEN and its own words moved", False),
     ('A HUMAN BEING',  ['node', 'gates/a_human_being_gate.js'],
      "PAOLO 9/15, second play: 'I didn't see a single human being. Very strange.' AND THERE WAS ONE "
      "STANDING TWO CELLS FROM HIM AT THE DOOR -- measured on the shipped cut: first person on the glass "

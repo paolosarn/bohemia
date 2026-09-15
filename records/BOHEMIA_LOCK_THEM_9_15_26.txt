@@ -1,0 +1,146 @@
+BOHEMIA -- LOCK THEM (9/15/26, PEOPLE lane)
+VAMILY job [lock them], row ONE-TAP-LOCKS-A-PERSON-YOU-WILL-NOT-LOSE.
+Held since 9/13 under rule 14b. The lane's five-minute break shipped, so it is taken.
+
+PAOLO 9/11:
+  "there has to be a way to make it easy to lock characters they don't want to
+   die, companions, people in your company, not endgame bullshit."
+
+================================================================================
+*** THE CONTROL IS THE WHOLE FINDING, AND IT IS THE STATE HE PLAYED ***
+================================================================================
+Driven on the demo, first morning, phone profile, with the one driver:
+
+  the father falls, nothing locked   he IS down, and the card SAYS NOTHING
+  one tap, the same fall, same day   RAY IS DOWN, KNOCKED ABOUT, 7 DAYS
+
+Same man, same injury, same second. The only difference is one tap.
+
+WHY THE CARD SAID NOTHING. The promise built by [down not dead] covers two lists
+and both of them are DERIVED. The family loop takes only the person you MARRIED
+and the children you HAD (rel spouse or child), so the father you were born to is
+not on it. The other list is ctYours(), and bohemia_company.js says in its own
+words why there is no roster: "NO ROSTER, NO STATE, NO ADD, NO REMOVE. Pure
+functions of a snapshot." That is right for a company. It is a hole in a promise.
+
+================================================================================
+AND THE HOLE GETS BIGGER, NOT SMALLER, THE LONGER YOU PLAY
+================================================================================
+ctYours() is recomputed out of BONDS and WITNESSES on every call. A witness is
+somebody carrying a deed of yours in their head, and a deed fades on a three-week
+halflife (DEED_HALFLIFE, 21 days, in the standing web). So the person the game
+called yours this morning can quietly stop being yours, and the moment they do
+the protection stops, with nothing said and nobody at fault.
+
+A NAME HE TAPPED DOES NOT DECAY. That is the whole reason this is a MARK and not
+another computation, and it is deliberately the opposite shape from the down
+module, where "are they down" IS a question against the clock. One cannot help
+decaying. The other cannot decay at all.
+
+================================================================================
+MEASURED FIRST, BEFORE A LINE WAS WRITTEN
+================================================================================
+On the demo he plays, first morning, 390x844:
+
+  ctYours()             0            nobody is his
+  WOULD FOLLOW YOU      NOBODY YET
+  WOULD COME WITH YOU   46 of 61 here
+  YOUR PEOPLE           RAY, DENISE, MARCO
+
+So the game could name three people as his, all three by birth, and he had no way
+to say "that one" about any of the other sixty-one. And the word LOCK meant
+nothing anywhere in the people systems: every hit in the standing web, the deeds
+ledger and the down module is the word CLOCK, or the word LOCKED inside a
+citation of one of his own rulings.
+
+THE TAP HAD TO BE IN THE FIRST HOUR, which is the half of his sentence easiest to
+lose. Those three names are the only people the game can name on the morning he
+starts, so that is where the tap went: the name itself, on a card he already
+opens, no new row and no new button.
+
+================================================================================
+WHAT IT COSTS, WHICH IS WHAT MAKES IT A CHOICE AND NOT A FREE WIN
+================================================================================
+The coordinator armed this row off the craft: in the games that made companions
+unkillable, the weight of a fall is WHAT YOU LOSE WHILE THEY ARE DOWN. So:
+
+  the length      the injury the down module already rolled. Nothing new.
+  the thing lost  their share of the carry, which in this world is the crew:
+                  a hurt person leaves it and comes back when they are well
+  on the card     RAY COSTS YOU / GIVING YOU NOTHING, 7 DAYS
+
+Measured on the glass: crew 46 -> 45 the moment somebody fell.
+
+NOT ONE NUMBER IN THIS FEATURE IS NEW. No cap on how many he can lock (a cap is a
+number nobody ruled and it is the endgame shape he named). No price to lock. No
+rung. The lengths are the down module's three, from his own examples.
+
+IT IS NOT A LOCK-ONLY COST, on purpose. A hurt person carries nothing whether or
+not he ever tapped their name; what the lock buys is that they COME BACK. A cost
+that only bit the people he protected would punish the promise.
+
+================================================================================
+THREE THINGS I GOT WRONG, ALL THREE CAUGHT BY DRIVING IT
+================================================================================
+1. THE ROW RENDERED THREE PLAIN NAMES AND NOT ONE TAP TARGET. famLiving() hands
+   back the STORED member, whose keys are role, name, age, draft, alive. THERE IS
+   NO ID ON IT. The tree is the id authority. The fix asks the tree and refuses
+   rather than guessing, and the 'cast:' format is still spelled in exactly one
+   place in the whole file -- spelling it twice is the same defect as the body
+   ladder written twice that put a speech bubble on somebody's face last round.
+
+2. THE TAP DID NOTHING, AND NOTHING THREW. #daycardIn is ONE PERMANENT ELEMENT
+   that every card refills with innerHTML, which is why cardShow assigns
+   i.onclick, a property, instead of adding a listener. addEventListener STACKS.
+   Every redraw added another handler, one tap ran all of them, and the lock
+   toggled once per listener: on, off, on, off. With an even number of redraws
+   behind him the tap did nothing at all, silently. One listener, for good.
+
+3. AND THE GATE'S OWN RESET DID NOT RESET, which cost four claims. Clearing
+   localStorage does NOT clear the book: ctLockLoad only overwrites the in-memory
+   copy when storage HAS something, exactly like the ctDownLoad it was modelled
+   on. So the tap under test was toggling a lock that was already on, and the
+   whole block measured the feature running backwards. It resets through
+   ctLockTap now, the player's own door, and THE RESET HAS TO PROVE ITSELF before
+   the block that depends on it runs.
+
+================================================================================
+THE GATE, AND WHAT IT REFUSES
+================================================================================
+gates/lock_them_gate.js, 41 claims.
+  the module    lock() has no slot a price could arrive in (arity 3), a fourth
+                argument asking for a cost or a rung is not recorded, 500 locks
+                work, isLocked takes no day, no export can lose anybody, and no
+                injury length is written in the file at all
+  one id        the 'cast:' format is spelled once in the city, the tap asks the
+                tree, and who-is-down reads the lock list and not only the ledgers
+  the demo      the control above, both directions; the tap exists on the first
+                morning; every target is 45 px on a phone; one tap locks and the
+                card says WHO rather than ONE OF YOURS; one tap takes it off; the
+                cost row carries the down module's own number (7 = 7); the crew
+                drops; and it all survives the page being closed and reopened
+
+JUDGED THE WAY RULE 14(h) ASKS: the panel must still be OPEN and its own words
+must have moved. A card that vanished proves nothing in this game, in either
+direction.
+
+NEGATIVE-CONTROLLED, each one put back afterwards:
+  take the lock out of who-is-down     RED on the control claim
+  let a lock decay with the clock      RED on the no-clock claim
+  spell the id format a second time    RED on the one-place claim
+  bind the tap per redraw again        RED on one tap locks
+
+================================================================================
+MEASURED AND NOT FIXED, SAID OUT LOUD
+================================================================================
+THE CARRY IS NOT BUILT. His row says a locked person is carried when they fall
+and the party slows. There is no party speed anywhere in the walked city, so
+there is nothing to slow, and inventing one would be a number nobody ruled.
+
+WHAT TREATMENT COSTS IS STILL [PENDING Paolo], carried from [down not dead].
+
+THE SCAR IS NOT BUILT. "The world saw them fall" wants a deed, and none of the
+city's five deed kinds carries a weight yet ([deeds weigh] is open). Writing a
+fall into the ledger before the table is weighted would be inventing content.
+
+TAB: CITY, the STANDING card, and the demo. Open WHERE YOU STAND and tap a name.

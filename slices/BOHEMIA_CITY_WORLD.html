@@ -851,6 +851,18 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font-family:var(--
 #daycardIn .rpend{font-size:11px;line-height:1.45;color:var(--acc);opacity:.9;
   padding:8px 10px;margin-top:2px;border-radius:8px;background:#151310;
   border:1px dashed var(--line)}
+/* __CITY_LOCK_THEM__ (9/15, PEOPLE) -- A NAME HE CAN TAP. Paolo 9/11 asked for
+   it to be EASY and not endgame bullshit, so it is the name itself, on a card he
+   already opens, with no new button and no new row: the name IS the target.
+   44 px is the tap floor this fleet measured on a phone, so the padding is real
+   padding and not decoration -- a target he misses is a feature he does not have.
+   A LOCKED NAME LOOKS DIFFERENT WITHOUT A BADGE: it is underlined and full
+   strength while an unlocked one is not, so the difference reads at a glance in
+   daylight without spending a single pixel of card height. */
+#daycardIn .lkn{display:inline-block;padding:14px 5px;margin:-14px 0;cursor:pointer;
+  text-decoration:none;opacity:.72}
+#daycardIn .lkn.on{opacity:1;text-decoration:underline;text-underline-offset:3px;
+  text-decoration-thickness:2px;text-decoration-color:var(--acc)}
 /* ==== end mandate face css ==== */
 
 
@@ -45936,6 +45948,157 @@ function ctKnowsMe(id){
 })(typeof globalThis !== 'undefined' ? globalThis : this);
 
 /* ==== /engine/bohemia_down.js (DOWN, NOT DEAD) ==== */
+/* ==== engine/bohemia_lock.js (ONE TAP, SOMEBODY YOU WILL NOT LOSE, inlined verbatim) ==== */
+// BOHEMIA LOCK -- ONE TAP ON SOMEBODY YOU WILL NOT LOSE.
+// (9/15/26, PEOPLE lane. VAMILY [lock them], row
+// ONE-TAP-LOCKS-A-PERSON-YOU-WILL-NOT-LOSE.)
+//
+// PAOLO 9/11:
+//   "there has to be a way to make it easy to lock characters they don't want
+//    to die, companions, people in your company, not endgame bullshit."
+//
+// Three words in that sentence set every rule in this file: EASY (one tap, no
+// gate, no rare item), NOT ENDGAME (it works in the first hour), and LOCK (he
+// says who, the game does not decide for him).
+//
+// ============================================================================
+// MEASURED ON THE RUNNING DEMO BEFORE A LINE OF THIS WAS WRITTEN
+// ============================================================================
+// The first morning, phone profile, the card he already opens:
+//     YOUR PEOPLE          RAY, DENISE, MARCO        (the cold open's family)
+//     WOULD COME WITH YOU  46 of 61 here
+//     WOULD FOLLOW YOU     NOBODY YET
+//     ctYours()            0
+// So on the morning he starts, the game can name nobody as his except the three
+// he was born to. And the word "lock" appears nowhere in any people module: every
+// hit in the standing web, the deeds ledger and the down module is the word
+// "clock" or the word "LOCKED" inside a citation of one of his own rulings.
+//
+// ============================================================================
+// WHY A MARK AND NOT A COMPUTATION, WHICH IS THE WHOLE REASON THIS FILE EXISTS
+// ============================================================================
+// bohemia_company.js decides who is yours and says so in its own words:
+//     "NO ROSTER, NO STATE, NO ADD, NO REMOVE. Pure functions of a snapshot."
+// That is right for a company. It is exactly wrong for a promise, because a
+// computed membership can stop being true without anybody doing anything: a
+// witness is somebody who has one of your deeds in their head, and a deed fades
+// on a three-week halflife. So the person the game called yours this morning can
+// quietly stop being yours, and the law that protects the people you keep stops
+// covering them with nothing said and nobody at fault.
+//
+// A LOCK IS THE ONE THING IN THIS GAME THE PLAYER WRITES HIMSELF. It is not
+// derived, not weighted, not inferred from a ledger, and it does not decay. He
+// tapped it, so it is true until he taps it off.
+//
+// ============================================================================
+// THE THING THIS MODULE CANNOT DO, AND IT IS THE POINT
+// ============================================================================
+// There is no way to lose a locked person. unlock() removes the MARK, never the
+// person; there is no kill, no drop, no expiry, and isLocked takes no day because
+// a lock is not a question against the clock. That is deliberately the opposite
+// shape from bohemia_down.js, where "are they down" IS the clock. One decays by
+// arithmetic, the other cannot decay at all, and the gate proves both by trying.
+(function (root) {
+  'use strict';
+  var HASREQ = (typeof module !== 'undefined' && module.exports);
+
+  function norm(x) { return String(x == null ? '' : x); }
+  function book(b) { return (b && typeof b === 'object') ? b : {}; }
+
+  /* ==========================================================================
+     ONE TAP. It takes no price, no item and no rung, because there is no
+     parameter here that could carry one: "not endgame bullshit" is enforced by
+     the shape of the call, not by a comment promising to be nice.
+     `day` is recorded only so a surface can say how long you have kept them.
+     Locking somebody already locked is not an error and costs nothing.
+     ========================================================================== */
+  function lock(bk, id, day) {
+    if (!bk || id == null) return null;
+    var k = norm(id);
+    if (!k) return null;
+    if (bk[k]) return bk[k];
+    bk[k] = { id: k, since: (day | 0) };
+    return bk[k];
+  }
+
+  /* ONE TAP BACK OFF. He said EASY, and a mark you cannot take off is the
+     endgame bullshit under a friendlier name. THIS REMOVES THE MARK AND NOTHING
+     ELSE: there is no person in this book to delete, only his own note that he
+     will not lose them. */
+  function unlock(bk, id) {
+    if (!bk || id == null) return false;
+    var k = norm(id);
+    if (!bk[k]) return false;
+    delete bk[k];
+    return true;
+  }
+
+  /* NO CLOCK ARGUMENT, ON PURPOSE. See the header: this is the one fact in the
+     people systems that time cannot take away. */
+  function isLocked(bk, id) {
+    return !!(bk && bk[norm(id)]);
+  }
+
+  function list(bk) {
+    var b = book(bk), out = [], k;
+    for (k in b) if (Object.prototype.hasOwnProperty.call(b, k)) out.push(b[k]);
+    out.sort(function (a, c) { return (a.since - c.since) || (a.id < c.id ? -1 : 1); });
+    return out;
+  }
+  function count(bk) { return list(bk).length; }
+
+  /* ==========================================================================
+     WHAT IT COSTS, WHICH IS THE HALF THAT MAKES IT A CHOICE
+     ==========================================================================
+     The coordinator armed this row off the craft: in the games that made
+     companions unkillable, the weight of a fall is WHAT YOU LOSE WHILE THEY ARE
+     DOWN. Their perk, their turn in the fight, their share of the carry goes with
+     them for the whole timer, so protecting them still matters without a death.
+
+     SO THE COST IS NOT A NEW NUMBER. It is the contribution the world already
+     computes for them, withheld for exactly as long as the injury the down module
+     already rolled. Nothing here invents a length, a price or a penalty: it reads
+     the two books and says who is not giving you anything right now and until
+     when.
+       bk        the lock book
+       downFn    isDown(id) -> bool, the down module's own question
+       leftFn    daysLeft(id) -> number, the down module's own arithmetic
+     RETURNS the locked people who are down, so a surface can say what it cost.
+     ========================================================================== */
+  function withheld(bk, downFn, leftFn) {
+    var rows = list(bk), out = [], i;
+    if (typeof downFn !== 'function') return out;
+    for (i = 0; i < rows.length; i++) {
+      var id = rows[i].id;
+      var d = false;
+      try { d = !!downFn(id); } catch (_e) { d = false; }
+      if (!d) continue;
+      var left = 0;
+      try { left = (typeof leftFn === 'function') ? (leftFn(id) | 0) : 0; } catch (_e2) { left = 0; }
+      out.push({ id: id, since: rows[i].since, daysLeft: Math.max(0, left) });
+    }
+    return out;
+  }
+
+  /* PLAYER-FACING WORDS, draft:true (8/11: words get an attempt, decisions wait).
+     The mark says the promise, not a status. The cost says what is gone and for
+     how long, because "a long time" is the whole feeling of the law it stands on
+     and a badge would not carry it. */
+  function sayKept() { return 'YOU WILL NOT LOSE THEM'; }
+  function sayCost(row) {
+    if (!row) return null;
+    var left = row.daysLeft | 0;
+    if (!left) return 'BACK WITH YOU';
+    if (left === 1) return 'GIVING YOU NOTHING, ONE MORE DAY';
+    return 'GIVING YOU NOTHING, ' + left + ' DAYS';
+  }
+
+  var API = { lock: lock, unlock: unlock, isLocked: isLocked,
+              list: list, count: count, withheld: withheld,
+              sayKept: sayKept, sayCost: sayCost };
+  if (HASREQ) module.exports = API; else root.BohemiaLock = API;
+})(typeof globalThis !== 'undefined' ? globalThis : this);
+/* ==== /engine/bohemia_lock.js (ONE TAP, SOMEBODY YOU WILL NOT LOSE) ==== */
 
 /* __CITY_OBLIGATION__ -- THE STAKES TABLE'S FIRST ENTRY, AND IT IS AN OBLIGATION
    RATHER THAN A METER. The socket has been applied at every reckoning since the
@@ -54596,6 +54759,31 @@ function ctDownMine(){
                  name: ctPersonName(w) });
     }
   }catch(_e){}
+  /* *** AND EVERY PERSON HE LOCKED, WHETHER OR NOT A LEDGER STILL NAMES THEM. ***
+     (__CITY_LOCK_THEM__, 9/15.) THIS IS THE WHOLE REASON THE LOCK IS A MARK AND
+     NOT A COMPUTATION. The two lists above are both derived: the family tree, and
+     ctYours(), which is recomputed out of bonds and witnesses every single call.
+     A witness is somebody carrying a deed of yours, and a deed fades. So without
+     this loop the promise covers whoever a ledger happens to name at the moment
+     you ask, and a person can fall out of the protection between one morning and
+     the next with nothing said and nobody at fault.
+     A NAME HE TAPPED DOES NOT DECAY. Both spellings are asked for the same reason
+     the loop above asks for both: the city keys people two ways and a silent miss
+     here is a broken promise nobody would ever see. */
+  try{
+    var lk = ctLockList() || {}, already = {};
+    for (var a = 0; a < out.length; a++) if (out[a] && out[a].id) already[String(out[a].id)] = 1;
+    for (var li = 0; li < lk.length; li++){
+      var lid = lk[li] && lk[li].id; if (!lid) continue;
+      var lbare = String(lid).indexOf('P:city:') === 0 ? String(lid).slice(7) : null;
+      if (already[String(lid)] || (lbare && already[lbare])) continue;
+      if (!ctIsDown(lid) && !(lbare && ctIsDown(lbare))) continue;
+      var did = ctIsDown(lid) ? lid : lbare;
+      already[String(did)] = 1;
+      out.push({ id: did, rel: 'locked', alive: true, from: 'you locked them',
+                 name: ctWhoName(lid) });
+    }
+  }catch(_e){}
   return out;
 }
 /* THE NAME ON A DOWN ROW, FOR EITHER KIND. Family comes out of the family module,
@@ -54624,12 +54812,160 @@ function ctPersonName(key){
 }
 function ctDownName(row){
   if (!row) return 'ONE OF YOURS';
-  if (row.rel === 'company') return row.name || 'ONE OF YOURS';
+  /* 'locked' joins 'company' here rather than falling through to the family
+     module: a person he locked is a body this city drew, so their own name is
+     asked of the identity module. Falling through would have printed ONE OF YOURS
+     over somebody the game can name, which is the same two-surfaces-two-names bug
+     the comment above this one was written for. */
+  if (row.rel === 'company' || row.rel === 'locked')
+    return row.name || ctWhoName(row.id) || 'ONE OF YOURS';
   try{ return BohemiaFamily.say(famTree(), row) || 'ONE OF YOURS'; }
   catch(_e){ return 'ONE OF YOURS'; }
 }
 try{ window.ctDownMine=ctDownMine; window.ctDownName=ctDownName;
      window.ctPersonName=ctPersonName; }catch(_e){}
+
+/* ============================================================================
+   __CITY_LOCK_THEM__ (9/15) -- ONE TAP ON SOMEBODY YOU WILL NOT LOSE.
+
+   PAOLO 9/11: "there has to be a way to make it easy to lock characters they
+   don't want to die, companions, people in your company, not endgame bullshit."
+
+   MEASURED ON THE RUNNING DEMO, FIRST MORNING, PHONE, BEFORE THIS EXISTED:
+     ctYours()              0          nobody is his
+     WOULD FOLLOW YOU       NOBODY YET
+     WOULD COME WITH YOU    46 of 61 here
+     YOUR PEOPLE            RAY, DENISE, MARCO   (the cold open's family)
+   So the game could name three people as his, all three by birth, and he had no
+   way to say "that one" about any of the other sixty-one.
+
+   AND WHO IS COVERED WAS COMPUTED, WHICH IS THE BUG UNDER THE ROW. ctDownMine
+   protects the family tree and ctYours(), and ctYours is recomputed every call
+   out of bonds and witnesses. A witness is somebody with a deed of yours in their
+   head and a deed fades on a three-week halflife, so the person the game called
+   yours this morning can stop being yours with nothing said. A promise that only
+   covers people a ledger currently happens to name is a promise with a hole in it
+   that nobody can see.
+
+   THE LOCK IS THE ONE LIST IN THIS GAME THE PLAYER WRITES. It sits BESIDE the
+   computed company, never replacing it: bohemia_company.js is still right to keep
+   no roster, and this is not a roster of who is yours, it is his own note about
+   who he will not lose.
+   ========================================================================== */
+var CT_LOCK = {}, CT_LOCK_KEY = 'boh.city.lock';
+function ctLockLoad(){
+  try{ var raw = JSON.parse(localStorage.getItem(CT_LOCK_KEY) || 'null');
+       if(raw && typeof raw === 'object') CT_LOCK = raw; }catch(_e){ CT_LOCK = {}; }
+  return CT_LOCK;
+}
+function ctLockSave(){
+  try{ localStorage.setItem(CT_LOCK_KEY, JSON.stringify(CT_LOCK)); }catch(_e){}
+}
+/* ONE TAP, AND IT IS A TOGGLE. He said EASY; a mark he cannot take off is the
+   endgame bullshit he named, wearing a friendlier face. Returns the state AFTER
+   the tap so a surface can redraw without asking again. */
+function ctLockTap(id){
+  if(id == null) return false;
+  ctLockLoad();
+  var on;
+  try{
+    if(BohemiaLock.isLocked(CT_LOCK, id)){ BohemiaLock.unlock(CT_LOCK, id); on = false; }
+    else { BohemiaLock.lock(CT_LOCK, id, (T.day|0)); on = true; }
+  }catch(_e){ return false; }
+  ctLockSave();
+  return on;
+}
+function ctLocked(id){
+  try{ return BohemiaLock.isLocked(ctLockLoad(), id); }catch(_e){ return false; }
+}
+function ctLockList(){
+  try{ return BohemiaLock.list(ctLockLoad()); }catch(_e){ return []; }
+}
+/* WHAT IT COST YOU, RIGHT NOW. The coordinator armed this row off the craft: with
+   nobody killable, the weight of a fall is WHAT YOU LOSE WHILE THEY ARE DOWN.
+   NOT ONE NEW NUMBER LIVES HERE. The length is the injury the down module already
+   rolled, and the thing withheld is the contribution the world already computed
+   for them. This only reads the two books and reports. */
+function ctLockCost(){
+  try{ return BohemiaLock.withheld(ctLockLoad(), ctIsDown,
+         function(id){ try{ return BohemiaDown.daysLeft(ctDownLoad(), String(id), (T.day|0)); }
+                       catch(_e){ return 0; } }); }
+  catch(_e){ return []; }
+}
+/* AND A LOCKED PERSON IS NOT GIVING YOU ANYTHING WHILE THEY ARE DOWN. This is the
+   cost in the form the rest of the city reads: every surface that asks who is
+   yours filters through here, so a person who is down is not counted in your crew
+   and is not leading it, for exactly as long as the injury lasts. They are still
+   YOURS, which is the promise; they are just not carrying anything. */
+function ctLockOut(who){
+  try{
+    if(!who) return false;
+    var bare = String(who).indexOf('P:city:') === 0 ? String(who).slice(7) : String(who);
+    return !!(ctIsDown(who) || ctIsDown(bare));
+  }catch(_e){ return false; }
+}
+/* *** THE ID A FAMILY MEMBER IS KNOWN BY, ASKED OF THE TREE RATHER THAN SPELLED
+   AGAIN. ***
+   MEASURED ON THE RUNNING DEMO, and it is why the first cut of this row rendered
+   three plain names and not one tap target: famLiving() hands back the STORED
+   member, whose keys are role, name, age, draft, alive -- THERE IS NO ID ON IT.
+   The tree is the id authority and ctDownMine walks the tree, so the tap has to
+   carry the tree's id or the person he protects and the person the promise covers
+   are two different people with the same face.
+   THE PREFIX IS NOT WRITTEN TWICE. The tree builds its ids in exactly one place;
+   spelling that format again here is how one person ends up with two ids, which
+   is the same defect as the ladder written twice that put a speech bubble on
+   somebody's face the round before this one. So this MATCHES, and when it cannot
+   match it returns null and the name gets no tap -- a refusal he can see beats a
+   guessed id that silently protects nobody. */
+/* *** ONE NAME FUNCTION FOR A PERSON, WHICHEVER KIND OF PERSON THEY ARE. ***
+   MEASURED ON THE DEMO: the first cut of the lock rows printed ONE OF YOURS three
+   times over a man the game calls RAY, because ctPersonName only knows people
+   this city DREW and a family member is a node in the tree, not a body on the
+   street. Two kinds of person and one row asking for a name is exactly where a
+   fallback starts standing in for somebody who has one.
+   THE TREE IS ASKED FIRST because its ids are exact, then the street. Null only
+   when neither knows them, and the caller decides what to say about that rather
+   than this inventing a word. */
+function ctWhoName(id){
+  if(id == null) return null;
+  try{
+    var t = famTree() || [];
+    for(var i = 0; i < t.length; i++)
+      if(t[i] && String(t[i].id) === String(id)) return t[i].name || null;
+  }catch(_e){}
+  try{ return ctPersonName(id); }catch(_e2){}
+  return null;
+}
+function ctFamId(m){
+  if(!m || !m.name) return null;
+  try{
+    var t = famTree() || [], hit = null, n;
+    for(var i = 0; i < t.length; i++){
+      n = t[i];
+      if(!n || !n.id || !n.name || n.name !== m.name) continue;
+      if(hit) return null;        /* two people with one name: refuse, never guess */
+      hit = n;
+    }
+    return hit ? hit.id : null;
+  }catch(_e){ return null; }
+}
+/* A NAME THAT IS A TAP. One writer, so the family row and the crew row cannot
+   drift into two different targets with two different marks -- the exact bug the
+   ONE BODY, BOTH CARDS comment above ctPersonName was written for. The name is
+   escaped here and the id goes in an attribute, so a person whose name carries a
+   bracket cannot break the row it sits in. */
+function ctLockName(id, name){
+  var shown = esc(name || 'ONE OF YOURS');
+  if (id == null) return shown;
+  var on = false; try{ on = ctLocked(id); }catch(_e){}
+  return '<span class="lkn' + (on ? ' on' : '') + '" data-lock="'
+       + esc(String(id)) + '">' + shown + '</span>';
+}
+try{ window.ctLockTap=ctLockTap; window.ctLocked=ctLocked;
+     window.ctLockList=ctLockList; window.ctLockCost=ctLockCost;
+     window.ctLockOut=ctLockOut; window.ctLockName=ctLockName;
+     window.ctFamId=ctFamId; window.ctWhoName=ctWhoName; }catch(_e){}
 
 /* WHO ACTUALLY WENT. The module decides; this is the write, because a pure
    module does not reach out and remove somebody from the world. */
@@ -65286,8 +65622,26 @@ function ctFollowersHere(cap){
              seen:   ctSeenMeCount(who),
              mine:   !!(mine[who] || mine['P:city:' + who]) };
   };
+  /* __CITY_LOCK_THEM__ (9/15) -- AND SOMEBODY WHO IS DOWN IS NOT CARRYING
+     ANYTHING. This is the LOCK'S COST, in the form the rest of the world reads.
+
+     The coordinator armed [lock them] off the craft: with nobody killable, the
+     weight of a fall is WHAT YOU LOSE WHILE THEY ARE DOWN -- their perk, their
+     turn, their share of the carry goes with them for the whole timer, so
+     protecting somebody still matters without a death. The crew IS the share of
+     the carry this world computes, so a person who is hurt leaves it and comes
+     back when they are well. Nothing new is invented: the length is the injury
+     the down module already rolled, and the list is the one already being built.
+
+     IT IS NOT A LOCK-ONLY RULE, on purpose. A hurt person carries nothing whether
+     or not he ever tapped their name; what the lock buys is that they COME BACK.
+     A cost that only bites the people he protected would punish the promise. */
+  var offers = j.offers;
+  try {
+    offers = j.offers.filter(function (o) { return !ctLockOut(o && o.who); });
+  } catch(_e){ offers = j.offers; }
   var out = null;
-  try { out = window.BohemiaTowns.followersOn(j.offers, tie, { cap: cap }); } catch(_e){ return null; }
+  try { out = window.BohemiaTowns.followersOn(offers, tie, { cap: cap }); } catch(_e){ return null; }
   if (out) { out.holder = j.holder; out.tier = j.tier; out.here = j.here; }
   return out;
 }
@@ -71705,9 +72059,16 @@ function showStanding(){
   try{
     var _liv = famLiving(), _lost = famLost();
     if(_liv.length || _lost){
+      /* __CITY_LOCK_THEM__ (9/15) -- AND EVERY NAME HERE IS A TAP.
+         Paolo 9/11: "make it easy to lock characters they don't want to die...
+         not endgame bullshit." MEASURED ON THE FIRST MORNING: these three are the
+         only people the game can name as his, because ctYours() is 0 and WOULD
+         FOLLOW YOU is NOBODY YET. So if the tap were not here it would not exist
+         in the first hour, which is the half of his sentence that is easiest to
+         lose. No new row and no new button: the name itself is the target. */
       if(_liv.length)
         h += '<div class="rrow"><span class="rk">YOUR PEOPLE</span><span class="rv">'
-           + esc(_liv.map(function(m){ return m.name; }).join(' \u00b7 '))
+           + _liv.map(function(m){ return ctLockName(ctFamId(m), m.name); }).join(' \u00b7 ')
            + '</span></div>';
       if(_lost)
         h += '<div class="rrow"><span class="rk">WHO YOU LOST</span><span class="rv">'
@@ -71755,6 +72116,42 @@ function showStanding(){
         h += '<div class="rrow"><span class="rk">WHO INHERITS</span><span class="rv">'
            + esc(_hs || 'NOBODY YET') + '</span></div>';
       }
+    }
+  }catch(_e){}
+  /* __CITY_LOCK_THEM__ (9/15) -- WHO YOU WILL NOT LOSE, AND WHAT IT COSTS.
+     Paolo 9/11: "there has to be a way to make it easy to lock characters they
+     don't want to die, companions, people in your company, not endgame bullshit."
+
+     It sits OUTSIDE the family branch above on purpose: the tree is empty in
+     plenty of saves and a promise that disappears with the tree is the accidental
+     kind this lane keeps finding.
+
+     TWO ROWS AND NEITHER IS A BADGE. The first is the list, so the promise is
+     visible instead of remembered. The second is the bill, and it is the half
+     that makes the lock a choice rather than a free win: with nobody killable,
+     the weight of a fall is WHAT YOU LOSE WHILE THEY ARE DOWN, so while somebody
+     he locked is hurt they are giving him nothing, for exactly as long as the
+     injury the down module already rolled. Not one number here is new.
+     SILENT WHEN HE HAS LOCKED NOBODY, which is every save until he taps a name. */
+  try{
+    var _lk = ctLockList();
+    if(_lk.length){
+      var _ln = [];
+      for(var _lj = 0; _lj < _lk.length; _lj++)
+        _ln.push(ctLockName(_lk[_lj].id,
+                 ctWhoName(_lk[_lj].id) || 'ONE OF YOURS'));
+      h += '<div class="rrow"><span class="rk">YOU WILL NOT LOSE</span>'
+         + '<span class="rv">' + _ln.join(' · ') + '</span></div>';
+      var _cost = ctLockCost();
+      for(var _ci2 = 0; _ci2 < _cost.length; _ci2++){
+        h += '<div class="rrow"><span class="rk">'
+           + esc(ctWhoName(_cost[_ci2].id) || 'ONE OF YOURS')
+           + ' COSTS YOU</span><span class="rv">'
+           + esc(BohemiaLock.sayCost(_cost[_ci2]) || '') + '</span></div>';
+      }
+      if(_cost.length)
+        h += ctNote('They are still yours. They are just not carrying anything '
+                  + 'until they are well.');                       /* draft:true */
     }
   }catch(_e){}
   h += '<div class="rrow"><span class="rk">YOUR RUNG</span>'
@@ -71941,8 +72338,14 @@ function showStanding(){
                + '<span class="rv">' + _fw.total + ' of ' + _fw.crowd + '</span></div>';
             for (var _fi = 0; _fi < _fw.crew.length; _fi++) {
               var _c = _fw.crew[_fi];
+              /* __CITY_LOCK_THEM__ (9/15) -- THE CREW NAME IS A TAP TOO, the same
+                 one as YOUR PEOPLE above. This is the list that fills up as the
+                 game goes, so the first hour's tap and the fiftieth hour's tap are
+                 the same gesture in the same place. A crew member who is DOWN is
+                 not on this list at all while they heal, which is what the lock
+                 costs; see ctLockOut. */
               h += '<div class="rrow"><span class="rk">'
-                 + esc(ctPersonName(_c.who) || ctKindWord(_c.kind))
+                 + ctLockName(_c.who, ctPersonName(_c.who) || ctKindWord(_c.kind))
                  + '</span><span class="rv">' + esc(_c.word) + '</span></div>';
             }
             if (_fw.total > _fw.crew.length)
@@ -72006,6 +72409,42 @@ function showStanding(){
       try{ famMarry(); }catch(_e){}
       try{ showStanding(); }catch(_e){}   /* redraw the card he is looking at */
     });
+  }catch(_e){}
+  /* __CITY_LOCK_THEM__ (9/15) -- ONE TAP, BOUND WHERE THE CARD REALLY IS.
+     Bound AFTER cardShow, and ON THE CARD rather than on each name, for the two
+     reasons this file has already paid for: the nodes do not exist until the card
+     is in the document (the marriage button's own comment, and it could never have
+     worked bound in ctDraw), and the redraw below REPLACES every name node, so a
+     per-name listener would be attached to a detached element from the second tap
+     onward -- the stale-handle bug this lane hit measuring the wake card.
+     THE REDRAW IS THE PROOF HE GETS: he taps the name, the card is still open, and
+     the name is now underlined. Rule 14(h) asks for exactly that -- the panel still
+     open and its own words moved -- so the thing he sees is the thing a check can
+     see, instead of two different stories. */
+  try{
+    var _cd = document.getElementById('daycardIn');
+    /* *** BOUND ONCE FOR THE LIFE OF THE PAGE, AND THE FLAG IS NOT DECORATION. ***
+       MEASURED ON THE DEMO, because the first cut of this failed in a way no
+       reading would have caught: #daycardIn is ONE PERMANENT ELEMENT that every
+       card refills with innerHTML -- which is why cardShow assigns i.onclick, a
+       property, rather than adding a listener. addEventListener STACKS. So every
+       redraw of this card added another handler to the same element, one tap ran
+       all of them, and the lock toggled once per listener: on, off, on, off. With
+       an even number of redraws behind him the tap did NOTHING AT ALL, with no
+       error and nothing in the console.
+       That is the same shape as the two copies of the body ladder one round ago:
+       a second copy of one rule, quietly disagreeing with the first. One listener,
+       for good, reading whatever the card currently holds. */
+    if(_cd && !_cd.__lockBound){
+      _cd.__lockBound = 1;
+      _cd.addEventListener('click', function(ev){
+        var t = ev && ev.target; if(!t || !t.closest) return;
+        var n = t.closest('[data-lock]'); if(!n) return;
+        ev.stopPropagation();
+        try{ ctLockTap(n.getAttribute('data-lock')); }catch(_e){}
+        try{ showStanding(); }catch(_e2){}
+      });
+    }
   }catch(_e){}
 }
 
