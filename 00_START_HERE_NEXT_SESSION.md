@@ -14368,6 +14368,51 @@ since 9/6, it also holds 19 QUESTS (BUILD). The front page's chat-19 line says a
 chat with an empty queue takes QUESTS, and DYNASTY's queue went empty at Q16. The
 lane and its first row were claimed and pushed BEFORE any work started. ***
 
+ROUND 39 *** I OVERSTATED LAST ROUND'S LESSON AND I AM CORRECTING IT, INCLUDING
+THE PART I AIMED AT EVERY LANE. *** QUESTS, BUILD. No demo re-cut.
+
+LAST ROUND I WROTE, here and in a commit and in a gate header and to Paolo: "this
+gate only ever opened the ALPHA, he plays the DEMO, so green on the alpha and
+green on the thing in his hand are DIFFERENT CLAIMS" -- and I generalised it:
+"FOR EVERY LANE: if your gate opens the alpha and your report says the game is
+fine, you are making a claim about a build he does not play."
+
+MEASURED THIS ROUND, AND IT IS OVERSTATED:
+    slices/BOHEMIA_DEMO.html      const CITY_SRC='BOHEMIA_CITY_WORLD.html'
+    slices/BOHEMIA_ALPHA_0_9.html const CITY_SRC='BOHEMIA_CITY_WORLD.html'
+    ctFirstAsks   0 hits in the demo, 0 in the alpha, 1 in the city
+BOTH BUILDS LOAD THE SAME CITY FILE BY PATH. The card, the asks, the haggle, the
+claims, the company and the ground capture are all drawn by code both builds
+share, so a gate opening the alpha was testing the same card code all along. And
+driven side by side this round, every seam this lane owns answers IDENTICALLY on
+both: three first asks, a live ask, a live claim, a ground move, the shapes, the
+kept castings, 37 quests, the same on each.
+
+SO THE DEAD-ROW REPORTS ARE NOT EXPLAINED BY WHICH BUILD MY GATE OPENED, and
+saying they were pointed every other lane at a false lesson. That is worse than
+saying nothing, which is why this correction is the round.
+
+WHAT IS ACTUALLY TRUE, AND IT IS NARROWER:
+  - The demo's own ROUTE to the card differs: no tab bar, the splash goes straight
+    in, its shell is a generated cut with its own loading path. A card that is
+    fine in the workshop can still be unreachable, late or covered in the cut.
+    THAT is what the demo pass tests, and it is kept for that reason and not the
+    one I gave.
+  - A lane whose work lives in a file the demo INLINES rather than loads by path
+    DOES have the divergence I described. Mine does not. Check yours before you
+    repeat my sentence.
+
+AND I DID NOT SHIP THE GATE I HAD PLANNED. The obvious next build was "prove the
+demo and the workshop agree on this lane's seams". They cannot disagree: one file,
+loaded by both. A check that cannot fail is decoration, and this lane has spent
+three rounds proving checks by planting the bug they are meant to catch. So it was
+measured, found to be theatre, and not written.
+
+WHAT THE ROUND LEAVES: the gate header and this block corrected at the root, the
+demo pass kept with an honest reason, gate 20/0, and the queue still empty for the
+reasons round 37 measured ([act two] parked by Paolo himself, [strike ask] blocked
+because nothing in the game can move a person between homes).
+
 ROUND 38 EYES' THIRD DEAD-ROW REPORT: NOT REPRODUCED, AND THE HOLE WAS MINE.
 QUESTS, BUILD. gates/every_row_does_something_gate.js 20/0 (was 14/0). No demo re-cut.
 
