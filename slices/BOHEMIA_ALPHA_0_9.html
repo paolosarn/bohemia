@@ -1388,7 +1388,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 9/15s - FIVE TIMES THE STRIDE</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 9/15t - COPPER WAS ALWAYS PATINA</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -4236,7 +4236,7 @@ var FAMILY_CAST = [
   { role:'FATHER', name:'RAY',    draft:true, survivesIf:'always', age:'adult',
     why:'gets between the door and his kids; woken, never dressed for it',
     dials:{height:0.60,belly:0.35,arms:0.35,shoulders:0.55,hips:0.10},
-    worn:{hair:'DRY TAPER',base:'COPPER WORK SHIRT',legs:'PATCHED WORK PANTS',
+    worn:{hair:'DRY TAPER',base:'PATINA WORK SHIRT',legs:'PATCHED WORK PANTS',
           feet:'BROWN BOOTS',waist:'LEATHER BELT',gear:'WORK SUSPENDERS'} },
   { role:'MOTHER', name:'DENISE', draft:true, survivesIf:'always', age:'adult',
     why:'you reach her at the end; doing something ordinary an hour ago',
@@ -28391,7 +28391,7 @@ window.CLO=(function(){
     {n:'GREEN FLANNEL',st:'canon',layer:'base',gen:function(g){return genTop(g,{ramp:GRN,sleeves:true});}},
     {n:'SCAVENGER FLANNEL',st:'canon',layer:'base',gen:function(g){return wear(genTop(g,{ramp:RUSTIRON,sleeves:true}),RUSTIRON,13);}},
     {n:'BONE HENLEY',st:'canon',layer:'base',gen:function(g){return wear(genTop(g,{ramp:BONECLO,sleeves:true}),BONECLO,13);}},
-    {n:'COPPER WORK SHIRT',st:'canon',layer:'base',gen:function(g){return wear(genTop(g,{ramp:COPPEROX,sleeves:true}),COPPEROX,13);}},
+    {n:'PATINA WORK SHIRT',st:'canon',layer:'base',gen:function(g){return wear(genTop(g,{ramp:COPPEROX,sleeves:true}),COPPEROX,13);}},
     {n:'SOOT TANK',st:'canon',layer:'base',gen:function(g){return wear(genTop(g,{ramp:CHARCLOTH,sleeves:false}),CHARCLOTH,13);}},
     /* --- CANON legs --- */
     {n:'BLUE JEANS',st:'canon',layer:'legs',gen:function(g){return genPants(g,{ramp:DENIM});}},
@@ -28490,7 +28490,7 @@ window.CLO=(function(){
     {n:'RUST STRIPED TEE',st:'canon',layer:'base',gen:function(g){return wear(genTop(g,{ramp:RUSTIRON,sleeves:'short',neck:'crew',pattern:'stripe'}),RUSTIRON,12);}},
     {n:'DENIM VEST',st:'canon',layer:'outer',gen:function(g){return wear(genCoat(g,{ramp:DENIM,vest:true}),DENIM,14);}},
     {n:'SLATE SNEAKERS',st:'canon',layer:'feet',gen:function(g){return wear(genShoes(g,{ramp:SLATESNK}),SLATESNK,12);}},
-    {n:'COPPER SCARF',st:'canon',layer:'neck',gen:function(g){return wear(genAcc(g,{ramp:COPPEROX,kind:'scarf'}),COPPEROX,8);}},
+    {n:'PATINA SCARF',st:'canon',layer:'neck',gen:function(g){return wear(genAcc(g,{ramp:COPPEROX,kind:'scarf'}),COPPEROX,8);}},
     {n:'CHARCOAL DUST MASK',st:'canon',layer:'face',gen:function(g){return wear(genAcc(g,{ramp:CHARCLOTH,kind:'mask'}),CHARCLOTH,8);}},
     /* ---- COOK BATCH 14 (7/19): THE COLORWAY MULTIPLICATION toward the 500-800
        target (research: BOHEMIA_WARDROBE_TARGET). Every APPROVED structure x the
@@ -28500,7 +28500,7 @@ window.CLO=(function(){
     /* tops: plaids */
     {n:'OXBLOOD PLAID FLANNEL',st:'canon',cw:true,layer:'base',gen:function(g){return wear(genTop(g,{ramp:OXBLOOD,sleeves:'long',neck:'button',pattern:'plaid'}),OXBLOOD,12);}},
     {n:'STEEL PLAID FLANNEL',st:'canon',cw:true,layer:'base',gen:function(g){return wear(genTop(g,{ramp:STEELB,sleeves:'long',neck:'button',pattern:'plaid'}),STEELB,12);}},
-    {n:'COPPER PLAID FLANNEL',st:'canon',cw:true,layer:'base',gen:function(g){return wear(genTop(g,{ramp:COPPEROX,sleeves:'long',neck:'button',pattern:'plaid'}),COPPEROX,12);}},
+    {n:'PATINA PLAID FLANNEL',st:'canon',cw:true,layer:'base',gen:function(g){return wear(genTop(g,{ramp:COPPEROX,sleeves:'long',neck:'button',pattern:'plaid'}),COPPEROX,12);}},
     /* tops: hoodies */
     {n:'RUST HOODIE',st:'canon',cw:true,layer:'base',gen:function(g){return wear(genTop(g,{ramp:RUSTIRON,sleeves:'long',neck:'hood',hoodUp:CLO_HOODUP,pocket:true}),RUSTIRON,12);}},
     {n:'BRICK HOODIE',st:'canon',cw:true,layer:'base',gen:function(g){return wear(genTop(g,{ramp:BRICK,sleeves:'long',neck:'hood',hoodUp:CLO_HOODUP,pocket:true}),BRICK,12);}},
@@ -28556,7 +28556,7 @@ window.CLO=(function(){
     {n:'BONE KNIT CAP',st:'canon',cw:true,layer:'head',gen:function(g){return wear(genHat(g,{ramp:BONECLO,kind:'beanie'}),BONECLO,10);}},
     {n:'OLIVE KNIT CAP',st:'canon',cw:true,layer:'head',gen:function(g){return wear(genHat(g,{ramp:OLIVEDRAB,kind:'beanie'}),OLIVEDRAB,10);}},
     {n:'BRICK WATCH CAP',st:'canon',cw:true,layer:'head',gen:function(g){return wear(genHat(g,{ramp:BRICK,kind:'beanie',fit:'skull'}),BRICK,10);}},
-    {n:'COPPER FIELD CAP',st:'canon',cw:true,layer:'head',gen:function(g){return wear(genHat(g,{ramp:COPPEROX,kind:'cap'}),COPPEROX,10);}},
+    {n:'PATINA FIELD CAP',st:'canon',cw:true,layer:'head',gen:function(g){return wear(genHat(g,{ramp:COPPEROX,kind:'cap'}),COPPEROX,10);}},
     {n:'DUST WORK CAP',st:'canon',cw:true,layer:'head',gen:function(g){return wear(genHat(g,{ramp:DUSTSAND,kind:'cap'}),DUSTSAND,10);}},
     {n:'STORM SLOUCH BEANIE',st:'canon',cw:true,layer:'head',gen:function(g){return wear(genHat(g,{ramp:STORMGRY,kind:'beanie',slouch:true}),STORMGRY,10);}},
     {n:'KHAKI SLOUCH BEANIE',st:'canon',cw:true,layer:'head',gen:function(g){return wear(genHat(g,{ramp:KHAKI,kind:'beanie',slouch:true}),KHAKI,10);}},

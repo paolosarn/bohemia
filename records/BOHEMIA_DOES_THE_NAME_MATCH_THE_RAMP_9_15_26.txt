@@ -1,0 +1,59 @@
+DOES THE NAME MATCH THE RAMP?  --  CHARACTER lane, 9/15/26, VAMILY [names lie]
+Every canon garment whose NAME names a colour, measured against the ramp it renders.
+
+THE ROW: COPPER WORK SHIRT is green, "and that one lie is the whole reason Trades
+measured 121 degrees off his chosen orange." A lying name is not cosmetic: this lane
+dresses factions BY NAME, so a garment that lies puts the wrong faction's colour on
+a body, and COLOUR IS TERRITORY says the colour is the statement.
+
+*** THE ROW NAMES SEVEN COLOUR WORDS. THE RAIL USES 26. ***
+Rule 12: a dependency is a premise, not a gate. Sweeping only copper, oxblood, bone,
+steel, teal, dust and charcoal would have cleared the wardrobe and left the rest in.
+
+HOW EACH KIND OF WORD IS CHECKED, because one test for all of them is wrong:
+  CHROMATIC  the word names a hue      -> hue, within 40 degrees
+  EARTH      dust, sand, khaki        -> an earth hue AND chroma under its ceiling
+  NEUTRAL    the word names greyness  -> SATURATION at or under 0.34
+  DARK       the word names a value   -> VALUE at or under 0.42
+40 degrees is generous on purpose. This hunts LIES, not shades: the garment the row
+was opened about is 121 degrees out.
+
+  canon garments on the rail          318
+  garments whose name names a colour  205
+  claims checked (a name can carry two) 214
+  *** CLAIMS THAT LIE                 0 ***
+
+BY WORD
+  word      kind      claims   lie
+  OLIVE     hue           18     0
+  BONE      neutral       17     0
+  DUST      earth         14     0
+  RUST      hue           13     0
+  STORM     neutral       12     0
+  ASH       neutral       12     0
+  SLATE     neutral       11     0
+  OXBLOOD   hue           10     0
+  CHARCOAL  dark          10     0
+  SOOT      dark           9     0
+  SAGE      hue            9     0
+  STEEL     neutral        9     0
+  BRICK     hue            8     0
+  COBALT    hue            8     0
+  KHAKI     earth          7     0
+  GREY      neutral        6     0
+  DENIM     hue            6     0
+  RED       hue            5     0
+  BLACK     dark           5     0
+  GREEN     hue            5     0
+  BROWN     hue            5     0
+  PATINA    hue            4     0
+  COAL      dark           4     0
+  SAND      earth          4     0
+  TEAL      hue            3     0
+
+EVERY LIAR
+  none
+
+THE FIX THE ROW ASKS FOR: "rename or re-ramp each -- THE RAMP MOVES, THE SHAPE
+NEVER DOES." STRUCTURE-NOT-COLOR, so any repair has to leave the silhouette
+byte-identical, and that is measured rather than promised.
