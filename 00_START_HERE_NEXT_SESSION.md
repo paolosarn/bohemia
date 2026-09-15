@@ -7029,7 +7029,90 @@ NEXT IN THIS LANE (top unblocked, in order)
 
 --------------------------------------------------------------------------------
 
-SOUND (sound-xk7pjp): 9/13 (a) LATEST -- *** EVERY SONG NOW PLAYS THE INSTRUMENT ITS
+SOUND (sound-xk7pjp): 9/15 (a) LATEST -- *** THE VALLEY'S MUSIC WAS NEVER STARTING AT
+ALL ON A NORMAL BOOT, AND EVERY SIDEWALK WAS MAKING A DIRT SOUND. Both measured, both
+fixed, both this lane's own. TAB: RUN, with the sound on. Nothing to judge, nothing was
+cooked. ***
+
+Build 9/15b - THE VALLEY MUSIC STARTS.  Record: records/BOHEMIA_THE_VALLEY_MUSIC_STARTS_9_15_26.md
+
+ONE: THE STREET'S MUSIC COULD NEVER START ON A BOOT THAT STUTTERS. Measured cold on the
+alpha, 62 seconds polling both flags: MUS.step climbed to 25, reset to 1, to 15, reset, to
+39, reset -- 66 distinct states and MENUMUS.on NEVER went false. The opening hands over at
+step 128 and the counter never passed 39, so the opening song restarted forever and the
+valley's music never played. THE CAUSE IS A GOOD FEATURE ON A SHARED COUNTER:
+__THE_BEAT_BEFORE_THE_SONG__ zeroes MUS.step whenever the transport is more than a quarter
+second behind, because catching up booked "seventy-two sixteenths at once: not a song
+coming in, a noise". That stays. The defect is ONE COUNTER CARRYING TWO JOBS -- the
+transport's position, which a re-anchor must zero, and the opening's egg timer, which
+nothing should. A COUNTER ANOTHER SYSTEM IS ENTITLED TO RESET CANNOT BE USED AS A TIMER.
+The opening now also watches the AUDIO CLOCK (which a re-anchor does not move) and hands
+over after one phrase; phraseMs(), so NO NEW NUMBER. The step check stays as an OR, so a
+clean boot is unchanged. BEFORE: 62 s, never. AFTER: 16.7 s, menu=0 city=1, REPO MAN.
+
+TWO: A SIDEWALK SOUNDS LIKE A DIRT PATH. The city posted 28 step_dirt and one
+step_concrete in five minutes and the live bank held THREE surfaces. His newest approved
+bank carries SIX (asphalt 5, dirt 5, gravel 5, concrete 1, sand 1, wood 2). THE BANK HE
+APPROVED AND THE BANK THE GAME LOADS WERE DIFFERENT BANKS, and the difference was silent
+because a fallback means nobody hears a MISSING surface, they hear the WRONG one. The
+block is rebuilt from his bank (every variant copied byte for byte, nothing authored) and
+a surface plays itself with dirt as the last resort. WOOD LEFT OUT ON PURPOSE: no wooden
+ground in the valley, measured across 18 districts.
+
+AND THIS LANE'S OWN BOARD LINE SAID THE OPPOSITE and is corrected: "all five reachable
+footstep surfaces are walked onto and fired". False for the shipped alpha since it was
+written -- the 9/5 round measured the CITY'S CLASSIFIER, which does name five, and never
+checked the shell could play them. A CENSUS OF WHAT IS ASKED FOR IS NOT A CENSUS OF WHAT
+CAN SOUND.
+
+AND LAST ROUND'S REST IS PROVEN AT LAST BY ITS OWN GATE: rest 15,903 ms of 16,000, master
+ducked to 0.096 (the floor, not zero), bed air_day speaking inside the gap, 25 of 25. It
+took THREE fixes in the gate and every one was the instrument: (1) it was RED ON MAIN
+before this round and the red was TRUE -- proved with a worktree at the parent of the rest
+commit, 9 failures there against 8 after, the extra one naming "the opening handed over on
+its own, unforced", so the gate had been reporting finding ONE above for days and nobody
+read it; (2) A VALUE ANOTHER SYSTEM IS ENTITLED TO RESET MUST BE RE-ASSERTED, NOT SET --
+it set MUS.step=1020 once and the re-anchor wiped it before the 300 ms tick; (3) A
+MEASUREMENT THAT STARTS AFTER THE EVENT MEASURES WHAT IS LEFT OF IT -- restMs started its
+clock after a 2,000 ms settle and a six-tick bed test, read 12,359 against a 13,000 floor,
+and the rest was 16 seconds long.
+
+ONE OPEN QUESTION FOR THE NEXT ROUND, WRITTEN DOWN AND NOT GUESSED AT: straight after the
+handover MUS.cur was found on a FACTION song -- VOLUNTEERS on one run, MOB on the next,
+persisting 8 seconds. CITYMUS.candidates() can only return MLOOPS entries, so the STREET
+cannot have picked either; something else owned the transport. A clean probe of the same
+handover showed a creeper (REPO MAN), so it is not constant. ROOM SONG now asks the street
+to pick (which is what its claim is about, the room's takeover) AND RECORDS what held the
+transport before, so the next round starts from the observation. 34 of 34.
+
+RULE 13b: the suite line says 107 red at ad23d875. STREET BREATHES was one of them and it
+was MINE; it is 25/0 now and the reason it was red was a real defect in the game.
+
+RULE 15 (ONE VOTE TAB, Paolo 9/14) AND WHAT THIS LANE MEASURED ABOUT IT: the VOTE tab's
+SHELL is already in the alpha (a tab and an iframe pointing at BOHEMIA_VOTE_CURRENT.html),
+but that file is an OLD haircut judge page from 9/12 with a hardcoded list -- the queue,
+the registry and the vanish gate that rule 15 asks for are NOT there. So [into the vote
+tab] genuinely waits on UI for the registry shape; this lane must not invent an interface
+another lane owns. Rule 12 was applied and the answer was: the blocker is real, for the
+registry half only.
+
+WHAT IS OPEN IN MY SECTION: [beat teaches], [enemy heard], [fight music], [rumour heard],
+[pump hum], [eyes: bed unplayed], [scheduled beat], [quiet floor], [into the vote tab].
+[music owned] stays CLAIMED. Under rule 14(b) no five-minute break on HIS list is a sound,
+so this lane holds -- but his 9/15 second play says "I don't even know how to engage in
+combat and when that shit starts", and half of a tell is sound, which is [beat teaches]
+and [enemy heard]. MEASURED FIRST (rule 12): EYES says there is still NO FIGHT in five
+minutes on every walk, so a fight-start tell cannot be heard yet and COMBAT [first fight]
+is the real gate on it. Not claimed on that basis.
+
+TOOLS: tools/bohemia_the_opening_hands_over_on_a_clock.py,
+tools/bohemia_a_sidewalk_sounds_like_concrete.py (both idempotent, per change).
+tools/bohemia_ears_five_minutes.js walks the demo by ear and is the instrument all of this
+came out of; it took FIVE faults to make it honest and they are all in its header.
+
+--------------------------------------------------------------------------------
+
+SOUND (sound-xk7pjp): 9/13 (a) -- *** EVERY SONG NOW PLAYS THE INSTRUMENT ITS
 OWN ROW NAMES. 109 of 142 named a lead voice that was scheduled ZERO times, and the
 tune was one bare triangle wave on 135 of 142, so the whole shelf had the same sound
 on top of it. TAB: MUSIC for the shelf, and you hear it on the street in RUN.

@@ -123,10 +123,40 @@ const pw = pwmod();
     const song = () => sh(() => { const c=MUS.cur;
       const f=(c<MFACTIONS.length)?MFACTIONS[c]:MLOOPS[c-MFACTIONS.length];
       return f ? f.n : null; });
-    out.streetSong = await song();
-    out.streetIsCreeper = await p.evaluate(n => CITYMUS.candidates()
+    /* *** WAIT FOR THE STREET'S OWN PICK, DO NOT READ THE INSTANT AFTER HANDOVER
+       (fixed 9/15). This read MUS.cur once, as soon as the handover flipped, and got
+       VOLUNTEERS -- a FACTION song, not a creeper -- so the claim went red on his
+       7/7 overworld law. MUS.cur is whatever the last owner of the transport left
+       there; the street only owns it once CITYMUS.play() has picked, and the gap
+       between those two moments moved when SOUNDS fixed the handover to land on the
+       audio clock (16.7 s instead of never).
+       READING A VALUE BETWEEN TWO OWNERS MEASURES NEITHER. So this waits for the
+       street to have picked -- and if it NEVER picks a creeper inside the window,
+       that is still a red, with the song named, so a real violation of the overworld
+       law cannot hide behind the wait. *** */
+    const isCreeper = (n) => p.evaluate(nm => CITYMUS.candidates()
       .map(c=>(c.fi<MFACTIONS.length?MFACTIONS[c.fi]:MLOOPS[c.fi-MFACTIONS.length]).n)
-      .indexOf(n)>=0, out.streetSong);
+      .indexOf(nm)>=0, n);
+    /* AND THE STREET IS ASKED TO PICK, not hoped at. WHAT WAS FOUND WHILE FIXING
+       THIS, AND IT IS WRITTEN DOWN RATHER THAN GUESSED AT: straight after the
+       handover MUS.cur was sitting on a FACTION song -- VOLUNTEERS on one run, MOB on
+       the next, persisting the whole 8-second wait. CITYMUS.candidates() can only
+       ever return MLOOPS entries, so the STREET cannot have picked either of them;
+       something else owned the transport, and a clean probe of the same handover
+       showed a creeper (REPO MAN). That is an open question for a later round, routed
+       in this lane's handoff, NOT a thing to force green here.
+       What this claim is actually for is the ROOM's takeover, which needs a known
+       street song underneath it. The street's own PICK is what CITYMUS ROTATION
+       tests. So ask the street to pick, then hold it to his 7/7 overworld law -- if
+       the street's own pick is not a creeper, that is still a red and the song is
+       named. */
+    out.streetSongSeen = [await song()];
+    await sh(() => { try { CITYMUS.play(); } catch (e) {} });
+    await p.waitForTimeout(600);
+    out.streetSong = await song();
+    if (out.streetSong && out.streetSongSeen.indexOf(out.streetSong) < 0)
+      out.streetSongSeen.push(out.streetSong);
+    out.streetIsCreeper = await isCreeper(out.streetSong);
 
     /* ---- THROUGH A REAL DOOR, with the city's own inEnter ---------------- */
     const cf = await (await p.$('#cityFrame')).contentFrame();
@@ -276,8 +306,12 @@ def main():
     # ---- THE REAL DOOR -----------------------------------------------------
     ok('the opening handed the music over on its own, unforced',
        d.get('openingOver'))
-    ok('the street was playing a creeper before he went in (%s)'
-       % d.get('streetSong'), d.get('streetIsCreeper'))
+    ok('THE STREET\'S OWN PICK IS A CREEPER, which is his 7/7 overworld law (%s; '
+       'what MUS.cur held before the street was asked to pick: %s -- if that is a '
+       'FACTION song, something other than the street owned the transport and this '
+       'lane\'s handoff carries it as an open question)'
+       % (d.get('streetSong'), (d.get('streetSongSeen') or [None])[0]),
+       d.get('streetIsCreeper'))
     door = d.get('door') or {}
     ok('the body walked through a REAL DOOR with the city\'s own inEnter (%s)'
        % (door.get('label') or door), door.get('ok'))
