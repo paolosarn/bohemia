@@ -15214,6 +15214,10 @@ const MENUMUS={on:false,watch:null,
     const c=this.pick();
     if(!c){ try{CITYMUS.startShuffle();}catch(e){} return; }   /* never silent because a pool is empty */
     this.on=true;
+    /* __THE_OPENING_HANDS_OVER_ON_A_CLOCK__ -- cleared HERE and not in the
+       watch, so a second opening in one session cannot hand over instantly
+       off the first one's timestamp. */
+    this.startedAt=null;
     MUS.cur=c.fi; MUS.curSlot=1;
     try{ MUS.start(); }catch(e){ this.on=false; try{CITYMUS.startShuffle();}catch(_e){} return; }
     this.tellCity(true, MLOOPS[c.fi-MFACTIONS.length].n);
@@ -15222,7 +15226,36 @@ const MENUMUS={on:false,watch:null,
       /* if anything else stopped the transport -- a tab switch, the studio, the
          off button -- the opening is over and it does not get to restart. */
       if(!MUS.playing){ MENUMUS.on=false; clearInterval(MENUMUS.watch); MENUMUS.watch=null; return; }
-      if(MUS.step>=MENUMUS.HANDOFF_STEPS) MENUMUS.handOff(); },300); },
+      /* __THE_OPENING_HANDS_OVER_ON_A_CLOCK__ (9/15, SOUNDS lane) -- THE STREET'S
+         MUSIC COULD NEVER START ON A BOOT THAT STUTTERS, WHICH IS EVERY BOOT ON A
+         PHONE. Measured on the shipped alpha, cold, 62 seconds: MUS.step climbed to
+         25, reset to 1, climbed to 15, reset, reached 39, reset -- 66 distinct
+         states, and MENUMUS.on never went false once. The handoff below waits for
+         step 128 and the counter never got past 39, so the opening song restarted
+         forever and the valley's music never played.
+         THE RESET IS NOT A BUG AND MUST STAY. __THE_BEAT_BEFORE_THE_SONG__ zeroes
+         MUS.step whenever the transport is more than a quarter second behind,
+         because catching up booked "SEVENTY-TWO SIXTEENTHS at once: not a song
+         coming in, a noise". The defect is that ONE COUNTER CARRIES TWO JOBS -- the
+         transport's position, which a re-anchor must zero, and this egg timer,
+         which nothing should. A 24-second city parse resets the timer before it can
+         ring.
+         A COUNTER THAT ANOTHER SYSTEM IS ENTITLED TO RESET CANNOT BE USED AS A
+         TIMER. So the opening also watches the AUDIO CLOCK, which a re-anchor does
+         not move, and hands over after ONE PHRASE of real audio time -- phraseMs(),
+         the engine's own unit, already shared with the street's rest and the drum
+         hold, so no new number enters the game.
+         THE STEP CHECK STAYS AS AN OR: on a clean boot the counter still wins and
+         the handoff is exactly what it always was, on the phrase, to the step. And
+         when the clock wins, the player HAS heard a full phrase -- the re-anchors
+         kept it audible, which is what they are for -- so it is the honest moment
+         and not an early cut. */
+      if(MENUMUS.startedAt==null){ try{ MENUMUS.startedAt=MUS.AC.currentTime; }catch(_e){} }
+      var _late=false;
+      try{ var _ph=(typeof phraseMs==='function'?phraseMs():16000)/1000;
+        _late = (MENUMUS.startedAt!=null) && (MUS.AC.currentTime-MENUMUS.startedAt >= _ph);
+      }catch(_e){}
+      if(MUS.step>=MENUMUS.HANDOFF_STEPS || _late) MENUMUS.handOff(); },300); },
   handOff(){ if(!this.on)return; this.on=false;
     if(this.watch)clearInterval(this.watch); this.watch=null;
     try{ CITYMUS.startShuffle(); }catch(e){} },   /* the streets take it */
