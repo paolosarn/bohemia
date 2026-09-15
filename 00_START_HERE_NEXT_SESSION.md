@@ -10308,6 +10308,89 @@ THIS LANE'S ROLE, FIXED: 16 COOK, the production artist.
 THIS LANE'S SESSION SLUG: cook-mce6r5.
 
 
+COOK (cook-mce6r5): 9/15 LATEST -- *** [car recook] ROUND 5: "I'M SO CONFUSED" IS
+ARITHMETIC, AND IT IS EVERY PROP IN THE GAME. SIXTEEN OF SIXTEEN DRAWN AT A FRACTIONAL
+SCALE. *** NOTHING ON HIS SCREEN CHANGED THIS ROUND and no build stamp, on purpose.
+
+PAOLO 9/15: "every time I see a car it looks like dogshit, I'M SO CONFUSED." Round 4
+answered the second half of that sentence (the placeholder sky). This is the first half,
+and the word that matters is CONFUSED: he can see something and cannot name it.
+
+THE MEASUREMENT. A prop is drawn by fitting its master into the stall its FOOTPRINT buys
+(scale = min(stallW/masterW, stallH/masterH)). The ground beside it is drawn at exactly
+1.000 -- 44 px tiles into 44 px cells, lossless, which is what raising the bake 22 -> 44
+bought on 8/1 after Paolo said "the pixel quality... of the terrain of the ground of the
+houses... it's so bad".
+
+    car 1.833  lighttower 1.354  pole 0.943  bench 0.672  firebarrel 0.650
+    barricade 0.562-0.668  dumpster 0.629  mailbox 0.596  bin 0.508-0.596
+    barrel 0.535-0.596  bollard 0.476-0.550  rubble 0.478-0.544  pallet 0.497
+    cone 0.458  tyre 0.457  bag 0.413-0.445
+
+SIXTEEN OF SIXTEEN. NOT ONE PROP IN THE GAME LANDS ON AN INTEGER. And it is NOT BLUR --
+smoothing is explicitly off for this draw. It is worse than blur, it is UNEVEN: at 1.833x a
+source row becomes 2 screen pixels, then 2, then 1, in a pattern that never repeats
+cleanly. Every pixel of the car is a different size from its neighbour AND 83% BIGGER THAN
+THE GROUND PIXEL BESIDE IT. At 0.429x whole source rows are discarded. This repo's own
+mobile render contract says "non-integer scale is BANNED" and the ground obeys it; THE
+PROPS NEVER HAVE AND NOTHING EVER CHECKED.
+
+WHY A GATE AND NOT A FIX: fourth time this lane has found this exact fault, and the first
+three were all found by a person looking at a picture -- the yard at 2.75x (9/13, 72% of
+his screen), the door stretch (8/25, his words "ITS LIKE A PICTURE OF THE DOOR BRO"), the
+car stretch (9/7), and now the car correctly FITTED, correct aspect, and STILL 1.833x.
+
+WHAT THE FIX ACTUALLY IS, FOR WHOEVER TAKES IT: author each master at the pixel size its
+own stall gives, so the fit is 1.000. A CAR MASTER IS 88x176, NOT 45x96. That is 106
+sprites and deserves its own row. BOTH SHORTCUTS MEASURED AND REJECTED: a 2x upscale gives
+90x192 against an 88x176 stall and trimming needs 1 px of transparent margin each side and
+8 px of height -- MEASURED, THE SMALLEST MARGIN ACROSS ALL 20 CARS IS ZERO ON EVERY EDGE,
+they fill their masters. Snapping in the renderer puts the car at 1.0 (a toy in half its
+stall) or 2.0 (16 px of overhang), and moves the small props -23% to +17%, which is a world
+fact and not presentation. Round 3 of this row already drew that line: the STALL is
+correct and is not this lane's.
+
+*** AND MY OWN GATE PASSED 6 OF 6 WHILE MEASURING ZERO FAMILIES. *** The first version ran
+green having read NOTHING: a regex that did not match, a loop that never ran, every arm
+after it vacuously true. FIFTH TIME IN SIX ROUNDS this lane has been handed a clean answer
+by the wrong oracle (the sign pool, tf_cu the cooling unit, the "138 flat cells" I
+published and retracted, the pizza planet, now this) -- and the first time it was about to
+be PERMANENT. A gate that lies is worse than no gate. Fixed twice over: the sizes now come
+from the SAME NODE EVAL THE GAME USES, read off the PNG headers, never a regex over a
+1.6 MB blob; and THE FIRST ASSERTION IS THAT THE GATE MEASURED SOMETHING AT ALL
+(len(rows) >= 10). Mutation-tested three ways, each bites: un-freeze a known-bad family ->
+FAIL "NEW: car"; make a frozen family worse -> FAIL "WORSE: car"; make the reader match
+nothing -> FAIL "measured 0 families".
+Registered in the suite as PROP SCALE. Ratcheted: the sixteen are frozen, the list can only
+shrink. gates/prop_scale_gate.py, baseline gates/prop_scale_baseline.json.
+
+TWO THINGS THIS ROUND MEASURED AND DID NOT BUILD:
+  1. THE RUST PREMISE I INHERITED IS WEAKER THAN IT READS. The row says the body maxes at
+     0.21 saturation and the rust is three times louder. Measured on the real walk-zoom
+     screen instead of trusting it: THE GROUND HE WALKS ON IS ITSELF AT 0.31-0.37 (the
+     approved ground ramp this lane placed in round 2), so rust at terracotta's corroded
+     end sits IN LINE with the ground. I did not cook against a premise that weak.
+  2. THERE IS NO CAR ON SCREEN WHERE HE SPAWNS. Nearest is 32 cells away against a visible
+     radius of 14 -- he walks 32 steps to meet one. ROUTED: LIFE + CITY / WORLD. Placement,
+     not art.
+
+NEXT ROUND OF THIS ROW: the 88x176 re-author is the real fix and it is big. Before starting
+it, CHECK RULE 16 (THE STEP IS A HOUSE, Paolo 9/15): it coarsens the movement lattice to
+lots and makes bodies larger, and its own text says "NOT A REBUILD: the art under the feet
+stays", so the 44 px tile density should survive -- but the STALL a car sits in may not.
+Measure the footprint story after RUN/COMBAT/CHARACTER/LIFE+CITY land it, or the 106 new
+masters encode a constant that just moved.
+
+GATES: pre-push pass green (PROP SCALE 7/0, PROPS 76/0, REFERENCE CHECK 11/0, PIXEL CRAFT
+30/0, ART 45 16/0, CITY TAB 64/0, ALPHA LOADS 20/0, REUSE-FIRST 207/5 -- all five are other
+lanes' *_patch.py files, none in this diff). Full suite: 107 red at ad23d875, none named as
+this lane's. No demo re-cut (rule 14a).
+Record: records/COOK_EVERY_PROP_IS_DRAWN_AT_THE_WRONG_SIZE_9_15_26.md
+
+STILL PENDING PAOLO, unchanged:
+  [magenta piece] -- purple means the Amalgamation, but the Anarchists' own colour #c026a0
+  is a purple. A/B/C are on the board and below.
+
 COOK (cook-mce6r5): 9/15 LATEST -- *** [car recook] ROUND 4: HE ZOOMED ALL THE WAY OUT AND
 THE GAME SHOWED HIM A PLACEHOLDER WITH THE WORD PLACEHOLDER ON IT. AR-005 CLOSED. *** TAB:
 RUN, then pinch out twice. Build 9/15a.
