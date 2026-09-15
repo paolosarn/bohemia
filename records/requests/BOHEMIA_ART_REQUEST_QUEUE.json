@@ -97,7 +97,7 @@
   },
   {
    "id": "AR-005",
-   "status": "OPEN",
+   "status": "SHIPPED",
    "filed": "8/12/26",
    "by": "RUN",
    "what": "THE SKY ABOVE THE VALLEY: earth from orbit, and the moon",
@@ -111,7 +111,10 @@
    ],
    "blocks": "nothing -- the continuum ships and plays today. This replaces placeholder pixels with cooked ones.",
    "marker_when_shipped": "__SKY_ART__",
-   "drops_into": "renderSky() / skyDisc() in slices/BOHEMIA_CITY_WORLD.html (marker __ONE_ZOOM_TO_THE_MOON__)"
+   "drops_into": "renderSky() / skyDisc() in slices/BOHEMIA_CITY_WORLD.html (marker __ONE_ZOOM_TO_THE_MOON__)",
+   "shipped": "9/15/26",
+   "shipped_by": "COOK (cook-mce6r5), [car recook] round 4",
+   "shipped_note": "Paolo 9/15, second play: 'when I zoom out all the way it looks like dogshit'. He was looking at this: the PLANET and MOON bands were two smooth radial-gradient discs with 'placeholder sky - art request AR-005' printed under them, filed 8/12 and open for a month. Both are now banded PIXEL art drawn as square pixels on a snapped grid (never a scaled sprite: the radius moves continuously with the pinch, so a sprite would be resampled by a fractional factor every frame). Ramps are the 7/28 approved set -- ground for the Mojave, terracotta's corroded end for the iron oxide, stucco for the dry lakes and cloud; the moon's ramp is DERIVED from asphalt (neutralised and lifted) because the repo owns no cold grey. The only non-ramp colour is the atmospheric limb, blue on this request's own instruction. The moon's three evenly spaced circles are replaced by six maria off the real near side. AND THE FIRST CUT WAS WRONG AND THE PICTURE CAUGHT IT: sampled over 40,000 points, the iron band covered 18.2% of the disc in terracotta's BRIGHT tones and the cloud another 21.2% -- it looked like a pizza. Retuned to 6.4% and 8.5% on the corroded end. Marker __SKY_ART__ is in the page; sky_touch_gate's placeholder arm is flipped to assert the opposite. Record: records/COOK_THE_SKY_HE_ZOOMS_TO_9_15_26.md"
   },
   {
    "id": "AR-006",

@@ -254,10 +254,15 @@ ok('it steps the page\'s EXISTING skyZoom rather than reaching into SKYU by hand
          'side of the planet -- a fault my own horizon curve exposed, because nothing can ' +
          'stick out of a floor that spans the whole frame',
          page.indexOf('__SKY_CLIP__') >= 0);
-      ok('the placeholder still SAYS it is a placeholder, because the real celestial art ' +
-         'is AR-005 and belongs to the ART lane -- this made the stand-in honest, it did ' +
-         'not pre-empt the artist',
-         page.indexOf('art request AR-005') >= 0);
+      /* FLIPPED 9/15 BY THE ART LANE, WHICH IS WHO THIS ARM WAS WAITING FOR. It asserted
+         the stand-in still admitted it was a stand-in, "because the real celestial art is
+         AR-005 and belongs to the ART lane". COOK cooked it: AR-005 is closed, the planet
+         and the moon are banded pixel art on approved ramps, and the honest assertion is
+         now the opposite one. Paolo 9/15 zoomed all the way out and called what was there
+         dogshit; what he was looking at had the word placeholder written on it. */
+      ok('THE SKY IS COOKED ART AND NO LONGER CALLS ITSELF A PLACEHOLDER (AR-005 closed)',
+         page.indexOf('__SKY_ART__') >= 0 &&
+         page.indexOf('placeholder sky') < 0);
     }
 
     ok('and nothing throws through the whole round trip',
