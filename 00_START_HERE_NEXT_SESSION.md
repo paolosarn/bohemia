@@ -13156,7 +13156,94 @@ RIGHT NOW: (a) write this whole instruction, word for word, into your own handof
 
 I will never paste anything to you again. From here on, the one word is the whole instruction.
 
-THIS ROUND -- *** THE STREET IS TWELVE PEOPLE NOW, NOT SIX, AND THE EXTRA SIX COST 150ms
+THIS ROUND -- *** HIS BUG FIRST, AND THE CAST CHANGE WAS INNOCENT. THEN THE ROW:
+THE STREET STOPS BEING A UNIFORM, AND HIS FACTION COLOURS CANNOT MOVE. (sha 62aea60f) ***
+
+PART ONE. He played and said he did not see a single human being, right after this lane
+shipped twelve cast bodies instead of six. His bug beats the queue, so it went first.
+THE DRAW PASS NOW COUNTS ITS OWN SKIPS, and they answer it in one read:
+    people it considered      71
+    skipped, on his own cell   0
+    skipped, cell taken        0
+    skipped, off the screen   69
+    skipped, no picture        0
+    DREW                       2
+Every skip but one is zero. Nothing stacks, nobody is missing a body, all twelve cast
+bodies work. THEY ARE SIMPLY NOT THERE. His screen is 8.6 by 18.5 house tiles. The
+1536-tile window around him holds 61 people. One is on his screen. Second nearest 14
+tiles, tenth nearest 240, median 479.
+NOT THIS LANE'S DIAL AND NOT A DIAL PROBLEM. Population is WORLD / LIFE+CITY, and
+bohemia_population.js ran that sweep itself on 8/28 and wrote the answer into its own
+head: at the TOP of the slider 23 of 32 walks still met nobody, "it is not a count, it is
+WHERE". This is that sentence measured at the eye instead of in a sweep.
+-> FOR WORLD AND LIFE+CITY: records/BOHEMIA_HOW_FAR_IS_THE_NEXT_PERSON_9_15_26.txt,
+   tools/bohemia_how_far_is_the_next_person.js. No claim taken, nothing touched.
+
+THE EIGHTH RULER THIS LANE THREW AWAY, and it cost a round. Round 1 of that chase built
+its OWN screen rectangle, counted "59 people inside it, 2 drawn", and was one sentence
+from reporting a broken cull. It measured distance in OVERMAP cells while the pass
+measures in FINE cells, 128 to one, so "the nearest person the game did not draw is 0.1
+cells away" was really 12.8 tiles away, off the side of a screen 8.6 tiles wide. Same
+class of mistake as holderAt/groundAt on 9/13.
+METHOD NOTE FOR EVERY LANE: when a pass already decides something four different ways,
+count the decisions before building a model of them. A SKIP COUNTER IS CHEAPER THAN A
+ROUND. window.__PPL_SKIP is there now and costs nothing.
+
+PART TWO, THE ROW. Six baked bodies in eight facings, 74% of the crowd a repeat. Baking
+more costs 530ms of frozen page each, so the variety is made at DRAW TIME: one generator,
+a ramp per person, keyed off his id so a man does not change colour as you walk past and
+is the same man when you come back.
+MEASURED ON ONE CROWD IN ONE RUN, at one breath phase, 183 bodies at 112px:
+    different pictures            80 -> 175
+    share repeating somebody     56% -> 4%
+    biggest group of identicals     6 -> 2
+One run, one crowd, both numbers. Two runs stand on different ground and draw different
+people, so a before from one and an after from the other differ for reasons that have
+nothing to do with the change.
+
+AND IT CANNOT TOUCH HIS FACTION COLOURS, BY CONSTRUCTION RATHER THAN BY CARE. COLOUR IS
+TERRITORY says the saturated piece states who would defend you, and DIRECTION's card
+allows ONE saturated piece over dust, ash, bone and lead. That split IS the instrument: a
+pixel's SATURATION says which of the two it is. The saturated band is a `continue`, not a
+smaller number, so there is no ramp value that can reach it. 22,222 saturated pixels on
+the crowd, 0 moved. Value only, never hue, and no pixel is scaled past the factor that
+would clip its own brightest channel -- the lesson ctStepped paid for on 9/12, when a
+step that looked mathematically safe swung Mob 35 degrees.
+
+WHAT IT COSTS, AND THE FIRST CUT OF THIS MEASUREMENT WAS ALSO WRONG. Timing whole frames
+said "47ms worst frame after arriving". THE CONTROL KILLED IT: with the ramps set to 1.00
+so they do nothing at all the same page still spiked to 36ms, and a frame that could not
+miss at all still spiked to 71ms. The city streams and bakes on idle callbacks
+underneath, so whole-frame timing in this page measures the page, not the change.
+TIMED ON THE RAMP ITSELF:
+    0.237 ms   one body at 112px, first time
+    43 ms      all 183 at once, which is why misses are rationed
+    1.9 ms     what the ration of 8 a frame costs
+    23 frames  to dress the whole crowd, 0.4 s at 60
+    0.2 ms     all 183 once cached, for the rest of the time you stand there
+    0 seconds of boot, which is the whole reason it is not a bake
+A body whose colours are not made yet is drawn AS BAKED and becomes himself a few frames
+later: the same shape as the faction-body swap in ctBody, a body getting MORE specific,
+never a person appearing out of nothing.
+
+- SHIPPED to the alpha. Build 9/15j. No demo re-cut (rule 14a, only RUN cuts the demo).
+- TAB: it is on the street in the RUN tab, and in CITY mode. Nothing new to open.
+- GATE: faction_colour 29 -> 38. Section 7 is on the REAL SURFACE, with the vacuous-pass
+  guard this lane needs (a crowd under 20 bodies is a FAIL, not a green), a ratchet on the
+  repeat share at 15% so it cannot creep back, and a check that asking twice for the same
+  person gives the same body.
+- SUITE (rule 13): pre-push pass green -- faction_colour 38/0, city_cast_silhouette 6/0,
+  a_crowd_to_walk_into 9/0, people_gather 14/0, phone perf exit 0 (60.3 fps offered in the
+  shell, walk busy 25.4%). Full suite: 107 red at ad23d875; the two carrying this lane's
+  name (FACE THUMB, LOOK) were red on main before this lane's last three ships, settled by
+  commit dates last round, and nothing from this round is in that line because the line
+  predates it.
+- NEXT ROUND: [names lie] A-GARMENT-NAMED-COPPER-RENDERS-GREEN, the next OPEN line.
+- [PENDING Paolo] unchanged and still carried: which faction colour file wins; the
+  Anarchists need a magenta garment and there are zero in 317 (the purple band blocks the
+  obvious cook); the Cartel is on the drab exemption list and not in the law that names it.
+
+PREVIOUS ROUND -- *** THE STREET IS TWELVE PEOPLE NOW, NOT SIX, AND THE EXTRA SIX COST 150ms
 OF BOOT INSTEAD OF 3,200. The break this lane measured its way to is fixed. ***
 
 MEASURED ON THE SAME STREET IN THE SAME RUN, six bodies against twelve:
