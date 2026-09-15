@@ -93,10 +93,22 @@ const pw = pwmod();
         const f = (c < MFACTIONS.length) ? MFACTIONS[c] : MLOOPS[c-MFACTIONS.length];
         return f ? f.n : null; };
       const before = songOf();
-      MUS.step = 1020;                 /* the same branch, arriving sooner */
-      const t = Date.now(); let began = null;
-      while (Date.now()-t < 15000) { await new Promise(r=>setTimeout(r,100));
-        if (CITYMUS.resting) { began = Date.now()-t; break; } }
+      /* *** HOLD THE PASS END, DO NOT JUST SET IT ONCE (fixed 9/15). This assigned
+         MUS.step=1020 and then waited, and every pass-end claim in this gate read
+         NULL for it. The cause is one level up and it is a real defect this lane
+         fixed the same round: __THE_BEAT_BEFORE_THE_SONG__ zeroes MUS.step whenever
+         the transport is more than a quarter second behind, and on a boot that
+         stalls -- a 24-second city parse -- that happens every few seconds. So the
+         1020 was wiped before the watch's 300 ms tick could ever read it.
+         A VALUE ANOTHER SYSTEM IS ENTITLED TO RESET MUST BE RE-ASSERTED, NOT SET.
+         Re-asserting it every poll is still the REAL branch doing the work: the
+         watch sees step >= 1024 and starts the rest itself, exactly as a genuine
+         pass end would. *** */
+      const t = Date.now(); let began = null, tRest = null;
+      while (Date.now()-t < 15000) {
+        if (!CITYMUS.resting && MUS.step < 1020) MUS.step = 1020;
+        await new Promise(r=>setTimeout(r,100));
+        if (CITYMUS.resting) { began = Date.now()-t; tRest = Date.now(); break; } }
       if (began === null) return { began: null };
       await new Promise(r=>setTimeout(r,2000));
       /* CAN THE BED STILL BE HEARD WITH THE MUSIC MASTER AT ZERO? That is the
@@ -121,9 +133,16 @@ const pw = pwmod();
         finally { BOH_SFX.render = real; }
         mid.bedPlaysWhileDucked = n;
         mid.gainStillDucked = +MUS.MAST.gain.value.toFixed(3); }
-      const t2 = Date.now(); let ended = null;
-      while (Date.now()-t2 < 40000) { await new Promise(r=>setTimeout(r,150));
-        if (!CITYMUS.resting) { ended = Date.now()-t2; break; } }
+      /* *** MEASURE THE REST FROM WHEN IT BEGAN, NOT FROM HERE (fixed 9/15). This
+         started its clock AFTER the 2,000 ms settle and the six-tick bed test, so it
+         measured the rest's REMAINDER and the claim below compared that against a
+         FULL phrase. It read 12,359 ms against a 13,000 ms floor and went red on a
+         rest that was exactly 16 seconds long: 16,000 minus the 3,641 ms this probe
+         itself had already spent. A MEASUREMENT THAT STARTS AFTER THE EVENT MEASURES
+         WHAT IS LEFT OF IT. */
+      let ended = null;
+      while (Date.now()-tRest < 40000) { await new Promise(r=>setTimeout(r,150));
+        if (!CITYMUS.resting) { ended = Date.now()-tRest; break; } }
       await new Promise(r=>setTimeout(r,900));
       return { began: began, mid: mid, restMs: ended,
                after: { gain: +MUS.MAST.gain.value.toFixed(3), song: songOf(),
