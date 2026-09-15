@@ -18182,9 +18182,95 @@ NEW FRONT-PAGE RULE 8 (added 9/13), and it binds this lane: IF YOUR DIFF TOUCHES
 engine/, REBUILD THE TWO DERIVED SLICES (the RUN slice and the demo) IN THE SAME
 COMMIT. PLUMBER found the RUN slice drifting +45/-6 behind two engine ships.
 
-HOLDING: nothing. [every pocket] THERE-IS-EXACTLY-ONE-PURSE-IN-THE-WHOLE-GAME is
-SHIPPED 9/14. Before it this round: [owe lines], this lane's first five-minute break
-under rule 14.
+HOLDING: nothing. LAST SHIPPED: [every pocket] 9/14, and [owe lines] before it.
+
+*** 9/15 ROUND: [two prices] IS BACK TO OPEN AND NOTHING SHIPPED TO THE GAME. I
+BUILT IT, THE GAME SHOWED ME IT BREAKS THE TUTORIAL, AND I TOOK IT BACK OUT. ***
+records/BOHEMIA_TWO_PRICES_9_15_26.md. Read this before touching that row.
+
+WHICH LINE TO TAKE: his second play (9/15) put four breaks on the front page and the
+coordinator gave them to COMBAT, RUN, PEOPLE and DIRECTION. None is WORLD's, so this
+lane took its first OPEN line under rule 5. "He spawns in the middle of a freeway"
+LOOKS like world work and IS NOT -- it is RUN's [spawn home]. Do not claim it.
+
+1. THE ROW'S PRESCRIBED ONE-LINE FIX DOES NOTHING, PROVED TWICE.
+   The row said: key mktLedger by MKT_HUB_KEY, one line, and sixteen markets stop
+   sharing one warehouse. Measured (rule 12):
+     a. THE ECONOMY'S price() NEVER RUNS FOR ANYTHING ON THE SHELF. BohemiaPayday
+        .price checks BohemiaPurse.PRICES first and RETURNS, and PRICES was filled
+        9/5 with all ELEVEN goods at 1 battery under his 8/15 ruling. Every quote is
+        source:'ruled'. The ledger prices nothing at all.
+     b. AND IF IT DID RUN IT WOULD STILL BE ONE PRICE, BY CONSTRUCTION. price is
+        base x scarcity(stock / (need x agents)) and makeLedger sets stock as a
+        MULTIPLE of agents, so the agents term cancels EXACTLY:
+            20 heads -> daysLeft 8.4, price 5.33
+          1000 heads -> daysLeft 8.4, price 5.33
+        The valley's markets run 20 to 204 heads and quote the same number.
+   THERE IS ONE PRICE BECAUSE PAOLO RULED ONE PRICE. His law working, not a bug.
+
+2. A TRAP INSIDE THE INSTRUCTION ITSELF. makeLedger does rng((seed ^ 0xEC0)>>>0), so
+   a STRING seed coerces to NaN and NaN ^ x === x. 'hubA' and 'hubB' both seed 3776
+   and build the IDENTICAL ledger. MKT_HUB_KEY IS A STRING. Doing what the row asked
+   would have given fifteen markets one shelf with extra steps.
+
+3. I BUILT ECONOMY Q38's SHAPE ANYWAY AND RICE CLOCK WENT RED AND WAS RIGHT.
+   Built: a stranger pays the ruled ONE plus a battery of carry at a remote market,
+   belonging forgives it. Proved on the walked surface -- near market 1, far market 2
+   tagged THE STRANGER'S PRICE, the till took 2 not 1, then belonging dropped it to 1
+   and the till followed. 38 checks, mutation-tested five ways. Then:
+       a day of work pays ..... 1 battery   (PAYOUT COMPLETE, his 8/15 ruling)
+       a bag of rice costs .... 1 battery   (PRICES food, same ruling)
+       the player wakes at .... cell 48,48
+       his nearest market ..... the Church's seat at 47,50, TWO BLOCKS AWAY
+   With the surcharge on, THE FIRST BAG OF RICE IN THE GAME COSTS TWO DAYS' WORK, at a
+   shop two blocks from the bed, to a player who has not met anybody yet. That is the
+   loop [rice clock] exists to close, in the first five minutes, which beats my queue.
+   ANY stranger surcharge does this: he starts at rung STRANGER with everyone, so
+   forgiving the carry a rung earlier does not help. The collision is with the
+   surcharge itself, not with my distance rule.
+
+4. AND DISTANCE HAS NO HONEST MEASURE IN THIS VALLEY. A waking day covers 22.5 blocks
+   on foot, so a ROUND TRIP fits a day up to ELEVEN blocks -- and the valley is 96
+   blocks across. Almost every pair of places is more than a day's round trip apart,
+   so "inside a day" cannot separate markets; it separates noise.
+       nearest OTHER market  -> 10 near / 6 far, but seats are placed MIN_APART=6, so
+                                this measures SEAT SPACING, and it calls the Church's
+                                seat at 47,50 -- the most central market on a 96x96
+                                map -- "the end of the road"
+       distance from centroid -> 1 near / 15 far, wrong the other way
+   Three versions, all wrong. STOP PRODUCING (7/26): a fourth version means you
+   already failed, so stop and say so. I stopped.
+
+5. WHAT I DID WITH IT. Took it out. engine/bohemia_spread.js and
+   gates/two_prices_gate.js are DELETED, the shelf and the till are exactly what they
+   were, and the optional quote argument on payday.buy is gone. RICE CLOCK is 28/0
+   again. A module nothing calls is the anti-pattern this lane spent the round killing
+   (transferIn, canBuild, produce()), so the design lives in the record instead and is
+   an hour to rebuild the moment there is a ruling.
+
+6. [PENDING Paolo] -- DOES A STRANGER PAY MORE THAN ONE BATTERY?
+   His 8/15 EVERYTHING COSTS ONE against ECONOMY Q38 (decided by the coordinator 9/13,
+   not by him: "ONE is the INSIDER price... where you are nobody you pay the street").
+   Measured, those two cannot both hold at the first market in the game without the
+   opening tutorial costing two days' work for one meal. Real fork, no defensible
+   default, not mine to pick. The coordinator carries it.
+
+TWO THINGS THIS ROUND COST ME, KEPT BECAUSE THEY COST SOMETHING:
+  A. bohemia_city_module_resync.py CAN SWALLOW A FRESHLY SPLICED RIDER BLOCK. I edited
+     bohemia_payday.js; the city carries its own inlined copy, so the till charged 1
+     where the shelf said 2 (a source edit is not a shipped edit, again). The resync
+     fixed that, and then -- run AFTER the rider splice -- it ate a block's CLOSING
+     MARKER whole. Exactly the trap bohemia_city_work_patch.py's own header warns
+     about. THE ORDER IS RESYNC FIRST, RIDERS LAST. The page still parsed and all 37
+     checks still passed, so nothing could see it.
+  B. THE CHECK I WROTE FOR THAT WAS ITSELF BROKEN. It counted module BANNERS and read
+     56 opened against 12 closed ON A HEALTHY PAGE, because most banners are plain
+     section headers for canonically inlined modules and never had a closing marker.
+     A check that cannot tell a banner from a spliced block is the broken one. The
+     working version reads the rider list off the splicing tool itself and then checks
+     each rider's opening and closing marker appears exactly once; it goes red on the
+     real corruption and names the module. Ten lines, in the record, for whatever gate
+     wants it.
 
 *** [every pocket]: EVERY BATTERY HE PAID WAS BEING DESTROYED. ***
 MEASURED FIRST (rule 12) and the board's premise was wrong where it mattered. The
