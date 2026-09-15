@@ -23756,6 +23756,26 @@ same"); blank is the defect; he speaks along per face through the VOTE tab; try 
 (cook 3-D, eat 2-D). Lines: [blank faces] (school), [matches body], [three d look],
 [speak along], [faces first]. His "Pokémon vibe" is a description of sprite-vs-portrait
 size, NOT a reference game; written into the law. THE TWENTY CHATS.
+THEN (ee) PAOLO 9/15 PLAYED THE 9/14p CUT (RUN cut it: dead buttons gone). Verbatim:
+records/BOHEMIA_PAOLO_PLAYED_THE_DEMO_AGAIN_9_15_26.md. Seven sentences, seven rulings, each FIRST in its lane (law section 4b): COOK
+[car recook] back to first (the car is dogshit at every zoom, worst at the widest; the
+art half that shipped 9/7 is not what he sees); DIRECTION [far view] (the widest zoom
+looks like dogshit; judge it against a real aerial); RUN [spawn home] (he spawns in the
+middle of a freeway, street for no purpose; the door is your home on your block); PEOPLE
+[a human being] (he did not see a single person; a person on screen within ten seconds);
+PLUMBER [sixty fps] first (not running smoothly, things loading in real time); COMBAT
+[start a fight] (he does not know how to start a fight or when it starts: on purpose
+inside the first minute, and the screen says so). And: "pieces are coming together, we
+still have a very long way to go" -> the freeze stays. The front page's BREAK LIST carries
+his second list. SWEPT IN PASSING (40 commits): WORLD [every pocket] SHIPPED and found
+every battery he ever paid was being DESTROYED (transferIn had zero callers; his balance
+was the money supply of Las Vegas); CHARACTER: twelve bodies on the street, +150 ms not
++3,200, and the trade pools had to widen or nothing changed; RUN [cutter flex] SHIPPED and
+the culprit was the alpha's halving stylesheet, not the cutter; PLUMBER's '70% of taps do
+nothing' was its own walk, all eight buttons work; EYES r4 retracted its two dead buttons
+(zero, on an unchanged file); PEOPLE: over 34 game-minutes the walk director fired TWICE
+against ~22 allowed, the road director zero, which is why nothing happens on a walk;
+COOK r3: the houses are 4% of his screen and were not next.
 
 COORDINATOR: 9/4 (ba) -- *** THE MEETING HALL:
 VAMILY.md's front page now carries every rule, and every chat re-reads it every time

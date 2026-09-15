@@ -73,6 +73,17 @@ RUN is a fix he has not been given.
   efficient as you should be." -> This law, sections 1 and 3, is the answer. The output
   was high and pointed at the wrong thing. No lane defends itself with its gate count.
 
+## 4b. THE SECOND PLAY (Paolo 9/15, on the 9/14p cut; verbatim in records/BOHEMIA_PAOLO_PLAYED_THE_DEMO_AGAIN_9_15_26.md)
+"Every time I see a car it looks like dogshit... when I zoom out all the way to the moon
+it looks like dogshit. It keeps spawning me in the middle of some freeway, street shit
+for no purpose. I didn't see a single human being. It's kinda not running as smoothly as
+I would like, maybe it's cause things are loading in real time, but pieces are coming
+together. We still have a very long way to go. I don't even know how to engage in combat
+and when that shit starts." Seven sentences, seven rulings, each first in its lane:
+COOK [car recook] (the car at every zoom), DIRECTION [far view], RUN [spawn home], PEOPLE
+[a human being], PLUMBER [sixty fps], COMBAT [start a fight]; and the sixth sentence is
+the measure of the freeze: pieces are coming together, and it is not lifted.
+
 ## 5. THE COORDINATOR'S OWN CHANGE
 The six-open-jobs top-up rule is SUSPENDED for every building lane until he says the five
 minutes hold. Building lanes get one kind of new job: a break in the five minutes. The
