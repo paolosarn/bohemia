@@ -461,6 +461,21 @@ GATES = [
      'and failed on 505/518/546ms samples -- the threshold was wrong, not the feed. It also '
      'prints the page\'s own clock gaps, which are whole-page freezes belonging to another '
      'lane, so they cannot hide inside this lane\'s green.', True),
+    ('CASING FACE',    ['node', 'gates/casing_face_gate.js'],
+     'The third and last type register. CASING is the words stamped on the machine itself -- '
+     'the top strip, the HUD, the chips down the rail, the pad, the phone\'s body -- and it was '
+     'still resolving to the monospace face after the screen and body registers got real cuts, '
+     'which is why the walked city still counted 42 monospace hits. It is the same 5x8 table '
+     'condensed and stamped (BohemiaCasing), and it is CAPS ONLY, because a stencil kit is one '
+     'alphabet. THE LEG THAT EARNS THIS GATE IS "NOTHING LOWERCASE IS SET IN THE CAPS-ONLY FACE", '
+     'and it exists because this lane shipped that exact bug into a screenshot while building it: '
+     'giving the casing face to all 58 rules that declared the casing TRACK turned the day card\'s '
+     'own prose into NOBODY HAS PICKED IT UP YET. Nothing was red and the tell count went the '
+     'right way; only the picture said so. Coverage is asked of the FONT\'S OWN cmap, not of glyph '
+     'widths -- the first cut of that leg called three digits missing because their advance '
+     'happened to match the fallback\'s, while the one real miss (U+25C6, the diamond on the '
+     'STANDING chip) sat in the same list. Mutation-proved four ways.',
+     False),
     ('SCREEN FACE',    ['node', 'gates/rom_face_gate.js'],
      'DIRECTION ruled FIXED PITCH IS LEGAL ONLY WHERE THE IN-WORLD DEVICE IS A CHARACTER-CELL '
      'SCREEN (records/BOHEMIA_THE_FONT_RESEARCH_9_11_26.md, sec 2-4, routed to UI\'s vibe-purge '

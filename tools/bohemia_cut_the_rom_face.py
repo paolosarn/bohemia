@@ -166,6 +166,29 @@ G = {
 # which is the argument for asking the renderer what a surface actually draws instead of
 # trusting a list somebody remembered.
 '\u2715': ["     ","#   #"," # # ","  #  "," # # ","#   #","     ","     "],   # close
+# THE THIRD GLYPH FOUND BY ASKING THE RENDERER WHAT A SURFACE ACTUALLY DRAWS, after the
+# phone's signal bar and every card's close mark. The left rail's STANDING chip is written
+# "\u25c6 STANDING" and the diamond was in none of our faces, so one mark on the first
+# control of the game fell through to whatever the browser had.
+'\u25c6': ["     ","  #  "," ### ","#####"," ### ","  #  ","     ","     "],   # diamond
+
+# *** THE TYPOGRAPHER'S PUNCTUATION, AND IT IS NOT HERE BECAUSE SOMEBODY LIKES DASHES. ***
+# The same coverage question, asked of the BODY register instead of the machine, and the
+# answer was worse: the game's own written strings carry U+2014 (one of them is a district
+# summary, "Walled tract-home neighborhood - cul-de-sac streets off the entrance") and NO
+# FACE OF OURS HAD IT. Every one of those would print in whatever the browser fell back to,
+# a second typeface sitting inside a sentence. Cheap to close, permanent once closed.
+'\u2014': ["     ","     ","     ","#####","     ","     ","     ","     "],   # em dash, 5 wide
+'\u2013': ["     ","     ","     "," ### ","     ","     ","     ","     "],   # en dash, 3 wide
+'\u2026': ["     ","     ","     ","     ","     ","# # #","     ","     "],   # ellipsis
+# THE CURLY QUOTES REUSE THE STRAIGHT DRAWINGS, and that is a decision rather than a
+# shortcut: at five dots wide there is no honest way to draw the difference between ' and
+# a right single quote, and a quote of slightly the wrong shape is strictly better than a
+# quote in a different typeface. Named here so nobody later reads it as an oversight.
+'\u2018': ["  #  ","  #  "," #   ","     ","     ","     ","     ","     "],   # left single
+'\u2019': ["  #  ","  #  ","   # ","     ","     ","     ","     ","     "],   # right single
+'\u201c': [" # # "," # # ","#   #","     ","     ","     ","     ","     "],   # left double
+'\u201d': [" # # "," # # ","    #","     ","     ","     ","     ","     "],   # right double
 }
 
 # THE CELL, IN FONT UNITS. 5 columns of dots plus one column of gutter is the
@@ -380,6 +403,158 @@ def build_body():
     fb.setupPost(isFixedPitch=0)
     return fb, widths
 
+# ============================================================================
+# THE CASING FACE (9/15, round eight) -- THE LAST REGISTER STILL ON A GRID.
+#
+# DIRECTION's ruling: fixed pitch is legal ONLY where the in-world device is a
+# character-cell screen. The screen register got a real face on 9/13 and the body
+# register got one the same round. CASING -- the words stamped or painted on the
+# machine itself, which is every label, chip, button and readout on the HUD -- has
+# been resolving to 'BohemiaMono' this whole time, so it is the reason the walked
+# city still counts 42 monospace hits. A plate on a machine is not a screen.
+#
+# WHAT A CASING LABEL IS, IN THIS WORLD. Act one is 2050 gone rustic: our own era's
+# tech worn down and kept alive. The words on that kind of object are STAMPED or
+# PAINTED THROUGH A STENCIL, in caps, narrow enough to fit a small plate, with a
+# heavy even stroke because paint spreads and a stamp bottoms out. So: CONDENSED
+# CAPS, HEAVY, SOLID.
+#
+# AND IT IS THE SAME TABLE AGAIN, WHICH IS THE POINT OF HAVING ONE. REUSE-FIRST:
+# no third alphabet. Three things are done to the cut that already exists, and each
+# one is a real, visible property rather than a caption:
+#   CONDENSED   the x pitch is 100 against the y pitch of 125, so a cap is 0.57 of
+#               its own height instead of 0.7. That is the narrowness.
+#   HEAVY       the ink square stays 125 while the column is 100, so neighbouring
+#               cells OVERLAP horizontally and a stem comes out 1.25 columns wide.
+#               Condensed and bold at once, the way a stamp bottoms out.
+#   CAPS ONLY   lowercase maps to the cap drawing, because a stencil kit is caps and
+#               numbers and nothing else. It is not a missing glyph, it is the kit.
+#
+# *** WHY NOT STENCIL BRIDGES, WHICH IS THE FIRST THING THE WORD STENCIL ASKS FOR. ***
+# They were drawn, built and rendered at 10, 11 and 12px, which is where this register
+# actually lives, and then LOOKED AT. THE ANSWER IS NOT TASTE, IT IS THE DIGITS:
+#
+#     8 plain      8 bridged          and a 3 in this same table
+#      ###          ###                ###
+#     #   #        #   #              #   #
+#     #   #            #                  #
+#      ###          ###                 ###      <- the bridged 8 IS the 3, cell
+#     #   #        #   #              #   #         for cell. Not similar. The same.
+#     #   #            #                  #
+#      ###          ###                 ###
+#
+# 6 loses its left stem and reads as an 8; 9 loses the same cell and reads as a 3;
+# BUILD came out as 3UILD. On the strip "0948 DAY 1 4 BATTERIES" read as
+# "0943 DAY 1 4 BATTERIES". Batteries are the money in this game.
+#
+# AND THE REASON IS GEOMETRY, NOT A BAD CHOICE OF BRIDGE POSITION, which is why this
+# is written down instead of retried: on a 5x7 cap grid EVERY STROKE IS EXACTLY ONE
+# CELL THICK. A stencil bridge is a gap in a stroke that is thick enough to survive
+# losing a piece. Here there is nothing to spare, so any bridge deletes skeleton and
+# the letter becomes a different letter. Bridges need a finer grid than this table has.
+# The data stays so the decision can be re-run (--bridges) and so the next person does
+# not spend the round finding this out again. THE DEFAULT IS OFF.
+# ==========================================================================
+
+CAS_PITCH_X = 100          # the condensed column
+CAS_PITCH_Y = PITCH        # the row, unchanged: 125
+CAS_INK     = PITCH        # the ink square. Wider than its column on purpose.
+# *** THE WORD SPACE IS ITS OWN NUMBER, AND THE FIRST MEASUREMENT OF IT WAS WORTHLESS. ***
+# The body face gets away with a 3-column space because its letters are drawn with gaps
+# inside them. These letters are HEAVY: their cells overlap, so a word closes up and the
+# eye has nothing to break on. That is the argument; here is what it cost to prove.
+#
+# THE FIRST RUN MEASURED THE FALLBACK FONT AND CALLED IT THIS FACE. A @font-face that
+# nothing on the page has used yet is never fetched, so document.fonts.ready resolved
+# instantly, check() said false, and every number came back from whatever the browser
+# had. The tell was that the numbers did not move when the font changed -- the same
+# tell this lane has now been caught by four times. The probe loads the face by name
+# first, keeps a string set in a family that does not exist as a control, and REFUSES
+# TO REPORT if either face failed to load.
+#
+# MEASURED ON THE FACE, at 10px, which is the size most of this register is used at:
+#   3-column space   word space 2.39 px   "DAY 1 4" 29.81   "DAY 14" 27.41
+#   5-column space   word space 4.39 px   "DAY 1 4" 33.81   "DAY 14" 29.41
+# A cap advance is 5.41 px and a letter's own gap inside a word is 1.2 px. At three
+# columns the word space is twice the letter gap; at five it is nearly four times.
+# On the HUD the clock line is "0948  DAY 1  4 BATTERIES" and batteries ARE the money,
+# so two numbers running together is a misread and not a style note. 5 columns.
+CAS_SPACE   = 5 * CAS_PITCH_X
+
+# The counters a stencil has to free, and where the bridge goes. Row, column, per
+# glyph, on the 5x7 cap grid. Kept as DATA rather than as a clever rule, because a
+# rule that guesses where a counter is will silently put a hole in the wrong place.
+CAS_BRIDGE = {
+ 'A': [(3, 1), (3, 3)], 'B': [(2, 0), (5, 0)], 'D': [(3, 0)],
+ 'O': [(3, 0), (3, 4)],  'P': [(2, 0)],        'Q': [(3, 0), (3, 4)],
+ 'R': [(2, 0)],          '0': [(3, 0), (3, 4)],'4': [(4, 0)],
+ '6': [(5, 0)],          '8': [(2, 0), (5, 0)],'9': [(2, 0)],
+}
+
+def casing_rows(ch, bridges=False):
+    """Caps, digits and marks from the one table. Lowercase IS the cap: a stencil
+    kit has one alphabet."""
+    src = ch.upper() if ch.isalpha() else ch
+    if src not in G:
+        src = ch
+    rows = [r for r in rows_of(src)]
+    if bridges and src in CAS_BRIDGE:
+        for r, c in CAS_BRIDGE[src]:
+            if r < len(rows) and c < len(rows[r]) and rows[r][c] == '#':
+                rows[r] = rows[r][:c] + ' ' + rows[r][c + 1:]
+    return trim(rows)
+
+def build_casing(bridges=False):
+    from fontTools.fontBuilder import FontBuilder
+    from fontTools.pens.ttGlyphPen import TTGlyphPen
+
+    chars = sorted(G.keys())
+    names = {c: ('space' if c == ' ' else 'uni%04X' % ord(c)) for c in chars}
+    order = ['.notdef'] + [names[c] for c in chars]
+
+    fb = FontBuilder(UPM, isTTF=True)
+    fb.setupGlyphOrder(order)
+    fb.setupCharacterMap({ord(c): names[c] for c in chars})
+
+    glyphs, metrics = {}, {}
+    pen = TTGlyphPen(None); glyphs['.notdef'] = pen.glyph(); metrics['.notdef'] = (4 * CAS_PITCH_X, 0)
+    widths = {}
+    for c in chars:
+        rows = casing_rows(c, bridges)
+        cols = max((len(r) for r in rows), default=0)
+        pen = TTGlyphPen(None)
+        for ri, row in enumerate(rows):
+            for ci, cellch in enumerate(row):
+                if cellch != '#':
+                    continue
+                x0 = ci * CAS_PITCH_X
+                y0 = (7 - ri) * CAS_PITCH_Y - BASE
+                x1, y1 = x0 + CAS_INK, y0 + CAS_PITCH_Y
+                pen.moveTo((x0, y0)); pen.lineTo((x1, y0))
+                pen.lineTo((x1, y1)); pen.lineTo((x0, y1)); pen.closePath()
+        # the advance carries the ink's own overhang plus one column of side bearing,
+        # or the last stem of every word would be clipped by the next letter's box
+        adv = (cols * CAS_PITCH_X + (CAS_INK - CAS_PITCH_X) + CAS_PITCH_X) if cols \
+              else CAS_SPACE
+        glyphs[names[c]] = pen.glyph()
+        metrics[names[c]] = (adv, 0)
+        widths[c] = cols
+
+    fb.setupGlyf(glyphs)
+    fb.setupHorizontalMetrics(metrics)
+    fb.setupHorizontalHeader(ascent=ASC, descent=-BASE)
+    fb.setupNameTable({
+        'familyName': 'BohemiaCasing', 'styleName': 'Regular',
+        'psName': 'BohemiaCasing-Regular', 'version': 'Version 1.000',
+        'copyright': 'BOHEMIA. The same cell cut, condensed and stamped for a '
+                     'machine plate. Not derived from any existing typeface.',
+    })
+    fb.setupOS2(sTypoAscender=ASC, sTypoDescender=-BASE,
+                usWinAscent=ASC, usWinDescent=BASE, achVendID='BOHE')
+    fb.setupPost(isFixedPitch=0)
+    return fb, widths
+
+
 def emit(fb, stem, label):
     out = os.path.join(ROOT, 'slices', 'fonts')
     os.makedirs(out, exist_ok=True)
@@ -423,9 +598,22 @@ def main():
     print('                caps 5, lowercase 4, i 1, l 3 -- proportional, and that spread')
     print('                is the whole difference between type and a grid.')
 
+    bridges = '--bridges' in sys.argv
+    fbc, cwidths = build_casing(bridges)
+    b64cas = emit(fbc, 'BohemiaCasing-Regular', 'CASING')
+    cspread = dict(sorted(Counter(cwidths.values()).items()))
+    print('  casing widths dot columns -> glyphs: %s' % cspread)
+    print('  casing cell   %d wide column, %d ink, %d row -> stem %.2f columns, cap %.2fem'
+          % (CAS_PITCH_X, CAS_INK, CAS_PITCH_Y, CAS_INK / CAS_PITCH_X, ASC / UPM))
+    print('  casing bridges %s' % ('ON (%d glyphs)' % len(CAS_BRIDGE) if bridges else 'off'))
+    print('                caps only: lowercase IS the cap, because a stencil kit is')
+    print('                one alphabet. Condensed and heavy: the ink is wider than')
+    print('                its own column, so neighbouring cells overlap.')
+
     if '--embed' in sys.argv:
         embed(base64.b64encode(b).decode('ascii'), 'BohemiaROM')
         embed(b64body, 'BohemiaBody')
+        embed(b64cas, 'BohemiaCasing')
 
 def face_re(fam):
     return re.compile(r"@font-face\{ font-family:'" + fam + r"';[\s\S]*?\}\n", re.M)
