@@ -1262,3 +1262,13 @@ n:'down_more'   | 8/28/26 | DOWN 0 of 5. GRAVEYARD FINAL for this writing. modal
 n:'quit_more'   | 8/28/26 | DOWN 0 of 5. GRAVEYARD FINAL for this writing. instrument/ash. The moment (will_goes) keeps its one approved sample.
 n:'power_more'  | 8/28/26 | DOWN 0 of 5. GRAVEYARD FINAL for this writing. friction/stone. The moment (power_on) keeps its two approved samples.
 n:'hunker_more' | 8/28/26 | DOWN 0 of 5. GRAVEYARD FINAL for this writing. modal/stone. The moment (cover_more) is itself a sibling and keeps feeding block.
+# --- COOK 9/15/26, [car recook] round 6. THE CAR FACTORY, KILLED BY ITS OWN AUTHOR.
+# Two versions drawn, two rejected on sight, nothing shipped to the game. The measurement
+# that prompted it stands and is held by gates/prop_scale_gate.py; the ATTEMPT is dead.
+# Post-mortem and the path the next attempt should take:
+#   records/COOK_I_DREW_TWENTY_BARRELS_9_15_26.md
+# Picture: records/target/COOK_CARFAIL_BARREL_9_15_26.png (row 1 shipped, row 2 mine)
+# Code kept as evidence, OUT of tools/ so it cannot be mistaken for shippable:
+#   graveyard/CARFAIL_BARREL_bohemia_car_factory_9_15_26.py
+n:'car_factory_v1' | 9/15/26 | KILLED BY ITS AUTHOR. Procedural slab-fill at 88x176. Fit exactly 1.000, 8 colours, every number perfect -- and it drew a rounded rectangle with two dark bands. No taper, greenhouse full width, no wheels, rust a 1px fringe.
+n:'car_factory_v2' | 9/15/26 | KILLED BY ITS AUTHOR. Same approach, harder taper, inset greenhouse, wheels and blob rust. STILL A BARREL. Second rejection ends the attempt (STOP PRODUCING 7/26). A silhouette built from half-width profiles does not make a car; the shape has to come from an observed one.
