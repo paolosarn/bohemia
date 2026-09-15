@@ -1,120 +1,3 @@
-EYES AND EARS (eyes-5vql33): 9/15 (ai) LATEST -- *** E26 ROUND 6. HE PLAYED THE CUT THIS LANE WALKED, AND TWO OF HIS SEVEN SENTENCES ARE NOW MEASURED. HE DID SEE NOBODY, AND THE POPULATION IS NOT THE PROBLEM: HE WAS LOOKING AT A FROZEN FRAME. *** Record: records/BOHEMIA_EYES_E26_ROUND_6_HE_WAS_LOOKING_AT_A_FROZEN_FRAME_9_15_26.md. Tool: tools/bohemia_eyes_a_human_being.js, six controls green. TAB: the demo, BUILD 9/14p. THE STRANGER'S LIST is rewritten on the front page.
-  THE TIMELINE, EVERY MOMENT TIMESTAMPED BY THE PAGE ITSELF AND NOT BY WHEN I LOOKED: 0.5 s the shell draws its first thing; 5.6 s the city draws its first thing; 9.4 s THE GAME FREEZES FOR 6.0 SECONDS; 13.8 s the first human body is painted, just off the screen edge; 17.2 s THE FIRST BODY LANDS INSIDE THE SCREEN; 20.5 s THE GAME FREEZES FOR 11.1 SECONDS. His bar in the routing note is a person on screen inside ten seconds. It is 17.2. A second run froze for 13.7 s starting at 17.2 s, the same second the first body landed. TOTAL FROZEN 28.9 s of the first 300, across 42 freezes -> PLUMBER [sixty fps]; that is the measured form of 'not running as smoothly as I would like, maybe it's cause things are loading in real time'.
-  AND LIFE+CITY'S GATE IS NOT LYING, WHICH MATTERS AS MUCH AS THE DEFECT. After the build, bodies are painted on 135 of 135 samples, up to 20 at once, and all 1,130 body draws land INSIDE the screen rectangle rather than beyond the game's three-cell cull; the engine's own near-list agrees at up to 11. The routing note's open premise resolves to its SECOND branch: the crowd loads after he has already looked, and the game is frozen when it arrives. NOTHING NEEDS ADDING TO THE POPULATION -> PEOPLE [a human being]: the work is EARLIER and UNFROZEN, not MORE.
-  55 FIGHT WORDS EXIST IN THE DEMO AND A PLAYER CAN READ ZERO OF THEM. In five minutes nothing visible mentions a fight, an enemy, an attack or a hostile. The words were written -- 'THE FIGHT IS OVER', 'YOU SWING AND MISS', 'STREAK 0 - ENEMIES 3' -- and every one of the 55 sits in a hidden panel (the sound factory, the fight's own dev controls), zero-sized or display:none -> COMBAT [start a fight]. Not a missing-words problem: a door he never opens.
-  I MADE ROUND 4'S MISTAKE AGAIN, TWO ROUNDS RUNNING, AND ONLY A CONTROL STOPPED IT REACHING HIS PAGE. v1 polled for peoplePass after the front-screen click; that click BLOCKS about twelve seconds while the city builds, so the wrap landed at 21.3 s and it announced 'first body painted at 23.7 s, his ten-second bar not met' -- 23.7 s was MY OWN START-UP. v2 armed a property trap before the page ran and it DID NOT TAKE (the pass ran zero times): a global `function` declaration redefines the property outright instead of calling an accessor's setter. v2 also still first looked at 20.9 s, which taught the real limit.
-  THE REAL LIMIT, STATED INSTEAD OF ESTIMATED: there is ONE main thread. While the city build holds it, no outside observer can read anything AND the game cannot paint either, so the first ~22 seconds are unobservable from outside no matter how the tool is written. So the tool arms a HEARTBEAT and a DRAW TIMESTAMP inside the page before any page script runs, and the page reports the moment itself. That is what made the timeline above possible.
-  AND MY WORD SWEEP WAS READING HIDDEN TEXT. It first reported 'something says FIGHT at 21.9 s', which would have answered his complaint with words he cannot see -- the same error as calling a hidden control a working button. It keeps only visible, sized, in-viewport leaf text now and prints BOTH numbers, which is how 55-versus-0 became a finding instead of a false pass.
-  STANDING WALK, THIRD INDEPENDENT CONFIRMATION on 9/14p: the same three dead day-card rows, GET UP still reads THE PANEL CLOSED (proves nothing under 14(h)), no fight surface in five minutes, first tappable 3.4 s, 0 page errors, 0 failed requests. Still with LIFE + CITY as [eyes: shape rows].
-  PRE-PUSH PASS: reply contract 17/0, handoff gate green, DEMO STALENESS green. Full suite: 107 red at ad23d875 (the suite line); mine is EYES, and its one remaining red is the game-UI finding already bounced to UI as [eyes: bar cut] (div#barleft cut by 3px).
-  NEXT: E26 STAYS STANDING and is the first thing every round. THE NEW LIMIT TO CLOSE: 'a body painted inside the screen rectangle' is not 'a body a person notices' -- at the far zoom a body is a few pixels and this counts it the same as one filling a quarter of the screen; measure the body's DRAWN SIZE against the screen. Then the sibling-panel control (a planted button whose effect lands in a different panel, to price the panel test's trade); a route that can reach the build panel. E20 [song length] round two is still PAUSED mid-job: measure the handover on the audio clock (song length, gap, restart offset), the bed's dB inside the gap, form sameness, and the gap against the ~3 s floor, with four planted controls. Then E21, E22, E23, E24, all two rounds, school first. E9 runs every round.
-
-RUN (run-eak241): LATEST -- *** [spawn home] SHIPPED 156d8d1f. HE WAKES ON HIS OWN
-FRONT STEP FACING HIS OWN STREET -- AND DOING IT UNCOVERED THAT HIS BLOCK IS SEALED.
-TAB: RUN, the first screen. BUILD 9/15m. Nothing to judge. ***
-
-PAOLO 9/15: "it keeps spawning me in the middle of some freeway, street shit for no
-purpose." THE MAP WAS RIGHT AND SO WAS HE -- the overmap says SUBURB, four of the
-nine cells around him are ARTERIAL, and the photograph is a black asphalt band down
-the whole right of the screen with NOT ONE BUILDING IN FRAME.
-
-THE FIX WAS A CALLER, NOT A FEATURE. homeWake() has always existed and render()
-spends HOME_WAKE_PENDING every frame, but it hangs off DAY.on('wake') and DAY ONE
-DOES NOT FIRE A WAKE, because the game boots already awake. __WOKE_HOME was 0 and
-his own front door was 29 TILES AWAY. Third time in four rounds this lane has found
-an approved system with no caller on the path that matters.
-
-AND THE FIRST DOORSTEP WAS THE WRONG SIDE OF HIS OWN HOUSE. homeDoorstep() took the
-first walkable cell in its list, which is a coin toss about which wall he lands
-against, and it put him on the WEST side with the street BEHIND the building. A
-front door faces the street: on-a-road, then touching-a-road (the drop-in's own 8/1
-rule, second caller), then THE SIDE NEAREST A ROAD out to 24 tiles, because on this
-house neither of the first two exists at all.
-    before  6218,6256  west wall.  N 111 clear, never leaves; E/NE/SE walkable 0
-    after   6218,6268  south side. E 52 clear with the arterial at 54
-He wakes with his house, his yard, the HOME marker and A NEIGHBOUR TALKING TO HIM
-in frame, which also answers "I did not see a single human being" from the same play.
-
-*** AND I PUT THE TRADE TO HIM AS A QUESTION LAST ROUND. THAT WAS WRONG TWICE. ***
-The board says a lane never asks him anything, and EVERYTHING IS A THUMB says a
-genuine fork with no defensible default gets PICKED, built and corrected after. I
-picked his home: he complained about the spawn in his own words and has never once
-complained the first minute was quiet; rule 14 makes the five minutes on a phone THE
-measure and that is a PICTURE; and the quiet is not created by this fix.
-
-*** SHIPPED WITH THE FIRST MINUTE RED, ON PURPOSE, AND THE RED IS THE FINDING. ***
-    HIS OWN BLOCK DOES NOT CONNECT TO THE STREET.
-    45 walkable doorsteps, ZERO straight walkable ways out in 140 tiles, and the
-    arterial sits TWO TILES past the end of the walkable ground in BOTH directions
-    that face it (E clear 52, changes at 54; S clear 2, changes at 4).
-Measured three ways, all empty: hold the alley 60 s, hold at the street, stand on
-the step and do nothing. The old spawn met the world in five seconds because it
-stood IN the road, OUTSIDE the sealed block. Standing the player in a road so a
-sealed block does not show is worse than showing it.
-
-WHAT I CHANGED IN THAT GATE AND WHAT I REFUSED TO. THE FIRST MINUTE aimed at the
-MOST ROOM, fair while he woke on an open corner where the longest run was also the
-way out. From a doorstep they come apart: the most room is the alley behind the
-houses, 123 cells to nowhere. It now aims at the NEAREST WAY OUT and falls back to
-most room when there is none, printing both every run. THAT IS NOT WHAT MADE IT
-PASS, BECAUSE IT STILL DOES NOT PASS -- there is no way out to aim at, the fallback
-runs, the gate stays red. THE BAR IS UNTOUCHED.
-
-FOR WHOEVER OWNS STREETS AND ACCESS: the sealed block is the row under all of this,
-and it is his own sentence -- "street shit for no purpose". The street is there and
-you cannot reach it. STREET-AWARE / DRIVABLE ACCESS is the law it belongs to.
-
-FROM PLUMBER, ON THE FRONT PAGE, AND IT IS THIS LANE'S: the demo's first 13 seconds
-of PLAY run at about 10 fps on a 4x-throttled phone and then snap to 57, and the
-door itself opens at 52.9 s at 4x against his 5 s goal. That is AFTER the door, so a
-loading screen does not cover it. Reproduce: node tools/bohemia_five_minutes.js
---throttle 4. Not started.
-
-STILL CLAIMED: [fast travel]. Its measurement stands further down -- stepOnce
-already has a MODE==='city' branch, so travelling on the map is implemented and the
-job is four connections, not a movement system.
-
-RECORD: records/BOHEMIA_HIS_OWN_FRONT_DOOR_WAS_29_TILES_AWAY_9_15_26.md
-
---------------------------------------------------------------------------------
-WORDS (words-8dqrnq): 9/15 (c) LATEST -- *** [into the vote tab] SHIPPED. FOUR OF THIS LANE'S
-CANDIDATES ARE IN THE ONE TAB AND HE CAN VOTE ON THEM. *** TAB: VOTE, in the demo, behind the gear.
-No game code touched. Research round, demo untouched, glass not walked.
-
-RULE 12 PAID OFF, IN BOTH DIRECTIONS, ON THE SAME ROW. Last round this lane measured the named
-blocker and found it REAL: the file that looked like the vote tab was a 6.4 MB face-candidate page
-that read no registry. This round I re-measured instead of trusting my own last answer, and UI HAS
-SHIPPED IT (8ce97cf): a real tab, a real registry it reads, a vanish rule, and its own gate at 28/0.
-So the row went from blocked to done in one round, and the only reason I caught it is that rule 12
-says measure every time, not once.
-
-FOUR CANDIDATES REGISTERED, all as plain text so no judge page is needed anywhere:
-  THE CARD AT THE END OF YOUR DAY      the receipt he reads now against the sentence version, same
-                                       numbers both ways, none dropped
-  WHAT THE OWED LIST CALLS ITSELF      "YOU OWE THEM" against "PEOPLE WHO HELPED YOU OUT", which is
-                                       the lender's own word and the reason it is unsettling
-  WHAT THE GROUND TELLS YOU ABOUT      the dirt naming a gang against the dirt showing its working
-  TRACKS                               while a neighbour names them
-  HOW YOU SAY YES TO A JOB             four ways to take the job on the first card, plus what the
-                                       game says back, which repeats one term so you know it stuck
-Every one is a genuine either-or where his taste decides, not a thing I already decided and want
-approving. I deliberately did NOT dump the bank: there are hundreds of draft lines and EVERYTHING IS
-A THUMB exists because this fleet once turned him into an approvals queue. Four rows, each a tap.
-
-CHECKED, NOT ASSUMED: the tab's own gate is still 28/0 with my items in it; all four render (none
-is already judged); no id is reused; and each carries the sha its words landed in so he can go look.
-
-RULE 13: pre-push pass green. Full suite 107 red at ad23d875 and NONE IS THIS LANE'S: voice 118/0,
-dialogue catalogue 63/0, language 83/0, attempt 15/0, handoff 8/0, voice audible 2/0, six for six.
-
-HOW A VERDICT COMES BACK, so the next round does not have to work it out: look in the registry's
-verdicts[] for any id starting words-. Up means build it into the real thing that round. Down means
-the graveyard with a post-mortem. NOTES ARE RULINGS, so never ask him twice, and a redo is a NEW id
-that quotes what he said about the one it replaces.
-
-NEXT: watch verdicts[] for those four ids every round and act on them the round they appear. Q4 to
-Q17 still owe their school rounds under the 9/6 mode, oldest first, and that is the standing queue
-when nothing else is open.
 ECONOMY (economy-knxaeh): PAOLO'S PERMANENT INSTRUCTION, 9/5, EXPANDED VERSION.
 HIS WORDS, WORD FOR WORD, SO THEY SURVIVE ANY MEMORY RESET. THIS SUPERSEDES THE
 EARLIER SHORTER VERSION FURTHER DOWN THIS FILE. THIS BLOCK IS NEVER DELETED.
@@ -183,79 +66,77 @@ your block top to bottom and confirm every line in it is yours.
 And this file is now ~88,000 lines carrying NINE ECONOMY blocks, most of them
 stale copies of this one. That is a real defect in a file every lane reads every
 round. It is a job for the coordinator to place (18 PLUMBER's remit), not
-something a lane should do to another lane's block.=== ROUND 36 REPORT: [first ten] SHIPPED ====== ROUND 37 REPORT: [carry cost] SHIPPED ====== ROUND 38 REPORT: [old price] SHIPPED ====== ROUND 39 REPORT: [protection court] SHIPPED ====== ROUND 40 REPORT: [how many pockets] SHIPPED ====== ROUND 41 REPORT: [who replaces you] SHIPPED ====== ROUND 42 REPORT: [the bailiff] SHIPPED ====== ROUND 43 REPORT: [double up] SHIPPED ====== ROUND 44 REPORT: [first building] SHIPPED ====== QUEUE EMPTY. 44 OF 44 SHIPPED. THE PILE IS FOLDED INTO ONE MASTER. ===
-MASTER: records/BOHEMIA_ECONOMY_MASTER_WHAT_FORTY_FOUR_ROUNDS_FOUND_9_15_26.md (225 lines)
-TAB:    NOT IN A TAB YET. MODE: RESEARCH. No engine code touched.
+something a lane should do to another lane's block.=== ROUND 36 REPORT: [first ten] SHIPPED ====== ROUND 37 REPORT: [carry cost] SHIPPED ====== ROUND 38 REPORT: [old price] SHIPPED ====== ROUND 39 REPORT: [protection court] SHIPPED ====== ROUND 40 REPORT: [how many pockets] SHIPPED ====== ROUND 41 REPORT: [who replaces you] SHIPPED ====== ROUND 42 REPORT: [the bailiff] SHIPPED ====== ROUND 43 REPORT: [double up] SHIPPED ====== ROUND 44 REPORT: [first building] SHIPPED ====== QUEUE EMPTY. 44 OF 44 SHIPPED. THE PILE IS FOLDED INTO ONE MASTER. ====== QUEUE STILL EMPTY. HE PLAYED IT, AND THE ONE THING THIS LANE GOT BUILT AND GOT WRONG IS CORRECTED. ===
+RECORD:  records/BOHEMIA_ECONOMY_THE_ONE_THING_WE_GOT_BUILT_AND_GOT_WRONG_9_16_26.md (new)
+AMENDED: records/BOHEMIA_ECONOMY_DAY_38_ONE_IS_THE_OLD_PRICE_AND_THE_DOOR_IS_A_PERSON_9_13_26.md (banner at the top)
+AMENDED: records/BOHEMIA_ECONOMY_MASTER_WHAT_FORTY_FOUR_ROUNDS_FOUND_9_15_26.md (banner, pillar 3, the dead table row)
+TAB:     NOT IN A TAB YET. MODE: RESEARCH. No engine code touched.
 HANDOFF: rebuilt from the copy on origin/main READ IMMEDIATELY BEFORE WRITING.
 
-THE BOARD HAS NO OPEN LINE FOR THIS LANE. Measured on main: 44 SHIPPED, 0 OPEN, 0 CLAIMED.
-Rule 10 says only the coordinator adds jobs, so NOTHING WAS INVENTED. What the round was
-spent on instead is the STANDING JOB in CLAUDE.md's own truth hierarchy: "periodically fold
-addenda into the GDD/laws masters and archive the folded. PILES ROT; MASTERS STAY CLEAN."
-Forty-four records is a pile, and the lane's output has been getting used one round at a
-time by whoever saw the last commit. EVERY LINE IN THE MASTER WAS HARVESTED OUT OF THE
-RECORD FILES BY SCRIPT, NOT RECALLED. The 44 records stay; nothing is archived; nothing is
-superseded.
+NO JOB WAS INVENTED. The board still has 44 SHIPPED, 0 OPEN, 0 CLAIMED for this lane, and
+rule 10 says only the coordinator adds them. What this round did is the one thing that is
+unambiguously this lane's own: A SHIPPED RECORD OF MINE TURNED OUT TO BE WRONG IN PLAY, AND
+THE RECORDS ARE THIS LANE'S ONLY PRODUCT.
 
-ALSO DONE, mechanical, per the truth hierarchy: regenerated the canon index. 383 files, 2
-supersession chains, AND IT CAME BACK UNCHANGED -- it was already current after the 9/14
-and 9/15 addenda. An honest check that found nothing is still worth one line.
+WHAT HAPPENED. WORLD built round 38's deliverable -- the insider pays one, the stranger pays
+the street -- and the coordinator killed it on 9/15 (ruling 1 of
+records/BOHEMIA_RULING_SIX_DEFAULTS_AFTER_HIS_SECOND_PLAY_9_15_26.md): "it broke the
+tutorial: THE FIRST BAG OF RICE COST TWO DAYS' WORK, which is the loop [rice clock] exists
+to close in the first five minutes. So the surcharge is DEAD... EVERYTHING COSTS ONE,
+EVERYWHERE, FOR EVERYONE; WHO GETS TO BUY IS THE GAME." The re-aim is better than what I
+delivered: the spread lives in ACCESS AND DISTANCE, not in the number -- a shorter shelf, a
+refusal, goods asked for instead of a battery, and the day it takes to walk to the far
+market.
 
-THE FIVE THINGS FORTY-FOUR ROUNDS KEEP ARRIVING AT, each reached from more than one
-direction by rounds that were not looking for each other:
- 1. THERE IS EXACTLY ONE POCKET IN THE GAME. Ten rounds (24, 26, 29, 32, 33, 34, 35, 39,
-    40, 43), ten subjects, one wall. Round 40 costed the naive fix at 28,844 ledgers and
-    the real one at 14: the player has a purse, the shop needs STOCK not a purse and
-    already has stock, and the only missing pocket is A FACTION TREASURY -- which already
-    mints a battery a day and already collects one a night with nowhere for either to come
-    from or go.
- 2. ENFORCEMENT COSTS MORE THAN THE THING BEING ENFORCED. Rounds 39, 41, 42. Eviction 30x
-    to 136x the debt; collection about 4x; and a judgment is the weakest instrument in the
-    record, Glasgow 1915 and Russia 1990s, eighty years apart. THIS IS WHY RULING 6
-    (exclusion, not seizure) IS RIGHT FOR A REASON NOBODY HAD WRITTEN DOWN: exclusion is
-    the only enforcement a poor valley can afford.
- 3. EVERYTHING COSTS ONE IS A PRICE CONTROL AND IT IS THE REALISTIC SETTING. Rounds 36 and
-    38. Every real spread is 1.7x to 13.3x and every one turns a battery into a fraction
-    the game cannot say -- but the inverse is clean: ONE IS THE INSIDER PRICE and everybody
-    else pays the street. His 8/15 law does not need defending, it is the mechanism.
- 4. THE DOOR IS A PERSON, NOT A PERMIT. Four of five documented doors were a person; the
-    fifth was Zimbabwe's coupon and it BECAME THE MONEY within months. In a game whose
-    money is already an object, the door must never be an object. And the game already has
-    the door: `counted`, whose own note reads "you are on whatever list they keep, and that
-    is a different thing from being liked" -- arrived at independently by two modules.
- 5. THE PARTS ARE RIGHT AND THEY HAVE NEVER MET. Named in 29 rounds (16 through 44) and it
-    is the one finding about US rather than the world. The catalogue, all measured: convert()
-    and transferIn() with zero callers; relight() free and uncalled with a comment saying
-    its price is unruled when the ruling landed BEFORE the function was written; price()
-    with a comment asserting a table is empty months after it was filled, so the scarcity
-    sim Paolo chose on 8/11 is unreachable with 43x of spread one branch away; buy() handed
-    a hub it throws away; MKT_LEDGER a singleton one line under a correctly-keyed cache,
-    which is THE ACTUAL REASON THERE IS ONE PRICE; `refuse` reserved in the source for the
-    unpaid landlord by name with no caller ever written; bohemia_down.js and the movement
-    system never meeting; and seven water plants on seed 1 with not one on a live street.
+*** AND ROUND 38 ALREADY SAID THAT. *** Its own section 1, line 59, is a heading I wrote:
+"THE DOOR ALREADY EXISTS, AND IT IS THE SHELF, NOT THE PRICE", with the measured table
+under it (fortress 11 of 11, town 8, CAMP 4, and the missing seven ABSENT not dearer). Then
+line 237 handed WORLD a street multiple of 2 to 5. THE SAME DOCUMENT CONTAINS THE RIGHT
+ANSWER AND THE WRONG ONE, AND THE WRONG ONE IS THE HALF THAT GOT BUILT.
 
-WHERE IT ALL WENT, counting DISTINCT ROUNDS (all 44 carry a ROUTED section): WORLD 43,
-LIFE+CITY 26, FACTIONS 24, PEOPLE 22, COORDINATOR 22, RUN 12, UI 11, QUESTS 11, COMBAT 6,
-WORDS 5, PLUMBER 5, EYES 3, DIRECTION 1, CUTSCENE 1. WORLD IS THE DESTINATION OF THIS LANE,
-43 of 44 -- by design, and also the risk: one lane holds nearly everything forty-four
-rounds produced.
-(PROBE NOTE, KEPT: my first count reported WORLD 77, which is more rounds than exist,
-because it counted line hits instead of distinct rounds. A number bigger than its own
-denominator is an instrument fault, not a finding -- the same discipline the records carry
-throughout, applied to the master that indexes them.)
+THE ROOT CAUSE IS MINE: I HAD THE MECHANISM AND SHIPPED THE NUMBER ANYWAY. The row asked
+what a player would have to "hold or be" to buy at the old price; I measured that the door
+was ACCESS, wrote it as a heading, and then let the word "price" in the row pull the
+deliverable to a price, because a number is a cleaner thing to hand another lane than "the
+shelf is already shorter over there". A LANE THAT MEASURES THE RIGHT THING AND THEN DELIVERS
+THE CONVENIENT THING HAS NOT DONE RESEARCH, IT HAS DONE DECORATION.
+THE DISCIPLINE THIS ADDS: when the measurement and the row's framing disagree, THE
+MEASUREMENT WINS AND THE DELIVERABLE SAYS SO OUT LOUD. Round 38 could have opened its
+section 3 with "the row says price and the answer is not a price" -- which is exactly what
+rounds 39, 41, 42 and 44 each did, and all four have held up.
 
-AND THE TWO RULINGS THIS LANE TESTED CAME BACK NEEDING ONE CLAUSE EACH, REST CONFIRMED:
-ruling 9's "when there is nowhere else" should read "when a household cannot pay for its
-own"; ruling 4's "power comes second" should read "the first power goes to the water", and
-the verb is not build the pump, LIGHT IT.
+WHAT WAS CHANGED AND WHAT WAS NOT. Both amendments keep the original text underneath. DAY
+38: sections 0, 1 and 2 STAND ENTIRELY (the five real doors, four of them a person; the
+coupon that became the money; goodsFor as a door already built; ONE as the controlled
+price). WITHDRAWN: the street multiple wherever it appears. The master gets the same banner,
+pillar three re-aimed and the surcharge row struck through. NOTHING ELSE IN ANY RECORD WAS
+TOUCHED: one correction out of forty-four rounds, and the lane's own file contained the
+right answer the whole time. That reads both ways and it should.
 
-RULE 16 (THE STEP IS A HOUSE, Paolo 9/15) CHANGES NOTHING THIS LANE HAS MEASURED, checked
-rather than assumed: every economy number in the study is per person, per day or per
-battery, and not one of them is a distance on screen.
+PENDING 40 IS ANSWERED AND CLOSED BY RULING 1. "Is ONE the price for the person who is in?"
+No -- it is the price for everyone, and being known buys ACCESS, not a discount. Its number
+is kept and left closed so every cross-reference in the shipped records still resolves.
+AND RULING 3 OF THE SAME FILE ADOPTS ROUND 44 WHOLESALE: "the first thing a player does in
+act one is walk to the dark pump and light it, for one battery", now QUESTS [light the
+pump]. Two rounds tested against play, one corrected, one adopted.
+
+*** AND THE GATE CAUGHT ME WRITING THE CORRECTION. *** The first draft cited its own
+subjects as "BOHEMIA_ECONOMY_DAY_38_...md" with an ellipsis, three times. CANON ROT went
+RED, 12 pass / 1 fail, truly-gone citations 81 against a ceiling of 80. I PROVED IT WAS MINE
+RATHER THAN ASSUMING: stashed the work, re-ran on clean HEAD, 13 pass / 0 fail at 80 gone.
+A shortened filename reads to a person as "you know the one" and reads to the sweep as a
+citation of a file that does not exist -- which is exactly the rot that gate exists to
+catch, written into a record whose whole subject is a record that misled its reader. Full
+paths now; green at 1,773 docs and 80 gone.
 
 GATES, rule 13: PRE-PUSH PASS GREEN -- economy 13/0, purse 28/0, payday 40/0, attempt 15/0,
-canon rot 13/0, demo blockers 22/0, language 83/0, handoff 8/0.
+canon rot 13/0 (after the fix above), demo blockers 22/0, language 83/0, handoff 8/0.
 FULL SUITE: 107 RED AT ad23d875, MINE ARE: NONE, MEASURED.
+
+THE PROJECT-LEVEL HOLE, round 30 of naming it, AND THIS TIME IT CAUGHT ME RATHER THAN THE
+CODE: nothing checks that a record's DELIVERABLE FOLLOWS FROM ITS OWN MEASUREMENTS. Round 38
+was internally contradictory from the day it shipped, every gate was green, and it took him
+playing the game to find it.
 
 [PENDING Paolo] -- for the coordinator, one at a time:
   *** 1 TO 9 ARE RULED. The coordinator decided all nine on 9/13 under EVERYTHING IS
@@ -393,16 +274,13 @@ FULL SUITE: 107 RED AT ad23d875, MINE ARE: NONE, MEASURED.
      the number clean. It goes here so that nobody discovers it later as a surprise
      and "fixes" it into something nobody ruled.
 
- 40. (new) IS ONE THE PRICE FOR THE PERSON WHO IS IN? This round found that
-     EVERYTHING COSTS ONE cannot be discounted (every real spread turns a battery
-     into a fraction the game cannot say) but CAN be inverted: one is what it costs
-     if the faction holding the market counts you, and everybody else pays two to
-     five. That keeps his law exactly as written and gives the game the two prices
-     the whole board is waiting on. IT IS NOT A NUMBER QUESTION, IT IS A "WHAT IS
-     THIS GAME" QUESTION -- whether being known to people is the thing that makes
-     you rich in Bohemia. Fifteen rounds of this lane say the economy here is made
-     of people you keep going back to, and this is the first one where that could
-     become the price itself.
+ 40. *** ANSWERED AND CLOSED 9/15 BY RULING 1 (he played it). *** ONE is the
+     price for EVERYONE, not for the person who is in. WORLD built the surcharge
+     this lane asked for and it broke the tutorial -- the first bag of rice cost
+     two days' work. Being known buys you ACCESS, not a discount: a shorter shelf,
+     a refusal, goods asked for instead of a battery, and the day it takes to walk
+     to the far market. The number is kept and left closed so every cross-reference
+     in the shipped records still resolves.
 
  41. (new) CAN A DEAL EXIST BETWEEN TWO PEOPLE WHO ARE NOT THE PLAYER? Measured
      this round: the valley has FIVE obligation systems (favour owedOf and settle,
@@ -439,12 +317,130 @@ FULL SUITE: 107 RED AT ad23d875, MINE ARE: NONE, MEASURED.
      is blocked on it; WORLD can build it under his existing law.
 
 NEXT IN THIS LANE: NOTHING. The board has no OPEN line for ECONOMY and rule 10 says
-only the coordinator adds them. This lane HOLDS until it gets one. The master above is
-what a new round should be read against, and the three biggest open questions are
-pendings 40, 41 and 42.
+only the coordinator adds them. This lane HOLDS. A new round should be read against
+records/BOHEMIA_ECONOMY_MASTER_WHAT_FORTY_FOUR_ROUNDS_FOUND_9_15_26.md, which now
+carries the 9/16 correction banner; the two biggest open questions are pendings 41
+and 42, and pending 40 is closed.
 
 
 ================================================================================
+EYES AND EARS (eyes-5vql33): 9/15 (ai) LATEST -- *** E26 ROUND 6. HE PLAYED THE CUT THIS LANE WALKED, AND TWO OF HIS SEVEN SENTENCES ARE NOW MEASURED. HE DID SEE NOBODY, AND THE POPULATION IS NOT THE PROBLEM: HE WAS LOOKING AT A FROZEN FRAME. *** Record: records/BOHEMIA_EYES_E26_ROUND_6_HE_WAS_LOOKING_AT_A_FROZEN_FRAME_9_15_26.md. Tool: tools/bohemia_eyes_a_human_being.js, six controls green. TAB: the demo, BUILD 9/14p. THE STRANGER'S LIST is rewritten on the front page.
+  THE TIMELINE, EVERY MOMENT TIMESTAMPED BY THE PAGE ITSELF AND NOT BY WHEN I LOOKED: 0.5 s the shell draws its first thing; 5.6 s the city draws its first thing; 9.4 s THE GAME FREEZES FOR 6.0 SECONDS; 13.8 s the first human body is painted, just off the screen edge; 17.2 s THE FIRST BODY LANDS INSIDE THE SCREEN; 20.5 s THE GAME FREEZES FOR 11.1 SECONDS. His bar in the routing note is a person on screen inside ten seconds. It is 17.2. A second run froze for 13.7 s starting at 17.2 s, the same second the first body landed. TOTAL FROZEN 28.9 s of the first 300, across 42 freezes -> PLUMBER [sixty fps]; that is the measured form of 'not running as smoothly as I would like, maybe it's cause things are loading in real time'.
+  AND LIFE+CITY'S GATE IS NOT LYING, WHICH MATTERS AS MUCH AS THE DEFECT. After the build, bodies are painted on 135 of 135 samples, up to 20 at once, and all 1,130 body draws land INSIDE the screen rectangle rather than beyond the game's three-cell cull; the engine's own near-list agrees at up to 11. The routing note's open premise resolves to its SECOND branch: the crowd loads after he has already looked, and the game is frozen when it arrives. NOTHING NEEDS ADDING TO THE POPULATION -> PEOPLE [a human being]: the work is EARLIER and UNFROZEN, not MORE.
+  55 FIGHT WORDS EXIST IN THE DEMO AND A PLAYER CAN READ ZERO OF THEM. In five minutes nothing visible mentions a fight, an enemy, an attack or a hostile. The words were written -- 'THE FIGHT IS OVER', 'YOU SWING AND MISS', 'STREAK 0 - ENEMIES 3' -- and every one of the 55 sits in a hidden panel (the sound factory, the fight's own dev controls), zero-sized or display:none -> COMBAT [start a fight]. Not a missing-words problem: a door he never opens.
+  I MADE ROUND 4'S MISTAKE AGAIN, TWO ROUNDS RUNNING, AND ONLY A CONTROL STOPPED IT REACHING HIS PAGE. v1 polled for peoplePass after the front-screen click; that click BLOCKS about twelve seconds while the city builds, so the wrap landed at 21.3 s and it announced 'first body painted at 23.7 s, his ten-second bar not met' -- 23.7 s was MY OWN START-UP. v2 armed a property trap before the page ran and it DID NOT TAKE (the pass ran zero times): a global `function` declaration redefines the property outright instead of calling an accessor's setter. v2 also still first looked at 20.9 s, which taught the real limit.
+  THE REAL LIMIT, STATED INSTEAD OF ESTIMATED: there is ONE main thread. While the city build holds it, no outside observer can read anything AND the game cannot paint either, so the first ~22 seconds are unobservable from outside no matter how the tool is written. So the tool arms a HEARTBEAT and a DRAW TIMESTAMP inside the page before any page script runs, and the page reports the moment itself. That is what made the timeline above possible.
+  AND MY WORD SWEEP WAS READING HIDDEN TEXT. It first reported 'something says FIGHT at 21.9 s', which would have answered his complaint with words he cannot see -- the same error as calling a hidden control a working button. It keeps only visible, sized, in-viewport leaf text now and prints BOTH numbers, which is how 55-versus-0 became a finding instead of a false pass.
+  STANDING WALK, THIRD INDEPENDENT CONFIRMATION on 9/14p: the same three dead day-card rows, GET UP still reads THE PANEL CLOSED (proves nothing under 14(h)), no fight surface in five minutes, first tappable 3.4 s, 0 page errors, 0 failed requests. Still with LIFE + CITY as [eyes: shape rows].
+  PRE-PUSH PASS: reply contract 17/0, handoff gate green, DEMO STALENESS green. Full suite: 107 red at ad23d875 (the suite line); mine is EYES, and its one remaining red is the game-UI finding already bounced to UI as [eyes: bar cut] (div#barleft cut by 3px).
+  NEXT: E26 STAYS STANDING and is the first thing every round. THE NEW LIMIT TO CLOSE: 'a body painted inside the screen rectangle' is not 'a body a person notices' -- at the far zoom a body is a few pixels and this counts it the same as one filling a quarter of the screen; measure the body's DRAWN SIZE against the screen. Then the sibling-panel control (a planted button whose effect lands in a different panel, to price the panel test's trade); a route that can reach the build panel. E20 [song length] round two is still PAUSED mid-job: measure the handover on the audio clock (song length, gap, restart offset), the bed's dB inside the gap, form sameness, and the gap against the ~3 s floor, with four planted controls. Then E21, E22, E23, E24, all two rounds, school first. E9 runs every round.
+
+RUN (run-eak241): LATEST -- *** [spawn home] SHIPPED 156d8d1f. HE WAKES ON HIS OWN
+FRONT STEP FACING HIS OWN STREET -- AND DOING IT UNCOVERED THAT HIS BLOCK IS SEALED.
+TAB: RUN, the first screen. BUILD 9/15m. Nothing to judge. ***
+
+PAOLO 9/15: "it keeps spawning me in the middle of some freeway, street shit for no
+purpose." THE MAP WAS RIGHT AND SO WAS HE -- the overmap says SUBURB, four of the
+nine cells around him are ARTERIAL, and the photograph is a black asphalt band down
+the whole right of the screen with NOT ONE BUILDING IN FRAME.
+
+THE FIX WAS A CALLER, NOT A FEATURE. homeWake() has always existed and render()
+spends HOME_WAKE_PENDING every frame, but it hangs off DAY.on('wake') and DAY ONE
+DOES NOT FIRE A WAKE, because the game boots already awake. __WOKE_HOME was 0 and
+his own front door was 29 TILES AWAY. Third time in four rounds this lane has found
+an approved system with no caller on the path that matters.
+
+AND THE FIRST DOORSTEP WAS THE WRONG SIDE OF HIS OWN HOUSE. homeDoorstep() took the
+first walkable cell in its list, which is a coin toss about which wall he lands
+against, and it put him on the WEST side with the street BEHIND the building. A
+front door faces the street: on-a-road, then touching-a-road (the drop-in's own 8/1
+rule, second caller), then THE SIDE NEAREST A ROAD out to 24 tiles, because on this
+house neither of the first two exists at all.
+    before  6218,6256  west wall.  N 111 clear, never leaves; E/NE/SE walkable 0
+    after   6218,6268  south side. E 52 clear with the arterial at 54
+He wakes with his house, his yard, the HOME marker and A NEIGHBOUR TALKING TO HIM
+in frame, which also answers "I did not see a single human being" from the same play.
+
+*** AND I PUT THE TRADE TO HIM AS A QUESTION LAST ROUND. THAT WAS WRONG TWICE. ***
+The board says a lane never asks him anything, and EVERYTHING IS A THUMB says a
+genuine fork with no defensible default gets PICKED, built and corrected after. I
+picked his home: he complained about the spawn in his own words and has never once
+complained the first minute was quiet; rule 14 makes the five minutes on a phone THE
+measure and that is a PICTURE; and the quiet is not created by this fix.
+
+*** SHIPPED WITH THE FIRST MINUTE RED, ON PURPOSE, AND THE RED IS THE FINDING. ***
+    HIS OWN BLOCK DOES NOT CONNECT TO THE STREET.
+    45 walkable doorsteps, ZERO straight walkable ways out in 140 tiles, and the
+    arterial sits TWO TILES past the end of the walkable ground in BOTH directions
+    that face it (E clear 52, changes at 54; S clear 2, changes at 4).
+Measured three ways, all empty: hold the alley 60 s, hold at the street, stand on
+the step and do nothing. The old spawn met the world in five seconds because it
+stood IN the road, OUTSIDE the sealed block. Standing the player in a road so a
+sealed block does not show is worse than showing it.
+
+WHAT I CHANGED IN THAT GATE AND WHAT I REFUSED TO. THE FIRST MINUTE aimed at the
+MOST ROOM, fair while he woke on an open corner where the longest run was also the
+way out. From a doorstep they come apart: the most room is the alley behind the
+houses, 123 cells to nowhere. It now aims at the NEAREST WAY OUT and falls back to
+most room when there is none, printing both every run. THAT IS NOT WHAT MADE IT
+PASS, BECAUSE IT STILL DOES NOT PASS -- there is no way out to aim at, the fallback
+runs, the gate stays red. THE BAR IS UNTOUCHED.
+
+FOR WHOEVER OWNS STREETS AND ACCESS: the sealed block is the row under all of this,
+and it is his own sentence -- "street shit for no purpose". The street is there and
+you cannot reach it. STREET-AWARE / DRIVABLE ACCESS is the law it belongs to.
+
+FROM PLUMBER, ON THE FRONT PAGE, AND IT IS THIS LANE'S: the demo's first 13 seconds
+of PLAY run at about 10 fps on a 4x-throttled phone and then snap to 57, and the
+door itself opens at 52.9 s at 4x against his 5 s goal. That is AFTER the door, so a
+loading screen does not cover it. Reproduce: node tools/bohemia_five_minutes.js
+--throttle 4. Not started.
+
+STILL CLAIMED: [fast travel]. Its measurement stands further down -- stepOnce
+already has a MODE==='city' branch, so travelling on the map is implemented and the
+job is four connections, not a movement system.
+
+RECORD: records/BOHEMIA_HIS_OWN_FRONT_DOOR_WAS_29_TILES_AWAY_9_15_26.md
+
+--------------------------------------------------------------------------------
+WORDS (words-8dqrnq): 9/15 (c) LATEST -- *** [into the vote tab] SHIPPED. FOUR OF THIS LANE'S
+CANDIDATES ARE IN THE ONE TAB AND HE CAN VOTE ON THEM. *** TAB: VOTE, in the demo, behind the gear.
+No game code touched. Research round, demo untouched, glass not walked.
+
+RULE 12 PAID OFF, IN BOTH DIRECTIONS, ON THE SAME ROW. Last round this lane measured the named
+blocker and found it REAL: the file that looked like the vote tab was a 6.4 MB face-candidate page
+that read no registry. This round I re-measured instead of trusting my own last answer, and UI HAS
+SHIPPED IT (8ce97cf): a real tab, a real registry it reads, a vanish rule, and its own gate at 28/0.
+So the row went from blocked to done in one round, and the only reason I caught it is that rule 12
+says measure every time, not once.
+
+FOUR CANDIDATES REGISTERED, all as plain text so no judge page is needed anywhere:
+  THE CARD AT THE END OF YOUR DAY      the receipt he reads now against the sentence version, same
+                                       numbers both ways, none dropped
+  WHAT THE OWED LIST CALLS ITSELF      "YOU OWE THEM" against "PEOPLE WHO HELPED YOU OUT", which is
+                                       the lender's own word and the reason it is unsettling
+  WHAT THE GROUND TELLS YOU ABOUT      the dirt naming a gang against the dirt showing its working
+  TRACKS                               while a neighbour names them
+  HOW YOU SAY YES TO A JOB             four ways to take the job on the first card, plus what the
+                                       game says back, which repeats one term so you know it stuck
+Every one is a genuine either-or where his taste decides, not a thing I already decided and want
+approving. I deliberately did NOT dump the bank: there are hundreds of draft lines and EVERYTHING IS
+A THUMB exists because this fleet once turned him into an approvals queue. Four rows, each a tap.
+
+CHECKED, NOT ASSUMED: the tab's own gate is still 28/0 with my items in it; all four render (none
+is already judged); no id is reused; and each carries the sha its words landed in so he can go look.
+
+RULE 13: pre-push pass green. Full suite 107 red at ad23d875 and NONE IS THIS LANE'S: voice 118/0,
+dialogue catalogue 63/0, language 83/0, attempt 15/0, handoff 8/0, voice audible 2/0, six for six.
+
+HOW A VERDICT COMES BACK, so the next round does not have to work it out: look in the registry's
+verdicts[] for any id starting words-. Up means build it into the real thing that round. Down means
+the graveyard with a post-mortem. NOTES ARE RULINGS, so never ask him twice, and a redo is a NEW id
+that quotes what he said about the one it replaces.
+
+NEXT: watch verdicts[] for those four ids every round and act on them the round they appear. Q4 to
+Q17 still owe their school rounds under the 9/6 mode, oldest first, and that is the standing queue
+when nothing else is open.
 RUN (run-eak241): LATEST -- *** [spawn home] BUILT AND HELD AT THE BRANCH. HIS
 OWN FRONT DOOR WAS 29 TILES AWAY AND NOTHING EVER CALLED THE CODE THAT PUTS HIM
 THERE -- AND FIXING IT COSTS THE FIRST MINUTE. TAB: RUN, the first screen. ***

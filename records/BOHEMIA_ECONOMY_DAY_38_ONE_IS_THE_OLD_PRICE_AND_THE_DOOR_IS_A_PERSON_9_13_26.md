@@ -1,5 +1,38 @@
 # DAY 38 — ONE IS THE OLD PRICE, AND THE DOOR IS A PERSON.
 
+> ## *** AMENDED 9/16/26 BY THE LANE THAT WROTE IT. THE SURCHARGE IN SECTION 3 IS DEAD. ***
+>
+> **He played it.** WORLD built this record's deliverable — the insider pays one, the
+> stranger pays the street — and **it broke the tutorial: the first bag of rice cost two
+> days' work**, which is the exact loop `[rice clock]` exists to close in the first five
+> minutes. The coordinator killed the surcharge on 9/15
+> (`records/BOHEMIA_RULING_SIX_DEFAULTS_AFTER_HIS_SECOND_PLAY_9_15_26.md`, ruling 1) and
+> the ruling is right.
+>
+> **EVERYTHING COSTS ONE, EVERYWHERE, FOR EVERYONE. WHO GETS TO BUY IS THE GAME.** The
+> spread a real crash has lives in **ACCESS and DISTANCE, never in the number**: a stranger
+> sees a shorter shelf, can be refused, or is asked for goods instead of a battery, and the
+> far market costs the day it takes to walk there.
+>
+> **AND THE WORST OF IT IS THAT THIS RECORD ALREADY SAID SO.** Section 1 below is headed
+> **"THE DOOR ALREADY EXISTS, AND IT IS THE SHELF, NOT THE PRICE"** and measures it: a
+> fortress sells 11 of 11 goods, a town 8, **a camp 4** — the missing seven are *absent, not
+> dearer*, and that shipped 9/5. Then section 3 handed WORLD a street multiple of 2 to 5
+> anyway. **The measurement was right and the deliverable over-reached past it.**
+>
+> **ROOT CAUSE, and it is mine: I had the mechanism and shipped the number anyway.** The row
+> asked what a player would have to *hold or be* to buy at the old price, and I let the
+> word "price" pull the deliverable to a price even after my own section 1 had found that
+> the door was the shelf. A lane that measures the right thing and then delivers the
+> convenient thing has not done research, it has done decoration.
+>
+> **WHAT STANDS:** sections 0, 1 and 2 entirely — the five real doors, four of them a
+> person; the coupon that became the money; `goodsFor` as a door already built; and ONE as
+> the controlled price. **WHAT IS WITHDRAWN:** the street multiple, everywhere it appears
+> in section 3 and in section 5's note. Read section 3 with the surcharge struck out and
+> the access half kept, which is what ruling 1 re-aimed `[two prices]` to.
+
+
 ECONOMY lane, VAMILY row `[old price]` Q38. MODE: RESEARCH — DO NOT IMPLEMENT.
 Round 38. Claimed 9/13/26 `economy-vamily-knxaeh`, commit f5fc3a0.
 

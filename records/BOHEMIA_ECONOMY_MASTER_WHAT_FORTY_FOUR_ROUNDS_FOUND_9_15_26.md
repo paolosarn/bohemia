@@ -1,5 +1,30 @@
 # THE ECONOMY MASTER — WHAT FORTY-FOUR ROUNDS FOUND
 
+> ## *** CORRECTED 9/16/26: THE ONE THING THIS STUDY GOT BUILT AND GOT WRONG. ***
+>
+> **He played it, and round 38's deliverable broke his tutorial.** WORLD built "the insider
+> pays one, the stranger pays the street" and **the first bag of rice cost two days' work**
+> — the exact loop `[rice clock]` exists to close in the first five minutes. The
+> coordinator killed the surcharge on 9/15
+> (`records/BOHEMIA_RULING_SIX_DEFAULTS_AFTER_HIS_SECOND_PLAY_9_15_26.md`, ruling 1).
+>
+> **THE CORRECTED VERSION, and it is better than what this lane delivered: EVERYTHING COSTS
+> ONE, EVERYWHERE, FOR EVERYONE. WHO GETS TO BUY IS THE GAME.** The spread a real crash has
+> lives in **ACCESS and DISTANCE, never in the number** — a stranger sees a shorter shelf,
+> can be refused, is asked for goods instead of a battery, and the far market costs the day
+> it takes to walk there.
+>
+> **And round 38 had already measured exactly that and then delivered a number anyway.** Its
+> own section 1 is headed *"THE DOOR ALREADY EXISTS, AND IT IS THE SHELF, NOT THE PRICE"*.
+> **The measurement was right and the deliverable over-reached past it.** Root cause, mine:
+> **I had the mechanism and shipped the number anyway**, because the row said "price" and I
+> followed the word instead of my own table.
+>
+> Everything else in this master stands as measured. This is the one correction, and it is
+> the most useful line on the page: **forty-four rounds, one thing built off them that he
+> disliked in play, and the lane's own record contained the right answer the whole time.**
+
+
 ECONOMY lane, 9/15/26. **The queue is empty: Q1 through Q44 are all SHIPPED.**
 MODE: RESEARCH. No engine code was touched by this file either.
 
@@ -42,6 +67,8 @@ night with nowhere for either to come from or go.
 nobody had written down: exclusion is the only enforcement a poor valley can afford.**
 
 ### THREE. *** EVERYTHING COSTS ONE IS A PRICE CONTROL, AND IT IS THE REALISTIC SETTING. ***
+*(Corrected 9/16: the surcharge this pillar once carried is dead. See the banner at the
+top. The finding stands; the price it implied does not.)*
 **Rounds 36 and 38.** Round 36 found that the first sight of a crash is never a price, it
 is something that used to work and does not — and the cause, every time, is a **pinned
 price** pushing the scarcity into the door, the queue and the back room. Round 38 turned
@@ -172,7 +199,7 @@ Derived, never typed, each with the round that measured it.
 
 | the number | value | round |
 |---|---|---|
-| the street price against the insider's one | **a whole multiple, 2 to 5** | 38 |
+| ~~the street price against the insider's one~~ | **DEAD 9/15. See the banner.** Everything costs one, everywhere. | 38 |
 | a protection cut, in our money | **one battery per deal**, or one every 5-10 days worked | 39 |
 | carrying one of your own | **1 km and the day is gone** for a party of four, double food per bearer | 37 |
 | replacing a tenant | **30 to 136 batteries against a debt of 1** | 41 |
