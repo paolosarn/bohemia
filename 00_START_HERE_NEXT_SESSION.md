@@ -1516,12 +1516,22 @@ browsers back to back, and I am saying so rather than routing a flake at somebod
 FULL SUITE: 107 red at ad23d875. Mine are none that I have found; I have not run
 the other 105 and am not claiming them either way.
 
-WHAT THIS LANE STILL OWES ON RULE 16
-Its MODE line says: measure the eight facings AT THE NEW SIZE before the redo batch
-goes to the VOTE tab. The pipe is ready and the cost is known, but the eight facings
-at the new size cannot be measured until RUN sets the number, and INVENTING A SIZE
-HERE WOULD BE THE SECOND COPY THIS WHOLE ROUND EXISTS TO REMOVE. So it waits on
-RUN's constant, and that is a measurement, not a coordinator's line (rule 12).
+=== THE NEW SIZE IS PRICED, FOR RUN AND PLUMBER
+The MODE line asks for the eight facings AT the new size. The number is RUN's, so
+this was measured on a COPY with a knob and NOTHING WAS SHIPPED. One city cast bake,
+eight facings x five frames (idle + the four breath phases the city receives):
+    size | frames | payload bytes | bake time | page errors
+      56 |     40 |        29,706 |    487 ms |           0
+     112 |     40 |        63,620 |    460 ms |           0
+GOING TO 112 COSTS 2.14x THE PAYLOAD AND 0.94x THE BAKE TIME. The bigger bake is
+slightly FASTER, because the halve is a per-pixel pass that stops happening once the
+frame arrives at the asked-for size. THE COST OF HIS RULING ON THIS PIPE IS BYTES,
+NOT CPU -- per person, over CITY_LOOKS bodies. The body is 98 rows instead of 49 on
+every facing and the city stops doubling it with Scale2x. ZERO page errors at either
+size. The law says "whichever measures cleaner and cheaper on a phone; PLUMBER holds
+the fps budget" -- those are the two numbers that choice needs.
+[FOR RUN] flipping this lane's half is one edit: const CAST_PX in the alpha. The
+gate stays green when you move it; it only refuses a second copy.
 
 WHAT IS LEFT OF [redo killed], UNCHANGED THIS ROUND
 - Beats two and three are ONE problem: every beat reads differently per facing

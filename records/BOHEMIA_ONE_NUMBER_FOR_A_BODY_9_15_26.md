@@ -103,3 +103,28 @@ Its MODE line says: measure the eight facings at the new size before the redo ba
 goes to the VOTE tab. The pipe is ready and the cost is known; the eight facings AT
 the new size cannot be measured until RUN sets it, and inventing a size here would
 be the second copy this whole round exists to remove.
+
+## AND THE NEW SIZE WAS PRICED, SO RUN AND PLUMBER DECIDE ON NUMBERS
+The MODE line asks this lane to measure the eight facings AT the new size. The
+number itself is RUN's, so this was measured on a COPY with a knob and **nothing
+was shipped**. At CAST_PX=112, over one city cast bake (eight facings x five frames
+each, idle plus the four breath phases the city actually receives):
+
+    size | frames | payload bytes | bake time | page errors
+      56 |     40 |        29,706 |    487 ms |           0
+     112 |     40 |        63,620 |    460 ms |           0
+
+**Going to 112 costs 2.14x the payload and 0.94x the bake time.** The bigger bake
+is very slightly FASTER, because the halve is a per-pixel pass that stops happening
+once the frame already arrives at the asked-for size. So the cost of his ruling on
+this lane's pipe is **bytes, not CPU** -- and that is per person, over CITY_LOOKS
+bodies.
+
+At 112 the body is **98 rows instead of 49**, every facing, and the city stops
+doubling it with Scale2x because the pixels are really there. **Zero page errors at
+either size**, so nothing downstream breaks on the size alone.
+
+The law's own words are "the cast bake at a larger size, or the same bake scaled,
+whichever measures cleaner and cheaper on a phone; PLUMBER holds the fps budget."
+Those are the two numbers that choice needs, and they are now measured rather than
+argued.
