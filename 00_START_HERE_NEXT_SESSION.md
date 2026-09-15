@@ -24040,11 +24040,25 @@ TWO INSTRUMENTS MOVED WITH IT, BOTH OUT LOUD:
 - combat_lab's byte-pinned maxRange regex, re-pointed for the FIFTH time in that line's history.
   The night scaling it actually asserts is byte-identical every time.
 
-NAMED, NOT TAKEN, BECAUSE IT IS NOT REPRODUCED ON HIS GLASS YET: the photograph shows HALF THE
-SCREEN ABOVE THE FIGHT IS THE BENCH MENU (SETTINGS, YOU 100/100, WAIT, SUPPRESS, HAND-PEEK: OFF,
-NEW ENCOUNTER, STREET #79603) and SHOVE hostile_0 shows a raw internal id to the player. That is
-the ALPHA's combat tab. Rule 14(g) says never report a break you have not reproduced on the glass
-he plays, so the next round MEASURES IT ON THE DEMO before anybody calls it a break.
+*** AND THEN IT WAS REPRODUCED ON THE GLASS HE PLAYS, SO IT IS A BREAK AND NOT AN ALPHA ARTEFACT.
+    THIS IS THE ONE THING I AM HOLDING FOR THE COORDINATOR. ***
+The photograph of the fight shows HALF THE SCREEN ABOVE THE BOARD IS THE BENCH MENU (SETTINGS,
+YOU 100/100, WAIT, SUPPRESS, HAND-PEEK: OFF, NEW ENCOUNTER, STREET #79603) and SHOVE hostile_0
+shows a RAW INTERNAL ID to the player. Rule 14(g) says never report a break you have not
+reproduced on the glass he plays, so I opened THE DEMO with the one driver and asked its own
+combat surface what it carries:
+    waitbtn VISIBLE   suppressbtn VISIBLE   peekbtn VISIBLE
+    housebtn VISIBLE  widebtn VISIBLE       arenabtn VISIBLE   bossforget VISIBLE
+Seven of seven, in slices/BOHEMIA_DEMO.html's own fight frame. Three of those are DEV DIALS -- the
+tile-scale switch, the tile-width stepper, the arena seed -- and one gives every boss key back.
+They are controls that exist for ME, sitting on top of the fight he plays, which is the family of
+rule 14(d) and part of what "glitchy, buggy, nothing's complete" is made of.
+I AM NOT BUILDING IT: rule 10 says only the coordinator adds jobs and rule 6 says only build what
+is on the board, so this is measured, reproduced and handed over rather than taken. It is the
+obvious next FIRST LINE for this lane under rule 14(b); my two named breaks ([start a fight] and
+[house board]) are both shipped, and the next OPEN line in my section is [armour morale], which is
+not a five-minute break -- so under 14(b) I am adding nothing else to the demo until this is
+ruled.
 Record: records/BOHEMIA_COMBAT_THE_RULERS_READ_THE_BOARD_9_15_26.md  Build stamp 9/15s.
 
 *** [house board] THE-FIGHT-AT-THE-SCALE-HE-NEEDS. V218. SHIPPED. ***
