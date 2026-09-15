@@ -1,0 +1,136 @@
+{
+  "_readme": [
+    "THE ONE REGISTRY. Paolo 9/14, LOCKED (laws/BOHEMIA_ADDENDUM_ONE_VOTE_TAB_AND_THE_PORTRAIT_CHAT_9_14_26.md).",
+    "There is ONE place he votes: the VOTE tab, behind the gear, in the demo. This file is what it reads.",
+    "It lives in records/target/ because that is one of the three folders GitHub Pages publishes (_config.yml),",
+    "so the tab can fetch it in production. slices/ and engine/ are the other two.",
+    "",
+    "HOW A LANE REGISTERS A CANDIDATE: append one object to items[]. Never edit somebody else's object.",
+    "  id     a unique slug. Never reused. A redo is a NEW id.",
+    "  kind   song | face | haircut | outfit | tile | animation | line | ui | redo",
+    "  lane   the chat that made it",
+    "  sha    the commit the thing landed in, so anyone can go look at it",
+    "  made   the date it was made, as m/d",
+    "  title  what he sees on the row, in plain words",
+    "  why    one short line: what changed and what he is deciding",
+    "  show   how to show it: {how:'page'|'image'|'clip'|'audio'|'text', src:'...'} .",
+    "         page/image/clip/audio src is a path RELATIVE TO slices/ . text src is the words themselves.",
+    "  redoOf (redos only) the id this one replaces",
+    "  said   (redos only) his words on the one it replaces, quoted back so he is never judging blind",
+    "",
+    "HOW A LANE READS A VERDICT BACK: look in verdicts[] for your id. up = build it in, down = graveyard",
+    "with a post-mortem (a clip is redone and comes back as a NEW id). NOTES ARE RULINGS: do not ask again.",
+    "",
+    "A VOTE CONSUMES. An id that appears in verdicts[] NEVER renders in the tab again. The tab also",
+    "remembers his vote on the phone the moment he taps, so the row leaves before this file is updated.",
+    "gates/vote_tab_gate.js plants a judged id here and proves the tab refuses it."
+  ],
+  "version": 1,
+  "items": [
+    {
+      "id": "ui-how-a-label-is-spaced-9-12",
+      "kind": "ui",
+      "lane": "ui",
+      "sha": "7bbf1c9a",
+      "made": "9/12",
+      "title": "HOW A LABEL IS SPACED",
+      "why": "Five ways to space the small capital labels in the game. One of them is what is in there now.",
+      "show": {
+        "how": "page",
+        "src": "BOHEMIA_HOW_A_LABEL_IS_SPACED_9_12_26.html"
+      }
+    },
+    {
+      "id": "ui-five-ways-the-screen-reads-9-13",
+      "kind": "ui",
+      "lane": "ui",
+      "sha": "5c596665",
+      "made": "9/13",
+      "title": "FIVE WAYS THE SCREEN READS",
+      "why": "The phone screen in the city has its own typeface now. Five ways it could look.",
+      "show": {
+        "how": "page",
+        "src": "BOHEMIA_FIVE_WAYS_THE_SCREEN_READS_9_13_26.html"
+      }
+    },
+    {
+      "id": "ui-five-ways-the-writing-reads-9-13",
+      "kind": "ui",
+      "lane": "ui",
+      "sha": "69a221db",
+      "made": "9/13",
+      "title": "FIVE WAYS THE WRITING READS",
+      "why": "The sentences people say are not typed on a grid any more. Five ways the writing could sit.",
+      "show": {
+        "how": "page",
+        "src": "BOHEMIA_FIVE_WAYS_THE_WRITING_READS_9_13_26.html"
+      }
+    },
+    {
+      "id": "ui-five-ways-a-choice-looks-9-13",
+      "kind": "ui",
+      "lane": "ui",
+      "sha": "ae12177f",
+      "made": "9/13",
+      "title": "FIVE WAYS A CHOICE LOOKS",
+      "why": "Every answer you can give somebody is a button. Five ways that button could look.",
+      "show": {
+        "how": "page",
+        "src": "BOHEMIA_FIVE_WAYS_A_CHOICE_LOOKS_9_13_26.html"
+      }
+    },
+    {
+      "id": "ui-five-ways-a-choice-fits-9-13",
+      "kind": "ui",
+      "lane": "ui",
+      "sha": "36912b2f",
+      "made": "9/13",
+      "title": "FIVE WAYS A CHOICE FITS",
+      "why": "Long answers ran off the card. Five ways to make a long answer fit the thumb.",
+      "show": {
+        "how": "page",
+        "src": "BOHEMIA_FIVE_WAYS_A_CHOICE_FITS_9_13_26.html"
+      }
+    },
+    {
+      "id": "ui-five-ways-four-buttons-fit-9-13",
+      "kind": "ui",
+      "lane": "ui",
+      "sha": "709c309e",
+      "made": "9/13",
+      "title": "FIVE WAYS FOUR BUTTONS FIT",
+      "why": "Four buttons down the left side, all of them big enough to hit. Five ways to stack them.",
+      "show": {
+        "how": "page",
+        "src": "BOHEMIA_FIVE_WAYS_FOUR_BUTTONS_FIT_9_13_26.html"
+      }
+    },
+    {
+      "id": "ui-five-ways-one-door-9-14",
+      "kind": "ui",
+      "lane": "ui",
+      "sha": "9d24205a",
+      "made": "9/14",
+      "title": "FIVE WAYS ONE DOOR",
+      "why": "Two buttons opened the same subject, like PRETTY MAP and DROP IN did. Five ways to make it one door.",
+      "show": {
+        "how": "page",
+        "src": "BOHEMIA_FIVE_WAYS_ONE_DOOR_9_14_26.html"
+      }
+    },
+    {
+      "id": "ui-five-ways-the-queue-reads-9-15",
+      "kind": "ui",
+      "lane": "ui",
+      "sha": "pending",
+      "made": "9/15",
+      "title": "FIVE WAYS THE QUEUE READS",
+      "why": "This tab is new. Five ways the list inside it could look. A is what you are looking at.",
+      "show": {
+        "how": "page",
+        "src": "BOHEMIA_FIVE_WAYS_THE_QUEUE_READS_9_15_26.html"
+      }
+    }
+  ],
+  "verdicts": []
+}

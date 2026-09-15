@@ -1,0 +1,162 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>BOHEMIA - FIVE WAYS THE QUEUE READS</title>
+<style>
+ :root{ --ink:#141210; --paper:#f4efe6; --rule:#9c907c; --hot:#a8391d; --cool:#2f6f6a }
+ *{ box-sizing:border-box }
+ body{ margin:0; background:var(--paper); color:var(--ink);
+       font:15px/1.5 ui-sans-serif,system-ui,-apple-system,Arial,sans-serif }
+ header{ padding:16px 14px 12px; border-bottom:3px solid var(--ink) }
+ h1{ margin:0 0 6px; font-size:19px }
+ .sub{ font-size:14px; color:#4a443c }
+ .now{ margin:12px 14px; padding:10px 12px; border-left:5px solid var(--hot); background:#fff; font-size:14px }
+ .now b{ color:var(--hot) }
+ .wrap{ padding:8px 14px 60px }
+ .opt{ background:#fff; margin:18px 0; border-bottom:3px solid var(--ink) }
+ .opt h2{ margin:0; padding:9px 12px; font-size:16px; background:var(--ink); color:var(--paper) }
+ .stage{ padding:14px 12px; background:#d8d1c2 }
+ .say{ margin:0; padding:10px 12px 12px; font-size:14px; color:#4a443c }
+ .say b{ color:var(--ink) }
+
+ /* the mock queue. one shape, restyled five times, so he is comparing the SHAPE
+    and not five different sets of words. */
+ .q{ max-width:320px; margin:0 auto }
+ .r{ background:#fffdf8; border:2px solid #a2957f; border-radius:5px; margin:0 0 10px;
+     padding:9px 10px }
+ .k{ display:inline-block; font-size:10px; letter-spacing:1.4px; color:#f4efe6;
+     background:#141210; border-radius:3px; padding:2px 6px }
+ .w{ font-size:10px; letter-spacing:1px; color:#6b6355; margin-left:6px }
+ .t{ font-size:15px; font-weight:700; margin:6px 0 0 }
+ .y{ font-size:12px; color:#6b6355; margin:3px 0 0 }
+ .b{ margin-top:8px; display:flex; gap:6px; align-items:center }
+ .bt{ min-width:44px; height:34px; display:inline-flex; align-items:center; justify-content:center;
+      border:2px solid #a2957f; border-radius:4px; background:#f4efe6; font-size:16px }
+ .lk{ margin-left:auto; height:34px; display:inline-flex; align-items:center; padding:0 10px;
+      border:2px solid #a2957f; border-radius:4px; background:#f4efe6; font-size:11px; letter-spacing:1px }
+
+ /* B: the thing first */
+ .b2 .r{ padding:0; overflow:hidden }
+ .b2 .pic{ height:92px; background:repeating-linear-gradient(45deg,#6f6450 0 10px,#5d5344 10px 20px) }
+ .b2 .in{ padding:8px 10px }
+
+ /* C: one at a time */
+ .c1 .r{ padding:16px 12px; min-height:210px; display:flex; flex-direction:column }
+ .c1 .b{ margin-top:auto }
+ .c1 .bt{ flex:1; height:48px; font-size:20px }
+ .c1 .of{ text-align:center; font-size:11px; letter-spacing:1.4px; color:#6b6355; margin-top:8px }
+
+ /* D: swipe */
+ .d1 .r{ position:relative }
+ .d1 .sw{ display:flex; gap:0; margin-top:8px; border:2px solid #a2957f; border-radius:4px; overflow:hidden }
+ .d1 .sw div{ flex:1; height:40px; display:flex; align-items:center; justify-content:center; font-size:11px; letter-spacing:1px }
+ .d1 .no{ background:#e6c8bf } .d1 .yes{ background:#c3ddd9 }
+
+ /* E: grouped by kind */
+ .e1 .grp{ font-size:11px; letter-spacing:2px; color:#6b6355; margin:0 0 6px; padding-top:6px;
+           border-top:2px solid #a2957f }
+ .e1 .r{ margin-bottom:6px }
+</style></head><body>
+<header>
+ <h1>FIVE WAYS THE QUEUE READS</h1>
+ <div class="sub">The one place you vote is built. This is how the list inside it could look. Option A is what is in the game right now. 9/15</div>
+</header>
+
+<div class="now">
+ <b>WHAT YOU ASKED FOR IS IN.</b> One tab, behind the gear, in the demo. Everything new from
+ every chat lands in the same list, newest at the top. Up, down, or say why. The second you
+ vote, the row leaves and it does not come back.
+ <br><br>
+ <b>WHAT I HAD TO PICK WITHOUT YOU.</b> How much of the thing you see before you tap. Right
+ now a row is a name and one line, and the picture or the sound only loads when you tap LOOK
+ AT IT. That keeps the list fast when forty things are waiting, but it means you tap twice to
+ judge once. Here are five ways it could go.
+</div>
+
+<div class="wrap">
+
+ <div class="opt">
+  <h2>A. THE LIST (what is in the game now)</h2>
+  <div class="stage"><div class="q">
+   <div class="r"><span class="k">HAIRCUT</span><span class="w">CHARACTER  9/15</span>
+    <div class="t">THE TEMPLE TAPER</div>
+    <div class="y">Tight at the sides, four angles.</div>
+    <div class="b"><span class="bt">&#128077;</span><span class="bt">&#128078;</span><span class="lk">LOOK AT IT</span></div></div>
+   <div class="r"><span class="k">SONG</span><span class="w">SOUNDS  9/15</span>
+    <div class="t">COLD TABLE</div>
+    <div class="y">The bar theme, slowed down.</div>
+    <div class="b"><span class="bt">&#128077;</span><span class="bt">&#128078;</span><span class="lk">LOOK AT IT</span></div></div>
+  </div></div>
+  <div class="say"><b>Fast, and it scales.</b> Forty waiting things fit on two thumb scrolls and
+  nothing loads until you ask. The cost is one extra tap per thing.</div>
+ </div>
+
+ <div class="opt b2">
+  <h2>B. THE THING FIRST</h2>
+  <div class="stage"><div class="q">
+   <div class="r"><div class="pic"></div><div class="in">
+    <span class="k">HAIRCUT</span><span class="w">CHARACTER  9/15</span>
+    <div class="t">THE TEMPLE TAPER</div>
+    <div class="b"><span class="bt">&#128077;</span><span class="bt">&#128078;</span><span class="lk">BIGGER</span></div></div></div>
+   <div class="r"><div class="pic"></div><div class="in">
+    <span class="k">TILE</span><span class="w">COOK  9/15</span>
+    <div class="t">THE PAWNSHOP CORNER</div>
+    <div class="b"><span class="bt">&#128077;</span><span class="bt">&#128078;</span><span class="lk">BIGGER</span></div></div></div>
+  </div></div>
+  <div class="say"><b>You see it without tapping.</b> One tap to judge instead of two. The cost is
+  the list gets long fast and a sound or a whole sheet has no picture to show, so those rows
+  look empty next to the art.</div>
+ </div>
+
+ <div class="opt c1">
+  <h2>C. ONE AT A TIME</h2>
+  <div class="stage"><div class="q">
+   <div class="r">
+    <span class="k">HAIRCUT</span><span class="w">CHARACTER  9/15</span>
+    <div class="t">THE TEMPLE TAPER</div>
+    <div class="y">Tight at the sides, four angles. The picture fills this whole card.</div>
+    <div class="b"><span class="bt">&#128078;</span><span class="bt">&#128077;</span></div>
+    <div class="of">1 OF 12</div></div>
+  </div></div>
+  <div class="say"><b>No list at all.</b> One thing, big, decide, next. Nothing competes for your eye
+  and every picture gets the whole screen. The cost is you cannot skip ahead or see how much is
+  left, and going back is a button you have to find.</div>
+ </div>
+
+ <div class="opt d1">
+  <h2>D. THE WHOLE ROW IS THE BUTTON</h2>
+  <div class="stage"><div class="q">
+   <div class="r"><span class="k">SONG</span><span class="w">SOUNDS  9/15</span>
+    <div class="t">COLD TABLE</div>
+    <div class="y">The bar theme, slowed down.</div>
+    <div class="sw"><div class="no">NO</div><div class="yes">YES</div></div></div>
+   <div class="r"><span class="k">LINE</span><span class="w">WORDS  9/15</span>
+    <div class="t">WHAT THE DEALER SAYS</div>
+    <div class="y">Three new ways to open a hand.</div>
+    <div class="sw"><div class="no">NO</div><div class="yes">YES</div></div></div>
+  </div></div>
+  <div class="say"><b>Half the row is yes, half is no.</b> Nothing to aim at, so it works one handed
+  on a bus. The cost is a fat thumb voting by accident, which is why there is a PUT THE LAST ONE
+  BACK button either way.</div>
+ </div>
+
+ <div class="opt e1">
+  <h2>E. STACKED BY KIND</h2>
+  <div class="stage"><div class="q">
+   <div class="grp">SONGS  2</div>
+   <div class="r"><div class="t">COLD TABLE</div>
+    <div class="b"><span class="bt">&#128077;</span><span class="bt">&#128078;</span><span class="lk">HEAR IT</span></div></div>
+   <div class="grp">HAIRCUTS  5</div>
+   <div class="r"><div class="t">THE TEMPLE TAPER</div>
+    <div class="b"><span class="bt">&#128077;</span><span class="bt">&#128078;</span><span class="lk">SEE IT</span></div></div>
+   <div class="grp">TILES  9</div>
+   <div class="r"><div class="t">THE PAWNSHOP CORNER</div>
+    <div class="b"><span class="bt">&#128077;</span><span class="bt">&#128078;</span><span class="lk">SEE IT</span></div></div>
+  </div></div>
+  <div class="say"><b>All the haircuts together.</b> Judging five haircuts in a row is easier than
+  judging one haircut, then a song, then a tile, because your eye stays in one job. The cost is
+  it fights what you said: newest first, mixed, one queue. A new song could sit under nine old
+  tiles.</div>
+ </div>
+
+</div>
+</body></html>

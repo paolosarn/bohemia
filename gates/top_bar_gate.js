@@ -148,6 +148,44 @@ const ready = async (p, ms) => { const t0 = Date.now();
   ok('*** AND THE MENU STILL WORKS: PRESS PHONE IN THE BAR AND THE PHONE OPENS ***',
      opened === true);
 
+  /* ==== [eyes: bar cut] -- A TRACK TITLE MUST NOT EAT WHERE YOU ARE STANDING ==========
+     EYES E26 round 4 reported #barleft "cut by 3 pixels". Reproduced in the workshop frame
+     and it is not 3: 21.4 px on one run and 62.2 on another. THE AMOUNT VARIES WITH WHAT IS
+     PLAYING -- the music chip prints the current track name, #barright was flex:0 0 auto and
+     never gave any of it back, and #barleft was the only thing allowed to shrink. So the half
+     that carries HUMAN MODE and SUBURB / ON FOOT, the player's own state, was the half that
+     clipped. The roles are swapped now: the left holds its content and the track name, the
+     only genuinely unbounded text in the row, is the one that truncates.
+     THE LEG FORCES THE CASE THAT CAUSED IT rather than trusting the title that happens to be
+     playing -- that is why EYES measured 3 and I measured 62 for the same bug. A title four
+     times too long goes in, and then all three things have to hold at once: the state does not
+     clip, the title DOES, and nothing is drawn past the edge of the screen. */
+  const bar = await c.evaluate(() => {
+    const m = document.getElementById('musbtn');
+    if (!m) return { err: 'no music chip' };
+    const was = m.textContent;
+    m.textContent = 'MENU \u2014 A VERY LONG SONG TITLE THAT NOBODY WOULD EVER SHORTEN FOR YOU';
+    return new Promise(res => setTimeout(() => {
+      const bl = document.getElementById('barleft');
+      const clipped = e => !!e && e.scrollWidth > e.clientWidth + 1;
+      const past = [...document.querySelectorAll('#menubar *')]
+        .filter(e => e.getBoundingClientRect().right > window.innerWidth + 1)
+        .map(e => (e.id || e.tagName));
+      const out = { left: clipped(bl), title: clipped(m), past,
+                    leftTxt: bl ? (bl.textContent || '').trim().slice(0, 30) : '' };
+      m.textContent = was;
+      res(out);
+    }, 400));
+  });
+  ok('with a track title four times too long, WHERE YOU ARE STANDING still fits -- a song '
+     + 'name does not get to eat the player\'s own state ("' + (bar.leftTxt || bar.err) + '")',
+     !bar.err && bar.left === false);
+  ok('and the TRACK NAME is the thing that truncates instead, which is the only text up there '
+     + 'with no natural length', !bar.err && bar.title === true);
+  ok('and nothing in the bar is drawn past the edge of the screen'
+     + (bar.past && bar.past.length ? ' -- PAST: ' + bar.past.join(' ') : ''),
+     !bar.err && bar.past && bar.past.length === 0);
+
   ok('no page error while doing any of it' + (errs.length ? ' -- ' + errs[0] : ''), errs.length === 0);
   await b.close(); srv.close();
   done();

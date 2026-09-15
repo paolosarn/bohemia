@@ -1347,6 +1347,22 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
   font-size:11px;letter-spacing:1.4px;cursor:pointer;-webkit-tap-highlight-color:transparent}
 #setcard .setbtn.wide{width:100%;margin-top:4px}
 #setcard .setbtn:active{background:#c8b681;color:#15120d}
+
+/* __THE VOTE SURFACE__ (Paolo 9/14). Full screen, over everything, because judging a
+   haircut through a 340px settings card is not judging it. z-index sits ABOVE #setwrap
+   (61) so it covers the settings card he opened it from, and the way out is one wide
+   button in plain words, same as BACK TO THE GAME everywhere else. The frame is only
+   given a src when he opens it: the queue fetches a file and builds rows, and none of
+   that should cost a frame of the walked city while it sits closed. */
+#votewrap{position:fixed;inset:0;z-index:70;display:none;flex-direction:column;background:#f2ece1}
+#votewrap.on{display:flex}
+#votebar{flex:0 0 auto;display:flex;align-items:center;justify-content:flex-end;
+  padding:calc(6px + env(safe-area-inset-top,0px)) 10px 6px;background:#141210}
+#voteback{min-height:44px;min-width:44px;padding:0 16px;display:inline-flex;align-items:center;
+  justify-content:center;border:2px solid #a2957f;border-radius:5px;background:#f2ece1;
+  color:#141210;font:12px/1 ui-sans-serif,system-ui,Arial;letter-spacing:1.4px;cursor:pointer;
+  -webkit-tap-highlight-color:transparent}
+#voteOver{flex:1 1 auto;width:100%;border:0;background:#f2ece1}
 </style>
 <div id="front">
   <!-- THE NAME SITS ON A PLATE, ON PURPOSE (UI lane, 8/27). His approved
@@ -1498,11 +1514,23 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
          is the point and "cooldown" is not a word anybody has to learn. -->
     <div class="setrow"><span class="setlab">EVENTS</span>
       <div id="setenc" class="setbtn" role="button" tabindex="0">AGAIN IN 3 DAYS</div></div>
+    <!-- __VOTE LIVES BEHIND THE GEAR__ (Paolo 9/14, LOCKED). "One central tab in the
+         fucking demo where everything from sounds to portrait to hair to everything that is
+         new, where I vote on it." It is HERE and not on the tab bar because
+         tools/bohemia_cut_the_demo.js deletes every tab except RUN, so a tab would reach him
+         in the workshop and never in the thing he plays. Behind the gear is also what the law
+         asks for: a stranger opening the demo must not trip over the judging machinery. -->
+    <div class="setrow"><span class="setlab">NEW</span>
+      <div id="setvote" class="setbtn" role="button" tabindex="0">VOTE ON WHAT IS NEW</div></div>
     <div class="setrow"><span class="setlab">GAME</span>
       <div id="setsave" class="setbtn" role="button" tabindex="0">SAVE</div>
       <div id="setquit" class="setbtn" role="button" tabindex="0">QUIT</div></div>
     <div id="setclose" class="setbtn wide" role="button" tabindex="0">BACK TO THE GAME</div>
   </div></div>
+  <div id="votewrap" aria-hidden="true">
+    <div id="votebar"><div id="voteback" role="button" tabindex="0">BACK TO THE GAME</div></div>
+    <iframe id="voteOver" title="vote on what is new"></iframe>
+  </div>
   <div id="tabs">
     <div class="tab" data-p="vote">VOTE</div>
     <div class="tab" data-p="ui">UI</div><div class="tab" data-p="looks">3D</div>
@@ -1526,7 +1554,15 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
          like it's 3-D". Twelve looks, same words in every one, thumbs on each.
          NOTHING HERE TOUCHES THE GAME. It is a page he taps. -->
     <div class="panel" id="p-looks"><iframe id="looksFrame" data-src="BOHEMIA_UIWALL_CURRENT.html" title="pick a look" style="width:100%;height:100%;border:0;background:#0c0a07"></iframe></div>
-    <div class="panel" id="p-vote"><iframe id="voteFrame" data-src="BOHEMIA_VOTE_CURRENT.html" title="vote on what is new" style="width:100%;height:100%;border:0;background:#0d0d12"></iframe></div>
+    <!-- __THE_ONE_VOTE_TAB__ (Paolo 9/14, LOCKED, rule 15). It used to point at
+         BOHEMIA_VOTE_CURRENT.html, which was ONE lane's bulk judge page: 6.4 MB of baked-in
+         pictures, one batch, frozen at the moment it was drawn. It is untouched on disk and
+         stays as an archive; it just is not where anything new is presented any more.
+         BOHEMIA_VOTE_TAB.html reads records/target/BOHEMIA_VOTE_REGISTRY.json instead, so
+         every lane adds its own candidates to one file and nobody draws a vote page again.
+         THE TAB IS NOT THE DOOR THAT MATTERS: the demo cutter deletes every tab but RUN, so
+         the real door is the VOTE row in SETTINGS below, which survives the cut. -->
+    <div class="panel" id="p-vote"><iframe id="voteFrame" data-src="BOHEMIA_VOTE_TAB.html" title="vote on what is new" style="width:100%;height:100%;border:0;background:#f2ece1"></iframe></div>
     <div class="panel" id="p-run" style="position:relative">
 <!-- ===== BOHEMIA OPENING OVERLAY (generated) ===== -->
       <div id="openWrap" style="display:none;position:absolute;inset:0;z-index:40;background:#070906;
@@ -34794,6 +34830,31 @@ var st=t.querySelector(".tab[data-p=slice]");if(st)st.addEventListener("click",f
     live=false;
   }
 
+  /* __VOTE ON WHAT IS NEW__ (Paolo 9/14, LOCKED). The one place he votes, reached from the
+     gear so it is in the DEMO and not only in the workshop (the cutter deletes every tab but
+     RUN, so a tab alone would never reach him).
+
+     THE SETTINGS CARD CLOSES BEHIND IT. Two stacked full-screen things with two BACK buttons
+     is the same complaint he made about PRETTY MAP and DROP IN, and about OUTFIT and STANDING:
+     one subject, one door. Coming back out of VOTE puts him in the game, not back in settings.
+
+     THE FRAME IS BUILT ON FIRST OPEN AND KEPT. Built lazily because the queue fetches a file
+     and can load a whole sheet inside itself; kept afterwards because his unsaved comments
+     live in it and tearing the frame down would eat them. */
+  function openVote(){
+    var w=el('votewrap'); if(!w) return;
+    var f=el('voteOver');
+    if(f && !f.getAttribute('src')) f.setAttribute('src','BOHEMIA_VOTE_TAB.html');
+    close();
+    w.classList.add('on');
+    w.setAttribute('aria-hidden','false');
+  }
+  function closeVote(){
+    var w=el('votewrap'); if(!w) return;
+    w.classList.remove('on');
+    w.setAttribute('aria-hidden','true');
+  }
+
   function wire(){
     var g=el('gearbtn'); if(!g||g.__wired) return;
     g.__wired=1;
@@ -34803,9 +34864,16 @@ var st=t.querySelector(".tab[data-p=slice]");if(st)st.addEventListener("click",f
     var ec=el('setenc'); if(ec) ec.addEventListener('click', nextEnc);
     var sv=el('setsave'); if(sv) sv.addEventListener('click', doSave);
     var q=el('setquit'); if(q) q.addEventListener('click', doQuit);
+    var vb=el('setvote'); if(vb) vb.addEventListener('click', openVote);
+    var vk=el('voteback'); if(vk) vk.addEventListener('click', closeVote);
     var w=el('setwrap');
     if(w) w.addEventListener('click', function(e){ if(e.target===w) close(); });
-    document.addEventListener('keydown', function(e){ if(e.key==='Escape') close(); });
+    document.addEventListener('keydown', function(e){
+      if(e.key!=='Escape') return;
+      var w=el('votewrap');
+      if(w && w.classList.contains('on')){ closeVote(); return; }
+      close();
+    });
   }
 
   /* THE GEAR APPEARS ONCE THE GAME IS UP, not on the splash: the splash has exactly

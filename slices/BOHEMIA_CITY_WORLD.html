@@ -72483,10 +72483,24 @@ window.BOHEMIA_BAR = (function(){
         +'right:auto!important;top:auto!important;bottom:auto!important;'
         +'margin:0!important;transform:none!important}'
       /* THE THREE ZONES OF EVERY BAR HE NAMED: status left, time centre, menu right. */
-      +'#barleft{display:flex;align-items:center;gap:8px;flex:0 1 auto;min-width:0;'
-        +'overflow:hidden;white-space:nowrap}'
+      /* *** THE WRONG HALF OF THE BAR WAS THE ONE THAT GAVE WAY. *** EYES E26 round 4
+         reported #barleft "cut by 3 pixels". Reproduced in the workshop frame and it is not
+         3: it measured 21.4 px on one run and 62.2 on another, because THE AMOUNT VARIES
+         WITH WHAT IS PLAYING -- the music chip prints the current track name, so #barright
+         grows and, being flex:0 0 auto, never gives any of it back. #barleft was the only
+         thing in the row allowed to shrink, and it carries HUMAN MODE and SUBURB / ON FOOT,
+         which is the player's own state. A track title was eating where you are standing.
+         So the roles swap: the left holds its content, and the one thing up there with
+         genuinely unbounded text -- the track name -- is the one that truncates. This
+         lane's own comment already knew the title was the loose end ("a long title wraps
+         it"); it just had the wrong element absorbing it. */
+      +'#barleft{display:flex;align-items:center;gap:8px;flex:0 0 auto;'
+        +'white-space:nowrap}'
       +'#barmid{flex:1 1 auto;text-align:center;white-space:nowrap;color:var(--acc)}'
-      +'#barright{display:flex;align-items:center;gap:5px;flex:0 0 auto}'
+      +'#barright{display:flex;align-items:center;gap:5px;flex:0 1 auto;min-width:0}'
+      /* the track name is the only unbounded text in the row, so it is the one that
+         truncates -- with an ellipsis, so it reads as cut rather than as a short name */
+      +'#musbtn{flex:0 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}'
       +'#barmoney{display:flex;align-items:center;gap:9px}'
       +'#barmoney span{color:var(--acc)}'
       /* the readouts the bar adopted keep their meaning and lose their own positioning */

@@ -1,0 +1,444 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>BOHEMIA - VOTE</title>
+<!--
+  THE ONE VOTE TAB. Paolo 9/14, LOCKED.
+  laws/BOHEMIA_ADDENDUM_ONE_VOTE_TAB_AND_THE_PORTRAIT_CHAT_9_14_26.md
+
+  "We need one central tab in the fucking demo where everything from sounds to portrait
+   to hair to everything that is new, where I vote on it... after I vote on something it
+   needs to stop presenting itself like I didn't just vote on it."
+
+  There were eight judge pages, one per lane, each built when it was "one or two things".
+  This replaces all of them as the place anything NEW is presented. They stay on disk as
+  archives; they present nothing.
+
+  THREE THINGS THIS PAGE IS:
+  1. ONE QUEUE OF EVERY KIND, newest first. A song sits next to a haircut sits next to a
+     line of words. Same three controls on every row: up, down, a comment.
+  2. A DOOR, NOT A GALLERY. Each row shows the thing itself (a picture, a clip, a sound,
+     the words, or the sheet the lane drew) on tap. Nothing heavy loads until he asks.
+  3. A CONSUMER. The moment he votes, the row leaves and never comes back under that id.
+     Two memories keep that true: the phone remembers instantly (localStorage), and the
+     registry remembers forever (records/target/BOHEMIA_VOTE_REGISTRY.json, which every
+     lane appends to and reads verdicts back from). A rebuild, a new phone, a cleared
+     cache -- none of them resurrect a judged thing, because the registry outlives them.
+
+  WHERE IT LIVES: behind the gear. In the alpha it is also the VOTE tab; in the demo the
+  tab bar is cut away, so the gear is the only door and that is on purpose -- a stranger
+  playing the demo must never trip over the judging machinery.
+
+  THE REGISTRY IS FETCHED, NOT INLINED. If it were baked in, every lane adding a candidate
+  would have to edit this file, which is exactly the shared-file collision the handoff
+  fight taught us about. One file, appended to, read at open.
+-->
+<style>
+ :root{
+   --ink:#141210; --paper:#f2ece1; --card:#fffdf8; --rule:#a2957f;
+   --dim:#5d564b; --hot:#a8391d; --cool:#2f6f6a; --gold:#8a6a1f;
+ }
+ /* NIGHT IS THE OPTION, SUN IS THE DEFAULT. Every other judge surface in this repo
+    opens dark and makes him find the SUN button. He judges outside. Paper first. */
+ html.night{
+   --ink:#e8e0cc; --paper:#0d0d12; --card:#16161d; --rule:#3a3744;
+   --dim:#9a93a6; --hot:#e0714f; --cool:#63bdb4; --gold:#c79a3f;
+ }
+ *{ box-sizing:border-box }
+ html,body{ margin:0 }
+ body{ background:var(--paper); color:var(--ink);
+       font:15px/1.5 ui-sans-serif,system-ui,-apple-system,Arial,sans-serif;
+       padding-bottom:env(safe-area-inset-bottom,0px) }
+
+ /* EVERY CONTROL IS 44. THE THUMB law, and this page is all controls. The reach is set
+    once here so no row can quietly ship a 30px button. */
+ button, .tb, .look{
+   min-height:44px; min-width:44px; display:inline-flex; align-items:center;
+   justify-content:center; font:inherit; cursor:pointer; box-sizing:border-box;
+   border:2px solid var(--rule); background:var(--card); color:var(--ink);
+   border-radius:4px; padding:0 12px;
+ }
+
+ header{ position:sticky; top:0; z-index:5; background:var(--paper);
+         border-bottom:3px solid var(--ink); padding:10px 12px;
+         padding-top:calc(10px + env(safe-area-inset-top,0px));
+         display:flex; gap:8px; align-items:center; flex-wrap:wrap }
+ h1{ margin:0; font-size:16px; letter-spacing:2px; flex:1 1 auto; min-width:0 }
+ #tally{ font-size:13px; color:var(--gold); flex:0 0 auto }
+
+ .say{ margin:0; padding:10px 12px; font-size:14px; color:var(--dim);
+       border-bottom:1px solid var(--rule) }
+
+ .wrap{ padding:6px 12px 30px; max-width:680px; margin:0 auto }
+
+ .row{ background:var(--card); border:2px solid var(--rule); border-radius:5px;
+       margin:12px 0; overflow:hidden }
+ .row.gone{ opacity:0; transform:translateX(18px); transition:opacity .18s, transform .18s }
+ .head{ padding:10px 12px 8px }
+ .kind{ display:inline-block; font-size:11px; letter-spacing:1.5px; color:var(--paper);
+        background:var(--ink); border-radius:3px; padding:3px 7px; vertical-align:2px }
+ .who{ font-size:11px; letter-spacing:1px; color:var(--dim); margin-left:6px }
+ .ttl{ margin:7px 0 0; font-size:17px; font-weight:700 }
+ .why{ margin:4px 0 0; font-size:14px; color:var(--dim) }
+ .quote{ margin:7px 0 0; padding:7px 9px; font-size:13px; background:var(--paper);
+         border-left:4px solid var(--hot) }
+
+ .stage{ padding:0 12px 10px }
+ .stage[hidden]{ display:none }
+ .stage img{ max-width:100%; display:block; border:1px solid var(--rule); background:#0c0a07 }
+ .stage iframe{ width:100%; height:62vh; border:2px solid var(--rule); background:var(--paper) }
+ .stage audio{ width:100% }
+ .stage .words{ padding:10px 12px; background:var(--paper); border-left:4px solid var(--cool);
+                font-size:15px; white-space:pre-wrap }
+
+ .judge{ padding:9px 12px 12px; border-top:1px dashed var(--rule);
+         display:flex; gap:8px; align-items:center; flex-wrap:wrap }
+ .tb{ font-size:20px; padding:0 16px }
+ .tb.up:hover{ border-color:var(--cool) }
+ .tb.down:hover{ border-color:var(--hot) }
+ .look{ margin-left:auto; font-size:13px; letter-spacing:1px }
+ .note{ width:100%; min-height:44px; font:14px ui-sans-serif,system-ui,Arial;
+        padding:9px 10px; border:2px solid var(--rule); border-radius:4px;
+        background:var(--paper); color:var(--ink) }
+
+ #empty{ margin:26px 12px; padding:16px; background:var(--card);
+         border:2px solid var(--rule); border-radius:5px; font-size:15px }
+ #empty b{ display:block; font-size:17px; margin-bottom:6px }
+
+ #foot{ margin:18px 12px 40px; padding:12px; background:var(--card);
+        border:2px solid var(--rule); border-radius:5px }
+ #foot label{ display:block; font-size:13px; letter-spacing:1px; color:var(--dim); margin-bottom:6px }
+ #foot textarea{ width:100%; min-height:76px; font:15px ui-sans-serif,system-ui,Arial;
+                 padding:9px 10px; border:2px solid var(--rule); border-radius:4px;
+                 background:var(--paper); color:var(--ink) }
+ #foot .fb{ margin-top:10px; display:flex; gap:8px; flex-wrap:wrap }
+ #saidit{ font-size:13px; color:var(--cool); margin-top:8px; min-height:18px }
+</style></head><body>
+
+<header>
+  <h1>VOTE</h1>
+  <span id="tally"></span>
+  <button id="sun" type="button">NIGHT</button>
+  <button id="out" type="button">EXPORT</button>
+</header>
+
+<p class="say">Everything new lands here. Tap the thumb. What you vote on leaves and does not come back.</p>
+
+<div class="wrap"><div id="list"></div>
+
+<div id="empty" hidden>
+  <b>NOTHING IS WAITING ON YOU.</b>
+  Every new thing the chats made has already been voted on. When a lane finishes something
+  fresh it shows up here on its own.
+</div>
+
+<div id="foot">
+  <label for="allnote">ANYTHING ELSE YOU WANT TO SAY</label>
+  <textarea id="allnote" placeholder="type here"></textarea>
+  <div class="fb">
+    <button id="out2" type="button">EXPORT MY VOTES</button>
+    <button id="undo" type="button">PUT THE LAST ONE BACK</button>
+  </div>
+  <div id="saidit"></div>
+</div>
+</div>
+
+<script>
+(function(){
+  'use strict';
+
+  /* ---------- THE TWO MEMORIES ----------
+     PHONE: instant, so the row leaves the second he taps.
+     REGISTRY: permanent, so a cleared cache cannot resurrect a judged thing.
+     A vote is consumed if it is in EITHER. That is the whole vanish rule. */
+  var KEY = 'bohemia.vote.verdicts.v1';
+  var NOTEKEY = 'bohemia.vote.note.v1';
+  var REG = '../records/target/BOHEMIA_VOTE_REGISTRY.json';
+
+  var mine = {};      /* id -> {vote, said, when} from this phone */
+  var theirs = {};    /* id -> verdict from the registry */
+  var items = [];
+  var lastGone = null;
+
+  function readPhone(){
+    try{ mine = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; }
+    catch(e){ mine = {}; }
+  }
+  function writePhone(){
+    try{ localStorage.setItem(KEY, JSON.stringify(mine)); }catch(e){}
+  }
+  function judged(id){ return !!(mine[id] || theirs[id]); }
+
+  function stamp(){
+    var d = new Date();
+    return (d.getMonth()+1) + '/' + d.getDate();
+  }
+
+  /* ---------- SUN AND NIGHT ---------- */
+  var SKEY = 'bohemia.vote.night.v1';
+  function paint(){
+    var n = false;
+    try{ n = localStorage.getItem(SKEY) === '1'; }catch(e){}
+    document.documentElement.classList.toggle('night', n);
+    var b = document.getElementById('sun');
+    if(b) b.textContent = n ? 'SUN' : 'NIGHT';
+  }
+  document.getElementById('sun').addEventListener('click', function(){
+    var n = document.documentElement.classList.contains('night');
+    try{ localStorage.setItem(SKEY, n ? '0' : '1'); }catch(e){}
+    paint();
+  });
+  paint();
+
+  /* ---------- SHOWING THE THING ----------
+     Nothing heavy is built until he taps LOOK. A sheet is a whole page and there are
+     seven of them; building all seven iframes at open would cost him the open. */
+  function build(show, box){
+    var how = (show && show.how) || 'text';
+    var src = (show && show.src) || '';
+    if(how === 'image'){
+      var im = document.createElement('img');
+      im.alt = ''; im.loading = 'lazy'; im.src = src;
+      box.appendChild(im);
+    } else if(how === 'audio' || how === 'clip' && /\.(mp3|wav|ogg|m4a)$/i.test(src)){
+      var au = document.createElement('audio');
+      au.controls = true; au.src = src;
+      box.appendChild(au);
+    } else if(how === 'clip'){
+      var vi = document.createElement('video');
+      vi.controls = true; vi.playsInline = true; vi.src = src;
+      vi.style.width = '100%';
+      box.appendChild(vi);
+    } else if(how === 'page'){
+      var fr = document.createElement('iframe');
+      fr.title = 'the thing you are voting on';
+      fr.src = src;
+      box.appendChild(fr);
+    } else {
+      var w = document.createElement('div');
+      w.className = 'words';
+      w.textContent = src;
+      box.appendChild(w);
+    }
+  }
+
+  /* ---------- A ROW ---------- */
+  function row(it){
+    var r = document.createElement('div');
+    r.className = 'row';
+    r.setAttribute('data-id', it.id);
+
+    var h = document.createElement('div');
+    h.className = 'head';
+    var k = document.createElement('span');
+    k.className = 'kind'; k.textContent = String(it.kind || 'new').toUpperCase();
+    h.appendChild(k);
+    var wq = document.createElement('span');
+    wq.className = 'who';
+    wq.textContent = String(it.lane || '').toUpperCase() + '  ' + (it.made || '');
+    h.appendChild(wq);
+    var t = document.createElement('div');
+    t.className = 'ttl'; t.textContent = it.title || it.id;
+    h.appendChild(t);
+    if(it.why){
+      var y = document.createElement('div');
+      y.className = 'why'; y.textContent = it.why;
+      h.appendChild(y);
+    }
+    /* A REDO NEVER ARRIVES BLIND. His own words on the one it replaces ride along, so he
+       is not being asked the same question twice without being told it is the same one. */
+    if(it.redoOf){
+      var q = document.createElement('div');
+      q.className = 'quote';
+      q.textContent = 'REDONE. You killed ' + it.redoOf +
+                      (it.said ? ' because: "' + it.said + '"' : '.');
+      h.appendChild(q);
+    }
+    r.appendChild(h);
+
+    var st = document.createElement('div');
+    st.className = 'stage'; st.hidden = true;
+    r.appendChild(st);
+
+    var j = document.createElement('div');
+    j.className = 'judge';
+
+    var up = document.createElement('button');
+    up.type = 'button'; up.className = 'tb up'; up.textContent = '\u{1F44D}';
+    up.setAttribute('aria-label', 'yes');
+    var dn = document.createElement('button');
+    dn.type = 'button'; dn.className = 'tb down'; dn.textContent = '\u{1F44E}';
+    dn.setAttribute('aria-label', 'no');
+    var lk = document.createElement('button');
+    lk.type = 'button'; lk.className = 'look'; lk.textContent = 'LOOK AT IT';
+
+    lk.addEventListener('click', function(){
+      if(st.hidden){
+        if(!st.childElementCount) build(it.show, st);
+        st.hidden = false; lk.textContent = 'HIDE IT';
+      } else {
+        st.hidden = true; lk.textContent = 'LOOK AT IT';
+      }
+    });
+
+    j.appendChild(up); j.appendChild(dn); j.appendChild(lk);
+    r.appendChild(j);
+
+    var n = document.createElement('textarea');
+    n.className = 'note';
+    n.placeholder = 'say why, if you want to';
+    n.style.margin = '0 12px 12px';
+    n.style.width = 'calc(100% - 24px)';
+    r.appendChild(n);
+
+    function vote(v){
+      mine[it.id] = { vote: v, said: n.value.trim(), when: stamp(),
+                      kind: it.kind, lane: it.lane, title: it.title };
+      writePhone();
+      lastGone = it.id;
+      r.classList.add('gone');
+      setTimeout(function(){ if(r.parentNode) r.parentNode.removeChild(r); tally(); }, 190);
+      said(v === 'up' ? 'Yes on ' + (it.title || it.id) + '.'
+                      : 'No on ' + (it.title || it.id) + '.');
+      tally();
+    }
+    up.addEventListener('click', function(){ vote('up'); });
+    dn.addEventListener('click', function(){ vote('down'); });
+
+    return r;
+  }
+
+  function said(s){
+    var e = document.getElementById('saidit');
+    if(e) e.textContent = s;
+  }
+
+  function tally(){
+    var live = document.querySelectorAll('#list .row:not(.gone)').length;
+    var done = 0, id;
+    for(id in mine){ if(Object.prototype.hasOwnProperty.call(mine, id)) done++; }
+    var t = document.getElementById('tally');
+    if(t) t.textContent = live + ' WAITING' + (done ? '  ·  ' + done + ' JUDGED' : '');
+    var em = document.getElementById('empty');
+    if(em) em.hidden = live > 0;
+  }
+
+  /* ---------- DRAW ---------- */
+  function draw(){
+    var list = document.getElementById('list');
+    list.textContent = '';
+    /* NEWEST FIRST. The registry is appended to, so the end of the file is the newest. */
+    var i, n = 0;
+    for(i = items.length - 1; i >= 0; i--){
+      var it = items[i];
+      if(!it || !it.id) continue;
+      if(judged(it.id)) continue;      /* A VOTE CONSUMES. This line is the whole law. */
+      list.appendChild(row(it));
+      n++;
+    }
+    tally();
+  }
+
+  /* ---------- EXPORT ----------
+     .txt, never .json (the verdict workflow). The block is written so it can be dropped
+     straight into records/ and read by a person, and the REGISTER lines at the bottom are
+     what a lane pastes into the registry's verdicts[]. */
+  function txt(){
+    var out = [];
+    out.push('BOHEMIA VOTE -- ' + stamp());
+    out.push('One tab, one queue. Paolo 9/14.');
+    out.push('');
+    var ids = Object.keys(mine);
+    if(!ids.length) out.push('(no votes yet)');
+    ids.forEach(function(id){
+      var v = mine[id];
+      out.push((v.vote === 'up' ? 'YES  ' : 'NO   ') + (v.title || id));
+      out.push('     id    ' + id);
+      out.push('     kind  ' + (v.kind || '?') + '   lane ' + (v.lane || '?') + '   on ' + (v.when || '?'));
+      if(v.said) out.push('     said  ' + v.said);
+      out.push('');
+    });
+    var note = (document.getElementById('allnote') || {}).value || '';
+    if(note.trim()){
+      out.push('ANYTHING ELSE');
+      out.push(note.trim());
+      out.push('');
+    }
+    out.push('--- FOR THE REGISTRY (verdicts[] in records/target/BOHEMIA_VOTE_REGISTRY.json) ---');
+    ids.forEach(function(id){
+      var v = mine[id];
+      out.push('{"id":' + JSON.stringify(id) + ',"vote":' + JSON.stringify(v.vote) +
+               ',"said":' + JSON.stringify(v.said || '') + ',"when":' + JSON.stringify(v.when || '') + '},');
+    });
+    return out.join('\n');
+  }
+
+  function save(){
+    var body = txt();
+    try{
+      var b = new Blob([body], { type: 'text/plain' });
+      var u = URL.createObjectURL(b);
+      var a = document.createElement('a');
+      a.href = u; a.download = 'BOHEMIA_VOTE_' + stamp().replace('/', '_') + '.txt';
+      document.body.appendChild(a); a.click();
+      setTimeout(function(){ URL.revokeObjectURL(u); a.remove(); }, 800);
+      said('Saved. Send me the file.');
+    }catch(e){
+      /* A DOWNLOAD IS NOT ALWAYS ALLOWED (in a frame, on some phones). Falling back to
+         the clipboard beats a button that silently does nothing. */
+      try{ navigator.clipboard.writeText(body); said('Copied. Paste it to me.'); }
+      catch(e2){ said('Could not save. Screenshot this instead.'); }
+    }
+  }
+  document.getElementById('out').addEventListener('click', save);
+  document.getElementById('out2').addEventListener('click', save);
+
+  /* PUT THE LAST ONE BACK. A mis-tap on a 44px thumb is a real thing and a vote is
+     permanent by design, so there is exactly one step of undo and it is labelled in
+     plain words. It only reaches this phone's memory; the registry is never rewritten
+     from here. */
+  document.getElementById('undo').addEventListener('click', function(){
+    if(!lastGone || !mine[lastGone]){ said('Nothing to put back.'); return; }
+    var id = lastGone;
+    delete mine[id];
+    writePhone();
+    lastGone = null;
+    draw();
+    said('Put back: ' + id);
+  });
+
+  var an = document.getElementById('allnote');
+  try{ an.value = localStorage.getItem(NOTEKEY) || ''; }catch(e){}
+  an.addEventListener('input', function(){
+    try{ localStorage.setItem(NOTEKEY, an.value); }catch(e){}
+  });
+
+  /* ---------- OPEN ---------- */
+  readPhone();
+  function fail(why){
+    items = [];
+    draw();
+    var em = document.getElementById('empty');
+    if(em){
+      em.hidden = false;
+      em.innerHTML = '';
+      var b = document.createElement('b');
+      b.textContent = 'THE LIST DID NOT LOAD.';
+      em.appendChild(b);
+      em.appendChild(document.createTextNode(
+        'Nothing is lost. The list lives in a file on the server and this build could not ' +
+        'reach it (' + why + '). Open the link again in a minute.'));
+    }
+  }
+
+  fetch(REG, { cache: 'no-store' })
+    .then(function(r){ if(!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+    .then(function(d){
+      items = (d && d.items) || [];
+      ((d && d.verdicts) || []).forEach(function(v){ if(v && v.id) theirs[v.id] = v; });
+      draw();
+      window.__voteReady = true;
+    })
+    .catch(function(e){ fail(String(e.message || e)); window.__voteReady = true; });
+})();
+</script>
+</body></html>
