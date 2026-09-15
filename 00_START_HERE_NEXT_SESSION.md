@@ -1851,6 +1851,90 @@ ALSO STILL OPEN, not draw order: on NE in his own frame
 the right of the shoulders with a visible gap. That is the pose too.
 
 Nothing [PENDING Paolo].
+PEOPLE (people-7h9sfy): 9/15 (b) LATEST -- *** [lock them] SHIPPED 6b553bcb. THE
+FATHER FELL, AND THE GAME DID NOT SAY A WORD. *** Paolo 9/11: "there has to be a
+way to make it easy to lock characters they don't want to die, companions, people
+in your company, not endgame bullshit." Held since 9/13 under rule 14b; this
+lane's five-minute break shipped, so it was taken.
+THE CONTROL IS THE WHOLE FINDING, and it is the state he played. On the demo,
+first morning, phone profile:
+  the father falls, nothing locked   he IS down, and the card SAYS NOTHING
+  one tap, the same fall, same day   RAY IS DOWN, KNOCKED ABOUT, 7 DAYS
+Same man, same injury, same second. The only difference is one tap.
+WHY IT SAID NOTHING. The promise built by [down not dead] covers two lists and
+both are DERIVED. The family loop takes only the person you MARRIED and the
+children you HAD, so the father you were born to is not on it. The other is
+ctYours(), and bohemia_company.js says in its own words why there is no roster:
+"NO ROSTER, NO STATE, NO ADD, NO REMOVE. Pure functions of a snapshot." That is
+right for a company. It is a hole in a promise.
+AND THE HOLE GROWS THE LONGER YOU PLAY. ctYours() is recomputed from bonds and
+WITNESSES every call, and a witness is somebody carrying a deed of yours, which
+fades on a three-week halflife. So the person the game called yours this morning
+can quietly stop being yours, and the protection stops with nothing said and
+nobody at fault. *** A NAME HE TAPPED DOES NOT DECAY. *** That is why this is a
+MARK and not another computation, and it is deliberately the opposite shape from
+the down module, where "are they down" IS a question against the clock.
+MEASURED FIRST, BEFORE A LINE WAS WRITTEN: ctYours() 0, WOULD FOLLOW YOU NOBODY
+YET, WOULD COME WITH YOU 46 of 61, YOUR PEOPLE RAY / DENISE / MARCO. Three
+people, all three by birth, and no way to say "that one" about the other
+sixty-one. The word LOCK meant nothing in any people module: every hit was the
+word CLOCK or the word LOCKED inside a citation of one of his own rulings. So the
+tap went on those three names, on a card he already opens, with no new row and no
+new button, because the first hour is the half of his sentence easiest to lose.
+WHAT IT COSTS, WHICH IS WHAT MAKES IT A CHOICE. With nobody killable, the weight
+of a fall is what you lose WHILE they are down. The length is the injury the down
+module already rolled; the thing lost is their share of the carry, which in this
+world is the crew. Measured on the glass: crew 46 -> 45 the moment somebody fell,
+and the card says RAY COSTS YOU / GIVING YOU NOTHING, 7 DAYS. NOT ONE NUMBER IS
+NEW: no cap, no price, no rung. And the cost is not lock-only on purpose -- a
+hurt person carries nothing either way, and what the lock buys is that they COME
+BACK.
+THREE THINGS I GOT WRONG, ALL THREE CAUGHT BY DRIVING IT:
+ 1. the row rendered three plain names and NOT ONE TAP TARGET, because
+    famLiving() hands back the STORED member, whose keys are role, name, age,
+    draft, alive -- there is no id on it. It asks the tree now and REFUSES rather
+    than guessing, and the id format is still spelled in exactly one place.
+ 2. the tap did nothing and nothing threw. #daycardIn is ONE PERMANENT element
+    every card refills with innerHTML, which is why cardShow assigns i.onclick
+    rather than adding a listener. addEventListener STACKS: every redraw added a
+    handler, one tap ran all of them, and the lock toggled once per listener --
+    on, off, on, off, silently, with an even number of redraws behind him.
+ 3. THE GATE'S OWN RESET DID NOT RESET, costing four claims. Clearing
+    localStorage does not clear the book: ctLockLoad only overwrites the
+    in-memory copy when storage HAS something. It resets through the player's own
+    door now and THE RESET HAS TO PROVE ITSELF before the block that needs it.
+THE GATE IS 43/0 AND IT DRIVES THE DEMO, judged the way rule 14(h) asks: the
+panel still OPEN and its own words moved. Negative-controlled four ways, each put
+back, and control one caught a claim of mine that was too loose to fail (a
+fixed-size window after the function name ran past its end and matched the export
+line underneath; it reads the brace-balanced body now).
+NAMED, NOT FIXED, AND NOT THIS LANE'S -- FOR PLUMBER, whose charter is every
+checker honest: DERIVED FRESHNESS GOES RED ON ANY UNCOMMITTED WORK. It overlays
+the working tree into its own worktree so it can "check what is about to be
+PUSHED", then resetWorktree runs `git checkout -- .` and `git clean -fdq .` in
+that worktree before every maker, which erases the overlay. So it compares HEAD's
+file against the working file and reports drift of +0/-0 -- zero lines, because
+the worktree it diffs is clean. Green on clean origin/main, red on my tree, green
+again the moment the same bytes were committed: 43 of 43 re-derive byte for byte.
+It only ever measures committed work, and it cost this round a full classification
+pass to find that out.
+MEASURED AND NOT FIXED: the CARRY is not built, because there is no party speed
+anywhere in the walked city, so there is nothing to slow and inventing one is a
+number nobody ruled. What treatment costs is still [PENDING Paolo] from [down not
+dead]. The SCAR wants a deed and none of the city's five deed kinds carries a
+weight yet, so writing a fall into the ledger would be inventing content.
+RULE 14 FOLLOWED: the diff is one new engine module (inlined verbatim in the
+walked city, resync 135 of 136 fresh and the one unrecognised is LIFE+CITY's
+brand-new lattice module), the city seam, a gate, its registration, the stamp and
+a record. THE DEMO CUTTER WAS NOT RUN; the demo loads the walked city by
+reference. Stamp 9/15p, resolved FORWARD over another lane's 9/15o rather than
+back.
+NEXT: the lane's queue is [enemies remember], [heir moment], [walking companion],
+[weights shape], [rumours travel], [creditor stands], [somebody hires you]. Rule
+16 (ONE STEP IS ONE HOUSE) is not this lane's first line, but the body ladder this
+lane consolidated last round is what it stands on.
+Record: records/BOHEMIA_LOCK_THEM_9_15_26.txt ***
+
 PEOPLE (people-7h9sfy): 9/15 LATEST -- *** [a human being] SHIPPED 7aa0cac6. THERE
 WAS ONE STANDING TWO CELLS FROM HIM AT THE DOOR, AND THE SPEECH BUBBLE WAS PAINTED
 OVER THEIR FACE. *** Paolo 9/15, his second play: "I didn't see a single human
