@@ -2,7 +2,7 @@
   "ok": true,
   "which": "demo",
   "file": "BOHEMIA_DEMO.html",
-  "when": "2026-09-15T04:34:28.847Z",
+  "when": "2026-09-15T14:20:11.673Z",
   "law": "THE FIVE MINUTES (Paolo 9/13)",
   "lines": [
     {
@@ -12,79 +12,79 @@
       "promised": "TAP TO ENTER"
     },
     {
-      "at": "00:08",
+      "at": "00:10",
       "did": "tapped the front screen",
       "happened": "the screen changed",
       "promised": "that tapping enters the game"
     },
     {
-      "at": "00:18",
+      "at": "00:23",
       "did": "looked at the first screen without touching anything",
       "happened": "22 things with words on them, big enough to tap: ⚙ / HUMAN MODE / SUBURB · ON FOOT / DAY 1 · 06:00 / MUSIC / SAVE / ✕ / 06:00 · light until 22:00 / nobody has picked it up yet / Pays one battery / Make it a bag instead / Make it a favour instead / Half of it now, before I go / I will go first, on something small / I'LL TAKE IT / GET UP / SLEEP / BIKE",
       "promised": ""
     },
     {
-      "at": "00:27",
+      "at": "00:33",
       "did": "tapped \"Make it a bag instead\" (the biggest thing on screen)",
       "happened": "its own panel changed what it says",
       "promised": "Make it a bag instead"
     },
     {
-      "at": "00:30",
+      "at": "00:38",
       "did": "tapped \"GET UP\" (the only thing on the card that is not an offer)",
       "happened": "THE PANEL VANISHED, which tells me nothing either way",
       "promised": "GET UP"
     },
     {
-      "at": "00:35",
+      "at": "00:42",
       "did": "held the walk dial down for two and a half seconds",
       "happened": "the world moved (8 arrows on the dial)",
       "promised": ""
     },
     {
-      "at": "01:12",
+      "at": "01:27",
       "did": "went looking for \"cbbuild\" on purpose",
       "happened": "it was NOT on screen on this route, and it is still built in slices/BOHEMIA_CITY_WORLD.html, so this walk says nothing about it",
       "promised": ""
     },
     {
-      "at": "01:12",
+      "at": "01:28",
       "did": "went looking for \"cbbig\" on purpose",
       "happened": "it was NOT on screen on this route, and it is still built in slices/BOHEMIA_CITY_WORLD.html, so this walk says nothing about it",
       "promised": ""
     },
     {
-      "at": "01:20",
+      "at": "01:37",
       "did": "tapped \"Half of it now, before I go\" (a card or offer)",
       "happened": "NOTHING CHANGED IN ITS PANEL",
       "promised": "Half of it now, before I go"
     },
     {
-      "at": "01:28",
+      "at": "01:46",
       "did": "tapped \"I will go first, on something small\" (a card or offer)",
       "happened": "NOTHING CHANGED IN ITS PANEL",
       "promised": "I will go first, on something small"
     },
     {
-      "at": "01:35",
+      "at": "01:54",
       "did": "tapped \"I'LL TAKE IT\" (a card or offer)",
       "happened": "NOTHING CHANGED IN ITS PANEL",
       "promised": "I'LL TAKE IT"
     },
     {
-      "at": "01:46",
+      "at": "02:06",
       "did": "tapped \"DAY 1 · 06:02\" (new on screen)",
       "happened": "NOTHING CHANGED IN ITS PANEL",
       "promised": "DAY 1 · 06:02"
     },
     {
-      "at": "01:53",
+      "at": "02:15",
       "did": "tapped \"THE WIND LEARNS WORDS\" (new on screen)",
-      "happened": "its own panel changed what it says",
+      "happened": "NOTHING CHANGED IN ITS PANEL",
       "promised": "THE WIND LEARNS WORDS"
     },
     {
-      "at": "02:01",
+      "at": "02:24",
       "did": "tapped \"headlights. nobody in it.\" (new on screen)",
       "happened": "NOTHING CHANGED IN ITS PANEL",
       "promised": "headlights. nobody in it."
@@ -139,31 +139,31 @@
     {
       "name": "THE WORLD MOVES ON ITS OWN: the null window is measured, not assumed",
       "pass": true,
-      "detail": "4 of 28 windows with no input at all still moved the screen. So equality was the wrong test and every earlier \"the tap worked\" on this game is unsafe."
+      "detail": "5 of 28 windows with no input at all still moved the screen. So equality was the wrong test and every earlier \"the tap worked\" on this game is unsafe."
     }
   ],
   "numbers": {
-    "time_until_something_is_tappable_s": 3.28,
-    "my_first_tap_at_s": 3.52,
+    "time_until_something_is_tappable_s": 3.39,
+    "my_first_tap_at_s": 3.69,
     "ledger_after_warmup": {
-      "words": 17,
-      "pixel_samples": 572
+      "words": 22,
+      "pixel_samples": 570
     },
-    "extra_walk_rounds": 75,
+    "extra_walk_rounds": 61,
     "time_to_first_fight_s": "NONE",
-    "walk_ended_at_s": 301.4,
+    "walk_ended_at_s": 300.8,
     "dead_affordances": 3,
     "things_i_actually_pressed": 8,
-    "alive_on_one_press_only": 1,
+    "alive_on_one_press_only": 0,
     "closed_the_panel_so_proves_nothing": 1,
-    "words_the_world_writes_by_itself": 18,
+    "words_the_world_writes_by_itself": 22,
     "named_items_pressed_on_purpose": 0,
     "named_items_not_reachable_on_this_route": 2,
     "named_items_removed_from_the_game": 0,
     "named_items_still_dead": 0,
-    "tapped_and_inert_but_never_claimed_to_be_a_button": 2,
+    "tapped_and_inert_but_never_claimed_to_be_a_button": 3,
     "null_windows_measured": 28,
-    "null_windows_that_moved_on_their_own": 4,
+    "null_windows_that_moved_on_their_own": 5,
     "worst_null_window": {
       "word_moves": 11,
       "words_that_moved": [
@@ -188,7 +188,7 @@
   },
   "dead": [
     {
-      "at": "01:20",
+      "at": "01:37",
       "text": "Half of it now, before I go",
       "id": "",
       "where": "frame",
@@ -216,7 +216,7 @@
       ]
     },
     {
-      "at": "01:28",
+      "at": "01:46",
       "text": "I will go first, on something small",
       "id": "",
       "where": "frame",
@@ -244,7 +244,7 @@
       ]
     },
     {
-      "at": "01:35",
+      "at": "01:54",
       "text": "I'LL TAKE IT",
       "id": "",
       "where": "frame",
@@ -274,7 +274,7 @@
   ],
   "inert": [
     {
-      "at": "01:46",
+      "at": "02:06",
       "text": "DAY 1 · 06:02",
       "id": "hclock",
       "where": "frame",
@@ -302,7 +302,35 @@
       ]
     },
     {
-      "at": "02:01",
+      "at": "02:15",
+      "text": "THE WIND LEARNS WORDS",
+      "id": "musbtn",
+      "where": "frame",
+      "size": "81x12",
+      "looked_tappable_because": "nothing said so",
+      "pressed_twice": true,
+      "novel_movement_either_time": "none",
+      "evidence": [
+        {
+          "novel_words_anywhere": [],
+          "novel_cells": 0,
+          "world_moved_in_the_null_window": 0,
+          "panel": "DIV.wrap",
+          "panel_still_open": true,
+          "novel_words_inside_the_panel": []
+        },
+        {
+          "novel_words_anywhere": [],
+          "novel_cells": 0,
+          "world_moved_in_the_null_window": 0,
+          "panel": "DIV.wrap",
+          "panel_still_open": true,
+          "novel_words_inside_the_panel": []
+        }
+      ]
+    },
+    {
+      "at": "02:24",
       "text": "headlights. nobody in it.",
       "id": "packline",
       "where": "frame",
@@ -349,7 +377,7 @@
             "A",
             "bag,"
           ],
-          "novel_cells": 0,
+          "novel_cells": 12,
           "world_moved_in_the_null_window": 0,
           "panel": "#daycardIn",
           "panel_still_open": true,
@@ -374,7 +402,7 @@
             "SLEEP",
             "BIKE"
           ],
-          "novel_cells": 0,
+          "novel_cells": 11,
           "world_moved_in_the_null_window": 0,
           "panel": "#daycardIn",
           "panel_still_open": true,
@@ -530,26 +558,16 @@
       "text": "THE WIND LEARNS WORDS",
       "id": "musbtn",
       "where": "frame",
-      "verdict": "did something in its own panel",
-      "presses_with_novel_movement": 1,
+      "verdict": "did nothing",
+      "presses_with_novel_movement": 0,
       "evidence": [
         {
-          "novel_words_anywhere": [
-            "WIND",
-            "LEARNS",
-            "WORDS",
-            "MUSIC"
-          ],
+          "novel_words_anywhere": [],
           "novel_cells": 0,
           "world_moved_in_the_null_window": 0,
           "panel": "DIV.wrap",
           "panel_still_open": true,
-          "novel_words_inside_the_panel": [
-            "WIND",
-            "LEARNS",
-            "WORDS",
-            "MUSIC"
-          ]
+          "novel_words_inside_the_panel": []
         },
         {
           "novel_words_anywhere": [],
@@ -591,7 +609,7 @@
     {
       "word_moves": 0,
       "words_that_moved": [],
-      "pixel_fraction": 0.0003
+      "pixel_fraction": 0
     },
     {
       "word_moves": 0,
@@ -601,12 +619,12 @@
     {
       "word_moves": 0,
       "words_that_moved": [],
-      "pixel_fraction": 0.0004
+      "pixel_fraction": 0.0001
     },
     {
       "word_moves": 0,
       "words_that_moved": [],
-      "pixel_fraction": 0.0089,
+      "pixel_fraction": 0.009,
       "warmup": true
     },
     {
@@ -617,7 +635,7 @@
         "in",
         "it."
       ],
-      "pixel_fraction": 0.0104,
+      "pixel_fraction": 0.0108,
       "warmup": true
     },
     {
@@ -626,7 +644,7 @@
         "06:01",
         "06:02"
       ],
-      "pixel_fraction": 0.011,
+      "pixel_fraction": 0.0128,
       "warmup": true
     },
     {
@@ -650,12 +668,6 @@
     {
       "word_moves": 0,
       "words_that_moved": [],
-      "pixel_fraction": 0.0118,
-      "warmup": true
-    },
-    {
-      "word_moves": 0,
-      "words_that_moved": [],
       "pixel_fraction": 0,
       "warmup": true
     },
@@ -666,15 +678,22 @@
       "warmup": true
     },
     {
-      "word_moves": 0,
-      "words_that_moved": [],
+      "word_moves": 5,
+      "words_that_moved": [
+        "MUSIC",
+        "THE",
+        "WIND",
+        "LEARNS",
+        "WORDS"
+      ],
       "pixel_fraction": 0,
       "warmup": true
     },
     {
       "word_moves": 0,
       "words_that_moved": [],
-      "pixel_fraction": 0
+      "pixel_fraction": 0,
+      "warmup": true
     },
     {
       "word_moves": 6,
@@ -686,6 +705,11 @@
         "SEE",
         "CITY"
       ],
+      "pixel_fraction": 0
+    },
+    {
+      "word_moves": 0,
+      "words_that_moved": [],
       "pixel_fraction": 0
     },
     {
@@ -779,15 +803,10 @@
     }
   ],
   "undecided": [],
-  "alive_on_one_press_only": [
-    {
-      "text": "THE WIND LEARNS WORDS",
-      "id": "musbtn"
-    }
-  ],
+  "alive_on_one_press_only": [],
   "closed_on_tap": [
     {
-      "at": "00:30",
+      "at": "00:38",
       "text": "GET UP",
       "id": "",
       "where": "frame",
