@@ -1,0 +1,112 @@
+BOHEMIA -- A HUMAN BEING (9/15/26, PEOPLE lane)
+VAMILY job [a human being], row HE-DID-NOT-SEE-A-SINGLE-HUMAN-BEING.
+This lane's five-minute break, first line of its section.
+
+PAOLO 9/15, his second play of the demo:
+  "I didn't see a single human being. Very strange."
+
+================================================================================
+*** THERE WAS ONE STANDING TWO CELLS FROM HIM AT THE DOOR ***
+================================================================================
+The row asked for the measurement first: how long until a person is on the glass,
+and how many at ten, thirty and sixty seconds. Measured on the shipped cut with
+the one driver, on a phone profile:
+
+  first person on the glass    0.0 seconds after the door
+  on screen at 10s / 30s / 60s     2, 2, 2
+  nearest one                  2 cells, directly above him
+
+So the answer to "how long" is IMMEDIATELY, and his complaint is still true. He
+looked at a person and did not see a human being. That is the whole round: not
+who is missing, but why what was there did not read.
+
+================================================================================
+SO I LOOKED AT THE GLASS, WHICH IS WHAT SETTLED IT
+================================================================================
+A screenshot of the door at phone size, and then the two heads side by side.
+
+  THE PLAYER'S HEAD    pale skin, green eyes, a mouth, white hair, a hat.
+                       Reads instantly as a person.
+  THE OTHER PERSON'S   a dark brown blob with two faint dots, sitting INSIDE a
+                       near-black speech box. No mouth, no hair shape, nothing.
+
+The speech bubble was drawn ON the speaker's head.
+
+================================================================================
+THE CAUSE IS ARITHMETIC, NOT OPINION
+================================================================================
+The bark bubble lifted itself 0.9 of a CELL above the speaker's cell. But a body
+is not drawn in cells. It is drawn on the ZOOM LADDER, and at the zoom the demo
+opens on that is 112 pixels against a 44 pixel cell.
+
+  the bubble clears a head only while       lad <= 1.9 x C
+  at the door                               C = 44, so the limit is 83.6 px
+  a body is                                 112 px
+  so the panel covered                      28.4 px of the body, which is the face
+
+AND IT WAS NOT ONE UNLUCKY ZOOM. Checked at every rung the ladder can put him on,
+the old lift covered the face at SEVEN OF TEN, worst 102 pixels at C = 64:
+
+  C= 12  body  28px  overlapped by   5.2     C= 44  body 112px  overlapped by  28.4
+  C= 17  body  56px  overlapped by  23.7     C= 64  body 224px  overlapped by 102.4
+  C= 24  body  56px  overlapped by  10.4     C= 96  body 224px  overlapped by  41.6
+  C= 32  body 112px  overlapped by  51.2     C= 16, 31, 63  cleared, by luck
+
+A near-black panel at 0.92 alpha, over the face, every time anybody spoke.
+
+================================================================================
+AND THE NEW LIFT IS NOT A NUMBER EITHER
+================================================================================
+It is the body's own top, which the people pass already computes as
+sy + C - lad, minus the bubble's height and the padding it already had. Every
+value was already in the function. Nothing was picked.
+
+*** THE LADDER WAS WRITTEN OUT TWICE IN THIS FILE AND THE BUBBLE COULD SEE
+NEITHER COPY, SO IT GUESSED. *** That is the real shape of this bug. Two copies of
+a rule are how a third thing ends up disagreeing with both. There is ONE now, and
+three readers.
+
+================================================================================
+ON THE GLASS, AFTER
+================================================================================
+Brown hair. A face. Green eyes. A mouth. A cream shirt with a red collar. Blue
+jeans. Dark boots. The bubble sits cleanly above them.
+
+That is a human being, and he could not have missed it.
+
+================================================================================
+THE GATE WATCHES THE CANVAS, BECAUSE THE FIRST TWO CUTS DID NOT
+================================================================================
+CUT ONE recomputed the geometry in the gate. Putting the OLD lift back in the
+page left it GREEN -- it was checking my copy of the sum while the game kept the
+bug. The same defect this lane was caught in two rounds ago and the combat lane
+wrote up before that.
+CUT TWO watched the canvas but matched by size, and saw 4,281 "bubbles": every
+ground tile and UI panel in the frame.
+CUT THREE, which shipped, reads both rectangles off the page by what they ARE:
+the bubble by its own ink, a body by the ladder's own rungs. Nine bodies, three
+bubbles, three pairs.
+
+NEGATIVE-CONTROLLED, and the control is the state he played:
+  put the old lift back    RED twice, and the canvas claim measures the overlap
+                           itself at 28.4 px -- the same number the arithmetic
+                           predicted, off the real painted rectangles
+  add a second ladder      RED on the one-place claim
+  restored                 GREEN, worst overlap 0 px
+
+AND ONE MORE INSTRUMENT SLIP, NAMED BECAUSE IT KEEPS HAPPENING: a claim that his
+words are in the record went red on a record that says exactly that, because the
+sentence is wrapped across two lines and the regex met the line break. The
+newlines come out before matching now.
+
+================================================================================
+MEASURED AND NOT FIXED
+================================================================================
+PERSON LOOK is red and is identical on a clean origin/main worktree. Not this
+round's.
+The other person's FACE ITSELF is still low contrast at street size: dark
+features on dark skin. That is the new PORTRAIT lane's charter in its own words,
+"blank faces are the defect", and it is not touched here.
+
+TAB: CITY, the walked street, and the demo. Stamp 9/15h. Walk out of the door and
+the first person who says anything has a face you can see.

@@ -5233,6 +5233,21 @@ GATES = [
      "longer' means something. Being down is a QUESTION against the clock, so a save left on a shelf comes "
      "back healed with nothing to tidy. And it is on the card he already opens, saying how long and saying "
      "the promise out loud", False),
+    ('A HUMAN BEING',  ['node', 'gates/a_human_being_gate.js'],
+     "PAOLO 9/15, second play: 'I didn't see a single human being. Very strange.' AND THERE WAS ONE "
+     "STANDING TWO CELLS FROM HIM AT THE DOOR -- measured on the shipped cut: first person on the glass "
+     "0.0s, two on screen at 10, 30 and 60 seconds. He looked at a person and did not see a human being. "
+     "THE CAUSE IS ARITHMETIC: the bark bubble lifted 0.9 of a CELL above the speaker, but a body is drawn "
+     "on the ZOOM LADDER -- 112 px against a 44 px cell at the zoom the demo opens on. The bubble cleared "
+     "a head only while a body was under 1.9 cells tall; it is 2.5, so a near-black panel at 0.92 alpha "
+     "sat over the top 28 px of the body, which is the face, EVERY TIME ANYBODY SPOKE. It covered the face "
+     "at seven of ten rungs, worst 102 px. On the glass: before, a dark blob with two faint dots inside a "
+     "black box; after, brown hair, a face, green eyes, a mouth, a shirt and jeans. AND THE NEW LIFT IS "
+     "NOT A NUMBER EITHER -- it is the body's own top, sy + C - lad, minus the bubble's height and the "
+     "padding it already had. The ladder was written out TWICE and the bubble could see neither copy, so "
+     "it guessed; there is ONE now with three readers. The on-glass claim WATCHES THE CANVAS -- the "
+     "bubble by its own ink, the body by the ladder's own rungs -- because a gate that redoes the sum "
+     "passes while the game keeps the bug", False),
     ('POOL IS REAL',   ['node', 'gates/the_pool_is_real_gate.js'],
      "PAOLO 9/13: 'nothing's complete.' WALKED FIVE REAL MINUTES OF WALL CLOCK ON THE DEMO, 921 taps: one "
      "line, no cards, no fights, 28 minutes of game time spent. Then asked the director over 34 minutes of "

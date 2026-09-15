@@ -49376,6 +49376,16 @@ function barkTick(now){
 /* THE BUBBLE. Drawn in the surface's own palette, above their head, clamped so
    it never leaves the screen -- a line you cannot read is a line that did not
    happen (the whole lesson of 8/14). */
+/* __THE_BUBBLE_IS_NOT_ON_HIS_FACE__ (9/15, PEOPLE, from his second play:
+   "I didn't see a single human being. Very strange.")
+
+   HOW TALL A BODY IS DRAWN, IN ONE PLACE. This exact ladder was written out
+   TWICE in this file already, and the bubble that has to clear a head could not
+   see either copy -- so it guessed a lift instead, and the guess was wrong. Two
+   copies of a rule are how a third thing ends up disagreeing with both. */
+function bodyLadder(C){
+  return C >= 64 ? 224 : (C >= 32 ? 112 : (C < 17 ? 28 : 56));
+}
 function barkPass(ox, oy, C){
   /* peoplePass filled BARK_DREW this frame; consume it, then clear for the next. */
   barkTick(typeof performance !== 'undefined' ? performance.now() : Date.now());
@@ -49409,7 +49419,20 @@ function barkPass(ox, oy, C){
   w += padX * 2;
   var h = lines.length * lh + padY * 2;
   var bx = Math.max(4, Math.min(cv.width - w - 4, sx + C / 2 - w / 2));
-  var by = Math.max(4, sy - h - C * 0.9);
+  /* *** THE BUBBLE SITS ABOVE THE HEAD, NOT ON IT. ***
+     MEASURED ON THE DEMO AT THE DOOR: the one person standing two cells from him
+     had a near-black panel at 0.92 alpha covering the top quarter of their body,
+     which is the face. The old lift was 0.9 of a CELL above the speaker's cell,
+     a number with nothing to do with how tall a body is drawn -- and a body is
+     drawn on the ladder, which at the zoom the demo opens at is 112 px against a
+     44 px cell. The bubble cleared the head only while a body was under 1.9
+     cells tall; it is 2.5, so it overlapped by 28 px, EVERY TIME.
+
+     THE NEW LIFT IS NOT A NUMBER EITHER, it is the arithmetic: the body's own
+     top, which peoplePass computes as sy + C - lad, minus the bubble's height
+     and its own existing padding. Nothing here was picked. */
+  var _lad = bodyLadder(C);
+  var by = Math.max(4, (sy + C - _lad) - h - padY);
   gg.globalAlpha = 0.92;
   gg.fillStyle = '#0d0b07';
   gg.strokeStyle = '#2a2114';
@@ -50364,7 +50387,7 @@ function hostilePass(ox, oy, C){
          sprite the frame really used (8/30: a gate that cannot fail is worse than
          none). */
       HOST_SPR[bkey] = sprKind;
-      var lad = C >= 64 ? 224 : (C >= 32 ? 112 : (C < 17 ? 28 : 56));
+      var lad = bodyLadder(C);   /* __THE_BUBBLE_IS_NOT_ON_HIS_FACE__: one rule, one place */
       var img = spriteAt(spr, C);
       var dx0 = Math.round(sx + C / 2 - lad / 2 + jx), dy0 = Math.round(sy + C - lad + jy);
       try { g.drawImage(pplTinted(dir, (k * 37 + 11) % 97, img), dx0, dy0, lad, lad); }
@@ -50653,7 +50676,7 @@ function peoplePass(ox, oy, C) {
       const set = PLAYER_CV[dir] || PLAYER_CV.S;
       const spr = own || (set && set.idle); if (!spr) continue;
       /* the ZOOM LEVEL LAW, same ladder the player uses: never a fractional scale */
-      const lad = C >= 64 ? 224 : (C >= 32 ? 112 : (C < 17 ? 28 : 56));
+      const lad = bodyLadder(C);  /* __THE_BUBBLE_IS_NOT_ON_HIS_FACE__: one rule, one place */
       /* SAME ladder as the player, shared rather than duplicated: an outline on
          one and not the other is worse than none at all. */
       let img = spriteAt(spr, C);
