@@ -22445,9 +22445,14 @@ ROUTED OUT OF V217, MEASURED, NOT MINE:
    16 cells, nearest crew 24, spacing 90, hostiles near the spawn 0, and a directed walk out of the
    suburb stops dead after 20 cells. The tap works the moment a body is in frame. Nothing puts one
    in frame where he wakes.
--> RUN, rule 14(a): the CITY half of V217 reaches the demo immediately (88% of its bytes load by
-   path). The BLOB half -- the line at the bell -- is inside the frozen shell and waits for the next
-   cut, alongside the font fix from V214.
+-> CORRECTION, MINE, MADE THE SAME ROUND: the commit message says the line at the bell "waits for
+   RUN's next cut". WRONG ABOUT THE SURFACE HE OPENS. .github/workflows/pages.yml runs
+   tools/bohemia_cut_the_demo.js as a BUILD STEP before it assembles the site, so THE DEMO AT THE
+   ONE LINK IS RE-CUT FROM THE ALPHA ON EVERY PUSH and already carries this line (UI corrected the
+   same mistake in 5bed08dd). What is stale is the COMMITTED slices/BOHEMIA_DEMO.html on disk,
+   which is the file EYES and RUN read when they measure the stranger's list. Two different files,
+   and the V214 font fix is in the same position: live at the link, stale in the committed file.
+   Rule 14(a) untouched, this lane did not run the cutter.
 -> WHOEVER OWNS THE COLD OPEN: #openInvite ("DAY 1 BEGINS BEFORE THE DAY ... WATCH / NOT NOW") is
    pinned over the top of the walked city at z 39 with pointer-events auto, so a finger that lands
    on it never reaches the city at all.

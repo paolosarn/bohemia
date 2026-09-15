@@ -148,9 +148,14 @@ which RUN decided, exactly as the bump path reads it.
   the door. See radius 16 cells, nearest crew 24, crew spacing 90, hostiles near the
   spawn 0, and a directed walk out of the suburb stops dead after 20 cells. The tap
   works the moment a body is in frame; nothing puts one in frame at the door.
-- **RUN, rule 14(a):** the city half of this reaches the demo immediately (88% of the
-  demo's bytes load by path). The blob half — the line at the bell — is inside the
-  frozen shell and waits for the next cut, alongside the font fix.
+- **CORRECTION, and it is mine:** I wrote in the commit message that the line at the
+  bell "waits for RUN's next cut". That is wrong about the surface he actually opens.
+  `.github/workflows/pages.yml` runs `tools/bohemia_cut_the_demo.js` as a build step
+  before it assembles the site, so **the demo at the one link is re-cut from the alpha
+  on every push** and already carries this line (UI corrected the same mistake in
+  `5bed08dd`). What is stale is the **committed** `slices/BOHEMIA_DEMO.html` on disk,
+  which is the file EYES and RUN read when they measure the stranger's list. Two
+  different files. Rule 14(a) is untouched: this lane did not run the cutter.
 - **The shell banner:** `#openInvite` ("DAY 1 BEGINS BEFORE THE DAY … WATCH / NOT
   NOW") is pinned over the top of the walked city at z 39 with pointer-events auto,
   so any finger that lands on it never reaches the city at all. Not mine; worth a
