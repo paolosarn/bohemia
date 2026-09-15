@@ -1256,11 +1256,22 @@ async function onTheGround() {
        next to the true reds. Cleared before reading now, the same discipline the
        border and track globals already needed.
 
-       So this stops where the city actually draws. What is NOT claimed here, and
-       is this lane's finding rather than its fix: at that stop a phone shows about
-       a third of the valley, and the next stop out is the planet, so THERE IS NO
-       LONGER ANY VIEW THAT SHOWS THE WHOLE TERRITORY AT ONCE. The camera ladder is
-       not this lane's to change. */
+       So this stops where the city actually draws. What is NOT claimed here, and is
+       this lane's finding rather than its fix -- CORRECTED 9/15, because the first
+       version of this comment carried a number I had INFERRED instead of measured,
+       and it was wrong twice over. Measured with the renderer's own origin:
+
+           the city stop   4,660 of 9,216 cells framed, 50.6%, 10 of 14 seats
+           the widest      9,216 of 9,216 cells framed,  100%, 14 of 14 seats
+
+       It is HALF at the city stop, not "about a third". And the sharper half: THERE
+       IS A VIEW THAT FRAMES THE WHOLE VALLEY. The widest stop puts every one of the
+       9,216 cells and all fourteen seats on the glass -- THE CAMERA IS ALREADY
+       RIGHT -- and the city renderer does not run there, so the one view that could
+       show who holds the valley draws a placeholder sky instead. "There is no such
+       view" was wrong and would have sent somebody building one that already exists.
+       The seat count cross-checks against M1's own reading below, off a different
+       instrument. The renderer and the camera ladder are not this lane's. */
     await squeeze(110, 20);     /* across the seam, to where the city is drawn */
     await SETTLE(page, 2500);
 
@@ -1310,9 +1321,10 @@ async function onTheGround() {
            TELL THEM APART. *** (9/15.) getImageData clamps at the canvas edge, so
            a seat that is simply not on screen reads as zero pixels and was counted
            as "nothing on the map says anybody holds it" -- an alarm about a
-           renderer that is doing its job. At this stop a phone shows roughly a
-           third of the valley, so some seats being off screen is the expected
-           state, not a defect. Recorded per base so the claim can say which. */
+           renderer that is doing its job. At this stop the camera frames HALF the
+           valley (4,660 of 9,216 cells, measured 9/15 with the renderer's own
+           origin), so some seats being off screen is the expected state, not a
+           defect. Recorded per base so the claim can say which. */
         const onScreen = p.sx >= 0 && p.sx <= cv.width && cy >= 0 && cy <= cv.height;
         out.marker[n] = { mine: mineHit, them: themHit, onScreen: onScreen };
         if (!onScreen) out.offScreen = (out.offScreen || 0) + 1;
@@ -1359,8 +1371,8 @@ async function onTheGround() {
       + 'any of it, while the canon says LIGHT=TERRITORY, CLUSTERED POWER, OWNED. '
       + 'AND "OFF THE EDGE" IS NOT "UNPAINTED": getImageData clamps at the canvas '
       + 'edge, so a seat that is simply not on this screen used to read as zero '
-      + 'and be counted as a renderer failure. At this stop a phone shows about a '
-      + 'third of the valley, so seats being off screen is the expected state '
+      + 'and be counted as a renderer failure. At this stop the camera frames HALF '
+      + 'the valley, so seats being off screen is the expected state '
       + '(' + painted.length + ' of ' + visible.length + ' visible seats painted, '
       + (R1.count - visible.length) + ' of ' + R1.count + ' off screen)',
       visible.length > 0 && painted.length === visible.length,

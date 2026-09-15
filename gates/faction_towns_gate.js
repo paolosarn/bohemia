@@ -1753,5 +1753,72 @@ const done = () => {
     }
   }
 
+  /* ==========================================================================
+     R. *** AND SOMEBODY IN THE VALLEY IS ACTUALLY COMING FOR SOMEBODY. ***
+     (9/15.) A crew is the only party that is going somewhere TO TAKE SOMETHING,
+     and it is the one this lane's own ground reader names ("a crew came through
+     here"). It was absent from the game entirely, and not because the world is
+     peaceful: the party list is built once and frozen under a key of seed + the
+     day, and when it is built one beat before the between module can answer, every
+     seat at blood falls through to a caravan and the harmless valley is kept for
+     the whole day. MEASURED, one frame apart, same seats and same n:
+         the list the game held      14 patrol, 14 caravan,  0 crew
+         the same function rebuilt   14 patrol, 10 caravan,  4 crew
+     The graph carried four hostile pairs the whole time. So this asks the two
+     things that were silently untrue: that a crew exists at all, and that the
+     GROUND says so, which is the half that belongs to this lane.
+     ========================================================================== */
+  {
+    let CREW = null;
+    try {
+      const DRIVE = require(path.join(ROOT, 'tools/bohemia_drive_the_demo.js'));
+      const d = await DRIVE.open();
+      try {
+        CREW = await d.fr.evaluate(() => {
+          const ps = partiesAll() || [];
+          const t = {}; for (const p of ps) t[p.agenda] = (t[p.agenda] | 0) + 1;
+          const crews = ps.filter(p => p.agenda === 'crew');
+          let ground = null;
+          try {
+            if (crews.length) { partiesAdvance(240);
+              const g = window.BohemiaTowns.tracksAt(partiesAll() || [],
+                          crews[0].at.x, crews[0].at.y, 14);
+              ground = g ? (g.faction + '/' + g.agenda) : null; }
+          } catch (e) { ground = 'threw ' + String(e.message).slice(0, 40); }
+          return { byAgenda: t, agendas: Object.keys(t).length,
+                   crews: crews.length,
+                   who: crews.slice(0, 4).map(c => c.from.faction + ' -> ' + c.toward),
+                   ground: ground };
+        });
+        CREW.errs = d.errs.length;
+      } finally { try { await d.close(); } catch (_e) {} }
+    } catch (e) { CREW = { err: String(e.message).slice(0, 140) }; }
+
+    if (!CREW || CREW.err) {
+      ok('R1-3 the valley could be driven for its parties', false, CREW && CREW.err);
+    } else {
+      ok('R1 *** SOMEBODY IS COMING FOR SOMEBODY: the valley really sends crews, '
+         + 'not just caravans and patrols *** (' + CREW.crews + ' crew(s): '
+         + CREW.who.join(', ') + ')',
+         CREW.crews > 0, JSON.stringify(CREW.byAgenda));
+      ok('R2 and all three of his agendas are out there, which is the shape the '
+         + 'parties row was written to',
+         CREW.agendas === 3, JSON.stringify(CREW.byAgenda));
+      ok('R3 *** AND THE GROUND SAYS IT. *** This lane draws "a crew came through '
+         + 'here" off the agenda, so a valley with no crews left a third of '
+         + '[tracks read] unreachable and nothing said so (' + CREW.ground + ')',
+         !!CREW.ground && /\/crew$/.test(String(CREW.ground)),
+         String(CREW.ground) + '  page errors ' + CREW.errs);
+      /* read the city here rather than borrowing a name from another block: the
+         first cut of this line used CITY_TXT, which is declared inside a different
+         scope, so it threw a ReferenceError and killed the gate before its own
+         summary ever printed. A gate that dies is not a gate that passed. */
+      ok('R4 and the list is not frozen before anybody can be asked who is at war, '
+         + 'which is the thing that made the valley harmless',
+         /DO NOT FREEZE AN ANSWER COMPUTED BEFORE ANYBODY KNEW WHO WAS AT WAR/
+           .test(fs.readFileSync(CITY, 'utf8')));
+    }
+  }
+
   done();
 })();

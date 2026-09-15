@@ -32083,8 +32083,42 @@ function partiesAll(){
   if(typeof BohemiaParties==='undefined') return null;
   var seats=null; try{ seats=turfSeats(); }catch(_e){ seats=null; }
   if(!seats||!seats.length) return null;
-  try{ PARTIES=BohemiaParties.all(seats,{n:(om&&om.n)|0}); }catch(_e){ PARTIES=null; }
-  PARTIES_KEY=k; return PARTIES;
+  var _out=null;
+  try{ _out=BohemiaParties.all(seats,{n:(om&&om.n)|0}); }catch(_e){ _out=null; }
+  /* *** DO NOT FREEZE AN ANSWER COMPUTED BEFORE ANYBODY KNEW WHO WAS AT WAR. ***
+     (9/15, FACTIONS.) MEASURED, not reasoned: the list the game was holding had
+     14 patrols, 14 caravans and ZERO crews, and dropping the cache so this very
+     function rebuilt it gave 14 patrols, 10 caravans and FOUR CREWS. Same seats,
+     same n, same module, one frame apart.
+
+     A CREW IS THE ONLY PARTY IN THE VALLEY THAT IS GOING SOMEWHERE TO TAKE
+     SOMETHING, and sendFrom tries it FIRST -- but only when hostilesOf() finds a
+     seat at blood, and that answer needs the between module. Built one beat too
+     early it comes back empty, every seat falls through to a caravan, and the key
+     (seed + the day) cannot tell the difference, so the harmless valley is frozen
+     in for the whole day. The graph has four hostile pairs the whole time:
+     Caravans and Remnants are both at blood with the Cartel.
+
+     It also quietly cost this lane a third of its own [tracks read]: the ground
+     says "a crew" for agenda 'crew', which could never happen.
+
+     SO THE TEST IS THE CAPABILITY THAT FAILED, not a proxy for it: can anybody be
+     asked about anybody. If not, the answer is returned but NOT kept, and the next
+     frame tries again. Nothing about the parties themselves changes. */
+  var _canAsk=false;
+  try{
+    if(typeof BohemiaBetween!=='undefined' && BohemiaBetween
+       && typeof BohemiaBetween.between==='function'){
+      for(var _i=0;_i<seats.length && !_canAsk;_i++)
+        for(var _j=0;_j<seats.length;_j++){
+          if(seats[_i].faction===seats[_j].faction) continue;
+          var _e=BohemiaBetween.between(seats[_i].faction,seats[_j].faction,null);
+          if(_e && typeof _e.init==='number'){ _canAsk=true; break; }
+        }
+    }
+  }catch(_e){ _canAsk=false; }
+  if(!_canAsk) return _out;
+  PARTIES=_out; PARTIES_KEY=k; return PARTIES;
 }
 /* HOW FAR A PARTY GETS IN A DAY, AND IT IS THE PLAYER'S OWN RULE.
    *** NOT A SPEED I TYPED. *** MIN_PER_CELL is the walked surface's baseline for

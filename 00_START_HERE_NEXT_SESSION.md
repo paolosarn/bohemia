@@ -4369,96 +4369,105 @@ HOW TWENTY-TWO ROUNDS COMPOSE, written once now that Q1-Q22 are all shipped:
 NEXT IN THIS LANE: Q23 [who eats first].
 
 
-FACTIONS (factions-ovkjpf): 9/15 (round 29) LATEST -- *** THE FIVE MINUTES, ROUND
-EIGHT. [same lender] still CLAIMED AND HELD under 14b. This lane's own relations gate
-finished the round it started: 172/10 -> 182/1. NINE OF THE TEN WERE THE CHECKER, NOT
-THE GAME. The one left is real and is not ours: THE FIVE MAIN-QUEST FILES CANNOT REACH
-A PLAYER AT ALL. And one thing really had broken: the only ring in the game has been
-lighting nothing for rounds, because its button was deliberately deleted and the alarm
-went quiet with it. ***
+FACTIONS (factions-ovkjpf): 9/15 (round 30) LATEST -- *** THE FIVE MINUTES, ROUND NINE.
+[same lender] still CLAIMED AND HELD under 14b. NOBODY IN THE VALLEY WAS COMING FOR
+ANYBODY. Fourteen caravans, fourteen patrols, ZERO CREWS -- every day, for as long as
+anyone has looked -- and not because the world is peaceful. Four crews are out there
+now and the ground can finally say "a crew came through here". Also: a number I
+published twice without measuring, corrected, and the correction is the bigger half. ***
 Nothing to judge.
 
 VAMILY row: [same lender], MODE: BUILD, CLAIMED AND HELD under rule 14b.
-Record: records/BOHEMIA_THE_RING_FOLLOWED_THE_ROOM_9_15_26.md
-Round 28: records/BOHEMIA_FOUR_REDS_AND_THREE_WERE_DOORS_9_15_26.md
-Round 28: records/BOHEMIA_THE_VIEW_HE_HATES_TWICE_9_15_26.md
+Record: records/BOHEMIA_NOBODY_WAS_COMING_FOR_ANYBODY_9_15_26.md
+Round 29: records/BOHEMIA_THE_RING_FOLLOWED_THE_ROOM_9_15_26.md
 
-MY OWN HANDOFF SAID "CHECK WHICH BEFORE FIXING" AND THAT WAS THE WHOLE JOB. Two claims
-wanted a control called outfitbtn. The CSS styles it, the close-registry lists it, the
-control roster names it, the click wiring looks for it, AND NOTHING CREATES IT. The
-obvious move is to put the button back. git log -S found why it went: UI [one door]
-(9d24205a) REMOVED IT ON PURPOSE -- OUTFIT and STANDING were two doors onto one
-subject, so the crew directory MOVED INSIDE STANDING as a WHO IS OUT THERE row and the
-spare door came off. Their gate pins both halves and is still green. A RED THAT DEMANDS
-A DELETED CONTROL IS NOT A DEFECT REPORT, IT IS A GATE THAT DID NOT HEAR THE NEWS, and
-left standing it talks somebody into undoing a decision that was right.
+FIRST, THE THING MY OWN HANDOFF TOLD ME TO CHECK, AND IT HAD NOT HAPPENED. Rule 16 THE
+STEP IS A HOUSE moves the tile, and every layer this lane draws is sized off it.
+Measured before assuming: stops 18 / 13.09 / 3.74, city renderer only at the middle,
+FN still 128, LOT_FINE not in the city file at all. The lattice shipped in the
+generator; the render scale has not moved. One run to know it instead of a guess.
+WHEN IT DOES LAND, RE-MEASURE: the border, track and light layers and the relations
+gate's marker floor are all pixel counts off TW.
 
-BUT ONE THING REALLY DID BREAK AND NOBODY COULD HAVE SEEN IT. The ring lived on the
-removed button:
-    function ctOutfitBadge(){ var b=getElementById('outfitbtn'); if(b) b.add('ring'); }
-That is THE ONLY RING IN THE GAME, and its own comment says why it exists: "he is not
-going to open a panel on the off-chance; the moment something lands is the moment to
-say so." Behind that `if (b)` it has failed without a sound ever since. For every round
-since, "your outfit just made an enemy" has lit NOTHING.
-THE DOOR MOVING WAS A DECISION; THE ALARM GOING QUIET WITH IT WAS AN ACCIDENT, and only
-the second is a bug. The ring follows the room to the door that is there, keeps the old
-one first in case the chip returns, and reuses #phonebtn.ring's look. Opening STANDING
-answers it, so opening STANDING stops it. Mutation-proved: point it back at the deleted
-chip and the claim goes red.
+*** A NUMBER I PUBLISHED TWICE WITHOUT MEASURING IT. *** I wrote "about a third of the
+valley" into a gate comment and two records. It was an inference. My one attempt at the
+real number passed window.__lastOx as the camera origin -- A NAME I MADE UP -- got 34.7%
+visible ON FOOT, correctly binned it, AND THEN I WENT ON QUOTING THE GUESS ANYWAY.
+Measured with the origin the renderer itself computes:
+    the city stop   4,660 of 9,216 cells framed   50.6%   10 of 14 seats
+    the widest      9,216 of 9,216 cells framed    100%   14 of 14 seats
+It is HALF, not a third, and the seat count cross-checks exactly against the relations
+gate's own independent 10 of 14. AND THE CORRECTION MATTERS MORE THAN THE ARITHMETIC: I
+had written "there is no longer any view that shows the whole territory at once." WRONG.
+THE WIDEST STOP FRAMES EVERY CELL AND ALL FOURTEEN SEATS -- the camera is already right
+-- and the city renderer does not run there, so the one view that could show who holds
+the valley draws a placeholder sky instead. "The view does not exist" would have sent
+somebody building one that already exists. (The on-foot row is dropped, not reported:
+renderHuman uses its own camera, so projecting the walked world through the city camera
+measures nothing.)
 
-"NONE" IS NOT AN OUTFIT HE MISSPELLED. The faction-names claim read 82 of 83 and the one
-row was `@DO faction NONE +0`, in a quest called THE FACTION THAT DIED. @FACTION NONE
-heads a dozen of his files as "this one belongs to nobody". Counting it as a missing
-outfit is the ruler measuring its own invention. NARROWED NOT WIDENED: only the literal
-token NONE, only at ZERO delta, and a new companion claim fails on NONE carrying a real
-number, because a quest moving the standing of nobody is an authoring error and is the
-one thing the exemption could have hidden.
+*** THE CREWS. *** His three agendas are a caravan carrying, a patrol holding a border,
+and A CREW GOING TO TAKE SOMETHING. The valley had two of them. A crew is the FIRST
+thing a seat tries to send, and only when hostilesOf() finds somebody at blood. The
+graph is not peaceful: Caravans <-> Cartel -45, Remnants <-> Cartel -80, four hostile
+pairs, and the Cartel's seat asked the way the sender asks sees both. So the data was
+there and the parties were not. The difference was ONE FRAME:
+    the list the game was holding   14 patrol, 14 caravan,  0 crew
+    the same function, rebuilt      14 patrol, 10 caravan,  4 crew
+Same seats, same day number, same module. The list is keyed on seed + the day. Built
+before the between module can answer, every seat at blood falls through to a caravan,
+and THE KEY CANNOT TELL A REAL PEACE FROM AN UNANSWERED QUESTION, so the harmless
+valley is frozen in for the whole day.
+THE FIX IS THE CAPABILITY THAT FAILED, NOT A PROXY FOR IT: it asks whether anybody can
+be asked about anybody. If nothing answers, the answer is returned but NOT KEPT and the
+next frame tries again. No design touched. Crews now: Caravans->Cartel, Cartel->Remnants,
+Cartel->Caravans, Remnants->Cartel.
 
-*** THE ONE THAT IS LEFT, AND IT IS THE BIG ONE ***
-The corpus claim reads 37 of 42 inlined. The weights normalise correctly, so this is not
-arithmetic. FIVE OF HIS QUEST FILES ARE NOT CARRIED BY THE GAME, and the red names them
-now instead of printing a fraction:
-    M01_THE_NIGHT_THEY_CAME, M02_THE_DINNER_AFTER, M03_THE_RIDGE,
-    M04_WHAT_THE_NEIGHBOUR_ASKS, M05_SOMETHING_IS_COMING_DOWN_THE_ROAD
-M01's own header: "THE FIRST MAIN-QUEST FILE THIS REPO HAS EVER HAD." THESE ARE THE MAIN
-QUEST LINE. And quests/ is in the publish EXCLUDE list on purpose, with the reason beside
-it: ".bq canon quest sources (inlined into the slice at build time)". A QUEST REACHES A
-PLAYER ONLY BY BEING INLINED, so these five cannot be played on any surface and no amount
-of walking the demo would ever find them.
-[FOR QUESTS] the runtime and the corpus inlining are yours. Named with the five
-filenames so nobody has to work out which fraction means what.
+AND IT HAD QUIETLY COST THIS LANE A THIRD OF ITS OWN FEATURE. [tracks read] names the
+agenda on the ground -- "a crew came through here" -- which could never happen with no
+crew in the world. Driven after the fix, the ground reader at a crew's own cell answers
+"Caravans / crew", a thing the game has never been able to say.
 
-WHERE THE GATE ENDED UP
-    172/10 as found | 178/4 door and zoom stop | 180/2 ring follows the room |
-    182/1 with "no outfit" told apart from a missing outfit
-The remaining one is somebody else's real gap, not a broken measurement.
+WHAT IT DID TO SOMEBODY ELSE'S GATE: parties_move 38/1 -> 39/0 on its own claim that
+all three agendas are out there. That red had been naming a real absence for rounds.
 
-AND MY INSTRUMENT WAS WRONG ONCE MORE, THE SAME OLD WAY. Writing the sharper failure
-message I referred to CITY_SRC, A NAME I MADE UP; the file reads its source into
-citySrc. Caught by the syntax check before it ran. THIRD INVENTED IDENTIFIER THIS
-SESSION, so it is on the lesson list in its own right.
+GATES  faction_towns + four driven claims (a crew exists, all three agendas, THE GROUND
+       SAYS IT, and the list is not frozen before the war is knowable). All four pass.
+           clean origin/main   258 s   207 passed, 1 failed
+           this tree           325 s   211 passed, 1 failed
+       THE ONE FAILURE IS P27 AND IT IS INHERITED: identical claim and result on a clean
+       origin/main worktree. It cannot be this round's: the party list reaches only the
+       day advance, the map track layer and the ground reader, and partiesNear() -- the
+       one function that takes the player's position -- HAS NO CALLERS AT ALL.
+       faction_between 182/1 after the number corrections; against 87/0; alpha_loads
+       20/0; engine sync 19 modules zero drift.
+       RULE 13: pre-push pass green; full suite 107 red at ad23d875, this lane's named.
 
-GATES  faction_between 182/1. Pre-push pass on everything the diff touches: against
-       87/0, faction_towns 208/0, CITY RAIL 15/0 (UI's own guard on [one door], so the
-       ring change did not disturb their decision), alpha_loads 20/0, engine sync zero
-       drift.
-       RULE 13: pre-push pass green; full suite 107 red at ad23d875, and THIS LANE'S
-       ARE NAMED -- of our 20 gates, 16 green and 4 red last round; faction_between is
-       now 182/1 and its last red is QUESTS' corpus gap above.
+*** AND ONE MORE INSTRUMENT LESSON, NOT A SMALL ONE. *** Four runs of this gate came
+back as A SINGLE LINE WITH NO SUMMARY, on my tree and on clean main alike, and I nearly
+filed "this lane's own gate dies before it finishes". IT FINISHES PERFECTLY. done() ends
+with process.exit(), and node can drop buffered stdout on exit WHEN THE OUTPUT IS
+REDIRECTED TO A FILE rather than a terminal. Every run piped to tail printed the
+summary; every run redirected to a file lost it. A GATE THAT PRINTS NOTHING MAY HAVE
+PRINTED EVERYTHING, and every lane redirects gate output to files.
 
 RULE 14 OBSERVED: no demo cut, no alpha touched, no build stamp.
 
 STILL OPEN, NONE OF IT THIS LANE'S
-  [FOR QUESTS] the five main-quest files are not inlined, so they cannot be played.
+  [INHERITED] faction_towns P27 "somebody who is already yours leads the crew out there
+  too", identical on clean origin/main. Arrived from somebody else's change since the
+  last round; not diagnosed here beyond proving it is not this lane's.
+  [FOR QUESTS] the five main-quest files (M01-M05) are not inlined, so they cannot be
+  played on any surface. quests/ is in the publish EXCLUDE list because inlining is the
+  only way in.
   [FOR WHOEVER OWNS THE FEED GATE] feed_stream's door: tapText('CITY|DROP IN') hits
-  nothing, 0 such elements in the DOM. The feed itself is fine (proved round 28: 4 posts
-  live in city mode). The real door is the pinch.
+  nothing, 0 such elements in the DOM. The feed itself is fine (4 posts live in city
+  mode). The real door is the pinch.
   [FOR DIRECTION / COOK / THE ART QUEUE] AR-005: the widest zoom is a declared
-  placeholder sky, he complained about it 8/16 AND 9/15, and all six art requests in the
-  queue are OPEN with none ever closed.
-  [FOR CHARACTER / COOK] faction_outfit 16/2: Blues and Trades sit 0.0085 apart on a bar
-  of 0.035. What factions wear is reserved to him by name, so it is named not redesigned.
-  [FOR WORLD] parties_move 38/1: caravan 14, patrol 14, third agenda absent.
+  placeholder sky, complained about 8/16 AND 9/15, all six art requests OPEN, none ever
+  closed. AND THE CAMERA THERE IS ALREADY RIGHT -- it frames the whole valley.
+  [FOR CHARACTER / COOK] faction_outfit 16/2: Blues and Trades 0.0085 apart on a bar of
+  0.035. What factions wear is reserved to him by name.
   [FOR RUN] DEMO BUILD red on main when an alpha change ships without a re-cut.
   [FOR PLUMBER] the derived freshness gate goes red for ANY lane that hand-edits the
   city; BANNER 12/2 on clean main.
@@ -4477,17 +4486,17 @@ NEXT IN THIS LANE
   [same lender] stays HELD until the coordinator gives this lane one of his breaks or
   he says the five minutes hold (14c). While held, the round goes on the five minutes.
   WHAT IS LEFT ON THAT MEASURE:
-    RULE 16, THE STEP IS A HOUSE (Paolo 9/15, LOCKED): one step is one lot and bodies
-    are drawn large. That moves the tile size, which moves the zoom ladder, which is
-    what this lane just spent two rounds measuring. WHEN IT LANDS, RE-MEASURE THE MAP
-    STOPS: the border, track and light layers are all sized off TW, and the marker floor
-    in the relations gate is a pixel count.
-    THERE IS NO VIEW THAT SHOWS THE WHOLE TERRITORY AT ONCE. One squeeze shows about a
-    third of the valley; the next stop is the planet. "Colour is territory" and there is
-    no screen that shows the territory whole. Carry it, do not take it: the camera
-    ladder is not this lane's.
+    RULING 5 OF HIS SECOND PLAY IS THIS LANE'S SUBJECT AND IS NOT BUILT: "a forgiven
+    thing still stings for a season" -- forgiveness clears the account and leaves a mark
+    on standing that fades over one season, never a permanent debuff. The collector
+    "remembers" line already exists. That is [same lender]'s own neighbourhood; when the
+    hold lifts it is the first thing waiting.
+    WHETHER ANY OTHER PART OF THE WORLD IS FROZEN THE SAME WAY. The party list was kept
+    under a key that could not tell "no" from "not yet". Sweep for other caches keyed on
+    seed+day that are filled during boot.
+    RULE 16 WHEN IT REACHES THE RENDER, above.
 
-TWENTY-TWO STANDING LESSONS THIS LANE KEEPS RE-LEARNING
+TWENTY-FOUR STANDING LESSONS THIS LANE KEEPS RE-LEARNING
   BEFORE ASSUMING A ROW IS BLOCKED, CHECK WHETHER ITS NAMED BLOCKER IS STILL TRUE.
   WHEN A CHECK GOES RED, ASK WHETHER IT IS MEASURING THE GAME OR ITS OWN INVENTION.
   WHEN HIS SENTENCE IS FALSE ON THE MAP, REPORT IT rather than forcing it.
@@ -4500,24 +4509,26 @@ TWENTY-TWO STANDING LESSONS THIS LANE KEEPS RE-LEARNING
   A BARE CATCH AROUND A FUNCTION THAT DOES NOT EXIST IS A CONFIDENT WRONG ANSWER.
   A BOX HEIGHT IS NOT A REACH. Measure whether the press LANDS.
   A LINE PER THING IS HOW A CARD STOPS FITTING A PHONE. Measure the CARD.
-  A GLOBAL THE RENDERER PUBLISHES AND NEVER CLEARS REPORTS THE LAST DRAW. THIRD TIME.
+  A GLOBAL THE RENDERER PUBLISHES AND NEVER CLEARS REPORTS THE LAST DRAW.
   FORCING A MODE VARIABLE IS NOT PRESSING THE BUTTON.
   A WRITER THAT DOES NOT CLEAR AFTER ITSELF SILENCES EVERY WRITER THAT DOES.
   A GREP PROVES THE CODE EXISTS AND PROVES NOTHING ABOUT THE GLASS.
   A FRAME IS NOT A STEP. Mutation-test BOTH directions.
   CHECK THE INSTRUMENT BEFORE YOU BELIEVE ITS NEGATIVE.
-  AN EMPTY READING CAN BE THE TRUTH. No footprints at dawn is the world being young.
+  AN EMPTY READING CAN BE THE TRUTH.
   BEFORE BELIEVING A RED, ASK WHETHER THE CHECK CAN STILL GET TO THE THING IT IS JUDGING.
   A CLAIM'S PREMISE CAN GO STALE WITHOUT ANYONE TOUCHING IT.
   OFF THE EDGE IS NOT UNPAINTED. getImageData clamps at the canvas edge.
-  *** AND BEFORE PUTTING SOMETHING BACK, FIND OUT WHY IT WENT. *** git log -S on the
-  missing id answered in one command what would have been a round of rebuilding a
-  control another lane deleted on purpose. The useful half was next to it: the door
-  moving was a DECISION, the alarm going quiet with it was an ACCIDENT, and only the
-  accident is a bug.
-  AND STOP INVENTING IDENTIFIERS. __lastOx, CITY_SRC, BohemiaTowns.towns() -- three
-  names I made up this session, each of which measured or reported nothing. Grep the
-  name before you use it.
+  BEFORE PUTTING SOMETHING BACK, FIND OUT WHY IT WENT. git log -S answers in one command.
+  STOP INVENTING IDENTIFIERS: __lastOx, CITY_SRC, BohemiaTowns.towns() -- and CITY_TXT
+  this round, which was declared in another block and killed the gate before its own
+  summary. Grep the name before you use it. FOURTH TIME.
+  *** A CACHE KEY THAT CANNOT TELL "NO" FROM "NOT YET" WILL FREEZE THE WRONG ANSWER AND
+  NEVER LOOK AGAIN. *** Seed plus day is a fine key for "what is the valley doing today"
+  and no key at all for "was anybody home to ask". The valley read as peaceful for
+  rounds and every number about it was correct.
+  AND A GATE THAT PRINTS NOTHING MAY HAVE PRINTED EVERYTHING: process.exit() can drop
+  buffered stdout when the output is redirected to a file.
 
 --------------------------------------------------------------------------------
 
