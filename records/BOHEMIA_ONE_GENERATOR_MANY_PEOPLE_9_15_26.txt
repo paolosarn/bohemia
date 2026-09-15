@@ -1,0 +1,44 @@
+ONE GENERATOR, MANY PEOPLE  --  CHARACTER lane, 9/15/26, VAMILY [six people]
+measured on the demo over http, 390x844 at DPR 3, one crowd, one breath phase
+
+THE ROW: the street was six bodies in eight facings. Baking more costs 530 ms of
+frozen page each, so the variety is made at DRAW TIME instead: the same body,
+this person's own colours, keyed off his id so he does not change as you pass.
+
+  bodies drawn on one screen   183   at 112 px
+  baked trade bodies           12
+  baked faction bodies         0
+
+                                 BEFORE      AFTER
+  different pictures                 80        175
+  share repeating somebody          56%         4%
+  biggest group of identicals         6          2
+
+  people given their own ramp  183
+  people left exactly as baked 0   (the middle ramp is 1.00 on all three bands)
+
+DOES IT TOUCH HIS FACTION COLOURS? THE ONLY PASSING ANSWER IS ZERO.
+  saturated pixels on those bodies   22222
+  saturated pixels the ramp moved    0
+COLOUR IS TERRITORY (8/26) says the saturated piece states who would defend you.
+The ramp skips that band with a continue, so it is not carefulness, it is shape:
+there is no value of any ramp that can move one of those pixels.
+
+WHAT IT COSTS. A FRAME AT 120 BPM IS 16.7 ms.
+  one body, first time          0.237 ms   at 112 px
+  all 183 at once            43.3 ms   which is why it is rationed
+  rationed to 8 a frame      1.89 ms
+  frames to dress the crowd     23   (0.4 s at 60)
+  all 183 once cached         0.2 ms   for the rest of the time you stand there
+  recoloured bodies held        378
+
+A body whose colours are not made yet is drawn AS BAKED and becomes himself a few
+frames later, the same shape as the faction-body swap: a body getting MORE
+specific, never a person appearing out of nothing.
+And it costs ZERO seconds of boot, which is the whole reason it is not a bake.
+
+AND A RULER THROWN AWAY IN THIS SECTION, SAID OUT LOUD. The first cut timed whole
+frames and reported "47 ms worst frame after arriving". With the ramps set to 1.00
+so they do nothing at all, the same page still spiked to 36 ms, and a frame that
+could not miss at all still spiked to 71 ms. The city streams and bakes on idle
+callbacks underneath; whole-frame timing here measures the page, not the change.

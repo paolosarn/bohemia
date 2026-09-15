@@ -50599,6 +50599,138 @@ function ctStepped(spr, want) {
   } catch (e) { return spr; }
 }
 
+/* ==== ONE GENERATOR, MANY PEOPLE (9/15, CHARACTER lane, VAMILY [six people]) =========
+   THE MEASUREMENT THIS ANSWERS (records/BOHEMIA_THE_STREET_IS_SIX_PEOPLE_9_14_26.txt):
+   183 bodies on one phone screen, 47 different pictures, 74% of the crowd a repeat of
+   somebody else, eleven identical people visible at once. The whole valley was six baked
+   bodies in eight facings, and it is twelve now, which is still twelve.
+   AND THE OBVIOUS FIX IS WRONG, MEASURED: one more BAKED body costs 530ms of frozen page
+   and six already cost about 3.2 seconds. Doubling the bake trades "nothing's complete"
+   for "glitchy", which is a worse complaint.
+   SO THE VARIETY IS MADE AT DRAW TIME, one generator many ramps -- the precedent is the
+   cars and the 74 tiles. Same body, this person's own colours.
+
+   *** AND IT CANNOT TOUCH THE FACTION'S COLOUR, BY CONSTRUCTION RATHER THAN BY CARE. ***
+   COLOUR IS TERRITORY (8/26) says the colour is a statement of who would defend you, and
+   DIRECTION's style card allows ONE saturated piece and names dust, ash, bone and lead as
+   the legal cloth. That split IS the instrument: a pixel's SATURATION says which of the two
+   it is. The saturated piece is the statement and is never written to. Everything under it
+   is neutral by the card's own rule, and neutrals are what vary between people anyway.
+   A gate cannot be fooled here either -- the untouched band is a `continue`, not a smaller
+   number, so a faction hue cannot drift by one degree no matter what the ramps say.
+
+   THREE BANDS, and they are read off the pixel, not guessed from a mask this side does not
+   have (the skin/face grid lives in the ALPHA's baker, not on a finished canvas):
+     saturation >= keep   the faction's one saturated piece         UNTOUCHED
+     saturation >= mid    skin and leather, the warm middle         its own factor
+     below that, dark     hair and boots                            its own factor
+     below that           cloth: dust, ash, bone, lead              its own factor
+
+   VALUE ONLY, NEVER HUE, and for the same reason and by the same trick ctStepped had to
+   learn the hard way on 9/12: scaling all three channels by one factor moves the value and
+   leaves the ratios, WHICH ARE THE COLOUR, exactly where they were -- right up until a
+   channel hits 255, at which point the gap closes behind it and the hue rotates. So no
+   pixel is ever scaled past the factor that would clip its own brightest channel. The
+   ramps cannot rotate a hue anywhere, including in the bands they DO write.
+
+   THE NUMBERS ARE GROUNDED, not picked to look like a range. Human skin reflectance spans
+   roughly two and a half times between the lightest and darkest people, so the skin ramp
+   spans 0.74 to 1.30 about a centre of 1. Bleached bone against lead grey is a wider span
+   than that in the real world, so cloth goes 0.62 to 1.45. Hair is mostly very dark and
+   lifts fast, so it gets its own narrower handle.
+   Five by five by five is 125 ramps over 12 bodies: 1,500 different people out of a bake
+   that cost nothing extra.
+   KEYED OFF THE PERSON'S ID, so a man does not change colour as you walk past him, and he
+   is the same man when you come back. */
+const CT_RAMP = {
+  skin:  [0.74, 0.86, 1.00, 1.14, 1.30],
+  cloth: [0.62, 0.80, 1.00, 1.18, 1.45],
+  hair:  [0.78, 0.90, 1.00, 1.16, 1.34],
+  keep:  0.50,     /* at or above this saturation a pixel is the faction statement */
+  mid:   0.20,     /* at or above this, skin and leather */
+  dark:  70        /* neutral and darker than this reads as hair or boot */
+};
+const CT_RAMP_CV = new Map();     /* sprite id|ramp -> the recoloured canvas */
+/* A CAP, because this is a draw path and an uncapped map is a leak with a nice name. At
+   most a couple of hundred bodies are on screen at once and each one wants four breath
+   frames, so the live working set is under a thousand; oldest-out at that size never
+   evicts something this beat is still using. */
+const CT_RAMP_MAX = 1024;
+/* *** AND A BUDGET, BECAUSE THE FIRST CUT OF THIS DROPPED FRAMES ON ARRIVAL. ***
+   MEASURED on the real surface, standing in the fullest neighbourhood in reach: 183 bodies
+   on screen at 112 px, every one a cache miss at once.
+       0.49 ms a body   the first cut
+       0.165 ms a body  once the scratch canvas is told it will be read back
+       30 ms            all 183 in one frame, which is two dropped frames at 16.7 ms
+       1.3 ms           rationed to 8 a frame, and the whole crowd is dressed in 23
+       0.2 ms           all 183 once they are cached, for the rest of the time you stand there
+   "Glitchy" is one of the words this whole row exists to answer, so buying variety with
+   dropped frames would have been a straight swap of complaints.
+   SO THE MISSES ARE RATIONED, NOT THE VARIETY. A body whose recolour is not made yet is
+   drawn AS BAKED this frame and gets his own colours a few frames later -- the same shape
+   as the faction-body swap in ctBody, a body getting MORE specific, never a person
+   appearing out of nothing. 23 frames is under half a second.
+   ONE FRAME'S WORTH, RESET AT THE TOP OF THE DRAW PASS, so it cannot leak into a budget
+   that gets larger the longer you stand still. */
+const CT_RAMP_PER_FRAME = 8;
+let CT_RAMP_LEFT = CT_RAMP_PER_FRAME;
+/* WHICH RAMP IS THIS PERSON. FNV-1a over the id, three independent slices of one hash, so
+   a man's skin does not tell you his shirt. */
+function ctRampKey(p) {
+  let s = '';
+  try { s = String(p && p.id != null ? p.id : ''); } catch (_e) { s = ''; }
+  let h = 2166136261 >>> 0;
+  for (let i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619) >>> 0; }
+  return [ (h % 5), ((h >>> 7) % 5), ((h >>> 15) % 5) ];
+}
+function ctRamped(spr, p) {
+  if (!spr || !p) return spr;
+  const r = ctRampKey(p);
+  const ks = CT_RAMP.skin[r[0]], kc = CT_RAMP.cloth[r[1]], kh = CT_RAMP.hair[r[2]];
+  if (ks === 1 && kc === 1 && kh === 1) return spr;       /* the middle person, already baked */
+  if (spr.__ctSid == null) spr.__ctSid = ++CT_SPR_N;
+  const key = spr.__ctSid + '|r' + r[0] + r[1] + r[2];
+  const got = CT_RAMP_CV.get(key);
+  if (got) { CT_RAMP_CV.delete(key); CT_RAMP_CV.set(key, got); return got; }   /* touch: keep it young */
+  if (CT_RAMP_LEFT <= 0) return spr;          /* out of budget this frame: as baked, for now */
+  CT_RAMP_LEFT--;
+  try {
+    const c = document.createElement('canvas');
+    c.width = spr.width; c.height = spr.height;
+    /* willReadFrequently: this canvas exists only to be read back and written once, and
+       telling the browser so keeps it off a GPU texture it would have to stall to read. */
+    const x = c.getContext('2d', { willReadFrequently: true }); x.imageSmoothingEnabled = false;
+    x.drawImage(spr, 0, 0);
+    const im = x.getImageData(0, 0, c.width, c.height), d = im.data;
+    for (let i = 0; i < d.length; i += 4) {
+      /* ALPHA IS NEVER TOUCHED: the silhouette cannot move by one pixel, which is what
+         keeps the silhouette gate and the shape work honest across this change. */
+      if (!d[i + 3]) continue;
+      const R = d[i], G = d[i + 1], B = d[i + 2];
+      const mx = R > G ? (R > B ? R : B) : (G > B ? G : B);
+      if (!mx) continue;
+      const mn = R < G ? (R < B ? R : B) : (G < B ? G : B);
+      const sat = (mx - mn) / mx;
+      if (sat >= CT_RAMP.keep) continue;                  /* HIS COLOUR. NOT OURS TO MOVE. */
+      const lum = 0.2126 * R + 0.7152 * G + 0.0722 * B;
+      const k0 = (sat >= CT_RAMP.mid) ? ks : (lum < CT_RAMP.dark ? kh : kc);
+      if (k0 === 1) continue;
+      /* never past its own clip point, so the ratios between the channels cannot move */
+      const k = k0 > 1 ? Math.min(k0, 255 / mx) : k0;
+      d[i]     = Math.max(0, Math.min(255, Math.round(R * k)));
+      d[i + 1] = Math.max(0, Math.min(255, Math.round(G * k)));
+      d[i + 2] = Math.max(0, Math.min(255, Math.round(B * k)));
+    }
+    x.putImageData(im, 0, 0);
+    CT_RAMP_CV.set(key, c);
+    if (CT_RAMP_CV.size > CT_RAMP_MAX) {
+      const oldest = CT_RAMP_CV.keys().next().value;
+      if (oldest !== undefined) CT_RAMP_CV.delete(oldest);
+    }
+    return c;
+  } catch (e) { return spr; }
+}
+
 function peoplePass(ox, oy, C) {
   BARK_DREW = [];   /* __CITY_BARKS__ */
   if (!PLAYER_CV) return 0;                    /* no body yet: draw nobody, never a placeholder */
@@ -50658,23 +50790,31 @@ function peoplePass(ox, oy, C) {
       rosterSeen.add(q.id); roster.push(q);
     }
   } catch (_e) {}
+  /* WHY SOMEBODY WAS NOT DRAWN, counted where the skip happens (9/15). Paolo played
+     and "did not see a single human being", and this lane burned a round measuring
+     the street with ITS OWN screen rectangle and its own idea of the roster, which is
+     how you end up blaming a renderer that is doing what it was told. Every skip below
+     already decides something; this only records which one fired. Free, and it means
+     the next empty street is a read instead of an investigation. */
+  const skip = { roster: roster.length, onPlayer: 0, stacked: 0, offscreen: 0, noSprite: 0 };
+  CT_RAMP_LEFT = CT_RAMP_PER_FRAME;   /* ONE FRAME'S WORTH of new recolours, and no more */
   for (let i = 0; i < roster.length; i++) {
       const p = roster[i];
       const at = pplAt(p);
       const fx = at[0], fy = at[1];
-      if (fx === hx && fy === hy) continue;    /* OCCUPANCY LAW: one body per cell, player included */
+      if (fx === hx && fy === hy) { skip.onPlayer++; continue; }    /* OCCUPANCY LAW: one body per cell, player included */
       const cellK = fx + ',' + fy;
-      if (onCell.has(cellK)) continue;         /* OCCUPANCY LAW: and one body per cell, full stop */
+      if (onCell.has(cellK)) { skip.stacked++; continue; }         /* OCCUPANCY LAW: and one body per cell, full stop */
       onCell.add(cellK);
       const sx = ox + fx * C, sy = oy + fy * C;
-      if (sx < -C * 3 || sy < -C * 4 || sx > cv.width + C * 3 || sy > cv.height + C * 3) continue;
+      if (sx < -C * 3 || sy < -C * 4 || sx > cv.width + C * 3 || sy > cv.height + C * 3) { skip.offscreen++; continue; }
       const dir = pplFace(p, at);
       /* CITY CAST (Paolo 8/3, "have it not be a copy of me"): their OWN
          body from the baked cast, and only the player's tinted sprite if that
          bake has not landed yet. */
       const own = (typeof ctBody === 'function') ? ctBody(p, dir) : null;
       const set = PLAYER_CV[dir] || PLAYER_CV.S;
-      const spr = own || (set && set.idle); if (!spr) continue;
+      const spr = own || (set && set.idle); if (!spr) { skip.noSprite++; continue; }
       /* the ZOOM LEVEL LAW, same ladder the player uses: never a fractional scale */
       const lad = bodyLadder(C);  /* __THE_BUBBLE_IS_NOT_ON_HIS_FACE__: one rule, one place */
       /* SAME ladder as the player, shared rather than duplicated: an outline on
@@ -50683,7 +50823,10 @@ function peoplePass(ox, oy, C) {
       /* CITY CAST: a cast body is ALREADY this person's clothes - tinting it
          again would put a hue over his wardrobe and undo the point. Only the
          fallback player sprite still gets the shift. */
-      const base = own ? img : pplTinted(dir, p.look, img);
+      /* ONE GENERATOR, MANY PEOPLE: a cast body gets THIS PERSON'S ramp before anything
+         else touches it, so the hostile step upstairs measures the body he is actually
+         wearing rather than the one it was baked from. */
+      const base = own ? ctRamped(img, p) : pplTinted(dir, p.look, img);
       let hostile = false;
       try { hostile = !!ctAgainstMe(p); } catch (_e) { hostile = false; }
       seen.push({ p: p, at: at, fx: fx, fy: fy, sx: sx, sy: sy, dir: dir,
@@ -50735,6 +50878,7 @@ function peoplePass(ox, oy, C) {
     if (me.fx !== p.home[0] || me.fy !== p.home[1]) out++;
   }
   window.__PPL_DRAWN = drawn;
+  skip.drawn = drawn; window.__PPL_SKIP = skip;
   /* CITY TALK: names last, so nothing paints over them */
   try{ if(typeof ctNames==='function') ctNames(ox,oy,C); }catch(_ctn){}
   window.__PPL_OUT = out;

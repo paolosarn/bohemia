@@ -544,6 +544,133 @@ const done = () => { console.log('\n=== FACTION COLOUR GATE: ' + pass + ' passed
        + Object.keys(H.fids).join(', ') + ')',
        H.hostile > 0 && H.wearing === H.hostile);
   }
+  /* ===== 7. ONE GENERATOR, MANY PEOPLE, AND IT STILL CANNOT TOUCH HIS COLOURS ==========
+     (9/15, CHARACTER, VAMILY [six people].) The street was six baked bodies in eight
+     facings and 74% of the crowd was a repeat of somebody else. Baking more costs 530 ms
+     of frozen page each, so the variety is made at DRAW TIME: one generator, a ramp per
+     person, keyed off his id.
+     THAT PUTS A PIXEL WRITER IN THE DRAW PATH OF EVERY BODY ON SCREEN, which is exactly
+     where COLOUR IS TERRITORY (8/26) is easiest to break by accident and hardest to
+     notice -- ctStepped broke it on 9/12 with a value step that looked mathematically
+     safe and swung Mob 35 degrees. So this section is not about variety. It is about the
+     variety being unable to cost him the law, MEASURED ON THE SURFACE rather than argued
+     from the code.
+     AND IT REFUSES TO PASS ON AN EMPTY STREET, which this lane has shipped twice. */
+  {
+    const V = await cf.evaluate(() => {
+      const o = { drew: 0, satPixels: 0, satMoved: 0, before: {}, after: {}, unstable: 0 };
+      /* STAND WHERE THE CROWD IS: the question is how varied a CROWD looks. */
+      const NB = BohemiaPopulation.NB, span = NB * FN;
+      const cx0 = Math.floor(hx / span), cy0 = Math.floor(hy / span);
+      let best = null;
+      for (let ny = Math.max(0, cy0 - 6); ny <= cy0 + 6; ny++)
+      for (let nx = Math.max(0, cx0 - 6); nx <= cx0 + 6; nx++) {
+        let ppl = []; try { ppl = pplPeople(nx, ny) || []; } catch (e) { continue; }
+        if (ppl.length && (!best || ppl.length > best.n)) best = { n: ppl.length, ppl: ppl };
+      }
+      if (best) {
+        const pts = best.ppl.map(q => { try { return pplAt(q); } catch (e) { return null; } }).filter(Boolean);
+        if (pts.length) {
+          const xs = pts.map(a => a[0]).sort((a, c) => a - c), ys = pts.map(a => a[1]).sort((a, c) => a - c);
+          hx = xs[xs.length >> 1]; hy = ys[ys.length >> 1];
+        }
+      }
+      render();
+      const L = HC >= 64 ? 224 : (HC >= 32 ? 112 : (HC < 17 ? 28 : 56));
+      const px = (s, w, h) => { const c = document.createElement('canvas'); c.width = w || s.width; c.height = h || s.height;
+        const g2 = c.getContext('2d', { willReadFrequently: true }); g2.imageSmoothingEnabled = false;
+        g2.drawImage(s, 0, 0, c.width, c.height); return g2.getImageData(0, 0, c.width, c.height).data; };
+      const hashAt = (s) => {
+        const d = px(s, L, L); let h = 2166136261;
+        for (let k = 0; k < d.length; k += 4) {
+          const a = d[k + 3] < 128 ? 0 : 1;
+          const l = a ? Math.round((0.2126 * d[k] + 0.7152 * d[k + 1] + 0.0722 * d[k + 2]) / 52) : 0;
+          h ^= (a * 7 + l); h = Math.imul(h, 16777619);
+        }
+        return (h >>> 0).toString(16);
+      };
+      /* THE BUDGET IS LIFTED FOR THE COUNT AND RESTORED AFTER: rationing new recolours to
+         a handful a frame decides WHEN the crowd is itself, not how varied it is, and
+         counting under the ration would measure the ration. */
+      const keepBudget = CT_RAMP_LEFT; CT_RAMP_LEFT = Infinity;
+      for (let i = 0; i < BARK_DREW.length; i++) {
+        const d = BARK_DREW[i], q = d.p;
+        let dir = 'S'; try { dir = pplFace(q, d.at); } catch (e) {}
+        /* ONE BREATH PHASE FOR EVERYBODY, or breathing counts as variety and reads 38%
+           repeats where the truth is 74%. The flattering reading is the dangerous one. */
+        let s = null;
+        try {
+          const f2 = ctFactionOf(q), set = (f2 && CAST_FID[f2]) ? CAST_FID[f2] : (CAST_CV && CAST_CV[ctFitIndex(q)]);
+          const sd = set && (set[dir] || set.S);
+          s = sd ? sd.idle : ctBody(q, dir);
+        } catch (e) { try { s = ctBody(q, dir); } catch (e2) {} }
+        if (!s) continue;
+        o.drew++;
+        const kB = hashAt(s); o.before[kB] = (o.before[kB] || 0) + 1;
+        let s2 = s; try { s2 = ctRamped(s, q); } catch (e) {}
+        const kA = hashAt(s2); o.after[kA] = (o.after[kA] || 0) + 1;
+        /* SAME PERSON, SAME COLOURS, ASKED TWICE. "He does not change as you walk past"
+           is the claim the id key exists to make, so it gets measured, not asserted. */
+        let s3 = s; try { s3 = ctRamped(s, q); } catch (e) {}
+        if (s3 !== s2) o.unstable++;
+        if (s2 === s) continue;
+        /* AND THE LAW: how many of his saturated pixels moved. Zero is the only pass. */
+        const A = px(s), B2 = px(s2);
+        if (A.length !== B2.length) continue;
+        const KEEP = CT_RAMP.keep;
+        for (let k = 0; k < A.length; k += 4) {
+          if (!A[k + 3]) continue;
+          const Rr = A[k], G = A[k + 1], B3 = A[k + 2];
+          const mx = Rr > G ? (Rr > B3 ? Rr : B3) : (G > B3 ? G : B3);
+          if (!mx) continue;
+          const mn = Rr < G ? (Rr < B3 ? Rr : B3) : (G < B3 ? G : B3);
+          if ((mx - mn) / mx < KEEP) continue;
+          o.satPixels++;
+          if (A[k] !== B2[k] || A[k + 1] !== B2[k + 1] || A[k + 2] !== B2[k + 2]) o.satMoved++;
+        }
+      }
+      CT_RAMP_LEFT = keepBudget;
+      o.distinctBefore = Object.keys(o.before).length;
+      o.distinctAfter = Object.keys(o.after).length;
+      o.biggestBefore = Math.max(0, ...Object.values(o.before));
+      o.biggestAfter = Math.max(0, ...Object.values(o.after));
+      o.repeatAfter = +(1 - (o.distinctAfter / Math.max(1, o.drew))).toFixed(3);
+      delete o.before; delete o.after;
+      return o;
+    });
+
+    /* THE VACUOUS-PASS GUARD FIRST, because every number under it is meaningless without
+       a crowd and this lane has published an empty street as a green twice. */
+    ok('*** THE WALK FINDS A CROWD AT ALL *** -- every variety number below is meaningless '
+       + 'over an empty street (' + V.drew + ' bodies drawn)', V.drew >= 20);
+    ok('*** THE RAMP MOVES NONE OF HIS FACTION COLOURS *** -- COLOUR IS TERRITORY says the '
+       + 'saturated piece states who would defend you, and ctStepped already broke that '
+       + 'once with a step that looked safe (' + V.satMoved + ' moved of ' + V.satPixels
+       + ' saturated pixels on the crowd)',
+       V.satPixels > 0 && V.satMoved === 0);
+    ok('and the saturated band is skipped by a CONTINUE, so no ramp value can reach it',
+       /if\s*\(\s*sat\s*>=\s*CT_RAMP\.keep\s*\)\s*continue/.test(CITY_SRC));
+    ok('and nothing is ever scaled past its own clip point, so a hue cannot rotate in the '
+       + 'bands it DOES write either (the lesson ctStepped paid for on 9/12)',
+       /const k = k0 > 1 \? Math\.min\(k0, 255 \/ mx\) : k0/.test(CITY_SRC));
+    ok('and alpha is never written, so the silhouette cannot move by one pixel',
+       /function ctRamped[\s\S]*?if \(!d\[i \+ 3\]\) continue;/.test(CITY_SRC));
+    ok('*** AND THE CROWD IS ACTUALLY LESS OF A UNIFORM *** -- different pictures '
+       + V.distinctBefore + ' -> ' + V.distinctAfter + ' over ' + V.drew + ' bodies, '
+       + 'biggest group of identical people ' + V.biggestBefore + ' -> ' + V.biggestAfter,
+       V.distinctAfter > V.distinctBefore && V.biggestAfter <= V.biggestBefore);
+    /* A RATCHET, not a target. Measured 4% the round it shipped; this only stops it
+       creeping back toward the uniform it was built to end. */
+    ok('and the share of the crowd repeating somebody stays at or under 15% (measured '
+       + (V.repeatAfter * 100).toFixed(0) + '%)', V.repeatAfter <= 0.15);
+    ok('*** AND A MAN DOES NOT CHANGE COLOUR AS YOU WALK PAST HIM *** -- asked twice for '
+       + 'the same person and the same body, same answer (' + V.unstable + ' unstable)',
+       V.unstable === 0);
+    ok('and the recolour cache is capped and reset per frame, so a draw path cannot leak',
+       /CT_RAMP_CV\.size > CT_RAMP_MAX/.test(CITY_SRC)
+       && /CT_RAMP_LEFT = CT_RAMP_PER_FRAME/.test(CITY_SRC));
+  }
+
   await b2.close();
 
   done();

@@ -1,0 +1,42 @@
+HOW FAR IS THE NEXT PERSON?  CHARACTER lane, 9/15/26, VAMILY [six people]
+measured on the demo over http, 390x844 at DPR 3, walk mode, canon seed
+
+HE SAID HE DID NOT SEE A SINGLE HUMAN BEING. THE RENDERER IS NOT WHY.
+
+WHAT THE DRAW PASS ITSELF COUNTED (its own skips, not this tool's rectangle)
+  people it considered      71
+  skipped, on his own cell  0
+  skipped, cell taken       0
+  skipped, off the screen   69
+  skipped, no picture       0
+  DREW                      2
+
+SO EVERY SKIP BUT ONE IS ZERO. Nothing is stacking, nobody is missing a body,
+the cast is 12 bodies and all of them work. They are simply not here.
+
+HOW BIG HIS SCREEN IS, IN HOUSE-SIZED TILES (the unit the pass uses)
+  screen          8.6 x 18.5 tiles
+  the window      1536 x 1536 tiles holds 61 people
+  on his screen   1
+
+HOW FAR TO THE NEXT PERSON, IN TILES
+  nearest         2
+  second nearest  14
+  tenth nearest   240
+  median          479
+  people you can expect on one screen: 0.0041
+
+THE POPULATION DIAL IS AT 20 AND THIS IS NOT A CASE FOR TURNING IT UP.
+bohemia_population.js measured that sweep itself on 8/28 and wrote the answer
+into its own head: at the TOP of the slider, 23 of 32 walks still met nobody.
+Its words: "it is not a count, it is WHERE." Same finding, measured at the eye.
+
+NOT THIS LANE'S TO FIX. The population grid is WORLD / LIFE+CITY.
+CHARACTER measured it, is publishing the number, and changed nothing in it.
+What CHARACTER did change: the draw pass now counts its own skips, so the next
+empty street is a read instead of a round.
+
+AND THE RULER THIS LANE THREW AWAY GETTING HERE (the eighth):
+round 1 built its own screen rectangle and measured distance in OVERMAP cells
+while the pass measures in FINE cells, 128 to one. "0.1 cells away" was really
+12.8 tiles away, off the side of a screen 8.6 tiles wide. The cull was right.
