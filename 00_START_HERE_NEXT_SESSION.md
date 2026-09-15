@@ -1,3 +1,66 @@
+RUN (run-eak241): LATEST -- *** [step is a house] PART ONE SHIPPED a36b4222: FIVE
+TIMES THE STRIDE. AND THE MEASUREMENT KILLED THE ROW'S OWN NUMBERS. TAB: RUN.
+BUILD 9/15s. Nothing to judge. ***
+
+THE ROW SAYS MEASURE FIRST, AND TWO OF ITS THREE NUMBERS ARE WRONG.
+    a step      1 fine cell = 0.75 m = 0.084 min, drawn 18 px at walk zoom
+    a lot       the overmap cell, FN = 128 FINE CELLS = 96 METRES   (the row says 32)
+    a house     his own, 21 x 12 fine cells = 15.75 x 9 m, 378 x 216 px
+    HIS PHONE   390 px = 21.7 fine cells = 16.3 m = 1.03 HOUSES WIDE
+Nothing typed: FN and TW off the running game, 0.75 m a cell and 9 m a minute from
+the reach module that owns the speed, MIN_PER_CELL from the walked surface, the
+house from homeFind().
+
+SO RULE 16 CANNOT SHIP LITERALLY, TWO WAYS OVER.
+  THE BOARD'S READING -- "one step lands on the next lot" -- is a 96-METRE step,
+  which IS the city-mode step that already exists and already costs ten minutes. It
+  does not coarsen the street, it DELETES it: the walked view becomes the map view.
+  HIS OWN WORDS -- one step = one house = 21 cells -- is A WHOLE SCREEN PER BEAT,
+  two screens a second at 120 BPM, and he is the one who said readability is the
+  guide here.
+The law's own escape clause covers it: "a rebuild is refused unless the measurement
+says the lattice cannot coarsen". It cannot coarsen that far AT THIS ZOOM.
+
+SHIPPED: STEP_CELLS = 5, A QUARTER OF HIS OWN HOUSE, derived not picked (21 cells
+long, his phone holds 21.7). You cross your own frontage in four steps instead of
+twenty-one. ONE NUMBER IN ONE PLACE as the law demands twice, with the bike's 7/6
+ladder kept as a MULTIPLE of the walk rather than a second opinion about a step:
+per = (RIDING ? 4 : 1) * STEP_CELLS.
+
+THE CLOCK IS NEVER TYPED AND DID NOT DRIFT. Every cell still pays its own
+stepCost() into advance(). Ten seconds of holding one direction, on the glass:
+    before  ~19 cells   14.6 m
+    after   123 cells   92.3 m,  clock charged 9 min = 0.0732 a cell, between the
+                                 0.084 baseline and the 0.042 pavement rate
+SIX TIMES FASTER IN REAL TIME, IDENTICAL IN GAME TIME PER METRE -- his sentence,
+"it would make travel faster too, in multiples".
+
+THE ROW IS HELD OPEN ON PURPOSE (rule 6). NOT DONE: the BODIES (with CHARACTER -- a
+realistic 1.7 m body is 41 px at this zoom and growing it without the zoom makes a
+person taller than a doorway), the FIGHT BOARD (COMBAT's side; he entered a fight
+and the scale was not there), and the FULL HOUSE-SIZED STEP. This round's
+measurement makes [zoom meets] the thing that unlocks the rest of rule 16 rather
+than a separate nicety: once the screen holds four or five houses instead of one,
+the same single number goes to 21 and the bodies grow with it.
+
+TWO REDS THAT ARE MINE AND ARE **NOT** FROM THIS CHANGE, proved by turning the dial
+back to 1, re-cutting and re-running: IDENTICAL RESULTS both times.
+    ENEMIES EXIST    26/1  "walking at them puts bodies on the street -- 0 drawn"
+    ROAD INTERRUPTS  18/1  "the road card is not a lock" fails on chip=null, and
+                           the camera chip is the control UI deleted in [no tabs]
+                           on 9/13 -- a leg reading for something that no longer
+                           exists, the same family this lane has fixed five times
+FIRST MINUTE 7/2 is the one shipped knowingly last round with its reason written
+down: his block is sealed, and standing the player in the road to hide that is
+worse than showing it.
+
+STILL CLAIMED BEHIND THIS: [fast travel]. Its measurement stands further down --
+stepOnce already has a MODE==='city' branch, so travelling on the map is built and
+the job is four connections, not a movement system.
+
+RECORD: records/BOHEMIA_THE_SCREEN_IS_ONE_HOUSE_WIDE_9_15_26.md
+
+--------------------------------------------------------------------------------
 EYES AND EARS (eyes-5vql33): 9/15 (aj) LATEST -- *** E26 ROUND 7. SIX ROUNDS OF THE STRANGER'S LIST WERE WALKED ON A FILE NOBODY IS EVER SERVED, AND THAT IS MINE TO OWN. *** Record: records/BOHEMIA_EYES_E26_ROUND_7_I_WAS_WALKING_THE_WRONG_FILE_9_15_26.md. TAB: the fight, in the demo, about two minutes in. Shots in records/eyes_e26_walk_deploy/. THE STRANGER'S LIST is rewritten on the front page.
   THE SURFACE WAS WRONG. UI corrected its own claim (5bed08dd) and .github/workflows/pages.yml says it in a comment dated 8/26: the deploy runs tools/bohemia_cut_the_demo.js AS A BUILD STEP, so the demo at the one link is re-cut from the alpha on every push and what he taps is always the alpha's tip. Only the COMMITTED slices/BOHEMIA_DEMO.html lags -- and that is exactly the file every walk of mine opened. MEASURED, NOT TAKEN ON TRUST (rule 12): the cutter run in an ISOLATED GIT WORKTREE, so nothing of RUN's was touched and that was verified after, produced BUILD 9/15o at 5,227,003 bytes matching the alpha exactly, against the committed BUILD 9/15m at 5,224,906; the cutter's own --check calls the committed file 'NOT a cut of the current workshop', 2,097 bytes apart.
   CORRECTION ONE: A FIGHT IS REACHABLE IN ABOUT TWO MINUTES AND I PUT 'no fight surface in five minutes' ON HIS FRONT PAGE SIX TIMES. On the deploy cut the walk reaches a fight at about 02:05, on two walks, photographed in records/eyes_e26_walk_deploy/04_04_cards.png: a board, two figures, 'desperate scavenger shakedown', ENGAGE, a compass ring, RUN, GREN 2, RIFLE, 100/100. COMBAT's number was right and mine was wrong, and the reason was never the game, it was the file.
