@@ -2,91 +2,91 @@
   "ok": true,
   "which": "demo",
   "file": "BOHEMIA_DEMO.html",
-  "when": "2026-09-14T21:28:35.969Z",
+  "when": "2026-09-15T04:34:28.847Z",
   "law": "THE FIVE MINUTES (Paolo 9/13)",
   "lines": [
     {
       "at": "00:03",
       "did": "opened the link and waited",
-      "happened": "a front screen: \"POST-ECONOMIC APOCALYPSE - LAS VEGAS TAP TO ENTER DEMO - BUILD 9/13z - THEY ARE RUNNING, DO I CHASE\"",
+      "happened": "a front screen: \"POST-ECONOMIC APOCALYPSE - LAS VEGAS TAP TO ENTER DEMO - BUILD 9/14p - DEAD BUTTONS GONE\"",
       "promised": "TAP TO ENTER"
     },
     {
-      "at": "00:11",
+      "at": "00:08",
       "did": "tapped the front screen",
       "happened": "the screen changed",
       "promised": "that tapping enters the game"
     },
     {
-      "at": "00:26",
+      "at": "00:18",
       "did": "looked at the first screen without touching anything",
-      "happened": "23 things with words on them, big enough to tap: ⚙ / HUMAN MODE / SUBURB · ON FOOT / DAY 1 · 06:00 / MUSIC / SAVE / OUTFIT / ✕ / 06:00 · light until 22:00 / nobody has picked it up yet / Pays one battery / Make it a bag instead / Make it a favour instead / Half of it now, before I go / I'LL TAKE IT / GET UP / SLEEP / BIKE",
+      "happened": "22 things with words on them, big enough to tap: ⚙ / HUMAN MODE / SUBURB · ON FOOT / DAY 1 · 06:00 / MUSIC / SAVE / ✕ / 06:00 · light until 22:00 / nobody has picked it up yet / Pays one battery / Make it a bag instead / Make it a favour instead / Half of it now, before I go / I will go first, on something small / I'LL TAKE IT / GET UP / SLEEP / BIKE",
       "promised": ""
     },
     {
-      "at": "00:36",
+      "at": "00:27",
       "did": "tapped \"Make it a bag instead\" (the biggest thing on screen)",
-      "happened": "the screen changed",
+      "happened": "its own panel changed what it says",
       "promised": "Make it a bag instead"
     },
     {
-      "at": "00:46",
+      "at": "00:30",
       "did": "tapped \"GET UP\" (the only thing on the card that is not an offer)",
-      "happened": "the screen changed",
+      "happened": "THE PANEL VANISHED, which tells me nothing either way",
       "promised": "GET UP"
     },
     {
-      "at": "00:51",
+      "at": "00:35",
       "did": "held the walk dial down for two and a half seconds",
       "happened": "the world moved (8 arrows on the dial)",
       "promised": ""
     },
     {
-      "at": "01:33",
+      "at": "01:12",
       "did": "went looking for \"cbbuild\" on purpose",
       "happened": "it was NOT on screen on this route, and it is still built in slices/BOHEMIA_CITY_WORLD.html, so this walk says nothing about it",
       "promised": ""
     },
     {
-      "at": "01:34",
+      "at": "01:12",
       "did": "went looking for \"cbbig\" on purpose",
       "happened": "it was NOT on screen on this route, and it is still built in slices/BOHEMIA_CITY_WORLD.html, so this walk says nothing about it",
       "promised": ""
     },
     {
-      "at": "01:44",
+      "at": "01:20",
       "did": "tapped \"Half of it now, before I go\" (a card or offer)",
-      "happened": "NOTHING CHANGED",
+      "happened": "NOTHING CHANGED IN ITS PANEL",
       "promised": "Half of it now, before I go"
     },
     {
-      "at": "01:54",
+      "at": "01:28",
+      "did": "tapped \"I will go first, on something small\" (a card or offer)",
+      "happened": "NOTHING CHANGED IN ITS PANEL",
+      "promised": "I will go first, on something small"
+    },
+    {
+      "at": "01:35",
       "did": "tapped \"I'LL TAKE IT\" (a card or offer)",
-      "happened": "NOTHING CHANGED",
+      "happened": "NOTHING CHANGED IN ITS PANEL",
       "promised": "I'LL TAKE IT"
     },
     {
-      "at": "02:04",
-      "did": "tapped \"OUTFIT\" (the map or the zoom)",
-      "happened": "the screen changed",
-      "promised": "OUTFIT"
-    },
-    {
-      "at": "02:17",
+      "at": "01:46",
       "did": "tapped \"DAY 1 · 06:02\" (new on screen)",
-      "happened": "NOTHING CHANGED",
+      "happened": "NOTHING CHANGED IN ITS PANEL",
       "promised": "DAY 1 · 06:02"
     },
     {
-      "at": "02:26",
-      "did": "tapped \"TWO COINS FOR THE FERRYMAN\" (new on screen)",
-      "happened": "the screen changed",
-      "promised": "TWO COINS FOR THE FERRYMAN"
+      "at": "01:53",
+      "did": "tapped \"THE WIND LEARNS WORDS\" (new on screen)",
+      "happened": "its own panel changed what it says",
+      "promised": "THE WIND LEARNS WORDS"
     },
     {
-      "at": "02:36",
+      "at": "02:01",
       "did": "tapped \"headlights. nobody in it.\" (new on screen)",
-      "happened": "NOTHING CHANGED",
+      "happened": "NOTHING CHANGED IN ITS PANEL",
       "promised": "headlights. nobody in it."
     }
   ],
@@ -94,16 +94,6 @@
     {
       "kind": "console",
       "msg": "Potential permissions policy violation: clipboard-write is not allowed in this document."
-    },
-    {
-      "kind": "requestfailed",
-      "msg": "https://fonts.googleapis.com/css2?family=VT323&family=Space+Grotesk:wght@400;500;700&display=swap",
-      "from": "about:srcdoc",
-      "why": "net::ERR_CERT_AUTHORITY_INVALID"
-    },
-    {
-      "kind": "console",
-      "msg": "Failed to load resource: net::ERR_CERT_AUTHORITY_INVALID"
     },
     {
       "kind": "console",
@@ -132,9 +122,14 @@
       "detail": "verdict was \"did nothing\", with the world running"
     },
     {
+      "name": "A CLOSE IS NOT A WORKING BUTTON (rule 14h): a planted button that removes its own panel is called neither alive nor dead",
+      "pass": true,
+      "detail": "verdict was \"THE PANEL CLOSED, so this press proves nothing (rule 14h)\" -- exactly what 14(h) asks for"
+    },
+    {
       "name": "ALIVE READS ALIVE: a planted button that writes one word is called alive",
       "pass": true,
-      "detail": "verdict was \"did something\", off a single word"
+      "detail": "verdict was \"did something in its own panel\", off a single word"
     },
     {
       "name": "NO FALSE ZERO: every item an earlier round called dead was pressed on purpose",
@@ -144,50 +139,56 @@
     {
       "name": "THE WORLD MOVES ON ITS OWN: the null window is measured, not assumed",
       "pass": true,
-      "detail": "2 of 28 windows with no input at all still moved the screen. So equality was the wrong test and every earlier \"the tap worked\" on this game is unsafe."
+      "detail": "4 of 28 windows with no input at all still moved the screen. So equality was the wrong test and every earlier \"the tap worked\" on this game is unsafe."
     }
   ],
   "numbers": {
-    "time_until_something_is_tappable_s": 3.59,
-    "my_first_tap_at_s": 3.9,
+    "time_until_something_is_tappable_s": 3.28,
+    "my_first_tap_at_s": 3.52,
     "ledger_after_warmup": {
-      "words": 8,
-      "pixel_samples": 566
+      "words": 17,
+      "pixel_samples": 572
     },
-    "extra_walk_rounds": 54,
+    "extra_walk_rounds": 75,
     "time_to_first_fight_s": "NONE",
-    "walk_ended_at_s": 301.2,
-    "dead_affordances": 2,
+    "walk_ended_at_s": 301.4,
+    "dead_affordances": 3,
     "things_i_actually_pressed": 8,
-    "alive_on_one_press_only": 2,
-    "words_the_world_writes_by_itself": 8,
+    "alive_on_one_press_only": 1,
+    "closed_the_panel_so_proves_nothing": 1,
+    "words_the_world_writes_by_itself": 18,
     "named_items_pressed_on_purpose": 0,
     "named_items_not_reachable_on_this_route": 2,
     "named_items_removed_from_the_game": 0,
     "named_items_still_dead": 0,
     "tapped_and_inert_but_never_claimed_to_be_a_button": 2,
     "null_windows_measured": 28,
-    "null_windows_that_moved_on_their_own": 2,
+    "null_windows_that_moved_on_their_own": 4,
     "worst_null_window": {
-      "word_moves": 6,
+      "word_moves": 11,
       "words_that_moved": [
-        "THE",
+        "YOU",
+        "PHONE",
+        "IS",
+        "HOW",
+        "THEY",
+        "REACH",
         "STEP",
         "BACK",
         "AND",
         "SEE",
         "CITY"
       ],
-      "pixel_fraction": 0,
+      "pixel_fraction": 0.0131,
       "warmup": true
     },
     "page_errors": 0,
-    "console_errors": 3,
-    "failed_requests": 1
+    "console_errors": 2,
+    "failed_requests": 0
   },
   "dead": [
     {
-      "at": "01:44",
+      "at": "01:20",
       "text": "Half of it now, before I go",
       "id": "",
       "where": "frame",
@@ -197,19 +198,53 @@
       "novel_movement_either_time": "none",
       "evidence": [
         {
-          "novel_words": [],
+          "novel_words_anywhere": [],
           "novel_cells": 0,
-          "world_moved_in_the_null_window": 0
+          "world_moved_in_the_null_window": 0,
+          "panel": "#stage",
+          "panel_still_open": true,
+          "novel_words_inside_the_panel": []
         },
         {
-          "novel_words": [],
+          "novel_words_anywhere": [],
           "novel_cells": 0,
-          "world_moved_in_the_null_window": 0
+          "world_moved_in_the_null_window": 0,
+          "panel": "#stage",
+          "panel_still_open": true,
+          "novel_words_inside_the_panel": []
         }
       ]
     },
     {
-      "at": "01:54",
+      "at": "01:28",
+      "text": "I will go first, on something small",
+      "id": "",
+      "where": "frame",
+      "size": "320x44",
+      "looked_tappable_because": "a row inside the day card",
+      "pressed_twice": true,
+      "novel_movement_either_time": "none",
+      "evidence": [
+        {
+          "novel_words_anywhere": [],
+          "novel_cells": 0,
+          "world_moved_in_the_null_window": 0,
+          "panel": "#stage",
+          "panel_still_open": true,
+          "novel_words_inside_the_panel": []
+        },
+        {
+          "novel_words_anywhere": [],
+          "novel_cells": 0,
+          "world_moved_in_the_null_window": 0,
+          "panel": "#stage",
+          "panel_still_open": true,
+          "novel_words_inside_the_panel": []
+        }
+      ]
+    },
+    {
+      "at": "01:35",
       "text": "I'LL TAKE IT",
       "id": "",
       "where": "frame",
@@ -219,21 +254,27 @@
       "novel_movement_either_time": "none",
       "evidence": [
         {
-          "novel_words": [],
+          "novel_words_anywhere": [],
           "novel_cells": 0,
-          "world_moved_in_the_null_window": 0
+          "world_moved_in_the_null_window": 0,
+          "panel": "#stage",
+          "panel_still_open": true,
+          "novel_words_inside_the_panel": []
         },
         {
-          "novel_words": [],
+          "novel_words_anywhere": [],
           "novel_cells": 0,
-          "world_moved_in_the_null_window": 0
+          "world_moved_in_the_null_window": 0,
+          "panel": "#stage",
+          "panel_still_open": true,
+          "novel_words_inside_the_panel": []
         }
       ]
     }
   ],
   "inert": [
     {
-      "at": "02:17",
+      "at": "01:46",
       "text": "DAY 1 · 06:02",
       "id": "hclock",
       "where": "frame",
@@ -243,19 +284,25 @@
       "novel_movement_either_time": "none",
       "evidence": [
         {
-          "novel_words": [],
+          "novel_words_anywhere": [],
           "novel_cells": 0,
-          "world_moved_in_the_null_window": 0
+          "world_moved_in_the_null_window": 0,
+          "panel": "DIV.wrap",
+          "panel_still_open": true,
+          "novel_words_inside_the_panel": []
         },
         {
-          "novel_words": [],
+          "novel_words_anywhere": [],
           "novel_cells": 0,
-          "world_moved_in_the_null_window": 0
+          "world_moved_in_the_null_window": 0,
+          "panel": "DIV.wrap",
+          "panel_still_open": true,
+          "novel_words_inside_the_panel": []
         }
       ]
     },
     {
-      "at": "02:36",
+      "at": "02:01",
       "text": "headlights. nobody in it.",
       "id": "packline",
       "where": "frame",
@@ -265,14 +312,20 @@
       "novel_movement_either_time": "none",
       "evidence": [
         {
-          "novel_words": [],
+          "novel_words_anywhere": [],
           "novel_cells": 0,
-          "world_moved_in_the_null_window": 0
+          "world_moved_in_the_null_window": 0,
+          "panel": "#stage",
+          "panel_still_open": true,
+          "novel_words_inside_the_panel": []
         },
         {
-          "novel_words": [],
+          "novel_words_anywhere": [],
           "novel_cells": 0,
-          "world_moved_in_the_null_window": 0
+          "world_moved_in_the_null_window": 0,
+          "panel": "#stage",
+          "panel_still_open": true,
+          "novel_words_inside_the_panel": []
         }
       ]
     }
@@ -282,11 +335,25 @@
       "text": "Make it a bag instead",
       "id": "",
       "where": "frame",
-      "verdict": "did something",
+      "verdict": "did something in its own panel",
       "presses_with_novel_movement": 2,
       "evidence": [
         {
-          "novel_words": [
+          "novel_words_anywhere": [
+            "Pays",
+            "one",
+            "HERE",
+            "STAND",
+            "One",
+            "Fine.",
+            "A",
+            "bag,"
+          ],
+          "novel_cells": 0,
+          "world_moved_in_the_null_window": 0,
+          "panel": "#daycardIn",
+          "panel_still_open": true,
+          "novel_words_inside_the_panel": [
             "Pays",
             "one",
             "One",
@@ -294,23 +361,33 @@
             "A",
             "bag,",
             "then"
-          ],
-          "novel_cells": 1,
-          "world_moved_in_the_null_window": 0
+          ]
         },
         {
-          "novel_words": [
+          "novel_words_anywhere": [
             "and",
             "back",
             "bag,",
-            "block.",
+            "IT",
+            "GET",
+            "UP",
+            "SLEEP",
+            "BIKE"
+          ],
+          "novel_cells": 0,
+          "world_moved_in_the_null_window": 0,
+          "panel": "#daycardIn",
+          "panel_still_open": true,
+          "novel_words_inside_the_panel": [
+            "and",
+            "back",
+            "bag,",
             "Ask",
             "again",
             "they",
-            "take"
-          ],
-          "novel_cells": 2,
-          "world_moved_in_the_null_window": 0
+            "take",
+            "the"
+          ]
         }
       ]
     },
@@ -318,11 +395,11 @@
       "text": "GET UP",
       "id": "",
       "where": "frame",
-      "verdict": "did something",
-      "presses_with_novel_movement": 1,
+      "verdict": "THE PANEL CLOSED, so this press proves nothing (rule 14h)",
+      "presses_with_novel_movement": 0,
       "evidence": [
         {
-          "novel_words": [
+          "novel_words_anywhere": [
             "TO",
             "1",
             "on",
@@ -332,13 +409,20 @@
             "until",
             "22:00"
           ],
-          "novel_cells": 1,
-          "world_moved_in_the_null_window": 0
-        },
-        {
-          "novel_words": [],
           "novel_cells": 0,
-          "world_moved_in_the_null_window": 0
+          "world_moved_in_the_null_window": 0,
+          "panel": "#daycardIn",
+          "panel_still_open": false,
+          "novel_words_inside_the_panel": [
+            "✕",
+            "DAY",
+            "1",
+            "06:00",
+            "22:00",
+            "Something",
+            "overnight.",
+            "THE"
+          ]
         }
       ]
     },
@@ -350,14 +434,45 @@
       "presses_with_novel_movement": 0,
       "evidence": [
         {
-          "novel_words": [],
+          "novel_words_anywhere": [],
           "novel_cells": 0,
-          "world_moved_in_the_null_window": 0
+          "world_moved_in_the_null_window": 0,
+          "panel": "#stage",
+          "panel_still_open": true,
+          "novel_words_inside_the_panel": []
         },
         {
-          "novel_words": [],
+          "novel_words_anywhere": [],
           "novel_cells": 0,
-          "world_moved_in_the_null_window": 0
+          "world_moved_in_the_null_window": 0,
+          "panel": "#stage",
+          "panel_still_open": true,
+          "novel_words_inside_the_panel": []
+        }
+      ]
+    },
+    {
+      "text": "I will go first, on something small",
+      "id": "",
+      "where": "frame",
+      "verdict": "did nothing",
+      "presses_with_novel_movement": 0,
+      "evidence": [
+        {
+          "novel_words_anywhere": [],
+          "novel_cells": 0,
+          "world_moved_in_the_null_window": 0,
+          "panel": "#stage",
+          "panel_still_open": true,
+          "novel_words_inside_the_panel": []
+        },
+        {
+          "novel_words_anywhere": [],
+          "novel_cells": 0,
+          "world_moved_in_the_null_window": 0,
+          "panel": "#stage",
+          "panel_still_open": true,
+          "novel_words_inside_the_panel": []
         }
       ]
     },
@@ -369,51 +484,20 @@
       "presses_with_novel_movement": 0,
       "evidence": [
         {
-          "novel_words": [],
+          "novel_words_anywhere": [],
           "novel_cells": 0,
-          "world_moved_in_the_null_window": 0
+          "world_moved_in_the_null_window": 0,
+          "panel": "#stage",
+          "panel_still_open": true,
+          "novel_words_inside_the_panel": []
         },
         {
-          "novel_words": [],
+          "novel_words_anywhere": [],
           "novel_cells": 0,
-          "world_moved_in_the_null_window": 0
-        }
-      ]
-    },
-    {
-      "text": "OUTFIT",
-      "id": "outfitbtn",
-      "where": "frame",
-      "verdict": "did something",
-      "presses_with_novel_movement": 2,
-      "evidence": [
-        {
-          "novel_words": [
-            "TO",
-            "YOU",
-            "you",
-            "at",
-            "ON",
-            "FOR",
-            "OUTFIT",
-            "in"
-          ],
-          "novel_cells": 0,
-          "world_moved_in_the_null_window": 0
-        },
-        {
-          "novel_words": [
-            "TO",
-            "YOU",
-            "you",
-            "at",
-            "ON",
-            "FOR",
-            "OUTFIT",
-            "in"
-          ],
-          "novel_cells": 0,
-          "world_moved_in_the_null_window": 0
+          "world_moved_in_the_null_window": 0,
+          "panel": "#stage",
+          "panel_still_open": true,
+          "novel_words_inside_the_panel": []
         }
       ]
     },
@@ -425,39 +509,55 @@
       "presses_with_novel_movement": 0,
       "evidence": [
         {
-          "novel_words": [],
+          "novel_words_anywhere": [],
           "novel_cells": 0,
-          "world_moved_in_the_null_window": 0
+          "world_moved_in_the_null_window": 0,
+          "panel": "DIV.wrap",
+          "panel_still_open": true,
+          "novel_words_inside_the_panel": []
         },
         {
-          "novel_words": [],
+          "novel_words_anywhere": [],
           "novel_cells": 0,
-          "world_moved_in_the_null_window": 0
+          "world_moved_in_the_null_window": 0,
+          "panel": "DIV.wrap",
+          "panel_still_open": true,
+          "novel_words_inside_the_panel": []
         }
       ]
     },
     {
-      "text": "TWO COINS FOR THE FERRYMAN",
+      "text": "THE WIND LEARNS WORDS",
       "id": "musbtn",
       "where": "frame",
-      "verdict": "did something",
+      "verdict": "did something in its own panel",
       "presses_with_novel_movement": 1,
       "evidence": [
         {
-          "novel_words": [
-            "TWO",
-            "COINS",
-            "FOR",
-            "FERRYMAN",
+          "novel_words_anywhere": [
+            "WIND",
+            "LEARNS",
+            "WORDS",
             "MUSIC"
           ],
           "novel_cells": 0,
-          "world_moved_in_the_null_window": 0
+          "world_moved_in_the_null_window": 0,
+          "panel": "DIV.wrap",
+          "panel_still_open": true,
+          "novel_words_inside_the_panel": [
+            "WIND",
+            "LEARNS",
+            "WORDS",
+            "MUSIC"
+          ]
         },
         {
-          "novel_words": [],
+          "novel_words_anywhere": [],
           "novel_cells": 0,
-          "world_moved_in_the_null_window": 0
+          "world_moved_in_the_null_window": 0,
+          "panel": "DIV.wrap",
+          "panel_still_open": true,
+          "novel_words_inside_the_panel": []
         }
       ]
     },
@@ -469,14 +569,20 @@
       "presses_with_novel_movement": 0,
       "evidence": [
         {
-          "novel_words": [],
+          "novel_words_anywhere": [],
           "novel_cells": 0,
-          "world_moved_in_the_null_window": 0
+          "world_moved_in_the_null_window": 0,
+          "panel": "#stage",
+          "panel_still_open": true,
+          "novel_words_inside_the_panel": []
         },
         {
-          "novel_words": [],
+          "novel_words_anywhere": [],
           "novel_cells": 0,
-          "world_moved_in_the_null_window": 0
+          "world_moved_in_the_null_window": 0,
+          "panel": "#stage",
+          "panel_still_open": true,
+          "novel_words_inside_the_panel": []
         }
       ]
     }
@@ -495,23 +601,23 @@
     {
       "word_moves": 0,
       "words_that_moved": [],
-      "pixel_fraction": 0
+      "pixel_fraction": 0.0004
     },
     {
       "word_moves": 0,
       "words_that_moved": [],
-      "pixel_fraction": 0.0003
-    },
-    {
-      "word_moves": 0,
-      "words_that_moved": [],
-      "pixel_fraction": 0.0092,
+      "pixel_fraction": 0.0089,
       "warmup": true
     },
     {
-      "word_moves": 0,
-      "words_that_moved": [],
-      "pixel_fraction": 0.0108,
+      "word_moves": 4,
+      "words_that_moved": [
+        "headlights.",
+        "nobody",
+        "in",
+        "it."
+      ],
+      "pixel_fraction": 0.0104,
       "warmup": true
     },
     {
@@ -520,13 +626,31 @@
         "06:01",
         "06:02"
       ],
-      "pixel_fraction": 0.0133,
+      "pixel_fraction": 0.011,
+      "warmup": true
+    },
+    {
+      "word_moves": 11,
+      "words_that_moved": [
+        "YOU",
+        "PHONE",
+        "IS",
+        "HOW",
+        "THEY",
+        "REACH",
+        "STEP",
+        "BACK",
+        "AND",
+        "SEE",
+        "CITY"
+      ],
+      "pixel_fraction": 0.0131,
       "warmup": true
     },
     {
       "word_moves": 0,
       "words_that_moved": [],
-      "pixel_fraction": 0.0126,
+      "pixel_fraction": 0.0118,
       "warmup": true
     },
     {
@@ -546,6 +670,11 @@
       "words_that_moved": [],
       "pixel_fraction": 0,
       "warmup": true
+    },
+    {
+      "word_moves": 0,
+      "words_that_moved": [],
+      "pixel_fraction": 0
     },
     {
       "word_moves": 6,
@@ -557,12 +686,6 @@
         "SEE",
         "CITY"
       ],
-      "pixel_fraction": 0,
-      "warmup": true
-    },
-    {
-      "word_moves": 0,
-      "words_that_moved": [],
       "pixel_fraction": 0
     },
     {
@@ -658,12 +781,19 @@
   "undecided": [],
   "alive_on_one_press_only": [
     {
-      "text": "GET UP",
-      "id": ""
-    },
-    {
-      "text": "TWO COINS FOR THE FERRYMAN",
+      "text": "THE WIND LEARNS WORDS",
       "id": "musbtn"
+    }
+  ],
+  "closed_on_tap": [
+    {
+      "at": "00:30",
+      "text": "GET UP",
+      "id": "",
+      "where": "frame",
+      "size": "68x44",
+      "panel": "#daycardIn",
+      "why": "the panel it lives in closed, and a card closes on any tap it does not recognise"
     }
   ],
   "shots": [
@@ -713,7 +843,7 @@
       "looks_tappable_because": "",
       "w": 54,
       "h": 12,
-      "x": 196,
+      "x": 213,
       "y": 12
     },
     {
@@ -723,7 +853,7 @@
       "looks_tappable_because": "",
       "w": 27,
       "h": 12,
-      "x": 272,
+      "x": 308,
       "y": 11
     },
     {
@@ -733,17 +863,7 @@
       "looks_tappable_because": "",
       "w": 24,
       "h": 12,
-      "x": 303,
-      "y": 11
-    },
-    {
-      "where": "frame",
-      "id": "outfitbtn",
-      "text": "OUTFIT",
-      "looks_tappable_because": "",
-      "w": 30,
-      "h": 12,
-      "x": 367,
+      "x": 338,
       "y": 11
     },
     {
@@ -754,7 +874,7 @@
       "w": 44,
       "h": 44,
       "x": 342,
-      "y": 218
+      "y": 156
     },
     {
       "where": "frame",
@@ -764,7 +884,7 @@
       "w": 320,
       "h": 15,
       "x": 195,
-      "y": 237
+      "y": 175
     },
     {
       "where": "frame",
@@ -774,7 +894,7 @@
       "w": 320,
       "h": 15,
       "x": 195,
-      "y": 314
+      "y": 252
     },
     {
       "where": "frame",
@@ -784,7 +904,7 @@
       "w": 320,
       "h": 15,
       "x": 195,
-      "y": 380
+      "y": 318
     },
     {
       "where": "frame",
@@ -794,7 +914,7 @@
       "w": 320,
       "h": 44,
       "x": 195,
-      "y": 420
+      "y": 358
     },
     {
       "where": "frame",
@@ -804,7 +924,7 @@
       "w": 320,
       "h": 44,
       "x": 195,
-      "y": 473
+      "y": 411
     },
     {
       "where": "frame",
@@ -814,7 +934,17 @@
       "w": 320,
       "h": 44,
       "x": 195,
-      "y": 526
+      "y": 464
+    },
+    {
+      "where": "frame",
+      "id": "",
+      "text": "I will go first, on something small",
+      "looks_tappable_because": "a row inside the day card",
+      "w": 320,
+      "h": 44,
+      "x": 195,
+      "y": 588
     },
     {
       "where": "frame",
@@ -824,7 +954,7 @@
       "w": 320,
       "h": 44,
       "x": 195,
-      "y": 579
+      "y": 641
     },
     {
       "where": "frame",
@@ -834,7 +964,7 @@
       "w": 68,
       "h": 44,
       "x": 69,
-      "y": 637
+      "y": 699
     },
     {
       "where": "frame",
@@ -858,23 +988,13 @@
     },
     {
       "where": "frame",
-      "id": "mktbtn",
-      "text": "MARKET",
-      "looks_tappable_because": "a chip in the top bar",
-      "w": 44,
-      "h": 44,
-      "x": 35,
-      "y": 659
-    },
-    {
-      "where": "frame",
       "id": "workbtn",
       "text": "SCAVENGE · 8H",
       "looks_tappable_because": "pointer cursor",
       "w": 54,
       "h": 44,
       "x": 40,
-      "y": 585
+      "y": 659
     },
     {
       "where": "frame",
@@ -884,7 +1004,7 @@
       "w": 44,
       "h": 44,
       "x": 35,
-      "y": 511
+      "y": 585
     },
     {
       "where": "frame",
@@ -894,7 +1014,7 @@
       "w": 44,
       "h": 44,
       "x": 35,
-      "y": 437
+      "y": 511
     },
     {
       "where": "frame",
@@ -904,7 +1024,7 @@
       "w": 88,
       "h": 44,
       "x": 57,
-      "y": 363
+      "y": 437
     }
   ]
 }

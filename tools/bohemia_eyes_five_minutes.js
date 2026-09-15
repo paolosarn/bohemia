@@ -88,7 +88,7 @@ const SOURCE = (() => {
                    world did with nobody touching it, which is the only reason a verdict here
                    can be attributed to a finger at all. */
                 pressed: [], null_windows: [], named: [], undecided: [],
-                alive_on_one_press_only: [] };
+                alive_on_one_press_only: [], closed_on_tap: [] };
   const err = [];
   page.on('pageerror', e => err.push({ t: null, kind: 'pageerror', msg: String(e.message).slice(0, 220) }));
   page.on('console', m => { if (m.type() === 'error') err.push({ kind: 'console', msg: m.text().slice(0, 220) }); });
@@ -328,6 +328,74 @@ const SOURCE = (() => {
         + controls.map(c => c.text).slice(0, 18).join(' / '),
       promised: '' });
 
+    /* WHAT PANEL IS THIS CONTROL IN, AND WHAT DOES THAT PANEL SAY (9/15, RULE 14(h)).
+       The rule landed on the front page after my last push and it lands on this instrument:
+       "IN THIS GAME A DEAD BUTTON IS INDISTINGUISHABLE FROM A CLOSE BUTTON, because a card
+       closes on any tap it does not recognise and a screen diff reads the vanished card as
+       life. Any 'does this control work' check must require THE PANEL TO STILL BE OPEN and its
+       words to have moved, or it measures nothing."
+       My noise ledger fixed FALSE DEATH -- the world repainting and getting credited to a
+       finger. It does NOTHING about FALSE LIFE, because a card vanishing is novel movement by
+       any measure. Both halves are needed, so this reads the panel the control lives in:
+       the nearest ancestor that behaves like a card (several children, real size, a known
+       card id), and that panel's OWN words, so a change somewhere else on screen cannot be
+       credited to this control either. */
+    const panelAt = async (x, y) => page.evaluate(({ x, y }) => {
+      const cardish = (e) => {
+        if (!e || !e.getBoundingClientRect) return false;
+        if (/^(daycard|offers|cbox|card|panel|sheet|modal)/i.test(e.id || '')) return true;
+        if (/(daycard|offer|card|panel|sheet|modal)/i.test(e.className || '')) return true;
+        const r = e.getBoundingClientRect();
+        return r.width >= 180 && r.height >= 60 && e.children.length >= 2;
+      };
+      const read = (doc, ox, oy) => {
+        const el = doc.elementFromPoint(x - ox, y - oy);
+        if (!el) return null;
+        let n = el, found = null;
+        for (let i = 0; i < 8 && n; i++) { if (cardish(n)) { found = n; break; } n = n.parentElement; }
+        const target = found || el;
+        const r = target.getBoundingClientRect();
+        return { id: target.id || '', tag: target.tagName,
+                 path: (target.id ? '#' + target.id : target.tagName)
+                       + (target.className ? '.' + String(target.className).split(' ')[0] : ''),
+                 w: Math.round(r.width), h: Math.round(r.height),
+                 open: r.width > 0 && r.height > 0,
+                 words: (target.innerText || '').replace(/\s+/g, ' ').trim().split(' ').filter(Boolean) };
+      };
+      const direct = read(document, 0, 0);
+      /* the element at that point may be an iframe; then the real panel is inside it */
+      const hit = document.elementFromPoint(x, y);
+      if (hit && hit.tagName === 'IFRAME') {
+        try {
+          const o = hit.getBoundingClientRect();
+          const inner = read(hit.contentDocument, o.x, o.y);
+          if (inner) return inner;
+        } catch (e) {}
+      }
+      return direct;
+    }, { x, y });
+
+    /* IS THAT SAME PANEL STILL THERE, AND WHAT DOES IT SAY NOW. Asked by the path it was
+       found under, not by looking at that screen point again -- a closed card would hand back
+       whatever is underneath it and that would read as "still open". */
+    const panelNow = async (path) => page.evaluate((path) => {
+      const look = (doc) => {
+        let el = null;
+        try { el = doc.querySelector(path); } catch (e) { return null; }
+        if (!el) return null;
+        const r = el.getBoundingClientRect();
+        const cs = doc.defaultView.getComputedStyle(el);
+        return { open: r.width > 0 && r.height > 0 && cs.display !== 'none' && cs.visibility !== 'hidden',
+                 words: (el.innerText || '').replace(/\s+/g, ' ').trim().split(' ').filter(Boolean) };
+      };
+      const a = look(document);
+      if (a) return a;
+      for (const f of document.querySelectorAll('iframe')) {
+        try { if (f.contentDocument) { const b = look(f.contentDocument); if (b) return b; } } catch (e) {}
+      }
+      return { open: false, words: [] };
+    }, path);
+
     /* ---- THE FIXED TAP SCRIPT ------------------------------------------- */
     const tapAndWatch = async (c, why) => {
       /* NULL WINDOW, TAP, NULL WINDOW, TAP -- AND THE VERDICT HAS TO SURVIVE BOTH (9/14).
@@ -343,7 +411,7 @@ const SOURCE = (() => {
          time, UNDECIDED if once. Undecided is not dead and it is never counted as dead -- a
          one-shot control (a card that closes) is genuinely undecidable this way and saying so
          is the honest answer. */
-      const beats = [], evidence = [];
+      const beats = [], evidence = [], closedOn = [];
       let landed = 'the tap was refused (not visible to a finger)';
       let bs = null, as = null, tapMove = null, nullMove = null;
       for (let attempt = 0; attempt < 2; attempt++) {
@@ -356,16 +424,47 @@ const SOURCE = (() => {
                                 pixel_fraction: nullMove.pixel_fraction });
         learn(nullMove);                       /* the world teaches the ledger, always */
         bs = n1;
+        /* the panel as it stands the instant before the finger lands */
+        const before = await panelAt(c.x, c.y);
         try { await page.mouse.click(c.x, c.y, { delay: 40 }); landed = null; } catch (e) { break; }
         await sleep(1200);
         as = await sig();
         tapMove = dist(bs, as);
         const nv = novel(tapMove);
-        evidence.push({ novel_words: nv.words.slice(0, 8), novel_cells: nv.cells,
-                        world_moved_in_the_null_window: nullMove.word_moves });
-        /* NOVEL means never seen moving with nobody touching it. One word is enough, because
-           one word is exactly what a real control changed in the planted live test. */
-        beats.push(nv.words.length > 0 || nv.cells > 20);
+        const after = before && before.path ? await panelNow(before.path) : { open: false, words: [] };
+        /* THE TWO TESTS RULE 14(h) ASKS FOR, AND THEY ARE SEPARATE ANSWERS.
+           still_open: the panel that held the control is still on screen. If it is not, this
+             press proves NOTHING -- a card that closes on a tap it does not recognise looks
+             exactly like one that did the thing.
+           panel_words_moved: the words INSIDE that panel changed, and at least one of them has
+             never been seen moving with nobody touching the screen. */
+        const stillOpen = !!(before && before.open && after.open);
+        const bw = new Map(), aw = new Map();
+        for (const w of (before && before.words) || []) bw.set(w, (bw.get(w) || 0) + 1);
+        for (const w of after.words || []) aw.set(w, (aw.get(w) || 0) + 1);
+        const movedInPanel = [];
+        for (const [w, n] of bw) if ((aw.get(w) || 0) !== n) movedInPanel.push(w);
+        for (const [w] of aw) if (!bw.has(w)) movedInPanel.push(w);
+        const novelInPanel = movedInPanel.filter(w => !noiseWords.has(w));
+        evidence.push({ novel_words_anywhere: nv.words.slice(0, 8), novel_cells: nv.cells,
+                        world_moved_in_the_null_window: nullMove.word_moves,
+                        panel: (before && before.path) || 'none found',
+                        panel_still_open: stillOpen,
+                        novel_words_inside_the_panel: novelInPanel.slice(0, 8) });
+        /* RULE 14(h): the panel has to still be open AND its own words have to have moved,
+           and the ledger says the movement has to be movement the world does not do by
+           itself. Anything less is not evidence that the control works. */
+        beats.push(stillOpen && novelInPanel.length > 0);
+        if (!stillOpen) {
+          /* AND THE SECOND PRESS MUST NOT HAPPEN. This is the hole the 14(h) control caught on
+             its first run, and it caught it because a planted close-button read "did nothing":
+             once the panel is gone, the same screen point belongs to WHATEVER IS UNDERNEATH,
+             so press two measures a different element entirely and then agrees it did nothing.
+             Two presses of two different things is not two presses. One press that closed the
+             panel already tells me this press proves nothing, so stop there and say so. */
+          closedOn.push((before && before.path) || 'unknown');
+          break;
+        }
       }
       if (landed === null) {
         const hits = beats.filter(Boolean).length;
@@ -374,13 +473,26 @@ const SOURCE = (() => {
            TWO presses with nothing novel at all is dead. The 1-of-2 count is reported, so the
            weaker evidence is visible instead of hidden inside the word "dead". */
         const changed = hits > 0;
+        /* A PRESS THAT CLOSED THE PANEL PROVES NOTHING EITHER WAY, and calling it dead would be
+           as wrong as calling it alive. It gets its own word. */
+        const allClosed = closedOn.length > 0 && !changed;
         if (hits === 1) out.alive_on_one_press_only.push({ text: c.text, id: c.id || '' });
         out.pressed.push({ text: c.text, id: c.id || '', where: c.where,
-                           verdict: changed ? 'did something' : 'did nothing',
+                           verdict: changed ? 'did something in its own panel'
+                                  : allClosed ? 'THE PANEL CLOSED, so this press proves nothing (rule 14h)'
+                                  : 'did nothing',
                            presses_with_novel_movement: hits, evidence: evidence });
         line(as.now, 'tapped ' + JSON.stringify(c.text) + (why ? ' (' + why + ')' : ''),
-             changed ? 'the screen changed' : 'NOTHING CHANGED',
+             changed ? 'its own panel changed what it says'
+                     : allClosed ? 'THE PANEL VANISHED, which tells me nothing either way'
+                     : 'NOTHING CHANGED IN ITS PANEL',
              c.text);
+        if (allClosed) {
+          out.closed_on_tap.push({ at: stamp(as.now), text: c.text, id: c.id, where: c.where,
+                                   size: c.w + 'x' + c.h, panel: closedOn[0],
+                                   why: 'the panel it lives in closed, and a card closes on any tap it does not recognise' });
+          return false;
+        }
         if (!changed) {
           const row = { at: stamp(as.now), text: c.text, id: c.id, where: c.where,
                         size: c.w + 'x' + c.h, looked_tappable_because: c.looks_tappable_because || 'nothing said so',
@@ -502,26 +614,40 @@ const SOURCE = (() => {
        real page: one with no handler at all, one that writes a word. The dead one must come
        back dead and the live one must come back alive. If either control fails, the numbers
        below describe nothing and the run says so. */
+    /* THREE PLANTED CONTROLS NOW, EACH IN ITS OWN PANEL, because rule 14(h) added a third
+       thing that can happen. Each button sits inside a real panel with words of its own, so
+       the panel test has something to read:
+         DEAD   no handler at all                      -> must read "did nothing"
+         LIVE   changes a word INSIDE its own panel     -> must read "did something"
+         CLOSE  removes its own panel                   -> must read "THE PANEL CLOSED", and it
+                is the whole point of 14(h) that this must never read as working. */
     await page.evaluate(() => {
-      const mk = (id, label, live) => {
+      const mk = (pid, bid, label, kind, bottom) => {
+        const panel = document.createElement('div');
+        panel.id = pid;
+        panel.style.cssText = 'position:fixed;left:8px;bottom:' + bottom +
+          'px;z-index:2147483647;background:#111;color:#fff;padding:8px;width:260px';
+        const words = document.createElement('div');
+        words.id = pid + '_words';
+        words.textContent = 'EYESPANELSAYS NOTHINGYET';
         const b = document.createElement('button');
-        b.id = id; b.textContent = label;
-        b.style.cssText = 'position:fixed;left:8px;bottom:' + (live ? 8 : 52) +
-          'px;z-index:2147483647;padding:10px 14px;font-size:14px';
-        if (live) b.addEventListener('click', () => {
-          const s = document.createElement('span');
-          s.id = '__eyes_live_said'; s.textContent = ' __EYES_LIVE_BUTTON_SPOKE__ ';
-          document.body.appendChild(s);
+        b.id = bid; b.textContent = label;
+        b.style.cssText = 'padding:10px 14px;font-size:14px';
+        if (kind === 'live') b.addEventListener('click', () => {
+          words.textContent = 'EYESPANELSAYS ' + ('EYESWORD' + Math.random().toString(36).slice(2, 8)).toUpperCase();
         });
-        document.body.appendChild(b);
+        if (kind === 'close') b.addEventListener('click', () => { panel.remove(); });
+        panel.appendChild(words); panel.appendChild(b);
+        document.body.appendChild(panel);
       };
-      mk('__eyes_dead_btn', 'EYESDEADCONTROL', false);
-      mk('__eyes_live_btn', 'EYESLIVECONTROL', true);
+      mk('__eyes_panel_dead',  '__eyes_dead_btn',  'EYESDEADCONTROL',  'dead',  150);
+      mk('__eyes_panel_live',  '__eyes_live_btn',  'EYESLIVECONTROL',  'live',  240);
+      mk('__eyes_panel_close', '__eyes_close_btn', 'EYESCLOSECONTROL', 'close', 330);
     });
     const ctlBox = await page.evaluate(() => {
       const one = (id) => { const e = document.getElementById(id); const r = e.getBoundingClientRect();
         return { x: r.x + r.width / 2, y: r.y + r.height / 2, w: Math.round(r.width), h: Math.round(r.height) }; };
-      return { dead: one('__eyes_dead_btn'), live: one('__eyes_live_btn') };
+      return { dead: one('__eyes_dead_btn'), live: one('__eyes_live_btn'), close: one('__eyes_close_btn') };
     });
     /* the verdict is THREE ways now, so a control has to read the verdict and not a boolean:
        an UNDECIDED returns false from tapAndWatch and must never be scored as "called dead". */
@@ -534,8 +660,13 @@ const SOURCE = (() => {
       id: '__eyes_live_btn', where: 'a planted control', looks_tappable_because: 'a planted control' },
       'CONTROL: a button that writes one word');
     const liveVerdict = verdictOf();
+    await tapAndWatch({ ...ctlBox.close, text: 'EYESCLOSECONTROL',
+      id: '__eyes_close_btn', where: 'a planted control', looks_tappable_because: 'a planted control' },
+      'CONTROL: a button that closes its own panel');
+    const closeVerdict = verdictOf();
     const deadSaysDead = deadVerdict === 'did nothing';
-    const liveSaysAlive = liveVerdict === 'did something';
+    const liveSaysAlive = liveVerdict === 'did something in its own panel';
+    const closeSaysClosed = /THE PANEL CLOSED/.test(closeVerdict);
     /* TAKE THE CONTROLS ALL THE WAY OUT. getElementById returns the FIRST match, and the
        paired press appends the live control's span twice, so the old cleanup left one behind --
        the wandering loop then found "__EYES_LIVE_BUTTON_SPOKE__" and put my own scaffolding in
@@ -547,14 +678,24 @@ const SOURCE = (() => {
     out.dead = out.dead.filter(d => !/^__eyes_/.test(d.id || ''));
     out.inert = out.inert.filter(d => !/^__eyes_/.test(d.id || ''));
     out.undecided = out.undecided.filter(d => !/^__eyes_/.test(d.id || ''));
-    out.lines = out.lines.filter(l => !/EYESDEADCONTROL|EYESLIVECONTROL|EYES_LIVE_BUTTON_SPOKE/.test(l.did || ''));
-    out.pressed = out.pressed.filter(d => !/^__eyes_/.test(d.id || '') && !/__EYES_/.test(d.text || ''));
-    out.inert = out.inert.filter(d => !/__EYES_/.test(d.text || ''));
-    out.dead = out.dead.filter(d => !/__EYES_/.test(d.text || ''));
+    out.closed_on_tap = out.closed_on_tap.filter(d => !/^__eyes_/.test(d.id || ''));
+    out.lines = out.lines.filter(l => !/EYESDEADCONTROL|EYESLIVECONTROL|EYESCLOSECONTROL|EYESPANELSAYS|EYESWORD/.test(l.did || ''));
+    const mine = (d) => /^__eyes_/.test(d.id || '') || /EYES(DEAD|LIVE|CLOSE)CONTROL|EYESPANELSAYS|EYESWORD/.test(d.text || '');
+    out.pressed = out.pressed.filter(d => !mine(d));
+    out.inert = out.inert.filter(d => !mine(d));
+    out.dead = out.dead.filter(d => !mine(d));
+    out.closed_on_tap = out.closed_on_tap.filter(d => !mine(d));
     out.controls.push({ name: 'DEAD READS DEAD: a planted button with no handler is called dead',
                         pass: deadSaysDead,
                         detail: 'verdict was "' + deadVerdict + '"' + (deadSaysDead ? ', with the world running'
                           : ' -- anything but "did nothing" means the world is being read as the finger') });
+    out.controls.push({ name: 'A CLOSE IS NOT A WORKING BUTTON (rule 14h): a planted button that '
+                          + 'removes its own panel is called neither alive nor dead',
+                        pass: closeSaysClosed,
+                        detail: 'verdict was "' + closeVerdict + '"' + (closeSaysClosed
+                          ? ' -- exactly what 14(h) asks for'
+                          : ' -- a card that closes is being scored, and in this game that is the '
+                            + 'commonest way a dead button looks alive') });
     out.controls.push({ name: 'ALIVE READS ALIVE: a planted button that writes one word is called alive',
                         pass: liveSaysAlive,
                         detail: 'verdict was "' + liveVerdict + '"' + (liveSaysAlive ? ', off a single word'
@@ -719,6 +860,7 @@ const SOURCE = (() => {
     out.numbers.dead_affordances = out.dead.length;
     out.numbers.things_i_actually_pressed = out.pressed.length;
     out.numbers.alive_on_one_press_only = out.alive_on_one_press_only.length;
+    out.numbers.closed_the_panel_so_proves_nothing = out.closed_on_tap.length;
     out.numbers.words_the_world_writes_by_itself = noiseWords.size;
     out.numbers.named_items_pressed_on_purpose = out.named.filter(n => /does something now|STILL DOES NOTHING/.test(n.result)).length;
     out.numbers.named_items_not_reachable_on_this_route = out.named.filter(n => /NOT ON SCREEN/.test(n.result)).length;
