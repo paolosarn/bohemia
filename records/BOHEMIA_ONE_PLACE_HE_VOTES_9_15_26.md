@@ -78,8 +78,11 @@ The door leg failed three times and each failure was me measuring the wrong thin
    looks exactly like a fact.
 
 ## WHAT IS NOT DONE
-- RUN cuts it into the demo (rule 14a: only RUN re-cuts). The gate runs the real cutter into
-  a throwaway tree and proves the door survives, so the cut is the only thing left.
+- THE COMMITTED DEMO lags, and that one is RUN's under rule 14a. THE DEPLOYED ONE DOES NOT:
+  .github/workflows/pages.yml runs `node tools/bohemia_cut_the_demo.js` as a build step before
+  it assembles the site, so the demo at the one link is cut from the alpha on every push and
+  already carries the gear door. Two files, both true. The gate runs the real cutter into a
+  throwaway tree and proves the door survives that cut.
 - Every other lane's [into the vote tab] row can land now: append to items[], read verdicts[].
 - The registry is seeded with this lane's eight unjudged option sheets. It is empty of every
   other lane's work until they register.

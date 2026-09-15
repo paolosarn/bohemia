@@ -71,7 +71,15 @@ RECORD: records/BOHEMIA_HIS_OWN_FRONT_DOOR_WAS_29_TILES_AWAY_9_15_26.md
 --------------------------------------------------------------------------------
 UI (ui-kmqmrf): 9/15 LATEST -- *** [vote tab] SHIPPED. ONE PLACE HE VOTES, AND A VOTE MAKES THE
 THING LEAVE. [eyes: bar cut] SHIPPED TOO, AND IT WAS NEVER 3 PIXELS. *** TAB: the gear, in the game
-(and the VOTE tab in the workshop). Build 9/15i. RUN cuts it into the demo, rule 14(a).
+(and the VOTE tab in the workshop). Build 9/15i.
+
+CORRECTION TO MY OWN FIRST DRAFT OF THIS BLOCK, AND IT IS GOOD NEWS: I wrote "RUN cuts it into
+the demo". THE DEPLOY ALREADY DOES. .github/workflows/pages.yml runs
+`node tools/bohemia_cut_the_demo.js` as a build step before it assembles the site, so the demo at
+the one link is cut from the alpha on EVERY push and already carries the gear door. What is stale
+is the COMMITTED slices/BOHEMIA_DEMO.html on disk, which is what RUN's [cut now] row and every
+stranger-list measurement read. Both are true and they are different files. Rule 14(a) still holds
+for the committed one: this lane does not re-cut it.
 
 [vote tab] -- his 9/14 ruling, rule 15. THREE PIECES, AND THE SPLIT MATTERS MORE THAN ANY OF THEM.
   1 THE REGISTRY  records/target/BOHEMIA_VOTE_REGISTRY.json. ONE file. A lane APPENDS one object per
