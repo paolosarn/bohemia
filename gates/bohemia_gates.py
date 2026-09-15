@@ -5668,6 +5668,22 @@ GATES = [
      'shrinking only by CLOSING entries, never by deleting them', False),
     ('LIGHT AGREES',  ['python3', 'gates/light_agrees_gate.py'],
      'EYES E7 (9/5) asked the question the craft gate does not: not whether a FORM is lit consistently, but whether a re-cooked tile agrees with THE TILE IT REPLACED. It reported ten of 42 act-1 tiles lit from a different corner. Measured three ways, NONE of the ten is: key_light() flattened alpha so a corner piece read as a 67-unit gradient across pixels the game never draws, and it took the sign of a difference with no threshold, so a deliberately flat road tile was a coin flip. The ten rank 4, 5, 9, 20, 23, 27, 28, 35, 37 and 40 of 42 by actual light difference and the furthest apart was not among them. No art was changed; the question is kept instead, on opaque pixels, with a ratchet, and with the ruler tested inside the gate both ways', False),
+    # REGISTERED 9/15 (COOK, [car recook] r5). PAOLO 9/15: "every time I see a car it
+    # looks like dogshit, I'M SO CONFUSED." Measured: every prop in the game is drawn by
+    # fitting its master into the stall its footprint buys, and SIXTEEN OF SIXTEEN
+    # families land on a fractional scale -- the car at 1.833x, a bag at 0.429x -- while
+    # the ground beside them is exactly 1:1. Smoothing is off, so they are not blurred,
+    # they are UNEVEN: at 1.833x a source row becomes 2 screen pixels, then 2, then 1.
+    # This repo's own mobile render contract says non-integer scale is BANNED and the
+    # ground obeys it; the props never have and nothing ever checked. Fourth time this
+    # lane has found this exact fault by hand (the yard at 2.75x, the door stretch, the
+    # car stretch, now the car fit), which is why it is arithmetic now and not a person
+    # looking at a picture. Ratcheted: the sixteen are frozen, the list can only shrink.
+    ('PROP SCALE',     ['python3', 'gates/prop_scale_gate.py'],
+     'every prop is drawn at a scale pixel art allows (0.25/0.5/1/2/4) against the stall '
+     'its own footprint buys, or it is named as frozen debt -- a fractional nearest-'
+     'neighbour scale makes every pixel of a sprite a different size from the ground '
+     'it stands on', False),
     ('PIXEL CRAFT',    ['python3', 'gates/pixel_craft_gate.py'],
      'the pixel craft laws (7/27): orphan pixels, single-use colours, one pixel size, '
      'pillow shading, one light direction, cluster density — built like pixel art, never '
