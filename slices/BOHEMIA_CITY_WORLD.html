@@ -638,6 +638,7 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font-family:var(--
    stylesheet is appended last. The skin keeps its rim, base and under-shadow; only
    the fill and the ink come back. Nothing grew, so Paolo's 9/6 halving is untouched. */
 #phonebtn.ring{background:#d8b45a !important;border-color:#d8b45a;color:#191308 !important;font-weight:700}
+#rungbtn.ring{background:#d8b45a !important;border-color:#d8b45a;color:#191308 !important;font-weight:700}
 #phonebtn.ring:active{background:#c8a44a !important;color:#0d0a04 !important}
 /* and the dot is redundant once the whole chip is lit: two signifiers for one
    fact is how a screen gets noisy. */
@@ -66229,7 +66230,9 @@ function ctOutfitOpen(){
   p.innerHTML = '<div class="obbar">YOUR OUTFIT<span id="obclose">\u2715</span></div>'
               + '<div class="obbody">' + ctOutfitHtml() + '</div>';
   p.classList.add('on');
-  var b = document.getElementById('outfitbtn'); if(b) b.classList.remove('ring');
+  var b = document.getElementById('outfitbtn')
+       || document.getElementById('rungbtn');
+  if(b) b.classList.remove('ring');
   var x = document.getElementById('obclose');
   if(x) x.addEventListener('click', ctOutfitClose);
 }
@@ -66241,7 +66244,20 @@ function ctOutfitClose(){
    so, and it reuses #phonebtn.ring's own look rather than designing a second
    alert. */
 function ctOutfitBadge(){
-  var b = document.getElementById('outfitbtn'); if(b) b.classList.add('ring');
+  /* *** THE RING FOLLOWED THE ROOM. *** (9/15.) This rang #outfitbtn, and UI
+     removed that chip on purpose in [one door] (9d24205a): the crew directory was
+     NOT deleted, it MOVED INSIDE STANDING as a WHO IS OUT THERE row and the second
+     door came off the strip. Their call is right and is not being reverted.
+     But the ring went with the button and nothing noticed, because the line that
+     sets it is guarded by `if(b)` -- so for every round since, "your outfit just
+     made an enemy" has lit nothing at all. THE DOOR MOVING IS A DECISION; THE
+     ALARM GOING SILENT IS AN ACCIDENT, and only the second one is a bug.
+     So it rings whichever door is actually there, and it keeps the old one first
+     for the day somebody puts the chip back. Same look as #phonebtn.ring, reused
+     rather than a second alert designed. */
+  var b = document.getElementById('outfitbtn')
+       || document.getElementById('rungbtn');
+  if(b) b.classList.add('ring');
 }
 
 /* __CITY_FAMILY__ -- THE GENERATION TURNS, AND THE VALLEY REMEMBERS.
@@ -71405,6 +71421,11 @@ function rungWords(r){
 }
 
 function showStanding(){
+  /* THE ROOM IS IN HERE NOW, so opening this is what answers the ring. Reading
+     it is what makes it stop; anything else leaves an alarm he has already
+     attended to still burning. */
+  try { var _rb = document.getElementById('rungbtn');
+        if(_rb) _rb.classList.remove('ring'); } catch(_e){}
   var r = rungRead();
   if(!r.ok){
     cardShow('<div class="rwhy">Standing is not loaded on this page yet.</div>'

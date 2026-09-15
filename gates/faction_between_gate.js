@@ -786,7 +786,14 @@ async function onTheBoard() {
         btn.click();
         out.earned = BohemiaBetween.myRipples(ctBelongSave())
           .map(r => ({ to: String(r.to).toUpperCase(), sign: r.sign, earned: !!r.earned, via: r.via }));
-        out.rings = (document.getElementById('outfitbtn') || {}).className || '';
+        /* WHICHEVER DOOR IS ACTUALLY THERE. The chip this used to read was removed
+           on purpose by UI [one door] (9d24205a) and the room moved inside STANDING. */
+        out.ringDoor = document.getElementById('outfitbtn') ? 'outfitbtn'
+                     : (document.getElementById('rungbtn') ? 'rungbtn' : null);
+        out.rings = (document.getElementById('outfitbtn')
+                  || document.getElementById('rungbtn') || {}).className || '';
+        out.roomReachable = typeof ctOutfitOpen === 'function'
+                            && !!document.getElementById('outfitpanel');
         ctOutfitOpen();
         out.board = document.getElementById('outfitpanel').innerText || '';
         ctOutfitClose();
@@ -795,12 +802,24 @@ async function onTheBoard() {
       return out;
     });
 
-    ok('J1 THE CHIP AND THE PANEL ARE IN THE SHIPPED CITY, and the panel is in '
-      + 'the city\'s own OUTSIDE_PANELS registry rather than carrying a sixth '
-      + 'bespoke close handler (Paolo 8/24: no pop menu that does not go away '
-      + 'when you tap out of it)',
-      R.chip && R.panel && R.registered,
-      JSON.stringify({ chip: R.chip, panel: R.panel, registered: R.registered }));
+    /* *** THIS CLAIM WAS ASKING FOR A DOOR ANOTHER LANE DELETED ON PURPOSE. ***
+       (9/15.) It wanted #outfitbtn in the shipped city. UI [one door] (9d24205a)
+       took that chip off the strip deliberately: OUTFIT and STANDING were two
+       doors onto one subject, so the crew directory MOVED INSIDE STANDING as a
+       WHO IS OUT THERE row and the spare door came off. Their own gate pins both
+       halves of that -- the door is gone AND the room is still one tap inside.
+       A RED THAT DEMANDS A DELETED CONTROL IS NOT A DEFECT REPORT, IT IS A GATE
+       THAT DID NOT HEAR THE NEWS, and left standing it would eventually talk
+       somebody into putting the button back. What this lane actually needs is
+       that THE ROOM IS STILL REACHABLE and still closes by the shared rule. */
+    ok('J1 THE ROOM IS IN THE SHIPPED CITY AND CLOSES BY THE HOUSE RULE, whatever '
+      + 'door leads to it. The panel is in the city\'s own OUTSIDE_PANELS registry '
+      + 'rather than carrying a sixth bespoke close handler (Paolo 8/24: no pop '
+      + 'menu that does not go away when you tap out of it). The OUTFIT chip is '
+      + 'gone on purpose and is not asked for here',
+      R.panel && R.registered && R.roomReachable,
+      JSON.stringify({ panel: R.panel, registered: R.registered,
+                       reachable: R.roomReachable, chipGoneOnPurpose: !R.chip }));
 
     ok('J2 IT OPENS AND IT CLOSES', R.openedEmpty && R.closesEmpty);
 
@@ -825,9 +844,14 @@ async function onTheBoard() {
       (R.earned || []).every(x => x.earned && x.via),
       JSON.stringify(R.earned));
 
-    ok('J6 THE CHIP RINGS WHEN IT HAPPENS. He is not going to open a panel on '
-      + 'the off-chance; the moment something lands is the moment to say so',
-      /ring/.test(R.rings || ''), JSON.stringify(R.rings));
+    ok('J6 THE DOOR RINGS WHEN IT HAPPENS, AND IT RINGS THE DOOR THAT IS STILL '
+      + 'THERE. He is not going to open a panel on the off-chance; the moment '
+      + 'something lands is the moment to say so. THE RING HAD BEEN SILENT FOR '
+      + 'ROUNDS: it set the class on the chip UI removed, behind an `if (b)`, so '
+      + 'it failed without a sound. The door moving was a decision; the alarm '
+      + 'going quiet with it was an accident (ringing ' + String(R.ringDoor) + ')',
+      /ring/.test(R.rings || '') && !!R.ringDoor,
+      JSON.stringify({ door: R.ringDoor, cls: R.rings }));
 
     ok('J7 AND THE BOARD LISTS THEM, WITH PROVENANCE AND WITH WHAT THEY WILL '
       + 'STILL GIVE YOU',
@@ -2539,8 +2563,25 @@ async function onQuestDeeds() {
   const graph = JSON.parse(fs2.readFileSync(path.join(ROOT, 'engine/BOHEMIA_faction_graph.json'), 'utf8'));
   const ids = Object.keys(graph.factions || {});
   const exact = new Set(ids);
-  const strictHits = corpusRows.filter(r => exact.has(r.faction)).length;
-  const foldHits = corpusRows.filter(r => ids.some(i => i.toUpperCase() === r.faction.toUpperCase())).length;
+  /* *** "NONE" IS NOT AN OUTFIT HE MISSPELLED, IT IS HIM WRITING "NO OUTFIT". ***
+     (9/15.) This claim went red at 82 of 83 and the one row was
+     `@DO faction NONE +0`, in a quest called THE FACTION THAT DIED. @FACTION NONE
+     heads a dozen of his quest files as "this one belongs to nobody", and the
+     scanner's rule picks the @DO form up as a name. Counting it as a missing
+     outfit is the ruler measuring its own invention, which is this lane's oldest
+     mistake.
+     AND IT IS NARROWED, NOT WIDENED, because this claim's whole job is to stop
+     being a licence to invent: only the literal token NONE, and only WITH A ZERO
+     DELTA. NONE carrying a real number would mean a quest moving the standing of
+     nobody, which is an authoring error and still fails here (R2b). Any other
+     unknown name still fails, exactly as before. */
+  const isNoOutfit = r => String(r.faction).toUpperCase() === 'NONE' && (r.delta | 0) === 0;
+  const named = corpusRows.filter(r => !isNoOutfit(r));
+  const noOutfitRows = corpusRows.length - named.length;
+  const strictHits = named.filter(r => exact.has(r.faction)).length;
+  const foldHits = named.filter(r => ids.some(i => i.toUpperCase() === r.faction.toUpperCase())).length;
+  const nonZeroNone = corpusRows.filter(r =>
+    String(r.faction).toUpperCase() === 'NONE' && (r.delta | 0) !== 0);
 
   ok('R1 HIS CORPUS IS READ FROM HIS FILES, not from a number typed in this gate',
     corpusRows.length > 0, corpusRows.length + ' deltas across ' + files.length + ' quests');
@@ -2550,8 +2591,15 @@ async function onQuestDeeds() {
     + 'and not a licence to invent: if a quest ever names an outfit that does '
     + 'not exist, that is content and it must fail here rather than be folded '
     + 'quietly into something that does',
-    foldHits === corpusRows.length,
-    'match after fold ' + foldHits + '/' + corpusRows.length);
+    foldHits === named.length,
+    'match after fold ' + foldHits + '/' + named.length
+      + ' (' + noOutfitRows + ' row(s) name NO outfit at all, at delta 0)');
+
+  ok('R2b AND "NO OUTFIT" MUST CARRY NO NUMBER. A quest moving the standing of '
+    + 'nobody is an authoring error, and it is the one thing the exemption above '
+    + 'could have hidden, so it is checked out loud rather than trusted',
+    nonZeroNone.length === 0,
+    JSON.stringify(nonZeroNone.slice(0, 3)));
 
   ok('R3 AND A STRICT COMPARE WOULD HAVE DROPPED MOST OF THEM ON THE FLOOR. He '
     + 'writes `faction TRADES +8`; the canon id is `Trades`. publish() used === '
@@ -2626,7 +2674,17 @@ async function onQuestDeeds() {
       + 'that used to be inlined (max 12) would have inflated every weight in the '
       + 'game by 20/12 and moved every rung boundary with it',
       T.corpusKeys === files.length && T.maxAbs === corpusMax,
-      'inlined=' + T.corpusKeys + '/' + files.length + ' max=' + T.maxAbs + ' corpus=' + corpusMax);
+      /* NAME THE ONES THAT ARE MISSING. "inlined=37/42" sends the next reader off
+         to work out which five, and this lane has just spent a round on what a
+         vague red costs. (9/15: the five are M01 to M05, THE MAIN QUEST LINE, and
+         quests/ is in the publish EXCLUDE list precisely because a quest reaches a
+         player only by being inlined -- so a quest that is not inlined cannot be
+         played at all, on any surface.) */
+      'inlined=' + T.corpusKeys + '/' + files.length + ' max=' + T.maxAbs
+        + ' corpus=' + corpusMax
+        + (T.corpusKeys === files.length ? '' : '  NOT IN THE GAME: '
+            + files.map(f => f.replace(/\.bq$/, ''))
+                   .filter(q => citySrc.indexOf(q) < 0).join(', ')));
 
     /* ---- NOW PLAY ONE, AND SEE WHETHER ANYBODY NOTICES ------------------ */
     /* THE DAY HAS TO BE STARTED FIRST, and the first cut of this did not do it:
