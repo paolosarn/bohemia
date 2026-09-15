@@ -30853,7 +30853,13 @@ your first VAMILY and do steps 1 to 9.
 I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
-ROUND LOG 9/15 (latest): [far view] SHIPPED - he is right about the
+ROUND LOG 9/15 (latest): [into the vote tab] SHIPPED - the vote registry
+landed (measured, not assumed) and DIRECTION's first candidate is in the
+one queue and renders on the real tab: the car before/after, the kill he
+never got to re-see. STANDING DUTY ADDED: read verdicts[] in
+records/target/BOHEMIA_VOTE_REGISTRY.json every round - up builds in,
+down graveyards with a post-mortem, notes are rulings. Candidates from
+this lane now register there and nowhere else. PREVIOUS: [far view] SHIPPED - he is right about the
 moon zoom. Measured on the demo: 66% of the world region at widest zoom
 is dead-flat zero-texture blocks at one value - the valley floats on
 cardboard. The fix is PLACEMENT of art that already exists (desert
