@@ -1,0 +1,190 @@
+WHAT HANGS BELOW THE HIP?  --  CHARACTER lane, 9/15/26, VAMILY [long coats]
+Asked of the pixels and the rig's own part grid, never of the garment's name.
+
+HIS WORDS THIS ANSWERS (Paolo 9/7): the coat problem "will be the nature of any
+long jackets and coats". The row asks for the DATA the rig needs: for every
+garment that hangs below the hip, which leg segment carries it.
+
+THE RULER. buildFrame returns a per-pixel grid of the rig's PART IDS. Each garment
+is rendered on the body and diffed against the same body naked; every pixel it
+changed is looked up in that grid. A garment hangs below the hip exactly when it
+changes pixels the rig calls LEG. The hip and the knee come off the rest skeleton
+hip row 66, lower leg starts at row 98, foot ends at 105, in a frame 112 x 112.
+
+  canon garments measured      318
+  HANG BELOW THE HIP           103
+    carried by the THIGH       49
+    carried by the SHIN        54
+  shoes (a foot, not a hem)    32
+  stop at or above the hip     183
+
+BY LAYER
+  layer       canon  thigh   shin   shoe  above
+  back           14      0      0      0     14
+  base           80      8      2      0     70
+  face           14      0      0      0     14
+  feet           32      0      0     32      0
+  gear           26      4      4      0     18
+  hair           11      0      0      0     11
+  hands           6      0      0      0      6
+  head           21      0      0      0     21
+  legs           35      4     31      0      0
+  neck            9      0      0      0      9
+  outer          63     30     17      0     16
+  waist           7      3      0      0      4
+
+*** AND THE NAME WOULD HAVE BEEN WRONG 36 TIMES, WHICH IS WHY IT ASKS THE PIXELS ***
+This lane's own open row [names lie] exists because COPPER WORK SHIRT renders
+green. A name is not evidence about pixels. Counted here, on top and bottom:
+  hang below the hip and their NAME never says so   23
+  named like a long coat and stop at the hip        13
+
+  MISSED BY NAME (these are the ones a hand-written list would have lost):
+    SCAV KNEEPADS             gear   thigh  down the leg 49%
+    SMITH'S APRON             outer  thigh  down the leg 44%
+    TRADES APRON              outer  thigh  down the leg 44%
+    SHIN GUARDS               gear   shin   down the leg 74%
+    THIGH HOLSTER             gear   thigh  down the leg 28%
+    WORK COVERALLS            base   shin   down the leg 100%
+    BIB OVERALLS              base   shin   down the leg 100%
+    SCAV TOOL BELT            waist  thigh  down the leg 18%
+    HIP SASH                  waist  thigh  down the leg 28%
+    SAND KNEEPADS             gear   thigh  down the leg 49%
+    STEEL SHIN GUARDS         gear   shin   down the leg 74%
+    RUST THIGH HOLSTER        gear   thigh  down the leg 28%
+    SOOT TOOL BELT            waist  thigh  down the leg 18%
+    LEATHER HALF APRON        outer  thigh  down the leg 44%
+    DUST HALF APRON           outer  thigh  down the leg 44%
+    DENIM SHORTALLS           base   thigh  down the leg 44%
+    FIELD SHORTALLS           base   thigh  down the leg 44%
+    LONGLINE JERSEY           base   thigh  down the leg 23%
+    ASH LONGLINE TEE          base   thigh  down the leg 23%
+    SHOULDER LONGLINE         base   thigh  down the leg 23%
+    LAYERED JERSEY            base   thigh  down the leg 39%
+    ASH LAYERED TEE           base   thigh  down the leg 39%
+    ARC LAYERED SHIRT         base   thigh  down the leg 39%
+
+  NAMED LONG, MEASURED SHORT:
+    WRAPAROUND SHADES         face   never reaches a leg pixel
+    GREY WRAPAROUNDS          face   never reaches a leg pixel
+    ROAD CAPE                 back   never reaches a leg pixel
+    CHARCOAL ROAD CAPE        back   never reaches a leg pixel
+    STEEL ROAD CAPE           back   never reaches a leg pixel
+    HAND WRAPS                hands  never reaches a leg pixel
+    SOOT HAND WRAPS           hands  never reaches a leg pixel
+    BONE HEAD WRAP            head   never reaches a leg pixel
+    SOOT HEAD WRAP            head   never reaches a leg pixel
+    WIDE WAIST WRAP           waist  never reaches a leg pixel
+    LEAD WAIST WRAP           waist  never reaches a leg pixel
+    FACE WRAP                 face   never reaches a leg pixel
+    ASH FACE WRAP             face   never reaches a leg pixel
+
+EVERY GARMENT THAT HANGS, AND THE SEGMENT THAT CARRIES IT
+  garment                     layer  segment  hem row  down the leg
+  WORK COVERALLS              base   shin         105          100%
+  BIB OVERALLS                base   shin         105          100%
+  STACKED JERSEY PANT         legs   shin          99           85%
+  SLATE STACK PANT            legs   shin          99           85%
+  BLUE JEANS                  legs   shin          97           80%
+  BLACK CARGOS                legs   shin          97           80%
+  GREY SWEATS                 legs   shin          97           80%
+  DUST TROUSERS               legs   shin          97           80%
+  PATCHED WORK PANTS          legs   shin          97           80%
+  SOOT CARGOS                 legs   shin          97           80%
+  BLACK DENIM                 legs   shin          97           80%
+  OLIVE PANTS                 legs   shin          97           80%
+  KHAKI CARGOS                legs   shin          97           80%
+  SLATE WORK PANTS            legs   shin          97           80%
+  FIELD GREEN PANTS           legs   shin          97           80%
+  STORM GREY SWEATS           legs   shin          97           80%
+  BONE WORK PANTS             legs   shin          97           80%
+  RUST CARGOS                 legs   shin          97           80%
+  SAGE TROUSERS               legs   shin          97           80%
+  STEEL BLUE JEANS            legs   shin          97           80%
+  DUST BROWN TROUSERS         legs   shin          97           80%
+  SPLIT-TAIL DUSTER           outer  shin          97           80%
+  FIELD LEG WRAPS             gear   shin          97           80%
+  COBALT WORK PANTS           legs   shin          97           80%
+  TEAL WORK PANTS             legs   shin          97           80%
+  OLIVE LEG WRAPS             gear   shin          97           80%
+  DROP RISE TROUSER           legs   shin          97           80%
+  BONE DROP TROUSER           legs   shin          97           80%
+  WIDE PLEAT TROUSER          legs   shin          97           80%
+  BONE WIDE TROUSER           legs   shin          97           80%
+  SOOT TRENCH                 outer  shin          95           74%
+  DUST BROWN TRENCH           outer  shin          95           74%
+  SLATE TRENCH                outer  shin          95           74%
+  SHIN GUARDS                 gear   shin          95           74%
+  ANKLE WRAP SKIRT            legs   shin          95           74%
+  GOLD WRAP SKIRT             legs   shin          95           74%
+  CHARCOAL WRAP SKIRT         legs   shin          95           74%
+  STEEL SHIN GUARDS           gear   shin          95           74%
+  WASTELAND DUSTER            outer  shin          93           69%
+  RANGER LONGCOAT             outer  shin          93           69%
+  STORM GREY LONGCOAT         outer  shin          93           69%
+  BONE DUSTER                 outer  shin          93           69%
+  BRICK LONGCOAT              outer  shin          93           69%
+  KHAKI DUSTER                outer  shin          93           69%
+  COBALT DUSTER               outer  shin          93           69%
+  ROSE DUSTER                 outer  shin          93           69%
+  GRASS DUSTER                outer  shin          93           69%
+  DRIFTER'S COAT              outer  shin          91           64%
+  FIELD GREEN COAT            outer  shin          91           64%
+  SAGE FIELD COAT             outer  shin          91           64%
+  COBALT COAT                 outer  shin          91           64%
+  WRAP SKIRT                  legs   shin          89           59%
+  CROPPED WORK TROUSER        legs   shin          87           54%
+  CROPPED BLACK DENIM         legs   shin          87           54%
+  SCAV KNEEPADS               gear   thigh         85           49%
+  SAND KNEEPADS               gear   thigh         85           49%
+  SMITH'S APRON               outer  thigh         83           44%
+  TRADES APRON                outer  thigh         83           44%
+  CAR COAT                    outer  thigh         83           44%
+  SAND CAR COAT               outer  thigh         83           44%
+  SAGE CAR COAT               outer  thigh         83           44%
+  SLATE CAR COAT              outer  thigh         83           44%
+  OLIVE CAR COAT              outer  thigh         83           44%
+  BRICK CAR COAT              outer  thigh         83           44%
+  GRASS CAR COAT              outer  thigh         83           44%
+  LEATHER HALF APRON          outer  thigh         83           44%
+  DUST HALF APRON             outer  thigh         83           44%
+  DENIM SHORTALLS             base   thigh         83           44%
+  FIELD SHORTALLS             base   thigh         83           44%
+  WRAP COAT                   outer  thigh         83           44%
+  ASH WRAP COAT               outer  thigh         83           44%
+  COCOON COAT                 outer  thigh         83           44%
+  COMMA COAT                  outer  thigh         83           44%
+  SLATE COMMA COAT            outer  thigh         83           44%
+  ASYMMETRIC COAT             outer  thigh         81           39%
+  LAYERED JERSEY              base   thigh         81           39%
+  ASH LAYERED TEE             base   thigh         81           39%
+  ARC LAYERED SHIRT           base   thigh         81           39%
+  CUTOFF DENIM SHORTS         legs   thigh         79           33%
+  OLIVE SHORTS                legs   thigh         79           33%
+  KHAKI SHORTS                legs   thigh         79           33%
+  CHARCOAL SHORTS             legs   thigh         79           33%
+  THIGH HOLSTER               gear   thigh         77           28%
+  HIP SASH                    waist  thigh         77           28%
+  CHORE COAT                  outer  thigh         77           28%
+  BARN COAT                   outer  thigh         77           28%
+  OLIVE CHORE COAT            outer  thigh         77           28%
+  STORM CHORE COAT            outer  thigh         77           28%
+  RUST WORK COAT              outer  thigh         77           28%
+  SPLIT-TAIL WORK COAT        outer  thigh         77           28%
+  COBALT CHORE COAT           outer  thigh         77           28%
+  RUST THIGH HOLSTER          gear   thigh         77           28%
+  SLATE COCOON COAT           outer  thigh         77           28%
+  DUST PONCHO                 outer  thigh         75           23%
+  OXBLOOD PONCHO              outer  thigh         75           23%
+  HOODED DUST PONCHO          outer  thigh         75           23%
+  STORM PONCHO                outer  thigh         75           23%
+  LONGLINE JERSEY             base   thigh         75           23%
+  ASH LONGLINE TEE            base   thigh         75           23%
+  SHOULDER LONGLINE           base   thigh         75           23%
+  ASH ASYM COAT               outer  thigh         75           23%
+  SCAV TOOL BELT              waist  thigh         73           18%
+  SOOT TOOL BELT              waist  thigh         73           18%
+
+FOR ANIMATION [coat follows]: the JSON beside this file is the table. A garment
+filed on the THIGH swings with the upper leg, one on the SHIN with the lower. This
+lane measured it; how a hem moves is that row's, not this one's.

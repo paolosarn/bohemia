@@ -1388,7 +1388,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 9/15q - A TILE IS A HOUSE</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 9/15r - 103 HEMS KNOW THEIR LEG</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -28939,6 +28939,149 @@ window.CLO=(function(){
     {n:'COAL COLUMN',st:'canon',fresh:true,layer:'feet',gen:function(g){return wear(genPants(g,{ramp:FADEDBLK,cut:'column'}),FADEDBLK,12);}},
     {n:'ASH COLUMN',st:'canon',fresh:true,layer:'feet',gen:function(g){return wear(genPants(g,{ramp:ASHGREY,cut:'column'}),ASHGREY,13);}},
   ];
+
+  /* ==== WHICH LEG CARRIES THE HEM (9/15, CHARACTER, VAMILY [long coats]) ==============
+     Paolo 9/7: the coat problem "will be the nature of any long jackets and coats", and
+     the runway wardrobe has many. ANIMATION's [coat follows] needs to know, for every
+     garment that hangs below the hip, WHICH LEG SEGMENT swings it, so a duster moves with
+     the stride instead of freestyling. This is that table.
+
+     MEASURED, NEVER NAMED. Every canon garment is rendered on the body, diffed against the
+     same body naked, and each changed pixel is looked up in the rig's own PART GRID -- the
+     grid buildFrame already returns, which says which bone is under each pixel. A garment
+     hangs below the hip exactly when it changes pixels the rig calls LEG. A name proves
+     nothing about pixels, and this lane has an open row, [names lie], that exists because
+     COPPER WORK SHIRT renders green. MEASURED HERE: a name would have been wrong 36 times,
+     23 garments that hang whose name never says so and 13 named like coats that stop at
+     the hip.
+     318 canon garments, 103 hang, 49 carried by the thigh and 54 by the shin.
+
+     THE SECOND NUMBER IS HOW FAR DOWN THE LEG THE HEM SITS, 0 at the hip and 1 at the sole,
+     and it is here because the segment alone throws away what a hem actually needs. The
+     RIG DOES NOT NAME A KNEE anywhere the page exposes -- part ids 9 and 10 are thigh and
+     shin together -- so the boundary between the two words is the midpoint of the leg band,
+     inferred and said out loud rather than buried. ANIMATION can ignore the word and use
+     the fraction.
+
+     NOTHING IS BAKED ONCE: this table is GENERATED, by tools/bohemia_what_hangs_below_the_hip.js,
+     and gates/hem_follows_the_leg_gate.js re-measures every canon garment and goes red if
+     one entry disagrees with the pixels. So it cannot rot when a garment's art changes; it
+     can only go red and be regenerated. */
+  var HEM_LEG = window.HEM_LEG = {
+"ANKLE WRAP SKIRT":["shin",0.744],
+"ARC LAYERED SHIRT":["thigh",0.385],
+"ASH ASYM COAT":["thigh",0.231],
+"ASH LAYERED TEE":["thigh",0.385],
+"ASH LONGLINE TEE":["thigh",0.231],
+"ASH WRAP COAT":["thigh",0.436],
+"ASYMMETRIC COAT":["thigh",0.385],
+"BARN COAT":["thigh",0.282],
+"BIB OVERALLS":["shin",1],
+"BLACK CARGOS":["shin",0.795],
+"BLACK DENIM":["shin",0.795],
+"BLUE JEANS":["shin",0.795],
+"BONE DROP TROUSER":["shin",0.795],
+"BONE DUSTER":["shin",0.692],
+"BONE WIDE TROUSER":["shin",0.795],
+"BONE WORK PANTS":["shin",0.795],
+"BRICK CAR COAT":["thigh",0.436],
+"BRICK LONGCOAT":["shin",0.692],
+"CAR COAT":["thigh",0.436],
+"CHARCOAL SHORTS":["thigh",0.333],
+"CHARCOAL WRAP SKIRT":["shin",0.744],
+"CHORE COAT":["thigh",0.282],
+"COBALT CHORE COAT":["thigh",0.282],
+"COBALT COAT":["shin",0.641],
+"COBALT DUSTER":["shin",0.692],
+"COBALT WORK PANTS":["shin",0.795],
+"COCOON COAT":["thigh",0.436],
+"COMMA COAT":["thigh",0.436],
+"CROPPED BLACK DENIM":["shin",0.538],
+"CROPPED WORK TROUSER":["shin",0.538],
+"CUTOFF DENIM SHORTS":["thigh",0.333],
+"DENIM SHORTALLS":["thigh",0.436],
+"DRIFTER'S COAT":["shin",0.641],
+"DROP RISE TROUSER":["shin",0.795],
+"DUST BROWN TRENCH":["shin",0.744],
+"DUST BROWN TROUSERS":["shin",0.795],
+"DUST HALF APRON":["thigh",0.436],
+"DUST PONCHO":["thigh",0.231],
+"DUST TROUSERS":["shin",0.795],
+"FIELD GREEN COAT":["shin",0.641],
+"FIELD GREEN PANTS":["shin",0.795],
+"FIELD LEG WRAPS":["shin",0.795],
+"FIELD SHORTALLS":["thigh",0.436],
+"GOLD WRAP SKIRT":["shin",0.744],
+"GRASS CAR COAT":["thigh",0.436],
+"GRASS DUSTER":["shin",0.692],
+"GREY SWEATS":["shin",0.795],
+"HIP SASH":["thigh",0.282],
+"HOODED DUST PONCHO":["thigh",0.231],
+"KHAKI CARGOS":["shin",0.795],
+"KHAKI DUSTER":["shin",0.692],
+"KHAKI SHORTS":["thigh",0.333],
+"LAYERED JERSEY":["thigh",0.385],
+"LEATHER HALF APRON":["thigh",0.436],
+"LONGLINE JERSEY":["thigh",0.231],
+"OLIVE CAR COAT":["thigh",0.436],
+"OLIVE CHORE COAT":["thigh",0.282],
+"OLIVE LEG WRAPS":["shin",0.795],
+"OLIVE PANTS":["shin",0.795],
+"OLIVE SHORTS":["thigh",0.333],
+"OXBLOOD PONCHO":["thigh",0.231],
+"PATCHED WORK PANTS":["shin",0.795],
+"RANGER LONGCOAT":["shin",0.692],
+"ROSE DUSTER":["shin",0.692],
+"RUST CARGOS":["shin",0.795],
+"RUST THIGH HOLSTER":["thigh",0.282],
+"RUST WORK COAT":["thigh",0.282],
+"SAGE CAR COAT":["thigh",0.436],
+"SAGE FIELD COAT":["shin",0.641],
+"SAGE TROUSERS":["shin",0.795],
+"SAND CAR COAT":["thigh",0.436],
+"SAND KNEEPADS":["thigh",0.487],
+"SCAV KNEEPADS":["thigh",0.487],
+"SCAV TOOL BELT":["thigh",0.179],
+"SHIN GUARDS":["shin",0.744],
+"SHOULDER LONGLINE":["thigh",0.231],
+"SLATE CAR COAT":["thigh",0.436],
+"SLATE COCOON COAT":["thigh",0.282],
+"SLATE COMMA COAT":["thigh",0.436],
+"SLATE STACK PANT":["shin",0.846],
+"SLATE TRENCH":["shin",0.744],
+"SLATE WORK PANTS":["shin",0.795],
+"SMITH'S APRON":["thigh",0.436],
+"SOOT CARGOS":["shin",0.795],
+"SOOT TOOL BELT":["thigh",0.179],
+"SOOT TRENCH":["shin",0.744],
+"SPLIT-TAIL DUSTER":["shin",0.795],
+"SPLIT-TAIL WORK COAT":["thigh",0.282],
+"STACKED JERSEY PANT":["shin",0.846],
+"STEEL BLUE JEANS":["shin",0.795],
+"STEEL SHIN GUARDS":["shin",0.744],
+"STORM CHORE COAT":["thigh",0.282],
+"STORM GREY LONGCOAT":["shin",0.692],
+"STORM GREY SWEATS":["shin",0.795],
+"STORM PONCHO":["thigh",0.231],
+"TEAL WORK PANTS":["shin",0.795],
+"THIGH HOLSTER":["thigh",0.282],
+"TRADES APRON":["thigh",0.436],
+"WASTELAND DUSTER":["shin",0.692],
+"WIDE PLEAT TROUSER":["shin",0.795],
+"WORK COVERALLS":["shin",1],
+"WRAP COAT":["thigh",0.436],
+"WRAP SKIRT":["shin",0.59]
+  };
+  /* STAMPED ONTO THE GARMENTS THEMSELVES, so a consumer asks the garment and never has to
+     know this table exists. A garment with no entry does not hang below the hip; that is a
+     fact the gate checks in both directions, so an absence is an answer and not a gap. */
+  (function(){
+    for (var i = 0; i < GARMENTS.length; i++) {
+      var e = HEM_LEG[GARMENTS[i].n];
+      if (e) { GARMENTS[i].hem = e[0]; GARMENTS[i].hemDrop = e[1]; }
+    }
+  })();
+
   /* THUMBS PERSIST (Paolo 7/19: "some of the previous ones already thumbed up
      didn't get transferred"): his taps were memory-only and died on reload.
      Now every thumb saves to the device immediately and re-applies on load --
