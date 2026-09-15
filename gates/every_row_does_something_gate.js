@@ -143,7 +143,18 @@ function pw() {
                            return el ? el.innerText.trim() : ''; };
       const open = () => { const c = document.getElementById('daycard');
                            return !!(c && c.offsetParent !== null); };
+      /* *** A HIDDEN ROW IS NOT A ROW, AND I MADE THIS EXACT MISTAKE MYSELF.
+         (9/15.) *** Chasing EYES E26's third report of a dead row, my probe
+         "pressed" the take row after the job was taken and reported it dead.
+         It was not dead, it was display:none -- PEOPLE's in-place update hides
+         the spent rows -- and element.click() fires on a hidden element even
+         though no thumb on earth can reach it. So this gate only ever sweeps
+         rows a thumb could actually hit, and the same rule kills the false
+         positive I nearly filed against somebody else's work. */
+      const seen = (e) => !!(e && e.offsetParent !== null
+                             && (e.getBoundingClientRect().width > 0));
       const rowsOf = () => Array.from(document.querySelectorAll('#daycardIn [data-act]'))
+        .filter(seen)
         .map(e => ({ act: e.getAttribute('data-act'), say: (e.textContent || '').trim() }))
         /* close and go LEAVE the card, so "the card changed" is the wrong test
            for them; they are checked by the card being gone, below. */
@@ -217,6 +228,94 @@ function pw() {
        + ' what the tap would have refused *** (' + forced.whenTaken + ')',
        forced.whenTaken === 0);
     ok('2c and the gate put the world back', forced.restored === false);
+
+    /* ==================================================================
+       9. *** AND ALL OF IT AGAIN ON THE DEMO, WHICH IS THE THING HE PLAYS.
+       (9/15.) ***
+       EYES E26 has now reported a dead row on the first card THREE ROUNDS
+       RUNNING, and the reason it kept surviving is a hole in THIS gate, not a
+       mystery in the game: every check above opens the ALPHA. Paolo plays the
+       DEMO. Rule 14(a) means the demo is cut by RUN and lags every lane, so
+       "green on the alpha" and "green on the thing in his hand" are different
+       claims and this gate only ever made the first one.
+       It also covers the state the reports are about: AFTER the job is taken.
+       ================================================================== */
+    const demoPage = await b.newPage({ viewport: { width: 390, height: 844 } });
+    const demoErrs = [];
+    demoPage.on('pageerror', e => demoErrs.push(String(e.message).slice(0, 140)));
+    await demoPage.goto('file://' + path.join(ROOT, 'slices/BOHEMIA_DEMO.html'));
+    await demoPage.evaluate(() => localStorage.setItem('bohemia.opening.seen.v1', '1'));
+    await demoPage.reload();
+    await SETTLE(demoPage, 4000);
+    await demoPage.evaluate(() => { const f = document.getElementById('front'); if (f) f.click(); });
+    await SETTLE(demoPage, 18000);
+    let demoCity = null;
+    for (const f of demoPage.frames()) {
+      try { if (await f.evaluate(() => typeof showWake === 'function')) { demoCity = f; break; } }
+      catch (_e) {}
+    }
+    ok('9a *** the day card is reachable in the DEMO, not only the workshop ***', !!demoCity);
+
+    if (demoCity) {
+      const d = await demoCity.evaluate(() => {
+        const txt  = () => { const el = document.getElementById('daycardIn');
+                             return el ? el.innerText.trim() : ''; };
+        const open = () => { const c = document.getElementById('daycard');
+                             return !!(c && c.offsetParent !== null); };
+        const seen = (e) => !!(e && e.offsetParent !== null
+                               && e.getBoundingClientRect().width > 0);
+        const live = () => Array.from(document.querySelectorAll('#daycardIn [data-act]'))
+          .filter(seen).map(e => e.getAttribute('data-act'));
+
+        /* *** THE TAKE CHECK RUNS FIRST, AND THAT IS THE THIRD TIME THIS GATE
+           HAS LEAKED STATE INTO ITS OWN LATER CHECKS. *** The sweep below taps
+           EVERY row, take included, which starts the quest -- and showWake()
+           re-rings the offer but does NOT un-start a quest, so offerAccept()
+           then refuses and "taking does not change the card" reads as a defect
+           that is really my own ordering.
+           THE RULE THIS GATE KEEPS RE-LEARNING: A SWEEP THAT PRESSES EVERYTHING
+           MUST RUN LAST. Anything measured after it is measuring the sweep. */
+        showWake();
+        const tk = Array.from(document.querySelectorAll('#daycardIn [data-act]'))
+          .filter(seen).find(e => e.getAttribute('data-act') === 'take');
+        let tookChanged = null, afterTaken = null, taken = null;
+        if (tk) {
+          const b0 = txt();
+          tk.click();
+          tookChanged = open() && txt() !== b0;
+          taken = (typeof OFFER_TAKEN !== 'undefined') ? OFFER_TAKEN : null;
+          afterTaken = live().filter(a => a === 'take' || /^hg:/.test(a));
+        }
+
+        showWake();
+        const fresh = live().filter(a => a !== 'close' && a !== 'go');
+        const dead = [];
+        for (const act of fresh) {
+          showWake();
+          const el = Array.from(document.querySelectorAll('#daycardIn [data-act]'))
+            .filter(seen).find(e => e.getAttribute('data-act') === act);
+          if (!el) continue;               /* legitimately spent by an earlier tap */
+          const before = txt();
+          el.click();
+          if (!(open() && txt() !== before)) dead.push(act);
+        }
+
+        return { fresh, dead, tookChanged, taken, afterTaken };
+      });
+      console.log('  [demo rows] ' + d.fresh.join(', '));
+      console.log('  [demo, after taking] pressable leftovers: '
+        + ((d.afterTaken || []).join(',') || 'none'));
+      ok('9b the demo card offers rows a thumb can reach (' + d.fresh.length + ')',
+         d.fresh.length > 0);
+      ok('9c *** every reachable row on the DEMO card does something ***  ('
+         + (d.dead.join(',') || 'none dead') + ')', d.dead.length === 0);
+      ok('9d taking the job on the demo really changes the card', d.tookChanged === true);
+      ok('9e *** and afterwards NOTHING pressable is left that would refuse ***  ('
+         + ((d.afterTaken || []).join(',') || 'none') + ')',
+         (d.afterTaken || []).length === 0);
+      ok('9f nothing threw in the demo either', demoErrs.length === 0,
+         demoErrs.slice(0, 2).join(' | '));
+    }
 
     ok('5a nothing threw while every row was tapped', errs.length === 0, errs.slice(0, 2).join(' | '));
   } finally {
