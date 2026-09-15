@@ -13712,6 +13712,62 @@ since 9/6, it also holds 19 QUESTS (BUILD). The front page's chat-19 line says a
 chat with an empty queue takes QUESTS, and DYNASTY's queue went empty at Q16. The
 lane and its first row were claimed and pushed BEFORE any work started. ***
 
+ROUND 37 QUEUE EMPTY, AND THE RULE 13 ANSWER FOR THIS LANE. QUESTS, BUILD.
+  No code shipped. Nothing was invented to fill the round (rule 10).
+
+*** RULE 13(b), ANSWERED: NONE OF THE 107 REDS AT ad23d875 ARE THIS LANE'S. ***
+The suite line was posted for the first time (632 ran, 525 green, 107 red, 0 never
+ran) and every lane now owes the sentence "mine are ...". No per-gate red list is
+published anywhere I could find, so this lane MEASURED its own share instead of
+guessing: all sixteen gates QUESTS owns, run on 1c31ab0.
+    asks visible, first ask, check the claim, company in asks, bond outlives,
+    map moves, every row does something, ask for more, the job pays,
+    direct quests, canon quests, quest study, main spine, ladder walk,
+    inside a day, fold runtime
+Every one green. THIS LANE'S HONEST SENTENCE: "pre-push pass green; full suite:
+107 red at ad23d875, mine are NONE."
+A caveat that belongs with it: these were run at 1c31ab0, not at ad23d875, so this
+says my gates are green NOW, which is the useful claim. If PLUMBER publishes the
+per-gate list, a name-by-name reconciliation is cheap and somebody should do it.
+
+WHY THE QUEUE IS EMPTY, CHECKED RATHER THAN ASSUMED. This lane has exactly two
+OPEN rows:
+  [act two]     PAOLO PARKED IT HIMSELF ("I don't know who dies at the end of act
+                one, ask me later"). Not touchable.
+  [strike ask]  BLOCKED BY A MEASUREMENT, NOT BY THE LINE IT NAMES. The row says
+                "when WORLD [block strikes] lands", and rule 12 says measure that
+                rather than wait behind it -- so I did, and the real blocker is a
+                different one. The row's whole visible change is "the flat stays
+                empty or it does not". MEASURED: nothing in engine/ moves a person
+                from one home to another (zero hits for any move/relocate on a
+                dwelling); bohemia_agents models an occupied RATE derived from the
+                seed (2,285 of 55,391 homes), which is a statistic baked into the
+                map, not a fact anything can change; bohemia_population answers
+                "which place for this hour", not who lives where. So a flat cannot
+                be made to stay empty or not. bohemia_asks already recorded exactly
+                this and still does: person_moves_house carries proof:null and
+                does:null, "nothing in the repo moves a person from one home to
+                another".
+                BUILDING IT ANYWAY WOULD BE RULE 14(d) ON PURPOSE: a card that
+                promises something and does nothing. So it stays open and the
+                reason is written down rather than attempted.
+  AND HIS 9/15 RULING CHANGES NOTHING HERE: all six items route to COMBAT, RUN,
+  PEOPLE, DIRECTION and COOK. None is this lane's, checked before calling the
+  queue empty.
+
+[FOR THE COORDINATOR] This lane needs rows. It is not blocked on anything it can
+fix: the two it holds are a parked ruling and a mechanism nobody owns. The three
+nearest pieces of real work this lane can see, NOT claimed and NOT added to the
+board by me (rule 10):
+  1. person_moves_house is one of his six visible changes and the only one with no
+     system at all. Whoever owns dwellings could wire it, and [strike ask] unblocks
+     the same hour.
+  2. debt_moves is the other unwired one, and [first ask] measured that his bill
+     and his person-who-owes both need it.
+  3. The seven still-unwritten opening quests' sibling work is done; the ladder
+     walk says 53 of 60 bosses are wired and 8 placed, so 7 bosses and the placing
+     are real, countable gaps in this lane's own spine.
+
 ROUND 36 [half now] PART TWO SHIPPED, THE ROW IS DONE. QUESTS, BUILD.
   engine/bohemia_haggle.js     the three shapes, who is exposed, and the break mark
   slices/BOHEMIA_CITY_WORLD.html  the inlined copy synced, the mark wired to resolve
