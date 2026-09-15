@@ -14104,7 +14104,93 @@ RIGHT NOW: (a) write this whole instruction, word for word, into your own handof
 
 I will never paste anything to you again. From here on, the one word is the whole instruction.
 
-THIS ROUND -- *** 103 HEMS NOW KNOW WHICH LEG CARRIES THEM, AND A NAME WOULD HAVE BEEN
+THIS ROUND -- *** THE WARDROBE STOPS LYING ABOUT ITS COLOURS, AND 23 OF MY FIRST 27 LIARS
+WERE MY OWN RULER. PLUS A CORRECTION TO LAST ROUND'S BODY WIRE THAT WOULD HAVE MADE GIANTS.
+(shas 8cb855b3 and c581dfa7, rows [names lie] and [bigger bodies]) ***
+
+THE ROW: COPPER WORK SHIRT is #506e60, GREEN, "and that one lie is the whole reason Trades
+measured 121 degrees off his chosen orange."
+
+THE ROW NAMES SEVEN COLOUR WORDS AND THE RAIL USES 25 (rule 12, a premise not a gate).
+Olive is on 18 garments, bone 17, rust 13, storm 12, ash 12, slate 11, soot 9, sage 9,
+brick 8, cobalt 8, khaki 7. Sweeping copper, oxblood, bone, steel, teal, dust and charcoal
+alone would have cleared the wardrobe and left the rest unchecked.
+
+*** MY FIRST SWEEP REPORTED 27 LIARS AND 23 OF THEM WERE CORRECT GARMENTS. ***
+THIS IS THE FINDING OF THE ROUND AND IT IS NOT ABOUT CLOTHES.
+I filed DUST, SAND and KHAKI as GREYS. They are not greys, they are low-chroma TANS: khaki
+is #C3B091 at saturation 0.26 and sand is #C2B280 at 0.34. The 23 "liars" were tan garments
+at hue 45 sitting a few hundredths over a saturation ceiling I had invented. Acting on that
+would have re-ramped two dozen correct garments to grey and called it a repair.
+THE TELL WAS THE SHAPE OF THE RESULT: 23 of the 27 failures clustered within 0.09 of one
+dial. A REAL DEFECT DOES NOT QUEUE UP POLITELY AGAINST YOUR OWN THRESHOLD. When a sweep
+fails in a neat line against a number you chose, the number is the finding.
+AND A COMPOUND NOUN IS NOT A COLOUR CLAIM: a DUST MASK is a mask FOR dust. The tool called
+RUST DUST MASK a liar for being rust-coloured while PASSING the word RUST in the same name.
+When one garment makes a tool contradict itself, the tool is wrong.
+
+THE REAL COUNT IS FOUR, AND THE RAMP WAS NEVER THE LIE. The ramp those four share is called
+COPPEROX -- copper OXIDE, which is green, because that is what copper does in weather. The
+NAME dropped the oxide. So the fix is a RENAME, not a re-ramp: COPPER -> PATINA on the work
+shirt, the scarf, the plaid flannel and the field cap, in the wardrobe, the canon bank and
+RAY's outfit in the family cast. STRUCTURE-NOT-COLOR is satisfied by construction and not
+by promise: a rename moves zero pixels and the generator call is byte-identical.
+205 garments name a colour, 214 claims checked, 0 lie.
+
+*** AND A CORRECTION TO MY OWN LAST ROUND, FOUND BECAUSE RUN SHIPPED ITS HALF. ***
+RUN landed [step is a house] part one (3cc9fff2) and named the constant STEP_CELLS. My body
+wire from last round watched window.BOHEMIA_STEP_FINE, WHICH NOTHING SETS. The wire was
+dangling: a second name for one number, which is the exact bug the law's "one number in one
+place" is about, committed by the lane that quoted it. My own gate was green over it
+because it only checked the name appeared in the file.
+AND REPOINTING IT AT STEP_CELLS ALONE WOULD HAVE BEEN WORSE. STEP_CELLS is 5, my test fired
+on anything over 1, so the body would have asked for half a lot at today's camera: 550 px of
+person on a 378 px screen. RUN measured the same thing and refused it in its own record --
+"making it bigger without the zoom change makes a person taller than a doorway".
+SO THE TRIGGER IS NOT THE STEP. IT IS WHETHER A HOUSE FITS ON HIS SCREEN. Self-measuring off
+the real camera, no flag, no second constant, and it cannot make a giant on a tight camera
+by construction: today a lot draws 1,100 px against a 378 px screen and it does nothing.
+AND "A HOUSE FITS" ALONE WAS STILL WRONG, CAUGHT BY MY OWN GATE BEFORE IT SHIPPED: a lot is
+25 cells, so it fits the moment a cell is under about 14 px -- which is CITY zoom, HC 11
+today. On that test every body in the city would have jumped from 28 px to 112. Giants
+standing over a whole valley, in the one mode where a person should be a speck. The fix is
+the missing half of the condition, a walk-mode check, not a tighter number.
+
+- SHIPPED to the alpha. Build 9/15t. No demo re-cut (rule 14a, only RUN cuts the demo).
+- RULE 14(a) AS AMENDED 9/15: walked the cut of this tree with the one driver on a phone
+  profile, street AND city. Street renders with two people on it; city renders with the
+  bodies still specks and the phone feed running; no page error. Nothing visible changed,
+  so the never-worse ratchet holds.
+- TAB: CHARACTER / CLOTHES for the four renamed garments. Nothing new to open.
+- GATES: gates/the_name_matches_the_ramp_gate.js NEW 8/0, and body_scale 10 -> 13.
+  The name gate reads its dictionary OUT OF THE TOOL rather than retyping it, because two
+  tables that can disagree about what copper means is the bug this row is about. Four
+  questions, not one: chromatic words on hue, earth words on hue AND chroma, neutral words
+  on saturation, dark words on value. Mutation-proven three ways: put the original lie back
+  RED, ship a new garment with a lying name RED, move the dictionary in the tool and the
+  gate follows RED. A HOLE THE MUTATION FOUND: a garment that fails to render was skipped
+  with a note while the gate stayed green -- silence is not a green, so an unmeasured
+  garment that names a colour is now a FAIL.
+  body_scale now reads STEP_CELLS by its real name, asserts the trigger is the CAMERA and
+  not the step, and asks CITY MODE SEPARATELY so the city's ladder is pinned. Two more
+  mutations: drop the walk-mode half RED, grow the body on today's camera RED.
+- SUITE (rule 13): pre-push pass green -- the_name_matches_the_ramp 8/0, body_scale 13/0,
+  hem_follows_the_leg 11/0, wardrobe_wired 17/0 with the shape ratchet unmoved,
+  faction_colour 38/0, family 15/0. Full suite: 107 red at ad23d875; the two carrying this
+  lane's name (FACE THUMB, LOOK) were red on main before this lane's last six ships,
+  settled by commit dates, and nothing from this round is in that line.
+- FOR RUN [zoom meets]: when the walk camera pulls back far enough to show a house, the
+  body grows in the same frame with no further work here. A lot is 25 fine cells and wants
+  about 208 px, so HC lands near 8. This lane is wired and waiting on that and nothing else.
+- NEXT ROUND: [shape frozen] THE-SILHOUETTE-HASH-BECOMES-A-GATE, the next OPEN line, and
+  this round is the argument for it: a rename is the one repair that provably cannot move a
+  silhouette, and the next one might not be.
+- [PENDING Paolo] unchanged and still carried: which faction colour file wins; the
+  Anarchists need a magenta garment and there are zero in 317 (the reserved purple band
+  blocks the obvious cook); the Cartel sits on the drab exemption list and not in the law
+  that names it.
+
+PREVIOUS ROUND -- *** 103 HEMS NOW KNOW WHICH LEG CARRIES THEM, AND A NAME WOULD HAVE BEEN
 WRONG 36 TIMES. (sha c47c0098, row [long coats]) ***
 
 HIS WORDS THIS ANSWERS (Paolo 9/7): the coat problem "will be the nature of any long
