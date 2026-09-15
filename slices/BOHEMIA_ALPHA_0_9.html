@@ -17370,6 +17370,25 @@ function buildUI(){
          seconds after entry and reports a faction from its rotation with no
          fight in progress, which used to reassign whatever was playing. */
       if(window.MENUMUS&&MENUMUS.on)return;
+      /* __A_FACTION_SONG_NEEDS_A_FIGHT__ (9/15, SOUNDS lane) -- AND NOT WHILE THE
+         STREET OWNS THE MUSIC WITH NO FIGHT ON, which is the condition the comment
+         above has always described and never checked.
+         MEASURED with a property setter on MUS.cur logging every write and its call
+         site, cold boot, 45 seconds: the street picked SLOW CREEP at 22.1 s and THIS
+         LINE overwrote it with VOLUNTEERS and then ANARCHISTS at 22.4 s, and the
+         street was still playing ANARCHISTS 23 seconds later. His 7/7 overworld law
+         says the overworld plays the creepers, and CITYMUS.candidates() can only
+         return MLOOPS entries, so the street cannot have chosen either of those.
+         THE OPENING GUARD ABOVE ONLY EVER WORKED BY TIMING. It held while the warm-up
+         landed inside the opening's phrase. Since this lane fixed the opening to hand
+         over on the audio clock (it used to never hand over at all on a boot that
+         stutters) the opening is done at about 16.7 s and the warm-up arrives at
+         about 22 s, so the guard passes and the warm-up takes the street.
+         A GUARD THAT NAMES ONE MOMENT INSTEAD OF THE CONDITION HOLDS ONLY WHILE THE
+         TIMING HAPPENS TO AGREE WITH IT.
+         Narrow on purpose: a faction song may still take the music the instant a
+         fight owns it, by any path, so no legitimate pick is dropped. */
+      if(window.CITYMUS&&CITYMUS.on&&!(window.FIGHTMUS&&FIGHTMUS.on))return;
       /* NEVER THE SCRATCH PATCH (8/19). See FIGHTMUS.realFaction. */
       MUS.cur=(window.FIGHTMUS?FIGHTMUS.realFaction(ev.data.bohemiaFactionPicked)
                               :ev.data.bohemiaFactionPicked);
