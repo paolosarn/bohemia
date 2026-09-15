@@ -230,14 +230,25 @@ function pw() {
     ok('2c and the gate put the world back', forced.restored === false);
 
     /* ==================================================================
-       9. *** AND ALL OF IT AGAIN ON THE DEMO, WHICH IS THE THING HE PLAYS.
-       (9/15.) ***
-       EYES E26 has now reported a dead row on the first card THREE ROUNDS
-       RUNNING, and the reason it kept surviving is a hole in THIS gate, not a
-       mystery in the game: every check above opens the ALPHA. Paolo plays the
-       DEMO. Rule 14(a) means the demo is cut by RUN and lags every lane, so
-       "green on the alpha" and "green on the thing in his hand" are different
-       claims and this gate only ever made the first one.
+       9. *** THE SAME SWEEP AGAIN ON THE DEMO, BY ITS OWN ROUTE. (9/15.) ***
+
+       *** A CORRECTION TO WHAT THIS HEADER SAID WHEN THE DEMO PASS WAS ADDED,
+       AND THE CORRECTION MATTERS MORE THAN THE PASS. *** I wrote that this gate
+       was "green about a build he does not play", and told every lane the same.
+       MEASURED AFTERWARDS, AND IT IS OVERSTATED: both builds carry
+       `const CITY_SRC='BOHEMIA_CITY_WORLD.html'` and load that ONE file by path.
+       `ctFirstAsks` appears 0 times in the demo, 0 in the alpha and 1 in the
+       city. THE CARD IS DRAWN BY CODE BOTH BUILDS SHARE, so a gate opening the
+       alpha was testing the same card code all along, and the dead-row reports
+       are not explained by which build the gate opened.
+
+       WHAT THE ALPHA-ONLY PASS REALLY DID NOT COVER, which is narrower and real:
+       THE DEMO'S OWN ROUTE TO THE CARD. The demo has no tab bar -- the splash
+       goes straight in -- and its shell is a generated cut with its own loading
+       path. A card that is fine in the workshop can still be unreachable, late,
+       or covered in the cut. That is what this pass tests, and it is worth
+       keeping for that reason and not for the one I first gave.
+
        It also covers the state the reports are about: AFTER the job is taken.
        ================================================================== */
     const demoPage = await b.newPage({ viewport: { width: 390, height: 844 } });
