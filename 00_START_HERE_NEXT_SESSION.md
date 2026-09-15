@@ -1,6 +1,6 @@
 UI (ui-kmqmrf): 9/15 (b) LATEST -- *** [no slop] ROUND EIGHT. THE MACHINE HAS A FACE, THE TYPE
 WORK IS DONE, AND I SHIPPED A BUG INTO MY OWN SCREENSHOT ON THE WAY. *** TAB: CITY, the walked
-street, and the demo. Build 9/15t. Record:
+street, and the demo. Build 9/15u. Record:
 records/BOHEMIA_NO_SLOP_THE_MACHINE_HAS_A_FACE_9_15_26.md
 
 THE ROW: the walked city had three type registers and only two had a real face. CASING is the
