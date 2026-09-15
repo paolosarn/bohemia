@@ -1173,6 +1173,102 @@ archive escape built in from the start so [handoff cut] is unblocked rather than
 THE WARNING FOR EVERY LANE: do not write this file from a copy you read at the start of your round.
 Re-read it immediately before you edit, and check your own block is still there after any rebase.
 
+ANIMATION (animation-lr9y9i): 9/15 (a) LATEST -- *** ONE FACING IS NOT A
+MEASUREMENT. A correction I owe on my own last round, two dead hypotheses, and no
+rig change on purpose. TAB: ANIMATION. No new build; nothing new for him to look
+at this round. ***
+
+ROW STILL CLAIMED: [redo killed]. RULE 14: ships to the ALPHA only; RUN cuts the demo.
+RULE 15 IS NEW (Paolo 9/14, ONE VOTE TAB) AND IT CHANGES THIS LANE'S DELIVERY.
+Everything wanting his thumb goes to the VOTE tab in the demo; no lane draws its
+own judge page again. So the ONES YOU KILLED filter I built in JUDGE ALL is now an
+archive and presents nothing. MEASURED rather than assumed (rule 12): UI [vote tab]
+is still OPEN, there is no registry to write into, and rule 15(d) gives UI the
+shell, queue, registry and vanish gate. So the 47 repaired clips CANNOT reach him
+until that lands. This lane's row for it is [into the vote tab], still OPEN.
+(slices/BOHEMIA_VOTE_CURRENT.html exists but is dated 9/12, two days before the
+ruling, and is not that tab.)
+
+=== THE CORRECTION I OWE
+Last round I shipped a claim reading "BEAT FOUR LANDS". It came from a gate that
+called hsReset('S') and nothing else. Swept across eight facings, beat four is
+16.8px on S and about -0.9 on the other seven. TRUE ON ONE FACING OUT OF EIGHT,
+and I had not looked at the rest. It reads "BEAT FOUR LANDS ON S" now and names
+how many facings hold. Same shape as every ruler bug in this clip: the ruler
+measured something smaller than the thing it named. FIFTH of this session.
+
+=== WHAT THE EIGHT FACINGS SAY, AND IT IS THE ROUND'S REAL DELIVERABLE
+    dir | b1 head/waist | b2 knee peak -> end | b3 body/hand (lag%) | b4 arms in
+      N |      10.8/6.4 |           102 -> 10 |          24/3 (88%) |        2
+     NE |      10.8/6.4 |           121 -> 22 |       19/-19 (200%) |     -0.3
+      E |      11.2/5.4 |          142 -> 144 |          15/9 (40%) |     -0.2
+     SE |        10/3.2 |            80 -> 30 |          13/5 (62%) |      0.5
+      S |        10/4.1 |             38 -> 5 |         12/10 (17%) |       16
+     SW |        10/4.1 |             37 -> 0 |          12/5 (58%) |     -0.9
+      W |      20.6/5.8 |          159 -> 130 |          26/8 (69%) |      0.6
+     NW |      10.8/5.8 |           101 -> 27 |       21/-17 (181%) |     -0.3
+BEAT ONE HOLDS ON 8 OF 8 (last round's work, now verified not assumed). BEAT FOUR
+HOLDS ON 1 OF 8. Beat two's knee peak runs 37 to 159 degrees; beat three's hand lag
+runs 17% to 200%. The same clip is a different animation depending only on which
+way he was knocked. That is the thing to fix, and it is bigger than any one beat.
+
+=== TWO HYPOTHESES FOR BEAT THREE, BOTH KILLED, NEITHER SHIPPED
+1. A BONE COLLAPSING under the RIGID LIMB LAW (the sim shoulder-to-hand distance
+   hits 0.9px on W, and a near-zero vector deciding a limb's direction is the bug
+   this lane already found once). MEASURED over 26,880 bone-frames: no bone below
+   60% of rest, 0 under a quarter. The 0.9px was shoulder-to-HAND with a folded
+   elbow, which is anatomy, not a bone. DEAD.
+2. THE KNOCK PROJECTION turning a backward lag into screen-down, positive on the
+   north facings and negative on the south. MEASURED: the sim backward lag is
+   2.7px at most, its screen term 0.1px, and the two-term split misses the real
+   motion by 31.6px -- because the RIGID LIMB LAW and the TRACKING CAMERA both run
+   AFTER the projection, so sk is not the projection's output. DEAD.
+WHAT IS TRUE: the arm's inertia is real and large in the SIM (the shoulder drops
+19px while the hand drops 7.6, a 60% lag; the arm swings 200->247 degrees against
+the spine). His mechanism EXISTS. The delivery to the screen fails and its cause is
+STILL OPEN. Do not re-run either hypothesis; the gate prints both every run.
+
+=== TWO KNOBS THAT DO NOT REACH, BOTH DELETED
+- hand/elbow damping in his window, swept 0.38 -> 0.05 (7x, on a value deliberately
+  set as v1's "subtle linger"): worst facing 17% -> 27%, and four rendered rows side
+  by side are nearly indistinguishable.
+- rotating the whole rendered arm about the shoulder to resist the shoulder's
+  screen-downward travel (beat one's own trick): 3.16px at most, and the decay
+  cancels it exactly when the drop peaks.
+A 7x parameter change that is invisible on screen is a knob that does not reach.
+Shipping either would be chasing the gate's number instead of what he sees.
+
+GATES: FOUR BEATS 10/0, now sweeping ALL EIGHT facings and printing every beat on
+every one, plus both dead hypotheses so nobody spends another round on them. Two
+new claims, both mutation-proved: that the eight are swept, AND THAT THEY ARE
+EIGHT DIFFERENT RUNS -- my first cut of the sweep reset to each facing then posed a
+hardcoded 'S', hsPose re-resets when the key differs, all eight rows came back
+byte-identical, and the gate called that eight facings. A COUNT OF FACINGS IS NOT A
+SWEEP. The new claim catches exactly that bug.
+Record: records/BOHEMIA_ONE_FACING_IS_NOT_A_MEASUREMENT_9_15_26.md
+
+PRE-PUSH PASS (rule 13): the body and rig gates plus the shared ones, all green.
+FULL SUITE: 107 red at ad23d875 (the front page's suite line). Mine are NONE that I
+have found: RIG CHECK and REUSE-FIRST are the two this lane's diff touches and both
+were verified red on a clean origin/main checkout last round, so neither is mine.
+I have not run the other 105 and am not claiming them either way.
+
+WHAT IS LEFT OF THE ROW
+- BEATS TWO AND THREE, and they are now ONE problem, not two: every beat reads
+  differently per facing and nobody had measured that because the gate looked at S.
+  Beat three's mechanism exists in the sim and does not survive to the screen; two
+  reasons why are dead. Find the third before building anything.
+- BEAT FOUR is 1 of 8 and that is new information, not a regression.
+- Four clips still snap, all small: crouch-aim-2h 4, crouch-aim-1h 2, spear-drive 2,
+  shiv-jab 1, worst 12.6px. Pose problems, not rig problems.
+- Clips whose keys are too far apart to read as motion: POSEHOLD key density.
+- On NE in his own frame (records/target/PAOLO_THE_COAT_AND_THE_ELBOWS_9_7_26.jpg)
+  the head sits up and right of the shoulders with a visible gap. Pose too.
+- THE 47 ARE REPAIRED AND CANNOT REACH HIM until UI [vote tab] lands. That is the
+  row's real blocker now, and it is not this lane's to build.
+
+Nothing [PENDING Paolo].
+
 ANIMATION (animation-lr9y9i): 9/14 (b) LATEST -- *** THE HEAD WAS WELDED TO THE
 SPINE. Beat one of his headshot spec is BUILT after defeating three attempts, and
 the reason all three failed is now measured and written into the code so a fourth
