@@ -7119,7 +7119,66 @@ NEXT IN THIS LANE (top unblocked, in order)
 
 --------------------------------------------------------------------------------
 
-SOUND (sound-xk7pjp): 9/15 (a) LATEST -- *** THE VALLEY'S MUSIC WAS NEVER STARTING AT
+SOUND (sound-xk7pjp): 9/15 (b) LATEST -- *** THE STREET WAS BEING OVERRULED WITHIN A
+SECOND OF GETTING THE MUSIC. The open question this lane ROUTED last round instead of
+guessing at is answered and fixed. TAB: RUN, with the sound on. Nothing to judge,
+nothing was cooked. ***
+
+Record: records/BOHEMIA_A_FACTION_SONG_NEEDS_A_FIGHT_9_15_26.md
+Tool: tools/bohemia_a_faction_song_needs_a_fight.py (idempotent)
+
+HOW IT WAS FOUND, and the method is the point: WATCH THE VALUE, NOT THE CODE. MUS.cur was
+given a property setter that logs every write WITH ITS CALL SITE. Reading code finds
+candidates; watching the value finds the culprit. Cold boot, 45 seconds, FOUR writes:
+0.3s the opening; 22.1s the street picks SLOW CREEP; 22.4s ONE LINE overwrites it with
+VOLUNTEERS and then ANARCHISTS -- and 45 s in the street was STILL playing ANARCHISTS. His
+7/7 overworld law says the overworld plays the creepers, and CITYMUS.candidates() can only
+return MLOOPS entries, so the street cannot have chosen either.
+
+THE WRITER IS THE COMBAT FRAME'S WARM-UP AND THE COMMENT ABOVE IT DESCRIBES THE EXACT BUG
+(8/19, its own words): "the combat iframe is WARMED seconds after entry and reports a
+faction from its rotation WITH NO FIGHT IN PROGRESS, which used to reassign whatever was
+playing." The guard written for it is `if(MENUMUS.on)return` -- only the OPENING. It
+worked for weeks BY TIMING, and it stopped working BECAUSE OF THIS LANE'S OWN FIX the
+round before: the opening hands over on the audio clock now (it used to never hand over at
+all on a boot that stutters), so it finishes at ~16.7 s while the warm-up lands at ~22 s.
+A GUARD THAT NAMES ONE MOMENT INSTEAD OF THE CONDITION HOLDS ONLY WHILE THE TIMING HAPPENS
+TO AGREE WITH IT. The condition was never "the opening is playing"; the comment says "with
+no fight in progress" and nobody ever wrote that down as code.
+
+THE FIX IS NARROW ON PURPOSE: the warm-up is ignored ONLY when the street owns the music
+AND no fight is on, so a faction song may still take the music the instant a fight owns it
+by any path and no legitimate pick is dropped. Opening guard, scratch-patch guard,
+FIGHTMUS.realFaction and the MUSIC tab's own PLAY all untouched.
+PROVED, same setter, same route: BEFORE 4 writes ending on ANARCHISTS; AFTER 2 writes --
+the opening, then the street's own REPO MAN -- still REPO MAN 45 seconds later.
+
+WHY IT WAS INVISIBLE, AND WHAT IT SAYS: it could not fire in a harness until the handover
+worked, because before that the opening never let go and the guard was always true. FIXING
+ONE THING MADE A SECOND, OLDER THING VISIBLE, and the same fix moved the timing that
+exposed it. Third defect in three rounds hiding behind a broken checker or a broken
+predecessor: (1) the rest gate had been RED ON MAIN for days and its red was TRUE; (2) the
+opening never handed over so the street's music never started; (3) the street's song was
+overruled by a screen with no fight in it.
+
+PRE-PUSH PASS (rule 13a), all green: FIGHT MUSIC, ROOM SONG, CITYMUS ROTATION, STREET
+BREATHES, MENU MUSIC, INTENSITY WIRED, SOUND REACHABLE, BEAT FIRST -- then the key four
+re-run after a 10-commit rebase, because the tree that ships is not the tree that was
+tested. Rule 13b: the suite line is 9/14 ad23d875, 107 red; STREET BREATHES was mine and
+is 25/0 since last round.
+
+STILL OPEN IN MY SECTION: [beat teaches], [enemy heard], [fight music], [rumour heard],
+[pump hum], [eyes: bed unplayed], [scheduled beat], [quiet floor], [into the vote tab].
+[music owned] stays CLAIMED.
+RULE 16 (THE STEP IS A HOUSE, Paolo 9/15) is first line in RUN, COMBAT, CHARACTER and
+LIFE+CITY, not here -- but it lands on this lane the moment it ships: one step is one lot
+and one step per beat at 120 BPM, so the footstep cadence becomes one per beat, and the
+step limiter is 0.12 s today. NOT CLAIMED, NOT GUESSED AT, WRITTEN DOWN: the lattice
+belongs to [lot lattice] and this lane re-measures the footstep rate once a step is a lot.
+
+--------------------------------------------------------------------------------
+
+SOUND (sound-xk7pjp): 9/15 (a) -- *** THE VALLEY'S MUSIC WAS NEVER STARTING AT
 ALL ON A NORMAL BOOT, AND EVERY SIDEWALK WAS MAKING A DIRT SOUND. Both measured, both
 fixed, both this lane's own. TAB: RUN, with the sound on. Nothing to judge, nothing was
 cooked. ***
