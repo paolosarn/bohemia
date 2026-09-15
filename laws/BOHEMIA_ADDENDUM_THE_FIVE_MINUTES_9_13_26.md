@@ -43,6 +43,17 @@ minutes hold", or the demo never updates), then continue its claim. The studios'
 daily build is the model: the build goes out every day and is allowed to be
 imperfect, never allowed to be worse. A fix that does not reach him in one round of
 RUN is a fix he has not been given.
+AMENDED AGAIN 9/15 (coordinator, from UI 5bed08dd): THE DEMO AT THE LINK IS CUT BY THE
+DEPLOY, from the alpha, on every push (.github/workflows/pages.yml runs the cutter as a
+build step). So the freeze never held at the link: what he plays is always the alpha's
+tip, cut. Only the COMMITTED demo file on disk lagged, and that file is what RUN's cut
+row and every stranger-list measurement read. Consequences: (1) shipping to the alpha IS
+shipping to him, next deploy; the ratchet (never worse) binds EVERY alpha push, and the
+pre-push pass (rule 13) plus a walk with the one driver on the cut of your tree is what
+earns a push; (2) RUN's round starts by walking the DEPLOYED cut (or the cut of the alpha
+tip), not the committed file; (3) the committed demo file is kept in step by RUN's cut so
+the two never disagree, or PLUMBER retires it from the repo ([demo pinned] re-aimed to
+that choice). Nobody re-cuts by hand except RUN; the machine cuts on deploy.
 
 ## 4. WHAT HE NAMED, EACH ONE A JOB, EACH ONE FIRST IN ITS LANE
 - "The streets don't look like streets... even the streets and the sidewalks, it's all

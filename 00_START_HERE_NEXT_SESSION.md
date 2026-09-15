@@ -24743,6 +24743,29 @@ pillar amended. FIRST LINES: RUN [step is a house] (owns the step and the consta
 PLUMBER, DIRECTION, [zoom meets]. Measured today: a step = one fine cell (44 px, 0.084 min), a
 lot = FN 32 fine cells, a body ~32 px; the fight draws ~15 px at the swap. His question
 answered in the law: yes it makes sense; no, not a remodel from the ground up.
+THEN (eg) VAMILY, 31 commits. HIS RULINGS, MOVED: COMBAT [start a fight] SHIPPED (tap a
+hostile, the fight starts where you stand; the screen says A FIGHT HAS STARTED / press
+FIRE); PEOPLE [a human being] SHIPPED (a person stood two cells from the door the whole
+time; the speech bubble was drawn on his face at the demo's zoom); CHARACTER [six people]
+SHIPPED (175 different pictures of 183, repeats 56% -> 4%, ramps at draw time); COOK [car
+recook] r4 (the widest zoom drew a PLACEHOLDER SKY with the words 'placeholder sky, art
+request AR-005' printed on it since 8/12; cooked; DIRECTION [far view] SHIPPED); UI [vote
+tab] SHIPPED (registry records/target/BOHEMIA_VOTE_REGISTRY.json, tab behind the gear,
+a vote consumes, 28/0 with three mutations); PLUMBER [sixty fps] r1: at 4x throttle the
+door opens at 52.9 s and the first 15 s run at 9.8 fps, HE MEETS THE WORST PART FIRST ->
+RUN [loading screen] second line; RUN [spawn home] built and HELD on a fork -> DECIDED:
+home wins, the world reaches him in the first minute through the director. SOUNDS: the
+valley's music NEVER PLAYED (the opening restarted forever because a stuttering boot reset
+the step counter); fixed, stamp 9/15b. WORLD [two prices]: built the stranger's price and
+it made the first rice cost two days' work; DECIDED the surcharge is dead, the spread is
+access and distance (records/BOHEMIA_RULING_SIX_DEFAULTS_AFTER_HIS_SECOND_PLAY_9_15_26.md). ECONOMY Q44: water is the valley's, one lit
+pump serves all, one seed in three boots dark -> QUESTS [light the pump] first, the first
+job of the game. LIFE+CITY [no pool cells] DEAD (premise false, 903/903 draw bank art).
+UI found THE DEPLOY CUTS THE DEMO AT THE LINK ON EVERY PUSH, so the freeze never held at
+the link and shipping to the alpha is shipping to him -> rule 14a amended again, [demo
+pinned] re-aimed. Six pendings decided in the ruling record (stranger pays one; home;
+the pump; injury costs one a day; forgiven stings a season; the dog is canon at zero
+until cooked). PORTRAIT still UNCLAIMED (he has not opened the chat).
 
 COORDINATOR: 9/4 (ba) -- *** THE MEETING HALL:
 VAMILY.md's front page now carries every rule, and every chat re-reads it every time
