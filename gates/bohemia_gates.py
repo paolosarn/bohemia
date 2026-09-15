@@ -5328,6 +5328,21 @@ GATES = [
      "longer' means something. Being down is a QUESTION against the clock, so a save left on a shelf comes "
      "back healed with nothing to tidy. And it is on the card he already opens, saying how long and saying "
      "the promise out loud", False),
+    ('PEOPLE NOT LATE',['node', 'gates/the_people_are_not_late_gate.js'],
+     "EYES E26 round 6 bounced PAOLO 9/15 back to this lane on the shipped row: 'the work is EARLIER and "
+     "UNFROZEN, not MORE'. *** HE WAS LOOKING AT HIMSELF. *** Measured on the demo, armed before any page script "
+     "and read off the CALL STACK so the answer knows whose body it is: the city first draws at 4.8 s, THE "
+     "PLAYER APPEARS AT 12.5 s, SOMEBODY ELSE AT 16.5 s, so he is on the glass alone for four seconds. And of "
+     "the 11.7 s wait before another person, 98% is the MAIN THREAD BEING HELD -- six whole seconds with no draw "
+     "of any kind while the ground bakes. That half is PLUMBER's [sixty fps] and EYES routed it themselves. This "
+     "lane's half is the 366 ms he is alone while the thread is FREE, and the promise it stays that small when "
+     "the freeze is fixed. THE RATIO DESCRIBES AND THE TRIPWIRE CATCHES, and the difference is written down: a "
+     "delay injected inside an already-blocked window left the ratio at 100%, so the claim that bites is the "
+     "time FREE AND ALONE, which the same delay pushed to 1,351 ms and turned red. *** AND THE INSTRUMENT "
+     "COUNTED THE PLAYER AS A HUMAN BEING FOR THREE CUTS *** -- the player is drawn on the same ladder, so a "
+     "body was not a person until the stack said whose it was, which is the tool making his exact complaint. "
+     "The controls plant the same square twice, once from a function called peoplePass and once not, and refuse "
+     "the classifier unless it separates them. NO GAME CODE CHANGED and nothing was added to the population", False),
     ('LOCK THEM',      ['node', 'gates/lock_them_gate.js'],
      "PAOLO 9/11: 'there has to be a way to make it easy to lock characters they don't want to die, "
      "companions, people in your company, not endgame bullshit.' *** THE CONTROL IS THE WHOLE FINDING AND IT IS "

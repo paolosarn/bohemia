@@ -1,0 +1,136 @@
+BOHEMIA -- THE PEOPLE ARE NOT LATE (9/15/26, PEOPLE lane)
+Bounced back to this lane by EYES AND EARS E26 round 6, on the shipped row
+HE-DID-NOT-SEE-A-SINGLE-HUMAN-BEING:
+  "-> PEOPLE [a human being]: the work is EARLIER and UNFROZEN, not MORE."
+
+PAOLO 9/15, his second play of the demo:
+  "I didn't see a single human being. Very strange."
+
+================================================================================
+*** HE WAS LOOKING AT HIMSELF ***
+================================================================================
+Measured on the demo, phone profile, armed before any page script runs, and read
+off the call stack so the answer knows WHOSE body it is:
+
+  the city draws its first anything      4,804 ms
+  THE PLAYER APPEARS                    12,493 ms
+  SOMEBODY ELSE APPEARS                 16,507 ms
+  HE IS ON THE GLASS ALONE FOR           4,014 ms
+
+That is his sentence, in numbers. For four seconds there is a man on the screen
+and he is the only one, and everything before that is a blank or frozen city.
+
+================================================================================
+AND ALMOST NONE OF IT IS THIS LANE BEING SLOW
+================================================================================
+  the wait from the first paint to the first other person   11,703 ms
+  of that, the MAIN THREAD WAS HELD                         11,481 ms  = 98%
+  of the time he was alone, the thread was FREE for only       366 ms
+
+Every draw bucketed by the second it happened in:
+
+  second  4    3,128 draws    0 people
+  second  5    3,869 draws    0 people
+  seconds 6, 7, 8, 9, 10, 11  NO ROW AT ALL, because nothing was drawn
+  second 12    7,290 draws    the first body, and it is the player
+
+SIX WHOLE SECONDS WITH NO DRAW OF ANY KIND. That is not a slow crowd, that is a
+stopped game. The commonest draw sizes over thirty seconds are 44x44 (2,707
+ground tiles) and 704x704 (1,225 chunk blits): the ground being baked is what the
+eight seconds are spent on.
+
+================================================================================
+SO WHICH HALF IS WHOSE, SAID PLAINLY
+================================================================================
+NOT THIS LANE'S: the thread being held. EYES routed that half themselves to
+PLUMBER [sixty fps] and measured it at 28.9 s frozen out of the first 300 across
+42 freezes. This round's walks saw 30 to 34 blocks totalling 23 to 25 s in thirty
+seconds. Nothing this lane writes puts a person on a canvas that is not drawing.
+
+THIS LANE'S: the 366 ms, and the promise that it stays that small. When the
+freeze is fixed, people have to already be the first thing painted rather than a
+second problem found afterwards.
+
+================================================================================
+THE GATE HOLDS A RATIO AND A TRIPWIRE, AND THEY ARE DIFFERENT QUESTIONS
+================================================================================
+THE RATIO describes the wait: of the time before the first other person, 90% or
+more must be the main thread being held. It means the same thing on this box and
+on his phone, which a wall-clock ceiling never could, because PLUMBER proved this
+container is several times faster than the thing in his hand.
+
+THE RATIO CANNOT CATCH THIS LANE GETTING SLOWER, and that is written down rather
+than hoped over: a delay added inside a window that is already mostly blocked
+leaves it high. Measured with a delay injected on purpose: three seconds left it
+at 100%, ten seconds at 93%.
+
+SO THE TRIPWIRE IS A DIFFERENT NUMBER: the time he is alone on the glass WHILE
+THE THREAD IS FREE. That is time the game could have spent drawing somebody and
+did not, it belongs to nobody else, and it is the literal form of his sentence.
+It stands at 366 ms against a beat of 500 ms, and the injected delay pushed it to
+1,351 ms and turned the claim red.
+
+================================================================================
+MY INSTRUMENT WAS WRONG THREE TIMES AND THE THIRD ONE IS THE ROUND
+================================================================================
+CUT ONE wrapped peoplePass after the page had started. The wrap landed at 12.9 s
+and reported "the pass has run 0 times" about a pass that had already painted
+three bodies. The zero was the moment I started looking, not a fact about the
+game. EYES published exactly this error in round 4 and again in round 6 and wrote
+it up both times; I made it a third time with their warning in front of me.
+
+CUT TWO polled PLAYER_CV and read false the whole way through, including after
+people were plainly on the glass. PLAYER_CV lives in the CITY frame and my poller
+was reading the SHELL's window. Two windows, one name, and a confident negative.
+
+*** CUT THREE COUNTED THE PLAYER AS A HUMAN BEING. *** It knew a body by the
+ladder's own rungs, which is correct for "is this a body" and useless for "did he
+see a PERSON", because the player is drawn on the same ladder. It reported the
+first human being at 12.5 s. THE STACK SAYS 12.5 s IS renderHuman DRAWING HIM,
+and the first draw from peoplePass is four seconds later. A control aimed at
+something else is what exposed it: peoplePass was made to draw nobody until 22 s
+and the "first body" did not move at all.
+
+That is the same mistake as his complaint, made by the tool sent to measure his
+complaint. A body is not a human being until you know whose it is.
+
+WHAT CHANGED SO IT CANNOT HAPPEN AGAIN: the hook reads the call stack and a draw
+counts as somebody else ONLY when peoplePass is on it. The control plants the
+same 112 px square twice, once from a function called peoplePass and once not,
+and refuses to believe the classifier unless it separates them.
+
+AND ONE CLAIM OF MINE PASSED TWICE BY LUCK BEFORE THAT. The first version asked
+"how long after the thread came free did a body land", which has no answer when
+the body lands INSIDE a block, and it does, because drawing is exactly the work
+that starves the heartbeat. It read 38 ms, then 42 ms, then 9,492 ms on a run
+where nothing about the game had changed.
+
+================================================================================
+THE GATE
+================================================================================
+gates/the_people_are_not_late_gate.js, 16 claims.
+  the pass     exactly one early return, it is the PLAYER_CV one, and nothing in
+               the pass waits on a clock of its own
+  the glass    the wait before the first other person is 90% or more thread held;
+               the time free and alone stays under a beat; the pass keeps
+               painting people afterwards
+  the controls the hook fired; a body drawn FROM the pass counts as somebody
+               else; the same body drawn from anywhere else counts as the player;
+               a ground chunk and a non-square draw are neither
+
+NEGATIVE-CONTROLLED, each one put back:
+  add a second early return to the pass        RED on the one-branch claim
+  hold the people draw until 22 s, unblocked   RED on the tripwire (1,351 ms
+                                               free and alone) and on the
+                                               keeps-painting claim
+
+================================================================================
+MEASURED AND NOT FIXED
+================================================================================
+The freeze is PLUMBER's and LIFE+CITY's and both already carry the row. NOTHING
+WAS ADDED TO THE POPULATION, which is what EYES asked for in the same sentence.
+No game code was changed this round, so the build stamp is not bumped: a new
+letter over a build with nothing new in it is the one way that stamp can lie.
+
+TAB: CITY, the walked street, and the demo. Nothing new to look at: this round is
+a measurement and a promise, not a feature.
