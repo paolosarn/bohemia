@@ -42145,7 +42145,9 @@ function playerBox(ox,oy,C,gc){
      for any caller that does not have one. */
   const _g=gc||[hx,hy];
   const px=ox+_g[0]*C, py=oy+_g[1]*C;
-  const lad=HC>=64?224:(HC>=32?112:(HC<17?28:56));
+  /* THE BUBBLE'S BOX IS THE BODY'S BOX, so it goes through the one ladder too. A second
+     copy here is a speech bubble floating off a person's head the day the body grows. */
+  const lad=bodyLadder(HC);
   return {x0:px+C/2-lad/2, x1:px+C/2+lad/2, y0:py+C-lad, y1:py+C};
 }
 
@@ -49387,8 +49389,68 @@ function barkTick(now){
    TWICE in this file already, and the bubble that has to clear a head could not
    see either copy -- so it guessed a lift instead, and the guess was wrong. Two
    copies of a rule are how a third thing ends up disagreeing with both. */
+/* ==== THE STEP IS A HOUSE -- THE BODY'S HALF OF IT (9/15, CHARACTER, [bigger bodies]) ====
+   Paolo 9/15, LOCKED, laws/BOHEMIA_ADDENDUM_THE_STEP_IS_A_HOUSE_9_15_26.md: "I want people
+   to be larger, cause remember each tile is the size of a house." The law splits the work:
+   RUN owns THE STEP and the one constant, LIFE+CITY owns the lattice, COMBAT owns the
+   board, and CHARACTER owns THE BODY -- drawn at the ruled size on both surfaces.
+
+   MEASURED FIRST, as section 4 of the law orders, and the two numbers that were handed
+   down are both wrong:
+     a fine cell          0.75 m          (the overmap's own CELL_M, read not retyped)
+     a HOUSE footprint    13 x 12 cells   ~9.8 x 9.0 m, median of 122 houses over 12 seeds
+     a LOT, kerb to kerb  25 cells        18.8 m, the median pitch between neighbours
+     an overmap tile      128 cells       96 m -- A CITY BLOCK, NOT A HOUSE
+     a step today          1 cell         0.75 m
+     the body today       104 px painted at HC 44, which is 2.4 cells, 1.77 m -- a real person
+   THE LAW'S OWN PARENTHETICAL SAYS "a house is the city's lot cell (the overmap tile)" and
+   LIFE+CITY's row says "a lot is FN=32 fine cells". Measured, a lot is 25 and the overmap
+   tile is 128. Neither number describes a house. His ruling is not in question; what a
+   house IS in the world we built is a measurement, and this is it.
+
+   AND THE RESULT THAT IS NOT OBVIOUS, which is why it is written here rather than assumed:
+   THE BODY'S PIXEL SIZE DOES NOT HAVE TO CHANGE AT ALL. "About half a lot tall" at today's
+   104 px body means a lot must draw about 208 px, so the camera shows about 1.8 lots across
+   a phone instead of 8.6 cells of bare ground. The person becomes 5.3x larger AGAINST THE
+   WORLD without a single new pixel. What has to move is the ground under him, and that is
+   RUN's zoom, not this lane's sprite.
+   SO WHAT SHIPS HERE IS THE WIRE, NOT A NEW SIZE. Today the body is chosen off the CELL
+   size, so the moment RUN zooms out to show lots the body would SHRINK to 28 px -- the
+   opposite of the ruling, silently, on the first commit that moves the camera. From now
+   the body is chosen off THE LOT, and a smaller cell cannot shrink a person.
+   IT IS A NO-OP UNTIL RUN'S NUMBER LANDS: with no step constant set, bodyLadder returns
+   exactly what it returned before, rung for rung, at every zoom. */
+const BODY_SCALE = {
+  lotFine:   25,    /* MEASURED: median lot pitch, fine cells. RUN may overrule with its own */
+  houseFine: 13,    /* MEASURED: median house footprint, fine cells */
+  bodyLots:  0.5,   /* HIS DEFAULT: "a person stands about half a lot tall at walk zoom" */
+  /* RUN'S ONE NUMBER, when it lands: fine cells per step. 1 is today's person-scale step.
+     READ, NEVER COPIED -- the law's "one number in one place" means this lane keeps no
+     second table, so the day RUN sets it the body moves with the street and nobody has to
+     remember to come back here. */
+  stepFine: function(){
+    try { var v = window.BOHEMIA_STEP_FINE | 0; if (v > 1) return v; } catch (e) {}
+    return 1;
+  }
+};
+/* THE ZOOM LEVEL LAW STILL RULES THE PIXELS: 28 / 56 / 112 / 224 and never a fraction, so
+   this picks the RUNG NEAREST the wanted height rather than scaling to it. */
 function bodyLadder(C){
-  return C >= 64 ? 224 : (C >= 32 ? 112 : (C < 17 ? 28 : 56));
+  var step = BODY_SCALE.stepFine();
+  if (step <= 1) return C >= 64 ? 224 : (C >= 32 ? 112 : (C < 17 ? 28 : 56));
+  var want = BODY_SCALE.bodyLots * BODY_SCALE.lotFine * C;   /* half a lot, on this screen */
+  var rungs = [28, 56, 112, 224], best = rungs[0];
+  for (var i = 1; i < rungs.length; i++)
+    if (Math.abs(rungs[i] - want) < Math.abs(best - want)) best = rungs[i];
+  return best;
+}
+/* ...AND THE SPRITE HAS TO BE ASKED FOR THE SAME RUNG. spriteAt picks its rung off the
+   CELL size, which is the whole bug above: one helper would have moved the box and left a
+   28 px picture stretched inside a 112 px hole. This hands it a size that lands on the rung
+   bodyLadder just chose, so the box and the art can never disagree. */
+function bodySpriteC(C){
+  var lad = bodyLadder(C);
+  return lad >= 224 ? 64 : (lad >= 112 ? 32 : (lad >= 56 ? 17 : 0));
 }
 function barkPass(ox, oy, C){
   /* peoplePass filled BARK_DREW this frame; consume it, then clear for the next. */
@@ -50394,7 +50456,7 @@ function hostilePass(ox, oy, C){
          none). */
       HOST_SPR[bkey] = sprKind;
       var lad = bodyLadder(C);   /* __THE_BUBBLE_IS_NOT_ON_HIS_FACE__: one rule, one place */
-      var img = spriteAt(spr, C);
+      var img = spriteAt(spr, bodySpriteC(C));   /* the rung the box just chose, never the cell's */
       var dx0 = Math.round(sx + C / 2 - lad / 2 + jx), dy0 = Math.round(sy + C - lad + jy);
       try { g.drawImage(pplTinted(dir, (k * 37 + 11) % 97, img), dx0, dy0, lad, lad); }
       catch(_e) { g.drawImage(img, dx0, dy0, lad, lad); }
@@ -50833,7 +50895,7 @@ function peoplePass(ox, oy, C) {
       const lad = bodyLadder(C);  /* __THE_BUBBLE_IS_NOT_ON_HIS_FACE__: one rule, one place */
       /* SAME ladder as the player, shared rather than duplicated: an outline on
          one and not the other is worse than none at all. */
-      let img = spriteAt(spr, C);
+      let img = spriteAt(spr, bodySpriteC(C));   /* the rung the box just chose, never the cell's */
       /* CITY CAST: a cast body is ALREADY this person's clothes - tinting it
          again would put a hue over his wardrobe and undo the point. Only the
          fallback player sprite still gets the shift. */
@@ -51618,13 +51680,16 @@ function fitProp(im, w, h){
   if(spr){
     // sprite is 112x112 baked; the body fills ~lower-center. Draw ~2 cells tall,
     // feet at the tile, so the character stands on the walkable cell.
-    const _lad=HC>=64?224:(HC>=32?112:(HC<17?28:56));
+    /* THE PLAYER IS A BODY TOO, and he was the one copy of this ladder left in the file.
+       An inline rung here is exactly how the player ends up a different size from the crowd
+       the first time the step constant moves. */
+    const _lad=bodyLadder(HC);
     const dh=_lad, dw=_lad;                    // exact ladder size, pixel-true
     g.imageSmoothingEnabled=false;
     // ZOOM LEVEL LAW: tier by nearest level. 28 = exact 2:1 decimation of
     // the raw 56; 112/224 = Scale2x applied once/twice. Never fractional.
     /* the border is drawn at DISPLAY size now -- see spriteAt/outline1 */
-    let img=spriteAt(spr,HC);
+    let img=spriteAt(spr,bodySpriteC(HC));   /* the rung the box just chose, never the cell's */
     if(typeof RIDING!=='undefined'&&RIDING){
       // PLACEHOLDER bike under the body [PENDING Paolo: riding pose + bike art]
       const horiz=(HFACE==='E'||HFACE==='W'||HFACE==='NE'||HFACE==='SE'||HFACE==='NW'||HFACE==='SW');
@@ -59996,7 +60061,9 @@ function renderInside(){
     if(frames&&frames.length){ const f=Math.min(frames.length-1,((performance.now()-ANIM.t0)/BEAT*frames.length)|0); spr=frames[f]; } }
   if(spr){
     // the same zoom ladder the surface uses, tiered off the INDOOR cell size
-    const _lad=C>=64?224:(C>=32?112:(C<17?28:56));
+    /* AND IT IS THE SAME ONE HELPER. Indoors is where every fight is, so a body that does
+       not follow the step here is the ruling half-kept in the room it matters most. */
+    const _lad=bodyLadder(C);
     let img=spr;
     if(C>=64){ if(!spr._hd4){ if(!spr._hd)spr._hd=epx2(spr); spr._hd4=epx2(spr._hd); } img=spr._hd4; }
     else if(C>=32){ if(!spr._hd)spr._hd=epx2(spr); img=spr._hd; }

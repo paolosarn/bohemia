@@ -1,0 +1,74 @@
+WHAT A HOUSE ACTUALLY IS  --  CHARACTER lane, 9/15/26, VAMILY [bigger bodies]
+The measurement rule 16 asks every lane to make before it builds, made once, for all four.
+
+HIS RULING: THE STEP IS A HOUSE (Paolo 9/15, LOCKED).
+"I want people to be larger, cause remember each tile is the size of a house... however
+long it takes right now to walk the length of a house, that would be done in one step."
+laws/BOHEMIA_ADDENDUM_THE_STEP_IS_A_HOUSE_9_15_26.md section 4: "Each lane MEASURES FIRST
+what a house is in today's cells, what a step is, what a body is."
+
+=== WHAT A HOUSE IS, MEASURED ===
+Generated 12 suburbs from the real district generator, walked every building footprint.
+
+  a fine cell            0.75 m         the overmap's own CELL_M, read not retyped
+  a HOUSE footprint      13 x 12 cells  9.8 x 9.0 m   median of 122 houses
+  the same, mean         14.6 x 14.0    range 12 to 21 cells
+  a LOT, kerb to kerb    25 cells       18.8 m        median pitch between neighbours
+  an overmap tile        128 cells      96 m
+  a step today            1 cell        0.75 m
+  the body today        104 px painted at HC 44, which is 2.4 cells, 1.77 m
+
+18.8 m is a real American tract lot (about 62 feet) and 9.8 x 9.0 m is a real small house
+on it. The world we built is already at honest human scale. That is worth saying because
+it means nothing has to be redrawn.
+
+=== TWO NUMBERS THAT WERE HANDED DOWN AND ARE WRONG (rule 12: a premise, not a gate) ===
+  the law's own parenthetical   "a house is the city's lot cell (the overmap tile)"
+  LIFE+CITY's row [lot lattice] "a lot is FN=32 fine cells today"
+An overmap tile is 128 cells, 96 m. That is a CITY BLOCK, not a house: about five lots on
+a side. And FN is 128, not 32; 32 is a number from a different module's grid.
+HIS RULING IS NOT IN QUESTION. What a house IS in the world we built is a measurement, and
+a step of 128 cells would be a step across a whole block. THE ANSWER IS 25.
+
+=== THE RESULT THAT IS NOT OBVIOUS, AND IT IS THE POINT OF THE ROUND ===
+He asked for people to be LARGER. The body does not need one new pixel.
+"About half a lot tall" at today's 104 px body means A LOT MUST DRAW ABOUT 208 px. Today a
+lot draws 1,100 px, which is why you cannot see one: the camera shows 8.6 cells, 6.4 metres
+of bare ground, and nothing on that screen reads as a house.
+At 208 px a phone shows about 1.8 lots across. THE PERSON BECOMES 5.3 TIMES LARGER AGAINST
+THE WORLD WITH THE SAME SPRITE. What has to move is the ground under him, and that is RUN's
+zoom, not this lane's art.
+
+=== AND THE BUG THAT WAS WAITING FOR THE FIRST LANE TO ZOOM OUT ===
+The body's size was chosen off the CELL size. So the first commit that zooms the camera out
+to show lots would have SHRUNK every person from 104 px to 28 px -- a quarter of their
+height, the exact opposite of the ruling, with no error and no red gate, visible only when
+he played it. Measured on the real surface at the lot camera: old ladder 28, new ladder 112.
+FIXED: the body is chosen off THE LOT now, so a smaller cell cannot shrink a person.
+FIVE COPIES OF THAT LADDER EXISTED. The crowd, the player, the speech bubble's box and the
+indoor draw each had their own; only one was already in a helper. All five go through it
+now, because four of them would have drifted one at a time and the speech bubble floating
+off a head is how you find out.
+
+=== WHAT SHIPPED AND WHAT DID NOT ===
+SHIPPED: the wire and the numbers. It is a NO-OP TODAY, proven rung for rung at ten zoom
+levels: with no step constant set, every zoom returns exactly what the old inline formula
+returned, and it still does after the constant has been set and cleared.
+NOT SHIPPED, on purpose: the new size. The law says the step and the body move AT THE SAME
+TIME, and the step is RUN's. Growing the body on a camera that still shows 6.4 metres of
+ground would put a giant on a person-scale street and answer his ruling with a worse bug.
+The day RUN sets one number, the crowd, the player, the bubble and the indoor body all move
+together and this lane has nothing left to do.
+
+=== FOR THE OTHER THREE LANES, SO NOBODY MEASURES THIS AGAIN ===
+  RUN        [the step]     one step = 25 fine cells. A lot should draw about 208 px at
+                            walk zoom, so HC lands near 8. The body needs no change.
+  LIFE+CITY  [lot lattice]  a lot is 25 fine cells, not 32 and not 128. Lot corners fall
+                            every 25 cells; a house body occupies 13 of them.
+  COMBAT     the board      the street body paints 104 px in a 112 box. The fight is a
+                            separate document and this lane did not touch it; matching that
+                            number is what "the person crosses at one size" means.
+
+GATE: gates/body_scale_gate.js, 10/0, measured in the running city, mutation-proven three
+ways: break the no-op RED, point the sprite rung back at the cell RED, put a second inline
+ladder back RED.
