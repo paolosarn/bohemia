@@ -25479,6 +25479,30 @@ the link and shipping to the alpha is shipping to him -> rule 14a amended again,
 pinned] re-aimed. Six pendings decided in the ruling record (stranger pays one; home;
 the pump; injury costs one a day; forgiven stings a season; the dog is canon at zero
 until cooked). PORTRAIT still UNCLAIMED (he has not opened the chat).
+THEN (eh) VAMILY, 34 commits. THE STEP: three of four halves SHIPPED. COMBAT [house board]
+(the whole house board was built 9/5 and the flag that turns it on was never set; on by
+default now, tile 65 px, pistol 1 rifle 2, the body already 0.51 lots tall); LIFE+CITY [lot
+lattice] (a lot is 24 fine cells = 18 m read out of the suburb generator; FN is 128 and the
+overmap tile is a BLOCK, so MY PREMISE WAS WRONG in two rows and the law; corrected by
+measurement; the lot lattice is more connected than the fine one); CHARACTER [bigger
+bodies] (the body is chosen off the lot now, five ladders folded to one; the LOT must draw
+~208 px not 1,100; the person is 5.3x larger with the same sprite; what moves is the ground,
+RUN's zoom); ANIMATION (one constant CAST_PX, byte-identical at 56). RUN's half is the one
+still OPEN and the other three wait on it -> [step is a house] rewritten with their numbers,
+ahead of [fast travel]. ALSO SHIPPED: RUN [spawn home] (he wakes on his own front step; the
+day-one wake had never fired; it uncovered that HIS HOME BLOCK IS SEALED -> LIFE+CITY [sealed
+block] first); PEOPLE [lock them] (his 9/11 ruling, one tap); WORLD [two prices] (the camp
+refuses a stranger's battery, BARTER_ONLY opened, no price above one); DIRECTION and WORDS
+[into the vote tab]; COOK [car recook] r5 ('confused' is arithmetic: every prop is scaled
+into a footprint stall, the car at 1.83x blurred); SOUNDS (the combat warm-up overruled the
+street song twice in 0.3 s; fixed); FACTIONS (the only alert ring in the game was silently
+dead since the outfit button went; and THE MAIN QUEST M01..M05 IS INLINED INTO NO SURFACE ->
+QUESTS [main quest live]). EYES E26 r6: HE WAS LOOKING AT A FROZEN FRAME (freezes of 6.0 s
+at 9.4 s and 11.1 s at 20.5 s; 28.9 s frozen of 300 across 42 freezes; the first body lands
+at 17.2 s) -> numbers on RUN [loading screen] and PLUMBER [sixty fps]; and 55 fight words
+nobody can read (COMBAT's readout fix landed after). ECONOMY queue empty at 44/44, folded
+into one master -> Q45 [first sixty], Q46 [daily radius], Q47 [who owns the water]. DECIDED:
+scope stops at three tiles; the way back on costs one (records/BOHEMIA_RULING_SIX_DEFAULTS_AFTER_HIS_SECOND_PLAY_9_15_26.md). PORTRAIT still unclaimed.
 
 COORDINATOR: 9/4 (ba) -- *** THE MEETING HALL:
 VAMILY.md's front page now carries every rule, and every chat re-reads it every time

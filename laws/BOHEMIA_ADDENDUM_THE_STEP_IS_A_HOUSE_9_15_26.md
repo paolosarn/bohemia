@@ -25,8 +25,16 @@ pull-back becomes small or none, and the cloud still passes across the turn so a
 starting reads as weather moving over the block.
 
 ## 3. THE NUMBERS THAT ARE FIXED AND THE ONES THAT ARE MEASURED
-- FIXED: 120 BPM, one step per beat, unchanged. A house is the city's lot cell (the
-  overmap tile). EVERYTHING COSTS ONE. NO DAMAGE BEFORE THE DIAL.
+- FIXED: 120 BPM, one step per beat, unchanged. EVERYTHING COSTS ONE. NO DAMAGE BEFORE
+  THE DIAL. CORRECTED 9/15 BY MEASUREMENT (rule 12; LIFE+CITY 65932f63, CHARACTER
+  d43851e2): the coordinator wrote "a house is the overmap tile" and "a lot is FN=32
+  fine cells"; both wrong. FN is 128 and an overmap tile is a city BLOCK of 96 m, five
+  lots on a side. A LOT is the suburb generator's own pitch: 24 to 25 fine cells, about
+  18 m kerb to kerb, a real tract lot with a 9.8 x 9.0 m house on it. So ONE STEP IS
+  ONE LOT = 18 m = about 2 minutes at walking speed, real-time travel 24x faster; the
+  body at "half a lot" needs no new pixel, the LOT must draw about 208 px where it drew
+  1,100, and the body is chosen off the lot, never off the cell. LOT_FINE is read out of
+  the generator by a gate, never typed.
 - THE CLOCK PER STEP is what it takes to walk one lot at the walking speed the reach
   module already carries (about nine metres a minute); it is re-derived, never typed, so
   distance shown, the day, the jobs and the rent nights all stay true. Real-time

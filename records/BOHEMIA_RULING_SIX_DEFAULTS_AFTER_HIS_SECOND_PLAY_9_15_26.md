@@ -40,3 +40,11 @@
    coyote.
 Also carried and already decided: which faction colour file wins -> the AIM table (his
 MFACTIONS) is the source, the landing file is derived (9/13, CHARACTER [one colour table]).
+
+## ADDED 9/15, SECOND ROUND
+7. A SCOPED RIFLE STOPS AT THREE TILES on the house board (pistol adjacent, rifle two,
+   scope three). COMBAT carried it since V198 as "an attempt, not a decision". At 18 m
+   lots that is about 54 m, a suburban sight line; realism first, he corrects in play.
+8. THE WAY BACK ON IS ONE BATTERY. WORDS' cut-off notice could not name how you get the
+   lights back because relight has no price. Ruling on WORLD [block strikes] (9/15)
+   already said it: relight costs one. Line 2 of the notice can say so.
