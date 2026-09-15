@@ -280,7 +280,46 @@ select,input[type=range]{background:#1a150e;border:1px solid #2e2416;color:#c9bf
 button.opt{ font-family:var(--fmono); border-radius:0; border:1px solid var(--line);
   -webkit-clip-path:var(--clip); clip-path:var(--clip); }
 button.opt.on{ border-color:var(--acc); color:var(--acc); }
-</style><script type="application/json" id="sfxApproved">{"step_dirt": [0, 1, 2, 3, 4], "step_asphalt": [0, 1, 2, 3, 4], "step_gravel": [0, 1, 2, 3, 4]}</script>
+</style><script type="application/json" id="sfxApproved">
+/* __THE_STEP_BANK_IS_THE_APPROVED_BANK__ (9/15, SOUNDS lane) -- REBUILT FROM THE BANK HE
+   THUMBED. The block used to carry three surfaces while the approved bank
+   carried six, so step_concrete and step_sand were approved, cooked and
+   unplayable, and the fallback in stepSfx handed both of them the DIRT
+   sample instead. Every variant below is copied out of
+   banks/BOHEMIA_SFX_APPROVED_8_20_26.json byte for byte; nothing here is authored.
+   WOOD IS LEFT OUT ON PURPOSE: no wooden ground exists in the valley,
+   measured across 18 districts, and an unreachable sound in the bank is
+   dead weight that makes the census lie. */
+{
+ "step_dirt": [
+  0,
+  1,
+  2,
+  3,
+  4
+ ],
+ "step_asphalt": [
+  0,
+  1,
+  2,
+  3,
+  4
+ ],
+ "step_gravel": [
+  0,
+  1,
+  2,
+  3,
+  4
+ ],
+ "step_concrete": [
+  2
+ ],
+ "step_sand": [
+  4
+ ]
+}
+</script>
 </head><body>
 <script type="text/plain" id="BOHEMIA_MUSIC_REPO">
 === COOK BATCH 24 (8/24/26) — 4 songs, 4 newborn voices, 4 topologies the rack
@@ -10004,7 +10043,18 @@ var STEP_BANK = null, STEP_CACHE = {}, STEP_LAST = 0, STEP_BUS = null;
 var STEP_GAIN = 0.12;      /* ~-18 dB under the music master. */
 function stepSfx(surface){
   if(typeof BOH_SFX==='undefined' || typeof MUS==='undefined') return;
-  var ev = 'step_' + (({asphalt:'asphalt',dirt:'dirt',gravel:'gravel'})[surface] || 'dirt');
+  /* __A_SURFACE_PLAYS_ITSELF__ (9/15, SOUNDS lane) -- A MAP OF THREE WAS
+     SWALLOWING TWO SURFACES HE APPROVED. This read
+     ({asphalt,dirt,gravel})[surface] || 'dirt', so concrete and sand -- both
+     thumbed, both cooked, both named by the city's own classifier -- came out as
+     the DIRT sample, and the fallback meant nobody could ever hear that they were
+     missing. MEASURED on the demo with an ear for five real minutes: 28 dirt steps
+     and one concrete step posted, and a live bank holding only three surfaces.
+     A SIDEWALK IS CONCRETE, and his own break list says the sidewalks are wrong.
+     The identity for anything the bank can answer, and dirt only for a ground
+     nobody has named yet -- an unknown surface must still make a sound. */
+  var _s = String(surface||'');
+  var ev = 'step_' + ((STEP_BANK && STEP_BANK['step_'+_s]) ? _s : 'dirt');
   if(!STEP_BANK) return;                       /* nothing judged -> silence, on purpose */
   var ok = STEP_BANK[ev];
   if(!ok || !ok.length) return;
