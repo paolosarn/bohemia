@@ -1,3 +1,74 @@
+RUN (run-eak241): LATEST -- *** [spawn home] BUILT AND HELD AT THE BRANCH. HIS
+OWN FRONT DOOR WAS 29 TILES AWAY AND NOTHING EVER CALLED THE CODE THAT PUTS HIM
+THERE -- AND FIXING IT COSTS THE FIRST MINUTE. TAB: RUN, the first screen. ***
+
+PAOLO 9/15: "it keeps spawning me in the middle of some freeway, street shit for
+no purpose." THE MAP WAS RIGHT AND SO WAS HE. On the glass, before anything was
+written: he wakes at 6205,6271, the overmap says SUBURB, and four of the nine
+cells around him are ARTERIAL. The photograph is a black cracked asphalt band down
+the whole right of the screen, empty tan dirt under it, NOT ONE BUILDING IN FRAME.
+A suburb with no houses on screen reads as a freeway shoulder.
+
+THE FIX WAS A CALLER, NOT A FEATURE. homeWake() exists, calls homeDoorstep(), and
+render() spends HOME_WAKE_PENDING every frame. IT HAD NEVER RUN: it hangs off
+DAY.on('wake') and DAY ONE DOES NOT FIRE A WAKE, because the game boots already
+awake -- so the one day a stranger sees is the one day it never happened. THIRD
+TIME IN FOUR ROUNDS this lane has found an approved system with no caller on the
+path that matters. One arm, three guards (day 1 only, ONCE so it is a doorstep and
+not a leash, and not over a restore). After: __WOKE_HOME 1, and the photograph is
+his brick house, his yard, the bins, the HOME marker and a NEIGHBOUR TALKING TO
+HIM -- which also answers his "I did not see a single human being" from the same
+play. GATE: SPAWN HOME 9/0, asserts NO coordinate (the house belongs to the map and
+the seed), mutation kills the caller -> 3 red.
+
+*** AND THEN MY OWN GATE SAID NO, AND IT IS RIGHT. *** THE FIRST MINUTE went red
+on the fix. Measured rather than argued with:
+  from his doorstep   N walkable 111 and never leaves the suburb (the longest run,
+                      and it goes nowhere); S/SW walkable 14 with the arterial 16
+                      away, two tiles short; E/NE/SE walkable 0, that is his house
+  every doorstep      45 walkable, and ZERO with a straight walkable line out of
+                      the suburb in 140 tiles
+  sixty-second hold   one card, the phone on its own timer. Nothing else. He walked
+                      111 tiles up his own block and the world never touched him.
+  before the fix      he stood on the asphalt and a road moment fired in 5 SECONDS
+
+THE TRADE, PLAINLY:
+  the picture       asphalt: no building in frame, reads as a freeway
+                    home:    his house, his yard, the marker, a neighbour
+  the first minute  asphalt: the world reaches him in about 5 seconds
+                    home:    nothing reaches him in 60
+
+I DID NOT LOOSEN THE GATE. Its failing leg says the world does something to him
+and that is now GENUINELY false. Three rounds of this lane have been about gates
+asserting a MEANS instead of a promise, so I widened the probe to accept a road
+moment OR a crew closing OR two people talking (XCH, the game's own record, not a
+guessed selector) and STILL nothing in sixty seconds. The bar is not the problem.
+I also did not revert his fix to get green, because putting a checker ahead of the
+thing he complained about twice is the other way to get this wrong.
+
+SO IT STOPS AT THE BRANCH (e3f5592) AND DID NOT GO TO MAIN, and the fork went to
+him in plain words: the first screen can look like his home, or the world can reach
+him in the first five seconds, and his own block cannot currently do both.
+
+*** THE THING UNDERNEATH, AND IT IS NOBODY'S ROW: HIS BLOCK DOES NOT CONNECT. ***
+45 doorsteps, 0 straight ways out, the arterial 16 tiles away through something you
+cannot walk through. That is the whole reason waking him at home costs anything,
+and it is the same family as his own words about streets that do not read like
+streets. This is bigger than [spawn home] and bigger than [wake near].
+
+ALSO LANDED THIS ROUND, and it is on main: homeDoorstep() now prefers a step ON a
+road, then one TOUCHING a road, then any walkable cell exactly as before -- the
+same preference the drop-in has used since 8/1, second caller, no new rule. It
+changes nothing for THIS house (measured: no candidate touches a road at all) and
+is the right ordering everywhere else.
+
+STILL CLAIMED: [fast travel], paused behind his 9/15 words. Its measurement stands
+further down: stepOnce already has a MODE==='city' branch, so travelling on the map
+is implemented and the job is four connections, not a movement system.
+
+RECORD: records/BOHEMIA_HIS_OWN_FRONT_DOOR_WAS_29_TILES_AWAY_9_15_26.md
+
+--------------------------------------------------------------------------------
 UI (ui-kmqmrf): 9/15 LATEST -- *** [vote tab] SHIPPED. ONE PLACE HE VOTES, AND A VOTE MAKES THE
 THING LEAVE. [eyes: bar cut] SHIPPED TOO, AND IT WAS NEVER 3 PIXELS. *** TAB: the gear, in the game
 (and the VOTE tab in the workshop). Build 9/15i. RUN cuts it into the demo, rule 14(a).
