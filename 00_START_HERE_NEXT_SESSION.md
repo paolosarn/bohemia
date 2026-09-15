@@ -29914,7 +29914,17 @@ your first VAMILY and do steps 1 to 9.
 I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
-ROUND LOG 9/14 (latest): [streets again] SHIPPED - two liars dead,
+ROUND LOG 9/15 (latest): [far view] SHIPPED - he is right about the
+moon zoom. Measured on the demo: 66% of the world region at widest zoom
+is dead-flat zero-texture blocks at one value - the valley floats on
+cardboard. The fix is PLACEMENT of art that already exists (desert
+pavement, wash, mountain bedrock are all in the terrain legend); aerial
+card amended 2B: THE VALLEY HAS A RIM, and labels scale with the zoom.
+Ranked list: surround void (two thirds), the polarity it amplifies,
+unscaled labels/markers, the standing phone catch. COOK [city from
+above] takes the surround; re-judge on the demo when it lands. Earlier
+this round: the LOOK tab's 51 stale pictures retaken by the chain,
+gate fully green. PREVIOUS: [streets again] SHIPPED - two liars dead,
 three alive, ranked. Dead on demo 9/13z: the tan void (crisp hardpan)
 and the footless wall (contact shadow landed). Alive for COOK in
 coverage order: the roadbed with zero road geometry (kerb art approved
