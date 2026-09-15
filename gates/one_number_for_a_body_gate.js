@@ -148,6 +148,42 @@ ok('CONTROL: the combat bake keeps its own 112 promise, untouched by this lane',
   console.log('    WHEN it grows is RUN\'s call: the law gives RUN the one constant and gives this lane');
   console.log('    "the rig at the new size". Nothing about the street has been changed by this gate\'s work.');
 
+  /* *** AND THE NUMBER IS COUPLED TO A FILE THIS LANE DOES NOT OWN. ***
+     Rule 16 wants bodies larger, and the obvious move is to raise CAST_PX to the
+     rig's native 112. MEASURED on the city's own epx2 and its own rung chooser,
+     and it would have been a REGRESSION: the city builds its EPX ladder by
+     DOUBLING WHATEVER IT IS SENT, so at the walk zoom (HC 44) it draws the body
+     into a 112px box and asks for one doubling of the shipped sprite. Ship 56 and
+     it hands over exactly 112. Ship 112 and it hands a 224px picture to a 112px
+     box. The shipped size is already in the message (m.w), so the receiving side
+     can learn it -- but that file belongs to the lane that owns the draw.
+     SO THIS CLAIM GUARDS THE COUPLING RATHER THAN CROSSING IT: whatever CAST_PX
+     is, the city's ladder has to be anchored to it. Change one without the other
+     and this bites, in either direction. */
+  const cityFile = path.join(ROOT, 'slices', 'BOHEMIA_CITY_WORLD.html');
+  if (fs.existsSync(cityFile)) {
+    const city = fs.readFileSync(cityFile, 'utf8');
+    const m = /return C >= 64 \? (\d+) : \(C >= 32 \? (\d+) : \(C < 17 \? (\d+) : (\d+)\)\)/.exec(city);
+    const rungs = m ? [Number(m[3]), Number(m[4]), Number(m[2]), Number(m[1])] : null;
+    ok('the city\'s body ladder is still readable, so this coupling can be checked at all (' +
+       (rungs ? rungs.join('/') : 'NOT FOUND') + ')', !!rungs);
+    if (rungs) {
+      /* THE INVARIANT IS NOT "CAST_PX IS A RUNG" -- that was the first cut and it let
+         the exact regression through, because 112 is also a rung. At the walk zoom the
+         city takes the C>=32 branch: it draws into that rung and gets there by doubling
+         the shipped sprite EXACTLY ONCE (epx2). So the real invariant is
+         2 x CAST_PX === the rung it draws into. Ship 56 and one doubling lands on 112.
+         Ship 112 and one doubling lands on 224, into the same 112 box. */
+      const walkRung = rungs[2];                       /* the C>=32 branch, the walk zoom */
+      ok('the city doubles what this lane ships EXACTLY ONCE to fill its walk-zoom box, so ' +
+         '2 x CAST_PX must equal that rung: 2 x ' + R.CAST_PX + ' = ' + (2 * R.CAST_PX) +
+         ' against a ' + walkRung + 'px box. Raise CAST_PX alone and the city hands a ' +
+         'double-size picture to the same box.', 2 * R.CAST_PX === walkRung);
+      ok('and CAST_PX is on the city\'s ladder at all (' + rungs.join('/') + ')',
+         rungs.indexOf(R.CAST_PX) >= 0);
+    }
+  }
+
   await br.close();
   done();
 })().catch(e => { console.log('  FAIL gate threw: ' + e.message); fail++; done(); });

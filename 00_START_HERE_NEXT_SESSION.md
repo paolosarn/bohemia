@@ -1447,6 +1447,86 @@ archive escape built in from the start so [handoff cut] is unblocked rather than
 THE WARNING FOR EVERY LANE: do not write this file from a copy you read at the start of your round.
 Re-read it immediately before you edit, and check your own block is still there after any rebase.
 
+ANIMATION (animation-lr9y9i): 9/15 (c) LATEST -- *** THE BODY IS WAITING ON ONE
+GLOBAL, AND RAISING THE BAKE ALONE IS A REGRESSION. I nearly shipped it and the
+measurement stopped me. TAB: ANIMATION. No build change; nothing new to look at. ***
+
+MY OWN LAST HANDOFF SAID THIS LANE "WAITS ON RUN'S CONSTANT". RULE 12 SAYS A
+DEPENDENCY IS A PREMISE, NOT A GATE, SO I MEASURED IT AND IT WAS WRONG BOTH WAYS.
+
+=== THE SIZE ALREADY EXISTS, AS A RATIO, AND NOBODY HAD TO PICK IT
+LIFE+CITY's BOH_LATTICE: LOT_FINE 24 fine cells, LOT_M 18 m, BODY_LOTS 0.5.
+CHARACTER's BODY_SCALE: lotFine 25 (measured median lot pitch), bodyLots 0.5.
+His "about half a lot tall" is a RATIO and it is already named, so this lane was
+never blocked on a number.
+
+=== THE WHOLE CHAIN IS ARMED AND SWITCHED OFF, AND IT IS ONE GLOBAL
+[FOR RUN] BODY_SCALE.stepFine() reads window.BOHEMIA_STEP_FINE and falls back to 1,
+with CHARACTER's own comment "RUN'S ONE NUMBER, when it lands... the day RUN sets it
+the body moves with the street". MEASURED ACROSS EVERY SLICE, ENGINE MODULE AND
+TOOL: ONE READ, ZERO WRITES. Nothing sets it. So stepFine() is 1, bodyLadder takes
+its `if (step <= 1)` legacy branch and NEVER REACHES the half-a-lot line.
+    at the walk zoom HC=44
+    his ruled size   0.5 lots x 25 fine x 44 px = 550 px, nearest rung 224
+    what is drawn    the legacy branch, C>=32   = 112 px
+HIS RULING IS WIRED END TO END AND WAITING ON ONE GLOBAL NOBODY PUBLISHES. That is
+RUN's (the law gives RUN the step), so it is reported and not touched. It is not a
+bug in anybody's code: every piece does the right thing the moment it lands.
+
+=== AND THE OBVIOUS FIX IS A REGRESSION, MEASURED ON THE CITY'S OWN LADDER
+The street draws bodies into a 112px box today; this lane ships 56, which is the
+rig's native 112 HALVED. So every person out there is a 112px body made by doubling
+a 56px image that was itself a halved 112 -- real pixels thrown away, then guessed
+back. Side by side at the size he sees, the 56 path is 4px blocks with a mush face
+and the 112 path has eyes, separated legs and shoes.
+EVERY NUMBER SAID RAISE IT: payload 2.14x, bake time 0.94x, page errors 0, and
+PHONE-SIDE PIXELS 0.95x, because arriving at 112 removes a whole rung from the EPX
+ladder the city caches. Cheaper on the phone AND sharper.
+*** AND RAISING IT ALONE WOULD STILL HAVE BEEN A REGRESSION: ***
+    ship |  epx2 -> _hd | what C>=32 uses | drawn into a box of
+      56 |          112 |             112 |                 112
+     112 |          224 |             224 |                 112
+The city builds its ladder by DOUBLING WHATEVER IT IS SENT, exactly once at the
+walk zoom. Ship 56 and it hands over exactly 112. SHIP 112 AND IT HANDS A 224px
+PICTURE TO A 112px BOX. I would have shipped that if I had trusted the arithmetic
+instead of running it. The shipped size is already in the message (m.w) so the
+receiving side can learn it in one change, but that file belongs to the lane that
+owns the draw, so THE COUPLING IS GUARDED, NOT CROSSED.
+
+GATES: ONE NUMBER FOR A BODY 12/0 (was 9). Nothing about the rig or the constant
+changed this round; what shipped is the guard.
+*** THE FIRST CUT OF THE GUARD WAS WRONG AND A MUTATION CAUGHT IT. *** I asserted
+"CAST_PX is one of the city's rungs and every rung is a doubling away from it".
+CAST_PX=112 PASSED THAT -- 112 IS a rung and 28/56/112/224 are all powers of two
+from it -- so the exact regression I was guarding against walked straight through.
+The real invariant is narrower: at the walk zoom the city doubles the shipped sprite
+EXACTLY ONCE into the rung it draws at, so 2 x CAST_PX must equal that rung. 112, 48
+and 28 are all caught now.
+
+PRE-PUSH PASS (rule 13): the body and rig gates plus the shared ones, green. ONE
+RED, NOT MINE: CITY CAST (B6, the neighbour wears one of them), the identical
+failure verified on a clean origin/main checkout last round. HEAD FOLLOWS RIG is
+green again this round, confirming last round's read that its one red was my own
+harness starting browsers back to back.
+FULL SUITE: 107 red at ad23d875; mine are none that I have found.
+
+[FOR WHOEVER OWNS THE STREET DRAW] two changes make the body sharp and they must
+land together or the gate bites: (1) the city's sprite ladder reads the shipped size
+off m.w instead of assuming 56; (2) this lane raises CAST_PX to 112 the same round.
+2.14x on the wire, 0.95x on the phone.
+
+WHAT IS LEFT OF [redo killed], UNCHANGED THIS ROUND
+- Beats two and three are ONE problem: every beat reads differently per facing
+  (beat 2 knee peak 37-159 deg, beat 3 hand lag 17-200%, beat 4 holds on 1 of 8,
+  beat 1 on 8 of 8). Two causes for beat three are measured DEAD and the gate prints
+  both. The arm's inertia IS real in the sim; delivery to the screen fails.
+- Four clips still snap, all small, worst 12.6px. Pose problems, not rig problems.
+- POSEHOLD key density; the NE head-off-shoulders gap in his own frame.
+- THE 47 ARE REPAIRED AND CANNOT REACH HIM until UI [vote tab] lands (rule 15).
+  Checked again this round: still OPEN, so the blocker stands.
+
+Nothing [PENDING Paolo].
+
 ANIMATION (animation-lr9y9i): 9/15 (b) LATEST -- *** ONE NUMBER FOR A BODY. His
 new ruling (rule 16, THE STEP IS A HOUSE) came in and it names this lane, so it
 beat the claim. TAB: ANIMATION. Build 9/15o. ***
