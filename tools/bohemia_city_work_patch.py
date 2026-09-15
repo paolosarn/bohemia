@@ -44,6 +44,9 @@ CITY = os.path.join(ROOT, 'slices', 'BOHEMIA_CITY_WORLD.html')
 #                                 AT CALL TIME
 #   [two prices]      barter      reads bohemia_belonging.js and bohemia_purse.js,
 #                                 both AT CALL TIME
+#   [battery worth]   cells       reads bohemia_pockets.js and bohemia_purse.js AT
+#                                 CALL TIME, so it does not care that pockets lands
+#                                 above it
 #   [every pocket]    pockets     reads bohemia_purse.js and bohemia_towns.js and
 #                                 the faction graph, all three AT CALL TIME, so it
 #                                 does not care that it lands above all of them
@@ -60,6 +63,7 @@ RIDERS = [
     ('bohemia_pumps.js', 'the pumps module'),
     ('bohemia_pockets.js', 'the pockets module'),
     ('bohemia_barter.js', 'the barter module'),
+    ('bohemia_cells.js', 'the cells module'),
 ]
 
 

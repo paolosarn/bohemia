@@ -19392,6 +19392,69 @@ COMMIT. PLUMBER found the RUN slice drifting +45/-6 behind two engine ships.
 
 HOLDING: nothing. LAST SHIPPED: [every pocket] 9/14, and [owe lines] before it.
 
+*** 9/15 ROUND 3: [battery worth] SHIPPED. THE ROW ASKED WHAT A BATTERY IS WORTH;
+THE ANSWER IS HOW MANY EXIST. *** records/BOHEMIA_BATTERY_WORTH_HOW_MANY_EXIST_9_15_26.md
+
+THE ROW ASKED FOR A DENOMINATION LADDER AND THE RECORD IT CITES REFUSES ONE (rule 12).
+ECONOMY DAY 8 section 4b: "EVERYTHING COSTS ONE already removed the denominations of
+price... if he ever wants physical denominations make them BODY-SCALE, NOT NUMERIC: a
+cell in a pocket, a car battery two people carry. Not one, five and twenty five."
+What it puts in its place is the finding it calls the one that proves us wrong:
+  "WE HAVE BEEN ASKING WHAT A BATTERY IS WORTH. THE REAL QUESTION IS HOW MANY
+   BATTERIES EXIST, BECAUSE THE VALLEY CAN MAKE CHARGE ALL DAY AND CANNOT MAKE A
+   SINGLE CELL."
+NOTHING IN THE GAME HAD EVER ASKED IT, and until [every pocket] 9/14 nothing COULD:
+there was one purse, and the sum of one purse is not a money supply.
+
+MEASURED, on the real pipe:
+    ten days of work, the valley's batteries .... 0 -> 10
+    the purse's own flow ........................ source 10, drain 0, transfer 0
+A DAY OF WORK MINTS A CELL. payForWork credits kind 'source', the purse's own word for
+created-from-nothing, so the supply grows by one every day he works, WITHOUT BOUND.
+That is exactly the infinite money the record warns about, and it is live.
+
+SHIPPED: engine/bohemia_cells.js and ONE LINE on the card he reads every night --
+"BATTERIES IN THE VALLEY: 10 across 15 hands, and 10 more exist than last night".
+count() is the valley across every holder; made() is READ off the purse's own
+source-vs-transfer split rather than inferred; the money is read off his price table,
+so renaming the currency in PRICES moves this with it.
+
+*** THE FIX DID NOT SHIP, ON PURPOSE, AND THIS IS THE ONE THING TO READ. ***
+Making the supply fixed needs a STARTING STOCK -- how many cells were in the valley
+when the lights went out -- and nobody has ruled it. EVERY version of the fix needs
+that number: a pool work draws from needs a size, and paying him out of a faction
+treasury needs those treasuries to start non-empty, which is the same number wearing a
+hat. Ship an empty pool and a day's work pays nothing on day one, which breaks the
+loop [rice clock] exists to close. THIS LANE BROKE THE FIRST BAG OF RICE ONCE ALREADY
+THIS ROUND AND WILL NOT DO IT AGAIN TO MAKE A MECHANISM FIRE.
+WHEN THE NUMBER LANDS IT IS AN HOUR: seed a holder with it, turn payForWork's credit
+into a hand() from that holder, and count() becomes a countdown instead of a tally.
+Nothing else has to move.
+[PENDING Paolo]: HOW MANY BATTERIES ARE IN THE VALLEY ON DAY ONE?
+
+NAMED SO NOBODY HUNTS IT: the 267x unit bug is REAL AND UNREACHABLE. `power` is priced
+at one battery with unit kWh and one kWh is 267 AA cells of energy -- the record calls
+it the one row in the table where the unit is wrong. But power is on NO shelf
+(fortress water/food/meds/fuel, town water/food/meds, camp water/food) and nothing
+converts kWh into batteries; the pumps compute kWh and [water lifted] deliberately
+left them uncharged. Wrong, and not a live pump.
+
+GATE RED THREE WAYS: count only the player instead of the valley -> 5; drop the line
+off the night card -> 1; let made() count transfers as minting -> 1. THAT LAST ONE
+PASSED AT FIRST, because nothing had moved yet when the check asked, so the check now
+moves cells between holders BEFORE asking. A check that cannot tell MADE from MOVED is
+the broken one, and that is the whole claim of the row.
+
+THE RATCHET (rule 14a as amended 9/15: the demo at the link is cut from the alpha on
+every deploy, so shipping to the alpha IS shipping to him, and the ratchet binds every
+push). Walked with the one driver on this tree: door opens, controls render, the seam
+crosses by pinch and comes back, 0 page errors. Nothing is worse.
+
+NOTE FOR WHOEVER HITS IT: bohemia_city_module_resync.py now EXITS 2 on
+engine/bohemia_lattice.js ("unrecognised, neither canon nor any of the last 40
+revisions") -- another lane's brand-new module from the step-is-a-house work. It still
+reports correctly and had nothing to do; not this lane's to fix.
+
 *** 9/15 ROUND 2: HIS RULING CAME BACK AND [two prices] LANDED. SHIPPED. ***
 records/BOHEMIA_TWO_PRICES_THE_CAMP_SAYS_NO_9_15_26.md
 The pending this lane raised was answered: THE SURCHARGE IS DEAD, EVERYTHING COSTS
