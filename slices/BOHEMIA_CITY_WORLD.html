@@ -50170,20 +50170,45 @@ const BODY_SCALE = {
   lotFine:   25,    /* MEASURED: median lot pitch, fine cells. RUN may overrule with its own */
   houseFine: 13,    /* MEASURED: median house footprint, fine cells */
   bodyLots:  0.5,   /* HIS DEFAULT: "a person stands about half a lot tall at walk zoom" */
-  /* RUN'S ONE NUMBER, when it lands: fine cells per step. 1 is today's person-scale step.
-     READ, NEVER COPIED -- the law's "one number in one place" means this lane keeps no
-     second table, so the day RUN sets it the body moves with the street and nobody has to
-     remember to come back here. */
-  stepFine: function(){
-    try { var v = window.BOHEMIA_STEP_FINE | 0; if (v > 1) return v; } catch (e) {}
+  /* *** CORRECTED 9/15, SAME ROUND RUN SHIPPED ITS HALF, AND MY WIRE WAS WRONG TWICE. ***
+     I wrote this to watch `window.BOHEMIA_STEP_FINE`. RUN named its constant STEP_CELLS
+     (3cc9fff2), so my wire was DANGLING -- a second name for one number, which is the exact
+     bug the law's "one number in one place" is about, committed by the lane quoting it.
+     AND IF I HAD SIMPLY REPOINTED IT AT STEP_CELLS IT WOULD HAVE BEEN WORSE. STEP_CELLS is
+     5, so the old test (step > 1) would have fired immediately and asked for half a lot at
+     today's camera: 550 px of person on a 378 px screen. RUN measured exactly this and said
+     so in its own record: "making it bigger without the zoom change makes a person taller
+     than a doorway", and it did not ship bigger bodies for that reason.
+     SO THE TRIGGER IS NOT THE STEP AT ALL. IT IS WHETHER A HOUSE FITS ON THE SCREEN.
+     That is self-measuring off the real camera, it needs no flag and no second constant,
+     and it CANNOT produce a giant on a tight camera by construction: at today's walk zoom
+     a lot draws 1,100 px against a 378 px screen and this does nothing at all. When
+     RUN's [zoom meets] pulls the camera back far enough to show a house, the body grows in
+     the same frame, which is the "at the same time" the ruling asks for.
+     THE STEP IS READ ANYWAY, for the record and for nobody to have to grep: one number,
+     RUN's, never copied. */
+  stepCells: function(){
+    try { if (typeof STEP_CELLS === 'number') return STEP_CELLS; } catch (e) {}
     return 1;
+  },
+  /* IS HE STANDING ON A STREET WITH A HOUSE IN VIEW?
+     *** AND "A HOUSE FITS" ALONE WAS NOT ENOUGH, CAUGHT BY MY OWN GATE BEFORE IT SHIPPED. ***
+     A lot is 25 cells, so it fits the moment the cell is under about 14 px -- which is
+     CITY zoom, where HC is 11 today. On that test the bodies in city mode would have jumped
+     from 28 px to 112 px: giants standing over a whole city, an unasked visible change, in
+     the one mode where a person SHOULD be a speck. The ruling is about the street he walks,
+     and the fix is the missing half of the condition rather than a tighter number. */
+  lotFitsOnScreen: function(C){
+    try {
+      if (typeof MODE !== 'undefined' && MODE !== 'human') return false;
+      return BODY_SCALE.lotFine * C <= cv.width * 0.9;
+    } catch (e) { return false; }
   }
 };
 /* THE ZOOM LEVEL LAW STILL RULES THE PIXELS: 28 / 56 / 112 / 224 and never a fraction, so
    this picks the RUNG NEAREST the wanted height rather than scaling to it. */
 function bodyLadder(C){
-  var step = BODY_SCALE.stepFine();
-  if (step <= 1) return C >= 64 ? 224 : (C >= 32 ? 112 : (C < 17 ? 28 : 56));
+  if (!BODY_SCALE.lotFitsOnScreen(C)) return C >= 64 ? 224 : (C >= 32 ? 112 : (C < 17 ? 28 : 56));
   var want = BODY_SCALE.bodyLots * BODY_SCALE.lotFine * C;   /* half a lot, on this screen */
   var rungs = [28, 56, 112, 224], best = rungs[0];
   for (var i = 1; i < rungs.length; i++)

@@ -53,8 +53,23 @@ const done = () => { console.log('\n=== BODY SCALE GATE: ' + pass + ' passed, ' 
      /const _lad\s*=\s*bodyLadder\(HC\)/.test(SRC) && /var lad = bodyLadder\(C\)/.test(SRC));
   ok('and the measured numbers are written down where the next lane will read them',
      /lotFine:\s*25/.test(SRC) && /houseFine:\s*13/.test(SRC) && /bodyLots:\s*0\.5/.test(SRC));
-  ok('and RUN\'s constant is READ, never copied into a second table here',
-     /window\.BOHEMIA_STEP_FINE/.test(SRC));
+  /* *** REPOINTED 9/15, THE ROUND RUN SHIPPED ITS HALF. *** This checked for a flag named
+     BOHEMIA_STEP_FINE, which nothing ever set: RUN called its constant STEP_CELLS, so the
+     wire was dangling and the gate was happily green over a second name for one number --
+     the exact bug the law's "one number in one place" is about. And repointing alone would
+     have been worse: STEP_CELLS is 5, the old test fired on anything over 1, and the body
+     would have jumped to 550 px on a 378 px screen. RUN measured that and refused it: "a
+     person taller than a doorway".
+     SO THE TRIGGER IS WHETHER A HOUSE FITS ON THE SCREEN, which is self-measuring off the
+     real camera and cannot make a giant on a tight one. */
+  ok('RUN\'s constant is READ by its real name, never copied into a second table here',
+     /typeof STEP_CELLS === 'number'/.test(SRC) && !/window\.BOHEMIA_STEP_FINE\s*\|/.test(SRC));
+  ok('and the body grows off THE CAMERA, not off the step -- a step of 5 must not put a '
+     + 'person taller than a doorway on a tight zoom',
+     /lotFitsOnScreen/.test(SRC) && /cv\.width \* 0\.9/.test(SRC));
+  ok('and it only grows him on a STREET -- a lot fits the screen at city zoom too, and a '
+     + 'giant standing over a whole city is the one place a person should be a speck',
+     /MODE !== 'human'\) return false/.test(SRC));
 
   let chromium;
   try { chromium = require('/opt/node22/lib/node_modules/playwright').chromium; }
@@ -72,7 +87,13 @@ const done = () => { console.log('\n=== BODY SCALE GATE: ' + pass + ' passed, ' 
 
   const R = await fr.evaluate(() => {
     render();
-    const ZOOMS = [4, 8, 11, 16, 22, 33, 44, 48, 64, 88];
+    /* THE ZOOMS THE WALK ACTUALLY USES. HZOOM is 44 and the transition animates up to 48,
+       so these are the cells a person is ever drawn on WITH HIS FEET ON A STREET. The small
+       numbers below are city zoom and are asked separately, in city mode, where the answer
+       must never move. Asking one list in one mode is how the first cut of this check
+       reported three false reds on zooms the walk never reaches in human mode. */
+    const ZOOMS = [17, 22, 33, 44, 48, 64, 88];
+    const CITY_ZOOMS = [4, 8, 11, 13, 16];
     /* THE OLD FORMULA, written out here on purpose rather than imported: a no-op check
        that asks the new code what the old code used to say is a check that cannot fail. */
     const was = (C) => C >= 64 ? 224 : (C >= 32 ? 112 : (C < 17 ? 28 : 56));
@@ -93,13 +114,20 @@ const done = () => { console.log('\n=== BODY SCALE GATE: ' + pass + ' passed, ' 
     };
     const o = { drew: BARK_DREW.length, HC: HC, zooms: ZOOMS, lot: BODY_SCALE.lotFine };
     o.today = ZOOMS.map(C => ({ C: C, want: was(C), got: bodyLadder(C), m: painted(C) }));
-    /* AND THE SAME QUESTION WITH RUN'S NUMBER SET. The camera that shows a lot at about
-       the size a cell shows today is HC / lot, so the body is asked at that zoom. */
-    window.BOHEMIA_STEP_FINE = BODY_SCALE.lotFine;
+    /* AND THE SAME QUESTION AT A CAMERA THAT ACTUALLY SHOWS A HOUSE. No flag is set and
+       none exists: the trigger is the camera itself, so the only way to ask the question is
+       to ask at that zoom. A lot is 25 cells and wants about 208 px, so HC lands near 8. */
     o.stepped = ZOOMS.map(C => ({ C: C, got: bodyLadder(C), m: painted(C) }));
     o.atLotCamera = painted(Math.max(1, Math.round(208 / BODY_SCALE.lotFine)));
-    delete window.BOHEMIA_STEP_FINE;
+    o.lotFitsToday = BODY_SCALE.lotFitsOnScreen(HC);
+    o.stepCells = BODY_SCALE.stepCells();
     o.after = ZOOMS.map(C => bodyLadder(C));
+    /* AND THE CITY, ASKED IN CITY MODE, where a lot fits the screen and the body must not
+       move by one pixel. */
+    const keepMode = MODE;
+    try { MODE = 'city'; } catch (e) {}
+    o.city = CITY_ZOOMS.map(C => ({ C: C, want: was(C), got: bodyLadder(C) }));
+    try { MODE = keepMode; } catch (e) {}
     o.todayBody = painted(HC);
     return o;
   });
@@ -114,8 +142,13 @@ const done = () => { console.log('\n=== BODY SCALE GATE: ' + pass + ' passed, ' 
      + 'the old inline formula returned (' + R.today.length + ' zooms, ' + moved.length
      + ' moved' + (moved.length ? ': ' + moved.map(r => r.C + ' ' + r.want + '->' + r.got).join(', ') : '') + ')',
      moved.length === 0);
-  ok('and it is still unchanged after the constant has been set and cleared, so nothing '
-     + 'latched', R.after.every((v, i) => v === R.today[i].want));
+  ok('and asking twice gives the same answer, so nothing latched',
+     R.after.every((v, i) => v === R.today[i].want));
+  const cityMoved = (R.city || []).filter(r => r.want !== r.got);
+  ok('*** AND CITY MODE IS UNTOUCHED *** -- a lot fits the screen at city zoom, so without '
+     + 'the mode half of the condition every body in the city would have jumped from 28 px '
+     + 'to 112 (' + cityMoved.length + ' of ' + (R.city || []).length + ' moved)',
+     cityMoved.length === 0);
 
   /* 2. THE BOX AND THE ART AGREE. */
   const mismatch = R.today.concat(R.stepped).filter(r => r.m && r.m.box !== r.m.sprite);
