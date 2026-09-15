@@ -1,3 +1,359 @@
+ECONOMY (economy-knxaeh): PAOLO'S PERMANENT INSTRUCTION, 9/5, EXPANDED VERSION.
+HIS WORDS, WORD FOR WORD, SO THEY SURVIVE ANY MEMORY RESET. THIS SUPERSEDES THE
+EARLIER SHORTER VERSION FURTHER DOWN THIS FILE. THIS BLOCK IS NEVER DELETED.
+
+=== BEGIN PAOLO'S WORDS, WORD FOR WORD ===
+PERMANENT INSTRUCTION. Do this now and every time from now on. Write it into your own handoff block first so it survives any memory reset.
+
+VAMILY is a keyword. It has NOTHING to do with families or dynasties. It means: go to the meeting hall and do your job. From now on I will only ever type that one word to you.
+
+
+WHEN YOU SEE THE WORD VAMILY, DO EXACTLY THIS, EVERY TIME:
+
+1. Pull main first (git fetch origin main, rebase onto it). The board changes every hour.
+2. Re-read CLAUDE.md from disk. The one in your memory is old; it was rewritten 9/4.
+3. Open VAMILY.md at the repo root and READ ITS FRONT PAGE. The rules live there and change there. Never trust your memory of them.
+4. Find your section. There are 18 chats, each with a number and a name: 01 RUN, 02 WORLD, 03 LIFE + CITY, 04 COMBAT, 05 CHARACTER, 06 DIRECTION (art director), 08 SOUNDS, 09 PEOPLE, 10 FACTIONS, 11 UI, 12 WORDS, 13 ECONOMY, 14 ANIMATION, 15 DYNASTY, 16 COOK (production artist), 17 EYES AND EARS, 18 PLUMBER. Your chat's title is your name. If you are a brand-new chat with no name, you are 18 PLUMBER: write CLAIMED on its line, commit, and that is your role for life.
+5. Do your section's job: continue the job you already hold, or claim the first OPEN line by writing CLAIMED <date> <your session slug> on it and committing. Build or research according to your section's MODE. A job takes as many rounds as it takes. Write SHIPPED <date> <commit> only when the ship test is met on the real surface.
+6. Only build what is on the board. Never invent a job. Never add a job to any section; only the coordinator adds jobs. Your only writes to the board are CLAIMED and SHIPPED on your own lines.
+7. Never ask me anything. A ruling you need goes in your handoff block in 00_START_HERE_NEXT_SESSION.md as [PENDING Paolo]. The coordinator carries it to me.
+8. Commit straight to main, no pull requests, and update your handoff block every round.
+9. Reply to me with two words (the job's [bracket] label) and one short line: "continuing, about N of M", "shipped", or "queue empty". Then work.
+
+RIGHT NOW: (a) write this whole instruction, word for word, into your own handoff block in 00_START_HERE_NEXT_SESSION.md; (b) then treat this message as your first VAMILY and do steps 1 to 9.
+
+I will never paste anything to you again. From here on, the one word is the whole instruction.
+=== END OF HIS WORDS ===
+
+THIS CHAT'S ROLE: 13 ECONOMY (research). SHIPPED: Q1 [money dies], Q2 [money
+returns], Q3 [rebuild order], Q4 [first building]. Q5 [numberless economy], Q6 [casino
+backstage], Q7 [water supply], Q8 [battery value],
+Q9 [trust credit], Q10 [market day],
+Q11 [inflation feeling], Q12 [who's housed], Q13 [printed money], Q14 [rent share],
+Q15 [first hour], Q16 [debt spiral], Q17 [wages fall], Q18 [black market],
+Q19 [price moves], Q20 [work feels], Q21 [five minute money], Q22 [what a lie costs],
+Q23 [who eats first], Q24 [pay on time].
+Next OPEN is Q25 [batteries scarce]; Q26 [forgiveness price] and Q27 [shift pay] after it.
+
+AND A CORRECTION TO MYSELF, FROM THE LAW THAT LANDED THIS ROUND: NO CALENDAR TALK
+(Paolo 9/5, LOCKED). "why do you keep referring to it as days, yesterday... are
+you tweaking?" Never yesterday/today/tomorrow/overnight/day N to him. Rounds,
+minutes, hours. A research unit is a ROUND. My four records are named DAY 1-4 and
+that stays, because records are for the machine, but MY REPLIES TO HIM HAVE BEEN
+BREAKING THIS and they stop now. Root cause on my side is the coordinator's:
+reading the date off commits and repeating it back to him.
+
+A NOTE ON THIS FILE, FOR EVERY LANE: three of my last four rounds hit a merge
+conflict at the TOP of this file, because every lane prepends its newest block
+there and several of us are now pasting the same long verbatim instruction into
+it. Twice that produced a stray marker or a duplicated header on main, and once it
+interleaved two lanes' blocks line by line. IF YOU RESOLVE A CONFLICT HERE, DO NOT
+TAKE BOTH SIDES LINE BY LINE. Take the whole file from origin/main, then prepend
+your own complete block to it. Then grep for stray markers before you commit.
+
+*** AND IT ALREADY HAPPENED, SILENTLY, AND I ONLY CAUGHT IT IN ROUND 13. *** This
+block had 113 lines of OTHER LANES' work fused into the middle of it: CHARACTER's
+round-2 [clothes wired] notes and DYNASTY's round-3 report, sitting between
+Paolo's instruction and my own section, under an ECONOMY header. Removed this
+round. Both lanes have newer, superseding copies elsewhere in this file (DYNASTY
+even labelled theirs "THIS IS THE ONE GOOD COPY"), so nothing was lost.
+THE CAUSE, AND IT WILL DO IT AGAIN TO SOMEBODY: several lanes paste the SAME
+verbatim instruction from Paolo into their own blocks, so those lines are
+byte-identical across blocks and a line-by-line merge CANNOT TELL WHOSE THEY ARE.
+It welds two lanes together at the seam and NO CONFLICT MARKER APPEARS, so a grep
+for markers will not catch it. THE ONLY CHECK THAT DOES: after you resolve, read
+your block top to bottom and confirm every line in it is yours.
+And this file is now ~88,000 lines carrying NINE ECONOMY blocks, most of them
+stale copies of this one. That is a real defect in a file every lane reads every
+round. It is a job for the coordinator to place (18 PLUMBER's remit), not
+something a lane should do to another lane's block.=== ROUND 36 REPORT: [first ten] SHIPPED ====== ROUND 37 REPORT: [carry cost] SHIPPED ====== ROUND 38 REPORT: [old price] SHIPPED ====== ROUND 39 REPORT: [protection court] SHIPPED ====== ROUND 40 REPORT: [how many pockets] SHIPPED ====== ROUND 41 REPORT: [who replaces you] SHIPPED ====== ROUND 42 REPORT: [the bailiff] SHIPPED ====== ROUND 43 REPORT: [double up] SHIPPED ===
+RECORD: records/BOHEMIA_ECONOMY_DAY_43_TWENTY_FIVE_EMPTY_HOMES_AND_THEY_DOUBLE_UP_ANYWAY_9_15_26.md (249 lines)
+BANK:   banks/BOHEMIA_ECONOMY_TEST_LINES_9_5_26.md sections HHHHHHHHH-LLLLLLLLL, +16 lines, 614 draft:true total
+TAB:    NOT IN A TAB YET. MODE: RESEARCH. No engine code was touched. Rule 14: research
+        rounds continue and never touch the demo; only THE RUN re-cuts.
+HANDOFF: rebuilt under the 9/13 CLAUDE.md amendment, from the copy of the file on
+        origin/main READ IMMEDIATELY BEFORE WRITING.
+
+THE FINDING THAT PROVES US WRONG: RULING 9'S TRIGGER CANNOT FIRE IN THIS VALLEY, AND THE
+RULING IS STILL RIGHT. It says a building holds a second household "WHEN THERE IS NOWHERE
+ELSE". Measured off the game's own numbers (OCCUPIED_RATE 0.038 against the 55,391
+dwellings the scale-model tool counts on the live map):
+    dwellings drawn          55,391
+    homes with somebody in    2,105  (3.8%)
+    *** EMPTY HOMES          53,286  (96.2%) ***
+    empty homes per occupied   25.3
+TWENTY-FIVE EMPTY HOUSES FOR EVERY OCCUPIED ONE. "Nowhere else" will never be true here.
+AND THE REAL RECORD SAYS THAT DOES NOT MATTER, because it was not true in America either:
+doubled-up households went 19.7m (17.0%) in 2007 to 21.8m (18.3%) in 2011, DURING A HOUSING
+CRASH, with vacant units everywhere. Of 900 US metros only 19 added more population than
+housing since 2000, and the literature says it outright -- "NOT A SHORTAGE OF UNITS, BUT
+RATHER A SHORTAGE IN THE LOW-INCOME PRICE POINTS". PEOPLE DO NOT DOUBLE UP BECAUSE THERE
+IS NO ROOM, THEY DOUBLE UP BECAUSE THEY CANNOT PAY FOR A ROOM. So ruling 9 is correct in
+its mechanism and wrong in its stated reason, and the fix is ONE CLAUSE: a building holds a
+second household WHEN A HOUSEHOLD CANNOT PAY FOR ITS OWN.
+
+THE NUMBERS FOR RULING 9:
+- THE CAP IS TWO AND THE RECORD BACKS IT. The whole 2008 crisis moved the doubled-up share
+  by 1.3 POINTS, 17.0% to 18.3%. It is a minority state, never the look of the street.
+  Where the pressure really landed was one cohort: 25-34s living with parents went 4.7m to
+  5.9m, up 25%. The crisis did not scatter everybody, it stopped one group ever leaving.
+- THE COST TO THE HOST IS NEGATIVE IN MONEY AND POSITIVE IN FRICTION, which inverts the
+  intuition. 72% of young adults living with parents CONTRIBUTE FINANCIALLY, 65% help with
+  groceries and utilities, 46% pay toward rent or the mortgage. The money moves TOWARD the
+  host. The real cost is the room, and the studies name it: coordinating kitchen time so a
+  parent could cook for their own children, and other people's noise wrecking bedtimes.
+  *** WHICH IS RULING 9'S OWN SENTENCE, "THE RENT IS SPLIT, THE ROOM IS NOT", CONFIRMED
+  WORD FOR WORD BY ACCIDENT. *** It is the best line in the ruling and should be the
+  mechanic verbatim.
+- IT LENGTHENS THE RECOVERY AND IT IS STICKY. Doubling up did not unwind when the economy
+  improved: "even with an improving job market, the share of young adults living in their
+  parents' homes continues to rise". And it tracks PRICE, not jobs -- among young adults
+  earning under $20,000, 34.7% lived with parents in high-cost areas against 26.6% in
+  low-cost ones, an eight-point spread produced by nothing but what a room costs. THE
+  MECHANISM THAT ABSORBS THE SHOCK IS THE SAME ONE THAT DELAYS THE REBUILD: a household
+  that doubled up does not need a ruin repaired. In a game whose century rule counts
+  buildings AND the people who stayed, that is a real trade: you keep the people and you
+  rebuild slower.
+- WHO MOVES IN WITH WHOM: kin first. A grandparent, an adult sibling, extended family, and
+  only then non-kin. A household is either a HOST or a GUEST and which one is the whole
+  social fact.
+
+WHAT WE HAVE TODAY: the household already exists and already has a size. household(seed)
+rolls 1-4 off cuts [.30,.65,.85,1.0] -- 30/35/20/15 -- mean 2.20, so a living population
+of about 4,631. RESIDENTIAL names five kinds that can hold anybody and houseOccupied,
+inhabitedHomes, censusForPlot and agentsForPlot all answer. A SECOND HOUSEHOLD NEEDS NO
+NEW OBJECT: one house returns two household() rolls and a rule for when. And nothing
+anywhere makes a household unable to afford where it lives, which is round 40's missing
+pocket wearing another hat.
+
+*** A RED THAT IS NOT MINE, AND THE FIVE-MINUTE BREAK NOBODY HAS CONNECTED TO IT ***
+Rule 13(b) asks each lane to read THE SUITE LINE and name which reds are its own. The line
+posted 9/14 at ad23d875 -- 632 ran, 525 green, 107 RED, 0 never ran -- AND IT NAMES NONE OF
+THEM. So I swept the ten gates that read what this lane writes or the modules it reads.
+NINE GREEN. ONE RED: BUILD COSTS ITS PRICE, 9 pass / 5 fail --
+    B2 the panel names the price BEFORE the tap   -> THE TAG READS "null"
+    B3 a broke player is refused and told why      -> 0 -> 0 edits, "NO REFUSAL SHOWN"
+    B4 the plot goes down and the battery with it  -> edits 0 -> 0, batteries 1 -> 1
+    B5 the ledger audits clean                     -> NO ENTRY
+IT IS NOT MINE: this lane is RESEARCH, has never touched the builder panel or the walked
+surface, and is forbidden to. BUT LOOK AT IT NEXT TO WHAT EYES E26 HAS POSTED ON THE FRONT
+PAGE FOR THREE ROUNDS: "STILL TWO REAL BUTTONS THAT DO NOTHING ON THE DEMO: 'BUILD'
+(cbbuild) and 'BUILD BIG 2x2' (cbbig). Driven tap, no change in words or pixels for 1.2 s."
+THOSE ARE THE SAME BUTTONS. A stranger taps BUILD and nothing happens; the gate measures
+why -- the price tag is null, the tap produces zero edits, the battery never leaves the
+purse. One lane reporting the symptom on a phone, one gate reporting the cause in the
+suite, never once in the same sentence. And rule 14(d) says a card that promises something
+and does nothing is the worst bug in the game.
+
+ROUTED: WORLD [double up] change the trigger from "nowhere else" to "cannot pay", keep the
+cap at two, pay the host | COORDINATOR ruling 9 needs ONE CLAUSE changed and the rest is
+confirmed, "the rent is split, the room is not" word for word | WORLD [every pocket] a
+household that cannot pay is the precondition and one purse cannot express it | LIFE+CITY /
+PEOPLE a second household is a second roll and a rule, not a new object | WHOEVER OWNS THE
+BUILD SURFACE + RUN + EYES the build red IS the two dead buttons | PLUMBER the suite line
+reports 107 red and lists none, so no lane can do what rule 13(b) asks without sweeping for
+itself.
+
+GATES, rule 13: PRE-PUSH PASS GREEN -- economy 13/0, purse 28/0, payday 40/0, attempt 15/0,
+canon rot 13/0, demo blockers 22/0, language 83/0, handoff 8/0.
+FULL SUITE: 107 RED AT ad23d875, MINE ARE: NONE, MEASURED. Ten gates swept, nine green, one
+red on a surface this lane has never touched and is forbidden to, routed rather than
+claimed.
+
+THE PROJECT-LEVEL HOLE, round 28 of naming it, and this instance is a new flavour: TWO
+HONEST INSTRUMENTS DESCRIBING THE SAME DEFECT IN TWO VOCABULARIES, ON TWO SURFACES, FOR
+THREE ROUNDS, WITH NOTHING THAT COULD EVER JOIN THEM UP. A phone walk says "this button
+does nothing"; a gate says "the tag is null and no entry was written". Both true, both
+posted, never in the same sentence until now.
+
+[PENDING Paolo] -- for the coordinator, one at a time:
+  *** 1 TO 9 ARE RULED. The coordinator decided all nine on 9/13 under EVERYTHING IS
+  A THUMB, in records/BOHEMIA_RULING_NINE_DEFAULTS_THE_ECONOMY_WAS_CARRYING_9_13_26.md.
+  Their numbers are kept and left empty so every cross-reference in the shipped records
+  still points at the right item. In order: the ten-day shelf stands; nobody sells or
+  charges a battery; the century rule counts buildings and some people; the good first
+  building is the block's PUMP (water before power); the money supply is MEASURED off the
+  map, never typed; a broken promise costs EXCLUSION, NOT SEIZURE (round 41 independently
+  confirms it -- seizure costs an owner 30x to 136x what exclusion does); the market week
+  is seven days; a camp DOES barter with a stranger and a counted person pays one; and a
+  repaired ruin houses people, capped at two households. Nine carried for as many as
+  thirty rounds, closed in one. ECONOMY Q43 and Q44 research the two that leaned on the
+  thinnest record. ***
+
+ 10. Once the valley is built out, eleven things in the whole game are worth a
+     battery. What should a rich player WANT that he cannot just build?
+ 11. What does a subscription to a block BUY? Round 18: the right to trade at that
+     faction's seat.
+ 12. What does the player START with? He boots with nothing.
+ 13. What does it take to get the lights back on? A PRICE is the trap.
+ 14. What does a FAILED job pay? Today it is an honest NO_RULING.
+ 15. What will each faction NOT trade? Fourteen answers, one short phrase each.
+ 16. After the valley's shelves are empty, what does a shop SAY?
+ 17. What can a person in this valley be paid to do?
+ 18. What does a day COST to live? The day loop's STAKES table is empty on purpose.
+ 19. WHAT DOES A PLAYER KEEP HIS MONEY AND GOODS IN? Two rounds' finding (15, 21).
+ 20. What is the first thing a player can be caught at, and what does it cost him?
+ 21. WHO IS AT THE PLAYER'S TABLE? Until somebody is named, nobody can go without.
+ 22. (new) CAN SOMEBODY IN THIS VALLEY OWE THE PLAYER, AND BE SEEN NOT PAYING? It
+     is the mirror of 20 and of 6, and all three are the same ruling: WHETHER AN
+     UNSETTLED THING BETWEEN TWO PEOPLE IS A THING THIS GAME KEEPS.
+
+ 23. (new) WHEN A MAN CANNOT PAY, DOES THE SHOP TURN HIM AWAY OR LET HIM OWE?
+     Round 25's whole ladder stops at this wall and it is the fifth round in a
+     row to stop there. It is the same ruling as 6, 20 and 22.
+ 24. (new) HOW BIG IS THE BIGGEST PILE OF BATTERIES A PLAYER CAN FIND? Sixteen
+     billion cowries killed a currency that had worked for centuries. A cache
+     that is too big ends the money, and this is a number only he can set.
+
+ 25. (new) WHAT DOES IT TAKE TO BE FORGIVEN, AND CAN IT EVER BE BOUGHT? The real
+     record has three doors -- take payment, take nothing, or take it back by
+     force -- and the wronged party picks. Our module already has words for all
+     three and a mechanism under none of them.
+ 26. (new) DOES A WRONG COST MORE IF YOU HAVE MORE? Wergild priced a man by rank
+     because a fixed number is no cost to a rich man. EVERYTHING COSTS ONE says
+     it does not. Genuine tension, and genuinely his.
+
+ 27. (new) HOW OFTEN CAN A PLAYER GET A SHIFT? The only number in round 27 that
+     his own rulings do not already answer, and it is the one that decides
+     everything. The measured real spread is 137 to 254 days out of 365, bottom
+     third at the bottom of it. A shift you can take every day is a salary.
+
+ 28. (new) WHAT DOES A POOR CITY AND A REBUILT CITY LOOK LIKE? Not my phrasing:
+     bohemia_century.js has an empty TIERS table with a `look` field and asks him
+     this question in exactly those words. It is the whole act-by-act ridge.
+ 29. (new) HOW MANY PEOPLE DOES A HOUSE HOLD? The housing CAP is empty, so
+     capacityOf returns 0 for house, shop, apartment and trailer, so the century
+     ledger's `housed` column reads zero by law and the ridge cannot say who
+     lives there. Act three is the people.
+
+ 30. (new) WHAT DOES THE VALLEY USE WHEN THE BATTERIES ARE GONE? The mechanism
+     is built -- convert() takes any rate and unwinds cleanly -- and has ZERO
+     callers. What the thing IS, is his. The historical test is that the winner
+     is always something NOBODY WANTS FOR ITSELF (mackerel beat cigarettes
+     because nobody would eat it), which is an uncomfortable test for a battery.
+
+ 31. (new) IS CLOUT WHAT YOU SPEND TO SEE MORE? Round 30's answer is that a
+     perception perk costs the SAME ONE as a fight perk and the difference goes
+     in the CURRENCY: a fight perk is bought with what you survived, a perception
+     perk with what you were told. EVERYTHING COSTS ONE is untouched either way.
+     Which pocket a perk comes out of is his, and it would put a floor under
+     clout, which today drains on ask:leaned and has no faucet at all.
+
+ 32. (new) DOES THE PLAYER GET A MEMORY? Every other body in the valley has one:
+     bohemia_memory.js has seven call sites and ALL SEVEN are NPC minds, several
+     of them remembering the PLAYER. There is no makeMind('@') anywhere. Giving
+     him one is the difference between coming back after a week as a local and
+     coming back as a stranger, and the curve is already written and measured.
+
+ 33. (new) IS A YEAR-LONG INJURY A CLOCK OR A STORY BEAT? The longest clock in
+     the build is the 180-day scavenge decay, and there is NO SEASON AND NO YEAR
+     anywhere in the code (swept the day loop and the century module for both
+     words: nothing). His "a hand that takes a year of the valley's time" is
+     either a new clock longer than anything the game counts, or it is a scene.
+     That is a shape question, not a number, which is why it is his.
+
+ 34. (new) DOES ANYBODY ELSE IN THE VALLEY HAVE A POCKET? Not a number, a
+     SHAPE. BohemiaPurse.create() appears EXACTLY ONCE in the whole game and
+     purseGet() is a singleton for the player. No NPC, no faction, no shop has a
+     purse. One purse means no swap, no tab, no restitution that arrives, and no
+     market day. FIVE ROUNDS OF THIS LANE'S FINDINGS STOP AT THIS ONE WALL WEARING
+     DIFFERENT CLOTHES (24, 26, 29, 32, 33).
+
+ 35. (new) CAN THE PLAYER EVER BE THE ONE COLLECTING? Every rent and debt
+     mechanism in the game points AT him: rentOn bills him by the holder's tier,
+     owedTo counts the NIGHTS HE OWES a faction, and COLLECTOR knocks on his door
+     and remembers his father. There is a landlord in this valley and it is never
+     him. Whether he can stand on the other side of it is a shape question about
+     what this game is, not a number.
+
+ 36. (new) DOES A PRICE EVER DIFFER FROM ONE BLOCK TO THE NEXT? EVERYTHING COSTS
+     ONE is his and this round does not ask to move it. The question is narrower:
+     may the SAME one battery buy a different AMOUNT of the same thing depending on
+     whose block you are standing on? TWO WHOLE SYSTEMS WAIT ON THAT ONE ANSWER --
+     round 34's arbitrage (sixteen markets, one price, so the biggest real road to
+     wealth is impossible) and round 35's rent strike (if everybody is charged the
+     same one, there is nothing to strike about). In Lebanon three neighbours on
+     the same street with the same service paid 550,000, 900,000 and 1,250,000.
+
+
+ 37. (new) IS "EVERYTHING COSTS ONE" A PRICE CONTROL? Not a request to change it.
+     The opposite. This round found that his 8/15 law is the SINGLE MOST DOCUMENTED
+     setting in the real record: Venezuela pinned the official price, and that is
+     exactly why the tags came off, the shelves emptied and the queues formed. So
+     ONE is not a simplification we route around, it is the mechanism, and the
+     scarcity belongs in the door and the line instead of in the number. Eight
+     rounds of this lane have treated ONE as a tuning shortcut. HE SHOULD KNOW HIS
+     OWN LAW IS THE REALISTIC ANSWER, because it changes what every lane builds next
+     and it retires the quiet hope that a second number is coming.
+
+ 38. (new) SHOULD THE FIRST TEN MINUTES ANSWER THE TWO LINES THE TABLE ALREADY
+     WROTE? The cold open promises a job you can walk down to and a truck you can
+     put gas in, and 68 beats later neither is ever mentioned again. Both are
+     cashable out of parts that already run. Whether the opening pays off its own
+     two lines, or leaves them hanging on purpose, is an authorship call about HIS
+     scene, so a lane should not take it.
+
+ 39. (new) ONE RATION A DAY IS ABOUT HALF WHAT A WALKING DAY BURNS. Measured, not
+     argued: walking is 3.5 METs, so a 70 kg person over our own sixteen-hour day
+     burns roughly 3,920 kcal, and our food table feeds 2,000. Everyone in the
+     valley is quietly on half rations. THIS IS PROBABLY RIGHT AND THE LANE IS NOT
+     ASKING TO CHANGE IT -- a crash economy where a full day's food does not cover
+     a full day's walking is the realistic setting, and EVERYTHING COSTS ONE keeps
+     the number clean. It goes here so that nobody discovers it later as a surprise
+     and "fixes" it into something nobody ruled.
+
+ 40. (new) IS ONE THE PRICE FOR THE PERSON WHO IS IN? This round found that
+     EVERYTHING COSTS ONE cannot be discounted (every real spread turns a battery
+     into a fraction the game cannot say) but CAN be inverted: one is what it costs
+     if the faction holding the market counts you, and everybody else pays two to
+     five. That keeps his law exactly as written and gives the game the two prices
+     the whole board is waiting on. IT IS NOT A NUMBER QUESTION, IT IS A "WHAT IS
+     THIS GAME" QUESTION -- whether being known to people is the thing that makes
+     you rich in Bohemia. Fifteen rounds of this lane say the economy here is made
+     of people you keep going back to, and this is the first one where that could
+     become the price itself.
+
+ 41. (new) CAN A DEAL EXIST BETWEEN TWO PEOPLE WHO ARE NOT THE PLAYER? Measured
+     this round: the valley has FIVE obligation systems (favour owedOf and settle,
+     standing makeRight, towns owedTo, towns collectorAt) and ALL FIVE POINT AT
+     HIM. There is no object anywhere representing an agreement between two other
+     parties. That is why the protection mechanic, the strike, the market day,
+     lending and restitution all stop at the same place: a third party can only
+     enforce something that exists between two others. IT IS SMALLER THAN THE
+     PURSE SPLIT AND HALF THE BOARD IS WAITING BEHIND IT WITHOUT SAYING SO. The
+     shape question that is his: is Bohemia a game where other people have
+     business with each other while he is not looking, or a game where he is the
+     only one with anything at stake.
+
+ 42. (new) SHOULD THE VALLEY HAVE MORE THAN ONE SHOP? Not a joke. Measured this
+     round: all sixteen markets share ONE stock ledger, created by whichever one
+     you walk into first, so buying rice in a fortress empties a swap meet forty
+     cells away, and because a price is computed from stock THAT is why there is
+     one price in the whole valley. It is a one-line fix and this lane is not
+     asking permission for it. THE QUESTION UNDER IT IS HIS: once each town has its
+     own barrel, a town can RUN OUT while the next one is full, and a player can
+     walk two hours to a place that has nothing. That is the most realistic thing
+     this game could do and it is also the most frustrating, and which of those it
+     becomes is a feel call, not a number.
+
+ 43. (new) WHAT DOES IT COST TO COME BACK ON? Pending 13 has asked this since
+     round 13 and this round can now argue it rather than only ask. relight() is
+     built, refuses correctly, takes no payment and has zero callers, and its
+     comment says the price is unruled -- but EVERYTHING COSTS ONE (8/15) landed
+     before the function was written and answers it. The real record says this is
+     the owner's FIRST and most profitable move: cutting you off costs him nothing
+     and the money is all in the fee. THIS LANE'S POSITION IS THAT IT IS ONE, and
+     it is in the pendings only because turning a free thing into a charged thing
+     is the kind of change he should meet in play rather than read about. Nothing
+     is blocked on it; WORLD can build it under his existing law.
+
+NEXT IN THIS LANE: Q44 [first building], and then the queue is empty. Q44 tests the
+other ruling that leaned on a thin record (ruling 4, the pump before the power), so
+like this round it may correct a ruling rather than confirm it.
+
+
+================================================================================
+
 WORDS (words-8dqrnq): 9/15 LATEST -- *** Q25 [card words] SCHOOL DONE, ROUND ONE OF TWO. NO TEST LINES
 WRITTEN, WHICH IS THE RULE. THE NIGHT CARD'S FIRST LINE IS 26 WORDS AND FOURTEEN NUMBERS, AND IT
 CARRIES ONE OF THE THREE THINGS A REAL CUT-OFF NOTICE MUST SAY. *** TAB: LIFE. No game code touched.
@@ -200,367 +556,6 @@ rom face 14/0, feed 15/0, alpha loads 20/0, readable ruler 7/0. THE SUITE LINE s
 full suite unmeasured since 7efb22cf. Rule 14(a): demo untouched, RUN cuts it.
 
 Record: records/BOHEMIA_ONE_DOOR_9_14_26.md
-
-ECONOMY (economy-knxaeh): PAOLO'S PERMANENT INSTRUCTION, 9/5, EXPANDED VERSION.
-HIS WORDS, WORD FOR WORD, SO THEY SURVIVE ANY MEMORY RESET. THIS SUPERSEDES THE
-EARLIER SHORTER VERSION FURTHER DOWN THIS FILE. THIS BLOCK IS NEVER DELETED.
-
-=== BEGIN PAOLO'S WORDS, WORD FOR WORD ===
-PERMANENT INSTRUCTION. Do this now and every time from now on. Write it into your own handoff block first so it survives any memory reset.
-
-VAMILY is a keyword. It has NOTHING to do with families or dynasties. It means: go to the meeting hall and do your job. From now on I will only ever type that one word to you.
-
-
-WHEN YOU SEE THE WORD VAMILY, DO EXACTLY THIS, EVERY TIME:
-
-1. Pull main first (git fetch origin main, rebase onto it). The board changes every hour.
-2. Re-read CLAUDE.md from disk. The one in your memory is old; it was rewritten 9/4.
-3. Open VAMILY.md at the repo root and READ ITS FRONT PAGE. The rules live there and change there. Never trust your memory of them.
-4. Find your section. There are 18 chats, each with a number and a name: 01 RUN, 02 WORLD, 03 LIFE + CITY, 04 COMBAT, 05 CHARACTER, 06 DIRECTION (art director), 08 SOUNDS, 09 PEOPLE, 10 FACTIONS, 11 UI, 12 WORDS, 13 ECONOMY, 14 ANIMATION, 15 DYNASTY, 16 COOK (production artist), 17 EYES AND EARS, 18 PLUMBER. Your chat's title is your name. If you are a brand-new chat with no name, you are 18 PLUMBER: write CLAIMED on its line, commit, and that is your role for life.
-5. Do your section's job: continue the job you already hold, or claim the first OPEN line by writing CLAIMED <date> <your session slug> on it and committing. Build or research according to your section's MODE. A job takes as many rounds as it takes. Write SHIPPED <date> <commit> only when the ship test is met on the real surface.
-6. Only build what is on the board. Never invent a job. Never add a job to any section; only the coordinator adds jobs. Your only writes to the board are CLAIMED and SHIPPED on your own lines.
-7. Never ask me anything. A ruling you need goes in your handoff block in 00_START_HERE_NEXT_SESSION.md as [PENDING Paolo]. The coordinator carries it to me.
-8. Commit straight to main, no pull requests, and update your handoff block every round.
-9. Reply to me with two words (the job's [bracket] label) and one short line: "continuing, about N of M", "shipped", or "queue empty". Then work.
-
-RIGHT NOW: (a) write this whole instruction, word for word, into your own handoff block in 00_START_HERE_NEXT_SESSION.md; (b) then treat this message as your first VAMILY and do steps 1 to 9.
-
-I will never paste anything to you again. From here on, the one word is the whole instruction.
-=== END OF HIS WORDS ===
-
-THIS CHAT'S ROLE: 13 ECONOMY (research). SHIPPED: Q1 [money dies], Q2 [money
-returns], Q3 [rebuild order], Q4 [first building]. Q5 [numberless economy], Q6 [casino
-backstage], Q7 [water supply], Q8 [battery value],
-Q9 [trust credit], Q10 [market day],
-Q11 [inflation feeling], Q12 [who's housed], Q13 [printed money], Q14 [rent share],
-Q15 [first hour], Q16 [debt spiral], Q17 [wages fall], Q18 [black market],
-Q19 [price moves], Q20 [work feels], Q21 [five minute money], Q22 [what a lie costs],
-Q23 [who eats first], Q24 [pay on time].
-Next OPEN is Q25 [batteries scarce]; Q26 [forgiveness price] and Q27 [shift pay] after it.
-
-AND A CORRECTION TO MYSELF, FROM THE LAW THAT LANDED THIS ROUND: NO CALENDAR TALK
-(Paolo 9/5, LOCKED). "why do you keep referring to it as days, yesterday... are
-you tweaking?" Never yesterday/today/tomorrow/overnight/day N to him. Rounds,
-minutes, hours. A research unit is a ROUND. My four records are named DAY 1-4 and
-that stays, because records are for the machine, but MY REPLIES TO HIM HAVE BEEN
-BREAKING THIS and they stop now. Root cause on my side is the coordinator's:
-reading the date off commits and repeating it back to him.
-
-A NOTE ON THIS FILE, FOR EVERY LANE: three of my last four rounds hit a merge
-conflict at the TOP of this file, because every lane prepends its newest block
-there and several of us are now pasting the same long verbatim instruction into
-it. Twice that produced a stray marker or a duplicated header on main, and once it
-interleaved two lanes' blocks line by line. IF YOU RESOLVE A CONFLICT HERE, DO NOT
-TAKE BOTH SIDES LINE BY LINE. Take the whole file from origin/main, then prepend
-your own complete block to it. Then grep for stray markers before you commit.
-
-*** AND IT ALREADY HAPPENED, SILENTLY, AND I ONLY CAUGHT IT IN ROUND 13. *** This
-block had 113 lines of OTHER LANES' work fused into the middle of it: CHARACTER's
-round-2 [clothes wired] notes and DYNASTY's round-3 report, sitting between
-Paolo's instruction and my own section, under an ECONOMY header. Removed this
-round. Both lanes have newer, superseding copies elsewhere in this file (DYNASTY
-even labelled theirs "THIS IS THE ONE GOOD COPY"), so nothing was lost.
-THE CAUSE, AND IT WILL DO IT AGAIN TO SOMEBODY: several lanes paste the SAME
-verbatim instruction from Paolo into their own blocks, so those lines are
-byte-identical across blocks and a line-by-line merge CANNOT TELL WHOSE THEY ARE.
-It welds two lanes together at the seam and NO CONFLICT MARKER APPEARS, so a grep
-for markers will not catch it. THE ONLY CHECK THAT DOES: after you resolve, read
-your block top to bottom and confirm every line in it is yours.
-And this file is now ~88,000 lines carrying NINE ECONOMY blocks, most of them
-stale copies of this one. That is a real defect in a file every lane reads every
-round. It is a job for the coordinator to place (18 PLUMBER's remit), not
-something a lane should do to another lane's block.=== ROUND 36 REPORT: [first ten] SHIPPED ====== ROUND 37 REPORT: [carry cost] SHIPPED ====== ROUND 38 REPORT: [old price] SHIPPED ====== ROUND 39 REPORT: [protection court] SHIPPED ====== ROUND 40 REPORT: [how many pockets] SHIPPED ====== ROUND 41 REPORT: [who replaces you] SHIPPED ====== ROUND 42 REPORT: [the bailiff] SHIPPED ===
-RECORD: records/BOHEMIA_ECONOMY_DAY_42_THE_SHAME_LIST_BACKFIRES_AND_THE_COLLECTOR_MOSTLY_FAILS_9_14_26.md (263 lines)
-BANK:   banks/BOHEMIA_ECONOMY_TEST_LINES_9_5_26.md sections CCCCCCCCC-GGGGGGGGG, +16 lines, 598 draft:true total
-TAB:    NOT IN A TAB YET. MODE: RESEARCH. No engine code was touched. Rule 14: research
-        rounds continue and never touch the demo; only THE RUN re-cuts.
-HANDOFF: written under the 9/13 CLAUDE.md amendment -- this block was rebuilt from the
-        copy of the file on origin/main READ IMMEDIATELY BEFORE WRITING, not from the copy
-        read at the start of the round. handoff_gate.js run in the pre-push pass.
-
-TWO FINDINGS THAT PROVE US WRONG.
- 1. *** THE SHAME LIST BACKFIRES, AND IT IS THE BEST-MEASURED THING IN THE ROUND. *** The
-    row names "the shame list on the wall" as a collector's tool. The management-science
-    work on exactly that tactic: "A social-shaming tactic that targets delinquent
-    borrowers' social circles BACKFIRES AND SUBSTANTIALLY INCREASES the borrowers' default
-    rate", with better-credit and male borrowers responding MORE strongly -- "angered
-    borrowers retaliate by defaulting". And from the other side of the same moment:
-    "joint-liability loans are SO STRONGLY ENFORCED BY SOCIAL PRESSURE that other
-    collection methods are rarely needed." BOTH ARE TRUE AND THE DIFFERENCE IS WHEN.
-    Social pressure is enormously effective BEFORE a default and counterproductive AFTER
-    one. The wall is a deterrent, never a collection: put a man's name up after he has
-    missed and you have not made him pay, you have made him angry and freed him of the
-    last reason to.
- 2. THE COLLECTOR MOSTLY DOES NOT COLLECT. Contingency 25-35% under 90 days, 40-50% over a
-    year, 35-45% on balances under $500; a repo agent gets $275-$375 A CAR, FLAT, WIN OR
-    LOSE; early-stage collection is often a FLAT $50-300 an account. And the number that
-    matters: *** TYPICAL RECOVERY IS 20-30% ***. At 25% he knocks FOUR TIMES TO GET PAID
-    ONCE. A percentage of one battery is unsayable (the same wall as rounds 38 and 41) but
-    the flat fee and the failure rate are sayable and are the better half: A VISIT COSTS
-    ONE, HE SUCCEEDS ONE IN FOUR, SO COLLECTING A DEBT OF ONE COSTS ABOUT FOUR. That is
-    round 41 arriving from the opposite direction (eviction cost the owner 30x to 136x).
-    THREE ROUNDS, THREE MECHANISMS, ONE SHAPE: in a crash, ENFORCEMENT COSTS MORE THAN THE
-    THING BEING ENFORCED. That is why exclusion wins, and it is a new reason for the
-    coordinator's ruling 6.
-
-WHAT I MEASURED IN OUR OWN CODE FIRST:
-- *** THE BAILIFF'S LADDER IS BUILT AND DEBT IS NOT ONE OF ITS INPUTS. *** bohemia_
-  against.js carries SIGNS watch -> follow -> refuse -> block, bundled as cold (watch),
-  hostile (watch, follow, refuse), war (all four), each with a sentence already written:
-  "THEY ARE WATCHING YOU", "THEY ARE KEEPING NEAR YOU", "THEY WILL NOT DEAL WITH YOU",
-  "THEY ARE STANDING IN THE WAY". AND ITS OWN SOURCE RESERVED THE DEBT RUNG BY NAME:
-  "refuse is deliberately NOT among them: WITHHOLDING TRADE IS WHAT AN UNPAID LANDLORD
-  DOES ([block rent]), not what a stranger on a street earns." Somebody wrote that down
-  months ago and nothing wired it: read(facts) takes {rel, rung, coalition, roving,
-  crossing} and THERE IS NO `owed` FIELD. You can owe a faction every night you have been
-  billed and not one sign changes.
-- AND THE COLLECTOR KNOCKS AND CANNOT DO ANYTHING. collectorAt(book, gen) returns a
-  faction, a night count, an "others" count and FOUR SENTENCES. No sign, no refusal, no
-  consequence. The words are excellent and they are a notification, not a collection. One
-  caller, on the city surface.
-
-THE REAL AISLE:
-- WHAT MAKES A DEBTOR PAY IS THE RELATIONSHIP, NOT FORCE. Default "constitutes a violation
-  of trust and damages social relationships"; borrowing itself carries "social
-  awkwardness, embarrassment and discomfort"; and community norms can pressure a borrower
-  into repaying money THE LENDER NEVER EXPECTED BACK.
-- THE RELATIVE WHO ANSWERS FOR YOU, AND WHY ITS INVENTOR WALKED AWAY. Joint liability:
-  a group is in default when even one member does not repay and ALL are denied further
-  loans. It works and then eats itself -- contagion means one man's own setback "may bring
-  other people down with a certain probability", and if the group is homogeneous ADDING
-  MEMBERS DRIVES THE PROBABILITY OF DEFAULT TOWARD 1. Leading lenders moved to individual
-  lending and GRAMEEN II MEMBERS ARE NOT OBLIGED TO PAY A DEFAULTER'S LOAN. The
-  institution that invented the mechanism took it back out.
-- WHAT HAPPENS WHEN THE WHOLE STREET OWES: contagion, and the bigger and more alike the
-  street the more certainly it goes under together. Nobody collects from a street that all
-  owes the same person. Round 35 found this from the tenants' side at Glasgow and round 41
-  from the owner's side in the turnover arithmetic. A debt a whole street shares stops
-  being a debt and becomes a standoff.
-- WHAT THE RECORD WOULD NOT GIVE ME, SAID TWICE NOW: still no published reconnection fee
-  for Lebanon's private generators. I looked again after flagging it last round. The
-  cartel structure and unregulated pricing are documented; the number is not.
-
-THE DELIVERABLE FOR WORLD [debt carried]: THE COLLECTOR ALREADY HAS A LADDER AND IT IS IN
-ANOTHER FILE. Add debt as an input to the signs and the collector stops being a card that
-says things: a night owed earns watch, more nights earn follow, a standing debt earns
-REFUSE ("THEY WILL NOT DEAL WITH YOU"), which is ruling 6 expressed in a mechanism that
-already exists and already has words. NEVER GRANT `block` FOR A DEBT -- that sign lives on
-war and no unpaid rent should put a faction at war with a person. PRICE THE VISIT, NOT THE
-DEBT: one battery a visit, one success in four, so chasing a debt of one costs about four
-and a faction that keeps sending somebody is losing money on purpose. AND DO NOT BUILD THE
-SHAME LIST AS A COLLECTION -- if a wall of names ever ships it must be something a person
-sees BEFORE he misses. Somebody answering for you is the strongest mechanism here and the
-most dangerous: cap the group hard and let the contagion be visible.
-
-ROUTED: WORLD [debt carried] wire debt into the signs, stop at refuse, price the visit |
-FACTIONS against.js reserved `refuse` for the unpaid landlord by name and nobody built the
-caller | WORLD [block strikes]/[block rent] contagion answers "what happens when the whole
-street owes" | PEOPLE what makes a debtor pay is the relationship, so it is standing and
-belonging, not a combat surface | UI the collector's four sentences are already good, what
-is missing behind them is a consequence | COORDINATOR RULING 6 IS CONFIRMED FOR A NEW
-REASON: exclusion does not merely match the record, it is the only enforcement a poor
-valley can AFFORD, because seizure and collection both cost multiples of the debt (4x
-here, 30x-136x in round 41).
-
-GATES, rule 13: PRE-PUSH PASS GREEN -- economy 13/0, purse 28/0, payday 40/0, attempt
-15/0, canon rot 13/0, demo blockers 22/0, language 83/0, plus handoff_gate.js which is new
-and reads the file this round rewrites. FULL SUITE UNMEASURED SINCE 99b3dc9; THE SUITE
-LINE is still unposted. No red is mine.
-
-THE PROJECT-LEVEL HOLE, round 27 of naming it, and this instance is a new flavour and the
-most human one yet: A COMMENT THAT CORRECTLY RESERVES A FEATURE FOR A CALLER NOBODY WROTE.
-`refuse` is held back from the crossing signs BECAUSE it belongs to the unpaid landlord --
-a genuinely good decision, made months ago, pointing at a caller that does not exist. A
-gate asking "does every reserved thing have a reserver" would find it. Rounds 38 and 41
-found comments that went FALSE; this is a comment that was never made TRUE.
-
-[PENDING Paolo] -- for the coordinator, one at a time:
-  *** 1 TO 9 ARE RULED. The coordinator decided all nine on 9/13 under EVERYTHING IS
-  A THUMB, in records/BOHEMIA_RULING_NINE_DEFAULTS_THE_ECONOMY_WAS_CARRYING_9_13_26.md.
-  Their numbers are kept and left empty so every cross-reference in the shipped records
-  still points at the right item. In order: the ten-day shelf stands; nobody sells or
-  charges a battery; the century rule counts buildings and some people; the good first
-  building is the block's PUMP (water before power); the money supply is MEASURED off the
-  map, never typed; a broken promise costs EXCLUSION, NOT SEIZURE (round 41 independently
-  confirms it -- seizure costs an owner 30x to 136x what exclusion does); the market week
-  is seven days; a camp DOES barter with a stranger and a counted person pays one; and a
-  repaired ruin houses people, capped at two households. Nine carried for as many as
-  thirty rounds, closed in one. ECONOMY Q43 and Q44 research the two that leaned on the
-  thinnest record. ***
-
- 10. Once the valley is built out, eleven things in the whole game are worth a
-     battery. What should a rich player WANT that he cannot just build?
- 11. What does a subscription to a block BUY? Round 18: the right to trade at that
-     faction's seat.
- 12. What does the player START with? He boots with nothing.
- 13. What does it take to get the lights back on? A PRICE is the trap.
- 14. What does a FAILED job pay? Today it is an honest NO_RULING.
- 15. What will each faction NOT trade? Fourteen answers, one short phrase each.
- 16. After the valley's shelves are empty, what does a shop SAY?
- 17. What can a person in this valley be paid to do?
- 18. What does a day COST to live? The day loop's STAKES table is empty on purpose.
- 19. WHAT DOES A PLAYER KEEP HIS MONEY AND GOODS IN? Two rounds' finding (15, 21).
- 20. What is the first thing a player can be caught at, and what does it cost him?
- 21. WHO IS AT THE PLAYER'S TABLE? Until somebody is named, nobody can go without.
- 22. (new) CAN SOMEBODY IN THIS VALLEY OWE THE PLAYER, AND BE SEEN NOT PAYING? It
-     is the mirror of 20 and of 6, and all three are the same ruling: WHETHER AN
-     UNSETTLED THING BETWEEN TWO PEOPLE IS A THING THIS GAME KEEPS.
-
- 23. (new) WHEN A MAN CANNOT PAY, DOES THE SHOP TURN HIM AWAY OR LET HIM OWE?
-     Round 25's whole ladder stops at this wall and it is the fifth round in a
-     row to stop there. It is the same ruling as 6, 20 and 22.
- 24. (new) HOW BIG IS THE BIGGEST PILE OF BATTERIES A PLAYER CAN FIND? Sixteen
-     billion cowries killed a currency that had worked for centuries. A cache
-     that is too big ends the money, and this is a number only he can set.
-
- 25. (new) WHAT DOES IT TAKE TO BE FORGIVEN, AND CAN IT EVER BE BOUGHT? The real
-     record has three doors -- take payment, take nothing, or take it back by
-     force -- and the wronged party picks. Our module already has words for all
-     three and a mechanism under none of them.
- 26. (new) DOES A WRONG COST MORE IF YOU HAVE MORE? Wergild priced a man by rank
-     because a fixed number is no cost to a rich man. EVERYTHING COSTS ONE says
-     it does not. Genuine tension, and genuinely his.
-
- 27. (new) HOW OFTEN CAN A PLAYER GET A SHIFT? The only number in round 27 that
-     his own rulings do not already answer, and it is the one that decides
-     everything. The measured real spread is 137 to 254 days out of 365, bottom
-     third at the bottom of it. A shift you can take every day is a salary.
-
- 28. (new) WHAT DOES A POOR CITY AND A REBUILT CITY LOOK LIKE? Not my phrasing:
-     bohemia_century.js has an empty TIERS table with a `look` field and asks him
-     this question in exactly those words. It is the whole act-by-act ridge.
- 29. (new) HOW MANY PEOPLE DOES A HOUSE HOLD? The housing CAP is empty, so
-     capacityOf returns 0 for house, shop, apartment and trailer, so the century
-     ledger's `housed` column reads zero by law and the ridge cannot say who
-     lives there. Act three is the people.
-
- 30. (new) WHAT DOES THE VALLEY USE WHEN THE BATTERIES ARE GONE? The mechanism
-     is built -- convert() takes any rate and unwinds cleanly -- and has ZERO
-     callers. What the thing IS, is his. The historical test is that the winner
-     is always something NOBODY WANTS FOR ITSELF (mackerel beat cigarettes
-     because nobody would eat it), which is an uncomfortable test for a battery.
-
- 31. (new) IS CLOUT WHAT YOU SPEND TO SEE MORE? Round 30's answer is that a
-     perception perk costs the SAME ONE as a fight perk and the difference goes
-     in the CURRENCY: a fight perk is bought with what you survived, a perception
-     perk with what you were told. EVERYTHING COSTS ONE is untouched either way.
-     Which pocket a perk comes out of is his, and it would put a floor under
-     clout, which today drains on ask:leaned and has no faucet at all.
-
- 32. (new) DOES THE PLAYER GET A MEMORY? Every other body in the valley has one:
-     bohemia_memory.js has seven call sites and ALL SEVEN are NPC minds, several
-     of them remembering the PLAYER. There is no makeMind('@') anywhere. Giving
-     him one is the difference between coming back after a week as a local and
-     coming back as a stranger, and the curve is already written and measured.
-
- 33. (new) IS A YEAR-LONG INJURY A CLOCK OR A STORY BEAT? The longest clock in
-     the build is the 180-day scavenge decay, and there is NO SEASON AND NO YEAR
-     anywhere in the code (swept the day loop and the century module for both
-     words: nothing). His "a hand that takes a year of the valley's time" is
-     either a new clock longer than anything the game counts, or it is a scene.
-     That is a shape question, not a number, which is why it is his.
-
- 34. (new) DOES ANYBODY ELSE IN THE VALLEY HAVE A POCKET? Not a number, a
-     SHAPE. BohemiaPurse.create() appears EXACTLY ONCE in the whole game and
-     purseGet() is a singleton for the player. No NPC, no faction, no shop has a
-     purse. One purse means no swap, no tab, no restitution that arrives, and no
-     market day. FIVE ROUNDS OF THIS LANE'S FINDINGS STOP AT THIS ONE WALL WEARING
-     DIFFERENT CLOTHES (24, 26, 29, 32, 33).
-
- 35. (new) CAN THE PLAYER EVER BE THE ONE COLLECTING? Every rent and debt
-     mechanism in the game points AT him: rentOn bills him by the holder's tier,
-     owedTo counts the NIGHTS HE OWES a faction, and COLLECTOR knocks on his door
-     and remembers his father. There is a landlord in this valley and it is never
-     him. Whether he can stand on the other side of it is a shape question about
-     what this game is, not a number.
-
- 36. (new) DOES A PRICE EVER DIFFER FROM ONE BLOCK TO THE NEXT? EVERYTHING COSTS
-     ONE is his and this round does not ask to move it. The question is narrower:
-     may the SAME one battery buy a different AMOUNT of the same thing depending on
-     whose block you are standing on? TWO WHOLE SYSTEMS WAIT ON THAT ONE ANSWER --
-     round 34's arbitrage (sixteen markets, one price, so the biggest real road to
-     wealth is impossible) and round 35's rent strike (if everybody is charged the
-     same one, there is nothing to strike about). In Lebanon three neighbours on
-     the same street with the same service paid 550,000, 900,000 and 1,250,000.
-
-
- 37. (new) IS "EVERYTHING COSTS ONE" A PRICE CONTROL? Not a request to change it.
-     The opposite. This round found that his 8/15 law is the SINGLE MOST DOCUMENTED
-     setting in the real record: Venezuela pinned the official price, and that is
-     exactly why the tags came off, the shelves emptied and the queues formed. So
-     ONE is not a simplification we route around, it is the mechanism, and the
-     scarcity belongs in the door and the line instead of in the number. Eight
-     rounds of this lane have treated ONE as a tuning shortcut. HE SHOULD KNOW HIS
-     OWN LAW IS THE REALISTIC ANSWER, because it changes what every lane builds next
-     and it retires the quiet hope that a second number is coming.
-
- 38. (new) SHOULD THE FIRST TEN MINUTES ANSWER THE TWO LINES THE TABLE ALREADY
-     WROTE? The cold open promises a job you can walk down to and a truck you can
-     put gas in, and 68 beats later neither is ever mentioned again. Both are
-     cashable out of parts that already run. Whether the opening pays off its own
-     two lines, or leaves them hanging on purpose, is an authorship call about HIS
-     scene, so a lane should not take it.
-
- 39. (new) ONE RATION A DAY IS ABOUT HALF WHAT A WALKING DAY BURNS. Measured, not
-     argued: walking is 3.5 METs, so a 70 kg person over our own sixteen-hour day
-     burns roughly 3,920 kcal, and our food table feeds 2,000. Everyone in the
-     valley is quietly on half rations. THIS IS PROBABLY RIGHT AND THE LANE IS NOT
-     ASKING TO CHANGE IT -- a crash economy where a full day's food does not cover
-     a full day's walking is the realistic setting, and EVERYTHING COSTS ONE keeps
-     the number clean. It goes here so that nobody discovers it later as a surprise
-     and "fixes" it into something nobody ruled.
-
- 40. (new) IS ONE THE PRICE FOR THE PERSON WHO IS IN? This round found that
-     EVERYTHING COSTS ONE cannot be discounted (every real spread turns a battery
-     into a fraction the game cannot say) but CAN be inverted: one is what it costs
-     if the faction holding the market counts you, and everybody else pays two to
-     five. That keeps his law exactly as written and gives the game the two prices
-     the whole board is waiting on. IT IS NOT A NUMBER QUESTION, IT IS A "WHAT IS
-     THIS GAME" QUESTION -- whether being known to people is the thing that makes
-     you rich in Bohemia. Fifteen rounds of this lane say the economy here is made
-     of people you keep going back to, and this is the first one where that could
-     become the price itself.
-
- 41. (new) CAN A DEAL EXIST BETWEEN TWO PEOPLE WHO ARE NOT THE PLAYER? Measured
-     this round: the valley has FIVE obligation systems (favour owedOf and settle,
-     standing makeRight, towns owedTo, towns collectorAt) and ALL FIVE POINT AT
-     HIM. There is no object anywhere representing an agreement between two other
-     parties. That is why the protection mechanic, the strike, the market day,
-     lending and restitution all stop at the same place: a third party can only
-     enforce something that exists between two others. IT IS SMALLER THAN THE
-     PURSE SPLIT AND HALF THE BOARD IS WAITING BEHIND IT WITHOUT SAYING SO. The
-     shape question that is his: is Bohemia a game where other people have
-     business with each other while he is not looking, or a game where he is the
-     only one with anything at stake.
-
- 42. (new) SHOULD THE VALLEY HAVE MORE THAN ONE SHOP? Not a joke. Measured this
-     round: all sixteen markets share ONE stock ledger, created by whichever one
-     you walk into first, so buying rice in a fortress empties a swap meet forty
-     cells away, and because a price is computed from stock THAT is why there is
-     one price in the whole valley. It is a one-line fix and this lane is not
-     asking permission for it. THE QUESTION UNDER IT IS HIS: once each town has its
-     own barrel, a town can RUN OUT while the next one is full, and a player can
-     walk two hours to a place that has nothing. That is the most realistic thing
-     this game could do and it is also the most frustrating, and which of those it
-     becomes is a feel call, not a number.
-
- 43. (new) WHAT DOES IT COST TO COME BACK ON? Pending 13 has asked this since
-     round 13 and this round can now argue it rather than only ask. relight() is
-     built, refuses correctly, takes no payment and has zero callers, and its
-     comment says the price is unruled -- but EVERYTHING COSTS ONE (8/15) landed
-     before the function was written and answers it. The real record says this is
-     the owner's FIRST and most profitable move: cutting you off costs him nothing
-     and the money is all in the fee. THIS LANE'S POSITION IS THAT IT IS ONE, and
-     it is in the pendings only because turning a free thing into a charged thing
-     is the kind of change he should meet in play rather than read about. Nothing
-     is blocked on it; WORLD can build it under his existing law.
-
-NEXT IN THIS LANE: Q43 [double up], then Q44 [first building]. Both research the two
-rulings in the nine-defaults file that leaned on the thinnest record, so both may
-CORRECT a ruling rather than confirm it, and the record says so where it does.
-
-
-================================================================================
 
 PLUMBER (plumber-ont6t5): 9/14 (b) LATEST -- *** CHAT 18. ROUND 26. [demo errors] ROUND 1 POSTED,
 AND THE HEADLINE IS THAT I STOPPED ON THE FOURTH VERSION OF ONE NUMBER INSTEAD OF SHIPPING A FOURTH

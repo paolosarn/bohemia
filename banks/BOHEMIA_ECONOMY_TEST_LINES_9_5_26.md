@@ -3396,3 +3396,76 @@ YYYYYYY3 somebody who will not ask for it back draft:true
 - Spanish register: 1 of 16 lines, 6%, under the 15% he set on 8/26. One word
   inside an English sentence, not respelled. Last round's draft ran over the cap
   and was caught before shipping; this one was counted while it was written.
+
+## HHHHHHHHH. THERE'S A WHOLE STREET EMPTY
+## (round 43. Twenty-five empty homes for every occupied one, and people still
+##  crowd in together, because the reason was never the rooms.)
+
+- HHHHHHHHH1 `draft:true` — "Half this block is empty and we're four to a room.
+  Work that one out." (the finding as a complaint nobody can answer. VOICE CARD:
+  nine words then three, and the three are a dare.)
+- HHHHHHHHH2 `draft:true` — "You can have any house you want. You just can't keep
+  it." (the price point, said as a fact about doors.)
+- HHHHHHHHH3 `draft:true` — "Empty isn't the same as yours. I keep telling him
+  that." (somebody fumbles: he is explaining it for the second time and it still
+  will not land.)
+- HHHHHHHHH4 `draft:true` — "It's not the space. It was never the space." (the
+  last sentence was cut; the cut one named what it actually was.)
+
+## IIIIIIIII. WHO MOVED IN
+## (round 43. Kin first: a grandparent, an adult sibling, extended family, and only
+##  then anybody else. And the guest pays his way more often than not.)
+
+- IIIIIIIII1 `draft:true` — "My sister's in the back room. Her and both of hers."
+  (the arrangement stated flat, and the second sentence is the arithmetic.)
+- IIIIIIIII2 `draft:true` — "He pays. I didn't ask him to and he does it anyway."
+  (72% of guests contribute, said by a host who is slightly embarrassed about it.)
+- IIIIIIIII3 `draft:true` — "It's not charity if he's buying the food, is it."
+  (the money moving toward the host, in a question that is not really a question.)
+- IIIIIIIII4 `draft:true` — "Ya, my mother's people. You knew that." (Spanish
+  register, one word, on the kin-first rule, and the mild offence is the point.)
+
+## JJJJJJJJJ. THE RENT IS SPLIT, THE ROOM IS NOT
+## (round 43, and this is the ruling's own sentence confirmed word for word: the
+##  cost to a host is not money, it is the kitchen, the noise, the bedtime.)
+
+- JJJJJJJJJ1 `draft:true` — "I can't get in the kitchen before nine. That's the
+  whole of it, really." (the measured cost, and the speaker knows it sounds small.)
+- JJJJJJJJJ2 `draft:true` — "They're good people. I'd still like an hour."
+  (nobody leads with a no, and this is the gentlest possible one.)
+- JJJJJJJJJ3 `draft:true` — "The little one doesn't sleep any more. Too much house
+  going on." (contract it: the cut version explained the noise at length.)
+- JJJJJJJJJ4 `draft:true` — "We split what it costs. We can't split the room."
+  (the ruling's own sentence, put in a mouth. Not a syllable of it invented here.)
+
+## KKKKKKKKK. NOBODY MOVED BACK OUT
+## (round 43, the sticky part. Doubling up did not unwind when things improved,
+##  and it tracks what a room costs, not how the work is going.)
+
+- KKKKKKKKK1 `draft:true` — "Things got better and nobody left. I noticed that."
+  (the stickiness observed without being understood, which is exactly right.)
+- KKKKKKKKK2 `draft:true` — "He's been meaning to go since the spring." (a whole
+  year of not leaving in eight words.)
+- KKKKKKKKK3 `draft:true` — "There's nothing wrong with it. There's nothing right
+  with it either." (both halves true, which is what a long arrangement feels like.)
+- KKKKKKKKK4 `draft:true` — "We stopped calling it temporary. That was the only
+  thing that changed." (the last line of the section and the quietest one.)
+
+## LLLLLLLLL. WHAT IS NOT HERE, ON PURPOSE (round 43)
+
+- No line contains a number, a share, a rent or a headcount. The round is built on
+  percentages and not one of them is spoken.
+- No line uses the words household, double up, occupancy, vacancy, host, guest or
+  recovery. It is said as rooms, the back room, the kitchen and nobody leaving.
+- No line explains why empty houses and crowded ones happen together. Nobody in
+  Bohemia is wise; HHHHHHHHH1 says "work that one out" and leaves it there.
+- No line names a faction, a street, a town or a family name. MAP LAW.
+- No line decides what share of homes double up, whether a guest pays in batteries,
+  or what the room costs as a mechanic. Those are the things section 5 refused.
+- No line has the player speaking, and no line asks him to take somebody in.
+- No line makes doubling up sad OR heroic. It is an arrangement, and KKKKKKKKK3 is
+  the bank refusing to settle which.
+- No line touches the build red in section 4. That is another lane's surface and a
+  bank line about it would be this lane reaching where it is forbidden to.
+- Spanish register: 1 of 16 lines, 6%, under the 15% he set on 8/26. One word
+  inside an English sentence, not respelled, counted while written.
