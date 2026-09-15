@@ -1,3 +1,69 @@
+UI (ui-kmqmrf): 9/15 (b) LATEST -- *** [no slop] ROUND EIGHT. THE MACHINE HAS A FACE, THE TYPE
+WORK IS DONE, AND I SHIPPED A BUG INTO MY OWN SCREENSHOT ON THE WAY. *** TAB: CITY, the walked
+street, and the demo. Build 9/15t. Record:
+records/BOHEMIA_NO_SLOP_THE_MACHINE_HAS_A_FACE_9_15_26.md
+
+THE ROW: the walked city had three type registers and only two had a real face. CASING is the
+words stamped on the machine itself, and it was still resolving to the monospace face, which is
+the whole reason the count sat at 42. BohemiaCasing is the SAME 5x8 table as the other two, no
+third alphabet: column 100 against a 125 row (a cap is 0.57 of its own height), ink 125 in a 100
+column so cells overlap and a stem is 1.25 columns wide, and CAPS ONLY because a stencil kit is
+one alphabet.
+  MONOSPACE 42 -> 8.  ALL TELLS 176 -> 142.  The 8 left are the SCREEN register and its canvas
+  fallback, the one place fixed pitch is ruled legal.
+
+*** THREE THINGS WENT WRONG AND THEY ARE ALL THE SAME SHAPE. ***
+1 THE FIRST WORD-SPACE MEASUREMENT WAS THE FALLBACK FONT, not my face. A @font-face that nothing
+  has used yet is never fetched, so fonts.ready resolved instantly and check() said false. The
+  tell was that the numbers DID NOT MOVE when the font changed. Fourth time for this lane. The
+  probe now loads the face by name, keeps a family that does not exist as a live control, and
+  REFUSES TO REPORT if a face did not load.
+2 THE CASING TRACK WAS ON 94 RULES AND THE CASING FACE ON NONE OF THEM. Everything inherited the
+  document default, which was --fmono: monospace for everything, the first line of the law's own
+  list of tells. Found by asking the live page what each surface computes to. The file looked fine.
+3 AND THEN I FIXED IT WRONG. I gave the casing face to all 58 rules that declared the casing
+  TRACK. The tell count went the right way. No gate went red. Nothing threw. THE DAY CARD STARTED
+  SHOUTING: "nobody has picked it up yet" rendered as NOBODY HAS PICKED IT UP YET. Only the
+  screenshot said so. Declaring the casing track is not being casing text.
+  Reverted all 58. The register is named on the CONTAINER of each machine surface instead
+  (#menubar, #hud, #blstack, #nav, #savepanel, #devtray, #cityfeed) and the cards already carried
+  the body face on theirs. Before naming any surface the page was asked how many LOWERCASE words
+  it holds: hud 0, nav 0, mode 0, savepanel 0, devtray 0, menubar 0; blstack 1 and that one is
+  #note, which keeps prose; keypanel 37 and daycardIn 10, which stay prose. THAT COUNT IS NOW THE
+  GATE'S MAIN LEG, and the mutation that replays this exact regression names all three lines.
+  (One guess cost two passes on the way: I named the register on #topbar and nothing changed. The
+  walked city has TWO top strips and the state text lives in #menubar. Found by walking the real
+  ancestor chain on the page.)
+
+AND THE GATE'S OWN ORACLE WAS WRONG FIRST. Its coverage leg asked whether a character measures
+differently in the face than in a family that does not exist, and called 0, 6 and 8 missing --
+their advance simply matches the fallback's. In the same list was one REAL miss: U+25C6, the
+diamond on the STANDING chip, in none of our faces. Third glyph found this way after the phone's
+signal bar and every card's close mark. A leg that mixes one true finding with three false ones
+is worth nothing, so it asks the FONT'S OWN cmap now.
+ASKED AGAIN OF THE PROSE REGISTER IT WAS WORSE: the game's own written strings carry em dashes
+and no face of ours had one. Em dash, en dash, ellipsis and the four curly quotes are drawn and
+closed in all three faces. FOR WHOEVER TOUCHES THE SCREEN FACE GATE NEXT: its coverage leg still
+uses the width oracle. It reports clean and on today's card that is true (49 characters drawn,
+all covered), but it is right by luck of what is on screen, not by construction.
+
+STENCIL BRIDGES: BUILT, RENDERED, REJECTED ON EVIDENCE. The bridged 8 is character for character
+the 3 in the same table; 6 reads as 8, BUILD came out 3UILD, 0948 came out 0943. The reason is
+geometry and not a badly chosen bridge: on a 5x7 cap grid every stroke is exactly one cell thick,
+so a bridge deletes skeleton instead of thinning a stroke. Written down rather than retried, kept
+behind --bridges, and option B on the sheet shows him the damage.
+
+THE SHEET (his standing order, every round): slices/BOHEMIA_FIVE_WAYS_THE_MACHINE_SPEAKS_9_15_26.html
+-- five REAL cuts, each an embedded font rather than a picture of one, shown at 10px which is the
+size this register is actually used at. A is what shipped.
+
+PRE-PUSH PASS (rule 13): casing face 17/0 (new, mutation-proved four ways), screen face 14/0,
+city rail 15/0, top bar 15/0, the phone 18/0, the thumb 19/0, alpha loads green. Full suite: 107 red at ad23d875 (the suite line); none named against this lane.
+
+NEXT: [no slop] stays CLAIMED. Left on the walked city: rounded corners 60, 1px borders 52. The
+TYPE half of this row is finished -- all three registers carry a face we drew and no register
+outside SCREEN can fall back to a grid.
+
 RUN (run-eak241): LATEST -- *** [step is a house] PART ONE SHIPPED a36b4222: FIVE
 TIMES THE STRIDE. AND THE MEASUREMENT KILLED THE ROW'S OWN NUMBERS. TAB: RUN.
 BUILD 9/15s. Nothing to judge. ***
