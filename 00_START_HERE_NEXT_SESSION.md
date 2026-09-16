@@ -1,3 +1,69 @@
+RUN (run-eak241): LATEST -- *** [loading screen] PART ONE SHIPPED 84e1c7d0: THE
+DOOR OFFERED AT FOUR TENTHS OF A SECOND AND THE FIRST TAP WAS A DEAD PRESS. TAB:
+RUN, the first screen. BUILD 9/16f. Nothing to judge. ***
+
+MEASURED ON A PHONE-SPEED CPU (4x throttle, the one driver's own profile, because
+this container is not a handset), tapping once a second from the moment the door
+offered:
+    0.4 s   THE DOOR SAYS TAP TO ENTER            two files loaded
+    4.6 s   the door opens, AFTER TWO TAPS -- THE FIRST TAP DOES NOTHING
+   51.5 s   the walked world has a clock
+   78.3 s   the city has drawn a frame
+   85.9 s   a person can be talked to
+
+THE PART NOBODY HAD TIMED: THE FIRST TAP OF THE WHOLE GAME IS A DEAD PRESS. The
+invitation is static markup; the listener that answers it is a script hundreds of
+kilobytes down the page. So the door asks to be tapped before anything is listening.
+That is his own sentence from another round -- "one button, ready to go, I press it,
+nothing happens" -- landing on THE FIRST BUTTON ANYBODY EVER TOUCHES.
+
+SHIPPED: the door reads ONE MOMENT until the entry is really wired and only then
+invites. __DOOR_WIRED is set on the line AFTER the listener exists, so it can never
+be true while a tap would fall through.
+    before   0.4 s "TAP TO ENTER"  ->  opens after TWO taps
+    after    1.1 s "ONE MOMENT" / 3.0 s the invitation  ->  OPENS ON THE FIRST TAP
+IT COSTS NOTHING. The wait was always there; it was being spent on a lie.
+
+*** AND THE FIRST CUT OF THE FIX DID NOTHING, WHICH ONLY THE GLASS SAID. *** I
+guarded the function that writes the door's text, re-cut, re-measured: still "TAP TO
+ENTER" at 0.5 s. THE MARKUP ITSELF CARRIES THE PROMISE -- the element is in the
+document before one byte of script runs, so no painter guard can be early enough. It
+ships as the waiting line now. Same shape as the inert CSS rule this lane found on
+9/13 and the halving rule stamping out the lit phone chip: A FIX THAT CANNOT RUN IS
+NOT A FIX, AND ONLY RE-MEASURING SAYS SO.
+
+I ALSO EDITED THE GENERATED DEMO FIRST and caught it before it cost anything: the
+demo is cut from the alpha, so that edit would have been wiped by the next cut
+without a word. The gate checks BOTH files so it cannot happen quietly.
+
+GATE: gates/the_door_waits_gate.js, in the suite as DOOR WAITS, 10/0, run on the
+served demo at 4x CPU. Holds: the first words are not an invitation, the invitation
+does arrive, ONE TAP OPENS IT, the flag is really set on the live page, and both
+source files ship the waiting line. MUTATION: put TAP TO ENTER back in the markup ->
+4 red, and the one-tap leg independently reproduces the dead press.
+
+*** NOT DONE, AND THE ROW IS HELD OPEN FOR IT: THE EIGHTY SECONDS ARE STILL AFTER
+THE TAP. *** The city iframe is built lazily INSIDE the click handler, so the heavy
+work happens with his finger already down. Moving it in front of the tap is the next
+piece and it is why the door now has a screen to hold it.
+    DOOR TO PLAYABLE, before   85.4 s
+    DOOR TO PLAYABLE, after    79.4 s      (the tap saved, not the load)
+
+REDS IN THIS ROUND'S PRE-PUSH PASS, AND WHOSE THEY ARE:
+    PAGES PUBLISH 17/1  NOT MINE -- "every folder _config.yml KEEPS is copied by
+                        the workflow: graveyard". My diff touches neither _config.yml
+                        nor the workflow. It binds the two lists so the live site
+                        cannot 404, so somebody should look at it.
+    FACE THUMB    21/2  not mine, the mtime freshness leg
+    FIRST MORNING 13/6  in the pack, 19/0 alone -- load, not a defect
+    FIRST MINUTE   7/2  mine, shipped knowingly on 9/15 with its reason written down
+
+STILL CLAIMED: [step is a house] (part one shipped, the rest waits on the zoom) and
+[fast travel] behind it.
+
+RECORD: records/BOHEMIA_THE_DOOR_OFFERED_AT_FOUR_TENTHS_OF_A_SECOND_9_16_26.md
+
+--------------------------------------------------------------------------------
 EYES AND EARS (eyes-5vql33): 9/16 (ak) LATEST -- *** E26 ROUND 8. THREE OF THE FIVE MINUTES ARE FROZEN, AND ROUND 6'S TIMELINE WAS FIVE TIMES OPTIMISTIC BECAUSE I MEASURED IT UNTHROTTLED ON THIS BOX. *** Record: records/BOHEMIA_EYES_E26_ROUND_8_THREE_OF_THE_FIVE_MINUTES_ARE_FROZEN_9_16_26.md. Tool: tools/bohemia_eyes_a_human_being.js, now with --cpu N and --noobserve. THE STRANGER'S LIST is rewritten on the front page.
   THE CORRECTION IS MINE. Round 6 published first-human-being-on-screen 17.2 s, worst freeze 11.1 s, 28.9 s frozen of 300. All unthrottled. PLUMBER found the class of mistake (f90a810: gates/bohemia_phone_perf.js has taken a phone-shaped CPU since 9/5 and thrown it away, because the refresh command in its own record pinned --cpu 1; their boot number went 19,530 ms to 71,758 ms). The find is theirs; the number on his page was mine, and rule 14 says the measure is A PHONE, so the CPU had to be a phone's.
   RE-MEASURED WITH PLUMBER'S OWN MECHANISM, NOT A SECOND ONE (reuse-first). 1x -> 4x: the city draws its first thing 5.6 -> 31.7 s; the first human body is painted 13.8 -> 83.2 s; THE FIRST HUMAN BEING ON SCREEN 17.2 -> 88.5 s; worst single freeze 11.1 -> 43.0 s; frozen of the first 300 s 28.9 -> 174.1 s. So on the thing in his hand you wait a minute and a half for one human being to appear and the game is frozen for more than half of the first five minutes. The ten-second bar from the routing note is missed by seventy-nine seconds. -> PLUMBER [sixty fps] and PEOPLE [a human being], both already open. The population was never the problem; the size of the wait now is.
