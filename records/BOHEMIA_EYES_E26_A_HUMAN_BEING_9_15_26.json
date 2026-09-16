@@ -1,11 +1,16 @@
 {
   "what": "did he see a human being, and does anything say how a fight starts",
-  "when": "2026-09-15T14:14:36.111Z",
+  "when": "2026-09-16T01:30:29.103Z",
   "his_words": [
     "I didn't see a single human being. Very strange.",
     "I don't even know how to engage in combat and when that shit starts."
   ],
   "controls": [
+    {
+      "name": "C0 THE THROTTLE IS REAL: a fixed busy loop is 4x slower with it on, measured in this same run",
+      "pass": true,
+      "detail": "18.1 ms unthrottled against 58 ms throttled = 3.2x. Round 6 published its timeline at 1x and PLUMBER then found the perf gate had been discarding its own phone pass since 9/5."
+    },
     {
       "name": "C1 THE PEOPLE PASS IS THE THING BEING COUNTED",
       "pass": true,
@@ -19,1466 +24,842 @@
     {
       "name": "C2 THE COUNTER COUNTS: a planted draw inside the pass is counted",
       "pass": true,
-      "detail": "586 planted draws over 586 passes"
+      "detail": "362 planted draws over 362 passes"
     },
     {
       "name": "C3 NOT COUNTING THE WORLD: draws outside the people pass are not attributed to people",
       "pass": true,
-      "detail": "54911 draws happened outside the pass and none of them are in the body count"
+      "detail": "48961 draws happened outside the pass and none of them are in the body count"
     },
     {
       "name": "C5 THE ANSWER DOES NOT DEPEND ON WHEN I LOOKED: the first-body moment is timestamped inside the page, not at my first sample",
       "pass": true,
-      "detail": "page says the first body was drawn at 13.77 s; my first look was 22.2 s. The two earlier versions of this tool reported their own start-up as the game's number."
+      "detail": "page says the first body was drawn at 83.23 s; my first look was 99.7 s. The two earlier versions of this tool reported their own start-up as the game's number."
     },
     {
       "name": "C5b THE BLIND WINDOW IS STATED, NOT FILLED",
       "pass": true,
-      "detail": "worst single freeze 11051 ms, 28857 ms frozen in total over the walk"
+      "detail": "worst single freeze 44320 ms, 188716 ms frozen in total over the walk"
     }
   ],
   "samples": [
     {
-      "pass": 31,
-      "bodies": 20,
-      "on_screen": 20,
+      "pass": 32,
+      "bodies": 8,
+      "on_screen": 8,
       "off_screen": 0,
-      "outside": 22378,
-      "plant": 31,
+      "outside": 20302,
+      "plant": 32,
       "engine_thinks_near": 11,
-      "at_s": 22.2
+      "at_s": 99.7
+    },
+    {
+      "pass": 8,
+      "bodies": 8,
+      "on_screen": 8,
+      "off_screen": 0,
+      "outside": 562,
+      "plant": 8,
+      "engine_thinks_near": 11,
+      "at_s": 110.5
+    },
+    {
+      "pass": 5,
+      "bodies": 9,
+      "on_screen": 9,
+      "off_screen": 0,
+      "outside": 350,
+      "plant": 5,
+      "engine_thinks_near": 11,
+      "at_s": 115.2
+    },
+    {
+      "pass": 8,
+      "bodies": 8,
+      "on_screen": 8,
+      "off_screen": 0,
+      "outside": 560,
+      "plant": 8,
+      "engine_thinks_near": 11,
+      "at_s": 122.4
+    },
+    {
+      "pass": 5,
+      "bodies": 5,
+      "on_screen": 5,
+      "off_screen": 0,
+      "outside": 5907,
+      "plant": 5,
+      "engine_thinks_near": 11,
+      "at_s": 136.1
+    },
+    {
+      "pass": 5,
+      "bodies": 5,
+      "on_screen": 5,
+      "off_screen": 0,
+      "outside": 350,
+      "plant": 5,
+      "engine_thinks_near": 11,
+      "at_s": 140.1
+    },
+    {
+      "pass": 5,
+      "bodies": 5,
+      "on_screen": 5,
+      "off_screen": 0,
+      "outside": 350,
+      "plant": 5,
+      "engine_thinks_near": 11,
+      "at_s": 144.2
+    },
+    {
+      "pass": 6,
+      "bodies": 6,
+      "on_screen": 6,
+      "off_screen": 0,
+      "outside": 420,
+      "plant": 6,
+      "engine_thinks_near": 11,
+      "at_s": 148.2
+    },
+    {
+      "pass": 8,
+      "bodies": 8,
+      "on_screen": 8,
+      "off_screen": 0,
+      "outside": 560,
+      "plant": 8,
+      "engine_thinks_near": 11,
+      "at_s": 152.9
+    },
+    {
+      "pass": 6,
+      "bodies": 6,
+      "on_screen": 6,
+      "off_screen": 0,
+      "outside": 420,
+      "plant": 6,
+      "engine_thinks_near": 11,
+      "at_s": 156.9
     },
     {
       "pass": 7,
-      "bodies": 14,
-      "on_screen": 14,
+      "bodies": 7,
+      "on_screen": 7,
       "off_screen": 0,
-      "outside": 322,
+      "outside": 490,
       "plant": 7,
       "engine_thinks_near": 11,
-      "at_s": 24.5
+      "at_s": 160.9
     },
     {
-      "pass": 6,
-      "bodies": 12,
-      "on_screen": 12,
+      "pass": 7,
+      "bodies": 7,
+      "on_screen": 7,
       "off_screen": 0,
-      "outside": 276,
-      "plant": 6,
+      "outside": 490,
+      "plant": 7,
       "engine_thinks_near": 11,
-      "at_s": 26.5
-    },
-    {
-      "pass": 6,
-      "bodies": 12,
-      "on_screen": 12,
-      "off_screen": 0,
-      "outside": 276,
-      "plant": 6,
-      "engine_thinks_near": 11,
-      "at_s": 29.3
+      "at_s": 165.2
     },
     {
       "pass": 5,
-      "bodies": 10,
-      "on_screen": 10,
+      "bodies": 5,
+      "on_screen": 5,
       "off_screen": 0,
-      "outside": 230,
+      "outside": 350,
       "plant": 5,
       "engine_thinks_near": 11,
-      "at_s": 31.7
+      "at_s": 168.9
+    },
+    {
+      "pass": 2,
+      "bodies": 2,
+      "on_screen": 2,
+      "off_screen": 0,
+      "outside": 140,
+      "plant": 2,
+      "engine_thinks_near": 11,
+      "at_s": 171.9
     },
     {
       "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
+      "bodies": 4,
+      "on_screen": 4,
       "off_screen": 0,
-      "outside": 184,
+      "outside": 280,
       "plant": 4,
       "engine_thinks_near": 11,
-      "at_s": 33.9
+      "at_s": 174.1
     },
     {
       "pass": 5,
-      "bodies": 10,
-      "on_screen": 10,
+      "bodies": 5,
+      "on_screen": 5,
       "off_screen": 0,
-      "outside": 230,
+      "outside": 350,
       "plant": 5,
       "engine_thinks_near": 11,
-      "at_s": 35.9
+      "at_s": 176.3
     },
     {
       "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
+      "bodies": 4,
+      "on_screen": 4,
       "off_screen": 0,
-      "outside": 184,
+      "outside": 280,
       "plant": 4,
       "engine_thinks_near": 11,
-      "at_s": 37.9
+      "at_s": 178.5
     },
     {
       "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
+      "bodies": 4,
+      "on_screen": 4,
       "off_screen": 0,
-      "outside": 184,
+      "outside": 280,
       "plant": 4,
       "engine_thinks_near": 11,
-      "at_s": 40
-    },
-    {
-      "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
-      "off_screen": 0,
-      "outside": 184,
-      "plant": 4,
-      "engine_thinks_near": 11,
-      "at_s": 42
-    },
-    {
-      "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
-      "off_screen": 0,
-      "outside": 184,
-      "plant": 4,
-      "engine_thinks_near": 11,
-      "at_s": 44
-    },
-    {
-      "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
-      "off_screen": 0,
-      "outside": 184,
-      "plant": 4,
-      "engine_thinks_near": 11,
-      "at_s": 46.1
+      "at_s": 180.7
     },
     {
       "pass": 5,
-      "bodies": 10,
-      "on_screen": 10,
+      "bodies": 5,
+      "on_screen": 5,
       "off_screen": 0,
-      "outside": 7233,
+      "outside": 350,
       "plant": 5,
       "engine_thinks_near": 11,
-      "at_s": 49.9
+      "at_s": 182.9
+    },
+    {
+      "pass": 4,
+      "bodies": 4,
+      "on_screen": 4,
+      "off_screen": 0,
+      "outside": 280,
+      "plant": 4,
+      "engine_thinks_near": 11,
+      "at_s": 185
+    },
+    {
+      "pass": 4,
+      "bodies": 4,
+      "on_screen": 4,
+      "off_screen": 0,
+      "outside": 280,
+      "plant": 4,
+      "engine_thinks_near": 11,
+      "at_s": 187.2
     },
     {
       "pass": 5,
-      "bodies": 10,
-      "on_screen": 10,
+      "bodies": 5,
+      "on_screen": 5,
       "off_screen": 0,
-      "outside": 230,
+      "outside": 350,
       "plant": 5,
       "engine_thinks_near": 11,
-      "at_s": 51.9
+      "at_s": 189.4
     },
     {
       "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
+      "bodies": 4,
+      "on_screen": 4,
       "off_screen": 0,
-      "outside": 184,
+      "outside": 280,
       "plant": 4,
       "engine_thinks_near": 11,
-      "at_s": 54
-    },
-    {
-      "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
-      "off_screen": 0,
-      "outside": 184,
-      "plant": 4,
-      "engine_thinks_near": 11,
-      "at_s": 56
-    },
-    {
-      "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
-      "off_screen": 0,
-      "outside": 184,
-      "plant": 4,
-      "engine_thinks_near": 11,
-      "at_s": 58
-    },
-    {
-      "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
-      "off_screen": 0,
-      "outside": 184,
-      "plant": 4,
-      "engine_thinks_near": 11,
-      "at_s": 60
-    },
-    {
-      "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
-      "off_screen": 0,
-      "outside": 184,
-      "plant": 4,
-      "engine_thinks_near": 11,
-      "at_s": 62.1
-    },
-    {
-      "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
-      "off_screen": 0,
-      "outside": 184,
-      "plant": 4,
-      "engine_thinks_near": 11,
-      "at_s": 64.1
-    },
-    {
-      "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
-      "off_screen": 0,
-      "outside": 184,
-      "plant": 4,
-      "engine_thinks_near": 11,
-      "at_s": 66.1
-    },
-    {
-      "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
-      "off_screen": 0,
-      "outside": 184,
-      "plant": 4,
-      "engine_thinks_near": 11,
-      "at_s": 68.2
-    },
-    {
-      "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
-      "off_screen": 0,
-      "outside": 184,
-      "plant": 4,
-      "engine_thinks_near": 11,
-      "at_s": 70.2
-    },
-    {
-      "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
-      "off_screen": 0,
-      "outside": 184,
-      "plant": 4,
-      "engine_thinks_near": 11,
-      "at_s": 72.3
-    },
-    {
-      "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
-      "off_screen": 0,
-      "outside": 184,
-      "plant": 4,
-      "engine_thinks_near": 11,
-      "at_s": 74.3
-    },
-    {
-      "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
-      "off_screen": 0,
-      "outside": 184,
-      "plant": 4,
-      "engine_thinks_near": 11,
-      "at_s": 76.4
-    },
-    {
-      "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
-      "off_screen": 0,
-      "outside": 184,
-      "plant": 4,
-      "engine_thinks_near": 11,
-      "at_s": 78.4
+      "at_s": 191.6
     },
     {
       "pass": 5,
-      "bodies": 10,
-      "on_screen": 10,
+      "bodies": 5,
+      "on_screen": 5,
       "off_screen": 0,
-      "outside": 230,
+      "outside": 350,
       "plant": 5,
       "engine_thinks_near": 11,
-      "at_s": 80.4
+      "at_s": 193.8
     },
     {
       "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
+      "bodies": 4,
+      "on_screen": 4,
       "off_screen": 0,
-      "outside": 184,
+      "outside": 280,
       "plant": 4,
       "engine_thinks_near": 11,
-      "at_s": 82.5
+      "at_s": 196
     },
     {
       "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
+      "bodies": 4,
+      "on_screen": 4,
       "off_screen": 0,
-      "outside": 184,
+      "outside": 280,
       "plant": 4,
       "engine_thinks_near": 11,
-      "at_s": 84.5
-    },
-    {
-      "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
-      "off_screen": 0,
-      "outside": 184,
-      "plant": 4,
-      "engine_thinks_near": 11,
-      "at_s": 86.5
-    },
-    {
-      "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
-      "off_screen": 0,
-      "outside": 184,
-      "plant": 4,
-      "engine_thinks_near": 11,
-      "at_s": 88.5
-    },
-    {
-      "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
-      "off_screen": 0,
-      "outside": 184,
-      "plant": 4,
-      "engine_thinks_near": 11,
-      "at_s": 90.6
-    },
-    {
-      "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
-      "off_screen": 0,
-      "outside": 184,
-      "plant": 4,
-      "engine_thinks_near": 11,
-      "at_s": 92.6
-    },
-    {
-      "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
-      "off_screen": 0,
-      "outside": 184,
-      "plant": 4,
-      "engine_thinks_near": 11,
-      "at_s": 94.6
-    },
-    {
-      "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
-      "off_screen": 0,
-      "outside": 184,
-      "plant": 4,
-      "engine_thinks_near": 11,
-      "at_s": 96.7
-    },
-    {
-      "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
-      "off_screen": 0,
-      "outside": 184,
-      "plant": 4,
-      "engine_thinks_near": 11,
-      "at_s": 98.7
-    },
-    {
-      "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
-      "off_screen": 0,
-      "outside": 184,
-      "plant": 4,
-      "engine_thinks_near": 11,
-      "at_s": 100.7
-    },
-    {
-      "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
-      "off_screen": 0,
-      "outside": 184,
-      "plant": 4,
-      "engine_thinks_near": 11,
-      "at_s": 102.8
-    },
-    {
-      "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
-      "off_screen": 0,
-      "outside": 184,
-      "plant": 4,
-      "engine_thinks_near": 11,
-      "at_s": 104.8
-    },
-    {
-      "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
-      "off_screen": 0,
-      "outside": 184,
-      "plant": 4,
-      "engine_thinks_near": 11,
-      "at_s": 106.8
-    },
-    {
-      "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
-      "off_screen": 0,
-      "outside": 184,
-      "plant": 4,
-      "engine_thinks_near": 11,
-      "at_s": 108.9
-    },
-    {
-      "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
-      "off_screen": 0,
-      "outside": 184,
-      "plant": 4,
-      "engine_thinks_near": 11,
-      "at_s": 110.9
+      "at_s": 198.2
     },
     {
       "pass": 5,
-      "bodies": 10,
-      "on_screen": 10,
+      "bodies": 5,
+      "on_screen": 5,
       "off_screen": 0,
-      "outside": 230,
+      "outside": 350,
       "plant": 5,
       "engine_thinks_near": 11,
-      "at_s": 112.9
+      "at_s": 200.3
     },
     {
       "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
+      "bodies": 4,
+      "on_screen": 4,
       "off_screen": 0,
-      "outside": 184,
-      "plant": 4,
-      "engine_thinks_near": 11,
-      "at_s": 114.9
-    },
-    {
-      "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
-      "off_screen": 0,
-      "outside": 184,
-      "plant": 4,
-      "engine_thinks_near": 11,
-      "at_s": 117
-    },
-    {
-      "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
-      "off_screen": 0,
-      "outside": 184,
-      "plant": 4,
-      "engine_thinks_near": 11,
-      "at_s": 119
-    },
-    {
-      "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
-      "off_screen": 0,
-      "outside": 184,
-      "plant": 4,
-      "engine_thinks_near": 11,
-      "at_s": 121
-    },
-    {
-      "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
-      "off_screen": 0,
-      "outside": 184,
-      "plant": 4,
-      "engine_thinks_near": 11,
-      "at_s": 123.1
-    },
-    {
-      "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
-      "off_screen": 0,
-      "outside": 184,
-      "plant": 4,
-      "engine_thinks_near": 11,
-      "at_s": 125.1
-    },
-    {
-      "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
-      "off_screen": 0,
-      "outside": 184,
-      "plant": 4,
-      "engine_thinks_near": 11,
-      "at_s": 127.1
-    },
-    {
-      "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
-      "off_screen": 0,
-      "outside": 184,
-      "plant": 4,
-      "engine_thinks_near": 11,
-      "at_s": 129.2
-    },
-    {
-      "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
-      "off_screen": 0,
-      "outside": 184,
-      "plant": 4,
-      "engine_thinks_near": 11,
-      "at_s": 131.2
-    },
-    {
-      "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
-      "off_screen": 0,
-      "outside": 184,
-      "plant": 4,
-      "engine_thinks_near": 11,
-      "at_s": 133.2
-    },
-    {
-      "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
-      "off_screen": 0,
-      "outside": 184,
-      "plant": 4,
-      "engine_thinks_near": 11,
-      "at_s": 135.3
-    },
-    {
-      "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
-      "off_screen": 0,
-      "outside": 184,
-      "plant": 4,
-      "engine_thinks_near": 11,
-      "at_s": 137.3
-    },
-    {
-      "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
-      "off_screen": 0,
-      "outside": 184,
-      "plant": 4,
-      "engine_thinks_near": 11,
-      "at_s": 139.3
-    },
-    {
-      "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
-      "off_screen": 0,
-      "outside": 184,
-      "plant": 4,
-      "engine_thinks_near": 11,
-      "at_s": 141.4
-    },
-    {
-      "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
-      "off_screen": 0,
-      "outside": 184,
-      "plant": 4,
-      "engine_thinks_near": 11,
-      "at_s": 143.4
-    },
-    {
-      "pass": 5,
-      "bodies": 10,
-      "on_screen": 10,
-      "off_screen": 0,
-      "outside": 230,
-      "plant": 5,
-      "engine_thinks_near": 11,
-      "at_s": 145.4
-    },
-    {
-      "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
-      "off_screen": 0,
-      "outside": 184,
-      "plant": 4,
-      "engine_thinks_near": 11,
-      "at_s": 147.4
-    },
-    {
-      "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
-      "off_screen": 0,
-      "outside": 184,
-      "plant": 4,
-      "engine_thinks_near": 11,
-      "at_s": 149.6
-    },
-    {
-      "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
-      "off_screen": 0,
-      "outside": 184,
-      "plant": 4,
-      "engine_thinks_near": 11,
-      "at_s": 151.7
-    },
-    {
-      "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
-      "off_screen": 0,
-      "outside": 184,
-      "plant": 4,
-      "engine_thinks_near": 11,
-      "at_s": 153.7
-    },
-    {
-      "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
-      "off_screen": 0,
-      "outside": 184,
-      "plant": 4,
-      "engine_thinks_near": 11,
-      "at_s": 155.7
-    },
-    {
-      "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
-      "off_screen": 0,
-      "outside": 184,
-      "plant": 4,
-      "engine_thinks_near": 11,
-      "at_s": 157.8
-    },
-    {
-      "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
-      "off_screen": 0,
-      "outside": 184,
-      "plant": 4,
-      "engine_thinks_near": 11,
-      "at_s": 159.8
-    },
-    {
-      "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
-      "off_screen": 0,
-      "outside": 184,
-      "plant": 4,
-      "engine_thinks_near": 11,
-      "at_s": 161.8
-    },
-    {
-      "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
-      "off_screen": 0,
-      "outside": 184,
-      "plant": 4,
-      "engine_thinks_near": 11,
-      "at_s": 163.9
-    },
-    {
-      "pass": 5,
-      "bodies": 10,
-      "on_screen": 10,
-      "off_screen": 0,
-      "outside": 230,
-      "plant": 5,
-      "engine_thinks_near": 11,
-      "at_s": 165.9
-    },
-    {
-      "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
-      "off_screen": 0,
-      "outside": 184,
-      "plant": 4,
-      "engine_thinks_near": 11,
-      "at_s": 167.9
-    },
-    {
-      "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
-      "off_screen": 0,
-      "outside": 184,
-      "plant": 4,
-      "engine_thinks_near": 11,
-      "at_s": 170
-    },
-    {
-      "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
-      "off_screen": 0,
-      "outside": 184,
-      "plant": 4,
-      "engine_thinks_near": 11,
-      "at_s": 172
-    },
-    {
-      "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
-      "off_screen": 0,
-      "outside": 184,
-      "plant": 4,
-      "engine_thinks_near": 11,
-      "at_s": 174
-    },
-    {
-      "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
-      "off_screen": 0,
-      "outside": 184,
-      "plant": 4,
-      "engine_thinks_near": 11,
-      "at_s": 176.1
-    },
-    {
-      "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
-      "off_screen": 0,
-      "outside": 184,
-      "plant": 4,
-      "engine_thinks_near": 11,
-      "at_s": 178.1
-    },
-    {
-      "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
-      "off_screen": 0,
-      "outside": 184,
-      "plant": 4,
-      "engine_thinks_near": 11,
-      "at_s": 180.2
-    },
-    {
-      "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
-      "off_screen": 0,
-      "outside": 184,
-      "plant": 4,
-      "engine_thinks_near": 11,
-      "at_s": 182.2
-    },
-    {
-      "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
-      "off_screen": 0,
-      "outside": 184,
-      "plant": 4,
-      "engine_thinks_near": 11,
-      "at_s": 184.2
-    },
-    {
-      "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
-      "off_screen": 0,
-      "outside": 184,
-      "plant": 4,
-      "engine_thinks_near": 11,
-      "at_s": 186.3
-    },
-    {
-      "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
-      "off_screen": 0,
-      "outside": 184,
-      "plant": 4,
-      "engine_thinks_near": 11,
-      "at_s": 188.3
-    },
-    {
-      "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
-      "off_screen": 0,
-      "outside": 184,
-      "plant": 4,
-      "engine_thinks_near": 11,
-      "at_s": 190.4
-    },
-    {
-      "pass": 5,
-      "bodies": 10,
-      "on_screen": 10,
-      "off_screen": 0,
-      "outside": 230,
-      "plant": 5,
-      "engine_thinks_near": 11,
-      "at_s": 192.4
-    },
-    {
-      "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
-      "off_screen": 0,
-      "outside": 184,
-      "plant": 4,
-      "engine_thinks_near": 11,
-      "at_s": 194.4
-    },
-    {
-      "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
-      "off_screen": 0,
-      "outside": 184,
-      "plant": 4,
-      "engine_thinks_near": 11,
-      "at_s": 196.5
-    },
-    {
-      "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
-      "off_screen": 0,
-      "outside": 184,
-      "plant": 4,
-      "engine_thinks_near": 11,
-      "at_s": 198.5
-    },
-    {
-      "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
-      "off_screen": 0,
-      "outside": 184,
-      "plant": 4,
-      "engine_thinks_near": 11,
-      "at_s": 200.6
-    },
-    {
-      "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
-      "off_screen": 0,
-      "outside": 184,
+      "outside": 280,
       "plant": 4,
       "engine_thinks_near": 11,
       "at_s": 202.6
     },
     {
-      "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
+      "pass": 5,
+      "bodies": 5,
+      "on_screen": 5,
       "off_screen": 0,
-      "outside": 184,
-      "plant": 4,
+      "outside": 350,
+      "plant": 5,
       "engine_thinks_near": 11,
-      "at_s": 204.6
+      "at_s": 204.8
     },
     {
       "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
+      "bodies": 4,
+      "on_screen": 4,
       "off_screen": 0,
-      "outside": 184,
+      "outside": 280,
       "plant": 4,
       "engine_thinks_near": 11,
-      "at_s": 206.7
+      "at_s": 206.9
     },
     {
       "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
+      "bodies": 4,
+      "on_screen": 4,
       "off_screen": 0,
-      "outside": 184,
+      "outside": 280,
       "plant": 4,
       "engine_thinks_near": 11,
-      "at_s": 208.7
-    },
-    {
-      "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
-      "off_screen": 0,
-      "outside": 184,
-      "plant": 4,
-      "engine_thinks_near": 11,
-      "at_s": 210.7
-    },
-    {
-      "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
-      "off_screen": 0,
-      "outside": 184,
-      "plant": 4,
-      "engine_thinks_near": 11,
-      "at_s": 212.8
-    },
-    {
-      "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
-      "off_screen": 0,
-      "outside": 184,
-      "plant": 4,
-      "engine_thinks_near": 11,
-      "at_s": 214.8
-    },
-    {
-      "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
-      "off_screen": 0,
-      "outside": 184,
-      "plant": 4,
-      "engine_thinks_near": 11,
-      "at_s": 216.9
+      "at_s": 209.1
     },
     {
       "pass": 5,
-      "bodies": 10,
-      "on_screen": 10,
+      "bodies": 5,
+      "on_screen": 5,
       "off_screen": 0,
-      "outside": 230,
+      "outside": 350,
       "plant": 5,
       "engine_thinks_near": 11,
-      "at_s": 218.9
+      "at_s": 211.3
     },
     {
       "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
+      "bodies": 4,
+      "on_screen": 4,
       "off_screen": 0,
-      "outside": 184,
+      "outside": 280,
       "plant": 4,
       "engine_thinks_near": 11,
-      "at_s": 220.9
+      "at_s": 213.4
     },
     {
       "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
+      "bodies": 4,
+      "on_screen": 4,
       "off_screen": 0,
-      "outside": 184,
+      "outside": 280,
       "plant": 4,
       "engine_thinks_near": 11,
-      "at_s": 223
+      "at_s": 215.6
+    },
+    {
+      "pass": 5,
+      "bodies": 5,
+      "on_screen": 5,
+      "off_screen": 0,
+      "outside": 350,
+      "plant": 5,
+      "engine_thinks_near": 11,
+      "at_s": 217.8
     },
     {
       "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
+      "bodies": 4,
+      "on_screen": 4,
       "off_screen": 0,
-      "outside": 184,
+      "outside": 280,
       "plant": 4,
       "engine_thinks_near": 11,
-      "at_s": 225
+      "at_s": 220
     },
     {
       "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
+      "bodies": 4,
+      "on_screen": 4,
       "off_screen": 0,
-      "outside": 184,
+      "outside": 280,
       "plant": 4,
       "engine_thinks_near": 11,
-      "at_s": 227.1
+      "at_s": 222.1
+    },
+    {
+      "pass": 5,
+      "bodies": 5,
+      "on_screen": 5,
+      "off_screen": 0,
+      "outside": 350,
+      "plant": 5,
+      "engine_thinks_near": 11,
+      "at_s": 224.3
     },
     {
       "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
+      "bodies": 4,
+      "on_screen": 4,
       "off_screen": 0,
-      "outside": 184,
+      "outside": 280,
       "plant": 4,
       "engine_thinks_near": 11,
-      "at_s": 229.1
+      "at_s": 226.4
     },
     {
       "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
+      "bodies": 4,
+      "on_screen": 4,
       "off_screen": 0,
-      "outside": 184,
+      "outside": 280,
       "plant": 4,
       "engine_thinks_near": 11,
-      "at_s": 231.1
+      "at_s": 228.6
+    },
+    {
+      "pass": 5,
+      "bodies": 5,
+      "on_screen": 5,
+      "off_screen": 0,
+      "outside": 350,
+      "plant": 5,
+      "engine_thinks_near": 11,
+      "at_s": 230.8
     },
     {
       "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
+      "bodies": 4,
+      "on_screen": 4,
       "off_screen": 0,
-      "outside": 184,
+      "outside": 280,
       "plant": 4,
       "engine_thinks_near": 11,
-      "at_s": 233.2
+      "at_s": 232.9
     },
     {
       "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
+      "bodies": 4,
+      "on_screen": 4,
       "off_screen": 0,
-      "outside": 184,
+      "outside": 280,
       "plant": 4,
       "engine_thinks_near": 11,
-      "at_s": 235.2
+      "at_s": 235.1
     },
     {
-      "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
+      "pass": 5,
+      "bodies": 5,
+      "on_screen": 5,
       "off_screen": 0,
-      "outside": 184,
-      "plant": 4,
+      "outside": 350,
+      "plant": 5,
       "engine_thinks_near": 11,
       "at_s": 237.3
     },
     {
       "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
+      "bodies": 4,
+      "on_screen": 4,
       "off_screen": 0,
-      "outside": 184,
+      "outside": 280,
       "plant": 4,
       "engine_thinks_near": 11,
-      "at_s": 239.3
+      "at_s": 239.4
     },
     {
       "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
+      "bodies": 4,
+      "on_screen": 4,
       "off_screen": 0,
-      "outside": 184,
+      "outside": 280,
       "plant": 4,
       "engine_thinks_near": 11,
-      "at_s": 241.3
-    },
-    {
-      "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
-      "off_screen": 0,
-      "outside": 184,
-      "plant": 4,
-      "engine_thinks_near": 11,
-      "at_s": 243.4
+      "at_s": 241.6
     },
     {
       "pass": 5,
-      "bodies": 10,
-      "on_screen": 10,
+      "bodies": 5,
+      "on_screen": 5,
       "off_screen": 0,
-      "outside": 230,
+      "outside": 350,
       "plant": 5,
       "engine_thinks_near": 11,
-      "at_s": 245.4
+      "at_s": 243.8
     },
     {
       "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
+      "bodies": 4,
+      "on_screen": 4,
       "off_screen": 0,
-      "outside": 184,
+      "outside": 280,
       "plant": 4,
       "engine_thinks_near": 11,
-      "at_s": 247.4
+      "at_s": 245.9
     },
     {
       "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
+      "bodies": 4,
+      "on_screen": 4,
       "off_screen": 0,
-      "outside": 184,
+      "outside": 280,
       "plant": 4,
       "engine_thinks_near": 11,
-      "at_s": 249.5
+      "at_s": 248.1
+    },
+    {
+      "pass": 5,
+      "bodies": 5,
+      "on_screen": 5,
+      "off_screen": 0,
+      "outside": 350,
+      "plant": 5,
+      "engine_thinks_near": 11,
+      "at_s": 250.3
     },
     {
       "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
+      "bodies": 4,
+      "on_screen": 4,
       "off_screen": 0,
-      "outside": 184,
+      "outside": 280,
       "plant": 4,
       "engine_thinks_near": 11,
-      "at_s": 251.5
+      "at_s": 252.5
     },
     {
       "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
+      "bodies": 4,
+      "on_screen": 4,
       "off_screen": 0,
-      "outside": 184,
+      "outside": 280,
       "plant": 4,
       "engine_thinks_near": 11,
-      "at_s": 253.6
+      "at_s": 254.7
+    },
+    {
+      "pass": 5,
+      "bodies": 5,
+      "on_screen": 5,
+      "off_screen": 0,
+      "outside": 350,
+      "plant": 5,
+      "engine_thinks_near": 11,
+      "at_s": 256.9
     },
     {
       "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
+      "bodies": 4,
+      "on_screen": 4,
       "off_screen": 0,
-      "outside": 184,
+      "outside": 280,
       "plant": 4,
       "engine_thinks_near": 11,
-      "at_s": 255.6
+      "at_s": 259.1
     },
     {
       "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
+      "bodies": 4,
+      "on_screen": 4,
       "off_screen": 0,
-      "outside": 184,
+      "outside": 280,
       "plant": 4,
       "engine_thinks_near": 11,
-      "at_s": 257.7
+      "at_s": 261.2
+    },
+    {
+      "pass": 5,
+      "bodies": 5,
+      "on_screen": 5,
+      "off_screen": 0,
+      "outside": 350,
+      "plant": 5,
+      "engine_thinks_near": 11,
+      "at_s": 263.4
     },
     {
       "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
+      "bodies": 4,
+      "on_screen": 4,
       "off_screen": 0,
-      "outside": 184,
+      "outside": 280,
       "plant": 4,
       "engine_thinks_near": 11,
-      "at_s": 259.7
+      "at_s": 265.6
     },
     {
-      "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
+      "pass": 5,
+      "bodies": 5,
+      "on_screen": 5,
       "off_screen": 0,
-      "outside": 184,
-      "plant": 4,
-      "engine_thinks_near": 11,
-      "at_s": 261.7
-    },
-    {
-      "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
-      "off_screen": 0,
-      "outside": 184,
-      "plant": 4,
-      "engine_thinks_near": 11,
-      "at_s": 263.8
-    },
-    {
-      "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
-      "off_screen": 0,
-      "outside": 184,
-      "plant": 4,
-      "engine_thinks_near": 11,
-      "at_s": 265.8
-    },
-    {
-      "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
-      "off_screen": 0,
-      "outside": 184,
-      "plant": 4,
+      "outside": 350,
+      "plant": 5,
       "engine_thinks_near": 11,
       "at_s": 267.8
     },
     {
       "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
+      "bodies": 4,
+      "on_screen": 4,
       "off_screen": 0,
-      "outside": 184,
+      "outside": 280,
       "plant": 4,
       "engine_thinks_near": 11,
       "at_s": 269.9
     },
     {
-      "pass": 5,
-      "bodies": 10,
-      "on_screen": 10,
+      "pass": 4,
+      "bodies": 4,
+      "on_screen": 4,
       "off_screen": 0,
-      "outside": 230,
+      "outside": 280,
+      "plant": 4,
+      "engine_thinks_near": 11,
+      "at_s": 272.1
+    },
+    {
+      "pass": 5,
+      "bodies": 5,
+      "on_screen": 5,
+      "off_screen": 0,
+      "outside": 350,
       "plant": 5,
       "engine_thinks_near": 11,
-      "at_s": 271.9
+      "at_s": 274.3
     },
     {
       "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
+      "bodies": 4,
+      "on_screen": 4,
       "off_screen": 0,
-      "outside": 184,
+      "outside": 280,
       "plant": 4,
       "engine_thinks_near": 11,
-      "at_s": 273.9
+      "at_s": 276.4
     },
     {
       "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
+      "bodies": 4,
+      "on_screen": 4,
       "off_screen": 0,
-      "outside": 184,
+      "outside": 280,
       "plant": 4,
       "engine_thinks_near": 11,
-      "at_s": 276
+      "at_s": 278.6
+    },
+    {
+      "pass": 5,
+      "bodies": 5,
+      "on_screen": 5,
+      "off_screen": 0,
+      "outside": 350,
+      "plant": 5,
+      "engine_thinks_near": 11,
+      "at_s": 280.8
     },
     {
       "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
+      "bodies": 4,
+      "on_screen": 4,
       "off_screen": 0,
-      "outside": 184,
+      "outside": 280,
       "plant": 4,
       "engine_thinks_near": 11,
-      "at_s": 278
+      "at_s": 283
     },
     {
       "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
+      "bodies": 4,
+      "on_screen": 4,
       "off_screen": 0,
-      "outside": 184,
+      "outside": 280,
       "plant": 4,
       "engine_thinks_near": 11,
-      "at_s": 280.1
+      "at_s": 285.2
+    },
+    {
+      "pass": 5,
+      "bodies": 5,
+      "on_screen": 5,
+      "off_screen": 0,
+      "outside": 350,
+      "plant": 5,
+      "engine_thinks_near": 11,
+      "at_s": 287.4
     },
     {
       "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
+      "bodies": 4,
+      "on_screen": 4,
       "off_screen": 0,
-      "outside": 184,
+      "outside": 280,
       "plant": 4,
       "engine_thinks_near": 11,
-      "at_s": 282.1
+      "at_s": 289.6
+    },
+    {
+      "pass": 5,
+      "bodies": 5,
+      "on_screen": 5,
+      "off_screen": 0,
+      "outside": 350,
+      "plant": 5,
+      "engine_thinks_near": 11,
+      "at_s": 291.8
     },
     {
       "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
+      "bodies": 4,
+      "on_screen": 4,
       "off_screen": 0,
-      "outside": 184,
+      "outside": 280,
       "plant": 4,
       "engine_thinks_near": 11,
-      "at_s": 284.1
+      "at_s": 294
     },
     {
       "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
+      "bodies": 4,
+      "on_screen": 4,
       "off_screen": 0,
-      "outside": 184,
+      "outside": 280,
       "plant": 4,
       "engine_thinks_near": 11,
-      "at_s": 286.2
+      "at_s": 296.2
     },
     {
-      "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
+      "pass": 5,
+      "bodies": 5,
+      "on_screen": 5,
       "off_screen": 0,
-      "outside": 184,
-      "plant": 4,
+      "outside": 350,
+      "plant": 5,
       "engine_thinks_near": 11,
-      "at_s": 288.2
-    },
-    {
-      "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
-      "off_screen": 0,
-      "outside": 184,
-      "plant": 4,
-      "engine_thinks_near": 11,
-      "at_s": 290.2
-    },
-    {
-      "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
-      "off_screen": 0,
-      "outside": 184,
-      "plant": 4,
-      "engine_thinks_near": 11,
-      "at_s": 292.3
-    },
-    {
-      "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
-      "off_screen": 0,
-      "outside": 184,
-      "plant": 4,
-      "engine_thinks_near": 11,
-      "at_s": 294.3
-    },
-    {
-      "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
-      "off_screen": 0,
-      "outside": 184,
-      "plant": 4,
-      "engine_thinks_near": 11,
-      "at_s": 296.4
-    },
-    {
-      "pass": 4,
-      "bodies": 8,
-      "on_screen": 8,
-      "off_screen": 0,
-      "outside": 184,
-      "plant": 4,
-      "engine_thinks_near": 11,
-      "at_s": 298.4
+      "at_s": 298.3
     }
   ],
   "fight_words_seen": [],
   "why": null,
-  "wrapped_at_s": 19.78,
+  "cpu_throttle_asked": 4,
+  "yardstick": {
+    "unthrottled_ms": 18.1,
+    "throttled_ms": 58,
+    "ratio": 3.2
+  },
+  "wrapped_at_s": 87.92,
   "walked_the_dial": true,
   "fight_words_in_the_page": {
     "shown": 0,
-    "hidden": 55
+    "hidden": 56
   },
   "recorded_inside": {
-    "city_first_draw_of_anything_s": 5.58,
-    "city_first_body_s": 13.77,
-    "city_first_body_on_screen_s": 17.25,
-    "shell_first_draw_of_anything_s": 0.51
+    "city_first_draw_of_anything_s": 31.65,
+    "city_first_body_s": 83.23,
+    "city_first_body_on_screen_s": 88.53,
+    "shell_first_draw_of_anything_s": 2.91
   },
   "blocking": {
-    "shell_gaps": 42,
-    "shell_worst_ms": 11051,
-    "shell_total_ms": 28857,
-    "city_gaps": 40,
-    "city_worst_ms": 11051,
-    "city_total_ms": 28330,
+    "shell_gaps": 195,
+    "shell_worst_ms": 44320,
+    "shell_total_ms": 188716,
+    "city_gaps": 184,
+    "city_worst_ms": 44322,
+    "city_total_ms": 183666,
     "shell_first_five": [
       [
-        527,
-        378
+        723,
+        487
       ],
       [
-        3283,
-        167
+        1066,
+        298
       ],
       [
-        9422,
-        5971
+        2934,
+        1799
       ],
       [
-        20472,
-        11051
+        3188,
+        254
       ],
       [
-        22019,
-        1546
+        3486,
+        298
       ]
     ],
     "city_first_five": [
       [
-        6208,
-        5971
+        649,
+        346
       ],
       [
-        17258,
-        11051
+        772,
+        122
       ],
       [
-        18805,
-        1546
+        977,
+        205
       ],
       [
-        18986,
-        182
+        1136,
+        159
       ],
       [
-        19556,
-        569
+        2904,
+        1769
       ]
     ]
   },
   "numbers": {
-    "first_look_at_s": 22.2,
-    "first_body_painted_at_s_RECORDED_INSIDE": 13.77,
-    "first_body_on_screen_at_s_RECORDED_INSIDE": 17.25,
-    "the_city_first_drew_anything_at_s": 5.58,
-    "first_body_painted_at_my_first_look_s": 22.2,
-    "first_time_the_engine_had_somebody_near_s": 22.2,
+    "first_look_at_s": 99.7,
+    "first_body_painted_at_s_RECORDED_INSIDE": 83.23,
+    "first_body_on_screen_at_s_RECORDED_INSIDE": 88.53,
+    "the_city_first_drew_anything_at_s": 31.65,
+    "first_body_painted_at_my_first_look_s": 99.7,
+    "first_time_the_engine_had_somebody_near_s": 99.7,
     "met_his_ten_second_bar": false,
-    "samples": 135,
-    "samples_with_a_body_painted": 135,
-    "samples_where_the_engine_had_somebody_near": 135,
-    "most_bodies_painted_in_one_sample": 20,
-    "bodies_painted_INSIDE_the_screen_total": 1130,
+    "samples": 72,
+    "samples_with_a_body_painted": 72,
+    "samples_where_the_engine_had_somebody_near": 72,
+    "most_bodies_painted_in_one_sample": 9,
+    "bodies_painted_INSIDE_the_screen_total": 342,
     "bodies_painted_OUTSIDE_the_screen_total": 0,
-    "samples_with_a_body_inside_the_screen": 135,
-    "first_body_INSIDE_the_screen_at_s": 22.2,
+    "samples_with_a_body_inside_the_screen": 72,
+    "first_body_INSIDE_the_screen_at_s": 99.7,
     "most_the_engine_had_near": 11,
-    "people_pass_ran": 586,
-    "bodies_painted_total": 1130,
-    "draws_outside_the_pass": 54911,
+    "people_pass_ran": 362,
+    "bodies_painted_total": 342,
+    "draws_outside_the_pass": 48961,
     "anything_VISIBLE_that_says_how_a_fight_starts": "NOTHING A PLAYER COULD READ, IN FIVE MINUTES",
-    "fight_words_that_exist_but_are_hidden": 55,
+    "fight_words_that_exist_but_are_hidden": 56,
     "fight_words_a_player_can_read": 0,
-    "the_blind_window_s": 22.2,
+    "the_blind_window_s": 99.7,
     "why_the_blind_window": "one main thread, held by the city build; nothing outside the page can read anything while it runs, and neither can the game draw a frame"
   }
 }

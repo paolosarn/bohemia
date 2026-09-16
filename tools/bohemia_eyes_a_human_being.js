@@ -57,6 +57,31 @@
  *   with a heartbeat armed before any page script runs, and reports the blind window as a number
  *   rather than filling it with a guess.
  *
+ * WRONG VERSION FOUR, AND THIS ONE IS NOT MY MISTAKE BUT IT IS MY NUMBER (9/16). Round 6
+ *   published this timeline -- first body on screen 17.2 s, freezes of 6.0 s and 11.1 s, 28.9 s
+ *   frozen out of 300 -- MEASURED UNTHROTTLED, ON THIS BOX. PLUMBER then found (f90a810) that
+ *   gates/bohemia_phone_perf.js has taken a phone-shaped CPU since 9/5 and thrown it away,
+ *   because the refresh command written in its own record pinned `--cpu 1`. On a phone-shaped
+ *   CPU their boot number goes 19,530 ms -> 71,758 ms, and the fight goes 57 fps -> 7.1.
+ *   So every number in my round-6 timeline describes a machine several times faster than the
+ *   thing in his hand, and he told us so in the same breath: "it's kinda not running as
+ *   smoothly as I would like." THE FIVE MINUTES IS ON A PHONE (rule 14), so the CPU has to be
+ *   a phone's too. This version throttles with the same mechanism PLUMBER uses rather than
+ *   inventing a second one (REUSE-FIRST), takes BOTH passes, and never throws one away.
+ *   AND THE THROTTLE IS PROVED REAL INSIDE THE SAME RUN, PLUMBER's rule: a fixed busy loop is
+ *   timed at 1x and at 4x and the ratio is printed. A throttle that silently failed to apply
+ *   would otherwise publish the fast numbers under a slow label, which is worse than no
+ *   throttle at all.
+ *
+ * AND THE CONTROL THAT THE THROTTLED NUMBER DEMANDED (9/16). On a phone-shaped CPU this tool
+ *   measured a 44-second freeze and 188.7 s frozen out of 300. THAT IS A BIG CLAIM AND MY OWN
+ *   OBSERVER RUNS ON THE SAME ONE THREAD: every sample is a page.evaluate, and under a 4x
+ *   throttle my polling is itself work the game has to wait for. So --noobserve runs the exact
+ *   same walk with the sampling loop OFF, reading the heartbeat only once at the end. If the
+ *   frozen total barely moves, the freeze is the game's. If it collapses, the freeze was mine
+ *   and the number must not be published. A watcher that changes what it watches has to prove
+ *   it did not.
+ *
  * AND ONE MORE THING v1 COULD NOT SEE. "Painted" is not "on screen": the game's own cull keeps
  *   a body if it is within three cells OUTSIDE the canvas, which is correct for drawing and
  *   wrong for a question about what a man saw. So every body's landing point is recorded and
@@ -73,6 +98,15 @@ function pw() {
 }
 const PHONE = { viewport: { width: 390, height: 844 }, deviceScaleFactor: 2, isMobile: true, hasTouch: true };
 const sleep = ms => new Promise(r => setTimeout(r, ms));
+/* --cpu N throttles the main thread N times slower, the same way PLUMBER's perf gate does
+   (Emulation.setCPUThrottlingRate). Default 4, because rule 14 says the measure is a PHONE and
+   PLUMBER measured 4x as the phone-shaped setting. --cpu 1 gives the old, faster box. */
+const NOOBSERVE = process.argv.includes('--noobserve');
+const CPU = (() => {
+  const i = process.argv.indexOf('--cpu');
+  const n = i >= 0 ? Number(process.argv[i + 1]) : 4;
+  return Number.isFinite(n) && n >= 1 ? n : 4;
+})();
 const BUDGET_MS = 5 * 60 * 1000;
 /* his own bar, from the routing note: "a person is on screen within ten seconds of the door" */
 const HIS_BAR_S = 10;
@@ -82,12 +116,38 @@ const FIGHT_WORDS = /\b(fight|fighting|combat|attack|attacks|hostile|enemy|enemi
   const { chromium } = pw();
   const b = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium',
     args: ['--allow-file-access-from-files', '--autoplay-policy=no-user-gesture-required'] });
-  const page = await (await b.newContext(PHONE)).newPage();
+  const ctx = await b.newContext(PHONE);
+  const page = await ctx.newPage();
+  const cdp = await ctx.newCDPSession(page);
+
+  /* THE YARDSTICK, TAKEN TWICE IN THIS RUN, BEFORE ANYTHING ELSE. A fixed busy loop timed
+     with the throttle off and then on. If the ratio is not near the asked-for rate, the
+     throttle did not apply and every number below is the fast box wearing a slow label. */
+  const busy = () => page.evaluate(() => {
+    const t0 = performance.now();
+    let x = 0;
+    for (let i = 0; i < 6e6; i++) x += Math.sqrt(i % 97);
+    return { ms: +(performance.now() - t0).toFixed(2), x: x > 0 };
+  });
+  await page.setContent('<div>yardstick</div>');
+  const fast = await busy();
+  if (CPU > 1) await cdp.send('Emulation.setCPUThrottlingRate', { rate: CPU });
+  const slow = await busy();
+  const ratio = fast.ms > 0 ? +(slow.ms / fast.ms).toFixed(2) : 0;
   const out = { what: 'did he see a human being, and does anything say how a fight starts',
                 when: new Date().toISOString(), his_words: [
                   "I didn't see a single human being. Very strange.",
                   "I don't even know how to engage in combat and when that shit starts."],
-                controls: [], samples: [], fight_words_seen: [], why: null };
+                controls: [], samples: [], fight_words_seen: [], why: null,
+                cpu_throttle_asked: CPU,
+                yardstick: { unthrottled_ms: fast.ms, throttled_ms: slow.ms, ratio: ratio } };
+  out.controls.push({ name: 'C0 THE THROTTLE IS REAL: a fixed busy loop is ' + CPU
+                        + 'x slower with it on, measured in this same run',
+                      pass: CPU === 1 ? true : (ratio >= CPU * 0.6),
+                      detail: CPU === 1 ? 'no throttle asked for, so these are this box\'s numbers'
+                        : (fast.ms + ' ms unthrottled against ' + slow.ms + ' ms throttled = '
+                           + ratio + 'x. Round 6 published its timeline at 1x and PLUMBER then '
+                           + 'found the perf gate had been discarding its own phone pass since 9/5.') });
 
   /* ARMED BEFORE ANY PAGE SCRIPT RUNS, IN EVERY FRAME. A property trap on peoplePass takes
      hold the instant the world defines it, so there is no window in which the game is drawing
@@ -292,21 +352,24 @@ const FIGHT_WORDS = /\b(fight|fighting|combat|attack|attacks|hostile|enemy|enemi
       const now = await page.evaluate(() => performance.now());
       const at = +((now - t0) / 1000).toFixed(1);
       if (now - t0 > BUDGET_MS) break;
-      const r = await read();
-      if (r) {
-        r.at_s = at;
-        out.samples.push(r);
-        if (firstBodyAt === null && r.bodies > 0) firstBodyAt = at;
-        if (firstNearAt === null && r.engine_thinks_near > 0) firstNearAt = at;
-      }
-      const txt = await words();
-      if (FIGHT_WORDS.test(txt)) {
-        const m = txt.match(FIGHT_WORDS);
-        if (m && !out.fight_words_seen.some(f => f.word === m[0]))
-          out.fight_words_seen.push({ at_s: at, word: m[0] });
+      if (!NOOBSERVE) {
+        const r = await read();
+        if (r) {
+          r.at_s = at;
+          out.samples.push(r);
+          if (firstBodyAt === null && r.bodies > 0) firstBodyAt = at;
+          if (firstNearAt === null && r.engine_thinks_near > 0) firstNearAt = at;
+        }
+        const txt = await words();
+        if (FIGHT_WORDS.test(txt)) {
+          const m = txt.match(FIGHT_WORDS);
+          if (m && !out.fight_words_seen.some(f => f.word === m[0]))
+            out.fight_words_seen.push({ at_s: at, word: m[0] });
+        }
       }
       /* stand still for the first stretch, because HIS complaint is about what he saw at the
          door, then walk, because a street that fills only when you move is a finding too */
+      if (NOOBSERVE) { await sleep(4000); continue; }
       if (at > 20) { walked = await hold(2000) || walked; } else { await sleep(700); }
     }
     out.walked_the_dial = walked;
@@ -320,13 +383,18 @@ const FIGHT_WORDS = /\b(fight|fighting|combat|attack|attacks|hostile|enemy|enemi
     const totBodies = out.samples.reduce((a, s) => a + s.bodies, 0);
     const totOutside = out.samples.reduce((a, s) => a + s.outside, 0);
     out.controls.push({ name: 'C2 THE COUNTER COUNTS: a planted draw inside the pass is counted',
-                        pass: totPass > 0 && totPlant >= totPass,
-                        detail: totPlant + ' planted draws over ' + totPass + ' passes' });
+                        pass: NOOBSERVE ? true : (totPass > 0 && totPlant >= totPass),
+                        detail: NOOBSERVE
+                          ? 'NOT APPLICABLE: --noobserve turns the sampling loop off, so there are '
+                            + 'no samples for this to read. The only numbers taken from a noobserve '
+                            + 'run are the heartbeat and the inside timestamps, which do not need it.'
+                          : totPlant + ' planted draws over ' + totPass + ' passes' });
     out.controls.push({ name: 'C3 NOT COUNTING THE WORLD: draws outside the people pass are not '
                           + 'attributed to people',
-                        pass: totOutside > 0,
-                        detail: totOutside + ' draws happened outside the pass and none of them '
-                          + 'are in the body count' });
+                        pass: NOOBSERVE ? true : totOutside > 0,
+                        detail: NOOBSERVE ? 'NOT APPLICABLE with the sampling loop off'
+                          : totOutside + ' draws happened outside the pass and none of them '
+                            + 'are in the body count' });
     out.fight_words_in_the_page = await hiddenWordCount();
     out.recorded_inside = await page.evaluate(() => {
       const fr = document.getElementById('cityFrame');
@@ -359,11 +427,17 @@ const FIGHT_WORDS = /\b(fight|fighting|combat|attack|attacks|hostile|enemy|enemi
     const ri = out.recorded_inside || {};
     out.controls.push({ name: 'C5 THE ANSWER DOES NOT DEPEND ON WHEN I LOOKED: the first-body '
                           + 'moment is timestamped inside the page, not at my first sample',
-                        pass: ri.city_first_body_s != null && firstLook != null
-                              && ri.city_first_body_s < firstLook,
-                        detail: 'page says the first body was drawn at ' + ri.city_first_body_s
-                          + ' s; my first look was ' + firstLook + ' s. The two earlier versions '
-                          + 'of this tool reported their own start-up as the game\'s number.' });
+                        pass: NOOBSERVE
+                          ? ri.city_first_body_s != null
+                          : (ri.city_first_body_s != null && firstLook != null
+                             && ri.city_first_body_s < firstLook),
+                        detail: NOOBSERVE
+                          ? ('page says the first body was drawn at ' + ri.city_first_body_s
+                             + ' s, and there was no first look at all: this run never sampled. '
+                             + 'That is the strongest form of this control.')
+                          : ('page says the first body was drawn at ' + ri.city_first_body_s
+                             + ' s; my first look was ' + firstLook + ' s. The two earlier versions '
+                             + 'of this tool reported their own start-up as the game\'s number.') });
     out.controls.push({ name: 'C5b THE BLIND WINDOW IS STATED, NOT FILLED',
                         pass: !!(out.blocking && out.blocking.shell_worst_ms > 0),
                         detail: out.blocking ? ('worst single freeze ' + out.blocking.shell_worst_ms
@@ -403,9 +477,17 @@ const FIGHT_WORDS = /\b(fight|fighting|combat|attack|attacks|hostile|enemy|enemi
     };
   } catch (e) { out.why = String(e).slice(0, 400); }
   await b.close();
-  fs.writeFileSync(path.join(ROOT, 'records', 'BOHEMIA_EYES_E26_A_HUMAN_BEING_9_15_26.json'),
+  fs.writeFileSync(path.join(ROOT, 'records', NOOBSERVE
+    ? 'BOHEMIA_EYES_E26_A_HUMAN_BEING_NOOBSERVE_9_16_26.json'
+    : 'BOHEMIA_EYES_E26_A_HUMAN_BEING_9_15_26.json'),
     JSON.stringify(out, null, 2));
+  out.noobserve = NOOBSERVE;
   const bad = out.controls.filter(c => !c.pass).map(c => c.name);
+  if (NOOBSERVE) console.log('  --noobserve: the sampling loop was OFF. This run exists only to '
+    + 'say whether the freeze belongs to the game or to me.');
+  if (out.blocking) console.log('  FROZEN: worst ' + out.blocking.shell_worst_ms + ' ms, '
+    + out.blocking.shell_total_ms + ' ms of 300,000 total, over ' + out.blocking.shell_gaps
+    + ' freezes, at ' + CPU + 'x (yardstick ' + (out.yardstick || {}).ratio + 'x)');
   console.log('  controls: ' + (bad.length ? 'FAILED -> ' + bad.join(' | ') : 'all green'));
   if (bad.length) console.log('  THE NUMBERS BELOW MEAN NOTHING UNTIL THE CONTROLS PASS.');
   for (const [k, v] of Object.entries(out.numbers || {}))
