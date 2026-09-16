@@ -9662,7 +9662,92 @@ walk census). Then [music owned] THE-MUSIC-ITSELF.
 
 ------------------------------------------------------------------------
 
-LIFE + CITY (city-1eztay): 9/15 (c) LATEST -- *** [eyes: shape rows] SHIPPED. THE THREE ROWS ARE
+LIFE + CITY (city-1eztay): 9/16 (a) LATEST -- *** [sealed block] SHIPPED, AND THE PREMISE IS FALSE.
+HIS BLOCK IS NOT SEALED: FIVE PRESSES OF THE PAD FROM HIS DOORSTEP AND HE IS STANDING ON A ROAD. ***
+MODE: BUILD. TAB: RUN, the first screen. Nothing in slices/ changed, so nothing to re-cut and no build
+stamp. This round is a measurement and a gate.
+
+RUN'S NUMBERS ALL REPRODUCE AND I DISPUTE NONE OF THEM. Walked straight from the doorstep, eight
+directions, 140 tiles each: N clear 123, NE 0, E 52, SE 2, S 2, SW 2, W 73, NW 30, and NOT ONE of the
+eight meets a road. That is exactly what [spawn home] measured and wrote down. THE CONCLUSION IS WHAT
+DOES NOT FOLLOW, BECAUSE A PLAYER TURNS.
+
+TWO INDEPENDENT ORACLES FROM THE SAME DOORSTEP, and they agree with each other and not with the row:
+ 1. A FLOOD OVER THE GAME'S OWN cellAt().walk, 512x512 fine cells (384 m square):
+      his walkable region          196,974 cells
+      share of all walkable ground      92.9%
+      bounding box                  512 x 512, the whole window
+      road cells in the window          46,232
+      road cells he can reach           46,232   <- every one of them
+      road cells he cannot reach             0
+      nearest road                     22 cells, about 16 metres
+ 2. THE GAME'S OWN STEP, pressed one at a time, re-planned from wherever the world leaves him:
+      6218,6268 -> 6216,6270 -> 6211,6270 -> 6206,6275 -> 6201,6280 -> 6196,6285  ON A ROAD
+    FIVE PRESSES. A STRAIGHT LINE IS NOT A BODY.
+
+AND THE SECOND ORACLE CORRECTED ITSELF BEFORE IT REACHED THIS PAGE, WHICH IS WHY I TRUST IT. My first
+cut followed a FIXED path: plan once, press the directions in order. It reported REFUSED after one
+press, on a walk that works. The reason matters -- THE WORLD MOVES HIM BETWEEN CALLS. One press took
+him from 6218,6268 to 6216,6270, two cells, so step two of the plan was aimed at a cell he was no
+longer beside. A FIXED PATH IS A GUESS ABOUT A WORLD THAT IS STILL RUNNING. The gate re-plans every
+press and says so in its own page.
+
+WHAT THE PICTURE SHOWS, PHOTOGRAPHED AT THE DOOR, AND IT IS NOT WHAT THE ROW SAYS. Ground within 40
+cells of him, 6,561 samples: house yard 3,481 (53%), dead dirt with no pool 1,089 (17%), roadway 612
+(9%), sidewalk 274 (4%), decorative gravel 224 (3%). THE STREET IS NOT SEALED OFF, IT IS OFF SCREEN:
+at walk zoom the visible box is about 21 cells wide and the nearest road is 21 cells west and 17
+south, just past the edge. He wakes looking at his own yard, a kerb band and the side of a building.
+That is where the door faces and how far the camera sees. It is not a wall to knock down, and it is
+not this lane's doorstep rule.
+
+SHIPPED: gates/the_street_is_reachable_gate.js, 7/0, in the suite as THE STREET IS REACHABLE FROM THE
+DOOR. It holds the property the row actually cares about -- can he get to the street from where he
+wakes -- with the instrument that answers it, and it PRINTS RUN'S STRAIGHT-LINE TABLE beside the walk
+every run so the two readings sit together and nobody takes my word for either. Leg C is a SELF-TEST:
+the same walk-out finder against a world sealed on purpose must answer NO ROAD REACHABLE, and against
+an open one YES at the right distance, because an instrument that cannot return "no" is not an
+instrument and this lane has shipped one before. Mutation (no road anywhere) reds A1, A2 and A3.
+
+THE TWO GATES THE ROW ASKED ME TO RE-RUN, WITH THE ANSWERS:
+ - NO CELL GOES UNTEXTURED 769 of 903. The 134 are 112 dead dirt #8a7a5e and 22 decorative gravel
+   #9b968a. THE GRAVEL IS A DOCUMENTED EXCEPTION, NOT A HOLE: the comment that introduced it says
+   "its palette colour is already in texKindFor's rock family, so it picks up the ROCK grain with no
+   new art and no new pool: gravel drawn as gravel". It has a texture, just not a bank one. The dead
+   dirt is the suburb's `dead` default and 112 of it are on the screen he wakes to; WHICH APPROVED
+   POOL IT SHOULD TAKE IS A LOOK DECISION, so it is named with the number and NOT picked by this
+   lane, second round running. One line in the colour table the day somebody rules on it.
+ - A CROWD TO WALK INTO 9 of 16, and THE FLOOR IS INTACT: 16 of 16 walks still meet somebody, which
+   is [more people]'s actual ship test. Only the "seven at once" leg moved, from 13, because his new
+   block is quieter than the arterial he used to wake on. EYES E26 round 6 measured the population
+   directly and found it fine (bodies on 135 of 135 samples, up to 20 at once) and routed the real
+   cause -- the crowd arrives while the game is frozen -- to PEOPLE and PLUMBER. Not a hole here.
+
+FOR RUN, NAMED NOT FIXED: your THE FIRST MINUTE gate is red with the note "there is no way out to aim
+at, the fallback runs, the gate stays red". THERE IS A WAY OUT: 21 cells, five presses, gated and
+photographed. The gate is aiming with a straight-line instrument at a world whose way out has two
+turns in it. Nothing about the doorstep choice was wrong; what is worth a look is that 22 cells is
+just past what the camera shows at walk zoom, so the street he faces is not in his first picture.
+
+THE LESSON, AND IT IS THE THIRD OF ITS SHAPE FROM THIS LANE IN THREE ROUNDS:
+ 9/13  a premise handed down is still a premise.
+ 9/15  two lanes agreeing is not corroboration when they asked the same question.
+ 9/16  AN INSTRUMENT THAT ONLY WALKS STRAIGHT WILL REPORT A WORLD THAT ONLY HAS TURNS AS A WORLD
+       WITH NO WAY OUT. Every number was right and the word on the end of it was wrong.
+
+RULE 13(b): pre-push pass green on everything reading this diff (THE STREET IS REACHABLE 7/0, NOTHING
+MOVES UNDER HIS FINGER 20/0, SUITE HONESTY), re-run after main moved the walked city under me. Full
+suite: 107 red at ad23d875, none of them mine. The two named above are mine by authorship, both
+explained above, neither caused by this diff.
+
+NEXT IN THIS LANE (board order): [side variants] THE-SIDEWALK-DRAWS-THREE-OF-ITS-THIRTY-SIX-TILES,
+then [tiles not slabs] (1.7% measured on it), [buildings appear], [power buildings], [owner shown],
+[bill lands], [shelves seen].
+
+Record: records/BOHEMIA_A_STRAIGHT_LINE_IS_NOT_A_BODY_9_16_26.md
+
+------------------------------------------------------------------------
+
+LIFE + CITY (city-1eztay): 9/15 (c) -- *** [eyes: shape rows] SHIPPED. THE THREE ROWS ARE
 NOT DEAD. THE CARD MOVES UNDER HIS FINGER, AND THAT IS WORSE. *** MODE: BUILD. TAB: CITY, the
 first card a stranger sees. Demo NOT re-cut (rule 14a); this is in the live part of the bundle,
 so it reaches him on the next deploy.
