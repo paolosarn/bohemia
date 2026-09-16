@@ -6313,6 +6313,24 @@ GATES = [
      'EACH OTHER, which is the claim, and A1 goes red the moment the dial stops being the '
      'module\'s own GDD landmark, which is the gate noticing somebody moved it. MEASURED '
      'GREEN 6/0 in the cut demo.', False),
+    ('FROZEN BEFORE IT WAS KNOWN', ['node', 'gates/frozen_before_it_was_known_gate.js'],
+     'FACTIONS, THE FIVE MINUTES. THE BUG IT IS MADE OF COST THE GAME ITS WHOLE WAR: the '
+     'valley\'s travelling parties are worked out once and kept under a key of seed + the '
+     'day. A CREW -- the only party going somewhere TO TAKE SOMETHING -- is sent only when '
+     'the seat has somebody at blood, and that answer needs the between module. Built one '
+     'beat before that module could answer, every seat at blood fell through to a caravan '
+     'and the harmless valley was frozen in until sunrise. Measured one frame apart, same '
+     'seats and same day: the list the game was HOLDING was 14 patrol / 14 caravan / 0 '
+     'crew, and the same function REBUILT gave 14 patrol / 10 caravan / 4 crew. The graph '
+     'carried four hostile pairs the whole time (Caravans and Remnants both at blood with '
+     'the Cartel), so every number about the valley was correct and the valley was wrong. '
+     'THE KEY COULD NOT TELL A REAL "NO" FROM AN UNANSWERED QUESTION. The check needs no '
+     'theory and no dependency list: drop the cache, let the GAME\'S OWN function fill it '
+     'again, and see whether the answer changes -- if what the game is holding is not what '
+     'it would work out right now, it was settled too early. Five caches whose answers are '
+     'meant to be steady inside one day: who is seated, who holds what, who is out there, '
+     'what the ground makes, where the people are. A floor first, because two empty '
+     'readings match perfectly. Mutation: put the freeze back and 2 go red.', False),
     ('THE DRIVER REACHES THE CITY', ['node', 'gates/the_driver_reaches_the_city_gate.js'],
      'FACTIONS, THE FIVE MINUTES. Rule 14(g) points EVERY lane at one instrument, '
      'tools/bohemia_drive_the_demo.js, and four gates already load it while nothing checked the '
