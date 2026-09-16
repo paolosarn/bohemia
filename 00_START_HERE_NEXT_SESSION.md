@@ -1,3 +1,93 @@
+WORDS (words-8dqrnq): 9/16 LATEST -- *** Q4 [beat speech] SHIPPED WITH BOTH ROUNDS. THE DEBT FROM
+THE OLD ONE-ROUND MODE IS PAID. *** Round one was school (9/15 (d) block below). This is round
+two, the writing. Record: records/BOHEMIA_WORDS_Q4_ROUND_TWO_THE_WRITING_9_16_26.md
+Lines: banks/BOHEMIA_WORDS_TEST_LINES.md, section "Q4 ROUND TWO", 28 cards, all draft:true,
+none of it in the game and none of it proposed for the game by this lane.
+
+WHICH OF SCHOOL'S FINDINGS ACTUALLY CHANGED THE LINES (the mode says round two must name them,
+and all five did): the unit is the BAR never the beat, so nothing is written to a beat; SIX words
+to the bar not Q4's seven, so every one-bar card is 23 to 28 characters; a long speech is a RUN of
+bars rather than one long card, which is why the four rebuilt speeches keep every idea instead of
+being cut; 98 characters is the truncation point, which is how the four were chosen; and a choice
+is not timed at all, so not one choice was touched.
+
+*** THE FINDING SCHOOL COULD NOT GIVE ME, AND IT IS THE ROUND: THE SHORT LINE IS THE EXPENSIVE
+ONE. *** A card that runs a few characters past a bar pays for the whole next bar. I did not
+believe it mattered until I measured my own first draft:
+  first draft, written by instinct with school in my head: 22 cards, 39 bars, 78 s held,
+    padding 24.1 s = 31%, and 16 OF THE 22 SITTING IN BARS THEY DID NOT FILL
+  same content rewritten to the boxes: 18 cards, 35 bars, 70 s held, padding 7.7 s = 11%, 1 dead
+Every one of those 16 read fine. Nothing in the prose told me. Only the box did.
+THEN THE SAME MEASURE ON THE CORPUS AS IT STANDS, all 2,101 timed lines:
+  17.9% OF ALL SCREEN TIME IN THIS GAME is a line sitting in a bar it does not fill (2,082 s of
+  11,604 s), and 830 of 2,101 cards (39.5%) fill under 80% of the bars they take.
+  BY KIND, AND IT IS THE REVERSE OF EVERYBODY'S INSTINCT INCLUDING MINE AN HOUR AGO:
+    exchange 66% dead, reaction 65%, bark 58%, quirk 46%, say 22%, journal 10%.
+  THE SHORT KINDS ARE THE WORST. A say line is long enough that overshooting by a few characters
+  is a small fraction of what it already costs. A bark at 30 characters costs exactly twice what
+  a bark at 28 costs, for two characters.
+THE WRITING RULE, at the 14 cps we actually ship: 23-28 characters, or 45-56, or 68-84. THE GAP
+FROM 29 TO 44 IS DEAD SPACE, two bars bought and one and a half used.
+AND THE OTHER HALF, from the 833 ms floor rather than the bar: everything under 28 characters is
+held for a full bar anyway. "..." (3 chars) and a 28-character line occupy the same bar and cost
+the same time. SHORTENING A BARK BELOW 28 CHARACTERS IS FREE AND BUYS NOTHING. This is the
+opposite of "cut every word you can", which is the most repeated writing advice there is. Below
+the bar, cutting a word loses meaning and saves no time. Above it, two characters cost two
+seconds. The advice is not wrong about prose; it has no clock in it and this surface has one.
+
+WHAT GOT WRITTEN: four speeches the game truncates today, rebuilt as runs of whole bars. The
+worst is the S27 clerk at 276 characters, which needs 19.7 s and is given 7.0 s, so about a third
+of it is ever seen; it comes back as five cards, 10 bars, 20 seconds, with every idea intact.
+Plus a 95-character Spanglish quirk and six shipped barks moved out of the dead zone.
+THE WHOLE SECTION, MEASURED BY THE SHIPPED POLICY: 28 cards, 46 bars, 92 s held, padding 9%,
+DEAD ZONE 0, CLIPPED 0.
+
+THE NICE SURPRISE: THE BOX AND THE VOICE DID NOT FIGHT. Twice the constraint produced the better
+line. The S25 fitter says "Line goes soft for an hour" at 27 of 28 characters where "The line goes
+soft for an hour" is 31 and pays for a bar it does not use, and a fitter dropping the article is
+the register doing what the box asked for. And the shipped Spanglish bark "Nadie made you come
+down here" is 30 characters, two over the box, paying double; "Nadie made you come here" is 25,
+keeps the code-switch whole and loses nothing. THEY SPEAK SPANGLISH (8/25) is not bent by any of
+this. The tight line is usually the more spoken one.
+
+MEASUREMENT DISCIPLINE, SAID OUT LOUD BECAUSE THIS LANE WROTE THE RULE: every duration, bar count
+and fill percentage in both rounds came out of EXECUTING readMs() and readBeats() from
+engine/bohemia_stage.js on our own corpus, never from arithmetic done beside it. NO BREAK IS
+REPORTED. This lane has not walked the demo and has not seen a truncated line on the glass, and
+rule 14(g) says a break is not reported until it is. The 478 truncated lines stay a MEASUREMENT
+routed to the surface's owner, exactly as round one left them. And no reference game is cited
+anywhere in either round, after school caught Q4 leaning on two Paolo never named.
+
+ROUTED OUT OF THIS ROUND:
+ - the held BUILD row SEVEN-TO-THE-BAR is renamed by this evidence: SIX to the bar, and the real
+   target is the CHARACTER BOX rather than a word count. Stays held while the lane is in research.
+ - NEW STANDING CHECK FOR THIS LANE: every line written from now gets measured against the boxes
+   before it is called done, because my own first draft proves the instinct does not do it
+   unaided. Candidate for the voice gate when the lane next builds: a dead-zone ratchet over the
+   words book pinned at the measured 39.5% so the debt can only shrink, the same shape as the
+   banned-phrase ratchet already in it.
+ - TO WHOEVER OWNS THE CARD SURFACE, named rather than touched: the 39.5% dead zone and the 17.9%
+   padding are properties of the TIMING POLICY as much as of the writing. readBeats rounds up to
+   the nearest BEAT and lets the bar fall where it may. A policy that quantised to the BAR would
+   make this visible to every lane instead of only to this one.
+ - TO UI, unchanged from round one: three clocks not one, the faster reveal is the accessible one,
+   and karaoke lead-in exists.
+
+GATES, ALL SIX THIS LANE OWNS: voice 118/0, dialogue catalogue 63/0, attempt 15/0, language 83/0,
+voice audible 2/0, handoff 8/0. SUITE LINE: pre-push pass green; none of the suite's outstanding
+reds is this lane's.
+
+STANDING QUEUE: Q5 through Q17 still owe their school rounds under the 9/6 mode, oldest first, and
+Q5 [refusing answers] is now the top of it. The four held BUILD rows (BB-THE-SMALL-MOMENT,
+BB-STILL-SAYS-IT, BB-RESPONSIVE, SECOND-VOICE-PASS) stay held while the lane is in research mode.
+STANDING WATCH: verdicts[] in records/target/BOHEMIA_VOTE_REGISTRY.json, every round, for ids
+starting words-. Checked this round: 13 items, 0 verdicts, nothing to act on. Four of mine are
+registered (words-the-night-card-9-15, words-who-you-owe-headings-9-15, words-what-the-tracks-say-9-15,
+words-saying-yes-to-a-job-9-15). Up means build it in that same round; down means graveyard with a
+post-mortem. NOTES ARE RULINGS, never ask him twice.
+HANDOFF DISCIPLINE, THE 9/13 AMENDMENT: this block was built by taking origin/main's copy of the
+file fresh and prepending a NEW head. Never demote another lane's head and never splice by index.
+
 UI (ui-kmqmrf): 9/16 LATEST -- *** [no slop] ROUND NINE. THE CARD IS AN OBJECT, AND GET UP WAS
 WEARING THREE EDGES AT ONCE. *** TAB: CITY, the walked street, and the demo. Build 9/16b.
 Record: records/BOHEMIA_NO_SLOP_THE_CARD_IS_AN_OBJECT_9_16_26.md

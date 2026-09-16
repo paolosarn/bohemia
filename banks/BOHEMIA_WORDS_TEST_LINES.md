@@ -2304,3 +2304,116 @@ BROTHER  Pass the salt.                                                [time off
 # costs to get your lights back is a price and prices are Paolo's. So line 2 names
 # the SHAPE of the exit ("until somebody pays for them") and no number, which is the
 # attempt the 8/11 law asks for with the decision left where it belongs.
+
+## Q4 ROUND TWO -- BEAT SPEECH, ARMED BY SCHOOL  (9/16/26)
+# Round one is records/BOHEMIA_WORDS_Q4_SCHOOL_THE_BEAT_IS_TOO_SHORT_FOR_A_WORD_9_15_26.md
+# Every line below is draft:true and none of it is in the game.
+# Every number below was produced by the SHIPPED timing policy in engine/bohemia_stage.js
+# (14 cps, 833 ms floor, 7,000 ms ceiling, 500 ms beat), not by a rule of thumb.
+#
+# THE BOXES, at the speed we actually ship:
+#     1 bar  = 2.0 s = 28 characters
+#     2 bars = 4.0 s = 56 characters
+#     3 bars = 6.0 s = 84 characters
+#     the ceiling that truncates = 98 characters
+#
+# WHICH FINDINGS FROM SCHOOL CHANGED THESE LINES:
+# 1. THE UNIT IS THE BAR, NEVER THE BEAT (school sec 2). Every card here is written
+#    to a whole number of bars. Nothing is written to a beat, because no published
+#    floor lets a line live in one.
+# 2. SIX WORDS TO THE BAR, NOT SEVEN (school sec 3). Q4 published seven and had it
+#    backwards. Every one-bar card here is 23 to 28 characters, which is five or six
+#    words at our 5.05 characters per word.
+# 3. A LONG SPEECH IS A RUN OF BARS, NOT ONE LONG CARD (school sec 5). The four
+#    speeches rebuilt below were all past the 98-character ceiling, so the game was
+#    holding them for 7 seconds no matter how much text was in them.
+# 4. ANYTHING OVER 98 CHARACTERS IS TRUNCATED TODAY (school sec 5). Nothing here is.
+# 5. A CHOICE IS NOT TIMED (school sec 8), so no choice is rewritten here. The player
+#    holds their own menu and none of this applies to it.
+#
+# AND THE ONE THING SCHOOL COULD NOT TELL ME, WHICH ONLY WRITING FOUND:
+# *** THE SHORT LINE IS THE EXPENSIVE ONE. ***
+# A card that runs a few characters past a bar pays for the whole next bar. My own
+# first draft of this section was 22 cards with 31% of its screen time spent sitting
+# in bars it did not fill, and 16 of the 22 were in that dead zone. I could not see
+# it until I measured it. Across the whole corpus: 39.5% of our 2,101 timed lines
+# fill under 80% of the bars they take, and the SHORT kinds are the worst of it --
+# exchange 66%, reaction 65%, bark 58%, against say at 22%. 17.9% of all the screen
+# time in this game is a line sitting in a bar it does not fill.
+# THE RULE THAT COMES OUT OF IT: write to 23-28 characters or to 45-56 or to 68-84.
+# 29 to 44 characters is dead space: it costs two bars and uses one and a half.
+# AND THE OTHER HALF, FROM THE 833 ms FLOOR: everything under 28 characters is held
+# for a full bar anyway, so shortening a bark below 28 characters is free and buys
+# nothing. "..." costs exactly what a 28-character line costs. Say something.
+# This is the opposite of "cut every word you can", and it is measured.
+
+### S27 THE FIFTY YEAR SIGNATURE, THE CLERK -- 276 CHARS, 64% OF IT NEVER SHOWN   draft:true
+# The shipped line is the longest in the game. At 14 cps it needs 19.7 s and the
+# ceiling gives it 7.0 s, so the player sees about a third of it. Every idea in it
+# survives below, in five cards, 10 bars, 20 seconds.
+  1  Sit with that a second.                                              23ch  1 bar   82%
+  2  Not a man. Not a faction. Not a price. Nobody local.                 52ch  2 bars  93%
+  3  One thing could move this line, and it is an office.                 52ch  2 bars  93%
+  4  That office does not exist any more. It was shut before you were born.  70ch 3 bars 83%
+  5  Built to last on purpose, so nobody here could move it.              55ch  2 bars  98%
+
+### S21 THE ONE WHO CAME BACK, THE SERGEANT -- 235 CHARS   draft:true
+  1  The story will get smaller. They always get smaller.                 52ch  2 bars  93%
+  2  That tells you what a tired and hungry man does.                     48ch  2 bars  86%
+  3  It tells you nothing whatsoever about the road.                      47ch  2 bars  84%
+  4  And every face watching my gate learns something about us, not about him.  73ch 3 bars 87%
+
+### S25 THE PRESSURE GOES BACKWARD, THE FITTER -- 234 CHARS   draft:true
+# Card 5 is the register doing the work the box asked for: a fitter drops the
+# article, and "Line goes soft for an hour" lands at 27 of 28 characters where
+# "The line goes soft for an hour" is 31 and pays for a second bar it does not use.
+  1  Not you. Don't pull a face.                                          27ch  1 bar   96%
+  2  This block pulls harder than the main can carry.                     48ch  2 bars  86%
+  3  Ever since we all started keeping our own tanks.                     48ch  2 bars  86%
+  4  We all fill at the same hour, every single evening.                  51ch  2 bars  91%
+  5  Line goes soft for an hour.                                          27ch  1 bar   96%
+
+### S15 THE LIGHTS GO OUT AT NINE, THE OWNER -- 215 CHARS   draft:true
+  1  Here is my position, and you did not rehearse it.                    49ch  2 bars  88%
+  2  I don't care about the money. I already have money.                  51ch  2 bars  91%
+  3  I care that the corner never once goes dark on me.                   50ch  2 bars  89%
+  4  The day it goes dark is the day somebody learns it can.              55ch  2 bars  98%
+
+### THE SPANGLISH QUIRK, 95 CHARS, IN THE BOX   draft:true
+# THEY SPEAK SPANGLISH (8/25) is not bent by any of this. The register survives the
+# box; it just has to land inside it.
+  1  'They turn. They give the name. Todavia holding it.'                 52ch  2 bars  93%
+  2  Sorry. I do that out loud.                                           26ch  1 bar   93%
+  3  He estado alone a long time.                                         28ch  1 bar  100%
+
+### SIX REAL BARKS, MOVED OUT OF THE DEAD ZONE   draft:true
+# Every one of these is a shipped bark sitting between 29 and 34 characters, which
+# is the worst place in the whole range: two bars bought, one and a half used. None
+# of them loses a word of meaning by fitting.
+#   was 31ch (2 bars, 55%)  The road say the price. Not me.
+  1  Road says the price. Not me.                                         28ch  1 bar  100%
+#   was 34ch (2 bars, 61%)  Nobody complains here. Ask around.
+  2  Nobody complains here. Ask.                                          27ch  1 bar   96%
+#   was 34ch (2 bars, 61%)  This block looks after this block.
+  3  Block looks after the block.                                         28ch  1 bar  100%
+#   was 32ch (2 bars, 57%)  Terms first. Then the handshake.
+  4  Terms first. Then we shake.                                          27ch  1 bar   96%
+#   was 33ch (2 bars, 59%)  One hour close. Everybody see it.
+  5  Hour closed. Everybody saw.                                          27ch  1 bar   96%
+#   was 30ch (2 bars, 54%)  Nadie made you come down here.
+  6  Nadie made you come here.                                            25ch  1 bar   89%
+
+### THE FLOOR, SHOWN RATHER THAN ARGUED   draft:true
+# These four are shipped barks, unchanged. They are here as evidence, not as an
+# attempt. Every one of them is held for a full bar and three of the four are held
+# for the 833 ms floor, so the writing bought nothing by being shorter.
+#   "..."                     3ch   held 0.83 s (the floor)   1 bar, 42% full
+#   "Enough."                 7ch   held 0.83 s (the floor)   1 bar, 42% full
+#   "Enough. Tomorrow."      17ch   held 1.21 s               1 bar, 61% full
+#   "Close. Come back six."  21ch   held 1.50 s               1 bar, 75% full
+# A three-character bark and a twenty-eight-character bark occupy the same bar.
+
+# THE WHOLE SECTION, MEASURED BY THE SHIPPED POLICY:
+#   28 cards, 46 bars, 92 s held, padding 8.5 s (9%), dead zone 0, clipped 0.
+#   Against my own unmeasured first draft: 31% padding, 16 of 22 in the dead zone.
+#   Against the corpus as it stands: 17.9% padding, 39.5% in the dead zone.
