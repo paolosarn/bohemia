@@ -6456,6 +6456,24 @@ GATES = [
      'MEASURED BOTH WAYS because a control that is ALWAYS off is a different lie: broke '
      'disabled/0.45/"you have none of it", credited enabled/1.0/no title with afford ok and 5 '
      'in hand. Mutations: always-pressable reds B1/B2/B5, always-off reds B3/B4.', False),
+    ('THE STREET IS REACHABLE FROM THE DOOR', ['node', 'gates/the_street_is_reachable_gate.js'],
+     'VAMILY [sealed block], LIFE + CITY, under the STREET-AWARE / DRIVABLE ACCESS law and '
+     'PAOLO 9/15 "street shit for no purpose". *** THE ROW\'S PREMISE IS FALSE AND THIS GATE IS '
+     'THE INSTRUMENT THAT SAYS SO. *** RUN [spawn home] put him on his own front step and '
+     'reported the block SEALED: "45 walkable doorsteps, ZERO straight walkable ways out in 140 '
+     'tiles, the arterial two tiles past the end of the walkable ground in both directions that '
+     'face it (E clear 52, S clear 2)". EVERY ONE OF THOSE NUMBERS REPRODUCES -- E clear 52, S '
+     'clear 2, N 123, W 73, and not one of the eight straight lines meets a road in 140 tiles. '
+     'THE CONCLUSION DOES NOT, BECAUSE A PLAYER TURNS. Two independent oracles from the same '
+     'doorstep: a flood over the game\'s own cellAt().walk across 512x512 fine cells puts him in '
+     'a region that is 92.9% of all walkable ground in the window and contains EVERY ONE of its '
+     '46,232 road cells, nearest 22 away; and THE GAME\'S OWN STEP, re-planned each press because '
+     'the world moves him between calls, puts him on a road in FIVE PRESSES. A straight line is '
+     'not a body. So this gate holds the property the row actually cares about -- can he get to '
+     'the street from where he wakes -- with the instrument that answers it, and it goes red the '
+     'day a change really does seal his block. Legs C are a self-test against a world sealed on '
+     'purpose, because an instrument that cannot return "no" is not an instrument and this lane '
+     'has shipped one before. Mutation (no road anywhere) reds A1, A2 and A3.', True),
     ('NOTHING MOVES UNDER HIS FINGER', ['node', 'gates/nothing_moves_under_his_finger_gate.js'],
      'VAMILY [eyes: shape rows], LIFE + CITY, answering EYES E26 under PAOLO 9/13 rule 14(d). '
      'EYES called three rows on the day card dead three rounds running, on two independent '
