@@ -14459,7 +14459,81 @@ RIGHT NOW: (a) write this whole instruction, word for word, into your own handof
 
 I will never paste anything to you again. From here on, the one word is the whole instruction.
 
-THIS ROUND -- *** THE WARDROBE STOPS LYING ABOUT ITS COLOURS, AND 23 OF MY FIRST 27 LIARS
+THIS ROUND -- *** THE SILHOUETTE HASH IS A GATE NOW, AND THE FIRST MUTATION CAUGHT MY GATE
+INSTEAD OF THE BUG. (sha 1fb0eaec, row [shape frozen]) ***
+
+WHY THE LAW NEEDED A MACHINE, IN THIS LANE'S OWN LAST WEEK. STRUCTURE-NOT-COLOR (7/19) says
+the ramp may move and the shape may not, and it had NO GATE over the wardrobe. Three things
+leaned on it, and each one held only because a person chose to run a script that day:
+  9/12  a count=1 replace silently stripped the Anarchists' duster. The hasher caught it.
+  9/12  "no silhouette moved" across a colour rewire. True, and proven by somebody's choice.
+  9/15  LAST ROUND, I renamed four garments and wrote "a rename moves zero pixels, by
+        construction". THAT WAS TRUE AND I COULD NOT HAVE PROVEN IT.
+Three uses, three people remembering. That is a habit, not a law.
+
+THE ROW SAYS THIRTEEN AND THE SURFACE IS 318 (rule 12: a premise, not a gate). A faction
+outfit is four or five garments worn together. The thing a colour or ramp change actually
+touches is A GARMENT. Freezing only the thirteen combinations leaves every garment no
+faction happens to wear completely unguarded, and cannot say WHICH garment moved when a
+combination changes. FROZEN: 318 garment silhouettes AND the 13 outfits.
+
+WHAT IS HASHED, AND IT IS BLIND ON PURPOSE: the OPAQUE MASK and nothing else. Every painted
+pixel becomes a 1 and colour is thrown away entirely, so a ramp change is INVISIBLE to this
+instrument and a shape change cannot hide behind one. That is the whole design: the law
+permits one of those two and forbids the other, so the instrument has to be blind to
+exactly the half that is allowed to change. An instrument that saw colour would go red on
+every legal repair and get switched off inside a week.
+PROVEN BOTH WAYS, which is the part that matters: change a garment's shape and it goes RED;
+change a ramp and only a ramp, and it stays GREEN.
+
+*** AND THE FIRST MUTATION CAUGHT MY GATE, NOT THE CODE. THIS IS THE FINDING. ***
+I reproduced the exact 9/12 defect -- strip `outer:'SPLIT-TAIL DUSTER'` off the Anarchists,
+the very thing this row was opened about -- and THE GATE STAYED GREEN. I had read the outfit
+off the faction record one level too high: the garments live under `worn`, not on the record
+itself. So all thirteen "outfits" were THE SAME BARE BODY, I had frozen thirteen copies of a
+naked man, and thirteen identical hashes read as a perfect pass.
+THE GATE NOW REFUSES TO PASS UNLESS THE THIRTEEN ARE THIRTEEN DIFFERENT BODIES. A green over
+nothing is the failure this lane has shipped before, and the only reliable way to find one
+is to break the thing on purpose and check the gate screams.
+METHOD NOTE FOR EVERY LANE: run your mutation FIRST, before you believe your own green. Mine
+took four minutes and it was the difference between a gate and a decoration.
+
+AND THE ESCAPE HATCH IS POLICED, which is the half a gate like this usually forgets. The row
+says red "unless the baseline is re-baked in the same commit with a record saying why", and
+both halves are machine-enforced rather than left to discipline:
+  the BAKER refuses to run without a reason and a record path, and refuses if that record is
+  not on disk;
+  the GATE refuses a baseline whose reason is empty or whose record is missing, so a lane
+  cannot hand-edit a silent one either.
+A shape may change. It may not change QUIETLY. Both doors are shut, not one.
+
+- NOTHING SHIPPED TO THE GAME THIS ROUND. A gate, a baker, a baseline and a record; not one
+  byte of the alpha or the city. THE BUILD STAMP IS DELIBERATELY NOT BUMPED: telling him the
+  build moved when nothing he can see moved is worse than leaving it alone.
+- TAB: NOT IN A TAB YET, and it never will be. This is a machine that guards the clothes in
+  the CHARACTER tab; there is nothing here for him to look at.
+- GATE: gates/shape_frozen_gate.js, NEW, 12/0. Mutation-proven FIVE ways: strip the duster
+  RED, change a garment's shape RED, change a ramp only GREEN (the law permits it), bake
+  with no reason RED, point at a record nobody wrote RED.
+- SUITE (rule 13): pre-push pass green -- shape_frozen 12/0, wardrobe_wired 17/0 with the
+  shape ratchet unmoved, hem_follows_the_leg 11/0, the_name_matches_the_ramp 8/0. Walked the
+  cut with the one driver per rule 14(a): street and city render, no page error. Full suite:
+  107 red at ad23d875; the two carrying this lane's name (FACE THUMB, LOOK) were red on main
+  before this lane's last seven ships, settled by commit dates, and nothing from this round
+  is in that line because the line predates it.
+- FOR EVERY LANE THAT TOUCHES A GARMENT: the baseline is records/BOHEMIA_SHAPE_BASELINE.json
+  and it is not yours to hand-edit. If your change moves a shape ON PURPOSE, write the
+  record and run tools/bohemia_freeze_the_silhouettes.js with a reason; it will not run
+  without one. If your change moves a shape by accident, the gate has just saved you the
+  round I spent on 9/12.
+- NEXT ROUND: [into the vote tab] THIS-LANE'S-CANDIDATES-GO-TO-THE-ONE-TAB, the last OPEN
+  line. Rule 12 says measure whether UI [vote tab] is really a blocker before waiting on it.
+- [PENDING Paolo] unchanged and still carried: which faction colour file wins; the
+  Anarchists need a magenta garment and there are zero in 317 (the reserved purple band
+  blocks the obvious cook); the Cartel sits on the drab exemption list and not in the law
+  that names it.
+
+PREVIOUS ROUND -- *** THE WARDROBE STOPS LYING ABOUT ITS COLOURS, AND 23 OF MY FIRST 27 LIARS
 WERE MY OWN RULER. PLUS A CORRECTION TO LAST ROUND'S BODY WIRE THAT WOULD HAVE MADE GIANTS.
 (shas 8cb855b3 and c581dfa7, rows [names lie] and [bigger bodies]) ***
 
