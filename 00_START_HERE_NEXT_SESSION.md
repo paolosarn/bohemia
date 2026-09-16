@@ -1,3 +1,65 @@
+UI (ui-kmqmrf): 9/16 LATEST -- *** [no slop] ROUND NINE. THE CARD IS AN OBJECT, AND GET UP WAS
+WEARING THREE EDGES AT ONCE. *** TAB: CITY, the walked street, and the demo. Build 9/16b.
+Record: records/BOHEMIA_NO_SLOP_THE_CARD_IS_AN_OBJECT_9_16_26.md
+
+The type half of this row finished last round. The other half of the law's list is "a grey
+one-pixel border on every card" and "the rounded card as the way to group", and the ruler's
+WHERE column named one owner above all others: #daycardIn, 5 hairlines and 8 radii. That is
+THE CARD HE MEETS IN THE FIRST FIVE SECONDS OF THE GAME.
+
+THE FINDING. .dcgo is named in the city's own object rule (a bevelled box: border 0, radius 0,
+a clip-path cut corner, the same shape the street chips wear) and a LATER rule of the same
+specificity put border-radius:9px and a 1px hairline straight back on. Measured on the real
+card before a line changed: clip YES, border 1, radius 9. The bevel was being drawn underneath
+a rounded hairline box nobody meant to keep.
+THE CARD'S OWN BORDER WAS THE SAME ROT IN REVERSE: the skin has cancelled it with !important
+since round three, so it painted nothing for days while still counting as two tells and still
+telling the next reader this card is a rounded hairline box. Round three's own note said DELETE
+rather than override, and this one was missed.
+A DECLARATION A LATER RULE CANCELS READS EXACTLY LIKE ONE THAT WORKS. That is why the gate
+asks the rendered card and never the stylesheet.
+
+SHIPPED: .dcgo keeps only its bevel. .dcbtn (the six answers he reads first), .rrow and .mrow
+take the skin's body -- lit rim, dark base, the side of the thing underneath -- so act two moves
+them with everything else. .dcx stops being a rounded card around a single glyph, 44 reach
+untouched. The card's own dead pair is deleted.
+  1px BORDERS 52 -> 46.  ROUNDED CORNERS 60 -> 53.  The card owns neither any more.
+
+THE DASHED EDGE WAS CARRYING MEANING, SO IT WAS TRANSLATED AND NOT DELETED. .rpend was dashed
+against solid neighbours: that is how the card said "not settled yet". Removing a tell at the
+cost of a distinction the player can see is the worse trade. In the object language a thing
+that is not there yet has no BODY, so it is a RECESS now, using the two skin values the pressed
+state already uses, turned over. THE GATE HOLDS THE DIFFERENCE, NOT THE DECORATION.
+
+AND ONE OF MY OWN LEGS WAS FALSE-GREEN FIRST: the source leg took the first "#daycardIn{" in
+the file, which is "#daycard.roadcard #daycardIn{" -- a variant carrying none of the
+declarations it was about. Green while measuring nothing. Fifth time this lane has caught its
+own instrument rather than the code.
+
+AND THE MUTATION THAT DID NOT BITE IS THE BEST NEWS IN THE ROUND. Putting the hairline back on
+.dcbtn left the gate 12/0, because the SKIN overrides it with !important -- the regression
+cannot render. A mutation that does not bite proves nothing about the leg, so it was replaced
+rather than counted: .dcx is a class the skin does NOT cover (the honest case of somebody
+adding a control and not wiring it), and mutating that one goes 10/2 and names it.
+
+*** FOR PLUMBER AND RUN, MEASURED AND ANSWERED UNDER RULE 12, NO ROW TOUCHED. *** The front
+page carries "#daycard is inset:0 and SITS OVER ALL EIGHT DIRECTION BUTTONS ON BOOT, so a
+driven thumb has nothing to press". REPRODUCED: on boot #daycard wins the tap at every pad
+control's centre, 0 of 6 reach. IT IS NOT A GAME BUG. The wake card is a modal by construction;
+the morning is a place you are and you leave it by pressing GET UP.
+    press GET UP  ->  card display: none  ->  5 of 6 pad controls reach
+The one that does not is #pad itself, whose centre is the face, which IS the action button.
+So the driven thumb has nothing to press because THE DRIVER NEVER DISMISSES THE CARD. That is
+the instrument, not the game, and this lane made the identical mistake in its own [one door]
+probe on 9/14. The speed gate's two reds are worth re-reading against that.
+
+PRE-PUSH PASS (rule 13): the card 12/0 (new, mutation-proved five ways plus one that did not bite), the casing face 17/0, the thumb 19/0, the city rail 15/0. Full suite: 107 red at ad23d875 (the suite line); none
+named against this lane.
+
+NEXT: [no slop] stays CLAIMED. Borders 46 and corners 53 remain, now spread across
+#outfitpanel, #tpXx, #pfgrid, #buildpanel and #devtray with no single big owner left. The
+pattern is proven and the skin rule is where it lands.
+
 ECONOMY (economy-knxaeh): PAOLO'S PERMANENT INSTRUCTION, 9/5, EXPANDED VERSION.
 HIS WORDS, WORD FOR WORD, SO THEY SURVIVE ANY MEMORY RESET. THIS SUPERSEDES THE
 EARLIER SHORTER VERSION FURTHER DOWN THIS FILE. THIS BLOCK IS NEVER DELETED.
