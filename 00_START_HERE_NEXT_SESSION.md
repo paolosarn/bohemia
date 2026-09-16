@@ -8049,6 +8049,101 @@ NEXT IN THIS LANE (top unblocked, in order)
 
 --------------------------------------------------------------------------------
 
+SOUND (sound-xk7pjp): 9/16 (a) LATEST -- *** BEING OFF THE BEAT MADE NO SOUND AT ALL.
+[beat teaches] SHIPPED. The row was two claims: one was already true and COMBAT built
+it, the other was half silent, and the silent half was the one the first fight exists
+to teach. TAB: RUN, with the sound on, once a fight starts. Nothing to judge, nothing
+was cooked. ***
+
+Record: records/BOHEMIA_BEING_OFF_THE_BEAT_MAKES_A_SOUND_9_16_26.md
+Tool: tools/bohemia_being_off_the_beat_makes_a_sound.py (idempotent)
+Gate: gates/off_the_beat_heard_gate.py, registered as OFF THE BEAT HEARD, 12 passed 0 failed
+
+THE ROW WAS UNBLOCKED BY SOMEBODY ELSE'S CORRECTION, and rule 12 applied to my own
+held row. Last round this lane held [beat teaches] and wrote down why: EYES reported
+no fight in five minutes. EYES has since owned that report as wrong -- six rounds of
+its walk opened the committed demo file, which nobody is ever served -- and on the
+surface he plays a fight arrives at about 02:05, photographed, twice. COMBAT's number
+was right all along. The named blocker was gone, so the row was claimed and pushed
+before the work started.
+
+MEASURED INSIDE THE COMBAT FRAME, on a real encounter through the shell's own route,
+with tone(), drumV() and sfxAsk() all wrapped so the only countable thing is audio the
+frame really asked for.
+
+CLAIM ONE IS ALREADY TRUE AND COMBAT BUILT IT: 49 drum hits in six live seconds, a hat
+every beat and a kick naming beat one, measured three times across three different
+songs' kits (the kit comes from the song). NOTHING REBUILT.
+
+CLAIM TWO WAS HALF TRUE. Driving the fight's own cue once per grade band:
+    PERFECT   3 notes, root + fifth + octave, rising    peak 0.0939
+    GOOD      1 note,  root                             peak 0.0353
+    EARLY     NOTHING
+    LATE      NOTHING
+BEING ON THE BEAT SOUNDED LIKE SOMETHING AND BEING OFF IT SOUNDED LIKE NOTHING.
+
+AND NOTHING COVERED THE SWING THAT MATTERS MOST. There is a chain-break sound, and it
+cannot reach a beginner: the rule is (g|0)>0 && !(PERFECT||GOOD), so it needs a chain
+you already have. Measured both ways, broke(0,'EARLY') FALSE and broke(3,'EARLY') TRUE.
+A player's first press in their first fight is groove 0, so the exact moment this row
+exists for was the one moment guaranteed to be silent.
+
+THE FIX IS ONE BRANCH AND IT COOKS NOTHING: a short square buzz at the family's own
+root, where GOOD is a clean triangle ring, so the ladder reads three notes rising, one
+clean note, one short buzz. EARLY and LATE sound the same ON PURPOSE -- the metronome
+plays every beat, so the buzz lands audibly before or after a beat he can already hear,
+which is direction heard directly rather than a pitch code to memorise, and the screen
+prints the signed millisecond number besides.
+
+I REFUSED THE FREE REUSE AND THAT WAS THE RIGHT CALL. sndMiss() exists and already asks
+the parent for his approved miss_past (his 8/15 sweep, 5 of 5). It means THE STRIKE
+FOUND NOTHING TO HIT and its own comment says so. Being off the beat and missing a body
+are two facts, and one sound for both is a bug this lane already shipped and fixed once:
+8/22, QUESTSTING playing 'loss' when the player slept with a job unfinished, so GOING TO
+BED SOUNDED LIKE BEING BEATEN. REUSE-FIRST IS NOT REUSE-ANYTHING.
+
+*** AND MY OWN FIRST DESIGN WAS A SECOND SILENCE WEARING THE FIX'S CLOTHES. *** I wrote
+the cue as the root AN OCTAVE DOWN and quieter than GOOD, so a wrong press would read as
+the runt of the family. Measured, that note is 61.7 Hz at the shelf's low root and 82.4 Hz
+on a song a live fight actually drew. A phone barely reproduces either and rule 14 makes a
+phone the only measure of this game. THE FAMILY'S PITCH MOVES WITH THE SONG (123.5 Hz at
+root 45, 164.8 Hz and 523.3 Hz on two live fights), WHICH IS WHY THE WORST CASE IS THE ONE
+THAT COUNTS. The gate now carries a phone floor on the cue's pitch, checked against the
+LIVE root, so this cannot come back.
+
+AND A THIRD ROUND RUNNING WHERE A TOLERANCE OF MINE MEASURED MY INSTRUMENT. The gate's
+level claim first demanded the off-beat peak be at or above the GOOD peak and it failed by
+0.0003, which is 0.8% -- two different decay shapes sampled at 44.1 kHz do not land on the
+same peak sample. A TOLERANCE TIGHTER THAN THE INSTRUMENT'S RESOLUTION MEASURES THE
+INSTRUMENT. The peak now carries a stated 5% margin and the claim leans on ENERGY, where
+the square's harmonics put it clearly ahead (rms 0.00259 against 0.00211).
+
+TWO THINGS NAMED AND DELIBERATELY NOT TOUCHED, because the fight is COMBAT's lane and the
+row asks about a SWING. Both are for COMBAT, neither is a bounce-back this lane may file:
+  * THE MOVE VERB. Spending a step is graded too and calls the cue ONLY when the grade is
+    PERFECT, so an off-beat move is still silent and its chain-break has no sound at all
+    where the fire site's does.
+  * THE MIX. The metronome's own kick renders peak 0.2687, which is 7.6x the GOOD cue and
+    2.9x the PERFECT cue. The player's timing feedback is far quieter than the beat it is
+    judged against. That is a mix decision across the whole fight, so it is reported rather
+    than unilaterally re-levelled by this lane, and the new cue matches GOOD instead of
+    inventing a louder tier.
+
+UNHEARD BY A PERSON, said plainly: nobody has listened to this. The numbers say all four
+bands sound, the buzz is shorter and buzzier than the good note at the same pitch, and it
+carries more energy. Whether a player LEARNS the beat from it in a few presses is a thing
+only ears settle, and that is his five minutes.
+
+NEXT IN THIS LANE, in order: [enemy heard] YOU-HEAR-THEM-BEFORE-YOU-SEE-THEM (hostile
+bodies walk the street; a sound that arrives before they are on screen). Then [fight music]
+which stays OPEN with its premise already corrected in the board -- what it still wants is
+whether the fight's BED is the right pool at all, since combat draws from the 14 faction
+songs while the street draws creepers, and nobody has asked whether a gang's theme is what
+a random street scrap should sound like. Then [quiet floor] with EYES E12's gap list.
+CARRIED, recorded not acted on: THE GAPS IN THE HYMNAL peaks 25.6x the median on a CANON
+song, and MENU - LIGHTS ACROSS THE VALLEY peaks 1.064 (BURIED). Both loud defects named and
+not re-balanced, because a level is his.
+
 SOUND (sound-xk7pjp): 9/15 (c) LATEST -- *** A FIGHT STARTING MADE NO SOUND AT ALL.
 That is the sound half of PAOLO 9/15, "I don't even know how to engage in combat and
 when that shit starts." TAB: RUN, with the sound on, the moment a fight starts.
