@@ -15864,6 +15864,53 @@ since 9/6, it also holds 19 QUESTS (BUILD). The front page's chat-19 line says a
 chat with an empty queue takes QUESTS, and DYNASTY's queue went empty at Q16. The
 lane and its first row were claimed and pushed BEFORE any work started. ***
 
+ROUND 40 [light the pump] I STOPPED INSTEAD OF BUILDING, AND HERE IS WHY.
+QUESTS, BUILD. Claim HELD, not returned. No demo re-cut. No code shipped.
+  records/BOHEMIA_QUESTS_THE_FIRST_JOB_CANNOT_BE_THE_PUMP_ON_THIS_SEED_9_16_26.md
+
+The row (coordinator 9/15, from ECONOMY Q44): water is the valley's utility, one
+lit pump lifts all 18,524 L a day, ON ONE SEED IN THREE the valley boots with every
+pump dark, so the first job is walk to the dark pump and light it for one battery
+and the taps run. Minutes away not hours. Visible change: the water line.
+
+EVERYTHING IN IT IS TRUE AND IT STILL CANNOT BE BUILT. Three reasons, independent,
+each measured on the shipping build:
+
+1. THIS GAME HAS EXACTLY ONE SEED. const BOH_SEED_TEXT='bohemia', hashed, with a
+   gate (one_seed_gate) whose whole job is to stop it drifting. Demo and workshop
+   both boot 2691674296. "One seed in three" is true about seeds in general and
+   inapplicable here. On the one seed the water ALREADY RUNS: pumpstation 27 cells
+   away LIT, both watertreat LIT, and the three dark reservoirs are 38+ away, which
+   is the row's "hours" and not its "minutes". The city's own pumpStations() says
+   the same thing word for word.
+
+2. LIGHTING A DARK PLANT CHANGES NOTHING, AND THE MODULE SAYS SO ITSELF. Run
+   against the real six stations and 4,631 living: as it ships 18,524 L, all six
+   lit 18,524 L, LITRES GAINED ZERO, and the card's sentence is identical before
+   and after ("The pumps are running. MOB hold the water."). That is rule 14(d) by
+   construction, and it would be REFUSED BY THIS LANE'S OWN FIRST GATE -- offer()
+   throws away any candidate that cannot name a visible change. I would have had to
+   defeat my own law to ship it.
+
+3. AND ITS VISIBLE CHANGE IS ON A CARD HE NEVER REACHES IN FIVE MINUTES. The water
+   line renders from PUMPS_TONIGHT, set at NIGHTFALL. The break this row exists to
+   fix is the first five minutes; nightfall is not in them.
+
+WHAT IS TRUE AND COULD CARRY A FIRST JOB (measured, offered, NOT built, because
+choosing is a ruling and rule 10 says lanes do not add jobs):
+  a. ONE FACTION HOLDS EVERYBODY'S WATER -- all three running plants are the MOB's
+     on this seed, and the night card already says it.
+  b. THE WATER IS ONE UNPAID BILL FROM STOPPING -- [lights bill] already darkens a
+     circuit nobody pays for and pumpStations() already ties a plant to the street
+     it fronts, so the card really flips to "All pump stations are dark". Stakes
+     and a real visible change, where lighting a spare reservoir has neither.
+  c. OR KEEP THE ROW and change one of its premises: a seed where the near pump is
+     dark, or the water line surfaced where a five-minute player sees it.
+
+THE CLAIM IS HELD SO THE ROW HAS AN OWNER THE MOMENT IT IS RE-POINTED. This is the
+STOP PRODUCING law doing its job rather than a lane going quiet: "a turn that says
+I stopped, here is the one thing blocking everything, is a GOOD turn."
+
 ROUND 39 *** I OVERSTATED LAST ROUND'S LESSON AND I AM CORRECTING IT, INCLUDING
 THE PART I AIMED AT EVERY LANE. *** QUESTS, BUILD. No demo re-cut.
 
