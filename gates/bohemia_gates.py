@@ -1677,6 +1677,19 @@ GATES = [
      'source text, the iOS meta tags, the durable-storage request, and that the seven-day '
      'sentence is true in a tab and gone on the home screen. Mutation: point the demo back at '
      'the workshop manifest -> 4 red', True),
+    ('DOOR WAITS',     ['node', 'gates/the_door_waits_gate.js'],
+     'VAMILY [loading screen]: PAOLO 9/8 "we seriously need a loading screen... all the loading '
+     'shit that you might need to do, handle it, it is so awkward looking", and 9/15 "not running '
+     'as smoothly as I would like, maybe it is cause things are loading in real time". MEASURED ON '
+     'A PHONE-SPEED CPU: the door said TAP TO ENTER at 0.4 s with two files loaded, THE FIRST TAP '
+     'DID NOTHING because the click listener had not parsed, and it was 85.9 s from the door to a '
+     'world where a person could be talked to. The door now reads a WAITING line until the entry '
+     'is really wired. This gate holds the half that shipped and deliberately does NOT assert the '
+     'eighty seconds after the tap, which are the rest of the row and are not done. It checks the '
+     'MARKUP as well as the behaviour, because the first cut guarded the painter and changed '
+     'nothing: the invitation is in the document before one byte of script runs. MUTATION: put '
+     'TAP TO ENTER back in the markup -> 4 red, and the one-tap leg independently reproduces the '
+     'dead first press.', False),
     ('SPAWN HOME',     ['node', 'gates/spawn_home_gate.js'],
      'VAMILY [spawn home]: PAOLO 9/15, after playing the cut -- "it keeps spawning me in the '
      'middle of some freeway, street shit for no purpose." MEASURED ON THE GLASS: the map said '
