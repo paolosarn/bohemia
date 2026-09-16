@@ -1378,7 +1378,12 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        THE BOX everywhere else, with his artwork as the fill. -->
   <div id="logoplate"><canvas id="logobig" width="640" height="170"></canvas></div>
   <div id="frontsub">POST-ECONOMIC APOCALYPSE - LAS VEGAS</div>
-  <div id="fronttap">TAP TO ENTER</div>
+  <!-- __ONE_SCREEN_HOLDS_ALL_THE_LOADING__ -- THE MARKUP ITSELF USED TO MAKE THE
+       PROMISE, which is why guarding the painter was not enough: this line is in the
+       document before one byte of script runs, so the door offered at 0.5 s no matter
+       what the painter thought. It ships as the WAITING line now and the painter
+       turns it into the invitation once the entry is really wired. -->
+  <div id="fronttap">ONE MOMENT</div>
   <!-- __IT_GOES_ON_HIS_HOME_SCREEN__ -- THE STORAGE SPLIT, SAID OUT LOUD INSTEAD
        OF LOOKING LIKE A WIPED SAVE. iOS gives a home-screen web app its OWN
        storage bucket: localStorage, cookies and the service worker are NOT shared
@@ -1423,6 +1428,31 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
    Words are attempts, draft:true. */
 (function(){
   var TAP = 'TAP TO ENTER';
+  /* *** THE DOOR USED TO OFFER SOMETHING IT COULD NOT HONOUR (9/16, RUN,
+     VAMILY [loading screen]). ***
+     PAOLO 9/8, LOCKED: "we seriously need a loading screen. It's bullshit when I go
+     in the demo, all the loading shit that you might need to do, handle it, it's so
+     awkward looking." And 9/15, after playing: "it's kinda not running as smoothly
+     as I would like, maybe it's cause things are loading in real time."
+     MEASURED ON A PHONE-SPEED CPU (4x throttle, the one driver's own profile),
+     tapping once a second from the moment the door offered:
+         0.4 s   THE DOOR SAYS TAP TO ENTER          <- two files loaded
+         4.6 s   the door finally opens, AFTER TWO TAPS -- THE FIRST TAP DID NOTHING
+        51.5 s   the walked world has a clock
+        78.3 s   the city has drawn a frame
+        85.9 s   a person can be talked to
+     EIGHTY-FIVE SECONDS from the door opening to a game, and the invitation was on
+     screen four tenths of a second in. The first tap does nothing because the
+     listener has not parsed yet, and that is his own sentence from another round --
+     "one button, ready to go, I press it, nothing happens" -- landing on the FIRST
+     BUTTON OF THE GAME.
+     SO THE DOOR WAITS. It says what is happening until the entry is actually wired,
+     and only then does it offer. This is the smallest half of his ruling ("the front
+     door appears only when the game is actually ready to be played") and it costs
+     nothing: the wait was always there, it was just being spent on a lie. Pulling
+     the other eighty seconds behind this screen is the same row and is not done
+     here, and the record says so. */
+  var WARMING = 'ONE MOMENT';
   function clock(min){
     var m = Math.max(0, min|0), h = Math.floor(m/60)%24, r = m%60;
     return (h<10?'0':'')+h+':'+(r<10?'0':'')+r;
@@ -1444,6 +1474,11 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
     var el = document.getElementById('fronttap');
     if(!el) return;
     var w = waiting();
+    /* NOT READY IS NOT AN INVITATION. */
+    if(!window.__DOOR_WIRED){
+      if(el.textContent !== WARMING) el.textContent = WARMING;
+      return;
+    }
     var want = w
       ? ('CONTINUE · DAY ' + w.day + (w.min===null ? '' : ' · ' + clock(w.min)))
       : TAP;
@@ -10849,6 +10884,9 @@ function drawLogoBig(){
   }
   decide();
 })();
+/* __ONE_SCREEN_HOLDS_ALL_THE_LOADING__ -- THE DOOR IS WIRED FROM HERE DOWN, and
+   the splash above watches this flag before it offers to be tapped. Set on the line
+   AFTER the listener exists, so it can never be true while a tap would fall through. */
 document.getElementById('front').addEventListener('click',()=>{
   /* __THE_BEAT_BEFORE_THE_SONG__ -- FIRST LINE, ON PURPOSE. Everything
      below this builds the city iframe, and that build blocks the main
@@ -10881,6 +10919,7 @@ document.getElementById('front').addEventListener('click',()=>{
      the game silence its own opening one line later. */
   try{ if(window.MENUMUS)MENUMUS.open(); }catch(_e){}
 });
+window.__DOOR_WIRED = 1;   /* __ONE_SCREEN_HOLDS_ALL_THE_LOADING__ */
 /* ===== V134 WARM THE FIGHT, RE-LANDED SAFELY =====================
    Paolo 8/8: "re-land the handoff warming without the stale-clothing bug (first
    fight can't stall)."
