@@ -24739,6 +24739,73 @@ a memory reset. HE WILL NEVER TYPE ANYTHING BUT THE ONE WORD AGAIN. ***
     I will never paste anything to you again. From here on, the one word is the whole
     instruction.
 
+*** [eyes: dev strip] THE-FIGHT-SHIPS-WITH-THE-DEVELOPERS-CONTROL-STRIP-ON-IT. V220. SHIPPED. ***
+EYES E26 round 7 walked THE DEPLOY CUT (what he opens, not the committed demo), reproduced it on
+two walks and PHOTOGRAPHED it (records/eyes_e26_walk_deploy/04_04_cards.png): a real fight at
+about 02:05 with WAIT, SUPPRESS, HAND-PEEK: OFF, NEW ENCOUNTER across the top, above the health
+bar, and the gear's chip pushed off the corner reading "TTINGS". PAOLO 9/13: "this glitchy buggy
+AI experience where nothing's complete." THE FIRST FIGHT IN THE GAME ARRIVED WITH THE TOOLS USED
+TO BUILD IT LEFT ON SCREEN. Measured: #chud was 181 px of an 890 px viewport, A FIFTH OF HIS
+SCREEN, all of it above the board.
+
+THE ROW SAYS FOUR OF FIVE DO NOTHING WHEN PRESSED. MEASURED IN A REAL FIGHT UNDER THE RULE 14(h)
+TEST, EVERY ONE OF THEM ACTS: WAIT -> "STEADY +5%", SUPPRESS -> "PINNED 1", HAND-PEEK flips its
+label, NEW ENCOUNTER RESTARTS THE FIGHT HE IS IN, ARENA RE-ROLLS THE GROUND UNDER HIM. They are
+not dead buttons, they are LIVE DEVELOPER CONTROLS OVER A STRANGER'S FIGHT, which is worse.
+
+*** AND I GOT THE LIST WRONG TWICE, BOTH TIMES THE SAME WAY, AND OTHER LANES WILL HIT IT. ***
+My probe reported WAGER, PATTERN, the kit row and STAIRS with a bounding box of [0,0,0,0], and I
+published two sentences off it: that WAGER WAS DEAD, and then that THE STRIP WAS SO OVERLOADED IT
+CLIPPED ITS OWN CONTROLS OFF THE SCREEN. BOTH FALSE. getComputedStyle(el).display CANNOT SEE A
+HIDDEN ANCESTOR -- a node under a display:none parent keeps its own display value -- so "inside
+the closed settings panel" and "clipped off the screen" read identically. Asked with offsetParent
+and getClientRects, on clean main, in a real fight:
+    ON HIS SCREEN   WAIT, SUPPRESS, the kit row, SHOVE, HAND-PEEK, NEW ENCOUNTER, ARENA
+    ALREADY NOT     the comment box, WAGER, PATTERN, the perk tree, STAIRS
+WHICH IS EXACTLY WHAT EYES PHOTOGRAPHED. The picture was right and my instrument was wrong. The
+list is THREE, not six. ANY CHECK OF "IS THIS ON HIS SCREEN" WANTS offsetParent, and so does rule
+14(h)'s panel test.
+
+WHAT SHIPPED, AND IT IS THE MOVE HE HAS ALREADY MADE FIVE TIMES HIMSELF. The top row's own
+comments are a history of him clearing it: DASH and VAULT (V122, "I never use them"), SPRINT
+(V123, "I NEED YOU TO HAVE SPRINT OFF THE TOP MENU BC ITS IN THE GAMEPLAY UI NOW"), GRENADE
+(V124, "bro i needed you to get rid of the grenade button too bro wtf"), the stamina pips (V129).
+Every time the FUNCTION was kept and the BUTTON moved. This is the sixth: HAND-PEEK, NEW
+ENCOUNTER and ARENA move into the workshop panel he already has, the gear, whose own heading is
+DEMO SETTINGS and which already holds FOES, RESET FIGHT, THE OPEN BOOK, the tile dials, the boss
+list and (it turns out) the comment box, WAGER and PATTERN.
+MOVED, NOT REWIRED: appendChild moves a live node AND ITS LISTENERS, so no handler is re-bound,
+nothing is duplicated, there is no second copy to drift, and nothing is deleted. What stays on
+the strip is the game: WAIT, SUPPRESS, the kit charges, the perk tree, SHOVE, STAIRS.
+
+*** AND THE LAST DEVELOPER STRING ON HIS SCREEN WAS THE MAN'S NAME. *** With the strip cleared,
+the one control left up there read SHOVE hostile_0 (stun 1 - 30%). A variable name on a button a
+stranger presses. It was invented in ONE place: the door fabricated a name for every man the city
+sent (name: r.name || ('hostile_'+i)), while applyRoster's own rule is `if(r.name)e.n=r.name` --
+it only overrides when a name EXISTS. So the fallback was overwriting THE ARCHETYPE'S OWN WORD
+(SHIV, MEDIC, SNIPER, BREACHER, GOON, which the bench has always shown) with an id. Removing it
+hands the display name back to the table that already has one. NOTHING INVENTED, NOTHING RULED:
+who these people ARE is canon and still his, eid is untouched so identity does not move, and this
+DELETES a made-up string rather than adding one. The button reads SHOVE GOON now.
+
+gates/dev_strip_gate.js 9/0. It starts a real fight by tapping a body and asks TWO questions that
+must both be true, because either alone is a way to cheat: is the workshop off his screen, AND
+does every one of those controls still work -- a gate that only asked the first would pass if I
+DELETED them. Strip 181 px -> 111 px; the three not on screen but all three still existing; all
+three reachable behind the gear and each still acting when pressed; and what he can read is
+SETTINGS, YOU, 100/100, WAIT, SUPPRESS, SHOVE GOON (stun 1 - 30%), WAY OUT 4T, out on the block.
+MUTATION-PROVED THREE WAYS: skip the move -> four arms red; DELETE them instead of moving -> the
+"none deleted" arm red and the screen arm reports 'absent' rather than passing; put the
+fabricated name back -> the developer-string arm red on SHOVE hostile_0.
+PRE-PUSH PASS: dev_strip 9/0, house_rulers 13/0, house_board 17/0, the_rout 11/0, first_fight
+11/0, you_can_start_it 19/0, plate_costs_tape 15/0, pickup 9/0, save_before_the_bell 8/0,
+combat_lab 929/3 (its three reds pre-date this).
+
+ROUTED: [FOR RUN] the COLD OPEN still fabricates names -- slices/BOHEMIA_ALPHA_0_9.html builds its
+cold-open roster with name:'hostile_'+i explicitly. That scene is RUN's, so the line is named
+here rather than changed.
+Record: records/BOHEMIA_COMBAT_THE_WORKSHOP_COMES_OFF_THE_FIGHT_9_16_26.md  Build stamp 9/16d.
+
 *** [house board] FOLLOW-UP. V219 -- THE RULERS READ THE BOARD. SHIPPED. ***
 STANDING DUTY 8 ON MY OWN SHIPPED LINE: PLAY IT. V218 turned the house board on and I proved it
 in NUMBERS. This round I started a fight the way he starts one and PHOTOGRAPHED IT, and the
@@ -25309,7 +25376,7 @@ ROUTED, NOT MINE TO FIX: EYES item 1 measured that THE FONT FIX IS REAL AND IS N
 carries 42 and 2 and none. Same for V216 and for everything six lanes shipped. Under rule 14(a) ONLY
 RUN RE-CUTS THE DEMO, so all of it is one cut away from the surface he actually opens.
 
-QUEUE STATE: [house board], [start a fight], [prefight save], [first fight], [enemies flee] AND [plates cost] ARE SHIPPED. [loot kept], [guns close] and [rescue her] are all SHIPPED (efd64c7 carries
+QUEUE STATE: [eyes: dev strip], [house board], [start a fight], [prefight save], [first fight], [enemies flee] AND [plates cost] ARE SHIPPED. [loot kept], [guns close] and [rescue her] are all SHIPPED (efd64c7 carries
 [guns close] and the key-guard fix; every sha read off main after the push). THE NEXT OPEN LINE IN
 THIS SECTION IS [armour morale] ARMOUR-AND-MORALE, but rule 14 may put another of his breaks first:
 re-read the front page before claiming.
