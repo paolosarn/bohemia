@@ -3546,3 +3546,61 @@ YYYYYYY3 somebody who will not ask for it back draft:true
   correction to a record, not material for a person to say.
 - Spanish register: 1 of 16 lines, 6%, under the 15% he set on 8/26. One word
   inside an English sentence, not respelled, counted while written.
+
+## RRRRRRRRR. SOMEBODY WAKES YOU
+## (round 45, fact one. In every real account the news arrives in a MOUTH: a mother
+##  at seven, a neighbour at a window. Never a notice and never a number.)
+
+- RRRRRRRRR1 `draft:true` — "Up. You're already behind." (the whole first fact in
+  five words. VOICE CARD: nine words then two is the cap and this is under it,
+  because somebody waking you does not make speeches.)
+- RRRRRRRRR2 `draft:true` — "I'm not going to say it twice, so." (the trailing
+  "so" is the fumble and it is what impatience actually sounds like.)
+- RRRRRRRRR3 `draft:true` — "Don't ask me how I know. Get your shoes." (nobody in
+  Bohemia is wise, so the one who knows refuses to explain and is right to.)
+- RRRRRRRRR4 `draft:true` — "Ya, everybody knows. You were asleep." (Spanish
+  register, one word, and the second sentence is the whole feeling of being late.)
+
+## SSSSSSSSS. YOU PAT YOUR POCKET AND IT IS SHORT
+## (round 45, fact two. Beirut: parents patting empty wallets for the fare, and the
+##  driver was short too. A refusal, felt, never a price read off a card.)
+
+- SSSSSSSSS1 `draft:true` — "That's not going to be enough. I know, I checked
+  mine." (the failure and the company in one breath, which is the beat.)
+- SSSSSSSSS2 `draft:true` — "Check again. Check properly." (contract it: the cut
+  sentence said "because I did the same thing".)
+- SSSSSSSSS3 `draft:true` — "It was enough on Thursday." (six words and a whole
+  collapse, with no number in it.)
+- SSSSSSSSS4 `draft:true` — "Everybody's doing that this morning. Patting
+  themselves down." (the gesture named by somebody watching a street do it.)
+
+## TTTTTTTTT. THEY WERE THERE BEFORE YOU WOKE UP
+## (round 45, fact three. Caracas: queues at four in the morning, six blocks. You
+##  do not learn what to do, you learn WHERE EVERYBODY ALREADY IS.)
+
+- TTTTTTTTT1 `draft:true` — "It goes round the corner. It's been going round the
+  corner since four." (the line, and the time is the punch.)
+- TTTTTTTTT2 `draft:true` — "You want the end of it. The end is that way."
+  (a direction given without a single instruction in it.)
+- TTTTTTTTT3 `draft:true` — "I don't know what they're waiting for either. I'm
+  waiting anyway." (somebody fumbles, and the honesty is the characterisation.)
+- TTTTTTTTT4 `draft:true` — "Walk up and look. Then decide." (the last line of
+  the section, and it hands the player the verb instead of the answer.)
+
+## UUUUUUUUU. WHAT IS NOT HERE, ON PURPOSE (round 45)
+
+- No line contains a number, a price, a time in figures or a count. The three facts
+  are a person, a failure and a place, and not one of them is a quantity.
+- No line explains what happened to the money, the banks or the country. In all
+  three real accounts NOBODY IS TOLD ANYTHING in the first minute, and a bank line
+  that explained would be arguing with the record it came from.
+- No line uses the words crash, collapse, crisis, queue, shortage or economy.
+- No line names a faction, a street or a town. MAP LAW.
+- No line decides who the person is, which guard gets lifted, or what the pocket
+  failure is. Those are the things section 4 refused.
+- No line has the player speaking. All three facts arrive AT him, which is the
+  whole shape of the round.
+- No line makes him special. RRRRRRRRR4 is the bank saying out loud that he is the
+  last one to find out, because that is what every account describes.
+- Spanish register: 1 of 16 lines, 6%, under the 15% he set on 8/26. One word
+  inside an English sentence, not respelled, counted while written.
