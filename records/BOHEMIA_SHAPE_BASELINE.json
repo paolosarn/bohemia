@@ -1,0 +1,1652 @@
+{
+ "why": "first freeze: STRUCTURE-NOT-COLOR had no gate over the wardrobe",
+ "record": "records/BOHEMIA_THE_SHAPE_IS_FROZEN_9_16_26.md",
+ "baked": "2026-09-16",
+ "note": "THE OPAQUE MASK ONLY. Colour is thrown away, so a ramp change is invisible here and a shape change cannot hide behind one. Re-bake only with tools/bohemia_freeze_the_silhouettes.js, which refuses without a reason and a record.",
+ "garments": {
+  "TEMPLE TAPER": [
+   "f5dbfcec",
+   2860,
+   "hair"
+  ],
+  "SHAG": [
+   "c1891844",
+   2932,
+   "hair"
+  ],
+  "ROPE LOCKS": [
+   "e814890",
+   2894,
+   "hair"
+  ],
+  "SHORT ROPES": [
+   "d8e7add6",
+   2848,
+   "hair"
+  ],
+  "DUST WEAVE": [
+   "9dcb61b6",
+   2869,
+   "hair"
+  ],
+  "COIL CROWN": [
+   "ec71f956",
+   2966,
+   "hair"
+  ],
+  "LAYERED FALL": [
+   "b8128aae",
+   2951,
+   "hair"
+  ],
+  "CURTAIN CUT": [
+   "fdf1763f",
+   2859,
+   "hair"
+  ],
+  "HEAVY FRINGE": [
+   "ba86409",
+   2889,
+   "hair"
+  ],
+  "DRY TAPER": [
+   "a70e502d",
+   2878,
+   "hair"
+  ],
+  "DEEP TAPER": [
+   "8a0f3353",
+   2876,
+   "hair"
+  ],
+  "RED SHIRT": [
+   "60e55b6a",
+   2833,
+   "base"
+  ],
+  "WHITE TEE": [
+   "60e55b6a",
+   2833,
+   "base"
+  ],
+  "BLACK TANK": [
+   "60e55b6a",
+   2833,
+   "base"
+  ],
+  "GREEN FLANNEL": [
+   "60e55b6a",
+   2833,
+   "base"
+  ],
+  "SCAVENGER FLANNEL": [
+   "60e55b6a",
+   2833,
+   "base"
+  ],
+  "BONE HENLEY": [
+   "60e55b6a",
+   2833,
+   "base"
+  ],
+  "PATINA WORK SHIRT": [
+   "60e55b6a",
+   2833,
+   "base"
+  ],
+  "SOOT TANK": [
+   "60e55b6a",
+   2833,
+   "base"
+  ],
+  "BLUE JEANS": [
+   "60e55b6a",
+   2833,
+   "legs"
+  ],
+  "BLACK CARGOS": [
+   "60e55b6a",
+   2833,
+   "legs"
+  ],
+  "GREY SWEATS": [
+   "60e55b6a",
+   2833,
+   "legs"
+  ],
+  "DUST TROUSERS": [
+   "60e55b6a",
+   2833,
+   "legs"
+  ],
+  "PATCHED WORK PANTS": [
+   "60e55b6a",
+   2833,
+   "legs"
+  ],
+  "SOOT CARGOS": [
+   "60e55b6a",
+   2833,
+   "legs"
+  ],
+  "WHITE SNEAKERS": [
+   "60e55b6a",
+   2833,
+   "feet"
+  ],
+  "BROWN BOOTS": [
+   "60e55b6a",
+   2833,
+   "feet"
+  ],
+  "WRAPPED BOOTS": [
+   "60e55b6a",
+   2833,
+   "feet"
+  ],
+  "SANDWALKERS": [
+   "60e55b6a",
+   2833,
+   "feet"
+  ],
+  "WASTELAND DUSTER": [
+   "f113e93d",
+   2975,
+   "outer"
+  ],
+  "SOOT TRENCH": [
+   "15060155",
+   2985,
+   "outer"
+  ],
+  "DRIFTER'S COAT": [
+   "8036b377",
+   2963,
+   "outer"
+  ],
+  "RANGER LONGCOAT": [
+   "f113e93d",
+   2975,
+   "outer"
+  ],
+  "OLIVE DRAB TEE": [
+   "60e55b6a",
+   2833,
+   "base"
+  ],
+  "FADED BLACK LONGSLEEVE": [
+   "60e55b6a",
+   2833,
+   "base"
+  ],
+  "BRICK HENLEY": [
+   "60e55b6a",
+   2833,
+   "base"
+  ],
+  "SAGE FLANNEL": [
+   "60e55b6a",
+   2833,
+   "base"
+  ],
+  "STEEL WORK SHIRT": [
+   "60e55b6a",
+   2833,
+   "base"
+  ],
+  "BLACK DENIM": [
+   "60e55b6a",
+   2833,
+   "legs"
+  ],
+  "OLIVE PANTS": [
+   "60e55b6a",
+   2833,
+   "legs"
+  ],
+  "KHAKI CARGOS": [
+   "60e55b6a",
+   2833,
+   "legs"
+  ],
+  "SLATE WORK PANTS": [
+   "60e55b6a",
+   2833,
+   "legs"
+  ],
+  "RED CLAY BOOTS": [
+   "60e55b6a",
+   2833,
+   "feet"
+  ],
+  "GREY SNEAKERS": [
+   "60e55b6a",
+   2833,
+   "feet"
+  ],
+  "OXBLOOD BOOTS": [
+   "60e55b6a",
+   2833,
+   "feet"
+  ],
+  "FIELD GREEN COAT": [
+   "8036b377",
+   2963,
+   "outer"
+  ],
+  "DUST BROWN TRENCH": [
+   "15060155",
+   2985,
+   "outer"
+  ],
+  "STORM GREY LONGCOAT": [
+   "f113e93d",
+   2975,
+   "outer"
+  ],
+  "LEATHER VEST": [
+   "60e55b6a",
+   2833,
+   "outer"
+  ],
+  "TACTICAL VEST": [
+   "60e55b6a",
+   2833,
+   "outer"
+  ],
+  "QUILTED VEST": [
+   "60e55b6a",
+   2833,
+   "outer"
+  ],
+  "RED PLAID FLANNEL": [
+   "60e55b6a",
+   2833,
+   "base"
+  ],
+  "FOREST PLAID FLANNEL": [
+   "60e55b6a",
+   2833,
+   "base"
+  ],
+  "STRIPED TEE": [
+   "60e55b6a",
+   2833,
+   "base"
+  ],
+  "RUST HENLEY": [
+   "60e55b6a",
+   2833,
+   "base"
+  ],
+  "KHAKI BUTTON-UP": [
+   "60e55b6a",
+   2833,
+   "base"
+  ],
+  "SLATE SHORT-SLEEVE": [
+   "60e55b6a",
+   2833,
+   "base"
+  ],
+  "SAGE STRIPED HENLEY": [
+   "60e55b6a",
+   2833,
+   "base"
+  ],
+  "DUST PLAID SHIRT": [
+   "60e55b6a",
+   2833,
+   "base"
+  ],
+  "ASH HOODIE": [
+   "60e55b6a",
+   2833,
+   "base"
+  ],
+  "COAL HOODIE": [
+   "60e55b6a",
+   2833,
+   "base"
+  ],
+  "OLIVE HOODIE": [
+   "60e55b6a",
+   2833,
+   "base"
+  ],
+  "CHINESE RICE FARMER HAT": [
+   "84e2f662",
+   2889,
+   "head"
+  ],
+  "CHARCOAL WATCH CAP": [
+   "41c775a2",
+   2861,
+   "head"
+  ],
+  "RUST WATCH CAP": [
+   "41c775a2",
+   2861,
+   "head"
+  ],
+  "OLIVE FIELD CAP": [
+   "9d53fdba",
+   2873,
+   "head"
+  ],
+  "STORM KNIT CAP": [
+   "b8bb19af",
+   2895,
+   "head"
+  ],
+  "SAND KNIT CAP": [
+   "b8bb19af",
+   2895,
+   "head"
+  ],
+  "SLATE WORK CAP": [
+   "c6cf2827",
+   2907,
+   "head"
+  ],
+  "DUST SCARF": [
+   "60e55b6a",
+   2833,
+   "neck"
+  ],
+  "OXBLOOD SCARF": [
+   "60e55b6a",
+   2833,
+   "neck"
+  ],
+  "BONE DUST MASK": [
+   "60e55b6a",
+   2833,
+   "face"
+  ],
+  "OXBLOOD DUST MASK": [
+   "60e55b6a",
+   2833,
+   "face"
+  ],
+  "LEATHER GLOVES": [
+   "60e55b6a",
+   2833,
+   "hands"
+  ],
+  "SOOT GLOVES": [
+   "60e55b6a",
+   2833,
+   "hands"
+  ],
+  "LEATHER BELT": [
+   "60e55b6a",
+   2833,
+   "waist"
+  ],
+  "WRAPAROUND SHADES": [
+   "60e55b6a",
+   2833,
+   "face"
+  ],
+  "CHARCOAL TURTLENECK": [
+   "60e55b6a",
+   2833,
+   "base"
+  ],
+  "BONE TURTLENECK": [
+   "60e55b6a",
+   2833,
+   "base"
+  ],
+  "CUTOFF DENIM SHORTS": [
+   "60e55b6a",
+   2833,
+   "legs"
+  ],
+  "OLIVE SHORTS": [
+   "60e55b6a",
+   2833,
+   "legs"
+  ],
+  "OXBLOOD SLOUCH BEANIE": [
+   "b8bb19af",
+   2895,
+   "head"
+  ],
+  "SLATE PLAID FLANNEL": [
+   "60e55b6a",
+   2833,
+   "base"
+  ],
+  "SAND HOODIE": [
+   "60e55b6a",
+   2833,
+   "base"
+  ],
+  "RUST STRIPED TEE": [
+   "60e55b6a",
+   2833,
+   "base"
+  ],
+  "DENIM VEST": [
+   "60e55b6a",
+   2833,
+   "outer"
+  ],
+  "SLATE SNEAKERS": [
+   "60e55b6a",
+   2833,
+   "feet"
+  ],
+  "PATINA SCARF": [
+   "60e55b6a",
+   2833,
+   "neck"
+  ],
+  "CHARCOAL DUST MASK": [
+   "60e55b6a",
+   2833,
+   "face"
+  ],
+  "OXBLOOD PLAID FLANNEL": [
+   "60e55b6a",
+   2833,
+   "base"
+  ],
+  "STEEL PLAID FLANNEL": [
+   "60e55b6a",
+   2833,
+   "base"
+  ],
+  "PATINA PLAID FLANNEL": [
+   "60e55b6a",
+   2833,
+   "base"
+  ],
+  "RUST HOODIE": [
+   "60e55b6a",
+   2833,
+   "base"
+  ],
+  "BRICK HOODIE": [
+   "60e55b6a",
+   2833,
+   "base"
+  ],
+  "STEEL HOODIE": [
+   "60e55b6a",
+   2833,
+   "base"
+  ],
+  "SAGE HOODIE": [
+   "60e55b6a",
+   2833,
+   "base"
+  ],
+  "OLIVE HENLEY": [
+   "60e55b6a",
+   2833,
+   "base"
+  ],
+  "STORM HENLEY": [
+   "60e55b6a",
+   2833,
+   "base"
+  ],
+  "SLATE HENLEY": [
+   "60e55b6a",
+   2833,
+   "base"
+  ],
+  "BRICK TEE": [
+   "60e55b6a",
+   2833,
+   "base"
+  ],
+  "SAGE TEE": [
+   "60e55b6a",
+   2833,
+   "base"
+  ],
+  "FIELD GREEN TEE": [
+   "60e55b6a",
+   2833,
+   "base"
+  ],
+  "STORM GREY TEE": [
+   "60e55b6a",
+   2833,
+   "base"
+  ],
+  "BONE TANK": [
+   "60e55b6a",
+   2833,
+   "base"
+  ],
+  "OLIVE TANK": [
+   "60e55b6a",
+   2833,
+   "base"
+  ],
+  "RUST TANK": [
+   "60e55b6a",
+   2833,
+   "base"
+  ],
+  "STEEL STRIPED TEE": [
+   "60e55b6a",
+   2833,
+   "base"
+  ],
+  "CHARCOAL STRIPED TEE": [
+   "60e55b6a",
+   2833,
+   "base"
+  ],
+  "BONE BUTTON-UP": [
+   "60e55b6a",
+   2833,
+   "base"
+  ],
+  "FIELD BUTTON-UP": [
+   "60e55b6a",
+   2833,
+   "base"
+  ],
+  "STORM BUTTON-UP": [
+   "60e55b6a",
+   2833,
+   "base"
+  ],
+  "OLIVE TURTLENECK": [
+   "60e55b6a",
+   2833,
+   "base"
+  ],
+  "STORM TURTLENECK": [
+   "60e55b6a",
+   2833,
+   "base"
+  ],
+  "FIELD GREEN PANTS": [
+   "60e55b6a",
+   2833,
+   "legs"
+  ],
+  "STORM GREY SWEATS": [
+   "60e55b6a",
+   2833,
+   "legs"
+  ],
+  "BONE WORK PANTS": [
+   "60e55b6a",
+   2833,
+   "legs"
+  ],
+  "RUST CARGOS": [
+   "60e55b6a",
+   2833,
+   "legs"
+  ],
+  "SAGE TROUSERS": [
+   "60e55b6a",
+   2833,
+   "legs"
+  ],
+  "STEEL BLUE JEANS": [
+   "60e55b6a",
+   2833,
+   "legs"
+  ],
+  "DUST BROWN TROUSERS": [
+   "60e55b6a",
+   2833,
+   "legs"
+  ],
+  "KHAKI SHORTS": [
+   "60e55b6a",
+   2833,
+   "legs"
+  ],
+  "CHARCOAL SHORTS": [
+   "60e55b6a",
+   2833,
+   "legs"
+  ],
+  "BONE SNEAKERS": [
+   "60e55b6a",
+   2833,
+   "feet"
+  ],
+  "OLIVE BOOTS": [
+   "60e55b6a",
+   2833,
+   "feet"
+  ],
+  "STEEL SNEAKERS": [
+   "60e55b6a",
+   2833,
+   "feet"
+  ],
+  "DUST BROWN BOOTS": [
+   "60e55b6a",
+   2833,
+   "feet"
+  ],
+  "FIELD BOOTS": [
+   "60e55b6a",
+   2833,
+   "feet"
+  ],
+  "RUST BOOTS": [
+   "60e55b6a",
+   2833,
+   "feet"
+  ],
+  "SAGE FIELD COAT": [
+   "8036b377",
+   2963,
+   "outer"
+  ],
+  "SLATE TRENCH": [
+   "15060155",
+   2985,
+   "outer"
+  ],
+  "BONE DUSTER": [
+   "f113e93d",
+   2975,
+   "outer"
+  ],
+  "BRICK LONGCOAT": [
+   "f113e93d",
+   2975,
+   "outer"
+  ],
+  "KHAKI DUSTER": [
+   "f113e93d",
+   2975,
+   "outer"
+  ],
+  "STORM VEST": [
+   "60e55b6a",
+   2833,
+   "outer"
+  ],
+  "OLIVE VEST": [
+   "60e55b6a",
+   2833,
+   "outer"
+  ],
+  "RUST VEST": [
+   "60e55b6a",
+   2833,
+   "outer"
+  ],
+  "BONE KNIT CAP": [
+   "b8bb19af",
+   2895,
+   "head"
+  ],
+  "OLIVE KNIT CAP": [
+   "b8bb19af",
+   2895,
+   "head"
+  ],
+  "BRICK WATCH CAP": [
+   "41c775a2",
+   2861,
+   "head"
+  ],
+  "PATINA FIELD CAP": [
+   "c6cf2827",
+   2907,
+   "head"
+  ],
+  "DUST WORK CAP": [
+   "c6cf2827",
+   2907,
+   "head"
+  ],
+  "STORM SLOUCH BEANIE": [
+   "b8bb19af",
+   2895,
+   "head"
+  ],
+  "KHAKI SLOUCH BEANIE": [
+   "b8bb19af",
+   2895,
+   "head"
+  ],
+  "CHARCOAL SCARF": [
+   "60e55b6a",
+   2833,
+   "neck"
+  ],
+  "SAGE SCARF": [
+   "60e55b6a",
+   2833,
+   "neck"
+  ],
+  "BONE SCARF": [
+   "60e55b6a",
+   2833,
+   "neck"
+  ],
+  "OLIVE DUST MASK": [
+   "60e55b6a",
+   2833,
+   "face"
+  ],
+  "RUST DUST MASK": [
+   "60e55b6a",
+   2833,
+   "face"
+  ],
+  "DUST GLOVES": [
+   "60e55b6a",
+   2833,
+   "hands"
+  ],
+  "OXBLOOD GLOVES": [
+   "60e55b6a",
+   2833,
+   "hands"
+  ],
+  "CHARCOAL BELT": [
+   "60e55b6a",
+   2833,
+   "waist"
+  ],
+  "GREY WRAPAROUNDS": [
+   "60e55b6a",
+   2833,
+   "face"
+  ],
+  "DENIM JACKET": [
+   "60e55b6a",
+   2833,
+   "outer"
+  ],
+  "FIELD JACKET": [
+   "60e55b6a",
+   2833,
+   "outer"
+  ],
+  "LEATHER JACKET": [
+   "60e55b6a",
+   2833,
+   "outer"
+  ],
+  "DUST PONCHO": [
+   "81432395",
+   2834,
+   "outer"
+  ],
+  "OXBLOOD PONCHO": [
+   "81432395",
+   2834,
+   "outer"
+  ],
+  "TALL MOTO BOOTS": [
+   "60e55b6a",
+   2833,
+   "feet"
+  ],
+  "RANCH BOOTS": [
+   "60e55b6a",
+   2833,
+   "feet"
+  ],
+  "ROLLED WORK SHIRT": [
+   "60e55b6a",
+   2833,
+   "base"
+  ],
+  "ROLLED FLANNEL": [
+   "60e55b6a",
+   2833,
+   "base"
+  ],
+  "SCAV KNEEPADS": [
+   "60e55b6a",
+   2833,
+   "gear"
+  ],
+  "SCRAP PAULDRON": [
+   "60e55b6a",
+   2833,
+   "gear"
+  ],
+  "CHEST RIG": [
+   "60e55b6a",
+   2833,
+   "gear"
+  ],
+  "RUCK PACK": [
+   "60e55b6a",
+   2833,
+   "back"
+  ],
+  "SALVAGE SATCHEL": [
+   "8aa3dfc4",
+   2853,
+   "back"
+  ],
+  "SMITH'S APRON": [
+   "60e55b6a",
+   2833,
+   "outer"
+  ],
+  "TRADES APRON": [
+   "60e55b6a",
+   2833,
+   "outer"
+  ],
+  "WORK SUSPENDERS": [
+   "60e55b6a",
+   2833,
+   "gear"
+  ],
+  "TATTERED TEE": [
+   "60e55b6a",
+   2833,
+   "base"
+  ],
+  "TATTERED FLANNEL": [
+   "60e55b6a",
+   2833,
+   "base"
+  ],
+  "BEDROLL": [
+   "3eb9dbaa",
+   2885,
+   "back"
+  ],
+  "WRAP SKIRT": [
+   "91eb5238",
+   2897,
+   "legs"
+  ],
+  "SHIN GUARDS": [
+   "60e55b6a",
+   2833,
+   "gear"
+  ],
+  "DESERT SHEMAGH": [
+   "60e55b6a",
+   2833,
+   "head"
+  ],
+  "WORN BRACERS": [
+   "60e55b6a",
+   2833,
+   "gear"
+  ],
+  "THIGH HOLSTER": [
+   "60e55b6a",
+   2833,
+   "gear"
+  ],
+  "TRAILING SCARF": [
+   "60e55b6a",
+   2833,
+   "neck"
+  ],
+  "WORK COVERALLS": [
+   "60e55b6a",
+   2833,
+   "base"
+  ],
+  "SPLIT-TAIL DUSTER": [
+   "c06ef898",
+   2991,
+   "outer"
+  ],
+  "ROAD CAPE": [
+   "d7e69675",
+   3011,
+   "back"
+  ],
+  "SHELL BANDOLIER": [
+   "60e55b6a",
+   2833,
+   "gear"
+  ],
+  "BIB OVERALLS": [
+   "60e55b6a",
+   2833,
+   "base"
+  ],
+  "RUBBER GAS MASK": [
+   "60e55b6a",
+   2833,
+   "face"
+  ],
+  "SCAV TOOL BELT": [
+   "60e55b6a",
+   2833,
+   "waist"
+  ],
+  "ANKLE WRAP SKIRT": [
+   "2a28f7f8",
+   2921,
+   "legs"
+  ],
+  "SHOULDER MANTLE": [
+   "fe49b786",
+   2893,
+   "back"
+  ],
+  "ELBOW PADS": [
+   "60e55b6a",
+   2833,
+   "gear"
+  ],
+  "FIELD LEG WRAPS": [
+   "60e55b6a",
+   2833,
+   "gear"
+  ],
+  "BLANKET SHOULDER ROLL": [
+   "60e55b6a",
+   2833,
+   "gear"
+  ],
+  "HIP SASH": [
+   "60e55b6a",
+   2833,
+   "waist"
+  ],
+  "OUTLAW BANDANA": [
+   "60e55b6a",
+   2833,
+   "face"
+  ],
+  "SCRAP HELM": [
+   "60e55b6a",
+   2833,
+   "head"
+  ],
+  "MOB PINSTRIPE SHIRT": [
+   "60e55b6a",
+   2833,
+   "base"
+  ],
+  "SIGNAL RED SHIRT": [
+   "60e55b6a",
+   2833,
+   "base"
+  ],
+  "SIGNAL RED BOOTS": [
+   "60e55b6a",
+   2833,
+   "feet"
+  ],
+  "VESTMENT GOLD SHIRT": [
+   "60e55b6a",
+   2833,
+   "base"
+  ],
+  "VESTMENT GOLD BOOTS": [
+   "60e55b6a",
+   2833,
+   "feet"
+  ],
+  "MOSS GREEN SHIRT": [
+   "60e55b6a",
+   2833,
+   "base"
+  ],
+  "TEAL WORK SHIRT": [
+   "60e55b6a",
+   2833,
+   "base"
+  ],
+  "COBALT WORK PANTS": [
+   "60e55b6a",
+   2833,
+   "legs"
+  ],
+  "TEAL WORK PANTS": [
+   "60e55b6a",
+   2833,
+   "legs"
+  ],
+  "ROSE BANDANA": [
+   "60e55b6a",
+   2833,
+   "face"
+  ],
+  "TEAL STRIPED TEE": [
+   "60e55b6a",
+   2833,
+   "base"
+  ],
+  "COBALT DUSTER": [
+   "f113e93d",
+   2975,
+   "outer"
+  ],
+  "ROSE KNIT CAP": [
+   "b8bb19af",
+   2895,
+   "head"
+  ],
+  "COBALT KNIT CAP": [
+   "b8bb19af",
+   2895,
+   "head"
+  ],
+  "GOLD WRAP SKIRT": [
+   "2a28f7f8",
+   2921,
+   "legs"
+  ],
+  "GRASS SNEAKERS": [
+   "60e55b6a",
+   2833,
+   "feet"
+  ],
+  "COBALT SHIRT": [
+   "60e55b6a",
+   2833,
+   "base"
+  ],
+  "COBALT COAT": [
+   "8036b377",
+   2963,
+   "outer"
+  ],
+  "COBALT BOOTS": [
+   "60e55b6a",
+   2833,
+   "feet"
+  ],
+  "ROSE DUSTER": [
+   "f113e93d",
+   2975,
+   "outer"
+  ],
+  "CHARCOAL ROAD CAPE": [
+   "d7e69675",
+   3011,
+   "back"
+  ],
+  "GRASS DUSTER": [
+   "f113e93d",
+   2975,
+   "outer"
+  ],
+  "COBALT SNEAKERS": [
+   "60e55b6a",
+   2833,
+   "feet"
+  ],
+  "CHARCOAL WRAP SKIRT": [
+   "2a28f7f8",
+   2921,
+   "legs"
+  ],
+  "CHARCOAL BOOTS": [
+   "60e55b6a",
+   2833,
+   "feet"
+  ],
+  "CHORE COAT": [
+   "9b42eb7d",
+   2876,
+   "outer"
+  ],
+  "BARN COAT": [
+   "9b42eb7d",
+   2876,
+   "outer"
+  ],
+  "OLIVE CHORE COAT": [
+   "9b42eb7d",
+   2876,
+   "outer"
+  ],
+  "STORM CHORE COAT": [
+   "9b42eb7d",
+   2876,
+   "outer"
+  ],
+  "RUST WORK COAT": [
+   "9b42eb7d",
+   2876,
+   "outer"
+  ],
+  "CAR COAT": [
+   "1ebe608b",
+   2914,
+   "outer"
+  ],
+  "SAND CAR COAT": [
+   "1ebe608b",
+   2914,
+   "outer"
+  ],
+  "SAGE CAR COAT": [
+   "1ebe608b",
+   2914,
+   "outer"
+  ],
+  "SLATE CAR COAT": [
+   "1ebe608b",
+   2914,
+   "outer"
+  ],
+  "WORK JACKET": [
+   "60e55b6a",
+   2833,
+   "outer"
+  ],
+  "STORM JACKET": [
+   "60e55b6a",
+   2833,
+   "outer"
+  ],
+  "KHAKI JACKET": [
+   "60e55b6a",
+   2833,
+   "outer"
+  ],
+  "OXBLOOD JACKET": [
+   "60e55b6a",
+   2833,
+   "outer"
+  ],
+  "SAGE VEST": [
+   "60e55b6a",
+   2833,
+   "outer"
+  ],
+  "BONE VEST": [
+   "60e55b6a",
+   2833,
+   "outer"
+  ],
+  "OLIVE CAR COAT": [
+   "1ebe608b",
+   2914,
+   "outer"
+  ],
+  "BRICK CAR COAT": [
+   "1ebe608b",
+   2914,
+   "outer"
+  ],
+  "SPLIT-TAIL WORK COAT": [
+   "9b42eb7d",
+   2876,
+   "outer"
+  ],
+  "COBALT CHORE COAT": [
+   "9b42eb7d",
+   2876,
+   "outer"
+  ],
+  "GRASS CAR COAT": [
+   "1ebe608b",
+   2914,
+   "outer"
+  ],
+  "HOOD-UP ASH HOODIE": [
+   "60e55b6a",
+   2833,
+   "base"
+  ],
+  "HOOD-UP COAL HOODIE": [
+   "60e55b6a",
+   2833,
+   "base"
+  ],
+  "HOODED DUST PONCHO": [
+   "81432395",
+   2834,
+   "outer"
+  ],
+  "SCRAP CHEST PLATE": [
+   "60e55b6a",
+   2833,
+   "gear"
+  ],
+  "SAND KNEEPADS": [
+   "60e55b6a",
+   2833,
+   "gear"
+  ],
+  "STEEL PAULDRON": [
+   "60e55b6a",
+   2833,
+   "gear"
+  ],
+  "OLIVE CHEST RIG": [
+   "60e55b6a",
+   2833,
+   "gear"
+  ],
+  "BRICK SUSPENDERS": [
+   "60e55b6a",
+   2833,
+   "gear"
+  ],
+  "STEEL SHIN GUARDS": [
+   "60e55b6a",
+   2833,
+   "gear"
+  ],
+  "OXBLOOD BRACERS": [
+   "60e55b6a",
+   2833,
+   "gear"
+  ],
+  "RUST THIGH HOLSTER": [
+   "60e55b6a",
+   2833,
+   "gear"
+  ],
+  "SOOT TOOL BELT": [
+   "60e55b6a",
+   2833,
+   "waist"
+  ],
+  "DUST BROWN BANDOLIER": [
+   "60e55b6a",
+   2833,
+   "gear"
+  ],
+  "SOOT CHEST PLATE": [
+   "60e55b6a",
+   2833,
+   "gear"
+  ],
+  "KHAKI ELBOW PADS": [
+   "60e55b6a",
+   2833,
+   "gear"
+  ],
+  "OLIVE LEG WRAPS": [
+   "60e55b6a",
+   2833,
+   "gear"
+  ],
+  "BRICK SHOULDER ROLL": [
+   "60e55b6a",
+   2833,
+   "gear"
+  ],
+  "OLIVE RUCK PACK": [
+   "60e55b6a",
+   2833,
+   "back"
+  ],
+  "OXBLOOD SATCHEL": [
+   "8aa3dfc4",
+   2853,
+   "back"
+  ],
+  "DUST BEDROLL": [
+   "3eb9dbaa",
+   2885,
+   "back"
+  ],
+  "RUST QUIVER": [
+   "6440778e",
+   2878,
+   "back"
+  ],
+  "STEEL ROAD CAPE": [
+   "d7e69675",
+   3011,
+   "back"
+  ],
+  "OLIVE SHOULDER MANTLE": [
+   "fe49b786",
+   2893,
+   "back"
+  ],
+  "STORM PONCHO": [
+   "81432395",
+   2834,
+   "outer"
+  ],
+  "RUST GORGET": [
+   "60e55b6a",
+   2833,
+   "gear"
+  ],
+  "SOOT GORGET": [
+   "60e55b6a",
+   2833,
+   "gear"
+  ],
+  "LEATHER HALF APRON": [
+   "60e55b6a",
+   2833,
+   "outer"
+  ],
+  "DUST HALF APRON": [
+   "60e55b6a",
+   2833,
+   "outer"
+  ],
+  "DENIM SHORTALLS": [
+   "60e55b6a",
+   2833,
+   "base"
+  ],
+  "FIELD SHORTALLS": [
+   "60e55b6a",
+   2833,
+   "base"
+  ],
+  "DROP RISE TROUSER": [
+   "8def6f14",
+   2877,
+   "legs"
+  ],
+  "BONE DROP TROUSER": [
+   "8def6f14",
+   2877,
+   "legs"
+  ],
+  "WIDE PLEAT TROUSER": [
+   "2aa64757",
+   3023,
+   "legs"
+  ],
+  "BONE WIDE TROUSER": [
+   "2aa64757",
+   3023,
+   "legs"
+  ],
+  "STACKED JERSEY PANT": [
+   "aa478aae",
+   2897,
+   "legs"
+  ],
+  "SLATE STACK PANT": [
+   "aa478aae",
+   2897,
+   "legs"
+  ],
+  "CROPPED WORK TROUSER": [
+   "b74bbb42",
+   2877,
+   "legs"
+  ],
+  "CROPPED BLACK DENIM": [
+   "b74bbb42",
+   2877,
+   "legs"
+  ],
+  "STACKED SOLE BOOT": [
+   "e8ab816d",
+   2867,
+   "feet"
+  ],
+  "BONE STACK BOOT": [
+   "e8ab816d",
+   2867,
+   "feet"
+  ],
+  "MID SHAFT BOOT": [
+   "60e55b6a",
+   2833,
+   "feet"
+  ],
+  "COAL MID BOOT": [
+   "60e55b6a",
+   2833,
+   "feet"
+  ],
+  "SLOUCH BOOT": [
+   "21361426",
+   2885,
+   "feet"
+  ],
+  "ASH SLOUCH BOOT": [
+   "21361426",
+   2885,
+   "feet"
+  ],
+  "WIDE SHOULDER TEE": [
+   "a752a93b",
+   2903,
+   "base"
+  ],
+  "BONE SHOULDER SHIRT": [
+   "a752a93b",
+   2903,
+   "base"
+  ],
+  "LONGLINE JERSEY": [
+   "3db24f78",
+   2841,
+   "base"
+  ],
+  "ASH LONGLINE TEE": [
+   "3db24f78",
+   2841,
+   "base"
+  ],
+  "SHOULDER LONGLINE": [
+   "c1bdd29",
+   2911,
+   "base"
+  ],
+  "STACKED MID BOOT": [
+   "e8ab816d",
+   2867,
+   "feet"
+  ],
+  "WRAP COAT": [
+   "1ebe608b",
+   2914,
+   "outer"
+  ],
+  "ASH WRAP COAT": [
+   "1ebe608b",
+   2914,
+   "outer"
+  ],
+  "ASYMMETRIC COAT": [
+   "e8f4d0b6",
+   2878,
+   "outer"
+  ],
+  "ASH ASYM COAT": [
+   "29586933",
+   2856,
+   "outer"
+  ],
+  "COCOON COAT": [
+   "3e159de5",
+   2957,
+   "outer"
+  ],
+  "SLATE COCOON COAT": [
+   "264c8d2e",
+   2949,
+   "outer"
+  ],
+  "DRAPED COWL": [
+   "a7375a63",
+   2858,
+   "neck"
+  ],
+  "ASH COWL": [
+   "a7375a63",
+   2858,
+   "neck"
+  ],
+  "HAND WRAPS": [
+   "60e55b6a",
+   2833,
+   "hands"
+  ],
+  "SOOT HAND WRAPS": [
+   "60e55b6a",
+   2833,
+   "hands"
+  ],
+  "BONE HEAD WRAP": [
+   "60e55b6a",
+   2833,
+   "head"
+  ],
+  "SOOT HEAD WRAP": [
+   "60e55b6a",
+   2833,
+   "head"
+  ],
+  "WIDE WAIST WRAP": [
+   "60e55b6a",
+   2833,
+   "waist"
+  ],
+  "LEAD WAIST WRAP": [
+   "60e55b6a",
+   2833,
+   "waist"
+  ],
+  "ONE-SHOULDER DRAPE": [
+   "90cb994e",
+   2836,
+   "back"
+  ],
+  "BONE SHOULDER DRAPE": [
+   "90cb994e",
+   2836,
+   "back"
+  ],
+  "SHIELD VISOR": [
+   "4df1f7fa",
+   2909,
+   "face"
+  ],
+  "ASH SHIELD": [
+   "4df1f7fa",
+   2909,
+   "face"
+  ],
+  "FACE WRAP": [
+   "9790a907",
+   2871,
+   "face"
+  ],
+  "ASH FACE WRAP": [
+   "9790a907",
+   2871,
+   "face"
+  ],
+  "ARC SHOULDER TEE": [
+   "b4438262",
+   2929,
+   "base"
+  ],
+  "ASH ARC SHIRT": [
+   "b4438262",
+   2929,
+   "base"
+  ],
+  "LAYERED JERSEY": [
+   "60e55b6a",
+   2833,
+   "base"
+  ],
+  "ASH LAYERED TEE": [
+   "60e55b6a",
+   2833,
+   "base"
+  ],
+  "ARC LAYERED SHIRT": [
+   "b4438262",
+   2929,
+   "base"
+  ],
+  "COMMA COAT": [
+   "3e159de5",
+   2957,
+   "outer"
+  ],
+  "SLATE COMMA COAT": [
+   "1ebe608b",
+   2914,
+   "outer"
+  ],
+  "COLUMN PANT-BOOT": [
+   "c19a3e2c",
+   2937,
+   "feet"
+  ],
+  "COAL COLUMN": [
+   "c19a3e2c",
+   2937,
+   "feet"
+  ],
+  "ASH COLUMN": [
+   "c19a3e2c",
+   2937,
+   "feet"
+  ]
+ },
+ "outfits": {
+  "Caravans": [
+   "912d4e66",
+   3041
+  ],
+  "Colorful": [
+   "f448eaad",
+   3093
+  ],
+  "Anarchists": [
+   "6dc93e70",
+   3113
+  ],
+  "Blues": [
+   "80696c28",
+   2921
+  ],
+  "Homeless": [
+   "2fdaf130",
+   3099
+  ],
+  "Church": [
+   "a7e34b6e",
+   3054
+  ],
+  "Reds": [
+   "9f835aa6",
+   2959
+  ],
+  "Cartel": [
+   "f43df9",
+   3058
+  ],
+  "Trades": [
+   "7ea99e96",
+   2913
+  ],
+  "Mob": [
+   "3ad28b0a",
+   3104
+  ],
+  "Network": [
+   "f5dbfcec",
+   2860
+  ],
+  "Volunteers": [
+   "ba86409",
+   2889
+  ],
+  "Remnants": [
+   "c453ac77",
+   2988
+  ]
+ }
+}
