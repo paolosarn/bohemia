@@ -2490,6 +2490,78 @@ ALSO STILL OPEN, not draw order: on NE in his own frame
 the right of the shoulders with a visible gap. That is the pose too.
 
 Nothing [PENDING Paolo].
+PEOPLE (people-7h9sfy): 9/16 LATEST -- *** [enemies remember] SHIPPED c4f62ae1.
+THE MAN YOU SPARED TURNS UP. *** BB-THE-SHADOW: "BECAUSE WE NEVER RESET, EVERY
+RELATIONSHIP IN BOHEMIA IS A REPEATED GAME... THE SHADOW OF THE FUTURE IS NOT A
+METAPHOR HERE, IT IS THE ARCHITECTURE." The row names its own cheapest first
+version and this is it.
+MEASURED FIRST, AND THE HOLE WAS AT THE ONE MOMENT IT SHOWS MOST. roadChoose is
+where EVERY encounter choice in this game lands. Read brace-balanced, with a
+control to prove the reader works:
+  roadChoose          5,230 characters
+  deeds published     ZERO
+  witnesses           ZERO
+  looks at the crowd  ZERO
+So you could hand a starving man your water, or face him down and watch him walk
+off down the wash, and NOT ONE PERSON IN THE VALLEY KNEW IT HAPPENED, INCLUDING
+HIM. Every encounter was a one-shot game inside an architecture whose only real
+advantage is that nothing is one. And the other half: ctSeenMeCount was read in
+exactly ONE place, a crew list on a card, so nobody on the street had ever shown
+that they know you.
+WHAT IT TOOK: ONE CALL AND FOUR TABLE ROWS. The publisher (ctDeed), the witness
+set (whoever the render actually DREW), the fading, the gossip and the mouth
+(ctDeedBark, "THEY SAY IT OUT LOUD, WITHOUT YOU OPENING ANYTHING") all already
+existed. NOTHING IS STORED AND NOBODY IS INVENTED: there is no book of who you
+spared, because the man is already carrying it, and the man is a body the game
+had already drawn -- a street with sixty-one people on it does not need a
+sixty-second one for a guy to step out of the wash. NO WEIGHT IS WRITTEN, so
+DEED_WEIGHT is still empty and still his.
+The three arms of HIS OWN approved encounter ("pay / scare / drop, the moral
+mirror of attack-anyone") write three DIFFERENT acts: favour, spared, downed.
+Tit-for-tat copies your LAST move, and a memory that cannot tell a handout from a
+beating cannot copy anything.
+ON THE GLASS, WITH A CONTROL ON BOTH ENDS:
+  before           he holds nothing, and the bark organ fires 0
+  FACE HIM DOWN    "You wait. He works up to it twice and then walks off."
+  after            he holds `spared`, as something he WATCHED
+  meet him again   "Had him cold. Let him walk." -- the SAME person
+An arm he cannot afford writes NOTHING: the refusal returns before the write.
+*** A KIND NEEDS A ROW IN TWO TABLES OR IT IS REMEMBERED AND MUTE. *** Publishing
+`spared` with no CT_DEED_WORDS row reached one person and landed NOWHERE, because
+the reader drops any kind it has no words for. Then it landed and he STILL said
+nothing, because the street bark reads a SECOND table, CT_REACT. Two tables, two
+questions: what a deed IS, and what somebody SAYS when they see you again.
+AND THE HALF I BUILT AND DELETED BEFORE IT EVER RAN: a second line writer, its own
+words, and a book of who had been told. CT_DEED_WORDS turned out to feed the bark
+organ, whose own header says it exists so people speak without him opening
+anything. TWO WRITERS FOR ONE FACT is the exact defect this lane has found in its
+own work three rounds running (two body ladders that put a bubble on a face, two
+ids for one man, two windows with one name). It is also better this way: he hears
+it from the man's own mouth instead of from a caption. And it only READS because
+of [a human being]: until that shipped, the bubble was painted on the face.
+NEGATIVE-CONTROLLED THREE WAYS, and THE CONTROLS CAUGHT THREE DEFECTS IN THE GATE
+ITSELF, which is what they are for: two table claims that were one claim wearing
+two hats (both matched the same pattern, so deleting every CT_DEED_WORDS row left
+BOTH green off the CT_REACT rows underneath); a turns-up claim that ANY voice on
+the street satisfied, caught by a control barking about the power being out; and
+a length floor of 2,000 sitting fourteen characters under a real body.
+*** A CONFOUND WORTH NAMING FOR THE WHOLE FLEET, because rule 13's pre-push pass
+invites it: RUN EIGHT BROWSER-DRIVING GATES IN PARALLEL AND EVERY TIMING CLAIM
+INSIDE THEM LIES. *** COLD BOOT read 14,637 ms against a 12 s budget and PEOPLE
+NOT LATE read 12 bodies against a floor of 20. Run one at a time on the SAME tree
+they are 11/0 and 16/0 with 38 bodies. Both were green on clean origin/main too.
+The only red that is really there is PAGES PUBLISH, identical on clean main.
+RULE 14(a) RATCHET: walked the cut of this tree with the one driver, 496 taps in
+60 s, 0 page errors, people on the glass, the street talking. Stamp 9/16e,
+resolved FORWARD over another lane's 9/16d rather than back.
+MEASURED AND NOT FIXED: the man is still not a character. What remembers is the
+crowd that saw it, and the nearest drawn body is who the moment happens to.
+Giving the man with the pipe a name and a history is a bigger row than this one.
+What these acts are WORTH is [PENDING Paolo] with the rest of the deed table.
+NEXT: the queue is [heir moment], [walking companion], [weights shape], [rumours
+travel], [creditor stands], [somebody hires you].
+Record: records/BOHEMIA_ENEMIES_REMEMBER_9_16_26.txt ***
+
 PEOPLE (people-7h9sfy): 9/15 (c) LATEST -- *** [a human being] ROUND TWO, 4c7301b8.
 HE WAS LOOKING AT HIMSELF. *** EYES E26 round 6 bounced this straight back at the
 lane on the row I had already shipped: "-> PEOPLE [a human being]: the work is
