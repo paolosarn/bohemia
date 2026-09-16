@@ -1305,6 +1305,72 @@ full suite unmeasured since 7efb22cf. Rule 14(a): demo untouched, RUN cuts it.
 
 Record: records/BOHEMIA_ONE_DOOR_9_14_26.md
 
+PLUMBER (plumber-ont6t5): 9/16 LATEST -- *** CHAT 18. ROUND 29. [sixty fps] CONTINUING, ROUND 3. CLOSED
+THE HOLE ROUND 2 NAMED AND REFUSED TO HALF-FIX. ***
+THE HOLE: the speed gate held the fight at >= 10 fps while the build delivered 60. A 5.7x REGRESSION ON
+THE PILLAR MECHANIC WOULD HAVE PASSED GREEN, in a game judged on the beat.
+THE CAUSE, MEASURED IN TWO PARTS, not asserted.
+ (1) A history entry carries no build identity, so a sample from a build with a real bug anchors the
+     budget straight across the fix. The history shows it: fightLo 17.6, 25, 15.4, 15.6, then 54.3 the
+     round somebody finally re-measured.
+ (2) THE BIGGER ONE. The 40% spread that justified "worst case across the last six refreshes" was
+     measured on ONE metric, time to first play, and one headroom rule was then applied to every metric.
+     Four passes of one unchanged tree, plus two from the refresh before:
+        bytes to first play 0.0%   beats missed 0.0%   THE FIGHT 0.5%   boot blocking 4.2%
+        walking 4.4%   main thread 8.3%   walking-alpha 52.0% (an INVALID sample, card over the pad)
+     Bytes literally do not move. The fight varies half a percent across four passes. Giving those the
+     headroom of a metric that swings 40% is how a budget stops being one.
+THE FIX: keep worst-of-history (it does real work against a slow afternoon), then CLAMP each line so it
+can never sit further from what the build does TODAY than that metric's OWN measured spread plus a
+stated margin. THE MARGIN IS 0.25 AND IT IS GROUNDED, NOT PICKED: three times the largest spread on any
+valid metric across six passes of one tree. A FLOOR ON MY OWN RULE: fewer than three samples is not a
+spread, so the clamp is skipped and the record says so on its face rather than letting a reader assume.
+MOVED: fightFps 10 -> 47.81, beatMissedPercentSettled 9 -> 3, alphaWalkFps 6 -> 10, alphaBeatMissed
+11 -> 4. The live gate now reads the fight at 60 against a budget of 47.7, 1.25x of slack.
+*** THEN MY OWN FIX WENT RED, AND NOT WIDENING THE MARGIN IS THE PART THAT MATTERED. ***
+Clamping main-thread-busy produced budget 9 against a live 15.8. Widening MARGIN until it went green
+would have loosened the fight's clamp too, and the fight is the one that actually needed fixing --
+fixing a symptom by weakening the fix is how a budget becomes a decoration in the first place.
+So I compared EVERY held line's RECORD value against the GATE's own live value, same tree, same hour:
+     fight fps            60          vs  60            agree
+     bytes to first play  51,190,304  vs  51,190,304    agree exactly
+     beats missed          2          vs  2.6           close
+     main thread walking   6.4 %      vs  15.8 %        2.5x apart
+     frames walking        8.8 fps    vs  55.8 fps      6.3x apart
+*** TWO OF THE LINES THIS GATE HOLDS ARE DERIVED FROM NUMBERS THAT DO NOT DESCRIBE WHAT THE GATE
+MEASURES. *** No spread computed inside the record can see either gap: the gate walks the demo shell
+live, the record's walk sample is its own. Both keep their history budget, both are printed every run
+with their slack and their reason. RECONCILING THE TWO WALK SAMPLES IS THE NEXT LINE OF THIS ROW.
+THE SECOND LOCK: the clamp fixes this in the writer, and a writer can be bypassed, so the gate now
+prints how far every budget sits from what the build does and FAILS a line over 2x of slack. The factor
+is deliberately far looser than the clamp (~1.25x) so it fires on something broken rather than arguing
+with an ordinary refresh. FIRST CUT OF THAT GUARD WAS WRONG AND RUNNING IT FOUND IT: it went red on the
+two excluded lines and told the reader to "refresh so the clamp re-derives this", advice that cannot
+work. A guard that hands out a fix which fixes nothing is worse than no guard. Now they print, not fail.
+AND A RED THAT BLINDED THE WHOLE GATE: the record-completeness block ended in a flat `if (fail) done()`,
+so the moment any one line went red the other thirty-odd checks never ran. Measured today: a card over
+the movement pad made first play unmeasurable, and a gate with 37 working checks reported 18 passed /
+1 failed and told nobody anything else. A surface bug in one lane was blinding the whole speed report.
+Now it gives up only when the record is STRUCTURALLY unusable. Verdict unchanged, exit code unchanged;
+one blocked measurement costs one line instead of the whole page. Same run after: 36 / 3.
+ONE LINE FOR RUN, AND IT HAS GOT WORSE SINCE LAST ROUND. All three remaining reds are one bug:
+#daycard is inset:0 and sits over all eight direction buttons on boot, so a driven thumb has nothing to
+press. LAST ROUND THE DEMO STILL GOT THROUGH ONCE AT 18,027 ms; THIS ROUND NO PASS ON EITHER SURFACE
+REACHED A FIRST STEP AT ALL. Time to first play cannot be measured on this build. I let that go red
+rather than carry the last number that happened to get through: a measurement you cannot take is not a
+measurement of the old value, and that substitution is the exact stale-reassurance failure this lane
+spent last round writing about. The gate's message now names the cause so the next reader is sent at
+the surface and not at the JSON.
+GATE COUNT, BOTH WAYS, MEASURED NOT ASSUMED: 32 passed / 3 failed on the tree before this round's
+changes, 36 / 3 after. None of the reds is mine.
+ROW STAYS CLAIMED. Targets unchanged and unmet: 60 walking, 60 in the fight, first play under 5 s, and
+first play is currently unmeasurable.
+STILL OPEN IN MY SECTION: [slim build] (NEXT AFTER [sixty fps], the coordinator re-aimed it at this
+lane's ladder), [handoff cut], [suite runs], [dead gates], [mode chip], [cannot fail], [pre-push pass],
+[suite line].
+Record: records/BOHEMIA_A_BUDGET_THAT_ACCEPTS_A_SIX_TIMES_REGRESSION_9_16_26.md
+[PENDING Paolo] nothing.
+
 PLUMBER (plumber-ont6t5): 9/15 (b) LATEST -- *** CHAT 18. ROUND 28. [sixty fps] CONTINUING, ROUND 2
 OF THE CLAIM. THE FIGHT MEASURED ON A PHONE-SHAPED CPU FOR THE FIRST TIME, AND THE RECORD THE WHOLE
 FLEET READS WAS WRONG IN THE BUILD'S FAVOUR. ***

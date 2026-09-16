@@ -131,10 +131,47 @@ ok('the budget records the machine speed it was set on, so a slower or busier bo
 for (const k of ['timeToFirstPlayMs', 'walkFpsSettled', 'walkFpsFirstMinute',
                  'fightFps', 'mainThreadBusyWalkingPercent', 'bytesToFirstPlay',
                  'beatMissedPercentDuringBoot', 'beatMissedPercentSettled'])
-  ok('the record measured ' + k + ' -- the row asked for it by name', R.measured[k] != null);
+  ok('the record measured ' + k + ' -- the row asked for it by name', R.measured[k] != null,
+     /* NAME THE CAUSE, DO NOT JUST SAY THE KEY IS MISSING. (9/16, PLUMBER.) A null here
+        almost never means a malformed record; it means the instrument could not take
+        that measurement on the surface as it stands, and the next reader should be sent
+        at the surface rather than at the JSON. The first-play lines are null right now
+        because #daycard is inset:0 and sits over all eight direction buttons on boot, so
+        the driven thumb has nothing to press. THE HONEST MOVE IS TO LET THIS GO RED
+        rather than carry the last number that happened to get through: a measurement you
+        cannot take is not a measurement of the old value, and that substitution is the
+        exact "stale reassurance" this file keeps arguing against. */
+     /[Ff]irst[Pp]lay/.test(k)
+       ? 'the instrument could not reach a first step at all. Measured cause: #daycard is '
+         + 'inset:0 and sits over all eight direction buttons on boot, so a driven thumb '
+         + 'has nothing to press. That is a surface bug and it belongs to RUN; this gate '
+         + 'reports it rather than carrying the last number that got through.'
+       : 'the record has no value for this. Re-run ' + (R.refreshCommand || 'the refresh')
+         + '; if it stays null, the instrument could not take the measurement and the '
+         + 'reason is on the surface, not in this file.');
 ok('and it says out loud what is still owed on a real handset, rather than ' +
    'letting an emulated number pass for a phone', Array.isArray(R.owed) && R.owed.length > 0);
-if (fail) done();
+
+/* ONE MISSING MEASUREMENT MUST NOT BLIND EVERY OTHER CHECK. (9/16, PLUMBER.)
+   This used to be a flat `if (fail) done()`, so the moment ANY line above went red the
+   gate stopped and the other thirty-odd checks never ran. Measured today: a card sat
+   over the movement pad, first play could not be taken, and a gate with 34 working
+   checks reported 18 passed / 1 failed and told nobody anything else. A surface bug in
+   one lane blinded the whole speed report.
+   THE VERDICT DOES NOT CHANGE -- a red is still a red and the exit code is still 1.
+   What changes is that the rest of the run still happens, so one blocked measurement
+   costs one line instead of the whole page. The gate only gives up when the record is
+   STRUCTURALLY unusable, because then there is genuinely nothing to read. */
+const usable = R.measured && R.budget && R.goal
+  && typeof R.budget.takenAtCpuYardstickMs === 'number';
+if (!usable) {
+  console.log('\n  the record is structurally unusable, so there is nothing further to '
+    + 'check. Refresh it with: ' + (R.refreshCommand || '(no command on file)'));
+  done();
+}
+if (fail) console.log('\n  ' + fail + ' line(s) above are red. CARRYING ON ANYWAY: the '
+  + 'record is readable, so the rest of this gate still has something to say, and a '
+  + 'missing measurement should cost one line and not the whole page.');
 
 /* ---- 2. IT HAS NOT ROTTED ----------------------------------------------- *
    A speed measurement is worse than useless once it is old: it reads as
@@ -202,6 +239,72 @@ if (!P) {
 ok('the record carries a phone-shaped pass, so nobody can quote a frame rate off this '
    + 'gate without seeing what the same build does on a slow CPU', !!P,
    'refresh with ' + R.refreshCommand + ', and never pin that command to --cpu 1');
+
+/* ---- 3c. AND NO BUDGET LINE MAY BE SO LOOSE IT STOPS BEING ONE ----------- *
+   ADDED 9/16 (PLUMBER, row [sixty fps]). This gate held the fight at >= 10 fps while
+   the build delivered 57. A 5.7x regression would have passed green, and nothing here
+   said a word about it, because a budget is only ever compared to the RUN, never to
+   the measurement it came from.
+
+   The cause is fixed where it belongs, in the writer: buildRecord now clamps each line
+   to that metric's own measured spread plus a stated margin. THIS IS THE SECOND LOCK.
+   If the clamp is ever removed, bypassed, or quietly widened, the number shows up here
+   instead of sitting in a JSON file nobody opens.
+
+   THE FACTOR IS 2, and it is deliberately far looser than the clamp (about 1.25x) so
+   it only fires on something genuinely broken rather than on an ordinary refresh. A
+   guard that argues with normal operation gets switched off, which is the failure this
+   whole pair of files keeps circling.
+
+   LINES THE RECORD SAYS WERE NOT CLAMPED ARE SKIPPED, not silently passed: a metric
+   whose band carried fewer than three samples has no spread to reason about, and this
+   prints which ones and why rather than letting the reader assume they were checked. */
+const LOOSE = 2;
+const basis = (R.budget && R.budget.__basis) || {};
+const unclamped = new Set(basis.notClampedTooFewSamples || []);
+/* AND THE LINES THE WRITER EXCLUDED ON PURPOSE. (fixed 9/16, an hour after the guard
+   above was written, by running it.) The first cut of this guard skipped only the
+   too-few-samples lines, so it went red on the two walk lines and told the reader to
+   "refresh the record so the clamp re-derives this line" -- advice that CANNOT WORK,
+   because the writer excludes those two deliberately and a refresh will do nothing.
+   A guard that hands out a fix which does not fix anything is worse than no guard: it
+   spends somebody's afternoon and then it gets switched off.
+   THEY ARE STILL PRINTED, WITH THEIR SLACK AND THEIR REASON. The looseness is real and
+   worth seeing every run (one of them is 7.8x). What it is not is a red that any amount
+   of re-running can clear, and the action it needs has a name: reconcile the record's
+   walk sample with this gate's live walk, which is a job, not a refresh. */
+const onPurpose = basis.notClampedOnPurpose || {};
+const HELD = [
+  ['fightFps', M.fightFps, 'lo'],
+  ['walkFpsSettled', M.walkFpsSettled, 'lo'],
+  ['bytesToFirstPlay', M.bytesToFirstPlay, 'hi'],
+  ['mainThreadBusyWalkingPercent', M.mainThreadBusyWalkingPercent, 'hi'],
+  ['beatMissedPercentSettled', M.beatMissedPercentSettled, 'hi'],
+  ['timeToFirstPlayMs', M.timeToFirstPlayMs, 'hi'],
+];
+console.log('\n  IS EACH BUDGET STILL A BUDGET? (how far it sits from what the build does)');
+for (const [key, got, dir] of HELD) {
+  const lim = B[key];
+  if (lim == null || got == null || !isFinite(got) || got === 0) {
+    console.log('    ' + key.padEnd(30) + ' no measurement on file, nothing to compare');
+    continue;
+  }
+  const slack = dir === 'lo' ? got / lim : lim / got;
+  const why = '    ' + key.padEnd(30) + ' build ' + String(got).padStart(10)
+    + ', budget ' + String(lim).padStart(10) + '   ' + slack.toFixed(2) + 'x of slack';
+  if (unclamped.has(key)) { console.log(why + '   (not clamped: too few samples)'); continue; }
+  if (onPurpose[key]) {
+    console.log(why + '\n         NOT CLAMPED ON PURPOSE, and not a red a refresh can clear: '
+      + onPurpose[key]);
+    continue;
+  }
+  console.log(why);
+  ok(key.toUpperCase() + ' IS STILL A BUDGET (' + slack.toFixed(2) + 'x of slack, limit '
+    + LOOSE + 'x)', slack <= LOOSE,
+    'the build does ' + got + ' and the gate would accept ' + lim + '. A regression of '
+    + slack.toFixed(1) + 'x would pass green, which is not a budget, it is a decoration. '
+    + 'Refresh the record (' + R.refreshCommand + ') so the clamp re-derives this line.');
+}
 
 /* ---- 4. THE LIVE RUN ---------------------------------------------------- */
 if (process.argv.includes('--record-only')) {

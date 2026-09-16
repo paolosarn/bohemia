@@ -1325,6 +1325,120 @@ function buildRecord(summaries, runs) {
     alphaWalkFpsSettled: setFrom('alphaWalkFpsLo', 'lo', w => Math.max(5, Math.floor(w * 0.75)), budget.alphaWalkFpsSettled),
     alphaBeatMissedPercentSettled: setFrom('alphaBeatHi', 'hi', w => Math.max(4, Math.ceil((w + 2) * 1.5)), budget.alphaBeatMissedPercentSettled)
   };
+  /* ---- THE CLAMP: A HISTORY ENTRY CARRIES NO BUILD IDENTITY ---------------
+     (9/15-16, PLUMBER, row [sixty fps]. The defect was found by refreshing this
+     record and reading what the gate then held.)
+
+     THE RULE ABOVE IS RIGHT AND ITS ARGUMENT IS GOOD, AND IT HAS ONE HOLE. "Worst
+     case across the last six refreshes" is reasoning about ONE UNCHANGED TREE --
+     that is what the comment above says, in those words. But nothing in a history
+     entry says which build it came from, so a sample from a build with a real bug
+     in it anchors the budget straight across the fix. Measured, on this file:
+
+         the fight budget the gate held      >= 10 fps
+         what the build actually did            57 fps
+
+     A 5.7x REGRESSION IN THE FIGHT WOULD HAVE PASSED GREEN. The history shows
+     exactly how: fightLo 17.6, 25, 15.4, 15.6, then 54.3 once somebody fixed the
+     fight and somebody else finally re-measured.
+
+     THE SECOND HALF OF THE HOLE, AND IT IS THE BIGGER ONE. The 40% spread that
+     justified this rule was measured on ONE metric, time to first play, and then
+     one headroom rule was applied to every metric. Measured 9/16, four passes of
+     one unchanged tree (plus two more from the refresh before it):
+
+         bytes to first play            0.0%      the fight              0.5%
+         beats missed, demo             0.0%      boot blocking          4.2%
+         the city walking alone         1.4%      walking, demo          4.4%
+         main thread walking            8.3%      walking, alpha        52.0% (*)
+
+         (*) that one is an INVALID sample and the instrument says so on the line:
+             a card sits over the pad, so the driven thumb moves nobody. The
+             largest spread on any VALID metric is 8.3%.
+
+     Bytes literally do not move. The fight varies by half a percent across four
+     passes. Giving those the same headroom as a metric that swings 40% is how a
+     budget stops being one.
+
+     SO: keep the worst-of-history (that part is doing real work against a slow
+     afternoon), and clamp it so it can never sit further from what the build does
+     TODAY than that metric's OWN measured spread plus a stated margin.
+
+     THE MARGIN IS 0.25, and it is grounded rather than picked: three times the
+     largest spread measured on any valid metric across six passes of one unchanged
+     tree. It cannot make a budget red on arrival -- a low is always clamped BELOW
+     today's measurement and a high always ABOVE it -- so the death this pair of
+     files keeps arguing about is not reachable from here.
+
+     AND A FLOOR ON MY OWN RULE: a spread computed from fewer than three samples is
+     not a spread. Under that, the clamp is skipped entirely, the old behaviour
+     stands, and the record SAYS SO on its face rather than letting a reader assume
+     the clamp was applied. */
+  const MARGIN = 0.25;
+  const MIN_SAMPLES_FOR_A_SPREAD = 3;
+  const spreadOf = (b) => {
+    if (!b || b.med == null || !b.n || b.n < MIN_SAMPLES_FOR_A_SPREAD) return null;
+    if (!isFinite(b.med) || b.med === 0) return null;
+    return Math.abs((b.hi - b.lo) / b.med);
+  };
+  /* budget key -> [the band it is about, 'lo' if bigger is better else 'hi'] */
+  const CLAMP = {
+    timeToFirstPlayMs: [demo.firstPlayMs, 'hi'],
+    fightFps: [demo.fightFpsDelivered, 'lo'],
+    bytesToFirstPlay: [demo.bytesToFirstPlay, 'hi'],
+    beatMissedPercentSettled: [demo.beatMissedPercentSettled, 'hi'],
+    alphaTimeToFirstPlayMs: [alpha && alpha.firstPlayMs, 'hi'],
+    alphaWalkFpsSettled: [alpha && alpha.walkFpsDelivered, 'lo'],
+    alphaBeatMissedPercentSettled: [alpha && alpha.beatMissedPercentSettled, 'hi'],
+  };
+  /* *** TWO WALK LINES ARE DELIBERATELY NOT IN THAT LIST, AND FINDING OUT WHY IS THE
+     SECOND HALF OF THIS ROUND. ***
+
+     I clamped them, ran the gate, and one went red on an ordinary run. So I compared
+     every held line's RECORD value against the GATE's own live value, same tree, same
+     afternoon, and two of them do not describe the same thing at all:
+
+         metric                          this record      the gate live      apart
+         fight fps                            60               60            agree
+         bytes to first play           51,190,304       51,190,304           agree
+         beats missed, settled                 2              2.6            close
+         main thread walking                 6.4 %           15.8 %           2.5x
+         frames walking, settled             8.8 fps         55.8 fps         6.3x
+
+     NO SPREAD COMPUTED INSIDE THIS RECORD CAN SEE EITHER GAP, because the two numbers
+     are not taken the same way: the gate walks the demo shell live, this record's walk
+     sample is its own. A clamp is only ever as good as the agreement between the
+     measurement it is derived from and the measurement it will be held against, and for
+     these two lines they disagree by more than any margin should paper over.
+
+     THAT DISAGREEMENT IS THE FINDING, not an inconvenience: the gate has been holding
+     two budgets derived from numbers that do not describe what the gate measures.
+     Reconciling the two walk samples is its own job with its own measurement.
+
+     SO BOTH KEEP THEIR HISTORY-DERIVED BUDGET. I did NOT widen MARGIN until the red went
+     green: that would have loosened the fight's clamp too, and the fight is the one that
+     actually needed fixing. Fixing the symptom by weakening the fix is how a budget
+     becomes a decoration in the first place. */
+  const clamped = [];
+  const noSpread = [];
+  for (const k of Object.keys(CLAMP)) {
+    if (budget2[k] == null) continue;
+    const [band, dir] = CLAMP[k];
+    const sp = spreadOf(band);
+    if (sp == null) { noSpread.push(k); continue; }
+    const room = 1 + sp + MARGIN;
+    const near = dir === 'lo' ? band.med / room : band.med * room;
+    const before = budget2[k];
+    /* a LOW budget may not sit BELOW `near`; a HIGH budget may not sit ABOVE it */
+    budget2[k] = dir === 'lo' ? Math.max(budget2[k], +near.toFixed(2))
+                              : Math.min(budget2[k], Math.ceil(near));
+    if (budget2[k] !== before) {
+      clamped.push(k + ': history said ' + before + ', the build does ' + band.med
+        + ' with ' + (100 * sp).toFixed(1) + '% spread over ' + band.n
+        + ' passes, so the budget is ' + budget2[k]);
+    }
+  }
+
   const moved = [];
   for (const k of Object.keys(budget2)) {
     if (budget2[k] == null) continue;
@@ -1334,9 +1448,25 @@ function buildRecord(summaries, runs) {
   budget.__basis = {
     setFrom: 'the worst case across the last ' + history.length + ' refresh(es), not the ' +
              'latest sample and not the luckiest one -- see the comment in ' +
-             'gates/bohemia_phone_perf.js for why a one-way ratchet was wrong here',
+             'gates/bohemia_phone_perf.js for why a one-way ratchet was wrong here, ' +
+             'THEN CLAMPED so no line can sit further from what the build does today ' +
+             'than that metric\'s own measured spread plus ' + (100 * MARGIN) + ' points',
     movedThisRefresh: moved,
-    refreshesKept: HISTORY_KEEP
+    refreshesKept: HISTORY_KEEP,
+    clampMargin: MARGIN,
+    clampedThisRefresh: clamped,
+    /* SAID OUT LOUD RATHER THAN ASSUMED: these lines got no clamp because their band
+       carried fewer than three samples, so there was no spread to compute. Run the
+       refresh with more repeats to bring them in. */
+    notClampedTooFewSamples: noSpread,
+    notClampedOnPurpose: {
+      mainThreadBusyWalkingPercent: 'record 6.4%, the gate\'s live walk 15.8% on the same '
+        + 'tree: 2.5x apart, and no in-record spread can see it.',
+      walkFpsSettled: 'record 8.8 fps, the gate\'s live walk 55.8 fps on the same tree: '
+        + '6.3x apart. The two walk samples are not measuring the same thing, and that is '
+        + 'a job of its own. See the comment in bohemia_phone_perf.js.',
+    },
+    minSamplesForASpread: MIN_SAMPLES_FOR_A_SPREAD
   };
 
   /* *** THE PHONE-SHAPED PASS, REPORTED AND NEVER ASSERTED. (9/15, PLUMBER, row
