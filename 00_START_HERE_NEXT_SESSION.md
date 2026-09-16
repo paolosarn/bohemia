@@ -20679,6 +20679,70 @@ COMMIT. PLUMBER found the RUN slice drifting +45/-6 behind two engine ships.
 
 HOLDING: nothing. LAST SHIPPED: [every pocket] 9/14, and [owe lines] before it.
 
+*** 9/16: [fold carries] SHIPPED. THE HANDOFF COST NOTHING AND NOW IT COSTS THE
+DARK. *** records/BOHEMIA_FOLD_CARRIES_WHAT_THE_DARK_TOOK_9_16_26.md
+
+MEASURED FIRST (rule 12) AND READ, NOT GUESSED: bohemia_fold carries a thirteen-row
+CARRY table and fold() NEVER CONSULTS IT. It joins the ledger and the memory, names
+the half it is missing, and hands both through UNTOUCHED -- debt included, and debt is
+a row the table itself marks RULED and DIES. That is not a bug in fold(): the ruled
+rows are executed by whoever owns the field (standing.inherit decays, owedFold takes
+the rent book, [debt carried] kills the bill). WHAT WAS MISSING IS AN OWNER FOR THE
+MATERIAL ROWS. Eight rows are ruled:false reading 'carries: whole' -- territory,
+builds, economyCapacity, invest, karma, virtues, family, wounds -- so every acre and
+every building crossed whole.
+THE ROW NAMES TWO FAILURE MODES AND THE GAME WAS IN NEITHER. It was in a third nobody
+wrote down: THE HANDOFF WAS A RENAME. The table says it itself on the builds row: "a
+hard ratchet today. Buildings turn over in decades and the century rule asks for
+visibly poorer, which is arithmetically impossible while this only climbs."
+
+DYNASTY's carry list (banks/, 9/5) rules the shape and needs NO NUMBER: the house is
+"held, not owned forever, and it can be lost", the walls "come down if nobody keeps
+them up". A RATE would be a number nobody ruled. A CONDITION is not, and the game
+already publishes the most visible one there is: a circuit goes dark when the rent on
+that ground went unpaid ([held ground], 9/5), stays dark, and rides its own save key.
+THE HEIR KEEPS WHAT IS STILL LIT AND LOSES WHAT WENT DARK, which wires the generation
+fold to the rent you did or did not pay.
+
+*** THE STREET IT FRONTS, NEVER ITS OWN CELL. *** Measured on the real map:
+    buildable desert cells ......... 620
+    with a circuit of their own ...... 0
+    fronting a circuit at distance 1  477
+    no wire near .................... 143   (unknown, and unknown is KEPT)
+You build on sand and circuits are street runs. Asking the plot's own cell would have
+answered null 620 times out of 620 and shipped CORRECT AND INERT -- the same trap
+[water lifted] paid for. The gate re-measures this every run.
+
+ON THE WALKED SURFACE, through the game's own ctFold(): 22 builds placed one per
+distinct live circuit, 11 circuits doused, KEPT 11 AND LOST 11, building count really
+falling 22 -> 11, 0 page errors. BOTH DIRECTIONS IN ONE FOLD ON PURPOSE: a test that
+only shows buildings disappearing is equally consistent with demolish-everything,
+which would be far worse than the bug it replaced.
+
+TWO WIRING BUGS THE PROBE CAUGHT BEFORE ANY OF THAT, AND BOTH ARE THE SAME LESSON:
+  A. The first cut walked CE.spans() and saw NOTHING. build() writes into edits.CELLS;
+     spans() is only the big builds. Six placed, spans() returned 0, and the probe
+     reported a clean pass over an empty list.
+  B. demolish() writes 'desert' INTO the cell rather than deleting the key, so counting
+     keys counts rubble as buildings -- the first honest-looking run said "lost 6"
+     while the count stayed 6. Both now use CityEdit's own classifier (a build is a
+     cell whose district category is 'sand').
+
+IT REFUSES TO TAKE: anything it cannot judge; anything at all if the ruling is asked
+and comes back 'whole' and ruled (the gate flips that row and watches it stop, with
+nothing in the module to edit); and anything in karma, virtues, family, wounds,
+economyCapacity or invest, which are other lanes' and are NAMED in the module so the
+next reader sees the edge of the decision.
+
+GATE RED FOUR WAYS: take everything -> 5; take nothing -> 5; say it and never demolish
+-> 3 (31 -> 31, rule 14d exactly); ask the plot's own cell again -> 3.
+RATCHET (rule 14a): walked with the one driver, door opens, controls render, seam
+crosses both ways, 0 page errors.
+NOT MINE, NAMED: tools/bohemia_faction_dossiers.py crashes exit 1 (BLUES "COPPER WORK
+SHIRT" is not in the canon wardrobe bank) and DERIVED FRESHNESS is red for it.
+VERIFIED it crashes identically on this commit's parent, so it is a wardrobe-data
+problem and not this round's.
+
 *** 9/15 ROUND 3: [battery worth] SHIPPED. THE ROW ASKED WHAT A BATTERY IS WORTH;
 THE ANSWER IS HOW MANY EXIST. *** records/BOHEMIA_BATTERY_WORTH_HOW_MANY_EXIST_9_15_26.md
 
