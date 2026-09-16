@@ -180,6 +180,11 @@ them), so the muddy count can only fall as the old backlog retints - it
 stood at 174 on 9/6 and reads 121 at this amendment. A legal accent moves
 neither number.
 
+A RENAME FOLLOWS THE GARMENT (9/16): the baseline freezes GARMENTS, not
+strings - a pixel-identical rename (proven by unchanged hex) moves its
+name in the baseline and keeps its grandfather; the [names lie] COPPER
+-> PATINA renames were the proving case. 
+
 ## 5A. THE GROUND FLOOR (density ruling, 9/6 — VAMILY [density ruling])
 EYES' 42-tile score sheet and texture_match_gate agree from two different
 directions: the act-1 re-cook is too clean beside the art he approved.
