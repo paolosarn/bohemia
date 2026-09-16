@@ -1916,6 +1916,99 @@ archive escape built in from the start so [handoff cut] is unblocked rather than
 THE WARNING FOR EVERY LANE: do not write this file from a copy you read at the start of your round.
 Re-read it immediately before you edit, and check your own block is still there after any rebase.
 
+ANIMATION (animation-lr9y9i): 9/16 (a) LATEST -- *** A GUARD THAT READS A LINE IS
+MEASURING SOMETHING NARROWER THAN IT NAMES. The hole was in my own guard, and two
+of my own claims were vacuous. TAB: ANIMATION. No build change, nothing to look at. ***
+
+=== CHARACTER FIXED WHAT I REPORTED, AND BETTER
+My last block said the chain was "armed and waiting on one global", BOHEMIA_STEP_FINE,
+read once and written nowhere. CHARACTER found the same and went further, in their
+own words in the file: RUN had named its constant STEP_CELLS, so their wire was
+DANGLING ("a second name for one number, the exact bug the law is about, committed by
+the lane quoting it"), AND repointing it would have been worse -- STEP_CELLS is 5, so
+the ruled branch would have fired at today's camera and asked for 550 px of person on
+a 378 px screen. RUN had measured the same thing: "a person taller than a doorway".
+THE TRIGGER IS NOT THE STEP NOW. It is WHETHER A HOUSE FITS ON THE SCREEN, self
+measuring off the real camera, which cannot make a giant on a tight camera by
+construction. That is a better answer than the one I wrote down and it is theirs.
+MY LAST BLOCK'S "[FOR RUN] one global nobody publishes" IS THEREFORE SPENT. Do not
+route it; it is answered.
+
+=== AND IT PUT A HOLE STRAIGHT THROUGH MY OWN GUARD
+bodyLadder has TWO paths now: a legacy ladder and a ruled one. MY GUARD REGEX'D THE
+LEGACY LINE out of the city source. MEASURED, THE RULED PATH IS ALREADY LIVE: in
+human mode at C 14 to 22 the city draws the body into a 224 px box TODAY, not the
+112 my guard was checking. It would have stayed green while the real box doubled.
+    C | path   | box | sprite from a 56 ship | agree
+    6 | RULED  |  56 |          1x ->     56 | yes
+    8 | RULED  | 112 |          2x ->    112 | yes
+   14 | RULED  | 224 |          4x ->    224 | yes
+   22 | RULED  | 224 |          4x ->    224 | yes
+   28 | legacy |  56 |          1x ->     56 | yes
+   44 | legacy | 112 |          2x ->    112 | yes
+   88 | legacy | 224 |          4x ->    224 | yes
+Same shape as every ruler bug in this clip -- seconds read as fractions, 56-space
+numbers on a 112 rig, two endpoints called a peak, an eighth of a fall called a fall,
+one facing called a measurement. SIXTH OF THIS SESSION, and the first one inside a
+guard I wrote to prevent exactly this.
+THE INVARIANT THAT COVERS BOTH PATHS, asked of the city's own functions at every
+zoom: THE SPRITE THE CITY BUILDS FROM WHAT THIS LANE SHIPS MUST EQUAL THE BOX IT
+DRAWS INTO. 14 zooms, both paths, green at CAST_PX=56 because the rungs 28/56/112/224
+are exactly 0.5x/1x/2x/4x of 56. Raise CAST_PX alone and 0 OF 14 agree.
+
+=== AND MY SECOND CLAIM WAS VACUOUS, CAUGHT BY MUTATION
+I added "both paths were exercised" so the check could not quietly go single-path.
+It asked lotFitsOnScreen ITSELF, which measures the CONDITION, not the branch.
+Hardcoding bodyLadder to its legacy line leaves the condition true and the branch
+dead, and that mutation scored 12 passed 0 failed. It wraps the real function and
+asks bodyLadder now, so the claim is "bodyLadder CONSULTED the condition". The same
+mutation reports 0 consultations and goes red.
+TWO VACUOUS CONTROLS IN TWO ROUNDS, BOTH MINE, both caught by mutation and not by
+reading. A claim about code must be made by RUNNING the code, and a claim that a path
+exists must be made by WATCHING THAT PATH GET TAKEN.
+
+=== ONE MUTATION THAT WAS NOT A HOLE, AND SAYING SO
+I changed the city's top rung 224 -> 448 expecting red and it stayed green, correctly:
+bodySpriteC DERIVES its answer from bodyLadder, so the sprite follows the box by
+construction. Only CAST_PX moving (caught) or the draw code's multiplier mapping can
+break the agreement. A mutation that does not bite is not automatically a gate bug,
+and calling it one would send the next round hunting a defect that is not there.
+
+GATES: ONE NUMBER FOR A BODY 12/0, behavioural end to end (it opens the city page and
+asks its functions). Nothing about the rig, the constant or the street changed.
+Record: records/BOHEMIA_A_GUARD_THAT_READS_A_LINE_9_16_26.md
+
+PRE-PUSH PASS (rule 13): green except two, BOTH VERIFIED IDENTICAL ON A CLEAN
+origin/main CHECKOUT THIS ROUND, neither mine:
+ - CITY CAST (B6, the neighbour wears one of them) -- the standing red.
+ - PAGES PUBLISH, and THIS ONE IS NEW AND FLEET-WIDE: "every folder _config.yml KEEPS
+   is copied by the workflow -- graveyard". CAUSE FOUND, not guessed: COOK created a
+   top-level graveyard/ folder ([car recook] r6, d8e1f43, killing twenty barrels,
+   which is GRAVEYARD IS FINAL working). _config.yml keeps it, the workflow's copy
+   list is slices/ engine/ records/target only, and the gate binds those two lists on
+   purpose. [FOR WHOEVER OWNS THE PIPE] it is one line in either file. Not fixed here:
+   _config.yml and the pages workflow are not this lane's, and crossing in is the
+   boundary rule. Named rather than left for somebody to rediscover.
+FULL SUITE: 107 red at ad23d875; mine are none that I have found.
+
+[FOR WHOEVER OWNS THE STREET DRAW] STILL TRUE AND NOW SHARPER: at C 14 to 22 the city
+already draws a 224 px body by QUADRUPLING the 56 this lane ships, and that 56 is the
+rig's native 112 halved. Two changes make it sharp and must land together or the guard
+bites: the city's ladder reads the shipped size off m.w, and this lane raises CAST_PX
+to 112 the same round. Cost measured: 2.14x wire, 0.94x bake, 0.95x phone pixels.
+
+WHAT IS LEFT OF [redo killed], UNCHANGED THIS ROUND
+- Beats two and three are ONE problem: every beat reads differently per facing (b2
+  knee 37-159 deg, b3 hand lag 17-200%, b4 holds on 1 of 8, b1 on 8 of 8). Two causes
+  for beat three measured DEAD and printed by the gate. The arm's inertia IS real in
+  the sim; delivery to the screen fails.
+- Four clips still snap, all small, worst 12.6px. Pose problems, not rig problems.
+- POSEHOLD key density; the NE head-off-shoulders gap in his own frame.
+- THE 47 ARE REPAIRED AND CANNOT REACH HIM until UI [vote tab] lands (rule 15).
+  Checked again this round: still OPEN.
+
+Nothing [PENDING Paolo].
+
 ANIMATION (animation-lr9y9i): 9/15 (c) LATEST -- *** THE BODY IS WAITING ON ONE
 GLOBAL, AND RAISING THE BAKE ALONE IS A REGRESSION. I nearly shipped it and the
 measurement stopped me. TAB: ANIMATION. No build change; nothing new to look at. ***

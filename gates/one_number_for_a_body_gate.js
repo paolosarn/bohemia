@@ -150,38 +150,84 @@ ok('CONTROL: the combat bake keeps its own 112 promise, untouched by this lane',
 
   /* *** AND THE NUMBER IS COUPLED TO A FILE THIS LANE DOES NOT OWN. ***
      Rule 16 wants bodies larger, and the obvious move is to raise CAST_PX to the
-     rig's native 112. MEASURED on the city's own epx2 and its own rung chooser,
-     and it would have been a REGRESSION: the city builds its EPX ladder by
-     DOUBLING WHATEVER IT IS SENT, so at the walk zoom (HC 44) it draws the body
-     into a 112px box and asks for one doubling of the shipped sprite. Ship 56 and
-     it hands over exactly 112. Ship 112 and it hands a 224px picture to a 112px
-     box. The shipped size is already in the message (m.w), so the receiving side
-     can learn it -- but that file belongs to the lane that owns the draw.
-     SO THIS CLAIM GUARDS THE COUPLING RATHER THAN CROSSING IT: whatever CAST_PX
-     is, the city's ladder has to be anchored to it. Change one without the other
-     and this bites, in either direction. */
+     rig's native 112. MEASURED on the city's own code, and it would be a
+     REGRESSION: the city builds its sprite ladder by DOUBLING WHATEVER IT IS SENT,
+     and it picks the box independently. Ship 56 and the two agree at every zoom.
+     Ship 112 and it hands a double-size picture to the same box.
+
+     THE FIRST TWO CUTS OF THIS GUARD WERE BOTH WRONG, AND THE SECOND ONE IS WHY
+     THIS IS BEHAVIOURAL NOW.
+     Cut one asserted "CAST_PX is one of the city's rungs". 112 IS a rung, so the
+     exact regression walked through; a mutation caught it.
+     Cut two asserted 2 x CAST_PX against a rung REGEX'd out of the city source.
+     That read the LEGACY branch of bodyLadder -- and bodyLadder has TWO paths now.
+     CHARACTER added a ruled path that fires the moment a lot fits on screen, and
+     MEASURED, IT IS ALREADY LIVE: at C 14 to 22 in human mode the city draws the
+     body into a 224 box today. A regex on the legacy line would have stayed green
+     while the real box doubled. A guard that reads a hardcoded expression is
+     measuring something narrower than the thing it names -- the same shape as every
+     ruler bug this clip has had.
+     SO IT ASKS THE CITY'S OWN FUNCTIONS, across every zoom it can be at, on BOTH
+     paths: the sprite the city materialises must equal the box it draws into. That
+     is one invariant covering both branches, and it stays true when RUN moves the
+     camera. */
   const cityFile = path.join(ROOT, 'slices', 'BOHEMIA_CITY_WORLD.html');
   if (fs.existsSync(cityFile)) {
-    const city = fs.readFileSync(cityFile, 'utf8');
-    const m = /return C >= 64 \? (\d+) : \(C >= 32 \? (\d+) : \(C < 17 \? (\d+) : (\d+)\)\)/.exec(city);
-    const rungs = m ? [Number(m[3]), Number(m[4]), Number(m[2]), Number(m[1])] : null;
-    ok('the city\'s body ladder is still readable, so this coupling can be checked at all (' +
-       (rungs ? rungs.join('/') : 'NOT FOUND') + ')', !!rungs);
-    if (rungs) {
-      /* THE INVARIANT IS NOT "CAST_PX IS A RUNG" -- that was the first cut and it let
-         the exact regression through, because 112 is also a rung. At the walk zoom the
-         city takes the C>=32 branch: it draws into that rung and gets there by doubling
-         the shipped sprite EXACTLY ONCE (epx2). So the real invariant is
-         2 x CAST_PX === the rung it draws into. Ship 56 and one doubling lands on 112.
-         Ship 112 and one doubling lands on 224, into the same 112 box. */
-      const walkRung = rungs[2];                       /* the C>=32 branch, the walk zoom */
-      ok('the city doubles what this lane ships EXACTLY ONCE to fill its walk-zoom box, so ' +
-         '2 x CAST_PX must equal that rung: 2 x ' + R.CAST_PX + ' = ' + (2 * R.CAST_PX) +
-         ' against a ' + walkRung + 'px box. Raise CAST_PX alone and the city hands a ' +
-         'double-size picture to the same box.', 2 * R.CAST_PX === walkRung);
-      ok('and CAST_PX is on the city\'s ladder at all (' + rungs.join('/') + ')',
-         rungs.indexOf(R.CAST_PX) >= 0);
-    }
+    const cpg = await br.newPage();
+    const cerr = []; cpg.on('pageerror', e => cerr.push(e.message));
+    await cpg.goto('file://' + cityFile, { waitUntil: 'load' });
+    await SETTLE(cpg, 3000);
+    const L = await cpg.evaluate((CAST) => {
+      /* the multiplier the city's draw code applies for each bodySpriteC answer:
+         _hd4 (x4) at 64, _hd (x2) at 32, the shipped frame at 17, _half below. */
+      const mult = sc => sc >= 64 ? 4 : (sc >= 32 ? 2 : (sc >= 17 ? 1 : 0.5));
+      /* WHICH BRANCH RAN, not which condition is true. Asking lotFitsOnScreen
+         myself measures the CONDITION; a mutation that hardcodes bodyLadder to its
+         legacy line leaves the condition perfectly true and the branch dead, and
+         the first cut of this claim scored that 12/0. So the real function is
+         wrapped and bodyLadder is asked: if it never consults the condition, the
+         ruled path is gone. */
+      const rows = [];
+      let ruled = 0, legacy = 0, asked = 0;
+      const realFits = BODY_SCALE.lotFitsOnScreen;
+      for (const C of [6, 8, 11, 14, 17, 22, 28, 32, 40, 44, 56, 64, 80, 88]) {
+        let saw = null;
+        BODY_SCALE.lotFitsOnScreen = function (c) { asked++; saw = !!realFits.call(BODY_SCALE, c); return saw; };
+        let lad = null, sc = null;
+        try { lad = bodyLadder(C); } catch (e) {}
+        try { sc = bodySpriteC(C); } catch (e) {}
+        BODY_SCALE.lotFitsOnScreen = realFits;
+        if (saw === true) ruled++; else if (saw === false) legacy++;
+        const sprite = mult(sc) * CAST;
+        rows.push({ C, ruled: saw === true, box: lad, sprite, agree: sprite === lad });
+      }
+      return { rows, ruled, legacy, asked, ok: typeof bodyLadder === 'function' && typeof bodySpriteC === 'function' };
+    }, R.CAST_PX);
+    await cpg.close();
+
+    ok('the city\'s own body functions are reachable, so this coupling is checked by ' +
+       'ASKING them and not by reading a hardcoded line (' + (cerr.length ? cerr[0] : 'no page error') + ')',
+       L.ok && cerr.length === 0);
+
+    const bad = L.rows.filter(r => !r.agree);
+    ok('AT EVERY ZOOM THE CITY CAN BE AT, the sprite it builds from what this lane ships ' +
+       'equals the box it draws into: ' + (L.rows.length - bad.length) + ' of ' + L.rows.length +
+       ' zooms agree' + (bad.length ? ' -- MISMATCH at C=' + bad.map(r => r.C + ' (box ' + r.box +
+       ', sprite ' + r.sprite + ')').join(', ') : '') + '. Raise CAST_PX alone and every one of ' +
+       'them doubles past its box.', bad.length === 0);
+
+    /* AND BOTH PATHS MUST ACTUALLY BE EXERCISED, or this is the vacuous control again. */
+    ok('and bodyLadder ACTUALLY CONSULTED the ruled condition on every zoom, so neither ' +
+       'path is dead code this guard cannot see (' + L.asked + ' consultations, ' + L.ruled +
+       ' ruled, ' + L.legacy + ' legacy)',
+       L.asked >= L.rows.length && L.ruled > 0 && L.legacy > 0);
+
+    console.log('');
+    console.log('  the city\'s rung ladder against what this lane ships, every zoom, both paths:');
+    for (const r of L.rows)
+      console.log('    C ' + String(r.C).padStart(2) + '  ' + (r.ruled ? 'RULED ' : 'legacy') +
+        '  box ' + String(r.box).padStart(3) + '  sprite ' + String(r.sprite).padStart(3) +
+        '  ' + (r.agree ? 'agree' : '*** MISMATCH ***'));
   }
 
   await br.close();
