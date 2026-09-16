@@ -881,16 +881,24 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font-family:var(--
   font-size:11px;font-weight:700;letter-spacing:var(--track-casing,.4px)}
 #rungbtn:active{background:#2a251d;color:#fff}
 #daycardIn .rrow{display:flex;justify-content:space-between;align-items:baseline;gap:8px;
-  padding:8px 10px;margin-bottom:5px;border-radius:8px;background:#151310;
-  border:1px solid var(--line)}
+  padding:8px 10px;margin-bottom:5px;background:#151310}
 #daycardIn .rk{font-size:10px;letter-spacing:var(--track-casing,.4px);color:var(--acc);opacity:.85}
 #daycardIn .rv{font-size:12px;font-weight:700;letter-spacing:var(--track-casing,.4px);color:var(--ink);
   text-align:right}
 #daycardIn .rwhy{font-size:11px;line-height:1.45;color:var(--ink);opacity:.8;
   padding:2px 2px 8px}
+ /* *** THE DASHED EDGE WAS CARRYING MEANING AND IT IS TRANSLATED, NOT DELETED. ***
+    A dashed hairline is two of the law's tells at once, but it was not decoration: it is
+    how this row said "not settled yet" against its solid neighbours. Deleting it would
+    have quietly cost the player a distinction, which is worse than the tell.
+    In the object language a thing that is not there yet has no BODY: the solid rows stand
+    proud (lit rim above, dark base below) and this one is RECESSED, a slot with nothing in
+    it. Same two skin values the pressed state already uses, turned over. Nothing new was
+    invented and the two rows still read as two different things at a glance. */
 #daycardIn .rpend{font-size:11px;line-height:1.45;color:var(--acc);opacity:.9;
-  padding:8px 10px;margin-top:2px;border-radius:8px;background:#151310;
-  border:1px dashed var(--line)}
+  padding:8px 10px;margin-top:2px;background:#131110;
+  box-shadow:inset 0 2px 0 var(--skin-chipbase,#0b0906),
+             inset 0 -1px 0 var(--skin-chiptop,#5c4f38)}
 /* __CITY_LOCK_THEM__ (9/15, PEOPLE) -- A NAME HE CAN TAP. Paolo 9/11 asked for
    it to be EASY and not endgame bullshit, so it is the name itself, on a card he
    already opens, with no new button and no new row: the name IS the target.
@@ -926,8 +934,7 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font-family:var(--
 
 
 #daycardIn .mrow{display:flex;justify-content:space-between;align-items:center;gap:8px;
-  padding:9px 10px;margin-bottom:5px;border-radius:8px;background:#151310;
-  border:1px solid var(--line)}
+  padding:9px 10px;margin-bottom:5px;background:#151310}
 #daycardIn .mrow:active{border-color:var(--acc)}
 #daycardIn .mrow.no{opacity:.45}
 #daycardIn .mgood{font-size:12px;font-weight:700;letter-spacing:var(--track-casing,.4px);color:var(--ink)}
@@ -975,7 +982,12 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font-family:var(--
 #daycard.roadcard #daycardIn{pointer-events:auto;
   box-shadow:0 18px 50px rgba(0,0,0,.85)}
 #daycardIn{width:100%;max-width:420px;max-height:100%;overflow-y:auto;touch-action:pan-y;
-  background:var(--face);border:1px solid var(--line);border-radius:12px;padding:16px 15px;
+  background:var(--face);padding:16px 15px;
+  /* THE BORDER AND THE RADIUS ARE GONE FROM HERE, NOT OVERRIDDEN. The skin has cancelled
+     both with !important since round three, so they have painted nothing for days while
+     still counting as two tells and still telling the next reader that this card is a
+     rounded hairline box. Round three's own note said to DELETE rather than override and
+     this one was missed. */
   /* *** THE CARD CARRIES THE BODY FACE, THE SAME WAY THE PHONE CARRIES THE SCREEN FACE. ***
      The first attempt at this pointed a handful of inner rules at the body register and
      MEASURED AS NO CHANGE AT ALL: opening the real card and asking which rule set its type
@@ -995,11 +1007,13 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font-family:var(--
    "a real touch target rather than a glyph you have to hunt for", which was the right
    intent at the wrong number. The negative margin grows with it so the glyph stays
    exactly where it was drawn; only the reachable area gets bigger. */
+ /* THE CLOSE IS A MARK, NOT A CARD. It carried an 8px rounded box and a 1px border that
+    was transparent until :active -- a rounded card drawn around a single glyph, which is
+    the law's list again. The 44 reach is untouched; only the box it was wearing is gone. */
 #daycardIn .dcx{float:right;margin:-11px -9px 0 8px;width:44px;height:44px;
-  display:flex;align-items:center;justify-content:center;border-radius:8px;
-  color:#8d7c5e;font-size:15px;line-height:1;cursor:pointer;
-  border:1px solid transparent}
-#daycardIn .dcx:active{color:#fff;border-color:var(--line);background:#2a251d}
+  display:flex;align-items:center;justify-content:center;
+  color:#8d7c5e;font-size:15px;line-height:1;cursor:pointer}
+#daycardIn .dcx:active{color:#fff;background:#2a251d}
 #daycardIn h2{font-size:13px;letter-spacing:var(--track-casing,.4px);color:var(--acc);margin-bottom:4px}
 #daycardIn h3{font-size:11px;letter-spacing:var(--track-casing,.4px);color:#8d7c5e;margin:12px 0 5px}
 #daycardIn p{font-size:13px;line-height:1.5;color:var(--ink);margin-bottom:8px}
@@ -1051,9 +1065,14 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font-family:var(--
 /* the ones that are a full-width row read left, not centred: only the reach changes */
 #daycardIn .dcbtn, #daycard .dcbtn{ justify-content:flex-start; display:flex }
 
-.dcbtn{display:block;width:100%;text-align:left;margin-top:9px;padding:11px 12px;border-radius:9px;
-  background:#1b1813;border:1px solid var(--line);color:var(--ink);font-size:13px;line-height:1.45}
-.dcbtn:active{border-color:var(--acc);color:#fff}
+ /* THE SIX ANSWERS HE READS FIRST. They were a 1px hairline around a 9px rounded box,
+    which is two entries on the law's own list of tells, on the highest-traffic surface in
+    the game. The body comes from the skin now, the same object language every chip on the
+    street already speaks; see the rule that names .dcbtn near BOHEMIA_SKIN. */
+.dcbtn{display:block;width:100%;text-align:left;margin-top:9px;padding:11px 12px;
+  background:#1b1813;color:var(--ink);font-size:13px;line-height:1.45}
+/* pressed is the object moving, in the skin's rule; this only keeps the ink change */
+.dcbtn:active{color:#fff}
 /* __NOTHING_MOVES_UNDER_HIS_FINGER__ (9/15, LIFE + CITY, [eyes: shape rows]).
    A SPENT ROW KEEPS ITS PLACE. It is not pressable and it does not look pressable,
    which is this lane's own 9/13 ruling about a button that cannot work; what is new
@@ -1066,9 +1085,19 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font-family:var(--
 .dcbtn.spent:active{border-color:var(--line);color:var(--ink)}
 .dcbtn.chosen{opacity:.75;border-color:var(--acc);pointer-events:none}
 .dcbtn .tag{display:block;font-size:10px;letter-spacing:var(--track-casing,.4px);color:var(--acc);margin-bottom:3px}
-.dcgo{margin-top:14px;padding:12px;border-radius:9px;background:#1b1813;border:1px solid var(--acc);
+ /* *** GET UP WAS WEARING THREE EDGES AT ONCE, AND TWO OF THEM WERE THIS RULE. ***
+    .dcgo is named in the city's own object rule at the top of this file (a bevelled box,
+    border:0, radius:0, a clip-path cut corner) and then this rule -- same specificity,
+    later in the file, so it wins -- put border-radius:9px and a 1px hairline straight back
+    on. Measured on the real card before touching it: clip-path YES, border 1, radius 9.
+    The bevel was being drawn underneath a rounded hairline box nobody meant to keep.
+    The border and the radius are DELETED, not overridden: a dead declaration that a later
+    rule cancels is the thing this row keeps finding, and it is how the shape came back in
+    the first place. Everything that is actually about this button -- where it sits, how big
+    it is, that it is the accent -- stays here. Pressed is the object flipping, which the
+    object rule already does, so the colour swap below goes too. */
+.dcgo{margin-top:14px;padding:12px;background:#1b1813;
   color:var(--acc);font-size:12px;font-weight:700;letter-spacing:var(--track-casing,.4px);text-align:center}
-.dcgo:active{background:#2a251d;color:#fff}
 </style>
 <style id="tjScrollFix">#tjPanel,#tjPanel *{touch-action:pan-y !important}#tjPanel img[data-place]{touch-action:manipulation !important}#tjPanel textarea{touch-action:auto !important}</style>
 <!-- __TILE_BANK__ the art bank, in cacheable chunks. Generated by tools/bohemia_city_chunk_tile_bank.py -- anchor on the END marker below, never on a chunk name: the count changes. Chunk 1 BLOCKS (it declares the names the page reads). The other chunks are NOT tags: a deferred tag still downloads during the parse and starves the one chunk the world waits on, so the LATE loader pulls them itself, in order, once a world is on screen. -->
@@ -74428,7 +74457,13 @@ window.BOHEMIA_SKIN = (function(){
          hairline, inside a plate that no longer does -- the inconsistency was more
          obvious than either look on its own. They are classes, not ids, which is the
          only reason the first rule missed them. */
-      +'#savepanel .sbtn,#keypanel .krow,#buildpanel .bvb{'
+      /* AND THE DAY CARD'S OWN ANSWERS, ROUND NINE. Third time a CLASS has slipped past a
+         rule written as a list of ids, and this one mattered most: .dcbtn is the six answers
+         he reads in the first five seconds of the game, and it was still a hairline round a
+         rounded box inside a card that had been a plate since round three. Measured on the
+         real card, not read: border 1, radius 9. */
+      +'#savepanel .sbtn,#keypanel .krow,#buildpanel .bvb,#daycardIn .dcbtn,'
+      +'#daycardIn .rrow,#daycardIn .mrow{'
       +'border:0!important;'
       +'border-radius:var(--skin-chipround,2px)!important;'
       +'background:var(--skin-chipface,#1a160f)!important;'
@@ -74455,7 +74490,7 @@ window.BOHEMIA_SKIN = (function(){
                  +'0 10px 26px rgba(0,0,0,.55)!important}'
       +'#musbtn:active,#savebtn:active,#phonebtn:active,#outfitbtn:active,#rungbtn:active,'
       +'#buildbtn:active,#mktbtn:active,#workbtn:active,#fitbtn:active,#bikebtn:active,'
-      +'#sleepbtn:active,#modechip:active,#packbtn:active{'
+      +'#sleepbtn:active,#modechip:active,#packbtn:active,#daycardIn .dcbtn:active{'
       +'box-shadow:inset 0 2px 0 var(--skin-chipbase,#0b0906),'
                  +'inset 0 -1px 0 var(--skin-chiptop,#5c4f38)!important}';
     (document.head||document.documentElement).appendChild(st);

@@ -461,6 +461,25 @@ GATES = [
      'and failed on 505/518/546ms samples -- the threshold was wrong, not the feed. It also '
      'prints the page\'s own clock gaps, which are whole-page freezes belonging to another '
      'lane, so they cannot hide inside this lane\'s green.', True),
+    ('CARD IS OBJECT', ['node', 'gates/the_card_is_an_object_gate.js'],
+     'Two entries on the vibe-code law\'s own list are "a grey one-pixel border on every card" '
+     'and "the rounded card as the way to group". After eight rounds the biggest single owner of '
+     'BOTH on the walked city was #daycardIn -- the card he meets in the first five seconds of '
+     'the game, every time. THE FINDING THAT MADE THE ROUND: GET UP was wearing THREE edge '
+     'treatments at once. .dcgo is named in the city\'s own object rule (a bevelled box, border 0, '
+     'radius 0, a clip-path cut corner) and a later rule of the same specificity put '
+     'border-radius:9px and a 1px hairline straight back on top. Measured on the real card before '
+     'a line changed: clip YES, border 1, radius 9. The card\'s own border and radius were the same '
+     'rot in reverse -- cancelled by the skin with !important since round three, so they painted '
+     'nothing for days while still counting as tells and still telling the next reader the wrong '
+     'thing. So this gate asks the RENDERED card, never the stylesheet. It also guards the MEANING: '
+     '.rpend was dashed on purpose (not settled yet), so it was translated into the object language '
+     'as a recess rather than deleted, and the gate holds that a pending row still reads differently '
+     'from a settled one -- a tell removed at the cost of a distinction the player could see is a '
+     'bad trade. One of its own legs was false-green first: it read the first "#daycardIn{" in the '
+     'file, which is a variant selector carrying none of the declarations it was about. '
+     'Mutation-proved five ways.',
+     False),
     ('CASING FACE',    ['node', 'gates/casing_face_gate.js'],
      'The third and last type register. CASING is the words stamped on the machine itself -- '
      'the top strip, the HUD, the chips down the rail, the pad, the phone\'s body -- and it was '
