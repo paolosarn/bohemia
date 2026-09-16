@@ -33103,7 +33103,16 @@ your first VAMILY and do steps 1 to 9.
 I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
-ROUND LOG 9/15 (latest): BOARD CORRECTION, mine - the [into the vote
+ROUND LOG 9/16 (latest): the card gate bit four ghosts and the baseline
+learned a rule - the four PATINA 'new cooks' at sat 0.27 are the [names
+lie] COPPER renames, hex unchanged, grandfathered pixels wearing new
+names. A RENAME FOLLOWS THE GARMENT: the baseline freezes garments not
+strings; the four names moved with the rename recorded, gate green at
+the true count. Registry verdicts[] still empty. The LOOK tab's daily
+stale set is retaking on the chain in background; bytes commit when it
+lands. My three remaining lines all still blocked (retints x2, RUN's
+first-sixty - RUN just claimed [loading screen] so it moves).
+PREVIOUS: BOARD CORRECTION, mine - the [into the vote
 tab] flip had landed on SOUNDS' copy of the rule-15 row (bad first-match
 string edit; every lane carries that row now). SOUNDS' row restored to
 the coordinator's text untouched; DIRECTION's own row carries the
