@@ -11,7 +11,7 @@
     "y": 11493,
     "zoom": 22
    },
-   "kb": 245,
+   "kb": 244.2,
    "stamp": "8/8/26",
    "surface": "slices/BOHEMIA_CITY_WORLD.html",
    "shooter": "node tools/bohemia_look_shots.js --only the-way-in"
@@ -26,7 +26,7 @@
     "y": 2956,
     "zoom": 26
    },
-   "kb": 226.3,
+   "kb": 225.7,
    "stamp": "8/8/26",
    "surface": "slices/BOHEMIA_CITY_WORLD.html",
    "shooter": "node tools/bohemia_look_shots.js --only the-yards-lit"
@@ -41,7 +41,7 @@
     "y": 789,
     "zoom": 26
    },
-   "kb": 189.6,
+   "kb": 189,
    "stamp": "8/8/26",
    "surface": "slices/BOHEMIA_CITY_WORLD.html",
    "shooter": "node tools/bohemia_look_shots.js --only the-spawn-sidewalk"
@@ -126,7 +126,7 @@
     "y": 3352,
     "zoom": 44
    },
-   "kb": 141.7,
+   "kb": 141.1,
    "stamp": "8/8/26",
    "surface": "slices/BOHEMIA_CITY_WORLD.html",
    "shooter": "node tools/bohemia_look_shots.js --only dead-suburb"
@@ -141,7 +141,7 @@
     "y": 3100,
     "zoom": 44
    },
-   "kb": 66.8,
+   "kb": 66.3,
    "stamp": "8/8/26",
    "surface": "slices/BOHEMIA_CITY_WORLD.html",
    "shooter": "node tools/bohemia_look_shots.js --only dead-road"
@@ -156,7 +156,7 @@
     "y": 3028,
     "zoom": 44
    },
-   "kb": 224.4,
+   "kb": 220,
    "stamp": "8/8/26",
    "surface": "slices/BOHEMIA_CITY_WORLD.html",
    "shooter": "node tools/bohemia_look_shots.js --only dead-desert"
@@ -171,7 +171,7 @@
     "y": 3391,
     "zoom": 22
    },
-   "kb": 494.2,
+   "kb": 493.7,
    "stamp": "8/8/26",
    "surface": "slices/BOHEMIA_CITY_WORLD.html",
    "shooter": "node tools/bohemia_look_shots.js --only dead-density"
@@ -182,7 +182,7 @@
    "caption": "THE DEMO MONEY SHOT. Stand on the west rim and the whole valley is laid out below you, drawn by the valley view that already existed. RUN tab, on reaching the overlook.",
    "file": "look/vista.png",
    "at": null,
-   "kb": 845.2,
+   "kb": 697.5,
    "stamp": "8/8/26",
    "surface": "slices/BOHEMIA_CITY_WORLD.html",
    "shooter": "node tools/bohemia_look_shots.js --only vista"
