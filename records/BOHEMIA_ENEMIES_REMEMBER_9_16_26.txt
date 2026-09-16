@@ -1,0 +1,156 @@
+BOHEMIA -- ENEMIES REMEMBER (9/16/26, PEOPLE lane)
+VAMILY job [enemies remember], row BB-THE-SHADOW.
+
+THE ROW, IN ITS OWN WORDS:
+  "in a ONE-SHOT encounter the rational move is to defect; in a REPEATED one,
+   cooperation emerges and wins... BECAUSE WE NEVER RESET, EVERY RELATIONSHIP IN
+   BOHEMIA IS A REPEATED GAME... THE SHADOW OF THE FUTURE IS NOT A METAPHOR HERE,
+   IT IS THE ARCHITECTURE."
+And it names its own cheapest first version: THE MAN YOU SPARED TURNS UP.
+
+================================================================================
+*** MEASURED FIRST, AND THE HOLE WAS AT THE ONE MOMENT IT SHOWS MOST ***
+================================================================================
+roadChoose is where EVERY encounter choice in this game lands. Measured with a
+brace-balanced read of the function itself, and a control to prove the reader
+works (3 hits of a string I knew was in there):
+
+  roadChoose            5,230 characters
+  deeds published       ZERO
+  witnesses             ZERO
+  looks at the crowd    ZERO
+
+So you could hand a starving man your water, or face him down and watch him walk
+off down the wash, and NOT ONE PERSON IN THE VALLEY KNEW IT HAPPENED. Every
+encounter was a one-shot game inside an architecture whose only real advantage is
+that nothing is one.
+
+AND THE OTHER HALF. ctSeenMeCount, which answers "what did this person personally
+watch you do", was read in exactly ONE place: a crew list on a card. Nobody on
+the street had ever shown that they know you.
+
+================================================================================
+WHAT IT TOOK, WHICH IS LESS THAN IT SOUNDS
+================================================================================
+ONE CALL and FOUR TABLE ROWS. Everything else already existed and this round
+wrote none of it:
+  the publisher      ctDeed, the city's single-deed publisher
+  the witnesses      whoever the render actually DREW, so the people who
+                     remember are the people who could have seen it
+  the fading         the standing web, three-week halflife, gossip, hearsay
+  the mouth          ctDeedBark: "THEY SAY IT OUT LOUD, WITHOUT YOU OPENING
+                     ANYTHING"
+
+NOTHING IS STORED AND NOBODY IS INVENTED. There is no book of who you spared,
+because the man is already carrying it. The man himself is a body the game had
+already drawn: a street with sixty-one people on it does not need a sixty-second
+one for a guy to step out of the wash.
+
+AND NO WEIGHT IS WRITTEN. DEED_WEIGHT still ships empty. Naming an act is
+mechanism; what it is worth is a ruling, so these weigh ZERO until he rules the
+table, exactly like the five kinds this surface already published.
+
+THE THREE ARMS OF HIS OWN APPROVED ENCOUNTER, which is scavenger_shakedown,
+"pay / scare / drop -- the moral mirror of attack-anyone":
+  GIVE HIM SOMETHING   favour
+  FACE HIM DOWN        spared
+  put him down         downed
+Three different acts on purpose. Tit-for-tat copies your LAST move, and a memory
+that cannot tell a handout from a beating cannot copy anything.
+
+================================================================================
+ON THE GLASS, WITH A CONTROL ON BOTH ENDS
+================================================================================
+  before           he holds nothing about you, and the bark organ fires 0
+  FACE HIM DOWN    "You wait. He works up to it twice and then walks off down
+                    the wash."
+  after            he holds `spared`, as something he WATCHED
+  meet him again   he says "Had him cold. Let him walk."
+  and it is the SAME person, 12:12:900, not somebody repeating a rumour
+
+An arm he cannot afford writes NOTHING: the refusal returns before the write, so
+a favour he could not do is not a favour he did. Held 1 before, 1 after.
+
+================================================================================
+*** A KIND NEEDS A ROW IN TWO TABLES OR IT IS REMEMBERED AND MUTE ***
+================================================================================
+This is the round's own lesson and it cost two measurements to find.
+
+FIRST, publishing `spared` reached one person and LANDED NOWHERE: the count came
+back 1 and the man's memory was still empty. ctKnownDeeds drops any kind with no
+row in CT_DEED_WORDS, which is correct design -- a deed nobody can talk about is
+not a deed the city can show -- and invisible from the writer's side.
+
+THEN it landed and he still said nothing, because the street bark reads a SECOND
+table, CT_REACT. Two tables, two different questions: what a deed IS, and what
+somebody SAYS when they see you again. A kind needs a row in both.
+
+Only `saw` and `heard` are written, not `theirs` and `rival`: these deeds carry
+no outfit, so those two buckets are unreachable and ctReactLine falls back to
+`saw` anyway. Writing content nothing can reach would be dead weight on a table
+whose whole point is that somebody says it out loud.
+
+================================================================================
+AND THE HALF I BUILT AND DELETED BEFORE IT EVER RAN
+================================================================================
+The first version of this shipped a second line writer, a set of its own words,
+and a book of who had already been told, to make the man turn up and say so on
+the street's line. Then CT_DEED_WORDS turned out to feed ctDeedBark, whose own
+header says it exists so people speak "WITHOUT YOU OPENING ANYTHING".
+
+TWO WRITERS FOR ONE FACT is the exact defect this lane has found in its own work
+three rounds running: two copies of the body ladder that put a speech bubble on
+somebody's face, two ids for one man in the lock, two windows with one name in
+the instrument. So the second writer was deleted before it ever ran, and the
+feature is now a table and one call. It is also better: he hears it from the
+man's own mouth instead of from a caption.
+
+AND IT ONLY READS BECAUSE OF LAST ROUND. The bark is a speech bubble over a head,
+and until [a human being] shipped, that bubble was painted ON the speaker's face.
+
+================================================================================
+THE GATE
+================================================================================
+gates/enemies_remember_gate.js, 23 claims.
+  one publisher   the place a choice lands writes it down, it is the only caller,
+                  and the refusal returns before the write
+  both tables     each new kind can be said on a card AND out loud, and the three
+                  arms write three different acts, and no weight is written
+  the demo        the control (nothing held, street quiet), the arm, the memory,
+                  the man saying it, the same person, and eyewitness not hearsay
+
+NEGATIVE-CONTROLLED, each one put back:
+  delete the one call                 RED on seven claims
+  take out the CT_REACT rows          RED, he remembers and says nothing
+  take out the CT_DEED_WORDS rows     RED, it is not remembered at all
+
+*** AND THE CONTROLS CAUGHT THREE DEFECTS IN THE GATE ITSELF, WHICH IS WHAT THEY
+ARE FOR. ***
+ 1. THE TWO TABLE CLAIMS WERE ONE CLAIM WEARING TWO HATS. Both matched the same
+    pattern, so deleting every CT_DEED_WORDS row left BOTH of them green off the
+    CT_REACT rows underneath. Each is anchored inside its own table now, and the
+    same control then reddened four claims instead of two. That is the exact
+    defect this round found in the GAME, repeated in the checker sent to prove
+    it.
+ 2. THE TURNS-UP CLAIM ASKED ONLY WHETHER A BARK FIRED. A control proved that can
+    be an unrelated line about the power being out; it now requires the words to
+    be one of the spared lines, and the same control caught it.
+ 3. A LENGTH FLOOR OF 2,000 SAT UNDER A BODY THAT IS 2,014 CHARACTERS, so a
+    control that removed forty characters read as "the reader could not find the
+    function" instead of as a real red. It asks for the function's own landmarks
+    now.
+
+================================================================================
+MEASURED AND NOT FIXED
+================================================================================
+THE MAN IS STILL NOT A CHARACTER. What remembers is the crowd that saw it, and
+the nearest drawn body is who the moment happens to. Giving the man with the pipe
+a name, a face and a history of his own is a bigger row than this one and it is
+not invented here.
+
+WHAT THESE ACTS ARE WORTH IS [PENDING Paolo], with the rest of the 82-row deed
+table. Until he rules it they weigh zero, which is the honest answer rather than
+a hidden default.
+
+TAB: CITY, the walked street, and the demo. Walk until somebody steps out of the
+wash, face him down, and the next time you pass him he says so.

@@ -38796,6 +38796,18 @@ function roadChoose(ev, act){
   var _say = o.say;
   if(o.ride && !rode)
     _say = 'The door shuts, then opens again. The road it drives does not go from here.';
+  /* *** __THE_SHADOW_OF_WHAT_YOU_DID__ -- AND NOW SOMEBODY REMEMBERS IT. ***
+     (9/16, [enemies remember], BB-THE-SHADOW.) This function is where every
+     encounter choice in the game lands and it published NOTHING: measured at
+     5,230 characters with zero deeds, zero witnesses and no look at the crowd
+     standing right there. So you could hand a starving man your water and not
+     one person in the valley knew, including him. Every encounter was a one-shot
+     game inside an architecture whose only real advantage is that nothing is.
+     ONE CALL, AFTER THE ACT HAS ACTUALLY RESOLVED, so a refusal above (he cannot
+     afford it) never writes a favour he did not do. Which act it was is read off
+     SHADOW_ACT and never decided here. Silent for arms that are not one of the
+     three: a ride is not a thing you did to a man. */
+  try { shadowRemember(act); } catch(_e){}
   return { ok:true, act:act, say:_say, paid:o.pay||0, mins:o.min||0,
            got:o.give||0, rode:rode, cells:r_cells };
 }
@@ -47134,7 +47146,19 @@ var CT_DEED_WORDS = {
   'favour':        { saw: 'watched an outfit do you a favour',           /* draft */
                      heard: 'heard an outfit did you a favour' },        /* draft */
   'loan:short':    { saw: 'watched you not pay somebody back',           /* draft */
-                     heard: 'heard you did not pay somebody back' }      /* draft */
+                     heard: 'heard you did not pay somebody back' },     /* draft */
+  /* __THE_SHADOW_OF_WHAT_YOU_DID__ (9/16, [enemies remember]). THESE TWO ROWS
+     ARE THE WHOLE FEATURE, because this table is not decoration: ctKnownDeeds
+     DROPS any kind with no words here, and ctDeedBark reads it to make somebody
+     say it out loud on the street without him opening anything. A deed nobody
+     can talk about is not a deed the city can show, which is why publishing
+     'spared' before these rows existed reached one person and landed nowhere.
+     draft:true, and they weigh ZERO until he rules the table, exactly like the
+     five above them. */
+  'spared':        { saw: 'watched you have somebody and let them walk',  /* draft */
+                     heard: 'heard you let somebody walk' },             /* draft */
+  'downed':        { saw: 'watched you put somebody down',               /* draft */
+                     heard: 'heard you put somebody down' }              /* draft */
 };
 /* __CITY_REACT__ -- THEY SAY IT OUT LOUD, WITHOUT YOU OPENING ANYTHING.
    *** A DEED THAT ONLY EXISTS ON A CARD IS A DEED MOST PLAYERS NEVER SEE. ***
@@ -47161,6 +47185,31 @@ var CT_DEED_WORDS = {
    PRONOUN-FREE: who the player is is his, and a bark that guesses is a bark that
    is wrong half the time. */
 var CT_REACT = {
+  /* __THE_SHADOW_OF_WHAT_YOU_DID__ (9/16, [enemies remember], BB-THE-SHADOW).
+     TWO ROWS, AND WITHOUT THEM THE WHOLE FEATURE IS SILENT: ctDeedBark skips any
+     kind this table has no line for, so a man could carry "watched you have
+     somebody and let them walk" in his head forever and never once open his
+     mouth about it. The card table and this one are two different questions --
+     what a deed IS, and what somebody SAYS when they see you again -- and a kind
+     needs a row in both or it is remembered and mute.
+     ONLY `saw` AND `heard`, because these deeds carry no outfit: ctDeedBark only
+     reaches `theirs` and `rival` when a deed has an fid, and ctReactLine falls
+     back to `saw` anyway. Writing two buckets nothing can reach would be dead
+     content on a table whose whole point is that somebody says it out loud.
+     draft:true, and clipped the way the rest of this table is: overheard, not
+     narrated, and nobody in Bohemia is wise. */
+  'spared': {
+    saw:    ['Had him cold. Let him walk.',                  /* draft */
+             'Saw that. Could have finished it. Did not.'],  /* draft */
+    heard:  ['Heard somebody had one and let him go.',       /* draft */
+             'Word is they walked away from an easy one.']   /* draft */
+  },
+  'downed': {
+    saw:    ['Put him down. He got up after.',               /* draft */
+             'Saw that one go down. Did not stay down.'],     /* draft */
+    heard:  ['Heard somebody got put down over there.',      /* draft */
+             'Word is they dropped one.']                    /* draft */
+  },
   'claim:refused': {
     theirs: ['Said no. To us. Standing right there.',        /* draft */
              'That was our ask. Got told no.'],              /* draft */
@@ -66156,6 +66205,71 @@ function ctSeenMeCount(id){
     return n;
   } catch(_e){ return 0; }
 }
+
+/* ============================================================================
+   __THE_SHADOW_OF_WHAT_YOU_DID__ (9/16, PEOPLE, VAMILY [enemies remember],
+   BB-THE-SHADOW).
+
+   THE BACKLOG ROW, VERBATIM ON WHY IT MATTERS: "in a ONE-SHOT encounter the
+   rational move is to defect; in a REPEATED one, cooperation emerges and wins...
+   BECAUSE WE NEVER RESET, EVERY RELATIONSHIP IN BOHEMIA IS A REPEATED GAME...
+   THE SHADOW OF THE FUTURE IS NOT A METAPHOR HERE, IT IS THE ARCHITECTURE."
+   Its cheapest first version is named too: THE MAN YOU SPARED TURNS UP.
+
+   *** MEASURED FIRST, AND THE HOLE IS AT THE ONE MOMENT IT SHOWS MOST. ***
+   roadChoose is 5,230 characters and it is where every encounter choice in this
+   game lands. It contained ZERO deed publishes, ZERO witnesses, and never once
+   looked at the crowd that was standing there. So you could give a starving man
+   your water, or face him down and let him walk away down the wash, and NOBODY
+   IN THE VALLEY KNEW IT HAPPENED, INCLUDING HIM. Every encounter was a one-shot
+   game inside an architecture whose whole advantage is that nothing is.
+   And the other half: ctSeenMeCount is read in exactly ONE place, the crew list
+   on a card. Nobody on the street has ever shown that they know you.
+
+   NOTHING NEW IS STORED AND NOBODY IS INVENTED.
+     the man        is somebody the game already DREW. A street with sixty-one
+                    people on it does not need a sixty-second one to have a guy
+                    step out of the wash.
+     the memory     is the standing web, which already records, fades, travels
+                    and forgets. ctDeed publishes to whoever was drawn, which is
+                    who could actually see it.
+     the shadow     is read back out of their own mind. There is no book of who
+                    you spared, because the man is already carrying it.
+   THE WEIGHTS ARE STILL HIS. DEED_WEIGHT ships empty, so these acts weigh ZERO
+   until he rules the table, exactly like the kinds this surface already
+   publishes. Naming an act is mechanism; what it is worth is a ruling.
+   ========================================================================== */
+
+/* WHICH ACT EACH ARM IS, READ OFF THE ARM AND NEVER DECIDED AT THE CALL SITE.
+   'favour' is a kind this city already publishes. The other two are named here
+   because the three arms of his own approved encounter are three different
+   things that happened to a man, and a memory that cannot tell them apart cannot
+   copy your last move, which is the entire mechanism of the row. */
+var SHADOW_ACT = {
+  pay:    'favour',      /* you handed something over        */
+  stare:  'spared',      /* you had it and did not take it   */
+  fight:  'downed'       /* you put him down                 */
+};
+
+/* WRITE IT DOWN. One call, at the one place a choice lands, through the city's
+   existing single-deed publisher, whose witness set is the people the render
+   actually drew. Returns how many it reached so a caller can tell "nobody was
+   there" from "it did not run".
+
+   *** AND THERE IS NOTHING ELSE IN HERE, WHICH TOOK A CUT TO GET TO. ***
+   The first version of this shipped a second line writer and a book of who had
+   been told, to make the man turn up and say so. Then the city's own
+   CT_DEED_WORDS table turned out to feed ctDeedBark -- "THEY SAY IT OUT LOUD,
+   WITHOUT YOU OPENING ANYTHING" -- so a witness who sees you again already
+   speaks. Two writers for one fact is the exact defect this lane has found in
+   its own work three rounds running, so the second one was deleted before it
+   ever ran. The whole feature is now a table row and one call. */
+function shadowRemember(act){
+  var kind = SHADOW_ACT[act];
+  if (!kind) return 0;
+  try { return ctDeed(kind, null, null) | 0; } catch(_e){ return 0; }
+}
+try{ window.shadowRemember=shadowRemember; window.SHADOW_ACT=SHADOW_ACT; }catch(_e){}
 /* WHAT STANDS BETWEEN YOU AND THEIR OUTFIT, counted and never valued. A night of
    a loan unpaid and a favour you took are both ties; which of them weighs more
    is a weight, and weights are his. */

@@ -5444,6 +5444,23 @@ GATES = [
      "longer' means something. Being down is a QUESTION against the clock, so a save left on a shelf comes "
      "back healed with nothing to tidy. And it is on the card he already opens, saying how long and saying "
      "the promise out loud", False),
+    ('ENEMIES REMEMBER',['node', 'gates/enemies_remember_gate.js'],
+     "BB-THE-SHADOW: 'BECAUSE WE NEVER RESET, EVERY RELATIONSHIP IN BOHEMIA IS A REPEATED GAME... THE SHADOW OF "
+     "THE FUTURE IS NOT A METAPHOR HERE, IT IS THE ARCHITECTURE', and its own cheapest first version, THE MAN YOU "
+     "SPARED TURNS UP. *** MEASURED FIRST: roadChoose, 5,230 characters and the place EVERY encounter choice in "
+     "this game lands, published ZERO deeds, had ZERO witnesses and never looked at the crowd standing there. So "
+     "you could hand a starving man your water and not one person in the valley knew, including him. *** IT TOOK "
+     "ONE CALL AND FOUR TABLE ROWS: the publisher, the witness set, the fading, the gossip and the mouth all "
+     "already existed. Nothing is stored, nobody is invented (the man is a body the game had already drawn), and "
+     "no weight is written, so DEED_WEIGHT is still empty and still his. On the glass with a control on both "
+     "ends: nothing held and the street quiet, then FACE HIM DOWN, then he holds `spared`, then he says 'Had him "
+     "cold. Let him walk.' and it is the SAME person. *** A KIND NEEDS A ROW IN TWO TABLES OR IT IS REMEMBERED "
+     "AND MUTE *** -- publishing with no CT_DEED_WORDS row reached one person and landed nowhere, and with no "
+     "CT_REACT row he remembered it and never opened his mouth. A SECOND LINE WRITER WAS BUILT AND DELETED "
+     "BEFORE IT EVER RAN, because the city already had an organ that makes a witness speak, and two writers for "
+     "one fact is the defect this lane has found in its own work three rounds running. The three controls also "
+     "caught three defects in this gate: two table claims that were one claim wearing two hats, a turns-up claim "
+     "that any voice on the street satisfied, and a length floor sitting fourteen characters under a real body", False),
     ('PEOPLE NOT LATE',['node', 'gates/the_people_are_not_late_gate.js'],
      "EYES E26 round 6 bounced PAOLO 9/15 back to this lane on the shipped row: 'the work is EARLIER and "
      "UNFROZEN, not MORE'. *** HE WAS LOOKING AT HIMSELF. *** Measured on the demo, armed before any page script "
