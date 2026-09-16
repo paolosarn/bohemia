@@ -26555,6 +26555,31 @@ at 17.2 s) -> numbers on RUN [loading screen] and PLUMBER [sixty fps]; and 55 fi
 nobody can read (COMBAT's readout fix landed after). ECONOMY queue empty at 44/44, folded
 into one master -> Q45 [first sixty], Q46 [daily radius], Q47 [who owns the water]. DECIDED:
 scope stops at three tiles; the way back on costs one (records/BOHEMIA_RULING_SIX_DEFAULTS_AFTER_HIS_SECOND_PLAY_9_15_26.md). PORTRAIT still unclaimed.
+THEN (ei) VAMILY, 34 commits. PAOLO ASKED the chat names (he renamed number 10 by
+accident): 10 is FACTIONS; the list is THE TWENTY CHATS on the front page. THE STEP: RUN
+[step is a house] PART ONE shipped (STEP_CELLS 5, 3.75 m, stamp 9/15s FIVE TIMES THE
+STRIDE) and refused the literal house-step at today's camera because his phone is 1.03
+houses wide (two screens a second); CHARACTER and ANIMATION both found their body wire
+reading a global nobody publishes (a second name for one number) -> DECIDED ruling 10: the
+CAMERA is the rest of his ruling and it is RUN's: lot ~208 px, bodies grow by their own
+trigger, one published name, the stride at one lot per beat as the attempt with 5 as the
+fallback. PLUMBER [sixty fps] r2: THE FIGHT IS 7.1 FPS ON A PHONE-SHAPED CPU and the
+instrument had discarded the phone number since 9/5 -> [fight headroom] second, COMBAT
+note. EYES E26 r7 owned walking the wrong file for six rounds (the deploy cuts the demo;
+a fight is reachable at 2:05 on what he plays) and found THE FIGHT SHOWS THE DEV STRIP
+(WAIT/SUPPRESS/HAND-PEEK/NEW ENCOUNTER/WAY OUT) to the player -> COMBAT [dev strip] first.
+FACTIONS: ZERO CREWS have ever been on the map -> [crews exist] first; and the widest stop
+frames the whole valley but the city renderer never runs there -> note on LIFE+CITY [tiles
+not slabs]. PEOPLE [a human being] r2: he was looking at HIMSELF (the player appears at
+12.5 s, anyone else at 16.5 s, the thread held 98% of the wait) -> numbers on [loading
+screen]. LIFE+CITY [eyes: shape rows]: the day-card rows were never dead, the card
+re-centred under his finger and a second tap spent his last ask; fixed, the menu never
+changes height. UI [no slop] r8 (monospace 42 -> 8, tells 176 -> 142). CHARACTER [names
+lie] (4 real liars, 23 of the first 27 were the ruler), [long coats] SHIPPED. WORLD [battery
+worth] SHIPPED (the valley counts its cells; a day's work minted from nothing) -> DECIDED
+ruling 9: one per head on day one, held by the ground's holder, work paid from treasuries.
+COOK [car recook] r6 drew twenty cars, looked, killed them (barrels). SOUNDS: a fight
+starting makes a sound. COMBAT V219: the rulers read the board. PORTRAIT still unclaimed.
 
 COORDINATOR: 9/4 (ba) -- *** THE MEETING HALL:
 VAMILY.md's front page now carries every rule, and every chat re-reads it every time

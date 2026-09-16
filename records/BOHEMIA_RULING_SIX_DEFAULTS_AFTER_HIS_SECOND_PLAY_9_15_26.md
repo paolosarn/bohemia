@@ -48,3 +48,24 @@ MFACTIONS) is the source, the landing file is derived (9/13, CHARACTER [one colo
 8. THE WAY BACK ON IS ONE BATTERY. WORDS' cut-off notice could not name how you get the
    lights back because relight has no price. Ruling on WORLD [block strikes] (9/15)
    already said it: relight costs one. Line 2 of the notice can say so.
+
+## ADDED 9/16, THIRD ROUND
+9. HOW MANY BATTERIES ON DAY ONE: ONE PER HEAD, HELD BY WHOEVER HOLDS THEIR GROUND.
+   WORLD [battery worth] (095c8b59) measured that a day's work mints a cell from nothing
+   without bound, and asked for the starting stock. Ruling 5 of 9/13 said "measured off
+   the map, never typed"; here is the measurement it means: the valley starts with one
+   battery per person living in it (the population the map already counts, about 19,000),
+   each held by the treasury of the faction that holds that person's ground (the fourteen
+   pockets from Q40), plus one a day from each lit power site. A cell is a physical thing;
+   a valley of that many people has that many cells lying in drawers. A day's work is then
+   PAID out of a treasury, never minted, so the loop [rice clock] closes on day one (the
+   Church's town pays one from its own stock). If a treasury runs dry the work is not
+   there, which is the crash. He corrects the head-count multiple in play.
+10. THE STRIDE. RUN measured (3cc9fff2) that his phone is 1.03 houses wide, so a literal
+   house-step at today's camera is two screens a second, and shipped five cells (3.75 m)
+   as part one. The rest of his ruling waits on the CAMERA, which is RUN's: pull the walk
+   zoom back until a lot draws about 208 px (CHARACTER's number), the bodies grow in the
+   same frame (their trigger is "a house fits on his screen in walk mode"), and at THAT
+   camera the stride is one lot per beat as the ATTEMPT he asked for, with five cells kept
+   as the setting he can fall back to. One name for the number, published by RUN, read by
+   CHARACTER and ANIMATION; a second name is the bug both of them just found.
