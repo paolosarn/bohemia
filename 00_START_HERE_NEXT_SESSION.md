@@ -11368,6 +11368,79 @@ THIS LANE'S ROLE, FIXED: 16 COOK, the production artist.
 THIS LANE'S SESSION SLUG: cook-mce6r5.
 
 
+COOK (cook-mce6r5): 9/16 LATEST -- *** [car recook] ROUND 7: THE CAR KEEPS ITS SHAPE AND
+CHANGES ITS SIZE. THE PROP-SCALE DEBT MOVED FOR THE FIRST TIME, 16 -> 15. *** TAB: RUN.
+Build 9/16a.
+
+PAOLO 9/15: "every time I see a car it looks like dogshit, I'M SO CONFUSED."
+
+THE METHOD MY OWN HANDOFF NAMED LAST ROUND, AND IT WORKED. Round 5 measured the fault (every
+prop drawn at a fractional scale, car worst at 1.833x against ground at exactly 1.000, not
+blurred but UNEVEN). Round 6 tried to draw new cars from parameters and they came out as
+BARRELS, twice, and I killed them. This round separated the two things that were tangled:
+the shipped cars are RIGHT ABOUT SHAPE and WRONG ABOUT RESOLUTION.
+  1. take the shipped master's ALPHA MASK only -- it reads as a car because it came from one
+  2. upscale THE MASK to 88x176 and re-threshold. A MASK HAS NO PIXEL GRID TO BREAK: the
+     whole fault is that scaling COLOUR by 1.833 makes uneven pixels, and a one-bit coverage
+     map has none to make uneven. Then despurred so the outline is crisp.
+  3. READ THE PANELS OUT OF THE PHOTOGRAPH at its own resolution, by luma -- roof brightest,
+     glass darkest, bonnet and boot between, NOT asserted by me but read out of each car, so
+     every one keeps its own layout.
+  4. RE-SHADE FROM SCRATCH on the 88x176 grid, approved ramps, round 6's rust and lighting.
+
+    master 41-47x96 -> 88x176      fit 1.833 -> 1.000      colours 10-11 -> 8 median
+    silhouette survives to 0.6 points (fills 84.6% of frame, was 84.5%); the tool refuses
+    to write past 6 points of drift, because the shape is the one thing that must survive.
+CONFIRMED IN THE RUNNING GAME with the one driver: masters 88x176, stall 88x176, fit 1, 20
+loaded.
+
+*** THE RIM IS NOT RUST, AND THAT WAS THE FOURTH TIME. *** The first cut put its heaviest
+rust at distance 0-1 and every car wore an ORANGE DOTTED OUTLINE. Four wrong answers to one
+question now: r2 took the accent off the single most saturated pixel (scarlet speckle off a
+tail light); r4 put iron oxide over 18.2% of a planet in bright tones; r6 drew a one-pixel
+fringe; r7 drew a dotted rim. THE RIM IS THE LIT AND SHADOW EDGE THE 45-DEGREE LAW JUST
+DREW, and painting rust over it destroys the only two lines giving the body form. Distance 0
+and 1 are forbidden; rust lives 2 to 7 px in, thickest at 4, only near a patch seed.
+
+*** SEVENTH REGISTRY COLLISION, AND THE MOST DANGEROUS YET -- READ THIS BEFORE YOU WRITE TO
+BOHEMIA_CITY_PROPS.js. *** That file holds TWO tables and BOTH have a key called "car":
+    const PROP_FP  = {... "car": [2.0, 4.0, 0.0] ...}    the FOOTPRINT
+    const PROP_B64 = {... "car": ["iVBOR..."] ...}       the ART
+PROP_FP COMES FIRST. A search for '"car"\s*:\s*\[' finds the FOOTPRINT, and my first write
+PUT TWENTY BASE64 IMAGES OVER IT -- every car in the game would have had a footprint made of
+PNG strings. THE ONLY REASON I KNOW IS THE READ-BACK THAT REFUSED TO CLAIM SUCCESS. Same
+shape as TP_TILES["street"] (the STOP signs) vs SA_TILES["street"] (the road) in
+[streets fixed] r1. Anchor after `const PROP_B64` and check the first thing inside is a PNG.
+
+AND THE ART LIVES IN TWO PLACES: props_gate asserts every object in
+banks/BOHEMIA_STREET_FURNITURE_8_21_26.txt also appears in the sibling the page loads. My
+first successful write updated only the sibling and 105 matched became 85, exactly the
+twenty cars. The 9/7 car round already wrote the rule ("both banks and both surfaces cooked
+by ONE tool so they cannot drift") and I still had to be told by a gate. One tool now writes
+both with a read-back on each.
+
+THE RATCHET MOVED FOR THE FIRST TIME. gates/prop_scale_gate.py now reports car 1.000 ok and
+the frozen debt is re-pinned at FIFTEEN instead of sixteen.
+FIFTEEN STILL OWED, worst first, AND THIS ROUND'S METHOD WORKS ON ALL OF THEM because their
+silhouettes are equally photographed and equally separable from their resolution:
+  lighttower 1.354, pole 0.943, bench 0.672, firebarrel 0.650, barricade 0.562-0.668,
+  dumpster 0.629, mailbox 0.596, bin 0.508-0.596, barrel 0.535-0.596, bollard 0.476-0.550,
+  rubble 0.478-0.544, pallet 0.497, cone 0.458, tyre 0.457, bag 0.413-0.445.
+NEXT ROUND: run the same tool over the next families. Each one's stall is its own
+footprint x 44, so the target size differs per family -- read it, never assume 88x176.
+
+GATES: pre-push pass green (PROP SCALE 7/0, PROPS 76/0, PIXEL CRAFT 30/0, ART 45 16/0,
+REFERENCE CHECK 11/0, CITY TAB 64/0, ALPHA LOADS 20/0, REUSE-FIRST 208/5 -- all five other
+lanes' *_patch.py). Full suite: 107 red at ad23d875, none named as this lane's. No demo
+re-cut (rule 14a); none needed, the props file is loaded by reference.
+Tool: tools/bohemia_car_from_its_own_shape_cook_9_16_26.py
+Picture: records/target/COOK_CAR_AT_ONE_TO_ONE_9_16_26.png
+Record: records/COOK_THE_CAR_KEEPS_ITS_SHAPE_9_16_26.md
+
+STILL PENDING PAOLO, unchanged:
+  [magenta piece] -- purple means the Amalgamation, but the Anarchists' own colour #c026a0
+  is a purple. A/B/C are on the board and below.
+
 COOK (cook-mce6r5): 9/15 LATEST -- *** [car recook] ROUND 6: I DREW TWENTY BARRELS, LOOKED
 AT THEM, AND KILLED THEM. NOTHING SHIPPED TO THE GAME, ON PURPOSE. *** The slices are
 byte-identical to main; no art, no build stamp.
