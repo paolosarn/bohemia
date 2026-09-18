@@ -121,6 +121,35 @@ function inlinedVerbatim(html) {
      nudged !== cityText && inlinedVerbatim(nudged).ok === false);
 }
 
+/* ---- 1b. AND THE CLASS OF BUG, NOT JUST THIS INSTANCE ------------------
+   The row was one symptom of a general hole: a .bq can be written, parsed,
+   studied, voice-passed and gated, and still reach nobody, because the ONLY
+   thing that puts it in front of a player is being inlined into the slice. Five
+   files sat outside for weeks with every other gate green. So the check is the
+   whole set, not the five: EVERY quest the repo has is in the file the player
+   loads, verbatim. The next one written cannot go missing quietly. */
+{
+  const disk = fs.readdirSync(path.join(ROOT, 'quests/bq'))
+                 .filter(f => f.endsWith('.bq')).map(f => f.slice(0, -3)).sort();
+  let bag = {};
+  try {
+    const i = cityText.indexOf('const DEMO_BQ={');
+    const j = cityText.indexOf('\n', i);
+    bag = JSON.parse(cityText.slice(i + 'const DEMO_BQ='.length, j - 1));
+  } catch (e) {}
+  const city = Object.keys(bag).sort();
+  const missing = disk.filter(k => city.indexOf(k) < 0);
+  const stale = disk.filter(k => bag[k] !== undefined &&
+    bag[k] !== fs.readFileSync(path.join(ROOT, 'quests/bq', k + '.bq'), 'utf8'));
+  ok('*** EVERY quest the repo has is in the file the player loads (' + city.length
+     + '/' + disk.length + ') ***' + (missing.length ? ' -- never inlined: ' + missing.join(', ') : ''),
+     missing.length === 0 && disk.length > 0);
+  ok('and every one of them is the file on disk, byte for byte'
+     + (stale.length ? ' -- stale copies: ' + stale.join(', ') : ''), stale.length === 0);
+  ok('and the city invents no quest that is not a file somebody wrote',
+     city.filter(k => disk.indexOf(k) < 0).length === 0);
+}
+
 /* ---- 2. AND THAT REACHES HIM WITHOUT ANYBODY RE-CUTTING THE DEMO -------- */
 {
   const demo  = fs.existsSync(DEMO)  ? fs.readFileSync(DEMO, 'utf8')  : '';
@@ -193,6 +222,36 @@ function inlinedVerbatim(html) {
      && DQ.DAYS[0].choiceAt === 20 && DQ.DAYS[0].fail === 33);
   ok('and every one of the five still carries its author\'s own FAIL branch',
      DQ.DAYS.every(d => typeof d.fail === 'number'));
+
+  /* THE COMPATIBILITY RULE, AS A CHECK AND NOT A COMMENT. `advance` became a
+     LIST for M01, and every side quest still writes a bare object. If the two
+     forms ever stopped meaning the same thing, days 1-5 would drift silently.
+     Proved by playing the same day both ways and comparing everything the
+     surface reads: the log, the objectives, the HUD, the next-step hint, the
+     resolution card and the serialized state. (Measured the same way against
+     the pre-change module the round this landed: days 1-5 identical across 25
+     played sequences.) */
+  const SRC = {};
+  for (const sp of DQ.TRACK) SRC[sp.file] = fs.readFileSync(path.join(ROOT, 'quests/bq', sp.file + '.bq'), 'utf8');
+  const play = (spec) => {
+    const R = DQ.make({ BQ, BQRuntime: RT, sources: SRC, loop: DL.make() });
+    R.specForDay = () => spec;
+    const o = R.openDay(spec.day);
+    const t = [o && o.log, JSON.stringify(o && o.objectives), R.hudLine(), R.nextStep()];
+    R.event('enter_building', { district: 'a', dark: true });
+    R.event('enter_district', { district: 'zz' });
+    t.push(R.hudLine(), R.nextStep(), R.pending ? R.pending.options.map(x => x.stage).join('/') : '-');
+    t.push(JSON.stringify(R.nightfall()), R.outcome(), JSON.stringify(R.serialize().state));
+    return JSON.stringify(t);
+  };
+  const bare = DQ.DAYS[0];
+  const asList = Object.assign({}, bare, { advance: [bare.advance] });
+  ok('a bare `advance` and a one-step list mean exactly the same thing, so no'
+     + ' side quest can drift when a main quest needs more beats',
+     play(bare) === play(asList));
+  ok('and that check is not vacuous -- a DIFFERENT list really does play differently',
+     play(bare) !== play(Object.assign({}, bare,
+       { advance: [{ stage: 20, on: 'enter_district', require: 'new' }] })));
 }
 
 /* ---- 6. NO INVENTED FAILURE ------------------------------------------- */

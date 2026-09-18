@@ -3863,7 +3863,11 @@ GATES = [
      'PROVED TO BITE THREE WAYS on the real repo, not in theory: cut M01 out of the city and 11 checks go '
      'red by name, add one byte to M03 and verbatim goes red, cut M01 back to one beat and 7 go red. The '
      'first cut CRASHED on the planted bug instead of reporting it (DQ.rt null), which is a gate that '
-     'hides the rest of its own row, so the browser half now reads the stage through a guard. Runs 37/0',
+     'hides the rest of its own row, so the browser half now reads the stage through a guard. AND IT HOLDS '
+     'THE CLASS, NOT THE INSTANCE: the five were one symptom of a general hole, that a .bq can be written, '
+     'parsed, studied, voice-passed and gated and still reach nobody, so the check is that EVERY quest the '
+     'repo has (42/42) is in the file the player loads, byte for byte, and the next one written cannot go '
+     'missing quietly. Runs 42/0',
      True),
     ('BOND OUTLIVES', ['node', 'gates/bond_outlives_gate.js'],
      'QUESTS row [bond outlives], 9/13. [company in asks] shipped and named its own limit in its '
