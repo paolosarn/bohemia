@@ -8642,6 +8642,118 @@ NEXT IN THIS LANE (top unblocked, in order)
 
 --------------------------------------------------------------------------------
 
+SOUND (sound-xk7pjp): 9/18 (a) LATEST -- *** THE 120 BPM LAW WAS FAILING ON A PHONE AND
+THIS LANE'S OWN CHECKER COULD NOT SEE IT, BECAUSE THE CHECKER RUNS UNTHROTTLED. On a
+phone only a quarter of the beat was reaching the audio graph; it is half now, and the
+other half needs a clock the audio thread owns. [scheduled beat] STAYS CLAIMED, round one
+of two. TAB: RUN, with the sound on. Nothing to judge, nothing was cooked. ***
+
+Record: records/BOHEMIA_THE_HORIZON_IS_ONE_BEAT_9_18_26.md
+Tool: tools/bohemia_the_horizon_is_one_beat.py (idempotent)
+Gate: gates/beat_survives_a_phone_gate.py, registered as BEAT ON A PHONE
+
+WHY THIS ROW AND NOT THE FIRST OPEN ONE. Standing duty 8 (his bugs beat my queue) and rule
+14 (a phone is the only measure). PLUMBER measured the 120 BPM law -- THIS LANE'S LAW --
+broken on a phone-shaped CPU with the throttle proved real inside the run: 31.6% of beats
+late, 8.3% swallowed whole, "one beat in twelve never happens". That outranks giving an
+enemy a sound.
+
+THE ROW'S PREMISE WAS HALF WRONG AND MEASURING IT SAID SO (rule 12). The row says the beat
+is "fired on the tap" and should be "scheduled ahead". IT WAS ALREADY SCHEDULED AHEAD -- a
+lookahead scheduler on a 25 ms setInterval. There was nothing to convert. THE DEFECT IS THE
+SIZE OF THE HORIZON: 0.12 s, on a thread that stalls for seconds.
+
+MEASURED BY ASKING THE TRANSPORT, NOT BY READING IT: MUS.playStep wrapped, so the only
+countable thing is a step really handed to Web Audio; MUS.step watched for the re-anchor
+branch that throws steps away. Twenty seconds, same shape at both rates.
+                            1x              4x, a phone
+    steps booked         128/160  80%      42/160  26.3%
+    booked IN THE PAST        10                17
+    worst gap             2,229 ms          5,782 ms
+THREE QUARTERS OF THE BEAT NEVER REACHED THE AUDIO GRAPH ON A PHONE, AND ONE STEP IN FIVE
+DID NOT REACH IT ON THIS FAST BOX EITHER. A step booked in the past is worse than a missing
+one: Web Audio plays it the instant it is handed over, so it is a beat in the WRONG PLACE.
+
+WHOSE NUMBER IS WHOSE, said plainly: PLUMBER counted BEATS THE GAME JUDGED late or
+swallowed; this counts STEPS THE SCHEDULER BOOKED. Two instruments on one illness, neither
+refutes the other, and this is not a correction of theirs.
+
+THE RE-ANCHOR IS NOT THE BUG AND IT STAYS. Without it a nine-second stall booked
+seventy-two sixteenths at once, "not a song coming in, a noise". But it also zeroes the
+musical position, so a stalled phone does not merely drop beats, IT RESTARTS THE SONG'S
+FORM. Worth knowing for anything that reads MUS.step.
+
+MY OWN LANE ALREADY WROTE THE LIMIT DOWN ON 9/5, in the pulse's comment: "a setInterval
+beat is impossible here... a lookahead scheduler with a four-second horizon still dies in a
+nine-second stall. SO IT IS ONE LOOPING BUFFER... the audio thread does not care that the
+main thread is building a city." That is an ARGUMENT, so it was measured against this
+transport at this stall length, horizon patched at runtime, 4x, same window:
+    0.12 s  28.1% booked   committed 230 ms
+    0.50 s  51.3% booked   committed 619 ms
+    1.00 s  60.6% booked   committed 1,124 ms
+    2.00 s  81.9% booked   committed 2,119 ms
+    and the worst gap does NOT improve with it: 6,121 / 6,449 / 2,708 / 8,171 ms is noise.
+A WIDER HORIZON IS A DIAL, NOT A CURE. The 9/5 sentence holds.
+
+WHY ONE BEAT AND NOT THE BIGGER WIN: a booked step cannot be un-booked, so THE HORIZON IS
+EXACTLY HOW LONG THE MUSIC TAKES TO OBEY A CHANGE. At 2 s it nearly triples the surviving
+beats and makes a fight's music arrive two seconds late -- and FIGHTMUS takes the music
+immediately because danger is now, and this lane spent 9/15 giving the start of a fight a
+sound he could hear. TRADING HIS NAMED COMPLAINT FOR A NEW ONE IS NOT A FIX. So the horizon
+is ONE BEAT and it is NOT a new number: 4*stepDur(), the engine's own unit, the unit this
+whole game is quantised to. The fight sting is untouched either way (STING owns its own bus
+and lands on the next beat, outside the transport).
+
+PROVED, same instrument, both rates:
+                            BEFORE           AFTER
+    1x steps booked      128/160  80%     151/160  94.4%
+    4x steps booked       42/160  26.3%    78/160  48.8%
+    booked in the past   10 / 17          0 at 1x; 0 then 5 at 4x
+    4x worst gap         5,782 ms         6,220 ms  (unchanged, as predicted)
+
+AND THE FOURTH ROUND RUNNING WHERE A TOLERANCE OF MINE MEASURED MY OWN INSTRUMENT. I wrote
+"no beat is dumped in late any more" off ONE run that read zero; a second 4x run read 5 of
+80. Two samples is not a spread (PLUMBER's own floor is three), so the gate does not invent
+a tighter number: the on-time claim is a RATCHET at half the measured before-value (40.5% at
+4x), and the record carries the correction on its face.
+
+THE GATE HAD TO EXIST, and this is the real finding under the finding: A LAW WITHOUT A
+MACHINE GATE IS NOT ENFORCED, and the 120 BPM law's checker -- BEAT FIRST -- RUNS
+UNTHROTTLED, so it has always been asking about a machine several times faster than the one
+he holds. That is the class of mistake PLUMBER found fleet-wide and it is why this sat
+unseen. BEAT ON A PHONE throttles, proves the throttle inside the run with a WARMED
+yardstick (my first version timed the JIT and reported 0.51x with no throttle applied), and
+holds the cost as well as the coverage, because a coverage claim alone is satisfiable by
+making the game unresponsive.
+
+*** AND ITS COVERAGE VERDICT IS PAIRED, BECAUSE MY ABSOLUTE FLOOR WAS THE FIFTH INSTANCE OF
+THE SAME BUG IN FIVE ROUNDS. *** I set 40% off two runs. Four legitimate 4x runs, throttle
+proved 4.2x to 4.7x, then read 53.1, 50.0, 48.8 and 33.8 percent -- THE FLOOR SAT INSIDE THE
+REAL SPREAD AND FAILED A BUILD THAT WAS FINE. COVERAGE ON A THROTTLED BOX IS PARTLY A
+MEASUREMENT OF THE BOX, so no absolute number belongs in the verdict. The gate runs the same
+window twice minutes apart on the same machine -- shipped horizon, then the old 0.12 s one --
+and holds the RATIO: measured 2.1x, 1.8x and 4.5x, floor 1.4x, which no box speed can move.
+Every absolute percentage is printed and none is asserted. That is the suite's own rule in
+its own words: pair every before/after inside one window, or you measure the hour.
+IF YOU TAKE ONE THING FROM THIS BLOCK, TAKE THAT SHAPE: five rounds of my thresholds were
+measuring the box, and a paired instrument is the only kind that cannot.
+
+CORRECTING MY OWN LAST HANDOFF: it said this lane's [into the vote tab] row was SHIPPED at
+438b2c9. THAT SHA IS DIRECTION'S LINE, NOT MINE. Every lane carries its own copy of that
+row and I read a neighbour's as my own. The SOUNDS one is still OPEN and this lane has
+registered nothing in the vote tab.
+
+NEXT, and it is round two of this same row: A CLOCK THE AUDIO THREAD OWNS. The pulse is
+already exactly that and the game switches it off the moment the music starts, after which
+the beat goes back on the thread that stalls. That is a real build, not a number, and it is
+where the other half of the beat is. After that: [enemy heard], then [fight music] (whose
+open question is whether the fight's bed should be the 14 faction songs at all), then
+[quiet floor] with EYES E12's gap list, then [into the vote tab] which this lane has not
+actually started.
+CARRIED, recorded not acted on: THE GAPS IN THE HYMNAL peaks 25.6x the median on a CANON
+song; MENU - LIGHTS ACROSS THE VALLEY peaks 1.064 (BURIED). Both named and not re-balanced,
+because a level is his.
+
 SOUND (sound-xk7pjp): 9/16 (a) LATEST -- *** BEING OFF THE BEAT MADE NO SOUND AT ALL.
 [beat teaches] SHIPPED. The row was two claims: one was already true and COMBAT built
 it, the other was half silent, and the silent half was the one the first fight exists

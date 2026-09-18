@@ -1396,7 +1396,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 9/18f - YOUR CHILD GROWS UP</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 9/18g - THE BEAT ON A PHONE</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -16769,7 +16769,31 @@ const MUS={AC:null,MAST:null,playing:false,cur:0,curSlot:1,step:0,uiStep:0,nextT
       var _p=null; try{ _p=window.__pulseNextBeat&&window.__pulseNextBeat(); }catch(_e){}
       MUS.nextT=(_p&&_p>_n+0.02)?_p:(_n+0.06); MUS.step=0; MUS.uiBar=0;
     }
-    while(MUS.nextT<MUS.AC.currentTime+0.12){
+    /* __THE_HORIZON_IS_ONE_BEAT__ (9/18, SOUNDS lane) -- THE HORIZON WAS 0.12 s
+       ON A THREAD THAT STALLS FOR SECONDS. PLUMBER measured the 120 BPM law
+       failing on a phone-shaped CPU (31.6% of beats late, 8.3% swallowed whole,
+       one beat in twelve never happening). Measured again here by wrapping
+       playStep, so the count is steps really handed to Web Audio: on a phone
+       only 42 of 160 steps in twenty seconds were booked at all, 26%, and even
+       on this fast box it is 128 of 160.
+       ONE BEAT, AND IT IS NOT A NEW NUMBER: 4 * stepDur() is the engine's own
+       unit, the unit this whole game is quantised to. Horizon patched at runtime
+       and swept at 4x: 0.12 s booked 28.1%, ONE BEAT booked 51.3%, 1 s 60.6%,
+       2 s 81.9%.
+       WHY NOT WIDER, WHICH WOULD SCORE BETTER. A booked step cannot be
+       un-booked, so the horizon IS how long the music takes to obey a change:
+       the same sweep measured 2,049 ms of music already committed at a 2 s
+       horizon against 560 ms at one beat. FIGHTMUS takes the music immediately
+       because danger is now, so a two-second horizon would make a fight's music
+       arrive two seconds late -- trading his own complaint for a new one. One
+       beat is the smallest amount this game ever changes anything on.
+       AND IT IS A DIAL, NOT A CURE, which the same sweep proves: the worst gap
+       with nothing booked does not improve with the horizon at all (6,121 ->
+       6,449 -> 2,708 -> 8,171 ms is noise). A long stall is a long stall. This
+       lane wrote the real answer down on 9/5 in the pulse's own comment -- an
+       audio-thread loop, which does not care what the main thread is doing --
+       and that is the next round of this row, not a number. */
+    while(MUS.nextT<MUS.AC.currentTime+(MUS.stepDur()*4)){
     /* AND THE MUSIC TAKES THE BEAT OFF THE PULSE HERE -- INSIDE the loop, on
        the iteration that actually books step 0 into the audio graph.
        IT WAS ABOVE THE LOOP FIRST AND THAT WAS STILL TOO EARLY: the timer
