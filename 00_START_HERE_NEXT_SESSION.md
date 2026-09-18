@@ -16906,6 +16906,67 @@ since 9/6, it also holds 19 QUESTS (BUILD). The front page's chat-19 line says a
 chat with an empty queue takes QUESTS, and DYNASTY's queue went empty at Q16. The
 lane and its first row were claimed and pushed BEFORE any work started. ***
 
+ROUND 41 [main quest live] THE STORY IS IN THE GAME. QUESTS, BUILD. 1485c90.
+gates/main_quest_live_gate.js 37/0, registered. THE DEMO WAS NOT RE-CUT.
+  records/BOHEMIA_QUESTS_THE_MAIN_QUEST_IS_IN_THE_GAME_9_18_26.md
+
+MEASURED BEFORE ANYTHING WAS BUILT, counting each quest id in each built surface:
+  M01..M05   walked city 0   alpha 1   demo 1
+  S01        walked city 2
+The one alpha hit is inside BOHEMIA_QUESTS, the DIRECT tab's EDITING table (this
+lane added it in round 28). SO THE MAIN QUEST LINE COULD BE EDITED AND NEVER
+PLAYED. THE ROW IS SHARPER THAN IT STATES AND TWO THINGS WERE MISSING, NOT ONE:
+the city's DEMO_BQ, which is the playable set, carried 37 quests and ZERO main
+ones, AND its day table carried five rows and ZERO main ones. Inlining the text
+alone would have put five unreachable quests in a file.
+
+WHAT SHIPPED: the five inlined verbatim (37 -> 42), and the main line as days
+6-10 through the ONE driver. DAYS stays at five; ACTS is the new five; TRACK =
+DAYS.concat(ACTS) is what specForDay reads, so the phone that rings, the offer
+card, the haggle, the save, the objective line and the resolution card all reach
+the story with no second code path. Days 6-10 and not 1-5 deliberately: EYES,
+PEOPLE and this lane's own haggle and first-ask work all measure against day one.
+
+TWO SHAPES THE SIDE QUESTS NEVER HAD, BOTH THE AUTHORS' AND NEITHER INVENTED:
+  1. M01 has THREE beats before its choice, so `advance` is a LIST now and a bare
+     object reads as a list of one. Days 1-5 verified identical afterwards: same
+     steps, same nightfall, same buttons.
+  2. M01, M03 and M05 have NO FAIL STAGE. A null fail stage used to go to
+     setStage(undefined) and drop the quest into a stage that does not exist.
+     Their authors wrote three or four ways the night can END and no way for it
+     to be LOST, so nightfall leaves those jobs OPEN. Inventing a failure would
+     be writing his story, which is the one thing this lane may never do.
+
+*** MEASURED AND IT IS SOMEBODY ELSE'S, SO IT IS NAMED RATHER THAN QUIETLY
+WORKED AROUND: THE DEMO CUT IS ONE DAY LONG. *** CT_DEMO_DAYS = 1 in the walked
+city and ctDemoOver() ends the cut after day one, so no amount of inlining puts a
+later day in front of a demo player. WHICH DAY THE STORY STARTS ON IS THE RUN'S
+CUT (rule 14a), not this lane's. What is this lane's is done: the surface the
+demo loads carries the five and the one driver opens them there. In the ALPHA,
+where CT_IS_DEMO is false and days roll, day six really is M01 by play.
+
+FOR EVERY LANE: THE DEMO AND THE ALPHA BOTH LOAD THE WALKED CITY BY PATH and
+carry no second copy of the quest text (both checked, not assumed). So quest text
+inlined into the city reaches the demo WITHOUT a re-cut. That is why rule 14(a)
+was kept without the row stalling, and the gate now holds that fact so a future
+build cannot quietly grow a second copy.
+
+THE GATE IS PROVED TO BITE THREE WAYS ON THE REAL REPO, not in theory: cut M01
+out of the city and 11 checks go red by name; add ONE BYTE to M03's copy and
+verbatim goes red; cut M01's advance back to one step and 7 go red.
+
+*** AND THE FIRST CUT OF THAT GATE CRASHED ON ITS OWN PLANTED BUG INSTEAD OF
+REPORTING IT. *** With M01 missing, DQ.rt is null, so DQ.rt.state.stage threw and
+the gate named two failures and died on the other nine -- and that missing state
+is EXACTLY the state the repo was in before this round. A GATE THAT HIDES THE
+REST OF ITS OWN ROW IS WORSE THAN A GATE THAT FAILS. Every browser-half read of
+quest state goes through a guard now. FOR ANY LANE PLANTING A BUG TO PROVE A
+GATE: check that it reports, not just that it exits non-zero.
+
+WHAT THE QUEUE LOOKS LIKE AFTER THIS: [act two] parked by Paolo himself,
+[strike ask] blocked because nothing in the game can move a person between homes,
+[light the pump] HELD on a measurement (round 40). Nothing unblocked is open.
+
 ROUND 40 [light the pump] I STOPPED INSTEAD OF BUILDING, AND HERE IS WHY.
 QUESTS, BUILD. Claim HELD, not returned. No demo re-cut. No code shipped.
   records/BOHEMIA_QUESTS_THE_FIRST_JOB_CANNOT_BE_THE_PUMP_ON_THIS_SEED_9_16_26.md
