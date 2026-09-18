@@ -33641,7 +33641,15 @@ your first VAMILY and do steps 1 to 9.
 I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
-ROUND LOG 9/16 (latest): the card gate bit four ghosts and the baseline
+ROUND LOG 9/18 (latest): patrol round - card 115/115, reference 11/11
+(a new cook tool carries its check), ratchet holds 132/121, registry
+verdicts[] still empty. The LOOK tab's daily stale set is retaking on
+the chain in background; bytes commit when it lands. At the seam:
+nothing shipped to judge - COOK [car recook] r7 is mid-claim on the
+resolution fix (cars will need a seam look when that row ships), the
+retints have not moved (muddy still 121), RUN holds [loading screen]
+open so [first look] stays blocked.
+PREVIOUS: the card gate bit four ghosts and the baseline
 learned a rule - the four PATINA 'new cooks' at sat 0.27 are the [names
 lie] COPPER renames, hex unchanged, grandfathered pixels wearing new
 names. A RENAME FOLLOWS THE GARMENT: the baseline freezes garments not
