@@ -102,6 +102,118 @@
     }
   ];
 
+  /* ======================================================================
+     THE MAIN LINE, DAYS 6-10 (9/18/26, QUESTS lane, VAMILY row
+     [main quest live] THE-MAIN-QUEST-IS-NOT-IN-THE-GAME).
+
+     THE ROW, from FACTIONS via the coordinator: a .bq quest reaches a player
+     only by being INLINED into the slice, and M01..M05 -- "THE FIRST MAIN-QUEST
+     FILE THIS REPO HAS EVER HAD" -- were inlined into NO surface. Measured
+     before a line of this was written, by counting the string in each file:
+
+         M01..M05   walked city 0,  alpha 1,  demo 1
+         S01        walked city 2
+
+     The one alpha hit is inside BOHEMIA_QUESTS, the DIRECT tab's editing table.
+     So the main quest line could be EDITED and never PLAYED. The city's own
+     playable set carried 37 quests and zero main ones, and the day table had
+     five rows and no main one. Nobody could ever reach the story.
+
+     *** WHY 6-10 AND NOT 1-5. *** Day 1 is the meter reader, and EYES, PEOPLE,
+     the haggle work and the first-ask work all measure against day 1 right now.
+     Re-cutting the running order is THE RUN's job and nobody else's (Paolo 9/13,
+     rule 14a), so the main line is appended where it disturbs nothing: the demo
+     still offers exactly the five days it has always offered, and the story
+     starts the day after they run out. WHERE ACT ONE BELONGS IN THE RUNNING
+     ORDER IS RUN'S CUT TO MAKE, NOT THIS LANE'S.
+
+     *** THERE IS NO STORY YET (Paolo 9/11). *** Every line here is the author's
+     own .bq text, draft:true, and not one story hole is surfaced as a question.
+     The cold open's cast and place are still blank and nothing waits on them.
+
+     TWO SHAPES THE SIDE QUESTS NEVER HAD, and both are the authors', not mine:
+       1. M01 has THREE beats before the choice, so `advance` is a LIST here.
+       2. M01, M03 and M05 have NO FAIL STAGE. Their authors wrote no branch for
+          running out of light, so nightfall does NOT fail them -- see
+          D.nightfall. Inventing a failure would be writing his story.
+     Where a quest has no beat between the ask and the answer, none is invented:
+     three of these are somebody standing in front of you wanting an answer, and
+     that is what the file says. */
+  var ACTS = [
+    {
+      day: 6, main: true, act: 1,
+      id: 'bq_m01_the_night_they_came', file: 'M01_THE_NIGHT_THEY_CAME',
+      brief: 'Fireworks all night. I was a kid at this table once, and I blinked, and it was this.',
+      open: 10,
+      /* the table, then they are already inside in the dark, then room to room
+         to the back of the house. The world HAS night and HAS doors you walk
+         through, which is the same honest rule the five demo days were picked
+         by. The fight itself is COMBAT's, not this table's. */
+      advance: [ { stage: 20, on: 'enter_building', require: 'dark' },
+                 { stage: 30, on: 'enter_building' } ],
+      choiceAt: 30, choices: [40, 41, 42], fail: null
+    },
+    {
+      day: 7, main: true, act: 1,
+      id: 'bq_m02_the_dinner_after', file: 'M02_THE_DINNER_AFTER',
+      brief: 'Nobody wanted to eat. Mom cooked anyway and made us sit down.',
+      open: 10,
+      /* one table, one question: say it out loud or do not. The author wrote no
+         stage between sitting down and answering, so there is none. */
+      advance: null,
+      choiceAt: 10, choices: [20, 21], fail: 22
+    },
+    {
+      day: 8, main: true, act: 1,
+      id: 'bq_m03_the_ridge', file: 'M03_THE_RIDGE',
+      brief: 'We carried them up ourselves. Nobody offered and we would have said no.',
+      open: 10,
+      /* the ridge is somewhere else and the whole point of it is that you can
+         see the whole valley from there, so crossing into ground you have not
+         walked IS the beat. */
+      advance: { stage: 20, on: 'enter_district', require: 'new' },
+      choiceAt: 20, choices: [30, 31, 32], fail: null
+    },
+    {
+      day: 9, main: true, act: 1,
+      id: 'bq_m04_what_the_neighbour_asks', file: 'M04_WHAT_THE_NEIGHBOUR_ASKS',
+      brief: 'The man from up the road came down the day after the burial. Did not knock.',
+      open: 10,
+      advance: null,
+      choiceAt: 10, choices: [20, 21, 22], fail: 23
+    },
+    {
+      day: 10, main: true, act: 1,
+      id: 'bq_m05_something_is_coming', file: 'M05_SOMETHING_IS_COMING_DOWN_THE_ROAD',
+      brief: 'Somebody came in off the road saying there is a column behind them. Nobody laughed it off.',
+      open: 10,
+      advance: null,
+      choiceAt: 10, choices: [20, 21, 22, 23], fail: null
+    }
+  ];
+
+  /* THE ONE TRACK THE ONE DRIVER READS. Everything in the city goes through
+     specForDay -- the phone that rings, the offer card, the haggle, the save,
+     the objective line -- so appending to this list is the whole of making the
+     main line playable. There is no second driver and there must never be one. */
+  var TRACK = DAYS.concat(ACTS);
+
+  /* advSteps / nextAdvance -- A QUEST MAY HAVE MORE THAN ONE BEAT.
+     `advance` was one step because every side quest has one. M01 has two, so it
+     is a LIST here and a bare object is read as a list of one. nextAdvance
+     answers with the first step the quest has not reached yet, which is exactly
+     the old `state.stage < advance.stage` test generalised. */
+  function advSteps(sp) {
+    var a = sp && sp.advance;
+    if (!a) return [];
+    return (Object.prototype.toString.call(a) === '[object Array]') ? a : [a];
+  }
+  function nextAdvance(sp, stage) {
+    var L = advSteps(sp);
+    for (var i = 0; i < L.length; i++) if (stage < L[i].stage) return L[i];
+    return null;
+  }
+
   /* the @LOG line of a stage, verbatim, straight off the parsed quest */
   function stageLog(Q, n) {
     var st = (Q.stages || []).filter(function (s) { return s.n === n; })[0];
@@ -137,8 +249,8 @@
               seenDistricts: {}, lastNarrated: null };
 
     D.specForDay = function (day) {
-      if (!DAYS.length) return null;
-      return DAYS[(Math.max(1, day) - 1) % DAYS.length];
+      if (!TRACK.length) return null;
+      return TRACK[(Math.max(1, day) - 1) % TRACK.length];
     };
 
     /* open the day's quest. Returns the brief, or null if its text is missing
@@ -201,9 +313,9 @@
       if (kind === 'enter_district' && what.district) {
         var isNew = !D.seenDistricts[what.district];
         D.seenDistricts[what.district] = true;
-        if (sp.advance && sp.advance.on === 'enter_district' &&
-            (sp.advance.require !== 'new' || isNew) && D.rt.state.stage < sp.advance.stage) {
-          return D._toStage(sp.advance.stage);
+        var ad = nextAdvance(sp, D.rt.state.stage);
+        if (ad && ad.on === 'enter_district' && (ad.require !== 'new' || isNew)) {
+          return D._toStage(ad.stage);
         }
         return null;
       }
@@ -213,10 +325,9 @@
           D.pending = D.choiceCard();
           return { card: D.pending };
         }
-        if (sp.advance && sp.advance.on === 'enter_building' &&
-            (sp.advance.require !== 'dark' || what.dark === true) &&
-            D.rt.state.stage < sp.advance.stage) {
-          return D._toStage(sp.advance.stage);
+        var ab = nextAdvance(sp, D.rt.state.stage);
+        if (ab && ab.on === 'enter_building' && (ab.require !== 'dark' || what.dark === true)) {
+          return D._toStage(ab.stage);
         }
       }
       return null;
@@ -292,9 +403,19 @@
       return D._toStage(stageN);
     };
 
-    /* NIGHTFALL on an unresolved quest fires the quest's OWN fail stage. */
+    /* NIGHTFALL on an unresolved quest fires the quest's OWN fail stage.
+
+       AND WHEN THE AUTHOR WROTE NONE, NOTHING HAPPENS, WHICH IS THE POINT.
+       (9/18, with the main line.) Every side quest ships a FAIL branch for
+       running out of light. M01, M03 and M05 do not: their authors wrote three
+       or four ways the night can END and no way for it to be LOST. Before this
+       line, a null fail stage went to setStage(undefined) and the quest fell
+       into a stage that does not exist. Inventing a failure instead would be
+       writing his story, which is the one thing this lane may never do, so the
+       job simply stays open and the next morning it is still there. */
     D.nightfall = function () {
       if (!D.rt || !D.spec || D.rt.state.done) return null;
+      if (D.spec.fail == null) return null;
       D.pending = null;
       return D._toStage(D.spec.fail);
     };
@@ -338,9 +459,11 @@
        first: ENGINE SYNC LAW, one canonical body per module. A fix that lives in
        a copy is a fix the next resync silently deletes. */
     D.nextStep = function () {
-      var sp = D.spec, a = sp && sp.advance;
-      if (!a || !D.rt) return '';
-      if (!(D.rt.state.stage < a.stage)) return '';   /* the hint is for the step that is actually next */
+      if (!D.rt) return '';
+      /* THE HINT IS FOR THE STEP THAT IS ACTUALLY NEXT, and since 9/18 a quest
+         may have more than one, so the list is asked rather than the field. */
+      var a = nextAdvance(D.spec, D.rt.state.stage);
+      if (!a) return '';
       if (a.on === 'enter_building')
         return a.require === 'dark'
           ? 'get inside somewhere the power is out'      /* draft:true */
@@ -388,7 +511,8 @@
     return D;
   }
 
-  var API = { make: make, DAYS: DAYS, VERSION: 'demoquests-1.0.0' };
+  var API = { make: make, DAYS: DAYS, ACTS: ACTS, TRACK: TRACK,
+              VERSION: 'demoquests-1.1.0' };
   if (typeof module !== 'undefined' && module.exports) module.exports = API;
   root.BohemiaDemoQuests = API;
 })(typeof window !== 'undefined' ? window : (typeof globalThis !== 'undefined' ? globalThis : this));

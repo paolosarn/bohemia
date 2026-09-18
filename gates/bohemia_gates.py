@@ -3845,6 +3845,26 @@ GATES = [
      'deliberately survives a redraw). Covers the DAY CARD only; the BUILD and BUILD BIG dead buttons '
      'EYES also found are on the city build card and belong to LIFE+CITY. Runs 14/0',
      True),
+    ('MAIN QUEST LIVE', ['node', 'gates/main_quest_live_gate.js'],
+     'QUESTS row [main quest live], 9/18. FACTIONS found it chasing its own red: a .bq quest reaches '
+     'a player ONLY by being inlined into the slice, and M01..M05 -- the main quest line, "THE FIRST '
+     'MAIN-QUEST FILE THIS REPO HAS EVER HAD" -- were inlined into NO surface. MEASURED before a line '
+     'was written, by counting each id in each built file: M01..M05 walked city 0, alpha 1, demo 1, '
+     'against S01 walked city 2 -- and the one alpha hit is inside BOHEMIA_QUESTS, the DIRECT tab EDITING '
+     'table. So the story could be EDITED and never PLAYED, and two things were missing rather than one: '
+     'the text AND a slot in the day table (37 quests in the city playable set, zero main; five day rows, '
+     'zero main). The five are now inlined verbatim and the ONE driver reaches them as days 6-10, leaving '
+     'the five demo days untouched because EYES, PEOPLE and this lane haggle work all measure against day '
+     'one and only THE RUN re-cuts the running order (Paolo 9/13 rule 14a). TWO SHAPES THE SIDE QUESTS '
+     'NEVER HAD, both the authors and neither invented: M01 has THREE beats before its choice, so advance '
+     'is a LIST; and M01, M03 and M05 have NO FAIL STAGE, so nightfall leaves them open instead of going '
+     'to setStage(undefined) -- inventing a failure would be writing his story. ALSO MEASURED: the demo '
+     'cut is ONE DAY (CT_DEMO_DAYS=1), so which day the story starts on is the RUN cut, not this lane. '
+     'PROVED TO BITE THREE WAYS on the real repo, not in theory: cut M01 out of the city and 11 checks go '
+     'red by name, add one byte to M03 and verbatim goes red, cut M01 back to one beat and 7 go red. The '
+     'first cut CRASHED on the planted bug instead of reporting it (DQ.rt null), which is a gate that '
+     'hides the rest of its own row, so the browser half now reads the stage through a guard. Runs 37/0',
+     True),
     ('BOND OUTLIVES', ['node', 'gates/bond_outlives_gate.js'],
      'QUESTS row [bond outlives], 9/13. [company in asks] shipped and named its own limit in its '
      'own seam comment: the cast record is keyed on quest AND DAY, so a bond from an earlier day '
