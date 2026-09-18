@@ -165,10 +165,20 @@ function bodyOf(src, name) {
        await fr.evaluate(() => (typeof shadowRemember === 'function') ? 'ok' : 'no seam'));
 
     const r = await fr.evaluate(() => {
+      /* *** EVERYBODY DRAWN, NOT THE FIRST ONE. ***
+         The first cut asked about BARK_DREW[0] and called that "the man". That
+         was true while one body was on the glass and stopped being true the
+         moment RUN's wider camera drew six: the deed publishes by REACH, so some
+         of those six witness it and some do not, and the one who barks need not
+         be the first in the list. The gate went 25/0 to 22/3 on a merge and the
+         FEATURE WAS FINE -- two witnesses carrying it, one of them speaking. A
+         claim pinned to an index is a claim about the camera. */
       const drew = (typeof BARK_DREW !== 'undefined' && BARK_DREW) ? BARK_DREW : [];
-      const who = drew.length && drew[0].p ? String(drew[0].p.id) : null;
-      const out = { who };
-      out.beforeDeeds = who ? (ctKnownDeeds(who, 12) || []).map(x => x.kind) : [];
+      const all = drew.map(x => (x && x.p) ? String(x.p.id) : null).filter(Boolean);
+      const who = all.length ? all[0] : null;
+      const out = { who, drawn: all.length };
+      out.beforeDeeds = all.reduce(function (a, id) {
+        return a.concat((ctKnownDeeds(id, 12) || []).map(x => x.kind)); }, []);
       /* THE CONTROL: with nothing done to anybody, does the street stay quiet? A
          bark that fires either way would make every number below meaningless. */
       out.barkBefore = ctDeedBark(ctMinuteNow()) ? 1 : 0;
@@ -176,8 +186,14 @@ function bodyOf(src, name) {
       const res = roadChoose(ev, 'stare');
       out.armOk = !!(res && res.ok);
       out.armSay = res && res.say;
-      out.afterDeeds = who ? (ctKnownDeeds(who, 12) || []).map(x => x.kind) : [];
-      out.afterSays = who ? (ctKnownDeeds(who, 12) || []).map(x => x.say) : [];
+      const after = (typeof BARK_DREW !== 'undefined' && BARK_DREW) ? BARK_DREW : [];
+      const allAfter = after.map(x => (x && x.p) ? String(x.p.id) : null).filter(Boolean);
+      out.holders = allAfter.filter(id =>
+        (ctKnownDeeds(id, 12) || []).some(x => x.kind === 'spared' && !x.heard));
+      out.afterDeeds = out.holders.reduce(function (a, id) {
+        return a.concat((ctKnownDeeds(id, 12) || []).map(x => x.kind)); }, []);
+      out.afterSays = out.holders.reduce(function (a, id) {
+        return a.concat((ctKnownDeeds(id, 12) || []).map(x => x.say)); }, []);
       /* AND HE TURNS UP */
       out.barkAfter = ctDeedBark(ctMinuteNow()) ? 1 : 0;
       out.barkText = BARK.text || null;
@@ -189,6 +205,8 @@ function bodyOf(src, name) {
     note('what the man says the next time he sees him', r.barkText);
 
     probe('somebody was actually drawn to be the man', !!r.who);
+    note('people drawn when it happened', r.drawn);
+    note('of those, the ones who personally watched it', r.holders.join(', '));
     ok('*** THE CONTROL: BEFORE HE DOES ANYTHING, NOBODY IS CARRYING ANYTHING AND '
        + 'THE STREET IS QUIET ***, so everything below is the feature and not the '
        + 'organ firing anyway',
@@ -209,8 +227,10 @@ function bodyOf(src, name) {
        + 'cheapest first version, in its own words, and the words are about what he '
        + 'actually did rather than any voice on the street',
        r.barkAfter === 1 && isAboutIt, r.barkText || 'he said nothing');
-    ok('and it is the SAME person, not somebody else repeating a rumour',
-       r.barkWho === r.who, r.barkWho + ' vs ' + r.who);
+    ok('and the man who speaks is one of the people who actually WATCHED it, not '
+       + 'somebody else repeating a rumour',
+       r.holders.indexOf(r.barkWho) >= 0,
+       r.barkWho + ' of [' + r.holders.join(', ') + ']');
     ok('and what he carries is written as something he WATCHED, not something he '
        + 'heard', (r.afterSays[0] || '').indexOf('watched') === 0, r.afterSays[0] || '');
 

@@ -5480,6 +5480,22 @@ GATES = [
      "longer' means something. Being down is a QUESTION against the clock, so a save left on a shelf comes "
      "back healed with nothing to tidy. And it is on the card he already opens, saying how long and saying "
      "the promise out loud", False),
+    ('HEIR MOMENT',    ['node', 'gates/heir_moment_gate.js'],
+     "SUCCESSION-BEAT, coordinator 9/5: 'an heir inherits the house, the purse, every debt in full, half the "
+     "standing, and the wardrobe.' *** MEASURED FIRST AND FOUR OF THE FIVE WERE ALREADY BUILT, AND ONE OF THEM "
+     "REVERSES THE ROW: *** the house is WORLD [fold carries], the standing is inherit() (better than 'half' -- "
+     "only what was RETOLD survives), the purse crosses whole (9 before, 9 after), and THE DEBT is WORLD [debt "
+     "carried], which makes the bill DIE and the people stay, so 'every debt in full' is SUPERSEDED under "
+     "newest-date-wins rather than built. SO WHAT WAS MISSING WAS THE BEAT. Three FINISHED things sat in the "
+     "played file with nobody calling them: famAge() with ZERO CALLERS, so the fold advanced a generation and "
+     "NOT ONE PERSON AGED and the game handed a hundred years to a newborn; HEIR_TOOK, written at the fold and "
+     "read by NOTHING, its lines composed and thrown away every time; and famHeirSay PINNED AT GENERATION 1, so "
+     "after a fold the card named the heir of a life already handed over. On the demo now: children go newborn "
+     "-> ADULT, six move an age band, six alive before and after, and the card says YOU ARE YOUR FIRSTBORN while "
+     "WHO INHERITS says YOUR SECOND -- two people, two questions. NOT ONE NUMBER IS TYPED: the handoff is read "
+     "off BohemiaStayed.HANDOFF.years and there is NO FALLBACK, so a missing canon means nobody ages rather than "
+     "a quiet thirty nobody can trace. NOBODY DIES, because when a person dies of old age is a magnitude the "
+     "family module is parked on until he rules it. And WHEN a generation turns is still his: no trigger added", False),
     ('ENEMIES REMEMBER',['node', 'gates/enemies_remember_gate.js'],
      "BB-THE-SHADOW: 'BECAUSE WE NEVER RESET, EVERY RELATIONSHIP IN BOHEMIA IS A REPEATED GAME... THE SHADOW OF "
      "THE FUTURE IS NOT A METAPHOR HERE, IT IS THE ARCHITECTURE', and its own cheapest first version, THE MAN YOU "

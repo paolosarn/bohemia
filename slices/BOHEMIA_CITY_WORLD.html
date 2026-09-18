@@ -57675,6 +57675,12 @@ function nightPower(){
 /* __FOLD_CARRIES__ -- what the last handoff kept and what the dark took, so the
    fold can say it in words instead of the heir just finding less. */
 var HEIR_TOOK=null;
+/* __THE_SUCCESSION_BEAT__ (9/18) -- WHAT THE LAST HANDOVER DID, kept beside
+   HEIR_TOOK because they are three halves of one answer and a surface that
+   showed one without the others would say a generation turned and not say to
+   whom. HEIR_AGED is how many people the years actually moved a band.
+   Persisted with the generation, so the card still says it after a reload. */
+var HEIR_WHO=null, HEIR_AGED=0, HEIR_YEARS=0;
 var CELLS_LAST=null, CHARGE_TONIGHT=0;
 var RENT_TONIGHT=[], RENT_DOUSED=[];
 /* __OWN_POWER__ -- WHAT YOU DO NOT PAY FOR ANY MORE (9/12, [own power]).
@@ -70980,6 +70986,67 @@ function ctFold(){
     }
     if (_oat.clears.length) try { ctBelongPersist(); } catch(_e4){}
   } catch(_e){}
+  /* ============================================================================
+     __THE_SUCCESSION_BEAT__ (9/18, PEOPLE, VAMILY [heir moment], SUCCESSION-BEAT)
+
+     THE ROW: "an heir inherits the house, the purse, every debt in full, half the
+     standing, and the wardrobe."
+
+     *** MEASURED FIRST, AND FOUR OF THE FIVE WERE ALREADY BUILT BY SOMEBODY. ***
+     The house is WORLD's [fold carries] (kept if lit, lost if dark). The debt is
+     WORLD's [debt carried] and it REVERSES this row: the bill dies and the people
+     stay, which is newer and is what DYNASTY's research sharpened, so "every debt
+     in full" is superseded rather than built. The standing is inherit(), and it is
+     better than "half": only what was RETOLD survives, and what a dead eyewitness
+     alone knew dies with them. The purse crosses whole, measured 9 before and 9
+     after, which is what this row asks for.
+
+     SO WHAT WAS MISSING WAS NOT AN ACCOUNT, IT WAS THE BEAT ITSELF. Three finished
+     functions sat in this file with NOBODY CALLING THEM:
+       famAge()        zero callers. The fold advanced the generation and NOT ONE
+                       PERSON AGED, so the heir stayed a child for ever and the
+                       game handed a hundred years to somebody who never grew up.
+                       Its own comment says where it belongs: "the fold hands it
+                       the canon ~30".
+       HEIR_TOOK       written right here, read by NOTHING. The lines are already
+                       composed ("He put nothing up, so there is nothing to hand
+                       over.") and were thrown away every fold.
+       famHeirSay()    read in exactly one place, a card, and never at the moment
+                       the life actually changes hands.
+     This lane has shipped a dead export twice and been caught both times. Here
+     were three already in the tree, and the row's own name is the beat.
+
+     NOT ONE NUMBER IS NEW. The handoff length is canon and it is already an
+     executable constant: BohemiaStayed.HANDOFF.years, whose own file collects
+     every year in this game that somebody already wrote down. Typing 30 here
+     would be a second copy of a canon number, which is the defect this lane has
+     found in its own work four rounds running.
+     AND NOBODY DIES. agePeople does not kill, and WHEN somebody dies of old age
+     is a magnitude the family module is deliberately parked on until Paolo rules
+     it. A fold that started killing people would be inventing that ruling.
+     ========================================================================== */
+  try {
+    var _sy = 0;
+    try { _sy = (BohemiaStayed.HANDOFF.years | 0); } catch(_e2){ _sy = 0; }
+    /* NO CANON, NO AGEING. A fallback number here would be exactly the invention
+       the comment above refuses, so a missing constant means nobody ages and the
+       gate says so, rather than a quiet 30 nobody can trace. */
+    HEIR_AGED = _sy ? famAge(_sy) : 0;
+    HEIR_YEARS = _sy;
+  } catch(_e){ HEIR_AGED = 0; HEIR_YEARS = 0; }
+  /* WHO IT IS NOW. Asked AFTER the ageing, because heirOf picks a LIVING child
+     and the whole point of the line above is that the child is an adult by the
+     time the life reaches them.
+     *** AND ASKED ABOUT THE GENERATION THAT JUST HANDED OVER, NOT THE NEW ONE.
+     CT_GEN was already incremented at the top of this function, and heirOf hashes
+     the generation in on purpose (GDD v4 58), so asking with the new number
+     answers a DIFFERENT question: who will inherit NEXT. Measured on the demo,
+     that made the card print one person under two headings, WHO INHERITS and the
+     life that just ended, which is the same wrong answer twice. The heir of the
+     life that ENDED is the person now holding it, and that is who he is. */
+  try { HEIR_WHO = famHeirSay(Math.max(1, (CT_GEN | 0) - 1)); }
+  catch(_e){ HEIR_WHO = null; }
+  try { famTreeSave(); } catch(_e){}
   try { ctMindSave(); } catch(_e){}
   try { if (CT_OPEN) ctDraw(); } catch(_e){}
   /* __THE_FOLD_IN_THE_RUNTIME__ -- AND WHAT THE HEIR ACTUALLY GETS.
@@ -73154,11 +73221,45 @@ function showStanding(){
         h += '<div class="rrow"><span class="rk">YOUR CHILDREN</span><span class="rv">'
            + esc(_kd.map(function(k){ return BohemiaFamily.say(_t,k); }).join(' · '))
            + '</span></div>';
-        var _hs = famHeirSay(1);
+        /* WHO INHERITS ASKS ABOUT THE GENERATION HE IS IN, not always the
+           first. It was pinned at 1, so after a fold the card went on naming
+           the heir of a life that had already been handed over. heirOf hashes
+           the generation in on purpose, so a fixed 1 is a different question
+           from the one the game is now in. */
+        var _hs = famHeirSay((typeof CT_GEN !== 'undefined') ? (CT_GEN | 0) : 1);
         h += '<div class="rrow"><span class="rk">WHO INHERITS</span><span class="rv">'
            + esc(_hs || 'NOBODY YET') + '</span></div>';
       }
     }
+  }catch(_e){}
+  /* __THE_SUCCESSION_BEAT__ (9/18, [heir moment]) -- AND WHAT THE LAST HANDOVER
+     ACTUALLY DID, on the card he already opens.
+     HEIR_TOOK has been computed at every fold since 9/16 and READ BY NOTHING:
+     its lines were composed, thrown away, and recomputed next time. A generation
+     turned, a hundred years of a family changed hands, and the only place it
+     showed was a number in a developer's console.
+     SILENT IN GENERATION ONE, which is every save until he turns one, so nothing
+     new appears on his card until something has actually happened. */
+  try{
+    if((typeof CT_GEN !== 'undefined') && (CT_GEN|0) > 1){
+      /* THE BEAT ITSELF, IN ONE ROW: the game tells him who he is now. It sits
+         under WHO INHERITS, which answers the other half (who takes it after
+         him), and the two are different people on purpose. */
+      h += '<div class="rrow"><span class="rk">YOU ARE</span>'
+         + '<span class="rv">' + esc(HEIR_WHO || 'NOBODY NAMED') + '</span></div>';
+      if(HEIR_YEARS)
+        h += '<div class="rrow"><span class="rk">YEARS SINCE</span><span class="rv">'
+           + (HEIR_YEARS|0) + ' YEARS, ' + (HEIR_AGED|0) + ' OLDER</span></div>';
+      /* ITS OWN WORDS, NOT A SECOND SET. BohemiaHeir wrote these lines and this
+         is the first thing that has ever printed them. */
+      try{
+        var _tk = HEIR_TOOK && HEIR_TOOK.lines;
+        for(var _ti = 0; _ti < (_tk ? _tk.length : 0); _ti++)
+          h += ctNote(_tk[_ti]);
+      }catch(_e2){}
+    }
+  }catch(_e){}
+  try{
   }catch(_e){}
   /* __CITY_LOCK_THEM__ (9/15) -- WHO YOU WILL NOT LOSE, AND WHAT IT COSTS.
      Paolo 9/11: "there has to be a way to make it easy to lock characters they

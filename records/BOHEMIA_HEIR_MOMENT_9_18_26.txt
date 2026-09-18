@@ -1,0 +1,133 @@
+BOHEMIA -- HEIR MOMENT (9/18/26, PEOPLE lane)
+VAMILY job [heir moment], row SUCCESSION-BEAT.
+
+THE ROW, decided by the coordinator 9/5 (correct-after):
+  "an heir inherits the house, the purse, every debt in full, half the standing,
+   and the wardrobe. WHO YOU CAN MARRY stays Paolo's (identity). Build the
+   inheritance; leave marriage a stub with his name on it."
+
+================================================================================
+*** FOUR OF THE FIVE WERE ALREADY BUILT, AND ONE OF THEM REVERSES THE ROW ***
+================================================================================
+Measured on the walked surface before writing anything:
+
+  THE HOUSE      built. WORLD [fold carries], 9/16: the heir keeps what is still
+                 lit and loses what went dark, which wires the generation to the
+                 rent you did or did not pay.
+  THE DEBT       built, AND IT IS THE OPPOSITE OF THIS ROW. WORLD [debt carried],
+                 9/12: the bill DIES and the people stay. That is newer, it is
+                 what DYNASTY's carry research sharpened, and NEWEST DATE WINS.
+                 So "every debt in full" is SUPERSEDED, not built. Naming that is
+                 the job; quietly building the older ruling would have put two
+                 answers in the game.
+  THE STANDING   built, and better than "half the standing", which is a number.
+                 inherit() keeps only what was RETOLD: what a dead eyewitness
+                 alone knew dies with them. A structural rule, already ruled.
+  THE PURSE      crosses whole. Measured 9 batteries before, 9 after.
+  THE WARDROBE   nothing is worn on this surface to carry (worn reads null), so
+                 there is nothing to move and nothing is invented.
+
+================================================================================
+*** SO WHAT WAS MISSING WAS NOT AN ACCOUNT. IT WAS THE BEAT. ***
+================================================================================
+Three FINISHED things sat in the played file with nobody calling them:
+
+  famAge()      ZERO CALLERS. The fold advanced the generation and NOT ONE PERSON
+                AGED. The game handed a hundred years to a newborn and the heir
+                stayed a child for ever. Its own comment says where it belongs:
+                "the fold hands it the canon ~30".
+  HEIR_TOOK     written at the fold and READ BY NOTHING. Its lines were already
+                composed ("He put nothing up, so there is nothing to hand over."),
+                thrown away, and recomputed at the next fold.
+  famHeirSay()  read in exactly ONE place, a card, and PINNED AT GENERATION 1, so
+                after a fold it went on naming the heir of a life that had already
+                been handed over. heirOf hashes the generation in on purpose
+                (GDD v4 58), so a fixed 1 is a different question.
+
+This lane has shipped a dead export twice and been caught both times. Here were
+three already in the tree, and the row's own name is the beat they add up to.
+
+================================================================================
+NOT ONE NUMBER IS NEW, AND NOBODY DIES
+================================================================================
+The handoff is canon and it is ALREADY AN EXECUTABLE CONSTANT:
+BohemiaStayed.HANDOFF.years, in a file whose own header collects every year in
+this game that somebody already wrote down. Typing 30 at the fold would be a
+second copy of a canon number, which is the defect this lane has found in its own
+work four rounds running. AND THERE IS NO FALLBACK: no constant means nobody
+ages, rather than a quiet thirty nobody can trace back to a ruling.
+
+NOBODY DIES AT THE FOLD. agePeople does not kill, and WHEN a person dies of old
+age is a magnitude the family module is deliberately parked on until Paolo rules
+it, in its own words: "keeping the writer parked until he rules is exactly the
+'finished thing with a published seam and no caller' this repo has burned on
+before." A fold that started killing people would be inventing that ruling.
+
+================================================================================
+ON THE GLASS, WITH A CONTROL
+================================================================================
+  the first life    the card says NOTHING about a handover. Ten rows, none of
+                    them a beat. So what appears below is the beat and not a
+                    caption that was always there.
+  across the fold   the children go newborn -> ADULT. Six people move an age
+                    band. Six alive before, six alive after.
+  the purse         9 before, 9 after, with something really in it so the claim
+                    can fail
+  and the card      YOU ARE      YOUR FIRSTBORN
+                    WHO INHERITS YOUR SECOND
+                    YEARS SINCE  30 YEARS, 6 OLDER
+
+TWO DIFFERENT PEOPLE FOR TWO DIFFERENT QUESTIONS, which is the fix as much as the
+feature: who holds the life now, and who takes it after him.
+
+================================================================================
+TWO THINGS I GOT WRONG, BOTH CAUGHT BEFORE THEY SHIPPED
+================================================================================
+1. I REPORTED THAT MARRIAGE WAS BROKEN. My first measurement read
+   spouseOf(tree).name and printed null, so I wrote down that famMarry produced
+   no spouse. It produces one every time. THE NAME is null because naming is
+   HIS, and the spouse ships as [PENDING Paolo] on purpose. A null field read as
+   a null person, and it would have gone into a record as a regression in another
+   round's work.
+2. THE FIRST CUT PRINTED ONE PERSON UNDER TWO HEADINGS. I asked famHeirSay with
+   the NEW generation number, which answers "who inherits next", and labelled it
+   as the life before. The card said YOUR SECOND twice. The heir of the life that
+   ENDED is the person now holding it.
+AND ONE CLAIM IN MY OWN GATE COULD NOT FAIL: "the purse crosses whole, 0 before
+and 0 after" is true of an empty pocket whatever the fold does. It puts nine
+batteries in first now and requires the balance to be above zero.
+
+================================================================================
+THE GATE
+================================================================================
+gates/heir_moment_gate.js, 21 claims.
+  the callers   famAge is called and the fold is its only caller; HEIR_TOOK is
+                read and its OWN lines are what print; the card asks about the
+                generation he is in
+  the numbers   the handoff is read off the canon constant, there is no fallback,
+                and nothing at the fold kills anybody
+  the demo      the control (first life, no handover row), newborn -> adult, the
+                canon 30, nobody dead, the purse whole, the card naming him, and
+                two different answers to two different questions
+
+NEGATIVE-CONTROLLED, each put back:
+  unplug famAge from the fold        RED: the children stay newborn
+  type 30 instead of the constant    RED on the no-typed-number claim
+  pin the card back to generation 1  RED on the wrong-generation claim
+
+================================================================================
+MEASURED AND NOT FIXED
+================================================================================
+WHEN A GENERATION TURNS IS STILL HIS, and it stays a door: the file's own comment
+says "nothing in this file folds on its own -- no timer, no act boundary, no
+death", because when a life ends is a STORY decision. This round did not add a
+trigger and must not.
+
+THE WARDROBE has nothing worn to carry on this surface. When something is worn,
+this is where it goes.
+
+[PENDING Paolo], carried: when a person dies of old age; how many game days is a
+year; who you marry.
+
+TAB: CITY, the STANDING card. Turn a generation and the card tells you who you
+are now, how long it has been, and what the handover took.
