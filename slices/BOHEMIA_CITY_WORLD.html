@@ -339,7 +339,16 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font-family:var(--
 #keypanel .krow.clear{color:var(--acc);font-weight:700;letter-spacing:var(--track-casing,.4px);margin-bottom:4px}
 /* 4.16:1 measured against a 4.5 floor (9/6, [eyes: faint chips]) -- the one label on
    this screen that both rulers agreed was too faint. Lifted inside the same family. */
-#note{font-family:var(--face-body);position:absolute;left:10px;top:10px;font-size:10px;color:#b3a488;background:rgba(12,10,8,0.85);border:1px solid var(--line);padding:5px 9px;border-radius:5px;z-index:4;letter-spacing:var(--track-casing,.4px)}
+ /* A LABEL FLOATING OVER THE WORLD IS NOT A CARD. Measured on the live street: this and
+    #teachsay are TWO OF THE THREE one-pixel edges a player can actually see on the opening
+    screen, and both were a hairline round a rounded box over a translucent black fill.
+    The hairline was doing real work -- these float over a moving world and need an edge --
+    so it is replaced rather than deleted: the skin's own body, a lit rim above and a dark
+    base below, which separates it from the ground the way a physical label does. */
+#note{font-family:var(--face-body);position:absolute;left:10px;top:10px;font-size:10px;color:#b3a488;background:rgba(12,10,8,0.85);padding:5px 9px;border-radius:var(--skin-chipround,2px);z-index:4;letter-spacing:var(--track-casing,.4px);
+  box-shadow:inset 0 1px 0 var(--skin-chiptop,#5c4f38),
+             inset 0 -2px 0 var(--skin-chipbase,#0b0906),
+             0 1px 0 var(--skin-chipunder,rgba(0,0,0,.55))}
 /* THE ONE CONTROL STILL UNDER THE READABLE FLOOR, CLOSED. Measured on the played
    screen: BIKE's letters came back 4.48 against a 4.5 floor -- the only one of
    seventeen under it, and it has been under it on main. It takes the lighter tint of
@@ -74146,7 +74155,13 @@ window.BOHEMIA_FEED = (function(){
    +'#teachring.beat{opacity:.45}'
    +'#teachsay{position:absolute;font:600 12px/1.35 var(--face-body);'
      +'letter-spacing:var(--track-casing,.4px);color:var(--ink);background:rgba(11,10,9,.92);'
-     +'border:1px solid var(--line);border-radius:8px;padding:7px 10px;'
+     /* SAME AS #note, AND FOR THE SAME REASON: the other visible hairline on the opening
+        screen. An 8px rounded box with a grey line round it is the law's list twice; the
+        skin's body keeps it legible over a moving world without either. */
+     +'border-radius:var(--skin-chipround,2px);padding:7px 10px;'
+     +'box-shadow:inset 0 1px 0 var(--skin-chiptop,#5c4f38),'
+                +'inset 0 -2px 0 var(--skin-chipbase,#0b0906),'
+                +'0 1px 0 var(--skin-chipunder,rgba(0,0,0,.55));'
      +'text-align:center;max-width:80vw}';
   document.head.appendChild(css);
 
@@ -74833,8 +74848,22 @@ window.BOHEMIA_BAR = (function(){
         +'margin:-6px -6px 0;'
         +'align-items:center;gap:8px;padding:3px 8px;min-height:22px;'
         +'background:linear-gradient(#241f16,#171309);'
-        +'border-bottom:1px solid var(--line);'
-        +'box-shadow:0 2px 10px rgba(0,0,0,.55);'
+        /* THE BAR'S UNDERSIDE, NOT A LINE DRAWN UNDER IT. This was the LAST visible
+           one-pixel edge on the opening street, measured on the live surface rather than
+           read off the file. It is not decoration -- the bar has to end somewhere -- so it
+           is translated, not deleted: the skin's own base is the bottom of a thing with
+           thickness, which is what this bar is, and it reads as an edge instead of as a
+           hairline. Same two values every chip and panel already use. */
+        /* *** AND THE TWO SHADOWS ARE ONE DECLARATION, WHICH I GOT WRONG FIRST. ***
+           The base went in as its own box-shadow line directly above the bar's existing
+           drop shadow. box-shadow does not merge: the later line wins whole, so the base
+           was dead the moment it was written and the computed value came back as the old
+           shadow alone. Caught by asking the page, one measurement after writing it.
+           THAT IS THE SAME DEFECT THIS WHOLE ROUND IS ABOUT -- a declaration a later rule
+           cancels reads exactly like one that works -- and I made it while fixing it. */
+        +'box-shadow:inset 0 -1px 0 var(--skin-chipbase,#0b0906),'
+                  +'0 1px 0 var(--skin-chipunder,rgba(0,0,0,.55)),'
+                  +'0 2px 10px rgba(0,0,0,.55);'
         +'font-size:10px;font-weight:700;letter-spacing:var(--track-casing,.4px);color:var(--ink);'
         +'pointer-events:none}'
       +'#menubar > *{pointer-events:auto}'

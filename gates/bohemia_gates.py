@@ -461,6 +461,27 @@ GATES = [
      'and failed on 505/518/546ms samples -- the threshold was wrong, not the feed. It also '
      'prints the page\'s own clock gaps, which are whole-page freezes belonging to another '
      'lane, so they cannot hide inside this lane\'s green.', True),
+    ('STREET NO HAIRLINES', ['node', 'gates/the_street_draws_no_hairlines_gate.js'],
+     'THE TELL RULER READS SOURCE, AND ON THE WALKED CITY IT WAS FIFTEEN TIMES THE TRUTH. It '
+     'said 46 one-pixel borders and 53 rounded corners; the LIVE opening street was drawing '
+     'three and three. Almost everything left in that count is a declaration the skin already '
+     'cancels with !important, or a rule for a panel that is not open, so eight rounds of the '
+     '[no slop] row were reported against a number nothing on his screen matched. Both questions '
+     'are real: a dead declaration still counts, still misleads the next reader, and is exactly '
+     'how a killed shape comes back (GET UP was drawn with a bevel AND a rounded hairline because '
+     'a later rule put the hairline back). The ruler keeps that honest; this gate holds the other '
+     'half, WHAT HE ACTUALLY SEES, and it is a RATCHET AT ZERO on the opening street. The last '
+     'three were the hint line, the teaching caption and the top bar\'s underside, all TRANSLATED '
+     'into the skin\'s own body rather than deleted, because each was doing real work separating a '
+     'label from a moving world. Not counted, so the ratchet cannot be gamed or be cruel: a CIRCLE '
+     'is a shape (the pad is 999px), a TRANSPARENT border paints nothing, and a panel he has not '
+     'opened is not on his screen. The panels he CAN open get a ceiling instead of zero, because '
+     'the map key really does draw 32 swatch edges and the phone really does draw its own casing '
+     '-- [phone object] built that casing on purpose and stripping it to make a number fall would '
+     'be the ruler counting the cure as the disease, which this lane has already done once. The '
+     'measurement is REQUIRED from tools/bohemia_what_actually_paints.js, not copied, so the CLI '
+     'and the gate cannot drift. Uses the one driver (rule 14g). Mutation-proved three ways.',
+     False),
     ('CARD IS OBJECT', ['node', 'gates/the_card_is_an_object_gate.js'],
      'Two entries on the vibe-code law\'s own list are "a grey one-pixel border on every card" '
      'and "the rounded card as the way to group". After eight rounds the biggest single owner of '
