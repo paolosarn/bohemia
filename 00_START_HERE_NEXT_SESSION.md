@@ -16907,7 +16907,7 @@ chat with an empty queue takes QUESTS, and DYNASTY's queue went empty at Q16. Th
 lane and its first row were claimed and pushed BEFORE any work started. ***
 
 ROUND 41 [main quest live] THE STORY IS IN THE GAME. QUESTS, BUILD. 1485c90.
-gates/main_quest_live_gate.js 37/0, registered. THE DEMO WAS NOT RE-CUT.
+gates/main_quest_live_gate.js 42/0, registered. THE DEMO WAS NOT RE-CUT.
   records/BOHEMIA_QUESTS_THE_MAIN_QUEST_IS_IN_THE_GAME_9_18_26.md
 
 MEASURED BEFORE ANYTHING WAS BUILT, counting each quest id in each built surface:
@@ -16950,6 +16950,14 @@ carry no second copy of the quest text (both checked, not assumed). So quest tex
 inlined into the city reaches the demo WITHOUT a re-cut. That is why rule 14(a)
 was kept without the row stalling, and the gate now holds that fact so a future
 build cannot quietly grow a second copy.
+
+THE GATE HOLDS THE CLASS, NOT THE INSTANCE. The five were one symptom of a
+general hole: a .bq can be written, parsed, studied, voice-passed and gated and
+STILL REACH NOBODY, because the only thing that puts it in front of a player is
+being inlined into the slice. So the check is that EVERY quest the repo has
+(42/42) is in the file the player loads, byte for byte. The next one written
+cannot go missing quietly. FOR EVERY LANE THAT WRITES CONTENT: gates on the
+SOURCE file prove nothing about reach.
 
 THE GATE IS PROVED TO BITE THREE WAYS ON THE REAL REPO, not in theory: cut M01
 out of the city and 11 checks go red by name; add ONE BYTE to M03's copy and
