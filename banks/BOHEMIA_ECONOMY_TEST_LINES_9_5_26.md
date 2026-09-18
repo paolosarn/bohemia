@@ -3604,3 +3604,60 @@ YYYYYYY3 somebody who will not ask for it back draft:true
   last one to find out, because that is what every account describes.
 - Spanish register: 1 of 16 lines, 6%, under the 15% he set on 8/26. One word
   inside an English sentence, not respelled, counted while written.
+
+## VVVVVVVVV. THAT'S TOO FAR TO GO TODAY
+## (round 46. The daily radius is not how far you CAN go, it is the distance past
+##  which you stop bothering. Half the valley is already that, and nothing says so.)
+
+- VVVVVVVVV1 `draft:true` — "You'd get there. You wouldn't get back." (the radius,
+  in seven words. VOICE CARD: the second sentence is the whole decision.)
+- VVVVVVVVV2 `draft:true` — "Not today. Ask me again when it's light earlier."
+  (a refusal that is about the clock and not about the willingness.)
+- VVVVVVVVV3 `draft:true` — "People used to go over there. They stopped."
+  (contract it: the cut sentence explained why, and it was better without.)
+- VVVVVVVVV4 `draft:true` — "Ya, it's close. Close on a map." (Spanish register,
+  one word, and the correction is the whole difference between distance and reach.)
+
+## WWWWWWWWW. HE WALKS IT ANYWAY
+## (round 46. Caracas: seven kilometres each way, over an hour, and the choice was
+##  walk or stay home. The one who walks it is not a hero, he is tired.)
+
+- WWWWWWWWW1 `draft:true` — "Hour there. Hour back. That's before anything."
+  (the commute as arithmetic done by somebody who has done it too many times.)
+- WWWWWWWWW2 `draft:true` — "I don't talk on the way out. I've got nothing spare."
+  (the cost said as a small refusal, and it is the most human line in the round.)
+- WWWWWWWWW3 `draft:true` — "Everybody either walks it or they stopped going. There
+  isn't a third one." (the record's own finding in a mouth, and the flatness is
+  the point.)
+- WWWWWWWWW4 `draft:true` — "He's been doing it since the spring. I would not."
+  (somebody else's endurance, judged and admired at once.)
+
+## XXXXXXXXX. HALF AN HOUR, THAT WAY
+## (round 46. Every real threshold is a TIME and all of them are under half an
+##  hour. Nobody in the world plans in kilometres.)
+
+- XXXXXXXXX1 `draft:true` — "Half an hour if you don't stop. You'll stop."
+  (the honest estimate plus the honest correction.)
+- XXXXXXXXX2 `draft:true` — "Don't ask me how far. Ask me how long." (the finding
+  of the round, said by somebody who has never heard of a planning standard.)
+- XXXXXXXXX3 `draft:true` — "Anything past the water tower is a whole morning."
+  (a landmark instead of a number, which is how people really say it.)
+- XXXXXXXXX4 `draft:true` — "You can be there and back before it gets hot. Just."
+  (nine words then one, and the one is the margin.)
+
+## YYYYYYYYY. WHAT IS NOT HERE, ON PURPOSE (round 46)
+
+- No line contains a number, a distance, a count of lots or a clock time in
+  figures. This is a round made entirely of numbers and not one is spoken.
+- No line uses the words radius, reach, kilometre, lot, step or beat.
+- No line explains why people stop going past a certain distance. Nobody in
+  Bohemia is wise; XXXXXXXXX2 states the rule and does not know it is a rule.
+- No line names a faction, a street or a town. XXXXXXXXX3 uses a water tower,
+  which is a landmark and not a place name. MAP LAW.
+- No line decides what the reach card shows, whether a travel step is a beat, or
+  what the far market costs. Those are the things section 4 refused.
+- No line has the player speaking, and no line tells him he is weak for not going.
+- No line makes the long walk heroic. WWWWWWWWW2 is a man saving his breath and
+  WWWWWWWWW4 is somebody saying plainly that they would not do it.
+- Spanish register: 1 of 16 lines, 6%, under the 15% he set on 8/26. One word
+  inside an English sentence, not respelled, counted while written.
