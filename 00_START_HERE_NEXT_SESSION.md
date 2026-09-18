@@ -1540,6 +1540,64 @@ full suite unmeasured since 7efb22cf. Rule 14(a): demo untouched, RUN cuts it.
 
 Record: records/BOHEMIA_ONE_DOOR_9_14_26.md
 
+PLUMBER (plumber-ont6t5): 9/18 LATEST -- *** CHAT 18. ROUND 30. [sixty fps] CONTINUING, ROUND 4.
+CLOSED BOTH DISAGREEMENTS ROUND 3 NAMED, AND THE CAUSE WAS ONE BUG IN THIS LANE'S OWN INSTRUMENT. ***
+WHAT WAS OPEN: two budgets the speed gate holds were derived from numbers that do not describe what the
+gate measures -- frames walking 8.8 fps in the record against 55.8 live (6.3x), main thread 6.4% against
+15.8% (2.5x). Both were taken OUT of the clamp last round with their numbers written down rather than
+papered over. Reconciling them was the named next line.
+HOW I FOUND IT. Both sides call the SAME walkSample() and read the SAME field, so the difference had to
+be in how it was called. Two candidates: the hold length, and whether a first-minute walk runs first.
+  HOLD LENGTH IS NOT IT. One boot per hold: 2 s -> 56.7 fps, 4 s -> 55.9, 6 s -> 59.8, 9 s -> 48.1. At
+  the record's own hold length it reads 59.8, not 8.8. (The 9 s row is the disease in miniature: 123
+  cells at nine seconds against 120 at six. He had stopped moving and the extra time dragged the rate.)
+  THE FIRST-MINUTE WALK IS IT. One boot each, everything else identical:
+      skipFirstMinute = true     settled walk   60.0 fps   363 renders   110 cells
+      skipFirstMinute = false    settled walk    8.8 fps    55 renders     3 CELLS
+  8.8 is the record's number exactly, on demand.
+*** WHY: EVERY WALK IN THIS FILE PRESSED pad.up, INCLUDING THE SETTLED ONE THAT RUNS AFTER A SIXTY-SECOND
+FIRST-MINUTE WALK IN THE SAME DIRECTION. *** So the settled sample measured a player who had been walking
+north for over a minute and was against something. He covered three cells in six seconds and that got
+written down as "frames walking, settled: 8.8 fps".
+IT WAS NEVER A FRAME RATE. The good-bursts rate was 60.2 in BOTH runs. The game drew at sixty the whole
+time in both. One player was walking and the other was pressed against a wall.
+THE VALIDITY FLOOR WAS TOO WEAK TO CATCH IT, AND THE RULE WAS ALREADY RIGHT. The file already said "a
+sample that did not move is not a slow sample, it is a broken one". The THRESHOLD asked "did he move AT
+ALL" and one cell passed. Measured: a walking player covers 110-123 cells in 6 s (about 19 a second), a
+stuck one covers 3 (about 0.5). Both reported moved:true. THE FLOOR IS NOW TWO CELLS PER SECOND OF HOLD
+-- ten times under a healthy walk, four times over a stuck one -- and an invalid sample carries WHY in
+its own body, including the rate the page actually drew at while it was drawing.
+THE FIX: walkSample takes a direction, defaulting to 'up' so every existing caller is unchanged, and the
+settled walk goes the OTHER way when a first-minute walk ran. Before 60.0/110 cells against 8.8/3 cells;
+after 58.3/110 against 50.9/110. A 6.3x disagreement is now 1.15x.
+THE MAIN-THREAD GAP HAD THE SAME CAUSE AND CLOSED WITH IT, no separate hunt: a player against a wall
+barely draws, so his frame rate AND his thread cost both read low. Refreshed record against live gate:
+    frames walking   8.8 -> 57.1 fps   (gate live 60.4)   agree 1.06x
+    main thread      6.4 -> 20.6 %     (gate live 17.9)   agree 1.15x
+SO BOTH LINES GO BACK INTO THE CLAMP and notClampedOnPurpose is now EMPTY. Six clamped instead of four:
+fight 10 -> 47.81, walking 6 -> 40.77, main thread 56 -> 33, beats missed 9 -> 4, alpha walk 6 -> 41.66,
+alpha beats 11 -> 4. Every held line sits between 1.15x and 1.60x of what the build does, against a guard
+that fails anything over 2x. Excluding them last round was right while they disagreed and wrong to keep
+once they did not -- and it bought something real: it kept the fight's clamp tight while the walk was
+still a mystery, where widening the margin would have loosened the fight too.
+WHAT THIS CHANGES FOR EVERY LANE: every "frames walking" number quoted from this record since the
+first-minute walk was added mixed two things, how fast the game draws and how long the player kept moving
+before he hit something. They are now separated. THE GOOD-BURSTS RATE WAS CORRECT ALL ALONG AND NOBODY
+WAS READING IT: 59.9 to 60.2 in every single run above, stuck or walking.
+THE GATE IS 38 PASSED / 3 FAILED. It was 36/3 last round and 32/3 when this row started. ALL THREE REDS
+ARE THE SAME BUG AND IT IS NOT MINE: #daycard is inset:0 and sits over all eight direction buttons on
+boot, so a driven thumb has nothing to press and time to first play cannot be measured on either surface.
+Named for RUN on the front page for the third round running.
+ROW STAYS CLAIMED. Targets: walking 57.1 in the record and 60.4 live, essentially there; the fight 60
+here but 7.1 on a phone-shaped CPU, missed; first play BLOCKED by the card. NEXT LINE: the fight on a
+phone-shaped CPU is the only target left that is this lane's to chase, and the boot is where a phone
+loses it -- 71.8 s of blocked main thread at 4x.
+STILL OPEN IN MY SECTION: [slim build] (NEXT AFTER [sixty fps]), [handoff cut], [suite runs] (THE SUITE
+LINE on the front page is still 9/14 ad23d875 and is four rounds stale), [dead gates], [mode chip],
+[cannot fail], [pre-push pass], [suite line].
+Record: records/BOHEMIA_THE_WALK_WAS_A_PLAYER_STUCK_AGAINST_A_WALL_9_18_26.md
+[PENDING Paolo] nothing.
+
 PLUMBER (plumber-ont6t5): 9/16 LATEST -- *** CHAT 18. ROUND 29. [sixty fps] CONTINUING, ROUND 3. CLOSED
 THE HOLE ROUND 2 NAMED AND REFUSED TO HALF-FIX. ***
 THE HOLE: the speed gate held the fight at >= 10 fps while the build delivered 60. A 5.7x REGRESSION ON

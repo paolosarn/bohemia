@@ -1,19 +1,6 @@
 {
   "history": [
     {
-      "takenOn": "seeded-from-m5",
-      "cpuYardstickMs": null,
-      "firstPlayHi": 14257,
-      "walkFpsLo": 24.5,
-      "busyHi": 31,
-      "fightLo": 25,
-      "bytesHi": 26490119,
-      "beatHi": 3.1,
-      "alphaFirstPlayHi": 14543,
-      "alphaWalkFpsLo": 33.8,
-      "alphaBeatHi": 3.1
-    },
-    {
       "takenOn": "seeded-from-m6",
       "cpuYardstickMs": null,
       "firstPlayHi": 20439,
@@ -77,34 +64,47 @@
       "alphaFirstPlayHi": null,
       "alphaWalkFpsLo": 8.5,
       "alphaBeatHi": 2
+    },
+    {
+      "takenOn": "2026-09-18T01:34:57.092Z",
+      "cpuYardstickMs": 29,
+      "firstPlayHi": null,
+      "walkFpsLo": 52.2,
+      "busyHi": 24.1,
+      "fightLo": 60,
+      "bytesHi": 51206162,
+      "beatHi": 2.6,
+      "alphaFirstPlayHi": null,
+      "alphaWalkFpsLo": 50.6,
+      "alphaBeatHi": 2.6
     }
   ],
   "what": "BOHEMIA -- how fast the game is on a phone-shaped browser. Taken by gates/bohemia_phone_perf.js, held by gates/fps_on_a_phone_gate.js.",
   "onAPhoneShapedCpu": {
     "whatThisIs": "The same build at a 4x CPU throttle, the knob DevTools uses. Reported, never asserted. Nobody in this repo has ever measured a real handset, so 4x is a stand-in with a stated multiplier, not a claim about any particular phone.",
     "cpuThrottle": 4,
-    "yardstickMsAt1x": 31,
-    "yardstickMsAt4x": 136.2,
-    "fightFps": 17.8,
-    "alphaFightFps": 11.3,
-    "mainThreadBlockedMsDuringBoot": 102587,
-    "longTaskCount": 127,
-    "longestSingleBlockMs": 25100,
-    "worldReadyMs": 23124,
-    "beatLatePercentSettled": 17.7,
-    "beatMissedPercentSettled": 4.7,
-    "controlWalkFpsAt1x": 57.9,
-    "controlWalkFpsAt4x": 54,
+    "yardstickMsAt1x": 28.9,
+    "yardstickMsAt4x": 129,
+    "fightFps": 7.5,
+    "alphaFightFps": 7.5,
+    "mainThreadBlockedMsDuringBoot": 121453,
+    "longTaskCount": 140,
+    "longestSingleBlockMs": 28756,
+    "worldReadyMs": 29598,
+    "beatLatePercentSettled": 16.2,
+    "beatMissedPercentSettled": 5.2,
+    "controlWalkFpsAt1x": 57.4,
+    "controlWalkFpsAt4x": 46.3,
     "walkNote": "The throttled WALK sample is not carried here. The instrument marks it INVALID (the driven thumb never moved anybody while the boot was still blocking) and an invalid sample must not be laundered into a record by copying its number."
   },
   "repeatsThisRefresh": 3,
-  "takenOn": "2026-09-16T03:02:58.483Z",
+  "takenOn": "2026-09-18T01:34:57.093Z",
   "staleAfterDays": 30,
   "refreshCommand": "node gates/bohemia_phone_perf.js --repeat 3 --record",
   "host": {
     "platform": "linux",
     "cpus": 4,
-    "model": "Intel(R) Xeon(R) Processor @ 2.10GHz",
+    "model": "Intel(R) Xeon(R) Processor @ 2.80GHz",
     "totalMemGB": 15.7,
     "node": "v22.22.2"
   },
@@ -112,31 +112,31 @@
     "surface": "Chromium 390x844 at dpr 3, touch, mobile, over http with gzip",
     "timeToFirstPlayMs": null,
     "timeToFirstPlayWorstMs": null,
-    "doorMs": 458,
-    "worldReadyMs": 5583,
-    "mainThreadBlockedMsDuringBoot": 23796,
-    "longestSingleBlockMs": 6565,
-    "longTaskCount": 79,
-    "bytesBeforeAnythingIsOnScreen": 6580121,
-    "bytesToFirstPlay": 51190304,
-    "bytesByTheEndOfTheRun": 51190304,
-    "walkFpsFirstMinute": 59.3,
-    "walkFpsFirstMinuteWorst": 58,
-    "walkFpsSettled": 17.7,
-    "walkFpsSettledWorst": 8.8,
-    "walkFrameMs": 1.4,
-    "mainThreadBusyWalkingPercent": 7.2,
-    "idleMainThreadBusyPercent": 5.3,
-    "mainThreadBusyWalkingWorstPercent": 7.4,
-    "paintingPercentOfThatBusy": 24.1,
+    "doorMs": 563,
+    "worldReadyMs": 6604,
+    "mainThreadBlockedMsDuringBoot": 29256,
+    "longestSingleBlockMs": 7705,
+    "longTaskCount": 87,
+    "bytesBeforeAnythingIsOnScreen": 6592520,
+    "bytesToFirstPlay": 51206162,
+    "bytesByTheEndOfTheRun": 51206162,
+    "walkFpsFirstMinute": 60.6,
+    "walkFpsFirstMinuteWorst": 57.2,
+    "walkFpsSettled": 57.1,
+    "walkFpsSettledWorst": 52.2,
+    "walkFrameMs": 1.7,
+    "mainThreadBusyWalkingPercent": 20.6,
+    "idleMainThreadBusyPercent": 7,
+    "mainThreadBusyWalkingWorstPercent": 24.1,
+    "paintingPercentOfThatBusy": 41.5,
     "fightFps": 60,
     "fightFpsWorst": 60,
     "fightDrawCallsPerFrame": 4,
-    "beatLatePercentDuringBoot": 10.8,
-    "beatMissedPercentDuringBoot": 2.9,
-    "worstBeatsSwallowedDuringBoot": 5.1,
-    "beatLatePercentSettled": 7.9,
-    "beatMissedPercentSettled": 2,
+    "beatLatePercentDuringBoot": 12.6,
+    "beatMissedPercentDuringBoot": 3.8,
+    "worstBeatsSwallowedDuringBoot": 5.6,
+    "beatLatePercentSettled": 8.4,
+    "beatMissedPercentSettled": 2.6,
     "beatMedianGapMsSettled": 500,
     "slow4gDoorMs": null,
     "slow4gWorldReadyMs": null,
@@ -146,16 +146,16 @@
     "cpuMinutesPerTenMinutesWalking": null,
     "batteryWindowMs": null,
     "emptyPageCeilingFps": 60.6,
-    "cpuYardstickMs": 31.6,
-    "controlWalkFpsSettled": 57.9,
-    "controlMainThreadBusyWalkingPercent": 11.6,
-    "controlIdleBusyPercent": 1.7,
+    "cpuYardstickMs": 29,
+    "controlWalkFpsSettled": 57.4,
+    "controlMainThreadBusyWalkingPercent": 15.2,
+    "controlIdleBusyPercent": 2.1,
     "alphaTimeToFirstPlayMs": null,
-    "alphaWalkFpsSettled": 17.7,
-    "alphaWalkFpsFirstMinute": 60.9,
+    "alphaWalkFpsSettled": 58.1,
+    "alphaWalkFpsFirstMinute": 60.4,
     "alphaFightFps": 60,
     "alphaBeatMissedPercentSettled": 2,
-    "alphaMainThreadBusyWalkingPercent": 7.4
+    "alphaMainThreadBusyWalkingPercent": 22.6
   },
   "goal": {
     "timeToFirstPlayMs": 5000,
@@ -165,45 +165,45 @@
   },
   "budget": {
     "timeToFirstPlayMs": 29500,
-    "walkFpsSettled": 6,
-    "mainThreadBusyWalkingPercent": 56,
+    "walkFpsSettled": 40.77,
+    "mainThreadBusyWalkingPercent": 33,
     "fightFps": 47.81,
-    "bytesToFirstPlay": 58868850,
-    "beatMissedPercentSettled": 3,
+    "bytesToFirstPlay": 58887087,
+    "beatMissedPercentSettled": 4,
     "alphaTimeToFirstPlayMs": 29000,
-    "alphaWalkFpsSettled": 10,
+    "alphaWalkFpsSettled": 41.66,
     "alphaBeatMissedPercentSettled": 4,
     "twinByteDriftBytes": 1048576,
-    "takenAtCpuYardstickMs": 31.6,
+    "takenAtCpuYardstickMs": 29,
     "maxYardstickScale": 3,
     "minimumHostCeilingFps": 45,
     "__basis": {
       "setFrom": "the worst case across the last 6 refresh(es), not the latest sample and not the luckiest one -- see the comment in gates/bohemia_phone_perf.js for why a one-way ratchet was wrong here, THEN CLAMPED so no line can sit further from what the build does today than that metric's own measured spread plus 25 points",
       "movedThisRefresh": [
         "timeToFirstPlayMs: 27000 -> 29500",
-        "mainThreadBusyWalkingPercent: 14 -> 56",
+        "walkFpsSettled: 39 -> 40.77",
+        "mainThreadBusyWalkingPercent: 44 -> 33",
         "fightFps: 42 -> 47.81",
-        "beatMissedPercentSettled: 6 -> 3",
+        "beatMissedPercentSettled: 7 -> 4",
         "alphaTimeToFirstPlayMs: 27000 -> 29000",
-        "alphaWalkFpsSettled: 6 -> 10",
-        "alphaBeatMissedPercentSettled: 6 -> 4"
+        "alphaWalkFpsSettled: 37 -> 41.66",
+        "alphaBeatMissedPercentSettled: 7 -> 4"
       ],
       "refreshesKept": 6,
       "clampMargin": 0.25,
       "clampedThisRefresh": [
         "fightFps: history said 10, the build does 60 with 0.5% spread over 3 passes, so the budget is 47.81",
-        "beatMissedPercentSettled: history said 9, the build does 2 with 0.0% spread over 3 passes, so the budget is 3",
-        "alphaWalkFpsSettled: history said 6, the build does 17.7 with 52.0% spread over 3 passes, so the budget is 10",
-        "alphaBeatMissedPercentSettled: history said 11, the build does 2 with 35.0% spread over 3 passes, so the budget is 4"
+        "walkFpsSettled: history said 6, the build does 57.1 with 15.1% spread over 3 passes, so the budget is 40.77",
+        "mainThreadBusyWalkingPercent: history said 56, the build does 20.6 with 31.1% spread over 3 passes, so the budget is 33",
+        "beatMissedPercentSettled: history said 9, the build does 2.6 with 26.9% spread over 3 passes, so the budget is 4",
+        "alphaWalkFpsSettled: history said 6, the build does 58.1 with 14.5% spread over 3 passes, so the budget is 41.66",
+        "alphaBeatMissedPercentSettled: history said 11, the build does 2 with 30.0% spread over 3 passes, so the budget is 4"
       ],
       "notClampedTooFewSamples": [
         "timeToFirstPlayMs",
         "alphaTimeToFirstPlayMs"
       ],
-      "notClampedOnPurpose": {
-        "mainThreadBusyWalkingPercent": "record 6.4%, the gate's live walk 15.8% on the same tree: 2.5x apart, and no in-record spread can see it.",
-        "walkFpsSettled": "record 8.8 fps, the gate's live walk 55.8 fps on the same tree: 6.3x apart. The two walk samples are not measuring the same thing, and that is a job of its own. See the comment in bohemia_phone_perf.js."
-      },
+      "notClampedOnPurpose": {},
       "minSamplesForASpread": 3
     }
   },
@@ -218,45 +218,45 @@
       "cpuThrottle": 1,
       "repeats": 3,
       "emptyPageCeilingFps": {
-        "med": 60.4,
-        "lo": 60.1,
-        "hi": 60.4,
+        "med": 60.3,
+        "lo": 60.2,
+        "hi": 60.5,
         "n": 3
       },
       "cpuYardstickMs": {
-        "med": 31,
-        "lo": 30.7,
-        "hi": 31.7,
+        "med": 28.9,
+        "lo": 28.8,
+        "hi": 29.1,
         "n": 3
       },
       "walkFpsDelivered": {
-        "med": 57.9,
-        "lo": 57.4,
-        "hi": 58.4,
+        "med": 57.4,
+        "lo": 57.1,
+        "hi": 61,
         "n": 3
       },
       "walkFrameMs": {
-        "med": 1.1,
-        "lo": 1.1,
-        "hi": 1.4,
+        "med": 1.6,
+        "lo": 1.5,
+        "hi": 1.9,
         "n": 3
       },
       "walkMainThreadBusyPercent": {
-        "med": 11.6,
-        "lo": 11.3,
-        "hi": 11.7,
+        "med": 15.2,
+        "lo": 14.5,
+        "hi": 15.3,
         "n": 3
       },
       "walkPaintingPercentOfBusy": {
-        "med": 55.6,
-        "lo": 54.9,
-        "hi": 57.1,
+        "med": 52.3,
+        "lo": 50.8,
+        "hi": 53,
         "n": 3
       },
       "walkFractionOfEmptyPage": {
-        "med": 0.96,
+        "med": 0.95,
         "lo": 0.95,
-        "hi": 0.97,
+        "hi": 1.01,
         "n": 3
       },
       "invalidWalkSamples": 0,
@@ -268,15 +268,15 @@
         "n": 3
       },
       "idleMainThreadBusyPercent": {
-        "med": 1.7,
-        "lo": 1.7,
-        "hi": 1.8,
+        "med": 2.1,
+        "lo": 1.9,
+        "hi": 2.1,
         "n": 3
       },
       "readyMs": {
-        "med": 5204,
-        "lo": 5116,
-        "hi": 5246,
+        "med": 5929,
+        "lo": 5859,
+        "hi": 6175,
         "n": 3
       }
     },
@@ -285,65 +285,65 @@
       "cpuThrottle": 4,
       "repeats": 3,
       "emptyPageCeilingFps": {
-        "med": 60.2,
-        "lo": 60.1,
-        "hi": 60.7,
+        "med": 60.3,
+        "lo": 60.2,
+        "hi": 60.4,
         "n": 3
       },
       "cpuYardstickMs": {
-        "med": 136.2,
-        "lo": 134.9,
-        "hi": 142,
+        "med": 129,
+        "lo": 127.7,
+        "hi": 129.5,
         "n": 3
       },
       "walkFpsDelivered": {
-        "med": 54,
-        "lo": 53.6,
-        "hi": 54.9,
+        "med": 46.3,
+        "lo": 45.8,
+        "hi": 48.2,
         "n": 3
       },
       "walkFrameMs": {
-        "med": 4.9,
-        "lo": 4.8,
-        "hi": 6.1,
+        "med": 7.2,
+        "lo": 6.9,
+        "hi": 7.4,
         "n": 3
       },
       "walkMainThreadBusyPercent": {
-        "med": 45.7,
-        "lo": 44.2,
-        "hi": 48,
+        "med": 60,
+        "lo": 58.9,
+        "hi": 60.5,
         "n": 3
       },
       "walkPaintingPercentOfBusy": {
-        "med": 59,
-        "lo": 58.2,
-        "hi": 59.4,
+        "med": 53.4,
+        "lo": 52.8,
+        "hi": 53.7,
         "n": 3
       },
       "walkFractionOfEmptyPage": {
-        "med": 0.9,
-        "lo": 0.88,
-        "hi": 0.91,
+        "med": 0.77,
+        "lo": 0.76,
+        "hi": 0.8,
         "n": 3
       },
       "invalidWalkSamples": 0,
       "runsThatNeverWentQuiet": 0,
       "framesOfferedToThePageFps": {
-        "med": 60.3,
+        "med": 61,
         "lo": 60.3,
-        "hi": 60.9,
+        "hi": 61.1,
         "n": 3
       },
       "idleMainThreadBusyPercent": {
-        "med": 12.5,
-        "lo": 10,
-        "hi": 14.2,
+        "med": 18.7,
+        "lo": 16.9,
+        "hi": 19.8,
         "n": 3
       },
       "readyMs": {
-        "med": 21065,
-        "lo": 20701,
-        "hi": 22124,
+        "med": 26125,
+        "lo": 25945,
+        "hi": 26327,
         "n": 3
       }
     },
@@ -353,114 +353,114 @@
       "net": "none",
       "repeats": 3,
       "emptyPageCeilingFps": {
-        "med": 60.6,
+        "med": 60.7,
         "lo": 60.6,
-        "hi": 60.6,
+        "hi": 60.7,
         "n": 3
       },
       "cpuYardstickMs": {
-        "med": 31.4,
-        "lo": 30.9,
-        "hi": 31.5,
+        "med": 29.3,
+        "lo": 28.9,
+        "hi": 29.4,
         "n": 3
       },
       "walkFpsDelivered": {
-        "med": 17.7,
-        "lo": 8.5,
-        "hi": 17.7,
+        "med": 58.1,
+        "lo": 50.6,
+        "hi": 59,
         "n": 3
       },
       "walkFrameMs": {
-        "med": 1.4,
-        "lo": 1.3,
-        "hi": 1.4,
+        "med": 1.8,
+        "lo": 1.6,
+        "hi": 2.4,
         "n": 3
       },
       "walkMainThreadBusyPercent": {
-        "med": 7.4,
-        "lo": 5.7,
-        "hi": 7.9,
+        "med": 22.6,
+        "lo": 19.2,
+        "hi": 24.2,
         "n": 3
       },
       "walkPaintingPercentOfBusy": {
-        "med": 23.1,
-        "lo": 14.4,
-        "hi": 24.1,
+        "med": 40.9,
+        "lo": 28,
+        "hi": 42.2,
         "n": 3
       },
       "walkFractionOfEmptyPage": {
-        "med": 0.29,
-        "lo": 0.14,
-        "hi": 0.29,
+        "med": 0.96,
+        "lo": 0.83,
+        "hi": 0.97,
         "n": 3
       },
       "invalidWalkSamples": 0,
       "runsThatNeverWentQuiet": 0,
       "firstPlayMs": null,
       "doorMs": {
-        "med": 482,
-        "lo": 458,
-        "hi": 588,
+        "med": 569,
+        "lo": 557,
+        "hi": 1229,
         "n": 3
       },
       "worldReadyMs": {
-        "med": 5775,
-        "lo": 5576,
-        "hi": 5845,
+        "med": 6616,
+        "lo": 6598,
+        "hi": 7263,
         "n": 3
       },
       "paintedMs": {
-        "med": 12787,
-        "lo": 5577,
-        "hi": 12958,
+        "med": 6616,
+        "lo": 6566,
+        "hi": 15256,
         "n": 3
       },
       "mainThreadBlockedMsDuringBoot": {
-        "med": 24010,
-        "lo": 23775,
-        "hi": 24547,
+        "med": 28043,
+        "lo": 27933,
+        "hi": 28519,
         "n": 3
       },
       "longTaskCount": {
-        "med": 77,
-        "lo": 76,
-        "hi": 80,
+        "med": 85,
+        "lo": 83,
+        "hi": 86,
         "n": 3
       },
       "longestSingleBlockMs": {
-        "med": 6719,
-        "lo": 6537,
-        "hi": 6777,
+        "med": 7684,
+        "lo": 7649,
+        "hi": 7776,
         "n": 3
       },
       "bytesAtWorldReady": {
-        "med": 6581873,
-        "lo": 6581873,
-        "hi": 6581873,
+        "med": 6587833,
+        "lo": 6587833,
+        "hi": 6587833,
         "n": 3
       },
       "bytesToFirstPlay": {
-        "med": 51193808,
-        "lo": 51193808,
-        "hi": 51193808,
+        "med": 51196788,
+        "lo": 51196788,
+        "hi": 51196788,
         "n": 3
       },
       "bytesOverTheWire": {
-        "med": 51193808,
-        "lo": 51193808,
-        "hi": 51193808,
+        "med": 51196788,
+        "lo": 51196788,
+        "hi": 51196788,
         "n": 3
       },
       "walkFpsFirstMinute": {
-        "med": 60.9,
-        "lo": 60.2,
+        "med": 60.4,
+        "lo": 58.6,
         "hi": 61,
         "n": 3
       },
       "walkBusyFirstMinutePercent": {
-        "med": 17,
-        "lo": 16.6,
-        "hi": 17.8,
+        "med": 22.1,
+        "lo": 21.2,
+        "hi": 22.4,
         "n": 3
       },
       "requests": {
@@ -470,21 +470,21 @@
         "n": 3
       },
       "framesOfferedInsideTheShellFps": {
-        "med": 60.3,
-        "lo": 60.2,
-        "hi": 60.8,
+        "med": 60.4,
+        "lo": 60.4,
+        "hi": 60.7,
         "n": 3
       },
       "idleMainThreadBusyPercent": {
-        "med": 5.1,
-        "lo": 5,
-        "hi": 5.2,
+        "med": 6.6,
+        "lo": 6.2,
+        "hi": 6.8,
         "n": 3
       },
       "fightFpsDelivered": {
         "med": 60,
-        "lo": 60,
-        "hi": 60.3,
+        "lo": 59.5,
+        "hi": 60,
         "n": 3
       },
       "fightDrawCallsPerFrame": {
@@ -495,33 +495,33 @@
       },
       "fightNotReached": 0,
       "beatLatePercentDuringBoot": {
-        "med": 10.7,
-        "lo": 9.8,
-        "hi": 11.8,
+        "med": 9.7,
+        "lo": 9.6,
+        "hi": 10.6,
         "n": 3
       },
       "beatMissedPercentDuringBoot": {
         "med": 2.9,
-        "lo": 1.9,
-        "hi": 2.9,
+        "lo": 2.9,
+        "hi": 3.9,
         "n": 3
       },
       "worstBeatsSwallowedDuringBoot": {
-        "med": 5.3,
+        "med": 5.7,
         "lo": 4.9,
-        "hi": 5.4,
+        "hi": 5.7,
         "n": 3
       },
       "beatLatePercentSettled": {
         "med": 7.2,
         "lo": 6.6,
-        "hi": 7.9,
+        "hi": 7.2,
         "n": 3
       },
       "beatMissedPercentSettled": {
         "med": 2,
-        "lo": 1.3,
-        "hi": 2,
+        "lo": 2,
+        "hi": 2.6,
         "n": 3
       },
       "beatMedianGapMsSettled": {
@@ -538,185 +538,180 @@
       "repeats": 3,
       "emptyPageCeilingFps": {
         "med": 60.4,
-        "lo": 60.2,
+        "lo": 60.3,
         "hi": 60.6,
         "n": 3
       },
       "cpuYardstickMs": {
-        "med": 134.7,
-        "lo": 134.5,
-        "hi": 135.6,
+        "med": 129.2,
+        "lo": 128.5,
+        "hi": 132.5,
         "n": 3
       },
       "walkFpsDelivered": {
-        "med": 18,
-        "lo": 8.4,
-        "hi": 26.5,
-        "n": 3
+        "med": 48.7,
+        "lo": 48.7,
+        "hi": 48.7,
+        "n": 1
       },
       "walkFrameMs": {
-        "med": 5.4,
-        "lo": 5.4,
-        "hi": 6.8,
+        "med": 9.8,
+        "lo": 7.9,
+        "hi": 10.8,
         "n": 3
       },
       "walkMainThreadBusyPercent": {
-        "med": 25.5,
-        "lo": 19.9,
-        "hi": 30.4,
+        "med": 20.9,
+        "lo": 18.8,
+        "hi": 68.7,
         "n": 3
       },
       "walkPaintingPercentOfBusy": {
-        "med": 29.7,
-        "lo": 19.8,
-        "hi": 37,
+        "med": 6.9,
+        "lo": 6.8,
+        "hi": 44.6,
         "n": 3
       },
       "walkFractionOfEmptyPage": {
-        "med": 0.3,
-        "lo": 0.14,
-        "hi": 0.44,
+        "med": 0.03,
+        "lo": 0.03,
+        "hi": 0.8,
         "n": 3
       },
-      "invalidWalkSamples": 0,
-      "runsThatNeverWentQuiet": 1,
-      "firstPlayMs": {
-        "med": 64427,
-        "lo": 64427,
-        "hi": 64427,
-        "n": 1
-      },
+      "invalidWalkSamples": 2,
+      "runsThatNeverWentQuiet": 3,
+      "firstPlayMs": null,
       "doorMs": {
-        "med": 1962,
-        "lo": 1856,
-        "hi": 2003,
+        "med": 2483,
+        "lo": 2472,
+        "hi": 2515,
         "n": 3
       },
       "worldReadyMs": {
-        "med": 23479,
-        "lo": 21292,
-        "hi": 24436,
+        "med": 31984,
+        "lo": 31038,
+        "hi": 41757,
         "n": 3
       },
       "paintedMs": {
-        "med": 24132,
-        "lo": 21294,
-        "hi": 24433,
+        "med": 32044,
+        "lo": 30999,
+        "hi": 71314,
         "n": 3
       },
       "mainThreadBlockedMsDuringBoot": {
-        "med": 102214,
-        "lo": 62525,
-        "hi": 103338,
+        "med": 122394,
+        "lo": 121871,
+        "hi": 124240,
         "n": 3
       },
       "longTaskCount": {
-        "med": 126,
-        "lo": 31,
-        "hi": 130,
+        "med": 136,
+        "lo": 134,
+        "hi": 140,
         "n": 3
       },
       "longestSingleBlockMs": {
-        "med": 25480,
-        "lo": 25006,
-        "hi": 25759,
+        "med": 28592,
+        "lo": 28225,
+        "hi": 28857,
         "n": 3
       },
       "bytesAtWorldReady": {
-        "med": 6581873,
-        "lo": 6581873,
-        "hi": 6581873,
+        "med": 6587833,
+        "lo": 6587833,
+        "hi": 6587833,
         "n": 3
       },
       "bytesToFirstPlay": {
-        "med": 53059612,
-        "lo": 42305845,
-        "hi": 53059612,
+        "med": 53067401,
+        "lo": 53067401,
+        "hi": 53067401,
         "n": 3
       },
       "bytesOverTheWire": {
-        "med": 53059612,
-        "lo": 53059612,
-        "hi": 53059612,
+        "med": 54938014,
+        "lo": 54938014,
+        "hi": 54938014,
         "n": 3
       },
       "walkFpsFirstMinute": {
-        "med": 48.5,
-        "lo": 6.7,
-        "hi": 51.5,
-        "n": 3
+        "med": 34.8,
+        "lo": 34.8,
+        "hi": 34.8,
+        "n": 1
       },
       "walkBusyFirstMinutePercent": {
-        "med": 60.6,
-        "lo": 59.7,
-        "hi": 99.1,
+        "med": 27.5,
+        "lo": 25.3,
+        "hi": 71,
         "n": 3
       },
       "requests": {
-        "med": 30,
-        "lo": 30,
-        "hi": 30,
+        "med": 31,
+        "lo": 31,
+        "hi": 31,
         "n": 3
       },
       "framesOfferedInsideTheShellFps": {
-        "med": 60.8,
-        "lo": 60.4,
-        "hi": 61,
+        "med": 60.6,
+        "lo": 60.5,
+        "hi": 60.7,
         "n": 3
       },
       "idleMainThreadBusyPercent": {
-        "med": 14.2,
-        "lo": 13.4,
-        "hi": 14.4,
+        "med": 21.1,
+        "lo": 19.3,
+        "hi": 22.3,
         "n": 3
       },
       "fightFpsDelivered": {
-        "med": 11.3,
-        "lo": 10.5,
-        "hi": 12.3,
+        "med": 7.5,
+        "lo": 7.5,
+        "hi": 7.8,
         "n": 3
       },
       "fightDrawCallsPerFrame": {
-        "med": 679,
-        "lo": 671,
-        "hi": 680,
+        "med": 684,
+        "lo": 678,
+        "hi": 686,
         "n": 3
       },
       "fightNotReached": 0,
       "beatLatePercentDuringBoot": {
-        "med": 31.3,
-        "lo": 26.7,
-        "hi": 58.3,
+        "med": 32.6,
+        "lo": 28.9,
+        "hi": 37,
         "n": 3
       },
       "beatMissedPercentDuringBoot": {
-        "med": 10.2,
-        "lo": 8.4,
-        "hi": 27.8,
+        "med": 11.1,
+        "lo": 9.6,
+        "hi": 11.4,
         "n": 3
       },
       "worstBeatsSwallowedDuringBoot": {
-        "med": 15.9,
-        "lo": 14.2,
-        "hi": 16.7,
+        "med": 18.2,
+        "lo": 17.9,
+        "hi": 18.9,
         "n": 3
       },
       "beatLatePercentSettled": {
-        "med": 17.8,
-        "lo": 14,
-        "hi": 24.8,
+        "med": 16.9,
+        "lo": 15.2,
+        "hi": 19.7,
         "n": 3
       },
       "beatMissedPercentSettled": {
         "med": 5.7,
-        "lo": 4.3,
-        "hi": 8,
+        "lo": 4.9,
+        "hi": 5.7,
         "n": 3
       },
       "beatMedianGapMsSettled": {
-        "med": 500,
-        "lo": 500,
-        "hi": 506.6,
+        "med": 500.1,
+        "lo": 500.1,
+        "hi": 500.1,
         "n": 3
       }
     },
@@ -727,113 +722,113 @@
       "repeats": 3,
       "emptyPageCeilingFps": {
         "med": 60.6,
-        "lo": 60.5,
+        "lo": 60.3,
         "hi": 60.6,
         "n": 3
       },
       "cpuYardstickMs": {
-        "med": 31.6,
-        "lo": 31.2,
-        "hi": 31.8,
+        "med": 29,
+        "lo": 29,
+        "hi": 29.5,
         "n": 3
       },
       "walkFpsDelivered": {
-        "med": 17.7,
-        "lo": 8.8,
-        "hi": 17.7,
+        "med": 57.1,
+        "lo": 52.2,
+        "hi": 60.8,
         "n": 3
       },
       "walkFrameMs": {
-        "med": 1.4,
-        "lo": 1.3,
+        "med": 1.7,
+        "lo": 1.6,
         "hi": 1.8,
         "n": 3
       },
       "walkMainThreadBusyPercent": {
-        "med": 7.2,
-        "lo": 6.9,
-        "hi": 7.4,
+        "med": 20.6,
+        "lo": 17.7,
+        "hi": 24.1,
         "n": 3
       },
       "walkPaintingPercentOfBusy": {
-        "med": 24.1,
-        "lo": 15.6,
-        "hi": 24.6,
+        "med": 41.5,
+        "lo": 29.5,
+        "hi": 41.7,
         "n": 3
       },
       "walkFractionOfEmptyPage": {
-        "med": 0.29,
-        "lo": 0.14,
-        "hi": 0.29,
+        "med": 0.95,
+        "lo": 0.86,
+        "hi": 1,
         "n": 3
       },
       "invalidWalkSamples": 0,
       "runsThatNeverWentQuiet": 0,
       "firstPlayMs": null,
       "doorMs": {
-        "med": 458,
-        "lo": 457,
-        "hi": 587,
+        "med": 563,
+        "lo": 550,
+        "hi": 665,
         "n": 3
       },
       "worldReadyMs": {
-        "med": 5583,
-        "lo": 5562,
-        "hi": 6253,
+        "med": 6604,
+        "lo": 6525,
+        "hi": 9799,
         "n": 3
       },
       "paintedMs": {
-        "med": 5570,
-        "lo": 5560,
-        "hi": 6253,
+        "med": 6601,
+        "lo": 6525,
+        "hi": 9795,
         "n": 3
       },
       "mainThreadBlockedMsDuringBoot": {
-        "med": 23796,
-        "lo": 23700,
-        "hi": 24441,
+        "med": 29256,
+        "lo": 27893,
+        "hi": 29296,
         "n": 3
       },
       "longTaskCount": {
-        "med": 79,
-        "lo": 78,
-        "hi": 80,
+        "med": 87,
+        "lo": 85,
+        "hi": 90,
         "n": 3
       },
       "longestSingleBlockMs": {
-        "med": 6565,
-        "lo": 6546,
-        "hi": 6612,
+        "med": 7705,
+        "lo": 7378,
+        "hi": 7852,
         "n": 3
       },
       "bytesAtWorldReady": {
-        "med": 6580121,
-        "lo": 6580121,
-        "hi": 6580121,
+        "med": 6592520,
+        "lo": 6592520,
+        "hi": 6592520,
         "n": 3
       },
       "bytesToFirstPlay": {
-        "med": 51190304,
-        "lo": 51190304,
-        "hi": 51190304,
+        "med": 51206162,
+        "lo": 51206162,
+        "hi": 51206162,
         "n": 3
       },
       "bytesOverTheWire": {
-        "med": 51190304,
-        "lo": 51190304,
-        "hi": 51190304,
+        "med": 51206162,
+        "lo": 51206162,
+        "hi": 51206162,
         "n": 3
       },
       "walkFpsFirstMinute": {
-        "med": 59.3,
-        "lo": 58,
-        "hi": 60.7,
+        "med": 60.6,
+        "lo": 57.2,
+        "hi": 61,
         "n": 3
       },
       "walkBusyFirstMinutePercent": {
-        "med": 16.9,
-        "lo": 16.7,
-        "hi": 18.5,
+        "med": 21.9,
+        "lo": 21.8,
+        "hi": 22.2,
         "n": 3
       },
       "requests": {
@@ -843,15 +838,15 @@
         "n": 3
       },
       "framesOfferedInsideTheShellFps": {
-        "med": 60.5,
-        "lo": 60.3,
+        "med": 60.7,
+        "lo": 60.5,
         "hi": 60.8,
         "n": 3
       },
       "idleMainThreadBusyPercent": {
-        "med": 5.3,
-        "lo": 4.7,
-        "hi": 6.7,
+        "med": 7,
+        "lo": 6,
+        "hi": 8.3,
         "n": 3
       },
       "fightFpsDelivered": {
@@ -868,33 +863,33 @@
       },
       "fightNotReached": 0,
       "beatLatePercentDuringBoot": {
-        "med": 10.8,
-        "lo": 10.7,
-        "hi": 11.8,
+        "med": 12.6,
+        "lo": 11.5,
+        "hi": 13.5,
         "n": 3
       },
       "beatMissedPercentDuringBoot": {
-        "med": 2.9,
+        "med": 3.8,
         "lo": 2.9,
-        "hi": 2.9,
+        "hi": 3.8,
         "n": 3
       },
       "worstBeatsSwallowedDuringBoot": {
-        "med": 5.1,
-        "lo": 4.3,
-        "hi": 5.1,
+        "med": 5.6,
+        "lo": 4.4,
+        "hi": 5.6,
         "n": 3
       },
       "beatLatePercentSettled": {
-        "med": 7.9,
-        "lo": 7.2,
-        "hi": 7.9,
+        "med": 8.4,
+        "lo": 7.8,
+        "hi": 9.7,
         "n": 3
       },
       "beatMissedPercentSettled": {
-        "med": 2,
-        "lo": 2,
-        "hi": 2,
+        "med": 2.6,
+        "lo": 1.9,
+        "hi": 2.6,
         "n": 3
       },
       "beatMedianGapMsSettled": {
@@ -910,181 +905,171 @@
       "net": "none",
       "repeats": 3,
       "emptyPageCeilingFps": {
-        "med": 60.5,
-        "lo": 60.3,
-        "hi": 60.5,
+        "med": 60.3,
+        "lo": 60.1,
+        "hi": 60.4,
         "n": 3
       },
       "cpuYardstickMs": {
-        "med": 135.1,
-        "lo": 132.9,
-        "hi": 137.2,
+        "med": 130,
+        "lo": 129.8,
+        "hi": 130.9,
         "n": 3
       },
-      "walkFpsDelivered": {
-        "med": 8.6,
-        "lo": 8.5,
-        "hi": 17.9,
-        "n": 3
-      },
+      "walkFpsDelivered": null,
       "walkFrameMs": {
-        "med": 6.2,
-        "lo": 5.8,
-        "hi": 6.7,
+        "med": 10.4,
+        "lo": 10,
+        "hi": 10.8,
         "n": 3
       },
       "walkMainThreadBusyPercent": {
-        "med": 18.9,
-        "lo": 18.4,
-        "hi": 26.1,
+        "med": 19.5,
+        "lo": 17.6,
+        "hi": 23.4,
         "n": 3
       },
       "walkPaintingPercentOfBusy": {
-        "med": 21.3,
-        "lo": 20.4,
-        "hi": 31,
+        "med": 7.3,
+        "lo": 6,
+        "hi": 7.8,
         "n": 3
       },
       "walkFractionOfEmptyPage": {
-        "med": 0.14,
-        "lo": 0.14,
-        "hi": 0.3,
+        "med": 0.03,
+        "lo": 0.03,
+        "hi": 0.04,
         "n": 3
       },
-      "invalidWalkSamples": 0,
-      "runsThatNeverWentQuiet": 1,
+      "invalidWalkSamples": 3,
+      "runsThatNeverWentQuiet": 3,
       "firstPlayMs": null,
       "doorMs": {
-        "med": 1869,
-        "lo": 1847,
-        "hi": 1944,
+        "med": 2483,
+        "lo": 2433,
+        "hi": 2576,
         "n": 3
       },
       "worldReadyMs": {
-        "med": 23124,
-        "lo": 22857,
-        "hi": 24137,
+        "med": 29598,
+        "lo": 27860,
+        "hi": 41887,
         "n": 3
       },
       "paintedMs": {
-        "med": 49876,
-        "lo": 22860,
-        "hi": 52714,
+        "med": 60730,
+        "lo": 31761,
+        "hi": 71958,
         "n": 3
       },
       "mainThreadBlockedMsDuringBoot": {
-        "med": 102587,
-        "lo": 100661,
-        "hi": 125933,
+        "med": 121453,
+        "lo": 120113,
+        "hi": 124614,
         "n": 3
       },
       "longTaskCount": {
-        "med": 127,
-        "lo": 125,
-        "hi": 213,
+        "med": 140,
+        "lo": 129,
+        "hi": 140,
         "n": 3
       },
       "longestSingleBlockMs": {
-        "med": 25100,
-        "lo": 24697,
-        "hi": 25514,
+        "med": 28756,
+        "lo": 28730,
+        "hi": 28818,
         "n": 3
       },
       "bytesAtWorldReady": {
-        "med": 6580121,
-        "lo": 6580121,
-        "hi": 6580121,
+        "med": 6592520,
+        "lo": 6592520,
+        "hi": 6592520,
         "n": 3
       },
       "bytesToFirstPlay": {
-        "med": 53054356,
-        "lo": 53054356,
-        "hi": 53054356,
+        "med": 53081462,
+        "lo": 53081462,
+        "hi": 53081462,
         "n": 3
       },
       "bytesOverTheWire": {
-        "med": 53054356,
-        "lo": 53054356,
-        "hi": 53054356,
+        "med": 54956762,
+        "lo": 54956762,
+        "hi": 54956762,
         "n": 3
       },
-      "walkFpsFirstMinute": {
-        "med": 52.2,
-        "lo": 51.2,
-        "hi": 52.4,
-        "n": 3
-      },
+      "walkFpsFirstMinute": null,
       "walkBusyFirstMinutePercent": {
-        "med": 59.4,
-        "lo": 58.8,
-        "hi": 61.7,
+        "med": 23.8,
+        "lo": 22.6,
+        "hi": 27.4,
         "n": 3
       },
       "requests": {
-        "med": 30,
-        "lo": 30,
-        "hi": 30,
+        "med": 31,
+        "lo": 31,
+        "hi": 31,
         "n": 3
       },
       "framesOfferedInsideTheShellFps": {
         "med": 60.7,
-        "lo": 60.6,
+        "lo": 60.5,
         "hi": 60.7,
         "n": 3
       },
       "idleMainThreadBusyPercent": {
-        "med": 14.1,
-        "lo": 13.7,
-        "hi": 14.8,
+        "med": 21.9,
+        "lo": 18.9,
+        "hi": 28.2,
         "n": 3
       },
       "fightFpsDelivered": {
-        "med": 17.8,
-        "lo": 10.5,
-        "hi": 18.8,
+        "med": 7.5,
+        "lo": 7.3,
+        "hi": 8.3,
         "n": 3
       },
       "fightDrawCallsPerFrame": {
-        "med": 4,
-        "lo": 4,
-        "hi": 704,
+        "med": 705,
+        "lo": 704,
+        "hi": 710,
         "n": 3
       },
       "fightNotReached": 0,
       "beatLatePercentDuringBoot": {
-        "med": 34.4,
-        "lo": 27.1,
-        "hi": 45.4,
+        "med": 30.4,
+        "lo": 29.3,
+        "hi": 30.4,
         "n": 3
       },
       "beatMissedPercentDuringBoot": {
-        "med": 8.5,
-        "lo": 6.6,
-        "hi": 10.2,
+        "med": 10,
+        "lo": 9.4,
+        "hi": 10.1,
         "n": 3
       },
       "worstBeatsSwallowedDuringBoot": {
-        "med": 15,
-        "lo": 13.1,
-        "hi": 15.8,
+        "med": 18.7,
+        "lo": 18.4,
+        "hi": 19.3,
         "n": 3
       },
       "beatLatePercentSettled": {
-        "med": 17.7,
-        "lo": 15.1,
-        "hi": 28,
+        "med": 16.2,
+        "lo": 15.3,
+        "hi": 16.5,
         "n": 3
       },
       "beatMissedPercentSettled": {
-        "med": 4.7,
-        "lo": 3.9,
+        "med": 5.2,
+        "lo": 4.9,
         "hi": 5.2,
         "n": 3
       },
       "beatMedianGapMsSettled": {
         "med": 500.1,
-        "lo": 500.1,
-        "hi": 500.2,
+        "lo": 500,
+        "hi": 504.8,
         "n": 3
       }
     }

@@ -634,19 +634,35 @@ async function beatCheck(target, windowMs) {
 /* ---- WALK ---------------------------------------------------------------- *
    Hold one direction for holdMs. Count the paints. The metronome is 500ms, so a
    6s hold is twelve beats, twelve step animations, and every frame of them.    */
-async function walkSample(page, fr, pad, holdMs) {
+async function walkSample(page, fr, pad, holdMs, dir) {
+  /* WHICH WAY HE WALKS, AND WHY IT IS AN ARGUMENT NOW (9/18, PLUMBER, row [sixty fps]).
+     Every walk in this file pressed pad.up, including the settled one that runs AFTER a
+     sixty-second first-minute walk in the same direction. So by the time the settled
+     sample started, the player had been walking north for over a minute and was against
+     something. Reproduced on demand, one boot each, everything else identical:
+
+         skipFirstMinute = true    settled walk   60.0 fps   363 renders   110 cells
+         skipFirstMinute = false   settled walk    8.8 fps    55 renders     3 cells
+
+     8.8 is the number the record has been carrying, and the gate -- which skips the
+     first-minute walk -- read 55.8 off the same tree. THAT IS THE WHOLE 6.3x
+     DISAGREEMENT, and neither number was about the game's speed: the good-bursts rate
+     was 60.2 in BOTH runs. The game drew at sixty the entire time. One player was
+     walking and the other was pressed against a wall.
+     The direction defaults to 'up', so every existing caller behaves exactly as before. */
   const cdp = page.__cdp;
+  const at = pad[dir || 'up'] || pad.up;
   const way = await clearTheWay(fr);
   await fr.evaluate(PROBE);
   await fr.evaluate(() => { window.__PP.t = []; window.__PP.ms = []; });
   const before = await fr.evaluate(() => [hx, hy]);
   const t0 = Date.now();
-  await touchDown(cdp, pad.up);
+  await touchDown(cdp, at);
   /* a held thumb is not perfectly still; a move every beat keeps the hold alive
      the way a real one does and never leaves the button */
   while (Date.now() - t0 < holdMs) {
     await sleep(250);
-    await touchMove(cdp, { x: pad.up.x + (Math.random() * 2 - 1), y: pad.up.y + (Math.random() * 2 - 1) });
+    await touchMove(cdp, { x: at.x + (Math.random() * 2 - 1), y: at.y + (Math.random() * 2 - 1) });
   }
   await touchUp(cdp);
   const wall = Date.now() - t0;
@@ -667,11 +683,33 @@ async function walkSample(page, fr, pad, holdMs) {
   const inAnim = r.gaps.filter(g => g <= 166);
   const fps = r.span > 0 ? +(r.renders / (r.span / 1000)).toFixed(1) : 0;
   const animFps = inAnim.length ? +(1000 / stats(inAnim).med).toFixed(1) : 0;
+  /* A SAMPLE THAT DID NOT MOVE IS NOT A SLOW SAMPLE, IT IS A BROKEN ONE. That rule was
+     already here and it was already right. WHAT WAS WRONG WAS THE THRESHOLD: it asked
+     "did he move AT ALL", and one cell passed. Measured 9/18, same tree, same hold:
+
+         a walking player      110 to 123 cells in 6 s     about 19 cells a second
+         a stuck player          3 cells in 6 s            about 0.5 a second
+
+     Both said moved:true, and the stuck one was reported as a frame rate of 8.8 fps.
+     THE FLOOR IS TWO CELLS PER SECOND OF HOLD: ten times under a healthy walk and four
+     times over a stuck one, so it cannot bite an ordinary sample and cannot miss a
+     player pressed against a wall. An invalid sample is excluded from every band by
+     the code that reads this, and it carries WHY in its own body rather than leaving
+     the next reader to wonder why a number vanished. */
+  const CELLS_PER_SECOND_FLOOR = 2;
+  const needCells = Math.max(1, Math.round(CELLS_PER_SECOND_FLOOR * wall / 1000));
+  const kept = cells >= needCells;
   return {
-    heldMs: wall, moved, cells, wayCleared: way.clear,
-    /* A SAMPLE THAT DID NOT MOVE IS NOT A SLOW SAMPLE, IT IS A BROKEN ONE, and it
-       says so in its own body rather than quietly reporting 0 fps. */
-    valid: moved && r.renders > 0,
+    heldMs: wall, moved, cells, wayCleared: way.clear, direction: dir || 'up',
+    cellsPerSecond: +(cells / Math.max(0.001, wall / 1000)).toFixed(1),
+    cellsNeeded: needCells,
+    invalidBecause: !(moved && r.renders > 0) ? 'nobody moved and nothing rendered'
+      : !kept ? 'the player covered ' + cells + ' cell(s) in ' + (wall / 1000).toFixed(1)
+        + ' s, under the ' + needCells + ' this hold needs. He is against something, so '
+        + 'this is a STUCK sample and not a slow one. The rate the page actually drew at '
+        + 'while it was drawing is ' + animFps + ' fps.'
+      : null,
+    valid: moved && r.renders > 0 && kept,
     renders: r.renders,
     rendersPerSecond: +(r.renders / (wall / 1000)).toFixed(1),
     fpsOverTheWholeHold: fps,
@@ -933,7 +971,12 @@ async function measure(opts) {
     out.transfer.bytesByTheSettledWalk = bytes;
     const c0 = await cpu(cdp);
     /* and the same walk once the world has stopped arriving: the steady state */
-    out.walk = await walkSample(page, boot.frame, boot.pad, opts.holdMs);
+    /* AND THE SETTLED WALK GOES THE OTHER WAY, for the reason in walkSample's header:
+       pressing the same direction twice measures a player who has already walked into
+       something. Down is simply not-up; nothing about the compass matters, only that it
+       is not the direction the first-minute walk spent sixty seconds pushing. */
+    out.walk = await walkSample(page, boot.frame, boot.pad, opts.holdMs,
+                                opts.skipFirstMinute ? 'up' : 'down');
     const c1 = await cpu(cdp);
     out.walk.cpu = cpuDelta(c0, c1);
     out.walk.cpu.paintingPercentOfBusy = out.walk.cpu.taskS > 0
@@ -1385,6 +1428,20 @@ function buildRecord(summaries, runs) {
   const CLAMP = {
     timeToFirstPlayMs: [demo.firstPlayMs, 'hi'],
     fightFps: [demo.fightFpsDelivered, 'lo'],
+    /* BOTH WALK LINES ARE BACK IN, AND THE ROOT CAUSE IS FIXED RATHER THAN EXCLUDED
+       (9/18). They were taken out on 9/16 because the record read the settled walk at
+       8.8 fps while the gate read 55.8 on the same tree, and no spread inside this
+       record could see a 6.3x gap. The cause was in this file: every walk pressed
+       pad.up, including the settled one that runs after a sixty-second first-minute
+       walk in the same direction, so the settled sample measured a player pressed
+       against something. Measured before and after, one boot each:
+           before   60.0 fps / 110 cells   against   8.8 fps /   3 cells
+           after    58.3 fps / 110 cells   against  50.9 fps / 110 cells
+       A 6.3x disagreement became 1.15x, which is ordinary run-to-run noise. The
+       exclusion was the right call while the numbers disagreed and the wrong thing to
+       keep once they did not. */
+    walkFpsSettled: [demo.walkFpsDelivered, 'lo'],
+    mainThreadBusyWalkingPercent: [demo.walkMainThreadBusyPercent, 'hi'],
     bytesToFirstPlay: [demo.bytesToFirstPlay, 'hi'],
     beatMissedPercentSettled: [demo.beatMissedPercentSettled, 'hi'],
     alphaTimeToFirstPlayMs: [alpha && alpha.firstPlayMs, 'hi'],
@@ -1459,13 +1516,7 @@ function buildRecord(summaries, runs) {
        carried fewer than three samples, so there was no spread to compute. Run the
        refresh with more repeats to bring them in. */
     notClampedTooFewSamples: noSpread,
-    notClampedOnPurpose: {
-      mainThreadBusyWalkingPercent: 'record 6.4%, the gate\'s live walk 15.8% on the same '
-        + 'tree: 2.5x apart, and no in-record spread can see it.',
-      walkFpsSettled: 'record 8.8 fps, the gate\'s live walk 55.8 fps on the same tree: '
-        + '6.3x apart. The two walk samples are not measuring the same thing, and that is '
-        + 'a job of its own. See the comment in bohemia_phone_perf.js.',
-    },
+    notClampedOnPurpose: {},
     minSamplesForASpread: MIN_SAMPLES_FOR_A_SPREAD
   };
 
