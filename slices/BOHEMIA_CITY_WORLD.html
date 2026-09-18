@@ -39638,7 +39638,31 @@ var MIN_PER_CELL = 0.084;                  /* the baseline, and it does not move
    The law says this number lives in ONE PLACE and that the street, the fight, the
    bodies, the zoom seam and the reach module all read it; a second copy is the bug.
    Turning this dial is the whole of "one step is a house" once [zoom meets] lands. */
-var STEP_CELLS = 5;
+/* *** AND AT THAT CAMERA THE STRIDE IS ONE LOT, WHICH IS HIS RULING IN FULL
+   (coordinator ruling 10, 9/16: "at THAT camera the stride is one lot per beat as
+   the ATTEMPT he asked for, with five cells kept as the setting he can fall back
+   to"). ***
+   ONE NAME FOR THE NUMBER, AND IT IS NOT A NEW ONE. A lot is 25 fine cells, and
+   that is CHARACTER's measurement (d43851e2: twelve suburbs, every footprint
+   walked) living in BODY_SCALE.lotFine. This READS it rather than copying it,
+   because the law says one number in one place and both lanes have already been
+   bitten once by a second name for it -- CHARACTER wired itself to a
+   BOHEMIA_STEP_FINE this lane never published, and said so in its own comment.
+   THE FALLBACK IS KEPT AND NAMED: STEP_CELLS_QUARTER is the five cells that
+   shipped as part one, the setting to fall back to if a lot a beat is too much.
+   Nothing else changes: every cell crossed still pays its own stepCost() into
+   advance(), so the day, the distances, the jobs and the rent nights stay true and
+   only the number of presses moves. */
+/* *** AND THE FIRST CUT OF THIS READ THE NUMBER BEFORE IT EXISTED. *** I wrote the
+   read as an IIFE right here and then checked the file rather than assuming: this
+   line sits 726,000 characters ABOVE `const BODY_SCALE`, so at the moment it runs
+   the constant is in its temporal dead zone, `typeof` THROWS, the catch swallows
+   it and STEP_CELLS silently stays 5. It would have looked shipped and changed
+   nothing -- the same shape as the inert CSS rule and the guarded painter this
+   lane has already been caught by twice. So the value is SET WHERE THE NUMBER IS
+   REAL, on the line after BODY_SCALE is declared, and this is only the fallback. */
+var STEP_CELLS_QUARTER = 5;   /* part one, 9/15: a quarter of a lot */
+var STEP_CELLS = STEP_CELLS_QUARTER;
 var PAVED = { asphalt: 1, concrete: 1 };
 var PAVED_SPEED = { factor: 0.5, ruling: 'REALISM FIRST: rough going is about half road pace', tuned: false };
 function stepCost(c){
@@ -41164,8 +41188,33 @@ function renderCity(){
   if(night){ g.fillStyle='rgba(10,18,40,0.25)'; g.fillRect(0,0,cv.width,cv.height); } if(window.__LAMPQ){ const ga2=g.globalAlpha; g.globalAlpha=1; for(const q of window.__LAMPQ){ g.fillStyle='rgba(255,170,60,0.25)'; g.beginPath(); g.ellipse(q.sx,q.sy+TH*0.5,TW*0.55,TH*0.55,0,0,7); g.fill(); g.fillStyle='rgba(255,205,100,0.95)'; g.fillRect(q.sx-1.5,q.sy+TH*0.35,3,3); } g.globalAlpha=ga2; window.__LAMPQ=null; }
 }
 
-let HC=44; // px per fine cell (animated by the transition)   /* __FULL_PIXEL_BAKE__ */
-let HZOOM=44; // player-chosen human zoom, SNAPPED to pixel-true levels
+/* *** THE CAMERA IS THE REST OF HIS RULING (Paolo 9/15 rule 16; coordinator ruling
+   10, 9/16). *** "even when it comes to traversing the city I want people to be
+   larger, cause remember each tile is the size of a house... however long it takes
+   right now to walk the length of a house, that would be done in one step."
+   MEASURED ON THE GLASS AT THE OLD DEFAULT (44):
+       a fine cell drew 44 px, so A LOT (25 cells, CHARACTER's measurement) DREW
+       1,100 px ON A 378 px CANVAS -- his screen held 8.6 cells, SIX AND A HALF
+       METRES, about a THIRD of one lot. You could not see a house.
+   THE TARGET is a lot at about 208 px (CHARACTER d43851e2, from "a person stands
+   about half a lot tall"), which wants 8.3 px a cell.
+   *** BUT THE ZOOM LEVEL LAW IS OLDER AND IT IS EXPLICIT, so 8 is not available:
+   HC snaps to 11/22/44/88 because 44 IS HIS ART'S OWN TILE SIZE -- a true 1:1 blit
+   -- and 22 and 11 are honest 0.5x and 0.25x of it. 8 would be a 0.18x fractional
+   scale of every tile he drew, which the law forbids in those words ("zero
+   fractional art scaling at any stop"), and 11/2 is 5.5, so THERE IS NO LEGAL STOP
+   BELOW 11. ***
+   SO THE DEFAULT IS 11, the widest pixel-true stop: a lot draws 275 px, the screen
+   holds 34 cells (25.8 m, about 1.4 lots), and CHARACTER's body trigger -- a lot
+   fitting on the screen -- becomes true in the same frame, which is the "at the
+   same time" his ruling asks for. 275 against a 208 target is the price of not
+   scaling his art fractionally, and it is the right trade to make without asking.
+   THE COST, NAMED: he used to have two stops of pull-back (22, 11) before the seam
+   and now he is standing on the last one, so a single pinch out crosses into the
+   map. That is a real change to the feel of the seam and it is the direct
+   consequence of showing him a house. */
+let HC=11; // px per fine cell (animated by the transition)   /* __FULL_PIXEL_BAKE__ */
+let HZOOM=11; // player-chosen human zoom, SNAPPED to pixel-true levels
 /* __FULL_PIXEL_BAKE__ -- DEFAULT ZOOM IS HIS ART'S OWN SIZE. 22 meant a 44px tile was
    halved onto the screen even once the bake stopped halving it, so the two have
    to move together or the fix is pure memory cost for identical pixels. At 44 a
@@ -41176,7 +41225,7 @@ let HZOOM=44; // player-chosen human zoom, SNAPPED to pixel-true levels
 // (2:1 / raw / Scale2x / Scale4x). Char-to-world ratio constant, zero
 // fractional art scaling at any stop.
 const HLEVELS=[11,22,44,88];
-let _zacc=44;
+let _zacc=11;   /* __THE_STEP_IS_A_HOUSE__: starts where the camera starts */
 
 
 
@@ -50586,6 +50635,13 @@ const BODY_SCALE = {
     } catch (e) { return false; }
   }
 };
+/* __THE_STEP_IS_A_HOUSE__ -- ONE NAME FOR THE NUMBER, SET WHERE IT IS REAL.
+   Coordinator ruling 10, 9/16: "at THAT camera the stride is one lot per beat as the
+   ATTEMPT he asked for, with five cells kept as the setting he can fall back to."
+   A lot is 25 fine cells and that is CHARACTER's measurement above, not a copy of it:
+   twelve suburbs, every footprint walked. Both lanes have already been bitten once by
+   a second name for this number, so the stride READS the lot and never restates it. */
+try { if (BODY_SCALE && BODY_SCALE.lotFine) STEP_CELLS = BODY_SCALE.lotFine; } catch (e) {}
 /* THE ZOOM LEVEL LAW STILL RULES THE PIXELS: 28 / 56 / 112 / 224 and never a fraction, so
    this picks the RUNG NEAREST the wanted height rather than scaling to it. */
 function bodyLadder(C){
