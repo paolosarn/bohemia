@@ -1,3 +1,109 @@
+WORDS (words-8dqrnq): 9/18 LATEST -- *** Q5 [refusing answers] SCHOOL DONE, ROUND ONE OF TWO.
+NO TEST LINES WRITTEN, banks/ UNTOUCHED. *** Q4's debt is paid (9/16 block below, both rounds).
+Q5 shipped 9/5 under the OLD one-round mode, so it was next in the debt queue, oldest first.
+Record: records/BOHEMIA_WORDS_Q5_SCHOOL_THE_SLOT_HAS_NOTHING_TO_WITHHOLD_9_18_26.md
+
+(1) *** THE DEFECT IS IN THE BRANCH, NOT IN THE WORDS, AND THE 9/5 RECORD FIXED THE WRONG LAYER. ***
+The 9/5 record called the asking module's four deflections "a routing message wearing a
+character's clothes" and prescribed replacing them with four Gricean rule-breaks. I read the
+branch that fires them (slices/BOHEMIA_CITY_WORLD.html ~50228, engine/bohemia_asking.js 391):
+THE DEFLECTION IS THE ELSE OF "this trade has an answer for this subject". It fires only when
+answerFor() returns null. THERE IS NO BRANCH ANYWHERE FOR A PERSON WHO HAS THE ANSWER AND WILL
+NOT GIVE IT. Three of the four prescribed moves (says too little, answers a different question,
+goes vague) all presuppose something to withhold, so writing them into that slot would be the
+MACHINE LYING: a line promising a secret behind a branch that opens because there is no secret.
+That is rule 14(d) in dialogue form. SO THE COMPETENCE DISCLAIMER IS THE ONLY HONEST THING THAT
+SLOT CAN SAY. Rule 12 checked while I was in there: deflectFor IS live, called from the walked
+city's ask beat, out through the same voice channel a meeting uses. Running code, not a shelf.
+
+(2) *** AND THE REFUSAL SYSTEM THE 9/5 RECORD SAID WE NEEDED HAS BEEN SHIPPED FOR ROUNDS. ***
+Its closing line put the good refusal writing in "the hand-written quest scenes". It is in a
+GENERATOR: records/BOHEMIA_QUIRKS.json, tools/bohemia_quirk_factory.py, engine/bohemia_quirk.js,
+22 shapes, 304 combinations, three registers under THEY SPEAK SPANGLISH, and its own header says
+it is delivered THROUGH THE ASK-THEIR-NAME BEAT. 23 of its 194 lines (12%) are refusals, and they
+cover nearly the whole published taxonomy: reason ("Not while I'm carrying {it}"), postponement
+("Ask me tomorrow and you'll get it"), conditional postponement ("Ask me again once I've sold
+{it}"), a different channel ("I write it. I not say it."), a place condition ("Not here. Come to
+{p} and I'll say it."), a condition on the asker ("I'm not telling you my name until you've done
+it"), AN ADMITTED LIE ("The one I give first isn't the real one"), and refusing the premise
+("Don't need my name"). AND THAT IS WHY THEY ARE GOOD AND THE OTHER FOUR ARE FLAT: a quirk
+withholds a NAME, which the person certainly has. The asking module withholds nothing. One system
+has something to withhold and the other does not, and every difference in the writing falls out of
+that. The admitted lie is the quality flout the 9/5 record said we lacked and routed to another
+lane as a memory problem; it shipped, and the speaker catches their own lie so no machinery is
+needed. TWO ROUNDS RUNNING THIS LANE WENT OUT TO DERIVE SOMETHING THE REPO ALREADY HAD (Q4 missed
+the reading-speed policy in bohemia_stage.js). REUSE-FIRST is a law about research.
+
+(3) WHY OUR RULER COULD NOT SEE IT, AND EVERY HIT READ BY HAND. The 9/5 sweep had seven patterns
+and none matches "Not while I'm carrying it", so the best refusals in the game were invisible to
+the sweep that concluded we had none. I re-swept 3,014 spoken lines and read the hits:
+  direct no    81 hits, ABOUT 6 REAL (93% wrong). Most are CHOICES, the player's own menu. And
+    the rest is a trap no English corpus has: "NO" IS ALSO THE SPANISH NEGATOR. "No se me
+    olvida", "No creo que", "No te conozco" all scored as refusals. This lane built a bilingual
+    ruler on Q23 and the lesson did not travel to the next ruler.
+  postponement 35 hits, about 8 real; the rest is "come back" doing its ordinary job. All 8 are
+    quirks or barks, which is finding 2 from another direction.
+  names a cost 23 hits: 5 cost-of-telling in quest scenes, 6 name-withholding quirks, rest are
+    the cost of DOING not of TELLING.
+  condition     0 hits, AND THE ZERO WAS A LIE. My pattern needed "if you ... then/I'll"; real
+    conditional refusals here say "until", "once", "before". A ZERO FROM A PATTERN IS NOT
+    EVIDENCE OF ABSENCE, and it is the easiest number in the world to believe.
+  NOT PUBLISHED ON PURPOSE: the 9/5 record counted 11 cost-naming lines in 1,669. My patterns are
+  not its patterns, so I will not report a rise or fall I cannot attribute to the corpus rather
+  than to my own regex.
+
+(4) THE REAL WORLD, AND REALISM FIRST. Beebe, Takahashi and Uliss-Weltz (1990) is the taxonomy the
+field still runs on, and across the studies built on it EXPLANATION is the highest-ranked, that is
+the UNMARKED, indirect strategy, with direct refusal, regret, excuse and reason, wish and
+postponement the most frequent. GIVING A REASON IS WHAT REFUSING NORMALLY LOOKS LIKE. So the 9/5
+record proposed swapping the realistic formula for a literary one, which may well be right, but
+REALISM FIRST (8/4) says that trade is PAOLO'S and it was never named as a trade. THE REAL DEFECT
+SURVIVES, RESTATED: our four are not thin because they give reasons, they are thin because all
+four give the SAME reason, competence, when the hierarchy has at least five formulas sitting
+unused. Five moves would cost the same four lines.
+
+(5) THE HELD BEAT IS TOO SHORT AND THIS LANE HAS ASKED FOR IT THREE TIMES. Q2, Q4 and Q5 all ask
+for ONE held beat before a stressed or refusing line. Kendrick and Torreira, Discourse Processes
+2015, MEASURED the claim over 195 preferred and dispreferred responses: THE TIMING OF THE MOST
+FREQUENT CASES OF EACH TYPE DID NOT DIFFER SYSTEMATICALLY, and only at 700 ms or more does the
+proportion of dispreferreds become clearly greater. Ordinary responses peak within ~200 ms and
+transition is typically not withheld past 500 ms. TWO THINGS FALL OUT: the textbook claim is much
+weaker than we wrote it (and Q2's school round, titled THE HESITATION IS A MYTH, landed 9/6, a
+round AFTER Q5 shipped, so Q5 section 5 contradicts the lane's own next record and NEWEST DATE
+WINS); and ONE BEAT IS THE WRONG NUMBER. 500 ms sits inside the band where a refusal and an
+acceptance cannot be told apart. THE FIRST QUANTISED VALUE THAT CLEARS 700-800 ms IS TWO BEATS.
+Q4's school fixed the beat at 500 ms in seven places in the engine, so this is arithmetic.
+
+(6) THIS LANE'S OWN VIOLATION, AGAIN: Q5 section 3 cites three reference games Paolo never named,
+written 9/5, after the 8/28 law. Q4's school found the same in Q4. TWO FOR TWO IN THE 9/4-TO-9/5
+BATCH, so it is a pattern and the remaining owed school rounds should expect it. Round two cites
+no reference game; its prior art is linguistics.
+
+ROUTED: the held BUILD row FOUR-KINDS-OF-NO is RE-AIMED -- three of its four cannot be written
+into that slot without the machine lying, so what it is really about is FIVE REAL FORMULAS for the
+branch that exists plus A SECOND BRANCH before the interesting ones are possible at all (stays
+held while the lane is in research). TO WHOEVER OWNS THE ASKING MODULE: that second branch does
+not exist, measured at the call site, named not touched. TO PEOPLE: the quirk factory is the best
+refusal writing in the game and deserves citing as prior art instead of being rediscovered. TO UI:
+the held beat is TWO beats, superseding the one-beat request in Q2, Q4 and Q5 by measurement. TO
+PEOPLE/QUESTS: "a lie the world can catch" is no longer a blocker on this lane, because the quirk
+speaker admits their own lie. STANDING FOR THIS LANE: the next sweep starts from the Spanglish
+corpus, never from English.
+
+GATES, ALL SIX THIS LANE OWNS: voice 118/0, dialogue catalogue 63/0, attempt 15/0, language 83/0,
+voice audible 2/0, handoff 8/0. SUITE LINE: pre-push pass green; none of the suite's outstanding
+reds is this lane's.
+
+STANDING QUEUE: Q5 round two is the top. Then Q6 through Q17 still owe their school rounds under
+the 9/6 mode, oldest first. The four held BUILD rows (BB-THE-SMALL-MOMENT, BB-STILL-SAYS-IT,
+BB-RESPONSIVE, SECOND-VOICE-PASS) stay held while the lane is in research mode.
+STANDING WATCH: verdicts[] in records/target/BOHEMIA_VOTE_REGISTRY.json, every round, for ids
+starting words-. Checked this round: 13 items, 0 verdicts, nothing to act on. Four of mine are
+registered. Up means build it in that same round; down means graveyard with a post-mortem.
+NOTES ARE RULINGS, never ask him twice.
+HANDOFF DISCIPLINE, THE 9/13 AMENDMENT: this block was built by taking origin/main's copy of the
+file fresh and prepending a NEW head. Never demote another lane's head and never splice by index.
+
 ECONOMY (economy-knxaeh): PAOLO'S PERMANENT INSTRUCTION, 9/5, EXPANDED VERSION.
 HIS WORDS, WORD FOR WORD, SO THEY SURVIVE ANY MEMORY RESET. THIS SUPERSEDES THE
 EARLIER SHORTER VERSION FURTHER DOWN THIS FILE. THIS BLOCK IS NEVER DELETED.
