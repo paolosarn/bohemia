@@ -15330,7 +15330,93 @@ RIGHT NOW: (a) write this whole instruction, word for word, into your own handof
 
 I will never paste anything to you again. From here on, the one word is the whole instruction.
 
-THIS ROUND -- *** THE SILHOUETTE HASH IS A GATE NOW, AND THE FIRST MUTATION CAUGHT MY GATE
+THIS ROUND -- *** THREE QUESTIONS FROM THIS LANE ARE IN THE ONE VOTE TAB, AND MAKING THE
+PICTURES FOUND TWO DEFECTS BEFORE HE DID. (sha 435bd9c8, row [into the vote tab]) ***
+
+RULE 12 FIRST AND THE PREMISE HELD. The row says "once UI [vote tab] lands". Measured
+before building anything: the tab is live, the one registry held 13 items from ui, words
+and direction, and CHARACTER had ZERO in it. The row was never blocked. It was undone, for
+three rounds, while this lane worked on other things.
+
+THREE CANDIDATES, NOT THIRTY, and the restraint is deliberate. STOP PRODUCING (7/26) names
+surfacing a pile unasked as the failure, and the VOTE tab is now the ONLY place he judges
+anything, so thirty rows from one lane buries every other lane's work. These are the three
+where his answer changes what this lane builds next, and each one is about the thing he
+keeps noticing himself -- the people:
+    THE 12 PEOPLE ON YOUR STREET         every stranger he walks past is one of these
+    EVERYBODY IS A DIFFERENT COLOUR NOW  the same street before and after, 183 bodies
+    CAN YOU TELL THE 13 APART?           how each faction dresses, side by side
+EVERY PICTURE IS THE REAL SURFACE, NOT A MOCKUP. The twelve and the thirteen are rendered
+by the game's own buildFrame off the game's own tables. The crowd is two screenshots of the
+walked city: same spot, same seed, same frame, ramps off and on.
+
+*** AND MAKING THE PICTURES FOUND TWO DEFECTS. LOOKING AT THE THING IS STILL THE BEST
+INSTRUMENT THIS LANE HAS, AND IT BEAT SEVEN GATES TO BOTH OF THESE. ***
+
+1. NETWORK WAS STILL WEARING BLUE. COOK cooked TEAL WORK SHIRT and TEAL WORK PANTS on 9/13
+   and wrote the wire into its own record in capitals -- "FOR CHARACTER: wire BOTH,
+   FACTION_LOOKS Network base and legs" -- and this lane never did it. Three rounds of
+   colour work went past it. The faction contact sheet showed it in one second: Network
+   standing next to Blues, both blue.
+   WIRED. Measured: hue 210 -> 180, colour strength 0.31 -> 0.55, which is exactly what
+   COOK predicted. His chosen teal is hue 167; they had been rendering 210.
+   AND MY OWN SHAPE GATE FROM LAST ROUND EARNED ITS KEEP ON ITS FIRST REAL USE. COOK
+   claimed "PIXELS MOVED 0" and I did not have to take that on trust: the gate proved it
+   independently, on the OUTFIT and not just the garment. That is the whole reason it
+   exists, one round after it shipped.
+   The derived colours file was re-measured off the new cloth, because that file records
+   the LANDING (what the wardrobe actually renders) and the cloth moved. The aim file, his
+   chosen accents, is untouched -- that distinction is from 9/12 and it still holds.
+
+2. MY OWN RENAME LEFT A DANGLING REFERENCE, TWO ROUNDS OLD AND RED THE WHOLE TIME.
+   COPPER -> PATINA on 9/15 updated the wardrobe, the canon bank and the family cast.
+   BLUES' VETERAN KIT STILL NAMED "COPPER WORK SHIRT", in tools/bohemia_faction_dossiers.py,
+   so faction_dossier was RED and I had not run it. Fixed, 768/0.
+   A RENAME IS THE SAFEST REPAIR THERE IS AND IT STILL NEEDS THE WHOLE SWEEP. I grepped for
+   references that round, saw four slices and a bank, updated the live ones and never
+   checked the generator that FEEDS a gate. The lesson is not "grep harder", it is: after a
+   rename, run the gates of every lane that could name the thing, not just your own.
+
+AND THE LABELS WERE LYING ON MY OWN CONTACT SHEET, CAUGHT BEFORE IT SHIPPED. Four of the
+twelve cast ids -- apron, poncho, bedroll, shortcoat -- were RE-AIMED AT A WIDTH PROFILE on
+9/14 when the first cut failed the silhouette gate. The id still names the garment the
+first design wore, which the body is not wearing. Putting "apron" under a plain brown coat
+in front of him is [names lie] one screen further out, in the one place he judges things.
+Labelled by what the shape actually IS, from the table's own words.
+
+- SHIPPED to the alpha. Build 9/18b. No demo re-cut (rule 14a, only RUN cuts the demo);
+  the deploy cuts the demo from the alpha, so the three rows reach the tab on the next push.
+- TAB: VOTE, in the demo, behind the gear. That is the whole point of the round. The
+  Network fix is visible in CHARACTER and on the street.
+- GATE: gates/character_in_the_vote_tab_gate.js, NEW, 9/0. UI owns the tab and gates it
+  (28 legs); this is the LANE'S half, which that gate cannot cover because it is about what
+  CHARACTER does with an answer: this lane is actually in the queue, its pictures are real
+  files with real content, and EVERY VERDICT ON THIS LANE'S WORK IS WRITTEN DOWN IN records/
+  AS .txt. A registry nobody reads back is a suggestion box.
+  HE HAS VOTED ON NOTHING YET, SO THAT LEG EXAMINED ZERO ROWS, AND THE GATE PRINTS THAT
+  OUT LOUD instead of passing quietly. Mutation-proven three ways: he votes and this lane
+  writes nothing down RED, a picture that is not there RED, this lane puts nothing in the
+  queue RED.
+- SUITE (rule 13): pre-push pass green -- character_in_the_vote_tab 9/0, vote_tab 28/0 with
+  my three in the queue, faction_colour 38/0, faction_dossier 768/0 (was RED, mine, fixed),
+  shape_frozen 12/0, the_name_matches_the_ramp 8/0, wardrobe_wired 17/0. Walked the cut with
+  the one driver: street and city render, no page error. Full suite: 107 red at ad23d875;
+  the two carrying this lane's name (FACE THUMB, LOOK) were red on main before this lane's
+  last eight ships, settled by commit dates.
+- NEXT ROUND: READ THE VERDICTS BACK FIRST. If he has thumbed any of the three, act on it
+  the same round -- up goes into the game, down goes to the graveyard with a post-mortem --
+  and write the verdict into records/ as .txt, because the new gate goes RED until that
+  exists. After that this section has no live line left; the coordinator adds jobs, not me,
+  so the honest reply is "queue empty" unless one lands.
+- FOR COOK: your teal is wired and measured. If another lane's record ever says "FOR
+  CHARACTER" again, it is worth saying so on the board as well; this one sat in a record
+  for five rounds and only a picture found it.
+- [PENDING Paolo] unchanged and still carried: which faction colour file wins; the
+  Anarchists need a magenta garment and there are zero in 317 (the reserved purple band
+  blocks the obvious cook); the Cartel sits on the drab exemption list and not in the law
+  that names it.
+
+PREVIOUS ROUND -- *** THE SILHOUETTE HASH IS A GATE NOW, AND THE FIRST MUTATION CAUGHT MY GATE
 INSTEAD OF THE BUG. (sha 1fb0eaec, row [shape frozen]) ***
 
 WHY THE LAW NEEDED A MACHINE, IN THIS LANE'S OWN LAST WEEK. STRUCTURE-NOT-COLOR (7/19) says
