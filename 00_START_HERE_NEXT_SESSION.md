@@ -2282,6 +2282,90 @@ archive escape built in from the start so [handoff cut] is unblocked rather than
 THE WARNING FOR EVERY LANE: do not write this file from a copy you read at the start of your round.
 Re-read it immediately before you edit, and check your own block is still there after any rebase.
 
+ANIMATION (animation-lr9y9i): 9/18 (a) LATEST -- *** THE NECK IS THE ONLY THING
+HOLDING THE HEAD ON. His oldest unfixed complaint, the one he pointed at in his own
+frame, is fixed. TAB: ANIMATION. Build 9/18e. ***
+
+ROW STILL CLAIMED: [redo killed]. Rule 14: ships to the alpha only; RUN cuts the demo.
+
+=== WHAT HE POINTED AT, AND IT WAS SITTING ON THE LIST SINCE 9/7
+records/target/PAOLO_THE_COAT_AND_THE_ELBOWS_9_7_26.jpg: on NE the head sits up and
+to the right of the shoulders with a visible gap. Looking again, the same reads on SE
+and SW; N, E and S look attached.
+
+=== MEASURED, WITH A RULER THIS LANE ALREADY OWNED (reuse-first)
+The direction-free blob ruler from the head snap gate, swept over 105 clips x 8
+facings x 4 phases = 3,360 frames: 48 FRAMES DRAW THE HEAD DETACHED BY 2 TO 8 PX,
+across 18 clips, concentrated on NE, E, SE and SW -- his facings.
+AND THE CAUSE IS NOT THE POSE. 31 of those frames draw NO NECK AT ALL and EVERY ONE
+is detached, against 0.7% of the 1,666 that do draw one. Sampling the line from the
+neck joint to the head joint, the pixels along it are part ids 5 and 6: THE ARMS. On
+cheer E the entire line is arm 6.
+WHY THE ARM WINS: the per-facing layerOverride puts the NEAR arm at index 0 on NE, E
+and SE -- nearer than the torso, nearer than the neck at index 4 or 5. Right for an
+arm at your side; wrong the moment the pose RAISES it, because the sleeve sweeps
+across the throat and erases the one part connecting the head to the body.
+
+=== THE RULE: THE NECK DRAWS IN FRONT OF THE ARMS
+Same family as THE NEAR HAND DRAWS IN FRONT (this lane 9/13), except covering the
+neck destroys the read of the whole figure, so the neck wins outright.
+MONOTONIC, MEASURED BOTH WAYS: detached 48 -> 23, frames with no neck 31 -> 10,
+worst gap 8px -> 6px, THIRTY-SIX FRAMES BETTER AND ZERO WORSE, 13% of frames change a
+pixel at all. Looked at before/after on his own facings: a skin-toned neck now
+connects head to shoulders on greet SE, preach SE, cheer E, hands-up E, pour NE,
+smoke NE, where before the head sat on a black wedge.
+
+=== AND MY FIRST CUT BROKE SOMETHING, CAUGHT BY MY OWN OLDER GATE
+The first version inserted the neck at the first arm's index. On S, W and NW the
+order opens [7,5,...] -- the HAND nearest, then its own forearm -- so the neck landed
+BETWEEN a hand and the arm it belongs to. THE NEAR HAND DRAWS IN FRONT (9/13) went
+red at once: 2,304 frames of 6,720. Triaged against clean origin/main, where it was
+green, so it was mine. A hand and its arm are ONE UNIT, so the neck now steps in
+front of the whole unit.
+*** THE NECK GATE ALONE WOULD HAVE SHIPPED THAT REGRESSION -- it stayed 8/0 through
+it. The older gate is what caught it. That is the case for keeping narrow gates
+around after their round is over. ***
+
+GATES: NECK HOLDS HEAD 8/0, NEW and in the suite, 26 s. Its load-bearing claim ASKS
+THE LIVE DRAW ORDER on every facing rather than reading a line out of the source --
+last round's lesson, where a guard that regex'd one line stayed green while the thing
+it guarded moved. Ceilings are the measurement (23 / 10 / 6px) so the count can only
+fall. PRINTS the 23 that remain, of which 12 are GUN clips (two-hand, deadeye,
+crouch-aim-2h) whose cause is the separate GUN-UNIT law -- named, not chased.
+Four mutations caught, including my own regression and the rule dropped from only ONE
+of handOrder's two exits.
+Record: records/BOHEMIA_THE_NECK_HOLDS_THE_HEAD_ON_9_18_26.md
+
+PRE-PUSH PASS (rule 13): green except two, BOTH verified identical on a clean
+origin/main checkout this round, neither mine:
+ - CITY CAST (B6, the neighbour wears one of them) -- the standing red.
+ - PAGES PUBLISH -- STILL RED, THIRD ROUND RUNNING, and still nobody's. "every folder
+   _config.yml KEEPS is copied by the workflow -- graveyard". Cause named two rounds
+   ago: COOK created a top-level graveyard/ folder (d8e1f43), _config.yml keeps it,
+   the workflow copies slices/ engine/ records/target only, and the gate binds those
+   lists on purpose. [FOR WHOEVER OWNS THE PIPE] one line in either file. Not crossed
+   into; that pipe is not this lane's.
+FULL SUITE: 107 red at ad23d875; mine are none that I have found.
+
+WHAT IS LEFT OF [redo killed]
+- THE 12 GUN-CLIP DETACHED FRAMES: two-hand, deadeye, crouch-aim-2h. The GUN-UNIT law
+  moves parts 7 and 8; the neck rule does not reach them. Measured and printed by the
+  gate every run, so the next round starts from the list.
+- Beats two and three are ONE problem: every beat reads differently per facing (b2
+  knee 37-159 deg, b3 hand lag 17-200%, b4 holds on 1 of 8, b1 on 8 of 8). Two causes
+  for beat three measured DEAD and printed by FOUR BEATS. The arm's inertia IS real in
+  the sim; delivery to the screen fails.
+- Four clips still snap, all small, worst 12.6px. Pose problems, not rig problems.
+- POSEHOLD key density on clips whose keys are too far apart to read as motion.
+- THE 47 ARE REPAIRED AND CANNOT REACH HIM until UI [vote tab] lands (rule 15).
+  Checked again this round: still OPEN.
+- THE STREET STILL DRAWS BLURRY BODIES at C 14 to 22, quadrupling the 56 this lane
+  ships (itself a halved 112). Two changes must land together or ONE NUMBER FOR A BODY
+  bites: the city's ladder reads the shipped size off m.w, and this lane raises
+  CAST_PX to 112 the same round. 2.14x wire, 0.94x bake, 0.95x phone pixels.
+
+Nothing [PENDING Paolo].
+
 ANIMATION (animation-lr9y9i): 9/16 (a) LATEST -- *** A GUARD THAT READS A LINE IS
 MEASURING SOMETHING NARROWER THAN IT NAMES. The hole was in my own guard, and two
 of my own claims were vacuous. TAB: ANIMATION. No build change, nothing to look at. ***
