@@ -2311,9 +2311,20 @@ across the throat and erases the one part connecting the head to the body.
 === THE RULE: THE NECK DRAWS IN FRONT OF THE ARMS
 Same family as THE NEAR HAND DRAWS IN FRONT (this lane 9/13), except covering the
 neck destroys the read of the whole figure, so the neck wins outright.
-MONOTONIC, MEASURED BOTH WAYS: detached 48 -> 23, frames with no neck 31 -> 10,
-worst gap 8px -> 6px, THIRTY-SIX FRAMES BETTER AND ZERO WORSE, 13% of frames change a
-pixel at all. Looked at before/after on his own facings: a skin-toned neck now
+MONOTONIC, MEASURED BOTH WAYS: detached 48 -> 15, frames with no neck 31 -> 2,
+worst gap 8px -> 4px, and not one frame got worse.
+*** AND THE RULE FIRST REACHED ONLY HALF THE EXITS, WHICH IS THE THIRD VACUOUS CLAIM
+OF THIS SESSION. *** The first cut scored 48 -> 23 and I wrote that the 23 remaining
+were "all gun clips, a different defect". WRONG, and my own claim hid it: measuring
+the gun frames, the neck sat at index 7 while the arms sat at 0 and 2 -- the rule had
+never run on them. handOrder has FOUR order-returning exits; my search-and-replace
+matched two. The other two return a bare `ord` and, in the GUN-UNIT branch,
+`_headBetween(o2)` with a different variable. THE GATE SAID EVERY EXIT WAS COVERED
+because its claim counted occurrences of MY OWN PATTERN. It parses handOrder's body
+now: 4 of 4. With all four wrapped the gun frames went 12 -> 4.
+A CLAIM BUILT FROM THE SHAPE OF MY OWN EDIT WILL ALWAYS PASS MY OWN EDIT. Third time
+this session (after "both paths exercised" and "CAST_PX is one of the rungs"); the fix
+every time was to ask the code instead. Looked at before/after on his own facings: a skin-toned neck now
 connects head to shoulders on greet SE, preach SE, cheer E, hands-up E, pour NE,
 smoke NE, where before the head sat on a black wedge.
 
@@ -2350,9 +2361,9 @@ origin/main checkout this round, neither mine:
 FULL SUITE: 107 red at ad23d875; mine are none that I have found.
 
 WHAT IS LEFT OF [redo killed]
-- THE 12 GUN-CLIP DETACHED FRAMES: two-hand, deadeye, crouch-aim-2h. The GUN-UNIT law
-  moves parts 7 and 8; the neck rule does not reach them. Measured and printed by the
-  gate every run, so the next round starts from the list.
+- FOUR GUN-CLIP FRAMES still detached (was 12 before the missed exits were found).
+  These MAY be the real GUN-UNIT interaction, but that is now a claim about four
+  frames and not twelve. The gate prints them every run.
 - Beats two and three are ONE problem: every beat reads differently per facing (b2
   knee 37-159 deg, b3 hand lag 17-200%, b4 holds on 1 of 8, b1 on 8 of 8). Two causes
   for beat three measured DEAD and printed by FOUR BEATS. The arm's inertia IS real in

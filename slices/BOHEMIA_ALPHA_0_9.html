@@ -7560,7 +7560,7 @@ function handOrder(d,present,P){
         ord.splice(hi+1,0,armP,handP); }
       else if(f<-2.5){ ord=ord.filter(p=>p!==armP&&p!==handP); ord.unshift(armP,handP); }
     }
-    return ord;
+    return _neckHolds(ord);
   }
   /* GUN-UNIT LAYER LAW (Paolo 7/2/26, deadeye redo): hands holding a weapon
      are ONE unit with it, never independently dynamic. Both hands layer
@@ -7570,7 +7570,7 @@ function handOrder(d,present,P){
   if(present&&present._gun){
     const aim=present._gun[3], toF=(Math.sin(aim)>-0.25);
     let o2=_pairMove(ord,5,7,toF); o2=_pairMove(o2,6,8,toF);
-    return _headBetween(o2);                                   /* the pair, never the bare hands */
+    return _neckHolds(_headBetween(o2));                        /* the pair, never the bare hands */
   }
   if(d==='S'||d==='N'){
     if(present&&present._handsBack){

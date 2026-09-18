@@ -42,13 +42,28 @@ ok('his own frame is still in the repo, so the complaint this answers can be loo
 ok('the rule is in the draw order and runs on the FINAL order, after the head rule',
    /const _neckHolds=/.test(src) && /_neckHolds\(_headBetween\(ord\)\)/.test(src));
 
-ok('and it is on BOTH of handOrder\'s exits, not just the one a test happened to hit (' +
-   (src.match(/_neckHolds\(_headBetween\(ord\)\)/g) || []).length + ' of 2)',
-   (src.match(/_neckHolds\(_headBetween\(ord\)\)/g) || []).length === 2);
+/* *** AND THIS CLAIM COUNTED MY OWN PATTERN, NOT THE FUNCTION'S EXITS. ***
+   The first cut asserted "2 of 2 exits" by counting `_neckHolds(_headBetween(ord))`.
+   handOrder has FOUR exits that hand back a draw order, and two of them return
+   something else: a bare `return ord` and, in the GUN-UNIT branch, `_headBetween(o2)`
+   with a different variable. My search-and-replace never saw them, so the rule did
+   not run on gun clips at all -- and the gate happily said every exit was covered.
+   A claim that counts what you wrote measures your own edit, not the code.
+   It parses handOrder's body and requires EVERY order-returning exit to be wrapped. */
+const hoStart = src.indexOf('function handOrder(d,present,P){');
+const hoBody = hoStart < 0 ? '' : src.slice(hoStart, src.indexOf('\nfunction ', hoStart + 10));
+const exits = (hoBody.match(/^\s{2,4}return [^;]+;/gm) || [])
+  .filter(x => /\b(ord|o2|_headBetween)\b/.test(x));
+const wrapped = exits.filter(x => /_neckHolds\(/.test(x));
+ok('EVERY exit of handOrder that hands back a draw order is wrapped, counted off the ' +
+   'function body and not off my own pattern (' + wrapped.length + ' of ' + exits.length + ')',
+   exits.length >= 4 && wrapped.length === exits.length);
 
-/* THE CEILINGS ARE THE MEASUREMENT, not a guess: 48 -> 23 detached, 31 -> 10 with no
-   neck, worst 8px -> 6px. They are held at what shipped so the number can only fall. */
-const DETACHED_MAX = 23, NONECK_MAX = 10, WORST_MAX = 6;
+/* THE CEILINGS ARE THE MEASUREMENT, not a guess: 48 -> 15 detached, 31 -> 2 with no
+   neck, worst 8px -> 4px. They are held at what shipped so the number can only fall.
+   The first cut of this rule reached only two of handOrder's four exits and scored
+   23 / 10 / 6px; finding the other two took it to 15 / 2 / 4px. */
+const DETACHED_MAX = 15, NONECK_MAX = 2, WORST_MAX = 4;
 
 (async () => {
   const { chromium } = require('/opt/node22/lib/node_modules/playwright');

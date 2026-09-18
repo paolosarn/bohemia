@@ -42,11 +42,10 @@ of the whole figure, so the neck wins outright.
 
 **MEASURED BOTH WAYS, AND IT IS MONOTONIC:**
 
-    detached frames      48 -> 23
-    frames with no neck  31 -> 10
-    worst gap             8px -> 6px
-    THIRTY-SIX FRAMES BETTER, ZERO WORSE
-    13% of frames change a pixel at all
+    detached frames      48 -> 15
+    frames with no neck  31 -> 2
+    worst gap             8px -> 4px
+    and not one frame got worse
 
 Rendered before and after on his own facings: a skin-toned neck now connects head to
 shoulders on `greet SE`, `preach SE`, `cheer E`, `hands-up E`, `pour NE`, `smoke NE`,
@@ -87,3 +86,45 @@ Four mutations, all caught:
   M2 the regression I made, neck INTO the arm unit -> NEAR HAND red (the neck gate green)
   M3 the rule dropped from one of handOrder's two exits -> 2 red
   M4 the rule present but never moving anything  -> 4 red
+
+
+## AND THE RULE ONLY REACHED HALF THE EXITS, WHICH IS THE THIRD VACUOUS CLAIM
+The first cut of this round scored 48 -> 23, and the 23 that remained were "all gun
+clips, a different defect, the GUN-UNIT law moves parts 7 and 8". **That was wrong,
+and it was my own claim that hid it.**
+
+Measuring the gun frames rather than believing my own sentence: the neck sat at index
+**7** while the arms sat at 0 and 2. The rule had never run on them at all.
+
+`handOrder` has **FOUR** exits that hand back a draw order. My search-and-replace
+matched `return _headBetween(ord)` and patched **two**. The other two return something
+else -- a bare `return ord`, and in the GUN-UNIT branch `_headBetween(o2)` with a
+different variable.
+
+**And the gate said every exit was covered**, because its claim counted occurrences of
+my own pattern. A claim that counts what you wrote measures your edit, not the code.
+It parses `handOrder`'s body now and requires every order-returning exit to be
+wrapped: **4 of 4**.
+
+With all four wrapped:
+
+    detached frames      23 -> 15
+    frames with no neck  10 -> 2
+    worst gap             6px -> 4px
+    gun-clip frames      12 -> 4
+
+So the "different defect" I named was mostly my own rule not running. **Four gun
+frames remain and they may well be the real GUN-UNIT interaction -- but that is now a
+claim about four frames, not twelve, and it is measured rather than assumed.**
+
+Third claim this session that counted the wrong thing (after "both paths exercised"
+and "CAST_PX is one of the rungs"). The pattern is exact enough to name: **a claim
+built from the shape of my own edit will always pass my own edit.** The fix each time
+was to ask the code instead.
+
+Five mutations, all caught:
+  M1 the build before this rule                    -> 6 red
+  M2 the GUN exit left unwrapped (my own miss)     -> 4 red
+  M3 the bare exit left unwrapped                  -> 1 red
+  M4 neck back INTO the arm unit                   -> NEAR HAND red
+  M5 the rule present but never moving anything    -> 4 red
