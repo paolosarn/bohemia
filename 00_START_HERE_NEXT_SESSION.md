@@ -10033,7 +10033,88 @@ walk census). Then [music owned] THE-MUSIC-ITSELF.
 
 ------------------------------------------------------------------------
 
-LIFE + CITY (city-1eztay): 9/16 (a) LATEST -- *** [sealed block] SHIPPED, AND THE PREMISE IS FALSE.
+LIFE + CITY (city-1eztay): 9/18 (a) LATEST -- *** [side variants] SHIPPED. 3 OF 36 SIDEWALK TILES
+WERE REACHING THE GROUND. NOW 36 OF 36. *** MODE: BUILD. TAB: RUN, the walked street, and the kerb
+band on the screen he wakes to. Demo NOT re-cut (rule 14a); this is in the live part, so it reaches
+him on the next deploy. Shots before/after in records/side_variants/.
+
+COOK [streets fixed] (fe5ba8d0) found the repeat he can see and named the modulus. MEASURED, THERE
+WERE TWO COLLAPSES STACKED ON THE SAME LINE AND THE SECOND ONE IS BIGGER.
+ 1. THE MODULUS, which the row named. The approved sidewalk bank holds 36 tiles; the suburb asked
+    for _sw%3. Over 6,968 sidewalk cells around the door, with saTex ITSELF as the oracle -- it
+    caches one canvas per resolved tile, so identical objects mean identical pictures -- THREE tiles
+    reached the ground. 33 of a judged bank had never been drawn since the day it was approved.
+ 2. THE GRAIN, AND THE COMMENT ABOVE THE LINE ALREADY SAID THE RIGHT WORD. It reads "PER PLOT, NEVER
+    PER CELL", which is Paolo 7/14. The code seeded on tx>>2, ty>>2 -- and tx/ty are OVERMAP cells,
+    so that is 384 METRES OF STREET ON ONE TILE. Not a plot: a whole neighbourhood. Fixing only the
+    modulus would have given 36 tiles and still painted a quarter of a kilometre with each one.
+
+THE FIX IS A REMOVAL AND A REGRAIN, NOT A BIGGER NUMBER. saTex already maps any integer across the
+whole pool AND carries his 7/14 weather-rarity rule while doing it (88% of picks stay in the parent
+half, 12% reach the weathered tail -- the rule that exists because an even shuffle made him ask why a
+bunch of the tiles changed colour). PRE-MODDING TO 3 IS WHAT THREW THAT AWAY, so the modulus is gone
+rather than widened. The seed is now BOH_LATTICE.LOT_FINE: 24 fine cells, 18 m, the stride the house
+generator packs on, the one number this lane put in one place under his 9/15 step-is-a-house ruling.
+One tile per lot is what a poured walk actually is, it changes under your feet every house instead of
+every quarter kilometre, and it is STILL PER PLOT AND NEVER PER CELL. FIRST TIME THE LATTICE CONSTANT
+HAS BEEN READ BY SOMETHING OTHER THAN THE LATTICE, which is the whole point of having put it there.
+
+MEASURED, SAME INSTRUMENT BOTH SIDES. The before was taken by STASHING the change and re-running the
+same probe, not by remembering what it used to do:
+                            before      after
+    TILES ON THE GROUND     3 of 36    36 of 36
+    patches of one tile         102         181
+    median patch size       36 cells    16 cells
+    biggest patch          423 cells   423 cells
+
+THE GATE: gates/the_sidewalk_uses_its_bank_gate.js, 9/0, in the suite as THE SIDEWALK USES ITS BANK.
+LEG B3 PROTECTS THE OTHER HALF OF HIS RULING and matters as much as the repeat: a per-cell shuffle
+sends the median patch to 1 and turns a run of pavement into a checkerboard, which is exactly the
+complaint the 7/14 law came from, and this fails that as hard as it fails the repeat. So nobody can
+close this row by breaking the other half of it. Mutations, both run: per-cell seed reds B3 at median
+1; the old %3 reds A2 and B2 at 3 of 36.
+
+NAMED AND NOT TOUCHED, because it is a look decision and not a mechanical one:
+ - THE ROADWAY DRAWS 3 OF ITS 18. Its variant comes from somewhere else entirely, the draw site's
+   `const v = hash(gx,gy,404) & 3`, which is PER CELL, four values. Widening a per-cell shuffle from
+   4 to 18 on asphalt is precisely the change that produced his 7/14 complaint, so it needs an eye
+   before a number. Counted here, not quietly widened.
+ - tf_ls is NOT in SA_TILES at all: it lives in the separately loaded tileform bank, so this probe
+   cannot read its length. Said out loud rather than reported as zero.
+
+AND ONE THING SEEN ON THE GLASS AND NOT EXPLAINED, FOR WHOEVER OWNS THE SHELL OVERLAY: a bright
+orange line runs the FULL WIDTH of the door screen, about a fifth of the way down, in BOTH shots --
+this round's and the one taken two rounds ago, same place on screen. Three probes could not find it:
+not a thin full-width element in the walked city's document, not one in the demo shell's document,
+and no row of saturated orange pixels on either canvas (#cv, #modeFace) when read after boot. So it
+is transient or outside what these probes reach. NAMED WITH THE TWO SHOTS AS EVIDENCE, not diagnosed
+and not claimed as a defect in anything. "Glitches" is on his break list, so it is worth a look by
+somebody who owns that surface.
+
+ON [eyes: shape rows], WHICH EYES E26 ROUND 8 STILL LISTS AS DEAD FOR THE FIFTH ROUND: CHECKED
+BEFORE CLAIMING ANYTHING ELSE, and it is a carry-over, not a new measurement. Round 8's record
+measures freezes and population on a throttled CPU and does not touch the day card; its line on the
+board sits under "STILL STANDING FROM LAST ROUND". Round 7 landed at 21:26 and the fix at 21:36, ten
+minutes later. Re-run on current main: the row moves the terms on the first press, a second tap in
+the same place costs nothing, 20/0. And only the walked city carries that code -- the alpha and the
+demo have no copy of it -- so the deploy cut gets the same body. Not reopened.
+
+RULE 13(b): pre-push pass green on everything reading this diff (THE SIDEWALK USES ITS BANK 9/0,
+WHERE A STEP MAY LAND, NOTHING MOVES UNDER HIS FINGER, ENGINE SYNC, SUITE HONESTY, A FLAT THING
+READS FLAT, THE STREET IS NEVER EMPTY), re-run after main moved 172 lines of the walked city under
+me. Full suite: 107 red at ad23d875, none of them mine. NO CELL GOES UNTEXTURED is still 769/903 and
+UNMOVED by this diff -- the 134 are 112 dead dirt and 22 decorative gravel, the gravel a documented
+exception, the dead dirt waiting on a pool ruling, third round running.
+
+NEXT IN THIS LANE (board order): [tiles not slabs] (1.7% measured on it, and FACTIONS 5bb0847a added
+a fresh measurement to the row this round), then [buildings appear], [power buildings], [owner
+shown], [bill lands], [shelves seen].
+
+Record: records/BOHEMIA_THIRTY_THREE_TILES_NOBODY_HAS_SEEN_9_18_26.md
+
+------------------------------------------------------------------------
+
+LIFE + CITY (city-1eztay): 9/16 (a) -- *** [sealed block] SHIPPED, AND THE PREMISE IS FALSE.
 HIS BLOCK IS NOT SEALED: FIVE PRESSES OF THE PAD FROM HIS DOORSTEP AND HE IS STANDING ON A ROAD. ***
 MODE: BUILD. TAB: RUN, the first screen. Nothing in slices/ changed, so nothing to re-cut and no build
 stamp. This round is a measurement and a gate.
