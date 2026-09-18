@@ -25574,6 +25574,53 @@ a memory reset. HE WILL NEVER TYPE ANYTHING BUT THE ONE WORD AGAIN. ***
     I will never paste anything to you again. From here on, the one word is the whole
     instruction.
 
+*** [dev strip] THE-FIGHT-SHOWS-THE-DEVELOPER'S-BUTTONS-TO-THE-PLAYER. V221 -- PROVED ON THE CUT. SHIPPED. ***
+The coordinator's row asks for something my last ship did not do and says so in its own words:
+"the gate opens a real fight ON THE CUT and finds none of the five." My gate ran on the ALPHA.
+EYES round 8 still reported the strip standing on the deploy cut and their walk may predate
+27ef790e. So the first act of this round was not to build anything, it was to go and look at the
+thing he opens.
+
+WHAT THE DEPLOY CUT ACTUALLY SHOWS, measured, in a real fight started by tapping a body:
+    HAND-PEEK, NEW ENCOUNTER, ARENA, the comment box   NOT ON SCREEN
+    WAIT, SUPPRESS, SHOVE                              on screen, which is the game
+    the strip                                          111 px of 932 (was 181)
+    he can read   SETTINGS, YOU, 100/100, WAIT, SUPPRESS, SHOVE GOON (stun 1 - 30%), WAY OUT 4T
+    developer strings                                  NONE
+THE FIX IS ON THE CUT. EYES round 8's observation predates 27ef790e. Nothing new had to be built
+for the strip itself -- but the ship test was still not met, BECAUSE NOTHING COULD SEE THE CUT.
+
+SO THE WORK IS THE INSTRUMENT. The gate now walks BOTH surfaces, and the cut half is built fresh
+from the current workshop by a new --out <path> flag on the cutter. --out NEVER TOUCHES THE
+COMMITTED DEMO: it does not open slices/BOHEMIA_DEMO.html or its manifest and refuses outright if
+you point it there, so rule 14(a) is untouched and what the deploy publishes cannot change.
+Before it, the only way to look at the cut was to run the real cutter over the committed file and
+put it back afterwards, which is one crash away from a dirty tree. ANY LANE CAN NOW MEASURE THE
+CUT IN ONE LINE: node tools/bohemia_cut_the_demo.js --out /tmp/x.html
+
+*** FOUR THINGS ABOUT THE CUT THAT THE ALPHA NEVER TAUGHT ME, AND EVERY ONE SILENTLY TURNS A
+    CHECK INTO NOTHING. THIS IS THE REAL HANDOVER OF THE ROUND. ***
+ 1. THE DEMO'S IFRAMES HAVE NO NAME. Any gate that finds a frame by name works on the alpha and
+    FINDS NOTHING ON THE CUT. That is probably the single reason a lane can be green on the
+    workshop and wrong on the thing he plays.
+ 2. MORE THAN ONE FRAME ANSWERS TO THE CITY'S URL AND ONLY ONE IS ALIVE. find() took a dead one
+    and reported an empty world for eighty seconds.
+ 3. AN EAGER POLLER STARVES THE BOOT. Asking twelve frames every 400 ms on a single-threaded page
+    kept the world from ever coming up -- the same shape as EYES' own finding that their sampling
+    loop cost 8% of the freeze.
+ 4. THE CITY FRAME DOES NOT EXIST FOR THE FIRST HALF MINUTE. At 6 s the frame list has no city in
+    it at all; by 29 s it does.
+So the live city is WHICHEVER FRAME ANSWERS, asked gently, after a wait.
+
+gates/dev_strip_gate.js 19/0 across THE WORKSHOP and THE CUT HE OPENS, both reading the same
+thing. MUTATION-PROVED and the point of the mutation is the cut half: put the workshop back on
+the fight and BOTH surfaces go red, four arms each, symmetrically, so the cut half bites on its
+own. Checked alongside: the cutter's own --check still passes, demo_build 25/0,
+home_screen_is_the_save 27/0, and the committed demo's md5 is unchanged before and after a full
+gate run.
+Record: records/BOHEMIA_COMBAT_PROVED_ON_THE_CUT_9_18_26.md  No build stamp: nothing in the game
+changed this round, this is an instrument and a flag.
+
 *** [eyes: dev strip] THE-FIGHT-SHIPS-WITH-THE-DEVELOPERS-CONTROL-STRIP-ON-IT. V220. SHIPPED. ***
 EYES E26 round 7 walked THE DEPLOY CUT (what he opens, not the committed demo), reproduced it on
 two walks and PHOTOGRAPHED it (records/eyes_e26_walk_deploy/04_04_cards.png): a real fight at
@@ -26211,7 +26258,7 @@ ROUTED, NOT MINE TO FIX: EYES item 1 measured that THE FONT FIX IS REAL AND IS N
 carries 42 and 2 and none. Same for V216 and for everything six lanes shipped. Under rule 14(a) ONLY
 RUN RE-CUTS THE DEMO, so all of it is one cut away from the surface he actually opens.
 
-QUEUE STATE: [eyes: dev strip], [house board], [start a fight], [prefight save], [first fight], [enemies flee] AND [plates cost] ARE SHIPPED. [loot kept], [guns close] and [rescue her] are all SHIPPED (efd64c7 carries
+QUEUE STATE: [dev strip], [eyes: dev strip], [house board], [start a fight], [prefight save], [first fight], [enemies flee] AND [plates cost] ARE SHIPPED. [loot kept], [guns close] and [rescue her] are all SHIPPED (efd64c7 carries
 [guns close] and the key-guard fix; every sha read off main after the push). THE NEXT OPEN LINE IN
 THIS SECTION IS [armour morale] ARMOUR-AND-MORALE, but rule 14 may put another of his breaks first:
 re-read the front page before claiming.

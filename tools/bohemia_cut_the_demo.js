@@ -431,6 +431,32 @@ const DEMO_MANIFEST = JSON.stringify({
 const alpha = fs.readFileSync(ALPHA, 'utf8');
 const { src, notes } = cut(alpha);
 
+/* --out <path>: WRITE THE CUT SOMEWHERE ELSE AND TOUCH NOTHING ELSE (COMBAT 9/18).
+   Rule 14(a) says only RUN re-cuts the demo, and this does not re-cut it: the
+   committed slices/BOHEMIA_DEMO.html and its manifest are not opened, so what the
+   deploy publishes cannot change. What this gives every lane is the ability to MEASURE
+   the cut instead of the workshop.
+   IT EXISTS BECAUSE PROVING SOMETHING ON THE ALPHA IS NOT PROVING IT ON THE CUT, which
+   is what EYES keeps catching. [dev strip] is the case in point: the fix was proved on
+   the alpha and the row still asked for "the gate opens a real fight ON THE CUT".
+   Before this, the only way to look at the cut was to run the real cutter over the
+   committed file and put it back afterwards, which is a dirty tree away from an
+   accident. */
+{
+  const oi = process.argv.indexOf('--out');
+  if (oi >= 0 && process.argv[oi + 1]) {
+    const dest = path.resolve(process.argv[oi + 1]);
+    if (path.resolve(dest) === path.resolve(DEMO)) {
+      console.error('--out refuses to write the committed demo: only RUN re-cuts it (rule 14a)');
+      process.exit(1);
+    }
+    fs.mkdirSync(path.dirname(dest), { recursive: true });
+    fs.writeFileSync(dest, src);
+    console.log('cut to ' + dest + ' (' + src.length + ' bytes); the committed demo was not touched');
+    process.exit(0);
+  }
+}
+
 if (process.argv.includes('--check')) {
   let have = null;
   try { have = fs.readFileSync(DEMO, 'utf8'); } catch (_e) { }
