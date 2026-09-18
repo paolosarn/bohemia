@@ -11974,6 +11974,92 @@ THIS LANE'S ROLE, FIXED: 16 COOK, the production artist.
 THIS LANE'S SESSION SLUG: cook-mce6r5.
 
 
+COOK (cook-mce6r5): 9/18 LATEST -- *** [car recook] ROUND 8: THE STALL WAS NEVER A WHOLE
+NUMBER. THE PROP-SCALE DEBT IS PAID IN FULL, 15 -> 0, AND 85 PHOTOGRAPHS GOT COOKED ON THE
+WAY. *** TAB: RUN. Build 9/18a.
+
+I CAME IN TO DRAW FIFTEEN MORE AND RULE 12 STOPPED ME AT THE DOOR. A footprint is in CELLS
+because that is a fact about the world -- a bin is 0.9 of a cell wide -- and 0.9 x 44 is
+39.6 PIXELS. A master is always a whole number of pixels, so min(39.6/w, 39.6/h) CAN NEVER
+BE 1.000 FOR ANY ART ANYBODY COULD EVER DRAW.
+    families with a whole-pixel stall   2  (car, lamp)
+    families where 1.000 was impossible 15
+THE CAR WAS FIXABLE BECAUSE ITS FOOTPRINT HAPPENED TO BE A WHOLE NUMBER. The other fifteen
+were a debt that could not be paid by drawing, and prop_scale_gate had been measuring a bill
+nobody could settle. That is worth remembering for any ratchet: a debt can be real AND
+unpayable, and the gate cannot tell you which.
+
+THE FIX IS TWO HALVES AND NEITHER WORKS ALONE:
+  1. ROUND THE DRAWN RECTANGLE to whole pixels (__A_STALL_IS_A_WHOLE_NUMBER_OF_PIXELS__ in
+     the city page). Presentation and nothing else, CHECKED BEFORE TOUCHING IT: PROP_FP is
+     read NOWHERE IN engine/, only in that draw call and by the gate, so no occupancy,
+     clamp or walkable-land fact moves and the rectangle changes by at most half a pixel.
+     The gate rounds the same way so checker and renderer cannot disagree.
+  2. AUTHOR EACH MASTER at its own rounded stall.
+
+*** AND THE FIRST CUT PUT EVERY FAMILY ON ASPHALT AND THE SHEET SHOWED ME A WORLD WITH NO
+COLOUR IN IT. *** Orange barrel, red-and-white barricade, wooden bench, green dumpster, blue
+mailbox, orange cone, burning fire barrel -- all grey. Asphalt is right for a CAR because a
+car sits on the road; it is not right for a traffic cone, whose orange is the entire reason
+it reads as a cone. ONE PALETTE PER FAMILY MEANS THE FAMILY IS THE MATERIAL. Fixed:
+    asphalt     bin dumpster mailbox bollard barricade bag tyre pole lighttower car
+    terracotta  barrel firebarrel cone   (terracotta IS the approved orange)
+    deck        bench pallet
+    concrete    rubble
+The green dumpster and blue mailbox are now GREY and that is a DELIBERATE TRADE written down
+rather than hidden: no approved act-1 ramp holds green or blue, inventing one breaks ONE
+PALETTE PER FAMILY, and COLOUR IS TERRITORY reserves saturated colour for factions. If
+anybody wants those identities back it is a ruling, not a bug.
+
+*** AND MEASURING THEM FOUND A SECOND, BIGGER FAULT NOBODY HAD NAMED. *** The shipped props
+look well coloured BECAUSE THEY ARE PHOTOGRAPHS: bag 3,052, barrel 4,215, barricade 3,436,
+bench 2,849, bin 3,487, bollard 2,524, cone 2,751, dumpster 5,272, firebarrel 2,765, mailbox
+3,043, pallet 2,863, rubble 3,477, tyre 3,125 median colours per sprite. EIGHTY-FIVE OF ONE
+HUNDRED AND FIVE PROP SPRITES WERE OVER THE 64-COLOUR CEILING, and the car was the only
+family anybody had ever cooked. FOURTH TIME THIS LANE HAS FOUND A PHOTOGRAPH SHIPPED AS
+PIXEL ART (cars 3,031 -> 9, street 1,235 -> 7, yard 16px blurred -> 44px lossless, now every
+remaining prop). Size without palette would have left a photograph at the right size, so
+both landed together.
+
+RESULT
+    families at a fractional scale   16 of 16  ->  0 of 16
+    sprites over the ceiling         85 of 105 ->  0 of 105
+    worst sprite                     5,272 colours -> 9
+    silhouette drift, worst family   2.1 points
+CONFIRMED IN THE RUNNING GAME with the one driver: 16 families, every one at scale 1, zero
+fractional. THE PROP-SCALE RATCHET IS RE-PINNED AT ZERO.
+
+THE METHOD, UNCHANGED FROM R7 BECAUSE IT WORKED, and it generalises to any sprite pool in
+this repo: take the shipped master's ALPHA MASK ONLY; upscale THE MASK and re-threshold (a
+mask has no pixel grid to break -- the whole fault is that scaling COLOUR by a fractional
+factor makes uneven pixels); READ THE LIGHT AND SHADE OUT OF THE PHOTOGRAPH at its own
+resolution by luma so every object keeps its own form; RE-SHADE FROM SCRATCH on the new grid
+on its family's approved ramp. Rust inward from the silhouette with DISTANCE 0 AND 1
+FORBIDDEN, because the rim is the lit and shadow edge the 45-degree law just drew.
+
+STILL TRUE AND STILL A WARNING TO ANY LANE WRITING TO BOHEMIA_CITY_PROPS.js: that file holds
+TWO tables both keyed by family name -- PROP_FP (the FOOTPRINT) and PROP_B64 (the ART) -- and
+PROP_FP COMES FIRST. Round 7's first write put twenty base64 images over the car's footprint
+and only the read-back caught it. Anchor after `const PROP_B64` and check the first thing
+inside your target is a PNG.
+
+WHAT IS LEFT ON THIS ROW: nothing measurable that this lane can find. The car draws at its
+own size, on approved ramps, and so does every other prop in the game. The next honest step
+is HIS EYES on it -- the row's own ship test was always "compared to a real wrecked car AND
+to the body standing beside it", and both halves now hold by measurement.
+
+GATES: pre-push pass green (PROP SCALE 7/0 with the debt at ZERO, PROPS 76/0, PIXEL CRAFT
+30/0, ART 45 16/0, REFERENCE CHECK 11/0, CITY TAB 64/0, ALPHA LOADS 20/0, REUSE-FIRST 209/5
+-- all five other lanes' *_patch.py). Full suite: 107 red at ad23d875, none named as this
+lane's. No demo re-cut (rule 14a); the props file is loaded by reference.
+Tool: tools/bohemia_every_prop_its_own_size_cook_9_18_26.py
+Picture: records/target/COOK_EVERY_PROP_AT_ONE_TO_ONE_9_18_26.png
+Record: records/COOK_THE_STALL_WAS_NEVER_A_WHOLE_NUMBER_9_18_26.md
+
+STILL PENDING PAOLO, unchanged:
+  [magenta piece] -- purple means the Amalgamation, but the Anarchists' own colour #c026a0
+  is a purple. A/B/C are on the board and below.
+
 COOK (cook-mce6r5): 9/16 LATEST -- *** [car recook] ROUND 7: THE CAR KEEPS ITS SHAPE AND
 CHANGES ITS SIZE. THE PROP-SCALE DEBT MOVED FOR THE FIRST TIME, 16 -> 15. *** TAB: RUN.
 Build 9/16a.
