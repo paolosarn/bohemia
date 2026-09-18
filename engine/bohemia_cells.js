@@ -24,11 +24,23 @@
 //   ten days of work, on the real pipe:
 //     the valley's batteries .... 0 -> 10
 //     the purse's own flow ...... source (made from nothing) 10, drain 0, transfer 0
-//   A DAY OF WORK MINTS A CELL. payForWork credits kind 'source', which is the
-//   purse's own word for created-from-nothing, so the valley's money supply grows by
-//   one every day the player works, without bound. That is exactly the infinite
-//   money the record warns about ("a single working panel is infinite money UNLESS
-//   the number of cells is fixed"), and it is live today.
+//   A DAY OF WORK MINTED A CELL. payForWork credited kind 'source', the purse's own
+//   word for created-from-nothing, so the supply grew by one every day the player
+//   worked, without bound -- exactly the infinite money the record warns about.
+//
+// *** AND HE RULED IT, 9/16 (ruling 9 of the six defaults after his second play). ***
+//   "one battery per head on day one, held by the treasury of whoever holds that
+//    person's ground, plus one a day per lit site; a day's work is PAID from a
+//    treasury, never minted."
+//   So the shape is settled, and it is not the one this file first described:
+//     THE OPENING STOCK IS NOT MINTING. Those cells were on the shelves when the
+//       lights went out. They post as `source` because they come from outside the
+//       ledger, and made() excludes them BY THEIR REASON.
+//     A DAY'S WORK IS NOT MINTING EITHER. It is a handoff from the treasury of the
+//       ground you worked on, so the valley's total does not move when you are paid.
+//     WHAT A LIVE WIRE MAKES IS REAL NEW MONEY, and it is the only thing that is.
+//       made() counts it, which is the honest answer to "where did the new ones come
+//       from": a lit circuit, one a night, and a dark one makes nothing.
 //
 // THE 267x UNIT BUG IS REAL AND IS NOT LIVE, which is worth writing down so nobody
 // hunts it: the `power` good is priced at one battery with unit kWh, and one kWh is
@@ -102,12 +114,24 @@
      so this is read, not inferred. This is the number the record says should be ZERO
      in a dead city, and it is not. */
   function made(purses) {
-    var P = PURSE(), cur = money();
+    var P = PURSE(), K = POCKETS(), cur = money();
     if (!P || !cur || !purses || !purses.length) return null;
+    /* THE OPENING STOCK IS NOT MINTING. RULED 9/16: one battery per head on day one.
+       Those cells were on the shelves when the lights went out -- the valley did not
+       make them, it inherited them -- so they post as `source` (they come from
+       outside the ledger) and are excluded here BY THEIR REASON. Counting them would
+       make this read 3,352 on the first frame and answer this row's question wrongly
+       for ever. */
+    var opening = (K && K.OPENING) || null;
     var n = 0;
     for (var i = 0; i < purses.length; i++) {
-      var f = null; try { f = P.flow(purses[i]); } catch (e) { continue; }
-      if (f && f[cur]) n += f[cur].source || 0;
+      var h = null; try { h = P.history(purses[i], cur); } catch (e) { continue; }
+      for (var j = 0; j < (h || []).length; j++) {
+        var e2 = h[j];
+        if (!e2 || e2.kind !== 'source') continue;
+        if (opening && e2.reason === opening) continue;
+        n += e2.amount || 0;
+      }
     }
     return n;
   }

@@ -21150,6 +21150,67 @@ COMMIT. PLUMBER found the RUN slice drifting +45/-6 behind two engine ships.
 
 HOLDING: nothing. LAST SHIPPED: [every pocket] 9/14, and [owe lines] before it.
 
+*** 9/18: [battery worth] ROUND 2. HIS RULING CAME BACK AND THE SUPPLY IS FIXED. ***
+records/BOHEMIA_BATTERY_WORTH_THE_SUPPLY_IS_FIXED_9_18_26.md
+
+RULED 9/16 (ruling 9 of the six defaults after his second play), answering the pending
+this lane raised: "one battery per head on day one, held by the treasury of whoever
+holds that person's ground, plus one a day per lit site; a day's work is PAID from a
+treasury, never minted. The fixed supply is one hour of WORLD's."
+
+MEASURED FIRST on the real valley, in about 10 ms:
+    neighbourhoods .... 576
+    heads ............. 3,352  across 12 factions (Network 672, Remnants 608,
+                               Mob 556, down to Homeless 20)
+    lit circuits ...... 173    across 12 factions
+
+ALL THREE HALVES SHIPPED:
+  (a) THE OPENING STOCK. The valley boots with 3,352 batteries in the faction
+      treasuries, a cell per head on their own ground. Paid ONCE -- a second call
+      answers ALREADY_STOCKED, because an opening stock that can re-run is a mint with
+      a polite name. Every entry carries its own reason ("the lights went out") so
+      made() can tell the cells that were already on the shelves from the ones the
+      valley made afterwards.
+  (b) WORK IS PAID, NOT PRINTED. A day's work is a handoff from the treasury of the
+      ground you worked on -- the same holder the rent goes to, so what you earn and
+      what you owe are one outfit's. On the walked surface: valley 3,352 before and
+      3,352 after, made 0, player 0 -> 1. IT FALLS BACK to the old credit on nobody's
+      ground or an empty treasury and marks itself minted, because a player who cannot
+      eat because a faction is broke is [rice clock] broken again.
+  (c) AND THE CHARGE COMES BACK. One a night per lit circuit, paid to whoever holds
+      that wire: 173 on the real map. A DARK circuit makes nothing, so letting your
+      ground go out stops you earning from it and the rent bites both ways.
+
+GATE 25 -> 35, red three ways: work back to minting -> 1 (reads 3352 -> 3353); the
+opening stock re-runnable -> 1; the opening stock counted as minted -> 5.
+
+*** AND EVERY POCKET WENT 56 -> 52/4, AND ALL FOUR WERE MY OWN GATE, NOT A BREAK. ***
+It asserted the landlords' TOTALS equalled what the player paid, and a supply of
+exactly 40. Since the treasuries now open holding a cell per head, those literals are
+false while the real claim -- CONSERVATION, and the landlord gaining exactly what the
+player lost -- is still true. Rewritten to assert the invariant; 56/0 again. A check
+pinned to a number the world can legitimately change is a brittle check.
+
+A STALE COMMENT CORRECTED: bohemia_cells.js called minting the defect. After ruling 9
+that is only true of the fallback path -- the opening stock is not minting, being paid
+is not minting, and a live wire making one a night IS THE DESIGN. The header says all
+three now, because a comment that contradicts a ruling is the rot the truth hierarchy
+exists to kill.
+
+*** ONE THING I DID TO MYSELF, WRITTEN DOWN SO NOBODY REPEATS IT. *** I truncated
+slices/BOHEMIA_CITY_WORLD.html TO ZERO BYTES mid-round with
+open(p,'w').write(open(p).read().replace(...)) -- Python opens the write handle first,
+which truncates the file, so the read returns empty and the write puts back nothing.
+Restored from git in seconds and redone reading into a variable first. NEVER LET A
+WRITE HANDLE AND A READ OF THE SAME FILE APPEAR IN ONE EXPRESSION. (The same shape bit
+me twice this round: `git checkout -- <file>` to undo a mutation ALSO throws away that
+round's uncommitted work on it. Back up to the scratchpad, restore from there.)
+
+RATCHET: walked with the one driver, door opens, seam crosses both ways, 0 page errors.
+NOT MINE, NAMED: tools/bohemia_faction_dossiers.py still crashes exit 1 (BLUES "COPPER
+WORK SHIRT" is not in the canon wardrobe bank) and DERIVED FRESHNESS is red for it;
+verified last round that it crashes identically on an untouched parent.
+
 *** 9/16: [fold carries] SHIPPED. THE HANDOFF COST NOTHING AND NOW IT COSTS THE
 DARK. *** records/BOHEMIA_FOLD_CARRIES_WHAT_THE_DARK_TOOK_9_16_26.md
 

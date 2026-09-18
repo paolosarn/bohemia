@@ -139,6 +139,36 @@
     return made;
   }
 
+  /* ---------------------------------------------------------------------------
+     THE VALLEY'S OPENING STOCK. RULED 9/16 (ruling 9 of the six defaults after his
+     second play): "one battery per head on day one, held by the treasury of whoever
+     holds that person's ground". The COUNT is his; WHO HAS HOW MANY HEADS is the
+     map's, and the map is not reachable from here on purpose, so the surface hands
+     the tally in.
+     ONCE, AND ONLY ONCE. A second call adds nothing, because an opening stock that
+     can be re-run is a mint with a polite name. Every entry carries the same reason
+     so bohemia_cells can tell the cells that were already on the shelves from the
+     ones the valley made afterwards -- which is the whole question that row asks. */
+  var OPENING = 'the lights went out';
+  var STOCKED = false;
+  function stocked() { return STOCKED; }
+  function stock(byHolder, currency, day) {
+    var P = PURSE();
+    if (!P || !byHolder) return { applied: false, reason: 'NO_TALLY' };
+    if (STOCKED) return { applied: false, reason: 'ALREADY_STOCKED' };
+    var put = 0, holders = 0, k;
+    for (k in byHolder) {
+      if (!Object.prototype.hasOwnProperty.call(byHolder, k)) continue;
+      var n = byHolder[k] | 0;
+      if (n <= 0) continue;
+      var p = of(k); if (!p) continue;
+      var r = P.credit(p, currency, n, OPENING, 'opening', day | 0);
+      if (r && r.applied) { put += n; holders++; }
+    }
+    STOCKED = true;
+    return { applied: put > 0, put: put, holders: holders, reason: OPENING };
+  }
+
   function has(who) { return !!(who && BOOK[String(who)]); }
   function holders() { var out = [], k; for (k in BOOK) if (BOOK.hasOwnProperty(k)) out.push(k); return out.sort(); }
 
@@ -211,12 +241,13 @@
     return currency ? (f[currency] || null) : f;
   }
 
-  function reset() { BOOK = {}; }
+  function reset() { BOOK = {}; STOCKED = false; }
 
   var API = {
     PLAYER: PLAYER,
     of: of, adopt: adopt, seed: seed, has: has, holders: holders, factions: factions,
     hand: hand, worth: worth, supply: supply, ranked: ranked, flowOf: flowOf,
+    OPENING: OPENING, stock: stock, stocked: stocked,
     reset: reset
   };
   if (typeof module !== 'undefined' && module.exports) module.exports = API;

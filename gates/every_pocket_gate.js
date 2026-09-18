@@ -225,7 +225,11 @@ function code(src) {
   const hands = (page.match(/BohemiaPockets\.hand\(/g) || []).length;
   ok('*** NOT ONE PAYMENT ON THE WALKED SURFACE IS ONE-LEGGED ANY MORE *** ('
      + bare + ' bare transferOut calls left)', bare === 0);
-  ok('and all four go through the one handoff (' + hands + ')', hands === 4);
+  /* FOUR PAYMENT SITES WHEN THIS SHIPPED; a fifth arrived when ruling 9 (9/16) made
+     a day's work a handoff from a treasury instead of a mint. The claim was never
+     "exactly four", it was "every payment goes through the one road", so the floor
+     moves up and the bare-transferOut check above is what actually guards it. */
+  ok('and every payment goes through the one handoff (' + hands + ')', hands >= 4);
   ok('the pockets module is inlined into the page he walks',
      raw.indexOf('/* ==== engine/bohemia_pockets.js ==== */') > 0);
   ok('the player\'s purse is adopted rather than made a second time',
@@ -268,6 +272,8 @@ function code(src) {
 
     PP.credit(p, 'electricity', 40, 'gate stake', 'gate', 0);
     R.supplyBefore = KK.supply('electricity').total;
+    R.landlordsBefore = {};
+    KK.ranked('electricity').forEach(x => { if (x.who !== 'player') R.landlordsBefore[x.who] = x.held; });
     R.playerBefore = KK.worth('player', 'electricity');
 
     /* THE GAME'S OWN RENT NIGHT, three times. Not a copy of it. */
@@ -279,6 +285,8 @@ function code(src) {
         ({ f: x.faction, billed: x.billed, paid: x.paid, short: x.short })));
     }
     R.landlords = KK.ranked('electricity').filter(x => x.held > 0 && x.who !== 'player');
+    /* what the landlords GAINED over the three nights, which is the real claim */
+    R.landlordGain = R.landlords.reduce((a, x) => a + (x.held - (R.landlordsBefore[x.who] || 0)), 0);
     R.supplyAfterRent = KK.supply('electricity').total;
     R.playerAfterRent = KK.worth('player', 'electricity');
 
@@ -304,13 +312,17 @@ function code(src) {
   const billed = (r.nights || []).map(n => n.reduce((a, x) => a + x.paid, 0));
   ok('the game\'s own rent night really billed him (' + billed.join(',') + ')',
      billed.length === 3 && billed.every(x => x > 0));
-  ok('*** AND THE LANDLORD ON THE REAL SURFACE IS HOLDING WHAT HE PAID *** ('
-     + (r.landlords || []).map(x => x.who + ' ' + x.held).join(', ') + ')',
+  /* MEASURE THE CHANGE, NOT THE TOTAL. Since ruling 9 (9/16) the treasuries open
+     holding a cell per head on their ground, so "the landlords hold exactly what he
+     paid" stopped being true of the TOTALS while staying true of the MOVEMENT, which
+     is the only thing this row ever claimed. */
+  ok('*** AND THE LANDLORD ON THE REAL SURFACE GAINED EXACTLY WHAT HE LOST *** (he '
+     + (r.playerBefore - r.playerAfterRent) + ', they +' + r.landlordGain + ')',
      (r.landlords || []).length >= 1
-     && r.landlords.reduce((a, x) => a + x.held, 0) === r.playerBefore - r.playerAfterRent);
+     && r.landlordGain === r.playerBefore - r.playerAfterRent);
   ok('*** AND THE VALLEY\'S MONEY SUPPLY IS UNCHANGED BY THREE NIGHTS *** ('
      + r.supplyBefore + ' -> ' + r.supplyAfterRent + ')',
-     r.supplyBefore === 40 && r.supplyAfterRent === 40);
+     r.supplyBefore > 0 && r.supplyAfterRent === r.supplyBefore);
   ok('the game\'s own loan night pays a named lender back ('
      + JSON.stringify(r.loanRows || null) + ')',
      !r.loanThrew && (r.loanRows || []).length >= 1 && r.loanRows[0].paid > 0);
@@ -320,7 +332,7 @@ function code(src) {
   ok('a lender who was never seeded is a holder once paid ('
      + r.holders + ' -> ' + r.holdersEnd + ')', r.holdersEnd === r.holders + 1);
   ok('*** AND AFTER ALL OF IT THE VALLEY STILL HAS EVERY BATTERY *** ('
-     + r.supplyEnd + ')', r.supplyEnd === 40);
+     + r.supplyEnd + ')', r.supplyEnd === r.supplyBefore);
   ok('no page error across four nights' + (errs.length ? ' -- ' + errs[0] : ''),
      errs.length === 0);
 

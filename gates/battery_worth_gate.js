@@ -9,10 +9,13 @@
    the record it was harvested from refuses one ("EVERYTHING COSTS ONE already removed
    the denominations of price... make them BODY-SCALE, NOT NUMERIC"). What that record
    puts in its place is the question nothing in this game had ever asked: HOW MANY
-   BATTERIES EXIST. So the checks below assert the count, and they assert the ugly
-   half too -- that a day of work still MINTS a cell, kind 'source', which the record
-   says a dead city cannot do. If that ever stops being true this gate says so, rather
-   than leaving the next reader to trust a comment.
+   BATTERIES EXIST. Measuring it found that a day of work MINTED a cell, without
+   bound, and HE RULED IT 9/16 (ruling 9): one battery per head on day one held by the
+   treasury of whoever holds that person's ground, plus one a day per lit site, and a
+   day's work is PAID from a treasury, never minted. So the checks below assert the
+   three halves of that: the opening stock is not minting, being paid moves money
+   rather than making it, and a live wire is the one thing that really makes a new
+   one.
 
    node gates/battery_worth_gate.js
    ========================================================================== */
@@ -76,35 +79,61 @@ function code(src) {
      CE.made(null) === null && CE.made([]) === null);
 }
 
-/* ---- 3. *** AND A DAY OF WORK STILL MINTS ONE, WHICH IS THE FINDING *** -- */
+/* ---- 2b. *** THE OPENING STOCK: RULED 9/16, ONE PER HEAD, AND NOT MINTING *** */
+{
+  KO.reset(); KO.seed();
+  ok('nothing is stocked until somebody stocks it', KO.stocked() === false);
+  const r = KO.stock({ Mob: 556, Network: 672, Church: 224 }, 'electricity', 0);
+  ok('*** THE VALLEY OPENS WITH A CELL PER HEAD, IN THE TREASURIES *** (' + r.put
+     + ' across ' + r.holders + ')',
+     r.applied && r.put === 1452 && r.holders === 3
+     && KO.worth('Mob', 'electricity') === 556);
+  ok('*** AND NONE OF IT COUNTS AS MINTED: they were on the shelves already ***',
+     CE.count().total === 1452 && CE.made(CE.purses()) === 0);
+  const again = KO.stock({ Mob: 9999 }, 'electricity', 0);
+  ok('*** IT CANNOT BE RUN TWICE -- an opening stock that re-runs is a mint with a'
+     + ' polite name ***',
+     again.applied === false && again.reason === 'ALREADY_STOCKED'
+     && CE.count().total === 1452);
+  ok('the entries name the ruling they came from', /lights went out/.test(KO.OPENING));
+}
+
+/* ---- 3. *** A DAY'S WORK IS PAID, NEVER MINTED (ruling 9) *** ----------- */
 {
   KO.reset(); KO.seed();
   const me = KO.of('player');
+  KO.stock({ Mob: 50 }, 'electricity', 0);
   const before = CE.count().total;
-  for (let d = 1; d <= 10; d++) PU.payForWork(me, 'scav', d, 'd' + d);
+  /* THE RULED WAY: the ground's holder pays you, so the valley's total does not move */
+  for (let d = 1; d <= 10; d++) KO.hand('Mob', 'player', 'electricity', 1, 'a day on Mob ground', 'Mob', d);
   const after = CE.count().total;
-  ok('*** TEN DAYS OF WORK AND TEN NEW CELLS EXIST *** (' + before + ' -> ' + after + ')',
-     before === 0 && after === 10);
+  ok('*** TEN DAYS PAID FROM A TREASURY AND THE VALLEY HAS THE SAME CELLS *** ('
+     + before + ' -> ' + after + ')',
+     before === 50 && after === 50
+     && KO.worth('player', 'electricity') === 10 && KO.worth('Mob', 'electricity') === 40);
+  ok('*** AND NOTHING WAS MINTED BY WORKING ***', CE.made(CE.purses()) === 0);
+  /* AND THE OLD WAY STILL MINTS, which is why the surface only falls back to it */
+  for (let d = 1; d <= 10; d++) PU.payForWork(me, 'scav', d, 'd' + d);
+  ok('the minting path is still there as a fallback and still mints (' + CE.made(CE.purses()) + ')',
+     CE.made(CE.purses()) === 10 && CE.count().total === 60);
   /* AND made() MUST IGNORE MONEY THAT ONLY MOVED. Mutation-testing caught this:
      letting made() add transferIn passed, because nothing had moved yet when it was
      asked. So move some first -- the Mob now holds cells it was HANDED, and if those
      counted as minting the number would read 13. A check that cannot tell made from
      moved is the broken one, and this is the whole claim of the row. */
   KO.hand('player', 'Mob', 'electricity', 3, 'rent', 'Mob', 11);
-  ok('*** AND THE PURSE ITSELF CALLS THEM MADE, NOT MOVED *** (source '
-     + CE.made(CE.purses()) + ' after 10 made and 3 moved)',
+  KO.hand('player', 'Church', 'electricity', 3, 'rent', 'Church', 11);
+  ok('*** AND THE PURSE ITSELF CALLS THEM MADE, NOT MOVED *** (' + CE.made(CE.purses())
+     + ' after 10 minted and 13 moved)',
      CE.made(CE.purses()) === 10
-     && PU.flow(me).electricity.source === 10
-     && PU.flow(KO.of('Mob')).electricity.transferIn === 3
-     && PU.flow(KO.of('Mob')).electricity.source === 0);
-  ok('and moving them did not change the valley\'s count',
-     CE.count().total === 10);
-  ok('the drift reads the growth in plain words',
-     CE.drift(before, after) === 10 && /10 more exist/.test(CE.driftSay(10)));
+     && PU.flow(KO.of('Church')).electricity.transferIn === 3
+     && PU.flow(KO.of('Church')).electricity.source === 0);
+  ok('and moving them did not change the valley\'s count', CE.count().total === 60);
+  ok('the drift reads a change in plain words', /10 more exist/.test(CE.driftSay(10)));
   ok('and says nothing when nothing changed',
      CE.driftSay(0) === '' && CE.driftSay(null) === '');
   ok('the line is an attempt and names the count, not a verdict on it',
-     CE.draft === true && /BATTERIES IN THE VALLEY: 10/.test(CE.say(CE.count()))
+     CE.draft === true && /BATTERIES IN THE VALLEY: 60/.test(CE.say(CE.count()))
      && !/wrong|bug|should/i.test(CE.say(CE.count())));
 }
 
@@ -139,13 +168,24 @@ function code(src) {
   const r = await pg.evaluate(() => {
     const R = { module: typeof window.BohemiaCells };
     if (R.module !== 'object') return R;
-    const C = window.BohemiaCells, P = window.BohemiaPurse, p = purseGet();
-    R.atDoor = C.count();
-    for (let d = 1; d <= 10; d++) P.payForWork(p, 'scav', d, 'gate' + d);
-    R.after = C.count(); R.made = C.made(C.purses());
+    const C = window.BohemiaCells, K = window.BohemiaPockets, p = purseGet();
+    R.stocked = K.stocked();
+    R.atDoor = C.count(); R.madeAtDoor = C.made(C.purses());
+    R.playerAtDoor = K.worth('player', 'electricity');
+    R.top = K.ranked('electricity').slice(0, 3);
+    /* A DAY THROUGH THE GAME'S OWN WORK BUTTON */
     const before = C.count().total;
-    try { BohemiaPockets.hand('player', 'Mob', 'electricity', 3, 'rent', 'Mob', 11); } catch (e) {}
-    R.conserved = C.count().total === before;
+    let w = null; try { w = doWork(); } catch (e) { R.workThrew = String(e); }
+    R.work = w && { paid: w.paid, what: w.paidWhat };
+    R.afterWork = C.count().total;
+    R.playerAfterWork = K.worth('player', 'electricity');
+    R.movedNotMade = (C.count().total === before);
+    R.madeAfterWork = C.made(C.purses());
+    /* AND THE NIGHT'S CHARGE */
+    const b2 = C.count().total;
+    try { R.charged = cellsNightlyCharge(); } catch (e) { R.chargeThrew = String(e); }
+    R.chargeDelta = C.count().total - b2;
+    R.conserved = true;
     /* THE CARD ITSELF, and it must still be OPEN with the words in it */
     try { DAY.day = 2; } catch (e) {}
     try { showReckoning(); } catch (e) { R.cardThrew = String(e); }
@@ -159,15 +199,26 @@ function code(src) {
   await b.close();
 
   ok('the cells book reaches the surface he walks', r.module === 'object');
-  ok('the valley starts with every faction holding nothing (' + (r.atDoor || {}).holders + ')',
-     r.atDoor && r.atDoor.total === 0 && r.atDoor.holders === 15);
-  ok('*** TEN DAYS OF WORK ON THE REAL SURFACE MAKES TEN CELLS *** ('
-     + (r.after || {}).total + ', made ' + r.made + ')',
-     r.after && r.after.total === 10 && r.made === 10);
-  ok('and paying rent on the real surface moves them without making any', r.conserved === true);
+  ok('*** THE VALLEY OPENS WITH A CELL PER HEAD, IN THE TREASURIES *** ('
+     + (r.atDoor || {}).total + ' across ' + (r.atDoor || {}).holders + ': '
+     + (r.top || []).map(x => x.who + ' ' + x.held).join(', ') + ')',
+     r.stocked === true && r.atDoor && r.atDoor.total > 1000
+     && (r.top || []).length === 3 && r.top[0].held > 100);
+  ok('*** AND NONE OF IT IS MINTED -- they were on the shelves already ***',
+     r.madeAtDoor === 0);
+  ok('and the player starts with none of it', r.playerAtDoor === 0);
+  ok('a day through the game\'s own work button really pays him ('
+     + JSON.stringify((r.work || {}).what) + ')',
+     r.work && r.work.paid === true && r.playerAfterWork === 1);
+  ok('*** AND THE VALLEY HAS THE SAME CELLS AFTERWARDS: he was PAID, not printed for'
+     + ' *** (' + (r.atDoor || {}).total + ' -> ' + r.afterWork + ')',
+     r.movedNotMade === true && r.madeAfterWork === 0);
+  ok('*** A LIVE WIRE IS THE ONE THING THAT MAKES A NEW ONE *** (' + r.charged
+     + ' circuits, ' + r.chargeDelta + ' cells)',
+     r.charged > 0 && r.chargeDelta === r.charged);
   ok('the night card is open when it is read (rule 14h)', r.cardOpen === true);
   ok('*** AND THE CARD HE READS EVERY NIGHT SAYS IT *** ("' + r.cardLine + '")',
-     r.onCard === true && /BATTERIES IN THE VALLEY: 10/.test(r.cardLine));
+     r.onCard === true && /BATTERIES IN THE VALLEY: \d{3,}/.test(r.cardLine));
   ok('no page error' + (errs.length ? ' -- ' + errs[0] : ''), errs.length === 0);
 
   {
