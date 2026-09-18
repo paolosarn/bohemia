@@ -52684,7 +52684,18 @@ function fitProp(im, w, h){
           g.drawImage(im, -_fitR[0]/2, -_fitR[1]/2, _fitR[0], _fitR[1]);
           g.restore();
         } else {
-          const _fw=C*_fp[0], _fh=C*_fp[1], _fit=fitProp(im, _fw, _fh);
+          /* __A_STALL_IS_A_WHOLE_NUMBER_OF_PIXELS__ (COOK 9/18, [car recook] r8).
+             A footprint is in CELLS because that is a fact about the world -- a bin is
+             0.9 of a cell wide. Multiplied by a 44 px cell that is 39.6 PIXELS, and a
+             master is always a whole number of pixels, so min(39.6/w, 39.6/h) CAN NEVER
+             BE 1.000 for any art anybody ever draws. MEASURED: of seventeen prop families
+             exactly TWO -- car and lamp -- have a footprint that lands on whole pixels.
+             The other fifteen were unreachable by construction, which is why prop_scale's
+             debt could not have been paid by re-drawing alone.
+             Rounding the DRAWN RECTANGLE is presentation and nothing else: PROP_FP is
+             read nowhere in engine/, only here and by the gate, so no occupancy, clamp or
+             walkable-land fact moves. The rectangle changes by at most half a pixel. */
+          const _fw=Math.round(C*_fp[0]), _fh=Math.round(C*_fp[1]), _fit=fitProp(im, _fw, _fh);
           g.drawImage(im, bx+px2*C-C*(_fp[0]-1)/2*(pw?0:1)+(_fw-_fit[0])/2,
                       by+(py2-_fp[2])*C+(_fh-_fit[1])/2, _fit[0], _fit[1]);
         }

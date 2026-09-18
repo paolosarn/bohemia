@@ -134,7 +134,12 @@ def main():
         if name not in fam or not fam[name]['sizes']:
             continue
         f = fp[name]
-        sw, sh = CELL * f[0], CELL * f[1]
+        #  THE STALL IS A WHOLE NUMBER OF PIXELS, because the draw call rounds it
+        #  (__A_STALL_IS_A_WHOLE_NUMBER_OF_PIXELS__, 9/18). Before that, a 0.9-cell
+        #  footprint gave a 39.6 px stall and NO integer master could ever fit it at
+        #  1.000 -- fifteen of seventeen families were unreachable by construction, and
+        #  this gate was measuring a debt that could not be paid by drawing.
+        sw, sh = round(CELL * f[0]), round(CELL * f[1])
         sz = [tuple(int(v) for v in s.split('x')) for s in fam[name]['sizes']]
         rows[name] = sorted({round(min(sw / w, sh / h), 3) for (w, h) in sz})
         counts[name] = fam[name]['n']

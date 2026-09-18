@@ -1,36 +1,4 @@
 {
- "frozen": [
-  "bag",
-  "barrel",
-  "barricade",
-  "bench",
-  "bin",
-  "bollard",
-  "cone",
-  "dumpster",
-  "firebarrel",
-  "lighttower",
-  "mailbox",
-  "pallet",
-  "pole",
-  "rubble",
-  "tyre"
- ],
- "worst": {
-  "bag": 0.445,
-  "barrel": 0.596,
-  "barricade": 0.668,
-  "bench": 0.672,
-  "bin": 0.596,
-  "bollard": 0.55,
-  "cone": 0.458,
-  "dumpster": 0.629,
-  "firebarrel": 0.65,
-  "lighttower": 1.354,
-  "mailbox": 0.596,
-  "pallet": 0.497,
-  "pole": 0.943,
-  "rubble": 0.544,
-  "tyre": 0.457
- }
+ "frozen": [],
+ "worst": {}
 }
