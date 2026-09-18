@@ -1,0 +1,27 @@
+  --noobserve: the sampling loop was OFF. This run exists only to say whether the freeze belongs to the game or to me.
+  FROZEN: worst 34777 ms, 142724 ms of 300,000 total, over 188 freezes, at 4x (yardstick 4.11x)
+  controls: all green
+    first_look_at_s                                  null
+    first_body_painted_at_s_RECORDED_INSIDE          47.92
+    first_body_on_screen_at_s_RECORDED_INSIDE        59.18
+    the_city_first_drew_anything_at_s                17.87
+    first_body_painted_at_my_first_look_s            "NEVER"
+    first_time_the_engine_had_somebody_near_s        "NEVER"
+    met_his_ten_second_bar                           false
+    samples                                          0
+    samples_with_a_body_painted                      0
+    samples_where_the_engine_had_somebody_near       0
+    most_bodies_painted_in_one_sample                0
+    bodies_painted_INSIDE_the_screen_total           0
+    bodies_painted_OUTSIDE_the_screen_total          0
+    samples_with_a_body_inside_the_screen            0
+    first_body_INSIDE_the_screen_at_s                "NEVER IN FIVE MINUTES"
+    most_the_engine_had_near                         0
+    people_pass_ran                                  0
+    bodies_painted_total                             0
+    draws_outside_the_pass                           0
+    anything_VISIBLE_that_says_how_a_fight_starts    "NOTHING A PLAYER COULD READ, IN FIVE MINUTES"
+    fight_words_that_exist_but_are_hidden            55
+    fight_words_a_player_can_read                    0
+    the_blind_window_s                               "the whole walk"
+    why_the_blind_window                             "one main thread, held by the city build; nothing outside the page can read anything while it runs, and neither can the game draw a frame"

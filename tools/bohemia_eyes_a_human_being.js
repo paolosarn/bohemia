@@ -97,6 +97,15 @@ function pw() {
   throw new Error('playwright not found');
 }
 const PHONE = { viewport: { width: 390, height: 844 }, deviceScaleFactor: 2, isMobile: true, hasTouch: true };
+/* WHICH FILE (added 9/18, for the same reason the walk got it). Round 7 proved the deploy cuts
+   the demo from the alpha on every push, so the committed slices/BOHEMIA_DEMO.html is a file
+   nobody is served. Pass the cut's path and this measures what he plays. Default stays the
+   committed file only so an argumentless run is not silently different from the old records. */
+const SURFACE = (() => {
+  const i = process.argv.indexOf('--surface');
+  return i >= 0 && process.argv[i + 1] ? process.argv[i + 1]
+    : path.join(ROOT, 'slices', 'BOHEMIA_DEMO.html');
+})();
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 /* --cpu N throttles the main thread N times slower, the same way PLUMBER's perf gate does
    (Emulation.setCPUThrottlingRate). Default 4, because rule 14 says the measure is a PHONE and
@@ -123,24 +132,41 @@ const FIGHT_WORDS = /\b(fight|fighting|combat|attack|attacks|hostile|enemy|enemi
   /* THE YARDSTICK, TAKEN TWICE IN THIS RUN, BEFORE ANYTHING ELSE. A fixed busy loop timed
      with the throttle off and then on. If the ratio is not near the asked-for rate, the
      throttle did not apply and every number below is the fast box wearing a slow label. */
+  /* THE YARDSTICK WAS TOO NOISY TO BE A CONTROL, AND IT SAID SO ITSELF (fixed 9/18).
+     Three runs asking for the same 4x measured 3.20x, 3.65x and 2.13x, and the third was
+     REFUSED by its own control, correctly. A single 18 ms sample is the problem: the loop was
+     short enough that JIT warm-up and one stray tick swing the ratio by half. So the loop is
+     longer, it is run FIVE times each side, the first result of each side is thrown away as
+     warm-up, and the MEDIAN is what the ratio is built from. A control that cannot repeat
+     itself is not a control -- this lane has published that sentence about other people's
+     instruments and it applies here. */
   const busy = () => page.evaluate(() => {
     const t0 = performance.now();
     let x = 0;
-    for (let i = 0; i < 6e6; i++) x += Math.sqrt(i % 97);
+    for (let i = 0; i < 4e7; i++) x += Math.sqrt(i % 97);
     return { ms: +(performance.now() - t0).toFixed(2), x: x > 0 };
   });
+  const med = (a) => { const s = a.slice().sort((p, q) => p - q);
+    return +(s.length % 2 ? s[(s.length - 1) / 2] : (s[s.length / 2 - 1] + s[s.length / 2]) / 2).toFixed(2); };
   await page.setContent('<div>yardstick</div>');
-  const fast = await busy();
+  const fastRuns = [];
+  for (let i = 0; i < 5; i++) fastRuns.push((await busy()).ms);
   if (CPU > 1) await cdp.send('Emulation.setCPUThrottlingRate', { rate: CPU });
-  const slow = await busy();
+  const slowRuns = [];
+  for (let i = 0; i < 5; i++) slowRuns.push((await busy()).ms);
+  const fast = { ms: med(fastRuns.slice(1)) };
+  const slow = { ms: med(slowRuns.slice(1)) };
   const ratio = fast.ms > 0 ? +(slow.ms / fast.ms).toFixed(2) : 0;
+  const spread = (a) => { const s = a.slice(1); return +(Math.max(...s) / Math.min(...s)).toFixed(2); };
   const out = { what: 'did he see a human being, and does anything say how a fight starts',
                 when: new Date().toISOString(), his_words: [
                   "I didn't see a single human being. Very strange.",
                   "I don't even know how to engage in combat and when that shit starts."],
                 controls: [], samples: [], fight_words_seen: [], why: null,
-                cpu_throttle_asked: CPU,
-                yardstick: { unthrottled_ms: fast.ms, throttled_ms: slow.ms, ratio: ratio } };
+                surface: SURFACE, cpu_throttle_asked: CPU,
+                yardstick: { unthrottled_ms: fast.ms, throttled_ms: slow.ms, ratio: ratio,
+                             unthrottled_runs: fastRuns, throttled_runs: slowRuns,
+                             worst_spread_within_a_side: Math.max(spread(fastRuns), spread(slowRuns)) } };
   out.controls.push({ name: 'C0 THE THROTTLE IS REAL: a fixed busy loop is ' + CPU
                         + 'x slower with it on, measured in this same run',
                       pass: CPU === 1 ? true : (ratio >= CPU * 0.6),
@@ -305,8 +331,7 @@ const FIGHT_WORDS = /\b(fight|fighting|combat|attack|attacks|hostile|enemy|enemi
   }).catch(() => ({ shown: -1, hidden: -1 }));
 
   try {
-    await page.goto('file://' + path.join(ROOT, 'slices', 'BOHEMIA_DEMO.html'),
-      { waitUntil: 'domcontentloaded', timeout: 90000 });
+    await page.goto('file://' + SURFACE, { waitUntil: 'domcontentloaded', timeout: 90000 });
     const t0 = await page.evaluate(() => performance.now());
     await sleep(2500);
     /* THE CLICK BLOCKS FOR ABOUT TWELVE SECONDS WHILE THE CITY BUILDS, and v1 waited for it

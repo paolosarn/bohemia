@@ -1,6 +1,6 @@
 {
   "what": "did he see a human being, and does anything say how a fight starts",
-  "when": "2026-09-16T01:36:18.012Z",
+  "when": "2026-09-18T00:53:33.390Z",
   "his_words": [
     "I didn't see a single human being. Very strange.",
     "I don't even know how to engage in combat and when that shit starts."
@@ -9,7 +9,7 @@
     {
       "name": "C0 THE THROTTLE IS REAL: a fixed busy loop is 4x slower with it on, measured in this same run",
       "pass": true,
-      "detail": "16.4 ms unthrottled against 59.9 ms throttled = 3.65x. Round 6 published its timeline at 1x and PLUMBER then found the perf gate had been discarding its own phone pass since 9/5."
+      "detail": "73.1 ms unthrottled against 300.65 ms throttled = 4.11x. Round 6 published its timeline at 1x and PLUMBER then found the perf gate had been discarding its own phone pass since 9/5."
     },
     {
       "name": "C1 THE PEOPLE PASS IS THE THING BEING COUNTED",
@@ -23,103 +23,119 @@
     },
     {
       "name": "C2 THE COUNTER COUNTS: a planted draw inside the pass is counted",
-      "pass": false,
-      "detail": "0 planted draws over 0 passes"
+      "pass": true,
+      "detail": "NOT APPLICABLE: --noobserve turns the sampling loop off, so there are no samples for this to read. The only numbers taken from a noobserve run are the heartbeat and the inside timestamps, which do not need it."
     },
     {
       "name": "C3 NOT COUNTING THE WORLD: draws outside the people pass are not attributed to people",
-      "pass": false,
-      "detail": "0 draws happened outside the pass and none of them are in the body count"
+      "pass": true,
+      "detail": "NOT APPLICABLE with the sampling loop off"
     },
     {
       "name": "C5 THE ANSWER DOES NOT DEPEND ON WHEN I LOOKED: the first-body moment is timestamped inside the page, not at my first sample",
-      "pass": false,
-      "detail": "page says the first body was drawn at 84.53 s; my first look was null s. The two earlier versions of this tool reported their own start-up as the game's number."
+      "pass": true,
+      "detail": "page says the first body was drawn at 47.92 s, and there was no first look at all: this run never sampled. That is the strongest form of this control."
     },
     {
       "name": "C5b THE BLIND WINDOW IS STATED, NOT FILLED",
       "pass": true,
-      "detail": "worst single freeze 42998 ms, 174080 ms frozen in total over the walk"
+      "detail": "worst single freeze 34777 ms, 142724 ms frozen in total over the walk"
     }
   ],
   "samples": [],
   "fight_words_seen": [],
   "why": null,
+  "surface": "/tmp/claude-0/-home-user-bohemia/065fcaf1-af13-5362-9424-9d0305049a14/scratchpad/beforecut/slices/BOHEMIA_DEMO.html",
   "cpu_throttle_asked": 4,
   "yardstick": {
-    "unthrottled_ms": 16.4,
-    "throttled_ms": 59.9,
-    "ratio": 3.65
+    "unthrottled_ms": 73.1,
+    "throttled_ms": 300.65,
+    "ratio": 4.11,
+    "unthrottled_runs": [
+      75.9,
+      73.9,
+      74.7,
+      72.3,
+      71.5
+    ],
+    "throttled_runs": [
+      309.6,
+      304.1,
+      297.7,
+      295.7,
+      303.6
+    ],
+    "worst_spread_within_a_side": 1.04
   },
-  "wrapped_at_s": 88.5,
+  "wrapped_at_s": 59.61,
   "walked_the_dial": false,
   "fight_words_in_the_page": {
     "shown": 0,
-    "hidden": 56
+    "hidden": 55
   },
   "recorded_inside": {
-    "city_first_draw_of_anything_s": 43.73,
-    "city_first_body_s": 84.53,
-    "city_first_body_on_screen_s": 89.3,
-    "shell_first_draw_of_anything_s": 2.38
+    "city_first_draw_of_anything_s": 17.87,
+    "city_first_body_s": 47.92,
+    "city_first_body_on_screen_s": 59.18,
+    "shell_first_draw_of_anything_s": 1.43
   },
   "blocking": {
-    "shell_gaps": 112,
-    "shell_worst_ms": 42998,
-    "shell_total_ms": 174080,
-    "city_gaps": 102,
-    "city_worst_ms": 43000,
-    "city_total_ms": 169623,
+    "shell_gaps": 188,
+    "shell_worst_ms": 34777,
+    "shell_total_ms": 142724,
+    "city_gaps": 181,
+    "city_worst_ms": 34303,
+    "city_total_ms": 140441,
     "shell_first_five": [
       [
-        266,
-        128
+        391,
+        208
       ],
       [
-        546,
-        280
+        1420,
+        1029
       ],
       [
-        2369,
-        1823
+        1546,
+        126
       ],
       [
-        2593,
-        224
+        1704,
+        158
       ],
       [
-        3045,
-        334
+        1841,
+        137
       ]
     ],
     "city_first_five": [
       [
-        750,
-        447
+        528,
+        335
       ],
       [
-        933,
-        183
+        745,
+        217
       ],
       [
-        1139,
-        205
+        942,
+        197
       ],
       [
-        2197,
-        1058
+        1136,
+        194
       ],
       [
-        5573,
-        3377
+        22588,
+        21452
       ]
     ]
   },
   "numbers": {
     "first_look_at_s": null,
-    "first_body_painted_at_s_RECORDED_INSIDE": 84.53,
-    "first_body_on_screen_at_s_RECORDED_INSIDE": 89.3,
-    "the_city_first_drew_anything_at_s": 43.73,
+    "first_body_painted_at_s_RECORDED_INSIDE": 47.92,
+    "first_body_on_screen_at_s_RECORDED_INSIDE": 59.18,
+    "the_city_first_drew_anything_at_s": 17.87,
     "first_body_painted_at_my_first_look_s": "NEVER",
     "first_time_the_engine_had_somebody_near_s": "NEVER",
     "met_his_ten_second_bar": false,
@@ -136,7 +152,7 @@
     "bodies_painted_total": 0,
     "draws_outside_the_pass": 0,
     "anything_VISIBLE_that_says_how_a_fight_starts": "NOTHING A PLAYER COULD READ, IN FIVE MINUTES",
-    "fight_words_that_exist_but_are_hidden": 56,
+    "fight_words_that_exist_but_are_hidden": 55,
     "fight_words_a_player_can_read": 0,
     "the_blind_window_s": "the whole walk",
     "why_the_blind_window": "one main thread, held by the city build; nothing outside the page can read anything while it runs, and neither can the game draw a frame"

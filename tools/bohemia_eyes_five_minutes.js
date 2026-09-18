@@ -315,7 +315,17 @@ const SOURCE = (() => {
                     : (e.tagName === 'BUTTON' || e.tagName === 'A') ? 'a button or link'
                     : e.hasAttribute('onclick') ? 'a click handler in the markup'
                     : e.getAttribute('role') === 'button' ? 'role=button'
-                    : e.closest('#daycard, .daycard, #offers, .offer') ? 'a row inside the day card'
+                    /* A HEADING INSIDE THE CARD IS NOT A ROW A THUMB WOULD TRY (9/18).
+                       This rule counted ANY text inside the day card as claiming to be tappable,
+                       and this round it was about to publish four READOUTS as dead controls:
+                       'ON THE ROAD - SUBURB - DAY' at 277x14, the encounter's own title at
+                       320x17, 'THAT COST' at 55x14 and '15 min' at 34x17. The card's REAL rows
+                       are 320x44. So height decides, and the number is not invented: 44 px is
+                       the published minimum touch target and it is exactly what the card's own
+                       rows use. Below 30 px inside a card it is text, and text goes to the inert
+                       list with its reason, never to the dead list. */
+                    : (e.closest('#daycard, .daycard, #offers, .offer') && r.height >= 30)
+                        ? 'a row inside the day card'
                     : e.closest('#topbar, #devtray, #blstack') ? 'a chip in the top bar'
                     : '';
           seen.push({ where, id: e.id || '', text: txt, looks_tappable_because: why,
@@ -422,7 +432,7 @@ const SOURCE = (() => {
          time, UNDECIDED if once. Undecided is not dead and it is never counted as dead -- a
          one-shot control (a card that closes) is genuinely undecidable this way and saying so
          is the honest answer. */
-      const beats = [], evidence = [], closedOn = [];
+      const beats = [], evidence = [], closedOn = [], where = [];
       let landed = 'the tap was refused (not visible to a finger)';
       let bs = null, as = null, tapMove = null, nullMove = null;
       for (let attempt = 0; attempt < 2; attempt++) {
@@ -462,10 +472,30 @@ const SOURCE = (() => {
                         panel: (before && before.path) || 'none found',
                         panel_still_open: stillOpen,
                         novel_words_inside_the_panel: novelInPanel.slice(0, 8) });
-        /* RULE 14(h): the panel has to still be open AND its own words have to have moved,
-           and the ledger says the movement has to be movement the world does not do by
-           itself. Anything less is not evidence that the control works. */
-        beats.push(stillOpen && novelInPanel.length > 0);
+        /* RULE 14(h), AND THE HALF I HAD MISSING (9/18, and it cost a wrong claim on his page).
+           Round 5 shipped this as "the panel stayed open AND ITS OWN words moved", and round 5's
+           own blind-spot note said out loud what was wrong with that: "a control whose effect
+           lands in a DIFFERENT panel will read as dead here". That came due. Round 7 photographed
+           the fight's developer strip and I reported four of its five controls dead; COMBAT drove
+           them in a real fight and every one ACTS -- WAIT gives STEADY +5%, SUPPRESS gives
+           PINNED 1, NEW ENCOUNTER restarts the fight. They change readouts ELSEWHERE on the
+           screen, so the panel holding the button never moved and my test called them dead.
+           THE TWO HALVES ARE SEPARATE QUESTIONS AND BOTH ARE NEEDED:
+             stillOpen           kills FALSE LIFE -- a card that closes on a tap it does not
+                                 know looks exactly like one that did the thing (14(h)).
+             novel ANYWHERE      kills FALSE DEATH -- the effect does not have to land in the
+                                 same box as the finger, and the ledger is what makes "novel"
+                                 mean something the world does not do by itself.
+           So a control is alive if its panel survived the press AND something moved that the
+           world has never been seen moving on its own, wherever that something is; and WHERE it
+           moved is recorded, so a reader can tell "its own panel answered" from "something else
+           did". Dead needs neither, twice. */
+        const novelAnywhere = nv.words.length > 0 || nv.cells > 20;
+        beats.push(stillOpen && (novelInPanel.length > 0 || novelAnywhere));
+        where.push(!stillOpen ? 'the panel closed'
+                 : novelInPanel.length > 0 ? 'its own panel'
+                 : novelAnywhere ? 'somewhere else on screen'
+                 : 'nothing moved');
         if (!stillOpen) {
           /* AND THE SECOND PRESS MUST NOT HAPPEN. This is the hole the 14(h) control caught on
              its first run, and it caught it because a planted close-button read "did nothing":
@@ -488,15 +518,18 @@ const SOURCE = (() => {
            as wrong as calling it alive. It gets its own word. */
         const allClosed = closedOn.length > 0 && !changed;
         if (hits === 1) out.alive_on_one_press_only.push({ text: c.text, id: c.id || '' });
+        const answeredIn = where.filter(w => w === 'its own panel' || w === 'somewhere else on screen');
         out.pressed.push({ text: c.text, id: c.id || '', where: c.where,
-                           verdict: changed ? 'did something in its own panel'
+                           verdict: changed ? ('did something, ' + (answeredIn[0] || 'somewhere'))
                                   : allClosed ? 'THE PANEL CLOSED, so this press proves nothing (rule 14h)'
                                   : 'did nothing',
-                           presses_with_novel_movement: hits, evidence: evidence });
+                           answered_in: answeredIn, presses_with_novel_movement: hits,
+                           evidence: evidence });
         line(as.now, 'tapped ' + JSON.stringify(c.text) + (why ? ' (' + why + ')' : ''),
-             changed ? 'its own panel changed what it says'
+             changed ? ('the screen answered: ' + (where.find(w => w === 'its own panel'
+                        || w === 'somewhere else on screen') || 'somewhere'))
                      : allClosed ? 'THE PANEL VANISHED, which tells me nothing either way'
-                     : 'NOTHING CHANGED IN ITS PANEL',
+                     : 'NOTHING MOVED ANYWHERE, BOTH PRESSES',
              c.text);
         if (allClosed) {
           out.closed_on_tap.push({ at: stamp(as.now), text: c.text, id: c.id, where: c.where,
@@ -648,17 +681,32 @@ const SOURCE = (() => {
           words.textContent = 'EYESPANELSAYS ' + ('EYESWORD' + Math.random().toString(36).slice(2, 8)).toUpperCase();
         });
         if (kind === 'close') b.addEventListener('click', () => { panel.remove(); });
+        if (kind === 'sibling') b.addEventListener('click', () => {
+          /* writes NOWHERE NEAR itself: into the other planted panel entirely */
+          const far = document.getElementById('__eyes_panel_far_words');
+          if (far) far.textContent = 'EYESFARSAYS ' +
+            ('EYESWORD' + Math.random().toString(36).slice(2, 8)).toUpperCase();
+        });
         panel.appendChild(words); panel.appendChild(b);
         document.body.appendChild(panel);
       };
+      /* A FOURTH CONTROL, ADDED 9/18, AND IT IS THE ONE THAT WOULD HAVE CAUGHT MY WRONG CLAIM.
+         A button in one panel whose ONLY effect is to write a word into a DIFFERENT panel. That
+         is the shape of the fight's WAIT and SUPPRESS: the finger is in the strip, the answer
+         appears in a readout somewhere else. The old verdict called that dead and I published
+         it. It must read ALIVE. */
+      mk('__eyes_panel_sib',   '__eyes_sib_btn',   'EYESSIBCONTROL',   'sibling', 420);
+      mk('__eyes_panel_far',   '__eyes_far_none',  'EYESFARPANEL',     'dead',  510);
       mk('__eyes_panel_dead',  '__eyes_dead_btn',  'EYESDEADCONTROL',  'dead',  150);
       mk('__eyes_panel_live',  '__eyes_live_btn',  'EYESLIVECONTROL',  'live',  240);
+
       mk('__eyes_panel_close', '__eyes_close_btn', 'EYESCLOSECONTROL', 'close', 330);
     });
     const ctlBox = await page.evaluate(() => {
       const one = (id) => { const e = document.getElementById(id); const r = e.getBoundingClientRect();
         return { x: r.x + r.width / 2, y: r.y + r.height / 2, w: Math.round(r.width), h: Math.round(r.height) }; };
-      return { dead: one('__eyes_dead_btn'), live: one('__eyes_live_btn'), close: one('__eyes_close_btn') };
+      return { dead: one('__eyes_dead_btn'), live: one('__eyes_live_btn'),
+               close: one('__eyes_close_btn'), sib: one('__eyes_sib_btn') };
     });
     /* the verdict is THREE ways now, so a control has to read the verdict and not a boolean:
        an UNDECIDED returns false from tapAndWatch and must never be scored as "called dead". */
@@ -675,9 +723,14 @@ const SOURCE = (() => {
       id: '__eyes_close_btn', where: 'a planted control', looks_tappable_because: 'a planted control' },
       'CONTROL: a button that closes its own panel');
     const closeVerdict = verdictOf();
+    await tapAndWatch({ ...ctlBox.sib, text: 'EYESSIBCONTROL',
+      id: '__eyes_sib_btn', where: 'a planted control', looks_tappable_because: 'a planted control' },
+      'CONTROL: a button whose effect lands in a DIFFERENT panel');
+    const sibVerdict = verdictOf();
     const deadSaysDead = deadVerdict === 'did nothing';
-    const liveSaysAlive = liveVerdict === 'did something in its own panel';
+    const liveSaysAlive = /^did something/.test(liveVerdict);
     const closeSaysClosed = /THE PANEL CLOSED/.test(closeVerdict);
+    const sibSaysAlive = /^did something/.test(sibVerdict);
     /* TAKE THE CONTROLS ALL THE WAY OUT. getElementById returns the FIRST match, and the
        paired press appends the live control's span twice, so the old cleanup left one behind --
        the wandering loop then found "__EYES_LIVE_BUTTON_SPOKE__" and put my own scaffolding in
@@ -690,8 +743,9 @@ const SOURCE = (() => {
     out.inert = out.inert.filter(d => !/^__eyes_/.test(d.id || ''));
     out.undecided = out.undecided.filter(d => !/^__eyes_/.test(d.id || ''));
     out.closed_on_tap = out.closed_on_tap.filter(d => !/^__eyes_/.test(d.id || ''));
-    out.lines = out.lines.filter(l => !/EYESDEADCONTROL|EYESLIVECONTROL|EYESCLOSECONTROL|EYESPANELSAYS|EYESWORD/.test(l.did || ''));
-    const mine = (d) => /^__eyes_/.test(d.id || '') || /EYES(DEAD|LIVE|CLOSE)CONTROL|EYESPANELSAYS|EYESWORD/.test(d.text || '');
+    out.lines = out.lines.filter(l => !/EYESDEADCONTROL|EYESLIVECONTROL|EYESCLOSECONTROL|EYESSIBCONTROL|EYESFARPANEL|EYESPANELSAYS|EYESFARSAYS|EYESWORD/.test(l.did || ''));
+    const mine = (d) => /^__eyes_/.test(d.id || '')
+      || /EYES(DEAD|LIVE|CLOSE|SIB)CONTROL|EYESFARPANEL|EYESPANELSAYS|EYESFARSAYS|EYESWORD/.test(d.text || '');
     out.pressed = out.pressed.filter(d => !mine(d));
     out.inert = out.inert.filter(d => !mine(d));
     out.dead = out.dead.filter(d => !mine(d));
@@ -707,6 +761,13 @@ const SOURCE = (() => {
                           ? ' -- exactly what 14(h) asks for'
                           : ' -- a card that closes is being scored, and in this game that is the '
                             + 'commonest way a dead button looks alive') });
+    out.controls.push({ name: 'AN EFFECT IN ANOTHER PANEL IS STILL AN EFFECT: a planted button '
+                          + 'whose only result lands in a DIFFERENT panel is called alive',
+                        pass: sibSaysAlive,
+                        detail: 'verdict was "' + sibVerdict + '". THIS IS THE CONTROL THAT WOULD '
+                          + 'HAVE CAUGHT ROUND 7\'S WRONG CLAIM: I called four of the fight\'s '
+                          + 'controls dead and COMBAT drove them in a real fight and every one '
+                          + 'acts, changing readouts elsewhere on the screen.' });
     out.controls.push({ name: 'ALIVE READS ALIVE: a planted button that writes one word is called alive',
                         pass: liveSaysAlive,
                         detail: 'verdict was "' + liveVerdict + '"' + (liveSaysAlive ? ', off a single word'
@@ -843,7 +904,17 @@ const SOURCE = (() => {
                       : (e.tagName === 'BUTTON' || e.tagName === 'A') ? 'a button or link'
                       : e.hasAttribute('onclick') ? 'a click handler in the markup'
                       : e.getAttribute('role') === 'button' ? 'role=button'
-                      : e.closest('#daycard, .daycard, #offers, .offer') ? 'a row inside the day card'
+                    /* A HEADING INSIDE THE CARD IS NOT A ROW A THUMB WOULD TRY (9/18).
+                       This rule counted ANY text inside the day card as claiming to be tappable,
+                       and this round it was about to publish four READOUTS as dead controls:
+                       'ON THE ROAD - SUBURB - DAY' at 277x14, the encounter's own title at
+                       320x17, 'THAT COST' at 55x14 and '15 min' at 34x17. The card's REAL rows
+                       are 320x44. So height decides, and the number is not invented: 44 px is
+                       the published minimum touch target and it is exactly what the card's own
+                       rows use. Below 30 px inside a card it is text, and text goes to the inert
+                       list with its reason, never to the dead list. */
+                      : (e.closest('#daycard, .daycard, #offers, .offer') && r.height >= 30)
+                          ? 'a row inside the day card'
                       : e.closest('#topbar, #devtray, #blstack') ? 'a chip in the top bar'
                       : '';
             seen.push({ where, id: e.id || '', text: txt, looks_tappable_because: why,
