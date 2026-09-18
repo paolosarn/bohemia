@@ -272,9 +272,23 @@ const done = () => {
     /* ---- 5. AND IT COMES BACK ------------------------------------------- */
     /* A one-way signifier is a bug of its own: he would walk the rest of the
        session looking at a map pad while actually stepping one tile at a time. */
-    await pinch(-1, 14); await SETTLE(page, 900);
-    await pinch(-1, 14); await SETTLE(page, 900);
-    const back = await look();
+    /* *** PINCH UNTIL HE IS BACK, AND SAY HOW MANY IT TOOK (9/18, RUN). *** This
+       was two pinches, a number that was right while the walked default sat in the
+       middle of the ladder. [step is a house] part two pulled the walk camera to the
+       widest pixel-true stop so a lot fits on his screen, which moves the seam right
+       under his fingers, and two was no longer enough. A PLAYER PINCHES UNTIL IT
+       WORKS, so the harness does too -- and the count is PRINTED every run, because
+       if it ever climbs this is the first place it will show. The claim is unchanged
+       and is still the one that matters: HE GETS BACK, and the pad is a walking ring
+       again when he does. */
+    let backPinches = 0, back = null;
+    for (let i = 1; i <= 6; i++) {
+      await pinch(-1, 14); await SETTLE(page, 900);
+      backPinches = i;
+      back = await look();
+      if (back.mode === 'human') break;
+    }
+    console.log('  BACK TO THE STREET AFTER ' + backPinches + ' PINCH(ES) IN');
     ok('and it turns back into the walking ring when he drops back in ('
       + back.mode + ', ' + back.singles + ' single)',
       back.mode === 'human' && back.singles === walk.singles
