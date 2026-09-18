@@ -6486,6 +6486,25 @@ GATES = [
      'MEASURED BOTH WAYS because a control that is ALWAYS off is a different lie: broke '
      'disabled/0.45/"you have none of it", credited enabled/1.0/no title with afford ok and 5 '
      'in hand. Mutations: always-pressable reds B1/B2/B5, always-off reds B3/B4.', False),
+    ('THE SIDEWALK USES ITS BANK', ['node', 'gates/the_sidewalk_uses_its_bank_gate.js'],
+     'VAMILY [side variants], LIFE + CITY, off COOK [streets fixed] (fe5ba8d0) finding the repeat '
+     'he can see, and Paolo 7/14 desert_dominance_law "too much diversity with the desert tiles". '
+     'THE ROW NAMED ONE COLLAPSE AND THERE WERE TWO STACKED ON ONE LINE. (1) THE MODULUS: the '
+     'approved sidewalk bank holds 36 tiles and the suburb asked for _sw%3, so measured over 6,968 '
+     'sidewalk cells with saTex itself as the oracle, THREE tiles reached the ground and 33 of a '
+     'judged bank had never been drawn. (2) THE GRAIN, and the comment above the line already said '
+     'the right word: it reads "PER PLOT, NEVER PER CELL" and the code seeded on tx>>2,ty>>2 -- tx '
+     'and ty are OVERMAP cells, so that is 384 METRES OF STREET ON ONE TILE, a whole neighbourhood, '
+     'which is why the same pavement ran to the horizon. FIXED BY A REMOVAL AND A REGRAIN, not a '
+     'wider number: saTex already spreads any integer across the pool AND carries his weather-'
+     'rarity rule doing it (88% parent half, 12% weathered tail), so the modulus is gone, and the '
+     'seed is now BOH_LATTICE.LOT_FINE, the one number from his 9/15 step-is-a-house ruling (24 '
+     'fine cells, 18 m, the stride the house generator packs on). One tile per lot is what a poured '
+     'walk is. SAME INSTRUMENT BOTH SIDES: tiles on the ground 3 of 36 -> 36 of 36, patches 102 -> '
+     '181, median patch 36 -> 16 cells. LEG B3 PROTECTS THE OTHER HALF OF HIS RULING: a per-cell '
+     'shuffle sends the median patch to 1 and turns a run of pavement into a checkerboard, and this '
+     'fails that as hard as it fails the repeat. Mutations: per-cell seed reds B3 (median 1), the '
+     'old %3 reds A2 and B2 (3 of 36).', True),
     ('THE STREET IS REACHABLE FROM THE DOOR', ['node', 'gates/the_street_is_reachable_gate.js'],
      'VAMILY [sealed block], LIFE + CITY, under the STREET-AWARE / DRIVABLE ACCESS law and '
      'PAOLO 9/15 "street shit for no purpose". *** THE ROW\'S PREMISE IS FALSE AND THIS GATE IS '

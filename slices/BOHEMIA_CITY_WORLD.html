@@ -37819,8 +37819,29 @@ function realizeCell(gx,gy){
        the desert tiles"). A per-cell shuffle turns a run of pavement into a checkerboard,
        which is why the perimeter wall in this same branch is seeded per plot too. */
     else if(v===10){
-      const _sw=(Math.imul(tx>>2,2654435761)^Math.imul(ty>>2,40503))>>>0;
-      c.gArtPool='side'; c.gArtVariant=_sw%3;
+      /* __THIRTY_THREE_TILES_NOBODY_HAS_SEEN__ (9/18, LIFE + CITY, [side variants]).
+         COOK [streets fixed] found the repeat he can see and named the modulus. Measured,
+         it is TWO collapses stacked on one line, and the second one is the bigger:
+           THE MODULUS. The approved sidewalk bank holds 36 tiles. This asked for 3.
+           Measured on 6,968 sidewalk cells around the door: 3 distinct tiles, 33 of the
+           bank never drawn since the day it was judged.
+           THE GRAIN, AND THE COMMENT ABOVE ALREADY SAID THE RIGHT WORD. "PER PLOT, NEVER
+           PER CELL" is Paolo 7/14. tx and ty are OVERMAP cells, so tx>>2 is a 4x4 group of
+           them: 384 metres of street on ONE tile. That is not a plot, it is a whole
+           neighbourhood, and it is why the same pavement runs to the horizon.
+         THE SEED IS THE LOT NOW, which is the grain his 9/15 ruling already named and the
+         one number this lane put in one place: BOH_LATTICE.LOT_FINE, 24 fine cells, 18 m,
+         the stride the house generator packs on. One tile per lot is what a poured walk
+         actually is, it changes under your feet every house instead of every quarter
+         kilometre, and it is still PER PLOT and never per cell, so the ruling holds.
+         AND THE MODULUS IS GONE RATHER THAN WIDENED. saTex already maps any integer across
+         the whole pool AND carries his 7/14 weather-rarity rule doing it (88% of picks in
+         the parent half, 12% into the weathered tail). Pre-modding to 3 is what threw that
+         away. Handing it the raw per-lot hash uses the bank the way the bank says to. */
+      const _lotf=BOH_LATTICE.LOT_FINE;
+      const _sw=(Math.imul(((tx*FN+lx)/_lotf)|0,2654435761)
+                ^Math.imul(((ty*FN+ly)/_lotf)|0,40503))>>>0;
+      c.gArtPool='side'; c.gArtVariant=_sw;
     }
     /* __THE_SUBURB_HAS_SIDEWALKS__ -- AND A FRONT YARD MADE OF SOMETHING. Every house in
        this district sat in a large flat rectangle of one dead-dirt tone: nine codes in the
@@ -37858,8 +37879,29 @@ function realizeCell(gx,gy){
        the desert tiles"). A per-cell shuffle turns a run of pavement into a checkerboard,
        which is why the perimeter wall in this same branch is seeded per plot too. */
     else if(v===10){
-      const _sw=(Math.imul(tx>>2,2654435761)^Math.imul(ty>>2,40503))>>>0;
-      c.gArtPool='side'; c.gArtVariant=_sw%3;
+      /* __THIRTY_THREE_TILES_NOBODY_HAS_SEEN__ (9/18, LIFE + CITY, [side variants]).
+         COOK [streets fixed] found the repeat he can see and named the modulus. Measured,
+         it is TWO collapses stacked on one line, and the second one is the bigger:
+           THE MODULUS. The approved sidewalk bank holds 36 tiles. This asked for 3.
+           Measured on 6,968 sidewalk cells around the door: 3 distinct tiles, 33 of the
+           bank never drawn since the day it was judged.
+           THE GRAIN, AND THE COMMENT ABOVE ALREADY SAID THE RIGHT WORD. "PER PLOT, NEVER
+           PER CELL" is Paolo 7/14. tx and ty are OVERMAP cells, so tx>>2 is a 4x4 group of
+           them: 384 metres of street on ONE tile. That is not a plot, it is a whole
+           neighbourhood, and it is why the same pavement runs to the horizon.
+         THE SEED IS THE LOT NOW, which is the grain his 9/15 ruling already named and the
+         one number this lane put in one place: BOH_LATTICE.LOT_FINE, 24 fine cells, 18 m,
+         the stride the house generator packs on. One tile per lot is what a poured walk
+         actually is, it changes under your feet every house instead of every quarter
+         kilometre, and it is still PER PLOT and never per cell, so the ruling holds.
+         AND THE MODULUS IS GONE RATHER THAN WIDENED. saTex already maps any integer across
+         the whole pool AND carries his 7/14 weather-rarity rule doing it (88% of picks in
+         the parent half, 12% into the weathered tail). Pre-modding to 3 is what threw that
+         away. Handing it the raw per-lot hash uses the bank the way the bank says to. */
+      const _lotf=BOH_LATTICE.LOT_FINE;
+      const _sw=(Math.imul(((tx*FN+lx)/_lotf)|0,2654435761)
+                ^Math.imul(((ty*FN+ly)/_lotf)|0,40503))>>>0;
+      c.gArtPool='side'; c.gArtVariant=_sw;
     }
     /* __THE_SUBURB_HAS_SIDEWALKS__ -- AND A FRONT YARD MADE OF SOMETHING. Every house in
        this district sat in a large flat rectangle of one dead-dirt tone: nine codes in the
