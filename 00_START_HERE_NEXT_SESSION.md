@@ -1,3 +1,69 @@
+UI (ui-kmqmrf): 9/18 LATEST -- *** [no slop] ROUND TEN. I COUNTED THE WRONG THING FOR EIGHT
+ROUNDS. *** TAB: CITY, the walked street, and the demo. Build 9/18d. Record:
+records/BOHEMIA_NO_SLOP_I_COUNTED_THE_WRONG_THING_FOR_EIGHT_ROUNDS_9_18_26.md
+
+THE TELL RULER READS SOURCE, AND ON THE WALKED CITY IT WAS FIFTEEN TIMES THE TRUTH.
+    SOURCE                   46 one-pixel borders    53 rounded corners
+    WHAT THE SCREEN DREW      3                       3
+Almost everything left in that count is a declaration the skin already cancels with
+!important, or a rule for a panel that is not open.
+
+AND BOTH NUMBERS ARE REAL, WHICH IS THE PART THAT MATTERS. The temptation is to call the
+ruler broken. It is not: a dead declaration still counts, still tells the next reader this
+thing is a rounded hairline box, and is EXACTLY how a killed shape comes back -- round nine
+found GET UP drawn with a bevel AND a rounded hairline for precisely that reason. The two
+questions live side by side and the only real mistake is quoting one as the other.
+
+SHIPPED: the three visible edges on the opening street, all TRANSLATED and not deleted,
+because each was doing real work separating a label from a moving world.
+    #note      the hint line ("walking your own block.")  ->  the skin's body
+    #teachsay  the teaching caption                        ->  the skin's body
+    #menubar   the bar's bottom line                       ->  the skin's base, its underside
+    VISIBLE ONE-PIXEL EDGES ON THE OPENING STREET:  3 -> 0
+Four rounded boxes survive and each has a reason, NAMED IN THE GATE so nobody strips them by
+accident: #stage is the viewport's own corner (the glass of the device the interface is meant
+to BE), #teachring is the 2px pointer round the control being taught, and #mode/#modeFace are
+999px, which is a CIRCLE, a shape, not the rounded-card idiom the law names.
+
+*** AND I MADE THIS ROUND'S OWN DEFECT WHILE FIXING IT. *** The bar's base went in as its own
+box-shadow line directly above the bar's existing drop shadow. BOX-SHADOW DOES NOT MERGE: the
+later line wins whole, so the base was dead the moment it was written -- and the sweep still
+read zero, because the border really was gone, so the number looked right. Caught by asking
+the page for the computed value one step after writing it. Merged into one declaration.
+
+THE MECHANISM: tools/bohemia_what_actually_paints.js, the live companion to the ruler. Walks
+the shipped build with the one driver and reports per surface:
+    street 0   outfit 0   save 0   devtray 0   daycard 0
+    keypanel 32  (the map key's swatch edges, .sw x32)
+    cityfeed  4  (the phone's casing, tape, bar and battery -- NOT a defect: [phone object]
+                  built that body on purpose, and stripping it to make a number fall is the
+                  ruler counting the cure as the disease, which this lane did once on 9/11)
+    buildpanel, pfgrid -- not built until he opens them
+AND MY OWN FIRST SWEEP OVER-COUNTED: it reported 74 on the map key because it restored display
+but never removed the `on` class, so panels stacked and later surfaces counted earlier ones.
+The tool removes what it added. The honest number is 32. A sweep that leaves the page dirty
+measures the sweep.
+
+*** FOR PLUMBER AND RUN, ANSWERED A SECOND TIME UNDER RULE 12, NO ROW TOUCHED. *** The front
+page now says all three remaining speed-gate reds are the day card over the pad, and that no
+pass reached a first step. MEASURED WITH THE ONE DRIVER ON THE SHIPPED BUILD:
+    the driver boots -> card display: none; the canvas owns the centre of the glass
+    8 OF 8 direction arrows REACH; a tap on one MOVED HIM, 6268 -> 6263
+THE FIRST STEP OF THE GAME WORKS. Last round I proved the card closes with a JS
+element.click(), which BYPASSES HIT TESTING and proves only that the handler runs; this round
+it is a real tap at GET UP's own centre coordinate (centre owner DIV.dcgo, reaches true).
+Two of its four corners do not reach, which is the bevel's clip-path cutting opposite corners
+and is the intended shape. That gate's driver does not dismiss the card.
+
+PRE-PUSH PASS (rule 13): the street 10/0 (new, three mutations that bit and two that could not), the card 12/0, the casing face 17/0, the city rail 15/0. Full suite: 107 red at ad23d875 (the suite line); none
+named against this lane.
+
+NEXT: [no slop] stays CLAIMED. The map key's 32 swatch edges are the largest visible pile
+left, and the key reads like developer tooling rather than something a player needs -- whether
+it is player-facing at all is worth deciding before restyling it. The source count (46/53) is
+now understood as dead-declaration debt and can be swept file-wide in one pass instead of
+being chased surface by surface.
+
 RUN (run-eak241): LATEST -- *** [step is a house] SHIPPED b40ecc67, BOTH PARTS. HIS
 SCREEN HELD A THIRD OF A LOT AND NOW IT HOLDS 1.4, WITH FIVE PEOPLE ON IT. TAB: RUN.
 BUILD 9/18c. Nothing to judge. ***
