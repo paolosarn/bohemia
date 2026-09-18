@@ -1,3 +1,74 @@
+RUN (run-eak241): LATEST -- *** [step is a house] SHIPPED b40ecc67, BOTH PARTS. HIS
+SCREEN HELD A THIRD OF A LOT AND NOW IT HOLDS 1.4, WITH FIVE PEOPLE ON IT. TAB: RUN.
+BUILD 9/18c. Nothing to judge. ***
+
+*** A CORRECTION TO MY OWN NUMBER FIRST. *** Last round I reported "his phone is
+1.03 houses wide". That used TW, which is the CITY tile width, NOT the walked
+camera. The walked camera is HC, and the truth was worse:
+    HC = 44 px per fine cell
+    a lot = 25 fine cells   CHARACTER d43851e2, twelve suburbs, every footprint
+                            walked. Not 32 (LIFE+CITY's row) and not 128 (the
+                            overmap tile, which is a BLOCK of lots).
+    A LOT DREW 1,100 px ON A 378 px CANVAS
+    HIS SCREEN HELD 8.6 CELLS = 6.4 METRES = A THIRD OF ONE LOT
+You could not see a house. That one number explains three separate things he said in
+a single play: he saw no people, the streets did not look like streets, and the
+bodies felt wrong.
+
+THE STOP THE LAW ALLOWS. Target: a lot at about 208 px, which wants 8.3 px a cell.
+8 IS NOT AVAILABLE -- the ZOOM LEVEL LAW snaps HC to 11/22/44/88 BECAUSE 44 IS HIS
+ART'S OWN TILE SIZE (a true 1:1 blit; 22 and 11 are honest 0.5x and 0.25x), 8 would
+scale every tile he drew by 0.18 which the law forbids in those words, and 11/2 is
+5.5, so THERE IS NO LEGAL STOP BELOW 11. Default is 11: a lot draws 275 px, the
+screen holds 34.4 cells (25.8 m, about 1.4 lots), and CHARACTER's body trigger flips
+FALSE -> TRUE in the same frame, which is the "at the same time" the ruling asks for.
+275 against a 208 target is the price of not smearing his art, and it is the right
+trade to make without asking.
+
+THE STRIDE, ONE NAME: STEP_CELLS = BODY_SCALE.lotFine = 25, one lot a beat, READING
+CHARACTER's measurement rather than restating it (both lanes were already bitten
+once by a second name for this number). STEP_CELLS_QUARTER = 5 is part one, kept as
+the fallback. THE CLOCK IS UNTOUCHED: every cell still pays its own stepCost() into
+advance(), so the day, the distances, the jobs and the rent nights stay true and
+only the number of presses moved.
+
+AND THE FIRST CUT OF THE STRIDE READ THE NUMBER BEFORE IT EXISTED. I wrote the read
+as an IIFE at the constant's own line and then CHECKED THE FILE: STEP_CELLS is
+declared 726,000 characters ABOVE const BODY_SCALE, so the constant is in its
+temporal dead zone, typeof THROWS, the catch swallows it and STEP_CELLS silently
+stays 5. IT WOULD HAVE LOOKED SHIPPED AND CHANGED NOTHING -- the third time this
+lane has been caught by a fix that cannot run (the inert CSS rule, the guarded
+painter, this). Set on the line AFTER BODY_SCALE now.
+
+ON THE GLASS, photographed at the door:
+    BEFORE  one person, a wall of brick down one side, a third of a lot
+    AFTER   FIVE PEOPLE on the first screen, the road with kerbs and sidewalks, his
+            house with the HOME marker, a neighbour saying "Half light's worse than
+            none. Makes you think it's coming back."
+He said "I did not see a single human being."
+
+THE COST, NAMED: he had two stops of pull-back (22, 11) before the seam and now
+stands on the last one, so a single pinch out crosses into the map. GETTING BACK
+TAKES THREE PINCHES IN, measured with the instrument that has a proven positive --
+three of my own standalone probes could not cross the seam at all while PAD SAYS
+crosses every run, so that gate is the witness. Its return leg pinches UNTIL he is
+back and PRINTS THE COUNT, so if it ever climbs that is the first place it shows.
+13/0.
+
+AND ONE GATE WENT GREEN BY ITSELF: ENEMIES EXIST 26/1 -> 27/0. Walking at them now
+reaches them, because a lot a beat covers the ground a quarter lot could not.
+
+NOT DONE: the FIGHT BOARD is COMBAT's side of rule 16 (he entered a fight and the
+scale was not there), and [zoom meets] now has different arithmetic because this
+moved one side of the seam.
+
+REDS AFTER THIS ROUND, AND WHOSE: FIRST MINUTE 7/2 mine, shipped knowingly on 9/15
+(his block is sealed; standing him in the road to hide it is worse). COLD HAND 5/2
+mine and pre-existing, the settings-gear loop. Everything else in the pass green.
+
+RECORD: records/BOHEMIA_HIS_SCREEN_HELD_A_THIRD_OF_A_LOT_9_18_26.md
+
+--------------------------------------------------------------------------------
 WORDS (words-8dqrnq): 9/18 LATEST -- *** Q5 [refusing answers] SCHOOL DONE, ROUND ONE OF TWO.
 NO TEST LINES WRITTEN, banks/ UNTOUCHED. *** Q4's debt is paid (9/16 block below, both rounds).
 Q5 shipped 9/5 under the OLD one-round mode, so it was next in the debt queue, oldest first.
