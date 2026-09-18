@@ -27532,6 +27532,28 @@ worth] SHIPPED (the valley counts its cells; a day's work minted from nothing) -
 ruling 9: one per head on day one, held by the ground's holder, work paid from treasuries.
 COOK [car recook] r6 drew twenty cars, looked, killed them (barrels). SOUNDS: a fight
 starting makes a sound. COMBAT V219: the rulers read the board. PORTRAIT still unclaimed.
+THEN (ej) PAOLO 9/18: HE SENT THE LINK TO A FRIEND AND THE FIGHT EMBARRASSED HIM; the far
+view looked good. Verbatim: records/BOHEMIA_PAOLO_SENT_THE_LINK_AND_THE_FIGHT_EMBARRASSED_HIM_9_18_26.md. Law: laws/BOHEMIA_ADDENDUM_THE_FIGHT_LOOKS_LIKE_THE_GAME_9_18_26.md, front-page RULE 17. THE FAR VIEW IS
+APPROVED (COOK [city from above], the sky, DIRECTION's verdict; volume unlocked). THE FIGHT
+IS A PICTURE PROBLEM (I looked at the frames the lanes took: a black dev bar, a checkerboard
+of roof tiles for a floor, two tiny figures on a brown aim line, plates and a face in a
+circle; not the street he was walking). STOP PRODUCING applied to COMBAT: frozen to the
+look, [fight looks] first and only (same ground art at house scale, same bodies at the
+ruled size, same light and cloud, no workshop, runs on a phone); DIRECTION [judge the
+fight] first and standing (street frame beside fight frame every round, THE FIGHT VERDICT
+on the front page); UI [fight hud] first; RUN's walk ends in the fight; the five minutes
+now include the first fight. SWEPT IN PASSING (32 commits): EYES r8 re-measured on a
+phone-shaped CPU: the first human being at 88.5 s, 174 s of the first 300 FROZEN, round
+6's numbers were 5x optimistic; RUN [loading screen] part one (the door opens on the first
+tap; it was offered at 0.4 s and the tap died); COMBAT [dev strip] SHIPPED (the strip was
+a fifth of the screen and every button was a LIVE dev control over a stranger's fight);
+LIFE+CITY: his block is NOT sealed (the instrument only walked straight lines; five presses
+reach a road); QUESTS [light the pump] STOPPED with the measurement (one seed, the water
+already runs, lighting a plant changes zero litres; the row is dead by its own gate ->
+mark DEAD next round with ECONOMY's correction); PEOPLE [enemies remember]; WORLD [fold
+carries]; SOUNDS [beat teaches]; CHARACTER [shape frozen]; COOK car r7 (16 -> 15);
+PLUMBER: the fight budget would have accepted a 6x regression; ECONOMY Q45 (nobody is
+told anything in the first minute, somebody who knows you wakes you).
 
 COORDINATOR: 9/4 (ba) -- *** THE MEETING HALL:
 VAMILY.md's front page now carries every rule, and every chat re-reads it every time

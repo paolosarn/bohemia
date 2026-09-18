@@ -23,7 +23,7 @@ game. Not the gate count, not the commit count, not the module count. A break in
 five minutes outranks every other job on the board. The five minutes hold when: the
 streets read as streets and the sidewalks as sidewalks, no button is on screen that does
 nothing, no card promises a thing that does not happen, a fight is met, fast travel
-works from the map, and nothing glitches. Until he says the five minutes hold, this law
+works from the map, and nothing glitches. AMENDED 9/18 (laws/BOHEMIA_ADDENDUM_THE_FIGHT_LOOKS_LIKE_THE_GAME_9_18_26.md): AND THE FIRST FIGHT LOOKS LIKE THE STREET IT STARTED ON; he sent the link to a friend and the fight embarrassed him. Until he says the five minutes hold, this law
 governs the whole fleet.
 
 ## 3. THE DEMO IS FROZEN TO ONE HAND
