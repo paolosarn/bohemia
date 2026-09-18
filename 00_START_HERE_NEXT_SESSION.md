@@ -33631,7 +33631,16 @@ your first VAMILY and do steps 1 to 9.
 I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
-ROUND LOG 9/18 (latest): patrol round - card 115/115, reference 11/11
+ROUND LOG 9/18 (latest): ROUTED FINDING from the photo wall, for the
+coordinator to hand to COMBAT: the they-lost-you picture is honestly RED
+and will stay red - its shooter refuses to stage the scene (V165: no
+movement, no grenade, no scratch; if the situation never arises on its
+own, no picture IS the finding), and since this week's combat rounds the
+board never loses a standing-still player any more. Either the vision
+change is intended and the picture's owner updates its scenario (legal
+movement), or hiding-by-standing-still died unintentionally and that is
+a combat regression. The one red is a claim about the build, not a
+stale photo; DIRECTION does not touch another lane's shooter. PREVIOUS: patrol round - card 115/115, reference 11/11
 (a new cook tool carries its check), ratchet holds 132/121, registry
 verdicts[] still empty. The LOOK tab's daily stale set is retaking on
 the chain in background; bytes commit when it lands. At the seam:
