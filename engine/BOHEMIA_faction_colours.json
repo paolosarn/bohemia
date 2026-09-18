@@ -18,18 +18,18 @@
    "draft": true
   },
   "Colorful": {
-   "hex": "#60a136",
+   "hex": "#61a136",
    "rgb": [
-    96,
+    97,
     161,
     54
    ],
    "hue": 90,
    "drab": false,
-   "strength": 0.6377,
-   "share": 0.5681,
+   "strength": 0.6402,
+   "share": 0.5776,
    "second": "60",
-   "neutral": 0.0443,
+   "neutral": 0.039,
    "draft": true
   },
   "Anarchists": {
@@ -41,10 +41,10 @@
    ],
    "hue": 30,
    "drab": false,
-   "strength": 0.4785,
-   "share": 0.8969,
+   "strength": 0.4811,
+   "share": 0.9043,
    "second": "neutral",
-   "neutral": 0.1031,
+   "neutral": 0.0957,
    "draft": true
   },
   "Blues": {
@@ -56,10 +56,10 @@
    ],
    "hue": 210,
    "drab": false,
-   "strength": 0.7221,
-   "share": 0.9371,
+   "strength": 0.7252,
+   "share": 0.9428,
    "second": "neutral",
-   "neutral": 0.0451,
+   "neutral": 0.0395,
    "draft": true
   },
   "Homeless": {
@@ -101,10 +101,10 @@
    ],
    "hue": 0,
    "drab": false,
-   "strength": 0.5617,
-   "share": 0.7811,
+   "strength": 0.5641,
+   "share": 0.7889,
    "second": "30",
-   "neutral": 0.0482,
+   "neutral": 0.0423,
    "draft": true
   },
   "Cartel": {
@@ -153,18 +153,18 @@
    "draft": true
   },
   "Network": {
-   "hex": "#465362",
+   "hex": "#25a189",
    "rgb": [
-    70,
-    83,
-    98
+    37,
+    161,
+    137
    ],
-   "hue": 210,
+   "hue": 180,
    "drab": false,
-   "strength": 0.3089,
-   "share": 0.6177,
-   "second": "30",
-   "neutral": 0.0701,
+   "strength": 0.553,
+   "share": 0.6222,
+   "second": "neutral",
+   "neutral": 0.2534,
    "draft": true
   },
   "Volunteers": {
@@ -191,10 +191,10 @@
    ],
    "hue": 60,
    "drab": false,
-   "strength": 0.3191,
-   "share": 0.4598,
+   "strength": 0.3201,
+   "share": 0.4672,
    "second": "90",
-   "neutral": 0.0732,
+   "neutral": 0.067,
    "draft": true
   }
  }

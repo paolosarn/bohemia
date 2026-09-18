@@ -905,7 +905,7 @@ D['BLUES'] = dict(
         look_note=(
             "COBALT, already chosen, and his motif for them is GRID - which is exactly what an irrigation system looks like from above. Blue reads as WATER and water is what this faction is. SECOND SIGNAL: the rice hat and the field kit. They are the only people in the valley dressed for standing in water."
         ),
-        kit={'base': ['COPPER WORK SHIRT', 'SAGE FLANNEL'], 'legs': ['COBALT WORK PANTS'],
+        kit={'base': ['PATINA WORK SHIRT', 'SAGE FLANNEL'], 'legs': ['COBALT WORK PANTS'],
              'feet': ['FIELD BOOTS'], 'outer': ['FIELD JACKET', 'DENIM VEST'],
              'head': ['CHINESE RICE FARMER HAT'], 'hands': ['DUST GLOVES']},
     ),

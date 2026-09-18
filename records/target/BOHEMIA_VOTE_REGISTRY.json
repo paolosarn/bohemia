@@ -195,6 +195,45 @@
     "how": "text",
     "src": "I'LL TAKE IT\nI'M YOUR MAN\nPUT ME DOWN FOR IT\nYO VOY\n\nAnd what the game says back afterwards, which repeats one thing so you know it stuck:\nYou took it. It is yours until the day is out.\nYou took it. It goes to the tank, not the gate.\nYou took it. One battery, on the far side, not before."
    }
+  },
+  {
+   "id": "character-the-twelve-people-9-18",
+   "kind": "outfit",
+   "lane": "character",
+   "sha": "62aea60f",
+   "made": "9/18",
+   "title": "THE 12 PEOPLE ON YOUR STREET",
+   "why": "Every stranger you walk past is one of these twelve. Do they belong in your valley, or should the next batch be different shapes?",
+   "show": {
+    "how": "image",
+    "src": "vote/CHARACTER_THE_TWELVE_PEOPLE.png"
+   }
+  },
+  {
+   "id": "character-everybody-a-different-colour-9-18",
+   "kind": "outfit",
+   "lane": "character",
+   "sha": "62aea60f",
+   "made": "9/18",
+   "title": "EVERYBODY IS A DIFFERENT COLOUR NOW",
+   "why": "The same street, before and after. Every person now gets their own skin, cloth and hair. Does it read as a crowd, or as a rainbow?",
+   "show": {
+    "how": "image",
+    "src": "vote/CHARACTER_THE_CROWD_BEFORE_AND_AFTER.png"
+   }
+  },
+  {
+   "id": "character-can-you-tell-the-thirteen-apart-9-18",
+   "kind": "outfit",
+   "lane": "character",
+   "sha": "1fb0eaec",
+   "made": "9/18",
+   "title": "CAN YOU TELL THE 13 APART?",
+   "why": "How each faction dresses, side by side. If two of them look like the same people to you, the colour is not doing its job.",
+   "show": {
+    "how": "image",
+    "src": "vote/CHARACTER_THE_THIRTEEN_FACTIONS.png"
+   }
   }
  ],
  "verdicts": []
