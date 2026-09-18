@@ -2939,6 +2939,76 @@ ALSO STILL OPEN, not draw order: on NE in his own frame
 the right of the shoulders with a visible gap. That is the pose too.
 
 Nothing [PENDING Paolo].
+PEOPLE (people-7h9sfy): 9/18 LATEST -- *** [heir moment] SHIPPED f31688fd. THE
+FOLD HANDED A HUNDRED YEARS TO A NEWBORN. *** SUCCESSION-BEAT, coordinator 9/5:
+"an heir inherits the house, the purse, every debt in full, half the standing,
+and the wardrobe."
+MEASURED FIRST, AND FOUR OF THE FIVE WERE ALREADY BUILT BY SOMEBODY ELSE, AND ONE
+OF THEM REVERSES THE ROW:
+  the house     WORLD [fold carries], 9/16: kept if lit, lost if dark
+  the debt      WORLD [debt carried], 9/12, and it is the OPPOSITE: the bill DIES
+                and the people stay. Newer, and what DYNASTY sharpened, so "every
+                debt in full" is SUPERSEDED rather than built. Naming that is the
+                job; quietly building the older ruling would have put two answers
+                in the game.
+  the standing  inherit(), and better than "half", which is a number: only what
+                was RETOLD survives
+  the purse     crosses whole, 9 before and 9 after
+  the wardrobe  nothing is worn on this surface, so nothing to move
+SO WHAT WAS MISSING WAS NOT AN ACCOUNT, IT WAS THE BEAT. Three FINISHED things
+sat in the played file with nobody calling them:
+  famAge()      ZERO CALLERS. The fold advanced a generation and NOT ONE PERSON
+                AGED, so the heir was a child for ever. Its own comment says
+                where it belongs: "the fold hands it the canon ~30".
+  HEIR_TOOK     written at the fold and READ BY NOTHING, its lines composed,
+                thrown away, and recomputed at the next fold.
+  famHeirSay()  read in ONE place, a card, PINNED AT GENERATION 1, so after a
+                fold it named the heir of a life already handed over.
+This lane has shipped a dead export twice and been caught both times. Here were
+three already in the tree, and the row's own name is the beat they add up to.
+ON THE GLASS, WITH A CONTROL: the first life says NOTHING about a handover (ten
+rows, none of them a beat); across the fold the children go newborn -> ADULT, six
+move an age band, six alive before and six after; and the card says
+  YOU ARE      YOUR FIRSTBORN
+  WHO INHERITS YOUR SECOND
+  YEARS SINCE  30 YEARS, 6 OLDER
+Two different people for two different questions, which is the fix as much as the
+feature.
+NOT ONE NUMBER IS TYPED: the handoff is read off BohemiaStayed.HANDOFF.years, and
+there is NO FALLBACK, so a missing canon means nobody ages rather than a quiet
+thirty nobody can trace. NOBODY DIES, because when a person dies of old age is a
+magnitude the family module is parked on until he rules it. WHEN a generation
+turns is STILL HIS and no trigger was added.
+TWO THINGS I GOT WRONG, BOTH CAUGHT BEFORE THEY SHIPPED: I nearly recorded that
+MARRIAGE WAS BROKEN, because I read spouseOf(tree).name and printed null -- it
+produces a spouse every time and the NAME is null because naming is HIS. And the
+first cut printed ONE PERSON UNDER TWO HEADINGS. One claim in my own gate COULD
+NOT FAIL: "the purse crosses whole, 0 before and 0 after" is true of an empty
+pocket whatever the fold does.
+*** AND THE MERGE CAUGHT A DEFECT IN LAST ROUND'S GATE, WHICH IS EXACTLY WHAT A
+RE-RUN ON A MERGED TREE IS FOR. *** ENEMIES REMEMBER went 25/0 to 22/3 after
+rebasing onto RUN's wider camera, AND THE FEATURE WAS FINE. My gate asked about
+BARK_DREW[0] and called that "the man": true while one body was on the glass, and
+false the moment six are drawn, because the deed publishes by REACH so some of
+the six witness it and some do not. Measured on the merged tree: six drawn, TWO
+carrying `spared`, one of those two speaking. The gate asks who WATCHED it now
+instead of who is at an index. REPOINTED, NOT LOOSENED: unplugged, it still reds
+the same seven claims. A claim pinned to an index is a claim about the camera.
+AND THE CITY MERGE KEPT BOTH HALVES: another lane put CHARGE_TONIGHT on the same
+declaration line this round added to, and taking either side whole would have
+silently deleted their work.
+RULE 13, PRE-PUSH PASS, RUN SERIALLY (last round proved eight browser-driving
+gates in parallel make every timing claim inside them lie): HEIR MOMENT 23/0,
+FOLD CARRIES 26/0, FOLD RUNTIME 35/0, CARD FOLD 18/0, FAMILY 15/0, ENEMIES
+REMEMBER 25/0, LOCK THEM 43/0, A HUMAN BEING 14/0, MOMENT ENDS 18/0, PEOPLE NOT
+LATE 16/0, ALPHA LOADS 20/0, COLD BOOT 11/0. Stamp 9/18f, resolved FORWARD twice
+over other lanes rather than back.
+[PENDING Paolo], carried: when a person dies of old age; how many game days is a
+year; who you marry; what a long injury costs to treat; the 82-row deed table.
+NEXT: the queue is [walking companion], [weights shape], [rumours travel],
+[creditor stands], [somebody hires you].
+Record: records/BOHEMIA_HEIR_MOMENT_9_18_26.txt ***
+
 PEOPLE (people-7h9sfy): 9/16 LATEST -- *** [enemies remember] SHIPPED c4f62ae1.
 THE MAN YOU SPARED TURNS UP. *** BB-THE-SHADOW: "BECAUSE WE NEVER RESET, EVERY
 RELATIONSHIP IN BOHEMIA IS A REPEATED GAME... THE SHADOW OF THE FUTURE IS NOT A
