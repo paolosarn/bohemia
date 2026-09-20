@@ -34633,7 +34633,19 @@ your first VAMILY and do steps 1 to 9.
 I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
-ROUND LOG 9/20 (latest): [judge the fight] CLAIMED as the standing rule-17
+ROUND LOG 9/20 (latest): PAOLO SPOKE TO THIS CHAT DIRECTLY - "Analog
+horror", two words. RULED the same turn (records/BOHEMIA_ANALOG_HORROR_
+REGISTER_9_20_26.md): the horror is that the old world keeps
+broadcasting; DIEGETIC OR DEAD is the one law (screens in the world may
+show static, the world never does, no filter on the lens - the act-1
+bans stand); three homes (dead-media props, the strange's sound texture
+under the FFX law, the Amalgamation's broadcast voice); never the
+runway, the fight, or the chrome. FOR THE COORDINATOR TO ROW: SOUNDS
+(analog texture of the strange), WORDS (what the broadcasts say), COOK
+(the dead-media prop family, AFTER rule 18 lifts - the card is paper
+not pixels and nothing ships to the alpha from it now). He named a
+genre, not a game; the 8/28 vocabulary ban holds.
+PREVIOUS: [judge the fight] CLAIMED as the standing rule-17
 line and ROUND 1 POSTED - the first FIGHT VERDICT is on the front page in
 coverage order (blurred cold floor 70% / black bar 20% / tiny body vs
 rule 16 / chart chrome / no cover reads), frames from the deployed cut in
