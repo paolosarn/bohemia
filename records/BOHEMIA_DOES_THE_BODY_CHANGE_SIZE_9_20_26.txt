@@ -1,0 +1,21 @@
+DOES THE BODY CHANGE SIZE WHEN HE PINCHES?  --  CHARACTER lane, 9/20/26
+measured on the demo over http, 390x844 at DPR 3, walking, canon seed
+
+RULE 18 (Paolo 9/20, LOCKED), WALKING: "one walking camera where a house fits, THE
+BODY ONE FIXED SIZE THAT NEVER CHANGES WHILE HE WALKS OR PINCHES."
+
+  his screen        378 x 815 px
+  walk zoom now     11   (a pinch snaps to 11, 22, 44, 88)
+  a lot is          25 fine cells
+
+AT EVERY ZOOM A PINCH CAN REACH
+   cell px  lot px   box  sprite  PAINTED HEIGHT
+        11     275   112     112             100
+        22     550   112     112             100
+        44    1100   112     112             100
+        48    1200   112     112             100
+        88    2200   112     112             100
+
+  DIFFERENT SIZES HE CAN SEE: 1  (100 px)
+
+THE BODY IS ONE FIXED SIZE AT EVERY ZOOM A PINCH CAN REACH. Rule 18 holds.

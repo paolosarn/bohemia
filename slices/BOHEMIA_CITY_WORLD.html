@@ -50695,13 +50695,42 @@ const BODY_SCALE = {
 try { if (BODY_SCALE && BODY_SCALE.lotFine) STEP_CELLS = BODY_SCALE.lotFine; } catch (e) {}
 /* THE ZOOM LEVEL LAW STILL RULES THE PIXELS: 28 / 56 / 112 / 224 and never a fraction, so
    this picks the RUNG NEAREST the wanted height rather than scaling to it. */
+/* *** ONE FIXED SIZE WHILE HE WALKS. RULE 18 (Paolo 9/20, LOCKED), AND IT OVERRULES WHAT
+   THIS LANE BUILT ON 9/15. *** His words: "we were closer to being able to play before,
+   right now we're farther than we've ever been." The walking half of the playable cut is
+   "one walking camera where a house fits, THE BODY ONE FIXED SIZE THAT NEVER CHANGES WHILE
+   HE WALKS OR PINCHES."
+   MEASURED BEFORE TOUCHING IT, at every zoom a pinch can reach
+   (records/BOHEMIA_DOES_THE_BODY_CHANGE_SIZE_9_20_26.txt):
+       cell 11   body 102 px        cell 22   body  52 px
+       cell 44   body 102 px        cell 88   body 202 px
+   THREE SIZES, AND NOT EVEN IN ORDER: pinching from 22 to 44 DOUBLES him, and zooming OUT
+   from 22 to 11 also doubles him. Part of that is the old ladder, which tied body pixels to
+   CELL size so a person was constant in world units and elastic on screen; part of it is my
+   own 9/15 wire, which grew the body once a house fit. I built that deliberately, to honour
+   rule 16 ("I want people to be larger... each tile is the size of a house"). HIS TWO
+   RULINGS ARE THE SAME SENTENCE FROM TWO SIDES and the newest date wins -- and he is right,
+   because a person who changes size when you pinch is not a person.
+   AND THE FIX IS THE THING THIS LANE MEASURED ON 9/15 AND THEN DID NOT BUILD: hold the body
+   STILL in pixels and let the camera pull back, and he grows against the world without one
+   new pixel. Rule 16 falls out of rule 18 for free; I took the harder road and shipped a
+   person who resizes.
+   WHICH SIZE: 112, the rung whose painted body is 102 px. That is the size the game has
+   shipped at for months at the default walk zoom, AND it is the right size at the camera
+   RUN is heading for -- a lot is 25 cells, a house fits a 378 px screen at about cell 14,
+   and the nearest zoom the walk has is 11, where the body already paints 102.
+   SAID PLAINLY: at today's most zoomed-IN level a fixed body is smaller against the ground
+   than it used to be. That is a real cost and it disappears the moment RUN [one camera]
+   lands, because then there is one walk camera and nothing to be inconsistent across. A
+   person who is slightly wrong at one zoom beats a person who doubles when you pinch. */
+const BODY_FIXED = 112;
 function bodyLadder(C){
-  if (!BODY_SCALE.lotFitsOnScreen(C)) return C >= 64 ? 224 : (C >= 32 ? 112 : (C < 17 ? 28 : 56));
-  var want = BODY_SCALE.bodyLots * BODY_SCALE.lotFine * C;   /* half a lot, on this screen */
-  var rungs = [28, 56, 112, 224], best = rungs[0];
-  for (var i = 1; i < rungs.length; i++)
-    if (Math.abs(rungs[i] - want) < Math.abs(best - want)) best = rungs[i];
-  return best;
+  /* CITY MODE KEEPS ITS OWN LADDER. Rule 18 is about WALKING; in the city he is looking at
+     a valley from above and a person should be a speck. Holding a 112 px body there would
+     put giants over the whole map, which is the mistake this wire already made once. */
+  try { if (typeof MODE !== 'undefined' && MODE !== 'human')
+          return C >= 64 ? 224 : (C >= 32 ? 112 : (C < 17 ? 28 : 56)); } catch (e) {}
+  return BODY_FIXED;
 }
 /* ...AND THE SPRITE HAS TO BE ASKED FOR THE SAME RUNG. spriteAt picks its rung off the
    CELL size, which is the whole bug above: one helper would have moved the box and left a

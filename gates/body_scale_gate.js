@@ -137,13 +137,25 @@ const done = () => { console.log('\n=== BODY SCALE GATE: ' + pass + ' passed, ' 
      + 'one (' + R.drew + ' drawn)', R.drew > 0 && R.todayBody && R.todayBody.painted > 0);
 
   /* 1. TODAY IS UNCHANGED, rung for rung. */
-  const moved = R.today.filter(r => r.want !== r.got);
-  ok('*** TODAY IS UNCHANGED *** -- with no step constant, every zoom returns exactly what '
-     + 'the old inline formula returned (' + R.today.length + ' zooms, ' + moved.length
-     + ' moved' + (moved.length ? ': ' + moved.map(r => r.C + ' ' + r.want + '->' + r.got).join(', ') : '') + ')',
-     moved.length === 0);
-  ok('and asking twice gives the same answer, so nothing latched',
-     R.after.every((v, i) => v === R.today[i].want));
+  /* *** RE-AIMED 9/20. THESE TWO LEGS ASSERTED A RULING THAT HAS BEEN OVERRULED. ***
+     They checked that every walk zoom returns exactly what the OLD inline formula returned
+     -- correct under rule 16, and RED the moment rule 18 (Paolo 9/20) said "THE BODY ONE
+     FIXED SIZE THAT NEVER CHANGES WHILE HE WALKS OR PINCHES". A GATE MUST NEVER OUTRANK A
+     RULING: when a leg fires, read what it asserts against the newest ruling before you
+     read it against the code. What the law wants checked now is the opposite of what these
+     asked, so they ask the opposite. */
+  const walkSizes = Array.from(new Set(R.today.filter(r => r.m).map(r => r.m.painted)));
+  ok('*** THE BODY IS ONE FIXED SIZE AT EVERY ZOOM A PINCH CAN REACH *** -- rule 18, the '
+     + 'walking half of the playable cut. Measured before the fix: 52, 102 and 202 px, and '
+     + 'pinching from 22 to 44 DOUBLED him (' + walkSizes.length + ' distinct: '
+     + walkSizes.sort((a, c) => a - c).join(', ') + ' px across '
+     + R.today.length + ' zooms)', walkSizes.length === 1);
+  const boxes = Array.from(new Set(R.today.map(r => r.got)));
+  ok('and the box he is drawn into is the same rung at every one of them ('
+     + boxes.join(', ') + ')', boxes.length === 1);
+  ok('and it is the size the game has shipped at, not a new one invented here (box 112, '
+     + 'about 100 px of painted person)', boxes[0] === 112);
+
   const cityMoved = (R.city || []).filter(r => r.want !== r.got);
   ok('*** AND CITY MODE IS UNTOUCHED *** -- a lot fits the screen at city zoom, so without '
      + 'the mode half of the condition every body in the city would have jumped from 28 px '
@@ -156,14 +168,17 @@ const done = () => { console.log('\n=== BODY SCALE GATE: ' + pass + ' passed, ' 
      + 'and a mismatch stretches a small picture into a big hole (' + mismatch.length
      + ' of ' + (R.today.length + R.stepped.length) + ' disagree)', mismatch.length === 0);
 
-  /* 3. A SMALLER CELL CANNOT SHRINK A PERSON. */
+  /* 3. AND THE CAMERA RUN IS HEADING FOR GETS THE SAME PERSON. A lot is 25 cells and a
+     house fits a 378 px screen at about cell 14, so this asks at that camera specifically:
+     when [one camera] lands, the body must already be the size it is now, with no further
+     work in this lane. Under the old wire it would have been 28 px there. */
   const t = R.todayBody, L = R.atLotCamera;
-  ok('*** A SMALLER CELL CANNOT SHRINK A PERSON *** -- with a lot per step and the camera '
-     + 'zoomed so a lot fills the screen the way a cell does today, the body paints '
-     + (L ? L.painted : '?') + ' px against ' + t.painted + ' px today, and the ruling is '
-     + 'that it never goes down', !!L && L.painted >= t.painted);
-  ok('and the old code would have SHRUNK him at that camera, which is the failure this '
-     + 'gate exists for (old rung would be 28)', !!L && L.box > 28);
+  ok('*** AND THE CAMERA WHERE A HOUSE FITS GETS THE SAME PERSON *** -- so RUN [one camera] '
+     + 'can land without this lane touching anything (' + (L ? L.painted : '?') + ' px there '
+     + 'against ' + t.painted + ' px now)',
+     !!L && Math.abs(L.painted - t.painted) < 1);
+  ok('and the old wire would have drawn him at a quarter of that, which is the failure this '
+     + 'gate was opened for (old rung would be 28)', !!L && L.box > 28);
 
   if (errs.length) console.log('  note: page errors -- ' + errs.slice(0, 2).join(' | '));
   console.log('\n  today: body ' + t.painted + ' px in a ' + t.box + ' box at HC ' + R.HC
