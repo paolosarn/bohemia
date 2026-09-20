@@ -35443,7 +35443,18 @@ your first VAMILY and do steps 1 to 9.
 I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
-ROUND LOG 9/20 (latest): PAOLO SPOKE TO THIS CHAT DIRECTLY - "Analog
+ROUND LOG 9/20 (latest): [analog horror] SHIPPED - THE BIBLE is one
+page, ten rules each with its measure, and today's honest pass/fail
+matrix over a tile, a body, a face, the fight and the street
+(UNMEASURED written where no instrument exists - the still-face idle
+and the machines-keep-talking schedule need instruments before they
+need opinions). AH-01/AH-02 entered the library, index 86, gates green.
+The register carries its two rule-20 amendments (sound serves the tone
+first; the fight and the runway are read through it). FROM NEXT ROUND
+the standing fight verdict judges against the ten. Build debts the
+matrix names for the coordinator: R1/R7 are WORLD-DATA work (the world
+does not yet place one wrong thing or one wrong light), not art.
+PREVIOUS: PAOLO SPOKE TO THIS CHAT DIRECTLY - "Analog
 horror", two words. RULED the same turn (records/BOHEMIA_ANALOG_HORROR_
 REGISTER_9_20_26.md): the horror is that the old world keeps
 broadcasting; DIEGETIC OR DEAD is the one law (screens in the world may
