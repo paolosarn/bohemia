@@ -6575,6 +6575,28 @@ GATES = [
      'meant to be steady inside one day: who is seated, who holds what, who is out there, '
      'what the ground makes, where the people are. A floor first, because two empty '
      'readings match perfectly. Mutation: put the freeze back and 2 go red.', False),
+    ('WHO SAYS THIS', ['node', 'gates/who_says_this_gate.js'],
+     'FACTIONS, RULE 19(c). Paolo 9/20: "you can\'t just be putting things on the screen '
+     'and pretend they\'re the quest. It has to be people, characters, items to pick up, '
+     'locations to go, text coming from people\'s voice, and when they speak it shows the '
+     'character portrait." Every lane answers WHO SAYS THIS, WITH WHAT FACE, STANDING WHERE '
+     'before it ships a sentence. This is the machine for the sentences THIS LANE writes, '
+     'measured on the glass in one boot at the door of the demo. A MOUTH MEANS BOTH HALVES: '
+     'the surface names its speaker AND carries their face, because a name with no face is '
+     'the blank-face defect the portrait law is named after and a face with no name is a '
+     'decoration. MEASURED 9/20: all 9 of this lane\'s player-facing writers are mouthless, '
+     'so this is a RATCHET frozen at 9 -- it may fall and never rise, and a tenth turns it '
+     'red. Failing on the nine would paint the lane red for work that was legal when it '
+     'landed and teach every lane to route around the gate. IT ALSO GUARDS THE ROUTE TO THE '
+     'FOURTH THING (rule 19d, a person at his door with a portrait in the first minute): '
+     'the walked city HAS NO FACE RENDERER and never had one, so the only portrait that can '
+     'reach that screen arrives over the BOHEMIA_CITY_PLAYER message into #modeFace, and '
+     'nothing was watching that pipe. Plus a floor first, because nine silent writers are '
+     'nine mouthless sentences by arithmetic and would score a perfect pass on a world that '
+     'never loaded. Mutation-proved: rename the talking card\'s line class, break the '
+     'message name, or raise the count by one and 4 go red. A FIFTH RED WAS THE GATE\'S OWN '
+     'BUG, caught by mutating it: the class check was a substring that matched its own '
+     'mutation (.sayZ contains .say), so it now asks for the rule\'s opening brace.', False),
     ('THE DRIVER REACHES THE CITY', ['node', 'gates/the_driver_reaches_the_city_gate.js'],
      'FACTIONS, THE FIVE MINUTES. Rule 14(g) points EVERY lane at one instrument, '
      'tools/bohemia_drive_the_demo.js, and four gates already load it while nothing checked the '

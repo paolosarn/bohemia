@@ -5745,69 +5745,113 @@ HOW TWENTY-TWO ROUNDS COMPOSE, written once now that Q1-Q22 are all shipped:
 NEXT IN THIS LANE: Q23 [who eats first].
 
 
-FACTIONS (factions-ovkjpf): 9/16 (round 31) LATEST -- *** THE FIVE MINUTES, ROUND TEN.
-[same lender] still CLAIMED AND HELD under 14b. Last round found the valley's whole war
-frozen out of existence by a cache filled one beat too early. This round asked the
-obvious next question -- IS ANYTHING ELSE? -- and the answer is NO, measured against
-every cache in the city. THE PRODUCT IS NOT THE ANSWER, IT IS THE CHECKER: the one-off
-instrument that caught it is now a standing gate, and putting the original bug back
-turns it red. NO GAME FILE CHANGED THIS ROUND. ***
+FACTIONS (factions-ovkjpf): 9/20 (round 32) LATEST -- *** RULE 19(c). NINE OF NINE OF
+THIS LANE'S SENTENCES HAVE NO MOUTH -- AND THE MOUTH AND THE FACE BOTH ALREADY EXIST.
+[same lender] still CLAIMED AND HELD, now under rule 18(b) as well as 14b. The new law
+says every lane answers WHO SAYS THIS, WITH WHAT FACE, STANDING WHERE before it ships a
+sentence, so this round answered it for the nine sentences ALREADY on his screen,
+measured on the glass with the one driver. The misses were the boring half. THE HALF
+WORTH CARRYING: this game already has a card where a named person speaks, and a working
+portrait already reaches the walked city every boot, and nothing joins them. That is
+rule 19(d)'s fourth thing, measured, and it is not a new system.
+NO GAME FILE CHANGED THIS ROUND. Rule 18(b) observed. ***
 Nothing to judge.
 
-VAMILY row: [same lender], MODE: BUILD, CLAIMED AND HELD under rule 14b.
-Record: records/BOHEMIA_NOTHING_ELSE_IS_FROZEN_9_16_26.md
+VAMILY row: [same lender], MODE: BUILD, CLAIMED AND HELD under rule 14b and rule 18(b).
+Record: records/BOHEMIA_WHO_SAYS_THIS_9_20_26.md
+Round 31: records/BOHEMIA_NOTHING_ELSE_IS_FROZEN_9_16_26.md
 Round 30: records/BOHEMIA_NOBODY_WAS_COMING_FOR_ANYBODY_9_15_26.md
 
-THE TRIGGER MY HANDOFF WAS WATCHING FOR LOOKED LIKE IT HAD FIRED AND HAD NOT. Rule 16
-moves the tile and every layer this lane draws is sized off it. LOT_FINE IS IN THE CITY
-FILE NOW -- fifteen mentions, none last round. Measured before acting:
-    on foot       TW 18      human   renderCity 0  sky 0
-    one zoom out  TW 13.09   city    renderCity 1  sky 0   borders 14, lights 205
-    two zooms out TW 3.74    city    renderCity 0  sky 1
-IDENTICAL TO THE LAST TWO ROUNDS. `const LOT_FINE = 24` is scoped inside its own module
-and is not a global the render reads; the lattice has landed, the render scale has not.
-This lane's layers are untouched. THE TRIGGER STAYS ARMED.
+WHAT THIS LANE SAYS RIGHT NOW, AND WHO SAYS IT (one boot, demo, day 1 06:00)
+  "somebody steps into your way. they meant to."     nobody   no face   A REAL BODY,
+      on a named cell, one step away. Closest thing this lane has to a mouth: it has
+      the body and the place and is missing only the name and the face.
+  "<faction> came through here. a patrol."           the ground, no face, his own cell
+  "Mob want 1 battery tonight for the 1 block ..."   nobody   no face   a panel he opens
+  "46 WOULD COME WITH YOU FROM THIS BLOCK, 16        nobody   no face   a panel he opens
+      SCAVENGER, 12 WORKER, 10 WATCH, 8 KEEPER"      <- THIS IS THE SHAPE HE JUST
+      KILLED: a progress readout with four numbers and no person in it.
+  "1 battery a day off the dam" (4 of 14 seats)      nobody   no face   the pop-up card
+  the lender who visits the heir                     NAMED by design, no face, pop-up
+  why nobody runs with anybody                       nobody   no face   outfit panel
+  who is out on the valley                           nobody   no face   travel map
+  whose ground he crossed                            marks the day, says nothing
+NINE OF NINE, NO MOUTH.
 
-THE SWEEP. The test needs no theory and no dependency list: drop the cache, let the
-GAME'S OWN function fill it again, see whether the answer changes.
-    who is seated     14 seats            -> 14 seats            same
-    who holds what    n=96 own            -> n=96 own            same
-    who is out there  14/10/4 (crew 4)    -> the same            same
-    what ground makes 5 keys              -> 5 keys              same
-    where people are  5 keys              -> 5 keys              same
-    where home is     the same box        -> the same box        same
-    the market hub    seat:Church         -> seat:Church         same
-NOTHING ELSE IS FROZEN THE WAY THE PARTIES WERE. And the party row reading 4 CREWS on
-both sides is last round's fix holding on main.
+THE POP-UP IS STILL ALIVE, MEASURED AT THE DOOR
+  310,716 px of card on a 378x815 screen, and the finger lands on the card, not the
+  glass. Its words: "DAY 1 06:00 ... Something came in on your phone overnight. THE
+  METER READER. nobody has picked it up yet." Under it SIX REPLIES WRITTEN AS
+  FIRST-PERSON SPEECH WITH NOBODY SPEAKING: "Half of it now, before I go", "I will go
+  first, on something small", "I'LL TAKE IT", "Make it a bag instead", "Make it a
+  favour instead", "Leave it with somebody who holds things for strangers".
+  THE WORDS FOR A MOUTH ARE ALREADY WRITTEN. There is no mouth attached to them.
+  (RUN [no pop ups], QUESTS, WORDS Q26 own that card. This is the measurement.)
+  *** AND THE CARD IS NOT THE ENEMY, THE UNASKED CALL IS. cardShow() targets #daycard
+  and SO DOES THE STANDING PANEL: measured, tapping STANDING takes the same element
+  none -> flex. The wake card, the night card and a panel he asks for are ONE SURFACE.
+  Rule 19(a) kills the surface coming up by itself, not the element; a lane that
+  deletes the element takes the panels with it. ***
 
-*** AND I NEARLY REPORTED A PASS ON AN UNASKED QUESTION. *** The first sweep returned
-three rows reading `null`, and null matches null, so all three scored "same" and would
-have gone in the table as CHECKED. They were not checked: I had guessed the filler
-names (pplMap, minesMap, homeOf); the real ones are pplGrid, minesGrid, homeFind. With
-the right names all three answer properly and all three really are the same.
-A CACHE THAT ANSWERS "NULL" TWICE HAS NOT BEEN TESTED, IT HAS BEEN SKIPPED, and it
-looks exactly like a pass. Fifth invented identifier this lane has caught itself using,
-and the first that would have produced a confident wrong "clean".
+*** THE TWO FINISHED HALVES NOBODY HAS INTRODUCED ***
+  1. A CARD WHERE A NAMED PERSON SPEAKS ALREADY EXISTS. #ctcard prints the person's
+     name into .who and their line into .say, and it opens off ctAdjacent() -- somebody
+     STANDING BESIDE HIM -- not off a timer. Two of the three columns, already right.
+     IT HAS NO FACE IN IT. Zero canvases. A name and no face.
+  2. A PORTRAIT ALREADY REACHES THE WALKED CITY EVERY BOOT. The city frame has NO FACE
+     RENDERER OF ITS OWN and never had one -- it cannot draw a face. What it has is a
+     decoder, a listener for the BOHEMIA_CITY_PLAYER message, and one target, and the
+     alpha paints it: #modeFace, 64x64, on screen at 40x40, INK 100%. A real face,
+     drawn, in the city, right now. THE MESSAGE CARRIES EXACTLY ONE SLOT: the player's.
+  3. AND THE PERSON IS ALREADY THERE. At spawn, of 61 PEOPLE PLACED, the nearest is
+     2 AWAY IN THE GAME'S OWN REACH METRIC AND TALK APPEARS AT 1. Nobody needs
+     spawning. The nearest human being in this game is one cell outside arm's reach.
+  SO THE FOURTH THING IS: a speaker card that works, a face pipe that works, and NO
+  SECOND SLOT ON THE MESSAGE.
 
-THE PRODUCT: gates/frozen_before_it_was_known_gate.js, 8/0, REGISTERED IN THE SUITE.
-It holds the shape rather than the instance -- five answers meant to be steady inside
-one day, each dropped and rebuilt by the game's own function -- plus A FLOOR BEFORE ANY
-COMPARISON (two empty readings match perfectly, and this lane has shipped a claim that
-passed on an empty set before), plus one named claim that the party list really
-contains crews, so a rebuild that quietly stops producing them reads as the bug it is
-rather than as a quiet world. MUTATION-PROVED: put the original freeze back and two go
-red, naming the held answer and the rebuilt one side by side.
-WHAT IT DELIBERATELY DOES NOT CLAIM: that caching is wrong, or that everything must
-rebuild identically forever. A cache whose answer is MEANT to move belongs on a
-different check, and putting one here would make this gate lie the first time somebody
-built it.
+THE PRODUCT: gates/who_says_this_gate.js, 9/0, REGISTERED IN THE SUITE as WHO SAYS THIS.
+  A MOUTH MEANS BOTH HALVES: the surface names its speaker AND carries their face. A
+  name with no face is the blank-face defect the portrait law is named after; a face
+  with no name is a decoration.
+  IT IS A RATCHET, NOT A WALL. All nine were legal when they landed, so the count is
+  frozen at 9 and may only FALL. A tenth mouthless sentence from this lane turns it red.
+  Failing on the nine would paint this lane red for finished work and teach every lane
+  to route around the gate.
+  IT ALSO GUARDS THE ROUTE TO THE FOURTH THING: decoder, listener, target, and that the
+  face arriving is really DRAWN. Nothing was watching that pipe.
+  MUTATION-PROVED FOUR WAYS, one boot each: rename the talking card's line class, break
+  the message name, blank the face, raise the count by one -> four reds, each naming
+  what it lost.
 
-GATES  frozen_before_it_was_known 8/0 (new, registered); alpha_loads 20/0; engine sync
-       19 modules zero drift. No game file changed, so no surface gate was owed.
-       RULE 13: pre-push pass green; full suite 107 red at ad23d875, this lane's named
-       below.
+*** AND THE GATE'S OWN BUG, CAUGHT BY MUTATING IT. *** The first mutation run expected
+four reds and got three. The class check asked whether the page contained '#ctcard .say'
+and the mutation renamed the rule to '#ctcard .sayZ' -- WHICH STILL CONTAINS IT. The
+check stayed green while the thing it guards was gone. A SUBSTRING TEST THAT MATCHES ITS
+OWN MUTATION IS NOT A TEST; it asks for the rule's opening brace now. Same family as the
+9/16 run where three caches answered null twice and scored "same".
 
-RULE 14 OBSERVED: no demo cut, no alpha touched, no build stamp.
+AND ONE WRONG SHAPE CAUGHT BEFORE IT RAN. The nearest-person number was first written
+against pplGrid(), which is a HEADS-PER-BLOCK grid with no people in it -- it would have
+reported "could not measure" and looked like an answer. It is asked through ctEveryone()
+and ctAt(), THE SAME PAIR ctAdjacent() USES, so the distance and the button agree by
+construction.
+
+WHAT THIS HANDS THE LANES BUILDING THE FOURTH THING (measured, not suggested)
+  [FOR UI, talk panel]   the panel exists, names its speaker, carries their line. It
+      needs a face, not a rebuild.
+  [FOR PORTRAIT/PEOPLE]  the city CANNOT DRAW a face. The only route is a second slot
+      on the message the alpha already sends and the city already decodes and paints.
+  [FOR QUESTS]           nobody needs spawning: 61 placed, nearest one cell outside the
+      reach that makes TALK appear.
+  [FOR WORDS Q26]        THE METER READER is already the name on the card, and six
+      first-person replies are already written.
+
+GATES  WHO SAYS THIS 9/0 (new, registered). No game file changed, so no surface gate
+       was owed. RULE 13: pre-push pass green; full suite 107 red at ad23d875, this
+       lane's named below (none of them are).
+
+RULE 18 OBSERVED: no alpha push, no demo cut, no build stamp. The diff is one
+instrument, one checker, its registry line, the record and this block.
 
 STILL OPEN, NONE OF IT THIS LANE'S
   [INHERITED] faction_towns P27 "somebody who is already yours leads the crew out there
@@ -5840,21 +5884,26 @@ STILL OPEN, NONE OF IT THIS LANE'S
      #4a8ddb beside Blues #0052db. Is the Cartel drab on purpose?
 
 NEXT IN THIS LANE
-  [same lender] stays HELD until the coordinator gives this lane one of his breaks or
-  he says the five minutes hold (14c). While held, the round goes on the five minutes.
-  WHAT IS LEFT ON THAT MEASURE:
-    RULING 5 OF HIS SECOND PLAY IS THIS LANE'S SUBJECT AND IS NOT BUILT: "a forgiven
-    thing still stings for a season" -- forgiveness clears the account and leaves a mark
-    on standing that fades over one season, never a permanent debuff. The collector
-    "remembers" line already exists. That is [same lender]'s own neighbourhood and is
-    the first thing waiting when the hold lifts.
-    RULE 16 WHEN IT REACHES THE RENDER. The lattice has landed, the scale has not. When
-    TW moves, re-measure the stops: the border, track and light layers and the relations
-    gate's marker floor are all pixel counts off it.
-    THE OTHER FOUR REDS THIS LANE NAMED are all somebody else's and are listed above;
-    none of them has moved.
+  [same lender] stays HELD until the coordinator says the playable cut holds (18b) or
+  gives this lane one of his breaks (14c). While held, the round measures this lane's
+  part of the four things or goes to school.
+  THE FIRST THING WAITING WHEN THE HOLD LIFTS, and it is now the fourth thing's
+  neighbourhood: [collector heir] ALREADY IS A PERSON COMING TO HIS DOOR -- a named
+  lender, arriving on the first day after the fold, with a reason to be there. It is
+  the only sentence this lane owns whose speaker is named by design. It is on the
+  pop-up card, which dies, so it needs re-homing anyway; re-homing it onto the talking
+  card that already exists is the same work as giving it a mouth. THAT IS THE ROW TO
+  OFFER WHEN THE HOLD LIFTS.
+  ALSO WAITING: ruling 5 of his second play, "a forgiven thing still stings for a
+  season" -- forgiveness clears the account and leaves a mark on standing that fades
+  over one season, never a permanent debuff. The collector "remembers" line exists.
+  RULE 16 WHEN IT REACHES THE RENDER. The lattice has landed, the scale has not. When
+  TW moves, re-measure the stops: the border, track and light layers and the relations
+  gate's marker floor are all pixel counts off it.
+  THE OTHER REDS THIS LANE NAMED are all somebody else's and are listed above; none of
+  them has moved.
 
-TWENTY-SIX STANDING LESSONS THIS LANE KEEPS RE-LEARNING
+TWENTY-NINE STANDING LESSONS THIS LANE KEEPS RE-LEARNING
   BEFORE ASSUMING A ROW IS BLOCKED, CHECK WHETHER ITS NAMED BLOCKER IS STILL TRUE.
   WHEN A CHECK GOES RED, ASK WHETHER IT IS MEASURING THE GAME OR ITS OWN INVENTION.
   WHEN HIS SENTENCE IS FALSE ON THE MAP, REPORT IT rather than forcing it.
@@ -5878,19 +5927,28 @@ TWENTY-SIX STANDING LESSONS THIS LANE KEEPS RE-LEARNING
   A CLAIM'S PREMISE CAN GO STALE WITHOUT ANYONE TOUCHING IT.
   OFF THE EDGE IS NOT UNPAINTED. getImageData clamps at the canvas edge.
   BEFORE PUTTING SOMETHING BACK, FIND OUT WHY IT WENT. git log -S answers in one command.
-  STOP INVENTING IDENTIFIERS. __lastOx, CITY_SRC, BohemiaTowns.towns(), CITY_TXT, and
-  this round pplMap/minesMap/homeOf. FIFTH TIME. Grep the name before you use it.
+  STOP INVENTING IDENTIFIERS. __lastOx, CITY_SRC, BohemiaTowns.towns(), CITY_TXT,
+  pplMap/minesMap/homeOf, and this round pplGrid used as a list of people. SIXTH TIME.
+  Grep the name AND the SHAPE before you use it: the right name with the wrong shape
+  reads as "could not measure", which looks like an answer.
   A CACHE KEY THAT CANNOT TELL "NO" FROM "NOT YET" WILL FREEZE THE WRONG ANSWER AND
   NEVER LOOK AGAIN.
   A GATE THAT PRINTS NOTHING MAY HAVE PRINTED EVERYTHING: process.exit() can drop
   buffered stdout when the output is redirected to a file.
-  *** AND A CACHE THAT ANSWERS "NULL" TWICE HAS NOT BEEN TESTED, IT HAS BEEN SKIPPED. ***
+  AND A CACHE THAT ANSWERS "NULL" TWICE HAS NOT BEEN TESTED, IT HAS BEEN SKIPPED.
   null matches null, so a wrong function name scores a clean pass on a question nobody
   asked. Any sweep that compares two readings needs a floor saying the readings were
   real, before it compares them.
   AND A NEGATIVE RESULT IS WORTH SHIPPING WHEN IT IS BOUNDED AND MECHANICAL. "Nothing
-  else is frozen" is worth little alone and a lot with a gate under it, because the
-  sentence decays the moment somebody adds the sixth cache and the gate does not.
+  else is frozen" is worth little alone and a lot with a gate under it.
+  *** AND A SUBSTRING TEST THAT MATCHES ITS OWN MUTATION IS NOT A TEST. *** '.sayZ'
+  contains '.say', so the check passed on the deletion it existed to catch. MUTATE YOUR
+  OWN GATE BEFORE YOU BELIEVE ITS GREEN, and count the reds you EXPECTED against the
+  reds you got -- the missing one is the hole.
+  *** AND WHEN A NEW LAW LANDS, THE FIRST USEFUL ROUND IS NOT BUILDING TO IT, IT IS
+  COUNTING HOW FAR THE BUILT THING ALREADY IS FROM IT. *** The count is where the
+  finished halves turn up. Nine misses were the boring half; the mouth and the face
+  pipe, both working and never introduced, were inside the same measurement.
 
 --------------------------------------------------------------------------------
 
