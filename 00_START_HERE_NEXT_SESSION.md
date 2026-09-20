@@ -10854,7 +10854,97 @@ walk census). Then [music owned] THE-MUSIC-ITSELF.
 
 ------------------------------------------------------------------------
 
-LIFE + CITY (city-1eztay): 9/18 (a) LATEST -- *** [side variants] SHIPPED. 3 OF 36 SIDEWALK TILES
+LIFE + CITY (city-1eztay): 9/20 (a) LATEST -- *** HELD UNDER RULE 18, AND THE ONE THING THIS LANE IS
+ASKED FOR IS BUILT AND MEASURED: THE LANDING RULE FOR RUN [one camera]. 46 OF 80 PRESSES DO NOTHING
+ON THE BLOCK HE WAKES ON TODAY. UNDER THE RULE, ZERO. *** MODE: BUILD, HELD. No row claimed, because
+no row on this board covers it: the lane's own MODE line does ("this lane's landing rule serves RUN
+[one camera] and may ship for that alone"). Nothing else shipped. Demo not re-cut.
+
+PAOLO 9/20: "walking the same distance and crashing into walls because it's forcing me to move like
+67 tiles at a time, so when I'm trying to walk past the wall it's not allowing me to because I'm just
+missing it." RUN [one camera] names this lane's part by name: "a press moves him to the next standable
+place toward the press USING LIFE+CITY'S LANDING RULE, never past a gap, never into a wall, a press
+toward a wall slides along it, any gap a body fits through is walkable; the lot is the CEILING of a
+stride, the ground sets its length."
+
+THE NUMBER. 80 presses around his block, driven on the demo. Both rules run on a COPY of his
+position, so neither walk touches the game's own step:
+                        stuck   cells   slid   ended at a gap   places reached
+    what ships today       46     804      0                0               23
+    the landing rule        0   1,625     27                8               69
+FORTY-SIX OF EIGHTY DO NOTHING TODAY. And the live stride is a FIXED 25 CELLS, one more than a whole
+lot, so a press is longer than a house: it either clears the wall entirely or refuses, and it can
+never put him beside a doorway. Zero do nothing under the rule, which is RUN's own ship test.
+
+THE RULE: BOH_LATTICE.stride(hx,hy,dir,ctx), on __proof.lattice, with the surface's own walkability
+already wired as __proof.latCtx() so RUN's step calls it without writing a second opinion about what
+is standable. Walk cell by cell toward the press and stop at the first cell that is not standable
+(never in a wall, and a gap is a cell it will not enter so it can never be crossed), ceiling one lot,
+NO CORNER TEST on the diagonals so a one-cell doorway is a doorway.
+
+THE LANDING AND THE STRIDE ARE TWO DIFFERENT ANSWERS, AND CONFUSING THEM IS THE BUG HE DESCRIBES.
+landing() is where an ARRIVAL goes -- a city tap names a place and the lot's doorstep is where you
+are put down. A stride is not that. SNAPPING A STRIDE TO LOT CORNERS IS "forcing me to move like 67
+tiles at a time": it lands him past the doorway he was aiming at. The lot is a ceiling here, never a
+grid.
+
+THE SLIDE TOOK THREE GOES AND THE FIRST TWO WERE BOTH WRONG:
+  one tier of 45 degrees   useless against a straight wall. Press east at a north-south wall and NE
+                           and SE are just as much into it; it answered STUCK where a player walks.
+  two tiers, longest wins  now it slides A WHOLE LOT SIDEWAYS, which is his complaint in a different
+                           coat: a doorway three cells north and it carries him 24 cells south.
+  STOP AT THE GAP          a slide ends the moment THE DIRECTION HE PRESSED opens up again, so he
+                           finishes lined up with the way through and the next press takes it. Two
+                           presses to get past a wall, which is what "walk past the wall" means.
+The choice between the two slide directions is therefore NOT the longer run: a run that ends lined up
+wins; between two lined-up runs the SHORTER, because that is the nearer gap; if neither lines up the
+longer, because then he is just making his way along; ties to the clockwise side so one press always
+does one thing.
+
+THE GATE: gates/the_stride_never_misses_gate.js, 18/0, in the suite as THE STRIDE NEVER MISSES. Leg B
+freezes the three-goes history on a world with a known answer. Leg C is the 80 presses plus the two
+invariants that must never break: NO STRIDE LANDS IN A WALL, NO STRIDE IS LONGER THAN A LOT.
+Mutations: dropping the slide from the engine reds B4/B5/B6/B8/B10; dropping it from the SHIPPED COPY
+reds C1 at 40 stuck of 80 -- and that second one matters, because the gate measures the surface he
+plays, so it would catch a fix that landed in engine/ and never reached the game.
+
+*** AND A LIMIT OF MY OWN RULE, FOUND BY MY OWN GATE, BEFORE RUN BUILDS ON IT. ***
+THE STREET IS REACHABLE FROM THE DOOR went red this round and the street was not the reason. Its walk
+aimed in single cells and pressed a pad that now moves 25, so it overshot its own plan and circled:
+40 presses, no arrival, on a block it had reached in five a few rounds ago. THE BLOCK HAD NOT
+CHANGED, THE STRIDE HAD. Rebuilt to follow the route, from his door to the road 21 cells away:
+    one cell at a time          21 presses, ARRIVES
+    a full stride every press   60 presses, never arrives, ping-pongs between two cells
+A STRIDE THE LENGTH OF A HOUSE OVERSHOOTS A ROUTE SHORTER THAN A HOUSE AND THEN OVERSHOOTS IT BACK.
+MY RULE DOES IT TOO. The slide fixes lining up with a WALL; nothing yet fixes lining up with a PLACE
+nearer than one press. FOR RUN, NOT DECIDED HERE, because the press length is [one camera] and the
+lot ceiling is his own 9/15 ruling: if it wants a shape from this lane, the ceiling could be the
+distance to the thing he is heading for when that is nearer than a lot, which is the same sentence
+the slide already follows for walls. The gate now decides on the GROUND claim only (follow the route
+one cell at a time, 21 presses, arrives) and PRINTS both stride walks beside it every run, so the
+oscillation is visible instead of folded into a pass.
+
+THIS LEG HAS NOW BEEN WRONG THREE TIMES FOR ONE REASON, and it is worth carrying: IT KEPT ASSUMING
+SOMETHING ABOUT HOW FAR A PRESS MOVES. A fixed path, then single-cell aiming against a 25-cell pad,
+then a greedy aim that stalled nine cells short. An instrument that assumes a step length is
+measuring its own assumption.
+
+RULE 13(b): pre-push pass green on everything reading this diff -- THE STRIDE NEVER MISSES 18/0,
+WHERE A STEP MAY LAND, THE SIDEWALK USES ITS BANK, THE STREET IS REACHABLE FROM THE DOOR 7/0 (after
+its instrument was rebuilt), ENGINE SYNC clean, SUITE HONESTY. Full suite: 107 red at ad23d875, none
+of them mine. NO CELL GOES UNTEXTURED is still 769/903 and untouched by this diff; the 134 are 112
+dead dirt and 22 decorative gravel, the gravel a documented exception, the dead dirt waiting on a
+pool ruling, fourth round running.
+
+HELD AND NOT TOUCHED THIS ROUND, under rule 18(b): [tiles not slabs], [buildings appear], [power
+buildings], [owner shown], [bill lands], [shelves seen]. They stay OPEN and this lane adds nothing to
+the alpha until the coordinator says the playable cut holds.
+
+Record: records/BOHEMIA_FORTY_SIX_PRESSES_OF_EIGHTY_DO_NOTHING_9_20_26.md
+
+------------------------------------------------------------------------
+
+LIFE + CITY (city-1eztay): 9/18 (a) -- *** [side variants] SHIPPED. 3 OF 36 SIDEWALK TILES
 WERE REACHING THE GROUND. NOW 36 OF 36. *** MODE: BUILD. TAB: RUN, the walked street, and the kerb
 band on the screen he wakes to. Demo NOT re-cut (rule 14a); this is in the live part, so it reaches
 him on the next deploy. Shots before/after in records/side_variants/.
