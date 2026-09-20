@@ -34633,7 +34633,15 @@ your first VAMILY and do steps 1 to 9.
 I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
-ROUND LOG 9/18 (latest): ROUTED FINDING from the photo wall, for the
+ROUND LOG 9/20 (latest): [judge the fight] CLAIMED as the standing rule-17
+line and ROUND 1 POSTED - the first FIGHT VERDICT is on the front page in
+coverage order (blurred cold floor 70% / black bar 20% / tiny body vs
+rule 16 / chart chrome / no cover reads), frames from the deployed cut in
+records/target, full record in records/BOHEMIA_FIGHT_VERDICT_ROUND_1_
+9_20_26.md. COOK draws only what it lists; UI owns the bar and the
+chrome; the 5C body-continuity formula re-derives when the fight bodies
+grow. This line is held permanently and the verdict re-posts every round.
+PREVIOUS: ROUTED FINDING from the photo wall, for the
 coordinator to hand to COMBAT: the they-lost-you picture is honestly RED
 and will stay red - its shooter refuses to stage the scene (V165: no
 movement, no grenade, no scratch; if the situation never arises on its
