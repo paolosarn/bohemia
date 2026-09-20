@@ -1,0 +1,35 @@
+IS THE FIGHTER THE SAME SIZE AS THE WALKER?  --  CHARACTER lane, 9/20/26
+measured on the real surfaces, 390x844 at DPR 3
+
+RULE 17 (Paolo 9/18, LOCKED): "when I zoomed out, it looked good, but WHEN COMBAT
+STARTED IT WAS SO FUCKING BAD." The fight must carry "the same bodies at the ruled
+size". RULE 18 holds this lane to measuring its part of walking or the fight, and
+the body is its part of both.
+
+  THE STREET   box 112 px    painted 100 px    at walk zoom 11
+  THE FIGHT    box 37 px    painted 33.3 px    (derived: the same 112 source at the fight's own scale)
+
+  *** THE SAME PERSON IS 3.03 TIMES SMALLER THE MOMENT A FIGHT STARTS. ***
+
+WHY, IN THE FIGHT'S OWN WORDS. It blits the body at 112 times bodyScale(), and
+bodyScale() is "1/FIELD_ZOOM -- the people ride the same number as the floor".
+FIELD_ZOOM is 3. So the fighter is a third of a walker BY CONSTRUCTION,
+not by accident: the body was tied to the floor's zoom so that pulling the floor
+back would not leave giants standing on it.
+THAT IS THE SAME SHAPE AS THE DEFECT THIS LANE FIXED ON THE STREET LAST ROUND, and
+the fix there is the one that applies here: the ground may zoom, THE PERSON MAY NOT.
+Hold the body at the ruled size and let the floor move under him.
+
+THE RULED SIZE IS ONE NUMBER AND THIS LANE OWNS IT: a 112 box, about 100 px of
+painted person. That is what every body on the street is drawn at, at every zoom a
+pinch can reach, and it is enforced by gates/body_scale_gate.js.
+
+NOT FIXED HERE, ON PURPOSE. The fight board is COMBAT's system and [fight looks] is
+its row; ONE SYSTEM, ONE SESSION. What this lane owes is the number and an honest
+measurement of the gap. Re-run this tool as the fix lands; when the two lines above
+read the same, that half of rule 17 is done.
+
+HONEST LIMIT: the fight was run on its own to read its own functions, so it had no
+baked body in it and the painted number for the fight is DERIVED -- the fight's
+measured scale times the street's measured painted share of the same 112 source.
+The BOX numbers are both direct readings.
