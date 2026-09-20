@@ -1,3 +1,66 @@
+UI (ui-kmqmrf): 9/20 LATEST -- *** [notes button] SHIPPED. HE WRITES A THOUGHT WITHOUT
+LEAVING THE GAME. *** TAB: CITY, the top right of the bar, in the demo. Build 9/20b.
+Record: records/BOHEMIA_THE_NOTES_BUTTON_9_20_26.md
+
+RULE 18 HOLDS THE REST OF THIS LANE. [no slop] stays CLAIMED and untouched; nothing else
+went to the alpha. Clause (f) names this row as his direct ask that still ships, and it
+touches none of the three (loading, walking, the fight).
+
+WHAT SHIPPED: a bare pencil at the far right of the top bar, 5px of ink -- the same size as
+every chip beside it -- in a 44 px reach, because THE THUMB is a law and "tiniest" is about
+the ink and never the target. One tap opens a box over the game, he types, SAVE AND KEEP
+PLAYING puts him back on the SAME cell at the SAME clock.
+EVERY NOTE CARRIES ITS OWN CONTEXT SO HE NEVER TYPES IT: build stamp, mode, district, the
+cell he stood on, the in-game day and clock, the seconds in, and a small picture of the
+glass. Read from phoneState(), which has been printing district/day/clock on the phone for
+weeks -- asking the same question in a second place is how two numbers start disagreeing.
+Out the same road a vote takes: localStorage the instant he taps, and a .txt, never .json.
+
+THE PAUSE IS EXPLICIT, AND BOTH HALVES ARE MEASURED.
+  There is no clock to stop: this valley is I-MOVE-YOU-MOVE, and with the box open and
+  hands off for 2.5 s, T.day and T.min do not move. The pause he asked for is the pause of
+  NOT STEPPING.
+  And a scrim is not a pause: the pad binds pointerdown on its own SVG groups, and asking
+  the page who owned the arrow's pixel gave TWO DIFFERENT ANSWERS ON TWO RUNS OF THE SAME
+  PROBE. Pointer events are stopped in the CAPTURE phase now (the pattern the sky pinch
+  already uses, reused). The release is never swallowed: you may swallow an intent, never
+  a cleanup.
+
+*** FOUR THINGS THE SHIP TEST FOUND THAT READING WOULD NOT HAVE. ***
+1 THE FIRST RUN SAID THE GAME MOVED WITH THE BOX OPEN, AND IT HAD NOT. A tap EARLIER in the
+  same run had started a HOLD on the walk pad and the hold was still stepping. I nearly
+  filed my own instrument's leftover finger as a defect in the feature. The test opens the
+  box before it touches anything now.
+2 A TAP OUTSIDE THE CARD THREW AWAY WHAT HE HAD WRITTEN. The box copied what every other
+  card in this game does. That is fine for a card you READ and wrong for the only place he
+  writes anything down. The scrim does nothing now; the ways out are the button he came in
+  by, BACK and Escape, and every one is a thing he meant to press.
+3 MY OWN PAUSE LEG WAS TOO WEAK TO SEE ITS OWN SUBJECT. It pressed ONE arrow of eight, so
+  deleting the page's whole capture-phase block left the gate GREEN, and I was one sentence
+  from writing that block off as decoration the scrim made redundant. Pressing all eight AND
+  dispatching an event straight at the pad's own group -- the one route an overlay can never
+  intercept -- the same deletion turns three legs red: the event reaches the pad, a hold
+  starts, and HE WALKS FIVE CELLS with the box open and his hands nowhere near the game
+  (hy 6268 -> 6145, clock 360 -> 369). A lock nothing can prove is the same slop as a
+  declaration a later rule cancels. The answer was the better leg, not deleting the lock.
+  Third round running this lane has caught a mutation that could not bite.
+4 THE "TINIEST BUTTON" SHIPPED AT 9px OF INK while every chip beside it is halved to 5.
+  Caught by a leg that compares it to its NEIGHBOURS instead of to a number I picked.
+
+*** INSTRUMENT NOTE FOR EVERY LANE THAT DRIVES THIS DEMO. *** The keyboard goes to the PAGE
+and the game is in a FRAME. Focusing a field from inside the frame is NOT enough: the iframe
+element has to hold focus in the parent, or every keystroke lands in the shell while the
+field looks perfectly focused. It cost this round two passes. A tap gives focus; it does not
+give the frame the keyboard.
+
+PRE-PUSH PASS (rule 13): the notes button 22/0 (new, four mutations proved), the top bar 15/0 (so the new chip did not bring the bar cut back), the city rail 15/0, the street 10/0. Full suite: 107 red at ad23d875 (the suite line); none
+named against this lane.
+
+NEXT: the VOTE tab does not LIST his notes yet. A page cannot write the registry file, so
+that is a hand at a keyboard and a small next step. [no slop] resumes when rule 18 lifts;
+what is left of it is the map key's 32 swatch edges and the dead-declaration debt, both
+written up in the 9/18 record.
+
 PORTRAIT (portrait-vamily-yke55s): 9/20 LATEST -- *** [matches body] ROUND 1. 23 OF EVERY
 200 CITIZENS WERE TWO DIFFERENT PEOPLE: A NEAR-WHITE PORTRAIT OVER A NEAR-BLACK HEAD. ***
 THE LANE IS CLAIMED (chat 20). TAB: CHARACTER, and every person in the RUN and the CITY.
