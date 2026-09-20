@@ -16065,7 +16065,91 @@ RIGHT NOW: (a) write this whole instruction, word for word, into your own handof
 
 I will never paste anything to you again. From here on, the one word is the whole instruction.
 
-THIS ROUND -- *** THREE QUESTIONS FROM THIS LANE ARE IN THE ONE VOTE TAB, AND MAKING THE
+THIS ROUND -- *** THE BODY WAS THREE SIZES AND DOUBLED WHEN HE PINCHED. IT IS ONE SIZE NOW,
+AND HALF THE DEFECT WAS MINE. (sha b4ad37da, rule 18's walking half) ***
+
+THE ROUND OPENED BY READING THE VERDICTS BACK, which is what the last handoff said to do
+first. verdicts[] is EMPTY: he has not voted on the three candidates this lane put in the
+VOTE tab. Nothing to act on, nothing to write to records/, and the lane gate stays green
+because it has nothing to examine. They are still in the queue.
+
+THEN RULE 18 (Paolo 9/20, LOCKED) DECIDED THE ROUND. "We were closer to being able to play
+before, right now we're farther than we've ever been." Every building lane HOLDS except
+loading, walking and the fight. This lane's own MODE line names its part: the body wire,
+which serves RUN [one camera] and may ship for that alone. The walking half of the rule is
+"one walking camera where a house fits, THE BODY ONE FIXED SIZE THAT NEVER CHANGES WHILE HE
+WALKS OR PINCHES."
+
+MEASURED BEFORE TOUCHING ANYTHING, at every zoom a pinch can reach:
+    cell 11   body 102 px          cell 44   body 102 px
+    cell 22   body  52 px          cell 88   body 202 px
+THREE SIZES, AND NOT EVEN IN ORDER. Pinching from 22 to 44 DOUBLES him. Zooming OUT from 22
+to 11 ALSO doubles him. A person who changes size when you pinch is not a person, and he is
+right that this is the kind of thing that makes the game feel further away than it was.
+
+*** HALF OF IT WAS MINE, AND THE WORSE HALF, BECAUSE I HAD THE RIGHT ANSWER WRITTEN DOWN
+AND BUILT THE WRONG THING ON TOP OF IT. *** The old ladder tied body pixels to CELL size, so
+a person was constant in world units and elastic on screen -- the normal thing for a
+zoomable game, and wrong here. On 9/15 I added to it: I wired the body to GROW once a house
+fit on the screen, deliberately, to honour rule 16 ("I want people to be larger... each tile
+is the size of a house").
+MY OWN RECORD THAT ROUND SAYS THE ANSWER IN CAPITALS: "THE BODY'S PIXEL SIZE DOES NOT HAVE
+TO CHANGE AT ALL... hold the body still and pull the camera back and the person becomes 5.3
+times larger against the world with the same sprite." I measured that, published it, and
+then built an elastic body anyway. RULE 16 FALLS OUT OF RULE 18 FOR FREE and I took the
+harder road to a worse place.
+
+WHAT SHIPPED: one fixed size, box 112, about 100 px of painted person, at every walk zoom.
+NOT A NUMBER INVENTED HERE -- it is what the game has shipped at for months at the default
+walk zoom, and it is already right at the camera RUN is heading for: a lot is 25 fine cells,
+a house fits a 378 px screen at about cell 14, and the nearest walk zoom is 11, where the
+body already painted 102. After: ONE size, 100 px, across all five zooms.
+CITY MODE KEEPS ITS OWN LADDER. Rule 18 is about WALKING; from above a person should be a
+speck, and holding 112 there would put giants over the whole valley -- a mistake this same
+wire already made once and my gate caught.
+SAID PLAINLY, BECAUSE IT IS A REAL COST: at the most zoomed-IN level a fixed body is smaller
+against the ground than it was. That disappears the moment RUN [one camera] lands, because
+then there is one walk camera and nothing to be inconsistent across. A person slightly wrong
+at one zoom beats a person who doubles when you pinch.
+
+-> FOR RUN [one camera]: THE BODY NEEDS NOTHING FURTHER FROM THIS LANE. Whatever camera you
+   settle on, the person is 100 px. The gate asks specifically at the house-fits camera and
+   proves he is the same size there, so you can land it without touching CHARACTER.
+
+- SHIPPED, and only the body wire, which rule 18 and this lane's MODE line permit by name.
+  THE ALPHA IS UNTOUCHED, so no build stamp: nothing he opens has a new number on it.
+- TAB: the people on the street in the RUN tab. He will not see a change at the default walk
+  zoom; he will see one if he pinches, which is the whole point.
+- GATE: body_scale 13 -> 14, and THREE LEGS WERE RE-AIMED BECAUSE THEY ASSERTED A RULING
+  THAT HAS BEEN OVERRULED. They checked that every walk zoom returns exactly what the old
+  formula returned -- correct under rule 16, red the moment rule 18 landed. A GATE MUST NEVER
+  OUTRANK A RULING: when a leg fires, read what it asserts against the NEWEST ruling before
+  you read it against the code. Mutation-proven: put the elastic body back RED, pick a fixed
+  size nobody has been playing RED.
+- NOT MINE, MEASURED RATHER THAN ARGUED: a_crowd_to_walk_into B1 is RED at 9 of 16 against
+  its own 13 of 16 ratchet. I stashed my entire change and it still reads 9 of 16 on a clean
+  tree, so it predates this round and belongs to whoever owns the crowd rebuild. Routed, not
+  claimed, and not left silent either.
+- SUITE (rule 13): pre-push pass green -- body_scale 14/0, shape_frozen 12/0,
+  character_in_the_vote_tab 9/0, people_gather 14/0. Walked the cut with the one driver:
+  the street reads, five people on screen, all one size, no page error. Full suite: 107 red
+  at ad23d875, which is now six days stale; the two carrying this lane's name (FACE THUMB,
+  LOOK) were red on main before this lane's last nine ships, settled by commit dates.
+- NEXT ROUND, IN ORDER: (1) read the verdicts back again -- if he has thumbed any of the
+  three, act the same round and write it to records/ as .txt, because the lane gate goes RED
+  until that exists. (2) This section has NO live line left. Rule 18 holds this lane
+  otherwise, so unless the coordinator adds one, the honest round is another measurement of
+  the body against walking or the fight, and the honest reply is "queue empty".
+- FOR COMBAT [fight looks]: rule 18 wants "the same bodies at the ruled size" on the board.
+  That size is now one number in one place in the city file and the street draws every
+  person at it. If the fight draws a body at any other size, the two surfaces disagree and
+  it is not because this lane is undecided.
+- [PENDING Paolo] unchanged and still carried: which faction colour file wins; the
+  Anarchists need a magenta garment and there are zero in 317 (the reserved purple band
+  blocks the obvious cook); the Cartel sits on the drab exemption list and not in the law
+  that names it.
+
+PREVIOUS ROUND -- *** THREE QUESTIONS FROM THIS LANE ARE IN THE ONE VOTE TAB, AND MAKING THE
 PICTURES FOUND TWO DEFECTS BEFORE HE DID. (sha 435bd9c8, row [into the vote tab]) ***
 
 RULE 12 FIRST AND THE PREMISE HELD. The row says "once UI [vote tab] lands". Measured
