@@ -3661,3 +3661,79 @@ YYYYYYY3 somebody who will not ask for it back draft:true
   WWWWWWWWW4 is somebody saying plainly that they would not do it.
 - Spanish register: 1 of 16 lines, 6%, under the 15% he set on 8/26. One word
   inside an English sentence, not respelled, counted while written.
+
+## ZZZZZZZZZ. THE PIPE CROSSES HIS GROUND
+## (round 47, the finding. Nobody seizes the pump. Karachi's whole business is men
+##  who own the land the pipe runs under and sell you a valve into it.)
+
+- ZZZZZZZZZ1 `draft:true` — "He doesn't own the water. He owns where it goes past."
+  (the whole round in eleven words. VOICE CARD: nine words then two, and the two
+  are the mechanism.)
+- ZZZZZZZZZ2 `draft:true` — "There's a tap on his side of the fence. That's the
+  entire arrangement." (the last mile described by somebody who has paid for it.)
+- ZZZZZZZZZ3 `draft:true` — "Nobody took anything. It was always going through
+  there." (nobody in Bohemia is wise, and this one has half worked out that the
+  theft was always legal.)
+- ZZZZZZZZZ4 `draft:true` — "Ya, it's free at the plant. Good luck carrying it."
+  (Spanish register, one word, and the second sentence is the distance.)
+
+## AAAAAAAAAA. THE QUEUE IS WHAT GETS GUARDED
+## (round 47. Cape Town planned two hundred collection points with officials on them
+##  round the clock and the army in reserve. Not the reservoir. The line.)
+
+- AAAAAAAAAA1 `draft:true` — "Nobody watches the tank. They watch the line."
+  (the correction stated flat, and it is the whole Cape Town plan.)
+- AAAAAAAAAA2 `draft:true` — "Two of them on it all night. Every night now."
+  (contract it: the cut sentence explained why it had become every night.)
+- AAAAAAAAAA3 `draft:true` — "You keep your place or you lose it. That's the only
+  rule anybody actually enforces." (the queue as the real law.)
+- AAAAAAAAAA4 `draft:true` — "Don't argue at the front. Argue at the back, where
+  it's cheaper." (somebody fumbles into good advice, and the word cheaper is doing
+  a lot.)
+
+## BBBBBBBBBB. YOU LIT IT, SO NOW THEY KNOW WHERE YOU ARE
+## (round 47, what happens to whoever lights the pump. He does not get thanked.
+##  He gets a queue, and somebody else gets rich.)
+
+- BBBBBBBBBB1 `draft:true` — "You turned it on. Everybody knows that was you."
+  (the reward, and it is not a reward.)
+- BBBBBBBBBB2 `draft:true` — "They're not grateful. They're organised." (nine words
+  and the difference between the two is the beat.)
+- BBBBBBBBBB3 `draft:true` — "Whose street is it. Think about whose street it is."
+  (the faction who owned it before he touched it, and the repeat is the lesson.)
+- BBBBBBBBBB4 `draft:true` — "You can switch it off. That's the part that worries
+  me for you." (the power he now has, named as a danger by somebody fond of him.)
+
+## CCCCCCCCCC. FOUR DAYS OF WORK, FOR WATER
+## (round 47. Caracas households spend fifteen to twenty-five per cent of income on
+##  water, which in our money is one battery every four to six days.)
+
+- CCCCCCCCCC1 `draft:true` — "I work. Then I work again, and that one's for water."
+  (the share of income without a percentage in it.)
+- CCCCCCCCCC2 `draft:true` — "Most of what they send never gets here. It's in the
+  ground somewhere." (the sixty per cent leak, said by somebody who has never seen
+  the pipe.)
+- CCCCCCCCCC3 `draft:true` — "It used to come out of the wall. Out of the wall."
+  (the repeat is the disbelief, and there is no number in it.)
+- CCCCCCCCCC4 `draft:true` — "You drink it or you wash in it. Not both." (the
+  ration as a household decision, and the flatness is the point.)
+
+## DDDDDDDDDD. WHAT IS NOT HERE, ON PURPOSE (round 47)
+
+- No line contains a number, a price, a litre, a percentage or a count of days.
+  This round is built almost entirely of numbers and not one is spoken.
+- No line uses the words pump, plant, reservoir, hydrant, cistern, tanker, mafia,
+  cartel, monopoly or infrastructure. It is said as the wall, the tank, the line,
+  and where it goes past.
+- No line explains the last mile, the leak or why the source is worthless. Nobody
+  in Bohemia is wise; ZZZZZZZZZ3 gets halfway and stops.
+- No line names a faction, a street or a town, including BBBBBBBBBB3 which is
+  entirely about whose street it is and still says "whose". MAP LAW.
+- No line decides what lighting a pump costs, whether the leak exists, or who
+  stands on the queue. Those are the things section 4 refused.
+- No line has the player speaking, and no line thanks him for lighting it, because
+  the record's whole finding is that nobody does.
+- No line shows anybody taking the pump by force. Nobody in the real record seizes
+  one, and a bank line that did would argue with its own source.
+- Spanish register: 1 of 16 lines, 6%, under the 15% he set on 8/26. One word
+  inside an English sentence, not respelled, counted while written.
