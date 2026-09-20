@@ -97,3 +97,10 @@ register into the bible under this law.
 reference_check_gate.py gains the bible as a reference sheet the round DIRECTION lands it;
 until then this law is enforced by THE FIGHT VERDICT and EYES E28 by hand, and the manager
 says so on the board (a law without a machine gate is not enforced).
+
+## 8. IT IS FOR FUN (Paolo 9/20, same round; records/BOHEMIA_PAOLO_LETS_JUST_HAVE_SOME_FUN_9_20_26.md)
+"I appreciate the deep psychological philosophical dive, but let's just have some fun, bro."
+This law is a vibe the game wears for fun, not a thesis. Nobody writes essays about it,
+nobody builds lore around the wrong thing in the frame, nobody asks him whether the mystery
+gets solved (that question is withdrawn). FUN CARRIES THE TIE (8/25): where the tone and the
+fun pull apart, fun wins. Section 2 is a mood board in words; read it, then go make things.
