@@ -28700,6 +28700,22 @@ and every card from the DEMO until the cut holds; the alpha keeps everything. RU
 carries it in the same push as [no pop ups]. Told him plainly it is not playable yet, no
 defense, no new promises beyond the four things. Nothing to judge.
 
+THEN (eq) PAOLO 9/20, THREE RULINGS IN ONE MESSAGE (records/BOHEMIA_PAOLO_BATTLE_BROTHERS_ON_MY_PHONE_ANALOG_HORROR_AND_THE_ALPHA_OPENS_IN_VOTE_9_20_26.md).
+(1) "Battle Brothers on my phone, a lot better; not their chess match; quicker; focuses on
+the player character; companions auto do stuff." Identity line recorded (CLAUDE.md pillar);
+the BB addendum gains a 9/20 section; THE FIGHT VERDICT carries two numbers from now
+(seconds cloud-to-over, his presses vs the companion's): notes on COMBAT [fight looks] and
+DIRECTION [judge the fight]. (2) ANALOG HORROR FOR EVERY PIXEL AND EVERY SOUND until the
+game is done, LOCKED: new law laws/BOHEMIA_LAW_ANALOG_HORROR_FOR_EVERY_PIXEL_AND_EVERY_SOUND_9_20_26.md
+(what it is, what it is not: not a filter, not a monster, not a new reference game, not a
+brightness slider; FFX sound amended by date; Machine Party is the bridge). Rule 20 on the
+front page. DIRECTION [analog horror] first line (the bible), SOUNDS [analog horror sound]
+first line, UI [analog horror ui], WORDS Q27, COOK [horror grime] held, EYES E28 [horror
+check], notes on RUN [loading screen], PORTRAIT [faces first], COMBAT [fight looks].
+(3) THE ALPHA OPENS IN THE VOTE TAB after the loading screen; the demo keeps VOTE behind
+the gear: rule 15g, vote-tab law section 8, notes on RUN [loading screen] and UI [vote
+tab]; rule 18a's wording updated. CLAUDE.md law list gains both lines. Nothing to judge.
+
 COORDINATOR: 9/4 (ba) -- *** THE MEETING HALL:
 VAMILY.md's front page now carries every rule, and every chat re-reads it every time
 it hears the word. He never pastes anything again. Nothing to judge. ***

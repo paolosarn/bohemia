@@ -399,3 +399,18 @@ ECONOMY.** That is the shape of the next few days of research.
 Several days of RESEARCH first — the wiki, the guides, the dev blogs —
 then routing to the lanes. Brief and the standing prompt:
 records/BOHEMIA_THE_BATTLE_BROTHERS_STUDY_8_28_26.md
+
+## 9/20: "BATTLE BROTHERS ON MY PHONE, BUT A LOT BETTER" (Paolo 9/20, LOCKED; records/BOHEMIA_PAOLO_BATTLE_BROTHERS_ON_MY_PHONE_ANALOG_HORROR_AND_THE_ALPHA_OPENS_IN_VOTE_9_20_26.md)
+"I just wanna play like Battle Brothers on my phone, but a lot better, with everything
+we have going on. Instead of this long-ass chess match that Battle Brothers combat is,
+imagine it's a lot quicker; it focuses more on the player character and then your
+companions kind of just auto do stuff. We talked a lot about this. It has to be a lot
+better." This is the identity line beside "the most realistic economic crash simulator,
+but fun", and it changes nothing above: Battle Brothers is the CAMPAIGN LAYER and only
+that (9/5). It sharpens the fight's brief, which was already ruled: the fight is NOT
+their chess match. It is QUICK, on the beat (Rogue Fable 4, 120 BPM), it FOCUSES ON THE
+PLAYER CHARACTER (his camera, his choices, his danger), and the companions act on their
+own (the gambit, FF12, above). THE FIGHT VERDICT (rule 17) carries two numbers from now:
+seconds from the cloud to the fight over, and how many presses were his versus the
+companion's. Nothing is re-opened; he said it again because the fight he saw was none of
+it.

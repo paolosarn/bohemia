@@ -13,7 +13,7 @@ Animal, Gen 2 Human, Gen 3 Angel: ERAS, not creatures, Paolo 9/7; the player liv
 handing you a VERB, parsed from records/BOHEMIA_THE_BOSS_LADDER_v7_8_7_26.md. Combat is
 ROGUE FABLE 4 on the beat at 120 BPM, always against a GROUP, on house-sized tiles
 (9/4), with an automated companion. ONE STEP IS ONE HOUSE on the street too, and bodies are drawn large (Paolo 9/15, LOCKED, laws/BOHEMIA_ADDENDUM_THE_STEP_IS_A_HOUSE_9_15_26.md). Batteries are the money (9/4). Everyone dresses
-like a runway (9/4). NO DAMAGE BEFORE THE DIAL. EVERYTHING COSTS ONE. The demo is its
+like a runway (9/4). EVERY PIXEL AND EVERY SOUND IS ANALOG HORROR, thought about at the source, not a filter, until the game is done (Paolo 9/20, LOCKED, laws/BOHEMIA_LAW_ANALOG_HORROR_FOR_EVERY_PIXEL_AND_EVERY_SOUND_9_20_26.md; a genre direction, never a new reference game). The game in one line (9/20): BATTLE BROTHERS ON A PHONE, A LOT BETTER, with a quick fight centred on the player and companions that act on their own. NO DAMAGE BEFORE THE DIAL. EVERYTHING COSTS ONE. The demo is its
 own link. Paolo DECIDES, you PRODUCE, and he reads at eighth-grade level.
 
 ## THE STRUCTURE (9/4, LOCKED): ONE WORD, ONE HALL, ONE MANAGER
@@ -55,7 +55,7 @@ laws/BOHEMIA_ADDENDUM_THE_PLAYTEST_DISPATCH_8_25_26.md, laws/BOHEMIA_ADDENDUM_TH
   (Paolo 9/5: "Ff12 is combat only"): FINAL FANTASY XII = combat gambits ONLY; ROGUE FABLE 4 =
   combat on the beat; BATTLE BROTHERS = the campaign layer; FINAL FANTASY X = the INTERFACE
   study (8/26, round 01) AND THE SOUND (9/6, his word: "post-apocalyptic FFX, that
-  fantasy beach vibe"); FALLOUT 1 = the INTERFACE too (9/6, act-one look, his word:
+  fantasy beach vibe"; AMENDED 9/20: the sound serves ANALOG HORROR first, what of FFX survives is what fits inside it, laws/BOHEMIA_LAW_ANALOG_HORROR_FOR_EVERY_PIXEL_AND_EVERY_SOUND_9_20_26.md); FALLOUT 1 = the INTERFACE too (9/6, act-one look, his word:
   "2050 rustic"); POCKET CITY 2 = the city-mode DROP-IN TRANSITION only (7/1, laws/BOHEMIA_ADDENDUM_CAMERA_TIMESTEP_FUSED_7_1_26.md, his word "no issue with any of it"); Las Vegas = the city. Citing one outside its department is the same
   violation as citing a game he never named -> laws/BOHEMIA_ADDENDUM_YOU_ARE_THE_LEAD_8_28_26.md,
   laws/BOHEMIA_ADDENDUM_A_REFERENCE_GAME_BELONGS_TO_ONE_DEPARTMENT_9_5_26.md
@@ -92,6 +92,8 @@ laws/BOHEMIA_ADDENDUM_THE_PLAYTEST_DISPATCH_8_25_26.md, laws/BOHEMIA_ADDENDUM_TH
 - NO DAMAGE BEFORE THE DIAL. EVER.
 - A QUEST IS PEOPLE, PLACES AND THINGS, NEVER A CARD; NOTHING POPS UP; TEXT COMES FROM A MOUTH WITH A PORTRAIT (Paolo 9/20, LOCKED) -> laws/BOHEMIA_LAW_A_QUEST_IS_PEOPLE_PLACES_AND_THINGS_9_20_26.md | gate OWED (no player-facing prose outside the phone without a speaker and a portrait)
 - A FAMILY LOOKS LIKE A FAMILY -> laws/BOHEMIA_LAW_A_FAMILY_LOOKS_LIKE_A_FAMILY_8_31_26.md | gate family_gate.js
+- ANALOG HORROR FOR EVERY PIXEL AND EVERY SOUND, until the game is done (Paolo 9/20, LOCKED) -> laws/BOHEMIA_LAW_ANALOG_HORROR_FOR_EVERY_PIXEL_AND_EVERY_SOUND_9_20_26.md | gate OWED (DIRECTION's bible becomes a reference sheet of reference_check_gate.py; until then THE FIGHT VERDICT and EYES E28 by hand)
+- THE ALPHA OPENS IN THE VOTE TAB after the loading screen; the demo keeps VOTE behind the gear (Paolo 9/20) -> laws/BOHEMIA_ADDENDUM_ONE_VOTE_TAB_AND_THE_PORTRAIT_CHAT_9_14_26.md section 8 | gate vote_tab_gate.js (UI adds the landing leg)
 
 ## HOW PAOLO WORKS
 - Voice-to-text stream of consciousness. Transcription garbles constantly.

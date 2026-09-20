@@ -90,3 +90,16 @@ under rule 18 because it is his direct ask and it is tiny.
 - VAMILY_PRIMER.md step 4: twenty chats, the fresh chat is PORTRAIT.
 - CLAUDE.md lane list: portrait.
 - His words are rulings: nothing here asks him anything.
+
+## 8. THE ALPHA OPENS IN THE VOTE TAB (Paolo 9/20, LOCKED; records/BOHEMIA_PAOLO_BATTLE_BROTHERS_ON_MY_PHONE_ANALOG_HORROR_AND_THE_ALPHA_OPENS_IN_VOTE_9_20_26.md)
+"When I play the alpha, not the demo, the alpha: I told you everything from now on that
+needs to get voted on goes into the vote section, and that's the tab that the alpha opens
+up in." Two things. (a) Reaffirmed: the VOTE tab is the ONLY place he votes; a lane that
+presents a candidate anywhere else has shipped nothing. (b) THE ALPHA OPENS IN VOTE: after
+the loading screen (THE PLAYABLE CUT, item 1: nothing tappable until loaded), the alpha
+lands on the VOTE tab, not RUN and not any lane's tab. The DEMO is different: it opens on
+the world, and VOTE stays behind the gear there so a stranger never trips over it. RUN
+[loading screen] carries the landing (the alpha's first tab after the load is VOTE); UI
+[vote tab] makes VOTE a tab the alpha can open on, with the queue newest first and the
+count of what waits for him on it. When the queue is empty the tab says so in one line and
+the RUN tab is one tap away.
