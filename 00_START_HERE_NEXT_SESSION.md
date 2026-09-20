@@ -17564,6 +17564,76 @@ since 9/6, it also holds 19 QUESTS (BUILD). The front page's chat-19 line says a
 chat with an empty queue takes QUESTS, and DYNASTY's queue went empty at Q16. The
 lane and its first row were claimed and pushed BEFORE any work started. ***
 
+ROUND 42 [a person asks] MEASURED THE WHOLE SHIP TEST BEFORE BUILDING ANY OF IT.
+QUESTS, BUILD (un-held for this row only, rule 18). Claimed 0243525. No alpha push.
+  records/BOHEMIA_QUESTS_NOBODY_IS_AT_THE_DOOR_AND_NOBODY_HAS_A_NAME_9_20_26.md
+
+THE SHIP TEST IS ONE SENTENCE: a face on screen speaking within sixty seconds, no
+card. Every part of it measured on the walked city at 06:00 before a line was
+written, because rule 12 says a named dependency is a premise:
+
+  a person at his door        21 bodies on his block (40 more one block out)
+  a NAMED person              *** 0 of 21 have a name -- all answer SOMEBODY ***
+  who SAYS the ask            nobody on that block can speak at all
+  with a portrait             nothing draws a face where a person speaks
+  no card                     a pop-up card is the first thing on screen
+
+BODIES AT THE DOOR ARE NOT THE MISSING PART. The row reads as though somebody has
+to be put there; 21 already are. What is missing is a NAME, a MOUTH and a FACE.
+
+THE NAME: checked BOTH call shapes deliberately, because getting it wrong would
+have blamed PEOPLE for my own error. nameOf answers null for the wrapper AND for
+the person inside it, and the person carries no name field and no tier field at
+all. PEOPLE's rule that a stranger is their trade until you ask is a good rule;
+the point is only that the first ask cannot come from somebody called SOMEBODY.
+
+THE MOUTH, AND THIS IS THE STRUCTURAL ONE. The conversation surface exists and is
+good (ctConvNode / ctConvBody put the quest's own @TALK lines in a real mouth).
+It CANNOT OPEN AT THE DOOR because ctCast() keeps only cast standing on YOUR
+block, and day one's required role casts SIX BLOCKS away -- the game's own offer
+card says "about 4 and a half hours on foot". So the order today is: a card tells
+you about a job, you accept on the card, you walk four and a half hours, and only
+then can a person say a word about it. Rule 19 wants the opposite order. The
+distance is not a bug: the quest's own role condition is faction=TRADES, and the
+nearest TRADES member is six blocks out. THE ASKER AND THE WORK MUST BECOME TWO
+DIFFERENT PEOPLE, which is what the row already says (person at the door, place
+six blocks east). Nothing in the mechanism does that today.
+
+THE FACE: the city already draws faces for bodies (pplFace, FACE are live
+globals), so the portrait is a wiring job and not a new organ.
+
+*** THE MISTAKE I MADE TWICE IN ONE ROUND, FOR EVERY LANE: THE FIRST PASS OF
+THIS MEASUREMENT WAS FALSE AND IT LOOKED FINE. *** It reported 0 people at the
+door and the cast 34 blocks away. I derived the block as (hx/FN)|0, which is a
+finer grid: the game's own ctBlockOf(hx,hy) answers [12,12] where that answers
+[48,48]. Same error this lane recorded on 9/13 ([first ask], circuit -1), and it
+got through a whole probe again. NEVER DERIVE A COORDINATE THE GAME ALREADY HAS A
+FUNCTION FOR, and check a surprising number against something the game says out
+loud before writing it down -- the offer card was sitting on screen saying "six
+blocks" while my probe said thirty-four.
+
+WHAT THIS ROW NEEDS, IN ORDER: (1) a named person at the door carrying the ask;
+(2) their mouth at the door before any card, which means splitting the ASKER from
+the PLACE so ctCast() is not the gate on speaking; (3) their portrait on screen
+while they speak; (4) the card deleted from the path, not hidden behind it
+(RUN [no pop ups]).
+
+ROUND 41 [main quest live] IS FINISHED AND HELD, NOT ABANDONED. The five main
+quests are inlined into the walked city verbatim (37 quests -> 42) and the one
+driver reaches them as days 6-10; gate 42/0, registered, proved to bite three
+ways. It is FOUR COMMITS ON THE SESSION BRANCH AND DELIBERATELY NOT ON MAIN,
+because pushing it would ship it to the alpha and rule 18 holds this lane for
+everything except [a person asks]. It is ready the moment the cut holds.
+  records/BOHEMIA_QUESTS_THE_MAIN_QUEST_IS_IN_THE_GAME_9_18_26.md (on that branch)
+  Measured while verifying it, useful to everybody: of the 37 gates red in the
+  partial suite, 35 are identical on clean main, so they are not this lane's.
+  DAY ONE CAN BE FINISHED is FLAKY, not broken -- ten alternating runs gave clean
+  main 0 of 5 passes and this tree 1 of 5. I reported it as a regression first and
+  was wrong; ONE PASSING RUN IS NOT A BASELINE. -> RUN owns that gate.
+  THE LOOK GATE's staleness is mtime only: touch the city and the one picture shot
+  from the city goes stale; re-shooting it produced a BYTE-IDENTICAL png. The other
+  24 stale pictures photograph the ALPHA and are older debt.
+
 ROUND 40 [light the pump] I STOPPED INSTEAD OF BUILDING, AND HERE IS WHY.
 QUESTS, BUILD. Claim HELD, not returned. No demo re-cut. No code shipped.
   records/BOHEMIA_QUESTS_THE_FIRST_JOB_CANNOT_BE_THE_PUMP_ON_THIS_SEED_9_16_26.md
