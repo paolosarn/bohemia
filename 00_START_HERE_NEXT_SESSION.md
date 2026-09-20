@@ -16709,7 +16709,81 @@ RIGHT NOW: (a) write this whole instruction, word for word, into your own handof
 
 I will never paste anything to you again. From here on, the one word is the whole instruction.
 
-THIS ROUND -- *** THE BODY WAS THREE SIZES AND DOUBLED WHEN HE PINCHED. IT IS ONE SIZE NOW,
+THIS ROUND -- *** THE SAME PERSON IS THREE TIMES SMALLER THE MOMENT A FIGHT STARTS, MEASURED
+ON BOTH SURFACES. IT IS THE SAME DEFECT THIS LANE FIXED ON THE STREET LAST ROUND, IN A
+SECOND PLACE. (sha 56a6a3c9, rule 17's body half) ***
+
+THE ROUND OPENED BY READING THE VERDICTS BACK, which is what the last handoff said to do
+first. verdicts[] is STILL EMPTY. He has not thumbed the three candidates this lane put in
+the VOTE tab; they are still in the queue and the lane gate is green with nothing to
+examine. NOTE FOR THE COORDINATOR: rule 20 moved the VOTE tab into the ALPHA ONLY and took
+it out of the demo. This lane's three items are registered and still resolve, but anything
+anybody told him about "the gear in the demo" is now wrong; that door is UI's.
+
+RULE 18 HOLDS THIS LANE, and its MODE line names the round: measure your part of loading,
+walking or the fight. THE BODY IS THIS LANE'S PART OF TWO OF THE THREE. Walking was
+measured and fixed last round. This is the fight.
+
+MEASURED ON BOTH REAL SURFACES:
+    THE STREET   box 112 px   painted 100 px
+    THE FIGHT    box  37 px   painted  33 px
+    THE SAME PERSON IS 3.03 TIMES SMALLER THE MOMENT A FIGHT STARTS.
+His words the rule was written under: "when I zoomed out, it looked good, but WHEN COMBAT
+STARTED IT WAS SO FUCKING BAD... I was pretty embarrassed."
+
+WHY, IN THE FIGHT'S OWN WORDS AND NOT MINE. It blits the body at 112 times bodyScale(), and
+bodyScale() is "1/FIELD_ZOOM -- the people ride the same number as the floor". FIELD_ZOOM is
+3. So the fighter is a third of a walker BY CONSTRUCTION, and for a defensible reason: its
+own comment says the body was tied to the floor's zoom so that pulling the floor back would
+not leave giants standing on it. It is fixing a real older bug, the careful way, and the
+careful way is what produces a person who changes size.
+
+*** AND THAT IS EXACTLY THE DEFECT THIS LANE SHIPPED ON THE STREET AND FIXED LAST ROUND. ***
+Twice now, in two separate documents, by two different lanes, the same reasoning: tie the
+body to the camera so it stays sensible against the ground. It looks like the responsible
+choice and it always ends with a person who is one size here and another size there.
+THE FIX THAT WORKED ON THE STREET IS THE ONE THAT APPLIES: THE GROUND MAY ZOOM, THE PERSON
+MAY NOT. Hold the body at the ruled size and let the floor move under him. Rule 16 falls out
+for free, because a fixed person on a receding floor grows against the world with no new
+pixels -- which is what he asked for in the first place.
+
+-> FOR COMBAT [fight looks]: THE RULED SIZE IS ONE NUMBER AND THIS LANE OWNS IT.
+   A 112 BOX, ABOUT 100 px OF PAINTED PERSON. Every body on the street is drawn at it, at
+   every zoom a pinch can reach, and gates/body_scale_gate.js holds it there. Re-run
+   tools/bohemia_is_the_fighter_the_same_size_as_the_walker.js as your fix lands; when the
+   two lines in it read the same, that half of rule 17 is done and you have a number to put
+   in your commit instead of an adjective.
+   This lane did NOT touch your document. ONE SYSTEM, ONE SESSION, and rule 17 says your
+   only work is that row.
+
+- NOTHING SHIPPED TO THE GAME: a tool and a record. Rule 18 holds this lane and the fight is
+  not its system. The alpha is untouched, so NO BUILD STAMP -- nothing he opens has a new
+  number on it and saying otherwise would send him looking for a change that is not there.
+- TAB: NOT IN A TAB YET, and there is nothing here for him to look at. This round is a
+  number handed to another lane.
+- HONEST LIMIT, WHICH IS IN THE RECORD AND NOT BURIED: the fight ships as a base64 document
+  inside the alpha, so it had to be decoded and served on its own to read its own functions.
+  Run alone it has no baked body in it, so its PAINTED number is DERIVED -- its measured
+  scale times the street's measured painted share of the same 112 source. BOTH BOX NUMBERS
+  ARE DIRECT READINGS, and the box is what the ruling is about. The probe copies the fight
+  into slices/ for one run and deletes it; it does not leave a file behind.
+- SUITE (rule 13): nothing of the game changed, so there is no pre-push pass to run beyond
+  the lane's own: character_in_the_vote_tab 9/0. Full suite: 107 red at ad23d875, which is
+  now stale by six days; the two carrying this lane's name (FACE THUMB, LOOK) were red on
+  main before this lane's last ten ships, settled by commit dates.
+- STILL ROUTED AND STILL NOT MINE, from last round and unchanged: a_crowd_to_walk_into B1 is
+  RED at 9 of 16 against its own 13 of 16 ratchet. Proven not mine by stashing the entire
+  change and re-running on a clean tree.
+- NEXT ROUND, IN ORDER: (1) read the verdicts back. (2) This section has NO live line and
+  rule 18 holds it; loading is the one of the three this lane has never measured, so that is
+  the honest round unless the coordinator adds a line. The honest reply otherwise is
+  "queue empty".
+- [PENDING Paolo] unchanged and still carried: which faction colour file wins; the
+  Anarchists need a magenta garment and there are zero in 317 (the reserved purple band
+  blocks the obvious cook); the Cartel sits on the drab exemption list and not in the law
+  that names it.
+
+PREVIOUS ROUND -- *** THE BODY WAS THREE SIZES AND DOUBLED WHEN HE PINCHED. IT IS ONE SIZE NOW,
 AND HALF THE DEFECT WAS MINE. (sha b4ad37da, rule 18's walking half) ***
 
 THE ROUND OPENED BY READING THE VERDICTS BACK, which is what the last handoff said to do
