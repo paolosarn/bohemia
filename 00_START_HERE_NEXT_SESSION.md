@@ -21872,6 +21872,78 @@ COMMIT. PLUMBER found the RUN slice drifting +45/-6 behind two engine ships.
 
 HOLDING: nothing. LAST SHIPPED: [every pocket] 9/14, and [owe lines] before it.
 
+*** 9/20 HOLD ROUND (rule 18). NOTHING SHIPPED TO THE ALPHA, ON PURPOSE. ***
+records/BOHEMIA_WORLD_HOLD_ROUND_WHY_THE_CARD_SAID_ZERO_9_20_26.md
+Rule 18(b) holds every building lane but RUN and COMBAT: claims stay claimed, nothing
+pushed, the round is spent measuring your part of loading/walking/the fight. This lane
+touched no game file. [block strikes], [visible change], [suburb walls], [full shelves]
+and [beltway placed] stay OPEN and untouched.
+
+*** HIS COMPLAINT IS MINE, AND IT IS WORSE THAN THE ROUTING NOTE SAID. ***
+"BATTERIES IN THE VALLEY: 0" on the card he read out is my line from [battery worth].
+Reproduced cold on the walked surface:
+    holders before the first card ...... 0
+    FIRST card ......................... "BATTERIES IN THE VALLEY: 0"
+    holders after the first card ....... 15
+    total after the first card ......... 3352
+    SECOND card ........................ "3352 across 15 hands, AND 3352 MORE EXIST
+                                          THAN LAST NIGHT"
+    THIRD card ......................... "3352 across 15 hands"   (correct)
+So my line is WRONG ON THE FIRST TWO NIGHTS HE EVER SEES, in the two worst ways
+available: first it says the valley is empty, then it says the valley conjured 3,352
+batteries overnight -- on a row whose whole subject is that the valley CANNOT MAKE A
+SINGLE CELL.
+
+THE CAUSE, EXACTLY: the valley's money is seeded inside purseGet(), and NOTHING ON HIS
+PATH CALLS IT before the card is composed.
+    before any tap ....... purse made false, holders 0, card "0"
+    after the first tap .. purse made false, holders 0, card "0"
+    purseGet() once ...... 8.6 ms, holders 15, total 3352, card correct
+Something later inside the card's own first draw does reach the purse, which is why the
+count is right by the time that draw finishes and every card after the first is fine.
+THE FIRST CARD READS THE VALLEY BEFORE THE THING THAT FILLS IT.
+The second bug rides on the first: CELLS_LAST starts at 0, so the night after the stock
+appears the drift line subtracts 0 from 3,352 and announces the opening stock as new
+money.
+
+*** AND MY GATE PASSED BECAUSE MY PROBE SUPPLIED THE TRIGGER THE GAME DOES NOT. ***
+battery_worth_gate.js opens its surface check with `const p = purseGet();`. Every number
+after that is true of a page where somebody has already asked for the purse. THE TEST
+CREATED THE CONDITION IT WAS TESTING FOR -- the same family as a gate that
+re-implements the thing it tests, wearing a new hat: A GATE THAT PRIMES THE THING IT IS
+TESTING CANNOT SEE IT FAIL TO START. The gate fix is one line (read the card COLD) and
+it ships with the bug fix.
+
+THE FIX, WRITTEN DOWN AND NOT SHIPPED (rule 18). Two lines, both in my own files:
+  1. count() must not need a trigger -- either it stocks on first ask or the boot stocks
+     once. The money supply of Las Vegas cannot depend on whether somebody opened a purse.
+  2. CELLS_LAST must start at the first real reading, not 0, so the first report says
+     nothing rather than inventing a drift.
+Rule 19(a) kills the pop-up card anyway, so this lands wherever the phone carries the
+bookkeeping. The fix is the same either way.
+
+*** WHAT WORLD COSTS A PHONE -- MY PART OF LOADING (rule 18b). *** Measured at 4x with
+THE THROTTLE PROVEN INSIDE THE RUN (50 ms of spin: 74,894 loops throttled vs 374,736
+unthrottled, a real 5.0x -- the control EYES found missing twice).
+    door opens ....................... 49.3 s   (matches PLUMBER's 52.9 s)
+    ONE-TIME
+      purseGet, incl. my seeding ....... 35.1 ms
+      the night card's FIRST draw ..... 333.8 ms  (the card's own render, not my line)
+    EVERY NIGHT
+      blockRent ........................ 33.3 ms
+      cellsNightlyCharge ............... 14.1 ms
+      pumpNight / valleyRunsOut ......... ~0 ms
+      card redraw .................. 0.5-0.9 ms
+      A WHOLE NIGHT, END TO END ........ 50.4 ms
+WORLD costs about 50 ms a night and 35 ms once at boot. Against the 174 s frozen out of
+the first 300 that EYES measured, MY LANE IS NOT WHERE THE FREEZES ARE -- said with
+numbers rather than left to be assumed.
+
+A NUMBER I NEARLY WROTE DOWN WRONG: the first pass measured the card at 382.8 ms and I
+was one sentence from reporting that as a NIGHTLY cost. Re-measured cold: 333.8 ms on
+the first draw ever, 0.8 ms on every draw after. A one-time hitch, not a per-night tax.
+The habit that caught it was asking for the same number twice.
+
 *** 9/18: [battery worth] ROUND 2. HIS RULING CAME BACK AND THE SUPPLY IS FIXED. ***
 records/BOHEMIA_BATTERY_WORTH_THE_SUPPLY_IS_FIXED_9_18_26.md
 
