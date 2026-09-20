@@ -27045,6 +27045,104 @@ a memory reset. HE WILL NEVER TYPE ANYTHING BUT THE ONE WORD AGAIN. ***
     I will never paste anything to you again. From here on, the one word is the whole
     instruction.
 
+*** [fight looks] THE-FIGHT-IS-THE-STREET-PULLED-BACK. V222 -- ONE TILE, STRETCHED OVER A WHOLE
+HOUSE. CONTINUING, ROUND 1. *** Rule 18: one of the three things that ship. STOP PRODUCING is on
+this lane for mechanics; this is paint only.
+
+THE ROW SAYS MEASURE FIRST, SO I MEASURED FIRST AND BUILT NOTHING UNTIL IT WAS DONE. Both
+surfaces, one session, on the deployed cut, by wrapping drawImage and counting what was blitted:
+
+                    source art      drawn at      ground it covers
+  THE WALK          44 x 44 px      11 x 11 px    0.75 m
+  THE FIGHT         44 x 44 px      66 x 66 px    12 m
+
+*** IT IS THE SAME 44-PIXEL TILE. The street shrinks it to eleven. The fight blew it up to
+sixty-six and asked it to cover sixteen times more ground each way. *** A house lot -- which the
+walked city paints with 256 tiles and even pre-composes as one 704x704 chunk -- the fight painted
+with ONE, smeared across twelve metres. That is the continent-sized crack, and it is his "not at
+scale" and "a different universe", in one number.
+
+THE BODIES WERE NOT THE BUG AND THE MEASUREMENT IS WHAT SAYS SO. The same 112x112 body canvas
+draws at 112 px on the street and 37 px in the fight: 6.0x smaller, against a camera 5.3x further
+back (14.7 vs 2.75 screen px per metre of ground). Within 14%, the people are already right for
+the pull-back the ship test allows ("except that the camera pulled back"). THE GROUND WAS 16x
+WRONG, so this round moved the ground and did not touch a body.
+
+TWO THEORIES I HELD BEFORE MEASURING, BOTH WRONG: (1) the faction floor, drawFloor, which does
+paint a procedural motif and one of them is literally case 'check', a checkerboard -- photographed
+being painted UNDER the board and completely covered; (2) a missing renderer -- the renderer was
+there, the scale it ran at was the bug.
+
+WHAT SHIPPED: a board cell draws THE LOT now, a patch of the walked city's own cells, each with
+its own variant and quarter-turn, composed at the size the street composes at and then let down
+by the camera. lotSub() is tileMetres() over the city's own CELL_M of 0.75 m, so the house board
+gets 16 and the body board gets 2 and nobody typed either. LOT_SUBPX is 11, what the street was
+measured drawing a 44px tile at. 16 x 11 = 176, which is exactly the city's own 704px lot chunk
+at its own 4x reduction: their number. On the cut: 211 cells now carry 54,016 street cells where
+they carried 211.
+
+*** ONLY A MATERIAL TILES. A MARKING DOES NOT, AND THE PHOTOGRAPH IS WHAT CAUGHT IT. *** The
+first cut tiled everything and the yellow dashes VANISHED: repeating the median sixteen times
+turns a stripe into a fine pattern that downsamples to nothing. median, lane, kerb, gutter, wall
+and house are DIRECTIONAL -- the tile IS the thing -- which is why V96 kept them out of ST_SPIN
+with the comment "isotropic surfaces only". The patch reads that existing declaration instead of
+writing a second list.
+
+MAP LAW HELD (streetKindAt still decides WHAT a cell is; the patch only decides how finely one
+material is drawn). NO DAMAGE BEFORE THE DIAL (not a reach, a chance or a hit). The body board
+cannot move: the whole path is behind houseOn().
+
+gates/lot_is_sixteen_tiles_gate.js 22/0 across THE WORKSHOP and THE CUT HE OPENS. It does not ask
+whether a function exists; it forces ONE floor rebuild in a real fight and counts what is blitted.
+MUTATION-PROVED: 8 red on main without the patch, four arms on each surface, symmetrically.
+
+*** AND THE MUTATION RUN CAUGHT A LIE IN MY OWN GATE, WHICH IS THE HANDOVER OF THE ROUND. *** One
+arm asked whether a raw 44px source ever reached the board and it PASSED ON A TREE WITH NO PATCH
+IN IT AT ALL, because streetTile composes 44 into a 66px cache canvas once and then blits the
+cache -- so after the first frame no 44px source is drawn on either tree. A CHECK THAT CANNOT GO
+RED IS NOT A CHECK. Replaced with one that can. The first version also CRASHED on the old tree
+instead of reporting red; a gate that dies cannot tell you which way it failed, so its readouts
+are guarded now.
+
+PHOTOGRAPHS FOR DIRECTION, same session, same phone, one tap apart, which the row asks for every
+round and no FIGHT VERDICT has ever been posted against:
+  records/target/combat/FIGHT_LOOKS_9_20_A_THE_WALK.jpg
+  records/target/combat/FIGHT_LOOKS_9_20_B_THE_FIGHT.jpg
+
+STILL WRONG, MEASURED, NOT FIXED -- this is the next rounds' order and every one is measured, not
+guessed:
+ 1. THE FIGHT SHARES ZERO ART WITH THE STREET. Its 47 ground tiles hashed against the city's
+    9,451: NOT ONE BYTE-IDENTICAL PAIR. The fight carries a second, frozen ground bank whose own
+    header claims every tile is "lifted from an approved bank" -- just not the bank he walks on.
+ 2. A LANE MARKING IS TWELVE METRES WIDE. streetKindAt places median/lane/kerb/gutter per BOARD
+    cell, so one dash line is a whole lot across and the road is 96 m wide. Fixing it means
+    declaring the street at fine resolution, which is authoring a street: MAP LAW's business.
+ 3. THE ROOF READS AS A FLOOR. lotSubKind turns a lot into house/yard/wall and the house tile is
+    drawn flat at ground level, no elevation, no edge, no shadow -- word for word his friend's
+    "checkerboard of orange roof tiles for a floor". THE_LOT_IS_A_HOUSE is right that a roof is
+    the house's read at combat range; nothing yet says THIS IS ABOVE YOU.
+ 4. THE STREET HAS NO GRID AND THE FIGHT DRAWS ONE ON EVERY CELL.
+ 5. THE TWO SURFACES RENDER AT DIFFERENT SHARPNESS: the walked canvas is device ratio 1, the
+    fight canvas is 2.
+
+RULE 13: PRE-PUSH PASS ON THE MERGED TREE -- 10 gates, 9 GREEN. THE ONE RED IS NOT MINE AND I
+MEASURED IT RATHER THAN CLAIMING IT: combat_scale_gate 6/1, "the world is BUILT further than he
+can SEE (visible 30 tiles, content 7.6)". Run against main's own alpha with my change removed it
+is 6/1, THE SAME ARM AND THE SAME TWO NUMBERS, so it is pre-existing on main. It is also a real
+break and it belongs to somebody: at the wide zoom the board is built to 7.6 tiles while 30 are
+on screen, which is a ring of bare ground at the edge of every pulled-back fight. contentR() is
+V198/V219's, not paint, so it is the next thing I look at after the art. Full suite: 107 red at
+ad23d875, none of them named as mine.
+
+THE SHIP TEST IS NOT MET YET, so the line stays CLAIMED: a stranger can still tell, because of 1
+and 3. Record: records/BOHEMIA_COMBAT_THE_LOT_IS_SIXTEEN_TILES_9_20_26.md  Stamp 9/20a.
+Tool: tools/bohemia_lot_is_sixteen_tiles_patch.py  Tab: COMBAT, and any fight you walk into
+from CITY.
+
+STILL OPEN FROM EARLIER ROUNDS, ROUTED: the combat_entry_gate one-in-five flake (the door was
+ruled out by measurement, it is not the two-beat wait); RUN's cold open still fabricates
+name:'hostile_'+i; and [PENDING Paolo] where a scoped rifle stops on the house board.
+
 *** [dev strip] THE-FIGHT-SHOWS-THE-DEVELOPER'S-BUTTONS-TO-THE-PLAYER. V221 -- PROVED ON THE CUT. SHIPPED. ***
 The coordinator's row asks for something my last ship did not do and says so in its own words:
 "the gate opens a real fight ON THE CUT and finds none of the five." My gate ran on the ALPHA.
