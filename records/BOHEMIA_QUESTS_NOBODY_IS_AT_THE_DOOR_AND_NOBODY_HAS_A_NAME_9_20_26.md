@@ -80,6 +80,56 @@ already has a function for, and check a surprising number against something the
 game says out loud before writing it down.** The offer card was sitting there
 saying "six blocks" while my probe said thirty-four.
 
+
+## SECOND PASS, AND IT INVERTS THE OBVIOUS FIX
+
+The obvious fix after the first pass was: the quest's own role condition is
+`lineman REQ faction=TRADES block=browned`, the caster keeps `block=browned` only
+as a LABEL and never as a place, so honour it and the lineman lands on the
+browned block instead of six blocks out. His own lines even argue for it --
+"everybody on this block knows my face, man. I've got a kid." The fiction says he
+is a neighbour; the cast says he is a four-and-a-half-hour walk away.
+
+**MEASURED BEFORE BUILDING IT, AND IT WOULD NOT HAVE WORKED.**
+
+    within one block of the door    61 people
+    of those, TRADES                *** 0 ***
+    the factions actually there     Church 3, no outfit 18 (on the block itself)
+    the player's own block          POWER.at -> {live:false, id:-1}
+
+Two things kill it. There is **no TRADES member within a block of the door** to
+cast, however the condition is read. And `id:-1` does not mean a dark circuit, it
+means **no circuit here at all** -- the exact reading this lane got wrong on 9/12
+and wrote down ([check the claim]: "a reader that answers nothing everywhere is
+not a quiet world, it is a wrong question"). So the player's block is not
+"browned" either. The condition cannot be satisfied at the door by any change to
+the caster.
+
+I nearly shipped a caster change that would have moved nobody.
+
+## SO THE FORK IS REAL, AND IT IS THE ROW'S OWN SENTENCE
+
+The row already allows the split: "a NAMED PERSON ... at his door" and "the place
+is on the map six blocks east". The asker and the work are two different places.
+But the quest's opening `@TALK open` node is `speaker=lineman`, and those are the
+words that ARE the ask ("Nine at night, every night, and half this block goes
+brown... So walk it back for me"). Somebody else at the door speaking them would
+be mis-casting a named role.
+
+**THE DEFENSIBLE DEFAULT, AND THIS LANE DECIDES IT RATHER THAN ASKING (EVERYTHING
+IS A THUMB): THE LINEMAN COMES TO YOUR DOOR.** A person who wants something from
+you walks to you; that is what "somebody at your door" means, and it needs no
+word of content changed, because his own lines already say he is from this block.
+The WORK stays six blocks east, which keeps [distance shown] honest and keeps the
+offer card's "about 4 and a half hours on foot" true.
+
+What that needs, and who owns it:
+- the asker's BODY at the door at 06:00 (a placement, not a new person) -- this
+  is where QUESTS ends and PEOPLE/WORLD begin, and it is named here rather than
+  reached into.
+- his MOUTH not gated on `ctCast()` standing on your block -- QUESTS, mine.
+- his NAME and FACE -- PEOPLE and PORTRAIT, as the row already says.
+
 ## WHAT THIS ROW NEEDS, IN ORDER
 1. A named person at the door who carries the first ask (QUESTS, + PEOPLE for
    the name).

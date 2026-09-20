@@ -18220,6 +18220,26 @@ FUNCTION FOR, and check a surprising number against something the game says out
 loud before writing it down -- the offer card was sitting on screen saying "six
 blocks" while my probe said thirty-four.
 
+*** SECOND PASS, AND IT KILLED THE OBVIOUS FIX BEFORE I BUILT IT. *** The
+obvious move was: the role condition is `lineman REQ faction=TRADES block=browned`,
+the caster keeps `block=browned` only as a LABEL and never as a place, so honour
+it and he lands on the browned block. His own lines argue for it -- "everybody on
+this block knows my face, man. I've got a kid." MEASURED FIRST AND IT WOULD HAVE
+MOVED NOBODY: within one block of the door there are 61 people and ZERO TRADES
+(the block itself is Church 3, no outfit 18), and POWER.at on the player's own
+block answers id:-1, which means NO CIRCUIT HERE AT ALL, not a dark one -- the
+exact misreading this lane wrote down on 9/12 ([check the claim]). So the
+condition cannot be satisfied at the door however it is read.
+
+THE DECISION, MADE HERE RATHER THAN ASKED (EVERYTHING IS A THUMB): THE LINEMAN
+COMES TO YOUR DOOR. A person who wants something from you walks to you, it needs
+no word of content changed because his own lines already say he is from this
+block, and the WORK stays six blocks east so [distance shown] and the offer
+card's "about 4 and a half hours on foot" stay true. Mine to build: his mouth,
+not gated on ctCast() standing on your block. Named and NOT reached into: his
+BODY placed at the door at 06:00 is PEOPLE/WORLD, his NAME is PEOPLE, his FACE is
+PORTRAIT -- which is what the row already says.
+
 WHAT THIS ROW NEEDS, IN ORDER: (1) a named person at the door carrying the ask;
 (2) their mouth at the door before any card, which means splitting the ASKER from
 the PLACE so ctCast() is not the gate on speaking; (3) their portrait on screen
