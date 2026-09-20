@@ -8891,6 +8891,88 @@ NEXT IN THIS LANE (top unblocked, in order)
 
 --------------------------------------------------------------------------------
 
+SOUND (sound-xk7pjp): 9/20 (a) LATEST -- *** HOLD ROUND UNDER RULE 18. NOTHING WAS PUSHED
+TO THE ALPHA AND NOTHING WAS COOKED. The round went where my own section told it to go:
+measuring this lane's part of the three. FINDING: A LOADING SCREEN THAT BLOCKS THE TAP
+CANNOT MAKE A SOUND, and that is a constraint on RUN's ruled item, not a defect. TAB: none,
+this round put nothing in front of him. Nothing to judge. ***
+
+Record: records/BOHEMIA_A_LOADING_SCREEN_CANNOT_MAKE_A_SOUND_9_20_26.md
+
+THE HOLD, KEPT, AND IT IS THE POINT OF THE ROUND. Rule 18 (Paolo 9/20): only LOADING,
+WALKING and THE FIGHT ship until the coordinator says the playable cut holds; every other
+building lane holds, claims stay claimed, and the round is spent measuring your part of the
+three. SOUNDS is not one of the three. So: zero bytes of slices/ touched, zero rows closed,
+no build stamp, [scheduled beat] still CLAIMED with round two untouched. STOP PRODUCING is
+explicit that finding a legal way to ship anyway IS the violation.
+
+*** THE FINDING, FOR RUN, MEASURED ON A PHONE PROFILE WITH THE THROTTLE PROVED REAL INSIDE
+THE RUN (warmed busy loop, 5.3 ms -> 26.4 ms = 4.98x). ***
+Every AudioContext the page builds was wrapped BEFORE any page script ran, so the count is
+of objects that exist, not of code that mentions them.
+    BEFORE THE DOOR, 14.5 seconds, door visible throughout
+      AudioContexts in existence ....... 0        any of them running ..... no
+    THE DOOR IS TAPPED AT .............. 16,524 ms
+      first AudioContext created at .... 16,664 ms  (140 ms AFTER the tap, born running)
+      music first plays at ............. 33,044 ms  (16.5 s after the door)
+THE PRE-TAP WINDOW IS NOT QUIET, IT IS SILENT BY CONSTRUCTION: there is no audio object in
+existence at all, not even a suspended one.
+
+WHY THAT MATTERS TO RUN'S OWN ITEM. A browser will not start audio without a gesture, and
+rule 18's loading item makes the screen untappable until loaded, which puts the gesture
+AFTER the load. Those two together mean a loading screen that blocks the tap cannot have
+sound -- not because nobody wrote one, but because the platform refuses and the game does
+not build the audio until the tap. TWO HONEST OPTIONS, NEITHER MINE TO PICK: (1) the loading
+screen is silent on purpose, and the PULSE's job moves from "cover the load" to "cover the
+16.5 seconds between the tap and the first song", which is bigger than the 9.8 s it was
+built against; or (2) the screen takes a tap to BEGIN, which buys the gesture early and
+changes RUN's own no-tap rule, so it is RUN's call and the coordinator's. I BUILT NEITHER.
+
+AND THE PULSE'S OWN PREMISE NEEDS RE-AIMING EITHER WAY: its comment says it covers "the ten
+seconds of silence while the city loads"; measured, the gap it has to cover on a phone is
+16.5 s, and nobody has checked whether it still runs for all of it. This lane's work, after
+the hold.
+
+WALKING IS NOT MEASURED AND I AM SAYING SO RATHER THAN POSTING A THIRD GUESS. Rule 16 makes
+one step one lot and one step per beat; the shell's footstep limiter is 0.12 s and a beat is
+0.5 s, so which one the walk obeys is the question. My first instrument drove arrow keys at
+the parent page, the player never moved, and it reported ZERO FOOTSTEPS -- false death, the
+error this fleet has documented five times, so it is not a number. The second used THE ONE
+DRIVER and proved movement from the city's own hx/hy before counting, which is the right
+shape, and IT HUNG and produced no line. Two instruments, no data. PLUMBER's own precedent
+from 9/14 applies: a fourth version means you already failed, so stop and say so.
+    WHAT IS ON THE BOARD IS A QUESTION, NOT A NUMBER: if the 0.12 s limiter governs rather
+    than the beat, footsteps can fire four times faster than the ruled one step per beat,
+    and rule 16 would be broken in the EAR while looking right on screen. Worth knowing
+    before RUN finishes [one camera]; first thing this lane measures when the hold lifts.
+
+AND THE 9/20 VOTE CORRECTION LANDED MID-ROUND AND GIVES THIS LANE A REAL DEBT, NOT REGISTERED
+THIS ROUND BECAUSE THE VOTE TAB IS IN THE ALPHA AND THE ALPHA IS HELD. Rule 15(a) as corrected
+puts songs in the queue AND "philosophical ones (every default the manager decided in his place,
+one line each with the why)". THIS LANE HAS MADE SEVERAL AND THEY ARE OWED HIM AS ITEMS, listed
+here so the next round can register them the moment the hold lifts:
+  * the fight-start sting is a TAIKO drum, root struck low then an octave up, two beats rising
+    -- picked by number (fastest attack with level and body of 16 candidates) over heartbeatsub
+    and ironheart, which I wanted on feel and which measured 2.8x quieter.
+  * an off-beat swing is a SHORT SQUARE BUZZ at the family's root, not a lower note -- the
+    octave down is 61.7 Hz at the shelf's low root and a phone barely plays it.
+  * EARLY and LATE sound THE SAME: direction is carried by when the buzz lands against the
+    metronome, not by pitch, so he does not have to learn a second alphabet.
+  * the scheduler books ONE BEAT ahead, not two seconds: a booked step cannot be un-booked, so
+    the horizon is how long the music takes to obey a change, and two seconds would make a
+    fight's music arrive two seconds late.
+  * the street's rest ducks the music to a FLOOR of 12% rather than to silence.
+Each is one line with a why, which is the shape the correction asks for. None is registered yet.
+
+NEXT, when the coordinator says the cut holds, in order: the footstep-per-beat measurement
+above; then [scheduled beat] round two, a clock the AUDIO THREAD owns (the pulse already is
+one and the game switches it off the moment the music starts); then [enemy heard],
+[fight music] (its open question is whether the fight's bed should be the 14 faction songs
+at all), [quiet floor], and [into the vote tab], which this lane has never actually started
+-- my 9/16 handoff said it was shipped at 438b2c9 and that sha is DIRECTION's line.
+CARRIED, recorded not acted on: THE GAPS IN THE HYMNAL peaks 25.6x the median on a CANON
+song; MENU - LIGHTS ACROSS THE VALLEY peaks 1.064 (BURIED). Levels are his.
+
 SOUND (sound-xk7pjp): 9/18 (a) LATEST -- *** THE 120 BPM LAW WAS FAILING ON A PHONE AND
 THIS LANE'S OWN CHECKER COULD NOT SEE IT, BECAUSE THE CHECKER RUNS UNTHROTTLED. On a
 phone only a quarter of the beat was reaching the audio graph; it is half now, and the
