@@ -28504,6 +28504,13 @@ LIFE+CITY [side variants] 3 -> 36 tiles; WORLD [battery worth] r2 (supply fixed,
 not printed); COOK car r8 (16 of 16 at 1.000); PEOPLE [heir moment]; PLUMBER: the walk
 number was a player pressed against a wall (the instrument met his bug before he did);
 EYES r9; ECONOMY Q46 (the day is the right size, wrong unit); UI r10; WORDS Q5 school.
+THEN (el) PAOLO 9/20: THE NOTES BUTTON. Verbatim: records/BOHEMIA_PAOLO_THE_NOTES_BUTTON_9_20_26.md. The vote-tab law gains
+section 7: a tiny NOTES button top right in the demo; tap, a box over the game, the clock
+pauses, he types, tap again and he is back where he was; every note carries the build
+stamp, the mode, where he stood, the seconds in and a small frame; notes leave the phone
+the road a vote does (registry + one .txt export he sends the manager) and the manager
+reads them as rulings. UI [notes button] FIRST; rule 18f: his direct tiny asks ship under
+the hold. His question answered: yes it makes sense.
 
 COORDINATOR: 9/4 (ba) -- *** THE MEETING HALL:
 VAMILY.md's front page now carries every rule, and every chat re-reads it every time

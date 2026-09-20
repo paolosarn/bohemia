@@ -70,6 +70,18 @@ FROM EVERY ANGLE) plus three rulings from this message:
 - HE SPEAKS ALONG: his per-face comments in the VOTE tab are the direction channel; the
   PORTRAIT chat reads them every round and answers each one with a new candidate.
 
+## 7. THE NOTES BUTTON (Paolo 9/20, LOCKED; his words in records/BOHEMIA_PAOLO_THE_NOTES_BUTTON_9_20_26.md)
+"In the demo there should be a note section at the very top right, just the tiniest
+button, where as I'm playing the demo I can write all my thoughts down and then resume
+back to playing." A NOTES button in the demo, top right, the tiniest control on the
+screen. Tap: a box opens over the game and the clock pauses; he types; tap again and he
+is back exactly where he was. Every note carries its own context without him typing it:
+the build stamp, the tab or mode, where he was standing, the time into the play, and a
+small frame of what was on screen, so "this looks bad" says what looked bad. Notes leave
+the phone the same road a vote does: the registry and one .txt export he can send to
+the manager; the manager reads them as rulings the next round. UI owns it; it ships
+under rule 18 because it is his direct ask and it is tiny.
+
 ## 6. ROUTING
 - VAMILY.md: THE TWENTY CHATS; a fresh chat with no name is 20 PORTRAIT (PLUMBER is
   claimed); PORTRAIT section with MODE SCHOOL THEN BUILD and its first lines; UI [vote
