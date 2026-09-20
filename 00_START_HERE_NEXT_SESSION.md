@@ -1,3 +1,118 @@
+WORDS (words-8dqrnq): 9/20 (b) LATEST -- *** Q27 [analog horror voice] SCHOOL DONE, ROUND ONE OF
+TWO. NO TEST LINES, banks/ UNTOUCHED, nothing to the alpha (rule 20e puts this under the rule 18
+hold). *** Rule 20 (Paolo 9/20, LOCKED) named WORDS Q27 and it is the FIRST open line in this
+lane, ahead of Q26 [the first ask spoken] which the row says is read through it. The owed school
+rounds for Q6 onward wait. Q5 shipped with both rounds last round (9/20 block below).
+Record: records/BOHEMIA_WORDS_Q27_SCHOOL_WE_WROTE_THE_SURVIVORS_AND_NEVER_THE_THING_THAT_STOPPED_9_20_26.md
+
+(1) *** THE ROW'S OWN PREMISE IS BACKWARDS, AND THAT IS THE FINDING. *** It asks for the voice
+every sentence on screen is written in. MEASURED OVER ALL 3,014 SPOKEN LINES: there is barely any
+world's text to have a voice.
+    nobody / no one / nadie                 194 lines  6.4%
+    stopped / went dark / gone / shut down   59 lines  2.0%
+    used to / any more / since the lights    22 lines  0.7%
+    something still running                  10 lines  0.3%
+    *** AN INSTITUTION NAMED AT ALL           8 lines  0.3% ***
+THE GENRE'S FEAR IS THAT THE WORLD RUNS NORMALLY AND NOBODY IS LEFT WHO SHOULD BE RUNNING IT. WE
+WROTE THE "NOBODY IS LEFT" HALF FOR MONTHS AND NEVER WROTE THE THING THAT STOPPED. People are
+everywhere in our text and they are the best thing in it; a city, a county, a company, an office,
+a board or a utility appears eight times. And reading the ten "still running" hits BY HAND: nine
+are a PERSON still standing or still alive. Exactly one is the genre's own sentence, and it proves
+the lane can already do it: "It's still on the wall, still true, still deciding which streets have
+light tonight". A document, on a wall, nobody left to change it, allocating power tonight.
+SO ROUND TWO IS NOT A VOICE PASS OVER AN INSTITUTIONAL CORPUS. The institution has to EXIST first.
+
+(2) AND RULE 19 LANDED THE SAME ROUND AND MAKES THE OBVIOUS MOVE ILLEGAL. Rule 20's voice is a
+dead institution, which is by definition FACELESS. Rule 19 says no player-facing sentence outside
+the phone exists without a named speaker and their portrait. A lane reading only rule 20 writes
+creepy institutional prose onto the screen and rule 19 kills it on arrival. NOT A CONTRADICTION
+AND IT DOES NOT GO TO PAOLO: rule 19 leaves two doors open in its own words, a LABEL ON A MACHINE
+(section 3) and THE PHONE HE OPENS HIMSELF (section 2a, which just inherited the night summary,
+the ledger, the rent, the batteries and the deeds). So the institutional voice has ONE HOME and it
+is the phone, plus words printed on machines. FALLOUT 1 already owns the interface and rule 20(4)
+says read it as the dead institution's screen, so the named reference set already covers this.
+MEASURED, so each door is a number: of 3,147 lines, 3,014 (95.8%) are already in a mouth; 133
+(4.2%) are on screen with no mouth, and of those 107 are machine labels (legal), 14 are objectives
+(imperatives with no speaker, legal only on the phone) and 12 ARE NARRATOR PROSE THAT DIES OR
+MOVES. THE INSTITUTIONAL REGISTER IS LEGALLY AVAILABLE ON ABOUT FOUR PERCENT OF OUR WORDS.
+
+(3) AND FLATTER IS NOT AVAILABLE, WHICH KILLS THE OTHER OBVIOUS MOVE. "Too calm" is relative to
+something. ONE EXCLAMATION MARK IN 3,014 SPOKEN LINES. 31 lines (1.0%) use capitals for stress.
+Zero exclamations in the 133 interface lines. A register that covers 99% of the corpus CANNOT MARK
+ANYTHING. Analog horror's calm is a CONTRAST effect: the announcer reading the casualty list in the
+weather voice works because you know the other voice. So round two must not "write it flatter",
+there is nowhere flatter to go; the work is WHAT THE FLAT SENTENCE IS FLAT ABOUT, alarming content
+in the syntax of a readout, sitting beside a person who does react. The 31 raised lines are the
+contrast the other 2,983 need and they are an asset, not an inconsistency.
+
+(4) THE LAW NAMES ONE OF THIS LANE'S SHIPPED LINES BY NAME. Rule 19 section 3: "'The Meter Reader:
+nobody picked it up' is a sentence with no mouth; it dies." All twelve narrator-prose lines are
+listed in the record, read by hand. The worst three are paragraphs explaining the world in a voice
+belonging to nobody, and two of those are also the closest thing we have to an institutional
+register, which is why they read as authoritative and why they MOVE rather than just get deleted.
+AND A CATEGORY RULE 19 HAS NO SLOT FOR, found by reading: three of the twelve are THE PRODUCT
+talking about the browser ("Saved to this device", "Put it on your home screen"), not the game.
+They belong on a machine panel. NAMED FOR RUN [no pop ups], not touched by this lane.
+
+(5) THE REAL-WORLD SKELETON FOR THE PHONE, AND IT IS THE LAW'S, NOT A MOOD. A utility
+disconnection notice must carry: the exact date and time of the cut; the total owed itemised into
+past due, current and fees; the right to dispute; how to ask for a payment plan or assistance; the
+reconnection procedure AND ITS FEE; appeal contact; 10 to 20 days notice with a 48 to 72 hour
+final; plain language for a layperson. AN EMERGENCY ALERT is five slots: source, hazard, location,
+protective action with when and how, and expiry or next update. THE HORROR IS THE SKELETON
+SURVIVING ITS AUTHOR: a notice that still has a reconnection fee, a dispute procedure and an appeal
+contact, ten years after the office that would answer any of them closed. Costs nothing to write.
+And ours gets an edge free: the amount owed is ONE BATTERY (EVERYTHING COSTS ONE), so the notice's
+arithmetic is absurd while its form is immaculate.
+*** AND IN MANY PLACES THE NOTICE MUST BE ISSUED IN ENGLISH AND IN SPANISH. *** That is real law
+about real notices, so THEY SPEAK SPANGLISH (8/25) REACHES THE INSTITUTION BY A SECOND ROUTE: a
+person code-switches, a notice is issued twice.
+
+(6) WHAT IT DOES TO THE 96% THAT IS IN A MOUTH: nothing about register, a person is not a
+broadcast. The law asks two things of a person, from its own section 2: a voice TOO EVEN, and an
+ordinary frame with ONE WRONG THING in it. In a mouth that is: calm about the part that should
+frighten them and particular about the part that does not matter; the wrong detail said plainly,
+in passing, never returned to; nobody explains the world, they refer to it as if it was always
+like this; and THE INSTITUTION APPEARS AS A FORM, A NUMBER, A RULE SOMEBODY IS STILL FOLLOWING, A
+FEE. That last one fixes finding 1 without a narrator: the institution can live in people's mouths
+as a thing they still obey, which is legal under rule 19 and, from the real record of collapse,
+more accurate than a broadcast.
+
+WHAT DOES NOT MOVE: no analog horror series, channel, film or game is cited anywhere in this
+round (rule 20b), and the prior art is emergency-alert practice and utility notice law, which are
+DOCUMENTS and not media; this lane was caught twice in three rounds citing games Paolo never named
+and that is why the sources are what they are. Spanglish stands. The runway, the far view, colour
+is territory and 120 BPM stand. Q4's boxes stand (23-28, 45-56 or 68-84 chars at 14 cps). And the
+9/6 TWO-ROUND MODE OUTRANKS THE ROW'S "one page with three lines": the page is this round, the
+proof lines are round two, because a Paolo-locked mode beats a coordinator's brief.
+
+A SMALL ONE, RECORDED BECAUSE IT IS THE SAME CLASS THIS LANE KEEPS HITTING: my banned-phrase check
+returned clean while the file contained a banned phrase, because THE PHRASE WRAPPED ACROSS A LINE
+BREAK and a line-based grep cannot see it. Caught by flattening whitespace before matching. A
+line-oriented ruler is blind to anything that wraps.
+
+ROUTED: TO RUN [no pop ups], the twelve lines by name including the one Paolo named, plus the
+three browser lines rule 19 has no category for. TO UI [talk panel] AND WHOEVER OWNS THE PHONE:
+the phone is now the only legal home for the institutional voice and section 5 is its skeleton; it
+is a FORM, not a feed post. TO PEOPLE/QUESTS: the institution lives inside a person's mouth as a
+rule they still follow, and that is where the 0.3% gets fixed. TO DIRECTION [analog horror], one
+line offered to the bible and not a claim on it: the genre's fear needs BOTH halves, and a frame
+with nobody in it is only half; the other half is the thing still running.
+
+GATES, ALL SIX THIS LANE OWNS: voice 118/0, dialogue catalogue 63/0, attempt 15/0, language 83/0,
+voice audible 2/0, handoff 8/0. SUITE LINE: pre-push pass green; none of the suite's outstanding
+reds is this lane's.
+
+STANDING QUEUE: Q27 round two is the top (three proof lines and the phone's voice), then Q26 [the
+first ask spoken] read through it, then Q6 through Q17 still owe their school rounds under the 9/6
+mode, oldest first. The four held BUILD rows stay held.
+STANDING WATCH: verdicts[] in records/target/BOHEMIA_VOTE_REGISTRY.json, every round, for ids
+starting words-. Checked this round: 16 items, 0 verdicts, nothing to act on. Four of mine are
+registered. Up means build it in that same round; down means graveyard with a post-mortem.
+NOTES ARE RULINGS, never ask him twice.
+HANDOFF DISCIPLINE, THE 9/13 AMENDMENT: this block was built by taking origin/main's copy of the
+file fresh and prepending a NEW head. Never demote another lane's head and never splice by index.
+
 UI (ui-kmqmrf): 9/20 LATEST -- *** [notes button] SHIPPED. HE WRITES A THOUGHT WITHOUT
 LEAVING THE GAME. *** TAB: CITY, the top right of the bar, in the demo. Build 9/20b.
 Record: records/BOHEMIA_THE_NOTES_BUTTON_9_20_26.md
