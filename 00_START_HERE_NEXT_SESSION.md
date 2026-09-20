@@ -2658,6 +2658,83 @@ archive escape built in from the start so [handoff cut] is unblocked rather than
 THE WARNING FOR EVERY LANE: do not write this file from a copy you read at the start of your round.
 Re-read it immediately before you edit, and check your own block is still there after any rebase.
 
+ANIMATION (animation-lr9y9i): 9/21 (a) LATEST -- *** HOLD ROUND 2, RULE 18. Nothing
+pushed to the alpha. ONE PRESS IS TWENTY-FIVE REAL PACES AND THE LEGS DO ONE. TAB:
+ANIMATION, unchanged; no build. ***
+
+Rule 18 holds this lane. [redo killed] stays CLAIMED, the alpha is untouched, and the
+round bought numbers for WALKING. Rule 20 (ANALOG HORROR) is new and does NOT name
+this lane in its WHO list, and DIRECTION's bible is not written, so writing a motion
+bible here would be producing while frozen and ahead of the lane that owns it. Not done.
+
+=== THE PIECE OF WALKING NOBODY HAD MEASURED
+His words: "a stride that lands on the next standable place toward the press". The
+camera and the body size were measured last round. THE STRIDE HAD NOT BEEN. It is this
+lane's, and it is what he is looking at while he walks.
+
+=== THE STEP IS A WHOLE HOUSE NOW, WHICH IS CORRECT
+STEP_CELLS reads 25 ON THE LIVE SURFACE. (The source still carries
+STEP_CELLS_QUARTER = 5 from the 9/15 part one, and the live value has moved past it --
+READING THE SOURCE GIVES THE WRONG NUMBER, so it was read live.) A fine cell is
+0.75 m, so one press moves him 25 x 0.75 = 18.75 METRES. Rule 16 landed.
+
+=== BUT THE LEGS STILL WALK ONE PACE
+Walk stride measured on the rig along the facing axis, relative to the body: 8 px
+facing the camera, 31 px in profile, median 17.7, on a body 98 px tall. At HC 11 (the
+one camera where a house fits) the drawn body is 112 px and the rig is 112, so rig px
+are screen px:
+    dir | the body travels | the feet depict | feet cover | SKATE per press
+      N |            275px |             8px |        3%  |         267 px
+     NE |            389px |          14.8px |        4%  |         374 px
+      E |            275px |            31px |       11%  |         244 px
+     SE |            389px |          17.7px |        5%  |         371 px
+THE FEET COVER 3% TO 11% OF THE DISTANCE. The body skates 244 to 374 px every press,
+on a phone 390 px wide. He crosses most of the screen in one press while his legs do
+one small pace. That is a strong candidate for why walking feels worse than it was.
+
+=== AND IT CANNOT BE TUNED, BECAUSE THE NUMBERS ARE NOT CLOSE
+A pace is about 0.75 m, so ONE PRESS IS 25 REAL PACES. At 120 BPM, one step per beat,
+that is 18.75 m in 0.5 s = 37.5 m/s = 135 KM/H. A person walks 1.4 m/s. A stride long
+enough to depict it would be 2.5x the body's own height.
+THIS IS NOT A BAD NUMBER IN A CLIP. It is a walk cycle being asked to depict something
+that is not a walk. The honest options are (1) the body plays MANY gait cycles across
+one press, about 25, so the legs read as covering ground, or (2) the press is not a
+walk and needs its own motion. Both are this lane's and both are frozen. WHICH ONE IS
+NOT A MEASUREMENT, so it is not decided here.
+
+=== AND THERE ARE TWO LIVE NUMBERS FOR A LOT, WHICH RULE 16 FORBIDS
+    BOH_LATTICE.LOT_FINE = 24 fine cells   (the lattice's lot)
+    BODY_SCALE.lotFine   = 25 fine cells   ("measured median lot pitch")
+    STEP_CELLS           = 25 fine cells   (what a press actually moves)
+Rule 16: "ONE NUMBER IN ONE PLACE... a second copy anywhere is the bug." There are
+two. Step and body agree at 25; the lattice says 24. It is one cell, so nothing looks
+broken, which is exactly why it will sit there. [FOR WHOEVER OWNS THE LATTICE] named,
+not touched.
+Record: records/BOHEMIA_ONE_STEP_IS_TWENTYFIVE_PACES_9_21_26.md
+
+NOTHING BUILT, NOTHING PUSHED TO THE ALPHA, NO BUILD STAMP, no gate added or changed.
+This round's diff is a record and this block.
+
+STILL TRUE FROM LAST ROUND, for the same three:
+- the body takes THREE sizes across the pinch and SHRINKS as he zooms in between the
+  first two stops; HC 11 is the only walk zoom where a house fits a phone, so it is
+  the one camera, and there the body is 0.407 of a lot against his ruled 0.5.
+- the same stop is 4x different between a phone and a 628px window (HC 22 is 56px
+  against 224px), because the size reads cv.width.
+- THE FIGHT AND THE STREET ARE NOT THE SAME BODIES: 112 to the fight, 56 to the
+  street, from the same render.
+- CAST_PX MUST STAY 56. My "raise it to 112" advice was wrong as a standalone
+  instruction; it only works paired with the city's ladder reading m.w.
+
+WHAT IS LEFT OF [redo killed], FROZEN UNTIL THE CUT HOLDS
+- Four gun-clip frames still draw a detached head; NECK HOLDS HEAD prints them.
+- Beats two and three are ONE problem, per-facing; two causes for beat three measured
+  DEAD and printed by FOUR BEATS.
+- Four clips still snap, all small, worst 12.6px. Pose problems.
+- POSEHOLD key density; the 47 blocked on UI [vote tab] (rule 15).
+
+Nothing [PENDING Paolo].
+
 ANIMATION (animation-lr9y9i): 9/20 (a) LATEST -- *** HOLD ROUND, RULE 18. Nothing
 pushed to the alpha. THE BODY CHANGES SIZE THREE TIMES WHEN HE PINCHES AND ONE OF
 THE CHANGES GOES BACKWARDS. Measured, not built. TAB: ANIMATION, unchanged. ***
