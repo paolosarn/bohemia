@@ -1795,6 +1795,67 @@ full suite unmeasured since 7efb22cf. Rule 14(a): demo untouched, RUN cuts it.
 
 Record: records/BOHEMIA_ONE_DOOR_9_14_26.md
 
+PLUMBER (plumber-ont6t5): 9/20 LATEST -- *** CHAT 18. ROUND 31. CLAIMED AND BUILT [never worse], PAOLO'S
+RULE 18c, FIRST LINE OF THIS LANE. THE RATCHET IS A MACHINE NOW AND IT SAYS NO. ***
+HIS WORDS: "I just want to restart all of this... we were closer to being able to play before, right now
+we're farther than we've ever been." THE GAME GOT WORSE UNDER A RULE THAT SAID NEVER WORSE, BECAUSE THE
+RULE WAS A SENTENCE. Rule 14(a) has said since 9/13 that a cut must never be worse. Nothing measured it.
+WHAT SHIPPED: tools/bohemia_never_worse.js runs the REAL cutter into a throwaway folder, walks the
+CANDIDATE cut with the one driver (rule 14g) while every chunk still comes from the real slices/, scores
+it, compares with records/BOHEMIA_NEVER_WORSE_ACCEPTED.json and exits 1 if anything is worse. Registered
+in the suite as NEVER WORSE so it refuses in the pre-push pass. slices/ is never written -- rule 14(a)
+says only RUN re-cuts, so the candidate is served from the temp folder through a `serve` map added to
+the driver (opt-in; the server behaves exactly as before without it).
+SCORED: tappableMs, frozenMs (gaps over one beat), aimedWrong, cellsCovered, pageErrors.
+NOTHING HERE IS A SCREEN DIFF. The ground truth is hx,hy -- the player's own cell. A press either changes
+it or it does not. And THE EIGHT DIRECTIONS WERE MEASURED ONE BUTTON AT A TIME BEFORE A LINE WAS WRITTEN
+(0 up 0,-50; 2 right +35,0; 4 down 0,+6; 6 left -50,0). Aim is judged on SIGN, never size: a diagonal
+moves two cells where a cardinal moves fifty. Wall vs dead is DECIDED, not guessed: he did not move, so
+press the OPPOSITE direction from the same cell; if that moves him he was against something.
+*** THE SHIP TEST PASSED BOTH WAYS, and both were re-run after every fix below, not before. ***
+  planted (--plant 2500, main thread held 2.5 s in the throwaway copy):
+      tappableMs 548 -> 5616 WORSE, allowed 740. REFUSED, exit 1.
+  unchanged tree: 548 -> 675 within, frozen 0 -> 550 within, aimedWrong 0 same,
+      cells 66 -> 124 better, errors 0 same. NOT REFUSED, exit 0.
+*** FOUR THINGS WENT WRONG BUILDING IT AND RUNNING IT CAUGHT EVERY ONE. ***
+ 1. 17 DEAD PRESSES OF 24, AND THE PAD WAS FINE. The reach check asked the CITY FRAME whether its own
+    pad button was on top. A frame only sees inside itself, and the thing covering the pad is #daycard
+    in the PARENT page, inset:0 over the whole phone. Every direction moved him on lap one and was dead
+    on laps two and three. That is an instrument looking through a card. Round 26's lesson in a new
+    coat: photograph the phone, not the canvas; ask the page, not the frame.
+ 2. THE NUMBER WAS FLAKY AND SHIPPING IT WOULD HAVE BEEN THE WORST THING THIS ROW COULD DO. Seven runs
+    of ONE UNCHANGED TREE: 0, 1, 1, 1, 13, 14, 0 dead presses. Bimodal, not noisy -- good runs agree to
+    the press, bad ones cluster at thirteen, and cells covered was 53 or 54 in every one. I DID NOT FIND
+    THE CAUSE, so deadPresses is measured, printed and NOT SCORED. A ratchet on a bimodal number refuses
+    honest pushes and waves bad ones through, which is his sentence again with a number painted on it.
+ 3. THE FIRST PLANTED REGRESSION PROVED NOTHING. It hid the door element and showed it later; the door
+    then never armed and the run was refused by the FLOOR for a reason unrelated to the delay. A refusal
+    for the wrong reason is not a test. The plant is now a synchronous busy-wait: it costs time and
+    touches no element, no handler, no state.
+ 4. THE RATCHET REFUSED THE TREE IT HAD JUST ACCEPTED. frozenMs was stored at 0, the next honest run
+    froze once for 533 ms, and 0 x 1.35 is still 0. An unchanged tree was REFUSED -- the exact death
+    this fleet keeps writing about, and it would have hit whoever pushed next, not me. Fixed with an
+    absolute slack beside the multiplier, set at ONE FREEZE (750 ms) because every freeze measured
+    across seven runs was a single gap of 517-567 ms. A number that only appears as none-or-one needs a
+    floor in its own units, not a percentage.
+TOLERANCES, DECLARED AND GROUNDED: tappableMs x1.35 or +120 ms and frozenMs x1.35 or +750 ms (wall
+clocks on a box this lane proved runs up to 1.8x slower hour to hour); cellsCovered may fall to half
+(net displacement wanders 41 to 136 across runs of one tree); aimedWrong and pageErrors have NO
+tolerance, because one wrong-way press is one on any box.
+THE FLOOR: a walk that pressed nothing, never reached the city, saw no frames, found a pad it does not
+understand, or never got a tappable door is BROKEN and REFUSED as such rather than scored. This lane has
+shipped three gates that were green while measuring nothing.
+NOT DONE, AND IT IS THE NEXT LINE: THE FIGHT IS PHOTOGRAPHED BUT NOT IN THE VERDICT. Rule 17(b) says the
+walk ends in the fight and the ratchet includes that frame. The tool drives the city's own encounter
+door, but cityEncounterIn is not exposed to the driver on this cut, so it reports NOT REACHED with the
+reason instead of inventing a number.
+ALSO STILL OPEN: [sixty fps] (walking is essentially there, the fight is 7.1 fps on a phone-shaped CPU,
+first play still blocked by the card), [demo errors] STANDING, [slim build], [handoff cut], [suite runs],
+[dead gates], [mode chip], [cannot fail], [pre-push pass], [suite line]. THE SUITE LINE on the front page
+is still 9/14 ad23d875 and is six rounds stale.
+Record: records/BOHEMIA_THE_RATCHET_IS_A_MACHINE_9_20_26.md
+[PENDING Paolo] nothing.
+
 PLUMBER (plumber-ont6t5): 9/18 LATEST -- *** CHAT 18. ROUND 30. [sixty fps] CONTINUING, ROUND 4.
 CLOSED BOTH DISAGREEMENTS ROUND 3 NAMED, AND THE CAUSE WAS ONE BUG IN THIS LANE'S OWN INSTRUMENT. ***
 WHAT WAS OPEN: two budgets the speed gate holds were derived from numbers that do not describe what the

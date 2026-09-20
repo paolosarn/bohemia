@@ -3815,6 +3815,25 @@ GATES = [
      'it holds the part a machine can. Both teeth were proven to bite with throwaway files before '
      'it shipped. First run: 23 advertised, 23 on disk, 23 run',
      False),
+    ('NEVER WORSE', ['node', 'tools/bohemia_never_worse.js'],
+     'THE RATCHET AS A MACHINE. 9/20, PLUMBER lane, row [never worse], PAOLO rule 18c. He said '
+     '"I just want to restart all of this... we were closer to being able to play before, right now '
+     'we are farther than we have ever been." THE GAME GOT WORSE UNDER A RULE THAT SAID NEVER WORSE, '
+     'BECAUSE THE RULE WAS A SENTENCE: rule 14(a) has said since 9/13 that a cut must never be worse '
+     'than the last one, and nothing measured it. This runs the REAL cutter into a throwaway folder, '
+     'walks the candidate cut with the one driver (rule 14g) while every chunk still comes from the '
+     'real slices/, and scores it: ms before a finger has anything to press, ms frozen for longer '
+     'than a beat, presses that moved him the WRONG way, how far he got, and things that threw. The '
+     'ground truth is hx,hy, the player own cell, so nothing here is a screen diff -- a screen diff '
+     'cannot tell a working button from a card closing (rule 14h) and cannot tell a slow game from a '
+     'still one. A push worse than records/BOHEMIA_NEVER_WORSE_ACCEPTED.json on any number is '
+     'REFUSED. PROVED TO SAY NO: --plant holds the main thread for N ms in the throwaway copy and '
+     'the run is refused (548 ms to 5,616 ms, allowed 740). PROVED NOT TO CRY WOLF: an unchanged '
+     'tree passes. Dead presses are measured, printed and DELIBERATELY NOT SCORED -- seven runs of '
+     'one unchanged tree read 0, 1, 1, 1, 13, 14, 0, and a ratchet on a bimodal number would refuse '
+     'honest pushes and wave bad ones through, which is the sentence again with a number on it.',
+     600),
+
     ('LOADING IN PLAY', ['node', 'gates/loading_during_play_gate.js'],
      'A BUDGET ON THE ROUGHNESS PAOLO FELT. 9/15, PLUMBER lane, row [sixty fps]. He played the '
      'demo a second time: "it is kinda not running as smoothly as I would like. MAYBE IT IS CAUSE '

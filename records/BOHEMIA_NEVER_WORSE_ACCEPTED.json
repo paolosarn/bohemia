@@ -1,0 +1,135 @@
+{
+ "what": "The numbers of the last ACCEPTED cut. tools/bohemia_never_worse.js refuses a push that scores worse than these. Paolo 9/20, rule 18c.",
+ "why": "PAOLO 9/20: \"we were closer to being able to play before, right now we're farther than we've ever been.\" The game got worse under a rule that said never worse, because the rule was a sentence.",
+ "acceptedOn": "2026-09-20T23:29:28.813Z",
+ "sha": "de2bc43",
+ "boxRatio": 0.91,
+ "numbers": {
+  "tappableMs": 548,
+  "frozenMs": 0,
+  "aimedWrong": 0,
+  "cellsCovered": 66,
+  "pageErrors": 0
+ },
+ "detail": {
+  "takenOn": "2026-09-20T23:27:54.737Z",
+  "boxRatio": 0.91,
+  "scored": "a fresh cut",
+  "tappableMs": 548,
+  "padButtons": 8,
+  "quiet": true,
+  "quietWaitedMs": 703,
+  "startCell": [
+   6218,
+   6268
+  ],
+  "presses": 24,
+  "aimedTrue": 13,
+  "aimedWrong": 0,
+  "wallPresses": 4,
+  "deadPresses": 7,
+  "blockedPresses": 0,
+  "whatBlockedIt": "",
+  "modeTrail": [
+   "up=HUMAN MODESUBURB · ON FOOT",
+   "up-right=HUMAN MODESUBURB · ON FOOT",
+   "right=HUMAN MODESUBURB · ON FOOT",
+   "down-right=HUMAN MODESUBURB · ON FOOT",
+   "down=HUMAN MODESUBURB · ON FOOT",
+   "down-left=HUMAN MODESUBURB · ON FOOT",
+   "left=HUMAN MODESUBURB · ON FOOT",
+   "up-left=HUMAN MODESUBURB · ON FOOT",
+   "up=HUMAN MODESUBURB · ON FOOT",
+   "up-right=HUMAN MODESUBURB · ON FOOT",
+   "right=HUMAN MODESUBURB · ON FOOT",
+   "down-right=HUMAN MODESUBURB · ON FOOT",
+   "down=HUMAN MODESUBURB · ON FOOT",
+   "down-left=HUMAN MODESUBURB · ON FOOT",
+   "left=HUMAN MODESUBURB · ON FOOT",
+   "up-left=HUMAN MODESUBURB · ON FOOT",
+   "up=HUMAN MODESUBURB · ON FOOT",
+   "up-right=HUMAN MODESUBURB · ON FOOT",
+   "right=HUMAN MODESUBURB · ON FOOT",
+   "down-right=HUMAN MODESUBURB · ON FOOT",
+   "down=HUMAN MODESUBURB · ON FOOT",
+   "down-left=HUMAN MODESUBURB · ON FOOT",
+   "left=HUMAN MODESUBURB · ON FOOT",
+   "up-left=HUMAN MODESUBURB · ON FOOT"
+  ],
+  "perDirection": {
+   "up": {
+    "moved": 3,
+    "wall": 0,
+    "dead": 0,
+    "wrong": 0,
+    "blocked": 0
+   },
+   "up-right": {
+    "moved": 2,
+    "wall": 0,
+    "dead": 1,
+    "wrong": 0,
+    "blocked": 0
+   },
+   "right": {
+    "moved": 1,
+    "wall": 1,
+    "dead": 1,
+    "wrong": 0,
+    "blocked": 0
+   },
+   "down-right": {
+    "moved": 1,
+    "wall": 1,
+    "dead": 1,
+    "wrong": 0,
+    "blocked": 0
+   },
+   "down": {
+    "moved": 1,
+    "wall": 1,
+    "dead": 1,
+    "wrong": 0,
+    "blocked": 0
+   },
+   "down-left": {
+    "moved": 2,
+    "wall": 0,
+    "dead": 1,
+    "wrong": 0,
+    "blocked": 0
+   },
+   "left": {
+    "moved": 1,
+    "wall": 1,
+    "dead": 1,
+    "wrong": 0,
+    "blocked": 0
+   },
+   "up-left": {
+    "moved": 2,
+    "wall": 0,
+    "dead": 1,
+    "wrong": 0,
+    "blocked": 0
+   }
+  },
+  "endCell": [
+   6181,
+   6239
+  ],
+  "cellsCovered": 66,
+  "fight": {
+   "reached": false,
+   "why": "no cityEncounterIn",
+   "forced": true
+  },
+  "frames": 1476,
+  "frozenMs": 0,
+  "freezes": 0,
+  "worstFreezeMs": 0,
+  "pageErrors": 0,
+  "boxRatioEnd": 1.03,
+  "broken": []
+ }
+}

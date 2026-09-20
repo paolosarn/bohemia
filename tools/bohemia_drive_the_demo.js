@@ -56,9 +56,17 @@ const MIME = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css
 
 async function open(opts) {
   opts = opts || {};
+  /* EXTENDED 9/20 (PLUMBER, rule 14(g), for [never worse] under Paolo's rule 18c).
+     opts.serve maps a URL to a file ANYWHERE on disk, so a CANDIDATE cut sitting in a
+     throwaway tree can be walked while every chunk it loads still comes from the real
+     slices/. The ratchet has to score the cut the tree is ABOUT to push, and rule 14(a)
+     says only RUN re-cuts the demo, so writing a candidate into slices/ is not open to
+     this lane and would collide with whoever else is working. One map, opt-in, and the
+     server behaves exactly as before when nobody passes it. */
+  const serve = opts.serve || {};
   const server = http.createServer((req, res) => {
     const u = decodeURIComponent(req.url.split('?')[0]);
-    const f = path.join(ROOT, u.replace(/^\//, ''));
+    const f = serve[u] || path.join(ROOT, u.replace(/^\//, ''));
     if (!fs.existsSync(f) || fs.statSync(f).isDirectory()) { res.writeHead(404); return res.end(); }
     res.writeHead(200, { 'Content-Type': MIME[path.extname(f)] || 'application/octet-stream' });
     fs.createReadStream(f).pipe(res);
@@ -109,6 +117,7 @@ async function open(opts) {
     await cdpEarly.send('Emulation.setCPUThrottlingRate', { rate: opts.throttle });
   }
 
+  const tGoto = Date.now();
   await page.goto('http://127.0.0.1:' + port + '/slices/'
     + (opts.file || 'BOHEMIA_DEMO.html'), { waitUntil: 'load', timeout: 300000 });
   /* WAIT FOR THE DOOR, DO NOT GUESS HOW LONG IT TAKES (COOK 9/14, [streets fixed] r3).
@@ -137,10 +146,16 @@ async function open(opts) {
      caller passes it, so no existing use of this driver changes.
      KEPT WHERE SOUNDS PUT IT, BEFORE THE TAP -- it now runs after the door is SEEN
      rather than after a blind 15 s, which is the same moment or earlier, never later. */
+  /* TIME UNTIL HE CAN TAP ANYTHING, stamped where the wait already happens rather than
+     guessed afterwards. Rule 18a asks for "a real screen when the alpha and the demo
+     open, NOTHING TAPPABLE UNTIL LOADED"; this is the number that says whether that is
+     true, and [never worse] refuses a push that makes it bigger. (PLUMBER 9/20.) */
+  let tappableAt = null;
   await until(() => page.evaluate(() => {
     const f = document.getElementById('fronttap') || document.getElementById('front');
     return !!(f && getComputedStyle(f).display !== 'none');
-  }), opts.boot || 15000);
+  }).then(v => { if (v && tappableAt === null) tappableAt = Date.now() - tGoto; return v; }),
+    opts.boot || 15000);
   if (typeof opts.beforeTap === 'function') await opts.beforeTap(page);
   /* TRAP 5, AND IT IS TRAP 3 WEARING A HAT: THERE ARE TWO FRONT DOORS AND ONLY ONE OF
      THEM OPENS. The alpha carries BOTH #fronttap and #front. This picked #fronttap with
@@ -298,6 +313,7 @@ async function open(opts) {
     loads, cdp: cdpEarly,
     firstPaintMs: () => firstPaintAt,
     bootAt: () => t00,          /* the driver's zero, so a caller can share one axis */
+    tappableMs: () => tappableAt,   /* how long before a finger has anything to press */
     throttle: opts.throttle || 1,
     lateLoads: () => loads.filter(l => firstPaintAt !== null && l.at > firstPaintAt),
     state: () => fr.evaluate(() => ({
