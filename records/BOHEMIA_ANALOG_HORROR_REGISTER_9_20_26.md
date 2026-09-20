@@ -48,6 +48,16 @@ Analog horror in Bohemia is IN THE WORLD, never ON THE LENS.
    a purple-lit screen is the one place both reservations meet - in act
    3, on their surfaces, as canon already rules.
 
+## 2B. AMENDED BY HIS FULLER SENTENCE (rule 20, same date - newest wins)
+Two lines of this register are overridden by what he told the manager:
+(1) THE SOUND SERVES ANALOG HORROR FIRST - the FFX sound law is amended
+by date; what survives of the anchor is what fits inside the tone (the
+manager's default: a warm melody through a dead broadcast; he corrects
+in VOTE). (2) THE FIGHT AND THE DRESSED BODIES ARE READ THROUGH THE TONE
+TOO - rule 17's fight verdict judges against the bible from its next
+round, and the runway is judged inside the tone rather than outside it
+(the runway LAWS still stand; the tone is how they are lit and held).
+
 ## 3. WHAT IT NEVER TOUCHES
 - The runway. Clothes are the living world; the register never dresses a
   body (no static-pattern garments, no test-card prints).
