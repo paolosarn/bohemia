@@ -103,3 +103,24 @@ the world, and VOTE stays behind the gear there so a stranger never trips over i
 [vote tab] makes VOTE a tab the alpha can open on, with the queue newest first and the
 count of what waits for him on it. When the queue is empty the tab says so in one line and
 the RUN tab is one tap away.
+
+## 9. CORRECTION: THE VOTE TAB IS IN THE ALPHA ONLY (Paolo 9/20, LOCKED; records/BOHEMIA_PAOLO_VOTE_IN_THE_ALPHA_ONLY_AND_THE_3D_CHAT_IS_UI_9_20_26.md)
+"You don't vote in the demo, you vote in the alpha only. All I needed was a little hideaway
+note section while I played the demo, that's it. The alpha's first tab that it opens up on
+is the vote section. Everything that needs my vote, for aesthetic reasons or philosophical
+reasons, needs to be there."
+This section OVERRIDES every place above that puts the VOTE tab in the demo (section 1
+"a VOTE tab in the DEMO", section 4 "Tab: VOTE, in the demo, behind the gear", section 8
+"the DEMO keeps VOTE behind the gear"). The manager misread the 9/14 transcript's word
+"demo"; he judges in the ALPHA and strangers play the DEMO.
+(a) THE VOTE TAB LIVES IN THE ALPHA AND NOWHERE ELSE. The demo carries no vote tab and no
+gear door to one. UI removes the door; RUN's cutter strips VOTE from the demo cut.
+(b) THE DEMO CARRIES ONE THING OF HIS: the NOTES button (section 7). Nothing else asks him
+or a stranger to judge.
+(c) THE ALPHA OPENS ON VOTE after the loading screen (section 8 stands for the alpha).
+(d) AESTHETIC AND PHILOSOPHICAL: the queue holds every candidate that wants his thumb
+(faces, tiles, songs, clips, lines) AND every default the manager decided in his place
+(the rulings in records/BOHEMIA_RULING_*), one line each with the default and why, so he
+can knock a rule down the same way he knocks a face down. The manager registers its
+defaults; a vote against one is a ruling and the lane rebuilds.
+(e) Tab: VOTE, in the ALPHA, the first tab after the load.

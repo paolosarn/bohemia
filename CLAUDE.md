@@ -93,7 +93,8 @@ laws/BOHEMIA_ADDENDUM_THE_PLAYTEST_DISPATCH_8_25_26.md, laws/BOHEMIA_ADDENDUM_TH
 - A QUEST IS PEOPLE, PLACES AND THINGS, NEVER A CARD; NOTHING POPS UP; TEXT COMES FROM A MOUTH WITH A PORTRAIT (Paolo 9/20, LOCKED) -> laws/BOHEMIA_LAW_A_QUEST_IS_PEOPLE_PLACES_AND_THINGS_9_20_26.md | gate OWED (no player-facing prose outside the phone without a speaker and a portrait)
 - A FAMILY LOOKS LIKE A FAMILY -> laws/BOHEMIA_LAW_A_FAMILY_LOOKS_LIKE_A_FAMILY_8_31_26.md | gate family_gate.js
 - ANALOG HORROR FOR EVERY PIXEL AND EVERY SOUND, until the game is done (Paolo 9/20, LOCKED) -> laws/BOHEMIA_LAW_ANALOG_HORROR_FOR_EVERY_PIXEL_AND_EVERY_SOUND_9_20_26.md | gate OWED (DIRECTION's bible becomes a reference sheet of reference_check_gate.py; until then THE FIGHT VERDICT and EYES E28 by hand)
-- THE ALPHA OPENS IN THE VOTE TAB after the loading screen; the demo keeps VOTE behind the gear (Paolo 9/20) -> laws/BOHEMIA_ADDENDUM_ONE_VOTE_TAB_AND_THE_PORTRAIT_CHAT_9_14_26.md section 8 | gate vote_tab_gate.js (UI adds the landing leg)
+- THE VOTE TAB IS IN THE ALPHA ONLY, AND THE ALPHA OPENS ON IT after the loading screen; the demo has NO vote tab, only his tiny NOTES button; aesthetic and philosophical items both queue there (Paolo 9/20, corrected the same round) -> laws/BOHEMIA_ADDENDUM_ONE_VOTE_TAB_AND_THE_PORTRAIT_CHAT_9_14_26.md sections 8 and 9 | gate vote_tab_gate.js (UI adds the landing leg and a no-door-in-the-demo leg)
+- ALL THE UI LOOKS 3-D: built with light and form, delivered as pixels; a chat named 3-D is the UI chat (Paolo 9/20) -> records/BOHEMIA_PAOLO_VOTE_IN_THE_ALPHA_ONLY_AND_THE_3D_CHAT_IS_UI_9_20_26.md | gate OWED (UI)
 
 ## HOW PAOLO WORKS
 - Voice-to-text stream of consciousness. Transcription garbles constantly.

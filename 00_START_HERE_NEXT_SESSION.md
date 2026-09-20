@@ -28796,6 +28796,35 @@ strips the rail of chips, the job line, the feed, the toggles, the readouts, the
 and every card from the DEMO until the cut holds; the alpha keeps everything. RUN [cut now]
 carries it in the same push as [no pop ups]. Told him plainly it is not playable yet, no
 defense, no new promises beyond the four things. Nothing to judge.
+THEN (eq) PAOLO 9/20, THREE RULINGS IN ONE MESSAGE (records/BOHEMIA_PAOLO_BATTLE_BROTHERS_ON_MY_PHONE_ANALOG_HORROR_AND_THE_ALPHA_OPENS_IN_VOTE_9_20_26.md).
+(1) "Battle Brothers on my phone, a lot better; not their chess match; quicker; focuses on
+the player character; companions auto do stuff." Identity line recorded (CLAUDE.md pillar);
+the BB addendum gains a 9/20 section; THE FIGHT VERDICT carries two numbers from now
+(seconds cloud-to-over, his presses vs the companion's): notes on COMBAT [fight looks] and
+DIRECTION [judge the fight]. (2) ANALOG HORROR FOR EVERY PIXEL AND EVERY SOUND until the
+game is done, LOCKED: new law laws/BOHEMIA_LAW_ANALOG_HORROR_FOR_EVERY_PIXEL_AND_EVERY_SOUND_9_20_26.md
+(what it is, what it is not: not a filter, not a monster, not a new reference game, not a
+brightness slider; FFX sound amended by date; Machine Party is the bridge). Rule 20 on the
+front page. DIRECTION [analog horror] first line (the bible), SOUNDS [analog horror sound]
+first line, UI [analog horror ui], WORDS Q27, COOK [horror grime] held, EYES E28 [horror
+check], notes on RUN [loading screen], PORTRAIT [faces first], COMBAT [fight looks].
+(3) THE ALPHA OPENS IN THE VOTE TAB after the loading screen; the demo keeps VOTE behind
+the gear: rule 15g, vote-tab law section 8, notes on RUN [loading screen] and UI [vote
+tab]; rule 18a's wording updated. CLAUDE.md law list gains both lines. Nothing to judge.
+THEN (er) PAOLO 9/20, CORRECTION: "You don't vote in the demo, you vote in the alpha only.
+All I needed was a little hideaway note section while I played the demo. The alpha's first
+tab is the vote section. Everything that needs my vote, aesthetic or philosophical, is
+there. There's a UI chat and a 3-D chat: put the 3-D chat in the UI chat, and we're gonna
+make all the UI look 3-D." (records/BOHEMIA_PAOLO_VOTE_IN_THE_ALPHA_ONLY_AND_THE_3D_CHAT_IS_UI_9_20_26.md)
+Root cause: the manager built rule 15 on the 9/14 transcript's word "demo"; he judges in
+the ALPHA. Fixed: vote-tab law section 9 overrides 1, 4 and 8 where they say demo; rule
+15a corrected and 15g re-worded; rule 18g's demo list drops VOTE (the gear carries the
+notes button only); UI [vote tab] removes the demo door and adds the manager's decided
+defaults as votable items; RUN [cut now] strips VOTE from the demo cut; UI's MODE line
+carries THE 3-D CHAT IS UI and ALL THE UI LOOKS 3-D; new UI [three d ui]; THE TWENTY CHATS
+says a chat named 3-D is chat 11. CLAUDE.md law list corrected. (The (eq) block above was
+deleted by a lane's whole-file rewrite between 43904cc2 and e7e9ab81 and is restored here;
+rule 8 again.) Nothing to judge.
 
 COORDINATOR: 9/4 (ba) -- *** THE MEETING HALL:
 VAMILY.md's front page now carries every rule, and every chat re-reads it every time
