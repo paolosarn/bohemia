@@ -28485,6 +28485,25 @@ mark DEAD next round with ECONOMY's correction); PEOPLE [enemies remember]; WORL
 carries]; SOUNDS [beat teaches]; CHARACTER [shape frozen]; COOK car r7 (16 -> 15);
 PLUMBER: the fight budget would have accepted a 6x regression; ECONOMY Q45 (nobody is
 told anything in the first minute, somebody who knows you wakes you).
+THEN (ek) PAOLO 9/20: HE WANTS TO RESTART AND ASKS FOR HELP NOT TO. Verbatim: records/BOHEMIA_PAOLO_WANTS_TO_RESTART_9_20_26.md.
+Law: laws/BOHEMIA_ADDENDUM_THE_PLAYABLE_CUT_9_20_26.md, front-page RULE 18: NO RESTART; the game got worse under a
+rule that was a sentence; ONLY THREE THINGS SHIP until the playable cut holds: LOADING (RUN
+[loading screen] first, his words: a real screen when the alpha opens, not into the RUN tab,
+nothing tappable until loaded), WALKING (RUN [one camera] second: one walking camera, one
+fixed body size that never changes on a pinch, a stride that lands on the next standable
+place and never past a gap or into a wall; what shipped at 90ad7484 flips the body only at
+HC 11 and jumps 5 cells into walls), THE FIGHT (COMBAT [fight looks] with his words: on the
+EXACT tiles he stands on). EVERY OTHER BUILDING LANE HOLDS (MODE lines say so); research and
+school continue. THE RATCHET IS A MACHINE: PLUMBER [never worse] first (the walk as numbers,
+a worse push refused in the pre-push pass); EYES E27 [best cut] first (rank the last two
+weeks of deployed cuts, name where walking regressed, RUN reverts and re-applies). NOBODY
+SENDS THE LINK until I say the cut holds. Swept in passing (29 commits): RUN [step is a
+house] both parts (camera to HC 11, a lot at 275 px, 1.4 lots on screen, the body trigger
+flips at that stop; three pinches back from the map); COMBAT [dev strip] proved on the cut;
+LIFE+CITY [side variants] 3 -> 36 tiles; WORLD [battery worth] r2 (supply fixed, work paid
+not printed); COOK car r8 (16 of 16 at 1.000); PEOPLE [heir moment]; PLUMBER: the walk
+number was a player pressed against a wall (the instrument met his bug before he did);
+EYES r9; ECONOMY Q46 (the day is the right size, wrong unit); UI r10; WORDS Q5 school.
 
 COORDINATOR: 9/4 (ba) -- *** THE MEETING HALL:
 VAMILY.md's front page now carries every rule, and every chat re-reads it every time
