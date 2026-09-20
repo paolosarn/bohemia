@@ -13339,6 +13339,126 @@ THIS LANE'S ROLE, FIXED: 16 COOK, the production artist.
 THIS LANE'S SESSION SLUG: cook-mce6r5.
 
 
+COOK (cook-mce6r5): 9/20 LATEST -- *** RULE 18 HOLD ROUND: NOTHING WAS COOKED AND
+NOTHING SHIPPED TO THE ALPHA. I MEASURED MY PART OF THE FIGHT INSTEAD, AND THE HEADLINE
+IS THAT THE FIGHT IS THE SAME STREET WITH THE DESERT TAKEN OUT OF IT. ***
+Record: records/COOK_WHAT_THE_FIGHT_IS_MADE_OF_9_20_26.md. Tool (a caller of THE ONE
+DRIVER, rule 14(g), no second instrument): tools/bohemia_what_the_fight_is_made_of_9_20_26.js.
+Three frames in records/target/: COOK_THE_STREET_BESIDE_THE_FIGHT_9_20_26.png,
+COOK_THE_FIGHT_DRAWS_THE_GREY_STREET_9_20_26.png, COOK_EVERY_GROUND_TILE_THE_FIGHT_OWNS_9_20_26.png.
+Claims stay claimed. THE FIGHT VERDICT is still unposted, so this lane drew nothing --
+rule 17 says COOK draws only what it lists.
+
+*** THE FIGHT'S ROAD AND SIDEWALK ARE THE PRE-RECOOK CITY TILES, BYTE FOR BYTE. *** 8 of
+8 fight `road` images are the city's `street` as it was before 9e026864, and 8 of 8
+`walk` are the city's `side`. Same SHA. Same drawings, same cracks, same weeds, cold grey
+instead of warm sand. That is 16 of the fight's 46 ground images frozen a week behind the
+street he walks to get there. Colours per tile: fight road 734-1,478 and walk 1,105-1,362,
+against 7 and 7-8 in the city after the recook. The craft ceiling is 64 and 21 of the
+fight's 33 ground tiles are over it, worst 1,478.
+
+*** AND THERE IS NO MECHANISM BY WHICH A COOK OF THE CITY CAN EVER REACH THE FIGHT. ***
+COMBAT_B64 in both the alpha and the demo (identical payload, sha1 de8419996e32) decodes
+to a complete 1,397,873-char document, "Dead Eye Dial - Aim Build". Inside it: SA_TILES 0,
+TP_TILES 0, PROP_B64 0, PROP_FP 0, saTex 0, texFor 0, __SKY_ART__ 0, BohemiaCombatFloor 0.
+It carries its own bank in four tables that overwrite each other (STREET_B64 ->
+STREET_B64X -> STREET_B64W -> STREET_B64S, last wins) resolving to 13 kinds / 46 images:
+road:8 walk:8 kerbL:1 kerbR:1 gutterL:1 gutterR:1 median:3 lane:2 house:7 yard:4 wall:4
+lot:4 slab:2. The city's bank has FOURTEEN keys and NOT ONE IS ON THAT LIST (street, side,
+lane_h/v, median_h/v, cross_ew/ns, pocket_h/v, roof, shoulder, wallface, wallwin). Two
+banks, different names for the same things, zero shared keys, and a sweep of every js and
+html the game loads finds the fight's images in no file the city renderer opens.
+THE THING BUILT TO STOP THIS IS ALREADY LIVE AND THE FIGHT NEVER CALLS IT: probing the
+running city frame finds BohemiaCombatFloor with its full API (TILE_W, TILE_H, setPainter,
+setGround, ready, plan, paint, at, coverOn), and its own header says "NOT A NEW BOARD. ONE
+SEED, same coordinates, so the fight happens on the actual streets you walked to... A
+second renderer would be byte-different from the streets he walked to get there." It is
+inlined into BOHEMIA_CITY_WORLD.html. The fight is a different document and cannot see it.
+
+*** THE CHECKERBOARD OF ROOF TILES IS REAL AND THIS LANE WROTE IT. *** His 9/18 words were
+not a figure of speech. lotSubKind: every 4th column is `wall`, and then `wy%2` alternates
+`house` / `yard` with no variation, at one house per tile, with `house` a saturated orange
+terracotta roof (one of the seven is a literal hip ridge triangle). The marker above it is
+__THE_LOT_IS_A_HOUSE__ (COOK, [combat ground], 9/6) -- MINE. It shipped with a real
+reference (Vegas lot sizes TG-01/02/03) and a real measurement (generic lot 26.1% -> house
+11.2% + yard 10.6% + wall 4.3%). IT MEASURED WELL AND IT READS WRONG, and the lesson is
+the useful half: A MEASUREMENT OF COVERAGE IS NOT A MEASUREMENT OF THE PICTURE. The
+reference was right about what a Vegas block IS and silent about what a strict two-row
+alternation LOOKS like at house scale.
+
+THE OTHER FOUR THINGS HE NAMED, LOCATED:
+- THE BLACK BAR IS 14.8% OF HIS PHONE, 85.6% pure black, with SETTINGS clipped off the
+  left edge and "STA..." off the right at 390x844. UI's, [fight hud].
+- TWO GRIDS ON ONE BOARD, NEITHER OF THEM THE TILE. drawFloor strokes a full grid at
+  32.5 CSS px UNDER the tiles; fieldFloorPaint strokes rgba(18,14,10,0.6) 1px around
+  every cell at the tile pitch (ring 65.33, tiles at 67) OVER the art, commented "the grid
+  he can read". NOT PINNED, and said so in the record: the on-screen pitch in the
+  photograph came back ~128 device px against the 160.7 the game's numbers predict and
+  userZoom is animated (0.82 when sampled), so no on-screen number is claimed.
+- THE TILES BREAK THEIR OWN PIXEL GRID. 44px source drawn at 67px = scale 1.523, nearest
+  neighbour: 23 of the 44 rows doubled, 21 not, both axes, every tile, every frame. A
+  fixed stripe over the whole floor. Allowed scales are {0.25,0.5,1,2,4}. (Named and NOT
+  touched, LIFE+CITY's: the street he walks draws the same 44px tile at 18px, scale 0.409,
+  throwing away 26 of 44 rows.)
+- THE COVER IS NOT ART. About eighteen pieces, the biggest objects on the board: a flat
+  tan fillRect #6e604a, a flat ellipse lid, a 1px outline. coverSprite tiles the `wall`
+  tile onto the FACE and works; EVERY LID IS THE FLAT VECTOR ELLIPSE. Against every ground
+  colour the city draws: the tall lid #94836a is 6 away and belongs, the body #6e604a is
+  12 away and belongs, the outline #241f18 is 15 -- and THE LOW LID #7a94a8 IS BLUE AT HUE
+  206 AND 99 AWAY, on a board whose ground has no blue in it at all.
+
+*** FOURTEEN FACTIONS, FOURTEEN FLAT FLOOR COLOURS, FOURTEEN MOTIFS PAINTED OVER THE WHOLE
+BOARD, ROLLED PER FIGHT. *** aisle, check, circuit, confetti, cracked, cross, dust, grid,
+hazard, plain, plate, shard, stencil, stripe. MOB's motif is literally `check`; CARTEL's is
+`hazard` red triangles; COLORFUL's is `confetti`, which paints pink/green/blue/gold dots on
+the floor. Four boots of the same cold open gave MOB, CARTEL, REMNANTS, COLORFUL, so the
+ground changes colour depending on who he fights. Accents measured against every ground
+colour the city draws: NETWORK #1fbf9c 207 away, ANARCHISTS #c026a0 160, COLORFUL #e85aa0
+148, BLUES #2e6fae 144, CARTEL #a01818 97, VOLUNTEERS #5aae6a 94.
+AND THE PURPLE RESERVATION IS BROKEN FIVE WAYS ON THAT FLOOR -- ANARCHISTS base #120814
+hue 289, line #2a0e2e hue 292, accent #c026a0 hue 312; COLORFUL base #100a14 hue 276, line
+#241a2e hue 270. Five more instances for this lane's claimed [purple leak] row, in the one
+place he actually looked.
+
+THE TWO FRAMES IN NUMBERS, photographed on the deployed cut at 390x844: the street he
+walks is 87.0% warm, 0.0% cold, 11,824 colours, mean brightness 94.0. The fight that
+starts there is 59.7% warm, 3.2% cold, 73,210 COLOURS, mean brightness 72.9. SIX TIMES THE
+COLOURS on a screen whose floor is made of seven-colour tiles, because everything above
+the tiles is vector: ellipses, rings, dashed circles, diamonds, alpha labels, AA text.
+
+FOR COMBAT [fight looks] AND DIRECTION [judge the fight], in order of screen area, NONE OF
+IT DRAWN: (1) point the fight at the city's bank -- the 16 pre-recook images are the
+biggest fix and cost ZERO new art because the recooked tiles are already shipped; it needs
+a name mapping (road->street, walk->side, lane->lane_v, median->median_v) or, better,
+finally calling BohemiaCombatFloor, which exists for exactly this and is COMBAT's call.
+(2) every ground tile at a whole-number scale, 44->88 or the board at 44. (3) the lot band
+stops alternating: houses of varying width with gaps, not wy%2. (4) the cover lid becomes
+art and #7a94a8 comes off the board. (5) the fourteen faction floors judged as pictures.
+(6) the four over-ceiling kinds recooked, which is the same pass this lane already ran on
+the city.
+
+THE EIGHTH WRONG-ORACLE CATCH, and it is written into the tool this time. The first sweep
+for the fight's images searched `data:image/png;base64,` and returned 0 PNGs -- clean,
+confident, completely wrong, because the fight stores bare base64 and adds the prefix at
+load. `iVBOR` found 62. Caught the same way as the other seven: render it and LOOK. A
+second one the same round: probing the running frame for the four source tables comes back
+empty because they are `const` in the document's own scope, so the tool now prints
+sourceTablesReachableFromHere: false rather than an empty list that would read like a
+finding.
+
+AND I CLEANED UP AFTER MYSELF ON THE WAY PAST. PAGES PUBLISH has been RED since 9/15
+because [car recook] r6 (d8e1f43, the twenty barrels) created a top-level graveyard/ folder
+that _config.yml KEPT and the workflow never copied -- the half-published state that gate
+exists to refuse. PLUMBER found the cause and named this lane; the fix is one line in the
+exclude list, not a megabyte added to a published surface already at 255 MB of a 260 MB
+cap. PAGES PUBLISH: 17/1 -> 18 passed, 0 failed, surface unchanged at 255 MB. No slice was
+touched, so rule 18 is intact.
+
+RULE 8, RESTATED FOR EVERY LANE BECAUSE THE GATE BIT ME FOR IT ONCE: re-read this file
+immediately before you write it, never from the copy you read at the start of your round,
+and NEVER DEMOTE AN EXISTING BLOCK HEADER. The handoff gate keys blocks on headers ending
+in "LATEST" and a demote reads as a deletion. The newest block is the TOPMOST one.
+
 COOK (cook-mce6r5): 9/18 LATEST -- *** [car recook] ROUND 8: THE STALL WAS NEVER A WHOLE
 NUMBER. THE PROP-SCALE DEBT IS PAID IN FULL, 15 -> 0, AND 85 PHOTOGRAPHS GOT COOKED ON THE
 WAY. *** TAB: RUN. Build 9/18a.

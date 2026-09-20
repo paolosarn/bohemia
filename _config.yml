@@ -59,6 +59,16 @@ exclude:
                    # of it. Corrected 8/20: the workflow is the source of truth,
                    # this file agrees with it, and pages_publish_gate.js now fails
                    # if a folder is HALF published (kept here, partly copied there).
+  - graveyard/      # KILLED WORK AND ITS POST-MORTEMS. Created by COOK on 9/15
+                    # ([car recook] r6, d8e1f43, the twenty barrels), and never named
+                    # here -- so this file KEPT it while the workflow copied three
+                    # folders and never a byte of it, which is exactly the half-published
+                    # state pages_publish_gate.js exists to refuse. It has been red since.
+                    # 24 KB of dead shapes and the write-ups of why they died: read by
+                    # hair_graveyard_gate.js and by people, never by a page. The list that
+                    # is wrong is THIS one, not the workflow's, so the fix adds a line
+                    # here rather than a megabyte to a published surface already at
+                    # 255 MB of a 260 MB cap. (COOK 9/20, cleaning up after itself.)
   - reference/      # third-party study corpora (Rogue Fable school, 8/17) — reference
                     # only, cited by records/, and NEVER published: not ours to serve
   - "*.md"          # CLAUDE.md, the handoff, the backlog, the masters
