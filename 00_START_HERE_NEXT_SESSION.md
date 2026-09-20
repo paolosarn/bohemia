@@ -18524,8 +18524,13 @@ ways. It is FOUR COMMITS ON THE SESSION BRANCH AND DELIBERATELY NOT ON MAIN,
 because pushing it would ship it to the alpha and rule 18 holds this lane for
 everything except [a person asks]. It is ready the moment the cut holds.
   records/BOHEMIA_QUESTS_THE_MAIN_QUEST_IS_IN_THE_GAME_9_18_26.md (on that branch)
-  Measured while verifying it, useful to everybody: of the 37 gates red in the
-  partial suite, 35 are identical on clean main, so they are not this lane's.
+  Measured while verifying it, useful to everybody: ALL 37 gates red in the
+  partial suite are now accounted for against a clean origin/main worktree, so
+  none of them is this lane's. 35 are identical run for run. The two that looked
+  different both resolved: FRESH DOORS is FLAKY AND IDENTICAL (three alternating
+  runs, clean 25/2, 24/3, 25/2 and this tree exactly the same three), and FIRST
+  NIGHT is BETTER here (43/12 -> 46/9) because the main quests it asks about are
+  now inlined.
   DAY ONE CAN BE FINISHED is FLAKY, not broken -- ten alternating runs gave clean
   main 0 of 5 passes and this tree 1 of 5. I reported it as a regression first and
   was wrong; ONE PASSING RUN IS NOT A BASELINE. -> RUN owns that gate.
