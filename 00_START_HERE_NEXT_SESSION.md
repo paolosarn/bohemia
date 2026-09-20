@@ -2342,6 +2342,87 @@ archive escape built in from the start so [handoff cut] is unblocked rather than
 THE WARNING FOR EVERY LANE: do not write this file from a copy you read at the start of your round.
 Re-read it immediately before you edit, and check your own block is still there after any rebase.
 
+ANIMATION (animation-lr9y9i): 9/20 (a) LATEST -- *** HOLD ROUND, RULE 18. Nothing
+pushed to the alpha. THE BODY CHANGES SIZE THREE TIMES WHEN HE PINCHES AND ONE OF
+THE CHANGES GOES BACKWARDS. Measured, not built. TAB: ANIMATION, unchanged. ***
+
+RULE 18 (Paolo 9/20): only LOADING, WALKING and THE FIGHT ship; every other building
+lane HOLDS. This lane holds. [redo killed] stays CLAIMED, the alpha is untouched,
+and the round bought numbers for the three, which is what the MODE line asks.
+His two sentences that name this lane's output: "the body ONE FIXED SIZE that never
+changes while he walks or pinches" (18, WALKING) and "the SAME BODIES at the ruled
+size" (17, THE FIGHT).
+
+=== WALKING: THREE SIZES, AND THE FIRST CHANGE GOES THE WRONG WAY
+At the four walk-zoom stops a pinch actually reaches (HLEVELS, the city's own ladder,
+not values invented for the test), on a 390-wide phone:
+    HC | a lot on screen | house fits a phone? | THE BODY | body / lot
+    11 |           275px |             ** yes **|  ** 112px **|     0.407
+    22 |           550px |                  no |  ** 56px **|     0.102
+    44 |          1100px |                  no |     112px |     0.102
+    88 |          2200px |                  no |     224px |     0.102
+THREE DISTINCT BODY SIZES. His rule says one. And the first change is the ugly one:
+PINCHING IN FROM HC 11 TO HC 22 HALVES THE BODY, 112 -> 56, WHILE THE WORLD DOUBLES.
+The body shrinks as he zooms in.
+
+[FOR RUN, [one camera]] THE ONE CAMERA IS HC 11, and that is measured not argued: a
+lot is 25 fine cells, so it is 275px at HC 11 and 550px or more at every other stop,
+and HIS RULE IS "where a house fits". HC 11 is the only walk zoom where a house fits
+a phone. At HC 11 the body is 112px against a 275px lot = 0.407 OF A LOT against his
+ruled 0.5; the rung ladder offers 28/56/112/224, so 112 is the nearest rung and the
+next one up (224) would be 0.81 of a lot.
+
+=== AND THE SAME PINCH GIVES A DIFFERENT BODY ON A DIFFERENT WINDOW
+    HC | body on a 378px phone | body on a 628px window
+    22 |             ** 56px **|            ** 224px **
+A 4x DIFFERENCE AT THE SAME STOP, decided by cv.width. Rule 14 says the phone is the
+only measure, so the phone column is the truth -- but a lane measuring on a desktop
+reads HC 22 as 224 and is wrong by four times. I NEARLY DID: my first run of this was
+on the default window, disagreed with the phone run, and that disagreement is the only
+reason it was caught.
+
+=== THE FIGHT: THE TWO SURFACES ARE NOT THE SAME BODIES
+    the rig renders           112x112, a standing body 98 rows of it (88% of the frame)
+    this lane ships THE FIGHT      112 -- native, every pixel the rig drew
+    this lane ships THE STREET      56 -- the same render, halved
+A 2.0x RESOLUTION DIFFERENCE FROM THE SAME RENDER. At HC 11, the one legal camera,
+the street draws a 112px body by DOUBLING a 56px picture that was itself a halved
+112, while the fight gets the real 112. Same person, two resolutions, on the two
+surfaces he is asked to believe are one place. That is this lane's half of rule 17's
+"the same bodies".
+
+=== A CORRECTION I OWE ON MY OWN STANDING ADVICE
+*** THIS BLOCK HAS TOLD THE FLEET FOR THREE ROUNDS TO "RAISE CAST_PX TO 112". AS A
+STANDALONE INSTRUCTION THAT IS WRONG. *** Working backwards from the box the city
+draws into and the doublings it applies, at every stop and on both window widths:
+    HC | box | doublings | so CAST_PX must be
+    11 | 112 |        2x |                 56
+    22 |  56 |        1x |                 56
+    44 | 112 |        2x |                 56
+    88 | 224 |        4x |                 56
+56 IS ALREADY CORRECT AT EVERY STOP. Raising it alone puts a double-size picture in
+the same box at every zoom, which is what ONE NUMBER FOR A BODY bites on.
+The sharpness point stands ONLY AS A PAIR and must be said that way: the city's
+ladder learns the shipped size off m.w AND this lane raises CAST_PX in the same
+round, so the multiplier drops by one and the pixels become real instead of invented.
+Said as "raise CAST_PX to 112" it reads as a one-lane job and it is not.
+Record: records/BOHEMIA_THE_BODY_CHANGES_SIZE_WHEN_HE_PINCHES_9_20_26.md
+
+NOTHING WAS BUILT, NOTHING PUSHED TO THE ALPHA, NO BUILD STAMP. Gates unchanged and
+not re-run as a ship gate; this round's diff is a record and this block.
+
+WHAT IS LEFT OF [redo killed], FROZEN UNTIL THE CUT HOLDS
+- Four gun-clip frames still draw a detached head (was 12 before the missed exits
+  were found last round). NECK HOLDS HEAD prints them every run.
+- Beats two and three are ONE problem: every beat reads differently per facing (b2
+  knee 37-159 deg, b3 hand lag 17-200%, b4 holds on 1 of 8, b1 on 8 of 8). Two causes
+  for beat three measured DEAD and printed by FOUR BEATS.
+- Four clips still snap, all small, worst 12.6px. Pose problems, not rig problems.
+- POSEHOLD key density on clips whose keys are too far apart to read as motion.
+- THE 47 ARE REPAIRED AND CANNOT REACH HIM until UI [vote tab] lands (rule 15).
+
+Nothing [PENDING Paolo].
+
 ANIMATION (animation-lr9y9i): 9/18 (a) LATEST -- *** THE NECK IS THE ONLY THING
 HOLDING THE HEAD ON. His oldest unfixed complaint, the one he pointed at in his own
 frame, is fixed. TAB: ANIMATION. Build 9/18e. ***
