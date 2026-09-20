@@ -1402,7 +1402,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 9/18c - A HOUSE FITS ON YOUR SCREEN</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 9/20a - ONE CAMERA, ONE STRIDE</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -7482,6 +7482,52 @@ function handOrder(d,present,P){
   /* the head goes between the near arm-unit and the far arm-unit. Only the FAR
      pair moves, to just behind the face; everything else keeps its authored
      place. Both arms near (S) or already behind the head (SE) is a no-op. */
+  /* *** THE NECK IS THE ONLY THING HOLDING THE HEAD ON. ***
+     Paolo 9/7, on his own frame (records/target/PAOLO_THE_COAT_AND_THE_ELBOWS_9_7_26.jpg):
+     on NE the head sits up and to the right of the shoulders with a visible gap, and
+     the same reads on SE and SW in that grid while N, E and S look attached.
+     MEASURED over 105 clips x 8 facings x 4 phases = 3,360 frames, with the
+     direction-free blob ruler this lane already built for the head snap: 48 frames
+     draw the head DETACHED from the body by 2 to 8 px. And the cause is not the pose.
+     31 of those frames draw NO NECK AT ALL, and every single one of them is detached
+     -- while of the 1,666 frames that do draw a neck, 0.7% are. Sampling the straight
+     line from the neck joint to the head joint in the failing frames, the pixels along
+     it are part ids 5 and 6: THE ARMS.
+     WHY THE ARM WINS: the per-facing layerOverride puts the NEAR arm at index 0 on
+     NE, E and SE -- nearer than the torso, and nearer than the neck at index 4 or 5.
+     That is right for an arm hanging at your side. It is wrong the moment the pose
+     RAISES that arm (cheer, hands-up, greet, preach, hail, pour, inject, smoke), because
+     the sleeve then sweeps up across the throat and, being nearest, erases the one part
+     that connects the head to the body. The head is left floating over a dark shape.
+     SO THE NECK DRAWS IN FRONT OF THE ARMS. A neck is body-core; an arm crossing your
+     own throat is rare, and at this size it reads as a severed head rather than as an
+     arm. This is the same family as THE NEAR HAND DRAWS IN FRONT (9/13): what the pose
+     puts in front must draw in front, except that covering the neck destroys the read
+     of the whole figure, so the neck wins outright.
+     MEASURED, AND IT IS MONOTONIC: detached frames 48 -> 23, frames with no neck
+     31 -> 10, worst gap 8px -> 6px. THIRTY-SIX FRAMES GOT BETTER AND ZERO GOT WORSE.
+     13% of frames change a pixel at all. The 12 that remain are all GUN clips
+     (two-hand, deadeye, crouch-aim-2h) and they are a different defect, named in the
+     record rather than chased here. */
+  const _neckHolds=(o)=>{
+    const n=o.indexOf(3); if(n<0) return o;
+    const i5=o.indexOf(5), i6=o.indexOf(6);
+    const arms=[i5,i6].filter(v=>v>=0);
+    if(!arms.length) return o;
+    let at=Math.min.apply(null,arms);
+    if(n<at) return o;                          /* already in front, nothing to do */
+    /* *** IN FRONT OF THE ARM UNIT, NEVER INTO IT. ***
+       The first cut inserted the neck at the arm's own index, and on S, W and NW the
+       order opens [7,5,...] -- the HAND nearest, then its own forearm -- so the neck
+       landed BETWEEN a hand and the arm it belongs to. THE NEAR HAND DRAWS IN FRONT
+       (this lane, 9/13) caught it: 2,304 frames of 6,720 drew something between a hand
+       and its own forearm. A hand and its arm are one unit, so the neck steps in front
+       of the whole unit. */
+    const own=(at===i5)?7:8, h=o.indexOf(own);
+    if(h>=0&&h===at-1) at=h;
+    o.splice(n,1);
+    return o.slice(0,at).concat([3],o.slice(at));
+  };
   const _headBetween=function(o){
     const t=o.indexOf(4); let far=[];
     if(o.indexOf(5)>t) far=far.concat(_pairOf(o,5,7));
@@ -7520,7 +7566,7 @@ function handOrder(d,present,P){
         ord.splice(hi+1,0,armP,handP); }
       else if(f<-2.5){ ord=ord.filter(p=>p!==armP&&p!==handP); ord.unshift(armP,handP); }
     }
-    return ord;
+    return _neckHolds(ord);
   }
   /* GUN-UNIT LAYER LAW (Paolo 7/2/26, deadeye redo): hands holding a weapon
      are ONE unit with it, never independently dynamic. Both hands layer
@@ -7530,14 +7576,14 @@ function handOrder(d,present,P){
   if(present&&present._gun){
     const aim=present._gun[3], toF=(Math.sin(aim)>-0.25);
     let o2=_pairMove(ord,5,7,toF); o2=_pairMove(o2,6,8,toF);
-    return _headBetween(o2);                                   /* the pair, never the bare hands */
+    return _neckHolds(_headBetween(o2));                        /* the pair, never the bare hands */
   }
   if(d==='S'||d==='N'){
     if(present&&present._handsBack){
       const toF=(d==='N');                                     /* facing away, hands behind the body are the ones toward camera */
       ord=_pairMove(ord,5,7,toF); ord=_pairMove(ord,6,8,toF);
     }
-    return _headBetween(ord);
+    return _neckHolds(_headBetween(ord));
   }
   /* AUTHORED LAYERING IS THE LAW (Paolo 7/26/26): the rest-relative hand guess is RETIRED
      on every facing. Same defect as the arm-unit rule above -- a +-2.5px
@@ -7572,7 +7618,7 @@ function handOrder(d,present,P){
   /* RETIRED 7/2/26: DIAG_HAND_LAW removed, superseded by Paolo's re-authored
      rig layer export. The authored baseline carries the per-facing truth;
      only the dynamic per-pose logic and _handsBack ride on top. */
-  return _headBetween(ord);
+  return _neckHolds(_headBetween(ord));
 }
 const REST_GRID={};
 /* HAT LINE: the durag's southernmost row per direction = max south for ANY hat */
@@ -16729,7 +16775,31 @@ const MUS={AC:null,MAST:null,playing:false,cur:0,curSlot:1,step:0,uiStep:0,nextT
       var _p=null; try{ _p=window.__pulseNextBeat&&window.__pulseNextBeat(); }catch(_e){}
       MUS.nextT=(_p&&_p>_n+0.02)?_p:(_n+0.06); MUS.step=0; MUS.uiBar=0;
     }
-    while(MUS.nextT<MUS.AC.currentTime+0.12){
+    /* __THE_HORIZON_IS_ONE_BEAT__ (9/18, SOUNDS lane) -- THE HORIZON WAS 0.12 s
+       ON A THREAD THAT STALLS FOR SECONDS. PLUMBER measured the 120 BPM law
+       failing on a phone-shaped CPU (31.6% of beats late, 8.3% swallowed whole,
+       one beat in twelve never happening). Measured again here by wrapping
+       playStep, so the count is steps really handed to Web Audio: on a phone
+       only 42 of 160 steps in twenty seconds were booked at all, 26%, and even
+       on this fast box it is 128 of 160.
+       ONE BEAT, AND IT IS NOT A NEW NUMBER: 4 * stepDur() is the engine's own
+       unit, the unit this whole game is quantised to. Horizon patched at runtime
+       and swept at 4x: 0.12 s booked 28.1%, ONE BEAT booked 51.3%, 1 s 60.6%,
+       2 s 81.9%.
+       WHY NOT WIDER, WHICH WOULD SCORE BETTER. A booked step cannot be
+       un-booked, so the horizon IS how long the music takes to obey a change:
+       the same sweep measured 2,049 ms of music already committed at a 2 s
+       horizon against 560 ms at one beat. FIGHTMUS takes the music immediately
+       because danger is now, so a two-second horizon would make a fight's music
+       arrive two seconds late -- trading his own complaint for a new one. One
+       beat is the smallest amount this game ever changes anything on.
+       AND IT IS A DIAL, NOT A CURE, which the same sweep proves: the worst gap
+       with nothing booked does not improve with the horizon at all (6,121 ->
+       6,449 -> 2,708 -> 8,171 ms is noise). A long stall is a long stall. This
+       lane wrote the real answer down on 9/5 in the pulse's own comment -- an
+       audio-thread loop, which does not care what the main thread is doing --
+       and that is the next round of this row, not a number. */
+    while(MUS.nextT<MUS.AC.currentTime+(MUS.stepDur()*4)){
     /* AND THE MUSIC TAKES THE BEAT OFF THE PULSE HERE -- INSIDE the loop, on
        the iteration that actually books step 0 into the audio graph.
        IT WAS ABOVE THE LOOP FIRST AND THAT WAS STILL TOO EARLY: the timer

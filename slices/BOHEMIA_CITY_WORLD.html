@@ -39565,6 +39565,115 @@ function roadCard(ev, mins, kg){
 }
 
 function cityWalkable(x,y){ const t=om.at(x,y); return !!t&&(ROAD[t.district]||t.district==='wash'); }
+
+/* ============================================================================
+   ONE STRIDE THAT NEVER MISSES (Paolo 9/20, LOCKED, rule 18a, [one camera])
+
+   "walking the same distance and crashing into walls because it's forcing me to
+    move like 67 tiles at a time, so when I'm trying to walk past the wall it's
+    not allowing me to because I'm just missing it."
+
+   HE IS DESCRIBING A REGRESSION THIS LANE SHIPPED. A stride of one whole lot is
+   his ruling and it stays; what shipped with it was a stride that walked its full
+   length with its eyes shut. A gap in a fence is two or three cells wide and a lot
+   is twenty-five, so the stride crosses the only way through and lands past it,
+   every time, and from there the gap is behind him. He presses again, misses it
+   again. THE LOT IS THE CEILING OF A STRIDE. THE GROUND SETS ITS LENGTH.
+
+   TWO RULES, AND THEY ARE THE WHOLE FIX:
+     1. NEVER PAST A GAP. While the stride runs, watch the two cells either side of
+        him. The moment a side that was closed one cell ago is open, the stride
+        ENDS THERE, standing in the mouth of the opening, and one press turns him
+        into it. In open ground both sides are already open, so nothing new opens
+        and the stride runs its full length -- this costs nothing where there is
+        nothing to miss, and it only ever bites at the end of a wall.
+     2. A PRESS TOWARD A WALL SLIDES ALONG IT. A press that moves him nowhere is a
+        dead press, and this game already taught him that a dead press means a
+        broken game. A diagonal against a wall takes the component that is open; a
+        straight press into a corner slips around it. One slide per press, never a
+        chain, so he can never be carried somewhere he did not aim.
+
+   IT IS BUILT ON THE SURFACE'S OWN WALKABILITY (cellAt().walk), the same test the
+   stride itself uses, so it cannot hold an opinion the game disagrees with -- the
+   rule LIFE+CITY wrote into the lattice module and the reason it is honest. */
+function _standable(x,y){ try{ const c=cellAt(x,y); return !!(c&&c.walk); }catch(_e){ return false; } }
+/* Did a side just open? Compare the two cells perpendicular to the stride here
+   against the same two one cell back. Works for diagonals too: the perpendicular
+   of a diagonal is the other diagonal. */
+function _gapMouth(x,y,dx,dy){
+  const bx=x-dx, by=y-dy;
+  const px=-dy, py=dx;
+  if(_standable(x+px,y+py) && !_standable(bx+px,by+py)) return true;
+  if(_standable(x-px,y-py) && !_standable(bx-px,by-py)) return true;
+  return false;
+}
+/* WHERE A BLOCKED PRESS SLIDES TO.
+
+   *** PHOTOGRAPHED BEFORE THIS WAS WRITTEN, off the game's own walk flags, at the
+   one cell the first walk of this round jammed on -- 6270,6268, nineteen dead
+   presses in a row, every one of them east: ***
+
+          . . . . . . . # . . . . . . . .
+          . . . . . . @ # . . . . . . . .      @ him, # wall, . standable
+          . . . . . . . # . . . . . . . .
+          # # # # # # # # . . . . . . . .
+          . . . . . . . . . . . . . . . .
+
+   A WALL ONE CELL THICK, with the whole world open one cell behind it, and its end
+   FOUR CELLS SOUTH of where he was standing. East, north-east and south-east all
+   refuse. That is his sentence turned into a picture: "when I'm trying to walk past
+   the wall it's not allowing me to because I'm just missing it."
+
+   SO A PRESS INTO A WALL LOOKS ALONG THE WALL FOR ITS END, out to one lot, both
+   ways, and goes the nearer way. Paired with the gap rule above, the stride then
+   stops exactly at the end of the wall, and the next press east goes through. Two
+   presses instead of nineteen, and neither of them is a guess about where he wanted
+   to go: he wanted to go east, and this is the way east.
+   THE ORDER MATTERS. The corner slip is tried first because it is one cell and
+   reads as nothing at all; walking the face is the bigger move and is the fallback.
+   AND IT IS BOUNDED BY THE SAME LOT THE STRIDE IS: a wall with no end within a lot
+   is a building, and a building is allowed to stop him. */
+function _slideDir(dx,dy){
+  /* A DIAGONAL KEEPS THE COMPONENT THAT IS OPEN. Nothing clever: he asked for two
+     directions at once and one of them is a wall, so he gets the other. */
+  if(dx&&dy){
+    let first=null;
+    const cand=[[dx,0],[0,dy]];
+    for(let i=0;i<cand.length;i++){
+      const c=cand[i];
+      if(!_standable(hx+c[0],hy+c[1])) continue;
+      if(_standable(hx+c[0]*2,hy+c[1]*2)) return c;   /* prefer the side with room */
+      if(!first) first=c;
+    }
+    return first;
+  }
+  const px=-dy, py=dx;
+  const slip=[[dx+px,dy+py],[dx-px,dy-py]];
+  /* 1. SLIP ROUND THE CORNER, if the corner is really a corner and not a pocket. */
+  for(let i=0;i<slip.length;i++){
+    const c=slip[i];
+    if(_standable(hx+c[0],hy+c[1])&&_standable(hx+c[0]*2,hy+c[1]*2)) return c;
+  }
+  /* 2. WALK THE FACE TO THE END OF THE WALL, nearer side wins. */
+  let reach=25; try{ if(typeof STEP_CELLS==='number'&&STEP_CELLS>0) reach=STEP_CELLS; }catch(_e){}
+  let bestK=Infinity, best=null;
+  for(let s=-1;s<=1;s+=2){
+    const ux=px*s, uy=py*s;
+    for(let k=1;k<=reach;k++){
+      const x=hx+ux*k, y=hy+uy*k;
+      if(!_standable(x,y)) break;                 /* the face is not walkable that way */
+      if(_standable(x+dx,y+dy)){ if(k<bestK){ bestK=k; best=[ux,uy]; } break; }
+    }
+  }
+  if(best) return best;
+  /* 3. LAST RESORT: the corner even if it is a pocket. One cell beats none. */
+  for(let i=0;i<slip.length;i++){
+    const c=slip[i];
+    if(_standable(hx+c[0],hy+c[1])) return c;
+  }
+  return null;
+}
+var _slideGuard=0;   /* ONE slide per press. A chain of slides is a shove. */
 function stepOnce(di){
   try{ contactClear(); }catch(_e){}   /* V203 __CONTACT_FIGHT__: one step, at most one fight */
   const [dx,dy]=DIRS[di];
@@ -39608,8 +39717,9 @@ function stepOnce(di){
        change; only the number of presses does, which is the whole ask.
        ONE NUMBER IN ONE PLACE: the bike keeps its 7/6 ladder as a MULTIPLE of the
        walk rather than a second opinion about what a step is. */
+    /* __ONE_STRIDE_THAT_NEVER_MISSES__: this is the CEILING, not the length. */
     const per=(RIDING?4:1)*STEP_CELLS;
-    let moved=0;
+    let moved=0, heldByBody=false;
     for(let k=0;k<per;k++){
       const nx=hx+dx, ny=hy+dy;
       const c=cellAt(nx,ny);
@@ -39663,6 +39773,7 @@ function stepOnce(di){
       if(typeof ctBlocked === 'function' && ctBlocked(nx,ny)){
         HFACE=dirOf(dx,dy);
         try{ ctAgainstSay(nx,ny); }catch(_e){}
+        heldByBody=true;   /* a person holding a cell is a RULING, never slid around */
         break;
       }
       if(!(c&&c.walk))break;
@@ -39723,6 +39834,12 @@ function stepOnce(di){
          enemies close on me" belong. The two do not talk to each other and must
          not be merged into one call. */
       try { ctFollowStep(); } catch(_e){}
+      /* *** NEVER PAST A GAP. *** The last thing a walked cell asks. A lot is
+         twenty-five cells and the way through a fence is two, so without this the
+         stride steps over the only opening on the block and lands past it -- his
+         "I'm just missing it", exactly. He ends the stride standing in the mouth
+         of the opening, facing the way he pressed, and one press turns him in. */
+      if(_gapMouth(hx,hy,dx,dy)) break;
     }
     if(moved){ HFACE=dirOf(dx,dy);
       /* __ROAD_INTERRUPTS_ON_FOOT__ -- AND THE WALKED STREET GETS THE SAME SAY.
@@ -39737,6 +39854,20 @@ function stepOnce(di){
       ROAD_LASTDIR = di;
       try{ roadInterrupt(moved * 5.04); }catch(_e){}
       return true; }
+    /* *** A PRESS TOWARD A WALL SLIDES ALONG IT. *** Nothing moved. Before this,
+       that was the end of it: a dead press, and a dead press in this game is
+       indistinguishable from a broken game (rule 14h, his own sentence: "I press
+       it, nothing happens"). He gets the component of a diagonal that is open, or
+       the corner slipped round on a straight press.
+       IT CANNOT SHOVE HIM: one slide per press, never a chain, and a body holding
+       a cell against him is a ruling the street made and is never slid around. */
+    if(!heldByBody && !_slideGuard){
+      const s=_slideDir(dx,dy);
+      if(s){
+        const sd=DIRS.findIndex(d=>d[0]===s[0]&&d[1]===s[1]);
+        if(sd>=0){ _slideGuard=1; try{ return stepOnce(sd); } finally { _slideGuard=0; } }
+      }
+    }
   }
   return false;
 }
@@ -41364,6 +41495,24 @@ let HZOOM=11; // player-chosen human zoom, SNAPPED to pixel-true levels
 // (2:1 / raw / Scale2x / Scale4x). Char-to-world ratio constant, zero
 // fractional art scaling at any stop.
 const HLEVELS=[11,22,44,88];
+/* *** ONE WALKING CAMERA (Paolo 9/20, rule 18a, [one camera]). ***
+   "I'm zooming out and my person becomes bigger."
+   HE WAS RIGHT AND IT WAS THIS LADDER. A body is sized off whether a lot fits on
+   the glass, and a lot is 25 cells, so 25*C <= 340 flips TRUE only at 11. Walked
+   from the inside out, the four stops drew him:
+       HC 88   -> 224 px      HC 44 -> 112 px
+       HC 22   ->  56 px      HC 11 -> 112 px      <-- ZOOM OUT, GET BIGGER
+   Two stops in a row halved him and the widest one doubled him back. That is not
+   a camera, it is four cameras, and three of them are not the game: at 22 and 44
+   a house does not fit on a phone, which is the whole of rule 16.
+   SO THE WALK HAS ONE STOP AND IT IS THE ONE WHERE A HOUSE FITS. Pinching out
+   from it still crosses into the city, which is the 8/2 seam and is untouched;
+   pinching in holds, because there is nowhere nearer to stand.
+   HLEVELS IS NOT DELETED AND MUST NOT BE: it is the ART ladder the bake and the
+   character rungs are cut against (44 is his tile's own size, 22 and 11 honest
+   halves of it). This is the ladder his FINGERS move on, which is a different
+   question, and conflating the two is what shipped the resize. */
+const HWALK_STOPS=[11];
 let _zacc=11;   /* __THE_STEP_IS_A_HOUSE__: starts where the camera starts */
 
 
@@ -41416,13 +41565,15 @@ function setHZoom(z){
      transition, the drop-in camera and the walkable-cell spiral; this only adds a
      way to REACH it, so the two surfaces can never drift apart. The ZOOM LEVEL LAW
      is untouched: HC still snaps to the same four pixel-true stops below. */
-  if(MODE==='human'&&!transing&&z<HLEVELS[0]&&HZOOM===HLEVELS[0]&&typeof swapMode==='function'){
+  /* __ONE_CAMERA__ -- the stops his fingers move on, not the art ladder. */
+  const S=HWALK_STOPS;
+  if(MODE==='human'&&!transing&&z<S[0]&&HZOOM===S[0]&&typeof swapMode==='function'){
     SEAM_INTENT='look';   /* __LOOKING_IS_NOT_TRAVELLING__: a pinch is a look */
     swapMode(); return;
   }
-  _zacc=Math.max(HLEVELS[0],Math.min(HLEVELS[HLEVELS.length-1],z));
-  let best=HLEVELS[0],bd=1e9;
-  for(const L of HLEVELS){ const d=Math.abs(Math.log(_zacc/L)); if(d<bd){bd=d;best=L;} }
+  _zacc=Math.max(S[0],Math.min(S[S.length-1],z));
+  let best=S[0],bd=1e9;
+  for(const L of S){ const d=Math.abs(Math.log(_zacc/L)); if(d<bd){bd=d;best=L;} }
   HZOOM=best; if(!transing)HC=HZOOM; renderSoon(); if(typeof reportState==='function')reportState();
 }
 // ---- TEXTURE TILE FACTORY (7/6/26, Paolo's direction: texture and love,
@@ -50767,6 +50918,19 @@ const BODY_SCALE = {
      from 28 px to 112 px: giants standing over a whole city, an unasked visible change, in
      the one mode where a person SHOULD be a speck. The ruling is about the street he walks,
      and the fix is the missing half of the condition rather than a tighter number. */
+  /* *** AND CHARACTER'S BODY_FIXED BELOW RETIRED THIS, IN THE SAME ROUND, FROM THE
+     OTHER SIDE OF THE SAME RULING (rule 18a, [one camera] and [body fixed]). ***
+     RUN measured the same defect and reached for the same place: the body changed
+     rung three times because HC is ANIMATED by the mode transition, sweeping 48 down
+     to 11, so RUN's cut sized the body off HZOOM (the stop) rather than HC (the
+     camera mid-flight). CHARACTER's cut is simpler and lands further: in the walked
+     world the body is a CONSTANT and no camera can reach it at all. ONE SYSTEM, ONE
+     SESSION -- the body is CHARACTER's, so CHARACTER's shipped and RUN's was dropped
+     at the merge rather than kept as a second opinion about one number.
+     THIS PREDICATE IS NOW UNCALLED and is left exactly as it was written, because a
+     third lane may still want to ask "does a house fit on this glass" and the answer
+     has not changed. It is not wired to anything and must not be re-wired to the
+     body. */
   lotFitsOnScreen: function(C){
     try {
       if (typeof MODE !== 'undefined' && MODE !== 'human') return false;
@@ -53944,7 +54108,11 @@ document.getElementById('bikebtn').addEventListener('click',()=>{
   cv.addEventListener('pointerup',up);
   cv.addEventListener('pointercancel',up);
   cv.addEventListener('wheel',e=>{
-    if(MODE==='human'){ e.preventDefault(); if(!transing){ const i=HLEVELS.indexOf(HZOOM); const j=Math.max(0,Math.min(HLEVELS.length-1,i+(e.deltaY<0?1:-1))); setHZoom(HLEVELS[j]); } return; }
+    /* __ONE_CAMERA__ -- the wheel walks the SAME one-stop ladder the fingers do,
+       and a notch out at the widest stop asks setHZoom for less than the stop, so
+       the mouse crosses the seam exactly the way a pinch does instead of sitting
+       on a dead notch. */
+    if(MODE==='human'){ e.preventDefault(); if(!transing){ const S=HWALK_STOPS; const i=S.indexOf(HZOOM); const out=(e.deltaY>0); const j=Math.max(0,Math.min(S.length-1,i+(out?-1:1))); setHZoom((out&&j===i)?S[0]*0.5:S[j]); } return; }
     if(SKY){ e.preventDefault(); skyZoom(e.deltaY<0?1:-1); return; }   /* __ONE_ZOOM_TO_THE_MOON__ */
     if(MODE!=='city')return; e.preventDefault();
     const c=toCv(e);

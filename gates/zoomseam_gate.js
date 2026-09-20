@@ -99,7 +99,23 @@ function pw(){ try{ return require('/opt/node22/lib/node_modules/playwright'); }
        + r.afterZoomOut + ')', r.afterZoomOut === 'city');
     ok('AND ZOOMING BACK IN PUTS HIM ON HIS FEET (mode -> ' + r.afterZoomIn + ')',
        r.afterZoomIn === 'human');
-    ok('the ZOOM LEVEL LAW still holds: 44 stays 44 (' + r.snap44 + ')', r.snap44 === 44);
+    /* *** AMENDED 9/20 (RUN, [one camera], rule 18a THE PLAYABLE CUT). NEWEST DATE
+       WINS, AND THIS IS A LAW CHANGE, NOT A GATE BEING LOOSENED. ***
+       PAOLO 9/20: "I'm zooming out and my person becomes bigger." Measured on the
+       served demo: the four walked stops drew his body 112 / 56 / 112 / 224 px, so
+       one notch out DOUBLED him. The walk now offers ONE stop, the one where a house
+       fits (rule 16), and pinching out from it crosses the seam -- which is the
+       three legs above, unchanged and still green.
+       THE ZOOM LEVEL LAW IS UNTOUCHED AND THIS STILL HOLDS IT. What that law
+       protects is ZERO FRACTIONAL ART SCALING: every stop the camera can land on is
+       one of the four pixel-true sizes his tiles are baked at. Asking for 44 and
+       getting 44 was never the law, it was one consequence of a four-stop walk. So
+       this asks the law's real question -- wherever the camera lands, is it
+       pixel-true -- and the one-stop rule itself is held, with real taps and real
+       pinches, by WALK NEVER MISSES. Nothing is less guarded than it was. */
+    ok('the ZOOM LEVEL LAW still holds: asking for 44 lands on a pixel-true stop ('
+       + r.snap44 + ' of [' + (r.levels || []).join(',') + '])',
+       (r.levels || []).indexOf(r.snap44) >= 0);
     ok('and an in-between value still SNAPS to a pixel-true stop (' + r.snapMid + ')',
        (r.levels || []).indexOf(r.snapMid) >= 0);
   } finally { await browser.close(); }

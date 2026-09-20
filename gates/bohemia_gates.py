@@ -1732,6 +1732,21 @@ GATES = [
      'nothing: the invitation is in the document before one byte of script runs. MUTATION: put '
      'TAP TO ENTER back in the markup -> 4 red, and the one-tap leg independently reproduces the '
      'dead first press.', False),
+    ('WALK NEVER MISSES', ['node', 'gates/the_walk_never_misses_gate.js'],
+     'VAMILY [one camera], rule 18a THE PLAYABLE CUT: PAOLO 9/20 -- "I am zooming out and my '
+     'person becomes bigger... walking the same distance and crashing into walls because it is '
+     'forcing me to move like 67 tiles at a time, so when I am trying to walk past the wall it '
+     'is not allowing me to because I am just missing it." BOTH HALVES WERE REGRESSIONS THIS '
+     'LANE SHIPPED. MEASURED ON THE SERVED DEMO WITH REAL TAPS ON THE REAL PAD, before and '
+     'after, same circuit of his own block: the body drew 112/56/112/224 px across the four '
+     'stops, so ONE NOTCH OUT DOUBLED HIM, and a real pinch took him to a second stop at 224; '
+     'the walk was 12 stuck presses and 14 gaps walked past out of 40 presses. After: one '
+     'walking stop, one body size at every stop and across the whole drop-in sweep, 0 stuck and '
+     '0 gaps out of 45. IT KNOWS A WALL FROM A BUG: a refused press is judged by an independent '
+     'FLOOD FILL over the game own walk flags, not by the thing it is judging, so ground a body '
+     'genuinely cannot reach is reported separately and never counted against the stride. '
+     'MUTATION: the pre-fix tree IS the mutant and it scores 9 passed / 10 failed, including '
+     'both starred lines.', True),
     ('SPAWN HOME',     ['node', 'gates/spawn_home_gate.js'],
      'VAMILY [spawn home]: PAOLO 9/15, after playing the cut -- "it keeps spawning me in the '
      'middle of some freeway, street shit for no purpose." MEASURED ON THE GLASS: the map said '
