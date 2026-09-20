@@ -28531,6 +28531,10 @@ content. ALWAYS MAKE AN ATTEMPT amended: words are an attempt for a thing that e
 screen, never a stand-in. WHY THEY WERE DONE, answered to him: 9/5 stand-ins for encounters
 with no bodies, shipped as features under a law read as permission; the manager let text
 count as shipped. RUN [no pop ups] moved to FIRST, this round, before the loading screen.
+THEN (eo) PAOLO 9/20: "I need a portraits chat now? Remember it has to be connected to the
+hairs and eye color and shit." Told him: open a fresh chat, type VAMILY, it becomes 20
+PORTRAIT. PORTRAIT reordered: [matches body] first (his words on it), [faces first] second
+(the person at his door), [blank faces] school third.
 
 COORDINATOR: 9/4 (ba) -- *** THE MEETING HALL:
 VAMILY.md's front page now carries every rule, and every chat re-reads it every time
