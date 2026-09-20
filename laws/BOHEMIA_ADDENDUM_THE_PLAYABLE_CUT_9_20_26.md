@@ -75,3 +75,19 @@ said "I can't be showing this to people"; the fleet does not make him.
 Rule 18 on the front page. RUN: MODE frozen to the three; [loading screen] first, [one
 camera] second, [fight looks] on COMBAT first; PLUMBER [never worse] first; EYES [best
 cut] first; every other building lane's MODE line says HOLD.
+
+## 7. LESS ON SCREEN (Paolo 9/20, third message of the same play; records/BOHEMIA_PAOLO_OVERWHELMED_AND_UNDERWHELMED_9_20_26.md)
+"I'm just pretty much overwhelmed and underwhelmed at the same time. It's like not playable
+yet. It's like a lot going on and I see it but this shit is broken right now."
+Overwhelmed and underwhelmed have one cause: the demo's screen carries everything twenty
+lanes shipped, and none of it is the four things. So THE DEMO CUT SHOWS ONLY WHAT THE FOUR
+THINGS NEED: the loading screen, the world at the one walking camera, the walk pad, the gear
+(VOTE and the notes button live behind it), the phone, the person who speaks with their
+portrait, and the fight when it starts. The cutter STRIPS the rest from the demo until the
+coordinator says the cut holds: the rail of chips, the job line, the feed, the mode toggles,
+the day readouts, the fight's dev strip, and every card. Nothing is deleted from the alpha;
+the alpha keeps everything and stays the lanes' surface. RUN [cut now] carries it with [no
+pop ups]: subtract first, then add the four things. The stranger's list (EYES E26) is walked
+on the stripped cut; fewer things on screen may not cost a single thing the stranger could
+do before (the pad, the gear, the phone, the fight all still reachable).
+

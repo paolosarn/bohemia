@@ -28536,6 +28536,17 @@ hairs and eye color and shit." Told him: open a fresh chat, type VAMILY, it beco
 PORTRAIT. PORTRAIT reordered: [matches body] first (his words on it), [faces first] second
 (the person at his door), [blank faces] school third.
 
+THEN (ep) PAOLO 9/20, THIRD MESSAGE OF THE SAME PLAY: "overwhelmed and underwhelmed at the
+same time... not playable yet... a lot going on and I see it but this shit is broken right
+now." Recorded verbatim (records/BOHEMIA_PAOLO_OVERWHELMED_AND_UNDERWHELMED_9_20_26.md).
+Rule 18g LESS ON SCREEN on the front page and section 7 of the playable-cut law: the demo
+cut shows only what the four things need (loading, the walking camera, the pad, the gear
+with VOTE and notes behind it, the phone, the person who speaks, the fight); the cutter
+strips the rail of chips, the job line, the feed, the toggles, the readouts, the dev strip
+and every card from the DEMO until the cut holds; the alpha keeps everything. RUN [cut now]
+carries it in the same push as [no pop ups]. Told him plainly it is not playable yet, no
+defense, no new promises beyond the four things. Nothing to judge.
+
 COORDINATOR: 9/4 (ba) -- *** THE MEETING HALL:
 VAMILY.md's front page now carries every rule, and every chat re-reads it every time
 it hears the word. He never pastes anything again. Nothing to judge. ***
