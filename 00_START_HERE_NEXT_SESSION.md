@@ -28511,6 +28511,17 @@ stamp, the mode, where he stood, the seconds in and a small frame; notes leave t
 the road a vote does (registry + one .txt export he sends the manager) and the manager
 reads them as rulings. UI [notes button] FIRST; rule 18f: his direct tiny asks ship under
 the hold. His question answered: yes it makes sense.
+THEN (em) PAOLO 9/20: A CARD IS NOT A QUEST. He opened the demo and the night card popped
+up (frame records/target/PAOLO_THE_NIGHT_CARD_9_20_26.jpg; words records/BOHEMIA_PAOLO_A_CARD_IS_NOT_A_QUEST_9_20_26.md). LAW laws/BOHEMIA_LAW_A_QUEST_IS_PEOPLE_PLACES_AND_THINGS_9_20_26.md,
+front-page RULE 19, CLAUDE.md law list: nothing pops up (wake, night, road cards as pop-ups
+DEAD; the bookkeeping lives on the phone he opens); a quest exists only with a person with a
+face who says it, a place, a thing and a visible result; text comes from a mouth with a
+portrait; every lane answers WHO SAYS THIS, WITH WHAT FACE, STANDING WHERE. THE PLAYABLE CUT
+gains a fourth thing, THE FIRST PERSON at his door: RUN [no pop ups] second, QUESTS [a
+person asks] first (un-held for it), PEOPLE [face at the door] first (un-held), WORDS Q26
+[the first ask spoken] first, UI [talk panel], PORTRAIT note. Also seen on his card:
+BATTERIES IN THE VALLEY: 0 (the fixed supply landed empty; ruling 9 said one per head; WORLD
+when the hold lifts). The gate for rule 19 is OWED.
 
 COORDINATOR: 9/4 (ba) -- *** THE MEETING HALL:
 VAMILY.md's front page now carries every rule, and every chat re-reads it every time

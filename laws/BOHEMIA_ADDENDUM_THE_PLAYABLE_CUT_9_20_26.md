@@ -43,6 +43,11 @@ are these three, each owned by one lane:
    same light, the camera pulls back a little and the cloud passes. No arena, no second
    floor, no second body ladder, no workshop. Rule 17 stands and is sharpened by his
    words: "it doesn't even load on the tiles that you're on."
+4. THE FIRST PERSON (QUESTS, PEOPLE, WORDS, PORTRAIT; added 9/20 by laws/BOHEMIA_LAW_A_QUEST_IS_PEOPLE_PLACES_AND_THINGS_9_20_26.md). Inside
+   the first minute one named person with a portrait speaks the first ask to him at his
+   door, in the game's words, with a place to go and a thing to bring back, and the world
+   shows the result. No card pops up at the start, at wake, at night or on the road; the
+   bookkeeping lives on the phone he opens.
 Every other building lane HOLDS: claims stay claimed, nothing is pushed to the alpha, and
 a lane's round is spent measuring its own part of the three things above and writing the
 finding into its handoff, or on school. Research lanes continue and touch nothing. COOK
