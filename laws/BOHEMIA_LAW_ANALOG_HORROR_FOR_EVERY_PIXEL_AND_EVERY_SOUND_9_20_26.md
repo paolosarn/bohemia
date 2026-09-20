@@ -77,6 +77,22 @@ through, and where a reference's mood and this law conflict, THIS LAW WINS BY DA
 - EYES E28 [horror check], standing: every shipped pixel and sound measured against the
   bible once it exists; a miss is a break on the list.
 
+## 7. RECONCILED WITH DIRECTION'S REGISTER (same round)
+He typed the two words "Analog horror" into the DIRECTION chat as well, and DIRECTION ruled
+a register the same turn (records/BOHEMIA_ANALOG_HORROR_REGISTER_9_20_26.md, 42287a2f):
+the horror is that the old world keeps broadcasting; DIEGETIC OR DEAD (a screen inside the
+world may show static, the world itself never does; nothing sits on the lens); three homes
+(dead media props, the strange's sound texture, the Amalgamation's broadcast voice). ALL OF
+THAT STANDS and the bible is built from it; "diegetic or dead" is the sharpest form of
+section 3's "not a filter". Two places the register was ruled on two words and this law is
+ruled on his whole sentence, and this law wins by his words: (a) the register kept the FFX
+sound anchor untouched; he said "the sounds have to complement that", so the sound serves
+analog horror first (section 4). (b) The register does not touch the fight or the runway;
+he said "everything that is a pixel", so the fight and the dressed bodies are READ THROUGH
+the tone too (the runway law and rule 17 still own them; the frame around them, the light,
+the hold and the sound are this law's). No contradiction stays live: DIRECTION folds the
+register into the bible under this law.
+
 ## 6. THE GATE (OWED)
 reference_check_gate.py gains the bible as a reference sheet the round DIRECTION lands it;
 until then this law is enforced by THE FIGHT VERDICT and EYES E28 by hand, and the manager
