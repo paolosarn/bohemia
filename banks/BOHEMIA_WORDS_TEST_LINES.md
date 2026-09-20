@@ -2417,3 +2417,114 @@ BROTHER  Pass the salt.                                                [time off
 #   28 cards, 46 bars, 92 s held, padding 8.5 s (9%), dead zone 0, clipped 0.
 #   Against my own unmeasured first draft: 31% padding, 16 of 22 in the dead zone.
 #   Against the corpus as it stands: 17.9% padding, 39.5% in the dead zone.
+
+## Q5 ROUND TWO -- REFUSAL WORDS, ARMED BY SCHOOL  (9/20/26)
+# Round one is records/BOHEMIA_WORDS_Q5_SCHOOL_THE_SLOT_HAS_NOTHING_TO_WITHHOLD_9_18_26.md
+# All draft:true. Nothing here is in the game. Tab: CITY, the ask-a-person beat.
+# Every char count and bar count below came out of the shipped timing policy in
+# engine/bohemia_stage.js, per the standing check this lane set on 9/16.
+#
+# WHICH FINDINGS FROM SCHOOL CHANGED THESE LINES:
+# 1. THE SLOT ONLY FIRES WHEN THERE IS NOTHING TO WITHHOLD. The deflection is the
+#    ELSE of "this trade has an answer for this subject". So every line in SET A is
+#    honest about not having it. The interesting refusals are in SET C and they
+#    CANNOT SHIP, which is the point of SET C.
+# 2. FIVE REAL FORMULAS EXIST AND WE USE ONE. All four shipped deflections are a
+#    competence disclaimer. SET A gives each trade a DIFFERENT published formula and
+#    costs exactly four strings, the same as today.
+# 3. THE QUIRK FACTORY IS THE MODEL AND IT IS OURS. It authors every shape in three
+#    mouths; the asking factory has no register axis at all. SET B is the same four
+#    in three mouths.
+# 4. THE HELD BEAT IS TWO, NOT ONE. Not a line change; it is on the note at the end.
+#
+# WHAT I DID NOT REWRITE, ON PURPOSE: the scav line. It is already the ALTERNATIVE
+# formula and it already lands at 95% of three bars. School said the defect is that
+# all four are the same move, not that any one of them is bad. Rewriting a line that
+# works to make a set look uniform is how a round loses something good.
+
+### SET A -- THE DROP-IN. FOUR TRADES, FOUR DIFFERENT FORMULAS, ZERO MECHANISM CHANGE.
+# Four strings in, four strings out. DEFLECT is keyed by archetype and holds one
+# string each, so this is the largest fix that costs nothing to land.
+# House style matched: the asking module spells out verb contractions (32 lines, 0
+# verb contractions, only possessive apostrophes), so these do too.
+  worker  DIRECT / NON-POSSESSION   draft:true
+          That one never got to me. I work and I do not listen.          53ch  2 bars  95%
+#         was: "I work. I do not keep track of who is doing what to who."  56ch 2 bars 100%
+  scav    ALTERNATIVE (+ reason)    draft:true    UNCHANGED, AND THAT IS THE POINT
+          Ask somebody who stands still for a living. I am never in one place long enough.
+                                                                          80ch  3 bars  95%
+  keeper  POSTPONEMENT              draft:true
+          Not across this counter yet. Ask me when it is older.           53ch  2 bars  95%
+#         was: "I hear things across this counter all day. That is not one of them."
+#         67ch, 3 bars, 80% fill, which is the dead-zone edge Q4 round two measured.
+  watch   WISH / REGRET             draft:true
+          I wish it was. I watch this street, and that is not it.         55ch  2 bars  98%
+#         was: "I watch this street. That is not this street."  45ch 2 bars 80%, also the edge.
+# The postponement is honest for a keeper specifically: a counter is where things
+# arrive, so "not yet" is a true statement about a person who will plausibly hear it.
+# It would be a lie in the watch's mouth, whose problem is the street and not the
+# clock. THE FORMULA HAS TO FIT WHAT THAT TRADE ACTUALLY LACKS.
+
+### SET B -- THE SAME FOUR IN THREE MOUTHS. NEEDS THE TABLE TO HOLD A REGISTER.
+# MEASURED: the asking module is 32 lines and NOT ONE carries a word of Spanish,
+# in a game whose law is THEY SPEAK SPANGLISH (8/25). The quirk factory authors
+# plain English, spanglish and spanish-dominant for every shape. The asking factory
+# has no register axis in it at all. Shipping this set is a mechanism change to
+# somebody else's module and this lane does not make it.
+  worker  draft:true
+    en    That one never got to me. I work and I do not listen.           53ch  2 bars  95%
+    spa   That one never got to me. I work, no ando escuchando.           53ch  2 bars  95%
+    dom   That one no come to me. I work here. I not listen.              50ch  2 bars  89%
+  scav    draft:true
+    en    Ask somebody who stands still for a living. I am never in one place long enough.
+                                                                          80ch  3 bars  95%
+    spa   Ask somebody who stands still for a living. Yo nunca estoy in one place long enough.
+                                                                          84ch  3 bars 100%
+    dom   Ask somebody who no move. I am never long in one place.         55ch  2 bars  98%
+  keeper  draft:true
+    en    Not across this counter yet. Ask me when it is older.           53ch  2 bars  95%
+    spa   Not across this counter todavia. Ask when it is older.          54ch  2 bars  96%
+    dom   Not yet across this counter. Ask me when is more old.           53ch  2 bars  95%
+  watch   draft:true
+    en    I wish it was. I watch this street, and that is not it.         55ch  2 bars  98%
+    spa   Ojala. I watch this street, y esa no es esta calle.             51ch  2 bars  91%
+    dom   I wish it. I watch this street. That one is not this.           53ch  2 bars  95%
+#
+# *** THE THING WRITING THIS SET TAUGHT ME, WHICH SCHOOL DID NOT: A REGISTER CHANGES
+# THE BOX. *** The spanish-dominant mouth drops articles and auxiliaries, so the same
+# content comes out SHORTER, and shorter is the expensive direction (Q4 round two).
+# My first pass at the dom lines landed five of them in the dead zone at 68 to 71%
+# fill, every one of them because the broken-English version overshot one box and
+# undershot the next. A three-mouth set cannot be written once and then translated.
+# EACH MOUTH HAS TO BE FITTED TO ITS OWN BOX. Fixed: all twelve now sit at 89 to 100%.
+
+### SET C -- THE GOOD ONES, AND THEY CANNOT SHIP. THIS IS THE POINT OF THE ROUND.
+# These are refusals that WITHHOLD: the speaker has the answer and declines. Every
+# one needs a branch that does not exist in the module (school section 1, measured at
+# slices/BOHEMIA_CITY_WORLD.html ~50228). Written now so the words are ready the day
+# somebody builds it, and written nowhere near the live table so nobody can drop them
+# into the honest slot by accident.
+# *** IF ANY OF THESE FIVE IS PUT IN THE SLOT SET A FILLS, THE GAME LIES TO THE
+# PLAYER: it promises a secret behind a branch that opened because there is no
+# secret. That is rule 14(d) in dialogue form. ***
+  NAMES THE COST OF TELLING     draft:true
+    I have it. Saying it out here costs me this block.                    50ch  2 bars  89%
+  CONDITION ON THE ASKER        draft:true
+    I have it. You get it after you have done something for this street.  68ch  3 bars  81%
+  A PLACE CONDITION             draft:true
+    Not out here. Find me inside and I will say it.                       47ch  2 bars  84%
+  POSTPONEMENT WITH A REASON    draft:true
+    Not tonight. Ask me when the light is back on.                        46ch  2 bars  82%
+  AN ADMITTED OMISSION          draft:true
+    I will tell you most of it. The part I leave out is the part that matters.
+                                                                          74ch  3 bars  88%
+# The last one is the quality flout the 9/5 record said we could not have without
+# the world remembering the lie. The quirk factory already solved that by having the
+# speaker admit it themselves ("The one I give first isn't the real one"), and this
+# is the same trick pointed at a subject instead of a name.
+
+# THE WHOLE SECTION, MEASURED BY THE SHIPPED POLICY:
+#   17 cards, 38 bars, 76 s held, padding 8%, dead zone 0, clipped 0.
+# AND THE ONE THING THAT IS NOT A LINE: the held beat before any of these is TWO
+# beats, not one. 500 ms is inside the band where a refusal and an acceptance cannot
+# be told apart; the signal starts at 700 to 800 ms. Q2, Q4 and Q5 all asked for one.

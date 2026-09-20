@@ -1,3 +1,80 @@
+WORDS (words-8dqrnq): 9/20 LATEST -- *** Q5 [refusing answers] SHIPPED WITH BOTH ROUNDS. ***
+Round one was school (9/18 block below). This is round two, the writing. Record:
+records/BOHEMIA_WORDS_Q5_ROUND_TWO_THE_WRITING_9_20_26.md
+Lines: banks/BOHEMIA_WORDS_TEST_LINES.md, section "Q5 ROUND TWO", 17 cards, all draft:true,
+none of it in the game. Tab: CITY, the ask-a-person beat.
+
+THREE SETS, AND THE SPLIT IS THE ANSWER TO THE QUESTION:
+ SET A, 4 LINES, A DROP-IN AT ZERO MECHANISM COST. DEFLECT is keyed by archetype and holds one
+   string each, so four strings out, four strings in. Today all four are the SAME move, a
+   competence disclaimer. Now: worker DIRECT/NON-POSSESSION ("That one never got to me. I work
+   and I do not listen."), scav ALTERNATIVE, keeper POSTPONEMENT ("Not across this counter yet.
+   Ask me when it is older."), watch WISH ("I wish it was. I watch this street, and that is not
+   it."). AND THE SCAV LINE IS DELIBERATELY UNCHANGED: it is already the alternative formula and
+   already lands at 95% of three bars. School's finding is that all four are the same MOVE, not
+   that any one is badly written, and rewriting a line that works so a set looks uniform is how
+   a round loses the one deflection that hands the player somewhere to go. Three changed, one
+   kept. House style matched: the asking module is 32 lines with ZERO verb contractions.
+ SET B, 12 LINES, THE SAME FOUR IN THREE MOUTHS. MEASURED: the asking module is 32 lines and NOT
+   ONE CARRIES A WORD OF SPANISH, against THEY SPEAK SPANGLISH (8/25), while the quirk factory
+   next door authors plain English, spanglish and spanish-dominant for every single shape. The
+   asking factory has no register axis in it at all. Shipping this is a mechanism change to
+   somebody else's module and this lane does not make it.
+ SET C, 5 LINES, THE GOOD ONES, AND THEY CANNOT SHIP. Every one presupposes a speaker who HAS
+   the answer and declines (names the cost of telling, a condition on the asker, a place
+   condition, postponement with a reason, an admitted omission). School measured that branch as
+   missing. *** IF ANY OF THE FIVE GOES IN THE SLOT SET A FILLS, THE GAME LIES: it promises a
+   secret behind a branch that opened because there is no secret. Rule 14(d) in dialogue form. ***
+   They are written now so the words are ready the day somebody builds the branch, and written
+   nowhere near the live table so nobody drops them in by accident.
+
+*** ROUND TWO'S OWN FINDING, WHICH SCHOOL COULD NOT GIVE: A REGISTER CHANGES THE BOX. ***
+The spanish-dominant mouth drops articles and auxiliaries, so the same content comes out SHORTER,
+and Q4 round two established that SHORTER IS THE EXPENSIVE DIRECTION (a card a few characters past
+a bar pays for the whole next bar; 29 to 44 characters is dead space). MY FIRST PASS PUT FIVE OF
+THE TWELVE REGISTER LINES IN THE DEAD ZONE at 68 to 71% fill, every one for the same reason: the
+broken-English version of a line that fits English cleanly overshoots one box and undershoots the
+next. e.g. "Ask somebody who no move. I am never long time in one place." 60ch, 3 bars, 71%.
+A THREE-MOUTH SET CANNOT BE WRITTEN ONCE AND THEN TRANSLATED. EACH MOUTH IS FITTED TO ITS OWN BOX.
+After fitting, all twelve sit between 89% and 100%. THE SPANGLISH LAW AND THE TIMING LAW WERE TWO
+SEPARATE CONSTRAINTS IN EVERY RECORD BEFORE THIS ONE. They are not separate: the register moves
+the length and the length is the cost. NEW STANDING RULE FOR THIS LANE, written beside the lines.
+
+AND A SMALL ONE, SAID BECAUSE THIS LANE KEEPS MAKING IT: checking whether the asking module
+carries any Spanish, my detector returned 4 hits and ALL FOUR WERE FALSE, matching "se", "lo",
+"te" and "me" inside English sentences. The true count is ZERO. Third English-ruler failure in
+three rounds (Q23's direction words, Q5 school's Spanish negator, this). The standing rule from
+school held and reading the hits is the only reason the number in the record is right.
+
+WHOLE SECTION BY THE SHIPPED POLICY: 17 cards, 38 bars, 76 s held, padding 8%, DEAD ZONE 0,
+CLIPPED 0. Also noted honestly: of the four lines I inherited, the worker was already at 100%
+fill and only the keeper and the watch sat on the dead-zone edge at 80%.
+
+NOTHING IS IN THE GAME AND NO BREAK IS REPORTED. Everything in both rounds is reading and
+executing our own code and data; this lane has not walked the demo. No reference game is cited in
+either round.
+
+ROUTED: TO WHOEVER OWNS THE ASKING MODULE, three sizes of change named in order -- SET A is four
+strings for four strings and removes the "four trades, one move" defect at zero cost; SET B needs
+DEFLECT to hold a register per archetype instead of one string; SET C needs the second branch.
+Separately: 32 lines, no Spanish, against a law from 8/25, which is a gap in a module and not in
+the writing. TO UI: the held beat before a refusal is TWO beats, not one; 500 ms is inside the
+band where a refusal and an acceptance cannot be told apart, and the signal starts at 700-800 ms.
+
+GATES, ALL SIX THIS LANE OWNS: voice 118/0, dialogue catalogue 63/0, attempt 15/0, language 83/0,
+voice audible 2/0, handoff 8/0. SUITE LINE: pre-push pass green; none of the suite's outstanding
+reds is this lane's.
+
+STANDING QUEUE: Q6 through Q17 still owe their school rounds under the 9/6 mode, oldest first, and
+Q6 [power talk] is now the top. The four held BUILD rows (BB-THE-SMALL-MOMENT, BB-STILL-SAYS-IT,
+BB-RESPONSIVE, SECOND-VOICE-PASS) stay held while the lane is in research mode.
+STANDING WATCH: verdicts[] in records/target/BOHEMIA_VOTE_REGISTRY.json, every round, for ids
+starting words-. Checked this round: 16 items, 0 verdicts, nothing to act on. Four of mine are
+registered. Up means build it in that same round; down means graveyard with a post-mortem.
+NOTES ARE RULINGS, never ask him twice.
+HANDOFF DISCIPLINE, THE 9/13 AMENDMENT: this block was built by taking origin/main's copy of the
+file fresh and prepending a NEW head. Never demote another lane's head and never splice by index.
+
 ECONOMY (economy-knxaeh): PAOLO'S PERMANENT INSTRUCTION, 9/5, EXPANDED VERSION.
 HIS WORDS, WORD FOR WORD, SO THEY SURVIVE ANY MEMORY RESET. THIS SUPERSEDES THE
 EARLIER SHORTER VERSION FURTHER DOWN THIS FILE. THIS BLOCK IS NEVER DELETED.
