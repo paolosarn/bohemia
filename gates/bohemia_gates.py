@@ -461,6 +461,27 @@ GATES = [
      'and failed on 505/518/546ms samples -- the threshold was wrong, not the feed. It also '
      'prints the page\'s own clock gaps, which are whole-page freezes belonging to another '
      'lane, so they cannot hide inside this lane\'s green.', True),
+    ('NOTES BUTTON',   ['node', 'gates/the_notes_button_gate.js'],
+     'PAOLO 9/20: "in the demo there should be a note section at the very top right, just the '
+     'tiniest button, where as I am playing the demo I can write all my thoughts down and then '
+     'resume back to playing." Rule 18(f): his direct ask, tiny, touches none of the three, so it '
+     'ships while the rest of the UI lane holds. The row\'s own ship test is the spine of this '
+     'gate: open, type, close, and he resumed on the SAME cell at the SAME clock, with the export '
+     'carrying the stamp and the place. THE LEG THAT EARNS IT IS THE PAUSE, and the first run of '
+     'that test LIED: it reported the game moving with the box open, and a leaking overlay was the '
+     'obvious cause. It was not -- a tap EARLIER in the same run had started a HOLD on the walk pad '
+     'and the hold was still stepping. The test opens the box before it touches anything now, and '
+     'the pause is EXPLICIT in the page (a capture-phase block, the pattern the sky pinch already '
+     'uses) rather than left to stacking order, because asking the browser who owned the arrow\'s '
+     'pixel gave two different answers on two runs of the same probe. There was no clock to stop: '
+     'this valley is I-MOVE-YOU-MOVE, so with hands off T.day and T.min do not advance, and the '
+     'pause he asked for is the pause of not stepping. The test also caught TWO real defects that '
+     'reading would not have: a tap outside the card threw away what he had written (fine for a '
+     'card you READ, not for the only place he writes anything down -- the scrim does nothing now), '
+     'and the "tiniest button" shipped at 9px of ink while every chip beside it is halved to 5, '
+     'caught by a leg that compares it to its own neighbours instead of to a number somebody '
+     'picked. Mutation-proved four ways.',
+     False),
     ('STREET NO HAIRLINES', ['node', 'gates/the_street_draws_no_hairlines_gate.js'],
      'THE TELL RULER READS SOURCE, AND ON THE WALKED CITY IT WAS FIFTEEN TIMES THE TRUTH. It '
      'said 46 one-pixel borders and 53 rounded corners; the LIVE opening street was drawing '

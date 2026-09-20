@@ -75307,4 +75307,268 @@ window.BOHEMIA_SKIN = (function(){
 })();
 
 </script>
+<script>
+/* ============================================================================
+   __THE_NOTES_BUTTON__  (UI lane 11, 9/20) -- row [notes button].
+   *** PAOLO 9/20: "in the demo there should be a note section at the very top right,
+   just the tiniest button, where as I'm playing the demo I can write all my thoughts
+   down and then resume back to playing." ***
+   Rule 18(f): his direct ask, tiny, touches none of the three (loading, walking, the
+   fight), so it ships while the rest of this lane holds.
+
+   THE WHOLE POINT IS THAT HE DOES NOT STOP PLAYING TO WRITE A NOTE. So:
+   one tap in, type, one tap out, and he is standing exactly where he was.
+
+   A NOTE CARRIES ITS OWN CONTEXT SO HE NEVER TYPES IT. Every note is stamped with the
+   build, the mode, the district, the cell he stood on, the in-game day and clock, the
+   seconds since the demo opened, and a small picture of what was on the glass. He wrote
+   "the car looks like dogshit" once and three lanes had to guess which zoom he meant.
+
+   THE CLOCK IS ALREADY PAUSED, AND THAT IS MEASURED, NOT ASSUMED. This valley runs on
+   I-MOVE-YOU-MOVE ("the sim advances per step() call, the caller decides"), so there is
+   no wall clock to stop: T.day and T.min only move when he does. The overlay takes the
+   taps, so nothing steps, so nothing advances. The gate stands with the box open and
+   proves the clock and the cell are identical on the other side.
+
+   IT LEAVES THE PHONE THE SAME ROAD A VOTE DOES. Notes live in localStorage the instant
+   he taps (same as a verdict), and the export is a .txt he sends the manager, in the
+   same shape the VOTE tab exports. A browser cannot write a repo file; the .txt is the
+   road, and the notes ride under the same key prefix so the one tab can read them.
+   ========================================================================== */
+(function(){
+  'use strict';
+  var KEY = 'bohemia.notes.v1';
+  var T0  = Date.now();
+  var open_ = false, notes = [], ctx = null;
+
+  function read(){ try{ return JSON.parse(localStorage.getItem(KEY)||'[]')||[]; }catch(e){ return []; } }
+  function write(){ try{ localStorage.setItem(KEY, JSON.stringify(notes)); }catch(e){} }
+
+  function css(){
+    if(document.getElementById('notecss')) return;
+    var s=document.createElement('style'); s.id='notecss';
+    s.textContent =
+      /* THE TINIEST BUTTON, AND THE REACH IS STILL 44. His words are "just the tiniest
+         button", and THE THUMB is a law: the ink is small, the tap area is not. That is
+         the same trade [half size] settled -- halve the pixels, never the reach. */
+      '#notebtn{flex:0 0 auto;min-width:44px;min-height:44px;display:inline-flex;'
+        +'align-items:center;justify-content:center;box-sizing:border-box;cursor:pointer;'
+        /* HIS WORDS ARE "just the tiniest button", AND THE BAR AROUND IT IS 5px.
+           This shipped at 9 and the gate caught it against its own neighbours: every other
+           chip in the bar is halved to 5 by [half size], so a 9px mark was nearly twice
+           the ink of everything beside it and read as the loudest thing up there rather
+           than the smallest. It inherits the halved size the same way they do. */
+        +'font-family:var(--face-casing);font-size:5px;letter-spacing:var(--track-casing,.4px);'
+        +'color:var(--acc);background:transparent;-webkit-tap-highlight-color:transparent}'
+      +'#notebtn.has{color:#e7d8bb}'
+      /* the box is the game's own object language: a plate with a body, no hairline */
+      +'#notewrap{position:absolute;inset:0;z-index:60;display:none;align-items:center;'
+        +'justify-content:center;background:rgba(6,5,4,.86);padding:12px}'
+      +'#notewrap.on{display:flex}'
+      +'#notecard{width:100%;max-width:420px;max-height:100%;overflow-y:auto;'
+        +'background:var(--face);padding:14px;border-radius:var(--skin-panelround,3px);'
+        +'box-shadow:inset 0 2px 0 var(--skin-paneltop,#4c412f),'
+                  +'inset 0 -3px 0 var(--skin-panelbase,#0a0806),'
+                  +'0 2px 0 var(--skin-panelunder,rgba(0,0,0,.6)),0 10px 26px rgba(0,0,0,.55)}'
+      +'#notecard h2{font:700 13px/1.2 var(--face-casing);letter-spacing:var(--track-casing,.4px);'
+        +'color:var(--acc);margin:0 0 3px}'
+      +'#notewhere{font:10px/1.4 var(--face-casing);letter-spacing:var(--track-casing,.4px);'
+        +'color:#8d7c5e;margin-bottom:9px}'
+      +'#notetext{width:100%;min-height:104px;font:14px/1.45 var(--face-body);'
+        +'color:var(--ink);background:#151310;border:0;padding:10px;resize:vertical;'
+        +'border-radius:var(--skin-chipround,2px);'
+        +'box-shadow:inset 0 2px 0 var(--skin-chipbase,#0b0906),'
+                  +'inset 0 -1px 0 var(--skin-chiptop,#5c4f38)}'
+      +'#noterow{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}'
+      +'#noterow .nb{min-height:44px;min-width:44px;padding:0 14px;display:inline-flex;'
+        +'align-items:center;justify-content:center;cursor:pointer;background:#1b1813;'
+        +'font:700 11px/1 var(--face-casing);letter-spacing:var(--track-casing,.4px);'
+        +'color:var(--ink);border-radius:var(--skin-chipround,2px);'
+        +'box-shadow:inset 0 1px 0 var(--skin-chiptop,#5c4f38),'
+                  +'inset 0 -2px 0 var(--skin-chipbase,#0b0906),0 1px 0 rgba(0,0,0,.55)}'
+      +'#noterow .nb.go{color:var(--acc)}'
+      +'#notelist{margin-top:12px}'
+      +'#notelist .nn{font:11px/1.45 var(--face-body);color:#8d7c5e;padding:7px 0;'
+        +'box-shadow:0 1px 0 rgba(0,0,0,.45)}'
+      +'#notelist .nn b{color:#b3a488;font-weight:400}';
+    document.head.appendChild(s);
+  }
+
+  /* A SMALL PICTURE OF WHAT WAS ON THE GLASS. Drawn into a 160px canvas first: the real
+     one is a phone screen at device pixels and toDataURL on it costs a visible hitch,
+     which is the one thing a note must never do to the thing he is taking a note about. */
+  function frame(){
+    try{
+      var cv=document.querySelector('canvas'); if(!cv) return '';
+      var w=160, h=Math.max(1,Math.round(cv.height*(160/cv.width)));
+      var o=document.createElement('canvas'); o.width=w; o.height=h;
+      o.getContext('2d').drawImage(cv,0,0,w,h);
+      return o.toDataURL('image/jpeg',0.5);
+    }catch(e){ return ''; }
+  }
+
+  /* THE CONTEXT, AND IT IS READ OFF THE GAME'S OWN STATE RATHER THAN RE-DERIVED.
+     phoneState() already knows the district, the day and the clock and the phone has
+     been printing them for weeks; asking it again in a second place is how two numbers
+     start disagreeing. */
+  function where(){
+    var st=null; try{ st=(typeof phoneState==='function')?phoneState():null; }catch(e){}
+    var stamp=''; try{
+      var d=window.parent&&window.parent.document, b=d&&d.getElementById('buildstamp');
+      stamp=b?(b.textContent||'').trim():'';
+    }catch(e){}
+    var cell=null;
+    try{ cell=(typeof MODE!=='undefined'&&MODE==='human')
+            ? {x:hx,y:hy} : (typeof city!=='undefined'?{x:city.x,y:city.y}:null); }catch(e){}
+    return {
+      build: stamp || 'unknown build',
+      mode:  (typeof MODE!=='undefined')?MODE:'?',
+      district: st&&st.district ? st.district : '',
+      day: st?st.day:(typeof T!=='undefined'?T.day:null),
+      clock: st?st.clock:'',
+      cell: cell,
+      secs: Math.round((Date.now()-T0)/1000)
+    };
+  }
+  function line(c){
+    return [c.build, c.mode+(c.district?' / '+c.district:''),
+            (c.day!=null?('DAY '+c.day+(c.clock?' '+c.clock:'')):''),
+            (c.cell?('AT '+c.cell.x+','+c.cell.y):''),
+            (c.secs+'S IN')].filter(Boolean).join('  ·  ');
+  }
+
+  function draw(){
+    var l=document.getElementById('notelist'); if(!l) return;
+    l.textContent='';
+    for(var i=notes.length-1;i>=0;i--){
+      var n=notes[i], d=document.createElement('div'); d.className='nn';
+      var b=document.createElement('b'); b.textContent=line(n.ctx)+'  ';
+      d.appendChild(b); d.appendChild(document.createTextNode(n.text));
+      l.appendChild(d);
+    }
+    var btn=document.getElementById('notebtn');
+    if(btn){ btn.classList.toggle('has', notes.length>0);
+             btn.textContent = notes.length ? ('✎'+notes.length) : '✎'; }
+  }
+
+  /* *** THE PAUSE IS EXPLICIT, NOT A STACKING ORDER, AND THAT IS A MEASUREMENT. ***
+     A scrim over the pad looked like enough: the box covers the screen and
+     elementFromPoint returns it. But the pad binds pointerdown on its own SVG groups, and
+     asking the page who owns the arrow's pixel gave TWO different answers on two runs of
+     the same probe -- once the box, once the pad's path. A pause that depends on which
+     answer you get is not a pause.
+     So while the box is open, pointer events are stopped in the CAPTURE phase before any
+     game handler sees them, unless they are inside the box. This is the pattern the sky
+     pinch already uses in this file, reused rather than reinvented.
+     AND THE RELEASE IS NEVER SWALLOWED, for the reason that block already writes down:
+     you may swallow an intent, you may never swallow a cleanup. A missing pointerup
+     leaves a hold running forever. That is not theory -- it is what made the first run of
+     this row's ship test report the game moving while the box was open: a hold from an
+     EARLIER tap was still stepping, and I nearly filed it as the overlay leaking. */
+  function eat(e){
+    if(!open_) return;
+    var w=document.getElementById('notewrap');
+    if(w && (e.target===w || w.contains(e.target))) return;
+    e.stopPropagation();
+  }
+  window.addEventListener('pointerdown', eat, true);
+  window.addEventListener('pointermove',  eat, true);
+  window.addEventListener('touchstart',   eat, true);
+  /* pointerup, pointercancel and touchend are deliberately NOT eaten: a release has to
+     reach whatever is holding, or closing the box strands a finger the game still thinks
+     is down. */
+
+  function openNote(){
+    if(open_) return;
+    notes=read(); ctx=where(); ctx.shot=frame();
+    var w=document.getElementById('notewrap'); if(!w) return;
+    document.getElementById('notewhere').textContent=line(ctx);
+    document.getElementById('notetext').value='';
+    draw();
+    w.classList.add('on'); w.setAttribute('aria-hidden','false');
+    open_=true;
+    try{ document.getElementById('notetext').focus({preventScroll:true}); }catch(e){}
+  }
+  function closeNote(save){
+    if(!open_) return;
+    var t=(document.getElementById('notetext')||{}).value||'';
+    if(save && t.trim()){ notes.push({ text:t.trim(), ctx:ctx, at:new Date().toISOString() }); write(); }
+    var w=document.getElementById('notewrap');
+    if(w){ w.classList.remove('on'); w.setAttribute('aria-hidden','true'); }
+    open_=false; draw();
+  }
+
+  /* THE SAME ROAD A VOTE TAKES OUT: a .txt he sends the manager, never .json. */
+  function exportTxt(){
+    notes=read();
+    var out=['BOHEMIA NOTES -- '+new Date().toISOString().slice(0,10),
+             'Written while playing. Each note carries where he was standing.',''];
+    notes.forEach(function(n,i){
+      out.push((i+1)+'. '+n.text);
+      out.push('     '+line(n.ctx));
+      out.push('');
+    });
+    if(!notes.length) out.push('(no notes yet)');
+    var body=out.join('\n');
+    try{
+      var b=new Blob([body],{type:'text/plain'}), u=URL.createObjectURL(b);
+      var a=document.createElement('a'); a.href=u;
+      a.download='BOHEMIA_NOTES_'+new Date().toISOString().slice(0,10)+'.txt';
+      document.body.appendChild(a); a.click();
+      setTimeout(function(){ URL.revokeObjectURL(u); a.remove(); },800);
+    }catch(e){
+      /* a download is not always allowed inside a frame; the clipboard beats a dead button */
+      try{ navigator.clipboard.writeText(body); }catch(e2){}
+    }
+    return body;
+  }
+
+  function build(){
+    var R=document.getElementById('barright');
+    if(!R || document.getElementById('notebtn')) return !!document.getElementById('notebtn');
+    css();
+    var b=document.createElement('div');
+    b.id='notebtn'; b.setAttribute('role','button'); b.setAttribute('tabindex','0');
+    b.setAttribute('aria-label','write a note');
+    b.textContent='✎';
+    /* LAST CHILD OF THE RIGHT END, because "the very top right" is where he said it is */
+    R.appendChild(b);
+    b.addEventListener('click', function(e){ e.stopPropagation(); openNote(); });
+
+    var w=document.createElement('div'); w.id='notewrap'; w.setAttribute('aria-hidden','true');
+    w.innerHTML='<div id="notecard"><h2>A NOTE</h2><div id="notewhere"></div>'
+      +'<textarea id="notetext" placeholder="what you are thinking"></textarea>'
+      +'<div id="noterow"><div class="nb go" id="notesave">SAVE AND KEEP PLAYING</div>'
+      +'<div class="nb" id="noteback">BACK</div>'
+      +'<div class="nb" id="noteout">EXPORT</div></div>'
+      +'<div id="notelist"></div></div>';
+    (document.querySelector('.wrap')||document.body).appendChild(w);
+    document.getElementById('notesave').addEventListener('click', function(){ closeNote(true); });
+    document.getElementById('noteback').addEventListener('click', function(){ closeNote(false); });
+    document.getElementById('noteout').addEventListener('click', exportTxt);
+ /* *** THE SCRIM DOES NOT CLOSE THIS ONE, AND THAT IS DELIBERATE. ***
+       Every other card in this game closes on a tap outside it, and this box copied that
+       without thinking. Found by the ship test: the pause check taps the walk pad, the pad
+       is UNDER the scrim, so the tap landed on the scrim and threw the box away -- with
+       whatever he had typed in it. He is mid-thought in here. A card you can dismiss by
+       missing is fine for a card you are reading; it is not fine for the only place he
+       writes anything down. The ways out are the button he came in by, BACK, and Escape,
+       and every one of them is a thing he meant to press. */
+    w.addEventListener('click', function(e){ if(e.target===w) e.stopPropagation(); });
+    document.addEventListener('keydown', function(e){ if(e.key==='Escape'&&open_) closeNote(false); });
+    notes=read(); draw();
+    return true;
+  }
+
+  /* the bar builds itself after the city is up, so this waits for it rather than
+     guessing a delay -- the lane has been wrong about a delay more than once */
+  if(!build()){
+    var tries=0, iv=setInterval(function(){ if(build()||++tries>200) clearInterval(iv); }, 150);
+  }
+
+  window.BohemiaNotes={ open:openNote, close:closeNote, list:function(){ return read(); },
+                        exportTxt:exportTxt, where:where, isOpen:function(){ return open_; } };
+})();
+</script>
+
 </body></html>
