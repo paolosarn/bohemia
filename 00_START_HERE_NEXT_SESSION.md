@@ -1,3 +1,96 @@
+PORTRAIT (portrait-vamily-yke55s): 9/20 LATEST -- *** [matches body] ROUND 1. 23 OF EVERY
+200 CITIZENS WERE TWO DIFFERENT PEOPLE: A NEAR-WHITE PORTRAIT OVER A NEAR-BLACK HEAD. ***
+THE LANE IS CLAIMED (chat 20). TAB: CHARACTER, and every person in the RUN and the CITY.
+Build 9/20a. Record: records/BOHEMIA_THE_PORTRAIT_IS_THE_SAME_PERSON_9_20_26.md
+Sheet (before over after): records/target/BOHEMIA_PORTRAIT_MATCHES_BODY_9_20_26.png
+
+PAOLO 9/20, opening this chat: "remember it has to be connected to the hairs and eye color
+and shit." MEASURED FIRST, on rendered pixels, 200 citizens DRESSED as the crowd dresses
+them, both surfaces, before a line was changed:
+    the haircut      200 of 200 agreed (8/28 held)
+    the eye colour   135 of 200 exactly right, 0 wrong; 65 show no eye at all
+    THE HAIR COLOUR  23 of 200 were two different people, worst 15.4x apart in brightness
+All 23 carried the ART DEFAULT hair colour. 25 of 200 carry it, and the only two that were
+right were the two wearing no cut at all.
+
+THE CAUSE WAS ONE WRONG READ, REFUTED EIGHT LINES ABOVE ITSELF. hairColor null means "the
+painted art default" and THERE ARE TWO OF THOSE: faceFor read the PD hair LAYER (mid
+[237,232,220], near white) while the body draws the worn CUT in the ramp it was authored
+with (near black). 92.4% of citizens wear that cut and that number was measured on 9/11 in
+the same commit, eight lines above the code that got this wrong. Third time this shape has
+been caught on these two renderers: the cut SHAPE 8/28, the colour for palette colours
+9/12, the art default now.
+
+THE FIX KEEPS NO COPY. genHair writes down the ramp it was handed on its FIRST line, behind
+the same typeof guard the file already records (clothes_4x rebuilds it with new Function;
+any other form throws there and moves 560 pinned hashes). window.hairAuthoredRamp hands it
+back, priming a cut never drawn by calling its own gen with an EMPTY head so nothing is
+drawn. faceFor asks the cut before the layer, and lookFor is read ONCE instead of twice.
+AFTER: 0 of 200 differ, the whole crowd at or under the 2.01x ceiling the working path had.
+
+*** THE RULER WAS WRONG TWICE FIRST AND BOTH ARE WRITTEN DOWN, because either reading looked
+exactly like a finding. *** An off-palette hair probe falls through to the cut's own ramp, so
+perfect agreement read as "the body ignores the colour" and MIS-BLAMED 26 OF 200 -- the probe
+has to be a colour the game's own palette knows. And a 30-degree hue BUCKET flagged two greys
+at 3% saturation as different colours, so the ruler is now the colour law's own circular
+DISTANCE with its drab guard (faction_colour_gate.js:426): ONE RULER, TWO LANES. The
+brightness budget 2.20 is MEASURED, not picked -- 175 working citizens top out at 2.01x, the
+25 broken ones run to 15.4x, so it is a wall between two populations.
+
+*** THEN MY FIX WENT RED IN SOMEBODY ELSE'S GATE THREE TIMES AND NOTHING WAS SWALLOWED. ***
+talking_portrait was 29/0 on a CLEAN ORIGIN/MAIN WORKTREE and 26/3 on mine, which is the only
+way to know a red is yours. All three were mine.
+ (1) THAT GATE'S OWN HELPER HELD THE BUG IT WAS CHECKING FOR: effHair computed the art
+     default off the same wrong layer, so ruler and code confirmed each other at 100% for
+     nine days. It asks the cut now, and with the fix reverted it reads 90% and goes RED
+     where the old helper passed -- proved, not asserted.
+ (2+3) TWO FACE-DISTANCE FLOORS FELL BECAUSE A LIE WAS REMOVED FROM THEM. The metric averages
+     luminance over all 4,096 portrait pixels and 7 of those 60 faces wore a near-white NO
+     BODY EVER DREW. PROVED PAIR BY PAIR: on origin/main the closest eight pairs contain no
+     art-default citizen and the closest is 25/31 at 0.0194; after the fix every one of the
+     five pairs that moves ahead of it contains one, and 25/31 is STILL 0.0194, unmoved. The
+     crowd did not get less varied, it stopped being measured against a colour that was not
+     there. Floors re-grounded with the OLD headroom and nothing else chosen: 9/11 pinned
+     87.6% and 96.1% of its measurements; the same fractions of today's honest 0.01634 and
+     0.07632 give 0.0143 and 0.0733.
+
+*** THE REAL WORK IS NAMED, NOT SWALLOWED, AND IT IS THIS LANE'S NEXT ROW. *** This is the
+SECOND time colour has been caught carrying identity the GEOMETRY was supposed to carry --
+faceFor says so in its own hand on 8/27, widened its skull ranges for exactly that, and the
+number it won back was partly this same lie. THE FACES ARE GENUINELY TOO ALIKE. That is
+[blank faces], SCHOOL FIRST, and those two floors may only go UP from here.
+
+GATES: portrait_matches_body NEW 11/0, registered as PORTRAIT MATCHES BODY. MUTATION-PROVED
+THREE WAYS, each on the right claim: the old read back -> RED, 17 of 120, worst 10.88x; the
+body reads the player's face again (pre-8/27) -> RED, 0 of 120 draw their own eyes; a cut
+stops recording its ramp -> RED, 0 of 11. Two negative controls inside the gate itself.
+PRE-PUSH PASS: clothes_4x 13/0 with ALL 1,744 PINNED GARMENT HASHES UNMOVED (the genHair
+risk), talking_portrait 29/0, portrait_haircut 12/0, hair 39/0, hairline 12/0, craft_law
+39/0, face_maker 13/0, hair_graveyard 13/0, family 15/0, become 28/0, alpha_loads 20/0.
+face_thumb 22/1 IDENTICAL on a clean origin/main worktree, NOT MINE. Re-run after the rebase
+onto c88d7cc: portrait_matches_body 11/0, talking_portrait 29/0, clothes_4x 13/0.
+Rule 13's honest sentence: pre-push pass green; full suite 107 red at ad23d875, none named
+as this lane's.
+
+RULE 18: shipped to the alpha under 18(f) -- his direct ask, small, touching none of the
+three (loading, walking, the fight). It is also the fourth thing's material: rule 19(d) puts
+a person at his door WITH A PORTRAIT, and that portrait had white hair over a black-haired
+body. THE DEMO WAS NOT RE-CUT (rule 14a, only RUN cuts it).
+
+[PENDING coordinator, a new line only you may add] THE PORTRAIT DOES NOT WEAR THE GLASSES THE
+BODY IS WEARING. Measured this round, not fixed: 65 of 200 citizens show NO eyes on the body
+at all -- 53 behind opaque shades, 7 under a hat, 5 neither. The colour is right for all 135
+that do show. But a person in shades on the street has BARE EYES in the portrait that pops up
+when they talk, which is ONE ID ONE WHOLE PERSON pointing the other way. The 5 with neither
+shades nor hat are not explained yet and are named rather than guessed at.
+
+NEXT, in order: [faces first] is my next line (RULE 19: the first face is THE PERSON AT HIS
+DOOR, QUESTS [a person asks] and PEOPLE [face at the door] wire it, this chat draws it), then
+[blank faces] SCHOOL FIRST, which now also owns making the faces genuinely more different
+since this round proved colour was propping that up. The instrument to reuse:
+tools/bohemia_the_portrait_is_the_same_person.js writes every number to
+records/target/BOHEMIA_PORTRAIT_MATCHES_BODY.json.
+
 WORDS (words-8dqrnq): 9/20 LATEST -- *** Q5 [refusing answers] SHIPPED WITH BOTH ROUNDS. ***
 Round one was school (9/18 block below). This is round two, the writing. Record:
 records/BOHEMIA_WORDS_Q5_ROUND_TWO_THE_WRITING_9_20_26.md
