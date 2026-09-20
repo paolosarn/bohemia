@@ -63,3 +63,20 @@ Before any lane ships a sentence to the screen, it answers: WHO SAYS THIS, WITH 
 STANDING WHERE. If there is no answer, the sentence goes to the phone or does not ship.
 The gate: no element that draws player-facing prose outside the phone without a speaker
 id and a portrait bound to it.
+
+## 8. A TEXT PROMPT IS NOT AN EVENT, AND THE CARDS DIE THIS ROUND (Paolo 9/20, second frame; records/BOHEMIA_PAOLO_THE_SNATCHER_CARD_9_20_26.md)
+He hit THE SNATCHER next ("a kid comes off your blind side, takes something off your
+belt... KEEP MOVING"): "you don't got quests like that for real... it can't just be these
+bullshit-ass text prompts... I'm so confused why they were even done to begin with."
+(a) The road and walk directors STOP OPENING CARDS this round, before anything else in
+RUN ships. A moment fires only if it has a BODY on screen (the kid is a sprite that comes
+off his blind side and runs; the thing leaves his belt where he can see it) or it does
+not fire at all. The tables of moments (engine/bohemia_encounters.js and the walk table)
+stay as content waiting for bodies; nothing is deleted, nothing is shown.
+(b) WHY THEY WERE DONE, so it is never done again: the cards were written 9/5 as
+stand-ins for encounters that had no bodies, under ALWAYS MAKE AN ATTEMPT (8/11), which
+the lanes read as "text may stand in for the thing". That law is amended the same round:
+an attempt is words FOR A THING THAT EXISTS ON SCREEN; words never stand in for the
+thing. The manager let text count as shipped; that stops here.
+(c) "You don't have shit for real" is the measure: nothing on the board counts as real
+until it is people, places and things on the deployed cut.

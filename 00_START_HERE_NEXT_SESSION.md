@@ -28522,6 +28522,15 @@ person asks] first (un-held for it), PEOPLE [face at the door] first (un-held), 
 [the first ask spoken] first, UI [talk panel], PORTRAIT note. Also seen on his card:
 BATTERIES IN THE VALLEY: 0 (the fixed supply landed empty; ruling 9 said one per head; WORLD
 when the hold lifts). The gate for rule 19 is OWED.
+THEN (en) PAOLO 9/20, SECOND FRAME: THE SNATCHER road card. "You don't got quests like that
+for real... it can't just be these bullshit-ass text prompts... why were they even done?"
+Verbatim records/BOHEMIA_PAOLO_THE_SNATCHER_CARD_9_20_26.md; frame records/target/PAOLO_THE_SNATCHER_CARD_9_20_26.jpg. Quest law section 8
+and rule 19e: a text prompt is not an event; the road and walk directors stop opening cards
+THIS ROUND; a moment fires only with a body on screen or not at all; the tables stay as
+content. ALWAYS MAKE AN ATTEMPT amended: words are an attempt for a thing that exists on
+screen, never a stand-in. WHY THEY WERE DONE, answered to him: 9/5 stand-ins for encounters
+with no bodies, shipped as features under a law read as permission; the manager let text
+count as shipped. RUN [no pop ups] moved to FIRST, this round, before the loading screen.
 
 COORDINATOR: 9/4 (ba) -- *** THE MEETING HALL:
 VAMILY.md's front page now carries every rule, and every chat re-reads it every time

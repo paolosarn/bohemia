@@ -46,7 +46,12 @@ reading.
 - anything he has explicitly reserved or parked
 
 The test: **is it WORDS, or is it a DECISION?** Words get an attempt. Decisions
-wait for him. Writing "Up. Now. Don't turn the light on." for the father is an
+wait for him.
+AMENDED 9/20 (Paolo, LOCKED, laws/BOHEMIA_LAW_A_QUEST_IS_PEOPLE_PLACES_AND_THINGS_9_20_26.md section 8): an attempt is words FOR A THING
+THAT EXISTS ON SCREEN (a person with a face who says them, a place, a thing). WORDS
+NEVER STAND IN FOR THE THING. A card of prose describing a kid who is not on screen
+stealing a thing he cannot see is not an attempt at words; it is a fake event, and it
+does not ship. "You don't got quests like that for real. Writing "Up. Now. Don't turn the light on." for the father is an
 attempt at words. Deciding the father dies is not.
 
 ## HOW AN ATTEMPT MUST BE MARKED
