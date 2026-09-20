@@ -3249,6 +3249,26 @@ GATES = [
      'photograph, tapping cycles the verdict, AND THE VERDICT SURVIVES A RELOAD -- that '
      'page held every vote in a plain object for three weeks, so thumbing forty haircuts '
      'and tapping away lost all of it. A verdict that evaporates is not a verdict.', False),
+    ('PORTRAIT MATCHES BODY', ['node', 'gates/portrait_matches_body_gate.js'],
+     'THE PORTRAIT IS THE SAME PERSON AS THE SPRITE (9/20, PORTRAIT lane). Paolo on '
+     'opening the portrait chat: "remember it has to be connected to the hairs and eye '
+     'color and shit." MEASURED over 200 DRESSED citizens on rendered pixels: the '
+     'haircut agreed 200 of 200, the eye colour was exactly right on all 135 bodies '
+     'that show eyes, and THE HAIR COLOUR MADE 23 OF 200 INTO TWO DIFFERENT PEOPLE -- '
+     'worst 15.4x apart in brightness, a NEAR-WHITE portrait over a NEAR-BLACK head. '
+     'Every one of the 23 carried the ART DEFAULT hair colour, and the cause was ONE '
+     'WRONG READ: faceFor reached for the painted hair LAYER while the body draws the '
+     'worn CUT in the ramp that cut was authored with. 92.4% of citizens wear that cut '
+     'and that number was measured on 9/11 EIGHT LINES ABOVE the code that got it '
+     'wrong. genHair now writes down the ramp it was handed and both surfaces read it, '
+     'so there is no second copy to drift. The ruler is the COLOUR LAW\'S OWN -- '
+     'circular hue distance, NEAR 30 degrees, drab guard included, because two greys '
+     '4% saturated read 137 degrees apart and blamed two innocent citizens. The '
+     'brightness budget 2.20 is MEASURED, not picked: the 175 citizens on the path that '
+     'already worked topped out at 2.01x while the 25 broken ones ran to 15.4x, so it '
+     'is a wall between two populations. It finds the pixels BY WHAT THEY RESPOND TO, '
+     'and the probe colour must be one THE PALETTE KNOWS -- an off-palette probe falls '
+     'through to the cut\'s own ramp and mis-blamed 26 of 200 before it was fixed.', False),
     ('PORTRAIT HAIRCUT', ['node', 'gates/portrait_haircut_gate.js'],
      'THE PORTRAIT WEARS THE HAIRCUT THE BODY IS WEARING (8/28). ONE ID ONE WHOLE '
      'PERSON (8/27) fixed skin, hair COLOUR and eyes and its record says "same person '

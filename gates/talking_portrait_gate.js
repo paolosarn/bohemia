@@ -38,8 +38,31 @@ const done = () => { console.log('\n=== TALKING PORTRAIT GATE: ' + pass + ' pass
    against a 0.012 floor, mean 0.0884 against 0.080. Raised, but NOT to the measurement --
    a floor set flush against today's number is a red handed to the next lane that touches
    a palette for a perfectly good reason. Headroom is the point of a ratchet. */
-const PINNED_CLOSEST = 0.017;   /* closest of 60 faces, measured 0.0194 */
-const PINNED_MEAN    = 0.085;   /* mean distance, measured 0.0884 */
+/* *** RE-GROUNDED 9/20, AND THIS IS NOT A MARGIN WIDENED TO HIDE A RED. (PORTRAIT, row
+   [matches body].) *** Both floors went red on a change that made the portrait MORE
+   honest, and the number fell because A LIE WAS REMOVED FROM IT.
+   THE LIE, MEASURED: a citizen whose hair colour is the ART DEFAULT (NPCFactory entry 4,
+   null) had a portrait painted in the PD hair LAYER's near-white [237,232,220]. Their
+   BODY was drawn in the ramp their worn CUT was authored with, near-black. 23 of 25 such
+   citizens rendered as two different people, worst 15.4 times apart in brightness. Seven
+   of THESE SIXTY are that case, and near-white hair sits far from everyone in a metric
+   that averages LUMINANCE over all 4,096 pixels -- so those seven were inflating both
+   numbers by being a colour no body in the valley ever drew.
+   PROVED PAIR BY PAIR, not asserted: on origin/main the closest eight pairs contain NO
+   art-default citizen and the closest is 25/31 at 0.0194. After the fix the five pairs
+   that moved ahead of it EVERY ONE contains an art-default citizen, and 25/31 is still
+   0.0194, unmoved. The crowd did not get less varied; it stopped being measured against
+   a colour that was not there.
+   THE HEADROOM IS THE OLD HEADROOM, not a new opinion: 9/11 pinned 0.017 against a
+   measured 0.0194 (87.6%) and 0.085 against 0.0884 (96.1%). The same two fractions of
+   today's honest 0.01634 and 0.07632 give the two numbers below. Nothing else was chosen.
+   *** AND THE REAL WORK IS NAMED, NOT SWALLOWED: this is the SECOND time colour has been
+   caught carrying identity the GEOMETRY was supposed to carry -- faceFor says so in its
+   own hand on 8/27, widened its skull ranges for exactly this reason, and the number it
+   won back was partly this same lie. The faces are genuinely too alike. Widening them is
+   PORTRAIT's row [blank faces], school first, and these floors may only go UP from here. */
+const PINNED_CLOSEST = 0.0143;  /* closest of 60 faces, honest measurement 0.01634 */
+const PINNED_MEAN    = 0.0733;  /* mean distance,       honest measurement 0.07632 */
 const DYE_CAP        = 8.0;     /* % of a crowd with dyed hair, measured ~5 */
 const N              = 60;
 
@@ -210,14 +233,29 @@ const N              = 60;
        the person's own iris/brow/lip through G.faceAs. */
     let skinOK = 0, hairOK = 0;
     const NAG = 200;
-    const effHair = (np) => { if (np.hairColor) return np.hairColor.join(',');
+    /* *** THIS HELPER HELD THE BUG IT WAS CHECKING FOR, AND WENT GREEN ON IT FOR NINE
+       DAYS. (Fixed 9/20, PORTRAIT [matches body].) *** It computed the ART DEFAULT off
+       the PD hair LAYER, so it agreed with a faceFor that read the same wrong place, and
+       the two of them confirmed each other at 100% while 23 of every 25 art-default
+       citizens had a near-white portrait over a near-black head. A RULER BUILT FROM THE
+       SAME MISTAKE AS THE CODE REPORTS PERFECT AGREEMENT -- the third time this gate's
+       own comments name that shape.
+       It asks the CUT now, through the one resolver the game itself uses, and falls back
+       to the layer only for the citizens who really are drawn from it. */
+    const effHair = (np, id) => { if (np.hairColor) return np.hairColor.join(',');
+      try {
+        const lk = BOH_PERSONLOOK.lookFor(id, (window.GARMENTS || []).filter(g => g.st === 'canon'));
+        const cut = (lk.worn || {}).hair || '';
+        const ar = window.hairAuthoredRamp ? window.hairAuthoredRamp(cut) : null;
+        if (ar && ar.mid) return ar.mid.join(',');
+      } catch (e) {}
       try { const r = PD_DATA.ramps[np.equipped.hair];
             return (r && r.length) ? (r[Math.min(1, r.length - 1)] || r[0]).join(',') : 'null';
       } catch (e) { return 'null'; } };
     for (let i = 0; i < NAG; i++) { const id = 'gate:agree:' + i;
       const np = NPC_FACTORY.npcFrom(id), fc = faceFor(id);
       if (fc._tone && fc._tone[0] === np.skinToneName) skinOK++;
-      if (fc.hair.color && fc.hair.color.join(',') === effHair(np)) hairOK++; }
+      if (fc.hair.color && fc.hair.color.join(',') === effHair(np, id)) hairOK++; }
     out.skinAgreePct = 100 * skinOK / NAG;
     out.hairAgreePct = 100 * hairOK / NAG;
     /* *** AND THE BODY MUST ACTUALLY DRAW THOSE EYES. ***
