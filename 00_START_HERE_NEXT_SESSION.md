@@ -659,75 +659,101 @@ it is player-facing at all is worth deciding before restyling it. The source cou
 now understood as dead-declaration debt and can be swept file-wide in one pass instead of
 being chased surface by surface.
 
-RUN (run-eak241): LATEST -- *** [step is a house] SHIPPED b40ecc67, BOTH PARTS. HIS
-SCREEN HELD A THIRD OF A LOT AND NOW IT HOLDS 1.4, WITH FIVE PEOPLE ON IT. TAB: RUN.
-BUILD 9/18c. Nothing to judge. ***
+RUN (run-eak241): 9/20 LATEST -- *** [one camera] SHIPPED. HE ZOOMED OUT AND GOT BIGGER,
+AND HE WAS RIGHT: THE BODY DREW 112/56/112/224 ACROSS THE FOUR STOPS. ONE STOP NOW, ONE
+SIZE, AND A STRIDE THAT STOPS AT A GAP INSTEAD OF STEPPING OVER IT. TAB: RUN (and CITY,
+the same walked world). BUILD 9/20c. Nothing to judge. Rule 18(e): the link is NOT sent. ***
 
-*** A CORRECTION TO MY OWN NUMBER FIRST. *** Last round I reported "his phone is
-1.03 houses wide". That used TW, which is the CITY tile width, NOT the walked
-camera. The walked camera is HC, and the truth was worse:
-    HC = 44 px per fine cell
-    a lot = 25 fine cells   CHARACTER d43851e2, twelve suburbs, every footprint
-                            walked. Not 32 (LIFE+CITY's row) and not 128 (the
-                            overmap tile, which is a BLOCK of lots).
-    A LOT DREW 1,100 px ON A 378 px CANVAS
-    HIS SCREEN HELD 8.6 CELLS = 6.4 METRES = A THIRD OF ONE LOT
-You could not see a house. That one number explains three separate things he said in
-a single play: he saw no people, the streets did not look like streets, and the
-bodies felt wrong.
+BOTH HALVES OF HIS 9/20 COMPLAINT WERE THIS LANE'S OWN REGRESSIONS, b40ecc67 and a36b4222,
+both shipped green four rounds ago. Saying that first because it is the finding.
 
-THE STOP THE LAW ALLOWS. Target: a lot at about 208 px, which wants 8.3 px a cell.
-8 IS NOT AVAILABLE -- the ZOOM LEVEL LAW snaps HC to 11/22/44/88 BECAUSE 44 IS HIS
-ART'S OWN TILE SIZE (a true 1:1 blit; 22 and 11 are honest 0.5x and 0.25x), 8 would
-scale every tile he drew by 0.18 which the law forbids in those words, and 11/2 is
-5.5, so THERE IS NO LEGAL STOP BELOW 11. Default is 11: a lot draws 275 px, the
-screen holds 34.4 cells (25.8 m, about 1.4 lots), and CHARACTER's body trigger flips
-FALSE -> TRUE in the same frame, which is the "at the same time" the ruling asks for.
-275 against a 208 target is the price of not smearing his art, and it is the right
-trade to make without asking.
+RULE 18(c), WALKED BY HAND BEFORE THE PUSH. Served demo, phone profile, real taps on the
+real eight-wedge pad, same circuit of his own block, d71e8dde against this tree:
 
-THE STRIDE, ONE NAME: STEP_CELLS = BODY_SCALE.lotFine = 25, one lot a beat, READING
-CHARACTER's measurement rather than restating it (both lanes were already bitten
-once by a second name for this number). STEP_CELLS_QUARTER = 5 is part one, kept as
-the fallback. THE CLOCK IS UNTOUCHED: every cell still pays its own stepCost() into
-advance(), so the day, the distances, the jobs and the rent nights stay true and
-only the number of presses moved.
+                            BEFORE          AFTER
+  body across the 4 stops   112/56/112/224  ONE SIZE
+  body across the drop-in   3 rungs         ONE SIZE
+  a real pinch              stop 11 -> 88,  cannot find a second stop
+                            body 224 px
+  STUCK PRESSES             12 of 40        0 of 45
+  GAPS WALKED PAST          14              0
+  cells crossed             410             685
+  stride length             14.6            15.2   (ceiling 25)
 
-AND THE FIRST CUT OF THE STRIDE READ THE NUMBER BEFORE IT EXISTED. I wrote the read
-as an IIFE at the constant's own line and then CHECKED THE FILE: STEP_CELLS is
-declared 726,000 characters ABOVE const BODY_SCALE, so the constant is in its
-temporal dead zone, typeof THROWS, the catch swallows it and STEP_CELLS silently
-stays 5. IT WOULD HAVE LOOKED SHIPPED AND CHANGED NOTHING -- the third time this
-lane has been caught by a fix that cannot run (the inert CSS rule, the guarded
-painter, this). Set on the line AFTER BODY_SCALE now.
+THE CAMERA. A body is sized by whether a lot fits on the glass; a lot is 25 cells and a
+phone is 378 px, so that flips true only at the widest stop -- which is why two notches
+HALVED him and the last one DOUBLED him back. Worse, HC is ANIMATED by the mode transition
+(48 down to 11), so the body changed rung THREE TIMES while dropping in and nobody had
+looked. The walk now has ONE stop, the one where a house fits (rule 16); pinching out
+crosses the seam exactly as the 8/2 ruling already said; pinching in holds. HLEVELS is NOT
+deleted -- it is the ART ladder the bake and the character rungs are cut against, and
+conflating it with the ladder his fingers move on is precisely what shipped the resize.
 
-ON THE GLASS, photographed at the door:
-    BEFORE  one person, a wall of brick down one side, a third of a lot
-    AFTER   FIVE PEOPLE on the first screen, the road with kerbs and sidewalks, his
-            house with the HOME marker, a neighbour saying "Half light's worse than
-            none. Makes you think it's coming back."
-He said "I did not see a single human being."
+AND THE BODY HALF IS CHARACTER'S, NOT MINE, AND THEIRS SHIPPED. We both measured the same
+defect in the same round and both reached for bodyLadder. CHARACTER's BODY_FIXED is simpler
+and lands further -- in the walked world the body is a CONSTANT and no camera can reach it
+at all -- so at the merge I DROPPED MINE rather than keep a second opinion about one
+number. ONE SYSTEM, ONE SESSION. My lotFitsOnScreen is left uncalled and unchanged and must
+not be re-wired to the body.
 
-THE COST, NAMED: he had two stops of pull-back (22, 11) before the seam and now
-stands on the last one, so a single pinch out crosses into the map. GETTING BACK
-TAKES THREE PINCHES IN, measured with the instrument that has a proven positive --
-three of my own standalone probes could not cross the seam at all while PAD SAYS
-crosses every run, so that gate is the witness. Its return leg pinches UNTIL he is
-back and PRINTS THE COUNT, so if it ever climbs that is the first place it shows.
-13/0.
+THE STRIDE. A lot is 25 cells and the way through a fence is two, so the stride stepped
+over the only opening on the block and landed past it, every time. PHOTOGRAPHED off the
+game's own walk flags at the cell the first walk jammed on, 6270,6268, nineteen dead
+presses in a row, every one east:
 
-AND ONE GATE WENT GREEN BY ITSELF: ENEMIES EXIST 26/1 -> 27/0. Walking at them now
-reaches them, because a lot a beat covers the ground a quarter lot could not.
+      . . . . . . . # . . . .
+      . . . . . . @ # . . . .      @ him   # wall   . standable
+      . . . . . . . # . . . .
+      # # # # # # # # . . . .
+      . . . . . . . . . . . .
 
-NOT DONE: the FIGHT BOARD is COMBAT's side of rule 16 (he entered a fight and the
-scale was not there), and [zoom meets] now has different arithmetic because this
-moved one side of the seam.
+A wall ONE CELL THICK with the whole world open one cell behind it. TWO RULES: NEVER PAST A
+GAP (the stride ends in the mouth of any side that was closed one cell ago and is now open;
+in open ground nothing new opens, so it costs nothing where there is nothing to miss), and
+A PRESS TOWARD A WALL SLIDES ALONG IT (a diagonal keeps the open component; a straight
+press slips the corner, and failing that looks along the wall face for its end, one lot each
+way, nearer wins). One slide per press, never a chain. A body holding a cell against him is
+a ruling the street made and is never slid around. THE LOT IS THE CEILING, THE GROUND SETS
+THE LENGTH.
 
-REDS AFTER THIS ROUND, AND WHOSE: FIRST MINUTE 7/2 mine, shipped knowingly on 9/15
-(his block is sealed; standing him in the road to hide it is worse). COLD HAND 5/2
-mine and pre-existing, the settings-gear loop. Everything else in the pass green.
+THE GATE, AND THE PART OF IT WORTH READING: gates/the_walk_never_misses_gate.js, WALK NEVER
+MISSES, 19/0. THE FIRST CUT OF IT REPORTED 19 STUCK PRESSES AND WAS WRONG -- it was hammering
+one sealed back yard, and a game that refuses to walk into a building is a game working.
+Calling that a stride bug would have sent this lane chasing a fix for a wall. So a refused
+press is now judged by an INDEPENDENT FLOOD FILL over the game's own walk flags, one lot
+out: is there any cell I can reach that is further the way I pressed? The stride's slide
+scans wall FACES; the oracle FLOODS; they cannot agree by construction. MUTATION: the
+pre-fix tree IS the mutant, 9 passed / 10 failed.
 
-RECORD: records/BOHEMIA_HIS_SCREEN_HELD_A_THIRD_OF_A_LOT_9_18_26.md
+ZOOM SEAM GATE, ONE LEG AMENDED AND NOT LOOSENED: "44 stays 44" was a consequence of a
+four-stop walk, never the ZOOM LEVEL LAW, which protects zero fractional art scaling. It now
+asks the law's real question -- wherever the camera lands, is it one of the four pixel-true
+stops -- and the one-stop rule itself is held with real gestures by WALK NEVER MISSES.
+
+[PENDING nobody, FOR WHOEVER OWNS THE GROUND -- WORLD or LIFE+CITY, NOT RUN]: FIVE PRESSES
+ON HIS OWN BLOCK GO INTO GROUND A BODY CANNOT REACH (6270,6268 and 6270,6270 among them).
+Same shape as the finding this lane already carries: his block has 45 doorsteps and 0
+straight walkable ways out. The suburb generator seals yards. It is not the stride and it is
+not the camera, and this round did not touch it.
+
+CARRIED RED, MEASURED BOTH WAYS SO IT IS NOT MINE: FIRST MINUTE 7/2 on d71e8dde and 7/2
+here, same two legs, same numbers ("nearest way out NONE in 140") -- it is the sealed-block
+finding above wearing a different gate's name. NAMED AS A FLAKE, ALSO NOT MINE: ZOOM SEAM's
+"zooming back in puts him on his feet" leg fails 2 of 3 on d71e8dde on an idle box; it is a
+quarantine candidate for PLUMBER, not a regression.
+
+COST NAMED, BECAUSE IT IS REAL: HE CAN NO LONGER ZOOM IN WHILE WALKING. There is one street
+view, and the way to look closer is to go and stand there. That is the price of a body that
+never changes size, and the row asked for it in those words.
+
+NEXT, IN ORDER: [no pop ups] is now the first line of this lane (Paolo 9/20, twice in a row,
+the SNATCHER card is the second frame of the game) and it beats the queue. Then [loading
+screen] part two, which is still CLAIMED and still the eighty seconds after the tap -- the
+city iframe is built lazily INSIDE the click handler, so the heavy work happens with his
+finger already down. [fast travel] stays CLAIMED and paused under rule 18. Rule 18(d), what
+regressed gets reverted by RUN once EYES [best cut] ranks the cuts, is not started.
+
+RECORD: records/BOHEMIA_ZOOM_OUT_AND_HE_DOUBLED_9_20_26.md
 
 --------------------------------------------------------------------------------
 WORDS (words-8dqrnq): 9/18 LATEST -- *** Q5 [refusing answers] SCHOOL DONE, ROUND ONE OF TWO.

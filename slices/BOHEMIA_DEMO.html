@@ -1402,7 +1402,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 9/20a - ONE CAMERA, ONE STRIDE</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 9/20c - ONE CAMERA, ONE STRIDE</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -5400,6 +5400,18 @@ function faceFor(id, over){
      BODY in the valley as well, which is the surface he actually looks at. */
   var _np = null;
   try { _np = (typeof NPC_FACTORY !== 'undefined') ? NPC_FACTORY.npcFrom(id) : null; } catch (_e) { _np = null; }
+  /* WHAT THE BODY IS ACTUALLY WEARING, READ ONCE AND USED TWICE -- the colour just below
+     and the cut further down. It used to be read only for the cut, three hundred lines
+     later, which is why the colour block had to guess at the hair the body draws. Two
+     reads of the same thing at two different times is the shape that drifts. */
+  var _bodyHair = '', _hd = null;
+  try {
+    if (typeof BOH_PERSONLOOK !== 'undefined' && typeof GARMENTS !== 'undefined') {
+      var _lk = BOH_PERSONLOOK.lookFor(id, GARMENTS.filter(function (x) { return x.st === 'canon'; }));
+      _bodyHair = (_lk.worn || {}).hair || '';
+      _hd = hairDialsFor(_bodyHair);
+    }
+  } catch (_e3) { _bodyHair = ''; _hd = null; }
   var tone = null;
   if (_np && _np.skinToneName)
     for (var ti = 0; ti < SKIN_TONES.length; ti++)
@@ -5452,22 +5464,39 @@ function faceFor(id, over){
   if (_np && _np.hairColor) {
     sp.hair.color = _np.hairColor.slice();
     sp.hair.roots = _np.hairColor.map(function (c) { return c * 0.4 | 0; });
-  } else if (_np && _np.equipped && _np.equipped.hair) {
-    /* hairColor null means "USE THE PAINTED ART DEFAULT" -- the body draws that
-       hair layer in its own painted ramp. Leaving the portrait on PUNK's ash here
-       is what held agreement at 80%: 22% of the valley is exactly this case, and
-       for every one of them the head said one colour and the portrait said another.
-       So read the colour off the SAME painted ramp the body is about to use. The
-       mid entry is the one that covers most of the hair; the darkest is the roots,
-       which is what renderFace wants anyway. */
+  } else if (_np) {
+    /* hairColor null means "USE THE PAINTED ART DEFAULT" -- and there are TWO painted art
+       defaults, which is the whole bug. 8/27 read this off the PD hair LAYER, which was
+       right for the body it was looking at and wrong for nine bodies in ten: a citizen
+       wearing one of the fifteen canon CUTS never draws that layer at all, they draw the
+       cut, in whatever ramp the cut was authored with.
+       *** MEASURED, 200 dressed citizens, 9/20, before this line existed: 25 carry the art
+       default and 23 of those had a portrait in a different colour from their body. Worst
+       case 15.4 times apart in brightness -- the portrait that pops up when they talk had
+       NEAR-WHITE hair and the person standing in front of you had NEAR-BLACK. The two that
+       were right were the two wearing no cut at all. ***
+       So: ASK THE CUT FIRST, and fall back to the layer only for the people who really are
+       drawn from it. hairAuthoredRamp reads the ramp off the cut's own definition, recorded
+       by genHair itself, so this cannot drift out of step with what the body draws.
+       The mid covers most of the hair; the dark end is the roots, which is what renderFace
+       wants anyway -- the same two entries either source hands over. */
     try {
-      var _hr = PD_DATA.ramps[_np.equipped.hair];
-      if (_hr && _hr.length) {
-        var _mid = _hr[Math.min(1, _hr.length - 1)] || _hr[0];
-        var _dk  = _hr[_hr.length - 1] || _mid;
-        sp.hair.color = _mid.slice();
-        sp.hair.roots = _dk.slice();
+      var _ar = (typeof window !== 'undefined' && window.hairAuthoredRamp)
+              ? window.hairAuthoredRamp(_bodyHair) : null;
+      if (_ar && _ar.mid) {
+        sp.hair.color = _ar.mid.slice();
+        sp.hair.roots = (_ar.dk || _ar.mid).slice();
         sp._hairFromArt = true;
+        sp._hairFromCut = true;
+      } else if (_np.equipped && _np.equipped.hair) {
+        var _hr = PD_DATA.ramps[_np.equipped.hair];
+        if (_hr && _hr.length) {
+          var _mid = _hr[Math.min(1, _hr.length - 1)] || _hr[0];
+          var _dk  = _hr[_hr.length - 1] || _mid;
+          sp.hair.color = _mid.slice();
+          sp.hair.roots = _dk.slice();
+          sp._hairFromArt = true;
+        }
       }
     } catch (_e2) {}
   }
@@ -5560,14 +5589,9 @@ function faceFor(id, over){
      SO THE CUT IS THE BODY'S NOW, and the portrait reads the SAME five dials the body's
      own generator reads. It is not a translation table that has to be kept in step by
      hand; that is the shape of thing that drifts. */
-  var _bodyHair = '', _hd = null;
-  try {
-    if (typeof BOH_PERSONLOOK !== 'undefined' && typeof GARMENTS !== 'undefined') {
-      var _lk = BOH_PERSONLOOK.lookFor(id, GARMENTS.filter(function (x) { return x.st === 'canon'; }));
-      _bodyHair = (_lk.worn || {}).hair || '';
-      _hd = hairDialsFor(_bodyHair);
-    }
-  } catch (_e3) { _bodyHair = ''; _hd = null; }
+  /* _bodyHair and _hd were read ONCE, up beside the hair colour, because the colour and
+     the cut are the same fact about the same person and reading it twice is how they part
+     company. Dials below, colour above, one lookFor. */
   if (_hd) {
     sp.hair.name  = _bodyHair;
     if (_hd.side  != null) sp.hair.side  = _hd.side;
@@ -26283,6 +26307,19 @@ window.CLO=(function(){
       oo[b1]=isDk?(r.mid||r.lt):r.dk; }
     return oo; }
   function genHair(g,opt){
+    /* __THE_PORTRAIT_IS_THE_SAME_PERSON__ (9/20, PORTRAIT [matches body]) -- A CUT REMEMBERS
+       THE COLOUR IT WAS AUTHORED IN, AND SAYS SO OUT LOUD.
+       When a citizen's hair colour is the ART DEFAULT (NPCFactory entry 4, null), the line
+       below falls through to `opt.ramp` and the body is drawn in whatever ramp this cut was
+       painted with. The PORTRAIT had no way to know that, so it read the PD hair LAYER
+       instead and put near-white hair over a near-black head. This records the answer where
+       both surfaces can read it, off the cut's own definition, so nothing has to be kept in
+       step by hand. FIRST LINE OF THE FUNCTION, before CW, rsc() or anything else can throw.
+       `typeof` IS NOT A STYLE CHOICE, for the same reason it is not one eight lines down:
+       clothes_4x_gate rebuilds this function with `new Function`, where this name does not
+       exist, and any other form throws there and moves 560 pinned garment hashes. */
+    if(typeof HAIR_AUTHORED!=='undefined'&&HAIR_AUTHORED&&opt&&opt.name&&opt.ramp)
+      HAIR_AUTHORED[opt.name]=opt.ramp;
     /* __THE_BODY_WEARS_IT__ -- A CUT IS A SHAPE; THE COLOUR BELONGS TO THE PERSON.
        When somebody is wearing this cut, their colour wins. Nobody wearing it means the cut
        keeps the ramp it was authored with, so every approved look and all 1,744 pinned
@@ -28410,6 +28447,33 @@ window.CLO=(function(){
      these mids: the two tables are one table read from two ends. If they ever drift, this
      returns null and the cut keeps its own ramp -- visibly wrong, never silently blended.
      Null, the painted art default, and an unknown colour both fall through to the cut. */
+  /* __THE_PORTRAIT_IS_THE_SAME_PERSON__ (9/20, PORTRAIT [matches body]) -- WHAT COLOUR IS
+     THIS PERSON'S HAIR WHEN THE PALETTE HAS NOTHING TO SAY.
+     MEASURED over 200 dressed citizens before a line of this was written: 25 of them carry
+     the ART DEFAULT (hairColor null) and 23 of those 25 had a portrait in a different
+     colour from their body, worst 15.4 times apart in brightness -- a near-white portrait
+     over a near-black head. THE CAUSE WAS ONE WRONG READ, not a missing feature: faceFor
+     reached for PD_DATA.ramps[equipped.hair], the painted hair LAYER, while the body draws
+     worn.hair, a genHair CUT with its own authored ramp. 92.4% of citizens wear that cut,
+     and that number was measured on 9/11 eight lines above the code that got this wrong.
+     THIS CHOOSES NOTHING AND KEEPS NO TABLE. genHair writes down the ramp it was handed;
+     this hands it back. If a cut has never been drawn, it is primed by calling that
+     garment's own gen with an EMPTY head -- genHair records the ramp on its first line and
+     returns {} the moment it finds no head pixels, so nothing is drawn and no pixel moves.
+     Reading the answer off the cut's own definition is the only version that cannot drift;
+     a second copy of the ramp is how a third thing ends up disagreeing with both. */
+  var HAIR_AUTHORED=window.HAIR_AUTHORED={};
+  window.hairAuthoredRamp=function(cutName){
+    if(!cutName)return null;
+    if(!HAIR_AUTHORED[cutName]){
+      try{ var gs=window.GARMENTS||[];
+        for(var i=0;i<gs.length;i++){
+          if(gs[i]&&gs[i].n===cutName&&gs[i].layer==='hair'&&typeof gs[i].gen==='function'){
+            try{ gs[i].gen([],0,0); }catch(_e){}    /* the record lands before anything throws */
+            break; } }
+      }catch(_e2){}
+    }
+    return HAIR_AUTHORED[cutName]||null; };
   var HAIR_WEAR=null;
   window.hairWear=function(rgb){
     HAIR_WEAR=null;
