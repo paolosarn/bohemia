@@ -198,8 +198,96 @@ const BOH_LATTICE=(function(){
     return !!p&&p[0]===hx&&p[1]===hy;
   }
 
+  /* ---- THE STRIDE -------------------------------------------------------
+     PAOLO 9/20, rule 18, THE PLAYABLE CUT: "walking the same distance and crashing
+     into walls because it's forcing me to move like 67 tiles at a time, so when I'm
+     trying to walk past the wall it's not allowing me to because I'm just missing it."
+     RUN [one camera] asks this lane for it by name: "a press moves him to the next
+     standable place toward the press using LIFE+CITY's landing rule, never past a gap,
+     never into a wall, a press toward a wall slides along it, any gap a body fits
+     through is walkable; the lot is the CEILING of a stride, the ground sets its
+     length."
+
+     *** THE LANDING AND THE STRIDE ARE TWO DIFFERENT ANSWERS AND CONFUSING THEM IS THE
+     BUG HE IS DESCRIBING. *** landing() is where an ARRIVAL goes: a city tap names a
+     place, and the lot's own doorstep is where you are put down. A STRIDE is not that.
+     A stride runs along the ground from where he actually stands, as far as the ground
+     lets it, and stops. Snapping a stride to lot corners is exactly "it's forcing me to
+     move like 67 tiles at a time" -- it lands him past the doorway he was aiming at.
+     So the lot is a CEILING here, never a grid: one press is AT MOST one lot, and the
+     ground decides how much of that he gets.
+
+     WHAT IT REFUSES, in his words:
+       NEVER INTO A WALL    it walks cell by cell and stops at the last standable one.
+       NEVER PAST A GAP     the same walk: a gap is a cell it will not enter, so it can
+                            never be crossed. No leaping.
+       ANY GAP A BODY FITS  no corner test on the diagonals. A one-cell doorway is a
+                            doorway, which is the half of his sentence about missing it.
+       SLIDES ALONG A WALL  if the pressed direction is blocked at the very first cell,
+                            it tries the two directions either side of the press and
+                            takes the one that gets further, ties to the clockwise one so
+                            the same press always does the same thing.
+
+     IT ANSWERS ABOUT THE GROUND AND NOTHING ELSE. Doors, bodies in the way and the
+     occupancy rule stay with the caller's own step -- this module is handed a
+     walkability test and has no opinion of its own to add to it. */
+  function stride(hx,hy,dir,ctx){
+    if(!ctx||typeof ctx.walk!=='function') throw new Error('bohemia_lattice: stride needs ctx.walk');
+    const d=DIRS[(dir|0)%DIRS.length];
+    if(!d) return {to:[hx,hy],cells:0,dir:dir|0,why:'NO_SUCH_DIRECTION'};
+    /* `openAgain` is the direction he actually pressed. A slide carries it so it can
+       stop the moment that direction opens up: see the note on the slide below. */
+    function run(dd,openAgain){
+      let x=hx,y=hy,n=0,lined=false;
+      while(n<LOT_FINE){
+        const nx=x+dd[0], ny=y+dd[1];
+        if(!ctx.walk(nx,ny)) break;
+        x=nx; y=ny; n++;
+        if(openAgain&&ctx.walk(x+openAgain[0],y+openAgain[1])){ lined=true; break; }
+      }
+      return {x:x,y:y,n:n,lined:lined};
+    }
+    const straight=run(d);
+    if(straight.n>0)
+      return {to:[straight.x,straight.y],cells:straight.n,dir:dir|0,
+              why:straight.n>=LOT_FINE?'LOT':'GROUND'};
+    /* BLOCKED ON THE FIRST CELL: SLIDE ALONG WHAT HE WALKED INTO.
+       TWO TIERS, AND THE FIRST CUT ONLY HAD ONE, WHICH IS THE WHOLE POINT OF THE RULE.
+       Turning 45 degrees does not get you along a straight wall: press EAST into a wall
+       running north-south and NE and SE are just as much into it. Measured on a test
+       world with that exact shape, one tier answered STUCK where a player would have
+       walked. So: 45 degrees first, because it keeps most of the direction he asked
+       for, and 90 degrees after, which is the one that actually runs along a flat wall.
+       Within a tier, whichever gets further; ties to the clockwise one, so the same
+       press always does the same thing. */
+    const i=(dir|0)%DIRS.length, N=DIRS.length;
+    for(const off of [1,2]){
+      const cwI=(i+off)%N, ccwI=(i+N-off)%N;
+      const a=run(DIRS[cwI],d), b=run(DIRS[ccwI],d);
+      if(a.n===0&&b.n===0) continue;
+      /* *** A SLIDE STOPS AT THE GAP, IT DOES NOT RUN A WHOLE LOT SIDEWAYS. ***
+         The first working version slid the full ceiling, and that is his own complaint
+         wearing a different coat: press east at a wall with a doorway three cells north
+         of you and a full-lot slide carries you 24 cells south, past it. So a slide ends
+         the moment THE DIRECTION HE PRESSED opens up again -- that is what "walk past
+         the wall" means, and it leaves him lined up with the gap instead of beyond it.
+         SO THE CHOICE IS NOT THE LONGER RUN. A run that ends lined up wins; between two
+         lined-up runs the SHORTER one, because that is the nearer gap; if neither lines
+         up, the longer one, because then he is just making his way along the wall.
+         Ties to the clockwise side so one press always does one thing. */
+      let useCW;
+      if(a.lined!==b.lined) useCW=a.lined;
+      else if(a.lined&&b.lined) useCW=(a.n<=b.n);
+      else useCW=(a.n>=b.n);
+      const pick=useCW?a:b, pd=useCW?cwI:ccwI;
+      return {to:[pick.x,pick.y],cells:pick.n,dir:pd,
+              why:pick.lined?'SLID_TO_THE_GAP':((off===1)?'SLID':'SLID_ALONG')};
+    }
+    return {to:[hx,hy],cells:0,dir:i,why:'STUCK'};
+  }
+
   return {CELL_M,LOT_FINE,LOT_M,BODY_LOTS,DIRS,
-          lotOf,lotOrigin,lotCentre,landing,stepLegal,stepsFrom,arrive,onLattice,
+          lotOf,lotOrigin,lotCentre,landing,stepLegal,stepsFrom,arrive,onLattice,stride,
           minutesPerStep,stepMultiple,bodyPx};
 })();
 if(typeof module!=='undefined')module.exports=BOH_LATTICE;

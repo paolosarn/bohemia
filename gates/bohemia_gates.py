@@ -6601,6 +6601,26 @@ GATES = [
      'MEASURED BOTH WAYS because a control that is ALWAYS off is a different lie: broke '
      'disabled/0.45/"you have none of it", credited enabled/1.0/no title with afford ok and 5 '
      'in hand. Mutations: always-pressable reds B1/B2/B5, always-off reds B3/B4.', False),
+    ('THE STRIDE NEVER MISSES', ['node', 'gates/the_stride_never_misses_gate.js'],
+     'LIFE + CITY, under PAOLO 9/20 rule 18 THE PLAYABLE CUT, built for RUN [one camera], which '
+     'asks this lane for the landing rule by name: "a press moves him to the next standable place '
+     'toward the press using LIFE+CITY\'s landing rule, never past a gap, never into a wall, a '
+     'press toward a wall slides along it, any gap a body fits through is walkable; the lot is the '
+     'CEILING of a stride, the ground sets its length." HIS WORDS: "walking the same distance and '
+     'crashing into walls because it is forcing me to move like 67 tiles at a time, so when I am '
+     'trying to walk past the wall it is not allowing me to because I am just missing it." '
+     'MEASURED ON THE DEMO, 80 PRESSES AROUND THE BLOCK HE WAKES ON -- the live stride today is a '
+     'fixed 25 cells, ONE MORE THAN A WHOLE LOT: what ships today 46 STUCK of 80, 804 cells, 23 '
+     'places reached; the landing rule 0 stuck, 1,625 cells, 27 slides, 8 of them ending lined up '
+     'with a gap, 69 places. FORTY-SIX OF EIGHTY PRESSES DO NOTHING TODAY, which is his sentence '
+     'with a number on it, and zero do nothing under the rule -- RUN\'s own ship test for the row. '
+     'THE SLIDE TOOK THREE GOES AND LEG B IS THAT HISTORY: one tier of 45 degrees is useless '
+     'against a straight wall (press east at a north-south wall and NE and SE are just as blocked); '
+     'two tiers picking the longest run slides a WHOLE LOT sideways, which is his complaint again '
+     'in a different coat, carrying him past the doorway; so a slide now ENDS THE MOMENT THE '
+     'DIRECTION HE PRESSED OPENS UP AGAIN and leaves him lined up with the way through. Mutations: '
+     'dropping the slide from the engine reds B4, B5, B6, B8, B10; dropping it from the shipped '
+     'copy reds C1 at 40 stuck of 80.', True),
     ('THE SIDEWALK USES ITS BANK', ['node', 'gates/the_sidewalk_uses_its_bank_gate.js'],
      'VAMILY [side variants], LIFE + CITY, off COOK [streets fixed] (fe5ba8d0) finding the repeat '
      'he can see, and Paolo 7/14 desert_dominance_law "too much diversity with the desert tiles". '

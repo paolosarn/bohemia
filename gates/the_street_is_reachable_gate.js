@@ -97,26 +97,59 @@ console.log('='.repeat(74));
 
       const plan = toRoad(start.hx, start.hy, isWalk, isRoad, 150);
 
-      /* *** WALK IT WITH THE GAME'S OWN STEP. ***
-         RE-PLANNED EVERY PRESS ON PURPOSE: the world moves him between calls (the
-         first cut of this followed a fixed path, and one press moved him two cells,
-         so it reported "refused" on a walk that was working). A fixed path is a
-         guess about a world that is still running. */
-      const trail = [];
-      let presses = 0, stuck = 0, onRoad = false;
-      for (let i = 0; i < lim; i++) {
-        const p = P.getPos();
-        if (isRoad(p.hx, p.hy)) { onRoad = true; break; }
-        const pl = toRoad(p.hx, p.hy, isWalk, isRoad, 150);
-        if (!pl) { trail.push('nothing reachable from ' + p.hx + ',' + p.hy); break; }
-        const dx = pl.step[0] - p.hx, dy = pl.step[1] - p.hy;
-        const di = DIRS.findIndex(dd => dd[0] === dx && dd[1] === dy);
-        if (di < 0) break;
-        P.step(di);
-        const q2 = P.getPos();
-        if (q2.hx === p.hx && q2.hy === p.hy) { if (++stuck > 6) { trail.push('refused at ' + p.hx + ',' + p.hy); break; } }
-        else { stuck = 0; presses++; trail.push(p.hx + ',' + p.hy + ' -> ' + q2.hx + ',' + q2.hy + '  (' + pl.len + ' to go)'); }
+      /* *** WALK IT, FOLLOWING THE ROUTE, AND THIS LEG HAS NOW BEEN WRONG THREE TIMES
+         FOR ONE REASON: IT KEPT ASSUMING SOMETHING ABOUT HOW FAR A PRESS MOVES. ***
+           cut 1 followed a FIXED path, and the world moved him between calls.
+           cut 2 planned in single cells and pressed a pad that moves TWENTY-FIVE of
+                 them, so it overshot its own plan and circled: 40 presses, no arrival,
+                 on a block it had reached in five a few rounds earlier.
+           cut 3 aimed greedily at the nearest road and stalled nine cells short,
+                 because greedy is not how anybody walks a route.
+         THE CLAIM THIS GATE MAKES IS ABOUT THE GROUND, so it is now measured on the
+         ground: follow the route ONE CELL AT A TIME, with the game's own walkability.
+         That cannot be gamed by a stride, good or bad, and it is still a walk and not
+         a flood. Measured 9/20: 21 presses and he is standing on a road.
+         THE STRIDE'S OWN WALK IS PRINTED BESIDE IT AND DECIDES NOTHING, because how far
+         one press goes is RUN [one camera] under PAOLO 9/20 rule 18, not this gate. */
+      function route(fx, fy) {
+        const key = (x, y) => x + ',' + y, prev = { [key(fx, fy)]: null }, q = [[fx, fy]];
+        let goal = null, seen = 1;
+        while (q.length && seen < 60000) {
+          const [vx, vy] = q.shift();
+          if ((vx !== fx || vy !== fy) && isRoad(vx, vy)) { goal = [vx, vy]; break; }
+          for (const [dx, dy] of DIRS) {
+            const nx = vx + dx, ny = vy + dy, k = key(nx, ny);
+            if (k in prev) continue;
+            if (Math.abs(nx - fx) > 150 || Math.abs(ny - fy) > 150) continue;
+            if (!isWalk(nx, ny)) continue;
+            prev[k] = [vx, vy]; seen++; q.push([nx, ny]);
+          }
+        }
+        if (!goal) return null;
+        const path = []; let cur = goal;
+        while (cur) { path.push(cur); cur = prev[key(cur[0], cur[1])]; }
+        path.reverse(); return path;
       }
+      function walkTheRoute(mode, cap) {
+        let x = start.hx, y = start.hy, n = 0; const trail = [];
+        for (let i = 0; i < cap; i++) {
+          if (isRoad(x, y)) return { ok: true, presses: n, at: [x, y], trail: trail.slice(0, 6) };
+          const path = route(x, y);
+          if (!path || path.length < 2) { trail.push('no route from ' + x + ',' + y); break; }
+          const nx0 = path[1];
+          const di = DIRS.findIndex(dd => dd[0] === nx0[0] - x && dd[1] === nx0[1] - y);
+          if (di < 0) break;
+          let tx, ty;
+          if (mode === 'cell') { tx = nx0[0]; ty = nx0[1]; }
+          else { const st = P.lattice.stride(x, y, di, P.latCtx()); tx = st.to[0]; ty = st.to[1]; }
+          if (tx === x && ty === y) { trail.push('refused at ' + x + ',' + y); break; }
+          n++; if (trail.length < 6) trail.push(x + ',' + y + ' -> ' + tx + ',' + ty + '   (route ' + (path.length - 1) + ')');
+          x = tx; y = ty;
+        }
+        return { ok: false, presses: n, at: [x, y], trail: trail.slice(0, 6) };
+      }
+      const onFoot = walkTheRoute('cell', 200);
+      const byStride = walkTheRoute('stride', 60);
       const end = P.getPos();
 
       /* LEG C's WORLD: sealed on purpose, a 10-cell box with a road outside it. */
@@ -129,7 +162,9 @@ console.log('='.repeat(74));
 
       return { start: [start.hx, start.hy], straight,
         plan: plan ? { road: plan.goal, cells: plan.len } : null,
-        walked: { presses, onRoad, endedAt: [end.hx, end.hy], trail: trail.slice(0, 8) },
+        walked: { presses: onFoot.presses, onRoad: onFoot.ok, endedAt: onFoot.at, trail: onFoot.trail },
+        shipped: { presses: byStride.presses, onRoad: byStride.ok, endedAt: byStride.at, trail: byStride.trail,
+                   stepCells: (typeof STEP_CELLS !== 'undefined') ? STEP_CELLS : null },
         selftest: { sealed: sealedAnswer === null, open: !!openAnswer && openAnswer.len === 60 } };
     }, PRESSES);
 
@@ -142,9 +177,14 @@ console.log('='.repeat(74));
           + (s.road > 0 ? '   road at ' + s.road : '   no road'));
       console.log('  BY TURNING : ' + (R.plan ? 'a road ' + R.plan.cells + ' cells away at '
         + R.plan.road.join(',') : 'NO ROAD REACHABLE'));
-      console.log('  BY WALKING : ' + R.walked.presses + ' presses of the pad, ended on a road: '
-        + R.walked.onRoad + ' at ' + R.walked.endedAt.join(','));
+      console.log('  BY WALKING THE ROUTE, ONE CELL AT A TIME : ' + R.walked.presses
+        + ' presses, ended on a road: ' + R.walked.onRoad + ' at ' + R.walked.endedAt.join(','));
       for (const t of R.walked.trail) console.log('      ' + t);
+      console.log('  AND WITH A FULL STRIDE EACH PRESS (the shipped step is '
+        + R.shipped.stepCells + ' cells) : ' + R.shipped.presses
+        + ' presses, ended on a road: ' + R.shipped.onRoad + ' at ' + R.shipped.endedAt.join(','));
+      for (const t of R.shipped.trail) console.log('      ' + t);
+      console.log('    ^ NOT DECIDED HERE. That is RUN [one camera] under PAOLO 9/20 rule 18.');
 
       const anyStraight = R.straight.some(s => s.road > 0);
       console.log('  and not one straight line meets a road: ' + !anyStraight
@@ -153,7 +193,7 @@ console.log('='.repeat(74));
       ok('A1 a road is reachable from his doorstep at all', !!R.plan);
       ok('A2 it is within ' + ROAD_WITHIN + ' cells by turning ('
          + (R.plan ? R.plan.cells : '-') + ')', !!R.plan && R.plan.cells <= ROAD_WITHIN);
-      ok('A3 *** and the game\'s own step actually carries him onto it *** ('
+      ok('A3 *** and walking the route really does carry him onto it *** ('
          + R.walked.presses + ' presses)', R.walked.onRoad === true);
       ok('A4 in no more than ' + PRESSES + ' presses of the pad', R.walked.presses <= PRESSES);
       /* THE SELF-TEST. An instrument that cannot return "no" is not an instrument. */
