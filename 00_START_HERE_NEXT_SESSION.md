@@ -16946,7 +16946,86 @@ RIGHT NOW: (a) write this whole instruction, word for word, into your own handof
 
 I will never paste anything to you again. From here on, the one word is the whole instruction.
 
-THIS ROUND -- *** THE SAME PERSON IS THREE TIMES SMALLER THE MOMENT A FIGHT STARTS, MEASURED
+THIS ROUND -- *** COOKED: TWO PEOPLE WHO ARE A LITTLE TOO STILL, IN VOTE. AND A THIRD I
+DESIGNED, BUILT, LOOKED AT AND CUT AFTER MEASURING MY OWN RIG. (sha a9c56cb3, [horror body]) ***
+
+VERDICTS READ BACK FIRST, as the last handoff said. Still empty: he has thumbed none of the
+three from 9/18. They are still queued; this round makes it four.
+
+RULE 22 CHANGED WHAT A ROUND IS, AND IT NAMED THIS LANE'S LAST TWO ROUNDS. "I need to be
+seeing them cooking up more, every time, not never... it's coding and checking whether the
+sounds are broken or not." A making lane makes one real thing a round, registered in VOTE,
+or the round did not happen. My last two rounds were pure measurement. This one makes
+bodies, and the measuring rides beside them instead of being the whole output.
+
+WHAT WAS MADE, to rule 20's own sentence: "NOT A MONSTER. No creature design, no gore pass,
+no jump. A PERSON A LITTLE TOO STILL IS THE FACE." Neither of these is disfigured, bloodied
+or strange. Each is an ordinary person, dressed correctly, with ONE thing wrong.
+  THE ONE WHO STILL WEARS THE UNIFORM. Nothing about him is wrong at all, and that is the
+    wrong thing. Work cap, buttoned shirt, belt, suspenders, gloves, boots, every piece
+    correct and matched, for a company that no longer exists. He is TIDY.
+  DRESSED FOR A COLD THAT IS NOT COMING. Coat, scarf, knit cap, gloves, wrapped boots, in a
+    desert. Anybody makes that mistake once; somebody who makes it every day has not been
+    corrected by another person in a long time.
+An ordinary citizen stands beside them in the picture, because ONE THING BEING WRONG IS ONLY
+LEGIBLE NEXT TO THE THING BEING RIGHT.
+
+NOTHING NEW WAS DRAWN, and that is the test rather than the shortcut. COOK owns garment ART;
+this lane owns THE BODY, which is the dials and the pairing. So the wrongness could not be a
+new sinister prop; it had to live in proportion and in what somebody chose to put on. An
+ordinary wardrobe worn wrong is more analog horror than a new object would be, and rule 20
+bans the filter by name: IF THE TONE CANNOT BE REACHED WITH THE WARDROBE WE HAVE, IT IS A
+FILTER.
+
+*** TWO THINGS WENT WRONG AND LOOKING AT THE PICTURE CAUGHT BOTH. ***
+
+1. THE DIALS NEVER APPLIED. I wrote `G.dials[k] = ...` inside a try/catch. THERE IS NO
+   G.dials -- the body variation lives in G.bodyVar and needs the rig rebuilt. The catch
+   swallowed the TypeError, all three bodies rendered with DEFAULT proportions, and the one
+   labelled TOO TALL came out exactly as tall as the ordinary man standing next to it.
+   A SILENT CATCH AROUND A WRITE IS A LIE WAITING TO HAPPEN: it turns "this does nothing"
+   into "this worked", and every number downstream of it looks fine. The real path is the
+   one the game already uses on its own cast (famPaintBody): set G.bodyVar, rebuild, restore.
+
+2. AND THE THIRD BODY WAS CUT, NOT FIXED. With the dials actually working, "TOO TALL FOR THE
+   DOORWAY" still did not read. So I measured the dial instead of adjusting it a third time:
+       height dial -1   body  96 px painted        height dial +1   body 103 px
+       width at every setting: 39 px, flat
+   SEVEN PER CENT END TO END. Real adult height runs about a THIRD between the short and the
+   tall. At the very top of the slider a man is three per cent above average and nobody
+   alive can see that. THE RIG HAS NO USABLE HEIGHT RANGE.
+   Shipping it would have put a label claiming something the pixels do not show into THE ONE
+   PLACE HE JUDGES THINGS -- this lane's own [names lie] defect, one screen further out.
+   STOP PRODUCING's tell is writing a third version of something; the number is worth more
+   than a body nobody can tell is tall.
+
+-> FOR THE COORDINATOR, A FINDING THAT IS NOT MINE TO ACT ON: the height dial is 7% end to
+   end and the width never moves at all. "ONE RIG + VARIATION SLIDERS" (Paolo 7/25) is real
+   for build and shape, and effectively dead for HEIGHT. Any row anywhere that assumes two
+   citizens can differ in height on screen is assuming something the rig does not do. Whether
+   that is worth fixing is above this lane; it is written down so nobody designs on it again.
+
+- REGISTERED IN VOTE, NOT SHIPPED TO THE STREET. Rule 18 holds the play surface; rule 22(b)
+  says the hold is on the play surface and NOT on the making. The recipes live in the tool
+  that drew the picture, so the thing he votes on and the thing that would be wired cannot
+  drift apart, and an up-vote is a two-line wire the same round.
+- TAB: VOTE, in the alpha (rule 20 moved it out of the demo). Four items from this lane now.
+- THE ALPHA'S PLAY TABS ARE UNTOUCHED, so no build stamp: nothing he opens has a new number.
+- SUITE (rule 13): pre-push pass green -- character_in_the_vote_tab 9/0 with four candidates,
+  vote_tab 28/0, shape_frozen 12/0. Full suite: 107 red at ad23d875, stale by a week; the two
+  carrying this lane's name (FACE THUMB, LOOK) were red on main before this lane's last
+  eleven ships, settled by commit dates.
+- STILL ROUTED AND STILL NOT MINE: a_crowd_to_walk_into B1 red at 9 of 16 against its own
+  13 of 16 ratchet, proven not mine by stashing the whole change and re-running clean.
+- NEXT ROUND: (1) verdicts back first -- four items now, and an up on the too-still pair
+  wires them into the cast the same round. (2) Cook again; rule 22 says every round. The
+  obvious next body is the third kind of wrong this lane has not tried: not proportion and
+  not what he put on, but WHERE he is standing and what he is doing while standing there.
+- [PENDING Paolo] unchanged: which faction colour file wins; the Anarchists need a magenta
+  garment and there are zero in 317 (the reserved purple band blocks the obvious cook); the
+  Cartel sits on the drab exemption list and not in the law that names it.
+
+PREVIOUS ROUND -- *** THE SAME PERSON IS THREE TIMES SMALLER THE MOMENT A FIGHT STARTS, MEASURED
 ON BOTH SURFACES. IT IS THE SAME DEFECT THIS LANE FIXED ON THE STREET LAST ROUND, IN A
 SECOND PLACE. (sha 56a6a3c9, rule 17's body half) ***
 
