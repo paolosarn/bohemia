@@ -33,8 +33,8 @@
   .warn{color:var(--hot);font-size:12px;margin-top:6px}
 </style></head><body><div class="wrap">
 
-<h1>SEVEN SOUNDS</h1>
-<div class="sub">SOUNDS &middot; 9/21 and 9/22 &middot; every one of these plays on the beat &middot; notes box at the bottom</div>
+<h1>EIGHT SOUNDS</h1>
+<div class="sub">SOUNDS &middot; 9/21 to 9/23 &middot; every one of these plays on the beat &middot; notes box at the bottom</div>
 <div class="beatbar" id="bar"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
 <div class="row"><button id="metro">BEAT: OFF</button><button id="stop">STOP EVERYTHING</button></div>
 <div class="num" id="head"></div>
@@ -132,6 +132,24 @@
   <label>NOTES ON THIS ONE</label><textarea data-n="door"></textarea>
 </div>
 
+<div class="card">
+  <h2>8. THE TAPE IS SLIPPING</h2>
+  <div class="why">Same tune, same broken radio, and now the machine playing it cannot hold
+  its speed. The pitch drifts up and down about a third of a percent, a bit over once a
+  second. That drift is the single thing that says "this is a recording of something, played
+  back by a dying machine" instead of "this is a keyboard". Play the steady one, then the
+  slipping one, back to back. Nothing about the tune changed, and nothing about when it plays
+  changed: the beat is untouched, only the pitch moves.</div>
+  <div class="row">
+    <button data-play="songThroughSpeaker">STEADY DECK</button>
+    <button data-play="songOnTape">SLIPPING DECK</button>
+  </div>
+  <div class="row" data-q="tape" style="margin-top:10px">
+    <button data-v="up">👍</button><button data-v="more">WOBBLE MORE</button><button data-v="less">WOBBLE LESS</button><button data-v="none">NO WOBBLE</button>
+  </div>
+  <label>NOTES ON THIS ONE</label><textarea data-n="tape"></textarea>
+</div>
+
 <div class="foot">
   <label>ANYTHING ELSE, ABOUT ANY OF IT</label>
   <textarea id="all" style="min-height:110px"></textarea>
@@ -156,6 +174,7 @@ function made(which){
 }
 function head(){
   var f = made('footstep'), s = made('stepWithDropouts'), p = made('phoneTone');
+  var t = made('songOnTape');
   document.getElementById('head').textContent =
     'the beat is ' + H.BPM + ' BPM, so one beat is ' + (H.BEAT*1000) + ' ms\n'
     + 'the footstep is ' + Math.round(f.seconds*1000) + ' ms long, shorter than half a beat, so it cannot smear the next one\n'
@@ -163,7 +182,9 @@ function head(){
     + ', which is where the ground skips (' + s.dropoutStations.join(' and ') + ' of a beat)\n'
     + 'each drop-out is ' + s.dropMs + ' ms and ' + s.depthDb + ' dB down, and never reaches silence\n'
     + 'the phone is ' + p.tones.join(' and ') + ' Hz together, ' + p.beatBetweenHz + ' Hz apart, through a '
-    + p.machine.lo + ' to ' + p.machine.hi + ' Hz band';
+    + p.machine.lo + ' to ' + p.machine.hi + ' Hz band\n'
+    + 'the slipping deck drifts the pitch ' + (t.wowDepth*100).toFixed(2) + '% up and down, '
+    + t.wowRateHz + ' times a second, and the beat does not move at all';
 }
 function stopAll(){ live.forEach(function(n){ try{ n.stop(); }catch(e){} }); live = []; }
 function fire(which, at){
