@@ -1083,6 +1083,19 @@
    },
    "redoOf": "eat, drink, smoke, cough and whistle",
    "said": "a lot of them are good, a lot of them aren’t good... some of the DIRECTIONS look like dog shit: when it’s facing north-east the hand was behind the head even though it’s supposed to be in front. IF I KILLED IT I DON’T WANT IT GONE. Make a new one."
+  },
+  {
+   "id": "people-what-people-repeat-about-you-9-22",
+   "kind": "line",
+   "lane": "people",
+   "sha": "PENDING",
+   "made": "9/22",
+   "title": "WHAT PEOPLE REPEAT ABOUT YOU",
+   "why": "Two people can watch you put somebody down and it moves nothing, for ever. Your reputation table has 83 rows and all 83 are quest steps; the seven things your street can actually see you do are not in it. Here are the five things people repeat about a stranger, what each one costs, and what everything else is worth, which is nothing. One bad thing costs five good ones. Pick how harsh that is.",
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_WHAT_PEOPLE_REPEAT_ABOUT_YOU_9_22_26.html"
+   }
   }
  ],
  "verdicts": []

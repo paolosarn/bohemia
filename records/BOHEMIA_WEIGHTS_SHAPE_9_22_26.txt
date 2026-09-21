@@ -1,0 +1,226 @@
+BOHEMIA -- WEIGHTS SHAPE (9/22/26, PEOPLE lane)
+VAMILY job [weights shape], row WHAT-PEOPLE-REPEAT-ABOUT-YOU. Under the rule 18
+hold, with the RULE 22 cook riding beside it.
+
+RULED BY THE COORDINATOR 9/5 (correct-after, off the research; Paolo may
+overrule):
+  "people repeat a HANDFUL of things about a stranger and nothing else: did you
+   hurt someone, did you steal, did you help someone who needed it, did you keep
+   your word, did you pay what you owed. Everything else in the 82-row deed table
+   weighs near zero. A betrayal is worth about five kindnesses, it is remembered
+   longer, and it travels further."
+
+================================================================================
+*** MEASURED FIRST, AND THE 82-ROW DEED TABLE IS NOT A TABLE OF DEEDS ***
+================================================================================
+bohemia_standing ships DEED_WEIGHT EMPTY, and its own gate asserts that.
+bohemia_deeds fills it at load by scanning his .bq files. Counted through his
+own loader, 42 quest files:
+
+  rows in the table                       83   (the module says 82; he kept writing)
+  rows shaped q:<quest>:<stage>@<FACTION>  83
+  rows that are a thing a person does       0
+
+EVERY ROW IS A QUEST STEP TAGGED FOR A FACTION. q:bq_dead_pool:32@Network,
+q:bq_name_on_counterfeit:33@REDS, and eighty-one more. Not one of them is "did
+you hurt someone".
+
+AND THE SEVEN KINDS THE WALKED STREET ACTUALLY PUBLISHES ARE NOT IN IT AT ALL:
+
+  claim:met       you kept your word           NOT IN THE TABLE
+  claim:refused   you turned an outfit down    NOT IN THE TABLE
+  commit          you threw in with an outfit  NOT IN THE TABLE
+  favour          an outfit did you a favour   NOT IN THE TABLE
+  loan:short      you did not pay somebody     NOT IN THE TABLE
+  spared          you let somebody walk        NOT IN THE TABLE
+  downed          you put somebody down        NOT IN THE TABLE
+
+The standing organ says what that means in its own words, on the line that reads
+the table: "unruled deed = weightless". SO THE WHOLE REPUTATION MACHINE IS
+BUILT, WORKING, AND GRADING NOTHING.
+
+================================================================================
+*** AND THE CONTROL COST A TRY, AGAIN, AND AGAIN IT WAS MY INSTRUMENT ***
+================================================================================
+BEFORE BELIEVING A NEGATIVE, PROVE THE INSTRUMENT CAN PRODUCE A POSITIVE.
+
+TRY ONE: witness a 'downed' with no row, then with a row of -2.5, and read the
+opinion. BOTH READ ZERO. The tempting conclusion is "weights do nothing".
+
+IT WAS THE SIGNATURE. witness(minds, turn, actorId, deedKind, x, y, where, opts)
+takes EIGHT arguments and I passed six, so `where` was undefined, the loop
+skipped every mind, and nobody witnessed anything. A broken instrument reading
+zero twice is not evidence.
+
+TRY TWO, with the right call:
+
+  downed, no row       2 people saw it   opinion 0.00 now, 0.00 after 21 days
+  downed, weight -2.5  2 people saw it   opinion -2.50 now, -1.95 after 21 days
+                                          and the rung reads COLD
+  claim:met, +0.5      2 people saw it   opinion +0.50, rung NEUTRAL
+
+THE MACHINE WORKS. The rows are missing.
+
+THAT IS THE THIRD ROUND RUNNING WHERE A WRONG READING WAS MINE AND NOT THE
+GAME'S (9/21: BARK_DREW[0] is not the nearest body; 9/21: measure before you
+disturb; today: read the signature). All three were caught by re-testing rather
+than by reasoning, which is the only reason they were caught.
+
+================================================================================
+WHAT WAS BUILT: tools/bohemia_weights.js
+================================================================================
+THE ONLY NUMBER IS HIS. "A betrayal is worth about five kindnesses", so a
+kindness is the unit and a betrayal is five of them. The unit is 0.5 and that is
+ARGUED FROM HIS OWN RUNG LADDER rather than picked: the ladder is HOSTILE -3,
+COLD -1, NEUTRAL +1, WARM +3, so at 0.5 one kindness does NOT move you a rung
+and one betrayal DOES. Checked through the game's own rungFor: one kindness
+reads NEUTRAL, one betrayal reads COLD.
+
+  did you hurt someone            downed        -2.5
+  did you pay what you owed       loan:short    -2.5
+  did you steal                   NO KIND EXISTS
+  did you keep your word          claim:met     +0.5
+  did you help someone who needed it  spared    +0.5
+
+AND THE OTHER HALF OF THE RULING, WHICH IS THE HALF PEOPLE FORGET:
+
+  claim:refused   0   turning an outfit down is not breaking your word
+  commit          0   who you run with, not what you are like
+  favour          0   somebody doing YOU a favour is a fact about them
+
+Each zero carries its reason in the file, because a zero with no reason reads as
+an oversight and gets "fixed" by the next lane through.
+
+TWO OF HIS FIVE HAVE NO DEED KIND AND ARE NAMED RATHER THAN INVENTED: there is
+no kind for STEALING, and the nearest thing to HELPING SOMEBODY WHO NEEDED IT is
+"spared", which is mercy in a fight. Making up a deed kind so a table looks full
+is how a system starts lying. Named for QUESTS and WORLD.
+
+ON THE REAL ORGAN, with the shape applied beside his 83 rows (none overwritten):
+
+                                 now      21 days   90 days   rung
+  you hurt someone              -2.50     -1.95     -0.86     COLD
+  you did not pay what you owed -2.50     -1.95     -0.86     COLD
+  you kept your word            +0.50     +0.32     +0.08     NEUTRAL
+  you let somebody walk         +0.50     +0.32     +0.08     NEUTRAL
+  you threw in with an outfit    0.00      0.00      0.00     NEUTRAL
+
+FIVE KINDNESSES CANCEL ONE BETRAYAL EXACTLY, to the decimal.
+
+================================================================================
+"REMEMBERED LONGER" IS FREE, AND "TRAVELS FURTHER" IS BACKWARDS
+================================================================================
+I BUILT NOTHING FOR THE SECOND LEG AND IT IS ALREADY TRUE. deedHalflife takes
+the deed's own WEIGHT, so the moment the weights are right:
+
+  something bad    half forgotten after 59 days, still -0.86 at ninety
+  something good   half forgotten after 33 days, down to +0.08 at ninety
+
+A good deed is basically gone in three months. A bad one is still following you.
+
+THE THIRD LEG IS FALSE TODAY AND IT IS BACKWARDS. How far news carries comes off
+a separate draft table in the walked city, CT_DEED_CLOUT, and it has five kinds:
+
+  claim:met      you kept your word          quiet      7 cells, 1 retelling
+  loan:short     you did not pay            notable    12 cells, 3 retellings
+  claim:refused  you turned an outfit down  notable    12 cells, 3 retellings
+  commit         you threw in with somebody risky      17 cells, 4 retellings
+  downed         you put somebody down      NOT IN IT   9 cells, 2 retellings
+  spared         you let somebody walk      NOT IN IT   9 cells, 2 retellings
+
+*** THE LOUDEST THING ON THE STREET IS THE ONE THAT SAYS LEAST ABOUT YOU, AND
+THE WORST THING A PERSON CAN DO TRAVELS LESS FAR THAN PICKING A SIDE. ***
+
+The module carries a proposal (downed -> reckless, 24 cells and 5 retellings;
+loan:short -> risky) and NOTHING APPLIES IT. That table is on the play surface,
+which rule 18 holds, and the tags are somebody else's draft besides.
+
+================================================================================
+THE RULE 22 COOK, IN THE VOTE TAB
+================================================================================
+"WHAT PEOPLE REPEAT ABOUT YOU",
+slices/BOHEMIA_WHAT_PEOPLE_REPEAT_ABOUT_YOU_9_22_26.html.
+
+IT LEADS WITH THE FIVE THINGS and what each one costs, then the half that counts
+for nothing, then the measurement in one sentence ("two people watch you put
+somebody down, and it moves nothing"), then how long they remember, then the leg
+that is backwards. Three ways to go: five to one as built, two to one (softer
+and less honest), ten to one (one bad night and the block does not forget it
+this generation).
+
+================================================================================
+RULE 18: NOTHING IS ON THE PLAY SURFACE
+================================================================================
+The walked city and the alpha do not know this file exists. The loudness table
+in the city is untouched. bohemia_standing still ships DEED_WEIGHT empty, which
+its own gate asserts and this round does not break. His 83 authored quest rows
+are never overwritten: apply() refuses any key the table already holds and the
+gate checks that 0 of his were touched. The shape is in tools/ rather than
+engine/ ON PURPOSE, because an engine diff owes two rebuilt derived slices in
+the same commit and re-cutting the demo is RUN's alone under rule 14(a).
+
+================================================================================
+THE GATE
+================================================================================
+gates/weights_shape_gate.js.
+  the shape    his ratio is the only number, the unit is argued from his rung
+               ladder, the five are in his words, the zeros carry reasons
+  the missing  two of five have no kind and are named rather than faked
+  the organ    83 rows all quest steps; the seven street kinds all absent; the
+               control both ways with the right signature; one bad thing reads
+               COLD; five good cancel one bad to the decimal
+  the legs     remembered-longer is free off the weight and this file does not
+               touch it; travels-further is backwards and only proposed
+  the cook     leads with the five, carries the numbers from the module, names
+               the backwards leg, offers a softer option than mine
+  rule 18      nothing calls it, the city's loudness table is untouched, the
+               engine table still ships empty, and 0 of his rows were overwritten
+
+NEGATIVE-CONTROLLED, EACH PUT BACK:
+  drop his ratio to two, and invent a deed kind for stealing       8 red
+  have the walked city so much as mention the shape                1 red
+
+AND ONE CLAIM OF MY OWN THAT WAS WRONG BEFORE IT WAS RIGHT: the first cut of
+"nothing was built for the remembered-longer leg" tested whether the word
+halflife appears in the module. It appears in a COMMENT, in the sentence saying
+the module did not build one, so the claim went red for telling the truth. A test
+about a comment is not a test about code. Repointed at substance: the module
+exports no halflife, defines no fade function and holds no number of days.
+
+================================================================================
+*** AND ANOTHER LANE'S GATE HAS BEEN RED ABOUT EXACTLY THIS, IN THOSE WORDS ***
+================================================================================
+CITY DEEDS, on clean origin/main, before this round existed:
+
+  FAIL: B11 CONTENTS-PAOLO'S: DEED_WEIGHT is STILL EMPTY (83 rows) and opinion
+        is still 0
+
+So this finding is not new to the repo, it is a red somebody already raised and
+nobody could close, because closing it means putting rows in a table whose
+contents are HIS. That is why this round's answer is a draft shape in the vote
+tab rather than rows in the game.
+
+TWO REDS ON THIS TREE, BOTH PRE-EXISTING AND BOTH CONFIRMED ON CLEAN
+origin/main WITH THE SAME NUMBERS, so neither is this round's:
+  CITY DEEDS     40 passed, 3 failed  (B11 above, plus two gendered-line claims)
+  MAKE IT RIGHT  34 ok, 5 FAILED      (opinion -6.00 where it wants otherwise, no
+                                       button, opinion 2.00, the square press, and
+                                       "Cannot read properties of undefined
+                                       (reading 'saysHow')" on the real surface)
+MAKE IT RIGHT IS THIS LANE'S OWN GATE, from 9/7. It is red before this round and
+it is named here rather than quietly carried; the last of its five is a surface
+error, which usually means a screen moved under it.
+
+================================================================================
+MEASURED AND NOT FIXED
+================================================================================
+A KINK IN THE HALFLIFE CURVE: deedHalflife uses Math.abs(w||1), so a weight of
+exactly ZERO is treated as 1 and a deliberately weightless deed is "remembered"
+as long as a moderate one. Harmless today because its force is zero anyway, and
+it is not this lane's number. Named.
+
+NO KIND FOR STEALING AND NO KIND FOR HELPING SOMEBODY WHO NEEDED IT. Two fifths
+of what he says people repeat cannot happen on the street yet. QUESTS and WORLD.
+
+TAB: VOTE, in the alpha, "WHAT PEOPLE REPEAT ABOUT YOU". Nothing changed in CITY
+this round and that is on purpose.
