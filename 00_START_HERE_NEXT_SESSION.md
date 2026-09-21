@@ -1,3 +1,6 @@
+SOUNDS (sound-xk7pjp): 9/21 LATEST -- *** TWO SHIPPED: [first sound] AND [footsteps on the beat]
+ROUND ONE, WHICH TURNED OUT TO BE A FIX FOR SILENT WALKING. PLUS [analog horror sound] ROUND ONE. ***
+
 *** RULE 22 (Paolo 9/21, LOCKED) LANDED MID-ROUND AND IT NAMES THIS LANE OUT LOUD: "I'll enter
 the sound chat and it's not even making fucking sounds. It's coding and checking whether the sounds
 are broken or not." HE IS RIGHT ABOUT THIS ROUND'S SHAPE and the registry proved it: SOUNDS had
@@ -17,8 +20,6 @@ AND THE LESSON UNDERNEATH RULE 22 IS THE SAME ONE AS THE FOOTSTEP BUG: this lane
 building checkers, and the checker that mattered was already red and unread. Round two of
 [analog horror sound] is a KEEP/REDO of 65 sounds, which is cooking, not checking.
 
-SOUNDS (sound-xk7pjp): 9/21 LATEST -- *** TWO SHIPPED: [first sound] AND [footsteps on the beat]
-ROUND ONE, WHICH TURNED OUT TO BE A FIX FOR SILENT WALKING. PLUS [analog horror sound] ROUND ONE. ***
 Records: records/BOHEMIA_THE_ROOM_IS_ON_BEFORE_THE_SONG_9_21_26.md (the ship),
 records/BOHEMIA_WHAT_ANALOG_HORROR_SOUNDS_LIKE_9_21_26.md (the school page and the baseline).
 Gate: FIRST SOUND 19/0 on a verified 4.67x. Build stamp 9/21a THE ROOM IS ON. Tab: RUN, the
