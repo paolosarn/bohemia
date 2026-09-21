@@ -81,6 +81,12 @@ small frame of what was on screen, so "this looks bad" says what looked bad. Not
 the phone the same road a vote does: the registry and one .txt export he can send to
 the manager; the manager reads them as rulings the next round. UI owns it; it ships
 under rule 18 because it is his direct ask and it is tiny.
+AMENDED 9/21 (records/BOHEMIA_PAOLO_CARDS_STILL_POP_AND_NO_NOTES_9_21_26.md): it shipped as a
+5 px pencil and he could not find it. "Tiniest" is the footprint, never invisibility. The
+control is the word NOTES, top right, thumb-sized reach, on every screen of the demo; the
+section is COLLAPSIBLE (tap open, tap closed, stays for the whole play); and it has COPY ALL,
+which puts every note of the session on the clipboard as plain text so he pastes it into the
+manager's chat when he is done. The .txt export is the second road, not the first.
 
 ## 6. ROUTING
 - VAMILY.md: THE TWENTY CHATS; a fresh chat with no name is 20 PORTRAIT (PLUMBER is

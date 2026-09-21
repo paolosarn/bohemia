@@ -30149,6 +30149,15 @@ round or the round did not happen; reports lead with the thing; the vote tab pla
 Every held MODE line amended; SOUNDS [cook sounds] first (four sounds this round), UI [cook
 panels] first (four 3-D panels this round) + [vote plays sound]; PLUMBER [cook gate]; the
 playable-cut law section 3 amended; CLAUDE.md law list. Nothing to judge.
+THEN (ev) PAOLO 9/21: "quest cards that don't do anything when I click on them... I still don't
+see a note section anywhere, collapsible, that I can copy and paste into you." (records/BOHEMIA_PAOLO_CARDS_STILL_POP_AND_NO_NOTES_9_21_26.md)
+Checked: RUN [no pop ups] still OPEN and unclaimed (RUN shipped [one camera] instead; the
+manager's inserts had also pushed it down the section, fixed); UI's notes button shipped as a
+5 px pencil he cannot find, exporting .txt. Rulings: the cards die THIS ROUND (the only thing
+RUN does); UI [copy notes] first: the word NOTES top right, collapsible, COPY ALL to the
+clipboard; vote-tab law section 7 amended; break list updated. Board order of RUN, QUESTS,
+COMBAT, PORTRAIT, PEOPLE restored (first lines back on top). The live site cannot be read
+from this container (HTTP 000); deploys are checked by the pages workflow. Nothing to judge.
 
 COORDINATOR: 9/4 (ba) -- *** THE MEETING HALL:
 VAMILY.md's front page now carries every rule, and every chat re-reads it every time
