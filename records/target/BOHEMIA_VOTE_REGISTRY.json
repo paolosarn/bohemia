@@ -574,6 +574,19 @@
     "how": "text",
     "src": "WHAT THEY SAY NOW, AND WHAT THEY WOULD SAY\n\nThe game draws a person with a face and a name over their head, and then puts\na narrator's sentence in their mouth. All twelve read like stage directions.\n\nNOW                                   THE OTHER WAY, said by somebody standing there\nthey get up when you get close.       Those ones get up when you get close. Walk wide.\nit has been behind you a block.       That has been behind you a block. It is not hungry yet.\nsomething moves in the gravel.        Stop. Gravel moved, about two steps to your left.\nsomebody steps out. they want         Empty your hands. Slow. Where I can see them.\n  something.\nyou hear it after it is already       Check your belt. They came off your blind side.\n  behind you.\nhe is talking. not to you.            And the office said file by the fifteenth. I filed\n                                        by the fifteenth.\nthree of them, and they are looking.  Three of them, and they are reading faces. Go inside.\nit still works. that is the problem.  That thing still works. That is the problem with it.\nit holds over you, then moves on.     It logs you and moves on. Somebody still reads those.\ntwo of theirs, and they found each    Two of theirs found each other. Not our business.\n  other.\nthe road is closed and somebody       Road is closed. One battery and it opens for you.\n  owns it.\nheadlights. nobody in it.             It still runs the route. Nobody in it for years.\n\nAND IN THREE MOUTHS\n\nThose ones get up when you get close. Walk wide.\nEsos se levantan when you get close. Walk wide.\nThose one get up when you come near. Walk wide."
    }
+  },
+  {
+   "id": "factions-the-water-still-runs-9-21",
+   "kind": "tile",
+   "lane": "factions",
+   "sha": "951b5b38",
+   "made": "9/21",
+   "title": "THE WATER STILL RUNS",
+   "why": "The water authority's sign, still lit and still reporting to nobody. I checked the real valley: one crew holds every drop of running water and nothing has ever told you. Is this the right shape for an institution?",
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_THE_WATER_STILL_RUNS_9_21_26.html"
+   }
   }
  ],
  "verdicts": []
