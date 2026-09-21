@@ -1,3 +1,94 @@
+PORTRAIT (portrait-vamily-yke55s): 9/21 LATEST -- *** [faces first] ROUND 1. THE LIST CAME
+BACK EMPTY: A STRANGER MEETS ZERO FACES IN FIVE MINUTES, AND THE FACES ARE NOT THE REASON.
+THEY CANNOT BE REACHED. *** Row stays CLAIMED, NOT shipped. Nothing pushed to the alpha.
+Record: records/BOHEMIA_PORTRAIT_NOBODY_MEETS_A_FACE_9_21_26.md
+Sheet: records/target/BOHEMIA_THE_FOUR_FACES_HE_MEETS_9_21_26.png
+
+THE WALK. One driver, fresh cut of the current alpha made with the real cutter into a
+throwaway file (the committed demo never touched), phone profile, 4x. 300 s after the door,
+139 taps on everything a player can see:
+    renderFace calls 33, and ALL 33 ARE THE SAME FACE -- the player's own (PUNK)
+    faceFor specs built 25 (the family four x3, thirteen faction ids x1) -- never drawn
+    FACES EVER SHOWN ON THE GLASS: 0
+Door at 75.5 s at 4x, 18.5 s at 1x. 13 controls at the door, none of them a person.
+
+THE CAUSE, READ OFF THE PAGE. One surface in this game shows a face: #openFace, 56x56,
+driven by openCaption in the cold open. openStart is called from ONE place, a click on
+#openWatch on an invite banner. Ancestor walk, 10 s after the door, in the demo:
+    #openWrap display none 0x0  <- the cold open
+    #p-run    display none 0x0  <- THE PANEL IT LIVES IN; the demo shows #p-city
+    #stage / #app / body all visible 390x844
+And the invite is stuck in a state it cannot leave: openShould() TRUE, openHasProgress
+false, openFrontUp false, CITY_BUSY false, #openInvite want="1" and display "none". want=1
+means openInviteShow ran and did its job; the only line that turns the banner back on lives
+in cityChromeIn, which runs on a message FROM THE CITY, so a banner hidden during a busy
+moment stays hidden once the city stops posting. THE STORY HOOK IS INVISIBLE AND THE GAME
+THINKS IT IS SHOWING.
+
+THE FOUR FACES THAT DO EXIST. Driving openStart() directly the opening plays in full: 67
+caption beats, 43 spoken lines, four speakers -- mother DENISE 16, father RAY 11,
+sibling_older MARCO 10, sibling_lost NINA 6. ALL FOUR HAVE THE SAME EYES, 80,110,150. That
+is heredity working as written (eye colour is copied from a parent, never averaged, 8/31)
+and it is still four out of four, worth knowing before anybody calls it variety.
+
+I LOOKED AT THEM AT 5x, AND THE THREE DEFECTS ARE THE SAME ON ALL FOUR: (1) the eye is a
+white rectangle with a solid block of colour in it, no pupil, no ring, no lid shadow -- a
+bead, not an eye; (2) the mouth is a flat rectangle, no lip line, no corners, no shadow;
+(3) THERE IS NO LIGHT -- nothing on the face mass is shaded, no brow, nose, chin or cheek
+turn, and a face with no light source has no form. The hair is the best thing on all four.
+At the REAL 56px they are a dark shape with two pale dots, word for word what EYES saw on
+the street 9/15. THESE THREE GO TO [blank faces] AS ITS MEASURED STARTING POINT. NO FACE
+WAS REDRAWN: that row is SCHOOL FIRST and jumping it is how this lane would produce a
+fourth version of something nobody asked for.
+
+*** MY INSTRUMENT WAS WRONG TWICE AND A CONTROL CAUGHT IT BOTH TIMES. *** (1) Absent and
+hidden read the same: the poller did `if(!el) return;` so "0 faces" could equally have meant
+the element does not exist -- two findings, one number. (2) THE ONE THAT MATTERS: THE POLLER
+WAS BLIND AND I NEARLY REPORTED ITS ZERO AS THE GAME'S. I forced #openFace visible and it
+still counted zero. The first control was my own error (opened the child, left the wrapper
+hidden); THE SECOND CONTROL OPENED THE WRAPPER TOO AND IT WAS STILL ZERO -- a CSS-reading
+poller cannot see through an ancestor chain it does not walk. Thrown away and replaced with
+THE GAME'S OWN SIGNAL: hook openCaption, the one function that decides a face is shown and
+for whom. Positive control: plant a caption, recorder goes 0 -> 1. Every number above comes
+from the version that passed its control. Fourth ruler in this lane's short history to
+report perfection because it could not see its target. A ZERO IS NOT A MEASUREMENT UNTIL
+SOMETHING HAS MADE IT MOVE.
+
+THE DRIVER GREW ONE OPT-IN HOOK (rule 14g): opts.arm runs a string of JS on every new
+document BEFORE any page script, page and city frame. "Whose face does a stranger meet" is
+a list of calls that already happened; anything attached after boot has missed them. Off
+unless a caller passes it, same shape as PLUMBER's opts.serve.
+
+IN THE VOTE TAB NOW (rule 15, alpha only, behind the gear): four FACE candidates, one per
+person, each showing the real 56px beside a 6x blow-up so his comment lands on ONE FACE and
+not on a sheet -- the direction channel this lane's MODE line names. ids
+portrait-face-{denise,ray,marco,nina}-9-21, cards in slices/vote/. THE GATE CAUGHT MY OWN
+BROKEN LINK: I put the PNGs in records/target/vote/ because that is where the registry
+lives, and `vote/...` resolves relative to the TAB PAGE in slices/. Four broken images in
+production and a row he taps that shows nothing. 28/0 once they moved.
+
+GATES: vote tab 28/0, talking portrait 29/0, portrait matches body 11/0, handoff 8/0, reply
+contract 17/0. Rule 13's honest sentence: pre-push pass green; full suite 107 red at
+ad23d875, none named as this lane's.
+
+[PENDING coordinator -- ROUTED, NOT FIXED, and it is not mine to fix] THE COLD OPEN IS
+UNREACHABLE IN THE DEMO. #p-run is display:none there and the opening lives inside it; the
+invite banner is want=1 / display:none with no path back. That is RUN's demo cut and UI's
+banner. ONE SYSTEM, ONE SESSION -- reaching into another lane's surface to make my own row
+shippable is the violation STOP PRODUCING names. It is also the fourth thing (rule 19d): a
+person at his door WITH A PORTRAIT cannot happen while the only face surface in the game is
+inside a hidden panel. Routed with the measurement, not with an opinion.
+
+[PENDING coordinator, a new line only you may add] THE PORTRAIT DOES NOT WEAR THE GLASSES
+THE BODY IS WEARING (carried over from last round, still open): 65 of 200 citizens show no
+eyes on the body, 53 behind opaque shades, and their portrait shows bare eyes.
+
+NEXT: [faces first] continues -- when a speaker exists (QUESTS [a person asks] / PEOPLE
+[face at the door]) this lane draws that face, and the four above are already the ones the
+opening uses. Then [blank faces], SCHOOL FIRST, which now starts from the three measured
+defects above and also owns making the faces genuinely more different (last round proved
+colour was propping that up). Instruments to reuse: opts.arm in the one driver, and the
+openCaption hook in the record.
 WORDS (words-8dqrnq): 9/21 LATEST -- *** COOKED, RULE 22. TWO THINGS IN THE VOTE TAB:
 words-the-phone-notice-9-21 and words-the-first-ask-spoken-9-21. 33 lines, 18 of them in a mouth. ***
 Q27 [analog horror voice] now has BOTH ROUNDS and is SHIPPED. Q26 [the first ask spoken] is COOKED

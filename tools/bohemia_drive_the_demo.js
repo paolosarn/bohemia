@@ -79,6 +79,16 @@ async function open(opts) {
   const ctx = await browser.newContext({
     viewport: { width: 390, height: 844 }, deviceScaleFactor: 3,
     hasTouch: true, isMobile: true });
+  /* EXTENDED 9/20 (PORTRAIT, rule 14(g), for [faces first]). opts.arm is a string of
+     JavaScript run on EVERY new document BEFORE any page script, in the page AND in
+     the city iframe. It exists because a question like "whose face does a stranger
+     actually meet" cannot be answered after the fact: the answer is a list of calls
+     that already happened, and anything armed after boot has missed the ones that
+     matter. THIS LANE'S OWN HISTORY IS THE REASON -- [a human being] took three cuts
+     to learn that a probe attached late reports a pass has run zero times about a pass
+     that has already painted three bodies. Arm before the page, or measure nothing.
+     Off unless a caller passes it, so no existing use of this driver changes. */
+  if (opts.arm) await ctx.addInitScript({ content: opts.arm });
   const page = await ctx.newPage();
   const errs = [];
   page.on('pageerror', e => errs.push(String(e).slice(0, 160)));

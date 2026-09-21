@@ -300,7 +300,7 @@
     "src": "vote/ANIMATION_THE_IDLE_REDO.html"
    },
    "redoOf": "idle",
-   "said": "a lot of them are good, a lot of them aren’t good... IF I KILLED IT I DON’T WANT IT GONE. I just think it could be done better. Make a new one."
+   "said": "a lot of them are good, a lot of them aren\u2019t good... IF I KILLED IT I DON\u2019T WANT IT GONE. I just think it could be done better. Make a new one."
   },
   {
    "id": "factions-the-sign-still-lights-9-21",
@@ -352,6 +352,58 @@
    "show": {
     "how": "page",
     "src": "BOHEMIA_THE_FIRST_NOTICE_9_21_26.html"
+   }
+  },
+  {
+   "id": "portrait-face-denise-9-21",
+   "kind": "face",
+   "lane": "portrait",
+   "sha": "10fa31c",
+   "made": "9/21",
+   "title": "DENISE -- your mother",
+   "why": "These four are the only faces in the game that ever speak, and you cannot reach them right now. Tell me what is wrong with this one and the next one answers you. Left is the real size on your phone.",
+   "show": {
+    "how": "image",
+    "src": "vote/PORTRAIT_FACE_DENISE_9_21.png"
+   }
+  },
+  {
+   "id": "portrait-face-ray-9-21",
+   "kind": "face",
+   "lane": "portrait",
+   "sha": "10fa31c",
+   "made": "9/21",
+   "title": "RAY -- your father",
+   "why": "These four are the only faces in the game that ever speak, and you cannot reach them right now. Tell me what is wrong with this one and the next one answers you. Left is the real size on your phone.",
+   "show": {
+    "how": "image",
+    "src": "vote/PORTRAIT_FACE_RAY_9_21.png"
+   }
+  },
+  {
+   "id": "portrait-face-marco-9-21",
+   "kind": "face",
+   "lane": "portrait",
+   "sha": "10fa31c",
+   "made": "9/21",
+   "title": "MARCO -- your older brother",
+   "why": "These four are the only faces in the game that ever speak, and you cannot reach them right now. Tell me what is wrong with this one and the next one answers you. Left is the real size on your phone.",
+   "show": {
+    "how": "image",
+    "src": "vote/PORTRAIT_FACE_MARCO_9_21.png"
+   }
+  },
+  {
+   "id": "portrait-face-nina-9-21",
+   "kind": "face",
+   "lane": "portrait",
+   "sha": "10fa31c",
+   "made": "9/21",
+   "title": "NINA -- the sister you lose",
+   "why": "These four are the only faces in the game that ever speak, and you cannot reach them right now. Tell me what is wrong with this one and the next one answers you. Left is the real size on your phone.",
+   "show": {
+    "how": "image",
+    "src": "vote/PORTRAIT_FACE_NINA_9_21.png"
    }
   }
  ],
