@@ -1,0 +1,165 @@
+{
+  "what": "every pixel against the analog horror bible",
+  "when": "2026-09-21T20:56:42.003Z",
+  "surface": "/tmp/claude-0/-home-user-bohemia/065fcaf1-af13-5362-9424-9d0305049a14/scratchpad/ahcut/slices/BOHEMIA_DEMO.html",
+  "bible": "records/BOHEMIA_ANALOG_HORROR_BIBLE_9_20_26.md (AH-01)",
+  "controls": [
+    {
+      "name": "C4 the comparator reads 0 for identical and 1 for opposite",
+      "pass": true,
+      "detail": "identical 0, opposite 1"
+    },
+    {
+      "name": "C5 the canvas sampled is the world, sized and not blank",
+      "pass": true,
+      "detail": "378x815 backing, 378x815 on screen, not blank"
+    },
+    {
+      "name": "C1 the full-frame counter bites",
+      "pass": true,
+      "detail": "218 -> 219 after a planted full-canvas fill"
+    },
+    {
+      "name": "C2 the filter counter bites",
+      "pass": true,
+      "detail": "0 -> 1 after a planted blur"
+    },
+    {
+      "name": "C3 the composite counter bites",
+      "pass": true,
+      "detail": "2 -> 3 after a planted multiply"
+    }
+  ],
+  "findings": [],
+  "unmeasured": [
+    {
+      "rule": "R1 THE ORDINARY FRAME, ONE WRONG THING",
+      "why": "needs a named wrong thing; the bible already records the street frame as having ZERO wrong things, which it calls world-data build debt, not art"
+    },
+    {
+      "rule": "R2 THE CAMERA DOES NOT HELP",
+      "why": "needs the wrong thing named before a look-at can be checked against it"
+    },
+    {
+      "rule": "R4 THE LIGHT WAS IN THE ROOM",
+      "why": "the night half (channel disagreement under one rounding step) needs nightfall, which this walk does not reach"
+    },
+    {
+      "rule": "R5 THE DEAD INSTITUTION’S TYPE",
+      "why": "measurable from the shipped CSS rather than a walk; E19 already owns that sweep and it is not wired to this bible yet"
+    },
+    {
+      "rule": "R6 THE STILL FACE",
+      "why": "needs a portrait on screen; none appears in this walk"
+    },
+    {
+      "rule": "R7 THE LIT STREET WITH NOBODY HOME",
+      "why": "needs the wrongness traced to a real world-state row, which is engine state this lane does not read"
+    },
+    {
+      "rule": "R9 THE MACHINES KEEP TALKING",
+      "why": "needs scheduled emissions on world time, and nothing audible or scheduled surfaced in the window"
+    }
+  ],
+  "shots": [
+    "records/eyes_e28_horror/00_front.png",
+    "records/eyes_e28_horror/01_world.png"
+  ],
+  "R3": {
+    "windows": 8,
+    "window_ms": 2000,
+    "per_window": [
+      0,
+      0.0476,
+      0.0273,
+      0.0273,
+      0.0459,
+      0,
+      0.0417,
+      0.0259
+    ],
+    "worst_moving_fraction": 0.0476,
+    "windows_over_the_bibles_ten_percent": 0,
+    "bar": 0.1
+  },
+  "counters": {
+    "world": {
+      "world_canvas": "378x815",
+      "full_frame_on_the_world": 82,
+      "of_those_opaque_clears": 82,
+      "of_those_SEE_THROUGH_OVERLAYS": 0,
+      "overlay_examples": [],
+      "clear_examples": [
+        {
+          "kind": "fillRect",
+          "w": 378,
+          "h": 815,
+          "cw": 378,
+          "ch": 815,
+          "seeThrough": false,
+          "alpha": 1,
+          "style": "#8a7a58",
+          "at": 848
+        },
+        {
+          "kind": "fillRect",
+          "w": 378,
+          "h": 815,
+          "cw": 378,
+          "ch": 815,
+          "seeThrough": false,
+          "alpha": 1,
+          "style": "#20303e",
+          "at": 5617
+        },
+        {
+          "kind": "fillRect",
+          "w": 378,
+          "h": 815,
+          "cw": 378,
+          "ch": 815,
+          "seeThrough": false,
+          "alpha": 1,
+          "style": "#20303e",
+          "at": 14534
+        }
+      ],
+      "full_frame_on_scratch_canvases": 136,
+      "filter_on_the_world": 0,
+      "filter_on_scratch": 0,
+      "composite_on_the_world": 0,
+      "composite_on_scratch": 2,
+      "composite_examples": [
+        {
+          "v": "source-atop",
+          "cw": 112,
+          "ch": 112,
+          "at": 20758
+        },
+        {
+          "v": "source-atop",
+          "cw": 112,
+          "ch": 112,
+          "at": 20758
+        }
+      ],
+      "draws": 2331471
+    },
+    "shell": {
+      "world_canvas": "378x815",
+      "full_frame_on_the_world": 0,
+      "of_those_opaque_clears": 0,
+      "of_those_SEE_THROUGH_OVERLAYS": 0,
+      "overlay_examples": [],
+      "clear_examples": [],
+      "full_frame_on_scratch_canvases": 22,
+      "filter_on_the_world": 0,
+      "filter_on_scratch": 0,
+      "composite_on_the_world": 0,
+      "composite_on_scratch": 0,
+      "composite_examples": [],
+      "draws": 24
+    }
+  },
+  "failing_controls": []
+}
