@@ -88,10 +88,24 @@
 
 # =====================================================================
 # THE ASK. The theme is in the FIRST line, not a missable node (W3).
+#
+# ONE WRONG DETAIL, AND IT IS NEVER EXPLAINED (9/21, row [horror ask], rule 20h,
+# laws/BOHEMIA_LAW_ANALOG_HORROR_FOR_EVERY_PIXEL_AND_EVERY_SOUND_9_20_26.md).
+# The bible's rule one: the frame is ORDINARY and one thing in it is WRONG, said
+# plainly, and the fear is that the world is running normally and nobody is left
+# who should be running it. So the third line is a chalk mark on a meter box.
+# A meter reader still walks this block ten years after the company that sent him
+# died. He says it flat, between the diagnosis and the ask, and THE NEXT LINE DOES
+# NOT ACKNOWLEDGE IT -- that is the whole technique, and the @OPTs deliberately
+# give the player no way to ask about it either. @NOVERB already holds one thing
+# the game will not let you say; this is a second thing, held by silence instead.
+# It also turns the quest's own title on its head: THE METER READER is not him.
+# draft:true, and the candidates he is voting between are in the VOTE tab.
 # =====================================================================
 @TALK open  speaker=lineman  entry=stage>=10
   @SAY Nine at night, every night, and half this block goes brown. #tired
   @SAY I tested it myself, line's clean, and clean plus browning out means somebody upstream's on my feed drinking before we do.
+  @SAY Somebody still chalks the meter box every month. Never seen who. #flat
   @SAY So walk it back for me, past the dead storefronts, follow whatever cable's running warm. You any good at quiet?
   @OPT "I'll walk it."                 [gate: none]  -> walk  @DO learn line_is_clean
   @OPT "Why not you?"                  [gate: none]  -> why

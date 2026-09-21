@@ -4,9 +4,9 @@
   "why": "DIALOGUE ALWAYS REFERS TO THE CATALOGUE (Paolo 8/11, LOCKED). He does not approve dialogue; he edits it later, and later happens in the WORDS tab this file bakes.",
   "generator": "tools/bohemia_words_book.py",
   "sources": 60,
-  "lines": 3147,
-  "cited": 3047,
-  "fingerprint": "e0ec4312225846de",
+  "lines": 3148,
+  "cited": 3048,
+  "fingerprint": "55c66cf8ef4f6af1",
   "index": "records/BOHEMIA_QUESTBOOK_LAW_INDEX.json (3672 laws)"
  },
  "books": [
@@ -21761,8 +21761,8 @@
      "node": "open",
      "text": "Nine at night, every night, and half this block goes brown.",
      "mood": "tired",
-     "line": 93,
-     "id": "quests/bq/S01_THE_METER_READER.bq#93",
+     "line": 106,
+     "id": "quests/bq/S01_THE_METER_READER.bq#106",
      "src": "quests/bq/S01_THE_METER_READER.bq",
      "cites": [
       {
@@ -21818,8 +21818,65 @@
      "node": "open",
      "text": "I tested it myself, line's clean, and clean plus browning out means somebody upstream's on my feed drinking before we do.",
      "mood": null,
-     "line": 94,
-     "id": "quests/bq/S01_THE_METER_READER.bq#94",
+     "line": 107,
+     "id": "quests/bq/S01_THE_METER_READER.bq#107",
+     "src": "quests/bq/S01_THE_METER_READER.bq",
+     "cites": [
+      {
+       "id": "Q003.W1",
+       "title": "THE DIRTY ERRAND",
+       "applied": "the ask is compromised before you leave: the lineman needs it quiet because he has a family and you are cheaper to lose, and he says so."
+      },
+      {
+       "id": "Q092.W2",
+       "title": "THE INSTITUTION IS THE MONSTER",
+       "applied": "the thing drinking the current is not a man, it is an arrangement nobody can name, and looking for the name is what costs."
+      },
+      {
+       "id": "Q002.W2",
+       "title": "THE BRANCH-ROUTER NPC",
+       "applied": "the fixer at the tap is the single node the whole quest forks through: quiet fix, public patch, or spectacle."
+      },
+      {
+       "id": "Q003.P1",
+       "title": "W1 (dirty errand",
+       "applied": "the ports master asks for exactly this: seed the moral weight in the HIRE, so the lineman admits up front that you are the cheaper person to lose."
+      },
+      {
+       "id": "Q142.W6",
+       "title": "SILENCE EXTRACTS",
+       "applied": "the lineman volunteers his kid and his fear when the player says nothing back, and the silent option reaches the same node as the spoken one, so refusing to talk is never punished with less."
+      },
+      {
+       "id": "Q152.W5",
+       "title": "THE DESPAIR SCENE CHANGES REGISTER, ONCE",
+       "applied": "he is practical the whole way through and drops it exactly twice, four words each time -- \"I've got a kid\" and \"Please\" -- and never explains either one."
+      },
+      {
+       "id": "Q100.N2",
+       "title": "NODE LYNETTE_MINEFIELD",
+       "applied": "the fixer launders his own job in front of you (\"I don't steal it, I move it\") and the run-on he does it in is the characterization; the polite word for the ugly thing, dared you to say the ugly one."
+      },
+      {
+       "id": "Q004.N1",
+       "title": "NODE SPIRIT_OFFER",
+       "applied": "the trap answer refuses to sell certainty at any depth -- he does not know whose current it is, he says so plainly, and no option anywhere in the quest can buy the name."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Meter Reader",
+     "questId": "bq_meter_reader",
+     "draft": true,
+     "lang": "en"
+    },
+    {
+     "kind": "say",
+     "speaker": "lineman",
+     "node": "open",
+     "text": "Somebody still chalks the meter box every month. Never seen who.",
+     "mood": "flat",
+     "line": 108,
+     "id": "quests/bq/S01_THE_METER_READER.bq#108",
      "src": "quests/bq/S01_THE_METER_READER.bq",
      "cites": [
       {
@@ -21875,8 +21932,8 @@
      "node": "open",
      "text": "So walk it back for me, past the dead storefronts, follow whatever cable's running warm. You any good at quiet?",
      "mood": null,
-     "line": 95,
-     "id": "quests/bq/S01_THE_METER_READER.bq#95",
+     "line": 109,
+     "id": "quests/bq/S01_THE_METER_READER.bq#109",
      "src": "quests/bq/S01_THE_METER_READER.bq",
      "cites": [
       {
@@ -21931,8 +21988,8 @@
      "speaker": "PLAYER",
      "node": "open",
      "text": "I'll walk it.",
-     "line": 96,
-     "id": "quests/bq/S01_THE_METER_READER.bq#96",
+     "line": 110,
+     "id": "quests/bq/S01_THE_METER_READER.bq#110",
      "src": "quests/bq/S01_THE_METER_READER.bq",
      "cites": [
       {
@@ -21987,8 +22044,8 @@
      "speaker": "PLAYER",
      "node": "open",
      "text": "Why not you?",
-     "line": 97,
-     "id": "quests/bq/S01_THE_METER_READER.bq#97",
+     "line": 111,
+     "id": "quests/bq/S01_THE_METER_READER.bq#111",
      "src": "quests/bq/S01_THE_METER_READER.bq",
      "cites": [
       {
@@ -22043,8 +22100,8 @@
      "speaker": "PLAYER",
      "node": "open",
      "text": "Not my block.",
-     "line": 98,
-     "id": "quests/bq/S01_THE_METER_READER.bq#98",
+     "line": 112,
+     "id": "quests/bq/S01_THE_METER_READER.bq#112",
      "src": "quests/bq/S01_THE_METER_READER.bq",
      "cites": [
       {
@@ -22099,8 +22156,8 @@
      "speaker": "PLAYER",
      "node": "open",
      "text": "(say nothing, just go)",
-     "line": 99,
-     "id": "quests/bq/S01_THE_METER_READER.bq#99",
+     "line": 113,
+     "id": "quests/bq/S01_THE_METER_READER.bq#113",
      "src": "quests/bq/S01_THE_METER_READER.bq",
      "cites": [
       {
@@ -22156,8 +22213,8 @@
      "node": "why",
      "text": "Because everybody on this block knows my face, man. I've got a kid.",
      "mood": "dread",
-     "line": 104,
-     "id": "quests/bq/S01_THE_METER_READER.bq#104",
+     "line": 118,
+     "id": "quests/bq/S01_THE_METER_READER.bq#118",
      "src": "quests/bq/S01_THE_METER_READER.bq",
      "cites": [
       {
@@ -22213,8 +22270,8 @@
      "node": "why",
      "text": "Whoever's drinking that current likes being invisible, and you're new. Nobody comes asking if you don't come back.",
      "mood": null,
-     "line": 105,
-     "id": "quests/bq/S01_THE_METER_READER.bq#105",
+     "line": 119,
+     "id": "quests/bq/S01_THE_METER_READER.bq#119",
      "src": "quests/bq/S01_THE_METER_READER.bq",
      "cites": [
       {
@@ -22269,8 +22326,8 @@
      "speaker": "PLAYER",
      "node": "why",
      "text": "Comforting.",
-     "line": 106,
-     "id": "quests/bq/S01_THE_METER_READER.bq#106",
+     "line": 120,
+     "id": "quests/bq/S01_THE_METER_READER.bq#120",
      "src": "quests/bq/S01_THE_METER_READER.bq",
      "cites": [
       {
@@ -22325,8 +22382,8 @@
      "speaker": "PLAYER",
      "node": "why",
      "text": "Who doesn't like being looked at?",
-     "line": 107,
-     "id": "quests/bq/S01_THE_METER_READER.bq#107",
+     "line": 121,
+     "id": "quests/bq/S01_THE_METER_READER.bq#121",
      "src": "quests/bq/S01_THE_METER_READER.bq",
      "cites": [
       {
@@ -22382,8 +22439,8 @@
      "node": "why2",
      "text": "If I knew, I wouldn't need you, would I? I asked my foreman about it once and he just looked at his hands till I stopped talking.",
      "mood": null,
-     "line": 111,
-     "id": "quests/bq/S01_THE_METER_READER.bq#111",
+     "line": 125,
+     "id": "quests/bq/S01_THE_METER_READER.bq#125",
      "src": "quests/bq/S01_THE_METER_READER.bq",
      "cites": [
       {
@@ -22439,8 +22496,8 @@
      "node": "why2",
      "text": "Follow the split, and don't make a show of it. Please.",
      "mood": null,
-     "line": 112,
-     "id": "quests/bq/S01_THE_METER_READER.bq#112",
+     "line": 126,
+     "id": "quests/bq/S01_THE_METER_READER.bq#126",
      "src": "quests/bq/S01_THE_METER_READER.bq",
      "cites": [
       {
@@ -22496,8 +22553,8 @@
      "node": "refuse",
      "text": "Yeah. Fair. I'll go ask somebody else's kid to do it.",
      "mood": "tired",
-     "line": 117,
-     "id": "quests/bq/S01_THE_METER_READER.bq#117",
+     "line": 131,
+     "id": "quests/bq/S01_THE_METER_READER.bq#131",
      "src": "quests/bq/S01_THE_METER_READER.bq",
      "cites": [
       {
@@ -22552,8 +22609,8 @@
      "speaker": "PLAYER",
      "node": "refuse",
      "text": "Maybe another night.",
-     "line": 118,
-     "id": "quests/bq/S01_THE_METER_READER.bq#118",
+     "line": 132,
+     "id": "quests/bq/S01_THE_METER_READER.bq#132",
      "src": "quests/bq/S01_THE_METER_READER.bq",
      "cites": [
       {
@@ -22608,8 +22665,8 @@
      "speaker": "PLAYER",
      "node": "refuse",
      "text": "Fine. I'll look.",
-     "line": 119,
-     "id": "quests/bq/S01_THE_METER_READER.bq#119",
+     "line": 133,
+     "id": "quests/bq/S01_THE_METER_READER.bq#133",
      "src": "quests/bq/S01_THE_METER_READER.bq",
      "cites": [
       {
@@ -22665,8 +22722,8 @@
      "node": "walk",
      "text": "Good. Splits somewhere past the dead storefronts, warm cable, you'll feel it before you see it.",
      "mood": "tired",
-     "line": 123,
-     "id": "quests/bq/S01_THE_METER_READER.bq#123",
+     "line": 137,
+     "id": "quests/bq/S01_THE_METER_READER.bq#137",
      "src": "quests/bq/S01_THE_METER_READER.bq",
      "cites": [
       {
@@ -22722,8 +22779,8 @@
      "node": "split",
      "text": "Easy. Easy, easy. Don't touch that, it's live.",
      "mood": "wary",
-     "line": 132,
-     "id": "quests/bq/S01_THE_METER_READER.bq#132",
+     "line": 146,
+     "id": "quests/bq/S01_THE_METER_READER.bq#146",
      "src": "quests/bq/S01_THE_METER_READER.bq",
      "cites": [
       {
@@ -22779,8 +22836,8 @@
      "node": "split",
      "text": "I don't steal it. I move it. The grid doesn't belong to anybody so there's nothing there to steal, I'm just faster than the meter. That's it.",
      "mood": null,
-     "line": 133,
-     "id": "quests/bq/S01_THE_METER_READER.bq#133",
+     "line": 147,
+     "id": "quests/bq/S01_THE_METER_READER.bq#147",
      "src": "quests/bq/S01_THE_METER_READER.bq",
      "cites": [
       {
@@ -22836,8 +22893,8 @@
      "node": "split",
      "text": "So. Put it back and go home and nobody hears a thing about it, or make it loud. Which are you?",
      "mood": null,
-     "line": 134,
-     "id": "quests/bq/S01_THE_METER_READER.bq#134",
+     "line": 148,
+     "id": "quests/bq/S01_THE_METER_READER.bq#148",
      "src": "quests/bq/S01_THE_METER_READER.bq",
      "cites": [
       {
@@ -22892,8 +22949,8 @@
      "speaker": "PLAYER",
      "node": "split",
      "text": "Put it back. Nobody hears it.",
-     "line": 135,
-     "id": "quests/bq/S01_THE_METER_READER.bq#135",
+     "line": 149,
+     "id": "quests/bq/S01_THE_METER_READER.bq#149",
      "src": "quests/bq/S01_THE_METER_READER.bq",
      "cites": [
       {
@@ -22948,8 +23005,8 @@
      "speaker": "PLAYER",
      "node": "split",
      "text": "The trades should see this.",
-     "line": 136,
-     "id": "quests/bq/S01_THE_METER_READER.bq#136",
+     "line": 150,
+     "id": "quests/bq/S01_THE_METER_READER.bq#150",
      "src": "quests/bq/S01_THE_METER_READER.bq",
      "cites": [
       {
@@ -23004,8 +23061,8 @@
      "speaker": "PLAYER",
      "node": "split",
      "text": "Whose current is it?",
-     "line": 137,
-     "id": "quests/bq/S01_THE_METER_READER.bq#137",
+     "line": 151,
+     "id": "quests/bq/S01_THE_METER_READER.bq#151",
      "src": "quests/bq/S01_THE_METER_READER.bq",
      "cites": [
       {
@@ -23060,8 +23117,8 @@
      "speaker": "PLAYER",
      "node": "split",
      "text": "(cut the tap, right now)",
-     "line": 138,
-     "id": "quests/bq/S01_THE_METER_READER.bq#138",
+     "line": 152,
+     "id": "quests/bq/S01_THE_METER_READER.bq#152",
      "src": "quests/bq/S01_THE_METER_READER.bq",
      "cites": [
       {
@@ -23117,8 +23174,8 @@
      "node": "whose",
      "text": "Huh. That's the one question, isn't it? I don't know whose. Never have.",
      "mood": "dread",
-     "line": 146,
-     "id": "quests/bq/S01_THE_METER_READER.bq#146",
+     "line": 160,
+     "id": "quests/bq/S01_THE_METER_READER.bq#160",
      "src": "quests/bq/S01_THE_METER_READER.bq",
      "cites": [
       {
@@ -23174,8 +23231,8 @@
      "node": "whose",
      "text": "It runs down, not up. Down, toward the water, and that's where I quit asking. You should quit there too.",
      "mood": null,
-     "line": 147,
-     "id": "quests/bq/S01_THE_METER_READER.bq#147",
+     "line": 161,
+     "id": "quests/bq/S01_THE_METER_READER.bq#161",
      "src": "quests/bq/S01_THE_METER_READER.bq",
      "cites": [
       {
@@ -23231,8 +23288,8 @@
      "node": "whose",
      "text": "I told you nothing, understand me? Put it back or don't. It's your block and it's your face they'll remember.",
      "mood": null,
-     "line": 148,
-     "id": "quests/bq/S01_THE_METER_READER.bq#148",
+     "line": 162,
+     "id": "quests/bq/S01_THE_METER_READER.bq#162",
      "src": "quests/bq/S01_THE_METER_READER.bq",
      "cites": [
       {
@@ -23287,8 +23344,8 @@
      "speaker": "PLAYER",
      "node": "whose",
      "text": "Put it back. Quietly.",
-     "line": 149,
-     "id": "quests/bq/S01_THE_METER_READER.bq#149",
+     "line": 163,
+     "id": "quests/bq/S01_THE_METER_READER.bq#163",
      "src": "quests/bq/S01_THE_METER_READER.bq",
      "cites": [
       {
@@ -23343,8 +23400,8 @@
      "speaker": "PLAYER",
      "node": "whose",
      "text": "Cut it. Let them see.",
-     "line": 150,
-     "id": "quests/bq/S01_THE_METER_READER.bq#150",
+     "line": 164,
+     "id": "quests/bq/S01_THE_METER_READER.bq#164",
      "src": "quests/bq/S01_THE_METER_READER.bq",
      "cites": [
       {
@@ -23400,8 +23457,8 @@
      "node": "put",
      "text": "Light's back. I'm not going to ask how.",
      "mood": "tired",
-     "line": 154,
-     "id": "quests/bq/S01_THE_METER_READER.bq#154",
+     "line": 168,
+     "id": "quests/bq/S01_THE_METER_READER.bq#168",
      "src": "quests/bq/S01_THE_METER_READER.bq",
      "cites": [
       {
@@ -23457,8 +23514,8 @@
      "node": "put",
      "text": "You didn't make a show of it, and I noticed. Not going to say anything else about it.",
      "mood": null,
-     "line": 155,
-     "id": "quests/bq/S01_THE_METER_READER.bq#155",
+     "line": 169,
+     "id": "quests/bq/S01_THE_METER_READER.bq#169",
      "src": "quests/bq/S01_THE_METER_READER.bq",
      "cites": [
       {
@@ -23513,8 +23570,8 @@
      "speaker": "PLAYER",
      "node": "put",
      "text": "Just fixed a line.",
-     "line": 156,
-     "id": "quests/bq/S01_THE_METER_READER.bq#156",
+     "line": 170,
+     "id": "quests/bq/S01_THE_METER_READER.bq#170",
      "src": "quests/bq/S01_THE_METER_READER.bq",
      "cites": [
       {
@@ -23570,8 +23627,8 @@
      "node": "report",
      "text": "You brought it to us. Could've kept it to yourself and you didn't.",
      "mood": "tired",
-     "line": 161,
-     "id": "quests/bq/S01_THE_METER_READER.bq#161",
+     "line": 175,
+     "id": "quests/bq/S01_THE_METER_READER.bq#175",
      "src": "quests/bq/S01_THE_METER_READER.bq",
      "cites": [
       {
@@ -23627,8 +23684,8 @@
      "node": "report",
      "text": "We patch it in daylight, names on the work order, mine first, then the crew, then yours if you want it up there.",
      "mood": null,
-     "line": 162,
-     "id": "quests/bq/S01_THE_METER_READER.bq#162",
+     "line": 176,
+     "id": "quests/bq/S01_THE_METER_READER.bq#176",
      "src": "quests/bq/S01_THE_METER_READER.bq",
      "cites": [
       {
@@ -23683,8 +23740,8 @@
      "speaker": "PLAYER",
      "node": "report",
      "text": "Do it in daylight.",
-     "line": 163,
-     "id": "quests/bq/S01_THE_METER_READER.bq#163",
+     "line": 177,
+     "id": "quests/bq/S01_THE_METER_READER.bq#177",
      "src": "quests/bq/S01_THE_METER_READER.bq",
      "cites": [
       {
@@ -23740,8 +23797,8 @@
      "node": "cut",
      "text": "You cut it in front of everybody. Somebody's kid was clapping. Nobody's mother was.",
      "mood": "dread",
-     "line": 167,
-     "id": "quests/bq/S01_THE_METER_READER.bq#167",
+     "line": 181,
+     "id": "quests/bq/S01_THE_METER_READER.bq#181",
      "src": "quests/bq/S01_THE_METER_READER.bq",
      "cites": [
       {
@@ -23797,8 +23854,8 @@
      "node": "cut",
      "text": "They felt that upstream, and somebody up there has your face now. I don't know what else to tell you, man.",
      "mood": null,
-     "line": 168,
-     "id": "quests/bq/S01_THE_METER_READER.bq#168",
+     "line": 182,
+     "id": "quests/bq/S01_THE_METER_READER.bq#182",
      "src": "quests/bq/S01_THE_METER_READER.bq",
      "cites": [
       {
@@ -23853,8 +23910,8 @@
      "speaker": "PLAYER",
      "node": "cut",
      "text": "Let them know my face.",
-     "line": 169,
-     "id": "quests/bq/S01_THE_METER_READER.bq#169",
+     "line": 183,
+     "id": "quests/bq/S01_THE_METER_READER.bq#183",
      "src": "quests/bq/S01_THE_METER_READER.bq",
      "cites": [
       {
@@ -23909,8 +23966,8 @@
      "speaker": "PLAYER",
      "node": "cut",
      "text": "(say nothing)",
-     "line": 170,
-     "id": "quests/bq/S01_THE_METER_READER.bq#170",
+     "line": 184,
+     "id": "quests/bq/S01_THE_METER_READER.bq#184",
      "src": "quests/bq/S01_THE_METER_READER.bq",
      "cites": [
       {

@@ -247,6 +247,19 @@
     "how": "image",
     "src": "vote/CHARACTER_TWO_PEOPLE_TOO_STILL.png"
    }
+  },
+  {
+   "id": "quests-the-one-wrong-detail-9-21",
+   "kind": "line",
+   "lane": "quests",
+   "sha": "PENDING",
+   "made": "9/21",
+   "title": "THE ONE WRONG DETAIL",
+   "why": "The first job in the game, said out loud at your door. One of his four lines is wrong on purpose and nobody explains it. Pick that line, or leave the ask ordinary.",
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_THE_ONE_WRONG_DETAIL_9_21_26.html"
+   }
   }
  ],
  "verdicts": []
