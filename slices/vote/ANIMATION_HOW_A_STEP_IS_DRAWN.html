@@ -1,0 +1,103 @@
+<!doctype html><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>BOHEMIA — How A Step Is Drawn</title>
+<!-- ANIMATION, row [tape skip]. The three ways one press can be drawn, side by
+     side, on the real 120 BPM beat with the real numbers. The body is the
+     shipped rig, read out of the idle sheet next door (REUSE-FIRST): nothing new
+     is drawn here. The curves are the ones the game runs; they are restated in
+     one place at the top of the script and nowhere else on this page. -->
+<style>
+  :root{--ink:#e8e0cc;--bg:#0d0d12;--card:#16161d;--line:#33313d;--gold:#c79a3f}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+       font:13px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace;padding:14px}
+  h1{font-size:13px;letter-spacing:2px;margin:0 0 4px;color:var(--gold)}
+  p{margin:0 0 12px;color:#a49a86;max-width:60ch}
+  .said{border-left:2px solid var(--line);padding:6px 0 6px 10px;margin:0 0 14px;color:#8d8478}
+  .row{background:var(--card);border:1px solid var(--line);border-radius:6px;
+       padding:8px;margin-bottom:10px}
+  .row.live{border-color:var(--gold)}
+  .lab{font-size:11px;letter-spacing:1.5px;margin-bottom:6px;display:flex;
+       justify-content:space-between;gap:8px;align-items:baseline}
+  .tag{color:var(--gold);font-size:10px;letter-spacing:1px}
+  .sub{color:#6f6862;font-size:11px;letter-spacing:0}
+  canvas{width:100%;height:96px;display:block;image-rendering:pixelated;
+         background:#0a0c11;border-radius:3px}
+  table{border-collapse:collapse;margin-top:6px;font-size:12px;width:100%}
+  td,th{border:1px solid var(--line);padding:4px 6px;text-align:left}
+  th{color:var(--gold);font-weight:normal}
+  .note{margin-top:12px;color:#6f6862;max-width:60ch}
+</style>
+<h1>HOW A STEP IS DRAWN</h1>
+<p>One press now moves him a whole house, 275 pixels on your screen, in half a
+second. His legs can only show one pace of that. So the question is not the legs.
+It is what the ground under him does in between.</p>
+<div class="said">What ships right now is the top one, and nobody chose it: a
+number written when a step was small was still sitting in the code, so the whole
+world jumps at once. The middle one is what the code thought it was doing.</div>
+<div id="rows"></div>
+<p class="note">All three are on the real beat, 120 a minute, and all three cover
+the same distance. The only difference is when the ground moves.</p>
+<script>
+(function(){
+  /* THE THREE CURVES, as the game runs them. */
+  var STATIONS=[[0,0],[0.55,0.34],[0.78,0.67]];
+  var CURVE={
+    GRID:function(k){ return k>=1?1:0; },
+    SLIDE:function(k){ if(k>=1)return 1; if(k<0)return 0;
+      return (k<0.5)?2*k*k:1-Math.pow(-2*k+2,2)/2; },
+    TAPE:function(k){ if(k>=1)return 1; var e=0;
+      for(var i=0;i<STATIONS.length;i++) if(k>=STATIONS[i][0]) e=STATIONS[i][1];
+      return e; }
+  };
+  var FEELS=[
+    ['GRID','WHAT SHIPS RIGHT NOW','the whole street jumps at once, twice a second','1 move a beat, 275px at a time'],
+    ['SLIDE','WHAT IT WAS MEANT TO BE','the street slides the whole time and his feet never keep up','moves every frame, about 2px at a time'],
+    ['TAPE','WHAT IS IN NOW','he stands still, then the picture skips twice and he is there','3 moves a beat, about 94px at a time']
+  ];
+  var LOT=275, BEAT=500, BODY=null;
+  var img=new Image(); img.src='ANIMATION_THE_IDLE_REDO.png';
+  img.onload=function(){ BODY=img; };
+  var host=document.getElementById('rows'), cvs=[];
+  FEELS.forEach(function(f){
+    var d=document.createElement('div'); d.className='row'+(f[0]==='TAPE'?' live':'');
+    var l=document.createElement('div'); l.className='lab';
+    l.innerHTML='<span>'+f[0]+' <span class="sub">'+f[2]+'</span></span><span class="tag">'+f[1]+'</span>';
+    var c=document.createElement('canvas'); c.width=390; c.height=96;
+    var s=document.createElement('div'); s.className='sub'; s.style.marginTop='4px'; s.textContent=f[3];
+    d.appendChild(l); d.appendChild(c); d.appendChild(s); host.appendChild(d);
+    cvs.push({cv:c, feel:f[0]});
+  });
+  function drawOne(o, off){
+    var g=o.cv.getContext('2d'), W=o.cv.width, H=o.cv.height;
+    g.clearRect(0,0,W,H);
+    /* THE GROUND. Kerb lines one lot apart, so a whole lot of travel is a whole
+       gap of travel and he can see the distance, not just the motion. */
+    g.fillStyle='#161b22'; g.fillRect(0,H-34,W,34);
+    g.strokeStyle='#5d6f84'; g.lineWidth=2;   /* the kerb lines carry the whole read, so they are legible */
+    for(var x=-LOT;x<W+LOT;x+=LOT){
+      var px=Math.round(x-(off%LOT))+0.5;
+      g.beginPath(); g.moveTo(px,H-34); g.lineTo(px,H); g.stroke();
+    }
+    g.fillStyle='#3a4757';
+    for(var x2=-LOT;x2<W+LOT;x2+=LOT/5){
+      var qx=Math.round(x2-(off%(LOT/5)));
+      g.fillRect(qx,H-8,10,2);
+    }
+    /* THE BODY, pinned to the middle the way the walked city pins it. */
+    if(BODY){ g.imageSmoothingEnabled=false;
+      g.drawImage(BODY, 0,0,112,112, Math.round(W/2-56), H-96, 112,112); }
+  }
+  var t0=performance.now();
+  (function tick(){
+    var now=performance.now();
+    var beats=(now-t0)/BEAT;
+    var whole=Math.floor(beats), k=beats-whole;
+    for(var i=0;i<cvs.length;i++){
+      var e=CURVE[cvs[i].feel](k);
+      drawOne(cvs[i], (whole+e)*LOT);
+    }
+    requestAnimationFrame(tick);
+  })();
+})();
+</script>

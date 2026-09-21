@@ -38295,8 +38295,60 @@ let ANIM=null;                        // {t0, kind:'walk'|'run'} active anim win
    and already renders every frame of it; this only changes the offset it draws
    at. Whole-pixel camera is preserved -- the Math.round stays, it just rounds a
    moving number. */
-var WALKFEELS = ['GRID', 'SLIDE'];
-var WALKFEEL = 'SLIDE';
+/* ==== __THE_STEP_IS_A_TAPE_SKIP__ (9/21, ANIMATION lane, row [tape skip]) ====
+   THE THIRD FEEL, AND THE NUMBER THAT ASKED FOR IT. This lane measured the walk
+   on the rig (e764a506): one press is now a whole lot, 25 fine cells, 18.75 m in
+   half a second, which is 135 km/h. THE FEET DEPICT 3% TO 11% OF THAT. The body
+   crosses most of a 390 px phone in one beat while its legs do one small pace,
+   and no walk cycle can be tuned to cover it -- a stride long enough would be
+   two and a half times the body's own height.
+   GRID teleports the whole lot in one frame. SLIDE eases across the beat, which
+   is what makes the legs read as skating: the ground moves every single frame
+   and the feet do not keep up with any of them.
+   TAPE is neither. The ground HOLDS at the lot he is standing on for most of the
+   beat, then drops through two intermediate stations in quick succession and
+   lands on the next lot exactly on the beat. That is a tape skipping, and under
+   the analog horror law (9/20) the dropped frame is the genre's own grammar
+   rather than a new effect: the frame is ordinary, and the thing that is wrong
+   is that some of it is missing. It is also cheaper than a run cycle.
+   THE STATIONS ARE LATE ON PURPOSE. Rule 20: stillness is long. 55% of the beat
+   is a held frame, then the skip.
+   NOT THE DEFAULT YET, AND THAT IS DELIBERATE: rule 18 says the game got worse
+   under a rule that said never worse, and what a step FEELS like is his call, not
+   mine. It is registered in VOTE. Flipping the default is one string. */
+var TAPE_STATIONS = [ [0.00, 0.00],     /* hold on the lot he left */
+                      [0.55, 0.34],     /* first dropped frame */
+                      [0.78, 0.67] ];   /* second, then the beat lands him */
+var WALKFEELS = ['GRID', 'SLIDE', 'TAPE'];
+/* THE DEFAULT IS TAPE, AND IT IS THE SMALLEST HONEST MOVE, NOT THE BIGGEST.
+   What he walks today is GRID by accident (the expired ceiling below), so the
+   ground already jumps a whole lot in one frame. TAPE breaks that one 275 px
+   jump into three of about 94 px. SLIDE would be the large change, not this.
+   His to correct: it is in the VOTE tab as a philosophical item, and the chip in
+   the drawer flips it live. A feel he has already chosen by hand wins over this,
+   because the line below reads his choice out of storage after it. */
+var WALKFEEL = 'TAPE';
+/* HOW FAR ALONG THE STEP THE GROUND IS, at k of the beat, for each feel. ONE
+   COPY (rule 16): camCell calls this, the seam hands it out, and the gate and
+   the vote page read it off the seam, so nobody restates the curve. Restating
+   it is the exact bug this lane has now found seven times -- a second ruler
+   agrees with the first until the day it does not. */
+/* THE BIGGEST MOVE IN ONE BEAT THAT IS STILL A WALK, in cells. Named and derived
+   so the gate can ASK THE CODE instead of restating the arithmetic, and so it can
+   never expire again the way the handwritten 4 did. */
+function glideCeil(){
+  var st=(typeof STEP_CELLS==='number'&&STEP_CELLS>0)?STEP_CELLS:1;
+  return Math.max(4, 4*st);   /* a bike step is four lots; a run is two walk steps */
+}
+function walkCurve(feel, k){
+  if(k>=1) return 1;
+  if(k<0) k=0;
+  if(feel==='GRID') return 0;                       /* the whole lot on the beat */
+  if(feel==='TAPE'){ var e=0;                       /* a staircase, not a ramp */
+    for(var i=0;i<TAPE_STATIONS.length;i++) if(k>=TAPE_STATIONS[i][0]) e=TAPE_STATIONS[i][1];
+    return e; }
+  return (k<0.5) ? 2*k*k : 1-Math.pow(-2*k+2,2)/2;  /* SLIDE: easeInOutQuad */
+}
 try{ var _wf=localStorage.getItem('BOH_WALKFEEL'); if(WALKFEELS.indexOf(_wf)>=0) WALKFEEL=_wf; }catch(_e){}
 var GLIDE = null;                     /* {fx,fy,t0,space} -- the cell the camera left */
 /* WHICH SPACE THE CELL IS IN. hx,hy outdoors and INSIDE.ix,iy indoors are
@@ -38313,7 +38365,7 @@ function glideFrom(){
   return (typeof INSIDE!=='undefined'&&INSIDE) ? [INSIDE.ix, INSIDE.iy] : [hx, hy];
 }
 function glideStart(fx, fy, space){
-  if(WALKFEEL!=='SLIDE'){ GLIDE=null; return; }
+  if(WALKFEEL==='GRID'){ GLIDE=null; return; }   /* __THE_STEP_IS_A_TAPE_SKIP__ */
   if(space!==glideSpace()){ GLIDE=null; return; }   /* he went through a door */
   /* THE OVERMAP IS NOT DONE AND IS NOT PRETENDING TO BE. Stepping in map mode is
      a real traversal (10 minutes a cell) and it jumps too, but its camera is the
@@ -38334,11 +38386,30 @@ function camCell(cx, cy){
   if(k>=1){ GLIDE=null; return [cx, cy]; }
   if(k<0) k=0;
   var dx=cx-GLIDE.fx, dy=cy-GLIDE.fy;
-  if(Math.abs(dx)>4||Math.abs(dy)>4){ GLIDE=null; return [cx, cy]; }
+  /* *** __THE_STEP_IS_A_TAPE_SKIP__ (9/21): THIS CEILING WAS FOUR CELLS AND A
+     STEP IS NOW TWENTY-FIVE, SO IT KILLED EVERY GLIDE ON ITS FIRST FRAME. ***
+     It was written on 8/23 when a step was one cell and the bike's four was the
+     biggest thing a beat could move -- its own comment says so. Rule 16 made one
+     step a whole lot and this number stayed behind, so since then the chip has
+     said SLIDE, the code has said SLIDE, and what he actually walks is GRID: the
+     entire world jumping 275 px in ONE frame, twice a second. Measured on the
+     walked city at the live camera: gliding() true on 0 of 60 samples across a
+     press, and the walk drawn in exactly one position per beat.
+     A GUARD WITH A HANDWRITTEN CONSTANT IN IT IS A GUARD THAT EXPIRES. The
+     ceiling is now derived from the step itself: the largest honest move in one
+     beat is a bike step, four lots (the step code's own `(RIDING?4:1)*STEP_CELLS`,
+     and a run is two walk steps, which is smaller). Anything past that is a
+     teleport, a spawn or a cell load, and a teleport must still never be drawn as
+     a stroll. Floored at the old 4 so it can never be TIGHTER than it was. */
+  var _ceil=glideCeil();
+  if(Math.abs(dx)>_ceil||Math.abs(dy)>_ceil){ GLIDE=null; return [cx, cy]; }
   /* easeInOutQuad: a step leaves and lands soft. The bike moves 4 cells in the
      same beat and gets the same curve, so faster reads as farther, not jerkier
      -- the movers' own tween rule. */
-  var e=(k<0.5) ? 2*k*k : 1-Math.pow(-2*k+2,2)/2;
+  /* __THE_STEP_IS_A_TAPE_SKIP__: under TAPE this is a STAIRCASE, not a ramp, so
+     the number of times the ground moves in a beat is the number of stations and
+     never the number of frames the phone happened to draw. */
+  var e=walkCurve(WALKFEEL, k);
   return [GLIDE.fx+dx*e, GLIDE.fy+dy*e];
 }
 /* HE CHANGES IT HIMSELF (8/12). The chip lives in the builder's drawer, not the
@@ -38348,7 +38419,7 @@ function walkFeelSet(m){
   WALKFEEL=m; GLIDE=null;
   try{ localStorage.setItem('BOH_WALKFEEL', m); }catch(_e){}
   var b=document.getElementById('walkfeel');
-  if(b) b.textContent=(m==='SLIDE'?'\ud83d\udc5f SLIDE':'\ud83d\udc5f GRID');
+  if(b) b.textContent='\ud83d\udc5f '+m;   /* __THE_STEP_IS_A_TAPE_SKIP__: three feels now, not two */
   try{ render(); }catch(_e){}
 }
 function walkFeelCycle(){
@@ -38358,7 +38429,17 @@ function walkFeelCycle(){
 window.__WALKFEEL={ mode:function(){ return WALKFEEL; }, set:walkFeelSet,
   cycle:walkFeelCycle, feels:function(){ return WALKFEELS.slice(); },
   cam:function(){ return (typeof INSIDE!=='undefined'&&INSIDE)?camCell(INSIDE.ix,INSIDE.iy):camCell(hx,hy); },
-  gliding:function(){ return !!GLIDE; } };
+  gliding:function(){ return !!GLIDE; },
+  /* __THE_STEP_IS_A_TAPE_SKIP__: the stations the gate and the vote page read, so
+     neither keeps a second copy of the curve. ONE NUMBER IN ONE PLACE (rule 16). */
+  stations:function(){ return TAPE_STATIONS.map(function(a){ return a.slice(); }); },
+  /* WHERE THE GROUND SITS at any point of a beat, for any feel, without a step
+     having to be in flight. A ruler that needs the game to be walking can only be
+     run on the real surface; this one can be run anywhere, and it is the SAME
+     arithmetic camCell uses rather than a restatement of it. */
+  curve:function(feel,k){ return walkCurve(feel,k); },
+  ceil:function(){ return glideCeil(); },
+  step:function(){ return (typeof STEP_CELLS==='number')?STEP_CELLS:null; } };
 /* ==== end __WALK_FEEL_SLIDE__ ============================================= */
 let animRAF=0;
 /* ==== engine/bohemia_encounters.js ==== */
@@ -54564,7 +54645,7 @@ document.getElementById('keybtn').addEventListener('click',()=>{ kp.style.displa
    it never lies about which feel is live. */
 (function(){
   var b=document.getElementById('walkfeel'); if(!b) return;
-  b.textContent=(WALKFEEL==='SLIDE'?'\ud83d\udc5f SLIDE':'\ud83d\udc5f GRID');
+  b.textContent='\ud83d\udc5f '+WALKFEEL;   /* __THE_STEP_IS_A_TAPE_SKIP__ */
   b.addEventListener('click',function(){ walkFeelCycle();
     try{ toast('Walk feel: '+WALKFEEL+'.'); }catch(_e){}   /* draft:true */ });
 })();

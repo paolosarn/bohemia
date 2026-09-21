@@ -470,6 +470,19 @@
     "how": "page",
     "src": "BOHEMIA_FOUR_WAYS_A_WORD_IS_STAMPED_9_21_26.html"
    }
+  },
+  {
+   "id": "animation-how-a-step-is-drawn-9-21",
+   "kind": "animation",
+   "lane": "animation",
+   "sha": "PENDING",
+   "made": "9/21",
+   "title": "HOW A STEP IS DRAWN (I PICKED ONE FOR YOU)",
+   "why": "One press moves him a whole house, 275 pixels, in half a second, and his legs can only show one pace of it. What shipped was nobody’s choice: an old number in the code made the whole street jump at once. I put in the tape skip: he stands still, the picture skips twice, he is there. Thumbs up keeps it. Thumbs down and say GRID (the street jumps at once) or SLIDE (the street slides the whole time) and I will switch it.",
+   "show": {
+    "how": "page",
+    "src": "vote/ANIMATION_HOW_A_STEP_IS_DRAWN.html"
+   }
   }
  ],
  "verdicts": []

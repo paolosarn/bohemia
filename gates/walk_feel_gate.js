@@ -176,6 +176,8 @@ const pct = (x) => (x * 100).toFixed(1) + '%';
         feels: window.__WALKFEEL.feels(),
         cam: window.__WALKFEEL.cam(),
         gliding: window.__WALKFEEL.gliding(),
+        /* the guard's own ceiling, asked for rather than restated (9/21) */
+        ceil: (window.__WALKFEEL.ceil ? window.__WALKFEEL.ceil() : 4),
         chip: !!document.getElementById('walkfeel'),
         inDrawer: !!(document.getElementById('devtray') &&
                      document.getElementById('devtray').contains(document.getElementById('walkfeel'))),
@@ -186,16 +188,24 @@ const pct = (x) => (x * 100).toFixed(1) + '%';
     if (!seam) done();
     ok('and it offers GRID and SLIDE ([' + seam.feels.join(', ') + '])',
       seam.feels.indexOf('GRID') >= 0 && seam.feels.indexOf('SLIDE') >= 0);
-    ok('SLIDE IS WHAT HE GETS WITHOUT ASKING -- the default is the good one, not '
-      + 'the one you have to find (' + seam.mode + ')', seam.mode === 'SLIDE');
+    /* UPDATED 9/21 (ANIMATION, row [tape skip]). This asked for SLIDE by name.
+       A step is a whole lot now, and SLIDE at lot scale slides the ground 275 px
+       under feet that depict 8 to 31 px of it. The default is TAPE, the third
+       feel: held, two dropped frames, landed on the beat. THE CLAIM THIS GATE
+       WAS MAKING IS KEPT -- he must get the chosen feel without going to look
+       for it -- and only the name it checks has moved. */
+    ok('THE GOOD ONE IS WHAT HE GETS WITHOUT ASKING -- the default is not the '
+      + 'one you have to go and find (' + seam.mode + ')', seam.mode === 'TAPE');
     ok('standing still, the camera is on the true cell and nothing is gliding',
       seam.gliding === false);
 
     /* ---- 2. HE CAN CHANGE IT HIMSELF (8/12) -------------------------------- */
     ok('there is a chip for it, and it is in the BUILDER\'S DRAWER rather than the '
       + 'row his thumb reaches PHONE in (his 8/16 ruling)', seam.chip && seam.inDrawer);
+    /* the chip must NAME the live feel, whichever of the three it is -- it used
+       to be a two-way ternary and would have printed GRID while TAPE was on. */
     ok('and the chip says which feel is live ("' + seam.label.trim() + '")',
-      /SLIDE/.test(seam.label));
+      seam.label.indexOf(seam.mode) >= 0);
     const flipped = await city.evaluate(() => {
       document.getElementById('walkfeel').click();
       return { mode: window.__WALKFEEL.mode(),
@@ -267,10 +277,16 @@ const pct = (x) => (x * 100).toFixed(1) + '%';
        four. So the honest bound is the VEHICLE LADDER's own ceiling, which is
        also what camCell's teleport guard is set to. A gate that had been left
        at 1 would have failed every time he ran, which is most of the time. */
+    /* UPDATED 9/21 (ANIMATION, row [tape skip]). THE COMMENT ABOVE ALREADY SAID
+       THE RIGHT THING -- "the honest bound is the VEHICLE LADDER's own ceiling,
+       which is also what camCell's teleport guard is set to" -- and then typed 4
+       out by hand anyway. Rule 16 made a step 25 cells and both numbers moved;
+       only the typed one stayed. So it now ASKS the guard for its ceiling
+       instead of restating it, which is the same fix the row made in the code. */
     ok('and it never runs further from the body than the cells it is crossing '
-      + 'this beat -- 1 walking, 2 running, 4 on the bike (worst '
-      + between.maxoff.toFixed(2) + ')',
-      between.maxoff > 0.05 && between.maxoff <= 4.05);
+      + 'this beat -- one step walking, two running, four on the bike (worst '
+      + between.maxoff.toFixed(2) + ' against a ceiling of ' + seam.ceil + ')',
+      between.maxoff > 0.05 && between.maxoff <= seam.ceil + 0.05);
 
     /* ---- 6. A TELEPORT IS NOT DRAWN AS A STROLL --------------------------- */
     /* loadCell, a spawn and a door all move him further than a step can. The
