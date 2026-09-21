@@ -104,6 +104,15 @@ THE LAST TWO ARE THE ONES EVERY LANE SHOULD READ. ***
      reported zero movement and zero footsteps, which is false death twice over. ANY LANE
      DRIVING THIS GAME WITH ARROW KEYS IS MEASURING NOTHING.
   5. THE ONE DRIVER TAKES opts.file AND IGNORES opts.alpha (0 occurrences of opts.alpha in it).
+     *** AND THIS IS NOT JUST MY MISTAKE: PEOPLE HIT THE IDENTICAL TRAP AND WROTE IT DOWN FIRST,
+     in f75eb900 this same round, in these words: "AN ALPHA CHANGE CANNOT BE VERIFIED ON THE DEMO.
+     The one driver opens BOHEMIA_DEMO.html by default and that file is a BAKED CUT. A CITY change
+     reaches it by reference; an ALPHA change does not. The symptom was silent and convincing."
+     TWO LANES, ONE ROUND, THE SAME SILENT WRONG ANSWER. That makes it a pipe problem and not two
+     people being careless: the driver's default is the demo, the failure mode is a believable
+     number rather than an error, and nothing warns you. It is PLUMBER's to fix and the cheapest
+     fix is that the driver PRINTS which file it opened in its result, so a lane reading a number
+     can see what the number is about. Named here so the third lane does not pay for it too. ***
      So every driver run of mine measured slices/BOHEMIA_DEMO.html and not the alpha. That is
      why a post-fix run still read 0 renders while the gate read green, and I nearly published
      the contradiction: the checked-in demo is a STALE CUT and the deploy re-cuts it from the
