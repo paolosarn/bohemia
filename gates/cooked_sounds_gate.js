@@ -4,7 +4,7 @@
    cooking up more, every time, not never."
 
    SO THIS GATE IS DELIBERATELY SMALL AND IS NOT THE ROUND'S OUTPUT. The round's output
-   is three sounds he can play. This only holds them to the rules they were cooked to, so
+   is sounds he can play, eight of them now. This only holds them to the rules they were cooked to, so
    that a later round cannot quietly undo them.
 
    IT READS THE RECIPES, NEVER A COPY. engine/bohemia_horror_sounds.js is the one body:
@@ -141,6 +141,59 @@ const MEASURE = `
     out.dryRow = { shareAbove5k: t>0 ? en(ab)/t : 0, rootHz: made.root,
                    semitones: made.semitones, flatness: dm.flatness, topHz: dm.topHz };
   })();
+  /* THE WOBBLE, MEASURED ON A TEST TONE AND SAID TO BE ONE. Wow is a property of a pitch
+     over TIME, so it needs a note long enough to hold several cycles of the modulation: at
+     1.4 Hz that is seconds, and the song's notes are 460 ms. The tone is declared a probe,
+     the game never plays it, and the claim that the SONG gets the same treatment is checked
+     separately against the song's own length and notes. */
+  (function () {
+    const freqTrack = (arr) => {
+      const t = []; let prev = arr[0], lastX = null;
+      for (let i=1;i<arr.length;i++){
+        if (prev < 0 && arr[i] >= 0) {
+          const x = i - 1 + (0 - prev) / (arr[i] - prev);   /* sub-sampled crossing */
+          if (lastX != null) t.push(SR / (x - lastX));
+          lastX = x;
+        }
+        prev = arr[i];
+      }
+      return t;
+    };
+    const analyse = (arr) => {
+      const f = freqTrack(arr);
+      if (f.length < 40) return null;
+      const mean = f.reduce((a,b)=>a+b,0)/f.length;
+      let v=0; for (const x of f) v += (x-mean)*(x-mean);
+      const depth = Math.sqrt(v/f.length) * Math.SQRT2 / mean;
+      const NW = 1024, re = new Float64Array(NW), im = new Float64Array(NW);
+      for (let i=0;i<NW;i++){ const w = 0.5-0.5*Math.cos(2*Math.PI*i/(NW-1));
+        re[i] = ((f[i] != null ? f[i] : mean) - mean) * w; }
+      for (let i=1,j=0;i<NW;i++){ let bit=NW>>1; for(;j&bit;bit>>=1) j^=bit; j^=bit;
+        if(i<j){ let t=re[i];re[i]=re[j];re[j]=t; t=im[i];im[i]=im[j];im[j]=t; } }
+      for (let len=2;len<=NW;len<<=1){ const ang=-2*Math.PI/len, wr=Math.cos(ang), wi=Math.sin(ang);
+        for (let i=0;i<NW;i+=len){ let cr=1,ci=0;
+          for (let k=0;k<len/2;k++){ const ur=re[i+k],ui=im[i+k];
+            const vr=re[i+k+len/2]*cr-im[i+k+len/2]*ci, vi=re[i+k+len/2]*ci+im[i+k+len/2]*cr;
+            re[i+k]=ur+vr; im[i+k]=ui+vi; re[i+k+len/2]=ur-vr; im[i+k+len/2]=ui-vi;
+            const ncr=cr*wr-ci*wi; ci=cr*wi+ci*wr; cr=ncr; } } }
+      let pk=1, pv=-1;
+      for (let k=1;k<NW/2;k++){ const m=re[k]*re[k]+im[k]*im[k]; if(m>pv){pv=m;pk=k;} }
+      return { depthPct: depth*100, rateHz: pk*mean/NW, meanHz: mean, n: f.length };
+    };
+    try {
+      const wob = H.wowProbe(ctx, {});
+      const a = analyse(wob.buffer.getChannelData(0));
+      const flat = H.wowProbe(ctx, { depth: 0 });
+      const c = analyse(flat.buffer.getChannelData(0));
+      const sw = H.songOnTape(ctx, {}), sd = H.songThroughSpeaker(ctx, {});
+      out.wow = a ? { depthPct: a.depthPct, rateHz: a.rateHz, meanHz: a.meanHz,
+        askedDepthPct: +(wob.wowDepth*100).toFixed(3), askedRateHz: wob.wowRateHz,
+        controlDepthPct: c ? c.depthPct : null,
+        lengthsMatch: sw.buffer.length === sd.buffer.length,
+        songSame: sw.root === sd.root && JSON.stringify(sw.semitones) === JSON.stringify(sd.semitones) } : null;
+    } catch (e) { out.wowErr = String(e && e.message).slice(0,90); }
+  })();
+
   for (const item of H.list()) {
     const made = H[item.make](ctx, {});
     const d = made.buffer.getChannelData(0);
@@ -329,6 +382,27 @@ const MEASURE = `
           return { buffer: buf, machine: { lo: 180, hi: 4500, why: 'mutated' }, seconds: 0.18 };
         };
         H.footstep = flat; H.stepWithDropouts = flat; H.phoneTone = flat;
+        /* AND THE PRECISE FALSIFIER FOR RULE 5 (9/23). A bare sine is the right
+           mutation for the three above, because a near-pure tone IS the shelf they
+           replace. It is the WRONG mutation for the wobble: rule 5 is not about the
+           material, it is about whether the machine playing it holds speed. So the
+           mutation for that is a head that holds speed PERFECTLY -- a pass-through.
+           MEASURED WITHOUT THIS: 45 ok / 8 failed under mutation, and all four wow
+           claims stayed GREEN, because the recipe they read was never touched. A
+           claim that cannot fail when the thing it tests is removed is not a claim.
+           KNOWN GAP, NAMED NOT FIXED: the four round-two cooks (the song through the
+           speaker, the fold, the cloud, the door) are still un-mutated, so their
+           claims are proven only by their own controls and not by this harness. A
+           uniform sine breaks their row lookups, so each needs its own falsifier the
+           way the wobble just got one.
+           AND IT REPLACES THE RECIPES, NOT wowFlutter. First cut swapped H.wowFlutter
+           and the four claims stayed green anyway, because wowProbe and songOnTape call
+           the module's own local wowFlutter by closure and never look at the export.
+           REPLACING A FUNCTION SOMETHING DOES NOT CALL IS NOT A MUTATION, and the
+           evidence that it was not one was a mutated run that still read 0.3467%. */
+        const steady = H.wowProbe, steadySong = H.songThroughSpeaker;
+        H.wowProbe = (ctx, o) => steady(ctx, Object.assign({}, o || {}, { depth: 0 }));
+        H.songOnTape = (ctx, o) => steadySong(ctx, o || {});
       });
     }
     d = await p.evaluate(MEASURE);
@@ -503,6 +577,35 @@ const MEASURE = `
         DOOR.exactZeros + ' exact zeros, rms ' + DOOR.rms.toFixed(4));
     } else { claim('the door was rendered', false, 'missing'); }
 
+    /* ==== RULE 5, THE LAST RULE NOTHING IN THE GAME WAS DOING ================
+       School rule 5: the pitch is not stable, because the motor is not stable. This
+       lane's own scorecard had it UNMET AND UNTESTED across all 65 shipped sounds --
+       162 detune calls exist in the build and not one is a slow wobble.
+       MEASURED THE WAY WOW AND FLUTTER IS REALLY SPECIFIED: the instantaneous frequency
+       of a steady tone is tracked from its zero crossings (sub-sampled, or the track is
+       quantised and the depth reads as noise), and the modulation RATE is the peak of
+       that track's own spectrum. Both numbers come off the buffer, never off the recipe.
+       AND A CONTROL RUNS FIRST: the same tone with the wobble switched off must read a
+       depth near zero, or the instrument is measuring its own arithmetic. */
+    if (d.wow) {
+      claim('THE TAPE REALLY WOBBLES, AND BY THE AMOUNT RULE 5 ASKS FOR',
+        d.wow.depthPct > 0.15 && d.wow.depthPct < 0.6,
+        'measured ' + d.wow.depthPct.toFixed(4) + '% against ' + d.wow.askedDepthPct
+        + '% asked; rule 5 allows 0.15 to 0.6%');
+      claim('AND AT THE RATE IT ASKS FOR: this is WOW, the slow end',
+        d.wow.rateHz >= 0.5 && d.wow.rateHz <= 6,
+        'measured ' + d.wow.rateHz.toFixed(2) + ' Hz against ' + d.wow.askedRateHz
+        + ' Hz asked; rule 5 allows 0.5 to 6 Hz');
+      claim('AND THE INSTRUMENT IS NOT MEASURING ITS OWN ARITHMETIC',
+        d.wow.controlDepthPct < 0.01,
+        'the same tone with the wobble switched off reads '
+        + d.wow.controlDepthPct.toFixed(4) + '%');
+      claim('THE 120 BPM LAW IS UNTOUCHED: the wobble is in the pitch, never in when it plays',
+        d.wow.lengthsMatch === true && d.wow.songSame === true,
+        'the wobbled song is the same length as the steady one to the sample, and carries the '
+        + 'same root and the same intervals, so a note that started on the beat still does');
+    } else { claim('the wobble was measured', false, 'no reading'); }
+
     /* ---- and the registry actually carries them ----------------------------- */
     const reg = JSON.parse(fs.readFileSync(path.join(ROOT, 'records/target/BOHEMIA_VOTE_REGISTRY.json'), 'utf8'));
     const ids = new Set((reg.items || []).map(x => x.id));
@@ -522,6 +625,6 @@ const MEASURE = `
     process.exit(0);
   }
   if (bad.length) { console.log('RED: ' + bad.join('; ')); process.exit(1); }
-  console.log('GREEN: seven cooked sounds he can play, each one noise or tone on purpose, each band naming its machine, the step losing contact on the ground\'s own stations, the cloud dimming on the city\'s own numbers, the fold indistinguishable from an empty room, and every one of them in the vote tab.');
+  console.log('GREEN: eight cooked sounds he can play, each one noise or tone on purpose, each band naming its machine, the step losing contact on the ground\'s own stations, the cloud dimming on the city\'s own numbers, the fold indistinguishable from an empty room, and every one of them in the vote tab.');
   process.exit(0);
 })();

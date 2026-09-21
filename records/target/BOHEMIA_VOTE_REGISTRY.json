@@ -1109,6 +1109,19 @@
     "how": "page",
     "src": "BOHEMIA_FOUR_WAYS_THE_TOP_BAR_FITS_9_22_26.html"
    }
+  },
+  {
+   "id": "sounds-the-tape-is-slipping-9-23",
+   "kind": "sound",
+   "lane": "sounds",
+   "sha": "PENDING",
+   "made": "9/23",
+   "title": "THE TAPE IS SLIPPING",
+   "why": "The same tune through the same broken radio, but now the machine playing it is not holding speed, so the pitch sags and recovers the way a worn tape deck does. A sound that never drifts is the clearest giveaway that it came out of a computer. This is the last thing on the sound rulebook that nothing in the game was doing. Play it against the steady one and tell me if it is too sick or not sick enough.",
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_THREE_SOUNDS_9_21_26.html"
+   }
   }
  ],
  "verdicts": []

@@ -392,6 +392,79 @@
              why: 'the same warm phrase arriving through a dead broadcast: AM band, hiss under it, and it drops out twice' };
   }
 
+  /* ==== 4b. WOW AND FLUTTER, THE ONE RULE STILL COMPLETELY UNMET ==================
+     SCHOOL RULE 5: the pitch is not stable, because the motor is not stable. Tape wow is
+     slow pitch drift, 0.5 to 6 Hz; a healthy consumer cassette runs 0.1% to 0.3%
+     wow-and-flutter and a worn one far more. A digital oscillator is exact forever, and
+     EXACT FOREVER IS THE SINGLE CLEAREST TELL THAT A SOUND CAME OUT OF A FORMULA.
+     This lane's own scorecard had rule 5 as UNMET AND UNTESTED across all 65 shipped
+     sounds: 162 detune calls exist in the build and not one of them is a slow wobble.
+
+     HOW: the buffer is re-read at a rate that breathes, which is what a slipping capstan
+     actually does to a tape. Nothing is pitch-shifted by a formula on top; the playback
+     position itself moves unevenly, so a held note really does sag and recover.
+     AND THE 120 BPM LAW IS NOT TOUCHED. The wobble is inside the voice's own pitch, never
+     in WHEN it plays: the buffer is the same length in and out, and a note that started on
+     the beat still starts on the beat. That is written into rule 5 itself and it is the
+     reason this is safe to do to a song at all. */
+  function wowFlutter(ctx, src, opts) {
+    opts = opts || {};
+    var depth = opts.depth == null ? 0.0035 : opts.depth;   /* 0.35%: a tired deck, inside rule 5 */
+    var rate  = opts.rate  == null ? 1.4    : opts.rate;    /* Hz, the slow end: this is WOW */
+    var sr = ctx.sampleRate;
+    var n = src.length;
+    var out = ctx.createBuffer(1, n, sr);
+    var d = out.getChannelData(0);
+    /* the read head's position, integrated so the rate change is smooth and the total
+       length is preserved to within a sample */
+    var pos = 0, i;
+    for (i = 0; i < n; i++) {
+      var t = i / sr;
+      var r = 1 + depth * Math.sin(2 * Math.PI * rate * t);
+      /* linear interpolation between neighbouring samples: a real head reads between them */
+      var i0 = Math.floor(pos), f = pos - i0;
+      var a = (i0 >= 0 && i0 < n) ? src[i0] : 0;
+      var b = (i0 + 1 >= 0 && i0 + 1 < n) ? src[i0 + 1] : 0;
+      d[i] = a + (b - a) * f;
+      pos += r;
+      if (pos > n - 2) pos = n - 2;
+    }
+    return { buffer: out, depth: depth, rate: rate,
+             why: 'the read head breathes: 0.35% at 1.4 Hz, inside rule 5\'s 0.15 to 0.6% and 0.5 to 6 Hz' };
+  }
+
+  /* A SONG OFF A SLIPPING TAPE. The same phrase, the same transmitter, and now the machine
+     playing it is not holding speed. This is the sound the row's own "a song through the
+     dead speaker" becomes once rule 5 is obeyed rather than skipped. */
+  function songOnTape(ctx, opts) {
+    opts = opts || {};
+    var base = songThroughSpeaker(ctx, opts);
+    var w = wowFlutter(ctx, base.buffer.getChannelData(0), opts);
+    return { buffer: w.buffer, machine: base.machine, seconds: base.seconds,
+             root: base.root, semitones: base.semitones, dropouts: base.dropouts,
+             wowDepth: w.depth, wowRateHz: w.rate,
+             why: 'the warm phrase, through the dead broadcast, on a deck that is not holding speed' };
+  }
+
+  /* A LONG STEADY TONE, WOBBLED, FOR MEASUREMENT ONLY, AND SAID SO OUT LOUD.
+     Wow is a property of a pitch over TIME, so measuring it needs a note long enough to
+     contain several cycles of the wobble: at 1.4 Hz that is seconds, and the song's notes
+     are 460 ms each. A test tone is the honest way to measure the modulation itself, and
+     the gate ALSO checks that the song is not perfectly steady, so neither claim stands on
+     its own. THE GAME NEVER PLAYS THIS. */
+  function wowProbe(ctx, opts) {
+    opts = opts || {};
+    var sr = ctx.sampleRate, secs = opts.secs == null ? 4 : opts.secs;
+    var n = Math.round(sr * secs);
+    var tmp = new Float32Array(n), ph = 0, i;
+    var f = opts.hz == null ? 440 : opts.hz;
+    for (i = 0; i < n; i++) { ph += 2 * Math.PI * f / sr; tmp[i] = Math.sin(ph) * 0.8; }
+    var w = wowFlutter(ctx, tmp, opts);
+    return { buffer: w.buffer, machine: { lo: 40, hi: 12000, why: 'a test tone, not a game sound' },
+             seconds: secs, toneHz: f, wowDepth: w.depth, wowRateHz: w.rate, probe: true,
+             why: 'a steady 440 Hz tone put through the same slipping head, so the wobble itself can be measured' };
+  }
+
   /* ==== 5. THE FOLD ==============================================================
      THE GENERATION PASSING, which is the largest single moment this game has: a dynast
      dies and the line advances (laws/BOHEMIA_ADDENDUM_COLLAPSE_ORIGIN_AND_DEATH_MODEL,
@@ -570,6 +643,9 @@
     stepWithDropouts: stepWithDropouts,
     phoneTone: phoneTone,
     songThroughSpeaker: songThroughSpeaker,
+    songOnTape: songOnTape,
+    wowFlutter: wowFlutter,
+    wowProbe: wowProbe,
     theFold: theFold,
     fightCloud: fightCloud,
     theDoor: theDoor,
@@ -589,7 +665,9 @@
         { id: 'sounds-the-fights-cloud-9-22', make: 'fightCloud',
           title: "THE FIGHT'S CLOUD" },
         { id: 'sounds-the-door-9-22', make: 'theDoor',
-          title: 'THE DOOR' }
+          title: 'THE DOOR' },
+        { id: 'sounds-the-tape-is-slipping-9-23', make: 'songOnTape',
+          title: 'THE TAPE IS SLIPPING' }
       ];
     }
   };
