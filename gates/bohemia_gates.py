@@ -4056,6 +4056,24 @@ GATES = [
      'it holds the part a machine can. Both teeth were proven to bite with throwaway files before '
      'it shipped. First run: 23 advertised, 23 on disk, 23 run',
      False),
+    ('DID IT LAND', ['node', 'gates/did_it_land_gate.js'],
+     'A PUSH THAT SAYS IT WORKED IS NOT A PUSH THAT WORKED. 9/23, PLUMBER lane, row [push check]. '
+     'COOK (dccc157) and the coordinator, twice in one stretch: git push output read like success '
+     'while the commit was not on main. THE MECHANISM IS THIS FLEET OWN HABIT, measured here: every '
+     'lane shortens a noisy push with "git push ... 2>&1 | tail -2", and A PIPELINE EXIT CODE IS THE '
+     'LAST COMMAND, NOT GIT. false|tail exits 0 where false exits 1, and a REAL rejected push '
+     '(HEAD~3 to main, non-fast-forward, so main could not move) returned exit 0 to the caller with '
+     'nothing but two hint lines surviving the tail. PLUMBER piped every push that way for its whole '
+     'run, so this is not somebody else bug to point at. tools/bohemia_did_it_land.js asks the only '
+     'honest question -- is this sha an ancestor of origin/main after a FRESH FETCH -- and prints '
+     'the sha BOTH WAYS so a person can check the answer without trusting the tool. This gate proves '
+     'it answers in both directions: a landed sha YES and exit 0, a dangling commit NO and exit 1, '
+     'both shas printed, and a fetch before answering. MUTATION-CHECKED: with the tool made to '
+     'always say yes, the gate goes 4 passed / 1 failed on exactly the leg that matters. The '
+     '"not on main" sha is a dangling commit-tree with no branch and no ref, so this leaves nothing '
+     'behind in a repo where ten lanes are pushing.',
+     180),
+
     ('DRIVER SAYS', ['node', 'gates/the_driver_says_what_it_opened_gate.js'],
      'A NUMBER MUST SAY WHICH FILE IT IS ABOUT. 9/22, PLUMBER lane, row [driver says]. PEOPLE '
      '(f75eb900) and SOUNDS (c6566f47) both asked the one driver for the ALPHA in the same round '

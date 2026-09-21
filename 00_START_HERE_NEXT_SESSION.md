@@ -3722,6 +3722,70 @@ full suite unmeasured since 7efb22cf. Rule 14(a): demo untouched, RUN cuts it.
 
 Record: records/BOHEMIA_ONE_DOOR_9_14_26.md
 
+PLUMBER (plumber-ont6t5): 9/23 LATEST -- *** CHAT 18. ROUND 35. [push check] SHIPPED, AND THE BUG IS A
+HABIT THIS LANE HAS PRACTISED EVERY SINGLE ROUND. ***
+COOK (dccc157) and the coordinator, twice in one stretch: git's push output read like success while the
+commit was not on main. The lanes land every few minutes, so a push can lose a race and nothing anybody
+looked at says so.
+THE MECHANISM, MEASURED. Every lane shortens a noisy push the same way, because it keeps the log
+readable: `git push origin HEAD:main 2>&1 | tail -2`. A PIPELINE'S EXIT CODE IS THE LAST COMMAND'S, NOT
+GIT'S.
+    false | tail -2  ->  exit 0          false  ->  exit 1
+And on a REAL rejected push (HEAD~3 to main, non-fast-forward, so main could not possibly have moved):
+    hint: 'git pull' before pushing again.
+    hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+    exit code the caller sees through the pipe: 0
+The refusal is in the output and the exit code says success; with `tail -2` the two hint lines are all
+that survives and they read like advice. EVERY "pushed to main" THIS LANE HAS REPORTED RESTS ON AN EXIT
+CODE THAT IS STRUCTURALLY INCAPABLE OF REPORTING FAILURE. Not somebody else's bug to point at.
+WHY THE FIX IS NOT "STOP PIPING": it works and nobody remembers. The habit exists because it shortens a
+noisy log and the pressure that made it has not gone away. So the check does not depend on anybody's
+shell discipline. tools/bohemia_did_it_land.js asks git what is actually on main, after a FRESH FETCH:
+`git merge-base --is-ancestor <sha> origin/main`. That is a question about the remote, not about the
+last command's mood, and it is the same containment test CLAUDE.md already requires for Pages deploys.
+THE FETCH IS NOT OPTIONAL: a stale origin/main says yes to a commit that lost the race.
+IT PRINTS THE SHA BOTH WAYS, which the row asked for and which is the right ask -- a bare YES is a
+claim, a YES beside two shas is checkable without trusting the tool:
+    YES   831e1d0  ->  origin/main is at d7488bf        landed. Safe to report as pushed.
+    NO    8b8868f  ->  origin/main is at d7488bf        your commit is NOT on origin/main...
+Those two shas DIFFERING is the normal case and the reason a naive check fails: main had moved four
+commits past mine while my commit was still properly on it. A tool comparing "is main at my sha" would
+refuse a perfectly good push. Exit 0 on YES, exit 1 on NO, verified without a pipe.
+NEW GATE: gates/did_it_land_gate.js, in the suite as DID IT LAND. Five legs -- a landed sha YES/0, a
+dangling commit NO/1, both shas printed, a fetch before answering, and one that pins the story to
+something real: A PIPE STILL MASKS AN EXIT CODE. If that ever stops being true the reason for all of
+this is gone and somebody should be told rather than left with a check whose premise expired.
+MUTATION-CHECKED: with the tool made to always say yes, the gate goes 4 passed / 1 failed on exactly the
+leg that matters; restored, 5 of 5. The "not on main" sha is a dangling commit-tree with no branch and
+no ref, so the gate leaves nothing behind in a repo where ten lanes are pushing.
+A SMALL IRONY KEPT ON THE RECORD: while testing the NO case I checked the tool's exit code with
+`| tail -9` and read EXIT=0 off a run that had correctly failed. The trap caught me inside the round
+that fixed it, which is the best argument I have that the fix belongs in a tool and not in discipline.
+THIS ROUND'S OWN PUSH WAS CONFIRMED WITH THE NEW TOOL, not with the push output.
+STILL OPEN IN MY SECTION: [horror gate] (rule 20h, with DIRECTION), [mode chip], [suite line] (the front
+page's SUITE LINE is still 9/14 ad23d875 and is well over a week stale), [pre-push pass] (the row asks
+for this check to be its last step, so the two belong together), [cannot fail], [one way rulers],
+[spelling gates], [suite runs], [fight headroom], [slim build], [dead gates], [handoff cut],
+[backlog archive]. Still CLAIMED: [never worse], [sixty fps], [demo errors] (STANDING).
+*** AND THE PRE-PUSH PASS FOUND A HOLE IN THIS LANE'S OWN HANDOFF GUARD. *** The handoff gate went red
+on "it leads with a lane head" -- red before my change too, so not mine to have caused, but mine to have
+written. All three regexes in gates/handoff_gate.js spelled a lane name as capital letters and spaces,
+and the board calls one lane "LIFE + CITY", with a plus. Measured across the file: the narrow spelling
+sees 30 lane names, the real one sees 31, and the missing one is LIFE + CITY.
+The cosmetic cost was a red line. THE SERIOUS COST: the third of those regexes is the BLOCK-HEAD GUARD
+this lane built on 9/13 after measuring that 93 commits had deleted 80 lanes' newest handoff blocks. IT
+COULD NOT SEE THAT LANE'S BLOCKS AT ALL. Measured BOTH WAYS by deleting LIFE + CITY's newest block
+(5,676 characters) and running the gate:
+    with the OLD narrow guard   8 passed, 0 failed   -- silent
+    with the FIXED guard        7 passed, 1 failed   -- names the loss
+The one lane whose name has a plus in it has never been protected by the guard written to protect
+everybody. This is [spelling gates] -- a gate holding a SPELLING where the law is a MEANING -- found in
+this lane's own gate. The slug-in-parentheses shape is the real discriminator, so widening the name
+class cannot make any of these match prose; the narrow class was never buying safety, only quietly
+excluding a lane. All three widened, gate 8 of 8.
+Record: records/BOHEMIA_A_PUSH_THAT_SAYS_IT_WORKED_9_23_26.md
+[PENDING Paolo] nothing.
+
 PLUMBER (plumber-ont6t5): 9/22 (b) LATEST -- *** CHAT 18. ROUND 34. [driver says] SHIPPED. THE ONE
 DRIVER OPENED THE WRONG FILE AND SAID NOTHING, AND IT COST TWO LANES A ROUND EACH. ***
 PEOPLE (f75eb900) and SOUNDS (c6566f47) both asked the one driver for the ALPHA in the same round and

@@ -70,9 +70,24 @@ const text = fs.existsSync(HANDOFF) ? fs.readFileSync(HANDOFF, 'utf8') : '';
 const rootFiles = fs.readdirSync(ROOT).filter(f => /START_HERE|HANDOFF/i.test(f));
 ok('there is exactly ONE handoff at the root (' + rootFiles.join(', ') + ')', rootFiles.length === 1);
 
+/* THE LANE-NAME CHARACTER CLASS, WIDENED 9/23, AND IT WAS NOT A COSMETIC BUG.
+   All three regexes in this file spelled a lane name as [A-Z] and spaces. The board
+   calls one lane "LIFE + CITY", with a plus, so that lane fell out of every one of
+   them. Measured across the whole handoff: the narrow spelling sees 30 lane names,
+   the real one sees 31, and the missing name is LIFE + CITY.
+   THE COSMETIC CONSEQUENCE was this gate sitting red on "it leads with a lane head"
+   because that lane's block happens to be first. THE SERIOUS ONE is that the
+   BLOCK-HEAD GUARD below -- built on 9/13 precisely to refuse a commit that deletes a
+   block HEAD carries, after 93 commits ate 80 blocks -- COULD NOT SEE THAT LANE'S
+   BLOCKS AT ALL, so the one lane whose name has a plus in it has never been protected
+   by the guard written to protect everybody.
+   This is the [spelling gates] class on this lane's own board, found in this lane's
+   own gate: it held a SPELLING (letters and spaces) where the law is a MEANING (a lane
+   name followed by its slug in parentheses). The slug shape is the real discriminator,
+   so widening the name class cannot make this match prose. */
 ok('it is not empty and still leads with a lane head (first line: "'
   + text.split('\n')[0].slice(0, 48) + '...")',
-  /^[A-Z][A-Z ]*\([a-z0-9-]+\):/.test(text.split('\n')[0] || ''));
+  /^[A-Z][A-Z +\/&-]*\([a-z0-9-]+\):/.test(text.split('\n')[0] || ''));
 
 /* ---- 5. THE WHOLE FLEET IS STILL IN IT ----------------------------------
    Lane heads look like `SOUND (sound-xk7pjp): 8/27 (b) LATEST -- ...`. The slug
@@ -88,7 +103,7 @@ ok('it is not empty and still leads with a lane head (first line: "'
    lane head is `NAME (slug-xxxxxx): 8/27 ...`: hyphenated slug, then a date. */
 const lanes = (s) => {
   const out = new Set();
-  const re = /^[A-Z][A-Z /]*\(([a-z0-9]+(?:-[a-z0-9]+)+)\):\s+\d/gm;
+  const re = /^[A-Z][A-Z +\/&-]*\(([a-z0-9]+(?:-[a-z0-9]+)+)\):\s+\d/gm;
   let m; while ((m = re.exec(s))) out.add(m[1]);
   return out;
 };
@@ -126,7 +141,7 @@ if (head) {
      remove hundreds of these on purpose and a guard that blocks the planned work gets
      switched off. A head that is gone from here but present in archive/handoffs/ has
      been archived, not lost, and that is fine. */
-  const HEADRE = /^[A-Z][A-Z \/]*\([a-z0-9]+(?:-[a-z0-9]+)+\):\s+\S+(?:\s+\(\w\))?\s+LATEST/gm;
+  const HEADRE = /^[A-Z][A-Z +\/&-]*\([a-z0-9]+(?:-[a-z0-9]+)+\):\s+\S+(?:\s+\(\w\))?\s+LATEST/gm;
   const headsOf = (t) => new Set((t.match(HEADRE) || []).map(x => x.trim()));
   const headNow = headsOf(text);
   let headWas = new Set();
