@@ -1,0 +1,466 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>BOHEMIA - THE SIGN STILL LIGHTS</title>
+<style>
+ :root{ --ink:#141210; --paper:#f4efe6; --rule:#9c907c; --hot:#a8391d; --dim:#4a443c }
+ *{ box-sizing:border-box }
+ body{ margin:0; background:var(--paper); color:var(--ink);
+       font:15px/1.5 ui-sans-serif,system-ui,-apple-system,Arial,sans-serif }
+ header{ padding:16px 14px 12px; border-bottom:3px solid var(--ink) }
+ h1{ margin:0 0 6px; font-size:19px; letter-spacing:.3px }
+ .sub{ font-size:14px; color:var(--dim) }
+ .now{ margin:12px 14px; padding:10px 12px; border-left:5px solid var(--hot);
+       background:#fff; font-size:14px }
+ .now b{ color:var(--hot) }
+ .wrap{ padding:4px 14px 60px }
+ h2{ margin:26px 0 4px; font-size:15px; padding:8px 11px;
+     background:var(--ink); color:var(--paper) }
+ .say{ font-size:14px; color:var(--dim); margin:8px 0 12px }
+ .say b{ color:var(--ink) }
+
+ .grid{ display:flex; flex-wrap:wrap; gap:10px }
+ .card{ background:#fff; border-bottom:3px solid var(--ink); flex:1 1 150px; min-width:150px }
+ .card canvas{ display:block; width:100%; height:auto; image-rendering:pixelated;
+               background:#9a8f7c }
+ .cap{ padding:7px 9px 9px }
+ .nm{ font:700 12px/1.25 ui-monospace,monospace; letter-spacing:.4px }
+ .fx{ font:11px/1.35 ui-monospace,monospace; color:var(--dim); margin-top:3px;
+      display:flex; align-items:center; gap:5px }
+ .sw{ width:11px; height:11px; border:1px solid #6b6252; flex:none }
+
+ /* the three-up strip: nobody holds it / somebody holds it / the power is out */
+ .trio{ display:flex; gap:8px; background:#fff; padding:9px; border-bottom:3px solid var(--ink) }
+ .trio > div{ flex:1 1 0; min-width:0 }
+ .trio canvas{ display:block; width:100%; height:auto; image-rendering:pixelated;
+               background:#9a8f7c }
+ .tl{ font:10px/1.3 ui-monospace,monospace; color:var(--dim); margin-top:5px;
+      letter-spacing:.3px }
+
+ .big{ background:#fff; border-bottom:3px solid var(--ink); padding:9px }
+ .big canvas{ display:block; width:100%; max-width:300px; margin:0 auto; height:auto;
+              image-rendering:pixelated; background:#9a8f7c }
+ .parts{ margin:9px 0 0; padding:0 0 0 18px; font-size:13px; color:var(--dim) }
+ .parts b{ color:var(--ink) }
+ .foot{ margin-top:26px; font-size:13px; color:var(--dim); border-top:1px solid var(--rule);
+        padding-top:10px }
+</style></head><body>
+
+<header>
+ <h1>THE SIGN STILL LIGHTS</h1>
+ <div class="sub">Six dead businesses whose signs are still up and still running on whatever
+ power is left. The block's owner put their colour where the notice used to go. Every sign
+ below is drawn at the size it would be in the world, blown up so you can see it. 9/21</div>
+</header>
+
+<div class="now">
+ <b>THE WHOLE IDEA IN ONE LINE.</b> The scary part is not a monster. It is that the motel
+ sign still says VACANCY, in the motel's own letters, and nobody has worked there in ten
+ years. The only thing that changed is the little board underneath: that used to be where
+ they wrote NOW HIRING, and now it is just a block of somebody's colour, so you know whose
+ street you are on before anyone says a word.
+</div>
+
+<div class="wrap">
+
+ <h2>1. WHAT THE OBJECT IS</h2>
+ <div class="say">Three parts and no more. <b>The box</b> up top with the name in it, lit
+ from behind through dirty plastic. <b>The board</b> under it, the slot for the notice.
+ <b>The pole</b>. A fourth part would just be mess.</div>
+ <div class="big">
+  <canvas id="hero" width="56" height="84"></canvas>
+  <ul class="parts">
+   <li><b>THE BOX</b> still says what the place was called. It never changes.</li>
+   <li><b>THE BOARD</b> is the part that changed hands. Colour only, most of the time.</li>
+   <li><b>THE POLE</b> is galvanised steel and it is the only clean thing out there.</li>
+  </ul>
+ </div>
+
+ <h2>2. SIX OF THEM, EACH ON SOMEBODY'S STREET</h2>
+ <div class="say">The names are my first try and you can rewrite any of them. <b>Which crew
+ holds which sign is not my call</b> and is not fixed here: the map already says who owns
+ every block, so in the game the sign asks the map. This is the colour doing the job.</div>
+ <div class="grid" id="grid"></div>
+
+ <h2>3. THE ONE THAT MATTERS: BEFORE, AFTER, AND DARK</h2>
+ <div class="say">Same sign three times. Nobody holding it, somebody holding it, and the
+ same sign on a block where the power finally went. <b>The light is real</b>: most of the
+ valley is off, and the game already knows which blocks still have a circuit, so a sign that
+ glows is telling you something true about where you are standing.</div>
+ <div class="trio" id="trio"></div>
+
+ <h2>4. HOW BIG IT ACTUALLY IS, NEXT TO A PERSON</h2>
+ <div class="say">This is the part I had to check before believing any of the above. A real
+ roadside sign is about two and a half times the height of a person, and a person on our
+ street is drawn about a hundred pixels tall. <b>So the sign lands around 257 pixels tall in
+ the game</b>, which is bigger than your whole thumb on the screen. The name reads. The
+ little line under it reads if you walk up to it. That is why the type was worth fixing.</div>
+ <div class="big" id="scalewrap">
+  <canvas id="scale" width="150" height="270"></canvas>
+  <div class="tl" style="text-align:center">THE BAR ON THE LEFT IS HOW TALL A PERSON IS DRAWN</div>
+ </div>
+
+ <h2>5. AND THE HARD ONE</h2>
+ <div class="say">Three of the crews barely have a colour at all, and this is what that
+ costs: with the Mob holding it, <b>"somebody holds this block" and "nobody holds this
+ block" are the same picture</b>. A grey flag is not a flag. So here is my fix in the third
+ and fourth panels: the grey crews do not paint the board, <b>they take it down</b>. An
+ empty frame with the bolts still in it reads from any distance and in any light, and it
+ says something true about them, which is that they do not advertise. Tell me if you hate
+ it.</div>
+ <div class="trio" id="drab"></div>
+
+ <div class="foot">
+  Nothing here is in the game yet. It is drawn by one function that takes the business, the
+  owner's colour and whether the power is on, so the day this goes in, the world calls the
+  same function and the map answers the middle part. Names on the signs are drafts.
+ </div>
+</div>
+
+<script>
+/* ===========================================================================
+   THE SIGN THAT STILL LIGHTS -- the cook, FACTIONS lane, [horror signs], 9/21.
+
+   ONE FUNCTION DRAWS ALL OF THEM: drawSign(ctx, biz, holderHex, lit). That is on
+   purpose. The day the hold lifts, the world calls this with the block's real
+   owner out of the turf map and the block's real circuit out of the power grid,
+   and nothing about the picture has to be re-decided.
+
+   THE RULES IT OBEYS, named so a later reader can check them:
+     DIEGETIC OR DEAD (DIRECTION's register, 9/20) -- the glow belongs to the
+       plastic, not to the screen. Nothing sits on the lens. No scanlines.
+     PROP-02 -- one material, two or three readable parts. Box, board, pole.
+     NEVER TRUE BLACK, FEW INKS -- the darkest ink here is #17130d.
+     COLOUR IS TERRITORY -- the holder's hue is the published number measured off
+       his own wardrobe. Nothing here picks a faction colour.
+     NOT AN EXCUSE TO DARKEN -- the unlit sign is still legible in daylight. The
+       horror is the message, not the exposure.
+
+   *** AND THE FIRST CUT FAILED ON THE ONE THING THIS LAW IS ABOUT. ***
+   The name was drawn in a 3-pixel-wide face and SUNRAY MOTEL came out reading
+   SUNRAY HOTEL, because at three pixels across there is no room for the middle
+   of an M and it collapses into an H. The whole point of the tone is an
+   institution that is STILL PERFECTLY READABLE with nobody left to read it, so a
+   sign you have to squint at is not a mood, it is a broken sign. The name is a
+   5x7 face now and the small print stays 3x5, which is the same split a real
+   sign has: the cabinet is the business's own type and the little line under it
+   is whatever the shop could fit.
+   ======================================================================== */
+
+/* the small print. 3 wide, EXCEPT M, N and W, which are 4.
+   *** THE SECOND CUT FAILED THE SAME WAY THE FIRST DID, ONE SIZE DOWN. ***
+   With the name fixed, VACANCY still came out reading VACAHCY: at three pixels
+   across, M, N and H are the same drawing with the crossbar on a different row
+   and the eye picks H every time. Narrow faces have always solved this by
+   letting M, N and W run one column wider than the rest, so that is what this
+   does. It is not a compromise, it is what a real condensed face does. */
+var F3={' ':[0,0,0,0,0],'A':[2,5,7,5,5],'B':[6,5,6,5,6],'C':[3,4,4,4,3],'D':[6,5,5,5,6],
+'E':[7,4,6,4,7],'F':[7,4,6,4,4],'G':[3,4,5,5,3],'H':[5,5,7,5,5],'I':[7,2,2,2,7],
+'J':[1,1,1,5,2],'K':[5,5,6,5,5],'L':[4,4,4,4,7],
+'O':[2,5,5,5,2],'P':[6,5,6,4,4],'Q':[2,5,5,6,3],'R':[6,5,6,5,5],'S':[3,4,2,1,6],
+'T':[7,2,2,2,2],'U':[5,5,5,5,2],'V':[5,5,5,2,2],'X':[5,5,2,5,5],
+'Y':[5,5,2,2,2],'Z':[7,1,2,4,7],'0':[7,5,5,5,7],'1':[2,6,2,2,7],'2':[6,1,2,4,7],
+'3':[6,1,2,1,6],'4':[5,5,7,1,1],'5':[7,4,6,1,6],'6':[3,4,6,5,2],'7':[7,1,2,2,2],
+'8':[2,5,2,5,2],'9':[2,5,3,1,6],'&':[2,5,2,5,3],'-':[0,0,7,0,0],'.':[0,0,0,0,2],
+"'":[2,2,0,0,0],'/':[1,1,2,4,4]};
+/* the three that need the extra column, 4 bits per row */
+var F4={'M':[9,15,15,9,9],'N':[9,13,11,9,9],'W':[9,9,15,15,9]};
+
+/* THE NAME. 5 wide, 7 tall. An M has a middle in this one and an N has a
+   diagonal, which is the entire reason it exists. */
+var F5={' ':[0,0,0,0,0,0,0],
+'A':[14,17,17,31,17,17,17],'B':[30,17,17,30,17,17,30],'C':[14,17,16,16,16,17,14],
+'D':[30,17,17,17,17,17,30],'E':[31,16,16,30,16,16,31],'F':[31,16,16,30,16,16,16],
+'G':[14,17,16,23,17,17,15],'H':[17,17,17,31,17,17,17],'I':[31,4,4,4,4,4,31],
+'J':[7,2,2,2,2,18,12],   'K':[17,18,20,24,20,18,17],'L':[16,16,16,16,16,16,31],
+'M':[17,27,21,21,17,17,17],'N':[17,25,21,19,17,17,17],'O':[14,17,17,17,17,17,14],
+'P':[30,17,17,30,16,16,16],'Q':[14,17,17,17,21,18,13],'R':[30,17,17,30,20,18,17],
+'S':[15,16,16,14,1,1,30], 'T':[31,4,4,4,4,4,4],    'U':[17,17,17,17,17,17,14],
+'V':[17,17,17,17,17,10,4],'W':[17,17,17,21,21,27,17],'X':[17,17,10,4,10,17,17],
+'Y':[17,17,10,4,4,4,4],   'Z':[31,1,2,4,8,16,31],
+'0':[14,17,19,21,25,17,14],'1':[4,12,4,4,4,4,14],  '2':[14,17,1,6,8,16,31],
+'3':[31,2,4,2,1,17,14],   '4':[2,6,10,18,31,2,2],  '5':[31,16,30,1,1,17,14],
+'6':[6,8,16,30,17,17,14], '7':[31,1,2,4,8,8,8],    '8':[14,17,17,14,17,17,14],
+'9':[14,17,17,15,1,2,12], '-':[0,0,0,31,0,0,0],    '&':[12,18,18,12,21,18,13],
+'.':[0,0,0,0,0,12,12],    "'":[4,4,0,0,0,0,0],     '/':[1,2,2,4,8,8,16]};
+
+function w3(s){ var n=0; for(var i=0;i<s.length;i++) n+=(F4[s.charAt(i)]?5:4); return n-1; }
+function w5(s){ return s.length*6-1; }
+function put3(g,s,x,y,col){
+  g.fillStyle=col;
+  var ox=x;
+  for(var i=0;i<s.length;i++){
+    /* *** THE MASK, AND IT WAS WRONG ON EVERY SMALL LETTER IN THE FIRST GRID. ***
+       A 3-wide glyph's leftmost bit is 4 and a 4-wide glyph's is 8. This read 2
+       and 4, so every small line came out shifted into mush -- VACANCY, OPEN 24
+       HRS and WALK-INS OK were all unreadable and the big names beside them were
+       perfect, which is exactly the shape of bug that survives a glance. */
+    var ch=s.charAt(i), wide=F4[ch], r=wide||F3[ch]||F3[' '], cw=wide?4:3, top=wide?8:4;
+    for(var ry=0;ry<5;ry++){ var b=r[ry];
+      for(var rx=0;rx<cw;rx++) if(b&(top>>rx)) g.fillRect(ox+rx,y+ry,1,1); }
+    ox+=cw+1; } }
+function put5(g,s,x,y,col){
+  g.fillStyle=col;
+  for(var i=0;i<s.length;i++){ var r=F5[s.charAt(i)]||F5[' '];
+    for(var ry=0;ry<7;ry++){ var b=r[ry];
+      for(var rx=0;rx<5;rx++) if(b&(16>>rx)) g.fillRect(x+i*6+rx,y+ry,1,1); } } }
+function c3(g,s,cx,y,col){ put3(g,s,Math.round(cx-w3(s)/2),y,col); }
+/* THE BOX IS 62 WIDE AND A NAME HAS TO FIT IN IT. OF THE SANDS ran off both
+   edges of the chapel in the first grid. A line too long for the big face drops
+   to the small one, which is what a real sign does with its second line: the
+   business name is big and the qualifier under it is whatever fits. */
+var BOX_W=62;
+function c5(g,s,cx,y,col){
+  if(w5(s)>BOX_W){ put3(g,s,Math.round(cx-w3(s)/2),y+1,col); return; }
+  put5(g,s,Math.round(cx-w5(s)/2),y,col); }
+
+/* mixing toward white or toward the dark, so a lit face is the SAME ink lifted
+   rather than a second colour nobody chose. */
+function hex2(h){ return [parseInt(h.substr(1,2),16),parseInt(h.substr(3,2),16),parseInt(h.substr(5,2),16)]; }
+function mix(a,b,t){ var A=hex2(a),B=hex2(b),o='#';
+  for(var i=0;i<3;i++){ var v=Math.round(A[i]+(B[i]-A[i])*t); o+=('0'+v.toString(16)).slice(-2); }
+  return o; }
+
+var DARKEST='#17130d';            /* never true black */
+var W=84, H=100;
+
+/* *** AND THE THIRD CUT WAS FLAT, WHICH IS A LAW. ***
+   The 45 DEGREE ART LAW (7/17, gate art_45_gate.py): "every original art Claude
+   draws is seen from the world's three-quarter 45 view like the corpus, NEVER
+   flat side-on like a 2D scroller. Ellipse cross-sections, sky-lit visible tops,
+   bands bow toward the viewer." The first three cuts of this sign were a flat
+   front elevation -- a perfectly nice 2D-scroller prop that would have sat in a
+   three-quarter world looking like a sticker. Caught by comparing it to the
+   world before calling it done, which is the whole reason that law exists.
+
+   SO EVERY SOLID HERE IS A BOX WITH THREE FACES: the front you read, the TOP
+   which is sky-lit and therefore lighter, and the SIDE which is turned away and
+   therefore darker. The ground under it is a diamond, the same shape as a tile.
+   One primitive draws all of it, so nothing can drift back to flat. */
+function box3d(g,x,y,w,h,d,face,top,side){
+  g.fillStyle=side;
+  g.beginPath(); g.moveTo(x+w,y); g.lineTo(x+w+d,y-d/2);
+  g.lineTo(x+w+d,y+h-d/2); g.lineTo(x+w,y+h); g.closePath(); g.fill();
+  g.fillStyle=top;
+  g.beginPath(); g.moveTo(x,y); g.lineTo(x+d,y-d/2);
+  g.lineTo(x+w+d,y-d/2); g.lineTo(x+w,y); g.closePath(); g.fill();
+  g.fillStyle=face; g.fillRect(x,y,w,h);
+}
+/* the ground a thing stands on is a tile, and a tile in this world is a diamond */
+function diamond(g,cx,cy,rw,rh,col){
+  g.fillStyle=col; g.beginPath(); g.moveTo(cx-rw,cy); g.lineTo(cx,cy-rh);
+  g.lineTo(cx+rw,cy); g.lineTo(cx,cy+rh); g.closePath(); g.fill();
+}
+
+function drawSign(g, biz, holder, lit){
+  g.imageSmoothingEnabled=false;
+  g.clearRect(0,0,W,H);
+
+  /* the ground. hardpan with rock-lag laid in BLOBS, never per-cell noise
+     (the desert dominance law: one dominant ground, accents in clusters).
+     The patches are diamonds too: a rectangle of gravel on a 45 floor is the
+     same mistake as a flat sign. */
+  g.fillStyle='#9a8f7c'; g.fillRect(0,0,W,H);
+  diamond(g,22,88,14,5,'#948976');
+  diamond(g,15,93,9,3,'#948976');
+  diamond(g,64,91,11,4,'#a09580');
+
+  var CX=40;                       /* the visual centre everything hangs from */
+
+  /* IT HAS TO TOUCH THE GROUND. The walked city puts a contact shadow under
+     every wall (LIFE+CITY, [base shadows]); a prop without one floats. It is a
+     diamond, thrown to the side the lamp is not on. */
+  diamond(g,CX+3,92,15,5,'#8a8070');
+
+  /* the concrete pad: a slab, so a top face and a front lip */
+  diamond(g,CX,90,11,4,'#b3a893');
+  g.fillStyle='#8f8672';
+  g.beginPath(); g.moveTo(CX-11,90); g.lineTo(CX,94); g.lineTo(CX+11,90);
+  g.lineTo(CX+11,92); g.lineTo(CX,96); g.lineTo(CX-11,92); g.closePath(); g.fill();
+
+  /* the pole: a round column, so a lit column, a body and a turned-away column.
+     Cross-sections read round rather than square -- the law's ellipse clause. */
+  g.fillStyle='#6f6a61'; g.fillRect(CX-2,58,5,32);
+  g.fillStyle='#958f83'; g.fillRect(CX-2,58,1,32);
+  g.fillStyle='#4e4a43'; g.fillRect(CX+2,58,1,32);
+
+  /* THE BOX. enamel frame in the dead brand's own colour, acrylic face inside. */
+  var frame=biz.brand;
+  var faceOff=mix(biz.face,DARKEST,0.40);
+  var faceOn =mix(biz.face,'#fff7e2',0.34);
+  var face=lit?faceOn:faceOff;
+  var bx=4, by=12, bw=62, bh=34, D=9;
+
+  box3d(g,bx,by,bw,bh,D, frame, mix(frame,'#ffeccb',0.30), mix(frame,DARKEST,0.38));
+  /* the acrylic sits inside the frame, and it is inset, so it gets the frame's
+     own shadow along its top and left rather than a second outline */
+  var fx=bx+3, fy=by+3, fw=bw-6, fh=bh-6;
+  g.fillStyle=face; g.fillRect(fx,fy,fw,fh);
+  g.fillStyle=mix(frame,DARKEST,0.45); g.fillRect(fx,fy-1,fw,1); g.fillRect(fx-1,fy-1,1,fh+1);
+
+  /* the plastic is dirty in PATCHES, which is what makes it plastic and not
+     paint. The run-off along the bottom lip is the same on every sign because
+     rain is; the corner stain is placed off the business's own name, so six
+     signs do not carry one identical sticker the way the first grid did. */
+  var grime=mix(face,DARKEST,0.11);
+  g.fillStyle=grime;
+  g.fillRect(fx,fy+fh-4,fw,4); g.fillRect(fx+2,fy+fh-6,32,2);
+  var hsh=0; for(var _i=0;_i<biz.k.length;_i++) hsh=(hsh*31+biz.k.charCodeAt(_i))&255;
+  var sx=fx+((hsh%3===0)?1:((hsh%3===1)?25:44)), sy=fy+(hsh%4);
+  g.fillRect(sx,sy,9,5); g.fillRect(sx+2,sy+5,6,2);
+
+  var CF=fx+fw/2;                                  /* centre of the readable face */
+  var nameInk = lit ? mix(frame,DARKEST,0.48) : mix(frame,DARKEST,0.24);
+  if(biz.l2){ c5(g,biz.l1,CF,fy+3,nameInk); c5(g,biz.l2,CF,fy+12,nameInk); }
+  else      { c5(g,biz.l1,CF,fy+7,nameInk); }
+  /* the line it is still saying to nobody. SMALL, but never muddied into the
+     grime: the tone is that you CAN still read it. */
+  c3(g,biz.l3,CF,fy+(biz.l2?22:19),mix(nameInk,face,0.16));
+
+  /* the bracket down to the board */
+  g.fillStyle='#5b564d'; g.fillRect(CX-14,46+bh-34+0,2,6); g.fillRect(CX+12,46,2,6);
+  g.fillStyle='#5b564d'; g.fillRect(CX-14,46,2,6);
+
+  /* THE BOARD: the notice slot. THIS is the part that changed hands. */
+  var ox=12, oy=52, ow=52, oh=17, OD=6;
+  box3d(g,ox,oy,ow,oh,OD,'#6f6a61',mix('#6f6a61','#ffeccb',0.26),mix('#6f6a61',DARKEST,0.34));
+  var px=ox+3, py=oy+3, pw=ow-6, ph=oh-6;
+  var field;
+  if(holder==='STRIPPED'){
+    /* *** THE ANSWER TO THE DRAB THREE, AND IT IS MY PICK, NOT A QUESTION. ***
+       Measured on this page: with a grey crew holding it, "somebody holds this"
+       and "nobody holds this" are the same picture. Three of the crews are drab
+       and a grey flag is not a flag. So the drab crews do not paint the board,
+       THEY TAKE IT DOWN -- an empty frame with the bolts still in it reads at
+       any distance, in any light, and it says something true about them: they do
+       not advertise. It costs no colour and invents no canon, because what a
+       faction WEARS stays his and this is about a fixture, not a wardrobe. */
+    field=mix('#3a352c',DARKEST,0.15);
+    g.fillStyle=field; g.fillRect(px,py,pw,ph);
+    g.fillStyle=mix('#6f6a61',DARKEST,0.15); g.fillRect(px,py,pw,2);
+    g.fillStyle=mix('#6f6a61','#ffeccb',0.10);
+    for(var _b=0;_b<4;_b++) g.fillRect(px+4+_b*(pw-9)/3,py+2,2,3);
+  } else if(holder){
+    /* the colour is the flag. lit boards glow through the same dirty plastic. */
+    field = lit ? mix(holder,'#fff7e2',0.22) : mix(holder,DARKEST,0.30);
+    g.fillStyle=field; g.fillRect(px,py,pw,ph);
+    g.fillStyle=mix(field,DARKEST,0.13); g.fillRect(px,py+ph-3,pw,3);
+    if(biz.word) c3(g,biz.word,px+pw/2,py+2,mix(field,'#fdf6e6',0.82));
+  } else {
+    /* nobody holds it: the last thing the business itself put up, still there.
+       THE ORDINARY FRAME WITH ONE THING WRONG, and the wrong thing is that it
+       is still perfectly readable. */
+    field = mix('#cfc6b2',DARKEST,lit?0.08:0.30);
+    g.fillStyle=field; g.fillRect(px,py,pw,ph);
+    g.fillStyle=mix(field,DARKEST,0.13); g.fillRect(px,py+ph-3,pw,3);
+    c3(g,biz.was,px+pw/2,py+2,mix(field,DARKEST,0.66));
+  }
+  /* it is a panel bolted into a frame, and two bolts say so. */
+  g.fillStyle=mix(field,DARKEST,0.40);
+  g.fillRect(px+1,py+1,1,1); g.fillRect(px+pw-2,py+1,1,1);
+  g.fillRect(px+1,py+ph-2,1,1); g.fillRect(px+pw-2,py+ph-2,1,1);
+
+  /* the one lamp still in the hood, and it is a LAMP, not a glow on the lens:
+     it lands on the box's own face along the top and the left and stops. */
+  if(lit){
+    g.fillStyle=mix(faceOn,'#fff7e2',0.45);
+    g.fillRect(fx,fy,fw,1); g.fillRect(fx,fy,1,fh);
+  }
+}
+
+/* the dead businesses. Names are a first attempt, draft, his to rewrite.
+   Every line on them is something a real roadside sign says, too calm. */
+var BIZ=[
+ {k:'motel', brand:'#c2542b', face:'#e6d7b4', l1:'SUNRAY', l2:'MOTEL', l3:'VACANCY',
+  was:'POOL OPEN', word:''},
+ {k:'wash',  brand:'#2f6f9e', face:'#dfe3de', l1:'WASH-O-MAT', l2:'', l3:'OPEN 24 HRS',
+  was:'LAST WASH 9', word:''},
+ {k:'clinic',brand:'#357f5c', face:'#e4e6d8', l1:'VALLEY', l2:'CLINIC', l3:'WALK-INS OK',
+  was:'NO CASH KEPT', word:''},
+ {k:'bank',  brand:'#8f7a3e', face:'#e9dcb8', l1:'FIRST', l2:'STATE BANK', l3:'TIME & TEMP',
+  was:'MEMBER FDIC', word:'TOLL'},
+ {k:'chapel',brand:'#b8413f', face:'#efdfc9', l1:'CHAPEL', l2:'OF THE SANDS', l3:'OPEN 24 HRS',
+  was:'ALL WELCOME', word:''},
+ {k:'market',brand:'#b8912f', face:'#e8dcb6', l1:'DESERT', l2:'MARKET', l3:'ICE COLD BEER',
+  was:'WE TAKE EBT', word:'TAX'}
+];
+
+/* the published faction colours, copied from engine/BOHEMIA_faction_colours.json.
+   NOT CHOSEN HERE: that file is measured off the wardrobe he dressed. */
+var HOLD=[
+ {n:'BLUES',    hex:'#2d5fb3'},
+ {n:'NETWORK',  hex:'#25a189'},
+ {n:'REDS',     hex:'#773229'},
+ {n:'COLORFUL', hex:'#61a136'},
+ {n:'CHURCH',   hex:'#826c3e'},
+ {n:'MOB',      hex:'#454142'}
+];
+
+function makeCanvas(){ var c=document.createElement('canvas'); c.width=W; c.height=H; return c; }
+
+var hero=document.getElementById('hero'); hero.width=W; hero.height=H;
+drawSign(hero.getContext('2d'), BIZ[0], HOLD[0].hex, true);
+
+var grid=document.getElementById('grid');
+for(var i=0;i<BIZ.length;i++){
+  var card=document.createElement('div'); card.className='card';
+  var cv=makeCanvas(); card.appendChild(cv);
+  drawSign(cv.getContext('2d'), BIZ[i], HOLD[i].hex, true);
+  var cap=document.createElement('div'); cap.className='cap';
+  cap.innerHTML='<div class="nm">'+(BIZ[i].l1+' '+BIZ[i].l2).trim()+'</div>'
+    +'<div class="fx"><span class="sw" style="background:'+HOLD[i].hex+'"></span>'
+    +HOLD[i].n+' HOLD THIS BLOCK</div>';
+  card.appendChild(cap); grid.appendChild(card);
+}
+
+function trio(host, biz, hold){
+  host.innerHTML='';
+  var S=host.dataset.strip==='1'
+    ? [['NOBODY HOLDS IT',null,true],
+       [hold.n+' HOLD IT',hold.hex,true],
+       ['OR THEY TAKE IT DOWN','STRIPPED',true],
+       ['TAKEN DOWN, NO POWER','STRIPPED',false]]
+    : [['NOBODY HOLDS IT',null,true],
+       [hold.n+' HOLD IT',hold.hex,true],
+       ['THE POWER WENT',hold.hex,false]];
+  for(var i=0;i<S.length;i++){
+    var d=document.createElement('div');
+    var cv=makeCanvas(); d.appendChild(cv);
+    drawSign(cv.getContext('2d'), biz, S[i][1], S[i][2]);
+    var t=document.createElement('div'); t.className='tl'; t.textContent=S[i][0];
+    d.appendChild(t); host.appendChild(d);
+  }
+}
+/* TRUE SCALE, AND IT IS MEASURED, NOT EYEBALLED.
+   Rule 21 (9/21): a person is drawn at ONE size on every surface he walks on,
+   about 100 px painted. A roadside pole sign is about 4.5 m against a 1.75 m
+   person, so it lands at 100 * (4.5/1.75) = 257 px tall on the same street.
+   The art is 92 px, so the world draws it at 2.79x and every letter survives.
+   NO BODY IS DRAWN HERE. Bodies belong to another lane and a fake one would be
+   the exact slop this page is meant to avoid; a bar of the right height says
+   the same thing and says it honestly. */
+(function(){
+  var cv=document.getElementById('scale'); if(!cv) return;
+  var g=cv.getContext('2d'); g.imageSmoothingEnabled=false;
+  var PERSON=100, SIGN=Math.round(PERSON*(4.5/1.75));    /* 257 */
+  /* THE CANVAS HAS TO BE AS WIDE AS THE THING. The first cut fixed it at 150 and
+     the sign, which is 201 wide once it is 257 tall, ran straight off the right
+     edge -- a scale drawing that cannot show the scale. */
+  var sw=Math.round(W*(SIGN/H)), pad=30;
+  cv.width=pad+sw+8; cv.height=SIGN+12;
+  g.imageSmoothingEnabled=false;
+  g.fillStyle='#9a8f7c'; g.fillRect(0,0,cv.width,cv.height);
+  /* the person-height bar, standing on the same ground line as the sign */
+  var base=cv.height-6;
+  g.fillStyle='#6b6252'; g.fillRect(10,base-PERSON,6,PERSON);
+  g.fillStyle='#8a8070'; g.fillRect(8,base,10,2);
+  /* the sign, drawn by the same function, scaled to its real height */
+  var off=document.createElement('canvas'); off.width=W; off.height=H;
+  drawSign(off.getContext('2d'), BIZ[0], HOLD[0].hex, true);
+  g.drawImage(off, pad, base-SIGN, sw, SIGN);
+})();
+
+trio(document.getElementById('trio'), BIZ[0], HOLD[0]);
+var drabEl=document.getElementById('drab'); drabEl.dataset.strip='1';
+trio(drabEl, BIZ[2], {n:'MOB', hex:'#454142'});
+</script>
+</body></html>
