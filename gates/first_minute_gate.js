@@ -105,16 +105,30 @@ function serve() {
       if (rang > 0) break;
       await sleep(500);
     }
+    /* *** AMENDED 9/21 (RUN, [no pop ups], rule 19a). THE QUESTION IS THE SAME; THE
+       SURFACE IT IS ASKED OF MOVED. *** This used to read the WAKE CARD's own text.
+       Paolo 9/20, twice: "I start the demo and a bunch of shit pops up on the
+       screen." Measured before the fix: that card opened at 2.5 s, sat over all
+       eight direction buttons, and 544 presses in five minutes moved him ZERO
+       cells. The card is gone and rule 19a sends its words to THE PHONE, "the thing
+       he opens himself".
+       SO THIS ASKS THE PHONE. It is NOT a weaker test: it still requires a real
+       offer with a real title AND the sentence about it to exist in words on a
+       surface he can reach, which is exactly what it required before. Pointing it
+       at the dead card would have made it assert that the pop-up is still there. */
     const wake = await city.evaluate(() => {
-      const inn = document.getElementById('daycardIn');
-      return { text: (inn ? inn.textContent : '').replace(/\s+/g, ' ').trim(),
+      let lines = [];
+      try { const st = phoneState();
+            if (st && st.morning && st.morning.lines) lines = st.morning.lines; } catch (e) { }
+      return { text: lines.join(' ').replace(/\s+/g, ' ').trim(),
                offer: (typeof OFFER !== 'undefined' && OFFER)
                       ? { title: OFFER.title, how: OFFER.how } : null };
     });
-    ok('*** SOMEBODY WANTS SOMETHING FROM HIM, and it is on the first card *** ('
+    ok('*** SOMEBODY WANTS SOMETHING FROM HIM *** ('
       + (wake.offer ? wake.offer.title : 'nothing') + ')',
        !!wake.offer && !!wake.offer.title);
-    ok('and the card says so in words, not just in a variable',
+    ok('and it says so in words on the phone, not just in a variable ('
+      + wake.text.slice(0, 50) + ')',
        /phone|came in/i.test(wake.text));
 
     /* ---- BEAT ONE: THE PAD, AND IT TEACHES THE VERB THAT MOVES YOU ------- */

@@ -461,6 +461,24 @@ GATES = [
      'and failed on 505/518/546ms samples -- the threshold was wrong, not the feed. It also '
      'prints the page\'s own clock gaps, which are whole-page freezes belonging to another '
      'lane, so they cannot hide inside this lane\'s green.', True),
+    ('NOTES SECTION',  ['node', 'gates/the_notes_section_gate.js'],
+     'PAOLO 9/21: "I still don\'t see a note section anywhere. A collapsible note section that I '
+     'can copy and paste when I am done playing the demo into you." The 9/20 gate was GREEN about a '
+     'control he could not find, which means it measured the wrong thing: it checked the mark '
+     'against a number this lane picked (5 px of ink) instead of against the only thing that decides '
+     'findability, WHICH IS ITS NEIGHBOURS. Measured on a fresh cut: every other child of that bar is '
+     'a WORD ON A PLATE (MUSIC, SAVE, PHONE, all box-shadowed, ink rgb(216,196,154)); the notes '
+     'control was a bare pencil with background transparent, NO box-shadow and dimmer ink. It was the '
+     'only thing up there with no body, and a control with no body does not read as a control. Every '
+     'leg here compares it to its neighbours or to his sentence, never to a number I chose: it says a '
+     'WORD and the word is NOTES; it has a plate like SAVE; its ink is no dimmer than the dimmest '
+     'chip beside it; its 44 reach steals nobody else\'s centre (this file measured once that a 44 pad '
+     'on a chip lies across its neighbour and makes a tap do the wrong thing, which is why the pads '
+     'are off everywhere else -- the far-right end is the one slot where a full thumb is free); it '
+     'TOGGLES open and collapsed with the chip still in the bar; COPY ALL saves what is still in the '
+     'box first, because that is the order he does it in, and THE CLIPBOARD IS READ BACK rather than '
+     'assumed. It runs on a FRESH CUT of the demo, never the committed copy, which lags. Five '
+     'mutations proved.', True),
     ('UI IS OBJECTS',  ['node', 'gates/the_ui_is_built_from_objects_gate.js'],
      'PAOLO 9/20: "we are gonna be trying to make all the UI look 3-D", and PAOLO 9/21, rule 22: '
      '"I need to be seeing them cooking up more, every time, not never" -- a UI round is PANELS he '
@@ -685,6 +703,34 @@ GATES = [
      'Red four ways: let a dark pump lift anyway -> 4; put a fudge factor in the physics '
      '-> 2; ask the plant\'s own cell again -> 4 (and the failure reads 28604 -> 23804, '
      'the countdown restarting); count the water and never credit it -> 1.', True),
+    ('BLOCK STRIKES', ['node', 'gates/block_strikes_gate.js'],
+     'WE-BUILT-THE-CUT-OFF-AND-NEVER-BUILT-THE-STRIKE (board row [block strikes], 9/21). '
+     'Glasgow 1915: 25,000 families stopped paying and won in nine months, and the '
+     'mechanism was never the money, it was THE VACANCY -- a landlord\'s cut only works '
+     'if he can replace you, and he cannot replace a door the block is holding. '
+     '*** THIS ROW WAS HELD SIX ROUNDS ON A MEASUREMENT TAKEN ON THE WRONG PAGE. *** On '
+     '9/15 this lane opened the walked city on its own, found CT_MINDS empty and wrote '
+     '"the picket cannot be counted, the fix is PEOPLE\'s lane". PLAYER_CV is set ONLY by '
+     'a postMessage from the parent frame, and peoplePass() returns 0 on its FIRST LINE '
+     'with no body -- so a standalone city draws NOBODY and no mind can be born. I '
+     'measured a city with no people in it. Re-measured on the demo he plays: 2 minds at '
+     'the door, 25 after four seconds of walking, 6 on the player\'s own block, 83 deed '
+     'weights filled from his quest corpus. HOLDS FOUR THINGS. (A) *** SILENCE IS NEVER A '
+     'VERDICT *** -- held() has THREE answers and a block that has not seen you do '
+     'anything is NOT_KNOWN, never BROKEN; collapsing those two reports "the strike '
+     'failed" on day one forever, which is the gap this row died in. NOT_KNOWN does not '
+     'stop the cut: a strike you win by not playing is not a strike. (B) NO WEIGHT IS '
+     'TYPED -- a majority is the SHAPE of a picket, the opinions come from his own '
+     'CLOUT_WEIGHTS through bohemia_standing, and the price of the light coming back is '
+     'his ruled ONE, read off PAYOUT and REFUSED when the table is gone. (C) THE DOOR IS '
+     'PROVED ON THE DEMO through the one driver (rule 14g), with the player\'s position '
+     'checked first so a still player cannot be read as a walk: the block witnesses a '
+     'deed, the door HOLDS, and the owner\'s cut stops sticking. (D) the notice to quit '
+     'the block holds the door against, which refuses to issue with no landlord on it. '
+     'Red two ways: make silence a verdict -> 3; and the majority rule itself, which the '
+     'first cut of this gate NEVER TESTED -- a mutation making every block hold left it '
+     'at 33/0, so the lopsided blocks are now built here in both directions and a tie is '
+     'checked too.', True),
     ('VISIBLE CHANGE', ['node', 'gates/visible_change_gate.js'],
      'WHAT-AN-ASK-IS-ALLOWED-TO-MOVE (board row [visible change], 9/21). The rule: a '
      'generated ask may only move things the player can WATCH move. RULE 12 FIRST AND '
@@ -1790,6 +1836,22 @@ GATES = [
      'nothing: the invitation is in the document before one byte of script runs. MUTATION: put '
      'TAP TO ENTER back in the markup -> 4 red, and the one-tap leg independently reproduces the '
      'dead first press.', False),
+    ('NOTHING POPS UP', ['node', 'gates/nothing_pops_up_gate.js'],
+     'VAMILY [no pop ups], rule 19a and 19e: PAOLO 9/20, TWICE IN A ROW -- "I start the demo '
+     'and a bunch of shit pops up on the screen. What the fuck is that?" and, on the SECOND '
+     'FRAME OF THE GAME, the SNATCHER road card: "you don\'t got quests like that for real... '
+     'it can\'t just be these bullshit-ass text prompts." MEASURED FIRST ON THE SERVED DEMO, '
+     'five minutes, cards deliberately NOT cleared because a stranger has no harness: ONE card '
+     'opened by itself at 2.5 SECONDS, IT NEVER WENT AWAY, and 544 presses on the pad moved him '
+     'ZERO CELLS -- the demo was unplayable from the first frame, and it is the #daycard '
+     'inset:0 bug PLUMBER carried on RUN\'s row for three rounds. THE RULE IS AT THE ONE DOOR: '
+     'cardShow refuses any card whose caller cannot NAME A REASON (a sentence, not a boolean, '
+     'because a boolean lets the next lane write true), and refusals are kept rather than '
+     'swallowed. The morning, the night and the road card stop; their words go to THE PHONE, 10 '
+     'lines, and the chip rings. THE DAY STILL TURNS WITHOUT A BUTTON (1 -> 2) because SLEEP was '
+     'the rollover as well as a card. Holds the rule and not the four callers, so a forced card '
+     'added tomorrow goes red here instead of going to Paolo. MUTATION: main IS the mutant, '
+     '4 passed / 11 failed including the zero cells.', True),
     ('WALK NEVER MISSES', ['node', 'gates/the_walk_never_misses_gate.js'],
      'VAMILY [one camera], rule 18a THE PLAYABLE CUT: PAOLO 9/20 -- "I am zooming out and my '
      'person becomes bigger... walking the same distance and crashing into walls because it is '
@@ -5752,6 +5814,26 @@ GATES = [
      "longer' means something. Being down is a QUESTION against the clock, so a save left on a shelf comes "
      "back healed with nothing to tidy. And it is on the card he already opens, saying how long and saying "
      "the promise out loud", False),
+    ('HORROR CROWD',   ['node', 'gates/horror_crowd_gate.js'],
+     "PEOPLE [horror crowd], rule 20(h), school under the rule 18 hold with the RULE 22 cook beside "
+     "it. THE ROW'S THREE THINGS ARE ALREADY TRUE AND THAT IS WHY THE CROWD IS NOT FRIGHTENING: over "
+     "three frames not one body turned its head, 0.5% of the screen moved against the bible's 10% "
+     "ceiling, and nobody was watching him. THE LONG HOLD (R3) PASSES BY FIFTEEN TIMES, so this gate "
+     "holds that too, to stop somebody 'fixing' it. The bible's own R1 says what stillness alone is "
+     "worth: 'zero wrong things is a screenshot.' *** SO THE ROUND WENT TO R7, THE LIT STREET WITH "
+     "NOBODY HOME, WHICH FAILS BADLY. *** Walking the game's own clock, census 61: outside in the "
+     "world 0 at 3am, 41 at 10am, 40 at 5pm, 4 at 8pm, 2 at 11pm, a real two-peaked commute; DRAWN ON "
+     "HIS STREET 3, 23, 23, 24, 15. THE WORLD SWINGS 41 TO 4 AND THE SCREEN DRAWS 23 AND 24: ten in "
+     "the morning and eight at night are the same picture, and R7 says a crowd is drawn from world "
+     "data, NEVER FAKED. The cause is the 9/7 borrow and it is not a bug: with it off the busiest "
+     "hour puts TWO people in front of him (measured both ways in one probe), which is why it was "
+     "built. The defect is that it borrows a FIXED number instead of the number the world earned. "
+     "NOTHING WAS CHANGED ON THE PLAY SURFACE and this gate holds that: the borrow and the facing "
+     "rule are untouched. The cook is five real frames off the glass in the VOTE tab, and 3am is ONE "
+     "file because the borrow changes nothing when nobody is out -- a second identical picture would "
+     "be a comparison that cannot fail. Mutations, each put back: make the evening pair the same "
+     "frame twice and add a duplicate 3am, 2 red; drop the leave-it-alone option and call the borrow "
+     "a mistake, 2 red.", False),
     ('A NAME',         ['node', 'gates/a_name_gate.js'],
      "PEOPLE [a name], inside rule 19(d)'s fourth thing and this lane's RULE 22 cook. QUESTS said "
      "0 of 21 bodies on his block have a name. MEASURED ON THE ALPHA AND IT WAS BIGGER: 61 PEOPLE, "

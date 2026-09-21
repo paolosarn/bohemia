@@ -1,0 +1,184 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>BOHEMIA - FIVE WAYS THE NOTES SECTION SITS</title>
+<link rel="stylesheet" href="bohemia_option_sheet.css">
+<link rel="stylesheet" href="bohemia_ui_3d.css">
+<style>
+ /* THE REAL BAR, traced off a fresh cut of the demo: 390 wide, 50 tall, the chips at
+    12.3 px with 5 px of ink. Nothing here is scaled. */
+ .bar{ position:relative; height:50px; display:flex; align-items:center; gap:0;
+       background:linear-gradient(180deg,#241f16,#171309);
+       box-shadow:inset 0 -1px 0 #0b0906, 0 1px 0 rgba(0,0,0,.55) }
+ .left{ display:flex; align-items:center; gap:12px; padding-left:10px; flex:1 1 auto }
+ .right{ display:flex; align-items:center; gap:6px; padding-right:4px }
+ .lbl{ font-family:var(--face-casing); font-size:5px; letter-spacing:.4px; color:#b3a488 }
+ .chip{ font-family:var(--face-casing); font-size:5px; letter-spacing:.4px; color:#d8c49a;
+        background:#1a160f; padding:4px 7px; border-radius:2px;
+        box-shadow:inset 0 1px 0 #5c4f38, inset 0 -2px 0 #0b0906, 0 1px 0 rgba(0,0,0,.55) }
+ .chip.gold{ background:#d8b45a; color:#191308 }
+ .reach{ min-width:44px; min-height:44px; display:inline-flex; align-items:center;
+         justify-content:center }
+ /* the five */
+ .wNOW .reach{ font-size:5px; color:#b89a6a }            /* the bare pencil, as shipped */
+ .wB   .chip{ }                                          /* the word on a plate */
+ .wC   .chip{ background:#d8b45a; color:#191308 }         /* the word, gold, always lit */
+ .wD   .reach{ flex-direction:column; gap:2px }
+ .wD   .dot{ width:5px; height:5px; border-radius:50%; background:#d8b45a }
+ .wE   .chip{ background:transparent; box-shadow:none; color:#d8c49a;
+              border-bottom:2px solid #5c4f38; border-radius:0 }
+ /* the open section, three shapes */
+ /* THE FIRST CUT LET THE RAIL'S BUTTONS FALL OUT THE BOTTOM OF THE PHONE and land on
+    top of the paragraph underneath, which is the option arguing against itself for a
+    reason that was mine and not the design's. The box clips now, and the rail is laid
+    out to fit inside 230 px instead of being trusted to. */
+ .game{ height:230px; position:relative; overflow:hidden;
+   background:repeating-linear-gradient(90deg,rgba(0,0,0,.20) 0 1px,rgba(0,0,0,0) 1px 49px),
+              linear-gradient(180deg,#5a5147,#463f36) }
+ .sheet{ position:absolute; left:0; right:0; bottom:0; padding:11px 12px 13px;
+   background:linear-gradient(180deg,#332c21 0 7%,#28221a 7% 74%,#191510 74% 100%);
+   box-shadow:inset 0 2px 0 #5c4f38, inset 0 -3px 0 #0b0906, 0 -4px 12px rgba(0,0,0,.6) }
+ .sheet h3{ margin:0 0 7px; font-family:var(--face-casing); font-size:7px; letter-spacing:2px;
+   color:#d8b45a }
+ .well{ min-height:58px; padding:9px 10px; font-family:var(--face-body); font-size:12px;
+   color:#ddd0b1; background:#151310; border-radius:2px;
+   box-shadow:inset 0 2px 0 #0b0906, inset 0 -1px 0 #5c4f38 }
+ .row{ display:flex; gap:6px; margin-top:9px; flex-wrap:wrap }
+ .row .k{ font-size:6px; letter-spacing:1.1px; min-height:38px; flex:1 1 auto }
+ .full{ position:absolute; inset:0; padding:12px; background:rgba(6,5,4,.86);
+   display:flex; align-items:center; justify-content:center }
+ .full .card{ width:100%; padding:13px; background:#241f18; border-radius:3px;
+   box-shadow:inset 0 2px 0 #4c412f, inset 0 -3px 0 #0a0806, 0 2px 0 rgba(0,0,0,.6), 0 10px 26px rgba(0,0,0,.55) }
+ .rail2{ position:absolute; right:0; top:0; bottom:0; width:190px; padding:10px;
+   box-sizing:border-box; display:flex; flex-direction:column;
+   background:linear-gradient(180deg,#332c21 0 4%,#28221a 4% 92%,#191510 92% 100%);
+   box-shadow:inset 2px 0 0 #5c4f38, inset 0 -3px 0 #0b0906, -4px 0 12px rgba(0,0,0,.6) }
+</style></head><body>
+<header>
+ <h1>FIVE WAYS THE NOTES SECTION SITS</h1>
+ <div class="sub">The top bar of the demo, 390 pixels wide, real size, nothing blown up. A is exactly what was in there when you said you could not find it. 9/21</div>
+</header>
+
+<div class="now">
+ <b>YOU WERE RIGHT AND IT WAS NOT THE SIZE.</b> I measured every control in that bar on
+ a fresh copy of the demo. MUSIC, SAVE and PHONE are all words sitting on a little metal
+ plate with a lit top edge and a dark bottom edge. The notes control was a pencil
+ squiggle with no plate at all and paler ink than everything beside it. It was the only
+ thing up there with no body, and a thing with no body does not look like a button.
+ That is this lane's own rule, broken by this lane's own hand.
+ <br><br>
+ <b>IT IS FIXED AND IT IS B.</b> It says NOTES, on the same plate SAVE wears, drawn by
+ the same one rule so it can never drift away from SAVE again. Tap it and the section
+ opens and the game stops. Tap it again and it folds away. It sits in that bar the whole
+ time you play. COPY ALL puts everything you wrote on the clipboard so you paste it
+ straight into the chat.
+ <br><br>
+ <b>WHAT I NEED:</b> one letter for how loud the chip is, and one for the shape the
+ section opens into.
+</div>
+
+<div class="wrap">
+
+ <div class="opt isnow"><h2>A &mdash; WHAT YOU COULD NOT FIND</h2>
+  <div class="shot"><div class="phone"><div class="bar wNOW">
+    <div class="left"><span class="lbl">HUMAN MODE</span><span class="lbl">SUBURB &middot; ON FOOT</span></div>
+    <div class="right"><span class="chip">THE PIT BOSS IS GONE</span><span class="chip">SAVE</span>
+      <span class="chip gold">PHONE</span><span class="reach">&#9998;</span></div>
+  </div></div></div>
+  <div class="say"><b>There it is, at the far right.</b> That grey smudge. No plate, no
+   edge, dimmer than everything beside it, and not a word. You looked at this bar and
+   there was nothing there that said notes, because there was nothing there that said
+   anything.</div>
+ </div>
+
+ <div class="opt"><h2>B &mdash; A WORD ON A PLATE, LIKE SAVE &middot; SHIPPED</h2>
+  <div class="shot"><div class="phone"><div class="bar wB">
+    <div class="left"><span class="lbl">HUMAN MODE</span><span class="lbl">SUBURB &middot; ON FOOT</span></div>
+    <div class="right"><span class="chip">THE PIT BOSS IS GONE</span><span class="chip">SAVE</span>
+      <span class="chip gold">PHONE</span><span class="reach"><span class="chip">NOTES</span></span></div>
+  </div></div></div>
+  <div class="say"><b>Same plate, same ink, same size as SAVE.</b> It stops being a mark
+   and becomes one of the controls. Your thumb still gets a full 44 pixels to hit,
+   because the far right end is the one spot in that bar where a big tap area does not
+   lie across the button next to it. When you have notes saved it counts them: NOTES 3.</div>
+ </div>
+
+ <div class="opt"><h2>C &mdash; GOLD, SO IT IS THE LOUDEST THING UP THERE</h2>
+  <div class="shot"><div class="phone"><div class="bar wC">
+    <div class="left"><span class="lbl">HUMAN MODE</span><span class="lbl">SUBURB &middot; ON FOOT</span></div>
+    <div class="right"><span class="chip">THE PIT BOSS IS GONE</span><span class="chip">SAVE</span>
+      <span class="chip gold" style="background:#1a160f;color:#d8c49a">PHONE</span>
+      <span class="reach"><span class="chip">NOTES</span></span></div>
+  </div></div></div>
+  <div class="say"><b>Impossible to miss.</b> Gold is how this game says "this one is
+   live" and right now PHONE owns it. Giving it to NOTES means taking it off PHONE,
+   because two gold chips in one bar is no gold chip at all. Worth it while you are the
+   one testing, wrong once anybody else plays.</div>
+ </div>
+
+ <div class="opt"><h2>D &mdash; A LAMP THAT COUNTS</h2>
+  <div class="shot"><div class="phone"><div class="bar wD">
+    <div class="left"><span class="lbl">HUMAN MODE</span><span class="lbl">SUBURB &middot; ON FOOT</span></div>
+    <div class="right"><span class="chip">THE PIT BOSS IS GONE</span><span class="chip">SAVE</span>
+      <span class="chip gold">PHONE</span>
+      <span class="reach"><span class="chip">NOTES</span><span class="dot"></span></span></div>
+  </div></div></div>
+  <div class="say"><b>The word, with a little light under it that comes on when you have
+   written something.</b> Same as the lamps on the fight panel. It tells you at a glance
+   that what you typed went somewhere, without you opening it to check.</div>
+ </div>
+
+ <div class="opt"><h2>E &mdash; UNDERLINED, NO PLATE</h2>
+  <div class="shot"><div class="phone"><div class="bar wE">
+    <div class="left"><span class="lbl">HUMAN MODE</span><span class="lbl">SUBURB &middot; ON FOOT</span></div>
+    <div class="right"><span class="chip" style="background:#1a160f;box-shadow:inset 0 1px 0 #5c4f38, inset 0 -2px 0 #0b0906;border:0;border-radius:2px">THE PIT BOSS IS GONE</span>
+      <span class="chip" style="background:#1a160f;box-shadow:inset 0 1px 0 #5c4f38, inset 0 -2px 0 #0b0906;border:0;border-radius:2px">SAVE</span>
+      <span class="chip gold" style="box-shadow:inset 0 1px 0 #f0dcae, inset 0 -2px 0 #6f6142;border:0;border-radius:2px">PHONE</span>
+      <span class="reach"><span class="chip">NOTES</span></span></div>
+  </div></div></div>
+  <div class="say"><b>A word with a line under it instead of a plate.</b> It says "this
+   is mine, not the game's", which is honest, because notes are a tool for you and not
+   a thing in the world. It is also the closest one to what you could not find, so it is
+   the riskiest of the four.</div>
+ </div>
+
+ <div class="opt"><h2>AND THE SHAPE IT OPENS INTO &mdash; THREE</h2>
+  <div class="tiny">1. A SHEET THAT SLIDES UP FROM THE BOTTOM</div>
+  <div class="shot"><div class="phone"><div class="game">
+    <div class="sheet"><h3>NOTES &middot; DAY 1 06:00 &middot; SUBURB &middot; AT 14,9</h3>
+      <div class="well">the car looks like dogshit</div>
+      <div class="row"><button class="k hot">SAVE AND KEEP PLAYING</button>
+        <button class="k">CLOSE</button><button class="k">COPY ALL</button></div>
+    </div>
+  </div></div></div>
+  <div class="tiny">2. A CARD OVER THE MIDDLE, THE GAME BEHIND IT DARK &middot; THIS IS THE ONE THAT SHIPPED</div>
+  <div class="shot"><div class="phone"><div class="game">
+    <div class="full"><div class="card">
+      <h3 style="margin:0 0 4px;font-family:var(--face-casing);font-size:9px;letter-spacing:2px;color:#d8b45a">NOTES</h3>
+      <div class="tiny" style="padding:0 0 7px;color:#8d7c5e">BUILD 9/21 &middot; HUMAN / SUBURB &middot; DAY 1 06:00 &middot; AT 14,9 &middot; 92S IN</div>
+      <div class="well">the car looks like dogshit</div>
+      <div class="row"><button class="k hot">SAVE AND KEEP PLAYING</button>
+        <button class="k">CLOSE</button><button class="k">COPY ALL</button><button class="k">EXPORT</button></div>
+    </div></div>
+  </div></div></div>
+  <div class="tiny">3. A RAIL DOWN THE RIGHT, THE GAME STILL VISIBLE BESIDE IT</div>
+  <div class="shot"><div class="phone"><div class="game">
+    <div class="rail2"><h3>NOTES</h3>
+      <div class="well" style="flex:1 1 auto;min-height:0">the car looks like dogshit</div>
+      <div class="row" style="flex-direction:column;margin-top:8px">
+        <button class="k hot" style="flex:0 0 auto;min-height:32px">SAVE</button>
+        <button class="k" style="flex:0 0 auto;min-height:32px">COPY ALL</button></div>
+    </div>
+  </div></div></div>
+  <div class="say"><b>Two ships because it is the one you can read while you are still
+   looking at what you are writing about.</b> The sheet at the bottom covers the thing
+   you are probably complaining about. The rail keeps the game visible but gives you a
+   190 pixel column to type in, which is narrow for a thought.</div>
+ </div>
+
+</div>
+
+<footer>
+ <b>Every plate, key and edge here comes out of the same one file as the loading screen,
+ the fight and the talk panel.</b> Pick a letter for the chip and a number for the shape.
+</footer>
+</body></html>

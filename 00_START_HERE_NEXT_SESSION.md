@@ -1,3 +1,130 @@
+UI (ui-kmqmrf): 9/21 (b) LATEST -- *** [copy notes] SHIPPED. HE WAS RIGHT, AND IT WAS
+NEVER THE SIZE. *** TAB: the top bar of the demo, far right, the word NOTES. Rule 18(f):
+his direct ask, tiny, touches none of the three. Record:
+records/BOHEMIA_THE_NOTES_SECTION_HE_CAN_FIND_9_21_26.md
+
+HIS WORDS: "I still don't see a note section anywhere. A collapsible note section that I
+can copy and paste when I am done playing the demo into you."
+
+*** I SHIPPED IT 9/20 WITH A GREEN GATE AND HE COULD NOT FIND IT, SO THE GATE WAS
+MEASURING THE WRONG THING. *** It checked the mark against a number THIS LANE PICKED (5 px
+of ink) instead of against the only thing that decides findability, WHICH IS ITS
+NEIGHBOURS. Measured on a fresh cut of the demo, every child of #barright:
+
+    #musbtn    MUSIC    83.8 x 12.3   plate yes   ink rgb(216,196,154)
+    #savebtn   SAVE     23.6 x 12.3   plate yes   ink rgb(216,196,154)
+    #phonebtn  PHONE    27.0 x 12.3   plate yes   ink rgb(25,19,8) on gold
+    #notebtn   (pencil) 44.0 x 44.0   plate NO    ink rgb(184,154,106)
+
+IT WAS THE ONLY CHILD OF THAT BAR WITH NO BODY, the only one that was not a word, and the
+dimmest thing up there. A control with no body does not read as a control -- this lane's
+own object law, broken by this lane's own hand, in the file the law is written in. And
+"tiniest" was his word for the FOOTPRINT: the old leg, "its ink is the smallest in the
+bar", is satisfied perfectly by something invisible, which is exactly what shipped.
+
+WHAT SHIPPED.
+  THE WORD, ON THE PLATE SAVE WEARS. #noteplate joins the skin's ONE control rule rather
+  than getting a private copy of the look, so it can never drift away from SAVE again. It
+  reads NOTES, and NOTES 3 once he has three, because a number beside it is the only proof
+  from outside the box that what he typed went anywhere.
+  THE 44 REACH STAYS, AND THE FAR RIGHT IS THE ONE SLOT IN THAT BAR WHERE IT IS FREE. This
+  file already measured that a 44 pad on a chip lies across its NEIGHBOUR and makes a tap
+  do the wrong thing, which is why the pads are off everywhere else and the chips are 12 px
+  tall. The last chip has the bar's own edge on one side and nothing under it, and that is
+  exactly where he asked for it. The gate proves the no-theft by asking the page who owns
+  each neighbour's centre pixel.
+  IT TOGGLES. His word was collapsible. Tap opens and the game stops; tap the same chip
+  again and it folds away keeping what he typed; gold while open; in the bar the whole play.
+  COPY ALL. The clipboard is the road he asked for and the .txt stays as the second one. It
+  is never a dead button: navigator.clipboard needs a secure context and a gesture and
+  either can be missing, so there is a selection fallback and the chip SAYS which happened.
+  AND COPY ALL SAVES WHAT IS STILL IN THE BOX FIRST. He types a thought, reaches for COPY
+  ALL, and without that the one thought he is looking at is the only one not on the
+  clipboard. Found by reading the order he would actually do it in.
+
+COOKED THIS ROUND (rule 22): slices/BOHEMIA_FIVE_WAYS_THE_NOTES_SECTION_SITS_9_21_26.html,
+registered ui-five-ways-the-notes-section-sits-9-21. The real bar at 390 px: what he could
+not find, beside four ways it could read, plus three shapes for the section itself with the
+shipped one named. A defect in that sheet found by rendering it and LOOKING: the rail
+option's buttons fell out of the phone onto the paragraph below, the option arguing against
+itself for a reason that was mine and not the design's. Clipped and re-laid out.
+
+PRE-PUSH PASS (rule 13): NOTES SECTION 28/0 on a FRESH CUT of the demo (never the committed
+copy, which lags, rule 14a), FIVE mutations proved and each restored -- take the plate off
+-> 1 red, put the bare pencil back -> 2, kill the toggle -> 1, stop COPY ALL saving what is
+in the box -> 3, make the clipboard write silently do nothing while still reporting success
+-> 1 (the read-back, the only leg that can catch a lie). THE NOTES BUTTON 22/0 with its
+findability leg REPLACED rather than deleted: it reads the plate now and asks a different
+question, not "is it the smallest" but "is it exactly the size of the chips beside it". UI
+IS OBJECTS 59/0, VOTE TAB 28/0, PAGES PUBLISH 18/0, HALF SIZE 7/0, CITY RAIL 15/0, PHONE
+OBJECT 18/0, REPLY CONTRACT 17/0, ATTEMPT 15/0, HANDOFF 8/0. SUITE LINE: 107 red at
+ad23d875; mine are NONE.
+
+*** AND [flaky leg] IS SHIPPED IN THE SAME ROUND, because the coordinator's row and my own
+round were the same bug. *** I hit it too (27/1 in a seven-gate batch, 28/0 twice alone) and
+wrote it off as load. It was not load, and it was not the game: THE GATE MADE THE RACE.
+#gearbtn.on is painted by a setInterval, and the cold open is still unwinding when it lands
+-- the NOT NOW tap starts the overlay closing but #openWrap keeps the gear's PIXEL for a few
+more frames. Playwright clicks the CENTRE of the element it is handed, so on the unlucky runs
+the click went into the overlay, settings never opened, and the next line sat on a
+ten-second timer and called the game broken. FACTIONS df8dd14d and WORDS ee5ad2af both
+nearly claimed that red as their own.
+A TIMER IS NOT A SIGNAL. The leg now waits for the page's own answer to the only question
+that matters -- is the gear the thing under its own centre pixel -- then clicks, then waits
+for THE SETTINGS PANEL'S OWN STATE (#setwrap.on) before looking for a child of it to become
+measurable. Same shape as the driver's clearAxis, which exists for exactly this reason (rule
+14g, trap 6), reused rather than reinvented. The ten-second timeout is gone.
+AND THE FIRST RUN AFTER THAT FIX WAS STILL RED, WHICH IS WHY THE FIX IS NOT THE WHOLE
+STORY. The #setvote leg passed; a DIFFERENT leg had gone red in the meantime, on main,
+from another lane: DIRECTION registered its round-3 fight verdict (370820aa) with
+kind "verdict", which was not in my allowed-kind list. I nearly read one red as the other.
+I added the kind rather than bouncing the row. Every other kind in that list is a
+CANDIDATE he picks between; a verdict is a CALL he agrees with or does not, which is a
+real difference and a real thing to ask him. The tab already rendered it, so the only
+thing standing in DIRECTION's way was a word in my list. The registry's own readme
+carries the same list and was updated with it, so the next lane does not have to guess.
+
+AND FOUR LEGS WERE ADDED BEFORE THIS SHIPPED, because half the row was about to go out
+proved by READING. The row says the control is there "on every screen of the demo" and I had
+only ever tested the walking screen. The bar has no mode-dependent hiding rule and #barright
+is display:flex unconditionally, so the file SAYS the chip survives the seam. The gate
+crosses it now the way a thumb does, one squeeze, and asks the page again: mode really became
+city, the chip is still in the bar, it still says NOTES, a thumb still reaches it. It does.
+I did not know that until I looked.
+
+ONE LEG OF MY NEW GATE WAS WRONG ON ITS FIRST RUN and is in the record rather than quietly
+fixed: the no-theft check reported devbtn -> DIV as a stolen centre. #devbtn (TOOLS) is 0x0
+in the demo, and a zero-size element's centre is a point in the bar itself. A control nobody
+can see is not a control anybody can mis-tap.
+
+*** THE THING THIS ROUND IS ACTUALLY ABOUT. *** Twice now this lane has shipped something
+with a green gate that did not do its job for him, and the pattern is identical both times:
+THE GATE MEASURED THE THING AGAINST A NUMBER I CHOSE INSTEAD OF AGAINST THE WORLD IT LIVES
+IN. 5 px of ink was a true number and a useless one. The honest question was never "how big
+is it" but "does it look like the other controls", and that can only be asked by measuring
+the other controls.
+
+*** FOR PAGES, AND THIS IS NOW A RED ON CLEAN MAIN, NOT A WARNING. *** The published
+surface is 261 MB against a 260 MB cap. SOUNDS named it first (cb4214e7). MEASURED WITH AND
+WITHOUT MY DIFF: 261 MB both ways, so it is not mine, and my one new sheet does not move the
+number at all. But main is red and every lane is pushing into it.
+WHERE THE MEGABYTES ARE, measured rather than guessed: slices 152 MB, engine 5 MB,
+records/target 107 MB -- and 303 PNGs inside records/target make 105 MB of that 107.
+WHY THAT FOLDER IS PUBLISHED AT ALL IS A VOTE-TAB DECISION, WHICH MAKES IT MINE TO NAME:
+the registry's own readme says it lives in records/target/ "because that is one of the three
+folders GitHub Pages publishes". So 105 MB of reference screenshots -- his frames, art
+proofs, tileforms -- are shipped to the live site so that a 40 KB JSON and a handful of vote
+images can be fetched. Nobody's browser will ever ask for the other 105 MB.
+THE FIX IS ONE LINE OF ARCHITECTURE, NOT A CLEANUP: publish records/target/vote/ and the
+registry, not the whole folder. That is _config.yml AND the workflow's copy list together
+(pages_publish_gate binds them so neither can drift), which is a shared file other lanes are
+in the middle of, so I am NAMING it and not touching it in a round where I have already
+shipped two rows. It is small and it buys back about 100 MB. PLUMBER or the coordinator.
+
+NEXT: [cook panels] is the standing rule-22 row and is OPEN again. [three d ui] still has no
+gate of its own. The VOTE tab still does not LIST his notes (a page cannot write a repo
+file, so that is a hand at a keyboard). [no slop] stays CLAIMED with the map key's 32 swatch
+edges and the dead-declaration debt, both written up in the 9/18 record.
 SOUNDS (sound-xk7pjp): 9/21 (b) LATEST -- *** COOKED, RULE 22: THREE SOUNDS, ALL THREE IN THE
 VOTE TAB, AND THE CHECKER IS DELIBERATELY THE SMALL PART. *** Row [cook sounds] stays CLAIMED.
 Record: records/BOHEMIA_THREE_SOUNDS_9_21_26.md  Gate: COOKED SOUNDS 27/0, mutation bites 8.
@@ -1869,101 +1996,97 @@ it is player-facing at all is worth deciding before restyling it. The source cou
 now understood as dead-declaration debt and can be swept file-wide in one pass instead of
 being chased surface by surface.
 
-RUN (run-eak241): 9/20 LATEST -- *** [one camera] SHIPPED. HE ZOOMED OUT AND GOT BIGGER,
-AND HE WAS RIGHT: THE BODY DREW 112/56/112/224 ACROSS THE FOUR STOPS. ONE STOP NOW, ONE
-SIZE, AND A STRIDE THAT STOPS AT A GAP INSTEAD OF STEPPING OVER IT. TAB: RUN (and CITY,
-the same walked world). BUILD 9/20c. Nothing to judge. Rule 18(e): the link is NOT sent. ***
+RUN (run-eak241): 9/21 LATEST -- *** [no pop ups] SHIPPED, BOTH HALVES. ON THE BUILD HE
+HAS, FIVE MINUTES FROM THE DOOR, 544 PRESSES ON THE PAD MOVED HIM ZERO CELLS, because the
+first card of the game opened at 2.5 s and never went away. Zero cards now, zero dead rows,
+and his presses reach the world. TAB: RUN (and CITY, the same walked world). BUILD 9/21a.
+Nothing to judge. Rule 18(e): the link is NOT sent. ***
 
-BOTH HALVES OF HIS 9/20 COMPLAINT WERE THIS LANE'S OWN REGRESSIONS, b40ecc67 and a36b4222,
-both shipped green four rounds ago. Saying that first because it is the finding.
+HALF ONE -- THE CARDS THAT OPEN THEMSELVES. Served demo, phone profile, five minutes, cards
+deliberately NOT cleared because a stranger has no harness to clear them, nothing tapped but
+the pad:
 
-RULE 18(c), WALKED BY HAND BEFORE THE PUSH. Served demo, phone profile, real taps on the
-real eight-wedge pad, same circuit of his own block, d71e8dde against this tree:
+    ONE card opened by itself, at 2.5 SECONDS. IT NEVER WENT AWAY.
+    544 presses over five minutes moved him ZERO CELLS.
 
-                            BEFORE          AFTER
-  body across the 4 stops   112/56/112/224  ONE SIZE
-  body across the drop-in   3 rungs         ONE SIZE
-  a real pinch              stop 11 -> 88,  cannot find a second stop
-                            body 224 px
-  STUCK PRESSES             12 of 40        0 of 45
-  GAPS WALKED PAST          14              0
-  cells crossed             410             685
-  stride length             14.6            15.2   (ceiling 25)
+The demo was unplayable from the first frame. That is not new information in this building:
+it is the #daycard inset:0 bug PLUMBER has carried on THIS LANE'S OWN ROW for three rounds
+-- "it sits over all eight direction buttons on boot" -- and everybody, me included, read it
+as an instrument problem. It was the game. Every walk number this fleet has ever quoted came
+from a harness that cleared a card Paolo cannot clear.
 
-THE CAMERA. A body is sized by whether a lot fits on the glass; a lot is 25 cells and a
-phone is 378 px, so that flips true only at the widest stop -- which is why two notches
-HALVED him and the last one DOUBLED him back. Worse, HC is ANIMATED by the mode transition
-(48 down to 11), so the body changed rung THREE TIMES while dropping in and nobody had
-looked. The walk now has ONE stop, the one where a house fits (rule 16); pinching out
-crosses the seam exactly as the 8/2 ruling already said; pinching in holds. HLEVELS is NOT
-deleted -- it is the ART ladder the bake and the character rungs are cut against, and
-conflating it with the ladder his fingers move on is precisely what shipped the resize.
+THE RULE IS AT THE ONE DOOR, NOT IN THE EIGHT CALLERS. Every panel comes through cardShow, so
+a card opens only if its caller NAMES A REASON -- a sentence and not a boolean, because a
+boolean lets the next lane write true and move on. Refusals are kept in CARDS_REFUSED rather
+than swallowed. A forced card added tomorrow goes red in a gate instead of going to him.
+ - THE MORNING and THE NIGHT go to THE PHONE, which is where rule 19a sends them: 10 lines
+   under THIS MORNING, the chip rings, and the phone slice really renders it. Nothing he was
+   told is deleted. The offer's yes is untouched; it never lived on that card.
+ - THE ROAD DIRECTOR does not fire a moment with no body AT ALL, decided BEFORE anything is
+   spent -- the old order charged the minutes and took the salvage FIRST, so merely refusing
+   the card would have left him paying ten minutes for a thing that never happened. A forced
+   contact still starts a real fight with real bodies. THE TABLES STAY (19e).
+ - THE DAY STILL TURNS. SLEEP was the ROLLOVER as well as a button; the night turns by itself
+   now, measured 1 -> 2 with no card to dismiss.
+ - ONE FORCED CARD KEPT AND NAMED, not hidden behind the word "asked": THE ENDING. It is the
+   game finishing; nothing is interrupted and the phone does not exist after the last day.
 
-AND THE BODY HALF IS CHARACTER'S, NOT MINE, AND THEIRS SHIPPED. We both measured the same
-defect in the same round and both reached for bodyLadder. CHARACTER's BODY_FIXED is simpler
-and lands further -- in the walked world the body is a CONSTANT and no camera can reach it
-at all -- so at the merge I DROPPED MINE rather than keep a second opinion about one
-number. ONE SYSTEM, ONE SESSION. My lotFitsOnScreen is left uncalled and unchanged and must
-not be re-wired to the body.
+HALF TWO -- THE CARDS THAT DO NOTHING WHEN TAPPED (Paolo 9/21, the third time). Every row of
+every reachable card, real touches, ONE PAGE PER CARD: 16 of 16 rows alive, 0 dead. The one
+real dead press was the MARKET: HE HAS ZERO BATTERIES, food and meds cost one each, so
+pressing FOOD ran the whole buy, got CANNOT_AFFORD and redrew the card saying exactly the
+sentence it was already saying. A row he cannot buy now keeps its place and its price, loses
+its data-act so a tap cannot reach the dispatcher, and says "you have no batteries, this is
+one battery". That is this file's own idiom (the offer's yes), not a new one.
 
-THE STRIDE. A lot is 25 cells and the way through a fence is two, so the stride stepped
-over the only opening on the block and landed past it, every time. PHOTOGRAPHED off the
-game's own walk flags at the cell the first walk jammed on, 6270,6268, nineteen dead
-presses in a row, every one east:
+*** AND MY INSTRUMENT LIED TWICE BEFORE IT TOLD THE TRUTH ONCE: 12 dead -> 3 -> 1 -> 0, and
+THREE OF THOSE FOUR NUMBERS WERE THE TOOL. It compared text, so nine feedback rows that
+answer by GOING LIT read as dead. Then it tested four cards in one page and called the
+ending's close dead -- an isolated probe closed it on the first try with the click landing on
+the right element. A CARD IS NOT ISOLATED BY REBUILDING THE CARD, IT IS ISOLATED BY A FRESH
+PAGE, so each card gets its own boot now. ***
 
-      . . . . . . . # . . . .
-      . . . . . . @ # . . . .      @ him   # wall   . standable
-      . . . . . . . # . . . .
-      # # # # # # # # . . . .
-      . . . . . . . . . . . .
+NUMBERS, 74ce272a -> this tree:
+    cards that opened by themselves    1  ->  0
+    still on screen at 5:00            1  ->  0
+    CELLS HE COVERED                   0  ->  52
+    dead rows on reachable cards       1  ->  0  (of 16)
+    the morning's words         on a card ->  10 lines on the phone
+    the day turns without a button    no  ->  yes (1 -> 2)
 
-A wall ONE CELL THICK with the whole world open one cell behind it. TWO RULES: NEVER PAST A
-GAP (the stride ends in the mouth of any side that was closed one cell ago and is now open;
-in open ground nothing new opens, so it costs nothing where there is nothing to miss), and
-A PRESS TOWARD A WALL SLIDES ALONG IT (a diagonal keeps the open component; a straight
-press slips the corner, and failing that looks along the wall face for its end, one lot each
-way, nearer wins). One slide per press, never a chain. A body holding a cell against him is
-a ruling the street made and is never slid around. THE LOT IS THE CEILING, THE GROUND SETS
-THE LENGTH.
+AND 52 IS NOT A GOOD NUMBER EITHER. That walk presses east and only east, into the sealed
+yard this lane already handed over. The walk AROUND the block is 685 cells in 45 presses,
+unchanged. 0 -> 52 proves his presses reach the world; it does not prove his block is walkable.
 
-THE GATE, AND THE PART OF IT WORTH READING: gates/the_walk_never_misses_gate.js, WALK NEVER
-MISSES, 19/0. THE FIRST CUT OF IT REPORTED 19 STUCK PRESSES AND WAS WRONG -- it was hammering
-one sealed back yard, and a game that refuses to walk into a building is a game working.
-Calling that a stride bug would have sent this lane chasing a fix for a wall. So a refused
-press is now judged by an INDEPENDENT FLOOD FILL over the game's own walk flags, one lot
-out: is there any cell I can reach that is further the way I pressed? The stride's slide
-scans wall FACES; the oracle FLOODS; they cannot agree by construction. MUTATION: the
-pre-fix tree IS the mutant, 9 passed / 10 failed.
+GATE: NOTHING POPS UP, 16/0, and it holds both halves. MUTATION: MAIN IS THE MUTANT, 4 passed
+/ 11 failed, including the zero cells measured independently.
 
-ZOOM SEAM GATE, ONE LEG AMENDED AND NOT LOOSENED: "44 stays 44" was a consequence of a
-four-stop walk, never the ZOOM LEVEL LAW, which protects zero fractional art scaling. It now
-asks the law's real question -- wherever the camera lands, is it one of the four pixel-true
-stops -- and the one-stop rule itself is held with real gestures by WALK NEVER MISSES.
+TWO GATES RE-AIMED, NEITHER LOOSENED, AND ONE WAS MINE: FIRST MINUTE read the dead wake card
+for its words and asks the PHONE now (same question, moved surface). MY OWN WALK NEVER MISSES
+slept a flat 340 ms per press and read 19/0 alone against 17/2 inside a gate pass -- SAME
+TREE, TWO VERDICTS -- so it polls for the beat now and reads 19/0 under the load that made it
+red. I nearly reported a regression that was my own stopwatch, which is PLUMBER [cold read]'s
+shape exactly.
 
-[PENDING nobody, FOR WHOEVER OWNS THE GROUND -- WORLD or LIFE+CITY, NOT RUN]: FIVE PRESSES
-ON HIS OWN BLOCK GO INTO GROUND A BODY CANNOT REACH (6270,6268 and 6270,6270 among them).
-Same shape as the finding this lane already carries: his block has 45 doorsteps and 0
-straight walkable ways out. The suburb generator seals yards. It is not the stride and it is
-not the camera, and this round did not touch it.
+[PENDING nobody, FOR WHOEVER OWNS THE GROUND]: his own block has 45 doorsteps and 0 straight
+walkable ways out, and five presses on it go into ground a body cannot reach. It is why FIRST
+MINUTE's two carried reds say "nearest way out NONE in 140". Measured identically on 74ce272a,
+so it is not this round's.
 
-CARRIED RED, MEASURED BOTH WAYS SO IT IS NOT MINE: FIRST MINUTE 7/2 on d71e8dde and 7/2
-here, same two legs, same numbers ("nearest way out NONE in 140") -- it is the sealed-block
-finding above wearing a different gate's name. NAMED AS A FLAKE, ALSO NOT MINE: ZOOM SEAM's
-"zooming back in puts him on his feet" leg fails 2 of 3 on d71e8dde on an idle box; it is a
-quarantine candidate for PLUMBER, not a regression.
+[PENDING nobody, FOR ECONOMY]: HE HAS ZERO BATTERIES ON DAY ONE and the market's whole shelf
+costs one each, so nothing on it can be bought in the demo. I made the rows honest rather than
+dead, which is rule 14(d)'s "deliver it or remove it" answered the cheap way. Delivering it is
+somebody's ruling about where the first battery comes from, and it is not mine.
 
-COST NAMED, BECAUSE IT IS REAL: HE CAN NO LONGER ZOOM IN WHILE WALKING. There is one street
-view, and the way to look closer is to go and stand there. That is the price of a body that
-never changes size, and the row asked for it in those words.
+NEXT, IN ORDER: [land on it] -- LIFE+CITY c4e08b82 measured a full stride overshooting a place
+nearer than a stride and ping-ponging (his door to the road 21 cells away: 21 presses one cell
+at a time, 60 presses and NEVER ARRIVES with a full stride). The default to measure and
+correct: a stride crossing a CHANGE OF GROUND toward the press stops on the first new kind of
+ground. Then [horror loading] and [loading screen] part two, still the eighty seconds after
+the tap (the city iframe is built lazily INSIDE the click handler). [fast travel] stays
+CLAIMED and paused under rule 18.
 
-NEXT, IN ORDER: [no pop ups] is now the first line of this lane (Paolo 9/20, twice in a row,
-the SNATCHER card is the second frame of the game) and it beats the queue. Then [loading
-screen] part two, which is still CLAIMED and still the eighty seconds after the tap -- the
-city iframe is built lazily INSIDE the click handler, so the heavy work happens with his
-finger already down. [fast travel] stays CLAIMED and paused under rule 18. Rule 18(d), what
-regressed gets reverted by RUN once EYES [best cut] ranks the cuts, is not started.
-
-RECORD: records/BOHEMIA_ZOOM_OUT_AND_HE_DOUBLED_9_20_26.md
+RECORD: records/BOHEMIA_FIVE_HUNDRED_PRESSES_AND_HE_NEVER_MOVED_9_21_26.md
 
 --------------------------------------------------------------------------------
 WORDS (words-8dqrnq): 9/18 LATEST -- *** Q5 [refusing answers] SCHOOL DONE, ROUND ONE OF TWO.
@@ -3030,6 +3153,68 @@ rom face 14/0, feed 15/0, alpha loads 20/0, readable ruler 7/0. THE SUITE LINE s
 full suite unmeasured since 7efb22cf. Rule 14(a): demo untouched, RUN cuts it.
 
 Record: records/BOHEMIA_ONE_DOOR_9_14_26.md
+
+PLUMBER (plumber-ont6t5): 9/22 LATEST -- *** CHAT 18. ROUND 33. [bimodal dead] SHIPPED, AND THE ANSWER
+IS THAT THERE WAS NEVER A BUG: THE THIRTEEN DEAD PRESSES WERE A FIGHT STARTING. ***
+WHAT WAS OPEN: my own ratchet measured dead presses seven times on ONE UNCHANGED TREE and got 0, 1, 1,
+1, 13, 14, 0. Bimodal, not noisy. I could not find the cause, left the number deciding nothing, and said
+so. Right call at the time, a debt either way: the ratchet was holding the easy numbers only.
+THE HUNT, AND TWO WRONG GUESSES KILLED BY MEASUREMENT.
+  The clue nobody chased: a bad run covered the SAME cells (53-54) in far fewer moves, so each move was
+  bigger. That smells like a mode.
+  GUESS ONE, A MODE: WRONG. One boot, 56 presses, status line read every press -- it never changed from
+  "HUMAN MODE SUBURB ON FOOT". But the run showed what the seven-run summary had hidden: he moved for
+  ELEVEN presses and then stopped for the remaining forty-five. Not bimodal per run. A progressive stop.
+  GUESS TWO, SOMETHING OVER THE PAD: WRONG, but it found the signature. The city frame said "nothing" on
+  top of the pad from press 9 on, and the button's box had collapsed to 0x0 AT THE ORIGIN while its own
+  computed display stayed "inline" -- the signature of a hidden ancestor, not an overlay. Then a run
+  where the geometry was perfect throughout and nothing moved from press 0. Two shapes meant I was still
+  looking at the wrong thing.
+*** THE ANSWER, BOTH DOCUMENTS, FRESH GEOMETRY EVERY PRESS ***
+    press 8   moved 8   frame 390x844   btn 333,760 30x20   parentTop: cityFrame
+    press 9   moved 0   frame   0x0     btn   0,0    0x0    parentTop: combatFrame
+A FIGHT STARTED. The city frame collapses because the game switched to the combat frame; the pad has no
+box because the city is hidden; his cell stops changing BECAUSE HE IS FIGHTING, NOT WALKING. No fight
+inside 24 presses reads 0-1 dead, a fight near press 10 reads 13-14, and cells covered is the same
+either way because he walks the same distance before it finds him.
+MY INSTRUMENT WAS COUNTING "THE GAME GAVE HIM A FIGHT" AS "THE PAD IS BROKEN". A ratchet built on that
+would have refused pushes for the game doing the exact thing rule 17(b) asks: the walk ends in the fight.
+WHAT IT FIXED, AND IT CLOSED A SECOND ROW FOR FREE:
+ 1. The walk STOPS when the fight starts, so dead presses count only presses made while the city was up.
+    After: 24 of 24 moved where he aimed, 3/3 in every one of the eight directions, zero wall, zero
+    wrong. The number holds still, SO IT IS SCORED AGAIN.
+ 2. THE FIGHT IS IN THE VERDICT NOW, which is the gap [never worse] named and left open. Last round it
+    drove cityEncounterIn and reported NOT REACHED because that function is not exposed on this cut. IT
+    NEVER NEEDED A DOOR -- the walk meets a fight on its own around press 9 of 24. Rule 17(b) wanted the
+    ratchet to include that frame and it does, off the real encounter the world produced. A met fight
+    and a forced fight are not the same claim and this is the honest one. A combat frame that draws no
+    canvas still reports not-reached, because "reached" off a blank frame is this instrument's oldest
+    mistake in a new place.
+TWO MORE NUMBERS THAT COULD NOT HOLD A BAR:
+  FREEZES. Five walks of one tree: 517, 633, 1167, 550, 1800 ms -- 3.5x, and a bar from three refused
+  the fourth. The same five as a COUNT: 1, 3, 1, 1, 2. The count is what a player notices ("it stuck
+  twice") and it is the one that holds still, so THE COUNT DECIDES and the ms ride along on the report.
+  TIME TO TAPPABLE. Across this session on one tree: 424, 431, 448, 457, 567, 675, 771, 832 -- a 1.96x
+  spread, AND THE CPU YARDSTICK CANNOT SEE IT (1.00x when the bar was taken, 1.01x when the same tree
+  read 832), because load time is disk and memory, not CPU. I did NOT widen the tolerance: 2.2x would
+  have let a real regression to 900 ms through. A REALISTIC BAR WITH A TIGHT TOLERANCE BEATS AN
+  OPTIMISTIC BAR WITH A LOOSE ONE, so accepting now takes FIVE walks and pins the worst.
+  The accept guard was narrowed to match: it refuses a cut whose COUNTS went the wrong way and merely
+  notes a wall clock that did, because refusing there would make the bar impossible to re-take on a slow
+  afternoon, which is its own way of turning the ratchet off.
+THE BAR NOW, worst of five walks: tappableMs 831 (694/831/726/738/761), freezes 3 (1/3/1/1/2),
+aimedWrong 0, cellsCovered 52 (66/59/59/52/85), deadPresses 3 (0/0/0/0/3), pageErrors 0.
+BOTH SHIP TESTS RE-RUN: honest cut NOT refused, everything better or same (exit 0); planted regression
+REFUSED, tappableMs 831 -> 3116 allowed 1122 (exit 1).
+NOT FULLY EXPLAINED AND SAID SO: one of the five accept walks read 3 dead presses where the other four
+read 0. The bar carries the 3. It is far from the old 13-14 and it is not zero, and I am not claiming
+the last of it is understood.
+STILL OPEN IN MY SECTION: [horror gate] (rule 20h, with DIRECTION), [mode chip], [suite line] (the front
+page's SUITE LINE is still 9/14 ad23d875 and is over a week stale), [pre-push pass], [cannot fail],
+[one way rulers], [spelling gates], [suite runs], [fight headroom], [slim build], [dead gates],
+[handoff cut], [backlog archive]. Still CLAIMED: [never worse], [sixty fps], [demo errors] (STANDING).
+Record: records/BOHEMIA_THE_BIMODAL_NUMBER_WAS_A_FIGHT_9_22_26.md
+[PENDING Paolo] nothing.
 
 PLUMBER (plumber-ont6t5): 9/21 LATEST -- *** CHAT 18. ROUND 32. TWO ROWS SHIPPED: [cold read], which was
 MY OWN RATCHET CRYING WOLF AT ANOTHER LANE, and [cook gate], Paolo's rule 22e. ***
@@ -5016,6 +5201,110 @@ ALSO STILL OPEN, not draw order: on NE in his own frame
 the right of the shoulders with a visible gap. That is the pose too.
 
 Nothing [PENDING Paolo].
+PEOPLE (people-7h9sfy): 9/21 (c) LATEST -- *** [horror crowd] SHIPPED dcd19275.
+YOUR STREET DRAWS THE SAME CROWD AT BREAKFAST AND AT BEDTIME. *** Row
+A-CROWD-THAT-STANDS-TOO-STILL, rule 20(h), school under the rule 18 hold, with
+the RULE 22 cook riding beside it.
+
+*** THE ROW'S THREE THINGS ARE ALREADY TRUE, AND THAT IS WHY THE CROWD IS NOT
+FRIGHTENING. *** Measured on the alpha over three frames, off the game's own
+list of who was drawn:
+  bodies drawn                     6, 6, 6
+  bodies that ever turned a head   0 of 6
+  directions on screen             5 of 8, scattered, not one stuck value
+  anybody watching him             0 (only an enemy may watch, and none was near)
+  the screen that moved            0.5% against the bible's 10% ceiling
+THE LONG HOLD (bible R3) PASSES BY FIFTEEN TIMES, and the gate now holds that
+too so nobody "fixes" the stillness. The bible's own R1 says what stillness
+alone is worth: "Two wrong things is a haunted house; zero is a screenshot."
+There is no wrong thing in this crowd. It is a screenshot.
+
+*** SO THE ROUND WENT TO THE ONE RULE THAT FAILS, R7, THE LIT STREET WITH NOBODY
+HOME: "a crowd thin where it should be thick. DRAWN FROM WORLD DATA, NEVER
+FAKED. The wrongness traces to a real world-state row." *** Walking the game's
+own clock through the day and asking its own schedule, census 61:
+
+  hour        3am   7am  10am   1pm   5pm   8pm  11pm
+  outside       0    10    41     3    40     4     2
+  drawn         3    24    23    20    23    24    15
+
+THE WORLD SWINGS FORTY-ONE TO FOUR AND THE SCREEN DRAWS TWENTY-THREE AND
+TWENTY-FOUR. Ten in the morning and eight at night are the same picture. The
+curve underneath is good: a real two-peaked commute out of real schedules, out
+in the morning, home at lunch, out again at five, inside by eight. Nobody has to
+build it. The screen simply never finds out.
+
+AND THE CAUSE IS NOT A BUG, WHICH IS THE PART THAT MATTERS FOR WHOEVER PICKS
+THIS UP. The crowd he sees is __THE_STREET_IS_NEVER_EMPTY__, the 9/7 borrow.
+Measured both ways in one probe, nothing committed:
+  ten in the morning   41 outside in the world, the world itself puts 2 of them
+                       on his screen, the borrow makes it 23
+  eight at night        4 outside in the world, the world puts 3, the borrow
+                       still makes it 24
+At the busiest hour of the day the honest street is TWO PEOPLE. That is why the
+borrow exists and the 9/7 record already did the arithmetic (9 cells of sight
+covers 361 cells against a 12.8 million cell window, about 2%). THE DEFECT IS
+NOT THE BORROWING. IT IS THAT THE BORROW CARRIES A FIXED NUMBER INSTEAD OF THE
+NUMBER THE WORLD EARNED. Fix that and R7 is satisfied for free in both
+directions: busy at ten, and at eight you walk the street you walked this
+morning and nobody is on it.
+
+RULE 18 OBSERVED, AND THE GATE HOLDS IT: nothing was changed on the play
+surface. The borrow is another lane's code and this row is school; it and the
+facing rule are untouched, and nothing in this round writes a crowd count into
+the walked city. The probe that switched the borrow off lived inside one browser
+session and was never committed.
+
+THE RULE 22 COOK, IN THE VOTE TAB: "THE STREET AT THREE HOURS"
+(slices/BOHEMIA_THE_STREET_AT_THREE_HOURS_9_21_26.html). Five real frames off
+the glass, nothing drawn by hand: eight at night both ways, ten in the morning
+both ways, and three in the morning, which is ONE file because the borrow
+changes nothing when nobody is out. A second identical picture would have been a
+comparison that cannot fail, so the page says it out loud instead. The day is
+counted beside them and the page argues the other side too: at ten in the
+morning nobody is asking for the honest street. Three ways to go, and B is
+leaving it exactly as it is.
+
+SEEN WITH MY EYES IN THE 8PM FRAME, NAMED NOT ACTED ON: four bodies standing in
+one clump at the bottom, three of them in the same tan coat, and the same
+brown-haired woman in a white top drawn three times in one frame. A CROWD MADE
+OF COPIES is the other half of why twenty-four people read as filler rather than
+as a city. CHARACTER owns the wardrobe spread; the clumping is rule 21's stated
+cost (the person does not zoom, so at far zoom bodies on neighbouring cells
+overlap).
+
+AND ONE FOR WHOEVER OWNS THE PUBLISH CAP: THE PUBLISHED SURFACE IS ALREADY OVER
+IT ON CLEAN MAIN, 261 MB against 260, measured in a throwaway worktree off
+origin/main before any of this existed, so that red is not this lane's and SOUNDS
+named it first. Five full-colour frames would have taken it to 262, and making
+somebody else's red worse is still making it worse, so they were quantised to a
+128-colour palette: 0.89 MB to 0.18 MB, indistinguishable on the glass, surface
+back to 261. That was 0.7 MB found in five files and nobody has swept the rest of
+slices/vote the same way.
+
+THE GATE: gates/horror_crowd_gate.js, driven on the ALPHA, in the suite as
+HORROR CROWD. Negative-controlled, each put back: make the evening pair the same
+frame twice and give 3am a duplicate, 2 red; drop the leave-it-alone option and
+call the borrow an obvious mistake, 2 red.
+
+NEXT: this lane's queue is EMPTY of OPEN rows. Everything the coordinator has
+written for PEOPLE is shipped except the five still held behind the playable cut:
+[walking companion], [weights shape], [rumours travel], [creditor stands],
+[somebody hires you]. RULE 22 binds every round from here: one real person made
+and registered in the VOTE tab, every round, with the measuring beside it and
+never instead of it.
+
+[PENDING Paolo], carried, none of them blocking: when a person dies of old age;
+how many game days is a year; who you marry; what a long injury costs to treat;
+the 82-row deed table. Named for other lanes: the two cards stacked at his door
+are RUN [no pop ups]; the crowd of copies is CHARACTER's; the publish cap is
+whoever owns it, red before this round; DERIVED FRESHNESS wipes its own overlay
+with git clean so it reds on any uncommitted work, which is PLUMBER's. AND ONE
+MORE, FOUND WHILE GATING THIS ROUND AND LEFT ALONE BECAUSE A LANE FIXES ITS OWN
+ROW: the VOTE TAB gate is red on clean origin/main because
+direction-fight-verdict-round-3-9-21 carries kind "verdict", which is not one of
+the kinds that gate allows. One word in one field, DIRECTION's.
+
 PEOPLE (people-7h9sfy): 9/21 (b) LATEST -- *** [a name] SHIPPED b09052a2. THE
 NAMES WERE ALWAYS THERE AND THE ONLY DOOR TO THEM WAS A BUTTON ON A CARD. ***
 Row THE-PERSON-AT-HIS-DOOR-HAS-A-NAME, inside [face at the door], which is rule
@@ -12768,7 +13057,82 @@ walk census). Then [music owned] THE-MUSIC-ITSELF.
 
 ------------------------------------------------------------------------
 
-LIFE + CITY (city-1eztay): 9/21 (a) LATEST -- *** SIX THOUSAND SEALED CELLS WERE THIRTEEN. THE WINDOW
+LIFE + CITY (city-1eztay): 9/21 (b) LATEST -- *** COOKED: THE BATTERY SHED, IN THE VOTE TAB. AND THE
+LOT THAT TURNED OUT TO BE A STRIDE. *** MODE: BUILD, held on the play surface under rule 18, COOKING
+under rule 22. Row [one lot number] SHIPPED. Nothing went to the demo.
+
+RULE 22 (Paolo 9/21): "I need to be seeing them cooking up more, every time, not never." He is right
+about this lane too -- the last two rounds were a measurement and a measurement. A making lane makes
+one real thing every round or the round did not happen, and rule 22(a) names this lane's thing: A
+BUILDING.
+
+THE THING: slices/vote/LIFECITY_THE_BATTERY_SHED_9_21.png, in the VOTE TAB as "THE BATTERY SHED, THE
+FIRST BUILDING THAT MAKES MONEY", registry id lifecity-the-battery-shed-9-21.
+The small battery shed a player puts on their OWN lot. Not the grid-scale storage yard, which already
+exists as a district (three fire-lane rows of containers behind a double fence) -- the house-sized one
+this lane has had open as [power buildings]. Footprint 5 x 4 fine cells against a lot of 24, about
+3.8 m by 3.0 m, which is what a household battery enclosure actually is. Batteries are the money, so
+it is the first building in the game that makes the money.
+ ANALOG HORROR AT THE SOURCE, NOT A FILTER (rule 20). The frame is ordinary: a metal shed on a dead
+ lot, gravel, a chained door, a meter on a conduit, a dead pole light, dead brush. ONE THING IN IT IS
+ WRONG and it is the only saturated colour in the picture: THE INDICATOR LAMP IS STILL LIT. Nothing
+ else on the lot has power, the meter needle is stuck, and this box is still working. The only light
+ it throws is the short bloom a real indicator LED throws on the metal beside it, which is AH-01's
+ "the light was in the room". No grime layer, no scanline.
+ REUSE-FIRST: the palette is pulled LIVE out of engine/bohemia_battery.js, the battery district's own
+ canon, so the shed and the big yard are one world; the factory REFUSES TO RUN rather than fall back
+ to invented colours. REFERENCE CHECK cites BLDG-03, BLDG-05, AH-01.
+ AND I DREW IT WRONG FIRST AND COMPARED IT TO THE WORLD. The first cut was a side-on isometric box
+ with a black void above it. The walked city is seen from ABOVE: every building is its roof plus the
+ one wall facing you, and there is no sky in the frame. Redrawn top-down with the ground filling the
+ picture, the way it looks when he walks. Tool: tools/bohemia_battery_shed_factory.py, deterministic.
+
+[one lot number] SHIPPED, AND IT RODE BESIDE THE COOKING RATHER THAN INSTEAD OF IT.
+ANIMATION e764a506 found three live numbers for one lot: LOT_FINE 24, BODY_SCALE.lotFine 25,
+STEP_CELLS 25.
+ *** I TRIED THE OBVIOUS FIX FIRST AND IT MADE THE GAME WORSE. *** Pointing everything at the lattice
+ put all three at 24 and RUN's own THE WALK NEVER MISSES went 19/0 -> 17/2: FIVE STUCK PRESSES and TWO
+ GAPS WALKED PAST on his own block, which is that row's entire ship test. Backed out, not shipped.
+ THERE ARE TWO THINGS AND THREE NAMES:
+   THE LOT     24   what engine/bohemia_suburb.js packs houses on, held by the gate against that
+                    generator on every run
+   THE STRIDE  25   how far one press carries him, RUN's, measured on the walk
+ And the field called lotFine was THE STRIDE WEARING THE LOT'S NAME: its only live reader was the line
+ that sets STEP_CELLS from it (the body is a constant now under CHARACTER [body fixed], and
+ lotFitsOnScreen is uncalled). Renamed strideFine. Nothing moved: 25 is still 25.
+ IS THE LOT 24 OR 25, MEASURED ON THE GROUND INSTEAD OF ARGUED: 54 house-to-house pitches across 15
+ scan lines through the suburb he wakes in. MEDIAN 24. Spread 22 (x8), 24 (x8), 23 (x6), 25 (x6),
+ 26 (x4) -- the models are different widths, which is exactly how a walk of real footprints landed on
+ 25 and NEITHER MEASUREMENT WAS WRONG. 24 is the one with a gate under it.
+ AND MY OWN RENAME BROKE RUN'S GATE FOR ONE RUN: removing lotFine outright made THE WALK NEVER MISSES
+ report "a house fits on the glass (NaN px lot on a 378 px screen)", because other lanes ask this
+ object for the lot. A RENAME IS ONLY HONEST IF THE THING THAT WAS REALLY MEANT IS STILL THERE UNDER
+ THE RIGHT NAME. The lot is back and READS the lattice, and my gate leg is now "no TYPED lot" instead
+ of "no field called lot", which was the wrong rule written in a hurry.
+ FOR RUN, MEASURED AND NOT DECIDED: whether the stride should BE the lot is [one camera]'s call, and
+ it costs five stuck presses at 24 until the stride rules are re-measured at that length.
+
+GATES: WHERE A STEP MAY LAND 39/0 (three new legs for the one lot number), RUN's THE WALK NEVER
+MISSES restored to 19/0 and checked before AND after, THE STRIDE NEVER MISSES, THE WINDOW IS NOT A
+WALL, THE VOTE TAB with the shed registered, ENGINE SYNC, SUITE HONESTY. Full suite: 107 red at
+ad23d875, none mine. RED ON MAIN AND NOT MOVED BY THIS DIFF, checked on a clean copy: REUSE-FIRST and
+REFERENCE CHECK (86 unchecked against a frozen 85, identical on clean main); the new factory carries
+both blocks and passes its own legs.
+
+STILL OPEN AND ANSWERED BUT NOT CLOSED: [sealed yards] asks for every doorstep on his block to have a
+walkable way to the road. Last round measured that: 6,094 "unreachable" cells in a 384-cell window
+were 13 once the window stopped being the wall, and the two cells the row names are his own ground by
+a four-way AND an eight-way flood. The row's ship test can be answered with BOH_LATTICE.reaches, which
+now exists, whenever the coordinator wants it closed.
+
+HELD, under rule 18(b): [horror city] (school), [tiles not slabs], [buildings appear], [power
+buildings], [owner shown], [bill lands], [shelves seen].
+
+Record: records/BOHEMIA_THE_BATTERY_SHED_AND_THE_LOT_THAT_WAS_A_STRIDE_9_21_26.md
+
+------------------------------------------------------------------------
+
+LIFE + CITY (city-1eztay): 9/21 (a) -- *** SIX THOUSAND SEALED CELLS WERE THIRTEEN. THE WINDOW
 WAS THE WALL, AND IT WAS MY OWN WINDOW. *** MODE: BUILD, HELD under rule 18. No row claimed; the
 lane's MODE line directs the round ("measuring your part of loading, walking or the fight"). Nothing
 else shipped, no art, no generation, no movement. Demo not re-cut.
@@ -25082,7 +25446,103 @@ NEW FRONT-PAGE RULE 8 (added 9/13), and it binds this lane: IF YOUR DIFF TOUCHES
 engine/, REBUILD THE TWO DERIVED SLICES (the RUN slice and the demo) IN THE SAME
 COMMIT. PLUMBER found the RUN slice drifting +45/-6 behind two engine ships.
 
-HOLDING: nothing. LAST SHIPPED: [visible change] 9/21 374c27bc.
+HOLDING: nothing. LAST SHIPPED: [block strikes] 9/21 c01a41cb.
+
+*** 9/21 (d) LATEST -- I MEASURED A CITY WITH NO PEOPLE IN IT, AND HELD A ROW FOR
+SIX ROUNDS ON IT. ***
+records/BOHEMIA_WORLD_I_MEASURED_A_CITY_WITH_NO_PEOPLE_IN_IT_9_21_26.md  sha c01a41cb
+Row [block strikes], plus rule 22 (COOK EVERY ROUND). NOTHING ON A PLAY SURFACE:
+rule 18 still holds; the cook went to VOTE.
+
+(1) *** THE BLOCKER WAS NEVER REAL AND THE BAD MEASUREMENT WAS MINE. *** On 9/15
+this lane wrote, on the board and here: "CT_MINDS IS EMPTY AND STAYS EMPTY... the
+picket cannot be counted... THE FIX IS GIVING A BLOCK'S RESIDENTS MINDS, WHICH IS
+09 PEOPLE'S LANE." PLAYER_CV is set by exactly ONE thing, a postMessage of type
+BOHEMIA_CITY_PLAYER from the parent frame, and peoplePass() returns 0 on its
+FIRST LINE when there is no body. So slices/BOHEMIA_CITY_WORLD.html opened on its
+own DRAWS NOBODY -- not the player, not one resident -- and no mind can ever be
+born there. I opened a city with no people in it, concluded the game had no
+people, and handed the row away.
+
+(2) RE-MEASURED ON THE DEMO HE PLAYS, through the one driver (rule 14g), with the
+player's position checked BEFORE any sample is trusted:
+      at the door ............. 2 minds, 6 bodies drawn, PLAYER_CV present
+      walking about 4 seconds .. 25 minds, 9 people known by name
+      on his own block ......... 6 minds
+      his quest corpus ......... 83 deed weights, filled at load
+      a deed in front of them .. witnessed, and it lands in the mind
+THE PICKET WAS COUNTABLE THE WHOLE TIME. And a SECOND instrument fault caught on
+the way: my first walk tapped the MIDDLE of the ring pad, which is not a
+direction, so hx/hy never moved and the mind count never moved, and I was one
+sentence from reading a still player's numbers as a walk. Pressing OFF CENTRE is
+a walk: 2 -> 4 -> 19 -> 22 -> 25. Same family as PLUMBER's player-against-a-wall.
+
+(3) BUILT: engine/bohemia_strike.js, Glasgow 1915 as a mechanism. 25,000 families
+stopped paying and won in nine months and it was never the money, it was THE
+VACANCY: a landlord's cut only works if he can replace you, and he cannot replace
+a door the block is holding.
+
+(4) *** SILENCE IS NOT A NO, AND THAT GAP IS WHERE THE ROW DIED. *** held() has
+THREE answers: HELD, BROKEN, NOT_KNOWN. A block where nobody holds an opinion
+DOES NOT KNOW YOU; it has not decided against you, and collapsing those two
+reports "the strike failed" on day one, forever. NOT_KNOWN does not stop the cut
+either -- a strike you win by not playing is not a strike, so the machinery works
+and the people have to show up.
+
+(5) NO WEIGHT IN THE FILE. A majority is the SHAPE of a picket, not a number
+anybody tuned; the opinions come from bohemia_standing off his own CLOUT_WEIGHTS;
+the price of the light coming back is his ruled ONE, read off PAYOUT, and the
+module REFUSES rather than relighting free when the table is gone. The gate greps
+the code for any number over one and any faction or deed name and finds none.
+
+(6) PROVED END TO END ON THE DEMO: before anyone has seen anything, NOT_KNOWN and
+the cut sticks; four of the block witness a good deed -> HELD, vouch 4 wont 0 ->
+THE CUT STOPS STICKING; two more witness a bad deed -> vouch 4 wont 2, still held.
+
+(7) *** AND A HOLE IN MY OWN GATE, FOUND BY MUTATION. *** I mutated the module to
+let ANY block hold the door and the gate stayed at 33 passed 0 failed. THE
+MAJORITY RULE, WHICH IS THE ENTIRE MECHANIC, WAS NEVER TESTED, because the gate
+only ever built blocks where nobody disagreed. A gate that never builds the case
+it is guarding is a decoration. Both lopsided blocks are now constructed through
+the real standing module and a tie is checked; the mutation goes red.
+
+(8) COOK (rule 22): BohemiaNotice.toQuit(), the paper the man at the door was
+holding. "MOB / NOTICE TO QUIT / PREMISES: FREEWAY 75-5 / GROUND: ARREARS OF 1
+BATTERY / IF POSSESSION IS NOT GIVEN UP THE OWNER MAY APPLY TO A COURT." Every
+other notice in this family points at an office nobody is in; THIS ONE POINTS AT
+A COURT, and the premise of the whole economy underneath it is that there is no
+court. It refuses to issue with no landlord on it, because that is a threatening
+letter and not a notice.
+
+(9) GATES: BLOCK STRIKES 36/0, new, in the suite, stable over three separate runs
+and red two ways (make silence a verdict -> 3; let a minority hold the door -> 2,
+which is the check the first cut was missing). FIRST NOTICE 48/0. VISIBLE CHANGE
+26/0. Pre-push also green: ATTEMPT, ENGINE SYNC, HANDOFF.
+TWO REDS ON THIS TREE AND NEITHER IS THIS LANE'S, measured not assumed:
+  VOTE TAB    red on direction-fight-verdict-round-3-9-21, which uses kind
+              "verdict"; the registry's own readme declares song|face|haircut|
+              outfit|tile|animation|line|ui|redo and not that. Landed in
+              370820aa. All four of this lane's rows use "line". -> DIRECTION.
+  PAGES PUB   red at 261 MB against a 260 MB cap. Re-run with THIS ROUND'S WORK
+              STASHED it still reads 261 MB, so the cap was already breached
+              before this round; my page is 12 KB. -> PLUMBER.
+
+ROUTED: TO PEOPLE, with an apology -- I handed you "give the block's residents
+minds" six rounds ago and you did not need to build it, it already worked. TO
+WHOEVER OWNS THE WALKED CITY: opened on its own that file draws no people at all,
+so every gate that checks it standalone is checking a city with nobody in it.
+OBSERVED BUT NOT CLAIMED AS A BUG, because I could not separate it from a player
+who simply was not standing near anyone: in one sample 12 bodies were drawn and
+the nearest was 11 units away against SEE_RANGE 9, so nothing was witnessed.
+
+STILL OPEN AND NOT SHIPPED, carried from 9/20: the night card says BATTERIES IN
+THE VALLEY: 0 on the first night and announces 3,352 made overnight on the second.
+Fix written down, two lines, both in my own files: count() must not need a
+trigger, and CELLS_LAST must start at the first real reading, not 0. Plus the gate
+fix: battery_worth_gate must read the card COLD. Waits for the hold to lift.
+
+ROWS STILL OPEN IN THIS LANE: [suburb walls], [full shelves], [beltway placed].
+
 
 *** 9/21 (c) LATEST -- A STALE REASON IS A BUG WITH A LONG FUSE, AND THE FUSE WAS
 THIS LANE'S OWN. ***

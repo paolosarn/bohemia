@@ -39749,6 +39749,24 @@ function roadInterrupt(spentSeconds){
   };
   var got = dir.consider(world, spentSeconds);
   if(got && got.fired){
+    /* *** A TEXT PROMPT IS NOT AN EVENT (Paolo 9/20, rule 19e, [no pop ups]). ***
+       His own frame, the SECOND FRAME OF THE GAME: the SNATCHER card -- "a kid comes
+       off your blind side... KEEP MOVING" -- and his words about it: "you don't got
+       quests like that for real... it can't just be these bullshit-ass text prompts."
+       SO A MOMENT WITH NO BODY ON SCREEN DOES NOT FIRE AT ALL, and that has to be
+       decided HERE, before anything is spent. The old order charged the minutes and
+       took the salvage FIRST and opened the card second, so simply refusing the card
+       would have left him paying ten minutes of his day for a thing that never
+       happened -- a worse bug than the card, and a silent one.
+       A FORCED CONTACT IS NOT A PROMPT: it puts real bodies on the street and starts
+       a real fight, which is exactly the thing the law says a moment must have. That
+       path is untouched.
+       THE TABLES STAY. ROAD_WORDS, ROAD_CHOICES and ROAD_COST are not deleted and
+       not emptied. They are content waiting for bodies to say them, which is what
+       rule 19e asks for in those words, and roadCard below is kept whole for the
+       round it gets a mouth. */
+    var _body = (got.kind === 'forced');
+    if(!_body) return { fired:false, reason:'NO_BODY_ON_SCREEN', would:got };
     ROAD_LOG.push(got);
     /* THE INTERRUPTION EATS THE DAY. In minutes, through the clock the whole
        game already spends. */
@@ -39765,7 +39783,9 @@ function roadInterrupt(spentSeconds){
        button on it is a choice pretending it is not. */
     var _fought = false;
     if(got.kind === 'forced'){ try{ _fought = roadContactFight(got); }catch(_e){} }
-    if(!_fought){ try{ roadCard(got, mins, kg); }catch(_e){} }
+    /* and if the contact could not become a fight, it is a prompt again, so it does
+       not get a card either. The refusal at the top is the rule; this is the same
+       rule on the one path that gets past it. */
   }
   return got;
 }
@@ -51182,10 +51202,50 @@ function barkTick(now){
    the body is chosen off THE LOT, and a smaller cell cannot shrink a person.
    IT IS A NO-OP UNTIL RUN'S NUMBER LANDS: with no step constant set, bodyLadder returns
    exactly what it returned before, rung for rung, at every zoom. */
+/* __ONE_LOT_NUMBER__ (9/21, LIFE + CITY, [one lot number]). ANIMATION found THREE live
+   numbers for one lot: BOH_LATTICE.LOT_FINE 24, BODY_SCALE.lotFine 25, STEP_CELLS 25.
+   Rule 16 is ONE constant in ONE place, and the comment right below this one is already
+   about having committed that exact bug once.
+   TWENTY-FOUR IS THE ONE THAT IS MEASURED AND HELD. It is not a median anybody eyeballed:
+   it is the stride engine/bohemia_suburb.js actually packs houses on (widest model 16 m
+   over 0.75 m a cell, plus the gap), and lot_lattice_gate.js reads that generator on every
+   run and goes red if the two ever drift. A number with a gate under it beats a number
+   with a note under it, so the lattice is the place and these READ it.
+   THE READ IS GUARDED, NOT ASSUMED: if the lattice is not loaded this keeps the number it
+   had, because a body that suddenly has no size is worse than a body one cell off. */
 const BODY_SCALE = {
-  lotFine:   25,    /* MEASURED: median lot pitch, fine cells. RUN may overrule with its own */
+  /* __ONE_LOT_NUMBER__ (9/21, LIFE + CITY, [one lot number]).
+     ANIMATION found THREE live numbers for one lot: BOH_LATTICE.LOT_FINE 24,
+     BODY_SCALE.lotFine 25, STEP_CELLS 25. Rule 16 is ONE constant in ONE place.
+     *** THE ROW SAYS PICK ONE, AND THE MEASUREMENT SAYS THEY ARE NOT ONE THING. ***
+     I pointed this field at the lattice, so all three read 24, and ran RUN's own walk:
+     THE WALK NEVER MISSES went 19/0 -> 17/2, five stuck presses and two gaps walked
+     past on his own block, where the whole row's ship test is zero of each. So 24 and
+     25 are not interchangeable and the obvious unification makes the game worse. Backed
+     it out rather than shipping it.
+     WHAT THE THREE NUMBERS ACTUALLY ARE: there are TWO things and three names.
+       THE LOT     24, what engine/bohemia_suburb.js packs houses on, held by
+                   lot_lattice_gate.js against that generator on every run.
+       THE STRIDE  25, how far one press carries him, measured by RUN on the walk.
+     AND THE FIELD BELOW WAS THE SECOND ONE WEARING THE FIRST ONE'S NAME. Its only live
+     reader is the line further down that sets STEP_CELLS from it -- the body is a
+     constant now (CHARACTER [body fixed]) and lotFitsOnScreen is uncalled -- so this
+     number has never been the lot at all. Renamed to what it is. Nothing moves: 25 is
+     still 25, and the one thing that genuinely means the lot now reads the lattice.
+     LEFT FOR RUN, MEASURED NOT DECIDED: whether the stride should BE the lot. That is
+     [one camera]'s call and it costs five stuck presses at 24 until the stride rules
+     are re-measured at that length. */
+  strideFine: 25,   /* RUN's: how far one press carries him. Feeds STEP_CELLS below. */
+  /* AND THE LOT KEEPS ITS NAME, BECAUSE OTHER LANES ASK THIS OBJECT FOR IT. Removing it
+     outright broke RUN's own gate on the next run: THE WALK NEVER MISSES asks for the lot
+     in pixels and got NaN, "a house fits on the glass (NaN px lot on a 378 px screen)".
+     A rename is only honest if the thing that was really meant is still there under the
+     right name, so the lot is here and it READS the one place that holds it. */
+  lotFine:   (function(){ try{ return BOH_LATTICE.LOT_FINE; }catch(_e){ return 24; } })(),
   houseFine: 13,    /* MEASURED: median house footprint, fine cells */
-  bodyLots:  0.5,   /* HIS DEFAULT: "a person stands about half a lot tall at walk zoom" */
+  bodyLots:  (function(){ try{ return BOH_LATTICE.BODY_LOTS; }catch(_e){ return 0.5; } })(),
+                    /* HIS DEFAULT: "a person stands about half a lot tall at walk zoom".
+                       Read from the lattice: it was a second copy of 0.5. */
   /* *** CORRECTED 9/15, SAME ROUND RUN SHIPPED ITS HALF, AND MY WIRE WAS WRONG TWICE. ***
      I wrote this to watch `window.BOHEMIA_STEP_FINE`. RUN named its constant STEP_CELLS
      (3cc9fff2), so my wire was DANGLING -- a second name for one number, which is the exact
@@ -51230,7 +51290,8 @@ const BODY_SCALE = {
   lotFitsOnScreen: function(C){
     try {
       if (typeof MODE !== 'undefined' && MODE !== 'human') return false;
-      return BODY_SCALE.lotFine * C <= cv.width * 0.9;
+      /* __ONE_LOT_NUMBER__: this one really does mean THE LOT, so it reads the lattice. */
+      return BOH_LATTICE.LOT_FINE * C <= cv.width * 0.9;
     } catch (e) { return false; }
   }
 };
@@ -51240,7 +51301,9 @@ const BODY_SCALE = {
    A lot is 25 fine cells and that is CHARACTER's measurement above, not a copy of it:
    twelve suburbs, every footprint walked. Both lanes have already been bitten once by
    a second name for this number, so the stride READS the lot and never restates it. */
-try { if (BODY_SCALE && BODY_SCALE.lotFine) STEP_CELLS = BODY_SCALE.lotFine; } catch (e) {}
+/* __ONE_LOT_NUMBER__: the stride comes from the number named for the stride. This is
+   the only live reader there has ever been, which is how a stride ended up called a lot. */
+try { if (BODY_SCALE && BODY_SCALE.strideFine) STEP_CELLS = BODY_SCALE.strideFine; } catch (e) {}
 /* THE ZOOM LEVEL LAW STILL RULES THE PIXELS: 28 / 56 / 112 / 224 and never a fraction, so
    this picks the RUNG NEAREST the wanted height rather than scaling to it. */
 /* *** ONE FIXED SIZE WHILE HE WALKS. RULE 18 (Paolo 9/20, LOCKED), AND IT OVERRULES WHAT
@@ -55292,7 +55355,49 @@ function updQline(){
 }
 
 /* ---- the cards ---------------------------------------------------------- */
-function cardShow(html,onTap){
+/* ============================================================================
+   NOTHING POPS UP (Paolo 9/20, LOCKED, TWICE IN A ROW, rule 19a, [no pop ups])
+
+   "I start the demo and a bunch of shit pops up on the screen. What the fuck is
+    that?"  and, on the second frame of the game, the SNATCHER road card:
+   "you don't got quests like that for real... it can't just be these bullshit-ass
+    text prompts."
+
+   MEASURED FIRST, ON THE GLASS, WITH THE ONE DRIVER AND NOTHING TAPPED BUT THE PAD
+   (tools/bohemia_what_pops_up_9_21_26.js, five minutes, 554 presses east):
+
+       ONE card opened by itself, at 2.5 SECONDS, and IT NEVER WENT AWAY.
+       554 presses on the pad for five minutes and he never took a step,
+       because the thing covering the pad was the first card of the game.
+
+   That is worse than the list I expected to find. It is also exactly what PLUMBER
+   has reported on RUN's row for three rounds running -- "#daycard is inset:0 and
+   sits over all eight direction buttons on boot" -- and it is the reason time to
+   first play could not be measured on either surface.
+
+   *** THE RULE IS AT THE DOOR, NOT IN THE EIGHT CALLERS. *** Every panel in this
+   game comes through this one function, so this is where "nothing pops up" can be
+   true for callers that do not exist yet. A card opens ONLY if the caller says HE
+   ASKED FOR IT. Anything else is refused, counted, and remembered by name, so the
+   next lane that adds a forced card finds a red gate instead of Paolo finding a
+   pop-up. This file has been bitten three times by a rule that every future caller
+   had to remember; a rule the machine holds is the only kind that lasts.
+
+   THE FOUR THAT STOP: the wake card, the night's reckoning, the road director's
+   card and the walk director's choice. THE FOUR THAT STAY, because he pressed a
+   button to get them: the market, standing, the feedback box, the ending he opens.
+   Their bookkeeping is not deleted -- it goes to THE PHONE, the thing he opens
+   himself (__MORNING_ON_THE_PHONE__ below). */
+var CARDS_REFUSED = [];
+function cardShow(html,onTap,asked){
+  if(!asked){
+    /* REFUSED, AND REMEMBERED. Never silently: a swallowed refusal is how a lane
+       ships a feature that does nothing, which is this file's oldest bug. */
+    try{ CARDS_REFUSED.push({ at: (typeof DAY!=='undefined'&&DAY.min)|0,
+      text: String(html||'').replace(/<[^>]*>/g,' ').replace(/\s+/g,' ').trim().slice(0,80) });
+      if(CARDS_REFUSED.length>40) CARDS_REFUSED.shift(); }catch(_e){}
+    return false;
+  }
   const c=document.getElementById('daycard'), i=document.getElementById('daycardIn');
   /* __EVERY_PANEL_CLOSES__ (8/24). Paolo: "When I press standing, and I press close,
      it doesn't close." MEASURED: the STANDING card opens with hasAct 0, and the
@@ -55486,7 +55591,32 @@ function showWake(){
   h+='<div class="sub" data-took-slot="1" data-draft="true" style="visibility:hidden">'
     +'You took it. It is yours until the day is out.</div>';       /* draft:true */
   h+='<div class="dcgo" data-act="go">GET UP</div>';
-  /* __THE_VALLEY_IS_A_PLACE__ -- the valley comes AFTER the card is gone, never under it. */
+  /* *** THE MORNING DOES NOT POP UP ANY MORE (Paolo 9/20, rule 19a, [no pop ups]).
+     MEASURED ON THE GLASS BEFORE THIS LINE EXISTED, five minutes from the door with
+     nothing tapped but the pad: THIS card opened at 2.5 SECONDS AND NEVER WENT AWAY,
+     and 554 presses on the pad in five minutes moved him ZERO CELLS, because the
+     first thing the game does was sitting on top of the only control it has. It is
+     his sentence -- "I start the demo and a bunch of shit pops up on the screen" --
+     and it is also the #daycard-over-the-pad bug PLUMBER has carried on this lane's
+     row for three rounds.
+     THE WORDS ARE NOT DELETED, THEY MOVE: the same h, built by the same code above,
+     goes to the phone and the chip rings. The offer's yes is untouched because it
+     never lived here -- offerRing puts the job on the phone and offerAccept is the
+     one door, which this card's own comment says in capitals.
+     AND WHAT THE "GET UP" TAP DID STILL HAPPENS, right here, because there is no
+     press left to hang it on: the morning's sound and the vista beat. Dropping them
+     with the card would have been a feature quietly deleted by a fix, which is the
+     thing this file keeps being caught by. */
+  toPhone('this morning', h);
+  try{ if(window.parent&&window.parent!==window)
+    window.parent.postMessage({bohemiaCitySfx:{ev:'come_up'}},'*'); }catch(_e){}
+  try{ vistaBeatMaybe(); }catch(_e){}
+  return;
+  /* eslint-disable no-unreachable -- KEPT, NOT DELETED, AND SAID PLAINLY: the card's
+     own handler below is the offer's haggle-and-take flow, and PEOPLE [face at the
+     door] and QUESTS [a person asks] are building the body that will say all of this
+     out loud. When that lands it needs this behaviour, not an archaeology dig. The
+     graveyard is for shapes he killed; this is a shape waiting for a mouth. */
   cardShow(h,function(act){
     /* __ASK_FOR_MORE__ -- an ask redraws the card in place; it never leaves it. */
     if(typeof act==='string'&&act.indexOf('hg:')===0){
@@ -55568,6 +55698,56 @@ function showWake(){
    on day and job, so the same offer keeps the same conversation and a new day
    opens a fresh one. */
 var HAGGLE_TERMS=null, HAGGLE_KEY=null;
+/* ============================================================================
+   __MORNING_ON_THE_PHONE__ (9/21, RUN, [no pop ups]) -- WHERE THE BOOKKEEPING WENT
+
+   Rule 19a does not say DELETE the morning and the night. It says: "the wake card,
+   the night card and the road card AS POP-UPS are DEAD; the bookkeeping lives on the
+   PHONE HE OPENS." So nothing he used to be told is lost. The same sentences, built
+   by the same code, go to the one surface in this game he reaches for himself, and
+   the phone chip RINGS so he knows there is something there.
+
+   IT KEEPS THE WORDS AND DROPS THE BUTTONS, which is the whole difference between a
+   page and a pop-up: rows the card used to make him press (GET UP, SLEEP, I'LL TAKE
+   IT) are not sentences and do not travel. The offer itself already has a real home
+   on the phone -- offerRing put it there before the card was ever built -- so the
+   yes he needs is the one that was always there and not a second one.
+
+   READ OFF THE BUILT HTML rather than re-written as a second list, because a second
+   list is how two descriptions of one morning start to disagree. This file has paid
+   for that lesson with hair, with the step constant and with the body size. */
+var MORNING = [], MORNING_UNREAD = 0;
+function phoneLines(html){
+  var out = [];
+  try{
+    var box = document.createElement('div');
+    box.innerHTML = String(html || '');
+    var nodes = box.querySelectorAll('p, h2, h3, .sub, .rwhy');
+    for(var i = 0; i < nodes.length; i++){
+      var n = nodes[i];
+      /* a row he was meant to press is not something he was told */
+      if(n.closest('.dcgo, .dcbtn, .mrow')) continue;
+      var t = (n.textContent || '').replace(/\s+/g, ' ').trim();
+      if(t && out.indexOf(t) < 0) out.push(t);
+    }
+  }catch(_e){}
+  return out;
+}
+/* ONE DOOR FOR BOTH THE MORNING AND THE NIGHT, so there is one answer to "where did
+   that go" and one place a future lane adds to. */
+function toPhone(title, html){
+  var lines = phoneLines(html);
+  if(!lines.length) return 0;
+  MORNING = [{ head: String(title || '').toUpperCase(), lines: lines,
+               day: (typeof DAY !== 'undefined' ? DAY.day : 0) }];
+  MORNING_UNREAD = lines.length;
+  /* THE CHIP RINGS. Same clothes the unread call already wears, decided in the one
+     place that knows -- a second thing polling "is there something on the phone" is
+     the bug this file removed from the population card on 8/24. */
+  try{ var b = document.getElementById('phonebtn'); if(b) b.classList.add('ring'); }catch(_e){}
+  try{ phonePush(true); }catch(_e){}
+  return lines.length;
+}
 function offerRing(){
   OFFER=null; OFFER_TAKEN=false;
   var spec=DQ.specForDay(DAY.day); if(!spec)return;
@@ -56624,7 +56804,8 @@ function fbKeep(){
 function fbShow(){
   var B = fbBB(); if (!B || !FB) return;
   FB_OPEN = true;
-  cardShow(fbBody(), function(act){
+  cardShow(fbBody(), /* __NOTHING_POPS_UP__: the save drawer's own button, or the
+     door on the ending he is already reading. Both are presses. */ function(act){
     if (!act) return;
     if (act === 'fbsend') { fbKeep(); fbPersist(); fbSend(); return; }
     if (act.indexOf('fba:') !== 0) return;
@@ -56639,7 +56820,7 @@ function fbShow(){
     FB_ANS[id] = (FB_ANS[id] === q.options[idx]) ? null : q.options[idx];
     fbPersist();
     fbShow();
-  });
+  }, 'he pressed the feedback door');
 }
 
 function fbSend(){
@@ -56728,7 +56909,16 @@ function showEnding(){
      seconds, added to the card that is already up rather than built into it, so
      a player who closes the ending never sees it and the last thing the GAME
      said stays the last thing the game said. */
-  cardShow(h, function(act){ if (act === 'fbdoor') { try { fbShow(); } catch(_e){} } });
+  /* *** THE ENDING IS THE ONE FORCED CARD THAT LIVES, AND I AM NAMING THE TRADE
+     RATHER THAN HIDING IT BEHIND THE WORD "ASKED". *** Rule 19a kills three by
+     name -- the wake, the night and the road card -- and those are gone. This one
+     is not on that list and it is a different animal: it is the game FINISHING.
+     Nothing is interrupted, because there is no play left to interrupt, and the
+     destination the law gives the others (the phone, the thing he opens while
+     playing) does not exist after the last day. Killing it would delete the peak-end
+     ending with nowhere to put it, which is the deletion the law is against. */
+  cardShow(h, function(act){ if (act === 'fbdoor') { try { fbShow(); } catch(_e){} } },
+    'the game has ended, there is no play left to interrupt');
   try { setTimeout(function(){
     var inn = document.getElementById('daycardIn');
     if (!inn || !document.getElementById('daycard').classList.contains('on')) return;
@@ -57212,7 +57402,19 @@ function showReckoning(){
      Here the tap that dismisses it is the SLEEP tap he was making anyway. */
   if(s.day===1 && installShouldAsk()) h+=installLine();
   h+='<div class="dcgo" data-act="next">SLEEP \u2192 DAY '+(s.day+1)+'</div>';
-  cardShow(h,function(){ cardHide();
+  /* *** THE NIGHT DOES NOT POP UP EITHER (Paolo 9/20, rule 19a, [no pop ups]):
+     "the night's bookkeeping -- who you owe, the batteries, the day's steps, what
+     you are working on -- moves to the PHONE, the thing he opens himself."
+     AND THE DAY STILL HAS TO TURN. That is the part a careless fix deletes: SLEEP
+     was not only a button, it was the rollover, the upkeep sweep and the demo's
+     ending, all hanging off one press. So the night now turns BY ITSELF and the
+     numbers are waiting on the phone in the morning. Nothing about what a day costs
+     changed; only the modal he had to dismiss to get his next day is gone.
+     A CARD WITH ONE BUTTON ON IT IS A CHOICE PRETENDING IT IS NOT -- this file's own
+     sentence, written for the road card, and just as true here: SLEEP had no second
+     option, so nothing was ever being decided. */
+  toPhone('last night', h);
+  (function(){
     /* __CITY_NEGLECT__ -- MOVED (__WHAT_YOU_OWE__, 9/5). The upkeep for the day
        that is ending is charged at the TOP of showReckoning now, before the card
        is built, so the card can say who it cost. It is still charged before the
@@ -57233,7 +57435,7 @@ function showReckoning(){
        is the rollover, and the rollover is what the demo does not get. */
     if (ctDemoOver(s.day)) { try { showEnding(); return; } catch(_e){} }
     DAY.nextDay(); daySync(); _lastDistrict=null;
-    showWake(); updHud(); render(); reportState(); });
+    showWake(); updHud(); render(); reportState(); })();
 }
 
 
@@ -57551,6 +57753,9 @@ function phoneState(){
            quest:(function(){ try{ return DQ.spec?DQ.spec.id:null; }catch(_e){ return null; } })(),
            done:(function(){ try{ return DQ.done(); }catch(_e){ return false; } })(),
            offer:(OFFER&&!OFFER_TAKEN)?OFFER:null, taken:!!OFFER_TAKEN,
+           /* __MORNING_ON_THE_PHONE__ ([no pop ups], 9/21): what the wake card and the
+              night card used to say, on the surface he opens himself. */
+           morning:(function(){ try{ return MORNING.length?MORNING[0]:null; }catch(_e){ return null; } })(),
            standing:(function(){ try{ return DQ.standing(); }catch(_e){ return null; } })(),
            purse:purseBalances(), paid:PAID_TODAY, payRefused:PAY_REFUSED,
            market:(function(){ try{ var h=mktHub(); return h?{cell:{x:h.x,y:h.y},kind:h.kind,
@@ -59276,10 +59481,28 @@ function showMarket(){
     var right=(r.price!=null)
         ?(r.cur==='electricity'?battWord(r.price):(r.price+' '+r.cur))
         :(r.reason==='NO_RULING'?'unpriced':'\u2014');
-    s+='<div class="mrow'+(can?'':' no')+'" data-act="buy:'+esc(r.good)+'">'
+    /* *** A ROW HE CANNOT BUY IS NOT PRESSABLE (Paolo 9/21, THE THIRD TIME: "all
+       these fucked up quest cards that don't do anything when I click on them").
+       MEASURED, every row of every reachable card pressed with a real touch: of 19
+       rows, ONE was a genuinely dead press and it was this one, twice. He has ZERO
+       batteries on day one, food and meds cost one each, so pressing them ran the
+       whole buy, got CANNOT_AFFORD, redrew the card -- and the card said exactly the
+       sentence it was already saying. Nothing moved. From his side that is a dead
+       button, and rule 14(d) calls a card that promises and does nothing the worst
+       bug in the game.
+       THE FIX IS THIS FILE'S OWN IDIOM, NOT A NEW ONE. The offer's yes already does
+       exactly this (__NOTHING_MOVES_UNDER_HIS_FINGER__): "Drawn always, pressable
+       only when there is something to take, and with no data-act when there is not,
+       so a tap cannot reach the dispatcher." The row KEEPS ITS PLACE AND ITS PRICE
+       so nothing shifts under his finger, and it says what is missing instead of
+       waiting to be pressed and then saying nothing. draft:true. */
+    var _short = can ? '' : (r.price==null
+        ? 'nobody has ruled what that costs'
+        : ('you have ' + battWord(have) + ', this is ' + battWord(r.price)));
+    s+='<div class="mrow'+(can?'':' no spent')+'"'+(can?' data-act="buy:'+esc(r.good)+'"':'')+'>'
       +'<div><div class="mgood">'+esc(r.good.toUpperCase())+' \u00b7 1 '+esc(r.unit)+'</div>'
-      +'<div class="mnote">'+esc(r.daysLeft==null?String(r.note||'')
-          :(r.daysLeft+' days of it left in the valley'))+'</div></div>'
+      +'<div class="mnote">'+esc(_short || (r.daysLeft==null?String(r.note||'')
+          :(r.daysLeft+' days of it left in the valley')))+'</div></div>'
       +'<div class="mprice">'+esc(right)+'</div></div>';
   }
   /* __WHO_WILL_JOIN_YOU__ (9/13, [recruit anywhere]) -- AND WHO THIS TOWN WOULD
@@ -59306,7 +59529,7 @@ function showMarket(){
   cardShow(s,function(act){
     if(act==='close'){ MKT_LAST=null; cardHide(); return; }
     if(act&&act.indexOf('buy:')===0){ mktBuy(act.slice(4)); showMarket(); }
-  });
+  }, 'he pressed MARKET');
 }
 /* __BUILDER_WHERE_HE_WALKS__ -- THE VERB, WHERE HIS FEET ARE.
    MEASURED BEFORE IT WAS WRITTEN, on the real cut demo and not from memory: the CITY
@@ -73891,7 +74114,7 @@ function showStanding(){
   if(!r.ok){
     cardShow('<div class="rwhy">Standing is not loaded on this page yet.</div>'
            + '<div class="dcgo" data-act="close">CLOSE</div>',   /* __EVERY_PANEL_CLOSES__ */
-           cardHide);
+           cardHide, 'he pressed STANDING');
     return;
   }
   var h = '';
@@ -74263,7 +74486,7 @@ function showStanding(){
      the same subject as this card, so it lives here now, one tap in. draft:true. */
   h += '<div class="dcgo" id="standingWho">WHO IS OUT THERE</div>';   /* draft:true */
   h += '<div class="dcgo" data-act="close">CLOSE</div>';   /* draft:true */
-  cardShow(h, cardHide);
+  cardShow(h, cardHide, 'he pressed STANDING');
   /* bound where the card really is, which is the lesson the CLOSE row above already paid for */
   try{
     var _who=document.getElementById('standingWho');
@@ -75914,6 +76137,16 @@ window.BOHEMIA_SKIN = (function(){
        '#musbtn,#savebtn,#phonebtn,#outfitbtn,#devbtn,#rungbtn,#buildbtn,#mktbtn,'
       +'#workbtn,#fitbtn,#bikebtn,#sleepbtn,#modechip,#popbtn,#reroll,#underbtn,'
       +'#keybtn,#walkfeel,#packbtn,'
+      /* AND THE NOTES CHIP, 9/21, row [copy notes]. THE REASON HE COULD NOT FIND IT
+         IS THAT IT WAS THE ONLY THING IN THAT BAR WITH NO PLATE. Measured on a fresh
+         cut: every other child of #barright is a WORD on a chip (MUSIC 84x12.3, SAVE
+         23.6x12.3, PHONE 27x12.3, all box-shadowed, ink rgb(216,196,154)); the notes
+         control was a bare glyph, background transparent, no box-shadow, ink
+         rgb(184,154,106) -- dimmer than its neighbours and with no body at all. A
+         control with no body does not read as a control, which is this lane's own law
+         broken by this lane's own hand. It joins the list rather than getting a
+         private copy of the look, so it can never drift away from SAVE again. */
+      +'#noteplate,'
       /* AND THE BUTTONS INSIDE A PANEL. Looking at the save panel after the panels got
          their body showed four buttons still wearing the old rounded card with a
          hairline, inside a plate that no longer does -- the inconsistency was more
@@ -76059,16 +76292,30 @@ window.BOHEMIA_SKIN = (function(){
       /* THE TINIEST BUTTON, AND THE REACH IS STILL 44. His words are "just the tiniest
          button", and THE THUMB is a law: the ink is small, the tap area is not. That is
          the same trade [half size] settled -- halve the pixels, never the reach. */
+      /* *** PAOLO 9/21: "I still don't see a note section anywhere." HE IS RIGHT, AND
+         THE CAUSE WAS NOT THE SIZE. *** Measured on a fresh cut of the demo, every other
+         child of this bar is a WORD ON A PLATE -- MUSIC, SAVE, PHONE, each with a lit rim,
+         a dark base and ink rgb(216,196,154). This control was a bare pencil glyph with
+         background transparent, no box-shadow at all, and dimmer ink. It was the only
+         thing in the bar with no body, and a control with no body does not read as a
+         control. "Tiniest" was his word for the footprint, never for invisibility.
+         SO IT IS A WORD ON A PLATE NOW, drawn by the same rule that draws SAVE.
+         THE 44 REACH STAYS, AND THE FAR RIGHT IS THE ONE PLACE IN THIS BAR WHERE IT IS
+         FREE. This file already measured that a 44 pad on a chip lies across its
+         NEIGHBOUR and makes a tap do the wrong thing, which is why the pads are off
+         everywhere else. The last chip at the right end has the bar's own edge on one
+         side and nothing under it, so a full thumb costs nobody anything -- and that is
+         exactly where he asked for it. The wrapper is the reach; the plate is the ink. */
       '#notebtn{flex:0 0 auto;min-width:44px;min-height:44px;display:inline-flex;'
         +'align-items:center;justify-content:center;box-sizing:border-box;cursor:pointer;'
-        /* HIS WORDS ARE "just the tiniest button", AND THE BAR AROUND IT IS 5px.
-           This shipped at 9 and the gate caught it against its own neighbours: every other
-           chip in the bar is halved to 5 by [half size], so a 9px mark was nearly twice
-           the ink of everything beside it and read as the loudest thing up there rather
-           than the smallest. It inherits the halved size the same way they do. */
+        +'background:transparent;-webkit-tap-highlight-color:transparent}'
+      +'#noteplate{display:inline-flex;align-items:center;justify-content:center;'
+        +'padding:4px 7px;pointer-events:none;'
         +'font-family:var(--face-casing);font-size:5px;letter-spacing:var(--track-casing,.4px);'
-        +'color:var(--acc);background:transparent;-webkit-tap-highlight-color:transparent}'
-      +'#notebtn.has{color:#e7d8bb}'
+        +'color:var(--skin-chipink,#d8c49a)}'
+      /* OPEN IS A STATE HE CAN SEE, because a control that toggles has to say which way
+         it is pointing. Same gold the PHONE chip uses when it is the live one. */
+      +'#notebtn.on #noteplate{color:#191308!important;background:var(--acc)!important}'
       /* the box is the game's own object language: a plate with a body, no hairline */
       +'#notewrap{position:absolute;inset:0;z-index:60;display:none;align-items:center;'
         +'justify-content:center;background:rgba(6,5,4,.86);padding:12px}'
@@ -76155,8 +76402,11 @@ window.BOHEMIA_SKIN = (function(){
       l.appendChild(d);
     }
     var btn=document.getElementById('notebtn');
-    if(btn){ btn.classList.toggle('has', notes.length>0);
-             btn.textContent = notes.length ? ('✎'+notes.length) : '✎'; }
+    var pl=document.getElementById('noteplate');
+    if(btn) btn.classList.toggle('has', notes.length>0);
+    /* THE WORD, AND THE COUNT WHEN THERE IS ONE. A number beside it is the only proof
+       from outside the box that the thing he typed went anywhere. */
+    if(pl) pl.textContent = notes.length ? ('NOTES '+notes.length) : 'NOTES';
   }
 
   /* *** THE PAUSE IS EXPLICIT, NOT A STACKING ORDER, AND THAT IS A MEASUREMENT. ***
@@ -76194,6 +76444,8 @@ window.BOHEMIA_SKIN = (function(){
     document.getElementById('notetext').value='';
     draw();
     w.classList.add('on'); w.setAttribute('aria-hidden','false');
+    var b=document.getElementById('notebtn');
+    if(b){ b.classList.add('on'); b.setAttribute('aria-expanded','true'); }
     open_=true;
     try{ document.getElementById('notetext').focus({preventScroll:true}); }catch(e){}
   }
@@ -76203,11 +76455,15 @@ window.BOHEMIA_SKIN = (function(){
     if(save && t.trim()){ notes.push({ text:t.trim(), ctx:ctx, at:new Date().toISOString() }); write(); }
     var w=document.getElementById('notewrap');
     if(w){ w.classList.remove('on'); w.setAttribute('aria-hidden','true'); }
+    var b=document.getElementById('notebtn');
+    if(b){ b.classList.remove('on'); b.setAttribute('aria-expanded','false'); }
     open_=false; draw();
   }
 
-  /* THE SAME ROAD A VOTE TAKES OUT: a .txt he sends the manager, never .json. */
-  function exportTxt(){
+  /* ONE PLACE BUILDS THE TEXT. Copy and export were about to become two functions
+     writing the same thing slightly differently, which is how two roads out of the same
+     box start disagreeing about what he wrote. */
+  function body(){
     notes=read();
     var out=['BOHEMIA NOTES -- '+new Date().toISOString().slice(0,10),
              'Written while playing. Each note carries where he was standing.',''];
@@ -76217,18 +76473,58 @@ window.BOHEMIA_SKIN = (function(){
       out.push('');
     });
     if(!notes.length) out.push('(no notes yet)');
-    var body=out.join('\n');
+    return out.join('\n');
+  }
+
+  /* *** PAOLO 9/21: "a collapsible note section that I can copy and paste when I am done
+     playing the demo into you." COPY AND PASTE IS THE ROAD HE ASKED FOR. *** A .txt
+     download is a file he then has to find, open and paste out of, and inside a frame on
+     a phone it may not even be allowed. The clipboard is one tap and the next thing he
+     does is paste it into the chat. The .txt stays as the second road.
+     IT IS NEVER A DEAD BUTTON. navigator.clipboard needs a secure context and a user
+     gesture, and either can be missing, so there is a fallback that has worked in every
+     browser for twenty years, and the chip SAYS which one happened. A button that
+     silently did nothing is the defect this lane wrote down on 9/15 ("a dead button is
+     indistinguishable from a close button"). */
+  function copyAll(){
+    var t=body(), done=false;
     try{
-      var b=new Blob([body],{type:'text/plain'}), u=URL.createObjectURL(b);
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(t); done=true;
+      }
+    }catch(e){}
+    if(!done){
+      try{
+        var ta=document.createElement('textarea');
+        ta.value=t; ta.setAttribute('readonly','');
+        ta.style.cssText='position:fixed;left:-9999px;top:0';
+        document.body.appendChild(ta); ta.select(); ta.setSelectionRange(0,t.length);
+        done=document.execCommand('copy'); ta.remove();
+      }catch(e2){}
+    }
+    var c=document.getElementById('notecopy');
+    if(c){ c.textContent = done ? ('COPIED '+notes.length+(notes.length===1?' NOTE':' NOTES'))
+                                : 'COULD NOT COPY - USE EXPORT';
+           setTimeout(function(){ if(c) c.textContent='COPY ALL'; }, 2200); }
+    return done ? t : '';
+  }
+
+  /* THE SAME ROAD A VOTE TAKES OUT: a .txt he sends the manager, never .json. */
+  function exportTxt(){
+    /* named txt, not body: a local called body would shadow the builder above it, and
+       the next person to add a line here would get a string where a function was. */
+    var txt=body();
+    try{
+      var b=new Blob([txt],{type:'text/plain'}), u=URL.createObjectURL(b);
       var a=document.createElement('a'); a.href=u;
       a.download='BOHEMIA_NOTES_'+new Date().toISOString().slice(0,10)+'.txt';
       document.body.appendChild(a); a.click();
       setTimeout(function(){ URL.revokeObjectURL(u); a.remove(); },800);
     }catch(e){
       /* a download is not always allowed inside a frame; the clipboard beats a dead button */
-      try{ navigator.clipboard.writeText(body); }catch(e2){}
+      copyAll();
     }
-    return body;
+    return txt;
   }
 
   function build(){
@@ -76237,23 +76533,40 @@ window.BOHEMIA_SKIN = (function(){
     css();
     var b=document.createElement('div');
     b.id='notebtn'; b.setAttribute('role','button'); b.setAttribute('tabindex','0');
-    b.setAttribute('aria-label','write a note');
-    b.textContent='✎';
+    b.setAttribute('aria-label','notes');
+    b.innerHTML='<span id="noteplate">NOTES</span>';
     /* LAST CHILD OF THE RIGHT END, because "the very top right" is where he said it is */
     R.appendChild(b);
-    b.addEventListener('click', function(e){ e.stopPropagation(); openNote(); });
+    /* *** IT TOGGLES. *** His word was "collapsible", and a control that only opens is
+       a control he has to find a second way out of. Same chip, tap to open, tap to
+       collapse, and it stays in the bar the whole play either way. */
+    b.addEventListener('click', function(e){ e.stopPropagation();
+      if(open_) closeNote(true); else openNote(); });
 
     var w=document.createElement('div'); w.id='notewrap'; w.setAttribute('aria-hidden','true');
-    w.innerHTML='<div id="notecard"><h2>A NOTE</h2><div id="notewhere"></div>'
+    /* COPY ALL LEADS, because that is the thing he asked for by name and the thing he
+       does last. SAVE AND KEEP PLAYING is the one that gets pressed most, so it is the
+       gold one. EXPORT is the second road and sits quietest. */
+    w.innerHTML='<div id="notecard"><h2>NOTES</h2><div id="notewhere"></div>'
       +'<textarea id="notetext" placeholder="what you are thinking"></textarea>'
       +'<div id="noterow"><div class="nb go" id="notesave">SAVE AND KEEP PLAYING</div>'
-      +'<div class="nb" id="noteback">BACK</div>'
+      +'<div class="nb" id="noteback">CLOSE</div>'
+      +'<div class="nb" id="notecopy">COPY ALL</div>'
       +'<div class="nb" id="noteout">EXPORT</div></div>'
       +'<div id="notelist"></div></div>';
     (document.querySelector('.wrap')||document.body).appendChild(w);
     document.getElementById('notesave').addEventListener('click', function(){ closeNote(true); });
     document.getElementById('noteback').addEventListener('click', function(){ closeNote(false); });
     document.getElementById('noteout').addEventListener('click', exportTxt);
+    /* COPY ALL SAVES WHAT IS IN THE BOX FIRST. He types a thought, reaches for COPY ALL,
+       and without this the thought he is looking at is the one thing not on the
+       clipboard. Found by reading the order he would actually do it in. */
+    document.getElementById('notecopy').addEventListener('click', function(){
+      var t=(document.getElementById('notetext')||{}).value||'';
+      if(t.trim()){ notes.push({ text:t.trim(), ctx:ctx, at:new Date().toISOString() });
+                    write(); document.getElementById('notetext').value=''; draw(); }
+      copyAll();
+    });
  /* *** THE SCRIM DOES NOT CLOSE THIS ONE, AND THAT IS DELIBERATE. ***
        Every other card in this game closes on a tap outside it, and this box copied that
        without thinking. Found by the ship test: the pause check taps the walk pad, the pad
@@ -76275,7 +76588,8 @@ window.BOHEMIA_SKIN = (function(){
   }
 
   window.BohemiaNotes={ open:openNote, close:closeNote, list:function(){ return read(); },
-                        exportTxt:exportTxt, where:where, isOpen:function(){ return open_; } };
+                        exportTxt:exportTxt, copyAll:copyAll, text:body,
+                        where:where, isOpen:function(){ return open_; } };
 })();
 </script>
 

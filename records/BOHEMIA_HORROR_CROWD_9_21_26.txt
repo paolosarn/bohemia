@@ -1,0 +1,151 @@
+BOHEMIA -- HORROR CROWD (9/21/26, PEOPLE lane)
+VAMILY job [horror crowd], row A-CROWD-THAT-STANDS-TOO-STILL. Rule 20(h), school
+under the rule 18 hold, with the RULE 22 cook riding beside it.
+
+THE ROW (coordinator 9/21, off Paolo 9/21 "Horror analog, do stuff for that, for
+every chat"):
+  "the crowd under the bible (14e03eb6): someone facing the wrong way, everyone a
+   little too still, nobody looks at the camera; measured against the crowd we
+   place."
+
+================================================================================
+*** THE ROW'S THREE THINGS ARE ALREADY TRUE, AND THAT IS WHY THE CROWD IS NOT
+*** FRIGHTENING
+================================================================================
+Measured on the alpha, three frames, the game's own list of who was drawn:
+
+  bodies drawn                     6, 6, 6
+  bodies that ever turned a head   0 of 6
+  directions on screen             5 of 8, scattered, not one stuck value
+  anybody watching him             0 (only an enemy may watch, and none was near)
+  the screen that moved            0.68% against the bible's 10% ceiling
+
+SO THE LONG HOLD (bible R3) PASSES BY FIFTEEN TIMES. Nobody should "fix" the
+stillness; it is already the rule. And the bible's own R1 says what stillness on
+its own is worth:
+
+  "Two wrong things is a haunted house; zero is a screenshot."
+
+There is no wrong thing in this crowd. Six people face six sensible directions
+and never move. It is a screenshot.
+
+================================================================================
+*** SO THE ROUND WENT TO THE ONE RULE THAT FAILS, R7, AND IT FAILS BADLY ***
+================================================================================
+  R7, THE LIT STREET WITH NOBODY HOME: "Occupancy wrongness is the cheapest
+  dread we own: lights on where the census says empty, A CROWD THIN WHERE IT
+  SHOULD BE THICK. DRAWN FROM WORLD DATA, NEVER FAKED.
+  MEASURE: the wrongness traces to a real world-state row."
+
+Walking the game's own clock through 24 hours and asking its own schedule, on the
+alpha, census 61 on his block:
+
+  HOUR    OUTSIDE IN THE WORLD    DRAWN ON HIS STREET
+   3am              0                      3
+   7am             10                     24
+  10am             41                     23
+   1pm              3                     20
+   5pm             40                     23
+   8pm              4                     24
+  11pm              2                     15
+
+*** THE WORLD SWINGS FORTY-ONE TO FOUR AND THE SCREEN DRAWS TWENTY-THREE AND
+*** TWENTY-FOUR. TEN IN THE MORNING AND EIGHT AT NIGHT ARE THE SAME PICTURE. ***
+
+The world underneath is good. That curve is a real two-peaked commute out of real
+schedules: out in the morning, home at lunch, out again at five, inside by eight.
+Nobody has to build it. The screen simply never finds out.
+
+================================================================================
+AND THE CAUSE IS NOT A BUG, WHICH MATTERS FOR WHAT HAPPENS NEXT
+================================================================================
+The crowd he sees is __THE_STREET_IS_NEVER_EMPTY__, the 9/7 borrow, and it was
+the right call at the time. Measured here with the borrow switched off in a probe
+(nothing committed):
+
+  at ten in the morning   41 people outside in the world
+                          the world itself puts 2 of them on his screen
+                          the borrow makes it 23
+  at eight at night        4 people outside in the world
+                          the world itself puts 3 on his screen
+                          the borrow still makes it 24
+
+At the busiest hour of the day the honest street is two people. That is why the
+borrow exists and the 9/7 record already did this arithmetic: a sight radius of 9
+cells covers 361 cells against a window of 12.8 million, so the chance of seeing
+anybody is about 2%.
+
+THE DEFECT IS NOT THE BORROWING. IT IS THAT THE BORROW CARRIES A FIXED NUMBER
+INSTEAD OF THE NUMBER THE WORLD EARNED. Fix that and R7 is satisfied for free, in
+both directions: busy at ten, and at eight at night you walk the same street you
+walked this morning and nobody is on it.
+
+================================================================================
+WHAT I ALSO SAW, WITH MY EYES, IN THE 8PM FRAME
+================================================================================
+Beyond the count: four bodies standing in one clump at the bottom of the screen,
+three of them in the same tan coat, and the same brown-haired woman in a white top
+drawn three times in one frame. A crowd made of copies is the other half of why
+twenty-four people read as filler rather than as a city. NOT THIS ROUND'S ROW and
+not this lane's to fix alone; CHARACTER owns the wardrobe spread and the clumping
+is the stated cost of rule 21 (the person does not zoom, so at far zoom bodies on
+neighbouring cells overlap). Written down rather than acted on.
+
+================================================================================
+RULE 18: NOTHING WAS CHANGED ON THE PLAY SURFACE
+================================================================================
+This row is school under the hold, and the borrow is not this lane's code. It is
+UNTOUCHED. The probe that switched it off lived inside one browser session and was
+never committed. Nothing in this round writes a crowd count into the walked city.
+
+================================================================================
+THE RULE 22 COOK, IN THE VOTE TAB
+================================================================================
+"THE STREET AT THREE HOURS", slices/BOHEMIA_THE_STREET_AT_THREE_HOURS_9_21_26.html.
+FIVE REAL PICTURES OFF THE GLASS, nothing drawn by hand: eight at night both ways,
+ten in the morning both ways, and three in the morning, which is ONE file because
+the borrow changes nothing when nobody is out. Hiding that behind a second
+identical picture would have been a comparison that cannot fail, so the page says
+it out loud instead. The day is counted beside them, and the page argues the other
+side too: at ten in the morning nobody is asking for the honest street.
+
+THREE WAYS TO GO, and B is leaving it exactly as it is:
+  A  the borrow carries the curve: busy at ten, dead at eight
+  B  leave it flat: a street with people on it always reads as a city, and an
+     empty street at eight reads as a bug to somebody who does not know the clock
+  C  flat by day, honest after dark
+
+================================================================================
+THE GATE
+================================================================================
+gates/horror_crowd_gate.js, driven on the ALPHA.
+  the crowd   what the bible already passes on, so nobody "fixes" the stillness
+  the curve   re-derived hour by hour on the alpha: the world swings, the screen
+              does not, and the borrow is why
+  the shots   the two pairs really differ, three in the morning really is one
+              file, and they are the phone screen and not a crop
+  the page    both sides, the count, the honest case for leaving it alone, and
+              the sentence saying nothing was built
+  rule 18     the borrow and the facing rule are untouched
+
+NEGATIVE-CONTROLLED, EACH PUT BACK:
+  make the evening pair the same frame twice, and give 3am a duplicate    2 red
+  drop the leave-it-alone option and call the borrow an obvious mistake   2 red
+
+================================================================================
+AND THE PICTURES WERE SHRUNK BEFORE THEY WENT NEAR THE SITE
+================================================================================
+SOUNDS named it on clean main and it is true: THE PUBLISHED SURFACE IS ALREADY
+OVER ITS OWN CAP, 261 MB against 260, before this round exists. Measured in a
+throwaway worktree on clean origin/main, so the red is not this lane's.
+
+But five full-colour frames were 0.89 MB and would have taken it to 262, and
+making somebody else's red worse is still making it worse. THESE ARE PIXEL ART:
+a few dozen real colours in a 24-bit file. Quantised to a 128-colour palette with
+no dithering they are 0.18 MB, a fifth of the size, and the picture is
+indistinguishable on the glass. The published surface is back to 261 MB, exactly
+what clean main measures. NAMED FOR WHOEVER OWNS THE CAP: this is 0.7 MB found in
+five files; nobody has swept the rest of slices/vote the same way.
+
+TAB: VOTE, in the alpha, "THE STREET AT THREE HOURS". Nothing changed in CITY
+this round and that is on purpose.
