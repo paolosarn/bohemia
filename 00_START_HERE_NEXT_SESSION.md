@@ -36252,7 +36252,7 @@ your first VAMILY and do steps 1 to 9.
 I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
-ROUND LOG 9/21 (latest): [horror judge] SHIPPED (5fec7d64) - rule 20h
+ROUND LOG 9/21 (latest): [horror judge] SHIPPED (fb7946ae) - rule 20h
 is standing practice now: every DIRECTION verdict carries the bible's
 ten-rule pass/fail beside the picture, starting with FIGHT VERDICT
 ROUND 2 (records/BOHEMIA_FIGHT_VERDICT_ROUND_2_9_21_26.md, and the
