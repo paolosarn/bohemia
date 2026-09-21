@@ -54,8 +54,44 @@ const MIME = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css
                '.json': 'application/json', '.png': 'image/png',
                '.webmanifest': 'application/manifest+json' };
 
+/* ---- WHAT THIS DRIVER UNDERSTANDS, AND WHAT IT DOES WITH ANYTHING ELSE ----
+   (9/22, PLUMBER, row [driver says].)
+
+   PEOPLE (f75eb900) and SOUNDS (c6566f47) both asked this driver for the ALPHA in the
+   same round and both got the DEMO. `opts.alpha` was not a thing it read, so it was
+   dropped in silence, the baked demo opened, and an alpha change measured on it came
+   back as A BELIEVABLE WRONG NUMBER WITH NO ERROR.
+
+   Reproduced before fixing:
+       asked for: { alpha: true }
+       opened   : BOHEMIA_DEMO.html
+       stamp    : DEMO - BUILD 9/21f - NOTHING POPS UP
+
+   A red is an argument. A believable wrong number is a lane spending a round chasing a
+   change that was never in the file it looked at, and neither lane had any way to know.
+
+   THE NAME WAS NEVER THE REAL BUG. `alpha` is simply the one that got misspelled first;
+   `page`, `useAlpha`, `flie` would all have been dropped exactly the same way. So this
+   driver now knows its own vocabulary and REFUSES anything outside it. An option a tool
+   does not understand is a question it was asked and did not answer, and answering with
+   a number anyway is the whole failure. */
+const KNOWN_OPTS = ['alpha', 'arm', 'beforeTap', 'boot', 'file', 'keepCards',
+                    'serve', 'settle', 'throttle', 'warmup', 'world'];
+const ALPHA_FILE = 'BOHEMIA_ALPHA_0_9.html';
+const DEMO_FILE = 'BOHEMIA_DEMO.html';
+
 async function open(opts) {
   opts = opts || {};
+  const strange = Object.keys(opts).filter(k => KNOWN_OPTS.indexOf(k) < 0);
+  if (strange.length) {
+    throw new Error('the driver does not understand ' + strange.join(', ')
+      + '. It knows: ' + KNOWN_OPTS.join(', ') + '. This throws instead of ignoring you '
+      + 'because a dropped option is how PEOPLE and SOUNDS both measured the demo while '
+      + 'asking for the alpha, and got a believable wrong number with no error.');
+  }
+  /* alpha: true is the plain way to ask, and file: still wins if both are given, because
+     a caller naming an exact file has been more specific than a caller naming a surface. */
+  const WANT = opts.file || (opts.alpha ? ALPHA_FILE : DEMO_FILE);
   /* EXTENDED 9/20 (PLUMBER, rule 14(g), for [never worse] under Paolo's rule 18c).
      opts.serve maps a URL to a file ANYWHERE on disk, so a CANDIDATE cut sitting in a
      throwaway tree can be walked while every chunk it loads still comes from the real
@@ -128,8 +164,15 @@ async function open(opts) {
   }
 
   const tGoto = Date.now();
-  await page.goto('http://127.0.0.1:' + port + '/slices/'
-    + (opts.file || 'BOHEMIA_DEMO.html'), { waitUntil: 'load', timeout: 300000 });
+  /* THE DRIVER SAYS WHAT IT OPENED, ONCE, WITHOUT BEING ASKED. The row wanted this
+     printed "in every result line so a number always says what it is about", and the
+     durable place for that is here rather than in each caller: a lane that forgets to
+     print it is exactly the lane that will be surprised by it. */
+  console.log('  [driver] opening ' + WANT
+    + (WANT === ALPHA_FILE ? '  (THE ALPHA, where every lane ships)'
+       : WANT === DEMO_FILE ? '  (the baked demo, which only RUN re-cuts)' : ''));
+  await page.goto('http://127.0.0.1:' + port + '/slices/' + WANT,
+    { waitUntil: 'load', timeout: 300000 });
   /* WAIT FOR THE DOOR, DO NOT GUESS HOW LONG IT TAKES (COOK 9/14, [streets fixed] r3).
      The two waits here were blind: 15 s for the front splash, 22 s for the city frame.
      That is tuned to the DEMO on one machine. Pointed at the ALPHA -- which is where
@@ -351,6 +394,13 @@ async function open(opts) {
     loads, cdp: cdpEarly,
     firstPaintMs: () => firstPaintAt,
     bootAt: () => t00,          /* the driver's zero, so a caller can share one axis */
+    /* WHICH FILE THIS NUMBER IS ABOUT. The row asked for it by name: "PRINT which file
+       it opened in every result line so a number always says what it is about." A result
+       that cannot say what it measured is a result nobody can check. */
+    openedFile: () => WANT,
+    isAlpha: () => WANT === ALPHA_FILE,
+    says: () => 'measured on ' + WANT + (WANT === ALPHA_FILE ? ' (the alpha)'
+      : WANT === DEMO_FILE ? ' (the baked demo)' : ''),
     tappableMs: () => tappableAt,   /* how long before a finger has anything to press */
     /* the FIRST load, which is what a stranger gets; null unless opts.warmup asked for
        a second one. Never dropped: a ratchet needs the steady number, a person needs

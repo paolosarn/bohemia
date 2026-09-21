@@ -4056,6 +4056,25 @@ GATES = [
      'it holds the part a machine can. Both teeth were proven to bite with throwaway files before '
      'it shipped. First run: 23 advertised, 23 on disk, 23 run',
      False),
+    ('DRIVER SAYS', ['node', 'gates/the_driver_says_what_it_opened_gate.js'],
+     'A NUMBER MUST SAY WHICH FILE IT IS ABOUT. 9/22, PLUMBER lane, row [driver says]. PEOPLE '
+     '(f75eb900) and SOUNDS (c6566f47) both asked the one driver for the ALPHA in the same round '
+     'and both got the DEMO: opts.alpha was not an option it read, so it was dropped in silence, '
+     'the baked demo opened, and an alpha change measured on it came back as a BELIEVABLE WRONG '
+     'NUMBER WITH NO ERROR. Reproduced before fixing: asked for {alpha:true}, opened '
+     'BOHEMIA_DEMO.html, stamp "DEMO - BUILD 9/21f". A red is an argument you can have; a '
+     'believable wrong number is a lane spending a round chasing a change that was never in the '
+     'file it looked at. THE NAME WAS NEVER THE REAL BUG -- page, useAlpha or flie would all have '
+     'been dropped the same way -- so the driver now knows its own vocabulary and REFUSES anything '
+     'outside it, and announces the file it opened without being asked. This gate holds all of it: '
+     'alpha:true opens the alpha, the default is still the demo so nothing that worked before '
+     'moved, an explicit file: still wins, and an unknown option THROWS. MUTATION-CHECKED: with '
+     'the original bug put back, this gate goes 3 passed / 2 failed on exactly the two legs that '
+     'matter. It does not boot a browser to read a URL choice made before anything loads; it calls '
+     'the real open() against a server that answers nothing and reads the file the driver actually '
+     'went for, so the choice is exercised and only the page load is not.',
+     180),
+
     ('COOK EVERY ROUND', ['node', 'gates/cook_every_round_gate.js'],
      'ONE MADE THING PER MAKING LANE, OR THE ROUND DID NOT HAPPEN. 9/21, PLUMBER lane, row '
      '[cook gate], PAOLO rule 22e. His words: "I will enter the sound chat and it is not even '

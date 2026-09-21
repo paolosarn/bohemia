@@ -175,6 +175,8 @@ async function score(opts) {
   const d = await D.open({ serve: opts.serve, boot: 40000, settle: 60000, warmup: true });
   out.tappableMs = d.tappableMs();
   out.tappableColdMs = d.tappableColdMs();
+  /* row [driver says]: a number always names the file it is about */
+  out.measuredOn = d.openedFile();
   await d.fr.evaluate(WATCH);
   await d.clearCards();
   await sleep(900);
@@ -518,6 +520,7 @@ function compare(now, was) {
 
   console.log('  box ' + now.boxRatio + 'x at the start, ' + now.boxRatioEnd + 'x at the end\n');
   console.log('  ================  THE WALK, AS NUMBERS  ================');
+  console.log('    measured on   ' + now.measuredOn);
   console.log('    TAPPABLE AT    ' + String(now.tappableMs).padStart(7) + ' ms   (SCORED: the'
     + ' second load, because the first is cold)');
   console.log('    cold first load' + String(now.tappableColdMs).padStart(7) + ' ms   what a'

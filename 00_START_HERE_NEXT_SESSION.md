@@ -3577,6 +3577,49 @@ full suite unmeasured since 7efb22cf. Rule 14(a): demo untouched, RUN cuts it.
 
 Record: records/BOHEMIA_ONE_DOOR_9_14_26.md
 
+PLUMBER (plumber-ont6t5): 9/22 (b) LATEST -- *** CHAT 18. ROUND 34. [driver says] SHIPPED. THE ONE
+DRIVER OPENED THE WRONG FILE AND SAID NOTHING, AND IT COST TWO LANES A ROUND EACH. ***
+PEOPLE (f75eb900) and SOUNDS (c6566f47) both asked the one driver for the ALPHA in the same round and
+both got the DEMO. opts.alpha was not an option it read, so it was dropped in silence, the baked demo
+opened, and an alpha change measured on it came back as A BELIEVABLE WRONG NUMBER WITH NO ERROR.
+REPRODUCED BEFORE TOUCHING ANYTHING:
+    asked for: { alpha: true }   opened: BOHEMIA_DEMO.html   stamp: "DEMO - BUILD 9/21f"
+A red is an argument somebody can have. A believable wrong number is a lane spending a round chasing a
+change that was never in the file it looked at, and neither lane had any way to know.
+*** THE NAME WAS NEVER THE REAL BUG. *** `alpha` is just the option that got misspelled first; page,
+useAlpha or flie would all have been dropped in the same silence, and fixing one name leaves the
+mechanism in place for whoever guesses the next one.
+FIXED ALL THREE WAYS:
+ 1. alpha:true opens the alpha. An explicit file: still wins, because naming a file is more specific
+    than naming a surface. The default is still the demo, so nothing that worked before moved.
+ 2. THE DRIVER ANNOUNCES THE FILE ITSELF on every open -- the durable place for that is the driver, not
+    each caller, because the lane that forgets to print it is exactly the lane that will be surprised
+    by it. openedFile(), isAlpha() and says() are on the returned driver, and the ratchet's report now
+    carries a "measured on" line off them.
+ 3. THE DRIVER REFUSES ANY OPTION IT DOES NOT UNDERSTAND and names its vocabulary in the error:
+    "the driver does not understand useAlpha. It knows: alpha, arm, beforeTap, boot, file, keepCards,
+    serve, settle, throttle, warmup, world." AN OPTION A TOOL DOES NOT UNDERSTAND IS A QUESTION IT WAS
+    ASKED AND DID NOT ANSWER, and answering with a number anyway is the whole failure.
+NEW GATE: gates/the_driver_says_what_it_opened_gate.js, in the suite as DRIVER SAYS. Four legs: alpha
+opens the alpha, the default is still the demo, an explicit file still wins, an unknown option throws
+with the vocabulary named. MUTATION-CHECKED: with the original bug put back it goes 3 passed / 2 failed
+on exactly the two legs that matter; restored it is 6 of 6. It does NOT boot a browser to read a URL
+choice made from options before anything loads -- but reading the source and reasoning about it would
+not be a measurement either, and this lane has been wrong that way before, so it calls the real open()
+against a server that answers nothing and reads the file the driver actually went for. The choice is
+exercised; only the page load is not.
+NO REGRESSION, MEASURED BOTH WAYS: HORROR CROWD (opens the alpha by file:) 37 pass / 0 fail. THE DRIVER
+REACHES THE CITY was 2 FAILED before my change and 2 FAILED after -- identical, pre-existing, not mine.
+ALSO WORTH KNOWING: the cook gate from last round did its job. THE COOK LINE on the front page now
+reads 21 items from 11 chats this round, against the 16 items from 4 lanes it measured when it was
+built, with nine lanes that had never registered anything. Only LIFE+CITY checked without cooking.
+STILL OPEN IN MY SECTION: [horror gate] (rule 20h, with DIRECTION), [mode chip], [suite line] (the front
+page's SUITE LINE is still 9/14 ad23d875 and is over a week stale), [pre-push pass], [cannot fail],
+[one way rulers], [spelling gates], [suite runs], [fight headroom], [slim build], [dead gates],
+[handoff cut], [backlog archive]. Still CLAIMED: [never worse], [sixty fps], [demo errors] (STANDING).
+Record: records/BOHEMIA_A_BELIEVABLE_WRONG_NUMBER_9_22_26.md
+[PENDING Paolo] nothing.
+
 PLUMBER (plumber-ont6t5): 9/22 LATEST -- *** CHAT 18. ROUND 33. [bimodal dead] SHIPPED, AND THE ANSWER
 IS THAT THERE WAS NEVER A BUG: THE THIRTEEN DEAD PRESSES WERE A FIGHT STARTING. ***
 WHAT WAS OPEN: my own ratchet measured dead presses seven times on ONE UNCHANGED TREE and got 0, 1, 1,
