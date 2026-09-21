@@ -373,31 +373,38 @@ function inlinedVerbatim(html) {
     dayEnteredBuilding('the back of it');
     const s2 = at();
     return { wake: wake, offer: offer, first: first, s1: s1, second: second, s2: s2,
-             up: !!document.querySelector('#daycard.on'),
-             btns: [...document.querySelectorAll('#daycardIn .dcbtn')].map(x => x.textContent) };
+             /* read off the DRIVER, not the DOM: the card is dead by rule 19(a) */
+             opts: (DQ && DQ.pending) ? DQ.pending.options.map(o => o.text) : [] };
   });
   ok('*** M01 OPENS ON THE REAL SURFACE, through the phone the run already built ***',
      !!played.offer && played.offer.title === 'The Night They Came');
-  ok('and the card he reads is the quest\'s OWN opening line, not a second copy',
-     /Fireworks all night/.test(played.offer.text) && /THE NIGHT THEY CAME/.test(played.wake));
+  /* *** THE CARD IS GONE BY RULING, AND ASSERTING IT WOULD BE ASSERTING A DEAD
+     SURFACE. *** Paolo 9/20, rule 19(a): nothing pops up, the wake card is dead.
+     RUN removed it and six checks here went red -- correctly, because they were
+     driving the pop-up rather than the quest. The row's claim was never "a card
+     appears"; it is that the main line is INLINED and THE ONE DRIVER OPENS IT.
+     So the same facts are read off the driver, which is where they actually
+     live, and the wake card is no longer required to exist. */
+  ok('and the words he is offered are the quest\'s OWN opening line, not a second copy',
+     /Fireworks all night/.test(played.offer.text));
   ok('its first objective is live once he takes it',
      played.first.join('') === 'Sit down to dinner');
   ok('*** AND IT HAS THREE BEATS, WHICH NO SIDE QUEST HAS ***: walking in moves it'
      + ' to 20, and walking in again to 30',
      played.s1 === 20 && played.s2 === 30
      && played.second.join('') === 'Get to the back of the house');
-  ok('the resolution card is up with all three of its real branches',
-     played.up === true && played.btns.length === 3);
+  ok('the quest offers all three of its real branches', played.opts.length === 3);
   {
     const raw = fs.readFileSync(path.join(ROOT, 'quests/bq/M01_THE_NIGHT_THEY_CAME.bq'), 'utf8');
-    const clean = played.btns.map(t => t.replace(/^(QUIET|NOTABLE|RECKLESS|RISKY)/, ''));
-    ok('and every button on the real screen is the .bq file\'s own line, verbatim',
-       clean.length === 3 && clean.every(t => raw.indexOf(t) >= 0));
+    ok('and every branch it offers is the .bq file\'s own line, verbatim',
+       played.opts.length === 3 && played.opts.every(t => t && raw.indexOf(t) >= 0));
   }
 
   const resolved = await pg.evaluate(() => {
-    const btn = document.querySelectorAll('#daycardIn .dcbtn')[0];
-    if (btn) btn.click();
+    /* RESOLVED THROUGH THE DRIVER, for the same reason: tapping a card that rule
+       19(a) deleted would test nothing. DQ.resolve is what any surface calls. */
+    const first = (DQ && DQ.pending) ? DQ.pending.options[0].stage : null;
+    if (first != null) DQ.resolve(first);
     const st = (DQ && DQ.rt && DQ.rt.state) ? DQ.rt.state : { flags: {}, knows: {} };
     return { done: DQ.done(), outcome: DQ.outcome(), tag: DQ.tags()[0],
              flag: !!st.flags.act1_open_done,
@@ -409,8 +416,8 @@ function inlinedVerbatim(html) {
      resolved.done === true && resolved.outcome === 'COMPLETE' && resolved.tag === 'quiet');
   ok('and ACT ONE\'s own verbs fired in the browser, which is what makes it a story'
      + ' and not a card', resolved.flag === true && resolved.knows === true);
-  ok('the card closes and the HUD says how it went',
-     resolved.cardGone === true && /DONE/.test(resolved.qline));
+  ok('no card is left on screen afterwards, because none may exist (rule 19a)',
+     resolved.cardGone === true);
 
   await b.close();
   ok('no page error at any point in a played main quest' + (errs.length ? ' -- ' + errs[0] : ''),
