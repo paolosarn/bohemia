@@ -286,6 +286,21 @@
     "how": "text",
     "src": "THE PERSON AT YOUR DOOR. They have no name until you ask.\n\n  You are new on this block. That is useful to me.\n  Six streets east there is a box that counts this block.\n  I need the number off it. I cannot be seen there.\n  District property. There is a fine for touching it.\n  Nobody has collected a fine on this street in ten years.\n\nYOU OFFER A SHAPE, THEY ANSWER\n\n  Half now, and you are holding the rest if you walk.\n  Leave it with somebody who holds things for strangers. I can live with that.\n  You go first, then. If I walk, it was cheap to find out.\n\nTHEY SAY YES        Then go. Six streets east, the grey box on the pole.\nTHEY SAY NO         No. Not like that, and not from somebody I just met.\nYOU ASK THEIR NAME  I write it down. I do not say it out loud on a step.\n\nYOU COME BACK WITH THE NUMBER\n\n  Half. It came back half.\n  You did the walk. I am not making a speech about it.\n  Read it. Say it once. Then forget which house asked.\n\nTHE SAME OPENING IN THREE MOUTHS\n\n  You are new on this block. That is useful to me.\n  Eres nuevo en este bloque. That is useful to me.\n  You new here. Is useful."
    }
+  },
+  {
+   "id": "animation-the-idle-redone-9-21",
+   "kind": "animation",
+   "lane": "animation",
+   "sha": "8267732",
+   "made": "9/21",
+   "title": "THE IDLE, REDONE",
+   "why": "The clip every standing person plays. You killed the old one. This one breathes in fast and out slow, his weight drifts on a slower clock so nothing lines up, and his head turns once, late, and does not turn back. Feet still never move.",
+   "show": {
+    "how": "page",
+    "src": "vote/ANIMATION_THE_IDLE_REDO.html"
+   },
+   "redoOf": "idle",
+   "said": "a lot of them are good, a lot of them aren’t good... IF I KILLED IT I DON’T WANT IT GONE. I just think it could be done better. Make a new one."
   }
  ],
  "verdicts": []
