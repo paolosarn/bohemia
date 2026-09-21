@@ -21215,6 +21215,57 @@ since 9/6, it also holds 19 QUESTS (BUILD). The front page's chat-19 line says a
 chat with an empty queue takes QUESTS, and DYNASTY's queue went empty at Q16. The
 lane and its first row were claimed and pushed BEFORE any work started. ***
 
+ROUND 45 [a person asks] THE PRICE IS ARGUED IN HIS MOUTH. QUESTS, BUILD. 905a05b.
+In the VOTE tab (alpha) as ARGUING THE PRICE. Gate ASK HAS A MOUTH 29/0 (was 22/0).
+
+THE ROW: "whose terms he argues in that person's mouth, whose job he takes with a
+word to them." All of that is ROWS ON A CARD today and rule 19(a) killed the card.
+
+*** IT RE-TYPES NOTHING, AND THAT IS THE DISCIPLINE. *** bohemia_haggle.js already
+holds every sentence and every rule -- what you can say, what they say back, the
+warning before the ask that costs you, the third ask that ends it. They were
+written as card rows and they already READ as speech because a person wrote them
+that way. talkFor() turns the haggle's own state into a turn of conversation and
+invents no line. A second copy is two versions of one deal, drifting apart the
+first time anybody edits either. What is added is the FRAME only: who speaks,
+what he can say back, and that TAKING IT IS A WORD TO A PERSON.
+
+*** THE LESSON, AND IT IS ABOUT CHECKS, NOT ABOUT QUESTS: A SUBSTRING SWEEP IS
+NOT A CHECK. *** My first "nothing is re-typed" check looked every line up in the
+two source files and flagged "I'll go." / "Not right now." as invented. It was
+RIGHT under its own rule and WRONG about the rule -- those two are this module's
+own take-and-leave lines. THE TEMPTING FIX WAS TO WIDEN THE SWEEP to "anywhere in
+either file", which would have gone green AND MADE THE CHECK WORTHLESS, because a
+re-typed COPY of a haggle line sitting in this module is also "in a file". Every
+line is now matched against the exact thing that OWNS it. Any lane writing a
+"nothing was duplicated" check should match owners, not haystacks.
+
+AND MY GATE'S SETUP WAS WRONG BEFORE THE CODE WAS: the warning checks failed
+because I opened the haggle on a stub with no COMPLETE ending, so pays.kind was
+'unknown', no currency rows existed and the warning was unreachable. It drives
+the real S01 through the real parser now. A red from a bad fixture reads exactly
+like a red from a bug.
+
+PROVED TO BITE, three kinds of drift each caught by name: re-wording one of the
+haggle's rows, softening their warning, taking the job silently.
+
+*** A SECOND PIPE PROBLEM RULE 22 HAS CREATED, NAMED NOT FIXED -> PLUMBER / RUN.
+THE PUBLISHED SITE IS OVER ITS OWN CAP: 261 MB against a 260 MB limit, red on
+clean main, and every lane now adds a vote page EVERY ROUND by rule. *** My three
+pages are 11.9 KB total so no single lane is the cause, and that is the point: the
+cap is crossed by the rule itself, not by anybody's page. It fails on clean main
+so nobody's pre-push pass owns it, which is exactly how a shared limit rots.
+(The first pipe problem, still true: the vote registry conflicts on nearly every
+push because every lane appends to one json array.)
+
+WHERE [a person asks] STANDS: the ask is spoken (44), the wrong detail is in it
+(43), and the price is argued and the job taken by talking (45). Still missing:
+a NAME on the person at the door (measured again this round, STILL 0 of 21), a
+FACE drawn where they speak (the pipe ctFaceAsk is live and the talk surface
+still never calls it; every person already carries a `face` field), and the
+pop-up card off the path (RUN [no pop ups]). The panel is UI's and the face is
+PORTRAIT's by rule 19(d), so this lane stops at the seam and says so.
+
 ROUND 44 [a person asks] AN ASK, IN A MOUTH. QUESTS, BUILD. 440be55.
 In the VOTE tab (alpha) as SOMEBODY ASKS YOU. Gate ASK HAS A MOUTH 22/0, registered.
   records/BOHEMIA_QUESTS_AN_ASK_IN_A_MOUTH_9_21_26.md
