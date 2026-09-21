@@ -22352,6 +22352,62 @@ since 9/6, it also holds 19 QUESTS (BUILD). The front page's chat-19 line says a
 chat with an empty queue takes QUESTS, and DYNASTY's queue went empty at Q16. The
 lane and its first row were claimed and pushed BEFORE any work started. ***
 
+ROUND 46 [wire the door] + [swap the twelve] THE FIRST PERSON SPEAKS, BY NAME.
+QUESTS, BUILD. 469fb2f. SHIPPED TO THE ALPHA (item 4 of the cut, un-held).
+Gate WIRE THE DOOR 15/0, registered.
+  records/BOHEMIA_QUESTS_WIRE_THE_DOOR_9_22_26.md
+
+MEASURED ON THE ALPHA WITH THE ONE DRIVER (rule 14g):
+    spoken at     1.9 s, after ONE pad press
+    speaker       Marisela Escobar        (a NAME, not a trade)
+    the words     "Shelf's been empty since the weekend and nobody's saying
+                   when. Bring back whatever you can carry. It's east of here."
+    face          arrives for that person
+    cards         0        page errors 0
+
+THE WIRE IS FOUR LINES OF PRIORITY, NOT A NEW SURFACE. Rule 19(a) killed the
+pop-up in the same breath that asked for the portrait, so a panel would answer
+half his sentence by breaking the other half. The ask goes into the bubble PEOPLE
+already draw, above the ambient chatter and below nothing, and fires ONCE.
+
+THE NAME CAME FROM PEOPLE'S OWN RULE: somebody who comes to you WANTING
+SOMETHING tells you who they are; a person merely barking near you earns nothing.
+An ask is that case exactly, so it goes through their door rather than a second
+idea of a name. FOR ANY LANE CROSSING A SEAM: use the other lane's door even when
+writing your own would be five lines shorter.
+
+*** THREE INSTRUMENT DEFECTS, ALL CAUGHT ON MYSELF BEFORE THEY REACHED A REPORT,
+AND THE FIRST ONE IS THE EMBARRASSING ONE. ***
+ 1. THE MOUTH MODULE WAS NOT INLINED IN THE CITY. The wire referenced it, the
+    typeof-undefined guard returned false, and the whole feature would have been
+    silently absent and read as a quiet world. THIS LANE SHIPPED AN ENTIRE ROW
+    ABOUT THAT EXACT TRAP ([main quest live]: a module in engine/ is a module the
+    player never runs) AND WALKED INTO IT ANYWAY. Caught by grepping the city
+    before driving it. Gated now. KNOWING A TRAP IS NOT THE SAME AS CHECKING FOR IT.
+ 2. THE GATE POLLED EVERY 250 ms FOR A BUBBLE THAT LIVES TWO SECONDS. On a run
+    where the drive stalled, the ask fired and expired between two polls, and the
+    gate read null and reported a NAMED speaker as nameless. A POLLER THAT SAMPLES
+    A TRANSIENT STATE WILL MISS IT AND CALL THE MISS A DEFECT. The name and face
+    are recorded by the code that puts them on the glass, at the instant; the
+    poller adds only wall-clock timing, the one thing the page cannot know.
+ 3. MY NARRATION CHECK FLAGGED TWO GOOD LINES. "It logs you and moves on" and
+    "It still runs the route" are a neighbour talking about a drone and a taxi.
+    It would have sent WORDS back to rewrite lines that were right. It tests an
+    INDEFINITE PERSON as subject now, and still goes red when the original
+    narration is planted back.
+
+A WEAKNESS IN MY OWN CHECK, STATED RATHER THAN LEFT: the words bank holds the OLD
+lines too, as WAS examples, so "verbatim from the bank" cannot tell a new line
+from the one it replaced. The narration check is what distinguishes them.
+
+[swap the twelve] WENT IN WITH IT: all twelve walk lines were narration in a
+named person's mouth, said by the person the bubble is drawn over. Twelve strings
+for twelve strings, same ids, WORDS' own words, on the register Paolo ruled on.
+
+WHERE [a person asks] STANDS: the coordinator's row says it closes when [wire the
+door] ships. It has. The first person at his door now has a name, a face, and an
+ask in her own mouth, inside two seconds, with no card.
+
 ROUND 45 [a person asks] THE PRICE IS ARGUED IN HIS MOUTH. QUESTS, BUILD. 905a05b.
 In the VOTE tab (alpha) as ARGUING THE PRICE. Gate ASK HAS A MOUTH 29/0 (was 22/0).
 
