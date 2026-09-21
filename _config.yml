@@ -36,6 +36,19 @@
 # the page will 404 in production while working perfectly on disk. That is the one
 # way this file can bite, so it is written down at the top of it.
 
+# TWO BUILDERS PUBLISH THIS SITE AND THEY RACE (coordinator 9/22, records/BOHEMIA_TWO_DEPLOYS_RACE_9_22_26.md).
+# GitHub's own "pages build and deployment" (Jekyll, reading THIS file) fires on every push
+# beside .github/workflows/pages.yml and, since about 9/21, SUCCEEDS in ~80 s. Whichever
+# finishes last is the live site. The Jekyll build obeys the exclude list below, so it
+# publishes NO records/ and NO *.json: on the pushes it wins, the VOTE tab's registry 404s
+# ("THE LIST DID NOT LOAD"), which is what Paolo hit. The real fix is the repo setting
+# (Settings -> Pages -> Source: GitHub Actions), which stops the Jekyll build firing at all.
+# Until that is flipped, `include` below forces the one file the VOTE tab fetches into the
+# Jekyll build too, so the list loads whichever builder wins. Jekyll checks include before
+# exclude, so this beats both `records/` and `*.json`.
+include:
+  - records/target/BOHEMIA_VOTE_REGISTRY.json
+
 exclude:
   - .claude/        # session config -- Jekyll drops dotfolders anyway, but the publish
                     # gate reads THIS list as the source of truth, so it is named here

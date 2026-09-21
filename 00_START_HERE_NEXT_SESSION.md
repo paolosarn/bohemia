@@ -34898,6 +34898,14 @@ you can see, a turn is a beat, the dial only when it matters); NO DAMAGE BEFORE 
 (a routine hit costs one, the dial for the important shot). COMBAT [fight feel] second line
 un-held; UI [fight hud] lights reach; DIRECTION's verdict gains a FEEL column; PLUMBER [fight
 headroom] is the floor for quicker. CLAUDE.md law list. Nothing to judge.
+THEN (fc) PAOLO 9/22: "THE LIST DID NOT LOAD, HTTP 404" on the VOTE tab, then "Im trying to
+vote bro". CAUSE (records/BOHEMIA_TWO_DEPLOYS_RACE_9_22_26.md): two builders publish the site and race; GitHub's Jekyll
+branch build SUCCEEDS now (~80 s) beside pages.yml and, obeying _config.yml's exclude list,
+publishes no records/ and no *.json, so when it finishes last the registry 404s and the demo is
+the committed cut. Shipped: include: [the registry] in _config.yml; CLAUDE.md's "noise"
+sentence corrected; THE DEPLOY LINE on the front page; PLUMBER [list loads] re-aimed (post-deploy
+fetch + an Actions-API leg). THE REAL FIX IS HIS CLICK: Settings -> Pages -> Source: GitHub
+Actions. Asked.
 
 COORDINATOR: 9/4 (ba) -- *** THE MEETING HALL:
 VAMILY.md's front page now carries every rule, and every chat re-reads it every time

@@ -256,6 +256,15 @@ rarely as one mega-session.
   resource_id 'pages.yml') until a run whose sha CONTAINS your content concludes
   SUCCESS -- only then is the link true. Do NOT read "pages build and deployment"
   any more; it still fires and still fails and it is now NOISE, not a symptom.
+  *** CORRECTED 9/22 (coordinator, records/BOHEMIA_TWO_DEPLOYS_RACE_9_22_26.md): IT IS NOT
+  NOISE ANY MORE. Since about 9/21 GitHub's own "pages build and deployment" (Jekyll,
+  reading _config.yml) SUCCEEDS in ~80 s on every push and RACES the `pages` workflow;
+  whichever finishes last is the live site. The Jekyll build publishes NO records/ and NO
+  *.json (the exclude list), so when it wins the VOTE tab's registry 404s ("THE LIST DID
+  NOT LOAD", Paolo 9/22) and the demo is the committed cut, not the fresh one. Mitigation
+  shipped: `include:` in _config.yml forces the registry into the Jekyll build. THE REAL
+  FIX IS THE REPO SETTING, Paolo's click: Settings -> Pages -> Source: GitHub Actions. Until
+  then a deploy is only true when the `pages` run finished LAST. ***
   Confirm containment with `git merge-base --is-ancestor <your-sha> <deployed-sha>`
   rather than eyeballing it -- a later sha usually carries your content, and that
   is the run that counts.
