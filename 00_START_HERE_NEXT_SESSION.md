@@ -26860,7 +26860,89 @@ NEW FRONT-PAGE RULE 8 (added 9/13), and it binds this lane: IF YOUR DIFF TOUCHES
 engine/, REBUILD THE TWO DERIVED SLICES (the RUN slice and the demo) IN THE SAME
 COMMIT. PLUMBER found the RUN slice drifting +45/-6 behind two engine ships.
 
-HOLDING: nothing. LAST SHIPPED: [suburb walls] 9/21 f4be334.
+HOLDING: nothing. LAST SHIPPED: [full shelves] 9/21 2fbfb1a.
+
+*** 9/21 (f) LATEST -- THE DAY AFTER THE MONEY DIES, AND FOUR OF MY OWN GATES
+THAT WENT RED BECAUSE THE GAME GOT BETTER. ***
+records/BOHEMIA_WORLD_THE_DAY_AFTER_THE_MONEY_DIES_9_21_26.md  sha 2fbfb1a
+Row [full shelves], plus rule 22. NOTHING ON A PLAY SURFACE: rule 18 still holds;
+the cook went to VOTE.
+
+(1) RULE 12, AND THE FIRST HALF OF THE ROW WAS ALREADY TRUE. A purchase is a
+CONVERT, not a transfer, so the battery is DESTROYED to make the good and the
+supply falls with every sale; only a building puts one back. Driven through the
+game's own payday.buy(): stock the valley the way the game stocks it, spend every
+holder down --
+      56 batteries burned buying food
+      BATTERIES IN THE VALLEY: 0 across 19 hands
+      made from nothing: 0
+      goods still on the shelf: 4 kinds
+      any purchase, by anybody: CANNOT_AFFORD
+THE VALLEY REALLY CAN RUN OUT AND IT ALREADY DOES.
+
+(2) WHAT WAS MISSING IS THAT NOTHING MOVES AT ALL ONCE IT HAS. No fallback, so
+the game stands still with full shelves, permanently. Trade does not stop when
+money dies in the real world; it changes form.
+
+(3) engine/bohemia_aftermoney.js is that second half, and it ROUTES rather than
+reinventing. Swapping is bohemia_barter ([two prices], 9/15), owing is
+bohemia_lend ([someone lends], 9/13) -- both shipped by this lane with no caller
+for this, and the row said so itself. PROVED, not claimed: the gate takes each
+module away and the way it carried disappears.
+
+(4) *** YOUR EMPTY POCKET IS NOT A DEAD CURRENCY. *** An empty purse and an empty
+valley look identical from inside a shop; both say CANNOT_AFFORD, and the rules
+only change for one. If being broke flipped the world into barter, the game would
+announce the collapse of money on a player's first bad afternoon, and you cannot
+stage the day the money dies if it happens every time somebody overspends. So
+state() has three answers: WORKS, BROKE, DEAD.
+AND AN UNSTOCKED SAVE IS NOT A COLLAPSED ONE: zero across ZERO hands is a game
+nobody has counted, and calling it DEAD fires the beat on the first frame -- the
+same reading that made the night card say 0 on the first night he ever played.
+PRICES STAY HIS: a dead currency does not re-tariff the valley, quote() refuses
+the number and carries what it would have been. A trade with neither goods nor a
+lender is REFUSED, because "the shelves are full and you cannot have any of it"
+IS the beat.
+
+(5) COOK (rule 22): BohemiaNotice.priceList(), the SCHEDULE OF PRICES still on
+the wall on the morning the last battery is spent. Goods read off the economy,
+every line his ONE, all correct and current and enforceable and worthless. AND
+THE LIST DOES NOT KNOW: whether anybody can pay is carried beside the document,
+never in its words -- a list that printed "nobody can pay this" would be a list
+that knows, and it does not.
+
+(6) *** AND FOUR OF THIS LANE'S OWN GATES WERE RED ON A CLEAN TREE, MEASURED NOT
+ASSUMED (stashed this round's work and re-ran to be sure). *** BATTERY WORTH,
+EVERY POCKET, TWO PRICES and FOLD CARRIES all CRASHED on page.$eval waiting for
+'#daycardIn .dcgo'. THE CAUSE: RULE 19(a) KILLED THE POP-UP CARD ON PURPOSE
+("nothing pops up") and RUN's [no pop ups] (2490fc8) took it out of the boot. Four
+gates waited 40 s for a button the law deliberately removed and then threw,
+taking the whole gate with them. A GATE THAT DIES BECAUSE THE GAME GOT BETTER IS
+A GATE THAT MEASURES THE PAST. All four now clear the card IF it is there and
+treat its absence as the normal case. BATTERY WORTH's last two checks asserted
+the card itself and are REPOINTED onto rule 19 -- not deleted, not weakened: the
+line must still be produced and still be right, and THE PHONE LEG IS NAMED AS
+OWED rather than quietly dropped. 33/2 -> 35/0.
+  ANY OTHER LANE WHOSE GATE OPENS THE WALKED CITY AND WAITS FOR THAT CARD HAS
+  THE SAME BUG. Four were mine; I did not sweep anybody else's.
+
+(7) GATES: FULL SHELVES 34/0 (new, in the suite, red two ways -- let being broke
+mean the money is dead -> 3; call an uncounted save collapsed -> 3). BATTERY
+WORTH 35/0, EVERY POCKET 56/0, TWO PRICES 28/0, FOLD CARRIES 26/0, FIRST NOTICE
+48/0.
+
+ROUTED: TO WHOEVER LIFTS THE HOLD -- bohemia_aftermoney has no caller on a play
+surface because rule 18 keeps this lane off them. The shop that should ask it is
+the walked surface's own buy path, which today ends at CANNOT_AFFORD with nowhere
+to go. AND TO EVERY LANE WITH A SURFACE GATE: see (6), the card is gone by law.
+
+STILL OPEN AND NOT SHIPPED, carried from 9/20: BATTERIES IN THE VALLEY on the
+phone. Rule 19(a) moved that bookkeeping off the card and the phone leg is not
+built; the two lines of fix (count() must not need a trigger; CELLS_LAST must
+start at the first real reading, not 0) are written down and wait for the hold.
+
+ROWS STILL OPEN IN THIS LANE: [beltway placed].
+
 
 *** 9/21 (e) LATEST -- TWO AND A HALF THOUSAND WALLS THAT WERE NEVER BUILT. ***
 records/BOHEMIA_WORLD_TWO_AND_A_HALF_THOUSAND_WALLS_NEVER_BUILT_9_21_26.md  sha f4be334
