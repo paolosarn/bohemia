@@ -251,16 +251,23 @@ async function walkAndCheck(browser, BASE, where, url) {
   /* A MARKING IS STILL THE TILE. The patch reads ST_SPIN, the declaration V96 already
      made, so median / lane / kerb / gutter / wall / house are drawn once across the
      cell. Photographed the alternative: the yellow dashes vanished. */
-  /* REPOINTED BY V223, AND THE OLD SPELLING IS EXACTLY THE ROT THIS LANE KEEPS FINDING.
-     This arm matched a source size of 6x-something, which was the OLD 65 px tile. A
-     marking now comes up from COOK's 88 px art (that is what the second set was cooked
-     for), so the ruler was written in a unit the game no longer uses and went red for
-     the work going right. It asks the real question instead: how many cells drew a
-     BANK TILE rather than a lot patch -- 44 or 88 at source, whatever the cell is. */
-  const marks = Object.entries(A.hist)
-    .filter(([k]) => /^(44x44|88x88)$/.test(k))
-    .reduce((n, kv) => n + kv[1], 0);
-  ok(where + ': markings and roofs still draw once across the cell (' + marks + ')', marks > 0);
+  /* *** REPOINTED TWICE BY V223, AND THE SECOND TRY WAS ALSO WRONG, WHICH IS THE
+     LESSON OF THE ROUND. *** It first matched a source size of 6x-something, the OLD
+     65 px tile, so it went red for the work going right. Repointed to match a 44 or
+     88 px source it read ZERO -- and that was not the arm either: BOTH paths now blit
+     a cache canvas AT THE CELL SIZE, so a source size cannot tell a marking from a lot
+     at all. The 44 and 88 pixels are drawn INSIDE streetTile when it composes, once,
+     and a rebuild simply replays that cache.
+     SO IT ASKS WHAT IS ACTUALLY TRUE OF A MARKING: the marking cache is alive and
+     holds a DIRECTIONAL kind -- a median, a lane, a kerb, a gutter, a wall or a roof,
+     none of which may ever tile (V222 photographed what tiling the median does to the
+     road's yellow dashes). */
+  const marks = await cf.evaluate(() => { const out = [];
+    try { for (const k of Object.keys(_stCache)) { const kind = k.split('|')[0];
+      if (!ST_SPIN[kind] && out.indexOf(kind) < 0) out.push(kind); } } catch (e) {}
+    return out; });
+  ok(where + ': markings and roofs still draw once across the cell, never tiled (' +
+     (marks.join(' ') || 'none') + ')', marks.length > 0);
   ok(where + ': only the isotropic materials take a patch (' +
      [...new Set(A.patches.map(p => p.split('|')[0]))].sort().join(' ') + ')',
      A.patches.length > 0 && A.patches.every(p => ['road', 'walk', 'lot', 'yard', 'slab']
