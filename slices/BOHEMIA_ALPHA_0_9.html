@@ -15845,6 +15845,11 @@ window.INTERIORMUS=INTERIORMUS;
    that the shuffle can no longer reach in and take it back. */
 const FIGHTMUS={
   on:false, watch:null, cameBack:0, cityWas:false,
+  /* __ONE_FIGHT_IS_ONE_SONG__ (9/23) -- the fight's song is picked once. See the
+     bohemiaFactionPicked handler for the measurement: combat reports FOUR times as
+     it sets a fight up, so without this the score lurches through three songs in
+     the first six seconds of every fight. laterPicks is kept for the gate to read. */
+  songLatched:false, laterPicks:0,
   PHRASE:128,                              /* 8 bars x 16 steps */
   COOLDOWN:6000,                           /* no redundant switch between fights */
   enter(){
@@ -15855,6 +15860,10 @@ const FIGHTMUS={
       if(MENUMUS.watch){clearInterval(MENUMUS.watch); MENUMUS.watch=null;} } }catch(e){}
     if(this.on)return;
     this.on=true;
+    /* __ONE_FIGHT_IS_ONE_SONG__ -- A FRESH FIGHT GETS A FRESH PICK. Cleared here
+       and nowhere else, BELOW the `if(this.on)return` above, so a fight that is
+       already running cannot have its song re-rolled by anything. */
+    this.songLatched=false; this.laterPicks=0;
     if(this.watch){clearInterval(this.watch); this.watch=null;}
     try{
       this.cityWas=!!CITYMUS.on;
@@ -17865,6 +17874,39 @@ function buildUI(){
          Narrow on purpose: a faction song may still take the music the instant a
          fight owns it, by any path, so no legitimate pick is dropped. */
       if(window.CITYMUS&&CITYMUS.on&&!(window.FIGHTMUS&&FIGHTMUS.on))return;
+      /* __ONE_FIGHT_IS_ONE_SONG__ (9/23, SOUNDS lane) -- A FIGHT PICKS ITS SONG
+         ONCE. MEASURED with a property setter on MUS.cur logging every write and
+         its call site, three cold boots of the alpha, the cold open:
+
+           run 1   +5460 ms REMNANTS  +5461 CARTEL   +6113 MOB       +6114 VOLUNTEERS
+           run 2   + 852 ms MOB       + 853 CARAVANS +1529 COLORFUL  +1530 HOMELESS
+           run 3   +4211 ms VOLUNTEERS                +4698 COLORFUL  +4699 NETWORK
+
+         FOUR POSTS EVERY TIME, in two pairs a millisecond apart, the pairs about
+         650 ms apart -- so the fight's song is chosen four times and CHANGES THREE
+         TIMES after the fight has already started. The transport reads MUS.fac()
+         every step, so each change is audible inside 125 ms: the score lurches
+         through three songs while the player is being shot at.
+         THE CAUSE IS FOUR CALL SITES, NOT A BUG IN ANY ONE OF THEM. The combat
+         module calls pickRandomFaction() from setupCombat, newEncounter, startGame
+         and its own module init, and each one re-rolls Math.random() and reports.
+         Every one of those calls is right for the thing it does; what is wrong is
+         that a re-roll of the FLOOR PALETTE is also a re-roll of the SONG.
+         FIXED ON THIS SIDE, NOT THERE, and that is deliberate: combat uses that
+         index for its palette as well, and the palette is not this lane's to move
+         (the same reason realFaction redraws the scratch patch here). So the first
+         pick of a fight is the fight's song and later posts are ignored until the
+         fight ends. The latch is cleared by FIGHTMUS.enter(), which already carries
+         `if(this.on)return` -- so two fights inside the cooldown stay ONE musical
+         event, exactly as FIGHTMUS already promises, and the FIRST fight after a
+         quiet street still gets its song.
+         AND THE LATCH ONLY BINDS WHILE A FIGHT IS ON. With no fight running this
+         line is unreachable anyway (the guard above), so nothing about the studio
+         tab or the street changes. */
+      if(window.FIGHTMUS&&FIGHTMUS.on){
+        if(FIGHTMUS.songLatched){ FIGHTMUS.laterPicks=(FIGHTMUS.laterPicks||0)+1; return; }
+        FIGHTMUS.songLatched=true;
+      }
       /* NEVER THE SCRATCH PATCH (8/19). See FIGHTMUS.realFaction. */
       MUS.cur=(window.FIGHTMUS?FIGHTMUS.realFaction(ev.data.bohemiaFactionPicked)
                               :ev.data.bohemiaFactionPicked);

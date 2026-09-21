@@ -23,12 +23,24 @@ WHAT IT ASSERTS, all of it off a real running transport:
   1. THE STREETS ARE PLAYING       after the opening hands over, CITYMUS owns it
   2. A FIGHT TAKES THE MUSIC       the song changes and the shuffle stands down
   3. AND KEEPS IT PAST 64 BARS     the transport is walked to the end of a pass
-                                   -- which every real fight outlasts -- and the
-                                   fight's song is STILL the one playing. This
-                                   is the regression that shipped.
-  4. LEAVING IS NOT A CUT          the frame the fight settles, the fight's song
-                                   is still playing. Practitioner consensus is
-                                   asymmetric: immediate IN, musical END OUT.
+                                   -- which every real fight outlasts -- and
+                                   NOBODY CALLS THE STREET SHUFFLE OR THE ROOM
+                                   while the fight owns the music. This is the
+                                   regression that shipped.
+                                   REBUILT 9/23: it used to compare a song TITLE
+                                   to a title read on a fixed 4,000 ms sleep, and
+                                   it flaked 1 run in 5 on an unchanged tree. A
+                                   title is a proxy five systems can move, so a
+                                   red named no cause. It now wraps the entry
+                                   points and counts real calls, and a red PRINTS
+                                   THE CALLER AND THE STACK.
+  4. LEAVING IS NOT A CUT          for the 2.8 s after the fight settles, no
+                                   system swapped the song or restarted it.
+                                   Practitioner consensus is asymmetric:
+                                   immediate IN, musical END OUT. A re-pick of
+                                   the SAME song counts as a cut, because the
+                                   song audibly jumps back to its first bar --
+                                   which the old title comparison could not see.
   5. BUT THE STREETS DO COME BACK  within one phrase, CITYMUS owns it again. A
                                    stand-down that never stands back up would
                                    pass check 4 and leave the valley silent.
@@ -118,13 +130,81 @@ function pw(){for(const g of ['/opt/node22/lib/node_modules','/usr/lib/node_modu
       while (Date.now()-t < 60000) { await new Promise(r=>setTimeout(r,300));
         if (!MENUMUS.on && CITYMUS.on) return Date.now()-t; }
       return null; });
+    /* *** THE INSTRUMENT THAT MAKES A RED NAME ITS OWN CAUSE (9/23, SOUNDS lane).
+       MEASURED: five runs of this gate on ONE unchanged tree gave 46/2, 48/0,
+       48/0, 48/0, 48/0. The two claims below that compare SONG NAMES went red on
+       run 1 and green on the other four, and a red told nobody WHY -- it printed
+       two song titles and left the reader to guess which of five systems had
+       reached in.
+       A CLAIM THAT ASSERTS A PROXY CANNOT NAME A CAUSE. "The streets did not take
+       the music back" is not a fact about a song title, it is a fact about whether
+       the street shuffle RAN. Five systems in this shell can move MUS.cur --
+       CITYMUS, MENUMUS, INTERIORMUS, FIGHTMUS's own redraw, and combat's posted
+       faction pick -- so a name changing is consistent with four different stories
+       and the claim picked one.
+       SO: wrap the actual entry points and record every call with a stack. Nothing
+       is stubbed and nothing is prevented; the real function still runs. */
+    await p.evaluate(()=>{
+      window.__whoLog=[];
+      const mark=(what)=>({what:what, t:Date.now(), fight:!!(window.FIGHTMUS&&FIGHTMUS.on),
+        city:!!(window.CITYMUS&&CITYMUS.on), menu:!!(window.MENUMUS&&MENUMUS.on),
+        imus:!!(window.INTERIORMUS&&INTERIORMUS.on), step:MUS.step,
+        stack:String(new Error().stack).split('\n').slice(2,6).join(' | ')});
+      for(const [obj,fn,label] of [[window.CITYMUS,'startShuffle','CITYMUS.startShuffle'],
+                                   [window.CITYMUS,'play','CITYMUS.play'],
+                                   [window.MENUMUS,'handOff','MENUMUS.handOff'],
+                                   [window.INTERIORMUS,'takeOver','INTERIORMUS.takeOver'],
+                                   [window.INTERIORMUS,'handBack','INTERIORMUS.handBack'],
+                                   [window.FIGHTMUS,'leave','FIGHTMUS.leave']]){
+        if(!obj||typeof obj[fn]!=='function')continue;
+        const real=obj[fn].bind(obj);
+        obj[fn]=function(){ try{ window.__whoLog.push(mark(label)); }catch(e){}
+          return real.apply(obj,arguments); };
+      }
+      /* AND EVERY WRITE TO THE SONG INDEX ITSELF, which is the one path all five
+         share, so a sixth system nobody thought of still gets caught. */
+      let v=MUS.cur;
+      Object.defineProperty(MUS,'cur',{configurable:true, get(){return v;},
+        set(x){ try{ if(x!==v){ const m=mark('MUS.cur='+x);
+          m.name=(MUS.lib()[x]||{}).n; m.from=v; window.__whoLog.push(m); } }catch(e){}
+          v=x; }});
+    });
     const snap=()=>p.evaluate(()=>({fight:FIGHTMUS.on,city:CITYMUS.on,watch:!!CITYMUS.watch,
       step:MUS.step,playing:!!MUS.playing,
       now:(MUS.cur<MFACTIONS.length?MFACTIONS[MUS.cur].n:(MUS.lib()[MUS.cur]||{}).n)}));
     out.streets=await snap();
 
-    await p.evaluate(()=>{ startColdOpen(()=>{}); });
-    await p.waitForTimeout(4000);
+    out.tFightStart=await p.evaluate(()=>{ startColdOpen(()=>{}); return Date.now(); });
+    /* *** WAIT FOR THE FIGHT'S SONG TO ARRIVE, NOT FOR FOUR SECONDS (9/23).
+       This was `waitForTimeout(4000)` and it was the SOURCE of the flake, for the
+       third time in this one file: A FIXED WAIT IS NOT AN EVENT.
+       MEASURED, three cold boots, timestamps of combat's faction posts relative to
+       the fight starting:
+           run 1   5460, 5461, 6113, 6114 ms
+           run 2    852,  853, 1529, 1530 ms
+           run 3   4211, 4212, 4698, 4699 ms
+       The burst lands anywhere from 0.85 s to 6.1 s in, and the gate sampled at
+       exactly 4.0 s -- so on run 1 the reference name it captured was the STREET's
+       song, because the fight had not been given one yet, and on run 3 it caught
+       the middle of the burst. Every claim downstream of that reference then
+       compared two samples of a value the game was still moving.
+       SO: wait for a write with the fight flag true, THEN wait for 1.5 s of quiet
+       (the posts arrive in pairs about 650 ms apart, so 1.5 s of silence means the
+       burst is over), bounded at 20 s, and RECORD whether it ever settled so a
+       claim can say it did not observe instead of claiming the game is wrong. */
+    out.songSettled=await p.evaluate(async()=>{
+      const t=Date.now(), L=()=>window.__whoLog.filter(x=>String(x.what).indexOf('MUS.cur=')===0
+        && x.fight===true);
+      let last=-1;
+      while(Date.now()-t<20000){
+        await new Promise(r=>setTimeout(r,150));
+        const n=L().length;
+        if(n>0){ const newest=L()[n-1].t;
+          if(newest===last && Date.now()-newest>=1500)
+            return {ms:Date.now()-t, writes:n, settled:true};
+          last=newest; }
+      }
+      return {ms:Date.now()-t, writes:L().length, settled:false}; });
     out.inFight=await snap();
 
     // WALK THE TRANSPORT TO THE END OF A 64-BAR PASS. That is what happens on
@@ -141,6 +221,8 @@ function pw(){for(const g of ['/opt/node22/lib/node_modules','/usr/lib/node_modu
     out.stingBefore=await p.evaluate(()=>(typeof STING!=='undefined')?STING.last:-1);
     await p.evaluate(()=>{ window.postMessage({type:'BOHEMIA_COMBAT_END',victory:true,
       kills:2,playerHP:80,dead:2,spared:0,fled:0,alive:0,turns:5},'*'); });
+    out.tEnd=await p.evaluate(t=>Date.now()-t, out.tFightStart);
+    out.laterPicks=await p.evaluate(()=>FIGHTMUS.laterPicks);   /* __ONE_FIGHT_IS_ONE_SONG__ */
     await p.waitForTimeout(1200);
     out.stingAfter=await p.evaluate(()=>(typeof STING!=='undefined')?STING.last:-1);
     // *** SAMPLED ACROSS A WINDOW, NOT READ AT ONE INSTANT, FOR THE SAME REASON AS
@@ -153,6 +235,13 @@ function pw(){for(const g of ['/opt/node22/lib/node_modules','/usr/lib/node_modu
     out.justEndedSamples=[];
     for(let i=0;i<5;i++){ out.justEndedSamples.push(await snap()); await p.waitForTimeout(400); }
     out.justEnded=out.justEndedSamples[0];
+    /* THE WHOLE FIGHT WINDOW, RELATIVE TO THE FIGHT STARTING, so the claims below
+       can say who reached in and when instead of printing two song titles. */
+    out.whoLog=await p.evaluate(t=>window.__whoLog.map(x=>
+      Object.assign({},x,{t:x.t-t})), out.tFightStart);
+    out.tookItBackDuringFight=out.whoLog.filter(x=>x.fight===true
+      && (x.what==='CITYMUS.startShuffle'||x.what==='CITYMUS.play'
+          ||x.what==='INTERIORMUS.takeOver'||x.what==='INTERIORMUS.handBack'));
 
     out.returned=null;
     for(const w of [4000,5000,7000,9000,12000,15000]){
@@ -389,26 +478,99 @@ def main():
        % (st.get('city'), st.get('now')), st.get('city') and st.get('playing'))
 
     inf = d.get('inFight') or {}
+    ss = d.get('songSettled') or {}
+    ok('the fight was GIVEN a song, and the gate waited for it instead of for a '
+       'fixed four seconds (%s writes, settled after %s ms)'
+       % (ss.get('writes'), ss.get('ms')), ss.get('settled') is True)
     ok('a fight TAKES the music (was %s, now %s)' % (st.get('now'), inf.get('now')),
        inf.get('now') and inf.get('now') != st.get('now'))
+    # *** ONE FIGHT IS ONE SONG (9/23). MEASURED before the latch: combat reports a
+    # faction FOUR times as it sets a fight up (setupCombat, newEncounter, startGame
+    # and its own module init all call pickRandomFaction, each re-rolling), so the
+    # score lurched through THREE songs in the first 0.9 to 6.1 seconds of every
+    # fight while the player was being shot at. The shell now latches the first pick
+    # of a fight. This asserts the latch by its EFFECT (one write) and reports how
+    # many later picks it swallowed, so if combat ever stops double-reporting the
+    # number drops and nothing breaks.
+    ok('ONE FIGHT IS ONE SONG: the fight\'s song was set ONCE, not re-rolled '
+       '(%s write%s during the fight, %s later picks ignored)'
+       % (ss.get('writes'), '' if ss.get('writes') == 1 else 's',
+          d.get('laterPicks')),
+       ss.get('writes') == 1)
     ok('the street shuffle STANDS DOWN for the fight (city=%s, watchdog=%s)'
        % (inf.get('city'), inf.get('watch')),
        inf.get('city') is False and inf.get('watch') is False)
     ok('the fight is flagged as owning the music', inf.get('fight') is True)
 
     # 3. THE REGRESSION THAT SHIPPED
+    #
+    # *** REBUILT 9/23 (SOUNDS lane) AFTER MEASURING THIS GATE AGAINST ITSELF.
+    # Five runs on ONE unchanged tree: 46/2, 48/0, 48/0, 48/0, 48/0. These two
+    # claims were the pair that flaked, and the reason is in what they asked.
+    #
+    # BOTH COMPARED A SONG TITLE TO A SONG TITLE READ EARLIER. The law they exist
+    # to defend does not mention titles: it says the street shuffle must not reach
+    # into a fight. Five systems in this shell can move the song (CITYMUS, MENUMUS,
+    # INTERIORMUS, FIGHTMUS's own scratch-patch redraw, and combat's posted faction
+    # pick), so "the title changed" is consistent with four different stories and
+    # the claim silently picked one -- it printed two titles and named no cause.
+    # AND THE REFERENCE TITLE WAS READ ON A FIXED 4,000 ms SLEEP, which is the
+    # exact rot this file already diagnosed twice in its own comments: A FIXED WAIT
+    # IS NOT AN EVENT. Combat's faction pick arrives from an iframe on its own
+    # schedule, so the reference itself was a race.
+    #
+    # THE CLAIM NOW ASSERTS THE LAW DIRECTLY, ON WRAPPED ENTRY POINTS: while the
+    # fight owns the music, the street shuffle and the room must not be called. A
+    # counter of real calls cannot be wrong about who ran, and when it goes red it
+    # PRINTS THE CALLER AND THE STACK. That is strictly stronger than the title
+    # comparison, not weaker: a system that reached in and happened to re-pick the
+    # same song used to pass and now fails.
+    # THE TITLES ARE STILL REPORTED as evidence, and never asserted on.
     p64 = d.get('past64') or {}
-    ok('the streets do NOT take the music back 64 bars into a fight '
-       '(fight song %s, after the pass %s)' % (inf.get('now'), p64.get('now')),
-       p64.get('now') == inf.get('now') and p64.get('city') is False)
+    took = d.get('tookItBackDuringFight')
+    log = d.get('whoLog') or []
+    if took is None:
+        ok('the streets do NOT take the music back 64 bars into a fight '
+           '-- NOT MEASURED: the instrument did not report', False)
+    else:
+        ok('nobody reaches into a fight for the music: %d calls to the street '
+           'shuffle or the room while the fight owned it (songs %s then %s, '
+           'city=%s)%s'
+           % (len(took), inf.get('now'), p64.get('now'), p64.get('city'),
+              ''.join('\n         REACHED IN: %s at +%s ms, step %s, %s'
+                      % (x.get('what'), x.get('t'), x.get('step'),
+                         str(x.get('stack'))[:120]) for x in took)),
+           # AND THE `city` READING IS EVIDENCE, NOT THE ASSERTION. It is read over
+           # a round trip out of the page, and MEASURED under load a single round
+           # trip cost seconds -- long enough for the LEGITIMATE return one phrase
+           # after the fight to land before the reading was taken. A polling meter
+           # cannot see the window it measures. The call counter is stamped with the
+           # page's own clock and its own fight flag, so load cannot move it.
+           len(took) == 0)
 
     je = d.get('justEnded') or {}
     jes = d.get('justEndedSamples') or []
     heldNames = [x.get('now') for x in jes]
-    ok('leaving a fight is not a CUT: the fight song is still playing for every one '
-       'of %d reads across 2 s after the fight ends (%s)'
-       % (len(jes), ' / '.join(str(x) for x in heldNames) or je.get('now')),
-       bool(jes) and all(n == inf.get('now') for n in heldNames))
+    # LEAVING IS NOT A CUT, ASKED AS THE THING IT IS: for the two seconds after the
+    # fight ends, no system may have swapped the song OR restarted it. One reading
+    # cannot tell "it was never cut" from "it was cut and I looked at the wrong
+    # moment", and a title comparison cannot tell a cut from a re-pick of the SAME
+    # title, which is audibly a cut -- the song jumps back to its first bar. So a
+    # re-pick counts, which is why CITYMUS.play is in the list next to MUS.cur.
+    endT = d.get('tEnd')
+    CUT = ('CITYMUS.play', 'CITYMUS.startShuffle', 'INTERIORMUS.takeOver')
+    cuts = [x for x in log if endT is not None and x.get('t') is not None
+            and (str(x.get('what', '')).startswith('MUS.cur=')
+                 or x.get('what') in CUT)
+            and endT - 50 <= x['t'] <= endT + 2900]   # the five reads land at +1200 to +2800 ms
+    ok('leaving a fight is not a CUT: across %d reads over the 2.8 s after the '
+       'fight ends the song was never swapped or restarted (%d cuts; heard %s)'
+       % (len(jes), len(cuts),
+          ' / '.join(sorted(set(str(x) for x in heldNames))))
+       + ''.join('\n         SWAPPED to %s at +%s ms, %s'
+                 % (x.get('name'), x.get('t'), str(x.get('stack'))[:120])
+                 for x in cuts),
+       bool(jes) and len(cuts) == 0)
 
     ret = d.get('returned') or {}
     # ONE FLAKE SEEN, 8/20: this leg failed once in five runs and passed the
