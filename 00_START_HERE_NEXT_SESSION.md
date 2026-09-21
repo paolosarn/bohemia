@@ -4477,6 +4477,118 @@ ALSO STILL OPEN, not draw order: on NE in his own frame
 the right of the shoulders with a visible gap. That is the pose too.
 
 Nothing [PENDING Paolo].
+PEOPLE (people-7h9sfy): 9/21 (b) LATEST -- *** [a name] SHIPPED b09052a2. THE
+NAMES WERE ALWAYS THERE AND THE ONLY DOOR TO THEM WAS A BUTTON ON A CARD. ***
+Row THE-PERSON-AT-HIS-DOOR-HAS-A-NAME, inside [face at the door], which is rule
+19(d)'s fourth thing, and this lane's cook for the round under RULE 22.
+
+THE ROW (QUESTS e7e9ab81): "0 of 21 bodies on his block have a name, all answer
+SOMEBODY."
+
+MEASURED ON THE ALPHA WITH THE GAME'S OWN READER BEFORE A LINE WAS WRITTEN, AND
+IT WAS BIGGER THAN THE ROW: 61 people, 61 of them tier 'stranger', 0 named, 0
+names the game remembers knowing. The person who speaks at his door answers
+WATCH. The only text drawn on the whole canvas was HOME, the map label. So the
+bubble I shipped last round carried a face and the words and nothing that said
+who was talking.
+
+*** THEN THE CONTROL LANDED AND THE CONTROL IS THE WHOLE FINDING: ONE CALL TO
+CT_MET.ask TURNED "WATCH" INTO "Marisela Escobar". *** tier stranger to asked,
+namesKnown 0 to 1, and three more keys cold give Amos Ellison, Perla Nguyen,
+Renata Duong. Before believing a negative, prove the instrument can produce a
+positive; that is this lane's standing lesson and it paid again.
+
+THE NAMES WERE ALWAYS THERE. 64 given names and 48 surnames have been in
+bohemia_people since 7/31, deliberately mixed because Clark County is, under a
+law that is RIGHT: A NAME IS EARNED, NEVER GIVEN. AND THE EARNING HAD EXACTLY
+ONE DOOR IN THE ENTIRE GAME, a button called #ctask on #ctcard, which is the
+card surface rule 19(a) killed on 9/20. The law was not being kept. IT WAS
+STARVING, and a law nothing can satisfy looks exactly like a law being obeyed.
+WRITE THAT DOWN FOR EVERY LANE: a rule with no way to be satisfied reads green
+forever.
+
+AND A THIRD THING WAS BUILT AND NEVER REACHED: ctNames draws a gold name tag
+over a person's head, with a dark ring so it reads over pale ground and dark
+alike. It has drawn NOTHING for the life of the game, because nobody was ever
+named. Same shape as the face last round: built, correct, unreachable.
+
+THE DOOR OFF THE CARD IS THE REAL-WORLD ONE. A stranger who walks up to YOU
+wanting something opens with who they are, because they want something; somebody
+you walk past owes you nothing. So an INTERACTIVE moment earns the name and an
+ambient bark never does. The law is untouched, the crowd stays strangers, and
+the law finally has a way to be satisfied that is not a dead button.
+
+ONE WRITER: CT_MET.ask, the ledger's own call, the same one that button made,
+with the same arguments. Nothing invents a name, stores a name, or keeps a
+second list of who is known. ONE READER: ctPersonName, what the down card, the
+crew list and the lock list already read, so a person cannot be called two
+things on two surfaces. TWO WRITERS FOR ONE FACT is this lane's recurring defect
+and it is designed out here rather than checked for.
+
+THREE THINGS LIT UP AT ONCE off that one bit: the gold tag over their head, the
+heading in their own bubble above their words and beside their face, and every
+list in the game that names people.
+
+ON THE GLASS, one frame each, watched on the real canvas:
+  a stranger talking near him   WATCH at 9px dim, over "They handed something
+                                over. Saw it." at 11px. Nothing over their head.
+                                Nothing earned.
+  somebody who came to him      Marisela over their head in gold with the dark
+                                ring; "Marisela Escobar" at 9px warmer, over
+                                "somebody steps out. they want something."
+  the block afterwards          1 of 61 named. The crowd is still strangers.
+
+*** AND FIXING THIS ROUND'S INSTRUMENT FOUND A CLAIM THAT COULD NOT FAIL IN THIS
+LANE'S OWN GATE FROM THE ROUND BEFORE. *** ctDeedBark sets BARK.until from
+whatever its caller hands it, and its one real caller is barkTick, on
+performance.now(). My probe handed it ctMinuteNow(), a game minute around 360
+against a wall clock past 15,000, so the bubble was ALREADY EXPIRED when the
+first render ticked it. That is the same two-clocks bug I fixed in the game last
+round, sitting inside the instrument I fixed it with. The cost: FACE AT THE
+DOOR's control claim ("before the head arrives the bubble draws with no face")
+was passing because NOTHING DREW AT ALL.
+
+FIXED, AND THE FIX IMMEDIATELY CAUGHT A SECOND WRONG THING. With the right clock
+the control read THREE face draws, not zero: by the time any probe runs, the
+boot walk has already barked and the face cache is holding heads. TIME WAS NEVER
+THE VARIABLE. The control now takes that speaker's head away and proves the
+bubble still draws its words with no face, which is NO FACE, NO SPACE stated as
+something that can fail. 3 face draws RED, then 0 with the bubble drawn GREEN.
+FACE AT THE DOOR is 31/0 again and one of those 31 now means what it says.
+
+THE GATE: gates/a_name_gate.js, driven on the ALPHA, in the suite as A NAME.
+Negative-controlled, each put back: close the door again (stop passing the ask),
+1 red; let a stranger barking near him earn a name, 4 red; take the heading out
+of the bubble, 3 red. The glass section also speaks the same moment WITHOUT the
+ask and proves nothing is earned, so "an ambient bark earns nothing" is a claim
+about the mechanism and not about one call site.
+
+RULE 22 COOK, IN THE VOTE TAB: "WHAT THE PERSON AT YOUR DOOR IS CALLED". The real
+names the game hands out, the trade each one replaces, where the bank comes from,
+and a plainer set beside them. It says in its own words that a stranger keeps
+their trade, so a yes does not quietly name the whole street. Names are his and
+nothing here decides one.
+
+MEASURED AND NOT TOUCHED: #ctask on #ctcard is still there. Rule 19(a) kills the
+card surface, not this lane's code, and ripping a working button out of another
+lane's card while that card is being removed is how two lanes collide.
+THE OTHER 60 ARE STILL STRANGERS ON PURPOSE. What is missing is more reasons for
+somebody to want something from you, which is [somebody hires you] and QUESTS,
+not more naming.
+
+NEXT: the lane's OPEN rows under the rule 18 hold are [horror crowd] (rule 20h
+school: a crowd that stands too still, measured against the crowd we place),
+then [walking companion], [weights shape], [rumours travel], [creditor stands],
+[somebody hires you]. RULE 22 binds every round from here: one real person made
+and registered in the VOTE tab, every round, measuring beside it and never
+instead of it.
+
+[PENDING Paolo], carried, none of them blocking: when a person dies of old age;
+how many game days is a year; who you marry; what a long injury costs to treat;
+the 82-row deed table. Named for other lanes: the two cards stacked at his door
+are RUN [no pop ups]; DERIVED FRESHNESS wipes its own overlay with git clean so
+it reds on any uncommitted work, which is PLUMBER's.
+
 PEOPLE (people-7h9sfy): 9/21 LATEST -- *** [face at the door] SHIPPED f75eb900.
 WHEN ANYBODY IN THIS GAME TALKED TO YOU, THE ONLY FACE ON SCREEN WAS YOURS. ***
 Rule 19, Paolo 9/20: "text on screen coming from people's voice, and when they
