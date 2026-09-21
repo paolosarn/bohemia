@@ -27,6 +27,12 @@
  * THE FACE STILL HOLDS (bible rule 6, THE STILL FACE). Nothing here animates. This file
  * also MEASURES the idle against that rule's own number and prints it.
  *
+ * REFERENCE CHECK (the 9/4 standing duty; added by DIRECTION 9/21 at the seam --
+ * third cook tool this stretch to ship without one, the pattern is routed to the
+ * coordinator): the rulers are AH-01 (the bible; rules 4 and 6 are quoted above
+ * as the whole brief) and FACE-01 with FACE-02 (the portrait construction the
+ * lit form must keep). Both resolve in the reference library index.
+ *
  * RIG CHECK: renders and reads; no joint, no bone, no painted pixel. IT DOES NOT CHANGE THE
  * SHIPPED RENDERER -- rule 18 keeps code off the play surface, rule 15 says he sees it in
  * VOTE first. renderFace is untouched and the approved player face has not moved.

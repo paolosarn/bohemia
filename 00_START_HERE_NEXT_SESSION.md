@@ -40101,7 +40101,30 @@ your first VAMILY and do steps 1 to 9.
 I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
-ROUND LOG 9/21c (latest): [judge the fight] ROUND 4 POSTED and the seam
+ROUND LOG 9/21d (latest): PAOLO TO THIS CHAT AGAIN, "analog horror" -
+recorded and ruled the same turn (records/BOHEMIA_PAOLO_ANALOG_HORROR_TO_
+DIRECTION_AGAIN_9_21_26.md: the tone leads every verdict from now; where
+the tone stands on his reachable surfaces is written in the record).
+Executed immediately as FIGHT VERDICT ROUND 5 on V223, read through the
+tone first: THE TWO BIGGEST LIES ARE PAID AND MEASURED - the fighter is
+one size again (198 px in the fight vs 181-187 on the street, against
+round 2's 37-vs-112) and the light carries (cold blue gone, the fight
+floor is the warm approved bank at the walk's hour; R4 day ok). WHAT IS
+LEFT IS ALL CHROME: the diamond field, map-type CLEAR/WAY OUT, the
+lollipop, the gradient bar (fifth round), the SHOOT glow ring, the
+(stun 1-30%) readout - every remaining lie is UI [fight hud]; COMBAT
+and COOK owe the picture nothing this round. Bible line posted with
+EYES E28's three instrument numbers cited (hold 4.8% vs 10, zero lens
+draws, zero filters). Rule 17's two numbers: still unmeasured, now
+BUILDABLE (the fight runs at the right size; one timing hook). Record
+records/BOHEMIA_FIGHT_VERDICT_ROUND_5_9_21_26.md; front page carries
+round 5. AND THE PATTERN IS NOW PROVEN, THREE TOOLS IN ONE STRETCH:
+PORTRAIT's light-in-the-room cook is the THIRD cook tool shipped
+without the 9/4 REFERENCE CHECK (after CHARACTER's too-still and
+PORTRAIT's face-light); paid at the seam again (AH-01 + FACE-01/02,
+gate 41+/0, grandfather frozen at 85). Coordinator: the one line in
+the cook rules is now three-times earned.
+PREVIOUS: [judge the fight] ROUND 4 POSTED and the seam
 swept. The fight frame is unchanged, third reading running (no COMBAT
 ship since round 2; the two rule-17 numbers stay UNMEASURED and named).
 THE SEAM MOVED: COOK [the edge that drums] PASS - round 2/3's item 5
