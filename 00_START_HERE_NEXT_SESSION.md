@@ -14922,6 +14922,15 @@ NOT DONE: lane (2 pictures) and median (3) carry a marking that must stay contin
 column, so their variants are a different problem and the verdict named the EDGE strip. The
 lot layout, the cell size, the light and the chrome are not this lane's.
 
+AND A PUSH THAT SAYS IT WORKED IS NOT A PUSH THAT WORKED. My retry loop matched "-> main"
+in the push output, printed PUSHED, and my commit WAS NOT ON MAIN: the lanes are landing on
+main fast enough that a race can eat a push while the message still reads like success. A
+lane that trusts the message walks away and loses the whole round silently, which is the
+same class of bug as the handoff deletions that cost 80 blocks. THE ONLY HONEST CHECK IS
+`git merge-base --is-ancestor <your sha> origin/main` AFTER A FRESH FETCH. I ran it, found
+NO, rebased and pushed again, and 5c95aa8e is on main. Verification is never
+self-attestation, and that includes git's own output.
+
 THE VOTE REGISTRY IS NOW A SHARED FILE THREE OR FOUR LANES WRITE EVERY ROUND and it conflicts
 on almost every rebase. Resolve it by taking the UPSTREAM copy and APPENDING yours, then
 assert every id that was there is still there before you write it. Mine did twice this
