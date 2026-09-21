@@ -1,0 +1,75 @@
+<!doctype html><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>BOHEMIA — THE IDLE, REDONE</title>
+<!-- ANIMATION, [redo killed]. Paolo killed `idle` on 9/7. This is the redo, beside
+     what he killed, playing on the real 120 BPM beat. Self-contained on purpose: one
+     sprite sheet and no engine, so it opens instantly on a phone inside the VOTE tab. -->
+<style>
+  :root{--ink:#e8e0cc;--bg:#0d0d12;--card:#16161d;--line:#33313d;--gold:#c79a3f}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+       font:13px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace;padding:14px}
+  h1{font-size:13px;letter-spacing:2px;margin:0 0 4px;color:var(--gold)}
+  p{margin:0 0 12px;color:#a49a86;max-width:60ch}
+  .said{border-left:2px solid var(--line);padding:6px 0 6px 10px;margin:0 0 14px;color:#8d8478}
+  .grid{display:flex;gap:10px;flex-wrap:wrap}
+  .col{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:8px;flex:1 1 150px}
+  .lab{font-size:11px;letter-spacing:1px;margin-bottom:6px}
+  .killed{color:#9a6b6b}.new{color:#7fa06b}
+  .row{display:flex;gap:6px;flex-wrap:wrap}
+  .cell{width:112px;height:112px;image-rendering:pixelated;background:#101319;border-radius:3px}
+  .facing{font-size:10px;color:#6f6862;text-align:center;margin-top:2px}
+  table{border-collapse:collapse;margin-top:14px;font-size:12px}
+  td,th{border:1px solid var(--line);padding:4px 8px;text-align:left}
+  th{color:var(--gold);font-weight:normal}
+  .note{margin-top:12px;color:#6f6862;max-width:60ch}
+</style>
+<h1>THE IDLE, REDONE</h1>
+<p>You killed <b>idle</b>. It is the clip every person in the game plays while standing,
+so it is on screen more than anything else.</p>
+<div class="said">What it was: one sine wave on two arms, perfectly mirrored, forever.
+Nothing else on the body moved at all.</div>
+<div class="grid" id="grid"></div>
+<table>
+  <tr><th>counted off these exact pictures</th><th>killed</th><th>redone</th></tr>
+  <tr><td>pixels that change each frame</td><td>86</td><td>128</td></tr>
+  <tr><td>biggest change in one frame</td><td>335</td><td>519</td></tr>
+  <tr><td>arms a perfect mirror</td><td>yes</td><td>no</td></tr>
+  <tr><td>feet move</td><td>never</td><td>never</td></tr>
+</table>
+<p class="note">Both are playing at the real speed, 120 beats a minute, four beats a loop.
+He breathes in fast and out slow, his weight drifts on a slower clock than his breath so
+nothing in him lines up, and his head turns once, late, and does not turn back.</p>
+<script>
+(function(){
+  var W=112,H=112,N=16,DIRS=['S','SE','E','NE'];
+  var SRC='ANIMATION_THE_IDLE_REDO.png';
+  var grid=document.getElementById('grid');
+  var cells=[];
+  [['KILLED','killed',0],['REDONE','new',DIRS.length]].forEach(function(spec){
+    var col=document.createElement('div'); col.className='col';
+    var lab=document.createElement('div'); lab.className='lab '+spec[1]; lab.textContent=spec[0];
+    col.appendChild(lab);
+    var row=document.createElement('div'); row.className='row';
+    DIRS.forEach(function(d,i){
+      var wrap=document.createElement('div');
+      var c=document.createElement('div'); c.className='cell';
+      c.style.backgroundImage='url('+SRC+')';
+      c.style.backgroundSize=(W*N)+'px auto';
+      cells.push({el:c,row:spec[2]+i});
+      var f=document.createElement('div'); f.className='facing'; f.textContent=d;
+      wrap.appendChild(c); wrap.appendChild(f); row.appendChild(wrap);
+    });
+    col.appendChild(row); grid.appendChild(col);
+  });
+  /* 120 BPM, four beats a loop: the same clock the game runs on. */
+  var LOOP=2000, t0=performance.now();
+  (function tick(){
+    var ph=((performance.now()-t0)%LOOP)/LOOP;
+    var f=Math.floor(ph*N)%N;
+    for(var i=0;i<cells.length;i++)
+      cells[i].el.style.backgroundPosition=(-f*W)+'px '+(-cells[i].row*H)+'px';
+    requestAnimationFrame(tick);
+  })();
+})();
+</script>
