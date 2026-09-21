@@ -32833,6 +32833,14 @@ own curve; drab crews take the sign down. New: PLUMBER [driver says] first, UI [
 WORDS Q28 [loading words] first, PEOPLE [family eyes], SOUNDS [beds play]; THE COOK LINE on
 the front page. The thing he never opened: the VOTE tab in the alpha, 37 items, 0 votes.
 Ask to him: open chat 01 RUN and type VAMILY.
+THEN (ey) PAOLO 9/21: a playbook for his boss's personal-assistant UI, "all the sauce with UI,
+everything we've learned... voting process, all our processes... don't mention the project or my
+name... he's on the free version." Made exports/THE_JUDGE_QUEUE_PLAYBOOK.md and .html (published
+as a page): the voting process, the registry schema, exporting verdicts (copy all, .txt), the
+notes section, the process rules, the reply contract, the UI rules, verification, a ten-step
+integration recipe, eleven blind spots, a free-tier chapter (one chat, one self-contained page,
+paste in and out, the board as memory), two appendices. Zero names in the exports. Record:
+records/BOHEMIA_PAOLO_A_PLAYBOOK_FOR_HIS_BOSS_9_21_26.md. Not a game ruling; nothing on the board.
 
 COORDINATOR: 9/4 (ba) -- *** THE MEETING HALL:
 VAMILY.md's front page now carries every rule, and every chat re-reads it every time

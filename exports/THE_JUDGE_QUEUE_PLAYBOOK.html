@@ -1,0 +1,346 @@
+<title>The Judge Queue</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;600&display=swap">
+<style>
+:root{--paper:#f2ecdf;--ink:#1f1a12;--ink2:#5d5343;--rule:#766f63;--gold:#a8791f;--cold:#2f7f77;--panel:#e8e0cf;--code:#ece5d6;--codeink:#2a2418;
+ --sans:'IBM Plex Sans',system-ui,-apple-system,'Segoe UI',sans-serif;--mono:'IBM Plex Mono',ui-monospace,Menlo,Consolas,monospace}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--paper:#171410;--ink:#e6dcc6;--ink2:#a89a80;--rule:#8a8172;--gold:#d3a446;--cold:#63b0a6;--panel:#221d16;--code:#1f1a13;--codeink:#e0d6bf}}
+:root[data-theme="dark"]{--paper:#171410;--ink:#e6dcc6;--ink2:#a89a80;--rule:#8a8172;--gold:#d3a446;--cold:#63b0a6;--panel:#221d16;--code:#1f1a13;--codeink:#e0d6bf}
+body{background:var(--paper);color:var(--ink);font:16px/1.55 var(--sans);margin:0;padding-block:0 64px;padding-inline:16px}
+.wrap{max-width:72ch;margin:0 auto}
+header{padding:40px 0 24px;border-bottom:2px solid var(--rule)}
+.eyebrow{font:600 12px/1 var(--mono);color:var(--cold);letter-spacing:0;margin:0 0 14px}
+h1{font:700 clamp(30px,6vw,44px)/1.05 var(--sans);margin:0 0 14px;text-wrap:balance}
+.lede{font-size:18px;color:var(--ink2);margin:0}
+nav.toc{margin:24px 0 0;padding:16px 18px;background:var(--panel);clip-path:polygon(10px 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%,0 10px)}
+nav.toc ol{margin:0;padding-left:20px;columns:2;column-gap:24px}
+@media (max-width:520px){nav.toc ol{columns:1}}
+nav.toc li{break-inside:avoid;margin:4px 0;font-size:14px}
+nav.toc a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--rule)}
+h2{font:700 24px/1.2 var(--sans);margin:44px 0 12px;padding-top:18px;border-top:2px solid var(--rule);text-wrap:balance}
+h3{font:600 17px/1.3 var(--sans);margin:26px 0 8px;color:var(--gold)}
+p{margin:0 0 14px}
+ul,ol{margin:0 0 16px;padding-left:22px}li{margin:6px 0}li::marker{color:var(--gold)}
+strong{color:var(--ink)}
+code{font:14px/1.45 var(--mono);background:var(--code);color:var(--codeink);padding:1px 5px}
+pre{background:var(--code);color:var(--codeink);padding:14px 16px;overflow-x:auto;margin:0 0 18px;border-left:3px solid var(--cold);clip-path:polygon(0 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%)}
+pre code{background:none;padding:0;font-size:13px}
+hr{border:0;height:0;margin:0}
+h1+p{margin-top:0}
+a{color:var(--cold)}
+footer{margin-top:48px;padding-top:16px;border-top:2px solid var(--rule);font:13px/1.5 var(--mono);color:var(--ink2)}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+</style>
+<div class="wrap">
+<header>
+<p class="eyebrow">A PLAYBOOK FOR A CODE ASSISTANT, FREE TIER INCLUDED</p>
+<h1>THE JUDGE QUEUE: a playbook for building a personal assistant's UI around one human decider</h1>
+<p class="lede">A working guide for a code assistant. Everything here was learned building a large creative project where one person judged everything on a phone and a fleet of AI chats did the work. Read it once, then hand the checklists to your code bot. No product names, no people.</p>
+<nav class="toc"><ol><li><a href="#0-the-one-idea">0. The one idea</a></li><li><a href="#1-the-voting-process-the-part-that-took-longest-to-get-right">1. The voting process (the part that took longest to get right)</a></li><li><a href="#2-the-registry-the-file-the-queue-reads-and-the-bot-reads-back">2. The registry (the file the queue reads and the bot reads back)</a></li><li><a href="#3-getting-verdicts-out-of-the-phone-the-integration-gotcha">3. Getting verdicts out of the phone (the integration gotcha)</a></li><li><a href="#4-the-notes-section-their-voice-while-they-use-the-thing">4. The notes section (their voice while they use the thing)</a></li><li><a href="#5-process-rules-that-made-the-fleet-work-hand-these-to-the-code-bot-verbatim">5. Process rules that made the fleet work (hand these to the code bot verbatim)</a></li><li><a href="#6-how-to-talk-to-the-decider-the-reply-contract">6. How to talk to the decider (the reply contract)</a></li><li><a href="#7-the-ui-sauce-what-the-screens-themselves-must-obey">7. The UI sauce (what the screens themselves must obey)</a></li><li><a href="#8-verification-how-to-know-the-screen-works-not-just-that-the-code-passes">8. Verification (how to know the screen works, not just that the code passes)</a></li><li><a href="#9-integration-recipe-for-a-personal-assistant-ui-do-this-in-order">9. Integration recipe for a personal-assistant UI (do this in order)</a></li><li><a href="#10-blind-spots-things-you-do-not-know-you-do-not-know-yet">10. Blind spots (things you do not know you do not know yet)</a></li><li><a href="#11-if-the-assistant-is-a-free-chat-bot-no-code-running-no-files-no-git">11. If the assistant is a free chat bot (no code running, no files, no git)</a></li><li><a href="#appendix-a-the-queue-page-minimal-working-shape">Appendix A: the queue page, minimal working shape</a></li><li><a href="#appendix-b-the-bot-s-read-back-in-plain-steps">Appendix B: the bot's read-back, in plain steps</a></li></ol></nav>
+</header>
+<main>
+
+
+<h2 id="0-the-one-idea">0. The one idea</h2>
+<p>The human is not a user. The human is the <strong>decider</strong>. Every screen you build exists to do one of three things:</p>
+<ol>
+<li>Show the decider a thing they have not judged yet.</li>
+<li>Take one tap of judgement (up, down, a comment) and make the thing <strong>leave</strong>.</li>
+<li>Get that judgement back to the bot as a file the bot can read.</li>
+</ol>
+<p>Everything else is noise. If your assistant's UI does those three things well on a phone in sunlight, it is ahead of almost every "AI dashboard" in existence.</p>
+<h2 id="1-the-voting-process-the-part-that-took-longest-to-get-right">1. The voting process (the part that took longest to get right)</h2>
+<h3 id="1-1-one-queue-one-place">1.1 One queue, one place</h3>
+<p>There is exactly <strong>one place</strong> the decider votes. Not one page per feature, not a judge page per bot, not a modal here and a thumbs-up there. One queue, mixed kinds (a design, a paragraph, a sound, a name, a rule), newest first, each row with the <strong>same three controls</strong>: up, down, comment.</p>
+<p>We learned this the hard way: eight separate judge pages, each built when it was "just one or two things", became a maze. The decider said: "one central tab where everything that is new goes, where I vote on it."</p>
+<h3 id="1-2-a-vote-consumes-the-item">1.2 A vote consumes the item</h3>
+<p>The moment the decider votes, the row <strong>leaves</strong> and never comes back under that id. The decider's exact words: "after I vote on something it needs to stop presenting itself like I didn't just vote on it."</p>
+<p>Two memories make this reliable:</p>
+<ul>
+<li>The device remembers the vote instantly (local storage) so the row vanishes on the tap.</li>
+<li>The registry file remembers it permanently once the export lands.</li>
+<p>An item is consumed if it is in <strong>either</strong>. One memory was not enough: a rebuild of the page resurrected judged things.</p>
+</ul>
+<h3 id="1-3-a-redo-is-a-new-item-that-quotes-the-kill">1.3 A redo is a new item that quotes the kill</h3>
+<p>If the bot redoes something the decider killed, it comes back as a <strong>new id</strong> that points at the old one and says: "REDONE. You killed this on [date] because: [their exact words]." The decider is never judging blind, and never asked to re-judge the same id.</p>
+<h3 id="1-4-notes-are-rulings">1.4 Notes are rulings</h3>
+<p>If the decider <strong>said</strong> something in a comment, that is the verdict. Build it. Never ask them to confirm their own words with a second thumb. Thumbs are for fresh, unseen candidates only.</p>
+<h3 id="1-5-unjudged-goes-stale-and-stale-is-dead">1.5 Unjudged goes stale, and stale is dead</h3>
+<p>Bulk silence is a verdict. If the queue fills up and the decider does not touch a thing for a long stretch, that thing is dead. The bot does not nag. The queue must never become a debt.</p>
+<h3 id="1-6-decide-first-correct-after-the-biggest-process-lesson">1.6 Decide first, correct after (the biggest process lesson)</h3>
+<p>We turned the decider into an approvals queue and they hated it: "thumb thumb thumb, everything is a thumb." The fix flipped the default: <strong>the bot decides, builds it, and puts it where the decider meets it; the decider corrects what they hate.</strong> Only three things still go to the decider before building:</p>
+<ul>
+<li>identity and names they reserved for themselves,</li>
+<li>a genuine fork with no defensible default (pick one anyway, say why, build it, put it in the queue),</li>
+<li>anything they explicitly asked to see.</li>
+<p>Every default the bot takes in the decider's place goes into the queue as its own row, one line with the <em>why</em>, so a rule can be knocked down the same way a design can.</p>
+</ul>
+<h3 id="1-7-two-kinds-of-item-aesthetic-and-philosophical">1.7 Two kinds of item: aesthetic and philosophical</h3>
+<p>The queue holds <strong>aesthetic</strong> items (a look, a sound, a face, a line of text) and <strong>philosophical</strong> items (a rule, a default the bot took, a fork). Both get the same three controls. A down-vote on a philosophical item is a ruling; the bot rebuilds.</p>
+<h2 id="2-the-registry-the-file-the-queue-reads-and-the-bot-reads-back">2. The registry (the file the queue reads and the bot reads back)</h2>
+<p>One JSON file, in a folder the web page can fetch. The page reads <code>items</code> and <code>verdicts</code>. Bots <strong>append</strong> to <code>items</code> and never edit another bot's object. Humans never edit it by hand.</p>
+<pre><code>{
+  &quot;version&quot;: 1,
+  &quot;items&quot;: [
+    {
+      &quot;id&quot;: &quot;ui-five-ways-the-first-screen-opens-9-21&quot;,
+      &quot;kind&quot;: &quot;ui&quot;,
+      &quot;lane&quot;: &quot;ui&quot;,
+      &quot;sha&quot;: &quot;3992a1ea&quot;,
+      &quot;made&quot;: &quot;9/21&quot;,
+      &quot;title&quot;: &quot;FIVE WAYS THE FIRST SCREEN OPENS&quot;,
+      &quot;why&quot;: &quot;The opening screen, five options at real phone size, beside the flat one it replaces.&quot;,
+      &quot;show&quot;: { &quot;how&quot;: &quot;image&quot;, &quot;src&quot;: &quot;vote/first_screen_five_ways.png&quot; }
+    },
+    {
+      &quot;id&quot;: &quot;sounds-the-room-hum-redo-9-22&quot;,
+      &quot;kind&quot;: &quot;redo&quot;,
+      &quot;lane&quot;: &quot;sounds&quot;,
+      &quot;sha&quot;: &quot;PENDING&quot;,
+      &quot;made&quot;: &quot;9/22&quot;,
+      &quot;title&quot;: &quot;THE ROOM HUM, REDONE&quot;,
+      &quot;why&quot;: &quot;Quieter under the music; stays on when the song starts.&quot;,
+      &quot;show&quot;: { &quot;how&quot;: &quot;audio&quot;, &quot;src&quot;: &quot;vote/room_hum_v2.mp3&quot; },
+      &quot;redoOf&quot;: &quot;sounds-the-room-hum-9-21&quot;,
+      &quot;said&quot;: &quot;too loud, sounds like a fridge&quot;
+    }
+  ],
+  &quot;verdicts&quot;: [
+    { &quot;id&quot;: &quot;sounds-the-room-hum-9-21&quot;, &quot;vote&quot;: &quot;down&quot;, &quot;note&quot;: &quot;too loud, sounds like a fridge&quot;, &quot;at&quot;: &quot;2026-09-21T14:02:00Z&quot; }
+  ]
+}</code></pre>
+<p>Field rules that saved us pain:</p>
+<ul>
+<li><code>id</code>: a unique slug. <strong>Never reused.</strong> A redo is a new id.</li>
+<li><code>kind</code>: a short fixed list your page knows how to show. Ours: <code>song sound face haircut outfit tile animation line ui verdict redo</code>. Add a kind by adding one word to the list and one renderer.</li>
+<li><code>lane</code>: which bot made it. Lets the cook gate (section 5) count who is producing.</li>
+<li><code>sha</code>: the commit the thing landed in, so anyone can go look. <code>PENDING</code> is allowed on first write and must be filled by a follow-up commit.</li>
+<li><code>title</code>: plain words the decider reads on the row. Not a filename.</li>
+<li><code>why</code>: one short line: what changed and what they are deciding.</li>
+<li><code>show</code>: <code>{how, src}</code> where <code>how</code> is <code>page | image | clip | audio | text</code>. Paths are <strong>relative to the page's folder</strong>, never absolute. A broken image in the queue is a row that "shows nothing when tapped", the worst kind of bug.</li>
+<li><code>redoOf</code> + <code>said</code>: redos only. <code>said</code> is the decider's own words, quoted back.</li>
+</ul>
+<p><strong>How the bot reads a verdict back:</strong> look in <code>verdicts</code> for your id. <code>up</code> = build it in, <code>down</code> = graveyard it with a one-paragraph post-mortem (what it was, why it died, what not to try again). Do not ask again.</p>
+<p><strong>The gate:</strong> an automated check plants a judged id in <code>verdicts</code> and proves the page refuses to render it. If that check does not exist, the rule does not exist.</p>
+<h2 id="3-getting-verdicts-out-of-the-phone-the-integration-gotcha">3. Getting verdicts out of the phone (the integration gotcha)</h2>
+<p>A web page <strong>cannot write a file</strong>. So the verdicts have to leave the device by a road the decider can use with one thumb:</p>
+<ol>
+<li><strong>Copy all.</strong> One button puts every verdict (and every note) on the clipboard as plain text. The decider pastes it into the chat with the bot. This is the road they actually use.</li>
+<li><strong>Export as <code>.txt</code>.</strong> Never <code>.json</code>. The decider opens text files; they do not open JSON.</li>
+<li><strong>Local storage, instantly.</strong> The tap is remembered on the device before any export, so nothing is lost if they close the page.</li>
+</ol>
+<p>The bot's job on receiving the paste: parse it, append to <code>verdicts</code> in the registry, commit, and write a human-readable record file the same turn. <strong>The commit is the memory.</strong> If it is not committed, it did not happen.</p>
+<p>Plain-text export format that parses cleanly and reads like a receipt:</p>
+<pre><code>VERDICTS 9/21 14:02 (build 9/21c)
+UP    ui-five-ways-the-first-screen-opens-9-21    &quot;the third one, the others look like apps&quot;
+DOWN  sounds-the-room-hum-9-21                    &quot;too loud, sounds like a fridge&quot;
+UP    people-the-names-at-your-door-9-21          &quot;&quot;
+NOTE  [walk, block 12, 04:31, 88s in] the car still looks like dogshit at the far zoom</code></pre>
+<p>Every line is one verdict or one note. Tabs or two-space padding. The bot regex is trivial.</p>
+<h2 id="4-the-notes-section-their-voice-while-they-use-the-thing">4. The notes section (their voice while they use the thing)</h2>
+<p>The decider asked for "the tiniest button, top right, where as I'm playing I can write all my thoughts down and then resume." What we learned building it:</p>
+<ul>
+<li><strong>Tiny means footprint, never invisibility.</strong> Our first version was a 5-pixel pencil. The decider could not find it, so it did not exist. It is now the word NOTES, small but readable, with a 44 px touch target.</li>
+<li><strong>Every note carries its own context</strong> so the decider never types it: the build stamp, the screen or mode, where they were, the time into the session, and a small frame of what was on screen. "This looks bad" then says <em>what</em> looked bad. Before this, one comment ("the car looks bad") sent three bots guessing which zoom level was meant.</li>
+<li><strong>Opening the notes pauses the thing.</strong> Inputs stop at the capture phase so nothing underneath reacts. A release event is never swallowed.</li>
+<li><strong>A tap outside the box must not throw away what they wrote.</strong> Every other card can dismiss on a tap outside; the one place they write cannot.</li>
+<li><strong>Collapsible, and it stays there the whole session.</strong> Tap open, tap closed.</li>
+<li><strong>Copy all</strong> puts every note on the clipboard as text (same road as verdicts).</li>
+</ul>
+<h2 id="5-process-rules-that-made-the-fleet-work-hand-these-to-the-code-bot-verbatim">5. Process rules that made the fleet work (hand these to the code bot verbatim)</h2>
+<ul>
+<li><strong>One word starts a round.</strong> The decider types one word into any chat. The bot reads the shared rules page, finds its own section, and does its job. The decider never pastes context and never explains. If your assistant has more than one bot, give them one shared board.</li>
+<li><strong>Every sentence the decider says becomes a job before the reply ends.</strong> Two-word bracketed labels (<code>[copy notes]</code>, <code>[first sound]</code>), each with what it is, why, and a ship test.</li>
+<li><strong>Claim before you work.</strong> A bot marks the job CLAIMED and pushes that before starting, so two bots never build the same thing.</li>
+<li><strong>Newest date wins.</strong> Rules accumulate; on any conflict the newest ruling wins, and the old one is marked dead the same turn. A contradiction between two live rules is a bug, not an interpretation.</li>
+<li><strong>A rule without a machine check is not enforced.</strong> Every rule gets an automated gate. A gate is proven by <strong>mutation</strong>: break the thing on purpose and show the gate goes red. A gate that cannot go red is not a check.</li>
+<li><strong>Record the decider's exact words</strong>, verbatim, in a file, the same turn. Rulings are derived from the words, and the words outlive the interpretation.</li>
+<li><strong>Re-read the shared file immediately before you write it.</strong> We lost dozens of handoff notes because a bot read the file at the start of an hour-long round and wrote the whole file back at the end, deleting everything others had added. Read, then write, in the same breath. Better: one file per bot.</li>
+<li><strong>Ship every round.</strong> The decider's standing complaint was small, timid turns. The other complaint, later, was bots that measured and checked all round and made nothing. The rule that fixed it: <strong>a making bot ends every round with a real thing the decider can see or hear, in the queue.</strong> Measuring rides beside the making, never instead of it. A gate counts it: a bot whose last cooked item is older than its last commit is red.</li>
+<li><strong>Reports lead with the thing</strong> and where the decider can see it. Gates, numbers and measurements go at the bottom, in a proof line.</li>
+</ul>
+<h2 id="6-how-to-talk-to-the-decider-the-reply-contract">6. How to talk to the decider (the reply contract)</h2>
+<p>The decider reads on a phone, from the bottom of the screen up, at speed. Every reply:</p>
+<ol>
+<li><strong>Lead with the answer or the outcome.</strong> Never with process, never with a green gate.</li>
+<li><strong>Plain words, short sentences, eighth-grade reading level.</strong> No file paths, function names or gate names in the body. Numbers over adjectives.</li>
+<li><strong>Name the place.</strong> Every time you mention something they can look at, say which tab or screen it is in. If it is not reachable yet, say "NOT THERE YET" in those words. A thing they cannot reach does not exist to them.</li>
+<li><strong>Never ask a technical or priority question.</strong> If the bot could answer it by reading the code or by research, it is not a question, it is work not done. Legitimate questions: names the decider reserved, a genuine creative fork in plain words, anything they asked to see.</li>
+<li><strong>One question maximum, bolded, with two or three lettered options (A/B/C)</strong> and a default that wins if they say nothing. The realistic option leads.</li>
+<li><strong>End every reply with two fixed blocks, last on the screen:</strong></li>
+</ol>
+<ul>
+<li><strong>WHAT I NEED FROM YOU</strong>: numbered, each answerable in one word, or "Nothing, I'm good."</li>
+<li>A two-sentence bottom line: what you just did, and what they should do with it and why.</li>
+</ul>
+<ol>
+<li><strong>No calendar talk.</strong> To the decider the work is one continuous stream. Say "this round", "last round", "since your last message", never "yesterday" or "tomorrow".</li>
+<li><strong>When they correct you: fix it, name the root cause in one line, move on.</strong> No defence.</li>
+</ol>
+<h2 id="7-the-ui-sauce-what-the-screens-themselves-must-obey">7. The UI sauce (what the screens themselves must obey)</h2>
+<h3 id="7-1-do-not-look-vibe-coded">7.1 Do not look vibe-coded</h3>
+<p>The decider's words: "People can look at it and be like, yep, that was coded." The tells, from research and then counted in our own files:</p>
+<ul>
+<li>Default fonts: Inter, Poppins, Space Grotesk, Geist, monospace for everything.</li>
+<li>Dark mode as the reflex.</li>
+<li>A one-pixel grey border on every card; rounded cards inside rounded cards.</li>
+<li>Purple-to-blue gradients, glow, "dark plus glow equals premium".</li>
+<li>Small uppercase letter-spaced labels on everything.</li>
+<li>Exactly three feature cards in a row.</li>
+<li>Emoji as icons inside buttons.</li>
+<p>Why it happens: a model produces the statistical average of its training set instead of making a choice, so the result reads as nobody's decision.</p>
+</ul>
+<p>The law: <strong>none of the tells survive.</strong> The look comes from the thing's world, not from a component library. An edge is a thing's edge. A label is painted, stamped, scratched or lit. A panel has thickness. Dark is a choice, not a default. <strong>A gate counts the tells</strong> in every shipped surface and fails on any of them.</p>
+<h3 id="7-2-physical-rules-for-a-phone">7.2 Physical rules for a phone</h3>
+<ul>
+<li><strong>Every control is at least 44 px</strong> of touch target at 390 px width. "Tiny" is about the ink, never the target.</li>
+<li><strong>Sun mode by default.</strong> Judged in daylight, on a phone. Night mode on a button.</li>
+<li><strong>A control under about 30 px tall is a readout, not a button.</strong> Our automated tester was "tapping" 26 px labels and reporting dead buttons.</li>
+<li><strong>A dead button is indistinguishable from a close button.</strong> A control check must prove the panel <em>stayed open</em> and <em>something changed</em>, not that a tap happened.</li>
+<li><strong>A card that promises and does nothing when tapped is the worst bug in the product.</strong> Worse than a crash. The decider named it three times.</li>
+<li><strong>Nothing pops up.</strong> No modal at the start, none on a timer, none "to explain". What the product has to say waits in a place the decider opens themselves.</li>
+</ul>
+<h3 id="7-3-colour-means-ownership-never-content">7.3 Colour means ownership, never content</h3>
+<p>Two accents, and they carry <strong>meaning</strong>:</p>
+<ul>
+<li><strong>Gold</strong> = you. The objective, the verb on the action button, anything you press, anything you are trying to do, the feedback on what you just did.</li>
+<li><strong>Cold (teal)</strong> = the machine. Counts, timestamps, place names, anything the system hands you that you did not choose.</li>
+<li>A person is neither: plain ink.</li>
+<p><strong>Hard limit: no essential information by colour alone.</strong> Gold and cold say <em>whose</em> a thing is, never <em>what</em> it says. Every coloured value carries its own word beside it.</p>
+</ul>
+<h3 id="7-4-lines-corners-contrast-numbers-not-taste">7.4 Lines, corners, contrast (numbers, not taste)</h3>
+<ul>
+<li>The rule line is <strong>2 px</strong> and measured <strong>3.78:1</strong> against its panel. The hairline it replaced measured 1.22:1, which is nothing in sunlight.</li>
+<li>Corners: <strong>cut</strong> at 45 degrees (10 px deep on panels) or a 2 px object corner. Never a 5-8 px rounded card radius; that is the tell.</li>
+<li><strong>Pressed is a flip</strong>, not a colour fade: the face inverts. It reads at arm's length.</li>
+</ul>
+<h3 id="7-5-type">7.5 Type</h3>
+<ul>
+<li><strong>A quoted font family is a request for a file.</strong> If no <code>@font-face</code> answers it, the browser silently serves something else. We shipped a month with no letters at all while every check was green. Gate it: every named family in the CSS must resolve to an embedded file.</li>
+<li><strong>Controls are drawn, not typed.</strong> No font carries eight compass arrows in one weight; icons come back in two weights and one draws an envelope.</li>
+<li><strong>Test letters at the real size.</strong> At 5 px our casing font's N and H differed by 10.6% of their ink, the closest pair in the alphabet. Render all 26 capitals at the shipped size and rank every pair; the eye on a zoomed screenshot lies.</li>
+<li>Three registers, never mixed: <strong>casing</strong> (stamped into the case), <strong>screen</strong> (lit glass, tabular), <strong>body</strong> (a person's sentence).</li>
+</ul>
+<h3 id="7-6-3-d-as-four-concrete-things-what-we-mean-when-we-say-it">7.6 "3-D" as four concrete things (what we mean when we say it)</h3>
+<p>Not a drop shadow, not a rounded card. Every panel is built from exactly:</p>
+<ol>
+<li>A <strong>face</strong> that catches one light, always above-left. Two lights read as a sticker.</li>
+<li>A <strong>lit rim</strong> on the edge the light hits and a <strong>dark base</strong> on the edge it misses. Real value steps, never a grey hairline floating on nothing.</li>
+<li>A <strong>body</strong>: the line under a panel is the side of the thing. Shadows are inset and outset on the same element.</li>
+<li>A <strong>short hard shadow</strong> the object sits in, because the light is a fixture, not the sun.</li>
+<p>Then it is delivered as pixels: every ramp is a <strong>staircase of hard stops</strong>, never a smooth gradient. All values come from one <strong>skin file</strong>, so a second theme swaps values and every panel is a different machine without one rule changing.</p>
+</ol>
+<h3 id="7-7-interface-findings-we-kept-from-two-studies-adapt-freely">7.7 Interface findings we kept from two studies (adapt freely)</h3>
+<ul>
+<li>The interface lives in a hue the world does not use.</li>
+<li>The readout says what it <em>does</em>, not what it <em>is</em>.</li>
+<li>The menu remembers where you were.</li>
+<li>The preview is the tutorial: show the result before the commit.</li>
+<li>Tell them the count; hide only the order.</li>
+<li>Everything is thick. The room is made of three materials and no more.</li>
+<li>Nothing waits: no spinner as a design element; a real loading screen with a <strong>real</strong> progress bar (bytes, steps, systems), never a timer. A bar that lies is the "promises and does nothing" bug in a new coat.</li>
+</ul>
+<h2 id="8-verification-how-to-know-the-screen-works-not-just-that-the-code-passes">8. Verification (how to know the screen works, not just that the code passes)</h2>
+<ul>
+<li><strong>Verify on the real surface.</strong> Drive the real page on a phone-shaped profile (throttled CPU, 390x844). A unit test of the function is not the screen.</li>
+<li><strong>Print which file you opened.</strong> Our driver opened a stale build by default and two bots measured the wrong file in one round, each getting a believable number with no error.</li>
+<li><strong>One run each side is not an A/B</strong> on a browser-driven check with timeouts. A single red and a single green is a coin. Repeat, alternate, then decide.</li>
+<li><strong>An instrument that cannot say "I don't know" will say "no".</strong> A bounded search that hits its limit looks exactly like a wall. Return three states: yes, no, unknown.</li>
+<li><strong>The first run is the cold run.</strong> First load was 2x the rest. Warm up once, then measure; keep the cold number as a separate line.</li>
+<li><strong>A rare-event count cannot be pinned from one sample.</strong> Accept a baseline from the worst of several runs, not from one lucky zero.</li>
+<li><strong>A red gate nobody reads is the same as no gate.</strong> Walking was silent for six days while the footstep check said FAIL in plain words. Put the suite's red count in the shared board and make every bot say which reds are theirs.</li>
+<li><strong>A gate must never outrank a ruling.</strong> When a check goes red, read what it asserts against the newest ruling before you read it against the code; it may be asserting a dead rule.</li>
+<li><strong>A number typed into a guard expires silently.</strong> Derive limits from the thing they guard.</li>
+<li><strong>A ratchet, not a hope.</strong> "Never worse than the last build" was a sentence for a week and the product got worse. Make it a machine: score the candidate build (time to tappable, seconds frozen, dead presses, page errors) and refuse the push if worse than the accepted baseline.</li>
+</ul>
+<h2 id="9-integration-recipe-for-a-personal-assistant-ui-do-this-in-order">9. Integration recipe for a personal-assistant UI (do this in order)</h2>
+<ol>
+<li><strong>One registry JSON</strong> in a folder the page can fetch. Schema in section 2. Commit it.</li>
+<li><strong>One queue page.</strong> Newest first. Each row: title, why, the <code>show</code> renderer for its kind, up, down, comment. Sun mode default. Comment box at the bottom, always. Every control 44 px.</li>
+<li><strong>Consume on tap.</strong> Local storage the instant they tap; the row leaves. The page filters out any id present in <code>verdicts</code> or local storage.</li>
+<li><strong>Copy all + export .txt.</strong> Section 3 format. No JSON export.</li>
+<li><strong>Notes.</strong> The word NOTES, top right, collapsible, pauses the thing, each note stamped with context, copy all.</li>
+<li><strong>The bot's read-back.</strong> On paste: parse, append to <code>verdicts</code>, commit, write a plain-text record, then act: <code>up</code> builds in, <code>down</code> graveyards with a post-mortem, a redo is a new id quoting <code>said</code>.</li>
+<li><strong>The skin file.</strong> Every colour, face and ramp in one tokens file. Customising the UI is editing values, never redrawing panels.</li>
+<li><strong>The gates.</strong> Vote-consumes (plant a judged id, prove it does not render). Tells counter (fonts, hairlines, radii, gradients, uppercase labels, emoji). Font-resolves (every named family has a file). Thumb (every control 44 px). Cook-every-round (per bot, last item vs last commit). Each mutation-proved.</li>
+<li><strong>The reply contract</strong> in the bot's system prompt, section 6, verbatim.</li>
+<li><strong>Build stamp</strong> on the first screen (date-letter plus headline) so the decider can see which build they are on. Pushing is not shipping; check the deploy actually finished.</li>
+</ol>
+<h2 id="10-blind-spots-things-you-do-not-know-you-do-not-know-yet">10. Blind spots (things you do not know you do not know yet)</h2>
+<ul>
+<li><strong>You will build the approvals queue and then resent it.</strong> The fix is section 1.6: the bot decides and the decider corrects. Design the queue for <em>corrections</em>, not approvals.</li>
+<li><strong>The decider will say "in the demo" and mean "in the thing I use to judge".</strong> We built the queue into the public build because of one transcribed word. Ask where they <em>judge</em>, put the queue there only.</li>
+<li><strong>Names and identity stay theirs.</strong> Everything else is the bot's to decide. Put names in the queue as their own kind.</li>
+<li><strong>Voice-to-text garbles.</strong> Never treat a garbled word as a new term. Decipher intent; record the raw words anyway.</li>
+<li><strong>A round marker does not exist in git.</strong> If you want "per round" metrics, define what a round is (a commit range, a tag) or the gate will lie.</li>
+<li><strong>Shared files get eaten.</strong> Registry, board, handoff: any file many bots append to will lose entries on a bad rebase. Resolve conflicts by taking the upstream copy and appending, then assert every id that was there is still there.</li>
+<li><strong>The decider reads bottom-up and never scrolls.</strong> Anything above the fold of the last message does not exist. Same for the UI: the action is at the thumb, not the top.</li>
+<li><strong>"Cool" is a spec.</strong> When they say "a cool loading screen, maybe even a bar if you're smart enough", the bar is required and it must read real progress. Treat adjectives as requirements with a measurable version.</li>
+<li><strong>The tiniest control still needs a 44 px target and a readable label.</strong> "Tiny" is ink.</li>
+<li><strong>Sound needs a gesture.</strong> A browser will not start audio before a tap. If your first screen blocks taps until loaded, the first sound can only play on the BEGIN tap. Design the BEGIN tap in from day one.</li>
+<li><strong>Green gates are never an argument and never lead a reply.</strong> The decider does not care that tests pass. They care what they can see.</li>
+</ul>
+<h2 id="11-if-the-assistant-is-a-free-chat-bot-no-code-running-no-files-no-git">11. If the assistant is a free chat bot (no code running, no files, no git)</h2>
+<p>Everything above still works. The plumbing changes, because a free-tier chat bot cannot run code, cannot write files, cannot commit, and has a small memory window. The loop becomes <strong>one chat, one page, copy and paste</strong>. This is how to do it without losing any of the rules.</p>
+<h3 id="11-1-the-page-carries-its-own-data">11.1 The page carries its own data</h3>
+<p>There is no server and no registry file to fetch. So the bot writes the queue as <strong>one self-contained HTML page</strong> (an artifact, or a file the decider saves) with the registry JSON <strong>embedded inside it</strong> as a <code>&lt;script type="application/json" id="registry"&gt;</code> block. The page reads that block instead of fetching. Each round the bot regenerates the page with the new items added and the judged items removed. The page is the registry.</p>
+<h3 id="11-2-verdicts-go-out-by-clipboard-come-back-by-paste">11.2 Verdicts go out by clipboard, come back by paste</h3>
+<p>The page's COPY ALL button is the only export. The decider pastes the text into the chat. The bot's read-back (Appendix B) runs as reasoning, not code: it lists what came in, marks each item judged, and emits the next page. Nothing else is needed. No JSON export ever: the decider will not open it, and the bot does not need it.</p>
+<h3 id="11-3-the-board-and-the-rules-live-in-one-pasted-document">11.3 The board and the rules live in one pasted document</h3>
+<p>The bot forgets between sessions. So the decider keeps <strong>one plain-text board</strong> (this playbook's sections 1, 5, 6 boiled to a page, plus the open jobs with their two-word labels) and pastes it at the start of every session, or keeps it as the bot's project instructions if the plan offers that. Every sentence the decider says becomes a job on that board <strong>in the bot's reply</strong>, and the decider copies the updated board back. The board is the memory, the way a commit was for us.</p>
+<h3 id="11-4-one-round-is-one-message">11.4 One round is one message</h3>
+<p>Free tiers limit messages and context. So a round is <strong>one message</strong> from the decider that carries three things: the pasted board, the pasted verdicts and notes, and any new words. The bot answers with: the things it made (the page, the text), the updated board, and the two fixed blocks. Long back-and-forth burns the allowance; the round shape does not.</p>
+<h3 id="11-5-keep-the-artifacts-small">11.5 Keep the artifacts small</h3>
+<p>A page with images embedded as data URIs gets large and slow to regenerate. Prefer text items, CSS-drawn panels, and links to images the decider hosts elsewhere. Sounds: a free bot cannot make audio files; a "sound" item is a description plus, if the decider can host a file, a link. Say so on the row rather than pretending.</p>
+<h3 id="11-6-what-the-free-tier-cannot-do-said-plainly">11.6 What the free tier cannot do, said plainly</h3>
+<ul>
+<li>No automated gates. The mutation-proved checks in section 8 become a <strong>checklist the bot runs by reading its own output</strong> before it replies: is every control 44 px, does any named font lack a file, is any judged id still on the page, does every row's <code>show</code> point at something real. Weaker than a machine, better than nothing, and the checklist is short.</li>
+<li>No build stamp from a deploy. Put a <strong>round number and date</strong> at the top of the page by hand.</li>
+<li>No "cook every round" gate. The decider enforces it with one line at the end of each round: "what did you make this round that I can see?" If the answer is a list of checks, the round did not happen.</li>
+<li>No repo history. Keep the boards and the verdict pastes in a folder, one file per round, named by date. That folder is the record.</li>
+</ul>
+<h3 id="11-7-the-three-rules-that-matter-most-when-there-is-no-machine-behind-them">11.7 The three rules that matter most when there is no machine behind them</h3>
+<ol>
+<li><strong>A vote consumes the item</strong> (the regenerated page must not carry a judged id).</li>
+<li><strong>Decide, build, put it in the queue; correct after</strong> (never an approvals queue).</li>
+<li><strong>End every reply with WHAT I NEED FROM YOU and the two-sentence bottom line.</strong></li>
+<p>If the bot keeps those three by habit, the rest can be added one rule at a time.</p>
+</ol>
+<h2 id="appendix-a-the-queue-page-minimal-working-shape">Appendix A: the queue page, minimal working shape</h2>
+<pre><code>&lt;!-- one queue, one registry, consume on tap, copy all --&gt;
+&lt;main id=&quot;queue&quot;&gt;&lt;/main&gt;
+&lt;textarea id=&quot;comment&quot; placeholder=&quot;say it plainly&quot;&gt;&lt;/textarea&gt;
+&lt;button id=&quot;copyAll&quot;&gt;COPY ALL&lt;/button&gt;
+&lt;script&gt;
+// free tier: the registry is embedded in this page, see section 11
+// const reg = JSON.parse(document.getElementById(&#x27;registry&#x27;).textContent);
+const REG = &#x27;registry.json&#x27;;                 // hosted version: relative to this page
+const seen = new Set(JSON.parse(localStorage.getItem(&#x27;verdicts&#x27;)||&#x27;[]&#x27;).map(v=&gt;v.id));
+fetch(REG).then(r=&gt;r.json()).then(reg=&gt;{
+  const judged = new Set(reg.verdicts.map(v=&gt;v.id));
+  const rows = reg.items.filter(it=&gt;!judged.has(it.id) &amp;&amp; !seen.has(it.id)).reverse();
+  for (const it of rows) render(it);
+});
+function vote(it, dir){
+  const list = JSON.parse(localStorage.getItem(&#x27;verdicts&#x27;)||&#x27;[]&#x27;);
+  list.push({id:it.id, vote:dir, note:document.querySelector(&#x27;#comment&#x27;).value, at:new Date().toISOString()});
+  localStorage.setItem(&#x27;verdicts&#x27;, JSON.stringify(list));
+  document.getElementById(it.id).remove();      // a vote consumes the item
+}
+document.querySelector(&#x27;#copyAll&#x27;).onclick = ()=&gt;{
+  const list = JSON.parse(localStorage.getItem(&#x27;verdicts&#x27;)||&#x27;[]&#x27;);
+  const txt = list.map(v=&gt;`${v.vote.toUpperCase().padEnd(5)} ${v.id.padEnd(44)} &quot;${v.note||&#x27;&#x27;}&quot;`).join(&#x27;\n&#x27;);
+  navigator.clipboard.writeText(`VERDICTS ${new Date().toLocaleString()}\n`+txt);
+};
+&lt;/script&gt;</code></pre>
+<p>Every control drawn from the skin tokens, 44 px targets, sun mode default. The <code>render(it)</code> function switches on <code>it.show.how</code>: <code>image</code> draws it at real phone width, <code>audio</code> gets a play button (a sound you cannot hear in the queue is not cooked), <code>page</code> opens in place, <code>text</code> shows the words, <code>clip</code> plays on loop.</p>
+<h2 id="appendix-b-the-bot-s-read-back-in-plain-steps">Appendix B: the bot's read-back, in plain steps</h2>
+<ol>
+<li>Paste arrives. Split lines. For each <code>UP|DOWN id "note"</code> append to <code>verdicts</code>.</li>
+<li>For each <code>NOTE [...] words</code> write a record line with the context tag intact.</li>
+<li>Commit the registry and a <code>.txt</code> record the same turn.</li>
+<li>For every <code>up</code>: build it into the product; for every <code>down</code>: graveyard with a post-mortem.</li>
+<li>Reply to the decider leading with what was built, then the two fixed blocks (section 6).</li>
+</ol>
+</main>
+<footer>Every rule above has a story behind it and most have a number. Where a rule and your taste disagree, measure first.</footer>
+</div>
