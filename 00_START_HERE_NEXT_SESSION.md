@@ -23664,7 +23664,115 @@ NEW FRONT-PAGE RULE 8 (added 9/13), and it binds this lane: IF YOUR DIFF TOUCHES
 engine/, REBUILD THE TWO DERIVED SLICES (the RUN slice and the demo) IN THE SAME
 COMMIT. PLUMBER found the RUN slice drifting +45/-6 behind two engine ships.
 
-HOLDING: nothing. LAST SHIPPED: [every pocket] 9/14, and [owe lines] before it.
+HOLDING: nothing. LAST SHIPPED: [horror world] 9/21 9b690dec.
+
+*** 9/21 (b) LATEST -- THE FIRST NOTICE. WE WROTE THE SURVIVORS FOR MONTHS AND
+NEVER WROTE THE OFFICE. ***
+records/BOHEMIA_WORLD_THE_FIRST_NOTICE_9_21_26.md   sha 9b690dec
+Row [horror world] round two, under rule 20h and rule 22 (COOK EVERY ROUND).
+NOTHING ON A PLAY SURFACE -- rule 18 still holds this lane off the alpha and the
+demo; the cook went to the VOTE tab, which is where 22(b) puts the making.
+
+(1) THE HOLE WAS NOT A STYLE PROBLEM. WORDS Q27 measured all 3,014 spoken lines:
+194 say nobody is left (6.4%), EIGHT name a city, county, company, office, board
+or utility at all (0.3%). The genre's fear is that THE WORLD RUNS NORMALLY AND
+NOBODY IS LEFT WHO SHOULD BE RUNNING IT; we wrote the second half for months.
+There was no institution for a voice to belong to, and there is nowhere flatter
+to write (one exclamation mark in the whole corpus), so the answer was never a
+voice pass. THE INSTITUTION HAD TO EXIST FIRST.
+
+(2) AND RULE 19 DECIDES WHERE IT MAY LIVE. A dead institution is by definition
+faceless, so it has exactly two legal homes: a LABEL ON A MACHINE and THE PHONE
+HE OPENS HIMSELF, which just inherited the night's bookkeeping. It is a document
+on a phone and nothing else was built.
+
+(3) WHAT WAS MADE. engine/bohemia_notice.js: a real utility disconnection notice
+and a five-slot emergency alert, driven on seed 1337 off the real overmap, power
+grid, turf holders and pumps. Nothing typed.
+      ACCOUNT: FEEDER 24 / SERVICE ADDRESS FREEWAY 75-5
+      PAST DUE 1 BATTERY / RECONNECTION FEE 1 BATTERY / TOTAL DUE 2 BATTERIES
+      YOU HAVE THE RIGHT TO DISPUTE THIS CHARGE WITHIN 10 DAYS
+      SERVICE IS RESTORED WHEN THE BALANCE IS PAID IN FULL TO MOB
+      THIS DECISION MAY BE APPEALED TO THE PUBLIC UTILITIES COMMISSION
+NOBODY WROTE THE MOB LINE: the district's letterhead, the district's form, and
+whoever holds the wire now in the payee slot, which is what actually happens when
+a utility outlives its state. Issued TWICE, English and Spanish, because real
+notice law requires it -- THEY SPEAK SPANGLISH reaches the institution by a
+second route. And EVERYTHING COSTS ONE lands a ten-day dispute window, a 72-hour
+final and a right of appeal on a debt of ONE AA CELL, free.
+
+(4) *** THE HORROR IS A MEASUREMENT, NOT A MOOD. *** Every line declares who
+would answer it and the module asks the live world: 4 of 4 on the notice, 2 of 2
+on the alert, against the 18 outfits the valley really has. The text never
+mentions any of it. AND THE COUNT CAN GO DOWN -- the gate hands it a world where
+the appeal board exists and the number drops by one with the notice unchanged. A
+number that cannot fall is an assertion wearing a number's clothes, and this lane
+has shipped one of those before.
+
+(5) AN HONEST WEAKNESS, NAMED NOT HIDDEN: I chose the three dead bodies and then
+measured that they do not exist. That is a design decision, not a discovery. THE
+FINDING THAT IS NOT MINE is this one, three seeds: 36 of 203, 29 of 179 and 27 of
+186 lit feeders are Network-held, and his own ruling says the Network hold the lit
+grid and HAVE NEVER ONCE CHARGED FOR IT. So a district that no longer exists is
+serving disconnection notices for power a faction gives away, on about one lit
+feeder in six. Carried as a flag (billedForFree), never as a sentence.
+
+(6) THE GATE. gates/first_notice_gate.js, in the suite as FIRST NOTICE, 41/0.
+Proved red four ways: type the amount instead of reading his PAYOUT table -> 1;
+blank one required slot -> 13; edit the generated page by hand -> 1; wire the
+module into a play surface -> 1. The load-bearing check is BEHAVIOURAL, because
+this lane once shipped a hard-coded list that a string stripper hid: MOVE THE ONE
+IN HIS OWN TABLE AND THE BILL FOLLOWS IT, take the table away and it refuses
+rather than guessing.
+
+(7) A DEFECT IN MY OWN GATE, FOUND BY MUTATING AND FIXED THE SAME ROUND. The
+slot-blanking mutation made the notice refuse, correctly, AND THEN THE GATE THREW
+AND THE OTHER THIRTY-ODD CHECKS NEVER RAN -- it reported 2 failed about a build
+with thirteen problems. Same shape PLUMBER hit on the speed gate. Each section now
+runs in its own guard; the same mutation reads 19/13 instead of dying at 2. Two
+more of my own rulers were wrong and are replaced: a width check that read the
+page's own max-width as a fixed width (A CAP IS NOT A DEMAND), and a reference
+check that went red on the module's own sentence saying it cites nothing.
+
+(8) WHERE HE FINDS IT. Tab VOTE, in the alpha (15a: he votes in the alpha only).
+Two rows: THE FIRST NOTICE, and WHO SENDS THE NOTICE (the three dead bodies named
+in his place, rule 15's philosophical default, with the why). The page
+slices/BOHEMIA_THE_FIRST_NOTICE_9_21_26.html is GENERATED by
+tools/bohemia_the_first_notice.js from the module and the gate re-runs the
+generator and fails on drift, so the page he votes on cannot describe a module
+that has since moved.
+
+(9) RULE 8 AND engine/: the diff adds an engine file, and the two derived slices
+were NOT rebuilt, on purpose and measured -- the module is inlined nowhere, the
+RUN slice and the demo carry no reference to it, and the gate asserts all three
+play surfaces are clean of it. Rebuilding them would have been a no-op that also
+broke rule 14(a) and rule 18.
+
+(10) PRE-PUSH PASS GREEN: FIRST NOTICE 41/0, VOTE TAB 28/0, ATTEMPT, LANGUAGE,
+ENGINE SYNC, PAGES PUBLISH, HANDOFF. FULL SUITE, rule 13(b): REUSE FIRST 209/6
+and DERIVED FRESH 9/1 are red on this tree and NONE of the seven named files is
+this lane's -- six COMBAT and LIFE+CITY patch tools, plus the faction dossier
+drift this lane already routed.
+
+STILL OPEN AND NOT SHIPPED, carried from 9/20: the night card says BATTERIES IN
+THE VALLEY: 0 on the first night and then announces 3,352 made overnight on the
+second. Cause found, fix written down, two lines, both in my own files: count()
+must not need a trigger (either it stocks on first ask or the boot stocks once),
+and CELLS_LAST must start at the first real reading, not 0, so the first report
+says nothing rather than inventing a drift. Plus the gate fix: battery_worth_gate
+must read the card COLD, before anything calls purseGet(). It waits for the hold
+to lift, and rule 19(a) moves that bookkeeping to the phone anyway -- where this
+round's work now lives.
+
+ROUTED, NOT MINE: the ratchet's cold-start false refusal (PLUMBER, measured
+b3b1554e); tools/bohemia_faction_dossiers.py crashing on BLUES "COPPER WORK SHIRT"
+not in the canon wardrobe bank, which is what keeps DERIVED FRESH red;
+gates/you_can_start_it_gate.js orphan (COMBAT).
+
+ROWS STILL OPEN IN THIS LANE: [block strikes] (measured blocked -- it needs block
+residents to have minds, which is PEOPLE's lane), [visible change], [suburb
+walls], [full shelves], [beltway placed]. All untouched.
+
 
 *** 9/21 HOLD ROUND. THE RATCHET REFUSED A CLEAN TREE ON ITS COLDEST READING. ***
 records/BOHEMIA_WORLD_THE_RATCHET_REFUSED_ON_ITS_COLDEST_READING_9_21_26.md
