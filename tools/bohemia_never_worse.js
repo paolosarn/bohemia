@@ -25,7 +25,13 @@
 
      tappableMs      the driver stamps the moment a finger has something to press.
                      Rule 18a asks for "nothing tappable until loaded"; this says
-                     whether that is true and stops it getting slower.
+                     whether that is true and stops it getting slower. IT IS THE
+                     SECOND LOAD (9/21, row [cold read]): the first load in a fresh
+                     container reads 1240 ms where the next four read 589-625, and
+                     scoring it refused a CLEAN TREE on WORLD's first run. The cold
+                     number is printed and recorded beside it, because that one is
+                     what a stranger actually gets; it is simply not a number two
+                     runs can be compared on.
      frozenMs        time spent inside animation-frame gaps longer than one beat
                      (500 ms, the 120 BPM law). A clock, not a picture.
      deadPresses     he pressed and did not move, AND NO OTHER DIRECTION FROM THAT
@@ -163,8 +169,12 @@ async function score(opts) {
   const out = { takenOn: new Date().toISOString(), boxRatio: box.ratio,
                 scored: opts.serve ? 'a fresh cut' : 'the working tree' };
 
-  const d = await D.open({ serve: opts.serve, boot: 40000, settle: 60000 });
+  /* warmup: the ratchet scores the SECOND load. See the driver's header -- the first
+     load in any fresh container is twice the rest, and scoring it refused a clean tree
+     on WORLD's first run. The cold number is kept beside it and never thrown away. */
+  const d = await D.open({ serve: opts.serve, boot: 40000, settle: 60000, warmup: true });
   out.tappableMs = d.tappableMs();
+  out.tappableColdMs = d.tappableColdMs();
   await d.fr.evaluate(WATCH);
   await d.clearCards();
   await sleep(900);
@@ -462,7 +472,10 @@ function compare(now, was) {
 
   console.log('  box ' + now.boxRatio + 'x at the start, ' + now.boxRatioEnd + 'x at the end\n');
   console.log('  ================  THE WALK, AS NUMBERS  ================');
-  console.log('    TAPPABLE AT    ' + String(now.tappableMs).padStart(7) + ' ms');
+  console.log('    TAPPABLE AT    ' + String(now.tappableMs).padStart(7) + ' ms   (SCORED: the'
+    + ' second load, because the first is cold)');
+  console.log('    cold first load' + String(now.tappableColdMs).padStart(7) + ' ms   what a'
+    + ' stranger actually gets, reported and not scored');
   console.log('    waited for quiet ' + String(now.quietWaitedMs).padStart(5) + ' ms'
     + (now.quiet ? ', the thread let go' : ', AND IT NEVER LET GO'));
   console.log('    FROZEN         ' + String(now.frozenMs).padStart(7) + ' ms over '
@@ -524,10 +537,54 @@ function compare(now, was) {
         + ' the wrong way. Accepting this would be the sentence again with a number on it.');
       process.exit(1);
     }
+    /* *** ACCEPTING PINS THE WORST OF SEVERAL RUNS, NEVER ONE. ***
+       (9/21, row [cold read], and it is the same lesson twice in two rounds.)
+       The first bar was set from a SINGLE run. It stored frozenMs = 0, and 0 is the
+       luckiest value a rare-event count can have: the next honest runs froze once
+       (533-567 ms) and then twice (1133), and the ratchet refused a clean tree. Adding
+       slack for one freeze only moved the cliff to two.
+       A NUMBER THAT APPEARS AS NONE-OR-SOMETIMES CANNOT BE PINNED FROM ONE SAMPLE. So
+       accepting now walks the cut several times and keeps the WORST of each number,
+       which is the shape gates/bohemia_phone_perf.js settled on for the same reason on
+       9/5. Scoring a push is still ONE run -- accepting is the deliberate, rare act and
+       it is the one that can afford the time. */
+    const runs = [now];
+    const rArg = process.argv.indexOf('--runs');
+    const want = rArg > 0 && process.argv[rArg + 1] ? +process.argv[rArg + 1] : 3;
+    for (let i = 1; i < want; i++) {
+      console.log('\n  accepting: walk ' + (i + 1) + ' of ' + want + ' (the bar is the WORST'
+        + ' of them, never the luckiest)');
+      let again = null;
+      if (!useTree) {
+        let c2 = null;
+        try {
+          c2 = cutToTemp();
+          again = await score({ serve: { '/slices/BOHEMIA_DEMO.html': c2.demo } });
+        } finally { if (c2) { try { fs.rmSync(c2.tmp, { recursive: true, force: true }); } catch (e) {} } }
+      } else {
+        again = await score({});
+      }
+      if (again.broken.length) {
+        console.log('  walk ' + (i + 1) + ' was BROKEN, so it cannot set a bar: '
+          + again.broken[0]);
+        process.exit(1);
+      }
+      runs.push(again);
+    }
     let sha = '';
     try { sha = execFileSync('git', ['rev-parse', '--short', 'HEAD'], { cwd: ROOT, encoding: 'utf8' }).trim(); } catch (e) {}
-    const numbers = {};
-    for (const [k] of WORSE) numbers[k] = now[k];
+    const numbers = {}, spread = {};
+    for (const [k, dir] of WORSE) {
+      const vals = runs.map(r => r[k]).filter(v => typeof v === 'number' && isFinite(v));
+      if (!vals.length) { numbers[k] = now[k]; continue; }
+      numbers[k] = dir === 'hi' ? Math.max(...vals) : Math.min(...vals);
+      spread[k] = vals;
+    }
+    console.log('\n  what ' + runs.length + ' walk(s) saw, and the bar taken from them:');
+    for (const [k] of WORSE) {
+      console.log('    ' + k.padEnd(14) + (spread[k] ? spread[k].join(', ') : '?').padEnd(28)
+        + ' -> ' + numbers[k]);
+    }
     fs.writeFileSync(ACCEPTED, JSON.stringify({
       what: 'The numbers of the last ACCEPTED cut. tools/bohemia_never_worse.js refuses a '
           + 'push that scores worse than these. Paolo 9/20, rule 18c.',
@@ -535,6 +592,7 @@ function compare(now, was) {
          + 'farther than we\'ve ever been." The game got worse under a rule that said never '
          + 'worse, because the rule was a sentence.',
       acceptedOn: new Date().toISOString(), sha, boxRatio: now.boxRatio,
+      walks: runs.length, sawAcrossWalks: spread,
       numbers, detail: now,
     }, null, 1));
     console.log('\n  ACCEPTED. ' + path.relative(ROOT, ACCEPTED) + ' now holds the bar.');

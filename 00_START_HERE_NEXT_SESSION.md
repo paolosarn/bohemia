@@ -2236,6 +2236,81 @@ full suite unmeasured since 7efb22cf. Rule 14(a): demo untouched, RUN cuts it.
 
 Record: records/BOHEMIA_ONE_DOOR_9_14_26.md
 
+PLUMBER (plumber-ont6t5): 9/21 LATEST -- *** CHAT 18. ROUND 32. TWO ROWS SHIPPED: [cold read], which was
+MY OWN RATCHET CRYING WOLF AT ANOTHER LANE, and [cook gate], Paolo's rule 22e. ***
+
+=== [cold read] SHIPPED. I SHIPPED A RATCHET LAST ROUND THAT REFUSED A CLEAN TREE. ===
+WORLD ran NEVER WORSE for the first time in a fresh container, on an UNCHANGED tree, and it said no:
+tappableMs 548 -> 1223, allowed 740. Eight runs after it read 555-660. Every lane's first run is the
+cold one, so what I shipped says no to good work once per lane per round and teaches re-running until
+it agrees. That spends the authority the row exists to build.
+REPRODUCED BEFORE FIXING, five loads of one page in ONE browser, one unchanged tree:
+    load 1  1240 ms | load 2  620 | load 3  625 | load 4  598 | load 5  589
+The first load is twice the rest and the rest agree inside 6%. WORLD saw 1223 where I saw 1240 -- the
+same number. THE COST IS THE FIRST LOAD (cold HTTP cache, cold code cache), not the container, so ONE
+RELOAD fixes it for about a second instead of a whole extra boot.
+THE FIX: the driver takes an opt-in `warmup` (load, reload, stamp the second) and the ratchet scores
+that. THE COLD NUMBER IS KEPT AND PRINTED as tappableColdMs, because that is what a stranger actually
+gets; reporting only the warm one would be this lane flattering itself. It is simply not a number two
+runs can be compared on.
+*** THEN THE SAME LESSON BIT AGAIN IN THE SAME FILE. *** Fixing the load exposed the next one: the bar
+had been set from a SINGLE run, storing frozenMs = 0, and zero is the luckiest value a rare-event count
+can have. Honest runs then froze once (517-633 ms) and twice (1167), and it refused a clean tree again.
+The slack I added last round for one freeze had only moved the cliff to two. A NUMBER THAT APPEARS AS
+NONE-OR-SOMETIMES CANNOT BE PINNED FROM ONE SAMPLE. Accepting now walks several times and pins the
+WORST of each -- the shape gates/bohemia_phone_perf.js settled on for the same reason on 9/5:
+    tappableMs   448, 457, 431   -> 457      frozenMs  517, 1167, 633 -> 1167
+    cellsCovered  81,  64,  43   ->  43      aimedWrong 0,0,0 -> 0, pageErrors 0,0,0 -> 0
+Scoring a push is still ONE run; accepting is the deliberate, rare act that can afford the time.
+BOTH SHIP TESTS RE-RUN AGAINST THE NEW BAR: honest cut NOT refused (tappable 457->424, frozen
+1167->550, cells 43->59, exit 0); planted regression REFUSED (tappable 457->2881 allowed 617, cells
+43->2, exit 1). It still says no to a real regression and no longer says no to a cold one.
+WHAT I CANNOT CLAIM: reproduced at the BROWSER level. WORLD's was a fresh CONTAINER, which also pays
+cold disk, and I cannot make one from here, so that half is inferred from the two numbers agreeing
+rather than measured. Said on the record rather than glossed.
+
+=== [cook gate] SHIPPED, AND IT LANDS RED ON PURPOSE. ===
+PAOLO 9/21: "I'll enter the sound chat and it's not even making fucking sounds. It's coding and
+checking whether the sounds are broken or not. I NEED TO BE SEEING THEM COOKING UP MORE, EVERY TIME,
+NOT NEVER." Rule 22(e) makes that a gate; until it existed the coordinator read the registry by hand
+every VAMILY. gates/cook_every_round_gate.js, in the suite as COOK EVERY ROUND.
+It compares TWO DATES THAT BOTH EXIST AND NEITHER IS INFERRED: the newest thing a lane REGISTERED in
+the vote registry, against the newest commit that lane LANDED on main under its own prefix.
+  SOUNDS     nothing, ever (a sound)              landed 09-20   NEVER COOKED
+  UI         9/15 FIVE WAYS THE QUEUE READS       landed 09-20   CODED SINCE by 5 days
+  COOK       nothing, ever (a tile)               landed 09-20   NEVER COOKED
+  CHARACTER  9/18 THE 12 PEOPLE ON YOUR STREET    landed 09-18   cooked
+  ANIMATION  nothing, ever (a clip)               landed 09-20   NEVER COOKED
+  PORTRAIT   nothing, ever (a face)               landed 09-20   NEVER COOKED
+  WORDS      9/15 THE CARD AT THE END OF YOUR DAY landed 09-20   CODED SINCE by 5 days
+  PEOPLE     nothing, ever (a person)             landed 09-20   NEVER COOKED
+  LIFE+CITY  nothing, ever (a building)           landed 09-20   NEVER COOKED
+  FACTIONS   nothing, ever (a sign)               landed 09-20   NEVER COOKED
+  QUESTS     nothing, ever (an ask)               landed 09-20   NEVER COOKED
+  WORLD      nothing, ever (a thing on the phone) landed 09-21   NEVER COOKED
+*** ELEVEN OF TWELVE HAVE CODED SINCE THEY LAST COOKED. NINE HAVE NEVER REGISTERED ANYTHING AT ALL.
+Only CHARACTER is current. The whole registry is 16 items from 4 lanes. HE WAS NOT EXAGGERATING. ***
+That red IS the measurement, not a defect, and 22(e) asks for a row-level red, not a push blocker.
+WHAT IT DELIBERATELY DOES NOT CLAIM: which round was empty, or how many. A round is one VAMILY and
+nothing in the repo marks where one ends, so a lane that cooked Monday and landed three rounds since
+reads the same as one that landed one. It says "this lane has coded since it last cooked", names the
+gap in days, and stops. Inventing a round marker to make a bigger claim is how a checker starts lying.
+Exemptions are the RULE'S, not mine: research lanes are not held, a voted-away item still counts, and
+the twelve held are exactly the twelve 22(a) names. PLUMBER, RUN, DIRECTION and COMBAT are not making
+lanes and are not held -- that is what the rule lists, not a favour I wrote for myself.
+FLOOR ON BOTH: an unreadable registry or unreadable git history FAILS rather than passes. A cook gate
+that passes because it found no registry is the loudest possible green over nothing, and this lane has
+shipped three gates with that defect already.
+
+STILL OPEN IN MY SECTION, in the board's order: [bimodal dead] (0,1,1,1,13,14,0 dead presses on one
+unchanged tree, cause still not found, still not scored), [horror gate] (rule 20h, with DIRECTION),
+[mode chip], [suite line] (the front page's SUITE LINE is still 9/14 ad23d875 and is a week stale),
+[pre-push pass], [cannot fail], [one way rulers], [spelling gates], [suite runs], [fight headroom],
+[slim build], [dead gates], [handoff cut], and the rest. Also still CLAIMED: [never worse], [sixty fps],
+[demo errors] (STANDING).
+Record: records/BOHEMIA_THE_COLD_READ_AND_WHO_ONLY_CHECKED_9_21_26.md
+[PENDING Paolo] nothing.
+
 PLUMBER (plumber-ont6t5): 9/20 LATEST -- *** CHAT 18. ROUND 31. CLAIMED AND BUILT [never worse], PAOLO'S
 RULE 18c, FIRST LINE OF THIS LANE. THE RATCHET IS A MACHINE NOW AND IT SAYS NO. ***
 HIS WORDS: "I just want to restart all of this... we were closer to being able to play before, right now

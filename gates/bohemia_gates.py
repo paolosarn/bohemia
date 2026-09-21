@@ -3830,6 +3830,26 @@ GATES = [
      'it holds the part a machine can. Both teeth were proven to bite with throwaway files before '
      'it shipped. First run: 23 advertised, 23 on disk, 23 run',
      False),
+    ('COOK EVERY ROUND', ['node', 'gates/cook_every_round_gate.js'],
+     'ONE MADE THING PER MAKING LANE, OR THE ROUND DID NOT HAPPEN. 9/21, PLUMBER lane, row '
+     '[cook gate], PAOLO rule 22e. His words: "I will enter the sound chat and it is not even '
+     'making fucking sounds. It is coding and checking whether the sounds are broken or not. I '
+     'need to be seeing them cooking up more, EVERY TIME, NOT NEVER." Rule 22(e) makes that a gate '
+     'and says that until it exists the coordinator reads the registry by hand every VAMILY. This '
+     'compares two dates that both exist and neither of which is inferred: the newest thing a lane '
+     'REGISTERED in the vote registry, and the newest commit that lane LANDED on main under its '
+     'own prefix. A making lane that has landed work since the last thing it cooked has had a '
+     'round of coding with nothing made. It does NOT claim which round was empty or how many -- a '
+     'round is one VAMILY and nothing in the repo marks where one ends, and inventing a marker is '
+     'how a checker starts lying. Exemptions are the rule own: research lanes are not held, only '
+     'the twelve lanes 22(a) names are, and an item voted away still counts as cooked. IT LANDS '
+     'RED ON PURPOSE: on the first run eleven of twelve making lanes had coded since they last '
+     'cooked and nine had never registered anything at all. That red is the measurement, not a '
+     'defect. Floor: an unreadable registry or unreadable history FAILS rather than passing, '
+     'because a cook gate that passes because it found no registry is the loudest form of green '
+     'over nothing.',
+     120),
+
     ('NEVER WORSE', ['node', 'tools/bohemia_never_worse.js'],
      'THE RATCHET AS A MACHINE. 9/20, PLUMBER lane, row [never worse], PAOLO rule 18c. He said '
      '"I just want to restart all of this... we were closer to being able to play before, right now '

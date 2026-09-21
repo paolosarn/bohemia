@@ -150,12 +150,40 @@ async function open(opts) {
      guessed afterwards. Rule 18a asks for "a real screen when the alpha and the demo
      open, NOTHING TAPPABLE UNTIL LOADED"; this is the number that says whether that is
      true, and [never worse] refuses a push that makes it bigger. (PLUMBER 9/20.) */
-  let tappableAt = null;
-  await until(() => page.evaluate(() => {
+  let tappableAt = null, tappableCold = null;
+  const doorSeen = () => page.evaluate(() => {
     const f = document.getElementById('fronttap') || document.getElementById('front');
     return !!(f && getComputedStyle(f).display !== 'none');
-  }).then(v => { if (v && tappableAt === null) tappableAt = Date.now() - tGoto; return v; }),
+  });
+  await until(() => doorSeen()
+    .then(v => { if (v && tappableAt === null) tappableAt = Date.now() - tGoto; return v; }),
     opts.boot || 15000);
+
+  /* *** opts.warmup: MEASURE THE SECOND LOAD, AND SAY SO. (9/21, PLUMBER, row [cold
+     read].) ***
+     The ratchet this lane shipped on 9/20 refused a CLEAN TREE the first time WORLD ran
+     it in a fresh container: tappableMs 548 -> 1223, allowed 740. Eight runs after it
+     read 555-660. A ratchet that cries wolf on a lane's first run teaches re-running
+     until it agrees, which spends exactly the authority it exists to build.
+     MEASURED, five loads in ONE browser on one unchanged tree:
+         load 1   1240 ms        load 2   620      load 3   625
+         load 4    598 ms        load 5   589
+     The first load is twice the rest and the rest agree inside 6%. The cost is the FIRST
+     LOAD -- cold HTTP cache, cold code cache -- not the container, so ONE RELOAD fixes
+     it for about a second rather than a whole extra boot.
+     BOTH NUMBERS SURVIVE. The cold load is what a stranger actually gets and it stays on
+     the record as tappableColdMs; the warm one is what a RATCHET can compare run to run.
+     Reporting only the warm number would be this lane flattering itself. Opt-in, so no
+     other caller's timing changes. */
+  if (opts.warmup) {
+    tappableCold = tappableAt;
+    tappableAt = null;
+    const tReload = Date.now();
+    await page.reload({ waitUntil: 'load', timeout: 300000 });
+    await until(() => doorSeen()
+      .then(v => { if (v && tappableAt === null) tappableAt = Date.now() - tReload; return v; }),
+      opts.boot || 15000);
+  }
   if (typeof opts.beforeTap === 'function') await opts.beforeTap(page);
   /* TRAP 5, AND IT IS TRAP 3 WEARING A HAT: THERE ARE TWO FRONT DOORS AND ONLY ONE OF
      THEM OPENS. The alpha carries BOTH #fronttap and #front. This picked #fronttap with
@@ -314,6 +342,10 @@ async function open(opts) {
     firstPaintMs: () => firstPaintAt,
     bootAt: () => t00,          /* the driver's zero, so a caller can share one axis */
     tappableMs: () => tappableAt,   /* how long before a finger has anything to press */
+    /* the FIRST load, which is what a stranger gets; null unless opts.warmup asked for
+       a second one. Never dropped: a ratchet needs the steady number, a person needs
+       the honest one, and they are not the same number. */
+    tappableColdMs: () => tappableCold,
     throttle: opts.throttle || 1,
     lateLoads: () => loads.filter(l => firstPaintAt !== null && l.at > firstPaintAt),
     state: () => fr.evaluate(() => ({
