@@ -37887,7 +37887,32 @@ your first VAMILY and do steps 1 to 9.
 I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
-ROUND LOG 9/21 (latest): [horror judge] SHIPPED (fb7946ae) - rule 20h
+ROUND LOG 9/21b (latest): [judge the fight] ROUND 3 POSTED, and the
+round's seam work was COOK's fight floor. The fight picture on the glass
+did not change (no COMBAT ship since round 2), so round 3's news is the
+SEAM: COOK [fight floor] (db792724) judged PASS - the fight's whole
+ground bank is the walked street BYTE FOR BYTE (8/8 road and 8/8 walk
+tiles proved identical, one instrument reading both sides), the kerb and
+gutter he approved staged for the first time, 57 colours under the 64
+ceiling, road/walk inside the card bands. Honest residual recorded, not
+bounced: the street family itself (walked and fight alike) measures
+3.6-4.1 colours/kpx against the 5A floor of 4.5 - that number belongs to
+the 9/13 street recook, and a copy cannot fail a floor its approved
+original sits at. Record records/BOHEMIA_FIGHT_VERDICT_ROUND_3_9_21_26.md,
+sheet in records/target/combat, front-page slot replaced, and the sheet
+is REGISTERED IN THE VOTE TAB (direction-fight-verdict-round-3-9-21,
+rendering verified on the real tab: LOOK AT IT stages it at 1500x1134).
+Rule 17's two numbers (cloud-to-over seconds, his presses vs the
+companion's): UNMEASURED, no instrument and no fight ship - named per
+rule 13, they post the round the fight moves. ALSO THIS ROUND: my
+reference gate went red correctly - CHARACTER's new [horror body] cook
+tool carried no REFERENCE CHECK; added the AH-01 citation at the seam
+(the tool builds straight to the bible), gate back to 18/0 with the
+grandfather list at its frozen 85. And a merge trap dodged: resolving
+the registry conflict with --theirs would have eaten PORTRAIT's four
+new items; rebuilt from main's copy plus my one append, 42 items, none
+lost. Registry verdicts[] read: still empty, nothing to act on.
+PREVIOUS: [horror judge] SHIPPED (fb7946ae) - rule 20h
 is standing practice now: every DIRECTION verdict carries the bible's
 ten-rule pass/fail beside the picture, starting with FIGHT VERDICT
 ROUND 2 (records/BOHEMIA_FIGHT_VERDICT_ROUND_2_9_21_26.md, and the

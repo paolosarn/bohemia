@@ -38,6 +38,14 @@
  * hold is on the play surface and NOT on the making, and everything made goes to VOTE. So
  * these three are rendered, registered, and wired into the cast only if he thumbs them up.
  *
+ * REFERENCE CHECK (the 9/4 standing duty; added by DIRECTION 9/21 at the seam --
+ * this tool shipped without one and the gate caught it the same round): the ruler
+ * is AH-01, the analog horror bible, whose rule 1 (the ordinary frame, one wrong
+ * thing) and rule 6 (the still face performs restraint) are the whole brief above;
+ * the bodies themselves are canon garments on the rig's own dials, so the compare
+ * for the wardrobe is the style card's corpus, not a new reference. AH-01 resolves
+ * in reference/library/analog-horror/INDEX.md.
+ *
  * RIG CHECK (RIG IS LAW): reads only; restores G_WORN, G.equipped, the dials and the caches.
  *
  *   node tools/bohemia_cook_the_too_still.js
