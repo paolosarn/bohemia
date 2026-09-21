@@ -704,6 +704,19 @@
     "how": "page",
     "src": "BOHEMIA_THREE_SOUNDS_9_21_26.html"
    }
+  },
+  {
+   "id": "people-the-street-at-three-hours-9-21",
+   "kind": "line",
+   "lane": "people",
+   "sha": "PENDING",
+   "made": "9/21",
+   "title": "THE STREET AT THREE HOURS",
+   "why": "Your valley has 41 people outside at ten in the morning and 4 at eight at night, and your street draws 23 and 24. Same crowd at breakfast and at bedtime. Six real pictures off the glass, the day counted hour by hour, and three ways to go. An empty street at eight is free dread if you want it, or it reads as a bug. Your call.",
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_THE_STREET_AT_THREE_HOURS_9_21_26.html"
+   }
   }
  ],
  "verdicts": []

@@ -5752,6 +5752,26 @@ GATES = [
      "longer' means something. Being down is a QUESTION against the clock, so a save left on a shelf comes "
      "back healed with nothing to tidy. And it is on the card he already opens, saying how long and saying "
      "the promise out loud", False),
+    ('HORROR CROWD',   ['node', 'gates/horror_crowd_gate.js'],
+     "PEOPLE [horror crowd], rule 20(h), school under the rule 18 hold with the RULE 22 cook beside "
+     "it. THE ROW'S THREE THINGS ARE ALREADY TRUE AND THAT IS WHY THE CROWD IS NOT FRIGHTENING: over "
+     "three frames not one body turned its head, 0.5% of the screen moved against the bible's 10% "
+     "ceiling, and nobody was watching him. THE LONG HOLD (R3) PASSES BY FIFTEEN TIMES, so this gate "
+     "holds that too, to stop somebody 'fixing' it. The bible's own R1 says what stillness alone is "
+     "worth: 'zero wrong things is a screenshot.' *** SO THE ROUND WENT TO R7, THE LIT STREET WITH "
+     "NOBODY HOME, WHICH FAILS BADLY. *** Walking the game's own clock, census 61: outside in the "
+     "world 0 at 3am, 41 at 10am, 40 at 5pm, 4 at 8pm, 2 at 11pm, a real two-peaked commute; DRAWN ON "
+     "HIS STREET 3, 23, 23, 24, 15. THE WORLD SWINGS 41 TO 4 AND THE SCREEN DRAWS 23 AND 24: ten in "
+     "the morning and eight at night are the same picture, and R7 says a crowd is drawn from world "
+     "data, NEVER FAKED. The cause is the 9/7 borrow and it is not a bug: with it off the busiest "
+     "hour puts TWO people in front of him (measured both ways in one probe), which is why it was "
+     "built. The defect is that it borrows a FIXED number instead of the number the world earned. "
+     "NOTHING WAS CHANGED ON THE PLAY SURFACE and this gate holds that: the borrow and the facing "
+     "rule are untouched. The cook is five real frames off the glass in the VOTE tab, and 3am is ONE "
+     "file because the borrow changes nothing when nobody is out -- a second identical picture would "
+     "be a comparison that cannot fail. Mutations, each put back: make the evening pair the same "
+     "frame twice and add a duplicate 3am, 2 red; drop the leave-it-alone option and call the borrow "
+     "a mistake, 2 red.", False),
     ('A NAME',         ['node', 'gates/a_name_gate.js'],
      "PEOPLE [a name], inside rule 19(d)'s fourth thing and this lane's RULE 22 cook. QUESTS said "
      "0 of 21 bodies on his block have a name. MEASURED ON THE ALPHA AND IT WAS BIGGER: 61 PEOPLE, "
