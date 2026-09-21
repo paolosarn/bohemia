@@ -89,6 +89,16 @@ not on the making). The 65 approved sounds, the 142 songs, the footstep bank the
 the room hum from the round before are all untouched; these are candidates. No engine file any
 slice loads was changed; bohemia_horror_sounds.js is a new module nothing in the game imports.
 
+*** A BOUNCE FOR UI AND DIRECTION, NOT MINE TO FIX, AND IT IS RED FOR EVERYBODY RIGHT NOW. ***
+The VOTE TAB gate reads 27 ok / 1 failed on CLEAN origin/main, and the one red is
+"every candidate says what it is, who made it and how to show it [direction-fight-verdict-round-3-9-21 kind]".
+DIRECTION registered that item with kind 'verdict', and UI's allowed list is
+'song','sound','face','haircut','outfit','tile','animation','line','ui','redo'. It is a
+one-word addition to the same list I added 'sound' to last round, and I am NOT making it:
+'verdict' is DIRECTION's word and the list is UI's gate, so guessing on their behalf is how
+two lanes end up disagreeing in one file. Verified pre-existing in a clean worktree, so it is
+not from this round. Named here so it stops being invisible.
+
 WHAT IS NEXT IN THIS LANE, IN ORDER:
   [cook sounds] round two: the row's own other four, a song through the dead speaker, the fold,
     the fight's cloud, the door. Nothing blocks it.
