@@ -1,3 +1,163 @@
+SOUNDS (sound-xk7pjp): 9/21 LATEST -- *** TWO SHIPPED: [first sound] AND [footsteps on the beat]
+ROUND ONE, WHICH TURNED OUT TO BE A FIX FOR SILENT WALKING. PLUS [analog horror sound] ROUND ONE. ***
+Records: records/BOHEMIA_THE_ROOM_IS_ON_BEFORE_THE_SONG_9_21_26.md (the ship),
+records/BOHEMIA_WHAT_ANALOG_HORROR_SOUNDS_LIKE_9_21_26.md (the school page and the baseline).
+Gate: FIRST SOUND 19/0 on a verified 4.67x. Build stamp 9/21a THE ROOM IS ON. Tab: RUN, the
+moment the door closes.
+
+THE SHIP, AND THE SHIP TEST WAS MET WITHOUT A WALL CLOCK IN IT. The coordinator's row asked
+for sound within one beat of the tap on a 4x phone profile. The room is booked onto the audio
+thread at CONTEXT TIME 0.142 s; one beat is 0.5 s. The tap IS context-time zero, and that is
+this lane's own measurement rather than a convenience: zero AudioContexts exist before the
+door, not even a suspended one, because a browser will not start audio without a gesture, so
+the context is created BY the tap.
+
+WHY A NEW SOUND AND NOT JUST THE HEARTBEAT, WHICH IS THE WHOLE FINDING. The PULSE (9/5) is the
+RIGHT MECHANISM and it was not touched: his recipe, his GAP 0.3125, his level 0.020 all stand.
+But measured it is two thumps at 58->34 and 50->30 Hz, so it is ENTIRELY sub-bass, and it is
+RHYTHMIC, which makes it an event repeating rather than a room. A handset speaker has nothing
+at 30 to 58 Hz. So on the only surface that counts the heartbeat was the quietest thing in the
+game by accident. SHIPPED: the room it stands in. 60 Hz mains plus 120 and 180 with broadband
+hiss on top, band-limited 100 Hz to 5 kHz which DECLARES ITS MACHINE (an AM broadcast: 10 kHz
+channel spacing leaves 5 kHz of audio), one 4.0 s loop = 8 beats = exactly 240 whole cycles of
+60 Hz, so the loop seam cannot tick BY ARITHMETIC. Measured: 11.8% of its energy above 1 kHz
+against 0.02% for the whole shipped mix, 0 exact zeros in 176,400 samples.
+
+THE LEVEL IS NOT CHOSEN, IT IS DERIVED FROM HIS OWN HEARTBEAT AT RUN TIME, on rms and never on
+peak because a thump has a high peak and little energy while a bed is the other way round.
+Measured 0.6002x against the 0.60 asked. If he ever changes the heartbeat's level the room
+follows it and cannot drift out of date.
+
+ONE JUDGEMENT BEYOND WHAT THE ROW ASKED, SAID PLAINLY SO NOBODY FINDS IT LATER: when the song
+lands the room DUCKS to a third and KEEPS RUNNING. A room that died the instant the song
+started would satisfy the row and break the law written in the same round (school rules 1 and
+7). It ducks from the one line in the build that knows a note is really going into the graph.
+EXTENDING THE BED ACROSS THE WHOLE STREET IS [quiet floor] AND THAT STAYS HELD; this does not
+do it.
+
+*** THE SCHOOL PAGE, WHICH IS THE OTHER HALF OF THE ROUND AND THE BASELINE EVERY LATER ROUND
+SCORES AGAINST. Ten rules a sound obeys, each ending in a number a checker can read, every
+number taken from a real machine's published limit, and no series, channel or film named
+anywhere (rule 20b): a room never at digital zero; hum at the grid's 60 Hz; hiss broadband and
+UP HIGH; the band naming which machine it came off (cassette 14 kHz, VHS linear 10 kHz, AM
+5 kHz, telephone 3.4 kHz); tape wobble 0.15-0.6% at 0.5-6 Hz; a drop-out that DIVES 6-20 dB for
+8-60 ms and loses the top first, never cutting to zero; silence that is ON; saturation not
+clipping; a voice too even; decided at the SOURCE, never a master pass. MEASURED AGAINST WHAT
+SHIPS, 65 OF 65 APPROVED SOUNDS THROUGH THE SHELL'S OWN RESOLVER: TWO OF TEN RULES MET, BOTH BY
+LUCK. ***
+
+THE THREE NUMBERS ANY LANE SHOULD TAKE FROM IT:
+  1. THE SHELF IS NARROWER THAN A TELEPHONE. Median top corner 528 Hz, 61 of 65 sounds stop
+     under 5 kHz, and they are all narrowed THE SAME WAY, so the narrowness carries no
+     information. A narrow sound is only right if it is narrow to something.
+  2. 96% OF THIS GAME'S SOUND ENERGY IS BELOW 320 Hz AND 0.02% IS ABOVE 5 kHz. Two runs that
+     agree, disjoint bands, shares summing to exactly 1. The top three octaves are 32 to 45 dB
+     down, which is absent, and that is the hiss band. NOT a claim that there is no tune: power
+     share is the wrong lens for audibility and the record says so.
+  3. THE ENGINE IS NOT THE PROBLEM, counted as objects and not as source text: 1,140
+     oscillators, 447 noise buffers, 580 filters (348 bandpass), 61 wave-shapers across the 65.
+     Four of the ten rules need NO new machinery.
+
+AND THE ROOM-TONE ROW IS BIGGER THAN IT READS, RE-ASKED ON THIS BUILD RATHER THAN QUOTED OFF
+EYES E5 (9/5): 45 seconds standing on the street with the music playing rendered ONE effect and
+ZERO room-tone beds. air_day, air_night and air_inside are cooked, approved and played nowhere.
+[quiet floor] was written as "the night needs a floor"; the valley has no room tone AT ANY HOUR,
+and under rule 1 a room tone is the carrier everything else is heard on top of, not ambience.
+
+*** SIX INSTRUMENT FAILURES THIS ROUND, ALL MINE, ALL CAUGHT BEFORE THEY BECAME FINDINGS, AND
+THE LAST TWO ARE THE ONES EVERY LANE SHOULD READ. ***
+  1. __SFX_APPROVED HOLDS INDICES, NOT VECTORS; the shell's own resolver is cook(ev,5)[i]. My
+     first table was 39 readings of a fresh COOK -- exactly the events whose approved index is
+     0, where a falsy number fell through a || -- plus 26 honest crashes. THE CRASHES WERE THE
+     USEFUL HALF.
+  2. MY BAND SHARES SUMMED TO 1.24, which disjoint bands cannot do, so the reading was thrown
+     away instead of published. A SHARE OVER ONE IS A RECEIPT THAT THE RULER IS WRONG; the
+     number to check first is always the one that cannot be true.
+  3. A POLLING METER CANNOT SEE THE WINDOW IT MEASURES. On a 4x box each round trip into the
+     page costs about two seconds, so ninety samples spanned 198 seconds and THE FIRST SAMPLE
+     LANDED 80 SECONDS AFTER THE TAP. It reported "first sound 84 s after the tap" and that was
+     observation latency with a timestamp on it. Never published. THE FIX IS THE GATE'S WHOLE
+     DESIGN: ask the audio thread what it SCHEDULED, which is true whether or not the main
+     thread is alive to see it.
+  4. THIS GAME HAS NO ARROW-KEY WALK. The city's only keydown handlers are Escape, verified in
+     its source. Two of my walking instruments pressed a control that does not exist and
+     reported zero movement and zero footsteps, which is false death twice over. ANY LANE
+     DRIVING THIS GAME WITH ARROW KEYS IS MEASURING NOTHING.
+  5. THE ONE DRIVER TAKES opts.file AND IGNORES opts.alpha (0 occurrences of opts.alpha in it).
+     So every driver run of mine measured slices/BOHEMIA_DEMO.html and not the alpha. That is
+     why a post-fix run still read 0 renders while the gate read green, and I nearly published
+     the contradiction: the checked-in demo is a STALE CUT and the deploy re-cuts it from the
+     alpha on every push. Pointed at the alpha with file:'BOHEMIA_ALPHA_0_9.html' the same
+     instrument read 39 posted / 4 rendered. ONE WRONG OPTION NAME TURNED SIX RUNS INTO
+     MEASUREMENTS OF THE WRONG FILE.
+  6. A TYPO THAT RETURNED A PLAUSIBLE VALUE INSTEAD OF AN ERROR, THROUGH THREE INSTRUMENTS. The
+     heartbeat's accessor is __pulseState; I read __pulseStats. `window.__pulseStats && ...`
+     returns undefined, so every instrument reported a believable FALSE, and in one of them it
+     read as "the pulse is off", which I was one step from writing down as a finding about the
+     game. THE DANGEROUS MISTAKE IS NOT THE ONE THAT CRASHES, IT IS THE ONE THAT HANDS BACK A
+     BELIEVABLE VALUE. The new room is __roomState, matching the build's convention, and the
+     gate asserts the accessor is a function before reading anything from it.
+
+AND ONE GATE CLAIM WAS WRONG WHILE THE SOUND WAS RIGHT, which is worth more than the fix: it
+asked for the strongest low bin to be 60 Hz and measured 118. A 100 Hz low corner takes about
+10 dB off a 60 Hz fundamental, which is what a transmitter does to a hum, and 2x mains is the
+fluorescent ballast's own pitch -- which rule 2's own paragraph already said. It now tests what
+the rule says, an integer multiple of mains, and prints the multiple. A hum at 90 Hz still goes
+red, so it was not loosened to pass.
+
+WHAT IS NEXT IN THIS LANE, IN ORDER, NOTHING BLOCKED:
+  [analog horror sound] ROUND TWO: the keep/redo list, all 65 sounds and the 142 songs, one line
+    each against the ten rules, with the 65-row table in the school page as the frozen baseline,
+    AND the checker landing with it. No gate was written this round ON PURPOSE and not because
+    of the hold: one written now goes red on 65 sounds and 8 of 10 rules and breaks the suite
+    for twenty lanes over work nobody has been asked for. It grandfathers the baseline the way
+    reference_check_gate.py did, so the debt can only shrink.
+  [footsteps on the beat] ROUND ONE SHIPPED, AND THE ROW'S OWN QUESTION IS STILL OPEN BECAUSE A
+    BIGGER BUG WAS SITTING UNDER IT. *** WALKING HAD MADE NO SOUND AT ALL SINCE 9/15 AND THE BREAK
+    WAS A COMMENT. *** The approved footstep bank is embedded as <script type="application/json"
+    id="sfxApproved"> and a 9/15 round put a nine-line /* */ note INSIDE it. JSON has no comments,
+    so JSON.parse threw, the loader's catch was EMPTY, STEP_BANK stayed null forever, and stepSfx
+    returned at its first line every single time. The irony is exact: that round widened the bank
+    from three surfaces to five so concrete and sand would stop coming out as dirt, the widening
+    was right, and the note explaining it made all five silent.
+    FIXED, TWO PARTS, AND THE SECOND MATTERS MORE: the note moves out of the JSON as an HTML
+    comment WORD FOR WORD (it explains a real decision and deleting a reason is how the reason
+    gets undone); and THE LOADER STOPS FAILING SILENTLY, recording why on __STEP_BANK_WHY and
+    falling back to __SFX_APPROVED, the table the rest of the game already reads. Two copies of
+    one truth is what let one of them rot unseen. His approved indices are byte for byte untouched.
+    PROVEN TWICE, AND ONE OF THEM IS SOMEBODY ELSE'S GATE ON PURPOSE:
+        the suite's own FOOTSTEP gate ...... 11 passed / 3 failed  ->  14 passed / 0 failed
+        on the alpha, both ends of the wire  39 posted, 4 rendered, 4 reaching the step bus
+        and 4 of the 14 step calls actually moved him, so it is ONE FOOTSTEP PER REAL STEP
+    A fix verified only by its author's new checker is verified by nobody, and this bug existed
+    because an existing red went unread, so the honest close is making that same red go green.
+    *** AND THE BIGGEST FINDING OF THE ROUND IS NOT THE COMMENT: THAT GATE WAS ALREADY RED AND
+    SAYING SO, in these words, "FAIL: the embedded bank parses and carries every judged step" and
+    "FAIL: WALKING MAKES A SOUND: audio nodes started (15 -> 15)". I found this with SIX
+    hand-built instruments and the checker had the answer the whole time. A RED GATE NOBODY READS
+    IS THE SAME AS NO GATE. The suite line carries 107 reds; this one was mine, named and
+    specific, and it sat there while this lane shipped four other rounds. ***
+    THE ROW'S ORIGINAL QUESTION IS NOW ANSWERABLE FOR THE FIRST TIME: the limiter is 0.12 s, a
+    beat is 0.5 s, and the spacing could never be read while the count was zero. That is round two.
+  [scheduled beat] still CLAIMED, round two is a clock the audio thread owns. IT TOUCHES THE
+    TRANSPORT, which is not one of the four things, SO IT STILL WAITS.
+  Then [enemy heard], [fight music], [quiet floor], [rumour heard], [pump hum], and
+  [into the vote tab], which this lane has never started (a prior handoff of mine claimed it
+  shipped at 438b2c9; that sha is DIRECTION's and every lane has its own copy of the row).
+
+OWED TO HIM AS VOTE-TAB ITEMS, NONE REGISTERED BECAUSE UI [vote tab] IS NOT THERE YET: the room
+at 60% of the heartbeat's energy; the room ducking to a third rather than stopping; the machine
+being an AM broadcast at 100 Hz to 5 kHz (which makes the loading room and the music the same
+transmitter, and is this lane's answer to his FFX sound ruling being amended by rule 20c); a
+room tone at every hour; hum only where the power is on, at 60 Hz; tape wobble on some sounds
+and not others; drop-outs, which are the genre's punctuation and the likeliest thing to read as
+a bug if he does not want them; print-through as a tell, hearing a hit a moment before it lands;
+and from earlier rounds the taiko fight-start sting, the square buzz for an off-beat swing,
+EARLY and LATE sounding the same, and the one-beat horizon.
+
+CARRIED, RECORDED NOT ACTED ON, BECAUSE LEVELS ARE HIS: THE GAPS IN THE HYMNAL peaks 25.6x the
+median on a CANON song; MENU - LIGHTS ACROSS THE VALLEY peaks 1.064 (BURIED).
+
 PORTRAIT (portrait-vamily-yke55s): 9/21 LATEST -- *** [faces first] ROUND 1. THE LIST CAME
 BACK EMPTY: A STRANGER MEETS ZERO FACES IN FIVE MINUTES, AND THE FACES ARE NOT THE REASON.
 THEY CANNOT BE REACHED. *** Row stays CLAIMED, NOT shipped. Nothing pushed to the alpha.

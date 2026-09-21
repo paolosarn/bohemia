@@ -283,17 +283,27 @@ select,input[type=range]{background:#1a150e;border:1px solid #2e2416;color:#c9bf
 button.opt{ font-family:var(--fmono); border-radius:0; border:1px solid var(--line);
   -webkit-clip-path:var(--clip); clip-path:var(--clip); }
 button.opt.on{ border-color:var(--acc); color:var(--acc); }
-</style><script type="application/json" id="sfxApproved">
-/* __THE_STEP_BANK_IS_THE_APPROVED_BANK__ (9/15, SOUNDS lane) -- REBUILT FROM THE BANK HE
-   THUMBED. The block used to carry three surfaces while the approved bank
-   carried six, so step_concrete and step_sand were approved, cooked and
-   unplayable, and the fallback in stepSfx handed both of them the DIRT
-   sample instead. Every variant below is copied out of
-   banks/BOHEMIA_SFX_APPROVED_8_20_26.json byte for byte; nothing here is authored.
-   WOOD IS LEFT OUT ON PURPOSE: no wooden ground exists in the valley,
-   measured across 18 districts, and an unreachable sound in the bank is
-   dead weight that makes the census lie. */
-{
+</style><!-- __A_COMMENT_IN_THE_JSON_SILENCED_EVERY_FOOTSTEP__ (9/21, SOUNDS lane)
+     THE NOTE BELOW USED TO LIVE INSIDE THE JSON TAG AND IT SILENCED EVERY
+     FOOTSTEP IN THE GAME. JSON has no comments, so JSON.parse threw into an
+     empty catch and STEP_BANK stayed null from 9/15 onward. Measured: the city
+     posted 39 step messages, stepSfx ran 117 times, zero sounds were rendered,
+     and the suite's FOOTSTEP gate was red about it the whole time.
+     IT IS KEPT WORD FOR WORD, because it explains a real decision and deleting
+     a reason is how the reason gets undone. It just lives out here now, where
+     it is exactly as readable and cannot be parsed.
+     ORIGINAL NOTE, 9/15:
+     __THE_STEP_BANK_IS_THE_APPROVED_BANK__ (9/15, SOUNDS lane) -- REBUILT FROM THE BANK HE
+        THUMBED. The block used to carry three surfaces while the approved bank
+        carried six, so step_concrete and step_sand were approved, cooked and
+        unplayable, and the fallback in stepSfx handed both of them the DIRT
+        sample instead. Every variant below is copied out of
+        banks/BOHEMIA_SFX_APPROVED_8_20_26.json byte for byte; nothing here is authored.
+        WOOD IS LEFT OUT ON PURPOSE: no wooden ground exists in the valley,
+        measured across 18 districts, and an unreachable sound in the bank is
+        dead weight that makes the census lie.
+-->
+<script type="application/json" id="sfxApproved">{
  "step_dirt": [
   0,
   1,
@@ -1396,7 +1406,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 9/20d - THE LOT IS 16 TILES</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 9/21b - THE FEET AND THE ROOM</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -10255,10 +10265,49 @@ function stepSfx(surface){
   try{ BOH_SFX.render(v, AC, STEP_BUS || MUS.OUT || MUS.MAST || AC.destination, now + 0.01); }catch(_e){}
 }
 (function loadStepBank(){
+  /* __A_COMMENT_IN_THE_JSON_SILENCED_EVERY_FOOTSTEP__ (9/21, SOUNDS lane)
+     THIS LOADER USED TO SWALLOW ITS OWN FAILURE AND THAT COST EVERY FOOTSTEP IN
+     THE GAME. On 9/15 a round added a nine-line block comment INSIDE the
+     application/json tag this reads. JSON has no comments, so JSON.parse threw,
+     the catch was EMPTY, STEP_BANK stayed null, and stepSfx returned at its first
+     line forever. Measured on the deployed alpha, both ends of the wire in one
+     run: the city posted 39 BOHEMIA_STEP messages, stepSfx ran 117 times, and
+     BOH_SFX.render was called ZERO times.
+     AND THE SUITE'S FOOTSTEP GATE WAS ALREADY RED ABOUT IT, in these words: "the
+     embedded bank parses and carries every judged step". A RED GATE NOBODY READS
+     IS THE SAME AS NO GATE.
+     SO: the failure is RECORDED, never swallowed, and there is a fallback to the
+     table the rest of the game already consults. Two copies of one truth is what
+     let one of them rot unseen, so the feet can no longer be silenced by the
+     formatting of a duplicate. */
+  window.__STEP_BANK_WHY = 'not tried';
   try{
     var el = document.getElementById('sfxApproved');
-    if(el){ STEP_BANK = JSON.parse(el.textContent); return; }
-  }catch(_e){}
+    if(!el){ window.__STEP_BANK_WHY = 'no #sfxApproved tag in the document'; }
+    else {
+      try{
+        STEP_BANK = JSON.parse(el.textContent);
+        window.__STEP_BANK_WHY = 'parsed the embedded bank';
+      }catch(_pe){
+        window.__STEP_BANK_WHY = 'the embedded bank did not parse: ' + String(_pe && _pe.message);
+      }
+    }
+  }catch(_e){ window.__STEP_BANK_WHY = 'reading the tag threw: ' + String(_e && _e.message); }
+  /* LAST RESORT, NOT A MERGE. Only when the embedded bank failed, and only the
+     step_* keys, so nothing else in the approved table reaches the footstep path.
+     On a healthy build this never runs, which is why step_wood stays left out
+     exactly as the bank rules it. */
+  if(!STEP_BANK){
+    try{
+      var A = window.__SFX_APPROVED || null;
+      if(A){
+        var fb = {}, n = 0;
+        for(var k in A){ if(k.indexOf('step_')===0 && A[k] && A[k].length){ fb[k] = A[k]; n++; } }
+        if(n){ STEP_BANK = fb;
+          window.__STEP_BANK_WHY += ' | FELL BACK to __SFX_APPROVED, ' + n + ' surfaces'; }
+      }
+    }catch(_fe){ window.__STEP_BANK_WHY += ' | the fallback threw: ' + String(_fe && _fe.message); }
+  }
 })();
 
 function runPost(msg){
@@ -10965,6 +11014,13 @@ document.getElementById('front').addEventListener('click',()=>{
      be heard while that happens. The document-level capture listener has
      already made the AudioContext by the time this line runs. */
   try{ window.__pulseStart && window.__pulseStart(); }catch(_e){}
+  /* __THE_ROOM_IS_ON_BEFORE_THE_SONG__ -- ON THE SAME TAP, ONE LINE LATER.
+     A browser will not start audio without a gesture, so this tap is the
+     earliest instant in the whole game that any sound is legal: measured
+     (c88d7cc2) there are ZERO audio objects in existence before it, not even
+     a suspended one. The heartbeat above is a body; this is the room it is
+     standing in, and it is the part of the pair a phone speaker can play. */
+  try{ window.__roomStart && window.__roomStart(); }catch(_e){}
   document.getElementById('front').style.display='none';
   document.getElementById('app').style.display='flex';buildUI();
   /* __THE_GAME_IS_THE_FIRST_THING__ -- DEMO BOARD ROW 7, "the cheapest big win on the board".
@@ -16828,6 +16884,14 @@ const MUS={AC:null,MAST:null,playing:false,cur:0,curSlot:1,step:0,uiStep:0,nextT
        BEING AUDIBLE, and the only honest test of the second one is a note
        going into the graph. */
     if(MUS.step===0){ try{ window.__pulseHandOff&&window.__pulseHandOff(MUS.nextT); }catch(_e){} }
+    /* __THE_ROOM_IS_ON_BEFORE_THE_SONG__ -- AND THE ROOM GETS QUIETER HERE,
+       ON THE SAME LINE AND FOR THE SAME REASON THE COMMENT ABOVE GIVES: this
+       is the one place that knows a note is really going into the graph.
+       IT DUCKS, IT DOES NOT HAND OFF. The heartbeat's job ends when the song
+       starts; a room's does not. School rule 1 is that a bed never reads
+       digital zero and rule 7 is that a silence keeps its carrier, so there is
+       no path in duck() that reaches zero. */
+    if(MUS.step===0){ try{ window.__roomDuck&&window.__roomDuck(MUS.nextT); }catch(_e){} }
     MUS.playStep(MUS.step%16,MUS.nextT,MUS.songCtx(MUS.step)); MUS.uiStep=MUS.step%16;
     MUS.uiBar=Math.floor(MUS.step/16)%64;
     MUS.step++; MUS.nextT+=MUS.stepDur(); } },25);
@@ -24544,6 +24608,187 @@ var SETTLED={"step_dirt.0":1,"step_dirt.1":1,"step_dirt.2":1,"step_dirt.3":1,"st
         this.src = null; this.done = true;
       } catch (_e) { this.done = true; }
     }
+  };
+  /* ===== __THE_ROOM_IS_ON_BEFORE_THE_SONG__ (9/21, SOUNDS lane) ==========
+     [first sound], un-held under rule 18 because it is LOADING. The heartbeat
+     above is the right MECHANISM and the wrong SOUND for this job: measured, it
+     is two thumps at 58->34 and 50->30 Hz, so it is all sub-bass, and it is
+     rhythmic, so it is an event repeating rather than a room. This lane's school
+     page (9/21) says the genre's two instruments are hum and hiss and they sit at
+     OPPOSITE ends of the band, and measured the shipped mix at 96% of its energy
+     below 320 Hz with 0.02% above 5 kHz. The hiss end is empty.
+     SO THIS IS THE ROOM THE HEARTBEAT IS IN. It does not touch the heartbeat:
+     his recipe, his GAP, his level are all untouched above.
+     AND IT IS THE HALF A PHONE CAN PLAY. A handset speaker rolls off hard below
+     a few hundred hertz; 30 to 58 Hz is where it has nothing. This lives at
+     100 Hz to 5 kHz, which is where a phone works. */
+  var ROOM = {
+    /* 4.0 s = 8 beats at 120 BPM = EXACTLY 240 cycles of 60 Hz, so the mains hum
+       crosses the loop point in phase and the seam cannot tick. */
+    SEC: 4.0,
+    HUM: 60,              /* the grid's own pitch: North American mains, and this
+                             valley is Las Vegas. Dead steady, because a grid
+                             frequency is; the tape wobble belongs to sounds that
+                             came off tape and a mains hum did not. */
+    LO: 100, HI: 5000,    /* THE MACHINE THIS ROOM CAME OFF: an AM broadcast is
+                             about 100 Hz to 5 kHz, because 10 kHz channel spacing
+                             leaves 5 kHz of audio. Same transmitter the music's
+                             own ruling resolved to. */
+    SEAM: 0.08,           /* the hiss cannot be periodic, so its tail blends into
+                             its head over 80 ms */
+    REL: 0.60,            /* THE ONLY CHOSEN NUMBER IN HERE: the room carries 60%
+                             of the heartbeat's ENERGY, so the heartbeat stays the
+                             thing you notice. Matched on rms, never on peak: a
+                             thump has a high peak and little energy, a bed is the
+                             other way round, and matching peaks would have put
+                             this far louder than the thing it sits under. Goes to
+                             the VOTE tab. */
+    DUCK: 0.33,           /* when the song arrives it ducks to a third and KEEPS
+                             RUNNING. It never reaches zero: school rule 1 (never
+                             digital zero) and rule 7 (a silence keeps its
+                             carrier). */
+    src: null, bus: null, buf: null, startedAt: 0, level: 0, ducked: false,
+
+    /* ONE LOOP, RENDERED ONCE, HANDED TO THE AUDIO THREAD. The 9/5 finding is
+       why this is a buffer and not a scheduler: the main thread blocks for
+       seconds while the city builds, and the audio thread does not care. */
+    render: function (AC) {
+      var sr = AC.sampleRate, n = Math.round(sr * this.SEC);
+      var buf = AC.createBuffer(1, n, sr), d = buf.getChannelData(0);
+      var i, seam = Math.max(1, Math.round(this.SEAM * sr));
+
+      /* THE HISS, first, into its own pass so the seam blend cannot touch the
+         hum's phase. White noise; the band comes from the two filters at play
+         time, which are this voice's machine and not a master pass. */
+      var hiss = new Float32Array(n + seam);
+      for (i = 0; i < hiss.length; i++) hiss[i] = Math.random() * 2 - 1;
+      /* blend the tail into the head so the loop point is not a tick */
+      for (i = 0; i < seam; i++) {
+        var u = i / seam;
+        hiss[i] = hiss[i] * u + hiss[n + i] * (1 - u);
+      }
+
+      /* THE HUM: 60 Hz and its harmonics, falling away as real mains hum does.
+         Integer cycle counts over the loop, so every one of them is in phase at
+         the seam by construction and not by luck. */
+      var parts = [[1, 1.00], [2, 0.42], [3, 0.18]];
+      for (i = 0; i < n; i++) {
+        var t = i / sr, h = 0;
+        for (var k = 0; k < parts.length; k++)
+          h += Math.sin(2 * Math.PI * this.HUM * parts[k][0] * t) * parts[k][1];
+        /* the hum carries the weight, the hiss sits on top of it */
+        d[i] = h * 0.55 + hiss[i] * 0.30;
+      }
+
+      /* normalise to a peak of 1, so the bus gain below is the ONLY level and
+         nothing has to be re-tuned if the recipe above ever changes */
+      var pk = 0;
+      for (i = 0; i < n; i++) { var a = Math.abs(d[i]); if (a > pk) pk = a; }
+      if (pk > 0) for (i = 0; i < n; i++) d[i] /= pk;
+      return buf;
+    },
+
+    /* RMS OF A BUFFER. Used on BOTH buffers, so the comparison is like for like. */
+    rmsOf: function (buf) {
+      try {
+        var d = buf.getChannelData(0), s = 0;
+        for (var i = 0; i < d.length; i++) s += d[i] * d[i];
+        return Math.sqrt(s / d.length);
+      } catch (_e) { return 0; }
+    },
+
+    /* THE LEVEL IS MEASURED OFF HIS HEARTBEAT AT RUN TIME, NEVER TYPED. If he
+       changes the heartbeat's level, this follows and cannot drift out of date. */
+    levelFor: function (AC) {
+      try {
+        if (!PULSE.buf) PULSE.buf = PULSE.render(AC);
+        var pulseRms = this.rmsOf(PULSE.buf) * PULSE.LEVEL;
+        var roomRms = this.rmsOf(this.buf);
+        if (!(roomRms > 0)) return PULSE.LEVEL * 0.25;
+        return (pulseRms * this.REL) / roomRms;
+      } catch (_e) { return PULSE.LEVEL * 0.25; }
+    },
+
+    start: function () {
+      try {
+        if (this.src) return;                               /* once per session */
+        if (typeof MUS === 'undefined' || !MUS.AC) return;
+        var AC = MUS.AC;
+        if (!this.buf) this.buf = this.render(AC);
+        this.level = this.levelFor(AC);
+
+        this.bus = AC.createGain();
+        this.bus.gain.value = this.level;
+        /* the effects bus, so his one slider reaches it, and NEVER MUS.MAST as a
+           first choice: MUS.stop() ducks that to zero, and a room does not stop
+           because the studio did. Same reasoning as the heartbeat above. */
+        this.bus.connect(sfxBus() || MUS.OUT || MUS.MAST || AC.destination);
+
+        /* THE MACHINE, IN THIS VOICE'S OWN CHAIN. Two nodes, once. */
+        var hp = AC.createBiquadFilter();
+        hp.type = 'highpass'; hp.frequency.value = this.LO; hp.Q.value = 0.7;
+        var lp = AC.createBiquadFilter();
+        lp.type = 'lowpass';  lp.frequency.value = this.HI; lp.Q.value = 0.7;
+        hp.connect(lp); lp.connect(this.bus);
+
+        var s = AC.createBufferSource();
+        s.buffer = this.buf; s.loop = true;
+        s.connect(hp);
+        this.startedAt = AC.currentTime + 0.02;
+        s.start(this.startedAt);
+        this.src = s;
+      } catch (_e) {}
+    },
+
+    /* THE SONG ARRIVES AND THE ROOM GETS QUIETER. IT DOES NOT STOP. School rule
+       1 is that a bed never reads digital zero and rule 7 is that a silence keeps
+       its carrier, so there is no branch in here that reaches zero. Called from
+       the one place in the build that knows a note is really going into the
+       graph, which is the same line the heartbeat hands over on. */
+    duck: function (atT) {
+      try {
+        if (!this.src || this.ducked) return;
+        var AC = MUS.AC, t = AC.currentTime;
+        var end = (atT && atT > t) ? atT : t + 0.25;
+        var to = this.level * this.DUCK;
+        this.bus.gain.cancelScheduledValues(t);
+        this.bus.gain.setValueAtTime(this.bus.gain.value, t);
+        this.bus.gain.linearRampToValueAtTime(to, end);
+        this.bus.gain.value = to;
+        this.ducked = true;
+      } catch (_e) {}
+    }
+  };
+  window.__roomStart = function () { ROOM.start(); };
+  window.__roomDuck  = function (t) { ROOM.duck(t); };
+  /* REPORTING FOR ITSELF, the way the heartbeat does, because while the build
+     holds the one thread an outside observer reads nothing at all. */
+  window.__roomState = function () {
+    return { on: !!ROOM.src, ducked: ROOM.ducked, sec: ROOM.SEC, hum: ROOM.HUM,
+             lo: ROOM.LO, hi: ROOM.HI, rel: ROOM.REL, duck: ROOM.DUCK,
+             level: ROOM.level, startedAt: ROOM.startedAt,
+             cycles60: ROOM.SEC * ROOM.HUM, beats: ROOM.SEC / 0.5 };
+  };
+  /* EVERYTHING A CHECKER NEEDS, IN ONE PLACE, FOR MEASUREMENT ONLY. THE GAME
+     NEVER CALLS THIS. It hands back the room's buffer and level AND the
+     heartbeat's, because the only honest way to claim "the room sits under the
+     heartbeat" is to measure both through the same ruler in the same breath. */
+  window.__ROOM_PROBE = function (AC) {
+    try {
+      AC = AC || MUS.AC;
+      if (!PULSE.buf) PULSE.buf = PULSE.render(AC);
+      return { roomBuf: ROOM.render(AC), roomLevel: ROOM.levelFor(AC),
+               pulseBuf: PULSE.buf, pulseLevel: PULSE.LEVEL,
+               lo: ROOM.LO, hi: ROOM.HI, hum: ROOM.HUM, sec: ROOM.SEC,
+               rel: ROOM.REL, duck: ROOM.DUCK, seam: ROOM.SEAM };
+    } catch (_e) { return null; }
+  };
+  /* AND A WAY TO ARM IT AGAIN, for measurement only. THE GAME NEVER CALLS THIS.
+     Same reason __PULSE_RESET exists: the only run you could otherwise meter is
+     the one happening during the city build. */
+  window.__ROOM_RESET = function () {
+    try { if (ROOM.src) { ROOM.src.stop(); ROOM.src = null; } } catch (_e) {}
+    ROOM.ducked = false;
   };
   window.__pulseStart    = function () { PULSE.start(); };
   window.__pulseNextBeat = function () { return PULSE.nextBeat(); };
