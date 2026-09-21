@@ -4984,6 +4984,110 @@ ALSO STILL OPEN, not draw order: on NE in his own frame
 the right of the shoulders with a visible gap. That is the pose too.
 
 Nothing [PENDING Paolo].
+PEOPLE (people-7h9sfy): 9/21 (c) LATEST -- *** [horror crowd] SHIPPED dcd19275.
+YOUR STREET DRAWS THE SAME CROWD AT BREAKFAST AND AT BEDTIME. *** Row
+A-CROWD-THAT-STANDS-TOO-STILL, rule 20(h), school under the rule 18 hold, with
+the RULE 22 cook riding beside it.
+
+*** THE ROW'S THREE THINGS ARE ALREADY TRUE, AND THAT IS WHY THE CROWD IS NOT
+FRIGHTENING. *** Measured on the alpha over three frames, off the game's own
+list of who was drawn:
+  bodies drawn                     6, 6, 6
+  bodies that ever turned a head   0 of 6
+  directions on screen             5 of 8, scattered, not one stuck value
+  anybody watching him             0 (only an enemy may watch, and none was near)
+  the screen that moved            0.5% against the bible's 10% ceiling
+THE LONG HOLD (bible R3) PASSES BY FIFTEEN TIMES, and the gate now holds that
+too so nobody "fixes" the stillness. The bible's own R1 says what stillness
+alone is worth: "Two wrong things is a haunted house; zero is a screenshot."
+There is no wrong thing in this crowd. It is a screenshot.
+
+*** SO THE ROUND WENT TO THE ONE RULE THAT FAILS, R7, THE LIT STREET WITH NOBODY
+HOME: "a crowd thin where it should be thick. DRAWN FROM WORLD DATA, NEVER
+FAKED. The wrongness traces to a real world-state row." *** Walking the game's
+own clock through the day and asking its own schedule, census 61:
+
+  hour        3am   7am  10am   1pm   5pm   8pm  11pm
+  outside       0    10    41     3    40     4     2
+  drawn         3    24    23    20    23    24    15
+
+THE WORLD SWINGS FORTY-ONE TO FOUR AND THE SCREEN DRAWS TWENTY-THREE AND
+TWENTY-FOUR. Ten in the morning and eight at night are the same picture. The
+curve underneath is good: a real two-peaked commute out of real schedules, out
+in the morning, home at lunch, out again at five, inside by eight. Nobody has to
+build it. The screen simply never finds out.
+
+AND THE CAUSE IS NOT A BUG, WHICH IS THE PART THAT MATTERS FOR WHOEVER PICKS
+THIS UP. The crowd he sees is __THE_STREET_IS_NEVER_EMPTY__, the 9/7 borrow.
+Measured both ways in one probe, nothing committed:
+  ten in the morning   41 outside in the world, the world itself puts 2 of them
+                       on his screen, the borrow makes it 23
+  eight at night        4 outside in the world, the world puts 3, the borrow
+                       still makes it 24
+At the busiest hour of the day the honest street is TWO PEOPLE. That is why the
+borrow exists and the 9/7 record already did the arithmetic (9 cells of sight
+covers 361 cells against a 12.8 million cell window, about 2%). THE DEFECT IS
+NOT THE BORROWING. IT IS THAT THE BORROW CARRIES A FIXED NUMBER INSTEAD OF THE
+NUMBER THE WORLD EARNED. Fix that and R7 is satisfied for free in both
+directions: busy at ten, and at eight you walk the street you walked this
+morning and nobody is on it.
+
+RULE 18 OBSERVED, AND THE GATE HOLDS IT: nothing was changed on the play
+surface. The borrow is another lane's code and this row is school; it and the
+facing rule are untouched, and nothing in this round writes a crowd count into
+the walked city. The probe that switched the borrow off lived inside one browser
+session and was never committed.
+
+THE RULE 22 COOK, IN THE VOTE TAB: "THE STREET AT THREE HOURS"
+(slices/BOHEMIA_THE_STREET_AT_THREE_HOURS_9_21_26.html). Five real frames off
+the glass, nothing drawn by hand: eight at night both ways, ten in the morning
+both ways, and three in the morning, which is ONE file because the borrow
+changes nothing when nobody is out. A second identical picture would have been a
+comparison that cannot fail, so the page says it out loud instead. The day is
+counted beside them and the page argues the other side too: at ten in the
+morning nobody is asking for the honest street. Three ways to go, and B is
+leaving it exactly as it is.
+
+SEEN WITH MY EYES IN THE 8PM FRAME, NAMED NOT ACTED ON: four bodies standing in
+one clump at the bottom, three of them in the same tan coat, and the same
+brown-haired woman in a white top drawn three times in one frame. A CROWD MADE
+OF COPIES is the other half of why twenty-four people read as filler rather than
+as a city. CHARACTER owns the wardrobe spread; the clumping is rule 21's stated
+cost (the person does not zoom, so at far zoom bodies on neighbouring cells
+overlap).
+
+AND ONE FOR WHOEVER OWNS THE PUBLISH CAP: THE PUBLISHED SURFACE IS ALREADY OVER
+IT ON CLEAN MAIN, 261 MB against 260, measured in a throwaway worktree off
+origin/main before any of this existed, so that red is not this lane's and SOUNDS
+named it first. Five full-colour frames would have taken it to 262, and making
+somebody else's red worse is still making it worse, so they were quantised to a
+128-colour palette: 0.89 MB to 0.18 MB, indistinguishable on the glass, surface
+back to 261. That was 0.7 MB found in five files and nobody has swept the rest of
+slices/vote the same way.
+
+THE GATE: gates/horror_crowd_gate.js, driven on the ALPHA, in the suite as
+HORROR CROWD. Negative-controlled, each put back: make the evening pair the same
+frame twice and give 3am a duplicate, 2 red; drop the leave-it-alone option and
+call the borrow an obvious mistake, 2 red.
+
+NEXT: this lane's queue is EMPTY of OPEN rows. Everything the coordinator has
+written for PEOPLE is shipped except the five still held behind the playable cut:
+[walking companion], [weights shape], [rumours travel], [creditor stands],
+[somebody hires you]. RULE 22 binds every round from here: one real person made
+and registered in the VOTE tab, every round, with the measuring beside it and
+never instead of it.
+
+[PENDING Paolo], carried, none of them blocking: when a person dies of old age;
+how many game days is a year; who you marry; what a long injury costs to treat;
+the 82-row deed table. Named for other lanes: the two cards stacked at his door
+are RUN [no pop ups]; the crowd of copies is CHARACTER's; the publish cap is
+whoever owns it, red before this round; DERIVED FRESHNESS wipes its own overlay
+with git clean so it reds on any uncommitted work, which is PLUMBER's. AND ONE
+MORE, FOUND WHILE GATING THIS ROUND AND LEFT ALONE BECAUSE A LANE FIXES ITS OWN
+ROW: the VOTE TAB gate is red on clean origin/main because
+direction-fight-verdict-round-3-9-21 carries kind "verdict", which is not one of
+the kinds that gate allows. One word in one field, DIRECTION's.
+
 PEOPLE (people-7h9sfy): 9/21 (b) LATEST -- *** [a name] SHIPPED b09052a2. THE
 NAMES WERE ALWAYS THERE AND THE ONLY DOOR TO THEM WAS A BUTTON ON A CARD. ***
 Row THE-PERSON-AT-HIS-DOOR-HAS-A-NAME, inside [face at the door], which is rule
