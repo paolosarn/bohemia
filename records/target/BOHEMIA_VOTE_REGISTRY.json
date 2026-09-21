@@ -587,6 +587,19 @@
     "how": "page",
     "src": "BOHEMIA_THE_WATER_STILL_RUNS_9_21_26.html"
    }
+  },
+  {
+   "id": "quests-somebody-asks-you-9-21",
+   "kind": "line",
+   "lane": "quests",
+   "sha": "PENDING",
+   "made": "9/21",
+   "title": "SOMEBODY ASKS YOU",
+   "why": "Three real jobs the valley is offering right now, spoken by a person on your block instead of shown on a card. Vote the words.",
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_SOMEBODY_ASKS_YOU_9_21_26.html"
+   }
   }
  ],
  "verdicts": []

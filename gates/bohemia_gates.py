@@ -4070,6 +4070,27 @@ GATES = [
      'deliberately survives a redraw). Covers the DAY CARD only; the BUILD and BUILD BIG dead buttons '
      'EYES also found are on the city build card and belong to LIFE+CITY. Runs 14/0',
      True),
+    ('ASK HAS A MOUTH', ['node', 'gates/ask_has_a_mouth_gate.js'],
+     'QUESTS row [a person asks], 9/21. PAOLO 9/20 rule 19: a quest is people, places and things, never a '
+     'card, and text comes from a mouth. MEASURED ON THE WALKED CITY FIRST: the valley already generates '
+     'three real asks at minute one (shelf 47,50, grid 47,49, border 50,46) and EVERY ONE IS ATTRIBUTED TO '
+     'P:city:12:12:0, STANDING ON THE WAKING BLOCK -- the person at his door already exists and already '
+     'wants something; nothing could say it out loud, and this lane own handoff said so (NOT ON SCREEN '
+     'YET). So the module is the MOUTH and nothing else: it invents no ask, picks no ask and moves nobody. '
+     'HELD: every generator change either has words or is REFUSED BY NAME (a friendly fallback for '
+     'anything is how an unwired system looks wired); the closing promise is the generator own visible '
+     'string byte for byte so screen and ledger cannot drift; refusing the job gets a real line, never a '
+     'greyed row; and *** A COORDINATE IS NOT AN ADDRESS *** -- a bare cell is refused rather than read '
+     'aloud, which this lane ruled once before after a card printed HERE, 6205 6269 at him, and which the '
+     'first cut of this very module broke by saying It is at 47,49. PROVED TO BITE by planting four bugs '
+     'in the real module: a filler fallback, the place said twice, a coordinate accepted, and a refusal '
+     'with no line -- each caught by name. TWO DEFECTS IN MY OWN FIRST CUT, FOUND BY READING THE OUTPUT '
+     'AFTER IT WENT GREEN: a check that ended in || true and so could never fail (replaced with a '
+     'behavioural one), and the shelf ask reading market twice while the exactly-once check passed, '
+     'because it compared the whole phrase and not the words inside it; the check now fails on any '
+     'meaningful place word repeated, and that tightening was proved against the exact line that slipped. '
+     'Runs 22/0',
+     True),
     ('BOND OUTLIVES', ['node', 'gates/bond_outlives_gate.js'],
      'QUESTS row [bond outlives], 9/13. [company in asks] shipped and named its own limit in its '
      'own seam comment: the cast record is keyed on quest AND DAY, so a bond from an earlier day '
