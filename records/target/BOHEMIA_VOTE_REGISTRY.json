@@ -943,7 +943,7 @@
    "id": "animation-the-turn-takes-the-beat-9-21",
    "kind": "animation",
    "lane": "animation",
-   "sha": "PENDING",
+   "sha": "4e408b5",
    "made": "9/21",
    "title": "THE TURN TAKES THE BEAT",
    "why": "Right now there is no turn at all. Change direction and he is just a different drawing on the next frame: facing south, then facing east, nothing in between. He already has eight drawings, one per direction, so a turn is those drawings in order. He holds, swings through the one in between, and lands, the same half second the street takes. No new art. Not in the game until you say so.",
