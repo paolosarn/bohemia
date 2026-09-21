@@ -2845,3 +2845,89 @@ BROTHER  Pass the salt.                                                [time off
   LISTO. TOCA PARA EMPEZAR.         25ch  read 1.79s
 #
 # 17 lines. Every one is 28 characters or fewer and reads in under two seconds.
+
+## [small moments] -- THE TWELVE GET AN END  (9/24/26)
+# Cooked under rule 22, UN-HELD by his 9/22 verdict ("impressed with the speech and
+# how people are writing, it's come a long way"), which the record turns into VOLUME
+# UNLOCKED FOR WORDS. All draft:true. Registered as words-the-twelve-get-an-end-9-24.
+#
+# RULE 12 ON THE NAMED BLOCKER, BECAUSE THE ROW HAS ONE. BB-THE-SMALL-MOMENT says it
+# depends on WORLD BB-MORE-KEYS. Measured: BB-MORE-KEYS is about needing MORE ambient
+# encounters so the 70/20/10 mix stops coming out 40/42/18. That is about VARIANTS.
+# Writing the twelve that already exist as peaks with an end needs no new encounters.
+#
+# ================== THE FINDING, AND IT IS IN OUR OWN TABLE ==================
+# The row's whole argument is the PEAK-END RULE: people judge a past experience on its
+# most intense moment and its FINAL moment, and near-zero on how long it lasted. So
+# ambience that is merely present is worth about nothing, and THE END IS HALF OF WHAT
+# ANYBODY REMEMBERS.
+#
+# *** SO I WENT AND READ THE ROSTER, AND EVERY ONE OF THE TWELVE ALREADY HAS AN END. ***
+# engine/bohemia_encounters.js gives each encounter an `ends:` field, and it is not
+# decoration, it is the design of how the moment finishes:
+#     feral dog pack        ends: 'morale'
+#     coyote shadow         ends: 'mostly never a fight'
+#     rattlesnake           ends: 'timer'
+#     scavenger shakedown   ends: 'pay / scare / drop'
+#     toll crew             ends: 'pay / fight / detour'
+#     the snatcher          ends: 'loss without death'
+#     crazed wanderer       ends: 'incentives do not work on him'
+#     bounty squad          ends: 'escalates'
+#     casino security bot   ends: 'alarm summons the district owners'
+#     spotter drone         ends: 'cut the light, ground the drones'
+#     ghost robotaxi        ends: 'ride or rush'
+#     patrols collide       ends: 'world on world'
+# *** TWELVE NAMED ENDINGS AND NOT ONE WORD FOR ANY OF THEM. *** Last round's twelve
+# lines are the PEAK, the moment it starts. The half the rule says people actually keep
+# has been sitting in the table with nothing to say. That is the gap, it was already
+# designed, and it costs twelve strings.
+#
+# EACH LINE BELOW IS KEYED TO ITS OWN `ends` VALUE, never invented beside it. Where the
+# table names more than one ending, there is a line per ending and not an average.
+#
+# ================== THE TWELVE ENDS ==================
+### draft:true   all in a mouth, per the register he approved
+  feral_dog_pack      ends morale
+      The rest went with him. They always go with him.            48ch 2 bars  86%
+  coyote_shadow       ends mostly never a fight
+      It went. They do that once you look straight at it.         51ch 2 bars  91%
+  rattlesnake         ends timer
+      Sit down. Ten minutes and you will know either way.         51ch 2 bars  91%
+  scavenger_shakedown ends pay / scare / drop        THREE ENDS, THREE LINES
+      pay    Take it and go. I did not see which way you went.    49ch 2 bars  88%
+      scare  He will tell people you scared him. That is worse.   50ch 2 bars  89%
+      drop   That one had a name on this street. People knew him. 52ch 2 bars  93%
+  toll_crew           ends pay / fight / detour
+      pay     Road is yours for the day. Nobody will stop you.    48ch 2 bars  86%
+      detour  Long way round, then. It adds an hour and it is safe. 53ch 2 bars 95%
+  the_snatcher        ends loss without death
+      You are not getting that back. Let it go and walk.          50ch 2 bars  89%
+  crazed_wanderer     ends incentives do not work on him
+      You cannot pay that one. Nobody can. He is past it.         51ch 2 bars  91%
+  bounty_squad        ends escalates
+      There will be more of them next week. There always are.     55ch 2 bars  98%
+  casino_security_bot ends alarm summons the district owners
+      The alarm went out. Whoever owns this block heard it.       53ch 2 bars  95%
+  spotter_drone       ends cut the light, ground the drones
+      Kill the light and the rest of them fall out of the air.    56ch 2 bars 100%
+  ghost_robotaxi      ends ride or rush
+      It will take you. It does not ask where you are going.      54ch 2 bars  96%
+  patrols_collide     ends world on world
+      Neither of them won. Walk while they are still counting.    56ch 2 bars 100%
+#
+# 15 lines for 12 encounters, because three of them end more than one way and the rule
+# is about THE final moment, so each ending gets its own.
+# 0 in the dead zone, 0 clipped. Whole bars, because these are cards the game holds.
+#
+# THE FOUR THAT CARRY THE DEAD INSTITUTION, which is Q27's finding again and it landed
+# here without being aimed at:
+#   bounty squad         "There will be more of them next week." A system still
+#                        processing you, on a schedule, with nobody deciding.
+#   casino security bot  "The alarm went out." An alarm still reaching somebody.
+#   spotter drone        the light is somebody's, and cutting it drops them
+#   ghost robotaxi       "It does not ask where you are going." It still runs the loop.
+#
+# AND THE ONE THAT IS THIS ROW IN A SENTENCE: the scavenger's DROP ending is
+# "That one had a name on this street. People knew him." The peak of that encounter is
+# a stranger demanding your things. The END is finding out he was somebody's neighbour.
+# Nothing about the mechanic changed. The line is where the moment gets remembered.

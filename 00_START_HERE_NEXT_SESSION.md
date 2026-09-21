@@ -1,3 +1,78 @@
+WORDS (words-8dqrnq): 9/24 LATEST -- *** [small moments] SHIPPED. THE TWELVE ROADSIDE MOMENTS GET AN
+END, AND THE FINDING WAS ALREADY IN OUR OWN TABLE. *** VOTE: words-the-twelve-get-an-end-9-24.
+Record: records/BOHEMIA_WORDS_THE_TWELVE_GET_AN_END_9_24_26.md
+Lines: banks/BOHEMIA_WORDS_TEST_LINES.md, section "[small moments]", draft:true.
+
+FIRST, I STOOD DOWN ON A ROW. The board's first open line for this lane was [swap the twelve], my own
+twelve replacement lines going into the alpha. QUESTS CLAIMED IT WHILE I WAS CLAIMING IT (my push was
+rejected, then the rebase hit their claim), and the row always said it ships with their [wire the
+door]. ONE SYSTEM, ONE SESSION: they have it, the words are already written and registered, this lane
+does not fight another for a row. Took the next line instead. NOT A COMPLAINT AND NOT A BOUNCE.
+
+WHAT UN-HELD THE NEXT ROW IS HIS OWN WORDS. [small moments] was "held until the lane returns to MODE:
+BUILD", and his 9/22 verdict is what the hold was waiting for: "I'm impressed with the speech and how
+people are writing, it's come a long way", which records/BOHEMIA_PAOLO_CITY_MODE_9_22_26.md items 4
+and 5 turn into VOLUME UNLOCKED FOR WORDS. NOTES ARE RULINGS, so that is not a thing to re-ask, it is
+a thing to build on.
+
+RULE 12 ON ITS NAMED BLOCKER. The row says it depends on WORLD's BB-MORE-KEYS. Measured rather than
+waited on: BB-MORE-KEYS is about needing MORE AMBIENT ENCOUNTERS so the approved 70/20/10 mix stops
+coming out 40/42/18. That is about VARIANTS. Writing the twelve that already exist as peaks with an
+end needs no new encounters. Not blocked.
+
+*** THE FINDING. *** The row's argument is the PEAK-END RULE: people judge a past experience by its
+most intense moment and its FINAL moment, and near-zero by duration, so ambience that is merely
+present is worth about nothing and THE END IS HALF OF WHAT ANYBODY REMEMBERS. So I read the roster,
+and engine/bohemia_encounters.js gives every one of the twelve an `ends:` field which is design and
+not decoration: morale / mostly never a fight / timer / pay-scare-drop / pay-fight-detour / loss
+without death / incentives do not work on him / escalates / alarm summons the district owners / cut
+the light ground the drones / ride or rush / world on world.
+*** TWELVE NAMED ENDINGS AND NOT ONE WORD FOR ANY OF THEM. *** Last round's twelve lines are the
+PEAK, the moment it starts. The half the rule says people actually keep has been sitting in that
+table with nothing to say since the roster was written.
+
+WHAT GOT WRITTEN: 15 lines for 12 encounters, because three of them end more than one way and the
+rule is about THE final moment, so each ending gets its own rather than an average. EACH LINE IS
+KEYED TO ITS OWN `ends` VALUE, never invented beside it. 0 dead zone, 0 clipped, whole bars because
+these are cards the game holds.
+FOUR CARRY THE DEAD INSTITUTION AND IT LANDED THERE WITHOUT BEING AIMED AT, which is the best sign
+the register has stuck: the bounty squad's "There will be more of them next week. There always are."
+is a system still processing you on a schedule with nobody deciding; the casino bot's alarm still
+reaches somebody; the drone's light belongs to a faction; the empty taxi "does not ask where you are
+going".
+AND THE ONE THAT IS THIS ROW IN A SENTENCE: the scavenger's DROP ending is "That one had a name on
+this street. People knew him." The peak of that encounter is a stranger demanding your things. The
+END is finding out he was somebody's neighbour. Nothing about the mechanic changed; the line is where
+the moment gets remembered.
+
+*** THIRD ROUND RUNNING THE FIND WAS ALREADY IN THE REPO. *** Q4 missed the reading-speed policy in
+bohemia_stage.js, Q5 missed the refusal system in the quirk factory, and this missed twelve endings
+in the table my own lane's words hang off. THE PATTERN IS NOW THE POINT: REUSE-FIRST is a law about
+research, and reading the table before writing is the cheapest work there is.
+
+GATES: voice 114/0 (two stated skips for the shallow clone, see the 9/23 block), dialogue catalogue
+63/0, attempt 15/0, language 83/0, voice audible 2/0, handoff 8/0. SUITE LINE: pre-push pass green.
+
+ROUTED: TO WORLD AND WHOEVER OWNS THE ENCOUNTER DIRECTOR: the endings are written and keyed to the
+`ends` values you already wrote; they ship beside QUESTS' [swap the twelve] whenever the openings do.
+TO QUESTS: [swap the twelve] is yours and not contested; these are the other half of the same twelve
+on the same ids. TO WORLD BB-MORE-KEYS: unchanged and still worth doing, more ambient encounters is a
+real gap and the mix measurement is real; it was never a blocker on the writing. TO WORDS, standing:
+READ THE TABLE BEFORE WRITING THE WORDS.
+
+STANDING QUEUE: [trade slang] BB-STILL-SAYS-IT is the next line and it is the same discovery from the
+other end (the occupational identity outlives the occupation: a line cook still calling tickets to
+nobody IS the dead institution in a mouth). Then [reputation lines] and [voice pass]; the second
+voice pass is worth flagging now because my own gate reports 39 BANNED-PHRASE HITS STILL STANDING IN
+THE 22 SCENES THAT HAVE NOT HAD ONE, and the demo's five are clean. Q26 stays claimed until a surface
+speaks its lines. Q6 through Q17 still owe school rounds, oldest first, one at a time with a cook
+beside each because rule 22 forbids two school rounds in a row.
+STANDING WATCH: verdicts[] in records/target/BOHEMIA_VOTE_REGISTRY.json every round for ids starting
+words-. Checked this round: 75 items, 0 verdicts in the file, BUT HIS APPROVAL CAME IN WORDS INSTEAD
+and was acted on the same round, which is what NOTES ARE RULINGS means. NINE of mine are registered.
+HANDOFF DISCIPLINE, THE 9/13 AMENDMENT: this block was built by taking origin/main's copy of the file
+fresh and prepending a NEW head. Never demote another lane's head and never splice by index.
+
 PORTRAIT (portrait-vamily-yke55s): 9/21 (d) LATEST -- *** [shades on] ROUND 1, THE COOK
 (rule 22). 70 OF EVERY 200 PEOPLE WEAR WRAPAROUND SHADES YOU CANNOT SEE THROUGH, AND ALL 70
 HAVE BARE EYES IN THE PORTRAIT THAT POPS UP WHEN THEY SPEAK. *** Row CLAIMED, not shipped.

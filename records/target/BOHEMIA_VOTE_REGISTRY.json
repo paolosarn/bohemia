@@ -300,7 +300,7 @@
     "src": "vote/ANIMATION_THE_IDLE_REDO.html"
    },
    "redoOf": "idle",
-   "said": "a lot of them are good, a lot of them aren\u2019t good... IF I KILLED IT I DON\u2019T WANT IT GONE. I just think it could be done better. Make a new one."
+   "said": "a lot of them are good, a lot of them aren’t good... IF I KILLED IT I DON’T WANT IT GONE. I just think it could be done better. Make a new one."
   },
   {
    "id": "factions-the-sign-still-lights-9-21",
@@ -465,7 +465,7 @@
    "sha": "534d87a",
    "made": "9/21",
    "title": "HOW A STEP IS DRAWN (I PICKED ONE FOR YOU)",
-   "why": "One press moves him a whole house, 275 pixels, in half a second, and his legs can only show one pace of it. What shipped was nobody\u2019s choice: an old number in the code made the whole street jump at once. I put in the tape skip: he stands still, the picture skips twice, he is there. Thumbs up keeps it. Thumbs down and say GRID (the street jumps at once) or SLIDE (the street slides the whole time) and I will switch it.",
+   "why": "One press moves him a whole house, 275 pixels, in half a second, and his legs can only show one pace of it. What shipped was nobody’s choice: an old number in the code made the whole street jump at once. I put in the tape skip: he stands still, the picture skips twice, he is there. Thumbs up keeps it. Thumbs down and say GRID (the street jumps at once) or SLIDE (the street slides the whole time) and I will switch it.",
    "show": {
     "how": "page",
     "src": "vote/ANIMATION_HOW_A_STEP_IS_DRAWN.html"
@@ -699,7 +699,7 @@
    "sha": "228818a1",
    "made": "9/21",
    "title": "THE BATTERY SHED, THE FIRST BUILDING THAT MAKES MONEY",
-   "why": "You build this on your own lot and a battery comes in. It is the small one, about the size of half a garage, not the big fenced battery yard the game already has. I drew it in that yard\u2019s own colours so they are the same world. One thing in the picture is on purpose and it is the whole idea: THE LITTLE AMBER LIGHT IS LIT. Nothing else on the lot has power, the meter needle is stuck, the door is chained, and this box is still working. Thumbs up and I put it in the game so you can place one. Thumbs down and tell me if it is the shape, the colour, or the light.",
+   "why": "You build this on your own lot and a battery comes in. It is the small one, about the size of half a garage, not the big fenced battery yard the game already has. I drew it in that yard’s own colours so they are the same world. One thing in the picture is on purpose and it is the whole idea: THE LITTLE AMBER LIGHT IS LIT. Nothing else on the lot has power, the meter needle is stuck, the door is chained, and this box is still working. Thumbs up and I put it in the game so you can place one. Thumbs down and tell me if it is the shape, the colour, or the light.",
    "show": {
     "how": "image",
     "src": "vote/LIFECITY_THE_BATTERY_SHED_9_21.png"
@@ -907,7 +907,7 @@
    "sha": "PENDING",
    "made": "9/22",
    "title": "FOUR WAYS THE GAME LOADS",
-   "why": "The screen that covers everything before you can touch anything, with a bar that cannot lie and the writing chat\u2019s words wired to real stages. A is built and handed to the play chat.",
+   "why": "The screen that covers everything before you can touch anything, with a bar that cannot lie and the writing chat’s words wired to real stages. A is built and handed to the play chat.",
    "show": {
     "how": "page",
     "src": "BOHEMIA_FOUR_WAYS_THE_GAME_LOADS_9_22_26.html"
@@ -1015,6 +1015,19 @@
    "show": {
     "how": "image",
     "src": "vote/CHARACTER_THE_STREET_GETS_AGES.png"
+   }
+  },
+  {
+   "id": "words-the-twelve-get-an-end-9-24",
+   "kind": "line",
+   "lane": "words",
+   "sha": "d7488bf",
+   "made": "9/24",
+   "title": "THE TWELVE GET AN END",
+   "why": "People remember the last moment of a thing almost as much as the biggest one. Every roadside encounter already has an ending built, and not one of them had a word for it. Here they are.",
+   "show": {
+    "how": "text",
+    "src": "EVERY ROADSIDE MOMENT ALREADY HAS AN ENDING DESIGNED. NONE OF THEM HAS WORDS.\n\nPeople remember an experience by its biggest moment and its LAST moment, and\nalmost not at all by how long it went on. We wrote the openings last round.\nThis is the other half.\n\n  the dogs break        The rest went with him. They always go with him.\n  the coyote leaves     It went. They do that once you look straight at it.\n  the snake got you     Sit down. Ten minutes and you will know either way.\n\n  the scavenger, three ways it can end\n    you paid            Take it and go. I did not see which way you went.\n    you scared him      He will tell people you scared him. That is worse.\n    you dropped him     That one had a name on this street. People knew him.\n\n  the toll, two ways\n    you paid            Road is yours for the day. Nobody will stop you.\n    you went around     Long way round, then. It adds an hour and it is safe.\n\n  the snatcher got it   You are not getting that back. Let it go and walk.\n  the mad one           You cannot pay that one. Nobody can. He is past it.\n  the bounty squad      There will be more of them next week. There always are.\n  the old casino bot    The alarm went out. Whoever owns this block heard it.\n  the drone             Kill the light and the rest of them fall out of the air.\n  the empty taxi        It will take you. It does not ask where you are going.\n  two patrols fought    Neither of them won. Walk while they are still counting."
    }
   }
  ],
