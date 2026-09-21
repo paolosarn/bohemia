@@ -1396,7 +1396,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 9/20d - THE LOT IS 16 TILES</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 9/20e - THEY HAVE A FACE NOW</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -10459,6 +10459,41 @@ function combatMsgIn(d){
      this bakes that one look and sends it back. */
   if(d.type==='BOHEMIA_CITY_NEED_FACTION'&&d.faction){
     try{ cityBakeFaction(String(d.faction)); }catch(_e){}
+    return true;
+  }
+  /* __FACE_AT_THE_DOOR__ (9/20, PEOPLE, rule 19, [face at the door]).
+     PAOLO 9/20: "text on screen coming from people's voice, and when they speak
+     to you it shows the character portrait."
+     PAOLO 8/26, quoted by the face block this calls: "every time you speak to
+     someone, their portrait will pop up on screen so you feel like you're
+     relating to them."
+
+     *** MEASURED ON THE WALKED STREET BEFORE THIS LINE EXISTED: WHEN ANYBODY IN
+     THIS GAME TALKS TO YOU, THE ONLY FACE ON SCREEN IS YOUR OWN. *** Two canvases
+     exist on that whole surface, the world and the player's own head in the middle
+     of the D-pad, and the second one proves a face CAN be drawn there. The cast
+     arrives as ELEVEN BODIES WITH EIGHT DIRECTIONS EACH AND NO FACE.
+
+     AND EVERY PIECE OF THE ANSWER WAS ALREADY BUILT AND NEVER WIRED. The 8/26
+     block above says so about itself: the performance was built and could not be
+     used because only one person in Bohemia had a face, and faceFor(id) fixed
+     that and ended "with a gated feature nothing called". This is the call.
+     Same faceFor, same ramp, same renderFace, same 64x64, same packIdx the
+     player's own portrait already travels in, so the speaker's head is made the
+     way his is and nothing new draws a face.
+     ONE ID, ONE WHOLE PERSON: the id the city sends is the id its body is drawn
+     from, so the face and the body can never be two different people. */
+  if(d.type==='BOHEMIA_CITY_NEED_FACE'&&d.who){
+    try{
+      var _who=String(d.who);
+      var _sp=faceFor(_who);
+      var _rp=(typeof faceRampFor==='function')?faceRampFor(_sp):portraitRamp();
+      var _pk=packIdx(renderFace(_sp,{ramp:_rp}),64,64);
+      var _cf=document.getElementById('cityFrame');
+      if(_cf&&_cf.contentWindow&&_pk)
+        _cf.contentWindow.postMessage({type:'BOHEMIA_CITY_FACE',who:_who,
+          w:64,h:64,packed:true,face:_pk},'*');
+    }catch(_e){}
     return true;
   }
   /* WHERE HE IS (7/28). The run tells the shell which valley cell it has

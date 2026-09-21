@@ -5646,6 +5646,22 @@ GATES = [
      "longer' means something. Being down is a QUESTION against the clock, so a save left on a shelf comes "
      "back healed with nothing to tidy. And it is on the card he already opens, saying how long and saying "
      "the promise out loud", False),
+    ('FACE AT THE DOOR',['node', 'gates/face_at_the_door_gate.js'],
+     "PAOLO 9/20, rule 19: 'text on screen coming from people's voice, and when they speak to you it shows the "
+     "character portrait. The whole game enchilada.' *** MEASURED ON THE WALKED STREET: WHEN ANYBODY TALKED TO YOU "
+     "THE ONLY FACE ON SCREEN WAS YOURS. *** Two canvases on the whole surface, the world and his own head in the "
+     "D-pad ring (4,096 lit pixels, which is the control that a face CAN be drawn there), and a cast of ELEVEN "
+     "BODIES WITH EIGHT DIRECTIONS EACH AND NOT ONE FACE. AND EVERY PIECE OF THE ANSWER WAS BUILT ON 8/26 AND "
+     "NEVER CALLED -- that block says so itself: the performance 'could not be used, because only one person in "
+     "Bohemia had a face', faceFor(id) fixed it, and the turn 'ended with a gated feature nothing called'. This is "
+     "the call, and it borrows the player's own portrait path end to end so nothing new draws a face. ONE ID ONE "
+     "WHOLE PERSON: asked with the id the BODY is drawn from. NO FACE NO SPACE: the bubble is unchanged to the "
+     "pixel when a head has not arrived. On the glass, watched on the real canvas: a 64x64 head at 20px inside a "
+     "20px round clip, in the speaker's own bubble. AND RULE 19(e), DATED THIS ROUND: the walk director no longer "
+     "opens a card at all; a moment is SPOKEN by a body that was really drawn, with the roster's own words, and "
+     "with nobody on screen it fires NOTHING AT ALL. *** AND IT DRIVES THE ALPHA, NOT THE DEMO: the demo file is a "
+     "BAKED CUT, so a city change reaches it by reference and an ALPHA change does not -- the ask went out and "
+     "nothing came back, silently, because the live dispatcher carried the branch next to mine and not mine", False),
     ('HEIR MOMENT',    ['node', 'gates/heir_moment_gate.js'],
      "SUCCESSION-BEAT, coordinator 9/5: 'an heir inherits the house, the purse, every debt in full, half the "
      "standing, and the wardrobe.' *** MEASURED FIRST AND FOUR OF THE FIVE WERE ALREADY BUILT, AND ONE OF THEM "

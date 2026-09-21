@@ -39394,11 +39394,26 @@ function walkInterrupt(spentSeconds) {
            you stand and there is no card to press. */
         if (typeof roadContactFight === 'function') roadContactFight(got);
       } else if (got.kind === 'interactive') {
-        /* the road's own card, which V203 gave a real fight arm. ZERO minutes and
-           ZERO salvage: ROAD_COST and roadLeave are the ROAD's rulings for the road,
-           and the walked branch already spends its own 0.084 minutes a cell. This row
-           is about a fight arriving, not about the day getting shorter. */
-        if (typeof roadCard === 'function') roadCard(got, 0, 0);
+        /* *** __FACE_AT_THE_DOOR__ (9/20, rule 19(e)) -- THIS OPENED A CARD AND IT
+           DOES NOT ANY MORE. ***
+           PAOLO 9/20: "you can't just be putting things on the screen and pretend
+           they're the quest... it has to be people, characters, items to pick up,
+           locations to go, text coming from people's voice, and when they speak it
+           shows the character portrait."
+           Rule 19(e), dated this round: "A TEXT PROMPT IS NOT AN EVENT. The road
+           and walk directors stop opening cards THIS ROUND; a moment fires only if
+           it has a body on screen or not at all; the tables stay as content
+           waiting for bodies."
+           SO THE MOMENT COMES OUT OF A MOUTH. The director still picks it, off his
+           own approved roster, with its own approved words; what changed is WHO
+           SAYS IT. It is spoken by a person who is actually drawn, in their own
+           bubble, with their own face beside it, which is the whole of his
+           sentence. Nothing new is authored: the line is the one WALK_LINES
+           already held for that moment.
+           AND IF NOBODY IS THERE, NOTHING HAPPENS AT ALL, which is the other half
+           of the rule. A moment with no body was a caption pretending to be an
+           event, and it is the thing he opened the demo and saw. */
+        if (!walkSpeak(got) && typeof WALK_LAST !== 'undefined') WALK_LAST = null;
       }
       /* AMBIENT IS UNTOUCHED AND THAT IS DELIBERATE: this function's own comment is
          right that a modal card for "a coyote is following you" turns set dressing
@@ -39450,6 +39465,50 @@ function streetSay(txt) {
   try { _walkAt = T.min; } catch (_e) { _walkAt = -1; }
   return 1;
 }
+/* __FACE_AT_THE_DOOR__ (9/20, rule 19(e)) -- A MOMENT SPOKEN BY SOMEBODY WHO IS
+   ACTUALLY THERE, instead of a card with nobody in it.
+   Returns false when there is no body on the glass, and the caller drops the
+   moment: the rule's own words are "a moment fires only if it has a body on
+   screen or NOT AT ALL", so a silent skip is the correct outcome and not a gap.
+   IT BORROWS THE BARK, which already owns a speaker, a position, a hold time and
+   -- since this round -- a face. A second speaking surface would be the two
+   writers defect this lane has found in its own work four rounds running. */
+function walkSpeak(got) {
+  if (!got) return false;
+  var txt = WALK_LINES[got.id];
+  if (!txt) return false;
+  var drew = (typeof BARK_DREW !== 'undefined' && BARK_DREW) ? BARK_DREW : [];
+  for (var i = 0; i < drew.length; i++) {
+    var d = drew[i];
+    if (!d || !d.p || !d.at) continue;
+    /* CLOSE ENOUGH TO BE THE ONE SPEAKING, the same test the deed bark applies,
+       asked of the same list, so "who is near" cannot mean two things here. */
+    if (Math.abs(d.at[0] - hx) + Math.abs(d.at[1] - hy) > 6) continue;
+    /* *** THE BARK SLOT RUNS ON performance.now(), NOT ON THE GAME CLOCK, AND
+       THE FIRST CUT OF THIS USED THE WRONG ONE. ***
+       barkTick is called with performance.now() and BARK.next is set with
+       `now + 4000`, so the whole organ counts MILLISECONDS SINCE THE PAGE
+       LOADED. Setting BARK.until from ctMinuteNow() -- game minutes, a number
+       like 360 against a wall clock already past 15,000 -- made every moment I
+       spoke expire before it could be drawn, AND pushed the next bark 1,500 ms
+       away on its way out. So the moment was silent and it silenced the next
+       person too.
+       IT WAS MY OWN [a human being] GATE THAT CAUGHT IT: bubbles on the glass
+       went from 2, 3, 1 on clean main to 0, 2, 0 on this tree. Two clocks in one
+       file, and the one I reached for was the one the rest of the street uses for
+       everything except this. */
+    var now = 0;
+    try { now = (typeof performance !== 'undefined') ? performance.now() : Date.now(); }
+    catch (_e) { return false; }
+    try { ctFaceAsk(d.p.id); } catch (_e) {}
+    BARK.p = d.p; BARK.at = d.at; BARK.text = txt;
+    BARK.until = now + barkHold(txt);
+    try { PACK_SAID = 1; } catch (_e) {}
+    return true;
+  }
+  return false;
+}
+try { window.walkSpeak = walkSpeak; } catch (_e) {}
 function walkSay(got) {
   var txt = WALK_LINES[got.id];
   if (!txt) return;
@@ -51099,6 +51158,25 @@ function barkPass(ox, oy, C){
   for (var j = 0; j < lines.length; j++) w = Math.max(w, gg.measureText(lines[j]).width);
   w += padX * 2;
   var h = lines.length * lh + padY * 2;
+  /* __FACE_AT_THE_DOOR__ (9/20, rule 19) -- AND THE PERSON SAYING IT HAS A FACE.
+     IT GOES IN THE BUBBLE THEY ALREADY SPEAK FROM, not in a panel: rule 19 killed
+     the pop-up card in the same breath that asked for the portrait, so a new
+     surface would be answering half his sentence by breaking the other half. The
+     head sits at the left of their own words, which is where a face belongs when
+     somebody is talking to you.
+     THE BUBBLE GROWS TO FIT IT rather than the face being squeezed in: a portrait
+     drawn over the first letter of every line is the same defect as the bubble
+     that used to be drawn over the speaker's face.
+     NO FACE, NO SPACE. A person whose head has not arrived yet draws exactly the
+     bubble this file drew before today, to the pixel. */
+  var _fc = null;
+  try { _fc = (BARK.p && BARK.p.id != null) ? ctFaceAsk(BARK.p.id) : null; } catch (_e) { _fc = null; }
+  /* AS TALL AS THE WORDS, so a one-line bark and a three-line bark both look like
+     somebody talking rather than a badge next to a sentence. Square, because the
+     portrait is square and stretching a face is worse than not showing one. */
+  var _fs = _fc ? Math.max(18, Math.min(44, h - padY)) : 0;
+  var _fg = _fc ? 6 : 0;
+  w += _fs + _fg;
   var bx = Math.max(4, Math.min(cv.width - w - 4, sx + C / 2 - w / 2));
   /* *** THE BUBBLE SITS ABOVE THE HEAD, NOT ON IT. ***
      MEASURED ON THE DEMO AT THE DOOR: the one person standing two cells from him
@@ -51121,9 +51199,29 @@ function barkPass(ox, oy, C){
   if (gg.roundRect) { gg.beginPath(); gg.roundRect(bx, by, w, h, 4); gg.fill(); gg.stroke(); }
   else { gg.fillRect(bx, by, w, h); gg.strokeRect(bx, by, w, h); }
   gg.globalAlpha = 1;
+  /* THE HEAD FIRST, THEN THE WORDS BESIDE IT. Round, like the player's own in the
+     D-pad ring, and pixelated rather than smoothed: it is a 64x64 face and
+     smoothing it turns a person into a smudge. */
+  if (_fc) {
+    var _fx = bx + padX, _fy = by + (h - _fs) / 2;
+    gg.save();
+    gg.beginPath();
+    gg.arc(_fx + _fs / 2, _fy + _fs / 2, _fs / 2, 0, Math.PI * 2);
+    gg.closePath();
+    gg.clip();
+    gg.imageSmoothingEnabled = false;
+    try { gg.drawImage(_fc, _fx, _fy, _fs, _fs); } catch (_e) {}
+    gg.restore();
+    gg.strokeStyle = '#4a4030';
+    gg.lineWidth = 1;
+    gg.beginPath();
+    gg.arc(_fx + _fs / 2, _fy + _fs / 2, _fs / 2, 0, Math.PI * 2);
+    gg.stroke();
+  }
   gg.fillStyle = '#cdbd8a';
   gg.textBaseline = 'top';
-  for (var m = 0; m < lines.length; m++) gg.fillText(lines[m], bx + padX, by + padY + m * lh);
+  var _tx = bx + padX + _fs + _fg;
+  for (var m = 0; m < lines.length; m++) gg.fillText(lines[m], _tx, by + padY + m * lh);
   gg.restore();
 }
 /* ===== END BOHEMIA CITY BARKS ===== */
@@ -59647,6 +59745,61 @@ window.addEventListener('message',ev=>{
    clothes. Which one a person wears comes from their own `look`, which
    personFields already gives them, so it is deterministic and a body keeps its
    clothes instead of flickering as you watch. */
+/* ============================================================================
+   __FACE_AT_THE_DOOR__ (9/20, PEOPLE, rule 19, VAMILY [face at the door])
+
+   PAOLO 9/20: "text on screen coming from people's voice, and when they speak to
+   you it shows the character portrait... the whole game enchilada."
+   PAOLO 8/26, quoted by the alpha's own face block: "every time you speak to
+   someone, their portrait will pop up on screen so you feel like you're relating
+   to them."
+
+   *** MEASURED ON THIS SURFACE BEFORE A LINE OF THIS WAS WRITTEN: WHEN ANYBODY
+   IN THIS GAME TALKS TO YOU, THE ONLY FACE ON SCREEN IS YOUR OWN. *** The whole
+   walked street holds exactly two canvases, the world and the player's own head
+   in the middle of the D-pad ring, and that second one is the control: a face CAN
+   be drawn here, 4,096 lit pixels of it. The cast arrives as ELEVEN BODIES WITH
+   EIGHT DIRECTIONS EACH AND NOT ONE FACE.
+
+   EVERY PIECE OF THE ANSWER WAS BUILT ON 8/26 AND NEVER CALLED. That block says
+   so in its own words: the performance "was built and could not be used, because
+   only one person in Bohemia had a face", faceFor(id) fixed that, and the turn
+   "ended with a gated feature nothing called". This is the call. It borrows the
+   player's own portrait path end to end -- faceFor, the ramp, renderFace, packIdx,
+   decodePlayerFrame -- so the speaker's head is made and unpacked exactly the way
+   his is, and nothing new draws a face.
+
+   ONE ID, ONE WHOLE PERSON: the id asked for is the id the BODY is drawn from, so
+   the face and the body can never come apart into two people.
+   ASKED ONCE PER PERSON, because the bake costs a frame and a face is a fact: the
+   alpha's own comment says same id, same face, forever.
+   ========================================================================== */
+var FACE_CV = {}, FACE_ASKED = {};
+function ctFaceAsk(who){
+  if (!who) return null;
+  var k = String(who);
+  if (FACE_CV[k]) return FACE_CV[k];
+  if (FACE_ASKED[k]) return null;          /* in flight: one ask per person */
+  FACE_ASKED[k] = 1;
+  try {
+    if (window.parent && window.parent !== window)
+      window.parent.postMessage({ type: 'BOHEMIA_CITY_NEED_FACE', who: k }, '*');
+  } catch (_e) {}
+  return null;
+}
+window.addEventListener('message', function (ev) {
+  var m = ev && ev.data;
+  if (!m || m.type !== 'BOHEMIA_CITY_FACE' || !m.who || !m.face) return;
+  /* THE PLAYER'S OWN DECODER, not a second one. A face that arrived through a
+     different unpacker than his would be the two-writers defect this lane has
+     found in its own work four rounds running. */
+  try {
+    var c = decodePlayerFrame(m.face);
+    if (c) FACE_CV[String(m.who)] = c;
+  } catch (_e) {}
+});
+try { window.ctFaceAsk = ctFaceAsk; window.FACE_CV = FACE_CV; } catch (_e) {}
+
 var CAST_CV = null;
 /* __CITY_TRADEFIT__ -- the NAME of each baked body, parallel to CAST_CV. Null
    until a bake that sends ids lands; an older bake leaves it null and the fit
