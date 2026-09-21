@@ -7,7 +7,7 @@
   "",
   "HOW A LANE REGISTERS A CANDIDATE: append one object to items[]. Never edit somebody else's object.",
   "  id     a unique slug. Never reused. A redo is a NEW id.",
-  "  kind   song | face | haircut | outfit | tile | animation | line | ui | redo",
+  "  kind   song | sound | face | haircut | outfit | tile | animation | line | ui | verdict | redo",
   "  lane   the chat that made it",
   "  sha    the commit the thing landed in, so anyone can go look at it",
   "  made   the date it was made, as m/d",
@@ -729,6 +729,19 @@
    "show": {
     "how": "image",
     "src": "vote/LIFECITY_THE_BATTERY_SHED_9_21.png"
+   }
+  },
+  {
+   "id": "ui-five-ways-the-notes-section-sits-9-21",
+   "kind": "ui",
+   "lane": "ui",
+   "sha": "PENDING",
+   "made": "9/21",
+   "title": "FIVE WAYS THE NOTES SECTION SITS",
+   "why": "You could not find the notes control. It was the only thing in that bar with no plate. Here is the fix and four other ways, plus three shapes for the section itself.",
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_FIVE_WAYS_THE_NOTES_SECTION_SITS_9_21_26.html"
    }
   }
  ],

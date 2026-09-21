@@ -1,3 +1,88 @@
+UI (ui-kmqmrf): 9/21 (b) LATEST -- *** [copy notes] SHIPPED. HE WAS RIGHT, AND IT WAS
+NEVER THE SIZE. *** TAB: the top bar of the demo, far right, the word NOTES. Rule 18(f):
+his direct ask, tiny, touches none of the three. Record:
+records/BOHEMIA_THE_NOTES_SECTION_HE_CAN_FIND_9_21_26.md
+
+HIS WORDS: "I still don't see a note section anywhere. A collapsible note section that I
+can copy and paste when I am done playing the demo into you."
+
+*** I SHIPPED IT 9/20 WITH A GREEN GATE AND HE COULD NOT FIND IT, SO THE GATE WAS
+MEASURING THE WRONG THING. *** It checked the mark against a number THIS LANE PICKED (5 px
+of ink) instead of against the only thing that decides findability, WHICH IS ITS
+NEIGHBOURS. Measured on a fresh cut of the demo, every child of #barright:
+
+    #musbtn    MUSIC    83.8 x 12.3   plate yes   ink rgb(216,196,154)
+    #savebtn   SAVE     23.6 x 12.3   plate yes   ink rgb(216,196,154)
+    #phonebtn  PHONE    27.0 x 12.3   plate yes   ink rgb(25,19,8) on gold
+    #notebtn   (pencil) 44.0 x 44.0   plate NO    ink rgb(184,154,106)
+
+IT WAS THE ONLY CHILD OF THAT BAR WITH NO BODY, the only one that was not a word, and the
+dimmest thing up there. A control with no body does not read as a control -- this lane's
+own object law, broken by this lane's own hand, in the file the law is written in. And
+"tiniest" was his word for the FOOTPRINT: the old leg, "its ink is the smallest in the
+bar", is satisfied perfectly by something invisible, which is exactly what shipped.
+
+WHAT SHIPPED.
+  THE WORD, ON THE PLATE SAVE WEARS. #noteplate joins the skin's ONE control rule rather
+  than getting a private copy of the look, so it can never drift away from SAVE again. It
+  reads NOTES, and NOTES 3 once he has three, because a number beside it is the only proof
+  from outside the box that what he typed went anywhere.
+  THE 44 REACH STAYS, AND THE FAR RIGHT IS THE ONE SLOT IN THAT BAR WHERE IT IS FREE. This
+  file already measured that a 44 pad on a chip lies across its NEIGHBOUR and makes a tap
+  do the wrong thing, which is why the pads are off everywhere else and the chips are 12 px
+  tall. The last chip has the bar's own edge on one side and nothing under it, and that is
+  exactly where he asked for it. The gate proves the no-theft by asking the page who owns
+  each neighbour's centre pixel.
+  IT TOGGLES. His word was collapsible. Tap opens and the game stops; tap the same chip
+  again and it folds away keeping what he typed; gold while open; in the bar the whole play.
+  COPY ALL. The clipboard is the road he asked for and the .txt stays as the second one. It
+  is never a dead button: navigator.clipboard needs a secure context and a gesture and
+  either can be missing, so there is a selection fallback and the chip SAYS which happened.
+  AND COPY ALL SAVES WHAT IS STILL IN THE BOX FIRST. He types a thought, reaches for COPY
+  ALL, and without that the one thought he is looking at is the only one not on the
+  clipboard. Found by reading the order he would actually do it in.
+
+COOKED THIS ROUND (rule 22): slices/BOHEMIA_FIVE_WAYS_THE_NOTES_SECTION_SITS_9_21_26.html,
+registered ui-five-ways-the-notes-section-sits-9-21. The real bar at 390 px: what he could
+not find, beside four ways it could read, plus three shapes for the section itself with the
+shipped one named. A defect in that sheet found by rendering it and LOOKING: the rail
+option's buttons fell out of the phone onto the paragraph below, the option arguing against
+itself for a reason that was mine and not the design's. Clipped and re-laid out.
+
+PRE-PUSH PASS (rule 13): NOTES SECTION 24/0 on a FRESH CUT of the demo (never the committed
+copy, which lags, rule 14a), FIVE mutations proved and each restored -- take the plate off
+-> 1 red, put the bare pencil back -> 2, kill the toggle -> 1, stop COPY ALL saving what is
+in the box -> 3, make the clipboard write silently do nothing while still reporting success
+-> 1 (the read-back, the only leg that can catch a lie). THE NOTES BUTTON 22/0 with its
+findability leg REPLACED rather than deleted: it reads the plate now and asks a different
+question, not "is it the smallest" but "is it exactly the size of the chips beside it". UI
+IS OBJECTS 59/0, VOTE TAB 28/0, PAGES PUBLISH 18/0, HALF SIZE 7/0, CITY RAIL 15/0, PHONE
+OBJECT 18/0, REPLY CONTRACT 17/0, ATTEMPT 15/0, HANDOFF 8/0. SUITE LINE: 107 red at
+ad23d875; mine are NONE.
+
+ONE THING WORTH KNOWING FOR ANYBODY RUNNING BROWSER GATES IN A BATCH: the vote tab gate
+came back 27/1 when seven browser gates ran at once, on a 10 s waitForSelector for #setvote,
+and 28/0 twice when run on its own on the same tree. That red was the box, not the tree.
+
+ONE LEG OF MY NEW GATE WAS WRONG ON ITS FIRST RUN and is in the record rather than quietly
+fixed: the no-theft check reported devbtn -> DIV as a stolen centre. #devbtn (TOOLS) is 0x0
+in the demo, and a zero-size element's centre is a point in the bar itself. A control nobody
+can see is not a control anybody can mis-tap.
+
+*** THE THING THIS ROUND IS ACTUALLY ABOUT. *** Twice now this lane has shipped something
+with a green gate that did not do its job for him, and the pattern is identical both times:
+THE GATE MEASURED THE THING AGAINST A NUMBER I CHOSE INSTEAD OF AGAINST THE WORLD IT LIVES
+IN. 5 px of ink was a true number and a useless one. The honest question was never "how big
+is it" but "does it look like the other controls", and that can only be asked by measuring
+the other controls.
+
+FOR PAGES: the published surface is 257 MB against a 260 MB cap, up from 256 last round.
+Somebody should look at that headroom before it stops being headroom.
+
+NEXT: [cook panels] is the standing rule-22 row and is OPEN again. [three d ui] still has no
+gate of its own. The VOTE tab still does not LIST his notes (a page cannot write a repo
+file, so that is a hand at a keyboard). [no slop] stays CLAIMED with the map key's 32 swatch
+edges and the dead-declaration debt, both written up in the 9/18 record.
 SOUNDS (sound-xk7pjp): 9/21 (b) LATEST -- *** COOKED, RULE 22: THREE SOUNDS, ALL THREE IN THE
 VOTE TAB, AND THE CHECKER IS DELIBERATELY THE SMALL PART. *** Row [cook sounds] stays CLAIMED.
 Record: records/BOHEMIA_THREE_SOUNDS_9_21_26.md  Gate: COOKED SOUNDS 27/0, mutation bites 8.

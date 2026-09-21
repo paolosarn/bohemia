@@ -461,6 +461,24 @@ GATES = [
      'and failed on 505/518/546ms samples -- the threshold was wrong, not the feed. It also '
      'prints the page\'s own clock gaps, which are whole-page freezes belonging to another '
      'lane, so they cannot hide inside this lane\'s green.', True),
+    ('NOTES SECTION',  ['node', 'gates/the_notes_section_gate.js'],
+     'PAOLO 9/21: "I still don\'t see a note section anywhere. A collapsible note section that I '
+     'can copy and paste when I am done playing the demo into you." The 9/20 gate was GREEN about a '
+     'control he could not find, which means it measured the wrong thing: it checked the mark '
+     'against a number this lane picked (5 px of ink) instead of against the only thing that decides '
+     'findability, WHICH IS ITS NEIGHBOURS. Measured on a fresh cut: every other child of that bar is '
+     'a WORD ON A PLATE (MUSIC, SAVE, PHONE, all box-shadowed, ink rgb(216,196,154)); the notes '
+     'control was a bare pencil with background transparent, NO box-shadow and dimmer ink. It was the '
+     'only thing up there with no body, and a control with no body does not read as a control. Every '
+     'leg here compares it to its neighbours or to his sentence, never to a number I chose: it says a '
+     'WORD and the word is NOTES; it has a plate like SAVE; its ink is no dimmer than the dimmest '
+     'chip beside it; its 44 reach steals nobody else\'s centre (this file measured once that a 44 pad '
+     'on a chip lies across its neighbour and makes a tap do the wrong thing, which is why the pads '
+     'are off everywhere else -- the far-right end is the one slot where a full thumb is free); it '
+     'TOGGLES open and collapsed with the chip still in the bar; COPY ALL saves what is still in the '
+     'box first, because that is the order he does it in, and THE CLIPBOARD IS READ BACK rather than '
+     'assumed. It runs on a FRESH CUT of the demo, never the committed copy, which lags. Five '
+     'mutations proved.', True),
     ('UI IS OBJECTS',  ['node', 'gates/the_ui_is_built_from_objects_gate.js'],
      'PAOLO 9/20: "we are gonna be trying to make all the UI look 3-D", and PAOLO 9/21, rule 22: '
      '"I need to be seeing them cooking up more, every time, not never" -- a UI round is PANELS he '

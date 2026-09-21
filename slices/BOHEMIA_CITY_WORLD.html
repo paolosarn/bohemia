@@ -76137,6 +76137,16 @@ window.BOHEMIA_SKIN = (function(){
        '#musbtn,#savebtn,#phonebtn,#outfitbtn,#devbtn,#rungbtn,#buildbtn,#mktbtn,'
       +'#workbtn,#fitbtn,#bikebtn,#sleepbtn,#modechip,#popbtn,#reroll,#underbtn,'
       +'#keybtn,#walkfeel,#packbtn,'
+      /* AND THE NOTES CHIP, 9/21, row [copy notes]. THE REASON HE COULD NOT FIND IT
+         IS THAT IT WAS THE ONLY THING IN THAT BAR WITH NO PLATE. Measured on a fresh
+         cut: every other child of #barright is a WORD on a chip (MUSIC 84x12.3, SAVE
+         23.6x12.3, PHONE 27x12.3, all box-shadowed, ink rgb(216,196,154)); the notes
+         control was a bare glyph, background transparent, no box-shadow, ink
+         rgb(184,154,106) -- dimmer than its neighbours and with no body at all. A
+         control with no body does not read as a control, which is this lane's own law
+         broken by this lane's own hand. It joins the list rather than getting a
+         private copy of the look, so it can never drift away from SAVE again. */
+      +'#noteplate,'
       /* AND THE BUTTONS INSIDE A PANEL. Looking at the save panel after the panels got
          their body showed four buttons still wearing the old rounded card with a
          hairline, inside a plate that no longer does -- the inconsistency was more
@@ -76282,16 +76292,30 @@ window.BOHEMIA_SKIN = (function(){
       /* THE TINIEST BUTTON, AND THE REACH IS STILL 44. His words are "just the tiniest
          button", and THE THUMB is a law: the ink is small, the tap area is not. That is
          the same trade [half size] settled -- halve the pixels, never the reach. */
+      /* *** PAOLO 9/21: "I still don't see a note section anywhere." HE IS RIGHT, AND
+         THE CAUSE WAS NOT THE SIZE. *** Measured on a fresh cut of the demo, every other
+         child of this bar is a WORD ON A PLATE -- MUSIC, SAVE, PHONE, each with a lit rim,
+         a dark base and ink rgb(216,196,154). This control was a bare pencil glyph with
+         background transparent, no box-shadow at all, and dimmer ink. It was the only
+         thing in the bar with no body, and a control with no body does not read as a
+         control. "Tiniest" was his word for the footprint, never for invisibility.
+         SO IT IS A WORD ON A PLATE NOW, drawn by the same rule that draws SAVE.
+         THE 44 REACH STAYS, AND THE FAR RIGHT IS THE ONE PLACE IN THIS BAR WHERE IT IS
+         FREE. This file already measured that a 44 pad on a chip lies across its
+         NEIGHBOUR and makes a tap do the wrong thing, which is why the pads are off
+         everywhere else. The last chip at the right end has the bar's own edge on one
+         side and nothing under it, so a full thumb costs nobody anything -- and that is
+         exactly where he asked for it. The wrapper is the reach; the plate is the ink. */
       '#notebtn{flex:0 0 auto;min-width:44px;min-height:44px;display:inline-flex;'
         +'align-items:center;justify-content:center;box-sizing:border-box;cursor:pointer;'
-        /* HIS WORDS ARE "just the tiniest button", AND THE BAR AROUND IT IS 5px.
-           This shipped at 9 and the gate caught it against its own neighbours: every other
-           chip in the bar is halved to 5 by [half size], so a 9px mark was nearly twice
-           the ink of everything beside it and read as the loudest thing up there rather
-           than the smallest. It inherits the halved size the same way they do. */
+        +'background:transparent;-webkit-tap-highlight-color:transparent}'
+      +'#noteplate{display:inline-flex;align-items:center;justify-content:center;'
+        +'padding:4px 7px;pointer-events:none;'
         +'font-family:var(--face-casing);font-size:5px;letter-spacing:var(--track-casing,.4px);'
-        +'color:var(--acc);background:transparent;-webkit-tap-highlight-color:transparent}'
-      +'#notebtn.has{color:#e7d8bb}'
+        +'color:var(--skin-chipink,#d8c49a)}'
+      /* OPEN IS A STATE HE CAN SEE, because a control that toggles has to say which way
+         it is pointing. Same gold the PHONE chip uses when it is the live one. */
+      +'#notebtn.on #noteplate{color:#191308!important;background:var(--acc)!important}'
       /* the box is the game's own object language: a plate with a body, no hairline */
       +'#notewrap{position:absolute;inset:0;z-index:60;display:none;align-items:center;'
         +'justify-content:center;background:rgba(6,5,4,.86);padding:12px}'
@@ -76378,8 +76402,11 @@ window.BOHEMIA_SKIN = (function(){
       l.appendChild(d);
     }
     var btn=document.getElementById('notebtn');
-    if(btn){ btn.classList.toggle('has', notes.length>0);
-             btn.textContent = notes.length ? ('✎'+notes.length) : '✎'; }
+    var pl=document.getElementById('noteplate');
+    if(btn) btn.classList.toggle('has', notes.length>0);
+    /* THE WORD, AND THE COUNT WHEN THERE IS ONE. A number beside it is the only proof
+       from outside the box that the thing he typed went anywhere. */
+    if(pl) pl.textContent = notes.length ? ('NOTES '+notes.length) : 'NOTES';
   }
 
   /* *** THE PAUSE IS EXPLICIT, NOT A STACKING ORDER, AND THAT IS A MEASUREMENT. ***
@@ -76417,6 +76444,8 @@ window.BOHEMIA_SKIN = (function(){
     document.getElementById('notetext').value='';
     draw();
     w.classList.add('on'); w.setAttribute('aria-hidden','false');
+    var b=document.getElementById('notebtn');
+    if(b){ b.classList.add('on'); b.setAttribute('aria-expanded','true'); }
     open_=true;
     try{ document.getElementById('notetext').focus({preventScroll:true}); }catch(e){}
   }
@@ -76426,11 +76455,15 @@ window.BOHEMIA_SKIN = (function(){
     if(save && t.trim()){ notes.push({ text:t.trim(), ctx:ctx, at:new Date().toISOString() }); write(); }
     var w=document.getElementById('notewrap');
     if(w){ w.classList.remove('on'); w.setAttribute('aria-hidden','true'); }
+    var b=document.getElementById('notebtn');
+    if(b){ b.classList.remove('on'); b.setAttribute('aria-expanded','false'); }
     open_=false; draw();
   }
 
-  /* THE SAME ROAD A VOTE TAKES OUT: a .txt he sends the manager, never .json. */
-  function exportTxt(){
+  /* ONE PLACE BUILDS THE TEXT. Copy and export were about to become two functions
+     writing the same thing slightly differently, which is how two roads out of the same
+     box start disagreeing about what he wrote. */
+  function body(){
     notes=read();
     var out=['BOHEMIA NOTES -- '+new Date().toISOString().slice(0,10),
              'Written while playing. Each note carries where he was standing.',''];
@@ -76440,18 +76473,58 @@ window.BOHEMIA_SKIN = (function(){
       out.push('');
     });
     if(!notes.length) out.push('(no notes yet)');
-    var body=out.join('\n');
+    return out.join('\n');
+  }
+
+  /* *** PAOLO 9/21: "a collapsible note section that I can copy and paste when I am done
+     playing the demo into you." COPY AND PASTE IS THE ROAD HE ASKED FOR. *** A .txt
+     download is a file he then has to find, open and paste out of, and inside a frame on
+     a phone it may not even be allowed. The clipboard is one tap and the next thing he
+     does is paste it into the chat. The .txt stays as the second road.
+     IT IS NEVER A DEAD BUTTON. navigator.clipboard needs a secure context and a user
+     gesture, and either can be missing, so there is a fallback that has worked in every
+     browser for twenty years, and the chip SAYS which one happened. A button that
+     silently did nothing is the defect this lane wrote down on 9/15 ("a dead button is
+     indistinguishable from a close button"). */
+  function copyAll(){
+    var t=body(), done=false;
     try{
-      var b=new Blob([body],{type:'text/plain'}), u=URL.createObjectURL(b);
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(t); done=true;
+      }
+    }catch(e){}
+    if(!done){
+      try{
+        var ta=document.createElement('textarea');
+        ta.value=t; ta.setAttribute('readonly','');
+        ta.style.cssText='position:fixed;left:-9999px;top:0';
+        document.body.appendChild(ta); ta.select(); ta.setSelectionRange(0,t.length);
+        done=document.execCommand('copy'); ta.remove();
+      }catch(e2){}
+    }
+    var c=document.getElementById('notecopy');
+    if(c){ c.textContent = done ? ('COPIED '+notes.length+(notes.length===1?' NOTE':' NOTES'))
+                                : 'COULD NOT COPY - USE EXPORT';
+           setTimeout(function(){ if(c) c.textContent='COPY ALL'; }, 2200); }
+    return done ? t : '';
+  }
+
+  /* THE SAME ROAD A VOTE TAKES OUT: a .txt he sends the manager, never .json. */
+  function exportTxt(){
+    /* named txt, not body: a local called body would shadow the builder above it, and
+       the next person to add a line here would get a string where a function was. */
+    var txt=body();
+    try{
+      var b=new Blob([txt],{type:'text/plain'}), u=URL.createObjectURL(b);
       var a=document.createElement('a'); a.href=u;
       a.download='BOHEMIA_NOTES_'+new Date().toISOString().slice(0,10)+'.txt';
       document.body.appendChild(a); a.click();
       setTimeout(function(){ URL.revokeObjectURL(u); a.remove(); },800);
     }catch(e){
       /* a download is not always allowed inside a frame; the clipboard beats a dead button */
-      try{ navigator.clipboard.writeText(body); }catch(e2){}
+      copyAll();
     }
-    return body;
+    return txt;
   }
 
   function build(){
@@ -76460,23 +76533,40 @@ window.BOHEMIA_SKIN = (function(){
     css();
     var b=document.createElement('div');
     b.id='notebtn'; b.setAttribute('role','button'); b.setAttribute('tabindex','0');
-    b.setAttribute('aria-label','write a note');
-    b.textContent='✎';
+    b.setAttribute('aria-label','notes');
+    b.innerHTML='<span id="noteplate">NOTES</span>';
     /* LAST CHILD OF THE RIGHT END, because "the very top right" is where he said it is */
     R.appendChild(b);
-    b.addEventListener('click', function(e){ e.stopPropagation(); openNote(); });
+    /* *** IT TOGGLES. *** His word was "collapsible", and a control that only opens is
+       a control he has to find a second way out of. Same chip, tap to open, tap to
+       collapse, and it stays in the bar the whole play either way. */
+    b.addEventListener('click', function(e){ e.stopPropagation();
+      if(open_) closeNote(true); else openNote(); });
 
     var w=document.createElement('div'); w.id='notewrap'; w.setAttribute('aria-hidden','true');
-    w.innerHTML='<div id="notecard"><h2>A NOTE</h2><div id="notewhere"></div>'
+    /* COPY ALL LEADS, because that is the thing he asked for by name and the thing he
+       does last. SAVE AND KEEP PLAYING is the one that gets pressed most, so it is the
+       gold one. EXPORT is the second road and sits quietest. */
+    w.innerHTML='<div id="notecard"><h2>NOTES</h2><div id="notewhere"></div>'
       +'<textarea id="notetext" placeholder="what you are thinking"></textarea>'
       +'<div id="noterow"><div class="nb go" id="notesave">SAVE AND KEEP PLAYING</div>'
-      +'<div class="nb" id="noteback">BACK</div>'
+      +'<div class="nb" id="noteback">CLOSE</div>'
+      +'<div class="nb" id="notecopy">COPY ALL</div>'
       +'<div class="nb" id="noteout">EXPORT</div></div>'
       +'<div id="notelist"></div></div>';
     (document.querySelector('.wrap')||document.body).appendChild(w);
     document.getElementById('notesave').addEventListener('click', function(){ closeNote(true); });
     document.getElementById('noteback').addEventListener('click', function(){ closeNote(false); });
     document.getElementById('noteout').addEventListener('click', exportTxt);
+    /* COPY ALL SAVES WHAT IS IN THE BOX FIRST. He types a thought, reaches for COPY ALL,
+       and without this the thought he is looking at is the one thing not on the
+       clipboard. Found by reading the order he would actually do it in. */
+    document.getElementById('notecopy').addEventListener('click', function(){
+      var t=(document.getElementById('notetext')||{}).value||'';
+      if(t.trim()){ notes.push({ text:t.trim(), ctx:ctx, at:new Date().toISOString() });
+                    write(); document.getElementById('notetext').value=''; draw(); }
+      copyAll();
+    });
  /* *** THE SCRIM DOES NOT CLOSE THIS ONE, AND THAT IS DELIBERATE. ***
        Every other card in this game closes on a tap outside it, and this box copied that
        without thinking. Found by the ship test: the pause check taps the walk pad, the pad
@@ -76498,7 +76588,8 @@ window.BOHEMIA_SKIN = (function(){
   }
 
   window.BohemiaNotes={ open:openNote, close:closeNote, list:function(){ return read(); },
-                        exportTxt:exportTxt, where:where, isOpen:function(){ return open_; } };
+                        exportTxt:exportTxt, copyAll:copyAll, text:body,
+                        where:where, isOpen:function(){ return open_; } };
 })();
 </script>
 

@@ -76,7 +76,18 @@ const done = () => { console.log('\nTHE NOTES BUTTON: ' + pass + ' ok, ' + fail 
       if (!t) return;
       inks.push({ id: e.id || e.className || e.tagName, px: parseFloat(getComputedStyle(e).fontSize) || 0 });
     });
-    const mine = inks.find(x => x.id === 'notebtn');
+    /* *** THE INK MOVED, AND THIS LEG WAS THE ONE THAT WAS GREEN ABOUT A CONTROL HE
+       COULD NOT FIND (9/21, row [copy notes]). *** It looked up #notebtn's own font
+       size; #notebtn is now a bare 44x44 reach wrapper and the ink lives on the plate
+       inside it, so the lookup returned null and the leg went red about a button that
+       had just been FIXED. Read the plate when there is one.
+       AND THE CLAIM CHANGED WITH IT. "Smallest in the bar" was the wrong test all
+       along: it is satisfied perfectly by something invisible, which is exactly what
+       shipped. His word "tiniest" was about the footprint. What a control actually
+       has to be is THE SAME SIZE AS THE CONTROLS BESIDE IT -- no louder, and no
+       quieter. That is what this leg asks now. */
+    const mine = inks.find(x => x.id === 'noteplate') || inks.find(x => x.id === 'notebtn');
+    const chips = inks.filter(x => x.id === 'savebtn' || x.id === 'musbtn');
     return { w: Math.round(r.width), h: Math.round(r.height),
              at: [Math.round(r.x + r.width / 2), Math.round(r.y + r.height / 2)],
              reaches: !!(hit && (hit === b || b.contains(hit))),
@@ -84,14 +95,16 @@ const done = () => { console.log('\nTHE NOTES BUTTON: ' + pass + ' ok, ' + fail 
              rightmost: !!(best && (best.el === b || b.contains(best.el))),
              rightmostIs: best ? best.id : 'none',
              ink: mine ? mine.px : null,
-             tiniestInk: !!(mine && inks.every(x => x.px >= mine.px)),
+             chipInk: chips.map(c => c.px).join('/'),
+             matchesChips: !!(mine && chips.length && chips.every(c => c.px === mine.px)),
              inks: inks.map(x => x.id + ':' + x.px).join(' ') };
   }, MIN);
   ok('the notes button is on the screen he plays', !!btn);
   if (!btn) { await d.close(); done(); }
   ok('it is the rightmost control in the top bar, which is where he said it is',
      btn.rightmost, 'rightmost is ' + btn.rightmostIs);
-  ok('its ink is the smallest in the bar (' + btn.ink + 'px)', btn.tiniestInk, btn.inks);
+  ok('its ink is exactly the size of the chips beside it (' + btn.ink + 'px vs ' + btn.chipInk + ')',
+     btn.matchesChips, btn.inks);
   ok('and its reach is still 44, because THE THUMB is a law and tiny is about the ink',
      btn.reach44, btn.w + 'x' + btn.h);
   ok('a real finger at its centre reaches it', btn.reaches);
