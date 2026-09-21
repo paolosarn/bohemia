@@ -25585,7 +25585,97 @@ NEW FRONT-PAGE RULE 8 (added 9/13), and it binds this lane: IF YOUR DIFF TOUCHES
 engine/, REBUILD THE TWO DERIVED SLICES (the RUN slice and the demo) IN THE SAME
 COMMIT. PLUMBER found the RUN slice drifting +45/-6 behind two engine ships.
 
-HOLDING: nothing. LAST SHIPPED: [block strikes] 9/21 c01a41cb.
+HOLDING: nothing. LAST SHIPPED: [suburb walls] 9/21 f4be334.
+
+*** 9/21 (e) LATEST -- TWO AND A HALF THOUSAND WALLS THAT WERE NEVER BUILT. ***
+records/BOHEMIA_WORLD_TWO_AND_A_HALF_THOUSAND_WALLS_NEVER_BUILT_9_21_26.md  sha f4be334
+Row [suburb walls], plus rule 22 (COOK EVERY ROUND). NOTHING ON A PLAY SURFACE:
+rule 18 still holds; the cook went to VOTE.
+
+(1) THE ROW ASKED FOR THREE NUMBERS TO GO IN THE TABLE THE WALLED-SUBURB LAW
+READS. *** RULE 12 FIRST, AND THE TABLE IS READ AGAINST THE WRONG SCALE, so no
+number put in it could ever have worked. *** The plot generator decides with
+`quality >= wallThreshold`, default 1, and its own comment says "quality >= 2 of
+0..4" -- while the overmap hands it a 0..1 FLOAT.
+
+(2) MEASURED ON A REAL MAP THROUGH THE REAL BRIDGE:
+      estate    43 of 43    walled and gated   (forced by district)
+      gated     30 of 30    walled and gated   (forced by district)
+      trailer    0 of 15    walled             (forced open, correct)
+      suburb     0 of 2,558 WALLED             <-- the only one that asks
+      quality actually seen on residential ground: 0.194 to 0.900
+TWO AND A HALF THOUSAND TRACT NEIGHBOURHOODS AND NOT ONE PERIMETER WALL, in a
+city whose building code makes the wall compulsory. The law locked 7/14 and HAS
+NEVER ONCE FIRED. The forced districts are all correct, which is what proves the
+fault is the threshold and not the wall code.
+
+(3) AND TWO OF THE THREE DECIDED NUMBERS NAME THINGS THAT CANNOT HAPPEN.
+  "walls itself when quality is in the TOP HALF" contradicts Paolo's own 8/1 bank
+  law, quoted in the suburb module's own notes -- "most Vegas communities are
+  walled but NOT gated; gates = boujee/richer" -- and the real code behind it
+  (Clark County UDC 30.64.020 makes the wall mandatory, which is WHY a wall
+  signals nothing here). Measured, that rule would STILL leave 586 of 2,558
+  tracts without a wall the code requires.
+  "one rear service gate for tracts over twelve cells" names a tract the valley
+  never builds: 1,774 distinct tracts, sizes 1 cell (1,161), 2 cells (515), 4
+  cells (98). THE LARGEST TRACT IN THE VALLEY IS FOUR CELLS. Zero of 1,774
+  qualify -- the same shape as the 'beltway' name on this lane's other open row.
+  The third, wall tiles from the approved bank, is right and is built.
+
+(4) BUILT: engine/bohemia_tract.js, the replacement table, NOTHING IN IT TYPED.
+  WALL       the valley's own quality floor, so all 2,558 are walled. Not a
+             shortcut around the decision -- it IS the decision, from his law and
+             the code it describes. A wall here means nothing, which is exactly
+             why it belongs on every tract: a signal needs a background.
+  GATE       the map's call, never quality's. Measured: 678 of 2,558 suburb cells
+             sit at exactly 0.9, so any top threshold gates 26% of the valley,
+             while the valley's own gated ground is 2.8% and stable across three
+             seeds. A coarsely bucketed number cannot express a 3% minority, so
+             it does not try. The map already knows who is rich.
+  REAR GATE  pinned to the biggest tract that exists, read off the map, and it
+             needs a SECOND street: a service gate on the front street is a
+             second front door.
+  TILES      his twelve approved picks, spread across the measured range.
+  Result on the same valley: suburb 2,558/2,558 walled (was 0) and none gated;
+  gated and estate still walled and gated; trailer still open; seven picks used.
+
+(5) TWO THINGS WRITTEN CAREFULLY BECAUSE THIS LANE HAS BEEN BURNED BY BOTH.
+  "Derived, not typed" is proved BEHAVIOURALLY -- hand the module a different
+  valley and every number moves -- because a grep can be fooled and this lane has
+  shipped one that was.
+  And the live-generator check asks whether the generator AGREES with the derived
+  table, so it names the scale bug while it stands and turns GREEN the moment
+  somebody fixes it. A check that just asserted "0 walled" would go red when the
+  bug is FIXED, which is backwards.
+
+(6) COOK (rule 22): BohemiaNotice.covenant(). Every tract is walled because the
+county made walls compulsory, and a wall comes with an association and CC&Rs
+recorded against the land. THE PUREST ONE IN THIS FAMILY: the power district
+needed an office, the notice to quit needed a court, THE COVENANTS NEED NOTHING.
+They run with the land forever, so the fine still accrues daily and the hearing
+is before a board that has not met in years, and what it cites you for is the
+wall the county made you build. It refuses to issue without the covenant section
+it is enforcing.
+
+(7) GATES: SUBURB WALLS 29/0, new, in the suite, red two ways (type the wall
+threshold -> 3; let quality decide the gate -> 1). The row's OWN three gates --
+LANDLOCKED, SUBURB MODULAR, SUBURB STREET -- all green and all untouched. FIRST
+NOTICE 48/0. Pre-push also green: ATTEMPT, ENGINE SYNC.
+
+ROUTED: TO WHOEVER OWNS THE PLOT GENERATOR (rule 18 keeps this lane out of the
+walked world's own code): one line has to change, which units the comparison is
+in. The derived table is built, gated and ready to be read. Until then 2,558
+tracts stand unwalled, and every plot's meta still carries a nine-week-old
+`pending: ['wall/gate quality thresholds']` whose reason is section 2 above.
+
+STILL OPEN AND NOT SHIPPED, carried from 9/20: the night card says BATTERIES IN
+THE VALLEY: 0 on the first night and announces 3,352 made overnight on the second.
+Fix written down, two lines, both in my own files: count() must not need a
+trigger, and CELLS_LAST must start at the first real reading, not 0. Plus the
+gate fix: battery_worth_gate must read the card COLD. Waits for the hold to lift.
+
+ROWS STILL OPEN IN THIS LANE: [full shelves], [beltway placed].
+
 
 *** 9/21 (d) LATEST -- I MEASURED A CITY WITH NO PEOPLE IN IT, AND HELD A ROW FOR
 SIX ROUNDS ON IT. ***
