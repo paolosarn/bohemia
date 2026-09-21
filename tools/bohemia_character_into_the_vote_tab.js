@@ -65,7 +65,7 @@ const png = (name, dataUrl) => {
     && window.CITY_CAST_LOOKS && window.FACTION_LOOKS, { timeout: 90000 });
 
   const sheets = await p.evaluate(() => {
-    const keepW = window.G_WORN, keepE = G.equipped, keepD = JSON.stringify(G.dials || {});
+    const keepW = window.G_WORN, keepE = G.equipped, keepD = JSON.stringify(G.bodyVar || {});
     const clear = () => { try { HD_CACHE.map.clear(); FRAME_CACHE.map.clear(); } catch (e) {} };
     const SLOTS = ['hat', 'glasses', 'hair', 'shirt', 'jacket', 'pants', 'shoes'];
     const bare = () => { const eq = {}; for (const k in keepE) eq[k] = keepE[k];
@@ -73,10 +73,24 @@ const png = (name, dataUrl) => {
     /* ONE BODY, DRAWN THE WAY THE STREET DRAWS IT. buildFrame returns {px, CW, CH}; the
        width is READ off the frame and never defaulted, which is the ruler this lane broke
        on 9/15 by assuming 56 on a frame that is 112. */
+    /* *** CORRECTED 9/21: THE DIALS NEVER APPLIED, AND THESE PICTURES ARE ALREADY IN VOTE. ***
+       This wrote `G.dials[k] = ...` inside a try/catch. THERE IS NO G.dials -- body variation
+       lives in G.bodyVar and needs the rig rebuilt. The catch swallowed the TypeError, so
+       BOTH SHEETS HE IS BEING ASKED TO JUDGE rendered every body at DEFAULT proportions:
+       twelve cast looks that are supposed to differ in build, and thirteen factions whose
+       shape line is half their identity, all drawn as the same man in different clothes.
+       A PICTURE THAT DOES NOT SHOW WHAT THE GAME DRAWS IS A LIE IN THE ONE PLACE HE JUDGES
+       THINGS, and a thumb on it would have been a thumb on something that does not exist.
+       Found the same way the other one was: the same silent catch, in a tool I wrote three
+       rounds earlier and never re-read. A SILENT CATCH AROUND A WRITE TURNS "THIS DOES
+       NOTHING" INTO "THIS WORKED" -- and it does it quietly enough to survive a round of
+       looking at the output, because default proportions still look like people.
+       The real path is the one the game uses on its own cast (famPaintBody). */
     const draw = (worn, dials) => {
       const eq = bare();
       G.equipped = eq; window.G_WORN = worn || {};
-      if (dials) { try { for (const k in dials) G.dials[k] = dials[k]; } catch (e) {} }
+      G.bodyVar = dials || {};
+      rebuildFromRig();
       clear();
       let fr; try { fr = buildFrame('S', 'idle', 0); } catch (e) { return null; }
       const W = fr.CW, H = fr.CH;
@@ -94,7 +108,7 @@ const png = (name, dataUrl) => {
     /* A CONTACT SHEET, on the valley's own ground colour rather than white: a body judged
        against white is a body he has never seen. */
     const sheet = (rows, cols, cells, title) => {
-      const CELL = 178, PAD = 10, LABEL = 22;
+      const CELL = 178, PAD = 10, LABEL = 42;
       const c = document.createElement('canvas');
       c.width = cols * CELL + PAD * 2;
       c.height = rows * (CELL + LABEL) + PAD * 2 + 34;
@@ -110,8 +124,19 @@ const png = (name, dataUrl) => {
           const w = Math.round(cell.cv.width * s), h = Math.round(cell.cv.height * s);
           g2.drawImage(cell.cv, cx + (CELL - w) / 2, cy, w, h);
         }
-        g2.fillStyle = '#3a2f1c'; g2.font = '12px ui-monospace, monospace';
-        g2.fillText(String(cell.label).slice(0, 26), cx + 2, cy + CELL + 4);
+        /* THE LABEL WRAPS INSIDE ITS OWN CELL. A flat slice(0,26) is wider than the cell at
+           12px mono, so neighbouring captions ran into each other and read as one sentence
+           ("a bulk on the back nobodysmallest"). Caught by looking at the sheet. */
+        g2.fillStyle = '#3a2f1c'; g2.font = '11px ui-monospace, monospace';
+        const CH_W = 6.6, MAX = Math.max(8, Math.floor((CELL - 8) / CH_W));
+        let line = '', ln = 0;
+        for (const w2 of String(cell.label).split(' ')) {
+          if (line && (line + ' ' + w2).length > MAX) {
+            g2.fillText(line, cx + 2, cy + CELL + 4 + ln * 12); line = w2; ln++;
+            if (ln > 2) break;
+          } else line = line ? line + ' ' + w2 : w2;
+        }
+        if (line && ln <= 2) g2.fillText(line.slice(0, MAX), cx + 2, cy + CELL + 4 + ln * 12);
       });
       return c.toDataURL('image/png');
     };
@@ -141,8 +166,7 @@ const png = (name, dataUrl) => {
       'THE ' + thirteen.length + ' FACTIONS, SIDE BY SIDE');
 
     window.G_WORN = keepW; G.equipped = keepE;
-    try { const d0 = JSON.parse(keepD); for (const k in d0) G.dials[k] = d0[k]; } catch (e) {}
-    clear();
+    G.bodyVar = JSON.parse(keepD); rebuildFromRig(); clear();
     return o;
   });
   await p.close();

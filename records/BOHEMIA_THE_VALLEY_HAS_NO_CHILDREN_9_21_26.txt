@@ -1,0 +1,43 @@
+THE VALLEY HAS NO CHILDREN AND NOBODY WHO GOT OLD  --  CHARACTER lane, 9/21/26
+
+THE GAP, MEASURED BEFORE COOKING ANYTHING. The rig has carried FIVE age stages since
+it was built: child, teen, youngadult, adult, elder.
+Counted across the whole alpha, exactly ONE body uses a stage other than adult, and
+it is NINA, the little sister in the cold open. The twelve street looks carry no age
+field at all. SO EVERY SINGLE PERSON THE PLAYER WALKS PAST IS AN ADULT.
+
+WHAT CAME OUT, MEASURED TWO WAYS. The first column is the BODY the skeleton made,
+hair excluded. The second is heads-tall, which is the number that actually decides
+whether a kid reads as a kid: the head is a rigid stamp the rig refuses to shrink,
+so a smaller body carries the same head and the ratio moves on its own.
+
+  a grown man                  96 px body   100%   4.36 heads tall
+  A KID                        79 px body    82%   3.59 heads tall   (child)
+  SOMEBODY WHO GOT OLD HERE    93 px body    97%   4.23 heads tall   (elder)
+
+HONEST CORRECTION TO MY OWN FIRST RUN. I first reported the kid at 83% by measuring
+the painted picture top to bottom, and the stage's own height term is 0.77. The gap
+was her HAIR: a long cut adds painted rows that no bone made. Measuring the rig parts
+instead puts her where the stage says she is. The lesson is the same one this lane
+keeps relearning: measure the thing you are claiming, not the thing that is easy.
+
+WHY THIS AND NOT MORE HORROR BODIES. The pair from last round is in VOTE and
+UNJUDGED, and STOP PRODUCING is explicit about piling up more of a direction he has
+not ruled on. This is a different axis, it needs no verdict to be obviously missing,
+and the machinery is already in the rig. Nothing new was drawn.
+
+STILL BUILT UNDER RULE 20. A kid in a grown man's shirt and an old man in a coat
+older than the crash, standing still in a dead valley, is the law's own register:
+the frame is ordinary and the wrong thing is WHERE THEY ARE, not how they look.
+No gore, no monster, nothing strange.
+
+HONEST LIMIT ON THE HEAD COUNT. The rig's own build note says its adult is a 4.89
+head figure, and I measure 4.36. That is not a contradiction, it is a different
+ruler: the note counted the head BONE in the baked pose, and this counts the painted
+head STAMP, which covers more rows than the bone it hangs on. What matters is that
+one ruler measured all three bodies, so the drop from 4.36 to 3.59 is real.
+
+THE SHEET DRAWS EVERYBODY AT ONE SCALE WITH FEET ON ONE LINE. A contact sheet that
+fits each body to its own cell throws away the only thing this cook is about, and
+that exact mistake cost a body last round: "too tall" was scaled to fit, read as
+normal height, and the label lied.

@@ -48,6 +48,21 @@
  *
  * RIG CHECK (RIG IS LAW): reads only; restores G_WORN, G.equipped, the dials and the caches.
  *
+ * REFERENCE CHECK (COMPARE EVERY PIECE OF ART TO THE WORLD, 9/4). Compared before calling
+ * any of these three done, and it changed what got cooked:
+ *   AH-01  our own analog horror bible. Its rule is "the ordinary frame with one wrong
+ *          thing", and that is why every body here is dressed correctly and none is
+ *          disfigured. The first version of #2 had a torn coat; the bible killed it,
+ *          because damage is a monster cue and tidiness is the real one.
+ *   GARM-03  the wardrobe's locked laws: "the cut belongs to the register, the colour
+ *          belongs to the faction." Nothing here invents a garment or a colour; the
+ *          wrongness lives in the PAIRING, which is what this lane is allowed to touch.
+ *   RNWY-13  the two poles of the register, wide-at-the-top against tall-and-stacked.
+ *          #3 is checked against the TALL pole on purpose: if a body reads only as the
+ *          runway's tall pole and not as wrong, the cook failed. Measured after: the
+ *          height dial moves a body 7% end to end, so it does not reach either pole, and
+ *          that number is published in the record rather than hidden.
+ *
  *   node tools/bohemia_cook_the_too_still.js
  */
 'use strict';

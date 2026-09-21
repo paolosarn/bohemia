@@ -626,6 +626,19 @@
     "how": "image",
     "src": "vote/COOK_THE_EDGE_THAT_DRUMS.png"
    }
+  },
+  {
+   "id": "character-no-children-no-old-9-21",
+   "kind": "outfit",
+   "lane": "character",
+   "sha": "36e447ad",
+   "made": "9/21",
+   "title": "THERE ARE NO KIDS AND NOBODY OLD",
+   "why": "Every single person you walk past right now is a grown adult. The rig could always build a kid and an old man, and only one body in the whole game has ever used it. Here they are, standing next to a grown man at the same scale. Should the street have them?",
+   "show": {
+    "how": "image",
+    "src": "vote/CHARACTER_NO_CHILDREN_NO_OLD.png"
+   }
   }
  ],
  "verdicts": []
