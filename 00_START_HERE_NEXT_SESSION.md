@@ -414,6 +414,181 @@ NEXT: [cook panels] is the standing rule-22 row and is OPEN again; items 2, 3 an
 (the fight HUD, the talk panel, the vote tab's own frame) are drawn as sheets but not built
 as skins. [three d ui] still has no gate of its own. [vote plays sound] is still open and
 SOUNDS has items waiting that he cannot hear in the tab. [no slop] stays CLAIMED.
+SOUNDS (sound-xk7pjp): 9/23 LATEST -- *** THE CHECKER WAS THE COIN, NOT THE GAME. AND MEASURING
+IT FOUND A REAL DEFECT: THE FIGHT'S SONG WAS BEING PICKED FOUR TIMES. PLUS RULE 5 COOKED, THE
+LAST COMPLETELY UNMET RULE ON MY OWN SCHOOL PAGE. *** Rows [seeded gate] SHIPPED and
+[cook sounds] stays CLAIMED.
+Records: records/BOHEMIA_THE_CHECKER_WAS_THE_COIN_9_23_26.md (the gate) and the cook is in the
+VAMILY row. Gates: FIGHT MUSIC 50/0, COOKED SOUNDS 57/0 and --mutate 43/10.
+Tab: VOTE, one page, eight cards, with a metronome. Build stamp 9/23a.
+
+*** CORRECTING THE BLOCK I WROTE LAST ROUND, FIRST, BECAUSE IT IS WRONG ***
+It said: "PROVEN: four runs on one tree, 48/0 four times identical." THAT WAS LUCK, NOT PROOF.
+Five runs this round on ONE unchanged tree: 46/2, 48/0, 48/0, 48/0, 48/0. ONE IN FIVE. Four
+identical runs is exactly what a 20% coin looks like most of the time.
+  FOUR RUNS IS NOT A SAMPLE. Last round's line should have said so instead of reading four
+  greens as a fix. If you inherit this lane and see a "proven, N runs identical" claim anywhere,
+  check what N is before you trust it.
+
+NEITHER OF THE ROW'S TWO REMEDIES WAS THE ANSWER, AND MEASURING SAID WHY.
+The row offered "seed the pick" or "state the claims over a sample". The second WAS last round's
+fix and it did not hold. Before doing the first I asked what the claims were actually asking, and
+both compared A SONG TITLE to a title read 4,000 ms earlier.
+  A CLAIM THAT ASSERTS A PROXY CANNOT NAME A CAUSE. "The streets took the music back" is not a
+  fact about a song title, it is a fact about whether the street shuffle RAN. FIVE systems in
+  this shell can move that title, so a red printed two titles and left the reader to pick one of
+  five stories. Both of those reds were consistent with the game being perfectly correct.
+SO THE INSTRUMENT CAME FIRST: wrap the real entry points (the street shuffle, its play, the
+opening's handover, the room both ways, the fight's own leave) and put a property setter on the
+song index itself, so a sixth system nobody thought of is caught too. Nothing stubbed, nothing
+prevented, every real function still runs. Ten runs, and RUN 8 WENT RED AND ANSWERED IN ONE
+SCREEN:
+  +2378 ms  61 -> 7   TRADES      fight true  city false   <- combat's faction post
+  +2379 ms   7 -> 10  REMNANTS    fight true  city false   <- combat's faction post
+  +2855 ms  10 -> 7   TRADES      fight true  city false   <- combat's faction post
+  +2856 ms   7 -> 3   ANARCHISTS  fight true  city false   <- combat's faction post
+  +15675 ms  3 -> 138 MENU - THE POWER STILL ON SOMEWHERE  fight FALSE  city TRUE
+             stack: CITYMUS.play <- startShuffle <- FIGHTMUS.leave's phrase watchdog
+
+CAUSE ONE, AND IT IS A REAL DEFECT AND NOT JUST A FLAKE: THE FIGHT'S SONG IS PICKED FOUR TIMES.
+Three cold boots, combat's faction posts measured from the fight starting:
+  run 1   +5460 REMNANTS   +5461 CARTEL     +6113 MOB       +6114 VOLUNTEERS
+  run 2   + 852 MOB        + 853 CARAVANS   +1529 COLORFUL  +1530 HOMELESS
+  run 3   +4211 VOLUNTEERS                  +4698 COLORFUL  +4699 NETWORK
+Four posts every time, two pairs a millisecond apart, the pairs about 650 ms apart, and the whole
+burst landing anywhere between 0.85 s and 6.1 s in. THE GATE READ ITS REFERENCE AT A FLAT
+4,000 ms, so on run 1 it captured the STREET's song, because the fight had not been given one
+yet, and on run 3 it landed between the pairs.
+  A FIXED WAIT IS NOT AN EVENT. That sentence is already written twice in that same gate file by
+  whoever fixed the neighbouring claims, and this was the third one still on a sleep.
+AND THE AUDIBLE HALF: the transport reads the current song every step, so each of those writes
+lands inside 125 ms. THE SCORE LURCHED THROUGH THREE SONGS IN THE FIRST SIX SECONDS OF EVERY
+FIGHT, while the player was being shot at.
+  THE CAUSE IS FOUR CALL SITES, NOT A BUG IN ANY ONE OF THEM. Combat calls its faction picker
+  from setupCombat, newEncounter, startGame and its own module init, and each one re-rolls and
+  reports. Every one of those calls is right for the thing it does. What is wrong is that A
+  RE-ROLL OF THE FLOOR PALETTE IS ALSO A RE-ROLL OF THE SONG, and nothing said a fight gets one.
+  FIXED ON THE SHELL'S SIDE ON PURPOSE: combat uses that index for its palette as well, and the
+  palette is not this lane's to move -- the same reasoning that already put the scratch-patch
+  redraw on this side of the message. The first pick of a fight is the fight's song, later posts
+  are counted and ignored, and the latch is cleared by the fight's own enter(), which already
+  carries `if(this.on)return`, so two fights inside the cooldown stay ONE musical event exactly
+  as that file already promises and a genuinely new fight still gets its own song.
+  Writes to the song index during a fight: 4 -> 1.
+
+CAUSE TWO, AND THIS LANE HAS NOW WRITTEN IT TWICE: A POLLING METER CANNOT SEE THE WINDOW IT
+MEASURES. The second claim asserted no cut for 2 s after a fight. In run 8 the song changed at
++15,675 ms by the page's OWN clock, from the designed phrase watchdog -- correct behaviour -- and
+it landed INSIDE that window anyway, because each reading is a round trip out of the page and
+under load THE ROUND TRIPS ARE THE WINDOW. THE CLAIM SAID TWO SECONDS AND MEASURED EIGHT.
+  Same mistake as this lane's own "first sound 84 s after the tap", where 84 s was its own first
+  sample. THE PAGE'S OWN CLOCK IS THE ONLY HONEST RULER FOR A WINDOW INSIDE THE PAGE.
+
+WHAT THE GATE ASKS NOW, all of it stricter than before:
+  wait for the fight's song to ARRIVE and then for 1.5 s of quiet, bounded at 20 s, and RECORD
+    whether it settled, so a claim can say it did not observe instead of accusing the game;
+  ZERO calls to the street shuffle or the room while the fight owns the music, counted on wrapped
+    real functions, and a red PRINTS THE CALLER, THE MILLISECOND AND THE STACK;
+  no swap AND no restart in the 2.8 s after the end, by the page's own clock, with a re-pick of
+    the SAME song counting as a cut, because the song audibly jumps back to its first bar -- which
+    the old title comparison could not see at all;
+  and the `city` reading printed as EVIDENCE and never asserted on, because a reading taken over
+    a round trip cannot be load-independent.
+PROVEN BY MUTATION, NOT BY A GREEN:
+  latch removed from the shell -> FAIL "ONE FIGHT IS ONE SONG ... (2 writes)"
+  the original 8/19 mid-fight bug put back (the stand-down deleted) -> FAIL "nobody reaches into
+    a fight for the music: 1 calls ... REACHED IN: CITYMUS.play at +2969 ms, step 1024" + stack.
+  The OLD claim, on that same mutation, would have printed two song titles.
+
+AND THE MENU SONG THAT SAT INSIDE A RED FOR A WHOLE ROUND: menu songs are IN the street
+shuffle's pool, so the streets coming back with a dawn song one phrase after a fight is the game
+working. Two other suspects were checked and CLEARED BY MEASUREMENT so nobody re-hunts them:
+  the room's busy() guard only binds going IN, never going OUT, which IS a hole -- but its pool
+    measured EMPTY of menu songs and the city re-posts `inside` every 4 s, so the room never took
+    over in 40 s of trying. NOT the cause. Still a hole: a room handing the music back does not
+    check whether a fight owns it.
+  the shell obeys the city's `bohemiaCityMusic` message with NO fight guard at all. Real, and
+    reachable only by a tap in the city's dev tray, which no run made.
+NOT SEEDED, ON PURPOSE: the new claims do not depend on WHICH song is picked, so a seed would
+have bought nothing and cost the scratch-patch claim its fresh 200-draw sample.
+
+COOKED THIS ROUND (rule 22): THE TAPE IS SLIPPING, and it closes rule 5, which my own school
+page's scorecard marked UNMET AND UNTESTED -- the worse of the two, because nothing was watching
+it. Rule 5 is wow and flutter, and it is the single thing that separates "a recording of
+something, played back by a dying machine" from "a keyboard".
+  the cook ......... the same phrase, the same dead transmitter, and now the head speed moves
+  depth ............ 0.3467% measured against 0.35% asked (rule 5 allows 0.15 to 0.6%)
+  rate ............. 1.29 Hz measured against 1.4 Hz asked (rule 5 allows 0.5 to 6 Hz), which is
+                     WOW, the slow end, rather than flutter
+  how measured ..... zero-crossing frequency tracking with an FFT of the resulting track, which
+                     is the standard way, NOT by reading back the number the recipe was handed
+  the control ...... the same tone with the wobble switched off reads 0.0001%, and it runs BEFORE
+                     the reading it falsifies
+  the 120 BPM LAW .. the wobbled song is the same length as the steady one TO THE SAMPLE and
+                     carries the same root and the same intervals, so a note that started on the
+                     beat still starts on the beat. The wobble is in the pitch, never the timing.
+  the probe ........ a 4-second test tone through the same head, FOR MEASUREMENT ONLY, and the
+                     file says out loud THE GAME NEVER PLAYS IT: wow is a property of pitch over
+                     TIME, the song's notes are 460 ms and the wobble is 714 ms, so a long tone
+                     is the honest way to measure the modulation while the song is separately
+                     checked for not being perfectly steady.
+AND THE REGISTERED ITEM HAD NO WAY TO BE HEARD UNTIL THIS ROUND FIXED IT. The registry row
+pointed at a page with seven cards and no button for it. A ROW WHOSE PAGE CANNOT PLAY THE THING
+IT NAMES IS WORSE THAN NO ROW, because it reads green in the VOTE count and gives him silence
+when he taps it. Card 8 is an A/B on one card, STEADY DECK against SLIPPING DECK, from the same
+recipe so the two can never drift into two different tunes -- the same construction card 4 uses.
+Verified by tapping every button in a real browser: 8 cards, 10 play buttons, 10 of 10 start real
+audio, 0 page errors.
+
+AND THE MUTATION HARNESS DID NOT BITE THE NEW CLAIMS UNTIL IT WAS FIXED TWICE.
+  First it did not touch the wobble at all: 45 ok / 8 failed under --mutate with all four wow
+  claims GREEN, because a bare sine is the right falsifier for a footstep and the WRONG one for a
+  wobble. Rule 5 is not about the material, it is about whether the deck holds speed.
+  Then the precise falsifier -- a head that holds speed perfectly -- ALSO left them green, because
+  the recipes call the module's own local wobble function by closure and never look at the export.
+  REPLACING A FUNCTION SOMETHING DOES NOT CALL IS NOT A MUTATION, and the evidence that it was
+  not one was a mutated run still reading 0.3467%.
+  Fixed by replacing the exported recipes. --mutate now bites 10 claims, up from 8.
+KNOWN GAP, NAMED NOT FIXED, in the gate's own comment: the four round-two cooks (the song through
+the speaker, the fold, the cloud, the door) are still un-mutated, so their claims stand on their
+OWN controls and not on this harness. A uniform sine breaks their row lookups, so each needs its
+own falsifier the way the wobble just got one. DO NOT read "--mutate bites 10" as coverage of all
+the claims.
+
+NOTHING PUSHED INTO THE WALKED STREET OR THE FIGHT AS A COOK (rule 22b). The 65 approved sounds,
+the 142 songs and the footstep bank the game plays are untouched. The one change to a play surface
+is the song latch, which is a DEFECT FIX in this lane's own system, gated and mutation-proven,
+not a new thing to hear.
+
+WHAT IS NEXT IN THIS LANE, IN ORDER, NOTHING BLOCKED:
+  [cook sounds] has now made all eight the row names plus rule 5, so the next ones are the
+    coordinator's to name. If nobody names them, the school page's scorecard still has a real
+    DROP-OUT on a song rather than on a step, and rules 1, 3, 6 and 7 read part-met at best.
+  [analog horror sound] round two: the keep/redo of all 65 sounds and 142 songs against the ten
+    rules, with the 65-row table in the school page as the frozen baseline. Rule 4 is measurable
+    now (it was not when that baseline was written) and the cooked-sounds gate holds the measure.
+  [footsteps on the beat] round two: the walk makes a sound again since the JSON fix, so the
+    spacing can finally be read. The limiter is 0.12 s and a beat is 0.5 s and which one governs
+    is still unknown. FOR WHOEVER MEASURES IT: the one driver takes opts.file and IGNORES
+    opts.alpha, so point it at BOHEMIA_ALPHA_0_9.html or you measure a stale demo cut.
+  [scheduled beat] still CLAIMED, round two is a clock the audio thread owns; it touches the
+    transport, which is not one of the four things, so it still waits.
+  Then [enemy heard], [fight music], [quiet floor], [rumour heard], [pump hum], and
+  [into the vote tab], which this lane has never started.
+  AND TWO HOLES THIS ROUND FOUND AND DID NOT CLOSE, both in the music systems and both mine:
+    a room handing the music back does not check whether a fight owns it (its busy() guard binds
+    one direction only), and the shell obeys the city's music message with no fight guard.
+
+STILL CARRIED, NAMED NOT FIXED, BOTH VERIFIED PRE-EXISTING IN A PINNED WORKTREE:
+  VOTE TAB reads 27/1 because DIRECTION registered an item with kind 'verdict' and UI's allowed
+    list does not carry it. A one-word addition to the same list I added 'sound' to, and it is
+    DIRECTION's word in UI's gate, so I am not guessing on their behalf.
+  pages_publish_gate reads 17/1: the published surface is 261 MB against its own 260 MB cap.
+    PLUMBER's territory, and the 8/6 law says an oversized publish is what made Pages fail three
+    commits in a row.
+CARRIED, RECORDED NOT ACTED ON, BECAUSE LEVELS ARE HIS: THE GAPS IN THE HYMNAL peaks 25.6x the
+median on a CANON song; MENU - LIGHTS ACROSS THE VALLEY peaks 1.064 (BURIED).
+
 SOUNDS (sound-xk7pjp): 9/22 LATEST -- *** COOKED, RULE 22: THE ROW'S OTHER FOUR SOUNDS, SO ALL
 EIGHT IT NAMES NOW EXIST. AND THE FLAKY GATE IN THIS LANE IS FIXED, WHICH MY OWN HANDOFF PUT
 FIRST. *** Row [cook sounds] stays CLAIMED until the coordinator says what is next here.
