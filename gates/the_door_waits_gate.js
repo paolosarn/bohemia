@@ -108,17 +108,45 @@ function serve() {
     ok('*** THE FIRST THING ON SCREEN IS NOT AN INVITATION *** (at ' + firstAt
       + 's it says "' + firstWords.trim() + '")', !/TAP TO ENTER/i.test(firstWords));
 
-    /* and it must not stay silent forever: the offer has to arrive */
-    await page.waitForFunction(() => { const f = document.getElementById('fronttap');
-      return f && /TAP TO ENTER|CONTINUE/.test(f.textContent || ''); }, { timeout: 300000 });
+    /* and it must not stay silent forever: the offer has to arrive.
+       *** AMENDED 9/21 (part two of the same row): THE OFFER IS THE WORD BEGIN NOW. ***
+       Part one made the door say ONE MOMENT until the entry was wired. Part two put
+       the whole load behind that screen, so what it finally offers is not a door
+       into a two-minute wait, it is BEGIN on a world that is already built. This is
+       the SAME assertion -- an invitation must arrive -- pointed at the word the
+       screen actually says. TAP TO ENTER is deliberately still refused below and the
+       string still exists in the source, so the leg that matters most is unchanged:
+       the screen must never offer before it means it. */
+    /* A PLAIN POLL, NOT waitForFunction. The amended wait kept dying on a 30 s
+       timeout it was never given -- it is passed 300000 -- so rather than keep
+       theorising about whose default that is, this asks the page the same question
+       on a loop it owns. A gate should not have a failure mode nobody can explain. */
+    let offered = false;
+    for (let i = 0; i < 600 && !offered; i++) {
+      offered = await page.evaluate(() => { const f = document.getElementById('fronttap');
+        return !!f && /TAP TO ENTER|CONTINUE|BEGIN/.test(f.textContent || ''); }).catch(() => false);
+      if (!offered) await new Promise(r => setTimeout(r, 500));
+    }
     const offerAt = ((Date.now() - t0) / 1000).toFixed(1);
-    ok('and the invitation does arrive (at ' + offerAt + 's)', +offerAt > +firstAt);
+    ok('and the invitation does arrive (at ' + offerAt + 's)', offered && +offerAt > +firstAt);
 
     /* *** THE ROW: ONE TAP. *** Before this, the first tap fell through because the
-       listener had not parsed, and it took two. */
-    await page.tap('#front').catch(async () => { await page.click('#front').catch(() => { }); });
+       listener had not parsed, and it took two.
+       THROUGH CDP, NOT page.tap: measured this same round on the loading gate,
+       page.tap's own actionability work on a throttled page cost 18 seconds and was
+       being charged to the game. Every other gate this lane owns dispatches the raw
+       touch, and this one now does too. */
+    const box = await page.evaluate(() => {
+      const f = document.getElementById('fronttap') || document.getElementById('front');
+      const r = f.getBoundingClientRect();
+      return { x: r.x + r.width / 2, y: r.y + r.height / 2 };
+    });
+    await cdp.send('Input.dispatchTouchEvent', { type: 'touchStart',
+      touchPoints: [{ x: box.x, y: box.y, id: 1 }] });
+    await new Promise(r => setTimeout(r, 80));
+    await cdp.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
     let opened = false;
-    for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < 60; i++) {
       opened = await page.evaluate(() => { const f = document.getElementById('front');
         return !f || getComputedStyle(f).display === 'none'; }).catch(() => false);
       if (opened) break;

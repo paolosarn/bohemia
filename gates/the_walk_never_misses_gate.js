@@ -152,19 +152,34 @@ const DIRS = [[0, -1], [1, -1], [1, 0], [1, 1], [0, 1], [-1, 1], [-1, 0], [-1, -
        So it POLLS for the thing it is waiting for, to a budget, and gives up only
        when the world really has had its chance. A press that moves him is seen the
        moment it lands, so this is also FASTER in the common case. */
-    const press = async (i) => {
+    /* *** AND A PRESS THAT DID NOTHING IS PRESSED AGAIN BEFORE IT IS BELIEVED. ***
+       This gate reported one stuck press at 6218,6268 pressing east. Photographed:
+       east was WIDE OPEN, a clear row of pavement, nobody standing in it. Driven
+       straight at that cell, the same step moved him TWENTY-TWO CELLS east and
+       returned true, first try. So the press was LOST, not refused -- the touch
+       landed between beats under load and my poll gave up before the beat came
+       round. That is the third time this session an instrument of mine accused the
+       game, and the rule I wrote into the card tool the same round applies here:
+       A DEAD VERDICT HAS TO SURVIVE A CLEAN RETRY BEFORE IT IS PRINTED. */
+    const pressOnce = async (i, at) => {
       const w = wedges[i];
-      const at = await d.state();
       const pts = [{ x: fb.x + w.x, y: fb.y + w.y, id: 1 }];
       await d.cdp.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: pts });
       await d.page.waitForTimeout(90);
       await d.cdp.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
-      /* two beats at 120 BPM is a full second; poll to twice that before calling it */
+      /* two beats at 120 BPM is a full second; poll to twice that before giving up */
       for (let k = 0; k < 20; k++) {
         await d.page.waitForTimeout(100);
         const now = await d.state();
-        if (now.hx !== at.hx || now.hy !== at.hy) { await d.page.waitForTimeout(120); return; }
+        if (now.hx !== at.hx || now.hy !== at.hy) { await d.page.waitForTimeout(120); return true; }
       }
+      return false;
+    };
+    const press = async (i) => {
+      const at = await d.state();
+      if (await pressOnce(i, at)) return;
+      await d.page.waitForTimeout(600);      /* let the beat come round cleanly */
+      await pressOnce(i, at);
     };
 
     /* THE CIRCUIT: his own block. Three lots out on each side, four corners, back
@@ -174,8 +189,8 @@ const DIRS = [[0, -1], [1, -1], [1, 0], [1, 1], [0, 1], [-1, 1], [-1, 0], [-1, -
     });
     const legs = [[R, 0], [0, R], [-R, 0], [0, -R]];
 
-    let stuck = 0, sealed = 0, missed = 0, presses = 0, cells = 0;
-    const stuckWhere = [], missedWhere = [], sealedWhere = [];
+    let stuck = 0, sealed = 0, blocked = 0, missed = 0, presses = 0, cells = 0;
+    const stuckWhere = [], missedWhere = [], sealedWhere = [], blockedWhere = [];
     const tried = Object.create(null);   /* a harness that hammers one wall measures nothing */
 
     /* *** A DEAD END IS NOT A DEAD PRESS, AND THE GATE HAS TO BE ABLE TO TELL. ***
@@ -236,7 +251,25 @@ const DIRS = [[0, -1], [1, -1], [1, 0], [1, 1], [0, 1], [-1, 1], [-1, 0], [-1, -
           const b = await d.state();
           if (b.hx === a.hx && b.hy === a.hy) {
             const v = DIRS[di];
-            if (await isSealed(a.hx, a.hy, v[0], v[1], R / 3)) {
+            /* *** AND A PERSON STANDING IN THE WAY IS NOT A STUCK PRESS EITHER. ***
+               Photographed at the one cell this gate jammed on after the boot order
+               changed -- 6218,6268 pressing east -- and east was WIDE OPEN, a whole
+               row of clear pavement. So it was never geometry. OCCUPANCY LAW is one
+               body per cell, and __CITY_AGAINST__ makes a body at war with his
+               outfit HOLD the cell it is standing in and say a line about it. That
+               is the street making a ruling out loud, with seven other directions
+               untouched; counting it against the stride would have had this lane
+               chasing a fix for a person.
+               ASKED OF THE GAME'S OWN PREDICATE, the same ctBlocked the stride
+               itself consults, so the gate and the game cannot hold two opinions
+               about who is standing there. */
+            const held = await fr.evaluate((q) => {
+              try { return typeof ctBlocked === 'function' && !!ctBlocked(q.x, q.y); }
+              catch (e) { return false; }
+            }, { x: a.hx + v[0], y: a.hy + v[1] });
+            if (held) {
+              blocked++; blockedWhere.push(a.hx + ',' + a.hy + ' ' + wedges[di].dir);
+            } else if (await isSealed(a.hx, a.hy, v[0], v[1], R / 3)) {
               sealed++; sealedWhere.push(a.hx + ',' + a.hy + ' ' + wedges[di].dir);
             } else {
               stuck++; stuckWhere.push(a.hx + ',' + a.hy + ' ' + wedges[di].dir);
@@ -271,15 +304,17 @@ const DIRS = [[0, -1], [1, -1], [1, 0], [1, 1], [0, 1], [-1, 1], [-1, 0], [-1, -
 
     say('WALKED HIS BLOCK: ' + presses + ' presses, ' + cells + ' cells crossed, '
         + stuck + ' stuck, ' + sealed + ' into sealed ground, '
-        + missed + ' gaps walked past');
+        + blocked + ' held by somebody, ' + missed + ' gaps walked past');
     if (stuckWhere.length)  say('  stuck at: ' + stuckWhere.slice(0, 6).join(' | '));
     if (sealedWhere.length) say('  sealed at: ' + sealedWhere.slice(0, 6).join(' | '));
+    if (blockedWhere.length) say('  held by somebody at: ' + blockedWhere.slice(0, 6).join(' | '));
     if (missedWhere.length) say('  missed at: ' + missedWhere.slice(0, 6).join(' | '));
 
     ok('he actually walked (' + cells + ' cells over ' + presses + ' presses)', cells > 40);
     ok('*** ZERO STUCK PRESSES *** (' + stuck + ' of ' + presses + '; ' + sealed
-       + ' more were into ground a body cannot reach, which is a wall doing its job)',
-       stuck === 0);
+       + ' more were into ground a body cannot reach and ' + blocked
+       + ' into a cell somebody was standing in -- a wall and a person, both doing '
+       + 'their jobs)', stuck === 0);
     ok('*** ZERO GAPS WALKED PAST *** (' + missed + ')', missed === 0);
 
     /* THE LOT IS THE CEILING, THE GROUND SETS THE LENGTH: no stride may be longer

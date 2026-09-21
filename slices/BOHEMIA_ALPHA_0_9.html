@@ -1406,7 +1406,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 9/22a - WHAT PEOPLE REPEAT ABOUT YOU</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 9/22b - THE SCREEN HOLDS THE LOAD</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -1437,7 +1437,15 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
    omission, not by action.
    Words are attempts, draft:true. */
 (function(){
+  /* *** THE WORD IS BEGIN NOW (rule 20h, coordinator's decided default, 9/21). ***
+     TAP TO ENTER described a door. This is not a door any more, it is the end of a
+     load: the world behind it is already built, already drawing, already has people
+     on it, and one tap reveals it and plays the first sound. BEGIN is what that is.
+     TAP IS KEPT AND NOT DELETED because DOOR WAITS asserts, on both surfaces, that
+     this exact string is NOT what the screen says before it is ready -- the string
+     has to exist for that check to mean anything. */
   var TAP = 'TAP TO ENTER';
+  var BEGIN = 'BEGIN';
   /* *** THE DOOR USED TO OFFER SOMETHING IT COULD NOT HONOUR (9/16, RUN,
      VAMILY [loading screen]). ***
      PAOLO 9/8, LOCKED: "we seriously need a loading screen. It's bullshit when I go
@@ -1489,9 +1497,22 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
       if(el.textContent !== WARMING) el.textContent = WARMING;
       return;
     }
+    /* *** AND NEITHER IS "WIRED". PART TWO, 9/21, AND I BROKE PART ONE MYSELF FIRST.
+       *** The loader writes what it is doing into this same element every beat, and
+       so did this painter, so the two fought and THIS ONE WON: measured on the glass,
+       the door read TAP TO ENTER at 3.1 s again and the tap was then refused, which
+       is exactly the dead first press part one existed to kill. One element, one
+       owner: while the world is loading the LOADER owns this line, and the painter
+       does not touch it. A fix that reintroduces the bug it is built on top of is
+       worse than no fix, and only re-measuring said so. */
+    if(!window.__LOAD_READY) return;
+    /* AND WHEN IT IS READY THE WORD IS BEGIN, which is the coordinator's decided
+       default (rule 20h) and the tap SOUNDS built the first hum for. A returning
+       player still gets their own line, because "continue day 4" is a truer
+       invitation than a generic one and it has been right since 9/6. */
     var want = w
       ? ('CONTINUE · DAY ' + w.day + (w.min===null ? '' : ' · ' + clock(w.min)))
-      : TAP;
+      : BEGIN;
     if(el.textContent !== want) el.textContent = want;
   }
   /* ONCE PER SHOWING OF THE DOOR, AND THAT LIMIT IS THE WHOLE POINT.
@@ -11041,46 +11062,182 @@ function drawLogoBig(){
 /* __ONE_SCREEN_HOLDS_ALL_THE_LOADING__ -- THE DOOR IS WIRED FROM HERE DOWN, and
    the splash above watches this flag before it offers to be tapped. Set on the line
    AFTER the listener exists, so it can never be true while a tap would fall through. */
-document.getElementById('front').addEventListener('click',()=>{
-  /* __THE_BEAT_BEFORE_THE_SONG__ -- FIRST LINE, ON PURPOSE. Everything
-     below this builds the city iframe, and that build blocks the main
-     thread for about nine seconds on a phone-sized run. The pulse is a
-     looping buffer on the AUDIO thread, so it is the one thing that can
-     be heard while that happens. The document-level capture listener has
-     already made the AudioContext by the time this line runs. */
-  try{ window.__pulseStart && window.__pulseStart(); }catch(_e){}
-  /* __THE_ROOM_IS_ON_BEFORE_THE_SONG__ -- ON THE SAME TAP, ONE LINE LATER.
-     A browser will not start audio without a gesture, so this tap is the
-     earliest instant in the whole game that any sound is legal: measured
-     (c88d7cc2) there are ZERO audio objects in existence before it, not even
-     a suspended one. The heartbeat above is a body; this is the room it is
-     standing in, and it is the part of the pair a phone speaker can play. */
-  try{ window.__roomStart && window.__roomStart(); }catch(_e){}
-  document.getElementById('front').style.display='none';
-  document.getElementById('app').style.display='flex';buildUI();
-  /* __THE_GAME_IS_THE_FIRST_THING__ -- DEMO BOARD ROW 7, "the cheapest big win on the board".
-     A new player used to land on the CHARACTER wardrobe workbench and had to
-     find RUN among the tabs to reach the game. Now the entry opens the game.
-     IT TAPS THE REAL TAB rather than setting a class, because the city iframe
-     is built lazily INSIDE that click handler, which also sends the player,
-     sends the cast, restores the city save and pushes approved prefabs. A
-     markup default would show an empty panel and skip all five.
-     A MISSING TAB IS LOUD: one_world_tab_gate.js exists because this fleet
-     wrote `if(t)t.click()` eight times and a renamed tab became a game that
-     quietly does not open. */
+/* ============================================================================
+   ONE SCREEN HOLDS ALL THE LOADING -- PART TWO (9/21, RUN, [loading screen] +
+   [horror loading], rule 18a LOADING, rule 20h)
+
+   PAOLO 9/8, LOCKED: "we seriously need a loading screen. It's bullshit when I go
+   in the demo, all the loading shit that you might need to do, handle it, it's so
+   awkward looking."
+
+   MEASURED ON A PHONE-SHAPED CPU (4x), one tap, the game's own state read off the
+   live page (tools/bohemia_the_boot_milestones_9_21_26.js):
+
+       2.8 s   the door offers
+       4.5 s   the door opens, on ONE tap        <- part one, holding
+      68.3 s   the world has a clock
+     113.6 s   the city has drawn a frame
+     118.2 s   a person is on the glass
+
+       DOOR TO PLAYABLE: 113.7 SECONDS
+       AND THE SCREEN WAS GONE FOR ALL OF IT.
+
+   That last line is the bug. The old handler hid the splash on its FIRST line and
+   then did a hundred and thirteen seconds of work, so he tapped a door and got a
+   black rectangle for two minutes. "All the loading shit, handle it" is exactly
+   this, and part one only fixed the four tenths of a second in front of it.
+
+   *** THE SHAPE, AND IT IS THE COORDINATOR'S DECIDED DEFAULT (rule 20h): ***
+     - THE LOAD DOES NOT WAIT FOR A TAP. Nothing in it needs a gesture. It starts
+       the moment the door is wired and runs BEHIND the screen.
+     - THE SCREEN STAYS UP AND SAYS WHAT IT IS DOING, in the dead institution's
+       register (bible rule 5: procedural, too calm, no exclamation mark). The
+       lines are the game's OWN milestones, read live -- not a progress bar that
+       lies, which the [loading look] row rules out by name.
+     - NOTHING IS TAPPABLE UNTIL IT IS LOADED (rule 18a, in those words).
+     - WHEN IT IS DONE THE SCREEN SAYS BEGIN AND TAKES ONE TAP. That tap is the
+       browser's gesture, so it is where the first sound plays -- SOUNDS shipped
+       the hum for this exact tap ([first sound], booked at context time 0.142 s)
+       and this is the tap it was built for.
+
+   AUDIO IS THE ONLY THING THAT STILL NEEDS THE FINGER, and it stays on BEGIN. A
+   browser will not start audio without a gesture; everything else here is DOM and
+   JavaScript and was never waiting for one. That is the whole trick: the wait was
+   always going to happen, and now it happens somewhere he can see it. */
+var LOAD_LINES = [
+  /* what it is doing, in the order it really happens. Each one is a QUESTION the
+     page answers about itself, so a stage cannot claim to be done early. */
+  { say: 'READING THE VALLEY',      done: function(){ return !!document.getElementById('cityFrame'); } },
+  /* *** AND THIS ONE ASKED A QUESTION THE PARENT CANNOT ANSWER, WHICH JAMMED THE
+     WHOLE SCREEN. *** It read w.DAY from outside the frame. `DAY` is declared
+     `const DAY=BohemiaDayLoop.make()` -- and a const is NOT a property of window,
+     so it was undefined forever, the stage never completed, and the screen sat on
+     WINDING THE CLOCK while the street and the people behind it were already done
+     (measured: street at 49 s, people at 99 s, this stage false at 304 s).
+     THE CLOCK IS WOUND WHEN THE HUD STOPS SHOWING THE SHIPPED PLACEHOLDER. #hclock
+     is in the markup reading "DAY 1 - 08:00" before a byte of script runs, and
+     updHud overwrites it with the real time; so the question is not "does the
+     element exist", which was always true, but "has the world written to it". Same
+     shape as the door: the markup carries a promise, and only a change proves it. */
+  { say: 'WINDING THE CLOCK',       done: function(){ return __cityHas(function(w){
+      var el = w.document.getElementById('hclock');
+      if(!el) return false;
+      var t = (el.textContent || '').trim();
+      return !!t && t.indexOf('DAY 1 \u00b7 08:00') !== 0; }); } },
+  { say: 'DRAWING THE STREET',      done: function(){ return __cityHas(function(w){
+      var c = w.document.querySelector('canvas'); return !!c && c.width > 300; }); } },
+  { say: 'PUTTING PEOPLE ON IT',    done: function(){ return __cityHas(function(w){
+      return typeof w.BARK_DREW !== 'undefined' && w.BARK_DREW && w.BARK_DREW.length > 0; }); } }
+];
+function __cityHas(fn){
+  try{ var f = document.getElementById('cityFrame');
+       return !!(f && f.contentWindow && fn(f.contentWindow)); }catch(_e){ return false; }
+}
+window.__LOAD_READY = false;
+window.__LOAD_STARTED = false;
+/* *** AND THE FIRST CUT OF THIS STARTED THE LOAD TOO EARLY AND SWALLOWED THE PROOF.
+   *** I called it on the line after __DOOR_WIRED, which is the middle of this file:
+   buildUI() and half of what it touches have not parsed yet, so it THREW, my own
+   try/catch ate it, and the screen sat on ONE MOMENT forever. Measured on the live
+   page: started true, app flex, RUN tab present, and __OPENED_ON_THE_GAME still 0
+   with no city frame -- a boot that reported success and did nothing.
+   THAT IS THIS FILE'S OLDEST LESSON AND I COMMITTED IT AGAIN: "a caught exception in
+   a draw path is a feature that silently does nothing, and that is worse than a
+   crash, because a crash gets fixed." So the load waits for the page to be whole,
+   and if it ever throws it SAYS SO on the object a gate can read. */
+function __loadStart(){
+  if(window.__LOAD_STARTED) return; window.__LOAD_STARTED = true;
+  document.getElementById('app').style.display='flex';
+  /* THE APP IS BUILT AND THE WORLD IS OPENED UNDER THE SCREEN, not in front of
+     him. #front is still on top, so none of this is visible; it is simply
+     happening earlier than the tap that used to trigger it. */
+  buildUI();
   var runTab=document.querySelector('.tab[data-p="run"]');
   if(!runTab){ window.__RUN_TAB_MISSING=true;
     console.error('THE RUN TAB IS GONE from the alpha tab bar: the game cannot open'); }
   else { runTab.click(); window.__OPENED_ON_THE_GAME=(window.__OPENED_ON_THE_GAME||0)+1; }
+  /* AND THE SCREEN REPORTS, on the same beat the rest of the game runs on. */
+  var tick = setInterval(function(){
+    try{
+      var el = document.getElementById('fronttap');
+      if(!el) return;
+      var i = 0;
+      while(i < LOAD_LINES.length && LOAD_LINES[i].done()) i++;
+      if(i >= LOAD_LINES.length){
+        window.__LOAD_READY = true;
+        clearInterval(tick);
+        if(el.textContent !== 'BEGIN') el.textContent = 'BEGIN';
+        return;
+      }
+      /* NO PERCENTAGE AND NO BAR. It says the thing it is doing and nothing else;
+         a number that is not measured is the lie the row rules out. */
+      var want = LOAD_LINES[i].say;
+      if(el.textContent !== want) el.textContent = want;
+    }catch(_e){}
+  }, 500);   /* one beat at 120 BPM: the screen keeps the game's own pulse */
+}
+document.getElementById('front').addEventListener('click',()=>{
+  /* *** NOTHING IS TAPPABLE UNTIL IT IS LOADED (rule 18a). *** Before this, the
+     first tap started a hundred and thirteen seconds of work and took the screen
+     away to do it. Now a tap before BEGIN is simply not a door, and the screen
+     says what it is doing instead of pretending to be ready. */
+  if(!window.__LOAD_READY) return;
+  /* __THE_BEAT_BEFORE_THE_SONG__ -- FIRST LINE, ON PURPOSE. The pulse is a
+     looping buffer on the AUDIO thread, so it is the one thing that can be heard
+     immediately. The document-level capture listener has already made the
+     AudioContext by the time this line runs. */
+  try{ window.__pulseStart && window.__pulseStart(); }catch(_e){}
+  /* __THE_ROOM_IS_ON_BEFORE_THE_SONG__ -- ON THE SAME TAP, ONE LINE LATER.
+     A browser will not start audio without a gesture, so THIS tap is the earliest
+     instant in the whole game that any sound is legal: measured (c88d7cc2) there
+     are ZERO audio objects in existence before it, not even a suspended one. The
+     heartbeat above is a body; this is the room it is standing in.
+     AND IT IS NOW THE BEGIN TAP, which is the tap SOUNDS [first sound] was built
+     for: the hum lands on a finished world instead of under a build. */
+  try{ window.__roomStart && window.__roomStart(); }catch(_e){}
+  document.getElementById('front').style.display='none';
+  document.getElementById('app').style.display='flex';
+  /* __THE_GAME_IS_THE_FIRST_THING__ -- DEMO BOARD ROW 7, "the cheapest big win on
+     the board". The RUN tab was tapped in __loadStart, BEHIND this screen, which is
+     the whole of part two: the city iframe is built lazily inside that tab handler
+     and it also sends the player, sends the cast, restores the city save and pushes
+     approved prefabs. It is the same five things in the same order; only the moment
+     moved, from after his finger to before it.
+     A MISSING TAB IS STILL LOUD, and __loadStart still says so: one_world_tab_gate.js
+     exists because this fleet wrote `if(t)t.click()` eight times and a renamed tab
+     became a game that quietly does not open. */
   /* AND THE MUSIC COMES ON (8/19). This tap is the only gesture guaranteed to
      exist before anything else happens, which is exactly what a browser wants
      before it will let audio start -- so it is where the sound turns on. AFTER
-     runTab.click(), because that click runs the tab handler and the tab handler
-     calls MUS.stop() on the way out of the studio: starting first would have
-     the game silence its own opening one line later. */
+     the tab was opened, because the tab handler calls MUS.stop() on the way out
+     of the studio: starting first would have the game silence its own opening.
+     *** AND IT IS NOT WHAT MAKES THE REVEAL SLOW, WHICH I GUESSED TWICE AND THEN
+     MEASURED. *** BEGIN to a visible world read 22.7 s on a 4x CPU, so I deferred
+     this call by a frame (25.2 s) and then by 1200 ms (24.2 s). No change either
+     time: THE SONG IS NOT THE COST. The speculative deferral is reverted rather
+     than left in as a change with no measurement behind it, and the real cause is
+     written down unfound in the handoff instead of guessed at a third time. */
   try{ if(window.MENUMUS)MENUMUS.open(); }catch(_e){}
 });
 window.__DOOR_WIRED = 1;   /* __ONE_SCREEN_HOLDS_ALL_THE_LOADING__ */
+/* AND THE LOAD BEGINS WITHOUT A TAP, AS SOON AS THE PAGE IS WHOLE -- which is not
+   this line, and finding that out cost a measurement. `load` fires after every
+   script in this document has parsed and run, so buildUI and everything it reaches
+   are really there. The timeout is the belt: a page whose load event never fires
+   (a stalled sub-resource) must still reach the game, and 1.5 s after DOM-ready is
+   long past the point where this file has finished parsing.
+   NOTHING IS SWALLOWED. If the load throws, it is recorded where a gate can find
+   it, because the way this went wrong the first time was total silence. */
+function __loadKick(){
+  try{ __loadStart(); }
+  catch(_e){ window.__LOAD_THREW = String(_e && _e.message || _e).slice(0,200);
+             try{ console.error('THE LOAD THREW: ' + window.__LOAD_THREW); }catch(_e2){} }
+}
+if(document.readyState === 'complete') __loadKick();
+else {
+  window.addEventListener('load', __loadKick, { once:true });
+  document.addEventListener('DOMContentLoaded', function(){ setTimeout(__loadKick, 1500); }, { once:true });
+}
 /* ===== V134 WARM THE FIGHT, RE-LANDED SAFELY =====================
    Paolo 8/8: "re-land the handoff warming without the stale-clothing bug (first
    fight can't stall)."

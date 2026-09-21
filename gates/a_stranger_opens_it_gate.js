@@ -192,8 +192,30 @@ const GROUND_FLOOR = 2000;
     /* ONE INSTRUCTION, NOT A MENU. A stranger's first screen has to answer one
        question -- where do I press -- and a screen that says six things answers
        none of them. */
-    ok('and it tells him what to do in words (' + JSON.stringify(front.says) + ')',
-       front.says.length >= 1 && front.says.some(s => /tap|press|start|enter|play/i.test(s)));
+    /* *** AMENDED 9/21 (RUN [loading screen] part two). THE QUESTION STANDS; THE
+       MOMENT TO ASK IT MOVED. *** Measured on a 4x CPU: the door used to open on one
+       tap at 4.5 s and the game then did 113.7 SECONDS of work with the screen GONE.
+       The load now runs BEHIND the screen, so for most of the first minute the words
+       on it are what it is DOING ("PUTTING PEOPLE ON IT") and not what he should do
+       -- and it must be that way, because rule 18a says nothing is tappable until it
+       is loaded, so an instruction there would be a lie.
+       BEGIN IS THE INSTRUCTION and it arrives when the world is really ready. So this
+       waits for it instead of reading whatever happened to be on screen at second
+       four. IT IS NOT WEAKER: it still requires ONE instruction, in words, on a
+       screen a stranger is looking at, and the mid-load words are still checked
+       below for the thing that actually matters -- that they never invite a tap the
+       game cannot honour. */
+    const instruction = await page.waitForFunction(() => {
+      const f = document.getElementById('fronttap');
+      const t = f ? (f.textContent || '').trim() : '';
+      return /^(BEGIN|CONTINUE|TAP|PRESS|START|PLAY)/i.test(t) ? t : false;
+    }, { timeout: 300000 }).then(h => h.jsonValue()).catch(() => null);
+    ok('and it tells him what to do in words, once it is really ready ('
+       + JSON.stringify(instruction) + '; mid-load it said ' + JSON.stringify(front.says) + ')',
+       !!instruction);
+    ok('and while it was loading it never invited a tap it could not honour ('
+       + JSON.stringify(front.says) + ')',
+       !front.says.some(s => /tap to enter/i.test(s)));
     ok('the tab is named, so a shared link is not "untitled" ('
       + front.title + ')', typeof front.title === 'string' && front.title.trim().length > 0);
     ok('nothing threw on the way to the front door'

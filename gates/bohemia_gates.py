@@ -1905,6 +1905,22 @@ GATES = [
      'nothing: the invitation is in the document before one byte of script runs. MUTATION: put '
      'TAP TO ENTER back in the markup -> 4 red, and the one-tap leg independently reproduces the '
      'dead first press.', False),
+    ('SCREEN HOLDS',   ['node', 'gates/the_screen_holds_the_loading_gate.js'],
+     'VAMILY [loading screen] part two + [horror loading], rule 18a LOADING: PAOLO 9/8 -- "we '
+     'seriously need a loading screen. It is bullshit when I go in the demo, all the loading '
+     'shit that you might need to do, handle it, it is so awkward looking." MEASURED ON A 4x '
+     'CPU BEFORE ANYTHING WAS WRITTEN: the door opened on one tap at 4.5 s and then the game '
+     'did 113.7 SECONDS OF WORK WITH THE SCREEN GONE -- he tapped a door and got a black '
+     'rectangle for two minutes. NOW: the load starts without a tap and runs BEHIND the '
+     'screen; the screen stays up and says what it is doing (ONE MOMENT -> WINDING THE CLOCK '
+     '-> PUTTING PEOPLE ON IT -> BEGIN) with no bar and no percentage, which [loading look] '
+     'rules out by name; nothing is tappable until it is loaded (rule 18a, in those words); it '
+     'ends on BEGIN and ONE tap reveals a world already drawn with people already on it, which '
+     'is the tap SOUNDS built the first hum for. BEGIN to a visible world is 4.0 s. THE TOTAL '
+     'WAIT IS ABOUT THE SAME and the record says so: what changed is that he can see it. Holds '
+     'a real mid-load tap (it must NOT open the game) and that a load which throws is recorded '
+     'rather than swallowed -- the first cut started the load before the page had parsed, '
+     'buildUI threw, the catch ate it, and the screen reported success while doing nothing.', True),
     ('NOTHING POPS UP', ['node', 'gates/nothing_pops_up_gate.js'],
      'VAMILY [no pop ups], rule 19a and 19e: PAOLO 9/20, TWICE IN A ROW -- "I start the demo '
      'and a bunch of shit pops up on the screen. What the fuck is that?" and, on the SECOND '

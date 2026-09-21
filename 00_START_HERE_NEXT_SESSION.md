@@ -2763,97 +2763,92 @@ it is player-facing at all is worth deciding before restyling it. The source cou
 now understood as dead-declaration debt and can be swept file-wide in one pass instead of
 being chased surface by surface.
 
-RUN (run-eak241): 9/21 LATEST -- *** [no pop ups] SHIPPED, BOTH HALVES. ON THE BUILD HE
-HAS, FIVE MINUTES FROM THE DOOR, 544 PRESSES ON THE PAD MOVED HIM ZERO CELLS, because the
-first card of the game opened at 2.5 s and never went away. Zero cards now, zero dead rows,
-and his presses reach the world. TAB: RUN (and CITY, the same walked world). BUILD 9/21a.
-Nothing to judge. Rule 18(e): the link is NOT sent. ***
+RUN (run-eak241): 9/21 LATEST -- *** [loading screen] PART TWO SHIPPED. HE TAPPED A DOOR
+AND GOT A BLACK RECTANGLE FOR TWO MINUTES: the door opened on one tap at 4.5 s and the
+game then did 113.7 SECONDS OF WORK WITH THE SCREEN GONE. The load runs behind a screen
+that stays up and says what it is doing now, and one tap on BEGIN reveals a world that is
+already built: 4.0 s. TAB: RUN (and CITY, the same walked world). BUILD 9/21h. Nothing to
+judge. Rule 18(e): the link is NOT sent. ***
 
-HALF ONE -- THE CARDS THAT OPEN THEMSELVES. Served demo, phone profile, five minutes, cards
-deliberately NOT cleared because a stranger has no harness to clear them, nothing tapped but
-the pad:
+MEASURED ON A 4x CPU, every milestone read off the game's own live state:
 
-    ONE card opened by itself, at 2.5 SECONDS. IT NEVER WENT AWAY.
-    544 presses over five minutes moved him ZERO CELLS.
+                              BEFORE            AFTER
+  the door offers             2.8 s             the screen reports for ~99 s
+  the door opens (one tap)    4.5 s             then it says BEGIN
+  the world has a clock      68.3 s             already done behind it
+  the city draws            113.6 s             already done behind it
+  a person is on the glass  118.2 s             already done behind it
+  BLANK SCREEN AFTER THE TAP 113.7 s            none
+  tap to a visible world     113.7 s            4.0 s
 
-The demo was unplayable from the first frame. That is not new information in this building:
-it is the #daycard inset:0 bug PLUMBER has carried on THIS LANE'S OWN ROW for three rounds
--- "it sits over all eight direction buttons on boot" -- and everybody, me included, read it
-as an instrument problem. It was the game. Every walk number this fleet has ever quoted came
-from a harness that cleared a card Paolo cannot clear.
+THE SHAPE, WHICH IS THE COORDINATOR'S DECIDED DEFAULT (rule 20h). The load does not wait
+for a tap -- nothing in it ever needed a gesture -- and runs BEHIND the screen. The screen
+stays up and SAYS WHAT IT IS DOING in the dead institution's register, measured on the
+glass as ONE MOMENT -> WINDING THE CLOCK -> PUTTING PEOPLE ON IT -> BEGIN, with no bar and
+no percentage ([loading look] rules a lying bar out by name). NOTHING IS TAPPABLE UNTIL IT
+IS LOADED (rule 18a, in those words, and the gate taps mid-load for real to prove it). It
+ends on BEGIN and one tap reveals a world already drawn with people already on it -- the
+tap SOUNDS built the first hum for. Audio is the only thing that still needs the finger.
 
-THE RULE IS AT THE ONE DOOR, NOT IN THE EIGHT CALLERS. Every panel comes through cardShow, so
-a card opens only if its caller NAMES A REASON -- a sentence and not a boolean, because a
-boolean lets the next lane write true and move on. Refusals are kept in CARDS_REFUSED rather
-than swallowed. A forced card added tomorrow goes red in a gate instead of going to him.
- - THE MORNING and THE NIGHT go to THE PHONE, which is where rule 19a sends them: 10 lines
-   under THIS MORNING, the chip rings, and the phone slice really renders it. Nothing he was
-   told is deleted. The offer's yes is untouched; it never lived on that card.
- - THE ROAD DIRECTOR does not fire a moment with no body AT ALL, decided BEFORE anything is
-   spent -- the old order charged the minutes and took the salvage FIRST, so merely refusing
-   the card would have left him paying ten minutes for a thing that never happened. A forced
-   contact still starts a real fight with real bodies. THE TABLES STAY (19e).
- - THE DAY STILL TURNS. SLEEP was the ROLLOVER as well as a button; the night turns by itself
-   now, measured 1 -> 2 with no card to dismiss.
- - ONE FORCED CARD KEPT AND NAMED, not hidden behind the word "asked": THE ENDING. It is the
-   game finishing; nothing is interrupted and the phone does not exist after the last day.
+SAID HONESTLY: THE TOTAL WAIT IS ABOUT THE SAME. The game does not load faster. What
+changed is that he is not staring at nothing through it, and the button he presses is not
+a promise the game cannot keep for two minutes.
 
-HALF TWO -- THE CARDS THAT DO NOTHING WHEN TAPPED (Paolo 9/21, the third time). Every row of
-every reachable card, real touches, ONE PAGE PER CARD: 16 of 16 rows alive, 0 dead. The one
-real dead press was the MARKET: HE HAS ZERO BATTERIES, food and meds cost one each, so
-pressing FOOD ran the whole buy, got CANNOT_AFFORD and redrew the card saying exactly the
-sentence it was already saying. A row he cannot buy now keeps its place and its price, loses
-its data-act so a tap cannot reach the dispatcher, and says "you have no batteries, this is
-one battery". That is this file's own idiom (the offer's yes), not a new one.
+*** FOUR THINGS I GOT WRONG, IN ORDER, AND ALL FOUR WERE MINE. ***
+ 1. PART TWO BROKE PART ONE. The loader and the old painter both wrote the same element
+    every beat; the painter won, the door read TAP TO ENTER at 3.1 s again, and the tap
+    was then refused -- the dead first press part one exists to kill, reintroduced by the
+    fix built on top of it. One element, one owner.
+ 2. I STARTED THE LOAD BEFORE THE PAGE HAD PARSED AND MY OWN CATCH ATE THE THROW. Measured:
+    started true, RUN tab present, __OPENED_ON_THE_GAME still 0, no city frame. A boot that
+    reported success and did nothing, which is this file's oldest lesson in its own
+    capitals. It waits for the whole page now and a throw is recorded where a gate reads it.
+ 3. THE STAGE THAT JAMMED THE SCREEN ASKED A QUESTION THE PARENT CANNOT ANSWER: it read DAY
+    from outside the frame, and A CONST IS NOT A PROPERTY OF WINDOW. The screen sat on
+    WINDING THE CLOCK while the street (49 s) and the people (99 s) behind it were done.
+ 4. BEGIN-to-visible read 22.7 s so I blamed the music and deferred it twice (25.2 s, then
+    24.2 s). No change either time: the song was not the cost. IT WAS page.tap's OWN
+    ACTIONABILITY WORK, charged to my own number. Raw touch: 22.7 -> 4.0 s. BEFORE BLAMING
+    THE GAME, BLAME THE RULER. The speculative music change is reverted rather than left in
+    as a change with no measurement behind it.
 
-*** AND MY INSTRUMENT LIED TWICE BEFORE IT TOLD THE TRUTH ONCE: 12 dead -> 3 -> 1 -> 0, and
-THREE OF THOSE FOUR NUMBERS WERE THE TOOL. It compared text, so nine feedback rows that
-answer by GOING LIT read as dead. Then it tested four cards in one page and called the
-ending's close dead -- an isolated probe closed it on the first try with the click landing on
-the right element. A CARD IS NOT ISOLATED BY REBUILDING THE CARD, IT IS ISOLATED BY A FRESH
-PAGE, so each card gets its own boot now. ***
+GATE: SCREEN HOLDS, 20/0 on the served demo at 4x.
 
-NUMBERS, 74ce272a -> this tree:
-    cards that opened by themselves    1  ->  0
-    still on screen at 5:00            1  ->  0
-    CELLS HE COVERED                   0  ->  52
-    dead rows on reachable cards       1  ->  0  (of 16)
-    the morning's words         on a card ->  10 lines on the phone
-    the day turns without a button    no  ->  yes (1 -> 2)
+THREE GATES RE-AIMED BY THIS CHANGE, NONE LOOSENED, ALL RE-MEASURED:
+ - DOOR WAITS 10/0: the invitation is the word BEGIN now. Same assertion, new word; TAP TO
+   ENTER is still refused and still exists in the source so that leg still means something.
+   Its waitForFunction kept dying on a 30 s timeout it was never given, so it polls now,
+   and its page.tap is a raw touch.
+ - STRANGER 19/0: it read the screen at second four and found what the game was DOING, not
+   what he should do. It waits for the instruction, and separately holds the thing that
+   matters -- while loading it must never invite a tap it cannot honour.
+ - WALK NEVER MISSES 19/0: it reported one stuck press at 6218,6268 going east.
+   PHOTOGRAPHED: east was WIDE OPEN, clear pavement, nobody in it. Driven straight at that
+   cell the same step moved him TWENTY-TWO CELLS east, first try, returning true. THE PRESS
+   WAS LOST, NOT REFUSED. It retries once before accusing now, which is the rule I wrote
+   into the card tool last round. It also learned to tell a body holding a cell from a bug,
+   using the game's own ctBlocked.
 
-AND 52 IS NOT A GOOD NUMBER EITHER. That walk presses east and only east, into the sealed
-yard this lane already handed over. The walk AROUND the block is 685 cells in 45 presses,
-unchanged. 0 -> 52 proves his presses reach the world; it does not prove his block is walkable.
+[horror loading] STAYS CLAIMED AND IS NOT SHIPPED, on purpose (rule 6: a half-done job
+marked SHIPPED is worse than an open one). DONE: the decided default is built -- BEGIN, one
+tap, the first sound on it, and the loading words in the register the bible asks for. NOT
+DONE: THE DRAWING. What is on the screen is still the old front splash, and bible rule 1
+(one ordinary frame, ONE WRONG THING) is unanswered -- there is no wrong thing on it, which
+the bible itself calls a screenshot. That half needs UI and DIRECTION and I will not mark
+it shipped on words alone.
 
-GATE: NOTHING POPS UP, 16/0, and it holds both halves. MUTATION: MAIN IS THE MUTANT, 4 passed
-/ 11 failed, including the zero cells measured independently.
+[PENDING nobody, STILL OPEN AND STILL NOT MINE]: his own block has 45 doorsteps and 0
+straight walkable ways out, and four presses on the block walk go into ground a body cannot
+reach. And he has ZERO batteries on day one while the market's whole shelf costs one each.
 
-TWO GATES RE-AIMED, NEITHER LOOSENED, AND ONE WAS MINE: FIRST MINUTE read the dead wake card
-for its words and asks the PHONE now (same question, moved surface). MY OWN WALK NEVER MISSES
-slept a flat 340 ms per press and read 19/0 alone against 17/2 inside a gate pass -- SAME
-TREE, TWO VERDICTS -- so it polls for the beat now and reads 19/0 under the load that made it
-red. I nearly reported a regression that was my own stopwatch, which is PLUMBER [cold read]'s
-shape exactly.
+NEXT, IN ORDER: [open reachable] (PORTRAIT 53cbb684: a stranger meets ZERO faces in five
+minutes, and the cold open should be reachable after BEGIN -- it sits directly on the
+screen I just built). Then [land on it] (LIFE+CITY c4e08b82: a full stride overshoots a
+place nearer than a stride and ping-pongs; his door to the road 21 cells away takes 21
+presses one cell at a time and NEVER arrives with a full stride). Then [cut now] and
+[browser lines]. [fast travel] stays CLAIMED and paused under rule 18.
 
-[PENDING nobody, FOR WHOEVER OWNS THE GROUND]: his own block has 45 doorsteps and 0 straight
-walkable ways out, and five presses on it go into ground a body cannot reach. It is why FIRST
-MINUTE's two carried reds say "nearest way out NONE in 140". Measured identically on 74ce272a,
-so it is not this round's.
-
-[PENDING nobody, FOR ECONOMY]: HE HAS ZERO BATTERIES ON DAY ONE and the market's whole shelf
-costs one each, so nothing on it can be bought in the demo. I made the rows honest rather than
-dead, which is rule 14(d)'s "deliver it or remove it" answered the cheap way. Delivering it is
-somebody's ruling about where the first battery comes from, and it is not mine.
-
-NEXT, IN ORDER: [land on it] -- LIFE+CITY c4e08b82 measured a full stride overshooting a place
-nearer than a stride and ping-ponging (his door to the road 21 cells away: 21 presses one cell
-at a time, 60 presses and NEVER ARRIVES with a full stride). The default to measure and
-correct: a stride crossing a CHANGE OF GROUND toward the press stops on the first new kind of
-ground. Then [horror loading] and [loading screen] part two, still the eighty seconds after
-the tap (the city iframe is built lazily INSIDE the click handler). [fast travel] stays
-CLAIMED and paused under rule 18.
-
-RECORD: records/BOHEMIA_FIVE_HUNDRED_PRESSES_AND_HE_NEVER_MOVED_9_21_26.md
+RECORD: records/BOHEMIA_A_BLACK_RECTANGLE_FOR_TWO_MINUTES_9_21_26.md
 
 --------------------------------------------------------------------------------
 WORDS (words-8dqrnq): 9/18 LATEST -- *** Q5 [refusing answers] SCHOOL DONE, ROUND ONE OF TWO.
