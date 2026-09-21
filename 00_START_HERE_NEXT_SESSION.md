@@ -30158,6 +30158,13 @@ RUN does); UI [copy notes] first: the word NOTES top right, collapsible, COPY AL
 clipboard; vote-tab law section 7 amended; break list updated. Board order of RUN, QUESTS,
 COMBAT, PORTRAIT, PEOPLE restored (first lines back on top). The live site cannot be read
 from this container (HTTP 000); deploys are checked by the pages workflow. Nothing to judge.
+THEN (ew) PAOLO 9/21: "there's no loading screen yet, I want a cool loading screen... glitchy
+shit loading in, loading out, loading in between before I'm able to even touch anything...
+maybe even a loading bar." (records/BOHEMIA_PAOLO_I_WANT_A_COOL_LOADING_SCREEN_9_21_26.md)
+Rule 18h: the screen covers everything until the pad works, it is cool (analog horror, 3-D,
+UI [cook panels] item 1 to RUN this round), it has a REAL progress bar, then BEGIN. RUN's
+order is [no pop ups], [loading screen], [cut now]. Rule 18b's front-page text corrected to
+rule 22. Playable-cut law item 1 amended; break list updated. Nothing to judge.
 
 COORDINATOR: 9/4 (ba) -- *** THE MEETING HALL:
 VAMILY.md's front page now carries every rule, and every chat re-reads it every time

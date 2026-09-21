@@ -30,6 +30,14 @@ are these three, each owned by one lane:
    the RUN tab; the screen says what it is doing and holds every load, including the
    ones that today happen during the first minute of play. PLUMBER's freeze numbers
    (174 s of the first 300 frozen on a phone) are what it hides and then shrinks.
+   AMENDED 9/21 (records/BOHEMIA_PAOLO_I_WANT_A_COOL_LOADING_SCREEN_9_21_26.md: "there's no
+   loading screen yet... glitchy shit loading in, loading out, loading in between before I'm
+   able to even touch anything... maybe even a loading bar"): the screen COVERS EVERYTHING
+   until the pad works, including the loads after the tap (the city frame's first paint, the
+   chunks); nothing of the world is half-drawn on the glass. It is COOL: the first frame of
+   the analog horror law, a dead institution's screen, drawn 3-D by UI. It has A LOADING BAR
+   that reads real progress (bytes, chunks, systems) and ends exactly when the pad works;
+   a bar on a timer is rule 14(d). Then ONE TAP, BEGIN, and the first sound plays on it.
 2. WALKING (RUN, with LIFE+CITY's lattice). ONE walking camera: a house fits on the
    screen, the body is drawn at one fixed size at that camera and NEVER changes while he
    walks or pinches (pinch out from the walk goes to the city; there is no in-between
