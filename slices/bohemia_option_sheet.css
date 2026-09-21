@@ -1,0 +1,35 @@
+/* ==========================================================================
+   BOHEMIA -- THE OPTION SHEET, the paper the panels are pinned to.
+   UI lane, 9/21. One file, because the lane draws one of these every round
+   ([show options]) and four of them in a round like this one. The paper is
+   DAYLIGHT-READABLE on purpose (SUN MODE): he judges on a phone, outside.
+   The panels themselves are dark because the game is dark. The contrast
+   between the two is the point -- a dark panel on white paper is how you see
+   what an object actually looks like.
+   ========================================================================== */
+:root{ --ink:#141210; --paper:#f4efe6; --rule:#9c907c; --hot:#a8391d; --cool:#2e5c6e }
+*{ box-sizing:border-box }
+body{ margin:0; background:var(--paper); color:var(--ink);
+      font:15px/1.5 ui-sans-serif,system-ui,-apple-system,Arial,sans-serif }
+header{ padding:16px 14px 12px; border-bottom:3px solid var(--ink) }
+h1{ margin:0 0 6px; font-size:19px; letter-spacing:.5px }
+.sub{ font-size:14px; color:#4a443c }
+.now{ margin:12px 14px; padding:10px 12px; border-left:5px solid var(--hot); background:#fff; font-size:14px }
+.now b{ color:var(--hot) }
+.wrap{ padding:8px 14px 70px }
+.opt{ background:#fff; margin:20px 0; border-bottom:3px solid var(--ink) }
+.opt h2{ margin:0; padding:9px 12px; font-size:16px; background:var(--ink); color:var(--paper);
+         letter-spacing:.6px }
+.opt.isnow h2{ background:var(--hot) }
+.say{ padding:10px 12px 12px; font-size:14px; color:#4a443c }
+.say b{ color:var(--ink) }
+
+/* THE PHONE. 390 wide is a real iPhone at real size, and nothing inside it is
+   allowed to be scaled, because a panel judged at 2x is a panel nobody judged. */
+.phone{ width:390px; max-width:100%; margin:0 auto; background:#0a0806;
+        box-shadow:0 0 0 1px #2a2318 inset }
+.shot{ padding:10px 0; background:#e7e0d3;
+       background-image:repeating-linear-gradient(135deg,#e7e0d3 0 6px,#e2dacb 6px 12px) }
+.tiny{ font:11px/1.4 ui-monospace,monospace; color:#6a6258; padding:4px 12px 0; letter-spacing:.6px }
+footer{ margin:24px 14px 60px; padding:12px; background:#fff; border-left:5px solid var(--cool);
+        font-size:14px }

@@ -1,3 +1,88 @@
+UI (ui-kmqmrf): 9/21 LATEST -- *** [cook panels] ROUND ONE OF RULE 22. FIVE PANELS HE CAN
+LOOK AT, NOT ONE LINE ON A PLAY SURFACE. *** TAB: the VOTE tab in the alpha. Nothing went to
+the demo or to a play tab; rule 18 holds and rule 22 says the hold is on the play surface,
+not on the making. Record: records/BOHEMIA_THE_ROUND_IS_PANELS_9_21_26.md
+
+WHAT WAS COOKED. Five sheets, every panel at 390 px (the real width of his phone), nothing
+scaled, each new option drawn beside the flat thing it would replace:
+  ui-five-ways-the-game-opens-9-21     the first screen: a stamped tag on a warming machine,
+                                       one enormous key, the name punched into the plate with
+                                       three status lamps, or the whole door as one lit tube
+  ui-four-ways-the-fight-reads-9-21    the fight his friend played: health in a sunk slot or
+                                       on a dial with a needle, the verbs as keys with travel,
+                                       SHOOT under a guard, one plate across the bottom
+  ui-five-ways-a-person-talks-9-21     the only panel allowed to carry prose on the street
+                                       (rule 19): her face behind glass in the case, filling
+                                       the top edge to edge, or coming through a speaker grille
+  ui-five-ways-the-vote-tab-sits-9-21  this tab itself, with the real trade stated in his words:
+                                       the prettiest one (the console, the game's own case) is
+                                       the worst one to read on a phone in the sun. My pick: E,
+                                       paper to read and metal to press.
+  ui-four-ways-a-word-is-stamped-9-21  the letters on every button, four cuts, heaviest to plainest
+
+*** 3-D IS WRITTEN DOWN NOW INSTEAD OF GUESSED. *** slices/bohemia_ui_3d.css is this lane's
+whole vocabulary in ONE file, and all five sheets read it. It is not a drop shadow and not a
+rounded card. It is the four things a real object on a real machine has: a FACE that catches
+light from ONE light (always above and left, because two lights read as a sticker), a LIT RIM
+on the edge the light hits, a DARK BASE on the edge it misses, and a BODY -- the line under a
+panel is the SIDE of the thing. Then it is DELIVERED AS PIXELS: every ramp in the file is a
+staircase of hard colour stops, never a blend, which is what keeps a lit object in the same
+world as the tiles. Colours come from the skin's act-one SALVAGE values, so [skin swap] gets
+act two by changing values, not by redrawing five private bevels. Analog horror is at the
+source: the case is a colour an office picked and never changed, the glass is lit from behind
+by something still running with nobody left to read it, and the lamp beside the word is ON.
+
+*** THE MEASUREMENT THAT RODE BESIDE IT: THE N ON EVERY BUTTON IN THIS GAME IS AN H. ***
+tools/bohemia_which_letters_are_the_same.js draws all 26 capitals at the size a surface really
+uses and compares EVERY pair. BohemiaCasing at 5 px: H/N is the CLOSEST PAIR IN THE ALPHABET,
+10.6% of the ink differs, with A/H 14.0, N/W 15.4 and H/W 17.3 right behind. The control names
+the cause: the SAME 5x8 glyph table cut three ways gives ROM 21.3 and BODY 17.3, so it is not
+the letters, it is the CASING cut's 25% overlap (125 ink on a 100 column) fusing an N's
+diagonal to its own left stem. tools/bohemia_cut_a_casing_candidate.py cuts softer candidates
+WITHOUT touching the shipped file: 115 -> 12.5, 108 -> 13.4, 100 -> off the top ten. My pick is
+108 and all four are on the sheet at real button size. NOTHING SHIPPED -- that face is loaded
+by the walked city and the demo, so it waits on rule 18.
+
+*** TWO ORACLES LIED TO ME THIS ROUND. *** First my own EYE, on an 860 px screenshot the
+viewer had squashed to 156 px: I read "HOTES" and "HAIT" and decided the face was broken. No
+five pixel diagonal survives that squash, so the picture could not have shown it either way.
+Then a BARE NUMBER with no population around it: my first measurement said N and H differ by
+15 to 25 per cent of their ink and I read that as "fine". A lone number cannot be read. The
+oracle that works is a RANKING, because "closest pair in the alphabet" is a fact about the
+face instead of a feeling about a picture. Fifth time this lane has written the same lesson in
+a new costume: A CLEAN ANSWER FROM THE WRONG ORACLE LOOKS EXACTLY LIKE A FACT.
+
+*** AND TWO DEFECTS I MADE AND FIXED INSIDE THE ROUND, VISIBLE ONLY IN THE RENDER. *** The
+fight pad's four diagonal code points are not arrows, and one of them drew an ENVELOPE (they
+are letters now, like the real fight). And the big-portrait option shipped 150 px wide on a
+390 px phone with black gutters down both sides, which is the exact opposite of the option it
+was meant to be (edge to edge now). Neither was in the source and neither would have failed a
+gate. Both came from cropping the real render at full resolution and looking at it.
+
+PRE-PUSH PASS (rule 13): the new UI IS OBJECTS gate 53/0 with SIX mutations proved and each
+restored (delete the body from the object rule -> 1 red, blend a ramp -> 1, light a bottom edge
+-> 2, unhook a sheet from the shared file -> 1, break a registry path -> 1, take the travel out
+of the key -> 1); vote tab 28/0 (the registry grew and it still holds), pages publish 18/0,
+reply contract 17/0, attempt 15/0, reference check 11/0. Reuse-first is 209/6 both WITH and
+WITHOUT my diff, so those six are not mine. SUITE LINE: 107 red at ad23d875; mine are NONE.
+
+TWO LEGS OF MY OWN GATE WERE WRONG WHEN FIRST WRITTEN and are in the record rather than
+quietly fixed: the ramp leg stopped its match at the first closing bracket, which in this file
+belongs to var(--c-face), so it judged a stub of every ramp and called the object rule a blend;
+and it counted only per-cent stops, so the vent's louvres, cut at 3px/4px/5px and as much of a
+staircase as anything in the file, failed it.
+
+FOR PAGES: the published surface is 256 MB against a 260 MB cap. My five sheets, two
+stylesheets and three candidate font files add well under a megabyte, but somebody should look
+at that headroom before it stops being headroom.
+
+NEXT: [cook panels] is a STANDING row under rule 22 -- it went back to OPEN and is claimed
+again next round. The obvious next cook is whichever panel he votes up, built for real the
+moment rule 18 lifts. Still owed by this lane: [three d ui] has no gate of its own yet (the
+new one covers the vocabulary, not every surface), the VOTE tab still does not LIST his notes,
+and [no slop] stays CLAIMED with the map key's 32 swatch edges and the dead-declaration debt
+left in it, both written up in the 9/18 record.
+
 PORTRAIT (portrait-vamily-yke55s): 9/21 LATEST -- *** [faces first] ROUND 1. THE LIST CAME
 BACK EMPTY: A STRANGER MEETS ZERO FACES IN FIVE MINUTES, AND THE FACES ARE NOT THE REASON.
 THEY CANNOT BE REACHED. *** Row stays CLAIMED, NOT shipped. Nothing pushed to the alpha.

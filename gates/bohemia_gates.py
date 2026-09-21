@@ -461,6 +461,21 @@ GATES = [
      'and failed on 505/518/546ms samples -- the threshold was wrong, not the feed. It also '
      'prints the page\'s own clock gaps, which are whole-page freezes belonging to another '
      'lane, so they cannot hide inside this lane\'s green.', True),
+    ('UI IS OBJECTS',  ['node', 'gates/the_ui_is_built_from_objects_gate.js'],
+     'PAOLO 9/20: "we are gonna be trying to make all the UI look 3-D", and PAOLO 9/21, rule 22: '
+     '"I need to be seeing them cooking up more, every time, not never" -- a UI round is PANELS he '
+     'can see at real phone size. This holds the round: five sheets, all reading ONE shared '
+     'vocabulary (slices/bohemia_ui_3d.css) so act two swaps values instead of redrawing four '
+     'private bevels. It checks that 3-D means the four parts of an object and not a drop shadow '
+     '(a face, a lit rim on the TOP edge, a dark base on the bottom, and a BODY -- the side you '
+     'would touch underneath), that there is only ONE light (a lit rim on a bottom edge is two '
+     'lights and reads as a sticker), that every ramp is a STAIRCASE of hard stops rather than a '
+     'blend (that is what delivers a lit object as pixels, in the same world as the tiles), that '
+     'the panels are judged at 390 with nothing blown up, that the key has real travel rather than '
+     'a border, that every family a sheet names resolves to a file on disk, that no sheet touched a '
+     'play surface (rule 18 hold), and that the round REGISTERED its panels in the vote tab, which '
+     'is rule 22 measured rather than asserted. Six mutations proved: delete the body, blend a '
+     'ramp, light a bottom edge, unhook a sheet, break a registry path, take the travel out.', True),
     ('NOTES BUTTON',   ['node', 'gates/the_notes_button_gate.js'],
      'PAOLO 9/20: "in the demo there should be a note section at the very top right, just the '
      'tiniest button, where as I am playing the demo I can write all my thoughts down and then '

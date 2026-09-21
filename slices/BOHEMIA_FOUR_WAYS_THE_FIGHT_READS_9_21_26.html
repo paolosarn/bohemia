@@ -1,0 +1,301 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>BOHEMIA - FOUR WAYS THE FIGHT READS</title>
+<link rel="stylesheet" href="bohemia_option_sheet.css">
+<link rel="stylesheet" href="bohemia_ui_3d.css">
+<style>
+ .fight{ position:relative; height:620px; display:flex; flex-direction:column; background:#0e0d0b }
+
+ /* THE BOARD UNDERNEATH. not the real tiles, but the real VALUES off the real
+    frame, because a HUD judged over black is a HUD nobody judged. */
+ .board{ flex:1 1 auto; position:relative;
+   background:
+     repeating-linear-gradient(90deg,rgba(0,0,0,.30) 0 1px,rgba(0,0,0,0) 1px 49px),
+     repeating-linear-gradient(180deg,rgba(0,0,0,.30) 0 1px,rgba(0,0,0,0) 1px 65px),
+     linear-gradient(180deg,#5a5147,#4a433a 60%,#3f3931) }
+ .enemy{ position:absolute; left:167px; top:78px; width:44px; height:44px; border-radius:50%;
+   background:radial-gradient(circle at 36% 30%,#f4744a 0 22%,#e2542a 22% 70%,#8c2e12 70% 100%);
+   box-shadow:0 3px 0 rgba(0,0,0,.5), 0 5px 8px rgba(0,0,0,.45) }
+ .you{ position:absolute; left:176px; top:190px; width:26px; height:62px;
+   background:
+     linear-gradient(180deg,rgba(0,0,0,0) 0 10px,#2f4a52 10px 34px,#221f1a 34px 100%),
+     radial-gradient(circle at 50% 6px, #d3a273 0 7px, rgba(0,0,0,0) 7px);
+   box-shadow:0 3px 5px rgba(0,0,0,.45) }
+ .ring{ position:absolute; left:148px; top:178px; width:82px; height:26px; border-radius:50%;
+   border:3px solid #e2d4a6; opacity:.85 }
+
+ /* ---------- A. WHAT IS IN THERE NOW (traced off the real frame) ---------- */
+ .A .top{ background:#0b0a08; padding:8px 10px 10px }
+ .A .set{ display:inline-block; background:#1a1710; color:#c8b681; border-radius:6px;
+   padding:6px 12px; font:11px ui-monospace,monospace; letter-spacing:1px }
+ .A .hp{ margin-top:9px; font:11px ui-monospace,monospace; color:#b9ad94; letter-spacing:1px }
+ .A .acts{ margin-top:7px; display:flex; gap:8px }
+ .A .act{ border:1px solid #c8913a; border-radius:5px; padding:6px 10px; color:#e7c37f;
+   font:11px ui-monospace,monospace; letter-spacing:.6px; background:transparent }
+ .A .act.g{ border-color:#5fa87a; color:#9fe0b4 }
+ .A .act.w{ border-color:#5a5246; color:#b9ad94 }
+ .A .way{ margin-top:9px; font:12px ui-monospace,monospace; color:#7fd8a0; letter-spacing:1px }
+ .A .banner{ position:absolute; left:0; right:0; top:150px; padding:5px 8px; background:rgba(10,9,7,.85);
+   font:10px ui-monospace,monospace; color:#cdbd8a }
+ .A .verbs{ position:absolute; left:14px; bottom:14px; display:flex; flex-direction:column; gap:12px }
+ .A .verb{ background:#241f16; border-radius:5px; padding:7px 14px; color:#cdbd8a;
+   font:11px ui-monospace,monospace; letter-spacing:1px; text-align:center }
+ .A .verb.off{ background:transparent; color:#7c6f52 }
+ .A .shoot{ position:absolute; right:14px; bottom:14px; width:96px; height:96px; border-radius:50%;
+   border:3px solid #b4442a; background:#c9bda2; display:flex; align-items:center; justify-content:center;
+   font:12px ui-monospace,monospace; color:#2a2016; letter-spacing:1px }
+ .A .cp{ position:absolute; width:22px; height:22px; border-radius:50%; background:#1d1912;
+   color:#9a8e74; font:9px ui-monospace,monospace; display:flex; align-items:center; justify-content:center }
+
+ /* ---------- B. THE FIGHT IS A PANEL OF A MACHINE ---------- */
+ .B .rail{ padding:7px 9px 12px; gap:8px; flex-wrap:wrap }
+ .B .gauge{ flex:1 1 100%; display:flex; align-items:center; gap:8px }
+ .B .well{ flex:1 1 auto; height:12px; border-radius:2px; padding:2px;
+   background:#0b0a07; box-shadow:inset 0 2px 0 #050403, inset 0 -1px 0 #2e2719 }
+ .B .fill{ height:8px; width:74%; border-radius:1px;
+   background:linear-gradient(180deg,#b6d6a8 0 32%,#77a468 32% 74%,#4c6f42 74% 100%);
+   box-shadow:0 0 6px rgba(150,200,150,.35) }
+ .B .num{ font-family:var(--face-screen); font-size:9px; letter-spacing:1.4px; color:#c9dcc4 }
+ .B .verbs{ display:flex; gap:7px; width:100% }
+ .B .verbs .k{ flex:1 1 auto; font-size:6px; letter-spacing:1.1px; min-height:34px }
+ .B .way{ display:flex; align-items:center; gap:6px; width:100%; padding:2px 1px }
+ .B .pad{ position:absolute; right:12px; bottom:12px; width:132px; height:132px }
+ .B .hub{ position:absolute; left:32px; top:32px; width:68px; height:68px; border-radius:50%;
+   background:radial-gradient(circle at 42% 30%,#e0cda0 0 26%,#cdba85 26% 52%,#b5a371 52% 74%,#948155 74% 100%);
+   box-shadow:inset 0 2px 0 #efe1bb, inset 0 -3px 0 #6f6142, 0 4px 0 #2a2417, 0 6px 8px rgba(0,0,0,.55);
+   display:flex; align-items:center; justify-content:center;
+   font-family:var(--face-casing); font-size:7px; letter-spacing:1.6px; color:#15120d }
+ .B .arw{ position:absolute; width:26px; height:26px; border-radius:2px;
+   background:linear-gradient(180deg,#221d15 0 30%,#1a160f 30% 78%,#120f0a 78% 100%);
+   box-shadow:inset 0 1px 0 #5c4f38, inset 0 -2px 0 #0b0906, 0 2px 0 #060503;
+   color:#c8b681; font-family:var(--face-casing); font-size:7px; letter-spacing:.8px;
+   line-height:26px; text-align:center }
+ .B .left{ position:absolute; left:12px; bottom:12px; display:flex; flex-direction:column; gap:7px }
+ .B .left .k{ min-width:74px; font-size:6px; letter-spacing:1.2px }
+
+ /* ---------- C. ONE PLATE ACROSS THE BOTTOM ---------- */
+ .C .board{ flex:1 1 auto }
+ .C .deck{ position:relative; flex:0 0 auto; padding:10px 12px 14px;
+   background:linear-gradient(180deg,#332c21 0 9%,#28221a 9% 72%,#191510 72% 100%);
+   box-shadow:inset 0 2px 0 #5c4f38, inset 0 -3px 0 #0b0906, 0 -4px 10px rgba(0,0,0,.6) }
+ .C .deck .screw{ width:6px; height:6px }
+ .C .line1{ display:flex; align-items:center; gap:8px; padding:0 8px }
+ .C .well{ flex:1 1 auto; height:11px; border-radius:2px; padding:2px;
+   background:#0b0a07; box-shadow:inset 0 2px 0 #050403, inset 0 -1px 0 #2e2719 }
+ .C .fill{ height:7px; width:74%; background:linear-gradient(180deg,#b6d6a8 0 32%,#77a468 32% 100%) }
+ .C .line2{ display:flex; gap:7px; margin-top:10px; padding:0 8px }
+ .C .line2 .k{ flex:1 1 auto; font-size:6px; letter-spacing:1.1px; min-height:36px }
+ .C .line3{ display:flex; align-items:center; gap:10px; margin-top:11px; padding:0 8px }
+ .C .trig{ flex:0 0 auto; width:96px; min-height:52px; font-size:9px; letter-spacing:3px }
+ .C .dpad{ flex:1 1 auto; display:grid; grid-template-columns:repeat(3,1fr); gap:4px }
+ .C .dpad span{ height:22px; border-radius:2px; color:#c8b681; font:8px/22px ui-monospace,monospace;
+   text-align:center; background:linear-gradient(180deg,#221d15 0 30%,#1a160f 30% 100%);
+   box-shadow:inset 0 1px 0 #4a4133, inset 0 -2px 0 #0b0906 }
+ .C .dpad span.mid{ background:none; box-shadow:none }
+
+ /* ---------- D. THE HEALTH IS A DIAL ---------- */
+ .D .head{ position:relative; display:flex; align-items:stretch; gap:8px; padding:8px 10px;
+   background:linear-gradient(180deg,#2b251c 0 18%,#211c15 18% 76%,#14110b 76% 100%);
+   box-shadow:inset 0 1px 0 #4a4133, inset 0 -2px 0 #0b0906, 0 3px 7px rgba(0,0,0,.5) }
+ .D .dial{ position:relative; width:58px; height:58px; border-radius:50%; flex:0 0 auto;
+   background:radial-gradient(circle at 38% 30%,#1d1a13 0 58%,#141109 58% 100%);
+   box-shadow:inset 0 2px 0 #050403, inset 0 -2px 0 #3a3225, 0 2px 0 rgba(0,0,0,.6) }
+ .D .needle{ position:absolute; left:50%; top:50%; width:2px; height:22px; background:#e2542a;
+   transform-origin:50% 100%; transform:translate(-50%,-100%) rotate(38deg);
+   box-shadow:0 0 5px rgba(226,84,42,.6) }
+ .D .cap{ position:absolute; left:50%; top:50%; width:8px; height:8px; margin:-4px 0 0 -4px;
+   border-radius:50%; background:radial-gradient(circle at 35% 30%,#6a5c42 0 40%,#3a3225 40% 100%) }
+ .D .ticks{ position:absolute; inset:5px; border-radius:50%;
+   background:conic-gradient(from 210deg,
+     #8d7f63 0 2deg,transparent 2deg 34deg, #6a5c42 34deg 35deg,transparent 35deg 67deg,
+     #6a5c42 67deg 68deg,transparent 68deg 100deg, #6a5c42 100deg 101deg,transparent 101deg 133deg,
+     #6a5c42 133deg 134deg,transparent 134deg 166deg, #8d7f63 166deg 168deg,transparent 168deg 360deg) }
+ .D .readout{ flex:1 1 auto; padding:7px 9px; display:flex; flex-direction:column; justify-content:center; gap:5px }
+ .D .readout .lit{ font-size:9px; letter-spacing:1.6px }
+ .D .bank{ position:absolute; left:12px; bottom:12px; display:flex; flex-direction:column; gap:6px }
+ .D .bank .k{ min-width:88px; font-size:6px; letter-spacing:1.2px; justify-content:flex-start }
+ .D .bank .lamp{ margin-right:6px }
+ .D .guard{ position:absolute; right:12px; bottom:12px; width:118px; padding:9px;
+   display:flex; flex-direction:column; align-items:center; gap:7px }
+ .D .guard .k{ width:100%; min-height:48px; font-size:9px; letter-spacing:3px }
+ .D .guard .vent{ width:100%; height:7px }
+</style></head><body>
+<header>
+ <h1>FOUR WAYS THE FIGHT READS</h1>
+ <div class="sub">The fight your friend played, 390 pixels wide, real size, nothing blown up. A is traced off the picture you were sent. 9/21</div>
+</header>
+
+<div class="now">
+ <b>THE FIGHT IS THE GAME'S FACE.</b> It is the screen a stranger sees first, and
+ right now everything on it is a coloured outline: a box with a thin orange line
+ round it, a box with a thin green line round it, a flat circle with a face in it.
+ None of it is a thing. It is a web page sitting on top of a game.
+ <br><br>
+ <b>SO HERE IS THE FIGHT BUILT OUT OF OBJECTS.</b> The health is not a coloured bar,
+ it is a lit strip sunk into a slot, or a needle on a dial. The verbs are not
+ outlines, they are keys with height that go down when you press them. SHOOT is not
+ a circle, it is the one hot key on the machine, and it sits under a guard.
+ <br><br>
+ <b>WHAT I DECIDED WITHOUT YOU:</b> health, the three verbs and the way out are always
+ on screen, and everything else waits. <b>WHAT I NEED:</b> which one. One letter.
+</div>
+
+<div class="wrap">
+
+ <div class="opt isnow"><h2>A &mdash; WHAT IS IN THERE NOW</h2>
+  <div class="shot"><div class="phone"><div class="fight A">
+    <div class="top">
+      <div class="set">&#9881; SETTINGS</div>
+      <div class="hp">YOU | 100/100</div>
+      <div class="acts">
+        <div class="act w">WAIT</div><div class="act">SUPPRESS</div><div class="act g">SHOVE GOON</div>
+      </div>
+      <div class="way">WAY OUT 4T</div>
+    </div>
+    <div class="board">
+      <div class="banner">A FIGHT HAS STARTED - press a verb, out on the block, on the beat</div>
+      <div class="enemy"></div><div class="ring"></div><div class="you"></div>
+      <div class="verbs">
+        <div class="verb">RUN</div><div class="verb off">GREN 2</div><div class="verb">RIFLE</div>
+      </div>
+      <div class="shoot">SHOOT</div>
+      <div class="cp" style="right:118px;bottom:100px">N</div>
+      <div class="cp" style="right:12px;bottom:100px">NE</div>
+      <div class="cp" style="right:0px;bottom:56px">E</div>
+      <div class="cp" style="right:12px;bottom:14px">SE</div>
+      <div class="cp" style="right:118px;bottom:0px">S</div>
+      <div class="cp" style="right:124px;bottom:22px">SW</div>
+      <div class="cp" style="right:130px;bottom:56px">W</div>
+    </div>
+  </div></div></div>
+  <div class="say"><b>Count the different looks on one screen.</b> A grey rounded
+   box, an orange outlined box, a green outlined box, green text on nothing, brown
+   rounded boxes, a pale circle with a red ring. Six vocabularies, and the two
+   things that matter most, your health and your way out, are the two smallest and
+   plainest bits of text up there.</div>
+ </div>
+
+ <div class="opt"><h2>B &mdash; THE FIGHT IS A PANEL OF A MACHINE</h2>
+  <div class="shot"><div class="phone"><div class="fight B">
+    <div class="rail">
+      <div class="gauge">
+        <span class="stamp" style="font-size:7px;letter-spacing:1.4px">YOU</span>
+        <div class="well"><div class="fill"></div></div>
+        <span class="num">74/100</span>
+      </div>
+      <div class="way"><span class="lamp"></span>
+        <span class="stamp" style="font-size:7px;letter-spacing:1.6px">WAY OUT</span>
+        <span class="num" style="color:#9adfd0">4 TURNS</span>
+        <span style="flex:1"></span>
+        <span class="lamp warn"></span><span class="stamp" style="font-size:7px">GOON CLOSE</span>
+      </div>
+      <div class="verbs">
+        <button class="k">WAIT</button>
+        <button class="k">SUPPRESS</button>
+        <button class="k">SHOVE GOON</button>
+      </div>
+    </div>
+    <div class="board">
+      <div class="enemy"></div><div class="ring"></div><div class="you"></div>
+      <div class="left">
+        <button class="k">RUN</button>
+        <button class="k dead">GREN 2</button>
+        <button class="k">RIFLE</button>
+      </div>
+      <div class="pad">
+        <div class="hub">SHOOT</div>
+        <div class="arw" style="left:53px;top:0">N</div>
+        <div class="arw" style="right:6px;top:14px">NE</div>
+        <div class="arw" style="right:0;top:53px">E</div>
+        <div class="arw" style="right:6px;bottom:14px">SE</div>
+        <div class="arw" style="left:53px;bottom:0">S</div>
+        <div class="arw" style="left:6px;bottom:14px">SW</div>
+        <div class="arw" style="left:0;top:53px">W</div>
+        <div class="arw" style="left:6px;top:14px">NW</div>
+      </div>
+    </div>
+  </div></div></div>
+  <div class="say"><b>Everything is one machine now.</b> Health is a lit strip sunk
+   into a slot in the case, so full and empty are a real depth and not a colour
+   change. The way out has a green light beside it that is ON, and the goon getting
+   close has an orange one. The three verbs are keys in a bank across the top, same
+   height, same travel. Bottom right, eight arrows in a ring round one hot key: your
+   thumb never leaves that corner.</div>
+ </div>
+
+ <div class="opt"><h2>C &mdash; ONE PLATE ACROSS THE BOTTOM, THE FIGHT IS CLEAR</h2>
+  <div class="shot"><div class="phone"><div class="fight C">
+    <div class="board" style="height:400px;flex:0 0 400px">
+      <div class="enemy"></div><div class="ring"></div><div class="you"></div>
+    </div>
+    <div class="deck">
+      <span class="screw tl"></span><span class="screw tr"></span>
+      <span class="screw bl"></span><span class="screw br"></span>
+      <div class="line1">
+        <span class="stamp" style="font-size:7px;letter-spacing:1.4px">YOU</span>
+        <div class="well"><div class="fill"></div></div>
+        <span class="lit" style="font-size:9px">74</span>
+        <span class="lamp"></span>
+        <span class="stamp" style="font-size:7px;letter-spacing:1.4px">OUT 4T</span>
+      </div>
+      <div class="line2">
+        <button class="k">WAIT</button><button class="k">SUPPRESS</button><button class="k">SHOVE</button>
+      </div>
+      <div class="line3">
+        <button class="k hot trig">SHOOT</button>
+        <div class="dpad">
+          <span>NW</span><span>N</span><span>NE</span>
+          <span>W</span><span class="mid"></span><span>E</span>
+          <span>SW</span><span>S</span><span>SE</span>
+        </div>
+      </div>
+    </div>
+  </div></div></div>
+  <div class="say"><b>Nothing at all on top of the fight.</b> Every control lives on
+   one screwed-down plate at the bottom, and you can see the four screws holding it
+   to the phone. The whole upper two thirds is the street, clean, so you actually
+   watch the fight instead of reading around it. Everything a thumb touches is in
+   the bottom third where a thumb already is.</div>
+ </div>
+
+ <div class="opt"><h2>D &mdash; THE HEALTH IS A DIAL AND THE TRIGGER HAS A GUARD</h2>
+  <div class="shot"><div class="phone"><div class="fight D">
+    <div class="head">
+      <div class="dial"><div class="ticks"></div><div class="needle"></div><div class="cap"></div></div>
+      <div class="readout o sunk">
+        <div class="lit">YOU 74 OF 100</div>
+        <div class="lit" style="color:#9adfd0"><span class="lamp"></span> WAY OUT IN 4</div>
+        <div class="lit" style="color:#c07a4a"><span class="lamp warn"></span> ONE GOON, CLOSE</div>
+      </div>
+    </div>
+    <div class="board">
+      <div class="enemy"></div><div class="ring"></div><div class="you"></div>
+      <div class="bank">
+        <button class="k"><span class="lamp"></span>WAIT</button>
+        <button class="k"><span class="lamp warn"></span>SUPPRESS</button>
+        <button class="k"><span class="lamp"></span>SHOVE GOON</button>
+        <button class="k dead"><span class="lamp dead"></span>GREN 2</button>
+      </div>
+      <div class="guard o sunk">
+        <div class="vent"></div>
+        <button class="k hot">SHOOT</button>
+        <span class="stamp" style="font-size:7px;letter-spacing:1.6px">RIFLE - 6 LEFT</span>
+      </div>
+    </div>
+  </div></div></div>
+  <div class="say"><b>A needle instead of a bar.</b> You read a dial with the corner
+   of your eye while you are doing something else, which is the whole job of a health
+   readout in a fight on a beat. Every verb is a key with its own little light, so
+   the ones you can use are lit and the ones you cannot are dark, and you never have
+   to read a word to know. SHOOT sits down inside a guard, with how many rounds are
+   left stamped under it.</div>
+ </div>
+
+</div>
+
+<footer>
+ <b>All four are drawn from the same file as the loading screen and the talk panel.</b>
+ One light, one set of edges, one kind of key. Pick a letter and the fight gets built
+ that way for real.
+</footer>
+</body></html>

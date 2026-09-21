@@ -300,7 +300,7 @@
     "src": "vote/ANIMATION_THE_IDLE_REDO.html"
    },
    "redoOf": "idle",
-   "said": "a lot of them are good, a lot of them aren\u2019t good... IF I KILLED IT I DON\u2019T WANT IT GONE. I just think it could be done better. Make a new one."
+   "said": "a lot of them are good, a lot of them aren’t good... IF I KILLED IT I DON’T WANT IT GONE. I just think it could be done better. Make a new one."
   },
   {
    "id": "factions-the-sign-still-lights-9-21",
@@ -404,6 +404,71 @@
    "show": {
     "how": "image",
     "src": "vote/PORTRAIT_FACE_NINA_9_21.png"
+   }
+  },
+  {
+   "id": "ui-five-ways-the-game-opens-9-21",
+   "kind": "ui",
+   "lane": "ui",
+   "sha": "PENDING",
+   "made": "9/21",
+   "title": "FIVE WAYS THE GAME OPENS",
+   "why": "The very first screen. Four new ways, all built like real objects with one light, beside the flat one that is in there now.",
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_FIVE_WAYS_THE_GAME_OPENS_9_21_26.html"
+   }
+  },
+  {
+   "id": "ui-four-ways-the-fight-reads-9-21",
+   "kind": "ui",
+   "lane": "ui",
+   "sha": "PENDING",
+   "made": "9/21",
+   "title": "FOUR WAYS THE FIGHT READS",
+   "why": "The fight your friend played, re-drawn three ways. Health in a slot or on a dial, verbs as keys with travel, SHOOT under a guard.",
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_FOUR_WAYS_THE_FIGHT_READS_9_21_26.html"
+   }
+  },
+  {
+   "id": "ui-five-ways-a-person-talks-9-21",
+   "kind": "ui",
+   "lane": "ui",
+   "sha": "PENDING",
+   "made": "9/21",
+   "title": "FIVE WAYS A PERSON TALKS",
+   "why": "The only panel allowed to carry a sentence on the street. Her face behind glass, or filling the top, or coming through a speaker.",
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_FIVE_WAYS_A_PERSON_TALKS_9_21_26.html"
+   }
+  },
+  {
+   "id": "ui-five-ways-the-vote-tab-sits-9-21",
+   "kind": "ui",
+   "lane": "ui",
+   "sha": "PENDING",
+   "made": "9/21",
+   "title": "FIVE WAYS THE VOTE TAB SITS",
+   "why": "This tab itself, four new ways. The prettiest one is the hardest to read outside, and that trade is yours.",
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_FIVE_WAYS_THE_VOTE_TAB_SITS_9_21_26.html"
+   }
+  },
+  {
+   "id": "ui-four-ways-a-word-is-stamped-9-21",
+   "kind": "ui",
+   "lane": "ui",
+   "sha": "PENDING",
+   "made": "9/21",
+   "title": "FOUR WAYS A WORD IS STAMPED",
+   "why": "The N on our buttons is an H. Measured: it is the closest pair in the alphabet. Four cuts of the same letters, heaviest to plainest.",
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_FOUR_WAYS_A_WORD_IS_STAMPED_9_21_26.html"
    }
   }
  ],
