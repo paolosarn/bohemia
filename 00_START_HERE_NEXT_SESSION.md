@@ -414,7 +414,7 @@ your block top to bottom and confirm every line in it is yours.
 And this file is now ~88,000 lines carrying NINE ECONOMY blocks, most of them
 stale copies of this one. That is a real defect in a file every lane reads every
 round. It is a job for the coordinator to place (18 PLUMBER's remit), not
-something a lane should do to another lane's block.=== ROUND 36 REPORT: [first ten] SHIPPED ====== ROUND 37 REPORT: [carry cost] SHIPPED ====== ROUND 38 REPORT: [old price] SHIPPED ====== ROUND 39 REPORT: [protection court] SHIPPED ====== ROUND 40 REPORT: [how many pockets] SHIPPED ====== ROUND 41 REPORT: [who replaces you] SHIPPED ====== ROUND 42 REPORT: [the bailiff] SHIPPED ====== ROUND 43 REPORT: [double up] SHIPPED ====== ROUND 44 REPORT: [first building] SHIPPED ====== QUEUE EMPTY. 44 OF 44 SHIPPED. THE PILE IS FOLDED INTO ONE MASTER. ====== QUEUE STILL EMPTY. HE PLAYED IT, AND THE ONE THING THIS LANE GOT BUILT AND GOT WRONG IS CORRECTED. ====== ROUND 45 REPORT: [first sixty] SHIPPED ====== ROUND 46 REPORT: [daily radius] SHIPPED ====== ROUND 47 REPORT: [who owns the water] SHIPPED ====== QUEUE EMPTY. THE FOLD: 45, 46 AND 47 ARE IN THE MASTER, AND FOLDING THEM FOUND THREE THINGS. ===
+something a lane should do to another lane's block.=== ROUND 36 REPORT: [first ten] SHIPPED ====== ROUND 37 REPORT: [carry cost] SHIPPED ====== ROUND 38 REPORT: [old price] SHIPPED ====== ROUND 39 REPORT: [protection court] SHIPPED ====== ROUND 40 REPORT: [how many pockets] SHIPPED ====== ROUND 41 REPORT: [who replaces you] SHIPPED ====== ROUND 42 REPORT: [the bailiff] SHIPPED ====== ROUND 43 REPORT: [double up] SHIPPED ====== ROUND 44 REPORT: [first building] SHIPPED ====== QUEUE EMPTY. 44 OF 44 SHIPPED. THE PILE IS FOLDED INTO ONE MASTER. ====== QUEUE STILL EMPTY. HE PLAYED IT, AND THE ONE THING THIS LANE GOT BUILT AND GOT WRONG IS CORRECTED. ====== ROUND 45 REPORT: [first sixty] SHIPPED ====== ROUND 46 REPORT: [daily radius] SHIPPED ====== ROUND 47 REPORT: [who owns the water] SHIPPED ====== QUEUE EMPTY. THE FOLD: 45, 46 AND 47 ARE IN THE MASTER, AND FOLDING THEM FOUND THREE THINGS. ====== ROUND 48 REPORT: [who still bills] ROUND ONE OF TWO SHIPPED, THE CLAIM STAYS. ===
 RECORD: records/BOHEMIA_ECONOMY_DAY_47_NOBODY_OWNS_THE_PUMP_THEY_OWN_THE_DISTANCE_9_20_26.md (207 lines)
 BANK:   banks/BOHEMIA_ECONOMY_TEST_LINES_9_5_26.md sections ZZZZZZZZZ-DDDDDDDDDD, +16 lines, 670 draft:true total
 TAB:    NOT IN A TAB YET. MODE: RESEARCH. No engine code touched. Rule 14: never the demo;
@@ -597,6 +597,123 @@ round 45 measured that in three real crashes NO INSTITUTION SAYS ANYTHING AT ALL
 minute. Same instinct, the silence where the announcement should be. 20(g) caps it: a vibe
 for fun, not a thesis, so that is one line and not an essay.
 
+
+=== ROUND 48, [who still bills] Q48, ROUND ONE OF TWO (school). THE CLAIM STAYS OPEN. ===
+RECORD: records/BOHEMIA_ECONOMY_DAY_48_NOTHING_IN_THIS_GAME_ARRIVES_9_21_26.md (327 lines)
+BANK:   banks/BOHEMIA_ECONOMY_TEST_LINES_9_5_26.md sections EEEEEEEEEE-FFFFFFFFFF, +12 lines,
+        670 entries. ALL TWELVE IN THE ROLE-PLACE FORMAT the rule 19 contract binds, so the
+        176 bullet entries owing a WHO did not grow and that gap can now only shrink.
+TAB:    NOT IN A TAB YET. MODE: RESEARCH. No engine code touched. Rule 14: never the demo.
+        Rule 15: no thumbs. Rule 18(b): research lanes continue, nothing near the four things.
+GATES:  pre-push pass GREEN, all eight, on the rebased tree -- economy 13/0, purse 28/0,
+        payday 40/0, attempt 15/0, canon rot 13/0, demo blockers 22/0, language 83/0,
+        handoff 8/0. Full suite: 107 red at ad23d875, mine are: none. The suite line has not
+        moved since 9/14, so that sentence is seven rounds old.
+
+THE FINDING THAT PROVES US WRONG: the row asks WHO STILL SENDS THE BILL. In the real record
+NOBODY DOES, and that is the whole effect. The billing is the part of an institution that
+survives it: cheap, automatic, nobody's hand on it. An office that cannot deliver water,
+generate power or read a meter still makes paper.
+
+*** AND OUR GAME HAS THE OPPOSITE PREMISE BUILT ALL THE WAY DOWN AND NOBODY HAS EVER WRITTEN
+IT DOWN. NOTHING IN THIS GAME ARRIVES. *** Every cost is one of two things: something of
+yours burning down, or somebody standing in front of you. Measured:
+  THE FOUR UPKEEP VERBS ARE FROZEN AND ALL FOUR ARE CONSUMPTION --
+    day:ate "the people who depend on you ate" | fight:plate "the plate you wore at the bell
+    is spent" | night:power "every lit circuit you hold burned one" | ask:leaned "you leaned
+    on somebody". Read the subjects: they ate, it is spent, it burned, you leaned. NOT ONE IS
+    SOMEBODY CHARGING YOU. And upkeep() refuses a fifth in the ruling's own words:
+    {applied:false, reason:'NO_SUCH_VERB', about:'the four verbs are frozen; a fifth is a
+    design change, and design changes are Paolo's'}. So "can this game have a bill from
+    nowhere" was answered NO, BY CONSTRUCTION, and the answer sat in a return value nobody
+    had read.
+  THE ONE CHARGE WITH A SENDER IS rentOn AND THE SENDER IS ALIVE. Seed 7, 14 towns (round
+    47's control): Anarchists 2, Blues 3, Caravans 6, Cartel 8, total 19, EVERYTHING COSTS
+    ONE. And COLLECTOR is a person at a door: "SOMEBODY IS AT THE DOOR AND THEY ARE NOT HERE
+    FOR YOU".
+  THE FOLD HAS ALREADY RULED THE BILL CANNOT OUTLIVE ITS SENDER. 13 fields, 5 ruled, 8 draft;
+    debt is RULED and billDies() is true: "YOU DO NOT INHERIT A BILL, YOU INHERIT LESS AND
+    YOU INHERIT THE PEOPLE HE OWED, still standing there." A beautiful rule, and the exact
+    opposite of this row: our canon says the paper dies and the person survives.
+  THE PHONE READS SIX THINGS AND NONE OF THEM ARRIVE: deedLog, lit, prices, seats, built, min.
+
+*** AND THE DEAD SENDER'S BILL IS ALREADY IN THE CODE, IN ONE LINE, UNREACHABLE. *** rentOn
+looks a faction's tier up and FALLS BACK TO camp when it finds none, so a sender with no town
+still bills: Caravans fortress 6 blocks -> billed 6; the same faction with its town removed ->
+billed 2 AS A CAMP; a name in no list at all -> billed 2. Then the honest half: measured over
+TEN SEEDS, 4,610 BLOCKS, ZERO UNHELD AND ZERO HOLDERS WITH NO TOWN, because turf is derived
+from the town list. A DOOR ALREADY CUT AND NEVER OPENED, not a live bug, and the cheapest
+possible landing for round two.
+
+THE REAL RECORD HAS FIVE SHAPES AND THEY DISAGREE WITH EACH OTHER, WHICH IS THE USEFUL PART:
+  FLINT -- teeth without service. About $864 a year, roughly double the national average,
+    for water they could not drink; ~8,000 notices over $5m of two years' arrears; 21,000
+    liens placed against homes by one attorney's count.
+  DETROIT -- enforcement outliving solvency. ~$90m chased from ~90,000 delinquent customers,
+    26,000 shutoffs, up to 3,000 A WEEK, during the largest municipal bankruptcy in US
+    history; two UN special rapporteurs called it a human rights violation.
+  LEBANON -- the charge detaching from the service. Nov 2021 to Jan 2022 the median household
+    got TWO HOURS A DAY, about 10% of the day; the 2022 reform imposed A FIXED PAYMENT
+    REGARDLESS OF USAGE; ~40% of losses are theft, illegal connections and weak collection.
+  VENEZUELA -- the opposite failure, same institution. Rates frozen through hyperinflation,
+    electricity cost next to nothing, REAL BILLING REVENUE DOWN 83% 1999-2015. The paper
+    still comes and is a receipt for nothing.
+  GREECE -- the bill as the only channel left. The 2011 property levy was collected THROUGH
+    THE ELECTRICITY BILL, enforced by disconnection, targeting EUR 1.667bn in 2011; by Feb
+    2012, 1.5 MILLION BILLS PAST DUE and 250,000 past the 80-day cutoff threshold. When a
+    state can collect nothing else it collects through the wire, because the wire is the one
+    thing it can still take away. That is round 47 arriving from the other side.
+
+THE OTHER AISLE DISAGREES WITH ALL FIVE, AND THE DISAGREEMENT IS THE DESIGN. Read through the
+campaign layer he has named: its daily upkeep has no office in it anywhere. A man's wage rises
++2 a level and compounds (a level-11 Hedge Knight costs 91 a day, 122 at level 21); 2 food per
+man per day; 1 medicine per injury per day or it does not heal; 1 tool per 15 durability or
+the weapon is gone for good; miss the wage and men DESERT. EVERY DAILY DRAIN HAS A FACE, AND
+THE WAGE GROWS BECAUSE THE MAN GREW. A cost with nobody attached is not a mechanic to push
+against, it is weather. SO BOTH AISLES ARE RIGHT ABOUT DIFFERENT THINGS: THE DEAD
+INSTITUTION'S BILL IS NOT AN UPKEEP LINE AND NOT A COST. IT IS A PROP.
+
+THE SHAPE, AND IT IS A SHAPE NOT A NUMBER (round one is school; the row says two rounds):
+ - WHO STILL SENDS IT: nobody, and the moment it gets a sender it becomes rent, which we
+   already have and which is good.
+ - WHAT A HOUSEHOLD DOES: nothing, and keeps it anyway. Every real household paid a charge it
+   knew was wrong because the wire was the only thing the office could still take, or ignored
+   it until the paper carried a weapon, or watched it turn into litter. NONE OF THOSE IS A
+   TRANSACTION. So it costs ZERO, takes nothing, cannot be paid, cannot be argued with -- and
+   under EVERYTHING COSTS ONE a thing that costs nothing is the only honest way to hand him
+   something he cannot buy his way out of.
+ - WHAT IT PUTS ON THE PHONE: the one voice we do not have. WORDS Q27 measured 8 of 3,014
+   spoken lines name an institution at all (THEIR number, THEIR corpus, cited as a premise
+   under rule 12 and not re-run here). Rule 19(c) wants a mouth and a portrait; a dead office
+   has no mouth, which is exactly why the phone is where it belongs.
+ - THE ANALOG HORROR READ, ONE LINE, because 20(g) says a vibe not a thesis: a piece of paper,
+   correctly formatted, too calm, past due, for a service nobody has had in years, from an
+   office nobody can find. Nothing on it is scary. IT IS SCARY BECAUSE IT IS STILL WORKING.
+
+WHAT ROUND ONE DID NOT DECIDE, and round 38 is why this list exists: the number; whether the
+paper ever bites (Flint's lien and Detroit's shutoff are where it grows teeth, and that is a
+ruling about what kind of game this is); who the dead office was (canon, his); and whether
+rentOn's camp fallback is fixed or used (WORLD and FACTIONS own that file).
+
+THE PROBE THAT WAS WRONG TWICE, AND THE CONTROL THAT CAUGHT IT: my ground-holder probe printed
+ZERO HOLDERS on all ten seeds, twice, in two different ways. (1) holderOf(towns,x,y) takes the
+TOWNS ARRAY, not turf(), and returns {faction,...}; (2) blocksOf(m,cat) returns {n,id,blocks},
+not an array, and a block carries cx,cy not x,y, so the second cut read blocks.length as
+undefined and sampled nothing. BOTH PRINTED A TIDY TABLE OF ZEROS THAT READ EXACTLY LIKE A
+MEASUREMENT. What killed them was round 47's shipped control (576 of 576 cells held): zero is
+not a worse number than 576, it is an impossible one. Corrected: 4,610 blocks over ten seeds,
+0 unheld, and 478 blocks on seed 7 which is round 46's shipped number for the same valley. Two
+shipped numbers reproduced before any new one was believed. Fourth round running the control
+saved the finding; the kept-mistakes list is DAY 36 section 9, DAY 38 section 1, DAY 40
+section 7, DAY 44 section 7, DAY 47 section 7 and this.
+
+THE PROJECT-LEVEL HOLE, INSTANCE 33 (instance = round - 15; the 9/20 fold found the counter
+skipped thirty, so this is 33 not 34). This round's instance is the best-behaved one yet and
+it is the purse: upkeep() refuses an unknown verb and says why in the ruling's own words. A
+part that knows the edge of its own authority -- and it means the design question this row
+asks was already decided and written down, and it took a research round to find that out
+because no gate asks WHAT KINDS OF COST CAN EXIST.
+
 [PENDING Paolo] -- for the coordinator, one at a time:
   *** 1 TO 9 ARE RULED. The coordinator decided all nine on 9/13 under EVERYTHING IS
   A THUMB, in records/BOHEMIA_RULING_NINE_DEFAULTS_THE_ECONOMY_WAS_CARRYING_9_13_26.md.
@@ -775,19 +892,19 @@ for fun, not a thesis, so that is one line and not an essay.
      is the kind of change he should meet in play rather than read about. Nothing
      is blocked on it; WORLD can build it under his existing law.
 
-NEXT IN THIS LANE: QUEUE STILL EMPTY. Q1 through Q47 are all SHIPPED and the board has no
-OPEN line for ECONOMY. THIS LANE HOLDS until the coordinator puts one up; rule 10 forbids a
-lane inventing a job and that has not changed. THE PILE IS FOLDED AND CURRENT: any new round
-is read against records/BOHEMIA_ECONOMY_MASTER_WHAT_FORTY_FOUR_ROUNDS_FOUND_9_15_26.md, which
-now carries all 47 rounds, BOTH banners (the 9/16 correction and the 9/20 confirmation), six
-convergences, and a section on what rules 17 to 20 do to this lane. NOTHING IS OWED TO THE
-MASTER ANY MORE. If the queue is still empty next round, the honest candidates in order, none
-of them a job and all of them inside this lane's own output: (a) the 176 bank entries owe a
-WHO under rule 19 and a round could answer it for the ones a build lane is nearest to taking,
-(b) the master's section 4 lists four things sitting with other lanes and nobody has been told
-they are there, (c) nine of the thirty-three pendings have been carried for over thirty rounds
-and a pass that says which are now answered by rulings already made would shorten the list the
-coordinator carries to him.
+NEXT IN THIS LANE: ROUND TWO OF Q48 [who still bills], AND THE CLAIM IS STILL ON THE BOARD.
+The row says two rounds, school then the number, and round one is the school. ROUND TWO COSTS
+IT: what the paper says (with WORDS Q27 round two, which writes the first notice and is
+running beside this), how often one turns up, whether it ever carries a weapon, and whether
+the door round one found -- rentOn's camp fallback, which already bills a sender with no town
+and which nothing reaches today -- is the landing or whether the paper is a separate object
+with no charge behind it at all. THE ONE RULE FOR ROUND TWO IS ROUND 38'S: that round had the
+mechanism measured in its own section 1 and shipped a number anyway, and the number broke his
+tutorial. The shape in section 4 of the round 48 record is the mechanism. Cost it, do not
+re-derive it, and do not hand WORLD a number the record does not carry.
+Read against records/BOHEMIA_ECONOMY_MASTER_WHAT_FORTY_FOUR_ROUNDS_FOUND_9_15_26.md, which
+carries all 47 earlier rounds, both banners and the six convergences. Round 48 is not folded
+into it yet; fold it when the row closes, not between its two halves.
 
 
 ================================================================================

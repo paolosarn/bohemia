@@ -46,6 +46,10 @@
 #      THE PHONE, not to the graveyard. QQ2 was already written for the phone.
 #   4. NOBODY IN BOHEMIA IS WISE still governs every line (VOICE CARD 8/26), and
 #      naming the speaker never turns a line into narration.
+#
+#   COUNT, KEPT CURRENT: 658 entries when this block was written (9/20). 670 after
+#   round 48 added twelve, all twelve in the role-place format above, so the bullet
+#   count is unchanged at 176 and the gap can now only shrink.
 
 ## A. THE SELLER HAS A VIEW ABOUT TOMORROW
 ## (the finding of the day: a refusal, not a price. Every line buys a beat
@@ -3765,4 +3769,68 @@ YYYYYYY3 somebody who will not ask for it back draft:true
 - No line shows anybody taking the pump by force. Nobody in the real record seizes
   one, and a bank line that did would argue with its own source.
 - Spanish register: 1 of 16 lines, 6%, under the 15% he set on 8/26. One word
+  inside an English sentence, not respelled, counted while written.
+
+## EEEEEEEEEE. THE PAPER THAT STILL COMES
+## (round 48, [who still bills]. Nobody sends it. Every line is written in the
+##  ROLE, PLACE, SITUATION format this file's rule 19 contract binds from now;
+##  the bare bullet is retired. Same rules: draft:true, none in the game, no
+##  game named, no faction named, no street named, no number spoken.)
+
+EEEEEEEEEE1  old woman, her own doorway, holding it              draft:true
+    "It still comes. Same week every month, still comes."
+
+EEEEEEEEEE2  her neighbour, the same doorway, not taking it      draft:true
+    "Put it with the others."
+
+EEEEEEEEEE3  a son, his mother's kitchen, reading it out         draft:true
+    "It says we're past due. Past due to who, is the thing."
+
+EEEEEEEEEE4  a man who used to work there, on the step           draft:true
+    "I know the paper. I know the machine that makes the paper.
+     Nobody's touched that machine in a long time."
+
+EEEEEEEEEE5  a young mother, the water line, asked why she keeps them  draft:true
+    "Because one day somebody comes for it, and I'll have every one."
+
+EEEEEEEEEE6  a teenager, the same line, unimpressed              draft:true
+    "Nobody's coming."
+
+EEEEEEEEEE7  a man at a stall, handed one, handing it back       draft:true
+    "That's not money and it's not a claim. It's just true."
+
+EEEEEEEEEE8  the woman who runs the stall, after he leaves       draft:true
+    "He's wrong about one of those."
+
+EEEEEEEEEE9  an old man, in the shade, about the fixed charge    draft:true
+    "Two hours of it a day, and they never changed what they asked."
+
+EEEEEEEEEE10  his daughter, beside him, flat                     draft:true
+    "They didn't have to. It was already printed."
+
+EEEEEEEEEE11  a lineman, at a door, not there about the paper    draft:true
+    "No, I'm not from them. There's no them, hermano. I'm here about the wire."
+
+EEEEEEEEEE12  a woman who lost a house to one, years back        draft:true
+    "The paper was the last thing that worked. That's what nobody believes."
+
+## FFFFFFFFFF. WHAT IS NOT HERE, ON PURPOSE (round 48)
+
+- No line contains a number, a price, an amount, a date or a count of days. The
+  round is built almost entirely of numbers and not one is spoken.
+- No line uses the words bill, utility, account, arrears, lien, notice,
+  disconnection, institution or authority. It is said as it, the paper, them,
+  the machine, past due.
+- No line explains that the office is gone, why the billing outlived it, or what
+  a lien is. Nobody in Bohemia is wise; EEEEEEEEEE4 gets closest and stops at
+  the machine.
+- No line names a faction, a street or a town. MAP LAW.
+- No line has the player speaking, and no line tells him what to do with one.
+- No line decides that the paper ever bites, that anything can be taken for it,
+  or what it costs. Section 5 refused all three and a bank line that assumed one
+  would argue with its own record.
+- No line is written for a card or a readout: rule 19(a). Every one of the twelve
+  names WHO is talking and WHERE they are standing, which is the format the
+  contract at the top of this file now requires of every future entry.
+- Spanish register: 1 of 12 lines, 8%, under the 15% he set on 8/26. One word
   inside an English sentence, not respelled, counted while written.
