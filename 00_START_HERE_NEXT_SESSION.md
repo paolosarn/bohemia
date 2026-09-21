@@ -14866,6 +14866,68 @@ THIS LANE'S ROLE, FIXED: 16 COOK, the production artist.
 THIS LANE'S SESSION SLUG: cook-mce6r5.
 
 
+COOK (cook-mce6r5): 9/21 LATEST (2) -- *** THE EDGE OF EVERY FIGHT WAS ONE PICTURE
+REPEATED FOURTEEN TIMES, BECAUSE THE POOL HAD ONE TILE IN IT. NOW IT HAS EIGHT. ***
+THE FIGHT VERDICT round 2 posted, and my round 1 floor is in it: "WHAT GOT BETTER AND
+STAYS: the floor is a street now... round 1's biggest liar (the blurred cold slabs) is
+substantially paid." Of the new five, items 1 and 2 and the light are COMBAT's, 3 and 4
+are UI's, and ITEM 5 IS THE ONLY ONE THAT IS ART. I drew that and stopped.
+THE THING: kerbL and kerbR 1 -> 8 pictures, gutterL and gutterR 1 -> 4, folded into
+banks/BOHEMIA_THE_FIGHT_FLOOR_9_21_26.txt (now 66 images at 44 px and 66 at 88).
+WHERE HE SEES IT: the VOTE tab, cook-the-edge-that-drums-9-21, picture
+slices/vote/COOK_THE_EDGE_THAT_DRUMS.png. Tool:
+tools/bohemia_the_edge_that_drums_cook_9_21_26.py. Record:
+records/COOK_THE_EDGE_THAT_DRUMS_9_21_26.md. NOTHING TO THE ALPHA OR THE DEMO.
+  the strip down the side of a fight, 14 rows deep
+  before: 1 picture, the same tile 14 times in a row
+  after:  8 pictures, longest run of the same tile: 1
+
+RULE 12, AND THE CAUSE IS EXACT RATHER THAN A FEELING. The fight picks with h%n and spins
+only what is in ST_SPIN. Counted off the shipped COMBAT_B64, how many different pictures a
+column can EVER show: road 32, walk 32, lot 16, yard 16, slab 8, house 7, wall 4, median 3,
+lane 2, *** kerbL 1, kerbR 1, gutterL 1, gutterR 1 ***. The street west to east is walk walk
+kerbL gutterL lane road road road median road road road lane gutterR kerbR walk walk, so a
+frame showing the west kerb shows ONE PICTURE FOURTEEN ROWS DEEP. Not a hash bug, not a
+distribution bug: AN EMPTY POOL.
+
+NO NEW PIXEL WAS DRAWN. TWO CONSTRUCTIONS, BOTH HIS.
+ *** THE KERB IS A SIDEWALK WITH A LIP, AND IT IS MEASURED, NOT ASSUMED: *** walk_kerb is
+byte-identical to walk_0 on rows 0-37 and differs on rows 38-43 only, 220 pixels of 1,936.
+So "a sidewalk plus this lip" IS the construction he approved, and giving that same lip to
+his other sidewalks is the identical operation on a sibling. Eight fields: bank walk_0/1/2
+and five of the city's 36 side tiles (same concrete ramp plus the weed accents the 7/28
+method allows). The tool REFUSES TO RUN AT ALL if that row test ever stops holding.
+ THE GUTTER HAS NO SIBLING, SO ITS FIELD IS REARRANGED AND NEVER REPLACED. road_gutter
+differs from every road tile on every row and its field is darker BECAUSE IT SITS IN THE
+KERB'S SHADOW, which is the whole point of the tile; swapping in a plain road would throw
+the shadow away. His band rows 0-5 stay exactly where he put them and the field is mirrored,
+gated on the field being isotropic: quadrant spread 3.3 on rows 6-43 against plain road at
+2.8-4.0, so there is no light in it to flip.
+
+*** THE ELEVENTH CATCH, AND THE TOOL CAUGHT IT ON ITSELF. *** The first run refused with
+"gutter field mirrored left-right came out identical to another variant". Image.FLIP_LEFT_RIGHT
+IS THE INTEGER 0, so `if op:` silently skipped the mirror and handed back the tile unchanged
+-- a duplicate would have shipped as a "variant" that adds no picture, in a cook whose whole
+purpose is adding pictures. Compare to None, never to truth. FOR EVERY LANE: a Pillow
+transpose constant is falsy and so is every other enum that starts at zero.
+
+SAID ONCE AND NOT RE-COOKED. Verdict item 1 is "THE LIGHT DOES NOT CARRY... the walk is warm
+daylight, the fight is cold blue-grey", routed to COMBAT. Half of it is art and it is already
+made: the fight's road and walk on main are STILL the pre-recook grey tiles, 734-1,478
+colours each, while the street he walks is warm and 7. The warm bank has been in VOTE since
+db792724, and round 1's and round 2's tiles are in the SAME FILE, so whenever COMBAT points
+the fight at it both fixes land together. Not a request, not a re-cook, one line.
+
+NOT DONE: lane (2 pictures) and median (3) carry a marking that must stay continuous down the
+column, so their variants are a different problem and the verdict named the EDGE strip. The
+lot layout, the cell size, the light and the chrome are not this lane's.
+
+THE VOTE REGISTRY IS NOW A SHARED FILE THREE OR FOUR LANES WRITE EVERY ROUND and it conflicts
+on almost every rebase. Resolve it by taking the UPSTREAM copy and APPENDING yours, then
+assert every id that was there is still there before you write it. Mine did twice this
+round: 18 -> 19, then 41 -> 42, nobody lost. Same shape as the handoff rule: never delete
+another lane's block, and the newest block is the TOPMOST one.
+
 COOK (cook-mce6r5): 9/21 LATEST -- *** I COOKED. THE FIGHT'S WHOLE GROUND BANK, 46 TILES,
 REBUILT OUT OF ART HE HAS ALREADY APPROVED, AND IT IS THE TOP ITEM IN THE VOTE TAB. ***
 Rule 22 (Paolo 9/21) killed "measure your part" as a round's whole output; last round was

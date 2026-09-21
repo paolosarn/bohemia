@@ -316,19 +316,6 @@
    }
   },
   {
-   "id": "cook-the-ground-you-fight-on-9-21",
-   "kind": "tile",
-   "lane": "cook",
-   "sha": "df8dd14d",
-   "made": "9/21",
-   "title": "THE GROUND YOU FIGHT ON",
-   "why": "The fight was drawing the grey street from before it was fixed. This is the same board on the street you actually walk, plus the kerb and gutter you approved and nothing has ever drawn. Same layout, only the pictures on the ground changed. Good, or keep looking?",
-   "show": {
-    "how": "image",
-    "src": "vote/COOK_THE_GROUND_YOU_FIGHT_ON.png"
-   }
-  },
-  {
    "id": "world-the-first-notice-9-21",
    "kind": "line",
    "lane": "world",
@@ -612,6 +599,32 @@
    "show": {
     "how": "image",
     "src": "vote/DIRECTION_FIGHT_VERDICT_ROUND_3.png"
+   }
+  },
+  {
+   "id": "cook-the-ground-you-fight-on-9-21",
+   "kind": "tile",
+   "lane": "cook",
+   "sha": "370820aa",
+   "made": "9/21",
+   "title": "THE GROUND YOU FIGHT ON",
+   "why": "The fight was drawing the grey street from before it was fixed. This is the same board on the street you actually walk, plus the kerb and gutter you approved and nothing has ever drawn. Same layout, only the pictures on the ground changed. Good, or keep looking?",
+   "show": {
+    "how": "image",
+    "src": "vote/COOK_THE_GROUND_YOU_FIGHT_ON.png"
+   }
+  },
+  {
+   "id": "cook-the-edge-that-drums-9-21",
+   "kind": "tile",
+   "lane": "cook",
+   "sha": "370820aa",
+   "made": "9/21",
+   "title": "THE EDGE THAT DRUMS",
+   "why": "The strip down the side of every fight was ONE picture repeated fourteen times, because the pool had one tile in it. Now it has eight. No new art: the kerb you approved is one of your sidewalks with a lip on the bottom rows, so I gave that same lip to your other sidewalks. Better, or leave it?",
+   "show": {
+    "how": "image",
+    "src": "vote/COOK_THE_EDGE_THAT_DRUMS.png"
    }
   }
  ],
