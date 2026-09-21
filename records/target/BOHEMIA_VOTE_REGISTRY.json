@@ -1068,6 +1068,21 @@
     "how": "page",
     "src": "BOHEMIA_THE_MARK_ON_THE_WALL_9_22_26.html"
    }
+  },
+  {
+   "id": "animation-the-hand-reaches-the-face-9-21",
+   "kind": "animation",
+   "lane": "animation",
+   "sha": "PENDING",
+   "made": "9/21",
+   "title": "THE HAND REACHES THE FACE",
+   "why": "Five of the ones you killed have the same thing wrong and you named it yourself. His hand never actually gets to his face, and it lands somewhere different every time he turns, because all five were aiming with the helper the GUN clips use. His head is 22 pixels tall and his hand was about 20 pixels away from it. Redone: 9 pictures out of 40 read right before, 33 now. Not in the game yet, on purpose, because putting them in cuts his head off his body in profile.",
+   "show": {
+    "how": "page",
+    "src": "vote/ANIMATION_THE_HAND_REACHES_THE_FACE.html"
+   },
+   "redoOf": "eat, drink, smoke, cough and whistle",
+   "said": "a lot of them are good, a lot of them aren’t good... some of the DIRECTIONS look like dog shit: when it’s facing north-east the hand was behind the head even though it’s supposed to be in front. IF I KILLED IT I DON’T WANT IT GONE. Make a new one."
   }
  ],
  "verdicts": []

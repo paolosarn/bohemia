@@ -1,0 +1,87 @@
+<!doctype html><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>BOHEMIA — The Hand Reaches The Face</title>
+<!-- ANIMATION, [redo killed]. Five of the clips Paolo killed on 9/7 share one
+     defect and it is his own sentence: the hand never gets anywhere near the
+     face, and it lands somewhere different in every direction. Redone against a
+     target taken from the head instead of from the chest. -->
+<style>
+  :root{--ink:#e8e0cc;--bg:#0d0d12;--card:#16161d;--line:#33313d;--gold:#c79a3f}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+       font:13px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace;padding:14px}
+  h1{font-size:13px;letter-spacing:2px;margin:0 0 4px;color:var(--gold)}
+  p{margin:0 0 12px;color:#a49a86;max-width:60ch}
+  .said{border-left:2px solid var(--line);padding:6px 0 6px 10px;margin:0 0 14px;color:#8d8478}
+  .clip{background:var(--card);border:1px solid var(--line);border-radius:6px;
+        padding:8px;margin-bottom:10px}
+  .name{font-size:11px;letter-spacing:2px;color:var(--gold);margin-bottom:6px}
+  .pair{display:flex;gap:10px;flex-wrap:wrap}
+  .side{flex:1 1 150px}
+  .lab{font-size:10px;letter-spacing:1px;margin-bottom:4px}
+  .killed{color:#9a6b6b}.new{color:#7fa06b}
+  .grid{display:flex;gap:3px;flex-wrap:wrap}
+  .cell{width:56px;height:56px;image-rendering:pixelated;background:#101319;border-radius:3px}
+  .cap{font-size:9px;color:#6f6862;text-align:center;width:56px}
+  table{border-collapse:collapse;margin-top:12px;font-size:12px;width:100%}
+  td,th{border:1px solid var(--line);padding:4px 6px;text-align:left}
+  th{color:var(--gold);font-weight:normal}
+  .note{margin-top:12px;color:#6f6862;max-width:60ch}
+</style>
+<h1>THE HAND REACHES THE FACE</h1>
+<p>Five of the ones you killed have the same thing wrong with them, and you said
+it yourself. His hand never actually gets to his face, and where it ends up is
+different in every direction.</p>
+<div class="said">You said: "some of the directions look like dog shit: when it's
+facing north-east the hand was behind the head even though it's supposed to be in
+front." That was two problems wearing one coat. The drawing order half got fixed.
+This is the other half, and it was worse.</div>
+<p>All five were aiming with the same helper the GUN clips use: a point pushed out
+in front of his chest. That is right for a pistol held out and wrong for a hand at
+your mouth, and because the push follows whatever way he is facing, it lands
+somewhere different every time he turns. His head is 22 pixels tall. His hand was
+never closer than 10 pixels to his own face and was usually about 20 away, which
+is a whole head.</p>
+<div id="clips"></div>
+<table>
+  <tr><th>counted off these exact pictures</th><th>killed</th><th>redone</th></tr>
+  <tr><td>pictures where the hand reads at the face</td><td>9 of 40</td><td>33 of 40</td></tr>
+  <tr><td>how close the hand gets, best case</td><td>10.7px</td><td>3.9px</td></tr>
+  <tr><td>directions that still do not work</td><td>-</td><td>facing away, plus two</td></tr>
+</table>
+<p class="note">Facing straight away from you it still does not work, and I know
+exactly why: from behind, his hand at his mouth really is hidden behind his own
+head, so the game never draws it. Fixing that means telling the drawing order that
+this is a hand-at-the-face clip, which is the next piece of work, not a nudge.
+One picture got worse: drink, facing left. It is on the list.</p>
+<p class="note">These are not in the game yet and that is on purpose. Putting them in breaks a different rule we already have: in profile his forearm comes across his throat and cuts his head off his body, which went from 15 bad frames to 22. Both problems are the same missing piece, so I am fixing that piece next instead of shoving these in and breaking something you already approved.</p>
+<script>
+(function(){
+  var SRC='ANIMATION_THE_HAND_REACHES_THE_FACE.png';
+  var CLIPS=['EAT','DRINK','SMOKE','COUGH','WHISTLE'];
+  var DIRS=['S','SE','E','NE','N','NW','W','SW'];
+  var host=document.getElementById('clips');
+  CLIPS.forEach(function(name,ci){
+    var d=document.createElement('div'); d.className='clip';
+    var n=document.createElement('div'); n.className='name'; n.textContent=name;
+    d.appendChild(n);
+    var pair=document.createElement('div'); pair.className='pair';
+    [['KILLED','killed',ci*2],['REDONE','new',ci*2+1]].forEach(function(spec){
+      var side=document.createElement('div'); side.className='side';
+      var l=document.createElement('div'); l.className='lab '+spec[1]; l.textContent=spec[0];
+      var g=document.createElement('div'); g.className='grid';
+      DIRS.forEach(function(dir,i){
+        var wrap=document.createElement('div');
+        var c=document.createElement('div'); c.className='cell';
+        c.style.backgroundImage='url('+SRC+')';
+        c.style.backgroundSize=(DIRS.length*56)+'px auto';
+        c.style.backgroundPosition=(-i*56)+'px '+(-spec[2]*56)+'px';
+        var cap=document.createElement('div'); cap.className='cap'; cap.textContent=dir;
+        wrap.appendChild(c); wrap.appendChild(cap); g.appendChild(wrap);
+      });
+      side.appendChild(l); side.appendChild(g); pair.appendChild(side);
+    });
+    d.appendChild(pair); host.appendChild(d);
+  });
+})();
+</script>

@@ -5028,6 +5028,87 @@ archive escape built in from the start so [handoff cut] is unblocked rather than
 THE WARNING FOR EVERY LANE: do not write this file from a copy you read at the start of your round.
 Re-read it immediately before you edit, and check your own block is still there after any rebase.
 
+ANIMATION (animation-lr9y9i): 9/22 (a) LATEST -- *** FIVE KILLED CLIPS REDONE AND
+IN VOTE, AND DELIBERATELY NOT IN THE ALPHA. The hand never reached the face: 9 of
+40 pictures read right, 33 now. TAB: VOTE. ***
+
+[redo killed] continues. Batch two is eat, drink, smoke, cough and whistle.
+
+=== ONE HELPER USED FOR THE WRONG JOB, AND IT IS HIS OWN SENTENCE
+Paolo 9/7: "some of the DIRECTIONS look like dog shit: when it's facing north-east
+the hand was behind the head even though it's supposed to be in front." That was
+TWO PROBLEMS WEARING ONE COAT. The draw-order half was fixed 9/13. The other half:
+ALL FIVE AIMED WITH gunT, THE GUN TARGET -- the chest point pushed FORWARD along
+the facing. Right for a pistol held out, wrong for a hand at the mouth, and because
+the push follows the facing it lands somewhere different every time he turns.
+The head is 18 px crown to neck. The hand never came closer than 12.9 px and was
+usually about 20. A WHOLE HEAD AWAY, in every single direction, on all five.
+
+=== TWO RULERS DISAGREED AND BOTH WERE RIGHT. THAT IS THE FINDING.
+The JOINT ruler scored the redo 2.9 px from the mouth on north-east, its best cell
+of forty. The PICTURE ruler -- buildFrame's part id under every drawn pixel, so it
+measures what is on screen -- said 45. The picture showed an arm reaching past the
+head with no hand near it.
+Facing away, a hand at the mouth is BEHIND the skull, the compositor is first-wins,
+and the reaching hand is never drawn at all; the only hand pixels left in the frame
+are the resting one at the hip. A DISTANCE BETWEEN TWO JOINTS CANNOT SEE WHAT IS IN
+FRONT OF WHAT. Tenth ruler of this family this lane has thrown away, and the only
+reason it was caught is that a picture was looked at after the numbers came back
+good.
+
+=== THE REDO, ON THE PICTURE RULER
+    pictures where the hand reads at the face    9 of 40  ->  33 of 40
+    closest the hand ever gets                    10.7px  ->   3.9px
+    still not reading      facing N on all five, plus drink/W and smoke/SW
+    regressed                                   drink/W, 16.7 -> 49
+
+=== AND IT IS NOT IN THE ALPHA, BECAUSE IT COSTS A LAW WE ALREADY HAVE
+NECK HOLDS HEAD (9/18) goes from 15 detached frames to 22 with the redo in. EVERY
+NEW ONE IS FACING EAST: the forearm that reaches the mouth in profile passes over
+the throat, which is the one thing that law exists to stop.
+AND IT CANNOT BE NUDGED OUT. Raising the hand so the arm arrives under the jaw made
+BOTH numbers worse: 24 detached and 31 of 40. Three heights and three target shapes
+were tried. STOP PRODUCING, 7/26: a third version means the attempt is wrong, so it
+is named instead of nudged a fourth time.
+
+=== BOTH HALVES WANT THE SAME MISSING PIECE, AND THE SHAPE ALREADY EXISTS HERE
+The back views vanish because the hand draws behind the skull. The profile views
+cut the head off because the forearm draws over the neck. BOTH ARE DRAW ORDER.
+A CLIP THAT BRINGS A HAND TO THE FACE SHOULD DECLARE IT, the way a gun clip
+declares _gun, and handOrder should order that arm-unit and the neck off the flag.
+A flag is constant for the whole clip, so unlike the two rules retired on 7/26 it
+cannot flip mid-swing, and unlike reading the pose it cannot disagree with itself
+between phases. THAT IS THE NEXT ROUND OF THIS ROW, and it unlocks both.
+
+=== SO WHAT SHIPPED AND WHAT DID NOT
+SHIPPED: the vote page and sheet (rendered from the real build, both halves), the
+gate, the record with the code verbatim, and the board.
+NOT SHIPPED: the alpha. It is byte-untouched. NEVER SHIP RED is absolute and this
+would have taken a green law red to land a nicer-looking clip.
+
+=== THE GATE
+gates/the_hand_reaches_the_face_gate.js, NEW, in the suite as HAND TO FACE. It SAYS
+the redo is not in the build rather than going red over a thing nobody shipped, and
+it holds the ratchet (33 of 40, may only go up) from the round the flag lands. Two
+mutations caught. THE FIRST CUT OF ITS CONTROL WAS VACUOUS: it asked whether ANY
+cell was away from the face, and a build with the hand welded to the head still
+scored 10 away, because the back views are occluded whatever the pose does. It asks
+the REST PHASE now: 21 of 32 cells travel, 0 of 32 with the weld in.
+NECK HOLDS HEAD 8/0 on the tree being pushed (it is 6/2 with the redo in, which is
+the whole reason the redo is out). VOTE TAB 28/0. Rule 13: pre-push pass green;
+full suite 107 red at ad23d875, none named as mine.
+
+=== STILL TRUE, UNCHANGED
+- [tape skip] shipped 9/21: the walk is a tape skip, filmed frame by frame.
+- HC 11 is the one walk camera; one lot is 275 px there.
+- The fight gets 112 and the street gets 56; CAST_PX stays 56.
+- A weight shift over planted feet is not expressible on this rig.
+- The standalone city page has NO player sprites; bodies are posted in from the
+  alpha, so any body measurement runs on the alpha.
+- PAGES PUBLISH was over its 260 MB cap on clean main last round. Not re-checked.
+
+Nothing [PENDING Paolo].
+
 ANIMATION (animation-lr9y9i): 9/21 (d) LATEST -- *** [tape skip] IS SHIPPED. THE
 WALK IS FILMED FRAME BY FRAME ON THE PIXELS THE GAME DRAWS: 2 of 60 frames move
 the world, against 20 for the old slide. Cooked THE TURN into VOTE. ***
