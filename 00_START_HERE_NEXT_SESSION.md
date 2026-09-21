@@ -16588,6 +16588,70 @@ THIS LANE'S ROLE, FIXED: 16 COOK, the production artist.
 THIS LANE'S SESSION SLUG: cook-mce6r5.
 
 
+COOK (cook-mce6r5): 9/21 LATEST (4) -- *** THE STRATOSPHERE IS DRAWN. SIX UNDRAWN LANDMARKS
+-> FIVE. *** THE FIGHT VERDICT round 4 passed my edge fix and says in its own words
+"nothing new for COOK on the fight this round" -- the three lies left there are COMBAT's and
+UI's. Rule 22 says a making lane cooks anyway, so the round went to this lane's own top open
+row, [seven landmarks]: the overmap names seven singular Las Vegas landmarks and NOTHING CAN
+BUILD SIX OF THEM, so walking to any one finds bare ground. Round 3 drew the Welcome sign.
+This is the tallest thing in the valley and the one you orient by from anywhere in it, which
+is why it was next.
+THE THING: banks/BOHEMIA_THE_STRAT_9_21_26.txt -- one cell, 96 m, 16,384 valley tiles,
+sixteen legend codes, palette + legend + notes + build source, rendered through the game's
+OWN planner so the picture is the real plan and not a mock-up. WHERE HE SEES IT: the VOTE
+tab, cook-the-tower-still-standing-9-21, picture
+slices/vote/COOK_THE_TOWER_STILL_STANDING.png. Tool:
+tools/bohemia_the_tower_still_standing_cook_9_21_26.js. Record:
+records/COOK_THE_TOWER_STILL_STANDING_9_21_26.md. NOTHING TO THE ALPHA OR THE DEMO --
+engine/bohemia_landmarks.js IS the walked world, so the block drops in in one paste when the
+hold lifts.
+
+MAP LAW HELD BY MEASUREMENT, NOT BY CARE: strat sits at 53,28 and the tool READS ITS 3x3 OFF
+A GENERATED MAP BEFORE IT DRAWS A LINE, and refuses to run if the arterial ever moves.
+  arterial  arterial  arterial
+  downtown  STRAT     arterial
+  strip     resort    resort
+Arterial the whole north edge and the east, downtown west, Strip south-west, resort south.
+That is exactly where the real one is: the north end of the Strip where the boulevard meets
+Sahara. A cell is 96 m and 128 tiles, so one tile is 0.75 m (measured off
+engine/bohemia_overmap.js, not assumed). The real podium is bigger than one cell, so the
+cell holds the TOWER AND ITS OWN APRON -- the same call round 3 made for the sign.
+
+*** THE SHADOW IS THE WHOLE IDEA AND IT TOOK THREE GOES, EACH ONE CAUGHT BY LOOKING. ***
+From directly above you CANNOT SEE that a thing is 350 m tall: the tower is a circle and the
+pod is a wider circle. The shadow is the only thing that can say it.
+ V1 A CONE. It spread as it went and swallowed a quarter of the plot. It read as a dark
+stain, not a shadow. No number said so; the picture did.
+ V2 THE RIGHT SHAPE, INVISIBLE. A cylinder's shadow is a BAR OF ITS OWN WIDTH with the pod's
+wider ellipse further along the same bar. Correct -- and the podium then filled the whole
+east side, so THE SHADOW HAD NOWHERE TO FALL (it only paints on ground, because a shadow
+falls on the ground and a podium is three storeys above it). The render came back with the
+idea of the plot hidden behind its own building.
+ V3 THE TOWER MOVED to the podium's north-east corner, hard by the boulevard, which is where
+the real one is. Open ground and a road east of it now, and the shadow crosses both and
+leaves the cell. Three versions of ONE ELEMENT; the fourth would have been the tell and
+there was no fourth.
+
+THE BIBLE (rule 20, AH-01). R1 THE ORDINARY FRAME ONE WRONG THING: a car park, a casino
+roof, a road, a pool -- and a shadow longer than the block thrown by something with no light
+in it. The wrong thing in one sentence: the tallest object in the valley casts a shadow and
+shows nothing. R4 THE LIGHT WAS IN THE ROOM: the fixture is the sun and it agrees with every
+other tile; round 3's own words are the rule followed here, "THE SHADOW GOES EAST, because
+every other tile in this game is lit from the same corner". R10: a plan of codes, nothing
+shaded at runtime.
+
+DESERT DOMINANCE LAW TUNED TO ITS OWN NUMBER: the first cut put the rock lag at 32% of the
+open desert against a law that wants one dominant at 85%. Now 90%, AND THE TOOL REFUSES TO
+WRITE BELOW 80% so it cannot drift back. It also refuses if any code has no legend entry, if
+any legend entry is drawn by nothing, or if the map stops putting an arterial on the north
+edge.
+
+AND A SMALL ONE FOR EVERY LANE WRITING A NODE TOOL: console.log DOES NOT DO printf PADDING.
+My first run printed the format string itself ("%-18s %6.2f%") instead of a table. Pad by
+hand.
+
+FIVE LANDMARKS LEFT UNDRAWN: sphere, highroller, luxor, springs, robofactory.
+
 COOK (cook-mce6r5): 9/21 LATEST (3) -- *** THE PAINTED LINES DRUMMED TOO, AND ITEM 5 IS
 FINISHED. lane 2 -> 8 pictures, median 3 -> 9, THE PAINT HIS PIXEL FOR PIXEL. ***
 THE FIGHT VERDICT round 3 passed this lane's floor bank ("the fight's whole ground bank is
