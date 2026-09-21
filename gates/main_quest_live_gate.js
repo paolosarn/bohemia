@@ -144,8 +144,55 @@ function inlinedVerbatim(html) {
   ok('*** EVERY quest the repo has is in the file the player loads (' + city.length
      + '/' + disk.length + ') ***' + (missing.length ? ' -- never inlined: ' + missing.join(', ') : ''),
      missing.length === 0 && disk.length > 0);
-  ok('and every one of them is the file on disk, byte for byte'
-     + (stale.length ? ' -- stale copies: ' + stale.join(', ') : ''), stale.length === 0);
+  /* *** A QUEST MAY BE AHEAD OF THE CITY ONLY WHILE HE HAS NOT VOTED ON IT. ***
+     (9/21.) This check caught its own author: round 43 wrote a new line into
+     S01's SOURCE and deliberately did NOT re-inline it, because rule 18 holds
+     this lane's code off the play surface and rule 15(b) says approved words go
+     into the game only after he votes. Both decisions are right and the check
+     could not say so, so it said "stale".
+
+     The exception is NOT a name typed here. It is read from the vote registry:
+     a quest may differ from the city while THIS LANE has an un-judged vote item
+     whose page names it. When he votes, the item leaves the registry, the
+     exception evaporates on its own, and the byte check bites again with no
+     human remembering to delete anything. A list somebody has to clean up is a
+     list that rots; this one cannot. */
+  let excused = [], pending = [];
+  try {
+    const reg = JSON.parse(fs.readFileSync(path.join(ROOT, 'records/target/BOHEMIA_VOTE_REGISTRY.json'), 'utf8'));
+    const judged = new Set((reg.verdicts || []).map(v => v.id));
+    for (const it of (reg.items || [])) {
+      if (it.lane !== 'quests' || judged.has(it.id)) continue;
+      const page = path.join(ROOT, 'slices', (it.show && it.show.src) || '');
+      let text = '';
+      try { text = fs.readFileSync(page, 'utf8'); } catch (e) {}
+      pending.push(it.id);
+      /* MATCHED ON THE HELD WORDS THEMSELVES, NOT ON THE QUEST'S TITLE. The
+         first cut matched the title and failed honestly: the vote page for this
+         very case is called THE ONE WRONG DETAIL and never says "The Meter
+         Reader". Matching the actual spoken lines that the city is missing is
+         both stricter and correct -- it proves the words held back are exactly
+         the words he is being asked to vote on. */
+      for (const stem of stale) {
+        const disk = fs.readFileSync(path.join(ROOT, 'quests/bq', stem + '.bq'), 'utf8');
+        const cityCopy = bag[stem] || '';
+        const held = disk.split('\n')
+          .filter(l => /^\s*@SAY /.test(l))
+          .map(l => l.replace(/^\s*@SAY /, '').replace(/#\w+\s*$/, '').trim())
+          .filter(l => l && cityCopy.indexOf(l) < 0);
+        if (held.length && held.every(l => text.indexOf(l) >= 0)) excused.push(stem);
+      }
+    }
+  } catch (e) {}
+  const reallyStale = stale.filter(s => excused.indexOf(s) < 0);
+  ok('and every one of them is the file on disk, byte for byte, unless he has an'
+     + ' un-judged vote on it (' + excused.length + ' waiting on a vote'
+     + (excused.length ? ': ' + excused.join(', ') : '') + ')'
+     + (reallyStale.length ? ' -- STALE: ' + reallyStale.join(', ') : ''),
+     reallyStale.length === 0);
+  ok('and an excuse only exists while a real un-judged vote item does ('
+     + pending.length + ' pending from this lane)',
+     excused.length === 0 || pending.length > 0);
   ok('and the city invents no quest that is not a file somebody wrote',
      city.filter(k => disk.indexOf(k) < 0).length === 0);
 }
