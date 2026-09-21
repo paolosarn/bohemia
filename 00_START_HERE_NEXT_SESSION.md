@@ -19170,7 +19170,80 @@ RIGHT NOW: (a) write this whole instruction, word for word, into your own handof
 
 I will never paste anything to you again. From here on, the one word is the whole instruction.
 
-THIS ROUND -- *** COOKED: A KID AND SOMEBODY WHO GOT OLD HERE, IN VOTE. AND TWO SHEETS
+THIS ROUND -- *** COOKED: A SHORT ONE, A MEDIAN ONE AND A TALL ONE, IN VOTE. THE SPRITE BOX
+CUTS THE TALL ONE'S CROWN OFF, AND I PREDICTED IT IN WRITING BEFORE RUNNING THE TOOL.
+(sha 35f54d4, HELD [real height]) ***
+
+VERDICTS READ BACK FIRST. STILL ZERO. Six CHARACTER items are queued now and not one thumb
+has ever been cast on anything, by any lane.
+
+THE ROW THE COORDINATOR ADDED ASKED FOR EXACTLY THIS PICTURE and it is the whole round:
+"HELD under rule 18; cook the picture (short, median, tall beside each other) this round if
+it is your cook." Same man, same clothes, same build dials, one scale, feet on one line.
+Only the height term moves.
+
+  A SHORT ONE             h 0.88    88 px body    92%   4.00 heads tall
+  THE ONE WE HAVE TODAY   h 1.00    96 px body   100%   4.36 heads tall
+  A TALL ONE              h 1.12   104 px body   108%   4.73 heads tall
+
+IT IS DRAWN BY THE GAME'S OWN HEIGHT MACHINERY AND THAT IS THE REUSE FINDING. BOH_AGE.apply()
+has always scaled every joint toward the ground line, kept the head bone authored so
+head-to-body rises on its own, and scaled the hand and foot stamps. It was built for the
+child and it does not care that the child is a child. THE HEIGHT RANGE THIS ROW ASKS FOR IS
+ALREADY BUILT; nothing is using it on an adult. The tool adds two adult stages to the live
+table for one render and deletes them after, so wiring this is two table rows and the
+picture he voted on came out of the code that would ship.
+
+*** THE FRAME CUTS THE TALL ONE. *** He paints 14 px on ROW 0 of the sprite box, so his
+crown is flat. The risk went into the tool's header BEFORE it ran, off the rig's own note:
+"GOING DOWN IS FRAME-SAFE. AMP.height is capped at 5% because his body already paints row 0
+in nine clips -- GROWING runs out of frame." Every stage that has ever shipped is 1.00 or
+below, so nothing has ever grown this rig and nobody had found out. IT IS PRINTED ON THE
+PICTURE ITSELF, not left in a record, because the one place he judges things must never show
+a defect it does not name.
+  -> WHOEVER WIRES [real height] GROWS THE FRAME FIRST. Tall people get scalped otherwise.
+
+AND 24 POINTS ON THE DIAL BUYS 18 ON THE BODY. The stage scales the SKELETON and the head is
+a rigid stamp that does not come along, so 0.88-to-1.12 is not a quarter of a person, it is
+18 per cent of one. THE DIAL NUMBER IS NOT THE HEIGHT NUMBER. If the intent was a real
+quarter, the span has to be wider or the head has to scale.
+
+THE SPAN IS WIDER THAN A REAL STREET, SAID OUT LOUD RATHER THAN ADOPTED QUIETLY. Adult male
+stature has about 7 cm of spread on a mean of 175, so the middle 91 of every 100 men run 163
+to 187 cm: 0.93 to 1.07 of the median. The default's 0.88 to 1.12 reaches 154 cm and 196 cm,
+the ends of a whole population rather than the middle of one. Fine for a game, wrong for a
+crowd, and it is a thing he can rule on in one look. THE SPAN IS HIS CALL, in VOTE now.
+
+*** MY OWN GATE WAS THE STALE THING, AND IT WAS RED ON CLEAN MAIN BEFORE THIS ROUND. ***
+body_scale demanded the literal text `lotFine: 25` and `bodyLots: 0.5`. LIFE+CITY (749a626)
+repointed both at BOH_LATTICE, which is ONE NUMBER IN ONE PLACE working exactly as written,
+and MY GATE WENT RED BECAUSE A SECOND COPY WAS REMOVED. A gate that punishes the law being
+obeyed is holding the wrong thing. It now asks what the law wants: the keys exist for the
+lanes that read them, and the two with a home in the lattice READ it. Mutation tested by
+putting the second copy back, which goes red on the new check. 14/0 -> 15/0, and the printed
+metres are derived from the cell size now instead of typed, so they cannot drift again.
+  FOR THE COORDINATOR, A ONE-CELL DISAGREEMENT NOBODY HAS SETTLED: the lattice says a lot is
+  24 fine cells; this lane measured 25 (median pitch between neighbours, 122 houses, 12
+  seeds). 0.75 m apart. The lattice wins because it is what the generator actually packs,
+  and the gate now reads it rather than asserting either number. Naming it, not fixing it:
+  it is not this lane's constant.
+
+[PENDING Paolo] carried, unchanged: which faction colour file wins; the Anarchists need a
+magenta garment and there are zero in 317, with the reserved purple band blocking the obvious
+cook; the Cartel sits on the drab exemption list and not in the law that names it.
+
+THE SUITE, HONESTLY. Green on the merged tree: BODY SCALE 15/0, CHARACTER IN THE VOTE TAB
+9/0, THE VOTE TAB 28/0, SHAPE FROZEN 12/0. Not this lane's: REFERENCE CHECK has 2 red on
+tools/bohemia_cook_the_face_has_light.js, another lane's new cook tool with no check block;
+REUSE FIRST has 6 red, all city/combat/floor/lot/enemies/start patch tools.
+
+STILL TRUE FROM LAST ROUND AND WORTH ONE LINE: the registry conflicts on almost every push.
+The resolution that cannot lose anybody's row is to take origin/main's copy whole and
+re-append your own item by id. Hand-merging it will eat somebody.
+
+--------------------------------------------------------------------------------
+
+PREVIOUS ROUND -- *** COOKED: A KID AND SOMEBODY WHO GOT OLD HERE, IN VOTE. AND TWO SHEETS
 ALREADY SITTING IN THE VOTE TAB WERE LYING TO HIM. (sha e357361d) ***
 
 VERDICTS READ BACK FIRST, every round, as this block keeps saying. STILL ZERO. Five
