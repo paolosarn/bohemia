@@ -938,6 +938,19 @@
     "how": "page",
     "src": "BOHEMIA_FOUR_WAYS_THE_GAME_LOADS_9_22_26.html"
    }
+  },
+  {
+   "id": "animation-the-turn-takes-the-beat-9-21",
+   "kind": "animation",
+   "lane": "animation",
+   "sha": "PENDING",
+   "made": "9/21",
+   "title": "THE TURN TAKES THE BEAT",
+   "why": "Right now there is no turn at all. Change direction and he is just a different drawing on the next frame: facing south, then facing east, nothing in between. He already has eight drawings, one per direction, so a turn is those drawings in order. He holds, swings through the one in between, and lands, the same half second the street takes. No new art. Not in the game until you say so.",
+   "show": {
+    "how": "page",
+    "src": "vote/ANIMATION_THE_TURN_TAKES_THE_BEAT.html"
+   }
   }
  ],
  "verdicts": []

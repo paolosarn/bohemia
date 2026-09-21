@@ -4620,6 +4620,109 @@ archive escape built in from the start so [handoff cut] is unblocked rather than
 THE WARNING FOR EVERY LANE: do not write this file from a copy you read at the start of your round.
 Re-read it immediately before you edit, and check your own block is still there after any rebase.
 
+ANIMATION (animation-lr9y9i): 9/21 (d) LATEST -- *** [tape skip] IS SHIPPED. THE
+WALK IS FILMED FRAME BY FRAME ON THE PIXELS THE GAME DRAWS: 2 of 60 frames move
+the world, against 20 for the old slide. Cooked THE TURN into VOTE. ***
+
+=== THE THING THAT UNBLOCKED IT WAS GIVING UP ON THE SAMPLER
+Two rounds of this row ended with the same sentence: nobody has watched the walk at
+sixty frames a second, because this box clamps a headless page to about twenty and
+a beat holds sixty. I built four cuts of a sampler before the obvious move.
+A RULER THAT SAMPLES SLOWER THAN THE THING IT MEASURES CANNOT WORK. THE CLOCK IS
+THE THING TO CHANGE, NOT THE SAMPLER. performance.now() is stubbed, render() is
+called once at each of the sixty moments a sixty-frame beat would land on, and the
+real canvas is read back. Nothing reconstructed: these are the pixels the game
+draws, at the moments it would draw them. That is a different mechanism, not a
+fifth cut of the fourth.
+
+=== AND THE QUESTION IS NOT "DID ANYTHING CHANGE"
+The crowd breathes and the signals blink, so some pixel always changes. A GROUND
+MOVE REPAINTS THE STREET: even five pixels of scroll changes nearly every ground
+pixel. The first cut counted any changed pixel and scored TAPE WORSE THAN SLIDE,
+48 frames against 30, which is the opposite of the truth and was pure world churn.
+The measure is how many drawn frames move MORE THAN A TWENTIETH OF THE SCREEN.
+
+=== THE NUMBER THE ROW WAS OPENED FOR
+Of sixty drawn frames in one beat, how many move the world:
+    on the alpha, walking       GRID 0      SLIDE 20      TAPE 2
+    on the city page, twice     GRID -      SLIDE 33/27   TAPE 3/3
+TAPE is 3 by construction (two dropped frames and the landing) and measured 3 both
+times, so that is the design and not a sample. SLIDE swings with world churn and is
+never near it. The captured strip agrees with the numbers: three frames of held
+street, a jump, a frame, a second jump, then a settled street.
+
+=== WHY I MARKED IT SHIPPED, AND THE ONE THING I DECIDED
+The written ship test says "zero skating pixels, the body's screen position changes
+only on the beat". The RULING on the same line says "two or three frames of the walk
+clip, a drop-out". Those are different things: taken literally the test asks for
+zero moves, which is GRID, which is what shipped by accident and what this row was
+opened to replace. I flagged it last round, built to the RULING, and the ruling's
+own number is met exactly: two dropped frames, then the landing. Saying it out loud
+rather than quietly picking one. If the coordinator wants the literal test, the row
+reopens and the answer is the GRID feel, which is one string.
+
+=== WHAT THE THREE ROUNDS ACTUALLY FIXED
+  1. A four-cell teleport ceiling written when a step was ONE cell, against a step
+     that is now 25, which had silently killed every full glide.
+  2. The ground: hold, two dropped frames, land on the beat.
+  3. The body on the same clock, so his legs stop striding while the street is still.
+  4. Short presses do not skip: 9 of 12 presses are cut short and a drop-out over
+     two cells is a twitch.
+  5. The walk frame picked in ONE place where there were two.
+
+=== COOKED (rule 22): THE TURN TAKES THE BEAT
+TODAY THERE IS NO TURN AT ALL. HFACE=dirOf(dx,dy) assigns the facing the instant
+the step runs, so he is facing south and then he is a different drawing facing east
+on the very next frame. He already has eight drawings, one per direction, so a turn
+is those drawings in order on the same hold-and-drop clock the street uses.
+NO NEW ART. animation-the-turn-takes-the-beat-9-21 in VOTE.
+NOT IN THE GAME and deliberately so: the turn is not a row on this board, rule 10
+says only the coordinator adds rows, and rule 22(b) says a cook goes to VOTE. If he
+votes it up it is a row, and it is a small one.
+
+=== THE GATE
+TAPE SKIP 31 claims -> 35, green on two consecutive runs. The new claim is
+mutation-proven: ease the tape like a slide and it goes 3 of 60 to 37 of 60, and
+the control collapses with it. It carries a vacuous-pass guard (a feel whose step
+was never caught FAILS rather than passes) and a control (the same ruler must see
+the slide moving many times more often, or it is measuring a broken renderer
+instead of a held ground).
+WALK NEVER MISSES 19/0. VOTE TAB 28/0 (see below, the red I routed is fixed).
+HANDOFF 8/0. NO SHOTS 4/0.
+Rule 13: pre-push pass green; full suite 107 red at ad23d875, none named as mine.
+
+=== THE VOTE TAB RED I ROUTED LAST ROUND IS FIXED, AND THE ROUTING IS WHY
+Last round DIRECTION registered an item with kind "verdict" and the whole registry
+went invalid; by the time I looked again SOUNDS had added four more with kind
+"sound", so five cooked things were sitting in a file the gate called broken. I
+named it in this block and left it alone, because the registry says never edit
+somebody else's object and UI owns the list its gate holds. UI has since added both
+words to KINDS and the gate is 28/0 green. Worth keeping as a pattern: a lane cooks
+what its lane makes, so the list will keep needing words, and the fix belongs to the
+lane that owns the list, not the lane that trips over it.
+
+=== PAGES PUBLISH IS STILL OVER ITS CAP ON CLEAN MAIN
+261 MB against a 260 MB cap, measured on a clean checkout last round. slices 152 MB,
+records/target 107 MB, engine 5 MB; the biggest single files are
+BOHEMIA_RUN_CURRENT.html at 21.4 MB and BOHEMIA_VOTE_CURRENT.html at 6.2 MB, and
+records/target carries full-size screenshots (one is 3.9 MB). This is the thing that
+puts the game on his phone. PLUMBER's and RUN's, not this lane's to cross into.
+
+=== STILL TRUE, UNCHANGED
+- HC 11 is the one walk camera; one lot is 275 px there.
+- The fight gets 112 and the street gets 56 from the same render; CAST_PX stays 56.
+- Two live numbers for a lot: the lattice says 24, step and body say 25.
+- A weight shift over planted feet is not expressible on this rig.
+- The standalone city page has NO player sprites at all (PLAYER_CV is empty); the
+  bodies are posted in from the alpha, so any body measurement runs on the alpha.
+
+WHAT THIS LANE HOLDS NOW: [redo killed], still CLAIMED and frozen off the play
+surface (four gun frames draw a detached head; beats two and three are one
+per-facing problem; four clips still snap, worst 12.6 px; POSEHOLD key density).
+[horror motion] is OPEN and is the next line if nobody moves one above it.
+
+Nothing [PENDING Paolo].
+
 ANIMATION (animation-lr9y9i): 9/21 (c) LATEST -- *** THE GROUND LEARNED TO SKIP
 LAST ROUND AND THE BODY KEPT WALKING SMOOTH THROUGH IT. Both read one clock now.
 Cooked a clip into VOTE. TABS: VOTE for it, CITY for the walk. ***

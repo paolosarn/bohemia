@@ -232,6 +232,98 @@ const ok = (n, c, note) => { c ? (pass++, console.log('  ok   ' + n + (note ? ' 
      shortOnes.length >= 1 && shortOnes.every(r => r.worth === false),
      shortOnes.filter(r => r.worth === false).length + ' of ' + shortOnes.length);
 
+  /* ---- 5d. THE FRAME-BY-FRAME LOOK, ON THE PIXELS THE GAME DRAWS ---------
+     EVERY EARLIER ATTEMPT AT THIS SAMPLED A CLOCK THAT RAN TOO SLOWLY. A headless
+     page here is clamped to about twenty frames a second and a beat holds sixty,
+     and a ruler that samples slower than the thing it measures cannot count how
+     many times that thing moved. Four cuts of that instrument were built and
+     thrown away before the obvious move: DRIVE THE CLOCK. performance.now() is
+     stubbed, render() is called once at each of the sixty moments a sixty-frame
+     beat would land on, and the REAL canvas is read back. Nothing is
+     reconstructed; these are the pixels the game draws.
+     AND THE QUESTION IS NOT "DID ANYTHING CHANGE". The crowd breathes and signals
+     blink, so a pixel always changes. A GROUND MOVE REPAINTS THE STREET: even
+     five pixels of scroll changes nearly every ground pixel. So the measure is
+     how many drawn frames move more than a twentieth of the screen at once. */
+  const film = await pg.evaluate(async (feels) => {
+    const W = window.__WALKFEEL, out = {};
+    try { document.getElementById('daycard').classList.remove('on'); } catch (e) {}
+    const realNow = performance.now.bind(performance);
+    const cv = document.getElementById('cv');
+    if (!cv) return { FAILED: 'no canvas on this surface' };
+    const g = cv.getContext('2d'), N = 60;
+    for (const feel of feels) {
+      W.set(feel);
+      /* catching a long step is the hard part: most presses in a suburb are cut
+         short by something in the way, and pressing one direction repeatedly
+         walks you into that thing and keeps you there. */
+      const DIRS = [2, 4, 0, 6, 1, 3, 5, 7];
+      let tries = 0, got = false, cells = 0;
+      while (tries < 24 && !got) {
+        const x0 = hx, y0 = hy;
+        startHold(DIRS[tries % DIRS.length]); endHold(); tries++;
+        let waited = 0;
+        while (waited < 1200 && hx === x0 && hy === y0) { await new Promise(r => setTimeout(r, 8)); waited += 8; }
+        cells = Math.max(Math.abs(hx - x0), Math.abs(hy - y0));
+        if (cells >= W.step() / 2) got = true; else await new Promise(r => setTimeout(r, 300));
+      }
+      if (!got) { out[feel] = { FAILED: 'no step of half a lot in 24 presses' }; continue; }
+      const t0 = realNow();
+      /* warm up: the frame before the freeze was drawn on the real clock somewhere
+         mid-step, so the first frozen frame jumps back and that jump is the
+         freeze, not the walk. */
+      performance.now = () => t0;
+      try { render(); } catch (e) {}
+      let prev = null, moved = 0, biggest = 0;
+      for (let i = 0; i <= N; i++) {
+        const k = i / N;
+        performance.now = () => t0 + k * 500;
+        try { render(); } catch (e) {}
+        const im = g.getImageData(0, 0, cv.width, cv.height);
+        if (prev) {
+          let ch = 0; const a = im.data, b = prev;
+          for (let q = 0; q < a.length; q += 16)
+            if (a[q] !== b[q] || a[q + 1] !== b[q + 1] || a[q + 2] !== b[q + 2]) ch++;
+          const f = ch / (a.length / 16);
+          if (f > 0.05) moved++;
+          if (f > biggest) biggest = f;
+        }
+        prev = im.data.slice(0);
+      }
+      performance.now = realNow;
+      out[feel] = { cells, frames: N, movedTheWorld: moved, biggest: +(biggest * 100).toFixed(1) };
+      await new Promise(r => setTimeout(r, 600));
+    }
+    return out;
+  }, ['SLIDE', 'TAPE']);
+  if (film.FAILED) {
+    ok('the frame-by-frame look can be taken at all', false, film.FAILED);
+  } else {
+    const S2 = film.SLIDE, T2 = film.TAPE;
+    console.log('       SLIDE ' + (S2.FAILED || (S2.movedTheWorld + ' of ' + S2.frames
+      + ' drawn frames moved the world, biggest ' + S2.biggest + '% of the screen')));
+    console.log('       TAPE  ' + (T2.FAILED || (T2.movedTheWorld + ' of ' + T2.frames
+      + ' drawn frames moved the world, biggest ' + T2.biggest + '% of the screen')));
+    /* VACUOUS-PASS GUARD: a feel whose step was never caught proves nothing. */
+    ok('both feels were actually filmed on a real step',
+       !S2.FAILED && !T2.FAILED, (S2.FAILED || '') + ' ' + (T2.FAILED || ''));
+    if (!S2.FAILED && !T2.FAILED) {
+      /* RATCHET. The measured numbers are SLIDE 20 and TAPE 2 of 60. The ceiling
+         is the design plus air: the tape has three stations and the third lands
+         ON the beat, which is outside this window. It may only ever go DOWN. */
+      ok('on TAPE the world moves on at most three of sixty drawn frames',
+         T2.movedTheWorld <= 3, T2.movedTheWorld + ' of ' + T2.frames);
+      /* THE CONTROL, and it is what makes the claim above mean anything: the same
+         ruler on the same surface must see the slide as many frames of movement,
+         or it is measuring a broken renderer rather than a held ground. */
+      ok('and the same ruler sees SLIDE moving it many times more often',
+         S2.movedTheWorld >= 4 * Math.max(1, T2.movedTheWorld),
+         'SLIDE ' + S2.movedTheWorld + ' against TAPE ' + T2.movedTheWorld);
+      ok('and the tape is really drawing the street, not a frozen picture',
+         T2.biggest > 20, 'biggest single frame change ' + T2.biggest + '%');
+    }
+  }
+
   /* ---- 6. THE CHIP --------------------------------------------------------
      THE 8/12 CHIP IS HOW HE FLIPS IT HIMSELF. It used to be a two-way ternary,
      which would have printed GRID for TAPE -- a control that lies about which

@@ -1,0 +1,105 @@
+<!doctype html><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>BOHEMIA — The Turn Takes The Beat</title>
+<!-- ANIMATION, cooked under rule 22. Today a change of direction is a SNAP: the
+     facing is assigned the instant the step runs and the body is a different
+     drawing on the next frame. This is the same turn given the beat, built only
+     out of the eight facings the game already ships. NOT IN THE GAME: rule 18
+     keeps it off the play surface until he votes. -->
+<style>
+  :root{--ink:#e8e0cc;--bg:#0d0d12;--card:#16161d;--line:#33313d;--gold:#c79a3f}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+       font:13px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace;padding:14px}
+  h1{font-size:13px;letter-spacing:2px;margin:0 0 4px;color:var(--gold)}
+  p{margin:0 0 12px;color:#a49a86;max-width:60ch}
+  .said{border-left:2px solid var(--line);padding:6px 0 6px 10px;margin:0 0 14px;color:#8d8478}
+  .row{background:var(--card);border:1px solid var(--line);border-radius:6px;
+       padding:8px;margin-bottom:10px}
+  .row.live{border-color:var(--gold)}
+  .lab{font-size:11px;letter-spacing:1.5px;margin-bottom:6px;display:flex;
+       justify-content:space-between;gap:8px;align-items:baseline}
+  .tag{color:var(--gold);font-size:10px;letter-spacing:1px}
+  .sub{color:#6f6862;font-size:11px;letter-spacing:0}
+  canvas{width:100%;height:150px;display:block;image-rendering:pixelated;
+         background:#0a0c11;border-radius:3px}
+  .note{margin-top:12px;color:#6f6862;max-width:60ch}
+  .strip{display:flex;gap:3px;margin-top:8px;flex-wrap:wrap}
+  .cell{width:52px;height:52px;image-rendering:pixelated;background:#101319;border-radius:3px}
+  .cap{font-size:10px;color:#6f6862;text-align:center;width:52px}
+</style>
+<h1>THE TURN TAKES THE BEAT</h1>
+<p>Right now, when you change direction, he is just a different drawing on the
+very next frame. There is no turn. He is facing south, then he is facing east,
+with nothing in between.</p>
+<div class="said">He already has eight drawings, one for every direction. A turn
+is those drawings in order. Nothing new gets drawn; the turn is just allowed to
+take the same half second everything else takes.</div>
+<div id="rows"></div>
+<p class="note">Both are turning the same corner, south to east, on the beat.
+The top one is what happens today. The bottom one passes through south-east on
+the way, and it holds before it goes, the way the street does when he walks.</p>
+<div class="row"><div class="lab"><span>THE EIGHT DRAWINGS HE ALREADY HAS</span>
+<span class="tag">NO NEW ART</span></div>
+<div class="strip" id="strip"></div></div>
+<script>
+(function(){
+  var SRC='ANIMATION_THE_TURN_TAKES_THE_BEAT.png';
+  var DIRS=['N','NE','E','SE','S','SW','W','NW'], W=112,H=112;
+  var BEAT=500;
+  /* south to east the short way round: S -> SE -> E */
+  var PATH=[4,3,2];
+  var STATIONS=[0,0.55,0.78];     /* the same hold-and-drop clock the street uses */
+  var img=new Image(); img.src=SRC; var ready=false; img.onload=function(){ready=true;};
+  var WAYS=[
+    ['WHAT HAPPENS TODAY','no turn at all, he is just facing the other way','a snap',
+      function(k){ return k>=1?PATH[PATH.length-1]:PATH[0]; }],
+    ['THE TURN','he holds, then swings through south-east, then he is there','on the beat',
+      function(k){ if(k>=1) return PATH[PATH.length-1];
+        var s=0; for(var i=0;i<STATIONS.length;i++) if(k>=STATIONS[i]) s=i;
+        return PATH[s]; }]
+  ];
+  var host=document.getElementById('rows'), rows=[];
+  WAYS.forEach(function(w,idx){
+    var d=document.createElement('div'); d.className='row'+(idx?' live':'');
+    var l=document.createElement('div'); l.className='lab';
+    l.innerHTML='<span>'+w[0]+' <span class="sub">'+w[1]+'</span></span><span class="tag">'+w[2]+'</span>';
+    var c=document.createElement('canvas'); c.width=390; c.height=168;
+    d.appendChild(l); d.appendChild(c); host.appendChild(d);
+    rows.push({cv:c, face:w[3]});
+  });
+  var strip=document.getElementById('strip');
+  DIRS.forEach(function(nm,i){
+    var wrap=document.createElement('div');
+    var e=document.createElement('div'); e.className='cell';
+    e.style.backgroundImage='url('+SRC+')';
+    e.style.backgroundSize=(DIRS.length*52)+'px auto';
+    e.style.backgroundPosition=(-i*52)+'px 0px';
+    var c=document.createElement('div'); c.className='cap'; c.textContent=nm;
+    wrap.appendChild(e); wrap.appendChild(c); strip.appendChild(wrap);
+  });
+  function draw(o, face, moving){
+    var g=o.cv.getContext('2d'), CW=o.cv.width, CH=o.cv.height;
+    g.clearRect(0,0,CW,CH);
+    g.fillStyle='#161b22'; g.fillRect(0,CH-34,CW,34);
+    g.strokeStyle='#5d6f84'; g.lineWidth=2;
+    g.beginPath(); g.moveTo(0.5,CH-34); g.lineTo(0.5,CH); g.stroke();
+    g.fillStyle='#3a4757';
+    for(var x=10;x<CW;x+=55) g.fillRect(x,CH-8,10,2);
+    if(ready){ g.imageSmoothingEnabled=false;
+      g.drawImage(img, face*W, (moving?H:0), W,H, Math.round(CW/2-56), CH-136, 112,112); }
+  }
+  var t0=performance.now();
+  (function tick(){
+    var beats=(performance.now()-t0)/BEAT, whole=Math.floor(beats), k=beats-whole;
+    /* turn on the odd beats, stand on the even ones, so the turn has a before
+       and an after instead of spinning forever */
+    var turning=(whole%2)===1;
+    for(var i=0;i<rows.length;i++){
+      var f=turning?rows[i].face(k):rows[i].face(1);
+      draw(rows[i], f, turning);
+    }
+    requestAnimationFrame(tick);
+  })();
+})();
+</script>
