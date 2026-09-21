@@ -18843,6 +18843,61 @@ since 9/6, it also holds 19 QUESTS (BUILD). The front page's chat-19 line says a
 chat with an empty queue takes QUESTS, and DYNASTY's queue went empty at Q16. The
 lane and its first row were claimed and pushed BEFORE any work started. ***
 
+ROUND 43 [horror ask] COOKED A LINE, NOT A MEASUREMENT. QUESTS, BUILD. 9f8cbb2.
+In the VOTE tab (alpha) as THE ONE WRONG DETAIL. Not on the play surface, on purpose.
+  records/BOHEMIA_QUESTS_THE_FIRST_ASK_CARRIES_ONE_WRONG_DETAIL_9_21_26.md
+
+RULE 22 IS ABOUT THE ROUND BEFORE THIS ONE AND HE IS RIGHT. Round 42 was all
+measuring and made nothing. A making lane cooks every round; QUESTS makes an ask.
+
+THE LINE, third of the lineman's four, said flat between the problem and the job:
+    "Somebody still chalks the meter box every month. Never seen who."   #flat
+
+The bible's rule one APPLIED rather than quoted: a chalk mark on a meter box is
+as ordinary as this game gets, and what is wrong is that somebody is still
+walking this block reading meters for a company dead ten years -- the world
+running normally with nobody left who should be running it. AND IT IS NEVER
+EXPLAINED, WHICH IS THE TECHNIQUE: the next line does not acknowledge it, and the
+four @OPTs give the player no way to ask. @NOVERB already holds one thing the
+game will not let you say; this is a second, held by silence. It turns the
+quest's own title over -- THE METER READER is not him. No tag invented: #flat is
+already used 42 times, and "a voice that is too even" is the bible's own words.
+
+FOUR ALTERNATES IN VOTE WITH IT, and one of them is NONE OF THEM, because leaving
+the first ask ordinary is a real answer and belongs on the card rather than being
+decided for him.
+
+NOT ON THE PLAY SURFACE, ON PURPOSE (rules 18 + 22): the line is in the quest
+SOURCE and in VOTE; the walked city's inlined copy was deliberately NOT re-baked.
+It enters the game when he votes it up.
+
+*** TWO INSTRUMENT LESSONS FOR EVERY LANE, BOTH CAUGHT ON MYSELF THIS ROUND. ***
+(1) My first tap on my own row moved nothing and it was NOT a dead button: I hit
+a 26px LABEL. EYES' height rule says under 30px is a readout; the real control is
+LOOK AT IT at 110x44, and it opens the page. Check the height before reporting.
+(2) THE VOTE TAB READS EMPTY OVER file:// -- "THE LIST DID NOT LOAD", 0 waiting --
+because the registry fetch is blocked by the protocol. Over http it reads 18. ANY
+LANE CHECKING ITS OWN VOTE ITEM MUST SERVE THE FILE, or it will report its own
+work missing and blame UI.
+
+ONE REGRESSION CAUSED AND FIXED IN THE SAME ROUND: adding one line left the words
+book stale (3147 baked against 3148 on disk) and took DIALOGUE CATALOGUE from
+63/0 to 60/3. Re-baked with the tool the gate itself names. The re-bake's diff was
+219 changed lines for ONE added line, which is the exact shape of the 9/6
+whole-block hazard this lane recorded, so it was checked BY CONTENT and not by
+line count: zero lines lost, exactly one gained.
+
+A REGISTRY CONFLICT HANDLED THE WAY THE REGISTRY ASKS: another lane registered a
+vote item in the same minute. Its own rule is never edit somebody else's object,
+so main's file was taken whole and mine re-appended -- 17 items in, 18 out, all
+three of CHARACTER's newest still there.
+
+WHERE [a person asks] STANDS: the ask now has its words. Still open underneath it,
+from round 42's measurement: nobody at the door has a NAME (0 of 21), nothing
+draws a FACE where a person speaks, and a person can only speak if they stand on
+your exact block while day one's asker casts six blocks out. The decision stands:
+the lineman comes to your door.
+
 ROUND 42 [a person asks] MEASURED THE WHOLE SHIP TEST BEFORE BUILDING ANY OF IT.
 QUESTS, BUILD (un-held for this row only, rule 18). Claimed 0243525. No alpha push.
   records/BOHEMIA_QUESTS_NOBODY_IS_AT_THE_DOOR_AND_NOBODY_HAS_A_NAME_9_20_26.md
