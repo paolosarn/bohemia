@@ -5770,6 +5770,105 @@ ALSO STILL OPEN, not draw order: on NE in his own frame
 the right of the shoulders with a visible gap. That is the pose too.
 
 Nothing [PENDING Paolo].
+PEOPLE (people-7h9sfy): 9/21 (d) LATEST -- *** [walking companion] SHIPPED
+9e236045. NOBODY HAS EVER WALKED BESIDE YOU, AND THE SHUFFLE HE ASKED FOR HAS
+ONE CARD. *** Row A-COMPANION-ON-FOOT, under the rule 18 hold with the RULE 22
+cook riding beside it.
+
+PAOLO 9/7: "have it on shuffle mode." No fixed companion, no fixed name.
+
+MEASURED ON THE ALPHA BEFORE A LINE WAS WRITTEN:
+  people on his block                       61
+  people who will follow him                 0
+  hostile / watching / blocking              0 / 0 / 0
+  in the follow map at rest                  0
+  in the follow map after ten walked steps   0
+Only an ENEMY is ever allowed to walk after you in this game, and at his door
+there are none. So "a companion on foot" has never once been kept and nothing
+said a word.
+
+*** AND THE CONTROL COST THREE TRIES, ALL THREE MINE, NONE OF THEM THE GAME'S.
+WRITE THIS DOWN FOR EVERY LANE. ***
+  TRY ONE   stubbed a "follow" sign onto BARK_DREW[0], walked, read zero. The
+            tempting conclusion is "the pipe is broken" and it is WRONG: sight
+            is 9 cells and that body was 62 AWAY, so the pass correctly dropped
+            it as "lost you". THE FIRST BODY DRAWN IS NOT THE NEAREST ONE. This
+            lane repointed a gate for exactly this trap on 9/16 and I walked
+            into it again five rounds later.
+  TRY TWO   nearest drawn body, at rest, call the pass directly. Bodies at 2, 9,
+            26, 28, 48, 49 cells; two inside sight; ONE JOINED THE FOLLOW MAP ON
+            THE FIRST PASS. THE PIPE WORKS.
+  TRY THREE was this gate's own first cut: it walked eight steps and THEN
+            measured who was near, so the nearest body read 36 cells and the
+            deck read ZERO at every hour. Reordered to measure at rest and walk
+            last and the same tree reads 2 cells and a deck of 1 to 2.
+            MEASURE BEFORE YOU DISTURB.
+
+*** AND THE SHUFFLE HAS ONE CARD, AT EVERY HOUR OF THE DAY. *** Asked of the
+game's own schedule and its own sight range, 1 or 2 of 61 people are ever close
+enough to walk with him (3am 1, 7am 1, 10am 1, 1pm 1, 5pm 2, 8pm 1, 11pm 1), so
+six different saves all drew the same person. THE SHUFFLE ITSELF IS SOUND and
+that control is what makes this a fact about the world rather than about my
+code: eight candidates over forty saves hands back four different people, the
+same save always gives the same answer, out of reach and empty both return
+nothing. THE DECK IS THE PROBLEM, NOT THE DEALER. The arithmetic is last
+round's crowd finding one layer down: 2,415 cells on screen against 181 he can
+reach, so about ninety-three percent of the people he can SEE are people he
+cannot touch.
+
+WHAT WAS BUILT: tools/bohemia_companion.js. PURE -- no DOM, no game globals, no
+clock, no randomness, so the same world gives the same answer in a gate, on a
+page and in the game. Four reasons somebody would walk with you, strongest
+first, every one a fact the world already tracks: THEY ARE OWED (you owe them,
+and walking with you is how they get paid), THEY OWE, NO SHIFT (their work is
+gone, so their day is empty and yours is not), SAFER (alone is worse than beside
+somebody). A person with none of them does not follow you, and that is most
+people; A MISSING FACT IS A NO, NEVER A MAYBE. What she wants is one of those
+turned around, so it is always something already in the world. What she refuses
+comes off her own standing: her faction, then her household, then the floor
+everybody has. One dial tagged draft:true, the reach is the GAME'S OWN sight
+number, and no person is named anywhere in the file because names are his.
+
+RULE 18 OBSERVED, AND THE GATE HOLDS IT: nothing in the walked city or the alpha
+calls the chooser, the follow pass is untouched and still enemies only, and the
+module is in tools/ rather than engine/ ON PURPOSE, because an engine diff owes
+two rebuilt derived slices in the same commit and re-cutting the demo is RUN's
+alone under rule 14(a). When the hold lifts, the city calls pick() and hands the
+answer to the follow pass this round proved already works.
+
+THE RULE 22 COOK, IN THE VOTE TAB: "THE ONE WHO WALKS WITH YOU"
+(slices/BOHEMIA_THE_ONE_WHO_WALKS_WITH_YOU_9_21_26.html). IT LEADS WITH THE
+PERSON, which is rule 22(c): Marisela Escobar, WATCH, two cells from his door,
+with the face his game makes for her baked through the exact wire this lane
+shipped two rounds ago, the name his game gives her, why she comes, what she
+wants of her own, and the one thing she will not do. Nothing on that card was
+written for the page. Three ways to go and C throws my four reasons away
+entirely, because a page that only argues one side is a rigged vote.
+
+THE GATE: gates/walking_companion_gate.js, driven on the ALPHA, in the suite as
+WALKING COMPANION. Negative-controlled, each put back: make the shuffle a coin
+toss, 2 red; take the opt-out off the page and let the city call the chooser,
+2 red.
+
+MEASURED AND NOT FIXED, FOR WHOEVER OWNS IT: filling the deck is either a wider
+reach (the game's own sight number, not this lane's) or more people actually
+near him, which is the borrow, which is LIFE+CITY's and RUN's and was named last
+round. AND NOBODY IS EVER HOSTILE AT HIS DOOR: 0 of 61, so the whole against-you
+system is asleep in the first five minutes. FACTIONS and COMBAT, measured not
+accused.
+
+NEXT: the lane's OPEN rows are [weights shape], [rumours travel], [creditor
+stands], [somebody hires you], plus [family eyes] which the coordinator marked
+HELD. RULE 22 binds every round: one real person made and registered in the VOTE
+tab, every round, with the measuring beside it and never instead of it.
+
+[PENDING Paolo], carried, none of them blocking: when a person dies of old age;
+how many game days is a year; who you marry; what a long injury costs to treat;
+the 82-row deed table. Named for other lanes: the crowd of copies is CHARACTER's;
+the borrow is LIFE+CITY's and RUN's; the publish cap is red on clean main at 261
+MB against 260; the VOTE TAB gate is red on clean main because DIRECTION's
+fight-verdict row carries kind "verdict", which that gate does not allow.
+
 PEOPLE (people-7h9sfy): 9/21 (c) LATEST -- *** [horror crowd] SHIPPED dcd19275.
 YOUR STREET DRAWS THE SAME CROWD AT BREAKFAST AND AT BEDTIME. *** Row
 A-CROWD-THAT-STANDS-TOO-STILL, rule 20(h), school under the rule 18 hold, with
