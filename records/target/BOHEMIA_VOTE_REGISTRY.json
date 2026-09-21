@@ -300,7 +300,7 @@
     "src": "vote/ANIMATION_THE_IDLE_REDO.html"
    },
    "redoOf": "idle",
-   "said": "a lot of them are good, a lot of them aren\u2019t good... IF I KILLED IT I DON\u2019T WANT IT GONE. I just think it could be done better. Make a new one."
+   "said": "a lot of them are good, a lot of them aren’t good... IF I KILLED IT I DON’T WANT IT GONE. I just think it could be done better. Make a new one."
   },
   {
    "id": "factions-the-sign-still-lights-9-21",
@@ -465,7 +465,7 @@
    "sha": "534d87a",
    "made": "9/21",
    "title": "HOW A STEP IS DRAWN (I PICKED ONE FOR YOU)",
-   "why": "One press moves him a whole house, 275 pixels, in half a second, and his legs can only show one pace of it. What shipped was nobody\u2019s choice: an old number in the code made the whole street jump at once. I put in the tape skip: he stands still, the picture skips twice, he is there. Thumbs up keeps it. Thumbs down and say GRID (the street jumps at once) or SLIDE (the street slides the whole time) and I will switch it.",
+   "why": "One press moves him a whole house, 275 pixels, in half a second, and his legs can only show one pace of it. What shipped was nobody’s choice: an old number in the code made the whole street jump at once. I put in the tape skip: he stands still, the picture skips twice, he is there. Thumbs up keeps it. Thumbs down and say GRID (the street jumps at once) or SLIDE (the street slides the whole time) and I will switch it.",
    "show": {
     "how": "page",
     "src": "vote/ANIMATION_HOW_A_STEP_IS_DRAWN.html"
@@ -638,6 +638,19 @@
    "show": {
     "how": "image",
     "src": "vote/CHARACTER_NO_CHILDREN_NO_OLD.png"
+   }
+  },
+  {
+   "id": "world-you-paid-it-9-21",
+   "kind": "line",
+   "lane": "world",
+   "sha": "PENDING",
+   "made": "9/21",
+   "title": "YOU PAID IT",
+   "why": "The other end of the cut-off notice. You pay, and the closing receipt lands on the phone with the zero written out, because a bill that just stops coming is not a receipt. It thanks you and tells you to keep it in case of a dispute, with nobody left to dispute it to.",
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_THE_FIRST_NOTICE_9_21_26.html"
    }
   }
  ],

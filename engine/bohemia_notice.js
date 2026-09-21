@@ -375,6 +375,112 @@
   }
 
   /* --------------------------------------------------------------------------
+     *** THE OTHER END OF IT: PAID IN FULL. *** (9/21, row [visible change].)
+
+     A disconnection notice that can never be answered is half a machine, and the
+     half it is missing is the half a player can WATCH. [visible change] says a
+     quest may only move things the player can see move, and QUESTS' own list
+     carries `debt_moves` -- "a debt clears, or somebody calls one in". A debt
+     clearing in a ledger is not something anybody watches. A CLOSING NOTICE
+     ARRIVING ON THE PHONE IS.
+
+     Real closing letters carry: the account, the date the payment was received,
+     the amount, THE ZERO STATED IN WORDS (a bill that just stops arriving is not
+     a receipt), when service comes back, and how long to keep the record.
+
+     AND THE HORROR IS THE SAME HORROR AND IT COSTS NOTHING AGAIN: the form
+     thanks you, and it tells you to keep this notice for your records in case of
+     a dispute -- with the same office, in the same building, that section 5 of
+     the record measured nobody in. The text never says so. It is a receipt from
+     a body that cannot receive anything.
+
+     facts = the disconnection notice's facts, plus `paid` (what was handed over)
+     and `to` (who took it, read off the game, never typed).
+     -------------------------------------------------------------------------- */
+  function cleared(facts) {
+    facts = facts || {};
+    var iss = ISSUERS[facts.service];
+    if (!iss) return { issued: false, reason: 'NO_ISSUER', service: facts.service || null };
+
+    var one = theOne();
+    var paid = typeof facts.paid === 'number' ? facts.paid : one;
+    if (typeof paid !== 'number') return { issued: false, reason: 'NO_AMOUNT', table: 'PAYOUT' };
+    if (paid <= 0) return { issued: false, reason: 'NOTHING_WAS_PAID', paid: facts.paid };
+
+    var served = stamp(facts.day, facts.clock);
+    if (!served) return { issued: false, reason: 'NO_CLOCK' };
+
+    var acct = (facts.circuit >= 0) ? ('FEEDER ' + facts.circuit) : null;
+    if (!acct) return { issued: false, reason: 'NO_ACCOUNT' };
+    var where = facts.street ? String(facts.street).toUpperCase() : null;
+    var cell = (facts.at && facts.at.length === 2) ? (facts.at[0] + '-' + facts.at[1]) : null;
+    if (!where || !cell) return { issued: false, reason: 'NO_ADDRESS' };
+
+    /* *** THE ZERO IS NOT ASSUMED, IT IS CARRIED. *** A receipt that says PAID
+       IN FULL while something is still owed is the worst document in this file:
+       it is the card that promises and does nothing, printed on letterhead. So
+       what remains is passed in and stated, and a remainder refuses the receipt
+       rather than rounding it away. */
+    var left = typeof facts.left === 'number' ? facts.left : 0;
+    if (left > 0) return { issued: false, reason: 'STILL_OWING', left: left };
+
+    var B = function (n) { return n + (n === 1 ? ' BATTERY' : ' BATTERIES'); };
+    var Bes = function (n) { return n + (n === 1 ? ' BATERIA' : ' BATERIAS'); };
+    var took = facts.to ? String(facts.to).toUpperCase() : null;
+
+    var slots = {
+      issuer:    iss.name,
+      account:   acct + ' / SERVICE ADDRESS ' + where + ' ' + cell,
+      receivedOn: served.text,
+      paid:      B(paid),
+      balance:   B(left),
+      restore:   'SERVICE TO THIS ADDRESS IS RESTORED.',
+      keep:      'KEEP THIS NOTICE FOR YOUR RECORDS IN THE EVENT OF A DISPUTE.'
+    };
+
+    var en = [
+      iss.name,
+      'NOTICE OF PAYMENT IN FULL',
+      '',
+      'ACCOUNT: ' + slots.account,
+      'RECEIVED: ' + slots.receivedOn,
+      '',
+      'AMOUNT RECEIVED ...... ' + slots.paid + (took ? ' BY ' + took : ''),
+      'BALANCE REMAINING .... ' + slots.balance,
+      '',
+      slots.restore,
+      'THANK YOU.',
+      slots.keep,
+      '',
+      'THIS NOTICE IS ISSUED IN ENGLISH AND IN SPANISH.'
+    ];
+
+    var es = [
+      iss.nameEs,
+      'AVISO DE PAGO TOTAL',
+      '',
+      'CUENTA: ALIMENTADOR ' + facts.circuit + ' / DIRECCION DE SERVICIO ' + where + ' ' + cell,
+      'RECIBIDO: DIA ' + served.day + ' A LAS ' + served.clock,
+      '',
+      'CANTIDAD RECIBIDA .... ' + Bes(paid) + (took ? ' POR ' + took : ''),
+      'SALDO PENDIENTE ...... ' + Bes(left),
+      '',
+      'EL SERVICIO A ESTA DIRECCION QUEDA RESTABLECIDO.',
+      'GRACIAS.',
+      'GUARDE ESTE AVISO PARA SUS REGISTROS EN CASO DE DISPUTA.',
+      '',
+      'ESTE AVISO SE EMITE EN INGLES Y EN ESPANOL.'
+    ];
+
+    return {
+      issued: true, kind: 'cleared', service: iss.id,
+      issuer: iss.name, slots: slots, en: en, es: es,
+      amounts: { paid: paid, left: left },
+      draft: DRAFT
+    };
+  }
+
+  /* --------------------------------------------------------------------------
      THE EMERGENCY ALERT. Five slots, and the same refusal.
 
      facts = { hazard, location, action, day, clock, untilDays, service }
@@ -470,11 +576,26 @@
   /* what a notice is missing, for a checker that wants the list rather than the
      refusal. A notice that issued is missing nothing, by construction. */
   function slotsOf(kind) {
-    return (kind === 'alert' ? ALERT_SLOTS : DISCONNECT_SLOTS).slice();
+    if (kind === 'alert') return ALERT_SLOTS.slice();
+    if (kind === 'cleared') return CLEARED_SLOTS.slice();
+    return DISCONNECT_SLOTS.slice();
   }
+
+  /* the closing notice's own slots, for a checker that wants the list */
+  var CLEARED_SLOTS = [
+    { key: 'issuer',     need: true,  answeredBy: null,     why: 'who is acknowledging it' },
+    { key: 'account',    need: true,  answeredBy: null,     why: 'which service address' },
+    { key: 'receivedOn', need: true,  answeredBy: null,     why: 'when the payment landed' },
+    { key: 'paid',       need: true,  answeredBy: null,     why: 'what was handed over' },
+    { key: 'balance',    need: true,  answeredBy: null,     why: 'and the zero, stated' },
+    { key: 'restore',    need: true,  answeredBy: null,     why: 'service comes back' },
+    { key: 'keep',       need: true,  answeredBy: 'office', why: 'keep this, in case of a dispute' }
+  ];
 
   var API = {
     ISSUERS: ISSUERS,
+    CLEARED_SLOTS: CLEARED_SLOTS,
+    cleared: cleared,
     WINDOW: WINDOW,
     DISCONNECT_SLOTS: DISCONNECT_SLOTS,
     ALERT_SLOTS: ALERT_SLOTS,

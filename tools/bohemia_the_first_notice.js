@@ -88,6 +88,18 @@ const alert = N.alert({
 });
 if (!alert.issued) { console.error('alert refused: ' + alert.reason); process.exit(1); }
 
+/* ---- THE CLOSING NOTICE (9/21, row [visible change]). The other end of it.
+        The debt clears and the machine issues the receipt, which is how
+        `debt_moves` becomes something the player can WATCH rather than a ledger
+        entry nobody sees. Paid with the same ONE, to whoever holds the wire. */
+const cleared = N.cleared({
+  service: 'power', at: [feeder.x, feeder.y], street: feeder.street,
+  circuit: feeder.s.id, to: feeder.s.faction,
+  paid: notice.amounts.total, left: 0,
+  day: 1 + N.WINDOW.finalDays, clock: '09:20'
+});
+if (!cleared.issued) { console.error('cleared refused: ' + cleared.reason); process.exit(1); }
+
 /* ---- THE MEASUREMENT. Who the forms send you to, against who is actually out there. */
 const living = Object.keys(G.factions);
 const un = N.unanswered(notice, living);
@@ -174,7 +186,16 @@ are not being lifted.</p>
 <div class="ph"><div class="scr">${screen(alert.en)}</div></div>
 <div class="cap">It says it is in effect until tomorrow. Tomorrow was a long time ago.</div>
 
-<h2>4. WHO THE FORMS SEND YOU TO</h2>
+<h2>4. AND THE OTHER END: YOU PAID IT</h2>
+<p>A bill you can never answer is half a machine. The half it was missing is the
+half you can watch. Pay the ${cleared.amounts.paid} batteries and the closing
+notice arrives on the phone, with the zero written out, because a bill that just
+stops coming is not a receipt.</p>
+<div class="ph"><div class="scr">${screen(cleared.en)}</div></div>
+<div class="cap">It thanks you, and it tells you to keep it in case of a dispute.
+Keep it with whom is the next section.</div>
+
+<h2>5. WHO THE FORMS SEND YOU TO</h2>
 <p>Every one of these lines points at somebody who is supposed to answer it. This
 is not a mood, it is counted against the list of everybody who actually exists in
 the valley right now.</p>
@@ -190,7 +211,7 @@ ${unA.asks} on the alert, against the ${living.length} outfits the valley really
 If one of them ever takes the grid over, this table shrinks on its own and not one
 word of the notice changes.</p>
 
-<h2>5. THE ONE THAT IS NOT MY IDEA</h2>
+<h2>6. THE ONE THAT IS NOT MY IDEA</h2>
 <p>Your own ruling says the Network hold the lit grid and <b>have never once charged
 for it</b>. On this map <span class="n">${free}</span> of
 <span class="n">${lit}</span> lit feeders are theirs. So a district that no longer
@@ -215,3 +236,4 @@ console.log('  feeder ' + feeder.s.id + ' on ' + feeder.street + ' ' + feeder.x 
 console.log('  lit feeders ' + lit + ', free (Network) ' + free + ', named ' + named);
 console.log('  water: ' + water.running + ' of ' + water.stations + ' running, need ' + water.need + ' L/day');
 console.log('  unanswered: notice ' + un.unanswered + '/' + un.asks + ', alert ' + unA.unanswered + '/' + unA.asks);
+console.log('  cleared: paid ' + cleared.amounts.paid + ', balance ' + cleared.amounts.left);

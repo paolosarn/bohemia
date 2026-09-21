@@ -685,6 +685,28 @@ GATES = [
      'Red four ways: let a dark pump lift anyway -> 4; put a fudge factor in the physics '
      '-> 2; ask the plant\'s own cell again -> 4 (and the failure reads 28604 -> 23804, '
      'the countdown restarting); count the water and never credit it -> 1.', True),
+    ('VISIBLE CHANGE', ['node', 'gates/visible_change_gate.js'],
+     'WHAT-AN-ASK-IS-ALLOWED-TO-MOVE (board row [visible change], 9/21). The rule: a '
+     'generated ask may only move things the player can WATCH move. RULE 12 FIRST AND '
+     'THE ROW WAS STALE -- the list it asks for already exists, shipped by QUESTS 9/6 '
+     'as bohemia_asks.CHANGES, six rows, the same six the row names. So this lane wrote '
+     'no second list; it wrote the checker nobody had. (A) THE LIST STAYS QUESTS\': the '
+     'checker keeps no copy, reaches for the asks module nowhere in its code, and a '
+     'seventh row added tomorrow is REPORTED, never silently skipped. (B) THE WORDS '
+     'MOVE ON THE REAL SURFACE: the walked city is booted, the nightfall card is read, '
+     'one night is run through the game\'s own blockRent and nightPower, and the card is '
+     'read again -- WHO YOU OWE arrives, the cut sentence arrives, the dark count rises. '
+     'Two controls make it mean something: two reads with nothing changed give identical '
+     'words, and dousing a wire OUTSIDE the night moves nothing, which is correct because '
+     'the card is a record of the night and not a readout of the grid. (C) *** A STALE '
+     'REASON IS A BUG WITH A LONG FUSE: debt_moves is marked unwired with the typed '
+     'sentence "belonging models debt as a faction WANT, not a balance with a name on it '
+     'that anybody can clear". That was true on 9/6 and THIS LANE made it false on 9/13 '
+     'with bohemia_lend, and nobody told the list because the reason is a string. *** '
+     'Every unwired row now carries a PROMOTION TEST, a predicate over the live modules, '
+     'driven not read (a named debt is taken and cleared to nothing), and this gate fails '
+     'if a test passes while the list still calls the row unwired. Red two ways: remove '
+     'the promotion test -> 2; claim a watcher that is not on the surface -> 2.', True),
     ('FIRST NOTICE', ['node', 'gates/first_notice_gate.js'],
      'THE-INSTITUTIONS-STILL-RUNNING (board row [horror world], 9/21, rule 20h). WORDS '
      'Q27 measured 8 of 3,014 spoken lines naming a city, county, office, board or '
