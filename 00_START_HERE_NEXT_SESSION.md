@@ -6259,6 +6259,113 @@ ALSO STILL OPEN, not draw order: on NE in his own frame
 the right of the shoulders with a visible gap. That is the pose too.
 
 Nothing [PENDING Paolo].
+PEOPLE (people-7h9sfy): 9/22 LATEST -- *** [weights shape] SHIPPED 63a960eb. THE
+REPUTATION MACHINE IS BUILT, WORKING, AND GRADING NOTHING. *** Row
+WHAT-PEOPLE-REPEAT-ABOUT-YOU, under the rule 18 hold with the RULE 22 cook
+riding beside it.
+
+THE COORDINATOR RULED 9/5 off the research: people repeat five things about a
+stranger and nothing else, everything else weighs near zero, a betrayal is worth
+about five kindnesses, it is remembered longer and it travels further.
+
+*** MEASURED FIRST, AND THE 82-ROW DEED TABLE IS NOT A TABLE OF DEEDS. *** It is
+83 rows now (he kept writing), counted through his own loader over 42 quest
+files, and ALL 83 ARE SHAPED q:<quest>:<stage>@<FACTION>. Not one row is a thing
+a person does on the street. AND NOT ONE OF THE SEVEN KINDS THE WALKED STREET
+ACTUALLY PUBLISHES IS IN IT:
+  claim:met  claim:refused  commit  favour  loan:short  spared  downed
+all seven NOT IN THE TABLE. The standing organ says what that means in its own
+words on the line that reads it: "unruled deed = weightless". So two people can
+watch you put somebody down and it moves nothing, for ever.
+
+AND ANOTHER LANE ALREADY HAD A RED SAYING SO, IN THOSE WORDS: CITY DEEDS on
+clean origin/main fails B11, "CONTENTS-PAOLO'S: DEED_WEIGHT is STILL EMPTY (83
+rows) and opinion is still 0". Nobody could close it, because closing it means
+putting rows in a table whose contents are HIS. That is exactly why this round's
+answer is a draft shape in the vote tab and not rows in the game.
+
+*** AND THE CONTROL COST A TRY, AGAIN, AND AGAIN IT WAS MY INSTRUMENT. ***
+witness(minds, turn, actorId, deedKind, x, y, where, opts) takes EIGHT arguments
+and I passed six, so `where` was undefined, the loop skipped every mind and the
+opinion read zero WITH a row and WITHOUT one. A broken instrument reading zero
+twice is not evidence. With the right call:
+  no row        2 people saw it   0.00 now, 0.00 after 21 days
+  row of -2.5   2 people saw it   -2.50 now, -1.95 after 21 days, rung COLD
+  claim:met     2 people saw it   +0.50, rung NEUTRAL
+THIRD ROUND RUNNING WHERE THE WRONG READING WAS MINE (9/21: BARK_DREW[0] is not
+the nearest body; 9/21: measure before you disturb; today: read the signature).
+All three were caught by re-testing, never by reasoning. WRITE THAT DOWN.
+
+WHAT WAS BUILT: tools/bohemia_weights.js, called by nothing. HIS RATIO IS THE
+ONLY NUMBER, and THE UNIT IS ARGUED FROM HIS OWN RUNG LADDER rather than picked:
+the ladder is HOSTILE -3, COLD -1, NEUTRAL +1, WARM +3, so at 0.5 one kindness
+does NOT move you a rung and one betrayal DOES. Checked through the game's own
+rungFor. On the real organ, beside his 83 rows with none overwritten:
+
+                                 now      21 days   90 days   rung
+  you hurt someone              -2.50     -1.95     -0.86     COLD
+  you did not pay what you owed -2.50     -1.95     -0.86     COLD
+  you kept your word            +0.50     +0.32     +0.08     NEUTRAL
+  you let somebody walk         +0.50     +0.32     +0.08     NEUTRAL
+  you threw in with an outfit    0.00      0.00      0.00     NEUTRAL
+
+Five kindnesses cancel one betrayal to the decimal. EVERY ZERO CARRIES ITS
+REASON IN THE FILE, because a zero with no reason reads as an oversight and gets
+"fixed" by the next lane through.
+
+TWO OF HIS FIVE HAVE NO DEED KIND AT ALL and are NAMED rather than given an
+invented one: nothing in the street notices STEALING, and the nearest thing to
+HELPING SOMEBODY WHO NEEDED IT is "spared", which is mercy in a fight. Making up
+a kind so a table looks full is how a system starts lying. FOR QUESTS AND WORLD.
+
+"REMEMBERED LONGER" IS FREE AND I BUILT NOTHING FOR IT: deedHalflife takes the
+deed's own weight, so a bad thing is half forgotten after 59 days and a good one
+after 33. "TRAVELS FURTHER" IS FALSE AND BACKWARDS: the loudness table
+(CT_DEED_CLOUT, in the city, another lane's draft) has five kinds, "you put
+somebody down" is NOT one of them so it runs at the default 9 cells and 2
+retellings, while "you threw in with an outfit" is risky at 17 and 4. THE
+LOUDEST THING ON THE STREET IS THE ONE THAT SAYS LEAST ABOUT YOU. The module
+carries a proposal (downed -> reckless, 24 cells and 5 retellings) and NOTHING
+APPLIES IT, because that table is on the play surface.
+
+RULE 18 OBSERVED, AND THE GATE HOLDS IT: nothing in the city or the alpha calls
+the shape, the city loudness table is untouched, bohemia_standing still ships
+DEED_WEIGHT EMPTY as its own gate asserts, 0 of his 83 rows were overwritten,
+and the module is in tools/ rather than engine/ on purpose.
+
+THE RULE 22 COOK, IN THE VOTE TAB: "WHAT PEOPLE REPEAT ABOUT YOU"
+(slices/BOHEMIA_WHAT_PEOPLE_REPEAT_ABOUT_YOU_9_22_26.html). It leads with the
+five things and what each one costs, then the half that counts for nothing, then
+the measurement in one sentence, then how long they remember, then the leg that
+is backwards. Three ways to go and B is softer than what I built.
+
+THE GATE: gates/weights_shape_gate.js, in the suite as WEIGHTS SHAPE.
+Negative-controlled, each put back: drop his ratio to two and invent a kind for
+stealing, 8 red; have the city so much as mention the shape, 1 red. AND ONE
+CLAIM OF MINE WAS WRONG BEFORE IT WAS RIGHT: it tested whether the word
+"halflife" appears in the module, which appears in a COMMENT saying the module
+did not build one, so it went red for telling the truth. A test about a comment
+is not a test about code. Repointed at substance.
+
+*** NAMED NOT FIXED, AND IT IS THIS LANE'S OWN: MAKE IT RIGHT, the gate from
+9/7, is 34 ok and 5 FAILED on clean origin/main. *** Opinion -6.00 where it
+wants otherwise, no button, opinion 2.00, the square press, and "Cannot read
+properties of undefined (reading 'saysHow')" on the real surface. The last one
+is a surface error, which usually means a screen moved under it. RED BEFORE THIS
+ROUND, confirmed in a throwaway worktree, and worth a row.
+
+NEXT: the lane's OPEN rows are [rumours travel], [creditor stands], [somebody
+hires you], plus [honest crowd] and [family eyes], both marked HELD by the
+coordinator. [honest crowd] is my own 9/21 finding turned into a row with my
+option A as the default, waiting on the hold.
+
+[PENDING Paolo], carried: when a person dies of old age; how many game days is a
+year; who you marry; what a long injury costs to treat. THE 82-ROW DEED TABLE IS
+NO LONGER ONE OF THEM: the shape is in the vote tab with three ways to go.
+Named for other lanes: no kind for stealing or for helping somebody, QUESTS and
+WORLD; the crowd of copies, CHARACTER; the borrow, LIFE+CITY and RUN; the
+loudness table, whoever owns CT_DEED_CLOUT.
+
 PEOPLE (people-7h9sfy): 9/21 (d) LATEST -- *** [walking companion] SHIPPED
 9e236045. NOBODY HAS EVER WALKED BESIDE YOU, AND THE SHUFFLE HE ASKED FOR HAS
 ONE CARD. *** Row A-COMPANION-ON-FOOT, under the rule 18 hold with the RULE 22
