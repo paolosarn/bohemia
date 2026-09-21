@@ -1837,101 +1837,97 @@ it is player-facing at all is worth deciding before restyling it. The source cou
 now understood as dead-declaration debt and can be swept file-wide in one pass instead of
 being chased surface by surface.
 
-RUN (run-eak241): 9/20 LATEST -- *** [one camera] SHIPPED. HE ZOOMED OUT AND GOT BIGGER,
-AND HE WAS RIGHT: THE BODY DREW 112/56/112/224 ACROSS THE FOUR STOPS. ONE STOP NOW, ONE
-SIZE, AND A STRIDE THAT STOPS AT A GAP INSTEAD OF STEPPING OVER IT. TAB: RUN (and CITY,
-the same walked world). BUILD 9/20c. Nothing to judge. Rule 18(e): the link is NOT sent. ***
+RUN (run-eak241): 9/21 LATEST -- *** [no pop ups] SHIPPED, BOTH HALVES. ON THE BUILD HE
+HAS, FIVE MINUTES FROM THE DOOR, 544 PRESSES ON THE PAD MOVED HIM ZERO CELLS, because the
+first card of the game opened at 2.5 s and never went away. Zero cards now, zero dead rows,
+and his presses reach the world. TAB: RUN (and CITY, the same walked world). BUILD 9/21a.
+Nothing to judge. Rule 18(e): the link is NOT sent. ***
 
-BOTH HALVES OF HIS 9/20 COMPLAINT WERE THIS LANE'S OWN REGRESSIONS, b40ecc67 and a36b4222,
-both shipped green four rounds ago. Saying that first because it is the finding.
+HALF ONE -- THE CARDS THAT OPEN THEMSELVES. Served demo, phone profile, five minutes, cards
+deliberately NOT cleared because a stranger has no harness to clear them, nothing tapped but
+the pad:
 
-RULE 18(c), WALKED BY HAND BEFORE THE PUSH. Served demo, phone profile, real taps on the
-real eight-wedge pad, same circuit of his own block, d71e8dde against this tree:
+    ONE card opened by itself, at 2.5 SECONDS. IT NEVER WENT AWAY.
+    544 presses over five minutes moved him ZERO CELLS.
 
-                            BEFORE          AFTER
-  body across the 4 stops   112/56/112/224  ONE SIZE
-  body across the drop-in   3 rungs         ONE SIZE
-  a real pinch              stop 11 -> 88,  cannot find a second stop
-                            body 224 px
-  STUCK PRESSES             12 of 40        0 of 45
-  GAPS WALKED PAST          14              0
-  cells crossed             410             685
-  stride length             14.6            15.2   (ceiling 25)
+The demo was unplayable from the first frame. That is not new information in this building:
+it is the #daycard inset:0 bug PLUMBER has carried on THIS LANE'S OWN ROW for three rounds
+-- "it sits over all eight direction buttons on boot" -- and everybody, me included, read it
+as an instrument problem. It was the game. Every walk number this fleet has ever quoted came
+from a harness that cleared a card Paolo cannot clear.
 
-THE CAMERA. A body is sized by whether a lot fits on the glass; a lot is 25 cells and a
-phone is 378 px, so that flips true only at the widest stop -- which is why two notches
-HALVED him and the last one DOUBLED him back. Worse, HC is ANIMATED by the mode transition
-(48 down to 11), so the body changed rung THREE TIMES while dropping in and nobody had
-looked. The walk now has ONE stop, the one where a house fits (rule 16); pinching out
-crosses the seam exactly as the 8/2 ruling already said; pinching in holds. HLEVELS is NOT
-deleted -- it is the ART ladder the bake and the character rungs are cut against, and
-conflating it with the ladder his fingers move on is precisely what shipped the resize.
+THE RULE IS AT THE ONE DOOR, NOT IN THE EIGHT CALLERS. Every panel comes through cardShow, so
+a card opens only if its caller NAMES A REASON -- a sentence and not a boolean, because a
+boolean lets the next lane write true and move on. Refusals are kept in CARDS_REFUSED rather
+than swallowed. A forced card added tomorrow goes red in a gate instead of going to him.
+ - THE MORNING and THE NIGHT go to THE PHONE, which is where rule 19a sends them: 10 lines
+   under THIS MORNING, the chip rings, and the phone slice really renders it. Nothing he was
+   told is deleted. The offer's yes is untouched; it never lived on that card.
+ - THE ROAD DIRECTOR does not fire a moment with no body AT ALL, decided BEFORE anything is
+   spent -- the old order charged the minutes and took the salvage FIRST, so merely refusing
+   the card would have left him paying ten minutes for a thing that never happened. A forced
+   contact still starts a real fight with real bodies. THE TABLES STAY (19e).
+ - THE DAY STILL TURNS. SLEEP was the ROLLOVER as well as a button; the night turns by itself
+   now, measured 1 -> 2 with no card to dismiss.
+ - ONE FORCED CARD KEPT AND NAMED, not hidden behind the word "asked": THE ENDING. It is the
+   game finishing; nothing is interrupted and the phone does not exist after the last day.
 
-AND THE BODY HALF IS CHARACTER'S, NOT MINE, AND THEIRS SHIPPED. We both measured the same
-defect in the same round and both reached for bodyLadder. CHARACTER's BODY_FIXED is simpler
-and lands further -- in the walked world the body is a CONSTANT and no camera can reach it
-at all -- so at the merge I DROPPED MINE rather than keep a second opinion about one
-number. ONE SYSTEM, ONE SESSION. My lotFitsOnScreen is left uncalled and unchanged and must
-not be re-wired to the body.
+HALF TWO -- THE CARDS THAT DO NOTHING WHEN TAPPED (Paolo 9/21, the third time). Every row of
+every reachable card, real touches, ONE PAGE PER CARD: 16 of 16 rows alive, 0 dead. The one
+real dead press was the MARKET: HE HAS ZERO BATTERIES, food and meds cost one each, so
+pressing FOOD ran the whole buy, got CANNOT_AFFORD and redrew the card saying exactly the
+sentence it was already saying. A row he cannot buy now keeps its place and its price, loses
+its data-act so a tap cannot reach the dispatcher, and says "you have no batteries, this is
+one battery". That is this file's own idiom (the offer's yes), not a new one.
 
-THE STRIDE. A lot is 25 cells and the way through a fence is two, so the stride stepped
-over the only opening on the block and landed past it, every time. PHOTOGRAPHED off the
-game's own walk flags at the cell the first walk jammed on, 6270,6268, nineteen dead
-presses in a row, every one east:
+*** AND MY INSTRUMENT LIED TWICE BEFORE IT TOLD THE TRUTH ONCE: 12 dead -> 3 -> 1 -> 0, and
+THREE OF THOSE FOUR NUMBERS WERE THE TOOL. It compared text, so nine feedback rows that
+answer by GOING LIT read as dead. Then it tested four cards in one page and called the
+ending's close dead -- an isolated probe closed it on the first try with the click landing on
+the right element. A CARD IS NOT ISOLATED BY REBUILDING THE CARD, IT IS ISOLATED BY A FRESH
+PAGE, so each card gets its own boot now. ***
 
-      . . . . . . . # . . . .
-      . . . . . . @ # . . . .      @ him   # wall   . standable
-      . . . . . . . # . . . .
-      # # # # # # # # . . . .
-      . . . . . . . . . . . .
+NUMBERS, 74ce272a -> this tree:
+    cards that opened by themselves    1  ->  0
+    still on screen at 5:00            1  ->  0
+    CELLS HE COVERED                   0  ->  52
+    dead rows on reachable cards       1  ->  0  (of 16)
+    the morning's words         on a card ->  10 lines on the phone
+    the day turns without a button    no  ->  yes (1 -> 2)
 
-A wall ONE CELL THICK with the whole world open one cell behind it. TWO RULES: NEVER PAST A
-GAP (the stride ends in the mouth of any side that was closed one cell ago and is now open;
-in open ground nothing new opens, so it costs nothing where there is nothing to miss), and
-A PRESS TOWARD A WALL SLIDES ALONG IT (a diagonal keeps the open component; a straight
-press slips the corner, and failing that looks along the wall face for its end, one lot each
-way, nearer wins). One slide per press, never a chain. A body holding a cell against him is
-a ruling the street made and is never slid around. THE LOT IS THE CEILING, THE GROUND SETS
-THE LENGTH.
+AND 52 IS NOT A GOOD NUMBER EITHER. That walk presses east and only east, into the sealed
+yard this lane already handed over. The walk AROUND the block is 685 cells in 45 presses,
+unchanged. 0 -> 52 proves his presses reach the world; it does not prove his block is walkable.
 
-THE GATE, AND THE PART OF IT WORTH READING: gates/the_walk_never_misses_gate.js, WALK NEVER
-MISSES, 19/0. THE FIRST CUT OF IT REPORTED 19 STUCK PRESSES AND WAS WRONG -- it was hammering
-one sealed back yard, and a game that refuses to walk into a building is a game working.
-Calling that a stride bug would have sent this lane chasing a fix for a wall. So a refused
-press is now judged by an INDEPENDENT FLOOD FILL over the game's own walk flags, one lot
-out: is there any cell I can reach that is further the way I pressed? The stride's slide
-scans wall FACES; the oracle FLOODS; they cannot agree by construction. MUTATION: the
-pre-fix tree IS the mutant, 9 passed / 10 failed.
+GATE: NOTHING POPS UP, 16/0, and it holds both halves. MUTATION: MAIN IS THE MUTANT, 4 passed
+/ 11 failed, including the zero cells measured independently.
 
-ZOOM SEAM GATE, ONE LEG AMENDED AND NOT LOOSENED: "44 stays 44" was a consequence of a
-four-stop walk, never the ZOOM LEVEL LAW, which protects zero fractional art scaling. It now
-asks the law's real question -- wherever the camera lands, is it one of the four pixel-true
-stops -- and the one-stop rule itself is held with real gestures by WALK NEVER MISSES.
+TWO GATES RE-AIMED, NEITHER LOOSENED, AND ONE WAS MINE: FIRST MINUTE read the dead wake card
+for its words and asks the PHONE now (same question, moved surface). MY OWN WALK NEVER MISSES
+slept a flat 340 ms per press and read 19/0 alone against 17/2 inside a gate pass -- SAME
+TREE, TWO VERDICTS -- so it polls for the beat now and reads 19/0 under the load that made it
+red. I nearly reported a regression that was my own stopwatch, which is PLUMBER [cold read]'s
+shape exactly.
 
-[PENDING nobody, FOR WHOEVER OWNS THE GROUND -- WORLD or LIFE+CITY, NOT RUN]: FIVE PRESSES
-ON HIS OWN BLOCK GO INTO GROUND A BODY CANNOT REACH (6270,6268 and 6270,6270 among them).
-Same shape as the finding this lane already carries: his block has 45 doorsteps and 0
-straight walkable ways out. The suburb generator seals yards. It is not the stride and it is
-not the camera, and this round did not touch it.
+[PENDING nobody, FOR WHOEVER OWNS THE GROUND]: his own block has 45 doorsteps and 0 straight
+walkable ways out, and five presses on it go into ground a body cannot reach. It is why FIRST
+MINUTE's two carried reds say "nearest way out NONE in 140". Measured identically on 74ce272a,
+so it is not this round's.
 
-CARRIED RED, MEASURED BOTH WAYS SO IT IS NOT MINE: FIRST MINUTE 7/2 on d71e8dde and 7/2
-here, same two legs, same numbers ("nearest way out NONE in 140") -- it is the sealed-block
-finding above wearing a different gate's name. NAMED AS A FLAKE, ALSO NOT MINE: ZOOM SEAM's
-"zooming back in puts him on his feet" leg fails 2 of 3 on d71e8dde on an idle box; it is a
-quarantine candidate for PLUMBER, not a regression.
+[PENDING nobody, FOR ECONOMY]: HE HAS ZERO BATTERIES ON DAY ONE and the market's whole shelf
+costs one each, so nothing on it can be bought in the demo. I made the rows honest rather than
+dead, which is rule 14(d)'s "deliver it or remove it" answered the cheap way. Delivering it is
+somebody's ruling about where the first battery comes from, and it is not mine.
 
-COST NAMED, BECAUSE IT IS REAL: HE CAN NO LONGER ZOOM IN WHILE WALKING. There is one street
-view, and the way to look closer is to go and stand there. That is the price of a body that
-never changes size, and the row asked for it in those words.
+NEXT, IN ORDER: [land on it] -- LIFE+CITY c4e08b82 measured a full stride overshooting a place
+nearer than a stride and ping-ponging (his door to the road 21 cells away: 21 presses one cell
+at a time, 60 presses and NEVER ARRIVES with a full stride). The default to measure and
+correct: a stride crossing a CHANGE OF GROUND toward the press stops on the first new kind of
+ground. Then [horror loading] and [loading screen] part two, still the eighty seconds after
+the tap (the city iframe is built lazily INSIDE the click handler). [fast travel] stays
+CLAIMED and paused under rule 18.
 
-NEXT, IN ORDER: [no pop ups] is now the first line of this lane (Paolo 9/20, twice in a row,
-the SNATCHER card is the second frame of the game) and it beats the queue. Then [loading
-screen] part two, which is still CLAIMED and still the eighty seconds after the tap -- the
-city iframe is built lazily INSIDE the click handler, so the heavy work happens with his
-finger already down. [fast travel] stays CLAIMED and paused under rule 18. Rule 18(d), what
-regressed gets reverted by RUN once EYES [best cut] ranks the cuts, is not started.
-
-RECORD: records/BOHEMIA_ZOOM_OUT_AND_HE_DOUBLED_9_20_26.md
+RECORD: records/BOHEMIA_FIVE_HUNDRED_PRESSES_AND_HE_NEVER_MOVED_9_21_26.md
 
 --------------------------------------------------------------------------------
 WORDS (words-8dqrnq): 9/18 LATEST -- *** Q5 [refusing answers] SCHOOL DONE, ROUND ONE OF TWO.

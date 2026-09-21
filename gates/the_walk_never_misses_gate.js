@@ -142,13 +142,29 @@ const DIRS = [[0, -1], [1, -1], [1, 0], [1, 1], [0, 1], [-1, 1], [-1, 0], [-1, -
     ok('the pad has eight direction wedges to press', !!wedges && wedges.length === 8);
     if (!wedges || wedges.length !== 8) { await d.close(); return done(); }
 
+    /* *** WAIT FOR THE BEAT, DO NOT GUESS HOW LONG IT TAKES. ***
+       The first cut of this slept a flat 340 ms after every press. That is fine on an
+       idle box and a LIE on a busy one: MEASURED, this gate read 19/0 alone and 17/2
+       when it ran inside a gate pass, with a press counted STUCK because the beat had
+       not come round yet. Same tree, same code, two different verdicts -- which is
+       the ZOOM SEAM seam-leg bug this repo already wrote down in capitals: "a gate
+       that goes red because the machine was busy is a gate somebody switches off."
+       So it POLLS for the thing it is waiting for, to a budget, and gives up only
+       when the world really has had its chance. A press that moves him is seen the
+       moment it lands, so this is also FASTER in the common case. */
     const press = async (i) => {
       const w = wedges[i];
+      const at = await d.state();
       const pts = [{ x: fb.x + w.x, y: fb.y + w.y, id: 1 }];
       await d.cdp.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: pts });
       await d.page.waitForTimeout(90);
       await d.cdp.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
-      await d.page.waitForTimeout(340);   /* one beat at 120 BPM is 500 ms; give it room */
+      /* two beats at 120 BPM is a full second; poll to twice that before calling it */
+      for (let k = 0; k < 20; k++) {
+        await d.page.waitForTimeout(100);
+        const now = await d.state();
+        if (now.hx !== at.hx || now.hy !== at.hy) { await d.page.waitForTimeout(120); return; }
+      }
     };
 
     /* THE CIRCUIT: his own block. Three lots out on each side, four corners, back

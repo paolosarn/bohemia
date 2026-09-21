@@ -39749,6 +39749,24 @@ function roadInterrupt(spentSeconds){
   };
   var got = dir.consider(world, spentSeconds);
   if(got && got.fired){
+    /* *** A TEXT PROMPT IS NOT AN EVENT (Paolo 9/20, rule 19e, [no pop ups]). ***
+       His own frame, the SECOND FRAME OF THE GAME: the SNATCHER card -- "a kid comes
+       off your blind side... KEEP MOVING" -- and his words about it: "you don't got
+       quests like that for real... it can't just be these bullshit-ass text prompts."
+       SO A MOMENT WITH NO BODY ON SCREEN DOES NOT FIRE AT ALL, and that has to be
+       decided HERE, before anything is spent. The old order charged the minutes and
+       took the salvage FIRST and opened the card second, so simply refusing the card
+       would have left him paying ten minutes of his day for a thing that never
+       happened -- a worse bug than the card, and a silent one.
+       A FORCED CONTACT IS NOT A PROMPT: it puts real bodies on the street and starts
+       a real fight, which is exactly the thing the law says a moment must have. That
+       path is untouched.
+       THE TABLES STAY. ROAD_WORDS, ROAD_CHOICES and ROAD_COST are not deleted and
+       not emptied. They are content waiting for bodies to say them, which is what
+       rule 19e asks for in those words, and roadCard below is kept whole for the
+       round it gets a mouth. */
+    var _body = (got.kind === 'forced');
+    if(!_body) return { fired:false, reason:'NO_BODY_ON_SCREEN', would:got };
     ROAD_LOG.push(got);
     /* THE INTERRUPTION EATS THE DAY. In minutes, through the clock the whole
        game already spends. */
@@ -39765,7 +39783,9 @@ function roadInterrupt(spentSeconds){
        button on it is a choice pretending it is not. */
     var _fought = false;
     if(got.kind === 'forced'){ try{ _fought = roadContactFight(got); }catch(_e){} }
-    if(!_fought){ try{ roadCard(got, mins, kg); }catch(_e){} }
+    /* and if the contact could not become a fight, it is a prompt again, so it does
+       not get a card either. The refusal at the top is the rule; this is the same
+       rule on the one path that gets past it. */
   }
   return got;
 }
@@ -55335,7 +55355,49 @@ function updQline(){
 }
 
 /* ---- the cards ---------------------------------------------------------- */
-function cardShow(html,onTap){
+/* ============================================================================
+   NOTHING POPS UP (Paolo 9/20, LOCKED, TWICE IN A ROW, rule 19a, [no pop ups])
+
+   "I start the demo and a bunch of shit pops up on the screen. What the fuck is
+    that?"  and, on the second frame of the game, the SNATCHER road card:
+   "you don't got quests like that for real... it can't just be these bullshit-ass
+    text prompts."
+
+   MEASURED FIRST, ON THE GLASS, WITH THE ONE DRIVER AND NOTHING TAPPED BUT THE PAD
+   (tools/bohemia_what_pops_up_9_21_26.js, five minutes, 554 presses east):
+
+       ONE card opened by itself, at 2.5 SECONDS, and IT NEVER WENT AWAY.
+       554 presses on the pad for five minutes and he never took a step,
+       because the thing covering the pad was the first card of the game.
+
+   That is worse than the list I expected to find. It is also exactly what PLUMBER
+   has reported on RUN's row for three rounds running -- "#daycard is inset:0 and
+   sits over all eight direction buttons on boot" -- and it is the reason time to
+   first play could not be measured on either surface.
+
+   *** THE RULE IS AT THE DOOR, NOT IN THE EIGHT CALLERS. *** Every panel in this
+   game comes through this one function, so this is where "nothing pops up" can be
+   true for callers that do not exist yet. A card opens ONLY if the caller says HE
+   ASKED FOR IT. Anything else is refused, counted, and remembered by name, so the
+   next lane that adds a forced card finds a red gate instead of Paolo finding a
+   pop-up. This file has been bitten three times by a rule that every future caller
+   had to remember; a rule the machine holds is the only kind that lasts.
+
+   THE FOUR THAT STOP: the wake card, the night's reckoning, the road director's
+   card and the walk director's choice. THE FOUR THAT STAY, because he pressed a
+   button to get them: the market, standing, the feedback box, the ending he opens.
+   Their bookkeeping is not deleted -- it goes to THE PHONE, the thing he opens
+   himself (__MORNING_ON_THE_PHONE__ below). */
+var CARDS_REFUSED = [];
+function cardShow(html,onTap,asked){
+  if(!asked){
+    /* REFUSED, AND REMEMBERED. Never silently: a swallowed refusal is how a lane
+       ships a feature that does nothing, which is this file's oldest bug. */
+    try{ CARDS_REFUSED.push({ at: (typeof DAY!=='undefined'&&DAY.min)|0,
+      text: String(html||'').replace(/<[^>]*>/g,' ').replace(/\s+/g,' ').trim().slice(0,80) });
+      if(CARDS_REFUSED.length>40) CARDS_REFUSED.shift(); }catch(_e){}
+    return false;
+  }
   const c=document.getElementById('daycard'), i=document.getElementById('daycardIn');
   /* __EVERY_PANEL_CLOSES__ (8/24). Paolo: "When I press standing, and I press close,
      it doesn't close." MEASURED: the STANDING card opens with hasAct 0, and the
@@ -55529,7 +55591,32 @@ function showWake(){
   h+='<div class="sub" data-took-slot="1" data-draft="true" style="visibility:hidden">'
     +'You took it. It is yours until the day is out.</div>';       /* draft:true */
   h+='<div class="dcgo" data-act="go">GET UP</div>';
-  /* __THE_VALLEY_IS_A_PLACE__ -- the valley comes AFTER the card is gone, never under it. */
+  /* *** THE MORNING DOES NOT POP UP ANY MORE (Paolo 9/20, rule 19a, [no pop ups]).
+     MEASURED ON THE GLASS BEFORE THIS LINE EXISTED, five minutes from the door with
+     nothing tapped but the pad: THIS card opened at 2.5 SECONDS AND NEVER WENT AWAY,
+     and 554 presses on the pad in five minutes moved him ZERO CELLS, because the
+     first thing the game does was sitting on top of the only control it has. It is
+     his sentence -- "I start the demo and a bunch of shit pops up on the screen" --
+     and it is also the #daycard-over-the-pad bug PLUMBER has carried on this lane's
+     row for three rounds.
+     THE WORDS ARE NOT DELETED, THEY MOVE: the same h, built by the same code above,
+     goes to the phone and the chip rings. The offer's yes is untouched because it
+     never lived here -- offerRing puts the job on the phone and offerAccept is the
+     one door, which this card's own comment says in capitals.
+     AND WHAT THE "GET UP" TAP DID STILL HAPPENS, right here, because there is no
+     press left to hang it on: the morning's sound and the vista beat. Dropping them
+     with the card would have been a feature quietly deleted by a fix, which is the
+     thing this file keeps being caught by. */
+  toPhone('this morning', h);
+  try{ if(window.parent&&window.parent!==window)
+    window.parent.postMessage({bohemiaCitySfx:{ev:'come_up'}},'*'); }catch(_e){}
+  try{ vistaBeatMaybe(); }catch(_e){}
+  return;
+  /* eslint-disable no-unreachable -- KEPT, NOT DELETED, AND SAID PLAINLY: the card's
+     own handler below is the offer's haggle-and-take flow, and PEOPLE [face at the
+     door] and QUESTS [a person asks] are building the body that will say all of this
+     out loud. When that lands it needs this behaviour, not an archaeology dig. The
+     graveyard is for shapes he killed; this is a shape waiting for a mouth. */
   cardShow(h,function(act){
     /* __ASK_FOR_MORE__ -- an ask redraws the card in place; it never leaves it. */
     if(typeof act==='string'&&act.indexOf('hg:')===0){
@@ -55611,6 +55698,56 @@ function showWake(){
    on day and job, so the same offer keeps the same conversation and a new day
    opens a fresh one. */
 var HAGGLE_TERMS=null, HAGGLE_KEY=null;
+/* ============================================================================
+   __MORNING_ON_THE_PHONE__ (9/21, RUN, [no pop ups]) -- WHERE THE BOOKKEEPING WENT
+
+   Rule 19a does not say DELETE the morning and the night. It says: "the wake card,
+   the night card and the road card AS POP-UPS are DEAD; the bookkeeping lives on the
+   PHONE HE OPENS." So nothing he used to be told is lost. The same sentences, built
+   by the same code, go to the one surface in this game he reaches for himself, and
+   the phone chip RINGS so he knows there is something there.
+
+   IT KEEPS THE WORDS AND DROPS THE BUTTONS, which is the whole difference between a
+   page and a pop-up: rows the card used to make him press (GET UP, SLEEP, I'LL TAKE
+   IT) are not sentences and do not travel. The offer itself already has a real home
+   on the phone -- offerRing put it there before the card was ever built -- so the
+   yes he needs is the one that was always there and not a second one.
+
+   READ OFF THE BUILT HTML rather than re-written as a second list, because a second
+   list is how two descriptions of one morning start to disagree. This file has paid
+   for that lesson with hair, with the step constant and with the body size. */
+var MORNING = [], MORNING_UNREAD = 0;
+function phoneLines(html){
+  var out = [];
+  try{
+    var box = document.createElement('div');
+    box.innerHTML = String(html || '');
+    var nodes = box.querySelectorAll('p, h2, h3, .sub, .rwhy');
+    for(var i = 0; i < nodes.length; i++){
+      var n = nodes[i];
+      /* a row he was meant to press is not something he was told */
+      if(n.closest('.dcgo, .dcbtn, .mrow')) continue;
+      var t = (n.textContent || '').replace(/\s+/g, ' ').trim();
+      if(t && out.indexOf(t) < 0) out.push(t);
+    }
+  }catch(_e){}
+  return out;
+}
+/* ONE DOOR FOR BOTH THE MORNING AND THE NIGHT, so there is one answer to "where did
+   that go" and one place a future lane adds to. */
+function toPhone(title, html){
+  var lines = phoneLines(html);
+  if(!lines.length) return 0;
+  MORNING = [{ head: String(title || '').toUpperCase(), lines: lines,
+               day: (typeof DAY !== 'undefined' ? DAY.day : 0) }];
+  MORNING_UNREAD = lines.length;
+  /* THE CHIP RINGS. Same clothes the unread call already wears, decided in the one
+     place that knows -- a second thing polling "is there something on the phone" is
+     the bug this file removed from the population card on 8/24. */
+  try{ var b = document.getElementById('phonebtn'); if(b) b.classList.add('ring'); }catch(_e){}
+  try{ phonePush(true); }catch(_e){}
+  return lines.length;
+}
 function offerRing(){
   OFFER=null; OFFER_TAKEN=false;
   var spec=DQ.specForDay(DAY.day); if(!spec)return;
@@ -56667,7 +56804,8 @@ function fbKeep(){
 function fbShow(){
   var B = fbBB(); if (!B || !FB) return;
   FB_OPEN = true;
-  cardShow(fbBody(), function(act){
+  cardShow(fbBody(), /* __NOTHING_POPS_UP__: the save drawer's own button, or the
+     door on the ending he is already reading. Both are presses. */ function(act){
     if (!act) return;
     if (act === 'fbsend') { fbKeep(); fbPersist(); fbSend(); return; }
     if (act.indexOf('fba:') !== 0) return;
@@ -56682,7 +56820,7 @@ function fbShow(){
     FB_ANS[id] = (FB_ANS[id] === q.options[idx]) ? null : q.options[idx];
     fbPersist();
     fbShow();
-  });
+  }, 'he pressed the feedback door');
 }
 
 function fbSend(){
@@ -56771,7 +56909,16 @@ function showEnding(){
      seconds, added to the card that is already up rather than built into it, so
      a player who closes the ending never sees it and the last thing the GAME
      said stays the last thing the game said. */
-  cardShow(h, function(act){ if (act === 'fbdoor') { try { fbShow(); } catch(_e){} } });
+  /* *** THE ENDING IS THE ONE FORCED CARD THAT LIVES, AND I AM NAMING THE TRADE
+     RATHER THAN HIDING IT BEHIND THE WORD "ASKED". *** Rule 19a kills three by
+     name -- the wake, the night and the road card -- and those are gone. This one
+     is not on that list and it is a different animal: it is the game FINISHING.
+     Nothing is interrupted, because there is no play left to interrupt, and the
+     destination the law gives the others (the phone, the thing he opens while
+     playing) does not exist after the last day. Killing it would delete the peak-end
+     ending with nowhere to put it, which is the deletion the law is against. */
+  cardShow(h, function(act){ if (act === 'fbdoor') { try { fbShow(); } catch(_e){} } },
+    'the game has ended, there is no play left to interrupt');
   try { setTimeout(function(){
     var inn = document.getElementById('daycardIn');
     if (!inn || !document.getElementById('daycard').classList.contains('on')) return;
@@ -57255,7 +57402,19 @@ function showReckoning(){
      Here the tap that dismisses it is the SLEEP tap he was making anyway. */
   if(s.day===1 && installShouldAsk()) h+=installLine();
   h+='<div class="dcgo" data-act="next">SLEEP \u2192 DAY '+(s.day+1)+'</div>';
-  cardShow(h,function(){ cardHide();
+  /* *** THE NIGHT DOES NOT POP UP EITHER (Paolo 9/20, rule 19a, [no pop ups]):
+     "the night's bookkeeping -- who you owe, the batteries, the day's steps, what
+     you are working on -- moves to the PHONE, the thing he opens himself."
+     AND THE DAY STILL HAS TO TURN. That is the part a careless fix deletes: SLEEP
+     was not only a button, it was the rollover, the upkeep sweep and the demo's
+     ending, all hanging off one press. So the night now turns BY ITSELF and the
+     numbers are waiting on the phone in the morning. Nothing about what a day costs
+     changed; only the modal he had to dismiss to get his next day is gone.
+     A CARD WITH ONE BUTTON ON IT IS A CHOICE PRETENDING IT IS NOT -- this file's own
+     sentence, written for the road card, and just as true here: SLEEP had no second
+     option, so nothing was ever being decided. */
+  toPhone('last night', h);
+  (function(){
     /* __CITY_NEGLECT__ -- MOVED (__WHAT_YOU_OWE__, 9/5). The upkeep for the day
        that is ending is charged at the TOP of showReckoning now, before the card
        is built, so the card can say who it cost. It is still charged before the
@@ -57276,7 +57435,7 @@ function showReckoning(){
        is the rollover, and the rollover is what the demo does not get. */
     if (ctDemoOver(s.day)) { try { showEnding(); return; } catch(_e){} }
     DAY.nextDay(); daySync(); _lastDistrict=null;
-    showWake(); updHud(); render(); reportState(); });
+    showWake(); updHud(); render(); reportState(); })();
 }
 
 
@@ -57594,6 +57753,9 @@ function phoneState(){
            quest:(function(){ try{ return DQ.spec?DQ.spec.id:null; }catch(_e){ return null; } })(),
            done:(function(){ try{ return DQ.done(); }catch(_e){ return false; } })(),
            offer:(OFFER&&!OFFER_TAKEN)?OFFER:null, taken:!!OFFER_TAKEN,
+           /* __MORNING_ON_THE_PHONE__ ([no pop ups], 9/21): what the wake card and the
+              night card used to say, on the surface he opens himself. */
+           morning:(function(){ try{ return MORNING.length?MORNING[0]:null; }catch(_e){ return null; } })(),
            standing:(function(){ try{ return DQ.standing(); }catch(_e){ return null; } })(),
            purse:purseBalances(), paid:PAID_TODAY, payRefused:PAY_REFUSED,
            market:(function(){ try{ var h=mktHub(); return h?{cell:{x:h.x,y:h.y},kind:h.kind,
@@ -59319,10 +59481,28 @@ function showMarket(){
     var right=(r.price!=null)
         ?(r.cur==='electricity'?battWord(r.price):(r.price+' '+r.cur))
         :(r.reason==='NO_RULING'?'unpriced':'\u2014');
-    s+='<div class="mrow'+(can?'':' no')+'" data-act="buy:'+esc(r.good)+'">'
+    /* *** A ROW HE CANNOT BUY IS NOT PRESSABLE (Paolo 9/21, THE THIRD TIME: "all
+       these fucked up quest cards that don't do anything when I click on them").
+       MEASURED, every row of every reachable card pressed with a real touch: of 19
+       rows, ONE was a genuinely dead press and it was this one, twice. He has ZERO
+       batteries on day one, food and meds cost one each, so pressing them ran the
+       whole buy, got CANNOT_AFFORD, redrew the card -- and the card said exactly the
+       sentence it was already saying. Nothing moved. From his side that is a dead
+       button, and rule 14(d) calls a card that promises and does nothing the worst
+       bug in the game.
+       THE FIX IS THIS FILE'S OWN IDIOM, NOT A NEW ONE. The offer's yes already does
+       exactly this (__NOTHING_MOVES_UNDER_HIS_FINGER__): "Drawn always, pressable
+       only when there is something to take, and with no data-act when there is not,
+       so a tap cannot reach the dispatcher." The row KEEPS ITS PLACE AND ITS PRICE
+       so nothing shifts under his finger, and it says what is missing instead of
+       waiting to be pressed and then saying nothing. draft:true. */
+    var _short = can ? '' : (r.price==null
+        ? 'nobody has ruled what that costs'
+        : ('you have ' + battWord(have) + ', this is ' + battWord(r.price)));
+    s+='<div class="mrow'+(can?'':' no spent')+'"'+(can?' data-act="buy:'+esc(r.good)+'"':'')+'>'
       +'<div><div class="mgood">'+esc(r.good.toUpperCase())+' \u00b7 1 '+esc(r.unit)+'</div>'
-      +'<div class="mnote">'+esc(r.daysLeft==null?String(r.note||'')
-          :(r.daysLeft+' days of it left in the valley'))+'</div></div>'
+      +'<div class="mnote">'+esc(_short || (r.daysLeft==null?String(r.note||'')
+          :(r.daysLeft+' days of it left in the valley')))+'</div></div>'
       +'<div class="mprice">'+esc(right)+'</div></div>';
   }
   /* __WHO_WILL_JOIN_YOU__ (9/13, [recruit anywhere]) -- AND WHO THIS TOWN WOULD
@@ -59349,7 +59529,7 @@ function showMarket(){
   cardShow(s,function(act){
     if(act==='close'){ MKT_LAST=null; cardHide(); return; }
     if(act&&act.indexOf('buy:')===0){ mktBuy(act.slice(4)); showMarket(); }
-  });
+  }, 'he pressed MARKET');
 }
 /* __BUILDER_WHERE_HE_WALKS__ -- THE VERB, WHERE HIS FEET ARE.
    MEASURED BEFORE IT WAS WRITTEN, on the real cut demo and not from memory: the CITY
@@ -73934,7 +74114,7 @@ function showStanding(){
   if(!r.ok){
     cardShow('<div class="rwhy">Standing is not loaded on this page yet.</div>'
            + '<div class="dcgo" data-act="close">CLOSE</div>',   /* __EVERY_PANEL_CLOSES__ */
-           cardHide);
+           cardHide, 'he pressed STANDING');
     return;
   }
   var h = '';
@@ -74306,7 +74486,7 @@ function showStanding(){
      the same subject as this card, so it lives here now, one tap in. draft:true. */
   h += '<div class="dcgo" id="standingWho">WHO IS OUT THERE</div>';   /* draft:true */
   h += '<div class="dcgo" data-act="close">CLOSE</div>';   /* draft:true */
-  cardShow(h, cardHide);
+  cardShow(h, cardHide, 'he pressed STANDING');
   /* bound where the card really is, which is the lesson the CLOSE row above already paid for */
   try{
     var _who=document.getElementById('standingWho');

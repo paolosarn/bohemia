@@ -1790,6 +1790,22 @@ GATES = [
      'nothing: the invitation is in the document before one byte of script runs. MUTATION: put '
      'TAP TO ENTER back in the markup -> 4 red, and the one-tap leg independently reproduces the '
      'dead first press.', False),
+    ('NOTHING POPS UP', ['node', 'gates/nothing_pops_up_gate.js'],
+     'VAMILY [no pop ups], rule 19a and 19e: PAOLO 9/20, TWICE IN A ROW -- "I start the demo '
+     'and a bunch of shit pops up on the screen. What the fuck is that?" and, on the SECOND '
+     'FRAME OF THE GAME, the SNATCHER road card: "you don\'t got quests like that for real... '
+     'it can\'t just be these bullshit-ass text prompts." MEASURED FIRST ON THE SERVED DEMO, '
+     'five minutes, cards deliberately NOT cleared because a stranger has no harness: ONE card '
+     'opened by itself at 2.5 SECONDS, IT NEVER WENT AWAY, and 544 presses on the pad moved him '
+     'ZERO CELLS -- the demo was unplayable from the first frame, and it is the #daycard '
+     'inset:0 bug PLUMBER carried on RUN\'s row for three rounds. THE RULE IS AT THE ONE DOOR: '
+     'cardShow refuses any card whose caller cannot NAME A REASON (a sentence, not a boolean, '
+     'because a boolean lets the next lane write true), and refusals are kept rather than '
+     'swallowed. The morning, the night and the road card stop; their words go to THE PHONE, 10 '
+     'lines, and the chip rings. THE DAY STILL TURNS WITHOUT A BUTTON (1 -> 2) because SLEEP was '
+     'the rollover as well as a card. Holds the rule and not the four callers, so a forced card '
+     'added tomorrow goes red here instead of going to Paolo. MUTATION: main IS the mutant, '
+     '4 passed / 11 failed including the zero cells.', True),
     ('WALK NEVER MISSES', ['node', 'gates/the_walk_never_misses_gate.js'],
      'VAMILY [one camera], rule 18a THE PLAYABLE CUT: PAOLO 9/20 -- "I am zooming out and my '
      'person becomes bigger... walking the same distance and crashing into walls because it is '
