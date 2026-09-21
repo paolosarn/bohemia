@@ -128,6 +128,47 @@ the patch is built at whatever the camera makes a cell, so it blits 1:1.
 
 ---
 
+## THE ONE NEW RED IS MINE, AND I AM SHIPPING IT NAMED RATHER THAN HIDDEN
+
+`house_board_gate` goes **17/0 to 16/1**, and the baseline says plainly that it is
+mine: on main's own alpha the same gate is 17/0. The leg is *"the glass holds a
+handful of houses, not a car park of them"*, bounded 4 to 10, and it now reads
+**3.03 across at the camera he is actually looking through.**
+
+**It is a true statement about the game, not a broken instrument** — I repointed the
+ruler first, because it was measuring at zoom 1 while its own words say THE GLASS, and
+it still fails. **So the bound is not being loosened.**
+
+### What it means, and why it is not this round's fix
+
+Two of his own numbers now collide. A person is 112 (rule 21) and a lot is 1.75 sprite
+widths (his dial), so a lot is 196 px and a phone holds about three of them. Against
+that:
+
+```
+  a rifle reaches          2 houses      you see your reach and one more
+  sight                    6 houses      the game says you can see twice what fits
+  the way out              3.5 - 6.4     IT IS OFF SCREEN
+```
+
+`TILE_WIDE` is marked *"his number, by eye, and his to change"*, and it was set by eye
+when a sprite width was 37 px. Nobody re-looked at it after the body tripled — which
+is the same finding as everything else this round, one more time.
+
+**The fix is rule 21 applied to the live camera, and it is a second behavioural change
+that deserves its own measurement and its own photograph.** The fight auto-frames: it
+scales the whole world, people included, to fit the men on screen. Under rule 21 that
+camera should move the **ground** and leave the person at 112 — then it can open to six
+houses without shrinking anybody, which is both the ruling and the Battle Brothers
+read he asked for. That needs the ruled size split from the drawn size, so
+`tileWideMult` and `contentR` keep seeing the ruled 112 while the draw compensates for
+the live zoom. **Next round, first thing.**
+
+Two other reds in the pass are **not** mine and the baseline proves it: `first_fight_gate`
+is 3/6 on main with the identical throw, and `you_can_start_it_gate` is 18/1 on main.
+
+---
+
 ## WHAT IS STILL WRONG, MEASURED, NOT FIXED
 
 1. **THE TWO CANVASES RENDER AT DIFFERENT DEVICE PIXEL RATIOS**, and this is now the
@@ -145,6 +186,29 @@ the patch is built at whatever the camera makes a cell, so it blits 1:1.
 4. **THE LIGHT DOES NOT CARRY**: warm walk, cold fight (DIRECTION). The ground is much
    warmer than it was, and it is still not the street's light.
 5. **THE ROOF READS AS A FLOOR** — carried from V222, unchanged.
+
+---
+
+## AND TWO MORE RULERS WERE WRITTEN IN A UNIT THE GAME HAD MOVED PAST
+
+Both were found by this change making them fire, and both are repointed, not loosened:
+
+- **`combat_scale_gate`'s "a man is the same number of TILES tall"** asserts, in its own
+  words, that *"the floor and the people must divide by the same number"* — which is
+  exactly what rule 21 overturns. **A gate must never outrank a ruling** (this lane's
+  own 9/12 standing note). Turned over, not loosened: the giants bug was a body whose
+  **pixels** moved with the camera, so that is what is checked now, and V138 still
+  fails it. The body board keeps the old invariant, because it still holds there.
+- **The same gate's "visible" number** read `0.85/FIELD_PITCH`, the pitch from **before
+  V198's tile-wide multiplier** — a question about a board the game stopped drawing.
+  It claimed 30 tiles visible when the truth was 10.2, which is why that leg has sat
+  red on main against a contentR of 7.6. Read properly it is **3.7 against 3.9, green,
+  and telling the truth for the first time since V198** — so V223 closes a red that has
+  been misreported for weeks.
+- **And its probe was reading the wrong canvas entirely**: `querySelector('canvas')`
+  returns the 183x54 **logo**, not the board, so every canvas-dependent number this
+  gate ever printed was measured off a logo. The tiles-tall ratio survived by accident,
+  because both halves divided by the same wrong number.
 
 ---
 

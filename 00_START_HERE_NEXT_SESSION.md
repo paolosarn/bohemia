@@ -31001,6 +31001,40 @@ PHOTOGRAPHS FOR DIRECTION, same session, one tap apart, which the row asks for e
   records/target/combat/FIGHT_LOOKS_9_21_A_THE_WALK.jpg
   records/target/combat/FIGHT_LOOKS_9_21_B_THE_FIGHT.jpg
 
+*** I AM SHIPPING ONE NEW RED AND IT IS MINE, NAMED RATHER THAN HIDDEN. *** house_board_gate goes
+17/0 -> 16/1, and the baseline says so plainly: on MAIN's own alpha the same gate is 17/0. The leg
+is "the glass holds a handful of houses" (bounded 4..10) and it reads 3.03 ACROSS AT THE CAMERA HE
+IS ACTUALLY LOOKING THROUGH. It is a TRUE STATEMENT ABOUT THE GAME, not a broken instrument: I
+repointed that ruler first (it measured at zoom 1 while its own words say THE GLASS) and it STILL
+fails, so the bound is NOT loosened.
+WHAT IT MEANS: two of his own numbers now collide. A person is 112 (rule 21) and a lot is 1.75
+sprite widths (his dial), so a lot is 196 px and a phone holds about three. Against that: a rifle
+reaches 2 houses, SIGHT says 6, and THE WAY OUT IS PLACED AT 3.5-6.4 AND IS OFF SCREEN. TILE_WIDE
+is marked "his number, by eye, and his to change" and was set by eye when a sprite width was 37 px;
+nobody re-looked after the body tripled -- the same finding as everything else this round.
+THE FIX, AND IT IS THE FIRST THING NEXT ROUND: rule 21 applied to the LIVE camera. The fight
+auto-frames and scales the whole world, people included, to fit the men; under rule 21 that camera
+must move the GROUND and leave the person at 112, and then it can open to six houses without
+shrinking anybody -- which is both the ruling and the Battle Brothers read he asked for. It needs
+the RULED size split from the DRAWN size, so tileWideMult and contentR keep seeing the ruled 112
+while the draw compensates for the live zoom. I did NOT half-build it at the end of a round.
+
+TWO OTHER REDS IN THE PASS ARE NOT MINE AND THE BASELINE PROVES IT: first_fight_gate is 3/6 on MAIN
+with the identical throw, and you_can_start_it_gate is 18/1 on MAIN.
+
+*** AND TWO MORE RULERS WERE WRITTEN IN A UNIT THE GAME HAD MOVED PAST, both found by this change
+making them fire, both REPOINTED not loosened: *** (a) combat_scale_gate's "a man is the same number
+of TILES tall" asserts in its own words that "the floor and the people must divide by the same
+number", which is exactly what rule 21 overturns -- A GATE MUST NEVER OUTRANK A RULING (this lane's
+own 9/12 note). Turned over: the giants bug was a body whose PIXELS moved with the camera, so that
+is what is checked now, and V138 still fails it; the body board keeps the old invariant. (b) The
+same gate's "visible" read 0.85/FIELD_PITCH, the pitch from BEFORE V198's multiplier -- it claimed
+30 tiles visible when the truth was 10.2, which is why that leg has sat RED ON MAIN against a
+contentR of 7.6. Read properly it is 3.7 against 3.9, GREEN, telling the truth for the first time
+since V198, so V223 closes a red that has been misreported for weeks. (c) AND ITS PROBE WAS READING
+THE WRONG CANVAS ENTIRELY: querySelector('canvas') returns the 183x54 LOGO, not the board, so every
+canvas-dependent number that gate ever printed was measured off a logo.
+
 STILL WRONG, MEASURED, NOT FIXED, in the order I will take them:
  1. THE TWO CANVASES RENDER AT DIFFERENT DEVICE PIXEL RATIOS, and this is now the ONLY thing left
     between the surfaces on body size. The walked canvas is ratio 1, the fight canvas is 2, so a

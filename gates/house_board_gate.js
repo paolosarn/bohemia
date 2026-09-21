@@ -147,7 +147,16 @@ const done = async (b) => { if (b) await b.close();
     out.tilePx = +(Math.min(W, H) * fieldPitch(W, H)).toFixed(2);
     out.spritePx = +(112 * bodyScale()).toFixed(2);
     out.tileInSpriteWidths = +(out.tilePx / out.spritePx).toFixed(3);
-    out.tilesAcross = +(W / out.tilePx).toFixed(2);
+    /* REPOINTED 9/21 (V223): this leg's own words are "THE GLASS holds a handful of
+       houses", and it was measuring the board at zoom 1 rather than at the camera the
+       fight actually uses. The fight auto-frames -- uzApply scales the world by the
+       live zoom every frame -- so W/tilePx is a number nobody ever sees. It went red
+       for the work going right the moment rule 21 put the lot at its ruled size.
+       Same class as the two rulers V219 repointed and the marking arm this round:
+       a ruler written in a unit the game has moved past. */
+    out.zoom = (typeof G !== 'undefined' && (G._uzE || G.userZoom)) || 1;
+    out.tilesAcross = +(W / (out.tilePx * out.zoom)).toFixed(2);
+    out.tilesAcrossAtZoom1 = +(W / out.tilePx).toFixed(2);
     out.reach = {}; for (const w of ['pistol', 'rifle', 'shotgun', 'smg', 'sniper'])
       out.reach[w] = wpnRange(w).max;
     out.sight = sightTiles();
@@ -180,7 +189,8 @@ const done = async (b) => { if (b) await b.close();
     + b.tileInSpriteWidths + ')', b.tileInSpriteWidths > 1.5 && b.tileInSpriteWidths < 2.1);
 
   ok('the glass holds a handful of houses, not a car park of them (' + b.tilesAcross
-    + ' across, was 35.3 on the body board)', b.tilesAcross > 4 && b.tilesAcross < 10);
+    + ' across at the camera he is actually looking through, ' + b.tilesAcrossAtZoom1
+    + ' at zoom 1; was 35.3 on the body board)', b.tilesAcross > 4 && b.tilesAcross < 10);
 
   ok('A PISTOL REACHES ONE HOUSE AND A RIFLE TWO, his 9/4 ruling, on the board he lands on',
     b.reach.pistol === 1 && b.reach.rifle === 2 && b.reach.shotgun === 1 && b.reach.smg === 1);
