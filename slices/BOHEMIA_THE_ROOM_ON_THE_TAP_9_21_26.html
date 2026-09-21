@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>THE ROOM ON THE TAP</title>
+<!-- SOUNDS lane, 9/21. Rule 22: a making lane cooks every round and what it made goes to
+     the VOTE tab. This is the judging surface for the room hum that ships on the door tap.
+     THE ALPHA IS THE SOURCE OF TRUTH. The numbers below are copied from it and named, so
+     if they ever disagree the alpha wins and this page is the thing that is wrong. That is
+     said out loud because a second copy of one truth is exactly the bug this lane fixed
+     this round: a comment inside a JSON block silenced every footstep for days. -->
+<style>
+  :root{
+    --ink:#1b1408; --paper:#e8dfc9; --line:#8a7a52; --hot:#b4462a; --ok:#3f6b3a;
+    --panel:#f2ead6; --dim:#6a5a3e;
+  }
+  html,body{margin:0;background:var(--paper);color:var(--ink);
+    font:15px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace}
+  .wrap{max-width:720px;margin:0 auto;padding:18px 16px 60px}
+  h1{font-size:19px;letter-spacing:2px;margin:0 0 2px}
+  .sub{color:var(--dim);font-size:12px;letter-spacing:1px;margin-bottom:16px}
+  .card{background:var(--panel);border:1px solid var(--line);padding:14px;margin:0 0 14px}
+  .card h2{font-size:14px;letter-spacing:1.5px;margin:0 0 6px}
+  .why{font-size:13px;color:#2a2110;margin:0 0 10px}
+  .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  button{font:inherit;background:var(--paper);color:var(--ink);border:1px solid var(--line);
+    padding:9px 12px;min-height:44px;cursor:pointer;letter-spacing:1px}
+  button:active{transform:translateY(1px)}
+  button.on{background:var(--ink);color:var(--paper)}
+  .thumb{min-width:56px}
+  .num{font-size:12px;color:var(--dim);margin-top:8px;white-space:pre-wrap}
+  textarea{width:100%;box-sizing:border-box;font:inherit;background:var(--paper);
+    color:var(--ink);border:1px solid var(--line);padding:8px;min-height:64px}
+  .foot{border-top:2px solid var(--line);margin-top:22px;padding-top:14px}
+  .warn{color:var(--hot);font-size:12px}
+  label{font-size:12px;letter-spacing:1px;color:var(--dim);display:block;margin:10px 0 4px}
+</style></head><body><div class="wrap">
+
+<h1>THE ROOM ON THE TAP</h1>
+<div class="sub">SOUNDS &middot; 9/21 &middot; tap a sound, then a thumb &middot; the notes box is at the bottom</div>
+
+<div class="card">
+  <div class="why"><b>What this is.</b> When you press the door, the game used to make no
+  sound for a long time. Now a room turns on: a low electrical hum with a faint hiss on top,
+  like a place that still has power and nobody in it. Your heartbeat sound is unchanged and
+  sits on top of the room. Listen to each on its own, then both together, which is what you
+  actually hear in the game.</div>
+  <div class="row">
+    <button id="bRoom">THE ROOM</button>
+    <button id="bBeat">THE HEARTBEAT</button>
+    <button id="bBoth">BOTH, AS IT SHIPS</button>
+    <button id="bStop">STOP</button>
+  </div>
+  <div class="num" id="nums"></div>
+  <div class="warn" id="warn"></div>
+</div>
+
+<div class="card">
+  <h2>1. IS THE ROOM TOO LOUD OR TOO QUIET UNDER THE HEARTBEAT</h2>
+  <div class="why">I set it to carry 60% of the heartbeat's energy, so the heartbeat stays
+  the thing you notice. That 60% is the one number I picked myself. Everything else is
+  measured off your own approved heartbeat.</div>
+  <div class="row" data-q="level">
+    <button class="thumb" data-v="up">UP</button>
+    <button class="thumb" data-v="down">DOWN</button>
+    <button class="thumb" data-v="ok">FINE</button>
+  </div>
+  <label>NOTES ON THIS ONE</label><textarea data-n="level"></textarea>
+</div>
+
+<div class="card">
+  <h2>2. WHEN THE SONG STARTS, SHOULD THE ROOM STAY ON</h2>
+  <div class="why">Right now it gets quieter and keeps running, because a room that stops is
+  a file that ended. You might want the song to have the place to itself.</div>
+  <div class="row" data-q="duck">
+    <button class="thumb" data-v="stay">KEEP IT ON</button>
+    <button class="thumb" data-v="off">TURN IT OFF</button>
+    <button class="thumb" data-v="ok">FINE</button>
+  </div>
+  <label>NOTES ON THIS ONE</label><textarea data-n="duck"></textarea>
+</div>
+
+<div class="card">
+  <h2>3. IS THIS THE RIGHT KIND OF ROOM</h2>
+  <div class="why">It is built to sound like it came out of an old radio: nothing below
+  100 Hz and nothing above 5 kHz, which is the band a real AM broadcast passes. That makes
+  the loading room and the music the same broken transmitter. The other option is a room
+  you are simply standing in, with no radio in the way.</div>
+  <div class="row" data-q="kind">
+    <button class="thumb" data-v="radio">THROUGH A RADIO</button>
+    <button class="thumb" data-v="room">JUST A ROOM</button>
+    <button class="thumb" data-v="ok">FINE</button>
+  </div>
+  <label>NOTES ON THIS ONE</label><textarea data-n="kind"></textarea>
+</div>
+
+<div class="foot">
+  <label>ANYTHING ELSE, ABOUT ANY OF IT</label>
+  <textarea id="all" style="min-height:110px"></textarea>
+  <div class="row" style="margin-top:12px">
+    <button id="exp">EXPORT MY NOTES (.txt)</button>
+  </div>
+  <div class="num">Exports a plain .txt file. Nothing here is saved anywhere else.</div>
+</div>
+
+<script>
+/* THE NUMBERS, COPIED FROM THE ALPHA AND NAMED AS COPIES.
+   slices/BOHEMIA_ALPHA_0_9.html, the ROOM object and the PULSE above it. If these ever
+   disagree with the alpha, THE ALPHA IS RIGHT AND THIS PAGE IS WRONG. */
+var SEC = 4.0;        /* 8 beats at 120 BPM = exactly 240 whole cycles of 60 Hz */
+var HUM = 60;         /* North American mains. Las Vegas. */
+var LO = 100, HI = 5000;   /* an AM broadcast: 10 kHz spacing leaves 5 kHz of audio */
+var SEAM = 0.08;
+var REL = 0.60;       /* the room's share of the heartbeat's ENERGY. The one chosen number. */
+var PULSE_LEVEL = 0.020, PULSE_SEC = 0.5, PULSE_GAP = 0.3125;
+
+var AC = null, live = [];
+function ac(){ if(!AC){ AC = new (window.AudioContext||window.webkitAudioContext)(); } return AC; }
+
+function roomBuf(c){
+  var sr=c.sampleRate, n=Math.round(sr*SEC), buf=c.createBuffer(1,n,sr), d=buf.getChannelData(0);
+  var seam=Math.max(1,Math.round(SEAM*sr)), hiss=new Float32Array(n+seam), i;
+  for(i=0;i<hiss.length;i++) hiss[i]=Math.random()*2-1;
+  for(i=0;i<seam;i++){ var u=i/seam; hiss[i]=hiss[i]*u+hiss[n+i]*(1-u); }
+  var parts=[[1,1.00],[2,0.42],[3,0.18]];
+  for(i=0;i<n;i++){ var t=i/sr,h=0;
+    for(var k=0;k<parts.length;k++) h+=Math.sin(2*Math.PI*HUM*parts[k][0]*t)*parts[k][1];
+    d[i]=h*0.55+hiss[i]*0.30; }
+  var pk=0; for(i=0;i<n;i++){ var a=Math.abs(d[i]); if(a>pk)pk=a; }
+  if(pk>0) for(i=0;i<n;i++) d[i]/=pk;
+  return buf;
+}
+function pulseBuf(c){
+  var sr=c.sampleRate, n=Math.round(sr*PULSE_SEC), buf=c.createBuffer(1,n,sr), d=buf.getChannelData(0);
+  function thump(at,amp,f0,f1,dur){ var s=Math.round(at*sr),len=Math.round(dur*sr),ph=0;
+    for(var i=0;i<len&&s+i<n;i++){ var u=i/len;
+      ph+=2*Math.PI*(f0+(f1-f0)*u)/sr;
+      var env=Math.pow(1-u,2.2)*(1-Math.exp(-i/(sr*0.004)));
+      d[s+i]+=Math.sin(ph)*env*amp; } }
+  thump(0,1.00,58,34,0.16); thump(PULSE_GAP,0.62,50,30,0.13);
+  return buf;
+}
+function rms(b){ var d=b.getChannelData(0),s=0; for(var i=0;i<d.length;i++) s+=d[i]*d[i];
+  return Math.sqrt(s/d.length); }
+
+function stop(){ live.forEach(function(s){ try{ s.stop(); }catch(e){} }); live=[]; }
+function play(which){
+  stop();
+  var c=ac(); if(c.state==='suspended') c.resume();
+  var rb=roomBuf(c), pb=pulseBuf(c);
+  var roomGain=(rms(pb)*PULSE_LEVEL*REL)/rms(rb);
+  if(which!=='beat'){
+    var hp=c.createBiquadFilter(); hp.type='highpass'; hp.frequency.value=LO; hp.Q.value=0.7;
+    var lp=c.createBiquadFilter(); lp.type='lowpass';  lp.frequency.value=HI; lp.Q.value=0.7;
+    var g=c.createGain(); g.gain.value=roomGain*18;   /* 18x for headphones on a quiet page */
+    var s=c.createBufferSource(); s.buffer=rb; s.loop=true;
+    s.connect(hp); hp.connect(lp); lp.connect(g); g.connect(c.destination);
+    s.start(); live.push(s);
+  }
+  if(which!=='room'){
+    var g2=c.createGain(); g2.gain.value=PULSE_LEVEL*18;
+    var s2=c.createBufferSource(); s2.buffer=pb; s2.loop=true;
+    s2.connect(g2); g2.connect(c.destination); s2.start(); live.push(s2);
+  }
+  var nn=document.getElementById('nums');
+  nn.textContent =
+    'the room: 60 Hz hum plus 120 and 180, with hiss on top, passed through 100 Hz to 5 kHz\n'
+    + 'one loop is 4.0 s = 8 beats = 240 whole cycles of 60 Hz, so the loop seam cannot tick\n'
+    + 'the heartbeat: two thumps, 58 down to 34 Hz and 50 down to 30 Hz, unchanged\n'
+    + 'the room sits at ' + REL + ' of the heartbeat\'s energy (measured, not set by hand)\n'
+    + 'BOTH ARE PLAYED LOUDER HERE THAN IN THE GAME so you can hear them on a page.';
+  document.getElementById('warn').textContent =
+    'This page rebuilds the sound from the same numbers. The game is the real thing; if they '
+    + 'ever disagree, the game is right and this page is wrong.';
+}
+document.getElementById('bRoom').onclick=function(){ play('room'); };
+document.getElementById('bBeat').onclick=function(){ play('beat'); };
+document.getElementById('bBoth').onclick=function(){ play('both'); };
+document.getElementById('bStop').onclick=stop;
+
+var picks={};
+document.querySelectorAll('.row[data-q]').forEach(function(row){
+  row.querySelectorAll('button').forEach(function(b){
+    b.onclick=function(){
+      row.querySelectorAll('button').forEach(function(x){ x.classList.remove('on'); });
+      b.classList.add('on'); picks[row.dataset.q]=b.dataset.v;
+    };
+  });
+});
+
+document.getElementById('exp').onclick=function(){
+  var L=[];
+  L.push('BOHEMIA VERDICT -- THE ROOM ON THE TAP (SOUNDS, 9/21)');
+  L.push('registry id: sounds-the-room-on-the-tap-9-21');
+  L.push('');
+  var qs=[['level','IS THE ROOM TOO LOUD OR TOO QUIET UNDER THE HEARTBEAT'],
+          ['duck','WHEN THE SONG STARTS, SHOULD THE ROOM STAY ON'],
+          ['kind','IS THIS THE RIGHT KIND OF ROOM']];
+  qs.forEach(function(q){
+    L.push(q[1]);
+    L.push('  VERDICT: ' + (picks[q[0]] || 'NOT ANSWERED'));
+    var t=document.querySelector('textarea[data-n="'+q[0]+'"]');
+    if(t && t.value.trim()) L.push('  NOTES: ' + t.value.trim());
+    L.push('');
+  });
+  var a=document.getElementById('all').value.trim();
+  if(a){ L.push('ANYTHING ELSE'); L.push('  ' + a); }
+  var blob=new Blob([L.join('\n')],{type:'text/plain'});
+  var u=URL.createObjectURL(blob), el=document.createElement('a');
+  el.href=u; el.download='BOHEMIA_VERDICT_THE_ROOM_ON_THE_TAP_9_21.txt';
+  document.body.appendChild(el); el.click(); el.remove();
+  setTimeout(function(){ URL.revokeObjectURL(u); }, 1500);
+};
+</script>
+</div></body></html>

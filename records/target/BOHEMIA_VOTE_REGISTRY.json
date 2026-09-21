@@ -300,7 +300,7 @@
     "src": "vote/ANIMATION_THE_IDLE_REDO.html"
    },
    "redoOf": "idle",
-   "said": "a lot of them are good, a lot of them aren\u2019t good... IF I KILLED IT I DON\u2019T WANT IT GONE. I just think it could be done better. Make a new one."
+   "said": "a lot of them are good, a lot of them aren’t good... IF I KILLED IT I DON’T WANT IT GONE. I just think it could be done better. Make a new one."
   },
   {
    "id": "factions-the-sign-still-lights-9-21",
@@ -404,6 +404,19 @@
    "show": {
     "how": "image",
     "src": "vote/PORTRAIT_FACE_NINA_9_21.png"
+   }
+  },
+  {
+   "id": "sounds-the-room-on-the-tap-9-21",
+   "kind": "sound",
+   "lane": "sounds",
+   "sha": "PENDING",
+   "made": "9/21",
+   "title": "THE ROOM ON THE TAP",
+   "why": "The first sound after you press the door. A low electrical hum with a faint hiss on top, so the game sounds like a place that still has power and nobody in it. Your heartbeat sound is unchanged and sits on top of it. Three things to call: how loud the room is under the heartbeat, whether it stays on once the song starts, and whether it should sound like it came through an old radio or like a room you are just standing in.",
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_THE_ROOM_ON_THE_TAP_9_21_26.html"
    }
   }
  ],

@@ -670,6 +670,27 @@ GATES = [
      'Red four ways: let a dark pump lift anyway -> 4; put a fudge factor in the physics '
      '-> 2; ask the plant\'s own cell again -> 4 (and the failure reads 28604 -> 23804, '
      'the countdown restarting); count the water and never credit it -> 1.', True),
+    ('FIRST NOTICE', ['node', 'gates/first_notice_gate.js'],
+     'THE-INSTITUTIONS-STILL-RUNNING (board row [horror world], 9/21, rule 20h). WORDS '
+     'Q27 measured 8 of 3,014 spoken lines naming a city, county, office, board or '
+     'utility at all (0.3%) while 194 say nobody is left: we wrote the survivors for '
+     'months and never wrote the thing that stopped, so there was no institution for a '
+     'voice to be put on. engine/bohemia_notice.js is the institution -- a real utility '
+     'disconnection notice and a five-slot emergency alert, built from the live grid, '
+     'the live turf and his own ruled ONE, on the phone (the only home rule 19 leaves '
+     'open for a faceless speaker). HOLDS FOUR THINGS. (A) A notice missing a legally '
+     'required slot is REFUSED, never printed with a hole: drop the service, the clock, '
+     'the feeder or the address and each is its own named refusal. (B) NOT ONE NUMBER IS '
+     'TYPED, checked behaviourally and not by grep -- move the ONE in his PAYOUT table '
+     'and the bill follows it, take the table away and it refuses instead of inventing '
+     'an amount. (C) THE HORROR IS A MEASUREMENT AND IT CAN SHRINK: unanswered() refuses '
+     'to claim anybody is gone with no list to check, and putting the appeal board back '
+     'in the world drops the count by one while not a word of the notice changes. (D) '
+     'the page he votes on is REGENERATED and compared, so it cannot describe a module '
+     'that has since moved, and rule 18 is held -- no play surface carries this module. '
+     'Red four ways: type the amount instead of reading it -> 1; blank one slot -> 13 '
+     '(and the gate reports 19/13 rather than dying at 2, which is what the section '
+     'wrapper is for); edit the page by hand -> 1; wire it into the city -> 1.', True),
     ('FOLD CARRIES', ['node', 'gates/fold_carries_gate.js'],
      'THE-FOLD-CARRIES-THE-WRONG-THINGS (board row [fold carries], 9/16). MEASURED '
      'FIRST (rule 12) and READ rather than guessed: bohemia_fold carries a CARRY table '
@@ -3864,6 +3885,26 @@ GATES = [
      'it holds the part a machine can. Both teeth were proven to bite with throwaway files before '
      'it shipped. First run: 23 advertised, 23 on disk, 23 run',
      False),
+    ('COOK EVERY ROUND', ['node', 'gates/cook_every_round_gate.js'],
+     'ONE MADE THING PER MAKING LANE, OR THE ROUND DID NOT HAPPEN. 9/21, PLUMBER lane, row '
+     '[cook gate], PAOLO rule 22e. His words: "I will enter the sound chat and it is not even '
+     'making fucking sounds. It is coding and checking whether the sounds are broken or not. I '
+     'need to be seeing them cooking up more, EVERY TIME, NOT NEVER." Rule 22(e) makes that a gate '
+     'and says that until it exists the coordinator reads the registry by hand every VAMILY. This '
+     'compares two dates that both exist and neither of which is inferred: the newest thing a lane '
+     'REGISTERED in the vote registry, and the newest commit that lane LANDED on main under its '
+     'own prefix. A making lane that has landed work since the last thing it cooked has had a '
+     'round of coding with nothing made. It does NOT claim which round was empty or how many -- a '
+     'round is one VAMILY and nothing in the repo marks where one ends, and inventing a marker is '
+     'how a checker starts lying. Exemptions are the rule own: research lanes are not held, only '
+     'the twelve lanes 22(a) names are, and an item voted away still counts as cooked. IT LANDS '
+     'RED ON PURPOSE: on the first run eleven of twelve making lanes had coded since they last '
+     'cooked and nine had never registered anything at all. That red is the measurement, not a '
+     'defect. Floor: an unreadable registry or unreadable history FAILS rather than passing, '
+     'because a cook gate that passes because it found no registry is the loudest form of green '
+     'over nothing.',
+     120),
+
     ('NEVER WORSE', ['node', 'tools/bohemia_never_worse.js'],
      'THE RATCHET AS A MACHINE. 9/20, PLUMBER lane, row [never worse], PAOLO rule 18c. He said '
      '"I just want to restart all of this... we were closer to being able to play before, right now '
@@ -6691,6 +6732,25 @@ GATES = [
      'MEASURED BOTH WAYS because a control that is ALWAYS off is a different lie: broke '
      'disabled/0.45/"you have none of it", credited enabled/1.0/no title with afford ok and 5 '
      'in hand. Mutations: always-pressable reds B1/B2/B5, always-off reds B3/B4.', False),
+    ('THE WINDOW IS NOT A WALL', ['node', 'gates/the_window_is_not_a_wall_gate.js'],
+     'LIFE + CITY, under PAOLO 9/20 rule 18: a held lane measures its part of WALKING. '
+     'AN INSTRUMENT THAT CANNOT SAY "I DO NOT KNOW" WILL SAY "NO". RUN [one camera] closed its '
+     'round with "five presses on his own block go into ground a body cannot reach (6270,6268 and '
+     '6270,6270)... the suburb generator seals yards". Sizing it, MY OWN FIRST PASS WAS WRONG IN '
+     'THE SAME SHAPE: a flood in a 384-cell window round his door reported 6,094 walkable cells he '
+     'cannot reach in three islands, one of them 5,690 cells holding 1,652 cells of ROADWAY, which '
+     'reads like a whole street nobody can get to. RE-RUN WITHOUT THE WINDOW, 6,081 OF THOSE 6,094 '
+     'ARE HIS OWN GROUND and the honest number is THIRTEEN, one 5x5 patch behind a chapel. A flood '
+     'needs a limit or it runs for ever, and A LIMIT LOOKS EXACTLY LIKE A WALL FROM THE INSIDE. '
+     'The two cells RUN named measure as his own ground by a four-way flood and by an eight-way '
+     'one, so diagonals are not the difference either; said as a measurement, not a verdict on '
+     'another lane\'s gate. THE LATTICE CARRIES THE TEST NOW and it answers in THREE states, with '
+     'no bare false to misread: joined; closed (ran out of GROUND and never pressed the box edge, '
+     'so proved separate); ranOut (out of BUDGET or closed against the box, so UNKNOWN). AND TO '
+     'PROVE TWO THINGS ARE SEPARATE IT FLOODS THE SMALL ONE: the first cut only flooded from the '
+     'first point, so the answer depended on which end you named -- out of his street it presses '
+     'the edge thousands of times and can never close, while out of the thirteen-cell pocket it '
+     'closes in thirteen. Mutation (treat a limit as a wall, the old mistake) reds B3, B4 and B8.', True),
     ('THE STRIDE NEVER MISSES', ['node', 'gates/the_stride_never_misses_gate.js'],
      'LIFE + CITY, under PAOLO 9/20 rule 18 THE PLAYABLE CUT, built for RUN [one camera], which '
      'asks this lane for the landing rule by name: "a press moves him to the next standable place '

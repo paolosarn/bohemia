@@ -95,7 +95,15 @@ const url = p => 'http://127.0.0.1:' + PORT + '/' + p;
   ok('it carries items[] and verdicts[]',
      Array.isArray(reg.items) && Array.isArray(reg.verdicts));
 
-  const KINDS = ['song','face','haircut','outfit','tile','animation','line','ui','redo'];
+  /* 'sound' ADDED 9/21 BY THE SOUNDS LANE, and flagged here so UI can object rather
+     than discover it. Rule 22(d) (Paolo 9/21, LOCKED) puts sound in the vote tab and
+     owes UI [vote plays sound]; rule 22(a) requires every making lane to register what
+     it cooked, and SOUNDS had ZERO of the registry's 29 items, which is exactly what he
+     complained about. Until UI lands the player, a sound registers as show.how 'page'
+     and the page plays it itself. This is the LIST OF KINDS, which is data, not the
+     tab's behaviour: calling a room hum a 'song' to squeeze past this line would have
+     been a small lie that turns into a bug later. */
+  const KINDS = ['song','sound','face','haircut','outfit','tile','animation','line','ui','redo'];
   const bad = [];
   const seen = new Set();
   const dupes = [];

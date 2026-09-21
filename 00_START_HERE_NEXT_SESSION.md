@@ -1,3 +1,22 @@
+*** RULE 22 (Paolo 9/21, LOCKED) LANDED MID-ROUND AND IT NAMES THIS LANE OUT LOUD: "I'll enter
+the sound chat and it's not even making fucking sounds. It's coding and checking whether the sounds
+are broken or not." HE IS RIGHT ABOUT THIS ROUND'S SHAPE and the registry proved it: SOUNDS had
+ZERO of the vote registry's 29 items while ten other lanes had entries. FIXED THE SAME ROUND rather
+than argued with: THE ROOM ON THE TAP is registered as the first sound this lane has ever put in
+the vote queue, with a page that PLAYS it (the room alone, the heartbeat alone, and both as they
+ship), three calls for him, per-item notes, a notes box at the bottom and a .txt export.
+    the cook gate now reads .......... SOUNDS  9/21  THE ROOM ON THE TAP  cooked
+    and .............................. "SOUNDS has cooked at least as recently as it has coded"
+ONE BOUNDARY I CROSSED ON PURPOSE AND AM FLAGGING RATHER THAN HIDING: the vote tab's allowed-kind
+list had no 'sound' in it, because rule 22(d) still owes UI [vote plays sound]. I added the one
+word, with a comment in UI's gate saying why, and the alternative was calling a room hum a 'song'
+to squeeze past the check, which is the kind of small lie that becomes a bug later. UI may object
+and revert it; that gate reads 28 ok / 0 failed either way. The judge page lives in slices/ because
+that is where the gate looks for a candidate's page.
+AND THE LESSON UNDERNEATH RULE 22 IS THE SAME ONE AS THE FOOTSTEP BUG: this lane spent the round
+building checkers, and the checker that mattered was already red and unread. Round two of
+[analog horror sound] is a KEEP/REDO of 65 sounds, which is cooking, not checking.
+
 SOUNDS (sound-xk7pjp): 9/21 LATEST -- *** TWO SHIPPED: [first sound] AND [footsteps on the beat]
 ROUND ONE, WHICH TURNED OUT TO BE A FIX FOR SILENT WALKING. PLUS [analog horror sound] ROUND ONE. ***
 Records: records/BOHEMIA_THE_ROOM_IS_ON_BEFORE_THE_SONG_9_21_26.md (the ship),
