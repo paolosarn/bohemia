@@ -8927,121 +8927,116 @@ HOW TWENTY-TWO ROUNDS COMPOSE, written once now that Q1-Q22 are all shipped:
 NEXT IN THIS LANE: Q23 [who eats first].
 
 
-FACTIONS (factions-ovkjpf): 9/22 (round 35) LATEST -- *** [horror signs] ROUND THREE, COOKED.
-THIS VALLEY HAS THREE COMPLETELY DIFFERENT RENTS AND NOTHING HAS EVER TOLD THE PLAYER WHICH
-ONE HE IS STANDING IN. On a fortress you pay for every block you walk on; in a camp two
-blocks in three are free. Made the board a crew nails up where its ground starts, and every
-number on it is read out of the game. AND THE SAME DEFECT ARRIVED A THIRD TIME, so the kit
-reports it now instead of me fixing it on one more page.
-ALSO: PAGES PUBLISH IS RED ON MAIN, 261 MB against a 260 MB cap, and it is NOT this lane's
--- measured with all four of this lane's pages removed and it still fails. Numbers below. ***
-Nothing to judge here: all three signs are in the VOTE tab, which is where judging happens.
+FACTIONS (factions-ovkjpf): 9/22 (round 36) LATEST -- *** [horror signs] ROUND FOUR, COOKED.
+THE MARK ON THE WALL: a crew's mark painted straight onto somebody else's wall. Fourth
+silhouette, first with NO WORDS ON IT AND NO POST HOLDING IT UP.
+AND THE MEASUREMENT THAT MADE IT WAS A TRAP I NEARLY FILED AS A BUG: 14 cells of 9,216
+carried prints, all age 0. That is not a dead feature, IT IS SIX IN THE MORNING.
+*** AND THE PUBLISHED SITE IS NOW 6 MB OVER ITS CAP WITH 67 MB OF DEAD WEIGHT ON IT,
+SECOND ROUND RUNNING, NOBODY ON IT. Numbers below. IT IS NOT RULE 22'S COOKING. *** ***
+Nothing to judge here: all four signs are in the VOTE tab, which is where judging happens.
 
-VAMILY rows: [horror signs] CLAIMED 9/21, three rounds cooked, all three in VOTE, and there
-            are STILL ZERO VERDICTS in the whole registry (57 items, 0 verdicts).
+VAMILY rows: [horror signs] CLAIMED 9/21, FOUR rounds cooked, all four in VOTE, and there
+            are STILL ZERO VERDICTS in the whole registry (78 items, 0 verdicts).
             [same lender] still CLAIMED AND HELD under 14b + 18b.
-Record: records/BOHEMIA_THE_NOTICE_AT_THE_EDGE_9_22_26.md
+Record: records/BOHEMIA_THE_MARK_ON_THE_WALL_9_22_26.md
+Round 35: records/BOHEMIA_THE_NOTICE_AT_THE_EDGE_9_22_26.md
 Round 34: records/BOHEMIA_THE_WATER_STILL_RUNS_9_21_26.md
-Round 33: records/BOHEMIA_THE_SIGN_STILL_LIGHTS_9_21_26.md
 
-*** MEASURED FIRST, AND IT IS A REAL RULE NOBODY HAS SEEN ***
-  BohemiaTowns.rentShape(tier, seats) answers what a tier charges by ASKING rentOn()
-  repeatedly until the window repeats -- a derived posted rate, never typed. On the real
-  valley, one boot of the one driver:
-      fortress   every 1 block,  1 battery,   0 FREE   Caravans Cartel Mob Network Remnants
-      town       every 3 blocks, 2 batteries, 1 FREE   Anarchists Blues Church Reds
-      camp       every 3 blocks, 1 battery,   2 FREE   Colorful Custom Homeless Trades Volunteers
-  AND HE SPAWNS ON THE WORST OF THEM: cell 48,48 is Mob fortress ground, block 122, and Mob
-  hold 1490 cells, more than anybody. The first block of the game is the harshest rent there
-  is. ctRentLine already says "Mob want 1 battery tonight for the 1 block of theirs you have
-  used" and it lives on a panel he has to open.
-  SO THE PLAYER'S REAL DECISION -- WALK TWO STREETS OVER AND IT IS CHEAPER -- exists in the
-  rules and is invisible. The only way to learn it today is to lose batteries and guess.
+*** MEASURED FIRST, AND THE FIRST MEASUREMENT WAS A TRAP. ***
+  Swept all 9,216 cells with BohemiaTowns.tracksAt(): FOURTEEN carried prints, every one
+  age 0, every one leg 'out', not one caravan though ten exist. That reads exactly like a
+  dead feature and I nearly filed it. IT IS NOT. trackOf() builds a trail from where a
+  party STARTED to where it is STANDING, so at 06:00 on day one a trail is ONE CELL LONG BY
+  DEFINITION, and the two parties sharing each seat's start cell collapse to one reading.
+  Advancing the valley's own clock and re-sweeping:
+      the door 06:00   14 cells   longest 1    max age 0    14 out /  0 back
+      +1 hour          78 cells   longest 6    max age 5    54 out / 24 back
+      +4 hours         94 cells   longest 14   max age 13   49 out / 45 back
+      +10 hours       111 cells   longest 14   max age 13   36 out / 75 back
+  THE GROUND FILLS THROUGH THE DAY AND BY MID-DAY TWO IN THREE SETS OF PRINTS ARE ON THE
+  WAY BACK. A crew heading OUT is a problem forming; one heading BACK already did whatever
+  it did. `leg` is real and well populated and trackSay() DISCARDS IT -- WORDS Q23 found
+  the same thing from the words end on 9/13 and it is still true.
+
+AND THE MEASUREMENT IS WHY IT IS PAINT AND NOT PRINTS
+  A mark reading only the live trail shows NOTHING in the first hour, which is the only
+  hour that counts under rule 14. Paint does not fade in a day: the marks from before he
+  woke up are already on the walls and the live tracks feed new ones as the day runs. THE
+  WALL IS THE VALLEY'S MEMORY. That is not a workaround for the measurement, it is the
+  measurement telling me what the thing actually is.
 
 WHAT WAS MADE
-  slices/BOHEMIA_THE_NOTICE_AT_THE_EDGE_9_22_26.html, registered as
-  factions-the-notice-at-the-edge-9-22, kind tile. Tab: VOTE, in the alpha.
-  THE THIRD SILHOUETTE AND THE FIRST LIVING ONE. Round one was a shop's pole sign, round two
-  an agency monument; BOTH ARE PRINTED AND BOTH ARE LEFTOVERS OF THE DEAD WORLD. This is a
-  plank on two stakes, made by hand with a brush, nailed over whatever was there.
-  THE PRINTED SIGNS ARE THE OLD WORLD STILL TALKING; THE PAINTED ONES ARE WHO RUNS IT NOW.
-  A player should be able to tell them apart across a street without reading a word. That is
-  the tone doing structural work instead of decorating.
+  slices/BOHEMIA_THE_MARK_ON_THE_WALL_9_22_26.html, registered as
+  factions-the-mark-on-the-wall-9-22, kind tile. Tab: VOTE, in the alpha.
+  THE GRAMMAR IS THREE THINGS: the BAR is the crew in their published colour, the POINT is
+  which way they went, the STROKES are how many came through. Four states: fresh,
+  sun-bleached, CROSSED OUT BY A RIVAL, and the other direction. Crossing out rather than
+  removing is how it is really done -- you strike a rival's mark and put yours beside it,
+  and both staying legible is the point.
+  MECHANISM MINE, CONTENTS HIS: what each crew's own emblem looks like is identity and it
+  is reserved, so there are NO INVENTED LOGOS, only the shared part that works for all 14.
+  AND IT IS THE FIRST SIGN WITH NO WORDS AT ALL, so it is also the first that does not have
+  to answer rule 19's "who says this": a mark is a thing, not a sentence.
 
-*** TEXT TOO WIDE FOR ITS PLATE HAS NOW HAPPENED THREE TIMES, SO THE KIT REPORTS IT. ***
-  Round one ran OF THE SANDS off both edges of a chapel. This round ran "1 BLOCK : 1 BATTERY"
-  and "NOTHING HERE IS FREE" off both edges of a plank. Every time it is invisible in the
-  source and obvious in the render, and EVERY TIME THE FIX WAS LOCAL TO ONE PAGE, so the next
-  sign hit it again. That is the actual defect: not the strings, the fact that nothing
-  carried the lesson forward.
-  c3 and c5 take the width the text must live in now, and anything too wide lands in
-  K.overflows, which the page prints in a red box. It still DRAWS -- clipping or truncating
-  would be a lie about what was asked for -- but it cannot ship quietly.
-  AND THE REPORTER IMMEDIATELY CAUGHT ONE I HAD ALREADY PASSED BY EYE: "COSTS 2 BATTERIES" is
-  67 px in a 64 px space. Three pixels over. I had looked straight at the render, seen three
-  boards that fit, and called it fixed. COSTS came off every line, which is better
-  sign-writing anyway: a rate board says 3 BLOCKS / 2 BATTERIES.
-  FOURTH TIME THIS LANE HAS LEARNED THAT A CLEAN ANSWER FROM THE WRONG ORACLE LOOKS EXACTLY
-  LIKE A FACT, and the first time the wrong oracle was my own eye on a picture I had already
-  fixed once.
+THE TWO FAULTS, BOTH FOUND BY LOOKING
+  1. THE ARROWHEADS WERE INSIDE OUT. The chevron rows run from the outside of the head
+     toward the bar's centre line, so the width has to GROW going in: widest where it meets
+     the bar, one pixel at the tip. The first cut had it shrinking inward, which builds a
+     NOTCH instead of a head, so every mark read as FLETCHING POINTING THE OPPOSITE WAY. On
+     a sign whose entire job is WHICH WAY THEY WENT that is the worst thing it could do,
+     and it is completely invisible in the source.
+  2. THE STRIKE WAS A HARDCODED RED, which quietly implies one particular crew did it every
+     time. Who struck it is a fact the game would know, so it is a parameter now. COLOUR IS
+     TERRITORY applies to the second mark as much as to the first.
 
-AND ROUND ONE'S DEFECT CAME BACK IN A NEW COAT
-  The brush run-out was an identical block at the right-hand end of all three boards. ONE
-  ACCIDENT REPEATED IS NOT AN ACCIDENT, IT IS A TEXTURE SOMEBODY PASTED -- the exact thing
-  round one's corner stain did across six signs. Placed off the crew's own name now, fixed
-  per sign, different between them, nothing random, tapering in two steps because that is
-  what a dry brush does.
+*** THE PUBLISHED SITE IS 6 MB OVER ITS CAP AND 67 MB OF IT IS DEAD WEIGHT. [PLUMBER / RUN] ***
+  261 MB last round, 266 MB THIS round, against a 260 MB cap. It grew 5 MB in one round and
+  nobody has picked it up. Second round this lane has raised it.
+  IT IS NOT RULE 22'S COOKING, MEASURED: all 65 vote-tab items that point at a file come to
+  4.5 MB TOGETHER -- every cook by every lane since the rule landed. The single biggest
+  thing added since last round is ONE SCREENSHOT AT 3.48 MB, seven times every cook combined.
+  WHERE THE DEAD WEIGHT IS, measured by asking which files a slice actually loads:
+      records/target referenced by a slice      95 files   63.2 MB
+      records/target PUBLISHED FOR NOTHING     234 files   46.7 MB
+      retired judge pages in slices/            20 files   ~20 MB   (rule 15 killed them 9/14)
+  The ten biggest nobody loads are play screenshots and graveyard art: PAOLO_THE_TAP_PICKS
+  _THE_WRONG_TILE 3.95, PAOLO_CITY_MODE 3.48, PAOLO_WHY_DOES_THE_CITY_LOOK_LIKE_THIS 2.30,
+  FIGHT_VERDICT_ROUND_3_SHEET 1.96.
+  records/target IS PUBLISHED WHOLESALE because slices load 95 files out of it; the other
+  234 ride along.
+  THE 8/6 HISTORY IS EXPLICIT: Pages failed THREE COMMITS IN A ROW, thirty minutes then
+  timeout, because the build copied more than the product. 67 MB of dead weight on a surface
+  6 MB over cap is that coming back, and at 5 MB a round it gets worse every time anybody
+  ships. NOT THIS LANE'S SYSTEM (publish config, and other lanes' files), so it is routed
+  with everything needed to act in one command.
 
-*** THE PUBLISHED SITE HAS CROSSED ITS SIZE CAP AND IT IS NOBODY'S ROW. [FOR PLUMBER / RUN] ***
-  PAGES PUBLISH went red this round: 261 MB against a 260 MB cap. This lane flagged it at
-  257 MB last round as "getting close and nobody's row yet". It is now over.
-  MEASURED, NOT ASSUMED: with ALL FOUR of this lane's pages removed from slices/, the gate
-  reads 261 MB and STILL FAILS. Every page this lane has ever made totals under 100 KB, which
-  does not register at MB resolution.
-      slices/          152 MB   (88 MB html, 34 MB png, 29 MB js)
-      records/target/  107 MB   of which 103.6 MB is 303 PNG FILES
-      engine/          4.7 MB
-  THE CHEAPEST LEVER AND IT NEEDS NO JUDGEMENT CALL: about 20 MB OF RETIRED JUDGE PAGES ARE
-  STILL BEING PUBLISHED -- TARGET_SCREEN_JUDGE 4.8 MB, LIVE_SLICE_V9 4.4 MB, LIVE_SLICE_V11
-  3.0 MB, PERIMETER_JUDGE 2.3 MB and sixteen more. RULE 15 (9/14) KILLED EVERY ONE OF THEM:
-  "No lane builds its own judge page again; the old eight present nothing new." The VOTE tab
-  replaced them. Dropping those alone puts the surface back under the cap.
-  AND IT MATTERS BEYOND A RED ROW: the 8/6 history is explicit -- Pages failed THREE COMMITS
-  IN A ROW, thirty minutes then timeout, because the build was copying more than the product.
-  This is that coming back. Not this lane's to fix (publish config is not FACTIONS' system,
-  and rule 18 says only the four things ship), so it is routed with the numbers.
-
-NOTED, NOT FIXED: Church (#826c3e) and Trades (#674b34) READ AS THE SAME BOARD. Two crews,
-two tiers, one colour to the eye. That is already [PENDING Paolo] 5 and it is his call.
-
-GATES  COOK EVERY ROUND 14/0 and "FACTIONS has cooked at least as recently as it has coded"
-       -- every making lane has caught up now (it was 6/8 two rounds ago).
-       ART 45 16/0. PAGES PUBLISH 17/1, inherited, proved above. HANDOFF 8/0.
+GATES  COOK EVERY ROUND 14/0, "FACTIONS has cooked at least as recently as it has coded".
+       ART 45 16/0. HANDOFF 8/0. PAGES PUBLISH 17/1, inherited, proved above and last round.
        RULE 13: pre-push pass green; full suite 107 red at ad23d875, none of them this lane's.
 
 RULE 18 AND RULE 22, OBSERVED: nothing pushed to the demo or the alpha's play tabs, no cut,
 no build stamp, no game file touched. One real thing made and registered where he votes.
 
 STILL OPEN, NONE OF IT THIS LANE'S
-  [FOR PLUMBER / RUN] PAGES PUBLISH RED, 261 MB / 260 MB cap. Numbers and the 20 MB lever
-  above. This is the one that can take the site down.
-  [FOR WORLD, water lifted] THE PUMPS LIFT ZERO LITRES. Three stations run and the sentence
-  is true, but needPerDay() returns 0, so the holder is real and the quantity is not.
-  [FOR PLUMBER or UI] THE VOTE REGISTRY CONFLICTS ON EVERY PARALLEL ROUND. One JSON array
-  twenty lanes append to; this lane hit it on two of its last three rounds. A per-lane file
-  or an append-only form would end it. Resolved here by rebuilding from origin/main and
-  re-appending only this lane's item, verified to delete nobody's row -- but that is a habit,
-  not a machine.
+  [FOR PLUMBER / RUN] PAGES PUBLISH RED, 266 MB / 260 MB, 67 MB of dead weight, growing
+  5 MB a round. This is the one that can take the site down. Numbers above.
+  [FOR WORDS / WHOEVER OWNS trackSay] `leg` (out or back) is computed by tracksAt and thrown
+  away by the shipped sentence. By mid-day it is 2:1 back. WORDS Q23 said the same on 9/13.
+  [FOR WORLD, water lifted] the pumps lift ZERO litres: needPerDay() returns 0, so the
+  holder is real and the quantity is not.
+  [FOR PLUMBER or UI] THE VOTE REGISTRY CONFLICTS ON EVERY PARALLEL ROUND. Three of this
+  lane's last four rounds hit it. A per-lane file or an append-only form would end it.
+  LIFE+CITY shipped "the registry add is an INSERT, not a re-serialize" (db36f058) which is
+  the same finding from another lane; that helps and does not end it.
   [FOR UI] vote_tab_gate's #setvote leg flakes about 1 in 4 (measured, 4 runs).
-  [FOR THE COORDINATOR] FIFTY-SEVEN ITEMS IN THE VOTE TAB AND ZERO VERDICTS. Every making
-  lane is cooking into a queue nobody has voted in yet. Rule 22 is working; the other half
-  of it, him voting, has not started.
-  [INHERITED] faction_towns P27, identical on a clean origin/main worktree. partiesNear()
-  has no callers at all.
+  [FOR THE COORDINATOR] SEVENTY-EIGHT ITEMS IN THE VOTE TAB AND ZERO VERDICTS. Every making
+  lane is cooking into a queue nobody has voted in. Rule 22 is working; the voting half has
+  not started, and the queue is four rounds deep for this lane alone.
+  [INHERITED] faction_towns P27; partiesNear() has no callers at all.
   [FOR QUESTS] M01-M05 are not inlined into any surface, so they cannot be played.
-  [FOR WHOEVER OWNS THE FEED GATE] feed_stream's door: tapText('CITY|DROP IN') matches 0.
-  [FOR DIRECTION / COOK] AR-005: the widest zoom is a declared placeholder sky, complained
-  about 8/16 AND 9/15, all six art requests OPEN. The camera there is already right.
+  [FOR DIRECTION / COOK] AR-005: the widest zoom is a declared placeholder sky, all six art
+  requests OPEN. The camera there is already right.
   [FOR CHARACTER / COOK] faction_outfit 16/2: Blues and Trades 0.0085 apart on a 0.035 bar.
   [INHERITED] city_memory_gate 33/1, pack_gate 46/1, both reproduced on clean main.
 
@@ -9050,33 +9045,32 @@ STILL OPEN, NONE OF IT THIS LANE'S
   2. THE PLANT. If "the plant" in his towns law is a GENERATOR, every fortress makes power
      off its own seat. That authors canon about the money supply, so not taken.
   3. Anarchists, Colorful and Custom are called non-territorial and still hold ground.
-     (Anarchists also hold 100% of the running water. "Non-territorial" is the least true
-     thing on the board about them.)
+     (Anarchists also hold 100% of the running water.)
   4. What it COSTS to be seen with one of the four hidden factions.
-  5. FOUR COLOUR CLASHES on the map, and now a fifth on a sign: Church and Trades read as
-     one colour on a board. Is the Cartel drab on purpose?
+  5. COLOUR CLASHES: Mob #db1800 beside Reds #db1900, Network #4a8ddb beside Blues #0052db
+     on the map, and Church beside Trades on a board. Is the Cartel drab on purpose?
 
 NEXT IN THIS LANE
-  COOK AGAIN. Rule 22 means every round. The set now has three silhouettes and the rule that
-  made all three work is DRAW AN ANSWER THE GAME ALREADY HAS: the pole sign read the power
-  grid, the monument read holdersOf(), the notice read rentShape(). THE FOURTH IS THE ONE
-  THE TRACKS ALREADY ANSWER -- tracksAt() knows who came past a cell, how long ago and which
-  way, and trackSay() already writes a sentence nobody has a surface for. A mark left on a
-  wall at a crossing (a fourth silhouette: no board at all, just paint on somebody else's
-  building) is that answer drawn, and it is the first one that is about a MOMENT rather than
-  a place.
-  THEN, WHEN THE HOLD LIFTS: the signs go into the walked city off turfAt(), POWER.at() and
-  rentAhead(), which is this row's second half and needs no new art.
-  [same lender] stays HELD. [collector heir] is still the first thing waiting on it, and
-  round 32 measured it as the only sentence this lane owns whose speaker is named by design.
+  COOK AGAIN. Four signs now and one rule made all four work: DRAW AN ANSWER THE GAME
+  ALREADY HAS. The pole sign read the power grid, the monument read holdersOf(), the notice
+  read rentShape(), the mark read tracksAt().
+  THE FIFTH IS THE ONE THE SET IS MISSING AND IT IS NOT A NEW FACT, IT IS A NEW DISTANCE:
+  every sign so far is read STANDING IN FRONT OF IT. Nothing in the set reads from across
+  the street, and the walked city draws a person about 100 px tall, so a sign 200 px away
+  is the normal case and none of these were designed for it. THE NEXT ROUND IS THE SAME
+  FOUR SIGNS AT WALKING DISTANCE: what survives when the type is gone and only the
+  silhouette and the colour are left. That is COMPARE EVERY PIECE OF ART TO THE WORLD done
+  properly, and it is the one test none of the four has had.
+  THEN, WHEN THE HOLD LIFTS: the signs go into the walked city off turfAt(), POWER.at(),
+  rentAhead() and tracksAt(), which is this row's second half and needs no new art.
+  [same lender] stays HELD; [collector heir] is still the first thing waiting on it.
 
-THIRTY-SIX STANDING LESSONS THIS LANE KEEPS RE-LEARNING
+THIRTY-EIGHT STANDING LESSONS THIS LANE KEEPS RE-LEARNING
   BEFORE ASSUMING A ROW IS BLOCKED, CHECK WHETHER ITS NAMED BLOCKER IS STILL TRUE.
   WHEN A CHECK GOES RED, ASK WHETHER IT IS MEASURING THE GAME OR ITS OWN INVENTION.
   WHEN HIS SENTENCE IS FALSE ON THE MAP, REPORT IT rather than forcing it.
   WHEN A LAW BLOCKS THE OBVIOUS BUILD, IT IS USUALLY POINTING AT A BETTER ONE.
-  A BLOCK OF CLAIMS BEHIND AN `if` THAT QUIETLY DOES NOT RUN IS A GREEN GATE, and so is a
-  claim whose walk found nothing to measure and passed on the empty set.
+  A BLOCK OF CLAIMS BEHIND AN `if` THAT QUIETLY DOES NOT RUN IS A GREEN GATE.
   SHOWN, COUNTED AND NEVER SEEN IS THE SAME AS NOT BUILT.
   AN indexOf COMPARISON ACROSS A 4 MB FILE IS NOT AN ORDERING CLAIM.
   A LOAD THAT TIMES OUT IS A SYNTAX ERROR UNTIL PROVEN OTHERWISE.
@@ -9096,26 +9090,27 @@ THIRTY-SIX STANDING LESSONS THIS LANE KEEPS RE-LEARNING
   BEFORE PUTTING SOMETHING BACK, FIND OUT WHY IT WENT. git log -S answers in one command.
   STOP INVENTING IDENTIFIERS. Grep the name AND the SHAPE.
   A CACHE KEY THAT CANNOT TELL "NO" FROM "NOT YET" WILL FREEZE THE WRONG ANSWER.
-  A GATE THAT PRINTS NOTHING MAY HAVE PRINTED EVERYTHING: process.exit() drops buffered stdout.
+  A GATE THAT PRINTS NOTHING MAY HAVE PRINTED EVERYTHING: process.exit() drops stdout.
   A CACHE THAT ANSWERS "NULL" TWICE HAS NOT BEEN TESTED, IT HAS BEEN SKIPPED.
   A NEGATIVE RESULT IS WORTH SHIPPING WHEN IT IS BOUNDED AND MECHANICAL.
-  A SUBSTRING TEST THAT MATCHES ITS OWN MUTATION IS NOT A TEST. '.sayZ' contains '.say'.
-  WHEN A NEW LAW LANDS, THE FIRST USEFUL ROUND IS COUNTING HOW FAR THE BUILT THING ALREADY
-  IS FROM IT.
+  A SUBSTRING TEST THAT MATCHES ITS OWN MUTATION IS NOT A TEST.
+  WHEN A NEW LAW LANDS, COUNT HOW FAR THE BUILT THING ALREADY IS FROM IT.
   A DRAWING IS CHECKED BY LOOKING AT IT, AND NOTHING ELSE FINDS THESE.
-  ONE RUN EACH SIDE IS NOT AN A/B. A browser-driven gate with a ten-second wait flakes.
-  THE BEST COOK DRAWS AN ANSWER THE GAME ALREADY HAS. Three rounds, three signs, three
-  functions that were already computing something no surface showed.
-  A LAW CAN BE INVERTED BY A LAYOUT, NOT ONLY BY A RULING. COLOUR IS TERRITORY was obeyed in
-  code and broken in the picture, because the territory was 6 px and half hidden.
-  *** AND WHEN THE SAME DEFECT ARRIVES A THIRD TIME, STOP FIXING THE INSTANCE AND BUILD THE
-  THING THAT REPORTS IT. *** Two rounds of fixing overflowing strings one page at a time
-  taught nothing. Twenty lines that make the kit confess an overflow caught a fourth one
-  inside the same round, after I had already looked at the picture and passed it.
-  *** AND BEFORE YOU BLAME YOUR OWN DIFF FOR A RED, TAKE YOUR OWN FILES OUT AND RUN IT. ***
-  PAGES PUBLISH went red the round this lane added 26 KB to slices/. Removing all four of
-  this lane's pages left it red at the same 261 MB. One run turned a plausible confession
-  into a measurement, and the real cause is 20 MB of judge pages a law retired nine days ago.
+  ONE RUN EACH SIDE IS NOT AN A/B.
+  THE BEST COOK DRAWS AN ANSWER THE GAME ALREADY HAS. Four signs, four functions that were
+  already computing something no surface showed.
+  A LAW CAN BE INVERTED BY A LAYOUT, NOT ONLY BY A RULING.
+  WHEN THE SAME DEFECT ARRIVES A THIRD TIME, STOP FIXING THE INSTANCE AND BUILD THE THING
+  THAT REPORTS IT. The kit's overflow report caught a fourth one inside the same round.
+  BEFORE YOU BLAME YOUR OWN DIFF FOR A RED, TAKE YOUR OWN FILES OUT AND RUN IT.
+  *** AND A MEASUREMENT THAT LOOKS LIKE A BUG IS SOMETIMES THE DESIGN BRIEF. *** Fourteen
+  cells of nine thousand read as a dead feature; it was six in the morning. Advancing the
+  clock and sweeping again turned a false bug report into the reason this sign is paint
+  instead of footprints. The wrong instinct was to file it; the right one was to ask what
+  the instrument could actually see.
+  *** AND A SHAPE WHOSE WHOLE JOB IS DIRECTION CAN POINT THE WRONG WAY AND STILL LOOK
+  FINE IN CODE. *** The arrowhead loop was seven lines and read correctly; it drew
+  fletching. Anything whose meaning IS its geometry has to be looked at, not reasoned about.
 
 --------------------------------------------------------------------------------
 
