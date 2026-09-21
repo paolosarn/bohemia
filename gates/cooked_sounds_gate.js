@@ -126,6 +126,21 @@ const MEASURE = `
   const ctx = new OfflineAudioContext(1, SR, SR);
   const out = { list: H.list(), rows: {}, tapeAt: H.TAPE_AT, dropoutAt: H.DROPOUT_AT,
                 beat: H.BEAT, bpm: H.BPM, alert: H.ALERT };
+  /* THE A SIDE OF THE A/B, rendered here and nowhere else, so the claim about what the
+     transmitter takes away is measured against the same phrase and not against a memory. */
+  (function () {
+    const made = H.songThroughSpeaker(ctx, { dry: true });
+    const dd = made.buffer.getChannelData(0);
+    const hpf = (a, f) => { const al = Math.exp(-2*Math.PI*f/SR); let y=0, pr=0;
+      const o = new Float64Array(a.length);
+      for (let i=0;i<a.length;i++){ const x=a[i]; y = al*(y+x-pr); pr = x; o[i]=y; } return o; };
+    const en = a => { let s=0; for (let i=0;i<a.length;i++) s += a[i]*a[i]; return s; };
+    let ab = dd; for (let q=0;q<4;q++) ab = hpf(ab, 5000);
+    const t = en(dd);
+    const dm = measure(dd);
+    out.dryRow = { shareAbove5k: t>0 ? en(ab)/t : 0, rootHz: made.root,
+                   semitones: made.semitones, flatness: dm.flatness, topHz: dm.topHz };
+  })();
   for (const item of H.list()) {
     const made = H[item.make](ctx, {});
     const d = made.buffer.getChannelData(0);
@@ -168,6 +183,101 @@ const MEASURE = `
       if (after.length >= N) { const cm = measure(after); m.carrierTopHz = cm.topHz;
         m.carrierFlatness = cm.flatness; }
     }
+    /* the fields each new recipe hands back, plus a band-share helper reused below */
+    const shareAbove = (arr, hz) => {
+      const hpf = (a, f) => { const al = Math.exp(-2*Math.PI*f/SR); let y=0, pr=0;
+        const o = new Float64Array(a.length);
+        for (let i=0;i<a.length;i++){ const x=a[i]; y = al*(y+x-pr); pr = x; o[i]=y; } return o; };
+      const en = a => { let s=0; for (let i=0;i<a.length;i++) s += a[i]*a[i]; return s; };
+      let ab = arr; for (let q=0;q<4;q++) ab = hpf(ab, hz);
+      const t = en(arr); return t > 0 ? en(ab)/t : 0;
+    };
+    const rmsOf = a => { let s=0; for (let i=0;i<a.length;i++) s += a[i]*a[i]; return Math.sqrt(s/(a.length||1)); };
+    if (made.dry !== undefined) m.dry = made.dry;
+    if (made.personStopsAtSeconds != null) {
+      m.personStopsAtSeconds = made.personStopsAtSeconds;
+      m.holdSeconds = made.holdSeconds; m.carrierHz = made.carrierHz;
+      const a = Math.round(made.personStopsAtSeconds*SR), b = Math.round((made.personStopsAtSeconds+made.holdSeconds)*SR);
+      m.rmsBeforeStop = rmsOf(d.subarray(0, a));
+      m.rmsInHold = rmsOf(d.subarray(a + Math.round(0.6*SR), Math.min(d.length, b)));
+      /* *** MEASURED IN THE PERSON'S OWN BAND, NOT IN TOTAL RMS, AND THE FIRST CUT GOT
+         THIS WRONG. The figure that stops is at 233 and 277 Hz; the carrier that must
+         NOT stop is 60 Hz mains plus hiss, and it is louder. So total rms fell only
+         0.269 -> 0.236, a 12% dip, and the claim read red on a sound doing exactly what
+         it was built to do. A MEASURE THAT INCLUDES THE THING THAT MUST STAY CANNOT SEE
+         THE THING THAT LEAVES. Band-passed 200 to 320 Hz, which is where the person is
+         and where the grid is not. *** */
+      const bandPass = (arr) => {
+        const hpf = (x, f) => { const al = Math.exp(-2*Math.PI*f/SR); let y=0, pr=0;
+          const o = new Float64Array(x.length);
+          for (let i=0;i<x.length;i++){ const v=x[i]; y = al*(y+v-pr); pr = v; o[i]=y; } return o; };
+        const lpf = (x, f) => { const al = Math.exp(-2*Math.PI*f/SR); let y=0;
+          const o = new Float64Array(x.length);
+          for (let i=0;i<x.length;i++){ y = (1-al)*x[i] + al*y; o[i]=y; } return o; };
+        let z = arr; for (let q=0;q<3;q++) z = hpf(z, 200);
+        for (let q=0;q<3;q++) z = lpf(z, 320);
+        return z;
+      };
+      m.personBandBefore = rmsOf(bandPass(d.subarray(0, a)));
+      m.personBandInHold = rmsOf(bandPass(d.subarray(a + Math.round(0.6*SR), Math.min(d.length, b))));
+      /* AND THE ROOM'S OWN FLOOR IN THAT SAME BAND, measured in the tail after the hold
+         where the person is ALSO absent. Without it there is no honest bar: the band-pass
+         still passes the mains' 180 Hz harmonic and some hiss, so "the person's band goes
+         to zero" is impossible and a percentage bar would just be a number I picked. THE
+         CLAIM IS THAT THE HOLD IS INDISTINGUISHABLE FROM A STRETCH WITH NOBODY IN IT. */
+      m.personBandTail = rmsOf(bandPass(d.subarray(Math.min(d.length-1, b))));
+      /* NOTHING RISES (rule 20): the loudest sample in the hold must not exceed the
+         loudest before it. A swell would be the one thing this sound must never do. */
+      let pkBefore=0, pkHold=0;
+      for (let i=0;i<a && i<d.length;i++) pkBefore = Math.max(pkBefore, Math.abs(d[i]));
+      for (let i=a;i<b && i<d.length;i++) pkHold = Math.max(pkHold, Math.abs(d[i]));
+      m.peakBeforeStop = pkBefore; m.peakInHold = pkHold;
+    }
+    if (made.openHz != null && made.shutHz != null) {
+      m.openHz = made.openHz; m.shutHz = made.shutHz; m.cloudMult = made.cloudMult;
+      /* *** BRIGHTNESS, NOT A BAND SHARE, BECAUSE "DIMMER" IS EXACTLY WHAT A CENTROID
+         MEASURES. The first cut asked for the share above 2 kHz and read 2.8% -> 2.4% ->
+         2.9%: the right SHAPE and a contrast too small to assert on, because the bed is
+         band-limited to 6 kHz and there was never much above 2 kHz to lose. Hunting for
+         a band where the number looked bigger would have been choosing the ruler to fit
+         the answer. The spectral centroid is the standard measure of how bright a sound
+         is, it moves with the whole roll-off rather than with one edge, and dim is what
+         a cloud does. *** */
+      const centroid = (arr) => {
+        const N2 = 4096; if (arr.length < N2) return null;
+        let best=0,bestE=-1;
+        for (let st=0; st+N2<arr.length; st+=N2>>1){ let e=0; for(let i=st;i<st+N2;i++) e+=arr[i]*arr[i];
+          if(e>bestE){bestE=e;best=st;} }
+        const re=new Float64Array(N2), im=new Float64Array(N2);
+        for (let i=0;i<N2;i++){ const w=0.5-0.5*Math.cos(2*Math.PI*i/(N2-1)); re[i]=arr[best+i]*w; }
+        for (let i=1,j=0;i<N2;i++){ let bit=N2>>1; for(;j&bit;bit>>=1) j^=bit; j^=bit;
+          if(i<j){ let t=re[i];re[i]=re[j];re[j]=t; t=im[i];im[i]=im[j];im[j]=t; } }
+        for (let len=2;len<=N2;len<<=1){ const ang=-2*Math.PI/len, wr=Math.cos(ang), wi=Math.sin(ang);
+          for (let i=0;i<N2;i+=len){ let cr=1,ci=0;
+            for (let k=0;k<len/2;k++){ const ur=re[i+k],ui=im[i+k];
+              const vr=re[i+k+len/2]*cr-im[i+k+len/2]*ci, vi=re[i+k+len/2]*ci+im[i+k+len/2]*cr;
+              re[i+k]=ur+vr; im[i+k]=ui+vi; re[i+k+len/2]=ur-vr; im[i+k+len/2]=ui-vi;
+              const ncr=cr*wr-ci*wi; ci=cr*wi+ci*wr; cr=ncr; } } }
+        let num=0, den=0;
+        for (let k=1;k<N2/2;k++){ const pw2=re[k]*re[k]+im[k]*im[k]; num += k*(SR/N2)*pw2; den += pw2; }
+        return den>0 ? num/den : null;
+      };
+      const third = Math.floor(d.length/3);
+      m.brightAtStart  = centroid(d.subarray(0, third));
+      m.brightInMiddle = centroid(d.subarray(third, 2*third));
+      m.brightAtEnd    = centroid(d.subarray(2*third));
+    }
+    if (made.latchAtSeconds != null) {
+      m.latchAtSeconds = made.latchAtSeconds; m.outsideHi = made.outsideHi; m.insideHi = made.insideHi;
+      const la = Math.round(made.latchAtSeconds*SR), pad = Math.round(0.35*SR);
+      m.hiOutside = shareAbove(d.subarray(0, Math.max(1, la - pad)), 2000);
+      m.hiInside  = shareAbove(d.subarray(Math.min(d.length-1, la + pad)), 2000);
+      m.humOutside = shareAbove(d.subarray(0, Math.max(1, la - pad)), 40) - shareAbove(d.subarray(0, Math.max(1, la - pad)), 90);
+    }
+    if (made.dropouts && made.dry === false) m.songDropouts = made.dropouts;
+    if (made.root != null) { m.rootHz = made.root; m.semitones = made.semitones; }
+    m.shareAbove5k = shareAbove(d, 5000);
+
     /* *** THE BAND CLAIM, AFTER FIVE FAILED ATTEMPTS AT A SINGLE CORNER NUMBER. What
        I wanted was one frequency per sound. There is no such number that means the same
        thing across an impact with a low thump, a hiss bed and a tone over a carrier: the
@@ -222,8 +332,8 @@ const MEASURE = `
       });
     }
     d = await p.evaluate(MEASURE);
-    claim('the recipes load and name what they made', !!d && d.list.length === 3,
-      d ? d.list.length + ' sounds' : 'nothing');
+    claim('the recipes load and name what they made', !!d && d.list.length >= 3,
+      d ? d.list.length + ' sounds in the one module' : 'nothing');
     claim('nothing threw while rendering them', errs.length === 0, errs.slice(0,2).join('; '));
 
     /* the beat is the law's beat, not a number this file chose */
@@ -311,6 +421,87 @@ const MEASURE = `
         : 'after the tone stops the hiss still reads ' + P.carrierAfterToneRms.toFixed(5))
       + ' (school rule 7: a silence keeps its carrier)');
     claim('THE PHONE NEVER READS DIGITAL ZERO EITHER', P.exactZeros === 0, String(P.exactZeros));
+
+    /* ==== THE FOUR COOKED THIS ROUND ======================================= */
+    const SONG = d.rows['sounds-a-song-through-the-dead-speaker-9-22'];
+    const FOLD = d.rows['sounds-the-fold-9-22'];
+    const CLOUD = d.rows['sounds-the-fights-cloud-9-22'];
+    const DOOR = d.rows['sounds-the-door-9-22'];
+
+    /* A SONG THROUGH THE DEAD SPEAKER: the point is the A/B, so the DRY side is
+       rendered too and the claim is that the transmitter really took the top off.
+       This is the one sound that answers his own ruling being amended by rule 20(c). */
+    if (SONG && d.dryRow) {
+      /* *** WHAT THE TRANSMITTER ACTUALLY DOES, AND MY FIRST CLAIM ASKED THE WRONG
+         QUESTION. It asked whether energy above 5 kHz went DOWN, and measured 0.00% ->
+         0.07%: the dry phrase is sine tones at 175 to 310 Hz and their octaves, so there
+         was never anything above 5 kHz to take away. THE BAND IS NOT WHERE THE DIFFERENCE
+         LIVES; THE HISS IS. A dead broadcast adds a noise floor, and that is audible and
+         measurable: a pure tone reads a flatness near zero and hiss pulls it up. *** */
+      claim('THE TRANSMITTER PUTS A NOISE FLOOR UNDER THE SONG',
+        d.dryRow.flatness != null && SONG.flatness != null &&
+        SONG.flatness > d.dryRow.flatness * 4,
+        'flatness ' + d.dryRow.flatness.toFixed(4) + ' played clean -> '
+        + SONG.flatness.toFixed(4) + ' through the speaker (a tone reads near 0, hiss pulls it up)');
+      claim('AND THE SONG IS STILL A SONG UNDERNEATH: same notes, same root',
+        d.dryRow.rootHz === SONG.rootHz &&
+        JSON.stringify(d.dryRow.semitones) === JSON.stringify(SONG.semitones),
+        'root ' + SONG.rootHz + ' Hz, intervals ' + JSON.stringify(SONG.semitones)
+        + ' (a minor pentatonic: NO major third anywhere, which is this lane\'s own no-thirds rule)');
+      claim('AND IT DROPS OUT, because a dead broadcast is not a clean one',
+        (SONG.songDropouts || []).length >= 2,
+        (SONG.songDropouts || []).length + ' drop-outs, '
+        + (SONG.songDropouts || []).map(x => x.ms + ' ms').join(' and '));
+    } else { claim('the song A/B was rendered', false, 'the dry side is missing'); }
+
+    /* THE FOLD: the person stops and the grid does not. */
+    if (FOLD) {
+      claim('THE FOLD: THE PERSON STOPS, and the hold is indistinguishable from a '
+        + 'stretch with nobody in it',
+        FOLD.personBandInHold < FOLD.personBandBefore * 0.6 &&
+        Math.abs(FOLD.personBandInHold - FOLD.personBandTail) < FOLD.personBandTail * 0.4,
+        'in the person\'s own band, 200 to 320 Hz: ' + FOLD.personBandBefore.toFixed(4)
+        + ' before -> ' + FOLD.personBandInHold.toFixed(4) + ' during the '
+        + FOLD.holdSeconds + ' s hold, against a room floor of '
+        + FOLD.personBandTail.toFixed(4) + ' measured where nobody is either (total rms '
+        + 'barely moves, because the grid is louder than the person, which is the point)');
+      claim('AND THE GRID DOES NOT: the carrier runs right through the hold',
+        FOLD.rmsInHold > 0.002 && FOLD.exactZeros === 0,
+        'the hold still reads ' + FOLD.rmsInHold.toFixed(4) + ' rms with '
+        + FOLD.exactZeros + ' exact zeros, at ' + FOLD.carrierHz + ' Hz mains (school rules 1 and 7)');
+      claim('AND NOTHING RISES, which rule 20 requires: nothing jumps',
+        FOLD.peakInHold <= FOLD.peakBeforeStop,
+        'loudest sample ' + FOLD.peakBeforeStop.toFixed(4) + ' before the stop, '
+        + FOLD.peakInHold.toFixed(4) + ' inside the hold');
+    } else { claim('the fold was rendered', false, 'missing'); }
+
+    /* THE FIGHT'S CLOUD: the top comes off and comes back, on the city's own numbers. */
+    if (CLOUD) {
+      claim('THE CLOUD TAKES THE TOP OFF THE FIGHT\'S BED',
+        CLOUD.brightInMiddle != null && CLOUD.brightAtStart != null &&
+        CLOUD.brightInMiddle < CLOUD.brightAtStart * 0.85,
+        'brightness ' + Math.round(CLOUD.brightAtStart) + ' Hz -> '
+        + Math.round(CLOUD.brightInMiddle) + ' Hz as it passes');
+      claim('AND IT GIVES IT BACK, so it is weather and not a filter sweep',
+        CLOUD.brightAtEnd != null && CLOUD.brightAtEnd > CLOUD.brightInMiddle * 1.1,
+        'and back to ' + Math.round(CLOUD.brightAtEnd) + ' Hz after');
+      claim('AND THE DARKNESS IS THE CITY\'S OWN NUMBER, NOT MINE',
+        JSON.stringify(CLOUD.cloudMult) === JSON.stringify([0.86, 0.88, 0.94]),
+        'CLOUD_MULT ' + JSON.stringify(CLOUD.cloudMult)
+        + ' read from the weather module, whose comment says it cools as it dims');
+    } else { claim('the cloud was rendered', false, 'missing'); }
+
+    /* THE DOOR: one room becomes another, and the hum is in both. */
+    if (DOOR) {
+      claim('THE DOOR SWAPS ONE ROOM FOR ANOTHER, and inside is narrower',
+        DOOR.hiInside < DOOR.hiOutside * 0.7,
+        'share above 2 kHz: ' + (100*DOOR.hiOutside).toFixed(1) + '% outside -> '
+        + (100*DOOR.hiInside).toFixed(1) + '% inside (declared ' + DOOR.outsideHi
+        + ' Hz and ' + DOOR.insideHi + ' Hz)');
+      claim('AND NEITHER SIDE IS SILENT, because there is always a room',
+        DOOR.exactZeros === 0 && DOOR.rms > 0.01,
+        DOOR.exactZeros + ' exact zeros, rms ' + DOOR.rms.toFixed(4));
+    } else { claim('the door was rendered', false, 'missing'); }
 
     /* ---- and the registry actually carries them ----------------------------- */
     const reg = JSON.parse(fs.readFileSync(path.join(ROOT, 'records/target/BOHEMIA_VOTE_REGISTRY.json'), 'utf8'));

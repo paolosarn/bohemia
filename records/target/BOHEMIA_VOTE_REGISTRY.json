@@ -873,6 +873,58 @@
     "how": "page",
     "src": "BOHEMIA_THE_NOTICE_AT_THE_EDGE_9_22_26.html"
    }
+  },
+  {
+   "id": "sounds-a-song-through-the-dead-speaker-9-22",
+   "kind": "sound",
+   "lane": "sounds",
+   "sha": "PENDING",
+   "made": "9/22",
+   "title": "A SONG THROUGH THE DEAD SPEAKER",
+   "why": "This is the answer to your own sound call being changed, made into something you can hear. You said post-apocalyptic FFX; the analog horror rule now comes first, and the way to keep both is a warm tune arriving through a broken radio. The page plays the same tune twice: once clean, once through the speaker. Pick which one the game uses.",
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_THREE_SOUNDS_9_21_26.html"
+   }
+  },
+  {
+   "id": "sounds-the-fold-9-22",
+   "kind": "sound",
+   "lane": "sounds",
+   "sha": "PENDING",
+   "made": "9/22",
+   "title": "THE FOLD",
+   "why": "The sound of a generation passing. Somebody stops, and the electrical hum of the house carries on at exactly the same pitch, because the grid does not care that a man died. Nothing swells and nothing rises. Tell me if that is too cold.",
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_THREE_SOUNDS_9_21_26.html"
+   }
+  },
+  {
+   "id": "sounds-the-fights-cloud-9-22",
+   "kind": "sound",
+   "lane": "sounds",
+   "sha": "PENDING",
+   "made": "9/22",
+   "title": "THE FIGHT'S CLOUD",
+   "why": "You ruled that a cloud crosses the fight. A cloud makes no noise, so what you hear is what a cloud does to a place: the brightness goes out of the room and comes back. No whoosh, because a whoosh would be a sound effect pretending to be weather. It uses the same darkness numbers the city's own weather already uses.",
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_THREE_SOUNDS_9_21_26.html"
+   }
+  },
+  {
+   "id": "sounds-the-door-9-22",
+   "kind": "sound",
+   "lane": "sounds",
+   "sha": "PENDING",
+   "made": "9/22",
+   "title": "THE DOOR",
+   "why": "Walking through a door, and the real sound of it is not the hinge: it is one room becoming another. Outside is wide and inside is closed in and narrower, and the same electrical hum is on both sides because it is the same house. The latch is the small part.",
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_THREE_SOUNDS_9_21_26.html"
+   }
   }
  ],
  "verdicts": []

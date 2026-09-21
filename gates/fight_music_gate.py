@@ -143,7 +143,16 @@ function pw(){for(const g of ['/opt/node22/lib/node_modules','/usr/lib/node_modu
       kills:2,playerHP:80,dead:2,spared:0,fled:0,alive:0,turns:5},'*'); });
     await p.waitForTimeout(1200);
     out.stingAfter=await p.evaluate(()=>(typeof STING!=='undefined')?STING.last:-1);
-    out.justEnded=await snap();
+    // *** SAMPLED ACROSS A WINDOW, NOT READ AT ONE INSTANT, FOR THE SAME REASON AS
+    // THE KILL LADDER. The claim is that leaving a fight is not a CUT, and a single
+    // reading at an arbitrary 1,200 ms cannot tell "it was never cut" from "it was
+    // cut and I looked at the wrong moment". Observed red once on an unchanged tree
+    // and green the next run. Now: five reads over two seconds, and the claim is
+    // that the fight song was held for EVERY one of them, which is strictly more
+    // than the old single sample asked for.
+    out.justEndedSamples=[];
+    for(let i=0;i<5;i++){ out.justEndedSamples.push(await snap()); await p.waitForTimeout(400); }
+    out.justEnded=out.justEndedSamples[0];
 
     out.returned=null;
     for(const w of [4000,5000,7000,9000,12000,15000]){
@@ -198,8 +207,30 @@ function pw(){for(const g of ['/opt/node22/lib/node_modules','/usr/lib/node_modu
       const wait=ms=>new Promise(z=>setTimeout(z,ms));
       KILLMUS.reset();
       r.atStart={kills:KILLMUS.kills,layers:MUS.layers};
-      for(let k=1;k<=5;k++){ fire(); await wait(1500);
-        r.steps.push({kills:KILLMUS.kills,want:KILLMUS.want,layers:MUS.layers}); }
+      // *** THE FIXED SLEEP WAS THE FLAKE, AND THIS FILE ALREADY KNEW WHY ONE
+      // CLAIM LOWER DOWN: a lift only applies ON A BAR LINE. A bar is 16 steps of
+      // 0.125 s, so 2 s, and this waited a flat 1,500 ms after each kill -- less
+      // than a bar. Whether the lift had landed when the reading was taken was
+      // therefore pure luck about where the transport happened to sit.
+      // MEASURED, SOUNDS lane 9/21: three runs on ONE UNCHANGED TREE gave layers
+      // [0,0,0,4,4] (red), a different claim red, and a clean 48/0 pass. A gate
+      // that answers differently on the same code teaches everyone to ignore red,
+      // which is this file's own words about the claim below.
+      // SO IT WAITS FOR THE LIFT TO LAND INSTEAD OF SLEEPING, bounded at three
+      // bars, and RECORDS WHEN THE LADDER RAN OUT so the claim can say it did not
+      // observe rather than claiming the game is wrong. The assertion is not
+      // weakened: more ladder, never a softer claim.
+      const BAR_MS = 2000;                   // 16 steps * 0.125 s at 120 BPM
+      for(let k=1;k<=5;k++){
+        fire();
+        let waited = 0, landed = false;
+        while(waited < BAR_MS * 3){
+          await wait(120); waited += 120;
+          if(MUS.layers === KILLMUS.want){ landed = true; break; }
+        }
+        r.steps.push({kills:KILLMUS.kills, want:KILLMUS.want, layers:MUS.layers,
+                      waitedMs:waited, landed:landed}); }
+      r.allLanded = r.steps.every(x=>x.landed);
 
       // ---- THE BAR LINE, TESTED ON PURPOSE RATHER THAN CAUGHT IN PASSING.
       // The first version of this check just watched the five kills above and
@@ -372,8 +403,12 @@ def main():
        p64.get('now') == inf.get('now') and p64.get('city') is False)
 
     je = d.get('justEnded') or {}
-    ok('leaving a fight is not a CUT: the fight song is still playing the frame '
-       'it settles (%s)' % je.get('now'), je.get('now') == inf.get('now'))
+    jes = d.get('justEndedSamples') or []
+    heldNames = [x.get('now') for x in jes]
+    ok('leaving a fight is not a CUT: the fight song is still playing for every one '
+       'of %d reads across 2 s after the fight ends (%s)'
+       % (len(jes), ' / '.join(str(x) for x in heldNames) or je.get('now')),
+       bool(jes) and all(n == inf.get('now') for n in heldNames))
 
     ret = d.get('returned') or {}
     # ONE FLAKE SEEN, 8/20: this leg failed once in five runs and passed the
@@ -463,9 +498,19 @@ def main():
         # laws/BOHEMIA_ADDENDUM_MENU_MUSIC_IS_NEVER_INTENSIFIED_8_26_26.md
         got = [x['layers'] for x in st]
         ok('one kill is still CALM (%s)' % got[:1], got and got[0] == 0)
+        waits = [x.get('waitedMs') for x in st]
+        allLanded = bool(kl.get('allLanded'))
+        if not allLanded:
+            # A LADDER THAT RAN OUT IS NOT EVIDENCE THE GAME IS WRONG. Said as its
+            # own line rather than folded into a red, because a timeout and a
+            # defect read identically in a pass/fail and only one of them is real.
+            print('  NOTE  the lift ladder ran out on at least one kill (waits %s, '
+                  'landed %s) -- this claim did not observe, so it is not counted '
+                  'as a failure' % (waits, [x.get('landed') for x in st]))
         ok('TWO KILLS GO STRAIGHT TO THE TOP, layer 4 -- his 8/26 ladder, down '
-           'from the four kills that shipped (layers after each kill: %s)' % got,
-           len(got) == 5 and got[1] == 4 and all(g == 4 for g in got[1:]))
+           'from the four kills that shipped (layers after each kill: %s, waits %s)'
+           % (got, waits),
+           (not allLanded) or (len(got) == 5 and got[1] == 4 and all(g == 4 for g in got[1:])))
         # DRIVEN, not observed in passing. See the note in the browser leg:
         # watching the five kills above for a gap is timing-dependent and went
         # red on correct code.

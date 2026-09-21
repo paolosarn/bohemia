@@ -1,4 +1,4 @@
-/* BOHEMIA -- THREE SOUNDS COOKED TO THE ANALOG HORROR LAW (9/21/26, SOUNDS lane)
+/* BOHEMIA -- SEVEN SOUNDS COOKED TO THE ANALOG HORROR LAW (9/21 and 9/22/26, SOUNDS lane)
    Row [cook sounds], rule 22 (Paolo 9/21): "I'll enter the sound chat and it's not even
    making fucking sounds... I need to be seeing them cooking up more, every time."
 
@@ -19,9 +19,16 @@
    drop-out sound below fires at those three instants, read from that same list of
    fractions, so if ANIMATION moves a station the sound follows it.
 
-   WHY THESE THREE AND NOT ANY THREE: the row names them. The room hum for the BEGIN tap
-   shipped and is registered already; these are the footstep that lands on the beat, the
-   tape drop-out of that step, and the phone's broadcast tone.
+   WHY THESE AND NOT ANY OTHERS: the row names them, all eight, four per round. The room hum
+   for the BEGIN tap shipped and is registered on its own. Round one of this row cooked the
+   footstep that lands on the beat, the tape drop-out of that step, and the phone's broadcast
+   tone. Round two cooked a song through the dead speaker, the fold, the fight's cloud and
+   the door.
+   AND THREE OF THE SEVEN ARE TIMED OR TUNED TO SOMEBODY ELSE'S NUMBER RATHER THAN TO MINE:
+   the step's drop-outs read ANIMATION's ground stations, the cloud reads the city weather
+   module's own CLOUD_MULT, and the fold's hum is the same 60 Hz mains the shipped room uses.
+   A sound that invents its own version of a number the game already has is a second copy of
+   one truth, which is the bug that silenced every footstep in this game for days.
 */
 (function (root) {
   'use strict';
@@ -294,11 +301,278 @@
     };
   }
 
+  /* ==== 4. A SONG THROUGH THE DEAD SPEAKER ======================================
+     THIS IS THE ANSWER TO HIS OWN SOUND RULING BEING AMENDED, MADE AUDIBLE. Rule 20(c)
+     (Paolo 9/20) put analog horror ahead of the FFX sound reference and left the manager's
+     default as "a warm melody heard through a dead broadcast". That sentence has been on
+     the board for two rounds as words. Here it is as two buffers he can A/B: the SAME warm
+     phrase clean, and the same phrase arriving through the transmitter.
+     WHAT SURVIVES OF THE OLD ANCHOR IS THE TUNE. His own law says what people loved was
+     the patience, the bass under it and the late beat. None of those are touched: the
+     phrase is unhurried, it has a bass note under it, and it is the ROOM IT WAS RECORDED
+     IN that changes. Nothing about the melody is band-limited away that a real AM
+     transmitter would not take. */
+  function songThroughSpeaker(ctx, opts) {
+    opts = opts || {};
+    var sr = ctx.sampleRate;
+    var dry = !!opts.dry;                    /* the A side: no transmitter at all */
+    var beats = opts.beats == null ? 8 : opts.beats;
+    var beat = opts.beat == null ? BEAT : opts.beat;
+    var n = Math.round(sr * beats * beat);
+    var buf = ctx.createBuffer(1, n, sr);
+    var d = buf.getChannelData(0);
+    var i, k;
+
+    /* A PATIENT PHRASE, and the intervals are a minor pentatonic so it cannot read as
+       cheerful: root, minor third, fourth, fifth, minor seventh. No major third anywhere,
+       which is also this lane's own sting rule (no thirds that name a key).
+       One note per beat, held almost the whole beat: rule 20 says stillness is long. */
+    var root = opts.root == null ? 174.6 : opts.root;      /* F3, low and warm */
+    var semis = [0, 3, 5, 7, 10, 7, 5, 3];
+    var hz = function (st) { return root * Math.pow(2, st / 12); };
+
+    for (k = 0; k < beats; k++) {
+      var f = hz(semis[k % semis.length]);
+      var at = Math.round(k * beat * sr);
+      var len = Math.round(beat * sr * 0.92);
+      var ph = 0, phb = 0;
+      for (i = 0; i < len && at + i < n; i++) {
+        var u = i / len;
+        /* a plucked, patient envelope: quick in, long out, never a pad */
+        var env = (1 - Math.exp(-i / (sr * 0.012))) * Math.pow(1 - u, 1.7);
+        ph += 2 * Math.PI * f / sr;
+        /* THE BASS UNDER IT, which his law names as one of the three things people
+           loved: the root an octave down, quieter, holding through. */
+        phb += 2 * Math.PI * (root / 2) / sr;
+        d[at + i] += Math.sin(ph) * env * 0.5
+                   + Math.sin(ph * 2) * env * 0.12          /* one octave of body */
+                   + Math.sin(phb) * Math.pow(1 - (at + i) / n, 0.8) * 0.16;
+      }
+    }
+
+    if (dry) { normalise(d, n, 0.85);
+      return { buffer: buf, machine: { lo: 40, hi: 12000, why: 'no transmitter: the phrase as played' },
+               seconds: beats * beat, dry: true, root: root, semitones: semis.slice(),
+               why: 'the warm phrase with nothing in front of it, the A side of the A/B' }; }
+
+    /* ---- AND NOW THE TRANSMITTER, which is the whole point --------------------
+       THE BAND IS THE MACHINE (school rule 4): 100 Hz to 5 kHz, an AM broadcast, four
+       cascaded poles because a licensed band limit is steep or it splatters. */
+    bandTo(d, n, MACHINE.AM.lo, MACHINE.AM.hi, sr, 4);
+
+    /* THE HISS IT ARRIVES OVER (school rule 3), and it starts before the music and does
+       not stop after it, because the transmitter is on and the song is only content
+       (school rule 7). */
+    var hiss = new Float32Array(n);
+    noiseInto(hiss, n, 1, 77713);
+    bandTo(hiss, n, MACHINE.AM.lo, MACHINE.AM.hi, sr, 4);
+    for (i = 0; i < n; i++) d[i] += hiss[i] * 0.16;
+
+    /* TWO DROP-OUTS, because a dead broadcast is not a clean one. Same rule 6 shape as
+       the step: dull before quiet, inside 8 to 60 ms, never silent. Placed off the beat
+       on purpose so they read as the transmitter failing rather than as rhythm. */
+    var outs = [0.41, 0.73];
+    var events = [];
+    for (k = 0; k < outs.length; k++) {
+      var a0 = Math.round(outs[k] * n), L = Math.round(sr * 0.042);
+      var seg = new Float32Array(L), j;
+      for (j = 0; j < L && a0 + j < n; j++) seg[j] = d[a0 + j];
+      onePoleLow(seg, L, 800, sr);
+      var fg = Math.pow(10, -13 / 20);
+      for (j = 0; j < L && a0 + j < n; j++) {
+        var uu = j / L;
+        d[a0 + j] = seg[j] * (uu < 0.22 ? 1 - (1 - fg) * (uu / 0.22)
+                                        : fg + (1 - fg) * Math.pow((uu - 0.22) / 0.78, 1.5));
+      }
+      events.push({ atSeconds: +(outs[k] * beats * beat).toFixed(3), ms: 42, depthDb: 13 });
+    }
+    normalise(d, n, 0.85);
+    return { buffer: buf, machine: MACHINE.AM, seconds: beats * beat, dry: false,
+             root: root, semitones: semis.slice(), dropouts: events,
+             why: 'the same warm phrase arriving through a dead broadcast: AM band, hiss under it, and it drops out twice' };
+  }
+
+  /* ==== 5. THE FOLD ==============================================================
+     THE GENERATION PASSING, which is the largest single moment this game has: a dynast
+     dies and the line advances (laws/BOHEMIA_ADDENDUM_COLLAPSE_ORIGIN_AND_DEATH_MODEL,
+     "THE FOLD, the generational dynasty structure across the 100-year arc").
+     AND THE HORROR IS THAT THE WORLD DOES NOT MARK IT. Everything the person was making
+     noise with stops. What does NOT stop is the grid: the 60 Hz mains hum carries on at
+     exactly the same pitch and the same level, indifferent, because a dead man's house is
+     still connected. That is school rule 7 used for the one thing it was made for, a
+     silence that is audibly switched ON, and it needs no new material at all.
+     NO STING, NO SWELL, NOTHING RISES. Rule 20: nothing jumps. */
+  function theFold(ctx, opts) {
+    opts = opts || {};
+    var sr = ctx.sampleRate;
+    var beat = opts.beat == null ? BEAT : opts.beat;
+    var beforeBeats = 4, holdBeats = 8, afterBeats = 4;   /* the hold is long on purpose */
+    var total = (beforeBeats + holdBeats + afterBeats) * beat;
+    var n = Math.round(sr * total);
+    var buf = ctx.createBuffer(1, n, sr);
+    var d = buf.getChannelData(0);
+    var i;
+
+    /* THE CARRIER, THE WHOLE WAY THROUGH, UNCHANGED. Mains and its harmonics, plus the
+       room's hiss. This is the same recipe the shipped room hum uses, on purpose: it is
+       literally the same house. */
+    var parts = [[1, 1.00], [2, 0.42], [3, 0.18]];
+    var hiss = new Float32Array(n);
+    noiseInto(hiss, n, 1, 5150);
+    bandTo(hiss, n, 100, 5000, sr, 2);
+    for (i = 0; i < n; i++) {
+      var t = i / sr, h = 0;
+      for (var k2 = 0; k2 < parts.length; k2++)
+        h += Math.sin(2 * Math.PI * 60 * parts[k2][0] * t) * parts[k2][1];
+      d[i] = h * 0.30 + hiss[i] * 0.18;
+    }
+
+    /* WHAT THE PERSON WAS DOING, and it stops. A slow, quiet, unresolved figure over the
+       first stretch, then nothing. It fades over one beat rather than cutting, because a
+       cut is a sound effect and this is somebody stopping. */
+    var livesFor = Math.round(beforeBeats * beat * sr);
+    var fadeOver = Math.round(beat * sr);
+    var ph = 0, ph2 = 0;
+    for (i = 0; i < livesFor && i < n; i++) {
+      var g = (i > livesFor - fadeOver) ? (livesFor - i) / fadeOver : 1;
+      ph  += 2 * Math.PI * 233.1 / sr;                  /* Bb3 */
+      ph2 += 2 * Math.PI * 277.2 / sr;                  /* C#4, a minor third above */
+      d[i] += (Math.sin(ph) * 0.22 + Math.sin(ph2) * 0.13) * g
+              * (0.55 + 0.45 * Math.sin(2 * Math.PI * 0.35 * (i / sr)));  /* breathing, slow */
+    }
+
+    normalise(d, n, 0.82);
+    /* WHAT A CHECKER NEEDS TO SEE: the hold is real, and the carrier survives it. */
+    return { buffer: buf, machine: { lo: 100, hi: 5000, why: 'the room, unchanged, because the grid does not care' },
+             seconds: total,
+             personStopsAtSeconds: +(beforeBeats * beat).toFixed(3),
+             holdSeconds: +(holdBeats * beat).toFixed(3),
+             carrierHz: 60,
+             why: 'the person stops and the grid does not: a long hold with the mains hum running through it, and nothing rises' };
+  }
+
+  /* ==== 6. THE FIGHT'S CLOUD =====================================================
+     A CLOUD CROSSING THE FIGHT, which COMBAT owns as a picture (rule 17, "the cloud
+     passes across the turn as he ruled"). A cloud makes no sound, so the honest question
+     is what a cloud DOES to the sound of a place, and the answer is in the city's own
+     weather module: CLOUD_MULT = [0.86, 0.88, 0.94] and its comment says it COOLS AS IT
+     DIMS. Cooling light is the eye's version of losing the top of the band.
+     SO THE CLOUD IS A ROLL-OFF THAT WALKS ACROSS THE BED AND WALKS BACK. Nothing is
+     added, nothing swells, no whoosh: a whoosh would be a sound effect pretending to be
+     weather. It is the same mechanism as a tape drop-out (the top goes first) used for
+     light instead of for oxide, which is why it belongs in this file and not in a new one. */
+  function fightCloud(ctx, opts) {
+    opts = opts || {};
+    var sr = ctx.sampleRate;
+    var beat = opts.beat == null ? BEAT : opts.beat;
+    var beats = opts.beats == null ? 8 : opts.beats;      /* a turn's worth */
+    var n = Math.round(sr * beats * beat);
+    var buf = ctx.createBuffer(1, n, sr);
+    var d = buf.getChannelData(0);
+    var i;
+
+    /* the fight's bed: the same room, a little more air in it */
+    noiseInto(d, n, 1, 8611);
+    bandTo(d, n, 120, 6000, sr, 2);
+    var parts = [[1, 1.00], [2, 0.40]];
+    for (i = 0; i < n; i++) {
+      var t = i / sr, h = 0;
+      for (var k = 0; k < parts.length; k++)
+        h += Math.sin(2 * Math.PI * 60 * parts[k][0] * t) * parts[k][1];
+      d[i] = d[i] * 0.30 + h * 0.16;
+    }
+
+    /* THE SHADOW WALKS ACROSS. A time-varying low-pass: the corner falls to the cloud's
+       own darkest multiple and comes back. The three multiples are the city's, not mine. */
+    var MULT = opts.mult || [0.86, 0.88, 0.94];
+    var darkest = Math.min.apply(null, MULT);             /* 0.86 */
+    var openHz = 6000, shutHz = Math.round(openHz * darkest * darkest);  /* squared: light dims twice over */
+    var y = 0, prev = 0;
+    var curve = [];
+    for (i = 0; i < n; i++) {
+      var u = i / n;
+      /* in over the first third, held across the middle, out over the last third */
+      var shade = (u < 0.33) ? (u / 0.33) : (u < 0.66) ? 1 : (1 - (u - 0.66) / 0.34);
+      var corner = openHz + (shutHz - openHz) * shade;
+      var a = Math.exp(-2 * Math.PI * corner / sr);
+      y = (1 - a) * d[i] + a * y;
+      d[i] = y;
+      if (i % Math.round(n / 8) === 0) curve.push({ atSeconds: +(i / sr).toFixed(2), cornerHz: Math.round(corner) });
+    }
+    normalise(d, n, 0.8);
+    return { buffer: buf, machine: { lo: 120, hi: openHz, why: 'the fight\'s bed, and a cloud takes the top off it' },
+             seconds: beats * beat, cloudMult: MULT.slice(),
+             openHz: openHz, shutHz: shutHz, curve: curve,
+             why: 'the cloud that crosses the fight, heard the only way a cloud can be: the top of the band dims and comes back' };
+  }
+
+  /* ==== 7. THE DOOR ==============================================================
+     WALKING THROUGH A DOOR, and the sound of it is NOT the hinge. School rule 1 says
+     there is always a room, so the real event is that ONE ROOM BECOMES ANOTHER. This
+     game already has both: the outdoor bed and air_inside, approved and cooked since
+     8/12. So the door is a crossfade of rooms with a latch on it, and the latch is the
+     small part.
+     AND THE INSIDE IS NARROWER, WHICH IS PHYSICS AND NOT TASTE: a small hard room has
+     less high air in it and more low, because the far sound never arrives and the walls
+     return the bottom. Measured in the declaration: outside runs to 5 kHz, inside to
+     2.2 kHz, and the bottom comes up. */
+  function theDoor(ctx, opts) {
+    opts = opts || {};
+    var sr = ctx.sampleRate;
+    var beat = opts.beat == null ? BEAT : opts.beat;
+    var beats = opts.beats == null ? 6 : opts.beats;
+    var n = Math.round(sr * beats * beat);
+    var buf = ctx.createBuffer(1, n, sr);
+    var d = buf.getChannelData(0);
+    var i;
+
+    var crossAt = Math.round(n * 0.42);                   /* the latch */
+    var crossOver = Math.round(sr * 0.22);                /* the swap takes a moment */
+
+    var outside = new Float32Array(n), inside = new Float32Array(n);
+    noiseInto(outside, n, 1, 3301);
+    bandTo(outside, n, 100, 5000, sr, 2);
+    noiseInto(inside, n, 1, 4402);
+    bandTo(inside, n, 60, 2200, sr, 2);                   /* narrower, and lower */
+
+    for (i = 0; i < n; i++) {
+      var u = (i - crossAt) / crossOver;
+      var w = u <= 0 ? 0 : (u >= 1 ? 1 : u * u * (3 - 2 * u));   /* smoothstep */
+      /* the mains hum is in BOTH rooms and does not crossfade: it is the same house */
+      var t = i / sr;
+      var hum = (Math.sin(2 * Math.PI * 60 * t) + Math.sin(2 * Math.PI * 120 * t) * 0.4);
+      d[i] = outside[i] * 0.26 * (1 - w) + inside[i] * 0.34 * w + hum * 0.14;
+    }
+
+    /* THE LATCH, and it is short and broadband, the only transient in the sound */
+    var L = Math.round(sr * 0.05), ph = 0;
+    var latch = new Float32Array(L);
+    noiseInto(latch, L, 1, 9119);
+    bandTo(latch, L, 400, 4200, sr, 2);
+    for (i = 0; i < L && crossAt + i < n; i++) {
+      var uu = i / L;
+      var env = (1 - Math.exp(-i / (sr * 0.001))) * Math.pow(1 - uu, 5);
+      ph += 2 * Math.PI * 320 / sr;
+      d[crossAt + i] += (latch[i] * 0.8 + Math.sin(ph) * 0.2) * env * 0.55;
+    }
+    normalise(d, n, 0.85);
+    return { buffer: buf,
+             machine: { lo: 60, hi: 5000, why: 'two rooms: outside reaches 5 kHz, inside 2.2 kHz, and the hum is in both' },
+             seconds: beats * beat,
+             latchAtSeconds: +(crossAt / sr).toFixed(3),
+             outsideHi: 5000, insideHi: 2200, crossSeconds: +(crossOver / sr).toFixed(3),
+             why: 'one room becoming another, with the latch as the small part and the same mains hum on both sides' };
+  }
+
   root.BOH_HORROR_SOUNDS = {
     BPM: BPM, BEAT: BEAT, TAPE_AT: TAPE_AT, DROPOUT_AT: DROPOUT_AT, MACHINE: MACHINE, ALERT: ALERT,
     footstep: footstep,
     stepWithDropouts: stepWithDropouts,
     phoneTone: phoneTone,
+    songThroughSpeaker: songThroughSpeaker,
+    theFold: theFold,
+    fightCloud: fightCloud,
+    theDoor: theDoor,
     /* what a checker and a page both ask for, so neither invents a list */
     list: function () {
       return [
@@ -307,7 +581,15 @@
         { id: 'sounds-the-step-loses-contact-9-21',  make: 'stepWithDropouts',
           title: 'THE STEP LOSES CONTACT' },
         { id: 'sounds-the-phone-still-transmits-9-21', make: 'phoneTone',
-          title: 'THE PHONE STILL TRANSMITS' }
+          title: 'THE PHONE STILL TRANSMITS' },
+        { id: 'sounds-a-song-through-the-dead-speaker-9-22', make: 'songThroughSpeaker',
+          title: 'A SONG THROUGH THE DEAD SPEAKER' },
+        { id: 'sounds-the-fold-9-22', make: 'theFold',
+          title: 'THE FOLD' },
+        { id: 'sounds-the-fights-cloud-9-22', make: 'fightCloud',
+          title: "THE FIGHT'S CLOUD" },
+        { id: 'sounds-the-door-9-22', make: 'theDoor',
+          title: 'THE DOOR' }
       ];
     }
   };
