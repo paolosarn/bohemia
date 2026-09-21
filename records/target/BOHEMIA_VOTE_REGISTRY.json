@@ -1029,6 +1029,19 @@
     "how": "text",
     "src": "EVERY ROADSIDE MOMENT ALREADY HAS AN ENDING DESIGNED. NONE OF THEM HAS WORDS.\n\nPeople remember an experience by its biggest moment and its LAST moment, and\nalmost not at all by how long it went on. We wrote the openings last round.\nThis is the other half.\n\n  the dogs break        The rest went with him. They always go with him.\n  the coyote leaves     It went. They do that once you look straight at it.\n  the snake got you     Sit down. Ten minutes and you will know either way.\n\n  the scavenger, three ways it can end\n    you paid            Take it and go. I did not see which way you went.\n    you scared him      He will tell people you scared him. That is worse.\n    you dropped him     That one had a name on this street. People knew him.\n\n  the toll, two ways\n    you paid            Road is yours for the day. Nobody will stop you.\n    you went around     Long way round, then. It adds an hour and it is safe.\n\n  the snatcher got it   You are not getting that back. Let it go and walk.\n  the mad one           You cannot pay that one. Nobody can. He is past it.\n  the bounty squad      There will be more of them next week. There always are.\n  the old casino bot    The alarm went out. Whoever owns this block heard it.\n  the drone             Kill the light and the rest of them fall out of the air.\n  the empty taxi        It will take you. It does not ask where you are going.\n  two patrols fought    Neither of them won. Walk while they are still counting."
    }
+  },
+  {
+   "id": "world-the-day-the-money-dies-9-21",
+   "kind": "line",
+   "lane": "world",
+   "sha": "PENDING",
+   "made": "9/21",
+   "title": "THE DAY THE MONEY DIES",
+   "why": "Every purchase burns the battery, so the valley can be spent down to nothing. I drove it there: 56 batteries burned, zero left across 19 hands, shelves still full. This is the shop's price list on that morning. Every line is correct and every line is one battery and there is not one left.",
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_THE_FIRST_NOTICE_9_21_26.html"
+   }
   }
  ],
  "verdicts": []

@@ -690,6 +690,86 @@
   }
 
   /* --------------------------------------------------------------------------
+     *** THE POSTED PRICE LIST. *** (9/21, row [full shelves].)
+
+     A shop posts its prices. That is not decoration and it is not optional: a
+     posted schedule is what a price IS in law, the thing a customer can hold a
+     seller to, and utilities and retailers are required to display one.
+
+     So when the valley's last battery is spent, the list is still on the wall.
+     Every line still reads one battery, because EVERYTHING COSTS ONE, and there
+     is not one battery left in nineteen hands to pay any of it with.
+
+     *** IT IS THE ROW'S OWN SENTENCE AS A DOCUMENT: shops stand full, purses
+     stand empty, and prices mean nothing. *** Nothing on this list is wrong.
+     Every number is correct and current and enforceable and worthless. The list
+     does not know, and it has no way to find out.
+
+     THE GOODS ARE READ, NEVER TYPED: the price table is built from the goods the
+     economy actually has, so a shelf that changes changes this. A list with no
+     goods on it is refused rather than printed empty -- an empty price list is
+     not a document, it is a blank piece of paper.
+
+     facts = { by (whose shop), at, street, prices (the ruled table), day, clock,
+               dead (whether the money is gone -- READ, never assumed) }
+     -------------------------------------------------------------------------- */
+  function priceList(facts) {
+    facts = facts || {};
+    var served = stamp(facts.day, facts.clock);
+    if (!served) return { issued: false, reason: 'NO_CLOCK' };
+
+    var by = facts.by ? String(facts.by).toUpperCase() : null;
+    if (!by) return { issued: false, reason: 'NO_SELLER' };
+
+    var where = facts.street ? String(facts.street).toUpperCase() : null;
+    var cell = (facts.at && facts.at.length === 2) ? (facts.at[0] + '-' + facts.at[1]) : null;
+    if (!where || !cell) return { issued: false, reason: 'NO_ADDRESS' };
+
+    /* HIS OWN PRICE TABLE, READ. Never a list written here. */
+    var table = facts.prices;
+    if (!table) {
+      var P = purse();
+      table = P && P.PRICES;
+    }
+    var goods = [];
+    for (var g in table) {
+      if (!Object.prototype.hasOwnProperty.call(table, g)) continue;
+      var row = table[g];
+      if (!row || typeof row.amount !== 'number') continue;
+      goods.push({ good: g, amount: row.amount, currency: row.currency });
+    }
+    if (!goods.length) return { issued: false, reason: 'NOTHING_IS_FOR_SALE' };
+    goods.sort(function (a, b) { return a.good < b.good ? -1 : 1; });
+
+    var B = function (n) { return n + (n === 1 ? ' BATTERY' : ' BATTERIES'); };
+    var pad = function (s, n) { s = String(s); while (s.length < n) s += ' '; return s; };
+    var wide = 0;
+    for (var i = 0; i < goods.length; i++) wide = Math.max(wide, goods[i].good.length);
+
+    var lines = [];
+    for (var j = 0; j < goods.length; j++) {
+      lines.push(pad(goods[j].good.toUpperCase(), wide + 2) + B(goods[j].amount));
+    }
+
+    var en = [by, 'SCHEDULE OF PRICES', '', 'POSTED AT: ' + where + ' ' + cell,
+              'EFFECTIVE: ' + served.text, ''].concat(lines).concat([
+      '',
+      'ALL PRICES ARE PAYABLE IN THE LAWFUL CURRENCY OF THE VALLEY.',
+      'THIS SCHEDULE IS POSTED AS REQUIRED.'
+    ]);
+
+    return {
+      issued: true, kind: 'priceList', by: by, goods: goods, en: en,
+      /* WHETHER ANYBODY CAN PAY IT IS NOT THE LIST'S BUSINESS, and that is the
+         whole point of the document. It is carried beside the list, never in it,
+         and it is READ from the caller rather than guessed: a list that printed
+         "nobody can pay this" would be a list that knows, and it does not. */
+      payable: (facts.dead === true) ? false : (facts.dead === false ? true : null),
+      draft: DRAFT
+    };
+  }
+
+  /* --------------------------------------------------------------------------
      THE EMERGENCY ALERT. Five slots, and the same refusal.
 
      facts = { hazard, location, action, day, clock, untilDays, service }
@@ -807,6 +887,7 @@
     cleared: cleared,
     toQuit: toQuit,
     covenant: covenant,
+    priceList: priceList,
     WINDOW: WINDOW,
     DISCONNECT_SLOTS: DISCONNECT_SLOTS,
     ALERT_SLOTS: ALERT_SLOTS,

@@ -120,6 +120,14 @@ const cov = N.covenant({
 });
 if (!cov.issued) { console.error('covenant refused: ' + cov.reason); process.exit(1); }
 
+/* ---- THE POSTED PRICE LIST (9/21, row [full shelves]). The shop's schedule,
+        still on the wall on the day nobody in the valley can pay any of it. */
+const list = N.priceList({
+  by: "Ruben's", at: [feeder.x, feeder.y], street: feeder.street,
+  day: 9, clock: '08:05', dead: true
+});
+if (!list.issued) { console.error('price list refused: ' + list.reason); process.exit(1); }
+
 /* ---- THE MEASUREMENT. Who the forms send you to, against who is actually out there. */
 const living = Object.keys(G.factions);
 const un = N.unanswered(notice, living);
@@ -215,7 +223,16 @@ stops coming is not a receipt.</p>
 <div class="cap">It thanks you, and it tells you to keep it in case of a dispute.
 Keep it with whom is the next section.</div>
 
-<h2>5. THE ONE THAT NEVER NEEDED ANYBODY</h2>
+<h2>5. THE DAY THE MONEY DIES</h2>
+<p>Every time somebody buys something, the battery is used up. Nothing puts one
+back except a building you put up. So the valley can be spent down to nothing, and
+I drove it there: <b>56 batteries burned, 0 left across 19 hands</b>, shelves
+still stocked. Here is the shop's price list on that morning. Every line is
+correct. Every line is one battery. There is not one left in the valley.</p>
+<div class="ph"><div class="scr">${screen(list.en)}</div></div>
+<div class="cap">The list does not know. It has no way to find out.</div>
+
+<h2>6. THE ONE THAT NEVER NEEDED ANYBODY</h2>
 <p>Every tract in this valley is walled, because the county made the wall
 compulsory. A wall like that comes with an association, and an association comes
 with rules recorded against the land itself. Those rules do not need a city, or a
@@ -225,7 +242,7 @@ meeting years ago.</p>
 <div class="ph"><div class="scr">${screen(cov.en)}</div></div>
 <div class="cap">Nothing here is broken. It is working exactly as designed.</div>
 
-<h2>6. AND THE ONE THEY BRING TO YOUR DOOR</h2>
+<h2>7. AND THE ONE THEY BRING TO YOUR DOOR</h2>
 <p>Glasgow, 1915: twenty five thousand families stopped paying rent and won in nine
 months. It was never about the money. The landlord only wins if he can put somebody
 else in your flat, so the neighbours stood in the doorway and nobody could get in.
@@ -234,7 +251,7 @@ This is the paper the man at the door was holding.</p>
 <div class="cap">Read the last line. It threatens you with a court. There is no court.
 That is the whole game.</div>
 
-<h2>7. WHO THE FORMS SEND YOU TO</h2>
+<h2>8. WHO THE FORMS SEND YOU TO</h2>
 <p>Every one of these lines points at somebody who is supposed to answer it. This
 is not a mood, it is counted against the list of everybody who actually exists in
 the valley right now.</p>
@@ -250,7 +267,7 @@ ${unA.asks} on the alert, against the ${living.length} outfits the valley really
 If one of them ever takes the grid over, this table shrinks on its own and not one
 word of the notice changes.</p>
 
-<h2>8. THE ONE THAT IS NOT MY IDEA</h2>
+<h2>9. THE ONE THAT IS NOT MY IDEA</h2>
 <p>Your own ruling says the Network hold the lit grid and <b>have never once charged
 for it</b>. On this map <span class="n">${free}</span> of
 <span class="n">${lit}</span> lit feeders are theirs. So a district that no longer
@@ -278,3 +295,4 @@ console.log('  unanswered: notice ' + un.unanswered + '/' + un.asks + ', alert '
 console.log('  cleared: paid ' + cleared.amounts.paid + ', balance ' + cleared.amounts.left);
 console.log('  notice to quit served by ' + quit.by + ', out in ' + quit.outDays + ' days');
 console.log('  covenant notice by ' + cov.by + ', cure in ' + cov.cureDays + ' days');
+console.log('  price list: ' + list.goods.length + ' goods, payable ' + list.payable);

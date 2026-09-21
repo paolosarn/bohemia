@@ -258,8 +258,15 @@ function code(src) {
   const errs = []; pg.on('pageerror', e => errs.push(e.message));
   await pg.route(/^https?:/, r => r.abort());
   await pg.goto('file://' + CITY, { waitUntil: 'load', timeout: 180000 });
-  for (let i = 0; i < 200; i++) { if (await pg.$('#daycardIn .dcgo')) break; await SETTLE(pg, 200); }
-  await pg.$eval('#daycardIn .dcgo', el => el.click());
+  /* *** THE CARD THIS USED TO WAIT FOR IS GONE ON PURPOSE (9/21). *** Rule 19(a)
+     killed the pop-up wake card -- "nothing pops up" -- and RUN's [no pop ups]
+     took it out of the boot. This loop waited 40 s for a button that rule 19
+     deliberately removed and then threw on $eval, taking the whole gate with it.
+     A GATE THAT DIES BECAUSE THE GAME GOT BETTER IS A GATE THAT MEASURES THE
+     PAST. So the card is cleared IF IT IS THERE and its absence is the normal
+     case, not a failure. */
+  for (let i = 0; i < 25; i++) { if (await pg.$('#daycardIn .dcgo')) break; await SETTLE(pg, 200); }
+  if (await pg.$('#daycardIn .dcgo')) await pg.$eval('#daycardIn .dcgo', el => el.click());
   await SETTLE(pg, 300);
 
   const r = await pg.evaluate(() => {
