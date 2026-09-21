@@ -51182,10 +51182,50 @@ function barkTick(now){
    the body is chosen off THE LOT, and a smaller cell cannot shrink a person.
    IT IS A NO-OP UNTIL RUN'S NUMBER LANDS: with no step constant set, bodyLadder returns
    exactly what it returned before, rung for rung, at every zoom. */
+/* __ONE_LOT_NUMBER__ (9/21, LIFE + CITY, [one lot number]). ANIMATION found THREE live
+   numbers for one lot: BOH_LATTICE.LOT_FINE 24, BODY_SCALE.lotFine 25, STEP_CELLS 25.
+   Rule 16 is ONE constant in ONE place, and the comment right below this one is already
+   about having committed that exact bug once.
+   TWENTY-FOUR IS THE ONE THAT IS MEASURED AND HELD. It is not a median anybody eyeballed:
+   it is the stride engine/bohemia_suburb.js actually packs houses on (widest model 16 m
+   over 0.75 m a cell, plus the gap), and lot_lattice_gate.js reads that generator on every
+   run and goes red if the two ever drift. A number with a gate under it beats a number
+   with a note under it, so the lattice is the place and these READ it.
+   THE READ IS GUARDED, NOT ASSUMED: if the lattice is not loaded this keeps the number it
+   had, because a body that suddenly has no size is worse than a body one cell off. */
 const BODY_SCALE = {
-  lotFine:   25,    /* MEASURED: median lot pitch, fine cells. RUN may overrule with its own */
+  /* __ONE_LOT_NUMBER__ (9/21, LIFE + CITY, [one lot number]).
+     ANIMATION found THREE live numbers for one lot: BOH_LATTICE.LOT_FINE 24,
+     BODY_SCALE.lotFine 25, STEP_CELLS 25. Rule 16 is ONE constant in ONE place.
+     *** THE ROW SAYS PICK ONE, AND THE MEASUREMENT SAYS THEY ARE NOT ONE THING. ***
+     I pointed this field at the lattice, so all three read 24, and ran RUN's own walk:
+     THE WALK NEVER MISSES went 19/0 -> 17/2, five stuck presses and two gaps walked
+     past on his own block, where the whole row's ship test is zero of each. So 24 and
+     25 are not interchangeable and the obvious unification makes the game worse. Backed
+     it out rather than shipping it.
+     WHAT THE THREE NUMBERS ACTUALLY ARE: there are TWO things and three names.
+       THE LOT     24, what engine/bohemia_suburb.js packs houses on, held by
+                   lot_lattice_gate.js against that generator on every run.
+       THE STRIDE  25, how far one press carries him, measured by RUN on the walk.
+     AND THE FIELD BELOW WAS THE SECOND ONE WEARING THE FIRST ONE'S NAME. Its only live
+     reader is the line further down that sets STEP_CELLS from it -- the body is a
+     constant now (CHARACTER [body fixed]) and lotFitsOnScreen is uncalled -- so this
+     number has never been the lot at all. Renamed to what it is. Nothing moves: 25 is
+     still 25, and the one thing that genuinely means the lot now reads the lattice.
+     LEFT FOR RUN, MEASURED NOT DECIDED: whether the stride should BE the lot. That is
+     [one camera]'s call and it costs five stuck presses at 24 until the stride rules
+     are re-measured at that length. */
+  strideFine: 25,   /* RUN's: how far one press carries him. Feeds STEP_CELLS below. */
+  /* AND THE LOT KEEPS ITS NAME, BECAUSE OTHER LANES ASK THIS OBJECT FOR IT. Removing it
+     outright broke RUN's own gate on the next run: THE WALK NEVER MISSES asks for the lot
+     in pixels and got NaN, "a house fits on the glass (NaN px lot on a 378 px screen)".
+     A rename is only honest if the thing that was really meant is still there under the
+     right name, so the lot is here and it READS the one place that holds it. */
+  lotFine:   (function(){ try{ return BOH_LATTICE.LOT_FINE; }catch(_e){ return 24; } })(),
   houseFine: 13,    /* MEASURED: median house footprint, fine cells */
-  bodyLots:  0.5,   /* HIS DEFAULT: "a person stands about half a lot tall at walk zoom" */
+  bodyLots:  (function(){ try{ return BOH_LATTICE.BODY_LOTS; }catch(_e){ return 0.5; } })(),
+                    /* HIS DEFAULT: "a person stands about half a lot tall at walk zoom".
+                       Read from the lattice: it was a second copy of 0.5. */
   /* *** CORRECTED 9/15, SAME ROUND RUN SHIPPED ITS HALF, AND MY WIRE WAS WRONG TWICE. ***
      I wrote this to watch `window.BOHEMIA_STEP_FINE`. RUN named its constant STEP_CELLS
      (3cc9fff2), so my wire was DANGLING -- a second name for one number, which is the exact
@@ -51230,7 +51270,8 @@ const BODY_SCALE = {
   lotFitsOnScreen: function(C){
     try {
       if (typeof MODE !== 'undefined' && MODE !== 'human') return false;
-      return BODY_SCALE.lotFine * C <= cv.width * 0.9;
+      /* __ONE_LOT_NUMBER__: this one really does mean THE LOT, so it reads the lattice. */
+      return BOH_LATTICE.LOT_FINE * C <= cv.width * 0.9;
     } catch (e) { return false; }
   }
 };
@@ -51240,7 +51281,9 @@ const BODY_SCALE = {
    A lot is 25 fine cells and that is CHARACTER's measurement above, not a copy of it:
    twelve suburbs, every footprint walked. Both lanes have already been bitten once by
    a second name for this number, so the stride READS the lot and never restates it. */
-try { if (BODY_SCALE && BODY_SCALE.lotFine) STEP_CELLS = BODY_SCALE.lotFine; } catch (e) {}
+/* __ONE_LOT_NUMBER__: the stride comes from the number named for the stride. This is
+   the only live reader there has ever been, which is how a stride ended up called a lot. */
+try { if (BODY_SCALE && BODY_SCALE.strideFine) STEP_CELLS = BODY_SCALE.strideFine; } catch (e) {}
 /* THE ZOOM LEVEL LAW STILL RULES THE PIXELS: 28 / 56 / 112 / 224 and never a fraction, so
    this picks the RUNG NEAREST the wanted height rather than scaling to it. */
 /* *** ONE FIXED SIZE WHILE HE WALKS. RULE 18 (Paolo 9/20, LOCKED), AND IT OVERRULES WHAT

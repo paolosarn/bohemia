@@ -116,6 +116,34 @@ const defs = [];
 ok('B5 LOT_FINE is defined in the lattice and its carriers only -> ' + defs.join(', '),
    defs.length > 0 && defs.every(p => /bohemia_lattice\.js$/.test(p) || /^slices\//.test(p)));
 
+/* ---- B6..B8. ONE LOT NUMBER (9/21, [one lot number]) -------------------
+   ANIMATION found THREE live numbers for one lot: LOT_FINE 24, BODY_SCALE.lotFine 25,
+   STEP_CELLS 25. Measured, there are TWO THINGS and three names: the LOT (24, what the
+   suburb generator packs on, held by leg A3 above, and the median house-to-house pitch
+   measured on the built ground is also 24 -- the distribution runs 22/23/24/25/26
+   because the models are different widths, which is how a walk of footprints landed on
+   25) and THE STRIDE (25, how far one press carries him, RUN's, measured on the walk).
+   The field called lotFine was the STRIDE wearing the LOT's name: its only live reader
+   was the line that sets STEP_CELLS. Renamed to strideFine, nothing moved.
+   AND POINTING IT AT THE LOT WAS TRIED FIRST AND BACKED OUT: with all three at 24,
+   RUN's THE WALK NEVER MISSES went 19/0 to 17/2, five stuck presses and two gaps walked
+   past on his own block. These legs keep the names honest without pretending the two
+   numbers are one. */
+/* B6 WAS WRITTEN AS "NOTHING IS CALLED lotFine" AND THAT WAS THE WRONG RULE, caught by
+   RUN's gate on the next run: removing the field outright made THE WALK NEVER MISSES
+   report "a house fits on the glass (NaN px lot on a 378 px screen)", because other lanes
+   ask this object for the lot. A rename is only honest if the thing that was really meant
+   is still there under the right name. The rule is not "no lotFine", it is NO TYPED LOT:
+   the field may exist and must READ the one place that holds it. */
+ok('B6 no second lot is typed here: the field reads the lattice',
+   !/lotFine\s*:\s*\d/.test(CITY) && /lotFine:\s*\(function\(\)\{[^}]*BOH_LATTICE\.LOT_FINE/.test(CITY));
+ok('B7 the stride number is named for the stride, and it is what feeds STEP_CELLS',
+   /strideFine\s*:\s*\d/.test(CITY)
+   && /STEP_CELLS\s*=\s*BODY_SCALE\.strideFine/.test(CITY));
+ok('B8 and the thing that really means a lot reads the lattice',
+   /BOH_LATTICE\.LOT_FINE\s*\*\s*C\s*<=/.test(CITY)
+   && /BOH_LATTICE\.BODY_LOTS/.test(CITY));
+
 /* ---- C. THE RULES, ON A WORLD WITH A KNOWN ANSWER ----------------------- */
 const F = LAT.LOT_FINE;
 /* a 3x3 lot world: lot (1,1) is a solid building; one road line runs through lot row 1 */
