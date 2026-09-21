@@ -132,5 +132,20 @@ NEGATIVE-CONTROLLED, EACH PUT BACK:
   make the evening pair the same frame twice, and give 3am a duplicate    2 red
   drop the leave-it-alone option and call the borrow an obvious mistake   2 red
 
+================================================================================
+AND THE PICTURES WERE SHRUNK BEFORE THEY WENT NEAR THE SITE
+================================================================================
+SOUNDS named it on clean main and it is true: THE PUBLISHED SURFACE IS ALREADY
+OVER ITS OWN CAP, 261 MB against 260, before this round exists. Measured in a
+throwaway worktree on clean origin/main, so the red is not this lane's.
+
+But five full-colour frames were 0.89 MB and would have taken it to 262, and
+making somebody else's red worse is still making it worse. THESE ARE PIXEL ART:
+a few dozen real colours in a 24-bit file. Quantised to a 128-colour palette with
+no dithering they are 0.18 MB, a fifth of the size, and the picture is
+indistinguishable on the glass. The published surface is back to 261 MB, exactly
+what clean main measures. NAMED FOR WHOEVER OWNS THE CAP: this is 0.7 MB found in
+five files; nobody has swept the rest of slices/vote the same way.
+
 TAB: VOTE, in the alpha, "THE STREET AT THREE HOURS". Nothing changed in CITY
 this round and that is on purpose.
