@@ -4176,6 +4176,102 @@ ALSO STILL OPEN, not draw order: on NE in his own frame
 the right of the shoulders with a visible gap. That is the pose too.
 
 Nothing [PENDING Paolo].
+PEOPLE (people-7h9sfy): 9/21 LATEST -- *** [face at the door] SHIPPED f75eb900.
+WHEN ANYBODY IN THIS GAME TALKED TO YOU, THE ONLY FACE ON SCREEN WAS YOURS. ***
+Rule 19, Paolo 9/20: "text on screen coming from people's voice, and when they
+speak to you it shows the character portrait." The ONE row this lane was un-held
+for under rule 18.
+
+MEASURED WITH A CONTROL BEFORE A LINE OF IT WAS WRITTEN, because "there are no
+faces" is a negative and this lane's standing lesson is that you prove the
+instrument can produce a positive first. On the walked surface: TWO canvases
+total, the world and his own head in the middle of the D-pad ring, and his head
+was 4,096 lit pixels of 64x64. That is the control: a face CAN be drawn on that
+screen. Against it, ELEVEN BODIES, EIGHT DIRECTIONS EACH, AND NOT ONE FACE.
+Somebody speaks ("They handed something over. Saw it.") and no portrait anywhere.
+So the machinery to draw a head on that street existed and had exactly one
+customer: him.
+
+AND EVERY PIECE OF THE ANSWER WAS BUILT ON 8/26 AND NEVER CALLED. The alpha's own
+face block says it about itself: the performance was built and could not be used
+"because only one person in Bohemia had a face... that is why the 8/26 turn ended
+with a gated feature nothing called". faceFor(id) has been sitting there since,
+deterministic, same id same face forever with nothing stored. THIS ROUND IS THE
+CALL. The stranger's head is baked down the PLAYER'S OWN PATH end to end
+(faceFor, the ramp, renderFace, packIdx, decodePlayerFrame), so nothing new draws
+a face and nothing new decodes one. The city asks the alpha ONCE per person over
+a message, by THE ID THE BODY IS DRAWN FROM (one id, one whole person), and the
+head lands round and pixelated in the left of that person's own speech bubble.
+NO FACE, NO SPACE: a person whose head has not arrived yet gets exactly the bubble
+this file drew before, to the pixel. It only fits at all because [a human being]
+moved the bubble off the speaker's face five rounds ago.
+
+RULE 19(e) IN THE SAME COMMIT: THE WALK DIRECTOR OPENED A CARD AND DOES NOT ANY
+MORE. Same approved roster, same words it already held; what changed is WHO SAYS
+IT. A person who is actually drawn says it, in their own bubble, with their face
+beside the words. AND WITH NOBODY ON SCREEN IT FIRES NOTHING AT ALL, which is the
+other half of the rule: spoken by 12:12:900 with a body there, refused outright
+with the drawn list emptied. A moment with no body was a caption pretending to be
+an event.
+
+*** THE MEASUREMENT THAT COST THE MOST, WRITTEN DOWN FOR EVERY LANE: AN ALPHA
+CHANGE CANNOT BE VERIFIED ON THE DEMO. *** The one driver (rule 14g) opens
+BOHEMIA_DEMO.html by default and that file is a BAKED CUT. A CITY change reaches
+it by reference; an ALPHA change does not. The symptom was silent and convincing:
+the ask went out of the city every single time, nothing came back, no error, no
+throw, and the live dispatcher on the demo carried the branch NEXT TO mine because
+it was baked before mine existed. Every piece worked when asked directly in the
+alpha's own window. The driver takes the file:
+open({ file: 'BOHEMIA_ALPHA_0_9.html' }).
+
+*** AND THIS LANE'S OWN OLDER GATE CAUGHT A BUG I HAD JUST WRITTEN: TWO CLOCKS. ***
+The bark slot runs on performance.now (barkTick is called with it, BARK.next is
+now + 4000), so that organ counts milliseconds since page load. The first cut of
+walkSpeak set the bubble's life from ctMinuteNow -- GAME MINUTES, a number like
+360, against a wall clock already past 15,000. So every moment it spoke was
+ALREADY EXPIRED when the next tick looked, and on its way out barkTick pushed the
+next bark 1,500 ms away: the moment was silent AND it silenced the next person
+too. NOTHING THREW AND NOTHING LOOKED WRONG. [a human being], this lane's gate
+from five rounds ago, found it because it counts speech bubbles on the real
+canvas: clean origin/main 2, 3, 1 over three runs; this tree before 0, 2, 0;
+after the fix 3, 3, 3. TWO WRITERS FOR ONE FACT, again, and it is a claim in the
+new gate now.
+
+THE GATE: gates/face_at_the_door_gate.js, 31 claims, DRIVEN ON THE ALPHA. The
+face (baked on demand down his own path, asked once per person, unpacked by his
+own decoder, asked for with the speaker's own id); the bubble (only widens when
+there is really a head; round and pixelated like his own); rule 19(e) (no roadCard
+in the walk director at all, the moment spoken through a drawn body, the roster's
+own line); the glass (the control with no face before it lands, the bake, the draw
+on the real canvas, the round clip, spoken by somebody, and NOTHING when nobody is
+there). Three negative controls, each put back: take the face out of the bubble,
+let the moment speak with nobody, put roadCard back in the director.
+
+RUN THE BROWSER GATES SERIALLY. Measured 9/16 and it holds: eight of them in
+parallel make every timing claim inside them lie.
+
+NAMED WITH A PHOTOGRAPH, NOT TOUCHED, BECAUSE IT IS NOT THIS LANE'S: I shot the
+alpha at boot and it is his 9/20 complaint unchanged -- TWO CARDS STACKED AT THE
+DOOR (DAY 1 BEGINS BEFORE THE DAY / WATCH / NOT NOW, and under it THE METER READER
+with six text buttons and GET UP), NO PERSON, NO BODY, NO FACE. That is RUN
+[no pop ups], the first line of RUN under rule 19.
+
+NEXT: [a name] is CLAIMED 9/21 (the row the coordinator added this round, and it
+is inside this one): the person at his door answers SOMEBODY, 0 of 21 bodies on
+his block have a name. The row says add the second slot to the portrait pipe that
+already reaches the city, do not build a system. Under RULE 22 (Paolo 9/21, cook
+every round) this lane makes a person and REGISTERS IT IN THE VOTE TAB every
+round; names are his, so the name ships draft:true and goes to VOTE as IDENTITY.
+Still held behind the playable cut: [walking companion], [weights shape],
+[rumours travel], [creditor stands], [somebody hires you]. New school row
+[horror crowd] (rule 20h).
+
+[PENDING Paolo], carried, none of them blocking: when a person dies of old age;
+how many game days is a year; who you marry; what a long injury costs to treat;
+the 82-row deed table. Named for other lanes: the wake card at his door is RUN
+[no pop ups]; DERIVED FRESHNESS wipes its own overlay with git clean so it reds on
+any uncommitted work, which is PLUMBER's.
+
 PEOPLE (people-7h9sfy): 9/18 LATEST -- *** [heir moment] SHIPPED f31688fd. THE
 FOLD HANDED A HUNDRED YEARS TO A NEWBORN. *** SUCCESSION-BEAT, coordinator 9/5:
 "an heir inherits the house, the purse, every debt in full, half the standing,
