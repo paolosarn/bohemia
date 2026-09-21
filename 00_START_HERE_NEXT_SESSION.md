@@ -20196,6 +20196,61 @@ since 9/6, it also holds 19 QUESTS (BUILD). The front page's chat-19 line says a
 chat with an empty queue takes QUESTS, and DYNASTY's queue went empty at Q16. The
 lane and its first row were claimed and pushed BEFORE any work started. ***
 
+ROUND 44 [a person asks] AN ASK, IN A MOUTH. QUESTS, BUILD. 440be55.
+In the VOTE tab (alpha) as SOMEBODY ASKS YOU. Gate ASK HAS A MOUTH 22/0, registered.
+  records/BOHEMIA_QUESTS_AN_ASK_IN_A_MOUTH_9_21_26.md
+
+RE-MEASURED RATHER THAN CROSSED OFF (rule 12). PEOPLE shipped [face at the door]
+and [a name] since last round and [a name] cites this lane's measurement as its
+cause, so the four blockers were re-measured on the walked city: the FACE PIPE IS
+LIVE (ctFaceAsk), names at the door are STILL 0 of 21, nothing still draws a face
+where a person speaks, nobody at the door can still speak, and a pop-up card is
+still the first thing on screen.
+
+*** AND THE MEASUREMENT FOUND SOMETHING BETTER THAN THE ROW ASSUMES. *** The
+generator has made real asks out of the running valley since 9/6 -- three at
+minute one (shelf 47,50, grid 47,49, border 50,46) -- and EVERY ONE IS
+ATTRIBUTED TO P:city:12:12:0, WHO IS STANDING ON THE WAKING BLOCK. The person at
+his door already exists and already wants something. The row reads as though
+somebody has to be invented and placed there. NOBODY DOES. What the valley could
+not do was SAY it, and this lane's own handoff admitted it: "NOT ON SCREEN YET".
+
+SO THE COOK IS THE MOUTH AND NOTHING ELSE. engine/bohemia_ask_spoken.js invents
+no ask, picks no ask and moves nobody; it takes an ask the generator already made
+and answers with what that person says. Person, place, thing, visible result, in
+a voice, and the closing promise is the generator's own `visible` string BYTE FOR
+BYTE so the screen and the ledger cannot drift into two different promises.
+
+IT REFUSES a change with no words BY NAME (a friendly fallback for anything is
+how an unwired system looks wired) and A BARE COORDINATE, because a coordinate is
+not an address -- this lane ruled that after a card printed "HERE, 6205 6269".
+
+*** THREE DEFECTS IN MY OWN CUT, ALL FOUND BY READING THE OUTPUT AFTER IT WENT
+GREEN, AND THE THIRD IS THE ONE FOR EVERY LANE: ***
+  1. my first version said "It's at 47,49" -- the exact defect this lane had
+     already ruled against, reintroduced by me. Gated now, not remembered.
+  2. a check ending in `|| true`, which can never fail. Decoration. Replaced.
+  3. the shelf ask read "market" TWICE while the exactly-once check PASSED,
+     because it compared the whole place phrase and not the words inside it.
+     A GREEN CHECK IS NOT A READ LINE. The check now fails on any meaningful
+     place word repeated, proved against the exact line that slipped past it.
+
+PROVED TO BITE: four bugs planted in the real module, each caught by name.
+
+A PIPE PROBLEM, NAMED NOT FIXED (FACTIONS hit it the same round, c921e95 "the
+registry conflicts every round"): records/target/BOHEMIA_VOTE_REGISTRY.json now
+conflicts on nearly every push because rule 22 has every lane appending to ONE
+json array every round. Resolving is safe and mechanical (take main whole,
+re-append your own object, never touch anybody else's) but it costs every lane a
+rebase every round and it will only get worse. A per-lane file, or an append tool,
+is somebody's row. -> PLUMBER / UI.
+
+WHERE [a person asks] STANDS: the words exist and are spoken (round 43's wrong
+detail, round 44's generated asks). Still missing, in order: a NAME on the person
+at the door (0 of 21), a FACE drawn where they speak (the pipe exists, nothing
+calls it from the talk surface), and the pop-up card off the path (RUN
+[no pop ups]). The decision stands: the lineman comes to your door.
+
 ROUND 43 [horror ask] COOKED A LINE, NOT A MEASUREMENT. QUESTS, BUILD. 9f8cbb2.
 In the VOTE tab (alpha) as THE ONE WRONG DETAIL. Not on the play surface, on purpose.
   records/BOHEMIA_QUESTS_THE_FIRST_ASK_CARRIES_ONE_WRONG_DETAIL_9_21_26.md
