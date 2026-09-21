@@ -8073,115 +8073,122 @@ HOW TWENTY-TWO ROUNDS COMPOSE, written once now that Q1-Q22 are all shipped:
 NEXT IN THIS LANE: Q23 [who eats first].
 
 
-FACTIONS (factions-ovkjpf): 9/21 (round 34) LATEST -- *** [horror signs] ROUND TWO, COOKED.
-ONE CREW HOLDS ONE HUNDRED PERCENT OF THE RUNNING WATER IN THIS VALLEY AND NOTHING HAS
-EVER TOLD THE PLAYER. The game has worked that out every night since 9/13. This round made
-the sign that says it: the valley's water authority monument, still lit, still reporting,
-correctly, to nobody. Plus a sign kit, so a third kind of sign costs a page and not a
-rewrite. Nothing to the demo or the alpha's play tabs. ***
-Nothing to judge here: both signs are in the VOTE tab, which is where judging happens now.
+FACTIONS (factions-ovkjpf): 9/22 (round 35) LATEST -- *** [horror signs] ROUND THREE, COOKED.
+THIS VALLEY HAS THREE COMPLETELY DIFFERENT RENTS AND NOTHING HAS EVER TOLD THE PLAYER WHICH
+ONE HE IS STANDING IN. On a fortress you pay for every block you walk on; in a camp two
+blocks in three are free. Made the board a crew nails up where its ground starts, and every
+number on it is read out of the game. AND THE SAME DEFECT ARRIVED A THIRD TIME, so the kit
+reports it now instead of me fixing it on one more page.
+ALSO: PAGES PUBLISH IS RED ON MAIN, 261 MB against a 260 MB cap, and it is NOT this lane's
+-- measured with all four of this lane's pages removed and it still fails. Numbers below. ***
+Nothing to judge here: all three signs are in the VOTE tab, which is where judging happens.
 
-VAMILY rows: [horror signs] CLAIMED 9/21, two rounds cooked, both in VOTE, no verdict yet.
+VAMILY rows: [horror signs] CLAIMED 9/21, three rounds cooked, all three in VOTE, and there
+            are STILL ZERO VERDICTS in the whole registry (57 items, 0 verdicts).
             [same lender] still CLAIMED AND HELD under 14b + 18b.
-Record: records/BOHEMIA_THE_WATER_STILL_RUNS_9_21_26.md
+Record: records/BOHEMIA_THE_NOTICE_AT_THE_EDGE_9_22_26.md
+Round 34: records/BOHEMIA_THE_WATER_STILL_RUNS_9_21_26.md
 Round 33: records/BOHEMIA_THE_SIGN_STILL_LIGHTS_9_21_26.md
-Round 32: records/BOHEMIA_WHO_SAYS_THIS_9_20_26.md
 
-*** MEASURED FIRST, AND THE HANDED-DOWN PREMISE WAS HALF WRONG (rule 12). ***
-  ECONOMY Q47 came down as "one faction holds 100% of the valley's running water, and it is
-  Remnants, Homeless or Church, never Mob or Cartel". Driven on the real demo, one boot:
-      reservoir        60,10   dead   Network
-      reservoir        10,29   dead   Mob
-      reservoir        87,60   dead   Remnants
-      PUMP STATION     24,75   ON     ANARCHISTS
-      TREATMENT PLANT  19,80   ON     ANARCHISTS
-      TREATMENT PLANT  20,80   ON     ANARCHISTS
-  THE 100% HALF IS TRUE. THE NAMED-FACTION HALF IS WRONG: it is ANARCHISTS on all three live
-  stations, and the three factions the row named hold only DEAD reservoirs -- the prettiest
-  possible way to be wrong, they own water that does not move.
-  AND THE GAME ALREADY HAS THE SENTENCE: BohemiaPumps.say() returns "The pumps are running.
-  ANARCHISTS hold the water." on the shipped build. NO SURFACE HAS EVER SHOWN IT.
+*** MEASURED FIRST, AND IT IS A REAL RULE NOBODY HAS SEEN ***
+  BohemiaTowns.rentShape(tier, seats) answers what a tier charges by ASKING rentOn()
+  repeatedly until the window repeats -- a derived posted rate, never typed. On the real
+  valley, one boot of the one driver:
+      fortress   every 1 block,  1 battery,   0 FREE   Caravans Cartel Mob Network Remnants
+      town       every 3 blocks, 2 batteries, 1 FREE   Anarchists Blues Church Reds
+      camp       every 3 blocks, 1 battery,   2 FREE   Colorful Custom Homeless Trades Volunteers
+  AND HE SPAWNS ON THE WORST OF THEM: cell 48,48 is Mob fortress ground, block 122, and Mob
+  hold 1490 cells, more than anybody. The first block of the game is the harshest rent there
+  is. ctRentLine already says "Mob want 1 battery tonight for the 1 block of theirs you have
+  used" and it lives on a panel he has to open.
+  SO THE PLAYER'S REAL DECISION -- WALK TWO STREETS OVER AND IT IS CHEAPER -- exists in the
+  rules and is invisible. The only way to learn it today is to lose batteries and guess.
 
 WHAT WAS MADE
-  slices/BOHEMIA_THE_WATER_STILL_RUNS_9_21_26.html, registered as
-  factions-the-water-still-runs-9-21, kind tile. Tab: VOTE, in the alpha.
-  slices/bohemia_sign_kit.js -- round one's drawing parts pulled out: the two type faces,
-  the colour mixer, the three-quarter box, the diamond ground, the hardpan. It carries the
-  laws in its own comments so a later sign cannot lose them by accident.
-  ROUND ONE'S PAGE IS UNTOUCHED ON PURPOSE: it is already registered and he may be looking
-  at it, and editing a registered item to pull in a new dependency risks breaking the thing
-  he is judging. Everything from here reads the kit.
+  slices/BOHEMIA_THE_NOTICE_AT_THE_EDGE_9_22_26.html, registered as
+  factions-the-notice-at-the-edge-9-22, kind tile. Tab: VOTE, in the alpha.
+  THE THIRD SILHOUETTE AND THE FIRST LIVING ONE. Round one was a shop's pole sign, round two
+  an agency monument; BOTH ARE PRINTED AND BOTH ARE LEFTOVERS OF THE DEAD WORLD. This is a
+  plank on two stakes, made by hand with a brush, nailed over whatever was there.
+  THE PRINTED SIGNS ARE THE OLD WORLD STILL TALKING; THE PAINTED ONES ARE WHO RUNS IT NOW.
+  A player should be able to tell them apart across a street without reading a word. That is
+  the tone doing structural work instead of decorating.
 
-WHY THE WATER SIGN WAS THE RIGHT SECOND ONE
-  Round one drew six shops. A shop closing is sad; A WATER AUTHORITY CLOSING IS THE END OF A
-  CITY, and Las Vegas only exists because water is lifted 987.5 ft out of Lake Mead by pumps
-  that need power -- physics already in the engine, measured, not invented. It is also the
-  only sign whose colour band has teeth: the crew on it can turn off your water.
-  AND IT IS NOT DECORATION. pumpStations() already asks the power grid and the turf map
-  which crew feeds each plant, on the rule WHOEVER CAN SWITCH IT OFF OWNS IT (the same
-  reading [lights bill] makes about a bill). The sign draws an answer the game has.
+*** TEXT TOO WIDE FOR ITS PLATE HAS NOW HAPPENED THREE TIMES, SO THE KIT REPORTS IT. ***
+  Round one ran OF THE SANDS off both edges of a chapel. This round ran "1 BLOCK : 1 BATTERY"
+  and "NOTHING HERE IS FREE" off both edges of a plank. Every time it is invisible in the
+  source and obvious in the render, and EVERY TIME THE FIX WAS LOCAL TO ONE PAGE, so the next
+  sign hit it again. That is the actual defect: not the strings, the fact that nothing
+  carried the lesson forward.
+  c3 and c5 take the width the text must live in now, and anything too wide lands in
+  K.overflows, which the page prints in a red box. It still DRAWS -- clipping or truncating
+  would be a lie about what was asked for -- but it cannot ship quietly.
+  AND THE REPORTER IMMEDIATELY CAUGHT ONE I HAD ALREADY PASSED BY EYE: "COSTS 2 BATTERIES" is
+  67 px in a 64 px space. Three pixels over. I had looked straight at the render, seen three
+  boards that fit, and called it fixed. COSTS came off every line, which is better
+  sign-writing anyway: a rate board says 3 BLOCKS / 2 BATTERIES.
+  FOURTH TIME THIS LANE HAS LEARNED THAT A CLEAN ANSWER FROM THE WRONG ORACLE LOOKS EXACTLY
+  LIKE A FACT, and the first time the wrong oracle was my own eye on a picture I had already
+  fixed once.
 
-THE SHAPE IS DELIBERATELY NOT ROUND ONE'S
-  A shop builds a pole sign; an agency builds a MONUMENT -- low, wide, masonry plinth, metal
-  cabinet, and a STATUS PANEL in the middle, the kind that reads STAGE 2 WATER RESTRICTIONS
-  at a real district. Ours is still wired to the pumps and still reporting. That is the tone
-  with no costume: the agency is gone and its sign is still doing its job. Two silhouettes
-  means you can tell a shop from an institution at a distance without reading a word.
-  FOUR STATES, EVERY ONE REAL: pumps running with the holder's plaque; every pump dark (the
-  40%-boot-dry case, and the module's own say() covers it); nobody holding it yet, with the
-  agency's PUBLIC WORKS seal still bolted on; and a grey crew holding it, carrying round
-  one's answer forward.
+AND ROUND ONE'S DEFECT CAME BACK IN A NEW COAT
+  The brush run-out was an identical block at the right-hand end of all three boards. ONE
+  ACCIDENT REPEATED IS NOT AN ACCIDENT, IT IS A TEXTURE SOMEBODY PASTED -- the exact thing
+  round one's corner stain did across six signs. Placed off the crew's own name now, fixed
+  per sign, different between them, nothing random, tapering in two steps because that is
+  what a dry brush does.
 
-THE TWO FAULTS, BOTH FOUND BY LOOKING
-  1. THE CREW'S COLOUR WAS THE SMALLEST AND MOST OCCLUDED THING IN THE PICTURE -- a 6 px
-     band on the cabinet with the plinth hiding half of it. COLOUR IS TERRITORY, so the
-     territory cannot be the part you notice last; that is the law inverted. It is a BOLTED
-     PLAQUE ON THE PLINTH now, which is what is really on an agency monument (the seal,
-     bolted, replaceable) -- and that fixed a second thing for free, because a painted
-     stripe on concrete cannot be "taken down" and a plaque can, so the grey crews' answer
-     is physically true here too.
-  2. THE DEAD PANEL'S WORDS VANISHED. NO SERVICE was mixed into its own panel and
-     disappeared. It feels moody and it breaks the rule this whole thing stands on: ANALOG
-     HORROR IS NOT AN EXCUSE TO DARKEN and an unlit sign is still legible in daylight. A
-     dead acrylic panel in the sun is dark letters on a dull face, not a blank.
+*** THE PUBLISHED SITE HAS CROSSED ITS SIZE CAP AND IT IS NOBODY'S ROW. [FOR PLUMBER / RUN] ***
+  PAGES PUBLISH went red this round: 261 MB against a 260 MB cap. This lane flagged it at
+  257 MB last round as "getting close and nobody's row yet". It is now over.
+  MEASURED, NOT ASSUMED: with ALL FOUR of this lane's pages removed from slices/, the gate
+  reads 261 MB and STILL FAILS. Every page this lane has ever made totals under 100 KB, which
+  does not register at MB resolution.
+      slices/          152 MB   (88 MB html, 34 MB png, 29 MB js)
+      records/target/  107 MB   of which 103.6 MB is 303 PNG FILES
+      engine/          4.7 MB
+  THE CHEAPEST LEVER AND IT NEEDS NO JUDGEMENT CALL: about 20 MB OF RETIRED JUDGE PAGES ARE
+  STILL BEING PUBLISHED -- TARGET_SCREEN_JUDGE 4.8 MB, LIVE_SLICE_V9 4.4 MB, LIVE_SLICE_V11
+  3.0 MB, PERIMETER_JUDGE 2.3 MB and sixteen more. RULE 15 (9/14) KILLED EVERY ONE OF THEM:
+  "No lane builds its own judge page again; the old eight present nothing new." The VOTE tab
+  replaced them. Dropping those alone puts the surface back under the cap.
+  AND IT MATTERS BEYOND A RED ROW: the 8/6 history is explicit -- Pages failed THREE COMMITS
+  IN A ROW, thirty minutes then timeout, because the build was copying more than the product.
+  This is that coming back. Not this lane's to fix (publish config is not FACTIONS' system,
+  and rule 18 says only the four things ship), so it is routed with the numbers.
 
-A CONVERGENCE WORTH KEEPING
-  UI hit the identical defect in the same window, independently, in the game's own button
-  face: "the N on every button in this game is an H". They measured every pair of capitals
-  and H/N came back the CLOSEST PAIR IN THE ALPHABET at 10.6% of the ink; their cause is the
-  casing cut's 25% overlap swallowing the diagonal and their fix is a softer cut, which is
-  THEIRS -- this lane does not touch the shipped face. Two lanes, two surfaces, one week,
-  same letter. AT SMALL SIZES N IS THE LETTER THAT BREAKS FIRST, and any face this game
-  draws should be checked on it before anything else.
+NOTED, NOT FIXED: Church (#826c3e) and Trades (#674b34) READ AS THE SAME BOARD. Two crews,
+two tiers, one colour to the eye. That is already [PENDING Paolo] 5 and it is his call.
 
-GATES  COOK EVERY ROUND: "FACTIONS has cooked at least as recently as it has coded" (the
-       gate is 13/1 now, up from 6/8 last round -- other lanes caught up).
-       ART 45 16/0. PAGES PUBLISH 18/0 (257 MB of a 260 MB cap; it is getting close and that
-       is nobody's row yet). WHO SAYS THIS and the city gates unaffected, no game file
-       touched. RULE 13: pre-push pass green; full suite 107 red at ad23d875, none this lane's.
+GATES  COOK EVERY ROUND 14/0 and "FACTIONS has cooked at least as recently as it has coded"
+       -- every making lane has caught up now (it was 6/8 two rounds ago).
+       ART 45 16/0. PAGES PUBLISH 17/1, inherited, proved above. HANDOFF 8/0.
+       RULE 13: pre-push pass green; full suite 107 red at ad23d875, none of them this lane's.
 
 RULE 18 AND RULE 22, OBSERVED: nothing pushed to the demo or the alpha's play tabs, no cut,
 no build stamp, no game file touched. One real thing made and registered where he votes.
 
 STILL OPEN, NONE OF IT THIS LANE'S
-  [FOR WORLD, water lifted] THE PUMPS LIFT ZERO LITRES. Three stations are running and the
-  sentence is true, but needPerDay() returns 0 so the valley's thirst reads zero and nothing
-  is actually lifted. The holder is real; the quantity is not. Measured this round, not touched.
+  [FOR PLUMBER / RUN] PAGES PUBLISH RED, 261 MB / 260 MB cap. Numbers and the 20 MB lever
+  above. This is the one that can take the site down.
+  [FOR WORLD, water lifted] THE PUMPS LIFT ZERO LITRES. Three stations run and the sentence
+  is true, but needPerDay() returns 0, so the holder is real and the quantity is not.
   [FOR PLUMBER or UI] THE VOTE REGISTRY CONFLICTS ON EVERY PARALLEL ROUND. One JSON array
-  that twenty lanes append to hit a merge conflict on both of this lane's last two rounds,
-  and resolving it by hand is how another lane's rows get eaten. A per-lane file, or an
-  append-only form, would end it. This lane resolved both by rebuilding from origin/main and
-  re-appending only its own item, so nobody lost a row -- but that is a habit, not a machine.
-  [FOR UI] vote_tab_gate's #setvote leg flakes about 1 in 4 (measured last round, 4 runs).
-  [INHERITED] faction_towns P27, identical on a clean origin/main worktree. Not this lane's:
-  partiesNear() has no callers at all.
+  twenty lanes append to; this lane hit it on two of its last three rounds. A per-lane file
+  or an append-only form would end it. Resolved here by rebuilding from origin/main and
+  re-appending only this lane's item, verified to delete nobody's row -- but that is a habit,
+  not a machine.
+  [FOR UI] vote_tab_gate's #setvote leg flakes about 1 in 4 (measured, 4 runs).
+  [FOR THE COORDINATOR] FIFTY-SEVEN ITEMS IN THE VOTE TAB AND ZERO VERDICTS. Every making
+  lane is cooking into a queue nobody has voted in yet. Rule 22 is working; the other half
+  of it, him voting, has not started.
+  [INHERITED] faction_towns P27, identical on a clean origin/main worktree. partiesNear()
+  has no callers at all.
   [FOR QUESTS] M01-M05 are not inlined into any surface, so they cannot be played.
-  [FOR WHOEVER OWNS THE FEED GATE] feed_stream's door: tapText('CITY|DROP IN') matches 0
-  elements. The feed itself is fine; the real door is the pinch.
+  [FOR WHOEVER OWNS THE FEED GATE] feed_stream's door: tapText('CITY|DROP IN') matches 0.
   [FOR DIRECTION / COOK] AR-005: the widest zoom is a declared placeholder sky, complained
   about 8/16 AND 9/15, all six art requests OPEN. The camera there is already right.
   [FOR CHARACTER / COOK] faction_outfit 16/2: Blues and Trades 0.0085 apart on a 0.035 bar.
-  [FOR RUN] DEMO BUILD red on main when an alpha change ships without a re-cut.
   [INHERITED] city_memory_gate 33/1, pack_gate 46/1, both reproduced on clean main.
 
 [PENDING Paolo] -- FIVE, ALL CARRIED, NOTHING NEW
@@ -8189,29 +8196,27 @@ STILL OPEN, NONE OF IT THIS LANE'S
   2. THE PLANT. If "the plant" in his towns law is a GENERATOR, every fortress makes power
      off its own seat. That authors canon about the money supply, so not taken.
   3. Anarchists, Colorful and Custom are called non-territorial and still hold ground.
-     (SHARPER NOW: Anarchists hold 100% of the running water. "Non-territorial" is the least
-     true thing on the board about them.)
+     (Anarchists also hold 100% of the running water. "Non-territorial" is the least true
+     thing on the board about them.)
   4. What it COSTS to be seen with one of the four hidden factions.
-  5. FOUR COLOUR CLASHES on the map: Mob #db1800 beside Reds #db1900, Network #4a8ddb
-     beside Blues #0052db. Is the Cartel drab on purpose?
+  5. FOUR COLOUR CLASHES on the map, and now a fifth on a sign: Church and Trades read as
+     one colour on a board. Is the Cartel drab on purpose?
 
 NEXT IN THIS LANE
-  COOK AGAIN. Rule 22 means every round and school is never two in a row. The third sign is
-  chosen and it follows the same rule that made this one work -- DRAW AN ANSWER THE GAME
-  ALREADY HAS: the game knows which blocks are dark (POWER.at, 12% clustered), who bills you
-  for standing there (rentOn), and who came past (tracksAt). THE NEXT ONE IS THE BLOCK'S OWN
-  NOTICE: what a crew nails up at the edge of their ground, reading the real rent off the
-  same billable map nightfall uses, so the sign and the bill can never disagree. That is a
-  third silhouette (a nailed board, not a pole and not a monument) and a third real fact.
-  THEN, WHEN THE HOLD LIFTS: the signs go into the walked city off turfAt() and POWER.at(),
-  which is the row's second half and needs no new art.
-  [same lender] stays HELD. The first thing waiting on it is [collector heir], which ALREADY
-  IS a person coming to his door and which round 32 measured as the only sentence this lane
-  owns whose speaker is named by design.
-  RULE 16 WHEN IT REACHES THE RENDER: the lattice has landed, the scale has not. When TW
-  moves, re-measure the stops; the border, track and light layers are pixel counts off it.
+  COOK AGAIN. Rule 22 means every round. The set now has three silhouettes and the rule that
+  made all three work is DRAW AN ANSWER THE GAME ALREADY HAS: the pole sign read the power
+  grid, the monument read holdersOf(), the notice read rentShape(). THE FOURTH IS THE ONE
+  THE TRACKS ALREADY ANSWER -- tracksAt() knows who came past a cell, how long ago and which
+  way, and trackSay() already writes a sentence nobody has a surface for. A mark left on a
+  wall at a crossing (a fourth silhouette: no board at all, just paint on somebody else's
+  building) is that answer drawn, and it is the first one that is about a MOMENT rather than
+  a place.
+  THEN, WHEN THE HOLD LIFTS: the signs go into the walked city off turfAt(), POWER.at() and
+  rentAhead(), which is this row's second half and needs no new art.
+  [same lender] stays HELD. [collector heir] is still the first thing waiting on it, and
+  round 32 measured it as the only sentence this lane owns whose speaker is named by design.
 
-THIRTY-FOUR STANDING LESSONS THIS LANE KEEPS RE-LEARNING
+THIRTY-SIX STANDING LESSONS THIS LANE KEEPS RE-LEARNING
   BEFORE ASSUMING A ROW IS BLOCKED, CHECK WHETHER ITS NAMED BLOCKER IS STILL TRUE.
   WHEN A CHECK GOES RED, ASK WHETHER IT IS MEASURING THE GAME OR ITS OWN INVENTION.
   WHEN HIS SENTENCE IS FALSE ON THE MAP, REPORT IT rather than forcing it.
@@ -8243,18 +8248,20 @@ THIRTY-FOUR STANDING LESSONS THIS LANE KEEPS RE-LEARNING
   A SUBSTRING TEST THAT MATCHES ITS OWN MUTATION IS NOT A TEST. '.sayZ' contains '.say'.
   WHEN A NEW LAW LANDS, THE FIRST USEFUL ROUND IS COUNTING HOW FAR THE BUILT THING ALREADY
   IS FROM IT.
-  A DRAWING IS CHECKED BY LOOKING AT IT, AND NOTHING ELSE FINDS THESE. Every fault in both
-  sign rounds passed every test a machine could run.
+  A DRAWING IS CHECKED BY LOOKING AT IT, AND NOTHING ELSE FINDS THESE.
   ONE RUN EACH SIDE IS NOT AN A/B. A browser-driven gate with a ten-second wait flakes.
-  *** AND THE BEST COOK DRAWS AN ANSWER THE GAME ALREADY HAS. *** Six invented shops were a
-  good picture. One water sign that reads holdersOf() is a picture AND a fact the player
-  could never learn, and it cost LESS to make, because the hard part was already built and
-  nobody had ever looked at it. Before inventing content, go and see what the engine is
-  already computing and showing nobody.
-  *** AND A LAW CAN BE INVERTED BY A LAYOUT, NOT ONLY BY A RULING. *** COLOUR IS TERRITORY
-  was obeyed in code and broken in the picture, because the territory was 6 px and half
-  hidden behind the plinth. Ask where the law's subject SITS in the frame, not just whether
-  it is present.
+  THE BEST COOK DRAWS AN ANSWER THE GAME ALREADY HAS. Three rounds, three signs, three
+  functions that were already computing something no surface showed.
+  A LAW CAN BE INVERTED BY A LAYOUT, NOT ONLY BY A RULING. COLOUR IS TERRITORY was obeyed in
+  code and broken in the picture, because the territory was 6 px and half hidden.
+  *** AND WHEN THE SAME DEFECT ARRIVES A THIRD TIME, STOP FIXING THE INSTANCE AND BUILD THE
+  THING THAT REPORTS IT. *** Two rounds of fixing overflowing strings one page at a time
+  taught nothing. Twenty lines that make the kit confess an overflow caught a fourth one
+  inside the same round, after I had already looked at the picture and passed it.
+  *** AND BEFORE YOU BLAME YOUR OWN DIFF FOR A RED, TAKE YOUR OWN FILES OUT AND RUN IT. ***
+  PAGES PUBLISH went red the round this lane added 26 KB to slices/. Removing all four of
+  this lane's pages left it red at the same 261 MB. One run turned a plausible confession
+  into a measurement, and the real cause is 20 MB of judge pages a law retired nine days ago.
 
 --------------------------------------------------------------------------------
 

@@ -860,6 +860,19 @@
     "how": "page",
     "src": "BOHEMIA_ARGUING_THE_PRICE_9_21_26.html"
    }
+  },
+  {
+   "id": "factions-the-notice-at-the-edge-9-22",
+   "kind": "tile",
+   "lane": "factions",
+   "sha": "831e371f",
+   "made": "9/22",
+   "title": "THE NOTICE AT THE EDGE",
+   "why": "The board a crew nails up where its ground starts. Three tiers, three completely different rents, all read straight off the game. This is the first sign somebody alive made: hand painted, not printed.",
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_THE_NOTICE_AT_THE_EDGE_9_22_26.html"
+   }
   }
  ],
  "verdicts": []
