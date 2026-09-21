@@ -183,14 +183,37 @@ function bodyOf(src, name) {
       };
       g.arc = function (x, y, rad) { clips.push(Math.round(rad * 2)); return oArc.apply(this, arguments); };
 
-      /* make somebody speak, through the organ the game uses */
+      const words = [];
+      const oText = g.fillText;
+      g.fillText = function (t) { words.push(String(t)); return oText.apply(this, arguments); };
+
+      /* make somebody speak, through the organ the game uses.
+         *** THE CLOCK IS performance.now(), NOT THE GAME MINUTE, AND THE FIRST
+         CUT OF THIS HARNESS HAD IT WRONG. *** ctDeedBark sets BARK.until from
+         whatever its caller hands it, and its ONE real caller is barkTick, which
+         runs on performance.now(). Handing it ctMinuteNow() (~360 against a wall
+         clock past 15,000) meant the bubble was ALREADY EXPIRED when the first
+         render ticked it, so the control below passed because NOTHING DREW AT
+         ALL -- a claim that cannot fail, which this lane has now shipped twice.
+         Measured 9/21 while building [a name]: with the game's own clock the
+         same frame draws the heading and the line; with the wrong one, nothing. */
       try { ctDeed('favour', null, null); } catch (e) {}
-      ctDeedBark(ctMinuteNow());
+      ctDeedBark(performance.now());
       out.who = BARK.p ? String(BARK.p.id) : null;
       out.text = BARK.text;
-      /* THE CONTROL: before the head arrives, the bubble must draw with NO face */
+      /* *** THE CONTROL IS NO FACE, NOT NO TIME. *** The first cut waited and
+         then claimed "nothing drew before the head arrived", and the moment the
+         clock was fixed that read THREE face draws: by the time a probe runs, the
+         boot walk has already barked and FACE_CV is holding heads. Time was never
+         the variable. So the control takes THIS speaker's head away and proves the
+         bubble still draws its words with no face at all, which is NO FACE, NO
+         SPACE stated as something that can fail. */
+      if (out.who) { delete FACE_CV[out.who]; delete FACE_ASKED[out.who]; }
+      words.length = 0; faces.length = 0;
       for (let i = 0; i < 3; i++) { try { render(); } catch (e) {} }
       out.facesBeforeArrival = faces.length;
+      out.bubbleDrewBeforeArrival = words.some(t => t === out.text);
+      g.fillText = oText;
 
       await new Promise(res => setTimeout(res, 2500));
       out.arrived = out.who ? !!FACE_CV[out.who] : false;
@@ -216,8 +239,12 @@ function bodyOf(src, name) {
 
     probe('somebody really spoke, so the rest is not an empty pass', !!r.who);
     ok('*** THE CONTROL: BEFORE THE HEAD ARRIVES, THE BUBBLE DRAWS WITH NO FACE ***, '
-       + 'so what is below is the feature and not something that was always there',
-       r.facesBeforeArrival === 0, r.facesBeforeArrival + ' face draws before it landed');
+       + 'so what is below is the feature and not something that was always there. '
+       + 'AND THE BUBBLE REALLY DREW IN THOSE FRAMES, because the first cut of this '
+       + 'control passed on an expired bark that drew nothing at all',
+       r.facesBeforeArrival === 0 && r.bubbleDrewBeforeArrival === true,
+       r.facesBeforeArrival + ' face draws before it landed, bubble drawn: '
+       + r.bubbleDrewBeforeArrival);
     ok('the speaker\'s head is baked and sent back', r.arrived === true);
     ok('*** AND IT IS DRAWN ON THE REAL CANVAS, IN THEIR OWN BUBBLE. *** Watched on '
        + 'the glass, not recomputed here, because a cached face that never reaches '

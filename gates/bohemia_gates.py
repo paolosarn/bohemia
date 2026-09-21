@@ -5682,6 +5682,28 @@ GATES = [
      "longer' means something. Being down is a QUESTION against the clock, so a save left on a shelf comes "
      "back healed with nothing to tidy. And it is on the card he already opens, saying how long and saying "
      "the promise out loud", False),
+    ('A NAME',         ['node', 'gates/a_name_gate.js'],
+     "PEOPLE [a name], inside rule 19(d)'s fourth thing and this lane's RULE 22 cook. QUESTS said "
+     "0 of 21 bodies on his block have a name. MEASURED ON THE ALPHA AND IT WAS BIGGER: 61 PEOPLE, "
+     "61 OF THEM TIER 'stranger', 0 NAMED, 0 NAMES KNOWN, and the person at his door answers WATCH. "
+     "*** THEN THE CONTROL LANDED AND IT IS THE WHOLE FINDING: ONE CALL TO CT_MET.ask TURNED WATCH "
+     "INTO 'Marisela Escobar'. *** The names were always there -- 64 given names and 48 surnames "
+     "since 7/31 under a law that is right, A NAME IS EARNED NEVER GIVEN -- and the EARNING HAD ONE "
+     "DOOR IN THE WHOLE GAME, a button called #ctask on #ctcard, which is the card surface rule "
+     "19(a) killed. The law was not being kept, it was STARVING. A third thing was built and never "
+     "reached either: ctNames draws a gold tag over a person's head and has drawn nothing for the "
+     "life of the game. THE DOOR OFF THE CARD IS THE REAL-WORLD ONE: somebody who walks up to YOU "
+     "wanting something opens with who they are, somebody you walk past owes you nothing. One "
+     "writer (the ledger's own call), one reader (ctPersonName, what every other surface reads). On "
+     "the glass: 0 of 61 named at boot; a stranger's bubble says WATCH and earns nothing; the one "
+     "who wants something is Marisela Escobar over her head AND above her words; 1 of 61 named "
+     "after. Mutations, each put back: close the door, 1 red; let the ambient bark name people, 4 "
+     "red; take the heading out of the bubble, 3 red. AND FIXING THIS ROUND'S INSTRUMENT FOUND A "
+     "CLAIM THAT COULD NOT FAIL IN THIS LANE'S OWN GATE FROM THE ROUND BEFORE: ctDeedBark takes its "
+     "clock from its caller and the probe handed it a game minute, so FACE AT THE DOOR's control "
+     "passed on a bubble that never drew. Fixed, and the fix immediately read 3 face draws where it "
+     "claimed 0, because time was never the variable -- the control now takes that speaker's head "
+     "away instead of waiting.", False),
     ('FACE AT THE DOOR',['node', 'gates/face_at_the_door_gate.js'],
      "PAOLO 9/20, rule 19: 'text on screen coming from people's voice, and when they speak to you it shows the "
      "character portrait. The whole game enchilada.' *** MEASURED ON THE WALKED STREET: WHEN ANYBODY TALKED TO YOU "

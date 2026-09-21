@@ -1,0 +1,160 @@
+BOHEMIA -- A NAME (9/21/26, PEOPLE lane)
+VAMILY job [a name], row THE-PERSON-AT-HIS-DOOR-HAS-A-NAME. Inside [face at the
+door], which is rule 19(d)'s fourth thing, and this lane's cook for the round
+under RULE 22 (Paolo 9/21: "I need to be seeing them cooking up more, every
+time, not never").
+
+THE ROW, from QUESTS e7e9ab81:
+  "0 of 21 bodies on his block have a name, all answer SOMEBODY."
+
+================================================================================
+*** MEASURED FIRST, AND IT WAS BIGGER THAN THE ROW: 61 PEOPLE, 61 STRANGERS ***
+================================================================================
+On the alpha, with the game's own reader, before a line of this was written:
+
+  people on his block                  61
+  tier 'stranger'                      61 of 61
+  anybody with a name                  0
+  names the game remembers knowing     0
+  the person who speaks at his door    answers WATCH
+  text drawn on the whole canvas       "HOME", the map label, and nothing else
+
+So the bubble I shipped last round carried a face and the words and NOTHING
+that said who was talking.
+
+================================================================================
+*** THEN THE CONTROL LANDED, AND THE CONTROL IS THE WHOLE FINDING ***
+================================================================================
+Before believing "this game has no names", I asked whether a name could exist at
+all. ONE CALL TO CT_MET.ask, on the person standing at his door:
+
+  before      ctPersonName -> "WATCH"        tier stranger    namesKnown 0
+  after       ctPersonName -> "Marisela Escobar"   tier asked    namesKnown 1
+
+And three more keys, cold: Amos Ellison, Perla Nguyen, Renata Duong.
+
+*** THE NAMES WERE ALWAYS THERE. *** 64 given names and 48 surnames have been in
+bohemia_people since 7/31, deliberately mixed because Clark County is, and the
+law over them is RIGHT:
+
+  "A NAME IS EARNED, NEVER GIVEN."
+
+AND THE EARNING HAD EXACTLY ONE DOOR IN THE ENTIRE GAME: a button called #ctask
+on #ctcard. That is the card surface rule 19(a) killed on 9/20. So the law was
+not being kept. IT WAS STARVING: nobody could ask, so nobody had a name, and a
+law nothing can satisfy looks exactly like a law being obeyed.
+
+AND A THIRD THING WAS BUILT AND NEVER REACHED. ctNames draws a gold name tag
+over a person's head with a dark ring so it reads over pale ground and dark
+alike. It has drawn NOTHING for the life of the game. Same shape as the face
+last round: built, correct, and unreachable.
+
+================================================================================
+THE DOOR OFF THE CARD, AND IT IS THE REAL-WORLD ONE
+================================================================================
+A stranger who walks up to YOU wanting something opens with who they are,
+because they want something. Somebody you walk past owes you nothing.
+
+So: an INTERACTIVE moment earns the name, an ambient bark never does. The law is
+untouched, the crowd stays strangers, and the law finally has a way to be
+satisfied that is not a button on a dead surface.
+
+ONE WRITER: CT_MET.ask, the ledger's own call, the same one the card's button
+made, with the same arguments. Nothing here invents a name, stores a name, or
+keeps a second list of who is known.
+ONE READER: ctPersonName, which the down card, the crew list and the lock list
+already read, so a person cannot be called two things on two surfaces. That is
+this lane's own recurring defect and it is designed out rather than checked for.
+
+AND THREE THINGS LIT UP AT ONCE off that one bit:
+  the gold tag over their head       ctNames, drawing for the first time
+  the heading in their own bubble    above their words, beside their face
+  every list that names people       same answer, because it is one answer
+
+ON THE GLASS, one frame each, watched on the real canvas:
+
+  A STRANGER TALKING NEAR HIM
+    WATCH                                      9px, dim
+    They handed something over. Saw it.       11px
+    over their head                            nothing
+    earned                                     nothing
+
+  SOMEBODY WHO CAME TO HIM WANTING SOMETHING
+    over their head    Marisela                gold, with the dark ring
+    Marisela Escobar                           9px, warmer
+    somebody steps out. they want something.  11px
+    named on the block afterwards              1 of 61
+
+A NAME LOOKS LIKE A NAME AND A TRADE LOOKS LIKE A LABEL, which is why neither is
+transformed: the name arrives mixed-case from the bank and the trade arrives
+shouting from ROLE_WORDS. They are different colours too, because one is a fact
+about them and the other is a fact about what you do not know.
+
+================================================================================
+*** AND FIXING MY OWN INSTRUMENT FOUND A CLAIM THAT COULD NOT FAIL, SHIPPED BY
+*** THIS LANE ONE ROUND AGO
+================================================================================
+ctDeedBark(now) sets BARK.until from whatever its caller hands it, and its ONE
+real caller is barkTick, which runs on performance.now(). My probe handed it
+ctMinuteNow() -- a game minute, about 360, against a wall clock past 15,000. So
+the bubble was ALREADY EXPIRED when the first render ticked it.
+
+THAT IS THE SAME TWO-CLOCKS BUG I FIXED IN THE GAME LAST ROUND, sitting in the
+instrument I fixed it with. And it had a cost: FACE AT THE DOOR's control claim,
+"before the head arrives the bubble draws with no face", was passing because
+NOTHING DREW AT ALL. A claim that cannot fail is worse than no claim.
+
+FIXED, AND THE FIX IMMEDIATELY CAUGHT A SECOND WRONG THING. With the right
+clock the control read THREE face draws, not zero: by the time any probe runs,
+the boot walk has already barked and the face cache is holding heads. TIME WAS
+NEVER THE VARIABLE. The control now takes that speaker's head away and proves
+the bubble still draws its words with no face, which is NO FACE, NO SPACE stated
+as something that can fail:
+
+  the old control, right clock       3 face draws, RED
+  the new control                    0 face draws, bubble drawn: true, GREEN
+
+FACE AT THE DOOR is 31/0 again, and one of those 31 now means what it says.
+
+================================================================================
+THE GATE
+================================================================================
+gates/a_name_gate.js, driven on the ALPHA (an alpha change cannot be verified on
+the demo; that is written in last round's record and it still holds).
+  one writer   the ledger's own call, nothing invented, nothing stored twice
+  the door     the ask is a second argument, earned before the bubble is built,
+               passed only by the branch where somebody wants something
+  the bubble   grows to fit the heading, never paints over the first line, and a
+               person the game cannot name draws the old bubble to the pixel
+  the glass    0 named at boot; a stranger stays a stranger and earns nothing;
+               the one who wants something is named; the tag, the heading and
+               every other reader agree; the other 60 are still strangers
+  the tab      the real names, and a second way to go, because names are his
+
+NEGATIVE-CONTROLLED, EACH PUT BACK:
+  close the door again (stop passing the ask)          1 red
+  let a stranger barking near him earn a name          4 red
+  take the heading out of the bubble                   3 red
+
+================================================================================
+IN THE VOTE TAB
+================================================================================
+"WHAT THE PERSON AT YOUR DOOR IS CALLED". The real names this game hands out, the
+trade each one replaces, where the bank comes from, and a plainer set beside them.
+It says in its own words that a stranger keeps their trade, so a yes does not
+quietly name the whole street. NAMES ARE HIS and nothing here decides one.
+
+================================================================================
+MEASURED AND NOT FIXED
+================================================================================
+#ctask ON #ctcard IS STILL THERE. Rule 19(a) kills the card surface, not this
+lane's code, and ripping a working button out of a card another lane owns while
+that card is being removed anyway is how two lanes collide. Named, not touched.
+
+THE OTHER 60 PEOPLE ARE STILL STRANGERS ON PURPOSE. You do not know a stranger's
+name. What is missing is more reasons for somebody to want something from you,
+which is [somebody hires you] and QUESTS, not more naming.
+
+TAB: CITY, the walked street, in the alpha. Walk until somebody steps out and
+wants something: their name is over their head and above their words. And VOTE,
+for the names themselves.

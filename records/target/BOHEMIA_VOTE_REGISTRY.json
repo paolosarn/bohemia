@@ -496,6 +496,19 @@
     "how": "page",
     "src": "BOHEMIA_THE_ROOM_ON_THE_TAP_9_21_26.html"
    }
+  },
+  {
+   "id": "people-the-names-at-your-door-9-21",
+   "kind": "line",
+   "lane": "people",
+   "sha": "PENDING",
+   "made": "9/21",
+   "title": "WHAT THE PERSON AT YOUR DOOR IS CALLED",
+   "why": "Nobody in this game has ever had a name on screen. Now the person who comes to you wanting something tells you theirs, and it sits over their head and above their words. These are the real ones the game hands out. Names are yours, so tell me if this valley sounds like this.",
+   "show": {
+    "how": "text",
+    "src": "WHAT THE PERSON AT YOUR DOOR IS CALLED, once you have dealt with them.\nBefore that they are their trade, which is all you would really know.\n\nNOW, and it is the first time any of these has ever reached the screen\n  WATCH            becomes   Marisela Escobar\n  SCAVENGER        becomes   Amos Ellison\n  WORKER           becomes   Perla Nguyen\n  WORKER           becomes   Renata Duong\n  KEEPER           becomes   Dante Chavarria\n  WORKER           becomes   Marisol Cordova\n  WATCH            becomes   Milo Escobar\n  SCAVENGER        becomes   Roman Wexler\n  WATCH            becomes   Rashad Sandoval\n  KEEPER           becomes   Milo Galvan\n  SCAVENGER        becomes   Odell Sepulveda\n\nWHERE THEY COME FROM: 64 first names and 48 surnames, mixed on purpose, because Clark County is. Same person, same name, forever, on any phone, with nothing saved.\n\nAND THE SAME PEOPLE IF YOU WANT PLAINER ONES\n  WATCH            becomes   Rosa Marin\n  SCAVENGER        becomes   Danny Ruiz\n  WORKER           becomes   Ellen Pike\n  KEEPER           becomes   Sam Ortega\n\nTHE TRADE IS NOT GOING ANYWHERE either way: a stranger you have never dealt with stays WATCH or SCAVENGER, because you do not know a stranger's name. The vote is only on what a name sounds like in this valley."
+   }
   }
  ],
  "verdicts": []

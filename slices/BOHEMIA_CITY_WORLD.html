@@ -39494,7 +39494,10 @@ function walkInterrupt(spentSeconds) {
            AND IF NOBODY IS THERE, NOTHING HAPPENS AT ALL, which is the other half
            of the rule. A moment with no body was a caption pretending to be an
            event, and it is the thing he opened the demo and saw. */
-        if (!walkSpeak(got) && typeof WALK_LAST !== 'undefined') WALK_LAST = null;
+        /* __A_NAME__ (9/21): the second argument is the ask. Somebody who comes to
+           him wanting something says who they are; somebody barking nearby does
+           not, which is why the deed bark's own call does not pass it. */
+        if (!walkSpeak(got, true) && typeof WALK_LAST !== 'undefined') WALK_LAST = null;
       }
       /* AMBIENT IS UNTOUCHED AND THAT IS DELIBERATE: this function's own comment is
          right that a modal card for "a coyote is following you" turns set dressing
@@ -39554,7 +39557,7 @@ function streetSay(txt) {
    IT BORROWS THE BARK, which already owns a speaker, a position, a hold time and
    -- since this round -- a face. A second speaking surface would be the two
    writers defect this lane has found in its own work four rounds running. */
-function walkSpeak(got) {
+function walkSpeak(got, ask) {
   if (!got) return false;
   var txt = WALK_LINES[got.id];
   if (!txt) return false;
@@ -39582,6 +39585,11 @@ function walkSpeak(got) {
     try { now = (typeof performance !== 'undefined') ? performance.now() : Date.now(); }
     catch (_e) { return false; }
     try { ctFaceAsk(d.p.id); } catch (_e) {}
+    /* __A_NAME__ (9/21) -- AND THEY TELL YOU WHO THEY ARE, BEFORE THE BUBBLE IS
+       BUILT, so the very first thing they say already carries their name instead
+       of their trade. Only here: this is the branch where somebody came to HIM
+       wanting something. A person barking near him earns nothing. */
+    if (ask) { try { ctAskName(d.p); } catch (_e2) {} }
     BARK.p = d.p; BARK.at = d.at; BARK.text = txt;
     BARK.until = now + barkHold(txt);
     try { PACK_SAID = 1; } catch (_e) {}
@@ -51237,8 +51245,21 @@ function barkPass(ox, oy, C){
   var lh = 14, padX = 7, padY = 6;
   var w = 0;
   for (var j = 0; j < lines.length; j++) w = Math.max(w, gg.measureText(lines[j]).width);
+  /* __A_NAME__ (9/21) -- AND THE BUBBLE SAYS WHO IS TALKING.
+     MEASURED ON THE ALPHA FIRST: 61 of 61 people on his block are tier 'stranger'
+     and 0 of them have a name, and the bubble carried the words and a face and
+     NOTHING that said who it was. The heading is the one reader the rest of this
+     file already uses (ctPersonName through ctPerson), so the street, the down
+     card, the crew list and the lock list cannot end up calling one person two
+     things. A NAME LOOKS LIKE A NAME and a trade looks like a label, which is why
+     neither is transformed here: the name arrives mixed-case from the bank and
+     the trade word arrives shouting from ROLE_WORDS. */
+  var _hd = null;
+  try { _hd = ctSpeakerHead(BARK.p); } catch (_e) { _hd = null; }
+  var _hf = '9px ' + FACE('body'), _hh = _hd ? 12 : 0;
+  if (_hd) { gg.font = _hf; w = Math.max(w, gg.measureText(_hd.text).width); gg.font = '11px ' + FACE('body'); }
   w += padX * 2;
-  var h = lines.length * lh + padY * 2;
+  var h = lines.length * lh + _hh + padY * 2;
   /* __FACE_AT_THE_DOOR__ (9/20, rule 19) -- AND THE PERSON SAYING IT HAS A FACE.
      IT GOES IN THE BUBBLE THEY ALREADY SPEAK FROM, not in a panel: rule 19 killed
      the pop-up card in the same breath that asked for the portrait, so a new
@@ -51299,10 +51320,19 @@ function barkPass(ox, oy, C){
     gg.arc(_fx + _fs / 2, _fy + _fs / 2, _fs / 2, 0, Math.PI * 2);
     gg.stroke();
   }
-  gg.fillStyle = '#cdbd8a';
   gg.textBaseline = 'top';
   var _tx = bx + padX + _fs + _fg;
-  for (var m = 0; m < lines.length; m++) gg.fillText(lines[m], _tx, by + padY + m * lh);
+  /* THE HEADING SITS ABOVE THEIR WORDS, dimmer than the words, because it is who
+     is talking and not what they said. A name they gave you is warmer than a
+     trade you guessed at: the same two colours the crew list already sorts by. */
+  if (_hd) {
+    gg.font = _hf;
+    gg.fillStyle = _hd.named ? '#b79a5e' : '#6f6449';
+    gg.fillText(_hd.text, _tx, by + padY);
+    gg.font = '11px ' + FACE('body');
+  }
+  gg.fillStyle = '#cdbd8a';
+  for (var m = 0; m < lines.length; m++) gg.fillText(lines[m], _tx, by + padY + _hh + m * lh);
   gg.restore();
 }
 /* ===== END BOHEMIA CITY BARKS ===== */
@@ -56147,6 +56177,48 @@ function ctPersonName(key){
     return ctKindWord(p.archetype) || null;
   }catch(_e){ return null; }
 }
+/* __A_NAME__ (9/21, PEOPLE [a name], row THE-PERSON-AT-HIS-DOOR-HAS-A-NAME).
+   QUESTS e7e9ab81 said nobody on his block has a name. MEASURED ON THE ALPHA WITH
+   THE GAME'S OWN READER BEFORE A LINE OF THIS WAS WRITTEN, and it is worse and
+   better than the row: 61 people, 61 of them tier 'stranger', 0 named, 0 names
+   known. The person who speaks at his door answers WATCH.
+
+   *** AND THEN THE CONTROL LANDED, WHICH IS THE WHOLE FINDING: ONE CALL TO
+   CT_MET.ask TURNED "WATCH" INTO "Marisela Escobar". *** tier stranger -> asked,
+   namesKnown 0 -> 1, and three more keys give Amos Ellison, Perla Nguyen, Renata
+   Duong. THE NAMES WERE ALWAYS THERE. 64 given names and 48 surnames have been in
+   bohemia_people since 7/31 under a law that is right -- A NAME IS EARNED, NEVER
+   GIVEN -- and the EARNING HAD ONE DOOR IN THE ENTIRE GAME: a button called
+   #ctask on #ctcard. That is the card surface rule 19(a) just killed. So the law
+   was not being kept, it was STARVING: nobody could ask, so nobody had a name.
+
+   THIS IS THE DOOR OFF THE CARD, AND IT IS THE REAL-WORLD ONE. A stranger who
+   walks up to YOU wanting something opens with who they are, because they want
+   something; somebody you merely walk past does not owe you their name. So an
+   INTERACTIVE moment earns the name and an ambient bark never does. The law is
+   untouched and it finally has a way to be satisfied.
+
+   ONE WRITER: CT_MET.ask is the ledger's own call, the same one #ctask makes,
+   with the same arguments. Nothing here invents a name, stores a name, or keeps a
+   second list of who is known. */
+function ctSpeakerHead(p){
+  if (!p || p.id == null) return null;
+  var named = false, nm = null;
+  try { var who = ctPerson(p); named = !!(who && who.name); }catch(_e){ named = false; }
+  try { nm = ctPersonName(p.id); }catch(_e2){ nm = null; }
+  return nm ? { text: String(nm), named: named } : null;
+}
+function ctAskName(p){
+  if (!p || p.id == null) return false;
+  try{
+    var k = 'P:city:' + p.id;
+    if (CT_MET.asked(k)) return false;   /* asked once is asked forever */
+    CT_MET.ask(k, (typeof T !== 'undefined' && T && T.day) || 1);
+    try{ ctSave(); }catch(_e){}
+    return true;
+  }catch(_e2){ return false; }
+}
+try { window.ctSpeakerHead = ctSpeakerHead; window.ctAskName = ctAskName; }catch(_e){}
 function ctDownName(row){
   if (!row) return 'ONE OF YOURS';
   /* 'locked' joins 'company' here rather than falling through to the family
