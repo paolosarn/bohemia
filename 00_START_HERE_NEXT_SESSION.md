@@ -2995,6 +2995,68 @@ full suite unmeasured since 7efb22cf. Rule 14(a): demo untouched, RUN cuts it.
 
 Record: records/BOHEMIA_ONE_DOOR_9_14_26.md
 
+PLUMBER (plumber-ont6t5): 9/22 LATEST -- *** CHAT 18. ROUND 33. [bimodal dead] SHIPPED, AND THE ANSWER
+IS THAT THERE WAS NEVER A BUG: THE THIRTEEN DEAD PRESSES WERE A FIGHT STARTING. ***
+WHAT WAS OPEN: my own ratchet measured dead presses seven times on ONE UNCHANGED TREE and got 0, 1, 1,
+1, 13, 14, 0. Bimodal, not noisy. I could not find the cause, left the number deciding nothing, and said
+so. Right call at the time, a debt either way: the ratchet was holding the easy numbers only.
+THE HUNT, AND TWO WRONG GUESSES KILLED BY MEASUREMENT.
+  The clue nobody chased: a bad run covered the SAME cells (53-54) in far fewer moves, so each move was
+  bigger. That smells like a mode.
+  GUESS ONE, A MODE: WRONG. One boot, 56 presses, status line read every press -- it never changed from
+  "HUMAN MODE SUBURB ON FOOT". But the run showed what the seven-run summary had hidden: he moved for
+  ELEVEN presses and then stopped for the remaining forty-five. Not bimodal per run. A progressive stop.
+  GUESS TWO, SOMETHING OVER THE PAD: WRONG, but it found the signature. The city frame said "nothing" on
+  top of the pad from press 9 on, and the button's box had collapsed to 0x0 AT THE ORIGIN while its own
+  computed display stayed "inline" -- the signature of a hidden ancestor, not an overlay. Then a run
+  where the geometry was perfect throughout and nothing moved from press 0. Two shapes meant I was still
+  looking at the wrong thing.
+*** THE ANSWER, BOTH DOCUMENTS, FRESH GEOMETRY EVERY PRESS ***
+    press 8   moved 8   frame 390x844   btn 333,760 30x20   parentTop: cityFrame
+    press 9   moved 0   frame   0x0     btn   0,0    0x0    parentTop: combatFrame
+A FIGHT STARTED. The city frame collapses because the game switched to the combat frame; the pad has no
+box because the city is hidden; his cell stops changing BECAUSE HE IS FIGHTING, NOT WALKING. No fight
+inside 24 presses reads 0-1 dead, a fight near press 10 reads 13-14, and cells covered is the same
+either way because he walks the same distance before it finds him.
+MY INSTRUMENT WAS COUNTING "THE GAME GAVE HIM A FIGHT" AS "THE PAD IS BROKEN". A ratchet built on that
+would have refused pushes for the game doing the exact thing rule 17(b) asks: the walk ends in the fight.
+WHAT IT FIXED, AND IT CLOSED A SECOND ROW FOR FREE:
+ 1. The walk STOPS when the fight starts, so dead presses count only presses made while the city was up.
+    After: 24 of 24 moved where he aimed, 3/3 in every one of the eight directions, zero wall, zero
+    wrong. The number holds still, SO IT IS SCORED AGAIN.
+ 2. THE FIGHT IS IN THE VERDICT NOW, which is the gap [never worse] named and left open. Last round it
+    drove cityEncounterIn and reported NOT REACHED because that function is not exposed on this cut. IT
+    NEVER NEEDED A DOOR -- the walk meets a fight on its own around press 9 of 24. Rule 17(b) wanted the
+    ratchet to include that frame and it does, off the real encounter the world produced. A met fight
+    and a forced fight are not the same claim and this is the honest one. A combat frame that draws no
+    canvas still reports not-reached, because "reached" off a blank frame is this instrument's oldest
+    mistake in a new place.
+TWO MORE NUMBERS THAT COULD NOT HOLD A BAR:
+  FREEZES. Five walks of one tree: 517, 633, 1167, 550, 1800 ms -- 3.5x, and a bar from three refused
+  the fourth. The same five as a COUNT: 1, 3, 1, 1, 2. The count is what a player notices ("it stuck
+  twice") and it is the one that holds still, so THE COUNT DECIDES and the ms ride along on the report.
+  TIME TO TAPPABLE. Across this session on one tree: 424, 431, 448, 457, 567, 675, 771, 832 -- a 1.96x
+  spread, AND THE CPU YARDSTICK CANNOT SEE IT (1.00x when the bar was taken, 1.01x when the same tree
+  read 832), because load time is disk and memory, not CPU. I did NOT widen the tolerance: 2.2x would
+  have let a real regression to 900 ms through. A REALISTIC BAR WITH A TIGHT TOLERANCE BEATS AN
+  OPTIMISTIC BAR WITH A LOOSE ONE, so accepting now takes FIVE walks and pins the worst.
+  The accept guard was narrowed to match: it refuses a cut whose COUNTS went the wrong way and merely
+  notes a wall clock that did, because refusing there would make the bar impossible to re-take on a slow
+  afternoon, which is its own way of turning the ratchet off.
+THE BAR NOW, worst of five walks: tappableMs 831 (694/831/726/738/761), freezes 3 (1/3/1/1/2),
+aimedWrong 0, cellsCovered 52 (66/59/59/52/85), deadPresses 3 (0/0/0/0/3), pageErrors 0.
+BOTH SHIP TESTS RE-RUN: honest cut NOT refused, everything better or same (exit 0); planted regression
+REFUSED, tappableMs 831 -> 3116 allowed 1122 (exit 1).
+NOT FULLY EXPLAINED AND SAID SO: one of the five accept walks read 3 dead presses where the other four
+read 0. The bar carries the 3. It is far from the old 13-14 and it is not zero, and I am not claiming
+the last of it is understood.
+STILL OPEN IN MY SECTION: [horror gate] (rule 20h, with DIRECTION), [mode chip], [suite line] (the front
+page's SUITE LINE is still 9/14 ad23d875 and is over a week stale), [pre-push pass], [cannot fail],
+[one way rulers], [spelling gates], [suite runs], [fight headroom], [slim build], [dead gates],
+[handoff cut], [backlog archive]. Still CLAIMED: [never worse], [sixty fps], [demo errors] (STANDING).
+Record: records/BOHEMIA_THE_BIMODAL_NUMBER_WAS_A_FIGHT_9_22_26.md
+[PENDING Paolo] nothing.
+
 PLUMBER (plumber-ont6t5): 9/21 LATEST -- *** CHAT 18. ROUND 32. TWO ROWS SHIPPED: [cold read], which was
 MY OWN RATCHET CRYING WOLF AT ANOTHER LANE, and [cook gate], Paolo's rule 22e. ***
 

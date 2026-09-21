@@ -1,62 +1,81 @@
 {
  "what": "The numbers of the last ACCEPTED cut. tools/bohemia_never_worse.js refuses a push that scores worse than these. Paolo 9/20, rule 18c.",
  "why": "PAOLO 9/20: \"we were closer to being able to play before, right now we're farther than we've ever been.\" The game got worse under a rule that said never worse, because the rule was a sentence.",
- "acceptedOn": "2026-09-21T00:24:23.688Z",
- "sha": "c4cc5a7",
- "boxRatio": 1,
- "walks": 3,
+ "acceptedOn": "2026-09-21T02:33:24.075Z",
+ "sha": "f485d40",
+ "boxRatio": 0.99,
+ "walks": 5,
  "sawAcrossWalks": {
   "tappableMs": [
-   448,
-   457,
-   431
+   694,
+   831,
+   726,
+   738,
+   761
   ],
-  "frozenMs": [
-   517,
-   1167,
-   633
+  "freezes": [
+   1,
+   3,
+   1,
+   1,
+   2
   ],
   "aimedWrong": [
+   0,
+   0,
    0,
    0,
    0
   ],
   "cellsCovered": [
-   81,
-   64,
-   43
+   66,
+   59,
+   59,
+   52,
+   85
+  ],
+  "deadPresses": [
+   0,
+   0,
+   0,
+   0,
+   3
   ],
   "pageErrors": [
+   0,
+   0,
    0,
    0,
    0
   ]
  },
  "numbers": {
-  "tappableMs": 457,
-  "frozenMs": 1167,
+  "tappableMs": 831,
+  "freezes": 3,
   "aimedWrong": 0,
-  "cellsCovered": 43,
+  "cellsCovered": 52,
+  "deadPresses": 3,
   "pageErrors": 0
  },
  "detail": {
-  "takenOn": "2026-09-21T00:19:35.342Z",
-  "boxRatio": 1,
+  "takenOn": "2026-09-21T02:23:38.760Z",
+  "boxRatio": 0.99,
   "scored": "a fresh cut",
-  "tappableMs": 448,
-  "tappableColdMs": 603,
+  "tappableMs": 694,
+  "tappableColdMs": 1018,
   "padButtons": 8,
   "quiet": true,
-  "quietWaitedMs": 791,
+  "quietWaitedMs": 931,
   "startCell": [
    6218,
    6268
   ],
-  "presses": 24,
-  "aimedTrue": 9,
+  "presses": 9,
+  "metFightAtPress": 9,
+  "aimedTrue": 8,
   "aimedWrong": 0,
   "wallPresses": 1,
-  "deadPresses": 14,
+  "deadPresses": 0,
   "blockedPresses": 0,
   "whatBlockedIt": "",
   "modeTrail": [
@@ -68,97 +87,85 @@
    "down-left=HUMAN MODESUBURB · ON FOOT",
    "left=HUMAN MODESUBURB · ON FOOT",
    "up-left=HUMAN MODESUBURB · ON FOOT",
-   "up=HUMAN MODESUBURB · ON FOOT",
-   "up-right=HUMAN MODESUBURB · ON FOOT",
-   "right={\"says\":\"\"}",
-   "down-right={\"says\":\"\"}",
-   "down={\"says\":\"\"}",
-   "down-left={\"says\":\"\"}",
-   "left={\"says\":\"\"}",
-   "up-left={\"says\":\"\"}",
-   "up={\"says\":\"\"}",
-   "up-right={\"says\":\"\"}",
-   "right={\"says\":\"\"}",
-   "down-right={\"says\":\"\"}",
-   "down={\"says\":\"\"}",
-   "down-left={\"says\":\"\"}",
-   "left={\"says\":\"\"}",
-   "up-left={\"says\":\"\"}"
+   "up=HUMAN MODESUBURB · ON FOOT"
   ],
   "perDirection": {
    "up": {
     "moved": 2,
     "wall": 0,
-    "dead": 1,
+    "dead": 0,
     "wrong": 0,
     "blocked": 0
    },
    "up-right": {
-    "moved": 2,
+    "moved": 1,
     "wall": 0,
-    "dead": 1,
+    "dead": 0,
     "wrong": 0,
     "blocked": 0
    },
    "right": {
     "moved": 1,
     "wall": 0,
-    "dead": 2,
+    "dead": 0,
     "wrong": 0,
     "blocked": 0
    },
    "down-right": {
     "moved": 1,
     "wall": 0,
-    "dead": 2,
+    "dead": 0,
     "wrong": 0,
     "blocked": 0
    },
    "down": {
     "moved": 0,
     "wall": 1,
-    "dead": 2,
+    "dead": 0,
     "wrong": 0,
     "blocked": 0
    },
    "down-left": {
     "moved": 1,
     "wall": 0,
-    "dead": 2,
+    "dead": 0,
     "wrong": 0,
     "blocked": 0
    },
    "left": {
     "moved": 1,
     "wall": 0,
-    "dead": 2,
+    "dead": 0,
     "wrong": 0,
     "blocked": 0
    },
    "up-left": {
     "moved": 1,
     "wall": 0,
-    "dead": 2,
+    "dead": 0,
     "wrong": 0,
     "blocked": 0
    }
   },
   "endCell": [
-   6255,
-   6224
+   6181,
+   6239
   ],
-  "cellsCovered": 81,
+  "cellsCovered": 66,
   "fight": {
-   "reached": false,
-   "why": "no cityEncounterIn",
-   "forced": true
+   "reached": true,
+   "why": "",
+   "forced": false,
+   "atPress": 9,
+   "canvases": 3,
+   "photo": "records/never_worse_fight.png"
   },
-  "frames": 2128,
-  "frozenMs": 517,
+  "frames": 450,
+  "frozenMs": 1033,
   "freezes": 1,
-  "worstFreezeMs": 517,
+  "worstFreezeMs": 1033,
   "pageErrors": 0,
-  "boxRatioEnd": 1,
+  "boxRatioEnd": 1.08,
   "broken": []
  }
 }
