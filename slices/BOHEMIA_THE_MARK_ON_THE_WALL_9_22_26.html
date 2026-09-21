@@ -1,0 +1,256 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>BOHEMIA - THE MARK ON THE WALL</title>
+<style>
+ :root{ --ink:#141210; --paper:#f4efe6; --rule:#9c907c; --hot:#a8391d; --dim:#4a443c }
+ *{ box-sizing:border-box }
+ body{ margin:0; background:var(--paper); color:var(--ink);
+       font:15px/1.5 ui-sans-serif,system-ui,-apple-system,Arial,sans-serif }
+ header{ padding:16px 14px 12px; border-bottom:3px solid var(--ink) }
+ h1{ margin:0 0 6px; font-size:19px; letter-spacing:.3px }
+ .sub{ font-size:14px; color:var(--dim) }
+ .now{ margin:12px 14px; padding:10px 12px; border-left:5px solid var(--hot);
+       background:#fff; font-size:14px }
+ .now b{ color:var(--hot) }
+ .wrap{ padding:4px 14px 60px }
+ h2{ margin:26px 0 4px; font-size:15px; padding:8px 11px;
+     background:var(--ink); color:var(--paper) }
+ .say{ font-size:14px; color:var(--dim); margin:8px 0 12px }
+ .say b{ color:var(--ink) }
+ .big{ background:#fff; border-bottom:3px solid var(--ink); padding:9px }
+ .big canvas{ display:block; width:100%; max-width:330px; margin:0 auto; height:auto;
+              image-rendering:pixelated; background:#9a8f7c }
+ .four{ display:flex; flex-wrap:wrap; gap:8px; background:#fff; padding:9px;
+        border-bottom:3px solid var(--ink) }
+ .four > div{ flex:1 1 44%; min-width:0 }
+ .four canvas{ display:block; width:100%; height:auto; image-rendering:pixelated;
+               background:#9a8f7c }
+ .tl{ font:10px/1.3 ui-monospace,monospace; color:var(--dim); margin-top:5px;
+      letter-spacing:.3px }
+ .tl b{ color:var(--ink) }
+ table{ border-collapse:collapse; width:100%; background:#fff; font:12px/1.4 ui-monospace,monospace }
+ th,td{ text-align:left; padding:6px 7px; border-bottom:1px solid #ddd5c4 }
+ th{ background:var(--ink); color:var(--paper); font-weight:700 }
+ td.big2{ font-weight:700 }
+ .foot{ margin-top:26px; font-size:13px; color:var(--dim); border-top:1px solid var(--rule);
+        padding-top:10px }
+</style></head><body>
+
+<header>
+ <h1>THE MARK ON THE WALL</h1>
+ <div class="sub">Fourth sign, and the first one with no words on it and no post holding it
+ up. Just paint, on somebody else's wall. 9/22</div>
+</header>
+
+<div class="now">
+ <b>THE GROUND ALREADY KNOWS WHO CAME PAST, WHICH WAY THEY WENT, AND HOW LONG AGO.</b>
+ It has known since the tracks shipped. The line the game says out loud throws away the
+ most useful part of it, which is <b>which way they were going</b>. A crew heading out is
+ a problem forming. A crew heading back has already done whatever it did. By the middle of
+ the day, <b>two out of three sets of prints in this valley are on the way back</b> and
+ nothing tells you.
+</div>
+
+<div class="wrap">
+
+ <h2>1. WHAT IT IS</h2>
+ <div class="say">A crew paints a mark at a crossing when they work it. Not a sign on a
+ post: <b>paint, straight onto whatever wall was already there.</b> This is real, it is how
+ people have always done this, and it is the one thing in the set with no words on it at
+ all, so nobody has to be able to read.</div>
+ <div class="big">
+  <canvas id="hero"></canvas>
+ </div>
+ <div class="say" style="margin-top:9px"><b>The grammar is three things and no more.</b>
+ The bar is the crew, in their colour. The point on the end is the way they went. The
+ strokes under it are how many came through. <b>What each crew's own emblem looks like is
+ yours, not mine</b>, so there are no invented logos in here: this is the shared part that
+ works for all fourteen.</div>
+
+ <h2>2. THE FOUR STATES</h2>
+ <div class="say">A footprint fades in a day. <b>Paint does not.</b> That is the whole
+ reason this exists: the prints are gone by morning and the mark is still there, so the
+ wall is the valley's memory. The crossed-out one is the interesting one.</div>
+ <div class="four" id="four"></div>
+
+ <h2>3. AND I NEARLY REPORTED A BUG THAT WAS NOT ONE</h2>
+ <div class="say">I swept all 9,216 cells looking for prints and found <b>fourteen</b>,
+ every one of them zero steps old. That reads exactly like a broken feature. It is not. A
+ trail runs from where a crew started to where it is standing, and <b>at six in the morning
+ nobody has gone anywhere yet</b>. I advanced the valley's clock and swept again:</div>
+ <table id="tbl"></table>
+ <div class="say" style="margin-top:10px"><b>So the first hour of the game has a blank
+ valley</b>, and that is not a defect either, it is morning. But it does mean a mark that
+ only reads live prints would show you nothing in the first five minutes, which is why the
+ paint is the point. Marks from before you woke up are already on the walls.</div>
+
+ <div class="foot">
+  Nothing here is in the game yet. The mark grammar is a draft and the emblems are reserved
+  for you. Every number on this page came out of the valley, not out of my head.
+ </div>
+</div>
+
+<script src="bohemia_sign_kit.js"></script>
+<script>
+/* ===========================================================================
+   THE MARK ON THE WALL -- the cook, FACTIONS lane, [horror signs] round four,
+   9/22.
+
+   MEASURED FIRST, AND THE FIRST MEASUREMENT WAS A TRAP I ALMOST FELL IN.
+   Swept all 9,216 cells with BohemiaTowns.tracksAt(): 14 cells carried prints,
+   every one age 0, every one leg 'out', and no caravan anywhere though ten exist.
+   That reads like a dead feature. IT IS NOT. trackOf() builds the trail from
+   where a party STARTED to where it is STANDING, so at 06:00 on day one the trail
+   is one cell long by definition and the two parties sharing each seat's start
+   cell collapse to one reading. Advancing the valley's own clock:
+
+       at the door   14 cells, longest trail 1,  max age 0,  14 out /  0 back
+       +1 h          78 cells, longest trail 6,  max age 5,  54 out / 24 back
+       +4 h          94 cells, longest trail 14, max age 13, 49 out / 45 back
+       +10 h        111 cells, longest trail 14, max age 13, 36 out / 75 back
+
+   So the ground fills up through the day and BY MID-DAY TWO IN THREE SETS OF
+   PRINTS ARE ON THE WAY BACK. `leg` -- out or back -- is a real, well-populated
+   fact, and trackSay() throws it away (WORDS Q23 found the same thing from the
+   words end on 9/13 and it is still true).
+
+   AND IT IS WHY THIS IS PAINT AND NOT PRINTS. A mark that reads only the live
+   trail shows NOTHING in the first hour, which is the only hour that counts under
+   rule 14. Paint does not fade in a day: the marks from before he woke up are
+   already on the walls, and the live tracks feed new ones as the day runs.
+
+   MECHANISM MINE, CONTENTS HIS. What each crew's own emblem looks like is
+   identity and it is reserved, so there are no invented logos here. The grammar
+   is the shared part: a bar in their published colour, a point for the way they
+   went, strokes for how many came through. Fourteen crews, one grammar.
+   ======================================================================== */
+var K = window.BohemiaSignKit;
+var W = 104, H = 88;
+
+/* THE TAN WALL, 85/15: one dominant tan and a little of something else, never a
+   speckle. The mark goes ON this rather than on a post, which is the whole
+   difference between this sign and the first three. */
+var TAN = '#b9a684', TAN2 = '#ab9876';
+
+function drawWall(g){
+  K.hardpan(g, W, H, 46);
+  /* the building, seen at the world's three quarters like everything else */
+  K.box3d(g, 6, 8, 74, 62, 13, TAN, K.mix(TAN,'#ffeccb',0.26), K.mix(TAN,K.DARKEST,0.32));
+  /* 15 per cent of something else, in bands, never noise */
+  g.fillStyle = TAN2; g.fillRect(6, 56, 74, 6); g.fillRect(6, 12, 74, 3);
+  /* the base course and the contact shadow, so it stands on the dirt */
+  g.fillStyle = K.mix(TAN, K.DARKEST, 0.22); g.fillRect(6, 66, 74, 4);
+  K.diamond(g, 52, 76, 44, 7, '#8a8070');
+}
+
+/* THE MARK. Three things and no more.
+     the BAR   who, in their published colour
+     the POINT which way they went
+     the TICKS how many came through
+   `dir` is 1 for right and -1 for left: the `leg` the game computes and the
+   shipped sentence discards. `wear` is 0 fresh, 1 old, 2 crossed out. */
+function drawMark(g, hex, dir, ticks, wear, byWhom){
+  var paint = hex;
+  if (wear === 1) paint = K.mix(hex, TAN, 0.45);        /* the sun got it */
+  var x0 = 16, y0 = 30, len = 44, th = 7;
+
+  /* the bar. A brush stroke: thick in the middle, thinner where it started. */
+  g.fillStyle = paint; g.fillRect(x0, y0, len, th);
+  g.fillStyle = K.mix(paint, TAN, 0.30); g.fillRect(x0, y0, 5, th);
+  g.fillStyle = K.mix(paint, K.DARKEST, 0.18); g.fillRect(x0, y0+th-2, len, 2);
+
+  /* THE POINT, and the first cut drew it INSIDE OUT.
+     Stacked rows, pixel-native rather than an anti-aliased triangle. The rows run
+     from the outside of the head toward the bar's centre line, so the width has to
+     GROW as it goes in: widest where it meets the bar, one pixel at the tip. The
+     first cut had it shrinking inward, which builds a notch instead of a head --
+     every mark on the wall read as fletching pointing the opposite way, which on a
+     sign whose entire job is WHICH WAY THEY WENT is the worst thing it could do. */
+  var px = dir > 0 ? x0 + len : x0;
+  for (var i = 0; i < 7; i++){
+    var w = i + 1;
+    g.fillStyle = paint;
+    g.fillRect(dir > 0 ? px : px - w, y0 - 3 + i, w, 1);
+    g.fillRect(dir > 0 ? px : px - w, y0 + th + 2 - i, w, 1);
+  }
+
+  /* the ticks. How many came through, and they are counted, never a number. */
+  g.fillStyle = K.mix(paint, K.DARKEST, 0.10);
+  for (var t = 0; t < ticks; t++) g.fillRect(x0 + 4 + t*7, y0 + th + 5, 4, 8);
+
+  /* CROSSED OUT: somebody else painted over it. This is how it is really done --
+     you do not remove a rival's mark, you strike it and put yours beside it, and
+     the fact that BOTH are still legible is the point. */
+  if (wear === 2){
+    /* AND THE STRIKE IS SOMEBODY'S COLOUR, NOT A GENERIC RED. The first cut used
+       a fixed red-brown, which quietly implies one particular crew did it every
+       time. Who struck it is a fact the game would know (the rival holding this
+       ground), so it is a parameter -- COLOUR IS TERRITORY applies to the second
+       mark exactly as much as to the first. */
+    g.fillStyle = byWhom || '#773229';
+    for (var s = 0; s < 46; s++){
+      g.fillRect(x0 - 2 + s, y0 - 4 + Math.round(s * 0.42), 3, 3);
+    }
+  }
+}
+
+/* the published faction colours, copied from engine/BOHEMIA_faction_colours.json */
+var CREWS = { NETWORK:'#25a189', REDS:'#773229', MOB:'#454142', BLUES:'#2d5fb3' };
+
+var STATES = [
+  { t:'<b>FRESH</b><br>Network went that way, three of them, recently',
+    hex:CREWS.NETWORK, dir:1, ticks:3, wear:0 },
+  { t:'<b>OLD</b><br>same mark, months of sun on it',
+    hex:CREWS.NETWORK, dir:1, ticks:3, wear:1 },
+  { t:'<b>CROSSED OUT</b><br>Reds struck it: this crossing is being argued over',
+    hex:CREWS.NETWORK, dir:1, ticks:3, wear:2, by:CREWS.REDS },
+  { t:'<b>THE OTHER WAY</b><br>Reds, coming back, two of them',
+    hex:CREWS.REDS, dir:-1, ticks:2, wear:0 }
+];
+
+function cv(){ var c=document.createElement('canvas'); c.width=W; c.height=H; return c; }
+
+var hero = document.getElementById('hero');
+hero.width = W; hero.height = H;
+(function(){ var g = hero.getContext('2d'); g.imageSmoothingEnabled=false;
+  drawWall(g); drawMark(g, CREWS.NETWORK, 1, 3, 0); })();
+
+var four = document.getElementById('four');
+for (var i=0;i<STATES.length;i++){
+  var s = STATES[i];
+  var d = document.createElement('div');
+  var c = cv(); d.appendChild(c);
+  var g = c.getContext('2d'); g.imageSmoothingEnabled=false;
+  drawWall(g); drawMark(g, s.hex, s.dir, s.ticks, s.wear, s.by);
+  var t = document.createElement('div'); t.className='tl'; t.innerHTML = s.t;
+  d.appendChild(t); four.appendChild(d);
+}
+
+/* MEASURED 9/22 off the live demo, sweeping every one of the 9,216 cells at each
+   step of the valley's own clock. */
+var SWEEP = [
+  { when:'the door, 06:00', cells:14,  longest:1,  out:14, back:0 },
+  { when:'one hour later',  cells:78,  longest:6,  out:54, back:24 },
+  { when:'four hours in',   cells:94,  longest:14, out:49, back:45 },
+  { when:'ten hours in',    cells:111, longest:14, out:36, back:75 }
+];
+var rows = '<tr><th>WHEN</th><th>CELLS WITH PRINTS</th><th>LONGEST TRAIL</th>'
+         + '<th>GOING OUT</th><th>COMING BACK</th></tr>';
+for (var j=0;j<SWEEP.length;j++){
+  var s2 = SWEEP[j];
+  rows += '<tr><td>'+s2.when+'</td><td class="big2">'+s2.cells+'</td><td>'+s2.longest
+       +  '</td><td>'+s2.out+'</td><td class="big2">'+s2.back+'</td></tr>';
+}
+document.getElementById('tbl').innerHTML = rows;
+
+/* the kit's own overflow report. Empty is the expected state, and this page has
+   no words on its signs at all, so it should stay empty. */
+(function(){
+  if (!K.overflows || !K.overflows.length) return;
+  var w = document.createElement('div'); w.className = 'now';
+  w.innerHTML = '<b>TEXT RAN OFF ITS SIGN:</b><br>' + K.overflows.map(function(o){
+    return '"'+o.text+'" is '+o.width+' px in a '+o.maxW+' px space'; }).join('<br>');
+  document.querySelector('.wrap').insertBefore(w, document.querySelector('.wrap').firstChild);
+})();
+</script>
+</body></html>
