@@ -38333,6 +38333,43 @@ var WALKFEEL = 'TAPE';
    the vote page read it off the seam, so nobody restates the curve. Restating
    it is the exact bug this lane has now found seven times -- a second ruler
    agrees with the first until the day it does not. */
+/* ==== __THE_BODY_SKIPS_WITH_THE_GROUND__ (9/21, ANIMATION, row [tape skip]) ==
+   THE OTHER HALF OF THE TAPE SKIP, AND WITHOUT IT THE FIRST HALF FIGHTS ITSELF.
+   The ground was taught to hold and then drop. The BODY was still walking a
+   smooth cycle across the same beat: the frame index was elapsed/BEAT * count,
+   a straight ramp, so while the street stood still his legs kept striding on the
+   spot, and while the street jumped 94 px his legs advanced one frame. That is
+   the moonwalk the row exists to kill, just rebuilt from the other side.
+   SO THE BODY READS THE SAME CURVE THE GROUND READS. Under TAPE he holds a pose
+   for the 55% of the beat the street is still, then flicks through the two
+   dropped frames with it and lands. Under GRID and SLIDE the frame index is the
+   straight ramp it has always been, byte for byte, so nothing he has already
+   seen changes unless he is on TAPE.
+   AND IT IS ONE COPY. This pick was written out twice, outdoors and indoors, and
+   two copies of a frame index is how the player's legs end up doing one thing in
+   the street and another in a room. */
+function walkFrameIndex(n, k){
+  if(!n) return 0;
+  if(k<0) k=0;
+  if(WALKFEEL==='TAPE' && tapeWorthIt()){
+    /* THE STATION PICKS THE POSE, NOT THE DISTANCE. Picking by distance made the
+       LAST authored pose flash for a single millisecond and never actually
+       land, because the stations stop at 0.67 of the way and the beat supplies
+       the rest. Station 0 is the held pose, the last station is the LANDED pose,
+       and the clip's own ends are its ends. A drop-out SKIPS a pose -- with 4
+       frames and 3 stations one is skipped, and that is the effect, not a loss. */
+    var S=TAPE_STATIONS.length, st=walkStation(k);
+    if(st>S-1) st=S-1;
+    var j=Math.round(st*(n-1)/(S-1));
+    return j>n-1?n-1:j;
+  }
+  var i=(Math.min(k,0.999)*n)|0;
+  return i>n-1?n-1:i;
+}
+function walkFrame(frames, t0){
+  if(!frames||!frames.length) return null;
+  return frames[walkFrameIndex(frames.length,(performance.now()-t0)/BEAT)];
+}
 /* THE BIGGEST MOVE IN ONE BEAT THAT IS STILL A WALK, in cells. Named and derived
    so the gate can ASK THE CODE instead of restating the arithmetic, and so it can
    never expire again the way the handwritten 4 did. */
@@ -38340,13 +38377,33 @@ function glideCeil(){
   var st=(typeof STEP_CELLS==='number'&&STEP_CELLS>0)?STEP_CELLS:1;
   return Math.max(4, 4*st);   /* a bike step is four lots; a run is two walk steps */
 }
+/* WHICH STATION THE BEAT HAS REACHED: 0 while he is still on the lot he left,
+   then 1 and 2 for the two dropped frames, and TAPE_STATIONS.length once the
+   beat has landed him. The ground and the body both read THIS, so they cannot
+   disagree about when the skip happens -- which is the whole failure the row
+   is about, and it was rebuilt from the body's side until this existed. */
+/* IS THERE ENOUGH GROUND FOR A SKIP? Half a lot, which is 137 px on screen at
+   the one walk camera. Under it the step is drawn as one move on the beat. */
+function tapeWorthIt(){
+  if(WALKFEEL!=='TAPE') return false;
+  if(!GLIDE) return true;                 /* nothing in flight: answer for the design */
+  var st=(typeof STEP_CELLS==='number'&&STEP_CELLS>0)?STEP_CELLS:1;
+  return GLIDE.d >= st/2;
+}
+function walkStation(k){
+  if(k>=1) return TAPE_STATIONS.length;
+  if(k<0) k=0;
+  var st=0;
+  for(var i=0;i<TAPE_STATIONS.length;i++) if(k>=TAPE_STATIONS[i][0]) st=i;
+  return st;
+}
 function walkCurve(feel, k){
   if(k>=1) return 1;
   if(k<0) k=0;
   if(feel==='GRID') return 0;                       /* the whole lot on the beat */
-  if(feel==='TAPE'){ var e=0;                       /* a staircase, not a ramp */
-    for(var i=0;i<TAPE_STATIONS.length;i++) if(k>=TAPE_STATIONS[i][0]) e=TAPE_STATIONS[i][1];
-    return e; }
+  if(feel==='TAPE'){
+    if(!tapeWorthIt()) return 0;          /* too short to skip: it lands on the beat */
+    return TAPE_STATIONS[walkStation(k)][1]; }   /* a staircase, not a ramp */
   return (k<0.5) ? 2*k*k : 1-Math.pow(-2*k+2,2)/2;  /* SLIDE: easeInOutQuad */
 }
 try{ var _wf=localStorage.getItem('BOH_WALKFEEL'); if(WALKFEELS.indexOf(_wf)>=0) WALKFEEL=_wf; }catch(_e){}
@@ -38373,7 +38430,17 @@ function glideStart(fx, fy, space){
      lying around that nothing draws, it declines the glide outright and the row
      stays owed and named. */
   if(space==='map'){ GLIDE=null; return; }
-  GLIDE={ fx:fx, fy:fy, t0:performance.now(), space:space };
+  /* __A_DROP_OUT_NEEDS_A_DISTANCE__ (9/21, row [tape skip]). How far this step
+     actually went, in cells, measured at the moment it happened. A press is not
+     a lot as often as it sounds: measured in a suburb, 9 of 12 presses are cut
+     short by something in the way and the median press covers 15.2 cells of a
+     25 cell step. A dropped frame is a way of SHOWING a distance the legs cannot
+     cover; over two cells there is no distance to show and the same three
+     stations become a twitch in place. So a short step lands on the beat and
+     nothing skips, and the skip is kept for steps that have ground to cross. */
+  var _d=0;
+  try{ var _here=glideFrom(); _d=Math.max(Math.abs(_here[0]-fx), Math.abs(_here[1]-fy)); }catch(_e2){}
+  GLIDE={ fx:fx, fy:fy, t0:performance.now(), space:space, d:_d };
 }
 /* WHERE THE CAMERA IS THIS FRAME, in cells. Falls back to the true cell for
    every reason it can: not sliding, beat over, space changed, or a jump too big
@@ -38438,6 +38505,12 @@ window.__WALKFEEL={ mode:function(){ return WALKFEEL; }, set:walkFeelSet,
      run on the real surface; this one can be run anywhere, and it is the SAME
      arithmetic camCell uses rather than a restatement of it. */
   curve:function(feel,k){ return walkCurve(feel,k); },
+  /* WHICH WALK FRAME THE BODY IS ON at k of the beat, for a clip of n frames.
+     The gate and the vote page ask this rather than restating the pick. */
+  frameAt:function(n,k){ return walkFrameIndex(n,k); },
+  station:function(k){ return walkStation(k); },
+  worthIt:function(){ return tapeWorthIt(); },
+  glideCells:function(){ return GLIDE?GLIDE.d:null; },
   ceil:function(){ return glideCeil(); },
   step:function(){ return (typeof STEP_CELLS==='number')?STEP_CELLS:null; } };
 /* ==== end __WALK_FEEL_SLIDE__ ============================================= */
@@ -53505,12 +53578,9 @@ function fitProp(im, w, h){
   const px=ox+_gc[0]*C, py=oy+_gc[1]*C;
   const set=PLAYER_CV&&(PLAYER_CV[HFACE]||PLAYER_CV.S);
   let spr=set&&set.idle;
-  if(set&&ANIM){
-    const frames=set[ANIM.kind];
-    if(frames&&frames.length){
-      const f=Math.min(frames.length-1,((performance.now()-ANIM.t0)/BEAT*frames.length)|0);
-      spr=frames[f];
-    }
+  if(set&&ANIM){   /* __THE_BODY_SKIPS_WITH_THE_GROUND__: one pick, shared with indoors */
+    const _f=walkFrame(set[ANIM.kind], ANIM.t0);
+    if(_f) spr=_f;
   }
   if(spr){
     // sprite is 112x112 baked; the body fills ~lower-center. Draw ~2 cells tall,
@@ -62452,8 +62522,9 @@ function renderInside(){
   const px=ox+_gc[0]*C, py=oy+_gc[1]*C;   /* __WALK_FEEL_SLIDE__ */
   const set=PLAYER_CV&&(PLAYER_CV[HFACE]||PLAYER_CV.S);
   let spr=set&&set.idle;
-  if(set&&ANIM){ const frames=set[ANIM.kind];
-    if(frames&&frames.length){ const f=Math.min(frames.length-1,((performance.now()-ANIM.t0)/BEAT*frames.length)|0); spr=frames[f]; } }
+  if(set&&ANIM){   /* __THE_BODY_SKIPS_WITH_THE_GROUND__: the SAME pick the street uses */
+    const _f=walkFrame(set[ANIM.kind], ANIM.t0);
+    if(_f) spr=_f; }
   if(spr){
     // the same zoom ladder the surface uses, tiered off the INDOOR cell size
     /* AND IT IS THE SAME ONE HELPER. Indoors is where every fight is, so a body that does

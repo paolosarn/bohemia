@@ -1,0 +1,104 @@
+<!doctype html><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>BOHEMIA — The Step Drops A Frame</title>
+<!-- ANIMATION, row [tape skip]. The BODY half of the tape skip. The ground was
+     already taught to hold and drop; this is his legs learning the same clock.
+     REUSE-FIRST: the sheet is the shipped 4-frame walk taken off the real body
+     in the alpha, no new art, and the ground is drawn from the same lot pitch
+     the walked city uses. -->
+<style>
+  :root{--ink:#e8e0cc;--bg:#0d0d12;--card:#16161d;--line:#33313d;--gold:#c79a3f}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+       font:13px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace;padding:14px}
+  h1{font-size:13px;letter-spacing:2px;margin:0 0 4px;color:var(--gold)}
+  p{margin:0 0 12px;color:#a49a86;max-width:60ch}
+  .said{border-left:2px solid var(--line);padding:6px 0 6px 10px;margin:0 0 14px;color:#8d8478}
+  .row{background:var(--card);border:1px solid var(--line);border-radius:6px;
+       padding:8px;margin-bottom:10px}
+  .row.live{border-color:var(--gold)}
+  .lab{font-size:11px;letter-spacing:1.5px;margin-bottom:6px;display:flex;
+       justify-content:space-between;gap:8px;align-items:baseline}
+  .tag{color:var(--gold);font-size:10px;letter-spacing:1px}
+  .sub{color:#6f6862;font-size:11px;letter-spacing:0}
+  canvas{width:100%;height:124px;display:block;image-rendering:pixelated;
+         background:#0a0c11;border-radius:3px}
+  .note{margin-top:12px;color:#6f6862;max-width:60ch}
+  .strip{display:flex;gap:4px;margin-top:8px;flex-wrap:wrap}
+  .cell{width:56px;height:56px;image-rendering:pixelated;background:#101319;border-radius:3px}
+</style>
+<h1>THE STEP DROPS A FRAME</h1>
+<p>One press moves him a whole house. His legs only have four drawings and they
+cannot cover that much ground, so I stopped pretending they could.</p>
+<div class="said">Top: his legs walk smoothly while the street jumps. That is the
+moonwalk. Bottom: he holds still, the picture drops two frames, and he is there.
+Same four drawings, same beat, same distance.</div>
+<div id="rows"></div>
+<p class="note">A short press does not skip. If something is in the way and he
+only moves a few feet, he just steps there on the beat, because a dropped frame
+is a way of showing distance and there is no distance to show. Measured while he
+walked: eleven presses out of fourteen had ground to cross, three did not.</p>
+<div class="row"><div class="lab"><span>THE FOUR DRAWINGS HE HAS</span>
+<span class="tag">STANDING, THEN THE WALK</span></div>
+<div class="strip" id="strip"></div></div>
+<script>
+(function(){
+  var SRC='ANIMATION_THE_STEP_DROPS_A_FRAME.png';
+  var W=112,H=112,N=4,DIR=1;               /* row 1 = SE, the most readable stride */
+  var STATIONS=[[0,0],[0.55,0.34],[0.78,0.67]];
+  var LOT=275, BEAT=500;
+  var img=new Image(); img.src=SRC; var ready=false; img.onload=function(){ready=true;};
+  /* the two ways, side by side. each is {ground(k), pose(k)} */
+  var WAYS=[
+    ['WHAT SHIPS','his legs walk, the street jumps','the moonwalk',
+      function(k){ return k>=1?1:0; },
+      function(k){ var i=(Math.min(k,0.999)*N)|0; return i; }],
+    ['THE DROP-OUT','he holds, the picture skips twice, he lands','what is in now',
+      function(k){ if(k>=1) return 1; var e=0;
+        for(var i=0;i<STATIONS.length;i++) if(k>=STATIONS[i][0]) e=STATIONS[i][1]; return e; },
+      function(k){ if(k>=1) return N-1; var s=0;
+        for(var i=0;i<STATIONS.length;i++) if(k>=STATIONS[i][0]) s=i;
+        return Math.round(s*(N-1)/(STATIONS.length-1)); }]
+  ];
+  var host=document.getElementById('rows'), rows=[];
+  WAYS.forEach(function(w,idx){
+    var d=document.createElement('div'); d.className='row'+(idx?' live':'');
+    var l=document.createElement('div'); l.className='lab';
+    l.innerHTML='<span>'+w[0]+' <span class="sub">'+w[1]+'</span></span><span class="tag">'+w[2]+'</span>';
+    var c=document.createElement('canvas'); c.width=390; c.height=140;
+    d.appendChild(l); d.appendChild(c); host.appendChild(d);
+    rows.push({cv:c, ground:w[3], pose:w[4]});
+  });
+  /* the four drawings, laid out flat so he can see what there is to work with */
+  var strip=document.getElementById('strip');
+  for(var i=0;i<N+1;i++){
+    var e=document.createElement('div'); e.className='cell';
+    e.style.backgroundImage='url('+SRC+')';
+    e.style.backgroundSize=((N+1)*56)+'px auto';
+    e.style.backgroundPosition=(-i*56)+'px '+(-DIR*56)+'px';
+    strip.appendChild(e);
+  }
+  function draw(o, off, pose){
+    var g=o.cv.getContext('2d'), CW=o.cv.width, CH=o.cv.height;
+    g.clearRect(0,0,CW,CH);
+    g.fillStyle='#161b22'; g.fillRect(0,CH-34,CW,34);
+    g.strokeStyle='#5d6f84'; g.lineWidth=2;
+    for(var x=-LOT;x<CW+LOT;x+=LOT){
+      var px=Math.round(x-(off%LOT))+0.5;
+      g.beginPath(); g.moveTo(px,CH-34); g.lineTo(px,CH); g.stroke();
+    }
+    g.fillStyle='#3a4757';
+    for(var x2=-LOT;x2<CW+LOT;x2+=LOT/5)
+      g.fillRect(Math.round(x2-(off%(LOT/5))),CH-8,10,2);
+    if(ready){ g.imageSmoothingEnabled=false;
+      g.drawImage(img, (pose+1)*W,DIR*H,W,H, Math.round(CW/2-56), CH-136, 112,112); }
+  }
+  var t0=performance.now();
+  (function tick(){
+    var beats=(performance.now()-t0)/BEAT, whole=Math.floor(beats), k=beats-whole;
+    for(var i=0;i<rows.length;i++)
+      draw(rows[i], (whole+rows[i].ground(k))*LOT, rows[i].pose(k));
+    requestAnimationFrame(tick);
+  })();
+})();
+</script>

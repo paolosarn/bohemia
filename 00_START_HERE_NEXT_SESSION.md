@@ -3803,6 +3803,115 @@ archive escape built in from the start so [handoff cut] is unblocked rather than
 THE WARNING FOR EVERY LANE: do not write this file from a copy you read at the start of your round.
 Re-read it immediately before you edit, and check your own block is still there after any rebase.
 
+ANIMATION (animation-lr9y9i): 9/21 (c) LATEST -- *** THE GROUND LEARNED TO SKIP
+LAST ROUND AND THE BODY KEPT WALKING SMOOTH THROUGH IT. Both read one clock now.
+Cooked a clip into VOTE. TABS: VOTE for it, CITY for the walk. ***
+
+ROW [tape skip] CONTINUES, still CLAIMED, still not SHIPPED.
+
+=== HALF A FIX THAT FIGHTS ITSELF LOOKS DELIBERATE
+Round one taught the GROUND to hold and then drop. The BODY was still picking its
+walk frame off a straight ramp across the same beat. So while the street stood
+still his legs strode on the spot, and while the street jumped 94 px his legs
+advanced one pose. THAT IS THE MOONWALK THIS ROW EXISTS TO KILL, REBUILT FROM THE
+OTHER SIDE, and it would have read as a choice rather than a bug.
+
+=== ONE CLOCK, ASKED BY BOTH
+walkStation(k) is new and is the only thing that decides when the skip happens.
+The ground asks it for a distance, the body asks it for a pose, so they cannot
+disagree. Measured on the REAL surface (the alpha's shipped 4-frame walk; the
+standalone city has NO player sprites at all, PLAYER_CV is empty there because the
+bodies are posted in from the alpha, so the body half can only be measured where
+he plays it):
+    feel     poses drawn   pose changes   longest held pose
+    GRID               4              3              125 ms
+    SLIDE              4              3              125 ms
+    TAPE               3              2              274 ms
+The street is still for 275 ms of the beat and the body now holds for 274. GRID
+and SLIDE keep their even cycle untouched, so nothing he has already seen changes
+unless he is on TAPE.
+
+=== THE STATION PICKS THE POSE, NOT THE DISTANCE
+First cut picked the frame off how far the ground had travelled. That made the
+LAST authored pose flash for a single millisecond and never land, because the
+stations stop at 0.67 of the way and the beat supplies the rest. Station 0 is the
+held pose, the last station is the LANDED pose. With 4 frames and 3 stations one
+pose is skipped: that is the effect, not a loss.
+
+=== A DROP-OUT NEEDS A DISTANCE, AND A PRESS IS NOT A LOT AS OFTEN AS IT SOUNDS
+16 presses, cells moved: 2, 25, 25, 25, 23, 22, 13, 19, 19, 15, 4, 2, 19, 17, 25, 2.
+FOUR were a full lot. FOUR were two to four cells. WALK NEVER MISSES agrees from
+its own instrument: 15.2 cells a press against a 25 cell step. Over two cells
+there is no distance to show and the same three stations are a twitch in place, so
+the skip is used only above half a lot (137 px at the one walk camera) and a short
+press lands on the beat. After: 11 of 14 skipped, 3 landed.
+
+=== ONE PICK WHERE THERE WERE TWO
+The walk frame was chosen in two places, outdoors and indoors. Two copies of a
+frame index is how the player's legs do one thing in the street and another in a
+room. One helper now, and the gate holds it at zero hand-rolled picks.
+
+=== COOKED (rule 22)
+animation-the-step-drops-a-frame-9-21 in VOTE: both walks side by side on the beat,
+drawn off the shipped 4-frame walk sheet taken from the real body. NO NEW ART.
+
+=== THE GATES
+TAPE SKIP went 24 claims -> 31, all green. Three new mutations, caught one at a
+time: the body back on a straight ramp while the ground skips reds the hold claim;
+every step skipping however short reds the short-press claim; the body frozen on
+one pose reds the GRID/SLIDE control. Both distance claims carry a VACUOUS-PASS
+GUARD IN BOTH DIRECTIONS -- a sweep with no long presses, or no short ones, fails
+rather than passes, because a rule whose whole job is telling them apart proves
+nothing on a sample that has only one kind.
+WALK NEVER MISSES 19/0. walk_feel 17/3, the same 3 it is on clean main, triaged
+last round. VOTE TAB 28/0. Walked the demo with the one driver: TAPE live, step 25,
+ceiling 100, no page error, the pinch still crosses the seam.
+Rule 13: pre-push pass green; full suite 107 red at ad23d875, none named as mine.
+
+=== ONE THING FOR THE COORDINATOR, NOT A [PENDING Paolo]
+This row's written ship test says "zero skating pixels, the body's screen position
+changes only on the beat". The RULING in the same line says "two or three frames
+of the walk clip, a drop-out". Those are different things: taken literally the test
+asks for GRID, which is what shipped by accident and what this row was opened to
+replace. Built to the ruling and saying so rather than quietly picking one.
+
+=== WHAT IS LEFT ON THIS ROW
+The frame-by-frame look on a real phone at sixty frames a second. This box clamps a
+headless page to about twenty, fewer than a beat holds, so everything above is
+measured off the seam the renderer itself picks with and off real presses on the
+real surface -- but nobody has watched the drop-out with their eyes yet.
+
+=== A RED THAT IS EVERYBODY'S AND IS THE DEPLOY ITSELF, NAMED NOT CROSSED
+PAGES PUBLISH is RED ON CLEAN MAIN: the published surface is 261 MB against its own
+260 MB cap. It read 256 MB two rounds ago and 257 MB last round, so it is growing
+about 2 MB a round across the fleet and it has just crossed. This is the thing that
+puts the game on his phone, so it is worth someone's round. Where it sits, measured:
+slices 152 MB, RECORDS/TARGET 107 MB, engine 5 MB. The single biggest files are
+BOHEMIA_RUN_CURRENT.html at 21.4 MB and BOHEMIA_VOTE_CURRENT.html at 6.2 MB, and
+records/target is carrying full-size screenshots (one PAOLO_ png is 3.9 MB). This
+lane added 28 KB to it this round and is not the cause. It is _config.yml and the
+deploy, which is PLUMBER's and RUN's, not this lane's to cross into.
+
+AND A SECOND ONE THAT ARRIVED WHILE I WAS PUSHING, NAMED NOT CROSSED: VOTE TAB went
+red on main (db8e829). DIRECTION registered direction-fight-verdict-round-3-9-21 with
+kind "verdict", and the registry's kinds are song, face, haircut, outfit, tile,
+animation, line, ui, redo. It is ONE word and it makes the whole registry invalid, so
+the gate that guards the one place he votes is red for every lane until it is fixed.
+Two clean fixes and neither is mine: DIRECTION changes its own object (the registry
+says never edit somebody else's), or UI adds the kind to the list its gate holds.
+
+=== STILL TRUE, UNCHANGED
+- HC 11 is the one walk camera; one lot is 275 px there.
+- The fight gets 112 and the street gets 56 from the same render; CAST_PX stays 56.
+- Two live numbers for a lot: the lattice says 24, step and body say 25.
+- A weight shift over planted feet is not expressible on this rig (9/21 (b)).
+
+[redo killed] stays CLAIMED and frozen off the play surface: four gun frames still
+draw a detached head; beats two and three are one per-facing problem; four clips
+still snap, worst 12.6 px; POSEHOLD key density.
+
+Nothing [PENDING Paolo].
+
 ANIMATION (animation-lr9y9i): 9/21 (b) LATEST -- *** THE WALK GLIDE HAS BEEN DEAD
 SINCE THE STEP BECAME A HOUSE, AND NOBODY KNEW. Cooked two things into VOTE.
 TABS: VOTE for both, CITY for the walk. ***
@@ -3915,7 +4024,7 @@ four clips still snap, worst 12.6 px; POSEHOLD key density.
 
 Nothing [PENDING Paolo].
 
-ANIMATION (animation-lr9y9i): 9/21 (a) -- *** HOLD ROUND 2, RULE 18. Nothing
+ANIMATION (animation-lr9y9i): 9/21 (a) LATEST -- *** HOLD ROUND 2, RULE 18. Nothing
 pushed to the alpha. ONE PRESS IS TWENTY-FIVE REAL PACES AND THE LEGS DO ONE. TAB:
 ANIMATION, unchanged; no build. ***
 
