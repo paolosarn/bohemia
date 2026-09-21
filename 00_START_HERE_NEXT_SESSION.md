@@ -34008,6 +34008,12 @@ first, CHARACTER [ages] HELD, PEOPLE [honest crowd] HELD, WORLD [paper in the ho
 ECONOMY Q49 [first battery]. Decisions to VOTE: the re-lit face ships with the first person;
 the crowd follows the world's clock; the street gets ages; the paper is placed. COMBAT absent
 two rounds; RUN's next line is the loading screen. Ask: open 04 COMBAT and 01 RUN, type VAMILY.
+THEN (fa) PAOLO 9/22 played 9/21f in CITY MODE (records/BOHEMIA_PAOLO_CITY_MODE_9_22_26.md, frame records/target/PAOLO_CITY_MODE_9_22_26.png):
+cannot find himself (LIFE+CITY [see me], un-held); cannot find NOTES, the bar overflows his phone
+(UI [notes on screen]); the PHONE chip dies, the phone is the button (UI [phone is the button],
+first); APPROVED the phone and the writing (WORDS volume unlocked); no loading screen (RUN next);
+analog horror not visible yet (held in VOTE, said plainly); the peach dots are lamps on live
+circuits, the tap readout will say so. Break list updated. Nothing to judge.
 
 COORDINATOR: 9/4 (ba) -- *** THE MEETING HALL:
 VAMILY.md's front page now carries every rule, and every chat re-reads it every time
