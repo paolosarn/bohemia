@@ -1,0 +1,101 @@
+THE STREET IN THE SHARES THE COUNTY HAS  --  CHARACTER lane, 9/22/26, [ages]
+
+THE ROW: the rig has carried five age stages since it was built and exactly ONE body
+in the alpha uses one. The twelve street looks carry no age field, so every person he
+walks past is a grown adult. The coordinator's default is that the street gets ages in
+the shares the real county has. This is that street. NOTHING IS WIRED: HELD, rule 18.
+
+THE TWELVE ARE THE GAME'S OWN, read out of the alpha at run time. Same clothes, same
+build dials, same order. ONE FIELD CHANGES PER PERSON, and 6 of 12 change at all.
+
+  WALKING SHARES (census bands, minus the under-fives, renormalised)
+    child 10.9   teen 8.9   young adult 14.0   adult 49.4   elder 16.8
+  DEALT OVER TWELVE, largest remainder, in the looks' own order
+    {"child":1,"teen":1,"youngadult":2,"adult":6,"elder":2}
+
+  longcoat  (unchanged)        99 px ->  99 px   4.5 -> 4.5 heads tall
+  barearms  -> youngadult      95 px ->  93 px   4.32 -> 4.23 heads tall
+  pack      -> elder           97 px ->  95 px   4.41 -> 4.32 heads tall
+  skirt     -> child           94 px ->  77 px   4.27 -> 3.5 heads tall
+  widebrim  -> teen            94 px ->  86 px   4.27 -> 3.91 heads tall
+  cape      (unchanged)        98 px ->  98 px   4.45 -> 4.45 heads tall
+  apron     -> youngadult      96 px ->  94 px   4.36 -> 4.27 heads tall
+  poncho    -> elder           97 px ->  95 px   4.41 -> 4.32 heads tall
+  bedroll   (unchanged)        95 px ->  95 px   4.32 -> 4.32 heads tall
+  shorts    (unchanged)        95 px ->  95 px   4.32 -> 4.32 heads tall
+  satchel   (unchanged)        98 px ->  98 px   4.45 -> 4.45 heads tall
+  shortcoat (unchanged)        96 px ->  96 px   4.36 -> 4.36 heads tall
+
+*** AND THEN THE PICTURE TOLD ME THE ROW IS ONLY HALF POSSIBLE. ***
+I dealt the shares, rendered the twelve, AND LOOKED AT IT. Four of the six changed
+bodies are indistinguishable from the adults standing next to them. So I measured the
+five stages on ONE look with everything else held still:
+
+    child        81 px   3.68 heads tall
+    teen         91 px   4.14 heads tall
+    young adult  96 px   4.36 heads tall
+    adult        99 px   4.5 heads tall
+    elder        96 px   4.36 heads tall
+
+  CHILD AND TEEN ARE REAL PEOPLE. YOUNG ADULT, ADULT AND ELDER ARE ONE MAN, THREE
+  TIMES: 0.97, 1.00, 0.97 of the skeleton, all three inside three per cent.
+  *** THE GAME HAS NO OLD PEOPLE. IT HAS A SLIGHTLY SHORTER MAN. ***
+
+AND THE THREE PER CENT IS NOT A BUG, WHICH IS WHY THIS IS WORTH WRITING DOWN. Real
+people lose about two to five centimetres of height over a lifetime -- on 175 cm that
+is one to three per cent -- and the rig's own note says exactly why it does nothing
+else: "The ELDER narrows nothing: old age compresses the spine, it does not narrow the
+shoulders." THE STAGE IS ANATOMICALLY CORRECT AND VISUALLY USELESS. You cannot reach
+an old man through height, because old men are not short. He reads by his BACK (a
+stoop), his HAIR and his FACE, and the rig does not bend a spine today.
+
+I CORRECT MY OWN PREVIOUS CLAIM. Two rounds ago this lane cooked "SOMEBODY WHO GOT OLD
+HERE" and registered it in the VOTE tab as an elder. He is a 97% adult in a long coat.
+The coat and the bone knit cap do the work; the BODY does none of it. Anyone reading
+that sheet should read this line with it.
+
+SO THE ROW SPLITS IN TWO, and only one half can ship:
+  CHILDREN AND TEENS: buildable now, today, with one field per person. The picture
+    shows it working.
+  OLD PEOPLE: NOT BUILDABLE TODAY. Needs a stoop in the rig, and probably grey hair,
+    before the word elder means anything. That is a rig job, not a table edit, and it
+    is bigger than this round. NAMED AND ROUTED RATHER THAN FAKED: I could have made
+    the elder stage 0.90 and called it done, and it would have shipped an old man who
+    is really a teenager.
+
+THE LABELS THAT DO NOT READ ARE MARKED ON THE PICTURE ITSELF, in a different colour,
+saying "you cannot tell". A caption claiming an age the pixels do not show is this
+lane's own [names lie] defect one screen further out, and the tab he judges in is the
+last place it may ever appear.
+
+WHERE THE NUMBERS COME FROM, AND THE LIMIT ON THEM. US Census QuickFacts and ACS for
+Clark County, Nevada: under 18 21.9%, 65 and over 16.3%; bands under 15 18.2, 15-24
+12.0, 25-44 28.9, 45-64 25.0, 65+ 15.9; median age 39. I COULD NOT OPEN census.gov
+FROM THIS CONTAINER -- the network policy blocks it -- so these came from two search
+summaries that agreed with each other. That is weaker than reading the table and it is
+said here rather than smoothed over. Anybody who can reach census.gov should check the
+two figures this leans on.
+THE PRECEDENT IS THE REPO'S OWN: bohemia_people.js grounded the NAME pool in the same
+county's real ethnic shares, for the same reason, in its own comment.
+
+*** THE FINDING, AND IT IS ARITHMETIC RATHER THAN ART. *** There is a real objection to
+using the LIVE county's shares for a valley TEN YEARS COLD: a decade without power in
+the Mojave kills the old first, and anybody now under ten was born after the crash.
+Halve the children, cut the elders to a third, and the shares become child 6.5, teen
+10.7, young adult 16.8, adult 59.3, elder 6.7. Then:
+    on TWELVE people        county 1/1/2/6/2   ten years cold 1/1/2/7/1   ONE PERSON APART
+    on the 183 his phone draws   county 20/16/26/90/31   cold 12/20/31/108/12
+                                 NINETEEN FEWER ELDERS AND EIGHT FEWER CHILDREN
+SO THE CHOICE IS INVISIBLE ON ANY VOTE SHEET AND LOUD ON THE STREET. A picture cannot
+settle it; a crowd can. That is why this ships ONE row of shares instead of two nearly
+identical ones dressed up as a choice. The halving and the third are REASONING, not
+measurement, and they are labelled that way everywhere they appear. No canon is
+invented here: nothing says what the valley's shares ARE, only what two rules produce.
+
+THE FRAME HOLDS. No body paints row 0, so nothing is cut off at the top. Ages only
+ever shrink a body, so unlike last round's tall man there was nothing to run out of
+frame -- checked rather than assumed.
+
+WHAT A YES-VOTE COSTS: twelve `age:` fields on CITY_CAST_LOOKS and the deal function in
+this tool. No new art, no new garment, no new code path. The age machinery has been in
+the rig the whole time with one body using it.

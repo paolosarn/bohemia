@@ -1003,6 +1003,19 @@
     "how": "image",
     "src": "vote/PORTRAIT_SHADES_ON_9_21.png"
    }
+  },
+  {
+   "id": "character-the-street-gets-ages-9-22",
+   "kind": "outfit",
+   "lane": "character",
+   "sha": "5851df0",
+   "made": "9/22",
+   "title": "THE STREET GETS KIDS, BUT IT CANNOT GET OLD PEOPLE",
+   "why": "Your twelve street people are all grown adults. Here they are again with ages dealt out in the shares Clark County really has: 1 kid, 1 teen, 2 young adults, 6 adults, 2 old people. The kid and the teen work. THE OLD PEOPLE DO NOT, and the strip at the top shows why: the game's young adult, adult and old man are the same body within 3 per cent. That 3 per cent is actually correct, real people barely shrink with age, which means you can never get an old man out of height. He needs a bent back and grey hair. So: do you want kids and teens on the street now, and should I go build a proper old man?",
+   "show": {
+    "how": "image",
+    "src": "vote/CHARACTER_THE_STREET_GETS_AGES.png"
+   }
   }
  ],
  "verdicts": []
