@@ -36252,7 +36252,24 @@ your first VAMILY and do steps 1 to 9.
 I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
-ROUND LOG 9/20 (latest): [analog horror] SHIPPED - THE BIBLE is one
+ROUND LOG 9/21 (latest): [horror judge] SHIPPED (5fec7d64) - rule 20h
+is standing practice now: every DIRECTION verdict carries the bible's
+ten-rule pass/fail beside the picture, starting with FIGHT VERDICT
+ROUND 2 (records/BOHEMIA_FIGHT_VERDICT_ROUND_2_9_21_26.md, and the
+front-page slot under rule 17 carries the round-2 text). Round 2 on
+COMBAT V222's pair: THE FLOOR PAID - round 1's biggest liar (blurred
+cold 70% floor) is now real dark asphalt with lane geometry. Still
+lying, in coverage order: (1) the fighter is 37px in a 112px box -
+rule 21's number, COMBAT [fight looks] owes the body; my dark-on-dark
+pixel ruler failed on the new dark floor and that failure is written
+in the verdict rather than papered over; (2) light does not carry -
+warm walk, cold blue fight, same street (bible R4 FAIL); (3) chart
+chrome GREW (OUT circle, diamonds, CLEAR label - R5+R1 FAIL); (4) a
+floating gradient health bar, the no-slop tell; (5) the left edge
+tiles a raw sprite strip. Bible line for the fight: R1 FAIL R2 ok R3
+UNMEASURED R4 FAIL R5 FAIL R8 ok R9 UNMEASURED R10 provisional ok.
+Registry verdicts[] read: still empty. Patrol green (card 115/0).
+PREVIOUS: [analog horror] SHIPPED - THE BIBLE is one
 page, ten rules each with its measure, and today's honest pass/fail
 matrix over a tile, a body, a face, the fight and the street
 (UNMEASURED written where no instrument exists - the still-face idle
