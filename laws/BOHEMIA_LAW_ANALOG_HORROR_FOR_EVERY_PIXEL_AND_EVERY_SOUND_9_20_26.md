@@ -98,6 +98,19 @@ reference_check_gate.py gains the bible as a reference sheet the round DIRECTION
 until then this law is enforced by THE FIGHT VERDICT and EYES E28 by hand, and the manager
 says so on the board (a law without a machine gate is not enforced).
 
+## 9. EVERY CHAT HAS A LINE (Paolo 9/21, "Horror analog, do stuff for that, for every chat"; records/BOHEMIA_PAOLO_ANALOG_HORROR_FOR_EVERY_CHAT_9_21_26.md)
+Section 5 named six chats. He wants twenty. Every chat on the board carries its own [horror
+...] line: what ITS part of the game looks or sounds like under this law, measured against
+what it has shipped, and the one change that would make it read. Under rule 18 the held
+lanes do it as school and measurement; it ships only where it touches one of the four
+things. Section 8 stands over all twenty: one page each, for fun, no essays. The lines, on
+the board: RUN [horror loading], WORLD [horror world], LIFE+CITY [horror city], COMBAT
+[horror fight], CHARACTER [horror body], ANIMATION [horror motion], QUESTS [horror ask],
+PEOPLE [horror crowd], FACTIONS [horror signs], UI [analog horror ui], WORDS Q27, ECONOMY
+Q48 [who still bills], DYNASTY [horror heir], SOUNDS [analog horror sound], DIRECTION [analog
+horror] (shipped: the bible) then [horror judge], COOK [horror grime], EYES E28 [horror
+check], PLUMBER [horror gate], PORTRAIT [horror face].
+
 ## 8. IT IS FOR FUN (Paolo 9/20, same round; records/BOHEMIA_PAOLO_LETS_JUST_HAVE_SOME_FUN_9_20_26.md)
 "I appreciate the deep psychological philosophical dive, but let's just have some fun, bro."
 This law is a vibe the game wears for fun, not a thesis. Nobody writes essays about it,

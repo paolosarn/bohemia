@@ -95,6 +95,8 @@ laws/BOHEMIA_ADDENDUM_THE_PLAYTEST_DISPATCH_8_25_26.md, laws/BOHEMIA_ADDENDUM_TH
 - ANALOG HORROR FOR EVERY PIXEL AND EVERY SOUND, until the game is done (Paolo 9/20, LOCKED) -> laws/BOHEMIA_LAW_ANALOG_HORROR_FOR_EVERY_PIXEL_AND_EVERY_SOUND_9_20_26.md | gate OWED (DIRECTION's bible becomes a reference sheet of reference_check_gate.py; until then THE FIGHT VERDICT and EYES E28 by hand)
 - THE VOTE TAB IS IN THE ALPHA ONLY, AND THE ALPHA OPENS ON IT after the loading screen; the demo has NO vote tab, only his tiny NOTES button; aesthetic and philosophical items both queue there (Paolo 9/20, corrected the same round) -> laws/BOHEMIA_ADDENDUM_ONE_VOTE_TAB_AND_THE_PORTRAIT_CHAT_9_14_26.md sections 8 and 9 | gate vote_tab_gate.js (UI adds the landing leg and a no-door-in-the-demo leg)
 - ALL THE UI LOOKS 3-D: built with light and form, delivered as pixels; a chat named 3-D is the UI chat (Paolo 9/20) -> records/BOHEMIA_PAOLO_VOTE_IN_THE_ALPHA_ONLY_AND_THE_3D_CHAT_IS_UI_9_20_26.md | gate OWED (UI)
+- THE GROUND MAY ZOOM, THE PERSON MAY NOT: one pixel size (112 box, ~100 px painted) on every walked and fought surface; the camera moves the ground, never his size (coordinator 9/21, from four lanes' measurements) -> laws/BOHEMIA_LAW_THE_GROUND_MAY_ZOOM_THE_PERSON_MAY_NOT_9_21_26.md | gate body_scale_gate.js (street); the fight leg OWED to COMBAT [fight looks]
+- EVERY CHAT HAS AN ANALOG HORROR LINE (Paolo 9/21) -> laws/BOHEMIA_LAW_ANALOG_HORROR_FOR_EVERY_PIXEL_AND_EVERY_SOUND_9_20_26.md section 9
 
 ## HOW PAOLO WORKS
 - Voice-to-text stream of consciousness. Transcription garbles constantly.

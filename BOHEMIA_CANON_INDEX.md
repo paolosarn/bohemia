@@ -1,11 +1,11 @@
-# BOHEMIA CANON INDEX — regenerated 09/20/26
+# BOHEMIA CANON INDEX — regenerated 09/21/26
 
 **LAW: on any conflict between addenda, the NEWEST date wins.**
 This index is the map. Consult it BEFORE citing an addendum as current.
 A contradiction between two files is a BUG: file it, gate it if mechanical,
 flag it [PENDING Paolo] if canon-level.
 
-387 canon files indexed across 2 locations.
+388 canon files indexed across 2 locations.
 
 ## THE GDD LINEAGE — ALL FOUR ARE LIVE (gated: node gdd_gate.js)
 
@@ -291,7 +291,8 @@ opening line. Each is the SOLE home of load-bearing canon. Never archive one.
 - `BOHEMIA_ADDENDUM_PRODUCTION_HARDENING_7_2_26.md`
 - `BOHEMIA_ADDENDUM_CHARACTER_PIPELINE_6_30_26.md`
 
-### UNCLASSIFIED (221) — add keywords to DOMAINS
+### UNCLASSIFIED (222) — add keywords to DOMAINS
+- `BOHEMIA_LAW_THE_GROUND_MAY_ZOOM_THE_PERSON_MAY_NOT_9_21_26.md`
 - `BOHEMIA_ADDENDUM_THE_PLAYABLE_CUT_9_20_26.md`
 - `BOHEMIA_LAW_ANALOG_HORROR_FOR_EVERY_PIXEL_AND_EVERY_SOUND_9_20_26.md`
 - `BOHEMIA_ADDENDUM_THE_FIGHT_LOOKS_LIKE_THE_GAME_9_18_26.md`

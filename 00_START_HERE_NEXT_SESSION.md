@@ -30122,6 +30122,22 @@ fork is WITHDRAWN. Recorded (records/BOHEMIA_PAOLO_LETS_JUST_HAVE_SOME_FUN_9_20_
 section 8 and rule 20g: analog horror is a vibe for fun, not a thesis; no essays, no lore
 about it, fun carries the tie. Manager's own note: keep direction replies to one line of why
 and what got built. Nothing to judge.
+THEN (et) PAOLO 9/21: "Horror analog, do stuff for that, for every chat" + VAMILY. Rule 20h
+and law section 9: every one of the twenty chats has its own [horror ...] line (school for
+the held, ships only where it touches the four things). THE ROUND (records/BOHEMIA_COORDINATOR_ROUND_9_21_26.md):
+34 lane commits swept. SHIPPED: RUN [one camera] (one stop, one body size, stride never
+misses: stuck 12/40 -> 0/45, gaps 14 -> 0; cost: no zoom-in while walking), UI [notes button]
+(the pencil, demo top right), PORTRAIT [matches body] (23/200 two-coloured -> 0), COMBAT V222
+(the fight lot is 16 tiles, row stays claimed), DIRECTION the bible + fight verdict r1, PLUMBER
+NEVER WORSE in the suite, ECONOMY Q47, WORDS Q5 r2, COOK closed the pages-publish red. Rule 21
+THE GROUND MAY ZOOM, THE PERSON MAY NOT (new law, from four lanes' measurements; fighter 37 px
+vs 112). Two defaults of mine, both to VOTE as PHILOSOPHICAL: THE STEP IS A TAPE SKIP
+(ANIMATION [tape skip], un-held) and THE LOADING SCREEN ENDS IN ONE BEGIN TAP with the first
+sound on the tap (RUN [horror loading], SOUNDS [first sound], un-held). Swing: ECONOMY Q48
+[who still bills]. New lines: RUN [land on it], [browser lines]; LIFE+CITY [sealed yards], [one
+lot number]; PEOPLE [a name]; PLUMBER [bimodal dead]; PORTRAIT [shades on]; SOUNDS [footsteps
+on the beat]; plus a [horror ...] line on every lane. Break list updated on the front page.
+The thing he never opened: the notes button (TAB: CITY, top right of the demo). Nothing to judge.
 
 COORDINATOR: 9/4 (ba) -- *** THE MEETING HALL:
 VAMILY.md's front page now carries every rule, and every chat re-reads it every time
