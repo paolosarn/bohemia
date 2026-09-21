@@ -97,6 +97,7 @@ laws/BOHEMIA_ADDENDUM_THE_PLAYTEST_DISPATCH_8_25_26.md, laws/BOHEMIA_ADDENDUM_TH
 - ALL THE UI LOOKS 3-D: built with light and form, delivered as pixels; a chat named 3-D is the UI chat (Paolo 9/20) -> records/BOHEMIA_PAOLO_VOTE_IN_THE_ALPHA_ONLY_AND_THE_3D_CHAT_IS_UI_9_20_26.md | gate OWED (UI)
 - THE GROUND MAY ZOOM, THE PERSON MAY NOT: one pixel size (112 box, ~100 px painted) on every walked and fought surface; the camera moves the ground, never his size (coordinator 9/21, from four lanes' measurements) -> laws/BOHEMIA_LAW_THE_GROUND_MAY_ZOOM_THE_PERSON_MAY_NOT_9_21_26.md | gate body_scale_gate.js (street); the fight leg OWED to COMBAT [fight looks]
 - EVERY CHAT HAS AN ANALOG HORROR LINE (Paolo 9/21) -> laws/BOHEMIA_LAW_ANALOG_HORROR_FOR_EVERY_PIXEL_AND_EVERY_SOUND_9_20_26.md section 9
+- COOK EVERY ROUND: a making lane ends every round with a real thing he can hear or see, registered in the VOTE tab; the rule-18 hold is on the play surface, never on the making; a round that only checks did not happen (Paolo 9/21, LOCKED: "I need to be seeing them cooking up more, every time, not never") -> laws/BOHEMIA_ADDENDUM_COOK_EVERY_ROUND_9_21_26.md | gate OWED (PLUMBER [cook gate] reads the vote registry per lane per round)
 
 ## HOW PAOLO WORKS
 - Voice-to-text stream of consciousness. Transcription garbles constantly.

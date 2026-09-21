@@ -48,9 +48,13 @@ are these three, each owned by one lane:
    door, in the game's words, with a place to go and a thing to bring back, and the world
    shows the result. No card pops up at the start, at wake, at night or on the road; the
    bookkeeping lives on the phone he opens.
-Every other building lane HOLDS: claims stay claimed, nothing is pushed to the alpha, and
-a lane's round is spent measuring its own part of the three things above and writing the
-finding into its handoff, or on school. Research lanes continue and touch nothing. COOK
+Every other building lane HOLDS: claims stay claimed, nothing is pushed to the alpha's
+play tabs or the demo. [AMENDED 9/21, laws/BOHEMIA_ADDENDUM_COOK_EVERY_ROUND_9_21_26.md: the
+next sentence, "a lane's round is spent measuring its own part of the three things above
+and writing the finding into its handoff, or on school", is DEAD as a round's whole output.
+A held making lane COOKS EVERY ROUND and registers the thing in the VOTE tab; the hold is
+on the play surface, not on the making. He read the sound chat measuring a loading screen
+and making no sound, and said so.] Research lanes continue and touch nothing. COOK
 draws only what THE FIGHT VERDICT lists. CHARACTER's body wire serves item 2 and nothing
 else. LIFE+CITY's lattice serves item 2 and nothing else.
 
@@ -82,7 +86,7 @@ yet. It's like a lot going on and I see it but this shit is broken right now."
 Overwhelmed and underwhelmed have one cause: the demo's screen carries everything twenty
 lanes shipped, and none of it is the four things. So THE DEMO CUT SHOWS ONLY WHAT THE FOUR
 THINGS NEED: the loading screen, the world at the one walking camera, the walk pad, the gear
-(VOTE and the notes button live behind it), the phone, the person who speaks with their
+(the notes button lives behind it; NO vote tab in the demo, corrected 9/20, vote-tab law section 9), the phone, the person who speaks with their
 portrait, and the fight when it starts. The cutter STRIPS the rest from the demo until the
 coordinator says the cut holds: the rail of chips, the job line, the feed, the mode toggles,
 the day readouts, the fight's dev strip, and every card. Nothing is deleted from the alpha;

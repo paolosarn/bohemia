@@ -30138,6 +30138,17 @@ sound on the tap (RUN [horror loading], SOUNDS [first sound], un-held). Swing: E
 lot number]; PEOPLE [a name]; PLUMBER [bimodal dead]; PORTRAIT [shades on]; SOUNDS [footsteps
 on the beat]; plus a [horror ...] line on every lane. Break list updated on the front page.
 The thing he never opened: the notes button (TAB: CITY, top right of the demo). Nothing to judge.
+THEN (eu) PAOLO 9/21: "I need the UI chat to be cooking up more... I'll enter the sound chat
+and it's not even making fucking sounds. It's coding and checking whether the sounds are
+broken or not... I need to be seeing them cooking up more, every time, not never."
+(records/BOHEMIA_PAOLO_I_NEED_TO_SEE_THEM_COOKING_9_21_26.md). THE MANAGER'S FAULT: rule 18(b)
+"spend the round measuring your part" turned SOUNDS into a checker (c88d7cc2). RULE 22 COOK
+EVERY ROUND (laws/BOHEMIA_ADDENDUM_COOK_EVERY_ROUND_9_21_26.md): the hold is on the play
+surface, not on the making; every making lane registers one real thing in the VOTE tab every
+round or the round did not happen; reports lead with the thing; the vote tab plays sound.
+Every held MODE line amended; SOUNDS [cook sounds] first (four sounds this round), UI [cook
+panels] first (four 3-D panels this round) + [vote plays sound]; PLUMBER [cook gate]; the
+playable-cut law section 3 amended; CLAUDE.md law list. Nothing to judge.
 
 COORDINATOR: 9/4 (ba) -- *** THE MEETING HALL:
 VAMILY.md's front page now carries every rule, and every chat re-reads it every time
