@@ -1,0 +1,284 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>BOHEMIA - THE NOTICE AT THE EDGE</title>
+<style>
+ :root{ --ink:#141210; --paper:#f4efe6; --rule:#9c907c; --hot:#a8391d; --dim:#4a443c }
+ *{ box-sizing:border-box }
+ body{ margin:0; background:var(--paper); color:var(--ink);
+       font:15px/1.5 ui-sans-serif,system-ui,-apple-system,Arial,sans-serif }
+ header{ padding:16px 14px 12px; border-bottom:3px solid var(--ink) }
+ h1{ margin:0 0 6px; font-size:19px; letter-spacing:.3px }
+ .sub{ font-size:14px; color:var(--dim) }
+ .now{ margin:12px 14px; padding:10px 12px; border-left:5px solid var(--hot);
+       background:#fff; font-size:14px }
+ .now b{ color:var(--hot) }
+ .wrap{ padding:4px 14px 60px }
+ h2{ margin:26px 0 4px; font-size:15px; padding:8px 11px;
+     background:var(--ink); color:var(--paper) }
+ .say{ font-size:14px; color:var(--dim); margin:8px 0 12px }
+ .say b{ color:var(--ink) }
+ .big{ background:#fff; border-bottom:3px solid var(--ink); padding:9px }
+ .big canvas{ display:block; width:100%; max-width:320px; margin:0 auto; height:auto;
+              image-rendering:pixelated; background:#9a8f7c }
+ .three{ display:flex; flex-wrap:wrap; gap:8px; background:#fff; padding:9px;
+         border-bottom:3px solid var(--ink) }
+ .three > div{ flex:1 1 30%; min-width:0 }
+ .three canvas{ display:block; width:100%; height:auto; image-rendering:pixelated;
+                background:#9a8f7c }
+ .tl{ font:10px/1.3 ui-monospace,monospace; color:var(--dim); margin-top:5px;
+      letter-spacing:.3px }
+ .tl b{ color:var(--ink) }
+ table{ border-collapse:collapse; width:100%; background:#fff; font:12px/1.4 ui-monospace,monospace }
+ th,td{ text-align:left; padding:6px 7px; border-bottom:1px solid #ddd5c4 }
+ th{ background:var(--ink); color:var(--paper); font-weight:700 }
+ .sw{ display:inline-block; width:10px; height:10px; border:1px solid #6b6252;
+      vertical-align:-1px; margin-right:5px }
+ .foot{ margin-top:26px; font-size:13px; color:var(--dim); border-top:1px solid var(--rule);
+        padding-top:10px }
+</style></head><body>
+
+<header>
+ <h1>THE NOTICE AT THE EDGE</h1>
+ <div class="sub">The board a crew nails up where their ground starts. Third sign, and the
+ first one somebody alive made. 9/22</div>
+</header>
+
+<div class="now">
+ <b>THE VALLEY HAS THREE COMPLETELY DIFFERENT RENTS AND NOBODY HAS EVER TOLD YOU.</b>
+ I read them straight off the game. On a <b>fortress</b> you pay for every single block you
+ walk on. In a <b>town</b> you get one block in three for free. In a <b>camp</b> you get two
+ in three for free. Same valley, same night, three different deals, and which one you are
+ standing in is invisible.
+ <br><br>
+ <b>And you start the game on the worst one.</b> You wake up on Mob ground, which is a
+ fortress, which charges for every block. They also hold more of the valley than anyone
+ else.
+</div>
+
+<div class="wrap">
+
+ <h2>1. THE THREE DEALS, ON THE BOARD THAT SAYS THEM</h2>
+ <div class="say">Every number on these is read out of the game, not written by me. The
+ bottom line is the part that changes everything and it comes straight from the same
+ reading: how many blocks you get for nothing.</div>
+ <div class="three" id="three"></div>
+
+ <h2>2. CLOSE UP</h2>
+ <div class="say">Two stakes and a plank. <b>This is the only sign in the set that somebody
+ alive made.</b> The motel sign and the water authority are leftovers from before, printed
+ and perfect and dead. This one got made last month, by hand, with a brush, and nailed over
+ whatever was there. That is the difference you should be able to see from across a street:
+ <b>the printed signs are the old world, the painted ones are who runs it now.</b></div>
+ <div class="big">
+  <canvas id="hero"></canvas>
+ </div>
+
+ <h2>3. WHO CHARGES WHAT, AND HOW MUCH GROUND THEY HOLD</h2>
+ <div class="say">Straight off the valley. Five crews run fortresses and charge for
+ everything. Four run towns. Five run camps and are the cheapest ground in the valley to
+ walk across.</div>
+ <table id="tbl"></table>
+
+ <h2>4. WHY THIS IS THE THIRD SIGN</h2>
+ <div class="say">The first two signs tell you about the dead world. This one tells you
+ something you can act on tonight: <b>walk two streets over and it is cheaper</b>. That is a
+ real decision, made out of a rule the game already runs, and right now there is no way for
+ a player to learn it except by losing batteries and guessing.</div>
+
+ <div class="foot">
+  Nothing here is in the game yet. The words are drafts. The numbers are not: they come out
+  of the same reading the nightfall bill uses, so a board and a bill can never disagree.
+ </div>
+</div>
+
+<script src="bohemia_sign_kit.js"></script>
+<script>
+/* ===========================================================================
+   THE NOTICE AT THE EDGE -- the cook, FACTIONS lane, [horror signs] round three,
+   9/22.
+
+   MEASURED FIRST, one boot of the one driver, and the numbers are the game's own.
+   BohemiaTowns.rentShape(tier, seats) answers what a tier charges, by ASKING
+   rentOn() repeatedly until the window repeats -- it is the posted rate, derived,
+   never typed. On the real valley:
+
+       fortress   every 1 block, 1 battery,  0 free    Caravans Cartel Mob Network Remnants
+       town       every 3 blocks, 2 batteries, 1 free  Anarchists Blues Church Reds
+       camp       every 3 blocks, 1 battery,  2 free   Colorful Custom Homeless Trades Volunteers
+
+   AND HE SPAWNS ON MOB FORTRESS GROUND (cell 48,48, block 122), which is the
+   harshest rent in the valley, held by the faction with the most cells of anybody
+   (1490). Nothing on any screen says so. ctRentLine already produces "Mob want 1
+   battery tonight for the 1 block of theirs you have used" and it lives on a panel
+   he has to open.
+
+   THE THIRD SILHOUETTE, AND THE FIRST LIVING ONE. Round one was a shop's pole
+   sign, round two an agency monument -- both PRINTED, both leftovers of the dead
+   world. This is a plank on two stakes, made last month, by hand, with a brush.
+   That contrast is the whole reason it is a different shape: the printed signs are
+   the old world still talking, and the painted ones are who runs it now. A player
+   should be able to tell those apart across a street without reading a word.
+   ======================================================================== */
+var K = window.BohemiaSignKit;
+var W = 96, H = 92, CX = 44;
+
+/* MEASURED 9/22 off the live demo. rentShape's own fields: per / charged / free. */
+var TIERS = [
+  { tier:'FORTRESS', per:1, charged:1, free:0,
+    who:'MOB', hex:'#454142',
+    crews:'Caravans, Cartel, Mob, Network, Remnants' },
+  { tier:'TOWN', per:3, charged:2, free:1,
+    who:'CHURCH', hex:'#826c3e',
+    crews:'Anarchists, Blues, Church, Reds' },
+  { tier:'CAMP', per:3, charged:1, free:2,
+    who:'TRADES', hex:'#674b34',
+    crews:'Colorful, Custom, Homeless, Trades, Volunteers' }
+];
+
+var SEATS = [
+  {f:'Mob',        tier:'fortress', cells:1490, hex:'#454142'},
+  {f:'Network',    tier:'fortress', cells:1221, hex:'#25a189'},
+  {f:'Remnants',   tier:'fortress', cells:1028, hex:'#4c5238'},
+  {f:'Cartel',     tier:'fortress', cells:875,  hex:'#434042'},
+  {f:'Caravans',   tier:'fortress', cells:545,  hex:'#6c5b41'},
+  {f:'Reds',       tier:'town',     cells:654,  hex:'#773229'},
+  {f:'Anarchists', tier:'town',     cells:528,  hex:'#573f2a'},
+  {f:'Blues',      tier:'town',     cells:473,  hex:'#2d5fb3'},
+  {f:'Church',     tier:'town',     cells:453,  hex:'#826c3e'},
+  {f:'Trades',     tier:'camp',     cells:445,  hex:'#674b34'},
+  {f:'Colorful',   tier:'camp',     cells:432,  hex:'#61a136'},
+  {f:'Homeless',   tier:'camp',     cells:378,  hex:'#968b82'},
+  {f:'Custom',     tier:'camp',     cells:363,  hex:'#363636'},
+  {f:'Volunteers', tier:'camp',     cells:331,  hex:'#c1bdb5'}
+];
+
+/* the plank. Bare ply that has been in the sun, and it is the one material here
+   that was never painted by an institution. */
+var WOOD = '#9c7f56';
+
+function drawNotice(g, t){
+  g.imageSmoothingEnabled = false;
+  g.clearRect(0,0,W,H);
+  K.hardpan(g, W, H, CX);
+
+  /* IT HAS TO TOUCH THE GROUND, and a board on stakes throws a thin shadow, not
+     the slab a monument throws. */
+  K.diamond(g, CX+6, 80, 26, 5, '#8a8070');
+
+  /* THE STAKES. Driven, not set in concrete: they go straight into the dirt and
+     one of them is deeper than the other, because somebody did this by hand. */
+  var stake = '#6f5a3c';
+  K.box3d(g, 16, 52, 5, 30, 4, stake, K.mix(stake,'#ffeccb',0.24), K.mix(stake,K.DARKEST,0.34));
+  K.box3d(g, 64, 52, 5, 28, 4, stake, K.mix(stake,'#ffeccb',0.24), K.mix(stake,K.DARKEST,0.34));
+
+  /* THE BOARD. One plank, and the whole thing hangs a pixel low on the right,
+     because a person with a hammer put it there and a person with a hammer is
+     never level. That is the only difference between this and a factory sign, and
+     it is the difference that matters. */
+  var bx=8, by=20, bw=70, bh=40, D=7;
+  K.box3d(g, bx, by, bw, bh, D, WOOD,
+          K.mix(WOOD,'#ffeccb',0.28), K.mix(WOOD,K.DARKEST,0.36));
+  /* the grain: two long marks, never noise */
+  g.fillStyle = K.mix(WOOD, K.DARKEST, 0.10);
+  g.fillRect(bx+2, by+bh-7, bw-6, 2); g.fillRect(bx+6, by+5, 40, 1);
+
+  /* THE PAINT. A band brushed across the top, in the crew's own colour, and it
+     does not reach the edges because a brush does not. COLOUR IS TERRITORY, and
+     on this sign the territory is the biggest thing in the frame. */
+  var band = K.mix(t.hex, '#fff7e2', 0.10);
+  g.fillStyle = band; g.fillRect(bx+2, by+3, bw-4, 13);
+  /* THE BRUSH RAN OUT, and it runs out in a DIFFERENT PLACE on each board.
+     The first cut put an identical block at the right-hand end of all three, which
+     is the same defect round one shipped with its corner stain: one accident
+     repeated is not an accident, it is a pattern, and it reads as a texture
+     somebody pasted. Placed off the crew's own name, so it is fixed per sign and
+     different between them without anything random, and it TAPERS in two steps
+     rather than stopping square, because that is what a dry brush does. */
+  var h=0; for(var _i=0;_i<t.who.length;_i++) h=(h*31+t.who.charCodeAt(_i))&255;
+  var rx = bx+2 + (h%3)*((bw-12)/3);
+  g.fillStyle = K.mix(band, WOOD, 0.35); g.fillRect(rx, by+3, 7, 13);
+  g.fillStyle = K.mix(band, WOOD, 0.62); g.fillRect(rx+3, by+3, 4, 7);
+  g.fillStyle = K.mix(band, K.DARKEST, 0.22); g.fillRect(bx+2, by+14, bw-4, 2);
+
+  /* WHOSE GROUND, painted over the band. Light on dark or dark on light, picked
+     off the band itself so a pale crew is still readable. */
+  var lum = (parseInt(t.hex.substr(1,2),16)*0.30
+           + parseInt(t.hex.substr(3,2),16)*0.59
+           + parseInt(t.hex.substr(5,2),16)*0.11);
+  var nameInk = lum > 140 ? K.mix(band, K.DARKEST, 0.70) : K.mix(band, '#fdf6e6', 0.80);
+  K.c5(g, t.who, bx+bw/2-1, by+5, nameInk, bw-8);
+
+  /* THE TERMS, stencilled on the bare wood under the paint. Both numbers come out
+     of rentShape and neither is typed. TWO SHORT LINES, NOT ONE LONG ONE: the
+     first cut wrote "1 BLOCK : 1 BATTERY" across a 70 px plank and it ran off
+     both edges, which is the third time this lane has hung text too wide for its
+     plate. The kit reports overflow now and this page prints it, so it cannot
+     happen again without somebody seeing it. */
+  var ink = K.mix(WOOD, K.DARKEST, 0.62);
+  var LIM = bw - 6;
+  var blocks = t.per === 1 ? 'EVERY 1 BLOCK' : ('EVERY ' + t.per + ' BLOCKS');
+  /* *** AND THE REPORTER CAUGHT A THIRD ONE I HAD ALREADY PASSED BY EYE. ***
+     "COSTS 2 BATTERIES" is 67 px in a 64 px space -- three pixels over, invisible
+     in a screenshot, and I had looked straight at it and called the board fixed.
+     The word COSTS is dropped on every line, which is better sign-writing anyway:
+     a rate board says 3 BLOCKS / 2 BATTERIES and nothing else. */
+  var cost   = t.charged === 1 ? '1 BATTERY' : (t.charged + ' BATTERIES');
+  K.c3(g, blocks, bx+bw/2-1, by+20, ink, LIM);
+  K.c3(g, cost,   bx+bw/2-1, by+27, ink, LIM);
+  /* AND THE LINE THAT MAKES THE DIFFERENCE LAND, derived from `free` and nothing
+     else: it is the number that decides where you walk. */
+  var hard = t.free === 0;
+  K.c3(g, hard ? 'NOTHING IS FREE'
+               : (t.free===1 ? 'ONE IS ON US' : 'TWO ARE ON US'),
+       bx+bw/2-1, by+34, hard ? K.mix(ink, t.hex, 0.35) : K.mix(ink, WOOD, 0.22), LIM);
+
+  /* four nails, and they are the tell that this was hung rather than installed */
+  g.fillStyle = K.mix(WOOD, K.DARKEST, 0.55);
+  g.fillRect(bx+10, by+2, 1, 1); g.fillRect(bx+bw-11, by+2, 1, 1);
+  g.fillRect(bx+10, by+bh-3, 1, 1); g.fillRect(bx+bw-11, by+bh-3, 1, 1);
+}
+
+function cv(){ var c=document.createElement('canvas'); c.width=W; c.height=H; return c; }
+
+var hero = document.getElementById('hero');
+hero.width = W; hero.height = H;
+drawNotice(hero.getContext('2d'), TIERS[0]);
+
+var three = document.getElementById('three');
+for (var i=0;i<TIERS.length;i++){
+  var t = TIERS[i];
+  var d = document.createElement('div');
+  var c = cv(); d.appendChild(c);
+  drawNotice(c.getContext('2d'), t);
+  var lab = document.createElement('div'); lab.className='tl';
+  lab.innerHTML = '<b>'+t.tier+'</b><br>'
+    + (t.free===0 ? 'you pay for every block'
+                  : t.free+' block'+(t.free===1?'':'s')+' in '+t.per+' free');
+  d.appendChild(lab); three.appendChild(d);
+}
+
+var rows = '<tr><th>CREW</th><th>GROUND</th><th>THE DEAL</th><th>CELLS</th></tr>';
+for (var j=0;j<SEATS.length;j++){
+  var s = SEATS[j];
+  var deal = s.tier==='fortress' ? 'every block'
+           : (s.tier==='town' ? '2 of every 3' : '1 of every 3');
+  rows += '<tr><td><span class="sw" style="background:'+s.hex+'"></span>'+s.f+'</td>'
+       +  '<td>'+s.tier+'</td><td>'+deal+'</td><td>'+s.cells+'</td></tr>';
+}
+document.getElementById('tbl').innerHTML = rows;
+
+/* THE KIT'S OWN OVERFLOW REPORT. If any string on this page was hung wider than
+   the thing it is painted on, it says so here instead of me finding it in a
+   screenshot two rounds later. Empty is the expected state. */
+(function(){
+  if (!K.overflows || !K.overflows.length) return;
+  var w = document.createElement('div');
+  w.className = 'now';
+  var lines = K.overflows.map(function(o){
+    return '"' + o.text + '" is ' + o.width + ' px wide in a ' + o.maxW + ' px space';
+  }).join('<br>');
+  w.innerHTML = '<b>TEXT RAN OFF ITS SIGN:</b><br>' + lines;
+  document.querySelector('.wrap').insertBefore(w, document.querySelector('.wrap').firstChild);
+})();
+</script>
+</body></html>

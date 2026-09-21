@@ -75,12 +75,30 @@
     for(i=0;i<s.length;i++){ var r=F5[s.charAt(i)]||F5[' '];
       for(ry=0;ry<7;ry++){ var b=r[ry];
         for(rx=0;rx<5;rx++) if(b&(16>>rx)) g.fillRect(x+i*6+rx,y+ry,1,1); } } }
-  function c3(g,s,cx,y,col){ put3(g,s,Math.round(cx-w3(s)/2),y,col); }
+  /* *** TEXT THAT DOES NOT FIT ITS PLATE HAS NOW HAPPENED THREE TIMES. ***
+     Round one ran OF THE SANDS off both edges of a chapel. Round three ran
+     "1 BLOCK : 1 BATTERY" and "NOTHING HERE IS FREE" off both edges of a plank.
+     Every time it is invisible in the source and obvious in the render, and every
+     time the fix was local to one page, so the next sign hit it again.
+     SO THE KIT REPORTS ITS OWN OVERFLOWS. Pass the width the text has to live in
+     and anything too wide lands in K.overflows, which a page prints. It still
+     draws -- clipping or truncating would be a lie about what was asked for --
+     but it can no longer ship quietly. */
+  var overflows = [];
+  function fit(s, w, maxW){
+    if (maxW && w > maxW) overflows.push({ text:s, width:w, maxW:maxW });
+    return w;
+  }
+  function c3(g,s,cx,y,col,maxW){
+    var w = fit(s, w3(s), maxW);
+    put3(g,s,Math.round(cx-w/2),y,col); }
   /* A NAME TOO LONG FOR ITS PLATE DROPS TO THE SMALL FACE, which is what a real
      sign does with its second line: the name is big and the qualifier under it is
      whatever fits. Round one ran OF THE SANDS off both edges of a chapel. */
   function c5(g,s,cx,y,col,maxW){
-    if(w5(s) > (maxW||62)){ put3(g,s,Math.round(cx-w3(s)/2),y+1,col); return 5; }
+    var lim = maxW||62;
+    if(w5(s) > lim){ var w=fit(s, w3(s), lim);
+                     put3(g,s,Math.round(cx-w/2),y+1,col); return 5; }
     put5(g,s,Math.round(cx-w5(s)/2),y,col); return 7; }
 
   var DARKEST = '#17130d';
@@ -115,6 +133,7 @@
 
   root.BohemiaSignKit = {
     F3:F3, F4:F4, F5:F5, w3:w3, w5:w5, put3:put3, put5:put5, c3:c3, c5:c5,
-    DARKEST:DARKEST, mix:mix, box3d:box3d, diamond:diamond, hardpan:hardpan
+    DARKEST:DARKEST, mix:mix, box3d:box3d, diamond:diamond, hardpan:hardpan,
+    overflows: overflows
   };
 })(typeof window !== 'undefined' ? window : this);
