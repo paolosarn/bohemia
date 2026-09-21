@@ -68,9 +68,28 @@ This is the rule that does the most work, because bandwidth is an identity:
 - an AM broadcast: about 100 Hz to 5 kHz, because 10 kHz channel spacing leaves 5 kHz of
   audio, which is exactly why an AM voice sounds boxed in
 - a telephone line: 300 Hz to 3.4 kHz
-*The number:* every sound declares WHICH machine it came off, and its top corner (the
-highest frequency within 20 dB of its own peak) matches that machine's number within an
-octave. A sound with no declared machine is not done.
+*The number:* every sound declares WHICH machine it came off, and **less than 5% of its
+energy sits above that machine's number, with less than 1% an octave above it.** A sound
+with no declared machine is not done.
+
+> **CORRECTED 9/21, LATER THE SAME ROUND, AND THE ORIGINAL WORDING WAS WRONG IN A WAY
+> THAT COST FIVE ATTEMPTS.** This rule first said the top corner is "the highest frequency
+> within 20 dB of its own peak". That is not what a machine's published bandwidth means:
+> when a cassette deck "reaches 14 kHz" or an AM channel "passes 5 kHz", that is a **-3 dB**
+> figure, and the two numbers are far apart for any real filter.
+> Worse, NEITHER of them is one quantity across different shapes of sound. The -20 dB point
+> rides on noise scatter (a carrier measured as reaching Nyquist with a real roll-off in
+> place, because single noise bins scatter more than 10 dB). The -3 dB point rides on
+> whichever peak happens to dominate (a footstep measured 108 Hz, because its low body is
+> louder than its whole noise shelf). Chasing them made me change two correctly built
+> sounds to satisfy a bad ruler, once breaking the band and once filtering the life out of
+> the sound (flatness 0.253 down to 0.0095, exactly the near-tone the cook exists to
+> replace).
+> **SO THE RULE IS ENERGY NOW, WHICH IS SHAPE-INDEPENDENT.** Measured on the three sounds
+> cooked this round: 0.54%, 0.63% and 0.03% above their declared corners, and 0.01%, 0.01%
+> and 0% an octave above. The 5% and 1% bars sit an order of magnitude clear of those
+> readings rather than inside their spread, which is the mistake five earlier thresholds in
+> this lane have already made. Gate: `cooked_sounds_gate.js`.
 
 **RULE 5. THE PITCH IS NOT STABLE, BECAUSE THE MOTOR IS NOT STABLE.**
 Tape wow is slow pitch drift, 0.5 to 6 Hz; flutter is faster, above about 6 Hz. A consumer

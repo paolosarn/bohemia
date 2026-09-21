@@ -1,3 +1,118 @@
+SOUNDS (sound-xk7pjp): 9/21 (b) LATEST -- *** COOKED, RULE 22: THREE SOUNDS, ALL THREE IN THE
+VOTE TAB, AND THE CHECKER IS DELIBERATELY THE SMALL PART. *** Row [cook sounds] stays CLAIMED.
+Record: records/BOHEMIA_THREE_SOUNDS_9_21_26.md  Gate: COOKED SOUNDS 27/0, mutation bites 8.
+Tab: VOTE, one page with a metronome so he can hear each against the tick.
+
+THE ROW ASKED FOR FOUR SOUNDS AND FOUR REGISTRY ITEMS. The room hum for the BEGIN tap was
+cooked and registered the round before and is live on main, so this round cooked the other
+three: A FOOTSTEP THAT LANDS ON THE BEAT, THE STEP LOSES CONTACT, THE PHONE STILL TRANSMITS.
+The row's own next four (a song through the dead speaker, the fold, the fight's cloud, the
+door) are next round, which is why the row is not closed.
+
+WHAT EACH ONE IS, IN NUMBERS:
+  A FOOTSTEP THAT LANDS ON THE BEAT. A cook, not a tweak: 51 of the 65 approved sounds measure
+    as near-pure tones (median flatness 0.0037) and a real footfall is not a tone at all. So
+    noise-first: flatness 0.3099, 60.7% of its energy above 1 kHz, 30.7% above 4 kHz, 180 ms
+    long so it cannot smear the next beat, and its loudest instant 13.1 ms in. ON THE BEAT BY
+    THE GAME'S OWN CLOCK, not by a number I chose: the fight grades a press PERFECT inside 55 ms.
+  THE STEP LOSES CONTACT. Timed to ANOTHER LANE'S GROUND rather than to my taste: ANIMATION's
+    TAPE walk holds the lot he left for 55% of the beat then drops through two stations, and
+    this reads that same list of fractions, so if they move a station the sound follows.
+    Drop-outs at 275 ms and 390 ms, 34 ms each, measured 12.3 dB down (school rule 6 allows 6
+    to 20), the top going before the level (share above 2 kHz 49.1% -> 21.5%), never reaching
+    silence, zero exact digital zeros.
+    AND THE STATION AT 1.00 IS NOT A DROP-OUT, WHICH MEASURING TAUGHT ME: my first cut put one
+    there, it sat at the buffer's end with nothing left to dive into, and its depth came back
+    NULL. A READING OF NULL IS THE INSTRUMENT SAYING THE IDEA WAS WRONG. 1.00 is the beat
+    landing him on the next lot, and the sound of that is the next footstep.
+  THE PHONE STILL TRANSMITS. 853 and 960 Hz sounded together, a real attention signal's
+    published pair, 107 Hz apart so they beat against each other and never resolve. Through a
+    100 Hz to 5 kHz band carrying the steepest filter in the file, and the reason is physical:
+    a transmitter's band limit is steep BY REGULATION or it splatters into the next channel.
+    The tone runs one beat and the carrier keeps going after it, which is school rule 7.
+
+ONE COPY, READ BY EVERYBODY: engine/bohemia_horror_sounds.js is the one body the vote page
+plays from and the gate measures from, so no number is typed twice. AND THE SAME LESSON BIT
+AGAIN INSIDE THIS ROUND, SMALLER: the band-limiter existed three times, I fixed a single-pole
+mistake in one recipe, and the phone's carrier STILL read all the way to Nyquist because the
+same mistake was sitting in the other two. A FIX APPLIED IN ONE PLACE WHEN THE MISTAKE LIVES
+IN THREE IS NOT A FIX, IT IS A HEAD START ON THE NEXT BUG. There is one bandTo now.
+
+*** THE BAND CLAIM COST FIVE ATTEMPTS AND EVERY ONE OF THEM BLAMED A SOUND THAT WAS CORRECTLY
+BUILT. THIS IS THE PART OF THE ROUND WORTH KEEPING. ***
+  1  one pole at 2,600 Hz. 6 dB an octave does not stop a band, it leans on it: 6.2% of the
+     footstep's energy sat above its declared corner.
+  2  three poles at 2,600 Hz. Steeper, and I FORGOT THAT CASCADING MOVES THE CORNER DOWN: the
+     combined -3 dB point of N identical one-poles is fc*sqrt(2^(1/N)-1), so 0.51*fc for
+     three, and the real corner fell to about 1.3 kHz. Measured, flatness went 0.253 -> 0.0095
+     and the top corner 4,867 -> 1,314 Hz. *** I HAD TURNED THE SOUND BACK INTO THE NEAR-TONE
+     THE WHOLE COOK EXISTS TO REPLACE, AND THE BAND CLAIM WENT GREEN WHILE I DID IT. A FIX
+     THAT PASSES THE CHECK BY DESTROYING THE THING BEING CHECKED IS NOT A FIX. ***
+  3  derive the per-pole corner from the wanted corner. Right idea; the footstep came good
+     (4,554 Hz against a declared 4,500) and the phone did not.
+  4  four poles on the carrier, reasoning that more poles is steeper. IT IS NOT, at a fixed
+     frequency: a derived corner with more poles has a flatter passband and a roll-off that
+     starts LATER. Measured in octave bands, the carrier peaked at 2-4 kHz and sat only 4.8 dB
+     down at 8-16 kHz. The filter was doing exactly what it was built to do.
+  5  measure the -3 dB edge instead, since that is what a published bandwidth means. The phone
+     came good and THE FOOTSTEP MEASURED 108 Hz, because its low body is louder than its
+     entire noise shelf.
+  AT FIVE I STOPPED, which is what STOP PRODUCING says to do. THERE IS NO SINGLE CORNER
+  FREQUENCY THAT MEANS THE SAME THING ACROSS AN IMPACT WITH A LOW THUMP, A HISS BED AND A TONE
+  OVER A CARRIER: the -20 dB point rides on noise scatter (single noise bins scatter by more
+  than 10 dB on their own), the -3 dB point rides on whichever peak happens to dominate.
+  THE CLAIM IS ENERGY NOW, which is shape-independent, with a four-pole split so the measure
+  is not its own leak:
+        a footstep on the beat      0.54% above its declared corner, 0.01% an octave above
+        the step loses contact      0.63%                            0.01%
+        the phone still transmits   0.03%                            0.00%
+        the gate's bars            under 5%                         under 1%
+  ALL THREE WERE CORRECTLY BAND-LIMITED THE ENTIRE TIME, and the bars sit an order of magnitude
+  clear of the readings instead of inside their spread, which is the mistake five earlier
+  thresholds in this lane have already made.
+
+AND THE RECORD WAS WRONG, NOT JUST THE CODE. The school page's rule 4 said the top corner is
+"the highest frequency within 20 dB of its own peak". That is not what a machine's published
+bandwidth means: a cassette reaching 14 kHz is a -3 dB figure. CORRECTED IN PLACE, with the
+reason, because a law that cannot be measured sends the next round down the same five attempts.
+
+TWO THINGS THE CHECKER ITSELF GOT WRONG FIRST, both the same family:
+  A CHECK THAT CANNOT PRODUCE A NUMBER IS NOT A STRICT CHECK, IT IS NO CHECK. The
+    top-goes-first claim asked for a 4,096-point spectrum of a 34 ms window, which is 1,499
+    samples, so it returned null every time and printed "?% -> ?%". It filters instead now.
+  A CHECKER THAT CRASHES DOES NOT SAY WHICH CLAIM BROKE. Under mutation the phone has no tone
+    pair and the first cut called .join on undefined, dying at "the gate ran". Same failure
+    shape as the empty catch that silenced every footstep: a specific answer became no answer.
+
+NOTHING PUSHED INTO THE WALKED STREET OR THE FIGHT (rule 22b: the hold is on the play surface,
+not on the making). The 65 approved sounds, the 142 songs, the footstep bank the game plays and
+the room hum from the round before are all untouched; these are candidates. No engine file any
+slice loads was changed; bohemia_horror_sounds.js is a new module nothing in the game imports.
+
+WHAT IS NEXT IN THIS LANE, IN ORDER:
+  [cook sounds] round two: the row's own other four, a song through the dead speaker, the fold,
+    the fight's cloud, the door. Nothing blocks it.
+  [analog horror sound] round two: the keep/redo of all 65 sounds and 142 songs against the ten
+    rules, with the 65-row table in the school page as the frozen baseline and the checker
+    landing with it. RULE 4 IS NOW MEASURABLE, which it was not when that baseline was written,
+    so the keep/redo can actually score the band instead of arguing about it.
+  [footsteps on the beat] round two: the walk makes a sound again since the JSON fix, so the
+    spacing can finally be read. The limiter is 0.12 s and a beat is 0.5 s and which one the
+    walk obeys is still unknown. NOTE FOR WHOEVER MEASURES IT: the one driver takes opts.file
+    and IGNORES opts.alpha, so point it at BOHEMIA_ALPHA_0_9.html or you measure a stale demo
+    cut; two lanes lost a round to that in one day.
+  [scheduled beat] still CLAIMED, round two is a clock the audio thread owns. It touches the
+    transport, which is not one of the four things, so it still waits.
+  Then [enemy heard], [fight music], [quiet floor], [rumour heard], [pump hum], and
+  [into the vote tab], which this lane has never started.
+
+OWED TO HIM IN THE VOTE TAB, now four items with real audio behind them: the room at 60% of the
+heartbeat's energy and ducking rather than stopping; the footstep's dryness and whether it sits
+on the tick; how much the step should lose contact; and whether the phone's two tones are too
+much (the likeliest of the three to be).
+CARRIED, RECORDED NOT ACTED ON, BECAUSE LEVELS ARE HIS: THE GAPS IN THE HYMNAL peaks 25.6x the
+median on a CANON song; MENU - LIGHTS ACROSS THE VALLEY peaks 1.064 (BURIED).
+
 WORDS (words-8dqrnq): 9/22 LATEST -- *** COOKED, RULE 22: words-a-mouth-not-a-narrator-9-22 IS IN THE
 VOTE TAB. AND THE THING I FOUND GETTING THERE IS THE ROUND. *** Record:
 records/BOHEMIA_WORDS_A_MOUTH_NOT_A_NARRATOR_9_22_26.md

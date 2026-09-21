@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>THREE SOUNDS</title>
+<!-- SOUNDS lane, 9/21, row [cook sounds], rule 22.
+     THIS PAGE PLAYS THE RECIPES THEMSELVES. It loads engine/bohemia_horror_sounds.js,
+     the one body, the same file the gate measures. Nothing here re-synthesises anything
+     and no number is typed twice: the round before this, a second copy of the footstep
+     bank sat in the alpha and every footstep in the game was silent for days. -->
+<style>
+  :root{ --ink:#1b1408; --paper:#e8dfc9; --line:#8a7a52; --panel:#f2ead6; --dim:#6a5a3e; --hot:#b4462a; }
+  html,body{margin:0;background:var(--paper);color:var(--ink);
+    font:15px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace}
+  .wrap{max-width:720px;margin:0 auto;padding:18px 16px 70px}
+  h1{font-size:19px;letter-spacing:2px;margin:0 0 2px}
+  .sub{color:var(--dim);font-size:12px;letter-spacing:1px;margin-bottom:8px}
+  .beatbar{display:flex;gap:4px;margin:10px 0 18px}
+  .beatbar i{flex:1;height:6px;background:#d6cbb0;border:1px solid var(--line)}
+  .beatbar i.on{background:var(--ink)}
+  .card{background:var(--panel);border:1px solid var(--line);padding:14px;margin:0 0 14px}
+  .card h2{font-size:14px;letter-spacing:1.5px;margin:0 0 6px}
+  .why{font-size:13px;margin:0 0 10px}
+  .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  button{font:inherit;background:var(--paper);color:var(--ink);border:1px solid var(--line);
+    padding:9px 12px;min-height:44px;cursor:pointer;letter-spacing:1px}
+  button:active{transform:translateY(1px)}
+  button.on{background:var(--ink);color:var(--paper)}
+  .num{font-size:12px;color:var(--dim);margin-top:8px;white-space:pre-wrap}
+  textarea{width:100%;box-sizing:border-box;font:inherit;background:var(--paper);
+    color:var(--ink);border:1px solid var(--line);padding:8px;min-height:60px}
+  label{font-size:12px;letter-spacing:1px;color:var(--dim);display:block;margin:10px 0 4px}
+  .foot{border-top:2px solid var(--line);margin-top:22px;padding-top:14px}
+  .warn{color:var(--hot);font-size:12px;margin-top:6px}
+</style></head><body><div class="wrap">
+
+<h1>THREE SOUNDS</h1>
+<div class="sub">SOUNDS &middot; 9/21 &middot; every one of these plays on the beat &middot; notes box at the bottom</div>
+<div class="beatbar" id="bar"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+<div class="row"><button id="metro">BEAT: OFF</button><button id="stop">STOP EVERYTHING</button></div>
+<div class="num" id="head"></div>
+
+<div class="card">
+  <h2>1. A FOOTSTEP THAT LANDS ON THE BEAT</h2>
+  <div class="why">Your old footsteps were almost pure tones, like a beep. A real footfall
+  is mostly noise with a little weight under it. This one is noise-first and its loudest
+  instant is right at the start, so the step lands ON the beat instead of just after it.
+  Play it against the beat above and it should sit exactly on the tick.</div>
+  <div class="row"><button data-play="footstep">PLAY IT</button><button data-play="footstep" data-loop="1">ON EVERY BEAT</button></div>
+  <div class="row" data-q="foot" style="margin-top:10px">
+    <button data-v="up">👍</button><button data-v="down">👎</button><button data-v="close">CLOSE, BUT</button>
+  </div>
+  <label>NOTES ON THIS ONE</label><textarea data-n="foot"></textarea>
+</div>
+
+<div class="card">
+  <h2>2. THE STEP LOSES CONTACT</h2>
+  <div class="why">The same step, but the sound drops out twice while you are mid-stride,
+  like old tape losing its grip on the head. It goes dull first and then quiet, and it
+  never goes fully silent, because real tape does not. The two drop-outs are timed to the
+  exact moments the ground skips under you in the walk, so what you hear is what you see.</div>
+  <div class="row"><button data-play="stepWithDropouts">PLAY IT</button><button data-play="stepWithDropouts" data-loop="1">ON EVERY BEAT</button></div>
+  <div class="row" data-q="step" style="margin-top:10px">
+    <button data-v="up">👍</button><button data-v="down">👎</button><button data-v="too">TOO MUCH</button>
+  </div>
+  <label>NOTES ON THIS ONE</label><textarea data-n="step"></textarea>
+</div>
+
+<div class="card">
+  <h2>3. THE PHONE STILL TRANSMITS</h2>
+  <div class="why">What the phone sounds like when you open it. Two tones together that do
+  not agree with each other, the way an old emergency alert did, coming through a dead
+  radio band. Then the tones stop and the hiss keeps going, because the transmitter is
+  still on and there is nobody at the other end.</div>
+  <div class="row"><button data-play="phoneTone">PLAY IT</button></div>
+  <div class="row" data-q="phone" style="margin-top:10px">
+    <button data-v="up">👍</button><button data-v="down">👎</button><button data-v="softer">SOFTER</button>
+  </div>
+  <label>NOTES ON THIS ONE</label><textarea data-n="phone"></textarea>
+</div>
+
+<div class="foot">
+  <label>ANYTHING ELSE, ABOUT ANY OF IT</label>
+  <textarea id="all" style="min-height:110px"></textarea>
+  <div class="row" style="margin-top:12px"><button id="exp">EXPORT MY NOTES (.txt)</button></div>
+  <div class="num">Plain .txt. Nothing here is saved anywhere else.</div>
+</div>
+
+<script src="../engine/bohemia_horror_sounds.js"></script>
+<script>
+var H = window.BOH_HORROR_SOUNDS;
+var AC = null, live = [], metro = null, cache = {};
+function ac(){ if(!AC) AC = new (window.AudioContext||window.webkitAudioContext)();
+  if(AC.state==='suspended') AC.resume(); return AC; }
+function made(which){
+  var c = ac();
+  if(!cache[which]) cache[which] = H[which](c, {});
+  return cache[which];
+}
+function head(){
+  var f = made('footstep'), s = made('stepWithDropouts'), p = made('phoneTone');
+  document.getElementById('head').textContent =
+    'the beat is ' + H.BPM + ' BPM, so one beat is ' + (H.BEAT*1000) + ' ms\n'
+    + 'the footstep is ' + Math.round(f.seconds*1000) + ' ms long, shorter than half a beat, so it cannot smear the next one\n'
+    + 'the step drops out at ' + s.dropouts.map(function(x){return Math.round(x.atSeconds*1000)+' ms';}).join(' and ')
+    + ', which is where the ground skips (' + s.dropoutStations.join(' and ') + ' of a beat)\n'
+    + 'each drop-out is ' + s.dropMs + ' ms and ' + s.depthDb + ' dB down, and never reaches silence\n'
+    + 'the phone is ' + p.tones.join(' and ') + ' Hz together, ' + p.beatBetweenHz + ' Hz apart, through a '
+    + p.machine.lo + ' to ' + p.machine.hi + ' Hz band';
+}
+function stopAll(){ live.forEach(function(n){ try{ n.stop(); }catch(e){} }); live = []; }
+function fire(which, at){
+  var c = ac(), m = made(which);
+  var s = c.createBufferSource(); s.buffer = m.buffer;
+  var g = c.createGain(); g.gain.value = 0.9;
+  s.connect(g); g.connect(c.destination);
+  s.start(at || 0);
+  live.push(s);
+}
+document.querySelectorAll('button[data-play]').forEach(function(b){
+  b.onclick = function(){
+    var which = b.dataset.play;
+    if(b.dataset.loop){ startMetro(which); } else { fire(which); }
+    head();
+  };
+});
+/* THE BEAT, SO HE CAN HEAR WHETHER A SOUND SITS ON IT. A looping click at 120 BPM
+   scheduled ahead on the audio clock, never on a page timer: this lane spent a round
+   proving the main thread cannot keep 120 BPM on a phone. */
+var metroOn = false, metroWhich = null, nextAt = 0, timer = null, bar = 0;
+function clickBuf(){
+  var c = ac(), n = Math.round(c.sampleRate*0.02), b = c.createBuffer(1,n,c.sampleRate), d = b.getChannelData(0);
+  for(var i=0;i<n;i++) d[i] = Math.sin(2*Math.PI*1800*i/c.sampleRate) * Math.pow(1-i/n,6) * 0.25;
+  return b;
+}
+var CLICK = null;
+function startMetro(which){
+  metroWhich = which || metroWhich;
+  if(metroOn) return;
+  var c = ac(); CLICK = CLICK || clickBuf();
+  metroOn = true; document.getElementById('metro').textContent = 'BEAT: ON';
+  document.getElementById('metro').classList.add('on');
+  nextAt = c.currentTime + 0.12;
+  timer = setInterval(function(){
+    var c = ac();
+    while(nextAt < c.currentTime + 0.25){
+      var s = c.createBufferSource(); s.buffer = CLICK;
+      s.connect(c.destination); s.start(nextAt); live.push(s);
+      if(metroWhich) fire(metroWhich, nextAt);
+      var k = bar++ % 8;
+      (function(kk, when){ setTimeout(function(){
+        var xs = document.querySelectorAll('#bar i');
+        xs.forEach(function(x,i){ x.classList.toggle('on', i===kk); });
+      }, Math.max(0,(when - c.currentTime)*1000)); })(k, nextAt);
+      nextAt += H.BEAT;
+    }
+  }, 25);
+}
+function stopMetro(){
+  metroOn = false; if(timer) clearInterval(timer); timer = null; metroWhich = null;
+  document.getElementById('metro').textContent = 'BEAT: OFF';
+  document.getElementById('metro').classList.remove('on');
+  document.querySelectorAll('#bar i').forEach(function(x){ x.classList.remove('on'); });
+}
+document.getElementById('metro').onclick = function(){ metroOn ? stopMetro() : startMetro(null); };
+document.getElementById('stop').onclick = function(){ stopMetro(); stopAll(); };
+
+var picks = {};
+document.querySelectorAll('.row[data-q]').forEach(function(row){
+  row.querySelectorAll('button').forEach(function(b){
+    b.onclick = function(){
+      row.querySelectorAll('button').forEach(function(x){ x.classList.remove('on'); });
+      b.classList.add('on'); picks[row.dataset.q] = b.dataset.v;
+    };
+  });
+});
+document.getElementById('exp').onclick = function(){
+  var L = ['BOHEMIA VERDICT -- THREE SOUNDS (SOUNDS, 9/21)', ''];
+  [['foot','A FOOTSTEP THAT LANDS ON THE BEAT','sounds-a-footstep-on-the-beat-9-21'],
+   ['step','THE STEP LOSES CONTACT','sounds-the-step-loses-contact-9-21'],
+   ['phone','THE PHONE STILL TRANSMITS','sounds-the-phone-still-transmits-9-21']].forEach(function(q){
+    L.push(q[1]); L.push('  registry id: ' + q[2]);
+    L.push('  VERDICT: ' + (picks[q[0]] || 'NOT ANSWERED'));
+    var t = document.querySelector('textarea[data-n="'+q[0]+'"]');
+    if(t && t.value.trim()) L.push('  NOTES: ' + t.value.trim());
+    L.push('');
+  });
+  var a = document.getElementById('all').value.trim();
+  if(a){ L.push('ANYTHING ELSE'); L.push('  ' + a); }
+  var blob = new Blob([L.join('\n')], {type:'text/plain'});
+  var u = URL.createObjectURL(blob), el = document.createElement('a');
+  el.href = u; el.download = 'BOHEMIA_VERDICT_THREE_SOUNDS_9_21.txt';
+  document.body.appendChild(el); el.click(); el.remove();
+  setTimeout(function(){ URL.revokeObjectURL(u); }, 1500);
+};
+</script>
+</div></body></html>
