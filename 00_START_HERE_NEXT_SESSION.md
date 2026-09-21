@@ -12840,7 +12840,82 @@ walk census). Then [music owned] THE-MUSIC-ITSELF.
 
 ------------------------------------------------------------------------
 
-LIFE + CITY (city-1eztay): 9/21 (a) LATEST -- *** SIX THOUSAND SEALED CELLS WERE THIRTEEN. THE WINDOW
+LIFE + CITY (city-1eztay): 9/21 (b) LATEST -- *** COOKED: THE BATTERY SHED, IN THE VOTE TAB. AND THE
+LOT THAT TURNED OUT TO BE A STRIDE. *** MODE: BUILD, held on the play surface under rule 18, COOKING
+under rule 22. Row [one lot number] SHIPPED. Nothing went to the demo.
+
+RULE 22 (Paolo 9/21): "I need to be seeing them cooking up more, every time, not never." He is right
+about this lane too -- the last two rounds were a measurement and a measurement. A making lane makes
+one real thing every round or the round did not happen, and rule 22(a) names this lane's thing: A
+BUILDING.
+
+THE THING: slices/vote/LIFECITY_THE_BATTERY_SHED_9_21.png, in the VOTE TAB as "THE BATTERY SHED, THE
+FIRST BUILDING THAT MAKES MONEY", registry id lifecity-the-battery-shed-9-21.
+The small battery shed a player puts on their OWN lot. Not the grid-scale storage yard, which already
+exists as a district (three fire-lane rows of containers behind a double fence) -- the house-sized one
+this lane has had open as [power buildings]. Footprint 5 x 4 fine cells against a lot of 24, about
+3.8 m by 3.0 m, which is what a household battery enclosure actually is. Batteries are the money, so
+it is the first building in the game that makes the money.
+ ANALOG HORROR AT THE SOURCE, NOT A FILTER (rule 20). The frame is ordinary: a metal shed on a dead
+ lot, gravel, a chained door, a meter on a conduit, a dead pole light, dead brush. ONE THING IN IT IS
+ WRONG and it is the only saturated colour in the picture: THE INDICATOR LAMP IS STILL LIT. Nothing
+ else on the lot has power, the meter needle is stuck, and this box is still working. The only light
+ it throws is the short bloom a real indicator LED throws on the metal beside it, which is AH-01's
+ "the light was in the room". No grime layer, no scanline.
+ REUSE-FIRST: the palette is pulled LIVE out of engine/bohemia_battery.js, the battery district's own
+ canon, so the shed and the big yard are one world; the factory REFUSES TO RUN rather than fall back
+ to invented colours. REFERENCE CHECK cites BLDG-03, BLDG-05, AH-01.
+ AND I DREW IT WRONG FIRST AND COMPARED IT TO THE WORLD. The first cut was a side-on isometric box
+ with a black void above it. The walked city is seen from ABOVE: every building is its roof plus the
+ one wall facing you, and there is no sky in the frame. Redrawn top-down with the ground filling the
+ picture, the way it looks when he walks. Tool: tools/bohemia_battery_shed_factory.py, deterministic.
+
+[one lot number] SHIPPED, AND IT RODE BESIDE THE COOKING RATHER THAN INSTEAD OF IT.
+ANIMATION e764a506 found three live numbers for one lot: LOT_FINE 24, BODY_SCALE.lotFine 25,
+STEP_CELLS 25.
+ *** I TRIED THE OBVIOUS FIX FIRST AND IT MADE THE GAME WORSE. *** Pointing everything at the lattice
+ put all three at 24 and RUN's own THE WALK NEVER MISSES went 19/0 -> 17/2: FIVE STUCK PRESSES and TWO
+ GAPS WALKED PAST on his own block, which is that row's entire ship test. Backed out, not shipped.
+ THERE ARE TWO THINGS AND THREE NAMES:
+   THE LOT     24   what engine/bohemia_suburb.js packs houses on, held by the gate against that
+                    generator on every run
+   THE STRIDE  25   how far one press carries him, RUN's, measured on the walk
+ And the field called lotFine was THE STRIDE WEARING THE LOT'S NAME: its only live reader was the line
+ that sets STEP_CELLS from it (the body is a constant now under CHARACTER [body fixed], and
+ lotFitsOnScreen is uncalled). Renamed strideFine. Nothing moved: 25 is still 25.
+ IS THE LOT 24 OR 25, MEASURED ON THE GROUND INSTEAD OF ARGUED: 54 house-to-house pitches across 15
+ scan lines through the suburb he wakes in. MEDIAN 24. Spread 22 (x8), 24 (x8), 23 (x6), 25 (x6),
+ 26 (x4) -- the models are different widths, which is exactly how a walk of real footprints landed on
+ 25 and NEITHER MEASUREMENT WAS WRONG. 24 is the one with a gate under it.
+ AND MY OWN RENAME BROKE RUN'S GATE FOR ONE RUN: removing lotFine outright made THE WALK NEVER MISSES
+ report "a house fits on the glass (NaN px lot on a 378 px screen)", because other lanes ask this
+ object for the lot. A RENAME IS ONLY HONEST IF THE THING THAT WAS REALLY MEANT IS STILL THERE UNDER
+ THE RIGHT NAME. The lot is back and READS the lattice, and my gate leg is now "no TYPED lot" instead
+ of "no field called lot", which was the wrong rule written in a hurry.
+ FOR RUN, MEASURED AND NOT DECIDED: whether the stride should BE the lot is [one camera]'s call, and
+ it costs five stuck presses at 24 until the stride rules are re-measured at that length.
+
+GATES: WHERE A STEP MAY LAND 39/0 (three new legs for the one lot number), RUN's THE WALK NEVER
+MISSES restored to 19/0 and checked before AND after, THE STRIDE NEVER MISSES, THE WINDOW IS NOT A
+WALL, THE VOTE TAB with the shed registered, ENGINE SYNC, SUITE HONESTY. Full suite: 107 red at
+ad23d875, none mine. RED ON MAIN AND NOT MOVED BY THIS DIFF, checked on a clean copy: REUSE-FIRST and
+REFERENCE CHECK (86 unchecked against a frozen 85, identical on clean main); the new factory carries
+both blocks and passes its own legs.
+
+STILL OPEN AND ANSWERED BUT NOT CLOSED: [sealed yards] asks for every doorstep on his block to have a
+walkable way to the road. Last round measured that: 6,094 "unreachable" cells in a 384-cell window
+were 13 once the window stopped being the wall, and the two cells the row names are his own ground by
+a four-way AND an eight-way flood. The row's ship test can be answered with BOH_LATTICE.reaches, which
+now exists, whenever the coordinator wants it closed.
+
+HELD, under rule 18(b): [horror city] (school), [tiles not slabs], [buildings appear], [power
+buildings], [owner shown], [bill lands], [shelves seen].
+
+Record: records/BOHEMIA_THE_BATTERY_SHED_AND_THE_LOT_THAT_WAS_A_STRIDE_9_21_26.md
+
+------------------------------------------------------------------------
+
+LIFE + CITY (city-1eztay): 9/21 (a) -- *** SIX THOUSAND SEALED CELLS WERE THIRTEEN. THE WINDOW
 WAS THE WALL, AND IT WAS MY OWN WINDOW. *** MODE: BUILD, HELD under rule 18. No row claimed; the
 lane's MODE line directs the round ("measuring your part of loading, walking or the fight"). Nothing
 else shipped, no art, no generation, no movement. Demo not re-cut.
