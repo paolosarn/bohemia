@@ -30942,6 +30942,90 @@ a memory reset. HE WILL NEVER TYPE ANYTHING BUT THE ONE WORD AGAIN. ***
     I will never paste anything to you again. From here on, the one word is the whole
     instruction.
 
+*** [fight looks] V223 -- THE PERSON IS 112, AND THE GROUND IS HIS OWN ART. CONTINUING, ROUND 2. ***
+Rule 18: one of the three things that ship. Rule 21's FIGHT LEG, which the law names as owed to
+this row, is built and gated. Stamp 9/21h.
+
+*** ONE: THE LINE THAT SHRANK THE FIGHTER SAT UNDER A HEADLINE SAYING IT DOES NOT EXIST. ***
+V198's own block reads "THE GROUND IS WIDER AND THE PERSON IS NOT", quotes him ("the size of the
+'ground' changes but the player is the same size"), and says in its own words that it "NEVER
+TOUCHES bodyScale". Two lines later: bodyScale(){ return 1/FIELD_ZOOM; }. FIELD_ZOOM is 3, so the
+fighter drew at 37 against the street's 112 -- CHARACTER's measured 3.03x. Never a tuning choice;
+a line that contradicts its own paragraph.
+AND THE SAME DIVISION SHRANK TWO MORE RULED NUMBERS. TILE_WIDE is "[DIAL] a house tile in SPRITE
+WIDTHS -- his number", 1.75, and the lot is built as TILE_WIDE*(112*bodyScale()), so a third of a
+person made a third of a house. Put the body back and all of it comes back, DERIVED:
+    the body      37 -> 112 px      the box the street has shipped at for months
+    a house lot   65 -> 196 px      1.75 sprite widths, which is what his dial says
+    the body           0.57 lots    "about half a lot tall", rule 16's own default
+    contentR      7.6 -> 3.86       the world is built to what the screen shows
+NOTHING TYPED. The body board is untouched (houseOn() false there); the gate turns the board off
+and reads 37 back.
+
+*** TWO: THE GROUND IS THE ART HE ALREADY APPROVED. *** COOK db792724's bank is wired -- 13 kinds,
+66 images at 44 and the same 66 at 88, out of his 7/28 approved tileset. COOK 60a52ac9 measured
+why it matters: the bank it replaces was the city's street from BEFORE the 9/13 recook, byte for
+byte, in a document that never calls the city's floor, so no cook of the city could ever reach the
+fight. The four old banks are EMPTIED: one ground bank now, and it is his. The proof the gate uses
+is the counts COOK raised, because the old bank cannot make them: kerbL 1->8, kerbR 1->8,
+gutterL 1->4, gutterR 1->4 (those four had ONE picture each and tiled identically down the frame).
+COOK'S DRAWING RULE, GENERALISED: never upscale a source tile by a fraction. A lot patch is pure
+minification so the rule does not bind it -- but V222's bound ITSELF: it composed at 176 and drew
+at the cell, a 1.11 fractional upscale at a 196 px lot. The patch is now BUILT AT THE SIZE IT IS
+DRAWN, blits 1:1, and LOT_SUBPX is gone (the last typed number in that path). A marking or roof
+cannot be tiled (V222 photographed the yellow dashes vanishing), so it comes up from the 88 px
+art, which is what that second set was cooked for.
+
+*** THREE: THE STREET DRAWS NO GRID AND THE FIGHT DREW TWO. *** MEASURED FIRST, and one of the two
+is not what it looks like: drawFloor's grid is painted UNDER the board and photographed completely
+covered, so it has never been on his screen. It goes anyway. The one he DOES see goes too, BEHIND
+A DIAL rather than deleted.
+
+gates/the_person_is_112_gate.js 24/0 across THE WORKSHOP and THE CUT HE OPENS; it reads the
+street's own 112 in the same session, because a claim about two surfaces needs both halves.
+MUTATION-PROVED: 10 red on main, five arms each surface, symmetrically.
+gates/lot_is_sixteen_tiles_gate.js: ONE ARM AMENDED AND THE OLD NUMBER WAS THE DEFECT -- it pinned
+the patch at 176, which is the fractional upscale above.
+
+*** TWO ARMS OF MY OWN GATE WERE LIES AND THE MUTATION RUN CAUGHT BOTH, WHICH IS TWICE IN TWO
+ROUNDS: *** (1) "he stands about half a lot tall" passes on the OLD tree too, because 37/65 is
+also 0.57 -- both were divided by three. Kept, reworded as what it really is: a guard that nobody
+moves one without the other. (2) "the street draws no grid" read G.cellGrid and called false a
+pass -- but that flag is undefined on the old tree too, where the grid is drawn unconditionally,
+SO IT PASSED ON A TREE THAT DRAWS THE THING IT SAYS IS GONE. Replaced with a stroke count. AND THE
+REPLACEMENT OVER-COUNTED ON ITS FIRST RUN (392 strokes with the grid already gone) because a second
+of frames also draws the reach diamonds, rings and aim line; the floor paints into its own cache
+canvas, so the count is taken THERE. 0 now, against 468 and 2,091 on the old tree.
+
+PHOTOGRAPHS FOR DIRECTION, same session, one tap apart, which the row asks for every round:
+  records/target/combat/FIGHT_LOOKS_9_21_A_THE_WALK.jpg
+  records/target/combat/FIGHT_LOOKS_9_21_B_THE_FIGHT.jpg
+
+STILL WRONG, MEASURED, NOT FIXED, in the order I will take them:
+ 1. THE TWO CANVASES RENDER AT DIFFERENT DEVICE PIXEL RATIOS, and this is now the ONLY thing left
+    between the surfaces on body size. The walked canvas is ratio 1, the fight canvas is 2, so a
+    112 box is 112 CSS px on the street and 56 in the fight: ON HIS PHONE THE FIGHTER STILL LOOKS
+    HALF THE WALKER. Rule 21's literal words are met on both surfaces; its intent is not. Closing
+    it changes what the fight canvas renders at, which touches the HUD, so it is its own round.
+ 2. THE GUTTER SHADOW IS ON THE WRONG SIDE, BOTH SIDES OF THE ROAD (COOK). Whether it is the art
+    or streetKindAt's ordering is a pixel question for the bank's author.
+ 3. THE ROOF-CORNER TILES ARE HALF TRANSPARENT and punch black triangles through the floor (COOK).
+ 4. THE LIGHT DOES NOT CARRY: warm walk, cold fight (DIRECTION). Much warmer than it was, still
+    not the street's light.
+ 5. THE ROOF READS AS A FLOOR, carried from V222 unchanged: no elevation, no edge, no shadow --
+    word for word his friend's "checkerboard of orange roof tiles for a floor".
+ 6. [horror fight] is OPEN on my section under rule 20h and is not started.
+
+THE SHIP TEST IS NOT MET, so the line stays CLAIMED: a stranger can still tell, because of 1 and 5.
+Record: records/BOHEMIA_COMBAT_THE_PERSON_IS_112_9_21_26.md
+Tool: tools/bohemia_the_person_is_112_patch.py  Tab: COMBAT, and any fight you walk into from CITY.
+
+STILL ROUTED FROM EARLIER ROUNDS: the fight shares ZERO art with the walked city's 9,451 tiles
+(COOK's bank is his approved art, but it is still a SECOND copy that no city cook reaches -- the
+bank has to BE the city's); a lane marking is twelve metres wide; the combat_entry_gate
+one-in-five flake; RUN's cold open still fabricates name:'hostile_'+i; [PENDING Paolo] where a
+scoped rifle stops on the house board.
+
 *** [fight looks] THE-FIGHT-IS-THE-STREET-PULLED-BACK. V222 -- ONE TILE, STRETCHED OVER A WHOLE
 HOUSE. CONTINUING, ROUND 1. *** Rule 18: one of the three things that ship. STOP PRODUCING is on
 this lane for mechanics; this is paint only.

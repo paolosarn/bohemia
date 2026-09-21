@@ -112,8 +112,11 @@ const REBUILD = (pre) => `(async () => {
      to tell you which way it failed. */
   const g = (n) => { try { return eval(n + '()'); } catch (e) { return null; } };
   let patches = []; try { patches = Object.keys(_LOTP); } catch (e) {}
+  let tile = 0;
+  try { const c = document.getElementById('cv');
+    tile = Math.min(c.width, c.height) * fieldPitch(c.width, c.height); } catch (e) {}
   return { hist: m, lotSub: g('lotSub'), house: g('houseOn'),
-           patches: patches, tileM: g('tileMetres') };
+           patches: patches, tileM: g('tileMetres'), tile: tile };
 })()`;
 
 async function walkAndCheck(browser, BASE, where, url) {
@@ -216,9 +219,12 @@ async function walkAndCheck(browser, BASE, where, url) {
   ok(where + ': the board a fight starts on IS the house board', A.house === true);
   ok(where + ': the ruler is derived, not typed (12 m lot / 0.75 m cell = ' + A.lotSub + ')',
      A.lotSub === 16 && A.tileM === 12);
-  const patch = sub('176x176');
+  const patch = Object.entries(A.hist)
+    .filter(([k]) => { const m2 = /^(\d+)x(\d+)$/.exec(k);
+      return m2 && +m2[1] === +m2[2] && +m2[1] === Math.ceil(A.tile) + 1; })
+    .reduce((n, kv) => n + kv[1], 0);
   ok(where + ': material cells draw a LOT of street cells, not one stretched tile (' +
-     patch + ' patches, ' + (patch * 256) + ' street cells)', patch > 50);
+     patch + ' patch blits, ' + (patch * 256) + ' street cells drawn)', patch > 50);
   /* *** THE ARM THIS REPLACED WAS A LIE AND THE MUTATION RUN IS WHAT CAUGHT IT. ***
      It asked whether a raw 44px source ever reached the board, and PASSED on a tree
      with no patch in it at all -- because streetTile composes 44 into a 66px cache
@@ -230,13 +236,29 @@ async function walkAndCheck(browser, BASE, where, url) {
   const built = await cf.evaluate(() => { const o = {};
     try { for (const k of Object.keys(_LOTP)) { const c = _LOTP[k]; o[k] = c ? c.width + 'x' + c.height : 'null'; } }
     catch (e) {} return o; });
+  /* AMENDED BY V223, AND THE OLD NUMBER WAS THE DEFECT. V222 composed every patch at
+     176 px and then drew it at the cell, which at the ruled 196 px lot is a 1.11
+     FRACTIONAL UPSCALE -- the class of blur COOK named ("never 44 at 67, that 1.523
+     scale IS the blur"). A patch is now built AT THE SIZE IT IS DRAWN, so it blits
+     1:1, and this arm asks that rather than a frozen number: whatever the camera
+     makes a cell, the patch is that, and every street cell inside it is a pure
+     shrink of a 44 px source. */
   const sizes = [...new Set(Object.values(built))];
-  ok(where + ': and each patch is composed at the street\'s own size (' +
-     (sizes.join(' ') || 'none built') + ')', sizes.length === 1 && sizes[0] === '176x176');
+  const cell = Math.ceil(A.tile) + 1;
+  ok(where + ': and each patch is built at the size it is drawn, so it blits 1:1 (' +
+     (sizes.join(' ') || 'none built') + ' against a ' + cell + ' px cell)',
+     sizes.length === 1 && sizes[0] === cell + 'x' + cell);
   /* A MARKING IS STILL THE TILE. The patch reads ST_SPIN, the declaration V96 already
      made, so median / lane / kerb / gutter / wall / house are drawn once across the
      cell. Photographed the alternative: the yellow dashes vanished. */
-  const marks = Object.entries(A.hist).filter(([k, v]) => /^6[0-9]x6[0-9]$/.test(k))
+  /* REPOINTED BY V223, AND THE OLD SPELLING IS EXACTLY THE ROT THIS LANE KEEPS FINDING.
+     This arm matched a source size of 6x-something, which was the OLD 65 px tile. A
+     marking now comes up from COOK's 88 px art (that is what the second set was cooked
+     for), so the ruler was written in a unit the game no longer uses and went red for
+     the work going right. It asks the real question instead: how many cells drew a
+     BANK TILE rather than a lot patch -- 44 or 88 at source, whatever the cell is. */
+  const marks = Object.entries(A.hist)
+    .filter(([k]) => /^(44x44|88x88)$/.test(k))
     .reduce((n, kv) => n + kv[1], 0);
   ok(where + ': markings and roofs still draw once across the cell (' + marks + ')', marks > 0);
   ok(where + ': only the isotropic materials take a patch (' +

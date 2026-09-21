@@ -1,0 +1,258 @@
+#!/usr/bin/env node
+/* ============================================================================
+   THE PERSON IS 112 -- RULE 21'S FIGHT LEG
+   (9/21/26, COMBAT lane, VAMILY [fight looks])
+
+   RULE 21 (coordinator 9/21, from four lanes' measurements): "A person is drawn at
+   ONE pixel size on every surface he walks or fights on (112 box, about 100 px
+   painted) and the camera moves the ground, never his size... Gate on the street
+   body_scale 14/0; THE FIGHT LEG OWED TO COMBAT [fight looks]."
+
+   This is that leg. It opens a real fight, started the way he starts one, on the
+   workshop and on the cut he opens, and asks five things that can each fail alone:
+
+     1. THE FIGHTER IS 112.            Not 37, which is what FIELD_ZOOM 3 made of him.
+     2. AND THE LOT CAME WITH HIM.     TILE_WIDE is declared "a house tile in SPRITE
+                                       WIDTHS -- his number", 1.75, so a 112 sprite
+                                       means a 196 px lot. One division was shrinking
+                                       the person AND the house; both come back or
+                                       neither does.
+     3. WHICH IS HALF A LOT TALL.      Rule 16's own default, arrived at rather than
+                                       typed: 112/196 = 0.57.
+     4. THE BODY BOARD DID NOT MOVE.   houseOn() off and the old value runs, so the
+                                       body-scale board is byte-identical.
+     5. THE GROUND IS THE ART HE APPROVED. COOK db792724's bank is the one that
+                                       loaded: the kinds whose pictures it RAISED
+                                       (kerbL and kerbR 1 -> 8, gutterL and gutterR
+                                       1 -> 4) are the proof, because the old bank
+                                       cannot produce those counts, and the 2x set
+                                       a marking comes up from is there.
+
+   AND THE CHROME: the street draws no grid and the fight drew two. Neither is on his
+   screen now, and the one he could see is behind a dial rather than deleted.
+   ========================================================================== */
+const fs = require('fs');
+const path = require('path');
+const http = require('http');
+const { execFileSync } = require('child_process');
+const { chromium } = require('/opt/node22/lib/node_modules/playwright');
+const REPO = path.join(__dirname, '..');
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+const CUT = path.join(process.env.TMPDIR || '/tmp', 'bohemia_person_112_cut.html');
+const TYPES = { '.html': 'text/html', '.js': 'text/javascript', '.json': 'application/json',
+  '.css': 'text/css', '.png': 'image/png', '.webmanifest': 'application/manifest+json' };
+
+function serve() {
+  return new Promise(res => {
+    const srv = http.createServer((rq, rp) => {
+      const u = decodeURIComponent((rq.url || '/').split('?')[0]);
+      let f = /BOHEMIA_DEMO\.html$/.test(u) ? CUT : path.join(REPO, u);
+      if (!f.startsWith(REPO) && f !== CUT) { rp.writeHead(404); return rp.end('no'); }
+      if (!fs.existsSync(f) || fs.statSync(f).isDirectory()) { rp.writeHead(404); return rp.end('no'); }
+      rp.writeHead(200, { 'Content-Type': TYPES[path.extname(f)] || 'application/octet-stream' });
+      fs.createReadStream(f).pipe(rp);
+    });
+    srv.listen(0, '127.0.0.1', () => res(srv));
+  });
+}
+let pass = 0, fail = 0;
+const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, console.log('  FAIL ' + n)); };
+
+/* the cut-only facts V221 paid for: the demo's frames have NO NAME, more than one
+   frame answers the city's URL and only one is alive, an eager poller starves the
+   boot, and the city frame does not exist for the first half minute. */
+async function liveCity(page) {
+  for (let i = 0; i < 60; i++) {
+    for (const f of page.frames()) {
+      let u = ''; try { u = f.url(); } catch (e) {}
+      if (!/BOHEMIA_CITY_WORLD\.html/.test(u)) continue;
+      let a = null;
+      try { a = await f.evaluate(() => ({ tap: typeof streetTapFoe, host: typeof BohemiaHostiles,
+        dang: typeof hostDanger, hook: !!(window.__CITY && window.__CITY.human) })); } catch (e) {}
+      if (a && a.tap === 'function' && a.host === 'object' && a.dang === 'function' && a.hook) return f;
+    }
+    await sleep(2000);
+  }
+  return null;
+}
+async function liveFight(page) {
+  for (let i = 0; i < 30; i++) {
+    for (const f of page.frames()) {
+      let has = false;
+      try { has = await f.evaluate(() => typeof G !== 'undefined' && !!document.getElementById('fire')); } catch (e) {}
+      if (has) return f;
+    }
+    await sleep(700);
+  }
+  return null;
+}
+
+/* READ WHAT IS THERE, NEVER CRASH ON WHAT IS NOT: mutation-proved against a tree with
+   none of this in it, where a bare call throws ReferenceError and kills the run. A
+   gate that dies cannot tell you which way it failed. */
+const READ = `(() => {
+  const g = (n) => { try { return eval(n + '()'); } catch (e) { return null; } };
+  const out = { house: g('houseOn'), bodyScale: g('bodyScale') };
+  out.bodyPx = (out.bodyScale == null) ? null : Math.round(112 * out.bodyScale);
+  try { const c = document.getElementById('cv');
+    out.tilePx = Math.min(c.width, c.height) * fieldPitch(c.width, c.height);
+    out.cvW = c.width; out.cssW = Math.round(c.getBoundingClientRect().width); } catch (e) {}
+  try { out.tileWide = (G.tileWide || TILE_WIDE); } catch (e) {}
+  try { out.counts = {}; for (const k in STREET_IMG) out.counts[k] = STREET_IMG[k].length; } catch (e) {}
+  try { out.twoX = Object.keys(STREET_IMG2X).length; } catch (e) { out.twoX = null; }
+  try { out.ready = STREET_READY; } catch (e) {}
+  try { out.grid = !!G.cellGrid; } catch (e) {}
+  return out;
+})()`;
+
+async function walkAndCheck(browser, BASE, where, url) {
+  console.log('\n--- ' + where + ' ---');
+  const page = await browser.newPage({ viewport: { width: 430, height: 932 } });
+  page.on('pageerror', () => {});
+  await page.goto(BASE + url, { waitUntil: 'load', timeout: 120000 });
+  await sleep(6000);
+  await page.mouse.click(215, 450); await sleep(3000); await page.mouse.click(215, 450);
+  await sleep(20000);
+
+  const city = await liveCity(page);
+  if (!city) { ok(where + ': the walked city came up', false); await page.close(); return; }
+
+  const cbox = await (await city.frameElement()).boundingBox();
+  for (let i = 0; i < 8; i++) {
+    let hit = false;
+    for (const sel of ['.dcgo[data-act="go"]', '[data-act="close"]', '.dcgo']) {
+      const h = await city.$(sel).catch(() => null);
+      if (h && await h.isVisible().catch(() => false)) {
+        const b = await h.boundingBox();
+        if (b) { await page.mouse.click(cbox.x + b.x + b.width / 2, cbox.y + b.y + b.height / 2); hit = true; break; }
+      }
+    }
+    await sleep(hit ? 1200 : 700);
+    const clear = await city.evaluate(() => { const c = document.querySelector('canvas'); if (!c) return false;
+      const b = c.getBoundingClientRect();
+      const el = document.elementFromPoint(b.x + b.width / 2, b.y + b.height / 2);
+      return !!el && el.tagName === 'CANVAS'; }).catch(() => true);
+    if (clear) break;
+  }
+  await page.evaluate(() => { const n = document.getElementById('openNot'), inv = document.getElementById('openInvite');
+    if (inv && getComputedStyle(inv).display !== 'none' && n) n.click(); });
+
+  /* THE STREET'S OWN NUMBER, READ IN THE SAME SESSION, because rule 21 is a claim
+     about TWO surfaces and half a comparison proves nothing. */
+  const walkBody = await city.evaluate(() => {
+    const h = (HOST_HIT || [])[0]; return h ? h.w : null; });
+  ok(where + ': the walked street draws its person at the 112 box (' + walkBody + ')',
+     walkBody === 112);
+
+  /* a real fight, started the way he starts one: walk up to a crew and tap one */
+  await sleep(1500);
+  const fb = await (await city.frameElement()).boundingBox();
+  let aim = null;
+  for (let i = 0; i < 20 && !aim; i++) {
+    aim = await city.evaluate(() => {
+      const r = cv.getBoundingClientRect();
+      for (const h of (HOST_HIT || [])) for (const f of [0.5, 0.62, 0.74]) {
+        const cx = h.x + h.w / 2, cy = h.y + h.h * f;
+        if (!streetTapFoe(cx, cy)) continue;
+        const el = document.elementFromPoint(r.left + cx * r.width / cv.width, r.top + cy * r.height / cv.height);
+        if (!el || el.tagName !== 'CANVAS') continue;
+        return { x: r.left + cx * r.width / cv.width, y: r.top + cy * r.height / cv.height };
+      }
+      return null;
+    });
+    if (!aim) {
+      await city.evaluate(() => { try {
+        const list = BohemiaHostiles.near({ x: hx, y: hy, radius: 90, probe: hostileProbe,
+          danger: hostDanger(), density: HOST_DENSITY, day: (T.day | 0) });
+        const c = list.map(x => ({ at: x.at, d: Math.max(Math.abs(x.at[0] - hx), Math.abs(x.at[1] - hy)) }))
+          .sort((a, b) => a.d - b.d)[0];
+        if (c) window.__CITY.human(c.at[0], c.at[1] + 5); } catch (e) {} });
+      await sleep(1500);
+    }
+  }
+  if (!aim) { ok(where + ': a hostile body on the glass to tap', false); await page.close(); return; }
+  await page.mouse.click(fb.x + aim.x, fb.y + aim.y);
+  await sleep(9000);
+  const cf = await liveFight(page);
+  if (!cf) { ok(where + ': the fight came up', false); await page.close(); return; }
+  ok(where + ': a real fight, started the way he starts one', true);
+  await sleep(2500);
+
+  const A = await cf.evaluate(READ);
+  ok(where + ': the board a fight starts on IS the house board', A.house === true);
+  ok(where + ': *** THE FIGHTER IS THE 112 BOX, NOT A THIRD OF HIMSELF *** (' +
+     A.bodyPx + ' px)', A.bodyPx === 112);
+  /* AND THE LOT CAME WITH HIM. TILE_WIDE is "a house tile in SPRITE WIDTHS -- his
+     number", so the lot is derived from the body and cannot be set on its own. */
+  const want = Math.round((A.tileWide || 0) * 112);
+  ok(where + ': and the lot is ' + (A.tileWide) + ' sprite widths, which is his dial (' +
+     Math.round(A.tilePx) + ' px, wanted ' + want + ')',
+     want > 0 && Math.abs(A.tilePx - want) <= 1);
+  /* SAID PLAINLY: THIS ARM IS A RELATIONSHIP, NOT A SIZE. It is 0.57 on the old tree
+     too, because the body and the lot were BOTH divided by three -- which is exactly
+     why the two arms above it exist. It guards the thing those two cannot: that
+     nobody ever moves one without the other. */
+  const lots = A.tilePx ? A.bodyPx / A.tilePx : 0;
+  ok(where + ': and the body and the lot still move together, about half a lot tall (' +
+     lots.toFixed(2) + ')', lots > 0.45 && lots < 0.70);
+
+  /* THE GROUND IS THE ART HE APPROVED. The raised counts are the proof: the old bank
+     had ONE picture for each of these and tiled it identically down the whole frame,
+     so it cannot produce eight. */
+  const c = A.counts || {};
+  ok(where + ': the ground is COOK\'s cooked bank, not the pre-recook one (kerbL ' +
+     c.kerbL + ', kerbR ' + c.kerbR + ', gutterL ' + c.gutterL + ', gutterR ' + c.gutterR + ')',
+     c.kerbL === 8 && c.kerbR === 8 && c.gutterL === 4 && c.gutterR === 4);
+  ok(where + ': and the 2x art a marking comes up from is loaded (' + A.twoX + ' kinds)',
+     A.twoX === 13);
+  ok(where + ': the ground finished decoding', A.ready === true);
+  /* *** AND THE GRID ARM I FIRST WROTE WAS A LIE, CAUGHT BY THE MUTATION RUN. *** It
+     read G.cellGrid and called false a pass -- but G.cellGrid is undefined on the OLD
+     tree too, where the grid is drawn unconditionally, so it passed on a tree that
+     draws the thing it claims is gone. A check that cannot go red is not a check.
+     THIS ONE COUNTS THE STROKES the floor actually makes during one rebuild. */
+  /* AND THE FIRST VERSION OF *THIS* OVER-COUNTED, which is the same lesson twice in
+     one gate: it wrapped every context and read 392 strokes with the grid already
+     gone, because a second of frames also draws the reach diamonds, the rings and
+     the aim line. THE FLOOR PAINTS INTO ITS OWN CACHE CANVAS (__FLOOR_CACHE__), so
+     the count is taken THERE and nowhere else. */
+  const strokes = await cf.evaluate(`(async () => {
+    const P = CanvasRenderingContext2D.prototype, orig = P.stroke; let n = 0;
+    P.stroke = function () { try { if (this.canvas === _FLC) n++; } catch (e) {}
+      return orig.apply(this, arguments); };
+    _FLK = null; await new Promise(r => setTimeout(r, 1100));
+    P.stroke = orig; return n; })()`);
+  ok(where + ': the street draws no grid and the fight strokes none into its floor (' +
+     strokes + ')', strokes === 0);
+  ok(where + ': and it is behind a dial, not deleted', A.grid === false);
+
+  /* THE BODY BOARD DID NOT MOVE. */
+  const B = await cf.evaluate(`(() => { G.houseTile = false; const r = ${READ}; G.houseTile = undefined; return r; })()`);
+  ok(where + ': with the house board off, the old body size is back, byte for byte (' +
+     B.bodyPx + ' px)', B.bodyPx === 37 && B.house === false);
+
+  await page.close();
+}
+
+(async () => {
+  console.log('building a fresh cut from the current workshop (never touches the committed demo)');
+  execFileSync('node', [path.join(REPO, 'tools', 'bohemia_cut_the_demo.js'), '--out', CUT],
+    { stdio: 'pipe' });
+  const srv = await serve();
+  const BASE = 'http://127.0.0.1:' + srv.address().port;
+  const browser = await chromium.launch({ args: ['--no-sandbox'] });
+  try {
+    await walkAndCheck(browser, BASE, 'THE WORKSHOP', '/slices/BOHEMIA_ALPHA_0_9.html');
+    await walkAndCheck(browser, BASE, 'THE CUT HE OPENS', '/slices/BOHEMIA_DEMO.html');
+  } finally {
+    await browser.close(); srv.close();
+    try { fs.unlinkSync(CUT); } catch (e) {}
+  }
+  console.log('\n=== THE PERSON IS 112 GATE: ' + pass + ' passed, ' + fail + ' failed ===');
+  process.exit(fail ? 1 : 0);
+})().catch(e => {
+  console.log('  FAIL the gate could not finish: ' + String(e).slice(0, 200));
+  try { fs.unlinkSync(CUT); } catch (_e) {}
+  console.log('\n=== THE PERSON IS 112 GATE: ' + pass + ' passed, ' + (fail + 1) + ' failed ===');
+  process.exit(1);
+});
