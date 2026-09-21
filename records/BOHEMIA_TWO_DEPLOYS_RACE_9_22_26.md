@@ -39,3 +39,14 @@ CLAUDE.md's SHIP FLOW paragraph ("Do NOT read 'pages build and deployment' any m
 still fires and still fails and it is now NOISE") is amended: it fires, it succeeds, it
 races, and it publishes a different site. Until the setting is flipped, a deploy is only
 true when the `pages` run was the LAST to finish.
+
+## SECOND ATTEMPT, SAME ROUND: THE INCLUDE DID NOT SAVE HIM
+He tapped again after the include: 404 again. Either the deploy had not landed or Jekyll
+prunes an excluded directory before it ever looks at a file inside it (the include is a
+file under an excluded folder, and Jekyll filters entries per directory level). Not worth
+proving either way; the deterministic fix went in instead: .github/workflows/pages.yml now
+WAITS for GitHub's own builder to finish (polls the Actions API for workflow 314926822,
+up to ~7 minutes) BEFORE deploy-pages, so our deploy always lands last and always wins,
+and after deploying it FETCHES the live registry, the alpha, the demo and the vote tab and
+fails the run on anything but 200. `actions: read` added to the workflow's permissions.
+The include stays (harmless). His click still kills the race at the root.

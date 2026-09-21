@@ -37,6 +37,7 @@ permissions:
   contents: read
   pages: write
   id-token: write
+  actions: read   # 9/22: to see GitHub's own "pages build and deployment" run and wait it out (below)
 
 # THE DEADLOCK FIX. Queue, never cancel.
 concurrency:
@@ -87,5 +88,39 @@ jobs:
         with:
           path: _site
 
+      # TWO BUILDERS RACE (coordinator 9/22, records/BOHEMIA_TWO_DEPLOYS_RACE_9_22_26.md).
+      # GitHub's own "pages build and deployment" (workflow 314926822, Jekyll, reading
+      # _config.yml) fires on the same push and, since about 9/21, SUCCEEDS in ~80 s.
+      # Whichever deploy finishes LAST is the live site, and the Jekyll one carries no
+      # records/ and no *.json, so when it wins the VOTE tab's registry 404s ("THE LIST
+      # DID NOT LOAD", Paolo 9/22, twice) and the demo is the committed cut. Until the
+      # repo's Pages source is switched to GitHub Actions (his click), THIS build waits
+      # for that one to finish before it deploys, so it always lands last and always wins.
+      - name: wait for GitHub's own builder so this deploy lands last
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          for i in $(seq 1 40); do
+            busy=$(curl -s -H "Authorization: Bearer $GH_TOKEN" \
+              "https://api.github.com/repos/${{ github.repository }}/actions/workflows/314926822/runs?per_page=5" \
+              | python3 -c 'import json,sys; d=json.load(sys.stdin); print(sum(1 for r in d.get("workflow_runs",[]) if r.get("status") in ("queued","in_progress","pending","waiting","requested")))' 2>/dev/null || echo 0)
+            echo "other builder runs still going: $busy (check $i)"
+            [ "$busy" = "0" ] && break
+            sleep 10
+          done
+
       - id: deployment
         uses: actions/deploy-pages@v4
+
+      # THE DEPLOY IS ONLY TRUE IF THE LIVE SITE SERVES WHAT HE TAPS (9/22). A 404 goes
+      # red here instead of on his phone.
+      - name: the live site serves the vote list, the alpha and the demo
+        run: |
+          base="${{ steps.deployment.outputs.page_url }}"
+          base="${base%/}"
+          sleep 20
+          for p in records/target/BOHEMIA_VOTE_REGISTRY.json slices/BOHEMIA_ALPHA_0_9.html slices/BOHEMIA_DEMO.html slices/BOHEMIA_VOTE_TAB.html; do
+            code=$(curl -s -o /dev/null -w '%{http_code}' -H 'Cache-Control: no-cache' "$base/$p")
+            echo "$code  $p"
+            [ "$code" = "200" ] || { echo "LIVE SITE DOES NOT SERVE $p (HTTP $code)"; exit 1; }
+          done
