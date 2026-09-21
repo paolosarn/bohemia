@@ -18392,7 +18392,76 @@ RIGHT NOW: (a) write this whole instruction, word for word, into your own handof
 
 I will never paste anything to you again. From here on, the one word is the whole instruction.
 
-THIS ROUND -- *** COOKED: TWO PEOPLE WHO ARE A LITTLE TOO STILL, IN VOTE. AND A THIRD I
+THIS ROUND -- *** COOKED: A KID AND SOMEBODY WHO GOT OLD HERE, IN VOTE. AND TWO SHEETS
+ALREADY SITTING IN THE VOTE TAB WERE LYING TO HIM. (sha e357361d) ***
+
+VERDICTS READ BACK FIRST, every round, as this block keeps saying. STILL ZERO. Five
+CHARACTER items are queued now and he has thumbed none of them. The registry holds 47
+items across every lane and 0 votes have ever been cast.
+
+*** THE DEFECT FIRST, BECAUSE IT WAS ALREADY IN FRONT OF HIM. ***
+tools/bohemia_character_into_the_vote_tab.js still carried `G.dials[k] = ...` inside a
+try/catch, in THREE places. THERE IS NO G.dials -- body variation lives in G.bodyVar and
+needs rebuildFromRig(). This is the exact defect this lane found last round in the
+horror-body cook, in a SECOND tool, and nobody looked. The consequence is worse than
+last round's, because those two sheets had already shipped: THE 12 PEOPLE and THE
+THIRTEEN FACTIONS, both in the VOTE tab, were rendered with DEFAULT proportions while
+their captions named builds ("the tallest", "short and broad"). He was being asked to
+judge bodies that were all the same body.
+FIXED and re-rendered; the bodies now genuinely differ, the tallest reads taller and
+narrower. Captions were colliding too ("a bulk on the back nobodysmallest") -- flat
+26-char truncation wider than the cell. Per-cell word wrap, label 22 -> 42, font 12 ->
+11px.
+THE RULE, AND IT IS THE SECOND TIME: A SILENT CATCH AROUND A WRITE IS A LIE WAITING TO
+HAPPEN. Grep your own tools for `G.dials` before trusting any picture you shipped.
+
+WHAT WAS COOKED (rule 22), registered as character-no-children-no-old-9-21. The rig has
+carried FIVE age stages since it was built -- child, teen, youngadult, adult, elder --
+and exactly ONE body in the whole alpha uses a stage other than adult: NINA in the cold
+open. The twelve street looks carry no age field at all. SO EVERY SINGLE PERSON THE
+PLAYER WALKS PAST IS A GROWN ADULT. A kid in a grown man's tee and an old man in a coat
+older than the crash now stand beside a grown man, at ONE scale, feet on one line.
+Nothing new was drawn: every garment is canon and the age machinery was already there.
+
+MEASURED ON THE RIG PART GRID, NOT ON THE PAINTED PICTURE, and my first run was wrong
+because of it. Reading top-of-hair to sole put the kid at 83% when the stage's own
+height term is 0.77, and the whole gap was a FRINGE. Bodies with hair excluded:
+    a grown man  96 px   100%   4.36 heads tall
+    a kid        79 px    82%   3.59 heads tall
+    an elder     93 px    97%   4.23 heads tall
+The rig's own build note claims 4.89 and 3.79 off the BONES. The record says plainly
+that this counts the painted head STAMP instead, rather than quietly picking whichever
+number agreed. One ruler measured all three, so the drop from 4.36 to 3.59 is real.
+FOR ANY LANE THAT WANTS AGE: it works, it is one field (G.age), and it is free.
+
+TWO REDS THIS LANE HAD SHIPPED WITHOUT NOTICING, both closed: neither of this lane's
+cook tools carried a REFERENCE CHECK block, which the 9/4 law requires of every cook
+born after it. Both now cite real library ids and say what the comparison CHANGED, not
+just that it happened. REFERENCE CHECK went 15/2 -> 23/0 and the grandfathered baseline
+shrank 87 -> 85, which is the only direction that ratchet allows.
+
+THE REGISTRY CONFLICTS EVERY SINGLE ROUND, and FACTIONS said so first. It conflicted
+TWICE inside this one round. THE SAFE RESOLUTION, which cannot lose anybody's row:
+    git checkout origin/main -- records/target/BOHEMIA_VOTE_REGISTRY.json
+    <re-append your own item by id, filtering your old one out first>
+Never hand-merge it. Main held 43, then 46, then 47 with mine on top; nobody was lost.
+
+[PENDING Paolo] carried, unchanged: which faction colour file wins; the Anarchists need
+a magenta garment and there are zero in 317, with the reserved purple band blocking the
+obvious cook; the Cartel sits on the drab exemption list and not in the law that names
+it.
+
+THE SUITE, HONESTLY. Green on the merged tree: CHARACTER IN THE VOTE TAB 9/0, SHAPE
+FROZEN 12/0, BODY SCALE 14/0, REFERENCE CHECK 23/0 before another lane's new tool
+landed. Not mine and named so nobody chases them: THE VOTE TAB has 2 red, one being
+DIRECTION's item direction-fight-verdict-round-3-9-21 missing its `kind` field and one
+a flaky 10-second locator timeout that passes on re-run; REFERENCE CHECK went red again
+the moment tools/bohemia_cook_the_face_has_light.js arrived without a check block; REUSE
+FIRST has 6 red, all city/combat/floor/lot/enemies/start patch tools.
+
+--------------------------------------------------------------------------------
+
+PREVIOUS ROUND -- *** COOKED: TWO PEOPLE WHO ARE A LITTLE TOO STILL, IN VOTE. AND A THIRD I
 DESIGNED, BUILT, LOOKED AT AND CUT AFTER MEASURING MY OWN RIG. (sha a9c56cb3, [horror body]) ***
 
 VERDICTS READ BACK FIRST, as the last handoff said. Still empty: he has thumbed none of the
