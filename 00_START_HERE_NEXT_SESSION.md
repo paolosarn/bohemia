@@ -1,3 +1,86 @@
+LIFE + CITY (city-1eztay): 9/21 LATEST -- *** A STRAIGHT WAY OUT IS NOT A WAY OUT, BECAUSE
+A BODY TURNS CORNERS. NO YARD IS SEALED. AND THE SHOP IS STILL LIT. ***
+TAB: the shop is a picture in the VOTE tab (alpha). The yard finding is NOT IN A TAB YET --
+it is a gate and a record. Records: records/BOHEMIA_NO_YARD_IS_SEALED_9_21_26.md
+
+RULE 22 COOK EVERY ROUND -- THE THING I MADE: slices/vote/LIFECITY_THE_SHOP_IS_STILL_LIT_9_21.png,
+registered as "THE SHOP IS STILL LIT, AND EVERY SHELF IN IT IS BARE". A corner store drawn
+top-down the way the walked city is drawn: three bays, three faded awnings one of them torn,
+a blank pylon sign out on the lot, dead trees in kerbed islands. Everything ordinary except
+ONE thing, and it is the only warm light in the frame: the middle bay still has its lights
+on, two ceiling tubes still burning, and what they show through the glass is SEVEN EMPTY
+SHELF RUNS and a checkout stripped to the counter, with the door standing open. A shop that
+is still open with nothing in it is worse than a dark one. Analog horror at the source, not
+a filter (rule 20): no grime layer, no scanline, no monster. Palette read LIVE out of
+engine/bohemia_commercial.js so the shop and the district he walks are one world, and the
+factory REFUSES TO RUN rather than invent a colour (tools/bohemia_corner_store_factory.py,
+carrying both a REUSE CHECK and a REFERENCE CHECK: BLDG-03, BLDG-05, AH-01). This is the
+open row [shelves seen] in a picture.
+
+*** AND I DREW IT WRONG FIRST, IN THE BATTERY SHED'S EXACT MISTAKE: a black band over the
+roof and black corners. THE WORLD IS SEEN FROM ABOVE, SO THERE IS NO SKY, and a dark band
+reads as a hole in the world, not as air. *** Redrawn so every pixel in the frame is ground
+he could stand on. Two more found by looking at the picture rather than at the code: the lit
+bay was ONE FLAT FILL, which is a white card taped to a wall and not a lit room (the source
+is the ceiling now, brightest at the head of the glass, falling off to the floor, shelves
+dark against it); and the pylon sign was clipped off the frame edge, so it stands on the lot
+with its own shadow.
+
+ROW [sealed yards] AND ROW [walk out], BOTH DONE, AND THE CLAIM IS NOT TRUE. RUN 930e2bf3
+handed this lane "45 doorsteps with 0 straight walkable ways out; the suburb generator seals
+yards behind one-cell walls", and the suburb generator is this lane's. THE 45/0 NUMBER IS A
+RAY: eight directions, 140 cells, straight lines. A ray reports LINE OF SIGHT, and on a
+suburb block full of houses the street almost never is in line of sight, which is what a
+suburb IS, not a defect.
+
+MEASURED ON THE CUT, BOTH INSTRUMENTS SIDE BY SIDE:
+    his house, walkable doorsteps            68
+    STRAIGHT ways out (the ray)               7 of 68
+    WALKABLE ways out (a body walking)       68 OF 68
+    PROVED SEALED                             0
+    the whole block, doorstep-shaped cells  1,857
+    ones one flood out of his own door misses    0
+    PROVED SEALED                                0      UNKNOWN 0
+The nearest road he can walk to is NINE CELLS from where he wakes. 6218,6256 is the
+disagreement in one cell: no straight way out, walks to the road anyway.
+
+SO THE TWO LANES NEVER ACTUALLY DISAGREED -- they ran two different instruments, and both
+numbers are correct about what they measure. Only one of them is about whether he can leave.
+THE SUBURB GENERATOR DOES NOT SEAL YARDS. This settles one cause and only that one: it is
+not that the ground is cut off. The five presses go back to RUN, and this is not a verdict
+on another lane's gate.
+
+FOURTH INSTRUMENT-NOT-WORLD FINDING FROM THIS LANE IN A ROW:
+    an instrument that cannot return "no" is not an instrument        (9/15)
+    A STRAIGHT LINE IS NOT A BODY                                     (9/16)
+    an instrument that assumes a step length measures its assumption  (9/20)
+    an instrument that cannot say "I do not know" will say "no"       (9/21)
+    A STRAIGHT WAY OUT IS NOT A WAY OUT                               (9/21, this one)
+
+GATE: gates/no_yard_is_sealed_gate.js, in the suite as NO YARD IS SEALED, 13 pass / 0 fail.
+*** A GATE THAT ONLY EVER SAYS ZERO IS NOT A GATE ***, so leg A seals a yard on purpose on
+worlds with known answers: fenced on four sides is PROVED SEPARATE in 119 cells looked at,
+exactly the size of the yard; one cell of side gate and it walks out; a way out that is only
+a diagonal squeeze is still a way out; an endless wall in an endless world comes back
+UNKNOWN, never SEALED; and A4 holds the finding itself, that a ray calls the yard WITH the
+gate in it sealed too. MY FIRST TEST WORLD WAS NOT ACTUALLY SEALED (open at the top either
+side of the house) and the gate said SAME GROUND and was right, which is why the world is
+built the way it is. Leg B floods ONCE and spends the unbounded three-state test only on
+what that flood missed, so the honest instrument runs where it matters rather than 16,384
+times.
+
+MUTATION, AND THE FIRST TWO WERE SILENT NO-OPS I CAUGHT BY MEASURING RATHER THAN ASSUMING:
+the first override of cellAt was ignored outright, and the second sealed a ring at y=6308,
+which is OUTSIDE the block (it ends at 6272). Third one, a ring round a real walkable patch
+at 6150,6150: B3 reds at 16 sealed doorsteps, each proved separate in exactly 25 cells, the
+5x5 interior.
+
+NOTHING ON THE WALKED SURFACE CHANGED: no generation, no movement, no art. Rule 18 holds the
+play surface; the gate ships because [sealed yards] is WALKING (rule 18 item 2).
+
+STILL OPEN AND HELD UNDER RULE 18(b): [horror city] (the school), [tiles not slabs],
+[buildings appear], [power buildings], [owner shown], [bill lands], [shelves seen].
+
 UI (ui-kmqmrf): 9/22 LATEST -- *** THE LOADING SCREEN IS BUILT, AND THE BAR CANNOT LIE. ***
 TAB: it is a DROP-IN SKIN for RUN, not wired by me -- RUN owns #front and RUN [loading
 screen] wires it. In the VOTE tab (alpha) as a picture now. Record:
