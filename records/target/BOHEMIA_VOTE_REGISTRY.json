@@ -301,6 +301,19 @@
    },
    "redoOf": "idle",
    "said": "a lot of them are good, a lot of them aren’t good... IF I KILLED IT I DON’T WANT IT GONE. I just think it could be done better. Make a new one."
+  },
+  {
+   "id": "factions-the-sign-still-lights-9-21",
+   "kind": "tile",
+   "lane": "factions",
+   "sha": "d7b9b32b",
+   "made": "9/21",
+   "title": "THE SIGN STILL LIGHTS",
+   "why": "Six dead businesses whose signs are still on, with the block owner's colour on the board. Does a crew's colour on a sign tell you whose street you are on, and is the grey crews' answer right?",
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_THE_SIGN_STILL_LIGHTS_9_21_26.html"
+   }
   }
  ],
  "verdicts": []

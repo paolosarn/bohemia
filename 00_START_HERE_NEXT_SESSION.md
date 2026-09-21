@@ -6338,171 +6338,154 @@ HOW TWENTY-TWO ROUNDS COMPOSE, written once now that Q1-Q22 are all shipped:
 NEXT IN THIS LANE: Q23 [who eats first].
 
 
-FACTIONS (factions-ovkjpf): 9/20 (round 32) LATEST -- *** RULE 19(c). NINE OF NINE OF
-THIS LANE'S SENTENCES HAVE NO MOUTH -- AND THE MOUTH AND THE FACE BOTH ALREADY EXIST.
-[same lender] still CLAIMED AND HELD, now under rule 18(b) as well as 14b. The new law
-says every lane answers WHO SAYS THIS, WITH WHAT FACE, STANDING WHERE before it ships a
-sentence, so this round answered it for the nine sentences ALREADY on his screen,
-measured on the glass with the one driver. The misses were the boring half. THE HALF
-WORTH CARRYING: this game already has a card where a named person speaks, and a working
-portrait already reaches the walked city every boot, and nothing joins them. That is
-rule 19(d)'s fourth thing, measured, and it is not a new system.
-NO GAME FILE CHANGED THIS ROUND. Rule 18(b) observed. ***
-Nothing to judge.
+FACTIONS (factions-ovkjpf): 9/21 (round 33) LATEST -- *** [horror signs] CLAIMED AND COOKED.
+RULE 22 SAYS THIS LANE MAKES A SIGN, SO THERE IS A SIGN. A dead business's pole sign,
+still standing, still lit off whatever circuit survived, with the block owner's colour on
+the board where the notice used to go. Six of them, one function, in the VOTE tab.
+IT WAS WRONG FOUR TIMES AND EVERY ONE WAS CAUGHT BY LOOKING AT THE PICTURE, including the
+one that was a law: three cuts of it were FLAT, which the 45 DEGREE ART LAW forbids.
+Nothing to the demo or the alpha's play tabs. Rule 18(b) holds, rule 22(b) says the making
+does not. ***
+Nothing to judge here: it is in the VOTE tab, which is where judging happens now.
 
-VAMILY row: [same lender], MODE: BUILD, CLAIMED AND HELD under rule 14b and rule 18(b).
-Record: records/BOHEMIA_WHO_SAYS_THIS_9_20_26.md
+VAMILY rows: [horror signs] CLAIMED 9/21 (cooked, in VOTE, awaiting his verdict).
+            [same lender] still CLAIMED AND HELD under 14b + 18b.
+Record: records/BOHEMIA_THE_SIGN_STILL_LIGHTS_9_21_26.md
+Round 32: records/BOHEMIA_WHO_SAYS_THIS_9_20_26.md
 Round 31: records/BOHEMIA_NOTHING_ELSE_IS_FROZEN_9_16_26.md
-Round 30: records/BOHEMIA_NOBODY_WAS_COMING_FOR_ANYBODY_9_15_26.md
 
-WHAT THIS LANE SAYS RIGHT NOW, AND WHO SAYS IT (one boot, demo, day 1 06:00)
-  "somebody steps into your way. they meant to."     nobody   no face   A REAL BODY,
-      on a named cell, one step away. Closest thing this lane has to a mouth: it has
-      the body and the place and is missing only the name and the face.
-  "<faction> came through here. a patrol."           the ground, no face, his own cell
-  "Mob want 1 battery tonight for the 1 block ..."   nobody   no face   a panel he opens
-  "46 WOULD COME WITH YOU FROM THIS BLOCK, 16        nobody   no face   a panel he opens
-      SCAVENGER, 12 WORKER, 10 WATCH, 8 KEEPER"      <- THIS IS THE SHAPE HE JUST
-      KILLED: a progress readout with four numbers and no person in it.
-  "1 battery a day off the dam" (4 of 14 seats)      nobody   no face   the pop-up card
-  the lender who visits the heir                     NAMED by design, no face, pop-up
-  why nobody runs with anybody                       nobody   no face   outfit panel
-  who is out on the valley                           nobody   no face   travel map
-  whose ground he crossed                            marks the day, says nothing
-NINE OF NINE, NO MOUTH.
+WHAT WAS MADE
+  slices/BOHEMIA_THE_SIGN_STILL_LIGHTS_9_21_26.html, 23 KB, canvas-drawn, NO image files
+  (BUILD SIZE is already over budget and six PNGs would cost more than the whole page).
+  Registered as factions-the-sign-still-lights-9-21, kind tile. Tab: VOTE, in the alpha.
+  ONE FUNCTION DRAWS EVERY SIGN: drawSign(ctx, business, holderHex, lit). The day the hold
+  lifts the world calls the same function with the real owner out of the turf map and the
+  real circuit out of the power grid, and nothing about the picture gets re-decided.
+  Six dead businesses: SUNRAY MOTEL, WASH-O-MAT, VALLEY CLINIC, FIRST STATE BANK, CHAPEL
+  OF THE SANDS, DESERT MARKET. Every line on them is something a real sign says, too calm.
+  Names and lines are DRAFTS. Faction colours are COPIED from
+  engine/BOHEMIA_faction_colours.json, never chosen here.
 
-THE POP-UP IS STILL ALIVE, MEASURED AT THE DOOR
-  310,716 px of card on a 378x815 screen, and the finger lands on the card, not the
-  glass. Its words: "DAY 1 06:00 ... Something came in on your phone overnight. THE
-  METER READER. nobody has picked it up yet." Under it SIX REPLIES WRITTEN AS
-  FIRST-PERSON SPEECH WITH NOBODY SPEAKING: "Half of it now, before I go", "I will go
-  first, on something small", "I'LL TAKE IT", "Make it a bag instead", "Make it a
-  favour instead", "Leave it with somebody who holds things for strangers".
-  THE WORDS FOR A MOUTH ARE ALREADY WRITTEN. There is no mouth attached to them.
-  (RUN [no pop ups], QUESTS, WORDS Q26 own that card. This is the measurement.)
-  *** AND THE CARD IS NOT THE ENEMY, THE UNASKED CALL IS. cardShow() targets #daycard
-  and SO DOES THE STANDING PANEL: measured, tapping STANDING takes the same element
-  none -> flex. The wake card, the night card and a panel he asks for are ONE SURFACE.
-  Rule 19(a) kills the surface coming up by itself, not the element; a lane that
-  deletes the element takes the panels with it. ***
+WHY A SIGN, AND WHY IT DOES NOT ARGUE WITH DIRECTION'S REGISTER
+  Their three homes name DEAD MEDIA OBJECTS first and their strongest single image is a lit
+  screen in a room with nobody in it. A roadside sign is that, outdoors, at the size of a
+  building. The tone comes from this game's own premise rather than a costume: the motel
+  sign still says VACANCY, in the motel's own letters, and nobody has worked there in ten
+  years. And it does a job COLOUR IS TERRITORY has been asking for since 8/26 -- the reader
+  board is the one part of a real sign that changed every week anyway.
 
-*** THE TWO FINISHED HALVES NOBODY HAS INTRODUCED ***
-  1. A CARD WHERE A NAMED PERSON SPEAKS ALREADY EXISTS. #ctcard prints the person's
-     name into .who and their line into .say, and it opens off ctAdjacent() -- somebody
-     STANDING BESIDE HIM -- not off a timer. Two of the three columns, already right.
-     IT HAS NO FACE IN IT. Zero canvases. A name and no face.
-  2. A PORTRAIT ALREADY REACHES THE WALKED CITY EVERY BOOT. The city frame has NO FACE
-     RENDERER OF ITS OWN and never had one -- it cannot draw a face. What it has is a
-     decoder, a listener for the BOHEMIA_CITY_PLAYER message, and one target, and the
-     alpha paints it: #modeFace, 64x64, on screen at 40x40, INK 100%. A real face,
-     drawn, in the city, right now. THE MESSAGE CARRIES EXACTLY ONE SLOT: the player's.
-  3. AND THE PERSON IS ALREADY THERE. At spawn, of 61 PEOPLE PLACED, the nearest is
-     2 AWAY IN THE GAME'S OWN REACH METRIC AND TALK APPEARS AT 1. Nobody needs
-     spawning. The nearest human being in this game is one cell outside arm's reach.
-  SO THE FOURTH THING IS: a speaker card that works, a face pipe that works, and NO
-  SECOND SLOT ON THE MESSAGE.
+*** THE FOUR FAULTS, IN ORDER, ALL FOUND BY LOOKING ***
+  1. SUNRAY MOTEL READ SUNRAY HOTEL. At three pixels across there is no room for the middle
+     of an M. The whole point of this tone is an institution STILL PERFECTLY READABLE with
+     nobody left to read it, so a sign you squint at is broken, not atmospheric. 5x7 now.
+  2. THEN VACANCY READ VACAHCY, one size down, same cause. Fixed the way narrow faces
+     always have: M, N and W run one column wider than the rest.
+  3. THEN EVERY SMALL LINE ON ALL SIX WAS MUSH while the big names beside them were
+     perfect. THE BIT MASK WAS WRONG: a 3-wide glyph's leftmost bit is 4 and a 4-wide
+     glyph's is 8, and the code read 2 and 4. That is the shape of bug that survives a
+     glance -- what you are looking at is fine and the thing beside it is garbage.
+  4. AND THE WHOLE OBJECT WAS FLAT, WHICH IS A LAW. 45 DEGREE ART LAW (7/17): every
+     original art is seen from the world's three-quarter view, NEVER flat side-on like a 2D
+     scroller. Three cuts were a front elevation that would have sat in a three-quarter
+     world looking like a sticker. Every solid is a box with three faces now (front,
+     sky-lit top, turned-away side), the ground under it is a diamond and so is the contact
+     shadow, and ONE PRIMITIVE draws all of it so it cannot drift back to flat.
+  Three smaller ones: a name too long ran off both edges of the chapel (a line that does not
+  fit the big face drops to the small one, which is what a real sign does with its second
+  line); the same stain sat in the same corner of all six and read as one sticker pasted six
+  times (placed off the business's own name now, fixed per sign, nothing random); and the
+  scale drawing was 150 px wide for a 201 px sign, so it could not show the scale.
 
-THE PRODUCT: gates/who_says_this_gate.js, 9/0, REGISTERED IN THE SUITE as WHO SAYS THIS.
-  A MOUTH MEANS BOTH HALVES: the surface names its speaker AND carries their face. A
-  name with no face is the blank-face defect the portrait law is named after; a face
-  with no name is a decoration.
-  IT IS A RATCHET, NOT A WALL. All nine were legal when they landed, so the count is
-  frozen at 9 and may only FALL. A tenth mouthless sentence from this lane turns it red.
-  Failing on the nine would paint this lane red for finished work and teach every lane
-  to route around the gate.
-  IT ALSO GUARDS THE ROUTE TO THE FOURTH THING: decoder, listener, target, and that the
-  face arriving is really DRAWN. Nothing was watching that pipe.
-  MUTATION-PROVED FOUR WAYS, one boot each: rename the talking card's line class, break
-  the message name, blank the face, raise the count by one -> four reds, each naming
-  what it lost.
+MEASURED, NOT GUESSED: HOW BIG IT REALLY IS
+  Rule 21 (9/21) fixes a person at one size everywhere he walks, about 100 px painted. A
+  roadside pole sign is about 4.5 m against a 1.75 m person, so it lands at 257 PX TALL on
+  the same street, 2.79x the art, and every letter survives. That is why the type was worth
+  fixing four times instead of being called atmospheric. The page shows it at true height
+  beside a person-height bar. NO BODY IS DRAWN: bodies are another lane's and a fake one
+  would be the exact slop this page exists to avoid.
 
-*** AND THE GATE'S OWN BUG, CAUGHT BY MUTATING IT. *** The first mutation run expected
-four reds and got three. The class check asked whether the page contained '#ctcard .say'
-and the mutation renamed the rule to '#ctcard .sayZ' -- WHICH STILL CONTAINS IT. The
-check stayed green while the thing it guards was gone. A SUBSTRING TEST THAT MATCHES ITS
-OWN MUTATION IS NOT A TEST; it asks for the rule's opening brace now. Same family as the
-9/16 run where three caches answered null twice and scored "same".
+THE FINDING, AND MY ANSWER TO IT (built, not asked)
+  THREE OF THE CREWS ARE DRAB AND A GREY FLAG IS NOT A FLAG. Measured on the page: with the
+  Mob holding the board, "somebody holds this block" and "nobody holds this block" are THE
+  SAME PICTURE, and unlit the grey board reads as a hole.
+  MY PICK: the drab crews do not paint the board, THEY TAKE IT DOWN. An empty frame with the
+  bolts still in it reads at any distance and in any light, and it says something true about
+  them: they do not advertise. No colour, no canon invented -- what a faction WEARS stays
+  his and this is a fixture, not a wardrobe. It is the third and fourth panels on the page
+  so he corrects it by looking, not by reading.
 
-AND ONE WRONG SHAPE CAUGHT BEFORE IT RAN. The nearest-person number was first written
-against pplGrid(), which is a HEADS-PER-BLOCK grid with no people in it -- it would have
-reported "could not measure" and looked like an answer. It is asked through ctEveryone()
-and ctAt(), THE SAME PAIR ctAdjacent() USES, so the distance and the button agree by
-construction.
+*** AND I NEARLY FILED SOMEBODY ELSE'S FLAKE AS MY OWN BUG, THEN NEARLY THE REVERSE. ***
+  VOTE TAB came back 27/1 with my registry line in, and 28/0 with it stashed. One run each
+  side, a clean A/B, and I had already written "the red is mine". It is not: three further
+  runs with the line in are all 28/0. The failing leg is a 10-second waitForSelector on
+  #setvote and it flakes about one run in four. ONE RUN EACH SIDE IS NOT AN A/B ON A
+  BROWSER-DRIVEN GATE WITH TIMEOUTS -- the same family as "check the instrument before you
+  believe its negative", except here the instrument was fine and the SAMPLE was one.
+  FOR UI (who owns that gate): vote_tab_gate's #setvote leg flaked 1 of 4 on clean main.
 
-WHAT THIS HANDS THE LANES BUILDING THE FOURTH THING (measured, not suggested)
-  [FOR UI, talk panel]   the panel exists, names its speaker, carries their line. It
-      needs a face, not a rebuild.
-  [FOR PORTRAIT/PEOPLE]  the city CANNOT DRAW a face. The only route is a second slot
-      on the message the alpha already sends and the city already decodes and paints.
-  [FOR QUESTS]           nobody needs spawning: 61 placed, nearest one cell outside the
-      reach that makes TALK appear.
-  [FOR WORDS Q26]        THE METER READER is already the name on the card, and six
-      first-person replies are already written.
+GATES  COOK EVERY ROUND: "FACTIONS has cooked at least as recently as it has coded" -- this
+       lane is green on PLUMBER's new rule 22 gate; the 8 reds there are other lanes.
+       ART 45 16/0. PAGES PUBLISH 18/0. VOTE TAB 28/0 (3 of 4 runs; see the flake above).
+       WHO SAYS THIS 9/0 unaffected, no city file touched.
+       RULE 13: pre-push pass green; full suite 107 red at ad23d875, none of them this lane's.
 
-GATES  WHO SAYS THIS 9/0 (new, registered). No game file changed, so no surface gate
-       was owed. RULE 13: pre-push pass green; full suite 107 red at ad23d875, this
-       lane's named below (none of them are).
-
-RULE 18 OBSERVED: no alpha push, no demo cut, no build stamp. The diff is one
-instrument, one checker, its registry line, the record and this block.
+RULE 18 AND RULE 22, OBSERVED: nothing pushed to the demo or the alpha's play tabs, no cut,
+no build stamp, no game file touched. One real thing made and registered where he votes.
 
 STILL OPEN, NONE OF IT THIS LANE'S
+  [FOR UI] vote_tab_gate's #setvote leg flakes ~1 in 4 (measured this round, 4 runs).
   [INHERITED] faction_towns P27 "somebody who is already yours leads the crew out there
-  too", identical on a clean origin/main worktree, arrived from somebody else's change.
-  Not this lane's: partiesNear() -- the one function that takes the player's position --
-  has no callers at all.
-  [FOR QUESTS] the five main-quest files (M01-M05) are not inlined, so they cannot be
-  played on any surface. quests/ is in the publish EXCLUDE list because inlining is the
-  only way in.
-  [FOR WHOEVER OWNS THE FEED GATE] feed_stream's door: tapText('CITY|DROP IN') hits
-  nothing, 0 such elements in the DOM. The feed itself is fine. The real door is the pinch.
-  [FOR DIRECTION / COOK / THE ART QUEUE] AR-005: the widest zoom is a declared
-  placeholder sky, complained about 8/16 AND 9/15, all six art requests OPEN, none ever
-  closed. AND THE CAMERA THERE IS ALREADY RIGHT: it frames all 9,216 cells and all 14
-  seats. What is missing is that the city renderer does not run there.
+  too", identical on a clean origin/main worktree. Not this lane's: partiesNear() -- the one
+  function that takes the player's position -- has no callers at all.
+  [FOR QUESTS] the five main-quest files (M01-M05) are not inlined, so they cannot be played
+  on any surface. quests/ is in the publish EXCLUDE list because inlining is the only way in.
+  [FOR WHOEVER OWNS THE FEED GATE] feed_stream's door: tapText('CITY|DROP IN') hits nothing,
+  0 such elements in the DOM. The feed itself is fine. The real door is the pinch.
+  [FOR DIRECTION / COOK / THE ART QUEUE] AR-005: the widest zoom is a declared placeholder
+  sky, complained about 8/16 AND 9/15, all six art requests OPEN, none ever closed. AND THE
+  CAMERA THERE IS ALREADY RIGHT: it frames all 9,216 cells and all 14 seats.
   [FOR CHARACTER / COOK] faction_outfit 16/2: Blues and Trades 0.0085 apart on a bar of
   0.035. What factions wear is reserved to him by name.
   [FOR RUN] DEMO BUILD red on main when an alpha change ships without a re-cut.
-  [FOR PLUMBER] the derived freshness gate goes red for ANY lane that hand-edits the
-  city; BANNER 12/2 on clean main.
+  [FOR PLUMBER] the derived freshness gate goes red for ANY lane that hand-edits the city.
   [INHERITED] city_memory_gate 33/1, pack_gate 46/1, both reproduced on clean main.
 
 [PENDING Paolo] -- FIVE, ALL CARRIED, NOTHING NEW
   1. DOES A DEBT CROSS THE FOLD -- CLOSING: ruled 9/13, and [same lender] carries it.
-  2. THE PLANT. If "the plant" in his towns law is a GENERATOR, every fortress makes
-     power off its own seat. That authors canon about the money supply, so not taken.
+  2. THE PLANT. If "the plant" in his towns law is a GENERATOR, every fortress makes power
+     off its own seat. That authors canon about the money supply, so not taken.
   3. Anarchists, Colorful and Custom are called non-territorial and still hold ground.
   4. What it COSTS to be seen with one of the four hidden factions.
-  5. FOUR COLOUR CLASHES on the map: Mob #db1800 beside Reds #db1900, Network
-     #4a8ddb beside Blues #0052db. Is the Cartel drab on purpose?
+  5. FOUR COLOUR CLASHES on the map: Mob #db1800 beside Reds #db1900, Network #4a8ddb
+     beside Blues #0052db. Is the Cartel drab on purpose?
+  (The drab-crew answer above is a DEFAULT I BUILT, not a sixth pending.)
 
 NEXT IN THIS LANE
-  [same lender] stays HELD until the coordinator says the playable cut holds (18b) or
-  gives this lane one of his breaks (14c). While held, the round measures this lane's
-  part of the four things or goes to school.
-  THE FIRST THING WAITING WHEN THE HOLD LIFTS, and it is now the fourth thing's
-  neighbourhood: [collector heir] ALREADY IS A PERSON COMING TO HIS DOOR -- a named
-  lender, arriving on the first day after the fold, with a reason to be there. It is
-  the only sentence this lane owns whose speaker is named by design. It is on the
-  pop-up card, which dies, so it needs re-homing anyway; re-homing it onto the talking
-  card that already exists is the same work as giving it a mouth. THAT IS THE ROW TO
-  OFFER WHEN THE HOLD LIFTS.
-  ALSO WAITING: ruling 5 of his second play, "a forgiven thing still stings for a
-  season" -- forgiveness clears the account and leaves a mark on standing that fades
-  over one season, never a permanent debuff. The collector "remembers" line exists.
-  RULE 16 WHEN IT REACHES THE RENDER. The lattice has landed, the scale has not. When
-  TW moves, re-measure the stops: the border, track and light layers and the relations
-  gate's marker floor are all pixel counts off it.
-  THE OTHER REDS THIS LANE NAMED are all somebody else's and are listed above; none of
-  them has moved.
+  COOK AGAIN, because rule 22 means every round and school is never two in a row. The next
+  sign is already chosen and it is not arbitrary: ECONOMY Q47 (6ad70ba6) found that ONE
+  FACTION HOLDS 100% OF THE VALLEY'S RUNNING WATER and it is Remnants, Homeless or Church,
+  never Mob or Cartel, with 40% of valleys booting dry. A WATER AUTHORITY is the single best
+  institution left to sign in this world: it is the one dead agency everybody still needs,
+  it is already canon, and its sign is the strongest thing this law can point at. Pair it
+  with the stripped-board answer above and the set covers both halves of who holds ground.
+  THEN, WHEN THE HOLD LIFTS: the signs go into the walked city off turfAt() and POWER.at(),
+  which is the row's second half and needs no new art.
+  [same lender] stays HELD. The first thing waiting on it is still [collector heir], which
+  ALREADY IS a person coming to his door -- a named lender, on the first day after the fold,
+  with a reason to be there -- and which round 32 measured as the only sentence this lane
+  owns whose speaker is named by design. Re-homing it onto the talking card that already
+  exists is the same work as giving it a mouth.
+  RULE 16 WHEN IT REACHES THE RENDER. The lattice has landed, the scale has not. When TW
+  moves, re-measure the stops: the border, track and light layers and the relations gate's
+  marker floor are all pixel counts off it.
 
-TWENTY-NINE STANDING LESSONS THIS LANE KEEPS RE-LEARNING
+THIRTY-TWO STANDING LESSONS THIS LANE KEEPS RE-LEARNING
   BEFORE ASSUMING A ROW IS BLOCKED, CHECK WHETHER ITS NAMED BLOCKER IS STILL TRUE.
   WHEN A CHECK GOES RED, ASK WHETHER IT IS MEASURING THE GAME OR ITS OWN INVENTION.
   WHEN HIS SENTENCE IS FALSE ON THE MAP, REPORT IT rather than forcing it.
   WHEN A LAW BLOCKS THE OBVIOUS BUILD, IT IS USUALLY POINTING AT A BETTER ONE.
-  A BLOCK OF CLAIMS BEHIND AN `if` THAT QUIETLY DOES NOT RUN IS A GREEN GATE, and so is
-  a claim whose walk found nothing to measure and passed on the empty set.
+  A BLOCK OF CLAIMS BEHIND AN `if` THAT QUIETLY DOES NOT RUN IS A GREEN GATE, and so is a
+  claim whose walk found nothing to measure and passed on the empty set.
   SHOWN, COUNTED AND NEVER SEEN IS THE SAME AS NOT BUILT.
   AN indexOf COMPARISON ACROSS A 4 MB FILE IS NOT AN ORDERING CLAIM.
   A LOAD THAT TIMES OUT IS A SYNTAX ERROR UNTIL PROVEN OTHERWISE.
@@ -6521,27 +6504,23 @@ TWENTY-NINE STANDING LESSONS THIS LANE KEEPS RE-LEARNING
   OFF THE EDGE IS NOT UNPAINTED. getImageData clamps at the canvas edge.
   BEFORE PUTTING SOMETHING BACK, FIND OUT WHY IT WENT. git log -S answers in one command.
   STOP INVENTING IDENTIFIERS. __lastOx, CITY_SRC, BohemiaTowns.towns(), CITY_TXT,
-  pplMap/minesMap/homeOf, and this round pplGrid used as a list of people. SIXTH TIME.
-  Grep the name AND the SHAPE before you use it: the right name with the wrong shape
-  reads as "could not measure", which looks like an answer.
-  A CACHE KEY THAT CANNOT TELL "NO" FROM "NOT YET" WILL FREEZE THE WRONG ANSWER AND
-  NEVER LOOK AGAIN.
-  A GATE THAT PRINTS NOTHING MAY HAVE PRINTED EVERYTHING: process.exit() can drop
-  buffered stdout when the output is redirected to a file.
-  AND A CACHE THAT ANSWERS "NULL" TWICE HAS NOT BEEN TESTED, IT HAS BEEN SKIPPED.
-  null matches null, so a wrong function name scores a clean pass on a question nobody
-  asked. Any sweep that compares two readings needs a floor saying the readings were
-  real, before it compares them.
-  AND A NEGATIVE RESULT IS WORTH SHIPPING WHEN IT IS BOUNDED AND MECHANICAL. "Nothing
-  else is frozen" is worth little alone and a lot with a gate under it.
-  *** AND A SUBSTRING TEST THAT MATCHES ITS OWN MUTATION IS NOT A TEST. *** '.sayZ'
-  contains '.say', so the check passed on the deletion it existed to catch. MUTATE YOUR
-  OWN GATE BEFORE YOU BELIEVE ITS GREEN, and count the reds you EXPECTED against the
-  reds you got -- the missing one is the hole.
-  *** AND WHEN A NEW LAW LANDS, THE FIRST USEFUL ROUND IS NOT BUILDING TO IT, IT IS
-  COUNTING HOW FAR THE BUILT THING ALREADY IS FROM IT. *** The count is where the
-  finished halves turn up. Nine misses were the boring half; the mouth and the face
-  pipe, both working and never introduced, were inside the same measurement.
+  pplMap/minesMap/homeOf, pplGrid used as a list of people. Grep the name AND the SHAPE.
+  A CACHE KEY THAT CANNOT TELL "NO" FROM "NOT YET" WILL FREEZE THE WRONG ANSWER AND NEVER
+  LOOK AGAIN.
+  A GATE THAT PRINTS NOTHING MAY HAVE PRINTED EVERYTHING: process.exit() can drop buffered
+  stdout when the output is redirected to a file.
+  A CACHE THAT ANSWERS "NULL" TWICE HAS NOT BEEN TESTED, IT HAS BEEN SKIPPED.
+  A NEGATIVE RESULT IS WORTH SHIPPING WHEN IT IS BOUNDED AND MECHANICAL.
+  A SUBSTRING TEST THAT MATCHES ITS OWN MUTATION IS NOT A TEST. '.sayZ' contains '.say'.
+  WHEN A NEW LAW LANDS, THE FIRST USEFUL ROUND IS COUNTING HOW FAR THE BUILT THING ALREADY
+  IS FROM IT. The count is where the finished halves turn up.
+  *** AND A DRAWING IS CHECKED BY LOOKING AT IT, AND NOTHING ELSE FINDS THESE. *** All four
+  faults this round passed every test a machine could run: no errors, valid canvas calls,
+  right colours, right dimensions. The M was an H, the mask was shifted, the object was
+  flat. THE ONLY INSTRUMENT THAT WORKS ON A PICTURE IS A PICTURE.
+  *** AND ONE RUN EACH SIDE IS NOT AN A/B. *** A browser-driven gate with a ten-second
+  wait flakes; a single red and a single green is a coin, not a measurement, and it read
+  as a clean causal result. Run it until the answer stops moving.
 
 --------------------------------------------------------------------------------
 
