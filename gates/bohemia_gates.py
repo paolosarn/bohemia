@@ -4289,6 +4289,26 @@ GATES = [
      'deliberately survives a redraw). Covers the DAY CARD only; the BUILD and BUILD BIG dead buttons '
      'EYES also found are on the city build card and belong to LIFE+CITY. Runs 14/0',
      True),
+    ('WIRE THE DOOR', ['node', 'gates/wire_the_door_gate.js'],
+     'QUESTS row [wire the door], 9/22, item 4 of the playable cut. The four pieces existed in four lanes '
+     'and nobody owned the wire: QUESTS the generated ask and the mouth module, PEOPLE the bubble with the '
+     'face and the name door, WORDS the register Paolo ruled on, PORTRAIT the re-lit face. SHIP TEST, the '
+     'coordinator own words: the one driver, a NAMED FACE SPEAKING AN ASK ON THE GLASS BEFORE 60 s, ZERO '
+     'CARDS. MEASURED ON THE ALPHA: spoken at 1.9 s after ONE pad press, speaker "Marisela Escobar" (a '
+     'name, not a trade), face arrives, 0 cards, 0 page errors. THE WIRE IS FOUR LINES OF PRIORITY, not a '
+     'new surface, because rule 19(a) killed the pop-up in the same breath that asked for the portrait. '
+     'THREE INSTRUMENT DEFECTS CAUGHT ON MYSELF THIS ROUND, all before they reached a report: (1) the '
+     'mouth module was NOT inlined in the city, so the wire would have failed silently and looked like a '
+     'quiet world -- the exact trap this lane shipped a whole row about; (2) THE GATE POLLED EVERY 250 ms '
+     'FOR A BUBBLE THAT LIVES TWO SECONDS and on a stalled run read null and reported a named speaker as '
+     'nameless, so the name and face are recorded BY THE CODE THAT PUTS THEM ON THE GLASS, at the instant, '
+     'and the poller only adds wall-clock timing; (3) the narration check flagged "It logs you and moves '
+     'on" as narration when it is a neighbour talking about a drone, which would have sent WORDS back to '
+     'rewrite two good lines -- it tests an INDEFINITE PERSON as subject now, and still catches the real '
+     'defect (somebody steps out. they want something.). NOTED: the bank holds the OLD lines too as WAS '
+     'examples, so bank membership alone cannot tell new from old; the narration check is what does. '
+     'Runs 15/0',
+     True),
     ('ASK HAS A MOUTH', ['node', 'gates/ask_has_a_mouth_gate.js'],
      'QUESTS row [a person asks], 9/21. PAOLO 9/20 rule 19: a quest is people, places and things, never a '
      'card, and text comes from a mouth. MEASURED ON THE WALKED CITY FIRST: the valley already generates '
