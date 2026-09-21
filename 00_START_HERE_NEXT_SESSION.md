@@ -16081,6 +16081,66 @@ THIS LANE'S ROLE, FIXED: 16 COOK, the production artist.
 THIS LANE'S SESSION SLUG: cook-mce6r5.
 
 
+COOK (cook-mce6r5): 9/21 LATEST (3) -- *** THE PAINTED LINES DRUMMED TOO, AND ITEM 5 IS
+FINISHED. lane 2 -> 8 pictures, median 3 -> 9, THE PAINT HIS PIXEL FOR PIXEL. ***
+THE FIGHT VERDICT round 3 passed this lane's floor bank ("the fight's whole ground bank is
+the walked street BYTE FOR BYTE... 57 colours under the 64 ceiling") and still lists the
+edge drum. Round 2 fixed the kerbs and gutters and I wrote down what I had NOT finished:
+lane at 2 pictures and median at 3. A column of 14 cells drawn from 2 pictures is still a
+drum. Finished now. The bank is 78 images at 44 px and 78 at 88; every column of the street
+varies. WHERE HE SEES IT: the VOTE tab, cook-the-lane-line-drums-too-9-21, picture
+slices/vote/COOK_THE_LANE_LINE_DRUMS_TOO.png. Tool:
+tools/bohemia_the_lane_line_drums_too_cook_9_21_26.py. Record:
+records/COOK_THE_LANE_LINE_DRUMS_TOO_9_21_26.md. NOTHING TO THE ALPHA OR THE DEMO.
+
+TWO WRONG CONSTRUCTIONS BEFORE THE RIGHT ONE, AND THE SECOND IS THE ONE WORTH READING.
+ (1) The kerb trick does not transfer, and that was MEASURED before it was tried: a marking
+tile differs from the CLOSEST of the 18 street tiles on 74-85% of pixels. It is its own
+drawing with its own asphalt, not a street tile plus a band.
+ (2) *** THE COLOUR MASK SCORED PERFECTLY AND ERASED THE LANE LINE. *** A marking tile is
+98%, 93% and 88% street-family colours plus exactly ONE colour that is not, so I lifted
+"every pixel not in the family" as the paint. Every guard went green: 2 pictures to 8, paint
+never moved, no duplicates, opaque, under the ceiling. THEN I RENDERED THE COLUMN AND THE
+LINE WAS GONE. Only 38 px of the stripe are that off-family colour; the BODY of the line is
+painted in the material's OWN light tones. A MASK BUILT FROM A COLOUR TEST CANNOT FIND A
+LINE DRAWN IN THE MATERIAL'S OWN COLOURS, and no number in that run said so.
+ (3) The band is geometry and geometry does not lie: row brightness puts every marking in
+every variant between rows 17 and 28. That band is lifted whole, exactly as the kerb's lip
+was rows 38-43. AND THE SEAM WAS MEASURED, NOT ASSUMED: band-minus-field is +15.7 median on
+lane against +21.2 on the tile the game draws TODAY (mine is a SMALLER step), and +7.4 on
+median against +4.9 (2.5 units, under what reads at phone scale).
+
+*** THE OTHER HALF: THE VERDICT'S HONEST RESIDUAL IS REAL ON DENSITY AND AN ARTIFACT ON
+HUE, AND ON BOTH AXES MY RECOOK SITS EXACTLY WHERE HIS APPROVED ART SITS. *** Re-measured
+with the card's own ruler before cooking a pixel, which is what the verdict asked for.
+ DENSITY: my 9/13 street 3.62, side 3.62-4.13, against the 5A floor of 4.5. HIS 7/28 BANK:
+road_0 3.10, walk_0 4.13, yard_0 2.58, dirt 2.07, wall_0 2.07 -- min 2.07, median 3.62.
+EVERY TILE HE APPROVED ON 7/28 IS BELOW THE FLOOR TOO. The card set the floor at pz_0 = 4.6,
+which is the OLDER approved ground, and its own scope exempts the 7/28 set as byte-locked
+under his CBB verdict. So the floor sits above his own newer approved art, and raising the
+street to meet it would make the street DENSER THAN EVERY TILE IT SITS BESIDE -- the
+opposite of the identity that just earned the PASS. NOT COOKED, on purpose, and it is a
+canon question rather than a cook.
+ HUE: the sidewalk reads 1.2-1.4 deg against the 3.0 floor and that looked like a clean
+failure. HIS OWN walk_0 PASSES AT 3.70 AND ONLY BECAUSE OF ONE 40-PIXEL NEAR-BLACK at
+(4,4,3), hue 60 beside a step at hue 33, worth 27 degrees on its own. Strip it: his 1.26
+against my 1.21, THE SAME PLACE. Same artifact on the road (road_0 53.12, street[0] 86.75,
+both off a near-neutral darkest step at hue 220). AND THE PIXEL DOING THE INFLATING IS ONE
+THE CARD BANS: his walk tiles are 1.39% near-black and his road tiles 0.69%, while my 9/13
+recook is 0.00% on both. THE 5A HUE FLOOR CURRENTLY REWARDS PUTTING PURE BLACK BACK IN THE
+GROUND. FOR DIRECTION, not decided here: that ruler wants a chroma floor so a near-neutral
+step cannot carry a hue. Twelfth time this lane has had to separate a clean number from the
+wrong oracle.
+
+FOR EVERY LANE, A SEQUENCING TRAP I WALKED INTO AND BACKED OUT OF: I built the registry
+merge from ORIGIN/MAIN while my tree was still on an older commit, and VOTE TAB went red on
+three PORTRAIT items whose pictures were in the newer commit I had not taken yet. It was not
+their bug and it was not mine; it was the order. REBASE FIRST, THEN MERGE THE REGISTRY.
+
+NOT DONE: cross_ew/cross_ns (3 each) are crossing bars at an intersection, not a column that
+runs the length of a frame. The light, the fighter's size, the chrome and the bar are
+COMBAT's and UI's and stay that way.
+
 COOK (cook-mce6r5): 9/21 LATEST (2) -- *** THE EDGE OF EVERY FIGHT WAS ONE PICTURE
 REPEATED FOURTEEN TIMES, BECAUSE THE POOL HAD ONE TILE IN IT. NOW IT HAS EIGHT. ***
 THE FIGHT VERDICT round 2 posted, and my round 1 floor is in it: "WHAT GOT BETTER AND
