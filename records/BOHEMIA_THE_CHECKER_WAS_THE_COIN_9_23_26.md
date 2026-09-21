@@ -148,6 +148,9 @@ round trip cannot be load-independent.
                  jumps back to its first bar
     new          "the fight was GIVEN a song, and the gate waited for it"
     new          "ONE FIGHT IS ONE SONG: set once, not re-rolled"
+    new          "the loading screen said it was ready before the door was tapped", added after
+                 main moved mid-round and five claims went red because the gate was opening the
+                 alpha as a local file, where the door can never open at all
 
 **BOTH NEW CLAIMS ARE PROVEN BY MUTATION, not by a green:**
 
@@ -197,7 +200,11 @@ Neither is asserted here. Both are on this lane's handoff as named-not-fixed.
     touched combat's module .................................... nothing; the palette is not
                                                                  this lane's to move
 
-**Gate: FIGHT MUSIC 50 passed / 0 failed** (48 before, plus the two new claims).
+**Gate: FIGHT MUSIC 51 passed / 0 failed** (48 before, plus the two new claims and, after main
+moved under this round, a third: *the loading screen said it was ready before the door was
+tapped*. That last one, and the http server behind it, are their own record:
+`records/BOHEMIA_EVERY_GATE_THAT_OPENS_THE_ALPHA_AS_A_FILE_IS_BLIND_9_23_26.md`, because the five
+reds it explains looked exactly like a music regression and were not one.)
 
 ---
 

@@ -106,7 +106,11 @@ function pw(){for(const g of ['/opt/node22/lib/node_modules','/usr/lib/node_modu
   const errs=[]; p.on('pageerror',e=>errs.push(String(e.message)));
   const out={};
   try{
-    await p.goto('file://'+path.join(process.argv[2],'slices','BOHEMIA_ALPHA_0_9.html'));
+    // SERVED, NOT OPENED AS A FILE. See the note by the http server in the Python
+    // half: over file:// the city iframe is a foreign origin, the loading screen's
+    // own checks can never read into it, and the door never becomes a door.
+    await p.goto((process.argv[3]||('file://'+process.argv[2]))
+                 +'/slices/BOHEMIA_ALPHA_0_9.html');
     await p.waitForTimeout(2000);
     const has=await p.evaluate(()=>({fm:typeof FIGHTMUS!=='undefined',
       mm:typeof MENUMUS!=='undefined', cm:typeof CITYMUS!=='undefined',
@@ -115,6 +119,29 @@ function pw(){for(const g of ['/opt/node22/lib/node_modules','/usr/lib/node_modu
     if(!has.fm||!has.cm||!has.cold){ out.fatal='FIGHTMUS/CITYMUS/startColdOpen missing from the shipped alpha';
       console.log(JSON.stringify(out)); await b.close(); return; }
 
+    /* *** WAIT FOR THE DOOR TO BE A DOOR (9/23, SOUNDS lane). FOURTH TIME IN THIS
+       FILE: A FIXED WAIT IS NOT AN EVENT, and here the fixed wait was the 2,000 ms
+       above before tapping.
+       MEASURED on plain origin/main at 2d9dd91, five claims red and none of them
+       this lane's work: the opening never handed over, the streets never played,
+       MUS.playing was FALSE for 65 seconds, and a faction song had taken the index
+       because the street never started. The door handler now reads, in order:
+           runTab.click(); __OPENED_ON_THE_GAME++
+           ... if(!window.__LOAD_READY) return;        <- RUN's loading screen, 9/21
+           ... MENUMUS.open()
+       So a tap taken before the loading lines finish OPENS THE GAME and SKIPS THE
+       MUSIC, and nothing calls open() a second time. Measured: __OPENED_ON_THE_GAME
+       1, MENUMUS.open() called 0 times, MUS.playing false for the whole run.
+       A REAL PLAYER WAITS FOR THE WORD BEGIN; A GATE THAT TAPS AT 2 SECONDS DOES
+       NOT. So wait for the game's own readiness flag, bounded, and record it -- and
+       if it never comes, say the door never opened instead of blaming the music.
+       (THE DEFECT UNDERNEATH IS STILL A DEFECT and is named in this lane's handoff
+       for RUN: an early tap gets past the door's own "not ready is not an
+       invitation" refusal and lands the player in a permanently silent game. This
+       wait makes the gate honest; it does not make that bug go away.) */
+    out.loadReadyMs=await p.evaluate(async()=>{ const t=Date.now();
+      while(Date.now()-t<60000){ if(window.__LOAD_READY) return Date.now()-t;
+        await new Promise(r=>setTimeout(r,200)); } return null; });
     await p.click('#front');                      // the real gesture
     // WAIT FOR THE HANDOFF, NOT FOR A DURATION. This was `waitForTimeout(22000)`
     // with the comment "opening hands over to the streets", and it ROTTED: the
@@ -452,10 +479,50 @@ def main():
     with tempfile.NamedTemporaryFile('w', suffix='.js', delete=False) as fh:
         fh.write(JS)
         js = fh.name
+    # *** SERVED OVER http, NOT OPENED AS A file:// (9/23, SOUNDS lane). VERIFY ON
+    # THE REAL SURFACE, and a file:// URL is not the real surface.
+    # MEASURED, the same alpha, the same box, twice:
+    #     over file://   the loading screen sticks on WINDING THE CLOCK at 20.5 s
+    #                    and is still stuck 219 s later. Never reaches BEGIN.
+    #     over http      [true,false,false,false] at 0.5 s -> [true,true,true,false]
+    #                    at 24.5 s -> BEGIN at 25.5 s. The game opens.
+    # THE CAUSE IS ONE SWALLOWED EXCEPTION, and it is the oldest lesson in that same
+    # region of the alpha, quoted in its own comment two screens above the bug: "a
+    # caught exception in a draw path is a feature that silently does nothing, and
+    # that is worse than a crash, because a crash gets fixed." Three of the four
+    # loading lines ask questions INSIDE the city iframe through __cityHas(), whose
+    # body is a try/catch returning false. Over file:// that frame's origin is "null",
+    # so reading into it throws "Blocked a frame with origin null from accessing a
+    # cross-origin frame" every single time -- and false means "not loaded yet", so
+    # the screen waits for ever on a stage that can never report.
+    # THE GAME IS NOT BROKEN. His link is https and same-origin, so all four lines
+    # complete in 25.5 s. What is broken is every gate in this fleet that opens the
+    # alpha as a local file and taps the door, which before this fix included this
+    # one: five of its claims went red saying the MUSIC had regressed.
+    # A one-line http server is the honest fix here. The general one is RUN's:
+    # __cityHas cannot report "I am not allowed to look" as "not done".
+    import http.server, socketserver, threading
+
+    class Quiet(http.server.SimpleHTTPRequestHandler):
+        # ONE LINE PER REQUEST WOULD BURY THE CLAIMS. The alpha pulls nine tile
+        # chunks and a service worker, and a gate's output is for reading.
+        def __init__(self, *a, **k):
+            super().__init__(*a, directory=ROOT, **k)
+
+        def log_message(self, *a):
+            pass
+
+    srv = socketserver.TCPServer(('127.0.0.1', 0), Quiet)
+    srv.allow_reuse_address = True
+    base = 'http://127.0.0.1:%d' % srv.server_address[1]
+    threading.Thread(target=srv.serve_forever, daemon=True).start()
     try:
-        r = subprocess.run(['node', js, ROOT], capture_output=True, text=True, timeout=900)
+        r = subprocess.run(['node', js, ROOT, base],
+                           capture_output=True, text=True, timeout=900)
     finally:
         os.unlink(js)
+        srv.shutdown()
+        srv.server_close()
     if r.returncode != 0:
         print('  FAIL  the browser run died:\n' + (r.stderr or '')[-1500:])
         return 1
@@ -469,6 +536,16 @@ def main():
         return 1
 
     ok('FIGHTMUS is in the shipped alpha', d.get('fm'))
+
+    # THE DOOR WAS A DOOR BEFORE IT WAS TAPPED. RUN's loading screen (9/21) puts an
+    # `if(!window.__LOAD_READY) return;` between the tab click and MENUMUS.open(), so
+    # a tap taken too early opens the game into permanent silence. Measured on plain
+    # main: five claims below went red on exactly that, with nothing wrong with the
+    # music. This claim exists so that failure can never again be reported as a music
+    # regression.
+    ok('the loading screen said it was ready before the door was tapped (after %s ms) '
+       '-- waited for, not timed out on' % d.get('loadReadyMs'),
+       d.get('loadReadyMs') is not None)
 
     st = d.get('streets') or {}
     ok('the opening handed the music over to the streets on its own (after %s ms) '

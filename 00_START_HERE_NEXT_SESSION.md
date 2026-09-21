@@ -584,10 +584,48 @@ WHAT IS NEXT IN THIS LANE, IN ORDER, NOTHING BLOCKED:
     a room handing the music back does not check whether a fight owns it (its busy() guard binds
     one direction only), and the shell obeys the city's music message with no fight guard.
 
-STILL CARRIED, NAMED NOT FIXED, BOTH VERIFIED PRE-EXISTING IN A PINNED WORKTREE:
-  VOTE TAB reads 27/1 because DIRECTION registered an item with kind 'verdict' and UI's allowed
-    list does not carry it. A one-word addition to the same list I added 'sound' to, and it is
-    DIRECTION's word in UI's gate, so I am not guessing on their behalf.
+*** FOR RUN, AND FOR EVERY LANE WITH A GATE THAT TAPS THE DOOR: EVERY GATE THAT OPENS THE ALPHA
+AS A FILE IS NOW BLIND. Found on plain origin/main at 2d9dd91 with nothing of mine in the tree.
+Record: records/BOHEMIA_EVERY_GATE_THAT_OPENS_THE_ALPHA_AS_A_FILE_IS_BLIND_9_23_26.md ***
+  WHAT IT LOOKS LIKE: five claims in my gate went red at once saying the music was gone, and on
+  the page MUS.playing was FALSE for 65 seconds while MENUMUS.open() was called ZERO times and
+  the game reported it had opened.
+  THE MUSIC IS FINE. The same alpha, the same box, two ways of opening it:
+    over file://   the loading screen sticks on WINDING THE CLOCK at 20.5 s and is still stuck
+                   219 s later. Line states [true,false,false,false]. Never reaches BEGIN.
+    over http      [true,false,false,false] at 0.5 s -> [true,true,true,false] at 24.5 s ->
+                   BEGIN at 25.5 s. The game opens and the music plays.
+  HIS LINK IS https AND SAME-ORIGIN, SO THE GAME HE TAPS IS FINE. What is broken is every
+  instrument that opens the alpha as a local file.
+  THE CAUSE IS ONE SWALLOWED EXCEPTION. Three of the four loading lines ask their question
+  INSIDE the city iframe through __cityHas(), whose body is a try/catch returning false. Over
+  file:// that frame's origin is "null" so reading into it throws "Blocked a frame with origin
+  null from accessing a cross-origin frame" every time, and false means "not loaded yet". Only
+  line 1 (does a cityFrame element exist) can be answered from outside, which is exactly the
+  [true,false,false,false] measured. The door's `if(!window.__LOAD_READY) return;` then means the
+  tap is not a door.
+  AND THE LESSON IS WRITTEN TWO SCREENS ABOVE THE BUG, by whoever fixed the FIRST cut of this
+  same screen: "a caught exception in a draw path is a feature that silently does nothing, and
+  that is worse than a crash, because a crash gets fixed." AND "I AM NOT ALLOWED TO LOOK" IS NOT
+  "NOT DONE": the helper collapses done, not-done-yet and cannot-be-determined into two answers
+  and throws away the one that matters.
+  WHAT I DID: fixed MY gate, because VERIFY ON THE REAL SURFACE and a file:// URL is not the real
+  surface. It serves the alpha over a one-line local http server on an ephemeral port, and it now
+  WAITS for the game's own readiness flag before tapping, bounded and recorded, with its own
+  claim -- "the loading screen said it was ready before the door was tapped (after N ms)" -- so
+  this failure can never again be reported as a music regression. 51/0, from 43 to 45 passed with
+  5 to 9 failing depending on the run.
+  WHAT I DID NOT DO: touch the loading screen or __cityHas. RUN's, shipped this round, and the
+  general fix is theirs to pick: either __cityHas reports "cannot determine" separately from "not
+  done" (one change in one helper, and a cross-origin frame is a known catchable nameable
+  condition, not a slow load), or every gate in the fleet serves the alpha over http instead of
+  opening it as a file (a change in every gate that boots the alpha). I am not choosing for them.
+
+STILL CARRIED, NAMED NOT FIXED, VERIFIED PRE-EXISTING IN A WORKTREE PINNED TO origin/main:
+  VOTE TAB reads 27/1 -- and this round it is a DIFFERENT red from the one I carried: the gear's
+    VOTE tap times out at 90 s. Reproduced twice on my tree and ONCE ON A WORKTREE PINNED TO
+    2d9dd91, so it is not mine; it arrived with UI's newest two commits. The kind 'verdict' red I
+    carried for two rounds is GONE (the gate read 28/0 on my tree before UI's push).
   pages_publish_gate reads 17/1: the published surface is 261 MB against its own 260 MB cap.
     PLUMBER's territory, and the 8/6 law says an oversized publish is what made Pages fail three
     commits in a row.
