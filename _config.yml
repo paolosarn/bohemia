@@ -49,6 +49,7 @@ exclude:
   - tools/          # generators and cooks — they run in a session, not in a browser
   - gates/          # the regression machines
   - laws/           # the law masters
+  - exports/        # documents written for people outside the project (the playbook, 9/21); a page never loads them
   - quests/         # .bq canon quest sources (inlined into the slice at build time)
   - records/       # NOT PUBLISHED, with ONE carve-out: .github/workflows/pages.yml
                    # copies records/target by name (the ART tab loads its target
