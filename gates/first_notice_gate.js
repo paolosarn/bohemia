@@ -112,6 +112,30 @@ section('A the form is whole', () => {
   });
   ok('the alert names all five slots and no more',
      N.slotsOf('alert').map(s => s.key).join(',') === 'source,hazard,location,action,expiry');
+
+  /* ---- THE CLOSING NOTICE (9/21, row [visible change]) ------------------
+     A receipt that says PAID IN FULL while something is still owed is the
+     worst document in this module: it is the card that promises and does
+     nothing, printed on letterhead. So the remainder is carried, not assumed,
+     and a remainder REFUSES the receipt rather than rounding it away. */
+  const C = (x) => N.cleared(Object.assign(FACTS(), { paid: 2, left: 0, to: 'Mob' }, x || {}));
+  const c = C();
+  ok('a paid debt issues a closing notice', c.issued, c.reason || '');
+  const cneed = N.slotsOf('cleared').filter(s => s.need).map(s => s.key);
+  ok('the closing notice fills every slot it declares (' + cneed.length + ')',
+     cneed.every(k => c.slots && c.slots[k]),
+     cneed.filter(k => !(c.slots && c.slots[k])).join(','));
+  ok('*** IT STATES THE ZERO IN WORDS, because a bill that stops coming is not a receipt ***',
+     /BALANCE REMAINING \.+ 0 BATTERIES/.test(c.en.join(' ')));
+  ok('*** AND IT REFUSES TO SAY PAID IN FULL WHILE ANYTHING IS STILL OWED ***',
+     (() => { const r = C({ left: 1 }); return !r.issued && r.reason === 'STILL_OWING'; })(),
+     JSON.stringify(C({ left: 1 }).reason || 'ISSUED ANYWAY'));
+  ok('and a payment of nothing is not a payment',
+     (() => { const r = C({ paid: 0 }); return !r.issued && r.reason === 'NOTHING_WAS_PAID'; })());
+  ok('it names who took the money, read off the game',
+     c.en.join(' ').indexOf('BY MOB') >= 0);
+  ok('the closing notice is issued in both languages too',
+     c.es && c.es.length > 0 && /PAGO TOTAL/.test(c.es.join(' ')));
 });
 
 /* ---- B. NOT ONE NUMBER IS TYPED: MOVE HIS ONE AND WATCH IT FOLLOW -------- */

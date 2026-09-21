@@ -143,6 +143,95 @@ const ok = (n, c, note) => { c ? (pass++, console.log('  ok   ' + n + (note ? ' 
   ok('the tape never jumps more than half a lot at once',
      T.big <= T.lot / 2, T.big + 'px of ' + T.lot);
 
+  /* ---- 5b. THE BODY SKIPS WITH THE GROUND (9/21) ------------------------
+     THE FIRST HALF OF THIS ROW FOUGHT ITSELF UNTIL THIS EXISTED. The ground was
+     taught to hold and drop while the BODY still walked a straight ramp across
+     the same beat, so his legs strode on the spot while the street stood still
+     and advanced one pose while the street jumped 94 px. That is the moonwalk
+     the row exists to kill, rebuilt from the other side. Measured off the same
+     seam the renderer picks frames with, for the shipped 4-frame walk clip. */
+  const body = await pg.evaluate(() => {
+    const W = window.__WALKFEEL, out = {};
+    for (const f of W.feels()) {
+      W.set(f);
+      const seq = []; for (let ms = 0; ms <= 500; ms++) seq.push(W.frameAt(4, ms / 500));
+      let changes = 0, hold = 0, longest = 0;
+      for (let i = 1; i < seq.length; i++) {
+        if (seq[i] !== seq[i - 1]) { changes++; if (hold > longest) longest = hold; hold = 0; }
+        else hold++;
+      }
+      if (hold > longest) longest = hold;
+      out[f] = { poses: new Set(seq).size, changes, longestHoldMs: longest,
+                 first: seq[0], last: seq[seq.length - 1] };
+    }
+    W.set('TAPE');
+    return out;
+  });
+  console.log('       GRID  body holds a pose ' + body.GRID.longestHoldMs + 'ms of the beat, '
+    + body.GRID.changes + ' pose changes');
+  console.log('       SLIDE body holds a pose ' + body.SLIDE.longestHoldMs + 'ms of the beat, '
+    + body.SLIDE.changes + ' pose changes');
+  console.log('       TAPE  body holds a pose ' + body.TAPE.longestHoldMs + 'ms of the beat, '
+    + body.TAPE.changes + ' pose changes');
+  const picks = (src.match(/\/BEAT\*frames\.length\)\|0/g) || []).length;
+  ok('the walk frame is picked in one place, not once outdoors and once indoors',
+     picks === 0 && (src.match(/walkFrame\(/g) || []).length >= 2, picks + ' hand-rolled picks left');
+  ok('on TAPE the body holds a pose while the street is standing still',
+     body.TAPE.longestHoldMs >= st[1][0] * 500 - 30,
+     'holds ' + body.TAPE.longestHoldMs + 'ms, the street is still for ' + Math.round(st[1][0] * 500) + 'ms');
+  /* THE CONTROL. Without it this passes on a body that simply froze. */
+  ok('and GRID and SLIDE keep the even walk cycle they have always had',
+     body.GRID.longestHoldMs <= 130 && body.SLIDE.longestHoldMs <= 130
+     && body.GRID.changes === 3 && body.SLIDE.changes === 3,
+     'GRID ' + body.GRID.longestHoldMs + 'ms, SLIDE ' + body.SLIDE.longestHoldMs + 'ms');
+  ok('the clip\'s own ends are its ends: the hold is the first pose and the '
+     + 'last station lands the last pose',
+     body.TAPE.first === 0 && body.TAPE.last === 3,
+     'first ' + body.TAPE.first + ', last ' + body.TAPE.last);
+
+  /* ---- 5c. A DROP-OUT NEEDS A DISTANCE ----------------------------------
+     A dropped frame is a way of SHOWING a distance the legs cannot cover. Over
+     two cells there is no distance to show and the same three stations are a
+     twitch in place. Measured on the real surface: of 16 presses, 4 covered a
+     full lot and 4 covered two to four cells, because 9 of 12 presses in a
+     suburb are cut short by something in the way. */
+  const dist = await pg.evaluate(async () => {
+    const W = window.__WALKFEEL; W.set('TAPE');
+    try { document.getElementById('daycard').classList.remove('on'); } catch (e) {}
+    const rows = [];
+    for (let i = 0; i < 14; i++) {
+      const x0 = hx, y0 = hy;
+      let cells = null, worth = null;
+      const iv = setInterval(() => {
+        const c = W.glideCells();
+        if (c !== null && cells === null) { cells = c; worth = W.worthIt(); }
+      }, 8);
+      startHold([4, 2, 0, 6][i % 4]); endHold();
+      await new Promise(r => setTimeout(r, 720));
+      clearInterval(iv);
+      const moved = Math.max(Math.abs(hx - x0), Math.abs(hy - y0));
+      if (moved > 0.5 && cells !== null) rows.push({ moved, cells, worth });
+    }
+    return { step: W.step(), rows };
+  });
+  const longOnes = dist.rows.filter(r => r.cells >= dist.step / 2);
+  const shortOnes = dist.rows.filter(r => r.cells < dist.step / 2);
+  console.log('       presses caught ' + dist.rows.length + ': ' + longOnes.length
+    + ' at least half a lot, ' + shortOnes.length + ' shorter. distances '
+    + dist.rows.map(r => r.cells).join(', '));
+  /* VACUOUS-PASS GUARD, both ways: a sweep with no long steps or no short ones
+     proves nothing about a rule that is only about telling them apart. */
+  ok('the sweep contained both long and short presses to tell apart',
+     longOnes.length >= 2 && shortOnes.length >= 1,
+     longOnes.length + ' long, ' + shortOnes.length + ' short');
+  ok('a press with ground to cross skips',
+     longOnes.length >= 2 && longOnes.every(r => r.worth === true),
+     longOnes.filter(r => r.worth === true).length + ' of ' + longOnes.length);
+  ok('and a press cut short by something in the way lands on the beat instead '
+     + 'of twitching through three stations over a few pixels',
+     shortOnes.length >= 1 && shortOnes.every(r => r.worth === false),
+     shortOnes.filter(r => r.worth === false).length + ' of ' + shortOnes.length);
+
   /* ---- 6. THE CHIP --------------------------------------------------------
      THE 8/12 CHIP IS HOW HE FLIPS IT HIMSELF. It used to be a two-way ternary,
      which would have printed GRID for TAPE -- a control that lies about which

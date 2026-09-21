@@ -641,6 +641,32 @@
    }
   },
   {
+   "id": "world-you-paid-it-9-21",
+   "kind": "line",
+   "lane": "world",
+   "sha": "374c27bc",
+   "made": "9/21",
+   "title": "YOU PAID IT",
+   "why": "The other end of the cut-off notice. You pay, and the closing receipt lands on the phone with the zero written out, because a bill that just stops coming is not a receipt. It thanks you and tells you to keep it in case of a dispute, with nobody left to dispute it to.",
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_THE_FIRST_NOTICE_9_21_26.html"
+   }
+  },
+  {
+   "id": "animation-the-step-drops-a-frame-9-21",
+   "kind": "animation",
+   "lane": "animation",
+   "sha": "370c7a6",
+   "made": "9/21",
+   "title": "THE STEP DROPS A FRAME",
+   "why": "His legs have four drawings and one press moves him a whole house, so the legs can never cover it. They used to walk smoothly while the street jumped, which is the moonwalk. Now he holds still, the picture drops two frames, and he lands on the beat. Same four drawings, no new art. A short press does not skip, because there is no distance to show.",
+   "show": {
+    "how": "page",
+    "src": "vote/ANIMATION_THE_STEP_DROPS_A_FRAME.html"
+   }
+  },
+  {
    "id": "sounds-a-footstep-on-the-beat-9-21",
    "kind": "sound",
    "lane": "sounds",

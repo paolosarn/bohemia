@@ -3937,6 +3937,115 @@ archive escape built in from the start so [handoff cut] is unblocked rather than
 THE WARNING FOR EVERY LANE: do not write this file from a copy you read at the start of your round.
 Re-read it immediately before you edit, and check your own block is still there after any rebase.
 
+ANIMATION (animation-lr9y9i): 9/21 (c) LATEST -- *** THE GROUND LEARNED TO SKIP
+LAST ROUND AND THE BODY KEPT WALKING SMOOTH THROUGH IT. Both read one clock now.
+Cooked a clip into VOTE. TABS: VOTE for it, CITY for the walk. ***
+
+ROW [tape skip] CONTINUES, still CLAIMED, still not SHIPPED.
+
+=== HALF A FIX THAT FIGHTS ITSELF LOOKS DELIBERATE
+Round one taught the GROUND to hold and then drop. The BODY was still picking its
+walk frame off a straight ramp across the same beat. So while the street stood
+still his legs strode on the spot, and while the street jumped 94 px his legs
+advanced one pose. THAT IS THE MOONWALK THIS ROW EXISTS TO KILL, REBUILT FROM THE
+OTHER SIDE, and it would have read as a choice rather than a bug.
+
+=== ONE CLOCK, ASKED BY BOTH
+walkStation(k) is new and is the only thing that decides when the skip happens.
+The ground asks it for a distance, the body asks it for a pose, so they cannot
+disagree. Measured on the REAL surface (the alpha's shipped 4-frame walk; the
+standalone city has NO player sprites at all, PLAYER_CV is empty there because the
+bodies are posted in from the alpha, so the body half can only be measured where
+he plays it):
+    feel     poses drawn   pose changes   longest held pose
+    GRID               4              3              125 ms
+    SLIDE              4              3              125 ms
+    TAPE               3              2              274 ms
+The street is still for 275 ms of the beat and the body now holds for 274. GRID
+and SLIDE keep their even cycle untouched, so nothing he has already seen changes
+unless he is on TAPE.
+
+=== THE STATION PICKS THE POSE, NOT THE DISTANCE
+First cut picked the frame off how far the ground had travelled. That made the
+LAST authored pose flash for a single millisecond and never land, because the
+stations stop at 0.67 of the way and the beat supplies the rest. Station 0 is the
+held pose, the last station is the LANDED pose. With 4 frames and 3 stations one
+pose is skipped: that is the effect, not a loss.
+
+=== A DROP-OUT NEEDS A DISTANCE, AND A PRESS IS NOT A LOT AS OFTEN AS IT SOUNDS
+16 presses, cells moved: 2, 25, 25, 25, 23, 22, 13, 19, 19, 15, 4, 2, 19, 17, 25, 2.
+FOUR were a full lot. FOUR were two to four cells. WALK NEVER MISSES agrees from
+its own instrument: 15.2 cells a press against a 25 cell step. Over two cells
+there is no distance to show and the same three stations are a twitch in place, so
+the skip is used only above half a lot (137 px at the one walk camera) and a short
+press lands on the beat. After: 11 of 14 skipped, 3 landed.
+
+=== ONE PICK WHERE THERE WERE TWO
+The walk frame was chosen in two places, outdoors and indoors. Two copies of a
+frame index is how the player's legs do one thing in the street and another in a
+room. One helper now, and the gate holds it at zero hand-rolled picks.
+
+=== COOKED (rule 22)
+animation-the-step-drops-a-frame-9-21 in VOTE: both walks side by side on the beat,
+drawn off the shipped 4-frame walk sheet taken from the real body. NO NEW ART.
+
+=== THE GATES
+TAPE SKIP went 24 claims -> 31, all green. Three new mutations, caught one at a
+time: the body back on a straight ramp while the ground skips reds the hold claim;
+every step skipping however short reds the short-press claim; the body frozen on
+one pose reds the GRID/SLIDE control. Both distance claims carry a VACUOUS-PASS
+GUARD IN BOTH DIRECTIONS -- a sweep with no long presses, or no short ones, fails
+rather than passes, because a rule whose whole job is telling them apart proves
+nothing on a sample that has only one kind.
+WALK NEVER MISSES 19/0. walk_feel 17/3, the same 3 it is on clean main, triaged
+last round. VOTE TAB 28/0. Walked the demo with the one driver: TAPE live, step 25,
+ceiling 100, no page error, the pinch still crosses the seam.
+Rule 13: pre-push pass green; full suite 107 red at ad23d875, none named as mine.
+
+=== ONE THING FOR THE COORDINATOR, NOT A [PENDING Paolo]
+This row's written ship test says "zero skating pixels, the body's screen position
+changes only on the beat". The RULING in the same line says "two or three frames
+of the walk clip, a drop-out". Those are different things: taken literally the test
+asks for GRID, which is what shipped by accident and what this row was opened to
+replace. Built to the ruling and saying so rather than quietly picking one.
+
+=== WHAT IS LEFT ON THIS ROW
+The frame-by-frame look on a real phone at sixty frames a second. This box clamps a
+headless page to about twenty, fewer than a beat holds, so everything above is
+measured off the seam the renderer itself picks with and off real presses on the
+real surface -- but nobody has watched the drop-out with their eyes yet.
+
+=== A RED THAT IS EVERYBODY'S AND IS THE DEPLOY ITSELF, NAMED NOT CROSSED
+PAGES PUBLISH is RED ON CLEAN MAIN: the published surface is 261 MB against its own
+260 MB cap. It read 256 MB two rounds ago and 257 MB last round, so it is growing
+about 2 MB a round across the fleet and it has just crossed. This is the thing that
+puts the game on his phone, so it is worth someone's round. Where it sits, measured:
+slices 152 MB, RECORDS/TARGET 107 MB, engine 5 MB. The single biggest files are
+BOHEMIA_RUN_CURRENT.html at 21.4 MB and BOHEMIA_VOTE_CURRENT.html at 6.2 MB, and
+records/target is carrying full-size screenshots (one PAOLO_ png is 3.9 MB). This
+lane added 28 KB to it this round and is not the cause. It is _config.yml and the
+deploy, which is PLUMBER's and RUN's, not this lane's to cross into.
+
+AND A SECOND ONE THAT ARRIVED WHILE I WAS PUSHING, NAMED NOT CROSSED: VOTE TAB went
+red on main (db8e829). DIRECTION registered direction-fight-verdict-round-3-9-21 with
+kind "verdict", and the registry's kinds are song, face, haircut, outfit, tile,
+animation, line, ui, redo. It is ONE word and it makes the whole registry invalid, so
+the gate that guards the one place he votes is red for every lane until it is fixed.
+Two clean fixes and neither is mine: DIRECTION changes its own object (the registry
+says never edit somebody else's), or UI adds the kind to the list its gate holds.
+
+=== STILL TRUE, UNCHANGED
+- HC 11 is the one walk camera; one lot is 275 px there.
+- The fight gets 112 and the street gets 56 from the same render; CAST_PX stays 56.
+- Two live numbers for a lot: the lattice says 24, step and body say 25.
+- A weight shift over planted feet is not expressible on this rig (9/21 (b)).
+
+[redo killed] stays CLAIMED and frozen off the play surface: four gun frames still
+draw a detached head; beats two and three are one per-facing problem; four clips
+still snap, worst 12.6 px; POSEHOLD key density.
+
+Nothing [PENDING Paolo].
+
 ANIMATION (animation-lr9y9i): 9/21 (b) LATEST -- *** THE WALK GLIDE HAS BEEN DEAD
 SINCE THE STEP BECAME A HOUSE, AND NOBODY KNEW. Cooked two things into VOTE.
 TABS: VOTE for both, CITY for the walk. ***
@@ -4049,7 +4158,7 @@ four clips still snap, worst 12.6 px; POSEHOLD key density.
 
 Nothing [PENDING Paolo].
 
-ANIMATION (animation-lr9y9i): 9/21 (a) -- *** HOLD ROUND 2, RULE 18. Nothing
+ANIMATION (animation-lr9y9i): 9/21 (a) LATEST -- *** HOLD ROUND 2, RULE 18. Nothing
 pushed to the alpha. ONE PRESS IS TWENTY-FIVE REAL PACES AND THE LEGS DO ONE. TAB:
 ANIMATION, unchanged; no build. ***
 
@@ -18526,7 +18635,76 @@ RIGHT NOW: (a) write this whole instruction, word for word, into your own handof
 
 I will never paste anything to you again. From here on, the one word is the whole instruction.
 
-THIS ROUND -- *** COOKED: TWO PEOPLE WHO ARE A LITTLE TOO STILL, IN VOTE. AND A THIRD I
+THIS ROUND -- *** COOKED: A KID AND SOMEBODY WHO GOT OLD HERE, IN VOTE. AND TWO SHEETS
+ALREADY SITTING IN THE VOTE TAB WERE LYING TO HIM. (sha e357361d) ***
+
+VERDICTS READ BACK FIRST, every round, as this block keeps saying. STILL ZERO. Five
+CHARACTER items are queued now and he has thumbed none of them. The registry holds 47
+items across every lane and 0 votes have ever been cast.
+
+*** THE DEFECT FIRST, BECAUSE IT WAS ALREADY IN FRONT OF HIM. ***
+tools/bohemia_character_into_the_vote_tab.js still carried `G.dials[k] = ...` inside a
+try/catch, in THREE places. THERE IS NO G.dials -- body variation lives in G.bodyVar and
+needs rebuildFromRig(). This is the exact defect this lane found last round in the
+horror-body cook, in a SECOND tool, and nobody looked. The consequence is worse than
+last round's, because those two sheets had already shipped: THE 12 PEOPLE and THE
+THIRTEEN FACTIONS, both in the VOTE tab, were rendered with DEFAULT proportions while
+their captions named builds ("the tallest", "short and broad"). He was being asked to
+judge bodies that were all the same body.
+FIXED and re-rendered; the bodies now genuinely differ, the tallest reads taller and
+narrower. Captions were colliding too ("a bulk on the back nobodysmallest") -- flat
+26-char truncation wider than the cell. Per-cell word wrap, label 22 -> 42, font 12 ->
+11px.
+THE RULE, AND IT IS THE SECOND TIME: A SILENT CATCH AROUND A WRITE IS A LIE WAITING TO
+HAPPEN. Grep your own tools for `G.dials` before trusting any picture you shipped.
+
+WHAT WAS COOKED (rule 22), registered as character-no-children-no-old-9-21. The rig has
+carried FIVE age stages since it was built -- child, teen, youngadult, adult, elder --
+and exactly ONE body in the whole alpha uses a stage other than adult: NINA in the cold
+open. The twelve street looks carry no age field at all. SO EVERY SINGLE PERSON THE
+PLAYER WALKS PAST IS A GROWN ADULT. A kid in a grown man's tee and an old man in a coat
+older than the crash now stand beside a grown man, at ONE scale, feet on one line.
+Nothing new was drawn: every garment is canon and the age machinery was already there.
+
+MEASURED ON THE RIG PART GRID, NOT ON THE PAINTED PICTURE, and my first run was wrong
+because of it. Reading top-of-hair to sole put the kid at 83% when the stage's own
+height term is 0.77, and the whole gap was a FRINGE. Bodies with hair excluded:
+    a grown man  96 px   100%   4.36 heads tall
+    a kid        79 px    82%   3.59 heads tall
+    an elder     93 px    97%   4.23 heads tall
+The rig's own build note claims 4.89 and 3.79 off the BONES. The record says plainly
+that this counts the painted head STAMP instead, rather than quietly picking whichever
+number agreed. One ruler measured all three, so the drop from 4.36 to 3.59 is real.
+FOR ANY LANE THAT WANTS AGE: it works, it is one field (G.age), and it is free.
+
+TWO REDS THIS LANE HAD SHIPPED WITHOUT NOTICING, both closed: neither of this lane's
+cook tools carried a REFERENCE CHECK block, which the 9/4 law requires of every cook
+born after it. Both now cite real library ids and say what the comparison CHANGED, not
+just that it happened. REFERENCE CHECK went 15/2 -> 23/0 and the grandfathered baseline
+shrank 87 -> 85, which is the only direction that ratchet allows.
+
+THE REGISTRY CONFLICTS EVERY SINGLE ROUND, and FACTIONS said so first. It conflicted
+TWICE inside this one round. THE SAFE RESOLUTION, which cannot lose anybody's row:
+    git checkout origin/main -- records/target/BOHEMIA_VOTE_REGISTRY.json
+    <re-append your own item by id, filtering your old one out first>
+Never hand-merge it. Main held 43, then 46, then 47 with mine on top; nobody was lost.
+
+[PENDING Paolo] carried, unchanged: which faction colour file wins; the Anarchists need
+a magenta garment and there are zero in 317, with the reserved purple band blocking the
+obvious cook; the Cartel sits on the drab exemption list and not in the law that names
+it.
+
+THE SUITE, HONESTLY. Green on the merged tree: CHARACTER IN THE VOTE TAB 9/0, SHAPE
+FROZEN 12/0, BODY SCALE 14/0, REFERENCE CHECK 23/0 before another lane's new tool
+landed. Not mine and named so nobody chases them: THE VOTE TAB has 2 red, one being
+DIRECTION's item direction-fight-verdict-round-3-9-21 missing its `kind` field and one
+a flaky 10-second locator timeout that passes on re-run; REFERENCE CHECK went red again
+the moment tools/bohemia_cook_the_face_has_light.js arrived without a check block; REUSE
+FIRST has 6 red, all city/combat/floor/lot/enemies/start patch tools.
+
+--------------------------------------------------------------------------------
+
+PREVIOUS ROUND -- *** COOKED: TWO PEOPLE WHO ARE A LITTLE TOO STILL, IN VOTE. AND A THIRD I
 DESIGNED, BUILT, LOOKED AT AND CUT AFTER MEASURING MY OWN RIG. (sha a9c56cb3, [horror body]) ***
 
 VERDICTS READ BACK FIRST, as the last handoff said. Still empty: he has thumbed none of the
@@ -24872,7 +25050,110 @@ NEW FRONT-PAGE RULE 8 (added 9/13), and it binds this lane: IF YOUR DIFF TOUCHES
 engine/, REBUILD THE TWO DERIVED SLICES (the RUN slice and the demo) IN THE SAME
 COMMIT. PLUMBER found the RUN slice drifting +45/-6 behind two engine ships.
 
-HOLDING: nothing. LAST SHIPPED: [horror world] 9/21 9b690dec.
+HOLDING: nothing. LAST SHIPPED: [visible change] 9/21 374c27bc.
+
+*** 9/21 (c) LATEST -- A STALE REASON IS A BUG WITH A LONG FUSE, AND THE FUSE WAS
+THIS LANE'S OWN. ***
+records/BOHEMIA_WORLD_A_STALE_REASON_IS_A_BUG_WITH_A_LONG_FUSE_9_21_26.md  sha 374c27bc
+Row [visible change], plus rule 22 (COOK EVERY ROUND). NOTHING ON A PLAY SURFACE:
+rule 18 still holds this lane off the alpha and the demo; the cook went to VOTE.
+
+(1) RULE 12 FIRST AND THE ROW'S PREMISE WAS ALREADY BUILT. The row asks for "the
+list of things a generated ask may change". QUESTS shipped that list on 9/6 as
+bohemia_asks.CHANGES -- six rows, the same six the row names, down to "a rumour
+about you turning". Writing it again would have shipped a second list that drifts
+the day either one changes. WHAT IS MISSING IS THAT NOTHING CHECKS IT.
+
+(2) *** AND THE PROOF THAT NOTHING CHECKS IT IS THIS LANE'S OWN DEBT. *** Two
+rows are marked unwired, each with a typed sentence saying why. One says
+debt_moves is out because "belonging models debt as a faction WANT, not a balance
+with a name on it that anybody can clear". THAT WAS TRUE ON 9/6 AND WORLD MADE IT
+FALSE ON 9/13: bohemia_lend ships take(), paid() and short(), and [debt carried]
+put the lender's name on it the same week. Nobody told the list. NOBODY COULD
+HAVE: THE REASON IS A STRING, and a string cannot notice the world moved under
+it. The cost was a real quest refusing to be generated for eight rounds.
+
+(3) THE FIX IS THE MECHANISM, NOT THE CORRECTION. engine/bohemia_watch.js holds
+the two things the list cannot hold itself:
+  A WATCHER per change -- the TEXT a player reads and where, because a change
+    nobody can watch is filler with a ledger entry, which is the sentence this
+    row is made of.
+  A PROMOTION TEST per unwired row -- the check that would wire it, written as a
+    PREDICATE OVER THE LIVE MODULES rather than a sentence about them, and DRIVEN
+    not read (it takes a named debt in a real book and clears it to nothing before
+    it says anything). Run it and a row that quietly became buildable says so, by
+    itself, forever, without anybody remembering to look.
+THE LIST STAYS QUESTS' (one system, one session): no copy kept, no reach for
+their module anywhere in the code, the list passed in every call, and a SEVENTH
+ROW IS REPORTED, never silently skipped. Their own ASKS VISIBLE gate is still
+green on this tree, checked.
+
+(4) THE WORDS MOVE, ON THE REAL SURFACE. The gate boots the walked city, reads
+the nightfall card AS WORDS, runs one night through the game's own blockRent and
+nightPower, and reads again: WHO YOU OWE MOB: 1 nights unpaid arrives, "so the
+Mob cut 1 of their own street off" arrives, the dark count rises. TWO CONTROLS
+make it mean something: two reads with nothing changed are identical, and dousing
+a wire OUTSIDE the night moves nothing -- which is CORRECT, the card is a record
+of the night, not a readout of the grid.
+
+(5) *** MY INSTRUMENT WAS WRONG THREE TIMES AND THE GAME WAS RIGHT EVERY TIME. ***
+The first cut reported four reds. THREE WERE MINE. It ran the night and THEN
+doused by hand, and was one sentence from reporting "putting a circuit out does
+not move the words" -- it does, and what does not is dousing outside the night,
+which is the game being right. It asserted every doused circuit comes back on a
+run where the night had legitimately put a second one out. It compared a faction
+to turfGrid().at(), which returns a whole row, and printed [object Object]. THE
+FOURTH WAS MY RULER: a check that the module "never requires the asks module"
+went red on the module's OWN HEADER explaining that the list is QUESTS' -- the
+same self-defeating shape this lane shipped last round on a reference check. A
+ruler that cannot tell a citation from a disclaimer measures nothing.
+
+(6) THE COOK (rule 22): BohemiaNotice.cleared(), the other end of the cut-off
+notice, so debt_moves becomes something you WATCH instead of a ledger entry.
+"AMOUNT RECEIVED 2 BATTERIES BY MOB / BALANCE REMAINING 0 BATTERIES / THANK YOU /
+KEEP THIS NOTICE FOR YOUR RECORDS IN THE EVENT OF A DISPUTE." The zero is STATED
+because a bill that stops arriving is not a receipt, and the receipt REFUSES to
+issue while anything is still owed -- PAID IN FULL over a remainder is the card
+that promises and does nothing, on letterhead. It thanks you and tells you to
+keep it in case of a dispute, with the office last round measured nobody in.
+
+(7) STILL HONESTLY OUT, RE-MEASURED NOT INHERITED: person_moves_house. A person's
+home is a derived field of the seed in bohemia_population.personFields and
+nothing reassigns it. It is the one change on the list with no watcher; the gate
+names it every run and its promotion test will fire the day somebody builds it.
+
+(8) GATES: VISIBLE CHANGE 26/0 (new, in the suite, red two ways -- remove the
+promotion test -> 2, claim a watcher that is not on the surface -> 2). FIRST
+NOTICE 41 -> 48/0, the closing notice added seven. Pre-push pass green: VISIBLE
+CHANGE, FIRST NOTICE, ASKS VISIBLE, VOTE TAB, ATTEMPT, LANGUAGE, ENGINE SYNC,
+PAGES PUBLISH. Rule 13(b), full suite: REUSE FIRST and DERIVED FRESH are red on
+this tree and none of their named files is this lane's.
+
+(9) A BLOCKER RE-MEASURED AND THE ANSWER IS "I CANNOT TELL", SAID PLAINLY.
+[block strikes] is held on this lane's own 9/15 measurement that CT_MINDS stays
+empty, so the block's picket cannot be counted. The city now has ctWitnessPass(),
+which gives a mind to every body drawn within radius AND records bodies seeing
+each other -- exactly the fix this lane said was PEOPLE's. I tried to re-measure
+it and MY HARNESS CANNOT SEE PEOPLE: PLAYER_CV is false under a file:// load, so
+peoplePass() returns 0 before it draws anybody and BARK_DREW stays empty. The
+screenshot shows a city that draws fine. SO THE RE-MEASURE IS INCONCLUSIVE, not
+negative, and it is written down that way rather than reported as a break. The
+next round on that row starts by getting body art to load in a harness.
+
+ROUTED THIS ROUND: TO QUESTS, and it is the only ask -- debt_moves is buildable
+now and the evidence is in BohemiaWatch.stale() where your gate can read it; this
+lane did not edit your list. TO PEOPLE: person_moves_house needs somebody able to
+move, and the test that would notice is written.
+
+STILL OPEN AND NOT SHIPPED, carried from 9/20: the night card says BATTERIES IN
+THE VALLEY: 0 on the first night and then announces 3,352 made overnight on the
+second. Fix written down, two lines, both in my own files: count() must not need
+a trigger, and CELLS_LAST must start at the first real reading, not 0. Plus the
+gate fix: battery_worth_gate must read the card COLD. Waits for the hold to lift.
+
+ROWS STILL OPEN IN THIS LANE: [block strikes] (see 9 above), [suburb walls],
+[full shelves], [beltway placed].
+
 
 *** 9/21 (b) LATEST -- THE FIRST NOTICE. WE WROTE THE SURVIVORS FOR MONTHS AND
 NEVER WROTE THE OFFICE. ***
