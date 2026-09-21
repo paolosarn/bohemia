@@ -1895,7 +1895,7 @@ your block top to bottom and confirm every line in it is yours.
 And this file is now ~88,000 lines carrying NINE ECONOMY blocks, most of them
 stale copies of this one. That is a real defect in a file every lane reads every
 round. It is a job for the coordinator to place (18 PLUMBER's remit), not
-something a lane should do to another lane's block.=== ROUND 36 REPORT: [first ten] SHIPPED ====== ROUND 37 REPORT: [carry cost] SHIPPED ====== ROUND 38 REPORT: [old price] SHIPPED ====== ROUND 39 REPORT: [protection court] SHIPPED ====== ROUND 40 REPORT: [how many pockets] SHIPPED ====== ROUND 41 REPORT: [who replaces you] SHIPPED ====== ROUND 42 REPORT: [the bailiff] SHIPPED ====== ROUND 43 REPORT: [double up] SHIPPED ====== ROUND 44 REPORT: [first building] SHIPPED ====== QUEUE EMPTY. 44 OF 44 SHIPPED. THE PILE IS FOLDED INTO ONE MASTER. ====== QUEUE STILL EMPTY. HE PLAYED IT, AND THE ONE THING THIS LANE GOT BUILT AND GOT WRONG IS CORRECTED. ====== ROUND 45 REPORT: [first sixty] SHIPPED ====== ROUND 46 REPORT: [daily radius] SHIPPED ====== ROUND 47 REPORT: [who owns the water] SHIPPED ====== QUEUE EMPTY. THE FOLD: 45, 46 AND 47 ARE IN THE MASTER, AND FOLDING THEM FOUND THREE THINGS. ====== ROUND 48 REPORT: [who still bills] ROUND ONE OF TWO SHIPPED, THE CLAIM STAYS. ====== ROUND 48 ROUND TWO: THE NUMBER. Q48 COMPLETE, 48 OF 48 SHIPPED. ====== QUEUE EMPTY. ROUND 48 IS FOLDED INTO THE MASTER AND IT MADE A SEVENTH CONVERGENCE. ===
+something a lane should do to another lane's block.=== ROUND 36 REPORT: [first ten] SHIPPED ====== ROUND 37 REPORT: [carry cost] SHIPPED ====== ROUND 38 REPORT: [old price] SHIPPED ====== ROUND 39 REPORT: [protection court] SHIPPED ====== ROUND 40 REPORT: [how many pockets] SHIPPED ====== ROUND 41 REPORT: [who replaces you] SHIPPED ====== ROUND 42 REPORT: [the bailiff] SHIPPED ====== ROUND 43 REPORT: [double up] SHIPPED ====== ROUND 44 REPORT: [first building] SHIPPED ====== QUEUE EMPTY. 44 OF 44 SHIPPED. THE PILE IS FOLDED INTO ONE MASTER. ====== QUEUE STILL EMPTY. HE PLAYED IT, AND THE ONE THING THIS LANE GOT BUILT AND GOT WRONG IS CORRECTED. ====== ROUND 45 REPORT: [first sixty] SHIPPED ====== ROUND 46 REPORT: [daily radius] SHIPPED ====== ROUND 47 REPORT: [who owns the water] SHIPPED ====== QUEUE EMPTY. THE FOLD: 45, 46 AND 47 ARE IN THE MASTER, AND FOLDING THEM FOUND THREE THINGS. ====== ROUND 48 REPORT: [who still bills] ROUND ONE OF TWO SHIPPED, THE CLAIM STAYS. ====== ROUND 48 ROUND TWO: THE NUMBER. Q48 COMPLETE, 48 OF 48 SHIPPED. ====== QUEUE EMPTY. ROUND 48 IS FOLDED INTO THE MASTER AND IT MADE A SEVENTH CONVERGENCE. ====== ROUND 49 REPORT: [first battery] ROUND ONE OF TWO SHIPPED, THE CLAIM STAYS. ===
 RECORD: records/BOHEMIA_ECONOMY_DAY_47_NOBODY_OWNS_THE_PUMP_THEY_OWN_THE_DISTANCE_9_20_26.md (207 lines)
 BANK:   banks/BOHEMIA_ECONOMY_TEST_LINES_9_5_26.md sections ZZZZZZZZZ-DDDDDDDDDD, +16 lines, 670 draft:true total
 TAB:    NOT IN A TAB YET. MODE: RESEARCH. No engine code touched. Rule 14: never the demo;
@@ -2372,6 +2372,131 @@ fallback is fixed or used); PENDING 43 RECORDED AS STRENGTHENED AND DELIBERATELY
 rule's own logic is that a making lane must not spend its round checking -- which is not a
 licence for a research lane to start cooking to look busy.
 
+
+=== ROUND 49, [first battery] Q49, ROUND ONE OF TWO (school). THE CLAIM STAYS OPEN. ===
+RECORD: records/BOHEMIA_ECONOMY_DAY_49_HE_CANNOT_ASK_AND_NOBODY_PAYS_MONEY_9_22_26.md (308 lines)
+BANK:   banks/BOHEMIA_ECONOMY_TEST_LINES_9_5_26.md sections IIIIIIIIII-JJJJJJJJJJ, +10 lines,
+        688 entries, all ten role-place, so the 176 bullet entries owing a WHO have not grown
+        for a THIRD round running.
+TAB:    NOT IN A TAB YET. MODE: RESEARCH. No engine code touched. Rule 14: never the demo.
+        Rule 15: no thumbs. Rule 18(b): research lanes continue. Rule 22 binds MAKING lanes and
+        names twelve; ECONOMY is not one, and this round did not invent a cook to look busy.
+GATES:  pre-push pass GREEN, all eight on my tree -- economy 13/0, purse 28/0, payday 40/0,
+        attempt 15/0, canon rot 13/0, demo blockers 22/0, language 83/0, handoff 8/0. Full
+        suite: 107 red at ad23d875, mine are: none. The suite line has not moved since 9/14.
+
+*** AND A FLEET-WIDE CHECKER IS FLAKY, PROVEN, NOT FIXED BY ME (it is PLUMBER's file). ***
+handoff_gate.js went 7/1 RED mid-round and I proved it was not mine before doing anything
+else: stashed my diff, ran it on CLEAN HEAD, still red. THE CAUSE, exactly: its lane-head
+check is /^[A-Z][A-Z ]*\([a-z0-9-]+\):/ and it reads ONLY THE FIRST LINE of the file. That
+regex allows uppercase and SPACES and nothing else, so "LIFE + CITY (city-1eztay):" FAILS ON
+THE PLUS while "WORDS", "ECONOMY" and "EYES AND EARS" pass. THE FILE CARRIES 34 LANE HEADS
+WITH A PLUS IN THEM. So THE CHECK IS RED OR GREEN DEPENDING ON WHICH LANE HAPPENED TO WRITE
+LAST: it was red with LIFE + CITY on top, and after I rebased onto WORDS being on top it went
+green again, same gate, same logic, nothing about the file actually better. A checker whose
+verdict is decided by the alphabet of the last committer is worse than a red one, because it
+is green most of the time. ROUTED TO PLUMBER; this lane does not edit gates.
+
+THE FINDING THAT PROVES US WRONG: the row asks what the first battery costs him in TIME and
+STANDING. BOTH ARE THE WRONG CURRENCY. The only route open to a man with nothing costs him
+neither: it is free, instant, and zero standing. WHAT IT COSTS IS THAT HE OWES SOMEBODY, and
+that is a third thing the row did not name.
+
+*** AND NOBODY IN THIS VALLEY PAYS MONEY. ZERO OF SIXTEEN. *** All sixteen factions have a
+written line for what they give somebody who belongs to them -- AMMUNITION, STORED FOOD AND A
+PLACE ON THE LIST, MEDICINE AND TEACHING, WATER AND A VOICE IN WHERE IT GOES, THE FEED THE
+REPEATERS THE LIT GRID, ADMISSION AND NOTHING ELSE -- and NOT ONE IS A BATTERY. The closest is
+THE REDS, whose word is CREDIT, which is a promise about money and not money.
+
+WHAT I MEASURED, ROUTE BY ROUTE:
+  RUN'S PREMISE HOLDS (rule 12, checked from the purse side not the shelf): a fresh purse is
+    {resources:0, electricity:0, clout:0} and water, food, salvage and meds are one each.
+  FOUR ENGINE ROUTES MAKE A BATTERY, TWO WORK: payForWork credits 1 (and it pays for a kind of
+    {} -- IT DOES NOT CHECK WHAT THE WORK WAS, named not touched, WORLD's file); payQuest
+    credits 1 on outcome COMPLETE; produce() is NO_RULING with an EMPTY PRODUCTION table;
+    convert() is NO_REASON. BOTH WORKING ROUTES PAY AT THE END OF SOMETHING -- a day has to
+    finish, a quest has to complete -- so neither can fire in a first minute.
+  BARTER IS BUILT AND REFUSES HIM BY NAME: offer() at a camp returns can:false, why:
+    'NOTHING_TO_TRADE'. It exists only at a CAMP and only for a STRANGER (wantsGoods('camp')
+    false, wantsGoods('camp','stranger') TRUE, town and fortress null). The row's "a thing
+    found and sold" is correct, built, and closed to him on the first morning by design.
+  HE CANNOT ASK, AND FOUR OF SIXTEEN OFFER. favour's three first moves: they-give-first needs
+    NO rung, costs NO standing, and YOU OWE ("THEY ARE OFFERING"); you-give-first needs rung
+    COUNTED and costs 1 standing; never gives nothing. A stranger starts at rung 'stranger'.
+    Run askFor against the sixteen REAL rules with given=0:
+      THE CARTEL         WHATEVER YOU NEEDED THAT WEEK          owes:true  standing cost 0
+      THE CHURCH         STORED FOOD AND A PLACE ON THE LIST    owes:true  standing cost 0
+      THE NETWORK        THE FEED, THE REPEATERS, THE LIT GRID  owes:true  standing cost 0
+      THE SOCIAL FORCES  ADMISSION, AND NOTHING ELSE            owes:true  standing cost 0
+      eleven others: "NOT YET. THEY DO NOT KNOW YOU WELL ENOUGH TO OWE YOU ANYTHING."
+      THE AMALGAMATION:  "THEY GIVE NOTHING TO ANYBODY. THAT IS NOT A DEPTH PROBLEM."
+    NOW READ THE FOUR: the criminal, the congregation, the utility and the bureaucracy. THAT
+    CAST WAS NOT CHOSEN, it fell out of sixteen rules written for other reasons, and it is
+    exactly the four kinds of body that reach a person with nothing in the real record. Same
+    shape as round 47, where the water monopoly fell to the scavengers and the congregation
+    by derivation.
+
+THE REAL RECORD, AND EACH ROUTE BEHAVES DIFFERENTLY:
+  A DAY'S LABOUR: paid in cash AT THE END of the work day; getting picked is physical, men
+    sprint and mob the vehicle, "You have to be the fastest"; AND arrivals eager to work can
+    idle on the corner FOR DAYS without being picked at all. The waiting is most of the story.
+  A PAWN: 25% to 60% of resale value, average loan $150, about 30 days, AND ABOUT 85% OF
+    BORROWERS REDEEM. Five in six come back for the thing: a pawn is a bridge, not a sale. The
+    percentage is a FRACTION and this game has none (round 14), so what survives is the shape
+    with no fraction in it: hand over a thing you care about, get one, and it waits for you
+    until it does not.
+  A FAVOUR, AND THIS IS THE DOCUMENTED ONE: in the 2011 Tohoku tsunami and the 2020 Beirut
+    explosion, 80 TO 90% OF SURVIVORS WERE RESCUED BY NEIGHBOURS AND BYSTANDERS, not
+    professional teams, and most live rescues in the first 72 hours are by relatives and
+    neighbours. That is round 45 arriving from the rescue literature instead of the crash
+    literature: nobody is reached by an institution first, either time. It is a neighbour.
+  WHAT I COULD NOT FIND, SAID PLAINLY: a clean figure for what share of a new arrival's FIRST
+    money comes from a relative or a network rather than wages. The migration literature is
+    rich on remittances sent home and on later labour-market outcomes and thin on the first
+    week. Day labour, the pawn and the rescue numbers carry this round; that number is
+    asserted nowhere in it.
+
+THE OTHER AISLE DISAGREES WITH THE ROW'S PREMISE: the campaign layer he has named NEVER STARTS
+YOU AT ZERO. Starting funds are a setting, tiered high/medium/low, and a first contract waits
+in the first village. (I could not get exact crown figures and did not invent them; the shape
+is certain.) Being broke is a state that game puts you INTO, not the state it hands you at the
+door. AND THAT IS THE ARGUMENT AGAINST A STARTING PURSE: handing him a battery at wake-up
+costs the game its best scene, a stranger with nothing and the first person who speaks to him.
+Same resolution as round 48: give him the thing, but give it through a mouth.
+
+THE SHAPE (school; the number is round two): the first battery comes out of the FIRST PERSON'S
+HAND because the engine closes every other door on the first morning. It costs him an
+OBLIGATION, not time and not standing, and that is the only price available on day one -- this
+study has circled it since round 9, a debt is not a number, it is a person who remembers. Who
+hands it over is one of four and the cast is already derived. And what it puts in the five
+minutes is ONE SCENE, not a system: somebody offers, he takes, he owes. No shop, no board, no
+menu, no timer.
+
+THE PROJECT-LEVEL HOLE, INSTANCE 35: the favour system, the barter module and the purse each
+refuse the player CORRECTLY and SEPARATELY, and nothing can ask whether ANY door is open. Every
+refusal is right on its own. Put them together and a new player cannot obtain the unit of
+currency the whole game is denominated in, and no gate can ask that. THREE ROUNDS HAVE NOW
+FOUND THE SAME MISSING GATE FROM THREE DIRECTIONS (36: what does the first ten minutes hand a
+stranger; 45: what does a save with no history see; 49: this). A check that plays the first
+morning as a man with nothing.
+
+THREE PROBE FAULTS, ALL MINE, ALL KEPT, AND EVERY ONE PRODUCED A CLEAN QUOTABLE WRONG NEGATIVE:
+ (1) payQuest takes an EVENT OBJECT with .outcome, not a string; passing "COMPLETE" returned
+     NO_RULING with key:null, WHICH READS EXACTLY LIKE "QUESTS DO NOT PAY" and I nearly wrote
+     that down. The tell was key:null -- the table HAS a COMPLETE row, so a null key is the
+     caller's fault.
+ (2) offer(opts) takes {tier,good,given,purse} and is gated by wantsGoods(tier,given); my
+     first call returned null, which looks like "barter is dead" and means "not a barter
+     market".
+ (3) askFor(rule,given,save) takes a RULE, not {rung}; my fake object had no .pays so it fell
+     into the if(!what) branch and said "THEY HAVE NOTHING TO GIVE ANYBODY" for every rung I
+     tried, WHICH LOOKED LIKE A RUNG WALL AND WAS A MISSING FIELD.
+ (and a fourth, small: B.RULES is an object not an array, so .forEach threw -- better to throw
+ than to return a tidy zero.)
+An instrument broken in the obvious way does not look broken, it looks like a finding. The
+rule that caught all three is the same: a negative needs a positive control before it is
+believed.
+
 [PENDING Paolo] -- for the coordinator, one at a time:
   *** 1 TO 9 ARE RULED. The coordinator decided all nine on 9/13 under EVERYTHING IS
   A THUMB, in records/BOHEMIA_RULING_NINE_DEFAULTS_THE_ECONOMY_WAS_CARRYING_9_13_26.md.
@@ -2550,25 +2675,24 @@ licence for a research lane to start cooking to look busy.
      is the kind of change he should meet in play rather than read about. Nothing
      is blocked on it; WORLD can build it under his existing law.
 
-NEXT IN THIS LANE: QUEUE EMPTY AND THE MASTER IS CURRENT. Q1 through Q48 are all SHIPPED, the
-board has no OPEN line for ECONOMY, and NOTHING IS OWED TO THE MASTER -- it carries all 48
-rounds, both banners, SEVEN convergences and a rules section through 22. This lane HOLDS until
-the coordinator puts a line up. Rule 10 forbids inventing a job and rule 22 does not change
-that, because it binds MAKING lanes and names twelve of them, and ECONOMY is not one.
-IF THE QUEUE IS STILL EMPTY NEXT ROUND, the honest candidates in order, none of them a job and
-all of them inside this lane's own output:
- (a) THE 176 BANK ENTRIES THAT OWE A WHO under rule 19. The contract has held the number still
-     for two rounds; a round could actually shrink it, starting with whichever blocks a build
-     lane is nearest to taking (the water and pump sets, which QUESTS and WORLD are closest to).
- (b) A PENDINGS PASS. Thirty-three questions, nine already collapsed by the 9/13 ruling; a
-     read that says which of the rest are now ANSWERED BY RULINGS ALREADY MADE would shorten
-     the list the coordinator carries to him, and that is the one thing this lane can do for
-     him that nobody else can, because nobody else has read all 49 records.
- (c) THE FOUR THINGS the master's section 4 leaves with other lanes, which nobody has been
-     told are there.
-A NOTE FOR WHOEVER FOLDS NEXT: the harvest script now has a control (reproduce every published
-number before believing a new one) and it has caught a fault every single time it has been run.
-Do not fold from memory.
+NEXT IN THIS LANE: ROUND TWO OF Q49 [first battery], AND THE CLAIM IS STILL ON THE BOARD.
+The row says two rounds, school then the number, and round one is the school. ROUND TWO COSTS
+IT: how many batteries the first person hands over, whether the obligation is COUNTED in the
+owing book or only felt, what the SECOND one costs once he is no longer a stranger, and
+whether the pawn shape is built at all (hand over a thing, get one, it waits for you until it
+does not -- no fraction anywhere in it). THE ONE RULE FOR ROUND TWO IS ROUND 38'S: that round
+had the mechanism measured in its own section 1 and shipped a number anyway, and the number
+broke his tutorial. Section 4 of the round 49 record is the mechanism. Cost it, do not
+re-derive it, and do not hand QUESTS a number the record does not carry.
+TWO THINGS TO CARRY IN: (a) zero of sixteen factions pay money, so if round two wants a
+faction to hand over a battery that is a DESIGN RULING about what a faction is, not a number,
+and it is pending 41 again (can a deal exist between two people who are not the player);
+(b) the four who open to a stranger are THE CARTEL, THE CHURCH, THE NETWORK and THE SOCIAL
+FORCES, all owes:true at zero standing cost, and QUESTS [wire the door] is building the scene
+this round measured, so read their row before costing anything.
+AFTER Q49 CLOSES: fold both halves into the master (a STANDING JOB, not a board job), and the
+harvest script has a control now -- reproduce every published number before believing a new
+one. It has caught a fault every single time it has been run. Do not fold from memory.
 
 
 ================================================================================

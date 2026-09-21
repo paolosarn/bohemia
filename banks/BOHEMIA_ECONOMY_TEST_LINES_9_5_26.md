@@ -49,8 +49,9 @@
 #
 #   COUNT, KEPT CURRENT: 658 entries when this block was written (9/20). 670 after
 #   round 48's first half added twelve; 678 after its second half added eight. All
-#   twenty are in the role-place format above, so the bullet count is unchanged at
-#   176 and the gap can now only shrink.
+#   twenty are in the role-place format above; 688 after round 49 added ten. All
+#   thirty are role-place, so the bullet count is unchanged at 176 for a THIRD
+#   round running and the gap can now only shrink.
 
 ## A. THE SELLER HAS A VIEW ABOUT TOMORROW
 ## (the finding of the day: a refusal, not a price. Every line buys a beat
@@ -3883,3 +3884,58 @@ GGGGGGGGGG8  a neighbour who watched the collector leave   draft:true
   talking and WHERE they stand, per the contract at the top of this file.
 - Spanish register: 1 of 8 lines, 13%, under the 15% he set on 8/26. One word
   inside an English sentence, not respelled, counted while written.
+
+## IIIIIIIIII. SOMEBODY OFFERS, AND HE OWES
+## (round 49, [first battery]. He cannot ask, so not one line below is him
+##  asking. Role, place, situation, per this file's rule 19 contract.)
+
+IIIIIIIIII1  a woman at her own door, to somebody who has nothing   draft:true
+    "Take it. No, take it, you're not going to make it to dark like that."
+
+IIIIIIIIII2  the same woman, when he starts to say something back   draft:true
+    "Later. There's always later."
+
+IIIIIIIIII3  a man on a corner, to a newcomer standing next to him  draft:true
+    "You stand here. When one pulls up you go, you don't think about it."
+
+IIIIIIIIII4  the same man, on the ones who wait too long            draft:true
+    "Some of them been standing here since the week before last."
+
+IIIIIIIIII5  a priest's helper, at a side door, counting heads      draft:true
+    "There's food and there's a list. The list is the part that matters."
+
+IIIIIIIIII6  a lender, friendly, first meeting                      draft:true
+    "Whatever you needed this week. That's how it works with me."
+
+IIIIIIIIII7  an old neighbour, after the lender walks off           draft:true
+    "He's not lying. That is how it works with him."
+
+IIIIIIIIII8  a pawn keeper, taking a thing across the counter       draft:true
+    "It sits here. It's still yours till it isn't."
+
+IIIIIIIIII9  the same keeper, asked when that is                    draft:true
+    "You'll know. Everybody knows."
+
+IIIIIIIIII10  a man who was given one once, years back              draft:true
+    "I paid it back twice and I still think about her."
+
+## JJJJJJJJJJ. WHAT IS NOT HERE, ON PURPOSE (round 49)
+
+- No line has the player asking anybody for anything. The whole finding is that a
+  stranger cannot ask, only be offered, and a bank line where he asks would argue
+  with its own record.
+- No line contains a number, a price, an amount or a count of days.
+- No line uses the words battery, favour, debt, owe, credit, standing or rung.
+  It is said as take it, later, the list, that's how it works with me.
+- No line explains that the obligation is the price. IIIIIIIIII10 is the whole
+  lesson and it never says it. Nobody in Bohemia is wise.
+- No line names a faction, a street or a town, including the lender and the
+  priest's helper, who are roles. MAP LAW, and the four who open to a stranger
+  are named in the record and not in a mouth.
+- No line decides what the first battery costs, whether the pawn exists, or who
+  the first person is. Section 5 refused all three.
+- No line is written for a card or a readout: rule 19(a). All ten name WHO is
+  talking and WHERE they stand.
+- Spanish register: 0 of 10 lines this round. The set is deliberately plain
+  because every line is somebody being kind in a hurry, and the register is not
+  a decoration to sprinkle. Under the 15% cap either way.
