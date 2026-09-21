@@ -31519,6 +31519,24 @@ Rule 18h: the screen covers everything until the pad works, it is cool (analog h
 UI [cook panels] item 1 to RUN this round), it has a REAL progress bar, then BEGIN. RUN's
 order is [no pop ups], [loading screen], [cut now]. Rule 18b's front-page text corrected to
 rule 22. Playable-cut law item 1 amended; break list updated. Nothing to judge.
+THEN (ex) VAMILY 9/21b, THE FIRST COOKING ROUND (records/BOHEMIA_COORDINATOR_ROUND_9_21_26_B.md): 46 lane commits swept. Rule 22
+worked: 21 items from 11 chats into VOTE (registry 16 -> 37; 0 votes ever cast). SHIPPED to the
+alpha (9/21c): PEOPLE [face at the door] + [a name] (the only face on screen was his; 61 of 61
+strangers unnamed; the name door was a button on the killed card), SOUNDS [first sound] (the
+room on the tap at 0.142 s) + footsteps (silent since 9/15: a comment inside the JSON), ANIMATION
+[tape skip] (the glide died when the step became a house; TAPE default), DIRECTION verdict r2,
+PLUMBER [cold read] + [cook gate], EYES E27 (no better cut to go back to; all eight frozen
+95-96.6%). Cooked: UI 5 sheets, PORTRAIT the four family faces (a stranger meets ZERO faces in
+five minutes; the cold open is unreachable), WORLD the first notice, COOK the fight floor bank,
+QUESTS the wrong detail, FACTIONS the lit sign, CHARACTER two too-still bodies, ANIMATION the
+idle redone, WORDS Q27 both rounds, ECONOMY Q48 r1 (nothing in this game arrives; the bill is
+a prop). RUN AND COMBAT DID NOT RUN; his three asks sit on RUN's first three lines. Decisions
+(to VOTE): the rig gets a real height range (CHARACTER [real height]); the first face is a
+person who speaks after BEGIN (RUN [open reachable]); the tape skip's ship test is the game's
+own curve; drab crews take the sign down. New: PLUMBER [driver says] first, UI [flaky leg],
+WORDS Q28 [loading words] first, PEOPLE [family eyes], SOUNDS [beds play]; THE COOK LINE on
+the front page. The thing he never opened: the VOTE tab in the alpha, 37 items, 0 votes.
+Ask to him: open chat 01 RUN and type VAMILY.
 
 COORDINATOR: 9/4 (ba) -- *** THE MEETING HALL:
 VAMILY.md's front page now carries every rule, and every chat re-reads it every time
