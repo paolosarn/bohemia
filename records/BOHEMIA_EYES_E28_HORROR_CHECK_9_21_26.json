@@ -1,7 +1,7 @@
 {
   "what": "every pixel against the analog horror bible",
-  "when": "2026-09-21T20:56:42.003Z",
-  "surface": "/tmp/claude-0/-home-user-bohemia/065fcaf1-af13-5362-9424-9d0305049a14/scratchpad/ahcut/slices/BOHEMIA_DEMO.html",
+  "when": "2026-09-21T22:30:48.121Z",
+  "surface": "/tmp/claude-0/-home-user-bohemia/065fcaf1-af13-5362-9424-9d0305049a14/scratchpad/cut/slices/BOHEMIA_DEMO.html",
   "bible": "records/BOHEMIA_ANALOG_HORROR_BIBLE_9_20_26.md (AH-01)",
   "controls": [
     {
@@ -17,7 +17,7 @@
     {
       "name": "C1 the full-frame counter bites",
       "pass": true,
-      "detail": "218 -> 219 after a planted full-canvas fill"
+      "detail": "231 -> 232 after a planted full-canvas fill"
     },
     {
       "name": "C2 the filter counter bites",
@@ -69,24 +69,24 @@
     "windows": 8,
     "window_ms": 2000,
     "per_window": [
+      0.04,
       0,
-      0.0476,
-      0.0273,
-      0.0273,
-      0.0459,
+      0.0442,
+      0.0425,
       0,
-      0.0417,
-      0.0259
+      0,
+      0.031,
+      0
     ],
-    "worst_moving_fraction": 0.0476,
+    "worst_moving_fraction": 0.0442,
     "windows_over_the_bibles_ten_percent": 0,
     "bar": 0.1
   },
   "counters": {
     "world": {
       "world_canvas": "378x815",
-      "full_frame_on_the_world": 82,
-      "of_those_opaque_clears": 82,
+      "full_frame_on_the_world": 95,
+      "of_those_opaque_clears": 95,
       "of_those_SEE_THROUGH_OVERLAYS": 0,
       "overlay_examples": [],
       "clear_examples": [
@@ -99,7 +99,7 @@
           "seeThrough": false,
           "alpha": 1,
           "style": "#8a7a58",
-          "at": 848
+          "at": 624
         },
         {
           "kind": "fillRect",
@@ -110,7 +110,7 @@
           "seeThrough": false,
           "alpha": 1,
           "style": "#20303e",
-          "at": 5617
+          "at": 4125
         },
         {
           "kind": "fillRect",
@@ -121,7 +121,7 @@
           "seeThrough": false,
           "alpha": 1,
           "style": "#20303e",
-          "at": 14534
+          "at": 10738
         }
       ],
       "full_frame_on_scratch_canvases": 136,
@@ -134,16 +134,16 @@
           "v": "source-atop",
           "cw": 112,
           "ch": 112,
-          "at": 20758
+          "at": 15902
         },
         {
           "v": "source-atop",
           "cw": 112,
           "ch": 112,
-          "at": 20758
+          "at": 15902
         }
       ],
-      "draws": 2331471
+      "draws": 2665791
     },
     "shell": {
       "world_canvas": "378x815",

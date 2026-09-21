@@ -326,7 +326,15 @@ const SOURCE = (() => {
                        list with its reason, never to the dead list. */
                     : (e.closest('#daycard, .daycard, #offers, .offer') && r.height >= 30)
                         ? 'a row inside the day card'
-                    : e.closest('#topbar, #devtray, #blstack') ? 'a chip in the top bar'
+                    /* A SENTENCE IS NOT A CHIP (9/21). This rule called #note -- the status
+                       line reading "walking your own block." -- a chip in the top bar, and it
+                       became the only "dead control" in a walk that pressed two things. Same
+                       class as the day-card readouts fixed last round, reached through a
+                       different reason string. A chip is a LABEL: a few words, no sentence
+                       ending. Prose is a sentence and belongs in the inert list with its reason. */
+                    : (e.closest('#topbar, #devtray, #blstack')
+                       && !(/[.!?]$/.test(txt) && txt.split(/\s+/).length > 3))
+                        ? 'a chip in the top bar'
                     : '';
           seen.push({ where, id: e.id || '', text: txt, looks_tappable_because: why,
                       w: +r.width.toFixed(0), h: +r.height.toFixed(0),
@@ -432,7 +440,7 @@ const SOURCE = (() => {
          time, UNDECIDED if once. Undecided is not dead and it is never counted as dead -- a
          one-shot control (a card that closes) is genuinely undecidable this way and saying so
          is the honest answer. */
-      const beats = [], evidence = [], closedOn = [], where = [];
+      const beats = [], evidence = [], closedOn = [], where = [], inPanel = [], elsewhere = [];
       let landed = 'the tap was refused (not visible to a finger)';
       let bs = null, as = null, tapMove = null, nullMove = null;
       for (let attempt = 0; attempt < 2; attempt++) {
@@ -496,6 +504,8 @@ const SOURCE = (() => {
                  : novelInPanel.length > 0 ? 'its own panel'
                  : novelAnywhere ? 'somewhere else on screen'
                  : 'nothing moved');
+        inPanel.push(stillOpen && novelInPanel.length > 0);
+        elsewhere.push(stillOpen && novelInPanel.length === 0 && novelAnywhere);
         if (!stillOpen) {
           /* AND THE SECOND PRESS MUST NOT HAPPEN. This is the hole the 14(h) control caught on
              its first run, and it caught it because a planted close-button read "did nothing":
@@ -513,10 +523,23 @@ const SOURCE = (() => {
            is correct behaviour for a card that closes. So ANY novel movement is alive, and only
            TWO presses with nothing novel at all is dead. The 1-of-2 count is reported, so the
            weaker evidence is visible instead of hidden inside the word "dead". */
-        const changed = hits > 0;
+        /* OFF-PANEL EVIDENCE HAS TO REPEAT, AND IN-PANEL EVIDENCE DOES NOT (9/21).
+           Round 9 opened the verdict to novel movement ANYWHERE, to stop calling the fight's
+           WAIT and SUPPRESS dead when their answer lands in a readout elsewhere. That fixed
+           false death and bought false life straight back: on this round's first walk the
+           PLANTED HANDLERLESS BUTTON read "did something, somewhere else on screen", off ONE
+           press, because the world happened to move something novel in that window.
+           The discriminator is repeatability, and it comes from the real controls this lane was
+           corrected by: WAIT gives STEADY +5% EVERY press, SUPPRESS gives PINNED 1 EVERY press.
+           A world burst does not land in both windows.
+           So: evidence INSIDE the control's own panel counts on one press (a one-shot that
+           closes or changes its own card is real and may only fire once); evidence SOMEWHERE
+           ELSE counts only if BOTH presses produced it. */
+        const changed = inPanel.some(Boolean) || (elsewhere.length === 2 && elsewhere.every(Boolean));
         /* A PRESS THAT CLOSED THE PANEL PROVES NOTHING EITHER WAY, and calling it dead would be
            as wrong as calling it alive. It gets its own word. */
         const allClosed = closedOn.length > 0 && !changed;
+        out.numbers.__unused = out.numbers.__unused;
         if (hits === 1) out.alive_on_one_press_only.push({ text: c.text, id: c.id || '' });
         const answeredIn = where.filter(w => w === 'its own panel' || w === 'somewhere else on screen');
         out.pressed.push({ text: c.text, id: c.id || '', where: c.where,
@@ -524,6 +547,7 @@ const SOURCE = (() => {
                                   : allClosed ? 'THE PANEL CLOSED, so this press proves nothing (rule 14h)'
                                   : 'did nothing',
                            answered_in: answeredIn, presses_with_novel_movement: hits,
+                           in_its_own_panel: inPanel, somewhere_else: elsewhere,
                            evidence: evidence });
         line(as.now, 'tapped ' + JSON.stringify(c.text) + (why ? ' (' + why + ')' : ''),
              changed ? ('the screen answered: ' + (where.find(w => w === 'its own panel'
@@ -850,6 +874,21 @@ const SOURCE = (() => {
     }
     out.shots.push(await snap('05_map'));
 
+    /* 5b. EVERYTHING ELSE THE FIRST SCREEN OFFERED, BECAUSE THE SCRIPT WAS ONLY PRESSING THREE
+       CATEGORIES (9/21). The inventory found ELEVEN things and the walk pressed TWO: the biggest
+       one, then anything matching the card regex, then anything map-shaped, then whatever turned
+       up new. The HUD chips -- SLEEP, BIKE, SCAVENGE, BUILD HERE, STANDING -- match none of
+       those, so they were never pressed at all, in any round. A route that cannot reach half the
+       first screen is a coverage hole, not a stranger's walk. */
+    const alreadyPressed = new Set(out.pressed.map(p => p.where + '|' + p.text));
+    for (const c of controls) {
+      if ((await sig()).now - t0 > BUDGET_MS) break;
+      const k = c.where + '|' + c.text;
+      if (alreadyPressed.has(k)) continue;
+      alreadyPressed.add(k);
+      await tapAndWatch(c, 'on the first screen and never pressed by the old script');
+    }
+
     /* time to first fight: is a fight ever on screen inside the budget */
     /* A FIGHT IS MET, NOT MERELY PRESENT IN THE DOM. The first run reported "a fight surface
        was on the page" because #combatFrame EXISTS in the markup from the start. His words were
@@ -915,7 +954,15 @@ const SOURCE = (() => {
                        list with its reason, never to the dead list. */
                       : (e.closest('#daycard, .daycard, #offers, .offer') && r.height >= 30)
                           ? 'a row inside the day card'
-                      : e.closest('#topbar, #devtray, #blstack') ? 'a chip in the top bar'
+                      /* A SENTENCE IS NOT A CHIP (9/21). This rule called #note -- the status
+                       line reading "walking your own block." -- a chip in the top bar, and it
+                       became the only "dead control" in a walk that pressed two things. Same
+                       class as the day-card readouts fixed last round, reached through a
+                       different reason string. A chip is a LABEL: a few words, no sentence
+                       ending. Prose is a sentence and belongs in the inert list with its reason. */
+                    : (e.closest('#topbar, #devtray, #blstack')
+                       && !(/[.!?]$/.test(txt) && txt.split(/\s+/).length > 3))
+                        ? 'a chip in the top bar'
                       : '';
             seen.push({ where, id: e.id || '', text: txt, looks_tappable_because: why,
                         w: +r.width.toFixed(0), h: +r.height.toFixed(0),

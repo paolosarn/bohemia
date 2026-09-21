@@ -1,0 +1,104 @@
+{
+  "what": "how big is the person, on the glass",
+  "rule": "rule 21, 9/21",
+  "when": "2026-09-21T22:29:35.266Z",
+  "surface": "/tmp/claude-0/-home-user-bohemia/065fcaf1-af13-5362-9424-9d0305049a14/scratchpad/cut/slices/BOHEMIA_DEMO.html",
+  "controls": [
+    {
+      "name": "C3 the page’s own body constant is readable, so the identifier is not a guess",
+      "pass": true,
+      "detail": "bodyLadder at cells 8/17/32/64/96 returned [112,112,112,112,112] -- all the same, so this is the FIXED body and the value is the constant"
+    },
+    {
+      "name": "C1 a planted draw appears in the world histogram at its own size",
+      "pass": true,
+      "detail": "found 1 draw(s) at 777 px"
+    },
+    {
+      "name": "C2 a draw onto a scratch canvas is NOT in the world histogram (the exact mistake E28 round one made)",
+      "pass": true,
+      "detail": "the 778 px scratch draw stayed out of it"
+    }
+  ],
+  "findings": [],
+  "the_pages_own_numbers": {
+    "BODY_FIXED": 112,
+    "bodyLadder_at_cells_8_17_32_64_96": [
+      112,
+      112,
+      112,
+      112,
+      112
+    ],
+    "fixed_not_laddered": true,
+    "canvas": "378x815"
+  },
+  "raw_histogram_keys": 13,
+  "world_canvas": "378x815",
+  "painted_heights_on_the_world": [
+    [
+      11,
+      17787
+    ],
+    [
+      176,
+      4212
+    ],
+    [
+      8,
+      2695
+    ],
+    [
+      14,
+      770
+    ],
+    [
+      112,
+      468
+    ],
+    [
+      33,
+      77
+    ],
+    [
+      50,
+      77
+    ],
+    [
+      32,
+      16
+    ],
+    [
+      44,
+      8
+    ],
+    [
+      777,
+      1
+    ]
+  ],
+  "bodies_painted_at_the_shipped_size": 468,
+  "other_body_shaped_heights": [
+    [
+      176,
+      4212
+    ],
+    [
+      33,
+      77
+    ],
+    [
+      50,
+      77
+    ],
+    [
+      32,
+      16
+    ],
+    [
+      44,
+      8
+    ]
+  ],
+  "failing_controls": []
+}
