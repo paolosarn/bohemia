@@ -32841,6 +32841,23 @@ notes section, the process rules, the reply contract, the UI rules, verification
 integration recipe, eleven blind spots, a free-tier chapter (one chat, one self-contained page,
 paste in and out, the board as memory), two appendices. Zero names in the exports. Record:
 records/BOHEMIA_PAOLO_A_PLAYBOOK_FOR_HIS_BOSS_9_21_26.md. Not a game ruling; nothing on the board.
+THEN (ez) VAMILY 9/22 (records/BOHEMIA_COORDINATOR_ROUND_9_22_26.md): 39 lane commits. HIS TWO ASKS LANDED: RUN [no pop ups]
+SHIPPED (demo 9/21f; one card opened at 2.5 s and never left, 544 presses moved him zero cells,
+the demo was unplayable from the first frame; now 0 cards, 52 cells, 16/16 rows alive), UI
+[copy notes] SHIPPED (alpha 9/21g, NOTES on the plate, toggles, COPY ALL). PLUMBER [bimodal
+dead]: the 13 dead presses were a fight starting; the fight is in the ratchet. 19 items cooked
+into VOTE by 13 chats (56 total, 0 votes). Findings: the person at his door already exists
+(QUESTS), all twelve walk lines were narration (WORDS), the faces had two points of light out
+of 255 and were lit on the wrong side (PORTRAIT), the valley has no kids and nobody old
+(CHARACTER), the world swings 41 to 4 people and the screen draws 23 always (PEOPLE), Anarchists
+hold all the live water (FACTIONS), the paper is placed not scheduled (ECONOMY Q48 done), the
+registry conflicts every push, the surface is 261/260 MB on clean main. New: QUESTS [wire the
+door] first (un-held, item 4), WORDS [swap the twelve] (un-held), LIFE+CITY [walk out]
+(un-held), UI [registry split], PLUMBER [slim build] first + [push check], SOUNDS [seeded gate]
+first, CHARACTER [ages] HELD, PEOPLE [honest crowd] HELD, WORLD [paper in the house] HELD,
+ECONOMY Q49 [first battery]. Decisions to VOTE: the re-lit face ships with the first person;
+the crowd follows the world's clock; the street gets ages; the paper is placed. COMBAT absent
+two rounds; RUN's next line is the loading screen. Ask: open 04 COMBAT and 01 RUN, type VAMILY.
 
 COORDINATOR: 9/4 (ba) -- *** THE MEETING HALL:
 VAMILY.md's front page now carries every rule, and every chat re-reads it every time
