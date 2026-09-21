@@ -1,0 +1,188 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>BOHEMIA - FOUR WAYS THE GAME LOADS</title>
+<link rel="stylesheet" href="bohemia_option_sheet.css">
+<link rel="stylesheet" href="bohemia_ui_3d.css">
+<style>
+ .screen{ position:relative; height:560px; background:#0a0907; overflow:hidden;
+          display:flex; flex-direction:column; align-items:center; justify-content:center; padding:16px }
+ .unit{ width:100%; max-width:330px; position:relative; padding:12px;
+   background:linear-gradient(180deg,#2c261d 0 6%,#221d16 6% 74%,#191510 74% 100%);
+   border-radius:2px;
+   box-shadow:inset 0 1px 0 #5c4f38, inset 1px 0 0 #463c2a, inset 0 -2px 0 #0b0906,
+              inset -1px 0 0 #0b0906, 0 2px 0 rgba(0,0,0,.62), 0 6px 14px rgba(0,0,0,.6) }
+ .tag{ text-align:center; padding:2px 0 9px }
+ .tag b{ display:block; font-family:var(--face-casing); font-size:19px; letter-spacing:7px;
+   color:#080705; text-shadow:0 1px 0 rgba(226,210,160,.55), 0 2px 0 rgba(120,104,68,.30), 0 -1px 0 rgba(0,0,0,.85) }
+ .tag i{ display:block; margin-top:4px; font-style:normal; font-family:var(--face-casing);
+   font-size:6px; letter-spacing:2px; color:#6b5d42 }
+ .gl{ position:relative; overflow:hidden; height:200px; padding:9px 10px; border-radius:3px;
+   color:#c9dcc4; font-family:var(--face-screen); font-size:9px; line-height:1.75; letter-spacing:.6px;
+   display:flex; flex-direction:column; justify-content:flex-end;
+   background:radial-gradient(160% 130% at 50% 44%,#14120d 0 54%,#12100b 54% 74%,#0f0d09 74% 88%,#0c0b07 88% 100%);
+   box-shadow:inset 0 2px 0 #060503, inset 1px 0 0 #060503, inset -1px 0 0 #100e0a,
+              inset 0 -1px 0 #201a12, inset 0 0 12px rgba(150,200,150,.10) }
+ .gl::before{ content:''; position:absolute; inset:0; pointer-events:none;
+   background:radial-gradient(150% 140% at 50% 50%,rgba(0,0,0,0) 0 64%,rgba(0,0,0,.20) 64% 78%,
+              rgba(0,0,0,.42) 78% 90%,rgba(0,0,0,.70) 90% 100%) }
+ .gl .w{ color:#8fa889 }
+ .row{ display:flex; align-items:center; gap:8px; margin-top:10px }
+ .well{ flex:1 1 auto; height:13px; border-radius:2px; padding:2px;
+   background:#0b0a07; box-shadow:inset 0 2px 0 #050403, inset 0 -1px 0 #2e2719 }
+ .fill{ height:9px; border-radius:1px;
+   background:linear-gradient(180deg,#b6d6a8 0 30%,#77a468 30% 72%,#4c6f42 72% 100%);
+   box-shadow:0 0 6px rgba(150,200,150,.35) }
+ .pct{ font-family:var(--face-screen); font-size:9px; letter-spacing:1.4px; color:#c9dcc4;
+   min-width:34px; text-align:right }
+ .vent{ height:13px; margin-top:9px; border-radius:1px;
+   background:repeating-linear-gradient(180deg,#070603 0 3px,#4a4133 3px 4px,#1d1912 4px 5px);
+   box-shadow:inset 0 1px 0 #0b0906, inset 0 -1px 0 #463c2a }
+ .go{ display:flex; justify-content:center; margin-top:12px }
+ .go .k{ min-height:48px; min-width:130px; font-size:9px; letter-spacing:5px }
+ .foot{ margin-top:8px; text-align:center; font-family:var(--face-casing); font-size:6px;
+   letter-spacing:2px; color:#4e452f }
+
+ /* B: no case at all, the whole phone is the glass */
+ .B .screen{ padding:0 }
+ .B .unit{ max-width:none; width:100%; height:100%; border-radius:0; padding:16px 14px;
+   background:none; box-shadow:none; display:flex; flex-direction:column; justify-content:flex-end }
+ .B .gl{ flex:1 1 auto; height:auto; border-radius:0; box-shadow:none;
+   background:radial-gradient(150% 120% at 50% 48%,#12100c 0 58%,#0d0c09 58% 82%,#0a0907 82% 100%) }
+ .B .tag b{ color:#cfe0c8; text-shadow:0 0 9px rgba(150,200,150,.4) }
+ /* C: one huge number and no bar */
+ .C .big{ font-family:var(--face-screen); font-size:52px; letter-spacing:2px; color:#cfe0c8;
+   text-align:center; text-shadow:0 0 12px rgba(150,200,150,.35); margin:6px 0 2px }
+ .C .sub{ text-align:center; font-family:var(--face-casing); font-size:6px; letter-spacing:2.4px;
+   color:#6b5d42; margin-bottom:8px }
+ /* D: the bar is the whole width of the phone, over the case */
+ .D .wide{ position:absolute; left:0; right:0; bottom:0; height:16px; padding:3px;
+   background:#0b0a07; box-shadow:inset 0 2px 0 #050403 }
+ .D .wide i{ display:block; height:10px;
+   background:linear-gradient(180deg,#b6d6a8 0 30%,#77a468 30% 72%,#4c6f42 72% 100%) }
+</style></head><body>
+<header>
+ <h1>FOUR WAYS THE GAME LOADS</h1>
+ <div class="sub">The screen that covers everything before you can touch anything. 390 pixels wide, real size, nothing blown up. A is what I built and wired. 9/22</div>
+</header>
+
+<div class="now">
+ <b>YOU SAID: no loading screen, just glitchy shit loading in and out before you can
+ touch anything, and maybe even a loading bar if I am smart enough.</b> So here it is,
+ and the bar is real.
+ <br><br>
+ <b>THE BAR CANNOT LIE.</b> There is no timer anywhere in it. The only thing that moves
+ it is the game reporting what it has actually finished, and it hits the end exactly when
+ the pad works. If nothing has been loaded yet it sits at zero and says so. A bar that
+ fills up on a stopwatch while the game is still chugging is the same lie as a button
+ that does nothing when you tap it.
+ <br><br>
+ <b>AND IT IS A DEAD MACHINE, NOT A SPINNER.</b> It is the power company's terminal
+ booting in a room nobody is in. It says what it is doing in the same flat voice all the
+ way down. The words are the writing chat's, not mine: five lines, one per real stage, each one
+ only showing up when that stage is genuinely working. One line in the list is about
+ people instead of plant and it says NO OPERATOR ON DUTY, flat, as a status and not a
+ warning. That is the only wrong thing on the screen, on purpose: two would be a
+ haunted house.
+ <br><br>
+ <b>AND THE COUNT IS REAL.</b> 58 OF 68 is the actual number of things finished out of the actual number there are, printed off the same arithmetic the bar is made of, so the words and the bar can never disagree.<br><br><b>WHAT I NEED:</b> one letter.
+</div>
+
+<div class="wrap">
+
+ <div class="opt isnow"><h2>A &mdash; THE TERMINAL &middot; BUILT AND HANDED TO THE PLAY CHAT</h2>
+  <div class="shot"><div class="phone"><div class="screen">
+    <div class="unit">
+      <div class="tag"><b>BOHEMIA</b><i>CLARK COUNTY POWER AUTHORITY</i></div>
+      <div class="gl">
+        <div>READING THE VALLEY</div><div>COUNTING WHAT STILL STANDS</div>
+        <div>CHECKING STREETS FOR LIGHT</div><div>READING LAST NIGHT'S METERS</div>
+        <div class="w">NO OPERATOR ON DUTY</div>
+        <div>STILL WORKING. 58 OF 68.</div>
+      </div>
+      <div class="row"><div class="well"><div class="fill" style="width:85%"></div></div>
+        <span class="pct">85%</span></div>
+      <div class="vent"></div>
+      <div class="go"><button class="k">WAIT</button></div>
+      <div class="foot">UNIT 0.9 &middot; FEEDER 24</div>
+    </div>
+  </div></div></div>
+  <div class="say"><b>A machine in a dark room, and the only light on the screen is coming
+   out of its glass.</b> The name is punched into the metal above it. The log fills from
+   the bottom the way a real terminal does. The bar is a strip lying in a slot cut into
+   the case, so full and empty are a real depth. BEGIN stays dark and says WAIT until the
+   game is genuinely in, then lights up gold and you press it once.</div>
+ </div>
+
+ <div class="opt B"><h2>B &mdash; NO MACHINE. THE WHOLE PHONE IS THE SCREEN.</h2>
+  <div class="shot"><div class="phone"><div class="screen">
+    <div class="unit">
+      <div class="tag"><b>BOHEMIA</b><i>CLARK COUNTY POWER AUTHORITY</i></div>
+      <div class="gl">
+        <div>READING THE VALLEY</div><div>COUNTING WHAT STILL STANDS</div>
+        <div>CHECKING STREETS FOR LIGHT</div>
+        <div class="w">NO OPERATOR ON DUTY</div>
+        <div>STILL WORKING. 58 OF 68.</div>
+      </div>
+      <div class="row"><div class="well"><div class="fill" style="width:85%"></div></div>
+        <span class="pct">85%</span></div>
+      <div class="go"><button class="k">WAIT</button></div>
+    </div>
+  </div></div></div>
+  <div class="say"><b>You are not looking at a machine, you are inside one.</b> Edge to
+   edge, no case, no bezel, the corners going dark because a tube is curved. Colder and
+   bigger than A, and it loses the one thing A has going for it: with no case around it,
+   nothing on this screen is an object you could pick up.</div>
+ </div>
+
+ <div class="opt C"><h2>C &mdash; ONE ENORMOUS NUMBER</h2>
+  <div class="shot"><div class="phone"><div class="screen">
+    <div class="unit">
+      <div class="tag"><b>BOHEMIA</b><i>CLARK COUNTY POWER AUTHORITY</i></div>
+      <div class="big">86</div>
+      <div class="sub">PER CENT</div>
+      <div class="gl" style="height:96px">
+        <div>CHECKING STREETS FOR LIGHT</div>
+        <div class="w">NO OPERATOR ON DUTY</div>
+        <div>STILL WORKING. 58 OF 68.</div>
+      </div>
+      <div class="vent"></div>
+      <div class="go"><button class="k">WAIT</button></div>
+    </div>
+  </div></div></div>
+  <div class="say"><b>No bar. The number is the bar.</b> Fifty pixels tall, lit, counting
+   up. You can read it from across the room and you always know exactly how much is left.
+   It is the clearest of the four and the least atmospheric: a big number is a computer
+   talking to you, not a dead office talking to nobody.</div>
+ </div>
+
+ <div class="opt D"><h2>D &mdash; THE BAR IS THE BOTTOM OF THE PHONE</h2>
+  <div class="shot"><div class="phone"><div class="screen">
+    <div class="unit">
+      <div class="tag"><b>BOHEMIA</b><i>CLARK COUNTY POWER AUTHORITY</i></div>
+      <div class="gl">
+        <div>READING THE VALLEY</div><div>COUNTING WHAT STILL STANDS</div>
+        <div>CHECKING STREETS FOR LIGHT</div><div>READING LAST NIGHT'S METERS</div>
+        <div class="w">NO OPERATOR ON DUTY</div>
+        <div>STILL WORKING. 58 OF 68.</div>
+      </div>
+      <div class="vent"></div>
+      <div class="go"><button class="k">WAIT</button></div>
+      <div class="foot">UNIT 0.9 &middot; FEEDER 24</div>
+    </div>
+    <div class="wide"><i style="width:85%"></i></div>
+  </div></div></div>
+  <div class="say"><b>The progress is not part of the machine, it is the edge of your
+   phone.</b> A single lit strip across the very bottom, the whole width, no number at
+   all. Quietest of the four. You feel the progress in the corner of your eye instead of
+   reading it, and you never learn exactly how long is left.</div>
+ </div>
+
+</div>
+
+<footer>
+ <b>A is built and it is a drop-in file the play chat wires the real numbers into.</b>
+ Its bar takes only what the game reports finished and has no timer in it anywhere, so it
+ cannot run ahead of the game. Every edge, key and piece of glass above comes out of the
+ same one file as the fight, the talk panel and the notes box.
+</footer>
+</body></html>

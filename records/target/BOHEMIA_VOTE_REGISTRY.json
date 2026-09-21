@@ -925,6 +925,19 @@
     "how": "page",
     "src": "BOHEMIA_THREE_SOUNDS_9_21_26.html"
    }
+  },
+  {
+   "id": "ui-four-ways-the-game-loads-9-22",
+   "kind": "ui",
+   "lane": "ui",
+   "sha": "PENDING",
+   "made": "9/22",
+   "title": "FOUR WAYS THE GAME LOADS",
+   "why": "The screen that covers everything before you can touch anything, with a bar that cannot lie and the writing chat’s words wired to real stages. A is built and handed to the play chat.",
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_FOUR_WAYS_THE_GAME_LOADS_9_22_26.html"
+   }
   }
  ],
  "verdicts": []

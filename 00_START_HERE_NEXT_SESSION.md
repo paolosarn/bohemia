@@ -1,3 +1,100 @@
+UI (ui-kmqmrf): 9/22 LATEST -- *** THE LOADING SCREEN IS BUILT, AND THE BAR CANNOT LIE. ***
+TAB: it is a DROP-IN SKIN for RUN, not wired by me -- RUN owns #front and RUN [loading
+screen] wires it. In the VOTE tab (alpha) as a picture now. Record:
+records/BOHEMIA_THE_BAR_CANNOT_LIE_9_22_26.md
+
+HIS WORDS 9/21: "there's no loading screen yet, bro I wanna cool loading screen... just a
+bunch of glitchy shit loading in loading out loading in between before I'm able to even
+touch anything... maybe even a loading bar if you're smart enough for."
+
+WHAT WAS MADE: slices/bohemia_loading_screen.js, four calls and no opinions --
+  BohemiaLoading.mount(el) / .expect(['world','art']) / .report('world',8,14) / .ready()
+  / .onBegin(fn)
+ONE SYSTEM, ONE SESSION: I did not reach into RUN's splash. The wiring RUN needs is four
+lines and it is section 5 of the record.
+
+*** THE BAR CANNOT LIE, WHICH IS THE WHOLE OF RULING 3: "a bar that lies is rule 14(d) in a
+new coat." *** A LYING BAR IS THE DEFAULT EVERYWHERE, because a timer always looks good and
+never blocks a release. So the lie is not available: THERE IS NO TIMER IN THE FILE AT ALL.
+The fraction is sum(done)/sum(total) across sources somebody really reported, and with
+nothing reported the bar sits at zero and the screen says zero, which is the truth a
+stranger sees for the first second. ready() REFUSES while a promised source is unfinished
+and NAMES which ones, because letting go early is the "loading in between" he complained
+about. Proved TWO ways because either alone is cheatable: no setTimeout, setInterval or
+requestAnimationFrame in the source (a timer that exists can be pointed at the fill later by
+somebody in a hurry), AND three real seconds on the glass with nothing reported leaving the
+fraction and the painted width both at zero.
+
+IT IS A DEAD MACHINE, NOT A SPINNER (rule 20, the bible): the power company's terminal
+cold-booting in a room nobody is in. The name punched into the case with a lit lip on the
+groove, the glass sunk in and lit from behind, the boot log filling it from the bottom the
+way a real terminal does, the bar a lit strip lying in a slot, then a vent, then BEGIN --
+dark and saying WAIT until the game really is in. SOUNDS measured why BEGIN has to exist at
+all (records/BOHEMIA_A_LOADING_SCREEN_CANNOT_MAKE_A_SOUND_9_20_26.md): a browser will not
+start audio without a gesture, so a screen that blocks the tap cannot make a sound. BEGIN is
+the gesture and the first sound plays on it.
+*** THE WORDS ARE NOT MINE, AND FOLDING THEM IN MADE THE SCREEN BETTER. *** WORDS Q28 landed
+mid-build (records/BOHEMIA_WORDS_Q28_WHAT_THE_LOADING_SCREEN_SAYS_9_23_26.md) and routed
+seventeen lines for this exact screen to RUN and to this lane. My first cut had invented its
+own boot log, which is this lane writing player-facing prose it does not own. Theirs came
+with TWO CONDITIONS THAT ARE PROMISES, not style notes, and both are machine legs now:
+  1. EACH STATE LINE IS WIRED TO THE STAGE IT NAMES. "A line that says it is counting while
+     nothing is counting is the worst bug in the game by his own ruling." A line carries a
+     source name and appears only once that source has really reported. Nothing shows
+     because time passed -- the same promise as the bar, applied to the words.
+  2. THE COUNT IN THE SLOW LINE IS THE REAL COUNT. "The 41 and the 68 are the real file
+     count or they do not ship." STILL WORKING. 31 OF 44. is printed off the same done/total
+     the bar is made of, so the words and the bar cannot disagree.
+THE ONE WRONG THING (bible rule 1) IS THEIRS TOO: NO OPERATOR ON DUTY. Ordinary
+institutional signage, simply true, a status and not a warning, and the only line on the
+screen about people rather than plant. MY INVENTED RESIDENTS LINE IS GONE -- keeping both
+would have been the same wrong thing said twice, which is the frame nudging, and bible rule
+2 forbids that as hard as rule 1 forbids two different ones.
+NOT BUILT AND SAID SO, back to WORDS and RUN: the second tone line (THIS SCREEN UPDATES
+ITSELF) would be a second tonal line on a screen allowed one; and the five Spanish lines are
+real under THEY SPEAK SPANGLISH but doubling every line makes the log twice as long, and
+where they sit is a surface decision I did not take alone.
+
+*** AND I SHIPPED TWO WRONG THINGS ON THE FIRST CUT. *** The residents line AND a footer
+reading THIS TERMINAL IS UNATTENDED. Two wrong things is a haunted house; the bible says
+one. Nothing in the source looks wrong about that -- both are perfectly ordinary strings --
+and no checker I had would have caught it. IT CAME OUT OF RENDERING THE SCREEN AND LOOKING
+AT IT. Bible rule 1 is a machine leg now, and the mutation that adds a second turns it red.
+Two more defects from the same look: the unit was a small box floating in a lot of black,
+which reads as a dialog rather than a screen that covers everything, and the name punched
+into the case was so subtle it was nearly invisible (a cut letter needs a real value step on
+both sides, not a whisper).
+
+PRE-PUSH PASS (rule 13): LOADING SCREEN 29/0 (new, in the suite), FIVE mutations proved and
+each restored -- make the bar a timer -> 2 red (both the source leg AND the three-seconds
+leg), add a second wrong thing to the log -> 1, let a stage speak before it reported -> 3,
+let the slow line invent its count -> 2, let ready() let go while a source is unfinished
+-> 5. UI IS OBJECTS 64/0 with the new sheet bound to the shared vocabulary, VOTE TAB 28/0,
+REPLY CONTRACT 17/0. CARRIED RED, NOT MINE: PAGES PUBLISH 17/1, the published surface at
+261 MB against a 260 MB cap, measured identical with and without this diff and named in
+full in my 9/21 block below. SUITE LINE: 107 red at ad23d875; mine are NONE.
+
+AND TWO OF MY OWN GATE LEGS CONTAMINATED THE ONES AFTER THEM, which is here rather than
+quietly fixed: the new promise-rule leg reports a stage and leaves it reported, so the next
+leg's hand-typed "4 of 20" was wrong by exactly that much, and the end-state leg only
+finished the sources it happened to remember. Both were replaced with BETTER LEGS rather
+than bigger numbers -- the arithmetic leg checks the IDENTITY (the bar equals the sum of
+whatever is reported) instead of a total I typed, and the end-state leg finishes every
+source that exists. A leg that only works when nothing ran before it is not a leg.
+
+COOKED (rule 22): slices/BOHEMIA_FOUR_WAYS_THE_GAME_LOADS_9_22_26.html, registered
+ui-four-ways-the-game-loads-9-22. Four at real phone size: the terminal that was built, the
+same screen with no case at all (you are inside the machine), one enormous lit number
+instead of a bar, and the bar as a single strip across the very bottom edge of the phone.
+
+FOR RUN: the skin is ready and the four lines are in section 5 of the record. Nothing about
+it assumes anything about your load order; ready() returning {ok:false, waitingOn:[...]} is
+the module telling you it was asked too early.
+
+NEXT: [cook panels] is the standing rule-22 row and is OPEN again; items 2, 3 and 4 of it
+(the fight HUD, the talk panel, the vote tab's own frame) are drawn as sheets but not built
+as skins. [three d ui] still has no gate of its own. [vote plays sound] is still open and
+SOUNDS has items waiting that he cannot hear in the tab. [no slop] stays CLAIMED.
 SOUNDS (sound-xk7pjp): 9/22 LATEST -- *** COOKED, RULE 22: THE ROW'S OTHER FOUR SOUNDS, SO ALL
 EIGHT IT NAMES NOW EXIST. AND THE FLAKY GATE IN THIS LANE IS FIXED, WHICH MY OWN HANDOFF PUT
 FIRST. *** Row [cook sounds] stays CLAIMED until the coordinator says what is next here.

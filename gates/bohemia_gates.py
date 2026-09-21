@@ -461,6 +461,21 @@ GATES = [
      'and failed on 505/518/546ms samples -- the threshold was wrong, not the feed. It also '
      'prints the page\'s own clock gaps, which are whole-page freezes belonging to another '
      'lane, so they cannot hide inside this lane\'s green.', True),
+    ('LOADING SCREEN', ['node', 'gates/the_loading_screen_gate.js'],
+     'PAOLO 9/21: "there is no loading screen yet, bro I wanna cool loading screen... maybe even a '
+     'loading bar if you are smart enough for." Ruling 3 of that record: a bar that reads REAL '
+     'progress, never a fake timer, reaching the end exactly when the pad works -- a bar that lies is '
+     'rule 14(d) in a new coat. THE HARD LEG IS THE ONE THAT MATTERS: a lying bar is the DEFAULT, '
+     'because a timer always looks good and never blocks a release, so this gate does not ask whether '
+     'the bar CAN show real progress, it proves the bar CANNOT move without it -- no setTimeout, '
+     'setInterval or requestAnimationFrame anywhere in the file, AND three real seconds on the glass '
+     'with nothing reported leaving the fraction and the painted width both at zero. It also measures '
+     'the analog horror bible rather than asserting it: rule 1, exactly ONE wrong thing in the boot '
+     'log (this leg exists because the first cut shipped TWO and two wrong things is a haunted '
+     'house); rule 5, only the game two type registers; rule 8, the tape drop-out inside the '
+     'in-world screen with nothing drawn over the frame. Plus: ready() refuses while a promised '
+     'source is unfinished and names it, BEGIN is dead until the game really is in, one tap fires it '
+     'once, and a whole thumb reaches it. Three mutations proved.', True),
     ('NOTES SECTION',  ['node', 'gates/the_notes_section_gate.js'],
      'PAOLO 9/21: "I still don\'t see a note section anywhere. A collapsible note section that I '
      'can copy and paste when I am done playing the demo into you." The 9/20 gate was GREEN about a '
