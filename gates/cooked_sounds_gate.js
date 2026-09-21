@@ -522,6 +522,6 @@ const MEASURE = `
     process.exit(0);
   }
   if (bad.length) { console.log('RED: ' + bad.join('; ')); process.exit(1); }
-  console.log('GREEN: three cooked sounds, each one noise or tone on purpose, each band naming its machine, the step losing contact on the ground\'s own stations, and all three in the vote tab.');
+  console.log('GREEN: seven cooked sounds he can play, each one noise or tone on purpose, each band naming its machine, the step losing contact on the ground\'s own stations, the cloud dimming on the city\'s own numbers, the fold indistinguishable from an empty room, and every one of them in the vote tab.');
   process.exit(0);
 })();
