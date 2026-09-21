@@ -1,0 +1,179 @@
+BOHEMIA -- WALKING COMPANION (9/21/26, PEOPLE lane)
+VAMILY job [walking companion], row A-COMPANION-ON-FOOT. Under the rule 18 hold,
+with the RULE 22 cook riding beside it.
+
+PAOLO 9/7: "I don't know about the companion right now, have it on shuffle mode."
+So NO FIXED COMPANION AND NO FIXED NAME. Whoever walks with you is drawn from the
+people already around you, shuffled per save, named from the pools that exist,
+every word draft:true.
+
+================================================================================
+*** MEASURED ON THE ALPHA BEFORE A LINE WAS WRITTEN: NOBODY WALKS WITH YOU, AND
+*** NOBODY EVER HAS
+================================================================================
+  people on his block                     61
+  people who will follow him              0
+  hostile                                 0
+  watching him                            0
+  blocking a door                         0
+  in the follow map at rest               0
+  in the follow map after ten walked steps 0
+
+Only an ENEMY is allowed to walk after you in this game, and at his door there
+are no enemies. So the promise "a companion on foot" has never once been kept,
+and nothing said a word about it.
+
+================================================================================
+*** AND THE CONTROL COST TWO TRIES, WHICH IS THIS LANE'S OWN LESSON AGAIN ***
+================================================================================
+BEFORE BELIEVING A NEGATIVE, PROVE THE INSTRUMENT CAN PRODUCE A POSITIVE.
+
+TRY ONE: stub one drawn person into answering "follow", walk eight steps, read
+the follow map. ZERO. The tempting conclusion is "the follow pipe is broken."
+IT IS NOT, AND THE READING WAS MINE, NOT THE GAME'S:
+
+  sight range                             9 cells
+  the body I stubbed                      62 cells away
+  every body drawn on screen              27 to 57 cells away
+
+The follow pass correctly drops anybody out of sight as "lost you". I had picked
+BARK_DREW[0], WHICH IS THE FIRST BODY DRAWN AND NOT THE NEAREST ONE. This lane
+repointed a gate for exactly this trap on 9/16 ("my gate asked about BARK_DREW[0];
+RUN's wider camera draws six") and I walked into it again five rounds later.
+
+TRY TWO: at rest, take the NEAREST drawn body and call the follow pass directly.
+
+  bodies drawn                            6
+  their distances                         2, 9, 26, 28, 48, 49 cells
+  within the 9-cell sight range           2
+  joined the follow map on the first pass  1
+
+*** THE PIPE WORKS. *** What is missing is not machinery. It is A REASON FOR A
+FRIEND TO USE IT.
+
+TRY THREE, AND IT WAS THIS GATE'S OWN FIRST CUT: it walked eight steps and THEN
+measured who was near. He had walked away from everybody, so the nearest body
+read 36 cells and the deck read ZERO at every hour of the day. Reordered to
+measure at rest and walk last, and the same tree reads nearest 2 cells and a deck
+of 1 to 2. MEASURE BEFORE YOU DISTURB. Three wrong readings in one round, all
+three mine, none of them the game's.
+
+================================================================================
+*** AND THE SHUFFLE HAS ONE CARD, AT EVERY HOUR OF THE DAY ***
+================================================================================
+He asked for shuffle mode. Here is what there is to shuffle, asked of the game's
+own schedule and its own sight range:
+
+  HOUR    PEOPLE CLOSE ENOUGH TO WALK WITH YOU
+   3am                    1
+   7am                    1
+  10am                    1
+   1pm                    1
+   5pm                    2
+   8pm                    1
+  11pm                    1
+
+Six different saves, six different shuffles, and all six drew the same person,
+because she is the only one in reach at any hour.
+
+AND THE SHUFFLE ITSELF IS SOUND, which is the control that makes that a fact
+about the world instead of a fact about my code: eight candidates over forty
+saves hands back four different people, the same save always gives the same
+answer, out of reach returns nothing and an empty street returns nothing. THE
+DECK IS THE PROBLEM, NOT THE DEALER.
+
+THE ARITHMETIC UNDER IT, and it is last round's finding one layer down: the
+screen shows about 2,415 cells of street and sight covers 181. So roughly
+ninety-three percent of the people he can SEE are people he cannot reach. Last
+round measured that the crowd is borrowed rather than earned; this round measures
+what that crowd is worth to him, which is nothing he can touch.
+
+================================================================================
+WHAT WAS BUILT: tools/bohemia_companion.js
+================================================================================
+PURE. No DOM, no game globals, no clock, no randomness, so the same world gives
+the same answer in a gate, on a page and in the game. Nothing in the game calls
+it (rule 18).
+
+WHY SOMEBODY WOULD WALK WITH YOU, strongest first, and every one of them is a
+fact the world already tracks. REALISM FIRST: nobody in a broken valley walks
+with a stranger for nothing.
+  OWED      you owe them, and walking with you is how they get paid
+  OWING     they owe you, and being useful is cheaper than being hunted
+  NO SHIFT  their work is gone, so their day is empty and yours is not
+  SAFER     alone is worse than beside somebody
+A person with none of these does not follow you, and that is most people. A
+MISSING FACT IS A NO, NEVER A MAYBE.
+
+WHAT SHE WANTS is one of those four turned around, so it is always something
+already in the world: to be paid, to clear what she owes, a day's work, or to get
+home before dark with what she is carrying.
+
+WHAT SHE REFUSES comes off her own standing and not off a list I wrote: her
+faction first (she will not cross it), then her household (she will not rob a
+house with somebody living in it), then the floor everybody has (she will not be
+the one who starts it).
+
+ONE DIAL, tagged draft:true, in one place he can change with a word. The reach is
+the GAME'S OWN sight range, not a number picked here. No person is named anywhere
+in the file, because names are his.
+
+================================================================================
+THE RULE 22 COOK, IN THE VOTE TAB
+================================================================================
+"THE ONE WHO WALKS WITH YOU",
+slices/BOHEMIA_THE_ONE_WHO_WALKS_WITH_YOU_9_21_26.html.
+
+IT LEADS WITH THE PERSON. Marisela Escobar, WATCH, two cells from his door, with
+the face his game makes for her baked through the exact wire this lane shipped
+two rounds ago (faceFor, the ramp, renderFace, packIdx, his own decoder), the
+name his game gives her, why she comes, what she wants of her own, and the one
+thing she will not do. Nothing on that card was written for the page.
+
+Then the measurement, then the deck with one card, then three ways to go. C
+throws my four reasons away entirely, because a page that only argues one side is
+a rigged vote.
+
+================================================================================
+RULE 18: NOTHING IS ON THE PLAY SURFACE
+================================================================================
+The walked city and the alpha do not know this file exists. The follow pass is
+untouched and still enemies only. The chooser lives in tools/ rather than engine/
+ON PURPOSE: a diff that touches engine/ owes two rebuilt derived slices in the
+same commit, and re-cutting the demo is RUN's alone under rule 14(a). When the
+hold lifts, the walked city calls pick() and hands the answer to the follow pass
+this round proved already works.
+
+================================================================================
+THE GATE
+================================================================================
+gates/walking_companion_gate.js, driven on the ALPHA.
+  the chooser  pure, one dial, the game's own reach, nothing named, a missing
+               fact is a no
+  the shuffle  the control deck deals four different people over forty saves;
+               same save same answer; out of reach and empty both return nothing
+  the glass    nobody follows; the control says the pipe works; the first drawn
+               body is not the nearest; the deck has one card at every hour
+  the cook     leads with the person, her real face and name, the row's three
+               things, and a third option that discards my own work
+  rule 18      nothing in the game calls it, the follow pass is untouched, and
+               the module is not in engine/
+
+NEGATIVE-CONTROLLED, EACH PUT BACK:
+  make the shuffle a coin toss instead of the save                       2 red
+  take the opt-out off the vote page, and let the city call the chooser  2 red
+
+================================================================================
+MEASURED AND NOT FIXED
+================================================================================
+THE DECK IS ONE CARD AND FILLING IT IS NOT THIS ROW. More people in reach means
+either a wider reach (which is the game's own sight number and belongs to whoever
+owns it) or more people actually near him, which is the borrow, which is LIFE +
+CITY's and RUN's and was named last round.
+
+NOBODY IS EVER HOSTILE AT HIS DOOR EITHER. 0 of 61, so the whole against-you
+system is asleep in the first five minutes. FACTIONS and COMBAT, not named here
+as a defect, just measured.
+
+TAB: VOTE, in the alpha, "THE ONE WHO WALKS WITH YOU". Nothing changed in CITY
+this round and that is on purpose.

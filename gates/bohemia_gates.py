@@ -5876,6 +5876,27 @@ GATES = [
      "longer' means something. Being down is a QUESTION against the clock, so a save left on a shelf comes "
      "back healed with nothing to tidy. And it is on the card he already opens, saying how long and saying "
      "the promise out loud", False),
+    ('WALKING COMPANION', ['node', 'gates/walking_companion_gate.js'],
+     "PEOPLE [walking companion], under the rule 18 hold with the RULE 22 cook beside it. PAOLO 9/7: "
+     "'have it on shuffle mode', so no fixed companion and no fixed name. *** MEASURED ON THE ALPHA: "
+     "NOBODY WALKS WITH YOU AND NOBODY EVER HAS. *** 0 of 61 on his block will follow, 0 hostile, 0 "
+     "watching, and the follow map is empty after ten walked steps, because only an ENEMY is ever "
+     "allowed to walk after you. *** AND THE CONTROL COST TWO TRIES, WHICH IS THIS LANE'S OWN LESSON "
+     "AGAIN. *** Try one stubbed a 'follow' sign on BARK_DREW[0] and read zero -- but sight is 9 "
+     "cells and that body was 62 AWAY, so the pass correctly dropped it as 'lost you'. The first "
+     "body drawn is not the nearest one; this lane repointed a gate for the same trap on 9/16. Try "
+     "two took the NEAREST body at rest and somebody joined the follow map on the first pass: THE "
+     "PIPE WORKS, what is missing is a reason for a friend to use it. AND A THIRD ORDERING BUG IN "
+     "THIS GATE'S OWN FIRST CUT: it walked eight steps and THEN measured who was near, so the "
+     "nearest body read 36 cells and the deck read zero at every hour. Measure before you disturb. "
+     "*** THE SHUFFLE HAS ONE CARD AT EVERY HOUR OF THE DAY: *** 1 or 2 of 61 are inside the game's "
+     "own sight range, so six saves drew the same person, while the shuffle itself deals four "
+     "different people from an eight-card deck over forty saves. The deck is the problem, not the "
+     "dealer: 2,415 cells on screen against 181 he can reach. The chooser is tools/ and PURE (no "
+     "DOM, no clock, no randomness), one dial draft:true, the reach is the game's own sight number, "
+     "and it names nobody. RULE 18 HELD BY THE GATE: nothing in the city or the alpha calls it and "
+     "the follow pass is untouched. Mutations, each put back: make the shuffle a coin toss, 2 red; "
+     "take the opt-out off the vote page and have the city call the chooser, 2 red.", False),
     ('HORROR CROWD',   ['node', 'gates/horror_crowd_gate.js'],
      "PEOPLE [horror crowd], rule 20(h), school under the rule 18 hold with the RULE 22 cook beside "
      "it. THE ROW'S THREE THINGS ARE ALREADY TRUE AND THAT IS WHY THE CROWD IS NOT FRIGHTENING: over "
