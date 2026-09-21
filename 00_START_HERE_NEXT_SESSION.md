@@ -1,3 +1,74 @@
+PORTRAIT (portrait-vamily-yke55s): 9/21 (b) LATEST -- *** [faces first] ROUND 2, THE COOK
+(rule 22). THE TWO HALVES OF A FACE DIFFERED BY TWO POINTS OUT OF 255. "BLANK" WAS LITERAL
+AND IT HAD A NUMBER ALL ALONG. *** Four faces re-lit, in the VOTE tab, one card each.
+Row stays CLAIMED. Nothing pushed to a play surface; renderFace UNTOUCHED.
+Record: records/BOHEMIA_PORTRAIT_THE_FACE_HAS_LIGHT_9_21_26.md
+Sheet: records/target/BOHEMIA_THE_FACE_HAS_LIGHT_9_21_26.png
+
+THE MEASURE, mean luminance left half against right half, rendered pixels, skin only:
+    DENISE 84.1/82.2 spread 1.9  ->  68.7/87.4 spread 18.7
+    RAY   149.1/144.7 spread 4.4 -> 122.8/153.9 spread 31.1
+    MARCO 123.9/121.8 spread 2.1 -> 103.9/128.8 spread 24.9
+    NINA  127.0/125.1 spread 1.8 -> 106.2/131.8 spread 25.6
+Not a dim light and not a soft light. NO LIGHT.
+
+*** AND THE FACE AND THE WORLD DISAGREED ABOUT WHERE THE SUN IS. *** art_45_gate.py holds
+the valley's convention in one line: "a 3/4 iso mass is lit on its RIGHT face, shadowed on
+its LEFT", and a gate fails any building that breaks it. renderFace fills cx+7..cx+cw with
+ShSoft -- IT SHADES THE RIGHT. Every wall turns one way and every face turns the other, and
+nobody had put the two rulers side by side. The cook takes the world's side; the fixture is
+the valley sky, named, shared with the walls (bible rule 4: every lumen has a source you can
+point at, no mood gradient ever).
+
+THE COOK, and every choice is a law not a preference: NO NEW COLOURS (every shaded pixel
+lands on one of the four entries that face already owns -- a four-step terminator is pixel
+art, a smooth falloff is the gradient rule 4 forbids); BAKED not runtime (rule 10); THE FACE
+STILL HOLDS (rule 6, form not expression, nothing animates); THE BONES CAST on that face's
+own numbers (brow across the socket, the nose casting LEFT because the light is on the
+right, under the lower lip -- every coordinate from f.eyeY / f.noseY / f.mouthY /
+spec.eyes.gap / spec.mouth.w, nothing measured off a picture). THE EYE STOPPED GLOWING: the
+sclera was [230,231,228], brighter than EVERY skin tone in the palette, which is why it read
+as a bead; it is tied to that face's own light step now and the top row takes the lid's
+shadow. THE MOUTH GOT A SEAM AND CORNERS; it was a flat rectangle, and a flat rectangle is a
+sticker.
+
+*** I LOOKED AT THE FIRST CUT AND IT WAS WRONG WHILE THE NUMBER SAID IT WAS RIGHT. *** The
+first version guarded every pixel with Math.max(band, wasBand) so it could never lighten
+something the artist drew dark. Well meant, AND IT TURNED THE WHOLE PASS INTO A DARKENING
+PASS: RAY went 149/145 to 117/137, his lit side barely moving while his shadow side fell 32
+points, and on the sheet he read as dirty rather than lit. THE SPREAD NUMBER WENT UP THE
+ENTIRE TIME -- 2.1 to 16.4 looks exactly like success, because a uniformly darker face
+scores as "more contrast" on that metric. Third time this lane has had a metric agree with a
+picture that is wrong. THE FIX: THE TERMINATOR PIVOTS, IT DOES NOT DIM -- the band is
+relative to what renderFace already drew, lit side up one step, shadow side down one or two,
+so the face keeps its own value structure and gains a turn. After the fix it is even-handed
+across skin tones rather than a dark-skin penalty: shadow side 16-18% down, LIT SIDE 5-6% UP
+on all four. It takes more than it gives because the ramp has four steps and most face
+pixels start near the top of it; said out loud rather than smoothed over.
+
+WHAT IT DOES NOT DO: it does not touch the shipped renderer. Rule 18 keeps code off the play
+surface and rule 15 says he sees it in VOTE first, so renderFace is untouched and the face
+Paolo approved has not moved by one pixel. The cook is a TOOL
+(tools/bohemia_cook_the_face_has_light.js) that re-lights what renderFace draws using that
+face's own bones and ramp; it is written to fold into renderFace as one block the moment he
+votes it up.
+
+[faces first] STAYS CLAIMED. Its ship test is the faces a stranger MEETS, and a stranger
+still meets none: round 1 measured that the only face surface in the game sits inside
+#p-run, a panel the demo never shows, with the invite stuck want=1 / display:none. STILL
+ROUTED to RUN and UI, still not mine to reach into.
+
+VOTE TAB NOW HOLDS EIGHT OF THIS LANE'S THINGS: the four faces as they are
+(portrait-face-*-9-21, round 1) and the four re-lit (portrait-light-*-9-21, this round),
+old beside new at 7x, one card per person.
+
+GATES: vote tab 28/0, talking portrait 29/0. Rule 13's honest sentence: pre-push pass green;
+full suite 107 red at ad23d875, none named as this lane's.
+
+NEXT: his vote on the eight cards is the brief ([speak along]). If the light reads, it folds
+into renderFace and then [shades on] (the portrait wearing the body's glasses) and
+[blank faces] school. If it does not, the card that replaces it quotes his words back.
+
 SOUNDS (sound-xk7pjp): 9/21 LATEST -- *** TWO SHIPPED: [first sound] AND [footsteps on the beat]
 ROUND ONE, WHICH TURNED OUT TO BE A FIX FOR SILENT WALKING. PLUS [analog horror sound] ROUND ONE. ***
 

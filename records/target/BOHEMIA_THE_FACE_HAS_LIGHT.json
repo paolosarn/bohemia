@@ -1,0 +1,77 @@
+{
+ "when": "2026-09-21T02:03:01.682Z",
+ "faces": [
+  {
+   "role": "MOTHER",
+   "name": "DENISE",
+   "id": "MOTHER:DENISE",
+   "beforeSplit": {
+    "left": 84.1,
+    "right": 82.2,
+    "litSide": "LEFT",
+    "spread": 1.9
+   },
+   "afterSplit": {
+    "left": 68.7,
+    "right": 87.4,
+    "litSide": "RIGHT",
+    "spread": 18.7
+   },
+   "scleraPixels": 35
+  },
+  {
+   "role": "FATHER",
+   "name": "RAY",
+   "id": "FATHER:RAY",
+   "beforeSplit": {
+    "left": 149.1,
+    "right": 144.7,
+    "litSide": "LEFT",
+    "spread": 4.4
+   },
+   "afterSplit": {
+    "left": 122.8,
+    "right": 153.9,
+    "litSide": "RIGHT",
+    "spread": 31.1
+   },
+   "scleraPixels": 35
+  },
+  {
+   "role": "SIBLING OLDER",
+   "name": "MARCO",
+   "id": "BROTHER:MARCO",
+   "beforeSplit": {
+    "left": 123.9,
+    "right": 121.8,
+    "litSide": "LEFT",
+    "spread": 2.1
+   },
+   "afterSplit": {
+    "left": 103.9,
+    "right": 128.8,
+    "litSide": "RIGHT",
+    "spread": 24.9
+   },
+   "scleraPixels": 35
+  },
+  {
+   "role": "SIBLING LOST",
+   "name": "NINA",
+   "id": "SISTER:NINA",
+   "beforeSplit": {
+    "left": 127,
+    "right": 125.1,
+    "litSide": "LEFT",
+    "spread": 1.8
+   },
+   "afterSplit": {
+    "left": 106.2,
+    "right": 131.8,
+    "litSide": "RIGHT",
+    "spread": 25.6
+   },
+   "scleraPixels": 35
+  }
+ ]
+}
