@@ -136,6 +136,83 @@ const WHERE = 'one street over, past the storefronts';
      bad.length === 0);
 }
 
+/* ---- 7. ARGUING IT, IN HIS MOUTH, AND IT RE-TYPES NOTHING --------------- */
+{
+  const H = require(path.join(ROOT, 'engine/bohemia_haggle.js'));
+  const sp = S.spokenFor(REAL, { where: WHERE });
+  let t = H.open({ id: 'q1', pays: 'battery' });
+  const c = S.talkFor(sp, H, t);
+  ok('an ask can be argued in speech', !!c && Array.isArray(c.back) && c.back.length >= 3);
+  ok('taking it is a WORD TO A PERSON, not a button under a card',
+     c.back.some(r => r.kind === 'take' && r.takes === true && r.text));
+  ok('and walking away is still a real answer with a real line',
+     c.back.some(r => r.kind === 'leave' && r.reply && r.reply.trim()));
+
+  /* *** THE CLAIM THAT MATTERS: NOT ONE WORD IS RE-TYPED. *** A second copy of
+     a deal's sentences is two versions of one deal, and the card and the mouth
+     would drift the first time anybody edited either. So every line the
+     conversation emits must be findable in the haggle's source or in this
+     module's own MOUTH table -- checked against the FILES, not against a list
+     typed in this gate. */
+  /* THE CHECK IS EXACT, NOT A SUBSTRING SWEEP. The first cut looked every line
+     up in the two source files and flagged "I'll go." and "Not right now." as
+     invented -- and it was RIGHT to flag them under its own rule and WRONG about
+     the rule: those two are this module's own take-and-leave lines, not the
+     haggle's. Widening the sweep to "anywhere in either file" would have made it
+     pass and made it worthless, because a re-typed COPY of a haggle line sitting
+     in this module would also be "in a file". So each line is matched against
+     the exact thing that owns it. */
+  let tt = H.open({ id: 'q1', pays: 'battery' });
+  const drift = [];
+  let checked = 0;
+  for (let step = 0; step < 4; step++) {
+    const turn = S.talkFor(sp, H, tt);
+    if (!turn) break;
+    const rows = H.asks(tt) || [];
+    for (const r of turn.back.filter(x => x.argues)) {
+      checked++;
+      const owner = rows.filter(o => o.id === r.id)[0];
+      if (!owner || owner.say !== r.text) drift.push('argue row ' + r.id + ' is not the haggle\'s own text');
+    }
+    const take = turn.back.filter(x => x.kind === 'take')[0];
+    const leave = turn.back.filter(x => x.kind === 'leave')[0];
+    checked += 2;
+    if (!take || take.text !== sp.back[0].text) drift.push('the take line is not this module\'s own');
+    if (!leave || leave.text !== sp.back[1].text) drift.push('the leave line is not this module\'s own');
+    if (turn.warns) { checked++; if (turn.warns !== H.warning(tt)) drift.push('the warning was re-worded'); }
+    if (turn.answered) { checked++; if (turn.answered !== tt.said) drift.push('their answer was re-worded'); }
+    const arg = turn.back.filter(r => r.argues)[0];
+    tt = H.ask(tt, arg ? arg.id : 'nothing');
+  }
+  ok('*** every line of the argument is the EXACT text of whoever owns it --'
+     + ' the haggle\'s rows, its warning, its answer, and this module\'s own take'
+     + ' and leave (' + checked + ' lines) ***'
+     + (drift.length ? ' -- ' + drift.join('; ') : ''),
+     checked >= 8 && drift.length === 0);
+
+  /* THE WARNING IS SAID OUT LOUD BEFORE THE ASK THAT COSTS HIM, and the third
+     ask really does end it -- in the conversation, not only in the module. */
+  /* DRIVEN ON A QUEST THAT REALLY PAYS. The first cut of this block opened the
+     haggle on a stub with no COMPLETE ending, so pays.kind was 'unknown', no
+     currency rows existed, and the warning could never be reached. The gate was
+     wrong, not the code -- so it drives the real S01 through the real parser. */
+  const BQm = require(path.join(ROOT, 'engine/bohemia_bq.js'));
+  const S01 = BQm.parse(fs.readFileSync(path.join(ROOT, 'quests/bq/S01_THE_METER_READER.bq'), 'utf8'));
+  let w = H.open(S01);
+  ok('the quest this is driven on really pays, or the warning is unreachable',
+     w.pays && w.pays.kind === 'one' && !!w.currency);
+  const firstArg = (H.asks(w) || [])[0];
+  w = H.ask(w, firstArg.id);
+  const secondArg = (H.asks(w) || [])[0];
+  w = H.ask(w, secondArg.id);
+  const warned = S.talkFor(sp, H, w);
+  ok('he is WARNED in the conversation before the ask that costs him',
+     !!warned && !!warned.warns && warned.warns === H.warning(w));
+  const ended = S.talkFor(sp, H, H.ask(w, (H.asks(w) || [{}])[0].id || 'x'));
+  ok('and the ask after the warning really takes the job away, in the mouth',
+     !!ended && ended.gone === true && !!ended.answered);
+}
+
 /* ---- 6. THE REAL SURFACE ------------------------------------------------ */
 (async () => {
   let chromium;

@@ -145,11 +145,56 @@
   function isAddress(place) { return !!place && !BARE_CELL.test(String(place)); }
   function placeClause(place) { return 'It\'s ' + place + '.'; }
 
+  /* ======================================================================
+     ARGUING IT, IN HIS MOUTH (9/21, round 45, same row)
+
+     The row: "whose terms he argues in that person's mouth, whose job he takes
+     with a word to them." Today every one of those is a ROW ON A CARD, and rule
+     19(a) killed the card.
+
+     *** THIS RE-TYPES NOTHING. *** engine/bohemia_haggle.js already holds every
+     sentence and every rule: what you can say (`say` on each row), what they say
+     back (`said`), the warning before the ask that costs you, and the third ask
+     that ends it. Those were written as card rows and they already read as
+     speech, because a person wrote them as speech. So this turns the haggle's
+     own state into a turn of conversation and invents no line of its own. If a
+     word here disagreed with the card, there would be two versions of one deal.
+
+     WHAT IS ADDED, AND IT IS THE ONLY THING ADDED: the frame. Who is speaking,
+     what he can say back, and the fact that TAKING IT IS A WORD TO A PERSON
+     rather than a button under a card.
+     ====================================================================== */
+  function talkFor(spoken, haggle, terms) {
+    if (!spoken || !haggle || !terms) return null;
+    var rows = [], i;
+    /* HIS LINES, STRAIGHT OFF THE HAGGLE'S OWN ROWS. */
+    var offers = haggle.asks(terms) || [];
+    for (i = 0; i < offers.length; i++)
+      rows.push({ text: offers[i].say, kind: offers[i].kind, id: offers[i].id, argues: true });
+    /* TAKING IT IS A WORD TO THEM. */
+    rows.push({ text: spoken.back[0].text, kind: 'take', takes: true, reply: spoken.back[0].reply });
+    /* AND WALKING AWAY IS STILL A REAL ANSWER WITH A REAL LINE. */
+    rows.push({ text: spoken.back[1].text, kind: 'leave', takes: false, reply: spoken.back[1].reply });
+    return {
+      who: spoken.who,
+      says: spoken.says,
+      /* THE WARNING IS THEIRS AND IT IS SAID OUT LOUD BEFORE THE COSTLY ASK,
+         because a hidden roll would mean you can never know where you stand,
+         and the haggle's own comment says exactly that. */
+      warns: haggle.warning(terms) || null,
+      /* what THEY said in answer to the last thing you said, if anything. */
+      answered: terms.said || null,
+      gone: !!terms.withdrawn,
+      back: rows,
+      draft: true
+    };
+  }
+
   /* everyChange() -- which change ids have a mouth, for a gate to compare
      against the generator's own list rather than against a number typed here. */
   function everyChange() { return Object.keys(MOUTH); }
 
-  var API = { spokenFor: spokenFor, refuse: refuse, everyChange: everyChange,
+  var API = { spokenFor: spokenFor, talkFor: talkFor, refuse: refuse, everyChange: everyChange,
               isAddress: isAddress,
               MOUTH: MOUTH, VERSION: 'askspoken-1.0.0' };
   if (HASREQ) module.exports = API; else root.BohemiaAskSpoken = API;

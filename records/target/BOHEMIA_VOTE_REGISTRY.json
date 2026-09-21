@@ -847,6 +847,19 @@
     "how": "text",
     "src": "NOW, the whole loading screen\n\n  ONE MOMENT\n  TAP TO ENTER\n\nIt opens at 52.9 seconds on a phone. \"One moment\" is a promise it cannot keep.\n\nTHE OTHER WAY, a machine saying what it is doing\n\n  READING THE VALLEY\n  COUNTING WHAT STILL STANDS\n  CHECKING STREETS FOR LIGHT\n  READING LAST NIGHT'S METERS\n  FINDING YOUR BLOCK\n\nTWO THAT ARE BOTH TRUE AND BOTH THE SCARY PART\n\n  NO OPERATOR ON DUTY\n  THIS SCREEN UPDATES ITSELF\n\nTHE BUTTON\n\n  READY. TAP TO BEGIN.\n\nWHEN IT IS SLOW\n\n  STILL WORKING. 41 OF 68.\n  THIS IS SLOWER THAN USUAL\n\nIN SPANISH, because a real notice is issued twice\n\n  LEYENDO EL VALLE\n  CONTANDO LO QUE QUEDA\n  BUSCANDO TU CUADRA\n  NO HAY OPERADOR\n  LISTO. TOCA PARA EMPEZAR."
    }
+  },
+  {
+   "id": "quests-arguing-the-price-9-21",
+   "kind": "line",
+   "lane": "quests",
+   "sha": "PENDING",
+   "made": "9/21",
+   "title": "ARGUING THE PRICE",
+   "why": "Haggling over a job by talking to the person instead of tapping rows on a card. He warns you out loud before the push that costs you, then walks. Vote the words.",
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_ARGUING_THE_PRICE_9_21_26.html"
+   }
   }
  ],
  "verdicts": []
