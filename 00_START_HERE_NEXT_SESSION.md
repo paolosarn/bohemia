@@ -20050,7 +20050,90 @@ RIGHT NOW: (a) write this whole instruction, word for word, into your own handof
 
 I will never paste anything to you again. From here on, the one word is the whole instruction.
 
-THIS ROUND -- *** COOKED: A SHORT ONE, A MEDIAN ONE AND A TALL ONE, IN VOTE. THE SPRITE BOX
+THIS ROUND -- *** COOKED: THE TWELVE STREET PEOPLE WITH AGES, IN VOTE. AND THE PICTURE
+PROVED HALF THE ROW IS IMPOSSIBLE: THIS GAME HAS NO OLD PEOPLE, IT HAS A SLIGHTLY SHORTER
+MAN. (sha 5851df0, HELD [ages]) ***
+
+VERDICTS READ BACK FIRST. STILL ZERO, across every lane. Seven CHARACTER items are queued.
+
+THE ROW THE COORDINATOR ADDED IS [ages]: "the street gets ages in the shares the real county
+has." Built it. The twelve street looks are read out of the alpha at run time, same clothes,
+same build dials, same order, and ONE FIELD CHANGES PER PERSON: 1 child, 1 teen, 2 young
+adults, 6 adults, 2 elders.
+
+*** THEN I LOOKED AT IT, AND FOUR OF THE SIX CHANGED BODIES WERE INDISTINGUISHABLE FROM THE
+ADULTS STANDING NEXT TO THEM. *** So I measured all five stages on ONE look with everything
+else held still:
+
+    child        81 px   3.68 heads tall
+    teen         91 px   4.14 heads tall
+    young adult  96 px   4.36 heads tall
+    adult        99 px   4.50 heads tall
+    elder        96 px   4.36 heads tall
+
+CHILD AND TEEN ARE REAL PEOPLE. YOUNG ADULT, ADULT AND ELDER ARE ONE MAN, THREE TIMES: 0.97,
+1.00, 0.97 of the skeleton, all three inside three per cent. The rig has carried "five age
+stages" in every record this lane has written for three rounds, including mine. IT HAS TWO.
+
+AND THE THREE PER CENT IS CORRECT, WHICH IS THE WHOLE POINT. Real people lose two to five
+centimetres of height over a lifetime, one to three per cent on 175 cm, and the rig's own
+note says why it does nothing else: "old age compresses the spine, it does not narrow the
+shoulders." THE STAGE IS ANATOMICALLY RIGHT AND VISUALLY USELESS. You cannot reach an old man
+through height, because OLD MEN ARE NOT SHORT. He reads by his BACK, his HAIR and his FACE,
+and the rig does not bend a spine today.
+  I COULD HAVE SET elder TO 0.90 AND CALLED THE ROW DONE. That ships an old man who is really
+  a teenager. Named and routed instead.
+
+-> SO [ages] SPLITS IN TWO AND ONLY ONE HALF CAN SHIP. Children and teens: buildable now,
+   one field per person, and the picture shows it working. Old people: NOT BUILDABLE TODAY.
+   Needs a stoop in the rig and probably grey hair before the word elder means anything.
+   That is a rig job, not a table edit, and it is bigger than one round.
+
+I CORRECT MY OWN CLAIM FROM TWO ROUNDS AGO. "SOMEBODY WHO GOT OLD HERE", sitting in the VOTE
+tab right now labelled an elder, is a 97% adult in a long coat. The coat and the bone knit cap
+do all the work; the body does none of it. Anybody reading that sheet should read this with it.
+
+THE LABELS THAT DO NOT READ ARE MARKED ON THE PICTURE ITSELF, in a different colour, saying
+"you cannot tell", with a five-stage proof strip across the top. A caption claiming an age the
+pixels do not show is this lane's own [names lie] defect one screen further out, and the tab
+he judges in is the last place it may ever appear. THIS IS THE FOURTH ROUND RUNNING THAT
+LOOKING AT THE PICTURE CAUGHT SOMETHING EVERY GREEN GATE MISSED.
+
+GROUNDED IN THE REAL, on the repo's own precedent: bohemia_people.js grounded the NAME pool in
+Clark County's real ethnic shares and said so in its own comment. Ages got the same county.
+Census QuickFacts and ACS: under 18 21.9%, 65+ 16.3%, bands 18.2 / 12.0 / 28.9 / 25.0 / 15.9,
+median age 39.
+  LIMIT STATED RATHER THAN SMOOTHED OVER: census.gov IS BLOCKED BY THIS CONTAINER'S EGRESS
+  PROXY. The figures come from two independent search summaries that agreed with each other.
+  That is weaker than reading the table. ANY LANE THAT CAN REACH census.gov SHOULD CHECK THE
+  TWO FIGURES THIS LEANS ON.
+  Under-fives come out before the deal, because the street is WALKERS and the rig has no
+  infant body: its child stage is built at about eight years old.
+
+ONE PIECE OF ARITHMETIC WORTH KEEPING, FOR WORLD AND FOR THE COORDINATOR. A valley TEN YEARS
+COLD should have fewer elders and fewer small children than the live county: a decade without
+power in the Mojave kills the old first, and anybody now under ten was born after the crash.
+Halve the children, cut the elders to a third:
+    on TWELVE people        county 1/1/2/6/2   ten years cold 1/1/2/7/1   ONE PERSON APART
+    on the 183 his phone draws   county 20/16/26/90/31   cold 12/20/31/108/12
+                                 NINETEEN FEWER ELDERS, EIGHT FEWER CHILDREN
+THE CHOICE IS INVISIBLE ON ANY VOTE SHEET AND LOUD ON THE STREET. A picture cannot settle it;
+a crowd can. Those multipliers are REASONING and are labelled as reasoning everywhere they
+appear. Nothing here says what the valley's shares ARE, only what two rules produce.
+
+[PENDING Paolo] carried, unchanged: which faction colour file wins; the Anarchists need a
+magenta garment and there are zero in 317, with the reserved purple band blocking the obvious
+cook; the Cartel sits on the drab exemption list and not in the law that names it.
+
+THE SUITE, HONESTLY. Green on the merged tree: CHARACTER IN THE VOTE TAB 9/0, THE VOTE TAB
+28/0, SHAPE FROZEN 12/0, BODY SCALE 15/0. Not this lane's: REFERENCE CHECK has 2 red on
+tools/bohemia_cook_the_light_in_the_room.js, another lane's new cook tool with no check block
+-- that gate has now gone red three rounds running on three different lanes' new tools, so the
+pattern is a missing habit and not one lane's slip.
+
+--------------------------------------------------------------------------------
+
+PREVIOUS ROUND -- *** COOKED: A SHORT ONE, A MEDIAN ONE AND A TALL ONE, IN VOTE. THE SPRITE BOX
 CUTS THE TALL ONE'S CROWN OFF, AND I PREDICTED IT IN WRITING BEFORE RUNNING THE TOOL.
 (sha 35f54d4, HELD [real height]) ***
 
