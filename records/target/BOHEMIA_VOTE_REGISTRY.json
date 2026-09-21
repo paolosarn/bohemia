@@ -300,7 +300,7 @@
     "src": "vote/ANIMATION_THE_IDLE_REDO.html"
    },
    "redoOf": "idle",
-   "said": "a lot of them are good, a lot of them aren’t good... IF I KILLED IT I DON’T WANT IT GONE. I just think it could be done better. Make a new one."
+   "said": "a lot of them are good, a lot of them aren\u2019t good... IF I KILLED IT I DON\u2019T WANT IT GONE. I just think it could be done better. Make a new one."
   },
   {
    "id": "factions-the-sign-still-lights-9-21",
@@ -313,6 +313,19 @@
    "show": {
     "how": "page",
     "src": "BOHEMIA_THE_SIGN_STILL_LIGHTS_9_21_26.html"
+   }
+  },
+  {
+   "id": "cook-the-ground-you-fight-on-9-21",
+   "kind": "tile",
+   "lane": "cook",
+   "sha": "df8dd14d",
+   "made": "9/21",
+   "title": "THE GROUND YOU FIGHT ON",
+   "why": "The fight was drawing the grey street from before it was fixed. This is the same board on the street you actually walk, plus the kerb and gutter you approved and nothing has ever drawn. Same layout, only the pictures on the ground changed. Good, or keep looking?",
+   "show": {
+    "how": "image",
+    "src": "vote/COOK_THE_GROUND_YOU_FIGHT_ON.png"
    }
   }
  ],

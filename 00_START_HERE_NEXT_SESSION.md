@@ -13918,6 +13918,91 @@ THIS LANE'S ROLE, FIXED: 16 COOK, the production artist.
 THIS LANE'S SESSION SLUG: cook-mce6r5.
 
 
+COOK (cook-mce6r5): 9/21 LATEST -- *** I COOKED. THE FIGHT'S WHOLE GROUND BANK, 46 TILES,
+REBUILT OUT OF ART HE HAS ALREADY APPROVED, AND IT IS THE TOP ITEM IN THE VOTE TAB. ***
+Rule 22 (Paolo 9/21) killed "measure your part" as a round's whole output; last round was
+measurement only and this one is the cook that measurement paid for.
+THE THING: banks/BOHEMIA_THE_FIGHT_FLOOR_9_21_26.txt, 46 images at 44 px and the same 46 at
+88 px. WHERE HE SEES IT: the VOTE tab in the alpha, item cook-the-ground-you-fight-on-9-21,
+picture slices/vote/COOK_THE_GROUND_YOU_FIGHT_ON.png. VERIFIED ON THE REAL SURFACE: it
+renders at the top of the queue, 19 waiting, nothing threw.
+Tool: tools/bohemia_the_fight_stands_on_his_street_cook_9_21_26.py.
+Record: records/COOK_THE_FIGHT_STANDS_ON_HIS_STREET_9_21_26.md.
+NOTHING WENT TO THE ALPHA OR THE DEMO (rule 18). Claims stay claimed.
+
+WHAT IT IS. THE FIGHT VERDICT round 1 item 1, about 70% of the frame: "the street's own
+approved ground families at house scale, crisp, warm, drawn 1:1". Numbers:
+  worst tile       1,478 colours -> 8        (the craft ceiling is 64)
+  the whole board  9,635 colours -> 57
+  warm pixels          53.9%     -> 60.8%
+  images replaced  25 of 46; THE OTHER 21 WERE ALREADY HIS ART
+Every kind now comes from the city's own recooked street (road, walk, lane, median) or from
+the 42 tiles he approved on 7/28 ("I checked it to do the other 41 mark it approved"):
+kerb, gutter, house, yard, wall, lot, slab. TWO OF THEM HAD NEVER BEEN DRAWN BY ANYTHING IN
+THIS GAME -- walk_kerb and road_gutter. Counts are held exactly, so the fight's own h%n
+lands on the same index for the same cell: an art payload swap and nothing else, the same
+discipline as the 9/13 yard swap.
+
+THE ONE REAL OPERATION AND THE TEST THAT ALLOWED IT. The fight's street runs north-south and
+walk_kerb and road_gutter were drawn for an east-west one, so they have to turn a quarter.
+The bank forbids more ("Paolo DREW these... I do not get to redraw it"), so the question is
+whether a turn breaks the 45-degree light law. *** MY FIRST TEST WAS WRONG AND ITS OWN GUARD
+CAUGHT IT: *** raw corner-to-corner brightness read walk_kerb at 48.1 and refused the turn,
+and that 48.1 is a CRACK, not light. A crack, a painted line and a kerb lip all live in the
+darkest and brightest steps of the family ramp -- they are structure. Drop those two steps,
+measure the MATERIAL, and read it against the tile's own plain family sibling: walk_kerb
+18.3 against plain walk_0 18.8, road_gutter 6.5 against plain road_0 5.7, and every
+featureless member of every family at 2.8 to 4.3. NO LIGHT OF ITS OWN ANYWHERE. What is
+directional is one axis only (walk_kerb rows 96 against cols 39; road_gutter rows 28 against
+cols 9), so a quarter turn moves a BAND and touches no light. A rotation is a permutation.
+
+AND THE TURN CHECKED ITSELF AGAINST THE GAME. kerbL and kerbR came out BYTE-IDENTICAL to
+what the fight already draws -- somebody derived the same turn independently, which is the
+strongest confirmation the direction is right. AND gutterL and gutterR CAME OUT EXACTLY
+SWAPPED FROM THE FIGHT'S. The kerb at wx=-4 is immediately west of the gutter at wx=-3, so
+its cast shadow belongs on the gutter's west edge; the fight has it east, mirrored both
+sides of the road (gutterL now: left 62 right 43; this cook: left 43 right 62). That is a
+lighting error, bible rule R4, one tile each side. Stated as measured, not as a claim about
+anybody's intent. FOR COMBAT.
+
+TWO THINGS THE PICTURE CAUGHT THAT NO NUMBER WOULD HAVE, and both are now guards in the
+tool so a picture never has to catch them again:
+ *** NINTH WRONG-ORACLE CATCH: the markings were drawn for the wrong road. *** I used the
+city's lane_v and median_v assuming _v meant "for a vertical street". Stacked down the
+fight's column they make LADDER RUNGS ACROSS THE ROAD. The city rotates them at draw time
+and whoever built SA_TILES duplicated them instead. Turned, lane_h is one unbroken line down
+the middle (a divider) and lane_v is a double line (a centre marking), so the divider is
+lane_h turned and the centre is the orange median turned.
+ *** TENTH: two approved roof pieces are HALF SKY. *** roof_hipTL is 48.9% opaque and
+roof_hipTR 51.1%. On a roof they are corners; laid flat as ground they PUNCH BLACK TRIANGLES
+THROUGH THE FLOOR, and the rendered board showed two rows of them. The opaque roof pieces
+took their place and the tool now refuses any ground tile under 100% opaque, with the reason
+written at the point of use. A GROUND TILE IS OPAQUE OR IT IS A HOLE.
+
+THE BIBLE (rule 20, AH-01). R4 THE LIGHT WAS IN THE ROOM passes by construction: the
+measurement above shows no baked mood gradient in this material and this cook adds none, and
+the gutter fix puts a cast shadow back on the side the thing casting it is on. R10 GRIME IS
+BAKED: the bible's own reading fails the fight on R10 and names the cause, "blurred floor is
+scale, not grime", so every kind ships at 44 px (native, 1:1) AND 88 px (a clean 2x, nearest
+neighbour, verified to invent no colour) and a whole-number draw is AVAILABLE. Which one the
+board uses is COMBAT's ring, not art: 44 -> 67 is scale 1.523 and doubles 23 of the 44 rows,
+which IS the blur. R1/R3/R5/R7 are placement, motion, type and occupancy, not a tile's.
+
+NOT DONE ON PURPOSE. The lot layout is untouched: lotSubKind alternates house/yard every row
+with a wall every fourth column, that is the checkerboard he named on 9/18, it is COMBAT's
+code, IT IS MY OWN FROM 9/6, and THE FIGHT VERDICT has not listed it. The vote card shows
+the lot band anyway and says in plain words that the pattern is the layout and not the
+tiles, rather than cropping it out of frame. The cell size is COMBAT's. And ITEM 5 OF THE
+VERDICT IS THE NEXT THING THIS LANE COOKS: "NO COVER READS: the board is empty slabs" -- the
+approved street furniture that makes cover legible is absent from the picture.
+
+RULE 8, AND IT NEARLY BIT ME THIS ROUND ON A DIFFERENT FILE: the VOTE REGISTRY is now a
+shared file two or three lanes write every round, and a rebase conflict in it is a chance to
+delete somebody's candidate. Take the upstream copy and APPEND yours, then assert every id
+that was there is still there before you write it. Mine did: 18 upstream + 1 = 19, nobody
+lost. Same rule as the handoff: never demote an existing block header, the newest block is
+the TOPMOST one, and re-read this file immediately before you write it.
+
 COOK (cook-mce6r5): 9/20 LATEST -- *** RULE 18 HOLD ROUND: NOTHING WAS COOKED AND
 NOTHING SHIPPED TO THE ALPHA. I MEASURED MY PART OF THE FIGHT INSTEAD, AND THE HEADLINE
 IS THAT THE FIGHT IS THE SAME STREET WITH THE DESERT TAKEN OUT OF IT. ***
