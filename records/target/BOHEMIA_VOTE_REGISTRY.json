@@ -300,7 +300,7 @@
     "src": "vote/ANIMATION_THE_IDLE_REDO.html"
    },
    "redoOf": "idle",
-   "said": "a lot of them are good, a lot of them aren\u2019t good... IF I KILLED IT I DON\u2019T WANT IT GONE. I just think it could be done better. Make a new one."
+   "said": "a lot of them are good, a lot of them aren’t good... IF I KILLED IT I DON’T WANT IT GONE. I just think it could be done better. Make a new one."
   },
   {
    "id": "factions-the-sign-still-lights-9-21",
@@ -465,7 +465,7 @@
    "sha": "534d87a",
    "made": "9/21",
    "title": "HOW A STEP IS DRAWN (I PICKED ONE FOR YOU)",
-   "why": "One press moves him a whole house, 275 pixels, in half a second, and his legs can only show one pace of it. What shipped was nobody\u2019s choice: an old number in the code made the whole street jump at once. I put in the tape skip: he stands still, the picture skips twice, he is there. Thumbs up keeps it. Thumbs down and say GRID (the street jumps at once) or SLIDE (the street slides the whole time) and I will switch it.",
+   "why": "One press moves him a whole house, 275 pixels, in half a second, and his legs can only show one pace of it. What shipped was nobody’s choice: an old number in the code made the whole street jump at once. I put in the tape skip: he stands still, the picture skips twice, he is there. Thumbs up keeps it. Thumbs down and say GRID (the street jumps at once) or SLIDE (the street slides the whole time) and I will switch it.",
    "show": {
     "how": "page",
     "src": "vote/ANIMATION_HOW_A_STEP_IS_DRAWN.html"
@@ -725,7 +725,7 @@
    "sha": "228818a1",
    "made": "9/21",
    "title": "THE BATTERY SHED, THE FIRST BUILDING THAT MAKES MONEY",
-   "why": "You build this on your own lot and a battery comes in. It is the small one, about the size of half a garage, not the big fenced battery yard the game already has. I drew it in that yard\u2019s own colours so they are the same world. One thing in the picture is on purpose and it is the whole idea: THE LITTLE AMBER LIGHT IS LIT. Nothing else on the lot has power, the meter needle is stuck, the door is chained, and this box is still working. Thumbs up and I put it in the game so you can place one. Thumbs down and tell me if it is the shape, the colour, or the light.",
+   "why": "You build this on your own lot and a battery comes in. It is the small one, about the size of half a garage, not the big fenced battery yard the game already has. I drew it in that yard’s own colours so they are the same world. One thing in the picture is on purpose and it is the whole idea: THE LITTLE AMBER LIGHT IS LIT. Nothing else on the lot has power, the meter needle is stuck, the door is chained, and this box is still working. Thumbs up and I put it in the game so you can place one. Thumbs down and tell me if it is the shape, the colour, or the light.",
    "show": {
     "how": "image",
     "src": "vote/LIFECITY_THE_BATTERY_SHED_9_21.png"
@@ -807,6 +807,19 @@
    "show": {
     "how": "image",
     "src": "vote/PORTRAIT_ROOM_NINA_9_21.png"
+   }
+  },
+  {
+   "id": "world-the-rules-run-with-the-dirt-9-21",
+   "kind": "line",
+   "lane": "world",
+   "sha": "PENDING",
+   "made": "9/21",
+   "title": "THE RULES RUN WITH THE DIRT",
+   "why": "The homeowners association is still fining you. Every tract here is walled because the county made walls compulsory, and the rules that come with the wall are recorded against the land itself, so they never needed a city or a court to survive. The fine adds up daily and the hearing is before a board that stopped meeting years ago.",
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_THE_FIRST_NOTICE_9_21_26.html"
    }
   }
  ],

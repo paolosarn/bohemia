@@ -579,6 +579,117 @@
   }
 
   /* --------------------------------------------------------------------------
+     *** THE COVENANT VIOLATION NOTICE. *** (9/21, row [suburb walls].)
+
+     Every tract in this valley is walled, because Clark County's building code
+     made the wall mandatory on a subdivision. A wall like that comes with an
+     association, and an association comes with COVENANTS, CONDITIONS AND
+     RESTRICTIONS -- the CC&Rs -- which are a private legal instrument that
+     outlives the developer, binds whoever owns the lot after you, and is
+     enforced by a volunteer board with the power to fine.
+
+     Its real slots: the association, the property, the SECTION of the covenants
+     cited, what the violation is, how long you have to cure it, the fine if you
+     do not, and your right to a hearing before the board.
+
+     *** AND IT IS THE PUREST ONE IN THIS FILE, because a CC&R does not need a
+     state to survive. *** The power district needed an office. The notice to
+     quit needed a court. THE COVENANTS NEED NOTHING: they are recorded against
+     the land itself and they run with it forever, so the rules are still in
+     force, the fines still accrue daily, and the hearing you are entitled to is
+     before a board that has not met in years. Nothing about this document has
+     to be broken for it to be frightening. It is working exactly as designed.
+
+     facts = { by (the association), at, street, section, violation, cure (days),
+               fine, day, clock }
+     -------------------------------------------------------------------------- */
+  function covenant(facts) {
+    facts = facts || {};
+    var served = stamp(facts.day, facts.clock);
+    if (!served) return { issued: false, reason: 'NO_CLOCK' };
+
+    var where = facts.street ? String(facts.street).toUpperCase() : null;
+    var cell = (facts.at && facts.at.length === 2) ? (facts.at[0] + '-' + facts.at[1]) : null;
+    if (!where || !cell) return { issued: false, reason: 'NO_ADDRESS' };
+
+    var by = facts.by ? String(facts.by).toUpperCase() : null;
+    if (!by) return { issued: false, reason: 'NO_ASSOCIATION' };
+
+    /* THE SECTION IS NOT DECORATION. A covenant notice that does not cite the
+       covenant it is enforcing is unenforceable, and this module does not make
+       documents that only look like documents. */
+    var section = facts.section ? String(facts.section) : null;
+    if (!section) return { issued: false, reason: 'NO_SECTION_CITED' };
+
+    var what = facts.violation ? String(facts.violation).toUpperCase() : null;
+    if (!what) return { issued: false, reason: 'NO_VIOLATION_DESCRIBED' };
+
+    var one = theOne();
+    var fine = typeof facts.fine === 'number' ? facts.fine : one;
+    if (typeof fine !== 'number') return { issued: false, reason: 'NO_AMOUNT', table: 'PAYOUT' };
+
+    var cure = (facts.cure >= 0) ? (facts.cure | 0) : WINDOW.disputeDays;
+    var by2 = stamp((facts.day | 0) + cure, facts.clock);
+    var B = function (n) { return n + (n === 1 ? ' BATTERY' : ' BATTERIES'); };
+    var Bes = function (n) { return n + (n === 1 ? ' BATERIA' : ' BATERIAS'); };
+
+    var slots = {
+      by: by,
+      property: where + ' ' + cell,
+      section: 'SECTION ' + section + ' OF THE DECLARATION OF COVENANTS, CONDITIONS AND RESTRICTIONS',
+      violation: what,
+      cure: by2.text,
+      fine: B(fine),
+      hearing: 'YOU MAY REQUEST A HEARING BEFORE THE BOARD.',
+      issuedOn: served.text
+    };
+    var missing = [];
+    for (var k in slots) if (!slots[k]) missing.push(k);
+    if (missing.length) return { issued: false, reason: 'MISSING_SLOT', missing: missing };
+
+    var en = [
+      by,
+      'NOTICE OF COVENANT VIOLATION',
+      '',
+      'PROPERTY: ' + slots.property,
+      'ISSUED: ' + slots.issuedOn,
+      '',
+      'AN INSPECTION OF YOUR PROPERTY FOUND: ' + slots.violation + '.',
+      '',
+      'THIS IS A VIOLATION OF ' + slots.section + '.',
+      '',
+      'THE VIOLATION MUST BE CORRECTED BY ' + slots.cure + '.',
+      'A CONTINUING VIOLATION IS ASSESSED AT ' + slots.fine + ' PER DAY.',
+      '',
+      slots.hearing,
+      '',
+      'THIS NOTICE IS ISSUED IN ENGLISH AND IN SPANISH.'
+    ];
+    var es = [
+      by,
+      'AVISO DE INFRACCION DE CONVENIO',
+      '',
+      'PROPIEDAD: ' + slots.property,
+      'EMITIDO: DIA ' + served.day + ' A LAS ' + served.clock,
+      '',
+      'UNA INSPECCION DE SU PROPIEDAD ENCONTRO: ' + slots.violation + '.',
+      '',
+      'ESTO INFRINGE LA SECCION ' + section + ' DE LA DECLARACION DE CONVENIOS, CONDICIONES Y RESTRICCIONES.',
+      '',
+      'DEBE CORREGIRSE ANTES DEL DIA ' + by2.day + ' A LAS ' + by2.clock + '.',
+      'UNA INFRACCION CONTINUA SE MULTA CON ' + Bes(fine) + ' POR DIA.',
+      '',
+      'PUEDE SOLICITAR UNA AUDIENCIA ANTE LA JUNTA.',
+      '',
+      'ESTE AVISO SE EMITE EN INGLES Y EN ESPANOL.'
+    ];
+    return {
+      issued: true, kind: 'covenant', by: by, slots: slots, en: en, es: es,
+      amounts: { fine: fine }, cureDays: cure, draft: DRAFT
+    };
+  }
+
+  /* --------------------------------------------------------------------------
      THE EMERGENCY ALERT. Five slots, and the same refusal.
 
      facts = { hazard, location, action, day, clock, untilDays, service }
@@ -695,6 +806,7 @@
     CLEARED_SLOTS: CLEARED_SLOTS,
     cleared: cleared,
     toQuit: toQuit,
+    covenant: covenant,
     WINDOW: WINDOW,
     DISCONNECT_SLOTS: DISCONNECT_SLOTS,
     ALERT_SLOTS: ALERT_SLOTS,
