@@ -300,7 +300,7 @@
     "src": "vote/ANIMATION_THE_IDLE_REDO.html"
    },
    "redoOf": "idle",
-   "said": "a lot of them are good, a lot of them aren\u2019t good... IF I KILLED IT I DON\u2019T WANT IT GONE. I just think it could be done better. Make a new one."
+   "said": "a lot of them are good, a lot of them aren’t good... IF I KILLED IT I DON’T WANT IT GONE. I just think it could be done better. Make a new one."
   },
   {
    "id": "factions-the-sign-still-lights-9-21",
@@ -326,6 +326,32 @@
    "show": {
     "how": "image",
     "src": "vote/COOK_THE_GROUND_YOU_FIGHT_ON.png"
+   }
+  },
+  {
+   "id": "world-the-first-notice-9-21",
+   "kind": "line",
+   "lane": "world",
+   "sha": "PENDING",
+   "made": "9/21",
+   "title": "THE FIRST NOTICE",
+   "why": "A power cut-off notice and a water alert, on the phone, built from the real grid and the real money. The debt is one battery and the form still gives you a ten day appeal. Read it and tell me if the world talking like this is right.",
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_THE_FIRST_NOTICE_9_21_26.html"
+   }
+  },
+  {
+   "id": "world-who-sends-the-notice-9-21",
+   "kind": "line",
+   "lane": "world",
+   "sha": "PENDING",
+   "made": "9/21",
+   "title": "WHO SENDS THE NOTICE",
+   "why": "I named the dead offices in your place: CLARK COUNTY POWER DISTRICT, LAS VEGAS VALLEY WATER DISTRICT, PUBLIC UTILITIES COMMISSION. Districts, not companies, because a district cannot be bought and can sit empty with the paperwork still going out. Your call, not mine.",
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_THE_FIRST_NOTICE_9_21_26.html"
    }
   }
  ],

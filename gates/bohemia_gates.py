@@ -670,6 +670,27 @@ GATES = [
      'Red four ways: let a dark pump lift anyway -> 4; put a fudge factor in the physics '
      '-> 2; ask the plant\'s own cell again -> 4 (and the failure reads 28604 -> 23804, '
      'the countdown restarting); count the water and never credit it -> 1.', True),
+    ('FIRST NOTICE', ['node', 'gates/first_notice_gate.js'],
+     'THE-INSTITUTIONS-STILL-RUNNING (board row [horror world], 9/21, rule 20h). WORDS '
+     'Q27 measured 8 of 3,014 spoken lines naming a city, county, office, board or '
+     'utility at all (0.3%) while 194 say nobody is left: we wrote the survivors for '
+     'months and never wrote the thing that stopped, so there was no institution for a '
+     'voice to be put on. engine/bohemia_notice.js is the institution -- a real utility '
+     'disconnection notice and a five-slot emergency alert, built from the live grid, '
+     'the live turf and his own ruled ONE, on the phone (the only home rule 19 leaves '
+     'open for a faceless speaker). HOLDS FOUR THINGS. (A) A notice missing a legally '
+     'required slot is REFUSED, never printed with a hole: drop the service, the clock, '
+     'the feeder or the address and each is its own named refusal. (B) NOT ONE NUMBER IS '
+     'TYPED, checked behaviourally and not by grep -- move the ONE in his PAYOUT table '
+     'and the bill follows it, take the table away and it refuses instead of inventing '
+     'an amount. (C) THE HORROR IS A MEASUREMENT AND IT CAN SHRINK: unanswered() refuses '
+     'to claim anybody is gone with no list to check, and putting the appeal board back '
+     'in the world drops the count by one while not a word of the notice changes. (D) '
+     'the page he votes on is REGENERATED and compared, so it cannot describe a module '
+     'that has since moved, and rule 18 is held -- no play surface carries this module. '
+     'Red four ways: type the amount instead of reading it -> 1; blank one slot -> 13 '
+     '(and the gate reports 19/13 rather than dying at 2, which is what the section '
+     'wrapper is for); edit the page by hand -> 1; wire it into the city -> 1.', True),
     ('FOLD CARRIES', ['node', 'gates/fold_carries_gate.js'],
      'THE-FOLD-CARRIES-THE-WRONG-THINGS (board row [fold carries], 9/16). MEASURED '
      'FIRST (rule 12) and READ rather than guessed: bohemia_fold carries a CARRY table '
