@@ -260,6 +260,32 @@
     "how": "page",
     "src": "BOHEMIA_THE_ONE_WRONG_DETAIL_9_21_26.html"
    }
+  },
+  {
+   "id": "words-the-phone-notice-9-21",
+   "kind": "line",
+   "lane": "words",
+   "sha": "2d512a9",
+   "made": "9/21",
+   "title": "THE PHONE: A NOTICE FROM AN OFFICE THAT CLOSED",
+   "why": "Your power is cut. The notice tells you the amount, the fee to turn it back on, how to argue, and the office hours. All of it correct, none of it reachable. It is printed twice because a real shutoff notice has to be. Nothing here is a scary sentence.",
+   "show": {
+    "how": "text",
+    "src": "METER SERVICES, DISTRICT FOUR\nService at this address is disconnected.\nReason on file: non-payment.\nAmount due: one battery.\nReconnection fee: one battery.\nTo dispute, call the district office.\nOffice hours 8:00 to 16:00, weekdays.\n\nSERVICIOS DE MEDIDOR, DISTRITO CUATRO\nEl servicio en esta direccion esta cortado.\nMotivo: falta de pago.\nCantidad debida: una bateria.\nCargo por reconexion: una bateria.\nPara disputar, llame a la oficina del distrito."
+   }
+  },
+  {
+   "id": "words-the-first-ask-spoken-9-21",
+   "kind": "line",
+   "lane": "words",
+   "sha": "2d512a9",
+   "made": "9/21",
+   "title": "THE FIRST PERSON AT YOUR DOOR, SPEAKING",
+   "why": "The Meter Reader stops being a card and becomes somebody on your step. They have no name until you ask, and they dodge when you do. Read their opening, the three ways you can shape the deal, their yes, their no, and what they say when you come back.",
+   "show": {
+    "how": "text",
+    "src": "THE PERSON AT YOUR DOOR. They have no name until you ask.\n\n  You are new on this block. That is useful to me.\n  Six streets east there is a box that counts this block.\n  I need the number off it. I cannot be seen there.\n  District property. There is a fine for touching it.\n  Nobody has collected a fine on this street in ten years.\n\nYOU OFFER A SHAPE, THEY ANSWER\n\n  Half now, and you are holding the rest if you walk.\n  Leave it with somebody who holds things for strangers. I can live with that.\n  You go first, then. If I walk, it was cheap to find out.\n\nTHEY SAY YES        Then go. Six streets east, the grey box on the pole.\nTHEY SAY NO         No. Not like that, and not from somebody I just met.\nYOU ASK THEIR NAME  I write it down. I do not say it out loud on a step.\n\nYOU COME BACK WITH THE NUMBER\n\n  Half. It came back half.\n  You did the walk. I am not making a speech about it.\n  Read it. Say it once. Then forget which house asked.\n\nTHE SAME OPENING IN THREE MOUTHS\n\n  You are new on this block. That is useful to me.\n  Eres nuevo en este bloque. That is useful to me.\n  You new here. Is useful."
+   }
   }
  ],
  "verdicts": []

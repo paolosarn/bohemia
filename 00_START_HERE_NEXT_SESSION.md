@@ -1,3 +1,90 @@
+WORDS (words-8dqrnq): 9/21 LATEST -- *** COOKED, RULE 22. TWO THINGS IN THE VOTE TAB:
+words-the-phone-notice-9-21 and words-the-first-ask-spoken-9-21. 33 lines, 18 of them in a mouth. ***
+Q27 [analog horror voice] now has BOTH ROUNDS and is SHIPPED. Q26 [the first ask spoken] is COOKED
+and waiting on a body and a face. Record:
+records/BOHEMIA_WORDS_Q27_ROUND_TWO_AND_Q26_THE_FIRST_ASK_SPOKEN_9_21_26.md
+Lines: banks/BOHEMIA_WORDS_TEST_LINES.md, section "Q27 ROUND TWO + Q26", all draft:true, nothing in
+the game, nothing to the demo or the alpha's play tabs (rule 18 holds the play surface, rule 22b
+says the making is not held and everything made goes to VOTE).
+
+THE FIRST THING: A NOTICE ON THE PHONE FROM AN OFFICE THAT CLOSED. Q27 school measured that 8 lines
+in 3,014 named an institution AT ALL, so the row's premise was backwards: there was no world's text
+to give a voice to. This round PUT ONE ON THE SCREEN. The notice carries every legally required part
+of a real disconnection notice -- the source, what happened, the amount, THE RECONNECTION FEE, how to
+dispute, and the office hours -- all of it correct and none of it reachable. The amount owed is ONE
+BATTERY (EVERYTHING COSTS ONE) so the arithmetic is absurd while the form is immaculate. AND IT IS
+PRINTED TWICE, English then Spanish, because a real shutoff notice must be served in both in many
+places, which is THEY SPEAK SPANGLISH reaching an institution by a route it has never used: a person
+code-switches, a notice is issued twice. NOBODY WROTE A SCARY SENTENCE. The office hours line does it.
+
+THE SECOND THING: THE FIRST PERSON AT HIS DOOR, SPEAKING. *** THEY HAVE NO NAME AND MAY NOT BE GIVEN
+ONE. *** Paolo 7/31: nobody has a name unless you ask. KNOWN_AT_START in engine/bohemia_people.js is
+EMPTY on purpose and people_gate fails if it gains a row, because naming a main-quest person is a
+RULING. So they speak as a stranger, the player earns the name by asking, and the dodge is written
+(in the quirk factory's shape, which Q5 school found is the best refusal writing in the game). NO
+PRONOUN IS USED ANYWHERE IN THE SET either, so nothing here decides who they are. Written: the
+opening (hide the need, name a thing and a place), THE INSTITUTION IN THEIR MOUTH ("District
+property. There is a fine for touching it." / "Nobody has collected a fine on this street in ten
+years." -- a rule they still obey, and the body that made it gone, said in passing and never returned
+to), all three haggle shapes in their own words (upfront/held/first, the module's own ids, no new
+mechanism, no name invented for the third party), the yes, the no, the name dodge, what they say when
+he comes back, and the opening in three mouths. 18 spoken cards, 0 dead zone, 0 clipped.
+
+THE THREE PROOF LINES THE ROW ASKED FOR, from school's list of twelve that die under rule 19:
+  "The Meter Reader: nobody picked it up"  (named in Paolo's own law) -> "Read request, six streets
+    east. Unclaimed."
+  "Nobody holds this ground yet. No faction has claimed this district..." -> "District holder: none
+    on file."
+  "The top rung is still out of reach..." -> "Nobody has ever told me what the top of this looks
+    like." (a person's opinion, so it goes in a mouth rather than on the form)
+"Unclaimed" and "on file" are a form's words. No narrator in either.
+
+*** A RULER CORRECTION CAUGHT BEFORE IT BECAME A MISTAKE: Q4's BOXES DO NOT APPLY TO THE PHONE. ***
+I box-fitted the notice first and 7 of 13 lines came back in the dead zone. Then I checked the
+PREMISE instead of the lines: Q4 school section 8 already ruled that text the PLAYER holds has no
+clock, which is why a choice is not timed. The phone is a thing he opens and reads at his own pace.
+NO CLOCK, SO THE BOXES ARE THE WRONG RULER, and fitting a form to a card's timing would have been
+the exact class of error this lane keeps recording. Boxes applied in full to the 18 spoken lines.
+AND Q5's "A REGISTER CHANGES THE BOX" IS NOW TWO FOR TWO on brand new material: 5 of my 9 three-mouth
+lines landed in the dead zone on first pass, same cause, the shorter mouth overshooting one box and
+undershooting the next.
+
+*** AND I CALLED A RED MINE ON TWO SAMPLES AND I WAS WRONG. *** The vote tab gate went 27/1 with my
+entries in and 28/0 on a clean tree, and I wrote down that the red was mine. It is not. Five more
+runs: my tree failed three times AND THE CLEAN TREE ALSO FAILED on its third run. The leg is
+LOAD-DEPENDENT, not content-dependent. And I proved the opposite on the glass, which is what rule
+14(g) asks for: driving the alpha the way the gate does, on MY tree, with both items registered,
+setvote is VISIBLE AFTER 1,539 ms, display flex, ZERO page errors. The failing leg gives it a 10
+second window at the end of a long multi-browser sweep. TWO THINGS I OWE: a red is not attributed by
+one pair of runs, and I treated the weakest possible evidence as proof; and my first cut INVENTED A
+CONVENTION THE REGISTRY ALREADY HAD, writing the vote text to records/target/vote/*.txt and pointing
+show.src at a path, when every other text item carries the text INLINE in src and the image items
+live under slices/vote/. REUSE-FIRST, in the same round I wrote a record about reading the repo
+first. Folder deleted, text inline like everybody else's.
+
+GATES: voice 118/0, dialogue catalogue 63/0, attempt 15/0, language 83/0, voice audible 2/0,
+handoff 8/0. VOTE TAB 27/1 AND THE RED IS NOT THIS LANE'S: reproduction above, routed to UI who owns
+that gate, their leg is flaky under load and the button is fine. SUITE LINE: pre-push pass green.
+
+ROUTED: TO QUESTS [a person asks] AND PEOPLE [face at the door]: the words for the first ask are
+written, measured and registered; they need A BODY AND A FACE, not more writing, and the person is
+unnamed BY LAW with the dodge line ready for the moment he asks. TO UI [talk panel]: the opening is
+three cards of two bars each, written to a panel that holds one speaker's line at a time, not a card
+of bullets. TO WHOEVER OWNS THE PHONE: the notice is a FORM, not a feed post, and its shape is the
+legally required parts of a real one. TO RUN [no pop ups]: three of your twelve dead lines now have a
+replacement legal under rule 19; the other nine are listed in Q27's school record. TO UI, separately:
+the vote tab gate's setvote leg is flaky under load.
+
+STANDING QUEUE: Q26 stays claimed until a surface speaks it. Then Q6 through Q17 still owe their
+school rounds under the 9/6 mode, oldest first -- but RULE 22 SAYS SCHOOL IS NEVER TWO ROUNDS IN A
+ROW FOR A MAKING LANE, so those pay off one at a time with a cook beside each. The four held BUILD
+rows stay held.
+STANDING WATCH: verdicts[] in records/target/BOHEMIA_VOTE_REGISTRY.json, every round, for ids
+starting words-. Checked this round: 18 items, 0 verdicts. SIX of mine are registered now. Up means
+build it in that same round; down means graveyard with a post-mortem. NOTES ARE RULINGS.
+HANDOFF DISCIPLINE, THE 9/13 AMENDMENT: this block was built by taking origin/main's copy of the
+file fresh and prepending a NEW head. Never demote another lane's head and never splice by index.
+
 WORDS (words-8dqrnq): 9/20 (b) LATEST -- *** Q27 [analog horror voice] SCHOOL DONE, ROUND ONE OF
 TWO. NO TEST LINES, banks/ UNTOUCHED, nothing to the alpha (rule 20e puts this under the rule 18
 hold). *** Rule 20 (Paolo 9/20, LOCKED) named WORDS Q27 and it is the FIRST open line in this

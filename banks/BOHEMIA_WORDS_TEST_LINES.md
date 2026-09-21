@@ -2528,3 +2528,144 @@ BROTHER  Pass the salt.                                                [time off
 # AND THE ONE THING THAT IS NOT A LINE: the held beat before any of these is TWO
 # beats, not one. 500 ms is inside the band where a refusal and an acceptance cannot
 # be told apart; the signal starts at 700 to 800 ms. Q2, Q4 and Q5 all asked for one.
+
+## Q27 ROUND TWO + Q26 -- THE PHONE'S VOICE AND THE FIRST ASK SPOKEN  (9/21/26)
+# Round one is records/BOHEMIA_WORDS_Q27_SCHOOL_WE_WROTE_THE_SURVIVORS_9_20_26.md (full
+# name records/BOHEMIA_WORDS_Q27_SCHOOL_WE_WROTE_THE_SURVIVORS_AND_NEVER_THE_THING_THAT_STOPPED_9_20_26.md)
+# All draft:true. Nothing here is in the game. Cooked under rule 22 (Paolo 9/21).
+# Tabs: the notice is the PHONE in CITY; the spoken lines are the person at the door.
+#
+# WHICH SCHOOL FINDINGS CHANGED THESE:
+# 1. THE INSTITUTION HAS TO EXIST BEFORE IT CAN HAVE A VOICE. 8 lines in 3,014 named an
+#    institution at all. Both sets below put one on the screen: the notice IS one, and
+#    the person at the door carries one in their mouth as a rule they still obey.
+# 2. THE INSTITUTIONAL VOICE IS LEGAL ON THE PHONE AND ON MACHINES, NOWHERE ELSE
+#    (rule 19). So the notice is a form on the phone and not a card that pops up.
+# 3. THE SKELETON SURVIVES ITS AUTHOR. Source, what happened, the amount, the
+#    reconnection FEE, how to dispute, and the office hours. All of it correct, none of
+#    it reachable. That is the horror and it needed no adjective.
+# 4. ISSUED TWICE. A disconnection notice must in many places be served in English AND
+#    Spanish. A person code-switches; a notice is issued twice. THEY SPEAK SPANGLISH
+#    reaches the institution by a route it has never used before.
+# 5. FLATTER IS NOT AVAILABLE (1 exclamation mark in 3,014 lines), so nothing here is
+#    written flatter. The notice is flat because a form is flat, and the person beside
+#    it is not.
+#
+# AND A RULER CORRECTION MADE THIS ROUND, BEFORE IT COULD BECOME A MISTAKE:
+# *** Q4's BOXES DO NOT APPLY TO THE PHONE. *** I box-fitted the notice first and seven
+# of thirteen lines came back in the dead zone. Then I checked the premise instead of
+# the lines: Q4 school section 8 already ruled that text the PLAYER holds has no clock,
+# which is why a choice is not timed. The phone is a thing he opens and reads at his own
+# pace. IT HAS NO CLOCK, SO THE BOXES ARE THE WRONG RULER FOR IT and fitting the notice
+# to them would have been the exact class of error this lane keeps recording. The boxes
+# are applied in full to the spoken set below, where the game does hold the card.
+
+### THE PHONE. A NOTICE OF DISCONNECTION.   draft:true    NO CLOCK, SO NO BOXES
+# No institution is NAMED. "Meter Services" and "the district office" are ROLES, the
+# same discipline the haggle module uses for "somebody who holds things for strangers".
+# Naming the body that ran this valley is a ruling and it is not mine.
+  METER SERVICES, DISTRICT FOUR
+  Service at this address is disconnected.
+  Reason on file: non-payment.
+  Amount due: one battery.
+  Reconnection fee: one battery.
+  To dispute, call the district office.
+  Office hours 8:00 to 16:00, weekdays.
+
+  SERVICIOS DE MEDIDOR, DISTRITO CUATRO
+  El servicio en esta direccion esta cortado.
+  Motivo: falta de pago.
+  Cantidad debida: una bateria.
+  Cargo por reconexion: una bateria.
+  Para disputar, llame a la oficina del distrito.
+# The office hours are the line that does the work. Everything on this form is correct
+# and none of it is reachable. The amount owed is ONE BATTERY, because EVERYTHING COSTS
+# ONE, so the arithmetic is absurd while the form is immaculate. Nobody wrote a scary
+# sentence.
+
+### THE THREE PROOF LINES. THREE OF THE TWELVE THAT DIE, REWRITTEN.   draft:true
+# School listed twelve narrator-prose lines with no mouth. Here are three of them moved,
+# which is what the row asked for as proof.
+#
+# 1. WAS, and Paolo's own law names this one as dying:
+#      "The Meter Reader: nobody picked it up"
+#    NOW, as the phone's own line, which is where bookkeeping is legal:
+  Read request, six streets east. Unclaimed.
+#    The word "unclaimed" is a form's word. Nobody is narrating.
+#
+# 2. WAS, a narrator paragraph explaining territory:
+#      "Nobody holds this ground yet. No faction has claimed this district, so there is
+#       nobody here to ask."
+#    NOW, on the phone, as a record with a hole in it:
+  District holder: none on file.
+#    Three words carry what twenty did, and "on file" says an office kept the file.
+#
+# 3. WAS, a narrator paragraph explaining the rungs:
+#      "The top rung is still out of reach. Nobody has said what it takes to stand
+#       there."
+#    NOW, in a mouth, because this one is a person's opinion and not a record:
+  Nobody has ever told me what the top of this looks like.
+
+### Q26. THE FIRST ASK, SPOKEN. THE PERSON AT HIS DOOR.   draft:true
+# *** THIS PERSON HAS NO NAME AND MUST NOT BE GIVEN ONE. *** Paolo 7/31: "Nobody will
+# have a name unless you talk to them and ask them for their name." KNOWN_AT_START in
+# engine/bohemia_people.js is EMPTY on purpose and people_gate fails if it gains a row,
+# because naming a main-quest person is a ruling and not an inference. So the first
+# person in the game speaks as a stranger, the player earns the name by asking, and the
+# dodge below is the answer until they do. No pronoun is used anywhere in this set, so
+# nothing here decides who they are either.
+# Every line measured by the shipped timing policy. 1 bar = 28 chars, 2 = 56, 3 = 84.
+#
+# THE OPENING. Q21 and Q24 school: hide the need, name a thing and a place, then a shape.
+  1  You are new on this block. That is useful to me.               48ch  2 bars  86%
+  2  Six streets east there is a box that counts this block.        55ch  2 bars  98%
+  3  I need the number off it. I cannot be seen there.              49ch  2 bars  88%
+# AND THE INSTITUTION, IN A MOUTH, WHICH IS SCHOOL SECTION 6 LANDING:
+  4  District property. There is a fine for touching it.            51ch  2 bars  91%
+  5  Nobody has collected a fine on this street in ten years.       56ch  2 bars 100%
+# Line 4 is a rule they still obey. Line 5 says plainly, in passing, that the body that
+# made the rule is gone, and does not return to it. That is the wrong detail said
+# plainly, and the ordinary frame is a person asking a favour on a step.
+#
+# THE THREE SHAPES, in their mouth. The ids and the risk are the haggle module's
+# (upfront / held / first); these are the words, not a new mechanism.
+  upfront  Half now, and you are holding the rest if you walk.      51ch  2 bars  91%
+  held     Leave it with somebody who holds things for strangers. I can live with that.
+                                                                    76ch  3 bars  90%
+  first    You go first, then. If I walk, it was cheap to find out. 56ch  2 bars 100%
+# No shape names a person or a place for the third party. That is still a ruling nobody
+# has made and the haggle module already refuses to invent it.
+#
+# THE YES AND THE NO
+  yes  Then go. Six streets east, the grey box on the pole.         52ch  2 bars  93%
+  no   No. Not like that, and not from somebody I just met.         52ch  2 bars  93%
+#
+# THE NAME DODGE, when he asks who they are. Q5 school found the quirk factory already
+# does this better than anything else in the game, so this is written in its shape and
+# not in a new one.
+  I write it down. I do not say it out loud on a step.              52ch  2 bars  93%
+#
+# WHEN HE COMES BACK WITH THE NUMBER. Q21 school: a thank you is a way of counting, and
+# counting makes debt, so it is not warm.
+  Half. It came back half.                                          24ch  1 bar   86%
+  You did the walk. I am not making a speech about it.              52ch  2 bars  93%
+  Read it. Say it once. Then forget which house asked.              52ch  2 bars  93%
+
+### THE OPENING IN THREE MOUTHS. THEY SPEAK SPANGLISH (8/25).   draft:true
+  en   You are new on this block. That is useful to me.             48ch  2 bars  86%
+  spa  Eres nuevo en este bloque. That is useful to me.             48ch  2 bars  86%
+  dom  You new here. Is useful.                                     24ch  1 bar   86%
+  en   Six streets east there is a box that counts this block.      55ch  2 bars  98%
+  spa  Seis calles al este hay una caja que cuenta this block.      55ch  2 bars  98%
+  dom  Six street east, a box. It count all this block.             48ch  2 bars  86%
+  en   I need the number off it. I cannot be seen there.            49ch  2 bars  88%
+  spa  Necesito el numero de esa caja. I cannot be seen there.      55ch  2 bars  98%
+  dom  I need that number. They cannot see me standing there.       54ch  2 bars  96%
+# Q5 round two's rule held again on brand new material: A REGISTER CHANGES THE BOX.
+# My first pass at these nine put FIVE of them in the dead zone at 55 to 79% fill, all
+# for the same reason, the shorter mouth overshooting one box and undershooting the next.
+# The rule is now two for two and it is not a one-round observation.
+
+# THE WHOLE SPOKEN SET BY THE SHIPPED POLICY:
+#   18 spoken cards, 0 in the dead zone, 0 clipped.
+#   The phone's 15 lines are deliberately NOT box-fitted. See the ruler note above.
