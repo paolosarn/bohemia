@@ -1,3 +1,65 @@
+PORTRAIT (portrait-vamily-yke55s): 9/21 (d) LATEST -- *** [shades on] ROUND 1, THE COOK
+(rule 22). 70 OF EVERY 200 PEOPLE WEAR WRAPAROUND SHADES YOU CANNOT SEE THROUGH, AND ALL 70
+HAVE BARE EYES IN THE PORTRAIT THAT POPS UP WHEN THEY SPEAK. *** Row CLAIMED, not shipped.
+renderFace UNTOUCHED, nothing on a play surface.
+Record: records/BOHEMIA_PORTRAIT_THEY_TAKE_THEIR_SHADES_OFF_9_21_26.md
+Sheet: records/target/BOHEMIA_THE_PORTRAIT_WEARS_THE_SHADES_9_21_26.png
+
+MEASURED, 200 citizens, rendered pixels:
+    wear shades on the body ............ 70 of 200 (35.0%)
+    the body actually draws them ....... 62 of 70
+    THE PORTRAIT DRAWS THEM NOW ........ 0 of 70
+    the portrait draws them cooked ..... 70 of 70
+ZERO IS PROVED, NOT ASSERTED: render the face, change the person's glasses, render again,
+count the pixels that moved. None move, because renderFace has NO GLASSES ARGUMENT AT ALL --
+"glasses" appears eighteen times in the alpha and NOT ONCE inside the face renderer. Glasses
+are a BODY layer and always have been. So this is the FIRST mechanism, not a second one
+competing with an existing one, the same shape the EYES were in on 8/27, and ENGINE SYNC LAW
+is satisfied by there being exactly one.
+
+THE SHADES ARE READ, NOT DRAWN. Every colour is PD_DATA.ramps['glasses/shades']
+([[16,16,20],[30,30,36],[86,90,104]] -- frame, lens, catch), so the lens on the face is the
+lens on the body and no colour was invented. The lens is placed on THAT FACE'S OWN eye
+numbers (f.eyeY, eyes.gap, eyes.w, eyes.h), never a fixed rectangle, so it fits a child and
+an adult without a second table. THE CATCH SITS ON THE RIGHT, the same sun art_45_gate holds
+every wall to and the same one this lane put on the face two rounds running.
+
+*** I PUT IT BESIDE THE STREET SPRITE AND THE FIRST CUT WAS THE WRONG GLASSES. *** The first
+version drew two round lenses joined by a bridge, which is a pair of SPECTACLES. The painted
+garment is a WRAPAROUND, one continuous band, which is what every head on the sheet plainly
+reads as. A PORTRAIT WEARING A DIFFERENT PAIR OF GLASSES FROM THE BODY IS THE EXACT DEFECT
+THIS ROW EXISTS TO CLOSE, ONE LAYER DOWN -- and every number in the table was already correct
+while the picture was wrong. Also the sheet RAN OFF ITS OWN CANVAS: two portraits at 0.625
+of a column each are 1.25 columns wide, so every pair drifted right and the last was cut in
+half. A sheet he cannot read is not evidence.
+
+MEASURED AND NOT FIXED, ROUTED: 8 OF THE 70 WEAR SHADES THE BODY NEVER DRAWS EITHER -- the
+garment is in their wardrobe and nothing of it reaches the street sprite, presumably lost to
+a hat brim or hair at 26px. The cook still draws those 8 in the portrait DELIBERATELY: the
+person is wearing shades and the HD view is where that is legible. The body losing them at
+street size is the body's problem. Named, not papered over.
+
+WHY THIS ROW AND NOT A THIRTEENTH LIGHT CARD: twelve of this lane's candidates sit in the
+VOTE tab with NO VERDICTS ON ANY OF THEM. A thirteenth version of the same four faces is the
+tell STOP PRODUCING names by its own name. This is a different defect, measured by this lane
+on itself, on 70 people rather than 4, and it is a LAW being broken rather than a matter of
+taste.
+
+STILL TRUE AND STILL ROUTED: a stranger meets NO faces at all. The only face surface in the
+game sits inside #p-run, a panel the demo never shows, invite stuck want=1 / display:none.
+RUN's demo cut and UI's banner.
+
+VOTE TAB NOW HOLDS THIRTEEN OF THIS LANE'S THINGS, NO VERDICTS ON ANY: four faces as they
+are, four lit by the sky, four lit by the room, and this one.
+
+GATES: vote tab 28/0. Rule 13's honest sentence: pre-push pass green; full suite 107 red at
+ad23d875, none named as this lane's.
+
+NEXT: his vote is the brief for all thirteen. Whatever he thumbs up folds into renderFace as
+one block -- the light and the shades are written to fold together. If nothing is voted by
+the next round, the honest move is NOT a fourteenth card: it is [blank faces] school, which
+is the one row here that needs no verdict to start.
+
 LIFE + CITY (city-1eztay): 9/21 LATEST -- *** A STRAIGHT WAY OUT IS NOT A WAY OUT, BECAUSE
 A BODY TURNS CORNERS. NO YARD IS SEALED. AND THE SHOP IS STILL LIT. ***
 TAB: the shop is a picture in the VOTE tab (alpha). The yard finding is NOT IN A TAB YET --

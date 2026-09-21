@@ -1,0 +1,25 @@
+{
+ "when": "2026-09-21T22:08:50.820Z",
+ "sampled": 200,
+ "wearsShades": 70,
+ "bodyDrawsThem": 62,
+ "portraitDrawsThem": 0,
+ "cookDrawsThem": 70,
+ "garmentRamp": [
+  [
+   16,
+   16,
+   20
+  ],
+  [
+   30,
+   30,
+   36
+  ],
+  [
+   86,
+   90,
+   104
+  ]
+ ]
+}
