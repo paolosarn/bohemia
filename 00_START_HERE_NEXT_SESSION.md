@@ -1,3 +1,71 @@
+PORTRAIT (portrait-vamily-yke55s): 9/21 (c) LATEST -- *** [horror face] ROUND 1, THE COOK
+(rule 22). THE SCENE HAS BEEN NAMING ITS OWN LIGHT THE WHOLE TIME AND NO FACE HAS EVER READ
+IT. *** Four faces lit by the fixture their own scene declares, in the VOTE tab, one card
+each. Rows [faces first] and [horror face] both stay CLAIMED. renderFace UNTOUCHED, nothing
+on a play surface. Record: records/BOHEMIA_PORTRAIT_THE_LIGHT_IN_THE_ROOM_9_21_26.md
+Sheet: records/target/BOHEMIA_THE_LIGHT_IN_THE_ROOM_9_21_26.png
+
+THE FINDING. The authored scene data carries a `light` field: dim_interior x4,
+warm_interior x2, open_sky x1. "warm_interior" appears EXACTLY TWICE IN THE WHOLE ALPHA and
+both are the scene data itself -- ZERO mentions in any renderer. The family sit at a table
+under a bulb, the game writes that down, and then paints their faces with nothing. The
+fixture never had to be invented or asked about: it was already his, in the file, waiting to
+be read. MECHANISM MINE, CONTENTS HIS.
+
+WHAT A ROOM DOES TO A FACE, left/right spread on skin pixels, m = whole-face mean:
+    DENISE  now 1.9  | sky 6.0 m83.4  | WARM 16.6 m78.5  | dim 14.4 m68.1
+    RAY     now 4.4  | sky 7.5 m149.3 | WARM 26.8 m141.1 | dim 22.5 m123.2
+    MARCO   now 2.1  | sky 7.2 m124.3 | WARM 21.1 m118.4 | dim 17.4 m104.5
+    NINA    now 1.8  | sky 8.9 m126.0 | WARM 23.7 m119.4 | dim 18.6 m104.9
+A bulb a foot away is a point source: narrow band, fast falloff, big spread. The sky is
+broad: small spread. A dim room is the bulb with the key down: the MEAN drops 12-16 while
+the spread stays high. The three fixtures do not overlap on either number.
+
+WHAT THE FIXTURE CHANGES AND WHAT IT DELIBERATELY DOES NOT: it changes the SHAPE of the
+light (falloff and key). IT DOES NOT CHANGE THE HUE. A warm bulb really is amber and
+painting that means inventing colours this face does not own -- STRUCTURE-NOT-COLOR, and the
+same rule this lane held last round. Said out loud rather than quietly shipping a colour
+nobody approved. If he wants the amber that is a ruling and a palette, not mine to take.
+
+THE IDLE, AGAINST THE BIBLE'S OWN NUMBER (bible rule 6: "at most one micro-move per 8
+beats"; 120 BPM makes that one per 4000 ms). Simulated on the real facePerform, ten minutes
+per face, four faces, counting each blink and brow drift as it starts: 585 moves, ONE EVERY
+4103 ms, 8.21 beats. IT PASSES BY 2.6%. Nobody had ever run this check. A rule held with
+2.6% of headroom is one tweak from red. The number is a simulation of the shipped function,
+not algebra on its constants, because algebra cannot see a bug in the code.
+
+*** I LOOKED AT THE FIRST CUT AND FIXED TWO THINGS NO NUMBER COULD SEE. *** (1) THE
+TERMINATOR WAS A RECTANGLE: the pass centred the turn on each ROW's own span, a span that
+jumps wherever hair crosses skin, so the terminator wandered and came out as a blocky patch
+on the cheek -- a swatch laid over the face rather than light wrapping a head. RAY showed it
+plainly and NOT ONE NUMBER IN THE TABLE MOVED. One centre and one half-width for the whole
+head now. (2) THE HAIR WAS UNLIT: the pass lit skin and stopped, and hair is the biggest
+mass on these heads, so a head read as A LIT FACE GLUED TO A FLAT WIG. The hair is shaded
+with the TWO VALUES THE SPEC ALREADY CARRIES, hair.color lit and hair.roots shadowed, so no
+third value is derived and the hair palette this lane fixed on 9/20 is untouched.
+THE WEAKNESS THAT IS LEFT, NAMED: with only two hair values the hair terminator is a hard
+split rather than a turn. A third value is a palette decision, not mine to take.
+
+REUSE: this is last round's lighting pass with the FIXTURE MADE A PARAMETER, not a second
+lighting model.
+
+STILL TRUE AND STILL ROUTED: a stranger meets NO faces at all. The only face surface in the
+game sits inside #p-run, a panel the demo never shows, with the invite stuck want=1 /
+display:none. RUN's demo cut and UI's banner; not mine to reach into.
+
+VOTE TAB NOW HOLDS TWELVE OF THIS LANE'S THINGS: four faces as they are
+(portrait-face-*-9-21), four re-lit by the sky (portrait-light-*-9-21), four lit by the room
+(portrait-room-*-9-21). NO VERDICTS ON ANY OF THEM YET, so [speak along] has nothing to
+answer and the light has not been folded into renderFace.
+
+GATES: vote tab 28/0. Rule 13's honest sentence: pre-push pass green; full suite 107 red at
+ad23d875, none named as this lane's.
+
+NEXT: his vote is the brief. If the room light reads, it folds into renderFace together with
+last round's pass, and then [shades on] (the portrait wearing the body's glasses, 65 of 200
+bodies) and [blank faces] school. The scene's `light` field is the hook for every face in
+the game, not just these four.
+
 UI (ui-kmqmrf): 9/21 (b) LATEST -- *** [copy notes] SHIPPED. HE WAS RIGHT, AND IT WAS
 NEVER THE SIZE. *** TAB: the top bar of the demo, far right, the word NOTES. Rule 18(f):
 his direct ask, tiny, touches none of the three. Record:
