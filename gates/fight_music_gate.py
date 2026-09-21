@@ -139,8 +139,15 @@ function pw(){for(const g of ['/opt/node22/lib/node_modules','/usr/lib/node_modu
        for RUN: an early tap gets past the door's own "not ready is not an
        invitation" refusal and lands the player in a permanently silent game. This
        wait makes the gate honest; it does not make that bug go away.) */
+    /* THE BOUND IS 180 s AND IT IS NOT A GUESS. Served, on this box, the screen
+       reaches BEGIN at 25.5 s. 60 s would be 2.4x headroom, which sounds like plenty
+       until you read PLUMBER's measurement of this same boot on a phone-shaped CPU:
+       71,758 ms of blocked thread, worst single block 26,532 ms. A bound under that
+       is a gate that goes red on a slow box and calls it a music regression, which
+       is the exact failure this whole round exists to stop. 180 s is 7x the measured
+       boot here and comfortably past the throttled figure. */
     out.loadReadyMs=await p.evaluate(async()=>{ const t=Date.now();
-      while(Date.now()-t<60000){ if(window.__LOAD_READY) return Date.now()-t;
+      while(Date.now()-t<180000){ if(window.__LOAD_READY) return Date.now()-t;
         await new Promise(r=>setTimeout(r,200)); } return null; });
     await p.click('#front');                      // the real gesture
     // WAIT FOR THE HANDOFF, NOT FOR A DURATION. This was `waitForTimeout(22000)`
