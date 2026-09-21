@@ -198,3 +198,24 @@ Neither is asserted here. Both are on this lane's handoff as named-not-fixed.
                                                                  this lane's to move
 
 **Gate: FIGHT MUSIC 50 passed / 0 failed** (48 before, plus the two new claims).
+
+---
+
+## 8. AND THE SAMPLE, STATED HONESTLY, BECAUSE THAT IS THE WHOLE LESSON OF THIS ROUND
+
+Ten runs of the rebuilt gate came back green (four on the pre-rebase tree with the identical
+gate file, six on the tree that ships). **That is not proof on its own, and section 0 is why:**
+
+    P(10 greens in a row | it is still a 20% coin) = 10.7%
+    P( 9 greens in a row | it is still a 20% coin) = 13.4%
+
+One run in ten of the OLD gate would look like this too, and last round I read four greens as a
+fix on exactly that arithmetic. **What makes this round different is not the count, it is that
+the mechanism is named and removed:** the reference is no longer read on a sleep, the claims no
+longer depend on a title five systems can move, and the window is no longer measured with the
+round trips that define it. Both new claims fail on demand under mutation.
+
+> **THE HONEST SENTENCE: the cause is identified and fixed, and ten green runs are consistent
+> with that. Ten green runs alone would not be.** If this gate flakes again, the log now prints
+> the caller, the millisecond and the stack, so the next round starts from a cause instead of
+> from two song titles.

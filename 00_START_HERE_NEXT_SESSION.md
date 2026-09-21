@@ -421,6 +421,11 @@ LAST COMPLETELY UNMET RULE ON MY OWN SCHOOL PAGE. *** Rows [seeded gate] SHIPPED
 Records: records/BOHEMIA_THE_CHECKER_WAS_THE_COIN_9_23_26.md (the gate) and the cook is in the
 VAMILY row. Gates: FIGHT MUSIC 50/0, COOKED SOUNDS 57/0 and --mutate 43/10.
 Tab: VOTE, one page, eight cards, with a metronome. Build stamp 9/23a.
+THE SAMPLE, STATED HONESTLY, BECAUSE IT IS THE WHOLE LESSON: ten runs of the rebuilt gate came
+back green, and P(ten greens | still a 20% coin) is 10.7%. TEN GREENS ALONE WOULD NOT BE PROOF.
+What makes this round different is that the MECHANISM is named and removed and both new claims
+fail on demand under mutation. If it flakes again the log prints the caller, the millisecond and
+the stack, so the next round starts from a cause instead of from two song titles.
 
 *** CORRECTING THE BLOCK I WROTE LAST ROUND, FIRST, BECAUSE IT IS WRONG ***
 It said: "PROVEN: four runs on one tree, 48/0 four times identical." THAT WAS LUCK, NOT PROOF.
