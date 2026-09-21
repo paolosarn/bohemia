@@ -234,6 +234,19 @@
     "how": "image",
     "src": "vote/CHARACTER_THE_THIRTEEN_FACTIONS.png"
    }
+  },
+  {
+   "id": "character-two-people-too-still-9-21",
+   "kind": "outfit",
+   "lane": "character",
+   "sha": "pending",
+   "made": "9/21",
+   "title": "TWO PEOPLE WHO ARE A LITTLE TOO STILL",
+   "why": "First bodies made to the analog horror direction. Not monsters: ordinary people, dressed right, with one thing wrong. Is this the tone for the crowd?",
+   "show": {
+    "how": "image",
+    "src": "vote/CHARACTER_TWO_PEOPLE_TOO_STILL.png"
+   }
   }
  ],
  "verdicts": []
