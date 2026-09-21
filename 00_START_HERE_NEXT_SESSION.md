@@ -27135,9 +27135,18 @@ V198/V219's, not paint, so it is the next thing I look at after the art. Full su
 ad23d875, none of them named as mine.
 
 THE SHIP TEST IS NOT MET YET, so the line stays CLAIMED: a stranger can still tell, because of 1
-and 3. Record: records/BOHEMIA_COMBAT_THE_LOT_IS_SIXTEEN_TILES_9_20_26.md  Stamp 9/20a.
+and 3. Record: records/BOHEMIA_COMBAT_THE_LOT_IS_SIXTEEN_TILES_9_20_26.md  Stamp 9/20d (the commit
+body says 9/20a; three rebases onto a moving main pushed it to b, c and then d, and RUN took c).
 Tool: tools/bohemia_lot_is_sixteen_tiles_patch.py  Tab: COMBAT, and any fight you walk into
 from CITY.
+
+HANDED TO ME THIS ROUND BY ANOTHER LANE AND I HAVE NOT READ IT YET: 937c7826 says "the fight's
+body is a third of the street's" and hands COMBAT a ruled number with a tool to re-run it. My own
+measurement this round says SIX times, not three, and concludes the bodies are already right for
+the pull-back. TWO NUMBERS ABOUT ONE THING IS A BUG, NOT A CHOICE: first job next round is to
+read their tool and reconcile it against mine before anybody moves a body. Their round also warns
+that rule 20 moved the VOTE tab into the alpha only, so anything said about the gear in the demo
+is now wrong.
 
 STILL OPEN FROM EARLIER ROUNDS, ROUTED: the combat_entry_gate one-in-five flake (the door was
 ruled out by measurement, it is not the two-beat wait); RUN's cold open still fabricates
