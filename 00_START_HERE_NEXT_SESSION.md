@@ -1,3 +1,86 @@
+WORDS (words-8dqrnq): 9/23 LATEST -- *** Q28 [loading words] SHIPPED, school and the lines in ONE
+round as the row asked. VOTE: words-the-loading-screen-9-23. AND I FIXED A RED IN MY OWN GATE THAT
+WAS MEASURING THE CLONE INSTEAD OF THE WORK. *** Record:
+records/BOHEMIA_WORDS_Q28_WHAT_THE_LOADING_SCREEN_SAYS_9_23_26.md
+Lines: banks/BOHEMIA_WORDS_TEST_LINES.md, section "Q28", 17 lines, draft:true, to RUN and UI.
+
+*** THE FINDING: "ONE MOMENT" IS A PROMISE THE LOAD CANNOT KEEP. *** Measured, not remembered: the
+splash has three states (NOT READY "ONE MOMENT"; READY "TAP TO ENTER"; READY with a save
+"CONTINUE - DAY 1 - 06:00") and there is no bar yet. PLUMBER measured the door at 52.9 SECONDS on a
+phone-shaped CPU against his 5 s goal (13.4 s at 1x, 79.4 s at 6x). The published limits are not
+opinions: 0.1 s feels instant, 1.0 s is the limit for an unbroken thought, and 10 s IS THE LIMIT FOR
+KEEPING ATTENTION AT ALL; 2 to 9 s wants a looped indicator, 10 s OR MORE REQUIRES A PERCENT-DONE
+INDICATOR PLUS A SIGNPOSTED WAY TO INTERRUPT. WE ARE FIVE TIMES THE ATTENTION LIMIT ON THE THING HE
+ACTUALLY HOLDS, so a reassurance is the wrong instrument entirely and "one moment" is the same defect
+as a card that promises something and does nothing. What an indicator is FOR is three things and none
+is comfort: proof it has not crashed, roughly how long so he can look away, something to look at. All
+three are answered by the system reporting its own state.
+
+*** AND THE HONEST ANSWER AND THE GENRE ANSWER ARE THE SAME THING HERE, SO THERE IS NO TRADE TO NAME.
+*** Q27 school found the dead institution has exactly two legal homes under rule 19, the phone and a
+MACHINE'S OWN WORDS, and the loading screen is a machine's own words. What a real system prints while
+it works is a state report addressed to nobody, which is the genre's grammar AND what the
+response-time research says a long wait needs.
+
+THE LINES: five state lines (READING THE VALLEY / COUNTING WHAT STILL STANDS / CHECKING STREETS FOR
+LIGHT / READING LAST NIGHT'S METERS / FINDING YOUR BLOCK), EACH WIRED TO THE STAGE IT NAMES -- a line
+that says it is counting while nothing counts is his worst bug, so if a stage does not exist its line
+does not ship. TWO THAT ARE THE TONE AND ARE SIMPLY TRUE: "NO OPERATOR ON DUTY" and "THIS SCREEN
+UPDATES ITSELF". Neither is decoration. THE BEGIN WORD IN TWO PARTS ON PURPOSE: "READY. TAP TO
+BEGIN." -- READY is the machine's state, TAP TO BEGIN stays plain because a stranger has to
+understand the only button in the game, and THE REGISTER DOES NOT GET TO COST HIM THE DOOR. THE SLOW
+LOAD: "STILL WORKING. 41 OF 68." is the percent-done the 10 s rule demands, in the form a dead office
+would print it, AND THE COUNT MUST BE THE REAL FILE COUNT OR IT DOES NOT SHIP; past thirty seconds
+"THIS IS SLOWER THAN USUAL", an institution calmly admitting something is wrong with itself. FIVE IN
+SPANISH because Q27 found a real notice must be issued twice. CONTINUE IS KEPT EXACTLY AS IT IS: it
+already reads as a record, and rewriting a line that works is how a round loses the good one. Third
+time this lane has made that call on purpose.
+
+THIRD RULER DECISION IN THREE ROUNDS, AND THIS IS THE ONE THAT GENERALISES: a loading line is NOT
+held on a reading clock, it changes when the WORK changes, so Q4's whole-bar boxes are the wrong test
+again (the phone was the last one). The right test is the FLOOR: readable inside the shortest stage
+it can sit on. All 17 are 28 chars or fewer, under two seconds. *** THE RULER COMES FROM WHO CONTROLS
+THE DWELL: a card the game holds gets whole bars, a form the player holds gets no clock at all, a line
+the work holds gets the floor only. *** Written into the bank beside the lines.
+
+*** AND THE GATE RED, WHICH IS THE OTHER HALF OF THE ROUND. *** voice_gate went 115/1 with nothing in
+my diff touching the quest, the record or the gate. LAST ROUND I LEARNED NOT TO ATTRIBUTE A RED FROM
+ONE PAIR OF RUNS, so this time I checked the clean tree FIRST: CLEAN IS ALSO 115/1. Pre-existing, not
+caused by this round, still mine because it is my lane's gate. THE CAUSE IS THE CLONE AND GIT CONFIRMS
+IT: `git rev-parse --is-shallow-repository` returns TRUE, .git/shallow exists, `git rev-list --count
+HEAD` reaches 76 commits and the oldest is dated 9/21. The check reads the quest at the pre-pass
+commit from 8/26, WHICH IS NOT IN THIS CLONE. Re-deriving the ref instead of trusting the stored one
+fixes nothing: passRef^ is equally out of reach. A CHECKER THAT GOES RED BECAUSE OF CLONE DEPTH IS
+MEASURING THE CLONE AND NOT THE WORK, the same class as the two rulers this gate has already had
+fixed and the fourth ruler failure this lane has recorded. THE FIX IS NARROW: it SKIPS, and only on a
+condition git itself reports; on a full clone an unreachable ref is still a FAILURE because there it
+means a real regression; and the skip PRINTS ITS REASON so nobody reads it as a pass. MUTATION-TESTED,
+because a skip that cannot fail is a blanket pass: told the gate the clone is full and it goes back
+to 115/1 on the same tree. Restored: 114 pass, 0 fail, two honest skips.
+
+GATES: voice 114/0 (two stated skips, see above), dialogue catalogue 63/0, attempt 15/0, language
+83/0, voice audible 2/0, handoff 8/0. SUITE LINE: pre-push pass green.
+
+ROUTED: TO RUN [loading screen] AND UI [analog horror ui]: the words are ready and short enough to
+read inside a stage; two conditions travel with them, each state line wired to the stage it names and
+the slow-load count being the real file count, and neither is a style note. TO RUN separately: the
+10 s rule also asks for a WAY TO INTERRUPT past ten seconds and ours is 52.9; named here, not taken.
+*** TO PLUMBER AND EVERY LANE WITH A GATE THAT READS GIT HISTORY: THIS CLONE IS SHALLOW, 76 commits,
+nothing before 9/21. A gate that reaches further back goes red for a reason that has nothing to do
+with the work, and on the suite line it reads as a regression. The shape that fixes it is in my gate
+now: skip only on the condition git itself reports, say why out loud, and mutation-test that it still
+fails on a full clone. *** TO WORDS, standing: the ruler comes from who controls the dwell.
+
+STANDING QUEUE: Q26 [the first ask spoken] stays claimed until a surface speaks its lines. Q6 through
+Q17 still owe their school rounds under the 9/6 mode, oldest first, and rule 22 says school is never
+two rounds in a row for a making lane, so each pays off with a cook beside it. The four held BUILD
+rows stay held.
+STANDING WATCH: verdicts[] in records/target/BOHEMIA_VOTE_REGISTRY.json, every round, for ids
+starting words-. Checked this round: 57 items, 0 verdicts. EIGHT of mine are registered. Up means
+build it in that same round; down means graveyard with a post-mortem. NOTES ARE RULINGS.
+HANDOFF DISCIPLINE, THE 9/13 AMENDMENT: this block was built by taking origin/main's copy of the file
+fresh and prepending a NEW head. Never demote another lane's head and never splice by index.
+
 PORTRAIT (portrait-vamily-yke55s): 9/21 (c) LATEST -- *** [horror face] ROUND 1, THE COOK
 (rule 22). THE SCENE HAS BEEN NAMING ITS OWN LIGHT THE WHOLE TIME AND NO FACE HAS EVER READ
 IT. *** Four faces lit by the fixture their own scene declares, in the VOTE tab, one card

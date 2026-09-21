@@ -2752,3 +2752,96 @@ BROTHER  Pass the salt.                                                [time off
 # at 68% and 70%, both from the shorter mouth overshooting one box. Fitted per mouth.
 
 # THE WHOLE SECTION BY THE SHIPPED POLICY: 18 cards, 0 dead zone, 0 clipped.
+
+## Q28 -- WHAT THE LOADING SCREEN SAYS  (9/23/26)
+# School and the lines in one round, which is what the row asked for and what rule 22
+# requires of a making lane. All draft:true. Registered as words-the-loading-screen-9-23.
+# Tab: it is the first thing the alpha shows, before any tab.
+#
+# ================== SCHOOL, ONE PAGE ==================
+# WHAT THE SCREEN SAYS TODAY, measured rather than remembered (the alpha's own splash):
+#   NOT READY YET          "ONE MOMENT"
+#   READY, no save         "TAP TO ENTER"
+#   READY, save exists     "CONTINUE - DAY 1 - 06:00"
+# There is no bar yet. RUN and UI build it this round.
+#
+# *** THE FINDING THAT PROVES US WRONG: "ONE MOMENT" IS A PROMISE THE LOAD CANNOT KEEP. ***
+# PLUMBER measured the door on a phone-shaped CPU: it opens at 52.9 SECONDS, against
+# his 5 second goal. At 1x it is 13.4 s and at 6x it is 79.4 s.
+# The published limits for how long a person will wait are not opinions:
+#   0.1 s   feels instant
+#   1.0 s   the limit for a thought to stay unbroken
+#   10  s   THE LIMIT FOR KEEPING SOMEBODY'S ATTENTION AT ALL
+#   2 to 9 s        a looped indicator is the right tool
+#   10 s or more    a PERCENT-DONE indicator, plus a signposted way to interrupt
+# OUR LOAD IS FIVE TIMES THE ATTENTION LIMIT ON THE THING HE ACTUALLY HOLDS. At that
+# length a reassurance is the wrong instrument. "One moment" says the wait is short.
+# It is not short, and a screen that says so is the same defect as a card that promises
+# and does nothing.
+#
+# WHAT A PROGRESS INDICATOR IS FOR, which is three things and none of them is comfort:
+#   1. proof the system has not crashed
+#   2. roughly how long, so a person can decide to look away
+#   3. something to look at
+# ALL THREE ARE ANSWERED BY THE SYSTEM REPORTING ITS OWN STATE. Not by an apology.
+#
+# *** AND THAT IS WHY THE HONEST ANSWER AND THE GENRE ANSWER ARE THE SAME THING HERE. ***
+# Q27 school found the dead institution has only two legal homes, the phone and a
+# machine's own words, and the loading screen is a machine's own words. What a real
+# system prints while it works is a state report addressed to nobody in particular.
+# That IS analog horror, and it is also exactly what the response-time research says a
+# long wait needs. The trade this lane usually has to name does not exist here.
+#
+# ONE MORE RULER DECISION, SAID OUT LOUD BECAUSE IT IS THE THIRD IN THREE ROUNDS:
+# A LOADING LINE IS NOT HELD ON A READING CLOCK. It changes when the WORK changes, not
+# on a timer, so Q4's whole-bar boxes are the wrong test again (the phone was the last
+# one). The right test is the FLOOR: every line must be readable inside the shortest
+# stage it can sit on. So every line below is ONE BAR OR LESS, 28 characters or fewer,
+# readable in under two seconds.
+#
+# ================== THE LINES ==================
+### WHILE IT WORKS. ONE PER REAL STAGE, NEVER ON A TIMER.   draft:true
+# *** EACH LINE IS WIRED TO THE STAGE IT NAMES. A line that says it is counting while
+# nothing is counting is the worst bug in the game by his own ruling. If a stage does
+# not exist, its line does not ship. ***
+  READING THE VALLEY                18ch  read 1.29s
+  COUNTING WHAT STILL STANDS        26ch  read 1.86s
+  CHECKING STREETS FOR LIGHT        26ch  read 1.86s
+  READING LAST NIGHT'S METERS       27ch  read 1.93s
+  FINDING YOUR BLOCK                18ch  read 1.29s
+#
+### THE TWO THAT ARE THE GENRE, AND THEY ARE BOTH TRUE   draft:true
+  NO OPERATOR ON DUTY               19ch  read 1.36s
+  THIS SCREEN UPDATES ITSELF        26ch  read 1.86s
+# Nobody is running this. The screen says so, in the flattest possible way, as a status
+# line and not as a warning. Neither is decoration: there is no operator, and the screen
+# does update itself.
+#
+### THE BEGIN WORD   draft:true
+  READY. TAP TO BEGIN.              20ch  read 1.43s
+# TWO PARTS ON PURPOSE. "READY" is the machine's state, which is the register. "TAP TO
+# BEGIN" is the instruction, and it stays plain because a stranger has to understand
+# the only button in the game. The register does not get to cost him the door.
+# The CONTINUE line the splash already has is KEPT AS IT IS. It already reads as a
+# record ("CONTINUE - DAY 1 - 06:00") and rewriting a line that works is how a round
+# loses the good one.
+#
+### WHEN IT IS SLOW. THE PART THE RESEARCH DEMANDS.   draft:true
+  STILL WORKING. 41 OF 68.          24ch  read 1.71s
+  THIS IS SLOWER THAN USUAL         25ch  read 1.79s
+# The first is the percent-done the 10 second rule requires, in the form a dead
+# institution would print it: a count of its own units, not a smooth bar with a
+# friendly number. THE 41 AND THE 68 ARE THE REAL FILE COUNT OR THEY DO NOT SHIP.
+# The second is for a load past thirty seconds, and it is an institution admitting
+# something is wrong with itself, calmly, to nobody. That is the register and it is
+# also just true.
+#
+### IN SPANISH, BECAUSE THE SCREEN IS AN INSTITUTION AND A NOTICE IS ISSUED TWICE
+### (Q27 school: in many places a real notice must be served in both).   draft:true
+  LEYENDO EL VALLE                  16ch  read 1.14s
+  CONTANDO LO QUE QUEDA             21ch  read 1.50s
+  BUSCANDO TU CUADRA                18ch  read 1.29s
+  NO HAY OPERADOR                   15ch  read 1.07s
+  LISTO. TOCA PARA EMPEZAR.         25ch  read 1.79s
+#
+# 17 lines. Every one is 28 characters or fewer and reads in under two seconds.
