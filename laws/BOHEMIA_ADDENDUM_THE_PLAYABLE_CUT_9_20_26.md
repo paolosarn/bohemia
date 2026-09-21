@@ -82,6 +82,9 @@ number and an answer instead of a feeling.
 ## 5. NOBODY SENDS THE LINK
 Until the coordinator says the playable cut holds, the link is not sent to anyone. He
 said "I can't be showing this to people"; the fleet does not make him.
+CORRECTED 9/22 (Paolo: "hand me the alpha link, idk why the other chats dont give it
+anymore"): this section is about OTHER PEOPLE. To him, every chat ends every reply with the
+link as always. A chat that stopped pasting it read this section wrong.
 
 ## 6. ROUTING
 Rule 18 on the front page. RUN: MODE frozen to the three; [loading screen] first, [one
