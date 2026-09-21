@@ -17,6 +17,35 @@
 # No number below is a ruling. Every price is written as ONE, because
 #   EVERYTHING COSTS ONE (8/15) and "for one aa battery a bag of rice" (9/4)
 #   already decided it. Nothing new is invented.
+#
+# *** RULE 19 CONTRACT, ADDED 9/20/26 (front page rule 19, A QUEST IS PEOPLE,
+#     PLACES AND THINGS; laws/BOHEMIA_LAW_A_QUEST_IS_PEOPLE_PLACES_AND_THINGS_9_20_26.md).
+#     19(c): no player-facing sentence outside the phone without a NAMED SPEAKER
+#     and their PORTRAIT on screen. Every lane answers WHO SAYS THIS, WITH WHAT
+#     FACE, STANDING WHERE before it ships a sentence.
+#
+#   MEASURED, the same round the rule landed:
+#     658 real entries in this file. A grep for draft:true returns 673 and
+#       FIFTEEN of those are header comments, three of them inside this very
+#       block -- which is why the count that matters is the entry count, not
+#       the grep. (It read 670 / 12 before this block was added.)
+#     482 are written as  ID  role, place, situation  -- WHO and WHERE, already.
+#     176 are written as  - ID `draft:true` -- "the line"  (a bare bullet), and
+#       they carry NO speaker. That is the whole gap and it is a format, not a
+#       fault in any line.
+#
+#   SO, BINDING ON THIS FILE FROM NOW:
+#   1. EVERY NEW ENTRY USES  ID  role, place, situation  draft:true. The bare
+#      bullet is retired. A line with no WHO does not get written.
+#   2. THE 176 BULLET ENTRIES OWE A WHO BEFORE ANY OF THEM SHIPS. A build lane
+#      taking one answers who says it, with what face, standing where, first.
+#      They are NOT rewritten here: the rule bites when a line ships, and this is
+#      a bank. Nothing in this file has ever been in the game.
+#   3. 19(a) KILLS THE POP-UP CARD. Three entries were written for one -- F1, F2
+#      and F4, all "reckoning card". They are bookkeeping, so 19(a) sends them to
+#      THE PHONE, not to the graveyard. QQ2 was already written for the phone.
+#   4. NOBODY IN BOHEMIA IS WISE still governs every line (VOICE CARD 8/26), and
+#      naming the speaker never turns a line into narration.
 
 ## A. THE SELLER HAS A VIEW ABOUT TOMORROW
 ## (the finding of the day: a refusal, not a price. Every line buys a beat

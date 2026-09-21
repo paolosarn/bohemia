@@ -1,4 +1,9 @@
-# THE ECONOMY MASTER — WHAT FORTY-FOUR ROUNDS FOUND
+# THE ECONOMY MASTER — WHAT FORTY-SEVEN ROUNDS FOUND
+
+*(The file keeps its FORTY_FOUR name on purpose: records and the board cite this path, and a
+rename would break every one of them. The name is the address; the title is the count.
+**FOLDED AGAIN 9/20/26: rounds 45, 46 and 47 are in, harvested by script the same way the
+first forty-four were.**)*
 
 > ## *** CORRECTED 9/16/26: THE ONE THING THIS STUDY GOT BUILT AND GOT WRONG. ***
 >
@@ -24,25 +29,46 @@
 > the most useful line on the page: **forty-four rounds, one thing built off them that he
 > disliked in play, and the lane's own record contained the right answer the whole time.**
 
+> ## *** AND CONFIRMED 9/20/26: THE ONE THING THIS STUDY SAW COMING. ***
+>
+> **Round 45 shipped 9/16 and its headline was: *NOBODY IS TOLD ANYTHING IN THE FIRST
+> MINUTE. SOMEBODY WAKES THEM.*** Its deliverable, verbatim: *"Not a card, not a line of
+> narration, not a notice"*, and *"a first ask that arrives in a mouth from somebody with a
+> reason to bother."* Three cities deep, and in none of them did an institution reach
+> anybody first — a mother at seven in the morning, neighbours at windows with pots, a hand
+> patting an empty wallet.
+>
+> **Two rounds later Paolo opened the demo, met a card of bullets, and ruled it himself**
+> (front page rule 19, 9/20): *"you can't just be putting things on the screen and pretend
+> they're the quest… text coming from people's voice, and when they speak it shows the
+> character portrait."* **NOTHING POPS UP. TEXT COMES FROM A MOUTH. And the playable cut
+> gains THE FIRST PERSON at his door, with a portrait, inside the first minute.**
+>
+> **That is round 45's deliverable, word for word, arrived at from the other end.** Put
+> beside the 9/16 correction above, the two banners are the honest score of this lane:
+> **one thing built off it that he disliked in play, and one thing it had right two rounds
+> before he said it.** Both were reached the same way — measure the world, then measure our
+> own repo, then say only what both support.
 
-ECONOMY lane, 9/15/26. **The queue is empty: Q1 through Q44 are all SHIPPED.**
+
+ECONOMY lane, 9/15/26, folded again 9/20/26. **The queue is empty: Q1 through Q47 are all SHIPPED.**
 MODE: RESEARCH. No engine code was touched by this file either.
 
 **Why this exists, and it is not a job off the board.** CLAUDE.md carries a STANDING JOB:
 *"periodically fold addenda into the GDD/laws masters and archive the folded. Piles rot;
-masters stay clean."* Forty-four records is a pile. Nobody building the game is going to
-read forty-four files, so the lane's output has been getting used one round at a time, by
+masters stay clean."* Forty-seven records is a pile. Nobody building the game is going to
+read forty-seven files, so the lane's output has been getting used one round at a time, by
 whoever happened to see the last commit. **This is the pile folded into one page**, and
 every line in it was harvested out of the record files by script, not recalled.
 
-The 44 records stay where they are. Nothing is archived; nothing here supersedes anything.
+The 47 records stay where they are. Nothing is archived; nothing here supersedes anything.
 This is an index with the findings attached.
 
 ---
 
-## 0. THE FIVE THINGS THE WHOLE STUDY KEEPS ARRIVING AT
+## 0. THE SIX THINGS THE WHOLE STUDY KEEPS ARRIVING AT
 
-Forty-four rounds, four different questions each, and they converge on five walls. Every
+Forty-seven rounds, four different questions each, and they converge on six walls. Every
 one of these was reached from more than one direction, by rounds that were not looking for
 each other.
 
@@ -91,8 +117,13 @@ Two independent modules arrived at that same rung as the threshold for "they wil
 something for you."
 
 ### FIVE. *** THE PARTS ARE RIGHT AND THEY HAVE NEVER MET. ***
-Named in every round from 16 to 44 — twenty-nine rounds — and it is the one finding that is
-about us rather than about the world. The gates check that a part does what it says.
+Named in every round from 16 to 47 — **thirty-two rounds** — and it is the one finding that
+is about us rather than about the world.
+
+*(Counter correction, kept because this study keeps them: the records number these instances
+in their own gate notes, and round 44 says 29 while round 45 says 31. **Thirty was skipped**,
+so rounds 45, 46 and 47 are instances **30, 31 and 32**, not 31, 32 and 33. The arithmetic is
+`instance = round − 15`. The next round numbers from 33.)* The gates check that a part does what it says.
 **Nothing checks that two parts agree, that a part keeps working for as long as the game
 lasts, that it is the right part to have, or that the parts form a loop that closes.**
 The catalogue of instances, all measured:
@@ -114,10 +145,46 @@ The catalogue of instances, all measured:
 - **Seven water plants on seed 1 and not one on a live street**: a working `lift()`
   returning zero litres, every gate green, because no gate can ask *does the valley have
   water.*
+- **The wake card is correct and its guards are correct, and together they guarantee the
+  newest player sees the least** (round 45). Every line right, every condition right; a
+  stranger on a fresh save gets none of the three people-lines. *A gate asking "what does a
+  save with no history see" would find it in one run.*
+- **A stated ratio that does not follow from the values beside it, inside a single law**
+  (round 46). THE STEP IS A HOUSE states a step, a distance, a walking speed and a real-time
+  multiple of 24x; one step per beat at 120 BPM gives **240x**. The two cannot both describe
+  a step taken on the beat, and the law had already been corrected once by measurement.
+- **The turf system knows who holds every cell, the pumps system knows which plants run, and
+  no gate can ask who owns the water** (round 47). Both answer correctly and separately;
+  that one faction holds **100% of the valley's running water in every seed that has any**
+  had been true since 9/5 and was measured for the first time in round 47.
+
+### SIX. *** DISTANCE IS THE PRICE, AND WE HAVE BEEN WRITING IT AS A NUMBER. ***
+**Rounds 37, 43, 46, 47**, four subjects, one shape, and it is the finding the fold itself
+turned up: three of the last four rounds are about **how far**, and the master written on
+9/15 said distance was not this lane's business.
+- **Carrying one of your own: 1 km and the day is gone** for a party of four (round 37).
+  The cost of helping somebody is measured in ground, not in batteries.
+- **Doubling up is sticky because moving is the expensive part** (round 43): 25 empty homes
+  per occupied one and households still double up, because the empty home is somewhere else.
+- **The daily radius is a TIME, not a distance** (round 46). Every documented planning
+  threshold in the real record is under half an hour: **2 km, 139 lots, 27% of the valley**.
+  Our day reaches 478 lots. *The radius is not how far a person can go, it is the distance
+  past which they stop bothering.*
+- **Owning water is owning the distance between the source and the mouth** (round 47).
+  Karachi's landowners charge for the valve on their ground while the plant stays public and
+  broken; Caracas sells by the truckload while the municipal pipe leaks 60% into the dirt.
+  **Nobody in the record seizes the pump.**
+
+**Why this belongs beside the other five:** the lane's answer to nearly everything has been
+*"it costs one, and who gets to buy is the game"* (finding THREE). **Distance is how a
+price exists in a game where everything costs one.** A far market, a long carry, a queue you
+have to stand in and a home that is empty on the wrong side of the valley are all real
+prices that never touch the number — which is exactly the mechanism the 9/16 correction said
+this lane should have delivered in round 38 and did not.
 
 ---
 
-## 1. THE FORTY-FOUR, IN ORDER
+## 1. THE FORTY-SEVEN, IN ORDER
 
 | # | row | what it found |
 |---|---|---|
@@ -165,26 +232,40 @@ The catalogue of instances, all measured:
 | 42 | the bailiff | the shame list backfires, and the collector mostly fails |
 | 43 | double up | twenty-five empty homes each, and they double up anyway |
 | 44 | first building | the pump is already built, and it is dark |
+| 45 | first sixty | nobody is told anything in the first minute, somebody wakes them |
+| 46 | daily radius | the day is the right size and the wrong unit |
+| 47 | who owns the water | nobody owns the pump, they own the distance |
 
 ---
 
 ## 2. WHERE THE FINDINGS WENT
 
-Every record carries a ROUTED section; all 44 do. Counting **distinct rounds** that routed
+Every record carries a ROUTED section; all 47 do. Counting **distinct rounds** that routed
 something to each lane:
 
-    WORLD          43 rounds        COMBAT          6
-    LIFE + CITY    26               WORDS           5
-    FACTIONS       24               PLUMBER         5
-    PEOPLE         22               EYES            3
-    COORDINATOR    22               DIRECTION       1
-    RUN            12               CUTSCENE        1
-    UI             11
-    QUESTS         11
+    WORLD          45 rounds        WORDS           7
+    LIFE + CITY    28               COMBAT          6
+    FACTIONS       25               PLUMBER         5
+    COORDINATOR    25               COOK            4
+    PEOPLE         24               EYES            3
+    RUN            14               DIRECTION       1
+    QUESTS         13               CUTSCENE        1
+    UI             11               SOUNDS          1
+                                    DYNASTY         1
 
-**WORLD is the destination of this lane, 43 rounds out of 44.** That is by design — the
+**WORLD is the destination of this lane, 45 rounds out of 47.** That is by design — the
 lane's own MODE says every finding becomes a WORLD job — and it is also the risk: one lane
-holds nearly everything forty-four rounds produced.
+holds nearly everything forty-seven rounds produced.
+
+*** AND THE PUBLISHED TABLE WAS MISSING THREE LANES. *** The 9/15 version of this section
+listed fourteen lanes. **COOK (4 rounds: 5, 6, 7, 8), SOUNDS (1: round 4) and DYNASTY (1:
+round 23) were routed to and never appeared**, because the harvest's lane list was written
+by hand and those three were not on it. Six routings to three lanes, sitting in the records
+the whole time and invisible on the page that exists so nobody has to read the records.
+**The re-harvest reproduces every one of the old table's fourteen numbers exactly for rounds
+1-44**, which is how the three missing ones were found rather than argued about: an
+instrument that agrees with the published answer everywhere except where it adds something
+is an instrument you can believe.
 
 (Probe note, kept: my first count reported **WORLD 77** by counting line hits instead of
 distinct rounds, which is more rounds than exist. The correction is the same discipline the
@@ -193,7 +274,7 @@ not a finding.)
 
 ---
 
-## 3. THE FOUR NUMBERS ANYBODY BUILDING FROM THIS SHOULD HAVE
+## 3. THE NUMBERS ANYBODY BUILDING FROM THIS SHOULD HAVE
 
 Derived, never typed, each with the round that measured it.
 
@@ -206,6 +287,10 @@ Derived, never typed, each with the round that measured it.
 | chasing a debt | **about 4x**, because a visit costs one and succeeds one time in four | 42 |
 | doubling up | **cap two**, host is PAID not charged, and it is sticky | 43 |
 | the valley's water | **one lit pump feeds everybody**, 18,524 L for 20 kWh | 44 |
+| a household's water | **one battery every 4 to 6 days** (the real 15-25% of income, no fraction) | 47 |
+| the daily radius people act on | **2 km, 139 lots**, half an hour, 27% of the valley | 46 |
+| a whole game day of walking | **4.0 minutes of real tapping** at one step per beat; the valley end to end is 4.3 | 46 |
+| the leak | **60% loss turns one lit pump from feeding everybody into feeding two in five** | 47 |
 
 ---
 
@@ -232,6 +317,28 @@ confirmed:
 - **Ruling 4** (the pump first): *"power comes second"* should read **"the first power goes
   to the water."** Not build the pump. **Light it.**
 
+**AND THE THREE NEWEST ROUNDS LEFT FOUR THINGS ON THE TABLE, ALL OF THEM SOMEBODY ELSE'S:**
+- **Whether a travel step is a beat step** (round 46). The law's 24x and the beat's 240x
+  cannot both be true. **LIFE + CITY owns the lattice**; this lane named the disagreement
+  and did not pick a side.
+- **Which guard on the wake card becomes unconditional** (round 45). All four people-lines
+  are off on a fresh save. RUN's and PEOPLE's call; the finding is the guard, not a feature.
+- **What lighting a pump costs** (round 47, and it is still pending 43). The pumps module
+  already carries the placeholder, value null, law EVERYTHING COSTS ONE. **The module is
+  waiting for the ruling, not for code.**
+- **Whether the leak exists** (round 47). Named as free realism and one number, never
+  proposed, because it changes a solved valley into a contested one and that is his call.
+
+**Two things this lane could not find, said plainly rather than padded:** a documented daily
+walking radius for **Beirut after the port** (round 46), and **Lebanon's tanker cartels**
+(round 47 — the Lebanon material in this study is the generator cartels of rounds 39 and 41,
+which is not the same trade). Karachi, Caracas, Cape Town and New Orleans carry those two
+rounds instead. **Earlier rounds did the same thing** — round 14 could not find what a rent
+share was really worth and round 42 has a beat the record carries no number for — and the
+honest move every time was to say so inside the record rather than pad it. *(I nearly wrote
+"three rows in forty-seven" here and then went and counted: there are at least four, and a
+total I have not verified is exactly the kind of number this study refuses.)*
+
 ---
 
 ## 5. THE GATE NOTE
@@ -240,13 +347,88 @@ confirmed:
 handoff. Results in the commit.
 **Full suite: 107 red at `ad23d875`, mine are: none, measured** (round 43's sweep of ten
 gates; nine green, one red on a surface this lane is forbidden to touch).
+**THE SUITE LINE HAS NOT MOVED SINCE 9/14.** It is still `ad23d875` on the front page, so
+every lane's rule-13 sentence is six rounds old. That is not a complaint about PLUMBER, who
+is building the machine that posts it; it is a note for anybody reading "mine are: none" and
+wondering how fresh the denominator is.
 
 Rule 14: research rounds never touch the demo, and only THE RUN re-cuts.
 Rule 15: this lane presents nothing for a thumb and never has.
-Rule 16 (THE STEP IS A HOUSE, Paolo 9/15) changes nothing this lane has measured: every
-economy number here is per person, per day or per battery, and none of them is a distance
-on screen.
+
+*** RULE 16 NOTE, CORRECTED 9/20. *** The 9/15 version of this line said THE STEP IS A HOUSE
+*"changes nothing this lane has measured: every economy number here is per person, per day or
+per battery, and none of them is a distance on screen."* **That was true when it was written
+and it is false now.** Round 46 is a distance and nothing else — 478 lots a day against a
+139-lot radius, derived straight off the law's own 18 m lot — and round 47 found that the
+law's step even **disagrees with the beat by ten times**. Section 0.SIX is the corrected
+version: **distance is the price.** Written down here rather than quietly deleted, because a
+master that edits its own wrong lines out of existence is worth less than one that keeps
+them with the date they broke.
+
+**THE FOUR RULES THAT LANDED AFTER THIS PAGE WAS WRITTEN, AND WHAT EACH DOES TO THIS LANE:**
+- **Rule 17, THE FIGHT LOOKS LIKE THE GAME (9/18).** Nothing here. No economy finding is on
+  the fight board.
+- **Rule 18, THE PLAYABLE CUT AND NO RESTART (9/20).** 18(b) by name: **research lanes
+  continue.** Nothing this lane has ever produced ships to the alpha, so the hold costs it
+  nothing — but every deliverable in this master is now **queued behind the four things**,
+  and that is worth a builder knowing before they pick one up.
+- **Rule 19, A QUEST IS PEOPLE, PLACES AND THINGS (9/20).** The second banner at the top,
+  and section 6 below: this is the rule with teeth for this lane, because the only thing it
+  ships that a player could ever read is a bank of spoken lines.
+- **Rule 20, ANALOG HORROR FOR EVERY PIXEL AND EVERY SOUND (9/20).** One real contact, and
+  it is a gift: the law asks for **"the text is a dead institution too calm"**, and round 45
+  measured that in three real crashes **no institution says anything at all in the first
+  minute.** Both are the same instinct — the silence where the announcement should be. 20(g)
+  also caps it: *a vibe for fun, not a thesis*, so that is one line and not an essay.
 
 ---
 
-*ECONOMY, 44 of 44 shipped. Research only. Nothing in the game changed.*
+## 6. THE BANK, MEASURED AGAINST RULE 19
+
+The lane's other output is `banks/BOHEMIA_ECONOMY_TEST_LINES_9_5_26.md`, every line
+`draft:true` and none of them in the game. Rule 19(c) is new since the last fold and it says
+**no player-facing sentence outside the phone without a named speaker and their portrait**,
+and that every lane answers **WHO SAYS THIS, WITH WHAT FACE, STANDING WHERE** before a
+sentence ships. So the bank got measured against it, by script.
+
+    draft:true matches in the file        673
+      of those, header comment lines       15   ("EVERY LINE HERE IS draft:true...")
+    ACTUAL BANK ENTRIES                   658
+
+    written as ID + role + place          482   e.g.  "A1  seller, swap meet, has the flour"
+      of those, naming a person            403
+    written as a bare bullet              176   e.g.  "- BBBBBBBBBB3 `draft:true` -- ..."
+      of those, naming a person             53
+
+**THE FINDING IS THE FORMAT, NOT THE COUNT.** The early rounds wrote every line as *role,
+place, situation* — **which is WHO and WHERE, exactly what rule 19 now asks for, written
+three weeks before the rule existed.** The later rounds moved to a bare bullet that carries
+the line and a note about its craft and **says nothing about who is speaking.** 176 entries,
+about a quarter of the bank, would reach a build lane with no answer to the rule's first
+question. Nobody did anything wrong; the format drifted and the shorter one looked tidier.
+
+**AND THE CARD PROBLEM IS SMALL, WHICH IS WORTH SAYING PLAINLY.** Rule 19(a) kills the
+pop-up card. **Three entries in 658 are written for one** — `F1`, `F2` and `F4`, all
+"reckoning card" — and they are bookkeeping lines, which 19(a) sends to the phone rather
+than to the graveyard. One more, `QQ2`, is already written for the phone. **Everything else
+in the bank is somebody talking**, because the voice card has said *somebody asks and
+somebody fumbles* since 8/26 and the bank has obeyed it from line one.
+
+**WHAT CHANGED IN THE BANK THIS ROUND:** a contract block at the top of the file naming rule
+19, marking the 176 bullet entries as **owing a WHO before any of them ships**, and fixing
+the format for every future round to `ID  role, place, situation`. **No line was rewritten
+and no line was deleted.** Retro-fitting 176 speakers would be inventing a job nobody put on
+the board, and the rule bites when a line ships, not while it sits in a bank.
+
+*(Counting note, and it is a small one that earns its place: the **"670 draft lines"** this
+lane has reported for several rounds is a `grep -c` and it counts header comments as lines
+of dialogue. **The number of real entries is 658.** The grep now returns **673**, because the
+rule-19 contract block this round added to the bank quotes the phrase three more times —
+**a counter that moves when you write about it is not counting the thing you meant.** Same
+class as the routing table that counted line hits instead of rounds, and the instance counter
+that skipped thirty: three bookkeeping faults in forty-seven rounds, all of them found by
+re-running the measurement instead of trusting the last number.)*
+
+---
+
+*ECONOMY, 47 of 47 shipped. Research only. Nothing in the game changed.*

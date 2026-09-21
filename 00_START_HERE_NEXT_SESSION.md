@@ -414,7 +414,7 @@ your block top to bottom and confirm every line in it is yours.
 And this file is now ~88,000 lines carrying NINE ECONOMY blocks, most of them
 stale copies of this one. That is a real defect in a file every lane reads every
 round. It is a job for the coordinator to place (18 PLUMBER's remit), not
-something a lane should do to another lane's block.=== ROUND 36 REPORT: [first ten] SHIPPED ====== ROUND 37 REPORT: [carry cost] SHIPPED ====== ROUND 38 REPORT: [old price] SHIPPED ====== ROUND 39 REPORT: [protection court] SHIPPED ====== ROUND 40 REPORT: [how many pockets] SHIPPED ====== ROUND 41 REPORT: [who replaces you] SHIPPED ====== ROUND 42 REPORT: [the bailiff] SHIPPED ====== ROUND 43 REPORT: [double up] SHIPPED ====== ROUND 44 REPORT: [first building] SHIPPED ====== QUEUE EMPTY. 44 OF 44 SHIPPED. THE PILE IS FOLDED INTO ONE MASTER. ====== QUEUE STILL EMPTY. HE PLAYED IT, AND THE ONE THING THIS LANE GOT BUILT AND GOT WRONG IS CORRECTED. ====== ROUND 45 REPORT: [first sixty] SHIPPED ====== ROUND 46 REPORT: [daily radius] SHIPPED ====== ROUND 47 REPORT: [who owns the water] SHIPPED ===
+something a lane should do to another lane's block.=== ROUND 36 REPORT: [first ten] SHIPPED ====== ROUND 37 REPORT: [carry cost] SHIPPED ====== ROUND 38 REPORT: [old price] SHIPPED ====== ROUND 39 REPORT: [protection court] SHIPPED ====== ROUND 40 REPORT: [how many pockets] SHIPPED ====== ROUND 41 REPORT: [who replaces you] SHIPPED ====== ROUND 42 REPORT: [the bailiff] SHIPPED ====== ROUND 43 REPORT: [double up] SHIPPED ====== ROUND 44 REPORT: [first building] SHIPPED ====== QUEUE EMPTY. 44 OF 44 SHIPPED. THE PILE IS FOLDED INTO ONE MASTER. ====== QUEUE STILL EMPTY. HE PLAYED IT, AND THE ONE THING THIS LANE GOT BUILT AND GOT WRONG IS CORRECTED. ====== ROUND 45 REPORT: [first sixty] SHIPPED ====== ROUND 46 REPORT: [daily radius] SHIPPED ====== ROUND 47 REPORT: [who owns the water] SHIPPED ====== QUEUE EMPTY. THE FOLD: 45, 46 AND 47 ARE IN THE MASTER, AND FOLDING THEM FOUND THREE THINGS. ===
 RECORD: records/BOHEMIA_ECONOMY_DAY_47_NOBODY_OWNS_THE_PUMP_THEY_OWN_THE_DISTANCE_9_20_26.md (207 lines)
 BANK:   banks/BOHEMIA_ECONOMY_TEST_LINES_9_5_26.md sections ZZZZZZZZZ-DDDDDDDDDD, +16 lines, 670 draft:true total
 TAB:    NOT IN A TAB YET. MODE: RESEARCH. No engine code touched. Rule 14: never the demo;
@@ -508,6 +508,94 @@ RECORD DID: BB-TURF shipped "all 9,216 cells are held" on 9/5, so I sampled 576 
 0 HELD. A 100% disagreement with a shipped measurement is an instrument fault, not a
 discovery. Corrected: 14 towns, 576 of 576 held, and only then were the plants read. Third
 round running where the positive control saved the finding.
+
+
+=== THE FOLD (no board line; CLAUDE.md's STANDING JOB "piles rot, masters stay clean") ===
+MASTER: records/BOHEMIA_ECONOMY_MASTER_WHAT_FORTY_FOUR_ROUNDS_FOUND_9_15_26.md, now titled
+        WHAT FORTY-SEVEN ROUNDS FOUND. THE FILENAME KEEPS ITS FORTY_FOUR ON PURPOSE --
+        records and the board cite that path and a rename breaks every one of them. The name
+        is the address, the title is the count. Canon rot gate green on it: 13/0.
+BANK:   banks/BOHEMIA_ECONOMY_TEST_LINES_9_5_26.md, a RULE 19 CONTRACT block at the top.
+        No line rewritten, no line deleted, nothing new written.
+TAB:    NOT IN A TAB YET. MODE: RESEARCH. No engine code touched. Rule 14: never the demo.
+        Rule 15: no thumbs from this lane. Rule 18(b): research lanes continue, and nothing
+        this lane makes goes near the alpha or the four things.
+GATES:  pre-push pass GREEN, all eight, on the rebased tree -- economy 13/0, purse 28/0,
+        payday 40/0, attempt 15/0, canon rot 13/0, demo blockers 22/0, language 83/0,
+        handoff 8/0. Full suite: 107 red at ad23d875, mine are: none. AND THE SUITE LINE HAS
+        NOT MOVED SINCE 9/14, so every lane's rule-13 sentence is six rounds old.
+
+*** THE HEADLINE, AND IT IS THE BEST THING THIS LANE HAS DONE. *** The master already opened
+with a banner admitting the one thing it got built and got wrong (round 38's surcharge, which
+broke his tutorial). IT NOW HAS A SECOND BANNER BESIDE IT, AND IT IS THE OTHER DIRECTION.
+ROUND 45 SHIPPED 9/16 SAYING, VERBATIM: "Not a card, not a line of narration, not a notice",
+and "a first ask that arrives in a mouth from somebody with a reason to bother." TWO ROUNDS
+LATER PAOLO OPENED THE DEMO, MET A CARD OF BULLETS, AND RULED IT HIMSELF (rule 19, 9/20):
+nothing pops up, text comes from a mouth with a portrait, and the playable cut gains THE
+FIRST PERSON at his door inside the first minute. SAME ANSWER, ARRIVED AT FROM THE OTHER END.
+Put beside the 9/16 correction, the two banners are this lane's honest score: one thing built
+off it that he disliked in play, one thing it had right two rounds before he said it.
+
+*** AND FOLDING THE THREE ROUNDS TURNED UP THREE THINGS NOBODY WAS LOOKING FOR. ***
+
+(1) A SIXTH CONVERGENCE, AND IT CONTRADICTS THE MASTER'S OWN RULE 16 NOTE. The 9/15 master
+says THE STEP IS A HOUSE "changes nothing this lane has measured: every economy number here
+is per person, per day or per battery, and none of them is a distance on screen." THAT IS NOW
+FALSE. Round 46 is a distance and nothing else, round 47 found ownership IS a distance, round
+37 costed a carry in ground and round 43 found doubling up sticky because moving is the
+expensive part. SO: **DISTANCE IS THE PRICE.** It is how a price can exist in a game where
+EVERYTHING COSTS ONE -- a far market, a long carry, a queue, a home empty on the wrong side of
+the valley. Which is exactly the mechanism the 9/16 correction said round 38 should have
+delivered instead of a number. The wrong line is KEPT ON THE PAGE with the date it broke,
+not quietly deleted.
+
+(2) THE PUBLISHED ROUTING TABLE WAS MISSING THREE LANES. Re-harvesting all 47 ROUTED sections
+reproduced every one of the old table's fourteen numbers EXACTLY for rounds 1-44 -- which is
+what makes the extras believable rather than arguable -- and turned up COOK (4 rounds: 5, 6,
+7, 8), SOUNDS (1: round 4) and DYNASTY (1: round 23), routed to and never printed, because
+the first harvest's lane list was written by hand. Six routings to three lanes, sitting in the
+records the whole time and invisible on the page that exists so nobody has to read them.
+New counts: WORLD 45, LIFE+CITY 28, FACTIONS 25, COORDINATOR 25, PEOPLE 24, RUN 14, QUESTS 13,
+UI 11, WORDS 7, COMBAT 6, PLUMBER 5, COOK 4, EYES 3, DIRECTION 1, CUTSCENE 1, SOUNDS 1,
+DYNASTY 1.
+
+(3) THE BANK MEASURED AGAINST RULE 19, AND THE FINDING IS A FORMAT. 658 real entries (a grep
+for draft:true returns 673 and fifteen are header comments -- the "670 draft lines" this lane
+has reported for rounds is that grep, counting comments as dialogue). 482 entries are written
+as "ID role, place, situation", WHICH IS WHO AND WHERE, WRITTEN THREE WEEKS BEFORE RULE 19
+EXISTED. 176 are a bare bullet carrying the line and a craft note and NO SPEAKER. The format
+drifted because the shorter one looked tidier. Rule 19(a)'s card problem is small and worth
+saying plainly: THREE entries in 658 are written for a card (F1, F2, F4, all "reckoning
+card"), and they are bookkeeping, so 19(a) sends them to the phone rather than the graveyard.
+FIXED IN THE BANK, NOT IN THE LINES: a contract block binds every future entry to the
+role-place format, retires the bare bullet, and marks the 176 as OWING A WHO BEFORE ANY OF
+THEM SHIPS. The 176 are NOT rewritten -- the rule bites when a line ships and this is a bank,
+and retro-fitting 176 speakers is a job nobody put on the board.
+
+AND A THIRD BOOKKEEPING FAULT, FOUND THE SAME WAY: the "project-level hole" instance counter
+in the gate notes SKIPPED THIRTY. Round 44 says 29, round 45 says 31. The arithmetic is
+instance = round - 15, so rounds 45, 46 and 47 are instances 30, 31 and 32, and the next round
+numbers from 33, not 34. Three counting faults in forty-seven rounds (the routing table
+counting line hits instead of rounds, this one, and the bank grep counting its own header),
+ALL THREE FOUND BY RE-RUNNING THE MEASUREMENT INSTEAD OF TRUSTING THE LAST NUMBER. That is
+the same discipline as every kept probe note in the records, applied to my own bookkeeping.
+
+WHAT THE THREE NEW ROUNDS LEFT FOR OTHER LANES, now written into the master's section 4:
+whether a travel step is a beat step (LIFE + CITY: the law's 24x against the beat's 240x);
+which wake-card guard becomes unconditional (RUN and PEOPLE: all four people-lines are off on
+a fresh save); what lighting a pump costs (pending 43, the module is waiting for the ruling
+not for code); whether the leak exists (60% turns one lit pump from feeding everybody into
+feeding two in five). And two things the record would not give: a documented daily walking
+radius for Beirut after the port, and Lebanon's tanker cartels. Said plainly, not padded.
+
+RULES 17 TO 20, WHAT EACH DOES TO THIS LANE, written into the master's section 5: rule 17
+nothing (no economy finding is on the fight board); rule 18(b) research lanes continue, and
+every deliverable in the master is now QUEUED BEHIND THE FOUR THINGS, which a builder should
+know before picking one up; rule 19 is the one with teeth, see (3); rule 20 has ONE real
+contact and it is a gift -- the law asks for "the text is a dead institution too calm" and
+round 45 measured that in three real crashes NO INSTITUTION SAYS ANYTHING AT ALL in the first
+minute. Same instinct, the silence where the announcement should be. 20(g) caps it: a vibe
+for fun, not a thesis, so that is one line and not an essay.
 
 [PENDING Paolo] -- for the coordinator, one at a time:
   *** 1 TO 9 ARE RULED. The coordinator decided all nine on 9/13 under EVERYTHING IS
@@ -687,11 +775,19 @@ round running where the positive control saved the finding.
      is the kind of change he should meet in play rather than read about. Nothing
      is blocked on it; WORLD can build it under his existing law.
 
-NEXT IN THIS LANE: QUEUE EMPTY AGAIN. Q1 through Q47 are all SHIPPED and the board has
-no OPEN line for ECONOMY. This lane HOLDS until the coordinator puts one up. A new round
-should be read against records/BOHEMIA_ECONOMY_MASTER_WHAT_FORTY_FOUR_ROUNDS_FOUND_9_15_26.md,
-which carries the 9/16 correction banner; rounds 45, 46 and 47 are not folded into it yet
-and that is the first thing to do if the queue is still empty next round.
+NEXT IN THIS LANE: QUEUE STILL EMPTY. Q1 through Q47 are all SHIPPED and the board has no
+OPEN line for ECONOMY. THIS LANE HOLDS until the coordinator puts one up; rule 10 forbids a
+lane inventing a job and that has not changed. THE PILE IS FOLDED AND CURRENT: any new round
+is read against records/BOHEMIA_ECONOMY_MASTER_WHAT_FORTY_FOUR_ROUNDS_FOUND_9_15_26.md, which
+now carries all 47 rounds, BOTH banners (the 9/16 correction and the 9/20 confirmation), six
+convergences, and a section on what rules 17 to 20 do to this lane. NOTHING IS OWED TO THE
+MASTER ANY MORE. If the queue is still empty next round, the honest candidates in order, none
+of them a job and all of them inside this lane's own output: (a) the 176 bank entries owe a
+WHO under rule 19 and a round could answer it for the ones a build lane is nearest to taking,
+(b) the master's section 4 lists four things sitting with other lanes and nobody has been told
+they are there, (c) nine of the thirty-three pendings have been carried for over thirty rounds
+and a pass that says which are now answered by rulings already made would shorten the list the
+coordinator carries to him.
 
 
 ================================================================================
