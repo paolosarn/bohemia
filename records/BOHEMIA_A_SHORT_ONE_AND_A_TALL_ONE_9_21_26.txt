@@ -1,0 +1,51 @@
+A SHORT ONE, A MEDIAN ONE AND A TALL ONE  --  CHARACTER lane, 9/21/26, [real height]
+
+THE ROW: this lane measured the height dial at 7% end to end (96 to 103 px) with
+width flat at 39, so a tall person cannot be drawn. The coordinator's default is
+that the ruled 112 box stays the MEDIAN and the dial runs 0.88 to 1.12. This is
+that picture. NOTHING IS WIRED: the row is HELD under rule 18.
+
+RENDERED BY THE GAME'S OWN HEIGHT MACHINERY. BOH_AGE.apply() already scales every
+joint toward the ground line, keeps the head bone authored, and scales the hand and
+foot stamps. It was built for the child and it does not care that the child is a
+child. Two adult stages were added to the live table for one render and removed
+after. If he says yes, wiring this is two table rows and the picture he voted on
+was made by the code that would ship.
+
+  A SHORT ONE             h 0.88    88 px body    92% of the median   4 heads tall
+  THE ONE WE HAVE TODAY   h 1.00    96 px body   100% of the median   4.36 heads tall
+  A TALL ONE              h 1.12   104 px body   108% of the median   4.73 heads tall
+
+  *** SHORT TO TALL IS 18 PER CENT. THE DIAL WE SHIP TODAY IS SEVEN. ***
+
+AND 18 IS NOT THE 24 THE NUMBERS 0.88 AND 1.12 LOOK LIKE, WHICH MATTERS TO
+WHOEVER WIRES THIS. The stage scales the SKELETON, and the head is a rigid stamp the
+rig refuses to shrink, so a 24-point span on the bones buys 18 points on the
+whole standing body. If the intent was that a tall man really is a quarter taller
+than a short one, the dial has to run wider than 0.88 to 1.12, or the head has to
+come along. THE DIAL NUMBER IS NOT THE HEIGHT NUMBER.
+
+HEADS TALL IS THE NUMBER THAT SAYS IT READS. Measured off the RIG PART GRID, never
+off the painted picture, because a haircut adds rows no bone made -- that error cost
+this lane six points on a child last round. Between adults the head stays near its
+own size, so heads-tall RISES with height, and that rise is what a person sees as
+"tall" rather than as "zoomed in".
+
+THE SPAN IS WIDER THAN A REAL STREET AND I AM SAYING SO RATHER THAN ADOPTING IT
+QUIETLY. Adult male stature has a standard deviation near 7 cm on a mean of 175, so
+the middle 91 of every 100 men run 163 to 187 cm, which against the median is 0.93
+to 1.07. The default's 0.88 to 1.12 reaches 154 cm and 196 cm: the ends of a whole
+population, not the middle of one. That is a fine choice for a game and a bad one
+for a crowd, and it is exactly the kind of thing he can rule on in one look.
+
+*** AND THE FRAME CUTS THE TALL ONE. *** A TALL ONE paints row 0 of the frame (14 px), which means the top of the head is
+against the ceiling of the sprite box and anything above it is gone. The rig's own
+note warned about exactly this -- "GOING DOWN IS FRAME-SAFE... GROWING runs out of
+frame" -- and every stage that has ever shipped is 1.00 or below. WHOEVER WIRES
+THIS ROW MUST GROW THE FRAME FIRST, or tall people in this game will be scalped.
+I wrote that risk into this tool BEFORE running it, so it is a prediction that
+came true and not a story told afterwards.
+
+NOT WIRED, NOT SHIPPED, NOT DECIDED. Rule 18 holds the play surface; rule 22(b) says
+the hold is on the play surface and not on the making. This is a picture in the VOTE
+tab and nothing else. THE SPAN IS HIS CALL.

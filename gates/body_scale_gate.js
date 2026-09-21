@@ -51,8 +51,24 @@ const done = () => { console.log('\n=== BODY SCALE GATE: ' + pass + ' passed, ' 
      inline.length + ' found, 1 allowed)', inline.length === 1);
   ok('and both the crowd and the player go through it',
      /const _lad\s*=\s*bodyLadder\(HC\)/.test(SRC) && /var lad = bodyLadder\(C\)/.test(SRC));
+  /* *** REPOINTED 9/21, AND THE LITERAL IT REPLACES WAS THE STALE THING, NOT THE CODE. ***
+     This demanded the text `lotFine: 25` and `bodyLots: 0.5` in the source. LIFE+CITY
+     (749a626) repointed both at BOH_LATTICE -- lotFine reads LOT_FINE, bodyLots reads
+     BODY_LOTS -- which is the ONE NUMBER IN ONE PLACE law working exactly as written, and
+     my gate went red for it. A gate that goes red when a second copy is REMOVED is holding
+     the wrong thing. So the check now asks what the law actually wants: the three keys are
+     present for the lanes that read this object, and the two that have a home in the
+     lattice READ it instead of carrying a copy. houseFine keeps its literal because this
+     lane measured it (median footprint over 122 houses) and nothing else holds it.
+     NOTE FOR WHOEVER READS THE NUMBER: the lattice says a lot is 24 fine cells and this
+     lane measured 25 (median pitch between neighbours, 122 houses, 12 seeds). One cell,
+     0.75 m. The lattice wins because it is what the generator actually packs; the gap is
+     named in the handoff rather than papered over here. */
   ok('and the measured numbers are written down where the next lane will read them',
-     /lotFine:\s*25/.test(SRC) && /houseFine:\s*13/.test(SRC) && /bodyLots:\s*0\.5/.test(SRC));
+     /lotFine:/.test(SRC) && /houseFine:\s*13/.test(SRC) && /bodyLots:/.test(SRC));
+  ok('and the two that live in the lattice READ it rather than keeping a second copy',
+     /lotFine:[^\n]*BOH_LATTICE\.LOT_FINE/.test(SRC)
+     && /bodyLots:[^\n]*BOH_LATTICE\.BODY_LOTS/.test(SRC));
   /* *** REPOINTED 9/15, THE ROUND RUN SHIPPED ITS HALF. *** This checked for a flag named
      BOHEMIA_STEP_FINE, which nothing ever set: RUN called its constant STEP_CELLS, so the
      wire was dangling and the gate was happily green over a second name for one number --
@@ -182,6 +198,7 @@ const done = () => { console.log('\n=== BODY SCALE GATE: ' + pass + ' passed, ' 
 
   if (errs.length) console.log('  note: page errors -- ' + errs.slice(0, 2).join(' | '));
   console.log('\n  today: body ' + t.painted + ' px in a ' + t.box + ' box at HC ' + R.HC
-    + '; a lot is ' + R.lot + ' fine cells (18.8 m, measured)');
+    + '; a lot is ' + R.lot + ' fine cells (' + (R.lot * 0.75).toFixed(1)
+    + ' m, derived from the fine cell this lane measured at 0.75 m)');
   done();
 })();
