@@ -89,6 +89,15 @@ not on the making). The 65 approved sounds, the 142 songs, the footstep bank the
 the room hum from the round before are all untouched; these are candidates. No engine file any
 slice loads was changed; bohemia_horror_sounds.js is a new module nothing in the game imports.
 
+*** AND A SECOND RED THAT IS NOBODY'S ROW AND IS WORTH SOMEBODY'S: THE PUBLISHED SURFACE IS
+OVER ITS OWN CAP. *** pages_publish_gate reads 17 passed / 1 failed on CLEAN origin/main,
+verified in a worktree, identical to my tree: "the published surface is under 260 MB (measured
+261 MB)". My additions moved the outward-ref count 227 -> 228 and the size not at all, so this
+is not from this round. It matters because the 8/6 law says an oversized publish is exactly what
+made Pages fail three commits in a row, and deploys are currently succeeding, so the cap is
+being ignored rather than respected. PLUMBER's territory (size and budget), named here because
+a red nobody reads is the same as no gate, which is the lesson this lane paid for twice.
+
 *** A BOUNCE FOR UI AND DIRECTION, NOT MINE TO FIX, AND IT IS RED FOR EVERYBODY RIGHT NOW. ***
 The VOTE TAB gate reads 27 ok / 1 failed on CLEAN origin/main, and the one red is
 "every candidate says what it is, who made it and how to show it [direction-fight-verdict-round-3-9-21 kind]".
