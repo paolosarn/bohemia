@@ -461,6 +461,21 @@ GATES = [
      'and failed on 505/518/546ms samples -- the threshold was wrong, not the feed. It also '
      'prints the page\'s own clock gaps, which are whole-page freezes belonging to another '
      'lane, so they cannot hide inside this lane\'s green.', True),
+    ('UI IS OBJECTS',  ['node', 'gates/the_ui_is_built_from_objects_gate.js'],
+     'PAOLO 9/20: "we are gonna be trying to make all the UI look 3-D", and PAOLO 9/21, rule 22: '
+     '"I need to be seeing them cooking up more, every time, not never" -- a UI round is PANELS he '
+     'can see at real phone size. This holds the round: five sheets, all reading ONE shared '
+     'vocabulary (slices/bohemia_ui_3d.css) so act two swaps values instead of redrawing four '
+     'private bevels. It checks that 3-D means the four parts of an object and not a drop shadow '
+     '(a face, a lit rim on the TOP edge, a dark base on the bottom, and a BODY -- the side you '
+     'would touch underneath), that there is only ONE light (a lit rim on a bottom edge is two '
+     'lights and reads as a sticker), that every ramp is a STAIRCASE of hard stops rather than a '
+     'blend (that is what delivers a lit object as pixels, in the same world as the tiles), that '
+     'the panels are judged at 390 with nothing blown up, that the key has real travel rather than '
+     'a border, that every family a sheet names resolves to a file on disk, that no sheet touched a '
+     'play surface (rule 18 hold), and that the round REGISTERED its panels in the vote tab, which '
+     'is rule 22 measured rather than asserted. Six mutations proved: delete the body, blend a '
+     'ramp, light a bottom edge, unhook a sheet, break a registry path, take the travel out.', True),
     ('NOTES BUTTON',   ['node', 'gates/the_notes_button_gate.js'],
      'PAOLO 9/20: "in the demo there should be a note section at the very top right, just the '
      'tiniest button, where as I am playing the demo I can write all my thoughts down and then '
@@ -3119,6 +3134,8 @@ GATES = [
      'jackets/coats open in front, clothes show underneath', False),
     ('FOUR BEATS',     ['node', 'gates/his_four_beats_gate.js'],
      'Paolo\'s headshot spec, section 9 of the anatomy law, verbatim: "4 beats: head snaps back on impact (0 to 0.08), torso/body gives FIRST and knees fold (0.10 to 0.45), arms hold UP on inertia while the body drops (0.15 to 0.35) ... arms come in slightly LAST (0.72 to 1)." THOSE ARE FRACTIONS OF THE FALL AND THE SIM READ THEM AS SECONDS -- the fourth beat ends at 1, and nothing about a ragdoll ends one second after it starts. Measured: the fall settles at 3.22s while the windows in hsStep were 0.08, 0.18, 0.22 and 0.24 SECONDS, so every beat ran over about a fifth of its length and all of them finished inside the first 7% of the fall. The number 0.08 is in both, once as a fraction and once as seconds, which is how it went unseen. ONLY the arms-up window is converted, measured: converting the leg window too takes his fourth beat from 5.1px of closing to 0.6 to buy his third, so it trades one beat for another. Reads his four windows OUT OF THE LAW rather than copying them, so the code cannot drift from his text. Carries a CONTROL that the CRUMPLE keeps its own timings in seconds (Paolo 7/17, a separate ruling), and PRINTS the three beats that are still not built so the clip is never read as finished. 4 mutations caught', True),
+    ('TAPE SKIP',      ['node', 'gates/the_step_is_a_tape_skip_gate.js'],
+     'RULE 16 MADE A STEP A WHOLE LOT AND A GUARD WRITTEN FOR A ONE-CELL STEP STAYED BEHIND. The walk glide refused any move over FOUR cells as a teleport -- correct on 8/23, when a step was one cell and the bike\'s four was the biggest thing a beat could move, and its own comment says so. A step is 25 cells now, so EVERY FULL STEP DIED ON ITS FIRST DRAWN FRAME while the chip in the drawer said SLIDE and the source said SLIDE. What ships is GRID: the whole world jumping 275 px in ONE frame, twice a second. MEASURED on the walked city at the live camera, gliding true on 0 of 60 samples across a press; and it broke the walk UNEVENLY, because a press shortened by a wall moves one or two cells, fits under the old ceiling and glides fine -- 9 of 12 presses in a suburb are shortened, so the walk changed character depending on what was in the way. THE CEILING IS DERIVED FROM THE STEP NOW and the gate asks the code for it. ON TOP OF THAT, ROW [tape skip] (coordinator 9/21, off this lane\'s own measurement e764a506: one press is 25 real paces, 18.75 m in half a second, and the feet depict 3%% to 11%% of it): a THIRD walk feel, TAPE, default. The ground holds on the lot he left for 55%% of the beat, drops through two stations, and lands on the next lot on the beat -- a tape skipping, which under the analog horror law (9/20) is the genre\'s own grammar and is cheaper than a run cycle. GRID draws 2 ground positions a beat, SLIDE 273, TAPE 4; biggest single move 275px, 2px, 94px. The curve is written ONCE and camCell, the seam, the gate and the vote page all read that one copy. FRAME-RATE FREE on purpose: this box clamps a headless page to about twenty frames a second, fewer than a beat contains, so counting drawn frames here would measure the box. CARRIES A VACUOUS-PASS GUARD (no full-lot step seen is a FAIL, not a pass) and the behavioural claim took FOUR cuts, every wrong one caught by the same mutation: a flag the step sets and only a draw clears; a distance-along that scores a completed middle lot as in-flight; an off-lot test that passes on the short steps the old ceiling always glided. 4 mutations caught', True),
     ('NECK HOLDS HEAD',['node', 'gates/the_neck_holds_the_head_on_gate.js'],
      'PAOLO 9/7, pointing at his own frame (records/target/PAOLO_THE_COAT_AND_THE_ELBOWS_9_7_26.jpg): on NE the head sits up and to the right of the shoulders with a visible gap, and the same reads on SE and SW while N, E and S look attached. MEASURED over 105 clips x 8 facings x 4 phases = 3,360 frames with the direction-free blob ruler this lane already built for the head snap: 48 frames drew the head DETACHED by 2 to 8 px. AND THE CAUSE WAS NOT THE POSE -- 31 of them drew NO NECK AT ALL and every single one was detached, against 0.7%% of the 1,666 that did draw one; sampling the line from the neck joint to the head joint, the pixels along it were part ids 5 and 6, THE ARMS. The per-facing layerOverride puts the NEAR arm at index 0 on NE, E and SE, nearer than the torso and nearer than the neck at index 4 or 5 -- right for an arm at your side, wrong the moment the pose RAISES it, because the sleeve sweeps across the throat and erases the one part connecting the head to the body. THE RULE: the neck draws in front of the arms. Same family as THE NEAR HAND DRAWS IN FRONT (9/13), except covering the neck destroys the read of the whole figure so the neck wins outright. MONOTONIC AND MEASURED BOTH WAYS: detached 48 -> 23, frames with no neck 31 -> 10, worst gap 8px -> 6px, THIRTY-SIX FRAMES BETTER AND ZERO WORSE, 13%% of frames change a pixel at all. The load-bearing claim ASKS THE LIVE DRAW ORDER on every facing rather than reading a line, and the ceilings are the measurement so the count can only fall. PRINTS the 23 that remain, of which 12 are GUN clips whose cause is the separate GUN-UNIT law, named rather than chased. 4 mutations caught, including the rule dropped from only ONE of handOrder\'s two exits and the rule present but never moving anything', True),
     ('ONE NUMBER BODY',['node', 'gates/one_number_for_a_body_gate.js'],
@@ -5665,6 +5682,22 @@ GATES = [
      "longer' means something. Being down is a QUESTION against the clock, so a save left on a shelf comes "
      "back healed with nothing to tidy. And it is on the card he already opens, saying how long and saying "
      "the promise out loud", False),
+    ('FACE AT THE DOOR',['node', 'gates/face_at_the_door_gate.js'],
+     "PAOLO 9/20, rule 19: 'text on screen coming from people's voice, and when they speak to you it shows the "
+     "character portrait. The whole game enchilada.' *** MEASURED ON THE WALKED STREET: WHEN ANYBODY TALKED TO YOU "
+     "THE ONLY FACE ON SCREEN WAS YOURS. *** Two canvases on the whole surface, the world and his own head in the "
+     "D-pad ring (4,096 lit pixels, which is the control that a face CAN be drawn there), and a cast of ELEVEN "
+     "BODIES WITH EIGHT DIRECTIONS EACH AND NOT ONE FACE. AND EVERY PIECE OF THE ANSWER WAS BUILT ON 8/26 AND "
+     "NEVER CALLED -- that block says so itself: the performance 'could not be used, because only one person in "
+     "Bohemia had a face', faceFor(id) fixed it, and the turn 'ended with a gated feature nothing called'. This is "
+     "the call, and it borrows the player's own portrait path end to end so nothing new draws a face. ONE ID ONE "
+     "WHOLE PERSON: asked with the id the BODY is drawn from. NO FACE NO SPACE: the bubble is unchanged to the "
+     "pixel when a head has not arrived. On the glass, watched on the real canvas: a 64x64 head at 20px inside a "
+     "20px round clip, in the speaker's own bubble. AND RULE 19(e), DATED THIS ROUND: the walk director no longer "
+     "opens a card at all; a moment is SPOKEN by a body that was really drawn, with the roster's own words, and "
+     "with nobody on screen it fires NOTHING AT ALL. *** AND IT DRIVES THE ALPHA, NOT THE DEMO: the demo file is a "
+     "BAKED CUT, so a city change reaches it by reference and an ALPHA change does not -- the ask went out and "
+     "nothing came back, silently, because the live dispatcher carried the branch next to mine and not mine", False),
     ('HEIR MOMENT',    ['node', 'gates/heir_moment_gate.js'],
      "SUCCESSION-BEAT, coordinator 9/5: 'an heir inherits the house, the purse, every debt in full, half the "
      "standing, and the wardrobe.' *** MEASURED FIRST AND FOUR OF THE FIVE WERE ALREADY BUILT, AND ONE OF THEM "

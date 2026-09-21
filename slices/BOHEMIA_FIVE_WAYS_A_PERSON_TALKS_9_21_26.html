@@ -1,0 +1,262 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>BOHEMIA - FIVE WAYS A PERSON TALKS</title>
+<link rel="stylesheet" href="bohemia_option_sheet.css">
+<link rel="stylesheet" href="bohemia_ui_3d.css">
+<style>
+ .scene{ position:relative; height:560px; display:flex; flex-direction:column; justify-content:flex-end;
+   background:
+     repeating-linear-gradient(90deg,rgba(0,0,0,.22) 0 1px,rgba(0,0,0,0) 1px 49px),
+     repeating-linear-gradient(180deg,rgba(0,0,0,.22) 0 1px,rgba(0,0,0,0) 1px 65px),
+     linear-gradient(180deg,#3c3a34 0 34%,#564e42 34% 58%,#4a433a 58% 100%) }
+ .them{ position:absolute; left:120px; top:112px; width:34px; height:74px;
+   background:linear-gradient(180deg,#c9a06a 0 18%,#6b3b3b 18% 62%,#2a2620 62% 100%) }
+ .me{ position:absolute; left:214px; top:128px; width:32px; height:70px;
+   background:linear-gradient(180deg,#d9d2c4 0 18%,#2f4a52 18% 62%,#221f1a 62% 100%) }
+
+ /* A FACE THAT IS A STAND-IN. the real portraits are drawn by the portrait chat;
+    this is a placeholder at the right SIZE so the panel is judged, not the face. */
+ .face{ position:relative; overflow:hidden; background:linear-gradient(180deg,#2a2218,#1a1610);
+   flex:0 0 auto }
+ .face i{ position:absolute; display:block }
+ .face .sk{ left:22%; top:16%; width:56%; height:62%; border-radius:46% 46% 40% 40%;
+   background:linear-gradient(160deg,#d3a273 0 40%,#b5814f 40% 76%,#8a5c34 76% 100%) }
+ .face .hr{ left:16%; top:8%; width:68%; height:34%; border-radius:48% 48% 8% 8%;
+   background:linear-gradient(170deg,#3b2a1c 0 45%,#241a11 45% 100%) }
+ .face .ey{ width:9%; height:5%; background:#191008; top:40% }
+ .face .ey.l{ left:34% } .face .ey.r{ left:57% }
+ .face .mo{ left:42%; top:56%; width:16%; height:3%; background:#6e3c2c }
+ .face .sh{ left:6%; top:76%; width:88%; height:30%; border-radius:30% 30% 0 0;
+   background:linear-gradient(180deg,#6b3b3b 0 40%,#40231f 40% 100%) }
+
+ /* ---------- A. WHAT IS IN THERE NOW ---------- */
+ .A .row{ display:flex; align-items:center; gap:10px; width:92%; margin:0 auto 14px }
+ .A .face{ width:56px; height:56px }
+ .A .cap{ min-height:56px; flex:1 1 auto; padding:8px 10px;
+   font:13px/1.5 ui-monospace,monospace; color:#e8dfc8; background:rgba(10,9,7,.55) }
+ .A .ans{ display:flex; gap:7px; width:92%; margin:0 auto 14px; flex-wrap:wrap }
+ .A .ans div{ border:1px solid #3a2f1c; border-radius:4px; background:rgba(12,10,7,.8);
+   color:#cdbd8a; font:11px ui-monospace,monospace; letter-spacing:1px; padding:6px 12px }
+
+ /* ---------- B. THE PERSON IS IN A WINDOW IN THE CASE ---------- */
+ .B .unit{ position:relative; margin:0 0 0; padding:10px 10px 12px;
+   background:linear-gradient(180deg,#332c21 0 8%,#28221a 8% 74%,#191510 74% 100%);
+   box-shadow:inset 0 2px 0 #5c4f38, inset 0 -3px 0 #0b0906, 0 -4px 10px rgba(0,0,0,.6) }
+ .B .topline{ display:flex; align-items:center; gap:8px; padding:0 6px 8px }
+ .B .body{ display:flex; gap:10px; padding:0 6px }
+ .B .port{ position:relative; width:84px; height:84px; flex:0 0 auto; padding:3px;
+   background:#0b0a07; border-radius:3px;
+   box-shadow:inset 0 2px 0 #050403, inset 1px 0 0 #050403, inset 0 -1px 0 #2e2719, 0 1px 0 #4a4133 }
+ .B .port .face{ width:100%; height:100%; border-radius:2px }
+ .B .port .gl{ position:absolute; inset:3px; pointer-events:none; border-radius:2px;
+   background:linear-gradient(118deg,rgba(226,222,190,.14) 0 22%,rgba(0,0,0,0) 22% 100%),
+              radial-gradient(130% 120% at 50% 50%,rgba(0,0,0,0) 0 60%,rgba(0,0,0,.45) 100%) }
+ .B .said{ flex:1 1 auto; padding:9px 10px; min-height:84px }
+ .B .said p{ margin:0; font-family:var(--face-body); font-size:13px; line-height:1.5; color:#ddd0b1 }
+ .B .keys{ display:flex; flex-direction:column; gap:6px; margin-top:10px; padding:0 6px }
+ .B .keys .k{ justify-content:flex-start; font-size:6px; letter-spacing:1.2px; min-height:36px; text-align:left }
+
+ /* ---------- C. THE FACE IS THE WHOLE TOP ---------- */
+ .C .unit{ position:relative; padding:0 0 12px;
+   background:linear-gradient(180deg,#2b251c 0 5%,#211c15 5% 76%,#14110b 76% 100%);
+   box-shadow:inset 0 2px 0 #5c4f38, inset 0 -3px 0 #0b0906, 0 -4px 10px rgba(0,0,0,.6) }
+ .C .big{ position:relative; width:100%; height:168px; overflow:hidden }
+ /* SHE HAS TO FILL THE WIDTH OR SHE IS A PASSPORT PHOTO IN A SLOT. The first cut
+    left a black gutter down both sides and the whole point of this option died
+    in it: close means edge to edge. */
+ .C .big .face{ position:absolute; left:50%; top:-26px; transform:translateX(-50%);
+   width:390px; height:260px }
+ .C .big .vig{ position:absolute; inset:0;
+   background:radial-gradient(120% 100% at 50% 34%,rgba(0,0,0,0) 0 48%,rgba(0,0,0,.55) 84%,rgba(0,0,0,.85) 100%) }
+ .C .nm{ position:absolute; left:8px; bottom:8px; display:flex; align-items:center; gap:7px }
+ .C .well{ margin:10px 10px 0; padding:11px 12px }
+ .C .well p{ margin:0; font-family:var(--face-body); font-size:14px; line-height:1.5; color:#e2d6b9 }
+ .C .keys{ display:flex; gap:7px; margin:10px 10px 0; flex-wrap:wrap }
+ .C .keys .k{ flex:1 1 44%; font-size:6px; letter-spacing:1.1px; min-height:38px }
+
+ /* ---------- D. THE HANDSET ---------- */
+ .D .unit{ position:relative; margin:0 8px 10px; padding:10px;
+   background:linear-gradient(180deg,#3a3227 0 7%,#2c251c 7% 72%,#1b1711 72% 100%);
+   border-radius:3px;
+   box-shadow:inset 0 1px 0 #6a5c42, inset 1px 0 0 #4a4133, inset 0 -3px 0 #0b0906,
+              0 3px 0 rgba(0,0,0,.62), 0 7px 12px rgba(0,0,0,.55) }
+ .D .grille{ height:14px; border-radius:1px; margin-bottom:9px;
+   background:repeating-linear-gradient(90deg,#0a0806 0 2px,#3a3225 2px 3px,#1d1912 3px 5px);
+   box-shadow:inset 0 1px 0 #0b0906, inset 0 -1px 0 #5c4f38 }
+ .D .who{ display:flex; align-items:center; gap:9px; margin-bottom:9px }
+ .D .who .face{ width:44px; height:44px; border-radius:50% }
+ .D .glassbox{ padding:11px 12px; min-height:82px }
+ .D .glassbox p{ margin:0; font-family:var(--face-screen); font-size:12px; line-height:1.6;
+   letter-spacing:.6px; color:#cfe0c8; text-shadow:0 0 5px rgba(150,200,150,.30) }
+ .D .keys{ display:flex; gap:6px; margin-top:10px }
+ .D .keys .k{ flex:1 1 auto; font-size:6px; letter-spacing:1.1px; min-height:36px }
+ .D .foot{ display:flex; align-items:center; gap:7px; margin-top:9px; padding:0 2px }
+
+ /* ---------- E. NO PANEL. THE PERSON IS IN THE STREET. ---------- */
+ .E .float{ position:absolute; left:96px; top:74px; display:flex; align-items:flex-end; gap:7px }
+ .E .float .face{ width:62px; height:62px;
+   box-shadow:0 3px 0 rgba(0,0,0,.5), 0 6px 10px rgba(0,0,0,.45), inset 0 1px 0 #5c4f38 }
+ .E .tag{ padding:4px 8px; margin-bottom:3px }
+ .E .strip{ padding:12px 14px 14px; margin:0;
+   background:linear-gradient(180deg,#14110b 0 6%,#0d0b08 6% 100%);
+   box-shadow:inset 0 2px 0 #3a3225, 0 -5px 14px rgba(0,0,0,.7) }
+ .E .strip .lit{ font-size:12px; line-height:1.7; display:block }
+ .E .keys{ display:flex; gap:6px; margin-top:11px }
+ .E .keys .k{ flex:1 1 auto; font-size:6px; letter-spacing:1.1px; min-height:38px }
+</style></head><body>
+<header>
+ <h1>FIVE WAYS A PERSON TALKS</h1>
+ <div class="sub">Somebody stops you in the street and says something. 390 pixels wide, real size. A is what is in there right now. 9/21</div>
+</header>
+
+<div class="now">
+ <b>YOU SAID A QUEST IS PEOPLE, NEVER A CARD, AND THE WORDS COME OUT OF A MOUTH.</b>
+ That means this panel is the only place in the walked game where a sentence is
+ allowed to exist. Every bullet list and every pop-up is dead. So this thing has to
+ be right, because it is going to carry everything anybody ever says to you.
+ <br><br>
+ <b>AND IT HAS TO BE A THING.</b> Right now it is a see-through grey box with a tiny
+ face next to it. Below, the face is behind glass sunk into the case, or it fills the
+ top of the screen, or it is talking to you through a speaker. Your answers are keys
+ with height, not outlines.
+ <br><br>
+ <b>WHAT I DECIDED WITHOUT YOU:</b> the face is always on the left or on top, never
+ under the words, because on a phone the words are already near your thumb.
+ <b>WHAT I NEED:</b> one letter. The faces below are stand-ins at the right size.
+</div>
+
+<div class="wrap">
+
+ <div class="opt isnow"><h2>A &mdash; WHAT IS IN THERE NOW</h2>
+  <div class="shot"><div class="phone"><div class="scene A">
+    <div class="them"></div><div class="me"></div>
+    <div class="row">
+      <div class="face"><i class="sh"></i><i class="sk"></i><i class="hr"></i><i class="ey l"></i><i class="ey r"></i><i class="mo"></i></div>
+      <div class="cap">Oye. You the one been walking the block at night? My cousin got something needs moving and nobody clean wants it.</div>
+    </div>
+    <div class="ans"><div>WHAT IS IT</div><div>HOW MUCH</div><div>NOT ME</div></div>
+  </div></div></div>
+  <div class="say"><b>A see-through grey rectangle with typewriter text in it.</b> The
+   face is 56 pixels, smaller than the writing block beside it, so the person is the
+   least important thing on their own line. The three answers are thin outlines with
+   nothing behind them. There is no object anywhere on this screen.</div>
+ </div>
+
+ <div class="opt"><h2>B &mdash; THE FACE IS BEHIND GLASS IN THE CASE</h2>
+  <div class="shot"><div class="phone"><div class="scene B">
+    <div class="them"></div><div class="me"></div>
+    <div class="unit">
+      <div class="topline">
+        <span class="lamp"></span>
+        <span class="stamp" style="font-size:8px;letter-spacing:2px">CARMEN, THE ONE WITH THE VAN</span>
+        <span style="flex:1"></span>
+        <span class="stamp" style="font-size:7px">BLOCK 4</span>
+      </div>
+      <div class="body">
+        <div class="port">
+          <div class="face"><i class="sh"></i><i class="sk"></i><i class="hr"></i><i class="ey l"></i><i class="ey r"></i><i class="mo"></i></div>
+          <div class="gl"></div>
+        </div>
+        <div class="said o sunk"><p>Oye. You the one been walking the block at night? Mi primo got something needs moving and nobody clean wants it.</p></div>
+      </div>
+      <div class="keys">
+        <button class="k">WHAT IS IT</button>
+        <button class="k">HOW MUCH, CARMEN</button>
+        <button class="k">NOT ME</button>
+      </div>
+    </div>
+  </div></div></div>
+  <div class="say"><b>The face sits behind a pane, sunk into the case.</b> There is a
+   shine across the top left of the glass and the corners go dark, so you are looking
+   through something at somebody. Her name is stamped into the metal above with a
+   light beside it that says she is still here. What she said is in a recess, and your
+   three answers are a stack of real keys sized for a thumb.</div>
+ </div>
+
+ <div class="opt"><h2>C &mdash; THE FACE IS THE WHOLE TOP OF THE SCREEN</h2>
+  <div class="shot"><div class="phone"><div class="scene C">
+    <div class="them"></div><div class="me"></div>
+    <div class="unit">
+      <div class="big">
+        <div class="face"><i class="sh"></i><i class="sk"></i><i class="hr"></i><i class="ey l"></i><i class="ey r"></i><i class="mo"></i></div>
+        <div class="vig"></div>
+        <div class="nm"><span class="lamp"></span><span class="stamp" style="font-size:9px;letter-spacing:2.4px">CARMEN</span></div>
+      </div>
+      <div class="well o sunk"><p>Oye. You the one been walking the block at night? Mi primo got something needs moving and nobody clean wants it.</p></div>
+      <div class="keys">
+        <button class="k">WHAT IS IT</button>
+        <button class="k">HOW MUCH</button>
+        <button class="k">WHO IS YOUR COUSIN</button>
+        <button class="k">NOT ME</button>
+      </div>
+    </div>
+  </div></div></div>
+  <div class="say"><b>She takes up the whole top, close.</b> A hundred and fifty pixels
+   of face on a three hundred and ninety pixel phone, cropped like somebody standing too
+   near you. The light falls off toward the edges so she is lit by whatever is in the
+   room, not floating on black. Her words sit in a well below, and four answers fit two
+   by two. This is the one that makes a stranger feel like a person.</div>
+ </div>
+
+ <div class="opt"><h2>D &mdash; SHE IS TALKING THROUGH THE MACHINE</h2>
+  <div class="shot"><div class="phone"><div class="scene D">
+    <div class="them"></div><div class="me"></div>
+    <div class="unit">
+      <div class="grille"></div>
+      <div class="who">
+        <div class="face"><i class="sh"></i><i class="sk"></i><i class="hr"></i><i class="ey l"></i><i class="ey r"></i><i class="mo"></i></div>
+        <div>
+          <div class="stamp" style="font-size:9px;letter-spacing:2.4px">CARMEN</div>
+          <div class="stamp" style="font-size:7px;letter-spacing:1.6px;margin-top:3px">THE ONE WITH THE VAN</div>
+        </div>
+        <span style="flex:1"></span><span class="lamp"></span>
+      </div>
+      <div class="glassbox glass live">
+        <p>OYE. YOU THE ONE BEEN WALKING THE BLOCK AT NIGHT? MI PRIMO GOT SOMETHING NEEDS MOVING AND NOBODY CLEAN WANTS IT.</p>
+      </div>
+      <div class="keys">
+        <button class="k">WHAT IS IT</button><button class="k">HOW MUCH</button><button class="k">NOT ME</button>
+      </div>
+      <div class="foot"><span class="lamp warn"></span>
+        <span class="stamp" style="font-size:7px;letter-spacing:1.6px">SHE IS WAITING</span>
+        <span style="flex:1"></span>
+        <span class="stamp" style="font-size:7px">REC 00:14</span>
+      </div>
+    </div>
+  </div></div></div>
+  <div class="say"><b>The words come out of a speaker, not off a page.</b> The panel has
+   a real grille at the top with the slots cut into it, her words burn on lit glass, and
+   at the bottom a light says she is still standing there waiting for an answer and the
+   thing is recording. This is the coldest one and it is the most analog horror one: it
+   puts a machine between you and a person who is standing right in front of you.</div>
+ </div>
+
+ <div class="opt"><h2>E &mdash; NO PANEL AT ALL. SHE IS JUST IN THE STREET.</h2>
+  <div class="shot"><div class="phone"><div class="scene E">
+    <div class="them"></div><div class="me"></div>
+    <div class="float">
+      <div class="face o"><i class="sh"></i><i class="sk"></i><i class="hr"></i><i class="ey l"></i><i class="ey r"></i><i class="mo"></i></div>
+      <div class="tag o"><span class="stamp" style="font-size:7px;letter-spacing:1.8px">CARMEN</span></div>
+    </div>
+    <div class="strip">
+      <span class="lit">OYE. YOU THE ONE BEEN WALKING THE BLOCK AT NIGHT?<br>MI PRIMO GOT SOMETHING NEEDS MOVING.</span>
+      <div class="keys">
+        <button class="k">WHAT IS IT</button><button class="k">HOW MUCH</button><button class="k">NOT ME</button>
+      </div>
+    </div>
+  </div></div></div>
+  <div class="say"><b>Her face pops up over her, where she is standing.</b> No box
+   around the conversation at all. The face is a small lit block sitting above her with
+   a name tag beside it, and the only panel on the screen is a thin strip at the very
+   bottom carrying the line and your three keys. You never stop looking at the street.
+   The least interface of the four, and the hardest to read in daylight.</div>
+ </div>
+
+</div>
+
+<footer>
+ <b>The faces here are stand-ins at the correct size.</b> The real portraits come from
+ the portrait chat and drop straight into whichever of these you pick. Every edge, key
+ and lamp above comes out of the same one file as the loading screen and the fight.
+</footer>
+</body></html>

@@ -38295,8 +38295,60 @@ let ANIM=null;                        // {t0, kind:'walk'|'run'} active anim win
    and already renders every frame of it; this only changes the offset it draws
    at. Whole-pixel camera is preserved -- the Math.round stays, it just rounds a
    moving number. */
-var WALKFEELS = ['GRID', 'SLIDE'];
-var WALKFEEL = 'SLIDE';
+/* ==== __THE_STEP_IS_A_TAPE_SKIP__ (9/21, ANIMATION lane, row [tape skip]) ====
+   THE THIRD FEEL, AND THE NUMBER THAT ASKED FOR IT. This lane measured the walk
+   on the rig (e764a506): one press is now a whole lot, 25 fine cells, 18.75 m in
+   half a second, which is 135 km/h. THE FEET DEPICT 3% TO 11% OF THAT. The body
+   crosses most of a 390 px phone in one beat while its legs do one small pace,
+   and no walk cycle can be tuned to cover it -- a stride long enough would be
+   two and a half times the body's own height.
+   GRID teleports the whole lot in one frame. SLIDE eases across the beat, which
+   is what makes the legs read as skating: the ground moves every single frame
+   and the feet do not keep up with any of them.
+   TAPE is neither. The ground HOLDS at the lot he is standing on for most of the
+   beat, then drops through two intermediate stations in quick succession and
+   lands on the next lot exactly on the beat. That is a tape skipping, and under
+   the analog horror law (9/20) the dropped frame is the genre's own grammar
+   rather than a new effect: the frame is ordinary, and the thing that is wrong
+   is that some of it is missing. It is also cheaper than a run cycle.
+   THE STATIONS ARE LATE ON PURPOSE. Rule 20: stillness is long. 55% of the beat
+   is a held frame, then the skip.
+   NOT THE DEFAULT YET, AND THAT IS DELIBERATE: rule 18 says the game got worse
+   under a rule that said never worse, and what a step FEELS like is his call, not
+   mine. It is registered in VOTE. Flipping the default is one string. */
+var TAPE_STATIONS = [ [0.00, 0.00],     /* hold on the lot he left */
+                      [0.55, 0.34],     /* first dropped frame */
+                      [0.78, 0.67] ];   /* second, then the beat lands him */
+var WALKFEELS = ['GRID', 'SLIDE', 'TAPE'];
+/* THE DEFAULT IS TAPE, AND IT IS THE SMALLEST HONEST MOVE, NOT THE BIGGEST.
+   What he walks today is GRID by accident (the expired ceiling below), so the
+   ground already jumps a whole lot in one frame. TAPE breaks that one 275 px
+   jump into three of about 94 px. SLIDE would be the large change, not this.
+   His to correct: it is in the VOTE tab as a philosophical item, and the chip in
+   the drawer flips it live. A feel he has already chosen by hand wins over this,
+   because the line below reads his choice out of storage after it. */
+var WALKFEEL = 'TAPE';
+/* HOW FAR ALONG THE STEP THE GROUND IS, at k of the beat, for each feel. ONE
+   COPY (rule 16): camCell calls this, the seam hands it out, and the gate and
+   the vote page read it off the seam, so nobody restates the curve. Restating
+   it is the exact bug this lane has now found seven times -- a second ruler
+   agrees with the first until the day it does not. */
+/* THE BIGGEST MOVE IN ONE BEAT THAT IS STILL A WALK, in cells. Named and derived
+   so the gate can ASK THE CODE instead of restating the arithmetic, and so it can
+   never expire again the way the handwritten 4 did. */
+function glideCeil(){
+  var st=(typeof STEP_CELLS==='number'&&STEP_CELLS>0)?STEP_CELLS:1;
+  return Math.max(4, 4*st);   /* a bike step is four lots; a run is two walk steps */
+}
+function walkCurve(feel, k){
+  if(k>=1) return 1;
+  if(k<0) k=0;
+  if(feel==='GRID') return 0;                       /* the whole lot on the beat */
+  if(feel==='TAPE'){ var e=0;                       /* a staircase, not a ramp */
+    for(var i=0;i<TAPE_STATIONS.length;i++) if(k>=TAPE_STATIONS[i][0]) e=TAPE_STATIONS[i][1];
+    return e; }
+  return (k<0.5) ? 2*k*k : 1-Math.pow(-2*k+2,2)/2;  /* SLIDE: easeInOutQuad */
+}
 try{ var _wf=localStorage.getItem('BOH_WALKFEEL'); if(WALKFEELS.indexOf(_wf)>=0) WALKFEEL=_wf; }catch(_e){}
 var GLIDE = null;                     /* {fx,fy,t0,space} -- the cell the camera left */
 /* WHICH SPACE THE CELL IS IN. hx,hy outdoors and INSIDE.ix,iy indoors are
@@ -38313,7 +38365,7 @@ function glideFrom(){
   return (typeof INSIDE!=='undefined'&&INSIDE) ? [INSIDE.ix, INSIDE.iy] : [hx, hy];
 }
 function glideStart(fx, fy, space){
-  if(WALKFEEL!=='SLIDE'){ GLIDE=null; return; }
+  if(WALKFEEL==='GRID'){ GLIDE=null; return; }   /* __THE_STEP_IS_A_TAPE_SKIP__ */
   if(space!==glideSpace()){ GLIDE=null; return; }   /* he went through a door */
   /* THE OVERMAP IS NOT DONE AND IS NOT PRETENDING TO BE. Stepping in map mode is
      a real traversal (10 minutes a cell) and it jumps too, but its camera is the
@@ -38334,11 +38386,30 @@ function camCell(cx, cy){
   if(k>=1){ GLIDE=null; return [cx, cy]; }
   if(k<0) k=0;
   var dx=cx-GLIDE.fx, dy=cy-GLIDE.fy;
-  if(Math.abs(dx)>4||Math.abs(dy)>4){ GLIDE=null; return [cx, cy]; }
+  /* *** __THE_STEP_IS_A_TAPE_SKIP__ (9/21): THIS CEILING WAS FOUR CELLS AND A
+     STEP IS NOW TWENTY-FIVE, SO IT KILLED EVERY GLIDE ON ITS FIRST FRAME. ***
+     It was written on 8/23 when a step was one cell and the bike's four was the
+     biggest thing a beat could move -- its own comment says so. Rule 16 made one
+     step a whole lot and this number stayed behind, so since then the chip has
+     said SLIDE, the code has said SLIDE, and what he actually walks is GRID: the
+     entire world jumping 275 px in ONE frame, twice a second. Measured on the
+     walked city at the live camera: gliding() true on 0 of 60 samples across a
+     press, and the walk drawn in exactly one position per beat.
+     A GUARD WITH A HANDWRITTEN CONSTANT IN IT IS A GUARD THAT EXPIRES. The
+     ceiling is now derived from the step itself: the largest honest move in one
+     beat is a bike step, four lots (the step code's own `(RIDING?4:1)*STEP_CELLS`,
+     and a run is two walk steps, which is smaller). Anything past that is a
+     teleport, a spawn or a cell load, and a teleport must still never be drawn as
+     a stroll. Floored at the old 4 so it can never be TIGHTER than it was. */
+  var _ceil=glideCeil();
+  if(Math.abs(dx)>_ceil||Math.abs(dy)>_ceil){ GLIDE=null; return [cx, cy]; }
   /* easeInOutQuad: a step leaves and lands soft. The bike moves 4 cells in the
      same beat and gets the same curve, so faster reads as farther, not jerkier
      -- the movers' own tween rule. */
-  var e=(k<0.5) ? 2*k*k : 1-Math.pow(-2*k+2,2)/2;
+  /* __THE_STEP_IS_A_TAPE_SKIP__: under TAPE this is a STAIRCASE, not a ramp, so
+     the number of times the ground moves in a beat is the number of stations and
+     never the number of frames the phone happened to draw. */
+  var e=walkCurve(WALKFEEL, k);
   return [GLIDE.fx+dx*e, GLIDE.fy+dy*e];
 }
 /* HE CHANGES IT HIMSELF (8/12). The chip lives in the builder's drawer, not the
@@ -38348,7 +38419,7 @@ function walkFeelSet(m){
   WALKFEEL=m; GLIDE=null;
   try{ localStorage.setItem('BOH_WALKFEEL', m); }catch(_e){}
   var b=document.getElementById('walkfeel');
-  if(b) b.textContent=(m==='SLIDE'?'\ud83d\udc5f SLIDE':'\ud83d\udc5f GRID');
+  if(b) b.textContent='\ud83d\udc5f '+m;   /* __THE_STEP_IS_A_TAPE_SKIP__: three feels now, not two */
   try{ render(); }catch(_e){}
 }
 function walkFeelCycle(){
@@ -38358,7 +38429,17 @@ function walkFeelCycle(){
 window.__WALKFEEL={ mode:function(){ return WALKFEEL; }, set:walkFeelSet,
   cycle:walkFeelCycle, feels:function(){ return WALKFEELS.slice(); },
   cam:function(){ return (typeof INSIDE!=='undefined'&&INSIDE)?camCell(INSIDE.ix,INSIDE.iy):camCell(hx,hy); },
-  gliding:function(){ return !!GLIDE; } };
+  gliding:function(){ return !!GLIDE; },
+  /* __THE_STEP_IS_A_TAPE_SKIP__: the stations the gate and the vote page read, so
+     neither keeps a second copy of the curve. ONE NUMBER IN ONE PLACE (rule 16). */
+  stations:function(){ return TAPE_STATIONS.map(function(a){ return a.slice(); }); },
+  /* WHERE THE GROUND SITS at any point of a beat, for any feel, without a step
+     having to be in flight. A ruler that needs the game to be walking can only be
+     run on the real surface; this one can be run anywhere, and it is the SAME
+     arithmetic camCell uses rather than a restatement of it. */
+  curve:function(feel,k){ return walkCurve(feel,k); },
+  ceil:function(){ return glideCeil(); },
+  step:function(){ return (typeof STEP_CELLS==='number')?STEP_CELLS:null; } };
 /* ==== end __WALK_FEEL_SLIDE__ ============================================= */
 let animRAF=0;
 /* ==== engine/bohemia_encounters.js ==== */
@@ -39394,11 +39475,26 @@ function walkInterrupt(spentSeconds) {
            you stand and there is no card to press. */
         if (typeof roadContactFight === 'function') roadContactFight(got);
       } else if (got.kind === 'interactive') {
-        /* the road's own card, which V203 gave a real fight arm. ZERO minutes and
-           ZERO salvage: ROAD_COST and roadLeave are the ROAD's rulings for the road,
-           and the walked branch already spends its own 0.084 minutes a cell. This row
-           is about a fight arriving, not about the day getting shorter. */
-        if (typeof roadCard === 'function') roadCard(got, 0, 0);
+        /* *** __FACE_AT_THE_DOOR__ (9/20, rule 19(e)) -- THIS OPENED A CARD AND IT
+           DOES NOT ANY MORE. ***
+           PAOLO 9/20: "you can't just be putting things on the screen and pretend
+           they're the quest... it has to be people, characters, items to pick up,
+           locations to go, text coming from people's voice, and when they speak it
+           shows the character portrait."
+           Rule 19(e), dated this round: "A TEXT PROMPT IS NOT AN EVENT. The road
+           and walk directors stop opening cards THIS ROUND; a moment fires only if
+           it has a body on screen or not at all; the tables stay as content
+           waiting for bodies."
+           SO THE MOMENT COMES OUT OF A MOUTH. The director still picks it, off his
+           own approved roster, with its own approved words; what changed is WHO
+           SAYS IT. It is spoken by a person who is actually drawn, in their own
+           bubble, with their own face beside it, which is the whole of his
+           sentence. Nothing new is authored: the line is the one WALK_LINES
+           already held for that moment.
+           AND IF NOBODY IS THERE, NOTHING HAPPENS AT ALL, which is the other half
+           of the rule. A moment with no body was a caption pretending to be an
+           event, and it is the thing he opened the demo and saw. */
+        if (!walkSpeak(got) && typeof WALK_LAST !== 'undefined') WALK_LAST = null;
       }
       /* AMBIENT IS UNTOUCHED AND THAT IS DELIBERATE: this function's own comment is
          right that a modal card for "a coyote is following you" turns set dressing
@@ -39450,6 +39546,50 @@ function streetSay(txt) {
   try { _walkAt = T.min; } catch (_e) { _walkAt = -1; }
   return 1;
 }
+/* __FACE_AT_THE_DOOR__ (9/20, rule 19(e)) -- A MOMENT SPOKEN BY SOMEBODY WHO IS
+   ACTUALLY THERE, instead of a card with nobody in it.
+   Returns false when there is no body on the glass, and the caller drops the
+   moment: the rule's own words are "a moment fires only if it has a body on
+   screen or NOT AT ALL", so a silent skip is the correct outcome and not a gap.
+   IT BORROWS THE BARK, which already owns a speaker, a position, a hold time and
+   -- since this round -- a face. A second speaking surface would be the two
+   writers defect this lane has found in its own work four rounds running. */
+function walkSpeak(got) {
+  if (!got) return false;
+  var txt = WALK_LINES[got.id];
+  if (!txt) return false;
+  var drew = (typeof BARK_DREW !== 'undefined' && BARK_DREW) ? BARK_DREW : [];
+  for (var i = 0; i < drew.length; i++) {
+    var d = drew[i];
+    if (!d || !d.p || !d.at) continue;
+    /* CLOSE ENOUGH TO BE THE ONE SPEAKING, the same test the deed bark applies,
+       asked of the same list, so "who is near" cannot mean two things here. */
+    if (Math.abs(d.at[0] - hx) + Math.abs(d.at[1] - hy) > 6) continue;
+    /* *** THE BARK SLOT RUNS ON performance.now(), NOT ON THE GAME CLOCK, AND
+       THE FIRST CUT OF THIS USED THE WRONG ONE. ***
+       barkTick is called with performance.now() and BARK.next is set with
+       `now + 4000`, so the whole organ counts MILLISECONDS SINCE THE PAGE
+       LOADED. Setting BARK.until from ctMinuteNow() -- game minutes, a number
+       like 360 against a wall clock already past 15,000 -- made every moment I
+       spoke expire before it could be drawn, AND pushed the next bark 1,500 ms
+       away on its way out. So the moment was silent and it silenced the next
+       person too.
+       IT WAS MY OWN [a human being] GATE THAT CAUGHT IT: bubbles on the glass
+       went from 2, 3, 1 on clean main to 0, 2, 0 on this tree. Two clocks in one
+       file, and the one I reached for was the one the rest of the street uses for
+       everything except this. */
+    var now = 0;
+    try { now = (typeof performance !== 'undefined') ? performance.now() : Date.now(); }
+    catch (_e) { return false; }
+    try { ctFaceAsk(d.p.id); } catch (_e) {}
+    BARK.p = d.p; BARK.at = d.at; BARK.text = txt;
+    BARK.until = now + barkHold(txt);
+    try { PACK_SAID = 1; } catch (_e) {}
+    return true;
+  }
+  return false;
+}
+try { window.walkSpeak = walkSpeak; } catch (_e) {}
 function walkSay(got) {
   var txt = WALK_LINES[got.id];
   if (!txt) return;
@@ -51099,6 +51239,25 @@ function barkPass(ox, oy, C){
   for (var j = 0; j < lines.length; j++) w = Math.max(w, gg.measureText(lines[j]).width);
   w += padX * 2;
   var h = lines.length * lh + padY * 2;
+  /* __FACE_AT_THE_DOOR__ (9/20, rule 19) -- AND THE PERSON SAYING IT HAS A FACE.
+     IT GOES IN THE BUBBLE THEY ALREADY SPEAK FROM, not in a panel: rule 19 killed
+     the pop-up card in the same breath that asked for the portrait, so a new
+     surface would be answering half his sentence by breaking the other half. The
+     head sits at the left of their own words, which is where a face belongs when
+     somebody is talking to you.
+     THE BUBBLE GROWS TO FIT IT rather than the face being squeezed in: a portrait
+     drawn over the first letter of every line is the same defect as the bubble
+     that used to be drawn over the speaker's face.
+     NO FACE, NO SPACE. A person whose head has not arrived yet draws exactly the
+     bubble this file drew before today, to the pixel. */
+  var _fc = null;
+  try { _fc = (BARK.p && BARK.p.id != null) ? ctFaceAsk(BARK.p.id) : null; } catch (_e) { _fc = null; }
+  /* AS TALL AS THE WORDS, so a one-line bark and a three-line bark both look like
+     somebody talking rather than a badge next to a sentence. Square, because the
+     portrait is square and stretching a face is worse than not showing one. */
+  var _fs = _fc ? Math.max(18, Math.min(44, h - padY)) : 0;
+  var _fg = _fc ? 6 : 0;
+  w += _fs + _fg;
   var bx = Math.max(4, Math.min(cv.width - w - 4, sx + C / 2 - w / 2));
   /* *** THE BUBBLE SITS ABOVE THE HEAD, NOT ON IT. ***
      MEASURED ON THE DEMO AT THE DOOR: the one person standing two cells from him
@@ -51121,9 +51280,29 @@ function barkPass(ox, oy, C){
   if (gg.roundRect) { gg.beginPath(); gg.roundRect(bx, by, w, h, 4); gg.fill(); gg.stroke(); }
   else { gg.fillRect(bx, by, w, h); gg.strokeRect(bx, by, w, h); }
   gg.globalAlpha = 1;
+  /* THE HEAD FIRST, THEN THE WORDS BESIDE IT. Round, like the player's own in the
+     D-pad ring, and pixelated rather than smoothed: it is a 64x64 face and
+     smoothing it turns a person into a smudge. */
+  if (_fc) {
+    var _fx = bx + padX, _fy = by + (h - _fs) / 2;
+    gg.save();
+    gg.beginPath();
+    gg.arc(_fx + _fs / 2, _fy + _fs / 2, _fs / 2, 0, Math.PI * 2);
+    gg.closePath();
+    gg.clip();
+    gg.imageSmoothingEnabled = false;
+    try { gg.drawImage(_fc, _fx, _fy, _fs, _fs); } catch (_e) {}
+    gg.restore();
+    gg.strokeStyle = '#4a4030';
+    gg.lineWidth = 1;
+    gg.beginPath();
+    gg.arc(_fx + _fs / 2, _fy + _fs / 2, _fs / 2, 0, Math.PI * 2);
+    gg.stroke();
+  }
   gg.fillStyle = '#cdbd8a';
   gg.textBaseline = 'top';
-  for (var m = 0; m < lines.length; m++) gg.fillText(lines[m], bx + padX, by + padY + m * lh);
+  var _tx = bx + padX + _fs + _fg;
+  for (var m = 0; m < lines.length; m++) gg.fillText(lines[m], _tx, by + padY + m * lh);
   gg.restore();
 }
 /* ===== END BOHEMIA CITY BARKS ===== */
@@ -54466,7 +54645,7 @@ document.getElementById('keybtn').addEventListener('click',()=>{ kp.style.displa
    it never lies about which feel is live. */
 (function(){
   var b=document.getElementById('walkfeel'); if(!b) return;
-  b.textContent=(WALKFEEL==='SLIDE'?'\ud83d\udc5f SLIDE':'\ud83d\udc5f GRID');
+  b.textContent='\ud83d\udc5f '+WALKFEEL;   /* __THE_STEP_IS_A_TAPE_SKIP__ */
   b.addEventListener('click',function(){ walkFeelCycle();
     try{ toast('Walk feel: '+WALKFEEL+'.'); }catch(_e){}   /* draft:true */ });
 })();
@@ -59647,6 +59826,61 @@ window.addEventListener('message',ev=>{
    clothes. Which one a person wears comes from their own `look`, which
    personFields already gives them, so it is deterministic and a body keeps its
    clothes instead of flickering as you watch. */
+/* ============================================================================
+   __FACE_AT_THE_DOOR__ (9/20, PEOPLE, rule 19, VAMILY [face at the door])
+
+   PAOLO 9/20: "text on screen coming from people's voice, and when they speak to
+   you it shows the character portrait... the whole game enchilada."
+   PAOLO 8/26, quoted by the alpha's own face block: "every time you speak to
+   someone, their portrait will pop up on screen so you feel like you're relating
+   to them."
+
+   *** MEASURED ON THIS SURFACE BEFORE A LINE OF THIS WAS WRITTEN: WHEN ANYBODY
+   IN THIS GAME TALKS TO YOU, THE ONLY FACE ON SCREEN IS YOUR OWN. *** The whole
+   walked street holds exactly two canvases, the world and the player's own head
+   in the middle of the D-pad ring, and that second one is the control: a face CAN
+   be drawn here, 4,096 lit pixels of it. The cast arrives as ELEVEN BODIES WITH
+   EIGHT DIRECTIONS EACH AND NOT ONE FACE.
+
+   EVERY PIECE OF THE ANSWER WAS BUILT ON 8/26 AND NEVER CALLED. That block says
+   so in its own words: the performance "was built and could not be used, because
+   only one person in Bohemia had a face", faceFor(id) fixed that, and the turn
+   "ended with a gated feature nothing called". This is the call. It borrows the
+   player's own portrait path end to end -- faceFor, the ramp, renderFace, packIdx,
+   decodePlayerFrame -- so the speaker's head is made and unpacked exactly the way
+   his is, and nothing new draws a face.
+
+   ONE ID, ONE WHOLE PERSON: the id asked for is the id the BODY is drawn from, so
+   the face and the body can never come apart into two people.
+   ASKED ONCE PER PERSON, because the bake costs a frame and a face is a fact: the
+   alpha's own comment says same id, same face, forever.
+   ========================================================================== */
+var FACE_CV = {}, FACE_ASKED = {};
+function ctFaceAsk(who){
+  if (!who) return null;
+  var k = String(who);
+  if (FACE_CV[k]) return FACE_CV[k];
+  if (FACE_ASKED[k]) return null;          /* in flight: one ask per person */
+  FACE_ASKED[k] = 1;
+  try {
+    if (window.parent && window.parent !== window)
+      window.parent.postMessage({ type: 'BOHEMIA_CITY_NEED_FACE', who: k }, '*');
+  } catch (_e) {}
+  return null;
+}
+window.addEventListener('message', function (ev) {
+  var m = ev && ev.data;
+  if (!m || m.type !== 'BOHEMIA_CITY_FACE' || !m.who || !m.face) return;
+  /* THE PLAYER'S OWN DECODER, not a second one. A face that arrived through a
+     different unpacker than his would be the two-writers defect this lane has
+     found in its own work four rounds running. */
+  try {
+    var c = decodePlayerFrame(m.face);
+    if (c) FACE_CV[String(m.who)] = c;
+  } catch (_e) {}
+});
+try { window.ctFaceAsk = ctFaceAsk; window.FACE_CV = FACE_CV; } catch (_e) {}
+
 var CAST_CV = null;
 /* __CITY_TRADEFIT__ -- the NAME of each baked body, parallel to CAST_CV. Null
    until a bake that sends ids lands; an older bake leaves it null and the fit

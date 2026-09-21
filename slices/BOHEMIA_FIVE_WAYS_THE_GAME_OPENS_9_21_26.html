@@ -1,0 +1,218 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>BOHEMIA - FIVE WAYS THE GAME OPENS</title>
+<link rel="stylesheet" href="bohemia_option_sheet.css">
+<link rel="stylesheet" href="bohemia_ui_3d.css">
+<style>
+ /* the first screen, 390 wide, the real height a phone gives it */
+ .door{ position:relative; height:640px; display:flex; flex-direction:column;
+        align-items:center; justify-content:center; gap:16px; overflow:hidden }
+
+ /* ---- A. WHAT IS IN THERE NOW. flat, and here is what flat means: the
+    background is one smooth ramp, the name sits on a flat tan slab, and the
+    only thing that moves is a word blinking. Nothing has a side. ---- */
+ .doorA{ background:radial-gradient(circle at 50% 38%,#1b150d,#080705 72%) }
+ .doorA .plate{ background:#b8ab8c; padding:14px 22px; color:#1a1610;
+                font:700 24px/1 ui-sans-serif,system-ui,Arial; letter-spacing:5px }
+ .doorA .subz{ color:#7a6a4a; font:10px ui-monospace,monospace; letter-spacing:1px }
+ .doorA .tapz{ color:#b89a6a; font:12px ui-monospace,monospace; letter-spacing:3px;
+               animation:blink 1.4s ease-in-out infinite }
+ .doorA .stampz{ position:absolute; bottom:10px; left:0; right:0; text-align:center;
+                 font:10px ui-monospace,monospace; color:#6a5a3e; letter-spacing:2px }
+ @keyframes blink{ 0%,100%{opacity:.35} 50%{opacity:1} }
+
+ /* ---- B. THE MACHINE IS WARMING UP ---- */
+ .doorB{ background:linear-gradient(180deg,#26211a 0 34%,#1c1812 34% 72%,#120f0b 72% 100%);
+         justify-content:flex-start; padding:22px 18px 0 }
+ .doorB .tag{ position:relative; width:100%; padding:16px 12px; text-align:center }
+ .doorB .tagname{ font-family:var(--face-casing); font-size:26px; letter-spacing:7px;
+                  color:#e4d3aa; text-shadow:0 1px 0 rgba(0,0,0,.8), 0 -1px 0 rgba(226,210,160,.18) }
+ .doorB .win{ width:100%; height:250px; margin-top:16px; display:flex; flex-direction:column;
+              align-items:center; justify-content:center; gap:10px }
+ .doorB .winline{ font-size:11px; letter-spacing:2px }
+ .doorB .row3{ display:flex; align-items:center; gap:7px; margin-top:16px }
+ .doorB .bank{ width:100%; margin-top:18px; display:flex; gap:8px; align-items:flex-end }
+ .doorB .bank .k{ flex:1 1 auto; font-size:7px; letter-spacing:1.2px; min-height:38px }
+ .doorB .strip{ width:100%; margin-top:20px; display:flex; gap:8px; align-items:center }
+ .doorB .strip .vent{ flex:1 1 auto }
+
+ /* ---- C. ONE BIG KEY ---- */
+ .doorC{ background:linear-gradient(180deg,#14110c 0 58%,#221d16 58% 100%);
+         justify-content:flex-start; padding:34px 18px 0 }
+ .doorC .glass{ width:100%; height:300px; display:flex; flex-direction:column;
+                align-items:center; justify-content:center; gap:12px }
+ .doorC .cname{ font-family:var(--face-casing); font-size:30px; letter-spacing:8px; color:#cfe0c8;
+                text-shadow:0 0 9px rgba(150,200,150,.4) }
+ .doorC .csub{ font-size:9px; letter-spacing:3px; color:#7e9478 }
+ .doorC .bigkey{ width:100%; margin-top:26px; min-height:86px; font-size:13px; letter-spacing:6px }
+ .doorC .under{ margin-top:16px; display:flex; align-items:center; gap:8px; width:100% }
+ .doorC .under .stamp{ font-size:8px; letter-spacing:1.6px }
+
+ /* ---- D. A PANEL ON A WALL ---- */
+ .doorD{ background:
+     repeating-linear-gradient(90deg,#191510 0 38px,#171309 38px 40px),
+     linear-gradient(180deg,#1d1811,#0d0b08);
+     justify-content:flex-start; padding:30px 16px 0 }
+ .doorD .cut{ position:relative; width:100%; padding:26px 14px; text-align:center;
+     background:linear-gradient(180deg,#332c21 0 20%,#28221a 20% 78%,#191510 78% 100%);
+     box-shadow:inset 0 1px 0 #5c4f38, inset 0 -3px 0 #0b0906, 0 3px 0 rgba(0,0,0,.62), 0 6px 9px rgba(0,0,0,.5) }
+ .doorD .cutname{ font-family:var(--face-casing); font-size:27px; letter-spacing:7px;
+     color:#0d0b08; text-shadow:0 1px 0 rgba(226,210,160,.30), 0 -1px 0 rgba(0,0,0,.7) }
+ .doorD .cutsub{ margin-top:7px; font-size:8px; letter-spacing:2.4px; color:#6b5d42 }
+ .doorD .guard{ position:relative; width:150px; margin:30px auto 0; padding:12px 10px 14px;
+     display:flex; align-items:center; justify-content:center }
+ .doorD .guard .k{ width:100%; min-height:44px; font-size:9px; letter-spacing:4px }
+ .doorD .readout{ width:100%; margin-top:26px; padding:8px 10px; font-size:10px; letter-spacing:1.6px }
+ .doorD .readout div{ display:flex; gap:7px; align-items:center; padding:2px 0 }
+
+ /* ---- E. THE GLASS IS THE WHOLE DOOR ---- */
+ .doorE{ background:#070605; padding:9px; justify-content:stretch }
+ .doorE .glass{ flex:1 1 auto; width:100%; display:flex; flex-direction:column;
+                align-items:center; justify-content:center; gap:18px; padding:18px }
+ .doorE .ename{ font-family:var(--face-casing); font-size:28px; letter-spacing:8px; color:#d5e4ce;
+                text-shadow:0 0 10px rgba(150,200,150,.45) }
+ .doorE .esub{ font-size:9px; letter-spacing:3px; color:#7e9478; text-align:center }
+ .doorE .well{ margin-top:22px; padding:14px 26px; border-radius:2px;
+     background:linear-gradient(180deg,#0a0907 0 30%,#0e0d09 30% 100%);
+     box-shadow:inset 0 2px 0 #050403, inset 0 -1px 0 #2a2c22, inset 0 0 14px rgba(150,200,150,.09) }
+ .doorE .well span{ font-family:var(--face-screen); font-size:14px; letter-spacing:6px; color:#d8ecd2;
+     text-shadow:0 0 7px rgba(150,200,150,.55) }
+ .doorE .ebot{ position:absolute; left:0; right:0; bottom:16px; text-align:center;
+     font-family:var(--face-screen); font-size:8px; letter-spacing:2px; color:#4e6049 }
+</style></head><body>
+<header>
+ <h1>FIVE WAYS THE GAME OPENS</h1>
+ <div class="sub">The very first screen, before anything loads. Every one below is 390 pixels wide, the real width of a phone, and nothing is blown up. A is what is in there right now. 9/21</div>
+</header>
+
+<div class="now">
+ <b>YOU SAID MAKE ALL THE UI 3-D.</b> So here is the first screen four ways, and
+ three of them are built like real objects: one light coming from above and to
+ the left, a lit edge where the light lands, a dark edge where it does not, and
+ a side underneath so the thing has a body you could put a finger under.
+ <br><br>
+ <b>AND IT IS ALL ANALOG HORROR AT THE SOURCE.</b> Not a filter on top. The case
+ is a colour an office picked in 1979 and nobody ever changed. The glass is lit
+ from behind by something that is still running with nobody left to read it. The
+ little green light beside the word is ON. That is the horror: the machine is
+ fine, and the people are gone.
+ <br><br>
+ <b>WHAT I DECIDED WITHOUT YOU:</b> the word is BEGIN and it is one tap, never two.
+ <b>WHAT I NEED:</b> which body the first screen has. One letter.
+</div>
+
+<div class="wrap">
+
+ <div class="opt isnow"><h2>A &mdash; WHAT IS IN THERE NOW</h2>
+  <div class="shot"><div class="phone"><div class="door doorA">
+    <div class="plate">BOHEMIA</div>
+    <div class="subz">POST-ECONOMIC APOCALYPSE - LAS VEGAS</div>
+    <div class="tapz">ONE MOMENT</div>
+    <div class="stampz">BUILD 9/21 - FIVE WAYS THE GAME OPENS</div>
+  </div></div></div>
+  <div class="say"><b>Flat, and here is exactly what flat means.</b> The background
+   is one smooth fade. The name sits on a tan rectangle with no edge. The only
+   thing that happens is a word blinking. Nothing on this screen has a side, so
+   nothing on it is a thing. It is a poster, not a machine.</div>
+ </div>
+
+ <div class="opt"><h2>B &mdash; THE MACHINE IS WARMING UP</h2>
+  <div class="shot"><div class="phone"><div class="door doorB">
+    <div class="tag o"><span class="screw tl"></span><span class="screw tr"></span>
+      <span class="screw bl"></span><span class="screw br"></span>
+      <div class="tagname">BOHEMIA</div>
+      <div class="stamp" style="margin-top:6px;font-size:8px;letter-spacing:2.4px">CLARK COUNTY - UNIT 0.9</div>
+    </div>
+    <div class="win glass live">
+      <div class="lit winline">POWERING THE BLOCK</div>
+      <div class="lit winline" style="color:#8fa889">14 HOUSES FOUND</div>
+      <div class="lit winline" style="color:#8fa889">READING THE STREET</div>
+      <div class="row3"><span class="lamp"></span><span class="lit" style="font-size:9px;letter-spacing:2px">SYSTEM NOMINAL</span></div>
+    </div>
+    <div class="bank">
+      <button class="k hot">BEGIN</button>
+      <button class="k dead">LOAD</button>
+      <button class="k dead">NOTES</button>
+    </div>
+    <div class="strip"><div class="vent"></div><span class="stamp" style="font-size:8px;letter-spacing:1.6px">9/21</span><div class="vent"></div></div>
+  </div></div></div>
+  <div class="say"><b>The phone is the machine.</b> The name is a metal tag screwed
+   onto the case with four screws you can see. Under it the glass is sunk into the
+   case and lit from behind, and the loading is not a bar, it is the machine saying
+   out loud what it is finding. BEGIN is a real key with height: press it and it
+   goes down three pixels and the shadow under it closes. The two dead keys beside
+   it are dead on purpose, and they tell you this thing used to do more.</div>
+ </div>
+
+ <div class="opt"><h2>C &mdash; ONE BIG KEY</h2>
+  <div class="shot"><div class="phone"><div class="door doorC">
+    <div class="glass live">
+      <div class="cname">BOHEMIA</div>
+      <div class="csub">POST-ECONOMIC APOCALYPSE</div>
+      <div class="csub" style="color:#5d6f58">LAS VEGAS</div>
+    </div>
+    <button class="k hot bigkey">BEGIN</button>
+    <div class="under">
+      <span class="lamp"></span>
+      <span class="stamp">READY</span>
+      <span style="flex:1"></span>
+      <span class="stamp">BUILD 9/21</span>
+    </div>
+  </div></div></div>
+  <div class="say"><b>One thing to press and it is enormous.</b> The top two thirds
+   is the lit glass with the name burning in it. The bottom is a single key the
+   whole width of the phone and taller than your thumb, so the first thing you ever
+   do in this game is push a real button down. Nothing else on the screen is
+   pressable, so there is nothing to read and nothing to get wrong.</div>
+ </div>
+
+ <div class="opt"><h2>D &mdash; THE NAME IS STAMPED INTO THE CASE</h2>
+  <div class="shot"><div class="phone"><div class="door doorD">
+    <div class="cut">
+      <div class="cutname">BOHEMIA</div>
+      <div class="cutsub">PROPERTY OF THE CLARK COUNTY POWER AUTHORITY</div>
+    </div>
+    <div class="guard o sunk">
+      <button class="k hot">BEGIN</button>
+    </div>
+    <div class="readout o sunk">
+      <div><span class="lamp"></span><span class="stamp">GRID</span><span style="flex:1"></span><span class="stamp">DOWN 11 YRS</span></div>
+      <div><span class="lamp warn"></span><span class="stamp">WATER</span><span style="flex:1"></span><span class="stamp">RATIONED</span></div>
+      <div><span class="lamp dead"></span><span class="stamp">POLICE</span><span style="flex:1"></span><span class="stamp">NO ANSWER</span></div>
+    </div>
+  </div></div></div>
+  <div class="say"><b>No glass at all. The name is punched into the metal.</b> The
+   letters are cut down into the plate, so they are dark with a lit lip on the
+   bottom edge where the light catches the groove. Under it, BEGIN sits down inside
+   a guard, the way a switch you are not supposed to hit by accident does. And the
+   three little lights are the whole world in one look: the grid is out, the water
+   is rationed, and nobody answers the police line. You know where you are before
+   you press anything.</div>
+ </div>
+
+ <div class="opt"><h2>E &mdash; THE GLASS IS THE WHOLE DOOR</h2>
+  <div class="shot"><div class="phone"><div class="door doorE">
+    <div class="glass live">
+      <div class="ename">BOHEMIA</div>
+      <div class="esub">POST-ECONOMIC APOCALYPSE<br>LAS VEGAS</div>
+      <div class="well"><span>BEGIN</span></div>
+      <div class="ebot">UNIT 0.9 - 9/21 - NOBODY IS READING THIS</div>
+    </div>
+  </div></div></div>
+  <div class="say"><b>One tube, edge to edge, and you are looking into it.</b> The
+   whole phone is the screen of a machine that is still on. The corners go dark
+   because a tube is curved, not square, and a band rolls down it slowly. BEGIN is
+   not a button, it is a word cut into a well in the glass and lit from inside. The
+   coldest of the four, and the only one where the first thing you touch is not a
+   thing at all.</div>
+ </div>
+
+</div>
+
+<footer>
+ <b>These four share one file.</b> The edges, the keys, the glass, the lamps and the
+ screws are written once and every panel in the game reads them, so when act two
+ comes the whole interface changes by swapping the colours, not by drawing it all
+ again. Vote on the body and I build that one into the real first screen.
+</footer>
+</body></html>

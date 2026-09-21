@@ -407,6 +407,84 @@
    }
   },
   {
+   "id": "ui-five-ways-the-game-opens-9-21",
+   "kind": "ui",
+   "lane": "ui",
+   "sha": "PENDING",
+   "made": "9/21",
+   "title": "FIVE WAYS THE GAME OPENS",
+   "why": "The very first screen. Four new ways, all built like real objects with one light, beside the flat one that is in there now.",
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_FIVE_WAYS_THE_GAME_OPENS_9_21_26.html"
+   }
+  },
+  {
+   "id": "ui-four-ways-the-fight-reads-9-21",
+   "kind": "ui",
+   "lane": "ui",
+   "sha": "PENDING",
+   "made": "9/21",
+   "title": "FOUR WAYS THE FIGHT READS",
+   "why": "The fight your friend played, re-drawn three ways. Health in a slot or on a dial, verbs as keys with travel, SHOOT under a guard.",
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_FOUR_WAYS_THE_FIGHT_READS_9_21_26.html"
+   }
+  },
+  {
+   "id": "ui-five-ways-a-person-talks-9-21",
+   "kind": "ui",
+   "lane": "ui",
+   "sha": "PENDING",
+   "made": "9/21",
+   "title": "FIVE WAYS A PERSON TALKS",
+   "why": "The only panel allowed to carry a sentence on the street. Her face behind glass, or filling the top, or coming through a speaker.",
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_FIVE_WAYS_A_PERSON_TALKS_9_21_26.html"
+   }
+  },
+  {
+   "id": "ui-five-ways-the-vote-tab-sits-9-21",
+   "kind": "ui",
+   "lane": "ui",
+   "sha": "PENDING",
+   "made": "9/21",
+   "title": "FIVE WAYS THE VOTE TAB SITS",
+   "why": "This tab itself, four new ways. The prettiest one is the hardest to read outside, and that trade is yours.",
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_FIVE_WAYS_THE_VOTE_TAB_SITS_9_21_26.html"
+   }
+  },
+  {
+   "id": "ui-four-ways-a-word-is-stamped-9-21",
+   "kind": "ui",
+   "lane": "ui",
+   "sha": "PENDING",
+   "made": "9/21",
+   "title": "FOUR WAYS A WORD IS STAMPED",
+   "why": "The N on our buttons is an H. Measured: it is the closest pair in the alphabet. Four cuts of the same letters, heaviest to plainest.",
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_FOUR_WAYS_A_WORD_IS_STAMPED_9_21_26.html"
+   }
+  },
+  {
+   "id": "animation-how-a-step-is-drawn-9-21",
+   "kind": "animation",
+   "lane": "animation",
+   "sha": "534d87a",
+   "made": "9/21",
+   "title": "HOW A STEP IS DRAWN (I PICKED ONE FOR YOU)",
+   "why": "One press moves him a whole house, 275 pixels, in half a second, and his legs can only show one pace of it. What shipped was nobody’s choice: an old number in the code made the whole street jump at once. I put in the tape skip: he stands still, the picture skips twice, he is there. Thumbs up keeps it. Thumbs down and say GRID (the street jumps at once) or SLIDE (the street slides the whole time) and I will switch it.",
+   "show": {
+    "how": "page",
+    "src": "vote/ANIMATION_HOW_A_STEP_IS_DRAWN.html"
+   }
+  },
+  {
    "id": "sounds-the-room-on-the-tap-9-21",
    "kind": "sound",
    "lane": "sounds",

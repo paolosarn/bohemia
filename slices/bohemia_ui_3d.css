@@ -1,0 +1,213 @@
+/* ==========================================================================
+   BOHEMIA -- THE 3-D UI VOCABULARY.  UI lane (chat 11), 9/21.
+   Paolo 9/20, LOCKED: "we're gonna be trying to make all the UI look 3-D."
+   Paolo 9/20, LOCKED: ANALOG HORROR FOR EVERY PIXEL AND EVERY SOUND.
+   Paolo 9/21, LOCKED, rule 22: a UI round is PANELS he can see at real size.
+
+   WHAT 3-D MEANS HERE, SO NOBODY GUESSES AGAIN.
+   It is not a drop shadow and it is not a rounded card. It is the four things
+   a real object on a real machine has, and every class below is built out of
+   exactly these four:
+
+     1. A FACE that catches light. One light, always ABOVE AND LEFT, because a
+        scene with two lights reads as a sticker.
+     2. A LIT RIM on the edge the light hits and a DARK BASE on the edge it
+        misses. A real value step, never a grey hairline floating on nothing.
+     3. A BODY. The line under a panel is the SIDE of the thing, the part you
+        would touch if you ran a finger under it. That is why the shadows are
+        inset AND outset on the same element.
+     4. A SHADOW THE OBJECT SITS IN, short and hard, because the room it is in
+        is small and the light in it is a fixture, not the sun.
+
+   AND THEN IT IS DELIVERED AS PIXELS, the way the portrait cooks 3-D and eats
+   2-D. Every ramp in this file is a STAIRCASE of hard colour stops, never a
+   smooth blend -- that is what makes a lit cylinder read as drawn rather than
+   as a CSS gradient, and it is the one decision that keeps this in the same
+   world as the tiles. Corners are 2px, an object's corner, never a card's 5.
+
+   AND IT IS A DEAD INSTITUTION'S MACHINE (rule 20). The horror is not a
+   scanline filter laid on top. It is in the source: the case is a colour
+   nobody would choose today, the glass is lit from behind by something still
+   running with nobody left to read it, the lamp beside the word is on, and
+   the label was stamped by an office that no longer exists.
+
+   COLOURS COME FROM THE SKIN (window.BOHEMIA_SKIN, act one SALVAGE) so act
+   two swaps these values and every panel drawn with this file is a different
+   machine without one rule changing. [skin swap]
+   ========================================================================== */
+
+@font-face{ font-family:'BohemiaCasing'; src:url('fonts/BohemiaCasing-Regular.woff2') format('woff2'); font-display:block }
+@font-face{ font-family:'BohemiaROM';    src:url('fonts/BohemiaROM-Regular.woff2')    format('woff2'); font-display:block }
+@font-face{ font-family:'BohemiaBody';   src:url('fonts/BohemiaBody-Regular.woff2')   format('woff2'); font-display:block }
+
+:root{
+  /* the three registers. casing = stamped into the case. screen = lit glass.
+     body = a person's sentence. Mixing them is the slop. */
+  --face-casing:'BohemiaCasing',ui-sans-serif,system-ui,sans-serif;
+  --face-screen:'BohemiaROM',ui-monospace,monospace;
+  --face-body:'BohemiaBody',ui-sans-serif,system-ui,sans-serif;
+  --track-casing:.4px; --track-screen:.6px; --track-body:0;
+
+  /* the case */
+  --c-face:#2c261d; --c-face2:#221d16; --c-face3:#191510;
+  --c-top:#5c4f38; --c-top2:#463c2a;
+  --c-base:#0b0906; --c-under:rgba(0,0,0,.62);
+  --c-ink:#d8c49a; --c-ink-dim:#8d7c5e;
+
+  /* the chip / the key */
+  --k-face:#1a160f; --k-top:#5c4f38; --k-base:#0b0906;
+  --k-hot:#c8b681; --k-hotink:#15120d;
+
+  /* the glass */
+  --g-deep:#0c0b07; --g-lit:#14120d; --g-ink:#c9dcc4;
+  --g-glow:rgba(150,200,150,.10);
+
+  /* the lamps. one is alive, one is warning, one is dead. */
+  --lamp-live:#9adfd0; --lamp-warn:#c07a4a; --lamp-dead:#3a342a;
+
+  --round:2px;
+}
+
+/* ---------- 1. THE CASE. a formed slab with a top rim, a base and a body. ---- */
+.o{
+  position:relative;
+  background:
+    linear-gradient(180deg,
+      var(--c-face)  0 22%,
+      var(--c-face2) 22% 74%,
+      var(--c-face3) 74% 100%);
+  border-radius:var(--round);
+  box-shadow:
+    inset 0 1px 0 var(--c-top),          /* the rim the light hits */
+    inset 1px 0 0 var(--c-top2),         /* the left cheek, same light */
+    inset 0 -2px 0 var(--c-base),        /* the bottom, in its own shade */
+    inset -1px 0 0 var(--c-base),
+    0 2px 0 var(--c-under),              /* THE BODY. the side of the thing. */
+    0 4px 6px rgba(0,0,0,.55);           /* the short hard shadow of a small room */
+}
+/* the same slab, pressed IN instead of out: a recess, a slot, a well. */
+.o.sunk{
+  background:linear-gradient(180deg,var(--c-face3) 0 30%,var(--c-face2) 30% 100%);
+  box-shadow:
+    inset 0 2px 0 var(--c-base),
+    inset 1px 0 0 var(--c-base),
+    inset 0 -1px 0 var(--c-top2),
+    inset -1px 0 0 var(--c-top2);
+}
+
+/* ---------- 2. THE KEY. a thing with travel. it is TALLER than it is wide-ish,
+   and it goes DOWN when you push it, because that is the only proof it is real. */
+.k{
+  display:inline-flex; align-items:center; justify-content:center;
+  min-height:28px; padding:8px 12px;
+  font-family:var(--face-casing);
+  font-size:5px; letter-spacing:var(--track-casing);
+  color:var(--c-ink);
+  background:linear-gradient(180deg,#221d15 0 30%,var(--k-face) 30% 78%,#120f0a 78% 100%);
+  border-radius:var(--round); border:0;
+  box-shadow:
+    inset 0 1px 0 var(--k-top),
+    inset 1px 0 0 var(--c-top2),
+    inset 0 -2px 0 var(--k-base),
+    0 3px 0 #060503,                     /* the travel. this is the key's height. */
+    0 5px 5px rgba(0,0,0,.5);
+  transform:translateY(0); transition:transform .04s linear, box-shadow .04s linear;
+  cursor:pointer; -webkit-tap-highlight-color:transparent;
+}
+.k:active{
+  transform:translateY(3px);
+  box-shadow:
+    inset 0 2px 0 var(--k-base),
+    inset 0 -1px 0 var(--c-top2),
+    0 0 0 #060503,
+    0 1px 2px rgba(0,0,0,.6);
+}
+.k.hot{
+  color:var(--k-hotink);
+  background:linear-gradient(180deg,#d6c396 0 26%,var(--k-hot) 26% 62%,#a89769 62% 84%,#87764d 84% 100%);
+  box-shadow:
+    inset 0 1px 0 #efe1bb,
+    inset 0 -2px 0 #6f6142,
+    0 3px 0 #2a2417,
+    0 5px 5px rgba(0,0,0,.5);
+}
+.k.hot:active{ box-shadow:inset 0 2px 0 #6f6142, 0 0 0 #2a2417, 0 1px 2px rgba(0,0,0,.6) }
+.k.dead{ color:#4b4336; background:linear-gradient(180deg,#1d1912 0 30%,#171309 30% 100%);
+         box-shadow:inset 0 1px 0 #2e2719, inset 0 -2px 0 #0b0906, 0 1px 0 #060503 }
+
+/* ---------- 3. THE GLASS. lit from behind, sunk into the case, and curved.
+   the vignette is what makes it a TUBE and not a black rectangle. ---------- */
+.glass{
+  position:relative; overflow:hidden;
+  background:
+    radial-gradient(160% 130% at 50% 44%, var(--g-lit) 0 54%, #12100b 54% 74%, #0f0d09 74% 88%, var(--g-deep) 88% 100%);
+  border-radius:3px;
+  box-shadow:
+    inset 0 2px 0 #060503,
+    inset 1px 0 0 #060503,
+    inset -1px 0 0 #100e0a,
+    inset 0 -1px 0 #201a12,
+    inset 0 0 12px var(--g-glow);
+  color:var(--g-ink);
+  font-family:var(--face-screen); letter-spacing:var(--track-screen);
+}
+/* the corners of a tube are not corners. four hard wedges, pixel-stepped. */
+.glass::before{
+  content:''; position:absolute; inset:0; pointer-events:none;
+  background:
+    radial-gradient(150% 140% at 50% 50%, rgba(0,0,0,0) 0 64%, rgba(0,0,0,.20) 64% 78%, rgba(0,0,0,.42) 78% 90%, rgba(0,0,0,.70) 90% 100%);
+}
+/* the thing still running with nobody left to read it. one slow band, no blur. */
+.glass.live::after{
+  content:''; position:absolute; left:0; right:0; height:14px; pointer-events:none;
+  background:linear-gradient(180deg,rgba(200,220,200,0) 0 40%,rgba(200,220,200,.045) 40% 60%,rgba(200,220,200,0) 60% 100%);
+  animation:o-roll 7.5s linear infinite;
+}
+@keyframes o-roll{ from{ top:-14px } to{ top:100% } }
+
+/* ---------- 4. THE LAMP. a dome with something burning inside it. ---------- */
+.lamp{
+  display:inline-block; width:7px; height:7px; border-radius:50%; vertical-align:middle;
+  background:radial-gradient(circle at 36% 30%, #fff 0 12%, var(--lamp-live) 12% 55%, #2f6f63 55% 100%);
+  box-shadow: 0 0 5px 1px rgba(154,223,208,.45), inset 0 -1px 0 rgba(0,0,0,.5);
+}
+.lamp.warn{ background:radial-gradient(circle at 36% 30%, #ffe3c8 0 12%, var(--lamp-warn) 12% 55%, #5c3418 55% 100%);
+            box-shadow:0 0 5px 1px rgba(192,122,74,.45), inset 0 -1px 0 rgba(0,0,0,.5) }
+.lamp.dead{ background:radial-gradient(circle at 36% 30%, #4a4236 0 12%, var(--lamp-dead) 12% 55%, #17140f 55% 100%);
+            box-shadow:inset 0 -1px 0 rgba(0,0,0,.5) }
+
+/* ---------- 5. THE SCREW. four of them is what makes a plate a PLATE. ------- */
+.screw{
+  position:absolute; width:5px; height:5px; border-radius:50%;
+  background:radial-gradient(circle at 35% 30%, #6a5c42 0 40%, #3a3225 40% 100%);
+  box-shadow: inset 0 1px 0 rgba(226,210,160,.30), 0 1px 0 rgba(0,0,0,.6);
+}
+.screw::after{ content:''; position:absolute; left:1px; right:1px; top:2px; height:1px; background:#15120c }
+.screw.tl{ left:3px; top:3px } .screw.tr{ right:3px; top:3px }
+.screw.bl{ left:3px; bottom:3px } .screw.br{ right:3px; bottom:3px }
+
+/* ---------- 6. THE VENT. louvres. each slot is a cut with a lip. ----------- */
+.vent{
+  height:13px; border-radius:1px;
+  background:repeating-linear-gradient(180deg,
+     #070603 0 3px, #4a4133 3px 4px, #1d1912 4px 5px);
+  box-shadow:inset 0 1px 0 var(--c-base), inset 0 -1px 0 var(--c-top2);
+}
+
+/* ---------- 7. THE STAMP. type pressed INTO the case, not printed on it. ---- */
+.stamp{
+  font-family:var(--face-casing); letter-spacing:var(--track-casing);
+  color:#7b6a4c;
+  text-shadow: 0 1px 0 rgba(226,210,160,.14);  /* the lit lip under a cut groove */
+}
+/* and type that is LIT, because the glass is behind it */
+.lit{ font-family:var(--face-screen); letter-spacing:var(--track-screen); color:var(--g-ink);
+      text-shadow:0 0 4px rgba(150,200,150,.35) }
+
+/* ---------- 8. THE BAR. a length of case with things fixed onto it. ------- */
+.rail{
+  display:flex; align-items:center; gap:6px; padding:6px 8px;
+  background:linear-gradient(180deg,#2b251c 0 18%,#211c15 18% 76%,#14110b 76% 100%);
+  box-shadow: inset 0 1px 0 var(--c-top2), inset 0 -2px 0 var(--c-base),
+              0 2px 0 var(--c-under), 0 3px 7px rgba(0,0,0,.5);
+}

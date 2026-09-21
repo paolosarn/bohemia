@@ -178,6 +178,103 @@ EARLY and LATE sounding the same, and the one-beat horizon.
 CARRIED, RECORDED NOT ACTED ON, BECAUSE LEVELS ARE HIS: THE GAPS IN THE HYMNAL peaks 25.6x the
 median on a CANON song; MENU - LIGHTS ACROSS THE VALLEY peaks 1.064 (BURIED).
 
+EYES AND EARS (eyes-5vql33): 9/20 (am) LATEST -- *** E27 [best cut] SHIPPED, ae8f028, RULE 18(d): THERE IS NO BETTER CUT TO GO BACK TO, AND THE RANKING WILL NOT HOLD STILL. *** Record: records/BOHEMIA_EYES_E27_THERE_IS_NO_BETTER_CUT_9_20_26.md, raw runs records/BOHEMIA_EYES_E27_BEST_CUT_RUNS_9_20_26.jsonl. THE BEST CUT is posted on the front page above the stranger's list.
+  WHAT WAS MEASURED: eight RUN build stamps across two weeks, each CUT BY THE REPO'S OWN CUTTER at that sha in a throwaway worktree (nothing of RUN's touched), each walked the same 90 seconds on a phone-shaped CPU with the throttle proved real inside every run. Two full passes, plus a three-point bisect, plus four repeats of one sha.
+  EVERY CUT IS FROZEN FOR 95.0% TO 96.6% OF ITS FIRST NINETY SECONDS. Best to worst across the whole fortnight is 1,385 ms out of 90,000 -- one and a half percent. AND THE ORDER REORDERS ITSELF: pass one's least-frozen was 9/15s, pass two's was 9/18g, the newest. The gap between best and worst is smaller than the run-to-run noise on a single cut, so the ORDER is a coin toss. When a ranking reorders on unchanged code the honest report is not a winner, it is that the things being ranked are the same.
+  WALKING IS BROKEN ON ALL EIGHT: a four-second held press moves 0.1% to 2.7% of the screen, with the dial found and pressed every time and that control green on every cut.
+  AND I AM NOT NAMING A COMMIT FOR THE ONE THING THAT LOOKED LIKE A REGRESSION. Worst single freeze sat at ~33 s for the first four cuts and ~41 s for the last four, breaking between 9/15s and 9/16f. THE BISECT OF THOSE 55 COMMITS IS NOT MONOTONIC (32.7, then 40.3 thirteen in, then 33.2, then 32.6, then 41.9). So I ran ONE SHA FOUR TIMES: 41,873 / 32,113 / 32,728 / 33,040 -- one run in four lands in the high mode on identical code. Pass two then proved it from the other direction: 9/15m went 33,019 -> 41,364 and 9/16f went 41,873 -> 33,370, two cuts swapping sides. That mode does not live in the code, and I was one step from handing RUN a commit to revert.
+  FOR RULE 18(d): THERE IS NOTHING TO REVERT TO. Reverting buys one percent of a frozen window and throws away everything built since. The freeze is not a regression that crept in; it has been the same size the whole fortnight. What changed is that he opened it and looked. If a reference cut is still wanted, take the NEWEST, because nothing measurably better exists behind it.
+  WHAT THIS DOES NOT MEASURE, SAID SO IT IS NOT MISREAD: it scores loading, freezing and whether a held press moves the world. IT DOES NOT JUDGE PICTURES, so if 'closer to being able to play' was about the car, the streets or the far zoom, this ranking has nothing to say about it. 90 seconds is weighted to the boot, which is where the freezing is; over a full 300 seconds the frozen share is about a third, not 96%.
+  FIVE MISTAKES THIS ROUND, ALL CAUGHT BY A CONTROL OR BY REPEATING: a frozen total of 186 s inside a 90 s window (the heartbeat was counting the yardstick's own busy loops and summing two threads); a movement control that painted the game's canvas and therefore FAILED ON THE HEALTHY CUTS because they repainted over it, measuring 'did the game repaint'; 'the world did not move' nearly published before checking a dial had been found; time-to-tappable null every time because the poll ran eight seconds against a thread frozen for thirty; and MY OWN RUNNER ATE ITS RESULTS FILE by opening with a truncate, which is the same defect this lane has reported in other people's instruments.
+  PRE-PUSH PASS: reply contract 17/0, handoff gate green. Full suite: 107 red at ad23d875 (the suite line); mine is EYES, whose one red is the game-UI finding already bounced to UI as [eyes: bar cut].
+  NOTE ON RULE 18(e): nobody sends the link until the coordinator says the cut holds, so this lane is not pasting it.
+  NEXT: E26 [five minutes] is STANDING and resumes as the first thing next round, walked on the DEPLOY CUT at 4x. The measurement it still owes: the body's DRAWN SIZE against the screen, because 'painted inside the screen rectangle' is not 'noticed' and at the far zoom a body is a few pixels. Then a route that reaches the build panel so NO FALSE ZERO can stop being red honestly. E20 [song length] round two is still PAUSED mid-job: the handover on the audio clock (song length, gap, restart offset), the bed's dB inside the gap, form sameness, the gap against the ~3 s floor, four planted controls. Then E21, E22, E23, E24, all two rounds, school first. E9 runs every round.
+
+UI (ui-kmqmrf): 9/21 LATEST -- *** [cook panels] ROUND ONE OF RULE 22. FIVE PANELS HE CAN
+LOOK AT, NOT ONE LINE ON A PLAY SURFACE. *** TAB: the VOTE tab in the alpha. Nothing went to
+the demo or to a play tab; rule 18 holds and rule 22 says the hold is on the play surface,
+not on the making. Record: records/BOHEMIA_THE_ROUND_IS_PANELS_9_21_26.md
+
+WHAT WAS COOKED. Five sheets, every panel at 390 px (the real width of his phone), nothing
+scaled, each new option drawn beside the flat thing it would replace:
+  ui-five-ways-the-game-opens-9-21     the first screen: a stamped tag on a warming machine,
+                                       one enormous key, the name punched into the plate with
+                                       three status lamps, or the whole door as one lit tube
+  ui-four-ways-the-fight-reads-9-21    the fight his friend played: health in a sunk slot or
+                                       on a dial with a needle, the verbs as keys with travel,
+                                       SHOOT under a guard, one plate across the bottom
+  ui-five-ways-a-person-talks-9-21     the only panel allowed to carry prose on the street
+                                       (rule 19): her face behind glass in the case, filling
+                                       the top edge to edge, or coming through a speaker grille
+  ui-five-ways-the-vote-tab-sits-9-21  this tab itself, with the real trade stated in his words:
+                                       the prettiest one (the console, the game's own case) is
+                                       the worst one to read on a phone in the sun. My pick: E,
+                                       paper to read and metal to press.
+  ui-four-ways-a-word-is-stamped-9-21  the letters on every button, four cuts, heaviest to plainest
+
+*** 3-D IS WRITTEN DOWN NOW INSTEAD OF GUESSED. *** slices/bohemia_ui_3d.css is this lane's
+whole vocabulary in ONE file, and all five sheets read it. It is not a drop shadow and not a
+rounded card. It is the four things a real object on a real machine has: a FACE that catches
+light from ONE light (always above and left, because two lights read as a sticker), a LIT RIM
+on the edge the light hits, a DARK BASE on the edge it misses, and a BODY -- the line under a
+panel is the SIDE of the thing. Then it is DELIVERED AS PIXELS: every ramp in the file is a
+staircase of hard colour stops, never a blend, which is what keeps a lit object in the same
+world as the tiles. Colours come from the skin's act-one SALVAGE values, so [skin swap] gets
+act two by changing values, not by redrawing five private bevels. Analog horror is at the
+source: the case is a colour an office picked and never changed, the glass is lit from behind
+by something still running with nobody left to read it, and the lamp beside the word is ON.
+
+*** THE MEASUREMENT THAT RODE BESIDE IT: THE N ON EVERY BUTTON IN THIS GAME IS AN H. ***
+tools/bohemia_which_letters_are_the_same.js draws all 26 capitals at the size a surface really
+uses and compares EVERY pair. BohemiaCasing at 5 px: H/N is the CLOSEST PAIR IN THE ALPHABET,
+10.6% of the ink differs, with A/H 14.0, N/W 15.4 and H/W 17.3 right behind. The control names
+the cause: the SAME 5x8 glyph table cut three ways gives ROM 21.3 and BODY 17.3, so it is not
+the letters, it is the CASING cut's 25% overlap (125 ink on a 100 column) fusing an N's
+diagonal to its own left stem. tools/bohemia_cut_a_casing_candidate.py cuts softer candidates
+WITHOUT touching the shipped file: 115 -> 12.5, 108 -> 13.4, 100 -> off the top ten. My pick is
+108 and all four are on the sheet at real button size. NOTHING SHIPPED -- that face is loaded
+by the walked city and the demo, so it waits on rule 18.
+
+*** TWO ORACLES LIED TO ME THIS ROUND. *** First my own EYE, on an 860 px screenshot the
+viewer had squashed to 156 px: I read "HOTES" and "HAIT" and decided the face was broken. No
+five pixel diagonal survives that squash, so the picture could not have shown it either way.
+Then a BARE NUMBER with no population around it: my first measurement said N and H differ by
+15 to 25 per cent of their ink and I read that as "fine". A lone number cannot be read. The
+oracle that works is a RANKING, because "closest pair in the alphabet" is a fact about the
+face instead of a feeling about a picture. Fifth time this lane has written the same lesson in
+a new costume: A CLEAN ANSWER FROM THE WRONG ORACLE LOOKS EXACTLY LIKE A FACT.
+
+*** AND TWO DEFECTS I MADE AND FIXED INSIDE THE ROUND, VISIBLE ONLY IN THE RENDER. *** The
+fight pad's four diagonal code points are not arrows, and one of them drew an ENVELOPE (they
+are letters now, like the real fight). And the big-portrait option shipped 150 px wide on a
+390 px phone with black gutters down both sides, which is the exact opposite of the option it
+was meant to be (edge to edge now). Neither was in the source and neither would have failed a
+gate. Both came from cropping the real render at full resolution and looking at it.
+
+PRE-PUSH PASS (rule 13): the new UI IS OBJECTS gate 53/0 with SIX mutations proved and each
+restored (delete the body from the object rule -> 1 red, blend a ramp -> 1, light a bottom edge
+-> 2, unhook a sheet from the shared file -> 1, break a registry path -> 1, take the travel out
+of the key -> 1); vote tab 28/0 (the registry grew and it still holds), pages publish 18/0,
+reply contract 17/0, attempt 15/0, reference check 11/0. Reuse-first is 209/6 both WITH and
+WITHOUT my diff, so those six are not mine. SUITE LINE: 107 red at ad23d875; mine are NONE.
+
+TWO LEGS OF MY OWN GATE WERE WRONG WHEN FIRST WRITTEN and are in the record rather than
+quietly fixed: the ramp leg stopped its match at the first closing bracket, which in this file
+belongs to var(--c-face), so it judged a stub of every ramp and called the object rule a blend;
+and it counted only per-cent stops, so the vent's louvres, cut at 3px/4px/5px and as much of a
+staircase as anything in the file, failed it.
+
+FOR PAGES: the published surface is 256 MB against a 260 MB cap. My five sheets, two
+stylesheets and three candidate font files add well under a megabyte, but somebody should look
+at that headroom before it stops being headroom.
+
+NEXT: [cook panels] is a STANDING row under rule 22 -- it went back to OPEN and is claimed
+again next round. The obvious next cook is whichever panel he votes up, built for real the
+moment rule 18 lifts. Still owed by this lane: [three d ui] has no gate of its own yet (the
+new one covers the vocabulary, not every surface), the VOTE tab still does not LIST his notes,
+and [no slop] stays CLAIMED with the map key's 32 swatch edges and the dead-declaration debt
+left in it, both written up in the 9/18 record.
+
 PORTRAIT (portrait-vamily-yke55s): 9/21 LATEST -- *** [faces first] ROUND 1. THE LIST CAME
 BACK EMPTY: A STRANGER MEETS ZERO FACES IN FIVE MINUTES, AND THE FACES ARE NOT THE REASON.
 THEY CANNOT BE REACHED. *** Row stays CLAIMED, NOT shipped. Nothing pushed to the alpha.
@@ -1266,18 +1363,6 @@ into it yet; fold it when the row closes, not between its two halves.
 
 
 ================================================================================
-
-EYES AND EARS (eyes-5vql33): 9/18 (al) LATEST -- *** E26 ROUND 9. COMBAT FIXED WHAT I FOUND AND CORRECTED WHAT I GOT WRONG, AND THE CORRECTION MATTERS MORE. *** Record: records/BOHEMIA_EYES_E26_ROUND_9_THE_TRADE_I_NAMED_CAME_DUE_9_18_26.md. Walked on the DEPLOY CUT at a verified 4x. THE STRANGER'S LIST is rewritten on the front page.
-  THE FIX IS VERIFIED ON THE GLASS: the developer's control strip is off the fight; the walk no longer finds WAIT, SUPPRESS, HAND-PEEK or NEW ENCOUNTER anywhere. BUT I REPORTED FOUR OF THOSE FIVE DEAD AND EVERY ONE ACTS -- COMBAT drove them in a real fight (WAIT gives STEADY +5%, SUPPRESS gives PINNED 1, HAND-PEEK flips its label, NEW ENCOUNTER restarts the fight). Not dead buttons: LIVE developer controls over a stranger's fight, which is worse. The photograph was the only part of my report that held.
-  AND THE CAUSE WAS THE TRADE I WROTE DOWN MYSELF IN ROUND 5, word for word: 'the panel test takes the nearest card-shaped ancestor, so a control whose effect lands in a DIFFERENT panel will read as dead here... it is the next thing to measure.' The finger is in the strip, the answer lands in a readout elsewhere, the panel holding the button never moves, and I published dead. A BLIND SPOT YOU HAVE WRITTEN DOWN IS STILL A BLIND SPOT.
-  CLOSED, AND A PLANTED CONTROL PROVES IT. Two separate questions, both needed: the panel SURVIVING the press kills FALSE LIFE (14h, a card closes on any tap it does not know), and novel movement ANYWHERE kills FALSE DEATH (the effect need not land in the same box as the finger; the ledger is what makes novel mean something the world does not do by itself). A fourth planted button, in one panel, whose only effect writes into a DIFFERENT panel -- the shape of WAIT and SUPPRESS -- must read alive, and does. Every row now records WHERE the screen answered, so 'its own panel' and 'somewhere else' are different words.
-  AND I CAUGHT MYSELF AGAIN BEFORE IT REACHED HIS PAGE. The first walk reported FIVE dead controls; four were READOUTS: 'ON THE ROAD - SUBURB - DAY' 277x14, the encounter's own title 320x17, 'THAT COST' 55x14, '15 min' 34x17. Text, not buttons. They qualified only because my rule counted anything inside the day card as a row. The card's REAL rows are 320x44, so height decides now and the number is not invented: 44 px is the published minimum touch target and exactly what the card's own rows use. DEAD 5 -> 1.
-  THE ONE REAL DEAD CONTROL: 'Half of it now, before I go', 320x44, on the first card a stranger sees, DEAD FOR THE SIXTH ROUND RUNNING -> LIFE + CITY [eyes: shape rows].
-  MY YARDSTICK FAILED ITS OWN CONTROL, WHICH IS WHY ROUND 8 MUST NOT BE COMPARED WITH THIS ROUND. Three runs asking for the same 4x measured 3.20x, 3.65x and 2.13x, and the third was REFUSED by its own control -- correct behaviour, and a verdict on the yardstick: one 18 ms sample is short enough that warm-up and a stray tick swing it by half. Rebuilt on a longer loop, five samples a side, warm-up discarded, medians: 4.36x with 2% spread within a side. Round 8 was measured on the committed file (which round 7 proved nobody is served) with the untrustworthy version.
-  WHAT RUN'S [loading screen] ACTUALLY BOUGHT, both cuts walked at a verified 4x with my observer switched off, minutes apart: the city draws its first thing 17.9 -> 17.1 s; the first human body is painted 47.9 -> 43.8 s; THE FIRST HUMAN BEING ON SCREEN 59.2 -> 54.4 s; worst single freeze 34.8 -> 33.0 s; FROZEN OF THE FIRST 300 SECONDS 142.7 -> 107.9 s; separate freezes 188 -> 106. Thirty-five seconds of frozen time gone and eighty-two fewer stalls, and it is RUN's. WHAT HAS NOT MOVED IS THE SHAPE: a minute before a human being is on screen, and more than a third of the five minutes still frozen.
-  THE REST: an encounter card arrives at about 02:03 and on this route the fight surface itself was not reached, so I report the card and not a fight. First tappable 3.3 s, 0 page errors, 0 failed requests. 56 fight words still exist in the demo and a player can read ZERO -> COMBAT [start a fight].
-  PRE-PUSH PASS: reply contract 17/0, handoff gate green. Full suite: 107 red at ad23d875 (the suite line); mine is EYES, whose one red is the game-UI finding already bounced to UI as [eyes: bar cut].
-  NEXT: E26 STAYS STANDING, walked on the DEPLOY CUT at 4x, first thing every round. Then the last measurement on the people question: the body's DRAWN SIZE against the screen, because 'painted inside the screen rectangle' is not 'noticed' and at the far zoom a body is a few pixels. Then a route that reaches the build panel, so NO FALSE ZERO can stop being red honestly. E20 [song length] round two is still PAUSED mid-job: measure the handover on the audio clock (song length, gap, restart offset), the bed's dB inside the gap, form sameness, and the gap against the ~3 s floor, with four planted controls. Then E21, E22, E23, E24, all two rounds, school first. E9 runs every round.
 
 UI (ui-kmqmrf): 9/18 LATEST -- *** [no slop] ROUND TEN. I COUNTED THE WRONG THING FOR EIGHT
 ROUNDS. *** TAB: CITY, the walked street, and the demo. Build 9/18d. Record:
@@ -3445,7 +3530,119 @@ archive escape built in from the start so [handoff cut] is unblocked rather than
 THE WARNING FOR EVERY LANE: do not write this file from a copy you read at the start of your round.
 Re-read it immediately before you edit, and check your own block is still there after any rebase.
 
-ANIMATION (animation-lr9y9i): 9/21 (a) LATEST -- *** HOLD ROUND 2, RULE 18. Nothing
+ANIMATION (animation-lr9y9i): 9/21 (b) LATEST -- *** THE WALK GLIDE HAS BEEN DEAD
+SINCE THE STEP BECAME A HOUSE, AND NOBODY KNEW. Cooked two things into VOTE.
+TABS: VOTE for both, CITY for the walk. ***
+
+RULE 22 (Paolo 9/21) is the new law and it is the shape of this round: a making
+lane COOKS EVERY ROUND, registered in the VOTE tab, or the round did not happen.
+"Measure your part" as a round's whole output is dead. Two cooks landed, and the
+measuring rode beside them instead of replacing them.
+
+=== COOK ONE: THE IDLE, REDONE  (1cc165e, in VOTE)
+`idle` is on his ORIGINALS THUMBS DOWN list and it is the most-seen clip in the
+game: every standing person in the city plays it. What he killed was one sine wave
+on two arms, exactly out of phase, forever, with nothing else on the body moving --
+a street of forty people is forty metronomes in lock step.
+THE REDO IS THREE CLOCKS THAT NEVER LINE UP: a real breath (fast in over 0.45 of a
+beat, slow out over 1.15, then held), a weight drift at 0.75x the loop rate so three
+runs against four, and one late head turn that DOES NOT TURN BACK. The turn is rule
+20's shape: the frame is ordinary and one thing in it does not resolve.
+Measured off the sheet he actually looks at, 4 facings x 16 frames:
+    pixels that change each frame   86 -> 128
+    biggest change in one frame    335 -> 519
+    arms a perfect mirror          yes -> no
+    feet move                    never -> never   (IDLE LAW holds)
+NOT IN POSE.idle AND THE ALPHA IS UNTOUCHED (rule 18). The clip is in the record
+verbatim, ready to paste the round he votes it up.
+
+A RIG FINDING THAT CAPS EVERY STANDING CLIP, named not fixed: IDLE LAW broke twice
+building this. Vertical breath in hipOff lifts the feet; lateral weight moves them
+above 0.40, which is the maximum legal lateral hip; and legCompress does the
+OPPOSITE of what it sounds like -- the FEET travel 1-6px and the hip travels 0. So
+A WEIGHT SHIFT OVER PLANTED FEET IS NOT EXPRESSIBLE ON THIS RIG.
+
+=== COOK TWO: HOW A STEP IS DRAWN, and the defect under it
+Row [tape skip] is CLAIMED. Before building any of it:
+
+*** camCell REFUSED ANY MOVE OVER FOUR CELLS AS A TELEPORT. A STEP IS 25. ***
+
+That ceiling was written 8/23, when a step was one cell and the bike's four was the
+biggest thing a beat could move -- its own comment says exactly that. Rule 16 made a
+step a whole lot and nothing connected the two numbers. So every full step has been
+killing its own glide on its first drawn frame: the chip in the drawer says SLIDE,
+the source says SLIDE, and WHAT SHIPS IS GRID, the whole world jumping 275 px in ONE
+frame, twice a second. Measured on the walked city: gliding true on 0 of 60 samples
+across a press, then alive again after.
+
+AND IT BROKE THE WALK UNEVENLY, WHICH IS WHY IT SURVIVED. A press shortened by
+something in the way moves one or two cells, fits under the old ceiling, and glides
+fine. 9 of 12 presses in a suburb are shortened -- WALK NEVER MISSES agrees from its
+own instrument, 15.2 cells a press against a 25 ceiling. So the walk slid when a
+wall was near and teleported when the road was clear, and neither reads as a bug.
+A NUMBER TYPED INTO A GUARD EXPIRES SILENTLY, because a guard that refuses
+everything looks exactly like a feature nobody turned on.
+
+THE THIRD FEEL, TAPE, IS BUILT AND IS THE DEFAULT. The ground holds on the lot he
+left for 55% of the beat, drops through two stations, and lands on the next lot on
+the beat. Measured through the game's own curve at 1 ms, one lot = 275 px:
+    feel     ground positions a beat   moves   biggest single move
+    GRID                           2       1                 275px
+    SLIDE                        273     272                   2px
+    TAPE                           4       3                  94px
+TAPE IS THE SMALLEST HONEST MOVE FROM WHAT SHIPS, NOT THE BIGGEST: it breaks one
+275 px jump into three of 94, where SLIDE would be the large change. That is why
+setting the default is safe under rule 18. His to correct in VOTE.
+The curve is written ONCE; camCell, the seam, the gate and the vote page all read
+that one copy.
+
+=== WHAT I COULD NOT MEASURE, AND I AM NAMING IT INSTEAD OF SHIPPING A FIFTH RULER
+The per-frame ground motion AS DRAWN ON GLASS is not measured. This box clamps a
+headless page to about twenty frames a second, fewer than a beat contains, and a
+ruler that samples slower than the thing it measures cannot count how many times
+that thing moved. Four cuts of that instrument; STOP PRODUCING says the fourth
+version means you already failed, so it is named. That is why [tape skip] is
+CLAIMED and not SHIPPED: its ship test wants the one driver's walk, and I will not
+mark a line shipped off a number I did not take.
+
+=== THE GATES
+NEW: TAPE SKIP (gates/the_step_is_a_tape_skip_gate.js), 24 ok 0 failed, 4 mutations
+caught, registered in the suite. Its load-bearing claim -- "a full step is really
+drawn in flight" -- TOOK FOUR CUTS AND THE SAME MUTATION CAUGHT EVERY WRONG ONE:
+a flag the step sets and only a draw clears; a distance-along that scores a
+completed middle lot as in-flight; an off-lot test that passes on the short steps
+the old ceiling always glided. It carries a vacuous-pass guard: no full-lot step
+seen is a FAIL, not a pass.
+UPDATED: RUN's walk_feel_gate had the SAME expired constant, and its own comment
+already said the bound should be the guard's ceiling before typing 4 out by hand.
+It asks the guard now. 17 passed 3 failed, WHICH IS EXACTLY WHAT IT IS ON CLEAN
+MAIN -- triaged in a worktree, same three claims, none of them mine. One of the
+three improved on my tree anyway: "the camera is between cells" 2.5% -> 22-30%.
+GREEN: WALK NEVER MISSES 19/0 (the half of the ship test I can take), VOTE TAB
+28/0, COOK EVERY ROUND green on this lane, NO SHOTS 4/0, PAGES PUBLISH 18/0.
+Rule 13's honest sentence: pre-push pass green; full suite 107 red at ad23d875,
+none of them named as mine.
+
+=== FOR RUN, NAMED NOT CROSSED
+- The glide block is yours (__WALK_FEEL_SLIDE__, 8/23). The ceiling fix is inside
+  [tape skip] because the row is impossible without it.
+- 9 of 12 presses do not complete a lot. A 25-cell step rarely has 25 clear cells,
+  so whatever the stride depicts has to survive being cut to one or two.
+- A feel he has flipped by hand lives in localStorage and beats the default, so the
+  new default only reaches a phone that has never touched the chip.
+
+=== STILL TRUE, UNCHANGED
+- HC 11 is the one walk camera where a house fits a phone; one lot is 275 px there.
+- The fight gets 112 and the street gets 56 from the same render; CAST_PX stays 56.
+- Two live numbers for a lot: the lattice says 24, step and body say 25.
+
+WHAT IS LEFT OF [redo killed], still CLAIMED, frozen off the play surface: four gun
+frames still draw a detached head; beats two and three are one per-facing problem;
+four clips still snap, worst 12.6 px; POSEHOLD key density.
+
+Nothing [PENDING Paolo].
+
+ANIMATION (animation-lr9y9i): 9/21 (a) -- *** HOLD ROUND 2, RULE 18. Nothing
 pushed to the alpha. ONE PRESS IS TWENTY-FIVE REAL PACES AND THE LEGS DO ONE. TAB:
 ANIMATION, unchanged; no build. ***
 
@@ -4271,6 +4468,102 @@ ALSO STILL OPEN, not draw order: on NE in his own frame
 the right of the shoulders with a visible gap. That is the pose too.
 
 Nothing [PENDING Paolo].
+PEOPLE (people-7h9sfy): 9/21 LATEST -- *** [face at the door] SHIPPED f75eb900.
+WHEN ANYBODY IN THIS GAME TALKED TO YOU, THE ONLY FACE ON SCREEN WAS YOURS. ***
+Rule 19, Paolo 9/20: "text on screen coming from people's voice, and when they
+speak to you it shows the character portrait." The ONE row this lane was un-held
+for under rule 18.
+
+MEASURED WITH A CONTROL BEFORE A LINE OF IT WAS WRITTEN, because "there are no
+faces" is a negative and this lane's standing lesson is that you prove the
+instrument can produce a positive first. On the walked surface: TWO canvases
+total, the world and his own head in the middle of the D-pad ring, and his head
+was 4,096 lit pixels of 64x64. That is the control: a face CAN be drawn on that
+screen. Against it, ELEVEN BODIES, EIGHT DIRECTIONS EACH, AND NOT ONE FACE.
+Somebody speaks ("They handed something over. Saw it.") and no portrait anywhere.
+So the machinery to draw a head on that street existed and had exactly one
+customer: him.
+
+AND EVERY PIECE OF THE ANSWER WAS BUILT ON 8/26 AND NEVER CALLED. The alpha's own
+face block says it about itself: the performance was built and could not be used
+"because only one person in Bohemia had a face... that is why the 8/26 turn ended
+with a gated feature nothing called". faceFor(id) has been sitting there since,
+deterministic, same id same face forever with nothing stored. THIS ROUND IS THE
+CALL. The stranger's head is baked down the PLAYER'S OWN PATH end to end
+(faceFor, the ramp, renderFace, packIdx, decodePlayerFrame), so nothing new draws
+a face and nothing new decodes one. The city asks the alpha ONCE per person over
+a message, by THE ID THE BODY IS DRAWN FROM (one id, one whole person), and the
+head lands round and pixelated in the left of that person's own speech bubble.
+NO FACE, NO SPACE: a person whose head has not arrived yet gets exactly the bubble
+this file drew before, to the pixel. It only fits at all because [a human being]
+moved the bubble off the speaker's face five rounds ago.
+
+RULE 19(e) IN THE SAME COMMIT: THE WALK DIRECTOR OPENED A CARD AND DOES NOT ANY
+MORE. Same approved roster, same words it already held; what changed is WHO SAYS
+IT. A person who is actually drawn says it, in their own bubble, with their face
+beside the words. AND WITH NOBODY ON SCREEN IT FIRES NOTHING AT ALL, which is the
+other half of the rule: spoken by 12:12:900 with a body there, refused outright
+with the drawn list emptied. A moment with no body was a caption pretending to be
+an event.
+
+*** THE MEASUREMENT THAT COST THE MOST, WRITTEN DOWN FOR EVERY LANE: AN ALPHA
+CHANGE CANNOT BE VERIFIED ON THE DEMO. *** The one driver (rule 14g) opens
+BOHEMIA_DEMO.html by default and that file is a BAKED CUT. A CITY change reaches
+it by reference; an ALPHA change does not. The symptom was silent and convincing:
+the ask went out of the city every single time, nothing came back, no error, no
+throw, and the live dispatcher on the demo carried the branch NEXT TO mine because
+it was baked before mine existed. Every piece worked when asked directly in the
+alpha's own window. The driver takes the file:
+open({ file: 'BOHEMIA_ALPHA_0_9.html' }).
+
+*** AND THIS LANE'S OWN OLDER GATE CAUGHT A BUG I HAD JUST WRITTEN: TWO CLOCKS. ***
+The bark slot runs on performance.now (barkTick is called with it, BARK.next is
+now + 4000), so that organ counts milliseconds since page load. The first cut of
+walkSpeak set the bubble's life from ctMinuteNow -- GAME MINUTES, a number like
+360, against a wall clock already past 15,000. So every moment it spoke was
+ALREADY EXPIRED when the next tick looked, and on its way out barkTick pushed the
+next bark 1,500 ms away: the moment was silent AND it silenced the next person
+too. NOTHING THREW AND NOTHING LOOKED WRONG. [a human being], this lane's gate
+from five rounds ago, found it because it counts speech bubbles on the real
+canvas: clean origin/main 2, 3, 1 over three runs; this tree before 0, 2, 0;
+after the fix 3, 3, 3. TWO WRITERS FOR ONE FACT, again, and it is a claim in the
+new gate now.
+
+THE GATE: gates/face_at_the_door_gate.js, 31 claims, DRIVEN ON THE ALPHA. The
+face (baked on demand down his own path, asked once per person, unpacked by his
+own decoder, asked for with the speaker's own id); the bubble (only widens when
+there is really a head; round and pixelated like his own); rule 19(e) (no roadCard
+in the walk director at all, the moment spoken through a drawn body, the roster's
+own line); the glass (the control with no face before it lands, the bake, the draw
+on the real canvas, the round clip, spoken by somebody, and NOTHING when nobody is
+there). Three negative controls, each put back: take the face out of the bubble,
+let the moment speak with nobody, put roadCard back in the director.
+
+RUN THE BROWSER GATES SERIALLY. Measured 9/16 and it holds: eight of them in
+parallel make every timing claim inside them lie.
+
+NAMED WITH A PHOTOGRAPH, NOT TOUCHED, BECAUSE IT IS NOT THIS LANE'S: I shot the
+alpha at boot and it is his 9/20 complaint unchanged -- TWO CARDS STACKED AT THE
+DOOR (DAY 1 BEGINS BEFORE THE DAY / WATCH / NOT NOW, and under it THE METER READER
+with six text buttons and GET UP), NO PERSON, NO BODY, NO FACE. That is RUN
+[no pop ups], the first line of RUN under rule 19.
+
+NEXT: [a name] is CLAIMED 9/21 (the row the coordinator added this round, and it
+is inside this one): the person at his door answers SOMEBODY, 0 of 21 bodies on
+his block have a name. The row says add the second slot to the portrait pipe that
+already reaches the city, do not build a system. Under RULE 22 (Paolo 9/21, cook
+every round) this lane makes a person and REGISTERS IT IN THE VOTE TAB every
+round; names are his, so the name ships draft:true and goes to VOTE as IDENTITY.
+Still held behind the playable cut: [walking companion], [weights shape],
+[rumours travel], [creditor stands], [somebody hires you]. New school row
+[horror crowd] (rule 20h).
+
+[PENDING Paolo], carried, none of them blocking: when a person dies of old age;
+how many game days is a year; who you marry; what a long injury costs to treat;
+the 82-row deed table. Named for other lanes: the wake card at his door is RUN
+[no pop ups]; DERIVED FRESHNESS wipes its own overlay with git clean so it reds on
+any uncommitted work, which is PLUMBER's.
+
 PEOPLE (people-7h9sfy): 9/18 LATEST -- *** [heir moment] SHIPPED f31688fd. THE
 FOLD HANDED A HUNDRED YEARS TO A NEWBORN. *** SUCCESSION-BEAT, coordinator 9/5:
 "an heir inherits the house, the purse, every debt in full, half the standing,
@@ -111061,6 +111354,7 @@ BOHEMIA_THREE_RULERS_AND_TWO_COULD_NEVER_FAIL_8_27_26.txt
 --------------------------------------------------------------------------------
 
       /* __CITY_FEEDBACK__ -- AND WHICH BUILD, WHICH THE CITY HAS NEVER KNOWN. */
+
 
 
 

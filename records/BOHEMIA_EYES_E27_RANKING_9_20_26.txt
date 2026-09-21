@@ -1,0 +1,13 @@
+cut    stamp        frozen_ms  worst_ms   draw_s
+r13za  BUILD 9/13za     85588     32827    16.38
+r14p   BUILD 9/14p      86623     32976     16.9
+r15m   BUILD 9/15m      86896     41364    16.57
+r15s   BUILD 9/15s      86455     32734    16.63
+r16f   BUILD 9/16f      86307     33370    16.87
+r18a   BUILD 9/18a      86230     41219    16.32
+r18c   BUILD 9/18c      86322     40959    16.45
+rnow   BUILD 9/18g      85511     40721    16.23
+
+FROZEN: 85511 to 86896 ms of 90,000 = 95.0% to 96.6%, spread 1385 ms = 1.5% of the window
+least frozen: rnow (BUILD 9/18g)
+worst-freeze range: 32734 to 41364 ms

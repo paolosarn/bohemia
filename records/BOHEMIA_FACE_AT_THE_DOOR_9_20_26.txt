@@ -1,0 +1,166 @@
+BOHEMIA -- FACE AT THE DOOR (9/20/26, PEOPLE lane)
+VAMILY job [face at the door], row THE-PERSON-WHO-SPEAKS-HAS-A-BODY-AND-A-
+PORTRAIT-ON-SCREEN. Rule 19, and the ONE row this lane is un-held for under
+rule 18's hold on the playable cut.
+
+PAOLO 9/20:
+  "you can't just be putting things on the screen and pretend they're the quest
+   ... it has to be people, characters, items to pick up, locations to go, text
+   on screen coming from people's voice, and when they speak to you it shows the
+   character portrait. The whole game enchilada."
+
+================================================================================
+*** WHEN ANYBODY IN THIS GAME TALKED TO YOU, THE ONLY FACE ON SCREEN WAS YOURS ***
+================================================================================
+Measured on the walked street before a line of this was written, with a control:
+
+  canvases on the whole surface        TWO: the world, and the player's own head
+                                       in the middle of the D-pad ring
+  the player's face                    4,096 lit pixels of 64x64. THIS IS THE
+                                       CONTROL: a face CAN be drawn here.
+  the cast                             ELEVEN BODIES, EIGHT DIRECTIONS EACH,
+                                       AND NOT ONE FACE
+  somebody speaks                      "They handed something over. Saw it."
+                                       and no portrait anywhere
+
+So the machinery to draw a head on that street existed and had exactly one
+customer: him.
+
+================================================================================
+AND EVERY PIECE OF THE ANSWER WAS BUILT ON 8/26 AND NEVER CALLED
+================================================================================
+The alpha's own face block says it about itself, in its own words:
+
+  "THE PERFORMANCE WAS BUILT ON 8/26 AND COULD NOT BE USED, BECAUSE ONLY ONE
+   PERSON IN BOHEMIA HAD A FACE ... So 'their portrait pops up' had nothing to
+   pop up. That is the hole this fills, and it is why the 8/26 turn ended with a
+   gated feature nothing called."
+
+faceFor(id) has been sitting there since, deterministic, "same id, same face,
+forever, on any device, with nothing stored". THIS ROUND IS THE CALL. It borrows
+the player's own portrait path end to end -- faceFor, the ramp, renderFace,
+packIdx, decodePlayerFrame -- so a stranger's head is made and unpacked exactly
+the way his is, and nothing new draws a face.
+
+ONE ID, ONE WHOLE PERSON: the id asked for is the id the BODY is drawn from.
+ASKED ONCE PER PERSON, because a bake costs a frame and a face is a fact.
+NO FACE, NO SPACE: a person whose head has not arrived yet gets exactly the
+bubble this file drew before today, to the pixel.
+
+ON THE GLASS: a 64x64 head, drawn at 20px inside a 20px round clip, in the left
+of their own speech bubble, pixelated rather than smoothed. Watched on the real
+canvas, not recomputed, because a cached face that never reaches the screen is a
+feature that silently does nothing.
+
+AND IT ONLY FITS BECAUSE OF [a human being]: the bubble used to be painted ON the
+speaker's face.
+
+================================================================================
+RULE 19(e), DATED THIS ROUND: A TEXT PROMPT IS NOT AN EVENT
+================================================================================
+  "The road and walk directors stop opening cards THIS ROUND; a moment fires only
+   if it has a body on screen or not at all; the tables stay as content waiting
+   for bodies."
+
+THE WALK DIRECTOR OPENED A CARD AND DOES NOT ANY MORE. It still picks the moment
+off his own approved roster, with the words that roster already held; what changed
+is WHO SAYS IT. A person who is actually drawn says it, in their own bubble, with
+their own face beside the words, which is the whole of his sentence.
+
+AND WITH NOBODY ON SCREEN IT FIRES NOTHING AT ALL, which is the other half of the
+rule. Measured both ways on the alpha: spoken by 12:12:900 with a body there,
+refused with the drawn list emptied. A moment with no body was a caption
+pretending to be an event.
+
+================================================================================
+*** WHAT IS STILL WRONG AT HIS DOOR, AND IT IS NOT THIS LANE'S ***
+================================================================================
+I photographed the alpha at boot and it is his 9/20 complaint, unchanged:
+
+  a card    DAY 1 BEGINS BEFORE THE DAY / The family, the table, ten years ago.
+            WATCH / NOT NOW
+  UNDER IT, A SECOND CARD, STACKED
+            "Something came in on your phone overnight. THE METER READER /
+             nobody has picked it up yet / about 4 and a half hours on foot /
+             Pays one battery"
+  and six text buttons
+            Make it a bag instead / Make it a favour instead / Half of it now,
+            before I go / Leave it with somebody who holds things for strangers /
+            I will go first, on something small / I'LL TAKE IT
+  then      GET UP
+
+TWO CARDS STACKED AT THE DOOR, NO PERSON, NO BODY, NO FACE. That is the wake card
+and it is RUN [no pop ups], the first line of RUN under rule 19. Named here with a
+picture rather than touched, because it is theirs.
+
+================================================================================
+AND THE MEASUREMENT THAT COST THE MOST, WRITTEN DOWN FOR EVERY LANE
+================================================================================
+*** AN ALPHA CHANGE CANNOT BE VERIFIED ON THE DEMO. *** The one driver opens
+BOHEMIA_DEMO.html by default and that file is a BAKED CUT of the alpha. A CITY
+change reaches it by reference and an ALPHA change does not.
+
+The symptom was silent and convincing: the ask went out of the city every time,
+nothing came back, no error, no throw. The live dispatcher on the demo carried the
+branch NEXT TO mine and not mine, because it was baked before mine existed. Every
+piece of the bake worked when asked directly in the alpha's own window. Driving
+the alpha instead, the same code worked on the first try.
+
+The driver takes the file: open({ file: 'BOHEMIA_ALPHA_0_9.html' }).
+
+================================================================================
+THE GATE
+================================================================================
+gates/face_at_the_door_gate.js, 28 claims, driven on the ALPHA.
+  the face    baked on demand by the player's own faceFor/renderFace/packIdx,
+              asked once per person, unpacked by his own decoder, and asked for
+              with the speaker's own id
+  the bubble  only widens when there is really a head, and the head is round and
+              pixelated like his own
+  rule 19(e)  no roadCard in the walk director at all; the moment is spoken
+              through a drawn body; it says the roster's own line
+  the glass   the control (no face before it lands), the bake, the draw on the
+              real canvas, the round clip, spoken by somebody, and nothing at all
+              when nobody is there
+
+NEGATIVE-CONTROLLED, each put back:
+  take the face out of the bubble      RED on the glass claims
+  let the moment speak with nobody     RED on the other half of rule 19(e)
+  put roadCard back in the director    RED on the no-card claim
+
+================================================================================
+*** AND MY OWN OTHER GATE CAUGHT A BUG I HAD JUST WRITTEN: TWO CLOCKS ***
+================================================================================
+The bark slot runs on performance.now(): barkTick is called with it and BARK.next
+is set with `now + 4000`, so that organ counts MILLISECONDS SINCE PAGE LOAD.
+
+The first cut of walkSpeak set BARK.until from ctMinuteNow() -- GAME MINUTES, a
+number like 360 against a wall clock already past 15,000. So every moment it
+spoke was ALREADY EXPIRED when the next tick looked, and on its way out barkTick
+pushed the next bark 1,500 ms away. The moment was silent AND it silenced the
+next person too.
+
+NOTHING THREW AND NOTHING LOOKED WRONG. [a human being], this lane's own gate
+from five rounds ago, is what found it, because it counts speech bubbles on the
+real canvas:
+  clean origin/main   2, 3, 1 bubbles over three runs
+  this tree, before   0, 2, 0
+  this tree, after    3, 3, 3
+TWO CLOCKS IN ONE FILE, and the one I reached for is the one the rest of the
+street uses for everything except this. It is a claim in the new gate now.
+
+================================================================================
+MEASURED AND NOT FIXED
+================================================================================
+THE WAKE CARD IS RUN'S, and it is what he actually meets at the door. Photographed
+above.
+
+THE FACE IS THE ONE THAT EXISTS, per the row: PORTRAIT redraws it when that chat
+opens. The haircut and colours come from faceFor's own deterministic spec; whether
+they match the BODY's clothes is PORTRAIT's and CHARACTER's to answer and is not
+claimed here.
+
+RULE 18 OBSERVED: this lane is held except this row, and nothing else was touched.
+
+TAB: CITY, the walked street, and the alpha. Walk until somebody says something
+and their face is there beside the words.
