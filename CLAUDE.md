@@ -89,7 +89,7 @@ laws/BOHEMIA_ADDENDUM_THE_PLAYTEST_DISPATCH_8_25_26.md, laws/BOHEMIA_ADDENDUM_TH
 - HAIR AT FOUR TIMES THE PIXELS -> laws/BOHEMIA_LAW_HAIR_AT_FOUR_TIMES_THE_PIXELS_8_25_26.md | gate hair_gate.js
 - THE BORDER IS ONE PIXEL WHERE HE SEES IT -> laws/BOHEMIA_ADDENDUM_THE_BORDER_IS_ONE_PIXEL_8_16_26.md | gate border_gate.js
 - BATTERIES ARE THE MONEY, AND A COMBAT TILE IS A HOUSE
-- NO DAMAGE BEFORE THE DIAL. EVER.
+- NO DAMAGE BEFORE THE DIAL. EVER. (AMENDED 9/22 by his words: routine hits inside reach cost one with no dial; the dial is for the important shot and owns every number over one; laws/BOHEMIA_ADDENDUM_THE_FIGHT_IS_BATTLE_BROTHERS_QUICKER_9_22_26.md)
 - A QUEST IS PEOPLE, PLACES AND THINGS, NEVER A CARD; NOTHING POPS UP; TEXT COMES FROM A MOUTH WITH A PORTRAIT (Paolo 9/20, LOCKED) -> laws/BOHEMIA_LAW_A_QUEST_IS_PEOPLE_PLACES_AND_THINGS_9_20_26.md | gate OWED (no player-facing prose outside the phone without a speaker and a portrait)
 - A FAMILY LOOKS LIKE A FAMILY -> laws/BOHEMIA_LAW_A_FAMILY_LOOKS_LIKE_A_FAMILY_8_31_26.md | gate family_gate.js
 - ANALOG HORROR FOR EVERY PIXEL AND EVERY SOUND, until the game is done (Paolo 9/20, LOCKED) -> laws/BOHEMIA_LAW_ANALOG_HORROR_FOR_EVERY_PIXEL_AND_EVERY_SOUND_9_20_26.md | gate OWED (DIRECTION's bible becomes a reference sheet of reference_check_gate.py; until then THE FIGHT VERDICT and EYES E28 by hand)
@@ -97,6 +97,7 @@ laws/BOHEMIA_ADDENDUM_THE_PLAYTEST_DISPATCH_8_25_26.md, laws/BOHEMIA_ADDENDUM_TH
 - ALL THE UI LOOKS 3-D: built with light and form, delivered as pixels; a chat named 3-D is the UI chat (Paolo 9/20) -> records/BOHEMIA_PAOLO_VOTE_IN_THE_ALPHA_ONLY_AND_THE_3D_CHAT_IS_UI_9_20_26.md | gate OWED (UI)
 - THE GROUND MAY ZOOM, THE PERSON MAY NOT: one pixel size (112 box, ~100 px painted) on every walked and fought surface; the camera moves the ground, never his size (coordinator 9/21, from four lanes' measurements) -> laws/BOHEMIA_LAW_THE_GROUND_MAY_ZOOM_THE_PERSON_MAY_NOT_9_21_26.md | gate body_scale_gate.js (street); the fight leg OWED to COMBAT [fight looks]
 - EVERY CHAT HAS AN ANALOG HORROR LINE (Paolo 9/21) -> laws/BOHEMIA_LAW_ANALOG_HORROR_FOR_EVERY_PIXEL_AND_EVERY_SOUND_9_20_26.md section 9
+- THE FIGHT IS BATTLE BROTHERS, QUICKER, AND THE DIAL IS FOR THE IMPORTANT SHOT: reach lit on the tiles (pistol 1, rifle 2, scope 3), a turn is a beat, a routine hit costs one with no dial, the dial for the shot that matters (Paolo 9/22, LOCKED; amends NO DAMAGE BEFORE THE DIAL) -> laws/BOHEMIA_ADDENDUM_THE_FIGHT_IS_BATTLE_BROTHERS_QUICKER_9_22_26.md | gate OWED (COMBAT [fight feel] ship test in the suite)
 - COOK EVERY ROUND: a making lane ends every round with a real thing he can hear or see, registered in the VOTE tab; the rule-18 hold is on the play surface, never on the making; a round that only checks did not happen (Paolo 9/21, LOCKED: "I need to be seeing them cooking up more, every time, not never") -> laws/BOHEMIA_ADDENDUM_COOK_EVERY_ROUND_9_21_26.md | gate OWED (PLUMBER [cook gate] reads the vote registry per lane per round)
 
 ## HOW PAOLO WORKS

@@ -34014,6 +34014,15 @@ cannot find himself (LIFE+CITY [see me], un-held); cannot find NOTES, the bar ov
 first); APPROVED the phone and the writing (WORDS volume unlocked); no loading screen (RUN next);
 analog horror not visible yet (held in VOTE, said plainly); the peach dots are lamps on live
 circuits, the tap readout will say so. Break list updated. Nothing to judge.
+THEN (fb) PAOLO 9/22: "I don't need the whole world... I need the combat to feel like Battle
+Brothers, a pistol a one-tile weapon, an assault rifle a two-tile weapon, quicker and funner,
+infused with Rogue Fable... restart combat from the ground up? ... the Dead Eye Dial for
+important parts." (records/BOHEMIA_PAOLO_COMBAT_LIKE_BATTLE_BROTHERS_QUICKER_9_22_26.md) RULE 23 + laws/BOHEMIA_ADDENDUM_THE_FIGHT_IS_BATTLE_BROTHERS_QUICKER_9_22_26.md: push the demo out (rule 18i); item 3 is
+looks AND feels; reach lit on the tiles; no restart of the board, the rules rebuilt on it (reach
+you can see, a turn is a beat, the dial only when it matters); NO DAMAGE BEFORE THE DIAL amended
+(a routine hit costs one, the dial for the important shot). COMBAT [fight feel] second line
+un-held; UI [fight hud] lights reach; DIRECTION's verdict gains a FEEL column; PLUMBER [fight
+headroom] is the floor for quicker. CLAUDE.md law list. Nothing to judge.
 
 COORDINATOR: 9/4 (ba) -- *** THE MEETING HALL:
 VAMILY.md's front page now carries every rule, and every chat re-reads it every time
