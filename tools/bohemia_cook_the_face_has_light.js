@@ -30,6 +30,13 @@
  *   THE FACE STILL HOLDS (rule 6, THE STILL FACE). Nothing here animates, nothing
  *     performs; it is form, not expression.
  *
+ * REFERENCE CHECK (the 9/4 standing duty; added by DIRECTION 9/21 at the seam --
+ * this tool shipped without one and the gate caught it, second tool this stretch):
+ * the rulers are AH-01 (the bible: rule 4 the light was in the room, rule 6 the
+ * still face, rule 10 baked never shaded -- the tool's own header already argues
+ * from all three) and FACE-01 with FACE-02 (the portrait construction the lit
+ * form must not break). Both resolve in the reference library index.
+ *
  * RIG CHECK (RIG IS LAW): renders and reads. No joint, no bone, no painted pixel touched,
  * and IT DOES NOT CHANGE THE SHIPPED RENDERER -- rule 18 keeps code off the play surface
  * and rule 15 says he sees it in the VOTE tab first. The player's approved face is not

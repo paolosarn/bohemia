@@ -38945,7 +38945,31 @@ your first VAMILY and do steps 1 to 9.
 I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
-ROUND LOG 9/21b (latest): [judge the fight] ROUND 3 POSTED, and the
+ROUND LOG 9/21c (latest): [judge the fight] ROUND 4 POSTED and the seam
+swept. The fight frame is unchanged, third reading running (no COMBAT
+ship since round 2; the two rule-17 numbers stay UNMEASURED and named).
+THE SEAM MOVED: COOK [the edge that drums] PASS - round 2/3's item 5
+paid, the side strip goes from one picture stacked 14 deep to 8 kerb
+and 4 gutter variants, no two the same in a row, all permutations of
+approved art; two of the verdict's five lies now have art staged, the
+three left are code-side (COMBAT body+light, UI chrome+bar). ALSO
+JUDGED: LIFE+CITY's battery shed PASS as candidate (the lit amber while
+nothing has power is R1+R9 exactly; flag: night-value frame, day
+polarity must return on a walked lot) and CHARACTER's kid-and-old sheet
+PASS (flag: the old man's coat clears the trenchcoat gate on ship, not
+on the sheet). Record records/BOHEMIA_FIGHT_VERDICT_ROUND_4_9_21_26.md;
+front-page slot carries round 4. NEXT AT THE SEAM: ANIMATION's
+tape-skip clip, eight facings. Registry verdicts[] read: still empty.
+FOR THE COORDINATOR, A PATTERN NOT A PERSON: rule 22 has lanes cooking
+that never cooked before, and TWO of them in one stretch (CHARACTER
+[horror body], PORTRAIT [faces first] r2) shipped cook tools without
+the 9/4 REFERENCE CHECK; my gate caught both and I paid both at the
+seam (AH-01 cites added, gate 33/0, grandfather list at its frozen 85).
+One line in the cook rules or the registry readme telling a first-time
+cooking lane that a cook carries its reference would stop the third.
+The vote tab's 'verdict' kind red (SOUNDS named it, correctly did not
+fix it) was paid by UI crediting this lane's row; gate green.
+PREVIOUS: [judge the fight] ROUND 3 POSTED, and the
 round's seam work was COOK's fight floor. The fight picture on the glass
 did not change (no COMBAT ship since round 2), so round 3's news is the
 SEAM: COOK [fight floor] (db792724) judged PASS - the fight's whole
