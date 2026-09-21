@@ -48,8 +48,9 @@
 #      naming the speaker never turns a line into narration.
 #
 #   COUNT, KEPT CURRENT: 658 entries when this block was written (9/20). 670 after
-#   round 48 added twelve, all twelve in the role-place format above, so the bullet
-#   count is unchanged at 176 and the gap can now only shrink.
+#   round 48's first half added twelve; 678 after its second half added eight. All
+#   twenty are in the role-place format above, so the bullet count is unchanged at
+#   176 and the gap can now only shrink.
 
 ## A. THE SELLER HAS A VIEW ABOUT TOMORROW
 ## (the finding of the day: a refusal, not a price. Every line buys a beat
@@ -3833,4 +3834,52 @@ EEEEEEEEEE12  a woman who lost a house to one, years back        draft:true
   names WHO is talking and WHERE they are standing, which is the format the
   contract at the top of this file now requires of every future entry.
 - Spanish register: 1 of 12 lines, 8%, under the 15% he set on 8/26. One word
+  inside an English sentence, not respelled, counted while written.
+
+## GGGGGGGGGG. THE FEE GOES TO THE WRONG PLACE
+## (round 48 round two. The form is WORDS' and is not rewritten here. These are
+##  people around it, and not one of them explains it. Role, place, situation.)
+
+GGGGGGGGGG1  a man who has paid it, on his own step        draft:true
+    "I paid it. Took it down to the office and the office is a wall now."
+
+GGGGGGGGGG2  his brother, same step, not asking again      draft:true
+    "So who took it."
+
+GGGGGGGGGG3  a woman at a tap, to somebody holding one     draft:true
+    "That's not who turns it back on. That hasn't been who turns it back on
+     for a long time."
+
+GGGGGGGGGG4  the same woman, asked who is                  draft:true
+    "Look at whose street you're standing on, mijo."
+
+GGGGGGGGGG5  an old man with a folder of them              draft:true
+    "Every one of these is correct. That's the part."
+
+GGGGGGGGGG6  a young runner, handed one, not impressed     draft:true
+    "It's a piece of paper about a thing that used to happen."
+
+GGGGGGGGGG7  a collector, at a door, about a different debt  draft:true
+    "No, no. Mine's not paper. I'm the paper."
+
+GGGGGGGGGG8  a neighbour who watched the collector leave   draft:true
+    "That one you pay. The one in the drawer you don't."
+
+## HHHHHHHHHH. WHAT IS NOT HERE, ON PURPOSE (round 48 round two)
+
+- No line contains a number, an amount, a fee, a date or a count. The round is
+  entirely arithmetic and not one figure is spoken.
+- No line rewrites, quotes or corrects the notice. WORDS shipped that form this
+  round and it is used as written; a second version of it would be two lanes
+  answering one question.
+- No line explains that the payee is wrong, why the office cannot take the fee,
+  or who holds the wire. GGGGGGGGGG4 points and stops. Nobody in Bohemia is wise.
+- No line names a faction, a street, a town or the office. MAP LAW, and naming
+  the body that ran this valley is his.
+- No line has the player speaking, and nothing tells him what to do with a paper.
+- No line decides that the paper ever bites, that anything can be taken for it,
+  or that a faction can pick up a stranger's debt. Section 7 refused all three.
+- No line is written for a card or a readout: rule 19(a). All eight name WHO is
+  talking and WHERE they stand, per the contract at the top of this file.
+- Spanish register: 1 of 8 lines, 13%, under the 15% he set on 8/26. One word
   inside an English sentence, not respelled, counted while written.

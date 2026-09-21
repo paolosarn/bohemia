@@ -949,7 +949,7 @@ your block top to bottom and confirm every line in it is yours.
 And this file is now ~88,000 lines carrying NINE ECONOMY blocks, most of them
 stale copies of this one. That is a real defect in a file every lane reads every
 round. It is a job for the coordinator to place (18 PLUMBER's remit), not
-something a lane should do to another lane's block.=== ROUND 36 REPORT: [first ten] SHIPPED ====== ROUND 37 REPORT: [carry cost] SHIPPED ====== ROUND 38 REPORT: [old price] SHIPPED ====== ROUND 39 REPORT: [protection court] SHIPPED ====== ROUND 40 REPORT: [how many pockets] SHIPPED ====== ROUND 41 REPORT: [who replaces you] SHIPPED ====== ROUND 42 REPORT: [the bailiff] SHIPPED ====== ROUND 43 REPORT: [double up] SHIPPED ====== ROUND 44 REPORT: [first building] SHIPPED ====== QUEUE EMPTY. 44 OF 44 SHIPPED. THE PILE IS FOLDED INTO ONE MASTER. ====== QUEUE STILL EMPTY. HE PLAYED IT, AND THE ONE THING THIS LANE GOT BUILT AND GOT WRONG IS CORRECTED. ====== ROUND 45 REPORT: [first sixty] SHIPPED ====== ROUND 46 REPORT: [daily radius] SHIPPED ====== ROUND 47 REPORT: [who owns the water] SHIPPED ====== QUEUE EMPTY. THE FOLD: 45, 46 AND 47 ARE IN THE MASTER, AND FOLDING THEM FOUND THREE THINGS. ====== ROUND 48 REPORT: [who still bills] ROUND ONE OF TWO SHIPPED, THE CLAIM STAYS. ===
+something a lane should do to another lane's block.=== ROUND 36 REPORT: [first ten] SHIPPED ====== ROUND 37 REPORT: [carry cost] SHIPPED ====== ROUND 38 REPORT: [old price] SHIPPED ====== ROUND 39 REPORT: [protection court] SHIPPED ====== ROUND 40 REPORT: [how many pockets] SHIPPED ====== ROUND 41 REPORT: [who replaces you] SHIPPED ====== ROUND 42 REPORT: [the bailiff] SHIPPED ====== ROUND 43 REPORT: [double up] SHIPPED ====== ROUND 44 REPORT: [first building] SHIPPED ====== QUEUE EMPTY. 44 OF 44 SHIPPED. THE PILE IS FOLDED INTO ONE MASTER. ====== QUEUE STILL EMPTY. HE PLAYED IT, AND THE ONE THING THIS LANE GOT BUILT AND GOT WRONG IS CORRECTED. ====== ROUND 45 REPORT: [first sixty] SHIPPED ====== ROUND 46 REPORT: [daily radius] SHIPPED ====== ROUND 47 REPORT: [who owns the water] SHIPPED ====== QUEUE EMPTY. THE FOLD: 45, 46 AND 47 ARE IN THE MASTER, AND FOLDING THEM FOUND THREE THINGS. ====== ROUND 48 REPORT: [who still bills] ROUND ONE OF TWO SHIPPED, THE CLAIM STAYS. ====== ROUND 48 ROUND TWO: THE NUMBER. Q48 COMPLETE, 48 OF 48 SHIPPED. ===
 RECORD: records/BOHEMIA_ECONOMY_DAY_47_NOBODY_OWNS_THE_PUMP_THEY_OWN_THE_DISTANCE_9_20_26.md (207 lines)
 BANK:   banks/BOHEMIA_ECONOMY_TEST_LINES_9_5_26.md sections ZZZZZZZZZ-DDDDDDDDDD, +16 lines, 670 draft:true total
 TAB:    NOT IN A TAB YET. MODE: RESEARCH. No engine code touched. Rule 14: never the demo;
@@ -1249,6 +1249,113 @@ part that knows the edge of its own authority -- and it means the design questio
 asks was already decided and written down, and it took a research round to find that out
 because no gate asks WHAT KINDS OF COST CAN EXIST.
 
+
+=== ROUND 48 ROUND TWO, [who still bills] Q48, THE NUMBER. THE ROW IS COMPLETE. ===
+RECORD: records/BOHEMIA_ECONOMY_DAY_48_ROUND_TWO_THE_PAPER_NAMES_THE_WRONG_PAYEE_9_21_26.md
+        (281 lines). Round one is the school half, same row, same commit trail.
+BANK:   banks/BOHEMIA_ECONOMY_TEST_LINES_9_5_26.md sections GGGGGGGGGG-HHHHHHHHHH, +8 lines,
+        678 entries. All eight in the role-place format, so the 176 bullet entries owing a
+        WHO have not grown for two rounds running.
+TAB:    NOT IN A TAB YET. MODE: RESEARCH. No engine code touched. Rule 14: never the demo.
+        Rule 15: no thumbs. Rule 18(b): research lanes continue. RULE 22 (Paolo 9/21) BINDS
+        MAKING LANES AND NAMES TWELVE OF THEM; ECONOMY IS NOT ONE, and this round did not
+        invent a cook to look busy.
+GATES:  pre-push pass GREEN, all eight -- economy 13/0, purse 28/0, payday 40/0, attempt
+        15/0, canon rot 13/0, demo blockers 22/0, language 83/0, handoff 8/0. Full suite:
+        107 red at ad23d875, mine are: none. The suite line has not moved since 9/14.
+
+WORDS SHIPPED THE PAPER WHILE THIS ROW WAS HALFWAY THROUGH, and this lane used it as written
+rather than writing a second one (REUSE-FIRST). Their form: METER SERVICES, DISTRICT FOUR,
+issued twice in English and Spanish, carrying source, what happened, the amount, the
+reconnection fee, how to dispute and the office hours. Their own note is round one's reading
+arrived at from the other side: "Everything on this form is correct and none of it is
+reachable. Nobody wrote a scary sentence."
+
+*** 1. THE CADENCE: EVERY CLOCK YOU PUT IT ON GIVES AN ABSURD NUMBER. ***
+FIRST, A CONTROL NOBODY HAD RUN: the day loop says a waking day is 06:00 to 22:00 = 960
+game-minutes. THE STEP IS A HOUSE says a lot is 18 m, about 2 game-minutes, so a waking day
+holds 480 steps. ROUND 46 SHIPPED 478 FROM THE WALKING SPEED AND NEVER CHECKED IT AGAINST THE
+CLOCK. They agree to 956 of 960 minutes, 99.6%, and nobody had put the two side by side.
+THEN THE CADENCE, at one step per beat at 120 BPM:
+    a game day of walking            478 steps = 239 s = 4.0 REAL MINUTES
+    a 30-day month of walking         120 real minutes = 2.0 REAL HOURS
+    game days inside HIS FIVE MINUTES 1.26
+    *** MONTHLY NOTICES IN THE FIVE MINUTES   0 ***
+    monthly notices before day 67 (round 19, where the world runs out of things to say)  2
+    on the FEED's clock instead (life post every 8 beats = 4 real seconds)   75 in five minutes
+A monthly notice never appears in the only five minutes anybody measures and appears TWICE in
+the whole lifespan of the content we have. The feed's clock makes it a ticker, which the feed
+module's own header forbids by name. SO THE PAPER IS NOT ON A CLOCK. IT IS PLACED, LIKE A
+THING IN A ROOM: the first one is ALREADY IN THE HOUSE on the first morning, the rest are
+found in other houses. That is what the real record describes (Flint's households had two
+years of arrears before the letters; NOBODY IN THE RECORD EVER WATCHED THE FIRST ONE ARRIVE),
+and it is rule 19 exactly: a thing, in a place. No timer, no table, no cadence, nearly free.
+
+*** 2. THE BITE: THE PAPER IS MOSTLY BLUFF, AND IT IS MOSTLY BLUFF EVEN IN NORMAL TIMES. ***
+    US RESIDENTIAL ELECTRIC 2024, the first federal dataset of its kind:
+      94.9 MILLION final disconnect notices -> 13.5 MILLION actual cuts     14.2%  1 in 7
+    GREECE 2012: 1.5m bills past due -> 250,000 past the 80-day cut line    16.7%  1 in 6
+    DETROIT 2014 in bankruptcy: ~90,000 delinquent -> 26,000 shutoffs
+      (looser: the denominator is delinquent accounts, not final notices)   28.9%  1 in 3.5
+    OURS, ROUND 42, SHIPPED: a collector succeeds a fifth to a third        20-30% 1 in 4
+Four numbers between one in seven and one in three and a half, in one normal American year and
+two collapses, and our own shipped number sits inside the band without having been aimed at
+it. THE NUMBER THAT MATTERS IS THE BIG ONE: 94.9 MILLION NOTICES. The notice is the most
+common object the system makes and the cut is the rare one, WHILE THE OFFICE IS FULLY STAFFED
+AND SOLVENT. So in our valley the dead office's paper does not bite at a low rate. IT IS ZERO,
+because nobody is left to carry it out, and that is the only rate this round asserts. The
+LIVING landlord's paper still bites at round 42's one in four. Two pieces of paper, one from
+somebody and one from nobody, and learning to tell them apart is the lesson. Nothing explains
+it: the collector knocks and the office does not.
+
+*** 3. THE FINDING: THE PAPER NAMES THE WRONG PAYEE. ***
+WORDS' form says "Reconnection fee: one battery". Correct format, correct law, correct amount,
+AND THE OFFICE CANNOT TAKE IT. Round 47 measured that a plant runs only if the street it
+fronts is live, streets are held ground, and in every valley with running water ONE FACTION
+HOLDS ALL OF IT. Round one measured that the only sender in this game is a faction on its own
+ground. SO THE LIVE CLAIM ON THE WIRE BELONGS TO WHOEVER HOLDS THE STREET, AND THE PAPER NAMES
+AN OFFICE. Not a lie and not a trick: the form was printed when the office was the payee and
+there is nobody left to update it. THE BILL IS CORRECT ABOUT A WORLD THAT ENDED. It is the
+analog horror law's own first rule for free -- the frame is ordinary and one thing in it is
+wrong -- said plainly, never explained, nobody in the game remarks on it (20(g): a vibe, not a
+thesis). And it is the cheapest teaching device this game could have: a player who pays the
+paper has learned nothing; a player who works out that the battery goes to the faction on the
+street has learned how the valley works from a piece of paper that never spoke to him.
+
+*** 4. COSTED, ITEM BY ITEM, so a builder can price it without re-reading either round. ***
+    NEW PURSE VERBS          0   the purse REFUSES a fifth and says why (round one)
+    NEW TABLES OR SCHEDULES  0   it is placed, not timed
+    NEW NUMBERS FOR PAOLO    0   amount and fee are ONE, from his 8/15 law, already written
+    NEW WORDS                0   WORDS' form exists, draft:true, issued twice
+    THE OBJECT               1   a thing in a house, picked up and kept
+    THE FEED LINE            1   the feed concats each source in one line; an arrival is a
+                                 fourth. THE FORM IS NOT A FEED POST: a post scrolls away, a
+                                 form is opened. The feed says one arrived; the phone holds it
+    THE DOOR ALREADY CUT     1   rentOn's camp fallback (round one), unreachable today
+Everything expensive was already paid for by somebody else and the halves have never met.
+
+PENDING 43 IS STRENGTHENED AND DELIBERATELY NOT CLOSED. relight() is still built, free, zero
+callers, RELIGHT still null. Round 47 put this lane's position on the record as ONE; WORDS has
+now independently written ONE on the form, from the law, without reading the pending. TWO
+LANES, TWO ROUTES, SAME ANSWER, AND NEITHER DECIDED IT. That is evidence the default is right
+and not a reason to close it, because what makes it his is not the number, it is that a free
+thing becoming a charged thing is a change he should meet in play. Nothing is blocked either
+way.
+
+WHAT ROUND TWO DID NOT DECIDE: who the office was (canon, his; WORDS took the same care and
+used roles); what lighting a pump costs (pending 43 above); whether the paper can EVER be made
+to bite (zero is the reading of a DEAD sender, not a rule that nothing in the valley may act on
+an old debt -- whether a faction can pick up a stranger's paper is pending 41 wearing a
+different hat and it is the same ruling); and where in a house the first one sits, which is a
+placement and belongs to whoever builds the room.
+
+THE PROJECT-LEVEL HOLE, INSTANCE 34, AND IT IS THE GOOD KIND FOR ONCE: the day loop's 960
+waking minutes and round 46's 478-step day are two independent derivations of one fact, they
+agree to 99.6%, and nothing in the repo has ever compared them. The same gate round 46 asked
+for about a DISAGREEMENT (the law's 24x against the beat's 240x) would have delivered good
+news here. A gate that re-derives every stated ratio from the values beside it is now wanted
+by this lane twice, for opposite reasons.
+
 [PENDING Paolo] -- for the coordinator, one at a time:
   *** 1 TO 9 ARE RULED. The coordinator decided all nine on 9/13 under EVERYTHING IS
   A THUMB, in records/BOHEMIA_RULING_NINE_DEFAULTS_THE_ECONOMY_WAS_CARRYING_9_13_26.md.
@@ -1427,19 +1534,24 @@ because no gate asks WHAT KINDS OF COST CAN EXIST.
      is the kind of change he should meet in play rather than read about. Nothing
      is blocked on it; WORLD can build it under his existing law.
 
-NEXT IN THIS LANE: ROUND TWO OF Q48 [who still bills], AND THE CLAIM IS STILL ON THE BOARD.
-The row says two rounds, school then the number, and round one is the school. ROUND TWO COSTS
-IT: what the paper says (with WORDS Q27 round two, which writes the first notice and is
-running beside this), how often one turns up, whether it ever carries a weapon, and whether
-the door round one found -- rentOn's camp fallback, which already bills a sender with no town
-and which nothing reaches today -- is the landing or whether the paper is a separate object
-with no charge behind it at all. THE ONE RULE FOR ROUND TWO IS ROUND 38'S: that round had the
-mechanism measured in its own section 1 and shipped a number anyway, and the number broke his
-tutorial. The shape in section 4 of the round 48 record is the mechanism. Cost it, do not
-re-derive it, and do not hand WORLD a number the record does not carry.
-Read against records/BOHEMIA_ECONOMY_MASTER_WHAT_FORTY_FOUR_ROUNDS_FOUND_9_15_26.md, which
-carries all 47 earlier rounds, both banners and the six convergences. Round 48 is not folded
-into it yet; fold it when the row closes, not between its two halves.
+NEXT IN THIS LANE: QUEUE EMPTY. Q1 THROUGH Q48 ARE ALL SHIPPED and the board has no OPEN line
+for ECONOMY. This lane HOLDS until the coordinator puts one up; rule 10 forbids a lane
+inventing a job and rule 22 does not change that, because it binds MAKING lanes and names
+twelve of them, and ECONOMY is not one.
+IF THE QUEUE IS STILL EMPTY NEXT ROUND, the first thing to do is FOLD ROUND 48, BOTH HALVES,
+INTO records/BOHEMIA_ECONOMY_MASTER_WHAT_FORTY_FOUR_ROUNDS_FOUND_9_15_26.md (which is titled
+WHAT FORTY-SEVEN ROUNDS FOUND, keeps its FORTY_FOUR filename on purpose because records and
+the board cite that path, and already carries both banners, the six convergences and the rules
+17-20 section). The fold is a STANDING JOB from CLAUDE.md ("piles rot; masters stay clean"),
+not a board job, and it should be harvested by script the way the last two were. Round 48 adds
+a row to section 1, changes the routing counts in section 2, adds at least three numbers to
+section 3 (the 14.2% bluff rate, the zero-bite rate for a dead sender, the 0-and-2 cadence),
+and belongs in section 0 as a SEVENTH convergence candidate: THE PAPER IS MOSTLY BLUFF, which
+now has four independent numbers behind it including this lane's own round 42.
+After that, the honest candidates, none of them a job: the 176 bank entries that still owe a
+WHO under rule 19; the four things the master's section 4 leaves with other lanes and nobody
+has been told are there; and a pass over the thirty-three pendings saying which are now
+answered by rulings already made.
 
 
 ================================================================================
