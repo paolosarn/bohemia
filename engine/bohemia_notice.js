@@ -481,6 +481,104 @@
   }
 
   /* --------------------------------------------------------------------------
+     *** THE NOTICE TO QUIT. *** (9/21, row [block strikes].)
+
+     Glasgow 1915: 25,000 families stopped paying and won in nine months, and the
+     mechanism was never the money, it was THE VACANCY -- bailiffs driven from
+     doors, empty flats picketed so nobody could take them. The thing the bailiff
+     carried to the door was a NOTICE TO QUIT, and it is the oldest document in
+     this file's family: a landlord's demand for possession, in a form fixed by
+     law, served on a person who is standing in the doorway.
+
+     Its real slots are fewer than a utility's and colder for it: who is served,
+     what premises, on what ground, the date they must be out, and the warning
+     that the owner may go to a court if they are not. OURS KEEPS EVERY ONE AND
+     THE GROUND IS ONE BATTERY.
+
+     AND THE HORROR IS NOT IN THE DOCUMENT, IT IS IN WHO ANSWERS IT. Every other
+     notice in this file points at an office nobody is in. This one points at a
+     COURT, and the whole premise of the economy this lane built is that there is
+     no court -- "we built the courthouse and never issued a loan" is the board
+     row this document belongs to. The form threatens you with a building that
+     is not there. It never says so. The block standing in the doorway is the
+     only thing the threat actually meets.
+
+     facts = { at, street, holder (who is serving it), owed, day, clock,
+               out (days until they must be out) }
+     -------------------------------------------------------------------------- */
+  function toQuit(facts) {
+    facts = facts || {};
+    var served = stamp(facts.day, facts.clock);
+    if (!served) return { issued: false, reason: 'NO_CLOCK' };
+
+    var where = facts.street ? String(facts.street).toUpperCase() : null;
+    var cell = (facts.at && facts.at.length === 2) ? (facts.at[0] + '-' + facts.at[1]) : null;
+    if (!where || !cell) return { issued: false, reason: 'NO_ADDRESS' };
+
+    /* WHO IS SERVING IT IS NOT OPTIONAL. An eviction notice with no landlord on
+       it is not a notice, it is a threatening letter, and this module does not
+       make those. Read off the turf, never typed. */
+    var by = facts.holder ? String(facts.holder).toUpperCase() : null;
+    if (!by) return { issued: false, reason: 'NO_LANDLORD' };
+
+    var one = theOne();
+    var owed = typeof facts.owed === 'number' ? facts.owed : one;
+    if (typeof owed !== 'number') return { issued: false, reason: 'NO_AMOUNT', table: 'PAYOUT' };
+
+    var days = (facts.out >= 0) ? (facts.out | 0) : WINDOW.finalDays;
+    var out = stamp((facts.day | 0) + days, facts.clock);
+    var B = function (n) { return n + (n === 1 ? ' BATTERY' : ' BATTERIES'); };
+    var Bes = function (n) { return n + (n === 1 ? ' BATERIA' : ' BATERIAS'); };
+
+    var slots = {
+      by: by,
+      premises: where + ' ' + cell,
+      ground: 'ARREARS OF ' + B(owed),
+      out: out.text,
+      court: 'IF POSSESSION IS NOT GIVEN UP THE OWNER MAY APPLY TO A COURT.',
+      issuedOn: served.text
+    };
+    var missing = [];
+    for (var k in slots) if (!slots[k]) missing.push(k);
+    if (missing.length) return { issued: false, reason: 'MISSING_SLOT', missing: missing };
+
+    var en = [
+      by,
+      'NOTICE TO QUIT',
+      '',
+      'PREMISES: ' + slots.premises,
+      'SERVED: ' + slots.issuedOn,
+      '',
+      'YOU ARE REQUIRED TO GIVE UP POSSESSION OF THESE PREMISES ON ' + slots.out + '.',
+      '',
+      'GROUND: ' + slots.ground + '.',
+      '',
+      slots.court,
+      '',
+      'THIS NOTICE IS ISSUED IN ENGLISH AND IN SPANISH.'
+    ];
+    var es = [
+      by,
+      'AVISO DE DESALOJO',
+      '',
+      'DOMICILIO: ' + slots.premises,
+      'ENTREGADO: DIA ' + served.day + ' A LAS ' + served.clock,
+      '',
+      'DEBE ENTREGAR LA POSESION DE ESTE DOMICILIO EL DIA ' + out.day + ' A LAS ' + out.clock + '.',
+      '',
+      'MOTIVO: DEUDA DE ' + Bes(owed) + '.',
+      '',
+      'SI NO ENTREGA LA POSESION EL PROPIETARIO PUEDE ACUDIR A UN TRIBUNAL.',
+      '',
+      'ESTE AVISO SE EMITE EN INGLES Y EN ESPANOL.'
+    ];
+    return {
+      issued: true, kind: 'toQuit', by: by, slots: slots, en: en, es: es,
+      amounts: { owed: owed }, outDays: days, draft: DRAFT
+    };
+  }
+
+  /* --------------------------------------------------------------------------
      THE EMERGENCY ALERT. Five slots, and the same refusal.
 
      facts = { hazard, location, action, day, clock, untilDays, service }
@@ -596,6 +694,7 @@
     ISSUERS: ISSUERS,
     CLEARED_SLOTS: CLEARED_SLOTS,
     cleared: cleared,
+    toQuit: toQuit,
     WINDOW: WINDOW,
     DISCONNECT_SLOTS: DISCONNECT_SLOTS,
     ALERT_SLOTS: ALERT_SLOTS,
