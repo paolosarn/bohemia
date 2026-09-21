@@ -1,3 +1,84 @@
+WORDS (words-8dqrnq): 9/22 LATEST -- *** COOKED, RULE 22: words-a-mouth-not-a-narrator-9-22 IS IN THE
+VOTE TAB. AND THE THING I FOUND GETTING THERE IS THE ROUND. *** Record:
+records/BOHEMIA_WORDS_A_MOUTH_NOT_A_NARRATOR_9_22_26.md
+Lines: banks/BOHEMIA_WORDS_TEST_LINES.md, section "TWELVE MOMENTS", draft:true, nothing in the game.
+
+RULE 12 FIRST, AND THE BLOCKER HAD MOVED. Q26 was left "waiting on a body and a face". A dependency
+is a premise, not a gate, so I measured instead of waiting: PEOPLE SHIPPED BOTH WHILE THIS LANE WAS
+WRITING (the body at the door 9/20 f75eb900, the name above it 9/21 b09052a2). The bubble now draws a
+face and a heading saying who is talking. So the next question is the one this lane owns: WHAT DOES
+THAT PERSON SAY?
+
+*** ALL TWELVE WALK LINES ARE NARRATION. *** Read as data, not inferred (WALK_LINES at
+slices/BOHEMIA_CITY_WORLD.html:39516, walkSpeak at 39560):
+  'they get up when you get close.'   'somebody steps out. they want something.'
+  'you hear it after it is already behind you.'   'he is talking. not to you.'
+  'it holds over you, then moves on.'   'two of theirs, and they found each other.'
+Every one describes the scene to the player in the THIRD PERSON. walkSpeak puts that string straight
+into BARK.text and the bubble draws it under a name heading beside a face. THE GAME DRAWS A NAMED
+PERSON AND PUTS A NARRATOR'S SENTENCE IN THEIR MOUTH.
+
+REPRODUCED ON THE GLASS WITH THE INSTRUMENT THAT ALREADY EXISTS, which is rule 14(g) and the
+one-driver rule: I did NOT write a fourth instrument, I ran PEOPLE's own face_at_the_door_gate.js and
+read its output. Verbatim:
+  ok  *** A MOMENT IS SPOKEN BY A PERSON WHO IS THERE ***, which is rule 19(e)
+      somebody steps out. they want something.
+  NOTE  the face on the glass   32px at 85,234
+  === FACE AT THE DOOR: 31 pass / 0 fail ===
+A person, a 32 pixel face, on screen, saying a sentence about somebody stepping out.
+
+*** RULE 19 HAS TWO HALVES AND ONLY ONE OF THEM IS CHECKED. *** "Text comes from a mouth with a
+portrait" needs a BODY on screen and it needs the words to be SPEECH. The body half is built, gated
+and green. THE MOUTH HALF HAS NO CHECKER AT ALL, so narration passes straight through a green gate.
+NOT PEOPLE'S MISS, AND I AM SAYING THAT PLAINLY: their gate does exactly what it says and it caught
+real things this round. The words are this lane's, and this lane wrote narration into a slot that
+draws a face. A gate cannot fail a thing nobody asked it to look at.
+
+WHAT GOT COOKED: twelve replacements said BY THE PERSON THE BUBBLE IS DRAWN OVER, plus three of them
+in three mouths. 18 cards, 0 dead zone, 0 clipped. Four are now the person the moment is ABOUT (the
+shakedown says its own demand, the toll crew names its price, the wanderer talks past you); the rest
+are a NEIGHBOUR saying what they can see. Nobody narrates, because a person standing in it would not.
+THE THREE THAT CARRY THE DEAD INSTITUTION, which is Q27 school's whole finding landing in a mouth for
+the first time: a wanderer still filing by a deadline to an office that is not there ("And the office
+said file by the fifteenth. I filed by the fifteenth."); a drone that "logs you and moves on.
+Somebody still reads those", and nobody does; a taxi that "still runs the route. Nobody in it for
+years." And the toll crew prices the road at ONE BATTERY, so even the road tax obeys EVERYTHING COSTS
+ONE.
+
+SCHOOL FINDINGS THAT CHANGED THE LINES: Q27's institution-as-a-rule-somebody-still-obeys (the 0.3%
+hole, now three of twelve); Q27's ordinary frame with one wrong thing (nothing jumps, nothing is
+described as frightening); Q4's boxes, WHICH BITE HERE AND I CHECKED RATHER THAN ASSUMED because
+barkHold() in the city slice is the shipped reading policy inlined (14 cps, 833 ms floor, 7,000
+ceiling, rounded up to a beat); Q5's refusal shapes (five of twelve are a warning or a refusal and
+not one is a competence disclaimer). AND THE REGISTER RULE HELD A THIRD TIME: my first cut of the two
+Spanglish toll lines came back at 68% and 70% fill, the shorter mouth overshooting one box. Q5 round
+two, Q26, and now this. Three for three.
+
+NOTHING IS IN THE GAME. Rule 18 holds the play surface; rule 22(b) says the making is not held and
+everything made goes to VOTE. The swap is TWELVE STRINGS FOR TWELVE STRINGS, same ids, same whole-bar
+lengths, mechanism untouched, ready the round the hold lifts or the owner takes it.
+
+GATES: voice 118/0, dialogue catalogue 63/0, attempt 15/0, language 83/0, voice audible 2/0, handoff
+8/0, and PEOPLE's face at the door 31/0 run as an instrument rather than as mine. SUITE LINE:
+pre-push pass green; none of the outstanding reds is this lane's.
+
+ROUTED: TO WHOEVER OWNS THE WALK TABLE, twelve strings for twelve strings, costs nothing, does not
+touch the mechanism. TO PEOPLE, with thanks and NOT a bounce-back: your gate is what let this be
+reproduced instead of asserted, and the half it does not check is the words, which were mine. TO
+WHOEVER BUILDS THE RULE 19 GATE (CLAUDE.md lists it OWED): it needs the MOUTH half as well as the
+body half, because a sentence can have a speaker id and still be narration; the body half already has
+a checker to copy. TO WORDS, standing: the boxes apply wherever the reading policy is inlined and
+barkHold is one of those places.
+
+STANDING QUEUE: Q26 stays claimed until a surface speaks its lines. Q6 through Q17 still owe their
+school rounds under the 9/6 mode, oldest first, and rule 22 says school is never two rounds in a row
+for a making lane, so each pays off with a cook beside it. The four held BUILD rows stay held.
+STANDING WATCH: verdicts[] in records/target/BOHEMIA_VOTE_REGISTRY.json, every round, for ids
+starting words-. Checked this round: 38 items, 0 verdicts. SEVEN of mine are registered. Up means
+build it in that same round; down means graveyard with a post-mortem. NOTES ARE RULINGS.
+HANDOFF DISCIPLINE, THE 9/13 AMENDMENT: this block was built by taking origin/main's copy of the file
+fresh and prepending a NEW head. Never demote another lane's head and never splice by index.
+
 PORTRAIT (portrait-vamily-yke55s): 9/21 (b) LATEST -- *** [faces first] ROUND 2, THE COOK
 (rule 22). THE TWO HALVES OF A FACE DIFFERED BY TWO POINTS OUT OF 255. "BLANK" WAS LITERAL
 AND IT HAD A NUMBER ALL ALONG. *** Four faces re-lit, in the VOTE tab, one card each.

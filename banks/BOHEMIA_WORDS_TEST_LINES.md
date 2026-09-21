@@ -2669,3 +2669,86 @@ BROTHER  Pass the salt.                                                [time off
 # THE WHOLE SPOKEN SET BY THE SHIPPED POLICY:
 #   18 spoken cards, 0 in the dead zone, 0 clipped.
 #   The phone's 15 lines are deliberately NOT box-fitted. See the ruler note above.
+
+## TWELVE MOMENTS, SAID BY THE PERSON THE BUBBLE IS DRAWN OVER  (9/22/26)
+# Cooked under rule 22. All draft:true. Nothing here is in the game.
+# Tab: VOTE, in the alpha. Registered as words-a-mouth-not-a-narrator-9-22.
+#
+# *** WHAT I MEASURED, AND IT IS THE REASON THIS SET EXISTS. ***
+# PEOPLE shipped the body at the door (9/20) and the name above it (9/21), and both
+# are good. The speech bubble now draws a face, and a heading saying who is talking,
+# over a real person standing next to you. So I went and read what that person SAYS.
+#
+# All twelve lines in the walk table are NARRATION. Every one of them describes the
+# scene to the player in the third person:
+#     'they get up when you get close.'
+#     'somebody steps out. they want something.'
+#     'you hear it after it is already behind you.'
+#     'he is talking. not to you.'
+#     'it holds over you, then moves on.'
+# walkSpeak() puts that string straight into the bubble. So the game draws a named
+# person with a face and puts a NARRATOR'S SENTENCE IN THEIR MOUTH.
+#
+# REPRODUCED ON THE GLASS, using PEOPLE's own gate rather than a fourth instrument of
+# my own, which is rule 14(g) and the one-driver rule. Its own output, verbatim:
+#     ok  *** A MOMENT IS SPOKEN BY A PERSON WHO IS THERE ***, which is rule 19(e)
+#         somebody steps out. they want something.
+#     NOTE  the face on the glass   32px at 85,234
+# A face, 32 pixels, on screen, saying a sentence about somebody stepping out.
+#
+# *** RULE 19 HAS TWO HALVES AND ONLY ONE OF THEM IS CHECKED. *** "Text comes from a
+# mouth with a portrait" needs a BODY and it needs the words to be SPEECH. The body
+# half is built and gated and green. The mouth half has no checker, so narration
+# passes through it. That is not PEOPLE's miss; the words are this lane's.
+#
+# WHICH SCHOOL FINDINGS CHANGED THE LINES:
+# 1. Q27: THE INSTITUTION APPEARS AS A RULE SOMEBODY STILL OBEYS. Three of the twelve
+#    carry one now, said plainly and never returned to. That was the 0.3% hole.
+# 2. Q27: THE ORDINARY FRAME WITH ONE WRONG THING. Nothing jumps. A person mentions
+#    a deadline, or that something still works, and keeps walking.
+# 3. Q4: every line fits a whole number of bars. barkHold() in the city slice is the
+#    shipped reading policy inlined (14 cps, 833 ms floor, 7,000 ceiling, rounded up
+#    to a beat), so the boxes bite here exactly as they do everywhere else.
+# 4. Q5: five of the twelve are somebody REFUSING or WARNING, and none of them is a
+#    competence disclaimer.
+
+### THE TWELVE, IN A MOUTH   draft:true
+  feral_dog_pack       Those ones get up when you get close. Walk wide.        48ch 2 bars 86%
+  coyote_shadow        That has been behind you a block. It is not hungry yet. 55ch 2 bars 98%
+  rattlesnake          Stop. Gravel moved, about two steps to your left.       49ch 2 bars 88%
+  scavenger_shakedown  Empty your hands. Slow. Where I can see them.           45ch 2 bars 80%
+  the_snatcher         Check your belt. They came off your blind side.         47ch 2 bars 84%
+  crazed_wanderer      And the office said file by the fifteenth. I filed by the fifteenth.
+                                                                               68ch 3 bars 81%
+  bounty_squad         Three of them, and they are reading faces. Go inside.   53ch 2 bars 95%
+  casino_security_bot  That thing still works. That is the problem with it.    52ch 2 bars 93%
+  spotter_drone        It logs you and moves on. Somebody still reads those.   53ch 2 bars 95%
+  patrols_collide      Two of theirs found each other. Not our business.       49ch 2 bars 88%
+  toll_crew            Road is closed. One battery and it opens for you.       49ch 2 bars 88%
+  ghost_robotaxi       It still runs the route. Nobody in it for years.        48ch 2 bars 86%
+#
+# WHO IS SPEAKING CHANGED, AND IT IS THE ONLY EDIT. Four of them are now the
+# person the moment is ABOUT: the shakedown says its own demand, the toll crew names
+# its price, the wanderer talks past you, and the rest are a NEIGHBOUR telling you
+# what they can see. Nobody describes the scene, because a person standing in it
+# would not.
+#
+# THE THREE THAT CARRY THE DEAD INSTITUTION, which is Q27's whole finding landing in
+# a mouth for the first time:
+#   crazed_wanderer      still filing by a deadline, to an office that is not there
+#   spotter_drone        "Somebody still reads those." Nobody does.
+#   ghost_robotaxi       a route still being run with nobody in the car
+# And the toll crew prices it at ONE BATTERY, because EVERYTHING COSTS ONE, so even
+# the road tax obeys his rule.
+
+### THREE OF THEM IN THREE MOUTHS. THEY SPEAK SPANGLISH (8/25).   draft:true
+  en   Those ones get up when you get close. Walk wide.           48ch 2 bars 86%
+  spa  Esos se levantan when you get close. Walk wide.            47ch 2 bars 84%
+  dom  Those one get up when you come near. Walk wide.            47ch 2 bars 84%
+  en   Road is closed. One battery and it opens for you.          49ch 2 bars 88%
+  spa  Camino cerrado. Una bateria y se abre for you.             46ch 2 bars 82%
+  dom  Road closed. You give one battery. Then it open.           48ch 2 bars 86%
+# The register rule held a third time: my first cut of the two toll lines came back
+# at 68% and 70%, both from the shorter mouth overshooting one box. Fitted per mouth.
+
+# THE WHOLE SECTION BY THE SHIPPED POLICY: 18 cards, 0 dead zone, 0 clipped.
