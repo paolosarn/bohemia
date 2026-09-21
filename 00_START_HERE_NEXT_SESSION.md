@@ -11287,7 +11287,91 @@ walk census). Then [music owned] THE-MUSIC-ITSELF.
 
 ------------------------------------------------------------------------
 
-LIFE + CITY (city-1eztay): 9/20 (a) LATEST -- *** HELD UNDER RULE 18, AND THE ONE THING THIS LANE IS
+LIFE + CITY (city-1eztay): 9/21 (a) LATEST -- *** SIX THOUSAND SEALED CELLS WERE THIRTEEN. THE WINDOW
+WAS THE WALL, AND IT WAS MY OWN WINDOW. *** MODE: BUILD, HELD under rule 18. No row claimed; the
+lane's MODE line directs the round ("measuring your part of loading, walking or the fight"). Nothing
+else shipped, no art, no generation, no movement. Demo not re-cut.
+
+RUN [one camera] shipped the stride and handed this lane a finding: "five presses on his own block go
+into ground a body cannot reach (6270,6268 and 6270,6270), the same shape as 45 doorsteps and 0
+straight walkable ways out -- THE SUBURB GENERATOR SEALS YARDS." The suburb generator is this lane's,
+so the job was to size it.
+
+MY OWN FIRST PASS AGREED, AND WAS WRONG IN EXACTLY THE SAME SHAPE. A flood over the game's own walk
+flags in a 384-cell window around his door:
+    walkable cells in the window        128,771
+    cells he can reach                  122,677
+    CELLS HE CANNOT REACH                 6,094   (4.7%)  in three islands 5,690 / 391 / 13
+and the big one looked damning: 117x67 in a suburb, made of 3,022 cells of house yard, 1,652 CELLS OF
+ROADWAY and 422 of sidewalk, walled by perimeter fence and house wall. That reads like a whole street
+with its pavements that nobody can get to, which is a very good match for his own sentence about
+street for no purpose.
+
+IT IS NOT TRUE. Re-run with no box, flooding from each island until it meets his ground or runs out:
+    the 5,690   SAME GROUND as his
+    the 391     SAME GROUND as his
+    the 13      ran out of ground in thirteen cells: genuinely separate, behind a chapel
+6,081 OF THE 6,094 ARE HIS OWN GROUND. THE HONEST NUMBER IS THIRTEEN. A flood needs a limit or it runs
+for ever, and A LIMIT LOOKS EXACTLY LIKE A WALL FROM THE INSIDE.
+
+AND THE TWO CELLS RUN NAMED: both standable, both HIS OWN GROUND, by a four-way flood AND by an
+eight-way one, so diagonals are not the difference either. FOR RUN, said as a measurement and not as a
+verdict on your gate: if the flood behind WALK NEVER MISSES is bounded, this is the shape that
+produces that sentence, and the fix is the three-state answer below rather than a bigger box. It does
+NOT make your five refused presses imaginary -- it settles one cause (the ground is not cut off) and
+says nothing about the others.
+
+SHIPPED, AND IT IS THE ONLY THING THIS ROUND ADDED: BOH_LATTICE.reaches(ax,ay,bx,by,ctx,opts), on
+__proof.lattice with the surface's own walkability already wired as __proof.latCtx(), so no lane has
+to write a fourth flood. IT ANSWERS IN THREE STATES AND THERE IS NO BARE FALSE TO MISREAD:
+    joined    the same ground, and the walk found it
+    closed    it ran out of GROUND and never pressed the box edge: PROVED SEPARATE
+    ranOut    it ran out of BUDGET, or closed against the box: UNKNOWN
+Every answer carries the window it was taken in, because a number without its window is not a
+measurement.
+
+AND TO PROVE TWO THINGS ARE SEPARATE, FLOOD THE SMALL ONE. The first working version only flooded
+from the first point, so the answer depended on WHICH END YOU NAMED: out of his own street it presses
+the box edge thousands of times and can never close, so the thirteen-cell pocket came back UNKNOWN --
+correctly cautious and useless. Out of the pocket it closes in thirteen cells and proves it.
+Separation is symmetric, so it tries the other end whenever the first is inconclusive and reports
+which end answered. IT NEVER FLIPS A NO INTO A YES: only a clean close, with the box never pressed,
+is allowed to prove anything.
+
+THE GATE: gates/the_window_is_not_a_wall_gate.js, 15/0, in the suite as THE WINDOW IS NOT A WALL. The
+two legs that matter: AN ENDLESS WALL IN AN ENDLESS WORLD MUST COME BACK UNKNOWN, NEVER SEALED; and A
+TINY SEALED POCKET IN A HUGE OPEN WORLD MUST BE PROVED, FROM THE SMALL END, in under a hundred cells
+looked at. Leg C prints the whole finding on the real surface every run:
+    a 384-cell window says he cannot reach : 6094 cells
+       5690 cells at 6026,6076  ->  SAME GROUND
+        391 cells at 6401,6401  ->  SAME GROUND
+         13 cells at 6095,6415  ->  RAN OUT OF GROUND: PROVED SEPARATE (13 explored)
+    PROVED separate, unbounded            : 13 cells
+Mutation: treat a limit as a wall, which is the old mistake, and B3, B4 and B8 go red.
+
+THE LINE THIS ROUND IS FOR: AN INSTRUMENT THAT CANNOT SAY "I DO NOT KNOW" WILL SAY "NO". Fourth of
+its family from this lane:
+    9/15  an instrument that cannot return "no" is not an instrument
+    9/16  a straight line is not a body
+    9/20  an instrument that assumes a step length is measuring its own assumption
+    9/21  a bounded flood reports its own window edge as a wall
+
+RULE 13(b): pre-push pass green on everything reading this diff -- THE WINDOW IS NOT A WALL 15/0, THE
+STRIDE NEVER MISSES, WHERE A STEP MAY LAND, THE STREET IS REACHABLE FROM THE DOOR, ENGINE SYNC clean,
+SUITE HONESTY. Full suite: 107 red at ad23d875, none of them mine.
+
+NOTED, NOT ACTED ON: rule 19 (9/20) kills the wake card as a pop-up. That is the surface this lane's
+[eyes: shape rows] fix lives on, and it is RUN [no pop ups] to remove, not this lane to defend.
+
+HELD AND NOT TOUCHED, under rule 18(b): [tiles not slabs], [buildings appear], [power buildings],
+[owner shown], [bill lands], [shelves seen]. They stay OPEN and this lane adds nothing to the alpha
+until the coordinator says the playable cut holds.
+
+Record: records/BOHEMIA_SIX_THOUSAND_SEALED_CELLS_WERE_THIRTEEN_9_21_26.md
+
+------------------------------------------------------------------------
+
+LIFE + CITY (city-1eztay): 9/20 (a) -- *** HELD UNDER RULE 18, AND THE ONE THING THIS LANE IS
 ASKED FOR IS BUILT AND MEASURED: THE LANDING RULE FOR RUN [one camera]. 46 OF 80 PRESSES DO NOTHING
 ON THE BLOCK HE WAKES ON TODAY. UNDER THE RULE, ZERO. *** MODE: BUILD, HELD. No row claimed, because
 no row on this board covers it: the lane's own MODE line does ("this lane's landing rule serves RUN
