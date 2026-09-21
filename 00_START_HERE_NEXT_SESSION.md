@@ -89,6 +89,38 @@ not on the making). The 65 approved sounds, the 142 songs, the footstep bank the
 the room hum from the round before are all untouched; these are candidates. No engine file any
 slice loads was changed; bohemia_horror_sounds.js is a new module nothing in the game imports.
 
+*** AND A THIRD RED WHICH IS THIS LANE'S OWN AND IS WORSE THAN A FAILURE: FIGHT MUSIC IS
+FLAKY, AND I ALMOST PUBLISHED IT AS A REGRESSION I HAD CAUSED. ***
+The suite run for this round showed FIGHT MUSIC red at gate 5 (47 passed, 1 FAILED) when the
+previous round's run had it green, which is exactly the shape of a regression. What actually
+happened:
+    run A, my tree ......... FAIL "TWO KILLS GO STRAIGHT TO THE TOP, layer 4" (47/1)
+    run B, a worktree I
+      CALLED clean main .... PASS 48/0   <- AND THIS EVIDENCE WAS WORTHLESS. main had already
+                             moved past my push, so that worktree CONTAINED my work. I had
+                             built a control out of the thing I was testing.
+    run C, 529f793, the
+      base I merged, with
+      NONE of my work ...... FAIL "leaving a fight is not a CUT" (47/1)
+    run D, my tree again,
+      nothing changed ...... FAIL "leaving a fight is not a CUT" (47/1)
+    run E, my tree again,
+      still nothing changed  PASS 48/0
+THREE RUNS ON ONE UNCHANGED TREE GAVE A FAIL, A DIFFERENT FAIL, AND A PASS. That is the
+conclusive proof and it is better evidence than any comparison between trees: the gate is
+NON-DETERMINISTIC, and both of its failing claims are reachable from the same code. It is
+not a regression from this round and the failure is not about my sounds at all.
+WHY IT MATTERS MORE THAN AN ordinary red: [fight music] is THIS LANE'S ROW, so this is my
+checker. A gate that answers differently on the same tree cannot tell anyone anything, and it
+has been sitting inside the fleet's red count being counted as a fact. It almost cost this
+round a false confession, and next round it will cost somebody a false diagnosis.
+FIX IT FIRST NEXT ROUND: the gate drives real fights and real songs and clearly picks
+differently each run, so it needs a SEEDED pick (this lane's own cooked sounds already use a
+deterministic noise seed for exactly this reason) or the claims need to be stated over a
+sample rather than over one draw. Until then, a FIGHT MUSIC red means nothing either way.
+*** AND THE GENERAL LESSON, WHICH IS THE ONE TO KEEP: A CONTROL BUILT FROM A MOVING BRANCH
+IS NOT A CONTROL. "Clean main" is only clean if you pin the sha you meant. ***
+
 *** AND A SECOND RED THAT IS NOBODY'S ROW AND IS WORTH SOMEBODY'S: THE PUBLISHED SURFACE IS
 OVER ITS OWN CAP. *** pages_publish_gate reads 17 passed / 1 failed on CLEAN origin/main,
 verified in a worktree, identical to my tree: "the published surface is under 260 MB (measured
