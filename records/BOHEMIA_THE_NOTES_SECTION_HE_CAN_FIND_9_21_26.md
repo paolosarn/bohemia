@@ -66,7 +66,7 @@ different records of what he wrote.
 
 ## 3. THE GATE
 
-`gates/the_notes_section_gate.js`, 24 legs, 0 failed, in the suite as NOTES SECTION. It runs
+`gates/the_notes_section_gate.js`, 28 legs, 0 failed, in the suite as NOTES SECTION. It runs
 on a FRESH CUT of the demo, never the committed copy, which lags (rule 14a). Every leg
 compares the control to its neighbours or to his sentence, never to a number I chose:
 
@@ -77,6 +77,15 @@ compares the control to its neighbours or to his sentence, never to a number I c
   chip stays in the bar and shows it is open, a second tap collapses it; COPY ALL saves what
   was in the box first; the chip says what happened; and THE CLIPBOARD IS READ BACK rather
   than assumed.
+
+AND FOUR LEGS WERE ADDED BEFORE THIS SHIPPED, because half the row was about to go out
+proved by reading. The row says the control is there "on every screen of the demo", and I
+had only ever tested the walking screen. The bar has no mode-dependent hiding rule and
+#barright is display:flex unconditionally, so READING the file says the chip survives the
+seam -- and reading the file is the exact thing this round is about not doing. The gate
+crosses the seam now the way a thumb does, one squeeze, and asks the page again: mode really
+became city, the chip is still in the bar, it still says NOTES, and a thumb still reaches it.
+It does, but I did not know that until I looked.
 
 Five mutations proved, each restored: take the plate off (1 red), put the bare pencil back
 (2 red), kill the toggle so it only opens (1 red), stop COPY ALL saving what is in the box
@@ -113,3 +122,55 @@ him. The pattern is the same both times: **the gate measured the thing against a
 chose instead of against the world the thing lives in.** 5 px of ink was a true number and
 a useless one. The honest question was never "how big is it" but "does it look like the
 other controls", and that question can only be asked by measuring the other controls.
+
+## 6. AND [flaky leg], SHIPPED THE SAME ROUND
+
+The coordinator's row (9/21b) says the vote tab gate's `#setvote` leg fails about one run in
+four on a clean tree, and that FACTIONS (df8dd14d) and WORDS (ee5ad2af) both nearly claimed
+that red as their own. I hit it too in this round and wrote it off as load. It was not load,
+and it was not the game.
+
+**THE GATE MADE THE RACE.** `#gearbtn.on` is painted by a `setInterval`, and the cold open is
+still unwinding when it lands: the NOT NOW tap starts the overlay closing but `#openWrap`
+keeps the gear's PIXEL for a few more frames. Playwright clicks the CENTRE of the element it
+is handed, so on the unlucky runs the click went into the overlay, settings never opened, and
+the next line sat on a ten-second timer and called the game broken.
+
+**A TIMER IS NOT A SIGNAL.** The leg now waits for the page's own answer to the only question
+that matters -- is the gear the thing under its own centre pixel -- then clicks, then waits
+for THE SETTINGS PANEL'S OWN STATE (`#setwrap.on`) before looking for a child of it to become
+measurable. Same shape as the driver's own `clearAxis`, which exists for exactly this reason
+(rule 14g, trap 6), reused rather than reinvented. The ten-second timeout that turned a slow
+frame into a red is gone.
+
+**AND THE FIRST RUN AFTER THAT FIX WAS STILL RED, WHICH IS THE PART WORTH WRITING DOWN.** The
+`#setvote` leg passed; a DIFFERENT leg had gone red in the meantime, on main, from another
+lane. DIRECTION registered its round-3 fight verdict (370820aa) with `kind: "verdict"`, which
+was not in this gate's allowed-kind list. Two reds in the same gate, one after the other,
+with different causes -- and for about a minute I read the second as evidence that my fix for
+the first had not worked. **A red in the same place is not the same red.**
+
+The kind was added rather than bounced. Every other kind in that list is a CANDIDATE he picks
+between; a verdict is a CALL he agrees with or does not, which is a real difference and a real
+thing to ask him. The tab already rendered it, so the only thing standing in DIRECTION's way
+was a word in my list. The registry's own readme carries the same list and was updated with
+it, so the next lane does not have to guess. SOUNDS' `sound` kind (6962fc74) is kept.
+
+## 7. NAMED, NOT FIXED: THE PUBLISHED SURFACE IS OVER ITS CAP ON CLEAN MAIN
+
+261 MB against a 260 MB cap. SOUNDS named it first (cb4214e7). Measured with AND without this
+diff: 261 MB both ways, so it is not this lane's, and the one new sheet does not move the
+number.
+
+Where the megabytes are, measured: `slices` 152 MB, `engine` 5 MB, `records/target` 107 MB --
+and 303 PNGs inside `records/target` make 105 MB of that 107. **Why that folder is published
+at all is a vote-tab decision, which makes it this lane's to name:** the registry's own readme
+says it lives in `records/target/` "because that is one of the three folders GitHub Pages
+publishes". So 105 MB of reference screenshots are shipped to the live site so that a 40 KB
+JSON and a handful of vote images can be fetched.
+
+The fix is one line of architecture rather than a cleanup: publish `records/target/vote/` and
+the registry, not the whole folder. That is `_config.yml` AND the workflow's copy list
+together (pages_publish_gate binds them so neither can drift), which is a shared file other
+lanes are in the middle of. Named and not touched in a round that already shipped two rows.
+It buys back about 100 MB.

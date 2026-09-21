@@ -29,6 +29,8 @@
         44 pad on a chip lies across its neighbour and makes a tap do the wrong thing)
      5. it is at the right-hand end, where he said it is
      6. it TOGGLES: tap opens, tap again collapses, and the chip is still in the bar
+     6b. it is still there AFTER CROSSING THE SEAM into the city screen, because the
+        row says "on every screen of the demo" and reading the file is not proof
      7. COPY ALL puts the session on the clipboard, and the clipboard is READ BACK
      8. copying saves what is in the box first, because that is the order he does it in
      9. the note still carries where he was standing
@@ -156,6 +158,29 @@ const done = (d) => {
   await tap();
   ok('tapping it again collapses it', !(await isOpen()));
   ok('  and the chip is still there after collapsing', await chipThere());
+
+  /* ---- 6b. ON EVERY SCREEN OF THE DEMO, WHICH IS HALF OF WHAT THE ROW ASKS FOR
+     AND THE HALF I NEARLY SHIPPED UNPROVED. The bar has no mode-dependent hiding rule
+     and #barright is display:flex unconditionally, so READING the file says the chip
+     survives the seam. Reading the file is what this round is about not doing. Cross
+     the seam the way a thumb does -- one squeeze -- and ask the page again. ---- */
+  await d.pinchOut();
+  const cityMode = await d.fr.evaluate(() => (typeof MODE !== 'undefined' ? MODE : '?'));
+  ok('the squeeze really crossed into the city', cityMode !== 'human', 'mode ' + cityMode);
+  const inCity = await d.fr.evaluate(() => {
+    const b = document.getElementById('notebtn');
+    if (!b) return { there: false };
+    const r = b.getBoundingClientRect();
+    const own = document.elementFromPoint(r.x + r.width / 2, r.y + r.height / 2);
+    const pl = document.getElementById('noteplate');
+    return { there: r.width >= 44 && r.height >= 44 && r.top < innerHeight,
+             owns: !!own && (own === b || b.contains(own)),
+             says: pl ? (pl.textContent || '').trim() : '' };
+  });
+  ok('the chip is still in the bar on the city screen', inCity.there);
+  ok('  and still says its word there', /^NOTES/.test(inCity.says), inCity.says);
+  ok('  and a thumb still reaches it there', inCity.owns);
+  await d.pinchIn();
 
   /* ---- 7-9. COPY AND PASTE, WITH THE CLIPBOARD READ BACK ---- */
   const origin = d.page.url().replace(/(https?:\/\/[^/]+).*/, '$1');

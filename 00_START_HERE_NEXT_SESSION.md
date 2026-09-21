@@ -49,7 +49,7 @@ shipped one named. A defect in that sheet found by rendering it and LOOKING: the
 option's buttons fell out of the phone onto the paragraph below, the option arguing against
 itself for a reason that was mine and not the design's. Clipped and re-laid out.
 
-PRE-PUSH PASS (rule 13): NOTES SECTION 24/0 on a FRESH CUT of the demo (never the committed
+PRE-PUSH PASS (rule 13): NOTES SECTION 28/0 on a FRESH CUT of the demo (never the committed
 copy, which lags, rule 14a), FIVE mutations proved and each restored -- take the plate off
 -> 1 red, put the bare pencil back -> 2, kill the toggle -> 1, stop COPY ALL saving what is
 in the box -> 3, make the clipboard write silently do nothing while still reporting success
@@ -60,9 +60,37 @@ IS OBJECTS 59/0, VOTE TAB 28/0, PAGES PUBLISH 18/0, HALF SIZE 7/0, CITY RAIL 15/
 OBJECT 18/0, REPLY CONTRACT 17/0, ATTEMPT 15/0, HANDOFF 8/0. SUITE LINE: 107 red at
 ad23d875; mine are NONE.
 
-ONE THING WORTH KNOWING FOR ANYBODY RUNNING BROWSER GATES IN A BATCH: the vote tab gate
-came back 27/1 when seven browser gates ran at once, on a 10 s waitForSelector for #setvote,
-and 28/0 twice when run on its own on the same tree. That red was the box, not the tree.
+*** AND [flaky leg] IS SHIPPED IN THE SAME ROUND, because the coordinator's row and my own
+round were the same bug. *** I hit it too (27/1 in a seven-gate batch, 28/0 twice alone) and
+wrote it off as load. It was not load, and it was not the game: THE GATE MADE THE RACE.
+#gearbtn.on is painted by a setInterval, and the cold open is still unwinding when it lands
+-- the NOT NOW tap starts the overlay closing but #openWrap keeps the gear's PIXEL for a few
+more frames. Playwright clicks the CENTRE of the element it is handed, so on the unlucky runs
+the click went into the overlay, settings never opened, and the next line sat on a
+ten-second timer and called the game broken. FACTIONS df8dd14d and WORDS ee5ad2af both
+nearly claimed that red as their own.
+A TIMER IS NOT A SIGNAL. The leg now waits for the page's own answer to the only question
+that matters -- is the gear the thing under its own centre pixel -- then clicks, then waits
+for THE SETTINGS PANEL'S OWN STATE (#setwrap.on) before looking for a child of it to become
+measurable. Same shape as the driver's clearAxis, which exists for exactly this reason (rule
+14g, trap 6), reused rather than reinvented. The ten-second timeout is gone.
+AND THE FIRST RUN AFTER THAT FIX WAS STILL RED, WHICH IS WHY THE FIX IS NOT THE WHOLE
+STORY. The #setvote leg passed; a DIFFERENT leg had gone red in the meantime, on main,
+from another lane: DIRECTION registered its round-3 fight verdict (370820aa) with
+kind "verdict", which was not in my allowed-kind list. I nearly read one red as the other.
+I added the kind rather than bouncing the row. Every other kind in that list is a
+CANDIDATE he picks between; a verdict is a CALL he agrees with or does not, which is a
+real difference and a real thing to ask him. The tab already rendered it, so the only
+thing standing in DIRECTION's way was a word in my list. The registry's own readme
+carries the same list and was updated with it, so the next lane does not have to guess.
+
+AND FOUR LEGS WERE ADDED BEFORE THIS SHIPPED, because half the row was about to go out
+proved by READING. The row says the control is there "on every screen of the demo" and I had
+only ever tested the walking screen. The bar has no mode-dependent hiding rule and #barright
+is display:flex unconditionally, so the file SAYS the chip survives the seam. The gate
+crosses it now the way a thumb does, one squeeze, and asks the page again: mode really became
+city, the chip is still in the bar, it still says NOTES, a thumb still reaches it. It does.
+I did not know that until I looked.
 
 ONE LEG OF MY NEW GATE WAS WRONG ON ITS FIRST RUN and is in the record rather than quietly
 fixed: the no-theft check reported devbtn -> DIV as a stolen centre. #devbtn (TOOLS) is 0x0
@@ -76,8 +104,22 @@ IN. 5 px of ink was a true number and a useless one. The honest question was nev
 is it" but "does it look like the other controls", and that can only be asked by measuring
 the other controls.
 
-FOR PAGES: the published surface is 257 MB against a 260 MB cap, up from 256 last round.
-Somebody should look at that headroom before it stops being headroom.
+*** FOR PAGES, AND THIS IS NOW A RED ON CLEAN MAIN, NOT A WARNING. *** The published
+surface is 261 MB against a 260 MB cap. SOUNDS named it first (cb4214e7). MEASURED WITH AND
+WITHOUT MY DIFF: 261 MB both ways, so it is not mine, and my one new sheet does not move the
+number at all. But main is red and every lane is pushing into it.
+WHERE THE MEGABYTES ARE, measured rather than guessed: slices 152 MB, engine 5 MB,
+records/target 107 MB -- and 303 PNGs inside records/target make 105 MB of that 107.
+WHY THAT FOLDER IS PUBLISHED AT ALL IS A VOTE-TAB DECISION, WHICH MAKES IT MINE TO NAME:
+the registry's own readme says it lives in records/target/ "because that is one of the three
+folders GitHub Pages publishes". So 105 MB of reference screenshots -- his frames, art
+proofs, tileforms -- are shipped to the live site so that a 40 KB JSON and a handful of vote
+images can be fetched. Nobody's browser will ever ask for the other 105 MB.
+THE FIX IS ONE LINE OF ARCHITECTURE, NOT A CLEANUP: publish records/target/vote/ and the
+registry, not the whole folder. That is _config.yml AND the workflow's copy list together
+(pages_publish_gate binds them so neither can drift), which is a shared file other lanes are
+in the middle of, so I am NAMING it and not touching it in a round where I have already
+shipped two rows. It is small and it buys back about 100 MB. PLUMBER or the coordinator.
 
 NEXT: [cook panels] is the standing rule-22 row and is OPEN again. [three d ui] still has no
 gate of its own. The VOTE tab still does not LIST his notes (a page cannot write a repo

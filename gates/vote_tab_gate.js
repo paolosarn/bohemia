@@ -103,7 +103,15 @@ const url = p => 'http://127.0.0.1:' + PORT + '/' + p;
      and the page plays it itself. This is the LIST OF KINDS, which is data, not the
      tab's behaviour: calling a room hum a 'song' to squeeze past this line would have
      been a small lie that turns into a bug later. */
-  const KINDS = ['song','sound','face','haircut','outfit','tile','animation','line','ui','redo'];
+  /* 'sound' was added by SOUNDS (6962fc74) when [vote plays sound] was owed, and it
+     stays. 'verdict' is added here 9/21 for DIRECTION (370820aa): it is a genuinely
+     different thing from the rest of this list -- every other kind is a CANDIDATE he
+     picks between, and a verdict is a CALL he agrees with or does not. The tab already
+     renders it (it prints the kind and shows the image), so the only thing standing in
+     its way was this list, and a lane that registers a real thing should not have its
+     row held up by a word. The registry's own readme carries the same list and is
+     updated with it, so the next lane does not have to guess. */
+  const KINDS = ['song','sound','face','haircut','outfit','tile','animation','line','ui','verdict','redo'];
   const bad = [];
   const seen = new Set();
   const dupes = [];
@@ -373,8 +381,30 @@ const url = p => 'http://127.0.0.1:' + PORT + '/' + p;
     await p4.waitForSelector('#openNot', { state: 'visible', timeout: 90000 });
     await p4.click('#openNot');
     await p4.waitForSelector('#gearbtn.on', { timeout: 90000 });
+    /* *** THIS LEG FLAKED ABOUT ONE RUN IN FOUR AND TWO OTHER LANES NEARLY CLAIMED THE
+       RED AS THEIR OWN (FACTIONS df8dd14d, WORDS ee5ad2af; coordinator's row [flaky leg],
+       9/21b). The cause is a race this gate created, not anything in the game.
+       #gearbtn.on is painted by a setInterval, and the cold open is still unwinding when
+       it lands: the NOT NOW tap starts the overlay closing but #openWrap keeps the gear's
+       pixel for a few more frames. Playwright clicks the CENTRE of the element it is
+       given, so on the unlucky runs the click went into the overlay, settings never
+       opened, and the next line sat on a ten-second timer and called the game broken.
+       A TIMER IS NOT A SIGNAL. Wait for the page's own answer to the only question that
+       matters -- is the gear the thing under its own centre pixel -- and then, after the
+       click, wait for the SETTINGS PANEL'S OWN STATE (#setwrap.on) rather than for a
+       child of it to become measurable. Same shape as the driver's own clearAxis, which
+       exists for exactly this reason (rule 14g, trap 6). */
+    await p4.waitForFunction(() => {
+      const g = document.getElementById('gearbtn');
+      if (!g) return false;
+      const r = g.getBoundingClientRect();
+      if (r.width < 1 || r.height < 1) return false;
+      const own = document.elementFromPoint(r.x + r.width / 2, r.y + r.height / 2);
+      return !!own && (own === g || g.contains(own));
+    }, null, { timeout: 60000 });
     await p4.click('#gearbtn');
-    await p4.waitForSelector('#setvote', { state: 'visible', timeout: 10000 });
+    await p4.waitForSelector('#setwrap.on', { timeout: 60000 });
+    await p4.waitForSelector('#setvote', { state: 'visible', timeout: 60000 });
     const reach = await p4.evaluate(() => {
       const r = document.getElementById('setvote').getBoundingClientRect();
       return [Math.round(r.width), Math.round(r.height)];
