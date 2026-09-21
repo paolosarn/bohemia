@@ -25414,7 +25414,103 @@ NEW FRONT-PAGE RULE 8 (added 9/13), and it binds this lane: IF YOUR DIFF TOUCHES
 engine/, REBUILD THE TWO DERIVED SLICES (the RUN slice and the demo) IN THE SAME
 COMMIT. PLUMBER found the RUN slice drifting +45/-6 behind two engine ships.
 
-HOLDING: nothing. LAST SHIPPED: [visible change] 9/21 374c27bc.
+HOLDING: nothing. LAST SHIPPED: [block strikes] 9/21 c01a41cb.
+
+*** 9/21 (d) LATEST -- I MEASURED A CITY WITH NO PEOPLE IN IT, AND HELD A ROW FOR
+SIX ROUNDS ON IT. ***
+records/BOHEMIA_WORLD_I_MEASURED_A_CITY_WITH_NO_PEOPLE_IN_IT_9_21_26.md  sha c01a41cb
+Row [block strikes], plus rule 22 (COOK EVERY ROUND). NOTHING ON A PLAY SURFACE:
+rule 18 still holds; the cook went to VOTE.
+
+(1) *** THE BLOCKER WAS NEVER REAL AND THE BAD MEASUREMENT WAS MINE. *** On 9/15
+this lane wrote, on the board and here: "CT_MINDS IS EMPTY AND STAYS EMPTY... the
+picket cannot be counted... THE FIX IS GIVING A BLOCK'S RESIDENTS MINDS, WHICH IS
+09 PEOPLE'S LANE." PLAYER_CV is set by exactly ONE thing, a postMessage of type
+BOHEMIA_CITY_PLAYER from the parent frame, and peoplePass() returns 0 on its
+FIRST LINE when there is no body. So slices/BOHEMIA_CITY_WORLD.html opened on its
+own DRAWS NOBODY -- not the player, not one resident -- and no mind can ever be
+born there. I opened a city with no people in it, concluded the game had no
+people, and handed the row away.
+
+(2) RE-MEASURED ON THE DEMO HE PLAYS, through the one driver (rule 14g), with the
+player's position checked BEFORE any sample is trusted:
+      at the door ............. 2 minds, 6 bodies drawn, PLAYER_CV present
+      walking about 4 seconds .. 25 minds, 9 people known by name
+      on his own block ......... 6 minds
+      his quest corpus ......... 83 deed weights, filled at load
+      a deed in front of them .. witnessed, and it lands in the mind
+THE PICKET WAS COUNTABLE THE WHOLE TIME. And a SECOND instrument fault caught on
+the way: my first walk tapped the MIDDLE of the ring pad, which is not a
+direction, so hx/hy never moved and the mind count never moved, and I was one
+sentence from reading a still player's numbers as a walk. Pressing OFF CENTRE is
+a walk: 2 -> 4 -> 19 -> 22 -> 25. Same family as PLUMBER's player-against-a-wall.
+
+(3) BUILT: engine/bohemia_strike.js, Glasgow 1915 as a mechanism. 25,000 families
+stopped paying and won in nine months and it was never the money, it was THE
+VACANCY: a landlord's cut only works if he can replace you, and he cannot replace
+a door the block is holding.
+
+(4) *** SILENCE IS NOT A NO, AND THAT GAP IS WHERE THE ROW DIED. *** held() has
+THREE answers: HELD, BROKEN, NOT_KNOWN. A block where nobody holds an opinion
+DOES NOT KNOW YOU; it has not decided against you, and collapsing those two
+reports "the strike failed" on day one, forever. NOT_KNOWN does not stop the cut
+either -- a strike you win by not playing is not a strike, so the machinery works
+and the people have to show up.
+
+(5) NO WEIGHT IN THE FILE. A majority is the SHAPE of a picket, not a number
+anybody tuned; the opinions come from bohemia_standing off his own CLOUT_WEIGHTS;
+the price of the light coming back is his ruled ONE, read off PAYOUT, and the
+module REFUSES rather than relighting free when the table is gone. The gate greps
+the code for any number over one and any faction or deed name and finds none.
+
+(6) PROVED END TO END ON THE DEMO: before anyone has seen anything, NOT_KNOWN and
+the cut sticks; four of the block witness a good deed -> HELD, vouch 4 wont 0 ->
+THE CUT STOPS STICKING; two more witness a bad deed -> vouch 4 wont 2, still held.
+
+(7) *** AND A HOLE IN MY OWN GATE, FOUND BY MUTATION. *** I mutated the module to
+let ANY block hold the door and the gate stayed at 33 passed 0 failed. THE
+MAJORITY RULE, WHICH IS THE ENTIRE MECHANIC, WAS NEVER TESTED, because the gate
+only ever built blocks where nobody disagreed. A gate that never builds the case
+it is guarding is a decoration. Both lopsided blocks are now constructed through
+the real standing module and a tie is checked; the mutation goes red.
+
+(8) COOK (rule 22): BohemiaNotice.toQuit(), the paper the man at the door was
+holding. "MOB / NOTICE TO QUIT / PREMISES: FREEWAY 75-5 / GROUND: ARREARS OF 1
+BATTERY / IF POSSESSION IS NOT GIVEN UP THE OWNER MAY APPLY TO A COURT." Every
+other notice in this family points at an office nobody is in; THIS ONE POINTS AT
+A COURT, and the premise of the whole economy underneath it is that there is no
+court. It refuses to issue with no landlord on it, because that is a threatening
+letter and not a notice.
+
+(9) GATES: BLOCK STRIKES 36/0, new, in the suite, stable over three separate runs
+and red two ways (make silence a verdict -> 3; let a minority hold the door -> 2,
+which is the check the first cut was missing). FIRST NOTICE 48/0. VISIBLE CHANGE
+26/0. Pre-push also green: ATTEMPT, ENGINE SYNC, HANDOFF.
+TWO REDS ON THIS TREE AND NEITHER IS THIS LANE'S, measured not assumed:
+  VOTE TAB    red on direction-fight-verdict-round-3-9-21, which uses kind
+              "verdict"; the registry's own readme declares song|face|haircut|
+              outfit|tile|animation|line|ui|redo and not that. Landed in
+              370820aa. All four of this lane's rows use "line". -> DIRECTION.
+  PAGES PUB   red at 261 MB against a 260 MB cap. Re-run with THIS ROUND'S WORK
+              STASHED it still reads 261 MB, so the cap was already breached
+              before this round; my page is 12 KB. -> PLUMBER.
+
+ROUTED: TO PEOPLE, with an apology -- I handed you "give the block's residents
+minds" six rounds ago and you did not need to build it, it already worked. TO
+WHOEVER OWNS THE WALKED CITY: opened on its own that file draws no people at all,
+so every gate that checks it standalone is checking a city with nobody in it.
+OBSERVED BUT NOT CLAIMED AS A BUG, because I could not separate it from a player
+who simply was not standing near anyone: in one sample 12 bodies were drawn and
+the nearest was 11 units away against SEE_RANGE 9, so nothing was witnessed.
+
+STILL OPEN AND NOT SHIPPED, carried from 9/20: the night card says BATTERIES IN
+THE VALLEY: 0 on the first night and announces 3,352 made overnight on the second.
+Fix written down, two lines, both in my own files: count() must not need a
+trigger, and CELLS_LAST must start at the first real reading, not 0. Plus the gate
+fix: battery_worth_gate must read the card COLD. Waits for the hold to lift.
+
+ROWS STILL OPEN IN THIS LANE: [suburb walls], [full shelves], [beltway placed].
+
 
 *** 9/21 (c) LATEST -- A STALE REASON IS A BUG WITH A LONG FUSE, AND THE FUSE WAS
 THIS LANE'S OWN. ***
