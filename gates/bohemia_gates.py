@@ -6657,6 +6657,25 @@ GATES = [
      'MEASURED BOTH WAYS because a control that is ALWAYS off is a different lie: broke '
      'disabled/0.45/"you have none of it", credited enabled/1.0/no title with afford ok and 5 '
      'in hand. Mutations: always-pressable reds B1/B2/B5, always-off reds B3/B4.', False),
+    ('THE WINDOW IS NOT A WALL', ['node', 'gates/the_window_is_not_a_wall_gate.js'],
+     'LIFE + CITY, under PAOLO 9/20 rule 18: a held lane measures its part of WALKING. '
+     'AN INSTRUMENT THAT CANNOT SAY "I DO NOT KNOW" WILL SAY "NO". RUN [one camera] closed its '
+     'round with "five presses on his own block go into ground a body cannot reach (6270,6268 and '
+     '6270,6270)... the suburb generator seals yards". Sizing it, MY OWN FIRST PASS WAS WRONG IN '
+     'THE SAME SHAPE: a flood in a 384-cell window round his door reported 6,094 walkable cells he '
+     'cannot reach in three islands, one of them 5,690 cells holding 1,652 cells of ROADWAY, which '
+     'reads like a whole street nobody can get to. RE-RUN WITHOUT THE WINDOW, 6,081 OF THOSE 6,094 '
+     'ARE HIS OWN GROUND and the honest number is THIRTEEN, one 5x5 patch behind a chapel. A flood '
+     'needs a limit or it runs for ever, and A LIMIT LOOKS EXACTLY LIKE A WALL FROM THE INSIDE. '
+     'The two cells RUN named measure as his own ground by a four-way flood and by an eight-way '
+     'one, so diagonals are not the difference either; said as a measurement, not a verdict on '
+     'another lane\'s gate. THE LATTICE CARRIES THE TEST NOW and it answers in THREE states, with '
+     'no bare false to misread: joined; closed (ran out of GROUND and never pressed the box edge, '
+     'so proved separate); ranOut (out of BUDGET or closed against the box, so UNKNOWN). AND TO '
+     'PROVE TWO THINGS ARE SEPARATE IT FLOODS THE SMALL ONE: the first cut only flooded from the '
+     'first point, so the answer depended on which end you named -- out of his street it presses '
+     'the edge thousands of times and can never close, while out of the thirteen-cell pocket it '
+     'closes in thirteen. Mutation (treat a limit as a wall, the old mistake) reds B3, B4 and B8.', True),
     ('THE STRIDE NEVER MISSES', ['node', 'gates/the_stride_never_misses_gate.js'],
      'LIFE + CITY, under PAOLO 9/20 rule 18 THE PLAYABLE CUT, built for RUN [one camera], which '
      'asks this lane for the landing rule by name: "a press moves him to the next standable place '

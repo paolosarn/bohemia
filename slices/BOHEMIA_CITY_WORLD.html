@@ -2699,9 +2699,84 @@ const BOH_LATTICE=(function(){
     return {to:[hx,hy],cells:0,dir:i,why:'STUCK'};
   }
 
+  /* ---- CAN HE GET THERE AT ALL ------------------------------------------
+     *** THE INSTRUMENT THAT CANNOT SAY "I DO NOT KNOW" WILL SAY "NO". ***
+     Three lanes have now judged ground by flooding it, and a flood needs a limit or it
+     runs for ever, and A LIMIT LOOKS EXACTLY LIKE A WALL FROM THE INSIDE. Measured
+     9/21 on the demo: a flood in a 384-cell window around his door reported 6,094
+     walkable cells he could not reach, in three islands, one of them 5,690 cells with
+     a whole street in it. Re-run without the window: 6,081 of those 6,094 ARE HIS OWN
+     GROUND. The real number is THIRTEEN. The window was the wall.
+
+     So this answers in three states and never two:
+       {joined:true}                      they are the same ground, and the walk found it
+       {joined:false, closed:true}        the flood ran out of ground: PROVED separate
+       {joined:false, ranOut:true}        it ran out of BUDGET or hit the box: UNKNOWN
+     A caller that treats ranOut as "sealed" is making the same mistake again, so the
+     field is named for what it is and there is no bare false to misread.
+
+     `opts.box` is a limit in cells around the pair; `opts.cap` is the most cells it
+     will look at. Both are reported back with the answer, because a number without
+     its window is not a measurement. */
+  function reaches(ax,ay,bx,by,ctx,opts){
+    /* *** TO PROVE TWO THINGS ARE SEPARATE, FLOOD THE SMALL ONE. ***
+       The first working version only ever flooded from the first point, and on the real
+       surface that made the answer depend on which end you named. Flooding out of his
+       own street presses the box edge thousands of times and can never close, so a
+       thirteen-cell patch behind a chapel came back UNKNOWN; flooding out of the patch
+       closes in thirteen cells and proves it. Separation is symmetric, so this tries
+       the other end whenever the first one is inconclusive, and says which end answered.
+       IT NEVER FLIPS A "NO" INTO A "YES": only a clean close, with the box never
+       pressed, is allowed to prove anything. */
+    const first=_reachOne(ax,ay,bx,by,ctx,opts);
+    if(first.joined||first.closed) return Object.assign({from:'START'},first);
+    const back=_reachOne(bx,by,ax,ay,ctx,opts);
+    if(back.joined||back.closed) return Object.assign({from:'TARGET'},back);
+    return Object.assign({from:'NEITHER END COULD CLOSE'},first);
+  }
+  function _reachOne(ax,ay,bx,by,ctx,opts){
+    if(!ctx||typeof ctx.walk!=='function') throw new Error('bohemia_lattice: reaches needs ctx.walk');
+    const o=opts||{}, slack=(o.box|0)||400, cap=(o.cap|0)||400000;
+    const lox=Math.min(ax,bx)-slack, hix=Math.max(ax,bx)+slack;
+    const loy=Math.min(ay,by)-slack, hiy=Math.max(ay,by)+slack;
+    const W=hix-lox+1, H=hiy-loy+1;
+    if(!ctx.walk(ax,ay)) return {joined:false,closed:true,ranOut:false,explored:0,
+                                 box:[W,H],cap:cap,why:'THE START IS NOT STANDABLE'};
+    if(!ctx.walk(bx,by)) return {joined:false,closed:true,ranOut:false,explored:0,
+                                 box:[W,H],cap:cap,why:'THE TARGET IS NOT STANDABLE'};
+    const seen=new Uint8Array(W*H), start=(ay-loy)*W+(ax-lox), goal=(by-loy)*W+(bx-lox);
+    const q=[start]; seen[start]=1;
+    let n=0, pressedEdge=0;
+    while(q.length){
+      const v=q.pop(); n++;
+      if(v===goal) return {joined:true,closed:false,ranOut:false,explored:n,
+                           box:[W,H],cap:cap,pressedEdge:pressedEdge,why:'SAME GROUND'};
+      if(n>=cap) return {joined:false,closed:false,ranOut:true,explored:n,box:[W,H],
+                         cap:cap,pressedEdge:pressedEdge,
+                         why:'RAN OUT OF BUDGET, NOT OUT OF GROUND: THIS IS UNKNOWN'};
+      const vx=v%W, vy=(v/W)|0;
+      for(let dy=-1;dy<=1;dy++) for(let dx=-1;dx<=1;dx++){
+        if(!dx&&!dy) continue;
+        const nx=vx+dx, ny=vy+dy;
+        if(nx<0||ny<0||nx>=W||ny>=H){ pressedEdge++; continue; }
+        const w=ny*W+nx;
+        if(seen[w]) continue;
+        if(!ctx.walk(nx+lox,ny+loy)) continue;
+        seen[w]=1; q.push(w);
+      }
+    }
+    /* IT RAN OUT OF GROUND. That is the only honest "no", and even then it is only
+       honest if the walk never pressed the box edge -- if it did, the box may have
+       been what closed it. */
+    return {joined:false,closed:pressedEdge===0,ranOut:pressedEdge>0,explored:n,
+            box:[W,H],cap:cap,pressedEdge:pressedEdge,
+            why:pressedEdge===0?'RAN OUT OF GROUND: PROVED SEPARATE'
+                               :'CLOSED AGAINST THE BOX EDGE '+pressedEdge+' TIMES: UNKNOWN'};
+  }
+
   return {CELL_M,LOT_FINE,LOT_M,BODY_LOTS,DIRS,
           lotOf,lotOrigin,lotCentre,landing,stepLegal,stepsFrom,arrive,onLattice,stride,
-          minutesPerStep,stepMultiple,bodyPx};
+          reaches,minutesPerStep,stepMultiple,bodyPx};
 })();
 if(typeof window!=='undefined') window.BohemiaLattice=BOH_LATTICE;
 /* ==== end engine/bohemia_lattice.js ==== */
