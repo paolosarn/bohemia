@@ -1,0 +1,154 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>BOHEMIA - FOUR WAYS THE TOP BAR FITS</title>
+<link rel="stylesheet" href="bohemia_option_sheet.css">
+<link rel="stylesheet" href="bohemia_ui_3d.css">
+<style>
+ .bar{ position:relative; height:44px; display:flex; align-items:center; gap:5px; padding:0 4px 0 8px;
+   background:linear-gradient(180deg,#241f16,#171309); overflow:hidden;
+   box-shadow:inset 0 -1px 0 #0b0906, 0 1px 0 rgba(0,0,0,.55) }
+ .lbl{ font-family:var(--face-casing); font-size:5px; letter-spacing:.4px; color:#b3a488; white-space:nowrap }
+ .mid{ flex:1 1 auto; min-width:0; overflow:hidden; text-overflow:ellipsis; text-align:center;
+   font-family:var(--face-casing); font-size:5px; letter-spacing:.4px; color:#d8b45a; white-space:nowrap }
+ .chip{ font-family:var(--face-casing); font-size:5px; letter-spacing:.4px; color:#d8c49a;
+   background:#1a160f; padding:4px 7px; border-radius:2px; white-space:nowrap;
+   box-shadow:inset 0 1px 0 #5c4f38, inset 0 -2px 0 #0b0906, 0 1px 0 rgba(0,0,0,.55) }
+ .chip.gold{ background:#d8b45a; color:#191308 }
+ .right{ display:flex; align-items:center; gap:5px }
+ .reach{ min-width:44px; min-height:44px; display:inline-flex; align-items:center; justify-content:center }
+ .cut{ position:absolute; right:0; top:0; bottom:0; width:3px; background:repeating-linear-gradient(180deg,#a8391d 0 3px,transparent 3px 6px) }
+ /* A HAS TO ACTUALLY OVERFLOW OR THE CAPTION IS LYING ABOUT ITS OWN PICTURE. The first
+    cut of this option let everything fit at 390 and then told him NOTES never made it onto
+    the glass. Give the readouts their natural width and let the row run past the clip, the
+    way his did. */
+ /* AND IT IS DRAWN AT HIS TYPE SIZE, NOT MINE. In his photograph the bar text is plainly
+    bigger than the 5 px this game sets, which is the inflation itself: the same strings take
+    far more room on his phone than on any browser I can run. Drawing A at my size made a bar
+    that fit and a caption that lied about its own picture. */
+ .A .lbl,.A .mid,.A .chip{ font-size:9px }
+ .A .lbl{ flex:0 0 auto }
+ .A .mid{ flex:0 0 auto; padding:0 8px }
+ .A .right{ flex:0 0 auto }
+ .A .chip{ padding:4px 9px }
+ .B .right{ flex:0 0 auto }
+ .C .right{ flex:0 0 auto }
+ .C .mid{ display:none }
+ .D .right{ flex:0 0 auto }
+ .D .lbl.drop{ display:none }
+ .scene{ position:relative; height:150px;
+   background:repeating-linear-gradient(90deg,rgba(0,0,0,.22) 0 1px,rgba(0,0,0,0) 1px 49px),
+              linear-gradient(180deg,#5a5147,#463f36) }
+ .fone{ position:absolute; right:8px; top:8px; width:118px; height:126px; padding:4px;
+   background:linear-gradient(150deg,#3b342a,#221d16 58%,#2f2920); border-radius:6px;
+   box-shadow:inset 0 1px 0 rgba(226,210,160,.16), 0 2px 0 rgba(0,0,0,.6), 0 5px 10px rgba(0,0,0,.5) }
+ .fone .scr{ height:100%; border-radius:3px; padding:5px;
+   background:linear-gradient(#14120d,#0d0b08 70%,#100e0a);
+   font-family:var(--face-screen); font-size:7px; line-height:1.7; color:#c9b77e; overflow:hidden }
+ .fone .tapme{ position:absolute; left:0; right:0; bottom:-15px; text-align:center;
+   font-family:var(--face-casing); font-size:6px; letter-spacing:1.6px; color:#d8b45a }
+</style></head><body>
+<header>
+ <h1>FOUR WAYS THE TOP BAR FITS</h1>
+ <div class="sub">Your bar, at the width of your phone, with your own words in it. A is what you photographed. 9/22</div>
+</header>
+
+<div class="now">
+ <b>YOU SENT ME A PICTURE OF THE BAR RUNNING OFF YOUR SCREEN.</b> It read T, SAVE,
+ PHONE and then the edge of the glass, and NOTES was past it. You asked how to get to
+ the notes. You could not, because the button was off the screen.
+ <br><br>
+ <b>AND MY OWN CHECKER SAID THAT BAR WAS FINE.</b> It asked "does the button start
+ before the right edge" instead of "is the whole button on the screen", so a button
+ hanging half off passed it. That question is rewritten now and the check is the only
+ one that means anything: the whole thing inside the glass, or it does not count.
+ <br><br>
+ <b>TWO THINGS FIXED IT.</b> The PHONE button is gone, the way you asked, which gave
+ back its width. And the right hand end of the bar is now locked: it cannot shrink and
+ it cannot wrap, so when there is not enough room the long readouts lose letters
+ instead, which is what yours was already doing when it showed just T. A word getting
+ shortened is annoying. A button off the screen does not exist.
+ <br><br>
+ <b>WHAT I NEED:</b> one letter, for which thing gives way when the bar runs out of room.
+</div>
+
+<div class="wrap">
+
+ <div class="opt isnow A"><h2>A &mdash; WHAT YOU PHOTOGRAPHED</h2>
+  <div class="shot"><div class="phone"><div class="bar A">
+    <span class="lbl">CITY MODE</span><span class="lbl">FREEWAY</span>
+    <span class="mid">DAY 2 &middot; 20:15 NIGHT</span>
+    <div class="right"><span class="chip">T</span><span class="chip">SAVE</span>
+      <span class="chip gold">PHONE</span><span class="reach"><span class="chip">NOTES</span></span></div>
+    <div class="cut"></div>
+  </div></div></div>
+  <div class="say"><b>Everything pushes everything else along, and the last thing in the
+   line is the one that falls off the end.</b> Your song name got crushed down to a
+   single letter T to make room, and it still was not enough. The red edge is where your
+   screen stops.
+   <br><br>
+   <b>This is a drawing, not your photo.</b> I could not make your bar overflow on any
+   browser I can run here, so what you are looking at is your words and your type size
+   with the old rules, pushed as far as I could push it. On your phone it went further
+   and NOTES was past the edge completely. I would rather tell you that than pretend I
+   reproduced it.</div>
+ </div>
+
+ <div class="opt B"><h2>B &mdash; THE BUTTONS ARE LOCKED, THE READOUTS GIVE WAY &middot; BUILT</h2>
+  <div class="shot"><div class="phone"><div class="bar B">
+    <span class="lbl">CITY MODE</span><span class="lbl">FREEWAY</span>
+    <span class="mid">DAY 2 &middot; 20:15 NIGHT</span>
+    <div class="right"><span class="chip">CAMPFIRE&hellip;</span><span class="chip">SAVE</span>
+      <span class="reach"><span class="chip">NOTES</span></span></div>
+  </div></div></div>
+  <div class="say"><b>SAVE and NOTES keep their size no matter what.</b> When the bar
+   runs out of room the pressure goes into the song name and the clock, which shorten
+   with three dots. Nothing you press ever moves or disappears. This is the one that is
+   in the game now, and it holds even on a 320 pixel phone with the text a third bigger
+   than normal.</div>
+ </div>
+
+ <div class="opt C"><h2>C &mdash; THE CLOCK MOVES OFF THE BAR ENTIRELY</h2>
+  <div class="shot"><div class="phone"><div class="bar C">
+    <span class="lbl">CITY MODE</span><span class="lbl">FREEWAY</span>
+    <div class="right"><span class="chip">CAMPFIRE CONFESSION</span><span class="chip">SAVE</span>
+      <span class="reach"><span class="chip">NOTES</span></span></div>
+  </div></div></div>
+  <div class="say"><b>The day and the time come off the top and live on the phone
+   instead, where a clock actually belongs.</b> That buys about ninety pixels and the
+   song name gets to keep its whole title. The cost is that you have to open the phone
+   to know what time it is, and time is the thing this game is always spending.</div>
+ </div>
+
+ <div class="opt D"><h2>D &mdash; ONE LABEL, NOT THREE</h2>
+  <div class="shot"><div class="phone"><div class="bar D">
+    <span class="lbl drop">CITY MODE</span><span class="lbl">FREEWAY &middot; DAY 2 &middot; 20:15</span>
+    <span class="mid"></span>
+    <div class="right"><span class="chip">CAMPFIRE CONF&hellip;</span><span class="chip">SAVE</span>
+      <span class="reach"><span class="chip">NOTES</span></span></div>
+  </div></div></div>
+  <div class="say"><b>CITY MODE goes away, because you can see that you are in city
+   mode.</b> Where you are and when you are join into one line. Fewer words on the bar,
+   more room for everything, and nothing on screen is telling you something your eyes
+   already told you.</div>
+ </div>
+
+ <div class="opt"><h2>AND THE PHONE IS THE PHONE BUTTON NOW</h2>
+  <div class="shot"><div class="phone"><div class="scene">
+    <div class="fone"><div class="scr">@nightcount<br>5 outfits holding a fortress between them.<br><br>@thevalley<br>still no moving the</div>
+      <div class="tapme">TAP IT</div></div>
+  </div></div></div>
+  <div class="say"><b>You said it and you were right: the phone is the phone button.</b>
+   The chip in the corner is gone. You tap the phone you can already see and it opens.
+   Tap it again and it folds back. The phone itself did not change at all, because you
+   said you were impressed with it, and the whole panel is the button so there is
+   nothing small to aim at.</div>
+ </div>
+
+</div>
+
+<footer>
+ <b>Every chip and edge here comes out of the same one file as the fight, the talk panel,
+ the notes box and the loading screen.</b> Pick a letter for what gives way when the bar
+ runs out of room.
+</footer>
+</body></html>

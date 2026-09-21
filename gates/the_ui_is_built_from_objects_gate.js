@@ -64,7 +64,8 @@ const PANELS = [
   'slices/BOHEMIA_FIVE_WAYS_THE_VOTE_TAB_SITS_9_21_26.html',
   'slices/BOHEMIA_FOUR_WAYS_A_WORD_IS_STAMPED_9_21_26.html',
   'slices/BOHEMIA_FIVE_WAYS_THE_NOTES_SECTION_SITS_9_21_26.html',
-  'slices/BOHEMIA_FOUR_WAYS_THE_GAME_LOADS_9_22_26.html'
+  'slices/BOHEMIA_FOUR_WAYS_THE_GAME_LOADS_9_22_26.html',
+  'slices/BOHEMIA_FOUR_WAYS_THE_TOP_BAR_FITS_9_22_26.html'
 ];
 
 console.log('\nTHE UI IS BUILT FROM OBJECTS  (rule 22, [cook panels], [three d ui])\n');

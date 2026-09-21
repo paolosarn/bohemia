@@ -461,6 +461,26 @@ GATES = [
      'and failed on 505/518/546ms samples -- the threshold was wrong, not the feed. It also '
      'prints the page\'s own clock gaps, which are whole-page freezes belonging to another '
      'lane, so they cannot hide inside this lane\'s green.', True),
+    ('BAR FITS GLASS', ['node', 'gates/the_bar_fits_his_glass_gate.js'],
+     'PAOLO 9/22, from his own frame: "How do I access the notes to make notes as I am playing the '
+     'demo?" and "there should not be a phone button in the top right. I should click the phone and '
+     'then it opens the phone. The phone is the phone button." His bar read T SAVE PHONE and then the '
+     'edge of the glass, with NOTES past it. *** WHY THE EXISTING GATE PASSED THAT BAR: its leg asked '
+     'r.left < innerWidth, which is TRUE FOR A CONTROL HANGING OFF THE RIGHT -- a chip from 380 to 424 '
+     'on a 390 px phone passes a check called "it is on screen". Fourth time in this lane a ruler '
+     'agreed with itself and disagreed with his phone, so the question is rewritten: WHOLLY inside or '
+     'it does not count. THIS GATE CLAIMS NO REPRODUCTION and says so: iOS Safari inflates type when '
+     '-webkit-text-size-adjust is unset (it was unset in every file, measured zero hits) and headless '
+     'Chromium never does, and no control build is possible because the demo cut REFERENCES the city '
+     'file rather than inlining it, so serving an old cut still serves the current city. It holds a '
+     'PROPERTY instead: with his exact words in the bar, the glass narrowed to 320 and the type forced '
+     '30 per cent bigger, NOTES is still whole -- carried by #barright being flex:0 0 auto so the '
+     'right-hand group cannot shrink or wrap and the readouts lose letters instead. It also proves the '
+     'stress really moved the pixels before scoring it, because the first version set font-size on '
+     '#menubar and .uihalf beat it with !important, and every "inflated" run came back identical. '
+     'Plus his other ask: the PHONE chip is gone and the DRAWN phone opens and folds it, measured in '
+     'CITY mode because that is the screen in his photograph and the panel is 0x0 anywhere else -- the '
+     'first cut of that leg passed on an invisible element. Four mutations proved.', True),
     ('LOADING SCREEN', ['node', 'gates/the_loading_screen_gate.js'],
      'PAOLO 9/21: "there is no loading screen yet, bro I wanna cool loading screen... maybe even a '
      'loading bar if you are smart enough for." Ruling 3 of that record: a bar that reads REAL '

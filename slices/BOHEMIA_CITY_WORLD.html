@@ -156,6 +156,15 @@
    Typewriter type is wider than the face this bar used to ask for and never
    load, so the day line ran from one edge of the phone to the other with
    nothing either side of it. */
+/* *** NOT ONE FILE IN THIS GAME SET -webkit-text-size-adjust, AND HIS PHONE IS THE ONE
+   BROWSER THAT CARES. *** Measured: 0 hits across the city, the demo and the alpha. iOS
+   Safari inflates text in some layouts when this is unset, and this bar is white-space:
+   nowrap, so inflation pushes its right end straight off the glass -- which is exactly
+   the picture he sent. I CANNOT REPRODUCE IT HERE and I am not claiming I did: headless
+   Chromium never inflates, which is why three probes of mine measured a bar that fit
+   while his photograph showed one cut off. This line costs nothing and removes the whole
+   class, and the bar is built to survive it either way (see #barright, flex:0 0 auto). */
+html,body{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 body #hud{font-family:var(--face-casing); padding:4px 10px; letter-spacing:var(--track-casing,.4px); }
 /* SPECIFICITY, NOT ORDER. This block is stamped at the TOP of the city's own
    stylesheet, so its own #hud rule comes later and wins a tie. A body-prefixed rule is one
@@ -549,8 +558,11 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font-family:var(--
        quests that you've done."
        A PHONE SCREEN THAT IS PART OF THE UI, not the full-screen phone. #phonewrap is
        the job-offer phone from 8/12 and it covers the world; this one sits beside the
-       world and is only ever read. Read-only ON PURPOSE: it carries no control, so it
-       cannot become a tap target smaller than a thumb.
+       world and is only ever read. AMENDED 9/22 BY PAOLO ("the phone is the phone
+       button"): the feed itself is now the one control on it -- the WHOLE panel is the
+       tap target, which is many times a thumb, so the reason that sentence existed
+       (nothing on here smaller than a thumb) is honoured by making it one big handle
+       rather than by having no handle at all. Nothing inside it became tappable.
        ARIA: aria-live so a screen reader announces a post instead of a stranger having
        to notice a silent panel. -->
   <!-- *** THE FEED IS A PHONE YOU CAN SEE, NOT A BLACK BOX (Paolo 9/8, from his own
@@ -74991,9 +75003,38 @@ setTimeout(function(){ if(!RESTORE_ANSWERED) bootWake(); },1200);
     if(p && p.classList.contains('on')) ctOutfitClose(); else ctOutfitOpen();
   });
 })();
-document.getElementById('phonebtn').addEventListener('click',function(){
-  if(PHONE_ON)phoneClose(); else phoneOpen();
-});
+/* *** PAOLO 9/22: "there shouldn't be a phone button in the top right. I should click
+   the phone and then it opens the phone. The phone is the phone button." ***
+   records/BOHEMIA_PAOLO_CITY_MODE_9_22_26.md ruling 3. THE CHIP IS GONE and the drawn
+   phone on the city screen (#cityfeed, the one in his frame reading @nightcount) is the
+   handle. Tap it and the phone opens; tap it again, or its own CLOSE, and it folds. The
+   object does not change -- he said he is "very impressed with the phone" -- only how it
+   opens.
+   AND IT FREES THE BAR'S WIDTH, which is the other half of the same push: his bar read
+   "T SAVE PHONE" and then the edge of the glass, with NOTES past it. */
+(function(){
+  var feed = document.getElementById('cityfeed');
+  if (feed) {
+    feed.setAttribute('role','button');
+    feed.setAttribute('tabindex','0');
+    feed.setAttribute('aria-label','open the phone');
+    feed.style.cursor = 'pointer';
+    feed.addEventListener('click', function(e){
+      e.stopPropagation();
+      if (typeof PHONE_ON !== 'undefined' && PHONE_ON) phoneClose(); else phoneOpen();
+    });
+    feed.addEventListener('keydown', function(e){
+      if (e.key !== 'Enter' && e.key !== ' ') return;
+      e.preventDefault();
+      if (typeof PHONE_ON !== 'undefined' && PHONE_ON) phoneClose(); else phoneOpen();
+    });
+  }
+  /* the chip is removed rather than hidden: a control that is display:none is still a
+     thing the next person finds in the markup and wonders about, and this one is dead
+     by his ruling, not by a layout accident. */
+  var chip = document.getElementById('phonebtn');
+  if (chip && chip.parentElement) chip.parentElement.removeChild(chip);
+})();
 document.getElementById('phoneclose').addEventListener('click',phoneClose);
 
 /* __THE_CITY_SENDS_WHERE__ (9/5, SOUNDS lane) -- ONE MESSAGE, FOUR SYSTEMS.
@@ -76254,7 +76295,24 @@ window.BOHEMIA_BAR = (function(){
       +'#barleft{display:flex;align-items:center;gap:8px;flex:0 0 auto;'
         +'white-space:nowrap}'
       +'#barmid{flex:1 1 auto;text-align:center;white-space:nowrap;color:var(--acc)}'
-      +'#barright{display:flex;align-items:center;gap:5px;flex:0 1 auto;min-width:0}'
+      /* *** PAOLO 9/22: "how do I access the notes?" His frame shows the bar reading
+         "T SAVE PHONE" and then the edge of the glass, with NOTES past it. ***
+         MY OWN GATE PASSED THIS BAR, and here is why it could: its leg asked
+         `r.left < innerWidth`, which is TRUE for a control hanging off the right. A
+         control half off the glass satisfied a check called "it is on screen". That is
+         the fourth ruler in this lane to agree with itself and disagree with his phone.
+         TWO FIXES, AND THE SECOND IS THE ONE THAT HOLDS UNDER A BROWSER I CANNOT RUN.
+         (a) The chip he killed is gone, which is about 32 px back.
+         (b) THE RIGHT END NEVER SHRINKS AND NEVER WRAPS. flex:0 0 auto means the group
+             carrying SAVE and NOTES keeps its width no matter what, so the pressure goes
+             into the music track name and the clock, which are allowed to lose letters
+             and already do (his says "T"). A readout losing a word is a nuisance; a
+             CONTROL off the glass does not exist. */
+      +'#barright{display:flex;align-items:center;gap:5px;flex:0 0 auto;min-width:0}'
+      /* and the things that MAY lose letters say so, rather than pushing their neighbours */
+      +'#musbtn{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}'
+      +'#barmid{min-width:0;overflow:hidden;text-overflow:ellipsis}'
+      +'#barleft{min-width:0;overflow:hidden}'
       /* the track name is the only unbounded text in the row, so it is the one that
          truncates -- with an ellipsis, so it reads as cut rather than as a short name */
       +'#musbtn{flex:0 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}'

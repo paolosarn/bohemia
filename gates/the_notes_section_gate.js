@@ -83,7 +83,13 @@ const done = (d) => {
         plate: st.boxShadow !== 'none' || !!(ist && ist.boxShadow !== 'none'),
         ink: (ist ? ist.color : st.color),
         drawn: ir ? { w: +ir.width.toFixed(1), h: +ir.height.toFixed(1) } : { w: +r.width.toFixed(1), h: +r.height.toFixed(1) },
-        onScreen: r.bottom > 0 && r.top < innerHeight && r.right > 0 && r.left < innerWidth
+        /* *** THIS LINE IS WHY HE ASKED "how do I access the notes?" ON 9/22. ***
+           It used to read `r.right > 0 && r.left < innerWidth`, which is TRUE FOR A
+           CONTROL HANGING OFF THE RIGHT: a chip from 380 to 424 on a 390 px phone
+           passes it. The leg was called "it is on screen" and was satisfied by exactly
+           the thing he was complaining about. ON SCREEN MEANS WHOLLY ON SCREEN. */
+        onScreen: r.top >= -0.5 && r.bottom <= innerHeight + 0.5
+                  && r.left >= -0.5 && r.right <= innerWidth + 0.5
       };
     });
     const me = kids.find(k => k.id === 'notebtn');
@@ -135,7 +141,8 @@ const done = (d) => {
   ok('  and it owns its own centre pixel', bar.ownsSelf);
   ok('it is the last thing at the right-hand end, where he said it is',
      bar.last === 'notebtn', 'last=' + bar.last);
-  ok('it is on screen', bar.me.onScreen);
+  ok('it is WHOLLY on screen, not merely overlapping it', bar.me.onScreen,
+     Math.round(bar.me.x) + '..' + Math.round(bar.me.x + bar.me.w) + ' of ' + bar.vw);
 
   /* ---- 6. IT TOGGLES, AND THE CHIP STAYS IN THE BAR ---- */
   const tap = () => d.fr.evaluate(() => {

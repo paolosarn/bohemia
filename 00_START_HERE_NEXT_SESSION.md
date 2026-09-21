@@ -1,3 +1,90 @@
+UI (ui-kmqmrf): 9/22 (b) LATEST -- *** MY RULER PASSED A BUTTON THAT WAS OFF HIS SCREEN. ***
+Both his 9/22 asks shipped in one push: [phone is the button] and [notes on screen].
+TAB: the top bar of the demo (NOTES, far right) and the CITY screen (the drawn phone).
+Record: records/BOHEMIA_MY_RULER_PASSED_A_BUTTON_OFF_HIS_SCREEN_9_22_26.md
+
+HIS WORDS: "How do I access the notes to make notes as I'm playing the demo?" and "there
+shouldn't be a phone button in the top right. I should click the phone and then it opens the
+phone. The phone is the phone button." His frame: the bar reads CITY MODE / FREEWAY /
+DAY 2 . 20:15 NIGHT / T / SAVE / PHONE and then the edge of the glass. NOTES is past it.
+
+*** WHY MY GATE PASSED IT. *** the_notes_section_gate's leg was called "it is on screen" and
+it asked `r.left < innerWidth`, which is TRUE FOR A CONTROL HANGING OFF THE RIGHT -- a chip
+from 380 to 424 on a 390 px phone passes it. The ruler was satisfied by exactly the thing he
+was complaining about. FOURTH TIME IN THIS LANE that a checker agreed with itself and
+disagreed with his phone. The question is rewritten in both gates and it is the only form
+that means anything: IS THE WHOLE CONTROL INSIDE THE GLASS.
+
+*** I COULD NOT REPRODUCE HIS OVERFLOW AND I AM NOT CLAIMING I DID. *** Five probes measured
+the wrong thing, and the last one matters to every lane:
+  1. #menubar at 390 -- fit. But mine said HUMAN MODE / SUBURB, his says CITY MODE / FREEWAY.
+  2. crossed the seam -- fit, and my labels came back REGION / ZOOM OUT with no clock.
+  3. cut his exact build (2490fc8, BUILD 9/21f) in a worktree -- fit.
+  4. searched the live page for his own words -- ZERO elements say CITY MODE; the string
+     lives in #hmode and a second writer overwrites it. Put his strings in by hand: still fit,
+     because the flex squeezes the music chip, which his shows crushed to one letter T.
+  5. *** THE DEMO CUT REFERENCES THE CITY FILE, IT DOES NOT INLINE IT. *** Serving an old cut
+     still serves the CURRENT city, so every "his build" measurement was my own working tree
+     wearing an old name, step 3 included. Confirmed by asking the served page for a string
+     only my new code has: present in both. THERE IS NO BEFORE TO FAIL AGAINST.
+     FOR EVERY LANE THAT DRIVES THE DEMO: opts.serve on BOHEMIA_DEMO.html does not give you an
+     old city. If you need an old city you must serve that file too, and the driver did not
+     honour that for me -- worth somebody's row.
+
+WHAT I FOUND INSTEAD, SPECIFIC AND STATED AS PLAUSIBLE RATHER THAN PROVEN: NOT ONE FILE IN
+THIS GAME SET -webkit-text-size-adjust. Measured: zero hits across the city, the demo and the
+alpha. iOS Safari inflates text when it is unset and this bar is white-space:nowrap, so
+inflation pushes its right end straight off the glass -- which is his picture. Headless
+Chromium never inflates, which is exactly why five probes of mine saw a bar that fit. It is
+set now. It costs nothing and removes the class; it is not proof of his cause.
+
+SO THE FIX IS A PROPERTY, NOT A PATCH TO A MEASURED NUMBER. The PHONE chip is gone (his ask,
+about 32 px back) and #barright is flex:0 0 auto, so the group carrying SAVE and NOTES cannot
+shrink and cannot wrap. The pressure goes into the music track name and the clock, which are
+now ellipsis and are ALLOWED to lose letters -- his already was, which is why it read "T".
+A READOUT LOSING A WORD IS A NUISANCE; A CONTROL OFF THE GLASS DOES NOT EXIST.
+Held under stress: his exact words in the bar, the glass narrowed to 320, the type forced 30%
+bigger -- NOTES still whole at 268..312 of 320.
+
+THE PHONE IS THE PHONE BUTTON. The chip is REMOVED FROM THE DOM rather than hidden (a
+display:none control is still something the next person finds and wonders about, and this one
+is dead by his ruling). The drawn phone on the city screen (#cityfeed, the panel in his frame
+reading @nightcount) is the handle: tap to open, tap again to fold, Enter and Space too. The
+object is untouched -- "very impressed with the phone" -- only how it opens changed. The
+comment saying the feed "carries no control, so it cannot become a tap target smaller than a
+thumb" is AMENDED rather than left contradicting the code: the whole panel is the target,
+132x349 in city mode, so that sentence's reason is honoured by one big handle instead of none.
+
+AND TWO OF MY OWN NEW LEGS COULD NOT SEE THEIR SUBJECT, which is here rather than quietly
+fixed: the phone leg measured the drawn phone on the WALKING screen where it is 0x0, and the
+tap test PASSED ANYWAY because a click dispatched at an invisible element still fires its
+handler (it crosses the seam and proves it got to city mode first now); and the inflation
+stress set font-size on #menubar where .uihalf beat it with !important, so every "inflated"
+run came back byte-identical and looked like a pass (the gate proves the type really moved,
+5px -> 6.5px, before it scores). A stress that cannot fail is not a test.
+
+PRE-PUSH PASS (rule 13): BAR FITS GLASS 17/0 (new, in the suite), FOUR mutations proved and
+each restored. NOTES SECTION 28/0 with its broken leg corrected. SUITE LINE: 107 red at
+ad23d875; mine are NONE.
+
+AND THE FIRST MUTATION TURNS ONLY ONE LEG RED, WHICH IS WORTH SAYING PLAINLY RATHER THAN
+LETTING FOUR GREENS IMPLY A STRENGTH THE GATE DOES NOT HAVE: making the right-hand group
+shrinkable again fails the SOURCE leg and not the stress legs, because my harness never
+overflows in the first place, and a group that is ALLOWED to shrink does not shrink when
+nothing is pushing it. The property is guarded mostly by reading the CSS; the stress is a
+floor, not the catch. Same limitation as the five probes above -- without a browser that
+inflates type I cannot manufacture the pressure his phone applies.
+
+COOKED (rule 22): slices/BOHEMIA_FOUR_WAYS_THE_TOP_BAR_FITS_9_22_26.html, registered
+ui-four-ways-the-top-bar-fits-9-22. His bar with his own words in it, four ways: what he
+photographed with the red edge where his screen ends, the locked right-hand end that shipped,
+the clock moved off the bar entirely, and one joined label instead of three. Plus the drawn
+phone as its own button.
+
+NEXT: [cook panels] is the standing rule-22 row; items 2, 3 and 4 (the fight HUD, the talk
+panel, the vote tab's own frame) are drawn as sheets but not built as skins. [registry split]
+is open and the registry conflicts on nearly every rebase. [vote plays sound] still open.
+[three d ui] still has no gate of its own. [no slop] stays CLAIMED.
 EYES AND EARS (eyes-5vql33): 9/21 (ao) LATEST -- *** ROUND 11: SEVEN DEAD CONTROLS ON THE FIRST SCREEN, AND THEY WERE INVISIBLE TO EVERY ROUND BEFORE THIS ONE BECAUSE MY SCRIPT NEVER PRESSED THEM. *** Record: records/BOHEMIA_EYES_E26_ROUND_11_THE_SCRIPT_NEVER_PRESSED_THE_HUD_9_21_26.md. Walked on the DEPLOYED CUT, BUILD 9/21i. THE STRANGER'S LIST and THE HORROR READING are both rewritten on the front page.
   THE SEVEN, each pressed twice under 14(h) with the panel still open and nothing moving that the world does not move by itself: SCAVENGE - 8H (46x44), BUILD HERE (44x44), STANDING (44x44), RAY (33x45), DENISE (51x45), MARCO (48x45), Marry (44x44). THREE ARE CORE VERBS on the first screen a stranger sees -- the job, building, your own rung -- and FOUR ARE THE FAMILY PANEL: three people and the one action offered on them. The gear, MUSIC, SAVE, SLEEP and BIKE all answer, so the HUD is HALF alive, which is why it reads as glitchy rather than unbuilt. -> LIFE + CITY [eyes: half a hud], this round's one bounce-back.
   WHY NOBODY CAUGHT IT SOONER IS MINE. The tap script only ever pressed THREE CATEGORIES: the biggest thing, anything matching a card word, anything map-shaped, then whatever turned up new. THE HUD CHIPS MATCH NONE OF THOSE, so in eleven rounds of this job they were never pressed once. The inventory found ELEVEN things on the first screen and the walk pressed TWO. Fixed with a sweep of everything the first screen offers: PRESSES WENT FROM 2 TO 28 in the same five minutes.
