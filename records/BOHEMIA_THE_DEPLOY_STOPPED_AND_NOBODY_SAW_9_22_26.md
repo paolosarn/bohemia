@@ -107,3 +107,70 @@ Corrected in place. Its sibling, `BOHEMIA_TWO_DEPLOYERS_ARE_FIGHTING_8_6_26.md`,
 right on 8/6 -- "both deployers fire on every push", "only runs when the source is still
 set to a branch" -- and nobody read it for six weeks. That one gets the forward pointer
 rather than a correction.
+
+## THE GATE CAUGHT ITSELF LYING BEFORE IT SHIPPED, AND THAT IS THE BEST PART OF THE ROUND
+
+Two runs of `the_live_site_is_current_gate.js`, three minutes apart, same code, same tree:
+
+```
+run A   last successful deploy: run #2166, ff62222, 1954 min ago
+        of the last 12 completed runs, 0 were cancelled
+        === 1 passed, 3 failed ===
+
+run B   last successful deploy: run #2317, 74994fa, 4 min ago
+        of the last 12 completed runs, 10 were cancelled
+        === 2 passed, 2 failed ===
+```
+
+Run B is the truth. Checked by hand against the Actions API and against `git log`
+(74994fa is on main; run 2317 concluded SUCCESS at 08:41:50). **Run A was a
+thirty-two-hour-old response**, and it did not look like an error for one second. It
+printed a run number, a sha and an age, in exactly the shape of the true line, and it said
+the opposite about the one thing this gate exists to report.
+
+This endpoint answers with `Cache-Control: private, max-age=60, s-maxage=60`, so anything
+between this container and GitHub is allowed to answer from a store, and something did.
+
+**This is the same shape as [push check] and [driver says], for the third round running:**
+a tool returning a believable wrong number with no error, where the wrongness is invisible
+because the output is well formed. The pipe that ate a push's exit code, the driver that
+opened the demo when asked for the alpha, and now a deploy gate reading a day-and-a-half-old
+answer. None of the three threw. All three printed something a person would quote.
+
+THE FIX IS NOT `no-cache` ALONE. Asking politely for a fresh copy is not the same as knowing
+you got one, and a gate whose correctness rests on a request header nobody verifies is the
+same bug wearing a different coat. So the gate asks for fresh **and then makes the response
+prove it**, from the response's own `Date` header (which a cache copies from the original),
+plus `Age` where a cache sets it. It refuses anything it cannot date.
+
+The bar is FIFTEEN MINUTES, not one, on purpose: the container clock and GitHub's can differ
+by seconds to minutes, and a gate that goes red for clock skew teaches the fleet to ignore
+it. Fifteen minutes sits far inside the forty-five-minute staleness bar this gate enforces,
+and the failure it was built to catch was 1,954 minutes.
+
+MUTATION-CHECKED BOTH WAYS, exit codes read without a pipe:
+
+| mutation | result |
+|---|---|
+| tolerance forced below any real age | FAIL on the floor leg, exit 1, **zero** deploy numbers printed |
+| the Date header hidden from the proof | FAIL on the floor leg, exit 1, "refuses a number it cannot date" |
+| restored | 2 passed, 2 failed, exit 1 (red on purpose, see below) |
+
+The important property is the third column of row one: **when it cannot prove the answer is
+fresh it prints no number at all.** A refusal is a thing a person acts on. A believable
+wrong number is a thing a person repeats.
+
+## WHERE THE DEPLOY ACTUALLY STANDS AT THE END OF THIS ROUND
+
+The storm broke on its own while this round was being written. Runs 2307 and 2316 and 2317
+concluded SUCCESS between 08:33 and 08:42, so the site is current again and his VOTE tab
+should load. 10 of the last 12 completed runs were still cancelled in the queue, so the
+mechanism that caused it has not gone anywhere, which is why that leg stays red.
+
+The paths filter shipped this round cuts the trigger rate by more than half, measured on
+real history. It makes the storm survivable. It does not make it impossible.
+
+**The thing that makes it impossible is one click and it is Paolo's: Settings -> Pages ->
+Source: GitHub Actions.** Until then two builders publish this site and whichever finishes
+last wins, and the one that keeps winning during a storm publishes no `records/` and no
+`*.json`.

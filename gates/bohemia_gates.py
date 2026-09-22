@@ -4162,7 +4162,23 @@ GATES = [
      'claims to: this container egress policy blocks paolosarn.github.io (measured HTTP 000), so '
      'the live-URL check lives in the post-deploy leg of the workflow, on GitHub own runner. FLOOR: '
      'if the API cannot be read it FAILS rather than skipping, because a deploy gate that passes '
-     'because it could not look is the loudest form of green over nothing.',
+     'because it could not look is the loudest form of green over nothing. *** AND IT CAUGHT '
+     'ITSELF LYING BEFORE IT SHIPPED. *** Two runs three minutes apart, same code and same '
+     'tree, disagreed: one said the last successful deploy was run 2166, 1954 minutes ago, '
+     'with 0 of 12 recent runs cancelled; the other said run 2317, 4 minutes ago, 10 of 12 '
+     'cancelled. The second is the truth, checked by hand against the API and against git. '
+     'The first was a THIRTY-TWO HOUR OLD RESPONSE, and it printed a run number, a sha and '
+     'an age in exactly the shape of the true line. This endpoint answers with '
+     'Cache-Control: max-age=60, s-maxage=60, so anything between here and GitHub may answer '
+     'from a store, and something did. Same shape as [push check] and [driver says] for the '
+     'third round running: a believable wrong number, no error, well-formed output. THE FIX '
+     'IS NOT no-cache ALONE -- asking for a fresh copy is not knowing you got one -- so the '
+     'gate asks for fresh AND MAKES THE RESPONSE PROVE IT from its own Date header (plus Age '
+     'where a cache sets it), and REFUSES ANY ANSWER IT CANNOT DATE, printing no number at '
+     'all. Bar is 15 minutes, not 1, so clock skew can never make it red; the failure it was '
+     'built to catch was 1954. Mutation-checked both ways with exit codes read WITHOUT A '
+     'PIPE: tolerance forced under any real age, and the Date header hidden from the proof, '
+     'both give a floor failure, exit 1, and zero deploy numbers printed.',
      180),
 
     ('DID IT LAND', ['node', 'gates/did_it_land_gate.js'],

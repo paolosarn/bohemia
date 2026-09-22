@@ -57,6 +57,7 @@
      node gates/the_live_site_is_current_gate.js
    ========================================================================== */
 'use strict';
+const fs = require('fs');
 const path = require('path');
 const { execFileSync } = require('child_process');
 
@@ -77,11 +78,90 @@ const ok = (n, c, why) => { if (c) { pass++; console.log('  ok   ' + n); }
   else { fail++; console.log('  FAIL ' + n + (why ? '\n         ' + why : '')); } };
 
 const token = process.env.GH_TOKEN || process.env.GITHUB_TOKEN || '';
+
+/* *** A CACHED ANSWER IS NOT AN ANSWER, AND THIS GATE CAUGHT ITSELF LYING. ***
+   Measured 9/22, the round this gate was written. Two runs three minutes apart,
+   same code, same tree, same repo:
+
+     run A   last successful deploy: run #2166, ff62222, 1954 min ago
+             of the last 12 completed runs, 0 were cancelled
+     run B   last successful deploy: run #2317, 74994fa, 4 min ago
+             of the last 12 completed runs, 10 were cancelled
+
+   Run B is the truth (checked against the Actions API by hand, and against
+   `git log`: 74994fa is on main). Run A is a THIRTY-TWO HOUR OLD response, and
+   it did not look like an error for one second. It printed a run number, a sha
+   and an age, in the same shape as the true line, and it said the exact opposite
+   about the one thing the gate exists to report.
+
+   GitHub sends `Cache-Control: private, max-age=60, s-maxage=60` on this
+   endpoint, so anything between here and GitHub is allowed to answer from a
+   store, and something did.
+
+   THE FIX IS NOT `no-cache` ALONE. Asking politely for a fresh copy is not the
+   same as knowing you got one, and a gate whose correctness rests on a request
+   header nobody verifies is the same class of bug as the pipe that ate the push
+   exit code (row [push check]). SO: ask for fresh, then MAKE THE RESPONSE PROVE
+   IT, and refuse it if it cannot.
+
+   The proof is the response's own `Date` header, which a cache copies from the
+   original. Tolerance is 15 MINUTES, not one, ON PURPOSE: the container clock
+   and GitHub's can differ by seconds to minutes and this must never go red for
+   skew. 15 minutes is far inside the 45-minute staleness bar this gate enforces,
+   and the failure it was built to catch was 1,954 minutes. `Age` is checked too
+   where a cache sets it. */
+const RESPONSE_MAX_AGE_MINUTES = 15;
+let apiRefusal = null;          /* set when a response could not prove it was fresh */
+
 function api(p) {
-  const args = ['-s', '--max-time', '25', '-H', 'Accept: application/vnd.github+json'];
+  const hdr = '/tmp/bohemia-livesite-hdr-' + process.pid + '.txt';
+  const args = ['-s', '--max-time', '25',
+    '-D', hdr,
+    '-H', 'Accept: application/vnd.github+json',
+    /* ask for fresh. Not trusted; verified below. */
+    '-H', 'Cache-Control: no-cache',
+    '-H', 'Pragma: no-cache'];
   if (token) args.push('-H', 'Authorization: Bearer ' + token);
   args.push('https://api.github.com/repos/' + REPO + p);
-  try { return JSON.parse(execFileSync('curl', args, { encoding: 'utf8', maxBuffer: 1 << 26 })); }
+  let body;
+  try { body = execFileSync('curl', args, { encoding: 'utf8', maxBuffer: 1 << 26 }); }
+  catch (e) { return null; }
+
+  let heads = '';
+  try { heads = fs.readFileSync(hdr, 'utf8'); } catch (e) { heads = ''; }
+  try { fs.unlinkSync(hdr); } catch (e) { /* nothing to clean up */ }
+
+  /* THE FRESHNESS PROOF. Last Date: wins -- a proxy CONNECT writes its own
+     header block first, so the first one is not GitHub's. */
+  const dates = heads.split(/\r?\n/).filter(l => /^date:/i.test(l));
+  const ages  = heads.split(/\r?\n/).filter(l => /^age:/i.test(l));
+  if (!dates.length) {
+    apiRefusal = 'the response carried no Date header, so it cannot show when it was '
+      + 'made. This gate refuses a number it cannot date.';
+    return null;
+  }
+  const served = Date.parse(dates[dates.length - 1].replace(/^date:\s*/i, '').trim());
+  if (!served) {
+    apiRefusal = 'the response Date header did not parse: '
+      + dates[dates.length - 1].trim();
+    return null;
+  }
+  const behind = (Date.now() - served) / 60000;
+  if (behind > RESPONSE_MAX_AGE_MINUTES) {
+    apiRefusal = 'the answer is ' + Math.round(behind) + ' MINUTES OLD (its own Date header '
+      + 'says ' + new Date(served).toISOString() + '). Something between here and GitHub '
+      + 'served it from a store. A stale deploy reading does not look like an error, it '
+      + 'looks like a different true answer, so this is a refusal, not a number.';
+    return null;
+  }
+  if (ages.length) {
+    const age = parseInt(ages[ages.length - 1].replace(/^age:\s*/i, ''), 10);
+    if (age > RESPONSE_MAX_AGE_MINUTES * 60) {
+      apiRefusal = 'a cache answered: Age ' + age + ' seconds.';
+      return null;
+    }
+  }
+  try { return JSON.parse(body); }
   catch (e) { return null; }
 }
 const mins = (iso) => (Date.now() - Date.parse(iso)) / 60000;
@@ -94,7 +174,7 @@ const mins = (iso) => (Date.now() - Date.parse(iso)) / 60000;
   const ours = api('/actions/workflows/' + OURS + '/runs?per_page=40&branch=main');
   if (!ours || !Array.isArray(ours.workflow_runs)) {
     ok('the Actions API is readable, so this gate can see the deploy at all', false,
-      (token ? 'the API did not answer' : 'no GH_TOKEN or GITHUB_TOKEN in this environment')
+      (apiRefusal || (token ? 'the API did not answer' : 'no GH_TOKEN or GITHUB_TOKEN in this environment')).replace(/\.$/, '')
       + '. A deploy gate that passes because it could not look is the loudest form of '
       + 'green over nothing, so this is a refusal, not a skip.');
     console.log('\n=== THE LIVE SITE IS CURRENT: ' + pass + ' passed, ' + fail + ' failed ===');

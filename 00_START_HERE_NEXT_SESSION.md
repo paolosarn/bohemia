@@ -4709,6 +4709,43 @@ STILL OPEN IN MY SECTION: [horror gate], [mode chip], [suite line] (the front pa
 9/14 ad23d875), [pre-push pass], [cannot fail], [one way rulers], [spelling gates], [suite runs],
 [fight headroom], [slim build], [dead gates], [handoff cut], [backlog archive]. Still CLAIMED:
 [never worse], [sixty fps], [demo errors] (STANDING).
+*** AND THE NEW GATE CAUGHT ITSELF LYING BEFORE IT SHIPPED. THIRD ROUND RUNNING OF THE SAME SHAPE. ***
+Two runs of it, three minutes apart, same code and same tree, disagreed:
+  run A   last successful deploy: run #2166, ff62222, 1954 min ago   0 of 12 cancelled
+  run B   last successful deploy: run #2317, 74994fa, 4 min ago     10 of 12 cancelled
+Run B is the truth, checked by hand against the Actions API and against git (74994fa is on main).
+RUN A WAS A THIRTY-TWO HOUR OLD RESPONSE, and it did not look like an error for one second: a run
+number, a sha and an age, in exactly the shape of the true line, saying the opposite about the one
+thing the gate exists to report. The endpoint answers Cache-Control max-age=60, s-maxage=60, so
+anything between this container and GitHub may answer from a store, and something did.
+SAME SHAPE AS [push check] AND [driver says], THREE ROUNDS IN A ROW: a tool returning a believable
+wrong number with no error, invisible because the output is well formed.
+THE FIX IS NOT no-cache ALONE -- asking for a fresh copy is not the same as knowing you got one, and
+a gate whose correctness rests on a request header nobody verifies is the same bug in a new coat. It
+asks for fresh AND MAKES THE RESPONSE PROVE IT, from the response's own Date header (which a cache
+copies from the original) plus Age where a cache sets it, and REFUSES ANY ANSWER IT CANNOT DATE,
+printing NO NUMBER AT ALL. Bar is 15 minutes, not 1, so clock skew can never make it red; what it was
+built to catch was 1,954. MUTATION-CHECKED BOTH WAYS, exit codes read WITHOUT A PIPE: tolerance forced
+under any real age, and the Date header hidden from the proof, each gives a floor failure, exit 1, and
+zero deploy numbers on screen.
+FOR EVERY LANE: IF YOUR GATE READS AN HTTP API, IT CAN BE HANDED A STALE ANSWER IN THIS CONTAINER, AND
+IT WILL NOT LOOK LIKE ONE.
+AND THE STORM BROKE WHILE THIS WAS BEING WRITTEN: runs 2307, 2316 and 2317 concluded SUCCESS between
+08:33 and 08:42, so the site is current again and his VOTE tab should load. 10 of the last 12
+completed runs were still cancelled in the queue, so the mechanism is untouched and that leg stays red.
+AND A NUMBER FOR MY OWN [suite runs] ROW, TAKEN THIS ROUND BECAUSE MAIN MOVED AND THE SHIP FLOW SAYS
+RE-RUN THE SUITE: I started a full run and capped it at 900 seconds. IT REACHED GATE 52 OF 702, and
+the last 540 of those seconds produced ZERO new gates, so it was stuck on one. 8 of the 52 were red
+and NONE of them are this lane's (INSTRUMENTS, DISTRICT FILL, REPO BUDGET, STREET SOURCE, FULL RES,
+SEE THROUGH, HALF SIZE, TOP MENU BAR). At the rate of the part that was moving, 702 gates is about
+EIGHTY MINUTES, and this lane's own job description says the whole set should finish in one command
+in under ten. MEASURED AGAINST THE OTHER CLOCK: the lanes land on main about every THIRTEEN MINUTES.
+A suite that takes eighty minutes can never satisfy "the gates you ran are still valid" -- main moves
+six times while it runs. That is not an argument for skipping it, it is the size of [suite runs], and
+it is why this round ships on a named pre-push pass instead of a full-suite number I did not get.
+PRE-PUSH PASS, every gate this change touches, exit codes read WITHOUT A PIPE: LIVE SITE CURRENT 2/2
+(red on purpose), PAGES PUBLISH 17/1 (the 267 MB cap, pre-existing, [slim build]), DID IT LAND 5/0,
+DRIVER SAYS 6/0, HANDOFF 8/0, REPLY CONTRACT 17/0.
 Record: records/BOHEMIA_THE_DEPLOY_STOPPED_AND_NOBODY_SAW_9_22_26.md
 [PENDING Paolo] ONE CLICK, and it is the real fix for his 404: Settings -> Pages -> Source: GitHub
 Actions. Until then two builders publish this site and whichever finishes last wins.
