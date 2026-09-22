@@ -112,6 +112,33 @@ async function sweep(opts) {
   });
   console.log('  and at 38,617 the TOP page now hands the finger to: ' + covered);
 
+  /* *** AND THEN THE LANDING. *** Through the door, the alpha opens on the VOTE tab
+     -- which is Paolo's own ruling (rule 15g, the alpha opens on VOTE after loading)
+     and not a defect. It does mean the walked game is not on screen at all, so all
+     seven come back NOT ON SCREEN and that is still not a measurement of them. This
+     is the FIFTH layer between a cold boot and the first screen EYES reported on:
+         the splash -> BEGIN -> the VOTE landing -> the play tab -> the HUD
+     Any harness that stops before the last one is measuring something else. */
+  const tab = await d.pageEval(() => {
+    const want = ['run', 'life'];
+    for (const w of want) {
+      const t = document.querySelector('#tabs .tab[data-p="' + w + '"]');
+      if (t) { t.click(); return { pressed: w, says: (t.textContent || '').trim() }; }
+    }
+    return { pressed: null };
+  });
+  if (tab.pressed) {
+    await d.page.waitForTimeout(2500);
+    const now = await d.pageEval(() => {
+      const e = document.elementFromPoint(38, 617);
+      return e ? (e.id ? '#' + e.id : e.tagName.toLowerCase()) : 'nothing';
+    });
+    console.log('  THE LANDING: the alpha opens on VOTE (his own ruling), so I pressed '
+      + tab.says + ' and the finger now lands on: ' + now);
+  } else {
+    console.log('  THE LANDING: *** no play tab found in #tabs ***');
+  }
+
   /* FIND THEM BY THEIR WORDS. EYES read labels off the glass; binding to an id here
      would quietly test a different control and report it healthy. */
   const found = await d.fr.evaluate(list => {
