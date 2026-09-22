@@ -5093,6 +5093,97 @@ full suite unmeasured since 7efb22cf. Rule 14(a): demo untouched, RUN cuts it.
 
 Record: records/BOHEMIA_ONE_DOOR_9_14_26.md
 
+PLUMBER (plumber-ont6t5): 9/23 (c) LATEST -- *** CHAT 18. ROUND 37. [eyes: head blind] SHIPPED. ONE
+CHARACTER DECIDED WHETHER A LIVE LANE'S ENTIRE CURRENT STATE COULD BE DELETED IN SILENCE. ***
+EYES AND EARS found this in my gate, proved it one difference at a time, and DID NOT FIX IT, because
+gates are this lane's and one lane editing another lane's checker is how a checker stops being
+trusted. That was right and it is why this round is short. Every number EYES posted was correct.
+THE BUG: the block-head guard this lane built on 9/13 (after measuring 93 commits that ate 80 blocks)
+reads heads shaped LANE (slug): date (x) LATEST, and the round marker was \(\w\) -- EXACTLY ONE
+CHARACTER. A lane past its twenty-sixth round of a day runs out of single letters and writes (aa),
+(ap), (bf). Two live lanes are already there: EYES AND EARS 9/22 (ap) and COORDINATOR 9/5 (bf). Their
+CURRENT heads were invisible to the check built to protect current heads.
+REPRODUCED BEFORE TOUCHING ANYTHING, throwaway tree on current main, EYES carrying two blocks the way
+it will next round (with one block the older fleet check still covers it; the hole opens the round a
+lane carries two):
+  delete its newest block, head 9/23 (aq)  ->  8 passed, 0 failed, EXIT 0, SILENT
+  the same deletion, head 9/23 (q)         ->  7 passed, 1 failed, EXIT 1, named
+235 characters against 236.
+THE FIX IS A SENTENCE THIS FILE ALREADY HAD IN IT, forty lines above the bug, from the LIFE + CITY fix
+last round: "it held a SPELLING where the law is a MEANING." Second time in one file. The marker is an
+arbitrary tag the lanes invent and the gate has no business constraining its shape, so it takes any
+parenthesised run with no space in it. The slug is the discriminator; it always was.
+AND THE SLUG CLASS HID 118 MORE, measured rather than assumed because EYES called them history and
+history is exactly what the 9/13 incident ate: hyphen-less slugs newest each f3eu53 8/26, 0lurbs 8/11,
+1eztay 8/9, 7h9sfy 8/6, factions 8/2, xk7pjp 8/2, e2r7sv 8/1, eak241 8/1, against live lanes at 9/23
+and 9/24. EYES WAS RIGHT, all history, and they are still 118 real heads the check claimed to hold, so
+they are held now. The noise the original tightening rejected stays rejected and the separation is
+MEASURED not picked: every real hyphen-less slug is 6 to 8 characters, every prose token is 1 to 2,
+nothing lives between 2 and 6, so a floor of 5 has room both sides. HEADS HELD 230 -> 345, PROSE 0.
+The archive escape still releases an archived head, proved, so [handoff cut] is not blocked.
+*** SECOND DEFECT IN THE SAME CHECK, FOUND WHILE FIXING THE FIRST: IT REFUSED TO SAY WHAT WAS LOST.
+The ok() helper took two arguments. Swept the file: 9 call sites, exactly ONE passes a third, and it is
+this one, carrying 'LOST: <the heads that went>'. The helper threw it away, so the one check in this
+file whose entire job is to name a deleted block went red saying only that SOMETHING was deleted. A red
+that does not say what to put back is most of the way to no red at all. Printed now, on failure only.
+*** THIRD, AND IT IS THE ONE THAT MATTERS MOST: THE TOOL THAT PUTS EATEN BLOCKS BACK HAD ALL OF IT,
+PLUS ONE MORE. tools/bohemia_handoff_recover.js is the repair for exactly the loss this gate reports.
+It spelled the lane name without + & or -, so LIFE + CITY was invisible there too (the hole I fixed in
+the gate last round, still open here); it carried the same one-character marker; AND ITS NEWEST-BLOCK
+ORDERING WAS BACKWARDS the moment a marker grew a second letter, because it compared markers as plain
+strings and 'b' > 'ap', so a lane's SECOND round outranked its FORTY-SECOND. That is precisely the
+failure the comment sitting above that code describes -- restoring a stale block as if it were current
+-- reintroduced by one character. It saw 223 heads where the gate holds 345.
+All three fixed. Both patterns are the gate's VERBATIM so they cannot drift apart again, and the
+markers now count like spreadsheet columns (a..z, aa, ab, .. ap): shorter is older, same length sorts
+alphabetically, no marker is oldest. Verified through every real shape including the pair that was
+backwards.
+MEASURED BY RUNNING THE REAL TOOL BOTH WAYS, 600 commits of this file each time:
+  OLD    28 block(s) missing across 7 lanes: WORDS 9, ANIMATION 5, PEOPLE 5, EYES AND EARS 3,
+         PLUMBER 3, RUN 2, SOUND 1
+  FIXED  58 block(s) missing across 8 lanes: LIFE + CITY 17, EYES AND EARS 16, WORDS 9, ANIMATION 5,
+         PEOPLE 5, PLUMBER 3, RUN 2, SOUND 1
+TWICE AS MANY, AND A WHOLE LANE THAT DID NOT EXIST TO THE REPAIR. LIFE + CITY had 17 blocks sitting in
+history, recoverable, and the tool could not see one of them. EYES AND EARS goes 3 -> 16, which is
+exactly why the lane that reported this bug could write "today my lane carries one block in main".
+NOTHING IS RESTORED BY THIS ROUND: the tool only lists unless asked to write, and which blocks come
+back and where they go is [handoff cut], not this row. What changed is that the list is true.
+FOR LIFE + CITY AND EYES AND EARS, NAMED NOT FIXED: 17 and 16 of your blocks are in history and
+recoverable. `node tools/bohemia_handoff_recover.js` lists them with the commit that ate each one.
+MUTATION MATRIX, exit codes read WITHOUT A PIPE:
+  old gate, marker (q)   7/1 red    |  old gate, marker (aq)   8/0 SILENT
+  fixed gate (q) (aq) (bf)  all 7/1 red and all NAMED
+  history head deleted   7/1 red    |  the same head archived  8/0 green
+  untouched tree         8/0
+THE LESSON IS THIS LANE'S OWN OPEN ROW [spelling gates]: three narrow character classes across two
+files, all written by this lane, all of them a spelling standing in for a meaning, and every one of
+them blinded the check on the lanes that had run the longest. Nothing threw. Every one was green.
+*** AND MAIN WAS BROKEN WHEN I WENT TO PUSH, IN THE ONE FILE HE ALREADY COMPLAINED ABOUT. ***
+records/target/BOHEMIA_VOTE_REGISTRY.json was committed to main WITH GIT CONFLICT MARKERS IN IT
+(9eec17d1, the markers naming 177ef0a) and was UNPARSEABLE JSON at line 1224. That is the file his VOTE
+tab reads, ONE ROUND after he got THE LIST DID NOT LOAD on his phone, and it turned the handoff gate red
+in every lane, so nobody could honestly push. Not a red in another lane's WORK, which this lane never
+touches: a corrupt file on main blocking the fleet.
+RESOLVED MECHANICALLY, NO CONTENT DECIDED. The two sides were 8 items only one had (SOUNDS 1, COOK 5,
+LIFE + CITY 1, CHARACTER 1) and 2 items only the other had (the coordinator's two DYNASTY defaults from
+rule 31); the verdict list was identical on both. Kept BOTH: 102 items, 83 verdicts. PICKING EITHER SIDE
+ALONE WOULD HAVE SILENTLY DELETED SOMEBODY'S COOKED ROUND -- ours-only would have lost the coordinator's
+two, theirs-only would have lost eight, including COOK's five and CHARACTER's runway redo.
+PROVED ID BY ID before writing, and the writer refuses to write anything that does not parse: every item
+from each side present, none invented, no duplicates, every object byte-identical to its source object,
+verdicts untouched. VOTE TAB 30/0, CHARACTER IN VOTE 9/0, HANDOFF 8/0. One line left in UI's section,
+which owns the registry (rule 15d), saying exactly this.
+PRE-PUSH PASS: handoff gate 8/0, reply contract 17/0, vote tab 30/0, character in vote 9/0, the recovery
+tool end to end both ways.
+Full suite: 107 red at ad23d875, mine are none. Rule 14(a): demo untouched, RUN cuts it.
+Record: records/BOHEMIA_ONE_CHARACTER_DECIDED_WHETHER_A_LANE_COULD_BE_DELETED_9_23_26.md
+STILL OPEN IN MY SECTION: [rot ceiling], [three valleys], [slim build], [deep history], [real
+surface], [horror gate], [mode chip], [suite line], [pre-push pass], [cannot fail], [one way rulers],
+[spelling gates], [suite runs], [fight headroom], [dead gates], [handoff cut], [backlog archive].
+Still CLAIMED: [never worse], [sixty fps], [demo errors] (STANDING).
+[PENDING Paolo] ONE CLICK, still the real fix for the 404 he hit: Settings -> Pages -> Source: GitHub
+Actions. Until then two builders publish this site and whichever finishes last wins.
+
 PLUMBER (plumber-ont6t5): 9/23 (b) LATEST -- *** CHAT 18. ROUND 36. [list loads] SHIPPED. THE DEPLOY HAD
 BEEN DEAD FOR 455 MINUTES AND THE WAY WE FOUND OUT WAS PAOLO'S PHONE. ***
 He opened the alpha's VOTE tab and got "THE LIST DID NOT LOAD", a 404 on the vote registry. Rule 14(d).

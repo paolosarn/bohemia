@@ -53,8 +53,24 @@ const cp = require('child_process');
 
 const ROOT = path.dirname(__dirname);
 const NAME = '00_START_HERE_NEXT_SESSION.md';
-const HEAD_RE = /^[A-Z][A-Z \/]*\([a-z0-9]+(?:-[a-z0-9]+)+\):\s+\S+(?:\s+\(\w\))?\s+LATEST/gm;
-const BLOCK_START = /^[A-Z][A-Z \/]*\([a-z0-9]+(?:-[a-z0-9]+)+\):\s+\S+/m;
+/* *** THE TOOL THAT PUTS EATEN BLOCKS BACK COULD NOT SEE THE BLOCKS THE GATE NOW
+   REPORTS AS EATEN. (9/23, PLUMBER, row [eyes: head blind], found while fixing the
+   gate's copy of the same pattern.) Three separate narrowings, all measured:
+
+     the lane name was [A-Z] and spaces, so LIFE + CITY was invisible (the same hole
+       fixed in the gate on 9/23, still open here);
+     the round marker was \(\w\), EXACTLY ONE CHARACTER, so the two live lanes past
+       their twenty-sixth round were invisible;
+     together: THE TOOL SAW 223 HEADS WHERE THE GATE HOLDS 345.
+
+   A gate that names a loss beside a recovery tool that cannot restore it is worse
+   than either alone, because the red now points at a repair that is not there. Both
+   patterns are the gate's, verbatim, so they cannot drift apart again. */
+const LANE = '[A-Z][A-Z +\\/&-]*';
+const SLUG = '[a-z0-9]+(?:-[a-z0-9]+)+|[a-z0-9]{5,}';
+const HEAD_RE = new RegExp(
+  '^' + LANE + '\\((?:' + SLUG + ')\\):\\s+\\S+(?:\\s+\\([^)\\s]+\\))?\\s+LATEST', 'gm');
+const BLOCK_START = new RegExp('^' + LANE + '\\((?:' + SLUG + ')\\):\\s+\\S+', 'm');
 
 const git = (args) => cp.execFileSync('git', args, { cwd: ROOT, encoding: 'utf8', maxBuffer: 1 << 29 });
 const at = (sha) => { try { return git(['show', sha + ':' + NAME]); } catch (e) { return ''; } };
@@ -125,15 +141,26 @@ function blockAt(text, head) {
      9/13 (d) -- all three were eaten by the SAME commit, so history order said nothing
      about which was current. Caught by checking whether the block I expected actually
      came back, which is the only reason to look. */
+  /* AND THE ORDERING WAS BACKWARDS THE MOMENT A MARKER GREW A SECOND LETTER.
+     (9/23, PLUMBER.) This compared markers as plain strings, and 'b' > 'ap', so a
+     lane's SECOND round outranked its FORTY-SECOND. Measured on the two real heads:
+     given `9/22 (b)` and `9/22 (ap)` the tool called (b) newest. That is exactly the
+     failure the comment above describes -- restoring a stale block as if it were
+     current -- reintroduced by the marker growing one character.
+     These markers count like spreadsheet columns: a..z, then aa, ab, .. ap. So a
+     SHORTER marker is always older, and same-length ones sort alphabetically. No
+     marker at all is older than any marker, which is the original round. */
   const rank = (head) => {
-    const m = /:\s+(\d+)\/(\d+)(?:\s+\((\w)\))?\s+LATEST/.exec(head);
+    const m = /:\s+(\d+)\/(\d+)(?:\s+\(([^)\s]+)\))?\s+LATEST/.exec(head);
     if (!m) return [0, 0, ''];
     return [+m[1], +m[2], m[3] || ''];
   };
+  const marker = (a, b) =>
+    a.length !== b.length ? a.length - b.length : (a < b ? -1 : a > b ? 1 : 0);
   const newer = (a, b) => {
     const x = rank(a), y = rank(b);
     return x[0] !== y[0] ? x[0] - y[0] : x[1] !== y[1] ? x[1] - y[1]
-         : (x[2] < y[2] ? -1 : x[2] > y[2] ? 1 : 0);
+         : marker(x[2], y[2]);
   };
   const newest = [];
   for (const [, rows] of byLane) {

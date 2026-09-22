@@ -59,7 +59,19 @@ const ROOT = path.dirname(__dirname);
 const NAME = '00_START_HERE_NEXT_SESSION.md';
 
 let pass = 0, fail = 0;
-const ok = (n, c) => { c ? pass++ : (fail++, console.log('  FAIL ' + n)); };
+/* THE HELPER TOOK TWO ARGUMENTS AND ATE THE THIRD, AND THE ONE CALL THAT PASSED A
+   THIRD IS THE BLOCK-HEAD CHECK. (9/23, PLUMBER, found while fixing [eyes: head
+   blind].) Its author wrote `LOST: <the heads that went>` and the helper threw it
+   away, so the one check in this file whose whole job is to name a deleted block
+   went red saying only that SOMETHING was deleted. A red that does not say what to
+   put back is most of the way to no red at all. Swept the file: 9 call sites, 1
+   passes a third argument, and it is that one. Now printed, on failure only. */
+const ok = (n, c, why) => {
+  if (c) { pass++; return; }
+  fail++;
+  console.log('  FAIL ' + n);
+  if (why) console.log('         ' + why);
+};
 
 const HANDOFF = path.join(ROOT, NAME);
 ok('the handoff is at the repo root under its exact canonical name', fs.existsSync(HANDOFF));
@@ -141,7 +153,45 @@ if (head) {
      remove hundreds of these on purpose and a guard that blocks the planned work gets
      switched off. A head that is gone from here but present in archive/handoffs/ has
      been archived, not lost, and that is fine. */
-  const HEADRE = /^[A-Z][A-Z +\/&-]*\([a-z0-9]+(?:-[a-z0-9]+)+\):\s+\S+(?:\s+\(\w\))?\s+LATEST/gm;
+  /* *** AND THE HEAD PATTERN HELD A SPELLING WHERE THE LAW IS A MEANING, FOR THE
+     SECOND TIME IN THIS ONE FILE. (9/23, PLUMBER, row [eyes: head blind], found
+     and proved by EYES AND EARS, who did not fix it because gates are this lane's.)
+
+     THE ROUND MARKER USED TO BE `\(\w\)`: EXACTLY ONE CHARACTER. A lane past its
+     twenty-sixth round of a day runs out of single letters and writes (aa), (ap),
+     (bf). Two live lanes are already there, so their CURRENT heads were invisible
+     to the check built to protect current heads.
+
+     REPRODUCED IN A THROWAWAY TREE ON CURRENT MAIN, ONE DIFFERENCE AT A TIME, with
+     EYES AND EARS carrying two blocks the way it will next round:
+       delete its newest block, head `9/23 (aq)`  ->  8 passed, 0 failed, EXIT 0, silent
+       the same deletion, head `9/23 (q)`         ->  7 passed, 1 failed, EXIT 1, named
+     235 characters against 236. One character decided whether a live lane's entire
+     current state could be deleted in silence.
+     The fleet check above does not cover it either: that one only asks whether the
+     SLUG survived, and an older block keeps the slug alive. This is the exact gap
+     this check was written for on 9/13, and it was open on the longest-running lanes.
+
+     THE MARKER IS AN ARBITRARY TAG THE LANES INVENT and the gate has no business
+     constraining its shape, so it now accepts any parenthesised run with no space
+     in it. The slug is the discriminator; it always was.
+
+     AND THE SLUG CLASS REQUIRED A HYPHEN, which hid 118 more heads. MEASURED rather
+     than assumed, because EYES called them history and history is exactly what the
+     9/13 incident ate (80 blocks):
+       hyphen-less slugs, newest head each: f3eu53 8/26, 0lurbs 8/11, 1eztay 8/9,
+       7h9sfy 8/6, factions 8/2, xk7pjp 8/2, e2r7sv 8/1, eak241 8/1
+       the live lanes, for comparison: words-8dqrnq 9/24, sound-xk7pjp 9/23
+     EYES was right that they are all history. They are still 118 real block heads
+     this check claims to hold and does not, so they are now held. The archive escape
+     above already covers [handoff cut] removing them on purpose.
+     THE NOISE THE ORIGINAL TIGHTENING WAS BUILT TO REJECT STAYS REJECTED, and the
+     separation is measured, not picked: every real hyphen-less slug is 6 to 8
+     characters (f3eu53, factions), every prose token is 1 to 2 (a, b, c, d, e, 03).
+     Nothing lives between 2 and 6, so the floor of 5 has room on both sides. */
+  const SLUG = '[a-z0-9]+(?:-[a-z0-9]+)+|[a-z0-9]{5,}';
+  const HEADRE = new RegExp(
+    '^[A-Z][A-Z +\\/&-]*\\((?:' + SLUG + ')\\):\\s+\\S+(?:\\s+\\([^)\\s]+\\))?\\s+LATEST', 'gm');
   const headsOf = (t) => new Set((t.match(HEADRE) || []).map(x => x.trim()));
   const headNow = headsOf(text);
   let headWas = new Set();
