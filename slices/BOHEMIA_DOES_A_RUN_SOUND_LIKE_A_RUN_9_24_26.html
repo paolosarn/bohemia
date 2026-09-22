@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>DOES A RUN SOUND LIKE A RUN</title>
+<!-- SOUNDS lane, 9/24, row [footsteps on the beat].
+     MEASURED ON THE REAL SURFACE FIRST (the alpha, through the one driver): walking makes
+     ONE footstep sound per beat, one press carries him 25 cells, and 94% of footfalls are
+     silent. That is the STEP IS A HOUSE law working. What is wrong is the RUN: it covers
+     two houses in one beat and makes the same single sound, because both steps happen in
+     the same tick and the 0.12 s limiter swallows the second.
+     NO VOTE LIVES ON THIS PAGE (rule 25). It plays and it holds his words. -->
+<style>
+  :root{ --ink:#1b1408; --paper:#e8dfc9; --line:#8a7a52; --panel:#f2ead6; --dim:#6a5a3e; --hot:#b4462a; }
+  html,body{margin:0;background:var(--paper);color:var(--ink);
+    font:15px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace}
+  .wrap{max-width:720px;margin:0 auto;padding:18px 16px 70px}
+  h1{font-size:19px;letter-spacing:2px;margin:0 0 2px}
+  .sub{color:var(--dim);font-size:12px;letter-spacing:1px;margin-bottom:14px}
+  .beatbar{display:flex;gap:4px;margin:10px 0 18px}
+  .beatbar i{flex:1;height:6px;background:#d6cbb0;border:1px solid var(--line)}
+  .beatbar i.on{background:var(--ink)}
+  .card{background:var(--panel);border:1px solid var(--line);padding:14px;margin:0 0 14px}
+  .card h2{font-size:14px;letter-spacing:1.5px;margin:0 0 6px}
+  .why{font-size:13px;margin:0 0 10px}
+  .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  button{font:inherit;background:var(--paper);color:var(--ink);border:1px solid var(--line);
+    padding:11px 14px;min-height:48px;cursor:pointer;letter-spacing:1px}
+  button:active{transform:translateY(1px)}
+  button.on{background:var(--ink);color:var(--paper)}
+  .num{font-size:12px;color:var(--dim);margin-top:8px;white-space:pre-wrap}
+  textarea{width:100%;box-sizing:border-box;font:inherit;background:var(--paper);
+    color:var(--ink);border:1px solid var(--line);padding:8px;min-height:80px}
+  label{font-size:12px;letter-spacing:1px;color:var(--dim);display:block;margin:10px 0 4px}
+  .foot{border-top:2px solid var(--line);margin-top:22px;padding-top:14px}
+</style></head><body><div class="wrap">
+
+<h1>DOES A RUN SOUND LIKE A RUN</h1>
+<div class="sub">SOUNDS &middot; 9/24 &middot; measured in the real game first &middot; 120 BPM</div>
+<div class="beatbar" id="bar"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+<div class="row"><button id="metro">BEAT: OFF</button><button id="stop">STOP</button></div>
+<div class="num" id="head"></div>
+
+<div class="card">
+  <div class="why"><b>WHAT I FOUND IN THE GAME, BEFORE MAKING ANYTHING.</b> One press of the
+  pad carries you a whole house, 25 squares, and makes exactly one footstep sound. That is
+  right, and it is your own rule: one step is one house. I walked 320 squares in three
+  directions and counted 19 footstep sounds, so 94 out of 100 squares you cross are silent
+  and that is correct too.
+  <br><br>
+  <b>But holding the pad makes you run, and a run covers two houses in one beat and still
+  makes one sound.</b> So a run sounds exactly like a walk while you move twice as fast.
+  That is the thing to fix, and these two buttons are the question.</div>
+</div>
+
+<div class="card">
+  <h2>A. WALKING, ONE HOUSE A BEAT</h2>
+  <div class="why">One footfall on every beat. This is what the game does now and it is
+  right. Turn the beat on above and it lands exactly on the tick.</div>
+  <div class="row"><button data-per="1">PLAY A</button></div>
+  <div class="num" id="numA"></div>
+</div>
+
+<div class="card">
+  <h2>B. RUNNING, TWO HOUSES A BEAT</h2>
+  <div class="why">Two footfalls a beat, evenly spaced, so the run sounds twice as fast
+  because you are going twice as fast. This is what running should sound like and does
+  not.</div>
+  <div class="row"><button data-per="2">PLAY B</button></div>
+  <div class="num" id="numB"></div>
+</div>
+
+<div class="card">
+  <h2>C. WHAT RUNNING SOUNDS LIKE NOW</h2>
+  <div class="why">The same as A, because the second step of a run is thrown away. Play A
+  then C and you will hear nothing change, which is the bug.</div>
+  <div class="row"><button data-per="1" data-label="C">PLAY C</button></div>
+  <div class="num" id="numC"></div>
+</div>
+
+<div class="foot">
+  <label>ANYTHING ABOUT ANY OF THEM</label>
+  <textarea id="all"></textarea>
+  <div class="row" style="margin-top:12px">
+    <button id="copy">COPY ALL</button>
+    <button id="exp">SAVE AS .txt</button>
+  </div>
+  <div class="num" id="footnote">What you type is kept in this page, so closing it does not
+lose it. COPY ALL puts it on your clipboard.
+THERE IS NO VOTE ON THIS PAGE ON PURPOSE: you vote once, in the VOTE tab.</div>
+</div>
+
+<script src="../engine/bohemia_horror_sounds.js"></script>
+<script>
+var H = window.BOH_HORROR_SOUNDS;
+var AC = null, live = [], cache = {};
+function ac(){ if(!AC) AC = new (window.AudioContext||window.webkitAudioContext)();
+  if(AC.state==='suspended') AC.resume(); return AC; }
+function made(per){ var k='p'+per;
+  if(!cache[k]) cache[k] = H.walkCadence(ac(), { perBeat:+per, beats:8 });
+  return cache[k]; }
+function stopAll(){ live.forEach(function(n){ try{ n.stop(); }catch(e){} }); live=[];
+  document.querySelectorAll('button[data-per]').forEach(function(b){ b.classList.remove('on'); }); }
+function play(per, btn){
+  stopAll();
+  var c = ac(), m = made(per);
+  var s = c.createBufferSource(); s.buffer = m.buffer;
+  var g = c.createGain(); g.gain.value = 0.9;
+  s.connect(g); g.connect(c.destination); s.start();
+  live.push(s); btn.classList.add('on');
+  head();
+}
+function head(){
+  var a = made(1), b = made(2);
+  document.getElementById('head').textContent =
+    'the beat is ' + H.BPM + ' BPM, so one beat is ' + (H.BEAT*1000) + ' ms\n'
+    + 'A lands a footfall every ' + (a.gapSeconds*1000) + ' ms, which is one a beat\n'
+    + 'B lands one every ' + (b.gapSeconds*1000) + ' ms, which is two a beat';
+  document.getElementById('numA').textContent =
+    'one footfall every ' + (a.gapSeconds*1000) + ' ms. ' + a.why;
+  document.getElementById('numB').textContent =
+    'one footfall every ' + (b.gapSeconds*1000) + ' ms. ' + b.why;
+  document.getElementById('numC').textContent =
+    'identical to A. In the game the second step of a run happens in the same instant as '
+    + 'the first, and the 120 ms guard that stops one step per frame throws it away.';
+}
+document.querySelectorAll('button[data-per]').forEach(function(b){
+  b.onclick = function(){ play(b.dataset.per, b); };
+});
+document.getElementById('stop').onclick = function(){ stopMetro(); stopAll(); head(); };
+
+/* THE BEAT, SO HE CAN HEAR WHETHER THESE SIT ON IT. Scheduled ahead on the audio clock,
+   never on a page timer: this lane spent a round proving the main thread cannot keep
+   120 BPM on a phone. */
+var metroOn=false, nextAt=0, timer=null, bar=0, CLICK=null;
+function clickBuf(){ var c=ac(), n=Math.round(c.sampleRate*0.02),
+  b=c.createBuffer(1,n,c.sampleRate), d=b.getChannelData(0);
+  for(var i=0;i<n;i++) d[i]=Math.sin(2*Math.PI*1800*i/c.sampleRate)*Math.pow(1-i/n,6)*0.25;
+  return b; }
+function startMetro(){ if(metroOn) return; var c=ac(); CLICK=CLICK||clickBuf();
+  metroOn=true; nextAt=c.currentTime+0.12; bar=0;
+  document.getElementById('metro').textContent='BEAT: ON';
+  document.getElementById('metro').classList.add('on');
+  timer=setInterval(function(){ var c=ac();
+    while(nextAt < c.currentTime + 0.25){
+      var s=c.createBufferSource(); s.buffer=CLICK; s.connect(c.destination); s.start(nextAt);
+      var idx=bar%8; setTimeout(function(i){ return function(){
+        var bs=document.querySelectorAll('#bar i');
+        bs.forEach(function(x){ x.classList.remove('on'); });
+        if(bs[i]) bs[i].classList.add('on'); }; }(idx), Math.max(0,(nextAt-c.currentTime)*1000));
+      nextAt += H.BEAT; bar++;
+    } }, 60); }
+function stopMetro(){ metroOn=false; if(timer) clearInterval(timer); timer=null;
+  document.getElementById('metro').textContent='BEAT: OFF';
+  document.getElementById('metro').classList.remove('on');
+  document.querySelectorAll('#bar i').forEach(function(x){ x.classList.remove('on'); }); }
+document.getElementById('metro').onclick = function(){ metroOn ? stopMetro() : startMetro(); };
+
+/* HIS WORDS SURVIVE BY DEFAULT. The page before this one lost eight of his votes because
+   the only way out was a download he never pressed. */
+var KEY='bohemia_run_cadence_notes_v1';
+try{ var v=localStorage.getItem(KEY); if(v) document.getElementById('all').value=v; }catch(e){}
+document.getElementById('all').addEventListener('input', function(){
+  try{ localStorage.setItem(KEY, this.value); }catch(e){} });
+function noteText(){ var a=document.getElementById('all').value.trim();
+  return 'BOHEMIA NOTES -- DOES A RUN SOUND LIKE A RUN (SOUNDS, 9/24). NO VOTES HERE: the vote is in the VOTE tab.\n'
+    + 'registry id: sounds-does-a-run-sound-like-a-run-9-24\n\n' + (a || '(nothing written yet)'); }
+function say(m){ var n=document.getElementById('footnote'), was=n.textContent;
+  n.textContent=m; setTimeout(function(){ n.textContent=was; },2200); }
+document.getElementById('copy').onclick=function(){ var txt=noteText();
+  function fb(){ var ta=document.createElement('textarea'); ta.value=txt;
+    ta.style.position='fixed'; ta.style.opacity='0'; document.body.appendChild(ta); ta.select();
+    try{ document.execCommand('copy'); say('COPIED. Paste it back to me.'); }
+    catch(e){ say('Could not copy. Use SAVE AS .txt.'); } ta.remove(); }
+  if(navigator.clipboard&&navigator.clipboard.writeText)
+    navigator.clipboard.writeText(txt).then(function(){ say('COPIED. Paste it back to me.'); }, fb);
+  else fb(); };
+document.getElementById('exp').onclick=function(){
+  var blob=new Blob([noteText()],{type:'text/plain'});
+  var u=URL.createObjectURL(blob), el=document.createElement('a');
+  el.href=u; el.download='BOHEMIA_NOTES_RUN_CADENCE.txt';
+  document.body.appendChild(el); el.click(); el.remove();
+  setTimeout(function(){ URL.revokeObjectURL(u); },1500); };
+head();
+</script>
+</div></body></html>

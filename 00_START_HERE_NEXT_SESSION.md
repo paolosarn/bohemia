@@ -945,6 +945,117 @@ NEXT: [cook panels] is the standing rule-22 row and is OPEN again; items 2, 3 an
 (the fight HUD, the talk panel, the vote tab's own frame) are drawn as sheets but not built
 as skins. [three d ui] still has no gate of its own. [vote plays sound] is still open and
 SOUNDS has items waiting that he cannot hear in the tab. [no slop] stays CLAIMED.
+SOUNDS (sound-xk7pjp): 9/24 LATEST -- *** THE ROW ASKED WHETHER FOOTSTEPS FIRE FOUR TIMES PER
+STEP. THEY FIRE ONCE PER BEAT, AND THE REAL BUG WAS RIGHT NEXT TO IT: A RUN SOUNDS LIKE A WALK. ***
+Row [footsteps on the beat] SHIPPED. Nothing changed in the game's timing: he picks first.
+Record: records/BOHEMIA_A_RUN_SOUNDS_LIKE_A_WALK_9_24_26.md
+Gate: COOKED SOUNDS 63/0, and 11 claims go red under --mutate (was 10).
+Tab: VOTE, the new page is DOES A RUN SOUND LIKE A RUN.
+
+WHAT THE WALK DOES, MEASURED IN THE ALPHA through the one driver (it prints which file it
+opened and it said the alpha):
+  walked                  320 cells across three directions
+  step events posted      355          -> ONE EVENT IS ONE CELL (0.90 to 1.00 per cell)
+  footstep sounds heard    19          -> one every 12 to 25 cells, mean about 17
+  silent footfalls        94%
+  mean gap between sounds 0.554 s      against a beat of 0.500 s
+ONE SOUND PER BEAT. Not four.
+WHY, FROM THE CODE PATH: one press walks STEP_CELLS = 25 cells in a SYNCHRONOUS loop and posts a
+step event for every one of them, and THE AUDIO CLOCK DOES NOT ADVANCE INSIDE A SYNCHRONOUS LOOP,
+so all 25 see the same currentTime and the shell's 0.12 s limiter lets exactly one through.
+  ONE PRESS = ONE LOT = ONE HOUSE = ONE FOOTSTEP. That is THE STEP IS A HOUSE law working, not a
+  bug. 94% of cells being silent is CORRECT, because a cell is not a footfall.
+
+AND THE LIMITER IS LOAD-BEARING FOR A REASON ITS OWN COMMENT DOES NOT STATE.
+  if(now - STEP_LAST < 0.12) return;   /* one step per footfall, not per frame */
+The frame is not what it protects against: the beat already spaces presses 0.5 s apart and 0.12 s
+would allow FOUR per beat, so on that reading it never fires at all. What it ACTUALLY does is
+collapse a 25-cell burst into one house-step. Remove it and every press fires 25 footsteps in one
+instant. It is the most important line in the footstep path and its comment describes another job.
+  AND THAT MATTERED: THE ROW'S PREMISE CAME FROM READING THAT COMMENT. 0.12 against 0.5 looks like
+  "four per step" until you find out that nothing is asking for four.
+
+*** THE REAL BUG: A RUN COVERS TWICE THE GROUND AND MAKES THE SAME ONE SOUND. ***
+  let moved=stepOnce(di);
+  if(running&&moved)stepOnce(di);      // run = two cells per beat
+Both calls are SYNCHRONOUS, microseconds apart, so the 0.12 s limiter swallows the second. Running
+is audibly identical to walking.
+TWO INDEPENDENT LINES OF EVIDENCE, stated as two because they are two:
+  1. the code path above: two synchronous calls inside one 0.12 s window
+  2. the gap distribution: a second sound inside a running beat would land about 0.12 s after the
+     first, and ACROSS 16 MEASURED GAPS THE SMALLEST WAS 0.351 s. Nothing ever landed where a
+     running beat's second step would be.
+AND WHAT I COULD NOT DO, SAID PLAINLY: I could not attribute sounds to individual beats. The beat
+lives in the city frame and the limiter lives in the shell, and joining them across postMessage by
+wall time lost most of the events (13 ticks, 123 events, my join found 7 of them). THAT JOIN IS
+NAMED AS FAILED RATHER THAN DRESSED UP, and neither line above depends on it.
+THE FIX IS ONE LINE and it is NOT shipped: schedule the run's second step half a beat later
+instead of in the same instant. It changes what he hears while walking, which is a play surface
+under the rule 18 hold, so he picks first.
+
+*** FOUR INSTRUMENTS OF MINE WERE WRONG BEFORE ONE WAS RIGHT, AND THE FIRST THREE ALL REPORTED A
+DEAD PAD -- the reading this game punishes hardest, because "a dead button is indistinguishable
+from a close button" is already a rule on the front page. ***
+  the pad by selector     [data-dir], #pad-e, .pad-e: NONE EXIST. The pad is eight SVG
+                          <g class="pb"> with pointerdown -> startHold(i).
+  the wedge's own box     getBoundingClientRect on an SVG <g> reads 0x0 here, so asking the group
+                          where it is gives 0,0 and a press that lands nowhere
+  a tap instead of a hold the pad is a HOLD. A tap is one step BY DESIGN; SLIDE is the walk feel
+                          he ruled for and that needs the finger held down
+  AND THE ONE THAT MATTERED: THE CITY WAS NOT ON SCREEN.
+*** THE ALPHA OPENS ON THE VOTE TAB NOW (UI shipped his 9/20 landing this round). *** So
+#cityFrame measured 0x0, #padring measured 0x0, elementFromPoint on the pad returned NULL, and a
+four-second hold moved him ZERO cells. THAT READS EXACTLY LIKE A DEAD PAD AND IT IS NOT ONE: THE
+PAD WAS NEVER ON SCREEN.
+FOR EVERY LANE THAT DRIVES THE WALK FROM NOW ON, one line before anything else:
+  await d.pageEval(()=>{ const t=document.querySelector('.tab[data-p="run"]'); if(t) t.click(); });
+After that line: the ring measured 90x90 at (288,706), the finger landed on a path.parr inside
+#padring, and he walked 52 cells on the first hold.
+
+AND ONE STALE WARNING OF MINE IS NOW WRONG, so it is corrected here rather than left to rot: this
+block has said for three rounds that "the one driver takes opts.file and IGNORES opts.alpha".
+SOMEBODY FIXED IT. The driver now reads `opts.file || (opts.alpha ? ALPHA : DEMO)`. Both work.
+A stale warning sends the next round down a path that no longer exists.
+
+COOKED THIS ROUND (rule 22): DOES A RUN SOUND LIKE A RUN. His own approved footfall at two
+cadences, which is the judgement the measurement asks for:
+  A  one footfall a beat, on the beat       what walking does now, and it is right
+  B  two a beat, evenly spaced at 250 ms    what running should sound like
+  C  identical to A                          what running sounds like now, which is the bug
+IT IS NOT A NEW SOUND. It is the cooked footstep this module already holds at a different
+spacing, because the question is about spacing. Three options, the most rule 25 allows. No vote on
+the page. His notes save themselves as he types.
+GATED AND MEASURED FROM THE AUDIO, NOT READ BACK OFF THE RECIPE: the hits are located by
+threshold on the rendered buffer. Walk 8 footfalls over 8 beats, every gap 0.500 s. Run 16
+footfalls, every gap 0.250 s. MUTATION PROVEN: force perBeat to 1 (a run that is really a walk,
+which is exactly the game's bug) and the run claim reds naming "8 footfalls (wanted 16)".
+
+WHAT IS NEXT IN THIS LANE, IN ORDER, NOTHING BLOCKED:
+  THE RUN'S SECOND FOOTSTEP, the moment he picks B: one line in the metronome, and it is the
+    first thing when the hold allows a play-surface change.
+  THE FIVE HE VOTED UP (the door, the cloud, the song through the dead speaker, the fold, the
+    phone) go into the game the round the hold allows.
+  THE TWO HE VOTED DOWN (the footstep, the step drop-out): the re-cook needs NEW ids quoting his
+    words, and his words for those two were about the voting, not the sound, and were LOST with
+    the inner votes. Aim at the school page's ten rules, which is all there is to aim at.
+  [beds play] HELD: air_day, air_night and air_inside are cooked, approved and play nowhere.
+  [analog horror sound] round two: the keep/redo of 65 sounds and 142 songs against the ten
+    rules, with the school page's 65-row table as the frozen baseline.
+  [scheduled beat] still CLAIMED, round two is a clock the audio thread owns; it touches the
+    transport, so it waits on the hold.
+  Then [enemy heard], [fight music], [quiet floor], [rumour heard], [pump hum], [into the vote tab].
+  AND THE TWO MUSIC HOLES, STILL OPEN AND STILL MINE: a room handing the music back does not
+  check whether a fight owns it (its busy() guard binds one direction only), and the shell obeys
+  the city's music message with no fight guard at all.
+
+STILL CARRIED, NAMED NOT FIXED:
+  the alpha holds a second copy of the room recipe; the gate holds the two together constant for
+    constant, and the right end state is the alpha importing the module. Held by rule 18.
+  pages_publish_gate reads 17/1: the published surface is 261 MB against its own 260 MB cap.
+    PLUMBER's territory.
+CARRIED, RECORDED NOT ACTED ON, BECAUSE LEVELS ARE HIS: THE GAPS IN THE HYMNAL peaks 25.6x the
+median on a CANON song; MENU - LIGHTS ACROSS THE VALLEY peaks 1.064 (BURIED).
+
 SOUNDS (sound-xk7pjp): 9/23 (b) LATEST -- *** HE VOTED, AND HIS EIGHT VOTES INSIDE MY PAGE ARE
 GONE. I AM SAYING THAT FIRST BECAUSE IT IS THE WORST THING IN THIS BLOCK. Plus the one number he
 did give me, set and measured. *** Row [room volume] SHIPPED d83e063. Build stamp 9/23f (it went b -> f: main moved three times

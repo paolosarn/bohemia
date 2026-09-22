@@ -128,6 +128,28 @@ const MEASURE = `
      A duplication a machine checks is a fact; one a comment promises is rot waiting. */
   const out = { list: H.list(), rows: {}, tapeAt: H.TAPE_AT, dropoutAt: H.DROPOUT_AT,
     room: H.ROOM,
+    /* THE CADENCE, MEASURED BY FINDING THE HITS, not by reading back the list the recipe
+       was handed. A recipe that says "I put a footfall at 0.25 s" and did not is exactly
+       the class of claim this gate refuses. */
+    cadence: (function(){
+      function hits(b){
+        const d=b.getChannelData(0), sr=SR, out=[];
+        let pk=0; for(let i=0;i<d.length;i++){const a=Math.abs(d[i]); if(a>pk)pk=a;}
+        const thr=pk*0.35; let last=-1e9;
+        for(let i=0;i<d.length;i++){
+          if(Math.abs(d[i])>=thr && (i-last)>Math.round(sr*0.06)){ out.push(+(i/sr).toFixed(3)); last=i; }
+        }
+        return out;
+      }
+      const ctx2=new OfflineAudioContext(1,SR,SR);
+      const w=H.walkCadence(ctx2,{perBeat:1,beats:8});
+      const r=H.walkCadence(ctx2,{perBeat:2,beats:8});
+      const hw=hits(w.buffer), hr=hits(r.buffer);
+      const gaps=(a)=>a.map((x,i)=>i?+(x-a[i-1]).toFixed(3):null).slice(1);
+      return { walkHits:hw.length, runHits:hr.length,
+               walkGaps:gaps(hw), runGaps:gaps(hr),
+               walkSaid:w.gapSeconds, runSaid:r.gapSeconds, beats:w.beats };
+    })(),
                 beat: H.BEAT, bpm: H.BPM, alert: H.ALERT };
   /* THE A SIDE OF THE A/B, rendered here and nowhere else, so the claim about what the
      transmitter takes away is measured against the same phrase and not against a memory. */
@@ -403,6 +425,11 @@ const MEASURE = `
            the module's own local wowFlutter by closure and never look at the export.
            REPLACING A FUNCTION SOMETHING DOES NOT CALL IS NOT A MUTATION, and the
            evidence that it was not one was a mutated run that still read 0.3467%. */
+        /* AND THE CADENCE: a run that is really a walk is exactly the bug in the game,
+           so that is the falsifier -- perBeat is ignored and everything comes out at one
+           a beat. If the two cadence claims stay green on this, they are not claims. */
+        const realCad = H.walkCadence;
+        H.walkCadence = (ctx, o) => realCad(ctx, Object.assign({}, o || {}, { perBeat: 1 }));
         const steady = H.wowProbe, steadySong = H.songThroughSpeaker;
         H.wowProbe = (ctx, o) => steady(ctx, Object.assign({}, o || {}, { depth: 0 }));
         H.songOnTape = (ctx, o) => steadySong(ctx, o || {});
@@ -658,6 +685,31 @@ const MEASURE = `
       + relDb.toFixed(1) + ' dB under it (was 0.60, -4.4 dB). Film and broadcast put room '
       + 'tone 20 to 30 dB under the foreground; under about -30 dB a bed on a handset '
       + 'loses to the room the player is really in.');
+
+    /* ---- THE CADENCE: MEASURED FROM THE AUDIO, NOT READ BACK ------------------
+       Row [footsteps on the beat]. Measured in the alpha this round: walking makes ONE
+       footstep per beat and one press carries him 25 cells, so 94% of footfalls are
+       silent and that is THE STEP IS A HOUSE working. What is wrong is the run: two
+       houses in one beat, both steps inside one tick, and the 0.12 s limiter swallows
+       the second, so a run sounds identical to a walk. This holds the two cadences he
+       is being asked to choose between. */
+    const cad = d.cadence || {};
+    claim('THE WALK LANDS ONE FOOTFALL A BEAT, ON THE BEAT',
+      cad.walkHits === cad.beats &&
+      (cad.walkGaps || []).every(g => Math.abs(g - d.beat) <= 0.008),
+      cad.walkHits + ' footfalls over ' + cad.beats + ' beats, gaps '
+      + (cad.walkGaps || []).join('/') + ' s against a beat of ' + d.beat + ' s');
+    claim('AND THE RUN LANDS EXACTLY TWICE AS MANY, EVENLY, NOT TWO JAMMED TOGETHER',
+      cad.runHits === cad.beats * 2 &&
+      (cad.runGaps || []).every(g => Math.abs(g - d.beat / 2) <= 0.008),
+      cad.runHits + ' footfalls (wanted ' + (cad.beats * 2) + '), gaps of '
+      + (cad.runGaps || [])[0] + ' s against the half beat of ' + (d.beat / 2) + ' s asked for. '
+      + 'THE GAME PUTS BOTH STEPS IN ONE INSTANT, which is why it only ever makes one sound.');
+    claim('AND THE SPACING WAS FOUND IN THE AUDIO, NOT READ BACK OFF THE RECIPE',
+      cad.walkGaps && cad.walkGaps.length > 0 && cad.runGaps && cad.runGaps.length > 0,
+      'the hits are located by threshold on the rendered buffer; the recipe\'s own stated '
+      + 'gaps (' + cad.walkSaid + ' s and ' + cad.runSaid + ' s) are printed for comparison '
+      + 'and are never what is asserted');
 
     /* ---- and the registry actually carries them ----------------------------- */
     const reg = JSON.parse(fs.readFileSync(path.join(ROOT, 'records/target/BOHEMIA_VOTE_REGISTRY.json'), 'utf8'));

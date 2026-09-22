@@ -524,6 +524,74 @@
              why: 'the person stops and the grid does not: a long hold with the mains hum running through it, and nothing rises' };
   }
 
+  /* ==== 4b. THE WALK HAS A CADENCE, AND A RUN DOES NOT ==========================
+     MEASURED ON THE REAL SURFACE THIS ROUND, row [footsteps on the beat]. The row asked
+     whether footsteps fire FOUR TIMES per ruled step. They do not. They fire ONCE PER
+     BEAT, and the row's premise was backwards:
+
+       walked 320 cells across three directions   355 step events, 19 sounds
+       one step event per cell                    events/cells 0.90 to 1.00
+       one sound every 12 to 25 cells             94% of footfalls make no sound
+       mean gap between sounds 0.554 s            against a beat of 0.500 s
+
+     WHY, FROM THE CODE PATH: one press walks STEP_CELLS = 25 cells in a synchronous
+     loop and posts a step event for every one of them. The audio clock does not advance
+     inside a synchronous loop, so all 25 see the same currentTime and the shell's 0.12 s
+     limiter lets exactly ONE through. ONE PRESS = ONE LOT = ONE HOUSE = ONE FOOTSTEP,
+     which is THE STEP IS A HOUSE law working, not a bug.
+
+     AND THE LIMITER IS DOING A JOB NOBODY WROTE DOWN. Its comment says "one step per
+     footfall, not per frame". Measured, the frame is not what it is protecting against:
+     the beat already spaces the presses 0.5 s apart and 0.12 s would allow four. What it
+     actually does is collapse a 25-cell burst into one house-step. It is load-bearing for
+     a reason its own comment does not state.
+
+     *** SO HERE IS THE THING THAT IS ACTUALLY WRONG, AND IT IS WHY THIS EXISTS. *** A run
+     is two lots in one beat: the metronome calls the step twice in the same tick when the
+     hold has been going two beats. BOTH CALLS ARE SYNCHRONOUS, microseconds apart, so the
+     0.12 s limiter swallows the second one. A RUN COVERS TWICE THE GROUND AND MAKES THE
+     SAME ONE SOUND. Evidence, and stated as two things because it is two things: the code
+     path above, AND the gap distribution -- a second sound inside a running beat would
+     land about 0.12 s after the first, and across 16 measured gaps the SMALLEST was
+     0.351 s. Nothing ever landed where a running beat's second step would be.
+     (What I could NOT do is attribute sounds to individual beats: the beat lives in the
+     city frame and the limiter lives in the shell, and joining them across postMessage by
+     wall time lost most of the events. That join is named as failed rather than dressed
+     up, and the two lines above do not depend on it.)
+
+     THIS RECIPE IS THE JUDGEMENT, NOT A NEW SOUND. It lays his own approved footfall out
+     at a cadence so he can hear whether a run should sound faster than a walk. The sound
+     is the cooked footstep this module already holds; only the spacing changes. */
+  function walkCadence(ctx, opts) {
+    opts = opts || {};
+    var perBeat = opts.perBeat == null ? 1 : opts.perBeat;   /* 1 = walk, 2 = run */
+    var beats = opts.beats == null ? 8 : opts.beats;
+    var sr = ctx.sampleRate;
+    var one = footstep(ctx, {});
+    var src = one.buffer.getChannelData(0);
+    var n = Math.round(sr * beats * BEAT);
+    var buf = ctx.createBuffer(1, n, sr), d = buf.getChannelData(0);
+    var at = [], i, k;
+    for (var b = 0; b < beats; b++) {
+      for (k = 0; k < perBeat; k++) {
+        /* ON the beat for the first, and HALF a beat later for the second, because a
+           run is two strides in the time of one walked stride -- not two strides
+           jammed together, which is what the game does now (both inside one tick). */
+        var t = (b + k / perBeat) * BEAT;
+        at.push(+t.toFixed(3));
+        var off = Math.round(t * sr);
+        for (i = 0; i < src.length && off + i < n; i++) d[off + i] += src[i];
+      }
+    }
+    normalise(d, n, 0.85);
+    return { buffer: buf, machine: one.machine, seconds: beats * BEAT,
+             perBeat: perBeat, beats: beats, atSeconds: at,
+             gapSeconds: +(BEAT / perBeat).toFixed(3),
+             why: perBeat === 1
+               ? 'one footfall a beat, which is one house a beat: what walking does now'
+               : 'two footfalls a beat, evenly spaced: what running SHOULD do and does not' };
+  }
+
   /* ==== 5b. THE ROOM HE VOTED ON, AT A LEVEL =====================================
      PAOLO 9/21, voting THE ROOM ON THE TAP up: "We can play around with this I'll let
      you know as I hear, but you gotta bro this volume has to be very, very low like very
@@ -707,6 +775,7 @@
     stepWithDropouts: stepWithDropouts,
     phoneTone: phoneTone,
     songThroughSpeaker: songThroughSpeaker,
+    walkCadence: walkCadence,
     roomHum: roomHum,
     ROOM: { sec: ROOM_SEC, hum: ROOM_HUM, lo: ROOM_LO, hi: ROOM_HI, seam: ROOM_SEAM,
             parts: ROOM_PARTS, humMix: ROOM_HUM_MIX, hissMix: ROOM_HISS_MIX,
