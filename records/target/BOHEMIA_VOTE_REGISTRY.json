@@ -1237,7 +1237,7 @@
    "id": "direction-the-ground-ruler-9-23",
    "kind": "tile",
    "lane": "direction",
-   "sha": "PENDING",
+   "sha": "f8a9029",
    "made": "9/23",
    "title": "THE GROUND RULER",
    "why": "A default the manager took for you: an old rule said ground tiles must be busier than the street you already approved, so it failed your own art. New rule: your approved street is the ruler, nothing has to be busier than it. Thumb UP keeps it. Thumb DOWN means you want the ground busier and we re-cook toward more detail.",
