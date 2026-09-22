@@ -130,3 +130,11 @@ or a stranger to judge.
 can knock a rule down the same way he knocks a face down. The manager registers its
 defaults; a vote against one is a ruling and the lane rebuilds.
 (e) Tab: VOTE, in the ALPHA, the first tab after the load.
+
+## 10. THE FIRST VOTES, AND WHAT THE TAB MUST DO (Paolo 9/21 in the tab, pasted 9/22; laws/BOHEMIA_ADDENDUM_THE_FIRST_VOTES_9_22_26.md)
+The tab worked: 83 verdicts came out by COPY ALL and went into verdicts[] the same turn. What he
+ruled about the tab itself: an animation item PLAYS and a sound item PLAYS on the row (never a
+still of a motion); an item is asked ONCE, so a vote cast inside an item's own page lands in the
+one export and the row does not ask again (until that is wired, an item's page carries no vote
+of its own); two or three options, never seven; his notes ride inside the page and come out with
+the export. The alpha's own UI is frozen at his picks (rule 28); UI cooks the demo's UI only.

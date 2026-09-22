@@ -35150,6 +35150,17 @@ the committed cut. Shipped: include: [the registry] in _config.yml; CLAUDE.md's 
 sentence corrected; THE DEPLOY LINE on the front page; PLUMBER [list loads] re-aimed (post-deploy
 fetch + an Actions-API leg). THE REAL FIX IS HIS CLICK: Settings -> Pages -> Source: GitHub
 Actions. Asked.
+THEN (fd) HE VOTED. 83 verdicts (38 up, 45 down) pasted 9/22, written into verdicts[] and
+records/BOHEMIA_VOTE_VERDICTS_9_21_26.txt; every comment read as a ruling in records/BOHEMIA_PAOLO_FIRST_VOTES_9_22_26.md and
+laws/BOHEMIA_ADDENDUM_THE_FIRST_VOTES_9_22_26.md: rules 24-30 (ONE GAME MODE no teleport; the vote tab
+shows the thing; SLIDE now; the player does not speak Spanglish; the alpha's UI frozen at his
+picks; text items are boring, make the pixels and the sound; more analog horror + the runway
+names, nobody stands on anybody). New lines: COMBAT [one mode] first, UI [one hud] [the picks]
+[inner votes], ANIMATION [slide now] [plays in vote], SOUNDS [room volume], PEOPLE [no clumping]
+first [name mix], PORTRAIT [customizations first], CHARACTER [runway redo], WORLD [people charge],
+WORDS [player speaks english], QUESTS [haggle like bb], COOK [footprints], DIRECTION [car
+background]. Vote tab gate 27/1 (the gear-tap leg timed out at 90 s under load, the registry
+legs pass).
 
 COORDINATOR: 9/4 (ba) -- *** THE MEETING HALL:
 VAMILY.md's front page now carries every rule, and every chat re-reads it every time

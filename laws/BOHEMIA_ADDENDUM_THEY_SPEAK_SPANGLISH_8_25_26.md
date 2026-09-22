@@ -100,3 +100,8 @@ research on lexical triggering and interactive alignment in bilingual
 dialogue; Siliconera interview with United Front Games on Sleeping Dogs;
 Legends of Localization on untranslated text in shipped games. Prior:
 records/BOHEMIA_EVERYBODY_IN_THIS_VALLEY_SPEAKS_PERFECT_ENGLISH_8_25_26.md.
+
+## AMENDED 9/22 (Paolo, in the vote tab on WORDS' "how you say yes to a job"): THE PLAYER DOES NOT SPEAK SPANGLISH
+"Chill with the Spanglish bro. Some characters might speak Spanglish to you, doesn't mean you
+will." Some characters speak Spanglish; the player's own lines never do. The language gate gains
+a leg: zero Spanish in lines the player says. laws/BOHEMIA_ADDENDUM_THE_FIRST_VOTES_9_22_26.md, rule 27.
