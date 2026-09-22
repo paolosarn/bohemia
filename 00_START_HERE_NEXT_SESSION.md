@@ -5158,21 +5158,26 @@ MUTATION MATRIX, exit codes read WITHOUT A PIPE:
 THE LESSON IS THIS LANE'S OWN OPEN ROW [spelling gates]: three narrow character classes across two
 files, all written by this lane, all of them a spelling standing in for a meaning, and every one of
 them blinded the check on the lanes that had run the longest. Nothing threw. Every one was green.
-*** AND MAIN WAS BROKEN WHEN I WENT TO PUSH, IN THE ONE FILE HE ALREADY COMPLAINED ABOUT. ***
-records/target/BOHEMIA_VOTE_REGISTRY.json was committed to main WITH GIT CONFLICT MARKERS IN IT
-(9eec17d1, the markers naming 177ef0a) and was UNPARSEABLE JSON at line 1224. That is the file his VOTE
-tab reads, ONE ROUND after he got THE LIST DID NOT LOAD on his phone, and it turned the handoff gate red
-in every lane, so nobody could honestly push. Not a red in another lane's WORK, which this lane never
-touches: a corrupt file on main blocking the fleet.
-RESOLVED MECHANICALLY, NO CONTENT DECIDED. The two sides were 8 items only one had (SOUNDS 1, COOK 5,
-LIFE + CITY 1, CHARACTER 1) and 2 items only the other had (the coordinator's two DYNASTY defaults from
-rule 31); the verdict list was identical on both. Kept BOTH: 102 items, 83 verdicts. PICKING EITHER SIDE
-ALONE WOULD HAVE SILENTLY DELETED SOMEBODY'S COOKED ROUND -- ours-only would have lost the coordinator's
-two, theirs-only would have lost eight, including COOK's five and CHARACTER's runway redo.
-PROVED ID BY ID before writing, and the writer refuses to write anything that does not parse: every item
-from each side present, none invented, no duplicates, every object byte-identical to its source object,
-verdicts untouched. VOTE TAB 30/0, CHARACTER IN VOTE 9/0, HANDOFF 8/0. One line left in UI's section,
-which owns the registry (rule 15d), saying exactly this.
+*** AND MAIN WAS BROKEN WHEN I WENT TO PUSH -- CORRECTED THE SAME ROUND: THE COORDINATOR FIXED IT
+FIRST AND MY FIX WAS DROPPED AS A NO-OP. I DID NOT LAND THIS AND DO NOT CLAIM IT. ***
+What I hit: records/target/BOHEMIA_VOTE_REGISTRY.json was on main WITH GIT CONFLICT MARKERS IN IT
+(9eec17d1, markers naming 177ef0a), unparseable JSON at line 1224. That is the file his VOTE tab reads,
+ONE ROUND after he got THE LIST DID NOT LOAD on his phone, and it turned the handoff gate red in every
+lane, so nobody could honestly push. I resolved it locally, then the rebase dropped my commit because
+the coordinator had already landed the identical fix at c7805c5a. Main parses, 103 items, 83 verdicts.
+WHAT IS STILL WORTH HAVING IS THE MEASUREMENT, because it says what the cheap answer would have cost.
+The two sides were 8 items only one had (SOUNDS 1, COOK 5, LIFE + CITY 1, CHARACTER 1) and 2 only the
+other had (the coordinator's two DYNASTY defaults from rule 31); verdicts identical on both. KEEPING
+EITHER SIDE ALONE WOULD HAVE SILENTLY DELETED SOMEBODY'S COOKED ROUND: ours-only loses the
+coordinator's two, theirs-only loses eight, including COOK's five and CHARACTER's runway redo. The
+union is the only non-destructive answer and it is what both of us reached. My resolver refused to
+write anything that did not parse and checked id by id that nothing was dropped, invented or
+duplicated; the coordinator's landed first, which is the right outcome and the reason to say so here
+rather than leave two accounts of one fix.
+FOR THE NEXT LANE, THE PART THAT IS NOT FIXED: nothing stops a conflicted file reaching main. The
+handoff gate catches it AFTER it is pushed, in everybody else's round. A pre-push leg that refuses a
+commit carrying conflict markers is cheap and belongs in this lane; it is not in this round and it is
+not on the board yet.
 PRE-PUSH PASS: handoff gate 8/0, reply contract 17/0, vote tab 30/0, character in vote 9/0, the recovery
 tool end to end both ways.
 Full suite: 107 red at ad23d875, mine are none. Rule 14(a): demo untouched, RUN cuts it.
