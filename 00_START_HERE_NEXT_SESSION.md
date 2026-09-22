@@ -9538,112 +9538,94 @@ HOW TWENTY-TWO ROUNDS COMPOSE, written once now that Q1-Q22 are all shipped:
 NEXT IN THIS LANE: Q23 [who eats first].
 
 
-FACTIONS (factions-ovkjpf): 9/22 (round 36) LATEST -- *** [horror signs] ROUND FOUR, COOKED.
-THE MARK ON THE WALL: a crew's mark painted straight onto somebody else's wall. Fourth
-silhouette, first with NO WORDS ON IT AND NO POST HOLDING IT UP.
-AND THE MEASUREMENT THAT MADE IT WAS A TRAP I NEARLY FILED AS A BUG: 14 cells of 9,216
-carried prints, all age 0. That is not a dead feature, IT IS SIX IN THE MORNING.
-*** AND THE PUBLISHED SITE IS NOW 6 MB OVER ITS CAP WITH 67 MB OF DEAD WEIGHT ON IT,
-SECOND ROUND RUNNING, NOBODY ON IT. Numbers below. IT IS NOT RULE 22'S COOKING. *** ***
-Nothing to judge here: all four signs are in the VOTE tab, which is where judging happens.
+FACTIONS (factions-ovkjpf): 9/22 (round 37) LATEST -- *** HE VOTED, AND HE KILLED THREE OF
+MY FOUR SIGNS. The bible says exactly why, in two rules, with no taste involved: every frame
+was ORDINARY WITH NOTHING WRONG IN IT, and I lit four signs and then DREW THEM AT NOON.
+Re-cooked all three at night through the bible (rule 30) and registered as a redo. ***
+Nothing to judge outside the VOTE tab.
 
-VAMILY rows: [horror signs] CLAIMED 9/21, FOUR rounds cooked, all four in VOTE, and there
-            are STILL ZERO VERDICTS in the whole registry (78 items, 0 verdicts).
+HIS VERDICTS, 9/21
+  THE SIGN STILL LIGHTS    DOWN   (no words)
+  THE WATER STILL RUNS     UP     "More analog horror"
+  THE NOTICE AT THE EDGE   DOWN   "Not analog horror enough good idea"
+  THE MARK ON THE WALL     DOWN   "Not analog horror enough good idea re-cook"
+  TWICE "GOOD IDEA", so the ideas survive and the execution did not. The one he approved
+  still says MORE.
+
+VAMILY rows: [horror signs] CLAIMED 9/21, five rounds; three killed, one up, one redo in.
             [same lender] still CLAIMED AND HELD under 14b + 18b.
-Record: records/BOHEMIA_THE_MARK_ON_THE_WALL_9_22_26.md
-Round 35: records/BOHEMIA_THE_NOTICE_AT_THE_EDGE_9_22_26.md
-Round 34: records/BOHEMIA_THE_WATER_STILL_RUNS_9_21_26.md
+Record: records/BOHEMIA_THE_SIGNS_AT_NIGHT_9_22_26.md (the re-cook AND the post-mortem)
+Round 36: records/BOHEMIA_THE_MARK_ON_THE_WALL_9_22_26.md
 
-*** MEASURED FIRST, AND THE FIRST MEASUREMENT WAS A TRAP. ***
-  Swept all 9,216 cells with BohemiaTowns.tracksAt(): FOURTEEN carried prints, every one
-  age 0, every one leg 'out', not one caravan though ten exist. That reads exactly like a
-  dead feature and I nearly filed it. IT IS NOT. trackOf() builds a trail from where a
-  party STARTED to where it is STANDING, so at 06:00 on day one a trail is ONE CELL LONG BY
-  DEFINITION, and the two parties sharing each seat's start cell collapse to one reading.
-  Advancing the valley's own clock and re-sweeping:
-      the door 06:00   14 cells   longest 1    max age 0    14 out /  0 back
-      +1 hour          78 cells   longest 6    max age 5    54 out / 24 back
-      +4 hours         94 cells   longest 14   max age 13   49 out / 45 back
-      +10 hours       111 cells   longest 14   max age 13   36 out / 75 back
-  THE GROUND FILLS THROUGH THE DAY AND BY MID-DAY TWO IN THREE SETS OF PRINTS ARE ON THE
-  WAY BACK. A crew heading OUT is a problem forming; one heading BACK already did whatever
-  it did. `leg` is real and well populated and trackSay() DISCARDS IT -- WORDS Q23 found
-  the same thing from the words end on 9/13 and it is still true.
+*** THE POST-MORTEM, AGAINST THE BIBLE RATHER THAN AGAINST TASTE ***
+  R1 THE ORDINARY FRAME, ONE WRONG THING -- "name the wrong thing in one sentence or the
+  frame fails". EVERY ONE OF MY FOUR FRAMES WAS A TIDY SIGN WITH NOTHING WRONG IN IT. The
+  wrongness I kept claiming lived in the CAPTION ("nobody has worked there in ten years")
+  and never in the picture; a viewer saw a nice sign. AND THAT IS THE IDENTICAL FAILURE THE
+  BIBLE HAD ALREADY LOGGED AGAINST THE STREET -- "the street frame is ordinary with ZERO
+  wrong things" -- written down, in a file I cited, and I never held my own frames against it.
+  R4 THE LIGHT WAS IN THE ROOM -- "every lumen has a source you can point at; night
+  multiplies value and touches nothing else". I LIT FOUR SIGNS AND DREW THEM AT MIDDAY. A
+  lit sign in daylight is invisible, so the entire premise (this thing still works when
+  nothing else does) COULD NOT BE SEEN. The register's own strongest single image is a lit
+  screen in a dark room and I drew the room at noon, four rounds running.
+  THAT IS THE WHOLE OF "NOT ANALOG HORROR ENOUGH". Not a mood I failed to summon: two rules
+  with measures attached that I did not run.
 
-AND THE MEASUREMENT IS WHY IT IS PAINT AND NOT PRINTS
-  A mark reading only the live trail shows NOTHING in the first hour, which is the only
-  hour that counts under rule 14. Paint does not fade in a day: the marks from before he
-  woke up are already on the walls and the live tracks feed new ones as the day runs. THE
-  WALL IS THE VALLEY'S MEMORY. That is not a workaround for the measurement, it is the
-  measurement telling me what the thing actually is.
+THE RE-COOK, TWO MECHANICAL CHANGES, BOTH IN THE KIT SO NOTHING DRIFTS BACK
+  1. NIGHT AS ARITHMETIC. One multiply on all three channels by the same k. No tint, no
+     grade, no gradient -- a gradient is a mood and the rule says value only. What stays
+     bright is what a DRAWN FIXTURE points at: eight lit motel windows, an amber status
+     panel, a bare bulb on a cord.
+  2. ONE WRONG THING PER FRAME, nameable in one sentence, and THE SENTENCE IS PRINTED UNDER
+     THE PICTURE so the claim can be checked instead of felt:
+       "Every room is lit and there is not one car in the lot."
+       "The only thing with power in this street is the sign saying everything is fine."
+       "Somebody hung a working light over the price list so you can read it at three in
+        the morning."
+     All three are R7 occupancy wrongness, which the bible calls the cheapest dread we own.
+  AND R9 THE MACHINES KEEP TALKING has a picture instead of a caption for the first time:
+  the water board still reads NORMAL and it is the only powered thing in the street.
 
-WHAT WAS MADE
-  slices/BOHEMIA_THE_MARK_ON_THE_WALL_9_22_26.html, registered as
-  factions-the-mark-on-the-wall-9-22, kind tile. Tab: VOTE, in the alpha.
-  THE GRAMMAR IS THREE THINGS: the BAR is the crew in their published colour, the POINT is
-  which way they went, the STROKES are how many came through. Four states: fresh,
-  sun-bleached, CROSSED OUT BY A RIVAL, and the other direction. Crossing out rather than
-  removing is how it is really done -- you strike a rival's mark and put yours beside it,
-  and both staying legible is the point.
-  MECHANISM MINE, CONTENTS HIS: what each crew's own emblem looks like is identity and it
-  is reserved, so there are NO INVENTED LOGOS, only the shared part that works for all 14.
-  AND IT IS THE FIRST SIGN WITH NO WORDS AT ALL, so it is also the first that does not have
-  to answer rule 19's "who says this": a mark is a thing, not a sentence.
+THE MACHINE CAUGHT THREE MORE AND IMPROVED THE WRITING
+  The kit's overflow reporter (built round three) caught three strings too wide for their
+  plates BEFORE the render: VALLEY WATER 48 px in 32, SERVICE NORMAL 57 in 30, EVERY 1
+  BLOCK 51 in 48. Shortening SERVICE NORMAL to just NORMAL made it colder. THE MACHINE
+  IMPROVED THE WRITING BY REFUSING IT.
 
-THE TWO FAULTS, BOTH FOUND BY LOOKING
-  1. THE ARROWHEADS WERE INSIDE OUT. The chevron rows run from the outside of the head
-     toward the bar's centre line, so the width has to GROW going in: widest where it meets
-     the bar, one pixel at the tip. The first cut had it shrinking inward, which builds a
-     NOTCH instead of a head, so every mark read as FLETCHING POINTING THE OPPOSITE WAY. On
-     a sign whose entire job is WHICH WAY THEY WENT that is the worst thing it could do,
-     and it is completely invisible in the source.
-  2. THE STRIKE WAS A HARDCODED RED, which quietly implies one particular crew did it every
-     time. Who struck it is a fact the game would know, so it is a parameter now. COLOUR IS
-     TERRITORY applies to the second mark as much as to the first.
+AND THE LAMP POOL WAS A STAGE LIGHT. The first night pass put a hard bright diamond under
+every sign; it read like a follow spot, or worse like a UI marker telling you where to
+stand. A lamp above a sign washes a WIDE FLAT SHALLOW patch and falls off fast: wider,
+flatter, half the lift, one more step so the falloff is a ramp of hard edges, not a bullseye.
 
-*** THE PUBLISHED SITE IS 6 MB OVER ITS CAP AND 67 MB OF IT IS DEAD WEIGHT. [PLUMBER / RUN] ***
-  261 MB last round, 266 MB THIS round, against a 260 MB cap. It grew 5 MB in one round and
-  nobody has picked it up. Second round this lane has raised it.
-  IT IS NOT RULE 22'S COOKING, MEASURED: all 65 vote-tab items that point at a file come to
-  4.5 MB TOGETHER -- every cook by every lane since the rule landed. The single biggest
-  thing added since last round is ONE SCREENSHOT AT 3.48 MB, seven times every cook combined.
-  WHERE THE DEAD WEIGHT IS, measured by asking which files a slice actually loads:
-      records/target referenced by a slice      95 files   63.2 MB
-      records/target PUBLISHED FOR NOTHING     234 files   46.7 MB
-      retired judge pages in slices/            20 files   ~20 MB   (rule 15 killed them 9/14)
-  The ten biggest nobody loads are play screenshots and graveyard art: PAOLO_THE_TAP_PICKS
-  _THE_WRONG_TILE 3.95, PAOLO_CITY_MODE 3.48, PAOLO_WHY_DOES_THE_CITY_LOOK_LIKE_THIS 2.30,
-  FIGHT_VERDICT_ROUND_3_SHEET 1.96.
-  records/target IS PUBLISHED WHOLESALE because slices load 95 files out of it; the other
-  234 ride along.
-  THE 8/6 HISTORY IS EXPLICIT: Pages failed THREE COMMITS IN A ROW, thirty minutes then
-  timeout, because the build copied more than the product. 67 MB of dead weight on a surface
-  6 MB over cap is that coming back, and at 5 MB a round it gets worse every time anybody
-  ships. NOT THIS LANE'S SYSTEM (publish config, and other lanes' files), so it is routed
-  with everything needed to act in one command.
+THE GRAVEYARD
+  factions-the-sign-still-lights-9-21, factions-the-notice-at-the-edge-9-22 and
+  factions-the-mark-on-the-wall-9-22 are DEAD and their ids never render again. The redo is
+  a new id, factions-the-signs-at-night-9-22, naming the one he wrote "re-cook" on and
+  quoting him.
+  WHAT SURVIVES THEM: every fact each was built on -- the pole sign's power reading, the
+  monument's water holder, the notice's three rents, the mark's out-and-back. He said "good
+  idea" twice. Only the light and the missing wrong thing died.
 
 GATES  COOK EVERY ROUND 14/0, "FACTIONS has cooked at least as recently as it has coded".
-       ART 45 16/0. HANDOFF 8/0. PAGES PUBLISH 17/1, inherited, proved above and last round.
-       RULE 13: pre-push pass green; full suite 107 red at ad23d875, none of them this lane's.
+       ART 45 16/0. HANDOFF 8/0. RULE 13: pre-push pass green; full suite 107 red at
+       ad23d875, none of them this lane's.
 
 RULE 18 AND RULE 22, OBSERVED: nothing pushed to the demo or the alpha's play tabs, no cut,
-no build stamp, no game file touched. One real thing made and registered where he votes.
+no build stamp, no game file touched.
 
 STILL OPEN, NONE OF IT THIS LANE'S
-  [FOR PLUMBER / RUN] PAGES PUBLISH RED, 266 MB / 260 MB, 67 MB of dead weight, growing
-  5 MB a round. This is the one that can take the site down. Numbers above.
+  [FOR PLUMBER / RUN] PAGES PUBLISH was 266 MB against a 260 MB cap last round with 67 MB
+  of dead weight (234 files in records/target nothing loads, 46.7 MB; ~20 MB of retired
+  judge pages rule 15 killed on 9/14). Raised twice by this lane. Re-check it: this is the
+  one that can take the site down, and the 8/6 precedent is three failed builds in a row.
   [FOR WORDS / WHOEVER OWNS trackSay] `leg` (out or back) is computed by tracksAt and thrown
-  away by the shipped sentence. By mid-day it is 2:1 back. WORDS Q23 said the same on 9/13.
+  away by the shipped sentence. Measured: 2:1 BACK by mid-day. WORDS Q23 said it on 9/13.
   [FOR WORLD, water lifted] the pumps lift ZERO litres: needPerDay() returns 0, so the
   holder is real and the quantity is not.
-  [FOR PLUMBER or UI] THE VOTE REGISTRY CONFLICTS ON EVERY PARALLEL ROUND. Three of this
-  lane's last four rounds hit it. A per-lane file or an append-only form would end it.
-  LIFE+CITY shipped "the registry add is an INSERT, not a re-serialize" (db36f058) which is
-  the same finding from another lane; that helps and does not end it.
-  [FOR UI] vote_tab_gate's #setvote leg flakes about 1 in 4 (measured, 4 runs).
-  [FOR THE COORDINATOR] SEVENTY-EIGHT ITEMS IN THE VOTE TAB AND ZERO VERDICTS. Every making
-  lane is cooking into a queue nobody has voted in. Rule 22 is working; the voting half has
-  not started, and the queue is four rounds deep for this lane alone.
+  [FOR PLUMBER or UI] the vote registry conflicts on nearly every parallel round; this lane
+  has hit it four times. LIFE+CITY's "the registry add is an INSERT, not a re-serialize"
+  (db36f058) helps and does not end it.
   [INHERITED] faction_towns P27; partiesNear() has no callers at all.
   [FOR QUESTS] M01-M05 are not inlined into any surface, so they cannot be played.
   [FOR DIRECTION / COOK] AR-005: the widest zoom is a declared placeholder sky, all six art
@@ -9658,25 +9640,25 @@ STILL OPEN, NONE OF IT THIS LANE'S
   3. Anarchists, Colorful and Custom are called non-territorial and still hold ground.
      (Anarchists also hold 100% of the running water.)
   4. What it COSTS to be seen with one of the four hidden factions.
-  5. COLOUR CLASHES: Mob #db1800 beside Reds #db1900, Network #4a8ddb beside Blues #0052db
-     on the map, and Church beside Trades on a board. Is the Cartel drab on purpose?
+  5. COLOUR CLASHES: Mob beside Reds, Network beside Blues on the map, Church beside Trades
+     on a board. Is the Cartel drab on purpose?
 
 NEXT IN THIS LANE
-  COOK AGAIN. Four signs now and one rule made all four work: DRAW AN ANSWER THE GAME
-  ALREADY HAS. The pole sign read the power grid, the monument read holdersOf(), the notice
-  read rentShape(), the mark read tracksAt().
-  THE FIFTH IS THE ONE THE SET IS MISSING AND IT IS NOT A NEW FACT, IT IS A NEW DISTANCE:
-  every sign so far is read STANDING IN FRONT OF IT. Nothing in the set reads from across
-  the street, and the walked city draws a person about 100 px tall, so a sign 200 px away
-  is the normal case and none of these were designed for it. THE NEXT ROUND IS THE SAME
-  FOUR SIGNS AT WALKING DISTANCE: what survives when the type is gone and only the
-  silhouette and the colour are left. That is COMPARE EVERY PIECE OF ART TO THE WORLD done
-  properly, and it is the one test none of the four has had.
+  WAIT FOR THE VERDICT ON THE NIGHT CUT BEFORE DRAWING A FIFTH SILHOUETTE. Four shapes are
+  enough to judge a look; a fifth before he rules on the re-cook is the fourth-version tell
+  STOP PRODUCING names. If it comes back up, the set goes to VOLUME (the remaining eleven
+  crews, and the same four shapes at the other tiers). If it comes back down again, that is
+  a second rejection and the feature ends for the session.
+  WHAT TO DO IN THE MEANTIME, AND IT IS THE TEST NONE OF THE FOUR HAS HAD: every sign so far
+  is judged STANDING IN FRONT OF IT. The walked city draws a person about 100 px tall, so a
+  sign 200 px away is the normal case and none of these were designed for it. THE SAME SIGNS
+  AT WALKING DISTANCE -- what survives when the type is gone and only the silhouette and the
+  colour are left -- is COMPARE EVERY PIECE OF ART TO THE WORLD done properly.
   THEN, WHEN THE HOLD LIFTS: the signs go into the walked city off turfAt(), POWER.at(),
-  rentAhead() and tracksAt(), which is this row's second half and needs no new art.
+  rentAhead() and tracksAt(). No new art needed.
   [same lender] stays HELD; [collector heir] is still the first thing waiting on it.
 
-THIRTY-EIGHT STANDING LESSONS THIS LANE KEEPS RE-LEARNING
+THIRTY-NINE STANDING LESSONS THIS LANE KEEPS RE-LEARNING
   BEFORE ASSUMING A ROW IS BLOCKED, CHECK WHETHER ITS NAMED BLOCKER IS STILL TRUE.
   WHEN A CHECK GOES RED, ASK WHETHER IT IS MEASURING THE GAME OR ITS OWN INVENTION.
   WHEN HIS SENTENCE IS FALSE ON THE MAP, REPORT IT rather than forcing it.
@@ -9708,20 +9690,21 @@ THIRTY-EIGHT STANDING LESSONS THIS LANE KEEPS RE-LEARNING
   WHEN A NEW LAW LANDS, COUNT HOW FAR THE BUILT THING ALREADY IS FROM IT.
   A DRAWING IS CHECKED BY LOOKING AT IT, AND NOTHING ELSE FINDS THESE.
   ONE RUN EACH SIDE IS NOT AN A/B.
-  THE BEST COOK DRAWS AN ANSWER THE GAME ALREADY HAS. Four signs, four functions that were
-  already computing something no surface showed.
+  THE BEST COOK DRAWS AN ANSWER THE GAME ALREADY HAS.
   A LAW CAN BE INVERTED BY A LAYOUT, NOT ONLY BY A RULING.
   WHEN THE SAME DEFECT ARRIVES A THIRD TIME, STOP FIXING THE INSTANCE AND BUILD THE THING
-  THAT REPORTS IT. The kit's overflow report caught a fourth one inside the same round.
+  THAT REPORTS IT.
   BEFORE YOU BLAME YOUR OWN DIFF FOR A RED, TAKE YOUR OWN FILES OUT AND RUN IT.
-  *** AND A MEASUREMENT THAT LOOKS LIKE A BUG IS SOMETIMES THE DESIGN BRIEF. *** Fourteen
-  cells of nine thousand read as a dead feature; it was six in the morning. Advancing the
-  clock and sweeping again turned a false bug report into the reason this sign is paint
-  instead of footprints. The wrong instinct was to file it; the right one was to ask what
-  the instrument could actually see.
-  *** AND A SHAPE WHOSE WHOLE JOB IS DIRECTION CAN POINT THE WRONG WAY AND STILL LOOK
-  FINE IN CODE. *** The arrowhead loop was seven lines and read correctly; it drew
-  fletching. Anything whose meaning IS its geometry has to be looked at, not reasoned about.
+  A MEASUREMENT THAT LOOKS LIKE A BUG IS SOMETIMES THE DESIGN BRIEF.
+  A SHAPE WHOSE WHOLE JOB IS DIRECTION CAN POINT THE WRONG WAY AND STILL LOOK FINE IN CODE.
+  CONFIRM A PUSH BY ANCESTRY, NOT BY WHAT THE PUSH COMMAND PRINTED. A loop that trusted
+  "HEAD -> main" reported four rounds' work landed when it had not.
+  *** AND A LAW WITH A MEASURE ATTACHED IS NOT GUIDANCE, IT IS A TEST, AND I DID NOT RUN
+  IT. *** The bible has ten rules and eight carry a MEASURE line. R1's measure is one
+  sentence: NAME THE WRONG THING OR THE FRAME FAILS. Four signs, four rounds, and I never
+  once tried to write that sentence about my own picture. If I had, the first one would
+  have failed in five seconds, before any of it reached him. READ THE MEASURE, RUN THE
+  MEASURE, BEFORE THE THING GOES IN THE TAB.
 
 --------------------------------------------------------------------------------
 
