@@ -21206,7 +21206,112 @@ RIGHT NOW: (a) write this whole instruction, word for word, into your own handof
 
 I will never paste anything to you again. From here on, the one word is the whole instruction.
 
-THIS ROUND -- *** COOKED: THE TWELVE STREET PEOPLE WITH AGES, IN VOTE. AND THE PICTURE
+THIS ROUND -- *** HE VOTED. AND THE RUNWAY CLOTHES HE ASKED FOR WERE ALREADY HANGING ON THE
+RAIL WITH NOBODY WEARING A THREAD OF THEM. THAT IS THIS LANE'S FAULT, NOT THE ART'S.
+(sha c682b60, CLAIMED [runway redo]) ***
+
+VERDICTS, READ BACK FIRST AND FOR THE FIRST TIME EVER NOT EMPTY. 83 across the fleet, SEVEN
+on this lane: four up, three down.
+  UP  [ages] "Both nigga" -- he answered BOTH halves of the question: yes to kids and teens
+      on the street, AND yes go build a proper old man.
+  UP  [real height], no comment. The 0.88-1.12 range is ruled in.
+  UP  no-kids-no-old: "Old person looks like shit. The characters aren't done, but I get it.
+      I'm glad we can have old and young people very good." He confirms what this lane had
+      already measured: there is no elder in the rig, only a 3% shorter man.
+  UP  the too-still pair: "1 out of the million pieces i guess".
+  DOWN the thirteen: "they all need to get redone in an analog horror direction, analog
+      horror meets Rick Owens meets Balenciaga meets Bottega Veneta, bro."
+  DOWN the twelve: "you need to understand we need to cook. Keep cooking up clothing keep
+      cooking up hairstyles and faces and portraits before you start showing this shit to me.
+      They look good for a game that doesn't give a fuck about itself."
+  DOWN the colour sheet, and it is not about colour: "everyone being on top of each other and
+      on each other's ass looks like complete dogshit" -> that is PEOPLE [no clumping],
+      rule 30 s8. It was this lane's picture that showed it.
+ALL THREE DOWNS ARE ONE INSTRUCTION: stop showing bodies, cook clothes to the three houses.
+
+*** THE FINDING, AND IT REASSIGNS THE BLAME TO THIS LANE. *** Before cooking anything I swept
+the rail: THE WARDROBE ALREADY HELD 26 GARMENTS CUT TO THOSE HOUSES -- cocoon coats, comma
+coats, asymmetric coats, wrap coats, drop-rise trousers, stacked jersey pants, pant-boots,
+platform boots. COOK cooked them against the runway references and they ship as canon.
+  TWENTY-TWO OF THE TWENTY-SIX WERE WORN BY NOBODY.
+  ZERO WERE ON ANY OF THE THIRTEEN FACTIONS.
+  SIX OF THE THIRTEEN WEAR THE SAME DUST TROUSERS.
+He was shown thirteen people in chore coats while a cocoon coat hung unworn. This lane's own
+STATE line says "this lane WIRES what COOK cooks". IT DID NOT. That is the root cause of the
+down-vote and it is mine.
+
+AND THE BLOCKER WAS NEVER A SHAPE, IT WAS A COLOURWAY. Every runway piece on the rail is cut
+in a neutral -- charcoal, slate, ash, bone, storm, faded black -- and the factions ARE their
+colours. COLOUR IS TERRITORY forbids dressing Blues in slate, so nine factions had nothing
+legal to put on. SO 12 FACTION-COLOUR RUNWAY GARMENTS NOW EXIST: one line each, COOK's own
+generator, COOK's own shape flag, the faction's own ramp constant, exactly how SLATE COCOON
+COAT differs from COCOON COAT. No new art, no new code path.
+
+THREE MEASUREMENT BUGS, ALL CAUGHT BY READING THE OUTPUT INSTEAD OF THE EXIT CODE. Worth the
+next lane's time because all three are the same family:
+ 1. THE POLE SPLIT AT 1.0 WAS WORTHLESS. A human sprite's shoulders are ALWAYS wider than its
+    feet, so all thirteen landed on one pole, all were pushed at the pole with nothing
+    narrower to offer, and it reported thirteen swaps that moved nothing: 1.714 -> 1.714,
+    thirteen times. SAME INVENTED-THRESHOLD ERROR THIS LANE MADE ON THE COLOUR NAMES. The
+    split is the SET'S OWN MEDIAN now, so there is no number to tune.
+ 2. THE COLOUR GUARD LET FACTIONS TRADE TERRITORY. A mean-distance test dressed REDS IN AN
+    OLIVE COAT AND A GOLD BOOT and REMNANTS, the olive faction, IN BRICK -- swapping one
+    strong colour for another barely moves an average. Now a coloured garment is only offered
+    to the faction whose ramp it is cut in.
+ 3. AND THEN IT DRAINED A FACTION INSTEAD. A storm-grey cocoon coat passed at exactly 26 and
+    turned Remnants from green to grey. LOSING colour and CHANGING colour move a mean the
+    same way. Third guard is SATURATION: no swap may cost a faction more than a sixth of its
+    cloth saturation, because "readable by colour at fifty yards" is a saturation claim.
+
+MEASURED RESULT, and the tool REFUSES TO WRITE if the thirteen come out less distinct:
+    gap between the two poles' means   0.2628 -> 0.4127
+    spread of the whole set            0.1551 -> 0.2249
+    closest pair (distinctness)        0.0227 -> 0.0281   IMPROVED
+    moved further onto a pole          5 of 13
+
+*** 5 OF 13 IS NOT ALL THIRTEEN AND I SAY SO ON THE VOTE ITEM ITSELF. *** Eight of the
+thirteen are defined by having NO COAT AT ALL or by a back piece, and the original 880-fit
+search picked them BECAUSE of that. Legs and boots alone cannot move them far; a coat would
+move them and destroy exactly what they were selected for.
+-> THE REAL ANSWER IS TO RE-RUN THE 880-FIT SEARCH with the runway shapes in the candidate
+   pool and the colourways that did not exist before this round, and let it find a NEW
+   mutually-distinct thirteen that is runway from the start instead of workwear with better
+   boots. THAT IS THE NEXT ROUND. This round built what that search will need.
+
+HE NAMED THREE HOUSES AND THE LIBRARY HELD TWO. Twelve runway references across Rick Owens
+and Balenciaga and NOTHING AT ALL for Bottega Veneta, so a third of a locked instruction had
+no ruler and EVERY LANE DRESSING TO RULE 30 WAS GUESSING AT ONE NAME IN THREE. Added with
+real sources: RNWY-14 intrecciato (the weave IS the structure); RNWY-15 no logo, nothing
+announced (which is COLOUR IS TERRITORY and STRUCTURE-NOT-COLOR in another house's voice -- a
+faction patch or stencilled sigil fails all three at once); RNWY-16 trompe-l'oeil leather,
+FW22's white tank and jeans made ENTIRELY of leather tooled to look like cotton.
+  *** RNWY-16 IS THE ANALOG HORROR BIBLE'S RULE 1 WEARING CLOTHES: the ordinary frame with
+  one wrong thing. A plain flannel shirt that is not cloth is exactly one wrong thing on an
+  otherwise ordinary body, and it is the ONLY one of the three houses that answers rule 20
+  directly instead of being decorated with it afterwards. At sprite scale the tell is SHEEN,
+  not pattern. IT NEEDS NEW ART, so it is named as the next cook rather than faked now.
+
+HONEST LIMIT, stated in the record: A RUNWAY SILHOUETTE IS NOT BY ITSELF ANALOG HORROR. This
+answers "Rick Owens meets Balenciaga" and does NOT yet answer "analog horror meets".
+
+THE COORDINATOR UN-HELD [ages] AND [real height] WHILE I WORKED (notes dated 9/23 on both
+rows; I nearly lost them resolving a rebase, because during a rebase "theirs" is your own
+commit, not main's). Next round carries them: the child and teen go to VOTE as bodies that
+MOVE, not stills (rule 25, "how dare you show me pictures of animations"), the spine bend is
+with ANIMATION, and the tall body's frame still scalps him.
+
+THE SUITE, HONESTLY. Mine, all green, and all fixed properly rather than loosened: SHAPE
+FROZEN 12/0 (baseline re-baked to 330 with a reason and a record, which my own tool refuses
+to do without), HEM FOLLOWS THE LEG 11/0 (8 new hems measured and stamped, table 103 -> 111),
+FACTION COLOUR 38/0, NAME MATCHES THE RAMP 8/0, BODY SCALE 15/0, CHARACTER IN THE VOTE TAB
+9/0. NOT MINE, and verified by running it on stashed clean main for an identical result:
+FACTION OUTFIT 16/2 -- AND IT BACKS HIS DOWN-VOTE WITH A NUMBER, the closest two of the
+thirteen sit at 0.0085 against its own 0.035 bar. REFERENCE CHECK has 2 red on another lane's
+new cook tool, fourth round running on a fourth lane: that is a missing habit, not a slip.
+
+--------------------------------------------------------------------------------
+
+PREVIOUS ROUND -- *** COOKED: THE TWELVE STREET PEOPLE WITH AGES, IN VOTE. AND THE PICTURE
 PROVED HALF THE ROW IS IMPOSSIBLE: THIS GAME HAS NO OLD PEOPLE, IT HAS A SLIGHTLY SHORTER
 MAN. (sha 5851df0, HELD [ages]) ***
 
