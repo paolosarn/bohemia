@@ -1315,6 +1315,19 @@
     "how": "image",
     "src": "vote/LIFECITY_THE_STREET_THAT_IS_STILL_LIT_9_23.png"
    }
+  },
+  {
+   "id": "character-a-new-thirteen-9-23",
+   "kind": "outfit",
+   "lane": "character",
+   "sha": "1acc9ba",
+   "made": "9/23",
+   "title": "A NEW THIRTEEN, BUILT RUNWAY FROM THE START",
+   "why": "You said the thirteen all need redoing. I found out why they were workwear and it was not taste: the search that picked them could only choose from dusters, work coats, vests and packs. There was not one runway cut in the box, and no boots in it at all. So I put the runway cuts in the box and ran the same search again. This is what it picked. Nobody chose these by eye. They are 5.6 times more different from each other than the thirteen you voted down, measured the same way, and all thirteen carry a runway cut. Shapes only for now, colour and faces after you rule on the shapes. Do these read as your valley?",
+   "show": {
+    "how": "image",
+    "src": "vote/CHARACTER_A_NEW_THIRTEEN.png"
+   }
   }
  ],
  "verdicts": [

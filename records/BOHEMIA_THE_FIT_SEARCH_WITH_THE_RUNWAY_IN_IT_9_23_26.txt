@@ -1,0 +1,65 @@
+THE FIT SEARCH, RE-RUN WITH THE RUNWAY IN THE POOL  --  CHARACTER, 9/23/26, [runway redo]
+
+*** WHY THE OLD THIRTEEN ARE WORKWEAR, AND IT IS NOT A TASTE FAILURE. *** The original
+search's candidate pool is duster, drifter's coat, split-tail, cape, tactical vest,
+pauldron, bandolier, blanket roll, ruck pack; four legs, all workwear; and NO FEET AXIS
+AT ALL. There is not one runway cut in it. The search did its job perfectly and could
+only ever return workwear, BECAUSE WORKWEAR WAS THE ONLY THING IN THE BOX. His "they
+all need to get redone" is a verdict on a pool, not on a search.
+
+SAME RULER AS THE ORIGINAL, ON PURPOSE. profileOf, dist and the greedy walk are copied
+unchanged, so this floor means what their floor meant. Last round I had to disclaim
+that my metric was only the same KIND as theirs; this one is the same function.
+
+  candidates measured    2400   (5 bodies x 15 shoulder shapes x 8 legs x 4 feet)
+  separation floor       0.040
+  mutually distinct set  19 found at that floor
+
+  (every number here is measured on a BARE HEAD, as the original search did, so the
+   floor means what their floor meant. The sheet adds a haircut per body for LOOKING
+   at, because thirteen bald heads is not a thing to put in front of him. Nothing is
+   measured off the picture.)
+
+  TODAY'S THIRTEEN, same ruler   closest pair 0.0085   (Blues / Trades)
+  THE NEW THIRTEEN               closest pair 0.0477   (plain/bare/trousers/platform / small/cocoon/stack/slouch)
+  *** THE NEW SET IS 5.6 TIMES MORE SEPARATED THAN THE ONE HE VOTED DOWN. ***
+  carrying a runway cut          13 of 13
+
+  THE SET THE SEARCH CHOSE (nobody picked these by eye):
+     1  broad/cocoon/trousers/boot
+     2  small/asym/widepl/platform
+     3  small/mantle/stack/slouch
+     4  broad/splittail/trousers/platform
+     5  lanky/mantle/crop/platform
+     6  plain/bare/trousers/platform
+     7  tall/mantle/drop/boot
+     8  lanky/cocoon/stack/column
+     9  small/bare/drop/boot
+    10  lanky/wrap/stack/platform
+    11  broad/mantle/widepl/platform
+    12  tall/splittail/widepl/platform
+    13  small/cocoon/stack/slouch
+
+HONEST LIMITS, all three stated rather than discovered later.
+  1. THE HEAD AXIS IS GONE. The original ran heads and masks; I spent that budget on
+     a FEET axis instead, because last round measured that both runway poles are
+     reachable from the feet alone and the original was blind to that lever. COST: a
+     set that separates on hats is not reachable from this run, so this is NOT a
+     strict superset of the original.
+  2. GREEDY IS A FLOOR, NOT A CEILING. Farthest-point does not prove the true maximum
+     -- that is set-packing and NP-hard -- so the count is a floor on the answer. The
+     original says the same about itself and it is repeated here rather than dropped.
+  3. THIS IS THE REGISTER, NOT THE HORROR. A runway silhouette answers "Rick Owens
+     meets Balenciaga". It does NOT answer "analog horror meets", because the bible's
+     rule 1 wants one wrong thing and a better-cut coat is not one. RNWY-16, the
+     garment that is not what it looks like, is the bridge and it needs new art.
+
+COLOURWAYS ARE DELIBERATELY NOT IN THE POOL. STRUCTURE-NOT-COLOR: the search is on
+SILHOUETTE, so a cocoon coat is ONE candidate however many ramps it exists in. The 12
+faction colourways added last round are what lets the winner be dressed in a faction's
+own colour afterwards. Putting them in the pool would inflate the count with identical
+shapes and make the answer look better than it is -- the original tool's own warning.
+
+NOT WIRED (rule 18): this proposes a set and edits no faction. Which shape belongs to
+which faction is HIS, exactly as the original said: "WHICH SHAPE BELONGS TO WHOM IS
+HIS." The picture is in VOTE.
