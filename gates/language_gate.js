@@ -410,6 +410,47 @@ P.LANG_ORDER.forEach(function (r) {
   while ((m = re.exec(src)) && n < 400) { req(path.basename(f) + ' offer/objective', m[0]); n++; }
 });
 
+/* *** RULE 27, HIS WORDS 9/21: THE PLAYER DOES NOT SPEAK SPANGLISH. ***
+   "Some characters might speak Spanglish to you, doesn't mean you will."
+   MEASURED BEFORE THIS WAS WRITTEN, because the row said to strip Spanish from
+   the player's lines and the honest first question is whether any is there:
+   913 choice and asking lines in the words book carry ZERO Spanish, and the
+   @OPT sweep above already holds every quest choice to English. SO THE QUEST
+   SIDE WAS ALREADY ENFORCED AND THE ROW'S PREMISE WAS HALF TRUE.
+   THE REAL GAP IS THE PLAYER'S LINES THAT ARE NOT QUEST CHOICES: the terms he
+   proposes when he argues a price, and the action buttons he taps. Those are
+   his mouth and nothing swept them. The Spanglish that earned this ruling was
+   in a set this lane proposed for exactly that slot ("YO VOY" as a way to take
+   a job), so the hole is real and it is this lane's.
+   REUSE-FIRST, AND THIS LANE HAS LEARNED IT THE HARD WAY THREE TIMES: this uses
+   the engine's own esWordsIn through the same `required` list the rest of the
+   check already walks, rather than a fourth hand-rolled Spanish regex. */
+var HAGGLE = 'engine/bohemia_haggle.js';
+if (fs.existsSync(HAGGLE)) {
+  var hsrc = fs.readFileSync(HAGGLE, 'utf8'), hm, hn = 0;
+  var hre = /(?:say|agreed)\s*:\s*'([^']{3,120})'/g;
+  while ((hm = hre.exec(hsrc)) && hn < 200) { req('haggle: what he offers', hm[1]); hn++; }
+  ok('the terms the player proposes were found to sweep', hn > 0, hn + ' strings');
+}
+/* AND THE BUTTONS HE TAPS. data-act is the city's own marker for a control the
+   player presses, so the label beside it is a word in his mouth. */
+var CITY = 'slices/BOHEMIA_CITY_WORLD.html';
+if (fs.existsSync(CITY)) {
+  var csrc = fs.readFileSync(CITY, 'utf8'), cm, cn = 0;
+  /* THE FIRST CUT OF THIS SWEPT JAVASCRIPT AND THE GATE CAUGHT IT IN ONE RUN.
+     `>([^<]{2,60})<` matches across code, because > and < are operators, so it
+     pulled `0 && BohemiaHaggle.say(t)) || o.paysSay;` out of a source line and
+     called it a button. A LABEL IS NOT ANY TEXT BETWEEN TWO ANGLE BRACKETS: it
+     is words, so the capture has to look like words before it counts. */
+  var cre = /data-act="[a-z]+"[^>]*>([^<]{2,60})</g;
+  while ((cm = cre.exec(csrc)) && cn < 300) {
+    var lab = cm[1].replace(/\\'/g, "'").trim();
+    if (!/^[A-Za-z][A-Za-z '\u00c0-\u017f.,!?-]*$/.test(lab)) continue;
+    req('city: a button he taps', lab); cn++;
+  }
+  ok('the buttons the player taps were found to sweep', cn > 0, cn + ' labels');
+}
+
 var offenders = [];
 required.forEach(function (r) {
   var h = BohemiaPeople.esWordsIn(r.text);

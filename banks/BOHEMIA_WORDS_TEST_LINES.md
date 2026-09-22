@@ -2183,7 +2183,13 @@ BROTHER  Pass the salt.                                                [time off
   I'LL TAKE IT          <- PEOPLE's, kept: three words, closes cleanly
   I'M YOUR MAN
   PUT ME DOWN FOR IT
-  YO VOY                <- Spanglish, two words, same job
+  COUNT ME IN           <- replaced YO VOY, 9/22, RULE 27
+# *** RULE 27, PAOLO 9/21, AND HE CORRECTED THIS EXACT ROW: "Chill with the
+# spanglish bro, some characters might speak Spanglish to you doesn't mean you
+# will." He voted this item UP and corrected the one line in it that was wrong.
+# YO VOY IS DEAD. Some characters speak Spanglish; the player never does. The
+# language gate now has a leg that fails if a word of Spanish reaches a button
+# he taps or a term he offers, so this cannot come back by hand.
 # None carries an "if". A row with an "if" in it belongs in the haggle block below,
 # and putting one here would label a counter-offer as an acceptance.
 

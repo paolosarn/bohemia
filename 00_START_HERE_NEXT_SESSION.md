@@ -1,3 +1,80 @@
+WORDS (words-8dqrnq): 9/22 (b) LATEST -- *** HE VOTED AND HE KILLED SEVEN OF THIS LANE'S NINE. THE
+POST-MORTEM IS NOT ABOUT THE WORDS, IT IS THE FORM. NOTHING WAS REGISTERED IN VOTE THIS ROUND, WHICH
+IS RULE 29. *** Row [player speaks english] SHIPPED. Record:
+records/BOHEMIA_WORDS_THE_PLAYER_SPEAKS_ENGLISH_AND_SEVEN_IN_THE_GRAVEYARD_9_22_26.md
+
+THE VERDICTS ON THIS LANE, VERBATIM:
+  words-the-twelve-get-an-end-9-24   DOWN  "Idk what i was reading wtf"
+  words-the-loading-screen-9-23      DOWN  (no comment)
+  words-a-mouth-not-a-narrator-9-22  DOWN  "The UI of this is all buggy. I can't even like
+                                            understand what's going on. Reshow me better"
+  words-the-first-ask-spoken-9-21    DOWN  "Boring asf"
+  words-the-phone-notice-9-21        DOWN  "Boring asf"
+  words-what-the-tracks-say-9-15     DOWN  "pixel art of footsteps that lead you, not a storytime"
+  words-the-night-card-9-15          DOWN  "I don't wanna fucking card at the end of the day"
+  words-saying-yes-to-a-job-9-15     UP    "Chill with the spanglish bro"
+  words-who-you-owe-headings-9-15    UP
+
+*** THE POST-MORTEM IN ONE SENTENCE: SEVEN WALLS OF TEXT IN A VOTING TAB, NO PICTURE, NO SOUND,
+NOTHING MOVING. A LANE WHOSE JOB IS WORDS KEPT HANDING HIM HOMEWORK AND CALLING IT A THING TO JUDGE.
+*** "Boring asf" twice, "idk what I was reading" once, and on the eighth he could not even see what
+he was looking at. His rule 29 says it back in his own words: text items are boring, make the pixels,
+make the sound, the thing is the item. STOP PRODUCING APPLIED: seven rejections in one sitting is far
+past the second, so this round registered NO new text item and wrote no new set of lines for the tab.
+WHAT DOES NOT DIE IS THE WRITING: he approved the register out loud on 9/22 and the lines are still
+in the bank. What died is showing them to him as text on a card. The mouth-not-a-narrator set comes
+back INSIDE A REAL SPEECH BUBBLE ON THE GLASS under a new id, which is the coordinator's row and
+PEOPLE's surface, not a page of lines.
+
+WHAT GOT BUILT INSTEAD: RULE 27 NOW HAS A MACHINE. "Some characters might speak Spanglish to you,
+doesn't mean you will."
+*** I MEASURED BEFORE WRITING AND HALF THE ROW'S PREMISE WAS ALREADY TRUE: *** 913 choice and asking
+lines in the words book carry ZERO Spanish, and the gate's existing sweep already held every quest
+choice to English. Stripping Spanish from the player's quest lines was work already done.
+THE REAL GAP IS THE PLAYER'S LINES THAT ARE NOT QUEST CHOICES, and nothing swept them: THE TERMS HE
+PROPOSES WHEN HE ARGUES A PRICE, and THE BUTTONS HE TAPS. That is exactly where the "YO VOY" he
+corrected lived, in a set this lane proposed for that slot. New leg:
+  ok  the terms the player proposes were found to sweep    7 strings
+  ok  the buttons the player taps were found to sweep      6 labels
+  ok  *** NOT ONE STRING CARRYING REQUIRED INFORMATION IS NON-ENGLISH ***  982 swept, 0 Spanish
+  GREEN  85 passed, 0 failed
+MUTATION-TESTED, because a check that cannot fail is decoration: put "YO VOY ahora" on the
+take-the-job button and it goes FAIL / RED 84-1, naming the offending words. Restored after.
+REUSE-FIRST, LEARNED THE HARD WAY THREE TIMES: the leg calls the ENGINE'S OWN esWordsIn through the
+same list the rest of the check already walks. No fourth hand-rolled Spanish regex; the three earlier
+ones all produced false numbers.
+AND MY FIRST CUT OF THE LEG WAS WRONG AND THE GATE CAUGHT IT IN ONE RUN: the button pattern
+'>([^<]{2,60})<' matches across JavaScript, because > and < are operators, so it pulled
+"0 && BohemiaHaggle.say(t)) || o.paysSay;" out of a source line and called it a button. A label is not
+any text between two angle brackets. Fixed, and the reason is written into the gate.
+AND THE ONE LINE HE CORRECTED IS DEAD BY NAME: YO VOY is out of the bank, replaced by COUNT ME IN,
+with his words beside it so nobody puts it back.
+
+GATES: language 85/0 (two new legs), voice 114/0 (two stated skips for the shallow clone, 9/23
+block), dialogue catalogue 63/0, attempt 15/0, voice audible 2/0, handoff 8/0.
+
+ROUTED: TO PEOPLE and whoever owns the speech bubble: "reshow me better" is not a kill of the twelve
+lines, it is a kill of showing them as text; they come back inside the bubble on the glass, new id.
+TO COOK: his tracks ruling is yours, "pixel art of footsteps that lead you to the conclusion, not a
+storytime" -- that was this lane writing prose where a picture was the answer, and nothing of mine
+waits on it. TO RUN: the night card is dead by his words; its lines stay in the bank until something
+that is not a card wants them.
+*** STANDING, AND IT IS THE LESSON OF THE ROUND: THIS LANE REGISTERS NO TEXT-ONLY ITEM AGAIN. Words
+ride inside a thing he can see or hear. If no such thing exists yet, the round's cook is a MACHINE,
+like this gate leg, and not a page of lines. ***
+
+STANDING QUEUE: [trade slang] BB-STILL-SAYS-IT is next and it is the same discovery from the other
+end (the occupational identity outlives the occupation: a line cook still calling tickets to nobody
+IS the dead institution in a mouth), and it rides inside people who already exist rather than a card.
+Then [reputation lines] and [voice pass]; the second voice pass is worth flagging because my own gate
+reports 39 BANNED-PHRASE HITS STILL STANDING IN THE 22 SCENES THAT HAVE NOT HAD ONE, and the demo's
+five are clean. Q26 stays claimed until a surface speaks its lines. Q6 through Q17 still owe school
+rounds, oldest first, one at a time with a cook beside each.
+STANDING WATCH: verdicts[] in records/target/BOHEMIA_VOTE_REGISTRY.json every round for ids starting
+words-. THIS ROUND THEY ARRIVED: 83 verdicts, nine of them mine, all acted on here.
+HANDOFF DISCIPLINE, THE 9/13 AMENDMENT: this block was built by taking origin/main's copy of the file
+fresh and prepending a NEW head. Never demote another lane's head and never splice by index.
+
 UI (ui-kmqmrf): 9/22 (b) LATEST -- *** MY RULER PASSED A BUTTON THAT WAS OFF HIS SCREEN. ***
 Both his 9/22 asks shipped in one push: [phone is the button] and [notes on screen].
 TAB: the top bar of the demo (NOTES, far right) and the CITY screen (the drawn phone).
