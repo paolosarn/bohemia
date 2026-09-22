@@ -21,11 +21,14 @@ buffer booked to start at context-time 0.02 will be heard at 0.02 even if the ma
 thread is blocked for nine seconds afterwards, and that is the entire reason this
 sound is a looping buffer and not a scheduler. ***
 
-AND THE TAP IS CONTEXT-TIME ZERO, WHICH IS NOT A CONVENIENCE, IT IS A MEASUREMENT
-FROM LAST ROUND: there are ZERO AudioContexts in existence before the door is
-tapped, not even a suspended one, because a browser will not start audio without a
-gesture. The context is created BY the tap. So "within one beat of the tap" is
-exactly "startedAt <= one beat of context time", with no wall clock in it at all.
+AND THE TAP IS CONTEXT-TIME ZERO, WHICH IS NOT A CONVENIENCE, IT IS A MEASUREMENT.
+When this was written there were ZERO AudioContexts before the door, so the context
+was created BY the tap. AMENDED 9/23: RUN's loading screen calls the unlock path at
+1,027 ms, so ONE context now exists before the door -- and it is SUSPENDED, with
+MUS.playing false. A suspended context has made no sound and its clock has not
+moved, so the tap is still where context time starts, and the claim now reads the
+STATE instead of counting objects. "Within one beat of the tap" is still exactly
+"startedAt <= one beat of context time", with no wall clock in it at all.
 
 WHAT THIS GATE REFUSES TO ACCEPT AS EVIDENCE:
   * A GREP. Nothing reads the alpha as text.
@@ -54,7 +57,10 @@ const path = require('path');
 function pwmod(){for(const g of ['/opt/node22/lib/node_modules','/usr/lib/node_modules','/usr/local/lib/node_modules']){try{return require(path.join(g,'playwright'));}catch(e){}}return require('playwright');}
 const pw = pwmod();
 const REPO = process.argv[2];
-const MUTATE = process.argv[3] === '--mutate';
+/* THE FLAG IS FOUND, NOT COUNTED (9/23). argv[3] is now the served base URL, and
+   a positional read of a flag silently became a read of a URL the moment one was
+   added -- which would have made --mutate a no-op and the control prove nothing. */
+const MUTATE = process.argv.indexOf('--mutate') >= 0;
 const CPU = 4;
 
 (async () => {
@@ -83,7 +89,12 @@ const CPU = 4;
       Object.defineProperty(window, '__roomStart', { get(){ return undefined; }, configurable:false });
     });
 
-    await p.goto('file://' + path.join(REPO, 'slices', 'BOHEMIA_ALPHA_0_9.html'));
+    /* SERVED, NOT OPENED AS A FILE (9/23). See the http server in the Python half:
+       over file:// the city iframe is a foreign origin, RUN's loading screen cannot
+       read into it, __LOAD_READY is never set and the door is not a door. */
+    await p.goto((process.argv[3] && process.argv[3].indexOf('http') === 0
+                  ? process.argv[3] : ('file://' + REPO))
+                 + '/slices/BOHEMIA_ALPHA_0_9.html');
 
     /* WAIT FOR A DOOR THAT IS REALLY THERE, AND PROVE IT OPENED. My second cut
        tapped at 2.5 s on a throttled box before the door was wired, so "the tap"
@@ -96,8 +107,34 @@ const CPU = 4;
       await p.waitForTimeout(250);
     }
     out.doorVisible = vis;
+    /* AND A VISIBLE DOOR IS NOT AN OPEN ONE (9/23). RUN's loading screen puts an
+       `if(!window.__LOAD_READY) return;` inside the door handler, so a tap before the
+       loading lines finish is explicitly not a door -- its own comment says "a tap
+       before BEGIN is simply not a door". Measured, served: BEGIN at 25.5 s. This
+       gate's own older lesson, two comments up, is the same one: "my second cut
+       tapped at 2.5 s before the door was wired, so the tap was not a tap and every
+       number after it was about nothing." Waiting for the element to be VISIBLE was
+       the 9/15 version of that question; the game has a better answer now, so ask it.
+       Bounded at 180 s because PLUMBER measured this boot blocking the thread for
+       71,758 ms on a phone-shaped CPU, and a bound under the measured boot is a gate
+       that goes red on a slow box. */
+    out.loadReadyMs = await p.evaluate(async () => { const t = Date.now();
+      while (Date.now() - t < 180000) { if (window.__LOAD_READY) return Date.now() - t;
+        await new Promise(r => setTimeout(r, 200)); } return null; });
+    /* AND THE STATE, NOT JUST THE COUNT (9/23). "Does an AudioContext object exist"
+       and "has this page made a sound" are different questions, and the browser is
+       the one that distinguishes them: a context created without a gesture is
+       SUSPENDED and produces nothing. RUN's loading screen calls the unlock path at
+       1,027 ms now, so one suspended context exists before the door -- measured, with
+       MUS.playing false. Counting objects called that a broken law; reading the state
+       calls it what it is. */
     out.contextsBeforeTap = await p.evaluate(() => {
       try { return (typeof MUS !== 'undefined' && MUS.AC) ? 1 : 0; } catch(e){ return 'threw'; } });
+    out.acStateBeforeTap = await p.evaluate(() => {
+      try { return (typeof MUS !== 'undefined' && MUS.AC) ? MUS.AC.state : 'none'; }
+      catch(e){ return 'threw'; } });
+    out.playingBeforeTap = await p.evaluate(() => {
+      try { return !!(typeof MUS !== 'undefined' && MUS.playing); } catch(e){ return 'threw'; } });
     await p.click('#front', { force:true }).catch(e => { out.clickErr = String(e.message).slice(0,70); });
     out.doorClosed = await p.evaluate(() => { const f=document.getElementById('front');
       return !!f && getComputedStyle(f).display === 'none'; });
@@ -234,11 +271,36 @@ def run(js, timeout, mutate=False):
     with tempfile.NamedTemporaryFile('w', suffix='.js', delete=False) as fh:
         fh.write(js)
         f = fh.name
-    args = ['node', f, ROOT] + (['--mutate'] if mutate else [])
+    # *** SERVED OVER http, NOT OPENED AS A file:// (9/23, SOUNDS lane).
+    # VERIFY ON THE REAL SURFACE, and a file:// URL is not the real surface.
+    # MEASURED, the same alpha, the same box, twice: over file:// RUN's loading screen
+    # sticks on WINDING THE CLOCK at 20.5 s and is still stuck 219 s later; over http
+    # it reaches BEGIN at 25.5 s. Three of its four loading lines ask their question
+    # INSIDE the city iframe through a try/catch that returns false, and over file://
+    # that frame's origin is "null", so every read throws "Blocked a frame with origin
+    # null from accessing a cross-origin frame" and false means "not loaded yet".
+    # This gate read 19/0 before that landed and 15/4 after, with nothing wrong with
+    # the room or the hum. Full measurement:
+    # records/BOHEMIA_EVERY_GATE_THAT_OPENS_THE_ALPHA_AS_A_FILE_IS_BLIND_9_23_26.md
+    import http.server, socketserver, threading
+
+    class Quiet(http.server.SimpleHTTPRequestHandler):
+        def __init__(self, *a, **k):
+            super().__init__(*a, directory=ROOT, **k)
+
+        def log_message(self, *a):
+            pass
+
+    srv = socketserver.TCPServer(('127.0.0.1', 0), Quiet)
+    base = 'http://127.0.0.1:%d' % srv.server_address[1]
+    threading.Thread(target=srv.serve_forever, daemon=True).start()
+    args = ['node', f, ROOT, base] + (['--mutate'] if mutate else [])
     try:
         r = subprocess.run(args, capture_output=True, text=True, timeout=timeout)
     finally:
         os.unlink(f)
+        srv.shutdown()
+        srv.server_close()
     line = [x for x in r.stdout.strip().split('\n') if x.startswith('{')]
     if not line:
         print('  > node produced nothing:\n' + (r.stderr or '')[-1200:])
@@ -275,10 +337,25 @@ def main():
           bool(d.get('doorVisible')) and bool(d.get('doorClosed')),
           'visible %s, closed after the tap %s' % (d.get('doorVisible'), d.get('doorClosed')))
 
-    # THE MEASUREMENT FROM LAST ROUND, RE-CONFIRMED: no audio before the gesture.
-    claim('THE TAP IS CONTEXT-TIME ZERO', d.get('contextsBeforeTap') == 0,
-          'audio objects in existence before the door: %s (a browser will not start '
-          'audio without a gesture, so context time 0 IS the tap)' % d.get('contextsBeforeTap'))
+    # *** RE-ASKED 9/23, BECAUSE IT WAS COUNTING OBJECTS WHEN THE LAW IS ABOUT SOUND.
+    # It asserted ZERO AudioContexts before the door, and that was true when it was
+    # written: the context was created BY the tap. RUN's loading screen (9/21) now
+    # calls the unlock path at 1,027 ms, so one context exists before the door -- and
+    # MEASURED, it is SUSPENDED, with MUS.playing false. A suspended context is not
+    # audio; that is the browser's own distinction and the whole reason the gesture
+    # rule exists.
+    # SO THE CLAIM ASKS WHAT THE LAW ASKS: nothing was AUDIBLE before the door. A
+    # context that is RUNNING before the tap still fails, which is the thing that
+    # would actually break it, so this is not a weaker assertion -- it is the same
+    # assertion with the browser's own word for "silent" in it.
+    # AND THE ANCHOR SURVIVES: a suspended context's clock does not advance, so the
+    # tap that resumes it is still where context time starts moving.
+    _acs = d.get('acStateBeforeTap')
+    claim('NOTHING WAS AUDIBLE BEFORE THE DOOR, so the tap is still context-time zero',
+          _acs in ('none', 'suspended') and d.get('playingBeforeTap') is False,
+          '%s audio object(s) before the door, state %s, MUS.playing %s (a suspended '
+          'context has made no sound and its clock has not moved)'
+          % (d.get('contextsBeforeTap'), _acs, d.get('playingBeforeTap')))
 
     s = d.get('scheduled') or {}
     claim('THE ROOM REPORTS FOR ITSELF', s.get('hasRoomApi') == 'function',
