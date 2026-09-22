@@ -7167,6 +7167,97 @@ ALSO STILL OPEN, not draw order: on NE in his own frame
 the right of the shoulders with a visible gap. That is the pose too.
 
 Nothing [PENDING Paolo].
+PEOPLE (people-7h9sfy): 9/22 (b) LATEST -- *** [no clumping] AND [name mix]
+SHIPPED e7daaa46, both straight off HIS VOTES. NOBODY STANDS ON ANYBODY. ***
+
+HE VOTED. Four verdicts on this lane: the names UP with a correction, the street
+picture DOWN, the companion DOWN ("her portrait ugly", PORTRAIT's), the weights
+UP with no comment. Two of them were jobs and they beat the queue.
+
+*** PAOLO 9/21, TWICE, VOTING DOWN THIS LANE'S OWN PICTURE: "It looks so fucking
+bad why are so many people on so many like on top of each other on each other's
+ass." ***
+
+MEASURED AT THE QUIETEST HOUR WITH NINE BODIES ON THE GLASS: five overlapping
+pairs, four past a quarter of a body, THE WORST AT 90.3%.
+
+*** ONE BODY PER CELL WAS BEING KEPT PERFECTLY AND IT WAS NEVER THE QUESTION. ***
+A body is 112 px on 11 px cells, so A BODY IS TEN CELLS ACROSS: two people on
+neighbouring cells obey the occupancy law to the letter while their art overlaps
+ninety percent.
+
+TWO GOOD DECISIONS COLLIDED AND NOBODY MEASURED THE PAIR. LIFE+CITY's 9/12 crowd
+packs people into rings 0 to 4 cells out, and that was RIGHT (the street felt
+dead, measured over sixteen walks). Rule 21 fixes the body at 112, and that was
+RIGHT too (he hated his body resizing). A nine-cell square holding thirteen
+ten-cell bodies is one shape. NEITHER LANE WAS WRONG. WRITE THAT DOWN: two
+rulings can both be right and still be a defect where they meet.
+
+THE FIX is the same law one layer out, at the glass where it already lives, asked
+of the body's FOOTPRINT instead of its cell, with ONE LIST SHARED BY BOTH PASSES
+THAT DRAW PEOPLE -- the hostile pass runs inside the people pass and drew the two
+worst bodies on the screen while the people pass was clean. The room is the
+game's own arithmetic (ladder over cell) and it is a WHOLE body: half was tried
+and measured and still left two people six cells apart covering a third of each
+other.
+
+ON THE GLASS, SEVEN HOURS ACROSS THE DAY: ZERO OVERLAPPING PAIRS AT EVERY ONE.
+And the control that matters, because zero overlap is trivial if nobody is drawn:
+never below three bodies, seven on average. THE STREET DID NOT GET THINNER TO BUY
+THE PICTURE.
+
+*** AND SEEDING THE LIST WITH THE PLAYER COST THREE OF THIS LANE'S OWN GATES. ***
+The first cut excluded a body's width around HIM too. It meant NOBODY CAN STAND
+BESIDE HIM: the person who comes to his door, the thing this lane spent three
+rounds building, stopped being drawn and stopped speaking, and FACE AT THE DOOR
+went 31/0 to 25/6 with its own self-test "somebody really spoke" reading FALSE.
+He is already covered by the cell law. Player off the list, on purpose, and the
+gate now asserts that with the reason. The ship test counts pairs AMONG OTHER
+PEOPLE and says so out loud: with him counted the worst pair is 81.3% and it IS
+the person at his door, which is the one thing rule 19 asks for.
+
+*** AND [honest crowd] IS BUILT, MEASURED, AND HELD OFF, WHICH IS THE ROUND'S
+MOST EXPENSIVE FINDING. *** Scaling the borrow by the share of his block that the
+schedule has outdoors WORKED: the day read 1, 4, 5, 2, 5, 3, 2 bodies against a
+world of 0, 10, 41, 3, 40, 4, 2 outside, still with zero overlaps. AND IT TURNED
+THE LANGUAGE GATE RED: "A SPANGLISH NEIGHBOUR ANSWERS IN SPANGLISH" stopped being
+satisfiable, because a street thinned to the world's real share no longer puts
+one of every register inside the cells that gate walks. ISOLATED IN THREE RUNS,
+because a red with three changes in the tree is not a finding until it is one:
+skip+spacing+bank GREEN, bank alone RED, clock-scaling off GREEN. The arithmetic
+stays in the file, OFF, with the reason written beside it.
+[PENDING]: a quiet evening street, or everybody reachable. That is the trade and
+it is not mine.
+
+[name mix]: HE VOTED THE NAMES UP WITH A CORRECTION AND HE WAS RIGHT. Counted
+before a name was added: 35 of 64 surnames read Hispanic (55%) against a Clark
+County that is about 32%; given names 45% Hispanic against a county that is about
+41% white non-Hispanic. THE BANK WAS A THIRD MORE HISPANIC THAN THE COUNTY IT IS
+BUILT FROM, and he noticed by reading eleven names. Surnames 64 -> 98, given
+names 64 -> 90, the Hispanic share of surnames 55% -> 36%, NOTHING OF HIS
+DELETED. The honest split for surnames is Hispanic / Asian / everyone else and
+the file says so. THE BANK LIVES IN TWO PLACES (engine/bohemia_people.js is
+inlined verbatim into the walked city) and both were changed through the repo's
+own resync tool.
+
+THE GATE: gates/no_clumping_gate.js, 37 claims, in the suite as NO CLUMPING.
+Mutation: let the hostile pass ignore the shared list and the count ignore the
+clock, 2 red.
+
+AND A THIRD ROUND RUNNING OF THE SAME TEST MISTAKE, NAMED SO IT STOPS: a claim
+went red because a sentence WRAPPED across a line. A test about where the
+newlines fall is not a test about what the file says. Every prose claim in this
+gate now reads a flattened copy.
+
+NAMED, NOT MINE: A NAME reads "1 of 61 named at boot" and does the same on CLEAN
+HEAD, because this round's own probes wrote the met-ledger into the driver's
+browser profile and it persists between runs. The gate's control assumes a clean
+save and does not ask for one. THAT IS A WEAKNESS IN A GATE THIS LANE WROTE AND
+IT IS NEXT ROUND'S FIRST JOB. VOTE TAB is red on clean main too (UI's row).
+
+NEXT: [family eyes] is HELD; the OPEN rows are [rumours travel], [creditor
+stands], [somebody hires you]. First though: the A NAME control above.
+
 PEOPLE (people-7h9sfy): 9/22 LATEST -- *** [weights shape] SHIPPED 63a960eb. THE
 REPUTATION MACHINE IS BUILT, WORKING, AND GRADING NOTHING. *** Row
 WHAT-PEOPLE-REPEAT-ABOUT-YOU, under the rule 18 hold with the RULE 22 cook
