@@ -27802,7 +27802,110 @@ NEW FRONT-PAGE RULE 8 (added 9/13), and it binds this lane: IF YOUR DIFF TOUCHES
 engine/, REBUILD THE TWO DERIVED SLICES (the RUN slice and the demo) IN THE SAME
 COMMIT. PLUMBER found the RUN slice drifting +45/-6 behind two engine ships.
 
-HOLDING: nothing. LAST SHIPPED: [full shelves] 9/21 2fbfb1a.
+HOLDING: nothing. LAST SHIPPED: [people charge] 9/22 f20cdfc.
+
+*** 9/22 LATEST -- HE VOTED, ALL SIX OF THIS LANE'S ITEMS WENT DOWN, AND ONE OF
+HIS COMMENTS WAS A RULING. ***
+records/BOHEMIA_WORLD_MFS_CHARGE_BATTERIES_9_22_26.md  sha f20cdfc
+Post-mortem: records/POSTMORTEM_WORLD_SIX_TEXT_ITEMS_9_22_26.txt
+Row [people charge], plus rule 22 and RULE 29. NOTHING ON A PLAY SURFACE: rule 18
+still holds; the cook went to VOTE and this round it is DRAWN.
+
+(1) *** SIX FOR SIX, DOWN. *** "So boring", "Boring asfff", and four silent
+thumbs. THE FAILURE WAS MINE AND IT IS NAMED: rule 22 said WORLD makes "a thing
+on the phone" and I read that as a DOCUMENT, then shipped five rounds of them --
+a cut-off notice, a water alert, a receipt, an eviction notice, a covenant
+violation, a price list. STOP PRODUCING says writing a FOURTH version of anything
+means you already failed. I WROTE SIX, each one greener and more thoroughly gated
+than the last, and green gates were never an argument. Rule 29 came back the same
+round and says it plainly: make the pixels, the thing IS the item.
+  SURVIVES (mechanism, which he did not vote on): bohemia_notice, bohemia_strike,
+  bohemia_watch, bohemia_aftermoney. DIES: all six ids, never to render again; if
+  that voice returns it returns INSIDE something drawn or heard, as a new id
+  through DIRECTION's bible (rule 30).
+
+(2) *** AND ONE COMMENT WAS A RULING, NOT A VERDICT. *** "Mfs charge batteries
+bro. i know buildings can help in our game but jesus christ mfs can charge
+batteries." MEASURED IN THE WALKED CITY AND HE IS RIGHT:
+      cellsNightlyCharge() is the ONLY maker of batteries in this game.
+      It walks the lit circuits, finds the FACTION holding that ground, and
+      credits THAT FACTION one cell. Reason string: 'a day on a live wire'.
+      A PERSON NEVER MAKES ONE. THE PLAYER NEVER MAKES ONE.
+The entire money supply of Las Vegas is minted by fourteen outfits holding wire,
+and every human being in the valley is locked out of the one act that creates
+money. That is not an economy, it is a faucet with a guest list.
+
+(3) BUILT: engine/bohemia_charge.js. The physics is REAL and not tunable, each
+number with its source: 3.75 Wh a cell (the figure this lane already measured for
+[battery worth]), 0.70 charger efficiency, 5 Mojave peak-sun-hours. THE RIG TABLE
+SHIPS EMPTY -- who owns a charger is content and his ruling was "mfs can charge
+batteries", not "a rig makes four a day" -- so rigFor() answers NO_RULING rather
+than handing somebody a charger the game never gave them. Three sources and all
+three already exist: a lit circuit, a power building you placed ([own power]), a
+panel. Anything else is REFUSED, because "I charged it somehow" is how a faucet
+gets into an economy by accident.
+
+(4) *** A NUMBER FLAGGED RATHER THAN BURIED. *** Run the real arithmetic on an
+ordinary 10 W folding panel: 10 x 5 x 0.70 = 35 Wh = 9.33 CELLS A DAY, against a
+day's work paying ONE. Nine a day would end EVERYTHING COSTS ONE inside a week.
+So I asked what the real limit is, and THE SUN WAS NEVER IT: the limit on
+charging AA cells has always been THE CHARGER -- a bay holds one cell, a cheap
+four-bay does four, a slow charge takes most of a day. Output is capped by BAYS.
+The gate proves the cap bites by pouring FORTY TIMES the power into four bays and
+still getting four, and `limitedBy: POWER` keeps the honest short-power case
+reachable. Both the true physics and the answer that keeps his pillar, taken as a
+manager's call under correct-after rather than put in his queue.
+
+(5) A BUILDING HELPS, IT DOES NOT OWN THE ACT -- his sentence written as a test.
+A person, a 4-bay rig, the sun, NO BUILDING ANYWHERE: 4 cells a day. The same rig
+with a charging shed: 16. Take the building away again: still charges. A building
+adds BAYS, because bays are the ceiling and a shed is a room full of them. The
+module names no faction anywhere, because the act is a person's, and the gate
+checks that.
+
+(6) RULE 29 HONOURED, THE COOK IS DRAWN: slices/vote/WORLD_THE_RIG_ON_THE_ROOF.png
+-- a salvaged PV panel on angle iron, a cable drooping to a controller on a block,
+a car battery as the buffer, four cells in the bays. Compared to the world before
+calling it done (PROP-01 silhouette first, PROP-02 real object typology, PROP-03
+the 45 degree law, AH-01 the bible). The panel is 578 px against 428 for
+everything else and the TOOL REFUSES to write the bank if that flips; the lit
+cells are 1.17% and it refuses over 3%. THE FIRST CUT WAS WORSE AND IT IS WORTH
+SAYING HOW: the space under the panel was just roof showing through and it read as
+a HOLE, something a player would try to walk into. It is a cast shadow now,
+falling down and right, and every lit face on the tile agrees with where it puts
+the sun.
+
+(7) AND THE CORRECTION I OWED FROM LAST ROUND. [full shelves] shipped on the
+premise that the valley stays dead once spent BECAUSE only a building can put a
+battery back. His ruling makes that false, and leaving it would have been a module
+quietly contradicting him. Corrected in that file's own head. THE BEAT SURVIVES
+AND GETS BETTER: the money dies when THE CHARGE dies, not when the cells do -- no
+sun on the panels, no lit wire anybody can reach, no rig left working -- which is
+a thing a player can watch coming and act on. No code changed, because state()
+always read the supply and never claimed to know why it was low.
+
+(8) GATES: PEOPLE CHARGE 30/0, new, in the suite, red two ways (let the sun be the
+ceiling, which breaks his pillar -> 3; make a building required, the thing he said
+it is not -> 3). FULL SHELVES 34/0 after the correction. ATTEMPT, ENGINE SYNC green.
+TWO REDS AND NEITHER IS THIS LANE'S, measured with this round's work STASHED:
+  REFERENCE CHECK  names tools/bohemia_cook_the_portrait_wears_the_shades.js and
+                   a baseline count. My own cook tool carries its check and is
+                   counted among those that do (24 -> 25). -> PORTRAIT.
+  VOTE TAB         fails tapping VOTE behind the gear, which is a door RULE 15(a)
+                   REMOVED FROM THE DEMO. Same shape as the four gates of mine
+                   that were measuring the dead wake card last round. -> UI.
+
+ROUTED: TO WHOEVER LIFTS THE HOLD -- bohemia_charge has no caller on a play
+surface. The thing that should ask it is cellsNightlyCharge() on the walked city,
+which today asks only who holds the wire.
+
+STILL OPEN AND NOT SHIPPED: BATTERIES IN THE VALLEY on the phone. Rule 19(a) moved
+that bookkeeping off the card and the phone leg is not built; the two lines of fix
+are written down and wait for the hold. NOTE under rule 29: when it lands it lands
+INSIDE something drawn, not as another page of text.
+
+ROWS STILL OPEN IN THIS LANE: [beltway placed].
+
 
 *** 9/21 (f) LATEST -- THE DAY AFTER THE MONEY DIES, AND FOUR OF MY OWN GATES
 THAT WENT RED BECAUSE THE GAME GOT BETTER. ***
