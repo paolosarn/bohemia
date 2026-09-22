@@ -35161,6 +35161,11 @@ first [name mix], PORTRAIT [customizations first], CHARACTER [runway redo], WORL
 WORDS [player speaks english], QUESTS [haggle like bb], COOK [footprints], DIRECTION [car
 background]. Vote tab gate 27/1 (the gear-tap leg timed out at 90 s under load, the registry
 legs pass).
+THEN (fe) PAOLO 9/22: "in the alpha why does it open the run first thing, I told you to not have
+that happen." Checked: no line opens VOTE at boot; RUN's BEGIN hands off to RUN; UI carried the leg
+and did not build it; the manager wrote it on two rows and made it neither's first line. UI [alpha
+opens on vote] is now UI's first line (rule 18f), RUN's loading screen note says wire it if UI is
+not there first. records/BOHEMIA_PAOLO_THE_ALPHA_STILL_OPENS_ON_RUN_9_22_26.md. Nothing to judge.
 
 COORDINATOR: 9/4 (ba) -- *** THE MEETING HALL:
 VAMILY.md's front page now carries every rule, and every chat re-reads it every time
