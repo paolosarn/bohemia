@@ -1,0 +1,59 @@
+{
+ "version": "BOHEMIA_THE_FOOTSTEPS_v1",
+ "built": "2026-09-22",
+ "lane": "COOK [footprints]",
+ "his_words": "make pixel art of footsteps that lead you to the conclusion",
+ "boot_px": [
+  9,
+  20
+ ],
+ "boot_mask": [
+  "...333...",
+  "..33333..",
+  ".3333333.",
+  ".3333333.",
+  ".3333333.",
+  ".3333333.",
+  ".3333333.",
+  "..33333..",
+  "..33333..",
+  "...333...",
+  "...333...",
+  "...333...",
+  "...333...",
+  "..33333..",
+  ".3333333.",
+  ".3333333.",
+  ".3333333.",
+  ".3333333.",
+  "..33333..",
+  "...333..."
+ ],
+ "rule": "a print is a DEPRESSION, not a stain: the sole steps DOWN the family ramp and a one-pixel rim on the sun side steps UP. The sun is north-west, the same corner every other tile in this game is lit from. A print therefore borrows the ground's own colours and adds none, and works on any family.",
+ "fade": "the newest print is deepest and the oldest nearly gone -- the rule DIRECTION passed on 9/13 for the map trails, one scale down.",
+ "size": "rule 21: the body is one pixel size everywhere, so a boot is 9 x 20 px on the street and in the fight alike.",
+ "not_the_map_trail": "__WHOSE_FOOTPRINTS_ARE_THESE__ (9/12) is a coloured thread at whole-valley zoom and stays exactly as it is. This is the walk-scale art that never existed.",
+ "surfaces": {
+  "the road": {
+   "family": "asphalt",
+   "prints": 10,
+   "pixels_pressed": 1060
+  },
+  "the sidewalk": {
+   "family": "concrete",
+   "prints": 10,
+   "pixels_pressed": 1060
+  },
+  "a dust yard": {
+   "family": "ground",
+   "prints": 10,
+   "pixels_pressed": 1060
+  },
+  "a flat roof": {
+   "family": "deck",
+   "prints": 10,
+   "pixels_pressed": 1060
+  }
+ },
+ "not_shipped": "rule 18: this is a bank and a VOTE candidate. It goes on the ground the round the hold allows."
+}

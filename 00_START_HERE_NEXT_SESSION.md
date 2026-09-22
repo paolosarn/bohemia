@@ -18036,6 +18036,63 @@ THIS LANE'S ROLE, FIXED: 16 COOK, the production artist.
 THIS LANE'S SESSION SLUG: cook-mce6r5.
 
 
+COOK (cook-mce6r5): 9/22 LATEST (2) -- *** HE VOTED. THREE OF MINE UP, ONE DOWN, AND THE
+DOWN IS THE USEFUL ONE. *** THE EDGE THAT DRUMS up, THE LANE LINE DRUMS TOO up, THE TOWER
+THAT IS STILL STANDING up. THE GROUND YOU FIGHT ON: *** DOWN, "No difference". ***
+HE WAS RIGHT ABOUT WHAT HE WAS SHOWN AND THE CARD WAS THE FAILURE, NOT THE ART. That card
+put two fields of dark asphalt side by side and asked him to find a change that was real in
+the numbers (9,635 colours to 57, cold to warm) and nearly invisible at the size I drew it.
+DIRECTION passed the same tiles on the glass a round later and wrote that the cold blue was
+gone, so the work landed; my picture of it did not. THE ITEM IS CONSUMED AND NOT
+RESUBMITTED. What carries forward is the rule, and it binds every lane with a card:
+*** A CARD MUST SHOW THE THING DOING ITS JOB AT THE SIZE HE SEES IT. Not a swatch, not a
+before-and-after of something subtle. If the only way to see the change is to be told the
+numbers, the card has already failed. ***
+
+THIS ROUND: [footprints] CLAIMED and cooked, his words, "make pixel art of footsteps that
+lead you to the conclusion". THE THING: banks/BOHEMIA_THE_FOOTSTEPS_9_22_26.txt -- a boot
+9 x 20 px (about a fifth of the 100 px body rule 21 fixes), ten prints per trail, on four
+families, 1,060 pixels pressed per patch and NOT ONE NEW COLOUR on any surface. WHERE HE
+SEES IT: the VOTE tab, cook-footsteps-that-lead-you-9-22, picture
+slices/vote/COOK_FOOTSTEPS_THAT_LEAD_YOU.png -- built to the rule above: one boot at eight
+times so the drawing can be judged, then the same boot walking across four real grounds at
+the size he sees. Tool: tools/bohemia_footsteps_that_lead_you_cook_9_22_26.py. Record:
+records/COOK_FOOTSTEPS_THAT_LEAD_YOU_9_22_26.md. NOTHING TO THE ALPHA OR THE DEMO.
+
+RULE 12: THE TRACKS THAT EXIST ARE NOT THIS. __WHOSE_FOOTPRINTS_ARE_THESE__ (9/12) is a
+MAP-SCALE faction trail, a coloured thread at whole-valley zoom, passed by DIRECTION 9/13.
+IT IS A LINE, NOT A FOOT, and it stays exactly as it is. Nothing in this game draws a foot
+shape. The 232 hits on "footprint" in the city are BUILDING footprints from the district
+kit -- the wrong-oracle trap, opened and read rather than counted.
+
+WHAT A PRINT IS: a DEPRESSION, not a stain, so it is lit like every other solid here. The
+sun is north-west (roof_hipTL is the lit corner, roof_hipTR the shaded one, and the sign
+cook's shadow goes east), so the sole is the family's dark end and ANY SOLE PIXEL WITH OPEN
+GROUND TO ITS NORTH OR WEST IS THE LIP and takes the light end. THE RIM IS DERIVED FROM THE
+SHAPE, NOT DRAWN INTO THE MASK, so it can never get out of step with the light. Every tone
+is a step of the ramp the ground already uses, and the tool asserts no print invented a
+colour. It fades the way DIRECTION's 9/13 trail verdict already requires, one scale down.
+
+*** I HIT THE STOP PRODUCING TELL AT THE FOURTH VERSION AND I AM NAMING IT. ***
+ v1 every covered pixel nudged ONE step from its own value: 779 pixels pressed, every guard
+green, NOTHING VISIBLE on any of the four surfaces. On a cracked seven-value ground a
+one-step nudge is smaller than the noise already there.
+ v2 a solid shape two steps off the local median: faint ovals.
+ v3 full depth off the family's ends: visible, reading as a pale ghost.
+ v4 THE MASK ITSELF. THREE TIMES I TREATED "IT DOES NOT READ" AS A NUMBERS PROBLEM -- nudge
+harder, go darker, push the ramp ends -- WHEN IT WAS A DRAWING PROBLEM. The old mask was 7
+px wide with a one-pixel rim on BOTH sides, so five of every seven pixels were edge and the
+sole was three pixels of core. It was mostly outline, which is exactly how it rendered.
+AND THE NUMBER THAT LIED IS THE SAME SHAPE AS THE ONE HE JUST VOTED DOWN: "1,060 pixels
+pressed" is as true and as useless as "9,635 colours to 57". The number lied and the picture
+told the truth, twelfth time in this lane.
+
+NOT DONE, ON PURPOSE: where a trail starts and what it arrives at is CONTENT and it is the
+world's, not a tile bank's. The map trail is untouched.
+
+UP AND WAITING ON THE HOLD: the lane line, the edge and the tower all go onto the ground the
+round the hold allows.
+
 COOK (cook-mce6r5): 9/22 LATEST -- *** THE SPHERE IS DRAWN. SIX UNDRAWN LANDMARKS -> FIVE. ***
 THE FIGHT VERDICT round 5: THE TWO BIGGEST LIES ARE PAID -- the fighter is himself again (198
 px on the fight glass against 181-187 on the street, against round 2's 37-vs-112) and THE
