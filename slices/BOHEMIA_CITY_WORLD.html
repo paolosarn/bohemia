@@ -48029,6 +48029,23 @@ var CT_REACT = {
      content on a table whose whole point is that somebody says it out loud.
      draft:true, and clipped the way the rest of this table is: overheard, not
      narrated, and nobody in Bohemia is wise. */
+  /* __HAGGLE_LIKE_BB__ (9/22, QUESTS row [haggle like bb]).
+     PAOLO 9/22: "push too much hurts reputation and shit."
+     A KIND NEEDS A ROW IN BOTH TABLES OR IT IS REMEMBERED AND MUTE -- this
+     table's own comment says so, and `pushed_the_price` had a row in neither.
+     Measured: the deed travelled five hops and nobody ever opened their mouth
+     about it. Reputation you cannot hear is not reputation.
+     ONLY `saw` AND `heard`, because the mark carries no outfit (you pushed a
+     person, not a faction), and ctDeedBark only reaches `theirs` and `rival`
+     when a deed has an fid. Writing buckets nothing can reach would be dead
+     content on a table whose whole point is that somebody says it out loud.
+     draft:true, overheard not narrated, and nobody in Bohemia is wise. */
+  'pushed_the_price': {
+    saw:    ['Squeezed him and he walked. Now nobody has it.',   /* draft */
+             'Kept asking. Watched the work go away.'],          /* draft */
+    heard:  ['Heard somebody pushed the price till it was gone.', /* draft */
+             'Word is they got greedy and got nothing.']          /* draft */
+  },
   'spared': {
     saw:    ['Had him cold. Let him walk.',                  /* draft */
              'Saw that. Could have finished it. Did not.'],  /* draft */
@@ -55346,6 +55363,43 @@ const DQ=BohemiaDemoQuests.make({BQ:BQ,BQRuntime:BQRuntime,sources:DEMO_BQ,loop:
    the table stayed empty, every opinion weighed zero, and the reputation organ was
    inert in a game whose whole spine is factions. */
 var CT_DEED_ROWS = 0;
+/* HIS OWN COST FOR PUSHING A PRICE, derived at corpus load. Undefined until
+   then, which is the honest state: no corpus, no ruled punishment.
+   *** NO INITIALISER, AND THAT IS LOAD-BEARING. *** ctCorpusLoad() is called
+   ONCE ABOVE THIS LINE (in the dial's weight restore) and once below it. `var`
+   hoists, so the early call really does set this -- and then `= null` executing
+   here WIPED IT, leaving CT_DEED_ROWS at 83 and the cost at null, which is
+   exactly what I measured on the alpha: the corpus loaded, the number was
+   derived, and the declaration threw it away a few thousand lines later. This
+   file already carries a comment about the same hoisting trap costing another
+   lane a morning. Declared bare so the earlier call's answer survives. */
+var CT_PUSH_COST;
+/* ctPushCostSet(r) / ctPushCostReady() -- DERIVE AND REGISTER, IN WHATEVER ORDER
+   THIS FILE HAPPENS TO BE ASSEMBLED IN.
+   *** BOTH corpus-load CALL SITES RUN BEFORE THE HAGGLE MODULE IS INLINED. ***
+   Measured: CT_DEED_ROWS was 83 at boot and the cost was still unset, because
+   BohemiaHaggle does not exist yet at either call and the derivation threw into
+   a catch. Calling it later by hand worked perfectly, which is exactly how this
+   kind of bug stays invisible -- every probe that asks for it first CREATES it.
+   So it is idempotent and demanded at the point of USE as well as at load, and
+   nothing depends on where in this file anything happens to sit. */
+function ctPushCostSet(r){
+  if (typeof BohemiaHaggle === 'undefined' || typeof BohemiaStanding === 'undefined') return false;
+  var c = BohemiaHaggle.pushCost(r && r.deeds);
+  if (c == null || !r || !r.divisor) return false;
+  CT_PUSH_COST = c;
+  BohemiaStanding.DEED_WEIGHT['pushed_the_price'] = c / r.divisor;
+  return true;
+}
+function ctPushCostReady(){
+  if (typeof CT_PUSH_COST === 'number') return CT_PUSH_COST;
+  try {
+    if (typeof BohemiaDeeds === 'undefined' || typeof DEMO_BQ === 'undefined') return null;
+    var srcs = []; for (var k in DEMO_BQ) srcs.push({ id: k, src: DEMO_BQ[k] });
+    ctPushCostSet(BohemiaDeeds.loadCorpus(srcs));
+  } catch(_e){}
+  return (typeof CT_PUSH_COST === 'number') ? CT_PUSH_COST : null;
+}
 function ctCorpusLoad(){
   try {
     if (typeof BohemiaDeeds === 'undefined' || typeof DEMO_BQ === 'undefined') return 0;
@@ -55353,6 +55407,20 @@ function ctCorpusLoad(){
     for (var k in DEMO_BQ) srcs.push({ id: k, src: DEMO_BQ[k] });
     var r = BohemiaDeeds.loadCorpus(srcs);
     CT_DEED_ROWS = (r && r.deeds) ? r.deeds.length : 0;
+    /* __HAGGLE_LIKE_BB__ (9/22, QUESTS row [haggle like bb]).
+       PAOLO 9/22, voting ARGUING THE PRICE up: "do it the same way Battle
+       Brothers does it: push too much hurts reputation and shit."
+       MEASURED FIRST: it hurt nothing. `pushed_the_price` had no row in the
+       standing table, and forceOf's own rule is "unruled deed = weightless", so
+       pushing a man past his warning travelled as gossip and moved no opinion by
+       one point. THE TABLE SHIPS EMPTY EXCEPT WHAT HAS A RULING -- and he has
+       now ruled this one, so it gets exactly one row.
+       *** ON HIS OWN SCALE, THROUGH THE CORPUS'S OWN DIVISOR. *** The cost is
+       the median of HIS negative #reckless deltas and the divisor is the one
+       loadCorpus just computed off the same corpus, so this weight is graded
+       against his authored deeds rather than against a number anybody typed. If
+       he rewrites a quest, both move together. */
+    try { ctPushCostSet(r); } catch(_e2){}
     return CT_DEED_ROWS;
   } catch(_e){
     /* DEMO_BQ is a const declared below the dial's boot restore, so the first
@@ -56005,7 +56073,7 @@ function offerRing(){
        conversation and a new day starts a new one. */
     var _hk = DAY.day + ':' + (OFFER.id || '');
     if (HAGGLE_KEY === _hk && HAGGLE_TERMS) { OFFER.terms = HAGGLE_TERMS; }
-    else { OFFER.terms = BohemiaHaggle.open(Q); HAGGLE_KEY = _hk; HAGGLE_TERMS = OFFER.terms; }
+    else { OFFER.terms = BohemiaHaggle.open(Q, ctPushCostReady()); HAGGLE_KEY = _hk; HAGGLE_TERMS = OFFER.terms; }
   } catch(_e){ OFFER.pays = null; OFFER.paysSay = null; OFFER.terms = null; }
   window.__OFFER_RANG=(window.__OFFER_RANG||0)+1;
   phoneBadge();
@@ -56132,13 +56200,59 @@ function haggleAsk(id){
    to whoever is standing close enough to witness it, grades it by its clout tag,
    and the feed reads it like everything else he has done. Nothing new is built
    here and nothing is invented: the row comes out of the haggle module. */
-function ctHaggleMark(row){
+function ctPublishMark(row){
   if(!row||typeof BohemiaDeeds==='undefined') return null;
+  /* __HAGGLE_LIKE_BB__ (9/22) -- THIS HAD NEVER DELIVERED A SINGLE DEED, AND IT
+     LOOKED FINE BECAUSE IT FAILED INSIDE ITS OWN CATCH.
+     Measured on the alpha: `MINDS` IS UNDEFINED in this file (only CT_MINDS
+     exists), so every call threw on the first argument and returned null. Under
+     it were two more faults that would each have been enough on their own:
+       actor 'player'  -- ctDeedBark skips any deed whose actor is not '@', so
+                          the mark would have been stored and never spoken
+       where  a STRING -- publish hands `where` to witness, which calls it as
+                          where(owner) to get a position; a string is not callable
+     Three ways wrong, in four lines, silent for as long as it has existed. This
+     is why "push too much hurts reputation" was not true: not one missing number
+     but a call that never ran.
+     REBUILT ON THE ONE CALLER IN THIS FILE THAT WORKS (the quest cast's
+     publishStage): a real minds ARRAY, actor '@', and a position lookup. WHO SAW
+     IT IS WHO THE RENDERER DREW -- BARK_DREW is the same list the barks use, so
+     "who is near" cannot mean two different things in one file. */
   try{
-    return BohemiaDeeds.publish(MINDS, ctMinuteNow(), 'player', [row], hx, hy,
-      ctWhereName?ctWhereName():'', function(w){ return ctFactionOf(w); });
+    var minds = [], pos = {};
+    var drew = (typeof BARK_DREW !== 'undefined' && BARK_DREW) ? BARK_DREW : [];
+    for (var i = 0; i < drew.length; i++){
+      var d = drew[i]; if (!d || !d.p || !d.at) continue;
+      var m = CT_MINDS[d.p.id]; if (!m) continue;
+      pos[m.owner] = { x: d.at[0], y: d.at[1] };
+      minds.push(m);
+    }
+    if (!minds.length) return null;      /* nobody saw it: a real answer */
+    var where = function(o){ return pos[o] || null; };
+    /* *** A DEED WITH NO OUTFIT CANNOT GO THROUGH publish(), AND THAT IS NOT A
+       BUG IN publish. *** It filters every witness through sameFaction(theirs,
+       the deed's), and sameFaction answers FALSE the moment either side is null.
+       That is right for a faction act: the Trades learn what you did to the
+       Trades. But pushing a man on his price is done to A PERSON, so the row
+       carries faction null and publish correctly finds nobody -- measured,
+       witnesses 0 with four people standing in front of me.
+       So a faction-less mark goes through the door underneath, witness(), with
+       NO `only` filter, and takes its reach and its hops from the SAME clout
+       grading publish would have used. One loudness scale, two doors. */
+    if (row.faction == null) {
+      var n = BohemiaStanding.witness(minds, ctMinuteNow(), '@', row.kind, hx, hy, where, {
+        range: BohemiaDeeds.reachOf(row.clout), maxHops: BohemiaDeeds.hopsFor(row.clout) });
+      return { rows: [{ kind: row.kind, clout: row.clout, delta: row.delta,
+                        faction: null, witnesses: n }], witnesses: n };
+    }
+    return BohemiaDeeds.publish(minds, ctMinuteNow(), '@', [row], hx, hy,
+      where, ctFactionOfMind);
   }catch(_e){ return null; }
 }
+/* ONE DELIVERER, TWO CALLERS. Both of this lane's marks -- pushing a price and
+   catching a liar -- had the same three faults in two copies of four lines. A
+   second copy is how one fix leaves the other broken, so there is one now. */
+function ctHaggleMark(row){ return ctPublishMark(row); }
 /* he took it: NOW the quest exists, and the objective is live. */
 function offerAccept(){
   if(!OFFER||OFFER_TAKEN)return false;
@@ -69556,10 +69670,17 @@ function ctGenSave(){
 
   /* open(quest) -- the negotiation as it stands before anybody says anything.
      asked:0, nothing changed, and the offer still on the table. */
-  function open(quest) {
+  function open(quest, cost) {
     var p = pays(quest);
     return { pays: p, currency: p.currency, upfront: false, shape: null,
-             asked: 0, open: true, withdrawn: false, said: null, mark: null };
+             asked: 0, open: true, withdrawn: false, said: null, mark: null,
+             /* HIS COST, CARRIED FROM THE START so the warning and the mark are
+                the same stake rather than two numbers found at two moments. It
+                is a NUMBER the caller derived with pushCost() off his corpus,
+                never the corpus itself: this module must not learn how to read
+                a quest file, and a surface that passes nothing gets the old
+                weightless mark rather than a punishment nobody ruled. */
+             pushCost: (typeof cost === 'number') ? cost : null };
   }
 
   /* asks(t) -- what is still on the table to ask for, each with its own words.
@@ -69603,7 +69724,8 @@ function ctGenSave(){
   function ask(t, id) {
     if (!t || !t.open) return t;
     var n = { pays: t.pays, currency: t.currency, upfront: t.upfront, shape: t.shape,
-              asked: t.asked + 1, open: true, withdrawn: false, said: null, mark: null };
+              asked: t.asked + 1, open: true, withdrawn: false, said: null, mark: null,
+              pushCost: t.pushCost };
 
     /* *** THE THIRD ASK IS THE ONE THAT ENDS IT. *** Not a roll, not a threshold
        anybody can tune: you were told, in words, before you opened your mouth. */
@@ -69611,7 +69733,7 @@ function ctGenSave(){
       n.open = false; n.withdrawn = true;
       n.currency = null; n.upfront = false; n.shape = null;
       n.said = 'They take it back. Somebody else will do it';         /* draft:true */
-      n.mark = markFor();
+      n.mark = markFor(t.pushCost);
       return n;
     }
 
@@ -69641,8 +69763,53 @@ function ctGenSave(){
      existing witness range and the existing feed all carry it with nothing new
      built. #reckless is the deed system's own loudest tag and pushing a stranger
      until they walk is exactly that. */
-  function markFor() {
-    return { kind: 'pushed_the_price', clout: 'reckless', delta: 0, faction: null };
+  /* ======================================================================
+     WHAT PUSHING TOO FAR COSTS  (9/22, row [haggle like bb])
+
+     PAOLO 9/22, voting ARGUING THE PRICE up: "do it the same way Battle Brothers
+     does it: push too much hurts reputation and shit. Nothing less than Battle
+     Brothers."
+
+     MEASURED BEFORE BUILDING: it hurt nothing. The mark carried delta 0 and no
+     faction, `pushed_the_price` had no weight in the standing table, and
+     forceOf's own rule is "unruled deed = weightless", so the deed travelled as
+     gossip (reach 24, five hops) and moved no opinion by a single point. The
+     module's own comment said the cost was that there is no job -- true, and it
+     is not what he asked for. In Battle Brothers pushing a contract's terms too
+     far makes the employer refuse AND costs you standing that follows you.
+
+     *** THE NUMBER IS HIS, DERIVED, NEVER TYPED HERE. *** The repo's BB study
+     binds every renown mechanic to resources, electricity and clout rather than
+     coin, and MECHANISM-MINE / CONTENTS-PAOLO'S says a table ships empty except
+     what has a ruling. He has now ruled this one, so the cost is taken from HIS
+     OWN AUTHORED DEEDS: the median of the negative #reckless deltas across the
+     83 he has written (measured: notable -8, risky -6, quiet -10, RECKLESS -12).
+     Pushing a price past a warning is a reckless act, so it costs what his own
+     reckless acts cost. If he rewrites a quest, this follows him.
+
+     NO SCALING, ON PURPOSE. room() is 2 and the third ask ends it, so there is
+     exactly one "too far" state; a curve over it would be a magnitude nobody
+     ruled. */
+  function pushCost(deeds) {
+    if (!deeds || !deeds.length) return null;     /* no corpus = no ruled cost */
+    var neg = [];
+    for (var i = 0; i < deeds.length; i++) {
+      var d = deeds[i];
+      if (!d || d.clout !== 'reckless') continue;
+      if (!(d.delta < 0)) continue;
+      neg.push(d.delta);
+    }
+    if (!neg.length) return null;
+    neg.sort(function (a, b) { return a - b; });
+    return neg[Math.floor(neg.length / 2)];
+  }
+
+  /* markFor(cost) -- the row the street sees. `cost` is what pushCost answered
+     off his corpus; without it the deed stays weightless exactly as before, so a
+     surface that never passes it cannot silently invent a punishment. */
+  function markFor(cost) {
+    return { kind: 'pushed_the_price', clout: 'reckless',
+             delta: (typeof cost === 'number') ? cost : 0, faction: null };
   }
 
   /* ---- 5. WHAT THE PURSE IS OWED, AT THE END --------------------------- */
@@ -69685,7 +69852,7 @@ function ctGenSave(){
     open: open, asks: asks, warning: warning, ask: ask,
     markFor: markFor, settle: settle, changed: changed, say: say,
     SHAPES: SHAPES, SHAPE_ORDER: SHAPE_ORDER,
-    shapeOf: shapeOf, riskOf: riskOf, breakMark: breakMark
+    shapeOf: shapeOf, riskOf: riskOf, breakMark: breakMark, pushCost: pushCost
   };
   if (HASREQ) module.exports = API; else root.BohemiaHaggle = API;
 })(typeof globalThis !== 'undefined' ? globalThis : this);
@@ -72085,10 +72252,11 @@ function ctClaimVerdict(claim){
 function ctClaimMark(claim){
   var v=ctClaimVerdict(claim);
   if(!v||!v.mark||typeof BohemiaDeeds==='undefined') return null;
-  try{
-    return BohemiaDeeds.publish(MINDS, ctMinuteNow(), 'player', [v.mark], hx, hy,
-      (typeof ctWhereName==='function')?ctWhereName():'', function(w){ return ctFactionOf(w); });
-  }catch(_e){ return null; }
+  /* SAME THREE FAULTS AS THE HAGGLE'S MARK, IN A SECOND COPY: undefined MINDS,
+     actor 'player' where the world reads '@', and a STRING passed where publish
+     calls where(owner). So catching somebody in a lie has never left a mark
+     either. One deliverer now. */
+  return ctPublishMark(v.mark);
 }
 /* __YOUR_PEOPLE_SHOW_UP_IN_THE_ASKING__ -- the three ledgers that already record
    a person and the player together, handed to the company module in its own

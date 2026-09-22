@@ -4349,6 +4349,25 @@ GATES = [
      'deliberately survives a redraw). Covers the DAY CARD only; the BUILD and BUILD BIG dead buttons '
      'EYES also found are on the city build card and belong to LIFE+CITY. Runs 14/0',
      True),
+    ('HAGGLE LIKE BB', ['node', 'gates/haggle_like_bb_gate.js'],
+     'QUESTS row [haggle like bb], 9/22. PAOLO 9/22 voting ARGUING THE PRICE up: "do it the same way '
+     'Battle Brothers does it: push too much hurts reputation and shit. Nothing less than Battle '
+     'Brothers." MEASURED BEFORE A LINE WAS WRITTEN AND IT HURT NOTHING: the mark delta was 0, '
+     'pushed_the_price had NO weight (forceOf: unruled = weightless), NO row in the reaction table (so it '
+     'was remembered and MUTE), and *** ctHaggleMark HAD NEVER DELIVERED ONE DEED IN ITS LIFE *** because '
+     'it published into `MINDS`, which is UNDEFINED in that file -- three faults in four lines (undefined '
+     'target, actor "player" where the world reads @, and a STRING where publish calls where(owner)), '
+     'silent inside its own catch. The same four lines were copy-pasted into the claim mark, so catching a '
+     'liar had never left a mark either; there is ONE deliverer now. FIXED AND MEASURED ON THE ALPHA: cost '
+     '-12 derived as the median of HIS OWN negative reckless deltas, weight -1.2 on the corpus own '
+     'divisor, 1-2 witnesses, and an opinion that really moves to -1.2. TWO MORE THINGS THE MEASUREMENT '
+     'FOUND: a faction-less deed can NEVER go through publish() because sameFaction is false when either '
+     'side is null, so it goes through witness() underneath with the same clout grading; and BOTH '
+     'corpus-load calls run BEFORE the haggle module is inlined, so the first cut derived nothing at boot '
+     'and worked perfectly whenever a probe asked -- BECAUSE ASKING CREATED IT, which is how that class of '
+     'bug hides. PROVED TO BITE: typing the number into the module is caught, and restoring the undefined '
+     'MINDS publish turns three checks red. Runs 20/0',
+     True),
     ('WIRE THE DOOR', ['node', 'gates/wire_the_door_gate.js'],
      'QUESTS row [wire the door], 9/22, item 4 of the playable cut. The four pieces existed in four lanes '
      'and nobody owned the wire: QUESTS the generated ask and the mouth module, PEOPLE the bubble with the '

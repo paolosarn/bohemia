@@ -222,10 +222,17 @@
 
   /* open(quest) -- the negotiation as it stands before anybody says anything.
      asked:0, nothing changed, and the offer still on the table. */
-  function open(quest) {
+  function open(quest, cost) {
     var p = pays(quest);
     return { pays: p, currency: p.currency, upfront: false, shape: null,
-             asked: 0, open: true, withdrawn: false, said: null, mark: null };
+             asked: 0, open: true, withdrawn: false, said: null, mark: null,
+             /* HIS COST, CARRIED FROM THE START so the warning and the mark are
+                the same stake rather than two numbers found at two moments. It
+                is a NUMBER the caller derived with pushCost() off his corpus,
+                never the corpus itself: this module must not learn how to read
+                a quest file, and a surface that passes nothing gets the old
+                weightless mark rather than a punishment nobody ruled. */
+             pushCost: (typeof cost === 'number') ? cost : null };
   }
 
   /* asks(t) -- what is still on the table to ask for, each with its own words.
@@ -269,7 +276,8 @@
   function ask(t, id) {
     if (!t || !t.open) return t;
     var n = { pays: t.pays, currency: t.currency, upfront: t.upfront, shape: t.shape,
-              asked: t.asked + 1, open: true, withdrawn: false, said: null, mark: null };
+              asked: t.asked + 1, open: true, withdrawn: false, said: null, mark: null,
+              pushCost: t.pushCost };
 
     /* *** THE THIRD ASK IS THE ONE THAT ENDS IT. *** Not a roll, not a threshold
        anybody can tune: you were told, in words, before you opened your mouth. */
@@ -277,7 +285,7 @@
       n.open = false; n.withdrawn = true;
       n.currency = null; n.upfront = false; n.shape = null;
       n.said = 'They take it back. Somebody else will do it';         /* draft:true */
-      n.mark = markFor();
+      n.mark = markFor(t.pushCost);
       return n;
     }
 
@@ -307,8 +315,53 @@
      existing witness range and the existing feed all carry it with nothing new
      built. #reckless is the deed system's own loudest tag and pushing a stranger
      until they walk is exactly that. */
-  function markFor() {
-    return { kind: 'pushed_the_price', clout: 'reckless', delta: 0, faction: null };
+  /* ======================================================================
+     WHAT PUSHING TOO FAR COSTS  (9/22, row [haggle like bb])
+
+     PAOLO 9/22, voting ARGUING THE PRICE up: "do it the same way Battle Brothers
+     does it: push too much hurts reputation and shit. Nothing less than Battle
+     Brothers."
+
+     MEASURED BEFORE BUILDING: it hurt nothing. The mark carried delta 0 and no
+     faction, `pushed_the_price` had no weight in the standing table, and
+     forceOf's own rule is "unruled deed = weightless", so the deed travelled as
+     gossip (reach 24, five hops) and moved no opinion by a single point. The
+     module's own comment said the cost was that there is no job -- true, and it
+     is not what he asked for. In Battle Brothers pushing a contract's terms too
+     far makes the employer refuse AND costs you standing that follows you.
+
+     *** THE NUMBER IS HIS, DERIVED, NEVER TYPED HERE. *** The repo's BB study
+     binds every renown mechanic to resources, electricity and clout rather than
+     coin, and MECHANISM-MINE / CONTENTS-PAOLO'S says a table ships empty except
+     what has a ruling. He has now ruled this one, so the cost is taken from HIS
+     OWN AUTHORED DEEDS: the median of the negative #reckless deltas across the
+     83 he has written (measured: notable -8, risky -6, quiet -10, RECKLESS -12).
+     Pushing a price past a warning is a reckless act, so it costs what his own
+     reckless acts cost. If he rewrites a quest, this follows him.
+
+     NO SCALING, ON PURPOSE. room() is 2 and the third ask ends it, so there is
+     exactly one "too far" state; a curve over it would be a magnitude nobody
+     ruled. */
+  function pushCost(deeds) {
+    if (!deeds || !deeds.length) return null;     /* no corpus = no ruled cost */
+    var neg = [];
+    for (var i = 0; i < deeds.length; i++) {
+      var d = deeds[i];
+      if (!d || d.clout !== 'reckless') continue;
+      if (!(d.delta < 0)) continue;
+      neg.push(d.delta);
+    }
+    if (!neg.length) return null;
+    neg.sort(function (a, b) { return a - b; });
+    return neg[Math.floor(neg.length / 2)];
+  }
+
+  /* markFor(cost) -- the row the street sees. `cost` is what pushCost answered
+     off his corpus; without it the deed stays weightless exactly as before, so a
+     surface that never passes it cannot silently invent a punishment. */
+  function markFor(cost) {
+    return { kind: 'pushed_the_price', clout: 'reckless',
+             delta: (typeof cost === 'number') ? cost : 0, faction: null };
   }
 
   /* ---- 5. WHAT THE PURSE IS OWED, AT THE END --------------------------- */
@@ -351,7 +404,7 @@
     open: open, asks: asks, warning: warning, ask: ask,
     markFor: markFor, settle: settle, changed: changed, say: say,
     SHAPES: SHAPES, SHAPE_ORDER: SHAPE_ORDER,
-    shapeOf: shapeOf, riskOf: riskOf, breakMark: breakMark
+    shapeOf: shapeOf, riskOf: riskOf, breakMark: breakMark, pushCost: pushCost
   };
   if (HASREQ) module.exports = API; else root.BohemiaHaggle = API;
 })(typeof globalThis !== 'undefined' ? globalThis : this);
