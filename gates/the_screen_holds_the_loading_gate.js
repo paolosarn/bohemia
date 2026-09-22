@@ -79,9 +79,21 @@ function serve() {
     ok(n + ' refuses a tap before the load is ready',
        /if\(!window\.__LOAD_READY\)\s*return;/.test(t));
     ok(n + ' records a load that throws instead of swallowing it', /__LOAD_THREW/.test(t));
-    /* NO BAR AND NO PERCENTAGE, held on the source so it cannot creep back. */
-    ok(n + ' has no progress bar and no percentage on the loading screen',
-       !/LOAD_LINES[\s\S]{0,1200}(%|progress|loadbar)/i.test(t));
+    /* *** AMENDED 9/22 BY HIS OWN VOTE. *** This used to forbid a bar outright. He
+       was then shown four loading screens at real phone size and picked B, whose
+       sheet says "and the bar is real" in its own words, with his note: "B is best
+       not analog horror enough the but keep going". THE BAN WAS NEVER ON A BAR, it
+       was on A BAR THAT LIES -- [loading look]'s words are "no progress bar that
+       lies". So the check is now the honest one: the bar's fill and its number come
+       from STAGES THE PAGE CAN PROVE, and there is no hand-typed percentage
+       anywhere near it. A gate that refused his own pick would be enforcing my
+       taste over his ruling. */
+    ok(n + ' shows a real bar, counted in stages, with no invented percentage',
+       /loadfill/.test(t) && /LOAD_LINES\.length/.test(t)
+       && !/loadpct[\s\S]{0,200}=\s*['"]\d+\s*%/.test(t));
+    ok(n + ' carries his option B: the institution, the log, and the one wrong thing',
+       /CLARK COUNTY POWER AUTHORITY/.test(t) && /LOAD_WRONG/.test(t)
+       && /NO OPERATOR ON DUTY/.test(t));
   }
 
   let chromium;
@@ -144,12 +156,44 @@ function serve() {
        static word pretending to be a report. */
     ok('and it said what it was doing, more than once (' + saidWhileLoading.length
        + ' line(s))', saidWhileLoading.length >= 2);
-    ok('and never a percentage or a bar',
-       !saidWhileLoading.some(w => /%|\d+\s*\/\s*\d+/.test(w)));
+    /* THE BUTTON SAYS WAIT UNTIL IT MEANS BEGIN, which is his option B's own
+       sentence: "BEGIN stays dark and says WAIT until the game is genuinely in". */
+    ok('and the button said WAIT while it was loading ('
+       + JSON.stringify(saidWhileLoading) + ')',
+       saidWhileLoading.some(w => /^WAIT$/i.test(w)));
 
     /* 4. IT ENDS ON BEGIN. */
     ok('*** IT ENDS ON BEGIN *** (it says "' + (seen.words || '-') + '")',
        /^(BEGIN|CONTINUE)/i.test(seen.words || ''));
+
+    /* *** AND IT LOOKS LIKE THE ONE HE PICKED, MEASURED ON THE GLASS. ***
+       Photographed before this leg existed and it caught two real defects the
+       source could not: the build stamp printed straight THROUGH the WAIT button,
+       and the button's top edge sat on the bar. Boxes, not opinions. */
+    const frame = await page.evaluate(() => {
+      const box = (id) => { const e = document.getElementById(id); if (!e) return null;
+        const b = e.getBoundingClientRect();
+        return { t: Math.round(b.top), b: Math.round(b.bottom), w: Math.round(b.width) }; };
+      const gl = document.getElementById('loadgl');
+      return { tap: box('fronttap'), row: box('loadrow'), stamp: box('buildstamp'),
+               lines: gl ? Array.from(gl.children).map(d => d.textContent) : [],
+               wrong: gl ? Array.from(gl.querySelectorAll('.w')).map(d => d.textContent) : [],
+               tube: gl ? getComputedStyle(gl).backgroundImage.indexOf('radial-gradient') >= 0 : false };
+    }).catch(() => ({}));
+    const clear = (a, b2) => a && b2 && (a.b <= b2.t || b2.b <= a.t);
+    ok('the button does not sit on the bar ('
+       + JSON.stringify(frame.row) + ' vs ' + JSON.stringify(frame.tap) + ')',
+       clear(frame.row, frame.tap));
+    ok('and the build stamp does not print through the button ('
+       + JSON.stringify(frame.stamp) + ')', clear(frame.tap, frame.stamp));
+    ok('the log read from the bottom, in his words ('
+       + JSON.stringify((frame.lines || []).slice(0, 3)) + ')',
+       (frame.lines || []).length >= 3);
+    /* BIBLE R1: ONE wrong thing. Not zero, which is a screenshot; not two, which is
+       a haunted house. */
+    ok('*** EXACTLY ONE WRONG THING ON THE SCREEN *** ('
+       + JSON.stringify(frame.wrong) + ')', (frame.wrong || []).length === 1);
+    ok('the tube is curved, so the corners fall away (bible R8)', frame.tube === true);
     const readyAt = ((Date.now() - t0) / 1000).toFixed(1);
     say('ready at ' + readyAt + ' s on a 4x CPU');
 

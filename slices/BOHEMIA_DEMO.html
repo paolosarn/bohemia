@@ -84,6 +84,90 @@ canvas{image-rendering:pixelated;image-rendering:crisp-edges}
 #frontsub{color:#7a6a4a;font-size:10px;letter-spacing:1px;text-align:center;white-space:nowrap;padding:0 12px}
 #fronttap{margin-top:8px;color:#b89a6a;font-size:12px;letter-spacing:3px;animation:blink 1.4s ease-in-out infinite}
 @keyframes blink{0%,100%{opacity:.35}50%{opacity:1}}
+/* ============================================================================
+   THE LOADING SCREEN, OPTION B (Paolo 9/21, HIS OWN VOTE: "B is best not analog
+   horror enough the but keep going"). [horror loading], rule 20h, rule 26 s5.
+
+   He was shown four loading screens at real phone size and picked B: NO MACHINE,
+   THE WHOLE PHONE IS THE SCREEN. Edge to edge, no case, no bezel, the corners
+   going dark because a tube is curved. The log fills FROM THE BOTTOM the way a
+   real terminal does. The bar is real. BEGIN stays dark and says WAIT until the
+   game is genuinely in.
+
+   THIS IS HIS PICK REBUILT, NOT MY VERSION OF IT: the values below are lifted
+   from the option sheet he was looking at when he voted, so what ships is what he
+   saw. REUSE-FIRST, on a screen where reuse is also fidelity.
+
+   AND "KEEP GOING" IS THE OTHER HALF OF HIS VOTE, which is bible work:
+     R1 ONE WRONG THING -- the log is an ordinary power-authority boot report, and
+        exactly one line in it is wrong: NO OPERATOR ON DUTY. One. Not two.
+     R5 THE DEAD INSTITUTION'S TYPE -- procedural, too calm; the alarm line is set
+        in the same register as the timetable lines. No exclamation mark anywhere.
+     R8 DIEGETIC OR DEAD -- scanlines and the curved-tube vignette are LEGAL HERE
+        and nowhere else, because this IS an in-world screen: a terminal belonging
+        to a dead utility. That reading is what "more analog horror" unlocks.
+     R3 THE LONG HOLD -- nothing animates but the log arriving and the bar filling.
+   ========================================================================== */
+#front.load{ background:#0a0907; gap:0; justify-content:flex-end; padding:16px 14px;
+             padding-bottom:calc(16px + env(safe-area-inset-bottom,0px)) }
+#front.load #logoplate, #front.load #frontsub{ display:none }
+#loadwrap{ display:none; position:absolute; inset:0; flex-direction:column;
+           padding:16px 14px; padding-bottom:calc(16px + env(safe-area-inset-bottom,0px)) }
+#front.load #loadwrap{ display:flex }
+#loadtag{ text-align:center; padding:2px 0 9px; flex:0 0 auto }
+#loadtag b{ display:block; font-family:'BohemiaCasing',ui-sans-serif,sans-serif;
+  font-size:19px; letter-spacing:7px; color:#cfe0c8; text-shadow:0 0 9px rgba(150,200,150,.4) }
+#loadtag i{ display:block; margin-top:4px; font-style:normal;
+  font-family:'BohemiaCasing',ui-sans-serif,sans-serif; font-size:6px; letter-spacing:2px;
+  color:#6b5d42 }
+/* THE GLASS. justify-content:flex-end is the whole of "fills from the bottom the
+   way a real terminal does" -- lines arrive at the bottom and push the old ones up. */
+#loadgl{ position:relative; overflow:hidden; flex:1 1 auto; padding:9px 10px;
+  color:#c9dcc4; font-family:'BohemiaROM',ui-monospace,monospace; font-size:9px;
+  line-height:1.75; letter-spacing:.6px;
+  display:flex; flex-direction:column; justify-content:flex-end;
+  background:radial-gradient(150% 120% at 50% 48%,#12100c 0 58%,#0d0c09 58% 82%,#0a0907 82% 100%) }
+/* THE TUBE IS CURVED, so the corners fall away. His words for B, and it is also
+   bible R8: the lens is an eye, and this eye is a cathode tube in a dead office. */
+#loadgl::before{ content:''; position:absolute; inset:0; pointer-events:none;
+  background:radial-gradient(150% 140% at 50% 50%,rgba(0,0,0,0) 0 64%,rgba(0,0,0,.20) 64% 78%,
+             rgba(0,0,0,.42) 78% 90%,rgba(0,0,0,.70) 90% 100%) }
+/* SCANLINES, LEGAL ONLY BECAUSE THIS IS AN IN-WORLD SCREEN (bible R8). Two-pixel
+   pitch, 8% -- present when you look for it, invisible when you read. */
+#loadgl::after{ content:''; position:absolute; inset:0; pointer-events:none;
+  background:repeating-linear-gradient(180deg,rgba(0,0,0,.08) 0 1px,rgba(0,0,0,0) 1px 2px) }
+#loadgl div{ position:relative; z-index:1 }
+/* THE ONE WRONG THING, and it is set in the same register as everything else --
+   the horror is the calm (bible R5), so it is a shade, not a colour. */
+#loadgl .w{ color:#8fa889 }
+#loadrow{ display:flex; align-items:center; gap:8px; margin-top:10px; flex:0 0 auto }
+#loadwell{ flex:1 1 auto; height:13px; border-radius:2px; padding:2px;
+  background:#0b0a07; box-shadow:inset 0 2px 0 #050403, inset 0 -1px 0 #2e2719 }
+#loadfill{ height:9px; border-radius:1px; width:0%; transition:width .45s linear;
+  background:linear-gradient(180deg,#b6d6a8 0 30%,#77a468 30% 72%,#4c6f42 72% 100%);
+  box-shadow:0 0 6px rgba(150,200,150,.35) }
+#loadpct{ font-family:'BohemiaROM',ui-monospace,monospace; font-size:9px; letter-spacing:1.4px;
+  color:#c9dcc4; min-width:52px; text-align:right }
+/* *** THE BUTTON AND THE STAMP WERE BOTH PRINTING OVER THE BAR, AND ONLY THE
+   PHOTOGRAPH SAID SO. *** #loadwrap is absolutely placed over the splash, but
+   #fronttap and #buildstamp are siblings in #front's own flow, so they landed on
+   top of the terminal: the build stamp ran straight through the middle of WAIT and
+   the button was unreadable. The wrap reserves room for the button now and the
+   button is placed inside that room, and the stamp sits under the bar as a line of
+   the report instead of floating across it.
+   THE STAMP IS NOT HIDDEN. He needs to see which build he is on (7/20, after "I
+   didn't see nothing new" twice), and a loading screen is the first place he looks. */
+#front.load #loadwrap{ padding-bottom:calc(92px + env(safe-area-inset-bottom,0px)) }
+#front.load #fronttap{ position:absolute; left:0; right:0; z-index:2;
+  bottom:calc(26px + env(safe-area-inset-bottom,0px));
+  width:130px; margin:0 auto; min-height:48px;
+  display:flex; align-items:center; justify-content:center; font-size:9px; letter-spacing:5px;
+  color:#5d6b58; border:1px solid #1d2119; background:#0d0f0b; animation:none }
+#front.load #buildstamp{ bottom:10px; color:#4e452f; font-size:6px; letter-spacing:2px;
+  font-family:'BohemiaCasing',ui-sans-serif,sans-serif; z-index:2 }
+/* IT LIGHTS UP WHEN THE GAME IS GENUINELY IN, and not one beat before. */
+#front.load.ready #fronttap{ color:#0a0907; border-color:#8fbf7e; background:#8fbf7e;
+  text-shadow:none; box-shadow:0 0 14px rgba(150,200,150,.35) }
 #app{position:fixed;inset:0;display:none;flex-direction:column}
 #tabs{display:flex;background:#0d0b09;border-bottom:1px solid #241c12;overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;touch-action:none;scrollbar-width:none;padding:0 10px;scroll-behavior:smooth;cursor:grab}#tabs::-webkit-scrollbar{display:none}#tabs.drag{cursor:grabbing;scroll-behavior:auto}#tabs::-webkit-scrollbar{display:none}#tabs .tab{flex:0 0 auto;touch-action:pan-x}
 .tab{flex:1;padding:12px 4px;text-align:center;font-size:11px;letter-spacing:2px;color:#6a5a3e;cursor:pointer;border-bottom:2px solid transparent}
@@ -1399,6 +1483,17 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        document before one byte of script runs, so the door offered at 0.5 s no matter
        what the painter thought. It ships as the WAITING line now and the painter
        turns it into the invitation once the entry is really wired. -->
+  <!-- OPTION B, HIS PICK (9/21): the whole phone is the screen. The wrap is
+       absolutely placed over the splash and only shown while loading, so the
+       front door he knows -- the wordmark plate and its subtitle -- is untouched
+       underneath and comes back the instant the game is in. Nothing of his
+       approved art is deleted; it is covered while a machine is talking. -->
+  <div id="loadwrap">
+    <div id="loadtag"><b>BOHEMIA</b><i>CLARK COUNTY POWER AUTHORITY</i></div>
+    <div id="loadgl"></div>
+    <div id="loadrow"><div id="loadwell"><div id="loadfill"></div></div>
+      <span id="loadpct">0 OF 5</span></div>
+  </div>
   <div id="fronttap">ONE MOMENT</div>
   <!-- __IT_GOES_ON_HIS_HOME_SCREEN__ -- THE STORAGE SPLIT, SAID OUT LOUD INSTEAD
        OF LOOKING LIKE A WIPED SAVE. iOS gives a home-screen web app its OWN
@@ -1412,7 +1507,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 9/22b - THE SCREEN HOLDS THE LOAD</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 9/23e - THE LOADING SCREEN IS B</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -4025,7 +4120,21 @@ function renderFace(spec,opts){
      line(ex-(e.w>>1),ey+e.h-2,ex+(e.w>>1),ey+e.h-2,Ln);
      P(ex-(e.w>>1),ey+e.h-1,Sh);P(ex+(e.w>>1),ey+e.h-1,Sh);
      continue; }
-   rect(ex-(e.w>>1),ey,ex+(e.w>>1),ey+e.h-1,[230,231,228]);let ix=ex;rect(ix-1,ey,ix,ey+e.h-1,e.iris);P(ix,ey+1,[38,40,42]);P(ix,ey+2,[38,40,42]);P(side<0?ix-1:ix+1,ey,[238,244,242]);
+   /* *** THE WHITE OF THE EYE, APPROVED BY HIM BY NAME (Paolo 9/22). ***
+      "I kinda like the direction of the eyes not being all white around it. You know
+       everyone's looking less of a frog like that and I guess the eyes are going pretty
+       good" -- on the card that carried this change. NOTES ARE RULINGS, so it is in.
+      IT WAS [230,231,228], WHICH IS BRIGHTER THAN EVERY SKIN TONE IN SKIN_TONES. An eye
+      white that out-shines the brightest face in the game does not read as an eye, it
+      reads as a bead stuck on a head -- his word for it was frog. It is tied to THIS
+      face's own lightest skin step now, so a dark face gets a dark sclera and a pale one
+      a pale sclera, and the eye sits IN the head instead of on it.
+      AND THE LID CASTS ON IT. The top row takes a shadow the way a real eyeball does
+      under a real lid; the iris and the catchlight draw over it exactly as before. */
+   var _scl=[Math.min(255,L[0]*0.96+16|0),Math.min(255,L[1]*0.96+16|0),Math.min(255,L[2]*0.96+16|0)];
+   rect(ex-(e.w>>1),ey,ex+(e.w>>1),ey+e.h-1,_scl);
+   line(ex-(e.w>>1),ey,ex+(e.w>>1),ey,[_scl[0]*0.74|0,_scl[1]*0.74|0,_scl[2]*0.76|0]);
+   let ix=ex;rect(ix-1,ey,ix,ey+e.h-1,e.iris);P(ix,ey+1,[38,40,42]);P(ix,ey+2,[38,40,42]);P(side<0?ix-1:ix+1,ey,[238,244,242]);
    /* half-shut: the lid eats the top rows, so a blink has a real middle frame
       instead of snapping between open and closed. */
    if(lidRows>0){ for(let ly=0;ly<lidRows;ly++)line(ex-(e.w>>1),ey+ly,ex+(e.w>>1),ey+ly,Mn);
@@ -4256,6 +4365,32 @@ function renderFace(spec,opts){
     }
   }
   if(h.braid){let bs=h.braid,bx=cx+bs*(fw-1);for(let yy=Y0+5;yy<jaw-1;yy++){let z=((yy/2|0)%2);P(bx+bs*z,yy,[30,28,32]);P(bx+bs*(1-z),yy,[58,54,60]);}}}
+ /* *** THE PORTRAIT WEARS THE SHADES THE BODY IS WEARING. (Voted UP, Paolo 9/22.) ***
+    Measured 9/21 over 200 dressed citizens: 70 of them wear wraparound shades you cannot
+    see through, and ALL 70 had bare eyes in the portrait that pops up when they talk. A
+    third of the valley took its sunglasses off to speak to you. The face renderer had no
+    glasses in it at all -- the word appears eighteen times in this file and not once in
+    here -- so this is the FIRST mechanism, not a second one, the same shape the eyes
+    themselves were in on 8/27, and ENGINE SYNC LAW is satisfied by there being one.
+    EVERY COLOUR IS READ OUT OF THE PAINTED GARMENT, PD_DATA.ramps['glasses/shades'], so
+    the lens on the face is the lens on the body and nothing was invented. The band sits
+    on THIS face's own eye numbers, never a fixed rectangle, so it fits a child and an
+    adult with no second table. THE CATCH SITS ON THE RIGHT, where this game's sun is.
+    A WRAPAROUND, NOT SPECTACLES: the first cut drew two round lenses and a bridge, and
+    the painted garment is one continuous band -- a portrait in different glasses from the
+    body is the same defect one layer down. spec.glasses is set by faceFor off the body. */
+ if(spec.glasses){ try{
+   var _gr=(typeof PD_DATA!=='undefined'&&PD_DATA.ramps)?PD_DATA.ramps[spec.glasses]:null;
+   if(_gr&&_gr.length>=3){
+     var _gF=_gr[0],_gL=_gr[1],_gC=_gr[2];
+     var _ew=e.w>>1, _gy0=f.eyeY-2, _gy1=f.eyeY+e.h;
+     var _glx=Math.round(cx-(e.gap/2+_ew))-_ew-1, _grx=Math.round(cx+(e.gap/2+_ew))+_ew+1;
+     for(var _gy=_gy0;_gy<=_gy1;_gy++)for(var _gx=_glx;_gx<=_grx;_gx++)
+       P(_gx,_gy,(_gy===_gy0||_gy===_gy1||_gx===_glx||_gx===_grx)?_gF:_gL);
+     P(_grx-1,_gy0+1,_gC);P(_grx-2,_gy0+1,_gC);P(_grx-1,_gy0+2,_gC);
+     for(var _gk=1;_gk<=3;_gk++){P(_glx-_gk,_gy0+2,_gF);P(_grx+_gk,_gy0+2,_gF);}
+   }
+ }catch(_ge){} }
  if(cig){let cyx=cx+(m.w>>1),cyy=my+1;for(let i=0;i<7;i++)P(cyx+i,cyy+(i/3|0),[236,232,222]);P(cyx+7,cyy+2,[214,150,70]);P(cyx+8,cyy+2,[214,150,70]);P(cyx,cyy-1,[120,120,120]);P(cyx+1,cyy-2,[150,150,150]);}
  return buf;
 }
@@ -5382,9 +5517,32 @@ function faceFor(id, over){
   f.mouthY = Math.max(f.noseY + 4, Math.min(f.top + f.len - 4, f.mouthY));
 
   /* ---- EYES: the gap is about ONE EYE WIDE, which is the rule faces keep --- */
-  sp.eyes.w   = 6;                               /* six is the whole budget */
-  sp.eyes.h   = child ? 4 : (3 + (R('eh') < 0.45 ? 1 : 0));
+  /* *** EVERY PERSON IN THE VALLEY HAD THE SAME EYES. (Measured 9/22, 400 faces.) ***
+     Paolo 9/22: "we need like way more face and portrait customizations bro like before
+     we start trying to hand me shit" -- and on the same card, "the eyes are going pretty
+     good". So a census was run on every dial the face carries, 400 people, counting how
+     many DISTINCT values each one ever takes:
+         eyes.w      1      <- ONE. Six. For everybody who has ever existed here.
+         eyes.h      2      eyes.hood 2      brows.arch 2      details.stubble 2
+         face.top    3      brows.thick 3    nose.w 3          mouth.fullLower 3
+         ... face.mouthY 13, face.jawCornerY 13, face.len 13
+     THE EYE REGION IS THE THINNEST PART OF THE WHOLE FACE and it is the feature that
+     carries identity: width, height and hood between them had FOUR combinations for the
+     entire population. The old comment said "six is the whole budget", which was a
+     drawing decision that quietly became a population decision.
+     AND THE GATE SAYS THE SAME THING HE DOES. talking_portrait's "no two are the same
+     person" floor went red this round, and widening the eyes is what answers both.
+     THE RANGE MAKES PEOPLE DIFFERENT, THE CLAMPS KEEP THEM PEOPLE -- 8/27's words, and
+     the clamps below are why this is safe: the pair plus the gap has to fit inside the
+     cheekbones, and a taller eye is only taken when the nose leaves room for it. */
+  sp.eyes.w   = 5 + (R('ew') < 0.34 ? 0 : (R('ew') < 0.74 ? 1 : 2));   /* 5, 6 or 7 */
+  sp.eyes.h   = child ? 4 : (3 + (R('eh') < 0.40 ? 0 : (R('eh') < 0.80 ? 1 : 2)));
   sp.eyes.gap = Math.max(4, Math.min(10, Math.round(6 + B('eg') * 2.6 + (child ? 1 : 0))));
+  /* A FACE IS NOT A PLACE TO PUT ANY TWO EYES. Two clamps, both on this face's own bones:
+     the eyes and the gap between them must sit inside the cheekbones with a margin, and
+     a five-tall eye is only kept when the nose is far enough below to leave it room. */
+  while (sp.eyes.w > 4 && (sp.eyes.gap + 2 * sp.eyes.w) > (f.cheekW - 4)) sp.eyes.w--;
+  if (sp.eyes.h > 4 && (f.noseY - f.eyeY) < 7) sp.eyes.h = 4;
   sp.eyes.hood = R('hood') < (child ? 0.15 : 0.5) ? 1 : 0;
   sp.eyes.iris = pick(IRIS, 'iris');
 
@@ -5643,6 +5801,14 @@ function faceFor(id, over){
   sp.hair.part  = pick(['mid','left','right'], 'part');
   sp.hair.len   = child ? pick(['jaw','short'], 'hlen')
                         : (R('hlen') < 0.42 ? 'short' : (R('hlen') < 0.78 ? 'jaw' : 'long'));
+  /* *** THE GLASSES COME FROM THE BODY, LIKE THE HAIRCUT AND THE HAIR COLOUR. ***
+     (Voted UP, Paolo 9/22.) NPCFactory dresses the crowd and owns what they are wearing;
+     this reads it, it does not roll one. A second picker beside the factory is what
+     ENGINE SYNC LAW forbids and what this lane was caught doing with hair on 9/11.
+     A ruling on a named character still wins outright, because `over` is copied over
+     everything below. */
+  try { if (_np && _np.equipped && _np.equipped.glasses) sp.glasses = _np.equipped.glasses; }
+  catch (_e6) {}
   sp.details = { stubble: (!child && !teen && R('stub') < 0.34) ? 1 : 0 };
   sp.top = [20 + ((R('top1') * 26) | 0), 20 + ((R('top2') * 26) | 0), 24 + ((R('top3') * 26) | 0)];
   sp._age = age;
@@ -6625,7 +6791,37 @@ function surgStance(k){
           head:0.20*k};
 }
 const POSE={
- idle:(d,ph)=>{const m=(RUNMIR[d]?-1:1),k=SWF();return {upL:m*k*(0.05+0.03*Math.sin(ph*2*Math.PI)),upR:m*k*(-0.05-0.03*Math.sin(ph*2*Math.PI))};},  // IDLE LAW: feet NEVER move, breathing via headBob
+ /* ==== __THE_IDLE_REDONE__ -- VOTED UP by Paolo 9/21 (rule 15c: approved goes
+    into the game the same round). He killed the old one on 9/7: one sine wave on
+    two arms, exactly out of phase, forever, with nothing else on the body moving,
+    so a street of forty people was forty metronomes in lock step.
+    THREE CLOCKS THAT NEVER LINE UP: a real breath (fast in over 0.45 of a beat,
+    slow out over 1.15, then HELD), a weight drift at 0.75x the loop rate so three
+    runs against four, and one late head turn that DOES NOT TURN BACK -- rule 20's
+    shape, an ordinary frame with one thing in it that does not resolve.
+    MEASURED off the sheet he judged, 4 facings x 16 frames: pixels that change
+    each frame 86 -> 128, biggest change in one frame 335 -> 519, arms a perfect
+    mirror yes -> no, FEET MOVE never -> never.
+    AND IDLE LAW COST THREE ATTEMPTS. Breath as a vertical hipOff lifts the feet,
+    so it lives in the spine. Lateral weight moves them above 0.40, which is the
+    maximum legal lateral hip, measured by sweep. legCompress does the OPPOSITE of
+    what it sounds like: the FEET travel 1-6px and the hip travels 0, so a weight
+    shift over planted feet is not expressible on this rig at all. 0.40 and no
+    legCompress is what is left that is legal. */
+ idle:(d,ph)=>{const m=(RUNMIR[d]?-1:1),k=SWF();
+   const b=(ph*4)%4;                                  /* the beat inside a four-beat loop */
+   const c=b%2;                                       /* breath runs on a two-beat cycle  */
+   const br=(c<0.45)?(c/0.45):Math.max(0,1-(c-0.45)/1.15);
+   const w=Math.sin(ph*2*Math.PI*0.75);               /* 3 against 4: never the same twice */
+   const t=Math.max(0,Math.min(1,(b-2.55)/0.45));
+   const turn=t*t*(3-2*t);                            /* late, smooth, and it stays turned */
+   return {spine:0.020*br+0.010*w,
+     head:-0.022*br+0.105*turn,
+     hipOff:[0.40*w, 0],
+     upL:m*k*( 0.050+0.020*br+0.020*w),
+     upR:m*k*(-0.044-0.028*br+0.020*w),
+     foreL:0.034*br, foreR:0.016*br-0.048*turn,
+     legCompressL:0, legCompressR:0};},  // IDLE LAW: feet NEVER move
  walk:(d,ph)=>{if(headOn(d))return nsGait(d,ph,0.72*SWF());const s=Math.sin(ph*2*Math.PI),m=(RUNMIR[d]?-1:1)*depthFlip(d),lat=Math.abs(Math.cos(FACEANG[d])),amp=(0.3+0.7*lat)*SWF(),A=0.42*amp,C=0.42*amp,F=0.4*amp;
    /* CONTRALATERAL LAW: arm phase flipped vs legs so same screen side opposes */
    const as=(ARMSIDE[d]||1);return {thighR:A*s*m,thighL:-A*s*m,shinR:m*F*Math.max(0,-s),shinL:m*F*Math.max(0,s),upL:-C*s*m*as,foreL:-0.3*m,upR:C*s*m*as,foreR:-0.3*m,hipOff:[0,Math.abs(s)*-1-(1-lat)*0.6*Math.abs(s)]};},
@@ -10562,8 +10758,20 @@ function combatMsgIn(d){
   if(d.type==='BOHEMIA_CITY_NEED_FACE'&&d.who){
     try{
       var _who=String(d.who);
-      var _sp=faceFor(_who);
-      var _rp=(typeof faceRampFor==='function')?faceRampFor(_sp):portraitRamp();
+      /* __THE_FACE_ON_THE_MAP_IS_HIS_OWN__ (9/22, LIFE + CITY, [see me]) =========
+         PAOLO 9/22: "why do I not see my person on this map?"
+         *** THE ROW SAID TO USE faceFor ON HIS ID AND THAT WOULD HAVE PUT A
+         STRANGER ON HIS MAP. *** faceFor ROLLS a face out of a hash of the id; the
+         head the pad wears is buildSpec(), the face he BUILT in the face maker. Two
+         different people, and ONE ID ONE WHOLE PERSON is the law that says they may
+         not both be him. So the player is the one id this bridge does not roll: he
+         gets his own spec, through the same ramp, the same renderFace, the same 64x64
+         packIdx and the same decoder on the other side. One branch, not a second path.
+         'you' is not a new name either -- the portrait bakes upstairs already key him
+         that way (out.portraits.you). */
+      var _sp=(_who==='you'&&typeof buildSpec==='function')?buildSpec():faceFor(_who);
+      var _rp=(_who==='you')?portraitRamp()
+             :((typeof faceRampFor==='function')?faceRampFor(_sp):portraitRamp());
       var _pk=packIdx(renderFace(_sp,{ramp:_rp}),64,64);
       var _cf=document.getElementById('cityFrame');
       if(_cf&&_cf.contentWindow&&_pk)
@@ -11111,9 +11319,19 @@ function drawLogoBig(){
    JavaScript and was never waiting for one. That is the whole trick: the wait was
    always going to happen, and now it happens somewhere he can see it. */
 var LOAD_LINES = [
-  /* what it is doing, in the order it really happens. Each one is a QUESTION the
-     page answers about itself, so a stage cannot claim to be done early. */
+  /* WHAT IT IS DOING, IN THE ORDER IT REALLY HAPPENS, and each one is a QUESTION
+     THE PAGE ANSWERS ABOUT ITSELF, so a stage cannot claim to be done early.
+     *** THE WORDS ARE HIS OWN OPTION B, NOT MINE. *** He voted on a sheet whose
+     log read READING THE VALLEY / COUNTING WHAT STILL STANDS / CHECKING STREETS
+     FOR LIGHT / NO OPERATOR ON DUTY / STILL WORKING, and picked it. So the lines
+     that ship are those lines, attached to the five things the boot really does.
+     THE BAR IS REAL AND SAYS SO IN ITS OWN UNITS: "3 OF 5", not a percentage
+     nobody measured. The [loading look] row bans a progress bar that lies, and the
+     option sheet he read says "and the bar is real" in its own words. A bar that
+     counts stages it can prove is both. */
   { say: 'READING THE VALLEY',      done: function(){ return !!document.getElementById('cityFrame'); } },
+  { say: 'COUNTING WHAT STILL STANDS', done: function(){ return __cityHas(function(w){
+      return !!w.document.querySelector('canvas'); }); } },
   /* *** AND THIS ONE ASKED A QUESTION THE PARENT CANNOT ANSWER, WHICH JAMMED THE
      WHOLE SCREEN. *** It read w.DAY from outside the frame. `DAY` is declared
      `const DAY=BohemiaDayLoop.make()` -- and a const is NOT a property of window,
@@ -11130,11 +11348,17 @@ var LOAD_LINES = [
       if(!el) return false;
       var t = (el.textContent || '').trim();
       return !!t && t.indexOf('DAY 1 \u00b7 08:00') !== 0; }); } },
-  { say: 'DRAWING THE STREET',      done: function(){ return __cityHas(function(w){
+  { say: 'CHECKING STREETS FOR LIGHT', done: function(){ return __cityHas(function(w){
       var c = w.document.querySelector('canvas'); return !!c && c.width > 300; }); } },
   { say: 'PUTTING PEOPLE ON IT',    done: function(){ return __cityHas(function(w){
       return typeof w.BARK_DREW !== 'undefined' && w.BARK_DREW && w.BARK_DREW.length > 0; }); } }
 ];
+/* *** THE ONE WRONG THING (bible R1: a frame is mundane except exactly ONE element
+   that should not be there). *** Four of the log's lines are an ordinary utility
+   boot report. This is the fifth, it is his own from the option sheet, and it is
+   set in the same register as the others because the horror is the calm (R5). It
+   is not a stage and never gates BEGIN -- it is the thing in the room. */
+var LOAD_WRONG = 'NO OPERATOR ON DUTY';
 function __cityHas(fn){
   try{ var f = document.getElementById('cityFrame');
        return !!(f && f.contentWindow && fn(f.contentWindow)); }catch(_e){ return false; }
@@ -11162,23 +11386,56 @@ function __loadStart(){
   if(!runTab){ window.__RUN_TAB_MISSING=true;
     console.error('THE RUN TAB IS GONE from the alpha tab bar: the game cannot open'); }
   else { runTab.click(); window.__OPENED_ON_THE_GAME=(window.__OPENED_ON_THE_GAME||0)+1; }
+  /* THE SCREEN GOES INTO ITS LOADING STATE. Until this line the splash is his
+     ordinary front door; from here it is the utility's terminal, and it goes back
+     to being the front door the moment the class comes off. */
+  try{ document.getElementById('front').classList.add('load'); }catch(_e){}
   /* AND THE SCREEN REPORTS, on the same beat the rest of the game runs on. */
+  var said = 0;                      /* how many log lines have arrived */
   var tick = setInterval(function(){
     try{
       var el = document.getElementById('fronttap');
+      var gl = document.getElementById('loadgl');
       if(!el) return;
       var i = 0;
       while(i < LOAD_LINES.length && LOAD_LINES[i].done()) i++;
+
+      /* THE LOG FILLS FROM THE BOTTOM, ONE LINE PER STAGE FINISHED, and a line
+         that has arrived never leaves. His option B's own behaviour: the old ones
+         are pushed up, the way a real terminal does it. */
+      while(gl && said < i){
+        var row = document.createElement('div');
+        row.textContent = LOAD_LINES[said].say;
+        gl.appendChild(row);
+        said++;
+        /* THE ONE WRONG THING ARRIVES IN THE MIDDLE OF THE ORDINARY ONES, never
+           first and never last, because it is not an announcement. */
+        if(said === 2){
+          var wrong = document.createElement('div');
+          wrong.className = 'w';
+          wrong.textContent = LOAD_WRONG;
+          gl.appendChild(wrong);
+        }
+      }
+
+      /* THE BAR, IN UNITS IT CAN PROVE. */
+      var fill = document.getElementById('loadfill');
+      var pct  = document.getElementById('loadpct');
+      if(fill) fill.style.width = Math.round(i * 100 / LOAD_LINES.length) + '%';
+      if(pct)  pct.textContent = i + ' OF ' + LOAD_LINES.length;
+
       if(i >= LOAD_LINES.length){
         window.__LOAD_READY = true;
         clearInterval(tick);
+        try{ document.getElementById('front').classList.add('ready'); }catch(_e2){}
         if(el.textContent !== 'BEGIN') el.textContent = 'BEGIN';
         return;
       }
-      /* NO PERCENTAGE AND NO BAR. It says the thing it is doing and nothing else;
-         a number that is not measured is the lie the row rules out. */
-      var want = LOAD_LINES[i].say;
-      if(el.textContent !== want) el.textContent = want;
+      /* *** THE BUTTON SAYS WAIT UNTIL THE GAME IS GENUINELY IN. *** His own words
+         on option B. It is dark, it is 48 px so a thumb can find it, and pressing
+         it does nothing -- which is rule 18a's "nothing is tappable until it is
+         loaded" wearing a face instead of being an invisible refusal. */
+      if(el.textContent !== 'WAIT') el.textContent = 'WAIT';
     }catch(_e){}
   }, 500);   /* one beat at 120 BPM: the screen keeps the game's own pulse */
 }
@@ -11202,6 +11459,12 @@ document.getElementById('front').addEventListener('click',()=>{
      for: the hum lands on a finished world instead of under a build. */
   try{ window.__roomStart && window.__roomStart(); }catch(_e){}
   document.getElementById('front').style.display='none';
+  /* AND THE TERMINAL GOES AWAY WITH IT. UI's QUIT brings this door back mid
+     session, and what should be behind it then is his ordinary front door with the
+     wordmark on it -- not a utility still counting a load that finished an hour
+     ago. The class comes off here so the door is only ever a terminal while it is
+     really loading something. */
+  try{ var _f=document.getElementById('front'); _f.classList.remove('load','ready'); }catch(_e){}
   document.getElementById('app').style.display='flex';
   /* __THE_GAME_IS_THE_FIRST_THING__ -- DEMO BOARD ROW 7, "the cheapest big win on
      the board". The RUN tab was tapped in __loadStart, BEHIND this screen, which is
@@ -11224,6 +11487,25 @@ document.getElementById('front').addEventListener('click',()=>{
      than left in as a change with no measurement behind it, and the real cause is
      written down unfound in the handoff instead of guessed at a third time. */
   try{ if(window.MENUMUS)MENUMUS.open(); }catch(_e){}
+  /* *** THE ALPHA LANDS ON VOTE, NOT ON RUN. PAOLO SAID IT TWICE. ***
+     9/20 (rule 15g) and again 9/22: "in the alpha why does it open the run first
+     thing, I told you to not have that happen."
+     records/BOHEMIA_PAOLO_THE_ALPHA_STILL_OPENS_ON_RUN_9_22_26.md
+     It opened on RUN because __loadStart clicks the RUN tab BEHIND this screen, so by
+     the time his finger lands the run is already the live panel. Nothing was wrong
+     with that -- it is what makes the world ready before the door opens -- so this
+     does not undo it. It just moves the surface afterwards.
+     IT CLICKS THE TAB, IT DOES NOT CALL showTabPanel. That distinction is written
+     down further up this file and it is real: showTabPanel lights the panel and
+     nothing else, and the VOTE panel's iframe is a lazy data-src that only the tab's
+     own click handler promotes. showTabPanel('vote') would land him on an empty box.
+     AND THE DEMO IS UNTOUCHED BY CONSTRUCTION: the cutter strips every tab but RUN,
+     so there is no vote tab to find and this does nothing there, which is exactly
+     what the demo wants (it has no vote tab at all, rule 15a). */
+  try{
+    var _vt = document.querySelector('.tab[data-p="vote"]');
+    if(_vt) _vt.click();
+  }catch(_e){}
 });
 window.__DOOR_WIRED = 1;   /* __ONE_SCREEN_HOLDS_ALL_THE_LOADING__ */
 /* AND THE LOAD BEGINS WITHOUT A TAP, AS SOON AS THE PAGE IS WHOLE -- which is not
@@ -15851,6 +16133,11 @@ window.INTERIORMUS=INTERIORMUS;
    that the shuffle can no longer reach in and take it back. */
 const FIGHTMUS={
   on:false, watch:null, cameBack:0, cityWas:false,
+  /* __ONE_FIGHT_IS_ONE_SONG__ (9/23) -- the fight's song is picked once. See the
+     bohemiaFactionPicked handler for the measurement: combat reports FOUR times as
+     it sets a fight up, so without this the score lurches through three songs in
+     the first six seconds of every fight. laterPicks is kept for the gate to read. */
+  songLatched:false, laterPicks:0,
   PHRASE:128,                              /* 8 bars x 16 steps */
   COOLDOWN:6000,                           /* no redundant switch between fights */
   enter(){
@@ -15861,6 +16148,10 @@ const FIGHTMUS={
       if(MENUMUS.watch){clearInterval(MENUMUS.watch); MENUMUS.watch=null;} } }catch(e){}
     if(this.on)return;
     this.on=true;
+    /* __ONE_FIGHT_IS_ONE_SONG__ -- A FRESH FIGHT GETS A FRESH PICK. Cleared here
+       and nowhere else, BELOW the `if(this.on)return` above, so a fight that is
+       already running cannot have its song re-rolled by anything. */
+    this.songLatched=false; this.laterPicks=0;
     if(this.watch){clearInterval(this.watch); this.watch=null;}
     try{
       this.cityWas=!!CITYMUS.on;
@@ -15899,11 +16190,32 @@ const FIGHTMUS={
     /* AT THE NEXT PHRASE, not on the frame the last hostile drops. */
     const from=(typeof MUS!=='undefined')?MUS.step:0;
     const at=(Math.floor(from/this.PHRASE)+1)*this.PHRASE;
+    /* __LEAVING_IS_NOT_A_CUT__ (9/23, SOUNDS lane) -- AND THE WALL CLOCK IS THE FLOOR,
+       BECAUSE THE STEP COUNTER CAN BE ZEROED BY SOMEBODY ELSE.
+       MEASURED: the streets took the music back 0 ms after a fight ended, a hard cut,
+       with the stack reading leave's own watchdog -> startShuffle -> CITYMUS.play ->
+       TWO COINS FOR THE FERRYMAN. The `s<from` escape below is right for the reason
+       its comment gives (a song change resets step to 0, so a wrapped clock has
+       arrived) and it is ALSO true of something else entirely:
+       __THE_BEAT_BEFORE_THE_SONG__ zeroes MUS.step whenever the transport falls more
+       than a quarter second behind, which is every stutter on a phone. Same symptom,
+       opposite correct answer -- a re-anchor is not a phrase ending.
+       ONE CONDITION CANNOT TELL TWO CAUSES APART. So a phrase of WALL TIME has to
+       pass as well, and that is not a number invented here: INTERIORMUS in this same
+       file already hit this exact wall and wrote it down -- "THE DWELL is the debounce,
+       and it has to be SEPARATE because of that wrap rule... Wall time cannot be
+       wrapped, so one phrase of it is a promise the step counter cannot break."
+       phraseMs() is the engine's own unit, shared with the street's rest, the drum
+       hold and the room's own wait, so no new number enters the game. */
+    const since=Date.now();
     this.watch=setInterval(()=>{
       if(FIGHTMUS.on){ clearInterval(FIGHTMUS.watch); FIGHTMUS.watch=null; return; }
       let s=0; try{ s=MUS.step; }catch(e){}
+      let ph=16000; try{ ph=phraseMs(); }catch(e){}
       /* a song change resets step to 0, so a wrapped clock counts as arrived */
-      if(s>=at||s<from){
+      const musical=(s>=at||s<from);
+      const dwelt=(Date.now()-since)>=ph;
+      if(musical&&dwelt){
         clearInterval(FIGHTMUS.watch); FIGHTMUS.watch=null;
         FIGHTMUS.cameBack=Date.now();
         try{ CITYMUS.startShuffle(); }catch(e){}
@@ -17871,6 +18183,39 @@ function buildUI(){
          Narrow on purpose: a faction song may still take the music the instant a
          fight owns it, by any path, so no legitimate pick is dropped. */
       if(window.CITYMUS&&CITYMUS.on&&!(window.FIGHTMUS&&FIGHTMUS.on))return;
+      /* __ONE_FIGHT_IS_ONE_SONG__ (9/23, SOUNDS lane) -- A FIGHT PICKS ITS SONG
+         ONCE. MEASURED with a property setter on MUS.cur logging every write and
+         its call site, three cold boots of the alpha, the cold open:
+
+           run 1   +5460 ms REMNANTS  +5461 CARTEL   +6113 MOB       +6114 VOLUNTEERS
+           run 2   + 852 ms MOB       + 853 CARAVANS +1529 COLORFUL  +1530 HOMELESS
+           run 3   +4211 ms VOLUNTEERS                +4698 COLORFUL  +4699 NETWORK
+
+         FOUR POSTS EVERY TIME, in two pairs a millisecond apart, the pairs about
+         650 ms apart -- so the fight's song is chosen four times and CHANGES THREE
+         TIMES after the fight has already started. The transport reads MUS.fac()
+         every step, so each change is audible inside 125 ms: the score lurches
+         through three songs while the player is being shot at.
+         THE CAUSE IS FOUR CALL SITES, NOT A BUG IN ANY ONE OF THEM. The combat
+         module calls pickRandomFaction() from setupCombat, newEncounter, startGame
+         and its own module init, and each one re-rolls Math.random() and reports.
+         Every one of those calls is right for the thing it does; what is wrong is
+         that a re-roll of the FLOOR PALETTE is also a re-roll of the SONG.
+         FIXED ON THIS SIDE, NOT THERE, and that is deliberate: combat uses that
+         index for its palette as well, and the palette is not this lane's to move
+         (the same reason realFaction redraws the scratch patch here). So the first
+         pick of a fight is the fight's song and later posts are ignored until the
+         fight ends. The latch is cleared by FIGHTMUS.enter(), which already carries
+         `if(this.on)return` -- so two fights inside the cooldown stay ONE musical
+         event, exactly as FIGHTMUS already promises, and the FIRST fight after a
+         quiet street still gets its song.
+         AND THE LATCH ONLY BINDS WHILE A FIGHT IS ON. With no fight running this
+         line is unreachable anyway (the guard above), so nothing about the studio
+         tab or the street changes. */
+      if(window.FIGHTMUS&&FIGHTMUS.on){
+        if(FIGHTMUS.songLatched){ FIGHTMUS.laterPicks=(FIGHTMUS.laterPicks||0)+1; return; }
+        FIGHTMUS.songLatched=true;
+      }
       /* NEVER THE SCRATCH PATCH (8/19). See FIGHTMUS.realFaction. */
       MUS.cur=(window.FIGHTMUS?FIGHTMUS.realFaction(ev.data.bohemiaFactionPicked)
                               :ev.data.bohemiaFactionPicked);
@@ -29614,6 +29959,37 @@ window.CLO=(function(){
     {n:'COLUMN PANT-BOOT',st:'canon',fresh:true,layer:'feet',gen:function(g){return wear(genPants(g,{ramp:CHARCLOTH,cut:'column'}),CHARCLOTH,12);}},
     {n:'COAL COLUMN',st:'canon',fresh:true,layer:'feet',gen:function(g){return wear(genPants(g,{ramp:FADEDBLK,cut:'column'}),FADEDBLK,12);}},
     {n:'ASH COLUMN',st:'canon',fresh:true,layer:'feet',gen:function(g){return wear(genPants(g,{ramp:ASHGREY,cut:'column'}),ASHGREY,13);}},
+    /* ===== THE RUNWAY, IN THE FACTION COLOURS (9/22, CHARACTER, [runway redo]) ==========
+       PAOLO 9/21, rule 30, voting the thirteen DOWN: "they all need to get redone in an
+       analog horror direction, analog horror meets Rick Owens meets Balenciaga meets
+       Bottega Veneta, bro."
+       MEASURED FIRST, AND IT IS WHY THESE EXIST. COOK had already cut 26 garments to those
+       houses and TWENTY-TWO WERE WORN BY NOBODY, with ZERO on any of the thirteen factions.
+       The re-dress that followed could only move FOUR of the thirteen, and the reason was
+       not taste: EVERY RUNWAY PIECE ON THE RAIL IS CUT IN A NEUTRAL -- charcoal, slate,
+       ash, bone, storm, faded black -- while the factions ARE their colours (cobalt, brick,
+       gold leaf, teal, olive drab, grass). COLOUR IS TERRITORY forbids dressing Blues in
+       slate, so nine factions had nothing legal to put on.
+       SO THE MISSING THING WAS NEVER A SHAPE. IT WAS A COLOURWAY.
+       NOTHING NEW IS DRAWN HERE AND THAT IS THE POINT: every line below is COOK's own
+       generator with COOK's own shape flag and the FACTION'S OWN RAMP CONSTANT, which is
+       exactly how SLATE COCOON COAT differs from COCOON COAT. Same art, same code path,
+       one line each. This lane's job is to WIRE WHAT COOK COOKS and this is that wiring.
+       Which faction ends up wearing which is decided BY MEASUREMENT in
+       tools/bohemia_cook_the_runway_rail_nobody_wears.js, never by eye, and that tool
+       refuses to write if the thirteen come out less mutually distinct than before. */
+    {n:'COBALT COCOON COAT',st:'canon',fresh:true,layer:'outer',gen:function(g){return wear(genCoat(g,{ramp:COBALT,cocoon:true,len:0.34}),COBALT,14);}},
+    {n:'BRICK COMMA COAT',st:'canon',fresh:true,layer:'outer',gen:function(g){return wear(genCoat(g,{ramp:BRICK,cocoon:true,comma:true,len:0.56}),BRICK,15);}},
+    {n:'OLIVE ASYM COAT',st:'canon',fresh:true,layer:'outer',gen:function(g){return wear(genCoat(g,{ramp:OLIVEDRAB,asym:true,len:0.56}),OLIVEDRAB,14);}},
+    {n:'GRASS WRAP COAT',st:'canon',fresh:true,layer:'outer',gen:function(g){return wear(genCoat(g,{ramp:GRASSGRN,wrap:true,len:0.56}),GRASSGRN,14);}},
+    {n:'GOLD DROP TROUSER',st:'canon',fresh:true,layer:'legs',gen:function(g){return wear(genPants(g,{ramp:GOLDLEAF,cut:'drop'}),GOLDLEAF,8);}},
+    {n:'TEAL STACK PANT',st:'canon',fresh:true,layer:'legs',gen:function(g){return wear(genPants(g,{ramp:TEALBRT,cut:'stack'}),TEALBRT,10);}},
+    {n:'GOLD STACK BOOT',st:'canon',fresh:true,layer:'feet',gen:function(g){return wear(genShoes(g,{ramp:GOLDLEAF,sole:'stack'}),GOLDLEAF,8);}},
+    {n:'TEAL COLUMN',st:'canon',fresh:true,layer:'feet',gen:function(g){return wear(genPants(g,{ramp:TEALBRT,cut:'column'}),TEALBRT,10);}},
+    {n:'COBALT COLUMN',st:'canon',fresh:true,layer:'feet',gen:function(g){return wear(genPants(g,{ramp:COBALT,cut:'column'}),COBALT,14);}},
+    {n:'OLIVE STACK BOOT',st:'canon',fresh:true,layer:'feet',gen:function(g){return wear(genShoes(g,{ramp:OLIVEDRAB,sole:'stack'}),OLIVEDRAB,14);}},
+    {n:'BRICK CROP TROUSER',st:'canon',fresh:true,layer:'legs',gen:function(g){return wear(genPants(g,{ramp:BRICK,cut:'crop'}),BRICK,15);}},
+    {n:'COBALT DROP TROUSER',st:'canon',fresh:true,layer:'legs',gen:function(g){return wear(genPants(g,{ramp:COBALT,cut:'drop'}),COBALT,14);}},
   ];
 
   /* ==== WHICH LEG CARRIES THE HEM (9/15, CHARACTER, VAMILY [long coats]) ==============
@@ -29722,6 +30098,14 @@ window.CLO=(function(){
 "SHOULDER LONGLINE":["thigh",0.231],
 "SLATE CAR COAT":["thigh",0.436],
 "SLATE COCOON COAT":["thigh",0.282],
+"COBALT COCOON COAT":["thigh",0.282],
+"BRICK COMMA COAT":["thigh",0.436],
+"OLIVE ASYM COAT":["thigh",0.385],
+"GRASS WRAP COAT":["thigh",0.436],
+"GOLD DROP TROUSER":["shin",0.795],
+"TEAL STACK PANT":["shin",0.846],
+"BRICK CROP TROUSER":["shin",0.538],
+"COBALT DROP TROUSER":["shin",0.795],
 "SLATE COMMA COAT":["thigh",0.436],
 "SLATE STACK PANT":["shin",0.846],
 "SLATE TRENCH":["shin",0.744],

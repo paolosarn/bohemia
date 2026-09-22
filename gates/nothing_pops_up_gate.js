@@ -25,8 +25,12 @@
      3. EVERY CARD THAT DOES OPEN SAYS WHY. cardShow refuses a card whose caller
         cannot name a reason, so a lane that adds a forced card tomorrow finds this
         red instead of Paolo finding a pop-up.
-     4. THE BOOKKEEPING IS NOT DELETED. The morning's words are on the phone, which
-        is where rule 19a sends them, and the phone chip rings so he knows.
+     4. THE BOOKKEEPING IS NOT DELETED, AND THE ROOM HAS A DOOR. The morning's words
+        are on the phone, which is where rule 19a sends them -- and the phone is drawn
+        on the screen, it rings, one real touch opens it, and its CLOSE folds it. A
+        room with no door is the same as a deleted room, which is what this leg caught:
+        the chip this used to ask about was deleted on 9/22 and the drawn phone that
+        replaced it was pointer-events:none, so the phone could not be opened at all.
      5. THE DAY STILL TURNS. SLEEP was the rollover as well as a button; the night
         now turns by itself. A fix that stopped the calendar would be worse than the
         card it removed.
@@ -150,14 +154,79 @@ const MINUTES = 5;
     const phone = await fr.evaluate(() => {
       try {
         const st = phoneState();
-        return { morning: st.morning, ring: !!(document.getElementById('phonebtn') || {}).className
-                 && /ring/.test(document.getElementById('phonebtn').className) };
+        return { morning: st.morning };
       } catch (e) { return { err: String(e.message).slice(0, 80) }; }
     });
     const lines = (phone.morning && phone.morning.lines) ? phone.morning.lines.length : 0;
     say('  the phone carries "' + ((phone.morning || {}).head || '-') + '", ' + lines + ' lines');
     ok('*** THE MORNING IS NOT DELETED, IT IS ON THE PHONE *** (' + lines + ' lines)', lines > 0);
-    ok('and the phone chip rings so he knows it is there', phone.ring === true);
+
+    /* *** AND A ROOM WITH NO DOOR IS THE SAME AS A DELETED ROOM. *** (9/23.)
+       THE OLD LEG ASKED #phonebtn WHETHER IT WAS GOLD. UI deleted #phonebtn on 9/22 on
+       his own ruling ("the phone is the phone button"), so the leg was asking an element
+       that is not in the document, and `(null || {}).className` answers undefined --
+       a check that can only ever say no, about a thing that is not there.
+       WHAT IT ASKS NOW IS WHAT HE WOULD DO: find the phone on the screen, look at it,
+       put a finger on it, and see the morning. Measured, not read. */
+    const feedOn = await fr.evaluate(() => {
+      /* the drawn phone lives on the CITY screen, so get there first. The pinch is the
+         player's door and it does not cross under the harness, so this moves the camera
+         and SAYS SO rather than pretending a gesture happened. */
+      try { MODE = 'city'; return true; } catch (e) { return false; }
+    });
+    await d.page.waitForTimeout(1800);
+    say('  the city screen was reached by moving the camera, not by a pinch (' + feedOn + ')');
+
+    const handle = await fr.evaluate(() => {
+      const f = document.getElementById('cityfeed');
+      if (!f) return { there: false };
+      const b = f.getBoundingClientRect();
+      const mid = document.elementFromPoint(b.x + b.width / 2, b.y + b.height / 2);
+      return { there: true, w: Math.round(b.width), h: Math.round(b.height),
+               ring: /\bring\b/.test(f.className),
+               finger: getComputedStyle(f).pointerEvents !== 'none',
+               /* who actually gets the point: the phone, or the map behind it */
+               gets: mid ? (mid.id || mid.tagName) : null,
+               mine: !!(mid && f.contains(mid)) };
+    });
+    say('  the drawn phone is ' + handle.w + ' x ' + handle.h
+        + ', the point at its middle goes to ' + handle.gets);
+    ok('the phone he was sent words to is DRAWN on the screen', handle.there && handle.w > 0);
+    ok('*** AND IT CATCHES A FINGER, SO IT IS A DOOR AND NOT A PICTURE ***',
+       handle.finger === true && handle.mine === true);
+    ok('and it rings, so he knows there is something to read', handle.ring === true);
+
+    /* A REAL TOUCH, AT ITS REAL PLACE ON THE GLASS. The harness loses the first touch
+       into a fresh frame (measured on the walk gate too), so a lost press is retried
+       ONCE before it is called a dead button -- accusing the game of what the ruler
+       did is this lane's most expensive recurring mistake. */
+    const feedMid = () => fr.evaluate(() => {
+      const b = document.getElementById('cityfeed').getBoundingClientRect();
+      return { x: b.x + b.width / 2, y: b.y + b.height / 2 };
+    });
+    let m = await feedMid();
+    await d.tapAt(m.x, m.y);
+    await d.page.waitForTimeout(600);
+    let opened = await fr.evaluate(() => !!PHONE_ON);
+    if (!opened) { m = await feedMid(); await d.tapAt(m.x, m.y); await d.page.waitForTimeout(600);
+                   opened = await fr.evaluate(() => !!PHONE_ON); }
+    const after = await fr.evaluate(() => ({ on: !!PHONE_ON, unread: MORNING_UNREAD | 0 }));
+    say('  one touch on the drawn phone: it opened ' + after.on
+        + ', the morning went from ' + lines + ' unread to ' + after.unread);
+    ok('*** ONE TOUCH ON THE DRAWN PHONE OPENS IT *** (his 9/22 ruling, on the glass)',
+       after.on === true);
+    ok('and opening it marks the morning read, so the ring means something',
+       after.unread === 0);
+
+    /* AND IT FOLDS. Its own CLOSE, because the open phone covers the drawn one. */
+    const cb = await fr.evaluate(() => {
+      const c = document.getElementById('phoneclose'); if (!c) return null;
+      const b = c.getBoundingClientRect();
+      return { x: b.x + b.width / 2, y: b.y + b.height / 2, w: Math.round(b.width) };
+    });
+    if (cb && cb.w > 0) { await d.tapAt(cb.x, cb.y); await d.page.waitForTimeout(500); }
+    const folded = await fr.evaluate(() => !PHONE_ON);
+    ok('and it folds again, so it is not a one-way door', folded === true);
     ok('the phone really renders what the run sends it',
        /function morningBlock\(\)/.test(require('fs').readFileSync(
          path.join(__dirname, '..', 'slices/BOHEMIA_CURRENT_SLICE.html'), 'utf8')));

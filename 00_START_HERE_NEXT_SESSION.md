@@ -3499,92 +3499,129 @@ it is player-facing at all is worth deciding before restyling it. The source cou
 now understood as dead-declaration debt and can be swept file-wide in one pass instead of
 being chased surface by surface.
 
-RUN (run-eak241): 9/21 LATEST -- *** [loading screen] PART TWO SHIPPED. HE TAPPED A DOOR
-AND GOT A BLACK RECTANGLE FOR TWO MINUTES: the door opened on one tap at 4.5 s and the
-game then did 113.7 SECONDS OF WORK WITH THE SCREEN GONE. The load runs behind a screen
-that stays up and says what it is doing now, and one tap on BEGIN reveals a world that is
-already built: 4.0 s. TAB: RUN (and CITY, the same walked world). BUILD 9/21h. Nothing to
-judge. Rule 18(e): the link is NOT sent. ***
+RUN (run-eak241): 9/23 LATEST -- *** TWO SHIPPED IN ONE PUSH. [horror loading] IS HIS OWN
+VOTE BUILT (option B, "B is best not analog horror enough the but keep going"), and
+[phone door] FIXED A PHONE THAT COULD NOT BE OPENED ANYWHERE IN THE DEMO. TAB: RUN (and
+CITY, the same walked world). BUILD 9/23b. Nothing to judge. Rule 18(e): the link is NOT
+sent. ***
 
-MEASURED ON A 4x CPU, every milestone read off the game's own live state:
+=== [phone door] -- THE ONE RED LEG WAS RIGHT AND MY FIRST TWO FIXES WERE BOTH WRONG ===
 
-                              BEFORE            AFTER
-  the door offers             2.8 s             the screen reports for ~99 s
-  the door opens (one tap)    4.5 s             then it says BEGIN
-  the world has a clock      68.3 s             already done behind it
-  the city draws            113.6 s             already done behind it
-  a person is on the glass  118.2 s             already done behind it
-  BLANK SCREEN AFTER THE TAP 113.7 s            none
-  tap to a visible world     113.7 s            4.0 s
+NOTHING POPS UP came back 15/1 on one line: "and the phone chip rings so he knows it is
+there". I fixed the bookkeeping first (made phoneBadge the single decider, reading the
+unread morning as well as the unread call). Still red. That was a real fix to a real
+second-owner bug and it was not this bug.
 
-THE SHAPE, WHICH IS THE COORDINATOR'S DECIDED DEFAULT (rule 20h). The load does not wait
-for a tap -- nothing in it ever needed a gesture -- and runs BEHIND the screen. The screen
-stays up and SAYS WHAT IT IS DOING in the dead institution's register, measured on the
-glass as ONE MOMENT -> WINDING THE CLOCK -> PUTTING PEOPLE ON IT -> BEGIN, with no bar and
-no percentage ([loading look] rules a lying bar out by name). NOTHING IS TAPPABLE UNTIL IT
-IS LOADED (rule 18a, in those words, and the gate taps mid-load for real to prove it). It
-ends on BEGIN and one tap reveals a world already drawn with people already on it -- the
-tap SOUNDS built the first hum for. Audio is the only thing that still needs the finger.
+Then I asked the live demo instead of guessing a third time:
 
-SAID HONESTLY: THE TOTAL WAIT IS ABOUT THE SAME. The game does not load faster. What
-changed is that he is not staring at nothing through it, and the button he presses is not
-a promise the game cannot keep for two minutes.
+  MEASURED ON THE GLASS, BEFORE ANYTHING WAS TOUCHED
+    the old PHONE chip           not in the document at all
+    the drawn phone              132 x 349 on the screen
+    the point at its middle      cv        <- THE CANVAS BEHIND IT
+    a real touch there           PHONE_ON stayed false
 
-*** FOUR THINGS I GOT WRONG, IN ORDER, AND ALL FOUR WERE MINE. ***
- 1. PART TWO BROKE PART ONE. The loader and the old painter both wrote the same element
-    every beat; the painter won, the door read TAP TO ENTER at 3.1 s again, and the tap
-    was then refused -- the dead first press part one exists to kill, reintroduced by the
-    fix built on top of it. One element, one owner.
- 2. I STARTED THE LOAD BEFORE THE PAGE HAD PARSED AND MY OWN CATCH ATE THE THROW. Measured:
-    started true, RUN tab present, __OPENED_ON_THE_GAME still 0, no city frame. A boot that
-    reported success and did nothing, which is this file's oldest lesson in its own
-    capitals. It waits for the whole page now and a throw is recorded where a gate reads it.
- 3. THE STAGE THAT JAMMED THE SCREEN ASKED A QUESTION THE PARENT CANNOT ANSWER: it read DAY
-    from outside the frame, and A CONST IS NOT A PROPERTY OF WINDOW. The screen sat on
-    WINDING THE CLOCK while the street (49 s) and the people (99 s) behind it were done.
- 4. BEGIN-to-visible read 22.7 s so I blamed the music and deferred it twice (25.2 s, then
-    24.2 s). No change either time: the song was not the cost. IT WAS page.tap's OWN
-    ACTIONABILITY WORK, charged to my own number. Raw touch: 22.7 -> 4.0 s. BEFORE BLAMING
-    THE GAME, BLAME THE RULER. The speculative music change is reverted rather than left in
-    as a change with no measurement behind it.
+  SO THE PHONE COULD NOT BE OPENED ANYWHERE IN THE DEMO, which is rule 18g's own list
+  broken, and [no pop ups] had just moved the morning and the night onto it. Ten lines of
+  THIS MORNING were sitting in a room with no door, and the gate leg that should have
+  caught it was asking a deleted element whether it was gold -- (null || {}).className
+  answers undefined, so that check could only ever say no, about a thing that is not there.
 
-GATE: SCREEN HOLDS, 20/0 on the served demo at 4x.
+WHY IT HAPPENED, AND UI DID NOTHING WRONG IN THE PART THEY WROTE. Paolo 9/22: "there
+shouldn't be a phone button in the top right. I should click the phone and then it opens
+the phone." UI shipped that correctly in JS -- the chip removed rather than hidden, the
+drawn phone given role=button, tabindex, an aria-label, cursor:pointer and a click handler.
+The CSS rule above it still said pointer-events:none, which was right while the feed was a
+thing you only LOOKED at and became wrong the second it became the door. A HANDLER ON AN
+ELEMENT THAT CANNOT BE TOUCHED IS THE SAME DEFECT CLASS AS A CAUGHT EXCEPTION: it reads
+correct and silently does nothing.
 
-THREE GATES RE-AIMED BY THIS CHANGE, NONE LOOSENED, ALL RE-MEASURED:
- - DOOR WAITS 10/0: the invitation is the word BEGIN now. Same assertion, new word; TAP TO
-   ENTER is still refused and still exists in the source so that leg still means something.
-   Its waitForFunction kept dying on a 30 s timeout it was never given, so it polls now,
-   and its page.tap is a raw touch.
- - STRANGER 19/0: it read the screen at second four and found what the game was DOING, not
-   what he should do. It waits for the instruction, and separately holds the thing that
-   matters -- while loading it must never invite a tap it cannot honour.
- - WALK NEVER MISSES 19/0: it reported one stuck press at 6218,6268 going east.
-   PHOTOGRAPHED: east was WIDE OPEN, clear pavement, nobody in it. Driven straight at that
-   cell the same step moved him TWENTY-TWO CELLS east, first try, returning true. THE PRESS
-   WAS LOST, NOT REFUSED. It retries once before accusing now, which is the rule I wrote
-   into the card tool last round. It also learned to tell a body holding a cell from a bug,
-   using the game's own ctBlocked.
+THE FOUR LINES:
+ 1. #cityfeed.on gets pointer-events:auto. Only when it is OPEN -- folded, the phone is not
+    on the screen at all, so nothing is taken from the map that was not already the phone's.
+ 2. phoneBadge rings whichever door is actually there: the chip first, for the day somebody
+    puts one back, then the drawn phone. Same gold, reused, never a second alert designed.
+    THIS IS THE THIRD TIME IN THAT FILE AN ALARM HAS FOLLOWED A BUTTON OUT OF THE ROOM;
+    ctOutfitBadge wrote the post-mortem for the second one and its sentence is the rule:
+    the door moving is a decision, the alarm going silent is an accident.
+ 3. Opening it is reading it: phoneOpen clears the unread morning and asks phoneBadge again,
+    so the gold stops meaning "there is something new" only when there is nothing new.
+ 4. The outside-tap registry named 'phonebtn' as the phone's opener -- an id that no longer
+    exists -- so the phone's real door was registered nowhere. It takes a comma list now.
 
-[horror loading] STAYS CLAIMED AND IS NOT SHIPPED, on purpose (rule 6: a half-done job
-marked SHIPPED is worse than an open one). DONE: the decided default is built -- BEGIN, one
-tap, the first sound on it, and the loading words in the register the bible asks for. NOT
-DONE: THE DRAWING. What is on the screen is still the old front splash, and bible rule 1
-(one ordinary frame, ONE WRONG THING) is unanswered -- there is no wrong thing on it, which
-the bible itself calls a screenshot. That half needs UI and DIRECTION and I will not mark
-it shipped on words alone.
+  MEASURED AFTER, WITH A FINGER
+    the point at its middle      inside the phone
+    one touch                    PHONE_ON true, the morning 10 unread -> 0
+    its own CLOSE                PHONE_ON false
+    NOTHING POPS UP              15/1 -> 21/0
 
-[PENDING nobody, STILL OPEN AND STILL NOT MINE]: his own block has 45 doorsteps and 0
-straight walkable ways out, and four presses on the block walk go into ground a body cannot
-reach. And he has ZERO batteries on day one while the market's whole shelf costs one each.
+THE OPEN PHONE COVERS ITS OWN HANDLE (#phonewrap 378 x 794 over a 132 x 349 phone), so
+"tap it again to fold" cannot exist. Its own CLOSE folds it and a tap on the world folds
+it. Both measured; neither is a missing feature to build.
+
+AND THE HARNESS LOSES THE FIRST TOUCH INTO A FRESH FRAME. The gate retries once before it
+calls a button dead. Accusing the game of what the ruler did is this lane's most expensive
+recurring mistake and it is not going in a count again.
+
+=== [horror loading] -- HIS PICK, REBUILT FROM HIS OWN OPTION SHEET ===
+
+Part two put the load behind a screen; this is the half I held open on purpose because the
+screen was still the old front splash and bible rule 1 (one ordinary frame, ONE wrong
+thing) was unanswered. Then he voted B and said keep going, so the ruling arrived.
+
+  the whole phone is the screen, edge to edge, no case, no bezel, the corners dark
+  because a tube is curved; the log fills FROM THE BOTTOM; the bar is real (0 OF 5 ->
+  5 OF 5, five stages the page can prove, no hand-typed percentage); BEGIN stays dark
+  and says WAIT until the game is genuinely in.
+
+  the screen said, in order   ONE MOMENT -> WAIT -> BEGIN
+  BEGIN to playing            4.2 s   (it was 113.7 s of blank screen)
+  SCREEN HOLDS                27/0
+
+AND "KEEP GOING" IS BIBLE WORK: exactly ONE wrong thing, NO OPERATOR ON DUTY, arriving in
+the MIDDLE of an ordinary power-authority boot report, in the same calm register as the
+timetable lines, no exclamation mark anywhere. Scanlines and the curved-tube vignette are
+legal HERE and nowhere else because this IS an in-world screen, a terminal belonging to a
+dead utility; the same effects on the walked world would break the law.
+
+A GATE OF MINE CHANGED BECAUSE HE OVERRULED IT: my own gate forbade a progress bar and he
+picked the option with a bar. The ban was never on a bar, it was on a bar that LIES, so the
+check is the honest one now. A gate that refused his own pick would be enforcing my taste
+over his ruling.
+
+THE PHOTOGRAPH CAUGHT TWO THINGS THE SOURCE COULD NOT: the build stamp printed straight
+THROUGH the WAIT button, and the button's top edge sat on the bar by two pixels. Both are
+gate legs now, measured as boxes and not as opinions. The stamp is NOT hidden -- he needs
+to see which build he is on -- it sits under the bar as a line of the report.
+
+THE WALK, BY HAND, BEFORE THIS PUSH (rule 18c):
+  35 presses, 530 cells crossed, 0 stuck, 4 into sealed ground, 0 held by somebody,
+  0 gaps walked past.  Five minutes from the door: 557 presses, 0 cards, 0 with no reason.
+
+GATES, ALL GREEN ON THE SERVED DEMO AT 4x: NOTHING POPS UP 21/0, SCREEN HOLDS 27/0, DOOR
+WAITS 10/0, STRANGER 19/0, WALK NEVER MISSES 19/0, DEMO CURRENT 16/0, SPAWN HOME 9/0.
+
+[PENDING nobody, STILL OPEN AND STILL NOT MINE]
+ - ON THE STREET THERE IS NO PHONE DRAWN AT ALL. #cityfeed only draws in CITY mode, which
+   is the 9/4 law's own wording, so from waking up until he zooms out the morning is there
+   and the door is not. His ruling is "the phone is the phone button", so the answer is a
+   phone on the street, NOT a chip he already refused. Row added: UI [phone on the street].
+   I did not patch it from this lane: the bar and the phone's door are UI's room.
+ - UI's own gate has a mutation "take the handler off the drawn phone" and it passed the
+   whole time, because it asks the source whether a handler exists and never asks the glass
+   who gets the point. Named on their row, not as a complaint, as the thing to measure.
+ - his own block has 45 doorsteps and 0 straight walkable ways out, and four presses on the
+   block walk go into ground a body cannot reach.
+ - he has ZERO batteries on day one while the market's whole shelf costs one each.
 
 NEXT, IN ORDER: [open reachable] (PORTRAIT 53cbb684: a stranger meets ZERO faces in five
 minutes, and the cold open should be reachable after BEGIN -- it sits directly on the
-screen I just built). Then [land on it] (LIFE+CITY c4e08b82: a full stride overshoots a
-place nearer than a stride and ping-pongs; his door to the road 21 cells away takes 21
-presses one cell at a time and NEVER arrives with a full stride). Then [cut now] and
-[browser lines]. [fast travel] stays CLAIMED and paused under rule 18.
+loading screen I just finished). Then [land on it] (LIFE+CITY c4e08b82: a full stride
+overshoots a place nearer than a stride and ping-pongs; his door to the road 21 cells away
+takes 21 presses one cell at a time and NEVER arrives with a full stride). Then [cut now]
+and [browser lines]. [fast travel] stays CLAIMED and paused under rule 18.
 
-RECORD: records/BOHEMIA_A_BLACK_RECTANGLE_FOR_TWO_MINUTES_9_21_26.md
+RECORDS: records/BOHEMIA_THE_PHONE_COULD_NOT_BE_OPENED_9_23_26.md,
+records/BOHEMIA_HE_PICKED_B_AND_SAID_KEEP_GOING_9_22_26.md
 
 --------------------------------------------------------------------------------
 WORDS (words-8dqrnq): 9/18 LATEST -- *** Q5 [refusing answers] SCHOOL DONE, ROUND ONE OF TWO.

@@ -766,7 +766,33 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font-family:var(--
      the glass inside it is #cityfeedscreen on the screen register. They were both on
      one monospace token, so the object and its display were the same typeface. */
   font:10px/1.42 var(--face-casing);pointer-events:none;}
-#cityfeed.on{display:flex}
+#cityfeed.on{display:flex;
+  /* *** THE PHONE IS THE PHONE BUTTON, AND IT WAS NOT CATCHING A FINGER. *** (RUN 9/23,
+     measured on the served demo at 4x, not read.) UI shipped his 9/22 ruling correctly in
+     JS -- the chip is deleted and #cityfeed carries role=button, tabindex, aria-label,
+     cursor:pointer and a click handler -- and the rule above it says `pointer-events:none`,
+     which was right when the feed was a thing you only LOOKED at and became wrong the
+     moment it became the door.
+     THE MEASUREMENT: the drawn phone is 132 x 349 on the glass, and elementFromPoint at
+     the middle of it answers `cv`. THE CANVAS GETS THE POINT. A real touch at that spot
+     left PHONE_ON false. So there was no chip and no working phone: the phone could not
+     be opened ANYWHERE in the demo, which is rule 18g's own list broken, and it took the
+     morning and the night with it, because [no pop ups] had just sent them there.
+     A HANDLER ON AN ELEMENT THAT CANNOT BE TOUCHED IS THE SAME CLASS OF BUG AS A CAUGHT
+     EXCEPTION: the code is there, it reads correct, and it silently does nothing.
+     ONLY WHEN IT IS OPEN. The `.on` half matters: folded, the phone is not on the screen
+     at all, so nothing is taken from the map that was not already the phone's. */
+  pointer-events:auto}
+/* AND THE DRAWN PHONE RINGS, because the chip that used to do the shouting is gone.
+   Same gold, same fact, worn by whichever door is actually there -- the lesson
+   ctOutfitBadge wrote down when its own chip moved: THE DOOR MOVING IS A DECISION, THE
+   ALARM GOING SILENT IS AN ACCIDENT. Reused, never a second alert designed: the casing
+   lights at its edge, the screen inside is untouched, and nothing grows. */
+#cityfeed.ring{border-color:#d8b45a;
+  box-shadow:0 0 0 2px rgba(216,180,90,.85),
+             0 7px 20px rgba(0,0,0,.66),
+             inset 0 1px 0 var(--skin-casetop,rgba(226,210,160,.16)),
+             inset 0 -2px 3px rgba(0,0,0,.5)}
 /* THE TAPE. Somebody kept this thing alive. It sits ON the casing, over the top corner,
    because that is where a cracked screen gets held together in every photograph of a
    phone that has been repaired by its owner rather than by a shop. */
@@ -56114,10 +56140,11 @@ function toPhone(title, html){
   MORNING = [{ head: String(title || '').toUpperCase(), lines: lines,
                day: (typeof DAY !== 'undefined' ? DAY.day : 0) }];
   MORNING_UNREAD = lines.length;
-  /* THE CHIP RINGS. Same clothes the unread call already wears, decided in the one
-     place that knows -- a second thing polling "is there something on the phone" is
-     the bug this file removed from the population card on 8/24. */
-  try{ var b = document.getElementById('phonebtn'); if(b) b.classList.add('ring'); }catch(_e){}
+  /* THE CHIP RINGS, AND phoneBadge IS THE ONE THAT SAYS SO. The first cut of this
+     added the class here, which made a second decider for one chip; phoneBadge then
+     turned it off the next time the offer changed, while these lines were still
+     unread. It reads MORNING_UNREAD now, so there is one place and two reasons. */
+  try{ phoneBadge(); }catch(_e){}
   try{ phonePush(true); }catch(_e){}
   return lines.length;
 }
@@ -56399,8 +56426,30 @@ function phoneBadge(){
      called from offerRing() and from taking the job -- so the chip's clothes are
      decided HERE and nowhere else. A second thing polling "is the phone ringing"
      is the bug I shipped into the population card on 8/24 and had to remove. */
-  var b=document.getElementById('phonebtn');
-  if(b) b.classList.toggle('ring', !!n);
+  /* *** AND I SHIPPED IT AGAIN LAST ROUND, IN toPhone. *** [no pop ups] moved the
+     morning and the night onto the phone and had toPhone add the ring class itself
+     -- a SECOND thing deciding the chip, which is the exact bug the paragraph above
+     warns about, committed by the lane quoting it. They then fought: this function
+     runs whenever the offer changes and turned the ring OFF while the morning's ten
+     lines were still sitting unread, and the gate caught it.
+     ONE PLACE, TWO REASONS. The chip rings if there is an unread call OR unread
+     words on the phone, and only this function says so. */
+  var m=0; try{ m=MORNING_UNREAD|0; }catch(_e){}
+  /* *** AND IT RINGS WHICHEVER DOOR IS ACTUALLY THERE. *** (9/23.) The line above this
+     one rang #phonebtn and nothing else, and UI DELETED #phonebtn on 9/22 on his own
+     ruling ("the phone is the phone button"). `if(b)` then swallowed the whole alarm:
+     measured on the served demo, the chip was absent from the DOM, so for every round
+     since, an unread call and ten unread morning lines lit NOTHING AT ALL.
+     This is the third time in this file an alarm has followed a button out of the room
+     (ctOutfitBadge wrote the post-mortem for the second one). So it asks for the chip
+     first, for the day somebody puts one back, and falls through to the drawn phone --
+     which is the door now -- rather than naming one element and going quiet when it
+     moves. Both wear the same gold; neither is a second alert. */
+  var on = !!(n || m);
+  var b = document.getElementById('phonebtn');
+  if(b) b.classList.toggle('ring', on);
+  var f = document.getElementById('cityfeed');
+  if(f) f.classList.toggle('ring', on);
 }
 
 function showChoice(card){
@@ -58232,6 +58281,11 @@ function phoneOpen(){
     document.getElementById('phoneslot').appendChild(PHONE_FR);
   }
   PHONE_ON=true; wrap.classList.add('on'); phonePush(true);
+  /* OPENING IT IS READING IT. Without this the ring never goes out: the morning would
+     sit unread for the rest of the run and the gold would stop meaning "there is
+     something new", which is the only thing it is for. phoneBadge is still the one
+     place that decides the look -- this changes the FACT and asks it again. */
+  try{ MORNING_UNREAD = 0; phoneBadge(); }catch(_e){}
 }
 function phoneClose(){ PHONE_ON=false; document.getElementById('phonewrap').classList.remove('on'); }
 /* ==== __CLICK_OUTSIDE_CLOSES__ (8/24, RUN lane) =================================
@@ -58244,7 +58298,16 @@ function phoneClose(){ PHONE_ON=false; document.getElementById('phonewrap').clas
    outside. "It has a close button" is not the standard he set. */
 var OUTSIDE_PANELS = [
   /* panel id,    the chip that opens it,  how ITS OWN AUTHOR closes it */
-  ['phonewrap',   'phonebtn',  function(){ try{ phoneClose(); }catch(_e){} }],
+  /* TWO OPENERS, COMMA SEPARATED, AND THE SECOND ONE IS THE DRAWN PHONE (9/23).
+     This row named ONE door, 'phonebtn', and UI deleted that id on 9/22 on his ruling
+     "the phone is the phone button" -- so the registry has been pointing at an element
+     that is not in the document, and the phone's real door was not registered anywhere.
+     MEASURED with the phone open: #phonewrap is 378 x 794 and the drawn phone is
+     132 x 349 underneath it, so the open phone COVERS its own handle and a tap there
+     answers IFRAME. Folding is therefore its own CLOSE (measured, folds) or a tap on the
+     world outside it, which is what this registry is for and what it could not do while
+     the door it named did not exist. */
+  ['phonewrap',   'phonebtn,cityfeed',  function(){ try{ phoneClose(); }catch(_e){} }],
   ['savepanel',   'savebtn',   null],
   ['keypanel',    'keybtn',    null],
   ['pfpanel',     null,        null],
@@ -58278,8 +58341,15 @@ document.addEventListener('pointerdown', function(ev){
     var row=OUTSIDE_PANELS[i], el=document.getElementById(row[0]);
     if(!panelIsOpen(el)) continue;
     if(el.contains(ev.target)) continue;                       /* inside it: leave it be */
-    var opener=row[1]?document.getElementById(row[1]):null;     /* the tap that opened it */
-    if(opener&&(opener===ev.target||opener.contains(ev.target))) continue;
+    /* the tap that opened it -- one id, or several separated by commas, because a
+       panel can have more than one door and naming only the first is how the fold
+       above stopped working when a door moved. */
+    var ids=row[1]?String(row[1]).split(','):[], onOpener=false;
+    for(var j=0;j<ids.length;j++){
+      var opener=document.getElementById(ids[j].trim());
+      if(opener&&(opener===ev.target||opener.contains(ev.target))){ onOpener=true; break; }
+    }
+    if(onOpener) continue;
     panelClose(row);
   }
 }, true);   /* CAPTURE, so a panel that stops propagation cannot hide the tap */

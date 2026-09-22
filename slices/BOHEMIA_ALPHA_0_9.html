@@ -84,6 +84,90 @@ canvas{image-rendering:pixelated;image-rendering:crisp-edges}
 #frontsub{color:#7a6a4a;font-size:10px;letter-spacing:1px;text-align:center;white-space:nowrap;padding:0 12px}
 #fronttap{margin-top:8px;color:#b89a6a;font-size:12px;letter-spacing:3px;animation:blink 1.4s ease-in-out infinite}
 @keyframes blink{0%,100%{opacity:.35}50%{opacity:1}}
+/* ============================================================================
+   THE LOADING SCREEN, OPTION B (Paolo 9/21, HIS OWN VOTE: "B is best not analog
+   horror enough the but keep going"). [horror loading], rule 20h, rule 26 s5.
+
+   He was shown four loading screens at real phone size and picked B: NO MACHINE,
+   THE WHOLE PHONE IS THE SCREEN. Edge to edge, no case, no bezel, the corners
+   going dark because a tube is curved. The log fills FROM THE BOTTOM the way a
+   real terminal does. The bar is real. BEGIN stays dark and says WAIT until the
+   game is genuinely in.
+
+   THIS IS HIS PICK REBUILT, NOT MY VERSION OF IT: the values below are lifted
+   from the option sheet he was looking at when he voted, so what ships is what he
+   saw. REUSE-FIRST, on a screen where reuse is also fidelity.
+
+   AND "KEEP GOING" IS THE OTHER HALF OF HIS VOTE, which is bible work:
+     R1 ONE WRONG THING -- the log is an ordinary power-authority boot report, and
+        exactly one line in it is wrong: NO OPERATOR ON DUTY. One. Not two.
+     R5 THE DEAD INSTITUTION'S TYPE -- procedural, too calm; the alarm line is set
+        in the same register as the timetable lines. No exclamation mark anywhere.
+     R8 DIEGETIC OR DEAD -- scanlines and the curved-tube vignette are LEGAL HERE
+        and nowhere else, because this IS an in-world screen: a terminal belonging
+        to a dead utility. That reading is what "more analog horror" unlocks.
+     R3 THE LONG HOLD -- nothing animates but the log arriving and the bar filling.
+   ========================================================================== */
+#front.load{ background:#0a0907; gap:0; justify-content:flex-end; padding:16px 14px;
+             padding-bottom:calc(16px + env(safe-area-inset-bottom,0px)) }
+#front.load #logoplate, #front.load #frontsub{ display:none }
+#loadwrap{ display:none; position:absolute; inset:0; flex-direction:column;
+           padding:16px 14px; padding-bottom:calc(16px + env(safe-area-inset-bottom,0px)) }
+#front.load #loadwrap{ display:flex }
+#loadtag{ text-align:center; padding:2px 0 9px; flex:0 0 auto }
+#loadtag b{ display:block; font-family:'BohemiaCasing',ui-sans-serif,sans-serif;
+  font-size:19px; letter-spacing:7px; color:#cfe0c8; text-shadow:0 0 9px rgba(150,200,150,.4) }
+#loadtag i{ display:block; margin-top:4px; font-style:normal;
+  font-family:'BohemiaCasing',ui-sans-serif,sans-serif; font-size:6px; letter-spacing:2px;
+  color:#6b5d42 }
+/* THE GLASS. justify-content:flex-end is the whole of "fills from the bottom the
+   way a real terminal does" -- lines arrive at the bottom and push the old ones up. */
+#loadgl{ position:relative; overflow:hidden; flex:1 1 auto; padding:9px 10px;
+  color:#c9dcc4; font-family:'BohemiaROM',ui-monospace,monospace; font-size:9px;
+  line-height:1.75; letter-spacing:.6px;
+  display:flex; flex-direction:column; justify-content:flex-end;
+  background:radial-gradient(150% 120% at 50% 48%,#12100c 0 58%,#0d0c09 58% 82%,#0a0907 82% 100%) }
+/* THE TUBE IS CURVED, so the corners fall away. His words for B, and it is also
+   bible R8: the lens is an eye, and this eye is a cathode tube in a dead office. */
+#loadgl::before{ content:''; position:absolute; inset:0; pointer-events:none;
+  background:radial-gradient(150% 140% at 50% 50%,rgba(0,0,0,0) 0 64%,rgba(0,0,0,.20) 64% 78%,
+             rgba(0,0,0,.42) 78% 90%,rgba(0,0,0,.70) 90% 100%) }
+/* SCANLINES, LEGAL ONLY BECAUSE THIS IS AN IN-WORLD SCREEN (bible R8). Two-pixel
+   pitch, 8% -- present when you look for it, invisible when you read. */
+#loadgl::after{ content:''; position:absolute; inset:0; pointer-events:none;
+  background:repeating-linear-gradient(180deg,rgba(0,0,0,.08) 0 1px,rgba(0,0,0,0) 1px 2px) }
+#loadgl div{ position:relative; z-index:1 }
+/* THE ONE WRONG THING, and it is set in the same register as everything else --
+   the horror is the calm (bible R5), so it is a shade, not a colour. */
+#loadgl .w{ color:#8fa889 }
+#loadrow{ display:flex; align-items:center; gap:8px; margin-top:10px; flex:0 0 auto }
+#loadwell{ flex:1 1 auto; height:13px; border-radius:2px; padding:2px;
+  background:#0b0a07; box-shadow:inset 0 2px 0 #050403, inset 0 -1px 0 #2e2719 }
+#loadfill{ height:9px; border-radius:1px; width:0%; transition:width .45s linear;
+  background:linear-gradient(180deg,#b6d6a8 0 30%,#77a468 30% 72%,#4c6f42 72% 100%);
+  box-shadow:0 0 6px rgba(150,200,150,.35) }
+#loadpct{ font-family:'BohemiaROM',ui-monospace,monospace; font-size:9px; letter-spacing:1.4px;
+  color:#c9dcc4; min-width:52px; text-align:right }
+/* *** THE BUTTON AND THE STAMP WERE BOTH PRINTING OVER THE BAR, AND ONLY THE
+   PHOTOGRAPH SAID SO. *** #loadwrap is absolutely placed over the splash, but
+   #fronttap and #buildstamp are siblings in #front's own flow, so they landed on
+   top of the terminal: the build stamp ran straight through the middle of WAIT and
+   the button was unreadable. The wrap reserves room for the button now and the
+   button is placed inside that room, and the stamp sits under the bar as a line of
+   the report instead of floating across it.
+   THE STAMP IS NOT HIDDEN. He needs to see which build he is on (7/20, after "I
+   didn't see nothing new" twice), and a loading screen is the first place he looks. */
+#front.load #loadwrap{ padding-bottom:calc(92px + env(safe-area-inset-bottom,0px)) }
+#front.load #fronttap{ position:absolute; left:0; right:0; z-index:2;
+  bottom:calc(26px + env(safe-area-inset-bottom,0px));
+  width:130px; margin:0 auto; min-height:48px;
+  display:flex; align-items:center; justify-content:center; font-size:9px; letter-spacing:5px;
+  color:#5d6b58; border:1px solid #1d2119; background:#0d0f0b; animation:none }
+#front.load #buildstamp{ bottom:10px; color:#4e452f; font-size:6px; letter-spacing:2px;
+  font-family:'BohemiaCasing',ui-sans-serif,sans-serif; z-index:2 }
+/* IT LIGHTS UP WHEN THE GAME IS GENUINELY IN, and not one beat before. */
+#front.load.ready #fronttap{ color:#0a0907; border-color:#8fbf7e; background:#8fbf7e;
+  text-shadow:none; box-shadow:0 0 14px rgba(150,200,150,.35) }
 #app{position:fixed;inset:0;display:none;flex-direction:column}
 #tabs{display:flex;background:#0d0b09;border-bottom:1px solid #241c12;overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;touch-action:none;scrollbar-width:none;padding:0 10px;scroll-behavior:smooth;cursor:grab}#tabs::-webkit-scrollbar{display:none}#tabs.drag{cursor:grabbing;scroll-behavior:auto}#tabs::-webkit-scrollbar{display:none}#tabs .tab{flex:0 0 auto;touch-action:pan-x}
 .tab{flex:1;padding:12px 4px;text-align:center;font-size:11px;letter-spacing:2px;color:#6a5a3e;cursor:pointer;border-bottom:2px solid transparent}
@@ -1393,6 +1477,17 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        document before one byte of script runs, so the door offered at 0.5 s no matter
        what the painter thought. It ships as the WAITING line now and the painter
        turns it into the invitation once the entry is really wired. -->
+  <!-- OPTION B, HIS PICK (9/21): the whole phone is the screen. The wrap is
+       absolutely placed over the splash and only shown while loading, so the
+       front door he knows -- the wordmark plate and its subtitle -- is untouched
+       underneath and comes back the instant the game is in. Nothing of his
+       approved art is deleted; it is covered while a machine is talking. -->
+  <div id="loadwrap">
+    <div id="loadtag"><b>BOHEMIA</b><i>CLARK COUNTY POWER AUTHORITY</i></div>
+    <div id="loadgl"></div>
+    <div id="loadrow"><div id="loadwell"><div id="loadfill"></div></div>
+      <span id="loadpct">0 OF 5</span></div>
+  </div>
   <div id="fronttap">ONE MOMENT</div>
   <!-- __IT_GOES_ON_HIS_HOME_SCREEN__ -- THE STORAGE SPLIT, SAID OUT LOUD INSTEAD
        OF LOOKING LIKE A WIPED SAVE. iOS gives a home-screen web app its OWN
@@ -1406,7 +1501,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 9/23d - NOBODY STANDS ON ANYBODY</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 9/23e - THE LOADING SCREEN IS B</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -11218,9 +11313,19 @@ function drawLogoBig(){
    JavaScript and was never waiting for one. That is the whole trick: the wait was
    always going to happen, and now it happens somewhere he can see it. */
 var LOAD_LINES = [
-  /* what it is doing, in the order it really happens. Each one is a QUESTION the
-     page answers about itself, so a stage cannot claim to be done early. */
+  /* WHAT IT IS DOING, IN THE ORDER IT REALLY HAPPENS, and each one is a QUESTION
+     THE PAGE ANSWERS ABOUT ITSELF, so a stage cannot claim to be done early.
+     *** THE WORDS ARE HIS OWN OPTION B, NOT MINE. *** He voted on a sheet whose
+     log read READING THE VALLEY / COUNTING WHAT STILL STANDS / CHECKING STREETS
+     FOR LIGHT / NO OPERATOR ON DUTY / STILL WORKING, and picked it. So the lines
+     that ship are those lines, attached to the five things the boot really does.
+     THE BAR IS REAL AND SAYS SO IN ITS OWN UNITS: "3 OF 5", not a percentage
+     nobody measured. The [loading look] row bans a progress bar that lies, and the
+     option sheet he read says "and the bar is real" in its own words. A bar that
+     counts stages it can prove is both. */
   { say: 'READING THE VALLEY',      done: function(){ return !!document.getElementById('cityFrame'); } },
+  { say: 'COUNTING WHAT STILL STANDS', done: function(){ return __cityHas(function(w){
+      return !!w.document.querySelector('canvas'); }); } },
   /* *** AND THIS ONE ASKED A QUESTION THE PARENT CANNOT ANSWER, WHICH JAMMED THE
      WHOLE SCREEN. *** It read w.DAY from outside the frame. `DAY` is declared
      `const DAY=BohemiaDayLoop.make()` -- and a const is NOT a property of window,
@@ -11237,11 +11342,17 @@ var LOAD_LINES = [
       if(!el) return false;
       var t = (el.textContent || '').trim();
       return !!t && t.indexOf('DAY 1 \u00b7 08:00') !== 0; }); } },
-  { say: 'DRAWING THE STREET',      done: function(){ return __cityHas(function(w){
+  { say: 'CHECKING STREETS FOR LIGHT', done: function(){ return __cityHas(function(w){
       var c = w.document.querySelector('canvas'); return !!c && c.width > 300; }); } },
   { say: 'PUTTING PEOPLE ON IT',    done: function(){ return __cityHas(function(w){
       return typeof w.BARK_DREW !== 'undefined' && w.BARK_DREW && w.BARK_DREW.length > 0; }); } }
 ];
+/* *** THE ONE WRONG THING (bible R1: a frame is mundane except exactly ONE element
+   that should not be there). *** Four of the log's lines are an ordinary utility
+   boot report. This is the fifth, it is his own from the option sheet, and it is
+   set in the same register as the others because the horror is the calm (R5). It
+   is not a stage and never gates BEGIN -- it is the thing in the room. */
+var LOAD_WRONG = 'NO OPERATOR ON DUTY';
 function __cityHas(fn){
   try{ var f = document.getElementById('cityFrame');
        return !!(f && f.contentWindow && fn(f.contentWindow)); }catch(_e){ return false; }
@@ -11269,23 +11380,56 @@ function __loadStart(){
   if(!runTab){ window.__RUN_TAB_MISSING=true;
     console.error('THE RUN TAB IS GONE from the alpha tab bar: the game cannot open'); }
   else { runTab.click(); window.__OPENED_ON_THE_GAME=(window.__OPENED_ON_THE_GAME||0)+1; }
+  /* THE SCREEN GOES INTO ITS LOADING STATE. Until this line the splash is his
+     ordinary front door; from here it is the utility's terminal, and it goes back
+     to being the front door the moment the class comes off. */
+  try{ document.getElementById('front').classList.add('load'); }catch(_e){}
   /* AND THE SCREEN REPORTS, on the same beat the rest of the game runs on. */
+  var said = 0;                      /* how many log lines have arrived */
   var tick = setInterval(function(){
     try{
       var el = document.getElementById('fronttap');
+      var gl = document.getElementById('loadgl');
       if(!el) return;
       var i = 0;
       while(i < LOAD_LINES.length && LOAD_LINES[i].done()) i++;
+
+      /* THE LOG FILLS FROM THE BOTTOM, ONE LINE PER STAGE FINISHED, and a line
+         that has arrived never leaves. His option B's own behaviour: the old ones
+         are pushed up, the way a real terminal does it. */
+      while(gl && said < i){
+        var row = document.createElement('div');
+        row.textContent = LOAD_LINES[said].say;
+        gl.appendChild(row);
+        said++;
+        /* THE ONE WRONG THING ARRIVES IN THE MIDDLE OF THE ORDINARY ONES, never
+           first and never last, because it is not an announcement. */
+        if(said === 2){
+          var wrong = document.createElement('div');
+          wrong.className = 'w';
+          wrong.textContent = LOAD_WRONG;
+          gl.appendChild(wrong);
+        }
+      }
+
+      /* THE BAR, IN UNITS IT CAN PROVE. */
+      var fill = document.getElementById('loadfill');
+      var pct  = document.getElementById('loadpct');
+      if(fill) fill.style.width = Math.round(i * 100 / LOAD_LINES.length) + '%';
+      if(pct)  pct.textContent = i + ' OF ' + LOAD_LINES.length;
+
       if(i >= LOAD_LINES.length){
         window.__LOAD_READY = true;
         clearInterval(tick);
+        try{ document.getElementById('front').classList.add('ready'); }catch(_e2){}
         if(el.textContent !== 'BEGIN') el.textContent = 'BEGIN';
         return;
       }
-      /* NO PERCENTAGE AND NO BAR. It says the thing it is doing and nothing else;
-         a number that is not measured is the lie the row rules out. */
-      var want = LOAD_LINES[i].say;
-      if(el.textContent !== want) el.textContent = want;
+      /* *** THE BUTTON SAYS WAIT UNTIL THE GAME IS GENUINELY IN. *** His own words
+         on option B. It is dark, it is 48 px so a thumb can find it, and pressing
+         it does nothing -- which is rule 18a's "nothing is tappable until it is
+         loaded" wearing a face instead of being an invisible refusal. */
+      if(el.textContent !== 'WAIT') el.textContent = 'WAIT';
     }catch(_e){}
   }, 500);   /* one beat at 120 BPM: the screen keeps the game's own pulse */
 }
@@ -11309,6 +11453,12 @@ document.getElementById('front').addEventListener('click',()=>{
      for: the hum lands on a finished world instead of under a build. */
   try{ window.__roomStart && window.__roomStart(); }catch(_e){}
   document.getElementById('front').style.display='none';
+  /* AND THE TERMINAL GOES AWAY WITH IT. UI's QUIT brings this door back mid
+     session, and what should be behind it then is his ordinary front door with the
+     wordmark on it -- not a utility still counting a load that finished an hour
+     ago. The class comes off here so the door is only ever a terminal while it is
+     really loading something. */
+  try{ var _f=document.getElementById('front'); _f.classList.remove('load','ready'); }catch(_e){}
   document.getElementById('app').style.display='flex';
   /* __THE_GAME_IS_THE_FIRST_THING__ -- DEMO BOARD ROW 7, "the cheapest big win on
      the board". The RUN tab was tapped in __loadStart, BEHIND this screen, which is
