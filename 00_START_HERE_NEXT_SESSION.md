@@ -17403,6 +17403,77 @@ THIS LANE'S ROLE, FIXED: 16 COOK, the production artist.
 THIS LANE'S SESSION SLUG: cook-mce6r5.
 
 
+COOK (cook-mce6r5): 9/22 LATEST -- *** THE SPHERE IS DRAWN. SIX UNDRAWN LANDMARKS -> FIVE. ***
+THE FIGHT VERDICT round 5: THE TWO BIGGEST LIES ARE PAID -- the fighter is himself again (198
+px on the fight glass against 181-187 on the street, against round 2's 37-vs-112) and THE
+LIGHT CARRIES, the cold blue gone and the fight floor the warm approved bank at the walk's
+own hour, which is THIS LANE'S ROUND-1 FLOOR LANDING ON THE GLASS. Everything still lying is
+chrome and the verdict says so: "ALL OF IT IS UI [fight hud]; COMBAT and COOK owe the picture
+nothing this round." So the round went to this lane's own row again.
+THE THING: banks/BOHEMIA_THE_SPHERE_9_22_26.txt -- FOUR CELLS, 192 x 192 m, 65,536 valley
+tiles, sixteen legend codes, rendered through the game's OWN planner. WHERE HE SEES IT: the
+VOTE tab, cook-the-biggest-screen-ever-built-9-22, picture
+slices/vote/COOK_THE_BIGGEST_SCREEN_EVER_BUILT.png. Tool:
+tools/bohemia_the_biggest_screen_ever_built_cook_9_22_26.js. Record:
+records/COOK_THE_BIGGEST_SCREEN_EVER_BUILT_9_22_26.md. NOTHING TO THE ALPHA OR THE DEMO.
+  THE BALL 53.1% of the plot   the shadow 10.1%   apron 8.7%   service ring 7.0%
+  open desert 95% one dominant ground   the dead grid 4.0% of the ball
+
+WHY THE SPHERE AND NOT ONE OF THE OTHER FIVE, MEASURED BEFORE CHOOSING: it is THE ONLY ONE
+THE MAP GIVES FOUR CELLS (sphere 192x192 m; luxor, highroller, springs, robofactory 96x96
+each). The real Sphere is 157 m wide, so in a 192 m plot it is 82% OF THE WIDTH -- the one
+landmark whose real size actually fits what the map reserved for it. That fit is why it
+earned four cells and why it is drawn at four rather than squeezed into one.
+
+MAP LAW READ, NOT ASSUMED (and the tool refuses if either changes):
+  arterial   arterial  arterial  arterial
+  apartment  SPHERE    SPHERE    suburb
+  apartment  SPHERE    SPHERE    suburb
+  commercial park      suburb    desert
+
+*** THE DRAWING PROBLEM: A BALL AND A DISC ARE THE SAME CIRCLE FROM ABOVE. *** The only
+thing that says BALL is how the light falls off it, so it is concentric value bands off an
+OFF-CENTRE cap, not a flat circle with an outline. WHICH WAY THE SUN IS WAS MEASURED, NOT
+CHOSEN: the approved roof set names roof_hipTL as the corner where "the slope cuts in" and
+roof_hipTR as "the shaded side", so the sun is NORTH-WEST -- and round 3's sign cook says the
+same from the other end, "THE SHADOW GOES EAST, because every other tile in this game is lit
+from the same corner". Cap north-west of centre, dark rim south-east, ground shadow beyond it.
+
+*** THE GRID WAS A CAGE AND THE PICTURE CAUGHT IT. *** The Exosphere is ~1.2 million LED
+pucks about half a metre apart, which at 0.75 m/tile is about one per tile. Drawn as
+CONTINUOUS LINES every six tiles in a near-black tone it took 16% of the plot and read as
+chicken wire over a ball: THE GRID SHOUTED AND THE BALL WHISPERED, which is backwards. A puck
+is a POINT, not a line, and from 192 m a million of them are TEXTURE. Dots on a five-tile
+lattice, offset every other row, one step off the surface they sit on: 4.0% of the ball, and
+THE TOOL NOW REFUSES ABOVE 12% so the cage cannot come back.
+
+AND THE FIRST LAYOUT PUT THINGS WHERE THE BALL ALREADY WAS -- my own guard refused the run
+with "legend entries nothing draws: 13". A 157 m ball with a 9 m service ring in a 192 m plot
+LEAVES ALMOST NOTHING BUT THE FOUR CORNERS (the ring's outer edge reaches within eleven tiles
+of the north arterial), so a rank of bays across the apron was painted over and the plant
+room vanished. Bays to the corners, yard and plant room to the two south corners. Not a
+compromise: it is what a plot this full actually IS.
+
+THE BIBLE (rule 20, AH-01). R1: a car park, a service road, a loading yard, apartments next
+door, and the largest screen ever built, dark -- the wrong thing in one sentence is "a
+million lamps and not one of them lit". R4: the fixture is the sun, the cap is where it
+lands, and the shadow agrees with every other tile. *** R9 THE MACHINES KEEP TALKING IS THE
+HOOK THIS OBJECT EXISTS FOR AND I DID NOT DRAW IT: *** a surface that still plays something
+on a schedule to an empty valley is BEHAVIOUR, not a tile plan. Named in the bank's notes for
+whoever owns the world's scheduled emissions rather than quietly taken. FOR WORLD.
+
+A SELF-INFLICTED ONE, WRITTEN DOWN SO NOBODY REPEATS IT: patching a tool by slicing its text
+at a marker and appending, I CUT THE FILE AT THE GRID BLOCK AND DELETED main() ALONG WITH
+EVERYTHING AFTER IT. The run went silent instead of failing loudly, which is the tell. When a
+patch replaces a REGION, take the text before AND after it; never just the text before.
+
+VOTE TAB IS 27/1 AND IT IS NOT MINE: the failing leg is "tapping VOTE in the gear opens the
+queue", a 90 s timeout, and it is red on a CLEAN TREE too (tested by stash). UI is rebuilding
+that exact door this round (Paolo 9/22, said twice: the alpha still opens on RUN).
+
+FIVE LANDMARKS LEFT UNDRAWN: highroller, luxor, springs, robofactory. Done: the Welcome sign,
+the Stratosphere, the Sphere.
+
 COOK (cook-mce6r5): 9/21 LATEST (4) -- *** THE STRATOSPHERE IS DRAWN. SIX UNDRAWN LANDMARKS
 -> FIVE. *** THE FIGHT VERDICT round 4 passed my edge fix and says in its own words
 "nothing new for COOK on the fight this round" -- the three lies left there are COMBAT's and

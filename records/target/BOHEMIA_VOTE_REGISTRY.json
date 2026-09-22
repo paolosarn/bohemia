@@ -300,7 +300,7 @@
     "src": "vote/ANIMATION_THE_IDLE_REDO.html"
    },
    "redoOf": "idle",
-   "said": "a lot of them are good, a lot of them aren’t good... IF I KILLED IT I DON’T WANT IT GONE. I just think it could be done better. Make a new one."
+   "said": "a lot of them are good, a lot of them aren\u2019t good... IF I KILLED IT I DON\u2019T WANT IT GONE. I just think it could be done better. Make a new one."
   },
   {
    "id": "factions-the-sign-still-lights-9-21",
@@ -465,7 +465,7 @@
    "sha": "534d87a",
    "made": "9/21",
    "title": "HOW A STEP IS DRAWN (I PICKED ONE FOR YOU)",
-   "why": "One press moves him a whole house, 275 pixels, in half a second, and his legs can only show one pace of it. What shipped was nobody’s choice: an old number in the code made the whole street jump at once. I put in the tape skip: he stands still, the picture skips twice, he is there. Thumbs up keeps it. Thumbs down and say GRID (the street jumps at once) or SLIDE (the street slides the whole time) and I will switch it.",
+   "why": "One press moves him a whole house, 275 pixels, in half a second, and his legs can only show one pace of it. What shipped was nobody\u2019s choice: an old number in the code made the whole street jump at once. I put in the tape skip: he stands still, the picture skips twice, he is there. Thumbs up keeps it. Thumbs down and say GRID (the street jumps at once) or SLIDE (the street slides the whole time) and I will switch it.",
    "show": {
     "how": "page",
     "src": "vote/ANIMATION_HOW_A_STEP_IS_DRAWN.html"
@@ -699,7 +699,7 @@
    "sha": "228818a1",
    "made": "9/21",
    "title": "THE BATTERY SHED, THE FIRST BUILDING THAT MAKES MONEY",
-   "why": "You build this on your own lot and a battery comes in. It is the small one, about the size of half a garage, not the big fenced battery yard the game already has. I drew it in that yard’s own colours so they are the same world. One thing in the picture is on purpose and it is the whole idea: THE LITTLE AMBER LIGHT IS LIT. Nothing else on the lot has power, the meter needle is stuck, the door is chained, and this box is still working. Thumbs up and I put it in the game so you can place one. Thumbs down and tell me if it is the shape, the colour, or the light.",
+   "why": "You build this on your own lot and a battery comes in. It is the small one, about the size of half a garage, not the big fenced battery yard the game already has. I drew it in that yard\u2019s own colours so they are the same world. One thing in the picture is on purpose and it is the whole idea: THE LITTLE AMBER LIGHT IS LIT. Nothing else on the lot has power, the meter needle is stuck, the door is chained, and this box is still working. Thumbs up and I put it in the game so you can place one. Thumbs down and tell me if it is the shape, the colour, or the light.",
    "show": {
     "how": "image",
     "src": "vote/LIFECITY_THE_BATTERY_SHED_9_21.png"
@@ -907,7 +907,7 @@
    "sha": "PENDING",
    "made": "9/22",
    "title": "FOUR WAYS THE GAME LOADS",
-   "why": "The screen that covers everything before you can touch anything, with a bar that cannot lie and the writing chat’s words wired to real stages. A is built and handed to the play chat.",
+   "why": "The screen that covers everything before you can touch anything, with a bar that cannot lie and the writing chat\u2019s words wired to real stages. A is built and handed to the play chat.",
    "show": {
     "how": "page",
     "src": "BOHEMIA_FOUR_WAYS_THE_GAME_LOADS_9_22_26.html"
@@ -1005,58 +1005,6 @@
    }
   },
   {
-   "id": "cook-the-ground-you-fight-on-9-21",
-   "kind": "tile",
-   "lane": "cook",
-   "sha": "2fbfb1a6",
-   "made": "9/21",
-   "title": "THE GROUND YOU FIGHT ON",
-   "why": "The fight was drawing the grey street from before it was fixed. This is the same board on the street you actually walk, plus the kerb and gutter you approved and nothing has ever drawn. Same layout, only the pictures on the ground changed. Good, or keep looking?",
-   "show": {
-    "how": "image",
-    "src": "vote/COOK_THE_GROUND_YOU_FIGHT_ON.png"
-   }
-  },
-  {
-   "id": "cook-the-edge-that-drums-9-21",
-   "kind": "tile",
-   "lane": "cook",
-   "sha": "2fbfb1a6",
-   "made": "9/21",
-   "title": "THE EDGE THAT DRUMS",
-   "why": "The strip down the side of every fight was ONE picture repeated fourteen times, because the pool had one tile in it. Now it has eight. No new art: the kerb you approved is one of your sidewalks with a lip on the bottom rows, so I gave that same lip to your other sidewalks. Better, or leave it?",
-   "show": {
-    "how": "image",
-    "src": "vote/COOK_THE_EDGE_THAT_DRUMS.png"
-   }
-  },
-  {
-   "id": "cook-the-lane-line-drums-too-9-21",
-   "kind": "tile",
-   "lane": "cook",
-   "sha": "2fbfb1a6",
-   "made": "9/21",
-   "title": "THE LANE LINE DRUMS TOO",
-   "why": "The painted lines repeated the same way the kerb did: two pictures for the lane, three for the centre line. Now eight and nine. The paint is still yours pixel for pixel, only the road underneath it changes, the way a real road gets patched under a straight line. Better, or leave it?",
-   "show": {
-    "how": "image",
-    "src": "vote/COOK_THE_LANE_LINE_DRUMS_TOO.png"
-   }
-  },
-  {
-   "id": "cook-the-tower-still-standing-9-21",
-   "kind": "tile",
-   "lane": "cook",
-   "sha": "2fbfb1a6",
-   "made": "9/21",
-   "title": "THE TOWER THAT IS STILL STANDING",
-   "why": "The map has named a cell THE STRATOSPHERE for months and nothing could build it, so walking there found bare ground. This is it: the tower, the pod, the casino roof, the empty car park. From above you cannot see that a thing is 350 metres tall, so the shadow does the talking and it runs off the far side of the block. Nothing on the plot is lit. Right for the valley, or not?",
-   "show": {
-    "how": "image",
-    "src": "vote/COOK_THE_TOWER_STILL_STANDING.png"
-   }
-  },
-  {
    "id": "factions-the-mark-on-the-wall-9-22",
    "kind": "tile",
    "lane": "factions",
@@ -1082,7 +1030,7 @@
     "src": "vote/ANIMATION_THE_HAND_REACHES_THE_FACE.html"
    },
    "redoOf": "eat, drink, smoke, cough and whistle",
-   "said": "a lot of them are good, a lot of them aren’t good... some of the DIRECTIONS look like dog shit: when it’s facing north-east the hand was behind the head even though it’s supposed to be in front. IF I KILLED IT I DON’T WANT IT GONE. Make a new one."
+   "said": "a lot of them are good, a lot of them aren\u2019t good... some of the DIRECTIONS look like dog shit: when it\u2019s facing north-east the hand was behind the head even though it\u2019s supposed to be in front. IF I KILLED IT I DON\u2019T WANT IT GONE. Make a new one."
   },
   {
    "id": "people-what-people-repeat-about-you-9-22",
@@ -1164,6 +1112,71 @@
    "show": {
     "how": "image",
     "src": "vote/LIFECITY_THE_SHOP_THAT_IS_OPEN_9_22.png"
+   }
+  },
+  {
+   "id": "cook-the-ground-you-fight-on-9-21",
+   "kind": "tile",
+   "lane": "cook",
+   "sha": "088fb97f",
+   "made": "9/21",
+   "title": "THE GROUND YOU FIGHT ON",
+   "why": "The fight was drawing the grey street from before it was fixed. This is the same board on the street you actually walk, plus the kerb and gutter you approved and nothing has ever drawn. Same layout, only the pictures on the ground changed. Good, or keep looking?",
+   "show": {
+    "how": "image",
+    "src": "vote/COOK_THE_GROUND_YOU_FIGHT_ON.png"
+   }
+  },
+  {
+   "id": "cook-the-edge-that-drums-9-21",
+   "kind": "tile",
+   "lane": "cook",
+   "sha": "088fb97f",
+   "made": "9/21",
+   "title": "THE EDGE THAT DRUMS",
+   "why": "The strip down the side of every fight was ONE picture repeated fourteen times, because the pool had one tile in it. Now it has eight. No new art: the kerb you approved is one of your sidewalks with a lip on the bottom rows, so I gave that same lip to your other sidewalks. Better, or leave it?",
+   "show": {
+    "how": "image",
+    "src": "vote/COOK_THE_EDGE_THAT_DRUMS.png"
+   }
+  },
+  {
+   "id": "cook-the-lane-line-drums-too-9-21",
+   "kind": "tile",
+   "lane": "cook",
+   "sha": "088fb97f",
+   "made": "9/21",
+   "title": "THE LANE LINE DRUMS TOO",
+   "why": "The painted lines repeated the same way the kerb did: two pictures for the lane, three for the centre line. Now eight and nine. The paint is still yours pixel for pixel, only the road underneath it changes, the way a real road gets patched under a straight line. Better, or leave it?",
+   "show": {
+    "how": "image",
+    "src": "vote/COOK_THE_LANE_LINE_DRUMS_TOO.png"
+   }
+  },
+  {
+   "id": "cook-the-tower-still-standing-9-21",
+   "kind": "tile",
+   "lane": "cook",
+   "sha": "088fb97f",
+   "made": "9/21",
+   "title": "THE TOWER THAT IS STILL STANDING",
+   "why": "The map has named a cell THE STRATOSPHERE for months and nothing could build it, so walking there found bare ground. This is it: the tower, the pod, the casino roof, the empty car park. From above you cannot see that a thing is 350 metres tall, so the shadow does the talking and it runs off the far side of the block. Nothing on the plot is lit. Right for the valley, or not?",
+   "show": {
+    "how": "image",
+    "src": "vote/COOK_THE_TOWER_STILL_STANDING.png"
+   }
+  },
+  {
+   "id": "cook-the-biggest-screen-ever-built-9-22",
+   "kind": "tile",
+   "lane": "cook",
+   "sha": "088fb97f",
+   "made": "9/22",
+   "title": "THE BIGGEST SCREEN EVER BUILT",
+   "why": "The Sphere. The map gave it four cells and nothing could build it, so walking there found bare dirt. 157 metres of ball in a 192 metre plot, which is why it got four cells and the others got one. From straight above a ball and a disc are the same circle, so the light falling off it does all the work. A million lamps in that surface and not one of them lit. Right for the valley, or not?",
+   "show": {
+    "how": "image",
+    "src": "vote/COOK_THE_BIGGEST_SCREEN_EVER_BUILT.png"
    }
   }
  ],
@@ -1339,7 +1352,7 @@
   {
    "id": "world-the-rules-run-with-the-dirt-9-21",
    "vote": "down",
-   "said": "Mfs charge batteries bro 🤣🤣🤣 i knkw buildings can help in our game but jesus christ mfs can charge batteries",
+   "said": "Mfs charge batteries bro \ud83e\udd23\ud83e\udd23\ud83e\udd23 i knkw buildings can help in our game but jesus christ mfs can charge batteries",
    "when": "9/21",
    "at": "2026-09-22"
   },
