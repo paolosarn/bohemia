@@ -35166,6 +35166,18 @@ that happen." Checked: no line opens VOTE at boot; RUN's BEGIN hands off to RUN;
 and did not build it; the manager wrote it on two rows and made it neither's first line. UI [alpha
 opens on vote] is now UI's first line (rule 18f), RUN's loading screen note says wire it if UI is
 not there first. records/BOHEMIA_PAOLO_THE_ALPHA_STILL_OPENS_ON_RUN_9_22_26.md. Nothing to judge.
+THEN (ff) THE VAMILY AFTER HIS VOTES (9/23, coordinator, records/BOHEMIA_COORDINATOR_ROUND_9_23_26.md).
+Six lanes claimed straight off a verdict (UI alpha opens on vote, PEOPLE no clumping + name mix,
+QUESTS haggle like bb, SOUNDS room volume, WORLD people charge). Shipped: the loading screen holds
+the load (RUN), the phone is the button + NOTES (UI), the first ask by name at 1.9 s with 0 cards
+(QUESTS), tape skip filmed then overruled by SLIDE (ANIMATION), one fight one song + file:// gates
+are blind (SOUNDS), companion on foot + weights (PEOPLE), walls + shelves (WORLD), shades (PORTRAIT).
+Routed: PLUMBER [slim build] second (267 vs 260 MB, 67 MB dead weight), [deep history] (shallow
+clone), [real surface] (gates over http); FACTIONS [track leg]; ANIMATION [spine bend]; DIRECTION
+[density ruler] ruled by default; COMBAT DPR note; CHARACTER ages/heights un-held for the making.
+First lines checked against his words. Registry 84 items, 83 verdicts, 1 waiting. His Pages-source
+click still ends the deploy race. Nothing to judge.
+
 
 COORDINATOR: 9/4 (ba) -- *** THE MEETING HALL:
 VAMILY.md's front page now carries every rule, and every chat re-reads it every time
