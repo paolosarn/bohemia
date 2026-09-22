@@ -10209,94 +10209,87 @@ HOW TWENTY-TWO ROUNDS COMPOSE, written once now that Q1-Q22 are all shipped:
 NEXT IN THIS LANE: Q23 [who eats first].
 
 
-FACTIONS (factions-ovkjpf): 9/22 (round 37) LATEST -- *** HE VOTED, AND HE KILLED THREE OF
-MY FOUR SIGNS. The bible says exactly why, in two rules, with no taste involved: every frame
-was ORDINARY WITH NOTHING WRONG IN IT, and I lit four signs and then DREW THEM AT NOON.
-Re-cooked all three at night through the bible (rule 30) and registered as a redo. ***
+FACTIONS (factions-ovkjpf): 9/22 (round 38) LATEST -- *** EVERY COURTHOUSE, POLICE STATION,
+FIRE STATION, LIBRARY, JAIL, PRISON, HOSPITAL AND CEMETERY IN THIS VALLEY IS DARK. EIGHTEEN
+BLOCKS, NOT ONE WITH POWER. THE DATA FORT HAS ALL SIX OF ITS BLOCKS LIT. Counted off the
+map, not written as lore. Cooked as volume on the ONE shape he approved. ***
 Nothing to judge outside the VOTE tab.
 
-HIS VERDICTS, 9/21
-  THE SIGN STILL LIGHTS    DOWN   (no words)
-  THE WATER STILL RUNS     UP     "More analog horror"
-  THE NOTICE AT THE EDGE   DOWN   "Not analog horror enough good idea"
-  THE MARK ON THE WALL     DOWN   "Not analog horror enough good idea re-cook"
-  TWICE "GOOD IDEA", so the ideas survive and the execution did not. The one he approved
-  still says MORE.
+WHY VOLUME AND NOT A FIFTH SHAPE
+  He killed three of the four silhouettes and HAS NOT YET RULED ON THE NIGHT RE-COOK (93
+  items in the tab, 83 verdicts, mine is in the unvoted ten). Drawing a fifth shape before
+  he rules is the fourth-version tell STOP PRODUCING names. But the monument IS APPROVED
+  ("More analog horror") and APPROVAL UNLOCKS VOLUME, so this is volume on the shape he
+  kept, pushed where he asked it pushed.
 
-VAMILY rows: [horror signs] CLAIMED 9/21, five rounds; three killed, one up, one redo in.
+VAMILY rows: [horror signs] CLAIMED 9/21, six rounds; three killed, one up, one redo and
+            one volume item waiting on him.
             [same lender] still CLAIMED AND HELD under 14b + 18b.
-Record: records/BOHEMIA_THE_SIGNS_AT_NIGHT_9_22_26.md (the re-cook AND the post-mortem)
-Round 36: records/BOHEMIA_THE_MARK_ON_THE_WALL_9_22_26.md
+Record: records/BOHEMIA_THE_DARK_INSTITUTIONS_9_22_26.md
+Round 37: records/BOHEMIA_THE_SIGNS_AT_NIGHT_9_22_26.md (the re-cook AND the post-mortem)
 
-*** THE POST-MORTEM, AGAINST THE BIBLE RATHER THAN AGAINST TASTE ***
-  R1 THE ORDINARY FRAME, ONE WRONG THING -- "name the wrong thing in one sentence or the
-  frame fails". EVERY ONE OF MY FOUR FRAMES WAS A TIDY SIGN WITH NOTHING WRONG IN IT. The
-  wrongness I kept claiming lived in the CAPTION ("nobody has worked there in ten years")
-  and never in the picture; a viewer saw a nice sign. AND THAT IS THE IDENTICAL FAILURE THE
-  BIBLE HAD ALREADY LOGGED AGAINST THE STREET -- "the street frame is ordinary with ZERO
-  wrong things" -- written down, in a file I cited, and I never held my own frames against it.
-  R4 THE LIGHT WAS IN THE ROOM -- "every lumen has a source you can point at; night
-  multiplies value and touches nothing else". I LIT FOUR SIGNS AND DREW THEM AT MIDDAY. A
-  lit sign in daylight is invisible, so the entire premise (this thing still works when
-  nothing else does) COULD NOT BE SEEN. The register's own strongest single image is a lit
-  screen in a dark room and I drew the room at noon, four rounds running.
-  THAT IS THE WHOLE OF "NOT ANALOG HORROR ENOUGH". Not a mood I failed to summon: two rules
-  with measures attached that I did not run.
+*** THE MEASUREMENT, AND IT BEAT ANYTHING I WOULD HAVE INVENTED ***
+  Swept all 9,216 cells for district kind and asked the power grid cell by cell, with the
+  same radius-1 service-connection rule pumpStations() uses.
+    DARK, EVERY BLOCK:  medical 4/0, prison 4/0, cemetery 3/0, courthouse 2/0,
+                        policestation 2/0, chapel 2/0, firestation 1/0, library 1/0,
+                        jail 1/0, radio 1/0
+    LIT:                DATAFORT 6/6, watertreat 2/2, pumpstation 1/1, strat 1/1,
+                        truckstop 1/1, casino 5/2, substation 2/1, reclaim 2/1
+  THE COURTS, THE POLICE, THE FIRE HOUSE, THE LIBRARY, THE JAIL, THE PRISON, THE HOSPITAL
+  AND THE CEMETERY ARE ALL DARK AND THE DATA FORT IS AT FULL POWER ON EVERY BLOCK.
+  NOBODY AUTHORED THAT. It fell out of the map generator and the grid generator agreeing
+  with each other, and until this sweep nothing had ever asked them the question together.
+  FOURTH TIME THIS LANE HAS FOUND A FACT BY ASKING TWO SHIPPED SYSTEMS ONE QUESTION NEITHER
+  WAS BUILT TO ANSWER (who feeds the pumps, what a tier charges, who came past, this).
+  AND IT IS R7 DONE PROPERLY. The bible calls THE LIT STREET WITH NOBODY HOME the cheapest
+  dread we own and its measure is "the wrongness traces to a real world-state row".
+  Satisfied by construction: every lit thing in these three frames is a district the grid
+  really feeds and every dark one is a district it really does not.
 
-THE RE-COOK, TWO MECHANICAL CHANGES, BOTH IN THE KIT SO NOTHING DRIFTS BACK
-  1. NIGHT AS ARITHMETIC. One multiply on all three channels by the same k. No tint, no
-     grade, no gradient -- a gradient is a mood and the rule says value only. What stays
-     bright is what a DRAWN FIXTURE points at: eight lit motel windows, an amber status
-     panel, a bare bulb on a cord.
-  2. ONE WRONG THING PER FRAME, nameable in one sentence, and THE SENTENCE IS PRINTED UNDER
-     THE PICTURE so the claim can be checked instead of felt:
-       "Every room is lit and there is not one car in the lot."
-       "The only thing with power in this street is the sign saying everything is fine."
-       "Somebody hung a working light over the price list so you can read it at three in
-        the morning."
-     All three are R7 occupancy wrongness, which the bible calls the cheapest dread we own.
-  AND R9 THE MACHINES KEEP TALKING has a picture instead of a caption for the first time:
-  the water board still reads NORMAL and it is the only powered thing in the street.
+THE THREE FRAMES (the approved monument, status panel DEAD because they have no power)
+  THE COURTHOUSE   "the only building with its lights on is the one with no name on it"
+  THE FIRE STATION "the fire house is dark and the water plant two blocks over is still
+                    reporting"
+  THE LIBRARY      "the library has been dark for ten years and the casino sign never went
+                    out"
 
-THE MACHINE CAUGHT THREE MORE AND IMPROVED THE WRITING
-  The kit's overflow reporter (built round three) caught three strings too wide for their
-  plates BEFORE the render: VALLEY WATER 48 px in 32, SERVICE NORMAL 57 in 30, EVERY 1
-  BLOCK 51 in 48. Shortening SERVICE NORMAL to just NORMAL made it colder. THE MACHINE
-  IMPROVED THE WRITING BY REFUSING IT.
+THREE FAULTS, TWO CAUGHT BY THE MACHINE
+  1. THE OVERFLOW REPORTER CAUGHT COURTHOUSE (39 px in 28) AND FIRE STATION (48 in 28)
+     BEFORE THE RENDER, second round running. A civic monument is wider than a water
+     district's anyway -- these got the biggest budget -- so the cabinet grew rather than
+     the name shrinking, and FIRE / STATION takes two cast lines like a real one.
+  2. THEN STATION WAS CLIPPED BY THE DEAD PANEL BELOW IT. Two cast lines plus a slot do not
+     fit 22 px. A SIGN THAT CUTS ITS OWN SECOND LINE IN HALF IS THE SAME DEFECT AS TEXT OFF
+     THE EDGE, ONE AXIS OVER -- and the reporter CANNOT SEE THAT ONE, because the string
+     fits horizontally. Vertical fit is the hole in that instrument; naming it is rule 13.
+  3. THE DATA FORT'S WINDOWS WERE A MINT GREEN ONE PIXEL OFF THE NETWORK TEAL, which would
+     have said THE NETWORK HOLDS THIS FORT -- a claim about territory I never measured. I
+     asked the grid WHO FEEDS those cells, not the turf map WHO OWNS them. Neutral
+     fluorescent white now: it says the machines are still on and claims nothing.
 
-AND THE LAMP POOL WAS A STAGE LIGHT. The first night pass put a hard bright diamond under
-every sign; it read like a follow spot, or worse like a UI marker telling you where to
-stand. A lamp above a sign washes a WIDE FLAT SHALLOW patch and falls off fast: wider,
-flatter, half the lift, one more step so the falloff is a ramp of hard edges, not a bullseye.
+STILL UNMEASURED, NAMED RATHER THAN GUESSED
+  WHO HOLDS THE DATA FORT. Measured its power, not its owner. If a crew holds six lit
+  blocks while every civic building is dark, that is a fact about this valley worth having,
+  and it is one turf sweep away. First thing next round.
 
-THE GRAVEYARD
-  factions-the-sign-still-lights-9-21, factions-the-notice-at-the-edge-9-22 and
-  factions-the-mark-on-the-wall-9-22 are DEAD and their ids never render again. The redo is
-  a new id, factions-the-signs-at-night-9-22, naming the one he wrote "re-cook" on and
-  quoting him.
-  WHAT SURVIVES THEM: every fact each was built on -- the pole sign's power reading, the
-  monument's water holder, the notice's three rents, the mark's out-and-back. He said "good
-  idea" twice. Only the light and the missing wrong thing died.
-
-GATES  COOK EVERY ROUND 14/0, "FACTIONS has cooked at least as recently as it has coded".
-       ART 45 16/0. HANDOFF 8/0. RULE 13: pre-push pass green; full suite 107 red at
-       ad23d875, none of them this lane's.
+GATES  COOK EVERY ROUND: "FACTIONS has cooked at least as recently as it has coded" (the
+       gate is 13/1; the one red is another lane's). ART 45 16/0. HANDOFF 8/0.
+       RULE 13: pre-push pass green; full suite 107 red at ad23d875, none of them this lane's.
 
 RULE 18 AND RULE 22, OBSERVED: nothing pushed to the demo or the alpha's play tabs, no cut,
 no build stamp, no game file touched.
 
 STILL OPEN, NONE OF IT THIS LANE'S
-  [FOR PLUMBER / RUN] PAGES PUBLISH was 266 MB against a 260 MB cap last round with 67 MB
-  of dead weight (234 files in records/target nothing loads, 46.7 MB; ~20 MB of retired
-  judge pages rule 15 killed on 9/14). Raised twice by this lane. Re-check it: this is the
-  one that can take the site down, and the 8/6 precedent is three failed builds in a row.
+  [FOR PLUMBER / RUN] PAGES PUBLISH was 266 MB against a 260 MB cap two rounds ago with
+  67 MB of dead weight itemised (234 files in records/target nothing loads, 46.7 MB; ~20 MB
+  of retired judge pages rule 15 killed 9/14). Raised twice. Re-check it.
   [FOR WORDS / WHOEVER OWNS trackSay] `leg` (out or back) is computed by tracksAt and thrown
-  away by the shipped sentence. Measured: 2:1 BACK by mid-day. WORDS Q23 said it on 9/13.
+  away by the shipped sentence; measured 2:1 BACK by mid-day. WORDS Q23 said it on 9/13.
   [FOR WORLD, water lifted] the pumps lift ZERO litres: needPerDay() returns 0, so the
   holder is real and the quantity is not.
   [FOR PLUMBER or UI] the vote registry conflicts on nearly every parallel round; this lane
-  has hit it four times. LIFE+CITY's "the registry add is an INSERT, not a re-serialize"
-  (db36f058) helps and does not end it.
+  has hit it five times now.
   [INHERITED] faction_towns P27; partiesNear() has no callers at all.
   [FOR QUESTS] M01-M05 are not inlined into any surface, so they cannot be played.
   [FOR DIRECTION / COOK] AR-005: the widest zoom is a declared placeholder sky, all six art
@@ -10315,21 +10308,20 @@ STILL OPEN, NONE OF IT THIS LANE'S
      on a board. Is the Cartel drab on purpose?
 
 NEXT IN THIS LANE
-  WAIT FOR THE VERDICT ON THE NIGHT CUT BEFORE DRAWING A FIFTH SILHOUETTE. Four shapes are
-  enough to judge a look; a fifth before he rules on the re-cook is the fourth-version tell
-  STOP PRODUCING names. If it comes back up, the set goes to VOLUME (the remaining eleven
-  crews, and the same four shapes at the other tiers). If it comes back down again, that is
-  a second rejection and the feature ends for the session.
-  WHAT TO DO IN THE MEANTIME, AND IT IS THE TEST NONE OF THE FOUR HAS HAD: every sign so far
-  is judged STANDING IN FRONT OF IT. The walked city draws a person about 100 px tall, so a
-  sign 200 px away is the normal case and none of these were designed for it. THE SAME SIGNS
-  AT WALKING DISTANCE -- what survives when the type is gone and only the silhouette and the
-  colour are left -- is COMPARE EVERY PIECE OF ART TO THE WORLD done properly.
-  THEN, WHEN THE HOLD LIFTS: the signs go into the walked city off turfAt(), POWER.at(),
+  FIRST: WHO HOLDS THE DATA FORT. One turf sweep, and if a crew holds six lit blocks while
+  every civic building is dark, that is this row's next picture and it needs no new shape.
+  STILL WAITING ON: the verdict on the night re-cook. If it comes back UP the set goes to
+  volume across the remaining crews and tiers. IF IT COMES BACK DOWN THAT IS A SECOND
+  REJECTION AND THE FEATURE ENDS FOR THE SESSION -- say so and stop, do not re-cook a third
+  time.
+  AND THE TEST NONE OF THE SIGNS HAS HAD: every one is judged ALONE ON EMPTY GROUND. In the
+  real street they sit among buildings, people and ground art. Whether they still read
+  there is COMPARE EVERY PIECE OF ART TO THE WORLD, and it is unrun.
+  WHEN THE HOLD LIFTS: the signs go into the walked city off turfAt(), POWER.at(),
   rentAhead() and tracksAt(). No new art needed.
   [same lender] stays HELD; [collector heir] is still the first thing waiting on it.
 
-THIRTY-NINE STANDING LESSONS THIS LANE KEEPS RE-LEARNING
+FORTY-ONE STANDING LESSONS THIS LANE KEEPS RE-LEARNING
   BEFORE ASSUMING A ROW IS BLOCKED, CHECK WHETHER ITS NAMED BLOCKER IS STILL TRUE.
   WHEN A CHECK GOES RED, ASK WHETHER IT IS MEASURING THE GAME OR ITS OWN INVENTION.
   WHEN HIS SENTENCE IS FALSE ON THE MAP, REPORT IT rather than forcing it.
@@ -10354,7 +10346,7 @@ THIRTY-NINE STANDING LESSONS THIS LANE KEEPS RE-LEARNING
   BEFORE PUTTING SOMETHING BACK, FIND OUT WHY IT WENT. git log -S answers in one command.
   STOP INVENTING IDENTIFIERS. Grep the name AND the SHAPE.
   A CACHE KEY THAT CANNOT TELL "NO" FROM "NOT YET" WILL FREEZE THE WRONG ANSWER.
-  A GATE THAT PRINTS NOTHING MAY HAVE PRINTED EVERYTHING: process.exit() drops stdout.
+  A GATE THAT PRINTS NOTHING MAY HAVE PRINTED EVERYTHING.
   A CACHE THAT ANSWERS "NULL" TWICE HAS NOT BEEN TESTED, IT HAS BEEN SKIPPED.
   A NEGATIVE RESULT IS WORTH SHIPPING WHEN IT IS BOUNDED AND MECHANICAL.
   A SUBSTRING TEST THAT MATCHES ITS OWN MUTATION IS NOT A TEST.
@@ -10363,19 +10355,22 @@ THIRTY-NINE STANDING LESSONS THIS LANE KEEPS RE-LEARNING
   ONE RUN EACH SIDE IS NOT AN A/B.
   THE BEST COOK DRAWS AN ANSWER THE GAME ALREADY HAS.
   A LAW CAN BE INVERTED BY A LAYOUT, NOT ONLY BY A RULING.
-  WHEN THE SAME DEFECT ARRIVES A THIRD TIME, STOP FIXING THE INSTANCE AND BUILD THE THING
-  THAT REPORTS IT.
+  WHEN THE SAME DEFECT ARRIVES A THIRD TIME, BUILD THE THING THAT REPORTS IT.
   BEFORE YOU BLAME YOUR OWN DIFF FOR A RED, TAKE YOUR OWN FILES OUT AND RUN IT.
   A MEASUREMENT THAT LOOKS LIKE A BUG IS SOMETIMES THE DESIGN BRIEF.
   A SHAPE WHOSE WHOLE JOB IS DIRECTION CAN POINT THE WRONG WAY AND STILL LOOK FINE IN CODE.
-  CONFIRM A PUSH BY ANCESTRY, NOT BY WHAT THE PUSH COMMAND PRINTED. A loop that trusted
-  "HEAD -> main" reported four rounds' work landed when it had not.
-  *** AND A LAW WITH A MEASURE ATTACHED IS NOT GUIDANCE, IT IS A TEST, AND I DID NOT RUN
-  IT. *** The bible has ten rules and eight carry a MEASURE line. R1's measure is one
-  sentence: NAME THE WRONG THING OR THE FRAME FAILS. Four signs, four rounds, and I never
-  once tried to write that sentence about my own picture. If I had, the first one would
-  have failed in five seconds, before any of it reached him. READ THE MEASURE, RUN THE
-  MEASURE, BEFORE THE THING GOES IN THE TAB.
+  CONFIRM A PUSH BY ANCESTRY, NOT BY WHAT THE PUSH COMMAND PRINTED.
+  A LAW WITH A MEASURE ATTACHED IS NOT GUIDANCE, IT IS A TEST, AND I DID NOT RUN IT. The
+  bible's R1 measure is one sentence -- NAME THE WRONG THING OR THE FRAME FAILS -- and four
+  signs went to him without anyone trying to write it.
+  *** AND A VERDICT THAT KILLS THE PICTURE DOES NOT KILL THE QUESTION IT WAS ASKING. ***
+  Three signs died for how they were lit; every fact underneath them survived, and the best
+  material of this whole row turned up afterwards, in a sweep I only ran BECAUSE I was
+  forbidden from drawing another shape. THE CONSTRAINT PRODUCED THE CONTENT.
+  *** AND AN INSTRUMENT ONLY CHECKS THE AXIS YOU BUILT IT FOR. *** The overflow reporter
+  catches text too WIDE for its plate and is blind to text too TALL for it -- which is the
+  same defect, and it shipped one this round until the render caught it. When a checker
+  saves you twice, ask what it still cannot see.
 
 --------------------------------------------------------------------------------
 

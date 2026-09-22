@@ -1258,6 +1258,19 @@
     "how": "image",
     "src": "vote/WORLD_THE_RING_ROAD.png"
    }
+  },
+  {
+   "id": "factions-the-dark-institutions-9-22",
+   "kind": "tile",
+   "lane": "factions",
+   "sha": "9c12b4aa",
+   "made": "9/22",
+   "title": "THE DARK INSTITUTIONS",
+   "why": "More of the monument you kept. I counted it off the map: the courthouse, police, fire house, library, jail, prison, hospital and cemetery are eighteen blocks and NOT ONE has power. The data fort has all six of its blocks lit.",
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_THE_DARK_INSTITUTIONS_9_22_26.html"
+   }
   }
  ],
  "verdicts": [
