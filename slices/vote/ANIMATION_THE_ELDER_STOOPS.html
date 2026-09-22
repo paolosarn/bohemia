@@ -1,0 +1,80 @@
+<!doctype html><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>BOHEMIA — The Elder Stoops</title>
+<!-- ANIMATION, [spine bend]. Paolo 9/21 voted yes to ages and then said "the old
+     person looks like shit". CHARACTER measured why: three adult ages within 3%
+     of each other, because the rig had no bend point above the hips. This is the
+     bend. Rule 25: it PLAYS, and it carries no vote of its own. -->
+<style>
+  :root{--ink:#e8e0cc;--bg:#0d0d12;--card:#16161d;--line:#33313d;--gold:#c79a3f}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+       font:13px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace;padding:14px}
+  .trio{flex-wrap:nowrap}
+  h1{font-size:13px;letter-spacing:2px;margin:0 0 4px;color:var(--gold)}
+  p{margin:0 0 12px;color:#a49a86;max-width:60ch}
+  .said{border-left:2px solid #7a4a4a;padding:6px 0 6px 10px;margin:0 0 14px;color:#b09a90}
+  .row{background:var(--card);border:1px solid var(--line);border-radius:6px;
+       padding:8px;margin-bottom:10px}
+  .name{font-size:11px;letter-spacing:2px;color:var(--gold);margin-bottom:6px}
+  .trio{display:flex;gap:6px;flex-wrap:nowrap;justify-content:space-between}
+  .one{text-align:center}
+  .lab{font-size:10px;letter-spacing:1px;margin-bottom:3px;color:#6f6862}
+  .old{color:#c79a3f}
+  .cell{width:108px;height:108px;image-rendering:pixelated;background:#101319;border-radius:3px}
+  table{border-collapse:collapse;margin-top:12px;font-size:12px;width:100%}
+  td,th{border:1px solid var(--line);padding:4px 6px;text-align:left}
+  th{color:var(--gold);font-weight:normal}
+  .note{margin-top:12px;color:#6f6862;max-width:60ch}
+</style>
+<h1>THE ELDER STOOPS</h1>
+<div class="said">You said the old person looks like shit. He did, and here is the
+actual reason: the rig had no way to bend a back. Young, middle aged and old were
+the same body within three percent. All we could do was make him slightly shorter.</div>
+<p>He has one bend point now, just above the hips. The higher up the body you go,
+the more it curves, so his back rounds instead of the whole torso tipping over like
+a plank. His arms come with his shoulders. His legs never move, because the bend is
+above them, which is the whole point.</p>
+<div id="rows"></div>
+<table>
+  <tr><th>counted off these exact pictures</th><th>before</th><th>now</th></tr>
+  <tr><td>how much shorter the old man is</td><td>3%</td><td>11.6%</td></tr>
+  <tr><td>how far his head sits out over his hip</td><td>0 pixels</td><td>2.4 pixels</td></tr>
+</table>
+<p class="note">Turned down low on purpose. Any less and he just reads as a young
+guy with bad posture. Any more and his head passes his toes and he reads as bent
+double, not old. This is in the game now, on every direction.</p>
+<script>
+(function(){
+  var SRC='ANIMATION_THE_ELDER_STOOPS.png';
+  var DIRS=['S','SE','E','NE','N','NW','W','SW'];
+  var AGES=[['YOUNG',''],['MIDDLE',''],['OLD','old']];
+  var W=112,N=8,BEAT=500;
+  var host=document.getElementById('rows'), cells=[];
+  DIRS.forEach(function(dir,di){
+    var box=document.createElement('div'); box.className='row';
+    var n=document.createElement('div'); n.className='name'; n.textContent='FACING '+dir;
+    box.appendChild(n);
+    var trio=document.createElement('div'); trio.className='trio';
+    AGES.forEach(function(spec,ai){
+      var one=document.createElement('div'); one.className='one';
+      var l=document.createElement('div'); l.className='lab '+spec[1]; l.textContent=spec[0];
+      var c=document.createElement('div'); c.className='cell';
+      c.style.backgroundImage='url('+SRC+')';
+      c.style.backgroundSize=(N*108)+'px auto';
+      cells.push({el:c,row:di*3+ai});
+      one.appendChild(l); one.appendChild(c); trio.appendChild(one);
+    });
+    box.appendChild(trio); host.appendChild(box);
+  });
+  /* the real clock: 120 beats a minute, idle runs four beats a loop */
+  var LOOP=BEAT*4, t0=performance.now();
+  (function tick(){
+    var ph=((performance.now()-t0)%LOOP)/LOOP;
+    var f=Math.floor(ph*N)%N;
+    for(var i=0;i<cells.length;i++)
+      cells[i].el.style.backgroundPosition=(-f*108)+'px '+(-cells[i].row*108)+'px';
+    requestAnimationFrame(tick);
+  })();
+})();
+</script>

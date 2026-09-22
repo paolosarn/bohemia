@@ -2731,8 +2731,28 @@ const BOH_AGE = (function () {
     youngadult: { h: 0.97, legBias:  0.00, limb: 0.98, label: 'YOUNG ADULT',
                   bias: { shoulders: -0.05, arms: -0.03, hips:  0.00 } },
     adult:      { h: 1.00, legBias:  0.00, limb: 1.00, label: 'ADULT' },
-    elder:      { h: 0.97, legBias:  0.00, limb: 1.00, label: 'ELDER' }
+    /* *** THE ELDER STOOPS. Paolo 9/21, on the ages he had just voted yes to:
+       "the old person looks like shit." CHARACTER measured why (e357361,
+       5c6aebb): young adult, adult and elder land within 3% OF EACH OTHER,
+       because the only dials here are HEIGHT and LEG FRACTION and the elder
+       shares its height with the young adult. Three ages, one body.
+       THE NOTE ABOVE THIS LINE ALREADY SAID WHAT WAS MISSING -- "old age
+       compresses the spine, it does not narrow the shoulders" -- and then there
+       was nothing in the rig that could compress a spine. A note that names a
+       mechanism nobody built is a plan, not a feature.
+       `stoop` is that one bend point, above the hips, and it is the elder's
+       whole difference. 0.20 was LOOKED AT, not picked off a table: below 0.12
+       it reads as bad posture on a young man, above 0.28 the head passes the
+       toes and he reads as bent double rather than old. */
+    elder:      { h: 0.97, legBias:  0.00, limb: 1.00, label: 'ELDER',
+                  stoop: 0.20 }
   };
+  /* WHICH WAY IS FORWARD ON SCREEN, per facing, in x only. A stoop drops the
+     head and shoulders DOWN on every facing -- that part needs no table -- but
+     in a 45 degree view the curve only reads if the upper body also comes round
+     the way he is pointing. Kept here rather than read from FACEANG so this
+     block has no dependency on anything defined later in the file. */
+  const STOOP_FWD = { N: 0, NE: 0.8, E: 1, SE: 0.8, S: 0, SW: -0.8, W: -1, NW: -0.8 };
 
   /* HANDS 7/8, FEET 11/12. These have no PART_SPEC anywhere in the system, so
      nothing has ever been able to resize them -- measured before this: foot band
@@ -2808,6 +2828,25 @@ const BOH_AGE = (function () {
          here it is the entire point rather than a caveat */
       if (P.neck && P.headTop) n.headTop = [n.neck[0] + (P.headTop[0] - P.neck[0]),
                                             n.neck[1] + (P.headTop[1] - P.neck[1])];
+      /* THE BEND ITSELF. Everything above the pivot rotates round it: the higher
+         a joint sits, the further it travels, on a SQUARED curve so the spine
+         bends rather than the whole torso tipping like a plank. Arms come with
+         it because they hang off the shoulders; legs never move, because the
+         pivot is above the hips and that is the entire point. */
+      if (S.stoop && n.waC && n.headTop) {
+        const piv = n.waC[1] - (n.waC[1] - n.headTop[1]) * 0.15;
+        const span = piv - n.headTop[1];
+        const fwd = STOOP_FWD[d] || 0;
+        if (span > 0) {
+          ['neck', 'headTop', 'shL', 'shR', 'elL', 'elR', 'handL', 'handR'].forEach(function (j) {
+            if (!n[j]) return;
+            const up = Math.max(0, piv - n[j][1]) / span;
+            const k = up * up;
+            n[j] = [n[j][0] + fwd * span * S.stoop * 0.55 * k,
+                    n[j][1] + span * S.stoop * k];
+          });
+        }
+      }
       if (S.legBias && P.waC && n.headTop) {
         const span = ground - n.headTop[1], dy = span * S.legBias;
         ['waC', 'waA', 'waB'].forEach(function (j) { if (n[j]) n[j] = [n[j][0], n[j][1] - dy]; });

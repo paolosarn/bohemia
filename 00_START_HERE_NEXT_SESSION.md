@@ -6144,6 +6144,77 @@ archive escape built in from the start so [handoff cut] is unblocked rather than
 THE WARNING FOR EVERY LANE: do not write this file from a copy you read at the start of your round.
 Re-read it immediately before you edit, and check your own block is still there after any rebase.
 
+ANIMATION (animation-lr9y9i): 9/23 (a) LATEST -- *** THE RIG CAN BEND A SPINE NOW.
+The old man was a young man 3% shorter; he is 11.6% shorter and stooped, on every
+facing, in the game. TAB: VOTE for the clip, and he is in the walked city too. ***
+
+[spine bend] SHIPPED.
+
+=== THE NOTE THAT WAS A PLAN, NOT A FEATURE
+Paolo 9/21, on ages he had just voted YES to: "the old person looks like shit."
+CHARACTER measured why: young adult, adult and elder within 3% of each other,
+because the only dials were HEIGHT and LEG FRACTION and the elder shared its
+height with the young adult and carried no bias at all.
+AND THE RIG'S OWN NOTE, one line above the elder's, already said what was missing:
+"old age compresses the spine, it does not narrow the shoulders." Nothing in the
+rig could compress a spine. A NOTE THAT NAMES A MECHANISM NOBODY BUILT IS A PLAN,
+NOT A FEATURE, and it read like a decision for as long as the elder existed. Worth
+carrying: when a comment explains an absence, check whether the thing it explains
+was ever built.
+
+=== THE BEND
+One pivot above the hips (15% of waist to crown). Everything above it moves on a
+SQUARED curve of its height above the pivot, so the back ROUNDS instead of the
+torso tipping like a plank; arms come with the shoulders; a per-facing sign brings
+the upper body round the way he points, or the curve does not read in a 45 view.
+0.20 was LOOKED AT, not picked: under 0.12 is bad posture on a young man, over 0.28
+his head passes his toes and he is bent double, not old.
+
+=== MEASURED, EIGHT FACINGS
+                                        before     after
+    shorter than the adult                2.4%     11.6%
+    head out over his own hip            0.00px    2.65px
+    drawn crown, rows lower on screen        2         8
+    facings whose DRAWN body differs       0/8       8/8
+
+=== THE LOAD-BEARING CLAIM: HIS LEGS DO NOT MOVE
+0 leg joints off where the height scale puts them, worst 0.18px. A stoop that
+drags a knee is a body falling over, not an old man.
+AND MUTATING IT TAUGHT THE SHAPE OF ITS OWN GUARD: adding the leg joints to the
+bend's list is a NO-OP, because the clamp makes anything below the pivot score zero
+travel. The legs are protected BY CONSTRUCTION, not by a list somebody must
+remember. The mutation that does move them removes the clamp: 0 -> 32 joints,
+worst 10.7px.
+
+=== THE RULER NEARLY LIED, ELEVENTH TIME
+The first bake set G.age, rendered, and got THREE IDENTICAL BODIES. I was one step
+from reporting that the bend does not read. G.age alone draws nothing:
+rebuildFromRig() is what turns a stage into a body package. Same tell as always, a
+result too clean to be true, caught by looking at the picture.
+
+=== THE GATE
+ELDER STOOPS 9/0, in the suite. Three mutations caught. It carries a CONTROL that
+the young adult is untouched, so a global change cannot pass by showing up worst on
+the elder, and it checks the DRAWN frame as well as the skeleton, because a
+skeleton that moved while the art did not would pass every joint claim and this
+lane has shipped that exact green before.
+VOTE TAB 30/0. Rule 13: pre-push pass green; full suite 107 red at ad23d875, none
+named as mine.
+
+=== FOR CHARACTER, NAMED NOT CROSSED
+The bend lives in the REST skeleton, so it reaches every clip and every facing
+without a per-clip edit. If you want the elder's SHOULDERS or HIPS to change too,
+that is the bias block next to it and it is yours; the note above the elder
+explicitly says old age does not narrow the shoulders, so I did not touch them.
+
+=== WHAT THIS LANE HOLDS
+[redo killed] CLAIMED. Its next piece is unchanged: the draw-order flag (a clip
+DECLARES hand-at-the-face, the way a gun clip declares _gun), which unlocks BOTH
+the back views and the profile throat-crossing for the five hand clips.
+[horror motion] OPEN.
+
+Nothing [PENDING Paolo].
+
 ANIMATION (animation-lr9y9i): 9/22 (b) LATEST -- *** HIS VOTES CAME IN. SLIDE IS
 THE FEEL, THE TAPE IS DELETED, AND THE TWO HE VOTED UP ARE IN THE GAME. The hand
 clips come back PLAYING. TABS: CITY for the walk, turn and idle; VOTE for the hand. ***
