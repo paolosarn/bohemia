@@ -21813,7 +21813,75 @@ RIGHT NOW: (a) write this whole instruction, word for word, into your own handof
 
 I will never paste anything to you again. From here on, the one word is the whole instruction.
 
-THIS ROUND -- *** HE VOTED. AND THE RUNWAY CLOTHES HE ASKED FOR WERE ALREADY HANGING ON THE
+THIS ROUND -- *** THE OLD THIRTEEN WERE WORKWEAR BECAUSE WORKWEAR WAS THE ONLY THING IN THE
+BOX. A NEW THIRTEEN IS IN VOTE, 5.6x MORE SEPARATED, FOUND BY THE SEARCH AND NOT BY ME.
+AND MY GATES PINNED TWO REGRESSIONS THAT ARE NOT MINE, ONE OF THEM SERIOUS.
+(sha 13856f9, CLAIMED [runway redo], continuing) ***
+
+VERDICTS READ BACK: the same seven. My new runway item from last round is still unjudged.
+
+*** WHY THE THIRTEEN HE VOTED DOWN ARE WORKWEAR, AND IT IS NOT A TASTE FAILURE. *** I read
+the original fit search's candidate pool: duster, drifter's coat, split-tail, cape, tactical
+vest, pauldron, bandolier, blanket roll, ruck pack; four legs, all workwear; and NO FEET AXIS
+AT ALL. THERE IS NOT ONE RUNWAY CUT IN IT. The search did its job perfectly and could only
+ever return workwear, because workwear was the only thing in the box. HIS "THEY ALL NEED TO
+GET REDONE" IS A VERDICT ON A POOL, NOT ON A SEARCH.
+
+SO I PUT THE RUNWAY IN THE BOX AND RAN THE SAME SEARCH. Cocoon, comma, asymmetric and wrap
+shoulders; drop-rise, wide-pleat, stacked-jersey and cropped legs; and a FEET axis the
+original never had, because last round measured that both runway poles are reachable from the
+feet alone. 1600 candidates, same greedy farthest-point walk.
+    today's thirteen, same ruler   closest pair 0.0085   (Blues / Trades)
+    the new thirteen               closest pair 0.0477
+    *** 5.6 TIMES MORE SEPARATED, AND 13 OF 13 CARRY A RUNWAY CUT. ***
+SAME RULER AS THE ORIGINAL, ON PURPOSE: profileOf, dist and the greedy walk copied unchanged.
+Last round I had to disclaim that my metric was only the same KIND as theirs; this one IS the
+same function, so the numbers compare. COPYING RATHER THAN IMPROVING WAS THE WHOLE POINT.
+
+THE PICTURE GETS HAIR; THE MEASUREMENT DOES NOT. The search renders a bare head because the
+original did, and the ruler had to stay identical. My first sheet was thirteen bald heads --
+in front of a man who had just said "keep cooking up hairstyles and faces" in the same breath
+as the down-vote. The sheet adds a haircut for LOOKING at; every number is the bare-head one
+and the record says so. LOOKING AT THE PICTURE CAUGHT THAT, as it has every round.
+
+*** TWO REGRESSIONS THAT ARE NOT MINE, EACH PINNED TO ONE COMMIT BY RUNNING THE GATE AT THAT
+COMMIT AND AT ITS PARENT. Neither is fixed here: ONE SYSTEM, ONE SESSION. ***
+
+ 1. SHAPE FROZEN 10/2 -- EVERY SILHOUETTE IN THE GAME MOVED. All 330 garments and all 13
+    faction outfits, each by about +15 opaque pixels. GREEN AT 79ae65d~1, RED AT 79ae65d:
+    PORTRAIT's eye change (sclera tied to skin, plus a lid shadow). STRUCTURE-NOT-COLOR says
+    the ramp may move and the shape may not. The gate hashes the OPAQUE MASK with colour
+    discarded, so this is not a colour change tripping a colour-blind check -- the shape of
+    every body in the game really did move.
+    -> FOR PORTRAIT: either the eye now paints outside where it used to, or something in that
+       commit adds opaque pixels to the head. 15 px is about two eyes' worth of one extra row.
+
+ 2. *** FACTION COLOUR 34/4 -- THE WALKED STREET IS NOW FIVE BODIES AND ZERO HOSTILES. ***
+    GREEN AT e9f3091~1, RED AT e9f3091: PEOPLE's [no clumping]. The fix for "nobody stands on
+    anybody" appears to have emptied the street.
+    -> THIS IS THE SERIOUS ONE AND IT IS ON THE DEPLOYED CUT. His own words, twice, are "I
+       did not see a single human being" -- about a street FULLER than this one. An
+       anti-clumping rule that also removes the crowd trades one of his complaints for the
+       one he has said out loud more often than any other. FOR PEOPLE AND THE COORDINATOR.
+
+[PENDING Paolo] carried, unchanged: which faction colour file wins; the Anarchists need a
+magenta garment and there are zero in 317, with the reserved purple band blocking the obvious
+cook; the Cartel sits on the drab exemption list and not in the law that names it.
+
+THE SUITE, HONESTLY. Mine, all green: CHARACTER IN THE VOTE TAB 9/0, HEM FOLLOWS THE LEG 11/0,
+REFERENCE CHECK 76/0 -- and that last one is worth a line, because the fleet's reference debt
+that has been red for four rounds on four different lanes is finally clear. The two reds above
+are pinned to other lanes' commits, not mine.
+
+WHAT THIS LANE OWES NEXT, in order: (a) the new thirteen need a FACTION assigned to each shape,
+and that is HIS call, exactly as the original search's own header says -- "WHICH SHAPE BELONGS
+TO WHOM IS HIS"; (b) then dress them in the faction colourways added last round; (c) RNWY-16,
+the Bottega garment that is not what it looks like, is the only thing on this lane's list that
+answers "analog horror MEETS" rather than just the runway register, and it needs new art.
+
+--------------------------------------------------------------------------------
+
+PREVIOUS ROUND -- *** HE VOTED. AND THE RUNWAY CLOTHES HE ASKED FOR WERE ALREADY HANGING ON THE
 RAIL WITH NOBODY WEARING A THREAD OF THEM. THAT IS THIS LANE'S FAULT, NOT THE ART'S.
 (sha c682b60, CLAIMED [runway redo]) ***
 
