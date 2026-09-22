@@ -194,6 +194,12 @@ person standing next to him. Player off the list, FACE AT THE DOOR back to 31/0.
 A GOOD FIX AND A WRONG DEFAULT INSIDE IT, caught only because this lane's older
 gates were run before shipping and not after.
 
+AND THE SHIP TEST COUNTS PAIRS AMONG OTHER PEOPLE, SAID OUT LOUD RATHER THAN
+QUIETLY: his own body is drawn by a third pass and is not on the room list on
+purpose, so counting him would be asking the ship test to forbid the one thing
+rule 19 asks for, which is somebody standing close enough to talk to him. With
+him counted the worst pair reads 81.3% and it is the person at his door.
+
 AND ONE RED NAMED, NOT MINE: A NAME reads "1 of 61 named at boot" and it does the
 same on CLEAN HEAD, because this round's own probes wrote the met-ledger to the
 driver's browser profile and it persists between runs. The gate's control assumes

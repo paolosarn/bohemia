@@ -81,8 +81,17 @@ function note(t, v) { notes.push('  NOTE  ' + t + (v == null ? '' : '   ' + v));
      + 'guarantee that covers one of two is not a guarantee',
      /var CT_DREW_AT = \[\], CT_DREW_ROOM = 0;/.test(city)
      && /CT_DREW_AT\.length/.test(city));
-  ok('the player is on the list first, so nobody stands on him either',
-     /CT_DREW_AT = \[\[hx, hy\]\]/.test(city));
+  /* *** AND THE PLAYER IS DELIBERATELY NOT ON IT, WHICH COST THREE OF THIS LANE'S
+     OWN GATES TO LEARN. *** Seeding the list with him meant NOBODY CAN STAND BESIDE
+     HIM: the person who comes to his door stopped being drawn and stopped speaking,
+     and FACE AT THE DOOR went 31/0 to 25/6 with "somebody really spoke" false.
+     He is already covered by the cell law. What he complained about is a CROWD
+     stacked on itself, never one person standing next to him, and rule 19 asks for
+     that person to be close enough to talk. */
+  ok('*** THE PLAYER IS NOT ON THE LIST, ON PURPOSE ***, because excluding a body\'s '
+     + 'width around him is the same as saying nobody may come to his door',
+     /CT_DREW_AT = \[\];/.test(city)
+     && /NOBODY CAN STAND BESIDE HIM/.test(cityFlat));
   ok('and the old cell law is still there, untouched, because this is the same '
      + 'law one layer out and not a replacement for it',
      /OCCUPANCY LAW: one body per cell, player included/.test(city)
@@ -130,8 +139,11 @@ function note(t, v) { notes.push('  NOTE  ' + t + (v == null ? '' : '   ' + v));
       const g = document.querySelector('canvas').getContext('2d');
       const boxes = []; const oDraw = g.drawImage;
       g.drawImage = function (img, ...a) {
-        if (a.length === 4 && a[2] === a[3] && a[2] === bodyLadder(HZOOM))
-          boxes.push({ x: Math.round(a[0]), y: Math.round(a[1]), s: a[2] });
+        if (a.length === 4 && a[2] === a[3] && a[2] === bodyLadder(HZOOM)) {
+          const st = new Error().stack;
+          boxes.push({ x: Math.round(a[0]), y: Math.round(a[1]), s: a[2],
+                       me: !/peoplePass|hostilePass/.test(st) });
+        }
         return oDraw.apply(this, [img, ...a]);
       };
       const all = (ctEveryone() || []); const keep = T.min; const rows = [];
@@ -142,8 +154,12 @@ function note(t, v) { notes.push('  NOTE  ' + t + (v == null ? '' : '   ' + v));
           if (a && (a[0] !== p.home[0] || a[1] !== p.home[1])) out++; }
         boxes.length = 0; try { render(); } catch (e) {}
         const b = boxes.slice();
+        /* THE PAIRS AMONG OTHER PEOPLE. His own body is drawn by a third pass and
+           is not on the room list on purpose (above), so counting him here would be
+           asking the ship test to forbid the one thing rule 19 asks for. */
         let pairs = 0, worst = 0;
         for (let i = 0; i < b.length; i++) for (let j = i + 1; j < b.length; j++) {
+          if (b[i].me || b[j].me) continue;
           const ox = Math.min(b[i].x + b[i].s, b[j].x + b[j].s) - Math.max(b[i].x, b[j].x);
           const oy = Math.min(b[i].y + b[i].s, b[j].y + b[j].s) - Math.max(b[i].y, b[j].y);
           if (ox > 0 && oy > 0) { pairs++; worst = Math.max(worst, (ox * oy) / (b[i].s * b[i].s)); }
