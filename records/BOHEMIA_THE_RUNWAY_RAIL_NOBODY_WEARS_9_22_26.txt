@@ -1,0 +1,133 @@
+THE RUNWAY RAIL NOBODY WEARS  --  CHARACTER lane, 9/22/26, [runway redo]
+
+HIS VERDICT: the thirteen DOWN, "they all need to get redone in an analog horror
+direction, analog horror meets Rick Owens meets Balenciaga meets Bottega Veneta,
+bro." The twelve DOWN: "keep cooking up clothing keep cooking up hairstyles and
+faces and portraits before you start showing this shit to me."
+
+*** WHAT I FOUND BEFORE COOKING ANYTHING. ***
+The wardrobe ALREADY HOLDS 38 garments cut to those houses: cocoon coats,
+comma coats, asymmetric coats, wrap coats, drop-rise trousers, stacked jersey pants,
+pant-boots, platform boots. COOK cooked them against the runway references and they
+ship as canon.
+  *** 34 OF THE 38 ARE WORN BY NOBODY. ***
+  *** AND 0 OF THE THIRTEEN FACTIONS WEARS A SINGLE ONE. ***
+He was shown thirteen people in chore coats and work pants while a cocoon coat and a
+comma coat sat unworn on the rail. SIX OF THE THIRTEEN WEAR THE SAME DUST TROUSERS.
+THIS LANE'S OWN STATE LINE SAYS "THIS LANE WIRES WHAT COOK COOKS". IT DID NOT.
+That is the root cause of the down-vote and it is mine, not COOK's.
+
+THE UNWORN RAIL, IN FULL:
+    COCOON COAT           SLATE COCOON COAT     COMMA COAT            
+    SLATE COMMA COAT      ASYMMETRIC COAT       ASH ASYM COAT         
+    WRAP COAT             ASH WRAP COAT         DROP RISE TROUSER     
+    BONE DROP TROUSER     STACKED JERSEY PANT   SLATE STACK PANT      
+    CROPPED BLACK DENIM   COLUMN PANT-BOOT      COAL COLUMN           
+    ASH COLUMN            BONE STACK BOOT       STACKED MID BOOT      
+    SLOUCH BOOT           ASH SLOUCH BOOT       MID SHAFT BOOT        
+    COAL MID BOOT         COBALT COCOON COAT    BRICK COMMA COAT      
+    OLIVE ASYM COAT       GRASS WRAP COAT       GOLD DROP TROUSER     
+    TEAL STACK PANT       BRICK CROP TROUSER    COBALT DROP TROUSER   
+    GOLD STACK BOOT       OLIVE STACK BOOT      TEAL COLUMN           
+    COBALT COLUMN         
+
+SO THE FIX IS WIRING, NOT DRAWING, WHICH IS WHY IT LANDS IN ONE ROUND. Zero new art,
+zero new garments, zero new code paths.
+
+HOW THE RE-DRESS WAS DECIDED, AND IT WAS NOT BY EYE. The original thirteen were found
+by rendering 880 candidates and searching for the most mutually-distinct set on the
+front width profile. A re-dress by taste throws that away silently, so this measures
+the same KIND of profile on the same real bodies. HONEST LIMIT: it is not provably
+the same function, so the absolute number below must NOT be read against that
+search's 0.0420 -- only before against after on this tool's own ruler means anything,
+which is all the refusal uses it for.
+
+  POLE SEPARATION (RNWY-13: "a figure that mixes both reads as neither"). The split
+    is the SET'S OWN MEDIAN shoulder-to-base ratio, 1.429, not a number I picked.
+    the gap between the two poles' means   0.2628 -> 0.4127
+    the spread of the whole set             0.1551 -> 0.2213
+    bodies that moved further onto a pole   5 of 13
+  MUTUAL DISTINCTNESS, closest pair on the width profile
+    before 0.0227   after 0.0305   KEPT OR IMPROVED
+    (the tool REFUSES TO WRITE if this regresses: a prettier set that reads as fewer
+     people is exactly his 9/14 complaint, and it would be a silent trade)
+  COLOUR KEPT, THREE WAYS. (1) a coloured garment is only offered to the faction whose
+    ramp it is cut in; (2) no swap may move the mean cloth colour more than 26 of 255
+    (worst this round: 24); (3) no swap may cost a faction more than a sixth of its
+    cloth SATURATION, which is what "readable by colour at fifty yards" actually means.
+    worst saturation change: 0.941 of what it was.
+
+  FACTION     POLE  SHOULDER/BASE   WHAT CHANGED
+  Caravans    wide  1.714 -> 1.714  nothing moved it
+  Colorful    tall  1.286 -> 1.125  GRASS WRAP COAT + BONE DROP TROUSER + BONE STACK BOOT
+  Anarchists  tall  1.212 -> 1.212  nothing moved it
+  Blues       wide  1.571 -> 1.714  COBALT COCOON COAT + CROPPED WORK TROUSER + COBALT COLUMN
+  Homeless    wide  1.429 -> 1.429  nothing moved it
+  Church      wide  1.5 -> 1.5      nothing moved it
+  Reds        tall  1.357 -> 1.188  STACKED JERSEY PANT
+  Cartel      wide  1.429 -> 1.429  nothing moved it
+  Trades      wide  1.571 -> 1.571  nothing moved it
+  Mob         wide  1.571 -> 1.571  nothing moved it
+  Network     tall  1.357 -> 1.188  TEAL STACK PANT + STACKED SOLE BOOT
+  Volunteers  tall  1.286 -> 1.125  STACKED SOLE BOOT
+  Remnants    wide  1.714 -> 1.714  nothing moved it
+
+*** THE COLOUR GUARD WAS TOO WEAK AND THE TABLE CAUGHT IT. *** The first run refused a swap
+only if it moved the body's AVERAGE cloth colour more than 26 of 255, and it happily
+put REDS IN AN OLIVE COAT AND A GOLD BOOT and REMNANTS, the olive faction, IN BRICK.
+Trading one strong colour for another barely moves an average, so the guard never
+fired while the picture showed two factions wearing each other's territory -- exactly
+what COLOUR IS TERRITORY exists to stop. A mean is the wrong instrument for it.
+NOW A COLOURED GARMENT IS ONLY OFFERED TO THE FACTION WHOSE RAMP IT IS CUT IN. The
+neutrals stay open to everybody, because a neutral is nobody's territory, and the
+mean-shift guard stays underneath as a second net.
+
+AND BOTH POLES TURN OUT TO BE REACHABLE FROM THE FEET ALONE -- a platform widens the
+base into Rick Owens, a pant-boot narrows it into Balenciaga -- which is why the
+factions with no coat at all can still be moved.
+
+*** HE NAMED THREE HOUSES AND THE LIBRARY HELD TWO. *** There were twelve runway
+references across Rick Owens and Balenciaga and NOTHING AT ALL for Bottega Veneta, so
+a third of a locked instruction had no ruler behind it and every lane dressing to
+rule 30 was guessing at one name in three. Added this round, with real sources:
+  RNWY-14  intrecciato, the woven lattice: the pattern IS the structure, not a print
+           on top. At sprite scale, a regular two-value lattice on ONE panel.
+  RNWY-15  no logo, nothing announced. This is COLOUR IS TERRITORY and
+           STRUCTURE-NOT-COLOR in another house's voice: a faction patch or a
+           stencilled sigil on a garment fails all three laws at once.
+  RNWY-16  trompe-l'oeil leather. FW22 opened on a white tank and straight jeans made
+           ENTIRELY of leather tooled to look like cotton; the SS23 check was printed
+           twelve times to reach flannel's depth. *** THIS IS THE ANALOG HORROR
+           BIBLE'S RULE 1 WEARING CLOTHES: the ordinary frame with one wrong thing. A
+           plain flannel shirt that is not cloth is exactly one wrong thing on an
+           otherwise ordinary body, and it is the only one of the three houses that
+           answers rule 20 directly instead of being decorated with it afterwards.
+           At sprite scale the tell is SHEEN, not pattern: leather holds a hard
+           specular band where cloth diffuses.
+  -> THAT IS THE NEXT COOK AND IT NEEDS NEW ART, so it is named here rather than
+     faked now. This round drew nothing.
+
+THE HONEST LIMIT ON WHAT THIS PICTURE IS. A runway silhouette is NOT by itself analog
+horror. It is the register he named, and the bible's rule 1 still wants one wrong
+thing, which a better-cut trouser does not supply. So this answers "Rick Owens meets
+Balenciaga" and it does NOT yet answer "analog horror meets". RNWY-16 is the bridge
+and it is the next thing this lane builds.
+
+*** WHAT THIS IS NOT, SAID BEFORE HE HAS TO NOTICE IT. *** He said ALL THIRTEEN need
+redoing. 5 of 13 moved. I am not going to call that all thirteen.
+THE REASON IS STRUCTURAL AND IT IS WORTH MORE THAN THE PICTURE: eight of the thirteen
+are defined by having NO COAT AT ALL, or by a back piece -- a mantle, a cape -- and
+those identities came out of the original 880-fit search, which picked them BECAUSE
+of that. Their legs and boots are the only slots left, and legs and boots alone do not
+move a silhouette far. Giving them a coat would move them plenty and would destroy the
+exact thing they were selected for, which is the trade this tool refuses to make
+silently.
+SO THE REAL ANSWER TO HIS NOTE IS TO RE-RUN THE 880-FIT SEARCH ITSELF with the runway
+shapes in the candidate pool and the faction colourways that now exist, and let it
+find a NEW mutually-distinct thirteen that is runway from the start rather than a
+workwear thirteen with better boots. That is a whole round and it is the next one.
+This round built the thing that search will need: the colourways, which did not exist
+this morning.
+
+NOT WIRED, NOT SHIPPED (rule 18 holds the play surface; rule 22(b) puts the making in
+VOTE). What a yes-vote costs: 5 edited lines in the thirteen, and no new art.

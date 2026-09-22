@@ -11,11 +11,11 @@ changed is looked up in that grid. A garment hangs below the hip exactly when it
 changes pixels the rig calls LEG. The hip and the knee come off the rest skeleton
 hip row 66, lower leg starts at row 98, foot ends at 105, in a frame 112 x 112.
 
-  canon garments measured      318
-  HANG BELOW THE HIP           103
-    carried by the THIGH       49
-    carried by the SHIN        54
-  shoes (a foot, not a hem)    32
+  canon garments measured      330
+  HANG BELOW THE HIP           111
+    carried by the THIGH       53
+    carried by the SHIN        58
+  shoes (a foot, not a hem)    36
   stop at or above the hip     183
 
 BY LAYER
@@ -23,14 +23,14 @@ BY LAYER
   back           14      0      0      0     14
   base           80      8      2      0     70
   face           14      0      0      0     14
-  feet           32      0      0     32      0
+  feet           36      0      0     36      0
   gear           26      4      4      0     18
   hair           11      0      0      0     11
   hands           6      0      0      0      6
   head           21      0      0      0     21
-  legs           35      4     31      0      0
+  legs           39      4     35      0      0
   neck            9      0      0      0      9
-  outer          63     30     17      0     16
+  outer          67     34     17      0     16
   waist           7      3      0      0      4
 
 *** AND THE NAME WOULD HAVE BEEN WRONG 36 TIMES, WHICH IS WHY IT ASKS THE PIXELS ***
@@ -85,6 +85,7 @@ EVERY GARMENT THAT HANGS, AND THE SEGMENT THAT CARRIES IT
   BIB OVERALLS                base   shin         105          100%
   STACKED JERSEY PANT         legs   shin          99           85%
   SLATE STACK PANT            legs   shin          99           85%
+  TEAL STACK PANT             legs   shin          99           85%
   BLUE JEANS                  legs   shin          97           80%
   BLACK CARGOS                legs   shin          97           80%
   GREY SWEATS                 legs   shin          97           80%
@@ -111,6 +112,8 @@ EVERY GARMENT THAT HANGS, AND THE SEGMENT THAT CARRIES IT
   BONE DROP TROUSER           legs   shin          97           80%
   WIDE PLEAT TROUSER          legs   shin          97           80%
   BONE WIDE TROUSER           legs   shin          97           80%
+  GOLD DROP TROUSER           legs   shin          97           80%
+  COBALT DROP TROUSER         legs   shin          97           80%
   SOOT TRENCH                 outer  shin          95           74%
   DUST BROWN TRENCH           outer  shin          95           74%
   SLATE TRENCH                outer  shin          95           74%
@@ -135,6 +138,7 @@ EVERY GARMENT THAT HANGS, AND THE SEGMENT THAT CARRIES IT
   WRAP SKIRT                  legs   shin          89           59%
   CROPPED WORK TROUSER        legs   shin          87           54%
   CROPPED BLACK DENIM         legs   shin          87           54%
+  BRICK CROP TROUSER          legs   shin          87           54%
   SCAV KNEEPADS               gear   thigh         85           49%
   SAND KNEEPADS               gear   thigh         85           49%
   SMITH'S APRON               outer  thigh         83           44%
@@ -155,10 +159,13 @@ EVERY GARMENT THAT HANGS, AND THE SEGMENT THAT CARRIES IT
   COCOON COAT                 outer  thigh         83           44%
   COMMA COAT                  outer  thigh         83           44%
   SLATE COMMA COAT            outer  thigh         83           44%
+  BRICK COMMA COAT            outer  thigh         83           44%
+  GRASS WRAP COAT             outer  thigh         83           44%
   ASYMMETRIC COAT             outer  thigh         81           39%
   LAYERED JERSEY              base   thigh         81           39%
   ASH LAYERED TEE             base   thigh         81           39%
   ARC LAYERED SHIRT           base   thigh         81           39%
+  OLIVE ASYM COAT             outer  thigh         81           39%
   CUTOFF DENIM SHORTS         legs   thigh         79           33%
   OLIVE SHORTS                legs   thigh         79           33%
   KHAKI SHORTS                legs   thigh         79           33%
@@ -174,6 +181,7 @@ EVERY GARMENT THAT HANGS, AND THE SEGMENT THAT CARRIES IT
   COBALT CHORE COAT           outer  thigh         77           28%
   RUST THIGH HOLSTER          gear   thigh         77           28%
   SLATE COCOON COAT           outer  thigh         77           28%
+  COBALT COCOON COAT          outer  thigh         77           28%
   DUST PONCHO                 outer  thigh         75           23%
   OXBLOOD PONCHO              outer  thigh         75           23%
   HOODED DUST PONCHO          outer  thigh         75           23%

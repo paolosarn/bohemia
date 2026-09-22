@@ -689,6 +689,30 @@
    "where": "book (ISBN 978-0571238347)",
    "kind": "real",
    "teaches": "the walk is a controlled fall; the body is always leaving balance and catching it, so a cycle where the torso never leans is a treadmill, not a walk."
+  },
+  "RNWY-14": {
+   "name": "Intrecciato, the woven lattice (Bottega Veneta)",
+   "folder": "runway",
+   "file": "reference/library/runway/INDEX.md",
+   "where": "https://www.1stdibs.com/blogs/the-study/bottega-veneta-intrecciato-50th-anniversary",
+   "kind": "real",
+   "teaches": "the house signature is a WEAVE -- strips interlaced into a base, so the pattern IS the structure, not a print on it; at sprite scale what survives is a regular two-value lattice on ONE panel, at an angle, reading as texture close and as a slightly darker block from across the street. The only earned ornament in this register, because it is structural."
+  },
+  "RNWY-15": {
+   "name": "No logo, nothing announced (Bottega Veneta)",
+   "folder": "runway",
+   "file": "reference/library/runway/INDEX.md",
+   "where": "https://www.selvane.co/blogs/knowledge/bottega-veneta-design-philosophy-decoded",
+   "kind": "real",
+   "teaches": "discreet, logo-free luxury: nothing carries a mark, a badge or a name, and the garment is identified by cut and material alone. This is COLOUR IS TERRITORY and STRUCTURE-NOT-COLOR in another house's voice -- a faction patch or a stencilled sigil on a garment fails all three at once."
+  },
+  "RNWY-16": {
+   "name": "Trompe-l'oeil leather, the ordinary thing that is not (Bottega Veneta, Blazy)",
+   "folder": "runway",
+   "file": "reference/library/runway/INDEX.md",
+   "where": "https://chooserealleather.com/style/brands/bottega-venetas-illusion-leathers-have-to-be-seen-to-be-believed-from-leather-denim-to-lambskin-plaid-shirts/",
+   "kind": "real",
+   "teaches": "FW22 opened on a white tank and straight jeans made ENTIRELY of leather tooled to look like cotton; the SS23 check was printed twelve times to reach flannel's depth. Mundane at a glance, wrong on the second look -- THE ANALOG HORROR BIBLE'S RULE 1 WEARING CLOTHES, and the only one of the three houses that answers rule 20 directly instead of being decorated with it. At sprite scale the tell is SHEEN not pattern: leather holds a hard specular band where cloth diffuses."
   }
  }
 }

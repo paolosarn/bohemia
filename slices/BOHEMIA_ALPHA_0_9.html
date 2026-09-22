@@ -29702,6 +29702,37 @@ window.CLO=(function(){
     {n:'COLUMN PANT-BOOT',st:'canon',fresh:true,layer:'feet',gen:function(g){return wear(genPants(g,{ramp:CHARCLOTH,cut:'column'}),CHARCLOTH,12);}},
     {n:'COAL COLUMN',st:'canon',fresh:true,layer:'feet',gen:function(g){return wear(genPants(g,{ramp:FADEDBLK,cut:'column'}),FADEDBLK,12);}},
     {n:'ASH COLUMN',st:'canon',fresh:true,layer:'feet',gen:function(g){return wear(genPants(g,{ramp:ASHGREY,cut:'column'}),ASHGREY,13);}},
+    /* ===== THE RUNWAY, IN THE FACTION COLOURS (9/22, CHARACTER, [runway redo]) ==========
+       PAOLO 9/21, rule 30, voting the thirteen DOWN: "they all need to get redone in an
+       analog horror direction, analog horror meets Rick Owens meets Balenciaga meets
+       Bottega Veneta, bro."
+       MEASURED FIRST, AND IT IS WHY THESE EXIST. COOK had already cut 26 garments to those
+       houses and TWENTY-TWO WERE WORN BY NOBODY, with ZERO on any of the thirteen factions.
+       The re-dress that followed could only move FOUR of the thirteen, and the reason was
+       not taste: EVERY RUNWAY PIECE ON THE RAIL IS CUT IN A NEUTRAL -- charcoal, slate,
+       ash, bone, storm, faded black -- while the factions ARE their colours (cobalt, brick,
+       gold leaf, teal, olive drab, grass). COLOUR IS TERRITORY forbids dressing Blues in
+       slate, so nine factions had nothing legal to put on.
+       SO THE MISSING THING WAS NEVER A SHAPE. IT WAS A COLOURWAY.
+       NOTHING NEW IS DRAWN HERE AND THAT IS THE POINT: every line below is COOK's own
+       generator with COOK's own shape flag and the FACTION'S OWN RAMP CONSTANT, which is
+       exactly how SLATE COCOON COAT differs from COCOON COAT. Same art, same code path,
+       one line each. This lane's job is to WIRE WHAT COOK COOKS and this is that wiring.
+       Which faction ends up wearing which is decided BY MEASUREMENT in
+       tools/bohemia_cook_the_runway_rail_nobody_wears.js, never by eye, and that tool
+       refuses to write if the thirteen come out less mutually distinct than before. */
+    {n:'COBALT COCOON COAT',st:'canon',fresh:true,layer:'outer',gen:function(g){return wear(genCoat(g,{ramp:COBALT,cocoon:true,len:0.34}),COBALT,14);}},
+    {n:'BRICK COMMA COAT',st:'canon',fresh:true,layer:'outer',gen:function(g){return wear(genCoat(g,{ramp:BRICK,cocoon:true,comma:true,len:0.56}),BRICK,15);}},
+    {n:'OLIVE ASYM COAT',st:'canon',fresh:true,layer:'outer',gen:function(g){return wear(genCoat(g,{ramp:OLIVEDRAB,asym:true,len:0.56}),OLIVEDRAB,14);}},
+    {n:'GRASS WRAP COAT',st:'canon',fresh:true,layer:'outer',gen:function(g){return wear(genCoat(g,{ramp:GRASSGRN,wrap:true,len:0.56}),GRASSGRN,14);}},
+    {n:'GOLD DROP TROUSER',st:'canon',fresh:true,layer:'legs',gen:function(g){return wear(genPants(g,{ramp:GOLDLEAF,cut:'drop'}),GOLDLEAF,8);}},
+    {n:'TEAL STACK PANT',st:'canon',fresh:true,layer:'legs',gen:function(g){return wear(genPants(g,{ramp:TEALBRT,cut:'stack'}),TEALBRT,10);}},
+    {n:'GOLD STACK BOOT',st:'canon',fresh:true,layer:'feet',gen:function(g){return wear(genShoes(g,{ramp:GOLDLEAF,sole:'stack'}),GOLDLEAF,8);}},
+    {n:'TEAL COLUMN',st:'canon',fresh:true,layer:'feet',gen:function(g){return wear(genPants(g,{ramp:TEALBRT,cut:'column'}),TEALBRT,10);}},
+    {n:'COBALT COLUMN',st:'canon',fresh:true,layer:'feet',gen:function(g){return wear(genPants(g,{ramp:COBALT,cut:'column'}),COBALT,14);}},
+    {n:'OLIVE STACK BOOT',st:'canon',fresh:true,layer:'feet',gen:function(g){return wear(genShoes(g,{ramp:OLIVEDRAB,sole:'stack'}),OLIVEDRAB,14);}},
+    {n:'BRICK CROP TROUSER',st:'canon',fresh:true,layer:'legs',gen:function(g){return wear(genPants(g,{ramp:BRICK,cut:'crop'}),BRICK,15);}},
+    {n:'COBALT DROP TROUSER',st:'canon',fresh:true,layer:'legs',gen:function(g){return wear(genPants(g,{ramp:COBALT,cut:'drop'}),COBALT,14);}},
   ];
 
   /* ==== WHICH LEG CARRIES THE HEM (9/15, CHARACTER, VAMILY [long coats]) ==============
@@ -29810,6 +29841,14 @@ window.CLO=(function(){
 "SHOULDER LONGLINE":["thigh",0.231],
 "SLATE CAR COAT":["thigh",0.436],
 "SLATE COCOON COAT":["thigh",0.282],
+"COBALT COCOON COAT":["thigh",0.282],
+"BRICK COMMA COAT":["thigh",0.436],
+"OLIVE ASYM COAT":["thigh",0.385],
+"GRASS WRAP COAT":["thigh",0.436],
+"GOLD DROP TROUSER":["shin",0.795],
+"TEAL STACK PANT":["shin",0.846],
+"BRICK CROP TROUSER":["shin",0.538],
+"COBALT DROP TROUSER":["shin",0.795],
 "SLATE COMMA COAT":["thigh",0.436],
 "SLATE STACK PANT":["shin",0.846],
 "SLATE TRENCH":["shin",0.744],

@@ -1,7 +1,7 @@
 {
- "why": "first freeze: STRUCTURE-NOT-COLOR had no gate over the wardrobe",
- "record": "records/BOHEMIA_THE_SHAPE_IS_FROZEN_9_16_26.md",
- "baked": "2026-09-16",
+ "why": "12 faction-colour runway garments added (cocoon, comma, asym, wrap, drop, stack, crop, column, platform) so the thirteen can be dressed to Rick Owens / Balenciaga / Bottega without spending the colour channel. One line each: COOK's own generator, COOK's own shape flag, the faction's own ramp. No new art.",
+ "record": "records/BOHEMIA_THE_RUNWAY_RAIL_NOBODY_WEARS_9_22_26.txt",
+ "baked": "2026-09-22",
  "note": "THE OPAQUE MASK ONLY. Colour is thrown away, so a ramp change is invisible here and a shape change cannot hide behind one. Re-bake only with tools/bohemia_freeze_the_silhouettes.js, which refuses without a reason and a record.",
  "garments": {
   "TEMPLE TAPER": [
@@ -1593,6 +1593,66 @@
    "c19a3e2c",
    2937,
    "feet"
+  ],
+  "COBALT COCOON COAT": [
+   "264c8d2e",
+   2949,
+   "outer"
+  ],
+  "BRICK COMMA COAT": [
+   "3e159de5",
+   2957,
+   "outer"
+  ],
+  "OLIVE ASYM COAT": [
+   "e8f4d0b6",
+   2878,
+   "outer"
+  ],
+  "GRASS WRAP COAT": [
+   "1ebe608b",
+   2914,
+   "outer"
+  ],
+  "GOLD DROP TROUSER": [
+   "8def6f14",
+   2877,
+   "legs"
+  ],
+  "TEAL STACK PANT": [
+   "aa478aae",
+   2897,
+   "legs"
+  ],
+  "GOLD STACK BOOT": [
+   "e8ab816d",
+   2867,
+   "feet"
+  ],
+  "TEAL COLUMN": [
+   "c19a3e2c",
+   2937,
+   "feet"
+  ],
+  "COBALT COLUMN": [
+   "c19a3e2c",
+   2937,
+   "feet"
+  ],
+  "OLIVE STACK BOOT": [
+   "e8ab816d",
+   2867,
+   "feet"
+  ],
+  "BRICK CROP TROUSER": [
+   "b74bbb42",
+   2877,
+   "legs"
+  ],
+  "COBALT DROP TROUSER": [
+   "8def6f14",
+   2877,
+   "legs"
   ]
  },
  "outfits": {
