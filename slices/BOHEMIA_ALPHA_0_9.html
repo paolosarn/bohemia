@@ -15902,11 +15902,32 @@ const FIGHTMUS={
     /* AT THE NEXT PHRASE, not on the frame the last hostile drops. */
     const from=(typeof MUS!=='undefined')?MUS.step:0;
     const at=(Math.floor(from/this.PHRASE)+1)*this.PHRASE;
+    /* __LEAVING_IS_NOT_A_CUT__ (9/23, SOUNDS lane) -- AND THE WALL CLOCK IS THE FLOOR,
+       BECAUSE THE STEP COUNTER CAN BE ZEROED BY SOMEBODY ELSE.
+       MEASURED: the streets took the music back 0 ms after a fight ended, a hard cut,
+       with the stack reading leave's own watchdog -> startShuffle -> CITYMUS.play ->
+       TWO COINS FOR THE FERRYMAN. The `s<from` escape below is right for the reason
+       its comment gives (a song change resets step to 0, so a wrapped clock has
+       arrived) and it is ALSO true of something else entirely:
+       __THE_BEAT_BEFORE_THE_SONG__ zeroes MUS.step whenever the transport falls more
+       than a quarter second behind, which is every stutter on a phone. Same symptom,
+       opposite correct answer -- a re-anchor is not a phrase ending.
+       ONE CONDITION CANNOT TELL TWO CAUSES APART. So a phrase of WALL TIME has to
+       pass as well, and that is not a number invented here: INTERIORMUS in this same
+       file already hit this exact wall and wrote it down -- "THE DWELL is the debounce,
+       and it has to be SEPARATE because of that wrap rule... Wall time cannot be
+       wrapped, so one phrase of it is a promise the step counter cannot break."
+       phraseMs() is the engine's own unit, shared with the street's rest, the drum
+       hold and the room's own wait, so no new number enters the game. */
+    const since=Date.now();
     this.watch=setInterval(()=>{
       if(FIGHTMUS.on){ clearInterval(FIGHTMUS.watch); FIGHTMUS.watch=null; return; }
       let s=0; try{ s=MUS.step; }catch(e){}
+      let ph=16000; try{ ph=phraseMs(); }catch(e){}
       /* a song change resets step to 0, so a wrapped clock counts as arrived */
-      if(s>=at||s<from){
+      const musical=(s>=at||s<from);
+      const dwelt=(Date.now()-since)>=ph;
+      if(musical&&dwelt){
         clearInterval(FIGHTMUS.watch); FIGHTMUS.watch=null;
         FIGHTMUS.cameBack=Date.now();
         try{ CITYMUS.startShuffle(); }catch(e){}

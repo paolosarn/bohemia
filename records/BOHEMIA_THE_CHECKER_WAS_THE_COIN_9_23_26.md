@@ -228,3 +228,49 @@ round trips that define it. Both new claims fail on demand under mutation.
 > with that. Twelve green runs alone would not be.** If this gate flakes again, the log now prints
 > the caller, the millisecond and the stack, so the next round starts from a cause instead of
 > from two song titles.
+
+---
+
+## 9. AND THE STRICTER CLAIM IMMEDIATELY CAUGHT A REAL HARD CUT
+
+The rebuilt claim 4 asks for no swap **and no restart** in the 2.8 s after a fight ends, by the
+page's own clock. On the tree after main moved it went red, and printed its own cause:
+
+    SWAPPED to TWO COINS FOR THE FERRYMAN at +7351 ms
+      at CITYMUS.play <- CITYMUS.startShuffle <- FIGHTMUS.leave's watchdog
+
+**The streets took the music back 0 ms after the fight ended.** A hard cut, which is the one
+thing that transition is asymmetric in order to avoid: *"leaving a fight is not an emergency and
+a hard cut back to calm reads cheap."*
+
+The watchdog waits for the next phrase, with one escape:
+
+```js
+if(s>=at||s<from){ ... CITYMUS.startShuffle(); }
+```
+
+The `s<from` half is **right** for the reason its own comment gives: a song change resets the
+step counter to zero, so a wrapped clock has arrived. It is also true of something else
+entirely. `__THE_BEAT_BEFORE_THE_SONG__` zeroes `MUS.step` whenever the transport falls more
+than a quarter second behind, **which is every stutter on a phone.** Same symptom, opposite
+correct answer: a re-anchor is not a phrase ending.
+
+> **ONE CONDITION CANNOT TELL TWO CAUSES APART.**
+
+**AND THE FIX WAS ALREADY WRITTEN DOWN IN THE SAME FILE, BY SOMEBODY WHO HIT THIS EXACT WALL.**
+`INTERIORMUS` waits on a phrase too, and its comment says why it needs a second condition:
+
+> *"THE DWELL is the debounce, and it has to be SEPARATE because of that wrap rule... Wall time
+> cannot be wrapped, so one phrase of it is a promise the step counter cannot break."*
+
+So the fight's hand-back now needs the step condition **and** one phrase of wall time, measured
+with `phraseMs()` -- the engine's own unit, already shared by the street's rest, the drum hold
+and the room's own wait, so no new number enters the game.
+
+    the escape                 s >= at || s < from          (unchanged, still right)
+    the floor                  Date.now() - since >= phraseMs()   (16,000 ms at 120 BPM)
+    both, or it does not hand back
+
+**That defect was in the game before this round and no claim could see it**, because the old
+claim compared two song titles and a re-pick that happened to land on the same title passed.
+The stricter claim found it on its second day of existence.
