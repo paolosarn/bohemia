@@ -119,6 +119,39 @@ const REBUILD = (pre) => `(async () => {
            patches: patches, tileM: g('tileMetres'), tile: tile };
 })()`;
 
+/* *** THE LIVE FIGHT IS THE ONE THAT IS DRAWING, AND THAT IS THE FIFTH DISCRIMINATOR
+   THIS ROUND AND THE FIRST HONEST ONE. *** V221 wrote down that more than one frame
+   answers and only one is alive; the fight frame is the same. Everything tried before
+   this asked about STATE and every one of them could be true of a frame that renders
+   nothing: G and #fire alone takes a frame whose board is 0x0; a board with pixels
+   takes a PRE-CREATED fight that is sized, carries every constant, computes a correct
+   197 px tile -- and paints nothing, which is exactly how this gate came to report
+   zero patches and zero marking kinds while a real fight had 24 patches and 52 tiles
+   cached on the same tree.
+   So it asks the only question that cannot be faked: DOES THIS FRAME PUT PIXELS ON ITS
+   BOARD. It watches drawImage for a moment and takes the frame that used it. */
+async function drawingFight(page, sleep) {
+  for (let i = 0; i < 30; i++) {
+    for (const f of page.frames()) {
+      let n = 0;
+      try {
+        n = await f.evaluate(async () => {
+          const c = document.getElementById('cv');
+          if (typeof G === 'undefined' || !c || !c.width) return 0;
+          const x = c.getContext('2d'); if (!x) return 0;
+          const orig = x.drawImage.bind(x); let hits = 0;
+          x.drawImage = function () { hits++; return orig.apply(null, arguments); };
+          await new Promise(r => setTimeout(r, 320));
+          x.drawImage = orig; return hits;
+        });
+      } catch (e) {}
+      if (n > 0) return f;
+    }
+    await sleep(600);
+  }
+  return null;
+}
+
 async function walkAndCheck(browser, BASE, where, url) {
   console.log('\n--- ' + where + ' ---');
   const page = await browser.newPage({ viewport: { width: 430, height: 932 } });
@@ -208,7 +241,7 @@ async function walkAndCheck(browser, BASE, where, url) {
   if (!aim) { ok(where + ': a hostile body on the glass to tap', false); await page.close(); return; }
   await page.mouse.click(fb.x + aim.x, fb.y + aim.y);
   await sleep(9000);
-  const cf = await liveFight(page);
+  const cf = (await drawingFight(page, sleep)) || (await liveFight(page));
   if (!cf) { ok(where + ': the fight came up', false); await page.close(); return; }
   ok(where + ': a real fight, started the way he starts one', true);
   await sleep(2500);
