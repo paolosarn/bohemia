@@ -34085,6 +34085,79 @@ a memory reset. HE WILL NEVER TYPE ANYTHING BUT THE ONE WORD AGAIN. ***
     I will never paste anything to you again. From here on, the one word is the whole
     instruction.
 
+*** [fight looks] V224 -- THE LAST SIZE LIE WAS THE CANVAS, NOT THE DRAWING. CONTINUING, ROUND 3. ***
+The coordinator's 9/23 note on my row, answered. Stamp 9/23g.
+
+MEASURED ON THE PHONE PROFILE, BOTH SURFACES IN ONE SESSION, ON THE CUT:
+    THE WALK    378 backing / 378 CSS   k=1   the person is 112 CSS
+    THE FIGHT   780 backing / 390 CSS   k=2   the person is  56 CSS
+Their number exactly, and the cause is ONE LINE, the same shape as everything else in
+this row: two surfaces, two rules, and the fight invented its own.
+    THE STREET  function fit(){  ... cv.width=w; cv.height=h; }      1:1 with CSS
+    THE FIGHT   function size(){ const dpr=Math.min(...,2);
+                                 cv.width=r.width*dpr; }             2x on a phone
+*** NO CONSTANT INSIDE THE FIGHT COULD EVER HAVE FIXED THIS, because the lie was in the
+canvas and not in the drawing. *** V223 put the body at the ruled 112 BOX and the box was
+already right; it was worth half as many pixels of glass as the street's.
+
+WHAT SHIPPED: the fight sizes its canvas the way the walked street sizes its own, copied
+from their fit() rather than invented here. Nothing else touched, and because V223 derives
+the lot from the body they move together:
+    the fighter   56 -> 112 CSS      rule 21, in body_scale_gate's own unit
+    a house lot   98 -> 196 CSS      1.75 sprite widths, still his dial
+    he stands     0.571 lots         UNCHANGED, because both moved
+    both canvases                    same backing-per-CSS, so the same sharpness
+AND IT IS A QUARTER OF THE PIXELS: 780x1354 -> 390x677, 528,030 a frame against
+1,056,120, which is the direction rule 23 asks for, free.
+
+*** THE FIRST CUT MADE THE PICTURE WORSE AND THE PHOTOGRAPH CAUGHT IT. *** The board went
+3.6 -> 5.4 lots across and the people went small again: the auto frame's pad, slack and
+floor (96, 70, 80) are in CANVAS PIXELS, tuned on a canvas twice this one, so halving the
+canvas doubled the margin they eat and pulled the camera back. A pad is a THUMB MARGIN and
+a thumb is a physical size, so they live in CSS px and convert by the canvas's own
+backing-per-CSS: at 2x that reproduces 96/70/80 byte for byte; at 1:1 it keeps the same
+margin on the glass. The ceiling and the 0.20 floor are ratios and do not move.
+
+PROOF, AND WHAT IN IT IS NOT PROOF -- said rather than dressed up:
+  SOUND: the_person_is_112_gate 32/0 on THE WORKSHOP and THE CUT HE OPENS, on the phone
+  profile body_scale_gate uses, reading the street's own 112 CSS in the same session.
+  ALSO SOUND, the before and after by the one driver on the cut, one run each side:
+      MAIN 780/390 k=2 fighter 56 CSS   |   V224 390/390 k=1 fighter 112 CSS
+  *** NOT SOUND: this gate's MUTATION run reports k=0, NaN, Infinity -- it never reached a
+  live board on main, so its ten reds say nothing about the fighter's size. FOUR CUTS of
+  the frame finder, each failing the mutation a different way: (1) G+#fire alone takes a
+  DEAD frame whose board is 0x0; (2) pixels AND a box, same; (3) pixels only with the box
+  waited for, finds NO fight on main and HIDES the numbers; (4) prefer live, fall back to
+  any, falls back to the dead one. V221 already wrote that more than one frame answers and
+  only one is alive; the same is true of the fight frame. THE FLEET'S ANSWER EXISTS AND IS
+  RULE 14(g): USE THE ONE DRIVER. Rewriting this gate onto tools/bohemia_drive_the_demo.js
+  is a JOB, not a fifth patch at the end of a round, and writing a fourth version of
+  anything means I already failed, so I stopped. ***
+
+WHAT IT COSTS, SAID: a phone shows two to three house lots in a fight. Not new and not
+mine: it is what his three rulings say together -- a person is 112 (rule 21), a lot is
+1.75 sprite widths (his dial), a phone is 390 CSS wide.
+
+STILL OPEN, MEASURED, IN THE ORDER I TAKE THEM:
+ 1. THE AUTO FRAME STILL SCALES THE PERSON AS WELL AS THE GROUND: at a wide frame he
+    reads 71 CSS on the glass, not 112. Rule 21 says that camera moves the ground and
+    never his size. THE REMAINING HALF OF RULE 21'S FIGHT LEG, and my first job next round.
+ 2. THE WAY OUT is placed at 3.5-6.4 lots off sightTiles so it can sit off the glass --
+    derived from the wrong thing, not a reason to shrink anybody. Belongs to [fight feel].
+ 3. THE GATE ONTO THE ONE DRIVER (above).
+ 4. The gutter shadow, the half-transparent roof corners, the light not carrying, the roof
+    reading as a floor: carried from V223 unchanged.
+ 5. [horror fight] OPEN on my section under rule 20h, not started.
+
+THE BOARD CHANGED UNDER ME AND THE NEXT LANE SHOULD KNOW: [one mode] (rule 24) is now
+FIRST on this lane, ahead of [fight looks], and it is OPEN -- the fight must stop being a
+second document at all. [fight feel] (rule 23) is un-held and sits behind [fight looks].
+I continued [fight looks] because rule 5 says a held claim continues, and because the
+coordinator's 9/23 note put rule 21's CSS leg inside it.
+
+Record: records/BOHEMIA_COMBAT_THE_FIGHT_RENDERS_LIKE_THE_STREET_9_23_26.md
+Tool: tools/bohemia_fight_renders_like_the_street_patch.py  Tab: COMBAT, any fight from CITY.
+
 *** [fight looks] V223 -- THE PERSON IS 112, AND THE GROUND IS HIS OWN ART. CONTINUING, ROUND 2. ***
 Rule 18: one of the three things that ship. Rule 21's FIGHT LEG, which the law names as owed to
 this row, is built and gated. Stamp 9/21h.
