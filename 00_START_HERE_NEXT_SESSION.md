@@ -2536,7 +2536,7 @@ your block top to bottom and confirm every line in it is yours.
 And this file is now ~88,000 lines carrying NINE ECONOMY blocks, most of them
 stale copies of this one. That is a real defect in a file every lane reads every
 round. It is a job for the coordinator to place (18 PLUMBER's remit), not
-something a lane should do to another lane's block.=== ROUND 36 REPORT: [first ten] SHIPPED ====== ROUND 37 REPORT: [carry cost] SHIPPED ====== ROUND 38 REPORT: [old price] SHIPPED ====== ROUND 39 REPORT: [protection court] SHIPPED ====== ROUND 40 REPORT: [how many pockets] SHIPPED ====== ROUND 41 REPORT: [who replaces you] SHIPPED ====== ROUND 42 REPORT: [the bailiff] SHIPPED ====== ROUND 43 REPORT: [double up] SHIPPED ====== ROUND 44 REPORT: [first building] SHIPPED ====== QUEUE EMPTY. 44 OF 44 SHIPPED. THE PILE IS FOLDED INTO ONE MASTER. ====== QUEUE STILL EMPTY. HE PLAYED IT, AND THE ONE THING THIS LANE GOT BUILT AND GOT WRONG IS CORRECTED. ====== ROUND 45 REPORT: [first sixty] SHIPPED ====== ROUND 46 REPORT: [daily radius] SHIPPED ====== ROUND 47 REPORT: [who owns the water] SHIPPED ====== QUEUE EMPTY. THE FOLD: 45, 46 AND 47 ARE IN THE MASTER, AND FOLDING THEM FOUND THREE THINGS. ====== ROUND 48 REPORT: [who still bills] ROUND ONE OF TWO SHIPPED, THE CLAIM STAYS. ====== ROUND 48 ROUND TWO: THE NUMBER. Q48 COMPLETE, 48 OF 48 SHIPPED. ====== QUEUE EMPTY. ROUND 48 IS FOLDED INTO THE MASTER AND IT MADE A SEVENTH CONVERGENCE. ====== ROUND 49 REPORT: [first battery] ROUND ONE OF TWO SHIPPED, THE CLAIM STAYS. ====== ROUND 49 ROUND TWO: THE NUMBER. Q49 COMPLETE, 49 OF 49 SHIPPED. ===
+something a lane should do to another lane's block.=== ROUND 36 REPORT: [first ten] SHIPPED ====== ROUND 37 REPORT: [carry cost] SHIPPED ====== ROUND 38 REPORT: [old price] SHIPPED ====== ROUND 39 REPORT: [protection court] SHIPPED ====== ROUND 40 REPORT: [how many pockets] SHIPPED ====== ROUND 41 REPORT: [who replaces you] SHIPPED ====== ROUND 42 REPORT: [the bailiff] SHIPPED ====== ROUND 43 REPORT: [double up] SHIPPED ====== ROUND 44 REPORT: [first building] SHIPPED ====== QUEUE EMPTY. 44 OF 44 SHIPPED. THE PILE IS FOLDED INTO ONE MASTER. ====== QUEUE STILL EMPTY. HE PLAYED IT, AND THE ONE THING THIS LANE GOT BUILT AND GOT WRONG IS CORRECTED. ====== ROUND 45 REPORT: [first sixty] SHIPPED ====== ROUND 46 REPORT: [daily radius] SHIPPED ====== ROUND 47 REPORT: [who owns the water] SHIPPED ====== QUEUE EMPTY. THE FOLD: 45, 46 AND 47 ARE IN THE MASTER, AND FOLDING THEM FOUND THREE THINGS. ====== ROUND 48 REPORT: [who still bills] ROUND ONE OF TWO SHIPPED, THE CLAIM STAYS. ====== ROUND 48 ROUND TWO: THE NUMBER. Q48 COMPLETE, 48 OF 48 SHIPPED. ====== QUEUE EMPTY. ROUND 48 IS FOLDED INTO THE MASTER AND IT MADE A SEVENTH CONVERGENCE. ====== ROUND 49 REPORT: [first battery] ROUND ONE OF TWO SHIPPED, THE CLAIM STAYS. ====== ROUND 49 ROUND TWO: THE NUMBER. Q49 COMPLETE, 49 OF 49 SHIPPED. ====== QUEUE EMPTY. ROUND 49 IS FOLDED INTO THE MASTER. ===
 RECORD: records/BOHEMIA_ECONOMY_DAY_47_NOBODY_OWNS_THE_PUMP_THEY_OWN_THE_DISTANCE_9_20_26.md (207 lines)
 BANK:   banks/BOHEMIA_ECONOMY_TEST_LINES_9_5_26.md sections ZZZZZZZZZ-DDDDDDDDDD, +16 lines, 670 draft:true total
 TAB:    NOT IN A TAB YET. MODE: RESEARCH. No engine code touched. Rule 14: never the demo;
@@ -3228,6 +3228,65 @@ Run against all five rung words it returned false five times, WHICH READS EXACTL
 IN THIS GAME LENDS TO ANYBODY". Run properly it is four of sixteen at every rung. Every one of
 the five faults produced a clean quotable false negative.
 
+
+=== THE FOLD, ROUND 49 (no board line; CLAUDE.md's STANDING JOB "piles rot, masters stay clean") ===
+MASTER: records/BOHEMIA_ECONOMY_MASTER_WHAT_FORTY_FOUR_ROUNDS_FOUND_9_15_26.md, 525 -> 600
+        lines, now WHAT FORTY-NINE ROUNDS FOUND. The FILENAME keeps its FORTY_FOUR on purpose:
+        records and the board cite that path and a rename breaks every one of them.
+TAB:    NOT IN A TAB YET. MODE: RESEARCH. No engine code touched. Rule 14: never the demo.
+        Rule 15: no thumbs. Rule 18(b): research lanes continue. Rule 22 binds MAKING lanes and
+        names twelve; ECONOMY is not one, so this round did not invent a cook.
+GATES:  pre-push pass SEVEN GREEN, ONE RED, AND THE RED IS NOT MINE (proof below) -- economy
+        13/0, purse 28/0, payday 40/0, attempt 15/0, demo blockers 22/0, language 85/0, handoff
+        8/0; CANON ROT 12/1. Full suite: 107 red at ad23d875, mine are: none.
+
+*** THE CANON ROT RED, MEASURED BEFORE ANYTHING ELSE, AND IT IS OLD ROT NEWLY VISIBLE. ***
+The gate failed C3: truly-gone citations 82 against a ceiling of 80, naming
+records/tilespec/BOHEMIA_TILESPEC_reservoir.md -> engine/bohemia_reservoir.js and
+records/tilespec/BOHEMIA_TILESPEC_strip_x.md -> engine/bohemia_strip_x.js. I STASHED MY DIFF
+AND RAN IT ON CLEAN HEAD: identical, 82 of 80, same two files. Then the actual cause, which is
+better than "somebody deleted something": BOTH ENGINE FILES WERE NEVER COMMITTED TO THIS REPO
+AT ALL (git log --all finds nothing), and both tilespec records were added on 8/31 in one
+commit. SO THEY WERE BORN ROT AND HAVE BEEN ROT FOR THREE WEEKS; they only trip the gate now
+because the RATCHET CEILING CAUGHT UP WITH THEM. Not new rot, old rot newly visible, and not
+this lane's files. ROUTED TO PLUMBER and to whoever owns tilespec/; this lane edits neither.
+
+THE FOLD ITSELF, and the harvest passed its standing control again: re-run over all 51 record
+files it REPRODUCED ALL SEVENTEEN of the published 1-48 routing numbers before adding round
+49's seven. That control has now run three folds and has never been believed before it passed.
+
+WHAT ROUND 49 CHANGED IN THE MASTER:
+ - 0.ONE (THERE IS EXACTLY ONE POCKET) goes from ten rounds to ELEVEN and gains its STRONGEST
+   INSTANCE: zero of sixteen factions pay money, so nobody can hand a stranger a battery. The
+   pocket wall is not an accounting curiosity, it is the reason a man who wakes with nothing
+   cannot be given the unit of currency the whole game is denominated in.
+ - 0.SEVEN (THE THREAT IS COMMON, THE ACT IS RARE) gains its fifth number from the other end:
+   95.16% OF INFORMAL LOANS ARE FULLY REPAID, interest-free, enforced by a severed tie. So
+   PAPER BETWEEN STRANGERS IS BLUFF AND PAPER BETWEEN NEIGHBOURS IS KEPT, and our lend module
+   already encodes exactly that.
+ - 0.FIVE (THE PARTS ARE RIGHT AND HAVE NEVER MET) goes to 16-to-49, thirty-six instances over
+   thirty-four rounds, and gains THE LARGEST INSTANCE THIS STUDY HAS FOUND: four correct
+   modules that add up to a player one battery short every day, and no gate can see it because
+   the defect only exists in the subtraction. Plus a whole shipped module with NO CALLER.
+ - section 3 gains five numbers, including the subtraction itself (+1 work, -1 food, -1 the
+   loan, HIS DAY IS -1), the 4-of-16 lenders at every rung, and the six-givings ladder.
+ - section 4 gains four open items, three of which are PENDING 41 WEARING DIFFERENT HATS, and
+   a new closing block: THE ONE THING THIS STUDY NOW WANTS MOST, asked for by FOUR ROUNDS FROM
+   FOUR DIRECTIONS (36, 45, 49 r1, 49 r2) -- A GATE THAT PLAYS THE FIRST MORNING AS A MAN WITH
+   NOTHING. All four found the same hole and none could close it from this lane.
+ - section 5 gains rules 23 to 30. Rule 23 is a CONFIRMATION, not a cost: his own words put a
+   routine hit at ONE with no dial, so EVERYTHING COSTS ONE has now reached the fight without
+   this lane ever arguing for it. Rules 27 and 29 cost this lane nothing and 29's spirit is
+   where this study already was: round 48 delivered a piece of paper you pick up and round 49
+   a battery in a hand, both chosen that way before the rule existed.
+ - section 6: 698 entries, 522 role-place, 176 bullets UNCHANGED FOR FOUR ROUNDS, and a new
+   line, the player speaking anywhere: 0.
+
+AND A SMALL CORRECTION MADE ON MYSELF, MID-FOLD: I wrote the bank's grep total as 715/17 from
+arithmetic instead of measuring it, then ran the count and it was 714/16. Fixed before the
+commit. A number I could have run and estimated instead is exactly the fault this lane keeps
+recording in other people's instruments.
+
 [PENDING Paolo] -- for the coordinator, one at a time:
   *** 1 TO 9 ARE RULED. The coordinator decided all nine on 9/13 under EVERYTHING IS
   A THUMB, in records/BOHEMIA_RULING_NINE_DEFAULTS_THE_ECONOMY_WAS_CARRYING_9_13_26.md.
@@ -3406,31 +3465,28 @@ the five faults produced a clean quotable false negative.
      is the kind of change he should meet in play rather than read about. Nothing
      is blocked on it; WORLD can build it under his existing law.
 
-NEXT IN THIS LANE: QUEUE EMPTY. Q1 THROUGH Q49 ARE ALL SHIPPED and the board has no OPEN line
-for ECONOMY. This lane HOLDS until the coordinator puts one up. Rule 10 forbids inventing a
-job; rule 22 does not change that (it binds MAKING lanes and names twelve, and ECONOMY is not
-one); rule 29 names WORLD, WORDS and QUESTS for the registry and this lane registers nothing.
-IF THE QUEUE IS STILL EMPTY NEXT ROUND, in order:
- (a) FOLD ROUND 49, BOTH HALVES, INTO THE MASTER
-     (records/BOHEMIA_ECONOMY_MASTER_WHAT_FORTY_FOUR_ROUNDS_FOUND_9_15_26.md, titled WHAT
-     FORTY-EIGHT ROUNDS FOUND, keeping its FORTY_FOUR filename because records and the board
-     cite that path). It is a STANDING JOB from CLAUDE.md, not a board job. Round 49 adds two
-     table rows, changes the routing counts, adds at least three numbers to section 3 (the
-     six-givings ladder, the four-of-sixteen lenders at every rung, and the one-short-a-day
-     subtraction), and section 0.ONE (there is exactly one pocket) gains its strongest instance
-     yet: nobody can be lent to because nobody but the player holds anything.
-     THE HARVEST SCRIPT HAS A CONTROL: reproduce every published number before believing a new
-     one. It has caught a fault every time it has been run. Do not fold from memory.
+NEXT IN THIS LANE: QUEUE EMPTY AND THE MASTER IS CURRENT THROUGH ROUND 49. Q1 through Q49 are
+all SHIPPED, the board has no OPEN line for ECONOMY, and NOTHING IS OWED TO THE MASTER. This
+lane HOLDS until the coordinator puts a line up. Rule 10 forbids inventing a job; rule 22 binds
+MAKING lanes and names twelve and ECONOMY is not one; rule 29 names WORLD, WORDS and QUESTS for
+the registry and this lane registers nothing.
+IF THE QUEUE IS STILL EMPTY NEXT ROUND, in order, none of them a job:
+ (a) A PENDINGS PASS, and it is now the most useful thing this lane can do. Thirty-three
+     questions; nine were collapsed by the 9/13 ruling; several more have been ANSWERED BY
+     RULINGS MADE SINCE and nobody has gone back to check. Three of round 49's four open items
+     turned out to be PENDING 41 in a different hat, which is the tell: the list is longer than
+     the real question count. A read that says which are now answered, which are duplicates of
+     each other, and which are genuinely still his would shorten what the coordinator carries.
+     NOBODY ELSE CAN DO IT because nobody else has read all 51 records.
  (b) THE 176 BANK ENTRIES THAT OWE A WHO under rule 19. The contract has held the number still
-     for four rounds; a round could actually shrink it, starting with the blocks a build lane
-     is nearest to taking (the water and pump sets, which QUESTS and WORLD are closest to).
- (c) A PENDINGS PASS. Thirty-three questions, nine collapsed by the 9/13 ruling; a read saying
-     which of the rest are ANSWERED BY RULINGS ALREADY MADE would shorten the list the
-     coordinator carries to him, and nobody else can do it because nobody else has read all 51
-     records.
-AND ONE THING TO CARRY INTO ANY ROUND THAT TOUCHES THE FIRST FIVE MINUTES: bohemia_lend.js has
-NO CALLER. It needs wiring, not designing, and the deliverable in section 6 of the round 49
-round two record is costed down to zero new numbers.
+     for four rounds; a round could shrink it, starting with the blocks a build lane is nearest
+     to taking (the water and pump sets, which QUESTS and WORLD are closest to).
+ (c) THE FOUR THINGS the master's section 4 leaves with other lanes, which nobody has been told
+     are there.
+TWO THINGS TO CARRY INTO ANY ROUND THAT TOUCHES THE FIRST FIVE MINUTES: bohemia_lend.js has NO
+CALLER and is costed down to zero new numbers in section 6 of the round 49 round two record;
+and the canon rot red above is NOT this lane's and is proven so on clean HEAD, so do not chase
+it and do not ship silently over it either -- it is routed.
 
 
 ================================================================================

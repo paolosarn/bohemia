@@ -1,9 +1,10 @@
-# THE ECONOMY MASTER — WHAT FORTY-EIGHT ROUNDS FOUND
+# THE ECONOMY MASTER — WHAT FORTY-NINE ROUNDS FOUND
 
 *(The file keeps its FORTY_FOUR name on purpose: records and the board cite this path, and a
 rename would break every one of them. The name is the address; the title is the count.
-**FOLDED AGAIN 9/20/26** (rounds 45, 46, 47) **and 9/21/26** (round 48, both halves of one
-row), harvested by script the same way the first forty-four were.)*
+**FOLDED AGAIN 9/20/26** (rounds 45, 46, 47), **9/21/26** (round 48) **and 9/22/26** (round
+49), the last two each a two-round row, harvested by script the same way the first forty-four
+were.)*
 
 > ## *** CORRECTED 9/16/26: THE ONE THING THIS STUDY GOT BUILT AND GOT WRONG. ***
 >
@@ -51,35 +52,47 @@ row), harvested by script the same way the first forty-four were.)*
 > own repo, then say only what both support.
 
 
-ECONOMY lane, 9/15/26, folded again 9/20/26 and 9/21/26. **The queue is empty: Q1 through Q48 are all SHIPPED.**
+ECONOMY lane, 9/15/26, folded again 9/20, 9/21 and 9/22/26. **The queue is empty: Q1 through Q49 are all SHIPPED.**
 MODE: RESEARCH. No engine code was touched by this file either.
 
 **Why this exists, and it is not a job off the board.** CLAUDE.md carries a STANDING JOB:
 *"periodically fold addenda into the GDD/laws masters and archive the folded. Piles rot;
-masters stay clean."* Forty-nine records is a pile. Nobody building the game is going to
-read forty-nine files, so the lane's output has been getting used one round at a time, by
+masters stay clean."* Fifty-one records is a pile. Nobody building the game is going to
+read fifty-one files, so the lane's output has been getting used one round at a time, by
 whoever happened to see the last commit. **This is the pile folded into one page**, and
 every line in it was harvested out of the record files by script, not recalled.
 
-The 49 records stay where they are (48 rounds; Q48 took two). Nothing is archived; nothing here supersedes anything.
+The 51 records stay where they are (49 rounds; Q48 and Q49 each took two). Nothing is archived; nothing here supersedes anything.
 This is an index with the findings attached.
 
 ---
 
 ## 0. THE SEVEN THINGS THE WHOLE STUDY KEEPS ARRIVING AT
 
-Forty-eight rounds, four different questions each, and they converge on seven walls. Every
+Forty-nine rounds, four different questions each, and they converge on seven walls. Every
 one of these was reached from more than one direction, by rounds that were not looking for
 each other.
 
 ### ONE. *** THERE IS EXACTLY ONE POCKET IN THE GAME. ***
-**Rounds 24, 26, 29, 32, 33, 34, 35, 39, 40, 43.** Ten rounds, ten different subjects, one
-wall. The purse is created once and every caller is the player's. No person, shop or
+**Rounds 24, 26, 29, 32, 33, 34, 35, 39, 40, 43, 49.** Eleven rounds, eleven different
+subjects, one wall.
+
+The purse is created once and every caller is the player's. No person, shop or
 faction can hold, pay, be paid, or run out. **Round 40 costed the naive fix at 28,844
 ledgers and the real one at 14:** the player has a purse, the shop needs **stock not a
 purse** (and already has stock), and the only genuinely missing pocket is **a faction
 treasury**, because a faction already mints a battery a day and already collects one a
 night with nowhere for either to come from or go.
+
+*** AND ROUND 49 IS THE STRONGEST INSTANCE OF IT AND THE ONE THAT CHANGES A PLAYER'S FIRST
+MORNING.*** All sixteen factions have a written line for what they give somebody who belongs
+to them, and **zero of the sixteen give a battery**: ammunition, stored food and a place on
+the list, medicine and teaching, water and a voice in where it goes, admission and nothing
+else. The closest is THE REDS, whose word is **CREDIT**, a promise about money and not money.
+**Nobody but the player holds a battery, so nobody can hand one over**, and the favour system
+pays in kind as a direct consequence. *The pocket wall is not an accounting curiosity. It is
+the reason a man who wakes with nothing cannot be given the unit of currency the whole game is
+denominated in.*
 
 ### TWO. *** ENFORCEMENT COSTS MORE THAN THE THING BEING ENFORCED. ***
 **Rounds 39, 41, 42**, three mechanisms, same shape.
@@ -117,14 +130,15 @@ Two independent modules arrived at that same rung as the threshold for "they wil
 something for you."
 
 ### FIVE. *** THE PARTS ARE RIGHT AND THEY HAVE NEVER MET. ***
-Named in every round from 16 to 48 — **thirty-four instances over thirty-three rounds** — and
+Named in every round from 16 to 49 — **thirty-six instances over thirty-four rounds** — and
 it is the one finding that is about us rather than about the world.
 
 *(Counter correction, kept because this study keeps them: the records number these instances
 in their own gate notes, and round 44 says 29 while round 45 says 31. **Thirty was skipped**,
 so rounds 45, 46 and 47 are instances **30, 31 and 32**, not 31, 32 and 33. The arithmetic is
 `instance = round − 15`. Round 48 ran twice on one row and took **33 and 34**, so the counter
-is now one ahead of the arithmetic on purpose and the next round numbers from 35.)* The gates check that a part does what it says.
+is now one ahead of the arithmetic on purpose. Round 49 also ran twice and took **35 and 36**;
+the next round numbers from 37.)* The gates check that a part does what it says.
 **Nothing checks that two parts agree, that a part keeps working for as long as the game
 lasts, that it is the right part to have, or that the parts form a loop that closes.**
 The catalogue of instances, all measured:
@@ -174,6 +188,16 @@ The catalogue of instances, all measured:
   from the walking speed without ever checking it against the clock. **They agree to 99.6%**,
   months apart, by different lanes, and nothing in the repo had compared them. *The same gate
   round 46 asked for about a disagreement would have delivered good news here.*
+- *** THE LARGEST ONE THIS STUDY HAS FOUND, AND IT IS MADE ENTIRELY OF CORRECT PARTS ***
+  (round 49). The lend module is right. The favour module is right. The purse is right. The
+  shelf is right. **Put the four together and a new player is one battery short every day of
+  his life, and nothing in the suite can say so**, because the subtraction crosses four files
+  and every one of them passes its own gate. *Work pays one, food costs one, the loan asks one
+  a night.*
+- **A whole shipped module with no caller at all** (round 49): `bohemia_lend.js` hands over one
+  battery on a handshake, asks one a night, clears the account on payment and writes a night
+  count when you go short. **It is the answer to the row that was researching it**, and nothing
+  in the game has ever called it.
 
 ### SIX. *** DISTANCE IS THE PRICE, AND WE HAVE BEEN WRITING IT AS A NUMBER. ***
 **Rounds 37, 43, 46, 47**, four subjects, one shape, and it is the finding the fold itself
@@ -200,7 +224,7 @@ prices that never touch the number — which is exactly the mechanism the 9/16 c
 this lane should have delivered in round 38 and did not.
 
 ### SEVEN. *** THE THREAT IS COMMON AND THE ACT IS RARE. PAPER IS MOSTLY BLUFF. ***
-**Rounds 39, 41, 42, 48.** Finding TWO says enforcement costs more than the thing enforced.
+**Rounds 39, 41, 42, 48, 49.** Finding TWO says enforcement costs more than the thing enforced.
 This is the other half of it, and it is about FREQUENCY rather than price: **because acting
 costs so much, almost nobody acts.** Four numbers, three of them from the world and one this
 lane shipped without aiming at it:
@@ -219,13 +243,21 @@ cost side: **the reason the threat is cheap and the act is not.**
 
 **And in a valley where the sender is gone the rate is not low, it is ZERO** (round 48),
 which is the one place this study has found where a real-world ratio collapses to nothing
-rather than shifting. A player who keeps both kinds of paper learns the difference without
+rather than shifting.
+
+**And round 49 adds the fifth number from the other end of the same wall: 95.16% of informal
+loans between people who have nothing are fully repaid.** Interest-free, enforced by the
+threat of a severed tie, and almost always honoured. **So paper between strangers is bluff and
+paper between neighbours is kept** — and our lend module already encodes exactly that: it
+cannot charge interest (EVERYTHING COSTS ONE forbids compounding), the account clears on
+payment, and what it records when you go short is not a penalty but a night count with your
+name on it. A player who keeps both kinds of paper learns the difference without
 anybody explaining it: the living landlord's collector knocks, the dead office's paper does
 not.
 
 ---
 
-## 1. THE FORTY-EIGHT, IN ORDER
+## 1. THE FORTY-NINE, IN ORDER
 
 | # | row | what it found |
 |---|---|---|
@@ -278,27 +310,29 @@ not.
 | 47 | who owns the water | nobody owns the pump, they own the distance |
 | 48 | who still bills | *(school)* nothing in this game arrives; every cost is something burning down |
 | 48 | who still bills | *(the number)* every clock gives an absurd number, and the paper names the wrong payee |
+| 49 | first battery | *(school)* he cannot ask, and nobody in the valley pays money |
+| 49 | first battery | *(the number)* the loan is already built, and he is one short every day |
 
 ---
 
 ## 2. WHERE THE FINDINGS WENT
 
-Every record carries a ROUTED section; all 49 do (48 rounds, and Q48 took two). Counting **distinct rounds** that routed
+Every record carries a ROUTED section; all 51 do (49 rounds; Q48 and Q49 each took two). Counting **distinct rounds** that routed
 something to each lane:
 
-    WORLD          46 rounds        WORDS           8
+    WORLD          47 rounds        WORDS           9
     LIFE + CITY    29               COMBAT          6
-    FACTIONS       26               PLUMBER         5
-    COORDINATOR    26               COOK            4
-    PEOPLE         25               EYES            3
-    RUN            15               DIRECTION       1
-    QUESTS         14               CUTSCENE        1
+    FACTIONS       27               PLUMBER         5
+    COORDINATOR    27               COOK            4
+    PEOPLE         26               EYES            3
+    RUN            16               DIRECTION       1
+    QUESTS         15               CUTSCENE        1
     UI             12               SOUNDS          1
                                     DYNASTY         1
 
-**WORLD is the destination of this lane, 46 rounds out of 48.** That is by design — the
+**WORLD is the destination of this lane, 47 rounds out of 49.** That is by design — the
 lane's own MODE says every finding becomes a WORLD job — and it is also the risk: one lane
-holds nearly everything forty-eight rounds produced.
+holds nearly everything forty-nine rounds produced.
 
 *** AND THE PUBLISHED TABLE WAS MISSING THREE LANES. *** The 9/15 version of this section
 listed fourteen lanes. **COOK (4 rounds: 5, 6, 7, 8), SOUNDS (1: round 4) and DYNASTY (1:
@@ -309,8 +343,10 @@ the whole time and invisible on the page that exists so nobody has to read the r
 1-44**, which is how the three missing ones were found rather than argued about: an
 instrument that agrees with the published answer everywhere except where it adds something
 is an instrument you can believe. **Run again on 9/21 it reproduced all seventeen of the
-1-47 numbers above before adding round 48's nine**, which is now the standing control on this
-table: the harvest is re-run and checked against the last published version every fold.
+1-47 numbers before adding round 48's nine, and again on 9/22 it reproduced all seventeen of
+the 1-48 numbers before adding round 49's seven.** That is now the standing control on this
+table: the harvest is re-run and checked against the last published version every fold, and it
+has never once been believed before it passed.
 
 (Probe note, kept: my first count reported **WORLD 77** by counting line hits instead of
 distinct rounds, which is more rounds than exist. The correction is the same discipline the
@@ -339,6 +375,11 @@ Derived, never typed, each with the round that measured it.
 | how often paper actually bites | **one in seven** in a normal US year (94.9m notices, 13.5m cuts); **zero** when the sender is gone | 48 |
 | a monthly notice, in his five minutes | **zero**, and **two** before the world goes quiet on day 67 | 48 |
 | a game day, in real time | **4.0 minutes** of walking; a 30-day month is **2.0 real hours** | 46, 48 |
+| *** his first week, subtracted *** | work **+1**, food **-1**, the loan **-1** a night, so **HIS DAY IS -1**: eat or square up, every night | 49 |
+| the first battery | a **loan of one** on a handshake, one back a night, the account **clears** on payment, and going short is a **night count that does not grow** | 49 |
+| who will lend a stranger | **4 of 16**, and it is the **same four at every rung** from stranger to INSIDE | 49 |
+| the price of being able to ask | **six things given**; taking the free one moves him **zero rungs** | 49 |
+| informal loans, repaid | **95.16%**, interest-free, enforced by a severed tie | 49 |
 
 ---
 
@@ -388,6 +429,25 @@ confirmed:
   room.
 - **Whether `rentOn`'s camp fallback is fixed or used.** Measured unreachable; WORLD and
   FACTIONS own that file.
+
+**AND ROUND 49 LEFT FOUR, THREE OF WHICH ARE THE SAME RULING WEARING DIFFERENT HATS:**
+- **Whether a faction should ever pay money.** Zero of sixteen do. Changing it is a design
+  ruling about what a faction *is*, and it is **pending 41 again**, reached now by a third
+  route: can a deal exist between two people who are not the player.
+- **Whether going short should ever cost more than memory.** The lend module records nights
+  and stops. Whether anything in the valley acts on that count is **the same question round 48
+  asked as "can the paper ever bite"**, and neither round assumed an answer.
+- **Who the first person is**, and **what he gives to climb the six**. PEOPLE casts people;
+  QUESTS owns `[wire the door]`; the ladder counts givings and what a giving IS belongs to
+  whoever builds the act.
+
+*** AND THE ONE THING THIS STUDY NOW WANTS MOST, ASKED FOR BY FOUR ROUNDS FROM FOUR
+DIRECTIONS: A GATE THAT PLAYS THE FIRST MORNING AS A MAN WITH NOTHING. *** Round 36 asked what
+the first ten minutes hands a stranger. Round 45 asked what a save with no history sees. Round
+49 round one asked whether any door is open. Round 49 round two asked whether the arithmetic of
+his first week adds up. **All four found the same hole and none of them could close it from
+this lane**, because every part involved passes its own gate and the defect only exists in the
+subtraction.
 
 **AND PENDING 43 GOT STRONGER WITHOUT BEING CLOSED, WHICH IS WORTH RECORDING AS A SHAPE.**
 `relight()` is still built, free, callerless, and `RELIGHT` is still null. Round 47 put this
@@ -459,6 +519,20 @@ them with the date they broke.
   the rule's own logic, since what it killed was a making lane spending its round checking
   instead of making. *The bank is the nearest thing this lane produces to a cooked object,
   and it has never been in the game and is not meant to be.*
+- **Rule 23, THE FIGHT IS BATTLE BROTHERS, QUICKER (Paolo 9/22).** One contact and it is a
+  confirmation: *a routine hit costs one with no dial, and the dial owns every number over
+  one.* **EVERYTHING COSTS ONE has now reached the fight**, by his own words, without this
+  lane ever arguing for it. Section 0.THREE said the law was the realistic setting; it is now
+  also the combat setting.
+- **Rules 24 to 30, THE FIRST VOTES (Paolo 9/21, 83 verdicts).** Two touch this lane and
+  neither costs it anything. **Rule 27, the player does not speak Spanglish:** measured across
+  all 522 role-place bank entries the round it landed, **the player does not speak at all in
+  this bank**, and the seven entries whose descriptor names him have him as the listener.
+  **Rule 29, text items are boring, make the pixels and the sound:** it names WORLD, WORDS and
+  QUESTS for the vote registry and this lane registers nothing — *and its spirit is the thing
+  this study keeps arriving at anyway.* Round 48's deliverable was a piece of paper you pick
+  up; round 49's was a battery in a hand and a night count. **Neither is a card of words, and
+  both were chosen that way before the rule existed.**
 
 ---
 
@@ -470,13 +544,15 @@ The lane's other output is `banks/BOHEMIA_ECONOMY_TEST_LINES_9_5_26.md`, every l
 and that every lane answers **WHO SAYS THIS, WITH WHAT FACE, STANDING WHERE** before a
 sentence ships. So the bank got measured against it, by script.
 
-    draft:true matches in the file        694   (re-measured 9/21)
+    draft:true matches in the file        714   (re-measured 9/22)
       of those, header comment lines        16
-    ACTUAL BANK ENTRIES                   678
+    ACTUAL BANK ENTRIES                   698
 
-    written as ID + role + place          502   round 48's two halves added 20, all of them
-                                                in this format
-    written as a bare bullet              176   UNCHANGED FOR TWO ROUNDS RUNNING
+    written as ID + role + place          522   rounds 48 and 49 added 40 between them, all
+                                                of them in this format
+    written as a bare bullet              176   UNCHANGED FOR FOUR ROUNDS RUNNING
+
+    the player speaking, anywhere            0   rule 27, measured the round it landed
 
     the 9/20 measurement, which the rest of this section reads:
 
@@ -506,8 +582,9 @@ and no line was deleted.** Retro-fitting 176 speakers would be inventing a job n
 the board, and the rule bites when a line ships, not while it sits in a bank.
 
 **AND WHAT HAPPENED NEXT, WHICH IS THE POINT OF WRITING A CONTRACT INSTEAD OF A NOTE.**
-Round 48 ran twice and added **twenty entries, every one of them in the role-place format**.
-**The bullet count has not moved off 176 for two rounds.** The gap is now a fixed number with
+Rounds 48 and 49 each ran twice and added **forty entries between them, every one of them in
+the role-place format**.
+**The bullet count has not moved off 176 for four rounds.** The gap is now a fixed number with
 nothing feeding it, which is the whole difference between a debt that shrinks and one that
 does not. Nothing was rewritten and nothing was deleted to get there.
 
@@ -522,4 +599,4 @@ re-running the measurement instead of trusting the last number.)*
 
 ---
 
-*ECONOMY, 48 of 48 shipped. Research only. Nothing in the game changed.*
+*ECONOMY, 49 of 49 shipped. Research only. Nothing in the game changed.*
