@@ -20,12 +20,14 @@
    Run from repo root:  node tools/bohemia_lit_and_empty_probe.js
 */
 'use strict';
+const fs = require('fs');
 const path = require('path');
 const ROOT = path.dirname(__dirname);
+const OUT = path.join(ROOT, 'records', 'target', 'BOHEMIA_LIT_AND_EMPTY_9_23.json');
 
 (async () => {
   const D = require(path.join(ROOT, 'tools/bohemia_drive_the_demo.js'));
-  const d = await D.open();
+  const d = await D.open({ alpha: true });   /* THE TIP, not the baked file */
   console.log(d.says());
 
   const m = await d.fr.evaluate(() => {
@@ -55,7 +57,7 @@ const ROOT = path.dirname(__dirname);
       if (people >= 0) peopleSeen += people;
       if (s.live && people === 0) {
         litEmpty++;
-        if (sample.length < 8) {
+        if (sample.length < 24) {
           let who = null; try { who = POWER.holderAt(x, y); } catch (e) {}
           sample.push({ at: [x, y], district: String(t.district), wire: who || null });
         }
@@ -83,5 +85,20 @@ const ROOT = path.dirname(__dirname);
       + '  wire: ' + (s.wire ? String(s.wire).toUpperCase() : 'nobody'));
   if (m.litEmpty === 0)
     console.log('  >>> RULE 7 HAS NOTHING TO DRAW FROM HERE YET. Say that, do not paint it.');
+
+  /* WRITE IT DOWN SO A PICTURE CAN BE DRAWN FROM IT RATHER THAN FROM MEMORY.
+     The 9/21 shop was voted down partly because its one wrong thing was PAINTED;
+     the fix is that the factory reads a row somebody measured, and refuses to run
+     without it. This is that row. */
+  fs.mkdirSync(path.dirname(OUT), { recursive: true });
+  fs.writeFileSync(OUT, JSON.stringify({
+    what: 'blocks whose street circuit is LIVE and whose census says nobody lives there',
+    law: 'DIRECTION analog horror bible rule 7, the lit street with nobody home',
+    measuredOn: 'BOHEMIA_ALPHA_0_9.html', overmap: m.n,
+    live: m.live, dark: m.dark, litEmpty: m.litEmpty, litLived: m.litLived,
+    darkEmpty: m.darkEmpty, headsOnLampGround: m.peopleSeen,
+    blocks: m.sample
+  }, null, 1) + '\n');
+  console.log('  wrote ' + path.relative(ROOT, OUT));
   process.exit(0);
 })().catch(e => { console.log('PROBE THREW: ' + e.message); process.exit(1); });

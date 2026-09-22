@@ -141,6 +141,34 @@ async function sweep(opts) {
     console.log('    so these do not count as life anywhere below: "'
       + FREE_WORDS.slice(0, 4).join('", "') + '"');
 
+  /* *** AND IS ANYTHING COVERING THEM. *** "Dead handler" and "covered by something
+     else" look identical from outside and have completely different fixes. RUN found
+     exactly this once already: #daycard was inset:0 and sat over all eight direction
+     buttons, so 544 presses moved him zero cells and every walk number the fleet had
+     quoted came from a harness that cleared a card he could not clear. So ask the
+     document what is actually on top at the point a finger lands. */
+  const cover = await d.fr.evaluate(list => {
+    return list.map(f => {
+      if (!f.el) return null;
+      const vw = document.documentElement.clientWidth;
+      const vh = document.documentElement.clientHeight;
+      const off = (f.el.x < 0 || f.el.y < 0 || f.el.x > vw || f.el.y > vh);
+      const top = document.elementFromPoint(f.el.x, f.el.y);
+      if (!top) return { top: off ? 'OFF THE VIEWPORT' : 'NOTHING AT THAT POINT',
+                         offscreen: off, at: [Math.round(f.el.x), Math.round(f.el.y)],
+                         viewport: [vw, vh] };
+      const want = f.el.id ? document.getElementById(f.el.id) : null;
+      const itIs = want && (top === want || want.contains(top) || top.contains(want));
+      const r = top.getBoundingClientRect();
+      const cs = getComputedStyle(top);
+      return { top: (top.id ? '#' + top.id : '<' + top.tagName.toLowerCase() + '>'),
+               reaches: !!itIs, z: cs.zIndex, pos: cs.position,
+               at: [Math.round(f.el.x), Math.round(f.el.y)], viewport: [vw, vh],
+               w: Math.round(r.width), h: Math.round(r.height) };
+    });
+  }, found);
+  found.forEach((f, i) => { f.cover = cover[i]; });
+
   const results = [];
   for (const f of found) {
     if (!f.el) { results.push({ ...f, verdict: 'NOT ON SCREEN' }); continue; }
@@ -193,6 +221,14 @@ async function sweep(opts) {
       + (e.id ? '#' + e.id : '<' + e.tag + '>').padEnd(12)
       + e.w + 'x' + e.h + '  cursor:' + e.cursor
       + (r.expect && e.id && ('#' + e.id) !== r.expect ? '   [NOT ' + r.expect + ']' : ''));
+    if (r.cover)
+      console.log('        at ' + (r.cover.at ? r.cover.at.join(',') : '?')
+        + ' of a ' + (r.cover.viewport ? r.cover.viewport.join('x') : '?')
+        + ' screen, the finger lands on ' + r.cover.top
+        + (r.cover.reaches ? '  (that IS the control)'
+           : r.cover.offscreen ? '   *** THE CONTROL IS DRAWN OFF THE SCREEN ***'
+           : '   *** SOMETHING ELSE IS ON TOP: ' + r.cover.w + 'x' + r.cover.h
+             + ', position ' + r.cover.pos + ', z ' + r.cover.z + ' ***'));
     for (const rd of r.rounds)
       console.log('        press ' + rd.press + ': ' + rd.nNew + ' new words, '
         + rd.nGone + ' gone'
@@ -210,7 +246,9 @@ async function sweep(opts) {
 (async () => {
   /* BOTH FILES. The tip is what he is served; the baked one is what the committed
      demo still holds. Two true answers to one question is the finding. */
+  const only = process.argv[2];
   const tip = await sweep({ alpha: true });
+  if (only === '--alpha') process.exit(0);
   const baked = await sweep({});
   console.log('');
   console.log('='.repeat(68));

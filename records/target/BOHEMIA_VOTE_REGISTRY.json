@@ -1302,6 +1302,19 @@
     "how": "image",
     "src": "vote/COOK_FOOTSTEPS_THAT_LEAD_YOU.png"
    }
+  },
+  {
+   "id": "lifecity-the-street-that-is-still-lit-9-23",
+   "kind": "tile",
+   "lane": "life+city",
+   "sha": "ff9a9768",
+   "made": "9/23",
+   "title": "THE STREET THAT IS STILL LIT",
+   "why": "One block at night. You told me my last shop was not analog horror enough, so this time I went and read the art chat's rules FIRST and then asked the game for a real thing to draw instead of making one up. Their rule seven says the scare is lights on where nobody lives, taken from the real world data and never faked. So I counted it: 264 bits of street in this valley still have power, and 168 OF THEM HAVE NOBODY LIVING ON THEM. That is already true in your game right now and nothing on screen tells you. This is one of those blocks, a real one, at 59,4, on MOB's power. Everything in the picture is normal: night, dark houses, a street lamp doing its job. ONE thing is wrong and it is the third house: the lights are on inside and the game says nobody lives there. Nothing points at it. Thumbs up and I put lit empty houses on the real map so you can walk up to one. Thumbs down and tell me if it is too quiet or not the right kind of wrong.",
+   "show": {
+    "how": "image",
+    "src": "vote/LIFECITY_THE_STREET_THAT_IS_STILL_LIT_9_23.png"
+   }
   }
  ],
  "verdicts": [

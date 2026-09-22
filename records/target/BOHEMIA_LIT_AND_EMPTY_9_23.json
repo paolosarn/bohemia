@@ -1,0 +1,206 @@
+{
+ "what": "blocks whose street circuit is LIVE and whose census says nobody lives there",
+ "law": "DIRECTION analog horror bible rule 7, the lit street with nobody home",
+ "measuredOn": "BOHEMIA_ALPHA_0_9.html",
+ "overmap": 96,
+ "live": 264,
+ "dark": 2170,
+ "litEmpty": 168,
+ "litLived": 96,
+ "darkEmpty": 1555,
+ "headsOnLampGround": 1597,
+ "blocks": [
+  {
+   "at": [
+    49,
+    4
+   ],
+   "district": "arterial",
+   "wire": null
+  },
+  {
+   "at": [
+    59,
+    4
+   ],
+   "district": "arterial",
+   "wire": "Mob"
+  },
+  {
+   "at": [
+    68,
+    6
+   ],
+   "district": "arterial",
+   "wire": null
+  },
+  {
+   "at": [
+    72,
+    6
+   ],
+   "district": "arterial",
+   "wire": "Network"
+  },
+  {
+   "at": [
+    36,
+    7
+   ],
+   "district": "arterial",
+   "wire": null
+  },
+  {
+   "at": [
+    31,
+    8
+   ],
+   "district": "arterial",
+   "wire": "Network"
+  },
+  {
+   "at": [
+    81,
+    8
+   ],
+   "district": "arterial",
+   "wire": "Network"
+  },
+  {
+   "at": [
+    73,
+    9
+   ],
+   "district": "arterial",
+   "wire": null
+  },
+  {
+   "at": [
+    74,
+    9
+   ],
+   "district": "arterial",
+   "wire": null
+  },
+  {
+   "at": [
+    75,
+    9
+   ],
+   "district": "arterial",
+   "wire": null
+  },
+  {
+   "at": [
+    78,
+    9
+   ],
+   "district": "arterial",
+   "wire": null
+  },
+  {
+   "at": [
+    72,
+    10
+   ],
+   "district": "arterial",
+   "wire": null
+  },
+  {
+   "at": [
+    27,
+    15
+   ],
+   "district": "arterial",
+   "wire": "Volunteers"
+  },
+  {
+   "at": [
+    59,
+    15
+   ],
+   "district": "arterial",
+   "wire": "Network"
+  },
+  {
+   "at": [
+    63,
+    15
+   ],
+   "district": "arterial",
+   "wire": null
+  },
+  {
+   "at": [
+    90,
+    15
+   ],
+   "district": "arterial",
+   "wire": "Network"
+  },
+  {
+   "at": [
+    90,
+    16
+   ],
+   "district": "arterial",
+   "wire": null
+  },
+  {
+   "at": [
+    90,
+    17
+   ],
+   "district": "arterial",
+   "wire": null
+  },
+  {
+   "at": [
+    45,
+    18
+   ],
+   "district": "arterial",
+   "wire": null
+  },
+  {
+   "at": [
+    46,
+    18
+   ],
+   "district": "arterial",
+   "wire": null
+  },
+  {
+   "at": [
+    47,
+    18
+   ],
+   "district": "arterial",
+   "wire": null
+  },
+  {
+   "at": [
+    48,
+    18
+   ],
+   "district": "arterial",
+   "wire": null
+  },
+  {
+   "at": [
+    49,
+    18
+   ],
+   "district": "arterial",
+   "wire": null
+  },
+  {
+   "at": [
+    50,
+    18
+   ],
+   "district": "arterial",
+   "wire": null
+  }
+ ]
+}
