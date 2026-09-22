@@ -75,16 +75,41 @@ async function liveCity(page) {
   }
   return null;
 }
+/* *** V221 FACT 2, AND IT BIT THIS GATE ON ITS OWN MUTATION RUN. *** Asking only for
+   G and #fire finds a frame whose BOARD CANVAS IS 0x0 and never sized, and every CSS
+   number then comes back k=0, NaN, Infinity -- which reds the gate for a reason that
+   has nothing to do with what it is testing. A mutation proof that goes red on a dead
+   canvas proves nothing at all. THE LIVE FIGHT IS THE ONE WITH A BOARD THAT HAS A BOX. */
 async function liveFight(page) {
-  for (let i = 0; i < 30; i++) {
+  /* THIRD CUT, AND THE TWO BEFORE IT BOTH FAILED THE MUTATION RUN IN DIFFERENT
+     DIRECTIONS -- which is the whole reason this helper is written out rather than
+     guessed. Too loose (G and #fire alone) and it takes a DEAD frame whose board is
+     0x0, and every CSS number comes back k=0, NaN, Infinity: red for a reason that has
+     nothing to do with the test. Too strict (a board with pixels AND a box) and it
+     finds NO fight at all on main, where the board can be slower to size: red again,
+     and this time it hides the very numbers the mutation exists to show.
+     SO IT PREFERS A BOARD WITH PIXELS AND FALLS BACK TO WHATEVER ANSWERS, because a
+     gate that cannot find the thing reports nothing, and reporting nothing is the one
+     outcome that teaches nobody anything. */
+  let loose = null;
+  for (let i = 0; i < 40; i++) {
     for (const f of page.frames()) {
       let has = false;
-      try { has = await f.evaluate(() => typeof G !== 'undefined' && !!document.getElementById('fire')); } catch (e) {}
+      /* AND THE FIRST CUT OF THIS WAS TOO STRICT, which the mutation run caught the
+         other way: requiring a CLIENT BOX as well as a backing size found NO fight at
+         all on main, where the canvas can have pixels while its box is momentarily 0.
+         The frame finder asks only what separates the live frame from the dead one --
+         A BOARD WITH PIXELS -- and the box is waited for separately, below. */
+      try { has = await f.evaluate(() => { const c = document.getElementById('cv');
+        return typeof G !== 'undefined' && !!document.getElementById('fire')
+          && !!c && c.width > 0; }); } catch (e) {}
       if (has) return f;
+      if (!loose) { try { if (await f.evaluate(() => typeof G !== 'undefined'
+        && !!document.getElementById('fire'))) loose = f; } catch (e) {} }
     }
     await sleep(700);
   }
-  return null;
+  return loose;
 }
 
 /* READ WHAT IS THERE, NEVER CRASH ON WHAT IS NOT: mutation-proved against a tree with
@@ -195,6 +220,14 @@ async function walkAndCheck(browser, BASE, where, url) {
   if (!cf) { ok(where + ': the fight came up', false); await page.close(); return; }
   ok(where + ': a real fight, started the way he starts one', true);
   await sleep(2500);
+  /* the board can carry pixels before it carries a box, and every CSS number divides
+     by that box -- so wait for it rather than dividing by zero and reporting Infinity. */
+  for (let i = 0; i < 40; i++) {
+    const boxed = await cf.evaluate(() => { const c = document.getElementById('cv');
+      return !!c && c.getBoundingClientRect().width > 0; }).catch(() => false);
+    if (boxed) break;
+    await sleep(500);
+  }
 
   const A = await cf.evaluate(READ);
   ok(where + ': the board a fight starts on IS the house board', A.house === true);
