@@ -1221,7 +1221,6 @@
    }
   },
   {
-<<<<<<< HEAD
    "id": "sounds-how-low-the-room-9-23",
    "kind": "sound",
    "lane": "sounds",
@@ -1328,7 +1327,9 @@
    "show": {
     "how": "image",
     "src": "vote/CHARACTER_A_NEW_THIRTEEN.png"
-=======
+   }
+  },
+  {
    "id": "coordinator-the-flip-is-on-the-phone-9-23",
    "kind": "verdict",
    "lane": "coordinator",
@@ -1352,7 +1353,6 @@
    "show": {
     "how": "text",
     "src": ""
->>>>>>> 177ef0a (PAOLO 9/23: THE THREE ACTS AT ONCE -- rule 31, the law, his words, DYNASTY is the chat, Ocarina of Time is its reference, two defaults in VOTE)
    }
   },
   {
