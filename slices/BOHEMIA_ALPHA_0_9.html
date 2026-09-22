@@ -10556,8 +10556,20 @@ function combatMsgIn(d){
   if(d.type==='BOHEMIA_CITY_NEED_FACE'&&d.who){
     try{
       var _who=String(d.who);
-      var _sp=faceFor(_who);
-      var _rp=(typeof faceRampFor==='function')?faceRampFor(_sp):portraitRamp();
+      /* __THE_FACE_ON_THE_MAP_IS_HIS_OWN__ (9/22, LIFE + CITY, [see me]) =========
+         PAOLO 9/22: "why do I not see my person on this map?"
+         *** THE ROW SAID TO USE faceFor ON HIS ID AND THAT WOULD HAVE PUT A
+         STRANGER ON HIS MAP. *** faceFor ROLLS a face out of a hash of the id; the
+         head the pad wears is buildSpec(), the face he BUILT in the face maker. Two
+         different people, and ONE ID ONE WHOLE PERSON is the law that says they may
+         not both be him. So the player is the one id this bridge does not roll: he
+         gets his own spec, through the same ramp, the same renderFace, the same 64x64
+         packIdx and the same decoder on the other side. One branch, not a second path.
+         'you' is not a new name either -- the portrait bakes upstairs already key him
+         that way (out.portraits.you). */
+      var _sp=(_who==='you'&&typeof buildSpec==='function')?buildSpec():faceFor(_who);
+      var _rp=(_who==='you')?portraitRamp()
+             :((typeof faceRampFor==='function')?faceRampFor(_sp):portraitRamp());
       var _pk=packIdx(renderFace(_sp,{ramp:_rp}),64,64);
       var _cf=document.getElementById('cityFrame');
       if(_cf&&_cf.contentWindow&&_pk)

@@ -1,3 +1,91 @@
+LIFE + CITY (city-1eztay): 9/22 LATEST -- *** THE FACE ON THE MAP IS HIS, THE PEACH
+DOTS ARE THE POWER, AND HE VOTED MY SHOP DOWN SO I WENT AND READ THE BIBLE. ***
+TAB: CITY (his own face at the marker; tap a peach dot for what it is). The redone
+shop is in the VOTE tab (alpha). Records: records/BOHEMIA_THE_FACE_ON_THE_MAP_IS_HIS_9_22_26.md
+and records/BOHEMIA_GRAVEYARD_THE_SHOP_IS_STILL_LIT_9_22_26.md
+
+ROW [see me], PAOLO 9/22, UN-HELD under rule 18f, SHIPPED.
+
+*** HE COULD ALREADY FIND THE MARK. HE COULD NOT READ IT AS HIMSELF. *** The obvious
+reading of "why do I not see my person" is that the mark is too small. It is not, and
+the numbers were already on file from [white rings]: 86 bright pixels against a
+town's 74, the loudest thing on that screen. WHAT IT CARRIED IN THE MIDDLE WAS A FLAT
+DISC OF SKIN COLOUR, and a brown dot is not a person.
+
+*** AND THE ROW ASKED FOR THE WRONG FACE. *** It says "faceFor on his id". faceFor
+ROLLS a face out of a hash; the head the pad wears is buildSpec(), the face he BUILT.
+Measured in the shell, both baked through the same path:
+    his own face   10,584 bytes
+    faceFor('you')  8,944 bytes      NOT the same person
+So the row's own wording would have put A STRANGER ON HIS MAP WEARING HIS OWN MARK,
+which is the ONE ID ONE WHOLE PERSON defect this lane has now caught in its own work
+five rounds running. He is the ONE id the city bridge does not roll: his own spec,
+through the same ramp, renderFace, packIdx and decoder. Nothing new draws a face.
+
+*** AND MY FIRST CUT PASSED FOR A REASON THAT WAS NOT A REASON. *** [white rings]
+holds one rule on this mark: he is never fainter than a town. What makes him bright
+is the WHITE ANNULUS, and a face in the middle eats it. Measured before and after:
+    TW=48   684 bright pixels -> 533,  A FIFTH OF HIM GONE, AND THE GATE STAYED GREEN
+            because at TW=48 no town happens to be on screen.
+A PASS THAT DEPENDS ON WHAT HAPPENS TO BE ON SCREEN IS NOT A PASS. At TW=30, where a
+town IS on screen, the same loss puts him at about 100 against a town's 236.
+THE FIX IS ARITHMETIC, NOT TASTE: a face of radius f*r leaves an annulus of
+pi*r*r*(1-f*f), so the head grows by 1/sqrt(1-f*f) and the white area goes back
+exactly where it was. Change the face fraction and the growth follows it.
+    TW=18   you  86 -> 86     town  74   (under a 14 px face he stays a clean disc)
+    TW=30   you 260 -> 375    town 236
+    TW=48   you 684 -> 935    no town on screen
+HE GOT LOUDER, NOT QUIETER, and inside his head there are 30 and 53 colours where a
+flat disc is one.
+
+AND THE PEACH DOTS, the other half of his sentence: 2,434 LAMP CELLS ON HIS MAP, 264
+OF THEM LIVE. LIGHT IS TERRITORY (7/20): a lamp is queued only where the circuit
+under it is live, so those dots are a map of WHICH PARTS OF THE VALLEY STILL HAVE
+POWER AND WHOSE WIRE IT IS. He was reading the one picture that answers "who runs
+what" and nothing told him. It goes in the readout that already exists, never a popup
+(rule 19): "a street lamp, lit after dark, on MOB's wire" / "out: MOB's wire went
+dark here" / "no wire under it: this stretch never lights". AND IT IS THE ONLY LINE
+IN THAT PANEL THAT SPEAKS ON PROTECTED GROUND -- every other note there is about what
+you may DO with a plot, and on skeleton the answer is nothing, so the panel has
+always gone quiet on arterial, which is exactly the ground he was asking about.
+A doused circuit still names its holder: the light went out, the claim did not.
+
+GATES: THE FACE ON THE MAP IS HIS 16/0 (new, in the suite). THE ONE THAT IS YOU, the
+[white rings] gate this change could have broken, 7/0 WITH BETTER MARGINS. Leg C asks
+the identity question in BYTES, because identity is bytes and not pixels; leg B asks
+the glass. Mutation: roll his face the way the row said, and it reds.
+
+*** AND HIS VOTES, ANSWERED THE SAME ROUND ***
+    THE BATTERY SHED       UP    "More analog horror good idea get direction"
+    THE SHOP IS STILL LIT  DOWN  "Not analog horror enough"
+Both notes say the same thing and both name the same chat, so I read DIRECTION's ten
+rules and I HAD BROKEN TWO, ONE OF THEM INSIDE MY OWN DOCSTRING.
+ RULE 1, THE ORDINARY FRAME, ONE WRONG THING. My file says "the frame is completely
+ ordinary" and then lists a cracked lot, three faded awnings one of them torn, a
+ blank sign, dead trees, stall paint mostly gone. SIX WRONG THINGS, then the one that
+ was meant to be the wrong thing. Six is not six times the dread; it is a ruin, and a
+ ruin is a picture of a ruin. Nothing in it could be THE wrong thing.
+ RULE 7, DRAWN FROM WORLD DATA, NEVER FAKED. I PAINTED the seven empty shelf runs
+ because seven looked right. They traced to nothing, and the game has had a real
+ stock ledger the whole time (engine/bohemia_economy.js makeLedger + scavDecay).
+THE REPLACEMENT, lifecity-the-shop-that-is-open-9-22, is built the other way round:
+everything ordinary (whole awnings, living trees, fresh paint, a lit sign with
+writing, a swept walk) and ONE wrong thing -- THE SHOP IS OPEN, THE LIGHTS ARE ON,
+AND THERE IS NOTHING ON ANY SHELF -- read by RUNNING the ledger, not reimplementing
+it: food 287, eaten 34.0 a day, decay 0.397 -> 113.9 left, 3.35 DAYS OF SUPPLY, so
+5 of 7 runs bare and 2 still hold something. The factory REFUSES TO RUN if it cannot
+reach the ledger. Three more things the re-cut got wrong and I only found by looking:
+the trees were coloured with the ROOFTOP PLANT code and came out as boulders, the
+sign read as a keypad because I drew 3 px letters, and the door read as a crate.
+THE LESSON: WRITING THE RULE AT THE TOP OF THE FILE IS NOT OBEYING IT. That factory
+quotes rule 1 correctly and breaks it four lines later with every gate green. The
+gate that does not exist yet is rule 1's own test: name the one wrong thing in one
+sentence and prove the frame has no others.
+
+STILL OPEN: [eyes: half a hud] (seven controls on the first screen do nothing).
+HELD UNDER RULE 18(b): [horror city], [tiles not slabs], [buildings appear],
+[power buildings], [owner shown], [bill lands], [shelves seen].
+
 UI (ui-kmqmrf): 9/22 (c) LATEST -- *** THE ALPHA LANDS ON VOTE AFTER BEGIN. HE SAID IT
 TWICE. *** [alpha opens on vote] SHIPPED; [the picks] STAYS CLAIMED with loads B built.
 TAB: the alpha, straight after BEGIN. Record:

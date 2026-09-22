@@ -1150,6 +1150,21 @@
     "how": "image",
     "src": "vote/WORLD_THE_RIG_ON_THE_ROOF.png"
    }
+  },
+  {
+   "id": "lifecity-the-shop-that-is-open-9-22",
+   "kind": "tile",
+   "lane": "life+city",
+   "sha": "491c39db",
+   "made": "9/22",
+   "redoOf": "lifecity-the-shop-is-still-lit-9-21",
+   "said": "Not analog horror enough",
+   "title": "THE SHOP THAT IS OPEN (THE REDO YOU ASKED FOR)",
+   "why": "You said the last shop was not analog horror enough, so I went and read the art chat's rules and I broke two of them. Rule one says the picture has to be NORMAL except ONE thing that is wrong. My last one had six wrong things: a torn awning, dead trees, a cracked lot, a blank sign, faded paint. Six wrong things is just a ruin, and a ruin is boring. Rule seven says the wrong thing has to be TRUE, from the game, not painted. I had painted the empty shelves because seven looked about right. So here it is the other way round. Everything is normal now: the awnings are fine, the trees are alive, the paint is fresh, the sign is lit and has writing on it. Nothing to look at. And ONE thing is wrong: the shop is open, the lights are on, and there is nothing on any shelf. And it is real now. The game says that block has 3.35 days of food left, so 5 of the 7 shelf runs are bare and 2 still have something. If the food changes, the picture changes. Thumbs up and this is how I cook from now on. Thumbs down and tell me if it is still not scary or if it is now too plain.",
+   "show": {
+    "how": "image",
+    "src": "vote/LIFECITY_THE_SHOP_THAT_IS_OPEN_9_22.png"
+   }
   }
  ],
  "verdicts": [

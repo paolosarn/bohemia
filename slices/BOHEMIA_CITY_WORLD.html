@@ -33320,6 +33320,36 @@ function cbLivesLine(x,y){                                          /* draft:tru
   return r.scope==='plot' ? (who+' here, in what you built')
                           : (who+' on this block');
 }
+/* __WHAT_THE_PEACH_DOTS_ARE__ (9/22, LIFE + CITY, [see me]) ==================
+   PAOLO 9/22, looking at CITY mode at 20:15: "what are the peach colored dots
+   that are in different parts of the map what are they supposed to be?"
+
+   THEY ARE LAMPS, AND THEY ARE THE MOST INFORMATIVE THING ON THAT SCREEN. LIGHT
+   IS TERRITORY (7/20): a street lamp is queued ONLY where the circuit under it is
+   live, so the peach dots are a map of which parts of the valley still have power
+   and, through the circuit's holder, WHO IS PAYING FOR IT. He was reading the one
+   picture that answers "who runs what" and nothing told him.
+
+   IT GOES IN THE READOUT HE ALREADY HAS, not in a new popup. Rule 19 (a quest is
+   people, places and things; NOTHING POPS UP) and the panel already answers
+   "(15,41) ARTERIAL · protected" and "nobody lives on this block". This is one
+   more line in the same place, in the same voice.
+
+   THE SAME TWO FACTS THE RENDER USES, ASKED THE SAME WAY, so the words and the dot
+   can never disagree: the district is a lamp district, and POWER.at() says the
+   circuit is live. A doused circuit KEEPS ITS HOLDER -- the light went out, the
+   claim did not -- which is why dark still names a faction.
+   draft:true -- the words are an attempt, the mechanism is not. */
+function cbLampLine(x,y,d){                                         /* draft:true */
+  if(String(d)!=='arterial') return '';
+  var s=null; try{ s=POWER.at(x,y); }catch(_e){ return ''; }
+  if(!s) return '';
+  var who=null; try{ who=POWER.holderAt(x,y); }catch(_e2){ who=null; }
+  var wire = who ? (String(who).toUpperCase()+"'s wire") : 'nobody’s wire';
+  if(s.live)   return 'a street lamp, lit after dark, on '+wire;
+  if(s.doused) return 'a street lamp, out: '+wire+' went dark here';
+  return 'a street lamp with no wire under it: this stretch never lights';
+}
 function CBpanel(){
   let el=document.getElementById('buildpanel');
   if(!el){ el=document.createElement('div'); el.id='buildpanel';
@@ -33360,6 +33390,14 @@ function CBpanel(){
      never on protected skeleton, where "who lives on this freeway" is not a question. */
   else if(!CE.isSkeleton(d)) html+='<div class="cbrow"><span class="cbnote" id="cblives">'
     +esc(cbLivesLine(x,y))+'</span></div>';
+  /* __WHAT_THE_PEACH_DOTS_ARE__ -- and it goes on the SKELETON too, which is the
+     only line in this panel that does. Every other note here is about what you may
+     do with a plot, and on protected ground the answer is nothing, so the panel has
+     always gone quiet there. A lamp is not a thing you may do, it is a thing that is
+     TRUE about that cell, and the cells he was asking about are arterial, which is
+     exactly the ground this panel used to have nothing to say about. */
+  { const __ll=cbLampLine(x,y,d);
+    if(__ll) html+='<div class="cbrow"><span class="cbnote" id="cblamp">'+esc(__ll)+'</span></div>'; }
   el.innerHTML=html;
   /* __A_BUTTON_THAT_CANNOT_WORK_DOES_NOT_LOOK_LIKE_ONE__ (9/13, LIFE + CITY) =====
      EYES E26's stranger walk, item 2: "TWO REAL BUTTONS THAT DO NOTHING: 'BUILD'
@@ -41793,9 +41831,60 @@ function renderCity(){
     g.beginPath(); g.moveTo(__gx,__gy); g.lineTo(__gx,__gy-__st); g.stroke();
     /* the head: his own colour, inside a white body, inside a dark rim */
     const __hy=__gy-__st;
-    g.beginPath(); g.arc(__gx,__hy,__hr+1.5,0,7); g.fillStyle='#241d16'; g.fill();
-    g.beginPath(); g.arc(__gx,__hy,__hr,0,7);     g.fillStyle='#fff';    g.fill();
-    g.beginPath(); g.arc(__gx,__hy,__hr*0.50,0,7);g.fillStyle='#BA8E78'; g.fill();
+    /* __THE_RING_KEEPS_ITS_PIXELS__ -- and this number is arithmetic, not taste.
+       [white rings] holds ONE rule on this mark: he is never fainter than a town on
+       the glass. What makes him bright is the WHITE ANNULUS, and putting a face in
+       the middle eats it. MEASURED, before and after, at the three zooms the gate
+       samples: 684 bright pixels became 533 at TW=48, a fifth of him gone. At TW=48
+       no town happens to be on screen so the gate still passed -- AND A PASS THAT
+       DEPENDS ON WHAT HAPPENS TO BE ON SCREEN IS NOT A PASS. At TW=30, where a town
+       IS on screen, the same loss puts him at about 100 against a town's 236.
+       SO THE HEAD GROWS BY EXACTLY WHAT THE FACE TAKES: a face of radius f*r leaves
+       an annulus of pi*r*r*(1-f*f), so scaling r by 1/sqrt(1-f*f) puts the white
+       area back where it was. Nothing is picked; change the face fraction and the
+       growth follows it. */
+    const __ff=0.66;
+    const __k=1/Math.sqrt(1-__ff*__ff);
+    /* AND A FACE TOO SMALL TO READ IS NOT A FACE. Under a 14 px face it is four
+       muddy pixels where a clean disc used to be, so far out he stays a disc and the
+       head does not grow either: the mark still means him, it just is not pretending
+       to be a portrait. */
+    const __frF=__hr*__k*__ff;
+    let __pf=null;
+    if(__frF>=7){ try{ __pf=ctFaceAsk('you'); }catch(_e){ __pf=null; } }
+    const __HR=__pf?(__hr*__k):__hr;
+    g.beginPath(); g.arc(__gx,__hy,__HR+1.5,0,7); g.fillStyle='#241d16'; g.fill();
+    g.beginPath(); g.arc(__gx,__hy,__HR,0,7);     g.fillStyle='#fff';    g.fill();
+    /* __IT_IS_HIS_OWN_FACE_ON_THE_MAP__ (9/22, LIFE + CITY, [see me]) ==========
+       PAOLO 9/22, looking at CITY mode: "why do I not see my person on this map?"
+       The pin was already the loudest mark on the glass -- that was [white rings],
+       and it worked -- but what it carried in the middle was A FLAT DISC OF SKIN
+       COLOUR. A brown dot is not a person. He could find the mark and still not
+       read it as himself, which is the whole of his sentence.
+
+       *** THE FACE IS HIS, NOT A ROLLED ONE. *** The row asked for faceFor on his
+       id; faceFor ROLLS a face out of a hash and the head the pad wears is
+       buildSpec(), the face he made. Drawing faceFor here would have put a stranger
+       on his map wearing his pin, which is exactly the ONE ID, ONE WHOLE PERSON
+       defect. He is asked for by the reserved id 'you' and the bridge upstairs
+       hands back his own spec.
+
+       NOTHING NEW DRAWS A FACE: same ctFaceAsk, same cache, same decoder, and the
+       same clip-and-do-not-smooth idiom the bark bubble already uses, because a
+       64x64 face scaled up smooth is a smudge instead of a person.
+
+       AND THE WHITE RING KEEPS ITS PIXELS, by the arithmetic above the rim: the head
+       grows by exactly what the face takes out of it. Until his face arrives (one
+       ask, one frame) the old disc is still drawn, so the mark is never a hole. */
+    if(__pf){
+      g.save();
+      g.beginPath(); g.arc(__gx,__hy,__frF,0,7); g.closePath(); g.clip();
+      g.imageSmoothingEnabled=false;
+      try{ g.drawImage(__pf,__gx-__frF,__hy-__frF,__frF*2,__frF*2); }catch(_e2){}
+      g.restore();
+    } else {
+      g.beginPath(); g.arc(__gx,__hy,__HR*0.50,0,7);g.fillStyle='#BA8E78'; g.fill();
+    }
     g.restore(); }
   if(night){ g.fillStyle='rgba(10,18,40,0.25)'; g.fillRect(0,0,cv.width,cv.height); } if(window.__LAMPQ){ const ga2=g.globalAlpha; g.globalAlpha=1; for(const q of window.__LAMPQ){ g.fillStyle='rgba(255,170,60,0.25)'; g.beginPath(); g.ellipse(q.sx,q.sy+TH*0.5,TW*0.55,TH*0.55,0,0,7); g.fill(); g.fillStyle='rgba(255,205,100,0.95)'; g.fillRect(q.sx-1.5,q.sy+TH*0.35,3,3); } g.globalAlpha=ga2; window.__LAMPQ=null; }
 }
@@ -60348,6 +60437,13 @@ window.addEventListener('message', function (ev) {
   try {
     var c = decodePlayerFrame(m.face);
     if (c) FACE_CV[String(m.who)] = c;
+    /* AND DRAW IT, BECAUSE THIS MAP DOES NOT REDRAW ON ITS OWN. (9/22, [see me].)
+       Rendering here is event-driven: a step animates, the beat ticks, a tap
+       repaints. A face is asked for DURING a paint and lands one message later, so
+       without this the answer arrives and sits in the cache until something else
+       happens to move -- on a still map, his own face would never appear. The
+       faction-cast handler two blocks down already ends this way; same idiom. */
+    if (c) { try { render(); } catch (_e2) {} }
   } catch (_e) {}
 });
 try { window.ctFaceAsk = ctFaceAsk; window.FACE_CV = FACE_CV; } catch (_e) {}
