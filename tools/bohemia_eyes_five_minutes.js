@@ -25,8 +25,12 @@
  * for 1.2 seconds.
  *
  * CONTROLS (RULE ZERO, E9), all must pass or the list is not trustworthy:
- *   COLD START   localStorage must be empty at the moment of first paint, or the run is
+ *   COLD START   no SAVE or PROGRESS key may be in storage at first paint, or the run is
  *                void and restarted: a warm save is not the five minutes anybody else gets.
+ *                (Written first as "storage must be empty", which failed on two keys the game
+ *                writes itself while booting -- a look preference and a sound volume. A control
+ *                that fails on the game saving its own default volume is not measuring what it
+ *                claims. Corrected 9/22; the full note is at the control.)
  *   ERROR CATCH  a deliberately raised page error must be captured, or a report of zero
  *                errors means nothing.
  *   CHANGE PROBE a deliberately mutated pixel must register as a change, or "nothing
@@ -232,8 +236,21 @@ const SOURCE = (() => {
       try { return { n: localStorage.length, keys: Object.keys(localStorage).slice(0, 8) }; }
       catch (e) { return { n: -1, keys: [] }; }
     });
-    out.controls.push({ name: 'COLD START: nothing in storage at first paint',
-                        pass: stored.n === 0, detail: stored.n + ' keys ' + JSON.stringify(stored.keys) });
+    /* WHAT THIS CONTROL IS ACTUALLY FOR (corrected 9/22). It exists to prove the walk is a
+       FIRST-TIME experience -- that no earlier play is being read back. It was written as
+       "storage is literally empty", and on BUILD 9/23a it failed on two keys the game writes
+       ITSELF during boot: bohemia:look and bohemia_sfxvol, a look preference and a sound volume.
+       Fresh context, so nobody's prior play is in them; they are defaults being persisted. A
+       control that fails on the game saving its own default volume is not measuring what it
+       claims, so it now asks the real question: is any SAVE or PROGRESS key present. Emptiness
+       is reported beside it so a reader can see what the game wrote. */
+    const progressKeys = (stored.keys || []).filter(k => /save|prog|day|world|city|state|player/i.test(k));
+    out.controls.push({ name: 'COLD START: no earlier play is being read back',
+                        pass: progressKeys.length === 0,
+                        detail: stored.n + ' keys at first paint ' + JSON.stringify(stored.keys)
+                          + (progressKeys.length ? ' -- AND ' + JSON.stringify(progressKeys)
+                             + ' look like carried progress, so this is not a first run'
+                             : ' -- none of them carry progress, so this is a first run') });
 
     /* CONTROL: ERROR CATCH. */
     await page.evaluate(() => { setTimeout(() => { throw new Error('__eyes_planted_error__'); }, 0); });
@@ -278,7 +295,17 @@ const SOURCE = (() => {
     });
     out.numbers.time_until_something_is_tappable_s = readyAt == null ? 'never' : +((readyAt - t0) / 1000).toFixed(2);
     let before = await sig();
-    await page.evaluate(() => { const f = document.getElementById('front'); if (f) f.click(); });
+    /* THE DOOR IS TAPPED WITH A FINGER NOW, AND THE DOOR IS A CONTROL (added 9/22 off E20's
+       retraction). A scripted click inside the boot freeze can be LOST: measured on one cut,
+       a scripted click at 2.5 s left the splash up and the game never started, while a real
+       touch at the same moment got in, because the browser queues a trusted event until the
+       main thread frees up. This walk taps at ~31 s so it was safe by timing, not by design,
+       and "safe by accident" is how a whole round gets measured on a door that never opened. */
+    const doorBox = await page.evaluate(() => { const f = document.getElementById('front');
+      if (!f) return null; const r = f.getBoundingClientRect();
+      return { x: r.x + r.width / 2, y: r.y + r.height / 2 }; });
+    if (doorBox) await page.touchscreen.tap(doorBox.x, doorBox.y);
+    else await page.evaluate(() => { const f = document.getElementById('front'); if (f) f.click(); });
     const tIn = await page.evaluate(() => performance.now());
     out.numbers.my_first_tap_at_s = +((tIn - t0) / 1000).toFixed(2);
     await sleep(3500);
@@ -287,6 +314,28 @@ const SOURCE = (() => {
          after.txt !== before.txt || after.pix !== before.pix ? 'the screen changed' : 'NOTHING CHANGED',
          'that tapping enters the game');
     out.shots.push(await snap('01_entered'));
+    /* CONTROL: THE DOOR OPENED. Everything after this line is a claim about the game, so if the
+       splash is still on the screen none of it is. */
+    const doorAfter = await page.evaluate(() => {
+      const f = document.getElementById('front');
+      const shown = (() => { if (!f) return false; const r = f.getBoundingClientRect();
+        const cs = getComputedStyle(f);
+        return r.width > 0 && r.height > 0 && cs.display !== 'none' && cs.visibility !== 'hidden'
+               && +cs.opacity > 0.1; })();
+      let hud = null;
+      for (const fr of document.querySelectorAll('iframe')) {
+        try { const d = fr.contentDocument; if (!d) continue;
+              const b = d.getElementById('musbtn');
+              if (b) { hud = (b.textContent || '').trim().slice(0, 40); break; } } catch (e) {}
+      }
+      return { shown, hud };
+    });
+    out.controls.push({ name: 'THE DOOR OPENED: the splash is gone and the game\u2019s HUD is there',
+                        pass: doorAfter.shown === false && !!doorAfter.hud,
+                        detail: 'splash still shown: ' + JSON.stringify(doorAfter.shown)
+                          + ', HUD music chip: ' + JSON.stringify(doorAfter.hud)
+                          + (doorAfter.shown === false && doorAfter.hud ? ' -- this walk is in the game'
+                             : ' -- THIS WALK NEVER ENTERED THE GAME, so nothing below is about the game') });
 
     /* ---- WHAT IS ON THE FIRST SCREEN, as a camera would list it --------- */
     const controls = await page.evaluate(() => {
@@ -440,7 +489,7 @@ const SOURCE = (() => {
          time, UNDECIDED if once. Undecided is not dead and it is never counted as dead -- a
          one-shot control (a card that closes) is genuinely undecidable this way and saying so
          is the honest answer. */
-      const beats = [], evidence = [], closedOn = [], where = [], inPanel = [], elsewhere = [];
+      const beats = [], evidence = [], closedOn = [], where = [], inPanel = [], elsewhere = [], panels = [];
       let landed = 'the tap was refused (not visible to a finger)';
       let bs = null, as = null, tapMove = null, nullMove = null;
       for (let attempt = 0; attempt < 2; attempt++) {
@@ -468,6 +517,7 @@ const SOURCE = (() => {
            panel_words_moved: the words INSIDE that panel changed, and at least one of them has
              never been seen moving with nobody touching the screen. */
         const stillOpen = !!(before && before.open && after.open);
+        panels.push((before && before.path) || 'none found');
         const bw = new Map(), aw = new Map();
         for (const w of (before && before.words) || []) bw.set(w, (bw.get(w) || 0) + 1);
         for (const w of after.words || []) aw.set(w, (aw.get(w) || 0) + 1);
@@ -561,7 +611,26 @@ const SOURCE = (() => {
                                    why: 'the panel it lives in closed, and a card closes on any tap it does not recognise' });
           return false;
         }
-        if (!changed) {
+        /* *** THE TWO PRESSES HAVE TO BE TWO PRESSES OF THE SAME SCREEN (9/22). ***
+           Caught before publishing, on the third reproduction of this list: SCAVENGE 8H came
+           back DEAD while its own evidence showed eight novel words elsewhere on press one --
+           YOU, 1, OF, you, the, SLEEP, BIKE, STANDING -- and the panel it sat in was
+           #blstack.uihalf for press one and #daycardIn for press two. That reads like the press
+           OPENED THE DAY CARD, and then press two was measured with the card open, found
+           nothing new, and the repeatability rule turned one real answer into a dead button.
+           It is the same mistake rule 14(h) fixed for a panel that CLOSES, one step along: if
+           the panel under the finger is not the same panel both times, the pair is void and the
+           honest word is UNDECIDED, never dead. A wrong dead call is the one thing this lane
+           must never produce. */
+        const panelDrifted = panels.length === 2 && panels[0] !== panels[1];
+        if (!changed && panelDrifted) {
+          out.undecided.push({ at: stamp(as.now), text: c.text, id: c.id, where: c.where,
+                        size: c.w + 'x' + c.h, looked_tappable_because: c.looks_tappable_because || 'nothing said so',
+                        why: 'THE SCREEN CHANGED BETWEEN THE TWO PRESSES: the panel under the '
+                          + 'finger was ' + panels[0] + ' and then ' + panels[1] + ', so press two '
+                          + 'did not measure the same screen and this pair proves nothing',
+                        evidence: evidence });
+        } else if (!changed) {
           const row = { at: stamp(as.now), text: c.text, id: c.id, where: c.where,
                         size: c.w + 'x' + c.h, looked_tappable_because: c.looks_tappable_because || 'nothing said so',
                         pressed_twice: true, novel_movement_either_time: 'none',
@@ -1000,6 +1069,10 @@ const SOURCE = (() => {
       pass: out.named.length > 0 && out.named.every(n => /still does nothing|does something now|GONE FROM THE GAME/i.test(n.result)),
       detail: out.named.map(n => n.id + ': ' + n.result).join('; ') || 'no named items' });
     out.numbers.tapped_and_inert_but_never_claimed_to_be_a_button = out.inert.length;
+    /* PRINTED BESIDE THE DEAD COUNT ON PURPOSE: a pair of presses thrown away because the
+       screen changed under the finger is not a dead control and not a live one. Hiding it
+       inside either number is how a dead call gets published by accident. */
+    out.numbers.pairs_void_because_the_screen_changed_between_presses = out.undecided.length;
     /* WHAT THE WORLD DOES WITH NOBODY TOUCHING IT. If this is not zero, then the old
        detector -- any change means the tap worked -- was reading the world and calling it a
        button, and every 'it works' verdict it ever printed is unsafe. */

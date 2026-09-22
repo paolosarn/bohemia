@@ -1,0 +1,98 @@
+{
+  "what": "what happens between two songs, on the clock",
+  "row": "E20 [song length] round two",
+  "when": "2026-09-22T09:30:07.646Z",
+  "surface": "/tmp/claude-0/-home-user-bohemia/065fcaf1-af13-5362-9424-9d0305049a14/scratchpad/cut/slices/BOHEMIA_DEMO.html",
+  "surface_tag": "DEPLOYCUT",
+  "watch_window_s": 240,
+  "controls": [
+    {
+      "name": "C0 THE DOOR REALLY OPENED: the splash is gone and the game’s HUD is there",
+      "pass": true,
+      "detail": "front screen shown after the tap: false, the HUD music chip reads \"MENU — DEAD VALLEY DAWN\" -- so the game is running and anything below is about the game"
+    },
+    {
+      "name": "C1 NOT BLIND: the sampler is proved to see a rest begin",
+      "pass": true,
+      "detail": "what it saw: a NATURAL rest (1 in the window) | the forced rest was granted"
+    },
+    {
+      "name": "C2 BOTH EDGES: the sampler is proved to see a rest end",
+      "pass": true,
+      "detail": "a rest was seen going back to resting=false, on a NATURAL rest (1 in the window)"
+    },
+    {
+      "name": "C3 A REAL DUCK: the bed’s gain inside a rest is a real captured number and is not the outside state",
+      "pass": true,
+      "detail": "outside null (the field exists only during a rest), inside 0.800000011920929 -- a real number and not the outside state, so the duck is real"
+    },
+    {
+      "name": "C4 REFUSED IS NOT ZERO: a blocked rest is reported as refused",
+      "pass": true,
+      "detail": "13 of 939 samples had restBlocked() true (the method is CALLED now, not read); a refused rest is never counted as a gap of 0 s"
+    }
+  ],
+  "rests": [
+    {
+      "at_s": 131.39,
+      "length_s": 16.47,
+      "restLen_the_engine_intended_ms": 16000,
+      "bed_gain_inside": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929
+      ]
+    }
+  ],
+  "samples": 939,
+  "door": {
+    "tapped_at": "195,422",
+    "after": {
+      "front_shown": false,
+      "hud_music_text": "MENU — DEAD VALLEY DAWN"
+    }
+  },
+  "at_the_door": {
+    "on": false,
+    "resting": false,
+    "restUntil": 0,
+    "restLen": 16000,
+    "restGain": null,
+    "restBlocked": true,
+    "PHRASE": 128,
+    "masterGain": null,
+    "phase": "DAWN",
+    "now": 46989.89999999991
+  },
+  "shuffle_on_at_the_door": false,
+  "phrase_steps": 128,
+  "phrase_seconds_if_a_step_is_0_125": 16,
+  "rests_refused_while_watching": 13,
+  "shuffle_first_on_at_s": 3.84,
+  "forced": {
+    "returned": {
+      "got": true,
+      "blocked": false,
+      "master": null
+    },
+    "seenResting": true,
+    "seenEnded": true,
+    "gainInside": 0.800000011920929,
+    "why": null
+  },
+  "numbers": {
+    "rests_in_the_window": 1,
+    "window_s": 240,
+    "shortest_gap_s": 16.47,
+    "longest_gap_s": 16.47,
+    "the_floor_from_round_one_s": 3,
+    "gaps_under_the_floor": 0,
+    "phrase_steps": 128,
+    "phrase_seconds_if_a_step_is_0_125": 16,
+    "THE_SHUFFLE_IS_ON_AT_THE_DOOR": false,
+    "seconds_after_the_door_the_shuffle_came_on": 3.84,
+    "refused_samples": 13
+  },
+  "failing_controls": []
+}

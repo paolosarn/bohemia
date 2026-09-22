@@ -173,9 +173,39 @@ const HOLD_WINDOWS = 8;
     await page.goto('file://' + SURFACE, { waitUntil: 'domcontentloaded', timeout: 180000 });
     await sleep(2500);
     await snap('00_front');
-    await page.evaluate(() => { const f = document.getElementById('front'); if (f) f.click(); });
+    /* THE DOOR IS A FINGER AND THE DOOR IS A CONTROL (9/22, off E20's retraction). A scripted
+       click inside the boot freeze CAN BE LOST -- measured on one cut, a scripted click at
+       2.5 s left the splash up and the game never started, while a real touch at the same
+       moment got in, because a trusted event is queued until the main thread frees up. This
+       tool clicked at 2.5 s and its screenshot proves it got in anyway, which makes it a race
+       it happened to win. A race is not a method, so: a real tap, and the door is checked. */
+    const doorBox = await page.evaluate(() => { const f = document.getElementById('front');
+      if (!f) return null; const r = f.getBoundingClientRect();
+      return { x: r.x + r.width / 2, y: r.y + r.height / 2 }; });
+    if (doorBox) await page.touchscreen.tap(doorBox.x, doorBox.y);
+    else await page.evaluate(() => { const f = document.getElementById('front'); if (f) f.click(); });
     await sleep(30000);
     await snap('01_world');
+    const door = await page.evaluate(() => {
+      const f = document.getElementById('front');
+      const shown = (() => { if (!f) return false; const r = f.getBoundingClientRect();
+        const cs = getComputedStyle(f);
+        return r.width > 0 && r.height > 0 && cs.display !== 'none' && cs.visibility !== 'hidden'
+               && +cs.opacity > 0.1; })();
+      let hud = null;
+      for (const fr of document.querySelectorAll('iframe')) {
+        try { const d = fr.contentDocument; if (!d) continue;
+              const b = d.getElementById('musbtn');
+              if (b) { hud = (b.textContent || '').trim().slice(0, 40); break; } } catch (e) {}
+      }
+      return { shown, hud };
+    });
+    out.controls.push({ name: 'C0 THE DOOR REALLY OPENED: the splash is gone and the game\u2019s HUD is there',
+      pass: door.shown === false && !!door.hud,
+      detail: 'splash still shown: ' + JSON.stringify(door.shown) + ', HUD music chip: '
+        + JSON.stringify(door.hud) + (door.shown === false && door.hud
+          ? ' -- so these readings are the game and not a title screen'
+          : ' -- SO THESE READINGS ARE NOT THE GAME: the door never opened') });
 
     /* ---- C4: the comparator, on data whose answer is known ---- */
     const same = new Array(64 * 64 * 4).fill(10), diff = new Array(64 * 64 * 4).fill(250);
