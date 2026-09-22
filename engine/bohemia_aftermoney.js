@@ -61,6 +61,29 @@
 //     BROKE       the valley has batteries and you have none
 //     DEAD        NOBODY has any, and only then do the rules change
 //     (unknown)   nothing measured; answers null rather than guessing
+// ============================================================================
+// *** CORRECTED 9/22 BY HIS RULING, AND THE BEAT GOT BETTER FOR IT ***
+// ============================================================================
+//   "Mfs charge batteries bro. i know buildings can help in our game but jesus
+//    christ mfs can charge batteries"          -- Paolo 9/21, in the VOTE tab
+//
+// This file shipped on the premise that the valley stays dead once it is spent,
+// because "only a building can put a battery back". THAT IS NOW FALSE. Anybody
+// with a rig and a source charges cells (engine/bohemia_charge.js), so the
+// valley CANNOT run out of cells while one person still has a panel.
+//
+// THE BEAT SURVIVES AND IT IS A BETTER BEAT. The money does not die when the
+// cells run out. It dies when THE CHARGE does: no sun on the panels, no lit wire
+// anybody can reach, no rig left working. That is a thing a player can watch
+// coming and act on, which a fixed supply quietly draining never was.
+//
+// NOTHING IN THE CODE BELOW CHANGES, and that is on purpose. state() has always
+// read the supply and never claimed to know why it was low; the reason lived in
+// this header and the header was wrong. What a DEAD valley means is now "nobody
+// has a cell AND nobody could charge one", and the second half belongs to
+// bohemia_charge, which is why this file still asks only the first.
+// THE CALLER THAT JOINS THEM DOES NOT EXIST YET because rule 18 keeps this lane
+// off every play surface. Named here rather than left implied.
 (function (root) {
   'use strict';
 

@@ -1,0 +1,103 @@
+# POST-MORTEM: SIX TEXT ITEMS, SIX THUMBS DOWN (9/22/26, WORLD lane)
+
+Rule 15(c): a killed item goes to the graveyard with a post-mortem. He voted on
+83 items and **every one of this lane's six went down.**
+
+```
+THE FIRST NOTICE            down   "So boring"
+WHO SENDS THE NOTICE        down   "Boring asfff"
+YOU PAID IT                 down   (no comment)
+THE BLOCK HOLDS THE DOOR    down   (no comment)
+THE RULES RUN WITH THE DIRT down   "Mfs charge batteries bro 🤣🤣🤣 i knkw
+                                    buildings can help in our game but jesus
+                                    christ mfs can charge batteries"
+THE DAY THE MONEY DIES      down   (no comment)
+```
+
+**Six for six. That is not a taste disagreement, it is a wrong read of the job,
+and it was mine.**
+
+---
+
+## 1. WHAT I DID, AND WHY IT WAS WRONG
+
+Rule 22 said: a making lane ends every round with **a real thing he can hear or
+see**, registered in the VOTE tab. It listed what each lane makes. For WORLD it
+said **"a thing on the phone."**
+
+I read "a thing on the phone" as **a document**, and shipped five rounds of them:
+a power cut-off notice, a water alert, a paid-in-full receipt, an eviction
+notice, a covenant violation, a price list. Every one was a page of text on a
+mock phone screen.
+
+They were carefully built and some of the machinery under them is good and
+survives. **But what he opened, six times, was a wall of words**, and his own
+rule came back the same round to say so:
+
+> **Rule 29** — "boring asf" x5, "idk what I was reading", "no more cards with
+> quest, just make an actual quest, **make the pixels, make the sound**". WORLD,
+> WORDS and QUESTS register no more text-only items; words ride inside a thing he
+> can see or hear; **the thing is the item.**
+
+## 2. THE TELL I WALKED PAST
+
+STOP PRODUCING names it exactly: *"writing a fourth version of anything means you
+already failed."*
+
+**I wrote six.** Six notices, five rounds, the same shape every time, each one
+greener and more thoroughly gated than the last. Green gates were never an
+argument and they were not one here either. The fifth and sixth should never have
+been made; by then the pattern was the answer.
+
+And there was a second tell I had written down myself and did not apply: I kept
+noting that the horror "costs nothing to write." **A thing that costs nothing to
+make is a thing nobody had to decide anything about.** Drawing the rig this round
+took real choices about shape, light and what the wrong thing in the frame is.
+That difference is most of what he is voting on.
+
+## 3. WHAT SURVIVES AND WHAT DIES
+
+**DIES:** all six items, by id, never to render again. No re-skin, no second
+attempt at a page of institutional prose. If any of that voice comes back it
+comes back **inside something drawn or heard**, as a label on a machine, and it
+comes back as a new id through DIRECTION's bible (rule 30).
+
+**SURVIVES**, because it is mechanism and he did not vote on mechanism:
+
+```
+bohemia_notice      the notice machine: required slots, refusals, the measured
+                    count of who is left to answer a form. No caller on a play
+                    surface. It waits until something DRAWN needs a document.
+bohemia_strike      the block holds the door (Glasgow 1915). Untouched.
+bohemia_watch       what an ask may move, and the promotion tests.
+bohemia_aftermoney  the day the money dies, and it is CORRECTED this round by
+                    his charging ruling rather than left to contradict him.
+```
+
+## 4. THE ONE COMMENT THAT WAS A RULING, NOT A VERDICT
+
+> "Mfs charge batteries bro. i know buildings can help in our game but jesus
+> christ mfs can charge batteries"
+
+He is right, and it is the sharpest thing said to this lane in a week.
+
+**Measured in the walked city:** `cellsNightlyCharge()` is the only thing in the
+game that makes a battery. It walks the lit circuits, finds the **faction**
+holding that ground, and credits that faction one cell. **A person never makes
+one. The player never makes one.** The entire money supply of Las Vegas is minted
+by fourteen outfits holding wire, and every human being is locked out of the one
+act that creates money.
+
+That is built this round as `[people charge]`, and the drawn thing is the rig.
+
+## 5. WHAT THIS LANE DOES DIFFERENTLY FROM NOW
+
+1. **A WORLD cook is a thing drawn.** The board says it in his words: the paper
+   on the table, the pump. The rig this round is the first.
+2. **The mechanism can still be the round's real work** — it usually is — but it
+   is not the item. The item is what he can look at.
+3. **Six of anything means stop at two.** If two go down, the shape is dead for
+   the session, not the individual attempt.
+
+**Registry:** the six ids are consumed and never render again (rule 15b). This
+file is their post-mortem.
