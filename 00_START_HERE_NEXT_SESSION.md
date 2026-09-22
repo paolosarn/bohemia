@@ -1,3 +1,71 @@
+WORDS (words-8dqrnq): 9/23 (b) LATEST -- *** EVERY FORMER TRADE IN THE GAME NOW HAS A LINE SOMEBODY SAYS
+BECAUSE OF IT. FIFTEEN TRADES, FIFTEEN LINES, WIRED INTO THE ROW EACH ONE ALREADY OCCUPIES. NOTHING
+REGISTERED IN VOTE, WHICH IS RULE 29. *** Row [trade slang] SHIPPED. Record:
+records/BOHEMIA_WORDS_THE_TRADE_OUTLIVES_THE_TRADE_9_23_26.md
+
+RULE 12, AND THE NAMED BLOCKER WAS GONE AGAIN, THIRD ROUND RUNNING. The row depends on PEOPLE's
+BB-WHAT-YOU-WERE. PEOPLE BUILT IT: every person carries a `was` and a `keeps`, with a real-city mix
+behind it. Measured before writing a word.
+
+*** THE FINDING, SAME SHAPE AS THE LAST TWO: FIFTEEN FORMER TRADES EXIST, WITH A GENUINELY GOOD
+DESIGN IN THEM, AND NOT ONE SAYS ANYTHING. *** And the design is the part worth reading. The table
+splits into three houses, and THE FRONT-OF-HOUSE ROWS CARRY keeps:null ON PURPOSE, with the reason
+written beside them: the trade died, and the empty half has to be visible or the joke is not there.
+  BACK OF HOUSE   ran a kitchen, ran the laundry, kept the boilers, pulled high voltage, ran the
+                  water plant, worked the docks -- they kept a machine running and it still matters
+  FRONT OF HOUSE  dealt cards, parked cars, ran a pit, worked the floor -- keeps:null, they served
+                  the money and the money is gone
+  OFF THE STRIP   poured concrete, drove a cab, worked a ward, taught school, fixed engines
+SOMEBODY BUILT THE SADNESS INTO THE DATA STRUCTURE AND THEN HAD NOBODY SAY IT. Third time in three
+rounds the find was already in the repo: twelve endings in the encounter table, a refusal system in
+the quirk factory, and now fifteen trades with a null where the joke goes.
+
+THE BACK OF HOUSE still has the skill, so their line is the old frame on the new world ("Do not drink
+that. I ran the plant. I would know." / "I will put my hand on that panel. You will not.").
+*** THE FRONT OF HOUSE IS THE ROUND. Their trade has no object any more and they still do it: ***
+  DEALT CARDS        I still cut the deck twice. There is no deck.
+  PARKED CARS        I can still park anything. There is nothing to park.
+  RAN A PIT          I ran a room. I still count the room when I walk in.
+  WORKED THE FLOOR   I worked a floor with four thousand people on it.
+That is the dead institution in a mouth, the register he approved out loud, arriving with no
+narrator, no card and no explanation. The row asked for funny and sad in the same breath; the
+dealer's line is four words of habit and three words of fact.
+
+THE FORM, BECAUSE HE KILLED THE LAST SEVEN: rule 29 says no text-only item and the words ride inside
+a thing, so NOTHING WAS REGISTERED. The lines are a field on rows that already exist, in both copies
+of the module. AND NOTHING NEW DRAWS: rule 18 holds the play surface and this respects it the way the
+law itself blessed for the encounter tables -- the field is added, NOTHING READS IT, nothing is
+shown. VERIFIED RATHER THAN ASSERTED: no reader of the trade rows' new field exists anywhere in the
+engine or the city (the .says hits elsewhere are the asks and company modules' own unrelated fields).
+
+*** A FIFTH RULER FAILURE, CAUGHT BY CHECKING INSTEAD OF BELIEVING. *** My verification said 14 OF 15
+trades got a line, and the reflex was to hunt the missing one. Instead I looked at the ruler: my
+pattern read `keeps: ([^,]+)` and the laundry row's value is "KNOWS WATER, HEAT AND SOAP AT SCALE".
+A COMMA INSIDE A VALUE BROKE THE CHECK, NOT THE DATA. Re-counted by id, which punctuation cannot
+fool: 15 of 15, no duplicates, fifteen distinct lines. Fifth one this lane has recorded and the
+pattern across all five is identical: a ruler believed because it produced a number.
+
+GATES: people 158/0, language 85/0 (carrying the rule 27 leg from last round), voice 114/0 (two
+stated skips for the shallow clone), dialogue catalogue 63/0, attempt 15/0, voice audible 2/0,
+handoff 8/0.
+
+ROUTED: TO PEOPLE: the trades you built now have words in them, beside the `was` they belong to, no
+lookup table of mine needed. TO WHOEVER GIVES A STRANGER A SECOND THING TO SAY: the quirk is "one
+thing that is theirs" and is about NOW; this is about BEFORE, and the two do not collide.
+STANDING: read the table before writing the words. Three rounds, three finds already in the repo.
+
+STANDING QUEUE: [reputation lines] BB-RESPONSIVE is next, then [voice pass] SECOND-VOICE-PASS, which
+is worth flagging because my own gate reports 39 BANNED-PHRASE HITS STILL STANDING IN THE 22 SCENES
+THAT HAVE NOT HAD ONE while the demo's five are clean. Q26 stays claimed until a surface speaks its
+lines. Q6 through Q17 still owe school rounds, oldest first, one at a time with a cook beside each.
+STANDING WATCH: verdicts[] every round for ids starting words-. Checked: 83 verdicts, the nine that
+are mine were all acted on in the 9/22 (b) round below; no new ones since.
+*** AND THE LESSON THAT STILL BINDS THIS LANE: NO TEXT-ONLY ITEM IN VOTE, EVER AGAIN. Words ride
+inside a thing he can see or hear. Two rounds running, nothing registered, and both rounds still
+shipped something real. ***
+HANDOFF DISCIPLINE, THE 9/13 AMENDMENT: this block was built by taking origin/main's copy of the file
+fresh and prepending a NEW head. Never demote another lane's head and never splice by index.
+
 EYES AND EARS (eyes-5vql33): 9/22 (ap) LATEST -- *** E20 [song length] SHIPPED, AND THE ROUND'S REAL FINDING IS THAT I NEARLY PUBLISHED A FALSE ACCUSATION AGAINST THE MUSIC BECAUSE MY OWN PROBE'S DOOR NEVER OPENED. *** Record: records/BOHEMIA_EYES_E20_ROUND_2_THE_DOOR_NEVER_OPENED_9_22_26.md. Measured on the DEPLOYED CUT of BUILD 9/23a and on the alpha, 240 s a side. THE STRANGER'S LIST and THE HORROR READING are both rewritten on the front page.
   THE RETRACTION. The first cut of tools/bohemia_eyes_the_handover.js read the music shuffle as OFF on both surfaces, 0 rests in 240 s, ALL FOUR CONTROLS GREEN, and the record was drafted. The music is fine. The probe entered with a scripted element.click() on the splash 2.5 s after load, THE PRESS WAS LOST, the splash stayed up, and a game that never started has no music. Caught by asking one more question before posting: is the thing I am about to call broken actually running.
   AND THE FIRST A/B PROVED NOTHING because it moved three things at once (kind of press, which element, when). FIVE ARMS, ONE DIFFERENCE AT A TIME, one cut: scripted click on the splash at 2.5 s = DOOR STAYS SHUT; the same scripted click at 35 s = opens; scripted click on BEGIN itself at 35 s = opens; a real finger at 2.5 s or 35 s = opens. IT IS WHEN, not what kind and not which element: the browser holds a trusted event until the main thread frees up, and a scripted click fires into a page that has not wired its handler yet and is gone.

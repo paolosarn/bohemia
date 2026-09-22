@@ -7229,25 +7229,40 @@ if(typeof window!=='undefined') window.BohemiaLattice=BOH_LATTICE;
   var WAS_WORDS = [
     /* BACK OF HOUSE -- they kept a machine running, and the machine still
        matters. This is the valuable half. */
-    { id: 'kitchen', house: 'back',  was: 'RAN A KITCHEN',        keeps: 'CAN FEED A CROWD OFF NOTHING' },
-    { id: 'laundry', house: 'back',  was: 'RAN THE LAUNDRY',      keeps: 'KNOWS WATER, HEAT AND SOAP AT SCALE' },
-    { id: 'plant',   house: 'back',  was: 'KEPT THE BOILERS',     keeps: 'CAN MAKE HEAT AND COLD AGAIN' },
-    { id: 'sparks',  house: 'back',  was: 'PULLED HIGH VOLTAGE',  keeps: 'WILL TOUCH A LIVE PANEL' },
-    { id: 'water',   house: 'back',  was: 'RAN THE WATER PLANT',  keeps: 'KNOWS WHAT IS SAFE TO DRINK' },
-    { id: 'docks',   house: 'back',  was: 'WORKED THE DOCKS',     keeps: 'KNOWS WHERE THE DEEP STORES ARE' },
+    { id: 'kitchen', house: 'back',  was: 'RAN A KITCHEN',        keeps: 'CAN FEED A CROWD OFF NOTHING',
+      says: 'Give me an onion and an hour. I did four hundred.' },
+    { id: 'laundry', house: 'back',  was: 'RAN THE LAUNDRY',      keeps: 'KNOWS WATER, HEAT AND SOAP AT SCALE',
+      says: 'That water is too hot for what you just put in it.' },
+    { id: 'plant',   house: 'back',  was: 'KEPT THE BOILERS',     keeps: 'CAN MAKE HEAT AND COLD AGAIN',
+      says: 'I can hear a boiler about to stop. I still can.' },
+    { id: 'sparks',  house: 'back',  was: 'PULLED HIGH VOLTAGE',  keeps: 'WILL TOUCH A LIVE PANEL',
+      says: 'I will put my hand on that panel. You will not.' },
+    { id: 'water',   house: 'back',  was: 'RAN THE WATER PLANT',  keeps: 'KNOWS WHAT IS SAFE TO DRINK',
+      says: 'Do not drink that. I ran the plant. I would know.' },
+    { id: 'docks',   house: 'back',  was: 'WORKED THE DOCKS',     keeps: 'KNOWS WHERE THE DEEP STORES ARE',
+      says: 'Everything anybody wants is still in a container.' },
     /* FRONT OF HOUSE -- they served the money, and the money is gone. `keeps`
        is null on purpose: the trade died, and the empty half of the inversion
        has to be visible or the joke is not there. */
-    { id: 'dealer',  house: 'front', was: 'DEALT CARDS',          keeps: null },
-    { id: 'valet',   house: 'front', was: 'PARKED CARS',          keeps: null },
-    { id: 'pit',     house: 'front', was: 'RAN A PIT',            keeps: null },
-    { id: 'floor',   house: 'front', was: 'WORKED THE FLOOR',     keeps: null },
+    { id: 'dealer',  house: 'front', was: 'DEALT CARDS',          keeps: null,
+      says: 'I still cut the deck twice. There is no deck.' },
+    { id: 'valet',   house: 'front', was: 'PARKED CARS',          keeps: null,
+      says: 'I can still park anything. There is nothing to park.' },
+    { id: 'pit',     house: 'front', was: 'RAN A PIT',            keeps: null,
+      says: 'I ran a room. I still count the room when I walk in.' },
+    { id: 'floor',   house: 'front', was: 'WORKED THE FLOOR',     keeps: null,
+      says: 'I worked a floor with four thousand people on it.' },
     /* OFF THE STRIP -- the city that served the people who worked it. */
-    { id: 'builder', house: 'off',   was: 'POURED CONCRETE',      keeps: 'CAN READ A BUILDING' },
-    { id: 'driver',  house: 'off',   was: 'DROVE A CAB',          keeps: 'KNOWS EVERY ROAD IN THE VALLEY' },
-    { id: 'nurse',   house: 'off',   was: 'WORKED A WARD',        keeps: 'CAN KEEP SOMEBODY ALIVE' },
-    { id: 'teacher', house: 'off',   was: 'TAUGHT SCHOOL',        keeps: 'CAN STILL TEACH IT' },
-    { id: 'wrench',  house: 'off',   was: 'FIXED ENGINES',        keeps: 'CAN GET SOMETHING RUNNING' }
+    { id: 'builder', house: 'off',   was: 'POURED CONCRETE',      keeps: 'CAN READ A BUILDING',
+      says: 'That wall holds nothing. Look where the weight goes.' },
+    { id: 'driver',  house: 'off',   was: 'DROVE A CAB',          keeps: 'KNOWS EVERY ROAD IN THE VALLEY',
+      says: 'Nine minutes if the arterial is open. Twenty if not.' },
+    { id: 'nurse',   house: 'off',   was: 'WORKED A WARD',        keeps: 'CAN KEEP SOMEBODY ALIVE',
+      says: 'Sit down before you fall down. I know that face.' },
+    { id: 'teacher', house: 'off',   was: 'TAUGHT SCHOOL',        keeps: 'CAN STILL TEACH IT',
+      says: 'You are not stupid. Nobody ever showed you, that is all.' },
+    { id: 'wrench',  house: 'off',   was: 'FIXED ENGINES',        keeps: 'CAN GET SOMETHING RUNNING',
+      says: 'It is not dead. It is just not getting something.' }
   ];
   /* THE MIX. ~29% hospitality is the row's own real-city figure, so the ten
      hospitality trades share that share and the five off-Strip ones share the
