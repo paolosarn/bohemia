@@ -138,54 +138,18 @@ const READ = `(() => {
   return out;
 })()`;
 
-/* *** THE LIVE FIGHT IS THE ONE THAT IS DRAWING, AND THAT IS THE FIFTH DISCRIMINATOR
-   THIS ROUND AND THE FIRST HONEST ONE. *** V221 wrote down that more than one frame
-   answers and only one is alive; the fight frame is the same. Everything tried before
-   this asked about STATE and every one of them could be true of a frame that renders
-   nothing: G and #fire alone takes a frame whose board is 0x0; a board with pixels
-   takes a PRE-CREATED fight that is sized, carries every constant, computes a correct
-   197 px tile -- and paints nothing, which is exactly how this gate came to report
-   zero patches and zero marking kinds while a real fight had 24 patches and 52 tiles
-   cached on the same tree.
-   So it asks the only question that cannot be faked: DOES THIS FRAME PUT PIXELS ON ITS
-   BOARD. It watches drawImage for a moment and takes the frame that used it. */
-async function drawingFight(page, sleep) {
-  for (let i = 0; i < 30; i++) {
-    for (const f of page.frames()) {
-      let n = 0;
-      try {
-        n = await f.evaluate(async () => {
-          /* *** AND THIS HELPER'S FIRST CUT PICKED THE ALPHA SHELL. *** Measured, not
-             guessed: it reported frames "top", a canvas of 183x54 and STREET_READY
-             absent -- the SPLASH LOGO, the same canvas that fooled combat_scale_gate
-             earlier in this round. The shell defines a G, owns a #cv and animates, so
-             "is it drawing" is true of it. A fight is a CHILD FRAME and it has a FIRE
-             BUTTON; the shell has neither. */
-          if (window.parent === window) return 0;
-          if (!document.getElementById('fire')) return 0;
-          const c = document.getElementById('cv');
-          if (typeof G === 'undefined' || !c || !c.width) return 0;
-          /* AND IT MUST BE THE FIGHT THAT IS ON SCREEN. The alpha creates a fight frame
-             up front for its COMBAT tab and keeps it hidden; that frame has G, a #fire,
-             a canvas at its 300x150 DEFAULT, and it still animates -- so every softer
-             test passes for it, which is how this gate came to measure a board that
-             paints nothing. A HIDDEN FRAME HAS NO LAYOUT BOX. (This test was tried
-             earlier and rejected because it found no fight at all; that was the
-             one-pixel size() bug, which is fixed, and with a real board it works.) */
-          if (!(c.getBoundingClientRect().width > 0)) return 0;
-          const x = c.getContext('2d'); if (!x) return 0;
-          const orig = x.drawImage.bind(x); let hits = 0;
-          x.drawImage = function () { hits++; return orig.apply(null, arguments); };
-          await new Promise(r => setTimeout(r, 320));
-          x.drawImage = orig; return hits;
-        });
-      } catch (e) {}
-      if (n > 0) return f;
-    }
-    await sleep(600);
-  }
-  return null;
-}
+/* *** AND A NOTE FOR WHOEVER TOUCHES THIS NEXT, PAID FOR IN A WHOLE ROUND. ***
+   The frame finder above is DELIBERATELY the simple one, and five cleverer versions
+   were written and thrown away on 9/23. The alpha keeps a HIDDEN fight frame up front
+   for its COMBAT tab: it is a child frame, it has G, it has a #fire button, it has all
+   thirteen ground kinds decoded, its canvas sits at the 300x150 HTML DEFAULT, and IT
+   STILL ANIMATES. So every sharper test passes for it too -- "is it drawing", "has a
+   board with pixels", "has a layout box" -- and each one made this gate WORSE than the
+   plain question it started with. Measured: with the clever finder this gate read 0.4
+   CSS for the fighter (k=300, the hidden board); with the plain one it reads 112.
+   THE REAL FIX IS RULE 14(g): put this gate on tools/bohemia_drive_the_demo.js, which
+   already knows how to reach the fight a player is looking at. That is a job, not a
+   patch, and it is written on the row. */
 
 async function walkAndCheck(browser, BASE, where, url) {
   console.log('\n--- ' + where + ' ---');
@@ -265,7 +229,7 @@ async function walkAndCheck(browser, BASE, where, url) {
   if (!aim) { ok(where + ': a hostile body on the glass to tap', false); await page.close(); return; }
   await page.mouse.click(fb.x + aim.x, fb.y + aim.y);
   await sleep(9000);
-  const cf = (await drawingFight(page, sleep)) || (await liveFight(page));
+  const cf = await liveFight(page);
   if (!cf) { ok(where + ': the fight came up', false); await page.close(); return; }
   ok(where + ': a real fight, started the way he starts one', true);
   await sleep(2500);
