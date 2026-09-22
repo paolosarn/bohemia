@@ -146,6 +146,14 @@ async function drawingFight(page, sleep) {
           if (!document.getElementById('fire')) return 0;
           const c = document.getElementById('cv');
           if (typeof G === 'undefined' || !c || !c.width) return 0;
+          /* AND IT MUST BE THE FIGHT THAT IS ON SCREEN. The alpha creates a fight frame
+             up front for its COMBAT tab and keeps it hidden; that frame has G, a #fire,
+             a canvas at its 300x150 DEFAULT, and it still animates -- so every softer
+             test passes for it, which is how this gate came to measure a board that
+             paints nothing. A HIDDEN FRAME HAS NO LAYOUT BOX. (This test was tried
+             earlier and rejected because it found no fight at all; that was the
+             one-pixel size() bug, which is fixed, and with a real board it works.) */
+          if (!(c.getBoundingClientRect().width > 0)) return 0;
           const x = c.getContext('2d'); if (!x) return 0;
           const orig = x.drawImage.bind(x); let hits = 0;
           x.drawImage = function () { hits++; return orig.apply(null, arguments); };
