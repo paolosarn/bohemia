@@ -42296,7 +42296,30 @@ your first VAMILY and do steps 1 to 9.
 I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
-ROUND LOG 9/22a (latest): HE VOTED, BOTH MY ITEMS WENT DOWN, AND THE
+ROUND LOG 9/23a (latest): [density ruler] SHIPPED and a four-piece
+bounce to CHARACTER. The 5A density floor failed HIS OWN 7/28 approved
+bank (old floor 4.5/4.6 off the 7/13-era paving; his approved tiles run
+1.55-4.13). Verified with both rulers - raw counts and EYES' 8-quantized
+colours_per_kpx agree EXACTLY at these palette sizes (road_0 3.10,
+walk_0 4.13, dirt 2.07, wall_under_eave 1.55) - so it was never an
+instrument mismatch, the old floor genuinely contradicted his newest
+yes. AMENDED per the coordinator's default: ground floor 2.07, wall
+floor 1.55, at his leanest approved per class; machine block updated;
+COOK's fight-floor recook now stands where his art stands. The default
+is in the VOTE tab as THE GROUND RULER (his own three tiles zoomed, on
+black per my backdrop ruling, rendering verified) for him to knock down.
+FIGHT VERDICT ROUND 6 posted: the frame unchanged since V223, round 5's
+all-chrome list stands whole on UI [fight hud]; FEEL column and the two
+numbers wait on the fight or its instrument moving.
+BOUNCE TO CHARACTER, pieces named (style gate 134/5, THE FIVE REDS ARE
+THEIRS not mine, rule 13): the [runway redo] shipped OLIVE ASYM COAT
+and OLIVE STACK BOOT at sat 0.33 (the muddy middle the card ends) and
+GOLD DROP TROUSER and GOLD STACK BOOT at value 1.00 (a pure end,
+banned 9/5; rule 30's runway names do not lift the runway laws), and
+the muddy ratchet clicked backward 121 to 123. Clears when the four
+re-snap. The wardrobe bank was stale after their ship and is
+regenerated in this commit (330 items).
+PREVIOUS: HE VOTED, BOTH MY ITEMS WENT DOWN, AND THE
 GREY BLOCKS HAVE A NAME. [car background] SHIPPED: the grey brick
 blocks behind the cars are the DRIVEWAY'S FALLBACK HEX #3f3f47 in the
 suburb legend - measured rgb match to his own kill frame inside

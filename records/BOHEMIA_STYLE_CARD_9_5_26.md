@@ -162,7 +162,7 @@ and he made it in one frame). THE GENERAL RULE HIS KILL SETS:
     "accent_area_px112_min": 48, "accent_sat_min": 0.55,
     "silhouette_pole_delta_px112": 4,
     "greyscale_survives": "guaranteed - two channels cannot both be colour"},
-  "ground": {"colours_per_kpx_min": 4.5, "ramp_hue_shift_deg_min": 3.0,
+  "ground": {"colours_per_kpx_min": 2.07, "wall_colours_per_kpx_min": 1.55, "ruler_bank": "banks/BOHEMIA_STARTER_TILESET_ACT1_RECOOK_7_28_26.txt", "amended": "9/23 [density ruler]", "ramp_hue_shift_deg_min": 3.0,
              "rulers": {"density": "tools/bohemia_eyes_reference_score.py colours_per_kpx",
                         "hue": "mean adjacent-step hue delta, luminance-ordered, usage-weighted, sat>=0.08"},
              "scope": "new and re-cooked ground tiles from 9/6; CBB-frozen act-1 set exempt until its re-cook row"}
@@ -198,9 +198,21 @@ is fine on most of the re-cook (median 7.1 deg vs approved 6.8) and
 truly dead only on the yards (1.1 deg, hue-flat AND density-poor).
 THE FLOORS, set at the leanest art he approved — no cleaner than
 anything that ever got his yes, and no stricter either:
-- COLOUR DENSITY: a ground tile holds >= 4.5 unique colours per 1000 px
-  (8-quantized — EYES' colours_per_kpx ruler, tools/bohemia_eyes_
-  reference_score.py). pz_0, his leanest approved paving, sits at 4.6.
+- COLOUR DENSITY, AMENDED 9/23 ([density ruler], coordinator default,
+  EVERYTHING IS A THUMB — the older floor below is DEAD, newest yes wins):
+  THE RULER IS THE BANK HE APPROVED 7/28, not the 7/13-era paving. The
+  old floor (>= 4.5, set off pz_0 at 4.6) failed every tile of his own
+  7/28 approval (min 1.55, ground min 2.07, median 3.10, max 4.13 —
+  measured with BOTH rulers, raw and 8-quantized, which agree exactly
+  at these palette sizes; road_0 3.10, walk_0 4.13). A floor his own
+  yes cannot pass is a broken ruler, not a standard. THE FLOORS NOW,
+  at the leanest tile of the 7/28 approved bank per class:
+  a GROUND tile holds >= 2.07 colours per 1000 px (dirt, his leanest
+  approved ground); a WALL/STRUCTURE tile >= 1.55 (wall_under_eave).
+  Same instrument as before (EYES' colours_per_kpx ruler,
+  tools/bohemia_eyes_reference_score.py). One line goes to VOTE so he
+  can knock the default down; until he does, COOK's recooks stand
+  where his own art stands.
 - HUE VARIATION: mean adjacent-step hue delta >= 3.0 deg (bare_plot_0,
   his leanest approved, sits at 3.0). A ramp that only darkens is flat
   however many steps it has — the 7/27 craft law, now with a number.

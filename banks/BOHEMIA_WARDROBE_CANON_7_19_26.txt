@@ -4,7 +4,7 @@
 #   4th field added 7/21 for dress-code-by-rank -- bohemia_dress.js parse()
 #   widened to p.length>=3 the same turn; regenerate any embedded slice
 #   copy (tools/bohemia_life_slice.py) so its stamped parser matches)
-# count: 318
+# count: 330
 TEMPLE TAPER|hair|#201e1b|
 SHAG|hair|#523a26|
 ROPE LOCKS|hair|#201e1b|
@@ -323,3 +323,15 @@ SLATE COMMA COAT|outer|#484e56|
 COLUMN PANT-BOOT|feet|#363436|
 COAL COLUMN|feet|#303034|
 ASH COLUMN|feet|#46464a|
+COBALT COCOON COAT|outer|#326ed2|
+BRICK COMMA COAT|outer|#703a30|
+OLIVE ASYM COAT|outer|#4a5036|
+GRASS WRAP COAT|outer|#6ebe3c|
+GOLD DROP TROUSER|legs|#ffd75c|
+TEAL STACK PANT|legs|#28bea0|
+GOLD STACK BOOT|feet|#ffd75c|
+TEAL COLUMN|feet|#28bea0|
+COBALT COLUMN|feet|#326ed2|
+OLIVE STACK BOOT|feet|#4a5036|
+BRICK CROP TROUSER|legs|#703a30|
+COBALT DROP TROUSER|legs|#326ed2|
