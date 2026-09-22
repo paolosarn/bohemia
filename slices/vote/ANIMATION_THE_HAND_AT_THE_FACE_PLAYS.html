@@ -1,0 +1,82 @@
+<!doctype html><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>BOHEMIA — The Hand At The Face</title>
+<!-- ANIMATION, [plays in vote]. RULE 25, Paolo 9/21: "How dare you show me
+     pictures of animations and not the fucking actual Animation never fucking do
+     that ever again." He was right and the last page was stills. THIS ONE PLAYS,
+     on the real beat, and it carries no vote of its own (rule 25: an item is
+     asked ONCE, on the row). -->
+<style>
+  :root{--ink:#e8e0cc;--bg:#0d0d12;--card:#16161d;--line:#33313d;--gold:#c79a3f}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+       font:13px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace;padding:14px}
+  h1{font-size:13px;letter-spacing:2px;margin:0 0 4px;color:var(--gold)}
+  p{margin:0 0 12px;color:#a49a86;max-width:60ch}
+  .said{border-left:2px solid #7a4a4a;padding:6px 0 6px 10px;margin:0 0 14px;color:#b09a90}
+  .clip{background:var(--card);border:1px solid var(--line);border-radius:6px;
+        padding:8px;margin-bottom:10px}
+  .name{font-size:11px;letter-spacing:2px;color:var(--gold);margin-bottom:6px;
+        display:flex;justify-content:space-between;align-items:baseline}
+  .sub{color:#6f6862;font-size:10px;letter-spacing:0}
+  .pair{display:flex;gap:8px;flex-wrap:wrap}
+  .side{text-align:center}
+  .lab{font-size:10px;letter-spacing:1px;margin-bottom:3px}
+  .killed{color:#9a6b6b}.new{color:#7fa06b}
+  .cell{width:112px;height:112px;image-rendering:pixelated;background:#101319;border-radius:3px}
+  .note{margin-top:12px;color:#6f6862;max-width:60ch}
+</style>
+<h1>THE HAND AT THE FACE</h1>
+<div class="said">You said: "How dare you show me pictures of animations and not
+the fucking actual Animation never fucking do that ever again it looks like all of
+them Northeast and south tweaking." Fair. These play.</div>
+<p>Five clips you killed. They all had one thing wrong: his hand never actually
+reached his face. All five were aiming with the helper the GUN clips use, which
+puts a spot out in front of his chest. His head is 22 pixels tall and his hand was
+about 20 pixels away from it, in every direction.</p>
+<p>Left is what you killed. Right is the redo. Both playing at the real speed, and
+these are the two directions you called out.</p>
+<div id="clips"></div>
+<p class="note">These are still not in the game. Putting them in cuts his head off
+his body in profile, because the arm that reaches his mouth crosses his throat. I
+am fixing that underneath instead of shoving these in and breaking something that
+already works.</p>
+<script>
+(function(){
+  var SRC='ANIMATION_THE_HAND_AT_THE_FACE_PLAYS.png';
+  var CLIPS=['EAT','DRINK','SMOKE','COUGH','WHISTLE'];
+  var DIRS=['S','NE'];
+  var W=112,N=8,BEAT=500;
+  var host=document.getElementById('clips'), cells=[];
+  var row=0;
+  CLIPS.forEach(function(name){
+    var box=document.createElement('div'); box.className='clip';
+    var n=document.createElement('div'); n.className='name';
+    n.innerHTML='<span>'+name+'</span><span class="sub">facing you, then facing away</span>';
+    box.appendChild(n);
+    var pair=document.createElement('div'); pair.className='pair';
+    DIRS.forEach(function(dir){
+      [['KILLED','killed'],['REDONE','new']].forEach(function(spec){
+        var side=document.createElement('div'); side.className='side';
+        var l=document.createElement('div'); l.className='lab '+spec[1];
+        l.textContent=spec[0]+' '+dir;
+        var c=document.createElement('div'); c.className='cell';
+        c.style.backgroundImage='url('+SRC+')';
+        c.style.backgroundSize=(N*W)+'px auto';
+        cells.push({el:c,row:row}); row++;
+        side.appendChild(l); side.appendChild(c); pair.appendChild(side);
+      });
+    });
+    box.appendChild(pair); host.appendChild(box);
+  });
+  /* the real clock: 120 beats a minute, and these clips run four beats a loop */
+  var LOOP=BEAT*4, t0=performance.now();
+  (function tick(){
+    var ph=((performance.now()-t0)%LOOP)/LOOP;
+    var f=Math.floor(ph*N)%N;
+    for(var i=0;i<cells.length;i++)
+      cells[i].el.style.backgroundPosition=(-f*W)+'px '+(-cells[i].row*W)+'px';
+    requestAnimationFrame(tick);
+  })();
+})();
+</script>

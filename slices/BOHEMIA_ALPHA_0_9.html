@@ -6690,7 +6690,37 @@ function surgStance(k){
           head:0.20*k};
 }
 const POSE={
- idle:(d,ph)=>{const m=(RUNMIR[d]?-1:1),k=SWF();return {upL:m*k*(0.05+0.03*Math.sin(ph*2*Math.PI)),upR:m*k*(-0.05-0.03*Math.sin(ph*2*Math.PI))};},  // IDLE LAW: feet NEVER move, breathing via headBob
+ /* ==== __THE_IDLE_REDONE__ -- VOTED UP by Paolo 9/21 (rule 15c: approved goes
+    into the game the same round). He killed the old one on 9/7: one sine wave on
+    two arms, exactly out of phase, forever, with nothing else on the body moving,
+    so a street of forty people was forty metronomes in lock step.
+    THREE CLOCKS THAT NEVER LINE UP: a real breath (fast in over 0.45 of a beat,
+    slow out over 1.15, then HELD), a weight drift at 0.75x the loop rate so three
+    runs against four, and one late head turn that DOES NOT TURN BACK -- rule 20's
+    shape, an ordinary frame with one thing in it that does not resolve.
+    MEASURED off the sheet he judged, 4 facings x 16 frames: pixels that change
+    each frame 86 -> 128, biggest change in one frame 335 -> 519, arms a perfect
+    mirror yes -> no, FEET MOVE never -> never.
+    AND IDLE LAW COST THREE ATTEMPTS. Breath as a vertical hipOff lifts the feet,
+    so it lives in the spine. Lateral weight moves them above 0.40, which is the
+    maximum legal lateral hip, measured by sweep. legCompress does the OPPOSITE of
+    what it sounds like: the FEET travel 1-6px and the hip travels 0, so a weight
+    shift over planted feet is not expressible on this rig at all. 0.40 and no
+    legCompress is what is left that is legal. */
+ idle:(d,ph)=>{const m=(RUNMIR[d]?-1:1),k=SWF();
+   const b=(ph*4)%4;                                  /* the beat inside a four-beat loop */
+   const c=b%2;                                       /* breath runs on a two-beat cycle  */
+   const br=(c<0.45)?(c/0.45):Math.max(0,1-(c-0.45)/1.15);
+   const w=Math.sin(ph*2*Math.PI*0.75);               /* 3 against 4: never the same twice */
+   const t=Math.max(0,Math.min(1,(b-2.55)/0.45));
+   const turn=t*t*(3-2*t);                            /* late, smooth, and it stays turned */
+   return {spine:0.020*br+0.010*w,
+     head:-0.022*br+0.105*turn,
+     hipOff:[0.40*w, 0],
+     upL:m*k*( 0.050+0.020*br+0.020*w),
+     upR:m*k*(-0.044-0.028*br+0.020*w),
+     foreL:0.034*br, foreR:0.016*br-0.048*turn,
+     legCompressL:0, legCompressR:0};},  // IDLE LAW: feet NEVER move
  walk:(d,ph)=>{if(headOn(d))return nsGait(d,ph,0.72*SWF());const s=Math.sin(ph*2*Math.PI),m=(RUNMIR[d]?-1:1)*depthFlip(d),lat=Math.abs(Math.cos(FACEANG[d])),amp=(0.3+0.7*lat)*SWF(),A=0.42*amp,C=0.42*amp,F=0.4*amp;
    /* CONTRALATERAL LAW: arm phase flipped vs legs so same screen side opposes */
    const as=(ARMSIDE[d]||1);return {thighR:A*s*m,thighL:-A*s*m,shinR:m*F*Math.max(0,-s),shinL:m*F*Math.max(0,s),upL:-C*s*m*as,foreL:-0.3*m,upR:C*s*m*as,foreR:-0.3*m,hipOff:[0,Math.abs(s)*-1-(1-lat)*0.6*Math.abs(s)]};},

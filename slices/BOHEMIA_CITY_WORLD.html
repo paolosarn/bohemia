@@ -38345,74 +38345,29 @@ let ANIM=null;                        // {t0, kind:'walk'|'run'} active anim win
    and already renders every frame of it; this only changes the offset it draws
    at. Whole-pixel camera is preserved -- the Math.round stays, it just rounds a
    moving number. */
-/* ==== __THE_STEP_IS_A_TAPE_SKIP__ (9/21, ANIMATION lane, row [tape skip]) ====
-   THE THIRD FEEL, AND THE NUMBER THAT ASKED FOR IT. This lane measured the walk
-   on the rig (e764a506): one press is now a whole lot, 25 fine cells, 18.75 m in
-   half a second, which is 135 km/h. THE FEET DEPICT 3% TO 11% OF THAT. The body
-   crosses most of a 390 px phone in one beat while its legs do one small pace,
-   and no walk cycle can be tuned to cover it -- a stride long enough would be
-   two and a half times the body's own height.
-   GRID teleports the whole lot in one frame. SLIDE eases across the beat, which
-   is what makes the legs read as skating: the ground moves every single frame
-   and the feet do not keep up with any of them.
-   TAPE is neither. The ground HOLDS at the lot he is standing on for most of the
-   beat, then drops through two intermediate stations in quick succession and
-   lands on the next lot exactly on the beat. That is a tape skipping, and under
-   the analog horror law (9/20) the dropped frame is the genre's own grammar
-   rather than a new effect: the frame is ordinary, and the thing that is wrong
-   is that some of it is missing. It is also cheaper than a run cycle.
-   THE STATIONS ARE LATE ON PURPOSE. Rule 20: stillness is long. 55% of the beat
-   is a held frame, then the skip.
-   NOT THE DEFAULT YET, AND THAT IS DELIBERATE: rule 18 says the game got worse
-   under a rule that said never worse, and what a step FEELS like is his call, not
-   mine. It is registered in VOTE. Flipping the default is one string. */
-var TAPE_STATIONS = [ [0.00, 0.00],     /* hold on the lot he left */
-                      [0.55, 0.34],     /* first dropped frame */
-                      [0.78, 0.67] ];   /* second, then the beat lands him */
-var WALKFEELS = ['GRID', 'SLIDE', 'TAPE'];
-/* THE DEFAULT IS TAPE, AND IT IS THE SMALLEST HONEST MOVE, NOT THE BIGGEST.
-   What he walks today is GRID by accident (the expired ceiling below), so the
-   ground already jumps a whole lot in one frame. TAPE breaks that one 275 px
-   jump into three of about 94 px. SLIDE would be the large change, not this.
-   His to correct: it is in the VOTE tab as a philosophical item, and the chip in
-   the drawer flips it live. A feel he has already chosen by hand wins over this,
-   because the line below reads his choice out of storage after it. */
-var WALKFEEL = 'TAPE';
-/* HOW FAR ALONG THE STEP THE GROUND IS, at k of the beat, for each feel. ONE
-   COPY (rule 16): camCell calls this, the seam hands it out, and the gate and
-   the vote page read it off the seam, so nobody restates the curve. Restating
-   it is the exact bug this lane has now found seven times -- a second ruler
-   agrees with the first until the day it does not. */
-/* ==== __THE_BODY_SKIPS_WITH_THE_GROUND__ (9/21, ANIMATION, row [tape skip]) ==
-   THE OTHER HALF OF THE TAPE SKIP, AND WITHOUT IT THE FIRST HALF FIGHTS ITSELF.
-   The ground was taught to hold and then drop. The BODY was still walking a
-   smooth cycle across the same beat: the frame index was elapsed/BEAT * count,
-   a straight ramp, so while the street stood still his legs kept striding on the
-   spot, and while the street jumped 94 px his legs advanced one frame. That is
-   the moonwalk the row exists to kill, just rebuilt from the other side.
-   SO THE BODY READS THE SAME CURVE THE GROUND READS. Under TAPE he holds a pose
-   for the 55% of the beat the street is still, then flicks through the two
-   dropped frames with it and lands. Under GRID and SLIDE the frame index is the
-   straight ramp it has always been, byte for byte, so nothing he has already
-   seen changes unless he is on TAPE.
-   AND IT IS ONE COPY. This pick was written out twice, outdoors and indoors, and
-   two copies of a frame index is how the player's legs end up doing one thing in
-   the street and another in a room. */
+/* ==== __SLIDE_NOW__ (Paolo 9/21, rule 26: "I want slide immediately") ========
+   THE TAPE SKIP IS DEAD AND IT WAS NEVER HIS. It was the manager's default off
+   this lane's own measurement, built over three rounds, registered in VOTE, and
+   he voted the walk item up with four words: "I want slide immedialy". So the
+   feel is SLIDE, the third feel is gone rather than left lying around as a dead
+   option somebody can cycle into, and the drop-a-frame in the body clip goes
+   with it.
+   WHAT DOES NOT GO IS THE REASON SLIDE WAS NOT ALREADY WHAT HE HAD. The glide
+   had a handwritten four-cell ceiling written on 8/23, when a step was ONE cell;
+   rule 16 made a step twenty-five, so every full step died on its first drawn
+   frame and what shipped was GRID while the chip and the source both said SLIDE.
+   That fix stays and is what makes "slide" mean anything. */
+var WALKFEELS = ['GRID', 'SLIDE'];
+var WALKFEEL = 'SLIDE';
+/* ==== __ONE_WALK_FRAME_PICK__ (9/21, kept from the tape-skip rounds) ========
+   The walk frame used to be chosen in TWO places, once outdoors and once
+   indoors, each rolling its own elapsed/BEAT*count. Two copies of a frame index
+   is how the player's legs end up doing one thing in the street and another in
+   a room. The tape skip is dead (rule 26) and this is the piece of it worth
+   keeping: ONE pick, and it is the plain even cycle it always was. */
 function walkFrameIndex(n, k){
   if(!n) return 0;
   if(k<0) k=0;
-  if(WALKFEEL==='TAPE' && tapeWorthIt()){
-    /* THE STATION PICKS THE POSE, NOT THE DISTANCE. Picking by distance made the
-       LAST authored pose flash for a single millisecond and never actually
-       land, because the stations stop at 0.67 of the way and the beat supplies
-       the rest. Station 0 is the held pose, the last station is the LANDED pose,
-       and the clip's own ends are its ends. A drop-out SKIPS a pose -- with 4
-       frames and 3 stations one is skipped, and that is the effect, not a loss. */
-    var S=TAPE_STATIONS.length, st=walkStation(k);
-    if(st>S-1) st=S-1;
-    var j=Math.round(st*(n-1)/(S-1));
-    return j>n-1?n-1:j;
-  }
   var i=(Math.min(k,0.999)*n)|0;
   return i>n-1?n-1:i;
 }
@@ -38427,33 +38382,13 @@ function glideCeil(){
   var st=(typeof STEP_CELLS==='number'&&STEP_CELLS>0)?STEP_CELLS:1;
   return Math.max(4, 4*st);   /* a bike step is four lots; a run is two walk steps */
 }
-/* WHICH STATION THE BEAT HAS REACHED: 0 while he is still on the lot he left,
-   then 1 and 2 for the two dropped frames, and TAPE_STATIONS.length once the
-   beat has landed him. The ground and the body both read THIS, so they cannot
-   disagree about when the skip happens -- which is the whole failure the row
-   is about, and it was rebuilt from the body's side until this existed. */
-/* IS THERE ENOUGH GROUND FOR A SKIP? Half a lot, which is 137 px on screen at
-   the one walk camera. Under it the step is drawn as one move on the beat. */
-function tapeWorthIt(){
-  if(WALKFEEL!=='TAPE') return false;
-  if(!GLIDE) return true;                 /* nothing in flight: answer for the design */
-  var st=(typeof STEP_CELLS==='number'&&STEP_CELLS>0)?STEP_CELLS:1;
-  return GLIDE.d >= st/2;
-}
-function walkStation(k){
-  if(k>=1) return TAPE_STATIONS.length;
-  if(k<0) k=0;
-  var st=0;
-  for(var i=0;i<TAPE_STATIONS.length;i++) if(k>=TAPE_STATIONS[i][0]) st=i;
-  return st;
-}
+/* HOW FAR ALONG THE STEP THE GROUND IS, at k of the beat. ONE COPY (rule 16):
+   camCell calls this and the seam hands it out, so no gate and no page keeps a
+   second opinion about the curve. */
 function walkCurve(feel, k){
   if(k>=1) return 1;
   if(k<0) k=0;
   if(feel==='GRID') return 0;                       /* the whole lot on the beat */
-  if(feel==='TAPE'){
-    if(!tapeWorthIt()) return 0;          /* too short to skip: it lands on the beat */
-    return TAPE_STATIONS[walkStation(k)][1]; }   /* a staircase, not a ramp */
   return (k<0.5) ? 2*k*k : 1-Math.pow(-2*k+2,2)/2;  /* SLIDE: easeInOutQuad */
 }
 try{ var _wf=localStorage.getItem('BOH_WALKFEEL'); if(WALKFEELS.indexOf(_wf)>=0) WALKFEEL=_wf; }catch(_e){}
@@ -38472,7 +38407,7 @@ function glideFrom(){
   return (typeof INSIDE!=='undefined'&&INSIDE) ? [INSIDE.ix, INSIDE.iy] : [hx, hy];
 }
 function glideStart(fx, fy, space){
-  if(WALKFEEL==='GRID'){ GLIDE=null; return; }   /* __THE_STEP_IS_A_TAPE_SKIP__ */
+  if(WALKFEEL==='GRID'){ GLIDE=null; return; }   /* __SLIDE_NOW__: GRID never glides */
   if(space!==glideSpace()){ GLIDE=null; return; }   /* he went through a door */
   /* THE OVERMAP IS NOT DONE AND IS NOT PRETENDING TO BE. Stepping in map mode is
      a real traversal (10 minutes a cell) and it jumps too, but its camera is the
@@ -38503,7 +38438,7 @@ function camCell(cx, cy){
   if(k>=1){ GLIDE=null; return [cx, cy]; }
   if(k<0) k=0;
   var dx=cx-GLIDE.fx, dy=cy-GLIDE.fy;
-  /* *** __THE_STEP_IS_A_TAPE_SKIP__ (9/21): THIS CEILING WAS FOUR CELLS AND A
+  /* *** __SLIDE_NOW__ (9/21): THIS CEILING WAS FOUR CELLS AND A
      STEP IS NOW TWENTY-FIVE, SO IT KILLED EVERY GLIDE ON ITS FIRST FRAME. ***
      It was written on 8/23 when a step was one cell and the bike's four was the
      biggest thing a beat could move -- its own comment says so. Rule 16 made one
@@ -38523,9 +38458,6 @@ function camCell(cx, cy){
   /* easeInOutQuad: a step leaves and lands soft. The bike moves 4 cells in the
      same beat and gets the same curve, so faster reads as farther, not jerkier
      -- the movers' own tween rule. */
-  /* __THE_STEP_IS_A_TAPE_SKIP__: under TAPE this is a STAIRCASE, not a ramp, so
-     the number of times the ground moves in a beat is the number of stations and
-     never the number of frames the phone happened to draw. */
   var e=walkCurve(WALKFEEL, k);
   return [GLIDE.fx+dx*e, GLIDE.fy+dy*e];
 }
@@ -38536,7 +38468,7 @@ function walkFeelSet(m){
   WALKFEEL=m; GLIDE=null;
   try{ localStorage.setItem('BOH_WALKFEEL', m); }catch(_e){}
   var b=document.getElementById('walkfeel');
-  if(b) b.textContent='\ud83d\udc5f '+m;   /* __THE_STEP_IS_A_TAPE_SKIP__: three feels now, not two */
+  if(b) b.textContent='\ud83d\udc5f '+m;   /* the chip names whichever feel is live */
   try{ render(); }catch(_e){}
 }
 function walkFeelCycle(){
@@ -38547,9 +38479,6 @@ window.__WALKFEEL={ mode:function(){ return WALKFEEL; }, set:walkFeelSet,
   cycle:walkFeelCycle, feels:function(){ return WALKFEELS.slice(); },
   cam:function(){ return (typeof INSIDE!=='undefined'&&INSIDE)?camCell(INSIDE.ix,INSIDE.iy):camCell(hx,hy); },
   gliding:function(){ return !!GLIDE; },
-  /* __THE_STEP_IS_A_TAPE_SKIP__: the stations the gate and the vote page read, so
-     neither keeps a second copy of the curve. ONE NUMBER IN ONE PLACE (rule 16). */
-  stations:function(){ return TAPE_STATIONS.map(function(a){ return a.slice(); }); },
   /* WHERE THE GROUND SITS at any point of a beat, for any feel, without a step
      having to be in flight. A ruler that needs the game to be walking can only be
      run on the real surface; this one can be run anywhere, and it is the SAME
@@ -38558,8 +38487,6 @@ window.__WALKFEEL={ mode:function(){ return WALKFEEL; }, set:walkFeelSet,
   /* WHICH WALK FRAME THE BODY IS ON at k of the beat, for a clip of n frames.
      The gate and the vote page ask this rather than restating the pick. */
   frameAt:function(n,k){ return walkFrameIndex(n,k); },
-  station:function(k){ return walkStation(k); },
-  worthIt:function(){ return tapeWorthIt(); },
   glideCells:function(){ return GLIDE?GLIDE.d:null; },
   ceil:function(){ return glideCeil(); },
   step:function(){ return (typeof STEP_CELLS==='number')?STEP_CELLS:null; } };
@@ -40133,16 +40060,16 @@ function stepOnce(di){
                one cell, every other direction is untouched, and they only hold
                it while you are beside it. */
             if(typeof ctBlocked === 'function' && ctBlocked(nx,ny)){
-              HFACE=dirOf(dx,dy);
+              setFace(dirOf(dx,dy));
               try{ ctAgainstSay(nx,ny); }catch(_e){}
               return false;
             }
-            if(inEnter(nx,ny,hx,hy,false)){ HFACE=dirOf(dx,dy); return true; }
+            if(inEnter(nx,ny,hx,hy,false)){ setFace(dirOf(dx,dy)); return true; }
           }
           /* it has a door and this is not it: a wall, and a wall stops you */
-        } else if(inEnter(nx,ny,hx,hy,false)){ HFACE=dirOf(dx,dy); return true; }
+        } else if(inEnter(nx,ny,hx,hy,false)){ setFace(dirOf(dx,dy)); return true; }
       }
-      if(c&&c.walk&&c.portal&&c.enter&&typeof inEnter==='function'){ if(inEnter(nx,ny,hx,hy,true)){ HFACE=dirOf(dx,dy); return true; } }
+      if(c&&c.walk&&c.portal&&c.enter&&typeof inEnter==='function'){ if(inEnter(nx,ny,hx,hy,true)){ setFace(dirOf(dx,dy)); return true; } }
       /* __CITY_AGAINST__ -- AND A BODY AT WAR WITH YOU DOES NOT MOVE FOR YOU.
          OCCUPANCY LAW is one body per cell and this is the first thing in the
          game that enforces it against the player. Before the walkability test,
@@ -40151,7 +40078,7 @@ function stepOnce(di){
          and only the one you are facing, so seven directions are untouched, and
          they only hold it while they can see you. */
       if(typeof ctBlocked === 'function' && ctBlocked(nx,ny)){
-        HFACE=dirOf(dx,dy);
+        setFace(dirOf(dx,dy));
         try{ ctAgainstSay(nx,ny); }catch(_e){}
         heldByBody=true;   /* a person holding a cell is a RULING, never slid around */
         break;
@@ -40221,7 +40148,7 @@ function stepOnce(di){
          of the opening, facing the way he pressed, and one press turns him in. */
       if(_gapMouth(hx,hy,dx,dy)) break;
     }
-    if(moved){ HFACE=dirOf(dx,dy);
+    if(moved){ setFace(dirOf(dx,dy));   /* __THE_TURN_TAKES_THE_BEAT__ */
       /* __ROAD_INTERRUPTS_ON_FOOT__ -- AND THE WALKED STREET GETS THE SAME SAY.
          A walked cell already spends 0.084 minutes, distance-honest: 5.04
          seconds, and moved is how many cells this beat actually covered (a bike
@@ -53851,7 +53778,8 @@ function fitProp(im, w, h){
      instead would teleport the BODY forward a tile and then walk the world up to
      it, the same defect wearing the opposite coat. */
   const px=ox+_gc[0]*C, py=oy+_gc[1]*C;
-  const set=PLAYER_CV&&(PLAYER_CV[HFACE]||PLAYER_CV.S);
+  const _hf=faceNow();   /* __THE_TURN_TAKES_THE_BEAT__ */
+  const set=PLAYER_CV&&(PLAYER_CV[_hf]||PLAYER_CV.S);
   let spr=set&&set.idle;
   if(set&&ANIM){   /* __THE_BODY_SKIPS_WITH_THE_GROUND__: one pick, shared with indoors */
     const _f=walkFrame(set[ANIM.kind], ANIM.t0);
@@ -55020,7 +54948,7 @@ document.getElementById('keybtn').addEventListener('click',()=>{ kp.style.displa
    it never lies about which feel is live. */
 (function(){
   var b=document.getElementById('walkfeel'); if(!b) return;
-  b.textContent='\ud83d\udc5f '+WALKFEEL;   /* __THE_STEP_IS_A_TAPE_SKIP__ */
+  b.textContent='\ud83d\udc5f '+WALKFEEL;
   b.addEventListener('click',function(){ walkFeelCycle();
     try{ toast('Walk feel: '+WALKFEEL+'.'); }catch(_e){}   /* draft:true */ });
 })();
@@ -60381,6 +60309,64 @@ window.__proof={om,cellAt,lattice:BOH_LATTICE,latCtx,realizeCell,tileMeta,cityWa
 let HFACE='S';                       // human-mode walk facing (8-dir compass)
 let PLAYER_CV=null;                  // {S:canvas, SE:canvas, ...} decoded idle frames
 const _DIRS8=['S','SE','E','NE','N','NW','W','SW'];
+/* ==== __THE_TURN_TAKES_THE_BEAT__ -- VOTED UP by Paolo 9/21 =================
+   TODAY THERE WAS NO TURN AT ALL. The facing was assigned straight off the
+   step direction the instant the step ran, so he was facing south and then a
+   different drawing facing east on the next frame. He turns constantly, so that
+   flip happened every single time.
+   He already has eight drawings, one per direction, so a turn is those drawings
+   IN ORDER. NO NEW ART. The turn takes the same beat everything else takes, and
+   it goes the SHORT way round the compass.
+   ONE FACING AT A TIME IS ALL THE ART CAN SAY, so this is not a smooth swing: it
+   is the intermediate drawings shown in sequence across the beat, which is the
+   most a set of eight can depict. A turn of one compass point has nothing in
+   between and is left as the instant swap it always was. */
+var COMPASS=['N','NE','E','SE','S','SW','W','NW'];
+var TURN=null;     /* {from, to, t0} while a turn is in flight */
+/* THE ONE PLACE THE FACING IS SET. It was assigned in SEVEN places -- the walk,
+   four door branches and two indoor steps -- and the turn was wired into ONE of
+   them, so every other way of changing direction still snapped. Measured with
+   the honest ruler (does the DRAWING ever skip a compass point): 10 jumps in a
+   walk, worst four points at once. A feature wired at one call site of seven is
+   not wired. */
+function setFace(to){ turnStart(to); HFACE=to; }
+function turnStart(to){
+  /* *** A TURN IS NOT ALLOWED TO BE CUT OFF BY THE NEXT BEAT. ***
+     The first cut read HFACE and dropped the turn whenever the next step was a
+     single point. But a held walk steps EVERY beat, so a turn that was still
+     mid-swing got thrown away one beat in and he snapped the rest of the way.
+     Measured: one turn in eight never showed the drawing in between, and it was
+     always this. While a turn is in flight the new target RE-AIMS it from where
+     he is currently DRAWN, so it always lands on the true facing and never jumps. */
+  var live=!!TURN;
+  var from=live?faceNow():HFACE;
+  var a=COMPASS.indexOf(from), b=COMPASS.indexOf(to);
+  if(a<0||b<0){ TURN=null; return; }
+  var d=((b-a)%8+8)%8; if(d>4) d-=8;          /* the short way round */
+  if(d===0){ TURN=null; return; }
+  if(!live&&Math.abs(d)<2){ TURN=null; return; }   /* one point has nothing to show */
+  TURN={from:a, step:d, t0:performance.now()};
+}
+/* WHICH DRAWING TO USE THIS FRAME. Falls back to the true facing for every
+   reason it can, the way camCell does: no turn, beat over, or a turn so old the
+   clock has run past it. */
+function faceNow(){
+  if(!TURN) return HFACE;
+  var k=(performance.now()-TURN.t0)/BEAT;
+  if(k>=1||k<0){ TURN=null; return HFACE; }
+  var n=Math.abs(TURN.step);
+  var i=Math.min(n,Math.floor(k*(n+1)));      /* step through, land on the beat */
+  return COMPASS[((TURN.from+(TURN.step<0?-i:i))%8+8)%8];
+}
+/* the seam a gate reads, so nobody has to infer a turn from the facing before
+   and after: ASK THE TURN. The first cut of that gate compared HFACE across a
+   press and called a two-point change a two-point TURN -- but a held walk steps
+   every beat, so N to W often happens as N to NW and then NW to W, two one-point
+   turns with nothing in between to show, and the ruler scored the code red for
+   drawing exactly what it should. */
+window.__TURN={ now:function(){ return faceNow(); },
+  live:function(){ return TURN?{from:COMPASS[TURN.from], step:TURN.step}:null; },
+  face:function(){ return HFACE; } };
 function dirOf(dx,dy){
   if(dx>0&&dy>0)return 'SE'; if(dx>0&&dy<0)return 'NE';
   if(dx<0&&dy>0)return 'SW'; if(dx<0&&dy<0)return 'NW';
@@ -62631,12 +62617,12 @@ stepOnce=function(di){
     if(INSIDE.ix===INSIDE.door[0]&&INSIDE.iy===INSIDE.door[1]){
       hx=INSIDE.exit.gx; hy=INSIDE.exit.gy; INSIDE=null;
       try{ ctWhere(); }catch(_e){}   /* __THE_CITY_SENDS_WHERE__ */
-      HFACE=dirOf(d[0],d[1]); advance(0.5); return true;
+      setFace(dirOf(d[0],d[1])); advance(0.5); return true;
     }
     return false;
   }
   if(!inPassable(nx,ny))return false;
-  INSIDE.ix=nx; INSIDE.iy=ny; HFACE=dirOf(d[0],d[1]);
+  INSIDE.ix=nx; INSIDE.iy=ny; setFace(dirOf(d[0],d[1]));
   /* __A_STEP_INDOORS_IS_A_STEP__ -- THE OTHER MOVER. Yesterday's fix taught the day loop to
      hear the player walking, and it went into stepOnce() -- the OUTDOOR walk.
      This is the indoor one, and it was still silent: same 0.084 per cell, so the
@@ -63059,7 +63045,8 @@ function renderInside(){
     g.fillStyle='rgba(8,10,18,0.62)'; g.fillRect(0,0,cv.width,cv.height);
   }
   const px=ox+_gc[0]*C, py=oy+_gc[1]*C;   /* __WALK_FEEL_SLIDE__ */
-  const set=PLAYER_CV&&(PLAYER_CV[HFACE]||PLAYER_CV.S);
+  const _hf=faceNow();   /* __THE_TURN_TAKES_THE_BEAT__ */
+  const set=PLAYER_CV&&(PLAYER_CV[_hf]||PLAYER_CV.S);
   let spr=set&&set.idle;
   if(set&&ANIM){   /* __THE_BODY_SKIPS_WITH_THE_GROUND__: the SAME pick the street uses */
     const _f=walkFrame(set[ANIM.kind], ANIM.t0);

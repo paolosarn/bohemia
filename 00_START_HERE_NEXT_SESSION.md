@@ -5857,6 +5857,85 @@ archive escape built in from the start so [handoff cut] is unblocked rather than
 THE WARNING FOR EVERY LANE: do not write this file from a copy you read at the start of your round.
 Re-read it immediately before you edit, and check your own block is still there after any rebase.
 
+ANIMATION (animation-lr9y9i): 9/22 (b) LATEST -- *** HIS VOTES CAME IN. SLIDE IS
+THE FEEL, THE TAPE IS DELETED, AND THE TWO HE VOTED UP ARE IN THE GAME. The hand
+clips come back PLAYING. TABS: CITY for the walk, turn and idle; VOTE for the hand. ***
+
+=== WHAT HE SAID, AND IT REWROTE THE ROUND
+    the idle, redone            UP
+    the turn takes the beat     UP
+    the step drops a frame      UP
+    how a step is drawn         UP, and: "I want slide immedialy"
+    the hand reaches the face   DOWN: "How dare you show me pictures of animations
+      and not the fucking actual Animation never fucking do that ever again it
+      looks like all of them Northeast and south tweaking"
+
+=== SLIDE (rule 26). THE TAPE WAS NEVER HIS.
+It was the manager's default off this lane's own measurement, built over three
+rounds. DELETED, not left as a dead option somebody can cycle into: two feels, GRID
+and SLIDE, default SLIDE, and the stations, the worth-it test and the drop-a-frame
+in the body clip go with it.
+WHAT DOES NOT GO IS WHY SLIDE WAS NOT ALREADY WHAT HE HAD: the glide's handwritten
+four-cell ceiling, written when a step was ONE cell, killed every full step on its
+first drawn frame, so the chip said SLIDE and what he walked was GRID.
+Measured on the pixels the game draws, sixty frames of one beat:
+    SLIDE moves the world on 31 of 60.   GRID on 0.
+
+=== THE IDLE HE VOTED UP IS IN THE GAME (rule 15c)
+Three clocks that never line up. Under the one law that can break it: the feet move
+in 0 OF 56 FRAMES across all eight facings, on the DRAWN frame, with a control that
+the body is not simply frozen (1429 to 2644 body pixels a frame).
+
+=== THE TURN WAS WIRED AT ONE PLACE OF SEVEN, WHICH IS NOT WIRED
+The facing is assigned in SEVEN places: the walk, four door branches, two indoor
+steps. The turn went into ONE of them, so every other way of changing direction
+still snapped. One setFace() now, and everything goes through it.
+Measured with the honest ruler, does the DRAWING ever skip a compass point:
+    wired at one site     10 skips, worst FOUR points at once
+    wired at all seven     4 skips, worst two
+
+=== AND THAT NUMBER IS PRINTED, NOT GATED, ON PURPOSE
+The same gate on the same tree then read 8 skips, worst three. It swings because the
+WALK swings: walls redirect him, no two sweeps turn the same corners, and this box
+draws about a third of the frames a beat holds. A FLAKY RATCHET IS WORSE THAN NO
+RATCHET -- it fails honest work, gets switched off, and costs the gate everything
+else it holds. The jumps are reported every run; the claim holds what does not
+swing, which is that the facing is set in one place and that place starts a turn.
+
+=== TWO RULERS FOR THE TURN WERE BUILT AND THROWN AWAY FIRST
+(1) HFACE before and after a press -- but a held walk steps every beat, so N to W
+usually happens as N to NW then NW to W, two one-point turns with nothing in between,
+and it scored the code red for drawing exactly what it should. (2) Watch the turn
+object -- but a turn that re-aims mid-flight becomes a new object and the re-aims
+counted as failures. BOTH MEASURED THE MECHANISM INSTEAD OF THE RESULT. What the
+feature means on screen is one thing: the drawing never skips a compass point.
+
+=== THE HAND CLIPS COME BACK PLAYING (rule 25), AND THE STILLS PAGE WAS MINE
+Eight real frames a clip, killed beside redone, on the beat, in the two facings he
+named. NO vote inside the page (rule 25: asked once, on the row).
+THE DEAD PAGE STAYS IN THE REPO, marked KILLED on its own face: its registry row
+carries his verdict, and the vote gate requires every registered row to have
+something behind it, so deleting it turns the whole registry invalid for every lane.
+Tried that first; put it back.
+The clips are STILL NOT IN THE ALPHA. The arm that reaches the mouth in profile
+crosses the throat and takes NECK HOLDS HEAD from 15 detached frames to 22. That is
+the draw-order flag named last round (a clip DECLARES hand-at-the-face, the way a gun
+clip declares _gun) and it is the next piece of [redo killed].
+
+=== THE GATES
+TAPE SKIP is retired and replaced by SLIDE AND TURN, 17/0, covering slide, the turn,
+the idle and the ceiling. VOTE TAB is 27/1 on my tree AND 27/1 on clean origin/main,
+same claim (#openNot never appears), triaged in a worktree: NOT MINE, it is the
+alpha's notes opener. NECK HOLDS HEAD 8/0 on the tree being pushed.
+Rule 13: pre-push pass green; full suite 107 red at ad23d875, none named as mine.
+
+=== WHAT THIS LANE HOLDS
+[redo killed] CLAIMED. Next piece is the draw-order flag, which unlocks BOTH the
+back views (hand behind the skull) and the profile views (forearm over the throat).
+[horror motion] OPEN.
+
+Nothing [PENDING Paolo].
+
 ANIMATION (animation-lr9y9i): 9/22 (a) LATEST -- *** FIVE KILLED CLIPS REDONE AND
 IN VOTE, AND DELIBERATELY NOT IN THE ALPHA. The hand never reached the face: 9 of
 40 pictures read right, 33 now. TAB: VOTE. ***
