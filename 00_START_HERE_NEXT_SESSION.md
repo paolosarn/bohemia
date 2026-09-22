@@ -28409,7 +28409,92 @@ NEW FRONT-PAGE RULE 8 (added 9/13), and it binds this lane: IF YOUR DIFF TOUCHES
 engine/, REBUILD THE TWO DERIVED SLICES (the RUN slice and the demo) IN THE SAME
 COMMIT. PLUMBER found the RUN slice drifting +45/-6 behind two engine ships.
 
-HOLDING: nothing. LAST SHIPPED: [people charge] 9/22 f20cdfc.
+HOLDING: nothing. LAST SHIPPED: [beltway placed] 9/22 aaaa06a.
+*** THE LANE'S QUEUE IS EMPTY. Every row on this section is SHIPPED. ***
+
+*** 9/22 (b) LATEST -- THE RING IS THERE AND IT IS CALLED A FREEWAY. ***
+records/BOHEMIA_WORLD_THE_RING_IS_THERE_AND_CALLED_A_FREEWAY_9_22_26.md  sha aaaa06a
+Row [beltway placed], plus rule 22 and RULE 29. NOTHING ON A PLAY SURFACE: rule 18
+still holds; the cook went to VOTE and it is drawn.
+
+(1) THE ROW GAVE TWO DOORS -- the overmap places it, or the name is retired -- AND
+RULE 12 FOUND A THIRD. The row's own count is right: zero beltway cells across
+five seeds. But the name is NOT unplaced. The resolver carries a block commented,
+in its own words, "BELTWAY: a RECTANGLE ring with square corners, 2 wide, snapped
+mid-block", computes it off beltRect, and then returns DISTRICT.FREEWAY.
+
+(2) MEASURED OVER THREE SEEDS, separating the I-15 spine, the exits and the
+mountain passes that legitimately cross a ring road, because counting those as
+beltway would have been the easy lie:
+      seed 1337   ring 532   spine 16  exits 12  passes 12   PURE RING 492
+      seed    7   ring 568   spine 16  exits 12  passes 30   PURE RING 510
+      seed   42   ring 568   spine 16  exits 16  passes 24   PURE RING 512
+About five hundred cells a seed ARE the Las Vegas Beltway and every one reports as
+freeway. IT IS MISLABELLED, NOT MISSING.
+
+(3) DECIDED: PLACE IT. A ring road is real Las Vegas geography. beltRect is
+LOAD-BEARING -- the map already uses it to site the airbase, the datafort, the
+freeway exits and the speedway, so retiring the name would leave a rectangle the
+whole map reasons about with nothing at the end of it. `beltway` is ALREADY a ROAD
+in the overmap's own table and already in its BIG set, so drivability and plot
+size do not move. And MAP LAW is not in the way: nothing here designs a layout,
+the layout exists and this is the label on it.
+
+(4) *** AND THE FIX IS NOT ONE LINE, WHICH IS THE REAL FINDING. ***
+      bohemia_powergrid   STREETS already carries 'beltway'. It has simply never
+                          matched, because no cell has ever been one. READY.
+      BOH_OMBRIDGE        STREET_DISTRICTS does NOT, in ALL THREE copies.
+Renaming the resolver alone would silently and at once stop FIVE HUNDRED CELLS
+being STREETS to the district kit, the plot generator's street-edge detection and
+the landlocked law. A one-line fix to a two-line problem is how a rename becomes
+an outage. The gate pins BOTH halves and fails if they are ever out of step,
+proved by doing exactly half the fix: rename without the street list -> 4 red, and
+the failure message names the outage in words.
+
+(5) NOT SHIPPED: the rename touches engine/bohemia_overmap.js, the walked world's
+map generator, and is none of loading, walking or the fight. THE TWO LINES ARE
+NAMED EXACTLY in the record, section 9. Do both or neither.
+
+(6) RULE 29, THE COOK IS DRAWN: slices/vote/WORLD_THE_RING_ROAD.png -- the thing
+this name has never had a picture of. The real cross-section: desert, sound wall,
+graded shoulder, three lanes, median barrier, three lanes, shoulder, desert,
+running across the tile so one cell tiles with the next round the ring. Compared
+to TG-05, PROP-02, PROP-03 and AH-01 before calling it done. The one wrong thing
+is the sand that has crossed the white line and taken a lane back, 4.27% of the
+tile and the only shape on it that does not run parallel to everything else.
+  THE FIRST CUT WAS BAD AND HOW IS WORTH KEEPING: I drew the pavement joints every
+  eleven pixels in near-black and THE TILE READ AS A CATTLE GRID. The joints
+  became the loudest thing on a surface whose whole rule (TG-05) is that the
+  breaks must be QUIET. Half as many now, one value step off the asphalt. The
+  median barrier was a flat grey stripe with no read at all; it has a lit top, a
+  shaded foot and a shadow on both sides now, so it sits ABOVE the deck. Same for
+  the sound wall. Two rounds of drawing, two rounds of the first cut being wrong
+  in a way only looking at it catches.
+
+(7) GATES: BELTWAY PLACED 19/0, new, in the suite, red by half-fix. PEOPLE CHARGE
+30/0, ATTEMPT, ENGINE SYNC green. AND REFERENCE CHECK IS 80/0 GREEN THIS ROUND --
+the two reds this lane named last round were PORTRAIT's and PORTRAIT fixed them;
+this lane's new cook tool carries its own check (30 tools carrying now, up from 24
+two rounds ago).
+
+*** THE QUEUE IS EMPTY. *** Every row in this lane's section is SHIPPED. What is
+left is not rows, it is the things named below, and they all wait on the hold.
+
+WAITING ON THE HOLD, ALL MEASURED, GATED AND READY TO PASTE:
+  [beltway placed]  two lines: DISTRICT.BELTWAY in the resolver, and 'beltway'
+                    into BOH_OMBRIDGE.STREET_DISTRICTS in three copies.
+  [people charge]   bohemia_charge has no caller. cellsNightlyCharge() on the
+                    walked city should ask it; today it asks only who holds wire.
+  [full shelves]    bohemia_aftermoney has no caller. The walked city's buy path
+                    ends at CANNOT_AFFORD with nowhere to go.
+  [suburb walls]    the plot generator compares a 0..1 quality to a 0..4
+                    threshold, so 2,558 tracts stand unwalled. bohemia_tract is
+                    the replacement table.
+  [block strikes]   bohemia_strike has no caller on the nightly cut.
+  BATTERIES IN THE VALLEY on the phone: rule 19(a) moved it off the card and the
+  phone leg is not built. Under RULE 29 it lands INSIDE something drawn, never as
+  another page of text.
+
 
 *** 9/22 LATEST -- HE VOTED, ALL SIX OF THIS LANE'S ITEMS WENT DOWN, AND ONE OF
 HIS COMMENTS WAS A RULING. ***
