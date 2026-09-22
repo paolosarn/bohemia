@@ -50,10 +50,18 @@ you may DO with a plot, and on skeleton the answer is nothing, so the panel has
 always gone quiet on arterial, which is exactly the ground he was asking about.
 A doused circuit still names its holder: the light went out, the claim did not.
 
-GATES: THE FACE ON THE MAP IS HIS 16/0 (new, in the suite). THE ONE THAT IS YOU, the
-[white rings] gate this change could have broken, 7/0 WITH BETTER MARGINS. Leg C asks
-the identity question in BYTES, because identity is bytes and not pixels; leg B asks
-the glass. Mutation: roll his face the way the row said, and it reds.
+GATES: THE FACE ON THE MAP IS HIS 18/0 (new, in the suite). THE ONE THAT IS YOU, the
+[white rings] gate this change could have broken, 7/0 WITH BETTER MARGINS. ENGINE SYNC
+19 modules, zero drift.
+*** AND THE FIRST MUTATION RUN EXPOSED A WEAKNESS IN MY OWN GATE. *** Rolling his face
+the way the row said reddened ONE leg, and that leg READS THE FILE. [white rings]' own
+gate says it in as many words: a gate that computes from its own copy of the rule
+cannot fail when the game changes. A source check is not a measurement. So C4 was
+added -- twelve fixed points read off BOTH candidate bakes in the shell AND off the
+face the city actually holds:
+    CLEAN     0 away from the face he BUILT, 3,082 away from the ROLLED one    18/0
+    MUTATED   2,032 away from the built one, 1,262 from the rolled one         16/2
+A STRANGER ON HIS MAP IS NOW CAUGHT ON THE PIXELS, NOT ONLY IN THE SOURCE.
 
 *** AND HIS VOTES, ANSWERED THE SAME ROUND ***
     THE BATTERY SHED       UP    "More analog horror good idea get direction"

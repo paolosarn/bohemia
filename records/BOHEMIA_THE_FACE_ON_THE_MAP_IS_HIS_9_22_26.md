@@ -95,12 +95,25 @@ A doused circuit still names its holder: **the light went out, the claim did not
 ## 5. THE GATE
 
 `gates/the_face_on_the_map_is_his_gate.js`, in the suite as **THE FACE ON THE MAP IS
-HIS**. 16 pass / 0 fail. `THE ONE THAT IS YOU` (the [white rings] gate this change
+HIS**. 18 pass / 0 fail. `THE ONE THAT IS YOU` (the [white rings] gate this change
 could have broken) re-run: **7 pass / 0 fail, with better margins than before**.
 
 Leg C asks the identity question of the bridge itself, in bytes, because identity is
-bytes and not pixels. Leg B asks the glass. Mutation: make the bridge roll his face
-the way the row said, and the gate reds.
+bytes and not pixels. Leg B asks the glass.
+
+**AND THE FIRST MUTATION RUN EXPOSED A WEAKNESS IN MY OWN GATE.** Rolling his face
+the way the row said reddened **A2 only** -- and A2 READS THE FILE. This lane's own
+[white rings] gate says it in as many words: *"a gate that computes from its own copy
+of the rule cannot fail when the game changes."* A source check is not a measurement.
+
+So C4 was added: twelve fixed points read off BOTH candidate bakes in the shell and
+off the face the CITY actually holds, and the city's face must match the one he
+built. Run both ways:
+
+    CLEAN      0 away from the face he BUILT, 3,082 away from the ROLLED one   18/0
+    MUTATED    2,032 away from the built one, 1,262 from the rolled one        16/2
+
+**A stranger on his map is now caught on the pixels, not only in the source.**
 
 ## 6. AND HIS VOTES ON THIS LANE'S TWO COOKS, ANSWERED THE SAME ROUND
 

@@ -7213,7 +7213,7 @@ GATES = [
      'AND THE PEACH DOTS ANSWER: 2,434 lamp cells, 264 live; LIGHT IS TERRITORY (7/20) means a '
      'lamp is queued only where the circuit is live, so they are a map of who still has power. '
      'Tapping one now says so in the readout that already exists, never a popup (rule 19), and a '
-     'doused circuit still names its holder because the light went out and the claim did not.', True),
+     'doused circuit still names its holder because the light went out and the claim did not. 18 pass / 0 fail. MUTATION, AND IT EXPOSED THIS GATE FIRST: rolling his face the way the row said reddened only A2, which READS THE FILE, and [white rings] warns in as many words that a gate computing from its own copy of the rule cannot fail when the game changes. C4 reads twelve fixed points off BOTH candidate bakes in the shell AND off the face the city actually holds -- clean 0 away from the one he BUILT against 3,082 from the rolled one; mutated 2,032 against 1,262, 16/2. A stranger on his map is caught on the PIXELS now.', True),
     ('NO YARD IS SEALED', ['node', 'gates/no_yard_is_sealed_gate.js'],
      'LIFE + CITY, row [sealed yards], under PAOLO 9/20 rule 18 THE PLAYABLE CUT (this is '
      'WALKING, so it ships). A STRAIGHT WAY OUT IS NOT A WAY OUT: A BODY TURNS CORNERS. '
