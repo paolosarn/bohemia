@@ -1,0 +1,246 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>BOHEMIA - THE SIGNS AT NIGHT</title>
+<style>
+ :root{ --ink:#141210; --paper:#f4efe6; --rule:#9c907c; --hot:#a8391d; --dim:#4a443c }
+ *{ box-sizing:border-box }
+ body{ margin:0; background:var(--paper); color:var(--ink);
+       font:15px/1.5 ui-sans-serif,system-ui,-apple-system,Arial,sans-serif }
+ header{ padding:14px 14px 10px; border-bottom:3px solid var(--ink) }
+ h1{ margin:0 0 5px; font-size:19px; letter-spacing:.3px }
+ .sub{ font-size:14px; color:var(--dim) }
+ .said{ margin:10px 14px; padding:9px 12px; border-left:5px solid var(--hot);
+        background:#fff; font-size:14px }
+ .said b{ color:var(--hot) }
+ .wrap{ padding:6px 14px 50px }
+ .big{ background:#fff; border-bottom:3px solid var(--ink); padding:8px }
+ .big canvas{ display:block; width:100%; max-width:380px; margin:0 auto; height:auto;
+              image-rendering:pixelated; background:#0d0b08 }
+ .row{ display:flex; flex-wrap:wrap; gap:8px; background:#fff; padding:8px;
+       border-bottom:3px solid var(--ink); margin-top:14px }
+ .row > div{ flex:1 1 30%; min-width:0 }
+ .row canvas{ display:block; width:100%; height:auto; image-rendering:pixelated;
+              background:#0d0b08 }
+ .wrong{ font:11px/1.35 ui-monospace,monospace; color:var(--dim); margin-top:6px }
+ .wrong b{ color:var(--hot); display:block; font-size:10px; letter-spacing:.4px }
+ .cap{ font-size:14px; color:var(--dim); margin:10px 0 0 }
+ .cap b{ color:var(--ink) }
+</style></head><body>
+
+<header>
+ <h1>THE SIGNS AT NIGHT</h1>
+ <div class="sub">The three you killed, re-cooked. 9/22</div>
+</header>
+
+<div class="said">
+ <b>YOU SAID:</b> "Not analog horror enough good idea" and "not analog horror enough good
+ idea re-cook". <b>You were right and here is the actual reason.</b> I drew signs that still
+ work, in broad daylight, where a lit sign is invisible. And every frame was an ordinary
+ frame with nothing wrong in it.
+</div>
+
+<div class="wrap">
+ <div class="big">
+  <canvas id="hero"></canvas>
+  <div class="cap"><b>Every room is lit and there is not one car in the lot.</b></div>
+ </div>
+
+ <div class="row" id="row"></div>
+
+ <div class="cap" style="margin-top:16px">Two changes, both of them rules, not taste.
+ <b>It is night, so the only light is a thing you can point at</b>, and the lamp is drawn.
+ <b>And every frame now has exactly one thing wrong with it</b>, written under each
+ picture, in one sentence.</div>
+</div>
+
+<script src="bohemia_sign_kit.js"></script>
+<script>
+/* ===========================================================================
+   THE SIGNS AT NIGHT -- the re-cook, FACTIONS lane, [horror signs] round five,
+   9/22. Rule 30: every re-cook of a killed item goes through DIRECTION'S BIBLE
+   before it comes back as a new id. This is that pass, and the bible named both
+   faults precisely enough that no taste was involved.
+
+   HIS VERDICTS, 9/21:
+     factions-the-sign-still-lights-9-21   DOWN  (no words)
+     factions-the-notice-at-the-edge-9-22  DOWN  "Not analog horror enough good idea"
+     factions-the-mark-on-the-wall-9-22    DOWN  "Not analog horror enough good idea re-cook"
+     factions-the-water-still-runs-9-21    UP    "More analog horror"
+
+   WHAT THE BIBLE SAYS I DID WRONG, and it is two rules, not a mood:
+
+   R1 THE ORDINARY FRAME, ONE WRONG THING -- "name the wrong thing in one
+      sentence or the frame fails". Every one of my four frames was a tidy sign
+      with NOTHING wrong in it. The wrongness I was claiming lived in the caption
+      ("nobody has worked there in ten years"), never in the picture. That is the
+      identical failure the bible had already logged against THE STREET: "the
+      street frame is ordinary with ZERO wrong things".
+
+   R4 THE LIGHT WAS IN THE ROOM -- "every lumen has a source you can point at;
+      night multiplies value and touches nothing else". I lit four signs and then
+      drew them at NOON. A lit sign in daylight is invisible, so the entire
+      premise -- this thing still works when nothing else does -- could not be
+      seen. The register's own strongest single image is a lit screen in a dark
+      room and I had drawn the room at midday.
+
+   SO THE RE-COOK IS TWO MECHANICAL CHANGES:
+     1. NIGHT AS ARITHMETIC. One multiply on all three channels, same k, in the
+        kit. No tint, no grade, no gradient. What stays bright is what a drawn
+        fixture points at, and the pool it throws is hard-edged in steps because
+        a gradient is a mood and a lamp is a fixture.
+     2. ONE WRONG THING PER FRAME, nameable in one sentence, and the sentence is
+        printed under the picture so the claim can be checked rather than felt.
+        Each one is R7 occupancy wrongness, which the bible calls the cheapest
+        dread we own, and each traces to a real world-state row.
+
+   AND R9, THE MACHINES KEEP TALKING, finally has a picture instead of a caption:
+   the water board still reads SERVICE NORMAL and it is the only powered thing in
+   the street.
+   ======================================================================== */
+var K = window.BohemiaSignKit;
+var NK = K.NIGHT_K;
+var GROUND = '#9a8f7c';
+var SKY = '#0d0b08';                 /* never true black, and it is the sky, not a fill */
+
+function nightGround(g, W, H, horizon){
+  g.fillStyle = SKY; g.fillRect(0, 0, W, H);
+  g.fillStyle = K.night(GROUND, NK); g.fillRect(0, horizon, W, H - horizon);
+  /* the far edge of the lot, one value step up, so the ground has a horizon and
+     is not a flat rectangle */
+  g.fillStyle = K.night(GROUND, NK * 1.15); g.fillRect(0, horizon, W, 2);
+}
+
+/* ---- 1. THE MOTEL ------------------------------------------------------
+   THE WRONG THING: every room is lit and there is not one car in the lot. */
+function drawMotel(g, W, H){
+  nightGround(g, W, H, 54);
+
+  /* the block of rooms behind, and its windows are the fixtures */
+  var wall = '#b9a684';
+  K.box3d(g, 6, 30, 66, 26, 9, K.night(wall, NK),
+          K.night(wall, NK * 1.2), K.night(wall, NK * 0.75));
+  /* EIGHT WINDOWS, ALL LIT. Each one is a fixture and each throws its own small
+     pool on the walkway below it -- that is R4 satisfied by construction. */
+  for (var i = 0; i < 8; i++){
+    var wx = 10 + i * 8;
+    g.fillStyle = '#c9a44e'; g.fillRect(wx, 36, 5, 7);        /* the glass */
+    g.fillStyle = '#e8c86a'; g.fillRect(wx + 1, 37, 3, 4);    /* the bulb behind it */
+    g.fillStyle = K.night(GROUND, NK * 1.45); g.fillRect(wx, 56, 6, 2);  /* its own pool */
+  }
+
+  /* the pole sign, lit, and its lamp throws the one big pool on the lot */
+  K.pool(g, 96, 71, 40, 11, GROUND, 4);
+  var frame = '#c2542b', face = '#e6d7b4';
+  g.fillStyle = K.night('#6f6a61', NK); g.fillRect(94, 44, 4, 30);
+  K.box3d(g, 74, 12, 46, 26, 8, K.night(frame, NK * 1.1),
+          K.night(frame, NK * 1.3), K.night(frame, NK * 0.8));
+  /* the acrylic is the fixture: it is LIT, so it is not multiplied down */
+  g.fillStyle = K.mix(face, '#fff7e2', 0.30); g.fillRect(77, 15, 40, 20);
+  g.fillStyle = K.mix(face, K.DARKEST, 0.10); g.fillRect(77, 31, 40, 4);
+  K.c5(g, 'SUNRAY', 97, 17, K.mix(frame, K.DARKEST, 0.45), 38);
+  K.c3(g, 'VACANCY', 97, 26, K.mix(frame, K.DARKEST, 0.30), 38);
+}
+
+/* ---- 2. THE WATER AUTHORITY -------------------------------------------
+   THE WRONG THING: the only thing with power in this street is the sign
+   saying everything is fine. */
+function drawWater(g, W, H){
+  nightGround(g, W, H, 58);
+
+  /* the street behind it, every building dark. NO fixture, so nothing is lit. */
+  var wall = '#a99e88';
+  K.box3d(g, 4, 26, 30, 32, 8, K.night(wall, NK * 0.85),
+          K.night(wall, NK * 1.0), K.night(wall, NK * 0.6));
+  K.box3d(g, 84, 22, 36, 36, 8, K.night(wall, NK * 0.85),
+          K.night(wall, NK * 1.0), K.night(wall, NK * 0.6));
+
+  /* the monument, and its amber panel is the only fixture in the frame */
+  K.pool(g, 58, 70, 36, 9, GROUND, 4);
+  var base = '#a99e88', shell = '#8e8a7e';
+  K.box3d(g, 36, 52, 44, 10, 7, K.night(base, NK),
+          K.night(base, NK * 1.2), K.night(base, NK * 0.75));
+  K.box3d(g, 40, 30, 36, 22, 6, K.night(shell, NK),
+          K.night(shell, NK * 1.2), K.night(shell, NK * 0.75));
+  /* the name plate is NOT lit: cast letters have no lamp behind them */
+  K.c3(g, 'WATER', 57, 33, K.night('#cfc6b2', NK * 1.5), 32);
+  /* the status panel IS the fixture */
+  g.fillStyle = '#8a6420'; g.fillRect(42, 40, 32, 9);
+  g.fillStyle = '#e8a93c'; g.fillRect(43, 41, 30, 7);
+  /* the panel says one word now, because the panel is 30 px wide and the kit
+     refused the long one. It is also colder: NORMAL, alone, on the only powered
+     thing in a dead street. */
+  K.c3(g, 'NORMAL', 58, 42, '#4a3208', 30);
+  /* and the panel lights the lip above it and stops */
+  g.fillStyle = K.mix('#e8a93c', SKY, 0.55); g.fillRect(42, 39, 32, 1);
+}
+
+/* ---- 3. THE RENT BOARD -------------------------------------------------
+   THE WRONG THING: somebody hung a working light over the price list so you
+   can read it at three in the morning. */
+function drawBoard(g, W, H){
+  nightGround(g, W, H, 60);
+
+  /* the bulb on its cord: the fixture, drawn, with the cord going up out of
+     frame to wherever somebody tapped the power */
+  g.fillStyle = K.night('#6f6a61', NK * 1.6); g.fillRect(60, 0, 1, 14);
+  g.fillStyle = '#ffe9a8'; g.fillRect(58, 14, 5, 5);
+  g.fillStyle = K.mix('#ffe9a8', SKY, 0.45); g.fillRect(57, 15, 7, 3);
+  g.fillStyle = K.mix('#ffe9a8', SKY, 0.72); g.fillRect(56, 13, 9, 7);
+
+  K.pool(g, 60, 73, 34, 9, GROUND, 4);
+
+  /* the stakes and the plank, lit from ABOVE by that bulb: the top of the board
+     is bright and the bottom falls away, which is what one bulb does */
+  var stake = '#6f5a3c', wood = '#9c7f56';
+  K.box3d(g, 40, 50, 4, 26, 3, K.night(stake, NK), K.night(stake, NK*1.2), K.night(stake, NK*0.7));
+  K.box3d(g, 78, 50, 4, 24, 3, K.night(stake, NK), K.night(stake, NK*1.2), K.night(stake, NK*0.7));
+  K.box3d(g, 34, 26, 54, 28, 6, K.night(wood, NK * 1.9),
+          K.night(wood, NK * 2.3), K.night(wood, NK * 1.1));
+  /* the bulb reaches the top two thirds and stops */
+  g.fillStyle = K.night(wood, NK * 1.35); g.fillRect(34, 44, 54, 10);
+
+  var mob = '#454142';
+  g.fillStyle = K.night(mob, NK * 2.4); g.fillRect(36, 29, 50, 10);
+  K.c5(g, 'MOB', 61, 30, K.night('#fdf6e6', NK * 2.6), 46);
+  var ink = K.night(wood, NK * 0.55);
+  K.c3(g, '1 BLOCK', 61, 42, ink, 48);
+  K.c3(g, '1 BATTERY', 61, 48, K.night(wood, NK * 0.7), 48);
+}
+
+var SCENES = [
+  { fn:drawMotel, w:128, h:84,
+    wrong:'Every room is lit and there is not one car in the lot.' },
+  { fn:drawWater, w:128, h:84,
+    wrong:'The only thing with power in this street is the sign saying everything is fine.' },
+  { fn:drawBoard, w:120, h:84,
+    wrong:'Somebody hung a working light over the price list so you can read it at three in the morning.' }
+];
+
+var hero = document.getElementById('hero');
+hero.width = 128; hero.height = 84;
+(function(){ var g = hero.getContext('2d'); g.imageSmoothingEnabled = false;
+  drawMotel(g, 128, 84); })();
+
+var row = document.getElementById('row');
+for (var i = 0; i < SCENES.length; i++){
+  var s = SCENES[i];
+  var d = document.createElement('div');
+  var c = document.createElement('canvas'); c.width = s.w; c.height = s.h;
+  d.appendChild(c);
+  var g2 = c.getContext('2d'); g2.imageSmoothingEnabled = false;
+  s.fn(g2, s.w, s.h);
+  var t = document.createElement('div'); t.className = 'wrong';
+  t.innerHTML = '<b>THE ONE WRONG THING</b>' + s.wrong;
+  d.appendChild(t); row.appendChild(d);
+}
+
+/* the kit's overflow report: empty is the expected state */
+(function(){
+  if (!K.overflows || !K.overflows.length) return;
+  var w = document.createElement('div'); w.className = 'said';
+  w.innerHTML = '<b>TEXT RAN OFF ITS SIGN:</b><br>' + K.overflows.map(function(o){
+    return '"'+o.text+'" is '+o.width+' px in a '+o.maxW+' px space'; }).join('<br>');
+  document.querySelector('.wrap').insertBefore(w, document.querySelector('.wrap').firstChild);
+})();
+</script>
+</body></html>

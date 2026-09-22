@@ -131,7 +131,57 @@
     diamond(g,cx+26,h-5,12,4,'#a09580');
   }
 
+  /* ======================================================================
+     NIGHT, AND IT IS ARITHMETIC, NOT A MOOD.
+     THE BIBLE, R4 THE LIGHT WAS IN THE ROOM: "every lumen has a source you can
+     point at; night MULTIPLIES VALUE and touches nothing else (the cloud rule's
+     arithmetic). No mood gradient, ever." MEASURE: every lit region names its
+     fixture; channel disagreement under one 8-bit rounding step at night.
+
+     So night here is one multiply on all three channels by the same k. Nothing
+     is tinted blue, nothing is graded, no gradient is laid over anything. The
+     only things that stay bright are the ones a fixture is pointing at, and the
+     fixture is drawn.
+
+     WHY THIS EXISTS AT ALL: four signs went to the vote tab lit in BROAD
+     DAYLIGHT and three came back killed, "not analog horror enough". A lit sign
+     in daylight is invisible -- the whole premise of a sign that still works is
+     that it is the only thing working, and you cannot show that at noon. The
+     register's own strongest single image is a lit screen in a dark room and I
+     had drawn the room at midday. */
+  function night(hex, k){
+    var c = hex2(hex), o = '#', i;
+    for (i = 0; i < 3; i++){
+      var v = Math.round(c[i] * k); if (v < 0) v = 0; if (v > 255) v = 255;
+      o += ('0' + v.toString(16)).slice(-2);
+    }
+    return o;
+  }
+  var NIGHT_K = 0.30;               /* the one multiply the whole frame shares */
+
+  /* THE POOL A FIXTURE THROWS. Drawn as a real cone of ground the lamp reaches
+     and then STOPS -- hard-edged in steps, never a soft gradient, because a
+     gradient is a mood and a lamp is a fixture. Each step is a value lift on the
+     ground that is already there, so it can never introduce a colour nobody
+     chose. */
+  function pool(g, cx, cy, rw, rh, ground, steps){
+    steps = steps || 4;
+    /* *** IT IS SPILL, NOT A FOLLOW SPOT. *** The first cut lifted the middle
+       ring by 1.35x over three steps and every scene came back with a hard bright
+       diamond under the sign that read like a stage light, or worse, like a UI
+       marker showing you where to stand. A lamp above a sign washes a WIDE, FLAT,
+       shallow patch and falls off fast. Wider, flatter, half the lift, one more
+       step so the falloff is a ramp of hard edges rather than a bullseye. */
+    for (var s = steps; s >= 1; s--){
+      var t = s / steps;
+      var lift = 1 + (1 - t) * 0.62;
+      diamond(g, cx, cy, Math.round(rw * (0.7 + 0.3 * t)), Math.round(rh * t),
+              night(ground, NIGHT_K * lift));
+    }
+  }
+
   root.BohemiaSignKit = {
+    night: night, NIGHT_K: NIGHT_K, pool: pool,
     F3:F3, F4:F4, F5:F5, w3:w3, w5:w5, put3:put3, put5:put5, c3:c3, c5:c5,
     DARKEST:DARKEST, mix:mix, box3d:box3d, diamond:diamond, hardpan:hardpan,
     overflows: overflows
