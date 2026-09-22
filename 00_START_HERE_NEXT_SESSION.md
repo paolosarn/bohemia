@@ -419,7 +419,9 @@ IT FOUND A REAL DEFECT: THE FIGHT'S SONG WAS BEING PICKED FOUR TIMES. PLUS RULE 
 LAST COMPLETELY UNMET RULE ON MY OWN SCHOOL PAGE. *** Rows [seeded gate] SHIPPED and
 [cook sounds] stays CLAIMED.
 Records: records/BOHEMIA_THE_CHECKER_WAS_THE_COIN_9_23_26.md (the gate) and the cook is in the
-VAMILY row. Gates: FIGHT MUSIC 50/0, COOKED SOUNDS 57/0 and --mutate 43/10.
+VAMILY row. Gates: FIGHT MUSIC 51/0 six for six on the tree that ships, COOKED SOUNDS 57/0 with --mutate
+biting 10, FIRST SOUND 19/0, HANDOFF 8/0. Two of my gates were BLIND until this round fixed them;
+see the block below the cook.
 Tab: VOTE, one page, eight cards, with a metronome. Build stamp 9/23a.
 THE SAMPLE, STATED HONESTLY, BECAUSE IT IS THE WHOLE LESSON: ten runs of the rebuilt gate came
 back green, and P(ten greens | still a 20% coin) is 10.7%. TEN GREENS ALONE WOULD NOT BE PROOF.
@@ -615,6 +617,30 @@ Record: records/BOHEMIA_EVERY_GATE_THAT_OPENS_THE_ALPHA_AS_A_FILE_IS_BLIND_9_23_
   claim -- "the loading screen said it was ready before the door was tapped (after N ms)" -- so
   this failure can never again be reported as a music regression. 51/0, from 43 to 45 passed with
   5 to 9 failing depending on the run.
+  AND THE SAME BREAK HIT MY OTHER ALPHA GATE, WITH A SECOND DEFECT UNDERNEATH IT. FIRST SOUND read
+  19/0 before RUN's screen landed and 15/4 after, with nothing wrong with the room or the hum. Same
+  fix (served over http, waits for the readiness flag, 180 s bound) and it also now finds the
+  --mutate flag BY NAME instead of by position, because argv[3] became the base URL and a
+  positional read of a flag silently became a read of a URL -- which would have made the mutation
+  a no-op and the control prove nothing, quietly.
+  AND TWO CLAIMS IN IT WERE ASKING THE WRONG QUESTION, BOTH BECAUSE OF THE SAME CHANGE:
+    "THE TAP IS CONTEXT-TIME ZERO" asserted ZERO AudioContexts before the door, which was TRUE
+      when it was written (the context was made BY the tap). Measured now with a constructor
+      wrapper and a stack: RUN's screen calls the unlock path at 1,027 ms, so ONE context exists
+      before the door, SUSPENDED, with MUS.playing false. "DOES AN AUDIOCONTEXT OBJECT EXIST" AND
+      "HAS THIS PAGE MADE A SOUND" ARE DIFFERENT QUESTIONS and the browser is the one that
+      distinguishes them. The claim reads the STATE now; a context that is RUNNING before the tap
+      still fails, so it is the same assertion with the browser's own word for silent in it.
+    AND THEN I GOT THE NEXT PART WRONG AND THE MEASUREMENT CAUGHT ME. I wrote that a suspended
+      context's clock has not moved, so context zero is still the tap. TWO RUNS ON ONE UNCHANGED
+      TREE THEN BOOKED THE ROOM AT CONTEXT TIME 0.151 s AND AT 3.741 s against a 0.5 s bar -- a
+      25x spread, and a red that blamed the room for the loading screen existing. A SUSPENDED
+      CONTEXT'S CLOCK IS NOT RELIABLY STOPPED. The free anchor is gone, so the ship test now reads
+      the context clock immediately after the click and asks for the GAP: booked within one beat
+      OF THE TAP. Same bar, same law, an anchor that does not depend on when the context was made.
+      THE HEADER COMMENT THAT STATED THE OLD MEASUREMENT IS AMENDED IN PLACE, twice, because a
+      stale measurement in a gate's own preamble is what sends the next round chasing a sound that
+      is fine.
   WHAT I DID NOT DO: touch the loading screen or __cityHas. RUN's, shipped this round, and the
   general fix is theirs to pick: either __cityHas reports "cannot determine" separately from "not
   done" (one change in one helper, and a cross-origin frame is a known catchable nameable

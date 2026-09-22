@@ -210,19 +210,21 @@ reds it explains looked exactly like a music regression and were not one.)
 
 ## 8. AND THE SAMPLE, STATED HONESTLY, BECAUSE THAT IS THE WHOLE LESSON OF THIS ROUND
 
-Ten runs of the rebuilt gate came back green (four on the pre-rebase tree with the identical
-gate file, six on the tree that ships). **That is not proof on its own, and section 0 is why:**
+Twelve runs of the rebuilt gate came back green: four on the pre-rebase tree, six more on the
+tree before main moved, and **six for six at 51/0 on the tree that actually ships, served over
+http with the door wait in place.** **That is not proof on its own, and section 0 is why:**
 
+    P(12 greens in a row | it is still a 20% coin) =  6.9%
     P(10 greens in a row | it is still a 20% coin) = 10.7%
-    P( 9 greens in a row | it is still a 20% coin) = 13.4%
+    P( 6 greens in a row | it is still a 20% coin) = 26.2%
 
-One run in ten of the OLD gate would look like this too, and last round I read four greens as a
-fix on exactly that arithmetic. **What makes this round different is not the count, it is that
+Six greens in a row would happen more than a quarter of the time on the OLD gate, and last round
+I read four greens as a fix on exactly that arithmetic. **What makes this round different is not the count, it is that
 the mechanism is named and removed:** the reference is no longer read on a sleep, the claims no
 longer depend on a title five systems can move, and the window is no longer measured with the
 round trips that define it. Both new claims fail on demand under mutation.
 
-> **THE HONEST SENTENCE: the cause is identified and fixed, and ten green runs are consistent
-> with that. Ten green runs alone would not be.** If this gate flakes again, the log now prints
+> **THE HONEST SENTENCE: the cause is identified and fixed, and twelve green runs are consistent
+> with that. Twelve green runs alone would not be.** If this gate flakes again, the log now prints
 > the caller, the millisecond and the stack, so the next round starts from a cause instead of
 > from two song titles.
