@@ -3,31 +3,31 @@
   "which": "deploy",
   "file": "BOHEMIA_DEMO.html",
   "surface": "/tmp/claude-0/-home-user-bohemia/065fcaf1-af13-5362-9424-9d0305049a14/scratchpad/cut/slices/BOHEMIA_DEMO.html",
-  "when": "2026-09-22T09:44:16.693Z",
+  "when": "2026-09-22T22:30:03.807Z",
   "law": "THE FIVE MINUTES (Paolo 9/13)",
   "lines": [
     {
-      "at": "00:25",
+      "at": "00:22",
       "did": "opened the link and waited",
-      "happened": "a front screen: \"POST-ECONOMIC APOCALYPSE - LAS VEGAS BEGIN DEMO - BUILD 9/23a - ONE FIGHT IS ONE SONG\"",
+      "happened": "a front screen: \"BOHEMIA CLARK COUNTY POWER AUTHORITY READING THE VALLEY COUNTING WHAT STILL STANDS NO OPERATOR ON DUTY WINDING THE CLOCK CHECKING STREETS FOR LIGHT PUTTING PEOPLE ON IT 5 OF 5 BEGIN DEMO - BUILD 9/23e\"",
       "promised": "TAP TO ENTER"
     },
     {
-      "at": "00:35",
+      "at": "00:32",
       "did": "tapped the front screen",
       "happened": "the screen changed",
       "promised": "that tapping enters the game"
     },
     {
-      "at": "00:36",
+      "at": "00:38",
       "did": "looked at the first screen without touching anything",
-      "happened": "11 things with words on them, big enough to tap: ⚙ / HUMAN MODE / SUBURB · ON FOOT / MENU — DEAD VALLEY DAWN / SAVE / SLEEP / BIKE / SCAVENGE · 8H / BUILD HERE / ◆ STANDING / walking your own block.",
+      "happened": "11 things with words on them, big enough to tap: ⚙ / HUMAN MODE / SUBURB · ON FOOT / MENU — THE POWER STILL ON SOMEWHERE / SAVE / SLEEP / BIKE / SCAVENGE · 8H / BUILD HERE / ◆ STANDING / walking your own block.",
       "promised": ""
     },
     {
       "at": "00:46",
       "did": "tapped \"walking your own block.\" (the biggest thing on screen)",
-      "happened": "NOTHING MOVED ANYWHERE, BOTH PRESSES",
+      "happened": "the screen answered: somewhere else on screen",
       "promised": "walking your own block."
     },
     {
@@ -37,148 +37,166 @@
       "promised": ""
     },
     {
-      "at": "01:41",
+      "at": "01:37",
       "did": "went looking for \"cbbuild\" on purpose",
       "happened": "it was NOT on screen on this route, and it is still built in slices/BOHEMIA_CITY_WORLD.html, so this walk says nothing about it",
       "promised": ""
     },
     {
-      "at": "01:43",
+      "at": "01:38",
       "did": "went looking for \"cbbig\" on purpose",
       "happened": "it was NOT on screen on this route, and it is still built in slices/BOHEMIA_CITY_WORLD.html, so this walk says nothing about it",
       "promised": ""
     },
     {
-      "at": "01:52",
+      "at": "01:47",
       "did": "tapped \"⚙\" (on the first screen and never pressed by the old script)",
       "happened": "the screen answered: its own panel",
       "promised": "⚙"
     },
     {
-      "at": "02:01",
+      "at": "01:55",
       "did": "tapped \"HUMAN MODE\" (on the first screen and never pressed by the old script)",
       "happened": "NOTHING MOVED ANYWHERE, BOTH PRESSES",
       "promised": "HUMAN MODE"
     },
     {
-      "at": "02:11",
+      "at": "02:03",
       "did": "tapped \"SUBURB · ON FOOT\" (on the first screen and never pressed by the old script)",
       "happened": "NOTHING MOVED ANYWHERE, BOTH PRESSES",
       "promised": "SUBURB · ON FOOT"
     },
     {
-      "at": "02:20",
-      "did": "tapped \"MENU — DEAD VALLEY DAWN\" (on the first screen and never pressed by the old script)",
+      "at": "02:11",
+      "did": "tapped \"MENU — THE POWER STILL ON SOMEWHERE\" (on the first screen and never pressed by the old script)",
       "happened": "the screen answered: its own panel",
-      "promised": "MENU — DEAD VALLEY DAWN"
+      "promised": "MENU — THE POWER STILL ON SOMEWHERE"
     },
     {
-      "at": "02:29",
+      "at": "02:20",
       "did": "tapped \"SAVE\" (on the first screen and never pressed by the old script)",
       "happened": "the screen answered: its own panel",
       "promised": "SAVE"
     },
     {
-      "at": "02:38",
+      "at": "02:28",
       "did": "tapped \"SLEEP\" (on the first screen and never pressed by the old script)",
       "happened": "the screen answered: its own panel",
       "promised": "SLEEP"
     },
     {
-      "at": "02:43",
+      "at": "02:37",
       "did": "tapped \"BIKE\" (on the first screen and never pressed by the old script)",
-      "happened": "THE PANEL VANISHED, which tells me nothing either way",
+      "happened": "the screen answered: somewhere else on screen",
       "promised": "BIKE"
     },
     {
-      "at": "02:52",
+      "at": "02:45",
       "did": "tapped \"SCAVENGE · 8H\" (on the first screen and never pressed by the old script)",
       "happened": "NOTHING MOVED ANYWHERE, BOTH PRESSES",
       "promised": "SCAVENGE · 8H"
     },
     {
-      "at": "03:02",
+      "at": "02:53",
       "did": "tapped \"BUILD HERE\" (on the first screen and never pressed by the old script)",
       "happened": "NOTHING MOVED ANYWHERE, BOTH PRESSES",
       "promised": "BUILD HERE"
     },
     {
-      "at": "03:11",
+      "at": "03:01",
       "did": "tapped \"◆ STANDING\" (on the first screen and never pressed by the old script)",
       "happened": "NOTHING MOVED ANYWHERE, BOTH PRESSES",
       "promised": "◆ STANDING"
     },
     {
-      "at": "03:24",
+      "at": "03:12",
       "did": "tapped \"MUSIC\" (new on screen)",
       "happened": "the screen answered: its own panel",
       "promised": "MUSIC"
     },
     {
-      "at": "03:29",
+      "at": "03:17",
       "did": "tapped \"✕\" (new on screen)",
       "happened": "THE PANEL VANISHED, which tells me nothing either way",
       "promised": "✕"
     },
     {
-      "at": "03:38",
+      "at": "03:25",
       "did": "tapped \"YOUR PEOPLE\" (new on screen)",
       "happened": "NOTHING MOVED ANYWHERE, BOTH PRESSES",
       "promised": "YOUR PEOPLE"
     },
     {
-      "at": "03:47",
+      "at": "03:33",
       "did": "tapped \"RAY\" (new on screen)",
       "happened": "NOTHING MOVED ANYWHERE, BOTH PRESSES",
       "promised": "RAY"
     },
     {
-      "at": "03:56",
+      "at": "03:42",
       "did": "tapped \"DENISE\" (new on screen)",
       "happened": "NOTHING MOVED ANYWHERE, BOTH PRESSES",
       "promised": "DENISE"
     },
     {
-      "at": "04:05",
+      "at": "03:50",
       "did": "tapped \"MARCO\" (new on screen)",
       "happened": "NOTHING MOVED ANYWHERE, BOTH PRESSES",
       "promised": "MARCO"
     },
     {
-      "at": "04:15",
+      "at": "03:58",
       "did": "tapped \"WHO YOU LOST\" (new on screen)",
       "happened": "NOTHING MOVED ANYWHERE, BOTH PRESSES",
       "promised": "WHO YOU LOST"
     },
     {
-      "at": "04:24",
+      "at": "04:06",
       "did": "tapped \"NINA\" (new on screen)",
       "happened": "NOTHING MOVED ANYWHERE, BOTH PRESSES",
       "promised": "NINA"
     },
     {
-      "at": "04:33",
+      "at": "04:14",
       "did": "tapped \"NOT MARRIED\" (new on screen)",
       "happened": "NOTHING MOVED ANYWHERE, BOTH PRESSES",
       "promised": "NOT MARRIED"
     },
     {
-      "at": "04:42",
+      "at": "04:23",
       "did": "tapped \"BY THE END OF ACT ONE\" (new on screen)",
       "happened": "NOTHING MOVED ANYWHERE, BOTH PRESSES",
       "promised": "BY THE END OF ACT ONE"
     },
     {
-      "at": "04:52",
+      "at": "04:31",
       "did": "tapped \"Marry\" (new on screen)",
       "happened": "NOTHING MOVED ANYWHERE, BOTH PRESSES",
       "promised": "Marry"
     },
     {
-      "at": "05:01",
+      "at": "04:39",
       "did": "tapped \"YOUR RUNG\" (new on screen)",
       "happened": "NOTHING MOVED ANYWHERE, BOTH PRESSES",
       "promised": "YOUR RUNG"
+    },
+    {
+      "at": "04:48",
+      "did": "tapped \"TERRITORY\" (new on screen)",
+      "happened": "NOTHING MOVED ANYWHERE, BOTH PRESSES",
+      "promised": "TERRITORY"
+    },
+    {
+      "at": "04:56",
+      "did": "tapped \"THE VALLEY\" (new on screen)",
+      "happened": "NOTHING MOVED ANYWHERE, BOTH PRESSES",
+      "promised": "THE VALLEY"
+    },
+    {
+      "at": "05:04",
+      "did": "tapped \"0 of 16 factions with you\" (new on screen)",
+      "happened": "NOTHING MOVED ANYWHERE, BOTH PRESSES",
+      "promised": "0 of 16 factions with you"
     }
   ],
   "errors": [
@@ -210,7 +228,7 @@
     {
       "name": "THE DOOR OPENED: the splash is gone and the game’s HUD is there",
       "pass": true,
-      "detail": "splash still shown: false, HUD music chip: \"MENU — DEAD VALLEY DAWN\" -- this walk is in the game"
+      "detail": "splash still shown: false, HUD music chip: \"MENU — THE POWER STILL ON SOMEWHERE\" -- this walk is in the game"
     },
     {
       "name": "DEAD READS DEAD: a planted button with no handler is called dead",
@@ -240,35 +258,45 @@
     {
       "name": "THE WORLD MOVES ON ITS OWN: the null window is measured, not assumed",
       "pass": true,
-      "detail": "0 of 59 windows with no input at all still moved the screen. The world held still, so the old equality test was not the cause of the disagreement."
+      "detail": "1 of 66 windows with no input at all still moved the screen. So equality was the wrong test and every earlier \"the tap worked\" on this game is unsafe."
     }
   ],
   "numbers": {
-    "time_until_something_is_tappable_s": 30.44,
-    "my_first_tap_at_s": 31.16,
+    "time_until_something_is_tappable_s": 27.73,
+    "my_first_tap_at_s": 28.36,
     "ledger_after_warmup": {
-      "words": 0,
-      "pixel_samples": 39
+      "words": 8,
+      "pixel_samples": 11
     },
     "extra_walk_rounds": 1,
     "time_to_first_fight_s": "NONE",
-    "walk_ended_at_s": 302.5,
+    "walk_ended_at_s": 305.9,
     "dead_affordances": 6,
-    "things_i_actually_pressed": 23,
-    "alive_on_one_press_only": 4,
-    "closed_the_panel_so_proves_nothing": 2,
-    "words_the_world_writes_by_itself": 0,
+    "things_i_actually_pressed": 26,
+    "alive_on_one_press_only": 3,
+    "closed_the_panel_so_proves_nothing": 1,
+    "words_the_world_writes_by_itself": 8,
     "named_items_pressed_on_purpose": 0,
     "named_items_not_reachable_on_this_route": 2,
     "named_items_removed_from_the_game": 0,
     "named_items_still_dead": 0,
-    "tapped_and_inert_but_never_claimed_to_be_a_button": 9,
+    "tapped_and_inert_but_never_claimed_to_be_a_button": 11,
     "pairs_void_because_the_screen_changed_between_presses": 1,
-    "null_windows_measured": 59,
-    "null_windows_that_moved_on_their_own": 0,
+    "null_windows_measured": 66,
+    "null_windows_that_moved_on_their_own": 1,
     "worst_null_window": {
-      "word_moves": 0,
-      "pixel_fraction": 0
+      "word_moves": 8,
+      "words_that_moved": [
+        "DEAD",
+        "ON",
+        "THE",
+        "POWER",
+        "STILL",
+        "SOMEWHERE",
+        "VALLEY",
+        "DAWN"
+      ],
+      "pixel_fraction": 0.0002
     },
     "page_errors": 0,
     "console_errors": 2,
@@ -276,7 +304,7 @@
   },
   "dead": [
     {
-      "at": "03:02",
+      "at": "02:53",
       "text": "BUILD HERE",
       "id": "buildbtn",
       "where": "frame",
@@ -304,7 +332,7 @@
       ]
     },
     {
-      "at": "03:11",
+      "at": "03:01",
       "text": "◆ STANDING",
       "id": "rungbtn",
       "where": "frame",
@@ -332,7 +360,7 @@
       ]
     },
     {
-      "at": "03:47",
+      "at": "03:33",
       "text": "RAY",
       "id": "",
       "where": "frame",
@@ -360,7 +388,7 @@
       ]
     },
     {
-      "at": "03:56",
+      "at": "03:42",
       "text": "DENISE",
       "id": "",
       "where": "frame",
@@ -388,7 +416,7 @@
       ]
     },
     {
-      "at": "04:05",
+      "at": "03:50",
       "text": "MARCO",
       "id": "",
       "where": "frame",
@@ -416,7 +444,7 @@
       ]
     },
     {
-      "at": "04:52",
+      "at": "04:31",
       "text": "Marry",
       "id": "fammarry",
       "where": "frame",
@@ -446,43 +474,7 @@
   ],
   "inert": [
     {
-      "at": "00:46",
-      "text": "walking your own block.",
-      "id": "note",
-      "where": "frame",
-      "size": "69x44",
-      "looked_tappable_because": "nothing said so",
-      "pressed_twice": true,
-      "novel_movement_either_time": "none",
-      "evidence": [
-        {
-          "novel_words_anywhere": [],
-          "novel_cells": 0,
-          "world_moved_in_the_null_window": 0,
-          "panel": "#blstack.uihalf",
-          "panel_still_open": true,
-          "novel_words_inside_the_panel": []
-        },
-        {
-          "novel_words_anywhere": [
-            "TO",
-            "HOLD",
-            "WALK,",
-            "LET",
-            "GO",
-            "KEEP",
-            "GOING"
-          ],
-          "novel_cells": 0,
-          "world_moved_in_the_null_window": 0,
-          "panel": "#blstack.uihalf",
-          "panel_still_open": true,
-          "novel_words_inside_the_panel": []
-        }
-      ]
-    },
-    {
-      "at": "02:01",
+      "at": "01:55",
       "text": "HUMAN MODE",
       "id": "hmode",
       "where": "frame",
@@ -510,7 +502,7 @@
       ]
     },
     {
-      "at": "02:11",
+      "at": "02:03",
       "text": "SUBURB · ON FOOT",
       "id": "hslot",
       "where": "frame",
@@ -538,7 +530,7 @@
       ]
     },
     {
-      "at": "03:38",
+      "at": "03:25",
       "text": "YOUR PEOPLE",
       "id": "",
       "where": "frame",
@@ -566,7 +558,7 @@
       ]
     },
     {
-      "at": "04:15",
+      "at": "03:58",
       "text": "WHO YOU LOST",
       "id": "",
       "where": "frame",
@@ -594,7 +586,7 @@
       ]
     },
     {
-      "at": "04:24",
+      "at": "04:06",
       "text": "NINA",
       "id": "",
       "where": "frame",
@@ -622,7 +614,7 @@
       ]
     },
     {
-      "at": "04:33",
+      "at": "04:14",
       "text": "NOT MARRIED",
       "id": "",
       "where": "frame",
@@ -650,7 +642,7 @@
       ]
     },
     {
-      "at": "04:42",
+      "at": "04:23",
       "text": "BY THE END OF ACT ONE",
       "id": "",
       "where": "frame",
@@ -678,11 +670,95 @@
       ]
     },
     {
-      "at": "05:01",
+      "at": "04:39",
       "text": "YOUR RUNG",
       "id": "",
       "where": "frame",
       "size": "55x14",
+      "looked_tappable_because": "nothing said so",
+      "pressed_twice": true,
+      "novel_movement_either_time": "none",
+      "evidence": [
+        {
+          "novel_words_anywhere": [],
+          "novel_cells": 0,
+          "world_moved_in_the_null_window": 0,
+          "panel": "#stage",
+          "panel_still_open": true,
+          "novel_words_inside_the_panel": []
+        },
+        {
+          "novel_words_anywhere": [],
+          "novel_cells": 0,
+          "world_moved_in_the_null_window": 0,
+          "panel": "#stage",
+          "panel_still_open": true,
+          "novel_words_inside_the_panel": []
+        }
+      ]
+    },
+    {
+      "at": "04:48",
+      "text": "TERRITORY",
+      "id": "",
+      "where": "frame",
+      "size": "64x17",
+      "looked_tappable_because": "nothing said so",
+      "pressed_twice": true,
+      "novel_movement_either_time": "none",
+      "evidence": [
+        {
+          "novel_words_anywhere": [],
+          "novel_cells": 0,
+          "world_moved_in_the_null_window": 0,
+          "panel": "#stage",
+          "panel_still_open": true,
+          "novel_words_inside_the_panel": []
+        },
+        {
+          "novel_words_anywhere": [],
+          "novel_cells": 0,
+          "world_moved_in_the_null_window": 0,
+          "panel": "#stage",
+          "panel_still_open": true,
+          "novel_words_inside_the_panel": []
+        }
+      ]
+    },
+    {
+      "at": "04:56",
+      "text": "THE VALLEY",
+      "id": "",
+      "where": "frame",
+      "size": "61x14",
+      "looked_tappable_because": "nothing said so",
+      "pressed_twice": true,
+      "novel_movement_either_time": "none",
+      "evidence": [
+        {
+          "novel_words_anywhere": [],
+          "novel_cells": 0,
+          "world_moved_in_the_null_window": 0,
+          "panel": "#stage",
+          "panel_still_open": true,
+          "novel_words_inside_the_panel": []
+        },
+        {
+          "novel_words_anywhere": [],
+          "novel_cells": 0,
+          "world_moved_in_the_null_window": 0,
+          "panel": "#stage",
+          "panel_still_open": true,
+          "novel_words_inside_the_panel": []
+        }
+      ]
+    },
+    {
+      "at": "05:04",
+      "text": "0 of 16 factions with you",
+      "id": "",
+      "where": "frame",
+      "size": "143x17",
       "looked_tappable_because": "nothing said so",
       "pressed_twice": true,
       "novel_movement_either_time": "none",
@@ -711,28 +787,21 @@
       "text": "walking your own block.",
       "id": "note",
       "where": "frame",
-      "verdict": "did nothing",
+      "verdict": "did something, somewhere else on screen",
       "answered_in": [
+        "somewhere else on screen",
         "somewhere else on screen"
       ],
-      "presses_with_novel_movement": 1,
+      "presses_with_novel_movement": 2,
       "in_its_own_panel": [
         false,
         false
       ],
       "somewhere_else": [
-        false,
+        true,
         true
       ],
       "evidence": [
-        {
-          "novel_words_anywhere": [],
-          "novel_cells": 0,
-          "world_moved_in_the_null_window": 0,
-          "panel": "#blstack.uihalf",
-          "panel_still_open": true,
-          "novel_words_inside_the_panel": []
-        },
         {
           "novel_words_anywhere": [
             "TO",
@@ -743,8 +812,16 @@
             "KEEP",
             "GOING"
           ],
-          "novel_cells": 0,
+          "novel_cells": 32,
           "world_moved_in_the_null_window": 0,
+          "panel": "#blstack.uihalf",
+          "panel_still_open": true,
+          "novel_words_inside_the_panel": []
+        },
+        {
+          "novel_words_anywhere": [],
+          "novel_cells": 28,
+          "world_moved_in_the_null_window": 8,
           "panel": "#blstack.uihalf",
           "panel_still_open": true,
           "novel_words_inside_the_panel": []
@@ -775,11 +852,11 @@
             "SETTINGS",
             "TO",
             "OFF",
-            "ON",
-            "THE",
             "SAVE",
             "SOUND",
-            "MUTE"
+            "MUTE",
+            "TEXT",
+            "MOTION"
           ],
           "novel_cells": 0,
           "world_moved_in_the_null_window": 0,
@@ -893,7 +970,7 @@
       ]
     },
     {
-      "text": "MENU — DEAD VALLEY DAWN",
+      "text": "MENU — THE POWER STILL ON SOMEWHERE",
       "id": "musbtn",
       "where": "frame",
       "verdict": "did something, its own panel",
@@ -912,10 +989,7 @@
       "evidence": [
         {
           "novel_words_anywhere": [
-            "THE",
-            "WIND",
-            "LEARNS",
-            "WORDS",
+            "MENU",
             "MUSIC"
           ],
           "novel_cells": 0,
@@ -923,10 +997,8 @@
           "panel": "DIV.wrap",
           "panel_still_open": true,
           "novel_words_inside_the_panel": [
-            "THE",
-            "WIND",
-            "LEARNS",
-            "WORDS",
+            "MENU",
+            "—",
             "MUSIC"
           ]
         },
@@ -1023,22 +1095,14 @@
       ],
       "presses_with_novel_movement": 1,
       "in_its_own_panel": [
-        false,
-        true
+        true,
+        false
       ],
       "somewhere_else": [
         false,
         false
       ],
       "evidence": [
-        {
-          "novel_words_anywhere": [],
-          "novel_cells": 0,
-          "world_moved_in_the_null_window": 0,
-          "panel": "#blstack.uihalf",
-          "panel_still_open": true,
-          "novel_words_inside_the_panel": []
-        },
         {
           "novel_words_anywhere": [
             "YOU",
@@ -1061,23 +1125,7 @@
             "BUILD",
             "HERE"
           ]
-        }
-      ]
-    },
-    {
-      "text": "BIKE",
-      "id": "bikebtn",
-      "where": "frame",
-      "verdict": "THE PANEL CLOSED, so this press proves nothing (rule 14h)",
-      "answered_in": [],
-      "presses_with_novel_movement": 0,
-      "in_its_own_panel": [
-        false
-      ],
-      "somewhere_else": [
-        false
-      ],
-      "evidence": [
+        },
         {
           "novel_words_anywhere": [
             "YOU",
@@ -1103,6 +1151,49 @@
             "HAVE",
             "06:09"
           ]
+        }
+      ]
+    },
+    {
+      "text": "BIKE",
+      "id": "bikebtn",
+      "where": "frame",
+      "verdict": "did something, somewhere else on screen",
+      "answered_in": [
+        "somewhere else on screen",
+        "somewhere else on screen"
+      ],
+      "presses_with_novel_movement": 2,
+      "in_its_own_panel": [
+        false,
+        false
+      ],
+      "somewhere_else": [
+        true,
+        true
+      ],
+      "evidence": [
+        {
+          "novel_words_anywhere": [
+            "FOOT",
+            "RIDING"
+          ],
+          "novel_cells": 0,
+          "world_moved_in_the_null_window": 0,
+          "panel": "#blstack.uihalf",
+          "panel_still_open": true,
+          "novel_words_inside_the_panel": []
+        },
+        {
+          "novel_words_anywhere": [
+            "RIDING",
+            "FOOT"
+          ],
+          "novel_cells": 0,
+          "world_moved_in_the_null_window": 0,
+          "panel": "#blstack.uihalf",
+          "panel_still_open": true,
+          "novel_words_inside_the_panel": []
         }
       ]
     },
@@ -1240,11 +1331,34 @@
       "evidence": [
         {
           "novel_words_anywhere": [
-            "you",
-            "ON",
             "MUSIC",
-            "THE",
-            "block",
+            "use",
+            "due",
+            "22:00.",
+            "WOUL",
+            "TWO",
+            "COINS",
+            "FOR"
+          ],
+          "novel_cells": 0,
+          "world_moved_in_the_null_window": 0,
+          "panel": "DIV.wrap",
+          "panel_still_open": true,
+          "novel_words_inside_the_panel": [
+            "MUSIC",
+            "TWO",
+            "COINS",
+            "FOR",
+            "FERRYMAN"
+          ]
+        },
+        {
+          "novel_words_anywhere": [
+            "TWO",
+            "COINS",
+            "FOR",
+            "FERRYMAN",
+            "MUSIC",
             "use",
             "due",
             "22:00."
@@ -1254,39 +1368,10 @@
           "panel": "DIV.wrap",
           "panel_still_open": true,
           "novel_words_inside_the_panel": [
-            "ON",
-            "MUSIC",
-            "THE",
-            "MENU",
-            "—",
-            "POWER",
-            "STILL",
-            "SOMEWHERE"
-          ]
-        },
-        {
-          "novel_words_anywhere": [
-            "you",
-            "ON",
-            "MENU",
-            "THE",
-            "POWER",
-            "STILL",
-            "SOMEWHERE",
-            "block"
-          ],
-          "novel_cells": 0,
-          "world_moved_in_the_null_window": 0,
-          "panel": "DIV.wrap",
-          "panel_still_open": true,
-          "novel_words_inside_the_panel": [
-            "ON",
-            "MENU",
-            "—",
-            "THE",
-            "POWER",
-            "STILL",
-            "SOMEWHERE",
+            "TWO",
+            "COINS",
+            "FOR",
+            "FERRYMAN",
             "MUSIC"
           ]
         }
@@ -1673,18 +1758,129 @@
           "novel_words_inside_the_panel": []
         }
       ]
+    },
+    {
+      "text": "TERRITORY",
+      "id": "",
+      "where": "frame",
+      "verdict": "did nothing",
+      "answered_in": [],
+      "presses_with_novel_movement": 0,
+      "in_its_own_panel": [
+        false,
+        false
+      ],
+      "somewhere_else": [
+        false,
+        false
+      ],
+      "evidence": [
+        {
+          "novel_words_anywhere": [],
+          "novel_cells": 0,
+          "world_moved_in_the_null_window": 0,
+          "panel": "#stage",
+          "panel_still_open": true,
+          "novel_words_inside_the_panel": []
+        },
+        {
+          "novel_words_anywhere": [],
+          "novel_cells": 0,
+          "world_moved_in_the_null_window": 0,
+          "panel": "#stage",
+          "panel_still_open": true,
+          "novel_words_inside_the_panel": []
+        }
+      ]
+    },
+    {
+      "text": "THE VALLEY",
+      "id": "",
+      "where": "frame",
+      "verdict": "did nothing",
+      "answered_in": [],
+      "presses_with_novel_movement": 0,
+      "in_its_own_panel": [
+        false,
+        false
+      ],
+      "somewhere_else": [
+        false,
+        false
+      ],
+      "evidence": [
+        {
+          "novel_words_anywhere": [],
+          "novel_cells": 0,
+          "world_moved_in_the_null_window": 0,
+          "panel": "#stage",
+          "panel_still_open": true,
+          "novel_words_inside_the_panel": []
+        },
+        {
+          "novel_words_anywhere": [],
+          "novel_cells": 0,
+          "world_moved_in_the_null_window": 0,
+          "panel": "#stage",
+          "panel_still_open": true,
+          "novel_words_inside_the_panel": []
+        }
+      ]
+    },
+    {
+      "text": "0 of 16 factions with you",
+      "id": "",
+      "where": "frame",
+      "verdict": "did nothing",
+      "answered_in": [],
+      "presses_with_novel_movement": 0,
+      "in_its_own_panel": [
+        false,
+        false
+      ],
+      "somewhere_else": [
+        false,
+        false
+      ],
+      "evidence": [
+        {
+          "novel_words_anywhere": [],
+          "novel_cells": 0,
+          "world_moved_in_the_null_window": 0,
+          "panel": "#stage",
+          "panel_still_open": true,
+          "novel_words_inside_the_panel": []
+        },
+        {
+          "novel_words_anywhere": [],
+          "novel_cells": 0,
+          "world_moved_in_the_null_window": 0,
+          "panel": "#stage",
+          "panel_still_open": true,
+          "novel_words_inside_the_panel": []
+        }
+      ]
     }
   ],
   "null_windows": [
     {
       "word_moves": 0,
       "words_that_moved": [],
-      "pixel_fraction": 0.0009
+      "pixel_fraction": 0.0001
     },
     {
-      "word_moves": 0,
-      "words_that_moved": [],
-      "pixel_fraction": 0.0009
+      "word_moves": 8,
+      "words_that_moved": [
+        "DEAD",
+        "ON",
+        "THE",
+        "POWER",
+        "STILL",
+        "SOMEWHERE",
+        "VALLEY",
+        "DAWN"
+      ],
+      "pixel_fraction": 0.0002
     },
     {
       "word_moves": 0,
@@ -1696,6 +1892,12 @@
       "word_moves": 0,
       "words_that_moved": [],
       "pixel_fraction": 0,
+      "warmup": true
+    },
+    {
+      "word_moves": 0,
+      "words_that_moved": [],
+      "pixel_fraction": 0.0001,
       "warmup": true
     },
     {
@@ -1731,137 +1933,6 @@
     {
       "word_moves": 0,
       "words_that_moved": [],
-      "pixel_fraction": 0.0001,
-      "warmup": true
-    },
-    {
-      "word_moves": 0,
-      "words_that_moved": [],
-      "pixel_fraction": 0
-    },
-    {
-      "word_moves": 0,
-      "words_that_moved": [],
-      "pixel_fraction": 0
-    },
-    {
-      "word_moves": 0,
-      "words_that_moved": [],
-      "pixel_fraction": 0.0001
-    },
-    {
-      "word_moves": 0,
-      "words_that_moved": [],
-      "pixel_fraction": 0
-    },
-    {
-      "word_moves": 0,
-      "words_that_moved": [],
-      "pixel_fraction": 0
-    },
-    {
-      "word_moves": 0,
-      "words_that_moved": [],
-      "pixel_fraction": 0.0001
-    },
-    {
-      "word_moves": 0,
-      "words_that_moved": [],
-      "pixel_fraction": 0
-    },
-    {
-      "word_moves": 0,
-      "words_that_moved": [],
-      "pixel_fraction": 0.0001
-    },
-    {
-      "word_moves": 0,
-      "words_that_moved": [],
-      "pixel_fraction": 0
-    },
-    {
-      "word_moves": 0,
-      "words_that_moved": [],
-      "pixel_fraction": 0.0001
-    },
-    {
-      "word_moves": 0,
-      "words_that_moved": [],
-      "pixel_fraction": 0
-    },
-    {
-      "word_moves": 0,
-      "words_that_moved": [],
-      "pixel_fraction": 0
-    },
-    {
-      "word_moves": 0,
-      "words_that_moved": [],
-      "pixel_fraction": 0
-    },
-    {
-      "word_moves": 0,
-      "words_that_moved": [],
-      "pixel_fraction": 0
-    },
-    {
-      "word_moves": 0,
-      "words_that_moved": [],
-      "pixel_fraction": 0
-    },
-    {
-      "word_moves": 0,
-      "words_that_moved": [],
-      "pixel_fraction": 0
-    },
-    {
-      "word_moves": 0,
-      "words_that_moved": [],
-      "pixel_fraction": 0
-    },
-    {
-      "word_moves": 0,
-      "words_that_moved": [],
-      "pixel_fraction": 0
-    },
-    {
-      "word_moves": 0,
-      "words_that_moved": [],
-      "pixel_fraction": 0.0001
-    },
-    {
-      "word_moves": 0,
-      "words_that_moved": [],
-      "pixel_fraction": 0
-    },
-    {
-      "word_moves": 0,
-      "words_that_moved": [],
-      "pixel_fraction": 0
-    },
-    {
-      "word_moves": 0,
-      "words_that_moved": [],
-      "pixel_fraction": 0
-    },
-    {
-      "word_moves": 0,
-      "words_that_moved": [],
-      "pixel_fraction": 0
-    },
-    {
-      "word_moves": 0,
-      "words_that_moved": [],
-      "pixel_fraction": 0.0001
-    },
-    {
-      "word_moves": 0,
-      "words_that_moved": [],
-      "pixel_fraction": 0.0001
-    },
-    {
-      "word_moves": 0,
-      "words_that_moved": [],
       "pixel_fraction": 0
     },
     {
@@ -1932,6 +2003,71 @@
     {
       "word_moves": 0,
       "words_that_moved": [],
+      "pixel_fraction": 0
+    },
+    {
+      "word_moves": 0,
+      "words_that_moved": [],
+      "pixel_fraction": 0.0001
+    },
+    {
+      "word_moves": 0,
+      "words_that_moved": [],
+      "pixel_fraction": 0.0001
+    },
+    {
+      "word_moves": 0,
+      "words_that_moved": [],
+      "pixel_fraction": 0
+    },
+    {
+      "word_moves": 0,
+      "words_that_moved": [],
+      "pixel_fraction": 0
+    },
+    {
+      "word_moves": 0,
+      "words_that_moved": [],
+      "pixel_fraction": 0
+    },
+    {
+      "word_moves": 0,
+      "words_that_moved": [],
+      "pixel_fraction": 0.0001
+    },
+    {
+      "word_moves": 0,
+      "words_that_moved": [],
+      "pixel_fraction": 0
+    },
+    {
+      "word_moves": 0,
+      "words_that_moved": [],
+      "pixel_fraction": 0
+    },
+    {
+      "word_moves": 0,
+      "words_that_moved": [],
+      "pixel_fraction": 0
+    },
+    {
+      "word_moves": 0,
+      "words_that_moved": [],
+      "pixel_fraction": 0
+    },
+    {
+      "word_moves": 0,
+      "words_that_moved": [],
+      "pixel_fraction": 0
+    },
+    {
+      "word_moves": 0,
+      "words_that_moved": [],
+      "pixel_fraction": 0
+    },
+    {
+      "word_moves": 0,
+      "words_that_moved": [],
       "pixel_fraction": 0.0001
     },
     {
@@ -1967,6 +2103,36 @@
     {
       "word_moves": 0,
       "words_that_moved": [],
+      "pixel_fraction": 0.0001
+    },
+    {
+      "word_moves": 0,
+      "words_that_moved": [],
+      "pixel_fraction": 0.0001
+    },
+    {
+      "word_moves": 0,
+      "words_that_moved": [],
+      "pixel_fraction": 0
+    },
+    {
+      "word_moves": 0,
+      "words_that_moved": [],
+      "pixel_fraction": 0
+    },
+    {
+      "word_moves": 0,
+      "words_that_moved": [],
+      "pixel_fraction": 0
+    },
+    {
+      "word_moves": 0,
+      "words_that_moved": [],
+      "pixel_fraction": 0
+    },
+    {
+      "word_moves": 0,
+      "words_that_moved": [],
       "pixel_fraction": 0
     },
     {
@@ -1978,6 +2144,71 @@
       "word_moves": 0,
       "words_that_moved": [],
       "pixel_fraction": 0.0001
+    },
+    {
+      "word_moves": 0,
+      "words_that_moved": [],
+      "pixel_fraction": 0.0001
+    },
+    {
+      "word_moves": 0,
+      "words_that_moved": [],
+      "pixel_fraction": 0.0001
+    },
+    {
+      "word_moves": 0,
+      "words_that_moved": [],
+      "pixel_fraction": 0.0001
+    },
+    {
+      "word_moves": 0,
+      "words_that_moved": [],
+      "pixel_fraction": 0
+    },
+    {
+      "word_moves": 0,
+      "words_that_moved": [],
+      "pixel_fraction": 0
+    },
+    {
+      "word_moves": 0,
+      "words_that_moved": [],
+      "pixel_fraction": 0.0001
+    },
+    {
+      "word_moves": 0,
+      "words_that_moved": [],
+      "pixel_fraction": 0
+    },
+    {
+      "word_moves": 0,
+      "words_that_moved": [],
+      "pixel_fraction": 0.0001
+    },
+    {
+      "word_moves": 0,
+      "words_that_moved": [],
+      "pixel_fraction": 0.0001
+    },
+    {
+      "word_moves": 0,
+      "words_that_moved": [],
+      "pixel_fraction": 0
+    },
+    {
+      "word_moves": 0,
+      "words_that_moved": [],
+      "pixel_fraction": 0
+    },
+    {
+      "word_moves": 0,
+      "words_that_moved": [],
+      "pixel_fraction": 0.0001
+    },
+    {
+      "word_moves": 0,
+      "words_that_moved": [],
+      "pixel_fraction": 0
     }
   ],
   "named": [
@@ -1996,7 +2227,7 @@
   ],
   "undecided": [
     {
-      "at": "02:52",
+      "at": "02:45",
       "text": "SCAVENGE · 8H",
       "id": "workbtn",
       "where": "frame",
@@ -2034,11 +2265,7 @@
   ],
   "alive_on_one_press_only": [
     {
-      "text": "walking your own block.",
-      "id": "note"
-    },
-    {
-      "text": "MENU — DEAD VALLEY DAWN",
+      "text": "MENU — THE POWER STILL ON SOMEWHERE",
       "id": "musbtn"
     },
     {
@@ -2052,16 +2279,7 @@
   ],
   "closed_on_tap": [
     {
-      "at": "02:43",
-      "text": "BIKE",
-      "id": "bikebtn",
-      "where": "frame",
-      "size": "44x44",
-      "panel": "#daycard.on",
-      "why": "the panel it lives in closed, and a card closes on any tap it does not recognise"
-    },
-    {
-      "at": "03:29",
+      "at": "03:17",
       "text": "✕",
       "id": "",
       "where": "frame",
@@ -2113,11 +2331,11 @@
     {
       "where": "frame",
       "id": "musbtn",
-      "text": "MENU — DEAD VALLEY DAWN",
+      "text": "MENU — THE POWER STILL ON SOMEWHERE",
       "looks_tappable_because": "",
-      "w": 75,
+      "w": 108,
       "h": 12,
-      "x": 269,
+      "x": 253,
       "y": 25
     },
     {

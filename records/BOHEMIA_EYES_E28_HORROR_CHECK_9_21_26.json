@@ -1,13 +1,13 @@
 {
   "what": "every pixel against the analog horror bible",
-  "when": "2026-09-22T09:36:06.590Z",
+  "when": "2026-09-22T22:28:46.938Z",
   "surface": "/tmp/claude-0/-home-user-bohemia/065fcaf1-af13-5362-9424-9d0305049a14/scratchpad/cut/slices/BOHEMIA_DEMO.html",
   "bible": "records/BOHEMIA_ANALOG_HORROR_BIBLE_9_20_26.md (AH-01)",
   "controls": [
     {
       "name": "C0 THE DOOR REALLY OPENED: the splash is gone and the game’s HUD is there",
       "pass": true,
-      "detail": "splash still shown: false, HUD music chip: \"THE WIND LEARNS WORDS\" -- so these readings are the game and not a title screen"
+      "detail": "splash still shown: false, HUD music chip: \"TWO COINS FOR THE FERRYMAN\" -- so these readings are the game and not a title screen"
     },
     {
       "name": "C4 the comparator reads 0 for identical and 1 for opposite",
@@ -22,7 +22,7 @@
     {
       "name": "C1 the full-frame counter bites",
       "pass": true,
-      "detail": "267 -> 268 after a planted full-canvas fill"
+      "detail": "266 -> 267 after a planted full-canvas fill"
     },
     {
       "name": "C2 the filter counter bites",
@@ -32,7 +32,7 @@
     {
       "name": "C3 the composite counter bites",
       "pass": true,
-      "detail": "2 -> 3 after a planted multiply"
+      "detail": "1 -> 2 after a planted multiply"
     }
   ],
   "findings": [],
@@ -74,16 +74,16 @@
     "windows": 8,
     "window_ms": 2000,
     "per_window": [
-      0.0266,
-      0.0349,
+      0.0347,
+      0.0313,
+      0,
       0.0313,
       0.0313,
       0.0313,
-      0.0266,
-      0.0317,
+      0.0371,
       0.0313
     ],
-    "worst_moving_fraction": 0.0349,
+    "worst_moving_fraction": 0.0371,
     "windows_over_the_bibles_ten_percent": 0,
     "bar": 0.1
   },
@@ -104,7 +104,7 @@
           "seeThrough": false,
           "alpha": 1,
           "style": "#8a7a58",
-          "at": 703
+          "at": 2532
         },
         {
           "kind": "fillRect",
@@ -115,7 +115,7 @@
           "seeThrough": false,
           "alpha": 1,
           "style": "#20303e",
-          "at": 5538
+          "at": 6836
         },
         {
           "kind": "fillRect",
@@ -126,29 +126,23 @@
           "seeThrough": false,
           "alpha": 1,
           "style": "#20303e",
-          "at": 15028
+          "at": 15215
         }
       ],
-      "full_frame_on_scratch_canvases": 136,
+      "full_frame_on_scratch_canvases": 135,
       "filter_on_the_world": 0,
       "filter_on_scratch": 0,
       "composite_on_the_world": 0,
-      "composite_on_scratch": 2,
+      "composite_on_scratch": 1,
       "composite_examples": [
         {
           "v": "source-atop",
           "cw": 112,
           "ch": 112,
-          "at": 21422
-        },
-        {
-          "v": "source-atop",
-          "cw": 112,
-          "ch": 112,
-          "at": 21423
+          "at": 20347
         }
       ],
-      "draws": 3591594
+      "draws": 3591258
     },
     "shell": {
       "world_canvas": "378x815",
