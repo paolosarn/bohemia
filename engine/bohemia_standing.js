@@ -143,7 +143,12 @@
       if(!p) continue;
       if(Math.abs(p.x-x)+Math.abs(p.y-y) > range) continue;
       makeLedgerFreeMind(m);
-      var d={actor:actorId, kind:deedKind, turn:turn, x:x, y:y, hops:0};
+      /* seed: THE STORY'S OWN NAME, stamped where the story starts, so every
+         eyewitness of one event agrees it is one event and so a retelling that
+         changes the actor or the act can still be recognised as the same story
+         coming back. See seedOf/retell (9/22, [rumours travel]). */
+      var d={actor:actorId, kind:deedKind, turn:turn, x:x, y:y, hops:0,
+             seed:String(actorId)+'|'+String(deedKind)+'|'+(turn|0)};
       if(mh!=null) d.maxHops=mh;
       m.deeds.push(d);
       if(m.deeds.length>(m.cap||64)) m.deeds.shift();
@@ -191,6 +196,209 @@
     return t;
   }
 
+  /* ==== 3a. A STORY CHANGES IN THE TELLING ==================================
+     9/22/26, PEOPLE lane, VAMILY [rumours travel], row
+     A-RUMOUR-ABOUT-SOMEBODY-WHO-IS-NOT-YOU.
+
+     *** MEASURED ON THE ALPHA BEFORE A LINE WAS WRITTEN: gossip() COPIED A DEED
+     *** AND CHANGED NOTHING.
+     One mind witnessed a third party, gossip moved it, and a field by field diff
+     of the copy against the original came back `changed: []`. The only thing a
+     retelling ever cost was BELIEF, through HEARSAY_LOSS. So the city could carry
+     a story right across the valley and it arrived PERFECT, and the reaction line
+     this repo already ships -- "I heard a version of it. Probably the wrong
+     version." -- had never once been true. There was no wrong version.
+
+     THE REAL THING, and it is one of the most replicated results there is.
+     Bartlett's serial reproduction (Remembering, 1932) and Allport & Postman's
+     rumour work (The Psychology of Rumor, 1947) get the same three changes every
+     time a story is passed along a chain of people:
+
+       LEVELLING     detail falls out, and it goes fast: most of the loss happens
+                     in the first two or three retellings. WHERE and WHEN go
+                     before WHAT, because the shape of the event is what people
+                     hold on to.
+       SHARPENING    the handful of details that survive get LOUDER. A rumour
+                     does not drift toward the boring version, because the boring
+                     version is not the one anybody bothers to repeat.
+       ASSIMILATION  the story bends toward what the teller already carries. This
+                     is the famous one: in Allport & Postman the razor moves out
+                     of the hand that held it and into the hand the teller
+                     expected to find it in.
+
+     AND A FOURTH ONE THAT IS NOT BARTLETT AND MATTERS HERE: the source goes
+     before the claim does (Hovland's sleeper effect, 1949). People keep the story
+     and lose where they got it, which is why news from somebody you do not trust
+     still ends up believed. `from` already rides on every retelling since 9/5;
+     what LEVELLING takes here is the place and the hour, never the fact that
+     somebody said it.
+
+     *** THE SAME RETELLING ALWAYS COMES OUT THE SAME WAY. *** The roll is hashed
+     off the story and the teller, not off Math.random. A rumour is not a slot
+     machine: if you walk away and come back, the version this person carries is
+     the version they had, and a gate can put the same story through the same
+     mouth twice and get one answer. */
+
+  /* WHICH WAY A STORY GROWS. draft:true, and it is a CONTENT table in the sense
+     the law means: which act is the bigger one is a judgement about what this
+     game thinks is serious, so these rows are attempts he overturns with a word.
+     What is NOT a judgement, and is the mechanism: a rumour climbs and never
+     descends. Nobody repeats the smaller version of something. */
+  var LOUDER={
+    'favour':          'commit',            /* draft: a hand became a side taken */
+    'claim:met':       'commit',            /* draft */
+    'spared':          'pushed_the_price',  /* draft: you let him go became you squeezed him */
+    'claim:refused':   'pushed_the_price',  /* draft */
+    'loan:short':      'pushed_the_price',  /* draft */
+    'pushed_the_price':'downed'             /* draft: and then it became a beating */
+    /* 'commit' and 'downed' are the top of their own side and do not climb. */
+  };
+
+  /* HOW OFTEN EACH ONE HAPPENS PER HOP. draft:true. These are RATES, not worths:
+     nothing here says what a deed is WORTH, which is DEED_WEIGHT and is his.
+     Allport & Postman measured roughly 70% of detail gone across five or six
+     retellings with most of it in the first few; at MAX_HOPS 2 that shape puts a
+     detail's odds of surviving one hop a little over half, which is where these
+     sit. He turns them in VOTE. */
+  var DRIFT={ draft:true,
+    where: 0.50,   /* draft: the place slides */
+    when:  0.35,   /* draft: the hour goes vague */
+    louder:0.25,   /* draft: the bigger version gets told */
+    blame: 0.20 }; /* draft: it lands on somebody else */
+
+  /* HOW FAR A PLACE SLIDES WHEN IT SLIDES: tiles. SEE_RANGE, because a retold
+     place is not a missing place, it is a place near something the teller knows,
+     and one sightline out is the smallest move that makes the answer wrong. */
+  var PLACE_SLIP=SEE_RANGE;
+
+  /* A ROLL THAT IS THE SAME EVERY TIME IT IS ASKED. FNV-1a, 32 bit, over the
+     story's own identity plus who is telling it plus which of the four this is,
+     so the four rolls of one retelling are independent and none of them move
+     when the rest of the world does. */
+  function drdRoll(s){
+    var h=2166136261;
+    for(var i=0;i<s.length;i++){ h^=s.charCodeAt(i); h=(h*16777619)>>>0; }
+    return (h>>>8)/16777216;
+  }
+  /* THE STORY'S OWN NAME, WHICH SURVIVES EVERYTHING THAT HAPPENS TO IT.
+     Without this, distortion breaks the "have I heard this" test: the dedup below
+     compared actor+kind+turn, so a story that drifted came back around as NEWS and
+     two neighbours could trade one event forever, each copy a little wronger, until
+     the ledger was nothing else. YOU RECOGNISE THE STORY, NOT THE TIMESTAMP. */
+  function seedOf(d){
+    return d.seed || (String(d.actor)+'|'+String(d.kind)+'|'+(d.turn|0));
+  }
+
+  /* WHO ELSE THE TELLER COULD PUT IT ON. Assimilation needs somewhere for the
+     story to bend TOWARD, and the honest answer with DEED_WEIGHT still empty is
+     NOT "whoever they hate" -- opinionOf returns 0 for everybody until he rules,
+     so a hate-ranking here would be a number I invented. It is WHO IS ALREADY IN
+     THEIR HEAD. That is the Allport and Postman mechanism said plainly, and it
+     needs no ruling at all: the story assimilates to the teller's existing frame,
+     and their frame is the faces they know.
+
+     *** AND "THEIR FRAME" IS THEIR SIGHTINGS, NOT THEIR DEED LEDGER, WHICH THIS
+     *** COST A CUT TO LEARN. *** The first version read the ledger. Measured on
+     the alpha, over a day of city time on his own block:
+
+         minds holding no actor at all      37
+         minds holding exactly one          20
+         minds holding two                   4
+         stories that changed hands          0
+
+     A mind holding exactly one actor has an EMPTY pool the moment you exclude the
+     real one, so the single most important effect in the row -- the razor changing
+     hands -- could never fire, and the claim about it could never have failed.
+     A SIGHTING LIST IS ALWAYS FULL, because everybody who walks past you is in it,
+     and it is also the truer reading: a story bends toward A FAMILIAR FACE, not
+     toward somebody you happen to have a story about.
+
+     MOST FAMILIAR FIRST, because that is what "who came to mind" means, and `fam`
+     is the counter bohemia_memory already keeps for exactly that. Never the
+     listener (you do not tell a man he did it himself), never the real actor,
+     and never a stranger: a teller with an empty head does not invent one. */
+  function blameTargets(from, realActor, listener){
+    var out=[], seen={}, i, a;
+    var sight=from.sightings||[], fam=from.fam||{}, deeds=from.deeds||[];
+    for(i=0;i<sight.length;i++){
+      a=sight[i].subject;
+      if(a==null||a===realActor||a===listener||a===from.owner) continue;
+      if(seen[a]) continue; seen[a]=1; out.push(a);
+    }
+    for(i=0;i<deeds.length;i++){               /* and anyone they have a story about */
+      a=from.deeds[i].actor;
+      if(a==null||a===realActor||a===listener||a===from.owner) continue;
+      if(seen[a]) continue; seen[a]=1; out.push(a);
+    }
+    /* the same head gives the same order: familiarity, then the name itself */
+    out.sort(function(p,q){
+      var d=(fam[q]||0)-(fam[p]||0);
+      return d || (String(p)<String(q) ? -1 : String(p)>String(q) ? 1 : 0);
+    });
+    return out;
+  }
+
+  /* THE RETELLING. Takes the deed as the teller holds it and returns the deed as
+     the listener will hold it. Everything that changed is written down on the
+     copy -- `vague`, `truly`, `grew` -- because a surface that cannot say WHICH
+     part is wrong can only say "probably the wrong version" and mean nothing. */
+  function retell(d, from, to, turn){
+    var r={actor:d.actor, kind:d.kind, turn:d.turn, x:d.x, y:d.y,
+           hops:(d.hops||0)+1, from:from.owner, seed:seedOf(d)};
+    if(d.maxHops!=null) r.maxHops=d.maxHops;
+    if(d.inherited) r.inherited=d.inherited;
+    if(d.of) r.of=d.of;
+    if(d.right) r.right=d.right;
+    if(d.truly) r.truly=d.truly;
+    if(d.vague) r.vague={where:d.vague.where, when:d.vague.when};
+    if(d.grew) r.grew=d.grew;
+    var tag=r.seed+'|'+String(from.owner)+'|'+String(to.owner)+'|'+r.hops;
+
+    /* LEVELLING: the place slides, and it slides SOMEWHERE, because a teller who
+       does not know where it happened still names a place. */
+    if(drdRoll(tag+'|where') < DRIFT.where){
+      var a1=drdRoll(tag+'|wx'), a2=drdRoll(tag+'|wy');
+      if(r.x!=null) r.x=(r.x|0)+Math.round((a1*2-1)*PLACE_SLIP);
+      if(r.y!=null) r.y=(r.y|0)+Math.round((a2*2-1)*PLACE_SLIP);
+      r.vague=r.vague||{}; r.vague.where=1;
+    }
+    /* LEVELLING: the hour goes vague. The TURN IS NOT MOVED -- it is the deed's
+       own clock and the decay curve reads it, so shifting it would quietly make
+       an old wrong feel fresh. What goes is the CLAIM to know when. */
+    if(drdRoll(tag+'|when') < DRIFT.when){ r.vague=r.vague||{}; r.vague.when=1; }
+
+    /* SHARPENING: the bigger version is the one that gets repeated. */
+    var up=LOUDER[r.kind];
+    if(up && drdRoll(tag+'|loud') < DRIFT.louder){
+      r.grew=(r.grew||[]).concat([r.kind]);
+      r.kind=up;
+    }
+    /* ASSIMILATION: it lands on somebody the teller already carries. `truly` keeps
+       the person it was really about, ONCE -- a story that has already been moved
+       onto the wrong man does not remember a second wrong man, it remembers the
+       right one. */
+    if(drdRoll(tag+'|who') < DRIFT.blame){
+      var pool=blameTargets(from, r.actor, to.owner);
+      if(pool.length){
+        /* THE FRONT OF THE LIST, MOSTLY. A uniform pick over a familiarity-sorted
+           list throws the sort away; squaring the roll puts most of the weight on
+           the faces that actually come to mind, which is the whole reason the
+           list is in that order. */
+        var rr=drdRoll(tag+'|pick');
+        var pick=pool[Math.floor(rr*rr*pool.length)%pool.length];
+        if(!r.truly) r.truly=r.actor;
+        r.actor=pick;
+      }
+    }
+    return r;
+  }
+  /* IS THIS DEED STILL THE TRUTH. One question, asked in one place, so a mouth
+     and a gate cannot have two ideas of what "wrong" means. */
+  function isWrong(d){
+    return !!(d && (d.truly || (d.grew && d.grew.length) ||
+                    (d.vague && (d.vague.where || d.vague.when))));
+  }
+
   /* ---- 3. HEARSAY IS WEAKER AND IT RUNS OUT -------------------------------
      Two people who are actually together swap what the other has not heard. A
      retold deed costs a hop; past MAX_HOPS it stops dead. */
@@ -208,10 +416,15 @@
         if((d.hops||0)>=(d.maxHops==null?MAX_HOPS:d.maxHops)) continue;
         if(d.actor===to.owner) continue;             // nobody gossips to your face
         if(turn-d.turn>NEWS_LIFE) continue;          // nobody volunteers ancient news
-        var known=false;
+        /* *** RECOGNISED BY THE STORY, NOT BY THE TIMESTAMP (9/22). *** The old
+           test was actor+kind+turn, and the moment a retelling could change the
+           actor or the kind, a story that drifted came back around as fresh news
+           and one event could bounce between two neighbours forever. seedOf() is
+           the name the story keeps no matter what happens to it. */
+        var sd=seedOf(d), known=false;
         for(var j=0;j<to.deeds.length;j++){
           var e=to.deeds[j];
-          if(e.actor===d.actor&&e.kind===d.kind&&e.turn===d.turn){ known=true; break; }
+          if(seedOf(e)===sd){ known=true; break; }
         }
         if(known) continue;
         /* *** AND WHO TOLD THEM TRAVELS WITH IT (9/5, BB-STANDING-PLAYER). ***
@@ -219,12 +432,13 @@
            WHO CARRIED IT. So the game could count your reputation and could not
            answer the only question the row says matters: "who will vouch for me
            now." A number is a bar; a name and the person who vouched for you to
-           them is a WEB. One field. */
-        var r={actor:d.actor,kind:d.kind,turn:d.turn,x:d.x,y:d.y,hops:(d.hops||0)+1,
-               from:from.owner};
-        if(d.maxHops!=null) r.maxHops=d.maxHops;     // the budget travels with the story
-        if(d.inherited) r.inherited=d.inherited;     // so does whose deed it originally was
-        if(d.of) r.of=d.of;
+           them is a WEB. One field.
+           AND SINCE 9/22 THE COPY IS NOT A COPY: retell() above is where the
+           place slides, the hour goes vague, the act grows and the blame moves. */
+        var r=retell(d, from, to, turn);
+        /* and a shifted blame must not land on the listener's own face, which the
+           candidate list already refuses; this is the belt on it. */
+        if(r.actor===to.owner) continue;
         to.deeds.push(r);
         if(to.deeds.length>(to.cap||64)) to.deeds.shift();
         moved++;
@@ -595,6 +809,9 @@
 
   var API={ DEED_WEIGHT:DEED_WEIGHT, SEE_RANGE:SEE_RANGE, HEARSAY_LOSS:HEARSAY_LOSS,
     MAX_HOPS:MAX_HOPS, GOSSIP_WINDOW:GOSSIP_WINDOW, RUNGS:RUNGS,
+    /* [rumours travel] 9/22: the drift is his to turn, and isWrong is the one
+       place anything asks whether a story is still the truth. */
+    DRIFT:DRIFT, LOUDER:LOUDER, retell:retell, isWrong:isWrong, seedOf:seedOf,
     witness:witness, opinionOf:opinionOf, gossip:gossip, standingOf:standingOf,
     whoVouches:whoVouches, whoWont:whoWont,
     becauseOf:becauseOf, rungFor:rungFor,

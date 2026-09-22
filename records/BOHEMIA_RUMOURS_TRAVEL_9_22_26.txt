@@ -1,0 +1,269 @@
+BOHEMIA -- RUMOURS TRAVEL (9/22/26, PEOPLE lane)
+VAMILY job [rumours travel], row A-RUMOUR-ABOUT-SOMEBODY-WHO-IS-NOT-YOU,
+harvested from WORDS Q13.
+
+THE ROW, VERBATIM: "The city already gossips properly: hop counts, hearsay decay,
+a quiet deed dies with its witness while a notorious one is what your child gets
+judged for. In 1,669 lines it has passed on news about somebody other than the
+player exactly ONCE, and it has never once been WRONG. We even wrote the line
+where a stranger says 'probably the wrong version' and there has never been a
+wrong version. Make rumours travel about other people, and make them distort as
+they go."
+
+================================================================================
+*** MEASURED ON THE ALPHA BEFORE A LINE WAS CHANGED, AND THE THIRD ONE IS MINE
+================================================================================
+
+1. THE ORGAN COULD CARRY A THIRD-PARTY STORY AND CARRIED IT PERFECTLY.
+   One mind witnessed somebody who was not the player. gossip() moved it. A field
+   by field diff of the copy against the original came back:
+
+       changed: []
+
+   The only thing a retelling ever cost was BELIEF, through HEARSAY_LOSS
+   (-1.375 against -2.5). The words, the act, the place and the hour arrived
+   exactly as they left. So the line this repo has shipped since the reaction
+   factory -- "I heard a version of it. Probably the wrong version." -- had never
+   once been true. There was no wrong version.
+
+2. EVERY DEED IN THE CITY WAS ABOUT THE PLAYER.
+   After a player act the actor tally read {'@': 1}. ctDeed() hard-codes '@' and
+   was the only thing in the walked world that ever called witness(); and the
+   reaction bark then refused anything whose actor was not '@', so even a
+   third-party story that did arrive could not be said out loud.
+
+3. *** AND THE CITY COULD NOT GOSSIP AT ALL, BECAUSE OF THIS LANE'S OWN LAST
+   *** ROUND. THIS IS THE ROUND'S MOST EXPENSIVE FINDING AND IT IS A REGRESSION
+   *** I SHIPPED.
+   The gossip pass paired people out of BARK_DREW, which is THE RENDERER'S LIST
+   OF WHO IT PAINTED. One round earlier [no clumping] gave the people pass a ROOM
+   rule -- a body is 112 px on 11 px cells, so nobody is drawn within ten cells of
+   anybody already drawn -- because Paolo voted the picture down twice for people
+   standing on each other. Both changes were right on their own.
+
+       closest drawn pair, before the room rule      1 cell
+       closest drawn pair, after it                 19 cells
+       what the pass needs to pair anybody           2 cells
+       pair timers that ever started, after          0
+       pair timers that started, before             44
+
+   ZERO. Not fewer: none, ever. And every claim about news travelling was a claim
+   that COULD NOT FAIL, because nothing ever ran.
+
+   THE INSTRUMENT WAS PROVED FIRST, which is this lane's standing rule: two real
+   city people forced one cell apart fill the timer, fire, and the second ends up
+   holding the first one's news at hops 1. So the zero was real and it was mine.
+
+   TWO GOOD DECISIONS COLLIDED AND NOBODY MEASURED THE PAIR -- for the second
+   round running, on the same room rule. Last round it was LIFE+CITY's crowd
+   rings against rule 21. This round it was my own fix against an organ three
+   rounds older. THE LESSON IS NOT "measure the pair", it is that A CHANGE TO
+   WHAT GETS DRAWN IS A CHANGE TO EVERY QUESTION ANYBODY ASKS THE DRAW LIST, and
+   this repo asks the draw list a lot of questions it should be asking the world.
+
+================================================================================
+WHAT WAS BUILT
+================================================================================
+
+A. THE PASS ASKS THE WORLD, NOT THE CAMERA.
+   THE FIX IS NOT TO LOOSEN THE ROOM. Two people standing a cell apart in the
+   world ARE a cell apart in the world; we simply do not paint both of them, and
+   how far apart their pictures are is a question about the screen. ctGossipPass
+   now reads ctAt(), the same reader the renderer itself uses.
+   AND IT CLOSES THE OLDER HALF OF THE SAME DEFECT: on the draw list, two
+   neighbours could only ever talk WHILE THE PLAYER WAS LOOKING AT THEM. The
+   file's own comment caught that about the CLOCK in 9/6 and fixed the clock; the
+   PLACE was still being asked of the camera.
+   ON THE ALPHA AFTER: 61 people, closest pair 1 cell, 46 pairs within talking
+   distance, 41 timers live. The pass costs 0.56 ms, against a render of 119 ms.
+
+B. THE WORLD MAKES ITS OWN NEWS. Two people who have stood together forty-five
+   minutes sometimes did something worth repeating, raised through the ONE door
+   (witness()), witnessed by whoever the WORLD has within sight.
+   *** AND THE FIRST CUT MADE AN OUTFIT THE PRICE OF ADMISSION AND MEASURED ZERO
+   *** STORIES IN A DAY:
+
+       people in the world                          61
+       of them with any outfit at all               15
+       outfits on the block                          1
+       pairs within talking distance                46
+       pairs where BOTH had an outfit                4
+       stories made in a day                         0
+
+   Two kills in one line. Most of a residential block runs with nobody, and with
+   ONE outfit on the block the "different outfits" story could never happen
+   anywhere near his house. A NEIGHBOURHOOD'S GOSSIP IS ABOUT NEIGHBOURS, NOT
+   ABOUT GANGS. The outfit now chooses WHICH act it was, never whether there was
+   one.
+
+C. A STORY CHANGES IN THE TELLING, and the three changes are the ones that are
+   actually replicated: Bartlett's serial reproduction (1932) and Allport and
+   Postman (1947).
+     LEVELLING     the place slides, the hour goes vague. Detail goes fast, and
+                   WHERE and WHEN go before WHAT.
+     SHARPENING    the act climbs a rung and never descends, because nobody
+                   repeats the smaller version.
+     ASSIMILATION  the blame moves onto somebody the teller already carries. The
+                   famous one: the razor changes hands.
+   And a fourth that is not Bartlett: the SOURCE goes before the claim (Hovland's
+   sleeper effect). `from` already rides on every retelling since 9/5, so what
+   levelling takes here is the place and the hour, never the fact somebody said it.
+   THE ROLL IS HASHED OFF THE STORY AND THE TELLER, NOT RANDOM: the same
+   retelling always comes out the same way, so a rumour is not a slot machine and
+   a gate can put one story through one mouth twice and get one answer.
+
+D. A STORY KEEPS ITS OWN NAME. The "have I heard this" test compared
+   actor + kind + turn, and distortion changes both, so a drifted story came back
+   around as NEWS and one event could have bounced between two neighbours for
+   ever, each copy wronger, until the ledger was nothing else. YOU RECOGNISE THE
+   STORY, NOT THE TIMESTAMP: a seed is stamped where the story starts and
+   survives everything that happens to it.
+
+E. *** AND TWO PEOPLE WHO STAND TOGETHER SEE EACH OTHER, WHICH NOTHING IN THIS
+   *** GAME HAD EVER DONE.
+   MEASURED: 61 minds, and ONE sighting in the entire city. bohemia_memory has
+   been a real witness organ since 8/2 -- sightings, familiarity, clarity that
+   decays -- and the only thing ever written into it was the PLAYER walking past.
+   Nobody on the street had laid eyes on anybody else.
+   It cost the row its most important effect. Assimilation bends a story toward a
+   FAMILIAR FACE, and the first cut read the DEED LEDGER for that:
+
+       minds holding no actor at all      37
+       minds holding exactly one          20
+       minds holding two                   4
+       stories that changed hands          0
+
+   A mind holding exactly one actor has an EMPTY pool once you exclude the real
+   one, so the razor could never change hands and the claim about it could never
+   have failed. A sighting list is always full. One see() call each, at the moment
+   the pass already knows about the pair.
+   AFTER: 27 stories blamed on the wrong person, and five people in the valley now
+   have a reputation for something they never did.
+
+F. A MOUTH SAYS IT, per rule 19(c): a head, a name plate, and the sentence. The
+   bark sits BELOW the reaction to his own act (that one is more urgent) and
+   ABOVE the ambient chatter (news is louder than a remark about the weather),
+   fires once per speaker per story so it can never become the street's whole
+   voice, and leaves the register-bearing ambient organ untouched.
+   ENGLISH ONLY, ON PURPOSE. Paolo 8/26: "enough is enough... stop spending
+   rounds on this Spanish shit", and the language gate holds a hard cap of 532
+   register lines nobody may raise without a newer quote. The Spanglish law says
+   a Spanglish speaker HAS Spanglish lines, not that every sentence is one.
+
+================================================================================
+ON THE ALPHA, ONE DAY ON HIS OWN BLOCK
+================================================================================
+  people on the block                       61
+  stories going around                      93
+  HOW MANY ARE ABOUT THE PLAYER              0
+  people being talked about                 14
+  people carrying news                      24
+  deeds held across the city               270
+  hops seen                          0:180  1:20  2:30  3:40
+  stories that got something wrong          84
+  blamed on the WRONG PERSON                27
+  grown into a bigger act                   38
+  vague about where or when                 80
+  versions of the worst-mangled story        8
+
+THE GATE'S OWN RUN READS HIGHER because it keeps the pass going forty rounds
+longer: 354 deeds, 109 stories, 18 people talked about, 133 wrong, 51 blamed on
+the wrong person, 65 grown, and a worst story with NINE versions. Same shape,
+more of it, which is what a day that keeps going looks like. Both runs read ZERO
+stories about the player.
+
+THE WORST-MANGLED STORY, IN FULL: person 12:12:11 did not pay somebody back at
+minute 2320. The city now holds EIGHT versions of it. Three different people are
+blamed. In three of them it has grown from "never paid somebody back" into
+"squeezed somebody". Most have lost the place, many the hour.
+
+AND THE KINDS PROVE THE LADDER IS DOING WORK RATHER THAN DECORATING:
+pushed_the_price (30) and downed (8) are in the world, and the city never raises
+either. They are purely what rumours grew into.
+
+================================================================================
+THE COOK: ONE STORY, THREE MOUTHS (slices/BOHEMIA_ONE_STORY_THREE_MOUTHS_9_22_26.html)
+================================================================================
+Three frames off the real glass, same street, same mouth:
+
+  1 "I saw it myself. The other watch never paid somebody back."
+  2 "Somebody told me the other watch never paid somebody back. Don't ask me where."
+  3 "Somebody told me the scavenger squeezed somebody. Don't ask me where."
+
+One man did not pay somebody back. Three tellings later the street believes a
+different man beat somebody up, and says it just as confidently.
+
+*** AND THE FIRST CUT OF THE COOK PHOTOGRAPHED NOTHING. *** The driver's shot()
+waits 700 ms and photographs the page, and this city only redraws when the player
+acts, so three shots came back BYTE FOR BYTE IDENTICAL (d8d580c4, three times)
+and not one of them had a bubble in it. The pixels are read off the canvas the
+instant after it is drawn instead. Same class as the two clocks and the first
+bark probe: a poller sampling a transient state reports the miss as the answer.
+
+================================================================================
+THREE MORE THINGS THE ROUND'S OWN CONTROLS CAUGHT
+================================================================================
+1. THE WALK DID NOT WALK. stepOnce() takes a DIRECTION INDEX into DIRS, not
+   (dx, dy). The probe passed (dx, dy) and moved ONE step in four hundred, and
+   reported "nobody said anything" about a player who had not gone anywhere.
+   Fixed, and then the street spoke.
+   *** AND THE SAME MISTAKE IS IN A GATE THIS LANE ALREADY SHIPPED ***:
+   walking_companion_gate.js line 196 calls stepOnce(0, 1). It still steps (in
+   DIRS[0], north) so its claim is not wrong, but the second argument means
+   nothing and the comment says "eight walked steps" about eight steps in one
+   direction. Named here rather than quietly repaired inside another row.
+
+2. A BODY CAN BE DRAWN AND STILL BE UNNAMEABLE. ctPersonName scans ctEveryone(),
+   which is the three-by-three around the player, while the renderer draws from
+   wider. A story about somebody outside that box returns null, and the bark
+   correctly says NOTHING rather than a sentence with a hole in it. Not fixed
+   this round: the actors of city-made stories are all inside the box, so it
+   costs nothing today, and widening the name reader is not this row.
+
+3. THE SUBJECT WAS BEING CALLED THE SPEAKER'S OWN NAME. ctPersonName falls back
+   to a TRADE when the player has not asked somebody's name, which is right for a
+   speaker's own plate and wrong mid-sentence: the glass read "WATCH squeezed
+   somebody" over the head of a person whose own plate also read WATCH. A trade
+   now gets an article, and a trade that collides with the speaker's plate
+   becomes "the other watch". Two more caught the same way: the acts are past
+   tense, so "I watched {who} {act}" produced "I watched the other worker never
+   paid somebody back" on the real glass; and {who} at the head of a second
+   sentence was lower case.
+
+================================================================================
+THE GATE
+================================================================================
+gates/rumours_travel_gate.js, driven on the ALPHA.
+  the module   the four changes as a named draft dial, their measured rates over
+               600 retellings, the ladder that only climbs, the weights table
+               still empty, and the research named
+  the name     a story keeps its seed and cannot come back around as news
+  the pass     the world, not the camera, with the regression's numbers in the file
+  the world    news between people who are not the player, through one door, and
+               two people who stand together seeing each other
+  the alpha    stories about other people, travelling, arriving wrong, one event
+               alive as several versions, and the pass free at 120 BPM
+  the mouth    the true line, the wrong line, a plate, and SILENCE when the mind
+               is empty
+  the cook     three DIFFERENT frames off the real glass, in VOTE
+
+NEGATIVE-CONTROLLED, PUT BACK:
+  the mouth's own control runs every time (an empty ledger must be silent); the
+  distortion rates fail if the roll is made constant; and the seed test fails the
+  moment dedup goes back to actor+kind+turn.
+
+================================================================================
+MEASURED AND NOT FIXED
+================================================================================
+YOU WILL RARELY HEAR IT WHILE WALKING. Four hundred walked steps, a carrier came
+within earshot ONCE, and they spoke that once: the bark fired every time it
+could. The limit is the world, not the mouth. Two reasons, both deliberate
+elsewhere: people only talk after really standing together, and only four bodies
+are drawn near him at a time since NOBODY STANDS ON ANYBODY. Making the street
+noisier is a dial, not a fix, and it is his.
+
+[PENDING Paolo] how often a story should go wrong. The four rates ship as
+attempts (place 1 in 2, hour 1 in 3, bigger 1 in 4, wrong man 1 in 5) and the
+VOTE page asks him for them.
+
+TAB: CITY, the walked street in the alpha. VOTE, for the three mouths.

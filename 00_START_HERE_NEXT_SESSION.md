@@ -7994,6 +7994,119 @@ ALSO STILL OPEN, not draw order: on NE in his own frame
 the right of the shoulders with a visible gap. That is the pose too.
 
 Nothing [PENDING Paolo].
+PEOPLE (people-7h9sfy): 9/22 (c) LATEST -- *** [rumours travel] SHIPPED. THE CITY
+COULD NOT GOSSIP AT ALL, AND IT WAS MY OWN LAST ROUND THAT KILLED IT. ***
+
+THE ROW: "in 1,669 lines it has passed on news about somebody other than the
+player exactly ONCE, and it has never once been WRONG."
+
+MEASURED ON THE ALPHA BEFORE A LINE WAS CHANGED, THREE THINGS, AND THE THIRD IS
+A REGRESSION I SHIPPED LAST ROUND:
+  1. the organ carried a third-party story PERFECTLY. A field by field diff of
+     the copy against the original read `changed: []`. Only BELIEF was lost.
+  2. every deed in the city was about the player ({'@': 1}), and the reaction
+     bark refused anything whose actor was not '@'.
+  3. *** THE GOSSIP PASS PAIRED PEOPLE OUT OF BARK_DREW, THE RENDERER'S LIST,
+     AND [no clumping] HAD JUST PUSHED EVERY DRAWN BODY TEN CELLS APART. ***
+         closest drawn pair before the room rule    1 cell
+         closest drawn pair after it               19 cells
+         what the pass needs                        2 cells
+         pair timers that ever started, after       0   (before: 44)
+     Every claim about news travelling was a claim that COULD NOT FAIL. The
+     instrument was proved with a positive first: two real people forced one cell
+     apart fill the timer, fire, and the second holds the first one's news.
+
+THE LESSON, and it is bigger than the bug: A CHANGE TO WHAT GETS DRAWN IS A
+CHANGE TO EVERY QUESTION ANYBODY ASKS THE DRAW LIST, and this repo asks the draw
+list plenty of questions that belong to the world. The fix was NOT to loosen the
+room: the pass asks ctAt() now. It also closes the older half of the same defect,
+where two neighbours could only talk WHILE THE PLAYER WAS WATCHING THEM.
+
+BUILT:
+  the pass asks the WORLD, not the camera            0.56 ms, against a 119 ms render
+  the world makes its own news between neighbours    through witness(), the one door
+  a story changes in the telling                     Bartlett 1932, Allport & Postman 1947
+  a story keeps its own name                         so a drifted one cannot return as news
+  TWO PEOPLE WHO STAND TOGETHER SEE EACH OTHER       nothing in this game had ever done it
+  a mouth says it, with a head and a plate           rule 19c
+
+*** 61 MINDS AND ONE SIGHTING IN THE ENTIRE CITY. *** bohemia_memory has been a
+real witness organ since 8/2 and the only thing ever written into it was the
+PLAYER walking past. That is why the blame could never move: assimilation bends a
+story toward a familiar face and every mind's frame was one name long (37 minds
+holding no actor, 20 holding exactly one, 4 holding two, 0 stories changing
+hands). One see() call each at the moment the pass already knows about the pair.
+
+ON THE ALPHA, ONE DAY ON HIS BLOCK: 354 deeds, 109 stories, 18 people talked
+about, 25 carrying news, ZERO about the player, 133 wrong, 51 blamed on the WRONG
+PERSON, 65 grown into a bigger act, and one event alive as NINE different stories.
+pushed_the_price and downed exist in the world and the city never raises either:
+they are purely what rumours grew into.
+
+COOK (rule 22): ONE STORY, THREE MOUTHS, three frames off the real glass in VOTE.
+  "I saw it myself. The other watch never paid somebody back."
+  "Somebody told me the other watch never paid somebody back. Don't ask me where."
+  "Somebody told me the scavenger squeezed somebody. Don't ask me where."
+
+FOUR CONTROLS CAUGHT FOUR THINGS, ALL WRITTEN UP IN THE RECORD:
+  - THE WALK DID NOT WALK. stepOnce() takes a DIRECTION INDEX, not (dx,dy). The
+    probe moved ONE step in four hundred and reported silence about a player who
+    had not gone anywhere. *** AND gates/walking_companion_gate.js LINE 196 HAS
+    THE SAME CALL (stepOnce(0, 1)) *** -- it still steps, so its claim stands, but
+    the second argument means nothing. Named, not quietly repaired inside this row.
+  - THE COOK PHOTOGRAPHED NOTHING. d.shot() waits 700 ms and photographs the page;
+    this city only redraws when the player acts, so three shots came back BYTE FOR
+    BYTE IDENTICAL (d8d580c4 x3) with no bubble in any of them. Pixels are read
+    off the canvas the instant after it is drawn now.
+  - THE SUBJECT WAS CALLED THE SPEAKER'S OWN NAME ("WATCH squeezed somebody" over
+    a head whose plate read WATCH), the acts are past tense so "I watched {who}
+    {act}" produced "I watched the other worker never paid somebody back", and
+    {who} at the head of a second sentence was lower case. All three on the glass.
+  - AN OUTFIT AS THE PRICE OF ADMISSION MADE ZERO STORIES IN A DAY: 15 of 61
+    people have any outfit, ONE outfit on the block, 4 of 46 close pairs with
+    both. A neighbourhood's gossip is about neighbours, not about gangs.
+
+GATE: gates/rumours_travel_gate.js, GREEN 58/0, driven on the alpha, with the
+mouth's own silence control running every time.
+
+PRE-PUSH PASS, AND EVERY RED CLASSIFIED AGAINST A CLEAN origin/main WORKTREE:
+  GREEN, mine      rumours_travel 58/0, no_clumping 37/0, a_name 47/0,
+                   face_at_the_door 31/0, walking_companion 45/0,
+                   weights_shape 48/0, a_human_being 14/0
+  GREEN, touched   LANGUAGE 85/0 (the English-only decision holds), standing 35/0,
+                   deed_bridge 29/0, who_vouches 19/0, rulings 131/0,
+                   commitment 72/0, vote_tab 30/0
+  RED, NOT MINE    horror_crowd 35/2 -- IDENTICAL two claims, identical numbers,
+                   on clean main. city_barks 12/1 and talking_portrait 28/1 --
+                   identical failures on clean main. enemies_remember 24/1 --
+                   identical on clean main. make_it_right 34/5, as before.
+                   derived_freshness red on main too (FACTION_BLUES,
+                   FACTION_DOSSIER_JUDGE, RUN_CURRENT); MY REBUILD HEALED
+                   CURRENT_SLICE. Its ALPHA and CITY_WORLD entries read +0/-0,
+                   and running their named maker in this tree produces a
+                   BYTE-IDENTICAL file, so that entry is the gate's own worktree
+                   overlay, measured both ways. PLUMBER's, not mine.
+
+MEASURED AND NOT FIXED: YOU WILL RARELY HEAR IT WHILE WALKING. Four hundred
+walked steps, a carrier came within earshot ONCE and spoke that once -- the bark
+fired every time it could, so the limit is the world, not the mouth. Two reasons,
+both deliberate elsewhere: people only talk after really standing together, and
+only four bodies are drawn near him since NOBODY STANDS ON ANYBODY. Louder is a
+dial, and it is his.
+ALSO NOT FIXED: a body can be DRAWN and still be unnameable, because
+ctPersonName scans the three-by-three around the player while the renderer draws
+wider. The bark correctly says nothing rather than a sentence with a hole in it,
+and every actor of a city-made story is inside the box, so it costs nothing today.
+
+[PENDING Paolo] how often a story should go wrong. The four rates ship as
+attempts (place 1 in 2, hour 1 in 3, bigger 1 in 4, wrong man 1 in 5) and the
+VOTE page asks him.
+STILL [PENDING Paolo] from before: when a person dies of old age; how many game
+days is a year; who you marry; what a long injury costs to treat; and the
+[honest crowd] trade, a quiet evening street or everybody reachable.
+
+NEXT: [creditor stands] and [somebody hires you] are the OPEN rows.
+
 PEOPLE (people-7h9sfy): 9/22 (b) LATEST -- *** [no clumping] AND [name mix]
 SHIPPED e7daaa46, both straight off HIS VOTES. NOBODY STANDS ON ANYBODY. ***
 

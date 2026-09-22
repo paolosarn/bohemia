@@ -1,0 +1,23 @@
+[
+ {
+  "label": "hop 0, the eyewitness",
+  "file": "PEOPLE_RUMOUR_1_TRUE.png",
+  "text": "I saw it myself. The other watch never paid somebody back.",
+  "speaker": "WATCH",
+  "wrong": false
+ },
+ {
+  "label": "hop 1, the place is gone",
+  "file": "PEOPLE_RUMOUR_2_VAGUE.png",
+  "text": "Somebody told me the other watch never paid somebody back. Don't ask me where.",
+  "speaker": "WATCH",
+  "wrong": true
+ },
+ {
+  "label": "hop 2, bigger, and the wrong man",
+  "file": "PEOPLE_RUMOUR_3_WRONG.png",
+  "text": "Somebody told me the scavenger squeezed somebody. Don't ask me where.",
+  "speaker": "WATCH",
+  "wrong": true
+ }
+]
