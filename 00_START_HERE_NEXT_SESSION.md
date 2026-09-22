@@ -23170,6 +23170,63 @@ since 9/6, it also holds 19 QUESTS (BUILD). The front page's chat-19 line says a
 chat with an empty queue takes QUESTS, and DYNASTY's queue went empty at Q16. The
 lane and its first row were claimed and pushed BEFORE any work started. ***
 
+ROUND 47 [haggle like bb] PUSHING TOO MUCH HURTS, AND IT NEVER DID BEFORE.
+QUESTS, BUILD. 121c776. Gate HAGGLE LIKE BB 20/0, registered.
+  records/BOHEMIA_QUESTS_PUSH_TOO_MUCH_HURTS_9_22_26.md
+
+*** THE CORRECTION THIS LANE OWES HIM FIRST (rule 29): two of my three vote
+items were voted DOWN, in his words "boring asf... idk what I was reading... no
+more cards with quest, just make an actual quest, make the pixels, make the
+sound." I HAD BEEN REGISTERING TEXT PAGES. That was the wrong way to cook. This
+round ships the thing into the game and writes no page to read. ***
+
+MEASURED BEFORE ANYTHING WAS BUILT, AND IT HURT NOTHING:
+    the mark's delta              0
+    weight for pushed_the_price   NONE  (forceOf: unruled = weightless)
+    a row in the reaction table   NONE  (remembered and MUTE)
+    deeds ever delivered          ZERO
+
+THE LAST LINE IS THE ONE THAT MATTERS AND IT IS FOR EVERY LANE. ctHaggleMark
+published into `MINDS`, and MINDS DOES NOT EXIST IN THAT FILE. Every call threw
+on its FIRST ARGUMENT, inside its own try, and returned null. Two more faults
+under it, each fatal alone: actor 'player' where the whole world reads '@', and
+`where` passed a STRING where publish calls where(owner) for a position. THREE
+WAYS WRONG IN FOUR LINES, SILENT SINCE IT SHIPPED, because a try/catch around a
+delivery turns "never ran" into "quiet world". The same four lines were
+copy-pasted into the claim mark, so catching a liar had never left a mark
+either. Both were this lane's. ONE DELIVERER NOW, TWO CALLERS.
+
+TWO MORE THINGS THE MEASUREMENT FOUND, both reusable:
+ - A FACTION-LESS DEED CAN NEVER GO THROUGH publish(). It filters every witness
+   through sameFaction, which is FALSE the moment either side is null. Right for
+   a faction act; pushing a man on his price is done to a PERSON. Measured:
+   witnesses 0 with four people standing in front of me. It goes through
+   witness() underneath now, same clout grading, one loudness scale two doors.
+ - BOTH CORPUS-LOAD CALLS RUN BEFORE THE HAGGLE MODULE IS INLINED, so the first
+   cut derived nothing at boot AND WORKED PERFECTLY WHENEVER A PROBE ASKED FOR
+   IT -- because asking created it. That is how this class hides from its own
+   author. Order-independent now. Plus a plain hoisting wipe on the way:
+   `var CT_PUSH_COST = null;` executing BELOW a call that had already set it,
+   throwing the answer away (this file already carries a comment about the same
+   trap costing another lane a morning).
+
+THE NUMBER IS HIS, DERIVED, AND THE GATE FAILS IF IT APPEARS IN THE MODULE:
+the median of his own negative #reckless deltas (23 reckless deeds, 12 negative,
+median -12) over the divisor loadCorpus computes off the same corpus, landing at
+-1.2. No corpus, no punishment. No scaling curve: two asks of room and the third
+ends it, so one "too far" state, and a curve over it would be a magnitude nobody
+ruled.
+
+ON THE ALPHA: cost -12, weight -1.2, witnesses 1-2, opinions [0,0,0,0] ->
+[0,0,0,-1.2], 0 page errors. A reckless deed reaches 24 and a person is
+overheard within 6, so the people who saw it usually speak when you next walk
+near them -- the shadow working as designed, not a gap.
+
+STILL TRUE AND SAID OUT LOUD RATHER THAN LEFT: the argument itself is only
+reachable from the CARD HANDLER PAOLO DELETED, so a player cannot push a price
+on the glass yet. The cost is real and wired; the way in is the next piece and
+it is this lane's.
+
 ROUND 46 [wire the door] + [swap the twelve] THE FIRST PERSON SPEAKS, BY NAME.
 QUESTS, BUILD. 469fb2f. SHIPPED TO THE ALPHA (item 4 of the cut, un-held).
 Gate WIRE THE DOOR 15/0, registered.
