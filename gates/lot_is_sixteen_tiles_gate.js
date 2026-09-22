@@ -245,6 +245,20 @@ async function walkAndCheck(browser, BASE, where, url) {
   if (!cf) { ok(where + ': the fight came up', false); await page.close(); return; }
   ok(where + ': a real fight, started the way he starts one', true);
   await sleep(2500);
+  /* *** AND THE REAL CAUSE OF THE ZEROES WAS NOT THE FRAME, IT WAS THE CLOCK. *** This
+     gate reported 0 patch blits and an EMPTY patch cache while the same tree, measured
+     through the one driver seconds later, had 24 patches and 52 marking tiles. The
+     ground bank is 132 images and it decodes asynchronously: until STREET_READY is
+     true, lotPatch returns null, streetTile returns null, and the floor takes its flat
+     fill path -- which draws NO IMAGES AT ALL. So a rebuild forced too early records
+     nothing and every arm reads zero, with the feature working perfectly.
+     WAIT FOR THE GROUND, THEN MEASURE IT. */
+  for (let i = 0; i < 60; i++) {
+    const rdy = await cf.evaluate(() => { try { return !!STREET_READY; } catch (e) { return false; } })
+      .catch(() => false);
+    if (rdy) break;
+    await sleep(500);
+  }
 
   /* ---------- THE HOUSE BOARD, WHICH IS THE BOARD A FIGHT STARTS ON ---------- */
   const A = await cf.evaluate(REBUILD(''));
