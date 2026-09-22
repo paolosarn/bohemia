@@ -4144,6 +4144,27 @@ GATES = [
      'it holds the part a machine can. Both teeth were proven to bite with throwaway files before '
      'it shipped. First run: 23 advertised, 23 on disk, 23 run',
      False),
+    ('LIVE SITE CURRENT', ['node', 'gates/the_live_site_is_current_gate.js'],
+     'THE DEPLOY THAT STOPPED AND NOBODY SAW. 9/22, PLUMBER lane, row [list loads]. PAOLO opened '
+     'the alpha VOTE tab on his phone and got "THE LIST DID NOT LOAD", a 404 on the vote registry. '
+     'Measured off the Actions API: NINE pages runs in a row cancelled, every one with ZERO JOBS, '
+     'each cancelled at the exact second the next push created the next one, and THE LAST '
+     'SUCCESSFUL DEPLOY WAS 455 MINUTES EARLIER. That is not cancel-in-progress failing: '
+     'concurrency keeps at most ONE run PENDING per group and a newer push supersedes it, while '
+     'cancel-in-progress:false protects a run that is RUNNING. The lanes were pushing every 10-40 '
+     'seconds after he voted, so the pending slot was overwritten before a runner was ever free. '
+     'While that holds, our builder never lands and the live site is whatever GitHub Jekyll builder '
+     'published, which carries no records/ and no *.json -- which is exactly why the registry 404s. '
+     'This gate reads the Actions API and goes red on three things: the last successful deploy '
+     'older than 45 minutes, most recent runs being cancelled in the queue, and GitHub own builder '
+     'still firing at all (that last one is Paolo one click: Settings -> Pages -> Source: GitHub '
+     'Actions, and it stays red on purpose until then). IT DOES NOT FETCH THE LIVE SITE and never '
+     'claims to: this container egress policy blocks paolosarn.github.io (measured HTTP 000), so '
+     'the live-URL check lives in the post-deploy leg of the workflow, on GitHub own runner. FLOOR: '
+     'if the API cannot be read it FAILS rather than skipping, because a deploy gate that passes '
+     'because it could not look is the loudest form of green over nothing.',
+     180),
+
     ('DID IT LAND', ['node', 'gates/did_it_land_gate.js'],
      'A PUSH THAT SAYS IT WORKED IS NOT A PUSH THAT WORKED. 9/23, PLUMBER lane, row [push check]. '
      'COOK (dccc157) and the coordinator, twice in one stretch: git push output read like success '

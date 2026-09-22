@@ -28,9 +28,40 @@
 # https://paolosarn.github.io/bohemia/slices/BOHEMIA_ALPHA_0_9.html never changes.
 name: pages
 
+# *** ONLY BUILD WHEN SOMETHING PUBLISHED ACTUALLY CHANGED (PLUMBER 9/22, row
+# [list loads]). THIS IS THE 8/6 DEADLOCK BACK IN A NEW FORM AND IT COST PAOLO A
+# BROKEN TAB. ***
+# Measured off the Actions API on 9/22: NINE `pages` runs in a row cancelled, every
+# one with ZERO JOBS, each cancelled at the exact second the next push created the
+# next one (2314 cancelled 08:35:50, 2315 created 08:35:49). The last SUCCESSFUL
+# deploy was run 2306 at 01:03 -- SEVEN AND A HALF HOURS EARLIER.
+# That is not `cancel-in-progress` failing. `concurrency` keeps at most ONE run
+# PENDING per group and a newer push supersedes it; cancel-in-progress:false protects
+# a run that is RUNNING, and these never reached a runner. The lanes were pushing
+# every 10 to 40 seconds after he voted, so the pending slot was overwritten before a
+# runner was ever free and the chain never settled.
+# While that loop holds, OUR builder never lands and the live site is whatever
+# GitHub's Jekyll builder published -- which carries no records/ and no *.json. That
+# is why his VOTE tab said THE LIST DID NOT LOAD.
+# THE MEASURED FIX: 58% of the last 60 pushes to main changed NOTHING that is
+# published (35 of 60, almost all of them VAMILY.md board edits). Those pushes were
+# rebuilding and re-deploying an identical site, and worse, each one was flushing the
+# queue. Building only when a published path changes cuts the trigger rate by more
+# than half and lets the queue settle.
+# The real fix is still Paolo's one click (Settings -> Pages -> Source: GitHub
+# Actions), which stops the Jekyll builder existing. This makes the storm survivable
+# until then, and gates/the_live_site_is_current_gate.js goes red if it ever stops
+# being survivable, so nobody has to find out from his phone again.
 on:
   push:
     branches: [main]
+    paths:
+      - 'slices/**'            # the product: the alpha and every tab it opens
+      - 'engine/**'            # four un-inlined dev slices load ../engine/*.js
+      - 'records/target/**'    # the ART tab, and the VOTE registry he taps
+      - '_config.yml'          # changes what the other builder publishes
+      - '.github/workflows/pages.yml'
+      - 'tools/bohemia_cut_the_demo.js'   # the demo is cut AT DEPLOY by this
   workflow_dispatch:
 
 permissions:

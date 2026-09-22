@@ -98,3 +98,30 @@ is the contribution.
 ---
 *BOHEMIA — Two Deployers Are Fighting — 8.6.26*
 *The push working is not the site working. It never was, and now there are two of them not working.*
+
+---
+
+## PROVED RIGHT ON 9/22, SIX WEEKS LATER, AND NOBODY READ IT
+
+This record said it plainly at the top: **both deployers fire on every push**, and the
+built-in one "only runs when the source is still set to a branch". That sentence named
+the root cause and the fix on 8/6.
+
+What happened next is the part worth keeping. The sibling record written the same round,
+BOHEMIA_THE_LINK_IS_NOT_TRUE_8_6_26.md, concluded that the built-in builder was **"noise
+now, not a symptom"** and told the next session to stop reading it. That was true while it
+was failing. It stopped being true around 9/21, when the built-in Jekyll builder started
+SUCCEEDING in about 80 seconds and winning the race — and the Jekyll build publishes no
+`records/` and no `*.json`.
+
+So on 9/22 Paolo opened the alpha's VOTE tab and got **THE LIST DID NOT LOAD**, a 404 on
+the vote registry, because the builder this lane had told everybody to ignore had
+published the site.
+
+The finding is not "one line went stale". It is that **a line telling the next session to
+STOP LOOKING at something is the most expensive kind of line to leave rotting.** An
+ordinary stale line gets contradicted by the next measurement. A "do not look here" line
+removes the measurement that would have contradicted it.
+
+Correction filed in the sibling record; cause and the real fix (Paolo's repo setting,
+Source: GitHub Actions) in records/BOHEMIA_TWO_DEPLOYS_RACE_9_22_26.md.

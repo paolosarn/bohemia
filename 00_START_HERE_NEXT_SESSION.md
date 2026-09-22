@@ -4652,6 +4652,67 @@ full suite unmeasured since 7efb22cf. Rule 14(a): demo untouched, RUN cuts it.
 
 Record: records/BOHEMIA_ONE_DOOR_9_14_26.md
 
+PLUMBER (plumber-ont6t5): 9/23 (b) LATEST -- *** CHAT 18. ROUND 36. [list loads] SHIPPED. THE DEPLOY HAD
+BEEN DEAD FOR 455 MINUTES AND THE WAY WE FOUND OUT WAS PAOLO'S PHONE. ***
+He opened the alpha's VOTE tab and got "THE LIST DID NOT LOAD", a 404 on the vote registry. Rule 14(d).
+MEASURED OFF THE ACTIONS API, and it is worse than the race the coordinator found:
+    2308 08:33:55 cancelled   2309 08:34:01 cancelled   2310 08:34:10 cancelled
+    2311 08:34:18 cancelled   2312 08:34:31 cancelled   2313 08:34:58 cancelled
+    2314 08:35:15 cancelled   2315 08:35:49 cancelled
+    LAST SUCCESS: run 2306, 01:03:25, cf848a7 -- 455 MINUTES EARLIER
+Nine in a row, EVERY ONE WITH ZERO JOBS: cancelled before a runner ever picked them up. Each one's
+cancel time is the next one's create time to the second (2314 cancelled 08:35:50, 2315 created 08:35:49).
+*** THAT IS NOT cancel-in-progress FAILING. *** `concurrency` keeps at most ONE run PENDING per group and
+a newer push supersedes it; cancel-in-progress:false protects a run that is RUNNING, and none of these
+ever started. After he voted every lane claimed its rows at once and the pushes came every 10-40 seconds,
+so the pending slot was overwritten before a runner was free and the chain never settled. THIS IS THE
+8/6 DEADLOCK BACK IN A NEW FORM -- that record measured a 13-minute cadence and called it a standing
+deadlock rather than a delay; the claim storm made the cadence ten seconds.
+AND THAT IS WHY THE REGISTRY 404ED. While ours is stuck in that loop, GitHub's Jekyll builder fires on
+the same pushes and succeeds in ~80 s, and the Jekyll build publishes NO records/ and NO *.json -- so the
+live site becomes purely Jekyll's and the file the VOTE tab fetches is not there. It is not that Jekyll
+occasionally wins a race: DURING A STORM OURS NEVER ENTERS IT.
+THE MEASURED FIX, IN THIS LANE: of the last 60 commits on main, 35 (58%) changed NOTHING that is
+published, almost all VAMILY.md board edits. Each was rebuilding and re-deploying an identical site AND
+flushing the queue on the way past. The workflow now triggers only on slices/**, engine/**,
+records/target/**, _config.yml, the workflow itself and tools/bohemia_cut_the_demo.js. That cuts the
+trigger rate by more than half and lets the queue settle; the cutter and the registry are both in the
+list so a real change still deploys.
+THE REAL FIX IS STILL ONE CLICK OF PAOLO'S: Settings -> Pages -> Source: GitHub Actions, which stops the
+Jekyll builder existing. Asked, and his. This makes the storm survivable until then.
+NEW GATE: gates/the_live_site_is_current_gate.js, in the suite as LIVE SITE CURRENT. Red on three
+things: the last successful deploy older than 45 minutes (455 when written), recent runs being cancelled
+in the queue (8 of 12), and GitHub's own builder still firing at all (10 runs that day). The third stays
+red on purpose until his click. IT DOES NOT FETCH THE LIVE SITE and never claims to -- this container's
+egress blocks paolosarn.github.io (measured HTTP 000, connect rejected) -- so the live-URL check stays
+where it already is, the post-deploy leg on GitHub's runner. FLOOR: if the API cannot be read it FAILS
+rather than skipping, because a deploy gate that passes because it could not look is the loudest form of
+green over nothing.
+*** AND I CORRECTED TWO FALSE CLAIMS THIS LANE ITSELF WROTE. ***
+ 1. pages_publish_gate.js ended EVERY run with "the deploy queues, never cancels". It never tested that;
+    it carried the sentence from the 8/6 commit message. Nine cancelled runs say it is false. A gate
+    that prints a reassurance it does not check is worse than one that prints nothing, because it is
+    read as a measurement. It now says what it actually holds and points at the gate that measures.
+ 2. BOHEMIA_THE_LINK_IS_NOT_TRUE_8_6_26.md told the fleet the built-in builder was "noise now, not a
+    symptom" and to stop reading it. True when written, false since ~9/21. A LINE THAT TELLS THE NEXT
+    SESSION TO STOP LOOKING AT SOMETHING IS THE MOST EXPENSIVE KIND TO LEAVE ROTTING: an ordinary stale
+    line gets contradicted by the next measurement, a "do not look here" line removes the measurement
+    that would have contradicted it. Corrected in place. Its sibling record had it RIGHT on 8/6 ("both
+    deployers fire on every push", "only runs when the source is still set to a branch") and nobody read
+    it for six weeks; that one got a forward pointer rather than a correction.
+ALSO: the push check this lane shipped last round CAUGHT A REAL FAILED PUSH ON ITS FIRST LIVE USE this
+round -- my claim commit lost the race, push exit 1, the checker said NO with both shas, I rebased and
+it said YES. It works.
+PRE-EXISTING RED I DID NOT CAUSE AND DID NOT FIX: pages_publish_gate is 17/1 on "published surface under
+260 MB" (267 MB). Same before my change. That is [slim build], still open on my row.
+STILL OPEN IN MY SECTION: [horror gate], [mode chip], [suite line] (the front page's SUITE LINE is still
+9/14 ad23d875), [pre-push pass], [cannot fail], [one way rulers], [spelling gates], [suite runs],
+[fight headroom], [slim build], [dead gates], [handoff cut], [backlog archive]. Still CLAIMED:
+[never worse], [sixty fps], [demo errors] (STANDING).
+Record: records/BOHEMIA_THE_DEPLOY_STOPPED_AND_NOBODY_SAW_9_22_26.md
+[PENDING Paolo] ONE CLICK, and it is the real fix for his 404: Settings -> Pages -> Source: GitHub
+Actions. Until then two builders publish this site and whichever finishes last wins.
+
 PLUMBER (plumber-ont6t5): 9/23 LATEST -- *** CHAT 18. ROUND 35. [push check] SHIPPED, AND THE BUG IS A
 HABIT THIS LANE HAS PRACTISED EVERY SINGLE ROUND. ***
 COOK (dccc157) and the coordinator, twice in one stretch: git's push output read like success while the

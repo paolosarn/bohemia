@@ -212,7 +212,19 @@ if (fs.existsSync(WF)) {
      /cp -r\s+slices\s+_site\/slices/.test(wf));
 }
 
+/* "THE DEPLOY QUEUES, NEVER CANCELS" WAS PRINTED ON EVERY RUN OF THIS GATE AND IT IS
+   NOT TRUE. (Corrected 9/22, PLUMBER, row [list loads].) Measured off the Actions API:
+   NINE `pages` runs in a row cancelled, every one with ZERO JOBS, each cancelled at the
+   exact second the next push created the next one -- and the last successful deploy was
+   455 minutes before that. `concurrency` keeps at most ONE run PENDING per group and a
+   newer push supersedes it; cancel-in-progress:false protects a run that is RUNNING, and
+   none of those ever reached a runner.
+   A GATE THAT PRINTS A REASSURANCE IT DOES NOT CHECK IS WORSE THAN ONE THAT PRINTS
+   NOTHING, because it is read as a measurement. This gate never tested that claim; it
+   simply carried it from the 8/6 commit message. It now says what it actually holds, and
+   points at the gate that does measure the deploy. */
 console.log('PAGES PUBLISH GATE: ' + pass + ' passed, ' + fail + ' failed  (' +
             refs + ' outward refs · published surface ' + mb.toFixed(0) + ' MB / ' + CAP_MB +
-            ' MB cap · the deploy queues, never cancels)');
+            ' MB cap · whether a deploy actually LANDS is not checked here: see ' +
+            'gates/the_live_site_is_current_gate.js)');
 process.exit(fail ? 1 : 0);

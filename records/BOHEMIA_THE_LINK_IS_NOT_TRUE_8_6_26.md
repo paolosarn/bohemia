@@ -160,5 +160,24 @@ no session can make the other sessions slow down.
 - Deploy verification is unchanged in spirit but changed in target: wait for a **`pages`**
   run whose sha contains your content to conclude SUCCESS. Do not read the built-in one.
 
+> *** CORRECTED 9/22/26 BY THE LANE THAT WROTE IT. THE TWO LINES ABOVE ARE WRONG NOW AND
+> THEY COST PAOLO A BROKEN TAB. *** Since about 9/21 the built-in `pages build and
+> deployment` (Jekyll, reading `_config.yml`) SUCCEEDS in about 80 seconds on every push
+> and RACES the `pages` workflow. Whichever finishes LAST is the live site. The Jekyll
+> build publishes no `records/` and no `*.json`, so when it wins, the alpha's VOTE tab
+> gets a 404 on the registry and shows "THE LIST DID NOT LOAD" -- which is exactly what
+> Paolo saw on his phone on 9/22 -- and the demo served is the committed cut rather than
+> the fresh one.
+>
+> "It is noise" was true when it was written and it stopped being true without anybody
+> re-reading it, which is the whole reason this repo keeps a truth hierarchy. A line that
+> tells the next session to STOP LOOKING at something is the most expensive kind of line
+> to leave rotting: it does not just go stale, it actively blinds whoever trusts it.
+>
+> The correction, the measured race and the real fix (Paolo's repo setting, Source:
+> GitHub Actions) are in records/BOHEMIA_TWO_DEPLOYS_RACE_9_22_26.md and in CLAUDE.md's
+> ship flow. Until that setting changes, a deploy is only true when the `pages` run
+> finished LAST.
+
 *Filed under the TRUTH HIERARCHY: on any conflict the newest date wins. This supersedes
 everything above it in this file.*
