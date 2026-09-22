@@ -72,6 +72,46 @@ async function sweep(opts) {
   console.log('');
   console.log('=== ' + d.says() + ' ===');
 
+  /* *** GO THROUGH THE DOOR FIRST. ***
+     The alpha's loading screen HOLDS UNTIL BEGIN, by design (rule 18a), and the
+     driver's own note says a caller has to read the top page and walk through it.
+     This probe did not, so every click it made landed on #loadgl -- the loading
+     screen's own canvas, inside #front at z-index 200 covering the whole 390x844 --
+     and never reached the game at all. That is the FOURTH wrong instrument in this
+     round and it is the same family as all the others: pressing a surface that
+     something is covering. The controls underneath were alive the whole time. */
+  const door = await d.pageEval(async () => {
+    const seen = [];
+    for (let i = 0; i < 90; i++) {
+      const f = document.getElementById('front');
+      if (!f || getComputedStyle(f).display === 'none') return { through: true, how: 'front was already gone', waited: i };
+      const hit = Array.from(f.querySelectorAll('*')).filter(el => {
+        const t = (el.textContent || '').trim().toUpperCase();
+        return t === 'BEGIN' && el.getBoundingClientRect().width > 10;
+      });
+      if (hit.length) {
+        seen.push('BEGIN at ' + i);
+        hit[hit.length - 1].click();
+        await new Promise(r => setTimeout(r, 1200));
+        const g = document.getElementById('front');
+        if (!g || getComputedStyle(g).display === 'none')
+          return { through: true, how: 'pressed BEGIN', waited: i };
+      }
+      await new Promise(r => setTimeout(r, 1000));
+    }
+    const f = document.getElementById('front');
+    return { through: false,
+             how: 'BEGIN never came, or pressing it did not clear #front',
+             still: f ? getComputedStyle(f).display : 'gone', waited: 90 };
+  });
+  console.log('  THE DOOR: ' + (door.through ? 'through -- ' : '*** STILL SHUT *** -- ')
+    + door.how + ' (waited ' + door.waited + 's)');
+  const covered = await d.pageEval(() => {
+    const e = document.elementFromPoint(38, 617);
+    return e ? (e.id ? '#' + e.id : e.tagName.toLowerCase()) : 'nothing';
+  });
+  console.log('  and at 38,617 the TOP page now hands the finger to: ' + covered);
+
   /* FIND THEM BY THEIR WORDS. EYES read labels off the glass; binding to an id here
      would quietly test a different control and report it healthy. */
   const found = await d.fr.evaluate(list => {
