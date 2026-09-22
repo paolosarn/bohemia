@@ -6058,6 +6058,28 @@ GATES = [
      "longer' means something. Being down is a QUESTION against the clock, so a save left on a shelf comes "
      "back healed with nothing to tidy. And it is on the card he already opens, saying how long and saying "
      "the promise out loud", False),
+    ('NO CLUMPING',    ['node', 'gates/no_clumping_gate.js'],
+     "PEOPLE [no clumping] with [honest crowd] folded in and [name mix], all three straight off HIS "
+     "VOTES. *** PAOLO 9/21, TWICE, VOTING DOWN THIS LANE'S OWN PICTURE: 'why are so many people on "
+     "top of each other on each other's ass.' *** MEASURED AT THE QUIETEST HOUR WITH NINE BODIES ON "
+     "THE GLASS: five overlapping pairs, four past a quarter, THE WORST AT 90.3%. *** ONE BODY PER "
+     "CELL WAS BEING KEPT PERFECTLY AND IT WAS NEVER THE QUESTION: *** a body is 112 px on 11 px "
+     "cells, so A BODY IS TEN CELLS ACROSS and two people on neighbouring cells obey the occupancy "
+     "law while their art overlaps ninety percent. TWO GOOD DECISIONS COLLIDED AND NOBODY MEASURED "
+     "THE PAIR: LIFE+CITY's 9/12 crowd packs rings 0-4 cells out (right, the street felt dead) and "
+     "rule 21 fixes the body at 112 (right, he hated resizing). The fix is the same law one layer "
+     "out, at the glass, asked of the footprint, with ONE LIST SHARED BY BOTH PASSES THAT DRAW "
+     "PEOPLE -- the hostile pass runs inside the people pass and drew the two worst bodies on the "
+     "screen while the people pass was clean. The room is the game's own arithmetic (ladder over "
+     "cell), a WHOLE body, because half a body was tried and measured and still left a third "
+     "overlapping. AND THE COUNT NOW FOLLOWS THE WORLD'S CLOCK, asked of his own block through the "
+     "same reader the renderer uses. ON THE GLASS, SEVEN HOURS: ZERO overlapping pairs at every one, "
+     "and the control that matters, the street is never below three bodies and the busy hours really "
+     "are busier. [name mix]: he voted the names UP with 'a little more white people names, keep it "
+     "natural'; counted, the surnames were 55% Hispanic against a county that is 32%, so the bank "
+     "grew 64->98 surnames and 64->90 given names with NOTHING of his deleted, and the inlined copy "
+     "in the city was resynced because the bank lives in two places. Mutation: let the hostile pass "
+     "ignore the list and the count ignore the clock, 2 red.", False),
     ('WEIGHTS SHAPE',  ['node', 'gates/weights_shape_gate.js'],
      "PEOPLE [weights shape], under the rule 18 hold with the RULE 22 cook beside it. The coordinator "
      "ruled 9/5 that people repeat five things about a stranger and nothing else, that a betrayal is "

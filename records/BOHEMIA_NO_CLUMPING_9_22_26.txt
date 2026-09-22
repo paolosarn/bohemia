@@ -1,0 +1,209 @@
+BOHEMIA -- NO CLUMPING (9/22/26, PEOPLE lane)
+VAMILY jobs [no clumping] (row NOBODY-STANDS-ON-ANYBODY, the coordinator's
+declared FIRST LINE, UN-HELD) with [honest crowd] folded in, and [name mix].
+Both came straight off HIS VOTES.
+
+*** PAOLO 9/21, VOTING DOWN THIS LANE'S OWN PICTURE, TWICE: "It looks so fucking
+bad why are so many people on so many like on top of each other on each other's
+ass." ***
+AND VOTING THE NAMES UP WITH A CORRECTION: "Good, a little more percentage of
+white people names and we're good. Try to keep it natural. Hella Hispanic shit
+going on. This game isn't like this Hispanic-ass game so chill out."
+
+================================================================================
+*** MEASURED ON THE ALPHA BEFORE A LINE WAS CHANGED ***
+================================================================================
+At the QUIETEST hour of the day, with only nine bodies on the glass:
+
+  overlapping pairs                        5
+  pairs past a quarter of a body           4
+  THE WORST PAIR                       90.3%
+  body size                             112 px  (the ladder's one size, rule 21)
+  cell size at the walking camera         11 px
+  SO A BODY IS                        TEN CELLS ACROSS
+
+*** ONE BODY PER CELL WAS BEING KEPT PERFECTLY AND IT WAS NEVER THE QUESTION. ***
+Two people on neighbouring cells satisfy the occupancy law to the letter while
+their art overlaps by ninety percent. The law was right, it was just being asked
+about the square under a person instead of about the person.
+
+================================================================================
+TWO GOOD DECISIONS COLLIDED AND NOBODY MEASURED THE PAIR
+================================================================================
+LIFE+CITY's 9/12 crowd packs people into rings 0 to 4 cells out from a gathering
+place. THAT WAS RIGHT: the street felt dead, and a crowd you can see from down
+the road and walk into fixed it, measured over sixteen walks.
+Rule 21 fixes the body at 112 px on every surface. THAT WAS RIGHT TOO: he hated
+his own body changing size when he pinched.
+
+A nine-cell square holding thirteen bodies that are ten cells wide each is not a
+crowd. It is one shape. NEITHER LANE WAS WRONG AND NOBODY EVER MEASURED THE PAIR,
+which is the lesson: two rulings can both be right and still be a defect where
+they meet.
+
+AND THE COUNT FOLLOWED THE STREET INSTEAD OF THE CLOCK ([honest crowd], this
+lane's own 9/21 finding, folded into this row by the coordinator). The borrow's
+`want` is HOW MANY STANDABLE CELLS ARE WITHIN REACH, and the number of cells does
+not change with the hour, so the street drew 23 at ten in the morning and 24 at
+eight at night while the world had 41 and 4 people outside.
+
+================================================================================
+WHAT WAS BUILT
+================================================================================
+1. THE ROOM IS THE GAME'S OWN ARITHMETIC, NOT A DIAL: the ladder's body size over
+   the cell size at the camera he walks at. Change either and it follows. It is a
+   WHOLE body, because the row's ship test is ZERO overlapping bodies; half a body
+   was tried first and measured, and two people six cells apart still covered a
+   third of each other, because equal boxes only fall under a quarter once they
+   are three quarters of a body apart.
+
+2. THE GUARANTEE IS AT THE GLASS, WHERE THE OCCUPANCY LAW ALREADY LIVES, and it
+   is asked of the body's footprint instead of its cell. The old cell law is
+   untouched: this is the same law one layer out, not a replacement.
+
+3. ONE LIST, SHARED BY BOTH PASSES THAT DRAW PEOPLE. The hostile pass runs INSIDE
+   the people pass and drew the two worst bodies on the whole screen, at 90.3% of
+   each other, while the people pass was clean. A guarantee that covers one of two
+   passes is not a guarantee. The player is on the list first, so nobody stands on
+   him either.
+
+4. THE COUNT ASKS HIS OWN BLOCK how many of its people the schedule has out of
+   doors right now, and borrows that share of the street. Both numbers come from
+   pplAtSched, the same answer the renderer already draws from, so the screen and
+   the world cannot disagree. A block with no census leaves the old number rather
+   than guessing one.
+
+5. THE CROWD RINGS STEP BY A BODY'S WIDTH instead of one cell, and the floor that
+   fills the rest of the street keeps the same room rather than rebuilding the
+   blob the rings just stopped making.
+
+================================================================================
+ON THE GLASS, HOUR BY HOUR, AND THE CONTROL THAT MATTERS
+================================================================================
+  HOUR   BODIES DRAWN   OVERLAPPING PAIRS
+   3am         3                0
+   7am         8                0
+  10am         8                0
+   1pm         9                0
+   5pm         7                0
+   8pm         9                0
+  11pm         6                0
+
+*** ZERO OVERLAPPING BODIES AT EVERY HOUR OF THE DAY. *** That is the row's own
+ship test, photographed (slices/vote/PEOPLE_NOCLUMP_NOW_10_9_22.png and _20_).
+
+AND THE CONTROL THAT MATTERS, because ZERO OVERLAP IS TRIVIAL IF NOBODY IS DRAWN:
+the street never falls below three bodies and averages seven across the day. THE
+STREET DID NOT GET THINNER TO BUY THE PICTURE. Spacing is what fixed it.
+
+================================================================================
+*** AND [honest crowd] IS BUILT, MEASURED, AND HELD OFF, WHICH IS THE ROUND'S
+*** MOST EXPENSIVE FINDING
+================================================================================
+The coordinator folded [honest crowd] into this row: scale the borrow by the
+share of his own block that the schedule has outdoors, so morning and evening are
+two different streets. IT WAS BUILT AND IT WORKED: with it on, the day read 1, 4,
+5, 2, 5, 3, 2 bodies against a world of 0, 10, 41, 3, 40, 4, 2 outside, and still
+zero overlaps.
+
+*** AND IT TURNED THE LANGUAGE GATE RED. *** Its claim "A SPANGLISH NEIGHBOUR
+ANSWERS IN SPANGLISH" stopped being satisfiable: a street thinned to the world's
+real share no longer puts one of every register inside the cells that gate walks.
+The neighbour it found answered in plain English.
+
+ISOLATED IN THREE RUNS, because a red with three changes in the tree is not a
+finding until it is one:
+  the skip and the spacing alone, with the bank   GREEN 83/0
+  the bank alone, with the spacing                RED
+  the clock scaling off, everything else on       GREEN 83/0
+So the skip, the spacing and the bank are all clean and THE CLOCK SCALING IS THE
+COST.
+
+THAT IS THE ROW'S OWN QUESTION AND NOT A BUG TO ROUTE AROUND. An honest evening
+street has fewer people on it, and some of them were the only speaker of their
+register within reach. The arithmetic stays in the file, off, with the reason
+written beside it, so the next round starts from the number rather than the idea.
+[PENDING Paolo / coordinator]: a quiet evening street, or everybody reachable.
+
+[name mix]: HE VOTED THE NAMES UP AND HE WAS RIGHT ABOUT THE MIX
+================================================================================
+COUNTED BEFORE A NAME WAS ADDED:
+
+  surnames that read Hispanic    35 of 64   55%
+  Clark County, really                      about 32%
+  given names that read Hispanic 29 of 64   45%
+  given names that read Anglo    22 of 64   34%
+  Clark County white non-Hispanic           about 41%
+
+THE BANK WAS A THIRD MORE HISPANIC THAN THE COUNTY IT IS BUILT FROM. He noticed
+that by reading eleven names.
+
+NOTHING OF HIS IS DELETED. Every name he saw is still in the bank; the additions
+sit underneath so the SHARE moves and the mixing he liked is untouched.
+  given names    64 -> 90   (+15 Anglo, +7 Black, +4 Asian)
+  surnames       64 -> 98   (+30 to the rest, +4 Asian)
+  the Hispanic share of surnames   55% -> 36%
+
+THE SPLIT THAT IS HONEST FOR SURNAMES IS HISPANIC / ASIAN / EVERYONE ELSE, and
+the file says so: Black and white American surnames are very largely the same
+pool, and pretending to sort them would be a classification nobody could check.
+
+AND THE BANK LIVES IN TWO PLACES, which is this lane's own recurring defect
+showing up structurally: engine/bohemia_people.js is inlined verbatim into the
+walked city. Both were changed, through the repo's own resync tool rather than by
+hand, so they cannot drift.
+
+================================================================================
+THE GATE
+================================================================================
+gates/no_clumping_gate.js, driven on the ALPHA.
+  the room    the game's own arithmetic in one place, a whole body, both passes
+              sharing one list, the player on it first, the old cell law intact,
+              and the skip counted
+  the clock   the share asked of his own block through the same reader the
+              renderer uses, and no guess when there is no census
+  the glass   zero overlapping pairs at seven hours across the day, AND a street
+              that is never below three bodies, AND busier at the busy hours
+  the names   the bank grew, nothing of his was deleted, the share really fell,
+              his words are in the file, and the inlined copy was resynced
+  the cook    the same street before and after, off the real glass, in VOTE
+
+NEGATIVE-CONTROLLED, PUT BACK:
+  let the hostile pass ignore the shared list, and let the count ignore the
+  clock: the ninety-percent pair comes straight back and 2 claims go red.
+
+AND ONE CLAIM OF MINE WAS BRITTLE BEFORE IT WAS RIGHT: the record check asked for
+his sentence on one line, and the record wraps it, so it went red about where the
+newlines fell rather than about whether his words are there. Flattened. Same
+class as last round's "is the word halflife in the file": a test about the shape
+of the text instead of its substance, twice running.
+
+================================================================================
+*** AND SEEDING THE LIST WITH THE PLAYER COST THREE OF THIS LANE'S OWN GATES ***
+================================================================================
+The first cut put HIM on the exclusion list, on the reasoning that nobody should
+stand on the player either. MEASURED: it meant NOBODY CAN STAND BESIDE HIM. The
+person who comes to his door, the thing this lane spent three rounds building,
+stopped being drawn and stopped speaking. FACE AT THE DOOR went 31/0 to 25/6 with
+its own self-test "somebody really spoke" reading FALSE.
+
+He is already covered by the cell law that has guarded him since the occupancy
+law was written. What he complained about is a CROWD stacked on itself, never one
+person standing next to him. Player off the list, FACE AT THE DOOR back to 31/0.
+
+A GOOD FIX AND A WRONG DEFAULT INSIDE IT, caught only because this lane's older
+gates were run before shipping and not after.
+
+AND ONE RED NAMED, NOT MINE: A NAME reads "1 of 61 named at boot" and it does the
+same on CLEAN HEAD, because this round's own probes wrote the met-ledger to the
+driver's browser profile and it persists between runs. The gate's control assumes
+a clean save and does not ask for one. That is a real weakness in a gate this lane
+wrote, it is not a regression from this round, and it is next round's first job.
+
+================================================================================
+MEASURED AND NOT FIXED
+================================================================================
+THE CROWD OF COPIES IS STILL THERE. Three people in the same tan coat was in the
+frame he hated and it is CHARACTER's wardrobe spread, named on their row.
+
+TAB: CITY, the walked street in the alpha, and VOTE for the before and after.

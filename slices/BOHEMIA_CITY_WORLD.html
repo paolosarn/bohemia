@@ -5775,7 +5775,22 @@ if(typeof window!=='undefined') window.BohemiaLattice=BOH_LATTICE;
     'Juniper', 'Malachi', 'Socorro', 'Everett', 'Anahi', 'Tobias', 'Renata', 'Cyrus',
     'Marisela', 'Jonah', 'Adaeze', 'Wendell', 'Citlali', 'Amos', 'Nadia', 'Ruben',
     'Ofelia', 'Kai', 'Belen', 'Horace', 'Sunny', 'Idalia', 'Emmett', 'Reyna',
-    'Abel', 'Lourdes', 'Milo', 'Trinh', 'Esperanza', 'Roman', 'Clemencia', 'Jarvis'
+    'Abel', 'Lourdes', 'Milo', 'Trinh', 'Esperanza', 'Roman', 'Clemencia', 'Jarvis',
+    /* __THE_NAME_BANK_TO_THE_COUNTY__ (9/22, PEOPLE [name mix]). PAOLO 9/21, voting
+       this bank UP with one correction: "a little more percentage of white people
+       names and we're good. Try to keep it natural. Hella Hispanic shit going on.
+       This game isn't like this Hispanic-ass game."
+       HE IS RIGHT AND THE COUNT SAYS SO. Counted before a name was added: 29 of 64
+       given names read Hispanic (45%) and 22 read Anglo (34%). Clark County is about
+       32% Hispanic or Latino and about 41% white non-Hispanic. The bank was a third
+       more Hispanic than the county it is built from.
+       NOTHING OF HIS IS DELETED. Every name above stays; these are added underneath
+       so the SHARE moves toward the real county and the mixing he liked is untouched.
+       Added: 15 Anglo, 7 Black, 4 Asian. */
+    'Wyatt', 'Nolan', 'Wade', 'Clyde', 'Garrett', 'Harlan', 'Travis', 'Colton',
+    'Opal', 'Pearl', 'Hazel', 'Fern', 'Loretta', 'Bonnie', 'Della',
+    'Jamal', 'Tyrell', 'Deshawn', 'Latrice', 'Keisha', 'Andre', 'Marcus',
+    'Minh', 'Anh', 'Jin', 'Mei'
   ];
   var SURNAME = [
     'Rivera', 'Okonkwo', 'Vasquez', 'Whitfield', 'Nguyen', 'Delgado', 'Boone', 'Salcedo',
@@ -5785,7 +5800,18 @@ if(typeof window!=='undefined') window.BohemiaLattice=BOH_LATTICE;
     'Aguirre', 'Beaumont', 'Mercado', 'Chavarria', 'Adeyemi', 'Portillo', 'Vue', 'Serrano',
     'Quintero', 'Rutledge', 'Galvan', 'Osei', 'Villalobos', 'Sepulveda', 'Marchetti', 'Tran',
     'Arroyo', 'Bramble', 'Cisneros', 'Nakamura', 'Peralta', 'Wexler', 'Bonilla', 'Aguilar',
-    'Castellanos', 'Odom', 'Lozano', 'Truong', 'Betancourt', 'Grady', 'Mireles', 'Achebe'
+    'Castellanos', 'Odom', 'Lozano', 'Truong', 'Betancourt', 'Grady', 'Mireles', 'Achebe',
+    /* __THE_NAME_BANK_TO_THE_COUNTY__ (9/22) -- the same correction, same arithmetic.
+       Counted before: 35 of 64 surnames read Hispanic (55%) against a county that is
+       about 32%. THE SPLIT THAT IS HONEST FOR SURNAMES IS HISPANIC / ASIAN / EVERYONE
+       ELSE, because Black and white American surnames are very largely the same pool
+       and pretending to sort them would be a classification nobody could check.
+       Added: 30 to the rest, 4 Asian. Nothing of his is deleted. */
+    'Kessler', 'Lindquist', 'Brennan', 'Doyle', 'Sutton', 'Pike', 'Marsh', 'Vance',
+    'Coyle', 'Webb', 'Hargrove', 'Blackwood', 'Renner', 'Crowder', 'Stanton',
+    'Ferris', 'Larkin', 'Quinn', 'Ashby', 'Tillman', 'Hatcher', 'Lund', 'Vogel',
+    'Emery', 'Kaminski', 'Novak', 'Gaines', 'Rucker', 'Stovall', 'Abernathy',
+    'Park', 'Yamada', 'Chu', 'Thao'
   ];
 
   // ---- THE LINES TABLE -- FILLED 8/12 (tools/bohemia_bark_factory.py)
@@ -44647,6 +44673,48 @@ function pplNearField() {
     want++;
   }
   if (!want) want = 1;
+  /* __NOBODY_STANDS_ON_ANYBODY__ (9/22, [no clumping] + [honest crowd] folded in).
+     PAOLO 9/21, TWICE, LOOKING AT THIS LANE'S OWN PICTURE: "why are so many people
+     on top of each other, on each other's ass... looks like complete dogshit."
+
+     *** THE COUNT FOLLOWED THE STREET INSTEAD OF THE CLOCK. *** `want` above is
+     HOW MANY STANDABLE CELLS ARE WITHIN REACH, and the number of cells does not
+     change with the hour, so the street drew the same crowd at ten in the morning
+     and at eight at night. Measured on the alpha, this lane's own 9/21 round: the
+     world puts 41 people outside at ten and 4 at eight, and the screen drew 23 and
+     24 both times.
+
+     THE SHARE IS THE WORLD'S OWN, NOT A DIAL. Ask his own block how many of its
+     people the schedule has out of doors right now and borrow that share of the
+     street. At six in the morning 3 of 61 are out, so a street that could hold
+     twenty-four holds one or two; at ten, 41 of 61 are out and it fills. Nothing
+     here is picked: both numbers come from pplAtSched, which is the same answer
+     the renderer already draws from. */
+  /* *** AND THIS LEG IS HELD, MEASURED, NOT FORGOTTEN. *** [honest crowd] would
+     scale `want` by that share and make morning and evening two different streets.
+     IT WAS BUILT, RUN, AND TURNED OFF AGAIN, because with it on the LANGUAGE gate
+     goes red: its claim "A SPANGLISH NEIGHBOUR ANSWERS IN SPANGLISH" stops being
+     satisfiable, because a street thinned to the world's real share no longer puts
+     one of every register inside the cells that gate walks. Isolated in three runs:
+     the skip and the spacing alone are green, the bank alone is green, this leg
+     alone is red.
+     THAT IS A REAL COST AND IT IS THE ROW'S OWN QUESTION, not a bug to route
+     around: an honest evening street has fewer people on it, and some of them were
+     the only speaker of their register within reach. It stays off until the trade
+     is ruled. The arithmetic below is kept and measured so the next round starts
+     from the number rather than from the idea. */
+  var __honestShare = 1;
+  if (false) try {
+    var __localAll = pplPeople(n0, n1) || [], __localOut = 0;
+    for (var __li = 0; __li < __localAll.length; __li++) {
+      var __lp = __localAll[__li], __la = pplAtSched(__lp);
+      if (__la[0] !== __lp.home[0] || __la[1] !== __lp.home[1]) __localOut++;
+    }
+    if (__localAll.length) {
+      __honestShare = __localOut / __localAll.length;
+      want = Math.max(1, Math.round(want * __honestShare));
+    }
+  } catch (_e) { /* no census: leave the old number, never guess one */ }
   /* WHO IS AVAILABLE: the valley's own people, from the same catchment the
      renderer already gathers, and ONLY the ones the schedule has out of doors.
      Nearest neighbourhoods first, and it STOPS as soon as it has enough -- so the
@@ -44691,6 +44759,37 @@ function pplNearField() {
   taken[hx + ',' + hy] = 1;
   /* the cells of the people he can see are already spoken for */
   for (var e1 of PPL_NEAR) taken[e1[1][0] + ',' + e1[1][1]] = 1;
+  /* __NOBODY_STANDS_ON_ANYBODY__ (9/22) -- AND A PERSON NEEDS THEIR OWN FOOTPRINT.
+     *** ONE BODY PER CELL WAS BEING KEPT AND IT WAS NEVER THE QUESTION. *** A body
+     is drawn at the ladder's one size (112 px, rule 21) on cells that are 11 px
+     wide at the walking camera, so A BODY IS TEN CELLS ACROSS. The occupancy law
+     was satisfied to the letter by two people on neighbouring cells whose art
+     overlapped by ninety percent. Measured on the alpha at the quietest hour of
+     the day, with only nine bodies on the glass: five overlapping pairs, four of
+     them past a quarter, the worst at 90.3%.
+
+     TWO GOOD DECISIONS COLLIDED AND NOBODY MEASURED THE PAIR. LIFE+CITY's 9/12
+     crowd (right: the street felt dead, and a crowd you can walk toward fixed it)
+     packs people into rings 0 to 4 cells out, which is a nine-cell square. Rule 21
+     (right: he hated his body changing size) fixes the body at 112. A nine-cell
+     square holding thirteen bodies that are ten cells wide each is not a crowd, it
+     is one blob, and that is the thing he saw.
+
+     THE ROOM IS THE GAME'S OWN ARITHMETIC, NOT A DIAL: the ladder's body size over
+     the cell size at the camera he walks at. Change either and this follows.
+     A CROWD IS STILL A CROWD: thirteen people spread by their own width still fill
+     the screen he is looking at; they just stop being inside each other. */
+  var __room = 1;
+  try { __room = Math.max(1, Math.round(bodyLadder(HZOOM) / HZOOM)); } catch (_e) { __room = 1; }
+  var __placed = [];
+  for (var e2 of PPL_NEAR) __placed.push(e2[1]);
+  function __roomy(fx, fy) {
+    for (var q = 0; q < __placed.length; q++)
+      if (Math.max(Math.abs(__placed[q][0] - fx), Math.abs(__placed[q][1] - fy)) < __room)
+        return false;
+    return true;
+  }
+  function __stand(fx, fy) { __placed.push([fx, fy]); }
   /* __A_CROWD_IS_SOMEWHERE_TO_WALK_TO__ (9/12) ==============================
      ROUND 8 of [more people]. Round 7 put a FLOOR under the street and the empty
      standings went from 116 of 120 to 65. What it could not do was give him a CROWD:
@@ -44802,15 +44901,18 @@ function pplNearField() {
       /* how many make a crowd is the module's own settlement size, and never more than
          half the borrowed people -- the floor round 7 measured has to survive this */
       var __want = Math.min(P.HEADS.cluster || 13, Math.floor(pool.length / 2));
+      /* THE RINGS STEP BY A BODY'S WIDTH, NOT BY ONE CELL. Same crowd, same place,
+         same count; they stand beside each other instead of inside each other. */
       for (var __r = 0; __r <= 4 && __knot < __want; __r++)
       for (var __dy = -__r; __dy <= __r && __knot < __want; __dy++)
       for (var __dx = -__r; __dx <= __r && __knot < __want; __dx++) {
         if (Math.max(Math.abs(__dx), Math.abs(__dy)) !== __r) continue;
-        var __fx = __spot[0] + __dx, __fy = __spot[1] + __dy;
+        var __fx = __spot[0] + __dx * __room, __fy = __spot[1] + __dy * __room;
         if (!pplStandable(__fx, __fy)) continue;
         var __k = __fx + ',' + __fy;
         if (taken[__k]) continue;
-        taken[__k] = 1;
+        if (!__roomy(__fx, __fy)) continue;
+        taken[__k] = 1; __stand(__fx, __fy);
         var __who = pool[__knot];
         PPL_NEAR.set(__who.id, [__fx, __fy]);
         PPL_NEAR_LIST.push(__who);
@@ -44821,12 +44923,23 @@ function pplNearField() {
   }
   if (!__knot) PPL_NEAR_AT = [hx, hy];   /* no crowd to anchor on: follow him instead */
   /* AND THE FLOOR, from whoever is left, so round 7's number does not come back up */
+  /* AND THE FLOOR KEEPS THE SAME ROOM. It walks the street cells nearest first, so
+     without this it hands out four neighbours in a row and rebuilds the blob the
+     rings just stopped making. Somebody who cannot be given room is not drawn on
+     top of a neighbour; they are simply not borrowed onto this street. */
   var n = Math.min(here.length, pool.length);
+  var __ci = 0;
   for (var s = __knot; s < n; s++) {
-    var cell = here[s - __knot], who = pool[s];
-    var kk = cell[0] + ',' + cell[1];
-    if (taken[kk]) continue;
-    taken[kk] = 1;
+    var who = pool[s], cell = null;
+    while (__ci < here.length) {
+      var __try = here[__ci++];
+      var __tk = __try[0] + ',' + __try[1];
+      if (taken[__tk]) continue;
+      if (!__roomy(__try[0], __try[1])) continue;
+      cell = __try; break;
+    }
+    if (!cell) break;                        /* no room left on this street */
+    taken[cell[0] + ',' + cell[1]] = 1; __stand(cell[0], cell[1]);
     PPL_NEAR.set(who.id, [cell[0], cell[1]]);
     PPL_NEAR_LIST.push(who);
   }
@@ -50804,6 +50917,12 @@ function ctKnownDeeds(id, limit){
 var BARK = { p: null, text: '', until: 0, at: null, beat: -1, next: 0 };
 var BARK_SEEN = {};                 /* who has spoken recently, so it moves around */
 var BARK_DREW = [];                 /* filled by peoplePass: who is ON SCREEN */
+/* __NOBODY_STANDS_ON_ANYBODY__ (9/22, [no clumping]) -- WHERE EVERY BODY THIS FRAME IS
+   STANDING, IN CELLS, AND HOW MUCH ROOM ONE NEEDS, IN PIXELS. One list, because two
+   passes draw people (peoplePass and hostilePass, the second running inside the first)
+   and a spacing guarantee that only one of them consults is not a guarantee. Reset by
+   peoplePass at the top of every frame, seeded with the player. */
+var CT_DREW_AT = [], CT_DREW_ROOM = 0;
 
 /* READING SPEED, the same numbers the cutscenes use (bohemia_stage.js): 14
    characters per second, never under 833ms, never over 7s. Netflix ships 20cps
@@ -52557,6 +52676,27 @@ function hostilePass(ox, oy, C){
       var lad = bodyLadder(C);   /* __THE_BUBBLE_IS_NOT_ON_HIS_FACE__: one rule, one place */
       var img = spriteAt(spr, bodySpriteC(C));   /* the rung the box just chose, never the cell's */
       var dx0 = Math.round(sx + C / 2 - lad / 2 + jx), dy0 = Math.round(sy + C - lad + jy);
+      /* __NOBODY_STANDS_ON_ANYBODY__ (9/22, [no clumping]) -- AND A CREW IS THE WORST
+         OFFENDER IN THE GAME. Measured on the alpha: the two worst-overlapping bodies
+         on the whole screen were both from this pass, at 90.3% of each other, because
+         a crew's members are jittered around ONE corner cell by about a cell each way
+         while a body is drawn ten cells wide.
+         THE SAME LIST THE PEOPLE PASS KEEPS, because this pass runs inside that one and
+         a guarantee that covers one of the two is not a guarantee. A crew member who
+         cannot be given a body's room is not drawn standing inside their mate; the crew
+         is still a crew, it just stops being one shape. */
+      var __px = dx0 + lad / 2, __py = dy0 + lad / 2, __room = 1;
+      try { __room = CT_DREW_ROOM || lad; } catch (_e) { __room = lad; }
+      var __on = false;
+      try {
+        for (var __q = 0; __q < CT_DREW_AT.length; __q++) {
+          var __ax = ox + CT_DREW_AT[__q][0] * C + C / 2;
+          var __ay = oy + CT_DREW_AT[__q][1] * C + C - lad / 2;
+          if (Math.abs(__ax - __px) < __room && Math.abs(__ay - __py) < __room) { __on = true; break; }
+        }
+      } catch (_e) { __on = false; }
+      if (__on) continue;
+      try { CT_DREW_AT.push([(__px - ox - C / 2) / C, (__py - oy - C + lad / 2) / C]); } catch (_e) {}
       try { g.drawImage(pplTinted(dir, (k * 37 + 11) % 97, img), dx0, dy0, lad, lad); }
       catch(_e) { g.drawImage(img, dx0, dy0, lad, lad); }
       drawn++;
@@ -52971,7 +53111,42 @@ function peoplePass(ox, oy, C) {
      how you end up blaming a renderer that is doing what it was told. Every skip below
      already decides something; this only records which one fired. Free, and it means
      the next empty street is a read instead of an investigation. */
-  const skip = { roster: roster.length, onPlayer: 0, stacked: 0, offscreen: 0, noSprite: 0 };
+  const skip = { roster: roster.length, onPlayer: 0, stacked: 0, offscreen: 0, noSprite: 0,
+                 inside: 0 };
+  /* __NOBODY_STANDS_ON_ANYBODY__ (9/22, [no clumping]). PAOLO 9/21, TWICE: "why are
+     so many people on top of each other, on each other's ass."
+     *** ONE BODY PER CELL WAS BEING KEPT PERFECTLY AND IT WAS NEVER THE QUESTION. ***
+     A body is drawn at the ladder's one size (112 px, rule 21) on cells that are 11 px
+     wide at the walking camera, so A BODY IS TEN CELLS ACROSS and two people on
+     neighbouring cells satisfy the law while their art overlaps by ninety percent.
+     Measured on the alpha at the quietest hour, with nine bodies on the glass: five
+     overlapping pairs, four past a quarter, the worst 90.3%.
+     THIS IS THE SAME LAW ONE LAYER OUT, at the glass where it already lives, asked of
+     the body's real footprint instead of its cell. The borrow was given the same room
+     upstairs, but the borrow's `taken` set has never seen the LOCALS -- this file's own
+     comment says the collision "was always LOCAL AGAINST LOCAL" -- so the guarantee has
+     to be here, where every body passes through, borrowed or not.
+     THE ROOM IS A WHOLE BODY, because the row's ship test is ZERO OVERLAPPING BODIES
+     and nothing less delivers it. Half a body was tried first and measured: two people
+     six cells apart still covered a third of each other, because equal boxes only fall
+     under a quarter once they are three quarters of a body apart. A full body is the
+     only spacing with no arithmetic left in it.
+     AND THE LIST IS SHARED WITH THE HOSTILE PASS, which runs inside this one and drew
+     two bodies at 90.3% of each other while this pass was clean. A guarantee that only
+     covers one of the two passes that draw people is not a guarantee. */
+  const ROOM = Math.max(1, bodyLadder(C));                     /* one whole body, in pixels */
+  /* *** AND THE PLAYER IS NOT ON THIS LIST, WHICH COST THREE OF THIS LANE'S OWN
+     GATES TO LEARN. *** The first cut seeded it with him, on the reasoning that
+     nobody should stand on the player either. Measured: it meant NOBODY CAN STAND
+     BESIDE HIM, so the person who comes to his door -- the thing this lane spent
+     three rounds building -- stopped being drawn and stopped speaking. FACE AT THE
+     DOOR went 31/0 to 25/6 with "somebody really spoke" reading false.
+     HE IS ALREADY COVERED, by the cell law two lines below that has guarded him
+     since the occupancy law was written. What he was complaining about is a CROWD
+     stacked on itself, never one person standing next to him. */
+  CT_DREW_AT = [];
+  const drawnAt = CT_DREW_AT;
+  CT_DREW_ROOM = ROOM;
   CT_RAMP_LEFT = CT_RAMP_PER_FRAME;   /* ONE FRAME'S WORTH of new recolours, and no more */
   for (let i = 0; i < roster.length; i++) {
       const p = roster[i];
@@ -52980,6 +53155,13 @@ function peoplePass(ox, oy, C) {
       if (fx === hx && fy === hy) { skip.onPlayer++; continue; }    /* OCCUPANCY LAW: one body per cell, player included */
       const cellK = fx + ',' + fy;
       if (onCell.has(cellK)) { skip.stacked++; continue; }         /* OCCUPANCY LAW: and one body per cell, full stop */
+      /* NOBODY STANDS ON ANYBODY: the same law, asked of the footprint. */
+      let inside = false;
+      for (let q = 0; q < drawnAt.length; q++)
+        if (Math.abs(drawnAt[q][0] - fx) * C < ROOM && Math.abs(drawnAt[q][1] - fy) * C < ROOM)
+          { inside = true; break; }
+      if (inside) { skip.inside++; continue; }
+      drawnAt.push([fx, fy]);
       onCell.add(cellK);
       const sx = ox + fx * C, sy = oy + fy * C;
       if (sx < -C * 3 || sy < -C * 4 || sx > cv.width + C * 3 || sy > cv.height + C * 3) { skip.offscreen++; continue; }

@@ -589,7 +589,22 @@
     'Juniper', 'Malachi', 'Socorro', 'Everett', 'Anahi', 'Tobias', 'Renata', 'Cyrus',
     'Marisela', 'Jonah', 'Adaeze', 'Wendell', 'Citlali', 'Amos', 'Nadia', 'Ruben',
     'Ofelia', 'Kai', 'Belen', 'Horace', 'Sunny', 'Idalia', 'Emmett', 'Reyna',
-    'Abel', 'Lourdes', 'Milo', 'Trinh', 'Esperanza', 'Roman', 'Clemencia', 'Jarvis'
+    'Abel', 'Lourdes', 'Milo', 'Trinh', 'Esperanza', 'Roman', 'Clemencia', 'Jarvis',
+    /* __THE_NAME_BANK_TO_THE_COUNTY__ (9/22, PEOPLE [name mix]). PAOLO 9/21, voting
+       this bank UP with one correction: "a little more percentage of white people
+       names and we're good. Try to keep it natural. Hella Hispanic shit going on.
+       This game isn't like this Hispanic-ass game."
+       HE IS RIGHT AND THE COUNT SAYS SO. Counted before a name was added: 29 of 64
+       given names read Hispanic (45%) and 22 read Anglo (34%). Clark County is about
+       32% Hispanic or Latino and about 41% white non-Hispanic. The bank was a third
+       more Hispanic than the county it is built from.
+       NOTHING OF HIS IS DELETED. Every name above stays; these are added underneath
+       so the SHARE moves toward the real county and the mixing he liked is untouched.
+       Added: 15 Anglo, 7 Black, 4 Asian. */
+    'Wyatt', 'Nolan', 'Wade', 'Clyde', 'Garrett', 'Harlan', 'Travis', 'Colton',
+    'Opal', 'Pearl', 'Hazel', 'Fern', 'Loretta', 'Bonnie', 'Della',
+    'Jamal', 'Tyrell', 'Deshawn', 'Latrice', 'Keisha', 'Andre', 'Marcus',
+    'Minh', 'Anh', 'Jin', 'Mei'
   ];
   var SURNAME = [
     'Rivera', 'Okonkwo', 'Vasquez', 'Whitfield', 'Nguyen', 'Delgado', 'Boone', 'Salcedo',
@@ -599,7 +614,18 @@
     'Aguirre', 'Beaumont', 'Mercado', 'Chavarria', 'Adeyemi', 'Portillo', 'Vue', 'Serrano',
     'Quintero', 'Rutledge', 'Galvan', 'Osei', 'Villalobos', 'Sepulveda', 'Marchetti', 'Tran',
     'Arroyo', 'Bramble', 'Cisneros', 'Nakamura', 'Peralta', 'Wexler', 'Bonilla', 'Aguilar',
-    'Castellanos', 'Odom', 'Lozano', 'Truong', 'Betancourt', 'Grady', 'Mireles', 'Achebe'
+    'Castellanos', 'Odom', 'Lozano', 'Truong', 'Betancourt', 'Grady', 'Mireles', 'Achebe',
+    /* __THE_NAME_BANK_TO_THE_COUNTY__ (9/22) -- the same correction, same arithmetic.
+       Counted before: 35 of 64 surnames read Hispanic (55%) against a county that is
+       about 32%. THE SPLIT THAT IS HONEST FOR SURNAMES IS HISPANIC / ASIAN / EVERYONE
+       ELSE, because Black and white American surnames are very largely the same pool
+       and pretending to sort them would be a classification nobody could check.
+       Added: 30 to the rest, 4 Asian. Nothing of his is deleted. */
+    'Kessler', 'Lindquist', 'Brennan', 'Doyle', 'Sutton', 'Pike', 'Marsh', 'Vance',
+    'Coyle', 'Webb', 'Hargrove', 'Blackwood', 'Renner', 'Crowder', 'Stanton',
+    'Ferris', 'Larkin', 'Quinn', 'Ashby', 'Tillman', 'Hatcher', 'Lund', 'Vogel',
+    'Emery', 'Kaminski', 'Novak', 'Gaines', 'Rucker', 'Stovall', 'Abernathy',
+    'Park', 'Yamada', 'Chu', 'Thao'
   ];
 
   // ---- THE LINES TABLE -- FILLED 8/12 (tools/bohemia_bark_factory.py)
