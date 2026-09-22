@@ -26,9 +26,12 @@ When this was written there were ZERO AudioContexts before the door, so the cont
 was created BY the tap. AMENDED 9/23: RUN's loading screen calls the unlock path at
 1,027 ms, so ONE context now exists before the door -- and it is SUSPENDED, with
 MUS.playing false. A suspended context has made no sound and its clock has not
-moved, so the tap is still where context time starts, and the claim now reads the
-STATE instead of counting objects. "Within one beat of the tap" is still exactly
-"startedAt <= one beat of context time", with no wall clock in it at all.
+moved, so the claim now reads the STATE instead of counting objects.
+AND THE FREE ANCHOR IS GONE WITH IT. Two runs on one tree booked the room at context
+time 0.151 s and at 3.741 s against a 0.5 s bar, so a suspended context's clock is
+NOT reliably stopped and context zero is no longer the tap. The ship test now reads
+the context clock at the tap and asks for the GAP: booked within one beat OF THE TAP.
+Same bar, same law, still no wall clock in it at all.
 
 WHAT THIS GATE REFUSES TO ACCEPT AS EVIDENCE:
   * A GREP. Nothing reads the alpha as text.
@@ -136,6 +139,19 @@ const CPU = 4;
     out.playingBeforeTap = await p.evaluate(() => {
       try { return !!(typeof MUS !== 'undefined' && MUS.playing); } catch(e){ return 'threw'; } });
     await p.click('#front', { force:true }).catch(e => { out.clickErr = String(e.message).slice(0,70); });
+    /* THE CONTEXT CLOCK AT THE TAP, READ IMMEDIATELY AFTER IT (9/23). This is the
+       anchor the ship test needs, and it used to be free: the context was created BY
+       the tap, so context time zero WAS the tap. It is not free any more -- RUN's
+       loading screen makes the context 25 seconds earlier -- and MEASURED, two runs
+       on one tree, the room was booked at context time 0.151 s and at 3.741 s, a 25x
+       spread against a 0.5 s bar. A SUSPENDED CONTEXT'S CLOCK IS NOT RELIABLY
+       STOPPED, which is an assumption I wrote down one commit ago and this measured
+       it wrong. So the test is booked-minus-tap, which is the thing the row actually
+       promises ("a sound within one beat of the tap") and is immune to when the
+       context was made. */
+    out.acAtTap = await p.evaluate(() => {
+      try { return (typeof MUS !== 'undefined' && MUS.AC) ? MUS.AC.currentTime : null; }
+      catch(e){ return null; } });
     out.doorClosed = await p.evaluate(() => { const f=document.getElementById('front');
       return !!f && getComputedStyle(f).display === 'none'; });
 
@@ -362,11 +378,24 @@ def main():
           '(read as __roomState, the way the build spells __pulseState)')
     claim('THE ROOM IS RUNNING AFTER THE TAP', s.get('on') is True, '')
 
+    # *** MEASURED FROM THE TAP, NOT FROM CONTEXT ZERO (9/23), AND THIS CORRECTS WHAT
+    # I WROTE ONE COMMIT AGO. That commit said a suspended context's clock has not
+    # moved, so context zero is still the tap. TWO RUNS ON ONE UNCHANGED TREE THEN
+    # BOOKED THE ROOM AT 0.151 s AND AT 3.741 s against a 0.5 s bar -- a 25x spread,
+    # and a red that blamed the room for the loading screen existing.
+    # A SUSPENDED CONTEXT'S CLOCK IS NOT RELIABLY STOPPED. The free anchor is gone,
+    # so the gate reads MUS.AC.currentTime immediately after the click and asks the
+    # question the row actually promises: booked WITHIN ONE BEAT OF THE TAP. Same bar,
+    # same law, an anchor that does not depend on when the context was created.
     st = s.get('startedAt')
+    tap = d.get('acAtTap')
+    gap = (st - tap) if isinstance(st, (int, float)) and isinstance(tap, (int, float)) else None
     claim('SOUND WITHIN ONE BEAT OF THE TAP',
-          isinstance(st, (int, float)) and 0 <= st <= ONE_BEAT,
-          'booked to start at context time %ss, one beat is %ss (THE ROW\'S SHIP TEST)'
-          % (st, ONE_BEAT))
+          isinstance(gap, float) and -0.01 <= gap <= ONE_BEAT,
+          'booked at context time %ss, the tap was at %ss, so %ss after it; one beat '
+          'is %ss (THE ROW\'S SHIP TEST, measured from the tap because the context is '
+          'now made 25 s before the door)'
+          % (st, tap, None if gap is None else round(gap, 4), ONE_BEAT))
 
     snd = d.get('sound') or {}
     if snd.get('fatal'):
