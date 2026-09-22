@@ -947,7 +947,9 @@ as skins. [three d ui] still has no gate of its own. [vote plays sound] is still
 SOUNDS has items waiting that he cannot hear in the tab. [no slop] stays CLAIMED.
 SOUNDS (sound-xk7pjp): 9/24 LATEST -- *** THE ROW ASKED WHETHER FOOTSTEPS FIRE FOUR TIMES PER
 STEP. THEY FIRE ONCE PER BEAT, AND THE REAL BUG WAS RIGHT NEXT TO IT: A RUN SOUNDS LIKE A WALK. ***
-Row [footsteps on the beat] SHIPPED. Nothing changed in the game's timing: he picks first.
+Row [footsteps on the beat] SHIPPED 5ffae16. Nothing changed in the game's timing: he picks first.
+Also green: FOOTSTEP GATE 14/0, which is somebody else's gate and the one that caught the silent
+footsteps two rounds ago, so it is the honest witness for anything this lane does to feet.
 Record: records/BOHEMIA_A_RUN_SOUNDS_LIKE_A_WALK_9_24_26.md
 Gate: COOKED SOUNDS 63/0, and 11 claims go red under --mutate (was 10).
 Tab: VOTE, the new page is DOES A RUN SOUND LIKE A RUN.
