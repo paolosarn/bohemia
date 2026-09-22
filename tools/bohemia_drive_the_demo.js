@@ -416,6 +416,12 @@ async function open(opts) {
       hx: typeof hx !== 'undefined' ? hx : null,
       hy: typeof hy !== 'undefined' ? hy : null })),
     clearCards, tapEl, tapAt,
+    /* pageEval (DIRECTION 9/22, minimal extension under rule 14g): the 9/22b door
+       holds until BEGIN and ignores the boot tap above BY DESIGN (rule 18a), so a
+       caller needs to read the top page (is the text BEGIN yet, is #front gone)
+       to walk through it. Exposing evaluate is cheaper and honester than teaching
+       this file every future overlay. */
+    pageEval: (fn, arg) => page.evaluate(fn, arg),
     pinchOut: () => pinch(150, 25),          /* toward the city */
     pinchIn:  () => pinch(25, 150),          /* back down to the street */
     /* the canvas only: the phone chrome is not the game */

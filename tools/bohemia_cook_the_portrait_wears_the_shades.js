@@ -21,6 +21,13 @@
  * where this lane put the light on the face two rounds running. One light, everywhere, or
  * it is not a light.
  *
+ * REFERENCE CHECK (the 9/4 standing duty; added by DIRECTION 9/22 at the seam --
+ * FOURTH cook tool in two rounds to ship without one, all from lanes new to rule
+ * 22's cook-every-round; the pattern is routed): the rulers are AH-01 (the bible;
+ * rule 4's one light and rule 6's still face are the header's own argument) and
+ * THE PORTRAIT WEARS THE HAIRCUT THE BODY IS WEARING (8/28 law) as the mechanism
+ * this tool extends to worn shades. AH-01 resolves in the reference library index.
+ *
  * RIG CHECK: renders and reads; no joint, no bone, no painted pixel. It does NOT change
  * the shipped renderer -- rule 18 keeps code off the play surface and rule 15 says he sees
  * it in VOTE first.

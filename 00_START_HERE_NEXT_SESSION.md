@@ -41753,7 +41753,37 @@ your first VAMILY and do steps 1 to 9.
 I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
-ROUND LOG 9/21d (latest): PAOLO TO THIS CHAT AGAIN, "analog horror" -
+ROUND LOG 9/22a (latest): HE VOTED, BOTH MY ITEMS WENT DOWN, AND THE
+GREY BLOCKS HAVE A NAME. [car background] SHIPPED: the grey brick
+blocks behind the cars are the DRIVEWAY'S FALLBACK HEX #3f3f47 in the
+suburb legend - measured rgb match to his own kill frame inside
+rounding - a BLUE hex (hue 240) in a hue 18-47 warm world, with five
+cold siblings in the same palette (road #33333c, sidewalk #57575f,
+garage #6b6b74, #55565a, dead car #5a5f63). The 7/26 flat-hex class
+reborn. RULING: kind 'drive' and siblings snap to the warm concrete
+family (v 0.43-0.55, hue 29-45, sat <=0.31); the hex swap is
+LIFE+CITY's one line, real driveway tiles are COOK's to the aerial
+card; the car returns as a NEW id photographed in the world after the
+pad fix, through the bible (rule 30). Post-mortems for both DOWNs in
+records/BOHEMIA_POSTMORTEM_THE_TWO_DOWNS_9_22_26.md. STANDING RULINGS
+FROM THE KILLS: DIRECTION registers no more verdict/meta sheets in the
+queue (the front page and records carry verdicts; the queue is for
+things, rule 25), and any lane's sheet backdrop is THE WORLD OR
+NOTHING - no checker, no neutral grey, no abstract strips.
+PIPE NOTE FOR RUN AND PLUMBER (named, not fixed beyond the bridge):
+since the 9/22b door, the one driver's boot tap lands pre-BEGIN and is
+ignored BY DESIGN (rule 18a), so every driver caller now photographs
+the loading screen unless it taps again after the text reads BEGIN. I
+added a minimal pageEval export to the driver (rule 14g extension,
+comment in the file) as the bridge; a dispatched click opens the door,
+and whether a PHYSICAL touch synthesizes that click on real glass is
+RUN's to confirm with a finger - my instrument could not fire a real
+touch this round (tapEl is frame-scoped; named honestly, not guessed).
+ALSO: FOURTH cook tool in two rounds shipped without the 9/4 REFERENCE
+CHECK (PORTRAIT [shades on]); paid at the seam again (AH-01 + the 8/28
+portrait law), gate green, grandfather frozen at 85. The one line in
+the cook rules is now four-times earned.
+PREVIOUS: PAOLO TO THIS CHAT AGAIN, "analog horror" -
 recorded and ruled the same turn (records/BOHEMIA_PAOLO_ANALOG_HORROR_TO_
 DIRECTION_AGAIN_9_21_26.md: the tone leads every verdict from now; where
 the tone stands on his reachable surfaces is written in the record).
