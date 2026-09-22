@@ -24458,6 +24458,112 @@ since 9/6, it also holds 19 QUESTS (BUILD). The front page's chat-19 line says a
 chat with an empty queue takes QUESTS, and DYNASTY's queue went empty at Q16. The
 lane and its first row were claimed and pushed BEFORE any work started. ***
 
+ROUND 48 [strike ask] THE PICKET IS AN ASK, AND THE COOK IS THE ASK ITSELF.
+QUESTS, BUILD. f403acc. Gate STRIKE ASK 20/0, registered.
+  records/BOHEMIA_QUESTS_THE_PICKET_ASK_9_22_26.md
+
+COOKED (rule 22, and rule 29 finally answered): SOMEBODY STOPS YOU AT YOUR OWN
+DOOR, in the VOTE tab, id quests-somebody-stops-you-at-your-door-9-22, a PICTURE
+off the real game at phone size, not a page of writing. Estella Gaines standing at
+his door, her name under her feet, one line in a bubble, no card, nothing to close.
+  slices/vote/QUESTS_SOMEBODY_STOPS_YOU_AT_YOUR_DOOR_9_22.png
+
+RULE 12 FIRST: the row's named blocker (WORLD [block strikes]) really did land on
+9/21, so the row was buildable and nothing waited.
+
+AND THE VISIBLE CHANGE IS ONE HE ALREADY NAMED. HIS SIX STAY SIX. This lane's own
+first law is that an ask which changes nothing visible is not an ask, and the six
+changes are HIS. person_moves_house shipped with proof:null and the honest note
+"nothing in the repo moves a person from one home to another" -- which is exactly
+what WORLD then built. Glasgow 1915 was never won on money, it was won on THE
+VACANCY: a landlord's cut only works if he can replace you, and he cannot replace a
+door the block is holding. Wired to held(). 4 wired / 2 unwired -> 5 / 1, and the
+last one (rumour_turns) still says out loud that it is unwired.
+THE CHEAP WAY TO SHIP THIS ROW WAS TO INVENT A SEVENTH CHANGE, so the gate has a
+leg that goes RED if anybody ever does.
+
+readDoor(snap) keeps only a door that is BOTH cut and empty -- a cut that is not
+live, or a flat nobody is coming for, produces nothing rather than a picket over an
+eviction that is not happening. It never re-derives whether the block holds; that
+is WORLD's answer and there is one of it.
+
+DORMANT IN THE PLAY SURFACE BY CONSTRUCTION (rule 18): ctAskSnapshot builds no
+snap.doors, so readDoor returns empty on the walked street today and the live ask
+stream is unchanged. Measured: shelves 1, circuits 1, borders 1, talk 0, live ask
+still shelf_refills.
+
+*** TWO THINGS FOUND THAT ARE NOT THIS LANE'S TO FIX, BOTH BISECTED OR MEASURED
+AGAINST A CLEAN origin/main WORKTREE, BOTH WRITTEN UP FOR THE OWNING LANE. ***
+
+(1) THE BLOCK STOPPED SEEING YOU. Nobody in the walked city remembers seeing you
+    any more: CT_MINDS stays empty while you walk. Bisected with three runs per
+    commit, because one sample is not a baseline:
+        5ca10f2  ANIMATION slide is the feel        17 · 17 · 17 minds
+        e9f3091  [no clumping] nobody stands on ...  1 ·  0 ·  2 minds
+    BOTH HALVES ARE RIGHT ON THEIR OWN, which is why nobody caught it. De-clumping
+    gives each body its own footprint: round(bodyLadder(HZOOM)/HZOOM) =
+    round(112/11) = 10 cells. The city's memory records a witness inside
+    BohemiaMemory.RADIUS = 8. Ten is bigger than eight, so the crowd is laid out on
+    a grid wider than the distance at which anybody can see anything. The pass runs
+    every game minute, finds the roster, and every body on it is out of range
+    (forced by hand on current main: returns 0, with the module loaded, PLAYER_CV
+    true, 61 people alive and 5 bodies on the glass).
+    DARK BECAUSE OF IT: standing, reputation, who vouches and who will not, deed
+    barks, familiarity, the missing-persons organ, and the picket count in the
+    strike this very row just wired (held() counts the block's minds, so every
+    block reads NOT_KNOWN forever).
+    THIS LANE'S OWN GATE HAGGLE LIKE BB IS 18/2 ON IT AND STAYS RED. It is
+    reporting a real thing about the game; quietening it to make a round look
+    finished would be worse than having no checker.
+    NOT closable by widening RADIUS to a number somebody picked. __room is already
+    the game's own arithmetic, so a radius expressed in BODIES rather than in cells
+    survives any camera change.
+    records/BOHEMIA_QUESTS_THE_BLOCK_STOPPED_SEEING_YOU_9_22_26.md
+
+(2) THE FACE IN THE BUBBLE IS NOT HER. Estella's body is a young woman; the face
+    inside her speech bubble is a bearded man. Measured over 40 people on the
+    walked street: 30 carry `look` and 36 carry `face`, both INDEXES INTO THE
+    CITY'S OWN BAKED CAST. The bubble ignores them -- ctFaceAsk -> the shell's
+    faceFor(id), which ROLLS a face out of a hash of the id string. The shell's own
+    comment says so, in the branch that fixed exactly this FOR THE PLAYER
+    (who === 'you' gets buildSpec()) and left it open for everybody else. The law
+    was closed for one id and left open for sixty.
+    This lane's piece of the chain is correct -- it asks for the SPEAKER's own id
+    and never a second one -- which is why her NAME is right in the same picture
+    her face is wrong in. Said out loud in the vote item's caption rather than
+    hidden, so he is not voting on somebody else's bug.
+    records/BOHEMIA_QUESTS_THE_FACE_IN_THE_BUBBLE_IS_NOT_HER_9_22_26.md
+
+ALSO SEEN AND NOT MINE: the street's shared line (#packline) draws wider than the
+phone, so "2 OF THEM AND THEY ARE NOT FRIENDLY. TAP ONE AND IT STARTS." runs off
+the left edge with its second row clipped. The bark bubble is clamped and does not
+do this; the HUD line is not. Photographed in the round's first cut.
+
+AND THE CAMERA LESSON, WRITTEN DOWN BECAUSE IT COST TWO SHOTS: THE ONE DRIVER TAPS
+#front BEFORE RUN'S LOADING SCREEN SETS __LOAD_READY, and that handler returns on
+its first line when it is not ready. The game boots behind it and every probe that
+reads the FRAME works perfectly -- but the SPLASH IS STILL ON THE GLASS, so
+d.shot() photographs the loading screen. Any lane taking a picture must wait for
+__LOAD_READY, tap #front again, and then (since UI's landing) switch to the RUN
+tab, because the alpha opens on VOTE now. Second half of the same lesson: this city
+is I-MOVE-YOU-MOVE, so DO NOT press the pad again to force a redraw -- the bubble
+is already painted and pressing walks the speaker off screen.
+
+PRE-PUSH PASS (rule 13): STRIKE ASK 20/0, ASK HAS A MOUTH 29/0, WIRE THE DOOR 15/0,
+ASKS VISIBLE 38/0 (5 of 6 wired), VOTE TAB 30/0, ALPHA LOADS 20/0, ATTEMPT 15/0,
+INLINED-FRESH 3/0 (139 modules byte-identical after the resync). ASKS VISIBLE
+earned its keep mid-round: it caught the city at 4-of-6 while the engine file was
+at 5-of-6, because an engine edit is not a game edit until it is inlined.
+PAGES PUBLISH 17/1, published surface 268 MB against a 260 MB cap -- identical
+17/1 and identical 268 MB on clean main; my picture is 0.2 MB. Every lane adding a
+page a round under rule 22 is what is filling it.
+Full suite unmeasured since ad23d875.
+
+STILL HELD ON claude/dynasty-vamily-w4yxiz AND NOT ON MAIN (rule 18):
+[main quest live], finished and 43/0, resynced onto main again this round.
+NEXT: [light the pump] is the queue's next unblocked row. [act two] stays PARKED
+by Paolo ("I don't know who dies at the end of act one, ask me later").
+
 ROUND 47 [haggle like bb] PUSHING TOO MUCH HURTS, AND IT NEVER DID BEFORE.
 QUESTS, BUILD. 121c776. Gate HAGGLE LIKE BB 20/0, registered.
   records/BOHEMIA_QUESTS_PUSH_TOO_MUCH_HURTS_9_22_26.md
