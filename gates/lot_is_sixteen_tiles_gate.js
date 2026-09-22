@@ -261,6 +261,17 @@ async function walkAndCheck(browser, BASE, where, url) {
   }
 
   /* ---------- THE HOUSE BOARD, WHICH IS THE BOARD A FIGHT STARTS ON ---------- */
+  /* MEASURE WHAT THIS GATE IS ACTUALLY HOLDING, because three theories about these
+     zeroes have now been wrong and a fourth guess is not owed one. */
+  const who = await cf.evaluate(() => { const c = document.getElementById('cv');
+    let p = 0, t = 0; try { p = Object.keys(_LOTP).length; } catch (e) {}
+    try { t = Object.keys(_stCache).length; } catch (e) {}
+    return { url: location.href.slice(-46), ready: (typeof STREET_READY!=='undefined')?STREET_READY:'absent',
+      cv: c ? (c.width + 'x' + c.height) : 'none', patches: p, stCache: t,
+      phase: (typeof G!=='undefined')?G.phase:'?', over: (typeof G!=='undefined')?!!G.over:'?',
+      imgs: (typeof STREET_IMG!=='undefined')?Object.keys(STREET_IMG).length:'absent',
+      frames: window.parent===window ? 'top' : 'child' }; }).catch(e => ({ err: String(e).slice(0,80) }));
+  console.log('  WHO AM I MEASURING: ' + JSON.stringify(who));
   const A = await cf.evaluate(REBUILD(''));
   const sub = k => A.hist[k] || 0;
   ok(where + ': the board a fight starts on IS the house board', A.house === true);
