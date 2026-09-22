@@ -102,12 +102,25 @@ const READ = `(() => {
   try { out.twoX = Object.keys(STREET_IMG2X).length; } catch (e) { out.twoX = null; }
   try { out.ready = STREET_READY; } catch (e) {}
   try { out.grid = !!G.cellGrid; } catch (e) {}
+  /* THE GLASS, WHICH IS WHERE THE LAST SIZE LIE WAS. The walked world sizes its canvas
+     1:1 with CSS; the fight doubled it on a phone, so the same 112 box was 112 CSS on
+     the street and 56 here. k is the canvas's backing pixels per CSS pixel. */
+  try { const c = document.getElementById('cv');
+    const r = c.getBoundingClientRect();
+    out.k = +(c.width / Math.max(1, r.width)).toFixed(3);
+    out.bodyCSS = +(out.bodyPx / out.k).toFixed(1);
+    out.tileCSS = +(out.tilePx / out.k).toFixed(1); } catch (e) {}
   return out;
 })()`;
 
 async function walkAndCheck(browser, BASE, where, url) {
   console.log('\n--- ' + where + ' ---');
-  const page = await browser.newPage({ viewport: { width: 430, height: 932 } });
+  /* THE PHONE PROFILE body_scale_gate MEASURES THE STREET ON (390x844, ratio 3,
+     mobile), because the coordinator's 9/23 note asks for the fighter in CSS px "same
+     as body_scale_gate measures the street" and a claim about two surfaces has to be
+     taken in one unit on one screen. */
+  const page = await browser.newPage({ viewport: { width: 390, height: 844 },
+    deviceScaleFactor: 3, isMobile: true, hasTouch: true });
   page.on('pageerror', () => {});
   await page.goto(BASE + url, { waitUntil: 'load', timeout: 120000 });
   await sleep(6000);
@@ -139,10 +152,15 @@ async function walkAndCheck(browser, BASE, where, url) {
 
   /* THE STREET'S OWN NUMBER, READ IN THE SAME SESSION, because rule 21 is a claim
      about TWO surfaces and half a comparison proves nothing. */
-  const walkBody = await city.evaluate(() => {
-    const h = (HOST_HIT || [])[0]; return h ? h.w : null; });
+  const walk = await city.evaluate(() => {
+    const h = (HOST_HIT || [])[0], r = cv.getBoundingClientRect();
+    const k = cv.width / Math.max(1, r.width);
+    return h ? { box: h.w, k: +k.toFixed(3), css: +(h.w / k).toFixed(1) } : null; });
+  const walkBody = walk && walk.box;
   ok(where + ': the walked street draws its person at the 112 box (' + walkBody + ')',
      walkBody === 112);
+  ok(where + ': and the walked canvas is 1:1 with CSS, so that box is ' +
+     (walk && walk.css) + ' CSS px', !!walk && walk.k === 1 && walk.css === 112);
 
   /* a real fight, started the way he starts one: walk up to a crew and tap one */
   await sleep(1500);
@@ -225,6 +243,18 @@ async function walkAndCheck(browser, BASE, where, url) {
   ok(where + ': the street draws no grid and the fight strokes none into its floor (' +
      strokes + ')', strokes === 0);
   ok(where + ': and it is behind a dial, not deleted', A.grid === false);
+
+  /* *** THE COORDINATOR'S 9/23 GATE: THE FIGHTER IN CSS PIXELS, ON THE PHONE. ***
+     "the last size lie is the glass: 112 CSS px on the street against 56 in the fight
+     at the same body constant, device pixel ratio... [fight feel] does not start until
+     it reads 112." The 112-box arm above CANNOT see this: the box was 112 before and
+     after, and the lie was in the canvas. */
+  ok(where + ': *** THE FIGHTER IS 112 CSS PIXELS ON THE PHONE, THE SAME AS THE STREET *** (' +
+     A.bodyCSS + ' CSS, was 56)', A.bodyCSS === 112);
+  ok(where + ': because the fight sizes its canvas the way the street does, 1:1 with CSS (k=' +
+     A.k + ')', A.k === 1);
+  ok(where + ': and the lot came with it, so he still stands about half a lot (' +
+     A.tileCSS + ' CSS lot)', Math.abs(A.tileCSS - 196) <= 1);
 
   /* THE BODY BOARD DID NOT MOVE. */
   const B = await cf.evaluate(`(() => { G.houseTile = false; const r = ${READ}; G.houseTile = undefined; return r; })()`);
