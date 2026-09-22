@@ -9,7 +9,7 @@ and never explains; the one word is the whole instruction. ***
 
 ## THE PILLARS, IN ONE BREATH (the long form is laws/BOHEMIA_LAWS_MASTER_9_4_26.md)
 THERE ARE NO RUNS. A full game, ~100 hours, three generations that INHERIT (Gen 1
-Animal, Gen 2 Human, Gen 3 Angel: ERAS, not creatures, Paolo 9/7; the player lives all three). 60 mini bosses, each
+Animal, Gen 2 Human, Gen 3 Angel: ERAS, not creatures, Paolo 9/7; the player lives all three, AND FROM 9/23 ALL THREE AT ONCE: he flips between them and the future is computed from the past, laws/BOHEMIA_LAW_THE_THREE_ACTS_AT_ONCE_9_23_26.md). 60 mini bosses, each
 handing you a VERB, parsed from records/BOHEMIA_THE_BOSS_LADDER_v7_8_7_26.md. Combat is
 ROGUE FABLE 4 on the beat at 120 BPM, always against a GROUP, on house-sized tiles
 (9/4), with an automated companion. ONE STEP IS ONE HOUSE on the street too, and bodies are drawn large (Paolo 9/15, LOCKED, laws/BOHEMIA_ADDENDUM_THE_STEP_IS_A_HOUSE_9_15_26.md). Batteries are the money (9/4). Everyone dresses
@@ -56,7 +56,7 @@ laws/BOHEMIA_ADDENDUM_THE_PLAYTEST_DISPATCH_8_25_26.md, laws/BOHEMIA_ADDENDUM_TH
   combat on the beat; BATTLE BROTHERS = the campaign layer; FINAL FANTASY X = the INTERFACE
   study (8/26, round 01) AND THE SOUND (9/6, his word: "post-apocalyptic FFX, that
   fantasy beach vibe"; AMENDED 9/20: the sound serves ANALOG HORROR first, what of FFX survives is what fits inside it, laws/BOHEMIA_LAW_ANALOG_HORROR_FOR_EVERY_PIXEL_AND_EVERY_SOUND_9_20_26.md); FALLOUT 1 = the INTERFACE too (9/6, act-one look, his word:
-  "2050 rustic"); POCKET CITY 2 = the city-mode DROP-IN TRANSITION only (7/1, laws/BOHEMIA_ADDENDUM_CAMERA_TIMESTEP_FUSED_7_1_26.md, his word "no issue with any of it"); Las Vegas = the city. Citing one outside its department is the same
+  "2050 rustic"); OCARINA OF TIME = THE THREE ACTS AT ONCE only (the flip, the two-age world, the quest across ages; Paolo 9/23, DYNASTY owns it, laws/BOHEMIA_LAW_THE_THREE_ACTS_AT_ONCE_9_23_26.md); POCKET CITY 2 = the city-mode DROP-IN TRANSITION only (7/1, laws/BOHEMIA_ADDENDUM_CAMERA_TIMESTEP_FUSED_7_1_26.md, his word "no issue with any of it"); Las Vegas = the city. Citing one outside its department is the same
   violation as citing a game he never named -> laws/BOHEMIA_ADDENDUM_YOU_ARE_THE_LEAD_8_28_26.md,
   laws/BOHEMIA_ADDENDUM_A_REFERENCE_GAME_BELONGS_TO_ONE_DEPARTMENT_9_5_26.md
 - MECHANISM-MINE / CONTENTS-PAOLO'S, AMENDED 8/11 FOR WORDS: tables and whitelists ship EMPTY except what has a ruling, BUT every piece of player-facing text ships as a real attempt tagged draft:true (words get an attempt, decisions wait) -> laws/BOHEMIA_ADDENDUM_ALWAYS_MAKE_AN_ATTEMPT_8_11_26.md | gate attempt_gate.js

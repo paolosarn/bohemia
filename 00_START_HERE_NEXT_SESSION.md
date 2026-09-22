@@ -36661,6 +36661,18 @@ clone), [real surface] (gates over http); FACTIONS [track leg]; ANIMATION [spine
 [density ruler] ruled by default; COMBAT DPR note; CHARACTER ages/heights un-held for the making.
 First lines checked against his words. Registry 84 items, 83 verdicts, 1 waiting. His Pages-source
 click still ends the deploy race. Nothing to judge.
+THEN (fg) PAOLO 9/23: THE THREE ACTS AT ONCE. "Play all three at the same time and flip through
+them... see the progress in the future from your past action... the city is built like shit because
+you're not making enough of an impact in your earlier act... this is a pretty big fucking deal... we
+might have to dedicate a whole chat to it... do big brain research on games that have done this."
+Rule 31 on the front page; laws/BOHEMIA_LAW_THE_THREE_ACTS_AT_ONCE_9_23_26.md; his words in
+records/BOHEMIA_PAOLO_THE_THREE_ACTS_AT_ONCE_9_23_26.md. DYNASTY IS THE WHOLE CHAT (school then
+build, [three at once] first). Ocarina of Time = this only, in CLAUDE.md. Rows on WORLD, LIFE+CITY, UI,
+QUESTS, WORDS, PORTRAIT, CHARACTER, SOUNDS, DIRECTION, ECONOMY Q50, PLUMBER, all behind DYNASTY's
+school. Two defaults in VOTE as verdicts (the flip on the phone; three names at the start). The
+coordinator's research pass: records/BOHEMIA_DYNASTY_SCHOOL_THE_THREE_ACTS_AT_ONCE_ROUND_ZERO_9_23_26.md.
+The demo does not change (rule 18). Nothing to judge beyond the two VOTE lines.
+
 
 
 COORDINATOR: 9/4 (ba) -- *** THE MEETING HALL:

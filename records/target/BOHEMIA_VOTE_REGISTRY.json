@@ -1221,6 +1221,7 @@
    }
   },
   {
+<<<<<<< HEAD
    "id": "sounds-how-low-the-room-9-23",
    "kind": "sound",
    "lane": "sounds",
@@ -1327,6 +1328,31 @@
    "show": {
     "how": "image",
     "src": "vote/CHARACTER_A_NEW_THIRTEEN.png"
+=======
+   "id": "coordinator-the-flip-is-on-the-phone-9-23",
+   "kind": "verdict",
+   "lane": "coordinator",
+   "sha": "9/23",
+   "made": "9/23",
+   "title": "THE FLIP BETWEEN THE THREE ACTS: ON THE PHONE, OR A PLACE",
+   "why": "You said play all three acts at once and flip between them, and you left how open. Two ways. A: the phone shows your three descendants' faces, tap a face and you are them, one tap from anywhere, same screen and same buttons. B: a place in the world, one per district, you walk to it to flip, like the sword pedestal in Ocarina of Time. Default is A: it is instant, it is in your hand, and it does not teleport you to a different mode. Vote up for A, down for B.",
+   "show": {
+    "how": "text",
+    "src": ""
+   }
+  },
+  {
+   "id": "coordinator-three-names-at-the-start-9-23",
+   "kind": "verdict",
+   "lane": "coordinator",
+   "sha": "9/23",
+   "made": "9/23",
+   "title": "THE THREE DESCENDANTS: NAMED AT THE START, OR WHEN YOU FIRST MEET THEM",
+   "why": "You said name them, male or female, at the start probably, or maybe early in each act. Two ways. A: one screen before act 1, you type all three names and pick male or female for each, so you know whose face you are tapping from minute one. B: you name each one the first time you flip to them. Default is A. Vote up for A, down for B.",
+   "show": {
+    "how": "text",
+    "src": ""
+>>>>>>> 177ef0a (PAOLO 9/23: THE THREE ACTS AT ONCE -- rule 31, the law, his words, DYNASTY is the chat, Ocarina of Time is its reference, two defaults in VOTE)
    }
   }
  ],
