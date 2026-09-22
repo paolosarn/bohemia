@@ -1,3 +1,88 @@
+LIFE + CITY (city-1eztay): 9/23 LATEST -- *** FIVE LAYERS, FOUR WRONG INSTRUMENTS OF
+MY OWN, AND I AM STOPPING AT THE FIFTH. Plus the cook: THE STREET THAT IS STILL LIT. ***
+TAB: the street picture is in the VOTE tab (alpha). The button finding is NOT IN A TAB
+YET -- it is a probe and a record. records/BOHEMIA_FIVE_LAYERS_AND_FOUR_WRONG_INSTRUMENTS_9_23_26.md
+
+ROW [eyes: half a hud] IS STILL CLAIMED ON PURPOSE (rule 6: a half-done job marked
+SHIPPED is worse than an open one).
+
+*** THERE ARE FIVE LAYERS BETWEEN A COLD BOOT AND THE SCREEN EYES REPORTED ON: ***
+    the splash -> BEGIN -> the VOTE landing -> the play tab -> the HUD
+TWO OF THEM ARE HIS OWN RULINGS WORKING, NOT DEFECTS: the load holds until BEGIN
+(rule 18a, so a tap on the door does not give him a black rectangle for two minutes)
+and the alpha opens on VOTE (rule 15g). Together they mean ANY HARNESS THAT STOPS
+SHORT IS MEASURING A DIFFERENT SCREEN. Mine stopped short three times.
+
+FOUR WRONG INSTRUMENTS, IN ORDER, ALL THE SAME SHAPE:
+  "two of them ALIVE"           -> measuring the STALE BAKED DEMO, not the tip
+  "SCAVENGE ALIVE"              -> the life was a TEACHING RING that opens on ANY tap
+  "dead, NOTHING AT THAT POINT" -> clicking #loadgl, the loading screen's own canvas,
+                                   inside #front at z-index 200 over the whole 390x844
+  "all seven NOT ON SCREEN"     -> sitting on the VOTE landing
+EVERY ONE IS PRESSING A SURFACE SOMETHING IS COVERING, which is the 544-presses bug
+wearing four coats. Each was caught by a cheap discipline and all four are permanent
+in the probe now: print WHICH FILE you opened; press an INERT POINT first and subtract
+whatever appears for free; ask the top page WHAT IT HANDS A FINGER at the control's
+own coordinates; and WALK THE WHOLE PATH before believing a number.
+
+MEASURED THROUGH ALL FIVE LAYERS, alpha at 390x802, inert press 0 words 0 elements:
+    SCAVENGE   #workbtn  50x44  finger lands ON #workbtn   0 new words x2 presses
+    BUILD HERE #buildbtn 44x44  finger lands ON #buildbtn  0 new words x2 presses
+    STANDING   #rungbtn  44x44  finger lands ON #rungbtn   0 new words x2 presses
+SCAVENGE IS #workbtn, NOT #jobbtn -- the id in the row was a guess.
+RAY/DENISE/MARCO/Marry are NOT ON SCREEN on any file at any layer: their ids
+(fammarry, standingWho) exist only inside the STANDING card, so FOUR OF THE SEVEN ARE
+NOT A DEAD PANEL, THEY ARE THE SAME ONE DOOR.
+
+*** AND MY CAUSE WAS WRONG, AND THE GAME SAID SO ITSELF. *** I had it that all three
+open cards, rule 19(a) killed the card surface, so the room was removed and the doors
+were left. cardShow() RECORDS every refusal on purpose -- its own comment says why:
+"Never silently: a swallowed refusal is how a lane ships a feature that does nothing,
+which is this file's oldest bug." So I asked it instead of believing myself:
+    CARDS_REFUSED before the three presses : 0
+    CARDS_REFUSED after                    : 0
+    #daycard exists                        : true, class "on"
+    a plot is selected (CB.sel)            : [48,48]
+NOT ONE CARD WAS REFUSED. The killed-card theory is dead.
+
+SO THE HONEST STATE IS: I DO NOT KNOW YET. Two observations conflict -- the hit test
+says the finger reaches the control and nothing follows, and the card reports itself
+ALREADY OPEN, which would mask "new words" entirely because a card that was open
+before the press cannot produce new text by opening. I am on the FIFTH version of
+this instrument and STOP PRODUCING says the tell is the fourth. So I stopped.
+
+NEXT ROUND'S FIRST JOB, AND NOTHING ELSE UNTIL IT IS SETTLED: one clean run that
+records whether #daycard is open BEFORE the first press, clears it, then presses.
+
+*** THE COOK: THE STREET THAT IS STILL LIT (VOTE tab) ***
+He killed the 9/21 shop with "Not analog horror enough", and the post-mortem found I
+had PAINTED its one wrong thing. So this one ASKED THE WORLD BEFORE IT DREW. Bible
+rule 7: "lights on where the census says empty. DRAWN FROM WORLD DATA, NEVER FAKED."
+Crossed POWER.at().live against BohemiaHousing.residentsAt() over the whole 96x96
+overmap on the alpha:
+    lamp ground, circuit LIVE          264
+    lamp ground, circuit dark        2,170
+    LIT, AND THE CENSUS SAYS EMPTY     168
+    lit, and somebody lives there       96
+    dark and empty (ordinary)        1,555
+MOST LIT GROUND IN THIS VALLEY IS EMPTY GROUND, on MOB's wire, NETWORK's, the
+VOLUNTEERS' or nobody's, and not one thing on screen says so. The picture is ONE REAL
+BLOCK off that list: 59,4, arterial, MOB's wire. Ordinary night, dark houses, a street
+lamp doing its job, and ONE HOUSE WITH ITS LIGHTS ON THAT THE CENSUS SAYS IS EMPTY,
+off-centre, nothing pointing at it. The factory REFUSES TO RUN without the measured
+row, and refuses again if the row lists no such blocks -- because if the valley had
+none, the honest thing is to say rule 7 has nothing to draw, not to paint one.
+Four things the first cut got wrong, all found by looking: the lamp was ellipse
+OUTLINES and read as a bullseye (a pool of light is FILLED, largest first); the lit
+windows mixed warm INTO a night-multiplied wall and read as a grey blind (a window is
+THE ROOM, and the room is not under the night multiplier); half the frame was bare
+dirt (a street has two sides); and the road dashes were palette code 5, which the
+suburb legend names GATE.
+
+STILL OPEN, HELD UNDER RULE 18(b): [horror city] (this cook is its first page),
+[tiles not slabs], [buildings appear], [power buildings], [owner shown], [bill lands],
+[shelves seen].
+
 EYES AND EARS (eyes-5vql33): 9/22 (aq) LATEST -- *** E21 [marker sweep] ROUND ONE (SCHOOL) DONE: THE CHECKER EVERY TEAM REACHES FOR WOULD BE RED ON ALMOST EVERY COMMIT WE MAKE. *** Record: records/BOHEMIA_EYES_E21_ROUND_1_SCHOOL_THE_CHECKER_EVERYBODY_USES_IS_WRONG_HERE_9_22_26.md. Both standing jobs also walked, on a deploy cut made fresh this round, BUILD 9/23e. THE STRANGER'S LIST and THE HORROR READING are both rewritten on the front page.
   WHAT SCHOOL FOUND, ALL MEASURED IN THROWAWAY REPOS RATHER THAN READ. git's own `git diff --check` flags a MARKDOWN SETEXT HEADING (a title with a line of equals under it) as a leftover conflict marker; this repo carries 2,583 such lines in .md and 3,504 lines of seven-or-more equals overall, so the standard checker would be red on nearly every prose commit, and a gate that is always red is a gate somebody switches off. pre-commit's check-merge-conflict matches the same bare ======= at line start, and unless it is given --assume-in-merge it returns 0 WITHOUT SCANNING ANYTHING when no merge is in progress, so in CI it passes by declining to look.
   THE PREMISE (rule 12): THERE IS NO LIVE DEBRIS IN THE TREE. 0 lines start <<<<<<<, 0 start ||||||| (the diff3 base marker the row never mentions), 1 starts >>>>>>> and 1 is a bare =======. Both are lookalikes and each is a different class: a marker QUOTED INSIDE A FENCED CODE BLOCK in the 8/27 record whose whole subject is that marker reaching the splash, and a separator between recovered blocks in the handoff archive. ECONOMY's report and the coordinator's check are both explained, and neither was wrong.
