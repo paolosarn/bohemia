@@ -80,6 +80,17 @@
       no:   "So it's theirs. Also simple.",
       draft: true
     },
+    /* THE PICKET (9/22, row [strike ask]). Glasgow 1915 in one exchange: the cut
+       only works if he can replace you, so the ask is a body at the door, not a
+       payment. Nobody says the word strike and nobody explains the history --
+       she is asking a neighbour to stand somewhere tonight. */
+    person_moves_house: {
+      open: "They cut the light in that flat and the family is still in it.",
+      ask:  "Stand at the door tonight so nobody new moves in.",
+      yes:  "Then he cannot replace them. That is the whole thing.",
+      no:   "Somebody will have the keys by Friday.",
+      draft: true
+    },
     rumour_turns: {
       open: "People are saying something about you and it isn't the true version.",
       ask:  "Go be seen where they're saying it.",

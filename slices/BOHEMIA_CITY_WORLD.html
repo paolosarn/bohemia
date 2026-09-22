@@ -71196,13 +71196,22 @@ try{ window.ctLadderWalk=ctLadderWalk; window.ctLadderReady=ctLadderReady;
       does: 'pay',
       draft: true
     },
+    /* *** WIRED 9/22, AND NOT BY INVENTING A SEVENTH CHANGE. *** (row [strike
+       ask].) This was one of the two of HIS SIX that carried proof:null, with
+       the honest note that nothing in the repo moved a person between homes.
+       WORLD shipped the strike on 9/21 (engine/bohemia_strike.js, THE BLOCK
+       HOLDS THE DOOR) and that is exactly the missing system: Glasgow 1915 was
+       never won on money, it was won on THE VACANCY -- a landlord's cut only
+       works if he can replace you, and he cannot replace a door the block is
+       holding. held() answers whether anybody moves into that flat.
+       So the picket's visible change is one he already named, now real: the
+       flat stays empty, or somebody moves in. Nothing was added to his list. */
     person_moves_house: {
       id: 'person_moves_house',
-      says: 'Somebody moves house.',
-      system: 'nothing owns this yet',
-      proof: null,
-      unwired: 'nothing in the repo moves a person from one home to another',
-      does: null,
+      says: 'Somebody moves house, or the flat stays empty.',
+      system: 'the block holding the door',
+      proof: { file: 'engine/bohemia_strike.js', symbol: 'held' },
+      does: 'set_flag',
       draft: true
     }
   };
@@ -71284,6 +71293,27 @@ try{ window.ctLadderWalk=ctLadderWalk; window.ctLadderReady=ctLadderReady;
       }).map(function (b) {
         return { changes: 'block_changes_hands', who: b.who, where: b.where,
                  about: b.owner, from: 'faction territory' };
+      });
+    },
+    /* THE DOOR. (9/22, row [strike ask].) A flat whose light the owner has cut
+       is a door somebody is about to be replaced through, and Glasgow 1915 says
+       the way that is beaten is never the money -- it is THE VACANCY. So the ask
+       is the picket: stand at the empty door tonight so nobody moves in.
+
+       IT IS REFUSED UNLESS THE DOOR IS REALLY AT STAKE, which is the whole of
+       this lane's first law: an ask that changes nothing visible is not an ask.
+       A cut that is not live, or a flat nobody is coming for, produces nothing
+       rather than a picket over an imaginary eviction.
+
+       `held` is WORLD's, and this reader does NOT re-derive it. Whether the
+       block holds the door is their answer; this only notices that a door is
+       open to being lost, and hands the want over. */
+    function readDoor(snap) {
+      return arr(pick(snap, 'doors')).filter(function (d) {
+        return d && d.cut === true && d.empty === true;
+      }).map(function (d) {
+        return { changes: 'person_moves_house', who: d.who, where: d.where,
+                 about: d.flat, from: 'the block holding the door' };
       });
     },
     /* WHAT PEOPLE SAY. The standing web already knows who will not vouch for
@@ -71451,6 +71481,17 @@ try{ window.ctLadderWalk=ctLadderWalk; window.ctLadderReady=ctLadderReady;
       ask:  "Go stand on it before somebody paints it.",
       yes:  "Then it's ours. Simple as that.",
       no:   "So it's theirs. Also simple.",
+      draft: true
+    },
+    /* THE PICKET (9/22, row [strike ask]). Glasgow 1915 in one exchange: the cut
+       only works if he can replace you, so the ask is a body at the door, not a
+       payment. Nobody says the word strike and nobody explains the history --
+       she is asking a neighbour to stand somewhere tonight. */
+    person_moves_house: {
+      open: "They cut the light in that flat and the family is still in it.",
+      ask:  "Stand at the door tonight so nobody new moves in.",
+      yes:  "Then he cannot replace them. That is the whole thing.",
+      no:   "Somebody will have the keys by Friday.",
       draft: true
     },
     rumour_turns: {

@@ -4410,6 +4410,23 @@ GATES = [
      'deliberately survives a redraw). Covers the DAY CARD only; the BUILD and BUILD BIG dead buttons '
      'EYES also found are on the city build card and belong to LIFE+CITY. Runs 14/0',
      True),
+    ('STRIKE ASK', ['node', 'gates/strike_ask_gate.js'],
+     'QUESTS row [strike ask], 9/22, harvested from ECONOMY Q35. Rule 12: the named blocker was MEASURED '
+     'rather than waited on -- WORLD shipped engine/bohemia_strike.js on 9/21 (THE BLOCK HOLDS THE DOOR), '
+     'so the row was unblocked. *** AND THE CHANGE WAS NOT INVENTED: *** this lane table of visible '
+     'changes is HIS SIX and refuse() rejects anything not on his list. Two carried proof:null, one of '
+     'them person_moves_house with the honest note that NOTHING IN THE REPO MOVED A PERSON BETWEEN HOMES. '
+     'The strike IS that missing system -- Glasgow 1915 was won on THE VACANCY, never the money, because '
+     'a cut only works if the owner can replace you. So a change he already named is real now and his list '
+     'is STILL SIX LONG: 5 wired, 1 honestly unwired. The picket refuses to fire over an imaginary '
+     'eviction (no cut, or a door nobody is coming for, raises NOTHING), it has words in a mouth that name '
+     'the place and close on the generator own promise byte for byte, and nobody says the word strike or '
+     'explains the history. *** IT ALSO STATES WHAT IS STILL MISSING RATHER THAN FAKING IT: the strike '
+     'module is NOT inlined in the walked city, so no door can be reported on the glass yet, and that '
+     'check is written to GO RED THE DAY WORLD LANDS IT -- a gate that fails on good news is the cheapest '
+     'handoff there is. *** PROVED TO BITE three ways: a proof pointing at a symbol that is not in the '
+     'file, a reader that lets an uncut door raise a picket, and inventing a seventh change. Runs 20/0',
+     True),
     ('HAGGLE LIKE BB', ['node', 'gates/haggle_like_bb_gate.js'],
      'QUESTS row [haggle like bb], 9/22. PAOLO 9/22 voting ARGUING THE PRICE up: "do it the same way '
      'Battle Brothers does it: push too much hurts reputation and shit. Nothing less than Battle '
