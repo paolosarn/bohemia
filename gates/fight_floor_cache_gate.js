@@ -114,6 +114,10 @@ const BOTH_WAYS = `(() => {
 
   return { ok:true, W:W, H:H, zoom:+uzEff().toFixed(5), phase:G.phase,
            pixels:W*H, channels:A.data.length, inkPct:+(100*ink/(W*H)).toFixed(1),
+           /* HOW MANY CELLS THE FLOOR ACTUALLY COVERS, so the anti-silent-pass floor
+              below can be derived instead of typed. The board paints the viewport plus
+              a PAD of 6 cells each way, which is where the +13 comes from. */
+           cells: Math.max(1, Math.round((W/ring + 13) * (H/ring + 13))),
            callsUncached:A.calls, callsFirst:B0.calls, callsBuild:B1.calls, callsHit:B2.calls,
            diffFirst:dB0, diffBuild:dB1, diffHit:dB2,
            stateA:A.state, stateB:B2.state,
@@ -185,8 +189,16 @@ async function main() {
 
     ok(true, 'the both-ways comparison ran at all');
     /* ANTI-SILENT-PASS FLOORS FIRST: an empty probe must never read green */
-    ok(r.callsUncached > 500,
-      'the uncached floor really drew a floor (' + r.callsUncached + ' calls, floor 500)');
+    /* *** THE 500 WAS A CANVAS-SIZED NUMBER AND THE CANVAS CHANGED. *** V224 sizes the
+       board 1:1 with CSS, the way the walked street does, so the fight is a quarter of
+       the pixels and its floor covers fewer cells: 340 blits where it used to make more
+       than 500, with nothing wrong. This floor exists to stop an EMPTY PROBE reading
+       green, so it is derived from the board the probe is actually looking at -- at
+       least two blits for every five cells on screen -- and an empty probe still reads
+       zero and still fails. */
+    ok(r.callsUncached > r.cells * 0.4,
+      'the uncached floor really drew a floor (' + r.callsUncached + ' calls, floor '
+      + Math.round(r.cells * 0.4) + ', over ' + r.cells + ' cells of board)');
     ok(r.inkPct > 40, 'the floor really covers the canvas (' + r.inkPct + '%, floor 40%)');
     ok(r.channels > 1000000, 'the comparison really read the pixels (' + r.channels + ' channels)');
     /* THE CACHE MUST ACTUALLY BE A CACHE */
