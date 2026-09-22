@@ -179,6 +179,23 @@ function bodyOf(src, name) {
       };
       const frame = () => { texts = []; try { render(); } catch (e) {} return texts.slice(); };
 
+      /* *** A CONTROL THAT SAYS "AT BOOT NOBODY HAS A NAME" MUST ASK FOR A BOOT.
+         *** This gate read "1 of 61 named at boot" and it was telling the truth:
+         the met-ledger is SAVED to localStorage, and any probe in this lane that
+         asks somebody their name leaves that behind for the next run of the same
+         browser profile. The claim was about the profile, not about the game, and
+         it stayed green for two rounds only because nothing had asked yet.
+         THE GAME'S OWN WIPE, never a second idea of what clean means: ctPeopleWipe
+         clears the five saved keys AND rebuilds the ledger in memory. That second
+         half is the whole point, and this lane learned it the hard way on
+         [lock them]: clearing storage does NOT clear the book, because the loader
+         only overwrites when storage has something.
+         AND THE WIPE PROVES ITSELF rather than being trusted. */
+      try { ctPeopleWipe(); } catch (e) { out.wipeThrew = String(e && e.message); }
+      out.wiped = (function () {
+        try { return localStorage.getItem('boh.city.met') === null; } catch (e) { return false; }
+      })();
+
       /* THE FLOOR: the block is full of people, so nothing below is measured on
          an empty street. */
       const all = (typeof ctEveryone === 'function' ? ctEveryone() : []) || [];
@@ -231,6 +248,9 @@ function bodyOf(src, name) {
     note('after somebody wanted something', r.frame.map(o => o.t).join(' | ') || 'nothing drew');
     note('the tag over their head', r.tags.join(', ') || 'none');
 
+    probe('*** AND THE SAVE WAS REALLY WIPED FIRST, through the game\'s own wipe, '
+          + 'so "at boot" below is a boot and not whatever the last run left '
+          + 'behind ***', r.wiped === true && !r.wipeThrew);
     probe('the street really has people on it, so none of this is an empty pass',
           r.population > 10);
     probe('somebody really spoke to him', r.spoke === true && !!r.who);
