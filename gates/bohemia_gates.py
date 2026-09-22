@@ -738,6 +738,28 @@ GATES = [
      'Red four ways: let a dark pump lift anyway -> 4; put a fudge factor in the physics '
      '-> 2; ask the plant\'s own cell again -> 4 (and the failure reads 28604 -> 23804, '
      'the countdown restarting); count the water and never credit it -> 1.', True),
+    ('BELTWAY PLACED', ['node', 'gates/beltway_placed_gate.js'],
+     'KNOWN-EVERYWHERE-PLACED-NOWHERE (board row [beltway placed], 9/22). The row gave two '
+     'doors -- the overmap places it, or the name is retired -- and RULE 12 FOUND A THIRD: '
+     '*** THE OVERMAP ALREADY PLACES THE RING AND CALLS IT A FREEWAY. *** Its resolver '
+     'carries a block commented, in its own words, "BELTWAY: a RECTANGLE ring with square '
+     'corners, 2 wide, snapped mid-block", computes it off beltRect -- load-bearing '
+     'geometry the map already uses to site the airbase, the datafort, the exits and the '
+     'speedway -- and then returns DISTRICT.FREEWAY. Measured over three seeds, separating '
+     'the I-15 spine, the exits and the mountain passes that legitimately cross a ring: '
+     '492, 510 and 512 cells a seed are PURE RING, and every one reports as freeway. The '
+     'name was never unplaced; it is mislabelled. DECISION: PLACE IT -- a ring road is real '
+     'Las Vegas geography, the rectangle is already canon, and MAP LAW is not in the way '
+     'because nothing here designs a layout, this is the label on one. *** AND THE FIX IS '
+     'NOT ONE LINE, WHICH IS WHY THIS GATE EXISTS: *** bohemia_powergrid already carries '
+     '"beltway" in its street list and has simply never matched, but '
+     'BOH_OMBRIDGE.STREET_DISTRICTS does not, in all three copies -- so renaming the '
+     'resolver alone would silently stop five hundred cells being STREETS to the district '
+     'kit, the plot generator\'s street edges and the landlocked law. The gate pins BOTH '
+     'halves and fails if they are ever out of step. Red proved by doing exactly half the '
+     'fix: rename without the street list -> 4 red, naming the outage. NOT SHIPPED (rule '
+     '18): the rename touches the walked world\'s map generator and is none of loading, '
+     'walking or the fight.', True),
     ('PEOPLE CHARGE', ['node', 'gates/people_charge_gate.js'],
      'MFS-CHARGE-BATTERIES (board row [people charge], 9/22). HIS RULING, killing an item '
      'of this lane: "Mfs charge batteries bro. i know buildings can help in our game but '
