@@ -136,6 +136,14 @@ async function drawingFight(page, sleep) {
       let n = 0;
       try {
         n = await f.evaluate(async () => {
+          /* *** AND THIS HELPER'S FIRST CUT PICKED THE ALPHA SHELL. *** Measured, not
+             guessed: it reported frames "top", a canvas of 183x54 and STREET_READY
+             absent -- the SPLASH LOGO, the same canvas that fooled combat_scale_gate
+             earlier in this round. The shell defines a G, owns a #cv and animates, so
+             "is it drawing" is true of it. A fight is a CHILD FRAME and it has a FIRE
+             BUTTON; the shell has neither. */
+          if (window.parent === window) return 0;
+          if (!document.getElementById('fire')) return 0;
           const c = document.getElementById('cv');
           if (typeof G === 'undefined' || !c || !c.width) return 0;
           const x = c.getContext('2d'); if (!x) return 0;

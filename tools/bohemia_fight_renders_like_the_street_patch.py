@@ -117,8 +117,19 @@ NEW = """/* ===== V224 __THE_FIGHT_RENDERS_LIKE_THE_STREET__ (COMBAT, [fight loo
    the street -- which is also the sharpness half of the same complaint.
    AND IT IS A QUARTER OF THE PIXELS a frame, which is the direction rule 23 asks for. */
 function size(){ const r=cv.getBoundingClientRect();
-  const w=Math.max(1,Math.round(r.width)), h=Math.max(1,Math.ceil(r.height));
-  cv.width=w; cv.height=h; }"""
+  const w=Math.round(r.width), h=Math.ceil(r.height);
+  /* *** AND A BOARD WITH NO BOX YET MUST NEVER BE LOCKED AT ONE PIXEL. *** MEASURED,
+     not guessed: a fight frame came up READY, phase cover, all 13 ground kinds decoded
+     -- and its board was 1x1, so it painted nothing and every floor reading was zero,
+     while fieldPitch still returned a plausible 196 px tile because the tile is
+     TILE_WIDE sprite widths and does not care how big the canvas is. size() is called
+     ONCE at 30 ms and then only on resize, and an iframe that never changes size never
+     gets a second chance -- so whatever the box was at 30 ms is what the board is for
+     ever. The old line had the same hole and wrote 0x0 into it.
+     So: no box, no resize -- ask again in a moment instead. And only assign when the
+     size actually changed, because assigning canvas.width CLEARS the canvas. */
+  if(!(w>0&&h>0)){ setTimeout(size,60); return; }
+  if(cv.width!==w||cv.height!==h){ cv.width=w; cv.height=h; } }"""
 
 
 def parse_check(blob, label):
@@ -158,7 +169,25 @@ def main():
     if not m:
         sys.exit('COMBAT_B64 not found in the alpha')
     blob = base64.b64decode(m.group(1)).decode('utf-8')
+    OLD_V224_BODY = ("""function size(){ const r=cv.getBoundingClientRect();
+  const w=Math.max(1,Math.round(r.width)), h=Math.max(1,Math.ceil(r.height));
+  cv.width=w; cv.height=h; }""")
+    NEW_V224_BODY = NEW.split('*/\n', 1)[1]
     if MARK in blob:
+        # UPGRADE IN PLACE. The first cut of V224 clamped a missing layout box to 1x1,
+        # which locks the board at one pixel for ever (size() runs once at 30 ms and
+        # then only on resize, and an iframe that never resizes never gets a second
+        # chance). Measured on a real fight frame: ready true, phase cover, 13 ground
+        # kinds decoded, board 1x1, nothing painted.
+        if OLD_V224_BODY in blob:
+            blob = sub(blob, OLD_V224_BODY, NEW_V224_BODY, 'blob/size() zero-box guard')
+            parse_check(blob, 'the fight blob')
+            enc = base64.b64encode(blob.encode('utf-8')).decode('ascii')
+            alpha = alpha.replace("const COMBAT_B64='" + m.group(1) + "'",
+                                  "const COMBAT_B64='" + enc + "'", 1)
+            open(ALPHA, 'w', encoding='utf-8').write(alpha)
+            print('V224 upgraded in place: size() no longer accepts a zero box')
+            return
         print('  the fight already renders like the street')
         return
     if '__THE_PERSON_IS_112__' not in blob:
@@ -171,6 +200,10 @@ def main():
     # the board canvas is the whole defect coming back.
     if re.search(r'cv\.width\s*=\s*r\.width\s*\*', code):
         sys.exit('GUARD: the board canvas still multiplies its CSS width')
+    # A BOARD WITH NO BOX IS NEVER LOCKED IN. Measured: a 1x1 board paints nothing and
+    # still reports a plausible tile, which is the hardest kind of broken to see.
+    if 'if(!(w>0&&h>0)){ setTimeout(size,60); return; }' not in code:
+        sys.exit('GUARD: size() still accepts a zero box')
     # THE CAMERA'S MARGINS ARE NO LONGER RAW CANVAS PIXELS.
     if re.search(r'_pad\s*=\s*G\.isTouch\?96:44', code):
         sys.exit('GUARD: the auto frame still measures its margin in canvas pixels')
