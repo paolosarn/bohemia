@@ -34118,9 +34118,26 @@ a thumb is a physical size, so they live in CSS px and convert by the canvas's o
 backing-per-CSS: at 2x that reproduces 96/70/80 byte for byte; at 1:1 it keeps the same
 margin on the glass. The ceiling and the 0.20 floor are ratios and do not move.
 
+*** THE GATE NEVER VERIFIED THIS AND ITS 32/0 WAS LUCK -- THE ROUND'S HARDEST FINDING AND
+IT IS ABOUT MY OWN INSTRUMENT. *** I reported the_person_is_112_gate 32/0. It was measuring
+THE ALPHA'S HIDDEN FIGHT FRAME, the one kept up front for the COMBAT tab: a child frame
+with G, a #fire button, all thirteen ground kinds decoded, and IT ANIMATES. Its canvas was
+clamped to 1x1, so k = 1/1 = 1 and the body read 112/1 = 112 -- THE RIGHT ANSWER FROM THE
+WRONG BOARD, BY COINCIDENCE. Fixing the one-pixel bug removed the coincidence: that frame
+now sits at the 300x150 HTML default, k reads 300, and the same arm reports 0.4 CSS. The
+gate did not get worse, it stopped being lucky.
+FIVE FRAME FINDERS WERE WRITTEN AND THROWN AWAY chasing it -- "is it drawing", "has a board
+with pixels", "has a layout box", every combination -- and every one is TRUE OF THE HIDDEN
+FRAME, and each made the gate worse than the plain question it started with. The finder is
+back to the simple one with all of this written above it.
+WHAT ACTUALLY DISTINGUISHES THEM IS PATIENCE, NOT A PREDICATE: the driver probe finds the
+right frame every time because it RETRIES THE DOOR and waits; the real fight simply appears
+later. THE FIX IS RULE 14(g): put these gates on tools/bohemia_drive_the_demo.js. FIRST
+INSTRUMENT JOB ON THIS ROW.
+
 PROOF, AND WHAT IN IT IS NOT PROOF -- said rather than dressed up:
-  SOUND: the_person_is_112_gate 32/0 on THE WORKSHOP and THE CUT HE OPENS, on the phone
-  profile body_scale_gate uses, reading the street's own 112 CSS in the same session.
+  SOUND, AND IT IS THE WHOLE EVIDENCE FOR THE CSS CLAIM: the before and after by the ONE
+  DRIVER on the cut, on the phone profile, with a photograph each side.
   ALSO SOUND, the before and after by the one driver on the cut, one run each side:
       MAIN 780/390 k=2 fighter 56 CSS   |   V224 390/390 k=1 fighter 112 CSS
   *** NOT SOUND: this gate's MUTATION run reports k=0, NaN, Infinity -- it never reached a

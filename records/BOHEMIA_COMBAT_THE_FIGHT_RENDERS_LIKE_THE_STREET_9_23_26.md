@@ -64,14 +64,42 @@ floor are ratios and do not move.
 
 ---
 
+## THE GATE NEVER VERIFIED THIS, AND ITS EARLIER 32/0 WAS LUCK
+
+This is the round's hardest finding and it is about my own instrument, so it goes above
+the proof rather than below it.
+
+`the_person_is_112_gate` read **32 passed, 0 failed** and I reported that. It was
+measuring **the alpha's hidden fight frame** — the one kept up front for the COMBAT tab.
+That frame is a child frame, it has `G`, it has a `#fire` button, all thirteen ground
+kinds decode in it, and **it animates**. Before this round its canvas was clamped to
+**1x1**, so `k = 1/1 = 1` and the body read `112/1 = 112` — **the right answer from the
+wrong board, by coincidence.**
+
+Fixing the one-pixel bug removed the coincidence: the hidden frame now sits at the
+`300x150` HTML default, `k` reads 300, and the same arm reports **0.4 CSS**. The gate
+did not get worse; it stopped being lucky.
+
+**Five frame finders were written and thrown away** chasing this — "is it drawing", "has
+a board with pixels", "has a layout box", each combination — and every one is true of the
+hidden frame, and each made the gate worse than the plain question it started with. The
+finder is back to the simple one with that written above it.
+
+**What actually distinguishes them is patience, not a predicate.** The driver probe finds
+the right frame every time because it *retries the door* and waits; the real fight simply
+appears later. **The fix is rule 14(g): put these gates on
+`tools/bohemia_drive_the_demo.js`.** That is the first instrument job on my row.
+
+---
+
 ## PROOF, AND WHAT IN IT IS NOT PROOF
 
-**Sound:** `the_person_is_112_gate` — **32 passed, 0 failed**, on THE WORKSHOP and THE
-CUT HE OPENS, on the phone profile `body_scale_gate` uses (390x844, ratio 3, mobile),
-reading the street's own 112 CSS in the same session as the fight's.
+**Sound, and it is the whole evidence for the CSS claim:** the before and after by the
+one driver (rule 14g), on the cut, on the phone profile, with a photograph each side.
+The driver reaches the fight a player is looking at because it retries the door and
+waits.
 
-**Also sound — the before and after**, by the one driver (rule 14g), on the cut, on that
-same phone profile, one run each side:
+The numbers, one run each side:
 
 ```
   MAIN      canvas 780 backing / 390 CSS   k=2   the fighter is  56 CSS
