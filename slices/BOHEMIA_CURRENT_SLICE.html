@@ -24066,6 +24066,7 @@ function renderHome(){
      the feed IS the DMs too). One tile, one combined badge. */
   el('home').innerHTML =
     liveStrip()+
+    morningBlock()+
     standingBlock()+
     '<div class="home-hd"><b>the phone</b>@founder_gen1 · '+pr.reach+' followers on the Network</div>'+
     '<div class="apps">'+
@@ -24443,6 +24444,32 @@ function standingRow(r){
   return '<div class="st-row"><span class="st-who">'+esc(String(r.who).replace(/\|.*$/,''))+
          '</span><span class="st-n '+(r.n>0?'up':'dn')+'">'+esc(n)+'</span></div>';
 }
+/* __MORNING_ON_THE_PHONE__ (9/21, RUN, [no pop ups]) -- WHERE THE WAKE CARD WENT.
+   PAOLO 9/20, rule 19a: "the wake card, the night card and the road card as pop-ups
+   are DEAD; the bookkeeping lives on the phone he opens."
+   MEASURED FIRST: the wake card opened 2.5 seconds into the demo, covered all eight
+   direction buttons, and never went away -- five minutes and 554 presses moved him
+   zero cells. So the card is gone from the street. THESE ARE ITS WORDS, unchanged,
+   in the one place in this game he reaches for himself.
+   THE RUN WRITES THEM AND THIS ONLY SHOWS THEM, same as every other block here: the
+   phone asks, the world answers. It renders nothing when there is nothing, which is
+   the honest empty morning and not a zero.
+
+   *** AND IT LIVES HERE NOW BECAUSE I PUT IT IN THE WRONG FILE THE FIRST TIME. ***
+   (9/23.) I wrote it straight into slices/BOHEMIA_CURRENT_SLICE.html, which is
+   GENERATED from this file by tools/build_current_slice.js. It worked, it shipped, it
+   was gated -- and the next lane that rebuilt the slice for its own reasons wiped it,
+   exactly as the rebuild is supposed to. The gate caught it on the merge, which is the
+   only reason it is not simply gone. EDIT THE SOURCE, REBUILD THE DERIVED FILE: that is
+   the standing duty added 9/13 for engine/, and it is just as true here. */
+function morningBlock(){
+  var M = LIVE && LIVE.morning;
+  if(!M || !M.lines || !M.lines.length) return '';
+  var h = '<div class="live-strip"><div class="lv-top">'+esc(M.head||'THIS MORNING')+'</div>';
+  M.lines.forEach(function(t){ h += '<div class="lv-obj">'+esc(t)+'</div>'; });
+  return h+'</div>';
+}
+
 function standingBlock(){
   var S = LIVE && LIVE.standing;
   if(!S) return '';

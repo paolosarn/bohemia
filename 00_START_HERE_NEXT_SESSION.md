@@ -4122,128 +4122,155 @@ it is player-facing at all is worth deciding before restyling it. The source cou
 now understood as dead-declaration debt and can be swept file-wide in one pass instead of
 being chased surface by surface.
 
-RUN (run-eak241): 9/23 LATEST -- *** TWO SHIPPED IN ONE PUSH. [horror loading] IS HIS OWN
-VOTE BUILT (option B, "B is best not analog horror enough the but keep going"), and
-[phone door] FIXED A PHONE THAT COULD NOT BE OPENED ANYWHERE IN THE DEMO. TAB: RUN (and
-CITY, the same walked world). BUILD 9/23b. Nothing to judge. Rule 18(e): the link is NOT
-sent. ***
+RUN (run-eak241): 9/23 LATEST -- *** [cut now] SHIPPED, AND IT TURNED UP SOMETHING BIGGER
+THAN ITSELF: EVERY LANE HAS BEEN MEASURING THE GAME THROUGH MY LOADING SCREEN. TAB: RUN
+(and CITY, the same walked world). Nothing to judge. ***
 
-=== [phone door] -- THE ONE RED LEG WAS RIGHT AND MY FIRST TWO FIXES WERE BOTH WRONG ===
+=== PART ONE: THE CUT SUBTRACTS (rule 18g, 18i) ===
 
-NOTHING POPS UP came back 15/1 on one line: "and the phone chip rings so he knows it is
-there". I fixed the bookkeeping first (made phoneBadge the single decider, reading the
-unread morning as well as the unread call). Still red. That was a real fix to a real
-second-owner bug and it was not this bug.
+PAOLO 9/22: "I'm really trying to push this demo out... I DON'T NEED THE WHOLE WORLD, I
+don't need everything." Nobody had measured what is actually on his screen, so that is
+where this started. Every named box a player can SEE on the first screen, 390 x 844:
 
-Then I asked the live demo instead of guessing a third time:
+  BEFORE  27, fourteen of them on 18g's own bin list
+            MUSIC  SAVE                      the rail of chips
+            HUMAN MODE  SUBURB - ON FOOT     the mode and place readouts
+            DAY 1 - 06:00, twice             the day readouts
+            STANDING BUILD HERE SCAVENGE-8H BIKE SLEEP MARKET
+            "walking your own block."        prose with no mouth (rule 19)
+  AFTER   14   (the drawn phone counts ONCE: UI put it on the street this round and it
+               arrives as six named boxes, which is one object, not six things)
 
-  MEASURED ON THE GLASS, BEFORE ANYTHING WAS TOUCHED
-    the old PHONE chip           not in the document at all
-    the drawn phone              132 x 349 on the screen
-    the point at its middle      cv        <- THE CANVAS BEHIND IT
-    a real touch there           PHONE_ON stayed false
+HIDDEN FROM THE DEMO SIDE ONLY, like the builder drawer and the cold open. The gate opens
+the ALPHA afterwards and checks all eight are still there, because a cut that deletes a
+feature is not a cut.
 
-  SO THE PHONE COULD NOT BE OPENED ANYWHERE IN THE DEMO, which is rule 18g's own list
-  broken, and [no pop ups] had just moved the morning and the night onto it. Ten lines of
-  THIS MORNING were sitting in a room with no door, and the gate leg that should have
-  caught it was asking a deleted element whether it was gold -- (null || {}).className
-  answers undefined, so that check could only ever say no, about a thing that is not there.
+REACHABILITY PROVED WITH A FINGER, never off the source: the pad walks him (12 presses,
+52 cells), NOTES opens and holds words and folds on its own CLOSE, one squeeze reaches
+the city, the drawn phone catches the point and opens, the fight still starts although
+the tab strip it reaches through is hidden.
 
-WHY IT HAPPENED, AND UI DID NOTHING WRONG IN THE PART THEY WROTE. Paolo 9/22: "there
-shouldn't be a phone button in the top right. I should click the phone and then it opens
-the phone." UI shipped that correctly in JS -- the chip removed rather than hidden, the
-drawn phone given role=button, tabindex, an aria-label, cursor:pointer and a click handler.
-The CSS rule above it still said pointer-events:none, which was right while the feed was a
-thing you only LOOKED at and became wrong the second it became the door. A HANDLER ON AN
-ELEMENT THAT CANNOT BE TOUCHED IS THE SAME DEFECT CLASS AS A CAUGHT EXCEPTION: it reads
-correct and silently does nothing.
+TWO PLACES I DID NOT FOLLOW THE INSTRUCTION, AND BOTH ARE WRITTEN DOWN WHERE THE CODE IS:
+ - NOTES IS NOT PUT BEHIND A GEAR. 18g says "the gear with the NOTES button behind it".
+   With MUSIC and SAVE gone the bar holds ONE control, which is what a gear was for.
+   Building a door to hide NOTES behind, one round after "how do I access the notes... I
+   cannot find them", would add a thing AND take away the thing he asked for.
+ - THE FEED IS NOT STRIPPED, although 18g lists it. Newest date wins: 18g is 9/20, and on
+   9/22 he said "very impressed with the phone" and ruled THE DRAWN PHONE IS THE BUTTON.
+   Stripping it would delete the phone, which is on 18g's own KEEP list.
 
-THE FOUR LINES:
- 1. #cityfeed.on gets pointer-events:auto. Only when it is OPEN -- folded, the phone is not
-    on the screen at all, so nothing is taken from the map that was not already the phone's.
- 2. phoneBadge rings whichever door is actually there: the chip first, for the day somebody
-    puts one back, then the drawn phone. Same gold, reused, never a second alert designed.
-    THIS IS THE THIRD TIME IN THAT FILE AN ALARM HAS FOLLOWED A BUTTON OUT OF THE ROOM;
-    ctOutfitBadge wrote the post-mortem for the second one and its sentence is the rule:
-    the door moving is a decision, the alarm going silent is an accident.
- 3. Opening it is reading it: phoneOpen clears the unread morning and asks phoneBadge again,
-    so the gold stops meaning "there is something new" only when there is nothing new.
- 4. The outside-tap registry named 'phonebtn' as the phone's opener -- an id that no longer
-    exists -- so the phone's real door was registered nowhere. It takes a comma list now.
+AND TAKING THINGS AWAY MOVED THE THING THAT STAYED: with the left and middle groups
+emptied, the bar's only child collapsed and NOTES jumped to x=16, the far left, under the
+hand that is not holding the phone. A regression dressed as a cleanup. It is pinned right
+and that is a gate leg.
 
-  MEASURED AFTER, WITH A FINGER
-    the point at its middle      inside the phone
-    one touch                    PHONE_ON true, the morning 10 unread -> 0
-    its own CLOSE                PHONE_ON false
-    NOTHING POPS UP              15/1 -> 21/0
+=== PART TWO: THE PINCH WAS NEVER THE PINCH ===
 
-THE OPEN PHONE COVERS ITS OWN HANDLE (#phonewrap 378 x 794 over a 132 x 349 phone), so
-"tap it again to fold" cannot exist. Its own CLOSE folds it and a tap on the world folds
-it. Both measured; neither is a missing feature to build.
+THE DRIVER REACHES THE CITY had been red on its main leg -- one squeeze crosses the seam
+-- and the seam is the only door to the city screen, where the phone lives. I measured it
+before reporting it (rule 14g).
 
-AND THE HARNESS LOSES THE FIRST TOUCH INTO A FRESH FRAME. The gate retries once before it
-calls a button dead. Accusing the game of what the ruler did is this lane's most expensive
-recurring mistake and it is not going in a count again.
+  the canvas recorded ZERO pointerdowns during the whole gesture.
 
-=== [horror loading] -- HIS PICK, REBUILT FROM HIS OWN OPTION SHEET ===
+  #front     display flex, visibility visible, opacity 1, z-index 200,
+             class "load ready", box 0,0 390x844
+  #fronttap  says BEGIN
+  the point at the middle of the canvas answers DIV#loadgl
 
-Part two put the load behind a screen; this is the half I held open on purpose because the
-screen was still the old front splash and bible rule 1 (one ordinary frame, ONE wrong
-thing) was unanswered. Then he voted B and said keep going, so the ruling arrived.
+MY LOADING SCREEN WAS STILL LYING OVER THE GAME AND THE DRIVER HAD NEVER PRESSED BEGIN.
+The driver taps the door as soon as it sees one, which since [loading screen] part two is
+EARLY BY DESIGN: the screen comes up in a second, the load runs behind it for a hundred
+more, and the handler correctly refuses every tap until the game is in (rule 18a, in
+those words). So both taps were ignored, nobody pressed BEGIN, and the driver went on to
+wait for a city frame THAT ARRIVES ANYWAY, because the load never needed a gesture.
 
-  the whole phone is the screen, edge to edge, no case, no bezel, the corners dark
-  because a tube is curved; the log fills FROM THE BOTTOM; the bar is real (0 OF 5 ->
-  5 OF 5, five stages the page can prove, no hand-typed percentage); BEGIN stays dark
-  and says WAIT until the game is genuinely in.
+AND THE WALK PAD KEPT WORKING THE WHOLE TIME, because it sits below the tube's box. That
+is exactly how a break like this survives a fleet of checkers: the part everybody
+measures still moves.
 
-  the screen said, in order   ONE MOMENT -> WAIT -> BEGIN
-  BEGIN to playing            4.2 s   (it was 113.7 s of blank screen)
-  SCREEN HOLDS                27/0
+FIXED IN THE DRIVER, AND IT IS UI'S FIX, NOT MINE. They found the same thing in the same
+round and shipped first, citing this lane's [phone door] for the defect class: a live
+oracle under an overlay is the same as a handler on an untouchable element -- it answers,
+and the answer is about a screen nobody is looking at. Theirs knocks on a CLOCK rather
+than a count, which mine did not, and a count runs out while the alpha is still
+legitimately waiting. I wrote mine before the merge and threw it away at the rebase. The
+measurement below is this lane's and stands either way.
 
-AND "KEEP GOING" IS BIBLE WORK: exactly ONE wrong thing, NO OPERATOR ON DUTY, arriving in
-the MIDDLE of an ordinary power-authority boot report, in the same calm register as the
-timetable lines, no exclamation mark anywhere. Scanlines and the curved-tube vignette are
-legal HERE and nowhere else because this IS an in-world screen, a terminal belonging to a
-dead utility; the same effects on the walked world would break the law.
+  the seam       human -> CITY on one squeeze, CZOOM 1 -> 0.208
+  the way back   three squeezes apart: 0.208 -> 1.247 -> 2.6, then human
 
-A GATE OF MINE CHANGED BECAUSE HE OVERRULED IT: my own gate forbade a progress bar and he
-picked the option with a bar. The ban was never on a bar, it was on a bar that LIES, so the
-check is the honest one now. A gate that refused his own pick would be enforcing my taste
-over his ruling.
+AND PRESSING THE DOOR PROPERLY BROKE THE ALPHA, WHICH IS ALSO THE FIX WORKING. Rule 15g
+lands the alpha on VOTE, and boundingBox() answers NULL for an element that is not
+visible, so the city frame threw "Cannot read properties of null (reading 'x')" on every
+alpha open. Nobody had seen it because the driver was never really opening the door. BOTH
+LANES HIT IT WITHIN MINUTES OF FIXING THE DOOR AND BOTH WROTE THE SAME FIX: press the tab
+his thumb presses, only when the frame has no box. UI's is on main; mine went in the bin.
 
-THE PHOTOGRAPH CAUGHT TWO THINGS THE SOURCE COULD NOT: the build stamp printed straight
-THROUGH the WAIT button, and the button's top edge sat on the bar by two pixels. Both are
-gate legs now, measured as boxes and not as opinions. The stamp is NOT hidden -- he needs
-to see which build he is on -- it sits under the bar as a line of the report.
+WHAT THE FIX IMMEDIATELY EXPOSED, and I am not hiding it in a green tick: "fingers apart
+brings him back down to the street" had been passing FOR THE WRONG REASON -- the squeeze
+above it never left the street, so being on the street was trivially true. He does get
+back. It costs THREE squeezes against one going out. On the break list with its numbers.
 
-THE WALK, BY HAND, BEFORE THIS PUSH (rule 18c):
-  35 presses, 530 cells crossed, 0 stuck, 4 into sealed ground, 0 held by somebody,
-  0 gaps walked past.  Five minutes from the door: 557 presses, 0 cards, 0 with no reason.
+AND MY OWN BEFORE-AND-AFTER WAS WRONG IN BOTH DIRECTIONS. The first pair read 24 -> 10,
+both measured through the loading screen, so the teaching overlay under it was never
+counted. On a game that was really opened it is 27 -> 13. A before and an after taken
+through different glass are not a before and an after, and I nearly wrote the wrong pair
+into a record.
 
-GATES, ALL GREEN ON THE SERVED DEMO AT 4x: NOTHING POPS UP 21/0, SCREEN HOLDS 27/0, DOOR
-WAITS 10/0, STRANGER 19/0, WALK NEVER MISSES 19/0, DEMO CURRENT 16/0, SPAWN HOME 9/0.
+=== AND THE MERGE CAUGHT A THING I SHIPPED INTO THE WRONG FILE ===
+
+NOTHING POPS UP went red on "the phone really renders what the run sends it". It was
+mine: [no pop ups] wrote morningBlock() straight into slices/BOHEMIA_CURRENT_SLICE.html,
+which is GENERATED from the phone source by tools/build_current_slice.js. It worked, it
+shipped, it was gated -- and PEOPLE rebuilt the slice for their own reasons and wiped it,
+exactly as a rebuild should. EDIT THE SOURCE, REBUILD THE DERIVED FILE: the standing duty
+added 9/13 for engine/ is just as true here.
+The block lives in the phone source now, and THE LEG ASKS BOTH FILES, because asking only
+the built file cannot tell "somebody wrote it in the right place" from "somebody wrote it
+in the file the build overwrites" -- and asking only the source cannot catch a source
+edit nobody rebuilt. NOTHING POPS UP 23/0.
+
+=== FOUR GATES RE-AIMED TO HIS RULINGS, NONE LOOSENED ===
+ - DEMO BUILD 22/3 -> 25/0. It demanded "phone, music and save are still there, because
+   this is a cut and not a stripping" and CLICKED A CHIP HE DELETED ON 9/22. It now holds
+   what that wording was really for: a cut must HIDE, never DELETE, so the demo may have
+   them hidden and the WORKSHOP must still carry them. Its phone leg presses the drawn
+   phone. And "nothing is open at rest" read p-city and went red on correct behaviour
+   (the loading screen builds the game behind itself on purpose); its own comment says
+   the mutation that created it landed on P-CHAR, THE WARDROBE BENCH, so it is now
+   "nothing BUT the walked city", which is the same protection said honestly.
+ - NOTES SECTION: it compared NOTES to neighbours the cut removed, and its empty-list
+   maths was quietly lying -- every() of nothing is true, Math.min() of nothing is
+   Infinity, so it printed "notes 197 vs dimmest neighbour Infinity". The comparison
+   moved to the workshop, where the neighbours live.
+ - THE DRIVER REACHES THE CITY: its note about the old pinch axis now asserts the rail is
+   really OFF THE SCREEN rather than moved under a different finger.
+ - THE NOTES BUTTON: 10 red to 0 on the driver fix alone, nothing else touched.
+
+=== THE PASS, ALL GREEN ON THE SERVED CUT AT 4x ===
+  THE FOUR THINGS 28/0 (new)   NOTHING POPS UP 23/0   SCREEN HOLDS 27/0
+  DOOR WAITS 10/0   STRANGER 19/0   WALK NEVER MISSES 19/0   DEMO CURRENT 16/0
+  SPAWN HOME 9/0   DRIVER REACHES 7/0   NOTES SECTION green   DEMO BUILD 25/0
+  THE WALK, BY HAND (rule 18c): 35 presses, 530 cells, 0 stuck, 4 into sealed ground,
+  0 held by somebody, 0 gaps walked past. Five minutes: 565 presses, 0 cards.
 
 [PENDING nobody, STILL OPEN AND STILL NOT MINE]
- - ON THE STREET THERE IS NO PHONE DRAWN AT ALL. #cityfeed only draws in CITY mode, which
-   is the 9/4 law's own wording, so from waking up until he zooms out the morning is there
-   and the door is not. His ruling is "the phone is the phone button", so the answer is a
-   phone on the street, NOT a chip he already refused. Row added: UI [phone on the street].
-   I did not patch it from this lane: the bar and the phone's door are UI's room.
- - UI's own gate has a mutation "take the handler off the drawn phone" and it passed the
-   whole time, because it asks the source whether a handler exists and never asks the glass
-   who gets the point. Named on their row, not as a complaint, as the thing to measure.
- - his own block has 45 doorsteps and 0 straight walkable ways out, and four presses on the
-   block walk go into ground a body cannot reach.
+ - the way back from the city costs three squeezes against one going out. Measured, left
+   alone: it is the city camera's own travel and changing it is a feel decision that
+   belongs beside [one camera], not buried in a cut.
+ - his own block has 45 doorsteps and 0 straight walkable ways out, and four presses on
+   the block walk go into ground a body cannot reach. That is why five minutes of pressing
+   east covers 52 cells.
  - he has ZERO batteries on day one while the market's whole shelf costs one each.
 
 NEXT, IN ORDER: [open reachable] (PORTRAIT 53cbb684: a stranger meets ZERO faces in five
-minutes, and the cold open should be reachable after BEGIN -- it sits directly on the
-loading screen I just finished). Then [land on it] (LIFE+CITY c4e08b82: a full stride
-overshoots a place nearer than a stride and ping-pongs; his door to the road 21 cells away
-takes 21 presses one cell at a time and NEVER arrives with a full stride). Then [cut now]
-and [browser lines]. [fast travel] stays CLAIMED and paused under rule 18.
+minutes, and the cold open should be reachable after BEGIN -- and it is now measurable for
+the first time, because the driver really opens the door). Then [land on it] (LIFE+CITY
+c4e08b82: a full stride overshoots a place nearer than a stride and ping-pongs). Then
+[browser lines]. [fast travel] stays CLAIMED and paused under rule 18.
 
-RECORDS: records/BOHEMIA_THE_PHONE_COULD_NOT_BE_OPENED_9_23_26.md,
+RECORDS: records/BOHEMIA_EVERY_LANE_WAS_MEASURING_THROUGH_MY_LOADING_SCREEN_9_23_26.md,
+records/BOHEMIA_THE_PHONE_COULD_NOT_BE_OPENED_9_23_26.md,
 records/BOHEMIA_HE_PICKED_B_AND_SAID_KEEP_GOING_9_22_26.md
 
 --------------------------------------------------------------------------------

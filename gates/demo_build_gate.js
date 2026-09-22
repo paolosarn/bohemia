@@ -123,11 +123,26 @@ async function walk(chromium, file) {
         })()
       };
     }).catch(() => null);
-    /* and the one button a player reaches for first */
+    /* THE ONE BUTTON A PLAYER REACHES FOR FIRST, AND IT IS NOT A BUTTON ANY MORE.
+       *** PAOLO 9/22: "there shouldn't be a phone button in the top right. I should
+       click the phone and then it opens the phone... the phone IS the phone button." ***
+       UI deleted #phonebtn on that ruling, so this clicked an element that is not in
+       the document and then reported THE PHONE DOES NOT OPEN -- a gate asserting the
+       opposite of a ruling, which reads as a defect in the game for as long as nobody
+       checks what it is actually clicking.
+       It presses the door that exists now: the drawn phone, which only draws on the
+       CITY screen, so it goes there first the way he goes there. */
     try {
-      await cf.evaluate(() => { const b = document.getElementById('phonebtn'); if (b) b.click(); });
-      await p.waitForTimeout(2200);
-      const ph = await cf.evaluate(() => {
+      const ph = await cf.evaluate(async () => {
+        const wait = (ms) => new Promise(r => setTimeout(r, ms));
+        try { MODE = 'city'; } catch (_e) {}
+        await wait(1600);
+        const door = document.getElementById('phonebtn')     /* if a chip ever returns */
+                  || document.getElementById('cityfeed');    /* his own handle */
+        if (!door) return 'no door';
+        door.click();
+        await wait(1200);
+        try { MODE = 'human'; } catch (_e) {}
         const e = document.getElementById('phonewrap') || document.getElementById('phone');
         return e ? getComputedStyle(e).display !== 'none' : 'absent';
       });
@@ -212,10 +227,21 @@ async function walk(chromium, file) {
      alpha's markup marks that panel `on` at rest. The demo must have no at-rest
      panel at all, so its worst case is a blank stage rather than a stranger
      standing in a developer tool. */
-  ok('and NOTHING IS OPEN AT REST -- the demo has no fallback onto his wardrobe '
-    + 'bench if anything ever fails to click '
+  /* *** AND SINCE THE LOADING SCREEN, THE GAME IS ALREADY OPEN AT REST, ON PURPOSE. ***
+     (RUN 9/23.) [loading screen] part two builds the game and clicks the real RUN tab
+     BEHIND the screen, so the whole load happens before he ever presses BEGIN -- that
+     is the entire point of it, and it is why BEGIN reveals a world already drawn with
+     people already on it in about three seconds instead of showing him a black
+     rectangle for two minutes.
+     So "nothing is open at rest" now reads p-city and goes red on correct behaviour.
+     THE REASON THE LEG EXISTS IS UNTOUCHED, and it is written right above: the mutation
+     that found it landed the demo on P-CHAR, THE WARDROBE WORKBENCH. The walked city is
+     the game; a developer tool is not. Nothing but the walked city may be open at rest,
+     which is the same protection said honestly. */
+  ok('and NOTHING BUT THE WALKED CITY IS OPEN AT REST -- the demo has no fallback '
+    + 'onto his wardrobe bench if anything ever fails to click '
     + '(' + (d.cold.panelsOn.join(',') || 'none') + ')',
-    d.cold.panelsOn.length === 0);
+    d.cold.panelsOn.every(p => p === 'p-city'));
   ok('A COLD BOOT LANDS IN THE GAME: one tap on the splash and the panel on screen '
     + 'is the walked city (' + (d.after.panelsOn.join(',') || 'none') + ')',
     d.after.panelsOn.includes('p-city'));
@@ -234,11 +260,22 @@ async function walk(chromium, file) {
     + 'behind it are hidden, so nobody taps REROLL and regenerates the world under '
     + 'their own save (' + (d.city ? d.city.devbtn + ' / ' + d.city.devtray : 'no city') + ')',
     !!d.city && d.city.devbtn === 'hidden' && d.city.devtray === 'hidden');
-  ok('and THE PLAYER\'S OWN BUTTONS SURVIVED -- phone, music and save are still '
-    + 'there, because this is a cut and not a stripping '
+  /* *** THIS LEG USED TO SAY "THIS IS A CUT AND NOT A STRIPPING" AND DEMAND THAT
+     PHONE, MUSIC AND SAVE ALL BE VISIBLE. IT IS NOW THE OPPOSITE OF TWO RULINGS. ***
+     (RUN 9/23, VAMILY [cut now].) Paolo 9/22 killed the PHONE chip in his own words
+     ("there shouldn't be a phone button in the top right"), and rule 18g and 18i strip
+     MUSIC and SAVE from the DEMO -- "the four things and nothing else". A gate holding
+     a screen he ruled against is not protecting anything, it is arguing with him.
+     WHAT IT PROTECTS INSTEAD IS THE THING THE OLD WORDING WAS REALLY FOR: a cut must
+     HIDE, never DELETE. So the demo may have these hidden, and the WORKSHOP must still
+     carry every one of them with its code. Absent from the workshop is still a red. */
+  const WORLD_SRC = require('fs').readFileSync(
+    require('path').join(__dirname, '..', 'slices/BOHEMIA_CITY_WORLD.html'), 'utf8');
+  ok('and THIS IS A CUT AND NOT A STRIPPING -- music and save are HIDDEN in the demo '
+    + 'by rule 18g, and the workshop still carries them '
     + '(' + (d.city ? [d.city.phonebtn, d.city.musbtn, d.city.savebtn].join(' ') : 'no city') + ')',
-    !!d.city && d.city.phonebtn === 'VISIBLE' && d.city.musbtn === 'VISIBLE'
-    && d.city.savebtn === 'VISIBLE');
+    !!d.city && d.city.musbtn !== 'VISIBLE' && d.city.savebtn !== 'VISIBLE'
+    && /id="musbtn"/.test(WORLD_SRC) && /id="savebtn"/.test(WORLD_SRC));
 
   /* ---- 5b. AND IT PLAYS, WHICH IS A DIFFERENT CLAIM FROM IT BOOTS ------- */
   ok('THE DEMO IS THE GAME, NOT A SHELL: the surface it lands on owns the day '

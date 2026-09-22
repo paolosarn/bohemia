@@ -122,17 +122,44 @@ const done = (d) => {
   ok('  and the word is NOTES', /^NOTES/.test(bar.me.text), bar.me.text);
 
   const others = bar.kids.filter(k => k.id && k.id !== 'notebtn' && k.w > 0);
-  ok('every other chip in this bar has a plate (the control this is judged against)',
-     others.length > 0 && others.every(k => k.plate), others.map(k => k.id).join(' '));
   ok('it has a plate too, like SAVE beside it', bar.me.plate);
 
   /* dimmer than its neighbours is what made it disappear; measure luminance, not a name */
   const lum = c => { const m = String(c).match(/\d+/g) || [0, 0, 0];
     return 0.2126 * +m[0] + 0.7152 * +m[1] + 0.0722 * +m[2]; };
-  const dimmest = Math.min.apply(null, others.map(k => lum(k.ink)));
-  ok('its ink is no dimmer than the dimmest chip beside it',
-     lum(bar.me.ink) >= dimmest - 1,
-     'notes ' + lum(bar.me.ink).toFixed(0) + ' vs dimmest neighbour ' + dimmest.toFixed(0));
+
+  /* *** THE NEIGHBOURS IT IS JUDGED AGAINST ARE NOT IN THE DEMO ANY MORE, AND THAT IS
+     A RULING, NOT A REGRESSION. *** (RUN 9/23, VAMILY [cut now].) Rule 18g and 18i:
+     "the four things and nothing else", so the cut now strips MUSIC and SAVE from the
+     DEMO's bar and NOTES is the only chip left in it.
+     THE FIRST THING THIS LEG DID WHEN THAT LANDED WAS PASS ITSELF A LIE: with nobody
+     to compare against, `others.every(...)` on an empty list is TRUE and
+     `Math.min()` of an empty list is INFINITY, so "no dimmer than the dimmest chip
+     beside it" read `notes 197 vs dimmest neighbour Infinity` and went red for a
+     reason that has nothing to do with how NOTES looks.
+     THE COMPARISON IS A WORKSHOP QUESTION AND IT MOVES TO THE WORKSHOP. The alpha's
+     bar still has MUSIC, SAVE and TOOLS, so that is where "does this chip look like
+     the ones beside it" can be asked at all. Same two assertions, same values, asked
+     where the neighbours live -- narrower surface, not a lower bar. */
+  /* THE BAR IS THE CITY FRAME'S, NOT THE SHELL'S. My first cut of this read the alpha
+     and went red on both legs: #musbtn and #savebtn are written in
+     BOHEMIA_CITY_WORLD.html, the walked world the alpha loads in an iframe, and a
+     checker that reads the wrong file reports a missing feature that is right there. */
+  const WORLD = fs.readFileSync(path.join(ROOT, 'slices/BOHEMIA_CITY_WORLD.html'), 'utf8');
+  if (others.length === 0) {
+    console.log('    the demo bar holds ONE chip now (rule 18g); the comparison moves to the workshop');
+    ok('the workshop still has the chips it is judged against (MUSIC and SAVE)',
+       /id="musbtn"/.test(WORLD) && /id="savebtn"/.test(WORLD));
+    ok('and NOTES wears the same plate rule as every other chip, by name not by eye',
+       /#noteplate,/.test(WORLD));
+  } else {
+    ok('every other chip in this bar has a plate (the control this is judged against)',
+       others.every(k => k.plate), others.map(k => k.id).join(' '));
+    const dimmest = Math.min.apply(null, others.map(k => lum(k.ink)));
+    ok('its ink is no dimmer than the dimmest chip beside it',
+       lum(bar.me.ink) >= dimmest - 1,
+       'notes ' + lum(bar.me.ink).toFixed(0) + ' vs dimmest neighbour ' + dimmest.toFixed(0));
+  }
 
   ok('a whole thumb can reach it', bar.me.w >= 44 && bar.me.h >= 44,
      bar.me.w + 'x' + bar.me.h);

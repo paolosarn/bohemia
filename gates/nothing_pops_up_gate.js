@@ -168,14 +168,16 @@ const MINUTES = 5;
        a check that can only ever say no, about a thing that is not there.
        WHAT IT ASKS NOW IS WHAT HE WOULD DO: find the phone on the screen, look at it,
        put a finger on it, and see the morning. Measured, not read. */
-    const feedOn = await fr.evaluate(() => {
-      /* the drawn phone lives on the CITY screen, so get there first. The pinch is the
-         player's door and it does not cross under the harness, so this moves the camera
-         and SAYS SO rather than pretending a gesture happened. */
-      try { MODE = 'city'; return true; } catch (e) { return false; }
-    });
-    await d.page.waitForTimeout(1800);
-    say('  the city screen was reached by moving the camera, not by a pinch (' + feedOn + ')');
+    /* THE DRAWN PHONE LIVES ON THE CITY SCREEN, SO GO THERE THE WAY HE GOES THERE.
+       The first cut of this set MODE by hand and said so, because the squeeze did not
+       cross. It does now: that was never the seam, it was the driver walking the game
+       through the loading screen without ever pressing BEGIN (TRAP 7 in the driver),
+       so both fingers were landing on a sheet over the canvas. Assignment is not input. */
+    await d.pinchOut();
+    await d.page.waitForTimeout(1200);
+    const reached = await fr.evaluate(() => MODE);
+    say('  one squeeze on the street reached: ' + reached);
+    ok('the city screen is reached by a squeeze, the way he reaches it', reached === 'city');
 
     const handle = await fr.evaluate(() => {
       const f = document.getElementById('cityfeed');
@@ -227,9 +229,24 @@ const MINUTES = 5;
     if (cb && cb.w > 0) { await d.tapAt(cb.x, cb.y); await d.page.waitForTimeout(500); }
     const folded = await fr.evaluate(() => !PHONE_ON);
     ok('and it folds again, so it is not a one-way door', folded === true);
-    ok('the phone really renders what the run sends it',
-       /function morningBlock\(\)/.test(require('fs').readFileSync(
-         path.join(__dirname, '..', 'slices/BOHEMIA_CURRENT_SLICE.html'), 'utf8')));
+    /* *** AND IT ASKS THE SOURCE AND THE BUILT FILE, BECAUSE ASKING ONLY THE BUILT FILE
+       IS HOW THIS WENT MISSING. *** (9/23.) The morning block was written straight into
+       slices/BOHEMIA_CURRENT_SLICE.html, which is GENERATED from the phone source by
+       tools/build_current_slice.js. It shipped, it was green, and the next lane that
+       rebuilt the slice for its own reasons wiped it -- exactly as a rebuild should.
+       A CHECK THAT ONLY READS THE OUTPUT CANNOT TELL "somebody wrote it in the right
+       place" FROM "somebody wrote it in the file the build overwrites". Both, now: the
+       source must carry it AND the built slice must too, which is also the only way to
+       catch a source edit that nobody rebuilt. */
+    const fsx = require('fs');
+    const phoneSrc = fsx.readFileSync(
+      path.join(__dirname, '..', 'slices/BOHEMIA_SOCIAL_PHONE_DEMO_7_20_26.html'), 'utf8');
+    const phoneOut = fsx.readFileSync(
+      path.join(__dirname, '..', 'slices/BOHEMIA_CURRENT_SLICE.html'), 'utf8');
+    ok('the phone really renders what the run sends it, IN ITS SOURCE',
+       /function morningBlock\(\)/.test(phoneSrc));
+    ok('  and the built slice was rebuilt from that source, so it is not a stale copy',
+       /function morningBlock\(\)/.test(phoneOut));
 
     /* THE DAY STILL TURNS. SLEEP was the ROLLOVER as well as a button, and a fix
        that removed the button and stopped the calendar would be worse than the card.

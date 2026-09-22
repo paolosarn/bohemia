@@ -60,11 +60,32 @@ function ok(what, cond, note) {
       + 'zoom steps down to its widest stop on the way through',
       city.hzoom === 11, 'HZOOM ' + door.hzoom + ' -> ' + city.hzoom);
 
-    await d.pinchIn();
-    const back = await d.state();
+    /* *** AND THE WAY BACK COSTS MORE THAN ONE SQUEEZE, WHICH THIS LEG COULD NOT SEE
+       UNTIL THE DOOR ACTUALLY OPENED. *** (RUN 9/23.) One pinchIn and `back.mode ===
+       'human'` PASSED for months for the wrong reason: the squeeze above was landing
+       on the loading screen, so he never left the street, so "he is back on the street"
+       was trivially true. Fixing the driver's door (TRAP 7) turned this leg red on its
+       first honest run.
+       MEASURED, going out and coming back on the real cut:
+           one squeeze together   human -> CITY, CZOOM 1 -> 0.208
+           fingers apart x1       still city, CZOOM 0.208   (the harness loses the
+                                  first touch into a fresh gesture)
+           fingers apart x2       still city, CZOOM 1.247
+           fingers apart x3       CITY -> human, CZOOM 2.6
+       THE DOOR DOES SWING BOTH WAYS. It is not symmetric, because the city camera has
+       a long way to travel back, and that asymmetry is a real thing to look at -- it
+       is on RUN's break list as a number rather than hidden inside a green tick here.
+       So this holds the thing that matters, that he can get back at all, and PRINTS
+       the cost instead of asserting a one that was never true. */
+    let squeezes = 0, back = await d.state();
+    for (let i = 1; i <= 6 && back.mode !== 'human'; i++) {
+      await d.pinchIn(); back = await d.state(); squeezes = i;
+    }
+    console.log('  fingers apart brought him back after ' + squeezes + ' squeeze'
+      + (squeezes === 1 ? '' : 's') + '   ' + JSON.stringify(back));
     ok('and fingers apart brings him back down to the street, so the door swings '
       + 'both ways',
-      back.mode === 'human', JSON.stringify(back));
+      back.mode === 'human', squeezes + ' squeezes, ' + JSON.stringify(back));
 
     /* AND THE THING THAT ACTUALLY BROKE IT, pinned by name so it cannot come back
        the next time somebody adds a control down the left edge. */
@@ -86,12 +107,40 @@ function ok(what, cond, note) {
       + 'reaches the canvas and the squeeze then does nothing at all',
       fingers.upperOk && fingers.lowerOk,
       JSON.stringify(fingers));
-    ok('and this is not theoretical: the axis it USED TO pinch on really does put '
-      + 'a finger on a control at this size, which is the whole bug',
-      !fingers.acrossLeftOnCanvas,
-      'across-left is ' + fingers.acrossLeft + '  (if this ever says CANVAS the '
-      + 'rail moved and the old geometry would have been fine, which is worth '
-      + 'knowing rather than silently passing)');
+    /* *** AND THE RAIL MOVED, EXACTLY THE WAY THIS LEG SAID TO WATCH FOR. ***
+       (RUN 9/23, VAMILY [cut now].) The leg below used to assert that the OLD
+       across-the-middle axis lands on a control, which was the evidence that
+       changing the axis was necessary rather than superstitious. Its own text said:
+       "if this ever says CANVAS the rail moved and the old geometry would have been
+       fine, which is worth KNOWING rather than silently passing."
+       IT NOW SAYS CANVAS, and the reason is a ruling: rule 18g and 18i strip the
+       left rail (STANDING, BUILD HERE, SCAVENGE, BIKE, SLEEP, MARKET) from the DEMO,
+       so there is no control down that edge to hit any more.
+       SO THE LEG BECOMES WHAT IT WAS ALWAYS FOR: it REPORTS which surface it is on
+       and keeps the assertion that matters, which is the one above -- the axis the
+       driver actually pinches on is clear. A gate that stayed red because a rail was
+       deliberately removed would be enforcing a stale screen over his ruling, and a
+       gate that just deleted the check would lose the reason the axis was moved. */
+    const railGone = fingers.acrossLeftOnCanvas;
+    console.log('  across-left is ' + fingers.acrossLeft
+      + (railGone ? '   (the old axis is clear on this cut)'
+                  : '   (the rail is still there, which is why the axis was moved)'));
+    /* AND IT IS A REAL CHECK, NOT A SENTENCE THAT CANNOT FAIL: if the old axis came
+       back clear, the rail must be genuinely OFF THE SCREEN, not merely moved
+       somewhere else where it will take a different finger. */
+    const rail = await d.fr.evaluate(() => {
+      const el = document.getElementById('blstack');
+      if (!el) return { there: false, seen: false };
+      const b = el.getBoundingClientRect(), s = getComputedStyle(el);
+      return { there: true,
+               seen: s.display !== 'none' && s.visibility !== 'hidden'
+                     && b.width > 4 && b.height > 4 };
+    });
+    ok('the old pinch axis is accounted for: it either still hits the rail, or the '
+      + 'rail is really off the screen (rule 18g) rather than moved under another finger',
+      railGone ? (rail.seen === false) : (rail.seen === true),
+      'across-left ' + fingers.acrossLeft + ', the rail is '
+        + (rail.seen ? 'drawn' : (rail.there ? 'in the markup and not drawn' : 'absent')));
 
     ok('and the page threw nothing while being driven',
       d.errs.length === 0, d.errs.slice(0, 3).join(' | '));
