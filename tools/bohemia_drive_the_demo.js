@@ -245,17 +245,54 @@ async function open(opts) {
      nothing happened, and the driver reported "no city frame" on a game that boots fine.
      Tapping #front opened it on the first try. So TAP BOTH, with a real finger, and keep
      click() as the belt: neither costs anything and between them every surface opens. */
-  for (const id of ['fronttap', 'front']) {
-    const b = await page.evaluate((i) => {
-      const f = document.getElementById(i);
-      if (!f || getComputedStyle(f).display === 'none') return null;
-      const r = f.getBoundingClientRect();
-      if (r.width < 4 || r.height < 4) return null;
-      return { x: r.x + r.width / 2, y: r.y + r.height / 2 };
-    }, id);
-    if (b) await page.touchscreen.tap(b.x, b.y);
-    await page.evaluate((i) => { const f = document.getElementById(i); if (f) f.click(); }, id);
+  const knock = async () => {
+    for (const id of ['fronttap', 'front']) {
+      const b = await page.evaluate((i) => {
+        const f = document.getElementById(i);
+        if (!f || getComputedStyle(f).display === 'none') return null;
+        const r = f.getBoundingClientRect();
+        if (r.width < 4 || r.height < 4) return null;
+        return { x: r.x + r.width / 2, y: r.y + r.height / 2 };
+      }, id);
+      if (b) await page.touchscreen.tap(b.x, b.y);
+      await page.evaluate((i) => { const f = document.getElementById(i); if (f) f.click(); }, id);
+    }
+  };
+  await knock();
+  /* *** TRAP 6: KNOCKING IS NOT THE SAME AS GETTING IN. (UI 9/23) ***
+     The tap above fires the moment the door is SEEN. Rule 18a made the door's own
+     handler open with `if(!window.__LOAD_READY) return;`, and __LOAD_READY is set far
+     down the file, so THE DRIVER'S KNOCK RACES THE LOAD and the loser gets a splash it
+     thinks it already walked through. Nothing downstream notices: the city frame is
+     built and alive UNDER the splash, so `fr.evaluate` answers every question happily
+     while a real finger at those coordinates lands on #loadgl. MEASURED, top page,
+     first real click after open(): `document.elementFromPoint` -> loadgl, and the frame
+     saw no pointerdown at all -- which is how a probe of mine read "the phone does not
+     open on the first touch" about a phone that opens fine, and how a pinch that never
+     crossed the seam got labelled THE CITY.
+     A LIVE ORACLE UNDER AN OVERLAY IS THE SAME DEFECT CLASS AS A HANDLER ON AN
+     UNTOUCHABLE ELEMENT (RUN, 9/23) -- it answers, and the answer is about a screen
+     nobody is looking at.
+     So: knock, then CHECK THE DOOR IS BEHIND US, and knock again until it is. Bounded,
+     and it costs nothing at all on a boot where the old single knock already worked. */
+  const doorStillThere = () => page.evaluate(() => {
+    const f = document.getElementById('fronttap') || document.getElementById('front');
+    return !!(f && getComputedStyle(f).display !== 'none' && f.offsetParent !== null);
+  });
+  /* KEEP KNOCKING UNTIL IT OPENS, ON A CLOCK RATHER THAN A COUNT. A count was the first
+     cut and it was wrong for the alpha: the alpha is a bigger load than the demo, so a
+     fixed fourteen knocks ran out while the door was still legitimately waiting for
+     __LOAD_READY, and gates on the alpha carried on measuring the splash. MEASURED on
+     the alpha before this: you_can_start_it_gate printed "NOTHING REACHABLE. The shell
+     says the first body point is under: DIV#loadgl" -- a whole gate whose subject was
+     the front splash. The budget is the thing to bound, not the patience. */
+  const tKnock = Date.now();
+  while ((await doorStillThere()) && Date.now() - tKnock < (opts.door || 90000)) {
+    await page.waitForTimeout(700);
+    await knock();
   }
+  const doorLeft = !(await doorStillThere());
+  const doorMs = Date.now() - tKnock;
 
   let fr = null;
   await until(async () => {
@@ -269,7 +306,25 @@ async function open(opts) {
   await until(() => fr.evaluate(() => typeof MODE !== 'undefined' && MODE === 'human'
     && document.querySelectorAll('.pb').length === 8), opts.world || 120000);
   /* TRAP 1: the frame's own box, added to every coordinate below. */
-  const fb = await (await fr.frameElement()).boundingBox();
+  let fb = await (await fr.frameElement()).boundingBox();
+  /* *** TRAP 7: A HIDDEN FRAME HAS NO BOX, AND THE ALPHA NOW HIDES IT ON PURPOSE. ***
+     Paolo ruled twice that the alpha must not open on the run, so since 9/22 it lands on
+     the VOTE tab after BEGIN -- which means the RUN panel, the one holding the city
+     frame, is display:none the instant the door opens. boundingBox() returns null for a
+     hidden element and every coordinate in this file reads .x off it, so open() threw
+     `Cannot read properties of null (reading 'x')` on the alpha. NOBODY SAW IT UNTIL NOW
+     because the driver never got through the alpha's door in the first place (TRAP 6
+     above): it stood on the splash, where the RUN panel is still the shown one.
+     A driver of the WALKED CITY means to be on RUN, so walk to RUN, then take the box. */
+  if (!fb) {
+    await page.evaluate(() => {
+      const t = document.querySelector('.tab[data-p="run"]'); if (t) t.click(); });
+    await until(async () => {
+      fb = await (await fr.frameElement()).boundingBox(); return !!fb; }, opts.runtab || 20000);
+  }
+  if (!fb) { await browser.close(); server.close();
+    throw new Error('the city frame is on the page but has no box: its panel is hidden '
+      + 'and tapping the RUN tab did not show it'); }
 
   const tapAt = (x, y) => page.touchscreen.tap(fb.x + x, fb.y + y);
   /* TRAP 3: a real finger at the element's real position, never a text click. */
@@ -422,6 +477,12 @@ async function open(opts) {
        to walk through it. Exposing evaluate is cheaper and honester than teaching
        this file every future overlay. */
     pageEval: (fn, arg) => page.evaluate(fn, arg),
+    /* DID THE DRIVER ACTUALLY GET IN? A caller that sends real pointers has to be able
+       to refuse to report when the answer is no, rather than measure the splash. */
+    doorIsBehindUs: () => doorLeft,
+    /* how long the door held after the first knock, so a caller can say whether it
+       waited or walked straight in rather than guessing */
+    doorMs: () => doorMs,
     pinchOut: () => pinch(150, 25),          /* toward the city */
     pinchIn:  () => pinch(25, 150),          /* back down to the street */
     /* the canvas only: the phone chrome is not the game */

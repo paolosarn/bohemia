@@ -788,6 +788,34 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font-family:var(--
    ctOutfitBadge wrote down when its own chip moved: THE DOOR MOVING IS A DECISION, THE
    ALARM GOING SILENT IS AN ACCIDENT. Reused, never a second alert designed: the casing
    lights at its edge, the screen inside is untouched, and nothing grows. */
+/* *** THE POCKET PHONE, ON THE STREET (9/23, row [phone on the street]). ***
+   The same object, shrunk to a handset lying in the top right: casing, a sliver of
+   lit glass, nothing to read. It is the DOOR, not a feed -- the feed streams in CITY
+   mode where he asked for it. It sits clear of the left rail and clear of the walk
+   pad in the bottom right, and it is a whole thumb, because it is the only way into
+   the phone on this screen. */
+#cityfeed.street{ width:46px; max-height:none; height:62px; top:58px; right:7px;
+  padding:3px 3px 4px; border-radius:7px }
+#cityfeed.street #cityfeedlist,
+#cityfeed.street #cityfeedfade{ display:none }
+#cityfeed.street #cityfeedscreen{ height:100%; min-height:0 }
+/* THE GLANCE. A phone in your pocket is not a dead slab, it is a lit hour behind
+   cracked glass, and that is the whole reason you look at one. The bar is already the
+   object that carries the clock, so the pocket keeps THE BAR and drops everything on
+   it except the time: no invented widget, no second clock to drift from the first. */
+#cityfeed.street #cityfeedbar{ height:100%; justify-content:center; padding:0 2px;
+  border-bottom:0; letter-spacing:0; overflow:hidden }
+#cityfeed.street #cityfeedsig,
+#cityfeed.street #cityfeedname,
+#cityfeed.street #cityfeedbatt{ display:none }
+/* 9px, not 11: at 11 the hour touched both edges of a 38 px glass and the leading
+   digit went under the casing. The time has to be READ at a glance or the pocket is
+   just a slab again. */
+#cityfeed.street #cityfeedclock{ font-size:9px; color:#c8b681 }
+/* a whole thumb around it without moving the drawn object: the reach is a pad, the
+   phone is the picture. Same trade as the notes mark. */
+#cityfeed.street::after{ content:''; position:absolute; left:50%; top:50%;
+  width:44px; height:44px; transform:translate(-50%,-50%); }
 #cityfeed.ring{border-color:#d8b45a;
   box-shadow:0 0 0 2px rgba(216,180,90,.85),
              0 7px 20px rgba(0,0,0,.66),
@@ -75872,10 +75900,24 @@ window.BOHEMIA_FEED = (function(){
     if(!LIST)  LIST =el('cityfeedlist');
     if(!CLOCK) CLOCK=el('cityfeedclock');
     if(PANEL){
-      if(isCity!==on){
+      /* *** THE PHONE EXISTS ON THE STREET TOO. ***
+         RUN measured it (9/23, [phone door], records/BOHEMIA_THE_PHONE_COULD_NOT_BE
+         _OPENED_9_23_26.md): this panel only drew in CITY mode, so from waking up
+         until he zooms out THERE WAS NO PHONE AT ALL -- and since Paolo killed the
+         chip ("the phone is the phone button", 9/22) there was no door either. Rule
+         19a sends the morning and the night to the phone, so the words were there and
+         the way to read them was not.
+         THE ANSWER IS A PHONE ON THE STREET, NOT THE CHIP HE ALREADY REFUSED. It is
+         the SAME object, pocket sized: the casing and a sliver of lit screen, parked
+         in the top right clear of the rail and the walk pad. Tapping it opens the
+         phone exactly as it does in the city. The feed itself still only streams in
+         CITY mode, because that is where he asked to read it (9/4). */
+      var wantOn = true;                       /* the phone is always on him */
+      if(isCity!==on || PANEL.classList.contains('street')===isCity){
         on=isCity;
-        PANEL.classList.toggle('on',on);
-        PANEL.setAttribute('aria-hidden', on?'false':'true');
+        PANEL.classList.toggle('on',wantOn);
+        PANEL.classList.toggle('street',!isCity);
+        PANEL.setAttribute('aria-hidden','false');
         /* SEED IT THE MOMENT IT OPENS. Measured before this existed: the first life
            post was sixteen beats out, so a player who zoomed out met an EMPTY PHONE
            for eight seconds. A feed that teaches the world teaches nothing while it
@@ -75899,7 +75941,13 @@ window.BOHEMIA_FEED = (function(){
         }
       }
     }
-    if(!on) return;
+    /* *** WHERE IT SITS AND WHAT HOUR IT IS ARE NOT FEED WORK. ***
+       This used to be `if(!on) return;`, and `on` means THE FEED IS STREAMING, which is
+       city mode only. So on the street the pocket phone never re-measured the bar above
+       it and its clock never ran -- a phone in his pocket reading --:-- under a bar that
+       had moved. The stream still belongs to the city (9/4, his ruling); the OBJECT is on
+       him either way, so the two lines that keep the object honest run either way, and
+       the early return moved down to where the feed work actually starts. */
     /* SIT UNDER THE TOP BAR, WHEREVER IT ENDS. A fixed top:92px passed most runs and
        failed some, which is worse than failing every time: #topbar is a flex row and
        ITS HEIGHT IS NOT FIXED -- the music chip shows the CURRENT TRACK NAME, so a long
@@ -75915,11 +75963,21 @@ window.BOHEMIA_FEED = (function(){
         if(want>0 && want!==lastTop){ lastTop=want; PANEL.style.top=want+'px'; }
       }
     }catch(_e){}
+    /* *** THE PHONE'S CLOCK HAS NEVER TOLD THE TIME. ***
+       This read `HH` and `MM`, and THERE ARE NO SUCH VARIABLES IN THIS FILE -- the one
+       hit for HH anywhere is a household label. So every guard fell through to '' and
+       the phone has shown an empty clock since it was built, in the city as well as in
+       the pocket. Found by looking at the object rather than the code: the pocket phone
+       was a dead black slab, and a dead phone in your hand is a different game than a
+       lit one. The game keeps its time in T and prints it with clockStr(); the phone now
+       asks THAT, and takes the part after the separator so there is one clock in this
+       game and the pocket cannot drift from the bar. */
     if(CLOCK){
-      try{ var hh=(typeof HH!=='undefined')?HH:null, mm=(typeof MM!=='undefined')?MM:null;
-        CLOCK.textContent = (hh!=null&&mm!=null)
-          ? (String(hh).padStart(2,'0')+':'+String(mm).padStart(2,'0')) : ''; }catch(_e){}
+      try{ var full = (typeof clockStr==='function') ? clockStr() : '';
+        var bits = String(full).split('·');
+        CLOCK.textContent = (bits.length>1 ? bits[bits.length-1] : full).trim(); }catch(_e){}
     }
+    if(!on) return;                       /* everything past here IS the feed */
     /* __THE_FEED_STREAM__ (LIFE + CITY lane, 9/5, board row [feed posts]). THE
        SURFACE READS ONE STREAM NOW. The law routes the surface here and the STREAM to
        another lane, and this file's own header said so -- "this is a reader, not a

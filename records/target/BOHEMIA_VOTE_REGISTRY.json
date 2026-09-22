@@ -1412,6 +1412,19 @@
     "how": "image",
     "src": "vote/QUESTS_SOMEBODY_STOPS_YOU_AT_YOUR_DOOR_9_22.png"
    }
+  },
+  {
+   "id": "ui-the-phone-in-your-pocket-9-23",
+   "kind": "ui",
+   "lane": "ui",
+   "sha": "4feaa9e",
+   "made": "9/23",
+   "title": "THE PHONE IN YOUR POCKET",
+   "why": "Walking around, you had no phone. It only appeared when you zoomed out to the city, and since you killed the phone button there was no way in at all. Now the phone is on you the whole time: folded into the top right corner, 46 by 62, cracked glass with the hour lit behind it and a gold rim when something is unread. Tap it and it opens, same phone, on the street or in the city. No new button was added. Thumbs up and it stays. Thumbs down and tell me if it is the corner it sits in, the size, or that you do not want to see a phone while you walk.",
+   "show": {
+    "how": "image",
+    "src": "vote/UI_THE_PHONE_IN_YOUR_POCKET_9_23.png"
+   }
   }
  ],
  "verdicts": [

@@ -1,3 +1,109 @@
+UI (ui-kmqmrf): 9/23 LATEST -- *** THE PHONE IS IN HIS POCKET NOW, AND MY PROBES HAD
+BEEN MEASURING A SCREEN NOBODY WAS LOOKING AT. *** [phone on the street] SHIPPED;
+[the picks] STAYS CLAIMED (loads B only, one of nine). TAB: CITY, and the walking
+screen, top right. Record:
+records/BOHEMIA_THE_PHONE_IN_HIS_POCKET_AND_THE_DOOR_MY_PROBES_NEVER_WALKED_THROUGH_9_23_26.md
+
+WHAT IS BUILT. The drawn phone is on him in BOTH modes. In the city it is the streaming
+feed it already was, 132 x 349. On the street it is FOLDED INTO HIS POCKET: 46 x 62 at
+the top right, cracked glass, the hour lit behind the cracks, the gold rim when something
+is unread, one 44 x 44 reach pad centred on it so the thumb target is a whole thumb
+without the drawn object growing. Same element, same id, same handler. One tap opens the
+phone, on the street, on the first touch. NOT a chip -- he killed the chip on 9/22 ("the
+phone is the phone button") and it stays dead; the object he already owns simply stopped
+disappearing when he walks.
+
+*** THE DEFECT THIS ROUND ACTUALLY FOUND IS BIGGER THAN THE ROW, AND IT IS EVERYBODY'S. ***
+A LIVE ORACLE UNDER AN OVERLAY IS THE SAME DEFECT CLASS AS A HANDLER ON AN UNTOUCHABLE
+ELEMENT (RUN's finding a round ago, same shape). tools/bohemia_drive_the_demo.js taps the
+front door THE MOMENT THE DOOR IS SEEN, and rule 18a made the door's own handler open with
+`if(!window.__LOAD_READY) return;` with the flag set far down the file. So the driver's
+knock RACES THE LOAD, and on the runs it loses it walks away believing it is inside.
+Nothing downstream notices: the city frame is built and ALIVE UNDERNEATH the splash, so
+fr.evaluate answers every question happily -- MODE is human, the world is there,
+elementFromPoint says the phone owns its own pixel -- all true, all about a screen nobody
+is looking at. A real finger at those coordinates lands on #loadgl. Measured: top page
+elementFromPoint -> loadgl, and the frame saw no pointerdown at all.
+FIXED IN THE DRIVER SO IT IS FIXED FOR EVERY LANE: knock, CHECK THE DOOR IS BEHIND US,
+knock again until it opens, ON A CLOCK (90 s) rather than a count, and publish
+doorIsBehindUs() and doorMs() so a caller that sends real pointers can REFUSE TO REPORT
+rather than measure the splash. It costs nothing on a boot where the single knock already
+worked (tappableMs 1043 and 938, door behind us both times).
+  A COUNT WAS THE FIRST CUT AND IT WAS WRONG: MEASURED, THE ALPHA'S DOOR HOLDS 21,898 ms
+  after the first knock, so fourteen knocks ran out and the alpha was still being measured
+  from the splash. you_can_start_it_gate was printing, in its own words, "NOTHING
+  REACHABLE. The shell says the first body point is under: DIV#loadgl" -- a gate about
+  tapping the street, red about the front splash.
+  AND OPENING THAT DOOR UNCOVERED ONE OF MINE FROM LAST ROUND. With the splash finally
+  behind it, open() THREW on the alpha: `Cannot read properties of null (reading 'x')`. A
+  HIDDEN ELEMENT HAS NO BOX -- the alpha lands on VOTE after BEGIN (his ruling, twice), so
+  the RUN panel holding the city frame is display:none the instant the door opens and
+  boundingBox() returns null. Nobody had seen it because nobody had ever been through that
+  door. The driver walks to the RUN tab when the frame has no box, then takes it, and says
+  so if that fails. the_driver_says_what_it_opened_gate: 3 failed before, 6/0 after.
+*** AND A SECOND GATE IS STILL STANDING ON THAT SPLASH, and it is not the driver's:
+gates/you_can_start_it_gate.js builds its own page, waits 9 s, taps, waits 2.5 s, taps
+again -- and the alpha's door holds 21.9 s, so it loses the race every time. It prints
+"NOTHING REACHABLE. The shell says the first body point is under: DIV#loadgl" and has been
+7 passed / 4 failed before and after my change, unchanged, because I did not touch it. Its
+three red legs are about the front splash, not about the street. Whoever owns it: wait for
+__LOAD_READY, or drive with the one driver, and those legs start meaning something. This
+is the same shape as EYES' 9/22 finding (a scripted press inside the first thirty seconds
+is not a press) and it is now costing two gates.
+*** PLUMBER: THIS IS YOUR FILE AND UI TOUCHED IT. *** Additive, no existing call changes,
+but 39 gates drive through it and you should know.
+*** FACTIONS / RUN, A THING NOW VISIBLE THAT WAS NOT BEFORE: *** with the driver really
+inside, the_driver_reaches_the_city_gate crosses the seam (mode city, HZOOM 11) and then
+FINGERS APART DOES NOT BRING HIM BACK (mode stays city, czoom 0.208). On main that gate is
+also red, on the leg before it -- the squeeze never crossed at all because the driver was
+on the splash -- so this is newly VISIBLE, not newly broken, and I am not claiming a
+regression. The second red leg follows from the first: in city mode there is no left rail,
+so 'the old axis hits a control' reads CANVAS. The city-to-street seam is not this lane's.
+
+AND A THIRD THING, FOUND BY LOOKING AT THE OBJECT INSTEAD OF THE CODE. The pocket phone
+came out a dead black slab, so I went looking for something to put in the glass. The
+phone's own bar already carries a clock and IT HAS NEVER TOLD THE TIME: it read
+`typeof HH!=='undefined'` and THERE IS NO HH AND NO MM IN THAT FILE (the only hit in
+76,000 lines is a household label), so both guards fell through to '' and the phone has
+shown an empty clock since it was built, in the city too. It asks clockStr() now, the
+game's own one. Two more lines had the same shape: the tick opened `if(!on) return;` and
+`on` means THE FEED IS STREAMING, city only, so on the street the phone never re-measured
+the bar above it (whose height is not fixed) and its clock never ran. The early return
+moved down to where the feed work actually starts. The stream still belongs to the city,
+his ruling 9/4.
+
+GATE: gates/the_bar_fits_his_glass_gate.js 26 ok / 0 failed, with the street legs the row
+asked for and a leg that refuses to report if the driver is still on the splash. SIX
+mutations proved and each restored: take the pocket phone away -> 1 red; make it
+untouchable (RUN's exact defect, on the street) -> 2; shrink it under a thumb -> 1; push
+it half off the right edge -> 3; TAKE THE HANDLER OFF THE DRAWN PHONE -> 2 (that one
+PASSED a round ago and RUN caught it by hand); put the old city-only behaviour back -> 4.
+
+PRE-PUSH PASS, EVERY GATE THAT READS WHAT I CHANGED, AND EVERY RED ATTRIBUTED BY RUNNING
+IT ON A CLEAN CHECKOUT OF MAIN IN A SEPARATE WORKTREE RATHER THAN BY REASONING:
+  GREEN: NOTHING POPS UP 21/0 (RUN's phone gate), THE BAR FITS HIS GLASS 26/0, THE NOTES
+    SECTION 28/0, THE NOTES BUTTON 22/0, THE VOTE TAB 30/0, LOADING DURING PLAY 6/0,
+    THE DRIVER SAYS WHAT IT OPENED 6/0 (3 failed on my tree BEFORE the trap 7 fix, so
+    that one is a red I made and closed in the same round).
+  RED ON MAIN AND ON MINE, IDENTICAL, NOT MINE: NOTHING MOVES UNDER HIS FINGER 8/2 (the
+    day card draws 0 rows at the door, same two legs, same numbers on clean main);
+    YOU CAN START IT 7/4 (its own splash race, above).
+  RED BOTH SIDES ON DIFFERENT LEGS: THE DRIVER REACHES THE CITY, above.
+
+RULE 22 COOK: ui-the-phone-in-your-pocket-9-23 in the VOTE tab, the object blown up beside
+the walking screen and the phone open, one item, one question.
+
+WHAT I DID NOT FIX, WRITTEN DOWN INSTEAD OF WIDENED INTO: the phone's own screen is BLACK
+for about three seconds the first time it opens, on the street and in the city alike
+(measured: the iframe is 'loading' at 1.5 s, 'complete' with 49,301 characters at 3 s).
+First open only, not new, not this row. It wants a row: warm the phone iframe when the
+game is idle.
+
+NEXT: [the picks] -- loads B is in; opens C, talks A, vote tab D, top bar D with the
+chipping and the broken glass, choice looks A, writing D, screen C, label E, and a
+choice's size as a SETTING. Then [inner votes] (rule 25) and [one hud] (rule 24).
+[PENDING Paolo] nothing.
+
 PORTRAIT (portrait-vamily-yke55s): 9/22 (b) LATEST -- *** [customizations first] ROUND 1.
 THIRTEEN OF TWENTY-SEVEN FACE DIALS WERE NOT ON HIS PANEL. THE FACE MAKER WENT FROM 14
 SLIDERS TO 22. *** Tab: CHARACTER, tap the portrait. Build 9/23f. Row CLAIMED.

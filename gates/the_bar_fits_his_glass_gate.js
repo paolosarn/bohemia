@@ -73,12 +73,67 @@ const done = (d) => {
     [path.join(ROOT, 'tools/bohemia_cut_the_demo.js'), '--out', cut], { stdio: 'pipe' });
   const d = await open({ serve: { 'BOHEMIA_DEMO.html': cut }, file: 'BOHEMIA_DEMO.html' });
 
-  /* ---- his ask: the chip is gone and the drawn phone is the handle ----
-     HIS FRAME IS CITY MODE AND THE DRAWN PHONE ONLY EXISTS THERE. The first cut of
-     this gate measured it on the walking screen, where it is 0x0, and the tap test
-     PASSED ANYWAY because a click dispatched at an invisible element still fires its
-     handler. A leg that cannot see its subject is not a leg. Cross the seam the way a
-     thumb does, one squeeze, and then look. */
+  /* ---- ARE WE EVEN INSIDE THE GAME? ----
+     Every leg below sends a real pointer at real coordinates, and a real pointer that
+     lands on the front splash measures the splash. The driver now knocks until the door
+     is behind it (TRAP 6 in tools/bohemia_drive_the_demo.js, written this round after
+     the top page answered `loadgl` for a pixel the frame swore was the phone). This
+     leg is the gate refusing to report when that failed. */
+  ok('the driver is really inside the game, not still on the splash', d.doorIsBehindUs());
+
+  /* ---- THE STREET, WHICH IS WHERE HE STARTS AND WHERE HE SPENDS THE MORNING ----
+     Row [phone on the street]: #cityfeed used to draw in CITY MODE ONLY, so from waking
+     up until he zooms out there was no phone on the screen at all -- and rule 19a sends
+     the morning and the night to the phone. The words were there and the door was not.
+     The answer is the phone folded into his pocket at the top right, not the chip he
+     already refused ("the phone is the phone button", 9/22). */
+  const whereIsIt = () => d.fr.evaluate(() => {
+    const f = document.getElementById('cityfeed');
+    if (!f) return { there: false };
+    const b = f.getBoundingClientRect();
+    const el = document.elementFromPoint(b.x + b.width / 2, b.y + b.height / 2);
+    return { there: true, mode: (typeof MODE !== 'undefined' ? MODE : '?'),
+             w: Math.round(b.width), h: Math.round(b.height),
+             /* THE WHOLE CONTROL INSIDE THE GLASS, not `left < innerWidth` -- the
+                mistake at the top of this file, asked properly. */
+             whole: b.left >= 0 && b.right <= innerWidth && b.top >= 0 && b.bottom <= innerHeight,
+             at: Math.round(b.x) + ',' + Math.round(b.y),
+             owner: el ? (el.id || el.tagName) : null,
+             mine: !!el && (el === f || f.contains(el)),
+             pe: getComputedStyle(f).pointerEvents };
+  });
+  const street = await whereIsIt();
+  ok('ON THE STREET the phone is drawn at all', street.there && street.w > 0 && street.h > 0,
+     street.w + 'x' + street.h + ' in mode ' + street.mode);
+  ok('  and the whole of it is on the glass', street.whole, street.at);
+  ok('  and it is a thumb wide', street.w >= 44 && street.h >= 44, street.w + 'x' + street.h);
+  ok('  and it owns its own middle pixel', street.mine,
+     'pointer-events ' + street.pe + ', the point goes to ' + street.owner);
+
+  const state = () => d.fr.evaluate(() => (typeof PHONE_ON !== 'undefined' ? !!PHONE_ON : null));
+  const tapFeed = async () => {
+    const box = await d.fr.evaluate(() => {
+      const f = document.getElementById('cityfeed'), b = f.getBoundingClientRect();
+      return { x: b.x + b.width / 2, y: b.y + b.height / 2 };
+    });
+    const fb = await (await d.fr.frameElement()).boundingBox();
+    await d.page.mouse.click(fb.x + box.x, fb.y + box.y);
+  };
+  /* FOLD IT THE WAY ITS OWN AUTHOR DOES. RUN measured it: with the phone up, #phonewrap
+     is 378x794 over a 132x349 drawn phone, so the open phone covers its own handle and a
+     second tap there answers IFRAME. An open phone also eats a pinch, which is how a
+     probe of mine crossed no seam at all and still printed a heading that said THE CITY. */
+  const fold = () => d.fr.evaluate(() => { try { phoneClose(); } catch (_e) {} return PHONE_ON; });
+
+  ok('  and it starts folded', (await state()) === false);
+  await tapFeed(); await d.page.waitForTimeout(500);
+  ok('  and THE FIRST REAL TOUCH opens the phone, on the street', (await state()) === true);
+  ok('  and it folds again', (await fold()) === false);
+
+  /* ---- HIS FRAME IS CITY MODE, so cross the seam the way a thumb does and ask again.
+     The first cut of this gate measured the phone on the walking screen, where it was
+     then 0x0, and the tap test PASSED ANYWAY because a click dispatched at an invisible
+     element still fires its handler. A leg that cannot see its subject is not a leg. */
   await d.pinchOut();
   await d.page.waitForTimeout(600);
   ok('the squeeze really reached the screen in his photograph',
@@ -100,17 +155,36 @@ const done = (d) => {
   const wh = (phone.big || '0x0').split('x').map(Number);
   ok('  and it is far bigger than a thumb', wh[0] >= 44 && wh[1] >= 44, phone.big);
 
-  const state = () => d.fr.evaluate(() => (typeof PHONE_ON !== 'undefined' ? !!PHONE_ON : null));
-  const tapFeed = () => d.fr.evaluate(() => {
-    const f = document.getElementById('cityfeed'), b = f.getBoundingClientRect();
-    f.dispatchEvent(new MouseEvent('click', { bubbles: true,
-      clientX: b.x + b.width / 2, clientY: b.y + b.height / 2 }));
+  /* *** THIS TEST LIED, AND RUN CAUGHT IT ON THE GLASS (9/23, [phone door],
+     records/BOHEMIA_THE_PHONE_COULD_NOT_BE_OPENED_9_23_26.md). ***
+     It dispatched a click AT THE ELEMENT, which fires the element's handler whatever
+     is in front of it -- so it passed while `pointer-events:none` above the feed meant
+     the point at the middle of the drawn phone went to the CANVAS and the phone could
+     not be opened by anybody, anywhere in the demo. My fourth mutation, "take the
+     handler off the drawn phone", passed the whole time for the same reason: it asked
+     the SOURCE whether a handler exists and never asked the GLASS who gets the point.
+     A HANDLER ON AN ELEMENT THAT CANNOT BE TOUCHED IS THE SAME DEFECT CLASS AS A
+     CAUGHT EXCEPTION -- it is there, it is correct, and nothing reaches it.
+     So the tap goes through the page now: ask who owns the pixel first, refuse to
+     call it a tap if somebody else does, and then send a real pointer at that point. */
+  const whoOwnsTheFeed = () => d.fr.evaluate(() => {
+    const f = document.getElementById('cityfeed');
+    if (!f) return { there: false };
+    const b = f.getBoundingClientRect();
+    const el = document.elementFromPoint(b.x + b.width / 2, b.y + b.height / 2);
+    return { there: true, owner: el ? (el.id || el.tagName) : null,
+             mine: !!el && (el === f || f.contains(el)),
+             pe: getComputedStyle(f).pointerEvents };
   });
-  ok('the phone starts folded', (await state()) === false);
-  await tapFeed(); await d.page.waitForTimeout(300);
-  ok('tapping the drawn phone opens it', (await state()) === true);
-  await tapFeed(); await d.page.waitForTimeout(300);
-  ok('  and tapping it again folds it', (await state()) === false);
+  /* THE LEG RUN'S FIX EARNED: the glass, not the source. */
+  const owns = await whoOwnsTheFeed();
+  ok('IN THE CITY the drawn phone OWNS ITS OWN MIDDLE PIXEL', owns.mine,
+     'pointer-events ' + owns.pe + ', the point goes to ' + owns.owner);
+
+  ok('  and the phone is folded here too', (await state()) === false);
+  await tapFeed(); await d.page.waitForTimeout(500);
+  ok('  and THE FIRST REAL TOUCH opens it', (await state()) === true);
+  ok('  and it folds again', (await fold()) === false);
 
   /* ---- THE PROPERTY, UNDER PRESSURE ---- */
   const look = async (vw, infl, words) => {
