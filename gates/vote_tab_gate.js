@@ -360,6 +360,7 @@ const url = p => 'http://127.0.0.1:' + PORT + '/' + p;
   /* Measured on the alpha, because it is the surface this round ships on; the cut above
      is what proves the same markup reaches the demo. */
   let doorOk = false, doorWhy = '';
+  let landingOk = false, landingWhy = 'never reached the door';
   try {
     /* A CLEAN CONTEXT FOR THE ALPHA. The queue sweep above wrote votes into localStorage
        on this same origin, and the alpha reads its own saved state from there; judging the
@@ -377,7 +378,32 @@ const url = p => 'http://127.0.0.1:' + PORT + '/' + p;
        it covers the screen and a tap anywhere on it opens the game. So this taps the
        middle of the screen, which is what a thumb does. */
     await p4.waitForSelector('#front', { state: 'visible', timeout: 60000 });
+    /* *** WAIT FOR THE DOOR TO BE A DOOR. *** Rule 18a: nothing is tappable until it is
+       loaded, and the splash handler opens with `if(!window.__LOAD_READY) return;`. This
+       gate tapped immediately, so its tap was A NO-OP and the game opened later by some
+       other route -- which is why the landing leg first came back tab=run/p-city about a
+       build that lands on vote correctly when you tap it the way a player does (measured
+       directly: run/p-city -> vote/p-vote, and it stays there). A probe that presses a
+       button before the button exists is measuring its own impatience. */
+    await p4.waitForFunction(() => window.__LOAD_READY === true, { timeout: 180000 });
     await p4.mouse.click(195, 500);
+    /* *** THE LANDING LEG. PAOLO SAID IT TWICE: "in the alpha why does it open the run
+       first thing, I told you to not have that happen." Ruled 9/20 (rule 15g), still
+       true on main 9/22, built 9/22.
+       It is checked HERE, right after the door, because that is the only moment the
+       claim is about: what he is looking at the instant BEGIN hands over. A check any
+       later measures whatever the gate itself tapped since. */
+    await p4.waitForTimeout(900);
+    const landed = await p4.evaluate(() => {
+      const on = document.querySelector('.tab.on');
+      const p  = document.querySelector('.panel.on');
+      const f  = document.getElementById('voteFrame');
+      return { tab: on ? on.dataset.p : null, panel: p ? p.id : null,
+               framed: !!(f && (f.getAttribute('src') || '').indexOf('BOHEMIA_VOTE_TAB') >= 0) };
+    });
+    landingOk = landed.tab === 'vote' && landed.panel === 'p-vote' && landed.framed;
+    landingWhy = JSON.stringify(landed);
+
     await p4.waitForSelector('#openNot', { state: 'visible', timeout: 90000 });
     await p4.click('#openNot');
     await p4.waitForSelector('#gearbtn.on', { timeout: 90000 });
@@ -424,6 +450,11 @@ const url = p => 'http://127.0.0.1:' + PORT + '/' + p;
     doorWhy = JSON.stringify(state) + ' reach ' + reach.join('x');
     await acx.close();
   } catch (e) { doorWhy = String(e.message).slice(0, 100); }
+  /* HIS OWN SENTENCE, TWICE, AS ONE LEG */
+  ok('THE ALPHA LANDS ON VOTE AFTER BEGIN, not on the run', landingOk, landingWhy);
+  ok('  and the vote page is really loaded into it, not an empty box',
+     /"framed":true/.test(landingWhy), landingWhy);
+
   ok('tapping VOTE in the gear opens the queue and closes settings behind it',
      doorOk, doorWhy);
 

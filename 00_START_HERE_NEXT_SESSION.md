@@ -1,3 +1,64 @@
+UI (ui-kmqmrf): 9/22 (c) LATEST -- *** THE ALPHA LANDS ON VOTE AFTER BEGIN. HE SAID IT
+TWICE. *** [alpha opens on vote] SHIPPED; [the picks] STAYS CLAIMED with loads B built.
+TAB: the alpha, straight after BEGIN. Record:
+records/BOHEMIA_THE_ALPHA_LANDS_ON_VOTE_AND_HIS_PICKS_GO_IN_9_22_26.md
+
+HIS WORDS 9/22: "in the alpha why does it open the run first thing, I told you to not have
+that happen." Ruled 9/20 as rule 15g, still not built on 9/22. It is built now: after BEGIN
+the alpha shows the VOTE tab with RUN one tap away.
+  IT CLICKS THE TAB, NOT showTabPanel. That distinction is already written down in the alpha
+  and it is real: showTabPanel lights the panel and nothing else, and the VOTE panel's
+  iframe is a lazy data-src that only the tab's own click handler promotes, so
+  showTabPanel('vote') lands him on an empty box. The mutation that swaps one for the other
+  turns two legs red.
+  THE DEMO IS UNTOUCHED BY CONSTRUCTION: the cutter strips every tab but RUN, so there is no
+  vote tab to find there and the line does nothing, which is what the demo wants (rule 15a).
+  AND IT DOES NOT UNDO WHAT MAKES THE ALPHA FAST: __loadStart still clicks RUN behind the
+  splash to build the city while he reads the door. This only moves the surface afterwards.
+
+*** THE GATE WAS TAPPING A DOOR THAT WAS NOT A DOOR YET, AND THAT IS THE ROUND'S LESSON. ***
+The new landing leg came back tab=run/panel=p-city about a build that lands on vote
+correctly. I measured the page directly before believing the leg: tap after __LOAD_READY and
+the path is run/p-city -> vote/p-vote, holding at +200 ms, +1 s and +3 s. The gate was
+tapping the splash IMMEDIATELY, and the splash handler opens with
+`if(!window.__LOAD_READY) return;` (rule 18a, nothing is tappable until it is loaded), so
+the gate's tap was A NO-OP and the game opened later by another route. A PROBE THAT PRESSES
+A BUTTON BEFORE THE BUTTON EXISTS IS MEASURING ITS OWN IMPATIENCE. It waits for readiness
+now, which is also what a player does, because the screen says WAIT until then.
+
+HIS PICK BUILT (rule 28, no second vote): LOADS B. His word was "loads B, keep going, more
+analog horror". B is the one where you are not looking at a machine, you are INSIDE one: no
+case, no bezel, glass edge to edge, corners going dark because a tube is curved. The case is
+gone, the unit IS the screen, the name burns in the glass instead of being punched into
+metal that no longer exists. Everything the bar cannot lie about is unchanged.
+
+THREE DEFECTS IN MY OWN FILE, ALL FOUND BY RENDERING IT AND LOOKING:
+  1. NO box-sizing ANYWHERE in the module. The case had been hiding it; with the case gone
+     the padding ran past the right edge of the phone and cut the percentage in half.
+  2. The glass was a void -- it filled the screen with almost nothing in it. Capped now,
+     with the log bottom-anchored in it like a real terminal.
+  3. *** THE NAME RULE WAS STILL THE PUNCHED-METAL ONE AND I HAD ALREADY "FIXED" IT ONCE. ***
+     A dark letter with a lit lower lip is right cut into a case; on lit glass it is a
+     near-invisible smudge, which is what it had been in every render since the first cut.
+     An earlier edit of mine replaced a string that DOES NOT EXIST in this file and I never
+     checked that it matched, so the fix silently did nothing, twice. The replacement
+     asserts on its own match now and the render was checked after.
+AN EDIT THAT CANNOT BITE AND A PROBE THAT CANNOT SEE BOTH LOOK EXACTLY LIKE SUCCESS.
+
+[the picks] STAYS CLAIMED, NOT SHIPPED (rule 6): loads B is one of nine. Still to build:
+opens C, talks A, vote tab D, top bar D plus the chipping and broken glass on the phone,
+choice looks A, writing D, screen C, label E, and a choice's size as a SETTING.
+
+NO NEW OPTION SHEET WAS REGISTERED THIS ROUND, ON PURPOSE. Rule 28 freezes the alpha's UI
+and the picks stand; rule 25 is "an interactive inside of an interactive" and "7 options
+here, wtf". Offering more pictures of things he has already decided is the behaviour he
+objected to. The cook is the real screen, changed to his pick.
+
+PRE-PUSH PASS (rule 13): VOTE TAB 30/0 (landing leg added, two mutations proved), LOADING
+SCREEN 29/0 on the rebuilt screen. SUITE LINE: 107 red at ad23d875; mine are NONE.
+
+NEXT: [inner votes] is the next row -- two or three options maximum, and a vote cast inside
+an item's page lands in COPY ALL so the row never asks twice. Then the rest of [the picks].
 WORDS (words-8dqrnq): 9/22 (b) LATEST -- *** HE VOTED AND HE KILLED SEVEN OF THIS LANE'S NINE. THE
 POST-MORTEM IS NOT ABOUT THE WORDS, IT IS THE FORM. NOTHING WAS REGISTERED IN VOTE THIS ROUND, WHICH
 IS RULE 29. *** Row [player speaks english] SHIPPED. Record:

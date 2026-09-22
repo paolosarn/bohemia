@@ -82,26 +82,42 @@
     }
     var s = document.createElement('style'); s.id = 'blscss';
     s.textContent =
-      '#bls{position:absolute;inset:0;display:flex;flex-direction:column;'
-        + 'align-items:center;justify-content:center;gap:0;padding:18px;'
+      /* *** HIS PICK IS B, AND B HAS NO CASE. ***
+         Paolo 9/21 on FOUR WAYS THE GAME LOADS: "loads B, keep going, more analog
+         horror" (rule 28, laws/BOHEMIA_ADDENDUM_THE_FIRST_VOTES_9_22_26.md s5).
+         B is the one where you are not looking at a machine, you are INSIDE one:
+         no case, no bezel, the glass edge to edge, the corners going dark because
+         a tube is curved. So the case is gone and the unit IS the screen.
+         Rule 28 also says the picks go in with no second vote, so this is built,
+         not offered. */
+  /* BOX-SIZING, AND IT IS NOT A DETAIL: the first cut of B ran its own padding
+         past the right edge of the phone and cut the percentage in half, because
+         nothing in this file had ever said border-box and the case used to hide it. */
+      '#bls,#bls *{box-sizing:border-box}'
+      + '#bls{position:absolute;inset:0;display:flex;flex-direction:column;'
+        + 'align-items:stretch;justify-content:stretch;gap:0;padding:9px;'
         /* rule 4: no mood gradient. the room is one value and the glass lights it. */
-        + 'background:#0a0907;overflow:hidden;-webkit-tap-highlight-color:transparent}'
-      + '#blsunit{width:100%;max-width:348px;position:relative;padding:13px 13px 15px;'
-        + 'background:linear-gradient(180deg,#2c261d 0 6%,#221d16 6% 74%,#191510 74% 100%);'
-        + 'border-radius:2px;'
-        + 'box-shadow:inset 0 1px 0 #5c4f38,inset 1px 0 0 #463c2a,'
-        + 'inset 0 -2px 0 #0b0906,inset -1px 0 0 #0b0906,'
-        + '0 2px 0 rgba(0,0,0,.62),0 6px 14px rgba(0,0,0,.6)}'
+        + 'background:#070605;overflow:hidden;-webkit-tap-highlight-color:transparent}'
+      + '#blsunit{flex:1 1 auto;width:100%;position:relative;padding:16px 14px 15px;'
+        + 'display:flex;flex-direction:column;justify-content:flex-end;'
+        + 'background:none;border-radius:0;box-shadow:none}'
       /* the stencilled plate the name is cut into: dark letters, lit lower lip */
-      + '#blstag{text-align:center;padding:2px 0 10px}'
+      + '#blstag{text-align:center;padding:0 0 14px;margin-top:auto}'
+      /* *** THIS RULE WAS STILL THE PUNCHED-METAL ONE AND I HAD ALREADY 'FIXED' IT ONCE. ***
+         A dark letter with a lit lower lip is right when the name is cut into a case.
+         B has no case (his pick), so on lit glass that same rule is a near-invisible
+         smudge -- which is what it has been in every render since the first cut. An
+         earlier edit of mine replaced a string that does not exist in this file and I
+         did not check that it matched, so the fix silently did nothing twice. The name
+         burns in the glass now, like everything else on this screen. */
       + '#blstag b{display:block;font-family:var(--face-casing,ui-sans-serif);'
-        + 'font-size:17px;letter-spacing:6px;color:#0d0b08;'
-        + 'text-shadow:0 1px 0 rgba(226,210,160,.28),0 -1px 0 rgba(0,0,0,.7)}'
+        + 'font-size:22px;letter-spacing:8px;color:#e6f2e0;'
+        + 'text-shadow:0 0 6px rgba(190,230,185,.85),0 0 16px rgba(150,200,150,.5)}'
       + '#blstag i{display:block;margin-top:5px;font-style:normal;'
-        + 'font-family:var(--face-casing,ui-sans-serif);font-size:6px;letter-spacing:2px;color:#6b5d42}'
+        + 'font-family:var(--face-casing,ui-sans-serif);font-size:6px;letter-spacing:2px;color:#8fa889}'
       /* the glass: sunk into the case, lit from behind, corners dark like a tube */
-      + '#blsglass{position:relative;overflow:hidden;height:250px;padding:10px 11px;'+ 'display:flex;flex-direction:column;justify-content:flex-end;'
-        + 'border-radius:3px;color:#c9dcc4;'
+      + '#blsglass{position:relative;overflow:hidden;flex:1 1 auto;min-height:0;max-height:74%;padding:12px 2px;'+ 'display:flex;flex-direction:column;justify-content:flex-end;'
+        + 'border-radius:0;color:#c9dcc4;'
         + 'font-family:var(--face-screen,ui-monospace,monospace);font-size:9px;line-height:1.75;'
         + 'letter-spacing:.6px;'
         + 'background:radial-gradient(160% 130% at 50% 44%,#14120d 0 54%,#12100b 54% 74%,'
@@ -116,7 +132,7 @@
         + 'background:linear-gradient(180deg,rgba(200,220,200,0) 0 40%,'
         + 'rgba(200,220,200,.05) 40% 60%,rgba(200,220,200,0) 60% 100%);'
         + 'animation:blsroll 7.5s linear infinite}'
-      + '@keyframes blsroll{from{top:-26px}to{top:250px}}'
+      + '@keyframes blsroll{from{top:-26px}to{top:100%}}'
       + '#blslog{margin:0;white-space:pre-wrap}'
       + '#blslog .w{color:#8fa889}'
       + '#blscur{display:inline-block;width:5px;background:#c9dcc4;'

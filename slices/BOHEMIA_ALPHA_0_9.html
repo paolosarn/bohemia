@@ -1406,7 +1406,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 9/23a - ONE FIGHT IS ONE SONG</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 9/23b - THE ALPHA OPENS ON VOTE</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -11218,6 +11218,25 @@ document.getElementById('front').addEventListener('click',()=>{
      than left in as a change with no measurement behind it, and the real cause is
      written down unfound in the handoff instead of guessed at a third time. */
   try{ if(window.MENUMUS)MENUMUS.open(); }catch(_e){}
+  /* *** THE ALPHA LANDS ON VOTE, NOT ON RUN. PAOLO SAID IT TWICE. ***
+     9/20 (rule 15g) and again 9/22: "in the alpha why does it open the run first
+     thing, I told you to not have that happen."
+     records/BOHEMIA_PAOLO_THE_ALPHA_STILL_OPENS_ON_RUN_9_22_26.md
+     It opened on RUN because __loadStart clicks the RUN tab BEHIND this screen, so by
+     the time his finger lands the run is already the live panel. Nothing was wrong
+     with that -- it is what makes the world ready before the door opens -- so this
+     does not undo it. It just moves the surface afterwards.
+     IT CLICKS THE TAB, IT DOES NOT CALL showTabPanel. That distinction is written
+     down further up this file and it is real: showTabPanel lights the panel and
+     nothing else, and the VOTE panel's iframe is a lazy data-src that only the tab's
+     own click handler promotes. showTabPanel('vote') would land him on an empty box.
+     AND THE DEMO IS UNTOUCHED BY CONSTRUCTION: the cutter strips every tab but RUN,
+     so there is no vote tab to find and this does nothing there, which is exactly
+     what the demo wants (it has no vote tab at all, rule 15a). */
+  try{
+    var _vt = document.querySelector('.tab[data-p="vote"]');
+    if(_vt) _vt.click();
+  }catch(_e){}
 });
 window.__DOOR_WIRED = 1;   /* __ONE_SCREEN_HOLDS_ALL_THE_LOADING__ */
 /* AND THE LOAD BEGINS WITHOUT A TAP, AS SOON AS THE PAGE IS WHOLE -- which is not
