@@ -1501,7 +1501,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 9/23f - THE ROOM IS VERY LOW NOW</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 9/23g - LOW ROOM + THE FACE MAKER 22 DIALS</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -17773,7 +17773,45 @@ const FACE_SLIDERS=[
   ['eyes.gap',          'EYE SPACING',   3, 11],
   ['brows.len',         'BROW LENGTH',   4, 11],
   ['mouth.w',           'MOUTH WIDTH',   5, 15],
-  ['nose.w',            'NOSE WIDTH',    2,  5]
+  ['nose.w',            'NOSE WIDTH',    2,  5],
+  /* *** EIGHT DIALS THE GAME ALREADY HAD AND HE COULD NOT TOUCH. (Paolo 9/22: "we need
+     like way more face and portrait customizations bro like before we start trying to
+     hand me shit", after killing twelve of thirteen faces.) ***
+     MEASURED, not guessed: every numeric dial the face spec carries was swept from its
+     floor to its ceiling on a real face and the changed pixels counted. 13 of 27 dials
+     were not reachable from this panel. These are the ones that genuinely move the
+     picture, with what each one moves:
+         face.top          430 px   <- the biggest dial in the whole face bar two, and
+                                       there was no way to touch it
+         eyes.h             93      eyes.w            65
+         brows.thick        24      brows.gap         18
+         brows.angle        12      brows.arch        11      mouth.fullLower  14
+     NOTHING HERE IS INVENTED. Every one already existed, already moved pixels, and was
+     simply not on the panel -- MECHANISM MINE, CONTENTS HIS, and the contents were his
+     already.
+     *** AND FIVE THAT ARE DELIBERATELY NOT HERE, EACH FOR A MEASURED REASON. *** A thing
+     that promises something and does nothing is the worst bug in the game (rule 14d),
+     and in slider form that is a dial which cannot move pixels -- what this file already
+     calls "not a dial, it is a comment".
+         face.cheekY, face.jawCornerY   faceClamp RE-DERIVES both from top and len on
+                                        every change, so a slider would snap back the
+                                        instant he let go. The clamp is right: the skull
+                                        should stay coherent. Not a dial, by design.
+         eyes.hood                      moves ONE pixel. Measured, not estimated.
+         nose.len, details.stubble      MOVE ZERO PIXELS ON TWELVE ADULT FACES, and the
+                                        renderer's own source never mentions either name.
+                                        Two dead fields the spec has been carrying. */
+  ['face.top',          'FACE TOP',     14, 20],
+  ['eyes.w',            'EYE WIDTH',     4,  8],
+  /* NOT "EYE HEIGHT": face.eyeY above already owns that label and means how far UP THE
+     FACE the eyes sit. This one is how far the eye OPENS. Two sliders with the same name
+     is a panel that lies about itself, and I shipped exactly that for about a minute. */
+  ['eyes.h',            'EYE OPENING',   2,  6],
+  ['brows.thick',       'BROW THICK',    1,  3],
+  ['brows.gap',         'BROW SPACING',  3,  7],
+  ['brows.arch',        'BROW ARCH',     0,  1],
+  ['brows.angle',       'BROW ANGLE',    0,  3],
+  ['mouth.fullLower',   'LOWER LIP',     1,  3]
 ];
 /* the four row positions are stored as a FRACTION of the face, not as a pixel row, so
    lengthening the face moves the eyes with it instead of leaving them stranded near the
@@ -17806,6 +17844,16 @@ function faceClamp(){
   if(f.mouthY>chin-2)f.mouthY=chin-2;
   pface.mouth.w=Math.max(5,Math.min(f.jawW-6,pface.mouth.w));
   pface.eyes.gap=Math.max(3,Math.min(11,pface.eyes.gap));
+  /* THE NEW DIALS GET THE SAME TREATMENT AS THE OLD ONES: nothing is rejected, the
+     neighbour gives way, so a slider always does something. The eye pair plus the gap
+     between them has to fit inside the cheekbones -- the same clamp faceFor puts on the
+     crowd, so the face he builds obeys the rule every stranger obeys. */
+  pface.eyes.w=Math.max(4,Math.min(8,pface.eyes.w));
+  pface.eyes.h=Math.max(2,Math.min(6,pface.eyes.h));
+  while(pface.eyes.w>4&&(pface.eyes.gap+2*pface.eyes.w)>(f.cheekW-4))pface.eyes.w--;
+  pface.brows.thick=Math.max(1,Math.min(3,pface.brows.thick));
+  pface.brows.gap=Math.max(3,Math.min(7,pface.brows.gap));
+  pface.mouth.fullLower=Math.max(1,Math.min(3,pface.mouth.fullLower));
 }
 function faceSliderUI(parent,dev){
   const box=document.createElement('div');

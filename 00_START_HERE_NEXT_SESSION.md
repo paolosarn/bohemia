@@ -1,3 +1,72 @@
+PORTRAIT (portrait-vamily-yke55s): 9/22 (b) LATEST -- *** [customizations first] ROUND 1.
+THIRTEEN OF TWENTY-SEVEN FACE DIALS WERE NOT ON HIS PANEL. THE FACE MAKER WENT FROM 14
+SLIDERS TO 22. *** Tab: CHARACTER, tap the portrait. Build 9/23f. Row CLAIMED.
+Record: records/BOHEMIA_PORTRAIT_EIGHT_DIALS_HE_COULD_NOT_TOUCH_9_22_26.md
+Sheet: records/target/BOHEMIA_EIGHT_DIALS_YOU_COULD_NOT_TOUCH_9_22_26.png
+
+HIS VERDICT SET THE JOB: "we need like way more face and portrait customizations bro like
+before we start trying to hand me shit", and the coordinator's new first line -- HE CAN
+BUILD HIS OWN FACE comes first, the maker with the dials, then faces.
+
+MEASURED: every numeric dial the spec carries, swept floor to ceiling, changed pixels
+counted. 13 of 27 were not on the panel. The eight that genuinely move the picture:
+    face.top 430   eyes.h 93   eyes.w 65   brows.thick 24   brows.gap 18
+    mouth.fullLower 14   brows.angle 12   brows.arch 11
+FACE.TOP IS THE BIGGEST DIAL IN THE WHOLE FACE BAR TWO and there was no way to touch it;
+driven through the real panel with the clamp running it moves 742 pixels. THE BROWS ARE
+"the loudest thing on a face this size" BY THIS FILE'S OWN WORDS and he could only change
+their LENGTH. Nothing was invented: every one already existed and already moved pixels.
+
+*** FIVE I DELIBERATELY DID NOT ADD, EACH FOR A MEASURED REASON. ***
+  face.cheekY / face.jawCornerY  faceClamp RE-DERIVES both from top and len on every
+      change, so a slider snaps back the instant he lets go. I NEARLY SHIPPED TWO DEAD
+      CONTROLS; reading the clamp before building is the only reason I did not.
+  eyes.hood                      moves ONE pixel. Measured.
+  nose.len / details.stubble     MOVE ZERO PIXELS ON TWELVE ADULT FACES and the renderer's
+      own source never mentions either name. TWO DEAD FIELDS THE SPEC HAS BEEN CARRYING,
+      same class as the 8/28 five-style-names finding. NOT FIXED, named here.
+
+PROVED THROUGH THE PANEL, NOT THE SPEC: every slider driven the way the panel drives it --
+set, RUN THE CLAMP, render -- because a dial the clamp undoes looks fine in the spec and
+does nothing on screen, which is exactly how the cheekY trap would have got through. ALL 22
+MOVE PIXELS, ZERO DEAD.
+
+AND I SHIPPED A PANEL THAT LIED ABOUT ITSELF FOR A MINUTE: my new eyes.h was labelled EYE
+HEIGHT, which face.eyeY already owns and which means how far UP THE FACE the eyes sit. Two
+sliders with one name is a panel that cannot be trusted. Mine is EYE OPENING now and label
+uniqueness is checked.
+
+GATES: face_maker 13/0, portrait_haircut 12/0. talking_portrait 28/1 -- the face-distance
+floor, STILL deliberately red from last round (the metric cannot see a dark face,
+correlation 0.473 between a pair's brightness and its measured difference); unchanged at
+0.0116, EXPECTED, because these eight dials are HIS maker and not the crowd generator.
+become 15/13 IDENTICAL on a clean origin/main worktree, not mine. Full suite 107 red at
+ad23d875, none named as this lane's.
+
+VOTE: portrait-eight-dials-9-22, each new dial at its floor beside its ceiling so what each
+control does is visible rather than described.
+
+*** STILL UNANSWERED AND STILL THE LOUDEST THING ANYBODY HAS SAID TO THIS LANE: "more
+analog horror", fourteen times across the tab. *** Rule 30 binds it: every re-cook of a
+killed item goes through DIRECTION's bible before it comes back as a new id. That is
+[horror face], it is next, and it is NOT another lighting pass.
+
+NEXT: [horror face] under rule 30 and the bible. The two dead spec fields (nose.len,
+details.stubble) are a separate small job: either the renderer reads them or they come out
+of the spec.
+
+EYES AND EARS (eyes-5vql33): 9/22 (ap) LATEST -- *** E20 [song length] SHIPPED, AND THE ROUND'S REAL FINDING IS THAT I NEARLY PUBLISHED A FALSE ACCUSATION AGAINST THE MUSIC BECAUSE MY OWN PROBE'S DOOR NEVER OPENED. *** Record: records/BOHEMIA_EYES_E20_ROUND_2_THE_DOOR_NEVER_OPENED_9_22_26.md. Measured on the DEPLOYED CUT of BUILD 9/23a and on the alpha, 240 s a side. THE STRANGER'S LIST and THE HORROR READING are both rewritten on the front page.
+  THE RETRACTION. The first cut of tools/bohemia_eyes_the_handover.js read the music shuffle as OFF on both surfaces, 0 rests in 240 s, ALL FOUR CONTROLS GREEN, and the record was drafted. The music is fine. The probe entered with a scripted element.click() on the splash 2.5 s after load, THE PRESS WAS LOST, the splash stayed up, and a game that never started has no music. Caught by asking one more question before posting: is the thing I am about to call broken actually running.
+  AND THE FIRST A/B PROVED NOTHING because it moved three things at once (kind of press, which element, when). FIVE ARMS, ONE DIFFERENCE AT A TIME, one cut: scripted click on the splash at 2.5 s = DOOR STAYS SHUT; the same scripted click at 35 s = opens; scripted click on BEGIN itself at 35 s = opens; a real finger at 2.5 s or 35 s = opens. IT IS WHEN, not what kind and not which element: the browser holds a trusted event until the main thread frees up, and a scripted click fires into a page that has not wired its handler yet and is gone.
+  FOR EVERY LANE WITH A DRIVER: A SCRIPTED PRESS INSIDE THE FIRST THIRTY SECONDS IS NOT A PRESS. The five-minute walk taps at 31 s, so it was safe by timing and not by design; the horror check clicked at 2.5 s and got in anyway, which is a race it won. All three tools now tap like a finger AND CARRY A DOOR CONTROL: the splash must be gone and the game's own HUD must be there, or the run is thrown away. Each result file records the HUD music chip it read on entry.
+  THEN THE ROW'S NUMBERS, DOOR OPEN, FIVE CONTROLS GREEN, BOTH SURFACES: the shuffle comes on 3.84 s after the door (3.85 alpha); the first handover lands at 131.39 s (131.40); SO THE SONG RAN 127.55 s ON BOTH, and 64 bars at the 120 BPM law is 128.0 s EXACTLY -- the row's famous 128 seconds is the ARRANGEMENT, not a buffer, and it is TRUE. The gap is 16.47 s (16.14) against 16,000 ms intended, clearing round one's ~3 s floor five times over. The bed ducks to 0.800 inside the gap, captured from the engine and not typed. 13 refusals counted. One ARR definition, one RT definition, one read of each in songCtx, one dev readout, NO SONG ROW OVERRIDING EITHER.
+  THREE MORE BUGS IN MY OWN PROBE, ALL WRITTEN INTO IT: (1) restLen and restBlocked are METHODS read as values, so the rest length printed 'undefined' and the refusal counter said 0 over a field it never asked -- called properly, 16,000 ms and 13 real refusals, which is E28's lesson one file later; (2) THE CONTROL ORDER WAS WRONG -- forcing a rest 12 s after the door asks for a rest while the menu song owns the master and the engine refuses that BY DESIGN, so the force ran against silence and the control called itself blind; the force is after the watch now and A NATURAL REST IS THE POSITIVE CONTROL; (3) one fixed output file let the alpha run EAT the deploy run's proof, so a 240 s claim sat on a 20 s file -- the file name carries the surface now.
+  E26 ROUND 12, SEVEN DEAD BECAME SIX, AND MY OWN NEW RULE IS WHY. SCAVENGE 8H came back DEAD while its evidence showed eight novel words elsewhere on press one, and the panel under the finger was the top-left stack for press one and THE DAY CARD for press two -- so the press probably OPENED THE CARD and press two measured a different screen. Rule 14(h) one step along: IF THE PANEL UNDER THE FINGER IS NOT THE SAME PANEL BOTH TIMES, THE PAIR IS VOID AND THE WORD IS UNDECIDED, NEVER DEAD. Built, the re-walk moved it out on its own, and the void count prints beside the dead count. STILL DEAD, THIRD REPRODUCTION: BUILD HERE, STANDING, RAY, DENISE, MARCO, Marry. 23 pressed of 11 offered, first tappable thing at 30.4 s, no fight, 0 real page errors. COLD START also corrected: it failed on two keys the game writes ITSELF at boot, so it asks whether any SAVE or PROGRESS key is present. None is.
+  E28 HORROR CHECK, STANDING, THIRD CUT RUNNING, ZERO FINDINGS: R3 3.5% in the worst four-beat window against a 10% bar (0 of 8 over), R8 0 see-through full-frame draws (the 131 there are opaque clears, plus 136 on sprite scratch canvases), R10 0 filters and 0 composites on the world. Seven rules still UNMEASURED with what each waits on named.
+  ONE NUMBER OF MINE IS NOT STABLE AND I AM NOT PICKING THE FLATTERING RUN: how often the world moves something novel untouched read 51 of 60 windows, then 1 of 60, then 0 of 59, same cut, one round. It changes no verdict, because a verdict needs movement the ledger has NEVER seen, but the spread belongs in the report.
+  ONE BOUNCE-BACK, AND IT IS ABOUT A CHECKER: PLUMBER [eyes: head blind]. Writing this file ran the handoff gate, and its block-head check -- the one built after 93 commits ate 80 lanes' newest blocks, 19 of them mine -- reads heads shaped LANE (slug): date (x) LATEST WITH EXACTLY ONE LETTER IN THE ROUND MARKER. Mine is two, because this lane is past round 26 ('9/22 (ap)'), and so is the coordinator's ('9/5 (bf)'). Proved one difference at a time in a throwaway tree on main: deleting PLUMBER's newest block with head '9/23 (b)' goes RED; the SAME deletion with that head changed to '9/23 (bb)' and committed first goes GREEN. One character. 230 heads seen, 137 of the same shape invisible (6 for the marker, the live ones; 131 for a hyphen-less slug, which is retired-lane history, not live state). NOT FIXED HERE: gates are that lane's. The six dead controls stay on LIFE + CITY [eyes: half a hud]. Standing bounce-backs still open: [eyes: bar cut] (UI), [eyes: shape rows] and [eyes: half a hud] (LIFE + CITY).
+  NOTE ON RULE 18(e): nobody sends the link until the coordinator says the cut holds, so this lane is not pasting it.
+  NEXT: E26 and E28 both STANDING, walked every round on the deploy cut with the door control. Then in board order E21 [marker sweep], E22 [never ran], E23 [every screen], E24 [phone latency], E25 [the sign], [push check]. Still owed by my own naming: the bible's R5 (wire E19's CSS sweep to 'zero decorative type', the cheapest of the seven and mine), a route that reaches the BUILD PANEL so NO FALSE ZERO can stop being red honestly, and a walk that reaches a FIGHT so the fight halves of rule 21 and of the bible stop being somebody else's number. E9 is STANDING and runs every round.
 LIFE + CITY (city-1eztay): 9/23 LATEST -- *** FIVE LAYERS, FOUR WRONG INSTRUMENTS OF
 MY OWN, AND I AM STOPPING AT THE FIFTH. Plus the cook: THE STREET THAT IS STILL LIT. ***
 TAB: the street picture is in the VOTE tab (alpha). The button finding is NOT IN A TAB
