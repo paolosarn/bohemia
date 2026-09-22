@@ -124,7 +124,10 @@ const MEASURE = `
              above4k:share(4000,22050), binHz:binHz };
   }
   const ctx = new OfflineAudioContext(1, SR, SR);
+  /* THE ROOM'S CONSTANTS, HANDED BACK SO THE GATE CAN HOLD THEM AGAINST THE ALPHA'S.
+     A duplication a machine checks is a fact; one a comment promises is rot waiting. */
   const out = { list: H.list(), rows: {}, tapeAt: H.TAPE_AT, dropoutAt: H.DROPOUT_AT,
+    room: H.ROOM,
                 beat: H.BEAT, bpm: H.BPM, alert: H.ALERT };
   /* THE A SIDE OF THE A/B, rendered here and nowhere else, so the claim about what the
      transmitter takes away is measured against the same phrase and not against a memory. */
@@ -605,6 +608,56 @@ const MEASURE = `
         'the wobbled song is the same length as the steady one to the sample, and carries the '
         + 'same root and the same intervals, so a note that started on the beat still does');
     } else { claim('the wobble was measured', false, 'no reading'); }
+
+    /* ---- THE ROOM IS A SECOND COPY, SO THE MACHINE HOLDS THE TWO TOGETHER ----
+       PAOLO 9/21 voted the room UP with "this volume has to be very, very low", nine
+       times over, so it needs to be judged at more than one level side by side -- and
+       the shipped recipe lives in the alpha while a judge page can only play this
+       module. That is a duplication, and a duplication in THIS lane is the exact bug
+       that silenced every footstep in the game for days.
+       A COMMENT PROMISING THEY MATCH IS NOT A CHECK. So the gate reads BOTH FILES and
+       asserts every constant is equal. If either moves, this goes red and names which
+       one, instead of the page quietly playing a different room from the game. */
+    const alphaAll = fs.readFileSync(path.join(ROOT, 'slices/BOHEMIA_ALPHA_0_9.html'), 'utf8');
+    /* *** AND THE SEARCH IS SCOPED TO THE ROOM'S OWN BLOCK, WHICH THIS CLAIM CAUGHT
+       ON ITS FIRST RUN -- ON ITSELF. A bare /SEC:\s*([0-9.]+)/ over the whole alpha
+       matched the HEARTBEAT's `SEC: 0.5`, two objects earlier, and the claim reported
+       "game=0.5 page=4" as if the room had moved. The room was right and the ruler was
+       reading a different object. A PATTERN OVER A 5 MB FILE IS NOT A READING OF A
+       PARTICULAR THING unless it says which thing. So: cut the ROOM object out first,
+       by its own opening line, and read only inside it. */
+    const roomAt = alphaAll.indexOf('var ROOM = {');
+    const alpha = roomAt < 0 ? '' : alphaAll.slice(roomAt, roomAt + 6000);
+    claim('the alpha still has a ROOM object to compare against', roomAt >= 0,
+      roomAt < 0 ? 'no `var ROOM = {` in the alpha' : 'found at char ' + roomAt);
+    const grab = (re) => { const m = alpha.match(re); return m ? parseFloat(m[1]) : null; };
+    const shipped = {
+      sec:  grab(/\bSEC:\s*([0-9.]+)/),
+      hum:  grab(/\bHUM:\s*([0-9.]+)/),
+      lo:   grab(/\bLO:\s*([0-9.]+),\s*HI:/),
+      hi:   grab(/\bLO:\s*[0-9.]+,\s*HI:\s*([0-9.]+)/),
+      seam: grab(/\bSEAM:\s*([0-9.]+)/),
+      relShipped: grab(/\bREL:\s*([0-9.]+)/),
+    };
+    const mine = d.room || {};
+    const differs = Object.keys(shipped).filter(k =>
+      shipped[k] === null || Math.abs(shipped[k] - mine[k]) > 1e-9);
+    claim('THE ROOM ON THE JUDGE PAGE IS THE ROOM IN THE GAME, constant for constant',
+      differs.length === 0,
+      differs.length
+        ? 'these do NOT match the alpha: ' + differs.map(k =>
+            k + ' game=' + shipped[k] + ' page=' + mine[k]).join(', ')
+        : Object.keys(shipped).map(k => k + '=' + shipped[k]).join(', '));
+    /* AND THE LEVEL HE RULED ON, SAID AS A NUMBER, because "very very low" has to
+       become one before anybody can agree or disagree with it. */
+    const relDb = mine.relShipped > 0 ? 20 * Math.log10(mine.relShipped) : null;
+    claim('AND IT IS VERY LOW, WHICH IS A NUMBER NOW (Paolo 9/21)',
+      relDb !== null && relDb <= -20,
+      relDb === null ? 'no level' :
+      'the room carries ' + mine.relShipped + ' of the heartbeat\'s energy, which is '
+      + relDb.toFixed(1) + ' dB under it (was 0.60, -4.4 dB). Film and broadcast put room '
+      + 'tone 20 to 30 dB under the foreground; under about -30 dB a bed on a handset '
+      + 'loses to the room the player is really in.');
 
     /* ---- and the registry actually carries them ----------------------------- */
     const reg = JSON.parse(fs.readFileSync(path.join(ROOT, 'records/target/BOHEMIA_VOTE_REGISTRY.json'), 'utf8'));

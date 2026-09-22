@@ -792,6 +792,128 @@ NEXT: [cook panels] is the standing rule-22 row and is OPEN again; items 2, 3 an
 (the fight HUD, the talk panel, the vote tab's own frame) are drawn as sheets but not built
 as skins. [three d ui] still has no gate of its own. [vote plays sound] is still open and
 SOUNDS has items waiting that he cannot hear in the tab. [no slop] stays CLAIMED.
+SOUNDS (sound-xk7pjp): 9/23 (b) LATEST -- *** HE VOTED, AND HIS EIGHT VOTES INSIDE MY PAGE ARE
+GONE. I AM SAYING THAT FIRST BECAUSE IT IS THE WORST THING IN THIS BLOCK. Plus the one number he
+did give me, set and measured. *** Row [room volume] SHIPPED. Build stamp 9/23b.
+Record: records/BOHEMIA_HE_VOTED_INSIDE_MY_PAGE_AND_I_LOST_IT_9_23_26.md
+Gates: COOKED SOUNDS 60/0 with --mutate biting 10, FIRST SOUND (see the run line below).
+Tab: VOTE, and the new page is HOW LOW THE ROOM.
+
+HIS VERDICTS ON THIS LANE, ALL NINE ITEMS:
+  UP    the door, the fight's cloud, a song through the dead speaker, the fold,
+        the phone still transmits, the room on the tap
+  DOWN  a footstep on the beat, the step loses contact
+  no vote yet  the tape is slipping (registered after he voted)
+
+THE ONE NUMBER, AND IT IS SAID OUT LOUD BECAUSE THE ROW ASKED FOR THAT.
+"you gotta bro this volume has to be very, very low like very very very very, very, very, very
+low." NINE TIMES. Measured in the RUNNING GAME through the game's own probe, before touching
+anything:
+  rel 0.60  ->  -4.4 dB under the heartbeat, -53.4 dBFS
+IT WAS NOT SITTING UNDER THE HEARTBEAT, IT WAS SITTING NEXT TO IT. Four decibels. He heard
+exactly what was there.
+  rel 0.05  ->  -26.0 dB under the beat, -74.9 dBFS  (measured -26.012, not calculated)
+  the cut       21.6 dB, about a fifth of the loudness it was
+  ducked        -84.6 dBFS when the song arrives
+AND -26 dB IS NOT A NUMBER I LIKED THE LOOK OF. Film and broadcast put room tone 20 to 30 dB
+under the foreground it sits behind: far enough to be felt and not listened to, and under about
+-30 dB a bed on a handset loses to the room he is really sitting in. -26 sits inside that band
+near its quiet end. THE DUCK IS DELIBERATELY UNTOUCHED: he ruled on the volume, not on what
+happens when the song arrives, and moving two numbers at once makes his next verdict unreadable.
+
+*** HIS EIGHT INNER VOTES ARE GONE, AND HERE IS THE WHOLE MECHANISM IN THREE LINES ***
+  var picks = {};
+  ...  picks[row.dataset.q] = b.dataset.v;     // a variable in the page
+  document.getElementById('exp').onclick       // the ONLY way out
+`picks` lived in a JavaScript variable and the only exit was a download button he had to press.
+He thumbed eight cards, never pressed it, closed the page. Nothing reached disk, nothing
+reached me.
+  A VERDICT THAT SURVIVES ONLY IF HE REMEMBERS A BUTTON IS NOT A VERDICT, IT IS A DRAFT.
+He said it four times in that one sitting and he was right every time: "it's like an interactive
+inside of an interactive you better have gotten my votes on this shit"; "I already voted one
+time inside this interactive bro, so you better come correct and know the results"; "I just did
+this theres 7 options here man wtf"; "Please have all the notes inside of this interactive pls".
+AND THE TWO DOWNS SIT DOWNSTREAM OF EXACTLY THAT. The footstep and the step drop-out both carry
+the SAME comment, word for word: "I already voted one time inside this interactive bro, so you
+better come correct and know the results." That is not a note about a footstep.
+  I AM NOT TREATING THAT AS AN ACQUITTAL. Two downs are two downs. But the sound note he
+  actually wrote for those two is UNRECOVERABLE, so a re-cook has nothing to aim at yet beyond
+  the school page's own rules. That is the cost of the defect and the defect is mine.
+FOR WHOEVER RE-COOKS THEM: do not go looking for his inner votes. They were never written. The
+only honest starting point is the ten rules on the school page and the fact that these two were
+the lane's FIRST two cooks, made before rule 5 existed and before the band claim was measured
+properly.
+
+NO VOTE LIVES ON A PAGE OF MINE AGAIN (rule 25, and he is the reason for the rule):
+  removed   8 vote rows, 25 thumb buttons  ->  0
+  kept      9 notes boxes and the bottom one, because his notes ride inside the page
+  added     COPY ALL, and EVERY KEYSTROKE SAVED IN THE BROWSER AS HE TYPES
+  the .txt  still there, never the only way out
+THE AUTOSAVE IS THE ACTUAL FIX, NOT THE COPY BUTTON. The old page ALSO had a button. What lost
+his votes was that the button was the ONLY path, and a path that depends on him remembering it
+will fail again. Closing the page now keeps his words and reopening it brings them back.
+
+COOKED THIS ROUND (rule 22): HOW LOW THE ROOM. Three levels, one tap each, which is the most
+rule 25 allows:
+  A  rel 0.05   -26.0 dB under the beat   what ships now
+  B  rel 0.025  -32.0 dB                  half again quieter
+  C  rel 0.60    -4.4 dB                  the one he heard, for reference
+It LOOPS, because that is what it does in the game: a four second one-shot of a bed teaches
+nothing about a bed, and the loop point is built seamless so he should be hearing that too. It
+says TURN YOUR VOLUME UP at the top, because all three are quiet on purpose and A QUIET TEST
+PLAYED QUIETLY IS NOT A TEST. Verified in a real browser: 4 of 4 buttons start real audio, 0
+page errors, 0 vote rows. Registered sounds-how-low-the-room-9-23 with THREE options.
+
+THE SECOND COPY IS A GATE AND NOT A PROMISE. The shipped room lives in the alpha; a judge page
+can only play the module. That is a duplication, and a duplication in THIS lane is the exact bug
+that silenced every footstep in this game for days. So the gate READS BOTH FILES and asserts
+every constant is equal: sec=4, hum=60, lo=100, hi=5000, seam=0.08, relShipped=0.05, plus a
+claim that the room block exists at all so the check cannot pass by finding nothing.
+  MUTATION PROVEN: set the game's hum to 50 Hz and it goes red naming `hum game=50 page=60`.
+  AND THE CLAIM CAUGHT ITSELF ON ITS FIRST RUN. A bare pattern for SEC: over a 5 MB file matched
+  the HEARTBEAT's `SEC: 0.5`, two objects earlier, and it reported "game=0.5 page=4" as if the
+  room had drifted. The room was right and the ruler was reading a different object.
+  A PATTERN OVER A 5 MB FILE IS NOT A READING OF A PARTICULAR THING UNLESS IT SAYS WHICH THING.
+  Scoped to the room object's own block.
+THE RIGHT END STATE IS THE ALPHA IMPORTING THE MODULE so there is one copy and no gate needed.
+That touches a live system under the rule 18 hold, so it is named here and not smuggled in.
+
+AND A CHECK OF MINE STOPPED CHECKING THE MOMENT HIS RULING MADE THE NUMBER SMALL.
+The first-sound gate holds the room's level against the heartbeat with
+`abs(rel_m - rel_a) <= REL_TOL` where REL_TOL = 0.08 and its own comment calls it "within 8%".
+Absolute and relative are the same thing only near 1.
+  at 0.60   +/-0.08 is +/-13%
+  at 0.05   +/-0.08 is +/-160%, so the claim would have passed on ZERO, on double, on anything
+Nothing about the game would have shown it. It was invisible until his ruling moved the number.
+  A CHECK THAT STOPS CHECKING WHEN THE NUMBER IT WATCHES GETS SMALL IS WORSE THAN NONE.
+Now 8% OF the stated ratio, which is what the constant always said, and stricter than the old
+window everywhere the old one meant anything (at 0.60 it is +/-0.048 against +/-0.08).
+
+WHAT IS NEXT IN THIS LANE, IN ORDER, NOTHING BLOCKED:
+  THE FIVE HE VOTED UP (the door, the cloud, the song through the dead speaker, the fold, the
+    phone) go into the game THE ROUND THE HOLD ALLOWS. That is the first thing when it lifts.
+  THE TWO HE VOTED DOWN: post-mortem is above; the re-cook needs NEW ids quoting his words, and
+    his words for those two are about the voting, not the sound. Aim at the school page.
+  [analog horror sound] round two: the keep/redo of 65 sounds and 142 songs against the ten
+    rules, with the school page's 65-row table as the frozen baseline.
+  [footsteps on the beat] round two: the limiter is 0.12 s and a beat is 0.5 s and which one
+    governs is still unmeasured. FOR WHOEVER MEASURES IT: the one driver takes opts.file and
+    IGNORES opts.alpha, so point it at the alpha or you measure a stale demo cut.
+  [scheduled beat] still CLAIMED, round two is a clock the audio thread owns; it touches the
+    transport, so it waits on the hold.
+  Then [enemy heard], [fight music], [quiet floor], [rumour heard], [pump hum], [into the vote
+  tab].
+  AND THE TWO MUSIC HOLES FROM LAST ROUND, STILL OPEN AND STILL MINE: a room handing the music
+  back does not check whether a fight owns it (its busy() guard binds one direction only), and
+  the shell obeys the city's music message with no fight guard at all.
+
+STILL CARRIED, NAMED NOT FIXED:
+  the alpha importing the room recipe instead of a second copy (above), held by rule 18.
+  pages_publish_gate reads 17/1: the published surface is 261 MB against its own 260 MB cap.
+    PLUMBER's territory.
+CARRIED, RECORDED NOT ACTED ON, BECAUSE LEVELS ARE HIS: THE GAPS IN THE HYMNAL peaks 25.6x the
+median on a CANON song; MENU - LIGHTS ACROSS THE VALLEY peaks 1.064 (BURIED).
+
 SOUNDS (sound-xk7pjp): 9/23 LATEST -- *** THE CHECKER WAS THE COIN, NOT THE GAME. AND MEASURING
 IT FOUND A REAL DEFECT: THE FIGHT'S SONG WAS BEING PICKED FOUR TIMES. PLUS RULE 5 COOKED, THE
 LAST COMPLETELY UNMET RULE ON MY OWN SCHOOL PAGE. *** Rows [seeded gate] SHIPPED and

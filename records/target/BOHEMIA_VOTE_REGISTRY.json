@@ -1271,6 +1271,24 @@
     "how": "page",
     "src": "BOHEMIA_THE_DARK_INSTITUTIONS_9_22_26.html"
    }
+  },
+  {
+   "id": "sounds-how-low-the-room-9-23",
+   "kind": "sound",
+   "lane": "sounds",
+   "sha": "PENDING",
+   "made": "9/23",
+   "title": "HOW LOW THE ROOM",
+   "why": "You voted the room hum up and said the volume has to be very, very low, seven times over. It was only 4 dB under your heartbeat sound, which is why it read loud. I cut it by 22 dB, to a fifth of the loudness. Here it is three ways, one tap each: A is what ships now, B is half again quieter, C is the one you heard. Turn your phone up first, they are all quiet on purpose. Pick the one you stop noticing.",
+   "options": [
+    "A, what ships now",
+    "B, lower still",
+    "C, back to what I heard"
+   ],
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_HOW_LOW_THE_ROOM_9_23_26.html"
+   }
   }
  ],
  "verdicts": [

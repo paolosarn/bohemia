@@ -1501,7 +1501,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 9/23e - THE LOADING SCREEN IS B</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 9/23f - THE ROOM IS VERY LOW NOW</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -25173,13 +25173,39 @@ var SETTLED={"step_dirt.0":1,"step_dirt.1":1,"step_dirt.2":1,"step_dirt.3":1,"st
                              own ruling resolved to. */
     SEAM: 0.08,           /* the hiss cannot be periodic, so its tail blends into
                              its head over 80 ms */
-    REL: 0.60,            /* THE ONLY CHOSEN NUMBER IN HERE: the room carries 60%
-                             of the heartbeat's ENERGY, so the heartbeat stays the
-                             thing you notice. Matched on rms, never on peak: a
-                             thump has a high peak and little energy, a bed is the
-                             other way round, and matching peaks would have put
-                             this far louder than the thing it sits under. Goes to
-                             the VOTE tab. */
+    REL: 0.05,            /* *** PAOLO 9/21, VOTED UP WITH A CORRECTION, AND THE
+                             CORRECTION IS THIS NUMBER: "We can play around with
+                             this I'll let you know as I hear, but you gotta bro
+                             this volume has to be very, very low like very very
+                             very very, very, very, very low." NINE TIMES. ***
+                             THE ONLY CHOSEN NUMBER IN HERE: the room carries this
+                             share of the heartbeat's ENERGY, so the heartbeat
+                             stays the thing you notice. Matched on rms, never on
+                             peak: a thump has a high peak and little energy, a bed
+                             is the other way round, and matching peaks would have
+                             put this far louder than the thing it sits under.
+                             WAS 0.60, AND MEASURED ON THE REAL SURFACE THAT IS
+                             ONLY 4.4 dB UNDER THE HEARTBEAT -- just under it, not
+                             under it, which is exactly what he heard:
+                               0.60  ->   -4.4 dB under the beat,  -53.4 dBFS
+                               0.05  ->  -26.0 dB under the beat,  -75.0 dBFS
+                             A 21.6 dB cut, which is roughly a fifth of the
+                             loudness it was.
+                             AND -26 dB IS NOT A NUMBER I LIKED THE LOOK OF. Film
+                             and broadcast practice puts room tone 20 to 30 dB
+                             under the foreground it sits behind: far enough down
+                             to be felt and not listened to, not so far it stops
+                             covering the silence, which is the whole job here.
+                             Under about -30 dB relative, a bed on a handset
+                             speaker loses to the room the player is really in.
+                             -26 sits inside that band and near its quiet end.
+                             THE DUCK IS DELIBERATELY UNTOUCHED. He ruled on the
+                             volume, not on what happens when the song arrives, and
+                             moving two numbers at once would make his next verdict
+                             unreadable. At this level the ducked room is -84.6 dBFS
+                             and that is worth his ear before anything changes.
+                             Three levels go to the VOTE tab, which is the most rule
+                             25 allows. */
     DUCK: 0.33,           /* when the song arrives it ducks to a third and KEEPS
                              RUNNING. It never reaches zero: school rule 1 (never
                              digital zero) and rule 7 (a silence keeps its

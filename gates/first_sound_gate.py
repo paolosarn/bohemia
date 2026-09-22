@@ -285,7 +285,8 @@ const CPU = 4;
 
 ONE_BEAT = 0.5          # 120 BPM, the law. Not a number this gate chose.
 SEAM_MAX_RATIO = 6.0    # paired, against the buffer's own typical step
-REL_TOL = 0.08          # the ratio the tool states, allowed to land within 8%
+REL_TOL = 0.08          # the ratio the tool states, allowed to land within 8% OF ITSELF.
+                        # Relative, not absolute: see the claim that uses it.
 
 
 def run(js, timeout, mutate=False):
@@ -472,12 +473,29 @@ def main():
           '%s exact zeros in %s samples' % (snd.get('exactZeroSamples'), snd.get('totalSamples')))
 
     # THE LEVEL, PAIRED, ON RMS, AGAINST HIS OWN APPROVED HEARTBEAT.
+    # *** AND THE TOLERANCE IS A PERCENTAGE, NOT A QUANTITY (9/23). It was
+    # `abs(rel_m - rel_a) <= 0.08`, an ABSOLUTE window, while its own constant is
+    # named "the ratio the tool states, allowed to land within 8%". Those are the
+    # same thing only while the stated ratio is near 1. Paolo voted this room UP
+    # with "very, very low" nine times over, so the ratio went 0.60 -> 0.05, and at
+    # 0.05 a window of +/-0.08 is +/-160%: THE CLAIM WOULD HAVE PASSED ON ZERO, on
+    # double, on anything. A check that stops checking when the number it watches
+    # gets small is worse than none, and nothing about the game would have shown it.
+    # 8% OF THE STATED RATIO is what the constant always said. It is stricter than
+    # the old window everywhere the old one was meaningful (at 0.60 it is +/-0.048
+    # against +/-0.08) and it keeps meaning the same thing at any level he picks.
     rel_m, rel_a = snd.get('relMeasured'), snd.get('relAsked')
+    import math as _m
+    _dB = (20 * _m.log10(rel_m)) if (rel_m and rel_m > 0) else None
     claim('IT SITS UNDER THE HEARTBEAT AT THE STATED RATIO',
-          rel_m is not None and rel_a is not None and abs(rel_m - rel_a) <= REL_TOL,
-          'room energy %s against heartbeat %s = %sx, stated %sx (matched on rms, '
-          'never on peak: a thump and a bed cannot be compared on peak)'
-          % (snd.get('roomEnergy'), snd.get('pulseEnergy'), rel_m, rel_a))
+          rel_m is not None and rel_a is not None
+          and abs(rel_m - rel_a) <= REL_TOL * rel_a,
+          'room energy %s against heartbeat %s = %sx, stated %sx, which is %s dB '
+          'under the beat (matched on rms, never on peak: a thump and a bed cannot '
+          'be compared on peak; the window is 8%% OF the stated ratio, not a flat '
+          '0.08, which meant nothing once the ratio went to 0.05)'
+          % (snd.get('roomEnergy'), snd.get('pulseEnergy'), rel_m, rel_a,
+             None if _dB is None else round(_dB, 1)))
     claim('AND IT IS GENUINELY QUIETER', (rel_m or 9) < 1.0,
           'the heartbeat stays the thing you notice')
 

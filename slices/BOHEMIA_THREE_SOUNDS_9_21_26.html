@@ -46,9 +46,6 @@
   instant is right at the start, so the step lands ON the beat instead of just after it.
   Play it against the beat above and it should sit exactly on the tick.</div>
   <div class="row"><button data-play="footstep">PLAY IT</button><button data-play="footstep" data-loop="1">ON EVERY BEAT</button></div>
-  <div class="row" data-q="foot" style="margin-top:10px">
-    <button data-v="up">👍</button><button data-v="down">👎</button><button data-v="close">CLOSE, BUT</button>
-  </div>
   <label>NOTES ON THIS ONE</label><textarea data-n="foot"></textarea>
 </div>
 
@@ -59,9 +56,6 @@
   never goes fully silent, because real tape does not. The two drop-outs are timed to the
   exact moments the ground skips under you in the walk, so what you hear is what you see.</div>
   <div class="row"><button data-play="stepWithDropouts">PLAY IT</button><button data-play="stepWithDropouts" data-loop="1">ON EVERY BEAT</button></div>
-  <div class="row" data-q="step" style="margin-top:10px">
-    <button data-v="up">👍</button><button data-v="down">👎</button><button data-v="too">TOO MUCH</button>
-  </div>
   <label>NOTES ON THIS ONE</label><textarea data-n="step"></textarea>
 </div>
 
@@ -72,9 +66,6 @@
   radio band. Then the tones stop and the hiss keeps going, because the transmitter is
   still on and there is nobody at the other end.</div>
   <div class="row"><button data-play="phoneTone">PLAY IT</button></div>
-  <div class="row" data-q="phone" style="margin-top:10px">
-    <button data-v="up">👍</button><button data-v="down">👎</button><button data-v="softer">SOFTER</button>
-  </div>
   <label>NOTES ON THIS ONE</label><textarea data-n="phone"></textarea>
 </div>
 
@@ -89,9 +80,6 @@
     <button data-play="songDry">PLAYED CLEAN</button>
     <button data-play="songThroughSpeaker">THROUGH THE SPEAKER</button>
   </div>
-  <div class="row" data-q="song" style="margin-top:10px">
-    <button data-v="speaker">USE THE SPEAKER ONE</button><button data-v="clean">USE THE CLEAN ONE</button><button data-v="between">SOMEWHERE BETWEEN</button>
-  </div>
   <label>NOTES ON THIS ONE</label><textarea data-n="song"></textarea>
 </div>
 
@@ -101,9 +89,6 @@
   carries on at exactly the same pitch, because the grid does not care that a man died.
   Nothing swells. Nothing rises. The silence is switched on rather than switched off.</div>
   <div class="row"><button data-play="theFold">PLAY IT</button></div>
-  <div class="row" data-q="fold" style="margin-top:10px">
-    <button data-v="up">👍</button><button data-v="cold">TOO COLD</button><button data-v="more">NEEDS MORE</button>
-  </div>
   <label>NOTES ON THIS ONE</label><textarea data-n="fold"></textarea>
 </div>
 
@@ -114,9 +99,6 @@
   back. No whoosh, because a whoosh is a sound effect pretending to be weather. The darkness
   numbers are the ones the city's own weather already uses.</div>
   <div class="row"><button data-play="fightCloud">PLAY IT</button></div>
-  <div class="row" data-q="cloud" style="margin-top:10px">
-    <button data-v="up">👍</button><button data-v="subtle">TOO SUBTLE</button><button data-v="much">TOO MUCH</button>
-  </div>
   <label>NOTES ON THIS ONE</label><textarea data-n="cloud"></textarea>
 </div>
 
@@ -126,9 +108,6 @@
   becoming another: outside is wide, inside is closed in and narrower, and the same hum is on
   both sides because it is the same house. The latch is the small part.</div>
   <div class="row"><button data-play="theDoor">PLAY IT</button></div>
-  <div class="row" data-q="door" style="margin-top:10px">
-    <button data-v="up">👍</button><button data-v="latch">LATCH IS WRONG</button><button data-v="rooms">ROOMS ARE WRONG</button>
-  </div>
   <label>NOTES ON THIS ONE</label><textarea data-n="door"></textarea>
 </div>
 
@@ -144,17 +123,19 @@
     <button data-play="songThroughSpeaker">STEADY DECK</button>
     <button data-play="songOnTape">SLIPPING DECK</button>
   </div>
-  <div class="row" data-q="tape" style="margin-top:10px">
-    <button data-v="up">👍</button><button data-v="more">WOBBLE MORE</button><button data-v="less">WOBBLE LESS</button><button data-v="none">NO WOBBLE</button>
-  </div>
   <label>NOTES ON THIS ONE</label><textarea data-n="tape"></textarea>
 </div>
 
 <div class="foot">
   <label>ANYTHING ELSE, ABOUT ANY OF IT</label>
   <textarea id="all" style="min-height:110px"></textarea>
-  <div class="row" style="margin-top:12px"><button id="exp">EXPORT MY NOTES (.txt)</button></div>
-  <div class="num">Plain .txt. Nothing here is saved anywhere else.</div>
+  <div class="row" style="margin-top:12px">
+    <button id="copy">COPY ALL</button>
+    <button id="exp">SAVE AS .txt</button>
+  </div>
+  <div class="num" id="footnote">Your notes are kept in this page as you type, so closing it
+does not lose them. COPY ALL puts everything on your clipboard to paste back to me.
+THERE IS NO VOTE ON THIS PAGE ON PURPOSE: you vote once, in the VOTE tab.</div>
 </div>
 
 <script src="../engine/bohemia_horror_sounds.js"></script>
@@ -243,35 +224,76 @@ function stopMetro(){
 document.getElementById('metro').onclick = function(){ metroOn ? stopMetro() : startMetro(null); };
 document.getElementById('stop').onclick = function(){ stopMetro(); stopAll(); };
 
-var picks = {};
-document.querySelectorAll('.row[data-q]').forEach(function(row){
-  row.querySelectorAll('button').forEach(function(b){
-    b.onclick = function(){
-      row.querySelectorAll('button').forEach(function(x){ x.classList.remove('on'); });
-      b.classList.add('on'); picks[row.dataset.q] = b.dataset.v;
-    };
-  });
-});
-document.getElementById('exp').onclick = function(){
-  var L = ['BOHEMIA VERDICT -- SEVEN SOUNDS (SOUNDS, 9/21 and 9/22)', ''];
-  [['foot','A FOOTSTEP THAT LANDS ON THE BEAT','sounds-a-footstep-on-the-beat-9-21'],
+/* *** NO VOTE LIVES ON THIS PAGE ANY MORE (9/23, rule 25, PAOLO 9/21). ***
+   He voted here and then the VOTE tab asked him again: "it's like an interactive
+   inside of an interactive, you better have gotten my votes on this shit", "I
+   already voted one time inside this interactive bro, so you better come correct
+   and know the results", "I just did this theres 7 options here man wtf".
+   AND HE WAS RIGHT TO WORRY, BECAUSE THE VOTES WERE GONE. They lived in a `picks`
+   object in this script and the ONLY way out of the page was a download button he
+   had to press. He thumbed eight cards, never pressed it, closed the page. Nothing
+   was written anywhere. That is not a thing to explain away: it is the reason rule
+   25 says an item's page carries no vote of its own until the inner votes are
+   wired into COPY ALL.
+   SO THIS PAGE IS A PLAYER AND A NOTEPAD. It makes the sound and it holds his
+   words. The one vote is in the VOTE tab.
+   AND HIS WORDS SURVIVE BY DEFAULT NOW, not by him remembering a button: every
+   keystroke is kept in the browser, restored when he opens it again, and COPY ALL
+   puts the lot on the clipboard in one tap. The .txt stays as a second way out,
+   never the only one. */
+var KEY = 'bohemia_sounds_notes_v1';
+function allNotes(){ var o = {};
+  document.querySelectorAll('textarea[data-n]').forEach(function(t){ o[t.dataset.n] = t.value; });
+  o.__all = document.getElementById('all').value; return o; }
+function saveNotes(){ try{ localStorage.setItem(KEY, JSON.stringify(allNotes())); }catch(e){} }
+function loadNotes(){ try{
+    var o = JSON.parse(localStorage.getItem(KEY) || '{}');
+    document.querySelectorAll('textarea[data-n]').forEach(function(t){
+      if(o[t.dataset.n]) t.value = o[t.dataset.n]; });
+    if(o.__all) document.getElementById('all').value = o.__all;
+  }catch(e){} }
+loadNotes();
+document.querySelectorAll('textarea').forEach(function(t){ t.addEventListener('input', saveNotes); });
+
+var CARDS = [['foot','A FOOTSTEP THAT LANDS ON THE BEAT','sounds-a-footstep-on-the-beat-9-21'],
    ['step','THE STEP LOSES CONTACT','sounds-the-step-loses-contact-9-21'],
    ['phone','THE PHONE STILL TRANSMITS','sounds-the-phone-still-transmits-9-21'],
    ['song','A SONG THROUGH THE DEAD SPEAKER','sounds-a-song-through-the-dead-speaker-9-22'],
    ['fold','THE FOLD','sounds-the-fold-9-22'],
    ['cloud',"THE FIGHT'S CLOUD",'sounds-the-fights-cloud-9-22'],
-   ['door','THE DOOR','sounds-the-door-9-22']].forEach(function(q){
-    L.push(q[1]); L.push('  registry id: ' + q[2]);
-    L.push('  VERDICT: ' + (picks[q[0]] || 'NOT ANSWERED'));
+   ['door','THE DOOR','sounds-the-door-9-22'],
+   ['tape','THE TAPE IS SLIPPING','sounds-the-tape-is-slipping-9-23']];
+function noteText(){
+  var L = ['BOHEMIA NOTES -- EIGHT SOUNDS (SOUNDS lane). NO VOTES HERE: the vote is in the VOTE tab.', ''];
+  CARDS.forEach(function(q){
     var t = document.querySelector('textarea[data-n="'+q[0]+'"]');
-    if(t && t.value.trim()) L.push('  NOTES: ' + t.value.trim());
-    L.push('');
+    if(t && t.value.trim()){ L.push(q[1]); L.push('  registry id: ' + q[2]);
+      L.push('  NOTES: ' + t.value.trim()); L.push(''); }
   });
   var a = document.getElementById('all').value.trim();
   if(a){ L.push('ANYTHING ELSE'); L.push('  ' + a); }
-  var blob = new Blob([L.join('\n')], {type:'text/plain'});
+  if(L.length === 2) L.push('(nothing written yet)');
+  return L.join('\n');
+}
+function say(msg){ var n = document.getElementById('footnote');
+  var was = n.textContent; n.textContent = msg;
+  setTimeout(function(){ n.textContent = was; }, 2200); }
+document.getElementById('copy').onclick = function(){
+  var txt = noteText();
+  function fallback(){ var ta = document.createElement('textarea');
+    ta.value = txt; ta.style.position='fixed'; ta.style.opacity='0';
+    document.body.appendChild(ta); ta.select();
+    try{ document.execCommand('copy'); say('COPIED. Paste it back to me.'); }
+    catch(e){ say('Could not copy. Use SAVE AS .txt.'); }
+    ta.remove(); }
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(txt).then(function(){ say('COPIED. Paste it back to me.'); }, fallback);
+  } else fallback();
+};
+document.getElementById('exp').onclick = function(){
+  var blob = new Blob([noteText()], {type:'text/plain'});
   var u = URL.createObjectURL(blob), el = document.createElement('a');
-  el.href = u; el.download = 'BOHEMIA_VERDICT_SEVEN_SOUNDS_9_22.txt';
+  el.href = u; el.download = 'BOHEMIA_NOTES_EIGHT_SOUNDS.txt';
   document.body.appendChild(el); el.click(); el.remove();
   setTimeout(function(){ URL.revokeObjectURL(u); }, 1500);
 };

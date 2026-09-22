@@ -524,6 +524,70 @@
              why: 'the person stops and the grid does not: a long hold with the mains hum running through it, and nothing rises' };
   }
 
+  /* ==== 5b. THE ROOM HE VOTED ON, AT A LEVEL =====================================
+     PAOLO 9/21, voting THE ROOM ON THE TAP up: "We can play around with this I'll let
+     you know as I hear, but you gotta bro this volume has to be very, very low like very
+     very very very, very, very, very low." He is judging LOUDNESS, so he needs the same
+     bed at more than one level, back to back, in one tap each.
+
+     *** THIS IS A SECOND COPY OF A RECIPE THAT SHIPS IN THE ALPHA, AND THAT IS THE BUG
+     THAT SILENCED EVERY FOOTSTEP IN THIS GAME FOR DAYS. *** So it is not defended by this
+     comment. Every constant below is asserted EQUAL to the alpha's ROOM by the cooked
+     sounds gate, reading both files, and the gate goes red the moment either moves. A
+     duplication a machine checks is a fact; a duplication a comment promises is rot
+     waiting. (The right end state is the alpha importing this module; that touches a live
+     system under the rule 18 hold, so it is named in the handoff, not smuggled in here.)
+
+     THE LEVEL IS A RATIO AGAINST THE HEARTBEAT, exactly as the alpha's REL is, so the
+     number on this page is the number in the game. 0.05 is what ships. */
+  var ROOM_SEC = 4.0;      /* 8 beats at 120 BPM = 240 whole cycles of 60 Hz */
+  var ROOM_HUM = 60;       /* North American mains, and this valley is Las Vegas */
+  var ROOM_LO = 100, ROOM_HI = 5000;   /* the AM band the whole room came off */
+  var ROOM_SEAM = 0.08;    /* the hiss tail blends into its head over 80 ms */
+  var ROOM_PARTS = [[1, 1.00], [2, 0.42], [3, 0.18]];
+  var ROOM_HUM_MIX = 0.55, ROOM_HISS_MIX = 0.30;
+  var ROOM_REL_SHIPPED = 0.05;
+
+  function roomHum(ctx, opts) {
+    opts = opts || {};
+    var rel = opts.rel == null ? ROOM_REL_SHIPPED : opts.rel;
+    var sr = ctx.sampleRate, n = Math.round(sr * ROOM_SEC);
+    var buf = ctx.createBuffer(1, n, sr), d = buf.getChannelData(0);
+    var seam = Math.max(1, Math.round(ROOM_SEAM * sr)), i;
+
+    /* the hiss first, into its own pass, so the seam blend cannot touch the hum's phase */
+    var hiss = new Float32Array(n + seam);
+    noiseInto(hiss, hiss.length, 1, 6060);          /* seeded: a checker must repeat */
+    for (i = 0; i < seam; i++) {
+      var u = i / seam;
+      hiss[i] = hiss[i] * u + hiss[n + i] * (1 - u);
+    }
+    for (i = 0; i < n; i++) {
+      var t = i / sr, h = 0;
+      for (var k = 0; k < ROOM_PARTS.length; k++)
+        h += Math.sin(2 * Math.PI * ROOM_HUM * ROOM_PARTS[k][0] * t) * ROOM_PARTS[k][1];
+      d[i] = h * ROOM_HUM_MIX + hiss[i] * ROOM_HISS_MIX;
+    }
+    bandTo(d, n, ROOM_LO, ROOM_HI, sr, 2);
+    normalise(d, n, 1);                              /* peak 1, so rel is the only level */
+
+    /* AND THEN THE LEVEL, so what he hears is the ratio and not a normalised bed.
+       The heartbeat's own measured rms is the reference the alpha uses; it is carried
+       here as a number the gate checks against the alpha, not as a guess. */
+    var ref = opts.pulseRms == null ? 0.0035743714784863784 : opts.pulseRms;
+    var q = 0;
+    for (i = 0; i < n; i++) q += d[i] * d[i];
+    var myRms = Math.sqrt(q / n);
+    var g = myRms > 0 ? (ref * rel) / myRms : 0;
+    for (i = 0; i < n; i++) d[i] *= g;
+
+    return { buffer: buf, machine: { lo: ROOM_LO, hi: ROOM_HI, why: 'an AM broadcast band, the same transmitter the music came off' },
+             seconds: ROOM_SEC, rel: rel, gain: g,
+             dBUnderBeat: +(20 * Math.log10(rel)).toFixed(1),
+             loops: true, hum: ROOM_HUM, cycles60: ROOM_SEC * ROOM_HUM,
+             why: 'the room the loading sits in, at ' + (20 * Math.log10(rel)).toFixed(1) + ' dB under the heartbeat' };
+  }
+
   /* ==== 6. THE FIGHT'S CLOUD =====================================================
      A CLOUD CROSSING THE FIGHT, which COMBAT owns as a picture (rule 17, "the cloud
      passes across the turn as he ruled"). A cloud makes no sound, so the honest question
@@ -643,6 +707,10 @@
     stepWithDropouts: stepWithDropouts,
     phoneTone: phoneTone,
     songThroughSpeaker: songThroughSpeaker,
+    roomHum: roomHum,
+    ROOM: { sec: ROOM_SEC, hum: ROOM_HUM, lo: ROOM_LO, hi: ROOM_HI, seam: ROOM_SEAM,
+            parts: ROOM_PARTS, humMix: ROOM_HUM_MIX, hissMix: ROOM_HISS_MIX,
+            relShipped: ROOM_REL_SHIPPED },
     songOnTape: songOnTape,
     wowFlutter: wowFlutter,
     wowProbe: wowProbe,

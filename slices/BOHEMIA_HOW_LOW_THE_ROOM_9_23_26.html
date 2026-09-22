@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>HOW LOW THE ROOM</title>
+<!-- SOUNDS lane, 9/23, row [room volume].
+     PAOLO 9/21, voting THE ROOM ON THE TAP up: "We can play around with this I'll let you
+     know as I hear, but you gotta bro this volume has to be very, very low like very very
+     very very, very, very, very low."
+     He is judging LOUDNESS, so the only honest page is the same bed at more than one level,
+     back to back, one tap each. THREE, which is the most rule 25 allows.
+     NO VOTE LIVES ON THIS PAGE (rule 25, and he said why: "it's like an interactive inside
+     of an interactive, you better have gotten my votes"). It plays and it holds his words.
+     It plays from engine/bohemia_horror_sounds.js, the one body, and the cooked sounds gate
+     asserts every constant in that room equals the alpha's, so this is the room in the
+     game and not a lookalike. -->
+<style>
+  :root{ --ink:#1b1408; --paper:#e8dfc9; --line:#8a7a52; --panel:#f2ead6; --dim:#6a5a3e; --hot:#b4462a; }
+  html,body{margin:0;background:var(--paper);color:var(--ink);
+    font:15px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace}
+  .wrap{max-width:720px;margin:0 auto;padding:18px 16px 70px}
+  h1{font-size:19px;letter-spacing:2px;margin:0 0 2px}
+  .sub{color:var(--dim);font-size:12px;letter-spacing:1px;margin-bottom:14px}
+  .card{background:var(--panel);border:1px solid var(--line);padding:14px;margin:0 0 14px}
+  .card h2{font-size:14px;letter-spacing:1.5px;margin:0 0 6px}
+  .why{font-size:13px;margin:0 0 10px}
+  .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  button{font:inherit;background:var(--paper);color:var(--ink);border:1px solid var(--line);
+    padding:11px 14px;min-height:48px;cursor:pointer;letter-spacing:1px}
+  button:active{transform:translateY(1px)}
+  button.on{background:var(--ink);color:var(--paper)}
+  .num{font-size:12px;color:var(--dim);margin-top:8px;white-space:pre-wrap}
+  textarea{width:100%;box-sizing:border-box;font:inherit;background:var(--paper);
+    color:var(--ink);border:1px solid var(--line);padding:8px;min-height:80px}
+  label{font-size:12px;letter-spacing:1px;color:var(--dim);display:block;margin:10px 0 4px}
+  .foot{border-top:2px solid var(--line);margin-top:22px;padding-top:14px}
+  .warn{color:var(--hot);font-size:12px;margin-top:6px}
+</style></head><body><div class="wrap">
+
+<h1>HOW LOW THE ROOM</h1>
+<div class="sub">SOUNDS &middot; 9/23 &middot; your words: "very, very low" &middot; turn your phone up first</div>
+
+<div class="card">
+  <div class="why"><b>TURN YOUR VOLUME UP BEFORE YOU START.</b> All three of these are quiet on
+  purpose. The point is which one you stop noticing. This is the hum that covers the loading,
+  right after you tap BEGIN, and it loops for as long as the loading takes.</div>
+  <div class="row">
+    <button id="stop">STOP</button>
+  </div>
+  <div class="num" id="head"></div>
+</div>
+
+<div class="card">
+  <h2>A. WHAT SHIPS NOW</h2>
+  <div class="why">This is the one I set after you said it. It is a fifth of the loudness it
+  was. Film and TV put a room tone about this far under the thing it sits behind: far enough
+  down that you feel it and stop listening to it, not so far that the loading goes silent
+  again.</div>
+  <div class="row"><button data-rel="0.05">PLAY A</button></div>
+  <div class="num" id="numA"></div>
+</div>
+
+<div class="card">
+  <h2>B. LOWER STILL</h2>
+  <div class="why">Half again as quiet as A. On a phone in a room with any noise in it, this
+  is close to the edge of being there at all. If A is still too much, this is the answer.</div>
+  <div class="row"><button data-rel="0.025">PLAY B</button></div>
+  <div class="num" id="numB"></div>
+</div>
+
+<div class="card">
+  <h2>C. WHAT YOU HEARD</h2>
+  <div class="why">The one you voted on, unchanged, so you have something to measure A and B
+  against. It sits almost level with your heartbeat sound, which is why it read loud.</div>
+  <div class="row"><button data-rel="0.60">PLAY C</button></div>
+  <div class="num" id="numC"></div>
+</div>
+
+<div class="foot">
+  <label>ANYTHING ABOUT ANY OF THEM</label>
+  <textarea id="all"></textarea>
+  <div class="row" style="margin-top:12px">
+    <button id="copy">COPY ALL</button>
+    <button id="exp">SAVE AS .txt</button>
+  </div>
+  <div class="num" id="footnote">What you type is kept in this page, so closing it does not
+lose it. COPY ALL puts it on your clipboard.
+THERE IS NO VOTE ON THIS PAGE ON PURPOSE: you vote once, in the VOTE tab.</div>
+</div>
+
+<script src="../engine/bohemia_horror_sounds.js"></script>
+<script>
+var H = window.BOH_HORROR_SOUNDS;
+var AC = null, live = null, cache = {}, playing = null;
+function ac(){ if(!AC) AC = new (window.AudioContext||window.webkitAudioContext)();
+  if(AC.state==='suspended') AC.resume(); return AC; }
+function made(rel){ var k = String(rel);
+  if(!cache[k]) cache[k] = H.roomHum(ac(), { rel: +rel });
+  return cache[k]; }
+function stopAll(){ try{ if(live) live.stop(); }catch(e){} live = null; playing = null;
+  document.querySelectorAll('button[data-rel]').forEach(function(b){ b.classList.remove('on'); }); }
+/* IT LOOPS, BECAUSE THAT IS WHAT IT DOES IN THE GAME. A four second one-shot of a bed
+   tells you nothing about a bed; the loop point is built to be seamless and he should be
+   hearing that too. */
+function play(rel, btn){
+  stopAll();
+  var c = ac(), m = made(rel);
+  var s = c.createBufferSource(); s.buffer = m.buffer; s.loop = true;
+  s.connect(c.destination); s.start();
+  live = s; playing = rel; btn.classList.add('on');
+  head();
+}
+function dB(x){ return (20*Math.log10(x)).toFixed(1); }
+function head(){
+  var a = made(0.05), b = made(0.025), c = made(0.60);
+  document.getElementById('head').textContent =
+    'the room is ' + H.ROOM.hum + ' Hz mains plus hiss, through a '
+    + H.ROOM.lo + ' to ' + H.ROOM.hi + ' Hz band, looping every '
+    + H.ROOM.sec + ' s (exactly ' + (H.ROOM.sec * H.ROOM.hum) + ' whole cycles of 60 Hz, so the loop'
+    + ' point cannot tick)\n'
+    + 'playing now: ' + (playing === null ? 'nothing' : ('rel ' + playing));
+  document.getElementById('numA').textContent =
+    dB(0.05) + ' dB under the heartbeat sound. This is what ships.';
+  document.getElementById('numB').textContent =
+    dB(0.025) + ' dB under it. 6 dB below A, which is half the loudness again.';
+  document.getElementById('numC').textContent =
+    dB(0.60) + ' dB under it. What you heard, 22 dB louder than A.';
+}
+document.querySelectorAll('button[data-rel]').forEach(function(b){
+  b.onclick = function(){ if(playing === b.dataset.rel){ stopAll(); head(); }
+                          else play(b.dataset.rel, b); };
+});
+document.getElementById('stop').onclick = function(){ stopAll(); head(); };
+
+/* HIS WORDS SURVIVE BY DEFAULT, NOT BY HIM REMEMBERING A BUTTON. The last page in this
+   lane lost eight of his votes because the only way out was a download he never pressed. */
+var KEY = 'bohemia_room_level_notes_v1';
+function save(){ try{ localStorage.setItem(KEY, document.getElementById('all').value); }catch(e){} }
+try{ var v = localStorage.getItem(KEY); if(v) document.getElementById('all').value = v; }catch(e){}
+document.getElementById('all').addEventListener('input', save);
+function noteText(){
+  var a = document.getElementById('all').value.trim();
+  return 'BOHEMIA NOTES -- HOW LOW THE ROOM (SOUNDS, 9/23). NO VOTES HERE: the vote is in the VOTE tab.\n'
+    + 'registry id: sounds-how-low-the-room-9-23\n\n' + (a || '(nothing written yet)');
+}
+function say(msg){ var n = document.getElementById('footnote'), was = n.textContent;
+  n.textContent = msg; setTimeout(function(){ n.textContent = was; }, 2200); }
+document.getElementById('copy').onclick = function(){
+  var txt = noteText();
+  function fallback(){ var ta = document.createElement('textarea'); ta.value = txt;
+    ta.style.position='fixed'; ta.style.opacity='0'; document.body.appendChild(ta); ta.select();
+    try{ document.execCommand('copy'); say('COPIED. Paste it back to me.'); }
+    catch(e){ say('Could not copy. Use SAVE AS .txt.'); } ta.remove(); }
+  if(navigator.clipboard && navigator.clipboard.writeText)
+    navigator.clipboard.writeText(txt).then(function(){ say('COPIED. Paste it back to me.'); }, fallback);
+  else fallback();
+};
+document.getElementById('exp').onclick = function(){
+  var blob = new Blob([noteText()], {type:'text/plain'});
+  var u = URL.createObjectURL(blob), el = document.createElement('a');
+  el.href = u; el.download = 'BOHEMIA_NOTES_HOW_LOW_THE_ROOM.txt';
+  document.body.appendChild(el); el.click(); el.remove();
+  setTimeout(function(){ URL.revokeObjectURL(u); }, 1500);
+};
+head();
+</script>
+</div></body></html>
