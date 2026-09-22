@@ -50,8 +50,14 @@
 #   COUNT, KEPT CURRENT: 658 entries when this block was written (9/20). 670 after
 #   round 48's first half added twelve; 678 after its second half added eight. All
 #   twenty are in the role-place format above; 688 after round 49 added ten. All
-#   thirty are role-place, so the bullet count is unchanged at 176 for a THIRD
-#   round running and the gap can now only shrink.
+#   thirty are role-place; 698 after round 49's second half added ten. All forty
+#   are role-place, so the bullet count is unchanged at 176 for a FOURTH round
+#   running and the gap can now only shrink.
+#
+#   RULE 27 (Paolo 9/21), THE PLAYER DOES NOT SPEAK SPANGLISH: measured across all
+#   522 role-place entries, THE PLAYER DOES NOT SPEAK AT ALL in this file. The
+#   seven whose descriptor names him have him as the LISTENER. This file's own
+#   "what is not here" sections assert it fourteen times and the assertion holds.
 
 ## A. THE SELLER HAS A VIEW ABOUT TOMORROW
 ## (the finding of the day: a refusal, not a price. Every line buys a beat
@@ -3939,3 +3945,66 @@ IIIIIIIIII10  a man who was given one once, years back              draft:true
 - Spanish register: 0 of 10 lines this round. The set is deliberately plain
   because every line is somebody being kind in a hurry, and the register is not
   a decoration to sprinkle. Under the 15% cap either way.
+
+## KKKKKKKKKK. EAT OR SQUARE UP
+## (round 49 round two. Work pays one, food costs one, the loan asks one a night,
+##  so he is one short every day. Nobody in these lines does the arithmetic out
+##  loud. Role, place, situation, per this file's rule 19 contract. Rule 27
+##  (Paolo 9/21): the player does not speak, here or anywhere in this file.)
+
+KKKKKKKKKK1  the lender, at his door, the second night      draft:true
+    "I'm not here for it. I'm here so you know I remember."
+
+KKKKKKKKKK2  the same lender, leaving                       draft:true
+    "Eat. We'll do this another night."
+
+KKKKKKKKKK3  a neighbour, watching him go                   draft:true
+    "That one keeps count in his head. That's worse than a book."
+
+KKKKKKKKKK4  a woman at a fire, to a man holding one        draft:true
+    "You going to eat that or hand it over."
+
+KKKKKKKKKK5  her husband, not looking up                    draft:true
+    "He's going to hand it over. Look at him."
+
+KKKKKKKKKK6  an older man, on what the nights add up to     draft:true
+    "Nothing happens. That's the thing people get wrong.
+     Nothing happens and then one day you need something."
+
+KKKKKKKKKK7  a foreman, at the end of a day, paying         draft:true
+    "One. Same as yesterday, same as the man next to you."
+
+KKKKKKKKKK8  the same foreman, asked for more               draft:true
+    "There isn't more. There's just tomorrow."
+
+KKKKKKKKKK9  somebody who cleared theirs, years ago         draft:true
+    "I paid it back and he still poured me a drink like I owed him.
+     I did. That's not the same as owing."
+
+KKKKKKKKKK10  a church helper, handing one over             draft:true
+    "It's not a gift. Don't let anybody tell you it was a gift."
+
+## LLLLLLLLLL. WHAT IS NOT HERE, ON PURPOSE (round 49 round two)
+
+- No line contains a number, an amount, a count of nights or a price. The round
+  is pure arithmetic and not one figure is spoken.
+- No line does the subtraction out loud. KKKKKKKKKK4 and 5 are the whole choice
+  and neither of them names it. Nobody in Bohemia is wise.
+- No line uses the words loan, debt, interest, credit, owe, repay or handshake.
+  It is said as it, this, hand it over, keeps count, paid it back.
+- No line has the player speaking. Rule 27 (Paolo 9/21) says the player's own
+  lines never carry Spanglish; in this file he has no lines at all, measured:
+  512 role-place entries, zero of them him talking.
+- No line threatens him, and no line has anybody collect by force. The real
+  record is 95% repaid and enforcement by memory, and a threatening line would
+  argue with its own source.
+- No line names a faction, a street or a town, including the lender and the
+  church helper, who are roles. MAP LAW.
+- No line decides what going short eventually costs, whether anything acts on
+  the night count, or who the first person is. Section 7 refused all three.
+- No line is written for a card or a readout: rule 19(a), and rule 29 (9/21):
+  text items are boring, so what this round hands over is a battery and a night
+  count, not a card of words.
+- Spanish register: 0 of 10 lines. Two rounds running at zero, deliberately: both
+  sets are people being blunt with somebody in trouble, and the register is not a
+  decoration to sprinkle. Under the 15% cap either way.

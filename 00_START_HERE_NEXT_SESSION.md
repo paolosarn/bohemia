@@ -2226,7 +2226,7 @@ your block top to bottom and confirm every line in it is yours.
 And this file is now ~88,000 lines carrying NINE ECONOMY blocks, most of them
 stale copies of this one. That is a real defect in a file every lane reads every
 round. It is a job for the coordinator to place (18 PLUMBER's remit), not
-something a lane should do to another lane's block.=== ROUND 36 REPORT: [first ten] SHIPPED ====== ROUND 37 REPORT: [carry cost] SHIPPED ====== ROUND 38 REPORT: [old price] SHIPPED ====== ROUND 39 REPORT: [protection court] SHIPPED ====== ROUND 40 REPORT: [how many pockets] SHIPPED ====== ROUND 41 REPORT: [who replaces you] SHIPPED ====== ROUND 42 REPORT: [the bailiff] SHIPPED ====== ROUND 43 REPORT: [double up] SHIPPED ====== ROUND 44 REPORT: [first building] SHIPPED ====== QUEUE EMPTY. 44 OF 44 SHIPPED. THE PILE IS FOLDED INTO ONE MASTER. ====== QUEUE STILL EMPTY. HE PLAYED IT, AND THE ONE THING THIS LANE GOT BUILT AND GOT WRONG IS CORRECTED. ====== ROUND 45 REPORT: [first sixty] SHIPPED ====== ROUND 46 REPORT: [daily radius] SHIPPED ====== ROUND 47 REPORT: [who owns the water] SHIPPED ====== QUEUE EMPTY. THE FOLD: 45, 46 AND 47 ARE IN THE MASTER, AND FOLDING THEM FOUND THREE THINGS. ====== ROUND 48 REPORT: [who still bills] ROUND ONE OF TWO SHIPPED, THE CLAIM STAYS. ====== ROUND 48 ROUND TWO: THE NUMBER. Q48 COMPLETE, 48 OF 48 SHIPPED. ====== QUEUE EMPTY. ROUND 48 IS FOLDED INTO THE MASTER AND IT MADE A SEVENTH CONVERGENCE. ====== ROUND 49 REPORT: [first battery] ROUND ONE OF TWO SHIPPED, THE CLAIM STAYS. ===
+something a lane should do to another lane's block.=== ROUND 36 REPORT: [first ten] SHIPPED ====== ROUND 37 REPORT: [carry cost] SHIPPED ====== ROUND 38 REPORT: [old price] SHIPPED ====== ROUND 39 REPORT: [protection court] SHIPPED ====== ROUND 40 REPORT: [how many pockets] SHIPPED ====== ROUND 41 REPORT: [who replaces you] SHIPPED ====== ROUND 42 REPORT: [the bailiff] SHIPPED ====== ROUND 43 REPORT: [double up] SHIPPED ====== ROUND 44 REPORT: [first building] SHIPPED ====== QUEUE EMPTY. 44 OF 44 SHIPPED. THE PILE IS FOLDED INTO ONE MASTER. ====== QUEUE STILL EMPTY. HE PLAYED IT, AND THE ONE THING THIS LANE GOT BUILT AND GOT WRONG IS CORRECTED. ====== ROUND 45 REPORT: [first sixty] SHIPPED ====== ROUND 46 REPORT: [daily radius] SHIPPED ====== ROUND 47 REPORT: [who owns the water] SHIPPED ====== QUEUE EMPTY. THE FOLD: 45, 46 AND 47 ARE IN THE MASTER, AND FOLDING THEM FOUND THREE THINGS. ====== ROUND 48 REPORT: [who still bills] ROUND ONE OF TWO SHIPPED, THE CLAIM STAYS. ====== ROUND 48 ROUND TWO: THE NUMBER. Q48 COMPLETE, 48 OF 48 SHIPPED. ====== QUEUE EMPTY. ROUND 48 IS FOLDED INTO THE MASTER AND IT MADE A SEVENTH CONVERGENCE. ====== ROUND 49 REPORT: [first battery] ROUND ONE OF TWO SHIPPED, THE CLAIM STAYS. ====== ROUND 49 ROUND TWO: THE NUMBER. Q49 COMPLETE, 49 OF 49 SHIPPED. ===
 RECORD: records/BOHEMIA_ECONOMY_DAY_47_NOBODY_OWNS_THE_PUMP_THEY_OWN_THE_DISTANCE_9_20_26.md (207 lines)
 BANK:   banks/BOHEMIA_ECONOMY_TEST_LINES_9_5_26.md sections ZZZZZZZZZ-DDDDDDDDDD, +16 lines, 670 draft:true total
 TAB:    NOT IN A TAB YET. MODE: RESEARCH. No engine code touched. Rule 14: never the demo;
@@ -2828,6 +2828,96 @@ An instrument broken in the obvious way does not look broken, it looks like a fi
 rule that caught all three is the same: a negative needs a positive control before it is
 believed.
 
+
+=== ROUND 49 ROUND TWO, [first battery] Q49, THE NUMBER. THE ROW IS COMPLETE. ===
+RECORD: records/BOHEMIA_ECONOMY_DAY_49_ROUND_TWO_THE_LOAN_IS_ALREADY_BUILT_AND_HE_IS_ONE_SHORT_9_22_26.md (254 lines)
+BANK:   sections KKKKKKKKKK-LLLLLLLLLL, +10 lines, 698 entries, all ten role-place, so the 176
+        bullet entries owing a WHO have not grown for a FOURTH round running.
+TAB:    NOT IN A TAB YET. MODE: RESEARCH. No engine code touched. Rule 14: never the demo.
+        Rule 15: no thumbs. Rule 18(b): research lanes continue. Rule 22 binds MAKING lanes and
+        names twelve; ECONOMY is not one. Rule 29 names WORLD, WORDS and QUESTS for the
+        registry and this lane registers nothing -- and its spirit is honoured anyway, because
+        what this round hands over is a battery in a hand and a night count, not a card.
+GATES:  pre-push pass GREEN, all eight -- economy 13/0, purse 28/0, payday 40/0, attempt 15/0,
+        canon rot 13/0, demo blockers 22/0, language 83/0, handoff 8/0. Full suite: 107 red at
+        ad23d875, mine are: none. The suite line has not moved since 9/14.
+
+*** THE FINDING: THE MECHANISM IS ALREADY BUILT, IT IS EXACTLY RIGHT, AND IT HAS NO CALLER. ***
+engine/bohemia_lend.js: HANDSHAKE 1 (one battery, handed over), DUE_A_NIGHT 1, CURRENCY
+electricity, SHORT_DEED 'loan:short'. Run night by night: take() gives 1 and owes 1; due() the
+next night is 1; paid(1) CLEARS THE ACCOUNT and nothing is asked again; and if he cannot pay,
+short() writes {nights:1, deed:'loan:short'} and the debt IS STILL ONE. IT DOES NOT GROW.
+EVERYTHING COSTS ONE makes a loan in this game physically unable to compound, so the pressure
+is not interest, IT IS MEMORY -- which is round 9's finding shipped as code before this lane
+ever asked: a debt is not a number, it is a person who remembers.
+I NEARLY WROTE THE OPPOSITE. Income one a day against a loan asking one a night reads as a
+debt trap and I had the sentence half written. Then I ran paid() and the account cleared, and
+short() and the debt did not grow. The trap does not exist. The difference between the wrong
+version and the right one was one more probe, and the wrong one was more dramatic.
+
+FOUR OF SIXTEEN LEND, AND IT IS THE SAME FOUR AT EVERY RUNG. offers(ask) is can && owes, and
+only they-give-first produces owes:true, so:
+    given 0 A STRANGER -> 4 of 16 | given 1 SOMEBODY WHO SHOWED UP -> 4 | given 3 USEFUL -> 4
+    given 6 COUNTED -> 4          | given 10 INSIDE -> 4
+CLIMBING FROM STRANGER TO INSIDE ADDS NOT ONE LENDER. THE CARTEL, THE CHURCH, THE NETWORK, THE
+SOCIAL FORCES -- round one's four. Because rising in this world does not get you a loan, it
+gets you the right to ASK, and what you can ask for is goods; the twelve who make you earn it
+never hand over money at all (round one: zero of sixteen pay money). A complete coherent
+economy nobody designed on purpose, sitting in two files never read together.
+
+THE LADDER, MEASURED: given 0 A STRANGER, 1 SOMEBODY WHO SHOWED UP, 3 USEFUL, 6 COUNTED (the
+first rung that can ask anything), 10 INSIDE. SIX THINGS GIVEN BEFORE HE CAN ASK ANYBODY FOR
+ANYTHING, and that is the price of the second battery in the game's own numbers. AND TAKING
+THE FREE ONE MOVES HIM NOWHERE: take() returns delta:0 with the words "YOU TOOK IT, AND IT WAS
+FREE". Charity does not make you less of a stranger.
+
+*** THE ONE NUMBER NOBODY HAD, three shipped figures subtracted for the first time: ***
+    a day's work pays            +1   (payForWork, and PAYOUT.COMPLETE for a quest)
+    food costs                   -1   (EVERYTHING COSTS ONE, and the shelf)
+    the loan asks, per night     -1   (DUE_A_NIGHT)
+    his day                      -1
+HE IS EXACTLY ONE SHORT EVERY DAY. On any night he squares up with the person who helped him
+he has not eaten; on any night he eats he is a night short and it is written down with his
+name on it. A one-battery choice every single night from the first morning, AND IT IS WHAT THE
+FIRST QUEST IS FOR: a quest pays one on COMPLETE and is the only thing in the engine that
+breaks the tie. Nothing in that table is a proposal; the subtraction is the only new thing.
+
+THE REAL RECORD SAYS THE MODULE IS ALREADY RIGHT, and it was built without this study. Most
+family and neighbour loans are INTEREST-FREE (ours cannot charge interest at all, same answer
+by a different law). Enforcement is the threat of severed ties and relationships deteriorate
+after default (ours records a DEED and counts nights: not a penalty, a memory). AND 95.16% OF
+INFORMAL LOANS ARE FULLY REPAID, so the first battery is not a trap and not a threat, it is a
+thing almost everybody honours, and the tension is whether he is the one in twenty. Round
+one's day-labour half stands beside it: paid in cash at the end of the day, and some men wait
+days on the corner without being picked. THE LOAN IS WHAT COVERS THE WAITING.
+
+THERE IS NO PAWN AND I AM NOT ASKING FOR ONE. bohemia_lend.js takes no collateral. The pawn is
+a second mechanism for a problem the handshake already solves, it needs an item table and a
+FRACTION (25-60%, and this game has none, round 14), and the handshake puts a PERSON on the
+other side instead of a counter. REUSE-FIRST. If a pawn is ever wanted it is a flavour of the
+same loan book, not a new one.
+
+RULE 27 CHECKED ON THIS LANE'S OWN BANK THE ROUND IT LANDED. The player does not speak
+Spanglish -- and the stronger fact is THE PLAYER DOES NOT SPEAK AT ALL IN THIS BANK: 522
+role-place entries, ZERO of them him talking. The seven whose descriptor names him have him as
+the LISTENER ("keeper, when the player picks something up", "somebody correcting you"). The
+file asserts it fourteen times in its own "what is not here" sections and the assertion holds.
+Rule 27 costs this lane nothing, measured rather than assumed.
+
+THE PROJECT-LEVEL HOLE, INSTANCE 36, AND IT IS THE LARGEST ONE THIS STUDY HAS FOUND, MADE
+ENTIRELY OF CORRECT PARTS. The lend module is right. The favour module is right. The purse is
+right. The shelf is right. Put the four together and a new player is one battery short every
+day of his life AND NOTHING IN THE SUITE CAN SAY SO, because the subtraction crosses four files
+and every one passes its own gate. FOUR ROUNDS HAVE NOW FOUND ONE MISSING GATE: 36 (what does
+the first ten minutes hand a stranger), 45 (what does a save with no history see), 49 round one
+(is any door open), and this (does the arithmetic of his first week add up). PLAY THE FIRST
+MORNING AS A MAN WITH NOTHING.
+
+FIFTH SIGNATURE FAULT IN TWO ROUNDS, KEPT: offers(ask) takes the RESULT of askFor, not a rung.
+Run against all five rung words it returned false five times, WHICH READS EXACTLY LIKE "NOBODY
+IN THIS GAME LENDS TO ANYBODY". Run properly it is four of sixteen at every rung. Every one of
+the five faults produced a clean quotable false negative.
+
 [PENDING Paolo] -- for the coordinator, one at a time:
   *** 1 TO 9 ARE RULED. The coordinator decided all nine on 9/13 under EVERYTHING IS
   A THUMB, in records/BOHEMIA_RULING_NINE_DEFAULTS_THE_ECONOMY_WAS_CARRYING_9_13_26.md.
@@ -3006,24 +3096,31 @@ believed.
      is the kind of change he should meet in play rather than read about. Nothing
      is blocked on it; WORLD can build it under his existing law.
 
-NEXT IN THIS LANE: ROUND TWO OF Q49 [first battery], AND THE CLAIM IS STILL ON THE BOARD.
-The row says two rounds, school then the number, and round one is the school. ROUND TWO COSTS
-IT: how many batteries the first person hands over, whether the obligation is COUNTED in the
-owing book or only felt, what the SECOND one costs once he is no longer a stranger, and
-whether the pawn shape is built at all (hand over a thing, get one, it waits for you until it
-does not -- no fraction anywhere in it). THE ONE RULE FOR ROUND TWO IS ROUND 38'S: that round
-had the mechanism measured in its own section 1 and shipped a number anyway, and the number
-broke his tutorial. Section 4 of the round 49 record is the mechanism. Cost it, do not
-re-derive it, and do not hand QUESTS a number the record does not carry.
-TWO THINGS TO CARRY IN: (a) zero of sixteen factions pay money, so if round two wants a
-faction to hand over a battery that is a DESIGN RULING about what a faction is, not a number,
-and it is pending 41 again (can a deal exist between two people who are not the player);
-(b) the four who open to a stranger are THE CARTEL, THE CHURCH, THE NETWORK and THE SOCIAL
-FORCES, all owes:true at zero standing cost, and QUESTS [wire the door] is building the scene
-this round measured, so read their row before costing anything.
-AFTER Q49 CLOSES: fold both halves into the master (a STANDING JOB, not a board job), and the
-harvest script has a control now -- reproduce every published number before believing a new
-one. It has caught a fault every single time it has been run. Do not fold from memory.
+NEXT IN THIS LANE: QUEUE EMPTY. Q1 THROUGH Q49 ARE ALL SHIPPED and the board has no OPEN line
+for ECONOMY. This lane HOLDS until the coordinator puts one up. Rule 10 forbids inventing a
+job; rule 22 does not change that (it binds MAKING lanes and names twelve, and ECONOMY is not
+one); rule 29 names WORLD, WORDS and QUESTS for the registry and this lane registers nothing.
+IF THE QUEUE IS STILL EMPTY NEXT ROUND, in order:
+ (a) FOLD ROUND 49, BOTH HALVES, INTO THE MASTER
+     (records/BOHEMIA_ECONOMY_MASTER_WHAT_FORTY_FOUR_ROUNDS_FOUND_9_15_26.md, titled WHAT
+     FORTY-EIGHT ROUNDS FOUND, keeping its FORTY_FOUR filename because records and the board
+     cite that path). It is a STANDING JOB from CLAUDE.md, not a board job. Round 49 adds two
+     table rows, changes the routing counts, adds at least three numbers to section 3 (the
+     six-givings ladder, the four-of-sixteen lenders at every rung, and the one-short-a-day
+     subtraction), and section 0.ONE (there is exactly one pocket) gains its strongest instance
+     yet: nobody can be lent to because nobody but the player holds anything.
+     THE HARVEST SCRIPT HAS A CONTROL: reproduce every published number before believing a new
+     one. It has caught a fault every time it has been run. Do not fold from memory.
+ (b) THE 176 BANK ENTRIES THAT OWE A WHO under rule 19. The contract has held the number still
+     for four rounds; a round could actually shrink it, starting with the blocks a build lane
+     is nearest to taking (the water and pump sets, which QUESTS and WORLD are closest to).
+ (c) A PENDINGS PASS. Thirty-three questions, nine collapsed by the 9/13 ruling; a read saying
+     which of the rest are ANSWERED BY RULINGS ALREADY MADE would shorten the list the
+     coordinator carries to him, and nobody else can do it because nobody else has read all 51
+     records.
+AND ONE THING TO CARRY INTO ANY ROUND THAT TOUCHES THE FIRST FIVE MINUTES: bohemia_lend.js has
+NO CALLER. It needs wiring, not designing, and the deliverable in section 6 of the round 49
+round two record is costed down to zero new numbers.
 
 
 ================================================================================
