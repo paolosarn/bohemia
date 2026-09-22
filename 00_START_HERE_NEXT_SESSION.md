@@ -794,7 +794,10 @@ as skins. [three d ui] still has no gate of its own. [vote plays sound] is still
 SOUNDS has items waiting that he cannot hear in the tab. [no slop] stays CLAIMED.
 SOUNDS (sound-xk7pjp): 9/23 (b) LATEST -- *** HE VOTED, AND HIS EIGHT VOTES INSIDE MY PAGE ARE
 GONE. I AM SAYING THAT FIRST BECAUSE IT IS THE WORST THING IN THIS BLOCK. Plus the one number he
-did give me, set and measured. *** Row [room volume] SHIPPED. Build stamp 9/23b.
+did give me, set and measured. *** Row [room volume] SHIPPED d83e063. Build stamp 9/23f (it went b -> f: main moved three times
+under this round and two lanes had already taken letters, so the stamp was re-lettered on each
+rebase rather than colliding with theirs; the commit message still says 9/23b and that line is
+wrong, corrected here).
 Record: records/BOHEMIA_HE_VOTED_INSIDE_MY_PAGE_AND_I_LOST_IT_9_23_26.md
 Gates: COOKED SOUNDS 60/0 with --mutate biting 10, FIRST SOUND (see the run line below).
 Tab: VOTE, and the new page is HOW LOW THE ROOM.
