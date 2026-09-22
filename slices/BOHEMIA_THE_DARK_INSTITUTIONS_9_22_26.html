@@ -1,0 +1,249 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>BOHEMIA - THE DARK INSTITUTIONS</title>
+<style>
+ :root{ --ink:#141210; --paper:#f4efe6; --rule:#9c907c; --hot:#a8391d; --dim:#4a443c }
+ *{ box-sizing:border-box }
+ body{ margin:0; background:var(--paper); color:var(--ink);
+       font:15px/1.5 ui-sans-serif,system-ui,-apple-system,Arial,sans-serif }
+ header{ padding:14px 14px 10px; border-bottom:3px solid var(--ink) }
+ h1{ margin:0 0 5px; font-size:19px; letter-spacing:.3px }
+ .sub{ font-size:14px; color:var(--dim) }
+ .said{ margin:10px 14px; padding:9px 12px; border-left:5px solid var(--hot);
+        background:#fff; font-size:14px }
+ .said b{ color:var(--hot) }
+ .wrap{ padding:6px 14px 50px }
+ .big{ background:#fff; border-bottom:3px solid var(--ink); padding:8px }
+ .big canvas{ display:block; width:100%; max-width:380px; margin:0 auto; height:auto;
+              image-rendering:pixelated; background:#0d0b08 }
+ .row{ display:flex; flex-wrap:wrap; gap:8px; background:#fff; padding:8px;
+       border-bottom:3px solid var(--ink); margin-top:14px }
+ .row > div{ flex:1 1 30%; min-width:0 }
+ .row canvas{ display:block; width:100%; height:auto; image-rendering:pixelated;
+              background:#0d0b08 }
+ .wrong{ font:11px/1.35 ui-monospace,monospace; color:var(--dim); margin-top:6px }
+ .wrong b{ color:var(--hot); display:block; font-size:10px; letter-spacing:.4px }
+ .cap{ font-size:14px; color:var(--dim); margin:10px 0 0 }
+ .cap b{ color:var(--ink) }
+ table{ border-collapse:collapse; width:100%; background:#fff; margin-top:14px;
+        font:12px/1.4 ui-monospace,monospace }
+ th,td{ text-align:left; padding:5px 7px; border-bottom:1px solid #ddd5c4 }
+ th{ background:var(--ink); color:var(--paper); font-weight:700 }
+ td.on{ color:#a8391d; font-weight:700 }
+ td.off{ color:#8d7c5e }
+</style></head><body>
+
+<header>
+ <h1>THE DARK INSTITUTIONS</h1>
+ <div class="sub">More of the one you liked, and the map handed me something worse than I
+ was going to make up. 9/22</div>
+</header>
+
+<div class="said">
+ <b>EVERY COURTHOUSE, POLICE STATION, FIRE STATION, LIBRARY, JAIL, PRISON, HOSPITAL AND
+ CEMETERY IN THIS VALLEY IS DARK.</b> Eighteen places. Not one of them has power. I did not
+ write that, I counted it off the map.
+ <br><br>
+ <b>The data fort has all six of its blocks lit.</b>
+</div>
+
+<div class="wrap">
+ <div class="big">
+  <canvas id="hero"></canvas>
+  <div class="cap"><b>The only building with its lights on is the one with no name on
+  it.</b></div>
+ </div>
+
+ <div class="row" id="row"></div>
+
+ <table id="tbl"></table>
+ <div class="cap">Counted off the real map: every block of every kind, and whether it
+ touches a live circuit. <b>Nothing civic made the list.</b></div>
+</div>
+
+<script src="bohemia_sign_kit.js"></script>
+<script>
+/* ===========================================================================
+   THE DARK INSTITUTIONS -- the cook, FACTIONS lane, [horror signs] round six,
+   9/22.
+
+   WHY THIS AND NOT A FIFTH SILHOUETTE. He killed three of the four shapes and
+   has not yet ruled on the night re-cook. Drawing a fifth shape before he rules
+   is the fourth-version tell STOP PRODUCING names. But the monument IS approved
+   ("More analog horror"), and APPROVAL UNLOCKS VOLUME, so this is volume on the
+   one shape he kept, pushed where he asked.
+
+   AND THE MAP HANDED OVER SOMETHING BETTER THAN AN INVENTION. Swept all 9,216
+   cells for their district kind and asked the power grid, cell by cell, with the
+   same radius-1 service-connection rule pumpStations() uses:
+
+     courthouse 2, policestation 2, firestation 1, library 1, jail 1, prison 4,
+     medical 4, cemetery 3   ->   EIGHTEEN CELLS, ZERO LIT.
+
+     datafort 6 cells, 6 LIT.   watertreat 2/2.   pumpstation 1/1.
+     strat 1/1.   truckstop 1/1.   casino 2 of 5.   substation 1 of 2.
+
+   THE COURTS, THE POLICE, THE FIRE HOUSE, THE LIBRARY AND THE HOSPITAL ARE ALL
+   DARK, AND THE DATA FORT IS AT FULL POWER. Nobody wrote that as lore. It fell
+   out of the map generator and the grid generator agreeing with each other, and
+   until this sweep nothing had ever asked them the question together.
+
+   That is R7 THE LIT STREET WITH NOBODY HOME, which the bible calls the cheapest
+   dread we own, and its measure -- "the wrongness traces to a real world-state
+   row" -- is satisfied by construction here: every lit thing in these three
+   frames is a district the grid really feeds, and every dark one is a district it
+   really does not.
+
+   THE SHAPE IS THE APPROVED ONE. The same masonry plinth, cabinet and cast letters
+   as the water authority. What changes is that the status panel is DEAD, because
+   these have no power, so the name is lit only by whatever else is burning.
+   ======================================================================== */
+var K = window.BohemiaSignKit;
+var NK = K.NIGHT_K;
+var GROUND = '#9a8f7c';
+var SKY = '#0d0b08';
+
+/* MEASURED 9/22 off the live demo: every district kind, and how many of its cells
+   touch a live circuit. Nothing here is typed from memory. */
+var COUNTED = [
+  ['datafort',      6, 6], ['watertreat',    2, 2], ['pumpstation',   1, 1],
+  ['strat',         1, 1], ['truckstop',     1, 1], ['casino',        5, 2],
+  ['substation',    2, 1], ['reclaim',       2, 1],
+  ['medical',       4, 0], ['prison',        4, 0], ['cemetery',      3, 0],
+  ['courthouse',    2, 0], ['policestation', 2, 0], ['chapel',        2, 0],
+  ['firestation',   1, 0], ['library',       1, 0], ['jail',          1, 0],
+  ['radio',         1, 0]
+];
+
+function nightGround(g, W, H, horizon){
+  g.fillStyle = SKY; g.fillRect(0, 0, W, H);
+  g.fillStyle = K.night(GROUND, NK); g.fillRect(0, horizon, W, H - horizon);
+  g.fillStyle = K.night(GROUND, NK * 1.15); g.fillRect(0, horizon, W, 2);
+}
+
+/* THE APPROVED SHAPE, WITH ITS PANEL DEAD.
+   plinth, cabinet, cast letters. No lamp of its own, because it has no power:
+   what you can read of the name is whatever the thing burning elsewhere throws
+   on it, which is R4 with the fixture out of frame but NAMED in the caption. */
+function monument(g, cx, baseY, lines, glow){
+  /* *** THE PLATE WAS 30 PX AND THE WORD COURTHOUSE IS 39. *** The reporter
+     caught it before the render, for the second round running. A civic monument
+     is WIDER than a water district's anyway -- these are the buildings that got
+     the biggest budget -- so the cabinet grew rather than the name shrinking, and
+     a name that still does not fit takes two lines the way a real one does
+     (FIRE / STATION, on two cast lines, is what is actually on those buildings). */
+  var base = '#a99e88', shell = '#8e8a7e';
+  var PLATE = 46, CAB = 54;
+  K.box3d(g, cx - CAB/2 - 6, baseY, CAB + 12, 12, 8, K.night(base, NK * glow),
+          K.night(base, NK * 1.2 * glow), K.night(base, NK * 0.7 * glow));
+  /* THE CABINET GREW AGAIN: two cast lines plus a dead panel did not fit 22 px,
+     and STATION was being clipped by the slot below it. A sign that cuts its own
+     second line in half is the same defect as text off the edge, one axis over. */
+  K.box3d(g, cx - CAB/2, baseY - 26, CAB, 26, 7, K.night(shell, NK * glow),
+          K.night(shell, NK * 1.2 * glow), K.night(shell, NK * 0.7 * glow));
+  /* the recessed plate the cast letters sit in */
+  g.fillStyle = K.night(shell, NK * 0.72 * glow);
+  g.fillRect(cx - PLATE/2, baseY - 23, PLATE, 20);
+  var ink = K.night('#cfc6b2', NK * 1.45 * glow);
+  var y = baseY - (lines.length > 1 ? 21 : 17);
+  for (var li = 0; li < lines.length; li++)
+    K.c3(g, lines[li], cx, y + li * 6, ink, PLATE - 4);
+  /* the dead status panel: the slot is there and there is nothing behind it */
+  g.fillStyle = K.night('#3a352c', NK * 0.9); g.fillRect(cx - 16, baseY - 8, 32, 5);
+}
+
+/* ---- 1. THE COURTHOUSE, and the data fort on the horizon ---------------- */
+function drawCourthouse(g, W, H){
+  nightGround(g, W, H, 56);
+  /* THE DATA FORT. Six blocks, all lit, no sign, no name, no door you can see.
+     It is the only fixture in the frame and it is drawn. */
+  var fort = '#7c7a70';
+  K.box3d(g, 78, 20, 44, 36, 10, K.night(fort, NK * 1.1),
+          K.night(fort, NK * 1.35), K.night(fort, NK * 0.8));
+  /* THE WINDOWS ARE A NEUTRAL COLD WHITE, NOT A CREW'S COLOUR. The first cut lit
+     them in a mint green a pixel off the Network teal, which would have said THE
+     NETWORK HOLDS THIS FORT -- a claim about territory I did not measure. I asked
+     the grid who feeds these cells, not the turf map who owns them. Fluorescent
+     white says "the machines are still on" and claims nothing. */
+  for (var r = 0; r < 3; r++) for (var c = 0; c < 6; c++){
+    g.fillStyle = '#c6cac4'; g.fillRect(82 + c * 7, 26 + r * 10, 4, 5);
+  }
+  /* what it throws on the ground in front of itself, and it stops */
+  K.pool(g, 100, 62, 34, 7, GROUND, 4);
+
+  /* the courthouse sign, dark, catching a little of that and nothing else */
+  monument(g, 36, 52, ['COURTHOUSE'], 1.5);
+}
+
+/* ---- 2. THE FIRE STATION, and the water plant two blocks over ----------- */
+function drawFire(g, W, H){
+  nightGround(g, W, H, 58);
+  /* the water plant's amber status panel, the only powered thing over there */
+  var shed = '#85806f';
+  K.box3d(g, 82, 34, 34, 24, 8, K.night(shed, NK * 0.9),
+          K.night(shed, NK * 1.1), K.night(shed, NK * 0.65));
+  g.fillStyle = '#8a6420'; g.fillRect(88, 42, 22, 7);
+  g.fillStyle = '#e8a93c'; g.fillRect(89, 43, 20, 5);
+  K.pool(g, 99, 64, 24, 6, GROUND, 3);
+
+  monument(g, 38, 54, ['FIRE','STATION'], 1.35);
+}
+
+/* ---- 3. THE LIBRARY, and a casino sign still burning -------------------- */
+function drawLibrary(g, W, H){
+  nightGround(g, W, H, 58);
+  /* a casino's sign, two of its five blocks still on the grid */
+  g.fillStyle = K.night('#6f6a61', NK); g.fillRect(100, 26, 3, 32);
+  var neon = '#d8563f';
+  K.box3d(g, 88, 8, 28, 18, 6, K.night(neon, NK * 1.4),
+          K.night(neon, NK * 1.7), K.night(neon, NK * 1.0));
+  g.fillStyle = K.mix(neon, '#fff0d8', 0.55); g.fillRect(91, 11, 22, 12);
+  K.pool(g, 101, 64, 26, 7, GROUND, 3);
+
+  monument(g, 38, 54, ['LIBRARY'], 1.3);
+}
+
+var SCENES = [
+  { fn:drawCourthouse, w:128, h:80,
+    wrong:'The only building with its lights on is the one with no name on it.' },
+  { fn:drawFire, w:128, h:80,
+    wrong:'The fire house is dark and the water plant two blocks over is still reporting.' },
+  { fn:drawLibrary, w:128, h:80,
+    wrong:'The library has been dark for ten years and the casino sign never went out.' }
+];
+
+var hero = document.getElementById('hero');
+hero.width = 128; hero.height = 80;
+(function(){ var g = hero.getContext('2d'); g.imageSmoothingEnabled = false;
+  drawCourthouse(g, 128, 80); })();
+
+var row = document.getElementById('row');
+for (var i = 0; i < SCENES.length; i++){
+  var s = SCENES[i];
+  var d = document.createElement('div');
+  var c = document.createElement('canvas'); c.width = s.w; c.height = s.h;
+  d.appendChild(c);
+  var g2 = c.getContext('2d'); g2.imageSmoothingEnabled = false;
+  s.fn(g2, s.w, s.h);
+  var t = document.createElement('div'); t.className = 'wrong';
+  t.innerHTML = '<b>THE ONE WRONG THING</b>' + s.wrong;
+  d.appendChild(t); row.appendChild(d);
+}
+
+var rows = '<tr><th>WHAT IT IS</th><th>BLOCKS</th><th>WITH POWER</th></tr>';
+for (var j = 0; j < COUNTED.length; j++){
+  var k = COUNTED[j];
+  rows += '<tr><td>' + k[0] + '</td><td>' + k[1] + '</td>'
+       +  '<td class="' + (k[2] ? 'on' : 'off') + '">' + (k[2] ? k[2] : 'none') + '</td></tr>';
+}
+document.getElementById('tbl').innerHTML = rows;
+
+(function(){
+  if (!K.overflows || !K.overflows.length) return;
+  var w = document.createElement('div'); w.className = 'said';
+  w.innerHTML = '<b>TEXT RAN OFF ITS SIGN:</b><br>' + K.overflows.map(function(o){
+    return '"'+o.text+'" is '+o.width+' px in a '+o.maxW+' px space'; }).join('<br>');
+  document.querySelector('.wrap').insertBefore(w, document.querySelector('.wrap').firstChild);
+})();
+</script>
+</body></html>
