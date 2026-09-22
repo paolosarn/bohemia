@@ -1191,6 +1191,19 @@
     "how": "image",
     "src": "vote/CHARACTER_THE_THIRTEEN_ON_THE_RUNWAY.png"
    }
+  },
+  {
+   "id": "portrait-eye-range-9-22",
+   "kind": "face",
+   "lane": "portrait",
+   "sha": "cf848a7",
+   "made": "9/22",
+   "title": "EVERY PERSON IN THE VALLEY HAD THE SAME EYES",
+   "why": "You said way more face customization before anybody hands you a face. So I counted every dial across 400 people. EYE WIDTH HAD ONE VALUE, six, for everybody who has ever existed here, and eye height had two. This is the range now. Not a face to approve, the system getting wider.",
+   "show": {
+    "how": "image",
+    "src": "vote/PORTRAIT_EYE_RANGE_9_22.png"
+   }
   }
  ],
  "verdicts": [

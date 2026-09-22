@@ -1,0 +1,46 @@
+POST-MORTEM: THE PORTRAIT LIGHTING PASS.  KILLED BY PAOLO 9/22/26.
+Eight cards, two lighting passes, rejected in one sitting.
+GRAVEYARD IS FINAL. There is no third lighting version this session.
+
+WHAT DIED
+  portrait-light-{denise,ray,marco,nina}-9-21   the face lit by the valley sky
+  portrait-room-{denise,ray,marco,nina}-9-21    the face lit by the fixture the scene names
+
+HIS WORDS
+  "Dogshit more analog horror"                        x4, on the room cards
+  "Bro, we need like way more face and portrait customizations bro like before we
+   start trying to hand me shit but I mean, I kinda like the direction of the eyes
+   not being all white around it. You know everyone's looking less of a frog like
+   that and I guess the eyes are going pretty good but have more analog horror"
+
+WHY IT DIED, AND IT IS NOT THAT THE LIGHTING WAS WRONG
+  The measurements held up. The two halves of a face really did differ by 1.9 points
+  out of 255 before the pass, the world really is lit from the right while the faces
+  were lit from the left, and the scene data really had been naming its own fixture
+  with nothing ever reading it. Every one of those is still true and still written
+  down in records/.
+  IT DIED BECAUSE IT WAS THE WRONG SHAPE OF WORK. He asked for the SYSTEM to have
+  range before anybody hands him a finished face, and I handed him eight finished
+  faces in two rounds. Polish on four people was never what was blocking him. That
+  is a running-order mistake, which is mine, and the note "before we start trying to
+  hand me shit" is him saying so plainly.
+  AND THE REGISTER WAS WRONG. Five separate "more analog horror" in one sitting. A
+  correctly lit ordinary face is still an ordinary face; rule 20 wants the frame to
+  be ordinary with exactly ONE thing wrong, and nothing in those eight cards was
+  wrong on purpose.
+
+WHAT SURVIVES, AND ONLY BECAUSE HE NAMED IT
+  THE EYES. "the eyes are going pretty good", "less of a frog". The sclera was
+  [230,231,228], brighter than every skin tone in the game; it is tied to each face's
+  own lightest skin step now and the lid casts on it. NOTES ARE RULINGS: it is in the
+  shipped renderer as of 9/22 and it does not go back.
+  Nothing else from the two passes was kept. The fixture parameter, the terminator
+  pivot, the hair shading: all of it stays in the tool and none of it is in the game.
+
+THE LESSON, WRITTEN SO THE NEXT ROUND CANNOT MISS IT
+  THREE ROUNDS OF THIS LANE WENT INTO MAKING FOUR FACES BETTER WHILE THE SYSTEM THAT
+  MAKES FACES HAD ONE EYE WIDTH FOR THE WHOLE POPULATION. Measured 9/22, 400 people:
+  eyes.w had ONE distinct value. The census took ten minutes and should have been the
+  first thing this lane ever did, before a single pixel was relit.
+  Polishing the output of a generator that has no range is the same error as cooking
+  a fourth version of something nobody asked for, in a costume.

@@ -1406,7 +1406,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 9/23b - THE ALPHA OPENS ON VOTE</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 9/23c - VOTE OPENS + THE EYES AND SHADES</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -4019,7 +4019,21 @@ function renderFace(spec,opts){
      line(ex-(e.w>>1),ey+e.h-2,ex+(e.w>>1),ey+e.h-2,Ln);
      P(ex-(e.w>>1),ey+e.h-1,Sh);P(ex+(e.w>>1),ey+e.h-1,Sh);
      continue; }
-   rect(ex-(e.w>>1),ey,ex+(e.w>>1),ey+e.h-1,[230,231,228]);let ix=ex;rect(ix-1,ey,ix,ey+e.h-1,e.iris);P(ix,ey+1,[38,40,42]);P(ix,ey+2,[38,40,42]);P(side<0?ix-1:ix+1,ey,[238,244,242]);
+   /* *** THE WHITE OF THE EYE, APPROVED BY HIM BY NAME (Paolo 9/22). ***
+      "I kinda like the direction of the eyes not being all white around it. You know
+       everyone's looking less of a frog like that and I guess the eyes are going pretty
+       good" -- on the card that carried this change. NOTES ARE RULINGS, so it is in.
+      IT WAS [230,231,228], WHICH IS BRIGHTER THAN EVERY SKIN TONE IN SKIN_TONES. An eye
+      white that out-shines the brightest face in the game does not read as an eye, it
+      reads as a bead stuck on a head -- his word for it was frog. It is tied to THIS
+      face's own lightest skin step now, so a dark face gets a dark sclera and a pale one
+      a pale sclera, and the eye sits IN the head instead of on it.
+      AND THE LID CASTS ON IT. The top row takes a shadow the way a real eyeball does
+      under a real lid; the iris and the catchlight draw over it exactly as before. */
+   var _scl=[Math.min(255,L[0]*0.96+16|0),Math.min(255,L[1]*0.96+16|0),Math.min(255,L[2]*0.96+16|0)];
+   rect(ex-(e.w>>1),ey,ex+(e.w>>1),ey+e.h-1,_scl);
+   line(ex-(e.w>>1),ey,ex+(e.w>>1),ey,[_scl[0]*0.74|0,_scl[1]*0.74|0,_scl[2]*0.76|0]);
+   let ix=ex;rect(ix-1,ey,ix,ey+e.h-1,e.iris);P(ix,ey+1,[38,40,42]);P(ix,ey+2,[38,40,42]);P(side<0?ix-1:ix+1,ey,[238,244,242]);
    /* half-shut: the lid eats the top rows, so a blink has a real middle frame
       instead of snapping between open and closed. */
    if(lidRows>0){ for(let ly=0;ly<lidRows;ly++)line(ex-(e.w>>1),ey+ly,ex+(e.w>>1),ey+ly,Mn);
@@ -4250,6 +4264,32 @@ function renderFace(spec,opts){
     }
   }
   if(h.braid){let bs=h.braid,bx=cx+bs*(fw-1);for(let yy=Y0+5;yy<jaw-1;yy++){let z=((yy/2|0)%2);P(bx+bs*z,yy,[30,28,32]);P(bx+bs*(1-z),yy,[58,54,60]);}}}
+ /* *** THE PORTRAIT WEARS THE SHADES THE BODY IS WEARING. (Voted UP, Paolo 9/22.) ***
+    Measured 9/21 over 200 dressed citizens: 70 of them wear wraparound shades you cannot
+    see through, and ALL 70 had bare eyes in the portrait that pops up when they talk. A
+    third of the valley took its sunglasses off to speak to you. The face renderer had no
+    glasses in it at all -- the word appears eighteen times in this file and not once in
+    here -- so this is the FIRST mechanism, not a second one, the same shape the eyes
+    themselves were in on 8/27, and ENGINE SYNC LAW is satisfied by there being one.
+    EVERY COLOUR IS READ OUT OF THE PAINTED GARMENT, PD_DATA.ramps['glasses/shades'], so
+    the lens on the face is the lens on the body and nothing was invented. The band sits
+    on THIS face's own eye numbers, never a fixed rectangle, so it fits a child and an
+    adult with no second table. THE CATCH SITS ON THE RIGHT, where this game's sun is.
+    A WRAPAROUND, NOT SPECTACLES: the first cut drew two round lenses and a bridge, and
+    the painted garment is one continuous band -- a portrait in different glasses from the
+    body is the same defect one layer down. spec.glasses is set by faceFor off the body. */
+ if(spec.glasses){ try{
+   var _gr=(typeof PD_DATA!=='undefined'&&PD_DATA.ramps)?PD_DATA.ramps[spec.glasses]:null;
+   if(_gr&&_gr.length>=3){
+     var _gF=_gr[0],_gL=_gr[1],_gC=_gr[2];
+     var _ew=e.w>>1, _gy0=f.eyeY-2, _gy1=f.eyeY+e.h;
+     var _glx=Math.round(cx-(e.gap/2+_ew))-_ew-1, _grx=Math.round(cx+(e.gap/2+_ew))+_ew+1;
+     for(var _gy=_gy0;_gy<=_gy1;_gy++)for(var _gx=_glx;_gx<=_grx;_gx++)
+       P(_gx,_gy,(_gy===_gy0||_gy===_gy1||_gx===_glx||_gx===_grx)?_gF:_gL);
+     P(_grx-1,_gy0+1,_gC);P(_grx-2,_gy0+1,_gC);P(_grx-1,_gy0+2,_gC);
+     for(var _gk=1;_gk<=3;_gk++){P(_glx-_gk,_gy0+2,_gF);P(_grx+_gk,_gy0+2,_gF);}
+   }
+ }catch(_ge){} }
  if(cig){let cyx=cx+(m.w>>1),cyy=my+1;for(let i=0;i<7;i++)P(cyx+i,cyy+(i/3|0),[236,232,222]);P(cyx+7,cyy+2,[214,150,70]);P(cyx+8,cyy+2,[214,150,70]);P(cyx,cyy-1,[120,120,120]);P(cyx+1,cyy-2,[150,150,150]);}
  return buf;
 }
@@ -5376,9 +5416,32 @@ function faceFor(id, over){
   f.mouthY = Math.max(f.noseY + 4, Math.min(f.top + f.len - 4, f.mouthY));
 
   /* ---- EYES: the gap is about ONE EYE WIDE, which is the rule faces keep --- */
-  sp.eyes.w   = 6;                               /* six is the whole budget */
-  sp.eyes.h   = child ? 4 : (3 + (R('eh') < 0.45 ? 1 : 0));
+  /* *** EVERY PERSON IN THE VALLEY HAD THE SAME EYES. (Measured 9/22, 400 faces.) ***
+     Paolo 9/22: "we need like way more face and portrait customizations bro like before
+     we start trying to hand me shit" -- and on the same card, "the eyes are going pretty
+     good". So a census was run on every dial the face carries, 400 people, counting how
+     many DISTINCT values each one ever takes:
+         eyes.w      1      <- ONE. Six. For everybody who has ever existed here.
+         eyes.h      2      eyes.hood 2      brows.arch 2      details.stubble 2
+         face.top    3      brows.thick 3    nose.w 3          mouth.fullLower 3
+         ... face.mouthY 13, face.jawCornerY 13, face.len 13
+     THE EYE REGION IS THE THINNEST PART OF THE WHOLE FACE and it is the feature that
+     carries identity: width, height and hood between them had FOUR combinations for the
+     entire population. The old comment said "six is the whole budget", which was a
+     drawing decision that quietly became a population decision.
+     AND THE GATE SAYS THE SAME THING HE DOES. talking_portrait's "no two are the same
+     person" floor went red this round, and widening the eyes is what answers both.
+     THE RANGE MAKES PEOPLE DIFFERENT, THE CLAMPS KEEP THEM PEOPLE -- 8/27's words, and
+     the clamps below are why this is safe: the pair plus the gap has to fit inside the
+     cheekbones, and a taller eye is only taken when the nose leaves room for it. */
+  sp.eyes.w   = 5 + (R('ew') < 0.34 ? 0 : (R('ew') < 0.74 ? 1 : 2));   /* 5, 6 or 7 */
+  sp.eyes.h   = child ? 4 : (3 + (R('eh') < 0.40 ? 0 : (R('eh') < 0.80 ? 1 : 2)));
   sp.eyes.gap = Math.max(4, Math.min(10, Math.round(6 + B('eg') * 2.6 + (child ? 1 : 0))));
+  /* A FACE IS NOT A PLACE TO PUT ANY TWO EYES. Two clamps, both on this face's own bones:
+     the eyes and the gap between them must sit inside the cheekbones with a margin, and
+     a five-tall eye is only kept when the nose is far enough below to leave it room. */
+  while (sp.eyes.w > 4 && (sp.eyes.gap + 2 * sp.eyes.w) > (f.cheekW - 4)) sp.eyes.w--;
+  if (sp.eyes.h > 4 && (f.noseY - f.eyeY) < 7) sp.eyes.h = 4;
   sp.eyes.hood = R('hood') < (child ? 0.15 : 0.5) ? 1 : 0;
   sp.eyes.iris = pick(IRIS, 'iris');
 
@@ -5637,6 +5700,14 @@ function faceFor(id, over){
   sp.hair.part  = pick(['mid','left','right'], 'part');
   sp.hair.len   = child ? pick(['jaw','short'], 'hlen')
                         : (R('hlen') < 0.42 ? 'short' : (R('hlen') < 0.78 ? 'jaw' : 'long'));
+  /* *** THE GLASSES COME FROM THE BODY, LIKE THE HAIRCUT AND THE HAIR COLOUR. ***
+     (Voted UP, Paolo 9/22.) NPCFactory dresses the crowd and owns what they are wearing;
+     this reads it, it does not roll one. A second picker beside the factory is what
+     ENGINE SYNC LAW forbids and what this lane was caught doing with hair on 9/11.
+     A ruling on a named character still wins outright, because `over` is copied over
+     everything below. */
+  try { if (_np && _np.equipped && _np.equipped.glasses) sp.glasses = _np.equipped.glasses; }
+  catch (_e6) {}
   sp.details = { stubble: (!child && !teen && R('stub') < 0.34) ? 1 : 0 };
   sp.top = [20 + ((R('top1') * 26) | 0), 20 + ((R('top2') * 26) | 0), 24 + ((R('top3') * 26) | 0)];
   sp._age = age;

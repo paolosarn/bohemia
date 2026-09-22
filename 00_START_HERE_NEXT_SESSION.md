@@ -1,3 +1,77 @@
+PORTRAIT (portrait-vamily-yke55s): 9/22 LATEST -- *** HE VOTED. ELEVEN OF THIRTEEN WENT
+DOWN. THE TWO HE APPROVED ARE IN THE GAME THIS TURN; THE LIGHT IS IN THE GRAVEYARD. ***
+Build 9/23b. Tab: CHARACTER, and every person in the RUN and the CITY.
+Verdicts verbatim: records/BOHEMIA_PAOLO_VERDICTS_ON_THE_PORTRAIT_9_22_26.txt
+Record: records/BOHEMIA_PORTRAIT_HE_VOTED_AND_ELEVEN_OF_THIRTEEN_WENT_DOWN_9_22_26.md
+Post-mortem: graveyard/POSTMORTEM_THE_PORTRAIT_LIGHTING_9_22_26.txt
+
+IN THE GAME NOW (NOTES ARE RULINGS, same turn, not another card):
+  THE SHADES, voted UP clean. 74 of 74 glasses-wearers now wear them in the portrait,
+  was 0 of 70. [shades on] marked SHIPPED.
+  THE EYES, approved by name: "I kinda like the direction of the eyes not being all white
+  around it ... everyone's looking less of a frog like that ... the eyes are going pretty
+  good." The sclera was [230,231,228], BRIGHTER THAN EVERY SKIN TONE IN THE GAME; it is
+  tied to each face's own lightest skin step now and the lid casts on the top row. The old
+  value is gone from all 200 faces.
+
+KILLED, AND IT STAYS KILLED: all eight lighting cards, "Dogshit more analog horror" x4.
+STOP PRODUCING -- a second rejection ends the feature for the session, THERE IS NO THIRD
+LIGHTING VERSION. The measurements behind it were all true and are still on file. IT DIED
+BECAUSE IT WAS THE WRONG SHAPE OF WORK, which is a running-order mistake and mine: he asked
+for the SYSTEM to have range before anybody hands him a finished face, and I handed him
+eight finished faces across two rounds.
+
+*** THE CENSUS THAT SHOULD HAVE BEEN THIS LANE'S FIRST ROUND. *** "we need like way more
+face and portrait customizations bro like before we start trying to hand me shit". Counted
+every dial across 400 people, by distinct values ever taken:
+    eyes.w  ......... 1     <- ONE. Six. For everybody who has ever existed here.
+    eyes.h, eyes.hood, brows.arch, details.stubble ... 2
+    face.top, brows.thick, nose.w, mouth.fullLower, hair.part, hair.len, age ... 3
+    ... face.len / jawW / jawCornerY / mouthY ... 13
+"Six is the whole budget" was a DRAWING decision that quietly became a POPULATION decision.
+Width, height and hood gave the whole valley FOUR combinations on the feature that carries
+identity. WIDENED: eyes.w 1 -> 3 (five/six/seven), eyes.h 2 -> 3, with two clamps on the
+face's own bones (the pair plus gap fits inside the cheekbones; a five-tall eye is only kept
+when the nose leaves room). THREE ROUNDS WENT INTO POLISHING FOUR FACES WHILE THE GENERATOR
+HAD ONE EYE WIDTH. The census took ten minutes.
+
+*** AND THE GATE THAT SAYS "NO TWO ARE THE SAME PERSON" CANNOT SEE A DARK FACE. *** Its
+floor went red; I GUESSED THE CAUSE TWICE AND WAS WRONG TWICE, so I rendered the pair it
+names and looked. gate:crowd:0 and gate:crowd:35 DIFFER ON 21 OF 44 FIELDS -- different
+skull, hair, eyes, nose, mouth, brows -- and are the closest pair in the crowd. BOTH ARE
+EBONY. The metric is mean absolute LUMINANCE difference per pixel, so on a near-black face
+every feature lives inside a narrow band and a completely different person scores as a twin.
+MEASURED: correlation between a pair's brightness and its measured difference 0.473; the 20
+"most identical" pairs average 46.5 brightness against a crowd average of 57.9. It also
+explains the red -- taking the bright white out of the eye removed one of the few
+high-luminance features a dark face had.
+I DID NOT SHIP A FIX AND I DID NOT LOWER THE FLOOR. Mean-removal got 0.473 -> 0.42 with the
+same pair still closest (not enough); contrast normalisation's test harness had a bug of
+mine. Three iterations into re-rulering a gate is where this lane stops and writes it down.
+THE FLOOR STAYS AND THE GATE STAYS RED, NAMED AS MINE: lowering it hides a real bias behind
+a smaller number, and the gate is now saying the same thing the client said.
+
+GATES: talking_portrait 28/1 (MINE, deliberately left red, above); portrait_haircut 12/0,
+portrait_matches_body 11/0, face_maker 13/0, family 15/0, hairline 12/0, clothes_4x 13/0
+(1,744 pinned hashes unmoved). vote_tab 27/1 and become 15/13 are IDENTICAL on a clean
+origin/main worktree, NOT MINE. Full suite: 107 red at ad23d875, none named as this lane's.
+
+BUILD STAMP: another lane had it at 9/23a; I overwrote it with 9/22a and caught it. Moved to
+9/23b -- ADVANCE THE LETTER, NEVER MOVE THE NUMBER DOWN, which is the one thing the stamp
+exists to stop him seeing.
+
+VOTE: portrait-eye-range-9-22, and the card says on its own face THIS IS NOT A FACE TO
+APPROVE -- it is the system getting wider. All 13 earlier cards are consumed.
+
+*** THE STANDING NOTE, AND IT IS THE LOUDEST THING ANYBODY HAS SAID TO THIS LANE: he said
+"MORE ANALOG HORROR" FIVE SEPARATE TIMES IN ONE SITTING AND IT IS STILL NOT ANSWERED. *** It
+is [horror face] and it is NOT another lighting pass. The bible's rule 1 is the hook: the
+frame is ordinary with exactly ONE thing wrong, and nothing in the eight dead cards was
+wrong on purpose.
+
+NEXT: keep widening the generator before handing him any face (nose, mouth, brow ranges are
+2 and 3 distinct); then [horror face] against bible rule 1. [blank faces] school is still
+unopened and its three defects were already measured on 9/21.
 LIFE + CITY (city-1eztay): 9/22 LATEST -- *** THE FACE ON THE MAP IS HIS, THE PEACH
 DOTS ARE THE POWER, AND HE VOTED MY SHOP DOWN SO I WENT AND READ THE BIBLE. ***
 TAB: CITY (his own face at the marker; tap a peach dot for what it is). The redone
