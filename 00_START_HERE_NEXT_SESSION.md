@@ -8602,6 +8602,110 @@ ALSO STILL OPEN, not draw order: on NE in his own frame
 the right of the shoulders with a visible gap. That is the pose too.
 
 Nothing [PENDING Paolo].
+PEOPLE (people-7h9sfy): 9/23 LATEST -- *** [creditor stands] SHIPPED. THE GAME
+TOLD YOU SOMEBODY WAS DEAD AND THEN KEPT DRAWING HIM AT HIS OWN DOOR. ***
+
+THE ROW: "an heir does not inherit a NUMBER, they inherit THE PEOPLE HE OWED,
+still standing there, still remembering."
+
+MEASURED ON THE ALPHA THROUGH THE GAME'S OWN DOORS, BEFORE A LINE CHANGED. Take a
+loan with the game's own writer, miss the night, let the night publish the deed:
+    people who witnessed it                       1  (the neighbour at his door)
+    people who still knew, one generation later   0
+    the fold's own words  "1 of the things you did died with the last person who
+                           saw them"
+THE LAST PERSON WHO SAW IT IS 12:12:900, THE MAN AT HIS FRONT DOOR. Drawn every
+frame, with the name and face this lane spent three rounds building. The
+generation that ended is the DEBTOR'S.
+
+WHY THE ORGAN SAID OTHERWISE, AND IT IS NOT A SLOPPY LINE. inherit() drops an
+untold deed because "the eyewitness is dead", and TWO OTHER LANES' GATES PIN IT
+with the premise spelled out: standing_gate ("A QUIET DEED DIES WITH THE
+WITNESS") and faction_between T1 ("Thirty years pass and everybody who watched
+you is dead"). The DYNASTY half is right and is untouched: a thing one person saw
+and never mentioned must never become what your child is judged for.
+
+*** AND THE REPO ITSELF HAD ALREADY REFUSED THAT CALL. *** bohemia_family.js, on
+its parked bury() writer: "WHEN a person dies of age is a magnitude, so it waits
+on Paolo." NOTHING IN THIS GAME AGES ANYBODY OUT. The organ decided the one thing
+the game explicitly refused to decide, for the whole valley, as a default.
+And the real world agrees: a thirty-year step does not bury a lender who was an
+adult when he handed it over.
+
+BUILT:
+  the organ ASKS                inherit() takes an optional `alive`; WITH NOTHING
+                                PASSED THE ANSWER IS BYTE FOR BYTE WHAT IT WAS,
+                                which is why standing_gate 35/0 and
+                                faction_between T1 are both still green
+  a memory, never a charge      the kept deed is stamped `ended`, forceOf gives it
+                                zero: father -4.00, child 0, father still charged 0
+  the city answers              ctStillHere() off the world's own census, and it
+                                SAYS OUT LOUD that it means STILL HERE and not
+                                STILL ALIVE, and is conservative off the block
+  the row's question            whoRemembers() returns PEOPLE, no balance anywhere
+  and he SAYS it                once, with a name and a face, above everything
+                                else on the street
+
+ON THE ALPHA AFTER: 1 remembered before and 1 after (it was 1 and 0), the fold
+reports died 0 / stood 1, and the street says, once each:
+    "The last one did me a turn once. I have not forgotten it."
+    "You have his face. The last one owed me a night of power and never brought it."
+IT CUTS BOTH WAYS ON PURPOSE. An heir who only ever meets the debts is a
+punishment, not an inheritance.
+
+THREE CONTROLS HELD: silent with nothing owed, silent while the father is still
+ALIVE (so it fires on the FOLD and not on any deed), and no broken record.
+
+*** AND I MADE ANOTHER LANE'S CLAIM FALSE AND REPAIRED IT TO ITS OWN SUBSTANCE
+RATHER THAN WEAKENING IT. *** faction_between T6 asked for died === 3 on the CITY
+surface, where all three watchers are people still standing on the block.
+MEASURED IN EXACTLY THAT SETUP: carried 3 (unchanged), inherited 3 (unchanged,
+which is what T7 checks), the watched three stamped `ended` and worth zero, and
+died 0 + stood 3. Not one number in the claim's substance moved. Rewritten as
+died + stood so it holds under either answer and reads identically for a caller
+that cannot say who is alive. faction_between went 174/9 to 175/8, AND CLEAN MAIN
+IS ALSO 175/8 WITH THE SAME EIGHT (M0 M1 M2 M3 M5 R6 R7 R8), so the score is now
+identical to main's.
+
+AND THE WORDS WERE BEING PAINTED OVER, CAUGHT BY THE COOK. The first photograph
+read "he owed me a nig[HOME] of power": the HOME wayfinder drew three passes
+AFTER the speech bubble. The bubble draws last now. THE COST, SAID PLAINLY: for
+the two seconds a bubble is up it can cover the HOME word. That is the right way
+round, and it is written into the file beside the change.
+
+COOK (rule 22): THE ONE WHO STOOD THERE, three frames off the real glass in the
+VOTE tab, same street and same man before and after his father dies.
+
+GATE: gates/creditor_stands_gate.js GREEN 39/0 on the alpha, and its own self-test
+caught my first cut measuring the father's worth AFTER the fold had already
+stamped the deed `ended` -- the test was measuring the thing it was trying to
+prove had been switched off.
+
+PRE-PUSH PASS: creditor_stands 39/0, standing 35/0, heir_moment 23/0,
+deed_bridge 29/0, rumours_travel 61/0, a_name 47/0, face_at_the_door 31/0,
+no_clumping 37/0, vote_tab 30/0, who_vouches 19/0.
+RED, NOT MINE: faction_between 175/8, identical eight on clean main.
+make_it_right 34/5, as before.
+
+MEASURED AND NOT FIXED: THE LOAN BOOK IS STILL KEYED BY OUTFIT, NOT BY PERSON,
+which a previous PEOPLE round measured and wrote into the city ("BOTH DEBT
+LEDGERS IN THIS GAME ARE KEYED BY OUTFIT, NOT BY PERSON"). So "the man who lent it
+to you" is not a thing the game stores; what it stores is the outfit you owe and
+THE PEOPLE WHO SAW YOU GO SHORT. This row is built on the second, which is real
+today. A per-person lender ledger would be a SECOND DEBT LEDGER, which is this
+lane's own recurring defect, and it is not what the row asked for.
+AND THE BILL ITSELF WAS ALREADY DYING CORRECTLY before this round: WORLD's
+owedFold() clears it and records only which generation it belonged to. That half
+needed nothing. What was missing was the person.
+
+[PENDING Paolo], and this round leans on it: WHEN A PERSON DIES OF OLD AGE. Until
+he rules it, "still here" is the honest stand-in and it is labelled as one
+everywhere it is used.
+Still carried: how many game days is a year; who you marry; what a long injury
+costs to treat; the [honest crowd] trade; and how often a rumour should go wrong.
+
+NEXT: [somebody hires you] is the only OPEN row left in this lane.
+
 PEOPLE (people-7h9sfy): 9/22 (c) LATEST -- *** [rumours travel] SHIPPED. THE CITY
 COULD NOT GOSSIP AT ALL, AND IT WAS MY OWN LAST ROUND THAT KILLED IT. ***
 

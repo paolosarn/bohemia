@@ -1,0 +1,173 @@
+BOHEMIA -- CREDITOR STANDS (9/23/26, PEOPLE lane)
+VAMILY job [creditor stands], row YOU-DO-NOT-INHERIT-A-BILL-YOU-INHERIT-THE-PERSON.
+
+THE ROW, VERBATIM: "DYNASTY's carry research sharpened the coordinator's own 9/5
+ruling and it is adopted: in the real world a child is NOT liable for a parent's
+debts, and the only reason is that a court stops it. Bohemia has no courts, so the
+debt carrying is not a fantasy mechanic, it is what the law exists to prevent,
+running in a valley where the law is gone. But the form was wrong: an heir does
+not inherit a NUMBER, they inherit THE PEOPLE HE OWED, still standing there, still
+remembering (which is also ECONOMY's finding: a debt is a person who remembers).
+Build the creditor who is still there after the fold, not a balance on a card."
+
+================================================================================
+*** MEASURED ON THE ALPHA, THROUGH THE GAME'S OWN DOORS, BEFORE A LINE CHANGED
+================================================================================
+Take a loan with the game's own writer. Miss the night. Let the night publish the
+deed the way it already does.
+
+    people who witnessed it                       1   (the neighbour at his door)
+    people who still knew, one generation later   0
+    the fold's own words   "1 of the things you did died with the last person
+                            who saw them"
+
+*** THE LAST PERSON WHO SAW IT IS NOT DEAD. *** He is 12:12:900, the man at his
+own front door, drawn every frame, carrying a name and a face this lane spent
+three rounds building, and he speaks. The generation that ended is the DEBTOR's.
+
+WHY THE ORGAN SAID OTHERWISE, AND IT IS NOT A SLOPPY LINE. inherit() drops an
+untold deed with the comment "the eyewitness is dead. Only what was RETOLD is
+still in the valley", and TWO OTHER LANES' GATES PIN IT with the premise written
+out:
+    gates/standing_gate.js      "A QUIET DEED DIES WITH THE WITNESS: one person
+                                 saw it, nobody was ever told, and a generation
+                                 later the child inherits NOTHING"
+    gates/faction_between_gate.js T1  "*** AN EYEWITNESS MEMORY DIES WITH THE
+                                 EYEWITNESS. *** Thirty years pass and everybody
+                                 who watched you is dead."
+The DYNASTY half of that is right and this round does not touch it: a thing one
+person saw and never mentioned must never become the thing your child is judged
+for. What is not right is deciding, for everybody, that they are gone.
+
+*** AND THE REPO ITSELF HAD ALREADY REFUSED THAT CALL. *** bohemia_family.js, on
+its parked bury() writer, in its own words:
+
+    "What had no caller was a writer for a death that happens LATER -- old age,
+     mostly -- and WHEN a person dies of age is a magnitude, so it waits on Paolo."
+
+Nothing in this game ages anybody out. So the organ decided the ONE thing the
+game had explicitly refused to decide, for the whole valley, as a default, and
+then the surface went on drawing them. A game may not tell you somebody is dead
+and then draw him at his door.
+
+AND THE REAL WORLD AGREES, which is the other angle this lane owes. A generation
+step is about thirty years. A lender who was an adult when he handed it over is
+very likely alive at the end of it: in modern US life tables a thirty-year-old man
+reaches sixty something like nine times in ten. You do not get to bury a valley to
+close a ledger.
+
+================================================================================
+WHAT WAS BUILT
+================================================================================
+
+A. THE ORGAN ASKS INSTEAD OF ASSUMING. inherit() takes an OPTIONAL `alive`
+   predicate on the witness's owner id, the same shape witness() already uses for
+   `where`. WITH NOTHING PASSED THE ANSWER IS BYTE FOR BYTE WHAT IT ALWAYS WAS
+   (carried 0, died 1, the deed gone), which is why both gates above stay green: a
+   caller that cannot say who is alive has not earned a different answer.
+
+B. WHAT A LIVING WITNESS KEEPS IS A MEMORY, NEVER A CHARGE. The deed stays his,
+   still pointing at the PARENT, and is stamped `ended`. forceOf returns 0 for an
+   ended deed, so:
+       what the father was worth to him     -4.00
+       what the child is charged              0
+       what the father is still charged       0
+   The dynasty rule is untouched and no number that was on the board before this
+   existed has moved. The man remembers your father. He is not billing you.
+
+C. THE CITY ANSWERS, AND SAYS WHAT ITS ANSWER IS WORTH. ctFold hands the organ
+   ctStillHere(), built from the world's own census, and the file says out loud
+   that it answers STILL HERE and not STILL ALIVE, because when a person dies of
+   age is Paolo's and is still waiting. It is conservative where it cannot see:
+   the census is the block he is standing on, so anybody further out reads as gone
+   and keeps the old behaviour exactly. It never claims somebody is alive that it
+   cannot find.
+
+D. AND THE ROW'S OWN QUESTION IS ASKABLE IN ONE CALL. whoRemembers() returns
+   PEOPLE -- who they are, what they saw, whether they watched it themselves --
+   and there is no balance, no amount and no total anywhere in the answer. That is
+   the row's sentence made into a function.
+
+E. HE SAYS IT, ONCE, WITH A NAME AND A FACE (rule 19c). The bark sits ABOVE
+   everything else on the street, because meeting somebody who knew your father is
+   the loudest thing that can happen there, and fires once per person per story.
+   IT CUTS BOTH WAYS ON PURPOSE: the man your father did a turn for is standing
+   there too and says that. An heir who only ever meets the debts is a punishment,
+   not an inheritance.
+
+================================================================================
+ON THE ALPHA, AFTER
+================================================================================
+  people who witnessed it                       1
+  people who still knew, one generation later   1     (it was 0)
+  the fold now reports                          died 0, stood 1
+  what the street says, once each, with a plate reading his trade:
+      "The last one did me a turn once. I have not forgotten it."
+      "You have his face. The last one owed me a night of power and never
+       brought it."
+
+THREE CONTROLS RAN AND ALL THREE HELD:
+  silent with nothing owed and nothing folded
+  silent while the father is still ALIVE, so it fires on the FOLD and not on any
+    deed at all
+  and no broken record: one man, one story, said once
+
+================================================================================
+AND THE WORDS WERE BEING PAINTED OVER, WHICH THE COOK CAUGHT
+================================================================================
+The first photograph of the good frame read "he owed me a nig[HOME] of power":
+the HOME wayfinder was drawn three passes AFTER the speech bubble and went
+straight through the sentence. Rule 19(c) is that text comes from a mouth with a
+portrait, and a sentence with a word painted out of it is not that. The bubble is
+drawn last now.
+THE COST, SAID PLAINLY: for the two seconds a bubble is up it can cover the HOME
+word. That is the right way round. HOME is a wayfinder that is there all day; the
+bubble is the one thing on the screen that is talking to him.
+
+================================================================================
+THE COOK: THE ONE WHO STOOD THERE
+================================================================================
+slices/BOHEMIA_THE_ONE_WHO_STOOD_THERE_9_23_26.html, three frames off the real
+glass, same street, same man, before and after his father dies. Registered in the
+VOTE tab. Nothing appears on a card and no number moves.
+
+================================================================================
+THE GATE
+================================================================================
+gates/creditor_stands_gate.js, driven on the ALPHA.
+  the organ   the default answer unmoved, a living witness keeping it, the child
+              charged nothing, the weights table still empty, and both the repo's
+              own refusal and the real-world check quoted in the file
+  the city    the fold handing over a real answer from the world's census, and
+              saying out loud that it means STILL HERE
+  the alpha   1 before and 1 after where it used to be 1 and 0, the fold no longer
+              reporting a death, the man speaking, a plate on every line, both
+              sides of the inheritance, and no repeats
+  the glass   the bubble drawn after the wayfinder, with the cost written down
+  the cook    three DIFFERENT frames off the real glass, in VOTE
+
+================================================================================
+MEASURED AND NOT FIXED
+================================================================================
+THE LOAN BOOK IS STILL KEYED BY OUTFIT, NOT BY PERSON, and that is named rather
+than papered over. A previous PEOPLE round measured it and wrote it into the city:
+"BOTH DEBT LEDGERS IN THIS GAME ARE KEYED BY OUTFIT, NOT BY PERSON." So "the man
+who lent it to you" is not a thing the game stores; what it stores is the outfit
+you owe and the PEOPLE WHO SAW YOU GO SHORT. This row is built on the second one,
+which is real today. Building a per-person lender ledger would be a SECOND DEBT
+LEDGER, which is this lane's own recurring defect (two writers for one fact), and
+it is not what the row asked for.
+
+THE BILL ITSELF WAS ALREADY DYING CORRECTLY before this round: WORLD's
+__THE_LENDER_VISITS_THE_HEIR__ and owedFold() clear it at the fold and record only
+which generation it belonged to. That half needed nothing. What was missing was
+the person.
+
+[PENDING Paolo], and it is the one this round leans on: WHEN A PERSON DIES OF OLD
+AGE. Until he rules it, "still here" is the honest stand-in and it is labelled as
+one everywhere it is used.
+Still carried from before: how many game days is a year; who you marry; what a
+long injury costs to treat; and the [honest crowd] trade, a quiet evening street
+or everybody reachable.
+
+TAB: CITY, the walked street in the alpha. VOTE, for the three frames.

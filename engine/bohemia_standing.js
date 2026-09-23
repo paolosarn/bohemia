@@ -179,6 +179,13 @@
        rather than going clean to nothing. That is a magnitude and magnitudes are
        his; the mechanism does not need one to be true. */
     if(d.right) return 0;
+    /* *** AND A MEMORY OF SOMEBODY WHO IS GONE IS NOT A CHARGE AGAINST WHOEVER
+       *** CAME NEXT (9/23, [creditor stands]). A living witness keeps an untold
+       deed across the fold, stamped `ended`. It stays readable as history and it
+       weighs NOTHING, so the child's standing is exactly what it was before this
+       existed and the dynasty rule -- a quiet deed never becomes the thing your
+       child is judged for -- is untouched. */
+    if(d.ended) return 0;
     /* the deed's own clock, not the sighting clock (see DEED_HALFLIFE above) */
     var age=Math.max(0, (now|0)-(d.turn|0));
     var c=Math.pow(0.5, age/deedHalflife(w));
@@ -767,23 +774,86 @@
                           // generation only the very loudest thing your grandfather
                           // did still registers at all - which is the arc the story
                           // master already describes.
-  function inherit(minds, parentId, childId, turn){
-    var carried=0, died=0;
+  /* *** AND WHETHER THE WITNESS IS DEAD IS NOT THIS FUNCTION'S TO ASSUME.
+     *** (9/23, PEOPLE [creditor stands], row YOU-DO-NOT-INHERIT-A-BILL-YOU-
+     *** INHERIT-THE-PERSON.)
+
+     The rule below drops an untold deed because "the eyewitness is dead", and the
+     gate that pins it says the premise out loud: "Thirty years pass and everybody
+     who watched you is dead." That is a coherent reading and the DYNASTY half of
+     it is right: a thing one person saw and never mentioned must not become the
+     child's reputation. What is not right is deciding, for everybody, that they
+     are gone.
+
+     MEASURED, AND THE REPO ITSELF ALREADY REFUSED THIS CALL. bohemia_family.js,
+     on its parked bury() writer: "WHEN a person dies of age is a magnitude, so it
+     waits on Paolo." Nothing in this game ages anybody out. So the organ asserted
+     that everybody who watched is dead, while the surface kept drawing them: on
+     the alpha, the only witness of a short night was the neighbour at his own
+     door, and the fold said "1 of the things you did died with the last person
+     who saw them" about a man who is still standing there and still speaks.
+
+     AND THE REAL WORLD SAYS THE SAME. A generation step is about thirty years. A
+     lender who was an adult when he handed it over is very likely alive at the
+     end of it; you do not get to bury a whole valley to close a ledger.
+
+     SO THE ORGAN ASKS. `alive` is an OPTIONAL predicate on the witness's owner
+     id, exactly the shape witness() already uses for `where`. WITH NOTHING
+     PASSED THE BEHAVIOUR IS WHAT IT HAS ALWAYS BEEN, byte for byte, which is why
+     the two gates that pin the old rule stay green: a caller that cannot say who
+     is alive has not earned a different answer.
+
+     WHAT A LIVING WITNESS KEEPS IS A MEMORY, NEVER A CHARGE. The deed stays
+     theirs, still about the PARENT, and it is stamped `ended` so forceOf gives it
+     zero: the child is not judged for a thing nobody ever repeated, which is the
+     dynasty rule untouched. The man remembers your father. He is not billing you.
+     That is the row's own sentence: you inherit the person, not the number. */
+  function inherit(minds, parentId, childId, turn, alive){
+    var carried=0, died=0, stood=0;
     for(var i=0;i<minds.length;i++){
       var m=minds[i]; if(!m||!m.deeds) continue;
       var keep=[];
       for(var j=0;j<m.deeds.length;j++){
         var d=m.deeds[j];
         if(d.actor!==parentId){ keep.push(d); continue; }
-        /* the eyewitness is dead. Only what was RETOLD is still in the valley. */
-        if(!(d.hops>0)){ died++; continue; }
+        /* the eyewitness is dead. Only what was RETOLD is still in the valley.
+           UNLESS THE CALLER CAN SAY THEY ARE STANDING RIGHT THERE (see above). */
+        if(!(d.hops>0)){
+          if(alive && alive(m.owner)){
+            d.ended = turn;                 /* the one it was about is gone */
+            if(d.of == null) d.of = parentId;
+            keep.push(d); stood++; continue;
+          }
+          died++; continue;
+        }
         keep.push({actor:childId, kind:d.kind, turn:turn, x:d.x, y:d.y,
                    hops:d.hops, inherited:(d.inherited||0)+1, of:parentId});
         carried++;
       }
       m.deeds=keep;
     }
-    return {carried:carried, died:died};
+    return {carried:carried, died:died, stood:stood};
+  }
+
+  /* WHO IS STILL STANDING THERE AND STILL REMEMBERS. The row's own sentence made
+     into a question anybody can ask: after the fold, which people saw the last
+     one do this, and are still here. Returns the WITNESSES, not a balance, which
+     is the whole point of the row -- an heir meets the people, never a number. */
+  function whoRemembers(minds, ofId, kind){
+    var out=[];
+    for(var i=0;i<minds.length;i++){
+      var m=minds[i]; if(!m||!m.deeds) continue;
+      for(var j=0;j<m.deeds.length;j++){
+        var d=m.deeds[j];
+        if(!d.ended) continue;                       /* about a life that has ended */
+        if(ofId!=null && d.of!==ofId && d.actor!==ofId) continue;
+        if(kind!=null && d.kind!==kind) continue;
+        out.push({who:m.owner, kind:d.kind, turn:d.turn, of:d.of,
+                  x:d.x, y:d.y, saw:!(d.hops>0)});
+        break;                                       /* one row per person */
+      }
+    }
+    return out;
   }
 
   /* WHAT THE VALLEY STILL SAYS ABOUT YOUR FAMILY. Readable, because a legend you
@@ -819,6 +889,7 @@
     wouldSquare:wouldSquare,
     carryRight:carryRight,
     inherit:inherit, legendOf:legendOf, GEN_LOSS:GEN_LOSS,
+    whoRemembers:whoRemembers,
     DEED_HALFLIFE:DEED_HALFLIFE, deedHalflife:deedHalflife, NEWS_LIFE:NEWS_LIFE };
   if(HASREQ) module.exports=API; else root.BohemiaStanding=API;
 })(typeof globalThis!=='undefined'?globalThis:this);

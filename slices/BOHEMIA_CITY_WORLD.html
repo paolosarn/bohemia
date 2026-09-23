@@ -45836,6 +45836,13 @@ function ctKnowsMe(id){
        rather than going clean to nothing. That is a magnitude and magnitudes are
        his; the mechanism does not need one to be true. */
     if(d.right) return 0;
+    /* *** AND A MEMORY OF SOMEBODY WHO IS GONE IS NOT A CHARGE AGAINST WHOEVER
+       *** CAME NEXT (9/23, [creditor stands]). A living witness keeps an untold
+       deed across the fold, stamped `ended`. It stays readable as history and it
+       weighs NOTHING, so the child's standing is exactly what it was before this
+       existed and the dynasty rule -- a quiet deed never becomes the thing your
+       child is judged for -- is untouched. */
+    if(d.ended) return 0;
     /* the deed's own clock, not the sighting clock (see DEED_HALFLIFE above) */
     var age=Math.max(0, (now|0)-(d.turn|0));
     var c=Math.pow(0.5, age/deedHalflife(w));
@@ -46424,23 +46431,86 @@ function ctKnowsMe(id){
                           // generation only the very loudest thing your grandfather
                           // did still registers at all - which is the arc the story
                           // master already describes.
-  function inherit(minds, parentId, childId, turn){
-    var carried=0, died=0;
+  /* *** AND WHETHER THE WITNESS IS DEAD IS NOT THIS FUNCTION'S TO ASSUME.
+     *** (9/23, PEOPLE [creditor stands], row YOU-DO-NOT-INHERIT-A-BILL-YOU-
+     *** INHERIT-THE-PERSON.)
+
+     The rule below drops an untold deed because "the eyewitness is dead", and the
+     gate that pins it says the premise out loud: "Thirty years pass and everybody
+     who watched you is dead." That is a coherent reading and the DYNASTY half of
+     it is right: a thing one person saw and never mentioned must not become the
+     child's reputation. What is not right is deciding, for everybody, that they
+     are gone.
+
+     MEASURED, AND THE REPO ITSELF ALREADY REFUSED THIS CALL. bohemia_family.js,
+     on its parked bury() writer: "WHEN a person dies of age is a magnitude, so it
+     waits on Paolo." Nothing in this game ages anybody out. So the organ asserted
+     that everybody who watched is dead, while the surface kept drawing them: on
+     the alpha, the only witness of a short night was the neighbour at his own
+     door, and the fold said "1 of the things you did died with the last person
+     who saw them" about a man who is still standing there and still speaks.
+
+     AND THE REAL WORLD SAYS THE SAME. A generation step is about thirty years. A
+     lender who was an adult when he handed it over is very likely alive at the
+     end of it; you do not get to bury a whole valley to close a ledger.
+
+     SO THE ORGAN ASKS. `alive` is an OPTIONAL predicate on the witness's owner
+     id, exactly the shape witness() already uses for `where`. WITH NOTHING
+     PASSED THE BEHAVIOUR IS WHAT IT HAS ALWAYS BEEN, byte for byte, which is why
+     the two gates that pin the old rule stay green: a caller that cannot say who
+     is alive has not earned a different answer.
+
+     WHAT A LIVING WITNESS KEEPS IS A MEMORY, NEVER A CHARGE. The deed stays
+     theirs, still about the PARENT, and it is stamped `ended` so forceOf gives it
+     zero: the child is not judged for a thing nobody ever repeated, which is the
+     dynasty rule untouched. The man remembers your father. He is not billing you.
+     That is the row's own sentence: you inherit the person, not the number. */
+  function inherit(minds, parentId, childId, turn, alive){
+    var carried=0, died=0, stood=0;
     for(var i=0;i<minds.length;i++){
       var m=minds[i]; if(!m||!m.deeds) continue;
       var keep=[];
       for(var j=0;j<m.deeds.length;j++){
         var d=m.deeds[j];
         if(d.actor!==parentId){ keep.push(d); continue; }
-        /* the eyewitness is dead. Only what was RETOLD is still in the valley. */
-        if(!(d.hops>0)){ died++; continue; }
+        /* the eyewitness is dead. Only what was RETOLD is still in the valley.
+           UNLESS THE CALLER CAN SAY THEY ARE STANDING RIGHT THERE (see above). */
+        if(!(d.hops>0)){
+          if(alive && alive(m.owner)){
+            d.ended = turn;                 /* the one it was about is gone */
+            if(d.of == null) d.of = parentId;
+            keep.push(d); stood++; continue;
+          }
+          died++; continue;
+        }
         keep.push({actor:childId, kind:d.kind, turn:turn, x:d.x, y:d.y,
                    hops:d.hops, inherited:(d.inherited||0)+1, of:parentId});
         carried++;
       }
       m.deeds=keep;
     }
-    return {carried:carried, died:died};
+    return {carried:carried, died:died, stood:stood};
+  }
+
+  /* WHO IS STILL STANDING THERE AND STILL REMEMBERS. The row's own sentence made
+     into a question anybody can ask: after the fold, which people saw the last
+     one do this, and are still here. Returns the WITNESSES, not a balance, which
+     is the whole point of the row -- an heir meets the people, never a number. */
+  function whoRemembers(minds, ofId, kind){
+    var out=[];
+    for(var i=0;i<minds.length;i++){
+      var m=minds[i]; if(!m||!m.deeds) continue;
+      for(var j=0;j<m.deeds.length;j++){
+        var d=m.deeds[j];
+        if(!d.ended) continue;                       /* about a life that has ended */
+        if(ofId!=null && d.of!==ofId && d.actor!==ofId) continue;
+        if(kind!=null && d.kind!==kind) continue;
+        out.push({who:m.owner, kind:d.kind, turn:d.turn, of:d.of,
+                  x:d.x, y:d.y, saw:!(d.hops>0)});
+        break;                                       /* one row per person */
+      }
+    }
+    return out;
   }
 
   /* WHAT THE VALLEY STILL SAYS ABOUT YOUR FAMILY. Readable, because a legend you
@@ -46476,6 +46546,7 @@ function ctKnowsMe(id){
     wouldSquare:wouldSquare,
     carryRight:carryRight,
     inherit:inherit, legendOf:legendOf, GEN_LOSS:GEN_LOSS,
+    whoRemembers:whoRemembers,
     DEED_HALFLIFE:DEED_HALFLIFE, deedHalflife:deedHalflife, NEWS_LIFE:NEWS_LIFE };
   if(HASREQ) module.exports=API; else root.BohemiaStanding=API;
 })(typeof globalThis!=='undefined'?globalThis:this);
@@ -48743,6 +48814,79 @@ function ctRumourBark(now){
             truly: dd.truly || null, kind: dd.kind, grew: dd.grew || null,
             hops: dd.hops || 0, text: line,
             wrong: BohemiaStanding.isWrong(dd) }; } catch (_e) {}
+      return true;
+    }
+  }
+  return false;
+}
+
+/* __THE_ONE_WHO_STOOD__ -- AND THE PEOPLE THE LAST ONE DEALT WITH ARE STILL ON
+   THE STREET. (9/23, [creditor stands], row YOU-DO-NOT-INHERIT-A-BILL-YOU-
+   INHERIT-THE-PERSON.)
+
+   THE ROW: "an heir does not inherit a NUMBER, they inherit THE PEOPLE HE OWED,
+   still standing there, still remembering. Build the creditor who is still there
+   after the fold, not a balance on a card."
+
+   MEASURED ON THE ALPHA BEFORE A LINE OF THIS WAS WRITTEN, through the game's own
+   doors: take a loan, go short, let the night publish the deed. ONE person
+   witnessed it, the neighbour at his own door. Then the generation turned:
+
+       people who remembered, before the fold      1
+       people who remembered, after it             0
+       the fold's own words   "1 of the things you did died with the last person
+                               who saw them"
+
+   THE LAST PERSON WHO SAW IT IS NOT DEAD. He is standing at the door, drawn every
+   frame, and he speaks. The organ asks now (see inherit's `alive`), so he keeps
+   it, and this is the mouth that says it.
+
+   IT CUTS BOTH WAYS ON PURPOSE. A man your father stiffed is still there, and so
+   is a man your father did a turn for. An heir who only ever meets the debts is
+   a punishment, not an inheritance. Attempts, draft:true. */
+var CT_STOOD_SAY = {
+  'loan:short':       ['You have his face. The last one owed me a night of power '
+                       + 'and never brought it.',                              /* draft */
+                       'I knew the one before you. He went short on me.'],     /* draft */
+  'claim:refused':    ['You have his face. The last one turned my outfit down '
+                       + 'to my face.'],                                       /* draft */
+  'pushed_the_price': ['The one before you squeezed me. You have his face.'],  /* draft */
+  'downed':           ['I watched the last one put somebody down. '
+                       + 'You have his face.'],                                /* draft */
+  'favour':           ['The last one did me a turn once. I have not forgotten '
+                       + 'it.'],                                               /* draft */
+  'claim:met':        ['The one before you came through for us. '
+                       + 'That is worth saying out loud.'],                    /* draft */
+  'commit':           ['The last one threw in with us. You are not him, '
+                       + 'but I remember.'],                                   /* draft */
+  'spared':           ['The last one had me and let me walk. '
+                       + 'I have not forgotten it.']                           /* draft */
+};
+var CT_STOOD_SAID = {};
+function ctStoodBark(now){
+  if (typeof BohemiaStanding === 'undefined') return false;
+  var drew = (typeof BARK_DREW !== 'undefined' && BARK_DREW) ? BARK_DREW : [];
+  for (var i = 0; i < drew.length; i++) {
+    var d0 = drew[i]; if (!d0 || !d0.p || !d0.at) continue;
+    if (Math.abs(d0.at[0] - hx) + Math.abs(d0.at[1] - hy) > 6) continue;
+    var m = CT_MINDS[d0.p.id]; if (!m || !m.deeds || !m.deeds.length) continue;
+    for (var j = m.deeds.length - 1; j >= 0; j--) {
+      var dd = m.deeds[j];
+      if (!dd.ended) continue;              /* only a life that has ended */
+      var arr = CT_STOOD_SAY[dd.kind]; if (!arr || !arr.length) continue;
+      var sk = String(d0.p.id) + '|' + String(dd.seed || (dd.kind + dd.turn));
+      if (CT_STOOD_SAID[sk]) continue;
+      /* the same man gives the same sentence every time, never a reroll */
+      var h = 0, key = sk;
+      for (var q = 0; q < key.length; q++) h = (Math.imul(h, 31) + key.charCodeAt(q)) >>> 0;
+      var line = arr[h % arr.length];
+      CT_STOOD_SAID[sk] = 1;
+      BARK.p = d0.p; BARK.at = d0.at; BARK.text = line;
+      BARK.until = now + barkHold(line);
+      try { var _hd = ctSpeakerHead(d0.p); window.__STOOD_SAID = {
+            by: String(d0.p.id), head: _hd ? _hd.text : null,
+            kind: dd.kind, of: dd.of || null, saw: !(dd.hops > 0),
+            text: line }; } catch (_e) {}
       return true;
     }
   }
@@ -51986,6 +52130,10 @@ function barkTick(now){
      its own life immediately afterwards and the ask never becomes a loop. */
   if (ctAskBark(now)) return;    /* __WIRE_THE_DOOR__ */
   if (xchStart(now)) return;
+  /* THE PEOPLE THE LAST ONE DEALT WITH COME FIRST (9/23, [creditor stands]).
+     Meeting somebody who knew your father is the loudest thing that can happen
+     on that street, and it can only ever happen once per person per story. */
+  if (ctStoodBark(now)) return;  /* __THE_ONE_WHO_STOOD__ */
   if (ctDeedBark(now)) return;   /* __CITY_REACT__ */
   /* AND THEN WHAT THE STREET IS SAYING ABOUT SOMEBODY WHO IS NOT HIM (9/22,
      [rumours travel]). BELOW the reaction to his own act, because a person
@@ -54537,10 +54685,19 @@ function fitProp(im, w, h){
      birds. */
   try { packPass(ox, oy, C); } catch(_e){}
   try{ ctGossipPass(); }catch(_e){}    /* __CITY_DEEDS__ */
-  try{ barkPass(ox,oy,C); }catch(_e){}   /* __CITY_BARKS__ */
   sigPass(ox,oy,C);   /* __TRAFFIC_SIGNALS__ */
   ewDoorPass(ox,oy,C);   /* __EW_FACING_DOORS__ */
   try{ homePass(ox,oy,C); }catch(_e){}   /* __YOUR_HOUSE__ */
+  /* *** AND THE WORDS COMING OUT OF A MOUTH GO ON LAST. *** (9/23, PEOPLE
+     [creditor stands].) This pass used to run three passes earlier, so the HOME
+     wayfinder painted straight through the speech bubble: caught in this round's
+     own cook, where the picture read "he owed me a nig[HOME] of power". Rule 19(c)
+     is that text comes from a mouth with a portrait, and a sentence with a word
+     painted out of it is not that.
+     THE COST, SAID PLAINLY: for the two seconds a bubble is up it can cover the
+     HOME word. That is the right way round. HOME is a wayfinder that is there all
+     day; the bubble is the one thing on the screen that is talking to him. */
+  try{ barkPass(ox,oy,C); }catch(_e){}   /* __CITY_BARKS__ */
   // player: the REAL character, animating walk/run on the 120 grid
   /* __WALK_FEEL_SLIDE__: the body is drawn at the CAMERA cell, not the true one.
      Outdoors that pins it to the exact centre of the screen every frame while
@@ -73236,11 +73393,33 @@ try{ window.ctClaimNow=ctClaimNow; window.ctClaimWorld=ctClaimWorld;
      window.ctCheckClaim=ctCheckClaim; window.ctClaimVerdict=ctClaimVerdict;
      window.ctClaimMark=ctClaimMark; }catch(_e){}
 
+/* WHO THE WORLD STILL HAS, at the moment the generation turns.
+   (9/23, PEOPLE [creditor stands].) inherit() used to decide on its own that
+   every eyewitness was dead; it asks now, and this is the city's answer.
+
+   *** IT ANSWERS "STILL HERE", NOT "STILL ALIVE", AND THAT IS SAID OUT LOUD
+   *** RATHER THAN DRESSED UP. *** WHEN A PERSON DIES OF AGE IS PAOLO'S, and the
+   repo already refused the call in bohemia_family's parked bury() writer: "WHEN
+   a person dies of age is a magnitude, so it waits on Paolo." So the honest
+   predicate is the one the game can actually answer: the world still places this
+   person, the renderer still draws them, and the talk organ still lets them
+   speak. A game may not tell you somebody is dead and then draw them.
+   CONSERVATIVE WHERE IT CANNOT SEE: the census is the block he is standing on,
+   so anybody further out reads as gone and keeps the old behaviour exactly. It
+   never claims somebody is alive that it cannot find. */
+function ctStillHere(){
+  var have = {};
+  try {
+    var here = ctWhereEveryoneIs() || [];
+    for (var i = 0; i < here.length; i++) have[String(here[i].p.id)] = 1;
+  } catch(_e){}
+  return function(owner){ return !!have[String(owner)]; };
+}
 function ctFold(){
   if (typeof BohemiaStanding === 'undefined') return null;
   var minds = ctMindsList();
   var res;
-  try { res = BohemiaStanding.inherit(minds, '@', '@', ctMinuteNow()); }
+  try { res = BohemiaStanding.inherit(minds, '@', '@', ctMinuteNow(), ctStillHere()); }
   catch(_e){
     console.error('BOHEMIA: the generation could not be folded, so nothing your '
       + 'family did survives it. ' + _e.message);
@@ -73441,7 +73620,11 @@ function ctFold(){
   var _beat = null;
   try { _beat = BohemiaFold.theBeat(BohemiaFold.fold(null, { gen: CT_GEN, carried: res.carried, died: res.died })); }
   catch(_e){}
-  return { gen: CT_GEN, carried: res.carried, died: res.died, beat: _beat };
+  /* `stood` rides out with the rest (9/23, [creditor stands]): the handoff's own
+     report is where "died with the last person who saw them" is said, so it has
+     to be able to say the other thing too -- somebody is still standing there. */
+  return { gen: CT_GEN, carried: res.carried, died: res.died,
+           stood: res.stood || 0, beat: _beat };
 }
 /* ctFoldBeat() -- the same answer WITHOUT turning a generation, so a surface (or
    a gate) can ask what the handoff would say without causing one. ctFold has

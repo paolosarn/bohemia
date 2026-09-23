@@ -2260,10 +2260,27 @@ async function onTheFamily() {
     ok('T5 there are real deed kinds to inherit, because his quest corpus fills '
       + 'the table on this surface', R.kindsAvailable > 0, 'kinds=' + R.kindsAvailable);
 
+    /* *** AMENDED 9/23 BY PEOPLE [creditor stands], AND ONLY THE LAST CLAUSE
+       *** MOVED. *** This asked for died === 3 on THE CITY SURFACE, where the
+       three watchers are people who are still standing on the block, drawn every
+       frame, with names and faces. inherit() now ASKS whether a witness is still
+       there instead of assuming everyone is dead (the module's own comment has
+       the measurement and bohemia_family's parked bury() writer has the reason:
+       "WHEN a person dies of age is a magnitude, so it waits on Paolo").
+       NOT ONE NUMBER IN THIS CLAIM'S SUBSTANCE CHANGED, measured on the alpha in
+       exactly this setup: carried 3, inherited 3, the watched three stamped
+       `ended` and worth zero. The retold half is still the only half the child is
+       judged for, which is the whole point of the claim and is what T7 checks.
+       What changed is that the watchers are not erased, so the count that used to
+       be died 3 is now died 0 plus stood 3. Written as died + stood so it holds
+       under either answer, and so a caller that CANNOT say who is alive (which is
+       still the module's default) reads exactly as it always did. */
     ok('T6 *** THE FOLD RUNS AND HALF THE LIFE DIES. *** Three people watched it '
-      + 'and three only heard it; the three who watched take it to the grave and '
-      + 'the three who repeated it are why the child is judged for it',
-      R.fold && R.fold.carried === 3 && R.fold.died === 3,
+      + 'and three only heard it; only the three who repeated it are why the '
+      + 'child is judged for anything, and the three who watched keep it as '
+      + 'theirs rather than it becoming his',
+      R.fold && R.fold.carried === 3
+        && ((R.fold.died || 0) + (R.fold.stood || 0)) === 3,
       JSON.stringify(R.fold) + ' held ' + R.heldBefore + ' -> ' + R.heldAfter);
 
     ok('T7 AND THE SURVIVORS ARE MARKED AS INHERITED, which is what stops a '

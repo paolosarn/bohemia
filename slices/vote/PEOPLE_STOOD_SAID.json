@@ -1,0 +1,21 @@
+[
+ {
+  "file": "PEOPLE_STOOD_1_BEFORE.png",
+  "label": "before the fold",
+  "text": null
+ },
+ {
+  "file": "PEOPLE_STOOD_2_OWED.png",
+  "label": "after the fold",
+  "text": "The last one did me a turn once. I have not forgotten it.",
+  "head": "WATCH",
+  "kind": "favour"
+ },
+ {
+  "file": "PEOPLE_STOOD_3_TURN.png",
+  "label": "and it cuts both ways",
+  "text": "You have his face. The last one owed me a night of power and never brought it.",
+  "head": "WATCH",
+  "kind": "loan:short"
+ }
+]
