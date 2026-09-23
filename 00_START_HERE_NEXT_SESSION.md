@@ -43677,7 +43677,28 @@ your first VAMILY and do steps 1 to 9.
 I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
-ROUND LOG 9/23a (latest): [density ruler] SHIPPED and a four-piece
+ROUND LOG 9/23b (latest): FIGHT VERDICT ROUND 7 POSTED, and the honest
+verdict is that the picture could not be judged on the glass. V224's
+code fix is real (fight canvas 1:1 with CSS, copied from the street's
+sizing) but COMBAT's own gate on the cut reads 26/6 with the fighter
+leg RED at 0.4 CSS / k=300 (a collapsed client box, their own
+boots-at-one-pixel finding) and their commits say the instrument is
+contested ('32/0 was luck', 'I broke a working gate... putting it
+back'). My two independent attempts through the game's own doors
+failed honestly: the cold open is the family cutscene, and the
+crew-tap path lives in the city frame's own realm where a top-page
+probe cannot reach let-globals. I declined to rebuild another lane's
+contested instrument mid-contest. The walk half verified healthy by
+eye on the alpha cut (bodies street-size, warm, rim 1px, speaker with
+portrait, the voted-up kid walking). Round 8 trigger: the gate green
+at 112 CSS or a fresh pair in records/target/combat, then the full
+bible + FEEL re-judge. Record records/BOHEMIA_FIGHT_VERDICT_ROUND_7
+_9_23_26.md; front page carries round 7. Registry verdicts[] re-read:
+the kid sheet went UP with 'old person looks like shit' attached -
+NOTES ARE RULINGS: the old man's face/body is a named defect for
+CHARACTER/PORTRAIT alongside my four-garment bounce (still open,
+style gate still 5 red on their pieces).
+PREVIOUS: [density ruler] SHIPPED and a four-piece
 bounce to CHARACTER. The 5A density floor failed HIS OWN 7/28 approved
 bank (old floor 4.5/4.6 off the 7/13-era paving; his approved tiles run
 1.55-4.13). Verified with both rulers - raw counts and EYES' 8-quantized
