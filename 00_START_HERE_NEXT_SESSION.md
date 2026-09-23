@@ -25108,6 +25108,117 @@ since 9/6, it also holds 19 QUESTS (BUILD). The front page's chat-19 line says a
 chat with an empty queue takes QUESTS, and DYNASTY's queue went empty at Q16. The
 lane and its first row were claimed and pushed BEFORE any work started. ***
 
+ROUND 49 [three at once] SCHOOL ROUND ONE: THE MEMORY OBJECTION IS DEAD.
+DYNASTY, SCHOOL (record, no code). Rule 31, Paolo 9/23. Claimed 4655bce.
+  records/BOHEMIA_DYNASTY_SCHOOL_THE_THREE_ACTS_AT_ONCE_ROUND_ONE_9_23_26.md
+
+*** THIS CHAT TOOK ITS OTHER LANE BACK. *** 15 DYNASTY's queue had been empty since
+Q16 and this chat has been running 19 QUESTS. Paolo's 9/23 ruling made THE THREE
+ACTS AT ONCE a law and said DYNASTY is the whole chat it needs, so DYNASTY's first
+OPEN line outranks the QUESTS queue. QUESTS keeps [light the pump] claimed and
+[main quest live] held.
+
+*** THE HEADLINE, MEASURED ON THE ALPHA THROUGH THE ONE DRIVER. ***
+Round zero's rule 6 said the cost is real: "every flippable era is a whole map kept
+alive... our valley is 9,216 cells, three times." REVERSED:
+
+    the whole valley as data ............ 820,025 bytes
+    the number it rebuilds from ......... 10 digits (seed 2691674296)
+    the player's own edits (EDITS) ...... 3 entries, 29 bytes
+    rebuild the whole 96x96 valley ...... 44 / 54 / 64 ms  (three different seeds)
+    the same at 4x, the phone profile ... 170 / 214 / 239 ms
+    a beat at 120 BPM ................... 500 ms
+
+THE WHOLE VALLEY COMES BACK FROM ONE NUMBER INSIDE ONE BEAT, ON A PHONE. Dishonored
+built ONE two-era level because their eras were HAND-BUILT LEVELS. Ours is a
+function of a seed. We never keep three valleys; we keep one seed, three small
+ledgers, and the valley he is looking at.
+SAVE BOX MEASURED, NOT QUOTED: 46,601 bytes used against 5,177,344 the box actually
+accepted before refusing. 111x headroom. Three acts at today's size = 2.7%.
+
+*** AND THE PERMANENT FRAMEWORK IS 4.5 KB AND WE BUILT IT BY ACCIDENT. ***
+    om.layout (the skeleton) ....... 4,459 bytes, fixes 5,542 of 9,216 cells (60%)
+    om.tiles (the filled cells) .... 815,376 bytes
+    same seed, same valley ......... true
+The skeleton is the freeway, the arterials, the Strip, the reservoirs, the water
+treatment, the pump station, the jail, the courthouse, the radio station. It was
+split into its own function for map reasons long before anybody said "three acts".
+The real world draws the same line and it is measured: street-network design of
+2000-2013 construction still correlates with the 1975 road stock, Roman and
+American grids persist for the same reason, and Broadway runs diagonally because it
+follows a footpath that predates the Dutch. THE LINES PERSIST, THE FILL DOES NOT.
+So: the three acts SHARE ONE LAYOUT and re-derive their own fill. Act 3's Vegas is
+the same freeway and the same courthouse with different things on the lots.
+
+*** THE FINDING THAT PROVES US WRONG (rule 6 asks for one). ***
+NOBODY HAS SHIPPED THIS AND THE REASON IS NOT TECHNICAL. Sorted by world size, the
+free button flip has only ever shipped in small puzzle-shaped eras: Day of the
+Tentacle three-at-once in ONE MANSION, Titanfall and Dishonored in ONE LEVEL. Every
+time the world got big the flip became a PLACE (Ocarina's pedestal, Dark
+Chronicle's Time Gates) or went away (Chrono Trigger).
+Switch cost is measured and it behaves badly for exactly our case: it scales with
+how DISSIMILAR the tasks are, it is worse switching INTO the harder one, and
+PRACTICE DOES NOT MAKE IT CHEAPER. Our three acts are maximally dissimilar on
+purpose -- the verbs change between them, that is the point of three eras.
+THE RISK IN RULE 31 IS THREE SETS OF OBLIGATIONS, NOT THREE MAPS, and round zero
+does not mention it anywhere. Answers, none of them "fewer eras": the flip RESUMES
+and never restarts (the literature's own named cost is remembering where you got
+to); three short lists on the phone, not three lives; and a default for round two,
+his to knock down, ALL THREE PLAYABLE BUT ONE AT A TIME CARRIES THE LIVE CLOCK.
+
+*** THE FOUR HOLES, CLOSED. ***
+1. THE DO-NOTHING FUTURE'S FLOOR is Detroit, measured: 40 of 139 square miles
+   vacant by 2012, about 100,000 vacant lots, and PLANNED SHRINKAGE pulling
+   services back to the neighbourhoods that still pay. So the floor is the same
+   streets, a third of the lots bare, green where houses were, power pulled back to
+   the corridors that pay, a small live core, people in all of it. Every one of
+   those is something our engine already draws under CLUSTERED POWER. It is a place
+   with jobs, not a punishment screen, and it is the tutorial he asked for.
+2. TIME IN AN ACT HE IS NOT IN: every researched game freezes it, and none of them
+   had a bill to pay. We do. Ticking in the background loses him a life he cannot
+   see; never ticking makes LEAVING THE ERA the way to dodge rent. So EACH ACT KEEPS
+   ITS OWN CLOCK AND EVERY CLOCK IS FROZEN BUT THE ONE HE IS STANDING IN. The dodge
+   closes itself, and act 3 changes because act 1's LEDGER changed, not because time
+   passed: his own sentence.
+3. WHAT ACT 1 DOES THAT SEEDS A CITY: *** ROUND ZERO ROUTED THIS HOLE TO DYNASTY Q1,
+   WHICH PAOLO'S OWN 9/7 CORRECTION VOIDED. *** Animal/Human/Angel are ERAS, not
+   creatures, and this lane's own board says "what you can do with no hands is void
+   for the player". Answered instead from the four ledgers that already exist: who
+   got the power back on, who held a block, who is owed, what got built or burned.
+   engine/bohemia_fold.js already composes both folds and already carries that field
+   list; rule 31's derive is that list run ON EVERY FLIP instead of once.
+4. THREE LEDGERS ONE SAVE: not storage, SHAPE. One save, one seed, three act slots,
+   ONE a/b pair over the whole thing. Today's two halves are 15,586 and 15,585
+   bytes; three acts must not turn that into six.
+
+ALSO CORRECTED: DARK CHRONICLE'S LESSON IS PEOPLE, NOT A REPORT CARD. You flip at
+will through Time Gates, and recruiting a GARDENER into the past is what makes a
+particular tree spirit exist a century on. The future's contents are keyed to WHO
+you put in the past, which is the ledger we already keep.
+
+WHAT PLAYERS REMEMBER, across every game in the study: never the flip, never the
+system. One object that survived the gap -- the bean standing as a plant, the chart
+that became the flag that became the disguise, the gardener who is why the tree is
+there. THE PAY-OFF IS A THING, NOT A NUMBER, and that is the rule most likely to be
+lost when the derive gets built, because a derive naturally makes statistics.
+
+*** NOT MEASURED, SAID PLAINLY SO NOBODY QUOTES IT WRONG: *** the overmap is 0.2 s
+of a boot RUN measured at 113.7 s of work on a 4x CPU. "A FLIP IS ONE BEAT" IS TRUE
+OF THE VALLEY AND UNPROVEN OF THE WHOLE WORLD. Chunk art, population, the power grid
+and the cast bake all sit inside that 113 s and some of it is per-act. Breaking that
+boot into per-act and shared, with PLUMBER, is round two's first measurement and the
+honest version of "price it with PLUMBER". No test material banked this round: this
+round made findings, not lines; [three names] is the row that banks words.
+
+ROUTED: DYNASTY [the derive] next (the boot breakdown, the derive's field list off
+the fold's existing one, hands-versus-world field by field, and the machine gate:
+change one act-1 row, flip, prove act 3 changed AND act 3's own deeds survived).
+DYNASTY [the flip]: the flip RESUMES, a requirement not a nicety. PLUMBER: the boot
+breakdown, and three act slots must not become three a/b pairs. WORLD and LIFE+CITY:
+one layout, three fills. FACTIONS, PEOPLE, ECONOMY: your four ledgers ARE act 3's
+seed. UI: three short lists, not three HUDs. COORDINATOR: round zero's rule 6 is
+superseded and its hole-3 route is void; the rest of round zero stands.
+
 ROUND 48 [strike ask] THE PICKET IS AN ASK, AND THE COOK IS THE ASK ITSELF.
 QUESTS, BUILD. f403acc. Gate STRIKE ASK 20/0, registered.
   records/BOHEMIA_QUESTS_THE_PICKET_ASK_9_22_26.md
