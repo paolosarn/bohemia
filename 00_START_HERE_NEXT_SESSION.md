@@ -30162,6 +30162,95 @@ MY SESSION SLUG: world-9lfjtf.
 reverted to an older round's text after a rebase once, with two shipped rounds
 missing. A resolver that re-applies only what it remembers eats everything else. ***
 
+
+*** 9/23 NEWEST -- RULE 31 LANDED, AND THREE OF THE FOUR LEDGERS THE FUTURE IS
+DERIVED FROM CANNOT SAY WHICH ACT THEY MEAN. ***
+records/BOHEMIA_WORLD_THE_FUTURE_IS_DERIVED_FROM_ONE_LEDGER_9_23_26.md  sha 48660bb
+Nothing on a play surface (rule 18). The cook went to VOTE and it is DRAWN.
+
+(0) THE BOARD. My section has ONE open row, [future city], and it says in its own
+words "waits for DYNASTY's two school rounds; claim nothing here yet". SO I DID
+NOT CLAIM IT AND I DID NOT BUILD THE DERIVE -- that is DYNASTY's and rule 31 says
+they get two school rounds first. Everything else in the section reads SHIPPED.
+
+(1) WHAT I DID INSTEAD, AND IT IS RULE 12. A dependency is a premise, not a gate.
+The premise worth testing was never "is DYNASTY ready" -- it is whether the
+ledgers the derive will read can answer the question it asks. THAT HALF IS THIS
+LANE'S and nobody else owns the map, the money and the towns.
+
+(2) *** THE LAW NAMES FOUR LEDGERS AND EXACTLY ONE CARRIES AN ACT. ***
+  WHAT WAS BUILT  bohemia_century   per-act, written/saved/loaded by the walked
+                                    city, totals derived from entries so they
+                                    cannot drift, a broken blob is an empty
+                                    memory and never a crash.            READY.
+  BATTERIES       bohemia_purse     saves {id,day,entries}. NO ACT.
+                  bohemia_pockets   NO save and NO load AT ALL. Who holds the
+                                    valley's money is gone on every reload.
+  TERRITORY       turfGrid()        keyed on seed + map size and NOTHING else --
+                                    a pure function of the seed, recomputed
+                                    identically every boot, and the city's save
+                                    never mentions turf. What the player took is
+                                    written down NOWHERE.
+  WHO LIVED       ctPeopleSave()    saves. NO ACT.
+
+(3) WHY IT MATTERS. The century module's own head wrote the warning two weeks
+before the law existed: "a generation that built forty homes and a generation
+that built none look identical the moment a later generation knocks them down."
+Feed the derive three snapshots and it reads THE CITY AS IT STANDS, and his
+sentence stops being true -- the future cannot be built like shit because of act
+1 if nothing recorded what act 1 did.
+
+(4) WHAT I DID NOT DECIDE, ROUTED WITH THE MEASUREMENT RATHER THAN DONE QUIETLY:
+act-stamping the purse, giving the treasuries a save, starting a territory
+ledger. All three touch systems other lanes were inside this round.
+*** THE TREASURIES' MISSING SAVE IS MINE *** -- [every pocket] 9/14 left it off
+on purpose so treasuries could not mint batteries across a reload past a
+memory-only player purse. Right call then; a hole under rule 31 now.
+
+(5) THE COOK, DRAWN (rule 29). slices/vote/WORLD_THE_SAME_CORNER.png -- THE SAME
+CORNER, A HUNDRED YEARS ON. Rule 31 says early in the game it is a ruin and the
+ruin is the tutorial, and NOBODY HAD EVER DRAWN THAT RUIN. One residential corner
+of the valley, twice, by ONE function, a century apart; `act` is the only
+argument that differs, which is the law made visible -- a freehand act 3 would be
+a hand-placed city, the one thing rule 31 forbids. It is the DO-NOTHING past,
+which is the FLOOR the law asks for. A century subtracts the soft things and
+cracks the hard ones: the block wall keeps 81% of itself, the asphalt 52%, the
+corner survives 43% pixel-for-pixel, the house is gone and its slab is still
+there. AH-01's one wrong thing is a doorway-shaped gap with no gate in it, 0.37%,
+in BOTH panels; in act 3 the deeper wrong thing is that the geometry is still
+perfectly legible with nobody left to use it. Rubble would have been the cheap
+version.
+
+(6) THREE CUTS AND THE FIRST TWO WERE BAD, which is worth writing down because it
+is the third round running that the first cut of a drawing was wrong in a way
+only LOOKING at it catches: (a) I drew an ELEVATION when the game's camera is
+top-down, and 60% of the tile was a dead flat lot; redrawn as a real corner, two
+streets meeting, the wall turning, the house on its slab. (b) THE CRACKS WERE
+LIGHT -- a crack seen from above is a GAP, so it reads DARK. I had it backwards
+and the sidewalk read as lightning. (c) THE POLE VANISHED: from above a pole is
+almost nothing and its SHADOW is everything. Stopped at three; this lane wrote
+six of something last round and STOP PRODUCING says four means you already failed.
+
+(7) GATES. FUTURE LEDGERS 31/0, new, in the suite, red four ways (a default in
+TIERS -> 2; the loader crashing on a bad blob -> 1; the ruin sharing nothing with
+the corner -> 1; the asphalt outlasting the block wall -> 1). TIERS still ships
+EMPTY: what a poor city and a rebuilt one MEAN is his. VOTE TAB was red on my own
+new row until I stamped it with its sha (a registry row must carry one, so the
+order is commit, then stamp, then a second commit). BELTWAY PLACED 19/0, PEOPLE
+CHARGE 30/0, REFERENCE CHECK 92/0 green.
+NOT MINE, MEASURED ON A CLEAN TREE BEFORE SAYING SO: REUSE FIRST is red (16, all
+*_patch.py files of other lanes, red before my diff too), GATE REGISTRY is red on
+12 orphan gates (none of them mine -- future_ledgers_gate.js is registered), COOK
+EVERY ROUND is red on PEOPLE.
+
+(8) ROUTED. *** TO DYNASTY, for the two school rounds: three of the four ledgers
+your derive will read cannot tell you which act they are talking about, and one
+of them is not written down at all. Design the derive knowing that, or it reads
+the city as it stands and his sentence will not come true. *** TO ECONOMY: the 14
+faction treasuries have no save, by my 9/14 decision. TO LIFE+CITY, who own
+bohemia_century: it is the only input that is ready, and the gate now pins that.
+
+
 HOLDING: nothing. [water lifted] THE-PUMPS-ARE-THE-CITY is SHIPPED 9/13.
 Before it this round: [back of house] 3383e6d, [someone lends] 1ffb2d2,
 [debt carried] db51665.
@@ -30315,6 +30404,9 @@ two rounds ago).
 
 *** THE QUEUE IS EMPTY. *** Every row in this lane's section is SHIPPED. What is
 left is not rows, it is the things named below, and they all wait on the hold.
+  (9/23 UPDATE: the coordinator added ONE row, [future city], and it says claim
+  nothing until DYNASTY's school lands. So the queue is one row deep and that row
+  is not takeable yet. Everything below still waits on the hold.)
 
 WAITING ON THE HOLD, ALL MEASURED, GATED AND READY TO PASTE:
   [beltway placed]  two lines: DISTRICT.BELTWAY in the resolver, and 'beltway'
