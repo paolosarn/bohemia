@@ -266,7 +266,7 @@ rarely as one mega-session.
   shipped: `include:` in _config.yml forces the registry into the Jekyll build. THE REAL
   FIX IS THE REPO SETTING, Paolo's click: Settings -> Pages -> Source: GitHub Actions. Until
   then a deploy is only true when the `pages` run finished LAST. ***
-  *** 9/23: PAOLO FLIPPED IT ("Okay i did it"). Verified on the coordinator's next push (records/BOHEMIA_PAOLO_FLIPPED_PAGES_TO_ACTIONS_9_23_26.md): if that record says the legacy builder still fired, this line is wrong and the race is still on. Otherwise: ONE builder, pages.yml; a deploy is true when its own run is SUCCESS. ***
+  *** 9/23: PAOLO FLIPPED IT ("Okay i did it"). Verified on the coordinator's next push (records/BOHEMIA_PAOLO_FLIPPED_PAGES_TO_ACTIONS_9_23_26.md): if that record says the legacy builder still fired, this line is wrong and the race is still on. VERIFIED minutes later: three pushes, zero legacy runs. ONE builder, pages.yml; a deploy is true when its own run is SUCCESS; 'finished last' is dead. ***
   Confirm containment with `git merge-base --is-ancestor <your-sha> <deployed-sha>`
   rather than eyeballing it -- a later sha usually carries your content, and that
   is the run that counts.
