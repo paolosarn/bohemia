@@ -22617,7 +22617,88 @@ RIGHT NOW: (a) write this whole instruction, word for word, into your own handof
 
 I will never paste anything to you again. From here on, the one word is the whole instruction.
 
-THIS ROUND -- *** THE OLD THIRTEEN WERE WORKWEAR BECAUSE WORKWEAR WAS THE ONLY THING IN THE
+THIS ROUND -- *** I WAS WRONG TO CALL PEOPLE'S FIX A REGRESSION, AND THE REAL NUMBER IS
+BETTER THAN THE ACCUSATION: 38 OF THE 72 PEOPLE NEAR HIM ARE INDOORS. AND THE SHIRT THAT IS
+NOT CLOTH IS COOKED. (sha 1c5a1ea, CLAIMED [runway redo], continuing) ***
+
+VERDICTS READ BACK: same seven. TWO of my items are now unjudged and waiting -- the runway
+re-dress and the new thirteen. The faction-assignment step waits on him by design, because
+the original search's own header says "WHICH SHAPE BELONGS TO WHOM IS HIS."
+
+*** A CORRECTION TO MY OWN BOUNCE-BACK, AND IT IS THE most IMPORTANT LINE IN THIS BLOCK. ***
+Last round I reported PEOPLE's [no clumping] (e9f3091) as a REGRESSION that emptied the
+street, because my gate went from a full crowd to 5 bodies across that commit. THE PINNING
+WAS RIGHT AND THE WORD WAS WRONG. Their diff says it plainly: the crowd count used to follow
+HOW MANY CELLS YOU CAN STAND ON, which does not change with the hour, so the street drew the
+same crowd at ten in the morning and at eight at night. They tied it to the WORLD. Their own
+number is in the commit -- "the world puts 41 people outside at ten and 4 at eight, and the
+screen drew 23 and 24 both times." THEIR FIX IS CORRECT. It did not empty the street; it made
+an existing truth visible.
+  *** A GATE GOING RED IS NOT BY ITSELF A REGRESSION. *** I had the commit, I had the diff,
+  and I published the word "regression" about another lane's work without reading it. Read
+  the diff before you name a cause.
+
+SO I MEASURED THE REAL QUESTION instead, through the draw pass's own skip counters:
+    72 people on the roster around him
+    38 OF THEM ARE INDOORS -- 53 per cent of everybody near him
+    30 are off the edges of a phone screen
+    4 ARE DRAWN. THAT IS THE STREET HE WALKS.
+    0 are stacked on anybody, which is PEOPLE's fix working exactly as built.
+  IF THE 38 CAME OUT, THE SCREEN WOULD HOLD ABOUT 42 INSTEAD OF 4. That is the entire
+  distance between "I did not see a single human being" and a street with people on it, and
+  it is ONE DECISION ABOUT WHAT HOUR HE STARTS AT, not a pile of work.
+  -> FOR PEOPLE AND THE COORDINATOR: the honest crowd and his loudest complaint are now THE
+     SAME FACT. Either he starts at a later hour, or the early hour gets a reason to have
+     people in it. Both are above this lane and neither is a bug.
+  SECOND, SMALLER: no hour, clock or time value is reachable from the walked frame at all.
+  The crowd is scheduled against a clock the play surface cannot read back, so no lane
+  standing on the street can check the schedule against the hour.
+
+COOKED (rule 22): THE SHIRT THAT IS NOT CLOTH. His instruction was "ANALOG HORROR DIRECTION
+MEETS Rick Owens meets Balenciaga meets Bottega Veneta". Two rounds answered the middle two
+names and BOTH RECORDS SAID OUTRIGHT THAT NEITHER ANSWERED THE ANALOG HORROR HALF, because a
+better-cut trouser is not a wrong thing. RNWY-16 is that half: Bottega's FW22 opened on a
+white tank and straight jeans made ENTIRELY of leather tooled to look like cotton. It is the
+bible's rule 1 wearing clothes, and the sentence naming the wrong thing is six words: THAT
+SHIRT IS NOT CLOTH.
+  BUILT AS DATA, NOT ART, which is why it is in this lane. My own RNWY-16 line says the
+  sprite-scale tell is a hard specular band, and a band is new drawing code in COOK's
+  generator. So it reaches the same read through the one channel that IS data, the ramp:
+  the MID STEP IS COPIED BYTE FOR BYTE from the cloth it imitates, so it reads as the same
+  garment; the floor drops and the light step lifts, which is what a specular does.
+    mid steps identical      DUST PLAID [128,110,80] both, BLUE JEANS [64,80,110] both
+    value spread             1.90x and 1.89x wider on the hide
+    of the painted body      12.3% and 11.5% actually moved, worst pixel 122 and 150 of 765
+  That last number is printed because a near-zero answer would have meant the cook was a lie
+  dressed as a finding.
+
+*** AND THE BASELINE RE-BAKE SWALLOWED SOMEBODY ELSE'S DRIFT. READ THIS BEFORE YOU RE-BAKE
+ANYTHING. *** Two new garments make SHAPE FROZEN red and the fix is to re-bake the baseline.
+But all 330 existing silhouettes had ALREADY moved +15 opaque pixels at PORTRAIT's eye commit
+79ae65d, still red at the start of this round. RE-BAKING MAKES THAT DRIFT THE NEW ACCEPTED
+TRUTH AND THE GATE CAN NEVER REPORT IT AGAIN. I wrote a reason naming only my two garments,
+read it back, and re-baked with the whole thing written down instead.
+  A BASELINE RE-BAKE IS THE ONE OPERATION IN THIS LANE THAT CAN MAKE A LIVE DEFECT INVISIBLE,
+  and a reason mentioning only the half you are proud of is how a defect gets lost under a
+  green tick forever.
+  -> +15 PIXELS ON EVERY BODY IN THE GAME IS NOT FIXED AND NOT EXPLAINED. It now lives ONLY
+     in the baseline's own reason field and in records/BOHEMIA_THE_SHIRT_THAT_IS_NOT_CLOTH_
+     9_23_26.txt. FOR PORTRAIT.
+
+[PENDING Paolo] carried, unchanged: which faction colour file wins; the Anarchists need a
+magenta garment and there are zero in 317, with the reserved purple band blocking the obvious
+cook; the Cartel sits on the drab exemption list and not in the law that names it.
+
+THE SUITE: CHARACTER IN THE VOTE TAB 9/0, HEM FOLLOWS THE LEG 11/0, NAME MATCHES THE RAMP
+8/0, SHAPE FROZEN 12/0, REFERENCE CHECK 91/0.
+
+WHAT THIS LANE OWES NEXT, in order: (a) the new thirteen need a faction per shape and that is
+HIS call, so it waits on the vote; (b) then dress them in the faction colourways; (c) the new
+row [three bodies] (rule 31, the three acts at once) is explicitly "after [runway redo]".
+
+--------------------------------------------------------------------------------
+
+PREVIOUS ROUND -- *** THE OLD THIRTEEN WERE WORKWEAR BECAUSE WORKWEAR WAS THE ONLY THING IN THE
 BOX. A NEW THIRTEEN IS IN VOTE, 5.6x MORE SEPARATED, FOUND BY THE SEARCH AND NOT BY ME.
 AND MY GATES PINNED TWO REGRESSIONS THAT ARE NOT MINE, ONE OF THEM SERIOUS.
 (sha 13856f9, CLAIMED [runway redo], continuing) ***
