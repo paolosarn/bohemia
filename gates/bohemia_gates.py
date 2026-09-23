@@ -2766,6 +2766,23 @@ GATES = [
      "both came back near zero. This gate freezes THE GAP, not a count, because new "
      "rows arrive honestly and would push any absolute number around while the gap is "
      "immune to growth. It may only shrink; closing it means rulings survive shipping.", True),
+    ('MERGE DEBRIS', ['python3', 'gates/marker_sweep_gate.py'],
+     "EYES AND EARS lane 17, 9/23, E21 [marker sweep]: A WHOLE CONFLICT SET LEFT IN A SHARED "
+     "TEXT FILE. It has reached the shipped splash here once (8/27) and a PAGE gate caught it, "
+     "not a merge check. The finding is the ORDERED SET inside one file -- open, optional diff3 "
+     "base, separator, close -- and NEVER a lone line, which is the whole reason this row "
+     "exists: in Markdown a line of equals under a title is a setext heading, this repo carries "
+     "2,583 of those in .md and 3,504 lines of seven-or-more equals overall, and round one "
+     "measured that BOTH standard checkers flag them -- git's own `git diff --check` and "
+     "pre-commit's check-merge-conflict. Either wired in here would be red on nearly every prose "
+     "commit, and E3 measured what happens to a checker that is always red. The marker length is "
+     "asked of git per path (conflict-marker-size, default 7) rather than hardcoded, because "
+     "seven is a default and not a law: `git merge-file --marker-size=32` writes 32. A fenced "
+     "code block is excluded because our own 8/27 record QUOTES the marker while describing the "
+     "incident. The sweep refuses to print any number unless six planted controls behave, and "
+     "this gate goes red if they do not, because a sweep reporting zero with broken controls is "
+     "the most dangerous green there is. 4,842 files in 1.6 s, so it is also the pre-push pass; "
+     "--selftest plants debris in a throwaway tree and proves it bites.", True),
     ('PRE-JUDGE COVERAGE', ['python3', 'tools/bohemia_eyes_prejudge.py', '--gate'],
      "EYES AND EARS lane 17, 9/11, E15 [machine judges]: A QUESTION THE FLEET THINKS IS "
      "GATED AND IS NOT IS WORSE THAN ONE NOBODY CLAIMS. E7's score sheet splits a cook "

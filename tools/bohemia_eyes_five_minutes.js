@@ -301,11 +301,31 @@ const SOURCE = (() => {
        touch at the same moment got in, because the browser queues a trusted event until the
        main thread frees up. This walk taps at ~31 s so it was safe by timing, not by design,
        and "safe by accident" is how a whole round gets measured on a door that never opened. */
-    const doorBox = await page.evaluate(() => { const f = document.getElementById('front');
-      if (!f) return null; const r = f.getBoundingClientRect();
-      return { x: r.x + r.width / 2, y: r.y + r.height / 2 }; });
-    if (doorBox) await page.touchscreen.tap(doorBox.x, doorBox.y);
-    else await page.evaluate(() => { const f = document.getElementById('front'); if (f) f.click(); });
+    /* *** ONE TAP AT ONE MOMENT IS A COIN TOSS ON THIS LOADING SCREEN (9/23). *** The screen is
+       up in about a second and the load runs behind it for a long time, and the door handler
+       REFUSES every tap until the game is in, which is rule 18a working. This walk measured the
+       splash looking ready at 7.6 s on one cut, tapped then, was refused, and spent five minutes
+       photographing a title screen; the door control caught it and the round was thrown away.
+       So: KNOCK UNTIL IT ANSWERS, up to a budget, and record how many knocks it took -- which is
+       also a number worth having, because it is how long a stranger stares at a loading screen.
+       RUN made the same fix in their driver the same round, independently. */
+    const knockAt = async () => page.evaluate(() => {
+      const f = document.getElementById('front');
+      if (!f) return { gone: true };
+      const r = f.getBoundingClientRect(); const cs = getComputedStyle(f);
+      const shown = r.width > 0 && r.height > 0 && cs.display !== 'none'
+                    && cs.visibility !== 'hidden' && +cs.opacity > 0.1;
+      return { gone: !shown, x: r.x + r.width / 2, y: r.y + r.height / 2 };
+    }).catch(() => ({ gone: true }));
+    let knocks = 0;
+    for (let i = 0; i < 12; i++) {
+      const st = await knockAt();
+      if (st.gone) break;
+      await page.touchscreen.tap(st.x, st.y);
+      knocks++;
+      await sleep(i === 0 ? 3500 : 9000);
+    }
+    out.numbers.knocks_before_the_door_opened = knocks;
     const tIn = await page.evaluate(() => performance.now());
     out.numbers.my_first_tap_at_s = +((tIn - t0) / 1000).toFixed(2);
     await sleep(3500);
@@ -489,7 +509,11 @@ const SOURCE = (() => {
          time, UNDECIDED if once. Undecided is not dead and it is never counted as dead -- a
          one-shot control (a card that closes) is genuinely undecidable this way and saying so
          is the honest answer. */
-      const beats = [], evidence = [], closedOn = [], where = [], inPanel = [], elsewhere = [], panels = [];
+      const beats = [], evidence = [], closedOn = [], where = [], inPanel = [], elsewhere = [], panels = [],
+            bigOnce = [], chosen = [];
+      /* WHAT THE WORLD HAS BEEN MEASURED DOING BY ITSELF, SO FAR, THIS RUN. Only windows already
+         taken count: a verdict may never be justified by evidence collected after it. */
+      const worstNullSoFar = (out.null_windows || []).reduce((m, x) => Math.max(m, x.word_moves || 0), 0);
       let landed = 'the tap was refused (not visible to a finger)';
       let bs = null, as = null, tapMove = null, nullMove = null;
       for (let attempt = 0; attempt < 2; attempt++) {
@@ -504,6 +528,50 @@ const SOURCE = (() => {
         bs = n1;
         /* the panel as it stands the instant before the finger lands */
         const before = await panelAt(c.x, c.y);
+        /* IS THIS THE ONE ALREADY CHOSEN? A tab you are standing on does nothing when you press
+           it, and that is correct behaviour, not a dead control. The alpha opens on VOTE, so VOTE
+           was the last item left in this round's dead list after the tab fix, and it should never
+           have been there. The page says so itself, in the language accessibility audits use:
+           aria-selected, aria-current, or a class token like on / active / selected / current. */
+        const alreadyChosen = await page.evaluate(({ x, y }) => {
+          /* THE FIRST VERSION OF THIS EXCUSE WAS TOO GENEROUS AND I CAUGHT IT IN ONE RUN. It
+             walked three ancestors looking for a chosen-mark, and on the alpha that excused a
+             cutscene headline, a line of card prose and a TILE badge -- three things that are
+             not controls at all -- because something above them carried an "on" class. An
+             excuse that wide would quietly erase real dead calls, which is worse than the
+             wrong dead call it was built to stop.
+             SO IT IS A TAB STRIP OR IT IS NOTHING: the mark must sit on the pressed element or
+             its immediate parent, that element must have SIBLINGS SHARING ITS CLASS, and
+             EXACTLY ONE of them may carry the mark. That is what a tab strip and a segmented
+             control look like, and a paragraph inside a card cannot look like it. */
+          const MARKS = ['on', 'active', 'selected', 'current'];
+          const marked = (e) => {
+            if (!e || !e.getAttribute) return false;
+            if (e.getAttribute('aria-selected') === 'true' || e.getAttribute('aria-current')) return true;
+            const cls = (e.className || '').toString().toLowerCase().split(/[\s_-]+/);
+            return cls.some(t => MARKS.includes(t));
+          };
+          const hit = (doc, ox, oy) => doc.elementFromPoint(x - ox, y - oy);
+          let el = hit(document, 0, 0);
+          if (el && el.tagName === 'IFRAME') {
+            try { const r = el.getBoundingClientRect();
+                  el = hit(el.contentDocument, r.x, r.y) || el; } catch (e) {}
+          }
+          for (const cand of [el, el && el.parentElement]) {
+            if (!cand || !marked(cand)) continue;
+            const base = (cand.className || '').toString().toLowerCase().split(/\s+/)
+              .filter(t => t && !MARKS.includes(t));
+            const parent = cand.parentElement;
+            if (!parent || !base.length) continue;
+            const family = [...parent.children].filter(sib =>
+              base.every(t => (sib.className || '').toString().toLowerCase().split(/\s+/).includes(t)));
+            if (family.length < 2) continue;                 /* one of a kind is not a strip */
+            if (family.filter(marked).length !== 1) continue; /* a strip marks exactly one */
+            return true;
+          }
+          return false;
+        }, { x: c.x, y: c.y }).catch(() => false);
+        chosen.push(!!alreadyChosen);
         try { await page.mouse.click(c.x, c.y, { delay: 40 }); landed = null; } catch (e) { break; }
         await sleep(1200);
         as = await sig();
@@ -525,7 +593,8 @@ const SOURCE = (() => {
         for (const [w, n] of bw) if ((aw.get(w) || 0) !== n) movedInPanel.push(w);
         for (const [w] of aw) if (!bw.has(w)) movedInPanel.push(w);
         const novelInPanel = movedInPanel.filter(w => !noiseWords.has(w));
-        evidence.push({ novel_words_anywhere: nv.words.slice(0, 8), novel_cells: nv.cells,
+        evidence.push({ novel_words_anywhere: nv.words.slice(0, 8),
+                        novel_words_anywhere_count: nv.words.length, novel_cells: nv.cells,
                         world_moved_in_the_null_window: nullMove.word_moves,
                         panel: (before && before.path) || 'none found',
                         panel_still_open: stillOpen,
@@ -552,10 +621,24 @@ const SOURCE = (() => {
         beats.push(stillOpen && (novelInPanel.length > 0 || novelAnywhere));
         where.push(!stillOpen ? 'the panel closed'
                  : novelInPanel.length > 0 ? 'its own panel'
+                 : (nv.words.length >= Math.max(5, 3 * worstNullSoFar + 1)) ? 'a screenful somewhere else, on one press'
                  : novelAnywhere ? 'somewhere else on screen'
                  : 'nothing moved');
         inPanel.push(stillOpen && novelInPanel.length > 0);
         elsewhere.push(stillOpen && novelInPanel.length === 0 && novelAnywhere);
+        /* *** A TAB ANSWERS ONCE, AND THE REPEAT RULE CALLED EVERY TAB IN THE ALPHA DEAD (9/23).
+           *** Round 9 opened the verdict to movement ANYWHERE; round 11 made off-panel evidence
+           repeat, because a planted handlerless button read alive off ONE press when the world
+           happened to burst. Both were right about what they fixed. But a control that CHANGES
+           STATE answers hugely the first time and is a genuine no-op the second: press LOOK and
+           the alpha paints a new screen, press LOOK again and you are already standing on it. On
+           the alpha this round that read as FOUR DEAD TAB BUTTONS, and they are all alive.
+           THE DISCRIMINATOR IS SIZE, AND IT IS MEASURED, NOT PICKED: the world's own worst null
+           window this run is the noise floor, and a burst of that size is what the repeat rule
+           exists to reject. Evidence elsewhere counts on ONE press only when it is at least
+           three times that floor and at least five novel words -- a screenful, not a flicker. */
+        const floor = Math.max(5, 3 * worstNullSoFar + 1);
+        bigOnce.push(stillOpen && novelInPanel.length === 0 && nv.words.length >= floor);
         if (!stillOpen) {
           /* AND THE SECOND PRESS MUST NOT HAPPEN. This is the hole the 14(h) control caught on
              its first run, and it caught it because a planted close-button read "did nothing":
@@ -585,7 +668,8 @@ const SOURCE = (() => {
            So: evidence INSIDE the control's own panel counts on one press (a one-shot that
            closes or changes its own card is real and may only fire once); evidence SOMEWHERE
            ELSE counts only if BOTH presses produced it. */
-        const changed = inPanel.some(Boolean) || (elsewhere.length === 2 && elsewhere.every(Boolean));
+        const changed = inPanel.some(Boolean) || (elsewhere.length === 2 && elsewhere.every(Boolean))
+                        || bigOnce.some(Boolean);
         /* A PRESS THAT CLOSED THE PANEL PROVES NOTHING EITHER WAY, and calling it dead would be
            as wrong as calling it alive. It gets its own word. */
         const allClosed = closedOn.length > 0 && !changed;
@@ -623,7 +707,15 @@ const SOURCE = (() => {
            honest word is UNDECIDED, never dead. A wrong dead call is the one thing this lane
            must never produce. */
         const panelDrifted = panels.length === 2 && panels[0] !== panels[1];
-        if (!changed && panelDrifted) {
+        const standingOnIt = chosen.length > 0 && chosen.every(Boolean);
+        if (!changed && standingOnIt) {
+          out.undecided.push({ at: stamp(as.now), text: c.text, id: c.id, where: c.where,
+                        size: c.w + 'x' + c.h, looked_tappable_because: c.looks_tappable_because || 'nothing said so',
+                        why: 'THE PAGE MARKS THIS AS THE ONE ALREADY CHOSEN (aria-selected, '
+                          + 'aria-current or an on/active/selected/current class), and pressing the '
+                          + 'tab you are standing on correctly does nothing. Not a dead control.',
+                        evidence: evidence });
+        } else if (!changed && panelDrifted) {
           out.undecided.push({ at: stamp(as.now), text: c.text, id: c.id, where: c.where,
                         size: c.w + 'x' + c.h, looked_tappable_because: c.looks_tappable_because || 'nothing said so',
                         why: 'THE SCREEN CHANGED BETWEEN THE TWO PRESSES: the panel under the '
@@ -774,6 +866,22 @@ const SOURCE = (() => {
           words.textContent = 'EYESPANELSAYS ' + ('EYESWORD' + Math.random().toString(36).slice(2, 8)).toUpperCase();
         });
         if (kind === 'close') b.addEventListener('click', () => { panel.remove(); });
+        /* THE TAB, ADDED 9/23, AND IT IS THE ONE THAT WOULD HAVE CAUGHT THIS ROUND'S WRONG CLAIM.
+           A tab writes a whole screen the first time you press it and DOES NOTHING the second
+           time, because you are already standing on it. The repeat rule (round 9) demands that
+           off-panel evidence appear on BOTH presses, so every real tab in the alpha read DEAD.
+           This one flips a switch: press one fills the far panel with a screenful of words,
+           press two is a genuine no-op. It must read ALIVE. */
+        if (kind === 'tab') {
+          let open = false;
+          b.addEventListener('click', () => {
+            if (open) return;
+            open = true;
+            const far = document.getElementById('__eyes_panel_far_words');
+            if (far) far.textContent = 'EYESTABSAYS ' + Array.from({ length: 14 },
+              (_, i) => ('EYESTABWORD' + i + Math.random().toString(36).slice(2, 5)).toUpperCase()).join(' ');
+          });
+        }
         if (kind === 'sibling') b.addEventListener('click', () => {
           /* writes NOWHERE NEAR itself: into the other planted panel entirely */
           const far = document.getElementById('__eyes_panel_far_words');
@@ -794,12 +902,13 @@ const SOURCE = (() => {
       mk('__eyes_panel_live',  '__eyes_live_btn',  'EYESLIVECONTROL',  'live',  240);
 
       mk('__eyes_panel_close', '__eyes_close_btn', 'EYESCLOSECONTROL', 'close', 330);
+      mk('__eyes_panel_tab',   '__eyes_tab_btn',   'EYESTABCONTROL',   'tab',   600);
     });
     const ctlBox = await page.evaluate(() => {
       const one = (id) => { const e = document.getElementById(id); const r = e.getBoundingClientRect();
         return { x: r.x + r.width / 2, y: r.y + r.height / 2, w: Math.round(r.width), h: Math.round(r.height) }; };
       return { dead: one('__eyes_dead_btn'), live: one('__eyes_live_btn'),
-               close: one('__eyes_close_btn'), sib: one('__eyes_sib_btn') };
+               close: one('__eyes_close_btn'), sib: one('__eyes_sib_btn'), tab: one('__eyes_tab_btn') };
     });
     /* the verdict is THREE ways now, so a control has to read the verdict and not a boolean:
        an UNDECIDED returns false from tapAndWatch and must never be scored as "called dead". */
@@ -820,6 +929,11 @@ const SOURCE = (() => {
       id: '__eyes_sib_btn', where: 'a planted control', looks_tappable_because: 'a planted control' },
       'CONTROL: a button whose effect lands in a DIFFERENT panel');
     const sibVerdict = verdictOf();
+    await tapAndWatch({ ...ctlBox.tab, text: 'EYESTABCONTROL',
+      id: '__eyes_tab_btn', where: 'a planted control', looks_tappable_because: 'a planted control' },
+      'CONTROL: a tab, which answers on the first press and is a no-op on the second');
+    const tabVerdict = verdictOf();
+    const tabSaysAlive = /^did something/.test(tabVerdict);
     const deadSaysDead = deadVerdict === 'did nothing';
     const liveSaysAlive = /^did something/.test(liveVerdict);
     const closeSaysClosed = /THE PANEL CLOSED/.test(closeVerdict);
@@ -861,6 +975,14 @@ const SOURCE = (() => {
                           + 'HAVE CAUGHT ROUND 7\'S WRONG CLAIM: I called four of the fight\'s '
                           + 'controls dead and COMBAT drove them in a real fight and every one '
                           + 'acts, changing readouts elsewhere on the screen.' });
+    out.controls.push({ name: 'A TAB IS NOT DEAD: a planted control that answers on the first press '
+                          + 'and is a no-op on the second is called alive',
+                        pass: tabSaysAlive,
+                        detail: 'verdict was "' + tabVerdict + '". THIS IS THE CONTROL FOR THIS '
+                          + 'ROUND\'S WRONG CLAIM: on the alpha the walk called VOTE, 3D, LOOK and '
+                          + 'WORDS dead, and all four open real tabs -- they answer hugely once and '
+                          + 'then correctly do nothing, because you are already standing on them, '
+                          + 'while the repeat rule demanded an answer on BOTH presses.' });
     out.controls.push({ name: 'ALIVE READS ALIVE: a planted button that writes one word is called alive',
                         pass: liveSaysAlive,
                         detail: 'verdict was "' + liveVerdict + '"' + (liveSaysAlive ? ', off a single word'
