@@ -51,11 +51,12 @@
 #   round 48's first half added twelve; 678 after its second half added eight. All
 #   twenty are in the role-place format above; 688 after round 49 added ten. All
 #   thirty are role-place; 698 after round 49's second half added ten. All forty
-#   are role-place, so the bullet count is unchanged at 176 for a FOURTH round
-#   running and the gap can now only shrink.
+#   are role-place; 708 after round 50 added ten. All fifty are role-place, so the
+#   bullet count is unchanged at 176 for a FIFTH round running and the gap can now
+#   only shrink.
 #
 #   RULE 27 (Paolo 9/21), THE PLAYER DOES NOT SPEAK SPANGLISH: measured across all
-#   522 role-place entries, THE PLAYER DOES NOT SPEAK AT ALL in this file. The
+#   532 role-place entries (re-measured 9/23), THE PLAYER DOES NOT SPEAK AT ALL. The
 #   seven whose descriptor names him have him as the LISTENER. This file's own
 #   "what is not here" sections assert it fourteen times and the assertion holds.
 
@@ -4008,3 +4009,61 @@ KKKKKKKKKK10  a church helper, handing one over             draft:true
 - Spanish register: 0 of 10 lines. Two rounds running at zero, deliberately: both
   sets are people being blunt with somebody in trouble, and the register is not a
   decoration to sprinkle. Under the 15% cap either way.
+
+## MMMMMMMMMM. WHAT THE OLD ONES LEFT
+## (round 50, [seeds the next act]. Rule 31: he flips between three ages and the
+##  future is derived, not written. These are people in a LATER age talking about
+##  an earlier one. Nobody explains the mechanism. Role, place, situation.)
+
+MMMMMMMMMM1  an old woman, in a later age, about the street  draft:true
+    "This was all lit. I'm not telling you a story, I'm telling you a street."
+
+MMMMMMMMMM2  her grandson, who has only seen it dark        draft:true
+    "Then somebody let it go."
+
+MMMMMMMMMM3  the same woman, not defending anybody          draft:true
+    "Somebody let it go."
+
+MMMMMMMMMM4  a man at a dead pump, later age                draft:true
+    "It still turns. It just doesn't do anything when it turns."
+
+MMMMMMMMMM5  a young woman, on what her family kept         draft:true
+    "We kept the ground. That's it. That's the whole thing we kept."
+
+MMMMMMMMMM6  an old man, on why people still deal with her  draft:true
+    "Her people were straight with mine. That was before you.
+     It's still true."
+
+MMMMMMMMMM7  a stranger, told he owes somebody's father     draft:true
+    "I never met the man."
+
+MMMMMMMMMM8  the one who told him, letting it go            draft:true
+    "No. You didn't."
+
+MMMMMMMMMM9  a woman walking a ruined block with a child    draft:true
+    "Don't say it's always been like this. It hasn't always been like this."
+
+MMMMMMMMMM10  a builder, later age, looking at old work     draft:true
+    "Whoever did this did it right. Nobody came after them, though."
+
+## NNNNNNNNNN. WHAT IS NOT HERE, ON PURPOSE (round 50)
+
+- No line contains a number, a rate, a year or a count of generations. The round
+  is entirely rates and not one is spoken.
+- No line explains that things decay, that a grid must be maintained, or that
+  trust carries further than money. MMMMMMMMMM6 IS that finding and it says it as
+  a fact about two families. Nobody in Bohemia is wise.
+- No line uses the words inherit, generation, decay, ledger, carry or fold.
+- No line blames the player or an ancestor by name. MMMMMMMMMM2 and 3 are the
+  same three words twice, once as an accusation and once as agreement, and the
+  record says who let it go is derived and never authored.
+- No line names a faction, a street or a town. MAP LAW.
+- No line has the player speaking. Rule 27 (Paolo 9/21): 532 role-place entries
+  in this file now, zero of them him talking.
+- No line decides any rate, whether trust becomes a field, or how deep the ruin
+  goes. Section 7 refused all three.
+- No line is written for a card or a readout: rule 19(a), and rule 29 (9/21).
+  What this round hands over is a dark street and a pump that turns, not a card.
+- Spanish register: 0 of 10 lines. Third round at zero: these are people in a
+  later age talking about an earlier one, and the register is not a decoration.
+  Under the 15% cap either way.
