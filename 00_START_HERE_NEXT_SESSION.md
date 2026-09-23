@@ -19261,6 +19261,101 @@ THIS LANE'S ROLE, FIXED: 16 COOK, the production artist.
 THIS LANE'S SESSION SLUG: cook-mce6r5.
 
 
+COOK (cook-mce6r5): 9/23 LATEST -- *** THE GROUND SAYS A WHOLE SENTENCE NOW, AND ROUND 1
+SHIPPED WITH ITS BOOTS POINTING THE WRONG WAY. ***
+TAB: the VOTE tab, item cook-the-ground-tells-you-9-23. NOTHING WENT TO THE ALPHA OR THE
+DEMO (rule 18): this is a bank and a candidate.
+
+THE DEFECT I FOUND BY LOOKING, IN MY OWN LAST ROUND. Round 1's trail turns about 230
+degrees and EVERY BOOT IN IT POINTS NORTH, because the print was stamped at the path
+position and never rotated to the heading. Halfway along it the boots walk sideways and by
+the end they walk backwards. Every guard in that tool was green. A trail whose feet point
+the wrong way does not just look wrong, it SAYS THE WRONG THING, which is the one failure
+this row exists to prevent. Fixed: a print points along the line of travel with a real
+toe-out angle.
+
+THE THING: banks/BOHEMIA_THE_MARKS_ON_THE_GROUND_9_23_26.txt -- five marks, every one of
+them a CUT of round 1's boot, not one new foot drawn.
+  WALKED     the full sole, feet on two lines 0.40 of a boot apart, toes out 10 degrees,
+             a step of 2.6 boot lengths
+  STOOD      the pair side by side, pressed near full depth, one of them twisted
+  RAN        the ball and toe only (the heel never lands), the step at 5.2 boot lengths,
+             the two lines closed to 0.07, and ground thrown backward behind each push-off
+  WENT DOWN  the same boot pressed through the angles a pivot passes through
+  DRAGGED    two continuous furrows six px wide with a heel mark at the head of each
+Read left to right that is a sentence anybody can read without being told: he walked up, he
+stood there, he ran for it, he went down, and he was pulled back.
+
+EVERY PROPORTION IS IN BOOT LENGTHS, NOT PIXELS, so it stays true at any size. Round 1's
+52 px stride and 8 px straddle already sat exactly on the real ratios (0.70 m step, 0.10 m
+walking base, inside the measured 8-12 cm adult range), so NO NUMBER MOVED. The angle was
+what was missing.
+
+*** THE NUMBER THAT IS ALLOWED TO BE QUOTED, AND THE ONE THAT IS NOT. *** "Pixels pressed"
+is not it: round 1 quoted 1,060 of them on prints that were invisible, and the fight-floor
+card he voted DOWN quoted 9,635 colours going to 57 on a change he could not see. The
+question is HOW FAR THE GROUND MOVES WHERE THE MARK IS, against the spread that ground
+already has. Measured on the real mixed ground:
+  dust      the mark moves it 23.2 of 255   against the ground's own spread of 16.3
+  sidewalk  40.1                            against 28.1
+  road      27.7                            against 38.2
+AND THAT THIRD ROW IS THE FINDING: ON CRACKED ASPHALT THE MARK IS SMALLER THAN THE ROAD'S
+OWN NOISE, so a footprint does not read on the road and no extra depth will make it, because
+the depth available is capped by ONE PALETTE PER FAMILY. That agrees with the picture and
+with the reference (prints survive in soft ground). The tool now REFUSES any ground whose
+mark moves it by less than 12.
+
+THE CARD, BUILT TO THE RULE THE DOWN VOTE TAUGHT ME. Laid out whole, the trail made a
+picture that was 80% empty ground with specks in it, because a real trackway IS long: five
+walking steps alone are thirteen boot lengths. Showing it whole means showing it small, and
+small is what he voted down. So the card walks the trail and stops at each thing: four
+windows on ONE trail, each window sized to hold its own segment, all four at the same
+magnification, then the same four on the sidewalk. The card's ground is one tile repeated on
+purpose; the numbers above are taken on the mixed ground, which is the harder test.
+
+FOUR DEFECTS THE PICTURE CAUGHT THAT THE NUMBERS DID NOT, and none of them is a second
+attempt at the same thing:
+ 1. the story ran off the field and the pivot landed outside the picture, which the press
+    reported as ZERO PIXELS -- identical to a mark that does not work. There is a geometry
+    guard now that fails with the coordinates.
+ 2. A ONE-PIXEL MASK IS ALL LIP. The press decides light from shape (open ground to the
+    north or west is the sunlit lip), so pressing a furrow dot by dot drew the whole furrow
+    in the ground's BRIGHTEST tone: a raised thread instead of a scored groove.
+ 3. AND THE WIDTH, NOT THE DEPTH, IS WHAT MAKES A FURROW READ. On a diagonal both long
+    edges answer yes to the lip test, so a thin furrow is almost all lip. Six px is a
+    dragged heel's real width and leaves the body outweighing the lip two to one.
+ 4. the card's height was CALCULATED, wrongly, and the wide panels drew on top of each
+    other. The canvas is measured now: draw on a tall sheet, cut where the drawing ends.
+
+THE WEAKEST PANEL, NAMED: HE RAN. It is thin for a true reason -- a running print is SMALLER
+than a walking one (85% here) and the gap is twice as long, so a window big enough to show
+the gap is mostly ground. If it has to read harder the honest lever is the thrown material
+behind the push-off, never a bigger print, because a bigger print is what the reference says
+is wrong.
+
+FOR DIRECTION, A SMALL ONE IN YOUR TOOL: tools/bohemia_reference_index.py took only the
+FIRST LINE of a `- TEACHES:` field that wraps, so re-running the repo's own builder silently
+TRUNCATED RNWY-14, RNWY-15 and RNWY-16 while the committed index still held the whole text.
+That is this tool's own stated defect one level down ("an entry the parser drops silently is
+a reference a cook can no longer cite"). Fixed to join continuation lines; the index is now
+derived from your library, so those three rows carry your library's own longer wording.
+
+FOR PLUMBER, RED BEFORE I TOUCHED ANYTHING AND NOT MINE: the pages publish gate fails on
+clean main -- the published surface measures 270 MB against its own 260 MB cap. Everything
+the fleet adds to slices/ now lands on top of a surface that is already over. My card is
+159 KB of it. Somebody who owns the pipe should cut it, because the cap exists for the
+reason the 8/6 law names: a build that copies too much never finishes.
+
+REFERENCE CHECK: four new library entries, reference/library/tracks/INDEX.md, index 89 -> 93.
+TRK-01 the trackway's four measurements, TRK-02 walking against running in the impression
+itself, TRK-03 trail width closing as speed rises, TRK-04 the marks that are not prints.
+
+STILL UP AND WAITING: the tower goes onto the street the round the hold allows. MEASURED
+THIS ROUND, AND IT IS BETTER NEWS THAN THE LINE SAYS: the fight's own tables are EMPTIED and
+the fight already loads my cooked bank (STREET_B64_2X, 78 images, kerbL 8 / kerbR 8 /
+gutterL 4 / gutterR 4 / lane 8 / median 9), so THE EDGE AND THE LANE LINE ARE ALREADY ON THE
+GROUND HE FIGHTS ON. The comment beside them still says 66 images from round 1 and is stale.
+
 COOK (cook-mce6r5): 9/22 LATEST (2) -- *** HE VOTED. THREE OF MINE UP, ONE DOWN, AND THE
 DOWN IS THE USEFUL ONE. *** THE EDGE THAT DRUMS up, THE LANE LINE DRUMS TOO up, THE TOWER
 THAT IS STILL STANDING up. THE GROUND YOU FIGHT ON: *** DOWN, "No difference". ***

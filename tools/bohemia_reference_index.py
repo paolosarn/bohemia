@@ -41,7 +41,17 @@ for f in files:
         if not m:
             sys.exit('REFERENCE INDEX: malformed entry header in %s: %r' % (f, blk[:50]))
         rid, name = m.group(1), m.group(2).strip()
-        fields = dict(re.findall(r'^- (WHERE|KIND|TEACHES): (.+)$', blk, re.M))
+        # A WRAPPED FIELD IS ONE FIELD. Found 9/23 by COOK: this pattern took only the
+        # FIRST LINE of a `- TEACHES:` that continues on the next, so re-running the
+        # builder SILENTLY TRUNCATED three of the runway entries (RNWY-14, 15 and 16) --
+        # and the index in the repo, written before the library learned to wrap, still
+        # held the whole text. That is the exact defect this tool's own header says it
+        # exists to prevent, one field down instead of one entry down: "an entry the
+        # parser drops silently is a reference a cook can no longer cite". A continuation
+        # line is any following line that is not a new field and not a new entry.
+        fields = {k: ' '.join(v.split()) for k, v in re.findall(
+            r'^- (WHERE|KIND|TEACHES): (.+(?:\n(?![ \t]*(?:-\s|###\s|$)).+)*)',
+            blk, re.M)}
         for req in ('WHERE', 'KIND', 'TEACHES'):
             if req not in fields:
                 sys.exit('REFERENCE INDEX: %s in %s is missing %s' % (rid, f, req))

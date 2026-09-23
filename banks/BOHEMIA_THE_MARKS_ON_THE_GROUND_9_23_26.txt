@@ -1,0 +1,40 @@
+{
+ "version": "BOHEMIA_THE_MARKS_ON_THE_GROUND_v1",
+ "built": "2026-09-23",
+ "lane": "COOK [footprints] round 2",
+ "his_words": "make pixel art of footsteps that lead you to the conclusion",
+ "round_1": "banks/BOHEMIA_THE_FOOTSTEPS_9_22_26.txt cooked the boot and the press. This cooks the other four marks and the picture that uses all five.",
+ "the_defect_round_1_had": "round 1 stamped every print pointing north on a trail that turns 230 degrees, so its boots end up walking backwards. A print now points along the line of travel with a real toe-out angle (TRK-01).",
+ "marks": {
+  "WALKED": "the full sole, feet on two lines 0.40 of a boot apart, toes out 10 degrees, a step of 2.6 boot lengths",
+  "STOOD": "the pair, side by side, pressed near full depth, one twisted",
+  "RAN": "the front of the sole only -- the heel never lands -- the step at 5.2 boot lengths, the two lines closed to 0.07, and ground thrown backward behind each push-off",
+  "WENT DOWN": "the same boot pressed through the angles a pivot passes through, which is how a crescent really forms",
+  "DRAGGED": "two continuous furrows with a heel mark at the head of each"
+ },
+ "proportions_are_real": "every number is in BOOT LENGTHS, from a 0.27 m boot, so it stays true at any pixel size: a 0.70 m step is 2.6, a 0.10 m walking base is 0.40 (the measured 8-12 cm adult range), and round 1's 52 px stride and 8 px straddle already sat on those ratios.",
+ "draw_rule": "unchanged from round 1: a mark is a DEPRESSION, not a stain. The sole steps down the family ramp and the sun-side lip steps up, the sun being north-west as it is on every other tile in this game. So a mark borrows the ground's own colours and adds none.",
+ "reads_on": {
+  "WALKED": {
+   "marks": 5,
+   "pixels": 530
+  },
+  "STOOD": {
+   "marks": 2,
+   "pixels": 212
+  },
+  "RAN": {
+   "marks": 4,
+   "pixels": 362
+  },
+  "WENT DOWN": {
+   "marks": 1,
+   "pixels": 741
+  },
+  "DRAGGED": {
+   "marks": 2,
+   "pixels": 1602
+  }
+ },
+ "not_shipped": "rule 18: this is a bank and a VOTE candidate. It goes on the ground the round the hold allows."
+}
