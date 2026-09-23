@@ -72,72 +72,25 @@ async function sweep(opts) {
   console.log('');
   console.log('=== ' + d.says() + ' ===');
 
-  /* *** GO THROUGH THE DOOR FIRST. ***
-     The alpha's loading screen HOLDS UNTIL BEGIN, by design (rule 18a), and the
-     driver's own note says a caller has to read the top page and walk through it.
-     This probe did not, so every click it made landed on #loadgl -- the loading
-     screen's own canvas, inside #front at z-index 200 covering the whole 390x844 --
-     and never reached the game at all. That is the FOURTH wrong instrument in this
-     round and it is the same family as all the others: pressing a surface that
-     something is covering. The controls underneath were alive the whole time. */
-  const door = await d.pageEval(async () => {
-    const seen = [];
-    for (let i = 0; i < 90; i++) {
-      const f = document.getElementById('front');
-      if (!f || getComputedStyle(f).display === 'none') return { through: true, how: 'front was already gone', waited: i };
-      const hit = Array.from(f.querySelectorAll('*')).filter(el => {
-        const t = (el.textContent || '').trim().toUpperCase();
-        return t === 'BEGIN' && el.getBoundingClientRect().width > 10;
-      });
-      if (hit.length) {
-        seen.push('BEGIN at ' + i);
-        hit[hit.length - 1].click();
-        await new Promise(r => setTimeout(r, 1200));
-        const g = document.getElementById('front');
-        if (!g || getComputedStyle(g).display === 'none')
-          return { through: true, how: 'pressed BEGIN', waited: i };
-      }
-      await new Promise(r => setTimeout(r, 1000));
-    }
+  /* *** THE DOOR AND THE LANDING BELONG TO THE ONE DRIVER NOW, NOT TO ME. ***
+     Last round this file grew its own BEGIN-presser and its own RUN-tab click,
+     because the driver stood on the splash and every click I made landed on
+     #loadgl. RUN has since fixed the driver itself (its traps 6 and 7: walk
+     through BEGIN, and when the alpha lands on VOTE the RUN panel is display:none
+     so the city frame has no box -- click RUN and take the box then). Rule 14(g)
+     is ONE DRIVER; keeping a second copy of that logic here is how two instruments
+     start disagreeing about the same door. So this only REPORTS where it ended up. */
+  const where = await d.pageEval(() => {
     const f = document.getElementById('front');
-    return { through: false,
-             how: 'BEGIN never came, or pressing it did not clear #front',
-             still: f ? getComputedStyle(f).display : 'gone', waited: 90 };
-  });
-  console.log('  THE DOOR: ' + (door.through ? 'through -- ' : '*** STILL SHUT *** -- ')
-    + door.how + ' (waited ' + door.waited + 's)');
-  const covered = await d.pageEval(() => {
     const e = document.elementFromPoint(38, 617);
-    return e ? (e.id ? '#' + e.id : e.tagName.toLowerCase()) : 'nothing';
+    const tab = document.querySelector('#tabs .tab.on, #tabs .tab.sel, #tabs .tab[aria-selected="true"]');
+    return { front: f ? getComputedStyle(f).display : 'gone',
+             handsTo: e ? (e.id ? '#' + e.id : e.tagName.toLowerCase()) : 'nothing',
+             tab: tab ? (tab.textContent || '').trim() : '?' };
   });
-  console.log('  and at 38,617 the TOP page now hands the finger to: ' + covered);
-
-  /* *** AND THEN THE LANDING. *** Through the door, the alpha opens on the VOTE tab
-     -- which is Paolo's own ruling (rule 15g, the alpha opens on VOTE after loading)
-     and not a defect. It does mean the walked game is not on screen at all, so all
-     seven come back NOT ON SCREEN and that is still not a measurement of them. This
-     is the FIFTH layer between a cold boot and the first screen EYES reported on:
-         the splash -> BEGIN -> the VOTE landing -> the play tab -> the HUD
-     Any harness that stops before the last one is measuring something else. */
-  const tab = await d.pageEval(() => {
-    const want = ['run', 'life'];
-    for (const w of want) {
-      const t = document.querySelector('#tabs .tab[data-p="' + w + '"]');
-      if (t) { t.click(); return { pressed: w, says: (t.textContent || '').trim() }; }
-    }
-    return { pressed: null };
-  });
-  if (tab.pressed) {
-    await d.page.waitForTimeout(2500);
-    const now = await d.pageEval(() => {
-      const e = document.elementFromPoint(38, 617);
-      return e ? (e.id ? '#' + e.id : e.tagName.toLowerCase()) : 'nothing';
-    });
-    console.log('  THE LANDING: the alpha opens on VOTE (his own ruling), so I pressed '
-      + tab.says + ' and the finger now lands on: ' + now);
-  } else {
-    console.log('  THE LANDING: *** no play tab found in #tabs ***');
-  }
+  console.log('  WHERE THE DRIVER LEFT ME: the splash is ' + where.front
+    + ', the top page hands a finger at 38,617 to ' + where.handsTo
+    + ', the tab reads ' + where.tab);
 
   /* FIND THEM BY THEIR WORDS. EYES read labels off the glass; binding to an id here
      would quietly test a different control and report it healthy. */
@@ -241,6 +194,27 @@ async function sweep(opts) {
     if (!f.el) { results.push({ ...f, verdict: 'NOT ON SCREEN' }); continue; }
     const rounds = [];
     for (let press = 1; press <= 2; press++) {
+      /* *** IS A CARD ALREADY OPEN BEFORE I PRESS. ***
+         This is the one thing last round ended not knowing, and it decides whether
+         "0 new words" means anything at all. A card that was ALREADY OPEN cannot
+         produce new text by opening, so a press that opens the card he already has
+         would read as dead. The driver clears cards on boot by default; the refusal
+         run still found #daycard carrying class "on". Both cannot be true, so it is
+         recorded per press instead of assumed, and cleared before the press. */
+      const cardBefore = await d.fr.evaluate(() => {
+        const c = document.getElementById('daycard');
+        if (!c) return 'no #daycard in the document';
+        const cs = getComputedStyle(c);
+        return c.className + ' | display ' + cs.display + ' | opacity ' + cs.opacity
+          + ' | ' + Math.round(c.getBoundingClientRect().height) + 'px tall';
+      });
+      await d.clearCards();
+      const cardAfterClear = await d.fr.evaluate(() => {
+        const c = document.getElementById('daycard');
+        if (!c) return 'gone';
+        const cs = getComputedStyle(c);
+        return c.className + ' | display ' + cs.display;
+      });
       const before = await snap();
       await d.page.mouse.click(f.el.x, f.el.y);
       await d.page.waitForTimeout(900);
@@ -250,7 +224,7 @@ async function sweep(opts) {
       const goneIds = before.ids.filter(i => after.ids.indexOf(i) < 0);
       const newWords = after.words.filter(w => before.words.indexOf(w) < 0 && FREE_WORDS.indexOf(w) < 0);
       const goneWords = before.words.filter(w => after.words.indexOf(w) < 0);
-      rounds.push({ press, newIds, goneIds,
+      rounds.push({ press, cardBefore, cardAfterClear, newIds, goneIds,
                     newWords: newWords.slice(0, 6), nNew: newWords.length,
                     goneWords: goneWords.slice(0, 4), nGone: goneWords.length });
       /* put the screen back so the next control is pressed from the same place */
@@ -296,11 +270,14 @@ async function sweep(opts) {
            : r.cover.offscreen ? '   *** THE CONTROL IS DRAWN OFF THE SCREEN ***'
            : '   *** SOMETHING ELSE IS ON TOP: ' + r.cover.w + 'x' + r.cover.h
              + ', position ' + r.cover.pos + ', z ' + r.cover.z + ' ***'));
-    for (const rd of r.rounds)
+    for (const rd of r.rounds) {
+      console.log('        before press ' + rd.press + ' the card was: ' + rd.cardBefore
+        + '   -> after clearing: ' + rd.cardAfterClear);
       console.log('        press ' + rd.press + ': ' + rd.nNew + ' new words, '
         + rd.nGone + ' gone'
         + (rd.newIds.length ? ', new on screen: ' + rd.newIds.slice(0, 5).join(' ') : '')
         + (rd.nNew ? '  e.g. "' + rd.newWords[0] + '"' : ''));
+    }
   }
   console.log('');
   console.log('  ALIVE ' + live + '   NOTHING MOVED ' + dead + '   NOT ON SCREEN ' + absent);
