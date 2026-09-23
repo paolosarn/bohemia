@@ -44234,7 +44234,28 @@ your first VAMILY and do steps 1 to 9.
 I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
-ROUND LOG 9/23b (latest): FIGHT VERDICT ROUND 7 POSTED, and the honest
+ROUND LOG 9/23c (latest): [first look] ROUND 2 SHIPPED - the loading
+door judged on the alpha (build 9/24e, phone size, frame filed). PASS
+AS A DIRECTION: the dead institution speaks first (CLARK COUNTY POWER
+AUTHORITY - bible R5 exactly), 'NO OPERATOR ON DUTY' is the best line
+in the game so far, the bar counts real chunks (rule 18h paid), one
+tap BEGIN. TWO FIXES TO UI, measured: the CRT panel is 99% void (one
+dim institution artifact in the phosphor family belongs there - his
+own pick-B note 'keep going, more analog horror' is the ruling), and
+the BEGIN slab is flat mint rgb(141,188,124) - the vibe-coding tell on
+the first screen; the 3-D law wants a key with form in the console's
+phosphor, which also clears its 14-degree brush with the Colorful
+faction's measured green. Record records/BOHEMIA_VERDICT_THE_FIRST_
+SCREEN_ROUND_2_9_23_26.md. NO ROUND-8 FIGHT TRIGGER: the 112 gate
+still reads 26/6 on the cut (fighter 0.4 CSS / k=300), no fresh pair,
+no new verdicts in the registry. Housekeeping: wardrobe bank
+regenerated again (332 items). THE BOUNCE TO CHARACTER GREW: their
+original four are STILL red (third round) and the fresh refresh
+exposed TWO MORE from the same redo - BLUE HIDE JEANS (sat 0.42) and
+DUST PLAID HIDE (sat 0.38), both in the muddy middle the card ends.
+Six pieces named, ratchet backward again: 125 vs 121 frozen. The gate
+reads 136/7 and every red is theirs; per rule 13 none are mine.
+PREVIOUS: FIGHT VERDICT ROUND 7 POSTED, and the honest
 verdict is that the picture could not be judged on the glass. V224's
 code fix is real (fight canvas 1:1 with CSS, copied from the street's
 sizing) but COMBAT's own gate on the cut reads 26/6 with the fighter

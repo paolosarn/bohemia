@@ -4,7 +4,7 @@
 #   4th field added 7/21 for dress-code-by-rank -- bohemia_dress.js parse()
 #   widened to p.length>=3 the same turn; regenerate any embedded slice
 #   copy (tools/bohemia_life_slice.py) so its stamped parser matches)
-# count: 330
+# count: 332
 TEMPLE TAPER|hair|#201e1b|
 SHAG|hair|#523a26|
 ROPE LOCKS|hair|#201e1b|
@@ -25,6 +25,7 @@ BONE HENLEY|base|#a29a86|
 PATINA WORK SHIRT|base|#506e60|
 SOOT TANK|base|#363436|
 BLUE JEANS|legs|#40506e|
+BLUE HIDE JEANS|legs|#40506e|
 BLACK CARGOS|legs|#343a2e|
 GREY SWEATS|legs|#787882|
 DUST TROUSERS|legs|#806e50|
@@ -64,6 +65,7 @@ KHAKI BUTTON-UP|base|#7e6e50|
 SLATE SHORT-SLEEVE|base|#484e56|
 SAGE STRIPED HENLEY|base|#5a6856|stripe
 DUST PLAID SHIRT|base|#806e50|plaid
+DUST PLAID HIDE|base|#806e50|plaid
 ASH HOODIE|base|#46484e|
 COAL HOODIE|base|#303034|
 OLIVE HOODIE|base|#4a5036|
