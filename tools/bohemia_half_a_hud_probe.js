@@ -148,7 +148,7 @@ async function sweep(opts) {
     return { x: Math.round(r.x + r.width - 3), y: Math.round(r.y + r.height - 2) };
   });
   const cb = await snap();
-  await d.page.mouse.click(inert.x, inert.y);
+  await d.tapAt(inert.x, inert.y);      /* TRAP 1: frame-relative, via the driver */
   await d.page.waitForTimeout(900);
   const ca = await snap();
   const FREE_IDS = ca.ids.filter(i => cb.ids.indexOf(i) < 0);
@@ -216,7 +216,16 @@ async function sweep(opts) {
         return c.className + ' | display ' + cs.display;
       });
       const before = await snap();
-      await d.page.mouse.click(f.el.x, f.el.y);
+      /* *** TRAP 1, AND THE DRIVER NAMES IT IN ITS OWN COMMENTS: "the frame's own
+         box, added to every coordinate below." *** page.mouse.click takes PAGE
+         coordinates; getBoundingClientRect inside the city frame gives FRAME
+         coordinates; the frame does not start at 0,0. So every press this probe made
+         landed fb.x,fb.y away from the control it had just hit-tested -- and the hit
+         test itself ran INSIDE the frame, so it reported the control correctly while
+         the finger went somewhere else entirely. The driver's tapAt adds the box.
+         THE FIFTH WRONG INSTRUMENT, AND THE SAME FAMILY AS THE OTHER FOUR: the
+         coordinates were measured in one space and used in another. */
+      await d.tapAt(f.el.x, f.el.y);
       await d.page.waitForTimeout(900);
       const after = await snap();
       /* SUBTRACT WHAT THE SURFACE DOES BY ITSELF */
