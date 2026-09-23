@@ -161,7 +161,7 @@
 
 @TALK block  speaker=mother
   @SAY In front of everyone. #dread
-  @SAY Then it isn't a thing I decided, it's a thing that was decided at me. And the ones who say no will say it about me, not about the medicine.
+  @SAY Then I did not decide it. It is a thing that was decided at me. And the ones who say no will say it about me, not about the medicine.
   @OPT "They need to hear it."            [gate: none]  -> END  @DO set_stage 31
   @OPT "You're right. Six days, quietly." [gate: none]  -> card
 @END

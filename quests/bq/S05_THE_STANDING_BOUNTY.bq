@@ -78,9 +78,9 @@
 @END
 
 @TALK ugly  speaker=quartermaster
-  @SAY Top name owed the wrong people and ran instead of paying. That's all. That's the whole crime. He ran. #flat
-  @SAY Look at your face. You want me to tell you he's a monster so it's easy. He isn't. He's just worth more.
-  @SAY The medicine is double because the name is heavy. That's the only reason anything is ever double out here.
+  @SAY Top name owed the wrong people and ran instead of paying. That's all. That is the crime. He ran. #flat
+  @SAY Look at your face. You want me to tell you he's a monster so it's easy. He isn't. He is just a bigger name.
+  @SAY The medicine is double because the name is heavy. That's the only reason anything is ever double.
   @OPT "Fine. The top name."              [gate: none]  -> ugly_take
   @OPT "No. Give me the raider instead."  [gate: none]  -> easy
   @OPT "That's a person, not a bounty."   [gate: none]  -> walk
@@ -88,7 +88,7 @@
 @END
 
 @TALK ugly_take  speaker=quartermaster
-  @SAY There it is. It gets easier every time, doesn't it. That isn't a threat. It's just the truest thing I know. #flat
+  @SAY There it is. It gets easier every time, doesn't it. That is not meant as a threat. It is the truest thing I know. #flat
   @OPT "Double pay. I'll do it."        [gate: none]  -> END  @DO set_stage 21
   @OPT (take it without a word)           [gate: none]  SILENCE -> END  @DO set_stage 21
 @END

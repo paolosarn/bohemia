@@ -86,7 +86,7 @@
 # =====================================================================
 @TALK roof  speaker=voice  entry=stage>=10,stage<20
   @SAY You found me the easy way, which means the hard way is about two nights behind you. #wary
-  @SAY I read weather, water levels, which line is out, who got taken and from where. It isn't a movement. It's a bulletin.
+  @SAY I read weather, water levels, which line is out, who got taken and from where. It is no movement. It's a bulletin.
   @SAY And it works because at three in the morning people are alone and a voice is the only company that has ever been free.
   @OPT "How long before they find you?"     [gate: none]  -> found
   @OPT "Why not just stop?"                  [gate: none]  -> stop
@@ -141,7 +141,7 @@
 
 @TALK moving  speaker=voice
   @SAY Then it's off this roof by dawn and I'm somebody else's problem to find. #wary
-  @SAY Whatever you tell them now, tell it well. A bearing they walk and find empty is a bearing they stop trusting, and that's worth more to me than a week of hiding.
+  @SAY Whatever you tell them now, tell it well. A bearing they walk and find empty is a bearing they stop trusting, and that buys me more than a week of hiding.
   @OPT "Understood."                        [gate: none]  -> END
   @OPT (carry the last of it down)           [gate: none]  SILENCE -> END
 @END
@@ -177,7 +177,7 @@
 
 @TALK lastnight  speaker=voice
   @SAY One night, all of it, everything I've been too careful to say, and then the set goes in the ground before dawn. #dread
-  @SAY Everyone hears it once. Nobody ever hears it again. I've wanted to do that since the first week and I have never been stupid enough.
+  @SAY Everyone hears it once. No one hears it twice. I've wanted to do that since the first week and I have never been stupid enough.
   @OPT "One night. Say all of it."          [gate: none]  -> END  @DO set_stage 31
   @OPT "No. Short and moving. Stay alive."   [gate: none]  -> move
 @END

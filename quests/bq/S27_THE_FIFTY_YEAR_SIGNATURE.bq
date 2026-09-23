@@ -98,7 +98,7 @@
 # =====================================================================
 @TALK tidy  speaker=lineman  entry=stage>=10,stage<20
   @SAY Ten years. Same blocks, same edges. If it were people deciding, it would have moved by now -- somebody would have muscled in, somebody would have got cut off in a bad winter. #wary
-  @SAY It has not moved once. Whatever draws that line doesn't care who's standing on either side of it, and that's the part that keeps me up.
+  @SAY It has not moved once. Whatever draws that line does not care who stands on either side, and that is what keeps me up.
   @SAY The old substation office is still shut. I have never been in. You look like you'd go in.
   @OPT "I'll go in."                       [gate: none]  -> office
   @OPT "Somebody is being paid to keep it."  [gate: none]  TRAP -> paid

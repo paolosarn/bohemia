@@ -46,7 +46,7 @@
   @LOG The tunnel elders will pay to end the crying that comes up the deep every night.
   @DO show_objective 10
 @STAGE 20 #namedbody
-  @LOG It isn't a haunt. It's a person, half-taken, sitting where the deep runs down toward the water.
+  @LOG There is no haunt. It is a person, half-taken, sitting where the deep runs down toward the water.
   @DO show_objective 20
   @DO complete_objective 10
 @STAGE 30 COMPLETE #quiet

@@ -101,7 +101,7 @@
 
 @TALK read  speaker=holder
   @SAY Ink, stamp, a number that used to mean a drawer. It says the corner lot and the building on it, and it doesn't say anything about who's warm inside it tonight. #flat
-  @SAY That's the whole trouble. Every honest thing I own is written in a language nobody speaks anymore.
+  @SAY That is the trouble. Every honest thing I own is written in a language nobody speaks anymore.
   @DO set_stage 20
 @END
 

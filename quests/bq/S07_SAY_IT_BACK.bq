@@ -83,7 +83,7 @@
 @END
 
 @TALK deserve  speaker=dying
-  @SAY No. He doesn't. That's the whole point of the word. Cheap forgiveness is just a debt paid on time. #tired
+  @SAY No. He doesn't. That is the point of the word. Cheap forgiveness is just a debt paid on time. #tired
   @SAY Mine isn't cheap. It cost me nine years. Carry it anyway, or don't, but don't pretend it's small.
   @OPT "I'll carry it."                   [gate: none]  -> deliver_true   @DO learn holds_the_words @DO set_stage 20
   @OPT "I can't."                          [gate: none]  -> refuse

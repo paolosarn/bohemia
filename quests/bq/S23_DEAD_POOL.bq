@@ -62,7 +62,7 @@
   @LOG A caravan came up from downriver with empty bladders and a story about a dam that stopped giving. Our taps ran this morning the same as always.
   @DO show_objective 10
 @STAGE 20
-  @LOG Somebody in this valley knows why both of those things are true at once, and it isn't a secret, it's just not something anybody says out loud.
+  @LOG Somebody in this valley knows why both of those things are true at once, and there is no secret in it. It is just not something anybody says out loud.
   @DO show_objective 20
   @DO complete_objective 10
 @STAGE 30 COMPLETE #quiet
@@ -180,7 +180,7 @@
 
 @TALK flat  speaker=hauler
   @SAY Thirty-five feet. #wary
-  @SAY That's the whole thing then. Not a war, not a theft. Thirty-five feet of pipe and a man in an office writing it down. I'd almost rather it had been theft.
+  @SAY That is the size of it, then. Not a war, not a theft. Thirty-five feet of pipe and a man in an office writing it down. I'd almost rather it had been theft.
   @OPT "Fill up. Quietly, tonight."          [gate: none]  -> quiet
   @OPT "Come and hear me say it out loud."   [gate: none]  -> loud
   @OPT "I'll show you the works."          [gate: none]  -> show

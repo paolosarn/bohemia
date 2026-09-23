@@ -93,7 +93,7 @@
 @TALK shift  speaker=hand  entry=stage>=10,stage<20
   @SAY I'm not going to describe it and I'm not going to argue about it. I saw what's under his collar and so did one other person. #wary
   @SAY I don't need you to agree with me about what it means. I need you to understand that I'm not standing on a scaffold with him at six in the morning, and neither is she.
-  @SAY So either it gets dealt with or you have two fewer hands, and you'll find out which one costs you more.
+  @SAY So either it gets dealt with or you have two fewer hands, and you'll find out which one takes more from you more.
   @OPT "Does he know you saw it?"          [gate: none]  -> knows
   @OPT "Has he ever done anything on the job?"  [gate: none]  TRAP -> onthejob
   @OPT "I'll handle it."                  [gate: none]  -> handle
@@ -102,7 +102,7 @@
 @END
 
 @TALK knows  speaker=hand
-  @SAY He knows. He buttoned it and he looked at me while he buttoned it, and that's the whole conversation we've had about it. #wary
+  @SAY He knows. He buttoned it and he looked at me while he buttoned it, and that was the conversation we've had about it. #wary
   @DO set_stage 20
 @END
 
@@ -110,7 +110,7 @@
 # because it is exactly the answer that lets you do nothing.
 @TALK onthejob  speaker=hand
   @SAY No. Never. He's polite, he's early, he covers people's shifts, and he's the best welder any of us has worked with. #tired
-  @SAY That's the part that makes it hard and I'm not going to pretend it away for you. You wanted the honest answer. It's inconvenient for everybody, mostly me.
+  @SAY That is what makes it hard and I'm not going to pretend it away for you. You wanted the honest answer. It's inconvenient for everybody, mostly me.
   @OPT "Then I'll handle it."             [gate: none]  -> handle  @DO learn he_is_good_at_the_work
   @OPT (nod and say nothing)                [gate: none]  SILENCE -> knows  @DO learn he_is_good_at_the_work
 @END

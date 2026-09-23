@@ -94,7 +94,7 @@
 @END
 
 @TALK leave  speaker=hauler
-  @SAY Fine. It's nobody's problem until it's everybody's, that's how it always goes out here. #tired
+  @SAY Fine. It's nobody's problem until it's everybody's, that's how it always goes. #tired
   @OPT "Wait. I'll look at it."           [gate: none]  -> gate  @DO learn saw_the_caravan
   @OPT "Good luck."                         [gate: none]  -> END   @DO set_stage 34
 @END
@@ -125,7 +125,7 @@
 
 @TALK turn  speaker=lieutenant
   @SAY ...you noticed. Nobody notices. He has not paid the crew in a month and he sleeps like a king. #dread
-  @SAY Say the word and this checkpoint has a new owner tonight. Quiet. And it would owe you. That kind of owing is worth more than medicine.
+  @SAY Say the word and this checkpoint has a new owner tonight. Quiet. And it would owe you. That kind of owing runs deeper than medicine.
   @OPT "Do it. Quietly."                    [gate: none]  -> END  @DO set_stage 32  @DO cast lieutenant
   @OPT "No. Not like that."                 [gate: none]  -> gate
 @END

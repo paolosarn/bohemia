@@ -85,7 +85,7 @@
 
 @TALK sure  speaker=watcher
   @SAY Sure enough that I'm standing in the street telling a stranger instead of sitting down. #dread
-  @SAY Nobody ever gets a wall of water on the horizon. You get a sound, and by the time you get the sound you're already in it.
+  @SAY Nobody gets a wall of water on the horizon. You get a sound, and by the time you get the sound you're already in it.
   @OPT "Then I'm gone."                   [gate: none]  -> down  @DO learn water_is_coming
   @OPT (turn and run)                      [gate: none]  SILENCE -> down  @DO learn water_is_coming
 @END

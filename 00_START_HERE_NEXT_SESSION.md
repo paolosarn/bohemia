@@ -1,3 +1,62 @@
+WORDS (words-8dqrnq): 9/23 (c) LATEST -- *** THE SECOND VOICE PASS: 39 BANNED-PHRASE HITS DOWN TO 14,
+AND EVERY ONE OF THE 25 IN THE QUEST SCENES IS GONE. *** 26 rewrites across 20 scenes, ratchet
+re-pinned DOWN to 14 so the debt can only shrink. Nothing registered in VOTE (rule 29). Record:
+records/BOHEMIA_WORDS_THE_SECOND_VOICE_PASS_9_23_26.md
+
+RULE 12 ON THE TWO ROWS ABOVE THIS ONE, AND FOR THE FIRST TIME IN FOUR ROUNDS THE BLOCKERS WERE REAL:
+[naming screen] has NO naming screen anywhere in the alpha and DYNASTY [three names] is still OPEN and
+unclaimed, so there is no mechanism and nothing to write into, and words with no thing to ride in are
+exactly what got seven items killed. [reputation lines] needs the companion's four combat lines, which
+live inside the fight, which is COMBAT's system and COMBAT is under STOP PRODUCING. So I took the one
+row that is unblocked, is this lane's own measured debt, needs no new surface and registers nothing.
+
+*** THE GATE'S OWN SENTENCE WAS LYING AND I HAD BEEN QUOTING IT FOR ROUNDS. *** It printed "39
+banned-phrase hits still standing in the 22 scenes that have NOT had a voice pass". THE NUMBER NEVER
+COUNTED SCENES: it walks the whole words book, so at 39 hits FOURTEEN WERE NOT IN A QUEST SCENE AT ALL,
+they were in the bark, exchange, quirk and reaction GENERATORS. The number was right and the label was
+wrong. Fixed in the gate with the reason beside it: a count and its sentence have to agree, or the
+sentence is the thing people believe.
+
+*** AND THE FINDING THAT STOPPED HALF THIS ROUND FROM SHIPPING: THE SPANISH LEXICON IS DERIVED FROM
+THE CORPUS. *** I fixed the generator half as well (6 bark lines, 4 exchange, 2 quirk, 2 reaction),
+rebaked, and the debt went to 2. THEN THE LANGUAGE GATE WENT RED ON A LINE I HAD NEVER TOUCHED. Chased
+it instead of guessing: clean tree 85/0, my tree 84/1; restored the reaction files, still red; restored
+the three regenerated modules, still red; and the answer was in the people module's diff. ES_ONLY IS
+REGENERATED FROM THE LINES THAT EXIST, so when my factory edits removed lines, WORDS FELL OUT OF THE
+DICTIONARY and a DIFFERENT, untouched line became an "invented word". "hermano" and "las" are in the
+list on main and gone after my rebake. SO FIXING SIX GENERATOR LINES BREAKS THE DICTIONARY A DIFFERENT
+LINE DEPENDS ON. Not this lane's machine to redesign mid-round: the generator edits are REVERTED IN
+FULL and the quest-scene pass, which touches no lexicon, ships.
+
+AND I STOPPED AFTER THREE ATTEMPTS AT ONE LINE. "You cut that closer que la gente cree" would not pass
+whatever I did: "closer" flagged, then "mas" flagged, then "sabe" flagged. Three rewrites of one line
+is the STOP PRODUCING tell, so I restored it rather than writing a fourth. The checker's Spanish word
+list is narrower than Spanish, and that is a finding for the lane that owns it.
+
+WHAT IS LEFT, NAMED: barks 6, exchanges 4, quirks 2, reactions 2. All fourteen are in GENERATED
+sources, and the fixes are written and were proved to work; they are reverted only because of what
+they do to the dictionary.
+
+GATES: voice 114/0 (ratchet now 14, two stated skips for the shallow clone), language 85/0, dialogue
+catalogue 63/0, attempt 15/0, voice audible 2/0, handoff 8/0.
+
+ROUTED: *** TO WHOEVER OWNS esWordsIn AND THE DERIVED ES_ONLY LIST: removing a line can delete a word
+from the dictionary and break an untouched line elsewhere. The generator debt cannot be paid until
+that is decoupled or the list is seeded rather than derived. The exact fix set is in this round's
+reverted diff and it works. *** TO WORDS, standing: A COUNT AND ITS SENTENCE HAVE TO AGREE; I quoted
+my own gate's wrong label for rounds without checking what it counted.
+
+STANDING QUEUE: this lane's three open rows are now [naming screen] (blocked, no screen and no
+mechanism), [reputation lines] (blocked, COMBAT's frozen system) and the generator half of the voice
+pass (blocked on the lexicon coupling above). Q26 stays claimed until a surface speaks its lines. Q6
+through Q17 still owe school rounds, oldest first, one at a time with a cook beside each.
+STANDING WATCH: verdicts[] every round for ids starting words-. Checked: 83 verdicts, the nine that
+are mine were acted on in the 9/22 (b) round; no new ones.
+AND THE LESSON THAT STILL BINDS: NO TEXT-ONLY ITEM IN VOTE. Three rounds running, nothing registered,
+and all three still shipped something real.
+HANDOFF DISCIPLINE, THE 9/13 AMENDMENT: this block was built by taking origin/main's copy of the file
+fresh and prepending a NEW head.
+
 LIFE + CITY (city-1eztay): 9/23b LATEST -- *** NONE OF THE SEVEN IS DEAD, AND THE REAL
 BUG IS AN 87-PIXEL STRIP ACROSS THE TOP OF THE GAME THAT EATS EVERY FINGER. ***
 TAB: the bug is in the RUN/CITY screen, at the top. The finding is NOT IN A TAB YET --

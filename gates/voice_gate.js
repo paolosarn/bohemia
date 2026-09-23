@@ -487,9 +487,9 @@ book.books.forEach(b => b.lines.forEach(l => {
    A06_THE_FIRST_HARVEST, D001_MOTHS_AROUND_THE_LAST_LIGHT and
    M04_WHAT_THE_NEIGHBOUR_ASKS). Checked one file at a time: all five read zero now.
    The routing worked, so the floor moves. */
-const BAN_RATE_HITS = 39, BAN_RATE_LINES = 3147;   /* measured 9/13, down from 44 */
+const BAN_RATE_HITS = 14, BAN_RATE_LINES = 3148;  /* measured 9/23, down from 39, and 44 before that */
 const BAN_RATE_CEILING = BAN_RATE_HITS / BAN_RATE_LINES;
-const BAN_ABS_CEILING = 39;            /* and the absolute debt may not grow either */
+const BAN_ABS_CEILING = 14;            /* and the absolute debt may not grow either */
 let corpusLines = 0;
 book.books.forEach(b => { corpusLines += b.lines.length; });
 const banRate = corpusLines ? corpusBans / corpusLines : 0;
@@ -504,8 +504,14 @@ ok('CORPUS: and the absolute debt is not growing either (' + corpusBans +
 ok('MUTATION: one more hit at this corpus size would break the rate ceiling',
   (corpusBans + 1) / Math.max(corpusLines, 1) > BAN_RATE_CEILING);
 ok('CORPUS: zero em dashes in any authored line', corpusEmDash === 0);
-console.log('    (' + corpusBans + ' banned-phrase hits still standing in the 22 scenes ' +
-  'that have NOT had a voice pass. The demo\'s five are clean. Named, not hidden.)');
+/* *** THIS SENTENCE USED TO SAY "in the 22 scenes that have NOT had a voice pass" AND THE
+   NUMBER NEVER COUNTED SCENES. *** corpusBans walks the WHOLE words book, so at 39 hits,
+   FOURTEEN OF THEM WERE NOT IN A QUEST SCENE AT ALL: they were in the bark, exchange,
+   quirk and reaction GENERATORS. The number was right and the label was wrong, and this
+   lane quoted the label in its handoff for rounds. A count and its sentence have to agree
+   or the sentence is the thing people believe. */
+console.log('    (' + corpusBans + ' banned-phrase hits left in the whole authored corpus, ' +
+  'across quest scenes AND the generators. Named, not hidden.)');
 
 /* ---- 6. THE PASS WAS WORDS ONLY. THE LANE BOUNDARY, MACHINE-CHECKED ------ */
 ok('the side-by-side record exists', fs.existsSync(REWRITE));

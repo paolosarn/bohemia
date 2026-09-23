@@ -141,7 +141,7 @@
 
 @TALK good  speaker=forger
   @SAY Every hollow one, worked back to what it says on the stamp, on my own time, until the number is zero. #tired
-  @SAY That's four months of nights. Nobody ever hears about any of it, and every person who took one gets the charge they were promised. Yes. I'll do that.
+  @SAY That's four months of nights. Nobody hears about any of it, and every person who took one gets the charge they were promised. Yes. I'll do that.
   @OPT "Cell by cell. Start tonight."         [gate: none]  -> END  @DO set_stage 30
   @OPT (put the hollow ones on his bench and leave)  [gate: none]  SILENCE -> END  @DO set_stage 30
 @END

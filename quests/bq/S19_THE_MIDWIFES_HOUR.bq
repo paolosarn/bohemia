@@ -93,7 +93,7 @@
 @END
 
 @TALK bad  speaker=midwife
-  @SAY It's a first baby and she's nineteen and terrified and it's going to be a long one. That isn't bad. That's normal, and normal kills people out here. #dread
+  @SAY It's a first baby and she's nineteen and terrified and it's going to be a long one. That isn't bad. That's normal, and normal kills people. #dread
   @SAY What she wants is to not be alone in the dark. What she needs is boiled water. I won't pretend those are the same thing and I won't pretend the first one doesn't matter.
   @OPT "Then she should be the one who picks." [gate: none]  -> down  @DO learn she_should_choose
   @OPT "Water. Go get the pot on."             [gate: none]  -> down
@@ -142,7 +142,7 @@
 # reserve, and knowing that makes every option heavier and none of them wrong.
 @TALK forwhat  speaker=pastor
   @SAY Winter. Two nights of heat in this hall when it gets cold enough that people come here instead of dying at home. #dread
-  @SAY So it isn't an hour against an hour. It's an hour against a cold night in the deep of winter that I can't see from here and neither can you.
+  @SAY So it is not one hour against another. It is an hour against a cold night in the deep of winter that I can't see from here and neither can you.
   @OPT "Still. Boil the water."              [gate: none]  -> water  @DO learn fuel_is_the_winter
   @OPT "Then let them sing and see her face."  [gate: none]  -> light  @DO learn fuel_is_the_winter
   @OPT "Then nobody spends it yet."           [gate: none]  -> stall  @DO learn fuel_is_the_winter

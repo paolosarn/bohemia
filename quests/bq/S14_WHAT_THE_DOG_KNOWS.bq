@@ -124,7 +124,7 @@
 
 @TALK sit  speaker=sergeant
   @SAY Two hours. Maybe three. No talking, no reaching, and don't take the kit, the kit is what it's guarding. #flat
-  @SAY When it finally eats out of your hand it'll lie down, and that's the part that'll get you, not the smell and not the stairs.
+  @SAY When it finally eats out of your hand it'll lie down, and that is what will get you, not the smell and not the stairs.
   @OPT "I have the time."                  [gate: none]  -> END  @DO set_stage 30
   @OPT (sit down on the step and wait)      [gate: none]  SILENCE -> END  @DO set_stage 30
   @OPT "No. Bring the crew instead."        [gate: none]  -> crew

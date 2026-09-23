@@ -125,7 +125,7 @@
 
 @TALK smallthing  speaker=runner
   @SAY If I knew, it would be a contract, and contracts are for people who plan to argue. #flat
-  @SAY It'll be small. It always is. That's the whole craft of it, and you already know that, or you wouldn't have asked.
+  @SAY It'll be small. It always is. That is the craft of it, and you already know that, or you wouldn't have asked.
   @OPT "Take the crate anyway."            [gate: none]  -> END  @DO learn the_price_is_later  @DO set_stage 32
   @OPT (walk out without answering)         [gate: none]  SILENCE -> both  @DO learn the_price_is_later
 @END
