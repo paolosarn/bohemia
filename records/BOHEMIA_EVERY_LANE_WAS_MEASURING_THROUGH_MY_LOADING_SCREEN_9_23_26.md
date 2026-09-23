@@ -22,8 +22,10 @@ player can see on the first screen, at 390 x 844, on the served cut:
       STANDING  BUILD HERE  SCAVENGE - 8H  BIKE  SLEEP  MARKET
       "walking your own block."           prose with no mouth (rule 19)
 
-After: **THIRTEEN.** What is left is the world, the pad and its action button, the
-teaching line, NOTES, and the phone and the person when they arrive.
+After: **THIRTEEN** at the cut, and **FOURTEEN** once the merge landed the drawn phone
+on the street (see the end of part two, where that number is worked out). What is left
+is the world, the pad and its action button, the teaching line, NOTES, and the phone and
+the person when they arrive.
 
 **HIDDEN FROM THE DEMO SIDE ONLY**, the same way the builder drawer and the cold open
 already are. The workshop and the alpha keep every one of those controls with their
