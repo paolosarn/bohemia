@@ -52,11 +52,11 @@
 #   twenty are in the role-place format above; 688 after round 49 added ten. All
 #   thirty are role-place; 698 after round 49's second half added ten. All forty
 #   are role-place; 708 after round 50 added ten. All fifty are role-place, so the
-#   bullet count is unchanged at 176 for a FIFTH round running and the gap can now
-#   only shrink.
+#   bullet count is unchanged at 176 for a FIFTH round; 718 after round 50's second
+#   half added ten, a SIXTH. All sixty are role-place and the gap can only shrink.
 #
 #   RULE 27 (Paolo 9/21), THE PLAYER DOES NOT SPEAK SPANGLISH: measured across all
-#   532 role-place entries (re-measured 9/23), THE PLAYER DOES NOT SPEAK AT ALL. The
+#   542 role-place entries (re-measured 9/23), THE PLAYER DOES NOT SPEAK AT ALL. The
 #   seven whose descriptor names him have him as the LISTENER. This file's own
 #   "what is not here" sections assert it fourteen times and the assertion holds.
 
@@ -4067,3 +4067,61 @@ MMMMMMMMMM10  a builder, later age, looking at old work     draft:true
 - Spanish register: 0 of 10 lines. Third round at zero: these are people in a
   later age talking about an earlier one, and the register is not a decoration.
   Under the 15% cap either way.
+
+## OOOOOOOOOO. NOBODY KEPT IT UP
+## (round 50 round two. A generation nobody maintained takes things off the map.
+##  Nobody in these lines says a rate or a number. Role, place, situation.)
+
+OOOOOOOOOO1  an old man, later age, at a tier that fell     draft:true
+    "Three floors. You're standing in the third one."
+
+OOOOOOOOOO2  a woman who grew up after, unimpressed         draft:true
+    "It's a floor."
+
+OOOOOOOOOO3  a surveyor of sorts, walking a block off a list  draft:true
+    "This isn't ours. It didn't get taken, it just stopped being ours."
+
+OOOOOOOOOO4  his apprentice, wanting a better answer         draft:true
+    "How does that happen."
+
+OOOOOOOOOO5  the surveyor, who has said it before            draft:true
+    "Slowly. Nobody comes, and then it's true."
+
+OOOOOOOOOO6  a woman at a handoff, listing what is left      draft:true
+    "You've got the ground by the water. That's the good news and I'm
+     giving it to you first on purpose."
+
+OOOOOOOOOO7  the same woman, the second half                 draft:true
+    "The rest of it isn't there any more. Not taken. Not there."
+
+OOOOOOOOOO8  an old worker, on the one that stayed up        draft:true
+    "Somebody climbed up there every season for forty years.
+     That's the whole trick. That's it."
+
+OOOOOOOOOO9  a man handed a debt his father left             draft:true
+    "He's dead."
+
+OOOOOOOOOO10  the one who brought it, putting it away        draft:true
+    "Then so is it. I came to say it out loud, that's all."
+
+## PPPPPPPPPP. WHAT IS NOT HERE, ON PURPOSE (round 50 round two)
+
+- No line contains a rate, a percentage, a tier number spoken as data, a count
+  of generations or a year. OOOOOOOOOO1's "three floors" is a thing you can see,
+  not a statistic.
+- No line explains decay, maintenance or inheritance. OOOOOOOOOO5 and 8 are the
+  whole mechanism and neither of them names it. Nobody in Bohemia is wise.
+- No line uses the words decay, maintain, inherit, generation, ledger or carry.
+- No line blames the player or an ancestor by name. "Nobody comes, and then it's
+  true" is the finding and it has no subject.
+- No line names a faction, a street or a town. MAP LAW.
+- No line has the player speaking. Rule 27: 542 role-place entries in this file
+  now, zero of them him talking.
+- No line decides how many districts or tiers a neglected generation costs, or
+  whether karma decays. Section 7 refused all of it.
+- No line is written for a card or a readout: rule 19(a), rule 29. What this
+  round hands over is a floor that is gone and a block that stopped being yours.
+- Spanish register: 0 of 10 lines. Fourth round at zero, and that is now worth
+  saying plainly: four consecutive sets have been people delivering hard news
+  flatly, and the register is a voice some characters have, not a seasoning to
+  sprinkle on every set. Under the 15% cap either way.

@@ -3301,7 +3301,7 @@ your block top to bottom and confirm every line in it is yours.
 And this file is now ~88,000 lines carrying NINE ECONOMY blocks, most of them
 stale copies of this one. That is a real defect in a file every lane reads every
 round. It is a job for the coordinator to place (18 PLUMBER's remit), not
-something a lane should do to another lane's block.=== ROUND 36 REPORT: [first ten] SHIPPED ====== ROUND 37 REPORT: [carry cost] SHIPPED ====== ROUND 38 REPORT: [old price] SHIPPED ====== ROUND 39 REPORT: [protection court] SHIPPED ====== ROUND 40 REPORT: [how many pockets] SHIPPED ====== ROUND 41 REPORT: [who replaces you] SHIPPED ====== ROUND 42 REPORT: [the bailiff] SHIPPED ====== ROUND 43 REPORT: [double up] SHIPPED ====== ROUND 44 REPORT: [first building] SHIPPED ====== QUEUE EMPTY. 44 OF 44 SHIPPED. THE PILE IS FOLDED INTO ONE MASTER. ====== QUEUE STILL EMPTY. HE PLAYED IT, AND THE ONE THING THIS LANE GOT BUILT AND GOT WRONG IS CORRECTED. ====== ROUND 45 REPORT: [first sixty] SHIPPED ====== ROUND 46 REPORT: [daily radius] SHIPPED ====== ROUND 47 REPORT: [who owns the water] SHIPPED ====== QUEUE EMPTY. THE FOLD: 45, 46 AND 47 ARE IN THE MASTER, AND FOLDING THEM FOUND THREE THINGS. ====== ROUND 48 REPORT: [who still bills] ROUND ONE OF TWO SHIPPED, THE CLAIM STAYS. ====== ROUND 48 ROUND TWO: THE NUMBER. Q48 COMPLETE, 48 OF 48 SHIPPED. ====== QUEUE EMPTY. ROUND 48 IS FOLDED INTO THE MASTER AND IT MADE A SEVENTH CONVERGENCE. ====== ROUND 49 REPORT: [first battery] ROUND ONE OF TWO SHIPPED, THE CLAIM STAYS. ====== ROUND 49 ROUND TWO: THE NUMBER. Q49 COMPLETE, 49 OF 49 SHIPPED. ====== QUEUE EMPTY. ROUND 49 IS FOLDED INTO THE MASTER. ====== ROUND 50 REPORT: [seeds the next act] ROUND ONE OF TWO SHIPPED, THE CLAIM STAYS. ===
+something a lane should do to another lane's block.=== ROUND 36 REPORT: [first ten] SHIPPED ====== ROUND 37 REPORT: [carry cost] SHIPPED ====== ROUND 38 REPORT: [old price] SHIPPED ====== ROUND 39 REPORT: [protection court] SHIPPED ====== ROUND 40 REPORT: [how many pockets] SHIPPED ====== ROUND 41 REPORT: [who replaces you] SHIPPED ====== ROUND 42 REPORT: [the bailiff] SHIPPED ====== ROUND 43 REPORT: [double up] SHIPPED ====== ROUND 44 REPORT: [first building] SHIPPED ====== QUEUE EMPTY. 44 OF 44 SHIPPED. THE PILE IS FOLDED INTO ONE MASTER. ====== QUEUE STILL EMPTY. HE PLAYED IT, AND THE ONE THING THIS LANE GOT BUILT AND GOT WRONG IS CORRECTED. ====== ROUND 45 REPORT: [first sixty] SHIPPED ====== ROUND 46 REPORT: [daily radius] SHIPPED ====== ROUND 47 REPORT: [who owns the water] SHIPPED ====== QUEUE EMPTY. THE FOLD: 45, 46 AND 47 ARE IN THE MASTER, AND FOLDING THEM FOUND THREE THINGS. ====== ROUND 48 REPORT: [who still bills] ROUND ONE OF TWO SHIPPED, THE CLAIM STAYS. ====== ROUND 48 ROUND TWO: THE NUMBER. Q48 COMPLETE, 48 OF 48 SHIPPED. ====== QUEUE EMPTY. ROUND 48 IS FOLDED INTO THE MASTER AND IT MADE A SEVENTH CONVERGENCE. ====== ROUND 49 REPORT: [first battery] ROUND ONE OF TWO SHIPPED, THE CLAIM STAYS. ====== ROUND 49 ROUND TWO: THE NUMBER. Q49 COMPLETE, 49 OF 49 SHIPPED. ====== QUEUE EMPTY. ROUND 49 IS FOLDED INTO THE MASTER. ====== ROUND 50 REPORT: [seeds the next act] ROUND ONE OF TWO SHIPPED, THE CLAIM STAYS. ====== ROUND 50 ROUND TWO: THE RATES. Q50 COMPLETE, 50 OF 50 SHIPPED. ===
 RECORD: records/BOHEMIA_ECONOMY_DAY_47_NOBODY_OWNS_THE_PUMP_THEY_OWN_THE_DISTANCE_9_20_26.md (207 lines)
 BANK:   banks/BOHEMIA_ECONOMY_TEST_LINES_9_5_26.md sections ZZZZZZZZZ-DDDDDDDDDD, +16 lines, 670 draft:true total
 TAB:    NOT IN A TAB YET. MODE: RESEARCH. No engine code touched. Rule 14: never the demo;
@@ -4155,6 +4155,89 @@ THREE PROBES, AND ONE OF THEM WAS RIGHT FOR THE WRONG REASON:
      sharper: the debt is never mentioned because the field is not in the function at all. The
      right answer and the wrong reason are not the same thing.
 
+
+=== ROUND 50 ROUND TWO, [seeds the next act] Q50, THE RATES. THE ROW IS COMPLETE. ===
+RECORD: records/BOHEMIA_ECONOMY_DAY_50_ROUND_TWO_EVERY_ACCUMULATOR_IS_A_PLUS_AND_THE_RUIN_IS_INTEGERS_9_23_26.md (256 lines)
+BANK:   sections OOOOOOOOOO-PPPPPPPPPP, +10 lines, 718 entries, all ten role-place, so the 176
+        bullet entries owing a WHO have not grown for a SIXTH round running.
+TAB:    NOT IN A TAB YET. MODE: RESEARCH. No engine code touched. RULE 31 SAYS IT ITSELF: the
+        demo does not change, this is alpha work. Rules 14, 15, 18(b) unchanged; rule 22 binds
+        MAKING lanes and names twelve, ECONOMY is not one.
+GATES:  pre-push pass SEVEN GREEN, ONE RED, the SAME routed one, UNCHANGED at 83 this round --
+        economy 13/0, purse 28/0, payday 40/0, attempt 15/0, demo blockers 22/0, language 85/0,
+        handoff 8/0, canon rot 12/1. Full suite: 107 red at ad23d875, mine are: none.
+
+*** FIRST, A CORRECTION ON MY OWN ROUND ONE, AND IT IS THE SAME FAULT I KEEP RECORDING IN
+OTHER PEOPLE'S INSTRUMENTS. *** Round one said our status rate is 0.79 against a measured
+0.70-0.75, so ours was too high. WRONG, BECAUSE I READ A COMMENT INSTEAD OF A CONSTANT.
+STANDING_DECAY_TO_NEUTRAL = 0.25, so standings KEEP 0.75 -- dead centre of the measured range.
+THE RUNNING CODE IS RIGHT. ONLY THE COMMENT BESIDE IT SAYS 0.79. The disagreement is not
+between us and the world, it is between our own comment and our own constant, and I reported
+the comment as the behaviour. The rest of round one survives it.
+
+*** THE RATCHET, DEMONSTRATED ON THE SHIPPED FUNCTION RATHER THAN READ OFF A TABLE. *** Two
+whole generations in which the player does absolutely nothing:
+    AFTER GEN 0 (six things done) territory 2  builds{b1:3}  econ{electricity:10}  Blues 80  karma 5
+    AFTER GEN 1 (NOBODY DID ANYTHING) territory 2  builds{b1:3}  econ{electricity:10}  Blues 60  karma 5
+    AFTER GEN 2 (NOBODY DID ANYTHING) territory 2  builds{b1:3}  econ{electricity:10}  Blues 45  karma 5
+A HUNDRED YEARS OF TOTAL NEGLECT COSTS YOU ONE FACTION'S OPINION AND NOTHING ELSE. The land,
+the buildings, the capacity and the karma are byte-identical to the day he stopped playing.
+AND THE CODE SAYS WHY, ONE WORD PER FIELD: territory is assignment and never deleted; builds is
+Math.max(existing, tier) -- AN EXPLICIT MAX, THE RATCHET WRITTEN AS A FUNCTION CALL; economy,
+invest, karma, virtues are +=; wounds is .push; blindSpot and recordedKnown are +=1; standings
+is the one *= (1-0.25). THERE IS NOT ONE SUBTRACTION, ONE delete OR ONE splice IN THE WHOLE
+FUNCTION.
+
+*** THE UNLOCK, AND IT IS THE FINDING OF THE ROUND: THE PAIR THAT MAKES THE RUIN IS ALREADY
+INTEGERS. *** EVERYTHING COSTS ONE and round 14 measured we have no fractions, so "carry at
+0.5" sounds illegal -- and whether it is depends on a field's SHAPE, which is measurable:
+  COUNTS: territory {districtId->ownerId}, builds {buildingId->tier}, wounds[], recordedKnown,
+    blindSpot.
+  VALUES: economyCapacity, invest, karma, virtues, standings.
+TERRITORY AND BUILDS ARE COUNTS OF THINGS. Losing half your ground is dropping entries from a
+map; losing a building is a tier going 3, 2, 1, gone. NO FRACTION IS EVER COMPUTED, nothing is
+displayed as a decimal, and EVERYTHING COSTS ONE is untouched because a tier step IS one.
+AND THE ONE DECAY WE ALREADY HAVE IS WHERE FRACTIONS GOT IN: a standing of 5 with nobody doing
+anything goes 3.75, 2.8125, 2.109375. Nothing shows it to the player so it has never bitten,
+but it is the pattern not to copy: PUT THE DECAY ON THE COUNTS, NOT THE VALUES, and the
+arithmetic stays honest by construction.
+
+THE NINE-ROW RATE TABLE, WITH WHOSE EACH ONE IS (section 3 of the record has it in full):
+  ALREADY RIGHT: family, recordedKnown, blindSpot carry whole; standings at 0.75.
+  MINE TO STATE, HIS TO PICK INSIDE: economyCapacity should decay, measured range 0.48-0.59.
+  HIS: invest and virtues (texture and meaning, not measured quantities); karma (a moral
+    question wearing a number); AND THE TWO RUIN DIALS, territory and builds.
+  SETTLED BUT SILENT: wounds carry and debt dies, and neither is ever SAID at the handoff.
+FOUR OF NINE ROWS ARE ALREADY RIGHT and one is right and mislabelled by its own comment.
+
+WHAT THE RUIN NEEDS, NO FRACTIONS: each unmaintained generation, some districts stop being held
+and some buildings step down a tier; a tier-1 building that steps again is gone from the map.
+Both are integer operations on a count, both are visible from the far view with no number on
+screen, and both are the exact opposite of the Math.max that is there now. HOW MANY IS HIS DIAL
+and it is the only dial the ruin needs. AND MAINTENANCE IS ALREADY IN THE GAME: round 47
+measured that a plant runs only if the street it fronts is live and round 44 found the pumps
+dark, so A DISTRICT THAT WAS LIT WHEN THE GENERATION ENDED WAS MAINTAINED. The fold does not
+need a new maintenance system, it needs to read the one the world already has.
+
+AND THE TWO SILENCES, WHICH COST NOTHING: whatDied() says exactly two sentences and the debt is
+never one of them; a lost district and a fallen building would not be either. The handoff should
+say what was LOST in the same breath as what was KEPT, and the fold's own study already ruled
+the order: kept first because it answers the player's question, lost second because it lands
+harder and needs no help.
+
+THE PROJECT-LEVEL HOLE, INSTANCE 38, AND THE SHARPEST FORM YET: A COMMENT AND ITS OWN CONSTANT
+DISAGREE, SIX INCHES APART, AND BOTH ARE SHIPPED. The constant says 0.75, the comment says
+0.79, every gate is green because the gates read the code and nobody reads the prose. AND IT
+COST SOMETHING REAL: it put a wrong sentence in this lane's own record one round ago, because
+I read the prose too. A gate diffing every stated number in a comment against the constant
+beside it would have caught this and, on round 48's evidence, several more.
+
+THE PROBE NOTE: foldGeneration IS exported and I said it was not. My first check grepped for
+"module.exports =" and reported "not directly"; the engine returns its modules from an IIFE, so
+the real export is Generations.foldGeneration. Reading the source found the ratchet, but
+RUNNING it is what turned "ten of thirteen carry whole" into two generations of nobody doing
+anything and nothing changing. The measurement I nearly settled for was the weaker one.
+
 [PENDING Paolo] -- for the coordinator, one at a time:
   *** 1 TO 9 ARE RULED. The coordinator decided all nine on 9/13 under EVERYTHING IS
   A THUMB, in records/BOHEMIA_RULING_NINE_DEFAULTS_THE_ECONOMY_WAS_CARRYING_9_13_26.md.
@@ -4333,22 +4416,29 @@ THREE PROBES, AND ONE OF THEM WAS RIGHT FOR THE WRONG REASON:
      is the kind of change he should meet in play rather than read about. Nothing
      is blocked on it; WORLD can build it under his existing law.
 
-NEXT IN THIS LANE: ROUND TWO OF Q50 [seeds the next act], AND THE CLAIM IS STILL ON THE BOARD.
-The row says two rounds and round one is the school. ROUND TWO COSTS THE RATES: what each of
-the thirteen fields should carry at, which of those numbers are MINE TO DERIVE and which are
-HIS TO RULE, what the pair that makes the ruin (territory and builds) needs so that neglect in
-act one actually shows in act three, and whether the debt's death gets said out loud at the
-handoff. THE ONE RULE FOR ROUND TWO IS ROUND 38'S: that round had the mechanism measured in its
-own section 1 and shipped a number anyway, and the number broke his tutorial. Section 6 of the
-round 50 record is the mechanism, grouped four ways. Cost it, do not re-derive it.
-THREE THINGS TO CARRY IN: (a) fold(ledger, memory) is already pure and re-runnable, so nothing
-in round two needs to argue for that; (b) our two existing rates are both wrong and the
-corrections are in section 3, so round two starts by fixing what is there before adding
-anything; (c) TRUST IS A FOURTEENTH FIELD AND ADDING IT IS A DESIGN RULING, not a number --
-eight of the existing thirteen are already draft, and DYNASTY owns [the derive].
-AFTER Q50 CLOSES: fold both halves into the master (a STANDING JOB, not a board job). The
-harvest script has a control -- reproduce every published number before believing a new one --
-and it has caught a fault every time it has run. Do not fold from memory.
+NEXT IN THIS LANE: QUEUE EMPTY. Q1 THROUGH Q50 ARE ALL SHIPPED and the board has no OPEN line
+for ECONOMY. This lane HOLDS until the coordinator puts one up. Rule 10 forbids inventing a
+job; rule 22 binds MAKING lanes and names twelve and ECONOMY is not one.
+IF THE QUEUE IS STILL EMPTY NEXT ROUND, in order, none of them a job:
+ (a) FOLD ROUND 50, BOTH HALVES, INTO THE MASTER
+     (records/BOHEMIA_ECONOMY_MASTER_WHAT_FORTY_FOUR_ROUNDS_FOUND_9_15_26.md, titled WHAT
+     FORTY-NINE ROUNDS FOUND, keeping its FORTY_FOUR filename because records and the board
+     cite that path). A STANDING JOB from CLAUDE.md, not a board job. Round 50 adds two table
+     rows, changes the routing counts, and belongs in section 0.FIVE with its own flavour: A
+     PART THAT DOCUMENTS ITS OWN DEFECT (round one) and A COMMENT THAT DISAGREES WITH ITS OWN
+     CONSTANT (round two). Section 3 gains the counts-versus-values split and the 0.75/0.79
+     correction. THE HARVEST SCRIPT HAS A CONTROL: reproduce every published number before
+     believing a new one. It has caught a fault every time and has run three folds clean.
+ (b) A PENDINGS PASS. Thirty-three questions, nine collapsed by the 9/13 ruling, and several
+     more answered by rulings made since that nobody has gone back to check. Round 49 found
+     three of its four open items were PENDING 41 in a different hat, which is the tell: the
+     list is longer than the real question count. Nobody else can do it because nobody else has
+     read all 53 records.
+ (c) THE 176 BANK ENTRIES THAT OWE A WHO under rule 19, held still for six rounds now.
+AND ONE THING TO CARRY INTO ANY ROUND THAT TOUCHES THE FOLD: the two ruin dials are territory
+and builds, they are COUNTS so the arithmetic is integers, and Math.max on builds is the
+ratchet in one line. Section 3 of the round 50 round two record is the table DYNASTY [the
+derive] asked for, and that row is still OPEN on their section.
 
 
 ================================================================================
