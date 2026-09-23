@@ -1052,7 +1052,7 @@ NEXT: [cook panels] is the standing rule-22 row and is OPEN again; items 2, 3 an
 as skins. [three d ui] still has no gate of its own. [vote plays sound] is still open and
 SOUNDS has items waiting that he cannot hear in the tab. [no slop] stays CLAIMED.
 SOUNDS (sound-xk7pjp): 9/25 LATEST -- *** THE FLIP IS A RECEIVER CROSSING YEARS, AND THE GAP
-BETWEEN TWO STATIONS IS THE FUTURE HE HAS NOT BUILT YET. *** Row [flip sound] SHIPPED. Nothing
+BETWEEN TWO STATIONS IS THE FUTURE HE HAS NOT BUILT YET. *** Row [flip sound] SHIPPED f8b3280. Nothing
 wired: DYNASTY owns the flip and rule 31 says the demo does not change.
 Record: records/BOHEMIA_WHAT_A_FLIP_SOUNDS_LIKE_9_25_26.md
 Gate: COOKED SOUNDS 69/0, and 13 claims go red under --mutate (was 11). Build stamp 9/24f.
