@@ -266,4 +266,25 @@ noisier is a dial, not a fix, and it is his.
 attempts (place 1 in 2, hour 1 in 3, bigger 1 in 4, wrong man 1 in 5) and the
 VOTE page asks him for them.
 
+AND ONE MORE CAUGHT BY PARSING WHAT WAS COMMITTED INSTEAD OF TRUSTING THE TOOL.
+Main moved mid-round and the rebase conflicted on the build stamp and the vote
+registry. The registry merge script threw on the JSON, so it never wrote the
+file -- but `git add` had already staged it WITH ITS CONFLICT MARKERS IN IT, and
+`rebase --continue` committed that. A rebase finishing is not a merge working.
+Both lanes' items are kept, the file parses, 107 items in the tab. The build
+stamp went FORWARD, to 9/24c, because this lane has put it backwards twice.
+
+PRE-PUSH PASS, EVERY RED CLASSIFIED AGAINST A CLEAN origin/main WORKTREE:
+  horror_crowd 35/2, city_barks 12/1, talking_portrait 28/1, enemies_remember
+  24/1 all fail IDENTICALLY on clean main, same claims, same numbers.
+  make_it_right 34/5 as before. city_deeds TIMES OUT on clean main too, blocked
+  by the 9/22b loading door. derived_freshness is red on main as well, and this
+  round's rebuild HEALED CURRENT_SLICE; its ALPHA and CITY_WORLD entries read
+  +0/-0 and their named maker produces a byte-identical file in this tree, so
+  that entry is the gate's own worktree overlay.
+  GREEN: rumours_travel 58/0, no_clumping 37/0, a_name 47/0, face_at_the_door
+  31/0, walking_companion 45/0, weights_shape 48/0, a_human_being 14/0,
+  LANGUAGE 85/0, standing 35/0, deed_bridge 29/0, who_vouches 19/0,
+  rulings 131/0, commitment 72/0, vote_tab 30/0.
+
 TAB: CITY, the walked street in the alpha. VOTE, for the three mouths.

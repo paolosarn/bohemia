@@ -8086,6 +8086,17 @@ PRE-PUSH PASS, AND EVERY RED CLASSIFIED AGAINST A CLEAN origin/main WORKTREE:
                    and running their named maker in this tree produces a
                    BYTE-IDENTICAL file, so that entry is the gate's own worktree
                    overlay, measured both ways. PLUMBER's, not mine.
+                   city_deeds TIMES OUT identically on clean main: the 9/22b
+                   loading door intercepts its tap ("#front subtree intercepts
+                   pointer events"). That gate needs the pageEval DIRECTION added
+                   for exactly this. Not mine, and not this row.
+  AFTER THE REBASE onto 400c374d (main moved mid-round, and the rebase conflicted
+  on the build stamp and the vote registry): rumours_travel 58/0, no_clumping
+  37/0, a_name 47/0, face_at_the_door 31/0, vote_tab 30/0. *** AND THE REGISTRY
+  CONFLICT NEARLY SHIPPED BROKEN: *** my merge script threw on the JSON, git add
+  had already staged the file WITH ITS CONFLICT MARKERS, and `rebase --continue`
+  committed it. Caught by parsing the committed file instead of trusting that the
+  rebase finishing meant the merge worked. Both lanes' items kept, 107 in the tab.
 
 MEASURED AND NOT FIXED: YOU WILL RARELY HEAR IT WHILE WALKING. Four hundred
 walked steps, a carrier came within earshot ONCE and spoke that once -- the bark
