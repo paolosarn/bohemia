@@ -1,0 +1,273 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>BOHEMIA - THE LAST LIGHT</title>
+<style>
+ :root{ --ink:#141210; --paper:#f4efe6; --rule:#9c907c; --hot:#a8391d; --dim:#4a443c }
+ *{ box-sizing:border-box }
+ body{ margin:0; background:var(--paper); color:var(--ink);
+       font:15px/1.5 ui-sans-serif,system-ui,-apple-system,Arial,sans-serif }
+ header{ padding:14px 14px 10px; border-bottom:3px solid var(--ink) }
+ h1{ margin:0 0 5px; font-size:19px; letter-spacing:.3px }
+ .sub{ font-size:14px; color:var(--dim) }
+ .said{ margin:10px 14px; padding:9px 12px; border-left:5px solid var(--hot);
+        background:#fff; font-size:14px }
+ .said b{ color:var(--hot) }
+ .fix{ margin:10px 14px; padding:9px 12px; border-left:5px solid #6b6252;
+       background:#fff; font-size:13px; color:var(--dim) }
+ .fix b{ color:var(--ink) }
+ .wrap{ padding:6px 14px 50px }
+ .big{ background:#fff; border-bottom:3px solid var(--ink); padding:8px }
+ .big canvas{ display:block; width:100%; max-width:380px; margin:0 auto; height:auto;
+              image-rendering:pixelated; background:#0d0b08 }
+ .row{ display:flex; flex-wrap:wrap; gap:8px; background:#fff; padding:8px;
+       border-bottom:3px solid var(--ink); margin-top:14px }
+ .row > div{ flex:1 1 30%; min-width:0 }
+ .row canvas{ display:block; width:100%; height:auto; image-rendering:pixelated;
+              background:#0d0b08 }
+ .wrong{ font:11px/1.35 ui-monospace,monospace; color:var(--dim); margin-top:6px }
+ .wrong b{ color:var(--hot); display:block; font-size:10px; letter-spacing:.4px }
+ .cap{ font-size:14px; color:var(--dim); margin:10px 0 0 }
+ .cap b{ color:var(--ink) }
+ table{ border-collapse:collapse; width:100%; background:#fff; margin-top:14px;
+        font:12px/1.4 ui-monospace,monospace }
+ th,td{ text-align:left; padding:5px 7px; border-bottom:1px solid #ddd5c4 }
+ th{ background:var(--ink); color:var(--paper); font-weight:700 }
+ td.n{ text-align:right }
+ tr.dark td{ color:#a8391d; font-weight:700 }
+ .sw{ display:inline-block; width:10px; height:10px; border:1px solid #6b6252;
+      vertical-align:-1px; margin-right:5px }
+</style></head><body>
+
+<header>
+ <h1>THE LAST LIGHT</h1>
+ <div class="sub">The Volunteers hold 331 blocks of this valley and exactly one of them has
+ power. Here is that block. 9/23</div>
+</header>
+
+<div class="said">
+ <b>ONLY 3.9% OF THE VALLEY HAS POWER AT ALL</b> — 358 blocks out of 9,216. It is not
+ spread evenly and it is not spread fairly. <b>The Cartel hold 17% of all the light in the
+ valley</b>, more than anybody. The Volunteers hold one block of it.
+ <br><br>
+ <b>And both substations are dark.</b> The two buildings whose whole job is handing out
+ power do not have any.
+</div>
+
+<div class="wrap">
+ <div class="big">
+  <canvas id="hero"></canvas>
+  <div class="cap"><b>One street lamp, on 331 blocks, and the thing that feeds it has been
+  off for ten years.</b></div>
+ </div>
+
+ <div class="row" id="row"></div>
+
+ <table id="tbl"></table>
+ <div class="cap">Counted off the real map: every block, who holds it, and whether it has a
+ live circuit. <b>The three darkest crews are all camps</b>, which is also the cheapest
+ ground to walk on. The cheap ground is cheap because it is dark.</div>
+
+ <div class="fix">
+  <b>AND A CORRECTION TO WHAT I TOLD YOU LAST ROUND.</b> I said the data fort had "all six
+  of its blocks lit". That was sloppy. Its six blocks have <b>no circuit of their own</b>;
+  they touch a live street, which is what having power means for a building, but it is not
+  the same sentence. <b>And it is Cartel ground, not Network.</b> I nearly drew it in the
+  Network's colour and caught it, then still got the words wrong. Fixed here.
+ </div>
+</div>
+
+<script src="bohemia_sign_kit.js"></script>
+<script>
+/* ===========================================================================
+   THE LAST LIGHT -- the cook, FACTIONS lane, [horror signs] round seven, 9/23.
+
+   MEASURED FIRST, two boots of the one driver, and it corrected me twice.
+
+   1. WHO HOLDS THE LIGHT. 358 lit cells of 9,216 -- 3.9% of the valley, not the
+      12% this lane has been repeating from the power grid's own design note.
+        Cartel     875 cells,  61 lit   7.0% of their own   17.0% of ALL the light
+        Remnants  1028,        54       5.3%                15.1%
+        Mob       1490,        46       3.1%                12.8%
+        Anarchists 528,        45       8.5%                12.6%   <- most lit ground
+        Caravans   545,        27       5.0%                 7.5%
+        Network   1221,        26       2.1%                 7.3%
+        Church     453,        24       5.3%                 6.7%
+        Reds       654,        21       3.2%                 5.9%
+        Blues      473,        17       3.6%                 4.7%
+        Custom     363,        14       3.9%                 3.9%
+        Homeless   378,        14       3.7%                 3.9%
+        Colorful   432,         5       1.2%                 1.4%
+        Trades     445,         3       0.7%                 0.8%
+        VOLUNTEERS 331,         1       0.3%                 0.3%
+      THE THREE DARKEST CREWS ARE ALL CAMP TIER, which round three measured as the
+      CHEAPEST ground to walk on (two blocks in three free). Two systems nobody
+      wired together agree: the cheap ground is cheap because it is dark.
+
+   2. AND IT CORRECTED MY OWN LAST ROUND. I wrote "the data fort has all six of
+      its blocks lit". Measured both ways: own circuit FALSE on all six, touches a
+      live street TRUE on all six. The radius-1 reading is the right one for a
+      BUILDING (the city's pumpStations() uses exactly it, because circuits are
+      contiguous street runs so a non-street cell never has one of its own) -- but
+      "all six blocks lit" is not that sentence, and the fort is CARTEL ground,
+      not Network. I caught myself lighting its windows a pixel off the Network
+      teal last round and still got the words wrong in the same round.
+
+   3. BOTH SUBSTATIONS ARE DARK. 34,39 on Network ground and 58,64 on Custom
+      ground, neither with a live circuit. The two buildings whose entire job is
+      handing out power have none.
+
+   NO NEW SILHOUETTE. He has killed three of four shapes and has not ruled on the
+   night re-cook, so this is the APPROVED monument plus the one thing the bible
+   requires anyway: a DRAWN FIXTURE. R4 says every lumen has a source you can
+   point at, and on a block with one light the lamp IS the subject.
+   ======================================================================== */
+var K = window.BohemiaSignKit;
+var NK = K.NIGHT_K;
+var GROUND = '#9a8f7c';
+var SKY = '#0d0b08';
+
+/* MEASURED 9/23 off the live demo. */
+var LIT_TOTAL = 358, CELLS_TOTAL = 9216;
+var CREWS = [
+  ['Cartel','#434042',875,61], ['Remnants','#4c5238',1028,54], ['Mob','#454142',1490,46],
+  ['Anarchists','#573f2a',528,45], ['Caravans','#6c5b41',545,27], ['Network','#25a189',1221,26],
+  ['Church','#826c3e',453,24], ['Reds','#773229',654,21], ['Blues','#2d5fb3',473,17],
+  ['Custom','#363636',363,14], ['Homeless','#968b82',378,14], ['Colorful','#61a136',432,5],
+  ['Trades','#674b34',445,3], ['Volunteers','#c1bdb5',331,1]
+];
+
+function nightGround(g, W, H, horizon){
+  g.fillStyle = SKY; g.fillRect(0, 0, W, H);
+  g.fillStyle = K.night(GROUND, NK); g.fillRect(0, horizon, W, H - horizon);
+  g.fillStyle = K.night(GROUND, NK * 1.15); g.fillRect(0, horizon, W, 2);
+}
+
+/* NOTE TO THE NEXT READER: the lamp is drawn INSIDE the scene that owns it,
+   below, not as a shared helper. The first draft of this page had a streetLamp()
+   and a lampGlass() stub up here that nothing ever called, both left holding
+   garbage strings, because I wrote the signature before I knew whether a second
+   scene would need one. It did not. FOURTH TIME THIS LANE HAS LEFT A DEAD STUB
+   IN A FIRST DRAFT -- write the thing where it is used, and hoist it only when a
+   second caller actually exists. */
+
+/* ---- 1. THE LAST LIGHT (Volunteers, block 27,15) ----------------------- */
+function drawLastLight(g, W, H){
+  nightGround(g, W, H, 58);
+  /* the camp it stands on: low shacks, none of them lit */
+  var shack = '#8a7f6a';
+  K.box3d(g, 8, 44, 22, 14, 6, K.night(shack, NK), K.night(shack, NK*1.2), K.night(shack, NK*0.7));
+  K.box3d(g, 88, 46, 26, 12, 6, K.night(shack, NK), K.night(shack, NK*1.2), K.night(shack, NK*0.7));
+  K.box3d(g, 40, 48, 18, 10, 5, K.night(shack, NK*0.9), K.night(shack, NK*1.1), K.night(shack, NK*0.6));
+
+  /* THE LAMP, and it is the only fixture in the frame */
+  var x = 62, groundY = 62;
+  var steel = '#6f6a61';
+  g.fillStyle = K.night(steel, NK * 1.2); g.fillRect(x, 16, 3, groundY - 16);
+  g.fillStyle = K.night(steel, NK * 1.7); g.fillRect(x, 16, 1, groundY - 16);
+  g.fillStyle = K.night(steel, NK * 1.3); g.fillRect(x - 12, 13, 15, 4);
+  g.fillStyle = K.night(steel, NK * 1.8); g.fillRect(x - 12, 13, 15, 1);
+  g.fillStyle = '#e8c06a'; g.fillRect(x - 11, 17, 9, 3);      /* the sodium lamp */
+  g.fillStyle = K.mix('#e8c06a', SKY, 0.5); g.fillRect(x - 12, 20, 11, 1);
+
+  K.pool(g, x - 6, 68, 34, 9, GROUND, 4);
+}
+
+/* ---- 2. THE SUBSTATION (dark, Network ground, 34,39) -------------------- */
+function drawSubstation(g, W, H){
+  nightGround(g, W, H, 58);
+  /* the yard: transformers in a row, all cold, and the fence */
+  var steel = '#7c786c';
+  for (var i = 0; i < 3; i++)
+    K.box3d(g, 18 + i * 26, 34, 18, 24, 7, K.night(steel, NK * 0.95),
+            K.night(steel, NK * 1.15), K.night(steel, NK * 0.65));
+  g.fillStyle = K.night('#6f6a61', NK * 1.1);
+  for (var f = 0; f < 30; f++) g.fillRect(8 + f * 4, 44, 1, 14);
+
+  /* the only light in the frame is a long way off and it is somebody else's */
+  g.fillStyle = '#c9a44e'; g.fillRect(118, 40, 3, 3);
+  g.fillStyle = K.mix('#c9a44e', SKY, 0.6); g.fillRect(117, 43, 5, 1);
+
+  monument(g, 30, 62, ['SUBSTATION'], 1.25);
+}
+
+/* ---- 3. THE DATA FORT (Cartel, dark ground, fed off the street) --------- */
+function drawFort(g, W, H){
+  nightGround(g, W, H, 58);
+  var fort = '#7c7a70';
+  K.box3d(g, 30, 16, 62, 42, 11, K.night(fort, NK * 0.95),
+          K.night(fort, NK * 1.15), K.night(fort, NK * 0.7));
+  /* no windows, no name, no door. The cable is the only thing that says it is on */
+  g.fillStyle = K.night('#5a564d', NK * 1.4);
+  g.fillRect(92, 26, 30, 2); g.fillRect(92, 27, 2, 20);
+  /* the street it draws from, and the street IS lit */
+  K.pool(g, 116, 64, 22, 7, GROUND, 4);
+  g.fillStyle = '#c9a44e'; g.fillRect(114, 30, 3, 4);
+  g.fillStyle = K.night('#6f6a61', NK * 1.3); g.fillRect(115, 34, 1, 26);
+}
+
+/* the approved monument, panel dead */
+function monument(g, cx, baseY, lines, glow){
+  var base = '#a99e88', shell = '#8e8a7e';
+  var PLATE = 46, CAB = 54;
+  K.box3d(g, cx - CAB/2 - 6, baseY, CAB + 12, 12, 8, K.night(base, NK * glow),
+          K.night(base, NK * 1.2 * glow), K.night(base, NK * 0.7 * glow));
+  K.box3d(g, cx - CAB/2, baseY - 26, CAB, 26, 7, K.night(shell, NK * glow),
+          K.night(shell, NK * 1.2 * glow), K.night(shell, NK * 0.7 * glow));
+  g.fillStyle = K.night(shell, NK * 0.72 * glow);
+  g.fillRect(cx - PLATE/2, baseY - 23, PLATE, 20);
+  var ink = K.night('#cfc6b2', NK * 1.45 * glow);
+  var y = baseY - (lines.length > 1 ? 21 : 17);
+  for (var li = 0; li < lines.length; li++)
+    K.c3(g, lines[li], cx, y + li * 6, ink, PLATE - 4);
+  g.fillStyle = K.night('#3a352c', NK * 0.9); g.fillRect(cx - 16, baseY - 8, 32, 5);
+}
+
+var SCENES = [
+  { fn:drawLastLight, w:128, h:80,
+    wrong:'One street lamp, on 331 blocks, and the thing that feeds it has been off for ten years.' },
+  { fn:drawSubstation, w:128, h:80,
+    wrong:'The building whose whole job is handing out power is the one without any.' },
+  { fn:drawFort, w:128, h:80,
+    wrong:'It has no name, no windows and no light of its own, and it is still drawing off the street.' }
+];
+
+var hero = document.getElementById('hero');
+hero.width = 128; hero.height = 80;
+(function(){ var g = hero.getContext('2d'); g.imageSmoothingEnabled = false;
+  drawLastLight(g, 128, 80); })();
+
+var row = document.getElementById('row');
+for (var i = 0; i < SCENES.length; i++){
+  var s = SCENES[i];
+  var d = document.createElement('div');
+  var c = document.createElement('canvas'); c.width = s.w; c.height = s.h;
+  d.appendChild(c);
+  var g2 = c.getContext('2d'); g2.imageSmoothingEnabled = false;
+  s.fn(g2, s.w, s.h);
+  var t = document.createElement('div'); t.className = 'wrong';
+  t.innerHTML = '<b>THE ONE WRONG THING</b>' + s.wrong;
+  d.appendChild(t); row.appendChild(d);
+}
+
+var rows = '<tr><th>CREW</th><th class="n">BLOCKS</th><th class="n">LIT</th>'
+         + '<th class="n">OF THEIRS</th><th class="n">OF ALL LIGHT</th></tr>';
+for (var j = 0; j < CREWS.length; j++){
+  var k = CREWS[j];
+  var own = (100 * k[3] / k[2]).toFixed(1);
+  var all = (100 * k[3] / LIT_TOTAL).toFixed(1);
+  var cls = (k[3] <= 5) ? ' class="dark"' : '';
+  rows += '<tr' + cls + '><td><span class="sw" style="background:' + k[1] + '"></span>'
+       +  k[0] + '</td><td class="n">' + k[2] + '</td><td class="n">' + k[3]
+       +  '</td><td class="n">' + own + '%</td><td class="n">' + all + '%</td></tr>';
+}
+document.getElementById('tbl').innerHTML = rows;
+
+(function(){
+  if (!K.overflows || !K.overflows.length) return;
+  var w = document.createElement('div'); w.className = 'said';
+  w.innerHTML = '<b>TEXT RAN OFF ITS SIGN:</b><br>' + K.overflows.map(function(o){
+    return '"'+o.text+'" is '+o.width+' px in a '+o.maxW+' px space'; }).join('<br>');
+  document.querySelector('.wrap').insertBefore(w, document.querySelector('.wrap').firstChild);
+})();
+</script>
+</body></html>
