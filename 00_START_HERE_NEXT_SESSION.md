@@ -11205,87 +11205,84 @@ HOW TWENTY-TWO ROUNDS COMPOSE, written once now that Q1-Q22 are all shipped:
 NEXT IN THIS LANE: Q23 [who eats first].
 
 
-FACTIONS (factions-ovkjpf): 9/22 (round 38) LATEST -- *** EVERY COURTHOUSE, POLICE STATION,
-FIRE STATION, LIBRARY, JAIL, PRISON, HOSPITAL AND CEMETERY IN THIS VALLEY IS DARK. EIGHTEEN
-BLOCKS, NOT ONE WITH POWER. THE DATA FORT HAS ALL SIX OF ITS BLOCKS LIT. Counted off the
-map, not written as lore. Cooked as volume on the ONE shape he approved. ***
+FACTIONS (factions-ovkjpf): 9/23 (round 39) LATEST -- *** THE VOLUNTEERS HOLD 331 BLOCKS OF
+THIS VALLEY AND EXACTLY ONE OF THEM HAS POWER. Block 27,15. Only 3.9% of the whole valley is
+lit, the Cartel hold 17% of all of it, and BOTH SUBSTATIONS ARE DARK.
+AND THE SWEEP CORRECTED MY OWN LAST ROUND: the data fort's six blocks have NO CIRCUIT OF
+THEIR OWN and it is CARTEL ground, not Network. I fixed that picture last round and left the
+wrong sentence standing beside it. ***
 Nothing to judge outside the VOTE tab.
 
-WHY VOLUME AND NOT A FIFTH SHAPE
-  He killed three of the four silhouettes and HAS NOT YET RULED ON THE NIGHT RE-COOK (93
-  items in the tab, 83 verdicts, mine is in the unvoted ten). Drawing a fifth shape before
-  he rules is the fourth-version tell STOP PRODUCING names. But the monument IS APPROVED
-  ("More analog horror") and APPROVAL UNLOCKS VOLUME, so this is volume on the shape he
-  kept, pushed where he asked it pushed.
-
-VAMILY rows: [horror signs] CLAIMED 9/21, six rounds; three killed, one up, one redo and
-            one volume item waiting on him.
+VAMILY rows: [horror signs] CLAIMED 9/21, seven rounds. THREE OF MY ITEMS ARE STILL UNVOTED
+            (the night re-cook, the dark institutions, this one); 108 items, 83 verdicts.
             [same lender] still CLAIMED AND HELD under 14b + 18b.
-Record: records/BOHEMIA_THE_DARK_INSTITUTIONS_9_22_26.md
+Record: records/BOHEMIA_THE_LAST_LIGHT_9_23_26.md
+Round 38: records/BOHEMIA_THE_DARK_INSTITUTIONS_9_22_26.md
 Round 37: records/BOHEMIA_THE_SIGNS_AT_NIGHT_9_22_26.md (the re-cook AND the post-mortem)
 
-*** THE MEASUREMENT, AND IT BEAT ANYTHING I WOULD HAVE INVENTED ***
-  Swept all 9,216 cells for district kind and asked the power grid cell by cell, with the
-  same radius-1 service-connection rule pumpStations() uses.
-    DARK, EVERY BLOCK:  medical 4/0, prison 4/0, cemetery 3/0, courthouse 2/0,
-                        policestation 2/0, chapel 2/0, firestation 1/0, library 1/0,
-                        jail 1/0, radio 1/0
-    LIT:                DATAFORT 6/6, watertreat 2/2, pumpstation 1/1, strat 1/1,
-                        truckstop 1/1, casino 5/2, substation 2/1, reclaim 2/1
-  THE COURTS, THE POLICE, THE FIRE HOUSE, THE LIBRARY, THE JAIL, THE PRISON, THE HOSPITAL
-  AND THE CEMETERY ARE ALL DARK AND THE DATA FORT IS AT FULL POWER ON EVERY BLOCK.
-  NOBODY AUTHORED THAT. It fell out of the map generator and the grid generator agreeing
-  with each other, and until this sweep nothing had ever asked them the question together.
-  FOURTH TIME THIS LANE HAS FOUND A FACT BY ASKING TWO SHIPPED SYSTEMS ONE QUESTION NEITHER
-  WAS BUILT TO ANSWER (who feeds the pumps, what a tier charges, who came past, this).
-  AND IT IS R7 DONE PROPERLY. The bible calls THE LIT STREET WITH NOBODY HOME the cheapest
-  dread we own and its measure is "the wrongness traces to a real world-state row".
-  Satisfied by construction: every lit thing in these three frames is a district the grid
-  really feeds and every dark one is a district it really does not.
+*** WHO HOLDS THE LIGHT (358 lit cells of 9,216 = 3.9%, NOT the 12% this lane kept
+repeating off the grid's own design note) ***
+      Cartel      875 cells   61 lit    7.0% of theirs   17.0% OF ALL THE LIGHT
+      Remnants   1028         54        5.3%             15.1%
+      Mob        1490         46        3.1%             12.8%
+      Anarchists  528         45        8.5% <- most     12.6%
+      Caravans    545         27   Network 1221  26   Church 453  24   Reds 654  21
+      Blues       473         17   Custom   363  14   Homeless 378  14
+      Colorful    432          5        1.2%              1.4%
+      Trades      445          3        0.7%              0.8%
+      VOLUNTEERS  331          1        0.3%              0.3%
+  THE CARTEL HOLD 17% OF ALL THE LIGHT on the fourth largest holding. ANARCHISTS HAVE THE
+  HIGHEST SHARE OF THEIR OWN GROUND LIT (8.5%) and round two measured that they also hold
+  100% OF THE RUNNING WATER -- two independent systems keep pointing at the same crew.
+  AND THE THREE DARKEST CREWS ARE ALL CAMP TIER, which round three measured as the CHEAPEST
+  ground to walk on (two blocks in three free). Two systems nobody wired together agree:
+  THE CHEAP GROUND IS CHEAP BECAUSE IT IS DARK.
 
-THE THREE FRAMES (the approved monument, status panel DEAD because they have no power)
-  THE COURTHOUSE   "the only building with its lights on is the one with no name on it"
-  THE FIRE STATION "the fire house is dark and the water plant two blocks over is still
-                    reporting"
-  THE LIBRARY      "the library has been dark for ten years and the casino sign never went
-                    out"
+BOTH SUBSTATIONS ARE DARK. 34,39 on Network ground, 58,64 on Custom ground, neither with a
+live circuit. The two buildings whose entire job is handing out power have none.
 
-THREE FAULTS, TWO CAUGHT BY THE MACHINE
-  1. THE OVERFLOW REPORTER CAUGHT COURTHOUSE (39 px in 28) AND FIRE STATION (48 in 28)
-     BEFORE THE RENDER, second round running. A civic monument is wider than a water
-     district's anyway -- these got the biggest budget -- so the cabinet grew rather than
-     the name shrinking, and FIRE / STATION takes two cast lines like a real one.
-  2. THEN STATION WAS CLIPPED BY THE DEAD PANEL BELOW IT. Two cast lines plus a slot do not
-     fit 22 px. A SIGN THAT CUTS ITS OWN SECOND LINE IN HALF IS THE SAME DEFECT AS TEXT OFF
-     THE EDGE, ONE AXIS OVER -- and the reporter CANNOT SEE THAT ONE, because the string
-     fits horizontally. Vertical fit is the hole in that instrument; naming it is rule 13.
-  3. THE DATA FORT'S WINDOWS WERE A MINT GREEN ONE PIXEL OFF THE NETWORK TEAL, which would
-     have said THE NETWORK HOLDS THIS FORT -- a claim about territory I never measured. I
-     asked the grid WHO FEEDS those cells, not the turf map WHO OWNS them. Neutral
-     fluorescent white now: it says the machines are still on and claims nothing.
+*** THE CORRECTION, AND IT IS MINE ***
+  Last round I wrote "the data fort has all six of its blocks lit". Measured both ways:
+  OWN CIRCUIT FALSE on all six, TOUCHES A LIVE STREET TRUE on all six. The radius-1 reading
+  is the right one for a BUILDING (pumpStations() uses exactly it, because circuits are
+  contiguous street runs so a non-street cell never has one of its own) -- but "all six
+  blocks lit" IS NOT THAT SENTENCE. AND THE FORT IS CARTEL GROUND, NOT NETWORK.
+  THE GALLING PART: I caught myself lighting its windows a pixel off the Network teal IN
+  THAT SAME ROUND, fixed the picture, wrote the near miss up as a win, and left the wrong
+  claim standing in the words. THE PICTURE WAS CORRECTED AND THE SENTENCE WAS NOT.
 
-STILL UNMEASURED, NAMED RATHER THAN GUESSED
-  WHO HOLDS THE DATA FORT. Measured its power, not its owner. If a crew holds six lit
-  blocks while every civic building is dark, that is a fact about this valley worth having,
-  and it is one turf sweep away. First thing next round.
+THE COOK
+  slices/BOHEMIA_THE_LAST_LIGHT_9_23_26.html, registered factions-the-last-light-9-23.
+  Three frames, one wrong thing each, printed under the picture:
+    THE LAST LIGHT  "one street lamp, on 331 blocks, and the thing that feeds it has been
+                     off for ten years"
+    THE SUBSTATION  "the building whose whole job is handing out power is the one without any"
+    THE DATA FORT   "it has no name, no windows and no light of its own, and it is still
+                     drawing off the street"
+  NO NEW SILHOUETTE: the approved monument plus the one thing the bible requires anyway, a
+  DRAWN FIXTURE. R4 says every lumen has a source you can point at, and on a block with one
+  light the lamp IS the subject.
 
-GATES  COOK EVERY ROUND: "FACTIONS has cooked at least as recently as it has coded" (the
-       gate is 13/1; the one red is another lane's). ART 45 16/0. HANDOFF 8/0.
+AND A FOURTH DEAD STUB IN A FIRST DRAFT: streetLamp() and lampGlass(), both holding garbage
+strings, neither ever called, written before I knew whether a second scene needed them. It
+did not. WRITE THE THING WHERE IT IS USED AND HOIST IT ONLY WHEN A SECOND CALLER EXISTS.
+
+GATES  COOK EVERY ROUND: "FACTIONS has cooked at least as recently as it has coded" (13/1,
+       the red is another lane's). ART 45 16/0. HANDOFF 8/0.
        RULE 13: pre-push pass green; full suite 107 red at ad23d875, none of them this lane's.
 
 RULE 18 AND RULE 22, OBSERVED: nothing pushed to the demo or the alpha's play tabs, no cut,
 no build stamp, no game file touched.
 
 STILL OPEN, NONE OF IT THIS LANE'S
-  [FOR PLUMBER / RUN] PAGES PUBLISH was 266 MB against a 260 MB cap two rounds ago with
+  [FOR PLUMBER / RUN] PAGES PUBLISH was 266 MB against a 260 MB cap three rounds ago with
   67 MB of dead weight itemised (234 files in records/target nothing loads, 46.7 MB; ~20 MB
-  of retired judge pages rule 15 killed 9/14). Raised twice. Re-check it.
+  of retired judge pages rule 15 killed 9/14). Raised twice, unanswered. Re-check it.
   [FOR WORDS / WHOEVER OWNS trackSay] `leg` (out or back) is computed by tracksAt and thrown
-  away by the shipped sentence; measured 2:1 BACK by mid-day. WORDS Q23 said it on 9/13.
-  [FOR WORLD, water lifted] the pumps lift ZERO litres: needPerDay() returns 0, so the
-  holder is real and the quantity is not.
-  [FOR PLUMBER or UI] the vote registry conflicts on nearly every parallel round; this lane
-  has hit it five times now.
+  away by the shipped sentence; 2:1 BACK by mid-day. WORDS Q23 said it on 9/13.
+  [FOR WORLD, water lifted] the pumps lift ZERO litres: needPerDay() returns 0.
+  [FOR PLUMBER or UI] the vote registry conflicts on nearly every parallel round; six times
+  for this lane now.
   [INHERITED] faction_towns P27; partiesNear() has no callers at all.
   [FOR QUESTS] M01-M05 are not inlined into any surface, so they cannot be played.
   [FOR DIRECTION / COOK] AR-005: the widest zoom is a declared placeholder sky, all six art
@@ -11298,26 +11295,26 @@ STILL OPEN, NONE OF IT THIS LANE'S
   2. THE PLANT. If "the plant" in his towns law is a GENERATOR, every fortress makes power
      off its own seat. That authors canon about the money supply, so not taken.
   3. Anarchists, Colorful and Custom are called non-territorial and still hold ground.
-     (Anarchists also hold 100% of the running water.)
+     (SHARPER EVERY ROUND: Anarchists hold 100% of the running water AND the highest share
+     of lit ground of any crew. "Non-territorial" is the least true thing on this board.)
   4. What it COSTS to be seen with one of the four hidden factions.
-  5. COLOUR CLASHES: Mob beside Reds, Network beside Blues on the map, Church beside Trades
-     on a board. Is the Cartel drab on purpose?
+  5. COLOUR CLASHES: Mob beside Reds, Network beside Blues, Church beside Trades on a board.
 
 NEXT IN THIS LANE
-  FIRST: WHO HOLDS THE DATA FORT. One turf sweep, and if a crew holds six lit blocks while
-  every civic building is dark, that is this row's next picture and it needs no new shape.
-  STILL WAITING ON: the verdict on the night re-cook. If it comes back UP the set goes to
-  volume across the remaining crews and tiers. IF IT COMES BACK DOWN THAT IS A SECOND
-  REJECTION AND THE FEATURE ENDS FOR THE SESSION -- say so and stop, do not re-cook a third
-  time.
-  AND THE TEST NONE OF THE SIGNS HAS HAD: every one is judged ALONE ON EMPTY GROUND. In the
-  real street they sit among buildings, people and ground art. Whether they still read
-  there is COMPARE EVERY PIECE OF ART TO THE WORLD, and it is unrun.
-  WHEN THE HOLD LIFTS: the signs go into the walked city off turfAt(), POWER.at(),
-  rentAhead() and tracksAt(). No new art needed.
+  *** READ THE VERDICTS FIRST, BEFORE ANYTHING ELSE. *** Three of this lane's items are in
+  the queue. IF THE NIGHT RE-COOK COMES BACK DOWN THAT IS A SECOND REJECTION AND THE FEATURE
+  ENDS FOR THE SESSION: say so plainly, stop cooking signs, and spend the round on the
+  measurement debt below. Do NOT re-cook a third time.
+  IF IT COMES BACK UP: volume across the remaining crews and tiers, and the signs go into
+  the walked city off turfAt(), POWER.at(), rentAhead() and tracksAt() when the hold lifts.
+  THE MEASUREMENT DEBT, IF SIGNS STOP: (a) every sign is judged ALONE ON EMPTY GROUND and
+  never among buildings, people and ground art -- COMPARE EVERY PIECE OF ART TO THE WORLD,
+  unrun; (b) rule 31 (THE THREE ACTS AT ONCE, 9/23) says the future is DERIVED from the
+  earlier acts' ledgers, and every faction already carries act1_power and act3_power -- what
+  territory looks like in act 3 is this lane's question and nobody has asked it.
   [same lender] stays HELD; [collector heir] is still the first thing waiting on it.
 
-FORTY-ONE STANDING LESSONS THIS LANE KEEPS RE-LEARNING
+FORTY-THREE STANDING LESSONS THIS LANE KEEPS RE-LEARNING
   BEFORE ASSUMING A ROW IS BLOCKED, CHECK WHETHER ITS NAMED BLOCKER IS STILL TRUE.
   WHEN A CHECK GOES RED, ASK WHETHER IT IS MEASURING THE GAME OR ITS OWN INVENTION.
   WHEN HIS SENTENCE IS FALSE ON THE MAP, REPORT IT rather than forcing it.
@@ -11356,17 +11353,17 @@ FORTY-ONE STANDING LESSONS THIS LANE KEEPS RE-LEARNING
   A MEASUREMENT THAT LOOKS LIKE A BUG IS SOMETIMES THE DESIGN BRIEF.
   A SHAPE WHOSE WHOLE JOB IS DIRECTION CAN POINT THE WRONG WAY AND STILL LOOK FINE IN CODE.
   CONFIRM A PUSH BY ANCESTRY, NOT BY WHAT THE PUSH COMMAND PRINTED.
-  A LAW WITH A MEASURE ATTACHED IS NOT GUIDANCE, IT IS A TEST, AND I DID NOT RUN IT. The
-  bible's R1 measure is one sentence -- NAME THE WRONG THING OR THE FRAME FAILS -- and four
-  signs went to him without anyone trying to write it.
-  *** AND A VERDICT THAT KILLS THE PICTURE DOES NOT KILL THE QUESTION IT WAS ASKING. ***
-  Three signs died for how they were lit; every fact underneath them survived, and the best
-  material of this whole row turned up afterwards, in a sweep I only ran BECAUSE I was
-  forbidden from drawing another shape. THE CONSTRAINT PRODUCED THE CONTENT.
-  *** AND AN INSTRUMENT ONLY CHECKS THE AXIS YOU BUILT IT FOR. *** The overflow reporter
-  catches text too WIDE for its plate and is blind to text too TALL for it -- which is the
-  same defect, and it shipped one this round until the render caught it. When a checker
-  saves you twice, ask what it still cannot see.
+  A LAW WITH A MEASURE ATTACHED IS NOT GUIDANCE, IT IS A TEST, AND I DID NOT RUN IT.
+  A VERDICT THAT KILLS THE PICTURE DOES NOT KILL THE QUESTION IT WAS ASKING.
+  AN INSTRUMENT ONLY CHECKS THE AXIS YOU BUILT IT FOR. The overflow reporter catches text
+  too WIDE and is blind to text too TALL, which is the same defect.
+  *** AND FIXING THE PICTURE IS NOT FIXING THE CLAIM. *** I caught the Network-teal mistake
+  in the render, wrote the catch up as a win, and shipped the wrong SENTENCE about it in the
+  same commit. A visual near-miss feels like the whole correction and it is only half:
+  after you fix what you DREW, go back and re-read what you SAID about it.
+  *** AND WRITE THE THING WHERE IT IS USED. *** Four first drafts, four dead stubs holding
+  garbage, every one written before I knew a second caller existed. Hoist on the second
+  caller, never on the first guess.
 
 --------------------------------------------------------------------------------
 
