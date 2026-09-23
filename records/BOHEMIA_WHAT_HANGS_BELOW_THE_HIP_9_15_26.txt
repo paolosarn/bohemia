@@ -11,24 +11,24 @@ changed is looked up in that grid. A garment hangs below the hip exactly when it
 changes pixels the rig calls LEG. The hip and the knee come off the rest skeleton
 hip row 66, lower leg starts at row 98, foot ends at 105, in a frame 112 x 112.
 
-  canon garments measured      330
-  HANG BELOW THE HIP           111
+  canon garments measured      332
+  HANG BELOW THE HIP           112
     carried by the THIGH       53
-    carried by the SHIN        58
+    carried by the SHIN        59
   shoes (a foot, not a hem)    36
-  stop at or above the hip     183
+  stop at or above the hip     184
 
 BY LAYER
   layer       canon  thigh   shin   shoe  above
   back           14      0      0      0     14
-  base           80      8      2      0     70
+  base           81      8      2      0     71
   face           14      0      0      0     14
   feet           36      0      0     36      0
   gear           26      4      4      0     18
   hair           11      0      0      0     11
   hands           6      0      0      0      6
   head           21      0      0      0     21
-  legs           39      4     35      0      0
+  legs           40      4     36      0      0
   neck            9      0      0      0      9
   outer          67     34     17      0     16
   waist           7      3      0      0      4
@@ -87,6 +87,7 @@ EVERY GARMENT THAT HANGS, AND THE SEGMENT THAT CARRIES IT
   SLATE STACK PANT            legs   shin          99           85%
   TEAL STACK PANT             legs   shin          99           85%
   BLUE JEANS                  legs   shin          97           80%
+  BLUE HIDE JEANS             legs   shin          97           80%
   BLACK CARGOS                legs   shin          97           80%
   GREY SWEATS                 legs   shin          97           80%
   DUST TROUSERS               legs   shin          97           80%

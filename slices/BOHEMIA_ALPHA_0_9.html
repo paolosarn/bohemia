@@ -26314,6 +26314,29 @@ window.CLO=(function(){
   /* ---- COOK BATCH 3: WORLD-GROUNDED. Dusty salvage tones, world-ambient (no purple).
      Environmental/scavenge palette -- desert sun, soot, rust, bleached bone. ---- */
   var DUSTSAND={dk:[86,72,50],mid:[128,110,80],lt:[164,146,112]};
+  /* ===== THE TWO HIDE RAMPS (9/23, CHARACTER, [runway redo]) =========================
+     RNWY-16, BOTTEGA VENETA, TROMPE-L'OEIL LEATHER. The FW22 show opened on a white tank
+     and straight jeans made ENTIRELY of leather, tooled to look exactly like cotton; the
+     SS23 check was printed twelve times over to reach flannel's depth. The garment is
+     mundane at a glance and wrong on the second look.
+     *** THIS IS THE ANALOG HORROR BIBLE'S RULE 1 WEARING CLOTHES: "the ordinary frame,
+     one wrong thing... name the wrong thing in one sentence or the frame fails." A plain
+     plaid shirt that is not cloth is exactly one wrong thing on an otherwise ordinary
+     body -- and it is the only one of the three houses Paolo named that answers rule 20
+     DIRECTLY instead of being decorated with it afterwards. ***
+     HOW IT IS BUILT, AND IT IS THE ONLY CHANNEL A SPRITE HAS. The MID STEP IS COPIED
+     BYTE FOR BYTE from the cloth ramp it imitates, because the mid step is what the eye
+     reads at a glance and that is what has to match. Then the floor is pulled DOWN and
+     the light step is pushed UP hard: leather holds a narrow specular band where cloth
+     diffuses, so the same garment comes back with a darker crease and a hot highlight and
+     nothing else different. Same hue, same cut, same pattern, same generator.
+     NO NEW ART AND NO NEW RENDER CODE: these are two ramp constants used by the existing
+     genTop and genPants. STRUCTURE-NOT-COLOR is not broken either -- the SHAPE is
+     identical on purpose, which is the entire idea.
+     MEASURED, not asserted: tools/bohemia_cook_the_shirt_that_is_not_cloth.js prints the
+     value spread of each pair and shows them side by side. */
+  var DUSTHIDE={dk:[58,48,33],mid:[128,110,80],lt:[206,188,150]};
+  var DENIMHIDE={dk:[26,33,48],mid:[64,80,110],lt:[150,176,214]};
   var ASHGREY={dk:[42,42,44],mid:[70,70,74],lt:[100,100,104]};
   var OXBLOOD={dk:[54,28,26],mid:[92,48,42],lt:[128,72,62]};
   var BONECLO={dk:[124,116,98],mid:[162,154,134],lt:[198,192,172]};
@@ -29523,6 +29546,8 @@ window.CLO=(function(){
     {n:'SOOT TANK',st:'canon',layer:'base',gen:function(g){return wear(genTop(g,{ramp:CHARCLOTH,sleeves:false}),CHARCLOTH,13);}},
     /* --- CANON legs --- */
     {n:'BLUE JEANS',st:'canon',layer:'legs',gen:function(g){return genPants(g,{ramp:DENIM});}},
+    /* AND THE JEANS, WHICH IS THE FW22 OPENING LOOK ITSELF. RNWY-16. */
+    {n:'BLUE HIDE JEANS',st:'canon',fresh:true,layer:'legs',gen:function(g){return genPants(g,{ramp:DENIMHIDE});}},
     {n:'BLACK CARGOS',st:'canon',layer:'legs',gen:function(g){return genPants(g,{ramp:CARGO});}},
     {n:'GREY SWEATS',st:'canon',layer:'legs',gen:function(g){return genPants(g,{ramp:SWEAT});}},
     {n:'DUST TROUSERS',st:'canon',layer:'legs',gen:function(g){return wear(genPants(g,{ramp:DUSTSAND}),DUSTSAND,13);}},
@@ -29572,6 +29597,10 @@ window.CLO=(function(){
     {n:'SLATE SHORT-SLEEVE',st:'canon',layer:'base',gen:function(g){return wear(genTop(g,{ramp:SLATEW,sleeves:'short',neck:'button'}),SLATEW,12);}},
     {n:'SAGE STRIPED HENLEY',st:'canon',layer:'base',gen:function(g){return wear(genTop(g,{ramp:SAGE,sleeves:'long',neck:'henley',pattern:'stripe'}),SAGE,12);}},
     {n:'DUST PLAID SHIRT',st:'canon',layer:'base',gen:function(g){return wear(genTop(g,{ramp:DUSTSAND,sleeves:'short',neck:'button',pattern:'plaid'}),DUSTSAND,12);}},
+    /* THE SAME SHIRT, IN LEATHER. Same cut, same sleeves, same neck, same plaid, same
+       generator call -- only the ramp differs, and its mid step is byte-identical to the
+       cloth one above. RNWY-16. */
+    {n:'DUST PLAID HIDE',st:'canon',fresh:true,layer:'base',gen:function(g){return wear(genTop(g,{ramp:DUSTHIDE,sleeves:'short',neck:'button',pattern:'plaid'}),DUSTHIDE,12);}},
     /* ---- COOK BATCH 7 (7/18): HOODIES redone -- the hood is REAL GEOMETRY off the
        nape (pixels outside the skeleton), not a painted cowl. Fresh names. ---- */
     {n:'ASH HOODIE',st:'canon',layer:'base',gen:function(g){return wear(genTop(g,{ramp:STORMGRY,sleeves:'long',neck:'hood',hoodUp:CLO_HOODUP,pocket:true}),STORMGRY,12);}},
@@ -30205,6 +30234,7 @@ window.CLO=(function(){
 "SHOULDER LONGLINE":["thigh",0.231],
 "SLATE CAR COAT":["thigh",0.436],
 "SLATE COCOON COAT":["thigh",0.282],
+"BLUE HIDE JEANS":["shin",0.795],
 "COBALT COCOON COAT":["thigh",0.282],
 "BRICK COMMA COAT":["thigh",0.436],
 "OLIVE ASYM COAT":["thigh",0.385],

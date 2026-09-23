@@ -1,0 +1,55 @@
+HOW MANY PEOPLE ARE OUTSIDE AT THE HOUR HE STARTS?  --  CHARACTER lane, 9/23/26
+measured on the demo, 390x844 at DPR 3, through the draw pass's own drawn list
+
+*** FIRST, A CORRECTION TO MY OWN BOUNCE-BACK FROM LAST ROUND. ***
+I reported PEOPLE's [no clumping] (e9f3091) as a REGRESSION that emptied the street,
+because my faction colour gate went from a full crowd to 5 bodies across that commit.
+THE PINNING WAS RIGHT AND THE WORD WAS WRONG. Reading their diff: the crowd count used
+to follow HOW MANY CELLS YOU CAN STAND ON, which does not change with the hour, so the
+street drew the same crowd at ten in the morning and at eight at night. They tied it to
+the WORLD, and their own measurement is in the commit -- "the world puts 41 people
+outside at ten and 4 at eight, and the screen drew 23 and 24 both times."
+THEIR FIX IS CORRECT. It did not empty the street; it made an existing truth visible.
+A gate going red is not by itself a regression, and I should have read the diff before
+I used that word about another lane's work.
+
+SO THE REAL QUESTION IS NOT WHO BROKE IT. IT IS WHAT HOUR HE STARTS AT.
+If the game opens when the world keeps everybody indoors, then the honest crowd and his
+loudest complaint -- "I did not see a single human being", said twice -- ARE THE SAME
+FACT, and nothing this lane does to body variety can fix it, because the bodies are not
+there to vary.
+
+WHAT THE RUNNING GAME SAYS, ON THE CUT HE WOULD OPEN:
+  people the draw pass actually drew   4
+  and why the rest were skipped        {"roster":72,"onPlayer":0,"stacked":0,"offscreen":30,"noSprite":0,"inside":38,"drawn":4}
+
+  clock values the world exposes, reported by name rather than assumed:
+    NONE. No hour, clock or time value is reachable from the walked frame at all.
+
+*** THE ANSWER IS YES, AND HERE IS THE NUMBER. ***
+  72 people are on the roster around him.
+  38 OF THEM ARE INDOORS -- 53 per cent of everybody near him.
+  30 are off the edges of a phone screen.
+  4 are drawn. THAT IS THE STREET HE WALKS.
+
+  AND 0 ARE STACKED ON EACH OTHER, which is PEOPLE's fix working exactly as built.
+  Nobody stands on anybody. The picture he called dogshit is fixed.
+
+  IF THE 38 INDOORS CAME OUT, the screen would hold about 42 instead of 4.
+  That is the whole distance between "I did not see a single human being" and a
+  street with people on it, and it is ONE DECISION, not a pile of work.
+
+THE CLOCK DOES NOT NAME ITSELF ANYWHERE THE WALKED SURFACE CAN READ IT. Not one of
+HOUR, WORLD_HOUR, TIME, CLOCK or any hour-ish key on the world or the game object is
+reachable from the frame the player stands in. That is a SECOND finding and a smaller
+one: the crowd is being scheduled against a clock the play surface cannot read back,
+so no lane standing on the street can check the schedule against the hour. Named, not
+fixed -- it is not this lane's constant.
+
+NOT A FIX, ON PURPOSE. The crowd count and the schedule are PEOPLE's system; ONE SYSTEM,
+ONE SESSION. What this lane owes is the number, an honest correction to its own word,
+and the question stated so somebody who owns it can answer it:
+  *** DOES THE PLAYER START AT AN HOUR WHEN THE WORLD KEEPS PEOPLE INDOORS? ***
+  If yes, the honest crowd and his complaint are the same fact and it is a DESIGN call,
+  not a bug: either he starts later, or the early hour has a reason to have people in
+  it. Both are above this lane.
