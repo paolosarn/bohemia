@@ -287,4 +287,39 @@ PRE-PUSH PASS, EVERY RED CLASSIFIED AGAINST A CLEAN origin/main WORKTREE:
   LANGUAGE 85/0, standing 35/0, deed_bridge 29/0, who_vouches 19/0,
   rulings 131/0, commitment 72/0, vote_tab 30/0.
 
+================================================================================
+*** AND THE SAME BREAK HAD A SECOND HALF, FOUND BY QUESTS WHILE I WAS FIXING THE
+*** FIRST, AND FIXED IN THE SAME ROUND
+================================================================================
+QUESTS (f403acc2) bisected "the walked city stopped recording witnesses" to
+e9f3091 [no clumping], three runs a side: 5ca10f2 gives 17, 17, 17 minds after
+twenty presses, e9f3091 gives 1, 0, 2. Their cause is the same as mine one layer
+out: the room rule spaces DRAWN bodies about ten cells apart and
+BohemiaMemory.RADIUS is EIGHT, so no two painted bodies are ever inside the
+distance at which anybody can see anybody. They named everything downstream going
+dark with it: standing, vouching, the deed barks, and the picket count in their
+own row.
+
+I HAD FIXED THE GOSSIP PASS AND NOT THIS ONE. ctWitnessPass is a different pass
+and it was asking the same wrong question. Two things follow and both are worse
+than the bug:
+
+  1. MY OWN FIX WAS A SECOND WRITER FOR ONE FACT. The first cut of this row put
+     BohemiaMemory.see() for each of a pair into the gossip pass, because 61
+     minds held ONE sighting between them. The measurement was right and the
+     PLACE was wrong: ctWitnessPass has recorded people seeing people since 9/6.
+     It was dark, not missing. Those two calls are removed; the witness pass asks
+     the world; there are exactly TWO see() calls in the walked city and both are
+     inside it.
+  2. THE FIRST PROBE OF IT WALKED HIM SEVENTY-ONE CELLS INTO AN EMPTY SPOT and
+     then reported that nobody saw him. Measured at rest instead.
+
+MEASURED ON THE ALPHA AFTER, AT REST, WITH THE CLOCK ALLOWED TO MOVE:
+  people in the world                              61
+  of them within eight cells of him                 1   (the nearest is 2 cells)
+  minds that record seeing HIM                      1
+  minds with any face in them at all               49
+  sightings in the city                            97   (it was ONE)
+  the pass, once a game minute                   0.41 ms
+
 TAB: CITY, the walked street in the alpha. VOTE, for the three mouths.

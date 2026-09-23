@@ -82,11 +82,20 @@ ok('A4 and the recognition is read on the talk surface (ctKnowsMe has a caller)'
    away never saw the player. Written as the RULE (the early return comes before
    the assignment), not as a pinned line number. */
 const wp = city.slice(city.indexOf('function ctWitnessPass'),
-                      city.indexOf('function ctWitnessPass') + 1400);
+                      city.indexOf('function ctWitnessPass') + 2600);
+/* AND THIS CLAIM PINNED A VARIABLE NAME, WHICH IS NOT THE RULE IT MEANS.
+   (9/23, PEOPLE [rumours travel].) The comment above says in as many words that
+   it is written as the RULE and not as a pinned line number, and then it asked
+   for the exact string "if (!drew.length) return 0;". The pass now reads the
+   WORLD instead of the draw list, because the room rule had made the draw list a
+   wrong answer to "who is near him", so the roster is called `here` and a claim
+   about the ORDER of two statements went red about the NAME of one of them.
+   The rule is unchanged and so is what this checks: whatever the empty-roster
+   return is called, it comes before the minute is spent. */
+const emptyReturn = wp.search(/if \(![A-Za-z_$][\w$]*\.length\) return 0;/);
 ok('A5 the throttle does not spend a minute it recorded nothing in '
   + '(the empty-roster return comes BEFORE CT_SAW_MIN is set)',
-  wp.indexOf('if (!drew.length) return 0;') >= 0
-  && wp.indexOf('if (!drew.length) return 0;') < wp.indexOf('CT_SAW_MIN = now;'));
+  emptyReturn >= 0 && emptyReturn < wp.indexOf('CT_SAW_MIN = now;'));
 
 (async () => {
   console.log('CITY MEMORY GATE, somebody remembers seeing you, on the tab he taps');

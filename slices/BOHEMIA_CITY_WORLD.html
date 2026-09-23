@@ -45459,11 +45459,28 @@ function ctWitnessPass(){
   var now = ctMinuteNow();
   if (now === CT_SAW_MIN) return 0;
   var R = BohemiaMemory.RADIUS, n = 0;
-  var drew = (typeof BARK_DREW !== 'undefined' && BARK_DREW) ? BARK_DREW : [];
-  if (!drew.length) return 0;             /* nothing drawn yet: retry next frame */
+  /* *** AND THIS PASS ASKED THE CAMERA WHERE PEOPLE WERE, WHICH THIS LANE'S OWN
+     *** [no clumping] THEN TURNED INTO A DARK ORGAN. (9/23, [rumours travel];
+     *** QUESTS f403acc2 BISECTED IT INDEPENDENTLY TO THE SAME COMMIT.)
+     The room rule spaces DRAWN bodies by a whole body -- 112 px on 11 px cells,
+     about ten cells -- and BohemiaMemory.RADIUS is EIGHT, so no two painted
+     bodies are ever inside the distance at which anybody can see anybody.
+     QUESTS measured it three runs a side: 5ca10f2 gives 17, 17, 17 minds after
+     twenty presses; e9f3091 gives 1, 0, 2. Everything downstream went dark with
+     it -- standing, vouching, the deed barks, the picket count in their own row.
+     SAME FIX AS THE GOSSIP PASS ABOVE, AND FOR THE SAME REASON: who is NEAR HIM
+     is a question about the WORLD, and how far apart their pictures are is a
+     question about the screen. A person standing three cells away that we chose
+     not to PAINT, because somebody else is already painted there, still sees him.
+     AND IT MAKES THIS THE ONE WRITER OF SIGHTINGS AGAIN: the first cut of
+     [rumours travel] put a second BohemiaMemory.see() in the gossip pass to feed
+     the same fact, which is this lane's own recurring defect (TWO WRITERS FOR ONE
+     FACT) walking in through the front door. That one is gone; this is the door. */
+  var here = ctWhereEveryoneIs();
+  if (!here.length) return 0;             /* nobody placed yet: retry next frame */
   CT_SAW_MIN = now;
-  for (var i = 0; i < drew.length; i++) {
-    var d = drew[i]; if (!d || !d.p || !d.at) continue;
+  for (var i = 0; i < here.length; i++) {
+    var d = here[i]; if (!d || !d.p || !d.at) continue;
     /* SEEING IS RECIPROCAL AND IT IS NOT FREE. Manhattan, the same metric the
        organ's own attach() uses, so a body eight cells away is a witness here
        exactly when it would be one there. */
@@ -45502,10 +45519,11 @@ function ctWitnessPass(){
      PAIRWISE OVER WHAT WAS DRAWN, so it is bounded by the bodies actually on
      screen (one at spawn, a handful on a busy block) and runs once per game
      minute, not per frame. */
-  for (var a = 0; a < drew.length; a++) for (var b2 = 0; b2 < drew.length; b2++) {
+  for (var a = 0; a < here.length; a++) for (var b2 = 0; b2 < here.length; b2++) {
     if (a === b2) continue;
-    var A = drew[a], B = drew[b2];
+    var A = here[a], B = here[b2];
     if (!A || !B || !A.p || !B.p || !A.at || !B.at) continue;
+    if (String(A.p.id) === String(B.p.id)) continue;
     if (Math.abs(A.at[0] - B.at[0]) + Math.abs(A.at[1] - B.at[1]) > R) continue;
     try { BohemiaMemory.see(ctMind(A.p.id), now, String(B.p.id), B.at[0], B.at[1]); n++; }
     catch(_e){}
@@ -48413,21 +48431,14 @@ function ctGossipPass(){
     alive[key] = 1;
     CT_TOGETHER[key] = (CT_TOGETHER[key] || 0) + dt;
     if (CT_TOGETHER[key] >= W) {
-      /* *** AND THEY SEE EACH OTHER, WHICH NOTHING IN THIS GAME HAS EVER DONE.
-         *** MEASURED ON THE ALPHA: 61 minds, and ONE sighting in the entire city.
-         bohemia_memory has been a real witness organ since 8/2 -- sightings,
-         familiarity, clarity that decays -- and the only thing ever recorded into
-         it was the PLAYER walking past. Nobody on this street had ever laid eyes
-         on anybody else, so every mind's idea of the world was one name long.
-         It cost the row its most important effect: a rumour bends toward a
-         FAMILIAR FACE, and a mind with no faces in it has nowhere to bend.
-         Two people who have stood together forty-five minutes have seen each
-         other. One call each, at the moment the pass already knows about the
-         pair, so this is not a new pass, a new clock or a new list. */
-      try {
-        BohemiaMemory.see(ctMind(ka), now, kb, b.at[0], b.at[1]);
-        BohemiaMemory.see(ctMind(kb), now, ka, a.at[0], a.at[1]);
-      } catch (_e) {}
+      /* THE SIGHTING IS NOT WRITTEN HERE. The first cut of this row put a
+         BohemiaMemory.see() for each of them right at this line, because 61 minds
+         held ONE sighting between them and a rumour had no familiar face to bend
+         toward. That measurement was right and the PLACE was wrong: ctWitnessPass
+         has recorded people seeing people since 9/6, it was simply asking the
+         CAMERA where they were, so the room rule had made it dark. It asks the
+         world now, and writing them here as well would be TWO WRITERS FOR ONE
+         FACT, which is this lane's own recurring defect. See ctWitnessPass. */
       /* THEY WERE TOGETHER LONG ENOUGH FOR SOMETHING TO HAPPEN, AND SOMETHING
          SOMETIMES DOES. Raised before they talk, so the thing that just happened
          between these two is in the pile they are about to trade. */

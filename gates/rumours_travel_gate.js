@@ -205,12 +205,34 @@ ok('and the measurement that proved it is in the file: 15 of 61 with an outfit, 
    + 'ONE outfit on the block, zero stories in a day',
    /of them with any outfit at all\s+15/.test(flat(city).replace(/ +/g, ' '))
      || /of them with any outfit at all/.test(flat(city)));
-ok('*** AND TWO PEOPLE WHO STAND TOGETHER SEE EACH OTHER, WHICH NOTHING IN THIS '
-   + 'GAME HAD EVER DONE ***',
-   /BohemiaMemory\.see\(ctMind\(ka\), now, kb/.test(city)
-     && /BohemiaMemory\.see\(ctMind\(kb\), now, ka/.test(city));
+/* THE FIRST CUT OF THIS CLAIM ASKED FOR A see() CALL IN THE GOSSIP PASS, AND
+   THAT CALL WAS THE WRONG ANSWER TO A RIGHT MEASUREMENT. ctWitnessPass has
+   recorded people seeing people since 9/6; it was asking the CAMERA where they
+   were, and the room rule had made it dark. Writing sightings in the gossip pass
+   as well would be TWO WRITERS FOR ONE FACT. The claim is about the ORGAN being
+   alive, so it is asked of the organ. */
+const witFn = city.slice(city.indexOf('function ctWitnessPass()'),
+                         city.indexOf('function ctWitnessPass()') + 5200);
+ok('*** AND THE WITNESS PASS ASKS THE WORLD TOO, so people really do see each '
+   + 'other, which is what the room rule had made impossible ***',
+   witFn.length > 200 && witFn.indexOf('BARK_DREW') < 0
+     && /var here = ctWhereEveryoneIs\(\)/.test(witFn)
+     && /BohemiaMemory\.see\(ctMind\(A\.p\.id\), now, String\(B\.p\.id\)/.test(witFn),
+   witFn.indexOf('BARK_DREW') < 0 ? 'no BARK_DREW inside ctWitnessPass'
+                                  : 'still reads the draw list');
+probe('and the sweep really read that function', /RADIUS/.test(witFn) || /var R =/.test(witFn));
+/* COUNT THE CALLS, NOT THE MENTIONS. The first cut of this counted
+   "BohemiaMemory.see(" and read 4, because two of them are the COMMENTS that
+   explain why the other two are the only ones. A call passes a mind. */
+const seeCalls = (city.match(/BohemiaMemory\.see\(ctMind/g) || []).length;
+ok('and there is exactly ONE writer of sightings in the walked city, not two',
+   seeCalls === 2 && (witFn.match(/BohemiaMemory\.see\(ctMind/g) || []).length === 2,
+   seeCalls + ' see() calls, both inside the witness pass');
+ok('and QUESTS\' independent bisect of the same break is credited with its numbers',
+   /QUESTS f403acc2/.test(flat(city)) && /17, 17, 17 minds/.test(flat(city)));
 ok('and the 61-minds-one-sighting measurement is written beside it',
-   /61 minds, and ONE sighting in the entire city/i.test(flat(city)));
+   /61 minds, and ONE sighting in the entire city/i.test(flat(city))
+     || /ONE sighting between them/i.test(flat(city)));
 ok('the blame bends toward a FAMILIAR FACE, off the sighting list, not off a '
    + 'hate ranking that cannot exist while the weights are empty',
    /from\.sightings/.test(mod) && /blameTargets/.test(mod)

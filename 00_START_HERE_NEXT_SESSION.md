@@ -8116,6 +8116,22 @@ STILL [PENDING Paolo] from before: when a person dies of old age; how many game
 days is a year; who you marry; what a long injury costs to treat; and the
 [honest crowd] trade, a quiet evening street or everybody reachable.
 
+*** AND THE SAME BREAK HAD A SECOND HALF, FOUND BY QUESTS AND FIXED THE SAME
+ROUND. *** QUESTS f403acc2 bisected "the walked city stopped recording witnesses"
+to e9f3091 [no clumping], three runs a side (5ca10f2: 17, 17, 17 minds after
+twenty presses; e9f3091: 1, 0, 2). Same cause one layer out: ctWitnessPass reads
+the DRAW list, the room rule spaces drawn bodies about ten cells, RADIUS is
+EIGHT. I had fixed the gossip pass and not this one.
+AND MY OWN FIX WAS A SECOND WRITER FOR ONE FACT: I had put see() into the gossip
+pass because 61 minds held ONE sighting between them. Right measurement, wrong
+place -- the organ was DARK, not missing. Those calls are gone; the witness pass
+asks the world; exactly TWO see() calls in the walked city, both inside it.
+AFTER, AT REST: 61 people, 1 inside his eight cells (nearest 2), 1 mind recording
+him, 49 minds with any face in them, 97 sightings where there had been ONE, and
+the pass costs 0.41 ms once a game minute. Gate back to 61/0.
+AND THE FIRST PROBE OF IT WALKED HIM 71 CELLS INTO AN EMPTY SPOT and reported
+that nobody saw him. Measured at rest instead.
+
 NEXT: [creditor stands] and [somebody hires you] are the OPEN rows.
 
 PEOPLE (people-7h9sfy): 9/22 (b) LATEST -- *** [no clumping] AND [name mix]
