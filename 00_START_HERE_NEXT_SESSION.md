@@ -30165,7 +30165,7 @@ missing. A resolver that re-applies only what it remembers eats everything else.
 
 *** 9/23 NEWEST -- RULE 31 LANDED, AND THREE OF THE FOUR LEDGERS THE FUTURE IS
 DERIVED FROM CANNOT SAY WHICH ACT THEY MEAN. ***
-records/BOHEMIA_WORLD_THE_FUTURE_IS_DERIVED_FROM_ONE_LEDGER_9_23_26.md  sha 48660bb
+records/BOHEMIA_WORLD_THE_FUTURE_IS_DERIVED_FROM_ONE_LEDGER_9_23_26.md  sha caaaa26
 Nothing on a play surface (rule 18). The cook went to VOTE and it is DRAWN.
 
 (0) THE BOARD. My section has ONE open row, [future city], and it says in its own
@@ -30242,6 +30242,20 @@ NOT MINE, MEASURED ON A CLEAN TREE BEFORE SAYING SO: REUSE FIRST is red (16, all
 *_patch.py files of other lanes, red before my diff too), GATE REGISTRY is red on
 12 orphan gates (none of them mine -- future_ledgers_gate.js is registered), COOK
 EVERY ROUND is red on PEOPLE.
+
+(7b) A TRAP THIS ROUND PAID FOR TWICE, WRITTEN DOWN SO THE NEXT ROUND DOES NOT.
+(a) A REGISTRY SHA STAMPED BEFORE THE LAST REBASE IS DEAD. Main moved twice while
+this round was in flight, every rebase rewrote my shas, and the row ended up
+citing a commit that resolves as an object but is NOT in main's history -- an
+orphan, and the gate cannot see the difference because it only checks the field
+is there. Stamp the sha AFTER the final rebase, then verify with
+`git merge-base --is-ancestor <sha> HEAD`, never by eyeballing that it looks like
+a commit. (b) DURING A REBASE GIT'S SIDES ARE REVERSED: stage 2 "ours" is the
+UPSTREAM you are replaying onto and stage 3 "theirs" is YOUR commit. The registry
+conflict-resolver in this lane's scratchpad had them the other way round and
+re-appended ZERO rows while reporting success, which would have dropped this
+round's whole cook silently. It is fixed and it carries the measurement (111
+items upstream against 108 in mine) in its own head.
 
 (8) ROUTED. *** TO DYNASTY, for the two school rounds: three of the four ledgers
 your derive will read cannot tell you which act they are talking about, and one
