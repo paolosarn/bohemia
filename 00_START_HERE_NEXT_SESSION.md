@@ -1,3 +1,72 @@
+LIFE + CITY (city-1eztay): 9/23b LATEST -- *** NONE OF THE SEVEN IS DEAD, AND THE REAL
+BUG IS AN 87-PIXEL STRIP ACROSS THE TOP OF THE GAME THAT EATS EVERY FINGER. ***
+TAB: the bug is in the RUN/CITY screen, at the top. The finding is NOT IN A TAB YET --
+it is a probe and a record: records/BOHEMIA_AN_INVISIBLE_STRIP_EATS_THE_TOP_OF_THE_GAME_9_23_26.md
+
+ROW [eyes: half a hud] STILL CLAIMED (rule 6: never rush to close a line).
+
+THE SEVEN, measured on the alpha with the presses finally landing where they belong:
+    SCAVENGE    #workbtn   ALIVE   opens the plot panel ("SUBURB · plot")
+    BUILD HERE  #buildbtn  ALIVE   opens a card 752 px tall
+    STANDING    #rungbtn   opens its card on a direct click
+    RAY/DENISE/MARCO/Marry        their ids appear INSIDE that card
+EYES ROUND 11 DOES NOT REPRODUCE. The report was instruments, SIX OF THEM MINE.
+
+*** THE REAL BUG IS PAOLO 8/24 STILL ALIVE: "when I press standing, and I press close,
+it doesn't close." *** One card, three ways:
+    a DOM click on the X        on / 752px  ->  CLOSED, 0px
+    a real finger on the X      on / 752px  ->  on / 752px
+    a real finger outside it    on / 752px  ->  on / 752px
+Spied the events: A FINGER PRODUCES ZERO EVENTS at the X and zero anywhere in the city
+document, while THE TOP PAGE sees pointerup, touchend and click. What is there:
+    the city frame   [0, 42, 390, 802]
+    #openInvite      [0, 109, 390, 87]   position:absolute, top:0, z-index:39
+    the card's X     frame y 74..118     DIRECTLY UNDERNEATH IT
+#openInvite is the OPENING OVERLAY's banner -- "DAY 1 BEGINS BEFORE THE DAY / The
+family, the table, ten years ago." with two real buttons, WATCH and NOT NOW. IT IS IN
+THE PARENT DOCUMENT, so the card's own z-index 40 cannot win: an iframe's internal
+stacking never beats its parent's. AN 87-PIXEL FULL-WIDTH STRIP ACROSS THE TOP OF THE
+WALKED GAME TAKES EVERY FINGER.
+THAT IS WHY IT PASSED EVERY CHECK THAT WAS NOT A FINGER: el.click() reaches the X
+directly and closes the card instantly. Only a real finger goes through the parent
+first, and he is on a phone.
+
+[PENDING coordinator, NOT MINE TO PATCH]: #openInvite is the alpha shell, not my file
+(ONE SYSTEM ONE SESSION), and it has its own two buttons so pointer-events:none would
+kill WATCH and NOT NOW. Dodging it from inside my file -- moving the X out of the band
+-- would leave the whole top strip dead to a thumb and HIDE the bug. Two things are
+true and both need a decision that is not mine: the banner should not outlive its
+moment, and while it is up it must not take presses meant for the game underneath.
+It is display:none in its inline style and was BLOCK when measured, so something shows
+it and nothing hides it again.
+
+SIX WRONG INSTRUMENTS, MINE, IN ORDER, AND EVERY ONE IS A NUMBER MEASURED IN ONE PLACE
+AND USED IN ANOTHER:
+    "two ALIVE"                     measuring the stale BAKED DEMO
+    "SCAVENGE ALIVE"                a TEACHING RING that opens on any tap
+    "all three dead"                clicking #loadgl, through the loading screen
+    "all seven NOT ON SCREEN"       sitting on the VOTE landing
+    "dead, finger on the control"   FRAME coordinates clicked on the PAGE
+    "the close answers a mouse"     a WRONG DIAGNOSIS; the fix changed nothing
+Each was caught by the next cheap check, never by being clever. I shipped that last
+fix to the SESSION BRANCH ONLY and reverted it when the glass still said 752px -- a
+close cannot fail to answer an event it never receives.
+
+*** THIRD INVISIBLE THING OVER A CONTROL THIS ROUND *** (#loadgl, the VOTE landing,
+now #openInvite) and the same family as the card that made 544 presses move him zero
+cells. That shape is this codebase's most expensive bug and it deserves a STANDING
+MACHINE CHECK: for every control the game offers, does a real finger at its centre
+reach IT, in the TOP document, or something else?
+
+THE COOK (last round, still in the VOTE tab, unvoted): THE STREET THAT IS STILL LIT --
+264 stretches of street in the valley have power and 168 OF THEM HAVE NOBODY LIVING ON
+THEM; the picture is one real block, 59,4, on MOB's wire. Also unvoted: THE SHOP THAT
+IS OPEN (the redo of the store he killed with "Not analog horror enough").
+
+STILL OPEN, HELD UNDER RULE 18(b): [three cities] (rule 31, the aerial at three dates),
+[horror city], [tiles not slabs], [buildings appear], [power buildings], [owner shown],
+[bill lands], [shelves seen].
+
 UI (ui-kmqmrf): 9/23 LATEST -- *** THE PHONE IS IN HIS POCKET NOW, AND MY PROBES HAD
 BEEN MEASURING A SCREEN NOBODY WAS LOOKING AT. *** [phone on the street] SHIPPED;
 [the picks] STAYS CLAIMED (loads B only, one of nine). TAB: CITY, and the walking
