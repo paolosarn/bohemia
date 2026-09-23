@@ -1051,6 +1051,137 @@ NEXT: [cook panels] is the standing rule-22 row and is OPEN again; items 2, 3 an
 (the fight HUD, the talk panel, the vote tab's own frame) are drawn as sheets but not built
 as skins. [three d ui] still has no gate of its own. [vote plays sound] is still open and
 SOUNDS has items waiting that he cannot hear in the tab. [no slop] stays CLAIMED.
+SOUNDS (sound-xk7pjp): 9/25 LATEST -- *** THE FLIP IS A RECEIVER CROSSING YEARS, AND THE GAP
+BETWEEN TWO STATIONS IS THE FUTURE HE HAS NOT BUILT YET. *** Row [flip sound] SHIPPED. Nothing
+wired: DYNASTY owns the flip and rule 31 says the demo does not change.
+Record: records/BOHEMIA_WHAT_A_FLIP_SOUNDS_LIKE_9_25_26.md
+Gate: COOKED SOUNDS 69/0, and 13 claims go red under --mutate (was 11). Build stamp 9/24f.
+Tab: VOTE, the new page is WHAT A FLIP SOUNDS LIKE.
+
+THE ONE FACT THAT DECIDED EVERYTHING ELSE: the law says the flip is ONE TAP ON THE PHONE,
+ALWAYS AVAILABLE, no place to walk to, no mode change.
+  SO IT IS NOT A MOMENT. It is a sound he will hear HUNDREDS of times, and the failure mode is
+  not "too quiet", it is "I AM SICK OF IT".
+Everything follows: inside ONE BEAT, no riser, no whoosh, no stinger. A whoosh here is the same
+violation as a whoosh on the fight's cloud -- a sound effect pretending to be a mechanism.
+
+REALISM FIRST, AND THE MECHANISM IS REAL: A RECEIVER RETUNING. The honest detail that carries
+the whole meaning is AGC. When a carrier drops, a receiver winds its gain UP hunting for
+signal, so the gap between two stations is LOUDER and WIDER-BANDED than either station. Every
+analog receiver does this and it is why inter-station hiss is the loudest thing on the dial.
+  THE GAP IS A MACHINE TURNING ITSELF ALL THE WAY UP LISTENING FOR SOMETHING THAT IS NOT THERE
+  YET. That is the future before he has built it.
+AND SO THE SOUND REPORTS WHAT THE CITY REPORTS. Rule 31: the future is derived from the earlier
+acts' ledgers and early on it is a ruin, so a thinner act hunts longer and swells further.
+  full act    gap 0.12 s at +6.0 dB over the station
+  half built  gap 0.21 s at +12.1 dB
+  a ruin      gap 0.30 s at +15.6 dB, and the station it lands on has lost its harmonics
+  every one   0.500 s exactly, against a beat of 0.500 s
+  zeros       0 at every state (school rule 1)
+THE LEDGER IS NOT MINE: one `signal` parameter 0 to 1, DYNASTY owns the derivation, default is
+full signal so this file decides nothing about how ruined his world is.
+NOTHING NEW ENTERED THE GAME: the same AM transmitter every other sound came off, the same
+60 Hz mains the room hum and the fold use (it is the same grid in every act), and NOTHING
+PITCHES -- a pitch move would make this a transition effect instead of a machine.
+
+*** MY FIRST CUT MEASURED THE GAP QUIETER THAN THE STATION: 0.66x, -3.6 dB. *** Backwards from
+the mechanism the whole sound is built on, because a coherent hum at 0.30 carries far more rms
+than band-limited noise at 0.34. THE SOUND WAS WRONG, NOT THE RULER. This lane has spent whole
+rounds discovering the opposite, and the discipline is the same either way: find out which one
+is lying before changing anything.
+
+*** AND THEN I SWEPT A COPY OF THE RECIPE INSTEAD OF THE RECIPE. *** To find better levels I
+wrote a standalone re-implementation of the flip's shape and swept that. It reported 0.52x
+where the real function reads 0.66x, because its filters were not these filters.
+  A SWEEP BUILT ON A COPY IS NOT MEASURING THE RECIPE. That is the duplication trap that
+  silenced every footstep in this game for days, wearing a different hat -- and this one was
+  about to hand me numbers to write into the real thing.
+Fixed by making the three levels OPTIONS ON THE REAL FUNCTION and sweeping that: 64
+combinations against a grounded target, because real inter-station hiss runs +6 to +12 dB over
+a tuned station (an AGC has 20 to 30 dB of range and nothing to hold it down).
+
+*** A FINDING ABOUT THE SHARED BAND HELPER THAT IS BIGGER THAN THIS SOUND, AND IT IS ON THIS
+LANE'S DESK NEXT. *** The gate's "no carrier, no band" claim went red and the number said why:
+THE STATION LEAKED 21% OF ITS ENERGY ABOVE ITS OWN 5 kHz CORNER, failing this lane's own school
+rule 4 (under 5%). Raising bandTo's pole count MAKES IT WORSE, because it DERIVES the per-pole
+corner upward so the combined -3 dB lands on the number asked for:
+  2 poles -> each pole at  7,769 Hz
+  4 poles -> each pole at 11,495 Hz
+  8 poles -> each pole at 16,620 Hz
+  MORE POLES AT A DERIVED CORNER HAS A FLATTER PASSBAND AND A ROLL-OFF THAT STARTS LATER.
+That sentence is already in this lane's record from the band claim that cost five attempts, and
+I walked into it again from the other side.
+AND WHY NOBODY HAD SEEN IT: IT IS INVISIBLE ON TONES. The phone's carrier reads 0.05% above its
+corner through the IDENTICAL call, because a tone has nothing up there to pass. ON NOISE THE
+TAIL IS FULLY EXPOSED. Every noise-based sound in the module shares that helper.
+  the flip's fix, poles AT the nominal corner instead of a derived one:
+    0 tail poles  station 21.19% above 5 kHz   gap 41.36%   swell 1.77x
+    2 tail poles  station  3.10%               gap 10.51%   swell 1.44x
+    4 tail poles  station  0.55%               gap  4.63%   swell 1.29x
+AND TIGHTENING THE BAND COSTS THE SWELL ITS SIZE, because the gap's extra top was carrying some
+of its loudness, so the two have to be tuned together. Re-swept the AGC with the band fixed: 2
+of 15 combinations met both conditions, and what ships is hold 10 / carrier 0.18 / 2 tail
+poles, rule 4 satisfied at 3.1% with the swell back at exactly +6.0 dB.
+  THE HELPER ITSELF IS NOT TOUCHED, and that is a judgement rather than laziness: every noise
+  sound in the module uses it, so changing it changes sounds HE HAS ALREADY VOTED UP. The right
+  next move is to measure all of them against rule 4 first and then decide, which is
+  [analog horror sound] round two's job anyway.
+
+*** AND ONE MEASUREMENT I THREW AWAY RATHER THAN PRINT. *** I measured the real -3 dB corner
+and it read 86 Hz at EVERY pole count, because the envelope peak sits on the 60 Hz carrier, so
+"the highest frequency within 3 dB of the peak" describes the hum and not the band. Same
+failure this lane already wrote down when the footstep measured 108 Hz.
+  A NUMBER THAT DOES NOT MEAN WHAT ITS NAME SAYS IS WORSE THAN NO NUMBER, so it is not in the
+  gate at all.
+
+THE RUINED ACT IS DELIBERATELY WORSE THAN ANY REAL RADIO: +15.6 dB against the real band's +12
+top. Said out loud rather than smuggled. A future he has not built should sound worse than any
+radio ever made, and that is the one place this sound leaves the real number behind.
+
+COOKED THIS ROUND (rule 22): WHAT A FLIP SOUNDS LIKE. Three acts, one tap each, plus all three
+back to back on the beat so the hunt getting longer is audible. Three options, the most rule 25
+allows. No vote on the page. Notes save themselves as he types. AND THE PAGE MEASURES ITS OWN
+NUMBERS off the rendered buffer rather than quoting the recipe's. Verified in a real browser:
+3 of 3 play, 0 page errors, 0 vote rows.
+MUTATION PROVEN: replace the flip with a plain crossfade (no AGC), which is what every
+transition sound in every game already is and is exactly what this is not. The two loudness
+claims go red naming 0.644x, -3.8 dB. The band and grid claims correctly STAY green, because
+killing the AGC moves neither and they are guarded by their own construction.
+
+WHAT IS NEXT IN THIS LANE, IN ORDER, NOTHING BLOCKED:
+  THE BAND HELPER AGAINST RULE 4, for every noise sound in the module, before anyone changes
+    it: the flip proved the leak is real and invisible on tones. Measure all of them, then
+    decide, because the ones that leak are ones he has already voted UP.
+  THE RUN'S SECOND FOOTSTEP the moment he picks B on DOES A RUN SOUND LIKE A RUN: one line in
+    the metronome, first thing when the hold allows a play-surface change.
+  THE FIVE HE VOTED UP (the door, the cloud, the song through the dead speaker, the fold, the
+    phone) go into the game the round the hold allows.
+  THE TWO HE VOTED DOWN (the footstep, the step drop-out): re-cook needs NEW ids quoting his
+    words, and his words for those two were about the voting, not the sound, and were LOST with
+    the inner votes. Aim at the school page's ten rules, which is all there is to aim at.
+  [beds play] HELD: air_day, air_night and air_inside are cooked, approved and play nowhere.
+  [analog horror sound] round two: the keep/redo of 65 sounds and 142 songs against the ten
+    rules, with the school page's 65-row table as the frozen baseline. THE BAND HELPER FINDING
+    BELONGS INSIDE THIS ROW.
+  [scheduled beat] still CLAIMED, round two is a clock the audio thread owns; it touches the
+    transport, so it waits on the hold.
+  Then [enemy heard], [fight music], [quiet floor], [rumour heard], [pump hum], [into the vote tab].
+  AND THE TWO MUSIC HOLES, STILL OPEN AND STILL MINE: a room handing the music back does not
+  check whether a fight owns it (its busy() guard binds one direction only), and the shell obeys
+  the city's music message with no fight guard at all.
+
+FOR EVERY LANE THAT DRIVES THE WALK, STILL TRUE AND WORTH REPEATING: the alpha opens on the
+VOTE tab, so click the RUN tab before anything else or the city has a 0x0 box and a held pad
+moves him zero cells, which reads exactly like a dead pad and is not one.
+
+STILL CARRIED, NAMED NOT FIXED:
+  the alpha holds a second copy of the room recipe; the gate holds the two together constant
+    for constant, and the right end state is the alpha importing the module. Held by rule 18.
+  pages_publish_gate reads 17/1: the published surface is 261 MB against its own 260 MB cap.
+    PLUMBER's territory.
+CARRIED, RECORDED NOT ACTED ON, BECAUSE LEVELS ARE HIS: THE GAPS IN THE HYMNAL peaks 25.6x the
+median on a CANON song; MENU - LIGHTS ACROSS THE VALLEY peaks 1.064 (BURIED).
+
 SOUNDS (sound-xk7pjp): 9/24 LATEST -- *** THE ROW ASKED WHETHER FOOTSTEPS FIRE FOUR TIMES PER
 STEP. THEY FIRE ONCE PER BEAT, AND THE REAL BUG WAS RIGHT NEXT TO IT: A RUN SOUNDS LIKE A WALK. ***
 Row [footsteps on the beat] SHIPPED 5ffae16. Nothing changed in the game's timing: he picks first.

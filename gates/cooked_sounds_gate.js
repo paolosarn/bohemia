@@ -131,6 +131,67 @@ const MEASURE = `
     /* THE CADENCE, MEASURED BY FINDING THE HITS, not by reading back the list the recipe
        was handed. A recipe that says "I put a footfall at 0.25 s" and did not is exactly
        the class of claim this gate refuses. */
+    /* THE FLIP, MEASURED AT THREE LEDGER STATES. Row [flip sound], rule 31. Every number
+       is found in the rendered buffer; the recipe's own stated figures are printed beside
+       them and never asserted on. */
+    flip: (function(){
+      const rms=(d,a,b)=>{let s=0,k=0;for(let i=Math.round(a*SR);i<Math.round(b*SR)&&i<d.length;i++){s+=d[i]*d[i];k++;}return k?Math.sqrt(s/k):0;};
+      /* ENERGY ABOVE THE TRANSMITTER'S OWN CORNER, which is the whole "no carrier, no band"
+         claim and nothing else. Measured on a window inside the stretch asked for. */
+      function aboveCorner(d,a,b,corner){
+        const N=4096, mid=Math.min(d.length-N, Math.max(0, Math.round(((a+b)/2)*SR - N/2)));
+        const seg=new Float32Array(N); seg.set(d.subarray(mid,mid+N));
+        const re=new Float64Array(N), im=new Float64Array(N);
+        for(let i=0;i<N;i++){ const w=0.5-0.5*Math.cos(2*Math.PI*i/(N-1)); re[i]=seg[i]*w; }
+        for(let i=1,j=0;i<N;i++){ let bit=N>>1; for(;j&bit;bit>>=1) j^=bit; j^=bit;
+          if(i<j){ let t=re[i];re[i]=re[j];re[j]=t; t=im[i];im[i]=im[j];im[j]=t; } }
+        for(let len=2;len<=N;len<<=1){ const ang=-2*Math.PI/len, wr=Math.cos(ang), wi=Math.sin(ang);
+          for(let i=0;i<N;i+=len){ let cr=1,ci=0;
+            for(let k=0;k<len/2;k++){ const ur=re[i+k],ui=im[i+k];
+              const vr=re[i+k+len/2]*cr-im[i+k+len/2]*ci, vi=re[i+k+len/2]*ci+im[i+k+len/2]*cr;
+              re[i+k]=ur+vr; im[i+k]=ui+vi; re[i+k+len/2]=ur-vr; im[i+k+len/2]=ui-vi;
+              const ncr=cr*wr-ci*wi; ci=cr*wi+ci*wr; cr=ncr; } } }
+        const binHz=SR/N; let tot=0, hi=0;
+        for(let k=1;k<N/2;k++){ const pwr=re[k]*re[k]+im[k]*im[k]; tot+=pwr;
+          if(k*binHz>corner) hi+=pwr; }
+        return tot>0?hi/tot:0;
+      }
+      /* IS THE 60 Hz FAMILY THERE? The grid is on in every act (school rule 7). Asked of
+         the two stations separately, so a flip that drops the carrier on one side fails. */
+      function humAt(d,a,b){
+        const N=8192, mid=Math.min(d.length-N, Math.max(0, Math.round(((a+b)/2)*SR - N/2)));
+        if(b*SR-a*SR < 2000) return null;              /* too short to ask */
+        const seg=new Float32Array(N); seg.set(d.subarray(mid,mid+N));
+        let best=0;
+        for(const f of [60,120,180]){
+          let re=0, im=0;
+          for(let i=0;i<N;i++){ const w=0.5-0.5*Math.cos(2*Math.PI*i/(N-1));
+            re+=seg[i]*w*Math.cos(2*Math.PI*f*i/SR); im+=seg[i]*w*Math.sin(2*Math.PI*f*i/SR); }
+          const mag=Math.sqrt(re*re+im*im)/N; if(mag>best) best=mag;
+        }
+        return +best.toFixed(5);
+      }
+      const o={};
+      for(const sig of [1,0.5,0]){
+        const c2=new OfflineAudioContext(1,SR,SR);
+        const m=H.theFlip(c2,{signal:sig});
+        const d=m.buffer.getChannelData(0);
+        const gA=m.gapFromSeconds, gB=m.gapToSeconds;
+        let z=0, pk=0;
+        for(let i=0;i<d.length;i++){ if(d[i]===0) z++; const a=Math.abs(d[i]); if(a>pk)pk=a; }
+        o['s'+sig]={
+          seconds:m.seconds, gapFrom:gA, gapTo:gB, gapLen:m.gapSeconds,
+          stationRms:+rms(d,0,gA).toFixed(5), gapRms:+rms(d,gA,gB).toFixed(5),
+          landRms:+rms(d,gB,m.seconds).toFixed(5),
+          gapOverStation:+(rms(d,gA,gB)/Math.max(1e-9,rms(d,0,gA))).toFixed(3),
+          aboveCornerStation:+(aboveCorner(d,0,gA,5000)*100).toFixed(2),
+          aboveCornerGap:+(aboveCorner(d,gA,gB,5000)*100).toFixed(2),
+          humBefore:humAt(d,0,gA), humAfter:humAt(d,gB,m.seconds),
+          exactZeros:z, peak:+pk.toFixed(3), said:m.levels, corner:m.machine.hi
+        };
+      }
+      return o;
+    })(),
     cadence: (function(){
       function hits(b){
         const d=b.getChannelData(0), sr=SR, out=[];
@@ -428,6 +489,11 @@ const MEASURE = `
         /* AND THE CADENCE: a run that is really a walk is exactly the bug in the game,
            so that is the falsifier -- perBeat is ignored and everything comes out at one
            a beat. If the two cadence claims stay green on this, they are not claims. */
+        /* AND THE FLIP: a PLAIN CROSSFADE between two stations, no AGC, which is what
+           every transition sound in every game already is and is exactly what this is not.
+           If the gap claims stay green on this they were never claims. */
+        const realFlip = H.theFlip;
+        H.theFlip = (ctx, o) => realFlip(ctx, Object.assign({}, o || {}, { holdX: 0 }));
         const realCad = H.walkCadence;
         H.walkCadence = (ctx, o) => realCad(ctx, Object.assign({}, o || {}, { perBeat: 1 }));
         const steady = H.wowProbe, steadySong = H.songThroughSpeaker;
@@ -685,6 +751,54 @@ const MEASURE = `
       + relDb.toFixed(1) + ' dB under it (was 0.60, -4.4 dB). Film and broadcast put room '
       + 'tone 20 to 30 dB under the foreground; under about -30 dB a bed on a handset '
       + 'loses to the room the player is really in.');
+
+    /* ---- THE FLIP: A RECEIVER CROSSING YEARS ---------------------------------
+       Row [flip sound], rule 31 (Paolo 9/23): the three acts are open at once and he flips
+       between them with one tap on the phone, always available. The mechanism is a receiver
+       retuning, and the honest detail is AGC: with no carrier to hold it down the gain winds
+       UP, so the gap between two stations is LOUDER and WIDER-BANDED than either station.
+       That gap is the machine listening for a future he has not built yet. */
+    const FLIPS = d.flip || {};
+    const f1 = FLIPS.s1 || {}, fh = FLIPS['s0.5'] || {}, f0 = FLIPS.s0 || {};
+    claim('THE FLIP FITS INSIDE ONE BEAT, at every ledger state (the 120 BPM law)',
+      [f1, fh, f0].every(x => Math.abs((x.seconds || 0) - d.beat) < 1e-9),
+      'all three are ' + f1.seconds + ' s and a beat is ' + d.beat + ' s. It is ONE TAP, '
+      + 'ALWAYS AVAILABLE, so he hears it hundreds of times: the failure mode is not "too '
+      + 'quiet", it is "I am sick of it"');
+    /* SIGNED, because a failure message that prints "+-3.8 dB" wastes the next reader's
+       time working out what it meant. The mutated run reads -3.8 and should say so. */
+    const dB = (x) => { const v = 20 * Math.log10(x);
+      return (v >= 0 ? '+' : '') + v.toFixed(1); };
+    claim('THE GAP IS LOUDER THAN EITHER STATION, which is what an AGC really does',
+      (f1.gapOverStation || 0) > 1.4,
+      'gap ' + f1.gapOverStation + 'x the station, which is ' + dB(f1.gapOverStation)
+      + ' dB. A real AM receiver\'s inter-station hiss runs +6 to +12 dB over a tuned '
+      + 'station. MY FIRST CUT MEASURED 0.66x (-3.6 dB), backwards from the mechanism the '
+      + 'whole sound is built on, and the sound was wrong rather than the ruler');
+    claim('AND A THINNER ACT HUNTS LONGER AND LOUDER, so the sound reports what the city does',
+      (f0.gapLen || 0) > (f1.gapLen || 0) * 1.8 && (f0.gapOverStation || 0) > (f1.gapOverStation || 0) * 1.8,
+      'full act: gap ' + f1.gapLen + ' s at ' + dB(f1.gapOverStation) + ' dB.  half: '
+      + fh.gapLen + ' s at ' + dB(fh.gapOverStation) + ' dB.  a ruin: ' + f0.gapLen
+      + ' s at ' + dB(f0.gapOverStation) + ' dB. THE LEDGER IS NOT MINE (rule 31: DYNASTY '
+      + 'derives it); this file ships the mechanism and a default of full signal');
+    claim('AND THE GAP HAS NO BAND, because a carrier is what gives a receiver one',
+      (f1.aboveCornerGap || 0) > (f1.aboveCornerStation || 0) * 2
+      && (f1.aboveCornerStation || 99) < 5,
+      'above the transmitter\'s own ' + f1.corner + ' Hz corner: ' + f1.aboveCornerStation
+      + '% on the station (school rule 4 asks under 5), ' + f1.aboveCornerGap + '% in the gap. '
+      + 'THE STATION LEAKED 21% UNTIL THIS WAS MEASURED, because bandTo DERIVES a per-pole '
+      + 'corner upward (4 poles put each at 11,495 Hz for a 5 kHz band) and raising its pole '
+      + 'count makes that WORSE, not better. Invisible on tones, fully exposed on noise.');
+    claim('THE GRID IS ON IN BOTH ACTS (school rule 7: a silence keeps its carrier)',
+      (f1.humBefore || 0) > 0 && (f1.humAfter || 0) > 0,
+      'the 60 Hz family reads ' + f1.humBefore + ' before the flip and ' + f1.humAfter
+      + ' after it. Same grid in every act, and nothing pitches: a pitch move would make '
+      + 'this a transition effect instead of a machine');
+    claim('AND IT NEVER READS DIGITAL ZERO (school rule 1)',
+      [f1, fh, f0].every(x => x.exactZeros === 0),
+      '0 exact zeros at all three states, peaks ' + [f1, fh, f0].map(x => x.peak).join('/')
+      + ' (never normalised to the peak on purpose: the GAP is the loudest part and a '
+      + 'normalise would hide that behind the ceiling)');
 
     /* ---- THE CADENCE: MEASURED FROM THE AUDIO, NOT READ BACK ------------------
        Row [footsteps on the beat]. Measured in the alpha this round: walking makes ONE

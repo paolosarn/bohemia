@@ -524,6 +524,173 @@
              why: 'the person stops and the grid does not: a long hold with the mains hum running through it, and nothing rises' };
   }
 
+  /* ==== 7. THE FLIP: ONE ACT TO ANOTHER ==========================================
+     ROW [flip sound], rule 31 (Paolo 9/23): the three acts are open at once and he FLIPS
+     between them with one tap on the phone. The law's own words for what that is under the
+     bible: "a phone that shows you a face that has not been born yet."
+
+     *** FIRST, THE THING THAT DECIDES EVERYTHING ELSE: THE FLIP IS ALWAYS AVAILABLE. ***
+     One tap, no place to walk to, no mode change (rule 24: same screen, same buttons, same
+     UI every second). So this is not a moment, it is a sound he will hear HUNDREDS of times,
+     and the failure mode is not "too quiet", it is "I am sick of it". Therefore: it fits
+     inside ONE BEAT, it has no riser, no whoosh and no stinger, and it never announces
+     itself. A whoosh here would be the same violation as a whoosh on the fight's cloud --
+     a sound effect pretending to be a mechanism.
+
+     REALISM FIRST, AND THE MECHANISM IS A REAL ONE. What does it really sound like to move
+     between two recordings of the same place at different times? A receiver retuning. And
+     the honest detail, the one that carries the whole meaning, is AGC: when a carrier drops,
+     a receiver's automatic gain control winds the gain UP hunting for signal, so the gap
+     between two stations is LOUDER and WIDER-BANDED than either station. That is not a
+     flourish, it is what every analog radio does, and it is why inter-station hiss is the
+     loudest thing on the dial.
+
+       THE GAP IS THE SOUND OF A MACHINE TURNING ITSELF ALL THE WAY UP LISTENING FOR
+       SOMETHING THAT IS NOT THERE YET. That is the future before he has built it.
+
+     SO THE SOUND REPORTS WHAT THE CITY REPORTS. Rule 31 says the future is derived from the
+     earlier acts' ledgers and early on it is a ruin. A thin act has less to receive, so the
+     hunt is longer and the hiss swells further; an act already lived captures fast and
+     clean. ONE PARAMETER, `signal` from 0 to 1, and IT IS NOT MINE TO SET: DYNASTY owns the
+     derivation (mechanism mine, contents theirs). This file ships the mechanism and a
+     default of 1 so nothing here decides how ruined his future is.
+
+     THE BAND IS THE SAME TRANSMITTER THE WHOLE GAME CAME OFF (MACHINE.AM), because it is
+     the same phone and the same dead broadcast. The carrier is the same 60 Hz mains the room
+     and the fold use, because it is the same grid in every act. Nothing new enters. */
+  function theFlip(ctx, opts) {
+    opts = opts || {};
+    var signal = opts.signal == null ? 1 : Math.max(0, Math.min(1, opts.signal));
+    var sr = ctx.sampleRate;
+    var total = BEAT;                                  /* ONE BEAT. The 120 BPM law. */
+    var n = Math.round(sr * total);
+    var buf = ctx.createBuffer(1, n, sr), d = buf.getChannelData(0);
+
+    /* THE GAP: where the old carrier has gone and the new one has not captured. A thin act
+       hunts longer. 24% of a beat at full signal, up to 44% at none -- still inside the
+       beat either way, because the beat is the law and the ledger is not allowed to break it. */
+    var gapFrom = 0.24 * total;
+    var gapTo   = (0.48 + 0.36 * (1 - signal)) * total;
+    var i, t, u;
+
+    /* 1. THE HISS, one pass, seeded so a checker can repeat it. Its LEVEL is the AGC: flat
+          under a carrier, swelling through the gap, back down when the new one captures. */
+    var hiss = new Float32Array(n);
+    noiseInto(hiss, n, 1, 31313);
+    /* THE SWELL IS A REAL CURVE, NOT A TRIANGLE: an AGC has a time constant, so it ramps up
+       over tens of milliseconds and recovers faster than it rises, which is what makes the
+       capture sound like a catch rather than a fade. */
+    var riseT = 0.055, fallT = 0.022;                  /* seconds, attack and recovery */
+    var agc = 1, want;
+    /* THE THREE LEVELS ARE OPTIONS SO THE REAL FUNCTION CAN BE SWEPT, NOT A COPY OF IT.
+       My first attempt at finding these swept a throwaway re-implementation of this recipe
+       and read 0.52x where the real one reads 0.66x, because its filters were not these
+       filters. A SWEEP BUILT ON A COPY IS NOT MEASURING THE RECIPE -- the same duplication
+       trap that silenced every footstep in this game, wearing a different hat. The defaults
+       below are what ships; the gate reads them back off this object. */
+    /* AND THESE THREE ARE MEASURED, NOT PICKED. A real AM receiver's inter-station hiss
+       runs about +6 to +12 dB over a tuned station, because the AGC has 20 to 30 dB of
+       range and nothing to hold it down. My first cut had carrier 0.30 / hiss 0.16 /
+       hold 3.2 and MEASURED THE GAP QUIETER THAN THE STATION (0.66x, -3.6 dB) -- exactly
+       backwards from the mechanism the whole sound is built on, because a coherent hum at
+       0.30 carries far more rms than band-limited noise at 0.34. The sound was wrong, not
+       the ruler. Swept on THE REAL FUNCTION, twice: once across 64 level combinations, and
+       again after the band was tightened to pass school rule 4, because A TIGHTER BAND
+       COSTS THE SWELL ITS SIZE (the gap's extra top was carrying some of its loudness) and
+       the two have to be tuned together. MEASURED, WHAT SHIPS:
+         full signal   gap 2.00x the station = +6.0 dB, the bottom of the real band
+         a ruined act  gap 6.05x            = +15.6 dB, ABOVE what a real receiver does,
+                       and that is deliberate: a future he has not built should sound
+                       worse than any radio ever made
+         the station   3.1% of its energy above its own 5 kHz corner (rule 4 asks under 5) */
+    var HISS = opts.hiss == null ? 0.28 : opts.hiss;
+    var CARR = opts.carrier == null ? 0.18 : opts.carrier;
+    var HOLDX = opts.holdX == null ? 10 : opts.holdX;
+    var hold = 1 + HOLDX * (0.35 + 0.65 * (1 - signal)); /* how far up it hunts */
+    for (i = 0; i < n; i++) {
+      t = i / sr;
+      want = (t >= gapFrom && t < gapTo) ? hold : 1;
+      var k = want > agc ? (1 - Math.exp(-1 / (riseT * sr))) : (1 - Math.exp(-1 / (fallT * sr)));
+      agc += (want - agc) * k;
+      d[i] = hiss[i] * HISS * agc;
+    }
+
+    /* 2. THE TWO CARRIERS: the act he is leaving, and the act he lands in. The same 60 Hz
+          mains in both, because it is the same grid -- what changes is only which harmonics
+          survive the trip, which is what a different distance from the transmitter sounds
+          like. Nothing pitches up or down: a pitch move would make this a transition effect. */
+    function carrier(from, to, parts, lvl) {
+      var a = Math.round(from * sr), b = Math.round(to * sr), fade = Math.round(0.018 * sr);
+      for (var j = a; j < b && j < n; j++) {
+        var h = 0, tt = j / sr;
+        for (var q = 0; q < parts.length; q++)
+          h += Math.sin(2 * Math.PI * 60 * parts[q][0] * tt) * parts[q][1];
+        var g = 1;
+        if (j - a < fade) g = (j - a) / fade;                 /* in  */
+        if (b - j < fade) g = Math.min(g, (b - j) / fade);     /* out */
+        d[j] += h * lvl * g;
+      }
+    }
+    carrier(0, gapFrom, [[1, 1.00], [2, 0.42], [3, 0.18]], CARR);
+    /* the act he lands in: thinner in its harmonics the thinner its ledger, so a ruined
+       future is a weaker station. The FUNDAMENTAL never goes away -- the grid is always on
+       (school rule 7: a silence keeps its carrier). */
+    var lands = [[1, 1.00], [2, 0.42 * signal], [3, 0.18 * signal]];
+    carrier(gapTo, total, lands, CARR);
+
+    /* 3. THE BAND. Inside the gap a receiver with no carrier to hold it has NO band either,
+          so the gap is wider than the stations on both sides. That is done by band-limiting
+          the whole thing to the transmitter and then adding back a little top ONLY in the
+          gap, which is cheaper and truer than two filters fighting. */
+    /* FOUR POLES, NOT TWO, AND THE GATE IS WHY. With two the station leaked 22% of its
+       energy above its own 5 kHz corner, which fails this lane's own school rule 4 (under
+       5% above the machine's number) -- and it also flattened the "no carrier, no band"
+       claim to 1.93x because the station already had the top the gap was supposed to add.
+       The phone's carrier uses four for exactly this reason. A transmitter's band edge is
+       steep BY REGULATION, so four is the honest number and two was the lazy one. */
+    bandTo(d, n, MACHINE.AM.lo, MACHINE.AM.hi, sr, 4);
+    /* *** AND EXTRA POLES AT THE NOMINAL CORNER, WHICH IS NOT THE SAME THING AS MORE POLES
+       IN bandTo, AND THE DIFFERENCE IS THE TRAP THIS LANE ALREADY WROTE DOWN ONCE. ***
+       bandTo DERIVES a per-pole corner so the combined -3 dB lands on the number asked for,
+       which for 4 poles puts each pole at 2.3x the corner -- 11,495 Hz for a 5 kHz band. On
+       TONES that is invisible (the phone's carrier reads 0.05% above its corner) because
+       there is nothing up there to pass. ON NOISE THE TAIL IS FULLY EXPOSED: measured, the
+       station leaked 21% of its energy above its own 5 kHz corner, which fails this lane's
+       own school rule 4. Raising bandTo's pole count makes it WORSE, because the derived
+       corner rises with N -- 2 poles 7,769 Hz, 8 poles 16,620 Hz. That is verbatim the
+       lesson from the band claim that cost five attempts: MORE POLES AT A DERIVED CORNER
+       HAS A FLATTER PASSBAND AND A ROLL-OFF THAT STARTS LATER.
+       So the tail is killed with poles AT the nominal corner, which costs some top and is
+       the price of a real transmitter's skirt. What the band actually becomes is MEASURED
+       and declared below rather than asserted from the label. */
+    var TAIL = opts.tailPoles == null ? 2 : opts.tailPoles;
+    for (var tp = 0; tp < TAIL; tp++) onePoleLow(d, n, MACHINE.AM.hi, sr);
+    var a2 = Math.round(gapFrom * sr), b2 = Math.round(Math.min(gapTo, total) * sr);
+    var wide = new Float32Array(n);
+    noiseInto(wide, n, 1, 77771);
+    bandTo(wide, n, 2000, 11000, sr, 2);               /* the top a carrier would have cut */
+    for (i = a2; i < b2 && i < n; i++) {
+      u = (i - a2) / Math.max(1, b2 - a2);
+      d[i] += wide[i] * 0.055 * Math.sin(Math.PI * u);  /* in and out with the gap */
+    }
+
+    /* 4. AND IT NEVER REACHES SILENCE (school rule 1), because a receiver that is on is
+          never silent. No normalise to a peak here: the whole point is that the GAP is the
+          loudest part, and normalising to the peak would hide that behind the ceiling. */
+    var pk = 0;
+    for (i = 0; i < n; i++) { var av = Math.abs(d[i]); if (av > pk) pk = av; }
+    if (pk > 0.85) for (i = 0; i < n; i++) d[i] *= 0.85 / pk;
+
+    return { buffer: buf, machine: MACHINE.AM, seconds: total,
+             signal: signal,
+             gapFromSeconds: +gapFrom.toFixed(3), gapToSeconds: +Math.min(gapTo, total).toFixed(3),
+             gapSeconds: +(Math.min(gapTo, total) - gapFrom).toFixed(3),
+             agcHold: +hold.toFixed(2), carrierHz: 60,
+             levels: { hiss: HISS, carrier: CARR, holdX: HOLDX },
+             why: 'a receiver leaving one act and capturing another: the gap is the machine '
+                + 'turning itself up for a signal that is not there yet' };
+  }
+
   /* ==== 4b. THE WALK HAS A CADENCE, AND A RUN DOES NOT ==========================
      MEASURED ON THE REAL SURFACE THIS ROUND, row [footsteps on the beat]. The row asked
      whether footsteps fire FOUR TIMES per ruled step. They do not. They fire ONCE PER
@@ -775,6 +942,7 @@
     stepWithDropouts: stepWithDropouts,
     phoneTone: phoneTone,
     songThroughSpeaker: songThroughSpeaker,
+    theFlip: theFlip,
     walkCadence: walkCadence,
     roomHum: roomHum,
     ROOM: { sec: ROOM_SEC, hum: ROOM_HUM, lo: ROOM_LO, hi: ROOM_HI, seam: ROOM_SEAM,

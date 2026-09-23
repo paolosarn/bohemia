@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>WHAT A FLIP SOUNDS LIKE</title>
+<!-- SOUNDS lane, 9/25, row [flip sound]. Rule 31 (Paolo 9/23): the three acts are open at
+     once and he flips between them with one tap on the phone. The law's own words for what
+     that is under the bible: "a phone that shows you a face that has not been born yet."
+     THE MECHANISM IS A REAL ONE: a receiver retuning, and the gap between two stations is
+     LOUDER and WIDER-BANDED than either, because with no carrier to hold it down the AGC
+     winds the gain up hunting. That gap is the machine listening for a future he has not
+     built yet, and a thinner act hunts longer.
+     NO VOTE LIVES ON THIS PAGE (rule 25). It plays and it holds his words. -->
+<style>
+  :root{ --ink:#1b1408; --paper:#e8dfc9; --line:#8a7a52; --panel:#f2ead6; --dim:#6a5a3e; --hot:#b4462a; }
+  html,body{margin:0;background:var(--paper);color:var(--ink);
+    font:15px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace}
+  .wrap{max-width:720px;margin:0 auto;padding:18px 16px 70px}
+  h1{font-size:19px;letter-spacing:2px;margin:0 0 2px}
+  .sub{color:var(--dim);font-size:12px;letter-spacing:1px;margin-bottom:14px}
+  .beatbar{display:flex;gap:4px;margin:10px 0 18px}
+  .beatbar i{flex:1;height:6px;background:#d6cbb0;border:1px solid var(--line)}
+  .beatbar i.on{background:var(--ink)}
+  .card{background:var(--panel);border:1px solid var(--line);padding:14px;margin:0 0 14px}
+  .card h2{font-size:14px;letter-spacing:1.5px;margin:0 0 6px}
+  .why{font-size:13px;margin:0 0 10px}
+  .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  button{font:inherit;background:var(--paper);color:var(--ink);border:1px solid var(--line);
+    padding:11px 14px;min-height:48px;cursor:pointer;letter-spacing:1px}
+  button:active{transform:translateY(1px)}
+  button.on{background:var(--ink);color:var(--paper)}
+  .num{font-size:12px;color:var(--dim);margin-top:8px;white-space:pre-wrap}
+  textarea{width:100%;box-sizing:border-box;font:inherit;background:var(--paper);
+    color:var(--ink);border:1px solid var(--line);padding:8px;min-height:80px}
+  label{font-size:12px;letter-spacing:1px;color:var(--dim);display:block;margin:10px 0 4px}
+  .foot{border-top:2px solid var(--line);margin-top:22px;padding-top:14px}
+</style></head><body><div class="wrap">
+
+<h1>WHAT A FLIP SOUNDS LIKE</h1>
+<div class="sub">SOUNDS &middot; 9/25 &middot; one tap on the phone, three acts &middot; 120 BPM</div>
+<div class="beatbar" id="bar"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+<div class="row"><button id="metro">BEAT: OFF</button><button id="stop">STOP</button></div>
+<div class="num" id="head"></div>
+
+<div class="card">
+  <div class="why"><b>WHAT THIS IS.</b> You said the three acts are open at the same time and
+  you flip between them on the phone. This is the sound of that flip.
+  <br><br>
+  <b>It is not a whoosh and it is not a swoosh.</b> It is a radio changing station. When a
+  radio loses one station and has not found the next, the hiss gets <b>louder</b>, not quieter,
+  because the machine turns its own volume up hunting for something to receive. That is real,
+  every radio does it, and it is the reason inter-station hiss is the loudest thing on the dial.
+  <br><br>
+  <b>And that gap is the future you have not built yet.</b> So the thinner the act you are
+  flipping into, the longer the machine hunts and the louder it gets. The sound says the same
+  thing your ruined city says. You tap once, so it is over inside one beat, every time.</div>
+</div>
+
+<div class="card">
+  <h2>A. FLIPPING INTO AN ACT YOU HAVE LIVED</h2>
+  <div class="why">A full ledger. The old station drops, a short hiss, the new one catches
+  straight away. The gap is a tenth of a second and about twice as loud as the station, which
+  is what a real radio does.</div>
+  <div class="row"><button data-sig="1">PLAY A</button></div>
+  <div class="num" id="numA"></div>
+</div>
+
+<div class="card">
+  <h2>B. FLIPPING INTO AN ACT HALF BUILT</h2>
+  <div class="why">Half a ledger. It hunts nearly twice as long and gets louder before it
+  catches, and the station it lands on has lost some of its body.</div>
+  <div class="row"><button data-sig="0.5">PLAY B</button></div>
+  <div class="num" id="numB"></div>
+</div>
+
+<div class="card">
+  <h2>C. FLIPPING INTO A RUIN</h2>
+  <div class="why">Nothing built yet, which is where you start. The longest hunt and the
+  loudest, and what it finds is a bare hum with none of its harmonics left. This is the one
+  the tutorial is made of.</div>
+  <div class="row"><button data-sig="0">PLAY C</button></div>
+  <div class="num" id="numC"></div>
+</div>
+
+<div class="card">
+  <h2>ALL THREE, BACK TO BACK</h2>
+  <div class="why">On the beat, in order, so you can hear the hunt getting longer.</div>
+  <div class="row"><button id="all3">PLAY ALL THREE</button></div>
+</div>
+
+<div class="foot">
+  <label>ANYTHING ABOUT ANY OF THEM</label>
+  <textarea id="all"></textarea>
+  <div class="row" style="margin-top:12px">
+    <button id="copy">COPY ALL</button>
+    <button id="exp">SAVE AS .txt</button>
+  </div>
+  <div class="num" id="footnote">What you type is kept in this page, so closing it does not
+lose it. COPY ALL puts it on your clipboard.
+THERE IS NO VOTE ON THIS PAGE ON PURPOSE: you vote once, in the VOTE tab.</div>
+</div>
+
+<script src="../engine/bohemia_horror_sounds.js"></script>
+<script>
+var H = window.BOH_HORROR_SOUNDS;
+var AC = null, live = [], cache = {};
+function ac(){ if(!AC) AC = new (window.AudioContext||window.webkitAudioContext)();
+  if(AC.state==='suspended') AC.resume(); return AC; }
+function made(sig){ var k='s'+sig;
+  if(!cache[k]) cache[k] = H.theFlip(ac(), { signal:+sig });
+  return cache[k]; }
+function stopAll(){ live.forEach(function(n){ try{ n.stop(); }catch(e){} }); live=[];
+  document.querySelectorAll('button[data-sig]').forEach(function(b){ b.classList.remove('on'); }); }
+function fire(sig, at){
+  var c = ac(), m = made(sig);
+  var s = c.createBufferSource(); s.buffer = m.buffer;
+  var g = c.createGain(); g.gain.value = 0.9;
+  s.connect(g); g.connect(c.destination); s.start(at || 0);
+  live.push(s);
+}
+function play(sig, btn){ stopAll(); fire(sig); if(btn) btn.classList.add('on'); head(); }
+function dB(x){ var v = 20*Math.log10(x); return (v>=0?'+':'') + v.toFixed(1); }
+function ratio(m){
+  /* MEASURED HERE TOO, SO THE PAGE IS NOT QUOTING A NUMBER IT WAS HANDED. Same window the
+     gate uses: the gap against the station in front of it. */
+  var d = m.buffer.getChannelData(0), sr = ac().sampleRate;
+  function rms(a,b){ var s=0,k=0; for(var i=Math.round(a*sr);i<Math.round(b*sr)&&i<d.length;i++){s+=d[i]*d[i];k++;} return k?Math.sqrt(s/k):0; }
+  var st = rms(0, m.gapFromSeconds), gp = rms(m.gapFromSeconds, m.gapToSeconds);
+  return st>0 ? gp/st : 0;
+}
+function head(){
+  var a = made(1), b = made(0.5), c = made(0);
+  document.getElementById('head').textContent =
+    'the beat is ' + H.BPM + ' BPM, so one beat is ' + (H.BEAT*1000) + ' ms\n'
+    + 'every flip is ' + (a.seconds*1000) + ' ms, so it is over inside one beat whatever the act\n'
+    + 'the carrier is ' + a.carrierHz + ' Hz mains in every act, through a '
+    + a.machine.lo + ' to ' + a.machine.hi + ' Hz band: the same grid, the same dead transmitter';
+  document.getElementById('numA').textContent =
+    'hunts for ' + Math.round(a.gapSeconds*1000) + ' ms, ' + dB(ratio(a)) + ' dB louder than the station';
+  document.getElementById('numB').textContent =
+    'hunts for ' + Math.round(b.gapSeconds*1000) + ' ms, ' + dB(ratio(b)) + ' dB louder';
+  document.getElementById('numC').textContent =
+    'hunts for ' + Math.round(c.gapSeconds*1000) + ' ms, ' + dB(ratio(c)) + ' dB louder, and the '
+    + 'station it lands on has lost its harmonics';
+}
+document.querySelectorAll('button[data-sig]').forEach(function(b){
+  b.onclick = function(){ play(b.dataset.sig, b); };
+});
+document.getElementById('all3').onclick = function(){
+  stopAll(); var c = ac(), t = c.currentTime + 0.1;
+  ['1','0.5','0'].forEach(function(s,i){ fire(s, t + i * H.BEAT * 2); });
+  head();
+};
+document.getElementById('stop').onclick = function(){ stopMetro(); stopAll(); head(); };
+
+/* THE BEAT, scheduled on the audio clock, never on a page timer: this lane spent a round
+   proving the main thread cannot keep 120 BPM on a phone. */
+var metroOn=false, nextAt=0, timer=null, bar=0, CLICK=null;
+function clickBuf(){ var c=ac(), n=Math.round(c.sampleRate*0.02),
+  b=c.createBuffer(1,n,c.sampleRate), d=b.getChannelData(0);
+  for(var i=0;i<n;i++) d[i]=Math.sin(2*Math.PI*1800*i/c.sampleRate)*Math.pow(1-i/n,6)*0.25;
+  return b; }
+function startMetro(){ if(metroOn) return; var c=ac(); CLICK=CLICK||clickBuf();
+  metroOn=true; nextAt=c.currentTime+0.12; bar=0;
+  document.getElementById('metro').textContent='BEAT: ON';
+  document.getElementById('metro').classList.add('on');
+  timer=setInterval(function(){ var c=ac();
+    while(nextAt < c.currentTime + 0.25){
+      var s=c.createBufferSource(); s.buffer=CLICK; s.connect(c.destination); s.start(nextAt);
+      var idx=bar%8, wait=Math.max(0,(nextAt-c.currentTime)*1000);
+      setTimeout(function(i){ return function(){
+        var bs=document.querySelectorAll('#bar i');
+        bs.forEach(function(x){ x.classList.remove('on'); });
+        if(bs[i]) bs[i].classList.add('on'); }; }(idx), wait);
+      nextAt += H.BEAT; bar++;
+    } }, 60); }
+function stopMetro(){ metroOn=false; if(timer) clearInterval(timer); timer=null;
+  document.getElementById('metro').textContent='BEAT: OFF';
+  document.getElementById('metro').classList.remove('on');
+  document.querySelectorAll('#bar i').forEach(function(x){ x.classList.remove('on'); }); }
+document.getElementById('metro').onclick = function(){ metroOn ? stopMetro() : startMetro(); };
+
+/* HIS WORDS SURVIVE BY DEFAULT. A page in this lane lost eight of his votes because the only
+   way out was a download he never pressed. */
+var KEY='bohemia_flip_notes_v1';
+try{ var v=localStorage.getItem(KEY); if(v) document.getElementById('all').value=v; }catch(e){}
+document.getElementById('all').addEventListener('input', function(){
+  try{ localStorage.setItem(KEY, this.value); }catch(e){} });
+function noteText(){ var a=document.getElementById('all').value.trim();
+  return 'BOHEMIA NOTES -- WHAT A FLIP SOUNDS LIKE (SOUNDS, 9/25). NO VOTES HERE: the vote is in the VOTE tab.\n'
+    + 'registry id: sounds-what-a-flip-sounds-like-9-25\n\n' + (a || '(nothing written yet)'); }
+function say(m){ var n=document.getElementById('footnote'), was=n.textContent;
+  n.textContent=m; setTimeout(function(){ n.textContent=was; },2200); }
+document.getElementById('copy').onclick=function(){ var txt=noteText();
+  function fb(){ var ta=document.createElement('textarea'); ta.value=txt;
+    ta.style.position='fixed'; ta.style.opacity='0'; document.body.appendChild(ta); ta.select();
+    try{ document.execCommand('copy'); say('COPIED. Paste it back to me.'); }
+    catch(e){ say('Could not copy. Use SAVE AS .txt.'); } ta.remove(); }
+  if(navigator.clipboard&&navigator.clipboard.writeText)
+    navigator.clipboard.writeText(txt).then(function(){ say('COPIED. Paste it back to me.'); }, fb);
+  else fb(); };
+document.getElementById('exp').onclick=function(){
+  var blob=new Blob([noteText()],{type:'text/plain'});
+  var u=URL.createObjectURL(blob), el=document.createElement('a');
+  el.href=u; el.download='BOHEMIA_NOTES_WHAT_A_FLIP_SOUNDS_LIKE.txt';
+  document.body.appendChild(el); el.click(); el.remove();
+  setTimeout(function(){ URL.revokeObjectURL(u); },1500); };
+head();
+</script>
+</div></body></html>
