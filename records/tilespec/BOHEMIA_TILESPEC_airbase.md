@@ -2,7 +2,7 @@
 
 _Category: **infrastructure**  ·  Cell: 96 m × 96 m = 128×128 tiles (0.75 m/tile)  ·  Street-aware + drivable (explicit car network)_
 
-GENERATED from `engine/bohemia_airbase.js` (NOTES + LEGEND + PALETTE) — do not hand-edit; rerun `node tools/bohemia_tilespec.js`. ACT-1 material is the dead-world look to tile now; ACT-2/3 evolution is Paolo's call.
+GENERATED from `engine/bohemia_airfield.js` (NOTES + LEGEND + PALETTE) — do not hand-edit; rerun `node tools/bohemia_tilespec.js`. ACT-1 material is the dead-world look to tile now; ACT-2/3 evolution is Paolo's call.
 
 **The airfield, built across its whole cluster instead of per cell: one runway with real markings, a full-length parallel taxiway, an apron of stands, a landside row of terminal or hangars, all inside a perimeter fence, with the aircraft still sitting where they stopped.**
 

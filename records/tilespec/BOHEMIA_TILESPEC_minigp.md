@@ -2,7 +2,7 @@
 
 _Category: **leisure**  ·  Cell: 96 m × 96 m = 128×128 tiles (0.75 m/tile)  ·  Street-aware + drivable (explicit car network)_
 
-GENERATED from `engine/bohemia_minigp.js` (NOTES + LEGEND + PALETTE) — do not hand-edit; rerun `node tools/bohemia_tilespec.js`. ACT-1 material is the dead-world look to tile now; ACT-2/3 evolution is Paolo's call.
+GENERATED from `engine/bohemia_landmarks.js` (NOTES + LEGEND + PALETTE) — do not hand-edit; rerun `node tools/bohemia_tilespec.js`. ACT-1 material is the dead-world look to tile now; ACT-2/3 evolution is Paolo's call.
 
 **A kart circuit: a road course with real corners, a pit lane down the inside of the straight with the paddock behind it, tyre walls on the outside of every turn, gravel run-off at the fast ones, and a timing tower over the start line.**
 

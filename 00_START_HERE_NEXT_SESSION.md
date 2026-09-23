@@ -5436,6 +5436,77 @@ full suite unmeasured since 7efb22cf. Rule 14(a): demo untouched, RUN cuts it.
 
 Record: records/BOHEMIA_ONE_DOOR_9_14_26.md
 
+PLUMBER (plumber-ont6t5): 9/23 (d) LATEST -- *** CHAT 18. ROUND 38. [rot ceiling] SHIPPED. IT WAS NOT
+TWO STALE CITATIONS TO RETYPE. IT WAS ONE LINE OF A GENERATOR WRITING A PATH NOBODY HAD EVER LOOKED
+FOR, AND IT WAS STILL PRODUCING THEM. ***
+THE ROW SAID: canon_rot_gate red on main, 82 gone against a ceiling of 80, two tilespecs citing engine
+files never in git. FIRST RUN ON A CLEAN TREE SAID 83, and named a THIRD (reclaim) that had appeared
+between the coordinator's measurement and mine. That is the tell: a typo does not breed.
+THE REAL SIZE, swept: 71 dossiers carry a "GENERATED from" citation and TWENTY-ONE CITE A FILE THAT IS
+NOT ON DISK. The three the gate names are only the ones whose file was NEVER in git; the other eighteen
+sit in the grandfathered bucket and were invisible to everybody.
+THE CAUSE, ONE LINE (tools/bohemia_tilespec.js): the path was BUILT OUT OF THE DISTRICT'S NAME instead
+of read from the module that was loaded. True by coincidence for the thirty-odd districts the tool names
+by hand. A GUESS for every district its REGISTRY SWEEP finds -- and the sweep is the GOOD part of that
+tool, its own comment says so: "twelve utility landmarks shipped with no dossier because nobody
+remembered to add twelve lines here... the thirteenth landmark needs no edit to this file, which is the
+whole point." Exactly right, and exactly the districts that got a wrong citation, because those
+landmarks live in SHARED modules. Asked node who actually calls K.register:
+  engine/bohemia_utility.js    arsenal basin datafort fueldepot granary gypsum intake pumpstation
+                               quarry radio reclaim reservoir
+  engine/bohemia_landmarks.js  convention dam fort minigp prison
+  engine/bohemia_airfield.js   airbase airport
+  engine/bohemia_arterial.js   arterial_x      engine/bohemia_strip.js   strip_x
+Across all 72 registered types the old guess was RIGHT FOR 50 AND WRONG FOR 22.
+THE FIX IS NOT A TABLE OF EXCEPTIONS. A lookup of the 22 works now and is wrong the moment a thirteenth
+utility landmark lands, which is the precise bug the sweep was written to kill. So: ASK NODE WHO
+REGISTERED THE TYPE. Wrap K.register before a single generator loads and record the engine file that was
+executing. 72 of 72 traced, no list to maintain, and a shared module that gains a landmark cites itself
+correctly with no edit to anything.
+AND A FLOOR, because the fix is not the interesting part: THE GENERATOR NOW REFUSES to write a citation
+to a file it cannot find on disk. It writes "a module this generator could not identify" and prints a
+loud block naming every sheet that happened. Silence is how twenty-one of these drifted -- the tool
+printed "wrote tilespec for reservoir" either way.
+RESULT: 83 gone -> 62. 12 pass / 1 fail -> 13 PASS / 0 FAIL. 21 sheets regenerated at ONE LINE EACH, 42
+changed lines total, nothing else in any dossier moved. Plus one sheet that had never existed: FACTIONS'
+`sign` was in the registry with no dossier because this generator had not been re-run since it landed.
+CEILING LOWERED 80 -> 62, AND THAT IS THE POINT. The gate's own note asks for it ("lower CEILING in this
+gate to lock the win in"). Leaving it at 80 would have banked room for EIGHTEEN new dead citations
+nobody would ever be told about. A number that can only fall is the whole value of a ratchet.
+MUTATION-CHECKED BOTH WAYS, exit codes read WITHOUT A PIPE:
+  one dead citation put back      63 of ceiling 62, 12 pass / 1 fail, exit 1, NAMES the sheet
+  owning module hidden from gen   refuses, prints the loud block, writes the honest sentence
+  restored                        13 pass / 0 fail, 72 of 72 citations on disk
+*** AND THE RATCHET'S FIRST CATCH WAS ME, WITHIN THE HOUR. *** Rebasing onto a newer main took the
+count 62 -> 65 and my own green run went red. I chased it as another lane's rot and it was not: THE
+THREE NEW DEAD CITATIONS WERE IN THE RECORD I HAD JUST WRITTEN, which quotes the three broken paths as
+examples of the bug. A document ABOUT dead citations is not exempt from being one. Written split now
+(engine/ + bohemia_reclaim.js), with the trap named in the record for the next lane that writes this
+class of record. Back to 62 gone, 13 pass / 0 fail. The ceiling I had lowered an hour earlier is the
+thing that caught it, against its own author, which is the best argument for lowering it that exists.
+ALSO WORTH KNOWING, NOT FIXED BY ME: the gate labels the items past the ceiling "NEW ROT", and they are
+not new -- they are whichever entries fall past that index in the list. I spent a measurement chasing
+two 8/31 lab files it named that had been in the set the whole time. The label is wrong, the count is
+right. Named here rather than fixed because the row I hold was the ceiling, not the wording.
+WHAT THIS IS AN INSTANCE OF, fourth tool in four rounds: a pipe that ate a push's exit code, a driver
+that opened the demo when asked for the alpha, a deploy gate reading a day-and-a-half-old answer, and now
+a generator writing a path it never checked. NONE OF THEM THREW. ALL OF THEM PRINTED SOMETHING A PERSON
+WOULD QUOTE. Always the same shape: a tool states something it is in a position to verify, and does not.
+FOR EVERY OTHER LANE: the red you have been reading as your own is gone. 62 truly-gone citations remain,
+NONE OF THEM ARE TILESPECS ANY MORE, they belong to whoever wrote them, and the ceiling now only falls.
+PRE-PUSH PASS: CANON ROT 13/0, TILESPEC 310/0 (44 districts), DISTRICT KIT 24/0, WORLD 29/0, HANDOFF
+8/0, REPLY CONTRACT 17/0. Full suite: 107 red at ad23d875, mine are none. Rule 14(a): demo untouched.
+Record: records/BOHEMIA_THE_CITATION_WAS_A_GUESS_9_23_26.md
+STILL OPEN IN MY SECTION: [three valleys], [slim build], [deep history], [real surface], [horror gate],
+[mode chip], [suite line], [pre-push pass], [cannot fail], [one way rulers], [spelling gates],
+[suite runs], [fight headroom], [dead gates], [handoff cut], [backlog archive].
+Still CLAIMED: [never worse], [sixty fps], [demo errors] (STANDING).
+NOT ON THE BOARD AND THIS LANE'S WHEN IT IS: nothing stops a file with git conflict markers in it from
+reaching main. It happened last round in the vote registry and the handoff gate only caught it AFTER the
+push, in everybody else's round. A pre-push leg that refuses a commit carrying conflict markers is cheap.
+[PENDING Paolo] ONE CLICK, still the real fix for the 404 he hit: Settings -> Pages -> Source: GitHub
+Actions. Until then two builders publish this site and whichever finishes last wins.
+
 PLUMBER (plumber-ont6t5): 9/23 (c) LATEST -- *** CHAT 18. ROUND 37. [eyes: head blind] SHIPPED. ONE
 CHARACTER DECIDED WHETHER A LIVE LANE'S ENTIRE CURRENT STATE COULD BE DELETED IN SILENCE. ***
 EYES AND EARS found this in my gate, proved it one difference at a time, and DID NOT FIX IT, because

@@ -2,7 +2,7 @@
 
 _Category: **(uncategorized)**  ·  Cell: 96 m × 96 m = 128×128 tiles (0.75 m/tile)  ·  Street-aware + drivable (explicit car network)_
 
-GENERATED from `engine/bohemia_strip_x.js` (NOTES + LEGEND + PALETTE) — do not hand-edit; rerun `node tools/bohemia_tilespec.js`. ACT-1 material is the dead-world look to tile now; ACT-2/3 evolution is Paolo's call.
+GENERATED from `engine/bohemia_strip.js` (NOTES + LEGEND + PALETTE) — do not hand-edit; rerun `node tools/bohemia_tilespec.js`. ACT-1 material is the dead-world look to tile now; ACT-2/3 evolution is Paolo's call.
 
 **LAS VEGAS BOULEVARD — the resort corridor itself. Eight lanes divided by a wide landscaped palm median, a promenade at the back of curb running out to the property line on both sides, marquee pylons at the building face, and at every major crossing the enclosed PEDESTRIAN BRIDGES on their stair towers, flying over the traffic. 81 cells of the valley are this street, and every one of them generated bare ground until now.**
 

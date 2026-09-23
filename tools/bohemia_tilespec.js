@@ -12,6 +12,50 @@
 const fs = require('fs'), path = require('path');
 const K = require('../engine/bohemia_district_kit.js');
 const ROOT = path.dirname(__dirname);
+
+/* *** THE CITATION WAS A GUESS, AND TWENTY-ONE DOSSIERS POINTED AT FILES THAT DO NOT
+   EXIST. (9/23, PLUMBER, row [rot ceiling].) ***
+   Every sheet this tool writes opens with "GENERATED from `engine/bohemia_<name>.js`",
+   and that path used to be BUILT FROM THE DISTRICT'S NAME rather than from the module
+   that was actually loaded. For the districts named by hand below that happens to be
+   true. For every district the REGISTRY SWEEP finds -- the mechanism added so a new
+   landmark needs no edit here -- it is a guess, because those live inside SHARED
+   modules: twelve utility landmarks are all in bohemia_utility.js, five more in
+   bohemia_landmarks.js, two in bohemia_airfield.js, and so on.
+
+   MEASURED before changing anything: 71 dossiers carry a citation, 21 CITE A FILE THAT
+   IS NOT ON DISK, and across all 72 registered types the old guess was right for 50 and
+   WRONG FOR 22. Three of them (reclaim, reservoir, strip_x) name files that have never
+   been in git at all, which is what pushed canon_rot_gate over its ceiling and made
+   every lane read that red as its own.
+
+   THE FIX IS NOT A TABLE OF EXCEPTIONS, because the next landmark would need a line in
+   it and that is the bug the sweep was built to kill. ASK NODE WHO REGISTERED THE TYPE:
+   wrap K.register before a single generator loads and record the engine file that was
+   executing. It covers all 72 with no list to maintain, and a shared module that gains
+   a thirteenth landmark cites itself correctly with no edit.
+   FLOOR, below: a citation is never written unless the file is ON DISK. A generator
+   that states a path it did not check is the same defect in a smaller font. */
+const OWNER = {};
+(function traceOwners() {
+  const real = K.register.bind(K);
+  K.register = function (type, spec) {
+    const st = (new Error().stack || '').split('\n').slice(2);
+    const hit = st.map(l => { const m = /\(?(\/[^()\s:]+\.js):\d+/.exec(l); return m && m[1]; })
+                  .filter(Boolean).find(f => f.includes(path.sep + 'engine' + path.sep));
+    if (hit && !OWNER[type]) OWNER[type] = path.relative(ROOT, hit).split(path.sep).join('/');
+    return real(type, spec);
+  };
+})();
+
+/* the citation, or an honest refusal. Never a path nobody looked for. */
+let unciteable = [];
+function citationFor(name) {
+  const own = OWNER[name];
+  if (own && fs.existsSync(path.join(ROOT, own))) return '`' + own + '`';
+  unciteable.push(name + (own ? ' -> ' + own + ' (not on disk)' : ' (no owning module found)'));
+  return 'a module this generator could not identify';
+}
 const OUT = path.join(ROOT, 'records', 'tilespec');
 fs.mkdirSync(OUT, { recursive: true });
 
@@ -106,7 +150,7 @@ for (const d of DISTRICTS) {
   let md = '# BOHEMIA DISTRICT DOSSIER — ' + d.name.toUpperCase() + '\n\n';
   md += '_Category: **' + cat + '**  ·  Cell: 96 m × 96 m = ' + N + '×' + N + ' tiles (' + TILE + ' m/tile)  ·  ';
   md += 'Street-aware + ' + (drivable ? 'drivable (explicit car network)' : 'no car network') + '_\n\n';
-  md += 'GENERATED from `engine/bohemia_' + d.name + '.js` (NOTES + LEGEND + PALETTE) — do not hand-edit; ';
+  md += 'GENERATED from ' + citationFor(d.name) + ' (NOTES + LEGEND + PALETTE) — do not hand-edit; ';
   md += 'rerun `node tools/bohemia_tilespec.js`. ACT-1 material is the dead-world look to tile now; ';
   md += 'ACT-2/3 evolution is Paolo\'s call.\n\n';
   // ---- the DOSSIER: what the hell is happening in this district ----
@@ -160,3 +204,17 @@ idx += 'generator writes its sheet; `gates/tilespec_gate.js` fails if any tile c
 idx += 'undocumented. That is the standing "record everything you built" flow.\n';
 fs.writeFileSync(path.join(ROOT, 'records', 'BOHEMIA_TILESPEC_INDEX.md'), idx);
 console.log('  wrote INDEX (' + index.length + ' districts)');
+
+/* AND SAY SO IF ANY SHEET WENT OUT WITHOUT A REAL CITATION. Silence here is how
+   twenty-one of them drifted in the first place: the tool printed "wrote tilespec
+   for reservoir" either way. (9/23, PLUMBER, row [rot ceiling].) */
+if (unciteable.length) {
+  console.log('\n  ' + '!'.repeat(70));
+  console.log('  ' + unciteable.length + ' SHEET(S) HAVE NO CITABLE MODULE, so they say so instead of');
+  console.log('  naming a file nobody looked for:');
+  unciteable.forEach(u => console.log('     ' + u));
+  console.log('  ' + '!'.repeat(70));
+} else {
+  console.log('  every sheet cites a module that is on disk (' + Object.keys(OWNER).length
+    + ' registered types traced)');
+}

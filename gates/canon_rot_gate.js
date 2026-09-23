@@ -163,7 +163,21 @@ if (archLive.length) {
    tell a tombstone from a stale reference in another lane's history, and guessing would
    either red-gate five lanes or quietly delete their record of what died. So: HOLD THE
    LINE. Lower this number whenever a lane cleans its own up; never raise it. */
-const CEILING = 80;  /* measured 8/4; lower it whenever a lane cleans its own */
+/* 80 measured 8/4. 62 measured 9/23 by PLUMBER, row [rot ceiling], and the gate's own
+   NOTE below is the instruction being followed: lower it whenever a lane cleans its own.
+   WHAT WAS CLEANED, so the next lane knows what is left and what this number means:
+   tools/bohemia_tilespec.js wrote every dossier's "GENERATED from" citation by BUILDING
+   A PATH OUT OF THE DISTRICT'S NAME instead of naming the module it had just loaded. True
+   for the districts the tool names by hand; a guess for every district its registry sweep
+   finds, because those live inside SHARED modules (twelve utility landmarks in
+   bohemia_utility.js, five in bohemia_landmarks.js, two in bohemia_airfield.js). Measured:
+   21 of 71 dossiers cited a file that is not on disk, and across all 72 registered types
+   the guess was right for 50 and wrong for 22. The generator now asks node which file
+   registered each type and REFUSES to write a citation to a file it cannot find; 21 sheets
+   were regenerated, one line each. 83 gone -> 62.
+   A NUMBER THAT CAN ONLY FALL IS THE POINT: leaving it at 80 would have banked room for
+   eighteen new dead citations nobody would ever be told about. */
+const CEILING = 62;
 ok('C3 truly-gone citations have not increased (' + gone.length + ' of ceiling ' +
    CEILING + ')' + (gone.length > CEILING ? ' -> NEW ROT: ' +
    gone.slice(CEILING).slice(0, 4).join(' | ') : ''), gone.length <= CEILING);
@@ -184,7 +198,7 @@ ok('D3 and that the bad fix was reverted before anything was committed',
    /Reverted before commit/i.test(audit) && /nothing shipped/i.test(audit));
 ok('D4 it states the real finding honestly -- ONE drift, not 43',
    /ONE real extension drift/i.test(audit));
-ok('D5 the 80 truly-gone are listed as OTHER LANES\' to clean, not silently ignored',
+ok('D5 the ' + CEILING + ' truly-gone are listed as OTHER LANES\' to clean, not silently ignored',
    /ratchet/i.test(audit) && /not this lane's to guess at/i.test(audit));
 
 console.log('='.repeat(74));

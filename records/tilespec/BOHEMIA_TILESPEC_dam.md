@@ -2,7 +2,7 @@
 
 _Category: **infrastructure**  ·  Cell: 96 m × 96 m = 128×128 tiles (0.75 m/tile)  ·  Street-aware + drivable (explicit car network)_
 
-GENERATED from `engine/bohemia_dam.js` (NOTES + LEGEND + PALETTE) — do not hand-edit; rerun `node tools/bohemia_tilespec.js`. ACT-1 material is the dead-world look to tile now; ACT-2/3 evolution is Paolo's call.
+GENERATED from `engine/bohemia_landmarks.js` (NOTES + LEGEND + PALETTE) — do not hand-edit; rerun `node tools/bohemia_tilespec.js`. ACT-1 material is the dead-world look to tile now; ACT-2/3 evolution is Paolo's call.
 
 **The dam: an arch-gravity wall wedged across the canyon with the road on its crest, four intake towers standing out of the reservoir upstream, a spillway cut into each canyon wall, and the powerhouse in a U at the downstream toe. Act 1: the lake is a long way below its own bathtub ring and the turbines are still.**
 
