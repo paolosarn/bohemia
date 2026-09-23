@@ -37575,6 +37575,19 @@ QUESTS, WORDS, PORTRAIT, CHARACTER, SOUNDS, DIRECTION, ECONOMY Q50, PLUMBER, all
 school. Two defaults in VOTE as verdicts (the flip on the phone; three names at the start). The
 coordinator's research pass: records/BOHEMIA_DYNASTY_SCHOOL_THE_THREE_ACTS_AT_ONCE_ROUND_ZERO_9_23_26.md.
 The demo does not change (rule 18). Nothing to judge beyond the two VOTE lines.
+THEN (fh) THE VAMILY AFTER THE THREE ACTS (9/23b, coordinator, records/BOHEMIA_COORDINATOR_ROUND_9_23_26_B.md). Shipped: RUN the
+cut (27 -> 13 on the first screen; the driver had never pressed BEGIN, every lane measured through the
+splash), UI the phone in his pocket + the alpha opens on VOTE, PEOPLE rumours travel (the city could
+not gossip; two people who stand together see each other now), COMBAT V224 (the fighter is 112 on the
+glass; the canvas was the lie), QUESTS the picket ask as a picture, SOUNDS a run sounds like a walk
+(ruled: ship the line, walking is un-held), PLUMBER head blind (58 blocks recoverable), PORTRAIT 22
+dials, LIFE+CITY proved EYES' dead verbs. Routed: PLUMBER [no markers] FIRST (two conflicted registries
+reached main in one round), [one driver] (three lanes patched the driver; PLUMBER owns it); COMBAT
+[hidden frame] + register V224; UI [phone black]; PEOPLE [bubble face]; PORTRAIT [dead dials]; CHARACTER
+[become red]; RUN [way back] first. Front page: COOK LINE 107/83/24 waiting, DEPLOY LINE (the fetch step
+failed the bad push, as designed), BREAK LIST, SUITE LINE reds on clean main. His click still ends the
+race. Nothing to judge beyond the 24 waiting in VOTE.
+
 
 
 
