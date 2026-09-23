@@ -7098,6 +7098,70 @@ archive escape built in from the start so [handoff cut] is unblocked rather than
 THE WARNING FOR EVERY LANE: do not write this file from a copy you read at the start of your round.
 Re-read it immediately before you edit, and check your own block is still there after any rebase.
 
+ANIMATION (animation-lr9y9i): 9/23 (b) LATEST -- *** A CLIP DECLARES A HAND AT THE
+FACE, AND THE BACK VIEWS ARE CLOSED: 9 of 40 -> 40 of 40. The flag shipped, the
+poses did not, and I say why. TAB: VOTE, playing. ***
+
+[redo killed] continues.
+
+=== THE PIECE THE ROW WAS WAITING ON, AND IT WORKS
+Paolo 9/7: "when it's facing north-east the hand was behind the head even though
+it's supposed to be in front." Two rounds established the back views were never a
+pose problem: facing away, a hand at the mouth is behind the skull, the compositor
+is first-wins, and the reaching hand is never drawn at all.
+A clip DECLARES it now, exactly like a gun clip declares _gun, and handOrder
+brings the working arm-unit forward. A declaration is constant for the whole clip,
+so unlike the rules retired 7/26 it cannot flip mid-swing.
+
+    pictures where the hand reads at the face, 5 clips x 8 facings
+        killed                     9 of 40
+        redo, no declaration      33 of 40    (facing N: 45 to 49 px away)
+        redo + the declaration    40 OF 40    (facing N: 6.6 to 7.3 px)
+
+=== AND THE POSES ARE STILL OUT, WITH THE COST NOW ISOLATED
+NECK HOLDS HEAD, ceiling 15. THREE TREES, ONE RULER:
+    flag + ORIGINAL poses      8/0 GREEN
+    flag OFF, redone poses     22 detached
+    flag ON,  redone poses     23 detached
+The POSES cost 7 frames, the order rule 1. The mechanism is clean.
+AND THE CAUSE IS NOT OCCLUSION: the gate reports 0 frames draw NO NECK (it was
+31), so nothing covers the throat. The head blob sits 3px off the body in profile,
+and the OLD gun-target arm ran horizontally across the chest and bridged that gap.
+Taking it away uncovers a separation that was always there.
+
+=== FOUR ATTEMPTS, AND THE FOURTH IS WHERE I STOPPED
+three target heights (9/21); a sideways slide clear of the skull (9/21, fixed N on
+two clips and broke NW on three); the FACE behind the working arm so the arm
+bridges jaw to shoulder (9/23, measured IDENTICAL at 23 either way, deleted);
+halving the head rotation on the three offenders (9/23, still 23 and drink went
+3px to 4px). STOP PRODUCING: named, not nudged a fifth time.
+
+=== AND SOMETHING HE SAID THAT THIS DOES NOT ANSWER
+His verdict was "all of them Northeast and south tweaking". THE DECLARATION FIXES
+THE FACINGS HE DID NOT NAME. On S and NE the hand was already 5 to 8 px from the
+face before and after, and the two sheets bake BYTE-IDENTICAL there, which is how
+it was caught. So his complaint about those two is about MOTION, not placement,
+and it is OPEN. Whoever picks this up next: do not re-measure placement on S and
+NE, it is not the problem.
+
+=== A BUG IN MY OWN GATE
+HAND TO FACE keyed "is the redo in the build" on the HELPER FUNCTIONS. They landed
+this round with the declaration while the poses stayed out, so a deliberate hold
+turned into four red claims. A GATE THAT READS THE PLUMBING INSTEAD OF THE PRODUCT
+WILL ALWAYS DO THAT. It reads the CLIPS now.
+
+=== THE GATES
+NECK HOLDS HEAD 8/0 on the tree being pushed. HAND TO FACE 1/0 (it says the redo
+is out rather than going red over a deliberate hold). VOTE TAB 30/0.
+Rule 13: pre-push pass green; full suite 107 red at ad23d875, none named as mine.
+
+=== WHAT IS LEFT OF [redo killed]
+The seven profile frames, which are a head-to-body gap the old arm was hiding and
+not a draw-order problem. His "tweaking" note on S and NE, which is motion.
+And the other 42 killed clips.
+
+Nothing [PENDING Paolo].
+
 ANIMATION (animation-lr9y9i): 9/23 (a) LATEST -- *** THE RIG CAN BEND A SPINE NOW.
 The old man was a young man 3% shorter; he is 11.6% shorter and stooped, on every
 facing, in the game. TAB: VOTE for the clip, and he is in the walked city too. ***

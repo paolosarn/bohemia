@@ -44,7 +44,13 @@ const REST = { eat: 0.5, drink: 0.02, smoke: 0.9, cough: 0.42 };
    overlaps the jaw; at 20 it is clear of the skull entirely, which is what every
    killed cell scored. */
 const READS = 16;
-const FLOOR = 33;          /* measured after the redo. MAY ONLY GO UP. */
+const FLOOR = 33;          /* measured after the redo. MAY ONLY GO UP.
+   9/23: with the DECLARATION in (a clip says _face and the draw order brings the
+   arm-unit forward) this is 40 OF 40 on the same ruler, because the back views
+   were never a pose problem -- facing away, a hand at the mouth is behind the
+   skull and the compositor never drew it. The floor stays at 33 because the
+   POSES are still out of the build: they cost NECK HOLDS HEAD 7 frames of 3px in
+   profile, four separate attempts failed to close it, and never ship red. */
 const BEST = 6.0;          /* the closest any cell gets; was 10.7 */
 
 let pass = 0, fail = 0;
@@ -62,7 +68,12 @@ const ok = (n, c, note) => { c ? (pass++, console.log('  ok   ' + n + (note ? ' 
     return m && /gunT\(/.test(m[0]);
   });
   const br0 = async () => {};
-  const REDO_IS_IN = /function facePtRig\(/.test(src) && /function faceT\(/.test(src)
+  /* THE REDO IS "IN" WHEN THE CLIPS USE IT, not when the helpers exist. The
+     helpers landed on 9/23 with the draw-order declaration while the five poses
+     stayed out, and keying this on them turned a deliberate hold into four red
+     claims. A gate that reads the plumbing instead of the product will always
+     do that. */
+  const REDO_IS_IN = usesGun.length === 0
                      && /function faceReach\(/.test(src);
   /* *** THE REDO IS NOT IN THE BUILD YET, ON PURPOSE, AND THIS GATE SAYS SO ***
      rather than going red over a thing nobody has shipped. Measured 9/21: the

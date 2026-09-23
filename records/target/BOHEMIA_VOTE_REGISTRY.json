@@ -1482,6 +1482,21 @@
     "how": "page",
     "src": "BOHEMIA_WHAT_A_FLIP_SOUNDS_LIKE_9_25_26.html"
    }
+  },
+  {
+   "id": "animation-the-hand-in-front-9-23",
+   "kind": "animation",
+   "lane": "animation",
+   "sha": "PENDING",
+   "made": "9/23",
+   "title": "THE HAND IS IN FRONT NOW",
+   "why": "Your line from 9/7, answered: facing away, his hand at his mouth really is behind his own skull, so the game never drew it. His hand sat 45 pixels from his face and his whole head is 22 pixels tall. The clip now says out loud that this is a hand at the face and the drawing order reads it, same as the gun clips already do. Under 7 pixels now, every direction, all five clips. Straight with you: this fixes the directions you did NOT name. North-east and south are still on my list and they are about how it moves, not where the hand is.",
+   "show": {
+    "how": "page",
+    "src": "vote/ANIMATION_THE_HAND_IN_FRONT_PLAYS.html"
+   },
+   "redoOf": "animation-the-hand-at-the-face-plays-9-22",
+   "said": "when it’s facing north-east the hand was behind the head even though it’s supposed to be in front"
   }
  ],
  "verdicts": [

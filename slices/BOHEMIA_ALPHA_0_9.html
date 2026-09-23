@@ -6272,7 +6272,11 @@ function portraitRamp(){const r=skinTone[1];return [r[0],r[1],r[2],r[2].map(c=>c
           if (pose.ikR) g[2] = [j.handR[0], j.handR[1]];
         }
         return g;
-      })(), _fire: !!pose._fire, _dial: pose._dial || null }
+      })(), _fire: !!pose._fire, _dial: pose._dial || null,
+        /* __A_CLIP_DECLARES_A_HAND_AT_THE_FACE__ (9/23): carried like _gun and
+           _handsBack, because a DECLARATION cannot oscillate and a guess can --
+           the whole reason the rest-relative hand guess was retired on 7/26. */
+        _face: !!pose._face }
     };
   }
 
@@ -6761,6 +6765,55 @@ const DEPTH={N:{nearSide:'R',flip:false,farArm:false},NE:{nearSide:'R',flip:fals
 function depthFlip(d){return DEPTH[d]&&DEPTH[d].flip?-1:1;}
 function chestPtRig(d){const r=RIG[d];return [(r.waC[0]+r.neck[0])/2,(r.waC[1]+r.neck[1])/2];}
 function gunT(d,rf,rr){const c=chestPtRig(d),aim=FACEANG[d];return [[c[0]+Math.cos(aim)*rf,c[1]+Math.sin(aim)*rf],[c[0]+Math.cos(aim)*rr,c[1]+Math.sin(aim)*rr],aim];}
+function facePtRig(d){const r=RIG[d];
+  /* the mouth: down the skull from the crown toward the neck */
+  return [r.headTop[0]+(r.neck[0]-r.headTop[0])*0.62,
+          r.headTop[1]+(r.neck[1]-r.headTop[1])*0.62];}
+/* WHERE THE HAND SITS WHEN IT IS AT THE FACE: at the mouth, nudged toward the
+   CAMERA so it reads in front of the skull instead of buried in it, and `up`
+   above it for a cigarette or a bottle lip.
+   *** THE FIRST CUT PUSHED IT ALONG THE FACING AND THE PICTURE CAUGHT IT. ***
+   Numbers said the hand was 0.3 px from the mouth on north-east, the best score
+   of all forty cells, and the picture showed an arm pointing off into nothing
+   with no hand anywhere near the head. Facing away from the camera, the mouth is
+   on the FAR side of the skull, so a hand perfectly at the mouth is hidden behind
+   it -- correct anatomy that reads as a mistake. A DISTANCE TO A POINT CANNOT SEE
+   WHAT IS IN FRONT OF WHAT, which is the same thing the near-hand law (9/13) is
+   about, arriving from the pose side instead of the draw-order side.
+   So the nudge is mostly SCREEN-DOWNWARD, toward the viewer, on every facing, and
+   only its sideways part follows the facing (which is what keeps it reading as in
+   front of the lips in profile). The hand is never behind the head again by
+   construction, not by a per-facing table. */
+function faceT(d,out,up){const m=facePtRig(d),a=FACEANG[d];
+  /* AND THE HEIGHT IS NOT FREE. The first heights put the hand just under the
+     mouth, and NECK HOLDS HEAD (9/18) went red on six frames, all facing east:
+     the forearm came across horizontally and covered the throat, which is the
+     one thing that law exists to stop. The hand rides higher now so the arm
+     arrives UNDER THE JAW instead of THROUGH THE NECK. Caught by that gate, not
+     by looking, which is the whole reason it is in the suite. */
+  return [m[0]+Math.cos(a)*out, m[1]+out*0.55-up];}
+/* *** THE THIRD CUT OF THIS WAS BUILT, MEASURED AND THROWN AWAY. ***
+   Facing away, the drawn hand is 45 to 49 px from the face on all five clips --
+   half a body -- because a hand at the mouth is BEHIND the skull, the compositor
+   is first-wins, and the reaching hand is not drawn at all; the only hand pixels
+   left are the resting one at the hip. I tried sliding the hand sideways, clear
+   of the skull, as the facing turns away. It FIXED north on two clips (47 -> 20)
+   and BROKE north-west on three (13 -> 47): the hand pops in and out of view
+   depending on whether it lands over the body or off the silhouette, so the
+   target position is not the lever. STOP PRODUCING, 7/26: a third version means
+   the attempt is wrong, so it is named instead of nudged again.
+   THE LEVER IS DRAW ORDER, AND THE SAFE SHAPE ALREADY EXISTS IN THIS FILE. A
+   clip that brings a hand to the face should DECLARE it, the way a gun clip
+   declares _gun, and handOrder should bring that arm-unit forward off the flag.
+   A flag is constant for the whole clip, so unlike the two rules retired on
+   7/26 it cannot flip mid-swing, and unlike reading the pose it cannot disagree
+   with itself between phases. Named for the next round of [redo killed]. */
+/* AND THE REACH: u of 0 leaves the hand exactly where the rest pose has it, u of
+   1 puts it at the face. Every one of these clips is a hand LEAVING the body and
+   COMING BACK, so the clip keeps its own envelope and only the destination moves. */
+function faceReach(d,u,out,up){const h=RIG[d].handR,t=faceT(d,out,up);
+  const k=(u<0)?0:(u>1?1:u);
+  return [h[0]+(t[0]-h[0])*k, h[1]+(t[1]-h[1])*k];}
 function gunTA(d,rf,rr,aim){const c=chestPtRig(d);return [[c[0]+Math.cos(aim)*rf,c[1]+Math.sin(aim)*rf],[c[0]+Math.cos(aim)*rr,c[1]+Math.sin(aim)*rr],aim];}   /* explicit-angle gun target: the sweep uses this */
 /* DIRECTION-SIGN LAW (7/2/26): rotation angles are SCREEN-signed. Below the
    pivot, + swings screen-LEFT; above the pivot (head, torso), + swings
@@ -7857,6 +7910,47 @@ function handOrder(d,present,P){
      together, decided by the AIM: toward camera or across the screen, the
      unit renders NEAREST; aiming away, it goes BEHIND the body. Covers
      deadeye, pistol, two-hand, and any future weapon clip. */
+  /* ==== __A_CLIP_DECLARES_A_HAND_AT_THE_FACE__ (9/23, [redo killed]) ========
+     PAOLO 9/7, killing eat, drink, smoke, cough and whistle: "when it's facing
+     north-east the hand was behind the head even though it's supposed to be in
+     front." The POSE half was fixed 9/21 -- all five were aiming with gunT, the
+     GUN target, so the hand sat a whole head away from the mouth. It could not
+     LAND, because it broke two other things at once:
+       facing away, a hand at the mouth is BEHIND the skull, the compositor is
+       first-wins, and the reaching hand was never drawn at all (45 px from the
+       face on the drawn frame, on all five);
+       in profile, the forearm that reaches the mouth crossed the THROAT and
+       took NECK HOLDS HEAD from 15 detached frames to 22.
+     THREE TARGET POSITIONS AND THREE HEIGHTS WERE TRIED AND ALL OF THEM TRADED
+     ONE FOR THE OTHER, because neither is a pose problem: BOTH ARE DRAW ORDER.
+     So the clip DECLARES it, exactly the way a gun clip declares _gun, and the
+     order rule reads the flag. A declaration is constant for the whole clip, so
+     unlike the two rules retired on 7/26 it cannot flip mid-swing, and unlike
+     reading the pose it cannot disagree with itself between phases.
+     THE WORKING ARM GOES NEAREST -- hand and forearm together, never the bare
+     hand, or a hand splits off its own arm (the exact bug the near-hand rule
+     paid for on 9/13). _neckHolds still runs after, and that is what keeps the
+     throat: the neck steps in front of whichever arm-unit is nearest. */
+  if(present&&present._face){
+    const o2=_pairMove(ord,6,8,true);          /* the right arm-unit, toward camera */
+    /* AND THE FACE GOES BEHIND THAT UNIT, which is what a hand at a mouth looks
+       like from the front: the fingers are in front of the lips, not behind
+       them. _headBetween puts the head between the two arm units, which is
+       right for arms at the sides and wrong here -- measured on the profile
+       views, where a rotated skull and a working arm that no longer touched it
+       left a 3px gap between the head blob and the body and read as a head
+       coming off. Behind the unit, the arm bridges the jaw to the shoulder. */
+    const o3=_headBetween(o2);
+    const h1=o3.indexOf(1), h2=o3.indexOf(2), a6=o3.indexOf(6), a8=o3.indexOf(8);
+    const back=Math.max(a6,a8);
+    if(back>=0&&h1>=0&&h1<back){
+      const head=[1,2].filter(function(p){ return o3.indexOf(p)>=0; });
+      const rest=o3.filter(function(p){ return p!==1&&p!==2; });
+      const at=Math.max.apply(null,[rest.indexOf(6),rest.indexOf(8)].filter(function(v){return v>=0;}));
+      return _neckHolds(rest.slice(0,at+1).concat(head, rest.slice(at+1)));
+    }
+    return _neckHolds(o3);
+  }
   if(present&&present._gun){
     const aim=present._gun[3], toF=(Math.sin(aim)>-0.25);
     let o2=_pairMove(ord,5,7,toF); o2=_pairMove(o2,6,8,toF);
