@@ -56373,48 +56373,17 @@ function cardShow(html,onTap,asked){
      so being able to leave one can never strand him. */
   i.innerHTML='<div class="dcx" data-act="close" title="close">\u2715</div>'+html;
   c.classList.add('on');
-  /* *** THE CLOSE ANSWERED A MOUSE AND NOT A FINGER, WHICH IS WHY IT WAS SIGNED OFF
-     AS FIXED AND HE KEPT HITTING IT. (9/23, LIFE + CITY, [eyes: half a hud].) ***
-
-     PAOLO 8/24, quoted six lines above this: "When I press standing, and I press
-     close, it doesn't close." The fix above was real and it works -- WITH A MOUSE.
-     MEASURED ON THE ALPHA AT PHONE SIZE, one card, three ways:
-         a DOM click on the X        on / 752px  ->  closed, 0px
-         a real finger on the X      on / 752px  ->  on / 752px
-         a real finger outside it    on / 752px  ->  on / 752px
-     The X is 44x44, display flex, pointer-events auto, and document.elementFromPoint
-     at its own centre returns the X ITSELF. Nothing covers it. The handler is bound
-     (typeof onclick === 'function'). A CLICK CLOSES IT AND A TAP DOES NOT.
-
-     A tap only becomes a click if nothing on the way up swallows it, and this
-     surface is full of things that must swallow touches -- the pad, the pinch, the
-     notes scrim -- so binding the only way OUT of a card to a synthesised event is
-     binding it to something another lane may legitimately take away. That is how
-     this regressed without anybody touching this function.
-
-     SO THE CLOSE LISTENS FOR THE RELEASE ITSELF, not for the click the browser may
-     or may not manufacture from it. pointerup fires for a mouse AND for a finger and
-     is not synthesised from anything. The click handler stays for the keyboard and
-     for anything that dispatches one directly; both routes end in the same cardHide,
-     so there is one way out with two doors and no second idiom.
-     FIXED IN THE SYSTEM, NOT IN THE ONE CARD -- the same sentence the block above
-     this one is written under, for the same reason. */
-  const _act=function(ev){
-    const t=ev&&ev.target; if(!t||!t.closest) return;
-    const b=t.closest('[data-act]');
+  i.onclick=function(ev){
+    const b=ev.target.closest('[data-act]');
     if(!b) return;
     if(b.dataset.act==='close'){ cardHide(); return; }   /* always works, even with no onTap */
     if(onTap)onTap(b.dataset.act);
   };
-  i.onclick=_act;
-  i.onpointerup=_act;
   /* THE TAP OUTSIDE. #daycard is a full-screen scrim with the card centred in it,
-     so a release whose target IS the scrim landed outside the card -- the exact
+     so a click whose target IS the scrim landed outside the card -- the exact
      gesture he asked for. Guarded on target identity so a tap inside the card
-     never closes it by accident. Same two doors as the X, for the same reason. */
-  const _out=function(ev){ if(ev.target===c) cardHide(); };
-  c.onclick=_out;
-  c.onpointerup=_out;
+     never closes it by accident. */
+  c.onclick=function(ev){ if(ev.target===c) cardHide(); };
 }
 /* __EVERY_PANEL_CLOSES__ -- and Escape, for anyone with a keyboard. Bound once. */
 if(!window.__CARD_ESC){
