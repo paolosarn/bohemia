@@ -1826,6 +1826,32 @@
     "how": "image",
     "src": "vote/UI_THE_CRACKED_IPHONE_9_24.png"
    }
+  },
+  {
+   "id": "coordinator-the-map-is-the-city-view-9-24",
+   "kind": "verdict",
+   "lane": "coordinator",
+   "sha": "9/24",
+   "made": "9/24",
+   "title": "THE BATTLE BROTHERS MAP IS THE CITY VIEW WE ALREADY HAVE",
+   "why": "You said the overworld is the Battle Brothers map. Default: the map is the zoomed-out valley you already reach with one squeeze, with the cracked phone on it. It gets the Battle Brothers travel: one marker for you and your companion, tap a place, you travel while the clock runs, roads are faster than dirt, other groups roam and leave tracks. No new screen and no new buttons. Down means you want a separate map screen instead.",
+   "show": {
+    "how": "text",
+    "src": ""
+   }
+  },
+  {
+   "id": "coordinator-the-street-is-where-you-arrive-9-24",
+   "kind": "verdict",
+   "lane": "coordinator",
+   "sha": "9/24",
+   "made": "9/24",
+   "title": "WHEN YOU ARRIVE SOMEWHERE ON THE MAP, YOU ARE ON ITS STREET",
+   "why": "Battle Brothers enters a town as a set of menus: market, recruits, temple. Default for us: you arrive on that block's street, one step per house, the people with names are at their doors, the shop and the shed and the pump are buildings you walk to, and the fight happens there on house tiles. Down means you want Battle Brothers menus instead of a street.",
+   "show": {
+    "how": "text",
+    "src": ""
+   }
   }
  ],
  "verdicts": [

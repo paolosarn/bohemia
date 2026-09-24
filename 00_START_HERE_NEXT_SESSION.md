@@ -41239,6 +41239,16 @@ person; 112 at every width; rule 21's fight leg closed; [fight looks] SHIPPED; [
 its premise was false), EYES E22 school (a red has no age). Routed: ANIMATION [facing you]; PLUMBER [one
 driver] now has three customers and beats [covered controls]; RUN [banner eats fingers] unclaimed twice,
 flagged. CLAUDE.md: AN ENVELOPE RAMPS SLOWER THAN THE GRID. 13 items wait for him. Nothing else to judge.
+THEN (fl) PAOLO 9/24, AN EXECUTIVE DECISION: THE OVERWORLD IS BATTLE BROTHERS. "Economic apocalypse
+Battle Brothers on my phone with a better story." Rule 33; laws/BOHEMIA_LAW_THE_OVERWORLD_IS_BATTLE_BROTHERS_9_24_26.md; his words records/BOHEMIA_PAOLO_THE_OVERWORLD_IS_BATTLE_BROTHERS_9_24_26.md.
+The valley is crossed on a map (party marker, tap to travel, the clock runs, roads faster, parties roam
+and leave tracks); DEFAULTS in VOTE: the map is the city view we have, the street is where you arrive.
+Events on the road stay (a face, 2-3 choices, never in the first minute; amends 32a for the map only).
+The fight: RF4 first, BB flavour, house tiles, THE MOUND is the only terrain effect. The demo's walking
+becomes travel + arrival (RUN [bb map] first, then [banner eats fingers]). EVERY CHAT has a [bb ...]
+school line, continuously, his ask; the coordinator's round zero: records/BOHEMIA_BATTLE_BROTHERS_SCHOOL_THE_MAP_ROUND_ZERO_9_24_26.md. CLAUDE.md pillar and reference
+lines amended. 15 items wait for him.
+
 
 
 
