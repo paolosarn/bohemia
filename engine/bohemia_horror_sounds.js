@@ -888,6 +888,149 @@
      less high air in it and more low, because the far sound never arrives and the walls
      return the bottom. Measured in the declaration: outside runs to 5 kHz, inside to
      2.2 kHz, and the bottom comes up. */
+  /* ==== 10. THE VALLEY STILL BROADCASTS ==========================================
+     DIRECTION'S BIBLE, RULE 9, AND NOTHING IN THIS GAME DOES IT: "THE MACHINES KEEP
+     TALKING. Broadcasts, PA calls and signs repeat on schedule whatever happens; the
+     120 BPM beat is the dead pulse they ride. Repetition is the dread; the content
+     never acknowledges you." (records/BOHEMIA_ANALOG_HORROR_BIBLE_9_20_26.md)
+     There is no broadcast, no PA and no scheduled emission anywhere in the build.
+
+     AND IT IS THE ONE PLACE TAPE DAMAGE IS LEGAL. The bible's rule 8 is DIEGETIC OR
+     DEAD -- static, scanlines, tape damage and drop-outs live ONLY inside in-world
+     screens and speakers, and the lens is an eye. This module already carries that
+     ruling on MACHINE.EAR. A transmitter is the in-world speaker, so the band, the
+     hiss, the wobble and the drop-outs belong here by right rather than by taste,
+     which is why this is the redo the keep/redo list puts first.
+
+     THE NUMBERS ARE PUBLISHED STANDARD, NOT INVENTED, AND ONE OF THEM IS A GIFT:
+       the two-tone attention signal is 853 Hz and 960 Hz TOGETHER, and the standard
+       asks for it to run 8 TO 25 SECONDS. Eight seconds at 120 BPM is exactly
+       SIXTEEN BEATS, which is FOUR BARS. The real minimum duration of a real
+       emergency signal lands on this game's own grid with nothing bent.
+       Then the dead air: one bar, carrier only, and nobody ever speaks.
+
+     THE HORROR IS THE THING THAT DOES NOT HAPPEN. The signal is what plays BEFORE an
+     announcement. Ours is followed by a bar of carrier and then it starts again, so
+     the machine has been clearing its throat for ten years with nothing to say. No
+     riser, no stinger, nothing rises (rule 20). The content never acknowledges you,
+     which is the bible's own sentence.
+
+     NOTHING NEW ENTERED THE GAME: same pair as the phone he voted UP, same AM band
+     and the same four-pole limit (steep BY REGULATION), same slipping head as the
+     tape, same drop-out shape as every other one in this file. */
+  function theBroadcast(ctx, opts) {
+    opts = opts || {};
+    var sr = ctx.sampleRate;
+    var beat = opts.beat == null ? BEAT : opts.beat;
+    /* 16 beats of signal = 8.0 s = the standard's own minimum; then 4 beats of dead air */
+    var toneBeats = opts.toneBeats == null ? 16 : opts.toneBeats;
+    var airBeats  = opts.airBeats  == null ? 4  : opts.airBeats;
+    var wear = opts.wear == null ? 1 : opts.wear;   /* 0 = as it left the station */
+    var n = Math.round(sr * (toneBeats + airBeats) * beat);
+    var buf = ctx.createBuffer(1, n, sr);
+    var d = buf.getChannelData(0);
+    var i;
+
+    /* THE CARRIER FIRST, AND IT RUNS THE WHOLE LENGTH (school rule 7). A silence is
+       allowed to remove the content and never the carrier. Hiss is the wear: a
+       transmitter left running for ten years is noisier than one somebody maintains,
+       so wear buys hiss and nothing else buys it. */
+    var hiss = wear ? 0.52 : 0.26;
+    /* AND THE CARRIER HAS TO SURVIVE THE LOOP POINT, because option C is this thing on
+       repeat forever and a click every ten seconds is a defect, not dread. The room's
+       own trick, reused rather than reinvented: generate a seam's worth of extra noise
+       and blend the head into the tail, so the carrier is continuous across the wrap.
+       The TONE restarting is not a click: it has its own 8 ms rise, which is what a
+       real signal does. */
+    var seam = Math.max(1, Math.round(0.08 * sr));
+    var hi = new Float32Array(n + seam);
+    noiseInto(hi, hi.length, 1, 9660);
+    for (i = 0; i < seam; i++) { var u = i / seam; hi[i] = hi[i] * u + hi[n + i] * (1 - u); }
+    for (i = 0; i < n; i++) d[i] = hi[i] * hiss;
+    var pband = bandTo(d, n, MACHINE.AM.lo, MACHINE.AM.hi, sr, 4);
+    /* AND THE SAME TAIL POLES THE FLIP NEEDED, FOR THE SAME MEASURED REASON: bandTo
+       derives its per-pole corner UPWARD, so on noise it leaves a tail above the
+       corner it was asked for (21% at two poles, measured on the flip). Poles AT the
+       nominal corner take it back under school rule 4's 5%.
+       FOUR, NOT TWO, AND MEASURED BOTH WAYS. The flip needed two because its station
+       has a carrier tone dominating the window; the dead air here is the carrier
+       ALONE, which is pure band-limited noise, and noise is where the tail is fully
+       exposed. Two poles measured 9.99% above 5 kHz in the air, which fails school
+       rule 4 outright; four take it to under 5%. The flip's own sweep said the same
+       thing in its own table (0 tail 41%, 2 tail 10.5%, 4 tail 4.6% on its gap). */
+    for (i = 0; i < 4; i++) onePoleLow(d, n, MACHINE.AM.hi, sr);
+    var carrierLevel = 0.30;
+    for (i = 0; i < n; i++) d[i] *= carrierLevel;
+
+    /* THE PAIR, SOUNDED TOGETHER FOR SIXTEEN BEATS */
+    var onFor = Math.round(sr * toneBeats * beat);
+    var pa = 0, pb = 0;
+    for (i = 0; i < onFor && i < n; i++) {
+      /* 8 ms in and out: an institution's tone does not thump */
+      var env = Math.min(1, i / (sr * 0.008));
+      var tail = Math.min(1, (onFor - i) / (sr * 0.008));
+      pa += 2 * Math.PI * ALERT.a / sr;
+      pb += 2 * Math.PI * ALERT.b / sr;
+      d[i] += (Math.sin(pa) + Math.sin(pb)) * 0.5 * env * tail * 0.85;
+    }
+
+    /* THE DROP-OUTS, AND ONLY WHEN THE MACHINE IS WORN. Rule 6's shape exactly: a
+       dive, never a cut, and the top goes before the level. PLACED OFF THE BEAT, the
+       same reasoning the song through the speaker used: a fault ON the beat reads as
+       rhythm, and a transmitter failing is not playing along. */
+    var drops = [];
+    if (wear) {
+      var atBeats = [5.3, 11.7];    /* deliberately not on a beat line */
+      for (var k = 0; k < atBeats.length; k++) {
+        var at = Math.round(sr * atBeats[k] * beat), len = Math.round(sr * 0.034);
+        if (at + len >= n) continue;
+        var seg = new Float32Array(len), j;
+        for (j = 0; j < len; j++) seg[j] = d[at + j];
+        onePoleLow(seg, len, 900, sr);            /* the top goes first */
+        var fg = Math.pow(10, -12 / 20);          /* 12 dB down: inside rule 6's 6 to 20 */
+        for (j = 0; j < len; j++) {
+          var u = j / len;
+          d[at + j] = seg[j] * (u < 0.3 ? 1 - (1 - fg) * (u / 0.3)
+                                        : fg + (1 - fg) * Math.pow((u - 0.3) / 0.7, 1.5));
+        }
+        drops.push({ atSeconds: +(atBeats[k] * beat).toFixed(4),
+                     lengthMs: +(len / sr * 1000).toFixed(1), downDb: 12 });
+      }
+    }
+
+    normalise(d, n, 0.85);
+
+    /* THE SLIPPING HEAD, LAST, so the wobble is on everything the machine plays and
+       not only on the tone. The length is preserved to a sample, so the 120 BPM law is
+       untouched: a signal that started on the beat still starts on the beat. */
+    var wow = null;
+    /* opts.wow exists so a control can switch the head to PERFECT while leaving
+       everything else alone. A control that changes two things at once proves nothing
+       about either, and this lane has already shipped a mutation that was a no-op. */
+    var wantWow = (opts.wow == null) ? !!wear : !!opts.wow;
+    if (wantWow) {
+      var w = wowFlutter(ctx, buf.getChannelData(0), { depth: 0.0035, rate: 1.4 });
+      buf = w.buffer; d = buf.getChannelData(0);
+      wow = { depth: w.depth, rate: w.rate };
+    }
+
+    return {
+      buffer: buf, machine: MACHINE.AM, poles: pband.poles, perPoleHz: pband.perPoleHz,
+      seconds: (toneBeats + airBeats) * beat,
+      tones: [ALERT.a, ALERT.b], beatBetweenHz: ALERT.b - ALERT.a,
+      toneSeconds: toneBeats * beat, airSeconds: airBeats * beat,
+      /* the same two field names the rest of this file hands back, so the checker's
+         existing dive and carrier machinery reads this recipe without a second copy */
+      toneOnForSeconds: toneBeats * beat, dropMs: 34, depthDb: 12,
+      loops: true, seamSeconds: +(seam / sr).toFixed(4),
+      toneBeats: toneBeats, airBeats: airBeats, bars: (toneBeats + airBeats) / 4,
+      wear: wear, hiss: hiss, carrierLevel: carrierLevel, dropouts: drops, wow: wow,
+      why: wear
+        ? 'the attention signal off a transmitter nobody has touched in ten years, then a bar of dead air, and nobody ever speaks'
+        : 'the attention signal as it leaves the station: the band and the carrier a real transmitter has, and no wear at all'
+    };
+  }
+
   function theDoor(ctx, opts) {
     opts = opts || {};
     var sr = ctx.sampleRate;
@@ -954,6 +1097,7 @@
     theFold: theFold,
     fightCloud: fightCloud,
     theDoor: theDoor,
+    theBroadcast: theBroadcast,
     /* what a checker and a page both ask for, so neither invents a list */
     list: function () {
       return [
@@ -972,7 +1116,9 @@
         { id: 'sounds-the-door-9-22', make: 'theDoor',
           title: 'THE DOOR' },
         { id: 'sounds-the-tape-is-slipping-9-23', make: 'songOnTape',
-          title: 'THE TAPE IS SLIPPING' }
+          title: 'THE TAPE IS SLIPPING' },
+        { id: 'sounds-the-valley-still-broadcasts-9-24', make: 'theBroadcast',
+          title: 'THE VALLEY STILL BROADCASTS' }
       ];
     }
   };

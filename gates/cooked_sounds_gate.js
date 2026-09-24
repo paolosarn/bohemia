@@ -280,6 +280,77 @@ const MEASURE = `
     } catch (e) { out.wowErr = String(e && e.message).slice(0,90); }
   })();
 
+  /* THE BROADCAST (9/24). Three renders, because the questions are about DIFFERENCES:
+     a working transmitter, a transmitter nobody has touched in ten years, and the worn
+     one with a head that holds speed perfectly. The last is the control for the wobble
+     and it runs BEFORE any reading it could falsify. */
+  (function () {
+    const en = a => { let s=0; for (let i=0;i<a.length;i++) s += a[i]*a[i]; return s; };
+    const rmsOf = a => Math.sqrt(en(a)/(a.length||1));
+    const hpf = (a, hz) => { const al = Math.exp(-2*Math.PI*hz/SR); let y=0, pr=0;
+      const o = new Float64Array(a.length);
+      for (let i=0;i<a.length;i++){ const x=a[i]; y = al*(y+x-pr); pr = x; o[i]=y; } return o; };
+    const shareAbove4p = (a, hz) => { let z=a; for (let q=0;q<4;q++) z = hpf(z, hz);
+      const t = en(a); return t>0 ? en(z)/t : null; };
+    /* ABSOLUTE power in a narrow band around a frequency, NEVER relative to the
+       window's own biggest bin. A noise-only window's biggest bin is luck, so a
+       relative read reported the pair at 0 dB in the dead air where there is no pair
+       at all -- the first cut of this measurement said exactly that. */
+    const at = (a, f) => {
+      if (a.length < N) return null;
+      const w = new Float32Array(N); w.set(a.subarray(0, N));
+      const pwr = spec(w); const k = Math.round(f*N/SR);
+      let best = 0; for (let q=k-2;q<=k+2;q++) if (q>0 && q<pwr.length && pwr[q]>best) best = pwr[q];
+      return best;
+    };
+    const look = (m) => {
+      const d = m.buffer.getChannelData(0);
+      const toneN = Math.round(SR*m.toneSeconds);
+      const airFrom = toneN + Math.round(SR*0.25);     /* clear of the tone's 8 ms tail */
+      const air = d.subarray(airFrom, d.length - 2);
+      const half = Math.floor(air.length/2);
+      let zeros = 0, pk = 0;
+      for (let i=0;i<d.length;i++){ if (d[i] === 0) zeros++;
+        const v = Math.abs(d[i]); if (v > pk) pk = v; }
+      const inTone = d.subarray(Math.round(SR*2), Math.round(SR*2)+N);
+      /* THE LOOP POINT, MEASURED AND NOT ASSERTED BY DESIGN. Option C is this on
+         repeat, so the step from the last sample back to the first has to be an
+         ordinary step and not a click. The bar is the buffer's OWN steps: the 99.9th
+         percentile of every sample-to-sample jump in it. A click is an outlier; a jump
+         inside the sound's own range is not audible as one. */
+      const steps = new Float64Array(d.length - 1);
+      for (let i = 1; i < d.length; i++) steps[i-1] = Math.abs(d[i] - d[i-1]);
+      const sorted = Float64Array.from(steps).sort();
+      const p999 = sorted[Math.floor(sorted.length * 0.999)];
+      const wrapStep = Math.abs(d[0] - d[d.length-1]);
+      return {
+        wrapStep: wrapStep, stepP999: p999, stepMax: sorted[sorted.length-1],
+        seconds: m.seconds, toneSeconds: m.toneSeconds, airSeconds: m.airSeconds,
+        bars: m.bars, toneBeats: m.toneBeats, airBeats: m.airBeats,
+        len: d.length, peak: pk, zeros: zeros,
+        rmsTone: rmsOf(inTone), rmsAir: rmsOf(air),
+        airFirstHalf: rmsOf(air.subarray(0, half)), airSecondHalf: rmsOf(air.subarray(half)),
+        airAboveDeclared: shareAbove4p(air, m.machine.hi),
+        airAboveOctaveUp: shareAbove4p(air, m.machine.hi*2),
+        pairInTone: [at(inTone, m.tones[0]), at(inTone, m.tones[1])],
+        pairInAir:  [at(air, m.tones[0]), at(air, m.tones[1])],
+        drops: m.dropouts, wow: m.wow, hiss: m.hiss, machineHi: m.machine.hi
+      };
+    };
+    try {
+      const worn  = H.theBroadcast(ctx, {});                        /* wear 1 by default */
+      const clean = H.theBroadcast(ctx, { wear: 0 });
+      const steady = H.theBroadcast(ctx, { wow: false });           /* the wobble's control */
+      const a = look(worn), b2 = look(clean);
+      /* the wobble is proved by DIFFERENCE from a perfect head, on the same material */
+      const dw = worn.buffer.getChannelData(0), ds = steady.buffer.getChannelData(0);
+      let maxDiff = 0, sameLen = dw.length === ds.length;
+      if (sameLen) for (let i=0;i<dw.length;i++) maxDiff = Math.max(maxDiff, Math.abs(dw[i]-ds[i]));
+      out.bcast = { worn: a, clean: b2,
+        wowSameLength: sameLen, wowMaxDiff: maxDiff, wowAsked: worn.wow };
+    } catch (e) { out.bcastErr = String(e && e.message).slice(0,120); }
+  })();
+
   for (const item of H.list()) {
     const made = H[item.make](ctx, {});
     const d = made.buffer.getChannelData(0);
@@ -499,6 +570,14 @@ const MEASURE = `
         const steady = H.wowProbe, steadySong = H.songThroughSpeaker;
         H.wowProbe = (ctx, o) => steady(ctx, Object.assign({}, o || {}, { depth: 0 }));
         H.songOnTape = (ctx, o) => steadySong(ctx, o || {});
+        /* AND THE BROADCAST: A TRANSMITTER SOMEBODY STILL MAINTAINS. Not a sine, because
+           the material is right and the question is whether the machine has been left
+           alone for ten years. wear 0 is the honest falsifier: same signal, same band,
+           same carrier, no hiss lift, no drop-outs, no slipping head. The hiss, drop-out
+           and wobble claims must all go red and the timing and band claims must stay
+           green, because a maintained transmitter still keeps its own band. */
+        const realBcast = H.theBroadcast;
+        H.theBroadcast = (ctx, o) => realBcast(ctx, Object.assign({}, o || {}, { wear: 0 }));
       });
     }
     d = await p.evaluate(MEASURE);
@@ -702,6 +781,64 @@ const MEASURE = `
         + 'same root and the same intervals, so a note that started on the beat still does');
     } else { claim('the wobble was measured', false, 'no reading'); }
 
+    /* ---- THE VALLEY STILL BROADCASTS (9/24) ---------------------------------
+       DIRECTION's bible rule 9: "THE MACHINES KEEP TALKING... the content never
+       acknowledges you." Nothing in the build did it. Every number below is taken off
+       the rendered buffer; the recipe's own fields are used only to say WHERE to look. */
+    if (d.bcast) {
+      const w = d.bcast.worn, c = d.bcast.clean;
+      const dB = (x) => { const v = 10*Math.log10(x); return (v>=0?'+':'') + v.toFixed(1); };
+      claim('THE SIGNAL IS FOUR BARS AND THE DEAD AIR IS ONE, WHICH IS THE STANDARD ON OUR GRID',
+        w.toneBeats === 16 && w.airBeats === 4 && w.bars === 5
+          && Math.abs(w.toneSeconds - 8.0) < 1e-9,
+        'the published attention signal runs 8 to 25 s; 8.0 s at 120 BPM is exactly 16 '
+        + 'beats, four bars, and one more bar of air makes ' + w.seconds.toFixed(1) + ' s');
+      claim('AND IT IS THE PAIR A REAL ONE IS, SOUNDED TOGETHER',
+        w.pairInTone[0] > 0 && w.pairInTone[1] > 0
+          && w.pairInTone[0] > 100 * (w.pairInAir[0] || 1e-9)
+          && w.pairInTone[1] > 100 * (w.pairInAir[1] || 1e-9),
+        '853 Hz and 960 Hz are ' + dB(w.pairInTone[0]/Math.max(w.pairInAir[0],1e-30))
+        + ' dB and ' + dB(w.pairInTone[1]/Math.max(w.pairInAir[1],1e-30))
+        + ' dB louder in the signal than in the dead air, so the content really leaves');
+      claim('THEN NOBODY SPEAKS, AND THE CARRIER DOES NOT STOP (school rule 7)',
+        w.zeros === 0 && w.rmsAir > 0.005
+          && Math.abs(w.airFirstHalf - w.airSecondHalf) <= 0.03 * w.airFirstHalf,
+        w.zeros + ' exact digital zeros in ' + w.len + ' samples; the air holds '
+        + w.airFirstHalf.toFixed(5) + ' then ' + w.airSecondHalf.toFixed(5)
+        + ' rms, so it is a carrier and not a fade');
+      claim('AND THE DEAD AIR STAYS INSIDE THE MACHINE IT DECLARES (school rule 4)',
+        w.airAboveDeclared < 0.05 && w.airAboveOctaveUp < 0.01,
+        (w.airAboveDeclared*100).toFixed(2) + '% of the air sits above its own '
+        + w.machineHi + ' Hz and ' + (w.airAboveOctaveUp*100).toFixed(2)
+        + '% an octave up; two tail poles measured 9.99% here and four fixed it, because '
+        + 'the air is the carrier ALONE and noise is where a derived corner leaks');
+      claim('TEN YEARS UNATTENDED IS AUDIBLE AS HISS AND NOTHING ELSE PRETENDS TO BE IT',
+        w.rmsAir > 1.4 * c.rmsAir && Math.abs(w.seconds - c.seconds) < 1e-9,
+        'the worn carrier is ' + (w.rmsAir/c.rmsAir).toFixed(2) + 'x the clean one ('
+        + dB((w.rmsAir/c.rmsAir)*(w.rmsAir/c.rmsAir)) + ' dB), same length to the sample');
+      claim('AND THE WORN ONE DROPS OUT AND THE WORKING ONE DOES NOT',
+        (w.drops || []).length === 2 && (c.drops || []).length === 0,
+        'two drop-outs at ' + (w.drops||[]).map(x=>x.atSeconds+' s').join(' and ')
+        + ', neither on a beat line, because a fault ON the beat reads as rhythm');
+      claim('AND THE HEAD IS NOT HOLDING SPEED, PROVED AGAINST A PERFECT ONE',
+        d.bcast.wowSameLength === true && d.bcast.wowMaxDiff > 0.01
+          && d.bcast.wowAsked && d.bcast.wowAsked.depth > 0,
+        'the same transmitter with a perfect head differs by '
+        + d.bcast.wowMaxDiff.toFixed(4) + ' at its widest and is the SAME LENGTH to the '
+        + 'sample, so the 120 BPM law is untouched');
+      claim('AND IT NEVER CLIPS (school rule 8)', w.peak <= 1 && c.peak <= 1,
+        'worn peak ' + w.peak.toFixed(4) + ', clean peak ' + c.peak.toFixed(4));
+      claim('AND IT CAN REPEAT FOREVER WITHOUT A CLICK, which option C needs',
+        w.wrapStep <= w.stepP999 && c.wrapStep <= c.stepP999,
+        'the step from the last sample back to the first is ' + w.wrapStep.toFixed(5)
+        + ' against this sound\'s own 99.9th-percentile step of ' + w.stepP999.toFixed(5)
+        + ' (biggest anywhere ' + w.stepMax.toFixed(5) + '), so the wrap is an ordinary '
+        + 'step and not an outlier. THE CARRIER is blended across the seam the way the '
+        + 'room already is; the TONE restarting is not a click because it has its own '
+        + '8 ms rise, which is what a real signal does');
+    } else { claim('THE VALLEY STILL BROADCASTS was measured', false,
+      d.bcastErr || 'no reading'); }
+
     /* ---- THE ROOM IS A SECOND COPY, SO THE MACHINE HOLDS THE TWO TOGETHER ----
        PAOLO 9/21 voted the room UP with "this volume has to be very, very low", nine
        times over, so it needs to be judged at more than one level side by side -- and
@@ -818,7 +955,10 @@ const MEASURE = `
       (cad.runGaps || []).every(g => Math.abs(g - d.beat / 2) <= 0.008),
       cad.runHits + ' footfalls (wanted ' + (cad.beats * 2) + '), gaps of '
       + (cad.runGaps || [])[0] + ' s against the half beat of ' + (d.beat / 2) + ' s asked for. '
-      + 'THE GAME PUTS BOTH STEPS IN ONE INSTANT, which is why it only ever makes one sound.');
+      + 'THE GAME USED TO PUT BOTH STEPS IN ONE INSTANT, which is why a run only ever made '
+      + 'one sound; it was fixed on the walked surface 9/24 and the footstep gate measures '
+      + 'the two footfalls there (42 first house, 23 second house, every second-house gap '
+      + '0.250 s, on 1,509 cells walked through the one driver).');
     claim('AND THE SPACING WAS FOUND IN THE AUDIO, NOT READ BACK OFF THE RECIPE',
       cad.walkGaps && cad.walkGaps.length > 0 && cad.runGaps && cad.runGaps.length > 0,
       'the hits are located by threshold on the rendered buffer; the recipe\'s own stated '

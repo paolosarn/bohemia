@@ -10701,6 +10701,26 @@ function showTabPanel(p){
    are ever heard. An event he never judged stays SILENT rather than guessing --
    unjudged is silent is the SFX engine's own rule and it is not bent here. */
 var STEP_BANK = null, STEP_CACHE = {}, STEP_LAST = 0, STEP_BUS = null;
+/* __A_RUN_SOUNDS_LIKE_A_RUN__ (9/24, SOUNDS lane) -- ONE LIMITER CLOCK PER LOT.
+   A RUN SOUNDED EXACTLY LIKE A WALK while covering twice the ground. Measured:
+   320 cells walked, 355 step events, 19 sounds, smallest gap between sounds
+   0.351 s across 16 gaps -- no second footfall existed in a running beat at all.
+   The limiter is not the bug and is not loosened: one press is 25 cells in a
+   synchronous loop that all share one currentTime, and collapsing that burst into
+   one house-step is the whole reason 0.12 s is load-bearing. What was missing is
+   that a RUN is TWO house-steps in one beat, and both bursts share that same
+   instant, so a single clock swallowed the second. Each lot now gets its own
+   clock, so lot two's burst collapses on its own and is heard.
+   RULED 9/23b (coordinator): ship it, do not wait for the vote; the VOTE item
+   stands for the spacing he prefers, and his approved footfall is untouched. */
+var STEP_LAST_LOT = {};
+/* HALF A BEAT, DERIVED FROM THE TRANSPORT AND NOT TYPED: MUS.stepDur() is the
+   sixteenth the whole game runs on, a beat is four of them, so half a beat is
+   two. 120 BPM LAW: if the tempo ever moves, this moves with it. */
+function stepHalfBeat(){
+  try{ if(MUS && MUS.stepDur) return MUS.stepDur() * 2; }catch(_e){}
+  return 0.25;
+}
 /* FOOTSTEPS SIT WAY UNDER THE MUSIC (Paolo 8/1): "relative to like the music it
    should be like a lot quieter like A LOT A LOT quieter -- the noise that makes
    for me stepping in different terrain should be quieter". They rendered straight
@@ -10709,7 +10729,7 @@ var STEP_BANK = null, STEP_CACHE = {}, STEP_LAST = 0, STEP_BUS = null;
    vectors are never edited, because the verdict is on the SOUND, not on how loud
    the game plays it. Ambience under the score, never an instrument in it. */
 var STEP_GAIN = 0.12;      /* ~-18 dB under the music master. */
-function stepSfx(surface){
+function stepSfx(surface, lot){
   if(typeof BOH_SFX==='undefined' || typeof MUS==='undefined') return;
   /* __A_SURFACE_PLAYS_ITSELF__ (9/15, SOUNDS lane) -- A MAP OF THREE WAS
      SWALLOWING TWO SURFACES HE APPROVED. This read
@@ -10729,8 +10749,19 @@ function stepSfx(surface){
   var AC; try{ MUS.audio(); AC = MUS.AC; }catch(_e){ return; }
   if(!AC) return;
   var now = AC.currentTime;
-  if(now - STEP_LAST < 0.12) return;           /* one step per footfall, not per frame */
-  STEP_LAST = now;
+  /* __A_RUN_SOUNDS_LIKE_A_RUN__: lot 1 keeps STEP_LAST byte for byte, so a WALK is
+     unchanged in every way. Lot 2 only exists while he is running. */
+  var _lot = (lot === 2) ? 2 : 1;
+  if(_lot === 1){
+    if(now - STEP_LAST < 0.12) return;         /* one step per footfall, not per frame */
+    STEP_LAST = now;
+  } else {
+    if(now - (STEP_LAST_LOT[2] || 0) < 0.12) return;
+    STEP_LAST_LOT[2] = now;
+  }
+  /* AND THE SECOND HOUSE OF A RUN IS HEARD HALF A BEAT AFTER THE FIRST, which is
+     where a foot really lands: two lots covered evenly across one beat. */
+  var _late = (_lot === 2) ? stepHalfBeat() : 0;
   if(!STEP_CACHE[ev]) { try{ STEP_CACHE[ev] = BOH_SFX.cook(ev, 5); }catch(_e){ return; } }
   var pool = STEP_CACHE[ev];
   var pick = ok[(Math.random()*ok.length)|0];  /* vary within what he approved */
@@ -10749,7 +10780,14 @@ function stepSfx(surface){
        CARRIES MORE THAN ITS SUBJECT CANNOT ANSWER A QUESTION ABOUT ITS
        SUBJECT. */
     window.__STEPBUS = STEP_BUS; }catch(_e){ STEP_BUS = null; } }
-  try{ BOH_SFX.render(v, AC, STEP_BUS || MUS.OUT || MUS.MAST || AC.destination, now + 0.01); }catch(_e){}
+  try{ BOH_SFX.render(v, AC, STEP_BUS || MUS.OUT || MUS.MAST || AC.destination, now + 0.01 + _late); }catch(_e){}
+  /* WHAT THE GAME LAST DID, FOR AN INSTRUMENT TO READ RATHER THAN A POLLING METER.
+     This lane has now twice written down that a polling meter cannot see the window
+     it measures, so the numbers a checker needs are recorded by the code that knows
+     them, on the audio clock, at the moment it books. */
+  try{ (window.__STEP_HEARD = window.__STEP_HEARD || []).push(
+         {lot:_lot, now:now, at:now + 0.01 + _late, ev:ev});
+       if(window.__STEP_HEARD.length > 400) window.__STEP_HEARD.shift(); }catch(_e){}
 }
 (function loadStepBank(){
   /* __A_COMMENT_IN_THE_JSON_SILENCED_EVERY_FOOTSTEP__ (9/21, SOUNDS lane)
@@ -11078,7 +11116,10 @@ function combatMsgIn(d){
      the event and THIS side renders it on MUS's context, through MUS's limiter.
      =================================================================== */
   if(d.type==='BOHEMIA_STEP'){
-    try{ stepSfx(d.surface); }catch(_e){}
+    /* __A_RUN_SOUNDS_LIKE_A_RUN__: d.lot is 2 for the second house of a running
+       beat and absent for every walking step, so an older city frame keeps
+       working exactly as it does now. */
+    try{ stepSfx(d.surface, d.lot); }catch(_e){}
     return true;
   }
   if(d.type==='BOHEMIA_RUN_MUSIC'){

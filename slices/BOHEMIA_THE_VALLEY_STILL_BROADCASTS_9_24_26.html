@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>THE VALLEY STILL BROADCASTS</title>
+<!-- SOUNDS lane, 9/24, row [analog horror sound] round two, rule 22.
+     DIRECTION's bible rule 9 says the machines keep talking on a schedule and the
+     content never acknowledges you. NOTHING IN THE GAME DOES IT: there is no
+     broadcast, no PA and no scheduled emission anywhere in the build.
+     Rule 8 of the same bible is why this is the right redo: tape damage lives only
+     inside in-world speakers, so a transmitter is the one place the band, the hiss,
+     the wobble and the drop-outs belong by right instead of by taste.
+     NO VOTE LIVES ON THIS PAGE (rule 25). It plays, it measures itself, and it keeps
+     his words. -->
+<style>
+  :root{ --ink:#1b1408; --paper:#e8dfc9; --line:#8a7a52; --panel:#f2ead6; --dim:#6a5a3e; }
+  html,body{margin:0;background:var(--paper);color:var(--ink);
+    font:15px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace}
+  .wrap{max-width:720px;margin:0 auto;padding:18px 16px 70px}
+  h1{font-size:19px;letter-spacing:2px;margin:0 0 2px}
+  .sub{color:var(--dim);font-size:12px;letter-spacing:1px;margin-bottom:14px}
+  .loud{border:2px solid var(--ink);padding:9px 11px;margin:0 0 14px;font-size:13px}
+  .beatbar{display:flex;gap:4px;margin:10px 0 18px}
+  .beatbar i{flex:1;height:6px;background:#d6cbb0;border:1px solid var(--line)}
+  .beatbar i.on{background:var(--ink)}
+  .card{background:var(--panel);border:1px solid var(--line);padding:14px;margin:0 0 14px}
+  .card h2{font-size:14px;letter-spacing:1.5px;margin:0 0 6px}
+  .why{font-size:13px;margin:0 0 10px}
+  .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  button{font:inherit;background:var(--paper);color:var(--ink);border:1px solid var(--line);
+    padding:11px 14px;min-height:48px;cursor:pointer;letter-spacing:1px}
+  button:active{transform:translateY(1px)}
+  button.on{background:var(--ink);color:var(--paper)}
+  .num{font-size:12px;color:var(--dim);margin-top:8px;white-space:pre-wrap}
+  textarea{width:100%;box-sizing:border-box;font:inherit;background:var(--paper);
+    color:var(--ink);border:1px solid var(--line);padding:8px;min-height:80px}
+  label{font-size:12px;letter-spacing:1px;color:var(--dim);display:block;margin:10px 0 4px}
+  .foot{border-top:2px solid var(--line);margin-top:22px;padding-top:14px}
+</style></head><body><div class="wrap">
+
+<h1>THE VALLEY STILL BROADCASTS</h1>
+<div class="sub">SOUNDS &middot; 9/24 &middot; 120 BPM &middot; three options, one tap each</div>
+
+<div class="loud"><b>TURN YOUR VOLUME UP AND USE HEADPHONES IF YOU HAVE THEM.</b> Half of
+this sound is hiss and a hum, and a phone speaker on half volume will not play it.</div>
+
+<div class="beatbar" id="bar"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+<div class="row"><button id="metro">BEAT: OFF</button><button id="stop">STOP</button></div>
+<div class="num" id="head"></div>
+
+<div class="card">
+  <div class="why"><b>THERE IS NOTHING LIKE THIS IN THE GAME YET, AND IT IS THE ONE SOUND
+  THE WHOLE LOOK IS BUILT ON.</b> A dead authority left a transmitter running. Every so
+  often it plays the two-tone signal that comes before an announcement, and then the
+  announcement never comes. It does not know you are there and it never will.
+  <br><br>
+  The two tones are the real ones, 853 and 960 together, and the real rule says that
+  signal runs at least eight seconds. Eight seconds at our tempo is exactly four bars, so
+  nothing had to be bent. Then one bar of dead air, and it starts again.</div>
+</div>
+
+<div class="card">
+  <h2>A. AS IT LEFT THE STATION</h2>
+  <div class="why">What a transmitter that somebody still looks after sounds like. It has
+  the band a real one has and a carrier under the quiet, and nothing else is wrong with
+  it. This is here so you can hear what the wear is actually doing.</div>
+  <div class="row"><button data-k="clean">PLAY A</button></div>
+  <div class="num" id="numA"></div>
+</div>
+
+<div class="card">
+  <h2>B. AS IT ARRIVES, TEN YEARS LATER</h2>
+  <div class="why">The same signal off a machine nobody has touched. More hiss, the head
+  is not holding speed so the tone sags and recovers, and twice the signal drops out for
+  34 milliseconds and comes back dull. None of it lands on the beat, on purpose: a
+  machine breaking is not playing along with you.</div>
+  <div class="row"><button data-k="worn">PLAY B</button></div>
+  <div class="num" id="numB"></div>
+</div>
+
+<div class="card">
+  <h2>C. AND IT NEVER STOPS</h2>
+  <div class="why">B, on repeat, the way you would actually meet it. This is the real
+  question: the repeating is supposed to be the scary part, and repeating is also the
+  fastest way to get sick of something. Let it run a while before you decide.</div>
+  <div class="row"><button data-k="loop">PLAY C</button></div>
+  <div class="num" id="numC"></div>
+</div>
+
+<div class="foot">
+  <label>ANYTHING ABOUT ANY OF THEM</label>
+  <textarea id="all"></textarea>
+  <div class="row" style="margin-top:12px">
+    <button id="copy">COPY ALL</button>
+    <button id="exp">SAVE AS .txt</button>
+  </div>
+  <div class="num" id="footnote">What you type is kept in this page, so closing it does not
+lose it. COPY ALL puts it on your clipboard.
+THERE IS NO VOTE ON THIS PAGE ON PURPOSE: you vote once, in the VOTE tab.</div>
+</div>
+
+<script src="../engine/bohemia_horror_sounds.js"></script>
+<script>
+var H = window.BOH_HORROR_SOUNDS;
+var AC = null, live = [], cache = {};
+function ac(){ if(!AC) AC = new (window.AudioContext||window.webkitAudioContext)();
+  if(AC.state==='suspended') AC.resume(); return AC; }
+function made(k){
+  var key = (k==='clean') ? 'clean' : 'worn';
+  if(!cache[key]) cache[key] = H.theBroadcast(ac(), key==='clean' ? {wear:0} : {});
+  return cache[key];
+}
+function stopAll(){ live.forEach(function(n){ try{ n.stop(); }catch(e){} }); live=[];
+  document.querySelectorAll('button[data-k]').forEach(function(b){ b.classList.remove('on'); }); }
+function play(k, btn){
+  stopAll();
+  var c = ac(), m = made(k);
+  var s = c.createBufferSource(); s.buffer = m.buffer;
+  if(k==='loop') s.loop = true;
+  var g = c.createGain(); g.gain.value = 0.9;
+  s.connect(g); g.connect(c.destination); s.start();
+  live.push(s); btn.classList.add('on');
+}
+/* THE PAGE MEASURES ITS OWN NUMBERS OFF THE RENDERED BUFFER. A page that quotes the
+   recipe is quoting an intention; this reads the sound. */
+function rms(d, from, to){ var s=0, n=0;
+  for(var i=from;i<to;i++){ s+=d[i]*d[i]; n++; } return Math.sqrt(s/(n||1)); }
+function zeros(d){ var z=0; for(var i=0;i<d.length;i++) if(d[i]===0) z++; return z; }
+function airOf(m){ var d=m.buffer.getChannelData(0), sr=ac().sampleRate;
+  return rms(d, Math.round(sr*(m.toneSeconds+0.25)), d.length-2); }
+function head(){
+  var a = made('clean'), b = made('worn');
+  var sr = ac().sampleRate;
+  var da = a.buffer.getChannelData(0), db = b.buffer.getChannelData(0);
+  var airA = airOf(a), airB = airOf(b);
+  var lift = 20*Math.log10(airB/airA);
+  document.getElementById('head').textContent =
+    'one beat is ' + (H.BEAT*1000) + ' ms, so four bars is ' + (H.BEAT*16) + ' s\n'
+    + 'the signal runs ' + b.toneSeconds.toFixed(1) + ' s, then ' + b.airSeconds.toFixed(1)
+    + ' s of dead air: ' + b.seconds.toFixed(1) + ' s in all, ' + b.bars + ' bars\n'
+    + 'the two tones are ' + b.tones[0] + ' and ' + b.tones[1] + ' Hz, '
+    + b.beatBetweenHz + ' Hz apart, so they grate and never settle';
+  document.getElementById('numA').textContent =
+    'dead air holds ' + airA.toFixed(5) + ' rms and never reaches digital zero ('
+    + zeros(da) + ' zeros in ' + da.length + ' samples). No drop-outs, steady head.';
+  document.getElementById('numB').textContent =
+    'same length to the sample. The carrier is ' + lift.toFixed(1)
+    + ' dB louder than A because ten years of nobody is ten years of hiss. '
+    + b.dropouts.length + ' drop-outs, ' + b.dropouts.map(function(x){ return x.atSeconds+' s'; }).join(' and ')
+    + ', ' + (b.dropouts[0]?b.dropouts[0].lengthMs:0) + ' ms each, 12 dB down and never silent. '
+    + 'Head speed moves ' + (b.wow ? (b.wow.depth*100).toFixed(2)+'% at '+b.wow.rate+' Hz' : 'not at all') + '.';
+  document.getElementById('numC').textContent =
+    'the same ' + b.seconds.toFixed(1) + ' s, looping. It is seamless on purpose: the '
+    + 'length is a whole number of bars, so the repeat lands on a beat.';
+}
+
+document.querySelectorAll('button[data-k]').forEach(function(b){
+  b.onclick = function(){ play(b.dataset.k, b); head(); };
+});
+document.getElementById('stop').onclick = function(){ stopMetro(); stopAll(); };
+
+/* THE BEAT, SO HE CAN HEAR WHERE THE BARS ARE. Scheduled ahead on the audio clock,
+   never on a page timer: this lane spent a round proving the main thread cannot keep
+   120 BPM on a phone. */
+var metroOn=false, nextAt=0, timer=null, bar=0, CLICK=null;
+function clickBuf(){ var c=ac(), n=Math.round(c.sampleRate*0.02),
+  b=c.createBuffer(1,n,c.sampleRate), d=b.getChannelData(0);
+  for(var i=0;i<n;i++) d[i]=Math.sin(2*Math.PI*1800*i/c.sampleRate)*Math.pow(1-i/n,6)*0.25;
+  return b; }
+function startMetro(){ if(metroOn) return; var c=ac(); CLICK=CLICK||clickBuf();
+  metroOn=true; nextAt=c.currentTime+0.12; bar=0;
+  document.getElementById('metro').textContent='BEAT: ON';
+  document.getElementById('metro').classList.add('on');
+  timer=setInterval(function(){ var c=ac();
+    while(nextAt < c.currentTime + 0.25){
+      var s=c.createBufferSource(); s.buffer=CLICK; s.connect(c.destination); s.start(nextAt);
+      var idx=bar%8; setTimeout(function(i){ return function(){
+        var bs=document.querySelectorAll('#bar i');
+        bs.forEach(function(x){ x.classList.remove('on'); });
+        if(bs[i]) bs[i].classList.add('on'); }; }(idx), Math.max(0,(nextAt-c.currentTime)*1000));
+      nextAt += H.BEAT; bar++;
+    } }, 60); }
+function stopMetro(){ metroOn=false; if(timer) clearInterval(timer); timer=null;
+  document.getElementById('metro').textContent='BEAT: OFF';
+  document.getElementById('metro').classList.remove('on');
+  document.querySelectorAll('#bar i').forEach(function(x){ x.classList.remove('on'); }); }
+document.getElementById('metro').onclick = function(){ metroOn ? stopMetro() : startMetro(); };
+
+/* HIS WORDS SURVIVE BY DEFAULT. A page of mine lost eight of his votes because the only
+   way out was a download button he never pressed. */
+var KEY='bohemia_broadcast_notes_v1';
+try{ var v=localStorage.getItem(KEY); if(v) document.getElementById('all').value=v; }catch(e){}
+document.getElementById('all').addEventListener('input', function(){
+  try{ localStorage.setItem(KEY, this.value); }catch(e){} });
+function noteText(){ var a=document.getElementById('all').value.trim();
+  return 'BOHEMIA NOTES -- THE VALLEY STILL BROADCASTS (SOUNDS, 9/24). NO VOTES HERE: the vote is in the VOTE tab.\n'
+    + 'registry id: sounds-the-valley-still-broadcasts-9-24\n\n' + (a || '(nothing written yet)'); }
+function say(m){ var n=document.getElementById('footnote'), was=n.textContent;
+  n.textContent=m; setTimeout(function(){ n.textContent=was; },2200); }
+document.getElementById('copy').onclick=function(){ var txt=noteText();
+  function fb(){ var ta=document.createElement('textarea'); ta.value=txt;
+    ta.style.position='fixed'; ta.style.opacity='0'; document.body.appendChild(ta); ta.select();
+    try{ document.execCommand('copy'); say('COPIED. Paste it back to me.'); }
+    catch(e){ say('Could not copy. Use SAVE AS .txt.'); } ta.remove(); }
+  if(navigator.clipboard&&navigator.clipboard.writeText)
+    navigator.clipboard.writeText(txt).then(function(){ say('COPIED. Paste it back to me.'); }, fb);
+  else fb(); };
+document.getElementById('exp').onclick=function(){
+  var blob=new Blob([noteText()],{type:'text/plain'});
+  var u=URL.createObjectURL(blob), el=document.createElement('a');
+  el.href=u; el.download='BOHEMIA_NOTES_THE_BROADCAST.txt';
+  document.body.appendChild(el); el.click(); el.remove();
+  setTimeout(function(){ URL.revokeObjectURL(u); },1500); };
+</script>
+</div></body></html>

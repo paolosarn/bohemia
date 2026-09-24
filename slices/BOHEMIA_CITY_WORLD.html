@@ -40150,6 +40150,19 @@ function _slideDir(dx,dy){
   return null;
 }
 var _slideGuard=0;   /* ONE slide per press. A chain of slides is a shove. */
+/* __A_RUN_SOUNDS_LIKE_A_RUN__ (9/24, SOUNDS lane) -- WHICH LOT OF THE BEAT THIS IS.
+   Measured 9/24: a run covers TWO lots in one beat and made ONE footstep sound,
+   because the metronome calls stepOnce twice in the SAME synchronous tick, the
+   audio clock does not advance inside a synchronous loop, and the shell's 0.12 s
+   limiter correctly collapses a burst that all shares one currentTime. The shell
+   cannot tell lot two from lot one from the outside, so this frame says which it
+   is. NOTHING ABOUT MOVEMENT CHANGES: both lots still land on the same beat and
+   the glide still crosses both (__WALK_FEEL_SLIDE__ owns the slide, and SLIDE is
+   his 9/21 ruling). Only the SOUND of the second lot moves, half a beat later,
+   which is what the coordinator's 9/23b ruling asked for.
+   Paolo 9/15 rule 16: one step is one house. A run is two houses, so it is two
+   footfalls. */
+let STEP_LOT = 1;
 function stepOnce(di){
   try{ contactClear(); }catch(_e){}   /* V203 __CONTACT_FIGHT__: one step, at most one fight */
   const [dx,dy]=DIRS[di];
@@ -40259,7 +40272,7 @@ function stepOnce(di){
          dossier, so the road sounds like asphalt and the yard sounds like dirt.
          ONE AUDIOCONTEXT, THE PARENT'S: this posts, the shell renders. */
       try{ if(window.parent&&window.parent!==window)
-        window.parent.postMessage({type:'BOHEMIA_STEP',surface:__surfaceOf(c,__districtAt(nx,ny))},'*'); }catch(_e){}
+        window.parent.postMessage({type:'BOHEMIA_STEP',surface:__surfaceOf(c,__districtAt(nx,ny)),lot:STEP_LOT},'*'); }catch(_e){}
       hx=nx; hy=ny; moved++;
       /* __THE_DAY_IS_SPENT_BY_WALKING__ -- A WALKED CELL IS A STEP, AND NOTHING SAID SO.
          The day loop has had L.step since it shipped -- it is what the
@@ -40608,7 +40621,11 @@ setInterval(()=>{
      two cells in one beat and the glide has to cross both of them. */
   const _gsp=glideSpace(), _gfr=glideFrom();
   let moved=stepOnce(di);
-  if(running&&moved)stepOnce(di);      // run = two cells per beat
+  /* __A_RUN_SOUNDS_LIKE_A_RUN__: lot two is still taken on this beat, exactly as
+     before; it is only LABELLED lot two so the shell can put its footfall half a
+     beat later. try/finally so a throw inside the step cannot leave the label on
+     and make every walking footfall late. */
+  if(running&&moved){ STEP_LOT=2; try{ stepOnce(di); } finally { STEP_LOT=1; } }
   if(moved) glideStart(_gfr[0], _gfr[1], _gsp);   /* __WALK_FEEL_SLIDE__ */
   if(held!==null)heldBeats++;
   if(moved){ animate((running||RIDING)?'run':'walk'); reportState(); footingUpdate(); /* __FLOOR_DOES_SOMETHING__ */ }

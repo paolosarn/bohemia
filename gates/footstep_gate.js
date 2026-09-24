@@ -74,6 +74,18 @@ function cityBlob(_alpha) { const a = CITY_APP.read(); return a ? a.src : null; 
   ok('an unjudged sound stays SILENT rather than guessing',
      /if\(!STEP_BANK\) return;/.test(alpha));
   ok('one sound per footfall, not one per frame', /STEP_LAST < 0\.12/.test(alpha));
+  /* __A_RUN_SOUNDS_LIKE_A_RUN__ (9/24, SOUNDS lane). A RUN SOUNDED EXACTLY LIKE A
+     WALK: the metronome takes two lots in one beat inside ONE synchronous tick, the
+     audio clock does not move inside a synchronous loop, and one limiter clock
+     swallowed the second. Measured on the alpha before the fix: 320 cells walked,
+     355 step events, 19 sounds, and across 16 gaps the SMALLEST was 0.351 s -- no
+     second footfall existed in a running beat at all. */
+  ok('the shell knows WHICH house of the beat a footfall is',
+     /function stepSfx\(surface, *lot\)/.test(alpha));
+  ok('and it keeps a limiter clock per house, so a run is not swallowed',
+     /STEP_LAST_LOT/.test(alpha));
+  ok('half a beat is DERIVED from the transport, never typed',
+     /function stepHalfBeat\(\)/.test(alpha) && /stepDur\(\) \* 2/.test(alpha));
 
   const city = cityBlob(alpha);
   ok('the alpha carries a readable CITY blob', !!city && city.length > 100000);
@@ -82,6 +94,13 @@ function cityBlob(_alpha) { const a = CITY_APP.read(); return a ? a.src : null; 
        city.indexOf("type:'BOHEMIA_STEP'") >= 0);
     ok('the surface is read off the tile, never guessed',
        city.indexOf('function __surfaceOf(') >= 0 && city.indexOf('__surfaceOf(c)') >= 0);
+    /* __A_RUN_SOUNDS_LIKE_A_RUN__: the shell cannot tell the second house of a running
+       beat from the first, because both bursts share one audio-clock instant. The frame
+       that took the two steps is the only thing that knows, so it says so. */
+    ok('the walked frame SAYS which house of the beat a footfall is',
+       city.indexOf('lot:STEP_LOT') >= 0);
+    ok('and a run labels its second house',
+       /STEP_LOT=2;[\s\S]{0,80}stepOnce\(di\)/.test(city));
     /* ONE ENGINE: the frame must not build a second audio graph */
     ok('the city builds NO audio context of its own (one engine, the parent\'s)',
        !/new\s+\(?\s*(window\.)?(webkit)?AudioContext/.test(city));
@@ -125,6 +144,83 @@ function cityBlob(_alpha) { const a = CITY_APP.read(); return a ? a.src : null; 
 
     ok('WALKING MAKES A SOUND: audio nodes started (' + before + ' -> ' + after + ')',
        after > before);
+
+    /* ---- __A_RUN_SOUNDS_LIKE_A_RUN__ (9/24, SOUNDS lane) -------------------
+       MEASURED ON THE SHIPPED PLAYER, NOT ON THE SOURCE, and measured the way the
+       bug actually happened: a SYNCHRONOUS burst. One press of the pad walks 25
+       cells in one synchronous loop and posts a footfall for every one, and a run
+       takes two of those bursts microseconds apart. The audio clock does not move
+       inside a synchronous loop, so every event in both bursts carries ONE
+       currentTime -- which is why a single limiter clock could not tell the two
+       houses apart, and why 94% of footfalls are correctly silent.
+       This lane has twice written down that a polling meter cannot see the window it
+       measures, so nothing here is observed: stepSfx records what it BOOKED on the
+       audio clock and this reads that. */
+    /* AND THE FIRST CUT OF THIS TEST WAS WRONG, WHICH IS WHY IT IS WRITTEN OUT:
+       it took the walk sample first and then the run sample in the SAME instant, so
+       the walk's own footfall had already set the first house's limiter clock and the
+       run's first house was correctly refused. It reported "1 heard" about a build
+       that makes two. The limiter is a real 0.12 s of audio-clock time, so two
+       samples have to be separated by more than that -- the beat itself is 0.5 s
+       apart in the game, which is the thing being modelled. */
+    const run = await page.evaluate(async () => {
+      if (typeof stepSfx !== 'function') return { fatal: 'no player' };
+      const rest = () => new Promise(r => setTimeout(r, 300));
+      /* WARM THE POOL FIRST. The first call for a surface COOKS five variants, which
+         costs real milliseconds, and the audio clock keeps running while it does --
+         so the first measurement of this was 11.6 ms wide of half a beat and the
+         cook was the whole difference. In the game the pool is warm by the second
+         step of the first walk, so warm is the state worth measuring. */
+      stepSfx('concrete', 1); await rest(); await rest();
+      window.__STEP_HEARD = [];
+      /* one press: 25 cells, all in one tick, all the first house of the beat */
+      for (let i = 0; i < 25; i++) stepSfx('concrete', 1);
+      const walk = (window.__STEP_HEARD || []).slice();
+      await rest();
+      window.__STEP_HEARD = [];
+      /* a RUN: two 25-cell bursts, two houses, one beat, one synchronous tick */
+      for (let i = 0; i < 25; i++) stepSfx('concrete', 1);
+      for (let i = 0; i < 25; i++) stepSfx('concrete', 2);
+      const ran = (window.__STEP_HEARD || []).slice();
+      let beat = null;
+      try { beat = MUS.stepDur() * 4; } catch (_e) {}
+      return { walk: walk, ran: ran, beat: beat };
+    });
+    if (run.fatal) {
+      ok('A RUN MAKES TWO FOOTFALLS: ' + run.fatal, false);
+    } else {
+      ok('one press is ONE footfall however many cells it crosses ('
+         + run.walk.length + ' of 25 heard)', run.walk.length === 1);
+      ok('A RUN MAKES TWO FOOTFALLS, not one (' + run.ran.length + ' heard)',
+         run.ran.length === 2);
+      if (run.ran.length === 2) {
+        const gap = run.ran[1].at - run.ran[0].at;
+        /* THE DRIFT IS SUBTRACTED AND PRINTED, NEVER HIDDEN. Both bursts are
+           synchronous but the audio clock is not stopped while they run, so the two
+           readings of currentTime can differ by a few milliseconds. The question is
+           how much LATER the second footfall was scheduled, which is the gap minus
+           however far apart the two bookings were taken. */
+        const drift = run.ran[1].now - run.ran[0].now;
+        const sched = gap - drift;
+        const half = (run.beat || 0.5) / 2;
+        /* RELATIVE, never absolute: this lane shipped an absolute tolerance on a
+           ruling that made its number small and it stopped checking at +/-160%. */
+        ok('and the second lands HALF A BEAT after the first (scheduled ' + sched.toFixed(4)
+           + ' s later, half a beat is ' + half.toFixed(4) + ' s; heard ' + gap.toFixed(4)
+           + ' s apart, clock drift between the two bursts ' + (drift * 1000).toFixed(1)
+           + ' ms)', Math.abs(sched - half) <= 0.02 * half);
+        /* AND THE DRIFT IS NOT ALLOWED TO BE BIG, or the two footfalls stop being
+           evenly spaced inside the beat whatever the schedule says. */
+        ok('and the two houses of one beat are booked in the SAME instant ('
+           + (drift * 1000).toFixed(1) + ' ms apart)', Math.abs(drift) <= 0.01);
+        ok('the second footfall is the second HOUSE, not a second cell',
+           run.ran[0].lot === 1 && run.ran[1].lot === 2);
+      } else {
+        ok('and the second lands HALF A BEAT after the first', false);
+        ok('and the two houses of one beat are booked in the SAME instant', false);
+        ok('the second footfall is the second HOUSE, not a second cell', false);
+      }
+    }
   } finally {
     await browser.close();
   }
