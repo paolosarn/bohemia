@@ -152,7 +152,30 @@ GATES = [
     ('BLOB INTEGRITY', ['node', 'gates/blob_integrity_gate.js'],
      'the game is a shell plus EIGHT big documents (3 inline blobs + 5 sibling pages) rewritten by string surgery daily and resolved whole on every rebase: each one decodes, is not truncated, carries no merge markers and still PARSES -- the checks that existed were presence and size floor, which a stale or half-merged re-encode passes', False),
     ('HANDOFF',        ['node', 'gates/handoff_gate.js'],
-     'the one file every session is told to read FIRST is readable: exactly one handoff, at its canonical name, leading with a lane head, and carrying no unresolved merge -- it reached main conflicted TWICE, hiding a whole lane behind a marker', False),
+     'the one file every session is told to read FIRST is readable: exactly one handoff, at its canonical name, leading with a lane head, and carrying no unresolved merge -- it reached main conflicted TWICE, hiding a whole lane behind a marker'
+     ' *** AND A CONFLICTED FILE NEVER REACHES MAIN (9/24, PLUMBER, row [no markers]). It '
+     'happened on the one file Paolo had already complained about: a rebase resolver threw, git '
+     'add staged the vote registry WITH THE MARKERS, rebase --continue committed it, and his VOTE '
+     'tab was unparseable on main. Swept 2,022 commits: SEVEN added marker lines and FOUR were '
+     'REAL conflicts that reached main, across three weeks and four files -- the vote registry '
+     '(9/22), the handoff TWICE (9/12), and slices/BOHEMIA_CITY_WORLD.html, A PUBLISHED SLICE '
+     '(9/5). Not a one-round accident. *** THE LEG THAT WAS HERE COULD NOT HAVE CAUGHT A CONFLICT '
+     'IN THE ALPHA: it skipped any file over 4 MB ("the 34MB alpha, not text to diff") and the '
+     'alpha is 5 MB, the demo 5 MB, RUN_CURRENT 22 MB, THE HANDOFF ITSELF 7 MB. Proved, not '
+     'argued: a real merge planted at the alpha body left the gate 8 passed / 0 failed, exit 0. '
+     'The skip bought nothing -- git grep over the whole tree, the four 45 MB tile banks '
+     'included, is 0.31 s -- so git finds the candidates and only those few files are read. NO '
+     'extension list and NO size limit now, and the gate got FASTER: 1,953 ms to 829 ms while '
+     'sweeping more. THE RULE IS STRUCTURAL, not a word search: across 4,879 tracked text files '
+     '"any line starting <<<<<<< or >>>>>>>" hits ONE file and it is a record QUOTING this exact '
+     'bug, while the ORDERED TRIAD hits ZERO. A check that goes red on a document describing the '
+     'failure is a check the fleet switches off. SECOND LEG: every JSON on the published surface '
+     'must PARSE, because the markers were only how it broke that time and a stray comma does the '
+     'same damage with nothing to grep for. MUTATION-CHECKED FOUR WAYS, exit codes read without a '
+     'pipe: the real bytes of all four incidents replayed -> red every time; a conflict planted in '
+     'the alpha -> red and named; one extra comma in the registry -> red on the JSON leg only; the '
+     'record that quotes a marker -> 9 passed, 0 failed.',
+     False),
     ('REPO BUDGET',    ['node', 'gates/repo_budget_gate.js'],
      'the OTHER clock: 8/2 caught the 100 MB PER-FILE cap, but the REPOSITORY ceiling has its own -- 900 MB packed, +32.5 MB/day, GitHub hard cutoff at 5 GB in ~130 days, less than halfway through the 11 months of planned work', False),
     ('MAP SIZE',       ['node', 'gates/mapsize_gate.js'],

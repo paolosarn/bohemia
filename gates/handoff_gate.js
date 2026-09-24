@@ -226,30 +226,98 @@ if (head) {
     + '-- ' + now.size + ' lane(s) present', now.size > 0);
 }
 
-/* the conflict itself */
-const START = /^<<<<<<< /m, END = /^>>>>>>> /m;
-ok('THE HANDOFF CARRIES NO UNRESOLVED MERGE', !START.test(text) && !END.test(text));
+/* ======================================================================
+   A CONFLICTED FILE NEVER REACHES MAIN (9/24, PLUMBER, row [no markers]).
 
-/* and nowhere else either: a conflicted law or record is the same failure with a
-   smaller blast radius. Tracked files only -- untracked scratch is nobody's
-   business, and binaries are skipped. */
-let tracked = [];
+   It happened TWICE in one round on the one file Paolo had already complained
+   about: a rebase resolver threw, `git add` staged the vote registry WITH THE
+   MARKERS, `rebase --continue` committed it, and his VOTE tab was unparseable on
+   main. The leg that was here caught the second one AFTER the push, in another
+   lane's round.
+
+   *** AND IT COULD NOT HAVE CAUGHT A CONFLICT IN THE ALPHA AT ALL. *** The old
+   sweep skipped any file over 4 MB, with the comment "the 34MB alpha, not text to
+   diff". The alpha is 5 MB. So is the demo. RUN_CURRENT is 22 MB. THE HANDOFF
+   ITSELF IS 7 MB. Every one of them was exempt from the check written to protect
+   them. PROVED, not argued: a real unresolved merge planted at the alpha's <body>
+   left the gate at 8 PASSED, 0 FAILED, EXIT 0.
+   The skip bought nothing. `git grep` over the WHOLE tree, the four 45 MB tile
+   banks included, is 0.31 SECONDS, so the candidates are found by git and only
+   those few files are ever read.
+
+   AND THE RULE IS STRUCTURAL, NOT A WORD SEARCH. Measured across 4,879 tracked
+   text files: "any line starting <<<<<<< or >>>>>>>" hits ONE file, and it is a
+   record QUOTING this exact bug (the 8/27 write-up of a marker rendering on the
+   front splash). A check that goes red on a document describing the failure is a
+   check the fleet switches off. A real conflict is an ORDERED TRIAD -- `<<<<<<< x`
+   then a line that is exactly `=======` then `>>>>>>> y` -- and on this tree that
+   rule finds ZERO. It separates the two cleanly with nothing in between. */
+const START = /^<<<<<<< \S/, MID = /^=======$/, END = /^>>>>>>> \S/;
+
+function hasRealConflict(body) {
+  let state = 0;                       /* 0 nothing, 1 saw start, 2 saw the middle */
+  for (const line of body.split('\n')) {
+    if (START.test(line)) { state = 1; continue; }
+    if (MID.test(line)) { if (state === 1) state = 2; continue; }
+    if (END.test(line)) { if (state === 2) return true; state = 0; }
+  }
+  return false;
+}
+
+ok('THE HANDOFF CARRIES NO UNRESOLVED MERGE', !hasRealConflict(text));
+
+/* and nowhere else either: a conflicted law, record, slice or workflow is the same
+   failure with a different blast radius. NO EXTENSION LIST and NO SIZE LIMIT --
+   both were holes, and git does the expensive part. */
+let candidates = [], swept = 0;
 try {
-  tracked = execFileSync('git', ['ls-files'], { cwd: ROOT, encoding: 'utf8' })
-    .split('\n').filter(Boolean)
-    .filter(f => /\.(md|txt|js|py|json|html|css)$/.test(f));
-} catch (e) { /* not a checkout; the handoff check above still stands */ }
+  swept = execFileSync('git', ['ls-files'], { cwd: ROOT, encoding: 'utf8', maxBuffer: 1 << 28 })
+    .split('\n').filter(Boolean).length;
+  candidates = execFileSync('git',
+    ['grep', '-l', '-I', '-E', '^(<<<<<<< |>>>>>>> )', '--', '.'],
+    { cwd: ROOT, encoding: 'utf8', maxBuffer: 1 << 28 })
+    .split('\n').filter(Boolean);
+} catch (e) {
+  /* git grep exits 1 when NOTHING matches, which is the good case. Anything else
+     (not a checkout) leaves candidates empty and the handoff leg above still stands. */
+}
 
 const conflicted = [];
-for (const f of tracked) {
+for (const f of candidates) {
   let body;
   try { body = fs.readFileSync(path.join(ROOT, f), 'utf8'); } catch (e) { continue; }
-  if (body.length > 4e6) continue;                       // the 34MB alpha, not text to diff
-  if (START.test(body) && END.test(body)) conflicted.push(f);
+  if (hasRealConflict(body)) conflicted.push(f);
 }
-ok('no tracked file carries an unresolved merge ('
-  + (conflicted.length ? conflicted.slice(0, 5).join(', ') : 'none of ' + tracked.length) + ')',
-  conflicted.length === 0);
+ok('NO TRACKED FILE CARRIES AN UNRESOLVED MERGE, the alpha and the demo included ('
+  + (conflicted.length ? conflicted.join(', ') : swept + ' files swept, '
+     + candidates.length + ' carried a marker line, none was a real conflict') + ')',
+  conflicted.length === 0,
+  conflicted.length ? 'a rebase resolver threw and the commit went out anyway. Open each '
+    + 'file, resolve it, and do not `git add` a file you have not looked at.' : '');
+
+/* ---- AND EVERY JSON THE GAME LOADS MUST PARSE ------------------------------
+   The markers were only how it broke that time. What actually reached his phone
+   was a file the VOTE tab could not read, and A STRAY COMMA DOES THE SAME DAMAGE
+   WITH NOTHING TO GREP FOR. The published surface is slices/ + engine/ +
+   records/target (_config.yml), so those are the files a bad one actually
+   reaches him through. */
+let jsons = [];
+try {
+  jsons = execFileSync('git', ['ls-files', 'records/target/*.json', 'slices/*.json',
+    'engine/*.json'], { cwd: ROOT, encoding: 'utf8', maxBuffer: 1 << 28 })
+    .split('\n').filter(Boolean);
+} catch (e) { /* not a checkout */ }
+
+const broken = [];
+for (const f of jsons) {
+  try { JSON.parse(fs.readFileSync(path.join(ROOT, f), 'utf8')); }
+  catch (e) { broken.push(f + ' (' + String(e.message).slice(0, 60) + ')'); }
+}
+ok('EVERY JSON ON THE PUBLISHED SURFACE PARSES ('
+  + (broken.length ? broken.join(' | ') : jsons.length + ' checked') + ')',
+  broken.length === 0,
+  broken.length ? 'his VOTE tab reads one of these. A file that does not parse is '
+    + '"THE LIST DID NOT LOAD" on his phone, which is where we found out last time.' : '');
 
 console.log('\n=== HANDOFF GATE: ' + pass + ' passed, ' + fail + ' failed ===');
 console.log('    the one file every session reads first is readable.');

@@ -5914,6 +5914,81 @@ full suite unmeasured since 7efb22cf. Rule 14(a): demo untouched, RUN cuts it.
 
 Record: records/BOHEMIA_ONE_DOOR_9_14_26.md
 
+PLUMBER (plumber-ont6t5): 9/24 LATEST -- *** CHAT 18. ROUND 39. [no markers] SHIPPED. THE ROW SAID
+TWICE. IT WAS FOUR, ACROSS THREE WEEKS AND FOUR LANES, AND THE LEG THAT WAS ALREADY HERE COULD NOT
+HAVE CAUGHT A CONFLICT IN THE ALPHA. ***
+This lane named this job two rounds ago and did not build it (33a3923). The coordinator put it on the
+board. What it turned out to be:
+SWEPT ALL 2,022 COMMITS IN REACH. 7 added a conflict-marker line; separating real conflicts from
+records that merely QUOTE one leaves FOUR THAT REACHED MAIN:
+  9eec17d1  9/22  records/target/BOHEMIA_VOTE_REGISTRY.json   his VOTE tab
+  548c26e3  9/12  00_START_HERE_NEXT_SESSION.md               the handoff
+  ab03fdfb  9/12  00_START_HERE_NEXT_SESSION.md               the handoff, again
+  1d5137d3  9/05  slices/BOHEMIA_CITY_WORLD.html              A PUBLISHED SLICE
+Three weeks, four files, at least four lanes. NOT a one-round accident.
+CORRECTION TO THE ROW, said because it should not rot: it names PEOPLE d4b24e8 as the second
+offender. That is the FIX commit -- its own subject says so -- and its diff adds zero marker lines.
+*** THE 4 MB SKIP EXEMPTED EVERY SURFACE HE TOUCHES. *** The leg carried
+`if (body.length > 4e6) continue;  // the 34MB alpha, not text to diff`. Measured: RUN_CURRENT 22 MB,
+THE HANDOFF ITSELF 7 MB, VOTE_CURRENT 6 MB, the demo 5 MB, CITY_WORLD 5 MB (the 9/5 incident,
+exempt), THE ALPHA 5 MB. PROVED, not argued: a real unresolved merge planted at the alpha's body tag
+left the gate at 8 PASSED, 0 FAILED, EXIT 0. Silent. And it is not hypothetical damage: the 8/27
+record in this repo describes a merge marker and seven lines of internal prose RENDERING ON THE FRONT
+SPLASH OF THE GAME.
+THE SKIP BOUGHT NOTHING. git grep over the WHOLE tree, the four 45 MB tile banks included, is 0.31
+SECONDS, so git finds the candidates and only those few files are ever read. No extension list, no
+size limit, AND THE GATE GOT FASTER: 1,953 ms -> 829 ms while sweeping strictly more.
+THE RULE IS STRUCTURAL, AND THAT WAS MEASURED RATHER THAN PREFERRED. Across 4,879 tracked text files,
+"any line starting <<<<<<< or >>>>>>>" hits ONE file, and it is the record QUOTING this exact bug. The
+ORDERED TRIAD hits ZERO. A check that goes red on a document describing the failure is a check the
+fleet switches off, and then it protects nothing. The triad is also what an unresolved conflict
+actually IS.
+SECOND LEG: EVERY JSON ON THE PUBLISHED SURFACE MUST PARSE. The markers were only how it broke that
+time. What reached his phone was a file the VOTE tab could not read, and a stray comma does that with
+nothing to grep for. Scope is slices/ + engine/ + records/target, which is what _config.yml publishes.
+MUTATION-CHECKED FOUR WAYS, exit codes read WITHOUT A PIPE:
+  the real bytes of all four incidents, replayed one at a time   red every time, exit 1
+  a real merge planted at the alpha body      8/0 exit 0 BEFORE, 8 passed 1 failed and NAMED after
+  one extra comma in the registry, no markers red on the JSON leg only, marker leg correctly silent
+  the record that quotes a marker             9 passed, 0 failed
+The second row is the one that matters; the third proves the legs are independent; the fourth is what
+keeps the leg switched on.
+AND I BROKE THE GATE TABLE MID-ROUND AND CAUGHT IT BEFORE IT LEFT. Extending the HANDOFF row's
+description with a stray comma made it a FIVE-field row, and this repo's own table check says a
+malformed row raises before a single gate runs and takes down ALL of them for every lane. The
+validator said "malformed: 1", I reverted and rebuilt the row line by line as adjacent string
+literals, and confirmed 712 rows / 0 malformed and the gate GREEN THROUGH THE SUITE RUNNER, not just
+standalone. Writing it down because the check that caught me is one this lane built for exactly this.
+WHAT IS STILL NOT FIXED, SAID PLAINLY: this runs in the PRE-PUSH PASS, so it catches a conflict before
+YOUR push, not before the one that already happened. All four incidents were found by somebody else's
+gate run in somebody else's round. A leg in a gate cannot be a git hook and this repo has no hook
+install step. The honest claim: a lane that runs its pre-push pass cannot ship a conflicted file, and
+a lane that skips it still can.
+THE THING BEHIND ALL FOUR is three keystrokes: the resolver threw, `git add -A` staged the file WITH
+THE MARKERS IN IT, and `rebase --continue` committed it without a complaint. Git will commit a
+conflicted file the moment you stage it. The only defence is a machine that looks.
+PRE-PUSH PASS: HANDOFF 9/0 (was 8 legs, now 9), REPLY CONTRACT 17/0, CANON ROT 13/0, gate table 712
+rows 0 malformed, HANDOFF green through the suite runner. Rule 14(a): demo untouched, RUN cuts it.
+Record: records/BOHEMIA_A_CONFLICTED_FILE_NEVER_REACHES_MAIN_9_24_26.md
+STILL OPEN IN MY SECTION: [one driver], [three valleys], [slim build], [deep history], [real surface],
+[horror gate], [mode chip], [suite line], [pre-push pass], [cannot fail], [one way rulers],
+[spelling gates], [suite runs], [fight headroom], [dead gates], [handoff cut], [backlog archive].
+Still CLAIMED: [never worse], [sixty fps], [demo errors] (STANDING).
+*** PAOLO'S CLICK WORKED, AND THE GATE THIS LANE BUILT IS THE PROOF. *** He flipped Settings -> Pages
+-> Source to GitHub Actions ("Okay i did it", CLAUDE.md 9/23). That was this lane's standing
+[PENDING Paolo] for three rounds and it is ANSWERED. THE LIVE SITE IS CURRENT gate was 2 passed / 2
+failed when it shipped; measured this round it is 4 OF 4 GREEN:
+  last successful deploy      run #2381, 2 min ago   (was 455 MINUTES when this started)
+  cancelled in the queue      1 of 12                (was 10 of 12, and 9 in a row with ZERO JOBS)
+  GitHub's own Jekyll builder 0 runs in the last day (was 10 a day, racing us on every push)
+The leg that was "red on purpose until he clicks" went green the round he clicked, which is the only
+way to know a gate was telling the truth rather than just complaining. THIS LANE NOW CARRIES NO
+[PENDING Paolo].
+AND ONE LINE FOR THE COORDINATOR, NAMED NOT FIXED (not my row, and rule 6): pages.yml still carries
+the "wait for GitHub's own builder so this deploy lands last" step, which the deploy line says costs
+up to 400 SECONDS per deploy. That step existed to win a race against a builder that now fires ZERO
+times a day. It is pure wall clock on every ship the fleet makes. Somebody should take that step out.
+
 PLUMBER (plumber-ont6t5): 9/23 (d) LATEST -- *** CHAT 18. ROUND 38. [rot ceiling] SHIPPED. IT WAS NOT
 TWO STALE CITATIONS TO RETYPE. IT WAS ONE LINE OF A GENERATOR WRITING A PATH NOBODY HAD EVER LOOKED
 FOR, AND IT WAS STILL PRODUCING THEM. ***
