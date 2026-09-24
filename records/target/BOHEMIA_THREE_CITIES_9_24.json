@@ -1,0 +1,29 @@
+{
+ "what": "what the game already carries for drawing the aerial at three dates",
+ "law": "rule 31 + rule 32(b): the ruin is act 1 FLOOR, never a fall; act 2 and 3 are the ruin PLUS what was reclaimed",
+ "measuredOn": "BOHEMIA_ALPHA_0_9.html",
+ "actState": {
+  "ACT": "undefined",
+  "DYNASTY": "undefined",
+  "ERA": "undefined",
+  "BohemiaDynasty": "undefined",
+  "BohemiaDerive": "undefined",
+  "DAY_act": "no DAY.act"
+ },
+ "placedCount": 0,
+ "placedSample": [],
+ "editKeys": 3,
+ "rendersFrom": {
+  "om": true,
+  "EDITS": true,
+  "CE": true,
+  "spanAt": true,
+  "distAt": true
+ },
+ "ground": {
+  "desert": 620,
+  "built": 4074,
+  "skeleton": 4522,
+  "total": 9216
+ }
+}

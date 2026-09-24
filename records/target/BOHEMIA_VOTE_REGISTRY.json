@@ -1713,7 +1713,20 @@
         "how": "page",
         "src": "BOHEMIA_A_FOOTSTEP_THAT_IS_NOT_SAND_9_24_26.html"
       }
+    },
+   {
+    "id": "lifecity-the-same-street-reclaimed-9-24",
+    "kind": "tile",
+    "lane": "life+city",
+    "sha": "6a7fc7e9",
+    "made": "9/24",
+    "title": "THE SAME STREET, RECLAIMED (ACT TWO OF THE ONE YOU LIKED)",
+    "why": "You thumbed up THE STREET THAT IS STILL LIT, so here is the exact same block at the next date. Same four houses, same road, same lamp, same coordinates, 59,4 on MOB's power. Nothing redrawn from scratch. You just said the ruin is the FLOOR and it only gets better from there, never worse, so act two is act one PLUS what got reclaimed: the road is patched, the power is back on the street, there is a panel array and a battery cabinet on the first roof, and the line is restrung to the pole. All of it is stuff added, nothing taken away. AND ONE THING IS STILL WRONG. The whole street came back with new cold modern light, and the empty house is still sitting there with the same old warm bulb, exactly as it was. Everything around it got better. It did not. First go at this I lit every house the same warm colour and the wrong thing vanished into the improvement, which taught me something: if everything gets better in the same way the wrong thing already was, you stop being able to see it. Thumbs up and this is how all three acts get drawn. Thumbs down and tell me if act two should look more different than this.",
+    "show": {
+     "how": "image",
+     "src": "vote/LIFECITY_THE_SAME_STREET_RECLAIMED_9_24.png"
     }
+   }
   ],
   "verdicts": [
     {
