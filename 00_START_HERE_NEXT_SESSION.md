@@ -44762,7 +44762,33 @@ your first VAMILY and do steps 1 to 9.
 I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
-ROUND LOG 9/23c (latest): [first look] ROUND 2 SHIPPED - the loading
+ROUND LOG 9/24a (latest): [three eras] SHIPPED - the look card for rule
+31, written after measuring the premise (DYNASTY school round one
+exists; the valley re-derives under one beat on a phone, which is what
+makes bake-on-flip legal). THE ONE SENTENCE: the look of an act is a
+FUNCTION OF THE LEDGERS, never a painting. Constant across all three
+dates: geology, camera, the 112 body, the hue 18-47 register, the
+purple reservation. Act 2 = wear dialed down by earning (grime machine
+lower, infill, occupancy light; money buys maintenance, never a
+palette). Act 3 rich = extrusion of earned footprints + made-of-light
+as a world material, every lumen named; act 3 poor = act 1 aged forty
+years (burned share up, sand over roads, the broadcast still on) and
+it must read at first flip. No new lens effect for the flip: between
+frames, diegetic or dead. Routed: LIFE+CITY the deriver's dials, COOK
+the wear/rubble/sand families when rows exist, DYNASTY the flip.
+Record records/BOHEMIA_THE_THREE_ERAS_LOOK_CARD_9_24_26.md.
+SEAM: COOK [footprints] r2 judged PASS as candidates - five verbs
+(walked, stood, ran, went down, dragged) as value-only marks in the
+ground's own family, baked, no new colours; the drag and the
+went-down are the strongest storytelling in the batch (exactly the
+one-wrong-thing shape world data can place). ONE FLAG, stated
+honestly: on the dark fight sidewalk the marks read FAINT by eye, and
+my collage sampling produced no trustworthy contrast number (the
+boxes hit panel gaps) - the contrast gets measured on the real
+surface when the marks wire in, not guessed from a sheet.
+NO FIGHT TRIGGER: no COMBAT ship since round 7; the 112 gate question
+stands as posted. CHARACTER's six bounced garments: still open.
+PREVIOUS: [first look] ROUND 2 SHIPPED - the loading
 door judged on the alpha (build 9/24e, phone size, frame filed). PASS
 AS A DIRECTION: the dead institution speaks first (CLARK COUNTY POWER
 AUTHORITY - bible R5 exactly), 'NO OPERATOR ON DUTY' is the best line
