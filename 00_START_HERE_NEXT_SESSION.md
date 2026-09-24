@@ -2560,6 +2560,93 @@ NEXT: [cook panels] is the standing rule-22 row and is OPEN again; items 2, 3 an
 (the fight HUD, the talk panel, the vote tab's own frame) are drawn as sheets but not built
 as skins. [three d ui] still has no gate of its own. [vote plays sound] is still open and
 SOUNDS has items waiting that he cannot hear in the tab. [no slop] stays CLAIMED.
+SOUNDS (sound-xk7pjp): 9/24 (d) LATEST -- *** THE MAP MAKES 19 SOUNDS IN HALF A MINUTE AND THE STREET
+MAKES ZERO, WHICH IS BACKWARDS. AND THE VALLEY NOW STRIKES THE HOUR, FROM THREE STRUCK OBJECTS WITH
+NOT ONE NOISE GENERATOR IN THEM. *** Row [bb ambience] SHIPPED (rule 33's school row, round one).
+Record: records/BOHEMIA_WHAT_THE_MAP_SOUNDS_LIKE_9_24_26.md
+Gates: COOKED SOUNDS 107/0, --mutate bites 28 (was 27; the 28th is below and it matters).
+Build stamp 9/24u. Tab: VOTE, the new page is WHAT THIS VALLEY STRIKES.
+
+MEASURED BEFORE ANYTHING WAS DESIGNED, on the alpha over http, counting every audio node the page
+starts by wrapping start() BEFORE load (a node already started cannot be counted afterwards):
+  THE STREET, 30 s standing still      0 audio nodes
+  THE MAP,    30 s sitting on it      19 audio nodes   (3 buffers, 16 oscillators)
+Two separate boots agree on 19. The game's own probes at that moment: music NOT playing, room hum
+running, pulse off. Roughly one oscillator every two seconds on the map while the music says it is
+not playing. That 0 on the street is this lane's own two open rows ([eyes: bed unplayed],
+[quiet floor]) confirmed on THIS build rather than from memory.
+
+WHICH CALLER MAKES THE 19 IS NOT IN THE RECORD, ON PURPOSE. The probe that tried to attribute them
+captured a stack out of a template string: 22 SyntaxErrors, ZERO nodes counted. AN INSTRUMENT THAT
+THROWS DOES NOT REPORT SILENCE, IT REPORTS NOTHING, and that reads exactly like a silent game. The
+only reason the nothing was not written down is that the run before it had already said 19. If you
+pick this up: attribute the 19 with a probe that cannot throw, and do not trust a zero from a
+run whose error count you have not printed.
+
+THE COOK, WHAT THIS VALLEY STRIKES ON THE HOUR (struckMetal, STRIKE, plateModes exported):
+three struck objects, zero noise generators (rule 32e checked on the SHIPPED CODE, not on a
+spectrum, because that is a fact about how it was built), every ratio a PUBLISHED series:
+  bell   0.5 hum, 1 prime, 1.2 TIERCE (minor, 6/5), 1.5 quint, 2 nominal, 2.5, 3, 4
+  pipe   free-free bar, 1 : 2.756 : 5.404 : 8.933 : 13.34, which is not a chord at all
+The minor tierce is this lane's own no-major-third rule agreeing with a bell founder by accident.
+  bell rings 1.608 s at the hum, 0.201 s at its top       8.0x, the top dies first
+  cracked 0.723 s; pipe 2.030 s and 702 Hz bright against the bell's 265
+  strikes land 0.6, 0.5, 11.6 ms against the fight's 55 ms; peaks 0.85 through a tanh
+  last sample 0.000000 on all three, after a 200 ms raised-cosine fade
+REALISM FIRST, A IS THE CRACKED BELL: a crack stops the shell moving as one piece and nothing
+here has been maintained for ten years.
+
+THE DAMPING WAS WRONG TWICE BEFORE IT WAS THE MATERIAL'S. First 20x too damped: an 85 ms bell,
+which is not a bell. Then the bronze's own loss factor: a 9.6 s cathedral bell, chopped mid-ring
+with 0.21 rms still going when the samples ran out. WHAT LIMITS A TOWN BELL IS NOT THE BRONZE, IT
+IS HOW HARD IT RADIATES AND HOW IT IS MOUNTED. 0.18% and a 1.6 s hum. Both wrong numbers were
+mine and both right ones are the object's.
+
+*** AND THE GATE HAD TO BE SHOWN A SINE BEFORE IT ADMITTED A HOLE. *** Eight of the nine strike
+claims went red under --mutate. The ninth, "every declared partial is really in the sound",
+PASSED on a sound with ONE partial in it: the mutation returns one ratio, so there is one
+reading, at 0 dB under its own loudest bin, and `every` on a one-item list is always true. It
+only ever asked whether the partials it FOUND were loud enough, never how many were supposed to
+be there. A CLAIM NOTHING CAN FALSIFY IS NOT A CLAIM. It now asserts the COUNT first, 8 bell
+modes and 5 pipe. THE LESSON IS GENERAL AND THIS LANE KEEPS PAYING IT: an `every` over a list
+whose LENGTH comes from the thing being tested cannot fail.
+
+THE ROOM'S FOUR FILTER SECTIONS WERE SILENTLY REVERTED AND ARE RESTORED. Another lane resolving a
+rebase conflict in the alpha (bd1921d6) put the room back to one section within an hour of the fix
+landing. Nothing broke loudly. The room just went back to leaking. THE ONLY THING THAT FOUND IT is
+the claim written for exactly this the same round, which compares the filter ORDER and not six
+constants. The block now carries a note in the file telling the next merger to keep the four
+sections. IF YOU MERGE THE ALPHA AND THAT BLOCK CONFLICTS, KEEP FOUR SECTIONS. And check it after
+every rebase, because this has now happened once and the check is one grep.
+
+NOT DONE, ON PURPOSE, so nobody thinks it is missing: the strike is NOT wired to a clock (whose
+hour it is and how often it strikes is WORLD's and RUN's surface and a design call this lane did
+not take); the map's state-driven music is untouched because that is the half BB does well and we
+already have it; NO MAP BED was cooked, because a bed is exactly what the noise recipe was for and
+rule 32e killed that recipe. A bed from real material is its own round.
+
+NEXT, IN ORDER:
+ 1. THE TAPE AND THE FLIP AS NEW IDS FROM REAL MATERIAL, quoting his words, the way the footstep
+    got it. The flip must also stop declaring a machine that never described it.
+ 2. THE VALLEY STILL BROADCASTS rebuilt from real material, then registered. It is built and gated
+    right now and deliberately OUT of his queue, because its carrier is the graveyarded recipe.
+ 3. THE 21 HARD-CONTACT REDOS from the keep/redo list, footsteps first, on the model that landed.
+ 4. THE THREE HUMS AT THE GRID'S PITCH (generator 51.87 Hz, power_on 90.47, sign_alive 123.27).
+ 5. ATTRIBUTE THE 19 NODES ON THE MAP, with a probe that cannot throw.
+ 6. THE FIRST SOUND GATE'S FLAKE, one red in five, on the claim that reads the audio context's
+    state before the tap. Named three rounds running now. It is the claim, not the game.
+ 7. [beds play] is still HELD. Then [enemy heard], [fight music], [quiet floor], [rumour heard],
+    [pump hum].
+ 8. TWO MUSIC HOLES, STILL MINE: a room handing music back does not check whether a fight owns it,
+    and the shell obeys the city's music message with no fight guard.
+
+NOT THIS LANE'S, BUT MEASURED THIS ROUND AND SOMEBODY OWNS IT: the pages publish gate is 17/1 on
+CLEAN origin/main, and the one red is THE PUBLISHED SURFACE IS 276 MB AGAINST ITS OWN 260 MB CAP.
+Verified on a detached worktree of origin/main with nothing of mine in it, identical number. This
+lane added 11 KB and one outward ref to it. It is over by 16 MB and the cap exists because Pages
+timed out three commits in a row at 496 MB (8/6), so this is the same failure walking back. Route
+it: a red that every lane sees and no lane owns is a red everybody learns to scroll past.
+
 SOUNDS (sound-xk7pjp): 9/24 (c) LATEST -- *** THE SAND WAS ONE FILTER, AND EVERY NOISE SOUND IN THE
 GAME LEANED ON IT. IT LEAKED 37.9% OF A NOISE BED ABOVE THE CORNER IT NAMED. *** Row [band helper]
 SHIPPED 052a8346, inside [not sand] which stays CLAIMED.
