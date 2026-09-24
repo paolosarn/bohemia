@@ -1796,7 +1796,7 @@ as skins. [three d ui] still has no gate of its own. [vote plays sound] is still
 SOUNDS has items waiting that he cannot hear in the tab. [no slop] stays CLAIMED.
 SOUNDS (sound-xk7pjp): 9/24 (c) LATEST -- *** THE SAND WAS ONE FILTER, AND EVERY NOISE SOUND IN THE
 GAME LEANED ON IT. IT LEAKED 37.9% OF A NOISE BED ABOVE THE CORNER IT NAMED. *** Row [band helper]
-CLAIMED and SHIPPED, inside [not sand] which stays CLAIMED.
+SHIPPED 052a8346, inside [not sand] which stays CLAIMED.
 Record: records/BOHEMIA_THE_SAND_WAS_ONE_FILTER_9_24_26.md
 Gates: COOKED SOUNDS 93/0 (--mutate bites 23, was 21), FIRST SOUND 19/0 and FOOTSTEP 24/0 on the
 real surface after the room's filter changed. Build stamp 9/24p.
