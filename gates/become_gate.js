@@ -28,6 +28,20 @@ const ALPHA = path.join(REPO, 'slices/BOHEMIA_ALPHA_0_9.html');
 const ENGINE = path.join(REPO, 'engine/bohemia_story_surface.js');
 const CANON = path.join(REPO, 'records/BOHEMIA_SCENE_ACT1_COLD_OPEN.json');
 const LAW = path.join(REPO, 'laws/BOHEMIA_LAW_THE_CUT_ASKS_WHO_YOU_BECAME_8_30_26.md');
+/* *** SERVED, NOT file://, AND THAT IS WHAT THIRTEEN RED LEGS WERE. (9/24, CHARACTER,
+   [become red]) ***
+   This gate went 28/0 -> 15/13 at RUN's loading-screen commit 42f25f1, pinned by running it
+   at that commit and at its parent. THE LAW WAS NEVER BROKEN AND NEITHER WAS RUN'S WORK.
+   The new loading screen FETCHES FIVE THINGS before it lets go of the screen, and this gate
+   opened the demo on file://, where a fetch is blocked. Measured both ways: on file:// the
+   bar sits at "0 OF 5" forever and #loadwrap never clears, so the face maker was behind a
+   door that could not open; over http the same bar reads "2 OF 5" and climbs.
+   So every one of the thirteen was this gate looking at a loading screen and reporting a
+   missing face maker. A GATE THAT CANNOT REACH A SCREEN MUST SAY SO, NOT CALL IT ABSENT --
+   that is the difference between a checker and an alarm, and it is why this file now names
+   the loading screen when it times out instead of blaming the law.
+   VERIFY ON THE REAL SURFACE is the law that was actually broken here, by this gate. */
+const PORT = process.env.BOHEMIA_PORT || 8231;
 
 let pass = 0, fail = 0;
 const ok = (n, c, note) => { if (c) { pass++; console.log('  ok   ' + n + (note ? '   ' + note : '')); }
@@ -75,8 +89,47 @@ const ok = (n, c, note) => { if (c) { pass++; console.log('  ok   ' + n + (note 
   const b = await chromium.launch();
   const p = await b.newPage({ viewport: { width: 390, height: 844 } });
   const errs = []; p.on('pageerror', e => errs.push(String(e)));
-  await p.goto('file://' + DEMO, { waitUntil: 'load' });
+  /* IF THE SERVER IS NOT UP, SAY THAT AND NOTHING ELSE. An unhandled goto throws a
+     stack trace, and a stack trace in a suite reads as "this gate is broken" when the
+     truth is "nobody served the repo". That is the same class of lie this whole round was
+     about: A GATE THAT CANNOT REACH THE SURFACE MUST NAME THE REASON, NOT RETURN A
+     VERDICT. Proven by running with the server down. */
+  const reached = await p.goto('http://127.0.0.1:' + PORT + '/slices/BOHEMIA_DEMO.html',
+                               { waitUntil: 'load' }).then(() => true).catch(() => false);
+  if (!reached) {
+    console.log('  FAIL *** THIS GATE COULD NOT REACH THE DEMO AT ALL on port ' + PORT + '. ***');
+    console.log('       It is served, not opened off the disk, because the loading screen fetches');
+    console.log('       five things and file:// blocks every one of them. NOTHING BELOW WAS CHECKED');
+    console.log('       and none of it is a verdict on the face maker.');
+    console.log('       Run:  python3 -m http.server ' + PORT + ' &   then run this gate again.');
+    console.log('\nTHE BECOME GATE: ' + pass + ' passed, ' + (fail + 1) + ' failed');
+    await b.close(); process.exit(1);
+  }
   await p.waitForFunction(() => typeof openStart === 'function', { timeout: 60000 });
+  /* WAIT OUT THE LOADING SCREEN, and say plainly if it never lifts. The demo holds the
+     screen until five things have loaded; everything this gate checks lives behind it.
+     THE CONDITION IS THE SPLASH'S OWN CLASS, not the wrap's display. #loadwrap is
+     display:none by default and shown by the rule `#front.load #loadwrap{display:flex}`,
+     so the loading screen lives INSIDE the splash and lifts when #front drops `.load`.
+     My first version watched the wrap and sat there at "5 OF 5" forever -- the bar had
+     finished and I was asking the wrong element whether it was done.
+     AND THE SECOND VERSION WAS WRONG TOO, for a better reason: the splash does NOT drop
+     `.load` when the bar fills. Measured over time, it goes `load` -> `load ready` at
+     5 OF 5 and then WAITS. That is Paolo's own ruling built -- the loading screen ends in
+     one tap, not on a timer -- so the door only opens when a finger arrives. The gate
+     waits for READY and then taps, which is what a player does. */
+  const loaded = await p.waitForFunction(() => {
+    const f = document.getElementById('front');
+    return !f || f.classList.contains('ready') || !f.classList.contains('load');
+  }, { timeout: 120000 }).then(() => true).catch(() => false);
+  if (!loaded) {
+    const st = await p.evaluate(() => { const e = document.getElementById('loadpct'); return e ? e.textContent : '?'; });
+    console.log('  FAIL *** THE LOADING SCREEN NEVER LIFTED (' + st + '), so nothing behind it could be');
+    console.log('       checked. This is NOT a verdict on the face maker: it is this gate failing to');
+    console.log('       reach the screen. Serve the repo (python3 -m http.server ' + PORT + ') and re-run.');
+    console.log('\nTHE BECOME GATE: ' + pass + ' passed, ' + (fail + 1) + ' failed');
+    await b.close(); process.exit(1);
+  }
 
   const r = await p.evaluate(async () => {
     const sleep = ms => new Promise(r => setTimeout(r, ms));
@@ -137,7 +190,14 @@ const ok = (n, c, note) => { if (c) { pass++; console.log('  ok   ' + n + (note 
 
     /* AND THE STORY CARRIES ON. */
     const at = OPEN_PLAYER && OPEN_PLAYER.player_ ? OPEN_PLAYER.player_.i : null;
-    document.getElementById('becomeDone').click();
+    /* A MISSING WAY OUT IS A RED LEG, NOT A CRASH. Mutation-tested 9/24 by renaming
+       becomeDone: this line threw "Cannot read properties of null" and the whole gate died
+       on a stack trace, which in a suite reads as "the gate is broken" rather than "the
+       demo lost its exit". The check above (hasDone) is the verdict; this is only the
+       driving, so it steps around a missing button and lets the verdict speak. */
+    const _done = document.getElementById('becomeDone');
+    if (!_done) { out.exitMissing = true; return out; }
+    _done.click();
     await sleep(1600);
     out.closed = !document.getElementById('becomeWrap');
     out.resumed = !!(window.OPEN_PLAYER && OPEN_PLAYER.beatTimer);
@@ -182,7 +242,7 @@ const ok = (n, c, note) => { if (c) { pass++; console.log('  ok   ' + n + (note 
      it again, and asks whether the head is still theirs. */
   const b2 = await chromium.launch();
   const p2 = await b2.newPage({ viewport: { width: 390, height: 844 } });
-  await p2.goto('file://' + DEMO, { waitUntil: 'load' });
+  await p2.goto('http://127.0.0.1:' + PORT + '/slices/BOHEMIA_DEMO.html', { waitUntil: 'load' });
   await p2.waitForFunction(() => typeof faceSave === 'function' && typeof pface !== 'undefined', { timeout: 60000 });
   const keep = await p2.evaluate(() => {
     try { localStorage.clear(); } catch (e) {}

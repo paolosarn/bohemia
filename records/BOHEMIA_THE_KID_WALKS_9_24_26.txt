@@ -1,0 +1,36 @@
+THE KID WALKS  --  CHARACTER lane, 9/24/26, [ages]
+
+THE ROW IS UN-HELD FOR THE MAKING and the instruction is exact: "the child and teen
+are real and go to VOTE this round as BODIES THAT MOVE (rule 25)." His vote on the ages
+item was "Both nigga" -- yes to kids on the street AND yes to building a proper old man.
+
+RULE 25 IS WHY THIS IS A PAGE AND NOT A PICTURE, in his words: "How dare you show me
+pictures of animations and not the actual animation, never do that again." Every age
+item this lane has shown him so far was a still. This one plays, at 120 beats a minute,
+one step per beat, driven off the clock rather than a frame counter so it runs at the
+tempo the game runs at on any device.
+
+  WHO           TALL     HEADS   OF THE ADULT  FRAMES THAT DIFFER
+  A KID         79 px    3.59    82%           8 of 8
+  A TEENAGER    89 px    4.05    93%           6 of 8
+  A GROWN MAN   96 px    4.36    100%          8 of 8
+
+THE LAST COLUMN IS THE ONE THAT MATTERS AND IT IS WHY THE TOOL CAN REFUSE. A cycle that
+renders the same pose eight times is a STILL PRETENDING TO BE AN ANIMATION, which is
+precisely the thing rule 25 was written about. So the frames are hashed and the tool
+refuses to write the page if any body comes back with fewer than two distinct ones.
+Nobody has to take my word that it moves.
+
+THE OLD MAN IS NOT IN IT, ON PURPOSE, and the page says so where he will read it. This
+lane measured two rounds ago that the rig's young adult, adult and elder are ONE BODY
+within three per cent, and that the three per cent is anatomically RIGHT -- real people
+lose two to five centimetres over a lifetime. An old man reads by his BACK, and bending
+a spine is ANIMATION [spine bend], which is theirs and in flight. Putting an "elder" in
+this page would be putting a slightly shorter man in it and calling him old, which is
+this lane's own [names lie] defect one screen further out.
+
+NOTHING NEW WAS DRAWN. The age stages have been in the rig since it was built and the
+walk cycle is the game's own; this renders frames that already existed and nobody had
+ever put next to each other at one scale.
+
+NOT WIRED (rule 18): the street is unchanged. The page is in VOTE.

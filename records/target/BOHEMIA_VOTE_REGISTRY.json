@@ -1614,6 +1614,19 @@
     "how": "page",
     "src": "BOHEMIA_HER_NAME_AND_HER_FACE_9_24_26.html"
    }
+  },
+  {
+   "id": "character-the-kid-walks-9-24",
+   "kind": "outfit",
+   "lane": "character",
+   "sha": "128303d",
+   "made": "9/24",
+   "title": "THE KID WALKS",
+   "why": "You said yes to kids and old people on the street. Every age thing I have shown you so far was a still picture, and you told us never to do that again, so this one actually plays. A kid, a teenager and a grown man walking at 120 beats a minute, one step per beat, same clothes, same scale, feet on one line. There is a side view underneath where you can really see the step. The old man is not in it on purpose, and the page tells you why: the game's old man is the same body as a young man give or take three per cent, and that three per cent is actually correct, because real people barely shrink. He needs a bent back, which the animation chat is building. Do the kid and the teen read right?",
+   "show": {
+    "how": "page",
+    "src": "vote/CHARACTER_THE_KID_WALKS.html"
+   }
   }
  ],
  "verdicts": [
