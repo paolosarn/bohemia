@@ -1794,6 +1794,140 @@ NEXT: [cook panels] is the standing rule-22 row and is OPEN again; items 2, 3 an
 (the fight HUD, the talk panel, the vote tab's own frame) are drawn as sheets but not built
 as skins. [three d ui] still has no gate of its own. [vote plays sound] is still open and
 SOUNDS has items waiting that he cannot hear in the tab. [no slop] stays CLAIMED.
+SOUNDS (sound-xk7pjp): 9/24 (c) LATEST -- *** THE SAND WAS ONE FILTER, AND EVERY NOISE SOUND IN THE
+GAME LEANED ON IT. IT LEAKED 37.9% OF A NOISE BED ABOVE THE CORNER IT NAMED. *** Row [band helper]
+CLAIMED and SHIPPED, inside [not sand] which stays CLAIMED.
+Record: records/BOHEMIA_THE_SAND_WAS_ONE_FILTER_9_24_26.md
+Gates: COOKED SOUNDS 93/0 (--mutate bites 23, was 21), FIRST SOUND 19/0 and FOOTSTEP 24/0 on the
+real surface after the room's filter changed. Build stamp 9/24p.
+Tab: VOTE, the new page is THE SAND IS OUT OF THE ONES YOU LIKED.
+
+WHAT IT WAS DOING: bandTo took the corner a person means and DERIVED a higher per-pole corner so the
+combined -3 dB would land on the number asked for. That is correct about the -3 dB point and useless
+about everything else, because the roll-off had barely begun at the corner. Measured on white noise
+through an FFT band sum, declared corner 5,000 Hz:
+  derived, 2 one-poles   -3 dB 5,383   37.9% above the corner   17.4% an octave up   <- what shipped
+  derived, 4 one-poles         5,728   35.8%                    14.1%
+  derived, 8 one-poles         6,471   39.3%                    15.8%
+  one-poles AT the corner, 4   2,231    3.4%                      0.3%   <- band destroyed
+  BUTTERWORTH order 2          4,996   14.2%                      1.05%
+  BUTTERWORTH order 4          4,998    6.05%                     0.019%
+  BUTTERWORTH order 8          5,001    2.65%                      0%    <- what ships now
+School rule 4 asks for under 5% and under 1%.
+
+*** AND THAT TABLE CORRECTS A SENTENCE I WROTE TWICE AND QUOTED THREE TIMES: "more poles at a derived
+corner makes it WORSE". IT IS FALSE. *** Derived at 2, 4 and 8 all sit between 35.8% and 39.3% and the
+4-pole one is the BEST of the three. THE POLE COUNT WAS NEVER THE STORY, THE DERIVED CORNER WAS. The old
+reading came off a ruler that cascaded four one-pole HIGH-passes at the frequency it named, which turns
+over at 2.299x it, so "the share above 5,000" was really "above 11,500". A FINDING TAKEN WITH A BROKEN
+RULER IS NOT A FINDING: that one survived three records and it is why two recipes were carrying their own
+extra poles as a patch. Both patches are gone now.
+AND THE ROW'S OWN WORDING WOULD HAVE BEEN THE OTHER MISTAKE. "Fix the helper at the nominal corner"
+taken literally is four one-poles at 5 kHz turning over at 2,231 Hz, which is the band destroyed and the
+life filtered out of the sound, a failure this lane already shipped once and reverted. Said out loud.
+
+WHAT SHIPS IS A REAL FILTER: cascaded biquads with BUTTERWORTH Q values at the nominal corner, order 8.
+Flat to the corner, the -3 dB ON the number (5,001 Hz for 5,000 asked, measured with an IMPULSE, which
+is the filter's own response rather than a guess at a noise spectrum), then 48 dB an octave. ORDER 8 IS
+THE REALISTIC NUMBER AND NOT A COMPROMISE: a broadcast mask is steep BY REGULATION. The order carries a
+FLOOR OF 6 because order 4 reads 6.05% against a 5% bar, so a caller can ask for more and never for less;
+a knob that can only be set wrong is not a knob. THE BOTTOM END IS UNTOUCHED on purpose, one one-pole
+high-pass exactly as before, so his next verdict is readable -- the same reasoning that left the room's
+duck alone when he ruled on its level.
+
+EVERY SOUND CHANGED AND EVERY NUMBER IS WRITTEN DOWN (energy above its own declared band, and brightness):
+  a footstep on the beat  27.55% -> 3.32%   3,604 -> 1,607
+  the step loses contact  28.85% -> 3.37%   3,765 -> 1,661
+  THE DOOR                15.96% -> 1.63%   2,196 ->   831    he voted UP
+  THE FIGHT'S CLOUD        6.06% -> 0.84%   1,216 ->   779    he voted UP
+  THE ROOM                 5.56% -> 0.54%     813 ->   317    he voted UP
+  A SONG THROUGH THE SPEAKER 1.41% -> 0.14%   449 ->   331    he voted UP
+  THE FOLD                 1.48% -> 0.13%     333 ->   198    he voted UP
+  THE PHONE                0.48% -> 0.05%     960 ->   923    he voted UP
+  the tape is slipping     1.05% -> 0.12%     403 ->   328
+  the broadcast            0.008% -> 0.05%    906 ->   918
+  a footstep that is not sand   no band, no noise in it, unchanged
+SIX OF THE SEVEN HE VOTED UP CHANGED, so every one is a REDO by this row's own ruling. ONE item puts
+them in front of him and not six, because he has already said what a queue of near-identical asks feels
+like ("7 options here man wtf").
+
+*** THE FINDING OF THE ROUND: THE SAND-BUILT FOOTSTEP WAS ONLY EVER NOISE BECAUSE OF THE LEAK. ***
+Its flatness goes 0.2283 with the leaking band to 0.0003 with an honest one, a 748-FOLD FALL. WHAT MADE
+IT READ AS NOISE AT ALL WAS THE ENERGY SITTING OUTSIDE THE BAND IT CLAIMED. Inside an honest band the
+noise recipe is a dull thud, not a footfall, so the sound he killed for sounding like sand was never a
+footstep. That is the strongest possible argument for the modelled footstep and it arrived by accident
+while fixing something else. It also flipped one of my own gate claims on its head: it asked for the
+modelled footstep to be LESS noise-like than the sand one, which only held while the ruler was wrong;
+the modelled impact is now the one with texture in it (0.0081 against 0.0003) and the claim asks for the
+real relationship.
+
+*** AND THE ROOM'S TWO COPIES WERE NEVER THE SAME ROOM. *** The checker that holds them together
+compares six CONSTANTS -- length, hum, low, high, seam, level -- and NEVER THE FILTER. The game ran ONE
+low-pass section at Q 0.7 (order 2, 14.2% of a noise bed above its corner) and the module ran the derived
+chain (37.9%). So the constants matched, the gate was green, and the judge page played a measurably
+different room from the one in his ears, for rounds. A DUPLICATION CHECK THAT COMPARES THE NUMBERS AND
+NOT THE MACHINE IS NOT A DUPLICATION CHECK, and it hid inside the very claim written to catch it. Both
+are a Butterworth of order 8 now, the gate compares the ORDER, and it is VERIFIED IN THE RUNNING GAME
+through the room's own probe: bandOrder 8, rel 0.025, room on, 0 page errors. The room's LEVEL looks
+after itself because it is derived at run time from its own rms against his heartbeat, so a narrower band
+cannot quietly change how loud the room sits.
+
+COOKED (rule 22): THE SAND IS OUT OF THE ONES YOU LIKED. Three taps, each playing the same three sounds
+he voted yes on (the door, the cloud, the song) one after another with a beat of air between, so he hears
+the filter and nothing else. A as he approved it, B the sand out (ships), C the sand out AND A DIFFERENT
+MACHINE: a cassette at 14 kHz instead of an AM channel at 5 kHz.
+  door   A 15.96%  B 1.63%  C 1.66%     brightness 2,196 -> 831 -> 4,987
+  cloud  A  6.06%  B 0.84%  C 0.36%     brightness 1,216 -> 779 -> 2,038
+  song   A  1.41%  B 0.14%  C 0.19%     brightness   449 -> 331 ->   761
+C IS THE FORK AND IT IS BIGGER THAN THIS ITEM: B is boxed in and C is open, and what separates them is
+WHICH MACHINE THIS VALLEY IS RECORDED ON. Both are in school rule 4's own list. B ships because AM is the
+machine this lane already declared and he has never ruled on it, and because one thing changed at a time
+is how this round was run. AND A IS BUILT BY THE SAME FUNCTION AS B AND C, through one flag inside the
+helper, because the BEFORE side of an A/B must never be a second copy of the recipe -- that duplication
+is what silenced every footstep in this game for days, and the song through the speaker already solved it
+the same way by switching the transmitter off rather than keeping two tunes.
+
+THE DEBT LIST IS DELETED BECAUSE IT WAS PAID. Last round froze four leaks (27.55%, 28.85%, 15.96%, 6.06%)
+as a ratchet with the note that a checker going red the day its own ruler is fixed breaks the suite for
+twenty lanes. The same four now read 3.32%, 3.37%, 1.63% and 0.84%, so rule 4's real bars are asserted
+outright again. A RATCHET IS SUPPOSED TO END.
+MUTATION IS THE PRECISE ONE: put the old leaking chain back inside the helper. The two honest claims go
+red with the exact old numbers and "the old chain really did leak" stays GREEN, which is correct because
+it asks for the legacy path by name.
+ONE SOUND IS NOT ASKED AND IT IS NOT AN EXCUSE: the flip is KILLED (rule 32e, second rejection) and its
+gap is deliberately wider-banded than its station because that is the whole AGC mechanism, so the AM
+corner it declares never described it -- THE THIRD TIME this lane has caught a claim asking the wrong
+question of a sound. A dead recipe gets named, not a green tick.
+
+TWO MISTAKES OF MINE, BOTH CAUGHT BY THE GATE I WAS WRITING. Three claims went red about a filter that
+was working, because I read the whole reading object into the variable meant to hold the honest half, so
+every number came back undefined; AN UNDEFINED IS NOT A MEASUREMENT, and a claim that prints one is
+reporting on itself. And the filter claim read "order null" about a chain that is right there in the
+file, because it searched a 6,000-character window and the filter lives further down the object than the
+constants do; A WINDOW THAT IS TOO SMALL DOES NOT REPORT A MISSING THING, IT REPORTS NOTHING, AND THAT
+READS EXACTLY LIKE A DEFECT.
+
+NEXT, IN ORDER:
+ 1. THE TAPE AND THE FLIP AS NEW IDS FROM REAL MATERIAL, quoting his words, the way the footstep got it.
+    Neither has been re-cooked and neither should be re-cooked out of noise (rule 32e). The flip also has
+    to stop declaring a machine that never described it.
+ 2. THE VALLEY STILL BROADCASTS rebuilt from real material, then registered. The hole is real (bible rule
+    9: nothing in the build talks on a schedule) and the sound is built and gated; it is the CARRIER that
+    has to stop being hiss. Still deliberately OUT of his queue.
+ 3. THE 21 HARD-CONTACT REDOS from the keep/redo list, footsteps first, on the model that landed 9/24.
+    And the five surfaces the game really plays are the top of that list.
+ 4. THE THREE HUMS at the grid's pitch (generator 51.87 Hz, power_on 90.47, sign_alive 123.27), which is
+    three numbers and no new material.
+ 5. THE FIRST SOUND GATE'S FLAKE, one red in five, on the claim that reads the audio context's STATE
+    before the tap. It needs what the fight-music claims got: wrap the real entry point instead of
+    sampling a state. Named two rounds running now.
+ 6. [beds play] still HELD; then [enemy heard], [fight music], [quiet floor], [rumour heard], [pump hum].
+TWO MUSIC HOLES, STILL OPEN AND STILL MINE: a room handing the music back does not check whether a fight
+owns it (INTERIORMUS's busy() guard binds one direction only), and the shell obeys the city's
+bohemiaCityMusic message with no fight guard at all.
+CARRIED: the alpha's second copy of the room recipe stays (the right end state is the alpha importing the
+module, held by rule 18), and the gate now holds the two together on the FILTER as well as the constants.
+
 SOUNDS (sound-xk7pjp): 9/24 (b) LATEST -- *** HE VOTED AGAIN AND KILLED THREE OF MY SOUNDS WITH ONE
 COMPLAINT, AND MY OWN RULER WAS HIDING WHY BY A FACTOR OF 51. *** Rows: [footsteps on the beat]
 SHIPPED to the walked surface, [analog horror sound] SHIPPED (round two of two, row closed),

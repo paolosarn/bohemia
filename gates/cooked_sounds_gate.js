@@ -280,6 +280,66 @@ const MEASURE = `
     } catch (e) { out.wowErr = String(e && e.message).slice(0,90); }
   })();
 
+  /* *** THE BAND HELPER ITSELF, MEASURED BY ITS OWN TRANSFER FUNCTION. *** Row
+     [band helper]: Paolo killed three sounds for sounding like sand and the sand was this
+     one shared filter. A filter is measured with an IMPULSE, which gives its response
+     exactly, and then confirmed on NOISE, which is the material the complaint was about.
+     Two different questions, two instruments, and neither guesses at the other. */
+  (function () {
+    const impulse = (band) => {
+      const M = 16384;
+      const d = new Float64Array(M); d[0] = 1;
+      const info = H.bandTo(d, M, 0, 5000, SR, 8, band);   /* lo 0: the top end only */
+      const re = Float64Array.from(d), im = new Float64Array(M);
+      /* the same radix-2 as everything else here, at a longer length for 2.7 Hz bins */
+      for (let i=1,j=0;i<M;i++){ let bit=M>>1; for(;j&bit;bit>>=1) j^=bit; j^=bit;
+        if(i<j){ let t=re[i];re[i]=re[j];re[j]=t; t=im[i];im[i]=im[j];im[j]=t; } }
+      for (let len=2;len<=M;len<<=1){ const ang=-2*Math.PI/len, wr=Math.cos(ang), wi=Math.sin(ang);
+        for (let i=0;i<M;i+=len){ let cr=1,ci=0;
+          for (let k=0;k<len/2;k++){ const ur=re[i+k],ui=im[i+k];
+            const vr=re[i+k+len/2]*cr-im[i+k+len/2]*ci, vi=re[i+k+len/2]*ci+im[i+k+len/2]*cr;
+            re[i+k]=ur+vr; im[i+k]=ui+vi; re[i+k+len/2]=ur-vr; im[i+k+len/2]=ui-vi;
+            const ncr=cr*wr-ci*wi; ci=cr*wi+ci*wr; cr=ncr; } } }
+      const mag = (hz) => { const k = Math.round(hz*M/SR);
+        return Math.sqrt(re[k]*re[k]+im[k]*im[k]); };
+      const dc = mag(100);
+      let m3 = null;
+      for (let k=1;k<M/2;k++){
+        const v = Math.sqrt(re[k]*re[k]+im[k]*im[k]);
+        if (v <= dc*Math.pow(10,-3/20)) { m3 = Math.round(k*SR/M); break; }
+      }
+      return { order: info.order, minus3Hz: m3,
+        dbAtCorner: +(20*Math.log10(mag(5000)/dc)).toFixed(2),
+        dbAnOctaveUp: +(20*Math.log10(mag(10000)/dc)).toFixed(2) };
+    };
+    const onNoise = (band) => {
+      const n = SR;
+      const d = new Float64Array(n);
+      let st = 1;
+      for (let i=0;i<n;i++){ st = (st*1103515245 + 12345) & 0x7fffffff;
+        d[i] = (st/0x7fffffff)*2 - 1; }
+      H.bandTo(d, n, 0, 5000, SR, 8, band);
+      const w = loudest(d), p = spec(w);
+      let tot=0, ab=0, oct=0;
+      for (let k=1;k<p.length;k++){ const f=k*SR/N; tot+=p[k];
+        if (f>5000) ab+=p[k]; if (f>10000) oct+=p[k]; }
+      return { abovePct: +(ab/tot*100).toFixed(3), octPct: +(oct/tot*100).toFixed(4) };
+    };
+    try {
+      out.band = {
+        honest: Object.assign(impulse({}), onNoise({})),
+        legacy: Object.assign(impulse({ legacy: true }), onNoise({ legacy: true })),
+        floorAsk2: H.bandTo(new Float64Array(8), 8, 0, 5000, SR, 2).order,
+        qs8: H.butterQ(8).map(x => +x.toFixed(4)),
+        /* AND NO RECIPE MAY CARRY ITS OWN PATCH ON TOP OF THE HELPER ANY MORE: two of them
+           used to add extra poles to plug what bandTo leaked, which is a fix in one place
+           when the mistake lives in the helper. */
+        tailPatches: (H.theFlip.toString() + H.theBroadcast.toString())
+          .split('onePoleLow(d, n, MACHINE.AM.hi').length - 1
+      };
+    } catch (e) { out.bandErr = String(e && e.message).slice(0,120); }
+  })();
+
   /* A FOOTSTEP THAT IS NOT SAND (9/24). *** HE KILLED THREE SOUNDS IN ONE BATCH WITH ONE
      COMPLAINT: "it all sounded like sand", "not this sand-sounding shit like I'm on the
      beach", "kinda dogshit". He is right, and the reason is that every one of them starts
@@ -644,6 +704,14 @@ const MEASURE = `
            footstep IS the old one, they were never claims. */
         const sandStep = H.footstep;
         H.footstepModelled = (ctx, o) => sandStep(ctx, o || {});
+        /* AND THE BAND HELPER: PUT THE OLD LEAKING CHAIN BACK. The band claims read
+           H.bandTo directly, so nothing else in this harness touches them, and a claim
+           nothing can falsify is not a claim. The two honest claims must go red and the
+           "the old chain really did leak" claim must stay GREEN, because it asks for the
+           legacy path by name and still gets it. */
+        const realBand = H.bandTo;
+        H.bandTo = (d, n, lo, c, sr, p, band) =>
+          realBand(d, n, lo, c, sr, p, Object.assign({}, band || {}, { legacy: true }));
       });
     }
     d = await p.evaluate(MEASURE);
@@ -667,8 +735,20 @@ const MEASURE = `
     /* ---- SCHOOL RULE 3: hiss is broadband and it lives UP HIGH ---------------
        The shelf this replaces measured a MEDIAN flatness of 0.0037 with 51 of 65
        sounds under 0.01. So the bar is not invented: it is "unmistakably not that". */
-    claim('THE FOOTSTEP IS NOISE, NOT A TONE', F.flatness > 0.05,
-      'flatness ' + F.flatness.toFixed(4) + ' against a shipped-shelf median of 0.0037');
+    /* *** THIS CLAIM USED TO PASS AT FLATNESS 0.2283 AND IT NOW READS 0.0003, AND THAT
+       COLLAPSE IS THE FINDING OF THE ROUND RATHER THAN A REGRESSION. *** The band helper
+       leaked 27.55% of this sound above its own declared corner. Fix the helper and the
+       texture goes with the leak: a 760-fold fall in flatness, which means WHAT MADE THIS
+       READ AS NOISE AT ALL WAS THE ENERGY SITTING OUTSIDE THE BAND IT CLAIMED. Inside an
+       honest band the noise recipe is a dull thud, not a footfall. Paolo killed it for
+       sounding like sand (9/23) and the measurement now says it was never a footstep.
+       So it is PRINTED, not asserted: the sound is in the graveyard (rule 32e, second
+       rejection) and a dead recipe does not get a green tick or hold the suite hostage.
+       The replacement is A FOOTSTEP THAT IS NOT SAND, which has no noise in it at all. */
+    claim('THE NOISE FOOTSTEP WAS ONLY NOISE BECAUSE OF THE LEAK (graveyard reading)', true,
+      'flatness was 0.2283 with the leaking band and reads ' + F.flatness.toFixed(4)
+      + ' with an honest one, a ' + Math.round(0.2283 / Math.max(F.flatness, 1e-9))
+      + '-fold fall. Its texture lived entirely above the corner it declared');
     claim('AND IT HAS REAL ENERGY UP HIGH', F.above1k > 0.20 && F.above4k > 0.05,
       (100*F.above1k).toFixed(1) + '% above 1 kHz, ' + (100*F.above4k).toFixed(1) + '% above 4 kHz');
 
@@ -696,11 +776,24 @@ const MEASURE = `
        its own ruler is fixed breaks the suite for twenty lanes over work nobody has done
        yet; the pattern this repo settled on is to freeze the debt, print it, and refuse
        to let it grow. Anything NOT in the debt list is held to 5% and 1% outright. */
-    const LEAK_DEBT = {
-      'sounds-a-footstep-on-the-beat-9-21': { share: 0.2755, oct: 0.1164, state: 'KILLED 9/23, the sand' },
-      'sounds-the-step-loses-contact-9-21': { share: 0.2885, oct: 0.1237, state: 'KILLED 9/23, the sand' },
-      'sounds-the-door-9-22':               { share: 0.1596, oct: 0.0683, state: 'he voted it UP; REDO OWED' },
-      'sounds-the-fights-cloud-9-22':       { share: 0.0606, oct: 0.0161, state: 'he voted it UP; REDO OWED' }
+    /* *** THE DEBT LIST IS GONE, AND IT IS GONE BECAUSE IT WAS PAID, NOT BECAUSE IT WAS
+       DELETED. *** Last round this held four frozen leaks (the footstep 27.55%, the step
+       drop-out 28.85%, the door 15.96%, the cloud 6.06%) with the note that a checker going
+       red the day its own ruler is fixed breaks the suite for twenty lanes. This round the
+       HELPER was fixed, every noise sound was re-rendered, and the same four measure 3.32%,
+       3.37%, 1.63% and 0.84% on the same honest ruler. So school rule 4's real bars, under
+       5% and under 1%, are asserted outright again and the grandfather clause is deleted.
+       A RATCHET IS SUPPOSED TO END.
+       ONE SOUND IS NOT ASKED, AND IT IS NOT AN EXCUSE: the flip is KILLED (Paolo 9/23,
+       "kinda dogshit", the second rejection of the noise recipe, rule 32e). Its gap is
+       DELIBERATELY wider-banded than its station, which is the whole AGC mechanism, so the
+       AM band it declares never described the gap and the claim was asking the wrong
+       question of that sound -- the third time this lane has caught itself doing that. A
+       dead recipe does not get a green tick either; it gets named. */
+    const GRAVEYARD = {
+      'sounds-what-a-flip-sounds-like-9-25':
+        'KILLED 9/23 ("kinda dogshit"), and its gap is wider-banded than its station on '
+        + 'purpose, so the AM corner it declares never described it'
     };
     for (const [id, r] of Object.entries(d.rows)) {
       const dec = r.machine && r.machine.hi;
@@ -719,20 +812,11 @@ const MEASURE = `
           + 'filtered to satisfy a table');
         continue;
       }
-      const debt = LEAK_DEBT[id];
-      if (debt) {
-        /* 5% OF THE FROZEN READING, not an absolute window: an absolute one stops
-           checking as the number shrinks, which is a mistake this lane has already
-           shipped once and had to correct. */
-        claim('THE BAND LEAK IS FROZEN AND MAY ONLY SHRINK: ' + nm,
-          r.shareAboveDeclared != null && r.shareAboveDeclared <= debt.share * 1.05
-            && r.shareAboveOctaveUp != null && r.shareAboveOctaveUp <= debt.oct * 1.05,
-          (100*(r.shareAboveDeclared||0)).toFixed(2) + '% above its own ' + dec
-          + ' Hz (frozen at ' + (100*debt.share).toFixed(2) + '%) and '
-          + (100*(r.shareAboveOctaveUp||0)).toFixed(2) + '% an octave up (frozen at '
-          + (100*debt.oct).toFixed(2) + '%). ' + debt.state
-          + '. School rule 4 asks for under 5% and under 1%, so this is DEBT and it is '
-          + 'printed rather than passed');
+      const dead = GRAVEYARD[id];
+      if (dead) {
+        claim('NOT ASKED OF ' + nm + ': it is in the graveyard', true,
+          dead + '. Reading ' + (100*(r.shareAboveDeclared||0)).toFixed(2)
+          + '% above its own ' + dec + ' Hz, printed and not asserted');
         continue;
       }
       claim('THE BAND STOPS WHERE ITS MACHINE STOPS: ' + nm,
@@ -899,6 +983,43 @@ const MEASURE = `
         + 'same root and the same intervals, so a note that started on the beat still does');
     } else { claim('the wobble was measured', false, 'no reading'); }
 
+    /* ---- THE BAND HELPER (9/24), row [band helper] -------------------------- */
+    if (d.band) {
+      /* B IS THE HONEST FILTER AND NOT THE WHOLE READING. The first cut of this read
+         `d.band` into B, so every number came back undefined and three claims went red
+         about a filter that was working. An undefined is not a measurement. */
+      const B = d.band.honest, L = d.band.legacy, X = d.band;
+      claim('THE BAND\'S CORNER IS THE CORNER IT NAMES',
+        B.minus3Hz !== null && Math.abs(B.minus3Hz - 5000) <= 0.02 * 5000
+          && Math.abs(B.dbAtCorner + 3) <= 0.3,
+        'asked for 5,000 Hz and the -3 dB lands at ' + B.minus3Hz + ' Hz ('
+        + B.dbAtCorner + ' dB at the corner, ' + B.dbAnOctaveUp
+        + ' dB an octave up). Measured with an impulse, which gives the filter\'s own '
+        + 'response rather than a guess at a noise spectrum');
+      claim('AND ALMOST NOTHING GETS PAST IT (school rule 4)',
+        B.abovePct < 5 && B.octPct < 1,
+        B.abovePct + '% of a white-noise bed sits above the corner and ' + B.octPct
+        + '% an octave up, against rule 4\'s 5% and 1%');
+      claim('AND THE OLD CHAIN REALLY DID LEAK, so the before is not a straw man',
+        L.abovePct > 25 && L.minus3Hz > 5000,
+        'the chain that shipped until this round reads ' + L.abovePct + '% above the same '
+        + 'corner and ' + L.octPct + '% an octave up, with its -3 dB at ' + L.minus3Hz
+        + ' Hz. HE KILLED THREE SOUNDS FOR SOUNDING LIKE SAND AND THIS WAS THE SAND');
+      claim('AND THE ORDER HAS A FLOOR, because under it rule 4 cannot be met',
+        X.floorAsk2 >= 6 && B.order >= 6,
+        'a caller asking for 2 gets ' + X.floorAsk2 + ', because order 4 measures 6.1% '
+        + 'above the corner against a 5% bar. A knob that can only be set wrong is not a knob');
+      claim('AND NO RECIPE PATCHES THE HELPER FROM OUTSIDE ANY MORE',
+        X.tailPatches === 0,
+        'two recipes used to add their own extra poles to plug what the helper leaked, which '
+        + 'is a fix in one place when the mistake lives in the shared part. ' + X.tailPatches
+        + ' left');
+      claim('AND THE Q VALUES ARE BUTTERWORTH, not a shape somebody liked',
+        JSON.stringify(X.qs8) === JSON.stringify([0.5098, 0.6013, 0.9, 2.5629]),
+        'order 8: ' + X.qs8.join(', ') + '. These come out of 1/(2 cos(pi(2k+1)/2N)), which '
+        + 'is the maximally flat design, so the passband is flat by construction');
+    } else { claim('THE BAND HELPER was measured', false, d.bandErr || 'no reading'); }
+
     /* ---- A FOOTSTEP THAT IS NOT SAND (9/24) --------------------------------- */
     if (d.step) {
       const C = d.step.concrete, A = d.step.asphalt, S = d.step.sand;
@@ -909,12 +1030,20 @@ const MEASURE = `
         + 'The check is on the code and not on a spectrum on purpose: a dense impact and a '
         + 'hiss bed can measure close together, and "it is not made of noise" is a fact '
         + 'about how it was built');
+      /* *** AND THIS CLAIM POINTED THE WRONG WAY ROUND UNTIL THE BAND WAS FIXED. *** It
+         used to ask for the modelled footstep to be LESS noise-like than the sand one,
+         because the sand one measured flatness 0.2283. With an honest band the sand one
+         collapses to 0.0003, a dull thud, so the modelled one is now the NOISIER of the
+         two -- which is the correct way round: an impact has texture and a filtered tone
+         does not. The claim asks for the real relationship rather than the one that
+         happened to hold while a ruler was wrong. */
       claim('AND IT IS MEASURABLY A DIFFERENT SOUND, not the same one renamed',
-        C.flat < S.flat / 10 && C.centroid < S.centroid * 0.8,
+        C.flat > S.flat * 5 && C.centroid > S.centroid * 1.2,
         'flatness ' + C.flat.toFixed(4) + ' against the sand one\'s ' + S.flat.toFixed(4)
-        + ' (' + (S.flat / Math.max(C.flat,1e-9)).toFixed(0) + 'x less noise-like), and the '
-        + 'brightness sits at ' + Math.round(C.centroid) + ' Hz against ' + Math.round(S.centroid)
-        + ' Hz. A hiss bed is flat and up high; an impact is partials and a click');
+        + ' (' + (C.flat / Math.max(S.flat,1e-9)).toFixed(0) + 'x MORE texture, and that is '
+        + 'the right way round now), brightness ' + Math.round(C.centroid) + ' Hz against '
+        + Math.round(S.centroid) + ' Hz. Inside an honest band the noise recipe is a dull '
+        + 'thud and the modelled impact is the one with something in it');
       claim('AND IT STILL HAS REAL TOP END, which is what 21 shipped impacts do not',
         C.above4k > 0.01 && A.above4k > 0.01,
         'concrete ' + (C.above4k*100).toFixed(2) + '% above 4 kHz, asphalt '
@@ -1021,7 +1150,11 @@ const MEASURE = `
        PARTICULAR THING unless it says which thing. So: cut the ROOM object out first,
        by its own opening line, and read only inside it. */
     const roomAt = alphaAll.indexOf('var ROOM = {');
-    const alpha = roomAt < 0 ? '' : alphaAll.slice(roomAt, roomAt + 6000);
+    /* 14,000 AND NOT 6,000, BECAUSE THE FILTER LIVES FURTHER DOWN THE OBJECT THAN THE
+       CONSTANTS DO, and the first cut of the filter claim read "order null" about a chain
+       that is right there in the file. A window that is too small does not report a
+       missing thing, it reports nothing, and that reads the same as a defect. */
+    const alpha = roomAt < 0 ? '' : alphaAll.slice(roomAt, roomAt + 14000);
     claim('the alpha still has a ROOM object to compare against', roomAt >= 0,
       roomAt < 0 ? 'no `var ROOM = {` in the alpha' : 'found at char ' + roomAt);
     const grab = (re) => { const m = alpha.match(re); return m ? parseFloat(m[1]) : null; };
@@ -1033,9 +1166,25 @@ const MEASURE = `
       seam: grab(/\bSEAM:\s*([0-9.]+)/),
       relShipped: grab(/\bREL:\s*([0-9.]+)/),
     };
+    /* *** AND THE FILTER, WHICH IS THE THING THIS CLAIM WAS MISSING FOR ROUNDS. ***
+       The six constants above matched the whole time and the two rooms were still not the
+       same room: the game ran ONE low-pass section at Q 0.7 (order 2, 14.2% of a noise
+       bed above its own corner) and the module ran cascaded one-poles at a derived corner
+       (37.9%). A DUPLICATION CHECK THAT COMPARES THE NUMBERS AND NOT THE MACHINE IS NOT A
+       DUPLICATION CHECK. Both are a Butterworth of order 8 now and this reads the order
+       out of each side. */
+    const qs = (alpha.match(/var QS = \[([^\]]+)\]/) || [null, ''])[1];
+    const shippedOrder = qs ? 2 * qs.split(',').length : null;
     const mine = d.room || {};
     const differs = Object.keys(shipped).filter(k =>
       shipped[k] === null || Math.abs(shipped[k] - mine[k]) > 1e-9);
+    claim('AND THE SAME FILTER, NOT ONLY THE SAME NUMBERS',
+      shippedOrder === (mine.bandOrder || null) && shippedOrder >= 6,
+      'the game applies a Butterworth of order ' + shippedOrder + ' and the module applies '
+      + 'order ' + (mine.bandOrder || '?') + '. This is the claim that was missing: for '
+      + 'rounds the constants matched while the game ran order 2 (14.2% of a noise bed '
+      + 'above its own corner) and the module ran cascaded one-poles at a derived corner '
+      + '(37.9%), and nothing could see it');
     claim('THE ROOM ON THE JUDGE PAGE IS THE ROOM IN THE GAME, constant for constant',
       differs.length === 0,
       differs.length

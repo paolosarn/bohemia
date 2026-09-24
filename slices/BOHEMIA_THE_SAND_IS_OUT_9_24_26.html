@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>THE SAND IS OUT OF THE ONES YOU LIKED</title>
+<!-- SOUNDS lane, 9/24, row [band helper] folded into [not sand] (rule 32e).
+     He killed three sounds for sounding like sand. The sand was ONE SHARED FILTER that
+     every noise sound in the game leaned on, and it leaked about a third of each sound
+     above the band that sound claimed. Fixed. Every sound he KEPT changed too, so the
+     coordinator's ruling says he hears them again.
+     A plays the OLD filter, out of the same function, so the before can never drift.
+     NO VOTE LIVES ON THIS PAGE (rule 25). -->
+<style>
+  :root{ --ink:#1b1408; --paper:#e8dfc9; --line:#8a7a52; --panel:#f2ead6; --dim:#6a5a3e; }
+  html,body{margin:0;background:var(--paper);color:var(--ink);
+    font:15px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace}
+  .wrap{max-width:720px;margin:0 auto;padding:18px 16px 70px}
+  h1{font-size:19px;letter-spacing:2px;margin:0 0 2px}
+  .sub{color:var(--dim);font-size:12px;letter-spacing:1px;margin-bottom:14px}
+  .loud{border:2px solid var(--ink);padding:9px 11px;margin:0 0 14px;font-size:13px}
+  .card{background:var(--panel);border:1px solid var(--line);padding:14px;margin:0 0 14px}
+  .card h2{font-size:14px;letter-spacing:1.5px;margin:0 0 6px}
+  .why{font-size:13px;margin:0 0 10px}
+  .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  button{font:inherit;background:var(--paper);color:var(--ink);border:1px solid var(--line);
+    padding:11px 14px;min-height:48px;cursor:pointer;letter-spacing:1px}
+  button:active{transform:translateY(1px)}
+  button.on{background:var(--ink);color:var(--paper)}
+  .num{font-size:12px;color:var(--dim);margin-top:8px;white-space:pre-wrap}
+  table{border-collapse:collapse;font-size:12px;margin-top:8px;width:100%}
+  td,th{border:1px solid var(--line);padding:3px 6px;text-align:right}
+  th:first-child,td:first-child{text-align:left}
+  textarea{width:100%;box-sizing:border-box;font:inherit;background:var(--paper);
+    color:var(--ink);border:1px solid var(--line);padding:8px;min-height:80px}
+  label{font-size:12px;letter-spacing:1px;color:var(--dim);display:block;margin:10px 0 4px}
+  .foot{border-top:2px solid var(--line);margin-top:22px;padding-top:14px}
+</style></head><body><div class="wrap">
+
+<h1>THE SAND IS OUT OF THE ONES YOU LIKED</h1>
+<div class="sub">SOUNDS &middot; 9/24 &middot; three taps &middot; each one plays the door, then the cloud, then the song</div>
+
+<div class="loud"><b>THE SAND WAS ONE FILTER, SHARED BY EVERY SOUND I MADE.</b> It was supposed
+to cut the top off each sound at the limit that sound claims. It was cutting in the wrong
+place, so about a third of every sound was sitting above its own limit. That is the sand, and
+it was in the ones you liked too, not only the ones you killed.<br><br>
+<b>Each button plays three sounds you voted yes on, one after another:</b> the door, the
+fight's cloud, and the song through the dead speaker. Same three every time, so you are
+hearing the filter and nothing else.</div>
+
+<div class="row"><button id="stop">STOP</button></div>
+<div class="num" id="head"></div>
+
+<div class="card">
+  <h2>A. AS YOU HEARD THEM</h2>
+  <div class="why">The old filter, unchanged, so you can hear what you approved. This is the
+  leaky one. The door has nearly 16 percent of itself sitting above the limit it claims.</div>
+  <div class="row"><button data-k="A">PLAY A</button></div>
+  <div class="num" id="numA"></div>
+</div>
+
+<div class="card">
+  <h2>B. THE SAND OUT</h2>
+  <div class="why">The same three sounds with the filter fixed. A real one now: flat up to
+  the limit, then it falls off a cliff, which is what a broadcast transmitter actually does
+  because the law makes it. Nothing else about these sounds changed. <b>This is what ships
+  unless you say otherwise.</b></div>
+  <div class="row"><button data-k="B">PLAY B</button></div>
+  <div class="num" id="numB"></div>
+</div>
+
+<div class="card">
+  <h2>C. THE SAND OUT AND A DIFFERENT MACHINE</h2>
+  <div class="why">Same fixed filter, but the machine is a <b>tape deck</b> instead of a
+  radio transmitter. A tape reaches about 14,000 and a radio channel only reaches 5,000, so
+  C keeps a lot more of the top while still not leaking. <b>This is the real question
+  underneath:</b> when you hear this world, are you hearing it off the radio or off a tape?
+  B is boxed in. C is open.</div>
+  <div class="row"><button data-k="C">PLAY C</button></div>
+  <div class="num" id="numC"></div>
+</div>
+
+<div class="card">
+  <h2>WHAT MOVED, IN NUMBERS</h2>
+  <div class="num">How much of each sound sits above the limit it claims. Under 5 is the
+  rule this lane set itself.</div>
+  <div id="tbl"></div>
+</div>
+
+<div class="foot">
+  <label>ANYTHING ABOUT ANY OF THEM</label>
+  <textarea id="all"></textarea>
+  <div class="row" style="margin-top:12px">
+    <button id="copy">COPY ALL</button>
+    <button id="exp">SAVE AS .txt</button>
+  </div>
+  <div class="num" id="footnote">What you type is kept in this page, so closing it does not
+lose it. COPY ALL puts it on your clipboard.
+THERE IS NO VOTE ON THIS PAGE ON PURPOSE: you vote once, in the VOTE tab.</div>
+</div>
+
+<script src="../engine/bohemia_horror_sounds.js"></script>
+<script>
+var H = window.BOH_HORROR_SOUNDS;
+var AC = null, live = [], cache = {};
+/* THE THREE TREATMENTS, AND A IS BUILT BY THE SAME FUNCTION AS B AND C. The old chain
+   lives inside the band helper behind one flag, so the "before" can never drift into a
+   second copy of the recipe. That duplication is what silenced every footstep in this
+   game for days. */
+var BANDS = { A: { legacy: true }, B: {}, C: { hi: 14000 } };
+function ac(){ if(!AC) AC = new (window.AudioContext||window.webkitAudioContext)();
+  if(AC.state==='suspended') AC.resume(); return AC; }
+function made(k){
+  if(!cache[k]){
+    var band = BANDS[k], c = ac();
+    cache[k] = [
+      { name: 'the door',  m: H.theDoor(c, { band: band }),            hi: band.hi || 5000 },
+      { name: 'the cloud', m: H.fightCloud(c, { band: band }),         hi: band.hi || 6000 },
+      { name: 'the song',  m: H.songThroughSpeaker(c, { band: band }), hi: band.hi || 5000 }
+    ];
+  }
+  return cache[k];
+}
+function stopAll(){ live.forEach(function(n){ try{ n.stop(); }catch(e){} }); live=[];
+  document.querySelectorAll('button[data-k]').forEach(function(b){ b.classList.remove('on'); }); }
+function play(k, btn){
+  stopAll();
+  var c = ac(), set = made(k), t = c.currentTime + 0.08;
+  for(var i=0;i<set.length;i++){
+    var s = c.createBufferSource(); s.buffer = set[i].m.buffer;
+    var g = c.createGain(); g.gain.value = 0.9;
+    s.connect(g); g.connect(c.destination); s.start(t);
+    live.push(s);
+    /* a beat of air between them, so three sounds do not become one smear */
+    t += set[i].m.seconds + H.BEAT;
+  }
+  btn.classList.add('on');
+}
+/* THE PAGE MEASURES ITSELF off the rendered buffers. A page that quotes the recipe is
+   quoting an intention. */
+function spec(d){
+  var N=4096, SR=ac().sampleRate;
+  var best=0,bestE=-1,s,i,e;
+  if(d.length>N){ for(s=0;s+N<d.length;s+=N>>1){ e=0; for(i=s;i<s+N;i++) e+=d[i]*d[i];
+    if(e>bestE){bestE=e;best=s;} } }
+  var re=new Float64Array(N), im=new Float64Array(N);
+  for(i=0;i<N;i++){ var w=0.5-0.5*Math.cos(2*Math.PI*i/(N-1));
+    re[i]=(d[best+i]||0)*w; }
+  for(i=1,s=0;i<N;i++){ var bit=N>>1; for(;s&bit;bit>>=1) s^=bit; s^=bit;
+    if(i<s){ var t=re[i];re[i]=re[s];re[s]=t; t=im[i];im[i]=im[s];im[s]=t; } }
+  for(var len=2;len<=N;len<<=1){ var ang=-2*Math.PI/len, wr=Math.cos(ang), wi=Math.sin(ang);
+    for(i=0;i<N;i+=len){ var cr=1,ci=0;
+      for(var k=0;k<len/2;k++){ var ur=re[i+k],ui=im[i+k];
+        var vr=re[i+k+len/2]*cr-im[i+k+len/2]*ci, vi=re[i+k+len/2]*ci+im[i+k+len/2]*cr;
+        re[i+k]=ur+vr; im[i+k]=ui+vi; re[i+k+len/2]=ur-vr; im[i+k+len/2]=ui-vi;
+        var ncr=cr*wr-ci*wi; ci=cr*wi+ci*wr; cr=ncr; } } }
+  return { re:re, im:im, N:N, SR:SR };
+}
+function above(d, hz){
+  var f = spec(d), tot=0, ab=0;
+  for(var k=1;k<f.N/2;k++){ var fr=k*f.SR/f.N, pw=f.re[k]*f.re[k]+f.im[k]*f.im[k];
+    tot+=pw; if(fr>hz) ab+=pw; }
+  return tot>0 ? ab/tot*100 : 0;
+}
+function head(){
+  var rows = ['<table><tr><th>sound</th><th>A, as you heard it</th><th>B, the sand out</th><th>C, off a tape</th></tr>'];
+  var names = ['the door','the cloud','the song'];
+  for(var i=0;i<3;i++){
+    var cells = ['A','B','C'].map(function(k){
+      var e = made(k)[i];
+      return above(e.m.buffer.getChannelData(0), e.hi).toFixed(2) + '%';
+    });
+    rows.push('<tr><td>'+names[i]+'</td><td>'+cells.join('</td><td>')+'</td></tr>');
+  }
+  rows.push('</table>');
+  document.getElementById('tbl').innerHTML = rows.join('');
+  document.getElementById('head').textContent =
+    'each button plays three sounds, a beat of air between them\n'
+    + 'the filter is the only thing that changes between A, B and C';
+  document.getElementById('numA').textContent =
+    'the old chain: a few gentle filters placed above the limit, so the falling off only '
+    + 'started past the number it claimed.';
+  document.getElementById('numB').textContent =
+    'a real filter at the limit itself. Flat up to it, then 48 decibels an octave, which is '
+    + 'the steepness a licensed transmitter is made to.';
+  document.getElementById('numC').textContent =
+    'the same real filter, moved out to a tape deck. A tape reaches 14,000 where a radio '
+    + 'channel stops at 5,000, so nothing leaks and a lot more of the top survives.';
+}
+document.querySelectorAll('button[data-k]').forEach(function(b){
+  b.onclick = function(){ play(b.dataset.k, b); };
+});
+/* THE TABLE NEEDS AN AUDIO CONTEXT TO RENDER THE BUFFERS, AND A BROWSER WILL NOT GIVE ONE
+   WITHOUT A TAP, so it fills on the first tap rather than on load and says so until then. */
+document.getElementById('tbl').textContent = 'tap any button and the numbers fill in: a browser '
+  + 'will not make audio until you touch the page, and these are measured off the real sound.';
+document.querySelectorAll('button[data-k]').forEach(function(b){
+  b.addEventListener('click', function(){ try{ head(); }catch(e){} });
+});
+document.getElementById('stop').onclick = function(){ stopAll(); };
+
+/* HIS WORDS SURVIVE BY DEFAULT. A page of mine lost eight of his votes because the only
+   way out was a download button he never pressed. */
+var KEY='bohemia_sand_out_notes_v1';
+try{ var v=localStorage.getItem(KEY); if(v) document.getElementById('all').value=v; }catch(e){}
+document.getElementById('all').addEventListener('input', function(){
+  try{ localStorage.setItem(KEY, this.value); }catch(e){} });
+function noteText(){ var a=document.getElementById('all').value.trim();
+  return 'BOHEMIA NOTES -- THE SAND IS OUT OF THE ONES YOU LIKED (SOUNDS, 9/24). NO VOTES HERE: the vote is in the VOTE tab.\n'
+    + 'registry id: sounds-the-sand-is-out-9-24\n\n' + (a || '(nothing written yet)'); }
+function say(m){ var n=document.getElementById('footnote'), was=n.textContent;
+  n.textContent=m; setTimeout(function(){ n.textContent=was; },2200); }
+document.getElementById('copy').onclick=function(){ var txt=noteText();
+  function fb(){ var ta=document.createElement('textarea'); ta.value=txt;
+    ta.style.position='fixed'; ta.style.opacity='0'; document.body.appendChild(ta); ta.select();
+    try{ document.execCommand('copy'); say('COPIED. Paste it back to me.'); }
+    catch(e){ say('Could not copy. Use SAVE AS .txt.'); } ta.remove(); }
+  if(navigator.clipboard&&navigator.clipboard.writeText)
+    navigator.clipboard.writeText(txt).then(function(){ say('COPIED. Paste it back to me.'); }, fb);
+  else fb(); };
+document.getElementById('exp').onclick=function(){
+  var blob=new Blob([noteText()],{type:'text/plain'});
+  var u=URL.createObjectURL(blob), el=document.createElement('a');
+  el.href=u; el.download='BOHEMIA_NOTES_THE_SAND_IS_OUT.txt';
+  document.body.appendChild(el); el.click(); el.remove();
+  setTimeout(function(){ URL.revokeObjectURL(u); },1500); };
+</script>
+</div></body></html>

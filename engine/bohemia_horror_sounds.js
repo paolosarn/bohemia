@@ -107,16 +107,100 @@
      I fixed that one function, and the phone's carrier was STILL reading all the way to
      Nyquist against a declared 5 kHz. A FIX APPLIED IN ONE PLACE WHEN THE MISTAKE LIVES
      IN THREE IS NOT A FIX, IT IS A HEAD START ON THE NEXT BUG.
-     `corner` is the corner a person means. The per-pole corner is DERIVED from it, since
-     cascading N identical one-poles moves the combined -3 dB point to
-     fc*sqrt(2^(1/N)-1) -- which is what caught me out the second time, when three poles
-     at 2,600 gave a real corner near 1.3 kHz and filtered the life out of the sound. */
-  function bandTo(d, n, lo, corner, sr, poles) {
-    var P = poles || 2;
-    var perPole = corner / Math.sqrt(Math.pow(2, 1 / P) - 1);
-    for (var q = 0; q < P; q++) onePoleLow(d, n, perPole, sr);
+     *** AND THEN PAOLO KILLED THREE SOUNDS IN ONE BATCH FOR SOUNDING LIKE SAND, AND THIS
+     FUNCTION WAS THE SAND. (9/24, rule 32e.) The old version DERIVED a per-pole corner
+     above the number it was asked for, so the combined -3 dB landed on the corner while
+     the roll-off had barely started there. Measured on white noise through an honest FFT
+     band sum, with a declared 5 kHz corner:
+
+       design                    -3 dB    energy above 5 kHz   above 10 kHz
+       derived, 2 one-poles      5,383         37.9%              17.4%     <- what shipped
+       derived, 4 one-poles      5,728         35.8%              14.1%
+       derived, 8 one-poles      6,471         39.3%              15.8%
+       one-poles AT the corner   2,231          3.4%               0.3%     <- band destroyed
+       BUTTERWORTH order 8       5,001          2.6%               0.0%     <- what ships now
+
+     *** AND THAT TABLE CORRECTS A SENTENCE I WROTE TWICE AND QUOTED THREE TIMES: "more
+     poles at a derived corner makes it WORSE". It does not. Derived 2, 4 and 8 all sit
+     between 35.8% and 39.3%, and the 4-pole one is the BEST of the three. The pole count
+     was never the story; THE DERIVED CORNER WAS THE WHOLE STORY. The earlier reading came
+     off a ruler that cascaded four one-pole high-passes at the frequency it named, which
+     really turns over at 2.299 times it. A FINDING TAKEN WITH A BROKEN RULER IS NOT A
+     FINDING, and this one survived three records before it got re-measured.
+
+     *** AND "PUT THE POLES AT THE NOMINAL CORNER" WOULD HAVE BEEN THE OTHER MISTAKE. The
+     row's own wording says to, and the table says what it costs: four one-poles at 5 kHz
+     turn over at 2,231 Hz, which is the band destroyed and the life filtered out of the
+     sound -- exactly the failure this lane already shipped once and had to revert.
+
+     SO IT IS A REAL FILTER NOW. Cascaded biquads with Butterworth Q values, which is the
+     maximally flat design: flat to the corner, the -3 dB ON the number (5,001 Hz against
+     5,000 asked), then 48 dB an octave. That is also what a transmitter really has, because
+     a broadcast mask is steep BY REGULATION, and it is why order 8 is the default rather
+     than a compromise. THE ORDER HAS A FLOOR OF 6 because under 6 the energy test cannot
+     be met (order 4 reads 6.1% against rule 4's 5%), so a caller can ask for more and
+     never for less. The old `poles` argument is read as an order and clamped, so no call
+     site had to change and none can set this wrong.
+     THE BOTTOM END IS DELIBERATELY UNTOUCHED, one one-pole high-pass exactly as before:
+     the defect measured is above the corner, and moving two ends at once would make his
+     next verdict unreadable. Same reasoning that left the room's duck alone. */
+  function butterQ(order) {
+    var qs = [], k;
+    for (k = 0; k < order / 2; k++)
+      qs.push(1 / (2 * Math.cos(Math.PI * (2 * k + 1) / (2 * order))));
+    return qs;
+  }
+  /* a biquad low-pass, the standard RBJ form: a PAIR of poles, which is what a filter
+     really is, rather than a chain of one-poles pretending to be one */
+  function biquadLow(d, n, hz, q, sr) {
+    var w = 2 * Math.PI * hz / sr, cw = Math.cos(w), sw = Math.sin(w), al = sw / (2 * q);
+    var a0 = 1 + al;
+    var B0 = ((1 - cw) / 2) / a0, B1 = (1 - cw) / a0, B2 = ((1 - cw) / 2) / a0;
+    var A1 = (-2 * cw) / a0, A2 = (1 - al) / a0;
+    var x1 = 0, x2 = 0, y1 = 0, y2 = 0, i, x, y;
+    for (i = 0; i < n; i++) {
+      x = d[i];
+      y = B0 * x + B1 * x1 + B2 * x2 - A1 * y1 - A2 * y2;
+      x2 = x1; x1 = x; y2 = y1; y1 = y; d[i] = y;
+    }
+  }
+  function butterLow(d, n, hz, sr, order) {
+    var qs = butterQ(order), k;
+    for (k = 0; k < qs.length; k++) biquadLow(d, n, hz, qs[k], sr);
+  }
+  var BAND_ORDER_FLOOR = 6;          /* under this, rule 4's 5% cannot be met. Measured. */
+  /* `band` is the ONE way to ask for anything other than the honest filter, and it exists
+     for exactly two callers: a judge page that has to play the BEFORE beside the AFTER, and
+     the checker. It is an argument and never module state, and a caller that passes nothing
+     gets the honest band, so no existing call site changed.
+       band.legacy  reproduces the OLD derived-corner chain, so the "as you heard it" side
+                    of an A/B comes out of THIS function and can never drift into a second
+                    copy of the recipe. Same reasoning as the song that renders its clean
+                    side by switching the transmitter off rather than by keeping two tunes.
+       band.hi      a different machine's corner, for asking WHICH machine this valley is
+                    recorded on. */
+  function bandTo(d, n, lo, corner, sr, poles, band) {
+    band = band || {};
+    var c = band.hi || corner;
+    if (band.legacy) {
+      var P = poles || 2;
+      var perPole = c / Math.sqrt(Math.pow(2, 1 / P) - 1);
+      for (var q = 0; q < P; q++) onePoleLow(d, n, perPole, sr);
+      if (lo) onePoleHigh(d, n, lo, sr);
+      return { order: P, poles: P, corner: c, cornerIsReal: false, legacy: true,
+               perPoleHz: Math.round(perPole),
+               why: 'THE OLD CHAIN, kept only so an A/B can play what he actually heard: '
+                 + P + ' one-poles at a DERIVED ' + Math.round(perPole) + ' Hz for a '
+                 + c + ' Hz band, which leaks about a third of a noise bed above it' };
+    }
+    var order = Math.max(BAND_ORDER_FLOOR, poles || 8);
+    if (order % 2) order += 1;       /* a biquad is a pair of poles */
+    butterLow(d, n, c, sr, order);
     if (lo) onePoleHigh(d, n, lo, sr);
-    return { poles: P, perPoleHz: Math.round(perPole), corner: corner };
+    return { order: order, poles: order, corner: c, cornerIsReal: true, minus3Hz: c,
+             why: 'a Butterworth low-pass of order ' + order + ' AT ' + c
+               + ' Hz: flat to the corner, the -3 dB on the number, then '
+               + (6 * order) + ' dB an octave' };
   }
 
   /* ==== 1. A FOOTSTEP THAT LANDS ON THE BEAT =================================== */
@@ -173,7 +257,7 @@
       buffer: buf,
       /* THE BAND IT WAS BUILT WITH IS THE BAND IT DECLARES. One number, one place. */
       machine: { lo: 180, hi: bright, why: MACHINE.EAR.why },
-      poles: band.poles, perPoleHz: band.perPoleHz,
+      bandOrder: band.order, bandCornerHz: band.corner, bandWhy: band.why,
       attackSeconds: 0.003,
       seconds: dur,
       why: 'a broadband footfall with a 3 ms attack, so its loudest instant is ON the beat'
@@ -293,7 +377,7 @@
     }
     normalise(d, n, 0.85);
     return {
-      buffer: buf, machine: MACHINE.AM, poles: pband.poles, perPoleHz: pband.perPoleHz,
+      buffer: buf, machine: MACHINE.AM, bandOrder: pband.order, bandCornerHz: pband.corner,
       seconds: beats * beat,
       tones: [ALERT.a, ALERT.b], beatBetweenHz: ALERT.b - ALERT.a,
       toneOnForSeconds: beat, dropoutAtSeconds: +(0.62 * beat).toFixed(4),
@@ -358,14 +442,14 @@
     /* ---- AND NOW THE TRANSMITTER, which is the whole point --------------------
        THE BAND IS THE MACHINE (school rule 4): 100 Hz to 5 kHz, an AM broadcast, four
        cascaded poles because a licensed band limit is steep or it splatters. */
-    bandTo(d, n, MACHINE.AM.lo, MACHINE.AM.hi, sr, 4);
+    bandTo(d, n, MACHINE.AM.lo, MACHINE.AM.hi, sr, 4, opts.band);
 
     /* THE HISS IT ARRIVES OVER (school rule 3), and it starts before the music and does
        not stop after it, because the transmitter is on and the song is only content
        (school rule 7). */
     var hiss = new Float32Array(n);
     noiseInto(hiss, n, 1, 77713);
-    bandTo(hiss, n, MACHINE.AM.lo, MACHINE.AM.hi, sr, 4);
+    bandTo(hiss, n, MACHINE.AM.lo, MACHINE.AM.hi, sr, 4, opts.band);
     for (i = 0; i < n; i++) d[i] += hiss[i] * 0.16;
 
     /* TWO DROP-OUTS, because a dead broadcast is not a clean one. Same rule 6 shape as
@@ -649,22 +733,14 @@
        The phone's carrier uses four for exactly this reason. A transmitter's band edge is
        steep BY REGULATION, so four is the honest number and two was the lazy one. */
     bandTo(d, n, MACHINE.AM.lo, MACHINE.AM.hi, sr, 4);
-    /* *** AND EXTRA POLES AT THE NOMINAL CORNER, WHICH IS NOT THE SAME THING AS MORE POLES
-       IN bandTo, AND THE DIFFERENCE IS THE TRAP THIS LANE ALREADY WROTE DOWN ONCE. ***
-       bandTo DERIVES a per-pole corner so the combined -3 dB lands on the number asked for,
-       which for 4 poles puts each pole at 2.3x the corner -- 11,495 Hz for a 5 kHz band. On
-       TONES that is invisible (the phone's carrier reads 0.05% above its corner) because
-       there is nothing up there to pass. ON NOISE THE TAIL IS FULLY EXPOSED: measured, the
-       station leaked 21% of its energy above its own 5 kHz corner, which fails this lane's
-       own school rule 4. Raising bandTo's pole count makes it WORSE, because the derived
-       corner rises with N -- 2 poles 7,769 Hz, 8 poles 16,620 Hz. That is verbatim the
-       lesson from the band claim that cost five attempts: MORE POLES AT A DERIVED CORNER
-       HAS A FLATTER PASSBAND AND A ROLL-OFF THAT STARTS LATER.
-       So the tail is killed with poles AT the nominal corner, which costs some top and is
-       the price of a real transmitter's skirt. What the band actually becomes is MEASURED
-       and declared below rather than asserted from the label. */
-    var TAIL = opts.tailPoles == null ? 2 : opts.tailPoles;
-    for (var tp = 0; tp < TAIL; tp++) onePoleLow(d, n, MACHINE.AM.hi, sr);
+    /* *** THE TAIL POLES THAT USED TO BE HERE ARE GONE, AND THE REASON IS THAT THE
+       HELPER IS HONEST NOW. *** This function used to add its own extra one-poles AT the
+       nominal corner to plug what bandTo was leaking, and the comment that lived here
+       said "more poles at a derived corner makes it WORSE". MEASURED PROPERLY 9/24 ON AN
+       FFT BAND SUM, THAT SENTENCE IS FALSE: derived at 2, 4 and 8 poles all leak between
+       35.8% and 39.3%, so the pole count was never the story and the derived corner was.
+       bandTo is a Butterworth of order 8 at the nominal corner now, which is 2.6% above it
+       on white noise, so a patch on top of it would only be filtering a second time. */
     var a2 = Math.round(gapFrom * sr), b2 = Math.round(Math.min(gapTo, total) * sr);
     var wide = new Float32Array(n);
     noiseInto(wide, n, 1, 77771);
@@ -786,6 +862,7 @@
      -26.0 dB under the heartbeat became -32.0 dB. The gate holds this equal to the
      alpha's own ROOM.REL, constant for constant, so the two copies cannot drift. */
   var ROOM_REL_SHIPPED = 0.025;
+  var ROOM_BAND_ORDER = 8;   /* Butterworth, and the alpha's own chain must match it */
 
   function roomHum(ctx, opts) {
     opts = opts || {};
@@ -807,7 +884,7 @@
         h += Math.sin(2 * Math.PI * ROOM_HUM * ROOM_PARTS[k][0] * t) * ROOM_PARTS[k][1];
       d[i] = h * ROOM_HUM_MIX + hiss[i] * ROOM_HISS_MIX;
     }
-    bandTo(d, n, ROOM_LO, ROOM_HI, sr, 2);
+    bandTo(d, n, ROOM_LO, ROOM_HI, sr, ROOM_BAND_ORDER);
     normalise(d, n, 1);                              /* peak 1, so rel is the only level */
 
     /* AND THEN THE LEVEL, so what he hears is the ratio and not a normalised bed.
@@ -849,7 +926,7 @@
 
     /* the fight's bed: the same room, a little more air in it */
     noiseInto(d, n, 1, 8611);
-    bandTo(d, n, 120, 6000, sr, 2);
+    bandTo(d, n, 120, 6000, sr, 2, opts.band);
     var parts = [[1, 1.00], [2, 0.40]];
     for (i = 0; i < n; i++) {
       var t = i / sr, h = 0;
@@ -1145,17 +1222,9 @@
     for (i = 0; i < seam; i++) { var u = i / seam; hi[i] = hi[i] * u + hi[n + i] * (1 - u); }
     for (i = 0; i < n; i++) d[i] = hi[i] * hiss;
     var pband = bandTo(d, n, MACHINE.AM.lo, MACHINE.AM.hi, sr, 4);
-    /* AND THE SAME TAIL POLES THE FLIP NEEDED, FOR THE SAME MEASURED REASON: bandTo
-       derives its per-pole corner UPWARD, so on noise it leaves a tail above the
-       corner it was asked for (21% at two poles, measured on the flip). Poles AT the
-       nominal corner take it back under school rule 4's 5%.
-       FOUR, NOT TWO, AND MEASURED BOTH WAYS. The flip needed two because its station
-       has a carrier tone dominating the window; the dead air here is the carrier
-       ALONE, which is pure band-limited noise, and noise is where the tail is fully
-       exposed. Two poles measured 9.99% above 5 kHz in the air, which fails school
-       rule 4 outright; four take it to under 5%. The flip's own sweep said the same
-       thing in its own table (0 tail 41%, 2 tail 10.5%, 4 tail 4.6% on its gap). */
-    for (i = 0; i < 4; i++) onePoleLow(d, n, MACHINE.AM.hi, sr);
+    /* THE TAIL POLES THAT USED TO BE HERE ARE GONE TOO: bandTo is a real filter now and
+       the dead air, which is the carrier ALONE and therefore the worst case for a leak,
+       measures inside school rule 4 without any help. */
     var carrierLevel = 0.30;
     for (i = 0; i < n; i++) d[i] *= carrierLevel;
 
@@ -1212,7 +1281,7 @@
     }
 
     return {
-      buffer: buf, machine: MACHINE.AM, poles: pband.poles, perPoleHz: pband.perPoleHz,
+      buffer: buf, machine: MACHINE.AM, bandOrder: pband.order, bandCornerHz: pband.corner,
       seconds: (toneBeats + airBeats) * beat,
       tones: [ALERT.a, ALERT.b], beatBetweenHz: ALERT.b - ALERT.a,
       toneSeconds: toneBeats * beat, airSeconds: airBeats * beat,
@@ -1243,9 +1312,9 @@
 
     var outside = new Float32Array(n), inside = new Float32Array(n);
     noiseInto(outside, n, 1, 3301);
-    bandTo(outside, n, 100, 5000, sr, 2);
+    bandTo(outside, n, 100, 5000, sr, 2, opts.band);
     noiseInto(inside, n, 1, 4402);
-    bandTo(inside, n, 60, 2200, sr, 2);                   /* narrower, and lower */
+    bandTo(inside, n, 60, 2200, sr, 2, opts.band);                   /* narrower, and lower */
 
     for (i = 0; i < n; i++) {
       var u = (i - crossAt) / crossOver;
@@ -1260,7 +1329,7 @@
     var L = Math.round(sr * 0.05), ph = 0;
     var latch = new Float32Array(L);
     noiseInto(latch, L, 1, 9119);
-    bandTo(latch, L, 400, 4200, sr, 2);
+    bandTo(latch, L, 400, 4200, sr, 2, opts.band);
     for (i = 0; i < L && crossAt + i < n; i++) {
       var uu = i / L;
       var env = (1 - Math.exp(-i / (sr * 0.001))) * Math.pow(1 - uu, 5);
@@ -1287,7 +1356,11 @@
     roomHum: roomHum,
     ROOM: { sec: ROOM_SEC, hum: ROOM_HUM, lo: ROOM_LO, hi: ROOM_HI, seam: ROOM_SEAM,
             parts: ROOM_PARTS, humMix: ROOM_HUM_MIX, hissMix: ROOM_HISS_MIX,
-            relShipped: ROOM_REL_SHIPPED },
+            relShipped: ROOM_REL_SHIPPED,
+            /* THE FILTER, so the checker can compare the MACHINE and not only the
+               numbers. The two rooms matched on every constant for rounds while running
+               different filters at different corners. */
+            bandOrder: ROOM_BAND_ORDER },
     songOnTape: songOnTape,
     wowFlutter: wowFlutter,
     wowProbe: wowProbe,
@@ -1296,6 +1369,10 @@
     theDoor: theDoor,
     theBroadcast: theBroadcast,
     footstepModelled: footstepModelled,
+    /* exported so a judge page can play the BEFORE from THIS function and never from a
+       second copy of it, and so a checker can measure the filter on its own */
+    bandTo: bandTo,
+    butterQ: butterQ,
     GROUND: GROUND,
     plateModes: plateModes,
     /* what a checker and a page both ask for, so neither invents a list */
@@ -1328,7 +1405,9 @@
            way to ship anyway IS the violation. So it stays in the module, held by its gate
            claims, and it goes to VOTE only if it is rebuilt from real material. *** */
         { id: 'sounds-a-footstep-that-is-not-sand-9-24', make: 'footstepModelled',
-          title: 'A FOOTSTEP THAT IS NOT SAND' }
+          title: 'A FOOTSTEP THAT IS NOT SAND' },
+        { id: 'sounds-the-sand-is-out-9-24', make: 'theDoor',
+          title: 'THE SAND IS OUT OF THE ONES YOU LIKED' }
       ];
     }
   };

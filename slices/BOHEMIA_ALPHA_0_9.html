@@ -1501,7 +1501,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 9/24p - EVERY DIAL A SLIDER</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 9/24q - THE SAND WAS ONE FILTER</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -25789,12 +25789,44 @@ var SETTLED={"step_dirt.0":1,"step_dirt.1":1,"step_dirt.2":1,"step_dirt.3":1,"st
            because the studio did. Same reasoning as the heartbeat above. */
         this.bus.connect(sfxBus() || MUS.OUT || MUS.MAST || AC.destination);
 
-        /* THE MACHINE, IN THIS VOICE'S OWN CHAIN. Two nodes, once. */
+        /* THE MACHINE, IN THIS VOICE'S OWN CHAIN.
+           *** AND THIS USED TO BE ONE LOW-PASS SECTION AT Q 0.7, WHICH IS A SECOND-ORDER
+           FILTER, AND IT LEAKED. *** Paolo killed three sounds in one batch for sounding
+           like sand (9/23, rule 32e), and the sand is energy sitting above the band the
+           sound claims. Measured on white noise through an FFT band sum, against a
+           declared 5 kHz corner:
+             one section at Q 0.7 (order 2)    14.2% above the corner, 1.05% an octave up
+             four Butterworth sections (order 8) 2.6% above,            0.00% an octave up
+           School rule 4 asks for under 5% and under 1%, so the one-section version failed
+           both and this passes both.
+           *** AND THE REASON THIS HID FOR ROUNDS IS WORSE THAN THE LEAK. *** The room is
+           written TWICE, here and in engine/bohemia_horror_sounds.js, and the checker that
+           holds the two together compares six CONSTANTS (length, hum, low, high, seam,
+           level) and NEVER THE FILTER. So the constants matched, the gate was green, and
+           the two rooms were not the same room: this one leaked 14.2% and the module's copy
+           leaked 37.9%, because they used different filters at different corners. A
+           DUPLICATION CHECK THAT COMPARES THE NUMBERS AND NOT THE MACHINE IS NOT A
+           DUPLICATION CHECK. The gate now compares the ORDER as well.
+           Butterworth Q values for order 8, which is the maximally flat design: flat to
+           the corner, the -3 dB ON the number, then 48 dB an octave, which is what a
+           broadcast filter really is because the mask is steep by regulation.
+           THE BOTTOM END IS UNTOUCHED, one section at Q 0.7 exactly as before: the defect
+           measured is above the corner, and moving two ends at once would make his next
+           verdict unreadable. And the LEVEL looks after itself, because levelFor() measures
+           this buffer's rms against his heartbeat at run time, so a narrower band cannot
+           quietly change how loud the room sits. */
         var hp = AC.createBiquadFilter();
         hp.type = 'highpass'; hp.frequency.value = this.LO; hp.Q.value = 0.7;
-        var lp = AC.createBiquadFilter();
-        lp.type = 'lowpass';  lp.frequency.value = this.HI; lp.Q.value = 0.7;
-        hp.connect(lp); lp.connect(this.bus);
+        var QS = [0.5098, 0.6013, 0.9000, 2.5629];   /* Butterworth, order 8 */
+        var head = null, tail = null;
+        for (var qi = 0; qi < QS.length; qi++) {
+          var lp = AC.createBiquadFilter();
+          lp.type = 'lowpass'; lp.frequency.value = this.HI; lp.Q.value = QS[qi];
+          if (tail) tail.connect(lp); else head = lp;
+          tail = lp;
+        }
+        this.bandOrder = 2 * QS.length;        /* what the checker compares */
+        hp.connect(head); tail.connect(this.bus);
 
         var s = AC.createBufferSource();
         s.buffer = this.buf; s.loop = true;
@@ -25831,6 +25863,7 @@ var SETTLED={"step_dirt.0":1,"step_dirt.1":1,"step_dirt.2":1,"step_dirt.3":1,"st
   window.__roomState = function () {
     return { on: !!ROOM.src, ducked: ROOM.ducked, sec: ROOM.SEC, hum: ROOM.HUM,
              lo: ROOM.LO, hi: ROOM.HI, rel: ROOM.REL, duck: ROOM.DUCK,
+             bandOrder: ROOM.bandOrder || null,   /* the FILTER, not only the numbers */
              level: ROOM.level, startedAt: ROOM.startedAt,
              cycles60: ROOM.SEC * ROOM.HUM, beats: ROOM.SEC / 0.5 };
   };
