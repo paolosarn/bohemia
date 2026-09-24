@@ -8443,6 +8443,94 @@ archive escape built in from the start so [handoff cut] is unblocked rather than
 THE WARNING FOR EVERY LANE: do not write this file from a copy you read at the start of your round.
 Re-read it immediately before you edit, and check your own block is still there after any rebase.
 
+ANIMATION (animation-lr9y9i): 9/24 (c) LATEST -- *** "SOME OF THE DIRECTIONS LOOK
+LIKE DOG SHIT" IS NOW A NUMBER, ON ALL FORTY-SEVEN CLIPS HE KILLED. 21 of 47 have a
+direction where he does nothing. Three fixed and in the game. TAB: VOTE, playing,
+and ANIMATION for the clips. ***
+
+[redo killed] continues, 9 of 47. [judge two] waits on his thumb.
+
+=== THE HALF OF HIS SENTENCE NOBODY HAD MEASURED
+Paolo 9/7, handing over the thumbs on the whole clip list:
+  "A lot of the ones I thumbed down were because some of the DIRECTIONS look like
+   dog shit: when it's facing north-east the hand was behind the head even though
+   it's supposed to be in front."
+The SECOND half was answered 9/13 (draw order) and 9/23 (the _face declaration,
+whose clips he then killed three times). THE FIRST HALF WAS NEVER MEASURED,
+because "some of the directions" names a SPREAD and not a defect.
+
+=== THE SWEEP: 47 CLIPS x 8 FACINGS, ON THE DRAWN PICTURE
+The share of body pixels the worst key of the bar changes against that clip's own
+rest frame.
+  21 OF 47 HAVE AT LEAST ONE DEAD FACING (under 12%).
+  The gap between a clip's best and worst direction runs to 126 POINTS
+  (lunge-stretch W 153.5% against N 27.7%).
+  Worst spreads: lunge-stretch 125.8, throw 108, bat-arc 97, dig 93.1,
+  spear-drive 89.8, drunk 85.3, stagger-hit 84.4, shout 80.8, flee-sprint 76.6.
+A LOW NUMBER IS NOT A DEFECT BY ITSELF: pistol, sleep and lean are HOLDS, still on
+all eight on purpose. The defect is a clip ALIVE on one facing and DEAD on another.
+
+=== THREE FIXED, ONE CAUSE EACH, ALL DEAD FACING THE CAMERA
+                  cause                                   N        S
+  point      gunT pushes a point FORWARD ALONG      3.1 -> 30.6   7.2 -> 42.1
+             THE FACING; facing you that is
+             into the screen, cos(angle) ~ 0
+  taunt      the arch and the thrown-back head     10.7 -> 34.9  13.1 -> 40.4
+             are both spF terms, and spF is
+             ZERO on N and S
+  chest-thump the chin lift and the arch, same      8.2 -> 27.5  17.6 -> 35.7
+THE SIX SIDE FACINGS OF ALL THREE ARE UNCHANGED TO A TENTH OF A POINT, and that is
+its own gate claim: a head-on branch leaking into the lateral path would pass every
+other claim in the file.
+
+=== ONE CUT THROWN AWAY BY LOOKING
+taunt's first head-on branch put both arms out at 1.15 rad. EVERY NUMBER WAS BETTER
+AND THE SILHOUETTE READ AS A RIG IN ITS BIND POSE -- the one shape in this game that
+says BROKEN. Lowered to 0.82 with more elbow and a bigger bounce, then looked at
+again. This is the graveyard's lesson being applied the round after writing it.
+
+=== AND ONE CLIP I DELIBERATELY DID NOT TOUCH
+inject is dead on N, SW, W and NW. Its cause is woundPt, the chest point pushed
+along the facing -- same family -- but the back-side deaths are OCCLUSION: the
+reaching arm is behind the body and the compositor is first-wins. That is the
+feature he killed three times on 9/23, and this lane is stopped on it by ruling.
+Same reason point and chest-thump keep a low SW and NW. Named, not chased.
+
+=== MY OWN GATE BUG, CAUGHT BY READING ITS OUTPUT
+The first cut of the three new claims stored the whole reading instead of its
+percentage, so they printed [object Object]% -- and the "side facings unchanged"
+claim silently compared an object to a number. Math.abs(obj - num) is NaN, NaN >
+0.05 is false, so it reported "0 drifted" and PASSED VACUOUSLY.
+A COMPARISON THAT CANNOT FAIL IS NOT A CLAIM.
+
+=== COOKED THIS ROUND (rule 22, rule 25)
+animation-the-directions-9-24, and it PLAYS: all three facing him, what he killed
+beside what they are, twelve frames a bar on the real clock. No control in the page.
+
+=== PROOF
+records/BOHEMIA_SOME_OF_THE_DIRECTIONS_9_24_26.md
+gates/a_clip_reads_facing_you_gate.js -- 13 claims, 3 more mutations caught: drop
+point's branch (its own claim), let taunt's branch leak into the six side facings
+(the unchanged claim, all six named in the failure), and wire chest-thump to S only
+(the N leg). Floors per clip, set OVER what the bug scored.
+Pre-push pass green: READS FACING YOU 13/0, ENVELOPE RAMP 10/0, NECK HOLDS HEAD
+8/0, HAND TO FACE 1/0, ELDER STOOPS 9/0, SLIDE AND TURN 17/0, HEAD SNAPS 13/0,
+ELBOW BENDS 10/0, VOTE TAB 30/0, HANDOFF 9/0.
+Red and NOT mine, reproduced on a clean origin/main: ONE NUMBER BODY 5/1
+(cross-origin postMessage throw), PAGES PUBLISH 17/1 (271 MB against a 260 MB cap).
+Full suite: 107 red at ad23d875; mine are none on that list.
+
+=== NEXT, IN ORDER
+1. The 18 killed clips that still have a dead facing, worst spread first
+   (lunge-stretch, throw, bat-arc, dig, spear-drive, drunk, stagger-hit, shout,
+   flee-sprint), one at a time with a picture each.
+2. [judge two] is not SHIPPED until he judges pickup and laugh.
+3. [bake approved] -- 23 thumbed-up candidates go in verbatim.
+4. [horror motion] is still OPEN under the bible.
+NEVER: the hand-at-face occlusion family, until he asks.
+
+[PENDING Paolo] Nothing.
+
 ANIMATION (animation-lr9y9i): 9/24 (b) LATEST -- *** HIS SECOND VOTES LANDED
 MID-ROUND AND THEY CHANGED WHAT I SHIPPED. The hand at the face is killed a third
 time and is in the graveyard. What survives is the motion fix, which is the thing

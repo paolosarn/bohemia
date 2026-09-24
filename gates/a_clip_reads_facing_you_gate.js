@@ -28,6 +28,25 @@
    THE OTHER FORTY-ODD CLIPS WITH THIS HOLE ARE PRINTED, NOT CHASED. Two clips
    were on the board; quietly rewriting forty is how a lane ships forty untested
    changes.                                                    ANIMATION 9/24  */
+
+/* *** 9/24b: AND THIS IS THE REASON HE GAVE FOR KILLING FORTY-SEVEN OF THEM. ***
+   Paolo 9/7, handing over the thumbs: "A lot of the ones I thumbed down were
+   because some of the DIRECTIONS look like dog shit."
+   Swept all 47 killed clips on all 8 facings with the same drawn-picture ruler:
+   21 of them have at least one DEAD facing, and the gap between a clip's best
+   and worst direction runs to 126 points. Three of them were dead FACING THE
+   CAMERA with nothing occluded, for one cause each, and all three are held here:
+     point        aimed with gunT, which pushes a point FORWARD along the facing.
+                  Facing you, forward is into the screen: N 3.1%, S 7.2%.
+     taunt        the arch and the thrown-back head are both spF terms: N 10.7%.
+     chest-thump  the chin lift and the arch, same: N 8.2%.
+   NOT chased, and named instead: SW and NW stay low on point and chest-thump
+   because on the back-side facings the reaching arm is BEHIND the body and the
+   compositor is first-wins. That is the occlusion problem whose feature Paolo
+   killed three times on 9/23, and this lane is stopped on it by ruling.
+   AND ONE CUT THAT WAS THROWN AWAY BY LOOKING: taunt's first head-on branch put
+   both arms out at 1.15 rad and the silhouette read as a RIG IN ITS BIND POSE.
+   Every number was better and the picture said broken.                       */
 const fs = require('fs'), path = require('path');
 const ROOT = path.resolve(__dirname, '..');
 const ALPHA = path.join(ROOT, 'slices', 'BOHEMIA_ALPHA_0_9.html');
@@ -54,6 +73,10 @@ const PICKUP_CM_MIN = 5.0, LAUGH_CM_MIN = 4.0;
    BELOW what the broken pickup already scored (36.4%), so removing the fix left
    that claim green. A floor under the bug is not a floor. */
 const PICKUP_PCT_MIN = 55, LAUGH_PCT_MIN = 32;
+/* THE THREE KILLED CLIPS, floors set under what shipped and OVER what the bug
+   scored, which is the lesson mutation taught this gate the first time round. */
+const HEADON = { point: { was: 3.1, min: 24 }, taunt: { was: 10.7, min: 28 },
+                 'chest-thump': { was: 8.2, min: 22 } };
 
 (async () => {
   const { chromium } = require('/opt/node22/lib/node_modules/playwright');
@@ -64,6 +87,7 @@ const PICKUP_PCT_MIN = 55, LAUGH_PCT_MIN = 32;
   await SETTLE(pg, 2400);
 
   const R = await pg.evaluate(() => {
+    const DIRS = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'];
     const K = (typeof POSEHOLD === 'object' && POSEHOLD && POSEHOLD.keys) ? POSEHOLD.keys : 12;
     const clips = (typeof CLIPS !== 'undefined' && CLIPS.length) ? CLIPS.slice() : Object.keys(POSE);
     /* ASKED OF THE DRAWN FRAME, never of a joint: this lane has been lied to twice
@@ -90,6 +114,18 @@ const PICKUP_PCT_MIN = 55, LAUGH_PCT_MIN = 32;
     }
     const two = {};
     for (const c of ['pickup', 'laugh']) two[c] = { S: read(c, 'S'), N: read(c, 'N'), E: read(c, 'E') };
+    /* the three off the killed list, every facing, so "not traded away" is asked
+       of all eight rather than of the one I happened to check */
+    const killed = {};
+    for (const c of ['point', 'taunt', 'chest-thump']) {
+      killed[c] = {};
+      /* THE PCT, NOT THE WHOLE READING. The first cut stored the object and every
+         claim printed [object Object] while the drift check quietly compared an
+         object to a number -- Math.abs(obj - num) is NaN, NaN > 0.05 is false, so
+         it reported "0 drifted" and passed VACUOUSLY. A comparison that cannot
+         fail is not a claim. */
+      for (const d of DIRS) { const r = read(c, d); killed[c][d] = r ? r.pct : -1; }
+    }
 
     /* THE REST OF THE HOLE, counted rather than claimed: clips that move properly
        from the side and barely at all facing you. */
@@ -106,7 +142,7 @@ const PICKUP_PCT_MIN = 55, LAUGH_PCT_MIN = 32;
     /* THE CONTROL: the pattern this fix copies is already in the file, so a build
        where headOn branches do nothing would take nod down with it. */
     const nod = read('nod', 'S');
-    return { K, two, still, nod, clips: clips.length };
+    return { K, two, killed, still, nod, clips: clips.length };
   });
 
   ok('the alpha loads with no page error (' + (errs.length ? errs[0] : 'none') + ')', errs.length === 0);
@@ -134,6 +170,27 @@ const PICKUP_PCT_MIN = 55, LAUGH_PCT_MIN = 32;
 
   ok('CONTROL: the headOn pattern this copies is alive elsewhere in the file ' +
      '(nod still reads ' + R.nod.cm + 'px facing you)', R.nod.cm >= 1.5);
+
+  /* === HIS OWN REASON FOR KILLING THEM, HELD === */
+  for (const c of Object.keys(HEADON)) {
+    const f = HEADON[c], r = R.killed[c];
+    ok(c.toUpperCase() + ', FACING YOU: ' + r.N + '% on N and ' + r.S + '% on S ' +
+       '(floor ' + f.min + '; it was ' + f.was + ' on N)',
+       r.N >= f.min && r.S >= f.min);
+  }
+  /* AND NOT AT THE COST OF THE SIX FACINGS THAT ALREADY WORKED. A head-on branch
+     that leaked into the lateral path would pass every claim above. */
+  const SIDE_WAS = { point: { NE: 20.1, E: 16.5, SE: 16.9, SW: 11.6, W: 15.3, NW: 10.4 },
+                     taunt: { NE: 31.2, E: 34.1, SE: 28.7, SW: 29.4, W: 37.1, NW: 28.8 },
+                     'chest-thump': { NE: 16.1, E: 29.8, SE: 17.9, SW: 19.6, W: 19.3, NW: 8.2 } };
+  const drift = [];
+  for (const c of Object.keys(SIDE_WAS)) for (const d of Object.keys(SIDE_WAS[c])) {
+    const now = R.killed[c][d], was = SIDE_WAS[c][d];
+    if (Math.abs(now - was) > 0.05) drift.push(c + ' ' + d + ' ' + was + ' -> ' + now);
+  }
+  ok('and the six side facings of all three are UNCHANGED, to a tenth of a point ' +
+     '(' + drift.length + ' drifted)' + (drift.length ? ': ' + drift.join(', ') : ''),
+     drift.length === 0);
 
   console.log('\n  THE SAME HOLE, STILL OPEN, named so this is not read as finished:');
   console.log('    ' + R.still.length + ' of ' + R.clips + ' clips move well from the side and barely at all');

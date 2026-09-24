@@ -1,0 +1,87 @@
+<!doctype html><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>BOHEMIA — The Directions</title>
+<!-- ANIMATION, [redo killed], 9/24b. RULE 25: an animation item PLAYS. Twelve
+     frames a bar on the real clock. No control inside the page; the row asks once. -->
+<style>
+  :root{--ink:#e8e0cc;--bg:#0d0d12;--card:#16161d;--line:#33313d;--gold:#c79a3f}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+       font:13px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace;padding:14px}
+  h1{font-size:13px;letter-spacing:2px;margin:0 0 4px;color:var(--gold)}
+  p{margin:0 0 12px;color:#a49a86;max-width:60ch}
+  b{color:var(--ink)}
+  .said{border-left:2px solid #7a4a4a;padding:6px 0 6px 10px;margin:0 0 14px;color:#b09a90}
+  .clip{background:var(--card);border:1px solid var(--line);border-radius:6px;
+        padding:8px;margin-bottom:10px}
+  .name{font-size:11px;letter-spacing:2px;color:var(--gold);margin-bottom:6px;
+        display:flex;justify-content:space-between;align-items:baseline}
+  .sub{color:#6f6862;font-size:10px;letter-spacing:0}
+  .pair{display:flex;gap:10px;flex-wrap:wrap}
+  .side{text-align:center}
+  .lab{font-size:10px;letter-spacing:1px;margin-bottom:3px}
+  .old{color:#9a6b6b}.new{color:#7fa06b}
+  .cell{width:112px;height:153px;image-rendering:pixelated;background:#101319;border-radius:3px}
+  .beat{height:3px;background:#2a2833;border-radius:2px;margin:10px 0 2px;overflow:hidden}
+  .beat i{display:block;height:100%;width:8.33%;background:var(--gold)}
+  .note{margin-top:12px;color:#6f6862;max-width:60ch}
+</style>
+<h1>THE DIRECTIONS THAT LOOKED LIKE DOG SHIT</h1>
+<div class="said">When you killed forty-seven of these you told me why: "a lot of
+the ones I thumbed down were because some of the DIRECTIONS look like dog shit."</div>
+<p>I finally went and measured that sentence. All forty-seven clips, all eight
+directions, counting how much of his body actually changes. <b>Twenty-one of them
+have a direction where he does nothing at all.</b> On some, the gap between his
+best direction and his worst is over a hundred points.</p>
+<p>Three of them were dead for the same dumb reason, and it is the reason facing
+you. <b>Leaning and reaching are sideways moves.</b> Turn him to face you and there
+is nothing left to draw, so the code just drew a man standing there. Pointing
+moved <b>3%</b> of him. Thumping his chest moved <b>8%</b>. Talking shit moved
+<b>11%</b>.</p>
+<p>Facing you, each one is spent where it shows. He points by throwing the arm up
+and out and leaning behind it. He taunts with his chest open and his weight
+riding up on the beat. He thumps and his body takes the hit. <b>31%, 35% and 28%
+now, and every other direction is untouched down to a tenth of a point.</b></p>
+<p>Left is what you killed. Right is now. Both facing you, on the real clock.</p>
+<div class="beat"><i id="beat"></i></div>
+<div id="clips"></div>
+<p class="note">Straight with you: two of them are still weak when he faces away
+and to the side, because there his own arm is behind his body and the game draws
+the nearest thing first. That is the same thing you killed three times, so I am
+leaving it alone and telling you instead of trying again.</p>
+<script>
+(function(){
+  var BEFORE='ANIMATION_THE_DIRECTIONS_BEFORE.png';
+  var AFTER ='ANIMATION_THE_DIRECTIONS_AFTER.png';
+  var ROWS=['POINTING','TALKING SHIT','THUMPING HIS CHEST'];
+  var W=112,H=153,N=12,BEAT=500,LOOP=BEAT*4;   /* 120 BPM, four beats a bar */
+  var host=document.getElementById('clips'), cells=[];
+  ROWS.forEach(function(name,ri){
+    var box=document.createElement('div'); box.className='clip';
+    var n=document.createElement('div'); n.className='name';
+    n.innerHTML='<span>'+name+'</span><span class="sub">facing you</span>';
+    box.appendChild(n);
+    var pair=document.createElement('div'); pair.className='pair';
+    [['WHAT YOU KILLED','old',BEFORE],['NOW','new',AFTER]].forEach(function(spec){
+      var side=document.createElement('div'); side.className='side';
+      var l=document.createElement('div'); l.className='lab '+spec[1];
+      l.textContent=spec[0];
+      var c=document.createElement('div'); c.className='cell';
+      c.style.backgroundImage='url('+spec[2]+')';
+      c.style.backgroundSize=(N*W)+'px auto';
+      cells.push({el:c,row:ri});
+      side.appendChild(l); side.appendChild(c); pair.appendChild(side);
+    });
+    box.appendChild(pair); host.appendChild(box);
+  });
+  var bar=document.getElementById('beat'), t0=performance.now();
+  (function tick(){
+    var ph=((performance.now()-t0)%LOOP)/LOOP;
+    var f=Math.floor(ph*N)%N;
+    for(var i=0;i<cells.length;i++)
+      cells[i].el.style.backgroundPosition=(-f*W)+'px '+(-cells[i].row*H)+'px';
+    bar.style.transform='translateX('+(f*100)+'%)';
+    requestAnimationFrame(tick);
+  })();
+})();
+</script>

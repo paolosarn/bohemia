@@ -1501,7 +1501,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 9/24r - NOBODY STOPS YOU YET</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 9/24s - THE DIRECTIONS, ONE BACK</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -7070,7 +7070,29 @@ const POSE={
  'look-around':(d,ph)=>{const s=Math.sin(ph*2*Math.PI);return {head:0.14*s,spine:0.03*s,upL:gL(d)*0.1,upR:gR(d)*0.1,hipOff:[s*0.5,0]};},
  stumble:(d,ph)=>{const t=ph;const e=(a,b)=>Math.min(1,Math.max(0,(t-a)/(b-a)));const tr=e(0.05,0.25)*(1-e(0.5,0.75));const ca=e(0.5,0.75)*(1-e(0.85,1));const rL=gL(d),rR=gR(d);return {spine:spF(d)*(0.5*tr-0.1*ca),hipOff:[0,3*tr],head:0.1*tr*spF(d),upL:rL*(1.1*tr-0.2*ca),upR:rR*0.9*tr,foreL:rL*0.3,foreR:rR*0.35,legCompressL:0.25*tr,legCompressR:0.12*tr};},
  fistpump:(d,ph)=>{const t=(ph*2)%1;const e=(a,b)=>Math.min(1,Math.max(0,(t-a)/(b-a)));const p=e(0,0.3)*(1-e(0.55,0.85));const r=gR(d);return {upR:r*1.6*p,foreR:r*(0.9*p+0.1),upL:gL(d)*0.12,hipOff:[0,-1.2*p],head:-0.05*p*r,spine:0};},
- point:(d,ph)=>{const t=ph;const e=(a,b)=>Math.min(1,Math.max(0,(t-a)/(b-a)));const ext=e(0.05,0.25)*(1-e(0.75,0.95));const jab=Math.sin(ph*4*Math.PI)*0.4*ext;const g=gunT(d,RF+0.5+2.5*ext+jab,RR);return {ikR:[g[0][0],g[0][1]],bendR:'auto',upL:gL(d)*0.15,foreL:gL(d)*0.25,head:0.04*ext,hipOff:[0,0.4*ext],spine:spF(d)*0.05*ext};},
+ /* ===== SOME OF THE DIRECTIONS LOOK LIKE DOG SHIT, 9/24b. Paolo 9/7, handing
+    over the 47 he killed: "A lot of the ones I thumbed down were because some of
+    the DIRECTIONS look like dog shit." MEASURED over all 47 on all 8 facings, on
+    the drawn picture: 21 of them have at least one DEAD facing, and the gap
+    between a clip's best and worst direction runs to 126 points. Three of them
+    are dead FACING THE CAMERA for one reason, and nothing is occluded there --
+    the motion is simply written in a way that has no sideways projection, so on
+    N and S there is nothing left to draw.
+    records/BOHEMIA_SOME_OF_THE_DIRECTIONS_9_24_26.md ===== */
+ /* point: aimed with gunT, the GUN target, which pushes a point FORWARD along the
+    facing. Right for a pistol held out. Facing you, forward is INTO the screen and
+    cos(angle) is about zero, so the whole extension happened in a direction the
+    camera cannot see: 3.1% of his pixels moved on N against 20.1% on NE, and four
+    of the eight facings were dead. Same helper that killed the hand clips, a
+    different symptom. Facing you the point is spent where it shows: the arm comes
+    UP and OUT, the shoulder goes with it, and he leans behind it. */
+ point:(d,ph)=>{const t=ph;const e=(a,b)=>Math.min(1,Math.max(0,(t-a)/(b-a)));const ext=e(0.05,0.25)*(1-e(0.75,0.95));const jab=Math.sin(ph*4*Math.PI)*0.4*ext;
+   if(headOn(d)){const r=gR(d),jb=jab*0.5;
+     return {upR:r*(1.55*ext+0.18*jb),foreR:r*(0.85*ext+0.30*jb),
+       armCompressR:0.10*ext,upL:gL(d)*0.15,foreL:gL(d)*0.25,
+       head:0.10*ext,hipOff:[r*1.3*ext,-0.9*ext],
+       legCompressL:0.05*ext,legCompressR:0.05*ext};}
+   const g=gunT(d,RF+0.5+2.5*ext+jab,RR);return {ikR:[g[0][0],g[0][1]],bendR:'auto',upL:gL(d)*0.15,foreL:gL(d)*0.25,head:0.04*ext,hipOff:[0,0.4*ext],spine:spF(d)*0.05*ext};},
  cheer:(d,ph)=>{const b=Math.abs(Math.sin(ph*2*Math.PI));const rL=gL(d),rR=gR(d);return {upL:rL*(2.5+0.62*b),upR:rR*(2.56+0.58*b),foreL:rL*0.25,foreR:rR*0.25,hipOff:[0,-2.7*b],head:0};},
  'sit-ground':(d,ph)=>{const br=Math.sin(ph*2*Math.PI),gl=Math.sin(ph*Math.PI+0.6);
    /* E-fix 7/2/26 v2: below-pivot + rotates screen-LEFT, so laterals need -spF
@@ -7156,7 +7178,21 @@ const POSE={
  sigh:(d,ph)=>{const t=ph;const e=(a,b)=>Math.min(1,Math.max(0,(t-a)/(b-a)));const rise=e(0.05,0.3)*(1-e(0.4,0.55));const drop=e(0.4,0.55)*(1-e(0.85,1));return {armCompressL:0.18*rise,armCompressR:0.18*rise,hipOff:[0,-0.8*rise+1.2*drop],head:spF(d)*(0.16*drop-0.05*rise),spine:spF(d)*0.1*drop,upL:gL(d)*0.1,upR:gR(d)*0.1};},
  startle:(d,ph)=>{const t=(ph*2)%1;const e=(a,b)=>Math.min(1,Math.max(0,(t-a)/(b-a)));const fl=e(0.02,0.12)*(1-e(0.45,0.7));const lat=_lat(d);const aL=lat?fwdS(d)*(0.9+0.4*fl):-outL(d)*(0.8+0.4*fl);const aR=lat?fwdS(d)*(1.0+0.4*fl):-outR(d)*(0.9+0.4*fl);return {hipOff:[-(spF(d)||0)*2.5*fl,1.2*fl],spine:-spF(d)*0.16*fl,head:-spF(d)*0.1*fl,upL:aL*0.5*fl,foreL:aL*0.7*fl,upR:aR*0.5*fl,foreR:aR*0.7*fl,legCompressL:0.18*fl,legCompressR:0.18*fl};},
  shove:(d,ph)=>{const t=(ph*2)%1;const e=(a,b)=>Math.min(1,Math.max(0,(t-a)/(b-a)));const wu=e(0.05,0.2)*(1-e(0.25,0.4));const sh=e(0.25,0.4)*(1-e(0.65,0.9));const lat=_lat(d);const dr=lat?fwdS(d):(-1);const dL=lat?dr:( -outL(d));const dR=lat?dr:(-outR(d));return {spine:spF(d)*(-0.08*wu+0.24*sh),head:spF(d)*0.06*sh,upL:dL*(0.3*wu+0.9*sh),foreL:dL*(0.2*wu+0.7*sh),upR:dR*(0.35*wu+0.95*sh),foreR:dR*(0.2*wu+0.7*sh),hipOff:[0,0.5*wu+1.0*sh],legCompressL:0.1*sh,legCompressR:0.14*sh};},
- taunt:(d,ph)=>{const b=Math.abs(Math.sin(ph*2*Math.PI));const lat=_lat(d);const oL=lat?-fwdS(d)*0.4:outL(d)*0.9;const oR=lat?-fwdS(d)*0.45:outR(d)*0.95;return {spine:-spF(d)*(0.14+0.17*b),head:-spF(d)*(0.12+0.15*b),upL:oL*(0.8+0.15*b),foreL:oL*0.3,upR:oR*(0.85+0.15*b),foreR:oR*0.3,hipOff:[0,-0.7*b]};},
+ /* taunt: the arch and the head thrown back are BOTH spF terms, and spF is zero
+    on N and S. Facing you all that survived was the arms drifting: 10.7% against
+    37.1% from the side. A taunt facing you is the chest OPENING -- the arms go
+    wide and up, the body rides up on the beat, the shoulders roll opposite. */
+ taunt:(d,ph)=>{const b=Math.abs(Math.sin(ph*2*Math.PI));const lat=_lat(d);
+   if(!lat){const oL=outL(d),oR=outR(d);
+     /* NOT A T-POSE. The first cut put both arms out at 1.15 and the silhouette
+        read as a rig in its bind pose, which is the one shape in this game that
+        says BROKEN. Lower, wider elbows, and the bounce carries the attitude. */
+     return {upL:oL*(0.82+0.30*b),foreL:oL*(0.62+0.22*b),
+       upR:oR*(0.86+0.30*b),foreR:oR*(0.66+0.22*b),
+       armCompressL:0.10+0.10*b,armCompressR:0.10-0.10*b,
+       head:-0.12*b,hipOff:[0,-3.1*b],
+       legCompressL:0.11*b,legCompressR:0.11*b};}
+   const oL=-fwdS(d)*0.4,oR=-fwdS(d)*0.45;return {spine:-spF(d)*(0.14+0.17*b),head:-spF(d)*(0.12+0.15*b),upL:oL*(0.8+0.15*b),foreL:oL*0.3,upR:oR*(0.85+0.15*b),foreR:oR*0.3,hipOff:[0,-0.7*b]};},
  swagger:(d,ph)=>{if(headOn(d)){const g=nsGait(d,ph,0.6*SWF());g.hipOff=[0,(g.hipOff?g.hipOff[1]:0)-1.4*Math.abs(Math.sin(ph*2*Math.PI))];g.head=-0.04;return g;}const s=Math.sin(ph*2*Math.PI),m=(RUNMIR[d]?-1:1)*depthFlip(d),as=(ARMSIDE[d]||1);const b=Math.abs(s);return {thighR:0.34*s*m,thighL:-0.34*s*m,shinR:m*0.3*Math.max(0,-s),shinL:m*0.3*Math.max(0,s),upL:(-0.3*s*m+ -0.25)*as*0.8,upR:(0.3*s*m+0.25)*as*0.8,foreL:-0.15*m,foreR:-0.15*m,spine:-spF(d)*0.1,head:-spF(d)*0.09,hipOff:[s*1.2,-1.6*b]};},
  balance:(d,ph)=>{const w=Math.sin(ph*4*Math.PI),lift=0.5+0.5*Math.sin(ph*2*Math.PI-Math.PI/2);const lat=_lat(d);const m=(RUNMIR[d]?-1:1)*depthFlip(d);return {thighR:(lat?-spF(d):0.001)*0.9*lift,shinR:(lat?-spF(d):0.001)*-0.7*lift,legCompressR:lat?0:0.45*lift,upL:gL(d)*(0.9+0.15*w),upR:gR(d)*(0.95-0.15*w),spine:0.05*w,head:0.04*w,hipOff:[w*1.2,0.4*lift]};},
  stomp:(d,ph)=>{const t=(ph*2)%1;const e=(a,b)=>Math.min(1,Math.max(0,(t-a)/(b-a)));const up=e(0.05,0.25)*(1-e(0.3,0.45));const dn=e(0.3,0.45)*(1-e(0.7,0.95));const lat=_lat(d);const m=(RUNMIR[d]?-1:1)*depthFlip(d);return {thighR:(lat?-spF(d):0.001)*0.8*up,legCompressR:lat?0.05*dn:0.4*up,legCompressL:0.12*dn,hipOff:[0,-0.8*up+1.8*dn],spine:spF(d)*0.08*dn,head:spF(d)*0.05*dn,foreL:gL(d)*(0.5+0.3*dn),foreR:gR(d)*(0.5+0.3*dn),armCompressL:0.1*dn,armCompressR:0.1*dn};},
@@ -7256,7 +7292,11 @@ const CANDIDATE_SRC={
     gamble (object-less instrument, but the mime is universal). */
  headbang:"(d,ph)=>{const sl=Math.sin(ph*4*Math.PI);const dn=Math.max(0,sl);return {head:spF(d)*0.52*dn-spF(d)*0.06,spine:spF(d)*(0.1*dn),hipOff:[0,-2.0*Math.abs(sl)],upL:gL(d)*(0.3+0.1*dn),upR:gR(d)*(0.35+0.1*dn),foreL:gL(d)*0.4,foreR:gR(d)*0.4,legCompressL:0.05*dn,legCompressR:0.05*dn};}",
  'air-guitar':"(d,ph)=>{const st=Math.sin(ph*8*Math.PI);const gr=Math.sin(ph*2*Math.PI);const lat=_lat(d);const fw=lat?fwdS(d):(-outL(d));const fw2=lat?fwdS(d):(-outR(d));return {upL:fw*0.55,foreL:fw*(1.1+0.06*gr),upR:fw2*(0.35+0.12*st),foreR:fw2*(0.75+0.25*st),head:spF(d)*0.12+0.04*st,spine:spF(d)*0.08+0.03*gr,hipOff:[gr*0.8,-0.5*Math.abs(st)],legCompressL:0.06,legCompressR:0.06};}",
- 'chest-thump':"(d,ph)=>{const t=(ph*2)%1;const e=(a,b)=>Math.min(1,Math.max(0,(t-a)/(b-a)));const th1=e(0.08,0.16)*(1-e(0.22,0.34));const th2=e(0.4,0.48)*(1-e(0.54,0.66));const chin=e(0.7,0.85);const lat=_lat(d);const inR=lat?fwdS(d):(-outR(d));const th=th1+th2;return {upR:inR*0.3,foreR:inR*(1.0*th+0.1),armCompressR:0.3*th,head:-spF(d)*(0.06+0.12*chin),spine:-spF(d)*(0.04+0.06*chin),upL:gL(d)*0.15,hipOff:[0,0.5*th-0.4*chin]};}",
+ /* chest-thump: the chin lift and the arch are spF terms, zero on N and S, so
+    facing you only the forearm drifted sideways: 8.2% against 29.8% from the
+    side. Facing you a thump is the fist DRIVING IN and the body taking it --
+    the arm folds hard, the shoulder drops, and he rocks on each hit. */
+ 'chest-thump':"(d,ph)=>{const t=(ph*2)%1;const e=(a,b)=>Math.min(1,Math.max(0,(t-a)/(b-a)));const th1=e(0.08,0.16)*(1-e(0.22,0.34));const th2=e(0.4,0.48)*(1-e(0.54,0.66));const chin=e(0.7,0.85);const lat=_lat(d);const th=th1+th2;if(!lat){const oR=outR(d);return {upR:oR*(0.95-0.55*th),foreR:oR*(1.35-1.05*th),armCompressR:0.10+0.34*th,upL:gL(d)*(0.15+0.25*th),foreL:gL(d)*0.20*th,head:0.14*th-0.10*chin,hipOff:[oR*0.8*th,2.0*th-1.4*chin],legCompressL:0.10*th,legCompressR:0.10*th};}const inR=fwdS(d);return {upR:inR*0.3,foreR:inR*(1.0*th+0.1),armCompressR:0.3*th,head:-spF(d)*(0.06+0.12*chin),spine:-spF(d)*(0.04+0.06*chin),upL:gL(d)*0.15,hipOff:[0,0.5*th-0.4*chin]};}",
  retch:"(d,ph)=>{const t=ph;const e=(a,b)=>Math.min(1,Math.max(0,(t-a)/(b-a)));const h1=e(0.1,0.2)*(1-e(0.25,0.4));const h2=e(0.45,0.55)*(1-e(0.6,0.78));const hv=h1+h2;return {spine:spF(d)*(0.18+0.3*hv),head:spF(d)*(0.14+0.16*hv),hipOff:[0,1.2+1.4*hv],legCompressL:0.14+0.08*hv,legCompressR:0.14+0.08*hv,upL:gL(d)*(0.45+0.15*hv),foreL:gL(d)*0.3,upR:gR(d)*(0.5+0.15*hv),foreR:gR(d)*0.3,armCompressL:0.05*hv,armCompressR:0.05*hv};}",
  'twist-stretch':"(d,ph)=>{const tw=Math.sin(ph*2*Math.PI);const lat=_lat(d);return {hipOff:[tw*2.2,0.3*Math.abs(tw)],spine:0.12*tw,head:0.1*tw,upL:gL(d)*(0.85+0.15*tw),upR:gR(d)*(0.85-0.15*tw),foreL:gL(d)*0.2,foreR:gR(d)*0.2,legCompressL:0.04+0.03*Math.max(0,tw),legCompressR:0.04+0.03*Math.max(0,-tw)};}",
  slump:"(d,ph)=>{const sw=Math.sin(ph*2*Math.PI);return {spine:spF(d)*(0.2+0.02*sw),head:spF(d)*(0.2+0.03*sw),armCompressL:0.18,armCompressR:0.18,upL:gL(d)*0.08,upR:gR(d)*0.08,hipOff:[sw*0.5*(_lat(d)?1:0.4),1.4+0.2*sw],legCompressL:0.08,legCompressR:0.08};}",
