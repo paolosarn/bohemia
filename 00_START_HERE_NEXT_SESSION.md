@@ -1,3 +1,77 @@
+UI (ui-kmqmrf): 9/25 LATEST -- *** [bb interface] ROUND ONE: THE SCHOOL PAGE, AND RULE 24
+IS ALREADY TRUE BETWEEN THE TWO SURFACES HE HAS. *** Row CLAIMED (school is one page per
+round, rule 33f). TAB: CITY and the walking screen; the picture is in the VOTE tab. Record:
+records/BOHEMIA_BB_SCHOOL_THE_INTERFACE_ROUND_ONE_9_25_26.md
+
+WHY THIS ROW AND NOT MY OTHER TWO: rule 33 (Paolo 9/24, "an executive decision") gives every
+chat a [bb ...] line, school first; the coordinator put it first in this lane; and it is his
+own sentence back to us from 9/21, voting ui-five-ways-one-door-9-14 DOWN: "Look how battle
+Brothers does this shit and then do it, do big brain research on how battle Brothers does
+it, bro." Nothing had answered that. [phone city only] stays claimed but is not continuable:
+the object is built and what is left is HIS pick between two crack severities. [the picks]
+stays claimed.
+
+THE MEASUREMENT, through the one driver on a fresh cut, every visible box by what it says:
+    THE STREET              12 visible things
+    ZOOMED OUT (the map)    31 (21 of them are posts inside the phone)
+    IN BOTH, SAME PLACE      9: the bar, the notes button, the canvas, the walk pad
+                                (nav, pad, mode, its face, its label)
+    STREET ONLY              3, and all three are the first-run teaching overlay
+    MAP ONLY                 the phone, which is his own ruling
+*** SO RULE 24 IS ALREADY TRUE BETWEEN THESE TWO SURFACES AND NOBODY HAD WRITTEN IT DOWN. ***
+Nothing moves, nothing is swapped, and the only difference is the object he asked for.
+
+AND THE GAP, WITH ITS NUMBER: OUR ALWAYS-ON BAR SHOWS ONE THING. Battle Brothers' bar
+carries five readings every second (crowns, food, day, time, speed). On the cut he plays the
+bar's readouts are hidden (RUN [cut now], his own "less on screen" 18g), so what is left in
+that 390 x 50 strip is the NOTES button. The most valuable strip of glass in the game is
+empty on the surface he opens. I did NOT fix that: it is his own newer ruling on one side
+and Battle Brothers on the other, it touches RUN's cut and rule 18's hold, and it goes to
+him as a question rather than a change I make behind a ruling he gave four rounds ago.
+
+*** THE FINDING THAT MATTERS MOST, AND IT IS A REFUSAL: BATTLE BROTHERS TELEPORTS YOU TO
+THE FIGHT. *** A contact cuts to a separate tactical screen with its own bar, turn order
+along the top, abilities along the bottom, different buttons in different places. That is
+precisely what he killed on 9/21 (rule 24). So "look how Battle Brothers does this and then
+do it" cannot be obeyed wholesale in this department. WE TAKE: the thin always-on bar, the
+place as a PANEL OVER THE MAP (we already do this and did not know it -- the phone opens
+over the city and the city stays behind it), and the price beside the purse. WE REFUSE, by
+his own newer word: the battle screen. A school round that only copied would have shipped
+the one thing he has already banned.
+AND ONE MORE THAT BINDS EVERY LANE: BATTLE BROTHERS' NUMBERS LIVE IN TOOLTIPS, AND HE PLAYS
+ON A PHONE. There is no hover. Whatever any lane takes from their depth has to survive with
+none: the number goes ON the object or it goes on the phone.
+
+RULE 22 COOK: ui-one-set-of-buttons-9-25 in the VOTE tab. Four panels. The top two are the
+REAL game from the game's camera (rule 32f), same run, with the nine shared things ringed
+gold and the phone ringed purple. The bottom two are THE QUESTION painted onto a real frame
+and labelled as not-the-game-yet: when a fight starts, what may it add? A, the ground under
+him lights for reach (rule 23c) and the enemy's next beat rides the ring of the walk pad his
+thumb is already on, nothing new appears. B, the same plus one thin strip on the bar. Two
+options, no more (rule 25).
+
+*** WHAT I COULD NOT DO, AND IT IS THE NEXT ROUND OF THIS ROW: I COULD NOT PHOTOGRAPH THE
+FIGHT. *** The third surface is unmeasured and I am not pretending otherwise. Four attempts,
+each named and each measured: streetTapFight() returns without starting one (it wants a crew
+under the tap and a cooldown a fresh boot has not spent); streetFightOnStep() has the same
+guards (SF_GRACE, SF_COOLDOWN); cityFightOnEnter() needs INSIDE, a door I have not walked
+through; and cityHandOver({type:'BOHEMIA_FIGHT',...}) RETURNED TRUE while the shell did not
+change at all, 3 visible things before and 3 after, so that payload is not the shape the
+shell answers.
+*** FOR COMBAT, ONE LINE: what does a lane call to start a fight on the street from outside
+the game? [one mode] shipped 9/24 and the surface it produced has never been counted by
+anybody, including this lane, which is the only reason "one HUD across map, street and
+fight" is two thirds of a claim.
+
+NEXT: [bb interface] round two, the fight census with COMBAT. Then his A/B pick on the
+cracked phone, then [the picks] (loads B is in; opens C, talks A, vote tab D, top bar D,
+choice looks A, writing D, screen C, label E, a choice's size as a SETTING), then
+[door fixes], [faces on the phone], [inner votes], [one hud].
+[PENDING Paolo] ONE, and it is a real fork in plain words, already phrased for the tab:
+the top bar is empty on the demo. Battle Brothers keeps five readings on screen every
+second; his own 9/20 ruling was LESS ON SCREEN. My default if he says nothing: three
+readings, batteries, the hour, and where he is. Not built.
+
 EYES AND EARS (eyes-5vql33): 9/24 (au) LATEST -- *** [bb reads] ROUND ONE (SCHOOL) DONE, RULE 33: THE MAP TAKES TWO SQUEEZES AND THE FIRST ONE LIES, AND THE MAP PAINTS IN TWO PIXELS. *** Record: records/BOHEMIA_EYES_BB_READS_ROUND_1_SCHOOL_THE_MAP_PAINTS_IN_TWO_PIXELS_9_24_26.md, tool tools/bohemia_eyes_map_reads.js (three controls, built on PLUMBER's one driver). Standing jobs on a cut fresh from main, BUILD 9/24s. THE STRANGER'S LIST and THE HORROR READING are rewritten on the front page.
   THE SQUEEZE, MEASURED ON BOTH SURFACES WITH THE GAME'S OWN STATE: at the street mode human, tile width 18, zoom 1; ONE squeeze flips mode to CITY and leaves tile width 18 and zoom 1 FOR TEN FULL SECONDS, watched second by second; a SECOND squeeze gives tile width 3.7, zoom 0.208, which is the map; a third changes nothing. Identical on the deployed cut and the alpha, so it is not the cut. RUN's board says the seam is one squeeze and the MODE half is true -- the camera half is a squeeze behind it. One bounce-back: RUN [eyes: two squeezes]. It also means any lane reading MODE to decide 'he is on the map' is right a squeeze before the player is.
   THE FIRST READING OF THE MAP: median painted mark 2 px, smallest 2 px, against a published floor of about 11 px for a map icon a person must recognise; 10 text marks, smallest 11 px tall at a 5 px font; 9 of 9 tappable marks under the 44 px touch law. At zoom 0.208 a tile is 3.7 px, so the valley is drawn in two-pixel marks. Not a complaint about art: it is the number the instrument exists to produce, and it says the city view is a picture of a place rather than a map you can read or press.

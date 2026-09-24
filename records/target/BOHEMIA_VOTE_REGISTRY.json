@@ -1946,6 +1946,19 @@
     },
     "redoOf": "nod, spear-drive and shiv-jab",
     "said": "A lot of the ones I thumbed down were because some of the DIRECTIONS look like dog shit."
+   },
+   {
+    "id": "ui-one-set-of-buttons-9-25",
+    "kind": "ui",
+    "lane": "ui",
+    "sha": "pending",
+    "made": "9/25",
+    "title": "ONE SET OF BUTTONS, EVERYWHERE",
+    "why": "You said look at how Battle Brothers does this and then do it. I did, and here is the honest part: Battle Brothers teleports you to a separate battle screen with different buttons, which is the exact thing you banned. So I took the bits that work and refused that one. TOP ROW IS THE REAL GAME, same run: gold is what sits in the same place whether you are walking or zoomed out, which is the bar, the notes button and the walk pad. Purple is the only thing on one screen and not the other, and that is your phone, in the city view where you put it. Nine things are shared. Nothing moves and nothing gets swapped. BOTTOM ROW IS THE QUESTION, painted onto a real frame so you can see it, not in the game yet: when a fight starts, what is it allowed to add? A is the ground under you lights up for how far your gun reaches, and the enemy's next move rides the ring of the walk pad your thumb is already on. Nothing new appears. B is the same plus one thin strip on the bar telling you whose turn it is. Pick A or B.",
+    "show": {
+     "how": "image",
+     "src": "vote/UI_ONE_SET_OF_BUTTONS_9_25.png"
+    }
    }
  ],
  "verdicts": [
