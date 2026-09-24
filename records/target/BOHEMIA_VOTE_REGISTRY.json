@@ -1910,6 +1910,7 @@
    "id": "portrait-the-bust-9-24",
    "kind": "face",
    "lane": "portrait",
+   "sha": "1282a90",
    "made": "9/24",
    "title": "THE BUST",
    "why": "You made the overworld Battle Brothers and told every chat to go learn how BB does its part. Theirs are busts: the person fills the frame. I measured ours and only a third of the picture is the person, over half is empty background. The cause turned out to be a bug, not taste: our shoulders are one fixed shape drawn at the same height on every face, while the chin above them moves twelve rows across the crowd and now moves whenever you drag your own sliders. On a short face that leaves a long bare neck. These sit under the chin they belong to. It is honest about its size: 145 of 200 people get less empty space, the middle one gains 2 points, the best gains 12, and a long face is unchanged. It is OFF until you say, because it reframes every face in the game. Worth turning on?",
