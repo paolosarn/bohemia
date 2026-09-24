@@ -86,8 +86,16 @@ STILL OPEN IN THIS LANE, said plainly:
   6. THE GAZE IS A DIE, NOT A MEANING (bible rule 7 wants wrongness from world data).
      It is rolled from the person's own hash and hooked to nothing true yet. When the
      world knows who is lying to you, that is the hook. Naming it is rule 13.
-[PENDING Paolo] nothing from me. The standing one is not mine to fix: the repo's Pages
-source needs to be GitHub Actions or the VOTE list keeps failing to load (9/22).
+[PENDING Paolo] NOTHING, AND I WAS CARRYING A DEAD ONE. I wrote this block saying the
+standing ask was the repo's Pages source. HE ALREADY DID IT on 9/23 ("Okay i did it",
+records/BOHEMIA_PAOLO_FLIPPED_PAGES_TO_ACTIONS_9_23_26.md) and CLAUDE.md's ship-flow
+section says so. I had been reading the 9/22 line and not the 9/23 one under it, which
+is exactly the addendum rot the truth hierarchy exists to kill, and I did it to myself
+in the file every session reads first. MEASURED rather than taken on the record's word:
+the last four workflow runs across the WHOLE repo are all pages.yml and there is not one
+legacy "pages build and deployment" run among them. The race is dead, a deploy is true
+when its own pages run is SUCCESS, and "finished last" no longer means anything. My own
+ship this round: run 2389 on 174c254, SUCCESS.
 
 LIFE + CITY (city-1eztay): 9/24 LATEST -- *** SEVEN OF SEVEN ARE ALIVE, THE ROW IS
 CLOSED, AND THE COOK IS THE SHIFT: 477 MINUTES OF HIS DAY ON GROUND NOBODY OWNS. ***
