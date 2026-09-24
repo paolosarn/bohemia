@@ -6,6 +6,14 @@
  * this round is about a face HOLDING and about where its eyes point, so the card
  * has to hold and the eyes have to be on screen, moving on the real clock.
  *
+ * REFERENCE CHECK (the 9/4 standing duty; added by DIRECTION 9/24 at the seam --
+ * fifth cook tool in three rounds shipped without one, all from lanes new to the
+ * cook-every-round cadence; the pattern is with the coordinator): the ruler is
+ * AH-01, the bible -- rule 6 THE STILL FACE ("at most one micro-move per 8 beats",
+ * the exact number this tool measures) and rule 3 the long hold. It bakes the real
+ * renderer's pixels, so the wardrobe/face compare stays with the face laws.
+ * AH-01 resolves in the reference library index.
+ *
  * It bakes the REAL renderer's pixels -- renderFace and facePerform out of the
  * alpha, on the real 120 BPM clock -- over one whole blink period, dedupes the
  * frames (a face that holds repeats itself, which is the point), and writes one

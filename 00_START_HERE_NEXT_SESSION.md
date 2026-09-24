@@ -46342,7 +46342,28 @@ your first VAMILY and do steps 1 to 9.
 I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
-ROUND LOG 9/24a (latest): [three eras] SHIPPED - the look card for rule
+ROUND LOG 9/24b (latest): FIGHT VERDICT ROUND 8 on V225's fresh pair,
+and the card amended to his second votes the same round. THE WORLD
+HALF OF THE FIGHT IS PAID on the posted frames: one ruler on both
+reads fight 207 px vs walk 187-192 - ONE SIZE - on his street at his
+hour. Named per rule 13: COMBAT's own gate still reads a collapsed
+board live (k=300, 26/10) while the frames read right and their
+commits admit the instrument confusion - PROVED ON THE PAIR, UNPROVEN
+ON THE GLASS; [fight feel] waits on their gate, not my jpg ruler.
+Still lying, all UI [fight hud], fourth round running: diamonds, map
+type, lollipop, gradient bar (sixth round), SHOOT glow, verb
+percentages. THE THREE-ERAS CARD OBEYS RULE 32b: section 4 rewritten
+in place - THE RUIN IS THE FLOOR, nothing decays below act 1, the
+future only adds reclamation (techier, more modern); a do-nothing
+flip shows the same ruin plus what the world reclaimed without him,
+the world-alone share being the manager's dial in VOTE. The dead text
+is struck with the amendment written on it; machine block updated.
+VERDICTS READ: my GROUND RULER default went UP with no comment - the
+2.07/1.55 density floors stand consumed; COOK's footprints went UP
+with 'don't have it be exactly a straight line' (a ruling for COOK's
+wiring, not mine). CHARACTER's six bounced garments: still open,
+style gate unchanged.
+PREVIOUS: [three eras] SHIPPED - the look card for rule
 31, written after measuring the premise (DYNASTY school round one
 exists; the valley re-derives under one beat on a phone, which is what
 makes bake-on-flip legal). THE ONE SENTENCE: the look of an act is a

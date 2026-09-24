@@ -49,22 +49,29 @@ DOWN, NOT ART SWAPPED OUT.
   the ledgers say people live (bible R7 drawn from world data - the
   lit street with nobody home stays available as the WRONG version).
 
-## 4. ACT THREE - THE ANGEL ERA (light on the same bones, or the ruin)
-- A RICH ACT THREE grows by EXTRUSION AND LIGHT: towers rise from
-  act-1 footprints the ledger actually earned (the deriver may only
-  stack what a lot paid for), and the third material of the act cards
-  - MADE-OF-LIGHT - becomes a WORLD material on those earned surfaces:
-  lit facades, signs that work, glass that glows from inside. Every
-  lumen names its fixture (R4); light is the evidence of function,
-  never a mood gradient.
-- A POOR ACT THREE (he flips in minute one, nothing done) is ACT ONE
-  AGED FORTY MORE YEARS, and it must READ AT FIRST FLIP: the burned
-  family (0.19-0.28, the darkest) grows its share, sand crosses onto
-  the roads (the desert reclaiming the grid - ground family drawn over
-  road cells along the windward edges), roofs fall in (the yard's
-  rubble family), and THE BROADCAST IS STILL ON (R9 at its loudest
-  when nobody is left to hear it). The ruin is the tutorial; the
-  picture is the lesson.
+## 4. ACT THREE - THE ANGEL ERA (the ruin, reclaimed)
+*** AMENDED 9/24, HIS SECOND VOTES (rule 32b / law section 9a, newest
+wins; this section's first cut said a poor act 3 decays BELOW act 1 -
+that is DEAD): "act 1 is the ruin and the future gets better...
+civilization reclaims parts of cities for economic purposes, more
+techy and modern." THE RUIN IS THE FLOOR. Nothing ever reads worse
+than act 1; the future only ADDS. ***
+- RECLAMATION IS THE MECHANISM: act 3 is act 1's ruin plus the blocks
+  that were RECLAIMED. A reclaimed block grows by EXTRUSION AND LIGHT:
+  towers rise from act-1 footprints the ledger earned (the deriver may
+  only stack what a lot paid for), and the act cards' third material -
+  MADE-OF-LIGHT - becomes a WORLD material on those surfaces: lit
+  facades, signs that work, glass glowing from inside. Every lumen
+  names its fixture (R4); light is the evidence of function, never a
+  mood gradient. Reclaimed reads TECHIER AND MORE MODERN than the
+  start, his words.
+- A DO-NOTHING FLIP shows THE SAME RUIN plus what the world reclaimed
+  WITHOUT HIM - a thin scatter of other people's lit blocks he owns no
+  part of. The lesson flips with the law: not "your absence rotted
+  it" but "the world moved on and none of it is yours." HOW MUCH the
+  world does alone is the manager's dial, in VOTE.
+- THE BROADCAST IS STILL ON in the unreclaimed blocks (R9): the ruin
+  keeps act 1's own horror wherever reclamation has not reached.
 
 ## 5. THE DERIVER'S DIALS (mechanism, for LIFE+CITY and COOK)
 - Per cell, one WEAR dial W in 0..4 mapped from the ledgers; the cell's
@@ -99,8 +106,7 @@ Any NO kills the batch with a post-mortem.
 {"card":"THREE_ERAS_LOOK","date":"9/24/26","law":"rule 31, 9/23",
  "constant":{"register_hue":[18,47],"body_px":112,"camera":"45deg","purple":"amalgamation only, all acts"},
  "act2":{"mechanism":"wear dial W 0..4 via grime machine on act-1 families","earned":"lower W + infill + occupancy light","never":"a new palette"},
- "act3":{"rich":"extrusion of earned footprints + made-of-light as world material, every lumen named",
-         "poor":"act 1 aged: burned family share up, sand over roads, broadcast still on (R9)"},
+ "act3":{"mechanism":"the ruin + reclamation; the ruin is the FLOOR, nothing reads worse than act 1 (32b, law s9a)","rich":"more reclaimed blocks: extrusion of earned footprints + made-of-light, every lumen named, techier than the start","poor":"the same ruin + the world's own reclamation, none of it his; world-alone share is the manager's dial in VOTE","amended":"9/24 second votes"},
  "bake":"on flip, never runtime (R10); derive measured 44-64ms / 170-239ms phone (DYNASTY round one)",
  "flip_overlay":"none - between frames, diegetic or dead",
  "judge":"same block, three dates, beside the real thing; greyscale reads city at all three"}
