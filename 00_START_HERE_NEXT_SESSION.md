@@ -30672,7 +30672,101 @@ reverted to an older round's text after a rebase once, with two shipped rounds
 missing. A resolver that re-applies only what it remembers eats everything else. ***
 
 
-*** 9/23 NEWEST -- RULE 31 LANDED, AND THREE OF THE FOUR LEDGERS THE FUTURE IS
+*** 9/24 NEWEST -- HIS LOCKED LIGHT LAW SAYS CLUSTERS AND THE GRID ROLLS ONE
+COIN PER FEEDER, SO RULE 31'S FLOOR HAS NO CORE TO PULL BACK TO. ***
+records/BOHEMIA_WORLD_THE_LIGHT_IS_NOT_IN_CLUSTERS_9_24_26.md  sha 5b3896e
+Nothing on a play surface (rule 18). The cook went to VOTE and it is DRAWN.
+
+(0) THE BOARD, AND WHAT I DID NOT CLAIM. [future city] still says "waits for
+DYNASTY's two school rounds; claim nothing here yet". MEASURED THE BLOCKER
+(rule 12): school round one SHIPPED 9/23, [the derive] is STILL OPEN. So the
+blocker is real, half of it, and the derive is not this lane's to design. I did
+not claim the row. Everything else in my section reads SHIPPED or HELD.
+
+(1) BUT ROUND ONE MAKES FOUR CLAIMS ABOUT MY ENGINE AND NOBODY HAD CHECKED ONE.
+Closing rule 31's do-nothing-future hole it says the floor is "the power pulled
+back to the corridors that still pay, a small live core", and that every part of
+that is "a thing our engine already draws: CLUSTERED POWER is already the law
+that decides which corridors are lit". The map, the grid and the towns are
+WORLD's, so that sentence is mine to check and it needs no derive.
+
+(2) *** THE LAW SAYS CLUSTERS. THE CODE ROLLS A COIN. *** CLUSTERED POWER
+(Paolo 7/14, LOCKED, "I like the answers"), his own words: lighting fails BY
+CIRCUIT, "so outages/survivals are CLUSTERS, never alternating"; 10-15% lit,
+"all in clusters"; "every lit cluster is OWNED". The grid:
+`const live = r() < litFraction` -- one independent coin per feeder, which is
+the definition of alternating.
+
+(3) MEASURED BEHAVIOURALLY, never read off the source, because a source scan
+cannot tell a coin flip from a cluster and that distinction IS the job:
+    seed 1337   432 lit cells in 178 SEPARATE BLOBS, biggest 12 cells
+    seed    7   391 lit cells in 158 SEPARATE BLOBS, biggest 13 cells
+    seed   42   422 lit cells in 154 SEPARATE BLOBS, biggest 14 cells
+THE BIGGEST LIT THING IN LAS VEGAS IS TWELVE CELLS. And the decay test settles
+it: the share of a lit cell's street neighbours that are also lit falls from 35%
+at range 1 to 15% at range 6, and 15% IS the global fraction -- past one feeder
+the light is statistically indistinguishable from scatter. The range-1
+clustering is real and it is NOT the law: it is the feeder's own length, because
+buildCircuits slices a run into sixes. A code artifact wearing a law's clothes.
+
+(4) *** AND THAT IS WHAT BLOCKS THE FLOOR. *** Planned shrinkage means
+concentrating what still works. Thin a uniform scatter and you get a thinner
+uniform scatter, the same rash fainter. DYNASTY's sentence is right about the
+LAW and wrong about the CODE, and nobody could have known without measuring.
+
+(5) THE LAW, BUILT, so the fix is a size and not an opinion. Light spreads from
+a source along touching feeders to the same fraction. The ONLY free number is
+how many sources and it is DERIVED, not tuned: one per faction that holds ground
+(18 outfits in his graph, 14 hold ground), which is the law's own "every lit
+cluster is OWNED".
+             AS WE SHIP IT                  AS HIS LAW SAYS
+seed 1337    432 lit, 178 blobs, max 12     425 lit,  11 blobs, max 104
+seed    7    391 lit, 158 blobs, max 13     414 lit,  10 blobs, max 106
+seed   42    422 lit, 154 blobs, max 14     425 lit,  10 blobs, max  83
+SAME LIGHT, sixteen times fewer pieces, a core nine times bigger, not one extra
+lamp, both sides inside his 10-15% band.
+
+(6) THE COOK, DRAWN (rule 29). slices/vote/WORLD_THE_VALLEY_AT_NIGHT.png -- the
+whole 96x96 valley after dark, TWICE, at 1:1, from the real generator and the
+real grid. Left is what he plays, right is his own law. TWO CUTS AND THE FIRST
+BROKE ITS OWN ARGUMENT: I gave every lamp a two-cell glow pool, so 178 separate
+haloes laid down more glowing pixels than 11 clusters and THE LEFT PANEL LOOKED
+BRIGHTER WHILE CARRYING SEVEN FEWER LAMPS -- and same-light-different-shape is
+the entire claim. Tight pools now, which is also the truer drawing at that
+height. The dead street grid was two steps too light and the frame read as graph
+paper. MAP LAW is not in the way: nothing designs a layout, the map and the
+feeders are the generator's and untouched.
+
+(7) GATES. LIGHT CLUSTERS 38/0, new, in the suite, red three ways (cluster the
+grid -> 8, and the message TELLS YOU TO RE-AIM rather than just going red; move
+the lit fraction out of his band -> 11; make the right panel merely brighter ->
+1). FUTURE LEDGERS 38/0, REFERENCE CHECK and LIGHT REGISTRY green.
+*** TWO OF MY OWN CHECKS WERE WRONG BEFORE THE CODE WAS ***, which is the third
+round running that my instrument failed before the game did: one regex did not
+allow for a sentence wrapped across two lines in DYNASTY's record, and one read
+graph.factions as an ARRAY when it is an OBJECT of 18, so `undefined >= 14` was
+false and the gate reported the number was not derived when the truth was that I
+could not read the file. A check that fails because I cannot read something must
+say SO, not convict the code.
+NOT MINE, confirmed on a clean tree before saying so: GATE REGISTRY red on 13
+orphan gates (light_clusters_gate.js is registered and is not among them).
+
+(8) THE SHA TRAP FROM LAST ROUND DID NOT BITE THIS TIME, because I stamped the
+registry row AFTER the final rebase and verified it with
+`git merge-base --is-ancestor`. Keep doing it in that order. The registry
+conflict-resolver in scratchpad also worked first try now that its sides are the
+right way round (upstream had 116 items, re-appended 1).
+
+(9) ROUTED. *** TO DYNASTY, for school round two: the floor's ingredients are
+not all built. The streets are (measured last round: a pure function of the
+seed). The grid does answer dark or live per cell. But CLUSTERED POWER is a law
+the code does not obey, so the live core the Detroit floor stands on does not
+exist yet. The fix is one place and it is measured; the floor is still the right
+answer. *** TO WHOEVER LIFTS THE HOLD: one place, engine/bohemia_powergrid.js,
+powerMap(), the `live` roll.
+
+
+*** 9/23 -- RULE 31 LANDED, AND THREE OF THE FOUR LEDGERS THE FUTURE IS
 DERIVED FROM CANNOT SAY WHICH ACT THEY MEAN. ***
 records/BOHEMIA_WORLD_THE_FUTURE_IS_DERIVED_FROM_ONE_LEDGER_9_23_26.md  sha caaaa26
 Nothing on a play surface (rule 18). The cook went to VOTE and it is DRAWN.
