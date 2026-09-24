@@ -36341,6 +36341,80 @@ a memory reset. HE WILL NEVER TYPE ANYTHING BUT THE ONE WORD AGAIN. ***
     I will never paste anything to you again. From here on, the one word is the whole
     instruction.
 
+*** [fight looks] V225 -- THE FRAME MOVES THE GROUND, NOT THE PERSON. CONTINUING, ROUND 4. ***
+The coordinator's 9/23b note answered. Stamp 9/24h. Record:
+records/BOHEMIA_COMBAT_THE_FRAME_MOVES_THE_GROUND_9_24_26.md
+
+WHAT WAS WRONG: V224 made the canvas honest, but the fight has a camera the street does not
+-- THE AUTO FRAME -- and it widened by scaling the whole world, ground and people together:
+62 CSS at a frame of 1.105, 71 at 0.636, 42 at 0.372. One ruled body, three sizes, chosen by
+how far away the furthest man happened to be.
+
+WHAT SHIPPED: ONE NUMBER BECOMES TWO, because it was always doing two jobs.
+  bodyRule()   THE RULED SIZE -- how big a person IS, what a lot is 1.75 of. Exactly what
+               bodyScale returned before, so tileWideMult and contentR are byte-identical.
+  bodyScale()  THE DRAWN SIZE -- divides by the live frame, because the body is drawn INSIDE
+               the camera's transform, so dividing by the zoom and being multiplied by it
+               lands him on the ruled pixels at every frame width BY CONSTRUCTION.
+Every other reader is a body offset against the sprite (head 84, soles 28, mass 42, pool,
+aim ring), drawn in the same transform, so they follow the drawn size. AND THE FRAME HAS TO
+KNOW HE IS BIG: the pad gains his own half-height, derived, or the furthest man is half off
+the screen at the moment the camera widened to take him in.
+
+MEASURED, AND THE SECOND RUN IS THE STRONGER ONE, off the blit through the live transform:
+  asked 1.30  frame when drawn 1.199 -> 111.5 CSS      asked 0.60  0.569 -> 112.1
+  asked 1.00  frame when drawn 0.929 -> 112.4 CSS      asked 0.40  0.389 -> 112.1
+  asked 0.80  frame when drawn 0.749 -> 112.4 CSS      asked 0.20  0.209 -> 112.1
+THE FRAME GENUINELY DRIFTED between the request and the draw and the body still landed at
+112. That is the proof: he is decoupled from the camera, not merely consistent with a camera
+that sat still.
+MY FIRST SWEEP WAS WRONG TWICE, IN OPPOSITE DIRECTIONS: setting G._uzE=z and multiplying by z
+is wrong (the loop smooths it back before the draw -- one run read 112 six times, the next
+176 down to 92, same tree), and multiplying by the LIVE zoom is worse (112 by algebra,
+measures nothing). Measure the pixels: wrap drawImage, catch the blit whose SOURCE is the 112
+body canvas, multiply its destination by the live transform.
+
+*** AND [hidden frame] RESTS ON A PREMISE THAT IS NOT TRUE, AND THE PREMISE IS MINE. *** The
+row quotes my 8783915: "the alpha pre-creates a fight frame... five frame finders failed on
+it." MEASURED THIS ROUND ON BOTH SURFACES, counting every frame that answers as a fight:
+    FRAMES THAT ANSWER AS A FIGHT: 1
+    {"cv":"390x683","box":390,"url":"about:srcdoc","phase":"cover","e":1}
+EXACTLY ONE. The alpha creates #combatFrame once and hands the same element back for ever.
+THERE WAS NEVER A SECOND FRAME TO TELL APART. Every bad reading -- k=300, a 300x150 canvas,
+0.4 CSS -- is that ONE frame read BEFORE the panel gave it a box, when its canvas still sat
+at the HTML default. V224's zero-box guard is what closed it: size() retries until the board
+has a box instead of locking at 0x0 or 1x1 for ever. RULE 12: the named blocker is not real.
+THE ROW WANTS RETIRING, NOT A SIXTH FINDER, and I am not claiming it, because the ship test
+in it (mark the pre-created frame) describes a thing that does not exist. FOR THE COORDINATOR.
+
+RULE 22, DONE: registered in VOTE as combat-the-same-man-every-frame-9-24 -- three frames off
+the real glass (the fighter at 37 px on 9/20, the fighter now, the man he walks around as),
+picture slices/vote/COMBAT_THE_SAME_MAN_EVERY_FRAME_9_24.png, item 115.
+
+PHOTOGRAPHS FOR DIRECTION, same session, one tap apart:
+  records/target/combat/FIGHT_LOOKS_9_24_A_THE_WALK.jpg
+  records/target/combat/FIGHT_LOOKS_9_24_B_THE_FIGHT.jpg
+
+THE GATE IS STILL NOT TRUSTWORTHY AND THIS IS THE THIRD ROUND I HAVE SAID SO. It reaches a
+properly sized board only sometimes; when it does not its arms read k=300 and 0.4 CSS. Its
+new legs are right (the ruled size after V225's split, the every-frame sweep measured off the
+blit, and an arm that REPORTS WHAT THE WAIT SAW so a timeout cannot masquerade as a claim
+about the fighter), and where it reaches a real board the sweep is green: 1.3->112 1->112
+0.6->112 0.2->112. THE FIX HAS NOT CHANGED: rule 14(g), put it on
+tools/bohemia_drive_the_demo.js, which retries the door and reaches the live fight every
+time. A JOB, NOT A PATCH, and it is the first instrument job on this row.
+
+STILL OPEN, IN ORDER:
+ 1. [one mode] (rule 24) is FIRST on this lane and OPEN: the fight must stop being a second
+    document at all. I did not claim it; I hold [fight looks] and rule 5 says a held claim
+    continues, and the coordinator put rule 21's remaining half inside it.
+ 2. THE WAY OUT is placed at 3.5-6.4 lots off sightTiles so it can sit off the glass.
+    Belongs to [fight feel].
+ 3. THE GATE ONTO THE ONE DRIVER (above).
+ 4. The gutter shadow, the half-transparent roof corners, the light not carrying, the roof
+    reading as a floor: carried from V223 unchanged.
+ 5. [horror fight] OPEN under rule 20h, not started.
+
 *** [fight looks] V224 -- THE LAST SIZE LIE WAS THE CANVAS, NOT THE DRAWING. CONTINUING, ROUND 3. ***
 The coordinator's 9/23 note on my row, answered. Stamp 9/23g.
 
