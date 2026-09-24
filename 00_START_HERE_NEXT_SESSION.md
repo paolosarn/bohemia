@@ -1,3 +1,69 @@
+LIFE + CITY (city-1eztay): 9/24 LATEST -- *** SEVEN OF SEVEN ARE ALIVE, THE ROW IS
+CLOSED, AND THE COOK IS THE SHIFT: 477 MINUTES OF HIS DAY ON GROUND NOBODY OWNS. ***
+TAB: the new picture is in the VOTE tab (alpha). Records:
+records/BOHEMIA_AN_INVISIBLE_STRIP_EATS_THE_TOP_OF_THE_GAME_9_23_26.md
+
+ROW [eyes: half a hud] SHIPPED. ROW [eyes: not dead] ANSWERED.
+
+EYES round 14 re-ran its own bounce-back and landed where this lane did: six of the
+seven answer in the alpha, "the defect was the cut and not your buttons". Two lanes,
+two instruments, one answer. WE DISAGREED ON ONE and it is settled: EYES said "ONLY
+SCAVENGE 8H still does nothing anywhere". MEASURED with one real finger on the alpha:
+    the button reads "SCAVENGE 8H"
+    one press: clock 360 -> 837 minutes (6:00 -> 13:57, SEVEN HOURS FIFTY-SEVEN GONE)
+               a shift PAID (worked 0 -> 1), the money changed,
+               and the button HID ITSELF (flex -> none) because the offer is spent
+    what he sees: the bar reads "DAY 1 · 13:57"
+IT WORKS AND IT SAYS SO. Its handler is doWork(), which opens NO PANEL -- which is
+exactly why a "did a panel appear" test reads it dead and a "did a word change" test
+reads it alive; the word I saw was THE CLOCK. SEVEN OF SEVEN. Nothing rewired, per
+EYES' own instruction.
+
+*** AND THE ONE THING EYES' INSTRUMENT CANNOT SEE, still open and still routed: ***
+it presses BY NAME in code, which goes straight past the parent document. #openInvite
+-- the opening banner, position absolute, top 0, z-index 39, [0,109,390,87] against a
+city frame at [0,42,390,802] -- TAKES EVERY FINGER in an 87-pixel full-width strip
+across the top of the walked game, and it is in the PARENT document so no iframe
+z-index can win. "Pressed by name it answers" and "pressed by a thumb it never
+arrives" are both true and only the second is what he does.
+[PENDING coordinator]: not mine to patch (alpha shell, and the banner has its own
+WATCH and NOT NOW buttons so pointer-events:none would kill them). It is display:none
+in its inline style and was BLOCK when measured, so something shows it and nothing
+hides it again.
+
+THE COOK: THE SHIFT IS LOGGED (VOTE tab). It came out of this round's own measurement.
+After the finger test I asked the world whose shift that is:
+    he works at                [48,48], district "suburb"
+    the offer                  scav, 477 MINUTES (seven hours fifty-seven)
+    the wire under it          DARK
+    who holds that ground      NOBODY
+    who the money comes from   NOBODY -- it is free ground
+    blocks with a landlord     3,449        with none     5,767
+and the purse's own ruling (9/16, ruling 9) is what makes it cold: "A DAY'S WORK IS
+PAID FROM A TREASURY, NEVER MINTED... WHO PAYS IS THE GROUND YOU WORKED ON." The hours
+are his and the name on the card is nobody's.
+THE PICTURE: a house being pulled apart, roof half off with the joists showing,
+salvage leaning in stacks, bundled pipe end on, a barrow. All ordinary. ONE THING IS
+WRONG and it is the only lit thing: THE TIME CLOCK BY THE GATE IS STILL RUNNING AND
+HAS PUNCHED THE SHIFT AT 7:57 FOR AN OWNER WHO DOES NOT EXIST. The 7:57 is the
+offer's own 477 minutes. The factory REFUSES TO RUN without the measured row.
+One revision, all found by looking: the roof was a 110x48 slab that read as a
+shopfront; the salvage read as DRAWER FRONTS (neat rectangles with a line across);
+the barrow was a sign on a post; the wall was a countertop.
+
+*** NOTE FOR ECONOMY, measured not decided, not my system: *** on free ground doWork's
+fallback path is BohemiaPurse.payForWork with r.minted=true, and the shift DID pay
+(worked 0 -> 1) on a cell whose payTo is null. The 9/16 ruling says a day's work is
+never minted. Either the ruling has an exception for unheld ground or that path mints.
+
+STILL UNVOTED IN THE VOTE TAB: THE SHIFT IS LOGGED (this round), THE STREET THAT IS
+STILL LIT (168 of 264 lit blocks have nobody living on them), THE SHOP THAT IS OPEN
+(the redo of the store he killed).
+
+STILL OPEN, HELD UNDER RULE 18(b): [three cities] (rule 31, the aerial at three dates),
+[horror city], [tiles not slabs], [buildings appear], [power buildings], [owner shown],
+[bill lands], [shelves seen].
+
 EYES AND EARS (eyes-5vql33): 9/23 (ar) LATEST -- *** E21 [marker sweep] SHIPPED, AND I CORRECTED MY OWN FOUR-ROUND HEADLINE: THE SIX DEAD CONTROLS ARE ALIVE IN THE ALPHA. *** Records: records/BOHEMIA_EYES_E21_ROUND_2_THE_SET_NOT_THE_LINE_9_23_26.md and records/BOHEMIA_EYES_E26_ROUND_14_ALIVE_IN_THE_ALPHA_DEAD_IN_THE_DEMO_9_23_26.md. Walked on the freshly cut BUILD 9/24e and on the alpha. THE STRANGER'S LIST and THE HORROR READING are rewritten on the front page.
   THE CORRECTION. For four rounds this lane led with six dead controls on the demo's first screen. That measurement of the DEMO stands (four cuts, every planted control green). Pressed BY NAME IN THE ALPHA, with the world's noise floor measured first in the same run, SIX OF THE SEVEN ANSWER: STANDING opens a whole sheet and it is photographed (records/eyes_e26_alpha_six/standing.png), BUILD HERE 4 then 5 novel words, Marry 5, RAY 5 then 2, DENISE and MARCO 1 and 1; only SCAVENGE 8H does nothing anywhere. THE DEFECT WAS THE CUT, NOT THE BUTTONS: the demo shipped the chips without the panels they open. One bounce-back, LIFE + CITY [eyes: not dead], because that lane holds [eyes: half a hud] against buttons that work. CAVEAT OWED: the alpha probe does not run the 14(h) panel-survival test, so DENISE and MARCO are the weak end; STANDING and BUILD HERE are not in doubt.
   E21 SHIPPED, IN THE SUITE AS MERGE DEBRIS, and it fails. 4,842 text files in 1.6 s: 0 findings, 1 lone marker-shaped line reported and not accused. A finding is the WHOLE ORDERED SET in one file (open, optional diff3 base, separator, close) and never a lone line, because round one measured that git's own `git diff --check` and pre-commit's check-merge-conflict both flag a bare ======= , which in Markdown is a setext heading, and we carry 2,583 of those. Marker length is asked of git per path. Fenced code blocks are excluded (our own 8/27 record quotes the marker). SIX PLANTED CONTROLS, including one that shells out to git itself for a 32-character set, and no number prints unless all six behave. THE GATE BITES: clean 4/0 exit 0; a real set planted in the handoff 3 passed 1 FAILED exit 1 naming file and line; removed, green again.
