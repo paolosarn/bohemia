@@ -87,6 +87,7 @@ laws/BOHEMIA_ADDENDUM_THE_PLAYTEST_DISPATCH_8_25_26.md, laws/BOHEMIA_ADDENDUM_TH
 - LANDLOCKED DISTRICT LAW | gate landlocked_gate.js
 - HOW HAIR AND SHAPE WORK -> laws/BOHEMIA_LAW_HOW_HAIR_AND_SHAPE_WORK_8_1_26.md | gate craft_law_gate.js
 - HAIR AT FOUR TIMES THE PIXELS -> laws/BOHEMIA_LAW_HAIR_AT_FOUR_TIMES_THE_PIXELS_8_25_26.md | gate hair_gate.js
+- AN ENVELOPE RAMPS SLOWER THAN THE GRID: the body is drawn at twelve keys a bar and nothing between two keys is ever drawn, so a joint that crosses more between two drawn keys than the eye reads as travel JUMPS and jumps back (Paolo's 'tweaking', 9/21); a step that reverses more than 120 degrees between drawn keys is the tell (ANIMATION 9/24, records/BOHEMIA_WHAT_TWEAKING_WAS_9_24_26.md; the tweeze note sat in a comment since 7/26 and came back: A NOTE IS NOT A GATE) | gate an_envelope_ramps_slower_than_the_grid_gate.js
 - THE BORDER IS ONE PIXEL WHERE HE SEES IT -> laws/BOHEMIA_ADDENDUM_THE_BORDER_IS_ONE_PIXEL_8_16_26.md | gate border_gate.js
 - BATTERIES ARE THE MONEY, AND A COMBAT TILE IS A HOUSE
 - NO DAMAGE BEFORE THE DIAL. EVER. (AMENDED 9/22 by his words: routine hits inside reach cost one with no dial; the dial is for the important shot and owns every number over one; laws/BOHEMIA_ADDENDUM_THE_FIGHT_IS_BATTLE_BROTHERS_QUICKER_9_22_26.md)
