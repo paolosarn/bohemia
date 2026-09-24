@@ -23796,7 +23796,90 @@ RIGHT NOW: (a) write this whole instruction, word for word, into your own handof
 
 I will never paste anything to you again. From here on, the one word is the whole instruction.
 
-THIS ROUND -- *** I WAS WRONG TO CALL PEOPLE'S FIX A REGRESSION, AND THE REAL NUMBER IS
+THIS ROUND -- *** THIRTEEN RED LEGS ON ONE OF THIS LANE'S OWN LAWS WERE THE GATE READING A
+LOADING SCREEN. NOBODY'S CODE WAS BROKEN. AND THE KID WALKS, IN A PAGE THAT PLAYS.
+(sha b885eae, [become red] SHIPPED) ***
+
+VERDICTS READ BACK: same seven. THREE of this lane's items are unjudged now. That is why
+this round did NOT cook another runway thing -- STOP PRODUCING names piling up more of a
+direction he has not ruled on, and [runway redo] stays claimed and genuinely blocked, because
+its next step is assigning a faction to each new shape and the original search's own header
+reserves that to him: "WHICH SHAPE BELONGS TO WHOM IS HIS."
+
+*** [become red]: NEITHER THE LAW NOR RUN'S WORK MOVED. THE GATE DID. *** The row asked which
+one was wrong. Pinned by running become_gate at each demo commit AND ITS PARENT: 28/0 at
+2490fc8, 15/13 at 42f25f1, RUN's loading screen. Then measured both ways instead of guessed:
+the new loading screen FETCHES FIVE THINGS before it lets go of the screen, and this gate
+opened the demo on file://, where a fetch is blocked. On file:// the bar sits at "0 OF 5"
+forever; over http the same bar reads "2 OF 5" and climbs. EVERY ONE OF THE THIRTEEN WAS THIS
+GATE LOOKING AT A LOADING SCREEN AND REPORTING A MISSING FACE MAKER.
+VERIFY ON THE REAL SURFACE is the law that was actually broken here, by my own gate.
+
+AND THE FIX TOOK THREE TRIES, EACH WRONG FOR A DIFFERENT REASON. Worth the next lane's time,
+because two of them look right:
+  1. serve it over http. Right, and still red.
+  2. wait for #loadwrap to hide. WRONG ELEMENT: it is display:none by default and shown by
+     the rule `#front.load #loadwrap`, so the loading screen lives INSIDE the splash. Sat at
+     5 OF 5 forever while the bar had already finished.
+  3. wait for #front to drop `.load`. STILL WRONG. Measured over time, the splash goes
+     `load` -> `load ready` at 5 OF 5 and then WAITS. That is Paolo's own ruling built: the
+     loading screen ends in ONE TAP, not on a timer. The gate waits for READY and taps, which
+     is what a player does. 28 passed, 0 failed.
+
+TWO CRASHES TURNED INTO VERDICTS, both found by TESTING THE GATE rather than trusting it:
+  - with the server down it threw a stack trace. In a suite that reads as "this gate is
+    broken" when the truth is "nobody served the repo". It now names the reason and says
+    outright that nothing below was checked and none of it is a verdict on the face maker.
+  - mutation-tested by renaming becomeDone: the DRIVING line clicked null and killed the run.
+    The check for a way out already existed; only the driving was unguarded. Now 24/4 with
+    "there is a way out of it" red, which is the leg that should speak.
+  *** A GATE THAT CANNOT REACH A SCREEN MUST NAME THE REASON, NOT RETURN A VERDICT. *** That
+  is the same sentence as last round's correction about PEOPLE, arriving from the other side.
+
+COOKED (rule 22, [ages] un-held for the making): THE KID WALKS, and it is a PAGE THAT PLAYS.
+The instruction was exact -- "the child and teen are real and go to VOTE this round as BODIES
+THAT MOVE (rule 25)" -- and rule 25 is his own words: "How dare you show me pictures of
+animations and not the actual animation, never do that again." Every age item this lane has
+put in front of him was a still. This one runs at 120 BPM, one step per beat, driven off the
+clock so it plays at the game's tempo on any device, with a SIDE row underneath because
+head-on a walk reads as a bob (the stride is along the axis you are looking down).
+    A KID        79 px   3.59 heads    82% of the adult   8 of 8 frames differ
+    A TEENAGER   89 px   4.05 heads    93%                6 of 8
+    A GROWN MAN  96 px   4.36 heads   100%                8 of 8
+  THE LAST COLUMN IS WHY THE TOOL CAN REFUSE: a cycle that renders one pose eight times is a
+  STILL PRETENDING TO BE AN ANIMATION, so the frames are hashed and it refuses to write.
+  IT FIRED ON MY FIRST RUN. All three came back identical because buildFrame's third argument
+  is a PHASE from 0 to 1, NOT A FRAME INDEX (the game's own caller is (q+0.5)/b). My own
+  guard caught my own bug before the page existed.
+  -> FOR ANY LANE RENDERING A CLIP: buildFrame(dir, clip, PHASE). Passing an index gives you
+     one pose over and over and it looks like it worked.
+
+THE ELDER IS DELIBERATELY NOT IN IT and the page says so where he will read it: this lane
+measured that the rig's young adult, adult and elder are ONE BODY within three per cent, and
+that the three per cent is anatomically RIGHT. An old man reads by his BACK; the spine is
+ANIMATION [spine bend] and in flight. An "elder" here would be a slightly shorter man with a
+label on him, which is this lane's own [names lie] defect.
+
+AND THE TAB GATES CAUGHT ME BEFORE HE COULD: I registered the page with src
+"CHARACTER_THE_KID_WALKS.html" and the src resolves from slices/, so it needed the vote/
+prefix. Both tab gates went red on "a row that promises and does nothing", which is that
+check doing its job on the lane that wrote it.
+
+[PENDING Paolo] carried, unchanged: which faction colour file wins; the Anarchists need a
+magenta garment and there are zero in 317, with the reserved purple band blocking the obvious
+cook; the Cartel sits on the drab exemption list and not in the law that names it.
+
+THE SUITE: BECOME 28/0 (was 15/13 on clean main), CHARACTER IN THE VOTE TAB 9/0, THE VOTE TAB
+30/0, REFERENCE CHECK 107/0.
+
+STILL OPEN FROM LAST ROUND, not fixed and not mine: +15 opaque pixels on every body in the
+game from PORTRAIT's eye commit 79ae65d. It is now INVISIBLE to the shape gate because my own
+re-bake absorbed it; it lives only in the baseline's reason field and in
+records/BOHEMIA_THE_SHIRT_THAT_IS_NOT_CLOTH_9_23_26.txt.
+
+--------------------------------------------------------------------------------
+
+PREVIOUS ROUND -- *** I WAS WRONG TO CALL PEOPLE'S FIX A REGRESSION, AND THE REAL NUMBER IS
 BETTER THAN THE ACCUSATION: 38 OF THE 72 PEOPLE NEAR HIM ARE INDOORS. AND THE SHIRT THAT IS
 NOT CLOTH IS COOKED. (sha 1c5a1ea, CLAIMED [runway redo], continuing) ***
 
