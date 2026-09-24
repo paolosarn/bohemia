@@ -40778,8 +40778,19 @@ function setZoomAt(z,pvx,pvy){
   /* __ZOOM_SEAM__ -- the seam runs BOTH ways. Already at the overview's own
      closest zoom and still pinching in means he is asking to walk. Same swapMode(),
      same transition, so the round button and the pinch always agree. */
+  /* *** I LOOSENED THIS AND TOOK IT BACK OUT, BECAUSE I COULD NOT MAKE THE DIFFERENCE
+     APPEAR ON THE GLASS. *** (9/24, [way back].) The idea was that a REQUEST which
+     overshoots the ceiling should cross even if he is not yet sitting exactly on it,
+     so a spread could never be eaten by a dead clamp. Measured: it changes nothing a
+     finger can produce. A pinch arrives as twenty-odd incremental moves, so the early
+     ones climb CZOOM to the ceiling and a later one in the SAME gesture asks for more
+     while sitting on it -- the strict test below already fires inside one gesture. The
+     mutation proved it: putting the strict test back left the round trip at one spread.
+     A CHANGE I CANNOT MAKE BITE IS A CHANGE WITH NO MEASUREMENT BEHIND IT, and this
+     lane has reverted one of those before rather than leave it in looking like work. */
   if(z>zmax&&Math.abs(CZOOM-zmax)<1e-4&&typeof swapMode==='function'){
     SEAM_INTENT='look';   /* __LOOKING_IS_NOT_TRAVELLING__: and so is pinching back in */
+    SEAM_GUARD=true;
     swapMode(); return; }
   /* __ONE_ZOOM_TO_THE_MOON__ -- THE SEAM RUNS THE OTHER WAY TOO (Paolo 8/12: "you could
      keep zooming out and zooming out until it showed the moon... that's my flavor").
@@ -40789,7 +40800,13 @@ function setZoomAt(z,pvx,pvy){
      leaves the valley behind. The 7/25 law called this the third zoom band and
      parked it; the moonshot law (7/19) says the camera levels ARE street / city /
      planetary, so this axis is the game's spine, not a flourish. */
-  if(z<zmin&&Math.abs(CZOOM-zmin)<1e-3){ skyEnter(); return; }
+  /* AND THE OUTWARD END IS THE SAME GESTURE SPENT TWICE, MEASURED THE SAME WAY (9/24,
+     [way back]). Walking the whole ladder: squeeze one reached the city, and SQUEEZE TWO
+     WENT STRAIGHT PAST THE VALLEY TO THE REGION -- its early moves zoomed the city from
+     1 down to zmin and its later moves, now sitting on zmin, asked for less and opened
+     the sky. He never got to SEE the valley; one gesture used two rungs of the ladder.
+     Same guard, same reason: a gesture that crosses is finished. */
+  if(z<zmin&&CZOOM<=zmin+1e-3){ SEAM_GUARD=true; skyEnter(); return; }
   z=Math.max(zmin,Math.min(zmax,z));
   if(pvx===undefined){ pvx=cv.width/2; pvy=cv.height/2; }
   const k=z/CZOOM;                                   // keep the pivot point fixed
@@ -42096,6 +42113,9 @@ function setHZoom(z){
   const S=HWALK_STOPS;
   if(MODE==='human'&&!transing&&z<S[0]&&HZOOM===S[0]&&typeof swapMode==='function'){
     SEAM_INTENT='look';   /* __LOOKING_IS_NOT_TRAVELLING__: a pinch is a look */
+    /* ONE GESTURE, ONE CROSSING (9/24, [way back]): the rest of this squeeze must not
+       land on the city camera it just opened. See the note on SEAM_GUARD. */
+    SEAM_GUARD=true;
     swapMode(); return;
   }
   _zacc=Math.max(S[0],Math.min(S[S.length-1],z));
@@ -55660,6 +55680,36 @@ document.getElementById('bikebtn').addEventListener('click',()=>{
 (function(){
   const pts=new Map();               // active pointers on the canvas
   let lastDist=0, lastMid=null, lastTap=0;
+  /* *** ONE GESTURE, ONE CROSSING. *** (RUN 9/24, VAMILY [way back].)
+     MEASURED ON THE GLASS, one ordinary squeeze on the street, every zoom call logged:
+
+         0   setHZoom(10.771)  MODE=human     <- the seam fires on the FIRST move
+         1   setZoomAt(0.979)  MODE=city  CZOOM=1.000
+         ...  thirty-eight more, all MODE=city
+         39  setZoomAt(0.185)  MODE=city  CZOOM=0.208
+
+     ONE SQUEEZE DID TWO THINGS. It crossed the seam, and then the REST OF THE SAME
+     FINGER-DRAG zoomed the brand-new city view from 1.000 all the way out to 0.208,
+     which is zmin, the whole valley. He never asked to see the whole valley; the tail
+     of his own gesture asked for it after the surface underneath had changed.
+
+     AND THAT IS WHY COMING BACK COST THREE SPREADS. The trip out is one gesture
+     because the walking ladder has ONE stop, so any squeeze is already at the edge.
+     The trip back has to climb CZOOM from 0.208 to 2.6, a factor of twelve, before
+     the return seam will fire -- and it was his own squeeze that put him at the far
+     end. The asymmetry was not the seam. It was one gesture spending itself twice.
+
+     SO A GESTURE THAT CROSSES A SEAM IS FINISHED. The fingers come up and go down
+     again before the new camera listens. Same shape as the walk's own _slideGuard
+     (ONE slide per press) and for the same reason: an input that keeps acting after
+     the thing it was acting on has been replaced is not one input, it is two.
+
+     THE FLAG ITSELF IS DECLARED BESIDE SEAM_INTENT, at the top level, BECAUSE I PUT IT
+     HERE FIRST AND THAT WAS WRONG: setHZoom and setZoomAt are top-level functions and
+     this block is a closure, so they could not see it, and the try/catch I had wrapped
+     the assignment in would have swallowed the ReferenceError and left the guard
+     permanently false. A caught exception is a feature that silently does nothing, and
+     I have written that sentence into this file twice already. */
   function toCv(e){ const r=cv.getBoundingClientRect();
     return {x:(e.clientX-r.left)*cv.width/r.width, y:(e.clientY-r.top)*cv.height/r.height}; }
   function two(){ const a=[...pts.values()]; return a.length>=2?a:null; }
@@ -55690,6 +55740,8 @@ document.getElementById('bikebtn').addEventListener('click',()=>{
       if(!pts.has(e.pointerId)){ if(typeof TP!=='undefined'&&TP.on){ const c=toCv(e); const cell=tpCellAt(c.x,c.y); TP._hover=[cell.fx,cell.fy]; render(); } return; }
       pts.set(e.pointerId,toCv(e));
       const a=two();
+      /* the rest of a gesture that already crossed belongs to nobody */
+      if(a && SEAM_GUARD){ lastDist=dist(a); return; }
       if(a){ const d=dist(a); if(lastDist>0&&!transing)setHZoom(_zacc*(d/lastDist)); lastDist=d; }
       else if(typeof TP!=='undefined'&&TP._tapStart){ const c=toCv(e); TP._tapMoved+=Math.abs(c.x-TP._tapStart.x)+Math.abs(c.y-TP._tapStart.y); TP._tapStart=c; }
       return;
@@ -55697,6 +55749,7 @@ document.getElementById('bikebtn').addEventListener('click',()=>{
     if(!pts.has(e.pointerId)||MODE!=='city')return;
     pts.set(e.pointerId,toCv(e));
     const a=two();
+    if(a && SEAM_GUARD){ lastDist=dist(a); lastMid=mid(a); return; }
     if(a){                                          // pinch: zoom about the midpoint + pan the midpoint
       const d=dist(a), m=mid(a);
       if(lastDist>0)setZoomAt(CZOOM*(d/lastDist), m.x, m.y);
@@ -55752,6 +55805,11 @@ document.getElementById('bikebtn').addEventListener('click',()=>{
     if(a){ lastDist=dist(a); lastMid=mid(a); }
     else if(pts.size===1){ lastDist=0; lastMid=[...pts.values()][0]; }
     else { lastDist=0; lastMid=null; }
+    /* THE GUARD LIFTS WHEN THE PINCH DOES, not on a timer. Two fingers on the glass
+       is the gesture; fewer than two and whatever comes next is a new one. A timer
+       here would have to guess how long a thumb takes, and would be wrong on a slow
+       hand in exactly the way that reads as a dead control. */
+    if(pts.size<2) SEAM_GUARD=false;
   }
   cv.addEventListener('pointerup',up);
   cv.addEventListener('pointercancel',up);
@@ -58821,6 +58879,10 @@ var LOOKED_FROM=null;
    'go' is the default, so anything that has not thought about it lands the old way
    rather than silently carrying him home. */
 var SEAM_INTENT='go';
+/* ONE GESTURE, ONE CROSSING (9/24, [way back]) -- the long note is on the pinch
+   handler that reads it. Top level, beside SEAM_INTENT, because both seams set it and
+   both live out here. */
+var SEAM_GUARD=false;
 function homeFind(){
   /* __HIS_FEET_ARE_THE_TRUTH__ -- FROM WHERE THE PLAYER IS, NOT WHERE THE CAMERA IS.
      This keyed on city.x/city.y, the overmap MARKER. In human mode the marker is
@@ -59448,7 +59510,9 @@ function skyExit(){ if(!SKY)return; SKY=false; SKYU=0; window.__SKY_EXIT=(window
 function skyZoom(dir){
   if(!SKY)return;
   SKYU=Math.max(0,Math.min(1,SKYU+(dir>0?-0.06:0.06)));
-  if(SKYU<=0&&dir>0){ skyExit(); return; }
+  /* the way down out of the sky is a crossing too, and the fingers that made it do not
+     also get to move the city camera they land on (9/24, [way back]) */
+  if(SKYU<=0&&dir>0){ SEAM_GUARD=true; skyExit(); return; }
   updHud(); render();
 }
 

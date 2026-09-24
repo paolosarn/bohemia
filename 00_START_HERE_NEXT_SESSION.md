@@ -4995,6 +4995,107 @@ it is player-facing at all is worth deciding before restyling it. The source cou
 now understood as dead-declaration debt and can be swept file-wide in one pass instead of
 being chased surface by surface.
 
+RUN (run-eak241): 9/24 LATEST -- *** [way back] SHIPPED, AND THE LOPSIDED SEAM WAS NOT
+THE SEAM: ONE GESTURE WAS SPENDING ITSELF TWICE. TAB: RUN (and CITY, the same walked
+world). Nothing to judge. ***
+
+*** AND THIS BLOCK IS STACKED ABOVE THE LAST ONE INSTEAD OF REPLACING IT, WHICH IS WHAT
+I HAD BEEN DOING WRONG. *** The handoff gate caught me on my own previous head: it asks
+that every block head HEAD carries is still in the file, and I had been rewriting my
+block in place every round, eating my own last one. The rule added 9/13 is that a lane's
+newest block goes ON TOP; the history below it is the archive. Every round before this
+one, this lane's previous state went in the bin and only git remembered it.
+
+THE ROW: one squeeze took him to the city and THREE spreads brought him back. The seam is
+the only door between the street and the city screen, and the city screen is where the
+phone lives, so lopsided is not a small thing -- he ruled on exactly this, that the game
+must not change its rules from one second to the next.
+
+I ASSUMED IT WAS THE SEAM. Before touching anything, one ordinary squeeze with every zoom
+call logged:
+
+  0   setHZoom(10.771)  MODE=human          <- the seam fires on the FIRST move
+  1   setZoomAt(0.979)  MODE=city  CZOOM=1.000
+  ...  thirty-eight more, every one MODE=city
+  39  setZoomAt(0.185)  MODE=city  CZOOM=0.208
+
+ONE SQUEEZE DID TWO THINGS. It crossed on its first move, and then the remaining
+thirty-nine moves of the same finger-drag zoomed the BRAND-NEW city camera from 1.000 out
+to 0.208, the whole valley. He never asked to see the whole valley; the tail of his own
+gesture asked for it after the surface underneath had been replaced. THAT IS THE WHOLE
+ASYMMETRY: his own squeeze put him at the far end of a twelvefold climb home.
+
+THE FIX IS ONE SENTENCE: A GESTURE THAT CROSSES A SEAM IS FINISHED. Fingers up and down
+again before the new camera listens. Same shape as the walk's one-slide-per-press guard,
+and the same reason: an input that keeps acting after the thing it was acting on has been
+replaced is not one input, it is two. Set where each seam fires (street to city, and the
+city to the sky), lifted when fewer than two fingers are on the glass -- not on a timer,
+because a timer has to guess how slow a hand is and is wrong in exactly the way that
+reads as a dead control.
+
+  BEFORE                                AFTER
+  one squeeze -> city at CZOOM 0.208    one squeeze -> city at CZOOM 1
+  spread x1   -> still city, 0.208      spread x1   -> STREET
+  spread x2   -> still city, 1.247
+  spread x3   -> street
+  THREE SPREADS BACK                    ONE SPREAD BACK
+
+AND ONE SQUEEZE NOW SHOWS HIS OWN BLOCK FROM ABOVE, NOT THE WHOLE VALLEY. Deliberate:
+pulling back from a street straight to a 96 x 96 valley in one motion is the
+"overwhelmed" complaint in one gesture. The ladder has rungs now and each is one gesture
+-- his block, the valley, the region, the moon, and the same coming down. Nothing is
+unreachable; what changed is that no single gesture skips a rung.
+
+*** I SHIPPED HALF OF WHAT I WROTE AND TOOK THE OTHER HALF BACK OUT. *** I also loosened
+the return seam to fire on a REQUEST that overshoots the ceiling, on the theory that a
+spread could be eaten by a dead clamp. THE MUTATION PROVED IT CHANGES NOTHING A FINGER
+CAN PRODUCE: a pinch arrives as twenty-odd incremental moves, so the early ones climb to
+the ceiling and a later one in the same gesture asks for more while sitting on it --
+putting the strict test back left the round trip at one spread. A change I cannot make
+bite is a change with no measurement behind it. Reverted, with the reason written where
+the code would have been so nobody adds it again believing it does something.
+
+*** AND A BASELINE I ALMOST PUBLISHED WAS NOT A BASELINE. *** I started the
+start-of-round walk in the background and then edited the seam. The round-trip leg runs
+LAST in that batch, so it read my own fix and printed "back after 1" as the BEFORE. I
+caught it because it contradicted a number I had measured by hand ten minutes earlier.
+A background job is not frozen at the moment you launch it; the real before was taken by
+stashing the change, re-cutting, and walking it again on the same instrument.
+
+GATE: THE DRIVER REACHES THE CITY. Its round-trip leg used to print the count and assert
+only that he got back at all; it asserts ONE SPREAD now, which is the thing that was
+wrong. MUTATION: take the guard off the outward seam -> red at three spreads, the exact
+before number, measured twice.
+
+THE PASS, ALL GREEN ON THE SERVED CUT AT 4x:
+  DRIVER REACHES 8/0   THE FOUR THINGS 28/0   NOTHING POPS UP 23/0   WALK NEVER MISSES 19/0
+  SCREEN HOLDS 27/0   ZOOM SEAM 7/0   DEMO CURRENT 16/0   SPAWN HOME 9/0   DEMO BUILD 25/0
+  STRANGER 19/0
+  THE WALK, BY HAND (rule 18c): 35 presses, 530 cells, 0 stuck, 4 into sealed ground,
+  0 held by somebody, 0 gaps walked past.
+
+[PENDING nobody, STILL OPEN AND STILL NOT MINE]
+ - FROM THE VALLEY back to the street is still two spreads, because the city's zoom is
+   continuous and he really is a long way out. Honest travel through a range, not a dead
+   press, and not what the row was about: the pair he uses, street to city and back, is
+   one and one. Named rather than hidden in a green tick.
+ - his own block has 45 doorsteps and 0 straight walkable ways out, and four presses on
+   the block walk go into ground a body cannot reach. That is why five minutes of
+   pressing east covers 52 cells.
+ - he has ZERO batteries on day one while the market's whole shelf costs one each.
+
+NEXT, IN ORDER: [open reachable] (PORTRAIT 53cbb684: a stranger meets ZERO faces in five
+minutes, and the cold open should be reachable after BEGIN -- measurable for the first
+time now that the driver really opens the door). Then [land on it] (LIFE+CITY c4e08b82:
+a full stride overshoots a place nearer than a stride and ping-pongs). Then
+[browser lines]. [fast travel] stays CLAIMED and paused under rule 18.
+
+RECORDS: records/BOHEMIA_ONE_GESTURE_WAS_SPENDING_ITSELF_TWICE_9_24_26.md,
+records/BOHEMIA_EVERY_LANE_WAS_MEASURING_THROUGH_MY_LOADING_SCREEN_9_23_26.md,
+records/BOHEMIA_THE_PHONE_COULD_NOT_BE_OPENED_9_23_26.md
+
+--------------------------------------------------------------------------------
+
 RUN (run-eak241): 9/23 LATEST -- *** [cut now] SHIPPED, AND IT TURNED UP SOMETHING BIGGER
 THAN ITSELF: EVERY LANE HAS BEEN MEASURING THE GAME THROUGH MY LOADING SCREEN. TAB: RUN
 (and CITY, the same walked world). Nothing to judge. ***

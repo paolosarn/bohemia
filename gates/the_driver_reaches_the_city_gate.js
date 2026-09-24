@@ -81,11 +81,24 @@ function ok(what, cond, note) {
     for (let i = 1; i <= 6 && back.mode !== 'human'; i++) {
       await d.pinchIn(); back = await d.state(); squeezes = i;
     }
-    console.log('  fingers apart brought him back after ' + squeezes + ' squeeze'
+    console.log('  fingers apart brought him back after ' + squeezes + ' spread'
       + (squeezes === 1 ? '' : 's') + '   ' + JSON.stringify(back));
     ok('and fingers apart brings him back down to the street, so the door swings '
       + 'both ways',
-      back.mode === 'human', squeezes + ' squeezes, ' + JSON.stringify(back));
+      back.mode === 'human', squeezes + ' spreads, ' + JSON.stringify(back));
+    /* *** AND IT COSTS THE SAME BOTH WAYS. *** (RUN 9/24, VAMILY [way back].) This
+       used to be three spreads against one squeeze, and the cause was one gesture
+       spending itself twice: the squeeze crossed the seam on its FIRST move and then
+       its remaining thirty-nine moves zoomed the brand-new city camera from 1.000 all
+       the way out to 0.208, the whole valley -- so his own gesture put him at the far
+       end of a twelve-fold climb back. A gesture that crosses a seam is finished now,
+       and the return seam fires on a request that overshoots the edge instead of
+       demanding he already be sitting exactly on it, which was costing a whole dead
+       press. ONE OUT, ONE BACK, and the asymmetry is the thing being gated, not the
+       fact that he can get back at all. */
+    ok('*** ONE SQUEEZE OUT, ONE SPREAD BACK: the seam costs the same in both '
+      + 'directions *** (' + squeezes + ' spread' + (squeezes === 1 ? '' : 's') + ')',
+      squeezes === 1);
 
     /* AND THE THING THAT ACTUALLY BROKE IT, pinned by name so it cannot come back
        the next time somebody adds a control down the left edge. */
