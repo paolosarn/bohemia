@@ -2937,3 +2937,47 @@ BROTHER  Pass the salt.                                                [time off
 # "That one had a name on this street. People knew him." The peak of that encounter is
 # a stranger demanding your things. The END is finding out he was somebody's neighbour.
 # Nothing about the mechanic changed. The line is where the moment gets remembered.
+
+---
+
+## THE SURER, THE WRONGER -- THE SIX RUMOUR FRAMES (9/24, draft:true)
+Written from the Q17 school (9/5). Live in `slices/BOHEMIA_CITY_WORLD.html` as
+`CT_RUMOUR_SAY`. `{who}` is the trade or the name the player has earned; `{act}`
+is a past-tense act from `CT_RUMOUR_ACT`. Record:
+`records/BOHEMIA_WORDS_THE_SURER_THE_WRONGER_9_24_26.md`.
+
+**THE RULE ALL TWELVE OBEY: a teller only hedges about the part they know they
+lost.** The place and the hour are holes a person can feel. The wrong man and the
+bigger act are not, so they come out flat.
+
+    saw    (hop 0, really watched it)
+      {who} {act}. I was standing right there.
+      I saw it myself. {who} {act}.
+
+    heard  (passed on once, nothing broken yet)
+      They say {who} {act}.
+      Word is {who} {act}.
+
+    where  (the place slid, and she knows it did)
+      {who} {act}. Where, I could not tell you.
+      {who} {act}, somewhere down that way.
+
+    when   (the hour went, and she knows it did)
+      {who} {act}. Recent. That is as close as I get.
+      {who} {act}, some night this week.
+
+    flat   (wrong man or bigger act; nobody in the chain can know)
+      {who} {act}. That is the whole of it.
+      {who} {act}. Ask anybody on this street.
+
+    sure   (three hops out, the doubt has worn down to a scrap)
+      {who} {act}. I was there, or near enough.
+      {who} {act}. I saw that with my own eyes. I think.
+
+**THE INVENTED REASON** -- appended only to a story that GREW, and dropped rather
+than shortened when it would cross the 98-character dwell ceiling. Keyed to what
+the story grew INTO. The belief is his; these are attempts.
+
+    commit            Nobody does that for free.
+    pushed_the_price  Rent does that to people.
+    downed            It was always going there.

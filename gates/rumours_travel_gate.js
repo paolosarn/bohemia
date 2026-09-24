@@ -367,6 +367,7 @@ try {
     try { barkTick(performance.now() + 9000); } catch (e) { out.threw2 = String(e); }
     out.wrongLine = window.__RUMOUR_SAID ? BARK.text : null;
     out.flaggedWrong = window.__RUMOUR_SAID ? window.__RUMOUR_SAID.wrong : null;
+    out.wrongBand = window.__RUMOUR_SAID ? window.__RUMOUR_SAID.band : null;
     return out;
   });
   if (spoke.trueLine) note('the true version', '"' + spoke.trueLine + '"');
@@ -378,9 +379,31 @@ try {
      !!spoke.trueLine, spoke.trueLine || spoke.err || 'nothing said');
   ok('and the bubble carries WHO IS SPEAKING, per rule 19c: a mouth and a plate',
      !!spoke.head, spoke.head || 'no plate');
+  /* *** THIS LEG USED TO TEST FOR TWO LITERAL PHRASES AND THAT IS A RULER THIS
+     REPO HAS BEEN BURNED BY EIGHT TIMES. *** (WORDS 9/24.) It read
+     /wrong version|Don't ask me where/, so it did not ask whether the wrong
+     version SOUNDED wrong, it asked whether the words layer still contained two
+     exact strings -- and it went red the moment those words got better, while it
+     would have stayed green on a line that said "probably the wrong version" and
+     nothing else. A ruler believed because it produced a number.
+
+     IT NOW TESTS THE THING. The words layer picks a FRAME per story, and two of
+     the six frames are the ones a first-hand, still-true story gets. A wrong
+     story must never land in either of them: that is the property, it holds for
+     every sentence anybody ever writes into those pools, and it cannot be passed
+     by pasting a magic phrase. The frame is carried out on __RUMOUR_SAID beside
+     the text so a gate and a mouth read ONE fact.
+
+     AND THE SCHOOL IS WHY THE PHRASE TEST WAS WRONG ON PURPOSE, NOT JUST BRITTLE:
+     Q17 found the hedge is the FIRST thing a retelling loses, so the oldest and
+     most distorted stories are the ones said with the MOST confidence. A test
+     that demands a hedge in the wrong version bans the truest line in the set. */
+  var TRUE_FRAMES = ['saw', 'heard'];
   ok('*** AND THE WRONG VERSION READS AS A WRONG VERSION IN HIS LANGUAGE ***',
-     !!spoke.wrongLine && /wrong version|Don't ask me where/.test(spoke.wrongLine)
-       && spoke.flaggedWrong === true, spoke.wrongLine || 'nothing said');
+     !!spoke.wrongLine && spoke.flaggedWrong === true
+       && !!spoke.wrongBand && TRUE_FRAMES.indexOf(String(spoke.wrongBand)) < 0,
+     (spoke.wrongLine || 'nothing said')
+       + '   [frame: ' + (spoke.wrongBand || 'none') + ']');
   ok('and it is a different sentence from the true one, which is the whole point',
      !!spoke.trueLine && !!spoke.wrongLine && spoke.trueLine !== spoke.wrongLine);
   ok('the subject is never called by a word that collides with the speaker\'s own '

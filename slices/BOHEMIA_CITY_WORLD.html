@@ -48783,18 +48783,84 @@ var CT_RUMOUR_ACT = {
    exists for a story that actually lost something -- this is what finally makes
    the line this repo has shipped since the reaction factory ("I heard a version
    of it. Probably the wrong version.") true, because until now there was never a
-   wrong version to hedge about. */
+   wrong version to hedge about.
+
+   *** REWRITTEN 9/24 BY WORDS, AND THE OLD HEDGE WAS BACKWARDS. ***
+   MEASURED ON THIS ENGINE BEFORE A LINE WAS CHANGED, 800 retellings through
+   BohemiaStanding.retell: 749 of them (93.6%) came out of ONE pool of two
+   sentences, because the frame was picked off isWrong(), a single boolean, while
+   the retelling had already written down FOUR different things that went wrong --
+   blame moved 322 times, the act grew 273, the place went 659, the hour went 498.
+   The `saw` frame was unreachable past hop 0: 0 of 800. So the street had one
+   voice for every kind of wrong and no voice at all for the oldest stories.
+
+   THE SCHOOL THIS IS WRITTEN FROM is records/BOHEMIA_WORDS_Q17_WHAT_A_DISTORTED
+   _RUMOUR_SOUNDS_LIKE_9_5_26.md, and two of its findings decide these frames:
+
+   (1) THE HEDGE WEARS OFF BEFORE THE CLAIM DOES (the sleeper effect: the cue and
+       the message come apart in memory, 72 experiments). Our city did the exact
+       opposite -- it ADDED doubt as a story travelled. Doubt is the FIRST thing
+       a retelling loses, so the frames get SURER with hops, not vaguer.
+   (2) AT THREE HOPS SOMEBODY SAYS "I SAW IT" AND IS NOT LYING (source monitoring
+       failure: people confuse what they were told with what they watched). That
+       was the best line of the school round and the shipped code made it
+       impossible, because it bound `saw` to hop 0.
+
+   AND THE RULE THAT FALLS OUT OF BOTH: A TELLER ONLY HEDGES ABOUT THE PART THEY
+   KNOW THEY LOST. `vague.where` and `vague.when` are holes the teller can feel,
+   so those get an honest hedge. `truly` (the wrong man) and `grew` (the bigger
+   act) are wrong in ways NOBODY IN THE CHAIN KNOWS ABOUT, so they are said flat,
+   with no hedge at all, in the same voice as the truth. That is the frightening
+   one and it is the whole point: everybody on the street is honest and the story
+   is still wrong. Attempts, draft:true. */
 var CT_RUMOUR_SAY = {
   /* THE ACTS ARE PAST TENSE ("never paid somebody back"), so an eyewitness frame
      has to be TWO SENTENCES, not "I watched {who} {act}". The first cut said
-     "I watched the other worker never paid somebody back" on the real glass. */
+     "I watched the other worker never paid somebody back" on the real glass.
+     Every frame below obeys that, including the two new sure ones. */
   saw:    ['{who} {act}. I was standing right there.',        /* draft */
            'I saw it myself. {who} {act}.'],                  /* draft */
   heard:  ['They say {who} {act}.',                           /* draft */
            'Word is {who} {act}.'],                           /* draft */
-  vague:  ['Somebody told me {who} {act}. Don\'t ask me where.',   /* draft */
-           '{who} {act}, is what I heard. Probably the wrong version.'] /* draft */
+  /* THE PLACE SLID AND THE TELLER FEELS IT. retell() does not delete the spot,
+     it MOVES it, because a teller who does not know where it happened still
+     names one -- so the hedge points somewhere rather than shrugging. */
+  where:  ['{who} {act}. Where, I could not tell you.',       /* draft */
+           '{who} {act}, somewhere down that way.'],          /* draft */
+  /* THE HOUR WENT. The deed's own clock is untouched by retell(); what is gone
+     is the CLAIM to know when, so the hedge is about knowing, not about time. */
+  when:   ['{who} {act}. Recent. That is as close as I get.', /* draft */
+           '{who} {act}, some night this week.'],             /* draft */
+  /* WRONG, AND NOBODY IN THE CHAIN CAN KNOW IT. No hedge. "Ask anybody on this
+     street" is not bravado, it is the mechanism said out loud: the copy travels
+     whole, so asking anybody really does get you the same wrong story. */
+  flat:   ['{who} {act}. That is the whole of it.',           /* draft */
+           '{who} {act}. Ask anybody on this street.'],       /* draft */
+  /* THREE HOPS OUT, AND THE DOUBT HAS WORN DOWN TO A SCRAP. Not gone: the scrap
+     is the fingerprint. The school's own trap says an unmarked falsehood reads
+     as a BUG and gets reported as one, so the worn hedge is what lets a player
+     catch the lie instead of filing it as broken. */
+  sure:   ['{who} {act}. I was there, or near enough.',       /* draft */
+           '{who} {act}. I saw that with my own eyes. I think.'] /* draft */
 };
+/* AND THE INVENTED HALF IS A REASON. Bartlett 1932 found rationalisation in
+   almost every chain: a teller who cannot make a piece fit does not drop it, they
+   EXPLAIN it, and the explanation is something they already believed. So a story
+   that GREW arrives with a cause it never had, and the cause is this street's own
+   assumption about the valley. That is the half that teaches the player where
+   they are, which is why it is only on the grown ones and never on the truth.
+   Keyed to what it grew INTO. draft:true, and the beliefs are his. */
+var CT_RUMOUR_WHY = {
+  'commit':           'Nobody does that for free.',   /* draft */
+  'pushed_the_price': 'Rent does that to people.',    /* draft */
+  'downed':           'It was always going there.'    /* draft */
+};
+/* THE DWELL CEILING IS 98 CHARACTERS AND IT IS NOT A STYLE RULE. barkHold() is
+   (length / 14) * 1000 ms clamped at 7000, so a bubble past 98 characters is held
+   for exactly as long as a 98-character one: every letter after that is time the
+   reader does not get. A reason that would push a line over the ceiling is
+   DROPPED rather than shortened into mush. */
+var CT_RUMOUR_CEILING = 98;
 var CT_RUMOUR_SAID = {};
 /* WHAT YOU CALL SOMEBODY YOU ARE TALKING ABOUT, WHICH IS NOT WHAT YOU CALL THEM
    TO THEIR FACE, and the control caught this the first time it ran.
@@ -48824,12 +48890,28 @@ function ctRumourWho(actorId, speakerHead){
     return 'the other ' + word;                /* draft */
   return 'the ' + word;                        /* draft */
 }
+/* WHICH FRAME THIS STORY GETS. One place, so a mouth and a gate cannot have two
+   ideas of how sure somebody sounds. The order is the school's, not taste:
+   hops first (the hedge wears off), then the hole the teller can actually feel
+   (the place, then the hour), and everything else is said flat. A story with the
+   WRONG MAN in it and no lost place or hour lands in `flat` on purpose -- the
+   teller has no way to know, so they say it exactly like the truth. */
+function ctRumourBand(d){
+  var hops = (d && d.hops) || 0;
+  if (hops <= 0) return 'saw';
+  if (hops >= 3) return 'sure';
+  var wrong = false;
+  try { wrong = !!(typeof BohemiaStanding !== 'undefined' && BohemiaStanding.isWrong
+                   && BohemiaStanding.isWrong(d)); } catch (_e) { wrong = false; }
+  if (!wrong) return 'heard';
+  var v = d.vague || {};
+  if (v.where) return 'where';
+  if (v.when)  return 'when';
+  return 'flat';
+}
 function ctRumourLine(d, whoWord){
   var act = CT_RUMOUR_ACT[d.kind]; if (!act || !whoWord) return null;
-  var band = (d.hops || 0) > 0
-    ? ((typeof BohemiaStanding !== 'undefined' && BohemiaStanding.isWrong
-        && BohemiaStanding.isWrong(d)) ? 'vague' : 'heard')
-    : 'saw';
+  var band = ctRumourBand(d);
   var arr = CT_RUMOUR_SAY[band]; if (!arr || !arr.length) return null;
   /* the same story out of the same mouth is the same sentence, every time */
   var pickSeed = String(d.seed || d.kind) + '|' + band;
@@ -48840,8 +48922,16 @@ function ctRumourLine(d, whoWord){
      eyewitness frame is two sentences and {who} lands at the head of the second,
      so the glass read "I saw it myself. the other watch never paid somebody
      back." Fixed where the sentence is built rather than in eight strings. */
-  return line.replace(/(^|[.!?]\s+)([a-z])/g, function(_m, a, b){
+  line = line.replace(/(^|[.!?]\s+)([a-z])/g, function(_m, a, b){
     return a + b.toUpperCase(); });
+  /* THE REASON THE TELLER INVENTED, on a story that grew and only on one. It is
+     dropped rather than shortened when it would put the bubble past the dwell
+     ceiling, because a reason nobody has time to read is worse than no reason. */
+  if (d.grew && d.grew.length) {
+    var why = CT_RUMOUR_WHY[d.kind];
+    if (why && (line.length + 1 + why.length) <= CT_RUMOUR_CEILING) line = line + ' ' + why;
+  }
+  return line;
 }
 function ctRumourBark(now){
   if (typeof BohemiaStanding === 'undefined') return false;
@@ -48874,7 +48964,7 @@ function ctRumourBark(now){
          read ONE fact instead of two ideas of one */
       try { window.__RUMOUR_SAID = { by: String(d0.p.id), about: String(dd.actor),
             truly: dd.truly || null, kind: dd.kind, grew: dd.grew || null,
-            hops: dd.hops || 0, text: line,
+            hops: dd.hops || 0, text: line, band: ctRumourBand(dd),
             wrong: BohemiaStanding.isWrong(dd) }; } catch (_e) {}
       return true;
     }
