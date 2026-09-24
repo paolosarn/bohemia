@@ -6803,6 +6803,65 @@ full suite unmeasured since 7efb22cf. Rule 14(a): demo untouched, RUN cuts it.
 
 Record: records/BOHEMIA_ONE_DOOR_9_14_26.md
 
+PLUMBER (plumber-ont6t5): 9/24 (b) LATEST -- *** CHAT 18. ROUND 40. [covered controls] SHIPPED. IN THE
+SUITE AS COVERED CONTROLS, 8 PASSED 0 FAILED ON BOTH SURFACES, 102 s. AND TWICE ON THE WAY THE OBVIOUS
+RULE WAS THE WRONG ONE. ***
+THE JOB: four times in two rounds a lane spent a whole round on a control that was alive underneath
+something invisible (#loadgl, the VOTE landing, the hidden fight frame, #openInvite). This lane hit it
+from the other side too: 17 dead presses of 24 were the CITY FRAME being asked whether its own button
+was topmost while the covering card lived in the PARENT page. Rule 14(h) is the other half -- a dead
+button is indistinguishable from a close button, so "did the screen change" proves nothing either way.
+THE ONLY HONEST QUESTION IS WHERE A FINGER ACTUALLY LANDS, and the browser answers it exactly.
+TWO LEGS per named control, on THE ALPHA AND THE DEMO, through the one driver, after the door:
+  1. the TOP page's elementFromPoint returns that control, or the frame holding it
+  2. and for a control inside the frame, the FRAME'S OWN elementFromPoint returns it too
+LEG 2 IS NOT IN THE ROW AND IT IS HALF THE BUG. The top page hands a finger to iframe#cityFrame for
+EVERYTHING inside it, so a card over the pad INSIDE the frame passes leg 1 with room to spare. That is
+exactly the 9/21 finding where the first card of the game sat over all eight direction buttons and 544
+presses moved him zero cells. One leg catches an overlay above the frame, the other one below it.
+*** MY FIRST CUT REPORTED 24 COVERED OF 29 AND WAS ENTIRELY WRONG. *** It found the frame with
+querySelector('iframe'). THE ALPHA CARRIES THIRTEEN IFRAMES AND TWELVE ARE 0x0 SHELLS; the first in
+document order is #voteOver at 0x0. Every offset was computed against the wrong box and every
+containment test compared against the wrong element. The number it printed was specific, plausible and
+false, which is the shape this lane keeps finding in its own instruments. Fixed by asking playwright
+which frame it is DRIVING (fr.frameElement()), which cannot be wrong about the frame it is already
+talking to. FOR ANY LANE MEASURING THE ALPHA: querySelector('iframe') gives you a 0x0 shell.
+*** AND THE ROW'S OWN WORDING GOES RED ON THE WALKING PAD, WHICH WORKS. *** The row says "at the
+control's own centre". Rule 12 says that is a premise, so I measured before building to it. #pad is a
+90x90 RING (its only child is svg#padring) with canvas #modeFace in the hole, and a centre-only rule
+calls it COVERED on both surfaces. So I pressed it like a finger through the top page and read his
+coordinates:
+  12 presses at the pad's TOP EDGE   hy 6268 -> 6145   HE MOVED
+  12 presses at the pad's CENTRE     hy 6145 -> 6145   nothing, correctly
+The centre of a D-pad is a dead zone by design. A gate that goes red on the working walk pad is a gate
+the fleet switches off within a round, and then it protects nothing -- the same lesson as the marker
+check that went red on a record QUOTING a marker. So the question is not "is this topmost at one
+pixel", it is CAN A FINGER REACH THIS CONTROL AT ALL: nine points across each control, pass if a finger
+reaches it at ANY. That is also what all four incidents were, a full-surface overlay, not a speck.
+THE ROW'S SUGGESTED MUTATION TESTS THE WRONG THING and I kept it as a deliberate NEGATIVE that must
+stay GREEN: "park a 1x1 transparent div over the pad" would fail a centre-only rule and pass this one,
+and this one is right, because one transparent pixel does not stop anybody pressing a 90x90 ring.
+FLOORS: red if the door is still in front of us (everything under a splash answers happily and the
+answers are about a screen nobody is looking at), and red if fewer than 8 controls are found (an empty
+sweep passes every test inside it).
+MUTATION-CHECKED THREE WAYS ON BOTH SURFACES, exit codes read WITHOUT A PIPE:
+  full-size invisible div over the pad, INSIDE the frame   red on leg 2, div#plantedOverlay NAMED
+  the same over the whole city frame, on the PAGE          red on leg 1, culprit named
+  ONE TRANSPARENT PIXEL at the pad centre                  stays GREEN, as it must
+  clean tree                                               8 passed, 0 failed, 102 s
+WHAT IT FOUND ON THE CURRENT BUILD: NOTHING. 25 controls on the alpha (5 page, 20 frame) and 9 on the
+demo, all reachable. That is the correct result for a standing check on the round it lands, and it is
+worth saying plainly rather than hunting for something to report: the four incidents were fixed by the
+lanes that owned them. What did not exist until now is the machine that notices the fifth.
+PRE-PUSH PASS: COVERED CONTROLS 8/0 and GREEN THROUGH THE SUITE RUNNER (not just standalone), gate
+table 717 rows 0 malformed, HANDOFF 9/0, REPLY CONTRACT 17/0. Rule 14(a): demo untouched, RUN cuts it.
+Record: records/BOHEMIA_NOTHING_INVISIBLE_SITS_OVER_A_CONTROL_9_24_26.md
+STILL OPEN IN MY SECTION: [one driver], [three valleys], [slim build], [deep history], [real surface],
+[horror gate], [mode chip], [suite line], [pre-push pass], [cannot fail], [one way rulers],
+[spelling gates], [suite runs], [fight headroom], [dead gates], [handoff cut], [backlog archive].
+Still CLAIMED: [never worse], [sixty fps], [demo errors] (STANDING).
+NO [PENDING Paolo] FROM THIS LANE. His Pages click answered the only one I was carrying.
+
 PLUMBER (plumber-ont6t5): 9/24 LATEST -- *** CHAT 18. ROUND 39. [no markers] SHIPPED. THE ROW SAID
 TWICE. IT WAS FOUR, ACROSS THREE WEEKS AND FOUR LANES, AND THE LEG THAT WAS ALREADY HERE COULD NOT
 HAVE CAUGHT A CONFLICT IN THE ALPHA. ***

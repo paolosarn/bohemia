@@ -4371,6 +4371,43 @@ GATES = [
      'behind in a repo where ten lanes are pushing.',
      180),
 
+    ('COVERED CONTROLS', ['node', 'gates/covered_controls_gate.js'],
+     'NOTHING INVISIBLE SITS OVER A CONTROL. 9/24, PLUMBER, row [covered controls]. FOUR TIMES IN '
+     'TWO ROUNDS a lane spent a whole round on a control that was alive underneath something '
+     'invisible: the loading canvas #loadgl, the VOTE landing, the hidden fight frame, and the '
+     'opening banner #openInvite. Same defect this lane hit from the other side (17 dead presses '
+     'of 24, the CITY FRAME asked whether its own button was topmost while the covering card lived '
+     'in the PARENT page), and rule 14(h) other half: a dead button is indistinguishable from a '
+     'close button, so "did the screen change" proves nothing either way. THE ONLY HONEST QUESTION '
+     'IS WHERE A FINGER ACTUALLY LANDS, and the browser answers it exactly. TWO LEGS per named '
+     'control, on the alpha AND the demo, through the one driver, after the door: the TOP page '
+     'elementFromPoint returns that control or the frame holding it, AND for a control inside the '
+     'frame the FRAME OWN elementFromPoint returns it too. LEG 2 IS NOT IN THE ROW AND IT IS HALF '
+     'THE BUG: the top page hands a finger to iframe#cityFrame for EVERYTHING inside it, so a card '
+     'over the pad INSIDE the frame passes leg 1 with room to spare -- which is the 9/21 finding '
+     'where the first card sat over all eight direction buttons and 544 presses moved him zero '
+     'cells. *** THE FIRST CUT REPORTED 24 COVERED OF 29 AND WAS ENTIRELY WRONG: it found the '
+     'frame with querySelector(iframe), and the alpha carries THIRTEEN iframes of which twelve are '
+     '0x0 shells, the first being #voteOver. Every offset was computed against the wrong box. The '
+     'fix is to ask playwright which frame it is driving, which cannot be wrong about the frame it '
+     'is already talking to. *** AND "AT THE CONTROL OWN CENTRE", THE ROW OWN WORDING, GOES RED ON '
+     'THE WALKING PAD, WHICH WORKS. Rule 12, so I measured it: #pad is a 90x90 RING whose only '
+     'child is svg#padring, with canvas #modeFace in the hole. Pressed like a finger through the '
+     'top page: 12 presses at the pad TOP EDGE moved him (hy 6268 -> 6145), 12 at the CENTRE moved '
+     'him nothing, correctly, because the centre of a D-pad is a dead zone. So the gate samples '
+     'NINE POINTS across each control and passes if a finger reaches it at ANY of them; a covered '
+     'control is one a finger cannot reach ANYWHERE. That is also what the four incidents were: a '
+     'full-surface overlay, not a speck. THE ROW SUGGESTED MUTATION (a 1x1 div over the pad) TESTS '
+     'THE WRONG THING and is kept as a deliberate NEGATIVE that must stay green, because one '
+     'transparent pixel does not stop anybody pressing a 90x90 ring. FLOORS: red if the door is '
+     'still in front of us (everything under a splash answers happily about a screen nobody is '
+     'looking at), and red if fewer than 8 controls are found (an empty sweep passes every test in '
+     'it). MUTATION-CHECKED THREE WAYS on both surfaces, exit codes read without a pipe: a '
+     'full-size invisible div over the pad inside the frame -> red on leg 2, culprit named; the '
+     'same over the whole city frame on the page -> red on leg 1, culprit named; one transparent '
+     'pixel -> stays green. Clean tree: 8 passed, 0 failed, 102 s for both surfaces.',
+     600),
+
     ('DRIVER SAYS', ['node', 'gates/the_driver_says_what_it_opened_gate.js'],
      'A NUMBER MUST SAY WHICH FILE IT IS ABOUT. 9/22, PLUMBER lane, row [driver says]. PEOPLE '
      '(f75eb900) and SOUNDS (c6566f47) both asked the one driver for the ALPHA in the same round '
