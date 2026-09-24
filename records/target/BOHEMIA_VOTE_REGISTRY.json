@@ -1813,6 +1813,19 @@
    },
    "redoOf": "point, taunt and chest-thump",
    "said": "A lot of the ones I thumbed down were because some of the DIRECTIONS look like dog shit."
+  },
+  {
+   "id": "ui-the-cracked-iphone-9-24",
+   "kind": "ui",
+   "lane": "ui",
+   "sha": "pending",
+   "made": "9/24",
+   "title": "THE PHONE IS A CRACKED IPHONE NOW",
+   "why": "You said the phone should look like a cracked iPhone, so it does. All three shots are the real phone in the city view, from the game's own camera. Left is what it was: a taped-up radio, too narrow, thick plastic case, a strip of tape across the top. The two on the right are the new one: a phone's shape, a thin metal rail instead of a case, a big round corner, the black cut-out at the top, black glass, and the rail chipped where it landed. The tape is gone. THE ONLY QUESTION IS HOW BROKEN YOU WANT IT. A is one crack from the corner, which is what a dropped phone looks like. B is wrecked, a second hit from the other side. A is in the game right now. Say B and it is B, one word.",
+   "show": {
+    "how": "image",
+    "src": "vote/UI_THE_CRACKED_IPHONE_9_24.png"
+   }
   }
  ],
  "verdicts": [

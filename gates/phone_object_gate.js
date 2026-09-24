@@ -109,6 +109,13 @@ const ready = async (p, ms) => { const t0 = Date.now();
       cracks: glass ? glass.querySelectorAll('svg path').length : 0,
       glassHits: glass ? getComputedStyle(glass).pointerEvents : 'none',
       tape: !!tape && box(tape).h > 1,
+      round: cs ? parseFloat(cs.borderTopLeftRadius) || 0 : 0,
+      island: (() => { const bar = g('cityfeedbar'); if (!bar) return false;
+        const b = getComputedStyle(bar, '::before');
+        return b.content !== 'none' && parseFloat(b.width) > 10; })(),
+      chips: (() => { let n = 0; for (const w of ['::before', '::after']) {
+        const c = getComputedStyle(feed, w);
+        if (c.content !== 'none' && parseFloat(c.width) > 1) n++; } return n; })(),
       battCls: batt ? batt.className : null,
       battText: batt ? (batt.textContent || '').trim() : null,
       skinSays: window.BOHEMIA_SKIN ? window.BOHEMIA_SKIN.litHere() : 'no skin',
@@ -133,10 +140,28 @@ const ready = async (p, ms) => { const t0 = Date.now();
   ok('the feed is on screen in city mode', seen.on === true && !!seen.feed);
   if (!seen.feed) { await b.close(); srv.close(); done(); }
 
-  /* 1. THE CASING IS REAL. A panel has a 1px border; an object has a body you can measure. */
+  /* 1. THE BODY IS REAL. A panel has a 1px border; an object has a body you can measure.
+     *** THE NUMBER CHANGED AND THE PRINCIPLE DID NOT (Paolo 9/23, rule 32c: "the phone
+     should look like a cracked iphone bro"). *** This asked for 4 px of case on every
+     side, which was right for the moulded radio it was written about and is wrong for a
+     phone: an iPhone's band is THIN, and the whole point of the shape is that it is
+     nearly all glass. A phone whose rail measured 4 px at this size would be a case again.
+     So the floor comes down to 2 px, and the thing that keeps this from being a
+     loosening is the leg under it, which is new: THE RAIL IS A RAIL AND NOT A LINE, still
+     a real body with a lit top and a dark base, and the glass strictly inside it. */
   const minPad = seen.pad ? Math.min(...seen.pad) : 0;
-  ok('*** IT HAS A CASING, NOT A BORDER *** -- every side of the body measures at least 4px '
-     + '(' + seen.pad.join('/') + ')', minPad >= 4);
+  ok('*** IT HAS A BODY, NOT A BORDER *** -- every side of the rail measures at least 2px '
+     + '(' + seen.pad.join('/') + ')', minPad >= 2);
+  /* 1b. AND IT IS THE SHAPE OF A PHONE. Measured off the old object: 132 x 349 is a ratio
+     of 2.65, which is no phone anybody has held. A handset is 19.5 by 9, 2.17. */
+  const ratio = seen.feed.h / seen.feed.w;
+  ok('*** AND IT IS THE SHAPE OF A PHONE *** -- tall by nine to nineteen and a half, not '
+     + 'the 2.65 slot the old body was', Math.abs(ratio - 2.167) < 0.12,
+     'ratio ' + ratio.toFixed(2) + ' (' + Math.round(seen.feed.w) + ' x ' + Math.round(seen.feed.h) + ')');
+  ok('  and its corner is a phone\'s corner, about a seventh of its width',
+     seen.round >= seen.feed.w / 10 && seen.round <= seen.feed.w / 4,
+     Math.round(seen.round) + 'px on a ' + Math.round(seen.feed.w) + 'px body');
+  ok('  and there is an island cut out of the top of the glass', seen.island === true);
 
   /* 2. THE SCREEN IS INSET INSIDE THE CASING, all four edges. */
   const inset = seen.screen && seen.screen.l > seen.feed.l + 1 && seen.screen.r < seen.feed.r - 1
@@ -149,7 +174,14 @@ const ready = async (p, ms) => { const t0 = Date.now();
      + 'pretending to be one', seen.cracks >= 6);
   ok('and the glass cannot swallow a tap -- it is pointer-events:none, the exact mistake '
      + 'the half-size reach pads made', seen.glassHits === 'none');
-  ok('there is tape on it', seen.tape === true);
+  /* *** THE TAPE IS GONE, AND THAT IS THE RULING, NOT A REGRESSION. *** This leg used to
+     read "there is tape on it", from the round that turned a text panel into an object.
+     Paolo 9/23 made the object a cracked iPhone, and nobody tapes a phone shut; the strip
+     was a parcel detail. What replaces it is the wear he DID ask for and did not withdraw
+     ("the phone keeps the chipping and broken glass", 9/21): the rail is CHIPPED. */
+  ok('there is no tape on it any more, because it is a phone', seen.tape === false);
+  ok('*** AND THE RAIL IS CHIPPED *** -- the wear he asked to keep, bitten out of the '
+     + 'body rather than painted on the glass', seen.chips >= 2, seen.chips + ' chips');
 
   /* 4. *** THE BATTERY IS A REAL READING, AND THIS IS THE LEG THAT MATTERS MOST. *** */
   ok('*** THE BATTERY AGREES WITH THE CITY *** -- it reads cbLitFront at the player\'s own '
@@ -208,13 +240,22 @@ const ready = async (p, ms) => { const t0 = Date.now();
   /* 6. IT COMES FROM A SKIN, PROVED BY MUTATION. */
   const mutated = await c.evaluate(() => {
     const feed = document.getElementById('cityfeed');
+    /* *** THE RING WAS ANSWERING FOR THE SKIN. *** This read the border colour, and the
+       unread ring sets border-color itself, so on any run where the morning was unread
+       the measurement came back the ring's gold before AND after and the leg called a
+       working skin broken. The ring is the phone's state, not its paint: take it off for
+       the measurement and put it back. A checker that cannot tell a value from the thing
+       sitting on top of it is measuring the thing on top. */
+    const wasRinging = feed.classList.contains('ring');
+    feed.classList.remove('ring');
     const before = getComputedStyle(feed).borderTopColor;
     document.documentElement.style.setProperty('--skin-caseedge', 'rgb(255, 0, 0)');
     const after = getComputedStyle(feed).borderTopColor;
     /* put it back the way the skin had it, so the gate leaves no paint behind */
     if (window.BOHEMIA_SKIN) window.BOHEMIA_SKIN.wear('salvage');
     const restored = getComputedStyle(feed).borderTopColor;
-    return { before, after, restored };
+    if (wasRinging) feed.classList.add('ring');
+    return { before, after, restored, wasRinging };
   });
   ok('*** THE OBJECT IS DRAWN FROM A SKIN *** -- changing one skin value repaints the '
      + 'phone (' + mutated.before + ' -> ' + mutated.after + '), so act two is a second '

@@ -584,7 +584,6 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font-family:var(--
        Every colour and thickness here comes from the SKIN, so act two and act three
        swap the whole object without touching a word of the feed. -->
   <div id="cityfeed" aria-hidden="true">
-    <div id="cityfeedtape" aria-hidden="true"></div>
     <div id="cityfeedscreen">
       <div id="cityfeedbar"><span id="cityfeedsig">▮▮▮</span><span id="cityfeedname">THE VALLEY</span><span id="cityfeedbatt" title="the grid where you are standing"></span><span id="cityfeedclock">--:--</span></div>
       <div id="cityfeedlist" role="log" aria-live="polite"></div>
@@ -759,17 +758,39 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font-family:var(--
    [skin swap] row. Change these eight values and act two's phone is a different object
    with the same words in it. ACT ONE is named SALVAGE: our own era's tech worn down and
    kept alive past its life, which is his phrase "2050 rustic" and not a 1950s future. */
-#cityfeed{position:absolute;right:7px;top:92px;width:132px;max-height:44%;z-index:26;
+/* *** IT IS A CRACKED IPHONE NOW, BY HIS WORD (Paolo 9/23 in the tab, rule 32c): "the
+   phone should look like a cracked iphone bro". ***
+   WHAT THAT CHANGES, and every one of these was measured off the old object rather than
+   guessed. The old phone was 132 x 349, a ratio of 2.65, with 5 px of moulded case on
+   every side, a 13 px corner and A STRIP OF TAPE across the top. That is a rugged radio.
+   A phone in your hand is 19.5 by 9, a ratio of 2.16; it is nearly ALL GLASS inside a
+   THIN BRIGHT RAIL; its corner is about a seventh of its width; and nothing is taped to
+   it. So: the aspect ratio is the phone's, the case becomes a rail, the corner grows from
+   13 to 19, the tape is deleted, and the glass keeps his crack and gains the chipping he
+   asked for on 9/21.
+   THE OBJECT DOES NOT GET FLATTER FOR BEING A SLAB, which is the thing to watch: the rail
+   is still real thickness with a lit top and a dark base, the glass is still strictly
+   inset inside it, and the phone still reads from the SKIN so act two and act three can
+   swap the whole device without touching a word of the feed. */
+/* THE RATIO IS A HEIGHT, NOT A WISH. `aspect-ratio` alone measured 132 x 564 (a ratio of
+   4.27) because aspect-ratio is a PREFERRED size and the feed's own posts pushed the box
+   past it. The height is computed from the width so a skin that widens the phone keeps the
+   phone's proportions, and the glass clips what does not fit, the way a screen does. */
+#cityfeed{position:absolute;right:7px;top:92px;z-index:26;
+  width:var(--skin-phonew,132px);
+  height:calc(var(--skin-phonew,132px) * 19.5 / 9);
+  overflow:hidden;
   display:none;flex-direction:column;
-  /* THE CASING. A phone you can see is a thing with a THICKNESS: the bezel is padding,
-     not a border, because a 1px line reads as a box and 5px of case reads as an object. */
-  padding:var(--skin-bezel,5px) var(--skin-bezel,5px) calc(var(--skin-bezel,5px) * 1.8);
-  border-radius:var(--skin-round,13px);
-  background:var(--skin-case,linear-gradient(150deg,#3b342a,#221d16 60%,#2e2820));
-  border:1px solid var(--skin-caseedge,#4a4133);
-  box-shadow:0 7px 20px rgba(0,0,0,.66),
-             inset 0 1px 0 var(--skin-casetop,rgba(226,210,160,.16)),
-             inset 0 -2px 3px rgba(0,0,0,.5);
+  /* THE RAIL. Thin, because a phone's band IS thin, and still a body rather than a line:
+     it has a bright edge, a dark middle and a bright edge again, which is what a turned
+     metal band does under one light. */
+  padding:var(--skin-bezel,3px);
+  border-radius:var(--skin-round,19px);
+  background:var(--skin-case,linear-gradient(97deg,#6d6759 0%,#c9c0ab 9%,#57524a 24%,#a9a192 51%,#4f4a43 74%,#bcb3a0 92%,#635e53 100%));
+  border:1px solid var(--skin-caseedge,#38342d);
+  box-shadow:0 8px 22px rgba(0,0,0,.70),
+             inset 0 1px 0 var(--skin-casetop,rgba(240,232,208,.34)),
+             inset 0 -2px 3px rgba(0,0,0,.55);
   /* THE CASING OF THE PHONE IS SET IN THE CASING REGISTER, which is a sentence that
      should not have needed writing: this rule draws the phone's BODY, the plastic, and
      the glass inside it is #cityfeedscreen on the screen register. They were both on
@@ -810,11 +831,18 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font-family:var(--
 /* THE TAPE. Somebody kept this thing alive. It sits ON the casing, over the top corner,
    because that is where a cracked screen gets held together in every photograph of a
    phone that has been repaired by its owner rather than by a shop. */
-#cityfeedtape{position:absolute;left:-3px;top:var(--skin-tapey,-3px);width:calc(100% + 6px);
-  height:var(--skin-tapeh,8px);z-index:4;pointer-events:none;
-  background:var(--skin-tape,repeating-linear-gradient(115deg,rgba(206,188,140,.30) 0 3px,rgba(176,158,112,.22) 3px 6px));
-  border-top:1px solid rgba(240,226,184,.16);border-bottom:1px solid rgba(0,0,0,.35);
-  transform:rotate(var(--skin-taperot,-1.4deg));opacity:var(--skin-tapeop,.85)}
+/* THE CHIPPING HE LIKED (his 9/21 note on the top bar: "the phone keeps the chipping and
+   broken glass"), and the tape it replaces. The tape was a parcel detail on a device that
+   is now a slab, so it is deleted rather than hidden. A chip in a phone is TWO things at
+   once: a bite out of the rail, and the bright raw metal under the finish where the bite
+   is. Both corners on the impact side, because glass breaks where it landed and the crack
+   already radiates from the top right. */
+#cityfeed::before,#cityfeed::after{content:'';position:absolute;z-index:5;pointer-events:none;
+  background:var(--skin-chipraw,#d6cdb6);opacity:.85}
+#cityfeed::before{right:-1px;top:13px;width:4px;height:7px;
+  clip-path:polygon(100% 0,100% 100%,20% 62%,55% 30%)}
+#cityfeed::after{right:9px;top:-1px;width:9px;height:4px;
+  clip-path:polygon(0 0,100% 0,72% 100%,26% 70%)}
 /* THE SCREEN. Inset into the casing, and LIT rather than black -- a dark screen is an
    off phone, and his frame was a picture of an off phone with words on it. */
 #cityfeedscreen{flex:1 1 auto;min-height:0;display:flex;flex-direction:column;
@@ -825,7 +853,7 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font-family:var(--
      Set on the screen and not on the whole phone on purpose: the casing is not a screen
      and must not pick up a screen's face just by being next to one. */
   font-family:var(--face-screen);
-  border-radius:var(--skin-screenround,4px);
+  border-radius:var(--skin-screenround,16px);
   background:var(--skin-screen,linear-gradient(#14120d,#0d0b08 70%,#100e0a));
   box-shadow:inset 0 0 0 1px var(--skin-screenedge,#0a0906),
              inset 0 2px 7px rgba(0,0,0,.7),
@@ -842,19 +870,49 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font-family:var(--
     /* the shine off the glass */
     linear-gradient(155deg,rgba(238,228,198,.055),rgba(255,255,255,0) 42%)}
 #cityfeedglass svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+/* HOW BADLY IT IS BROKEN IS HIS TO PICK, and both answers are THE SAME FRACTURE. The
+   second impact is the first one cloned at run time and flipped, never a second shape
+   drawn by hand -- a phone with two different-looking cracks on it is two phones. The
+   class is what changes; the drawing is one drawing. */
+#cityfeedglass.shattered .second{display:block}
+#cityfeedglass .second{display:none;position:absolute;inset:0;
+  transform:scaleX(-1) scaleY(-1)}
+#cityfeedglass .second svg{position:absolute;inset:0;width:100%;height:100%}
 #cityfeedglass .crk{fill:none;stroke:var(--skin-crack,rgba(233,222,190,.30));
   stroke-width:.7;vector-effect:non-scaling-stroke;stroke-linecap:round}
 #cityfeedglass .crk.rng{stroke:var(--skin-crack2,rgba(233,222,190,.16));stroke-width:.5}
+/* THE ISLAND. A phone's status row has a black cut-out in the middle of it, and that one
+   shape is most of why a rectangle reads as a phone rather than a screen. It is drawn ON
+   the status row because that is where it physically is, not floated over the glass by a
+   second element nobody can find later. */
+#cityfeedbar::before{content:'';position:absolute;left:50%;top:3px;transform:translateX(-50%);
+  width:36px;height:9px;border-radius:5px;background:#05050a;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.05);z-index:2}
 #cityfeedbar{flex:0 0 auto;display:flex;align-items:center;gap:4px;padding:4px 6px;
   border-bottom:1px solid #241d13;color:#8d8168;font-size:8px;letter-spacing:var(--track-casing,.4px);
   position:relative;z-index:1}
-#cityfeedsig{color:#6f6a52;letter-spacing:0}
+/* THE STATUS ROW READS LEFT TO RIGHT THE WAY A PHONE'S DOES: the hour on the left, the
+   island in the middle, the signal and the battery on the right. It used to run signal,
+   name, battery, clock straight across the middle, and the island landed on top of the
+   name -- looked at, not reasoned about: the picture said "THE [black pill] 06:00".
+   Nothing is reordered in the MARKUP, because the reading order a screen reader gets is
+   not the order a phone paints. */
+#cityfeedclock{order:1;flex:0 0 auto}
+/* THE PLACE NAME COMES OFF THE STATUS ROW, and this is the one thing the iPhone shape
+   costs. Measured on the picture: the island spans the middle 36 px of 126 px of glass,
+   the hour takes the left 30, and there is no room left for a word between them -- the
+   name ran UNDER the island and read "TH[black pill]". A phone with a notch does not put
+   the carrier beside the clock either. The element stays in the markup so anything that
+   writes to it still has somewhere to write, and the place he is standing in is on the
+   game's own top bar two centimetres away. */
+#cityfeedname{display:none}
+#cityfeedsig{order:3;margin-left:auto;color:#6f6a52;letter-spacing:0}
+#cityfeedbatt{order:4}
 /* THE NAME IS THE ONLY THING ALLOWED TO SHRINK, so a narrow casing never pushes the
    clock or the battery off the phone. Caught on the options sheet's thick-cased
    option, where the clock walked out past the case. */
 #cityfeedname{flex:1 1 auto;min-width:0;overflow:hidden;white-space:nowrap;
   color:#c8b681;letter-spacing:var(--track-casing,.4px)}
-#cityfeedclock{flex:0 0 auto}
 /* THE BATTERY IS A REAL READING AND NOTHING ELSE WOULD BE ALLOWED. It is not a made-up
    percentage: it asks the game whether the street where the player is standing is on a
    LIVE CIRCUIT, through the city's own cbLitFront(), the same function the build permit
@@ -77097,6 +77155,13 @@ window.BOHEMIA_FEED = (function(){
     if(!PANEL) PANEL=el('cityfeed');
     if(!LIST)  LIST =el('cityfeedlist');
     if(!CLOCK) CLOCK=el('cityfeedclock');
+    /* THE SECOND IMPACT, cloned from the first fracture, once, at the moment the phone
+       exists. It is hidden unless the glass carries `shattered`, which is the option he
+       picks between; cloning rather than drawing keeps ONE fracture shape in this game. */
+    try{ var _g=el('cityfeedglass');
+      if(_g&&!_g.querySelector('.second')&&_g.firstElementChild){
+        var _w=document.createElement('div'); _w.className='second'; _w.setAttribute('aria-hidden','true');
+        _w.appendChild(_g.firstElementChild.cloneNode(true)); _g.appendChild(_w); } }catch(_e){}
     if(PANEL){
       /* *** THE PHONE EXISTS ON THE STREET TOO. ***
          RUN measured it (9/23, [phone door], records/BOHEMIA_THE_PHONE_COULD_NOT_BE
@@ -78249,22 +78314,21 @@ window.BOHEMIA_SKIN = (function(){
     salvage: {
       name:'SALVAGE (act one)',
       vars:{
-        '--skin-case':'linear-gradient(150deg,#3b342a,#221d16 58%,#2f2920)',
-        '--skin-caseedge':'#4a4133',
-        '--skin-casetop':'rgba(226,210,160,.16)',
-        '--skin-bezel':'5px',
-        '--skin-round':'13px',
+        /* THE RAIL of a cracked iPhone (rule 32c), not the moulded case of a radio */
+        '--skin-case':'linear-gradient(97deg,#6d6759 0%,#c9c0ab 9%,#57524a 24%,#a9a192 51%,#4f4a43 74%,#bcb3a0 92%,#635e53 100%)',
+        '--skin-caseedge':'#38342d',
+        '--skin-casetop':'rgba(240,232,208,.34)',
+        '--skin-chipraw':'#d6cdb6',
+        '--skin-bezel':'3px',
+        '--skin-round':'19px',
         '--skin-screen':'linear-gradient(#14120d,#0d0b08 70%,#100e0a)',
         '--skin-screenedge':'#0a0906',
-        '--skin-screenround':'4px',
+        '--skin-screenround':'16px',
         '--skin-glow':'rgba(200,182,129,.09)',
         '--skin-glowr':'9px',
         '--skin-crack':'rgba(233,222,190,.30)',
         '--skin-crack2':'rgba(233,222,190,.16)',
         '--skin-glassop':'1',
-        '--skin-tape':'repeating-linear-gradient(115deg,rgba(206,188,140,.30) 0 3px,rgba(176,158,112,.22) 3px 6px)',
-        '--skin-tapey':'-3px', '--skin-tapeh':'8px',
-        '--skin-taperot':'-1.4deg', '--skin-tapeop':'.85',
         '--skin-batt':'#6f6a52', '--skin-battlit':'#9adfd0', '--skin-battdark':'#c07a4a',
         /* *** THE OBJECT LANGUAGE FOR EVERY CONTROL, from DIRECTION's 9/11 font ruling
            (records/BOHEMIA_THE_FONT_RESEARCH_9_11_26.md section 3) and Paolo's 9/11 law.

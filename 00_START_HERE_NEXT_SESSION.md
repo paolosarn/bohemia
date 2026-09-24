@@ -1,3 +1,80 @@
+UI (ui-kmqmrf): 9/24 (b) LATEST -- *** THE PHONE IS A CRACKED IPHONE NOW. *** [phone city
+only] round two, the half that was left. Row stays CLAIMED only for his pick between two
+crack severities; the object itself is built and in. TAB: CITY, zoom out, it is the phone
+on the right. Record: records/BOHEMIA_THE_PHONE_IS_A_CRACKED_IPHONE_9_24_26.md
+
+HIS WORDS (9/23 in the tab, thumb DOWN on the pocket phone): "And the phone should look
+like a cracked iphone bro." The first half of that ruling landed last round (no phone on
+the walked street). This is the second.
+
+WHAT THE OLD OBJECT MEASURED, before anything was touched: 132 x 349, a ratio of 2.65,
+5 px of moulded case on every side, a 13 px corner, and A STRIP OF TAPE across the top
+rotated 1.4 degrees. A rugged radio. It was RIGHT for the round that built it (his 9/8
+frame, "this doesn't look like a cool post-economic-apocalyptic phone"); his newer word is
+a different object and newest date wins.
+
+WHAT CHANGED AND WHY EACH ONE:
+  the shape   19.5 by 9, a ratio of 2.167 -> 132 x 286
+  the body    a THIN BRIGHT RAIL, not a case: 5 px to 3 px, and the paint goes from flat
+              plastic to a turned metal band, bright at the edges, dark in the middle
+  the corner  a seventh of the width: 13 px to 19 px
+  the glass   edge to edge inside the rail, 16 px radius, near black
+  the island  the black cut-out in the middle of the status row. That ONE SHAPE is most of
+              why a rectangle reads as a phone rather than as a screen
+  the wear    the tape is DELETED; the rail is CHIPPED, which is the wear he asked to keep
+              ("the phone keeps the chipping and broken glass", 9/21)
+  the crack   unchanged, his, still one drawn fracture
+
+THREE THINGS THE PICTURE TAUGHT ME THAT THE CODE DID NOT:
+ 1. A RATIO IS A HEIGHT, NOT A WISH. `aspect-ratio: 9/19.5` measured 132 x 564 (4.27),
+    because aspect-ratio is a PREFERRED size and the feed's posts pushed straight past it.
+    The height is computed from the width now and the glass clips, the way a screen does.
+ 2. THE ISLAND LANDED ON TOP OF THE NAME: the row ran signal, name, battery, clock across
+    the middle and the picture read "THE [black pill] 06:00". A phone's row is hour LEFT,
+    island MIDDLE, signal and battery RIGHT. Reordered in CSS only, so the reading order a
+    screen reader gets is untouched.
+ 3. AND THE ONE THING THE SHAPE COSTS, said rather than hidden: THE PLACE NAME COMES OFF
+    THE ROW. The island takes the middle 36 px of 126 px of glass and the hour the left 30;
+    there is no room for a word between them. The element stays in the markup so anything
+    writing to it still has somewhere to write, and the place is on the game's top bar.
+
+HOW BROKEN IS HIS, AND BOTH ANSWERS ARE ONE FRACTURE: A (one spider from the top right) is
+in the game; B (a second impact from the opposite corner) is one word away. THE SECOND
+IMPACT IS THE FIRST ONE CLONED AND FLIPPED at run time, never a second shape drawn by hand.
+
+GATE: gates/phone_object_gate.js (this lane's own, from 9/11) 22 ok / 0 failed. TWO OF ITS
+LEGS HELD THE OLD OBJECT and were turned round with the ruling, and the difference between
+that and loosening a gate is the point: "every side of the body measures at least 4px" was
+written about a moulded case, so the floor comes down to 2 px AND THE LEG UNDER IT IS NEW
+AND TIGHTER -- the object must have a phone's RATIO, a phone's CORNER and an ISLAND. The
+old leg could be passed by a brick; these cannot. "There is tape on it" becomes "there is
+no tape on it, because it is a phone", and the chipping is held instead.
+*** AND ONE LEG OF MINE WAS MEASURING THE THING SITTING ON TOP OF WHAT IT ASKED ABOUT: ***
+the skin leg reads the body's border colour, and THE UNREAD RING SETS border-color, so on
+any run where the morning is unread the ring answered for the skin and the leg called a
+working skin broken. The ring is state, not paint: off for the measurement, back after.
+Same defect class as the loading screen the whole fleet was measuring through, one element
+smaller.
+
+SEVEN MUTATIONS PROVED AND EACH RESTORED: radio proportions back -> 1 red; flatten the rail
+-> 2; island out -> 1; chipping off -> 1; tape it shut again -> 1; square the corner -> 1;
+as wide as it is tall -> 1.
+*** AND THE CORNER MUTATION PASSED THE FIRST TIME. *** It scored 22/0, and it was not a
+hole: the CSS carries the corner as var(--skin-round, 19px) and THE SKIN SETS --skin-round,
+so editing the fallback edits a value nothing reads. THE MUTATION NEVER MOVED A PIXEL.
+Changed at the skin it reds at once. FOR EVERY LANE, because this one has now been caught
+by the same shape three times (a stress that could not move the type, a route that matched
+no request, a mutation that edited a dead default): PROVE THE BREAK BROKE SOMETHING BEFORE
+SCORING WHAT THE GATE SAID ABOUT IT.
+
+RULE 22 COOK: ui-the-cracked-iphone-9-24 in the VOTE tab -- the old taped radio beside the
+two new ones, all three shot from the game's own camera in the city view (rule 32f).
+
+NEXT: his pick between A and B, then [the picks] (loads B is in; opens C, talks A, vote tab
+D, top bar D, choice looks A, writing D, screen C, label E, a choice's size as a SETTING).
+Then [door fixes] (DIRECTION's two on the loading door), [faces on the phone] (rule 31),
+[inner votes] (rule 25), [one hud] (rule 24). [PENDING Paolo] nothing.
+
 PORTRAIT (portrait-vamily-yke55s): 9/24 (b) LATEST -- *** HE VOTED THE DIALS UP AND PUT
 THE NEXT JOB IN THE SAME SENTENCE: "Fantastic progress it should all come with a slider."
 22 SLIDERS -> 32, ZERO LIVE DIALS OFF HIS PANEL, ZERO DEAD FIELDS LEFT IN THE FACE. ***
