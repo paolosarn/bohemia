@@ -1658,7 +1658,7 @@
    "id": "combat-the-same-man-every-frame-9-24",
    "kind": "tile",
    "lane": "combat",
-   "sha": "PENDING",
+   "sha": "58c7e79",
    "made": "9/24",
    "title": "THE SAME MAN, THE SAME STREET, THE SAME SIZE",
    "why": "You said the combat was in a different world than the demo. Here is the man in a fight, before and now, next to the man you walk around as. He used to be drawn a third of himself, and then half again because the fight's screen counted pixels differently than the street's, and then he changed size AGAIN every time the camera pulled back to fit somebody in. Now he is one size, the same one you walk around as, and he stays that size no matter how far the camera pulls back. The ground still zooms. He does not. The floor under him is your own approved street art, not the fight's private copy. Thumbs up and I keep going on the fight's feel. Thumbs down and tell me if he is too big, too small, or if it is the ground I should be looking at instead.",

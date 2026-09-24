@@ -114,6 +114,53 @@ a timeout cannot masquerade as a claim about the fighter), and where it reaches 
 board the sweep is green: `1.3->112  1->112  0.6->112  0.2->112`. **The fix has not
 changed for two rounds: rule 14(g), put it on the one driver.** A job, not a patch.
 
+## AND TWO OF THIS LANE'S OWN GATES WERE MEASURING THE WRONG THING
+
+**`combat_scale_gate` failed V225 for going right.** Its rule 21 leg read
+`112*bodyScale()`, and V225 is precisely the change that made `bodyScale()` the *drawn*
+size — which divides by the live frame on purpose. So at a frame of 0.20 the leg computed
+**560 px** and called it a giant. Repointed to `bodyRule()`, the ruled size, with a
+fallback so it still runs on a tree that predates V225. **It is not loosened:** it still
+asserts a man is 112 px at every zoom, it just stops reading the number through the camera
+it is testing. **7/1 → 8/0.** This is the same defect I fixed in the 112 gate's probe an
+hour earlier and did not think to look for in its sibling.
+
+**`house_board_gate` has been red on main, and the cause was never the fight.** Baselined
+in a worktree at `6ef899d`: same arm, same count, **1 passed 1 failed on main too**. Then
+measured rather than guessed — at the moment it sends a finger at a hostile, the element
+under that point is:
+
+```
+  DIV#loadgl  <  DIV#loadwrap  <  DIV#front.load.ready  <  BODY
+```
+
+**The loading screen, still on top**, over a city frame that is alive and answering every
+question underneath it. Its door was two blind clicks at (215,450) written before rule 18's
+loading screen existed; the splash's PLAY sits at the bottom and refuses until the load is
+ready, so a finger in the middle at nine seconds hits `#loadgl` and nothing happens, for
+ever. **The one driver already carries this scar in writing** — its trap 6 names a gate
+that printed *"NOTHING REACHABLE … DIV#loadgl"* for exactly this reason. Door procedure
+copied from it, and the gate now refuses to report anything if the door did not open. **It
+opens in about 8 seconds.**
+
+Behind that door, a second stale step: the gate stood **five cells** off the crew, which is
+off the glass since rule 16 moved the street's zoom. It walks in now, nearest first.
+
+**It is still red, 2 passed 1 failed, and the red finally carries its numbers:**
+
+```
+  AT 1..5 CELLS  boxes 1  claimed 3  under "nothing"  pt [0,0]
+                 view [430,890]  rect [0,0,0,0]  board [418,861,"cv"]  hit0 [159,319,112,112]
+```
+
+A 112x112 body, drawn, claimed by the street's own tap test — mapped through a canvas with
+**418x861 of backing and a bounding box of 0x0**. A board with pixels and no layout box:
+**the same defect class as the fight-frame saga above**, on the other surface. Two of my
+gates, one cause. The fleet's answer is not a sixth finder, it is rule 14(g): put these
+gates **on the driver** instead of each carrying a copy of its door. That is the instrument
+job on my row and it is now the third round it has been named — and writing a fourth patch
+at the end of a round is the tell, so I stopped.
+
 ## RULE 22
 
 Registered in the VOTE tab as `combat-the-same-man-every-frame-9-24`: three frames off
