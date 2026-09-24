@@ -47574,7 +47574,26 @@ your first VAMILY and do steps 1 to 9.
 I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
-ROUND LOG 9/24c (latest): [bb look] SHIPPED - rule 33's school and the
+ROUND LOG 9/24d (latest): PAOLO TO THIS CHAT, "Battle brothers" -
+recorded and executed the same turn (records/BOHEMIA_PAOLO_BATTLE_
+BROTHERS_TO_DIRECTION_AND_THE_MAP_GAP_9_24_26.md): THE MAP GAP,
+measured on the alpha against the [bb look] card, frame filed. Six
+gaps in BB-read order: (1) the far stop poses as a VISTA - a horizon
+and a blue sky gradient (hue 195) against the aerial card, the 45 law
+and R4; (2) 2B's rim is unpaid again - half the frame is flat tan
+(947 colours in 850k px); (3) polarity lost - the city reads one dark
+mass (val 0.34) on bright tan; (4) nothing alive on the map (no lit
+block, smoke or sign - the landmark rule has nothing to stand on);
+(5) no marker or route on the glass (RUN/COOK rows hold those); (6)
+the cutscene card still pops over the map. NAMED RIGHT: the phone is
+city-only with a LIVE world-data feed ("most of the valley is still
+dark, 358 blocks"), the interstate reads, the one-squeeze seam works.
+Items 1-3 are ONE camera-and-placement job at the far stop, routed to
+LIFE+CITY/RUN; the coordinator rows. Instrument note for the pipe:
+the FIRST squeeze flips MODE without changing the picture - the
+street stays at walk zoom under the phone; the map picture only
+exists from the second squeeze (czoom 0.208).
+PREVIOUS: [bb look] SHIPPED - rule 33's school and the
 card in one page (records/BOHEMIA_BB_SCHOOL_THE_MAPS_PAINTED_LOOK_9_24
 _26.md). School: BB's map reads at a glance because value does the
 work, places cheat their size, one saturated marker, three-value fog;
