@@ -1588,6 +1588,19 @@
     "how": "image",
     "src": "vote/COOK_THE_WHEEL_THAT_STOPPED.png"
    }
+  },
+  {
+   "id": "factions-the-ones-nobody-came-for-9-24",
+   "kind": "tile",
+   "lane": "factions",
+   "sha": "PENDING",
+   "made": "9/24",
+   "title": "THE ONES NOBODY CAME FOR",
+   "why": "A hundred years pass and 3,415 blocks of 9,216 get a new owner. That is 37% of the valley. But of the 21 civic blocks, the courts, the jail, the prison, the hospital, the cemetery, the police, the fire house, the library, the chapel and the radio station, exactly ZERO change hands, and every one is dark in both lives. So this is three roadside boards at night: one stamped over because 697 blocks went from the Network to the Mob, one where somebody struck the tier out with a pen, and one that has never been corrected at all. Nobody wrote any of these numbers. They fall out of the two power columns that have been sitting in your faction file since before this chat existed. Thumbs up and I do the rest of the valley this way. Thumbs down and tell me if it is the board, the night, or the stamp.",
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_THE_ONES_NOBODY_CAME_FOR_9_24_26.html"
+   }
   }
  ],
  "verdicts": [

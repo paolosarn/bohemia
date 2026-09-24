@@ -1,0 +1,348 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>BOHEMIA - THE ONES NOBODY CAME FOR</title>
+<style>
+ :root{ --ink:#141210; --paper:#f4efe6; --rule:#9c907c; --hot:#a8391d; --dim:#4a443c }
+ *{ box-sizing:border-box }
+ body{ margin:0; background:var(--paper); color:var(--ink);
+       font:15px/1.5 ui-sans-serif,system-ui,-apple-system,Arial,sans-serif }
+ header{ padding:14px 14px 10px; border-bottom:3px solid var(--ink) }
+ h1{ margin:0 0 5px; font-size:19px; letter-spacing:.3px }
+ .sub{ font-size:14px; color:var(--dim) }
+ .said{ margin:10px 14px; padding:9px 12px; border-left:5px solid var(--hot);
+        background:#fff; font-size:14px }
+ .said b{ color:var(--hot) }
+ .fix{ margin:10px 14px; padding:9px 12px; border-left:5px solid #6b6252;
+       background:#fff; font-size:13px; color:var(--dim) }
+ .fix b{ color:var(--ink) }
+ .wrap{ padding:6px 14px 50px }
+ .big{ background:#fff; border-bottom:3px solid var(--ink); padding:8px }
+ .big canvas{ display:block; width:100%; max-width:380px; margin:0 auto; height:auto;
+              image-rendering:pixelated; background:#0d0b08 }
+ .row{ display:flex; flex-wrap:wrap; gap:8px; background:#fff; padding:8px;
+       border-bottom:3px solid var(--ink); margin-top:14px }
+ .row > div{ flex:1 1 30%; min-width:0 }
+ .row canvas{ display:block; width:100%; height:auto; image-rendering:pixelated;
+              background:#0d0b08 }
+ /* THE CAPTIONS ARE FULL WIDTH, NOT UNDER THEIR OWN COLUMN. Three columns on a
+    390px phone is about 17 monospace characters a line, so the captions clipped
+    their own words and one lost its heading entirely. Same defect as text running
+    off a sign plate, one surface over, and the sign reporter cannot see this one
+    because the sign was never the thing overflowing. */
+ .wrongs{ background:#fff; border-bottom:3px solid var(--ink); padding:4px 8px 10px }
+ .wrong{ font:12px/1.4 ui-sans-serif,system-ui,Arial,sans-serif; color:var(--dim);
+         padding:7px 0; border-top:1px solid #ddd5c4; overflow-wrap:anywhere }
+ .wrong b{ color:var(--hot); font-size:11px; letter-spacing:.4px; margin-right:6px }
+ .cap{ font-size:14px; color:var(--dim); margin:10px 0 0 }
+ .cap b{ color:var(--ink) }
+ table{ border-collapse:collapse; width:100%; background:#fff; margin-top:14px;
+        font:12px/1.4 ui-monospace,monospace }
+ th,td{ text-align:left; padding:5px 7px; border-bottom:1px solid #ddd5c4 }
+ th{ background:var(--ink); color:var(--paper); font-weight:700 }
+ td.n{ text-align:right }
+ tr.up td{ color:#2c6b35; font-weight:700 }
+ tr.dn td{ color:#a8391d; font-weight:700 }
+ .sw{ display:inline-block; width:10px; height:10px; border:1px solid #6b6252;
+      vertical-align:-1px; margin-right:5px }
+</style></head><body>
+
+<header>
+ <h1>THE ONES NOBODY CAME FOR</h1>
+ <div class="sub">A hundred years pass. A third of this valley changes hands. Not one
+ courthouse, jail, hospital or cemetery does. 9/24</div>
+</header>
+
+<div class="said">
+ <b>3,415 BLOCKS OF 9,216 GET A NEW OWNER BETWEEN YOUR FIRST LIFE AND YOUR THIRD.</b>
+ That is 37% of the valley. The Mob take the most and they were already the biggest.
+ <br><br>
+ <b>And of the 21 civic blocks — the courts, the police, the fire house, the library, the
+ jail, the prison, the hospital, the cemetery, the chapel, the radio station — exactly ZERO
+ change hands.</b> Every one of them is dark in your first life and still dark in your
+ third, with the same landlord the whole way.
+</div>
+
+<div class="wrap">
+ <div class="big">
+  <canvas id="hero"></canvas>
+  <div class="cap"><b>697 blocks went from the Network to the Mob. Nobody printed a new
+  board. They stamped the old one.</b></div>
+ </div>
+
+ <div class="row" id="row"></div>
+ <div class="wrongs" id="wrongs"></div>
+
+ <table id="tbl"></table>
+ <div class="cap">Who holds what in your first life and in your third, off his own faction
+ graph. <b>Four crews change tier.</b> The Reds come up to fortress, the Caravans fall to
+ town, the Trades come up to town, and the Anarchists drop to camp. Nobody typed any of it:
+ it falls out of the two power columns that have been sitting in that file since before this
+ lane existed.</div>
+
+ <div class="fix">
+  <b>THE BLOCK YOU WAKE UP ON DOES NOT MOVE EITHER.</b> 48,48 is Mob fortress ground in act
+  one and Mob fortress ground in act three. A third of the valley changes hands around it
+  and your own corner keeps the same landlord for a hundred years.
+ </div>
+
+ <div class="fix">
+  <b>AND A NUMBER I GAVE YOU WRONG LAST ROUND.</b> I said there were 18 civic blocks. There
+  are 21. Eighteen is the count of the eight kinds I listed out loud; the table underneath
+  it already had ten kinds and added up to 21, and I did not notice the two numbers were
+  about different things. Same mistake as last round, one round later: <b>the table was
+  right and the sentence over it was not.</b>
+ </div>
+</div>
+
+<script src="bohemia_sign_kit.js"></script>
+<script>
+/* ===========================================================================
+   THE ONES NOBODY CAME FOR -- FACTIONS lane, [horror signs] round eight, 9/24.
+
+   WHY THIS SUBJECT. Rule 31 landed on 9/23 (THE THREE ACTS AT ONCE, Paolo,
+   LOCKED): the three generations are open at the same time, he flips between
+   them, and THE FUTURE IS DERIVED FROM THE EARLIER ACTS, never authored. Every
+   faction in his graph has carried act1_power AND act3_power since before this
+   lane existed, and the turf rule already takes an act argument. NOTHING HAD
+   EVER RUN IT WITH A 3. Territory is this lane's, so this is this lane's
+   question, and nobody had asked it.
+
+   MEASURED ON THE REAL SURFACE, in the walked city, one boot.
+
+   1. 3,415 CELLS OF 9,216 CHANGE HANDS -- 37.1%. That matches the [who holds]
+      record's own 37.1% exactly, which is the cross-check that this sweep is
+      reading the same rule the game shipped.
+
+   2. THE TWO BIGGEST HOLDERS TRADE 1,171 CELLS WITH EACH OTHER: Network to Mob
+      697, Mob to Network 474. A third of all the movement in the valley is those
+      two crews swapping the same ground.
+
+   3. FOUR CREWS CHANGE TIER: Reds town -> FORTRESS, Trades camp -> TOWN,
+      Caravans fortress -> TOWN, Anarchists town -> CAMP.
+
+   4. THE ANARCHISTS FALL. Round two measured they hold 100% of the valley's
+      running water. Round seven measured they have the highest share of their
+      own ground lit of any crew, 8.5%. And they drop a tier and lose ground.
+
+   5. THE TRADES GO 3 LIT CELLS TO 24, the biggest light gain in the valley, off
+      the darkest ground anybody held.
+
+   6. AND THE ONE THAT IS THE PAGE: OF 21 CIVIC BLOCKS, ZERO CHANGE HANDS. In a
+      valley where 37% of the ground gets a new owner, the courts, the jail, the
+      prison, the hospital, the cemetery, the police station, the fire house, the
+      library, the chapel and the radio station keep the same landlord for a
+      century, and every one of them is dark in both acts. Nobody authored that.
+      It falls out of the turf rule and the map generator agreeing.
+
+   THREE INSTRUMENT FAULTS IN ONE ROUND, ALL THE SAME SHAPE, ALL CAUGHT BY A
+   NEGATIVE THAT COULD NOT BE TRUE:
+     (a) window.POWER is undefined -- POWER is a bare top-level binding and a
+         const/let declaration never lands on window. The light half read a
+         silent zero against round seven's 358.
+     (b) POWER.at() has no `district` key at all.
+     (c) cat(d) takes a DISTRICT VALUE, not (map,x,y). I read its signature off
+         how it is PASSED to districtsOf rather than how it is CALLED. HOW A
+         FUNCTION IS PASSED IS NOT ITS SIGNATURE.
+   The turf numbers were never affected: they cross-check against two shipped
+   measurements (37.1% and 358) to the digit.
+
+   THE PICTURE. No new silhouette and no new monument: this is a ROADSIDE
+   AUTHORITY BOARD, which is what a territory sign is, and the whole idea is the
+   OVER-STAMP -- when 697 blocks change hands nobody prints a new board, they
+   stamp the old one. R1: the frame is an ordinary utility board and the one
+   wrong thing is the correction on it (or, in the third frame, that there is
+   none). R4: night is one multiply, and every board is readable only because a
+   drawn lamp is pointing at it.
+   ======================================================================== */
+var K = window.BohemiaSignKit;
+var NK = K.NIGHT_K;
+var GROUND = '#9a8f7c';
+var SKY = '#0d0b08';
+var LAMP = 2.4;           /* what the drawn fixture is worth, over NIGHT_K */
+
+/* MEASURED 9/24 off the live walked city. blocks act1, act3, tier1, tier3, ink */
+var CREWS = [
+  ['Mob',        '#454142', 1490, 1731, 'fortress', 'fortress'],
+  ['Blues',      '#2d5fb3',  473,  573, 'town',     'town'    ],
+  ['Reds',       '#773229',  654,  719, 'town',     'fortress'],
+  ['Caravans',   '#6c5b41',  545,  595, 'fortress', 'town'    ],
+  ['Trades',     '#674b34',  445,  491, 'camp',     'town'    ],
+  ['Homeless',   '#968b82',  378,  392, 'camp',     'camp'    ],
+  ['Custom',     '#363636',  363,  363, 'camp',     'camp'    ],
+  ['Remnants',   '#4c5238', 1028, 1003, 'fortress', 'fortress'],
+  ['Colorful',   '#61a136',  432,  406, 'camp',     'camp'    ],
+  ['Volunteers', '#c1bdb5',  331,  302, 'camp',     'camp'    ],
+  ['Anarchists', '#573f2a',  528,  491, 'town',     'camp'    ],
+  ['Church',     '#826c3e',  453,  375, 'town',     'town'    ],
+  ['Cartel',     '#434042',  875,  733, 'fortress', 'fortress'],
+  ['Network',    '#25a189', 1221, 1042, 'fortress', 'fortress']
+];
+var CHANGED = 3415, CELLS_TOTAL = 9216;
+
+function nightGround(g, W, H, horizon){
+  g.fillStyle = SKY; g.fillRect(0, 0, W, H);
+  g.fillStyle = K.night(GROUND, NK); g.fillRect(0, horizon, W, H - horizon);
+  g.fillStyle = K.night(GROUND, NK * 1.15); g.fillRect(0, horizon, W, 2);
+}
+
+/* ---------------------------------------------------------------------------
+   THE BOARD. A roadside authority board on two posts, three-quarter view, with
+   a gooseneck lamp over it -- which is the only reason anything on it can be
+   read at night, and R4 wants that fixture drawn rather than assumed.
+
+   opts: { crew, ink, head, lines, stamp, strike }
+     stamp  -- the new holder's name, over-printed. null for a clean board.
+     strike -- index into lines that gets struck through (a demotion), or -1.
+   ------------------------------------------------------------------------- */
+function board(g, W, H, o){
+  nightGround(g, W, H, 60);
+
+  var bx = 18, by = 20, bw = 92, bh = 34, dep = 8;
+  var shell = '#8e8a7e', post = '#6f6a61';
+
+  /* posts first, so the board sits in front of them */
+  g.fillStyle = K.night(post, NK * 1.1); g.fillRect(bx + 12, by + bh, 4, 24);
+  g.fillStyle = K.night(post, NK * 1.1); g.fillRect(bx + bw - 18, by + bh, 4, 24);
+  g.fillStyle = K.night(post, NK * 1.5); g.fillRect(bx + 12, by + bh, 1, 24);
+
+  /* the lamp, over the board, pointing down at it */
+  var lx = bx + bw / 2;
+  g.fillStyle = K.night(post, NK * 1.3); g.fillRect(lx - 1, by - 11, 2, 11);
+  g.fillStyle = K.night(post, NK * 1.4); g.fillRect(lx - 7, by - 12, 14, 3);
+  g.fillStyle = '#e8c06a'; g.fillRect(lx - 5, by - 9, 10, 2);
+  g.fillStyle = K.mix('#e8c06a', SKY, 0.62); g.fillRect(lx - 7, by - 7, 14, 1);
+
+  /* the board itself, lit by that lamp */
+  K.box3d(g, bx, by, bw, bh, dep, K.night(shell, NK * LAMP),
+          K.night(shell, NK * LAMP * 1.2), K.night(shell, NK * LAMP * 0.65));
+
+  /* COLOUR IS TERRITORY: the holder's ink is a band across the head of the board */
+  g.fillStyle = K.night(o.ink, NK * LAMP * 1.25);
+  g.fillRect(bx + 3, by + 3, bw - 6, 7);
+  K.c3(g, o.head, bx + bw / 2, by + 4, K.night('#efe8d6', NK * LAMP * 1.3), bw - 10);
+
+  /* the crew name, in the big face */
+  var ink = K.night('#d8cfbb', NK * LAMP * 1.35);
+  K.c5(g, o.crew, bx + bw / 2, by + 13, ink, bw - 10);
+
+  /* the status lines. A CORRECTION GOES BESIDE THE WORD IT REPLACES, never under
+     it: the first cut wrote the new tier on the row below and landed it straight
+     on top of the next line of the board, which is two strings in one place and
+     reads as mush. Somebody amending a real board strikes the word and writes the
+     new one next to it, so that is where this goes. */
+  var ly = by + 23;
+  for (var i = 0; i < o.lines.length; i++){
+    var struck = (i === o.strike);
+    /* A STRUCK WORD IS DIMMER THAN A LIVE ONE. Drawn at full ink with a red rule
+       across it, the two colours sat in the same three-pixel band and the pair
+       came out as one orange smear at phone size -- you could not tell which word
+       was the old one, which is the only thing the frame is saying. */
+    K.c3(g, o.lines[i], bx + bw / 2, ly + i * 6,
+         struck ? K.night('#d8cfbb', NK * LAMP * 1.05) : ink, bw - 10);
+    if (struck){
+      var lw = K.w3(o.lines[i]);
+      g.fillStyle = K.night('#d4543a', NK * LAMP * 1.6);
+      g.fillRect(bx + bw / 2 - lw / 2 - 2, ly + i * 6 + 2, lw + 4, 1);
+      if (o.pen){
+        var px = bx + bw / 2 + lw / 2 + 6;
+        K.put3(g, o.pen, px, ly + i * 6, K.night('#d4543a', NK * LAMP * 1.6));
+      }
+    }
+  }
+
+  /* THE OVER-STAMP. A real one is uneven, sits crooked, and does not respect
+     what is under it. Two offset passes so the edge breaks up. */
+  /* OFFSET FAR ENOUGH RIGHT THAT THE OLD NAME IS STILL READABLE. The first cut
+     sat the stamp on the middle of the name and left "NE...K", so you could not
+     tell what had been replaced -- which is the entire point of the frame. A
+     stamp that hides the thing it is correcting says nothing. */
+  if (o.stamp){
+    var sw = K.w5(o.stamp) + 10, sx = bx + bw / 2 - sw / 2 + 16, sy = by + 10;
+    g.fillStyle = K.night('#8e2f1c', NK * LAMP * 0.95);
+    g.fillRect(sx, sy, sw, 12);
+    g.fillStyle = K.night('#8e2f1c', NK * LAMP * 0.75);
+    g.fillRect(sx + 2, sy - 1, sw - 5, 1);
+    g.fillRect(sx + 1, sy + 12, sw - 3, 1);
+    K.c5(g, o.stamp, sx + sw / 2, sy + 3, K.night('#f0e4d2', NK * LAMP * 1.3), sw - 4);
+  }
+
+  /* the ground the posts stand in */
+  K.pool(g, bx + bw / 2, 66, 40, 8, GROUND, 4);
+}
+
+/* ---- 1. 697 CELLS: the Network board, stamped MOB ---------------------- */
+function drawHandover(g, W, H){
+  board(g, W, H, { crew:'NETWORK', ink:'#25a189', head:'VALLEY AUTHORITY',
+                   lines:['FORTRESS', 'SERVICE AREA 697'],
+                   stamp:'MOB', strike:-1 });
+}
+
+/* ---- 2. THE ANARCHISTS: the tier struck, the water still on ------------- */
+function drawDemotion(g, W, H){
+  /* the correction is HAND-WRITTEN beside the struck tier, not stamped: somebody
+     came out with a pen, which is what a demotion looks like when nobody thought
+     it was worth sending a stamp for. The water line under it is untouched. */
+  board(g, W, H, { crew:'ANARCHISTS', ink:'#573f2a', head:'VALLEY AUTHORITY',
+                   lines:['TOWN', 'WATER NORMAL'],
+                   stamp:null, strike:0, pen:'CAMP' });
+}
+
+/* ---- 3. THE COURTHOUSE: a clean board, and that is the wrong thing ------ */
+function drawCourthouse(g, W, H){
+  board(g, W, H, { crew:'COURTHOUSE', ink:'#454142', head:'MOB',
+                   lines:['NO POWER', 'SINCE'],
+                   stamp:null, strike:-1 });
+}
+
+var SCENES = [
+  { fn:drawHandover, w:128, h:80,
+    wrong:'697 blocks changed hands and nobody printed a new board. They stamped the old one.' },
+  { fn:drawDemotion, w:128, h:80,
+    wrong:'They dropped a tier and somebody wrote it on by hand. The water is still running.' },
+  { fn:drawCourthouse, w:128, h:80,
+    wrong:'Nothing on this board has ever been corrected, and the line about the power does not finish.' }
+];
+
+var hero = document.getElementById('hero');
+hero.width = 128; hero.height = 80;
+(function(){ var g = hero.getContext('2d'); g.imageSmoothingEnabled = false;
+  drawHandover(g, 128, 80); })();
+
+var row = document.getElementById('row'), wrongs = document.getElementById('wrongs');
+for (var i = 0; i < SCENES.length; i++){
+  var s = SCENES[i];
+  var d = document.createElement('div');
+  var c = document.createElement('canvas'); c.width = s.w; c.height = s.h;
+  d.appendChild(c);
+  var g2 = c.getContext('2d'); g2.imageSmoothingEnabled = false;
+  s.fn(g2, s.w, s.h);
+  row.appendChild(d);
+  var t = document.createElement('div'); t.className = 'wrong';
+  t.innerHTML = '<b>' + (i + 1) + '. THE ONE WRONG THING</b>' + s.wrong;
+  wrongs.appendChild(t);
+}
+
+var rows = '<tr><th>CREW</th><th class="n">ACT 1</th><th class="n">ACT 3</th>'
+         + '<th class="n">CHANGE</th><th>TIER</th></tr>';
+for (var j = 0; j < CREWS.length; j++){
+  var k = CREWS[j], diff = k[3] - k[2];
+  var moved = (k[4] !== k[5]);
+  var cls = moved ? (k[5] === 'fortress' || (k[4] === 'camp' && k[5] === 'town')
+                     ? ' class="up"' : ' class="dn"') : '';
+  var tier = moved ? (k[4] + ' → ' + k[5]) : k[4];
+  rows += '<tr' + cls + '><td><span class="sw" style="background:' + k[1] + '"></span>'
+       +  k[0] + '</td><td class="n">' + k[2] + '</td><td class="n">' + k[3]
+       +  '</td><td class="n">' + (diff > 0 ? '+' : '') + diff
+       +  '</td><td>' + tier + '</td></tr>';
+}
+document.getElementById('tbl').innerHTML = rows;
+
+(function(){
+  if (!K.overflows || !K.overflows.length) return;
+  var w = document.createElement('div'); w.className = 'said';
+  w.innerHTML = '<b>TEXT RAN OFF ITS SIGN:</b><br>' + K.overflows.map(function(o){
+    return '"'+o.text+'" is '+o.width+' px in a '+o.maxW+' px space'; }).join('<br>');
+  document.querySelector('.wrap').insertBefore(w, document.querySelector('.wrap').firstChild);
+})();
+</script>
+</body></html>
