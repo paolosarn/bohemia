@@ -24681,7 +24681,92 @@ RIGHT NOW: (a) write this whole instruction, word for word, into your own handof
 
 I will never paste anything to you again. From here on, the one word is the whole instruction.
 
-THIS ROUND -- *** THIRTEEN RED LEGS ON ONE OF THIS LANE'S OWN LAWS WERE THE GATE READING A
+THIS ROUND -- *** HE VOTED AGAIN. THE SHIRT THAT IS NOT CLOTH IS IN THE GRAVEYARD, THE
+VIBRANCE IS DOWN, AND THE VIBRANCE FIX DOES NOT REACH HIS STREET YET BECAUSE THE STREET
+DRAWS BAKED BODIES. (sha 04a44240, [runway redo] continuing) ***
+
+VERDICTS READ BACK. Three new ones on this lane and all three are executed here, not
+re-asked:
+  UP   A NEW THIRTEEN, BUILT RUNWAY FROM THE START -- "Fire make sure shit doesnt clip into
+       places it shouldnt but yeah"
+  UP   THE RUNWAY CLOTHES WERE ALREADY HANGING THERE -- "Nice just have the bright colors
+       not so bright u know like the vibrance is turned down a little"
+  DOWN ONE OF THESE SHIRTS IS NOT CLOTH -- "WTF IS THIS DOGSHIT"
+THE KID WALKS is still unjudged.
+
+*** 1. THE KILL, AND THE POST-MORTEM IS THE USEFUL PART. *** Rule 32(g) names it for the
+graveyard. Both garments and both ramps are REMOVED from the wardrobe, the item and its
+picture and tool and record are gone, the baseline shrinks 332 -> 330, and nobody ever wore
+them so no body changes. records/BOHEMIA_GRAVEYARD_THE_SHIRT_THAT_IS_NOT_CLOTH_9_24_26.md.
+Why it failed, and none of these is "he did not like it":
+  - THE IDEA LIVED IN A SENTENCE, NOT IN THE PIXELS. Without the caption it is a plaid shirt
+    with harder contrast. I measured 12.3% of the body moved and read that as proof; that
+    number is equally consistent with "a slightly darker shirt", and I never asked which one
+    a person seeing it cold would say.
+  - I SUBSTITUTED THE MECHANISM FOR THE EFFECT. My own reference line says the tell is a hard
+    specular band. I could not build one because garment art is COOK's, so I reached the same
+    numbers through a ramp and told myself it was the same read. *** WHEN YOU CANNOT BUILD
+    THE THING, HAND OVER THE SPEC. DO NOT SHIP THE NEAREST THING YOU ARE ALLOWED TO BUILD. ***
+  - and the PICTURE broke rule 32(f) even if the garment had been good: a contact sheet is a
+    study and a study goes in records.
+
+*** 2. VIBRANCE DOWN, AND WHICH RAMPS WAS MEASURED RATHER THAN GUESSED. *** Cloth-only
+saturation over the thirteen he lives with averages 0.456 and four sit far above it. Those
+four ramps are pulled 20% toward their own luminance, which drops saturation and leaves hue
+and brightness alone, so COLOUR IS TERRITORY survives by construction.
+    Blues 0.741 -> 0.661   Network 0.729 -> 0.619   Colorful 0.638 -> 0.566   Reds 0.551 -> 0.538
+    the set 0.456 -> 0.435
+"A little" is his word, so one step is what he got. No second pass on a taste note.
+
+*** 3. HIS CLIPPING CONDITION: THE MEASURABLE HALF IS CLEAN AND I THREW MY OWN INSTRUMENT
+AWAY. *** OUT OF FRAME is 0 of the approved 13 and 0 of the 13 he lives with -- not one pixel
+on any edge of the 112 box. That is the half that has actually bitten this lane before.
+  THE FLOATING-CLOTH COLUMN IS A BAD INSTRUMENT AND IS REPORTED AS ONE. It returned 13 OF 13
+  -- and 10 of 13 ON THE SET HE ALREADY LIKES, which is the control that saved me. Two tries:
+  hair has no bone at all (excluded it, numbers barely moved), then nothing left to exclude
+  BECAUSE THE PREMISE IS WRONG -- a coat is SUPPOSED to hang past the leg. "No bone nearby"
+  describes clothing, not clipping. What he means is one thing poking through another that
+  should cover it, which is layer order, and I have no general instrument for it. Shipping
+  "13 of 13 clip" would have been this lane inventing a threshold for the third time.
+  -> ALWAYS RUN THE CONTROL. A number that fires on the thing he already approved is not a
+     measurement.
+
+*** 4. AND THE FINDING THAT MATTERS MOST FOR EVERY LANE THAT CHANGES A COLOUR. *** I captured
+a frame off the walked street to show the vibrance change and IT LOOKED IDENTICAL. The walked
+city has ZERO references to these ramps: it draws PRE-BAKED SPRITES, in its own comment
+"RUN_LOOKS = 6 townsfolk bodies, baked by the alpha". The demo carries its own stale copy of
+all four ramps at the OLD values.
+  SO A WARDROBE COLOUR CHANGE IS CORRECT AT THE SOURCE AND INVISIBLE ON THE STREET until the
+  bodies are re-baked and RUN next cuts the demo (rule 14a: only RUN re-cuts). I am saying
+  that instead of shipping a screenshot labelled "after" that is really a before, which is
+  the lying-picture defect this lane keeps catching in itself.
+  -> FOR THE COORDINATOR AND RUN: the vibrance he asked for is in the wardrobe now and will
+     not appear on his phone until a re-bake and a re-cut.
+
+NO NEW VOTE ITEM THIS ROUND, DELIBERATELY. Both things built are HIS OWN RULINGS EXECUTED, a
+kill and a correction, not candidates; EVERYTHING IS A THUMB bans surfacing what he has
+already decided, and rule 32(f) would refuse the picture I would otherwise have made.
+
+STILL OWED ON [runway redo]: the approved thirteen are NOT yet wired into the faction outfits.
+That is the next round and it is now unblocked -- he approved the set. It needs a faction per
+shape (assign by nearest body dial so each faction keeps who it is, say why, build it, per
+EVERYTHING IS A THUMB), the faction colourways on top, and the distinctness re-measured so a
+prettier set cannot quietly read as fewer people.
+
+[PENDING Paolo] carried, unchanged: which faction colour file wins; the Anarchists need a
+magenta garment and there are zero in 317, with the reserved purple band blocking the obvious
+cook; the Cartel sits on the drab exemption list and not in the law that names it.
+
+THE SUITE: SHAPE FROZEN 12/0 (re-baked, kill named in its reason), HEM 11/0, CHARACTER IN THE
+VOTE TAB 9/0, BECOME 28/0, NAME MATCHES THE RAMP 8/0. FACTION COLOUR 34/4, unchanged by this
+diff and unchanged in cause: the empty street, 38 of 72 indoors. REFERENCE CHECK 2 red on
+another lane's new tool.
+ALSO STILL OPEN, not mine: +15 opaque pixels on every body from PORTRAIT's eye commit
+79ae65d, absorbed into the baseline and invisible to the gate.
+
+--------------------------------------------------------------------------------
+
+PREVIOUS ROUND -- *** THIRTEEN RED LEGS ON ONE OF THIS LANE'S OWN LAWS WERE THE GATE READING A
 LOADING SCREEN. NOBODY'S CODE WAS BROKEN. AND THE KID WALKS, IN A PAGE THAT PLAYS.
 (sha b885eae, [become red] SHIPPED) ***
 
