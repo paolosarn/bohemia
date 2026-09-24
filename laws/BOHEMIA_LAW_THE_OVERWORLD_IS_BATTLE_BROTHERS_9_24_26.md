@@ -68,7 +68,8 @@ stands: Battle Brothers is his, Rogue Fable 4 is his, nothing new enters.
 
 ## 5b. WHERE BATTLE BROTHERS IS A STILL, WE MOVE (Paolo 9/24, same round; records/BOHEMIA_PAOLO_BB_IS_PICTURES_WE_PUT_LIFE_IN_IT_9_24_26.md)
 "Battle Brothers is just a bunch of pictures and the pictures can change, but we can do more and put
-more life into it with this analog horror pixel [direction] we're doing." We take the SHAPE of the
+more life into it with this analog horror, pixel, Newgrounds bullshit we're doing." (NEWGROUNDS is his
+reference for the look's era, inside the analog horror bible, DIRECTION only; records/BOHEMIA_PAOLO_NEWGROUNDS_AND_THE_MACHINE_GUN_9_24_26.md) We take the SHAPE of the
 map, the events and the places from Battle Brothers and none of its stillness: the map breathes
 (lights, weather, parties moving, tracks appearing), a place is a living street, an event is a
 person who moves and speaks under the bible with sound, never an illustrated card. Every [bb ...]
@@ -87,3 +88,17 @@ school line ends its "shape for us" with what MOVES that Battle Brothers' pictur
 A one-mode gate (the map, the street and the fight share the HUD, rule 24); a terrain gate (no tile
 effect but the mound); the event gate (no event before 60 s, a face and 2-3 choices, never on the
 street); the travel gate (roads faster than dirt, time passes, arrival puts him on a street).
+
+## 8. THE REVAMP LIST AND THE EXCAVATION RULE (Paolo 9/24, same round; records/BOHEMIA_PAOLO_CUT_AND_REBUILD_9_24_26.md)
+"We can't be building on top of shit like this... it needs to be excavated from the files... built from
+the ground up using assets we already have." The manager sorted every system into KEEP, CUT and REBUILD:
+records/BOHEMIA_THE_REVAMP_LIST_9_24_26.md. A CUT system stops the round it is cut and is moved to archive/ the same round (GRAVEYARD IS
+FINAL); nothing live loads from archive/ (PLUMBER gates it); its assets stay where the live systems read
+them; a row that builds on a cut system is refused. A REBUILT system starts from the ground up on the
+assets we have. The list is in VOTE as one line; he knocks any row down.
+
+## 9. WEAPONS HAVE SHAPES (Paolo 9/24, same round; records/BOHEMIA_PAOLO_NEWGROUNDS_AND_THE_MACHINE_GUN_9_24_26.md)
+"In Battle Brothers you have some weapons that can hit multiple tiles at the same time, six or three; a
+machine gun is comparable to a greatsword or a battle axe." Beside the reach rule (9/22: pistol 1, rifle
+2, scope 3) a weapon has a SHAPE on the tiles: the machine gun sweeps a line in one beat. Battle
+Brothers flavour under RF4 speed (s3). COMBAT [weapon shapes], school first. Everything still costs one.

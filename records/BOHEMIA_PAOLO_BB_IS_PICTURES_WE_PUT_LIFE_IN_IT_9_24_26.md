@@ -12,3 +12,5 @@ direction, NOT as a new reference: nothing is added to the reference list):
   us" with the sentence "and here is what moves that BB's picture does not".
 Routed: notes on RUN [bb map], QUESTS [bb events], WORLD [bb places], COOK [bb map art], ANIMATION
 [bb marker], DIRECTION [bb look], SOUNDS [bb ambience]; the law's section 5 gains the line.
+
+CORRECTED 9/24 by Paolo: 'New grounds is an old flash game website brother.' NEWGROUNDS is named and real; see records/BOHEMIA_PAOLO_NEWGROUNDS_AND_THE_MACHINE_GUN_9_24_26.md. The line above that read it as 'new ground' is wrong.

@@ -41472,6 +41472,14 @@ The fight: RF4 first, BB flavour, house tiles, THE MOUND is the only terrain eff
 becomes travel + arrival (RUN [bb map] first, then [banner eats fingers]). EVERY CHAT has a [bb ...]
 school line, continuously, his ask; the coordinator's round zero: records/BOHEMIA_BATTLE_BROTHERS_SCHOOL_THE_MAP_ROUND_ZERO_9_24_26.md. CLAUDE.md pillar and reference
 lines amended. 15 items wait for him.
+THEN (fm) PAOLO 9/24: "think about everything... what needs to get cut... excavated from the files...
+built from the ground up using assets we already have." THE REVAMP LIST: records/BOHEMIA_THE_REVAMP_LIST_9_24_26.md (KEEP / CUT / REBUILD
+per system, the order, the excavation rule). Rule 33h; THE CUT LINE on the front page; CUT rows on RUN
+([fast travel], [travel map], [tap walk], [land on it], [cold open]), LIFE+CITY [builder mode], QUESTS
+[asks stream]; new: RUN [excavate the walk], PLUMBER [excavate], COMBAT [weapon shapes] (the machine gun is
+the greatsword, rule 33i), DIRECTION [newgrounds] (NAMED by him: 'an old flash game website', the look's
+era inside the bible; CLAUDE.md reference line; records/BOHEMIA_PAOLO_NEWGROUNDS_AND_THE_MACHINE_GUN_9_24_26.md). The list is in VOTE as one line.
+
 
 
 

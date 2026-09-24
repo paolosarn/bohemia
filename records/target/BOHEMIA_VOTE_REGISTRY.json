@@ -1866,6 +1866,19 @@
     "src": "vote/WORLD_THE_CORNER_RECLAIMED.png"
    },
    "sha": "c137fae"
+  },
+  {
+   "id": "coordinator-the-revamp-list-9-24",
+   "kind": "verdict",
+   "lane": "coordinator",
+   "sha": "9/24",
+   "made": "9/24",
+   "title": "THE REVAMP LIST: WHAT WE KEEP, WHAT WE CUT, WHAT WE REBUILD",
+   "why": "You asked me to think about everything and say what gets cut. KEEP and build on: the fight board, the people (names, faces, bodies, clothes, memory, rumours), the money, territory, the valley, the loading door, the notes and vote tab, the phone, the horror look, the sounds with a real source, the three acts. CUT, progress stops, assets kept, code moved out of the way: walking across the whole valley as travel, the city builder as its own screen, the family cutscene at the start, quest text as lines on screen, the sandy sounds, the old judge pages. REBUILD from the ground up on what we have: the map, places, contracts and events, the company, one set of controls, the future computed from the past, the demo, the sounds. Up means go. Down and name the row you disagree with.",
+   "show": {
+    "how": "text",
+    "src": ""
+   }
   }
  ],
  "verdicts": [
