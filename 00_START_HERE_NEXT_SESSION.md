@@ -1,3 +1,74 @@
+LIFE + CITY (city-1eztay): 9/24b LATEST -- *** BOTH COOKS GOT HIS THUMB, RULE 32(b)
+DELETED HALF MY ROW, AND THE ENTIRE FUTURE FITS IN 6.7% OF THE VALLEY. ***
+TAB: the new picture is in the VOTE tab (alpha).
+Record: records/BOHEMIA_THE_FUTURE_FITS_IN_SIX_PERCENT_9_24_26.md
+
+HIS VOTES:
+    lifecity-the-shop-that-is-open-9-22         UP, and he wrote "Nice"
+    lifecity-the-street-that-is-still-lit-9-23  UP
+    lifecity-the-shift-is-logged-9-24           still waiting
+The shop is the REDO of the store he killed with "Not analog horror enough". The
+post-mortem found bible rule 1 broken (six wrong things in a frame my own docstring
+called ordinary) and rule 7 broken (I PAINTED the one wrong thing). Rebuilt the other
+way round, from real game numbers, and he took it. THAT LOOP CLOSED.
+
+ROW [three cities] CLAIMED, round 1.
+
+*** RULE 32(b) DELETES HALF THE ROW'S OWN SENTENCE. *** It says the city draws the
+same ground "built up OR FALLEN DOWN from the ledger". Paolo 9/23: the ruin is act 1's
+FLOOR, never a fall; NOTHING DECAYS BELOW THE START; act 2 and 3 are the ruin PLUS what
+was reclaimed. Newest date wins, so THERE IS NO FALLEN-DOWN CITY TO DRAW AT ALL.
+
+RULE 12, MEASURED BEFORE WAITING. The blocker is REAL but it is NOT the named one:
+    ACT / DYNASTY / ERA / BohemiaDynasty / BohemiaDerive   ALL UNDEFINED
+    DAY.act                                                does not exist
+    placed buildings in the ledger                         0  (3 edit keys)
+    the renderer reads om, EDITS, CE, CE.spanAt, CBdistAt  ALL PRESENT
+THERE IS NO ACT ANYWHERE IN THE WORLD. "Draw whichever act he is in" cannot be built
+because THE ACT ITSELF DOES NOT EXIST AS A VALUE, not because the derive is missing.
+BUT THE SEAM IS ALREADY THERE: the renderer reads om + EDITS through CE, so nothing
+new is needed for the DRAWING, only for the KNOWING. When an act exists, this row is
+short.
+
+*** [PENDING Paolo] A NUMBER UNDER RULE 32(b) NOBODY HAS NOTICED. *** If reclaim means
+building on empty ground, that is all the room the future has:
+    desert (empty, buildable)      620    6.7%
+    already built                4,074   44.2%
+    skeleton (untouchable)       4,522   49.1%     total 9,216
+HALF THE VALLEY IS SKELETON (streets, water, rail, mountains, sacred by law) and
+another 44% is already built, SO THE ENTIRE FUTURE FITS IN 6.7% OF THE MAP. Either
+acts 2 and 3 differ from act 1 by at most 6.7% of the ground -- which will not read as
+"it gets better" at the aerial zoom -- or RECLAIMING MEANS REPLACING THE 4,074 ALREADY
+BUILT, which is a bigger ruling than this lane should make. Measured, not decided.
+
+THE COOK: THE SAME STREET, RECLAIMED (VOTE tab). Approval unlocks volume, so this is
+ACT TWO OF THE PICTURE HE JUST APPROVED: the same block, 59,4, MOB's wire, the same
+four houses at the same coordinates, off the same measured row, with the act as the
+only difference. Everything is ADDITION: the road patched, the power back on the
+street, a panel array and a battery cabinet on the first roof, the line restrung.
+*** AND THE FIRST CUT LOST ITS OWN WRONG THING. *** I lit every reclaimed house in the
+same warm bulb the empty house already had, so all four read identical and the thing
+meant to be wrong DISAPPEARED INTO THE IMPROVEMENT.
+    IF EVERYTHING GETS BETTER IN THE SAME WAY THE WRONG THING ALREADY WAS,
+    THE WRONG THING VANISHES.
+That is bible rule 1 failing from the OPPOSITE direction to the shop he killed: not
+six wrong things, but NONE. Fixed by making the reclaimed light what new light really
+is -- cooler, steadier, panel-fed, "more techy and modern" in his own words -- so the
+untouched house is now THE WARM ONE IN A STREET OF COLD LIGHT and reads instantly.
+
+TWO SMALLER ONES: the factory REFUSED TO RUN because I asked the suburb palette for
+code 22, which is the COMMERCIAL district's olive from the shop two rounds ago -- the
+suburb runs 0-6 and 9-16. And the registry inserter stopped depending on somebody
+else's whitespace: another lane reformatted the file and my fixed-indent regex found
+nothing, so it locates the end of items[] by structure now.
+
+STILL ROUTED AND NOT MINE TO PATCH: #openInvite, the opening banner, takes every
+finger in an 87-pixel full-width strip across the top of the walked game
+(records/BOHEMIA_AN_INVISIBLE_STRIP_EATS_THE_TOP_OF_THE_GAME_9_23_26.md).
+
+STILL OPEN, HELD UNDER RULE 18(b): [horror city], [tiles not slabs],
+[buildings appear], [power buildings], [owner shown], [bill lands], [shelves seen].
+
 UI (ui-kmqmrf): 9/24 LATEST -- *** THE PHONE NEVER OPENS BLACK. *** [phone black] SHIPPED;
 [the picks] STAYS CLAIMED (loads B only, one of nine). TAB: CITY -- zoom out and tap the phone. Record:
 records/BOHEMIA_THE_PHONE_NEVER_OPENS_BLACK_9_24_26.md
