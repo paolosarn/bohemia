@@ -32854,7 +32854,7 @@ missing. A resolver that re-applies only what it remembers eats everything else.
 
 
 *** 9/25 NEWEST -- FOURTEEN PLACES, THREE SHELVES. ***
-records/BOHEMIA_WORLD_BB_PLACES_THE_HINTERLAND_9_25_26.md
+records/BOHEMIA_WORLD_BB_PLACES_THE_HINTERLAND_9_25_26.md  sha e3ef0e8
 Row [bb places] SHIPPED. School: nothing on a play surface.
 
 (0) THE ROW. Rule 33 (Paolo 9/24) makes the map the spine and says PLACES ARE
