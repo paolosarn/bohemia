@@ -1,0 +1,438 @@
+{
+ "version": "BOHEMIA_THE_MAP_MARKERS_v1",
+ "built": "2026-09-24",
+ "lane": "COOK [bb map art] round 1",
+ "rule": "rule 33 (the overworld is Battle Brothers) and rule 33(g) (where BB is a still, we move)",
+ "measured_before_drawing": "the MAP tab paints a cell by tone or by its rendered art and draws one search highlight dot. There is no party marker and no place marker on the valley map at all.",
+ "grounds_read_from_the_map": {
+  "void": "#161410",
+  "fabric": "#6a6258",
+  "desert": "#8a7a58",
+  "mountain": "#3b352b",
+  "town": "#5f584c"
+ },
+ "palette": {
+  "k": "#1b1813",
+  "d": "#2e2a22",
+  "l": "#4a4438",
+  "w": "#8f8672",
+  "a": "#d8b657",
+  "A": "#f3e2a6",
+  "s": "#12100c"
+ },
+ "markers": {
+  "YOU": {
+   "w": 9,
+   "h": 20,
+   "frames": 4,
+   "moves": "the banner stirs while you travel, and hangs dead when you stop",
+   "body": [
+    ".....k...",
+    ".....k...",
+    ".....k...",
+    ".....k...",
+    ".....k...",
+    ".....k...",
+    ".....k...",
+    "...kkk...",
+    "..kdddk..",
+    "..kdwdk..",
+    "..kdddk..",
+    "...kkk...",
+    "..kkkkk..",
+    ".kkkkkkk.",
+    ".kkkkkkk.",
+    "..kkkkk..",
+    "..kk.kk..",
+    "..kk.kk..",
+    ".skk.kks.",
+    "..s...s.."
+   ],
+   "part": [
+    [
+     [
+      1,
+      2,
+      [
+       "aaaa",
+       "aaaa",
+       ".aaa",
+       "..aa"
+      ]
+     ]
+    ],
+    [
+     [
+      1,
+      2,
+      [
+       "aaaa",
+       ".aaa",
+       "aaaa",
+       "..aa"
+      ]
+     ]
+    ],
+    [
+     [
+      1,
+      2,
+      [
+       ".aaa",
+       "aaaa",
+       "aaaa",
+       ".aaa"
+      ]
+     ]
+    ],
+    [
+     [
+      1,
+      2,
+      [
+       "aaaa",
+       "aaaa",
+       ".aaa",
+       "...a"
+      ]
+     ]
+    ]
+   ]
+  },
+  "THE SHOP": {
+   "w": 14,
+   "h": 14,
+   "frames": 6,
+   "moves": "the sign is still trying to light and cannot hold it",
+   "body": [
+    "......kk......",
+    "......kk......",
+    "......kk......",
+    "......kk......",
+    "..dddddddddd..",
+    "..dllllllllk..",
+    "..dlkkkkkklk..",
+    "..dlkkkkkklk..",
+    "..dlkkkkkklk..",
+    "..dllllllllk..",
+    "..kkkkkkkkkk..",
+    "..kkk.kk.kkk..",
+    ".skkkkkkkkkks.",
+    "..ssssssssss.."
+   ],
+   "part": [
+    [
+     [
+      4,
+      0,
+      [
+       "AAAAAA",
+       "AAAAAA"
+      ]
+     ]
+    ],
+    [
+     [
+      4,
+      0,
+      [
+       "aaaaaa",
+       "aaaaaa"
+      ]
+     ]
+    ],
+    [
+     [
+      4,
+      0,
+      [
+       "wwwwww",
+       "kkkkkk"
+      ]
+     ]
+    ],
+    [
+     [
+      4,
+      0,
+      [
+       "kkkkkk",
+       "kkkkkk"
+      ]
+     ]
+    ],
+    [
+     [
+      4,
+      0,
+      [
+       "aaaaaa",
+       "kkkkkk"
+      ]
+     ]
+    ],
+    [
+     [
+      4,
+      0,
+      [
+       "kkkkkk",
+       "kkkkkk"
+      ]
+     ]
+    ]
+   ]
+  },
+  "THE SHED": {
+   "w": 12,
+   "h": 10,
+   "frames": 4,
+   "moves": "a loose roof sheet lifts and drops",
+   "body": [
+    "....dddddd..",
+    "...dllllllk.",
+    "..dllllllllk",
+    "..dkkkkkkkkk",
+    "..dkkkkkkkkk",
+    "..dkkakkkkkk",
+    "..dkkakkkkkk",
+    "..kkkkkkkkkk",
+    ".skkkkkkkkks",
+    "..ssssssssss"
+   ],
+   "part": [
+    [
+     [
+      2,
+      1,
+      [
+       "wwww"
+      ]
+     ]
+    ],
+    [
+     [
+      2,
+      0,
+      [
+       "wwww"
+      ]
+     ]
+    ],
+    [
+     [
+      3,
+      0,
+      [
+       ".www"
+      ]
+     ]
+    ],
+    [
+     [
+      2,
+      1,
+      [
+       "wwww"
+      ]
+     ]
+    ]
+   ]
+  },
+  "THE PUMP": {
+   "w": 16,
+   "h": 15,
+   "frames": 4,
+   "moves": "the beam is still nodding, and nothing is on the other end of it",
+   "body": [
+    "................",
+    "................",
+    "................",
+    "................",
+    "................",
+    ".......k........",
+    "......kkk.......",
+    "......k.k.......",
+    ".....kk.kk......",
+    ".....k...k......",
+    "....kk...kk.....",
+    "..kkkkkkkkkkk...",
+    "..kkkddddkkkk...",
+    ".skkkkkkkkkkkks.",
+    "..sssssssssss..."
+   ],
+   "part": [
+    [
+     [
+      2,
+      2,
+      [
+       "aawwww"
+      ]
+     ],
+     [
+      8,
+      4,
+      [
+       "wwwwkk"
+      ]
+     ],
+     [
+      7,
+      3,
+      [
+       "w"
+      ]
+     ]
+    ],
+    [
+     [
+      2,
+      3,
+      [
+       "aawwwwwwwwkk"
+      ]
+     ]
+    ],
+    [
+     [
+      2,
+      4,
+      [
+       "aawwww"
+      ]
+     ],
+     [
+      8,
+      2,
+      [
+       "wwwwkk"
+      ]
+     ],
+     [
+      7,
+      3,
+      [
+       "w"
+      ]
+     ]
+    ],
+    [
+     [
+      2,
+      3,
+      [
+       "aawwwwwwwwkk"
+      ]
+     ]
+    ]
+   ]
+  },
+  "THE FORTRESS": {
+   "w": 18,
+   "h": 14,
+   "frames": 8,
+   "moves": "the watch light comes round, so somebody is still up there",
+   "body": [
+    "..kk..........kk..",
+    "..kk..........kk..",
+    "..kk..........kk..",
+    "..kkllllllllllkk..",
+    "..kkddddddddddkk..",
+    "..kk..........kk..",
+    "..kk..llllll..kk..",
+    "..kk..dddddd..kk..",
+    "..kk..dddddd..kk..",
+    "..kk..........kk..",
+    "..kkllll..llllkk..",
+    "..kkdddd..ddddkk..",
+    ".skkkkkk..kkkkkks.",
+    "..sssssss.ssssss.."
+   ],
+   "part": [
+    [
+     [
+      2,
+      0,
+      [
+       "AA"
+      ]
+     ]
+    ],
+    [
+     [
+      2,
+      0,
+      [
+       "aa"
+      ]
+     ]
+    ],
+    [
+     [
+      2,
+      0,
+      [
+       "ll"
+      ]
+     ]
+    ],
+    [
+     [
+      2,
+      0,
+      [
+       "kk"
+      ]
+     ]
+    ],
+    [
+     [
+      14,
+      0,
+      [
+       "kk"
+      ]
+     ]
+    ],
+    [
+     [
+      14,
+      0,
+      [
+       "ll"
+      ]
+     ]
+    ],
+    [
+     [
+      14,
+      0,
+      [
+       "aa"
+      ]
+     ]
+    ],
+    [
+     [
+      14,
+      0,
+      [
+       "AA"
+      ]
+     ]
+    ]
+   ]
+  }
+ },
+ "what_moves": {
+  "YOU": "the banner stirs while you travel, and hangs dead when you stop",
+  "THE SHOP": "the sign is still trying to light and cannot hold it",
+  "THE SHED": "a loose roof sheet lifts and drops",
+  "THE PUMP": "the beam is still nodding, and nothing is on the other end of it",
+  "THE FORTRESS": "the watch light comes round, so somebody is still up there"
+ },
+ "beat": "500 ms a frame, which is one beat at 120 BPM, so the map breathes on the same clock as the fight",
+ "not_shipped": "rule 18: a bank and a VOTE candidate. It goes on the map the round the hold allows.",
+ "not_drawn": "the trail the party leaves on the map already exists (__WHOSE_FOOTPRINTS_ARE_THESE__, 9/12, passed by DIRECTION 9/13) and is deliberately not redrawn here."
+}

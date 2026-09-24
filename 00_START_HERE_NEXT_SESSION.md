@@ -21501,6 +21501,74 @@ THIS LANE'S ROLE, FIXED: 16 COOK, the production artist.
 THIS LANE'S SESSION SLUG: cook-mce6r5.
 
 
+COOK (cook-mce6r5): 9/24 LATEST (3) -- *** THE VALLEY MAP HAS NO MARKER OF ANY KIND ON IT,
+AND NOW IT HAS FIVE, AND EVERY ONE OF THEM MOVES. *** New row [bb map art], claimed and
+pushed before the work (rule 5).
+TAB: the VOTE tab, cook-the-map-has-markers-9-24, and it is a PAGE not a picture, so THEY
+PLAY (rule 25, rule 33g). Once placed it is the MAP tab. NOTHING WENT TO THE ALPHA'S PLAY
+SURFACE (rule 18).
+
+MEASURED FIRST (rule 12): the MAP tab's draw loop paints a cell by its tone when zoomed out
+and its rendered art when close, then one search highlight dot, AND THAT IS ALL OF IT. A
+player on that map cannot see where he is or where anything worth going to is. The eight hits
+on "marker" in that file are tile-legend prose about headstones and parking bays, which is the
+wrong-oracle trap, opened and read rather than counted. The map's palette is already declared
+there too, so it was not mine to pick: void #161410, fabric #6a6258, desert #8a7a58, mountain
+#3b352b, town #5f584c, roads #33333c.
+
+THE FIVE: YOU 9x20 with a banner, THE SHOP 14x14 (a box and a sign pole), THE SHED 12x10 (no
+perimeter, no tall thing), THE PUMP 16x15 (a tall thing with no building at all), THE FORTRESS
+18x14 (the only full perimeter, two towers, an open courtyard the ground shows through). All
+five silhouettes differ with the colour and the shadow thrown away, which the tool proves.
+
+*** WHAT MOVES, WHICH IS THE WHOLE OF RULE 33(g). *** One moving part on a still body, 500 ms
+a frame, one beat at 120 BPM, so the map breathes on the fight's clock: the banner stirs while
+you travel and hangs dead when you stop; the shop sign keeps trying to light and cannot hold
+it; a loose roof sheet lifts and drops; the pump beam is still nodding with nothing on the
+other end; a watch light comes round the fortress towers.
+
+*** THE GUARD THAT REFUSED THE RIGHT ART FOR THE WRONG REASON. *** My first one refused any
+marker that moved more than 30% of itself, and it threw out the pump -- whose walking beam
+really is half the machine you can see. The share was never the question. A MACHINE STILL
+RUNNING HAS A PART THAT MOVES AND FEET THAT DO NOT, so the gate is now: a single pixel
+changing in a marker's bottom third is refused. That has teeth and the share is only reported.
+
+*** AND THE CONTRAST RULER WAS AVERAGING, WHICH HIDES THE ONE THING THAT DOES THE FINDING. ***
+It refused the shop on mountain at 25 of 255, which is true of the average and useless as a
+test, because a dark silhouette is SUPPOSED to sit close to a dark ground. The honest ruler is
+the share of a marker standing at least 40 of 255 CLEAR of the ground. That change is also the
+argument for the banner I had left off the figure: 7% findable on mountain without it, 17%
+with it. AND THE OTHER HALF IS A FACT ABOUT THE MAP, NOT A SOFTENED THRESHOLD: the valley has
+895 MOUNTAIN CELLS AND BUILDS ON NONE OF THEM, so a place can never stand on one. YOU can
+cross one, so YOU is held to all four grounds and a place to the three it can stand on.
+
+TWO PIECES DID NOT READ AND ONLY LOOKING CAUGHT IT, every guard green on both: the pump came
+out as TWO TENTS WITH A WIRE OVER THEM (I splayed the legs both ways and got two triangles
+instead of one Samson post) and the fortress came out as a FLAT BANDED BOX (eighteen pixels of
+near-identical dark tone is a mush however carefully arranged). Both redrawn.
+AND A THIRD, IN MY OWN TABLE: the first "three marks" check called a row a perimeter if the
+first or last character of the MASK STRING was ink, so the fortress -- the only walled thing
+here -- scored 0 of 14 because its mask carries two blank columns, while the shed scored 8 of
+10 because its mask touches the edge. It printed a lie on the page. The perimeter is a design
+fact and is declared; what is measured is the silhouette, shadow excluded.
+
+SCHOOL PAGE (rule 33f, one a round): records/COOK_BB_SCHOOL_THE_MAP_HAS_MARKERS_9_24_26.md.
+Four new library entries, reference/library/overworld-map/INDEX.md, BBM-01..04, index 93 -> 97.
+
+FOR WORLD AND RUN: where these get PLACED on the map is yours, not the art's. The trail the
+party leaves already exists (__WHOSE_FOOTPRINTS_ARE_THESE__, 9/12, passed by DIRECTION 9/13)
+and is deliberately not redrawn.
+
+STILL FOR PLUMBER, RED ON CLEAN MAIN, NOT MINE, AND CLIMBING FAST: the pages publish gate
+fails because the published surface is 275 MB against its own 260 MB cap. It read 270 two
+rounds ago and 271 last round. The cap exists for the reason the 8/6 law names -- a build
+that copies too much never finishes -- and every lane is stacking onto a surface already over.
+
+STILL WAITING ON A VOTE, FOUR OF MINE: the wheel that stopped, which way is he facing, the
+hole in the screen, and now the map markers. THE ONE QUESTION STILL OUT: the boot's heel. His
+boot is the same width at both ends so north and south drew the same print; I thinned and
+flattened the heel and put both on the card for him to kill or keep.
+
 COOK (cook-mce6r5): 9/24 LATEST (2) -- *** HE VOTED AGAIN. THREE MORE OF MINE UP, TWO OF THEM
 WITH INSTRUCTIONS, AND BOTH INSTRUCTIONS ARE BUILT THIS ROUND. *** Running score 6 up, 1 down.
 TAB: the VOTE tab, two new items, cook-which-way-is-he-facing-9-24 and

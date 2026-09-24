@@ -1918,7 +1918,20 @@
     "how": "page",
     "src": "vote/PORTRAIT_THE_BUST.html"
    }
-  }
+  },
+   {
+    "id": "cook-the-map-has-markers-9-24",
+    "kind": "tile",
+    "lane": "cook",
+    "sha": "PENDING",
+    "made": "9/24",
+    "title": "THE MAP HAS MARKERS",
+    "why": "You made the overworld Battle Brothers, and then you said their map is just a bunch of pictures and we put life in it. So here are the first five things that go on the valley map, and every one of them moves. First though, the measurement: the map you have right now has NO marker of any kind on it. It paints the ground and draws one search dot. You cannot see where you are or where anything is. These five are YOU with a banner, a shop, a shed, a pump and a fortress. They are drawn in the map's own colours, dark with one bright mark each, because that is the only thing you can find from across a valley. Each one has ONE part that moves and feet that never do: your banner stirs while you travel and hangs dead when you stop, the shop sign keeps trying to light and cannot hold it, a loose roof sheet on the shed lifts and drops, the pump beam is still nodding with nothing on the other end of it, and a watch light comes round the fortress towers so somebody is still up there. They move on the beat, half a second a frame, same clock as the fight. TAP THIS ONE, IT PLAYS. Thumbs down and tell me which one you cannot read.",
+    "show": {
+     "how": "page",
+     "src": "vote/COOK_THE_MAP_HAS_MARKERS.html"
+    }
+   }
  ],
  "verdicts": [
   {
