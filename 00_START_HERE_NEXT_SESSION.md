@@ -1,3 +1,94 @@
+PORTRAIT (portrait-vamily-yke55s): 9/24 LATEST -- *** [horror face] THE PAGE IS WRITTEN,
+AND RULE ONE FOUND A BUG ON EVERY FACE IN THE GAME. *** Tab: VOTE in the alpha, item
+"THE FACE AT REST", and it PLAYS. Build 9/24h. Row STILL CLAIMED ON PURPOSE (rule 6:
+half of it is built, and marking it shipped would be the exact lie that rule warns about).
+Page: records/BOHEMIA_THE_FACE_AT_REST_9_24_26.md
+Cook: tools/bohemia_cook_the_face_at_rest.js -> slices/vote/PORTRAIT_THE_FACE_AT_REST.html
+
+THE BIBLE'S OWN ONE FACE ROW HAD THREE BLANKS IN IT. This page closes four cells and
+TWO came back the opposite of the guess.
+  R3 THE LONG HOLD said "FAIL (unmeasured idle)" and it was NEVER A FAIL: worst 4-beat
+     moving share 2.34% against a 10% ceiling, 0 of 40 over. It was a blank wearing the
+     word FAIL.
+  R6 THE STILL FACE said UNMEASURED and it was a REAL fail: ELEVEN OF FORTY idle faces
+     made TWO micro-moves in 8 beats (a micro-move is one unbroken RUN of non-resting
+     frames, not one frame -- a blink is eight frames of one gesture).
+     *** AND IT WAS NOT THE BLINK. *** The blink cycles every 5500 ms, LONGER than the
+     4000 ms window, so it can only fire once inside one. It was a SECOND CLOCK: the brow
+     drift on its own 16.3 s sine. ONE FACE, ONE CLOCK now -- the brow rides the blink,
+     one blink in three. 0 of 40 make two.
+     THE DIAL IS STILL ALIVE and that is the half that matters, because the cheap way to
+     pass "the face holds" is to stop the face moving and call a photograph restraint:
+     every face still brows 3-4 times a minute, 12-34 pixels, 0 dead.
+  R1 ONE WRONG THING. THE FIRST GUESS WAS WRONG AND IT IS WRITTEN DOWN: the hypothesis
+     was that our faces are perfectly symmetric. They are NOT -- 120 average 14.3%, not
+     one is perfect, his own approved face is 13.8% -- so the gaze was free to be the
+     wrong thing. THE SENTENCE: HIS EYES ARE POINTED A LITTLE PAST YOUR SHOULDER.
+     eyes.gaze -1/0/+1, the pupil moved inside the eye the eye already has. gaze 0 is
+     BYTE-IDENTICAL on 56 of 56. 9.2% of 600. 18-26 px where eyes show, 0 dead, nothing
+     behind shades (a lens, not a dead dial).
+  R4 THE LIGHT said "ok" and it is a measured FAIL -- see BELOW, it is the unbuilt half.
+
+*** THE BRAID: WHAT RULE ONE ACTUALLY FOUND. *** The gaze card was rendered and then
+LOOKED AT, and the face had a 2-pixel dark stripe running 15 rows down its left temple.
+Rule 1 allows ONE wrong thing; that was a second, so the card failed the rule it was
+arguing for. The portrait's hair spec carries a `braid` field and the DEFAULT SPEC --
+the one renderFace's own comment calls "EXACTLY the face he approved" -- set it to -1
+meaning NONE. *** -1 IS TRUTHY. *** So `if(h.braid)` drew one on every face ever made:
+    portraits drawing a braid, before   200 of 200 (6 to 76 px, always the left)
+    bodies wearing a braided cut          0 of 200
+    values the field ever held           -1, and only -1
+Eight lines below it, this file already says in its own hand that braids belong to DEAD
+styles and there is nothing on the body to agree with.
+THIRD TIME ON THESE TWO RENDERERS that the portrait carried its own copy of something
+the body owns (cut SHAPE 8/28, hair COLOUR 9/20, this). SAME FIX: ask the cut.
+hairDialsFor already parses each cut's own tex, so there is NO new source to drift.
+    AFTER: 11 of 200 draw one, 11 of 200 wear DUST WEAVE, 0 disagree.
+AND IT DID NOT COST THE THING IT LOOKED LIKE IT WOULD. Taking 6-76 px off every face
+sounds like taking away variety; measured, the closest pair is 0.0117 EITHER WAY,
+unmoved, and the crowd MEAN went UP 0.0741 -> 0.0747. A stripe every single face shared
+was pushing them toward each other, not apart.
+
+*** R4 IS THE HALF THAT IS NOT BUILT, and it is now a measured FAIL instead of a blank.
+Read with THE WORLD'S OWN RULER, not a new one (art_45_gate: a 3/4 mass's right third
+out-lums its left by >= 8% of the mass's mean), on SKIN PIXELS ONLY, 120 faces:
+    lit on the right like every wall in the game    0 of 120
+    lit on the left                                 0 of 120
+    no light direction at all                     120 of 120
+    the face's median right-minus-left             1.52
+    what the world's ruler needs, median           9.84
+So the face is not lit WRONG -- all 120 lean the right way, 0.22 to 3.42 -- it is barely
+lit, about a SIXTH of what a wall in the same street shows. That number, 9.84 against
+1.52, is what the re-lit pass has to hit. The 9/22 attempt is in the graveyard with its
+post-mortem (it was a DARKENING pass, it could only subtract, and it read as dirt); the
+coordinator routed the re-lit face to ship with the first person at the door under
+[faces first]. ***
+
+GATES (pre-push pass, the ones that read my diff):
+  portrait_haircut 15/0 -- THREE NEW LEGS with a negative control ("and it is not passing
+    because nobody has one": 0 disagreements is also what an empty room gives you).
+    MUTATION-PROVED: put the -1 sentinel back and drop the read -> 13/2 RED on exactly
+    those two claims, green again when restored.
+  talking_portrait 30/1 -- TWO NEW R6 LEGS, both green. The 1 is the SAME known red:
+    the face-distance floor (0.0117 against 0.0143), the metric averaging luminance over
+    all 4096 pixels and not being able to see a dark face. MEASURED UNCHANGED by this
+    round, with the braid and without -- I checked rather than assumed, because removing
+    pixels from every face is exactly the shape of thing that would move it.
+
+STILL OPEN IN THIS LANE, said plainly:
+  1. [horror face] R4, the light. The number is above. Stays CLAIMED.
+  2. [customizations first] CLAIMED -- 8 dials shipped, the maker is 22 of 27.
+  3. [faces first] CLAIMED and blocked -- a stranger still meets ZERO faces in the demo;
+     the cold open is unreachable. Routed to RUN [open reachable] / UI, not mine.
+  4. [dead dials] OPEN -- nose.len and details.stubble still move zero pixels.
+  5. [three faces] OPEN (rule 31, with CHARACTER). [blank faces] OPEN, school first --
+     and this round fed it: the faces are too alike and the braid was hiding it slightly.
+  6. THE GAZE IS A DIE, NOT A MEANING (bible rule 7 wants wrongness from world data).
+     It is rolled from the person's own hash and hooked to nothing true yet. When the
+     world knows who is lying to you, that is the hook. Naming it is rule 13.
+[PENDING Paolo] nothing from me. The standing one is not mine to fix: the repo's Pages
+source needs to be GitHub Actions or the VOTE list keeps failing to load (9/22).
+
 LIFE + CITY (city-1eztay): 9/24 LATEST -- *** SEVEN OF SEVEN ARE ALIVE, THE ROW IS
 CLOSED, AND THE COOK IS THE SHIFT: 477 MINUTES OF HIS DAY ON GROUND NOBODY OWNS. ***
 TAB: the new picture is in the VOTE tab (alpha). Records:

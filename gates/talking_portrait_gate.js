@@ -333,6 +333,49 @@ const N              = 60;
     const asked = renderFace(sp, { ramp: rp, mouth: 'closed', blink: 0, brow: 0 });
     out.nothingAskedIsApproved = base.every((v, i) => v === asked[i]);
 
+    /* 3c. THE STILL FACE (DIRECTION's analog horror bible, rule 6, 9/20):
+       "A portrait holds; it under-reacts; the blink is rare and the smile is rarer.
+        MEASURE: idle portrait, at most one micro-move per 8 beats."
+       The bible's own table left this cell UNMEASURED. 120 BPM, so eight beats is
+       4000 ms; a MICRO-MOVE is one unbroken run of non-resting frames, not one frame,
+       because a blink is eight frames of one gesture. MEASURED BEFORE: eleven of forty
+       faces made TWO. Not the blink -- its cycle is 5.5 s, longer than the window, so
+       it can only fire once inside one -- but a SECOND clock the brow drift ran on.
+       The brow rides the blink now, so the two are one gesture.
+       The dial must still be ALIVE, or this "passes" by deleting the performance,
+       which is the shape of cheating this gate exists to catch. */
+    const BEAT = 500, WIN8 = 8 * BEAT, STEP = 1000 / 30;
+    let stillWorst = 0, stillOver = 0, stillN = 0, browedFaces = 0, browMin = 1e9;
+    for (let i = 0; i < 40; i++) {
+      const fid = 'still:' + i, fsp = faceFor(fid), frp = faceRampFor(fsp);
+      const rest = renderFace(fsp, { ramp: frp, blink: 0, brow: 0, mouth: 'closed' });
+      let moves = 0, was = false;
+      for (let t = 0; t < WIN8; t += STEP) {
+        const pf = facePerform(fid, t, null, {});
+        const fr = renderFace(fsp, { ramp: frp, blink: pf.blink, brow: pf.brow, mouth: pf.mouth });
+        let on = false;
+        for (let k = 0; k < fr.length && !on; k += 4)
+          if (fr[k] !== rest[k] || fr[k+1] !== rest[k+1] || fr[k+2] !== rest[k+2]) on = true;
+        if (on && !was) moves++;
+        was = on;
+      }
+      stillN++; if (moves > stillWorst) stillWorst = moves; if (moves > 1) stillOver++;
+      /* over a real minute, does this face's brow ever move, and does it move pixels */
+      let nbr = 0, w2 = false;
+      for (let t = 0; t < 60000; t += STEP) {
+        const pf = facePerform(fid, t, null, {});
+        const on = pf.blink > 0; if (on && !w2 && pf.brow > 0) nbr++; w2 = on;
+      }
+      if (nbr > 0) browedFaces++;
+      const a = renderFace(fsp, { ramp: frp, blink: 1, brow: 0, mouth: 'closed' });
+      const c = renderFace(fsp, { ramp: frp, blink: 1, brow: 0.35, mouth: 'closed' });
+      let d = 0; for (let k = 0; k < a.length; k += 4)
+        if (a[k] !== c[k] || a[k+1] !== c[k+1] || a[k+2] !== c[k+2]) d++;
+      if (d < browMin) browMin = d;
+    }
+    out.still = { worst: stillWorst, over: stillOver, n: stillN,
+                  browedFaces, browMin: browMin === 1e9 ? 0 : browMin };
+
     /* ---- 4. NO STRAIGHT LINE DOWN THE CROWN (HOW HAIR AND SHAPE WORK, 8/1) -- */
     let ruled = 0;
     faces.forEach(f => { const rt = f.sp.hair.roots, xs = new Set();
@@ -398,6 +441,19 @@ const N              = 60;
      R.mouthPixels.mid > 4 && R.mouthPixels.open > 4 && R.mouthPixels.wide > 4 &&
      R.blinkPixels > 8 && R.browPixels > 8);
   ok('A FACE WITH NOTHING ASKED OF IT IS EXACTLY THE APPROVED FACE', R.nothingAskedIsApproved);
+
+  ok('*** THE STILL FACE: an idle portrait makes at most ONE small move every eight beats ***',
+     R.still.over === 0 && R.still.n >= 40,
+     '(worst ' + R.still.worst + ' of ' + R.still.n + ' faces over 4000 ms at 120 BPM; ' +
+     R.still.over + ' make two. Eleven of forty did, on a second clock. Bible rule 6)');
+
+  /* AND IT IS NOT STILL BECAUSE IT IS DEAD. The cheap way to pass the line above is to
+     stop the face moving at all, which is a photograph, which is the thing rule 6's own
+     text argues against. Both halves or neither. */
+  ok('and it holds because it is restrained, not because the drift is dead',
+     R.still.browedFaces === R.still.n && R.still.browMin >= 8,
+     '(' + R.still.browedFaces + ' of ' + R.still.n + ' faces still lift a brow inside a ' +
+     'minute, moving at least ' + R.still.browMin + ' pixels when they do)');
 
   /* ---- 4 ----------------------------------------------------------------- */
   ok('HOW HAIR AND SHAPE WORK (8/1) clause 3: no ruled straight line down the crown (' +

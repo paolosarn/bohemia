@@ -146,6 +146,32 @@ const ok = (n, c, note) => { if (c) { pass++; console.log('  ok   ' + n + (note 
       moved[k2] = d;
     }
 
+    /* 6b -- A BRAID IS PART OF THE HAIRCUT (9/24). The portrait carried its own braid
+       flag with -1 for "none", and -1 IS TRUTHY, so `if(h.braid)` drew a dark stripe down
+       the left temple of EVERY FACE IN THE GAME while no body wore a braided cut. Measured
+       200 of 200 before, 11 of 200 after and those eleven are exactly the DUST WEAVE
+       wearers. Read on RENDERED PIXELS in the braid's own two colours, never on the field,
+       because the field is what lied. */
+    const BR_A = [30, 28, 32], BR_B = [58, 54, 60];
+    const braidedCut = {};
+    for (const g of (window.GARMENTS || []))
+      if (g.layer === 'hair' && /tex:\s*'braid'/.test(String(g.gen))) braidedCut[g.n] = 1;
+    let brDraw = 0, brWear = 0, brDisagree = 0, brN = 0;
+    for (let i = 0; i < N; i++) {
+      const id = 'street:' + i;
+      const sp = faceFor(id);
+      const buf = renderFace(sp, { ramp: faceRampFor(sp) });
+      let drew = false;
+      for (let k = 0; k < buf.length && !drew; k += 4)
+        if ((buf[k] === BR_A[0] && buf[k+1] === BR_A[1] && buf[k+2] === BR_A[2]) ||
+            (buf[k] === BR_B[0] && buf[k+1] === BR_B[1] && buf[k+2] === BR_B[2])) drew = true;
+      const wears = !!braidedCut[sp.hair && sp.hair.name];
+      brN++; if (drew) brDraw++; if (wears) brWear++; if (drew !== wears) brDisagree++;
+    }
+    /* and the sentinel itself: a fresh spec must mean NONE by a value that is falsy */
+    const freshBraid = faceFor('sentinel:probe').hair.braid;
+    const defBraid = (typeof PUNK !== 'undefined' && PUNK.hair) ? PUNK.hair.braid : null;
+
     /* 6 -- THE APPROVED PLAYER FACE IS UNTOUCHED. Not "should be" -- hashed. */
     const pf = renderFace(buildSpec(), {});
     let ph = 2166136261;
@@ -157,6 +183,7 @@ const ok = (n, c, note) => { if (c) { pass++; console.log('  ok   ' + n + (note 
     return { dialsOk, dialDistinct: Object.keys(dialSet).length, hairs: HAIRS.length,
              n: rows.length, agree, corr, ceiling: Object.keys(seen).length,
              texDistinct: Object.keys(tseen).length, moved,
+             brDraw, brWear, brDisagree, brN, freshBraid, defBraid,
              playerHash: ph.toString(16), playerHasNew };
   }, N);
 
@@ -185,6 +212,20 @@ const ok = (n, c, note) => { if (c) { pass++; console.log('  ok   ' + n + (note 
 
   for (const [k, v] of Object.entries(r.moved))
     ok('the ' + k + ' dial moves pixels', v >= 12, '(' + v + ' pixels)');
+
+  ok('only the people wearing a braided cut have a braid in their portrait',
+     r.brDisagree === 0 && r.brN > 100,
+     '(' + r.brDraw + ' portraits draw one, ' + r.brWear + ' bodies wear one, ' +
+     r.brDisagree + ' disagree of ' + r.brN + '; it was 200 drawing and 0 wearing)');
+
+  /* THE NEGATIVE CONTROL. Zero disagreements is also what you get when nobody has a
+     braid at all, and that would be a gate passing on an empty room. */
+  ok('and it is not passing because nobody has one', r.brWear > 0 && r.brWear < r.brN,
+     '(' + r.brWear + ' of ' + r.brN + ' wear a braided cut, so the check has both answers to get wrong)');
+
+  ok('"no braid" is a value that reads as no braid', !r.defBraid && !r.freshBraid,
+     '(the default spec carries ' + JSON.stringify(r.defBraid) + ', a fresh face ' +
+     JSON.stringify(r.freshBraid) + '; it used to be -1, which is truthy)');
 
   ok('the face Paolo approved did not move', r.playerHasNew.length === 0,
      '(the player takes the default path; hash ' + r.playerHash + ')');

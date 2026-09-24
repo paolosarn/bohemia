@@ -1,0 +1,60 @@
+<!doctype html><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>BOHEMIA — The Face At Rest</title>
+<!-- PORTRAIT, [horror face]. RULE 25, Paolo 9/21: an animation PLAYS, a still of a
+     motion is banned. These are the real renderer's pixels on the real clock, baked
+     by tools/bohemia_cook_the_face_at_rest.js. The card carries NO vote of its own
+     (rule 25: an item is asked ONCE, on the row). -->
+<style>
+  :root{--ink:#e8e0cc;--bg:#0d0d12;--card:#16161d;--line:#33313d;--gold:#c79a3f}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+       font:13px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace;padding:14px}
+  h1{font-size:13px;letter-spacing:2px;margin:0 0 4px;color:var(--gold)}
+  p{margin:0 0 12px;color:#a49a86;max-width:60ch}
+  .said{border-left:2px solid #7a4a4a;padding:6px 0 6px 10px;margin:0 0 14px;color:#b09a90}
+  .pair{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:10px}
+  .side{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:8px;text-align:center}
+  .lab{font-size:10px;letter-spacing:1px;margin-bottom:5px;color:#6f6862}
+  .hot{color:#c79a3f}
+  canvas{width:256px;height:256px;image-rendering:pixelated;background:#101319;border-radius:3px;display:block}
+  .note{margin-top:4px;color:#6f6862;max-width:62ch}
+  b{color:#c8bfa8;font-weight:normal}
+</style>
+<h1>THE FACE AT REST</h1>
+<div class="said">You said "more analog horror" fourteen times. The rule behind that
+phrase is one line: an ORDINARY picture with exactly ONE thing wrong, and you have to
+be able to say what the wrong thing is in one sentence.</div>
+<p>Here is the sentence. <b>HIS EYES ARE POINTED A LITTLE PAST YOUR SHOULDER.</b></p>
+<p>Same person on both sides. Same face, same hair, same skin, same light, nothing
+else touched. Left looks at you. Right does not. Watch them for a few seconds; they
+hold, they blink once, and the one on the right never meets you.</p>
+<div class="pair">
+  <div class="side"><div class="lab">LOOKING AT YOU</div><canvas id="a" width="64" height="64"></canvas></div>
+  <div class="side"><div class="lab hot">NOT LOOKING AT YOU</div><canvas id="b" width="64" height="64"></canvas></div>
+</div>
+<p class="note">About one person in twelve, so you meet one on a block and cannot say
+why it stuck. No filter, no monster, no new colour. It is a die right now, not a
+meaning; when the world knows who is lying to you, that is what it should read.</p>
+<p class="note">They also hold harder than they used to. The rule is at most one
+small move every eight beats. Eleven faces in forty were making two, because the
+brow ran on its own clock beside the blink. One face, one clock now: the brow rides
+the blink, on one blink in three. Zero in forty make two.</p>
+<script>
+(function(){
+  var TL={"left":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,4,6,6,4,4,2,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"right":[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,5,6,6,5,5,3,8,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]}, STEP=33.333333333333336, FRAMES=9, N=64;
+  var img=new Image(); img.src='PORTRAIT_THE_FACE_AT_REST.png';
+  var A=document.getElementById('a').getContext('2d');
+  var B=document.getElementById('b').getContext('2d');
+  A.imageSmoothingEnabled=B.imageSmoothingEnabled=false;
+  function draw(cx,f){cx.clearRect(0,0,N,N);cx.drawImage(img,f*N,0,N,N,0,0,N,N);}
+  img.onload=function(){
+    var t0=performance.now();
+    (function loop(now){
+      var k=Math.floor(((now-t0)/STEP))%TL.left.length;
+      draw(A,TL.left[k]); draw(B,TL.right[k]);
+      requestAnimationFrame(loop);
+    })(t0);
+  };
+})();
+</script>

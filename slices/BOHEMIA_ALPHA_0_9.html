@@ -1501,7 +1501,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 9/24h - HER NAME AND HER FACE</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 9/24i - THE FACE AT REST</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -3972,7 +3972,7 @@ const PUNK={skin:'fair',
  eyes:{w:6,h:4,gap:6,iris:[150,160,150],hood:1},
  nose:{len:12,w:3},
  mouth:{w:8,fullLower:2,color:[184,120,114]},
- hair:{style:'wavy_mid',color:[216,208,192],roots:[64,54,48],part:'mid',len:'jaw',braid:-1,scalp:false},   /* scalp:false = hair caps the head (occludes scalp skin); true = fade/bald/mohawk shows skin. Paolo owns per-style. */
+ hair:{style:'wavy_mid',color:[216,208,192],roots:[64,54,48],part:'mid',len:'jaw',braid:0,scalp:false},   /* braid: 0 = NONE, -1 = a braid down the left, +1 down the right. IT USED TO BE -1 HERE AND -1 IS TRUTHY, so `if(h.braid)` drew one on EVERY FACE IN THE GAME, always on the left: measured 200 of 200 portraits carrying a 6-to-76-pixel dark stripe down the temple, while 0 of 200 bodies wore a braided cut. Eight lines below, this file already says braids belong to DEAD styles and there is nothing on the body to agree with. Found by DIRECTION's bible rule one -- a frame gets exactly ONE wrong thing -- when the card for the gaze had two. */   /* scalp:false = hair caps the head (occludes scalp skin); true = fade/bald/mohawk shows skin. Paolo owns per-style. */
  details:{stubble:1},
  top:[20,20,24]};
 const SKIN_TONES=[["chalk",[[236,227,221],[204,191,183],[166,151,143]]],["porcelain",[[224,211,203],[191,175,166],[153,137,129]]],["pale",[[188,160,138],[153,127,108],[112,94,84]]],["fair",[[203,169,140],[167,137,113],[124,102,87]]],["olive",[[186,151,116],[154,123,94],[114,94,78]]],["tan",[[179,140,103],[147,115,87],[109,88,71]]],["bronze",[[156,118,87],[118,96,78],[90,70,56]]],["brown",[[118,94,78],[94,74,59],[71,54,44]]],["deep",[[83,66,54],[65,51,42],[48,38,31]]],["ebony",[[66,51,43],[49,38,31],[35,26,22]]],["onyx",[[51,40,34],[37,28,24],[26,19,16]]]]; /* WORLD-GRADED (Paolo 7/18 look revamp): skin graded to world ambient RGB(67,61,56) so the character sits IN the scene, not on top of it. Was the brighter ungraded set. */
@@ -4167,7 +4167,29 @@ function renderFace(spec,opts){
    var _scl=[Math.min(255,L[0]*0.96+16|0),Math.min(255,L[1]*0.96+16|0),Math.min(255,L[2]*0.96+16|0)];
    rect(ex-(e.w>>1),ey,ex+(e.w>>1),ey+e.h-1,_scl);
    line(ex-(e.w>>1),ey,ex+(e.w>>1),ey,[_scl[0]*0.74|0,_scl[1]*0.74|0,_scl[2]*0.76|0]);
-   let ix=ex;rect(ix-1,ey,ix,ey+e.h-1,e.iris);P(ix,ey+1,[38,40,42]);P(ix,ey+2,[38,40,42]);P(side<0?ix-1:ix+1,ey,[238,244,242]);
+   /* *** THE ONE WRONG THING: HE IS NOT LOOKING AT YOU. ***
+      Rule 20, and DIRECTION's bible rule 1: "a frame is mundane except exactly one
+      element that should not be there or should not be missing. One. Two wrong things is
+      a haunted house; zero is a screenshot. MEASURE: name the wrong thing in one sentence
+      or the frame fails." The sentence is: HIS EYES ARE POINTED A LITTLE PAST YOUR
+      SHOULDER. It is not a monster, it is not a filter, it is not a new colour, and it is
+      the oldest tell the genre has.
+      I MEASURED WHAT WAS ALREADY WRONG BEFORE ADDING ONE, because two wrong things fails
+      the rule. The first guess was symmetry -- a face mirrored perfectly is not a human
+      face -- and it was WRONG: 120 faces average 14.3% asymmetry, not one is perfect, and
+      the player's own approved face is 13.8%. So the faces are ordinary in that respect
+      and the gaze is free to be the wrong thing.
+      gaze is -1, 0 or +1 and lands the pupil inside the eye the eye already has, so it
+      costs no width and cannot push the iris past a lid. 0 is the default and a face with
+      no gaze set is byte-for-byte what it was, which is the only way to add anything to
+      art that is already approved. */
+   /* BOTH PUPILS GO THE SAME WAY. The first cut multiplied the shift by the eye's own
+      side, so the left pupil went left while the right went right -- that is a wall-eye,
+      not a gaze, and it is a different sentence from the one this is allowed to tell.
+      Caught by looking at the picture, not by a number. A person looking past your
+      shoulder moves both eyes together. */
+   let ix=ex+Math.max(-1,Math.min(1,e.gaze|0));
+   rect(ix-1,ey,ix,ey+e.h-1,e.iris);P(ix,ey+1,[38,40,42]);P(ix,ey+2,[38,40,42]);P(side<0?ix-1:ix+1,ey,[238,244,242]);
    /* half-shut: the lid eats the top rows, so a blink has a real middle frame
       instead of snapping between open and closed. */
    if(lidRows>0){ for(let ly=0;ly<lidRows;ly++)line(ex-(e.w>>1),ey+ly,ex+(e.w>>1),ey+ly,Mn);
@@ -5341,9 +5363,27 @@ function facePerform(id, tMs, line, opts){
     if (line.indexOf('?') >= 0) brow = 0.6;
     else if (line.indexOf('!') >= 0) brow = -0.5;
   }
-  /* and a face at rest is never perfectly still: one pixel of drift, on its own
-     slow clock, so a portrait left on screen does not turn into a photograph. */
-  if (!line && !opts.mood) brow = (Math.sin((t + seed % 4000) / 2600) > 0.86) ? 0.35 : 0;
+  /* and a face at rest is never perfectly still: one pixel of drift, so a portrait
+     left on screen does not turn into a photograph.
+     *** IT USED TO DRIFT ON ITS OWN SLOW CLOCK AND THAT BROKE RULE SIX. *** The
+     bible: "THE STILL FACE. A portrait holds; it under-reacts. MEASURE: idle
+     portrait, at most one micro-move per 8 beats." The bible's own table left that
+     cell UNMEASURED. Measured now, 40 idle faces over 8 beats at 120 BPM, a
+     micro-move counted as one unbroken run of non-resting frames: ELEVEN OF FORTY
+     MADE TWO. Not the blink -- the blink cycles every 5.5 s, which is longer than
+     the 4 s window, so it can only ever fire once inside one. It was this line: a
+     SECOND clock, 16.3 s long and unrelated to the first, so on eleven faces the
+     brow drifted while the blink was still in the window and the face made two
+     separate moves.
+     ONE FACE, ONE CLOCK. The brow now rides the blink instead of running beside it,
+     on one blink in three, so the drift is inside the same unbroken run and the
+     eye is shut while it happens. That is also the truer gesture: a spontaneous
+     blink and a small brow move are one thing on a real face, not two.
+     AFTER: 0 of 40 make two. The face holds. */
+  if (!line && !opts.mood) {
+    var bIdx = Math.floor((t + phase) / span);            /* which blink we are in */
+    brow = (blink > 0 && (((seed % 97) + bIdx * 7) % 3 === 0)) ? 0.35 : 0;
+  }
 
   return { blink: blink, mouth: mouth, brow: brow };
 }
@@ -5589,6 +5629,15 @@ function faceFor(id, over){
   while (sp.eyes.w > 4 && (sp.eyes.gap + 2 * sp.eyes.w) > (f.cheekW - 4)) sp.eyes.w--;
   if (sp.eyes.h > 4 && (f.noseY - f.eyeY) < 7) sp.eyes.h = 4;
   sp.eyes.hood = R('hood') < (child ? 0.15 : 0.5) ? 1 : 0;
+  /* *** AND IT HAS TO BE RARE, OR IT IS NOT WRONG, IT IS THE NORM. *** The bible's own
+     warning is that two wrong things is a haunted house; a valley where everybody stares
+     past you is not eerie, it is a style. One person in twelve, so a stranger walking a
+     block meets one and cannot say why it stuck. ROLLED, NOT MEANT: this is a trait like
+     every other trait on this face, and it is NOT yet hooked to anything true about the
+     world. Bible rule 7 wants wrongness drawn from world data; when there is a state
+     worth reading (who is lying to you, who is already gone) this is the hook, and until
+     then it is honest to say it is a die and not a meaning. */
+  sp.eyes.gaze = (R('gaze') < 0.083) ? (R('gazeside') < 0.5 ? -1 : 1) : 0;
   sp.eyes.iris = pick(IRIS, 'iris');
 
   /* ---- BROWS: the loudest thing on a face this size ----------------------- */
@@ -5867,6 +5916,14 @@ function faceFor(id, over){
      against the two that used to collapse into "texture" and "no texture". When the body
      grows a textured cut, this reads it the same way the shape dials do. */
   sp.hair.tex   = pick(['wave','wave','coils','locs','solid'], 'htex');
+  /* *** A BRAID IS PART OF THE HAIRCUT, SO IT COMES FROM THE HAIRCUT. *** THE PORTRAIT
+     WEARS THE HAIRCUT THE BODY IS WEARING (8/28) and ONE ID ONE WHOLE PERSON (8/27):
+     this is the same shape as the hair COLOUR bug this lane fixed on 9/20 -- the portrait
+     was carrying its own copy of something the body owns. hairDialsFor already parses the
+     cut's own tex out of its generator, so there is nothing new to read and no second
+     source to drift. Braided cut -> a braid, on a side this person's own die picks;
+     any other cut -> none. */
+  sp.hair.braid = (_hd && _hd.tex === 'braid') ? (R('braidside') < 0.5 ? -1 : 1) : 0;
   sp.hair.style = sp.hair.tex === 'coils' ? 'curly' : 'wavy_mid';
   sp.hair.part  = pick(['mid','left','right'], 'part');
   sp.hair.len   = child ? pick(['jaw','short'], 'hlen')
