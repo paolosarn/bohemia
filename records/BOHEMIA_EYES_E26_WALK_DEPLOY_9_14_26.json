@@ -3,80 +3,86 @@
   "which": "deploy",
   "file": "BOHEMIA_DEMO.html",
   "surface": "/tmp/claude-0/-home-user-bohemia/065fcaf1-af13-5362-9424-9d0305049a14/scratchpad/cut/slices/BOHEMIA_DEMO.html",
-  "when": "2026-09-24T04:31:06.580Z",
+  "when": "2026-09-24T21:57:23.175Z",
   "law": "THE FIVE MINUTES (Paolo 9/13)",
   "lines": [
     {
-      "at": "00:21",
+      "at": "00:25",
       "did": "opened the link and waited",
-      "happened": "a front screen: \"BOHEMIA CLARK COUNTY POWER AUTHORITY READING THE VALLEY COUNTING WHAT STILL STANDS NO OPERATOR ON DUTY WINDING THE CLOCK CHECKING STREETS FOR LIGHT PUTTING PEOPLE ON IT 5 OF 5 BEGIN DEMO - BUILD 9/24g\"",
+      "happened": "a front screen: \"BOHEMIA CLARK COUNTY POWER AUTHORITY READING THE VALLEY COUNTING WHAT STILL STANDS NO OPERATOR ON DUTY WINDING THE CLOCK CHECKING STREETS FOR LIGHT PUTTING PEOPLE ON IT 5 OF 5 BEGIN DEMO - BUILD 9/24o\"",
       "promised": "TAP TO ENTER"
     },
     {
-      "at": "00:33",
+      "at": "00:38",
       "did": "tapped the front screen",
       "happened": "the screen changed",
       "promised": "that tapping enters the game"
     },
     {
-      "at": "00:34",
+      "at": "00:40",
       "did": "looked at the first screen without touching anything",
-      "happened": "2 things with words on them, big enough to tap: ⚙ / 06:00",
+      "happened": "2 things with words on them, big enough to tap: ⚙ / NOTES",
       "promised": ""
     },
     {
-      "at": "00:42",
+      "at": "00:49",
       "did": "tapped \"⚙\" (the biggest thing on screen)",
       "happened": "the screen answered: its own panel",
       "promised": "⚙"
     },
     {
-      "at": "00:47",
+      "at": "00:54",
       "did": "held the walk dial down for two and a half seconds",
       "happened": "the world moved (8 arrows on the dial)",
       "promised": ""
     },
     {
-      "at": "01:38",
+      "at": "01:53",
       "did": "tapped \"EYESTABCONTROL\" (CONTROL: a tab, which answers on the first press and is a no-op on the second)",
       "happened": "the screen answered: somewhere",
       "promised": "EYESTABCONTROL"
     },
     {
-      "at": "01:39",
+      "at": "01:55",
       "did": "went looking for \"cbbuild\" on purpose",
       "happened": "it was NOT on screen on this route, and it is still built in slices/BOHEMIA_CITY_WORLD.html, so this walk says nothing about it",
       "promised": ""
     },
     {
-      "at": "01:40",
+      "at": "01:56",
       "did": "went looking for \"cbbig\" on purpose",
       "happened": "it was NOT on screen on this route, and it is still built in slices/BOHEMIA_CITY_WORLD.html, so this walk says nothing about it",
       "promised": ""
     },
     {
-      "at": "01:49",
-      "did": "tapped \"06:00\" (on the first screen and never pressed by the old script)",
+      "at": "02:06",
+      "did": "tapped \"NOTES\" (on the first screen and never pressed by the old script)",
       "happened": "the screen answered: its own panel",
-      "promised": "06:00"
+      "promised": "NOTES"
     },
     {
-      "at": "01:59",
-      "did": "tapped \"SUBURB · DAY 1 · 06:09\" (new on screen)",
-      "happened": "NOTHING MOVED ANYWHERE, BOTH PRESSES",
-      "promised": "SUBURB · DAY 1 · 06:09"
-    },
-    {
-      "at": "02:04",
-      "did": "tapped \"CLOSE\" (new on screen)",
+      "at": "02:14",
+      "did": "tapped \"SAVE AND KEEP PLAYING\" (new on screen)",
       "happened": "THE PANEL VANISHED, which tells me nothing either way",
+      "promised": "SAVE AND KEEP PLAYING"
+    },
+    {
+      "at": "02:23",
+      "did": "tapped \"CLOSE\" (new on screen)",
+      "happened": "the screen answered: somewhere",
       "promised": "CLOSE"
     },
     {
-      "at": "02:12",
-      "did": "tapped \"06:09\" (new on screen)",
-      "happened": "the screen answered: its own panel",
-      "promised": "06:09"
+      "at": "02:32",
+      "did": "tapped \"COPY ALL\" (new on screen)",
+      "happened": "the screen answered: somewhere",
+      "promised": "COPY ALL"
+    },
+    {
+      "at": "02:41",
+      "did": "tapped \"EXPORT\" (new on screen)",
+      "happened": "the screen answered: somewhere",
+      "promised": "EXPORT"
     }
   ],
   "errors": [
@@ -143,32 +149,32 @@
     {
       "name": "THE WORLD MOVES ON ITS OWN: the null window is measured, not assumed",
       "pass": true,
-      "detail": "0 of 26 windows with no input at all still moved the screen. The world held still, so the old equality test was not the cause of the disagreement."
+      "detail": "0 of 28 windows with no input at all still moved the screen. The world held still, so the old equality test was not the cause of the disagreement."
     }
   ],
   "numbers": {
-    "time_until_something_is_tappable_s": 25.44,
+    "time_until_something_is_tappable_s": 30.02,
     "knocks_before_the_door_opened": 1,
-    "my_first_tap_at_s": 29.58,
+    "my_first_tap_at_s": 34.54,
     "ledger_after_warmup": {
       "words": 0,
-      "pixel_samples": 33
+      "pixel_samples": 37
     },
-    "extra_walk_rounds": 68,
+    "extra_walk_rounds": 53,
     "time_to_first_fight_s": "NONE",
-    "walk_ended_at_s": 300.6,
+    "walk_ended_at_s": 303,
     "dead_affordances": 0,
-    "things_i_actually_pressed": 5,
-    "alive_on_one_press_only": 3,
+    "things_i_actually_pressed": 6,
+    "alive_on_one_press_only": 2,
     "closed_the_panel_so_proves_nothing": 1,
     "words_the_world_writes_by_itself": 0,
     "named_items_pressed_on_purpose": 0,
     "named_items_not_reachable_on_this_route": 2,
     "named_items_removed_from_the_game": 0,
     "named_items_still_dead": 0,
-    "tapped_and_inert_but_never_claimed_to_be_a_button": 1,
+    "tapped_and_inert_but_never_claimed_to_be_a_button": 0,
     "pairs_void_because_the_screen_changed_between_presses": 0,
-    "null_windows_measured": 26,
+    "null_windows_measured": 28,
     "null_windows_that_moved_on_their_own": 0,
     "worst_null_window": {
       "word_moves": 0,
@@ -179,38 +185,7 @@
     "failed_requests": 0
   },
   "dead": [],
-  "inert": [
-    {
-      "at": "01:59",
-      "text": "SUBURB · DAY 1 · 06:09",
-      "id": "phonewhere",
-      "where": "frame",
-      "size": "141x14",
-      "looked_tappable_because": "nothing said so",
-      "pressed_twice": true,
-      "novel_movement_either_time": "none",
-      "evidence": [
-        {
-          "novel_words_anywhere": [],
-          "novel_words_anywhere_count": 0,
-          "novel_cells": 0,
-          "world_moved_in_the_null_window": 0,
-          "panel": "#phonewrap.on",
-          "panel_still_open": true,
-          "novel_words_inside_the_panel": []
-        },
-        {
-          "novel_words_anywhere": [],
-          "novel_words_anywhere_count": 0,
-          "novel_cells": 0,
-          "world_moved_in_the_null_window": 0,
-          "panel": "#phonewrap.on",
-          "panel_still_open": true,
-          "novel_words_inside_the_panel": []
-        }
-      ]
-    }
-  ],
+  "inert": [],
   "pressed": [
     {
       "text": "⚙",
@@ -232,6 +207,9 @@
       ],
       "evidence": [
         {
+          "spoke_to_the_browser": false,
+          "started_a_download": false,
+          "the_control_itself_vanished": false,
           "novel_words_anywhere": [
             "SETTINGS",
             "TO",
@@ -259,6 +237,9 @@
           ]
         },
         {
+          "spoke_to_the_browser": false,
+          "started_a_download": false,
+          "the_control_itself_vanished": false,
           "novel_words_anywhere": [
             "SETTINGS",
             "SOUND",
@@ -270,7 +251,7 @@
             "EVENTS"
           ],
           "novel_words_anywhere_count": 23,
-          "novel_cells": 4,
+          "novel_cells": 0,
           "world_moved_in_the_null_window": 0,
           "panel": "#app",
           "panel_still_open": true,
@@ -288,8 +269,8 @@
       ]
     },
     {
-      "text": "06:00",
-      "id": "cityfeedclock",
+      "text": "NOTES",
+      "id": "notebtn",
       "where": "frame",
       "verdict": "did something, its own panel",
       "answered_in": [
@@ -306,72 +287,52 @@
       ],
       "evidence": [
         {
+          "spoke_to_the_browser": false,
+          "started_a_download": false,
+          "the_control_itself_vanished": false,
           "novel_words_anywhere": [
             "1",
-            "06:09",
-            "SUBURB",
-            "DAY",
-            "CLOSE"
+            "DEMO",
+            "COPY",
+            "NOTES",
+            "BUILD",
+            "9/24o",
+            "A",
+            "RUN"
           ],
-          "novel_words_anywhere_count": 5,
+          "novel_words_anywhere_count": 28,
           "novel_cells": 0,
           "world_moved_in_the_null_window": 0,
-          "panel": "#stage",
+          "panel": "DIV.wrap",
           "panel_still_open": true,
           "novel_words_inside_the_panel": [
-            "06:09"
+            "NOTES",
+            "DEMO",
+            "-",
+            "BUILD",
+            "9/24o",
+            "A",
+            "RUN",
+            "SOUNDS"
           ]
         },
         {
+          "spoke_to_the_browser": false,
+          "started_a_download": false,
+          "the_control_itself_vanished": false,
           "novel_words_anywhere": [],
           "novel_words_anywhere_count": 0,
           "novel_cells": 0,
           "world_moved_in_the_null_window": 0,
-          "panel": "#phonewrap.on",
+          "panel": "DIV.wrap",
           "panel_still_open": true,
           "novel_words_inside_the_panel": []
         }
       ]
     },
     {
-      "text": "SUBURB · DAY 1 · 06:09",
-      "id": "phonewhere",
-      "where": "frame",
-      "verdict": "did nothing",
-      "answered_in": [],
-      "presses_with_novel_movement": 0,
-      "in_its_own_panel": [
-        false,
-        false
-      ],
-      "somewhere_else": [
-        false,
-        false
-      ],
-      "evidence": [
-        {
-          "novel_words_anywhere": [],
-          "novel_words_anywhere_count": 0,
-          "novel_cells": 0,
-          "world_moved_in_the_null_window": 0,
-          "panel": "#phonewrap.on",
-          "panel_still_open": true,
-          "novel_words_inside_the_panel": []
-        },
-        {
-          "novel_words_anywhere": [],
-          "novel_words_anywhere_count": 0,
-          "novel_cells": 0,
-          "world_moved_in_the_null_window": 0,
-          "panel": "#phonewrap.on",
-          "panel_still_open": true,
-          "novel_words_inside_the_panel": []
-        }
-      ]
-    },
-    {
-      "text": "CLOSE",
-      "id": "phoneclose",
+      "text": "SAVE AND KEEP PLAYING",
+      "id": "notesave",
       "where": "frame",
       "verdict": "THE PANEL CLOSED, so this press proves nothing (rule 14h)",
       "answered_in": [],
@@ -384,40 +345,45 @@
       ],
       "evidence": [
         {
+          "spoke_to_the_browser": false,
+          "started_a_download": false,
+          "the_control_itself_vanished": true,
           "novel_words_anywhere": [
             "1",
-            "SUBURB",
-            "DAY",
-            "06:09",
-            "CLOSE"
+            "DEMO",
+            "COPY",
+            "NOTES",
+            "BUILD",
+            "9/24o",
+            "A",
+            "RUN"
           ],
-          "novel_words_anywhere_count": 5,
+          "novel_words_anywhere_count": 28,
           "novel_cells": 0,
           "world_moved_in_the_null_window": 0,
-          "panel": "#phonewrap.on",
+          "panel": "#noterow",
           "panel_still_open": false,
           "novel_words_inside_the_panel": [
-            "SUBURB",
-            "·",
-            "DAY",
-            "1",
-            "06:09",
-            "CLOSE"
+            "PLAYING",
+            "CLOSE",
+            "COPY",
+            "ALL",
+            "EXPORT",
+            "PLAYINGCLOSECOPY",
+            "ALLEXPORT"
           ]
         }
       ]
     },
     {
-      "text": "06:09",
-      "id": "cityfeedclock",
+      "text": "CLOSE",
+      "id": "noteback",
       "where": "frame",
-      "verdict": "did something, its own panel",
-      "answered_in": [
-        "its own panel"
-      ],
-      "presses_with_novel_movement": 1,
+      "verdict": "did something, somewhere",
+      "answered_in": [],
+      "presses_with_novel_movement": 0,
       "in_its_own_panel": [
-        true,
+        false,
         false
       ],
       "somewhere_else": [
@@ -426,28 +392,110 @@
       ],
       "evidence": [
         {
-          "novel_words_anywhere": [
-            "1",
-            "06:09",
-            "SUBURB",
-            "DAY",
-            "CLOSE"
-          ],
-          "novel_words_anywhere_count": 5,
-          "novel_cells": 0,
-          "world_moved_in_the_null_window": 0,
-          "panel": "#stage",
-          "panel_still_open": true,
-          "novel_words_inside_the_panel": [
-            "06:09"
-          ]
-        },
-        {
+          "spoke_to_the_browser": false,
+          "started_a_download": false,
+          "the_control_itself_vanished": true,
           "novel_words_anywhere": [],
           "novel_words_anywhere_count": 0,
           "novel_cells": 0,
           "world_moved_in_the_null_window": 0,
-          "panel": "#phonewrap.on",
+          "panel": "#stage",
+          "panel_still_open": true,
+          "novel_words_inside_the_panel": []
+        },
+        {
+          "spoke_to_the_browser": false,
+          "started_a_download": false,
+          "the_control_itself_vanished": true,
+          "novel_words_anywhere": [],
+          "novel_words_anywhere_count": 0,
+          "novel_cells": 0,
+          "world_moved_in_the_null_window": 0,
+          "panel": "#stage",
+          "panel_still_open": true,
+          "novel_words_inside_the_panel": []
+        }
+      ]
+    },
+    {
+      "text": "COPY ALL",
+      "id": "notecopy",
+      "where": "frame",
+      "verdict": "did something, somewhere",
+      "answered_in": [],
+      "presses_with_novel_movement": 0,
+      "in_its_own_panel": [
+        false,
+        false
+      ],
+      "somewhere_else": [
+        false,
+        false
+      ],
+      "evidence": [
+        {
+          "spoke_to_the_browser": false,
+          "started_a_download": false,
+          "the_control_itself_vanished": true,
+          "novel_words_anywhere": [],
+          "novel_words_anywhere_count": 0,
+          "novel_cells": 0,
+          "world_moved_in_the_null_window": 0,
+          "panel": "#stage",
+          "panel_still_open": true,
+          "novel_words_inside_the_panel": []
+        },
+        {
+          "spoke_to_the_browser": false,
+          "started_a_download": false,
+          "the_control_itself_vanished": true,
+          "novel_words_anywhere": [],
+          "novel_words_anywhere_count": 0,
+          "novel_cells": 0,
+          "world_moved_in_the_null_window": 0,
+          "panel": "#stage",
+          "panel_still_open": true,
+          "novel_words_inside_the_panel": []
+        }
+      ]
+    },
+    {
+      "text": "EXPORT",
+      "id": "noteout",
+      "where": "frame",
+      "verdict": "did something, somewhere",
+      "answered_in": [],
+      "presses_with_novel_movement": 0,
+      "in_its_own_panel": [
+        false,
+        false
+      ],
+      "somewhere_else": [
+        false,
+        false
+      ],
+      "evidence": [
+        {
+          "spoke_to_the_browser": false,
+          "started_a_download": false,
+          "the_control_itself_vanished": true,
+          "novel_words_anywhere": [],
+          "novel_words_anywhere_count": 0,
+          "novel_cells": 0,
+          "world_moved_in_the_null_window": 0,
+          "panel": "#stage",
+          "panel_still_open": true,
+          "novel_words_inside_the_panel": []
+        },
+        {
+          "spoke_to_the_browser": false,
+          "started_a_download": false,
+          "the_control_itself_vanished": true,
+          "novel_words_anywhere": [],
+          "novel_words_anywhere_count": 0,
+          "novel_cells": 0,
+          "world_moved_in_the_null_window": 0,
+          "panel": "#stage",
           "panel_still_open": true,
           "novel_words_inside_the_panel": []
         }
@@ -463,7 +511,7 @@
     {
       "word_moves": 0,
       "words_that_moved": [],
-      "pixel_fraction": 0.0001
+      "pixel_fraction": 0.001
     },
     {
       "word_moves": 0,
@@ -512,6 +560,16 @@
       "words_that_moved": [],
       "pixel_fraction": 0,
       "warmup": true
+    },
+    {
+      "word_moves": 0,
+      "words_that_moved": [],
+      "pixel_fraction": 0
+    },
+    {
+      "word_moves": 0,
+      "words_that_moved": [],
+      "pixel_fraction": 0
     },
     {
       "word_moves": 0,
@@ -615,22 +673,18 @@
       "id": "__eyes_tab_btn"
     },
     {
-      "text": "06:00",
-      "id": "cityfeedclock"
-    },
-    {
-      "text": "06:09",
-      "id": "cityfeedclock"
+      "text": "NOTES",
+      "id": "notebtn"
     }
   ],
   "closed_on_tap": [
     {
-      "at": "02:04",
-      "text": "CLOSE",
-      "id": "phoneclose",
+      "at": "02:14",
+      "text": "SAVE AND KEEP PLAYING",
+      "id": "notesave",
       "where": "frame",
-      "size": "56x20",
-      "panel": "#phonewrap.on",
+      "size": "147x44",
+      "panel": "#noterow",
       "why": "the panel it lives in closed, and a card closes on any tap it does not recognise"
     }
   ],
@@ -656,13 +710,13 @@
     },
     {
       "where": "frame",
-      "id": "cityfeedclock",
-      "text": "06:00",
+      "id": "notebtn",
+      "text": "NOTES",
       "looks_tappable_because": "pointer cursor",
-      "w": 27,
-      "h": 13,
-      "x": 354,
-      "y": 99
+      "w": 44,
+      "h": 44,
+      "x": 360,
+      "y": 25
     }
   ]
 }

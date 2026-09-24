@@ -1,6 +1,6 @@
 {
   "what": "every pixel against the analog horror bible",
-  "when": "2026-09-24T04:29:54.004Z",
+  "when": "2026-09-24T21:36:26.792Z",
   "surface": "/tmp/claude-0/-home-user-bohemia/065fcaf1-af13-5362-9424-9d0305049a14/scratchpad/cut/slices/BOHEMIA_DEMO.html",
   "bible": "records/BOHEMIA_ANALOG_HORROR_BIBLE_9_20_26.md (AH-01)",
   "controls": [
@@ -74,16 +74,16 @@
     "windows": 8,
     "window_ms": 2000,
     "per_window": [
-      0.0396,
-      0.0322,
-      0.0322,
-      0.0322,
       0,
-      0.0134,
-      0.0049,
-      0.0271
+      0.0073,
+      0,
+      0.0317,
+      0.0317,
+      0.0317,
+      0.0315,
+      0
     ],
-    "worst_moving_fraction": 0.0396,
+    "worst_moving_fraction": 0.0317,
     "windows_over_the_bibles_ten_percent": 0,
     "bar": 0.1
   },
@@ -104,7 +104,7 @@
           "seeThrough": false,
           "alpha": 1,
           "style": "#8a7a58",
-          "at": 4543
+          "at": 4287
         },
         {
           "kind": "fillRect",
@@ -115,7 +115,7 @@
           "seeThrough": false,
           "alpha": 1,
           "style": "#20303e",
-          "at": 8666
+          "at": 9015
         },
         {
           "kind": "fillRect",
@@ -126,7 +126,7 @@
           "seeThrough": false,
           "alpha": 1,
           "style": "#20303e",
-          "at": 17130
+          "at": 18224
         }
       ],
       "full_frame_on_scratch_canvases": 135,
@@ -139,10 +139,10 @@
           "v": "source-atop",
           "cw": 112,
           "ch": 112,
-          "at": 19876
+          "at": 21408
         }
       ],
-      "draws": 3514117
+      "draws": 3514124
     },
     "shell": {
       "world_canvas": "378x830",

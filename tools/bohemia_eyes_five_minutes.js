@@ -108,6 +108,14 @@ const SOURCE = (() => {
   const err = [];
   page.on('pageerror', e => err.push({ t: null, kind: 'pageerror', msg: String(e.message).slice(0, 220) }));
   page.on('console', m => { if (m.type() === 'error') err.push({ kind: 'console', msg: m.text().slice(0, 220) }); });
+  /* A PRESS CAN ANSWER SOMEWHERE THAT IS NOT THE SCREEN, AND THIS WALK USED TO CALL THAT DEAD.
+     Measured on the stripped cut: COPY ALL and EXPORT in the NOTES panel both read 'did
+     nothing' twice. COPY ALL's handler HAD run -- the browser logged 'clipboard-write is not
+     allowed in this document' once per press, which is this harness refusing it, not the game
+     failing. EXPORT hands the browser a file, and a download changes no pixels at all. Both
+     are counted now, and a press that produces either is ALIVE and says which. */
+  const dl = [];
+  page.on('download', d => dl.push({ when: Date.now(), name: (d.suggestedFilename && d.suggestedFilename()) || 'a file' }));
   /* THE FULL URL, NOT THE FILENAME. The first run recorded only the last path segment and
      logged a failed "css2?family=VT323&family=Space+Grotesk..." with no way to tell WHERE it
      was asked for -- and Space Grotesk is a font the 9/11 law bans by name, so a claim about
@@ -370,7 +378,27 @@ const SOURCE = (() => {
           if (cs.display === 'none' || cs.visibility === 'hidden' || +cs.opacity < 0.05) continue;
           const txt = (e.innerText || '').replace(/\s+/g, ' ').trim();
           if (!txt || txt.length > 40) continue;
-          if (e.querySelector('div,button,span,a')) continue;      /* leaves only */
+          /* *** "LEAVES ONLY" HID THE ONE BUTTON THE DEMO HAS LEFT (9/24). *** On the stripped
+             cut this inventory reported ONE thing on the whole first screen, the gear, while the
+             photograph of the same moment shows the NOTES button too. Measured rather than
+             guessed: NOTES is a 44x44 wrapper whose visible label is a 29x15 child with
+             pointer-events:none. The leaf carries the word and cannot be pressed; the parent
+             takes the press and is not a leaf, so BOTH were dropped and a real control vanished
+             from the count I publish. Same family as the round-11 hole where the HUD chips were
+             never pressed.
+             THE RULE IS NOW "THE INNERMOST THING THAT CAN BE PRESSED": an element is a candidate
+             when nothing inside it is also a candidate. A label with pointer-events:none is not
+             a candidate, so its parent survives, which is exactly the NOTES shape. */
+          const inner = [...e.querySelectorAll('div,button,span,a')].some((k) => {
+            const kr = k.getBoundingClientRect();
+            if (kr.width < 18 || kr.height < 12) return false;
+            const kc = doc.defaultView.getComputedStyle(k);
+            if (kc.display === 'none' || kc.visibility === 'hidden' || +kc.opacity < 0.05) return false;
+            if (kc.pointerEvents === 'none') return false;
+            const kt = (k.innerText || '').replace(/\s+/g, ' ').trim();
+            return !!kt && kt.length <= 40;
+          });
+          if (inner) continue;                       /* something inside it is the real target */
           /* TWO DIFFERENT QUESTIONS, AND THE SECOND FIX WAS AS WRONG AS THE FIRST.
              v1 accepted anything not pointer-events:none and called the teaching overlay's
              CAPTIONS dead buttons -- a false accusation, the one thing this lane must never
@@ -528,6 +556,7 @@ const SOURCE = (() => {
         bs = n1;
         /* the panel as it stands the instant before the finger lands */
         const before = await panelAt(c.x, c.y);
+        const errCountBefore = err.length, dlCountBefore = dl.length;
         /* IS THIS THE ONE ALREADY CHOSEN? A tab you are standing on does nothing when you press
            it, and that is correct behaviour, not a dead control. The alpha opens on VOTE, so VOTE
            was the last item left in this round's dead list after the tab fix, and it should never
@@ -586,6 +615,19 @@ const SOURCE = (() => {
              never been seen moving with nobody touching the screen. */
         const stillOpen = !!(before && before.open && after.open);
         panels.push((before && before.path) || 'none found');
+        /* THREE WAYS A PRESS ANSWERS WITHOUT MOVING A PIXEL ON THIS HARNESS */
+        const spokeToTheBrowser = err.length > errCountBefore;     /* e.g. a refused clipboard write */
+        const startedADownload = dl.length > dlCountBefore;        /* e.g. EXPORT handing over a file */
+        const itVanished = await page.evaluate(({ x, y }) => {
+          /* a control that removes ITSELF did something, and that is not the 14(h) case, which is
+             about the panel AROUND it going away */
+          const hit = (doc, ox, oy) => doc.elementFromPoint(x - ox, y - oy);
+          let el = hit(document, 0, 0);
+          if (el && el.tagName === 'IFRAME') {
+            try { const r = el.getBoundingClientRect(); el = hit(el.contentDocument, r.x, r.y) || el; } catch (e) {}
+          }
+          return !el || !(el.innerText || '').trim();
+        }, { x: c.x, y: c.y }).catch(() => false);
         const bw = new Map(), aw = new Map();
         for (const w of (before && before.words) || []) bw.set(w, (bw.get(w) || 0) + 1);
         for (const w of after.words || []) aw.set(w, (aw.get(w) || 0) + 1);
@@ -593,7 +635,9 @@ const SOURCE = (() => {
         for (const [w, n] of bw) if ((aw.get(w) || 0) !== n) movedInPanel.push(w);
         for (const [w] of aw) if (!bw.has(w)) movedInPanel.push(w);
         const novelInPanel = movedInPanel.filter(w => !noiseWords.has(w));
-        evidence.push({ novel_words_anywhere: nv.words.slice(0, 8),
+        evidence.push({ spoke_to_the_browser: spokeToTheBrowser, started_a_download: startedADownload,
+                        the_control_itself_vanished: itVanished,
+                        novel_words_anywhere: nv.words.slice(0, 8),
                         novel_words_anywhere_count: nv.words.length, novel_cells: nv.cells,
                         world_moved_in_the_null_window: nullMove.word_moves,
                         panel: (before && before.path) || 'none found',
@@ -617,9 +661,13 @@ const SOURCE = (() => {
            world has never been seen moving on its own, wherever that something is; and WHERE it
            moved is recorded, so a reader can tell "its own panel answered" from "something else
            did". Dead needs neither, twice. */
-        const novelAnywhere = nv.words.length > 0 || nv.cells > 20;
+        const novelAnywhere = nv.words.length > 0 || nv.cells > 20
+                              || (stillOpen && (spokeToTheBrowser || startedADownload));
         beats.push(stillOpen && (novelInPanel.length > 0 || novelAnywhere));
         where.push(!stillOpen ? 'the panel closed'
+                 : spokeToTheBrowser ? 'the browser answered it (this harness refused something the press asked for)'
+                 : startedADownload ? 'it handed the browser a file'
+                 : itVanished ? 'it took itself off the screen'
                  : novelInPanel.length > 0 ? 'its own panel'
                  : (nv.words.length >= Math.max(5, 3 * worstNullSoFar + 1)) ? 'a screenful somewhere else, on one press'
                  : novelAnywhere ? 'somewhere else on screen'
@@ -638,7 +686,16 @@ const SOURCE = (() => {
            exists to reject. Evidence elsewhere counts on ONE press only when it is at least
            three times that floor and at least five novel words -- a screenful, not a flicker. */
         const floor = Math.max(5, 3 * worstNullSoFar + 1);
-        bigOnce.push(stillOpen && novelInPanel.length === 0 && nv.words.length >= floor);
+        /* *** 14(h) OUTRANKS THE NEW RULE, AND THE PLANTED CONTROL CAUGHT ME THE SAME ROUND. ***
+           A close button removes ITSELF and its panel, so "the control vanished" swallowed the
+           one case rule 14(h) exists for: a card that closes on any tap it does not recognise
+           looks exactly like one that did the thing. The planted close-button went from "THE
+           PANEL CLOSED, so this press proves nothing" to "did something" the moment I added the
+           vanish rule, and that is a straight loss. So a vanish only counts WHILE THE PANEL
+           AROUND IT SURVIVES; the browser and download answers stand on their own, because
+           neither can be produced by a card quietly closing. */
+        bigOnce.push((stillOpen && novelInPanel.length === 0 && nv.words.length >= floor)
+                     || spokeToTheBrowser || startedADownload || (stillOpen && itVanished));
         if (!stillOpen) {
           /* AND THE SECOND PRESS MUST NOT HAPPEN. This is the hole the 14(h) control caught on
              its first run, and it caught it because a planted close-button read "did nothing":
