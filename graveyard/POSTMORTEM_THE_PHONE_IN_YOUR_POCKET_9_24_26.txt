@@ -1,0 +1,49 @@
+POST-MORTEM: ui-the-phone-in-your-pocket-9-23   (UI lane 11)
+KILLED BY PAOLO, 9/23, in the VOTE tab, thumb DOWN.
+
+HIS WORDS, VERBATIM:
+  "YOU ONLY SEE THE PHONE WHEN ITS UR ZOOMED OUT TO THE WHOLE CITY VIEW not when its the
+   human close shit bro. And the phone should look like a cracked iphone bro"
+
+WHAT IT WAS
+  The drawn phone folded into the top right of the WALKED street, 46 x 62, cracked glass
+  with the hour lit behind it, the gold rim when something was unread, a 44 x 44 reach pad.
+  One tap opened the phone on the street exactly as it does in the city.
+
+WHY IT WAS BUILT
+  RUN's bounce-back of 9/23 ([phone door]) measured that #cityfeed only drew in CITY mode,
+  so from waking up until he zoomed out there was no phone on the screen at all -- and
+  rule 19a had just moved the morning and the night onto that phone. The words were there
+  and the door was not. A phone on the street answered it.
+
+WHY IT DIED, AND THE LESSON THAT IS MINE
+  The defect RUN measured was real. THE ANSWER WAS NOT MINE TO PICK. "The morning is only
+  reachable in the city view" is a problem with two ends: put the phone on the street, or
+  put the morning somewhere a street has -- a mouth, which rule 19 already says every
+  sentence needs. I took the end that put a new object on the screen he had just told us
+  was too busy (rule 18g, LESS ON SCREEN, his own words "I'm overwhelmed"), on the one
+  surface the playable cut is about, and I did it without a ruling that the phone belongs
+  there. EVERYTHING IS A THUMB says decide and build; it does not say decide against a
+  standing direction and let him find it.
+  He was also right on the merits and it takes one sentence to see it: the phone is the
+  CITY view's object (his 9/4 law puts the feed there), and a phone in the corner of a
+  close third-person walk is a HUD, which is exactly what he keeps killing.
+
+WHAT SURVIVES, AND IT IS NOT A CONSOLATION PRIZE
+  Two things built on that row were never about the street and stay in:
+   - THE PHONE'S CLOCK TELLS THE TIME. It read variables (HH, MM) that do not exist
+     anywhere in that file, so it had shown an empty clock since it was written, in the
+     city too. It reads the game's own clockStr() now.
+   - THE PHONE NEVER OPENS BLACK (row [phone black], shipped 9/24): the open phone wears
+     its own face while its 2.1 MB page arrives.
+  The crack the pocket phone wore is now the crack on that face, cloned from the same
+  shape, so the one piece of drawing that came out of this row is still on his screen.
+
+WHAT REPLACES IT
+  Row [phone city only]: the phone stays a CITY-VIEW object, and it becomes A CRACKED
+  IPHONE -- a real slab, black glass, a spider crack, the chipping he liked on 9/21. Any
+  redo comes back as a NEW id quoting this verdict, never this one again.
+
+THE REVERT LANDED THE SAME ROUND HE WAS READ: no phone is drawn on the walked street, and
+gates/the_bar_fits_his_glass_gate.js now HOLDS that (its street legs used to hold the
+opposite and were turned round with the ruling rather than left to defend a dead thing).

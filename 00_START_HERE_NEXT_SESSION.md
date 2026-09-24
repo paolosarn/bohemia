@@ -1,3 +1,100 @@
+UI (ui-kmqmrf): 9/24 LATEST -- *** THE PHONE NEVER OPENS BLACK. *** [phone black] SHIPPED;
+[the picks] STAYS CLAIMED (loads B only, one of nine). TAB: CITY -- zoom out and tap the phone. Record:
+records/BOHEMIA_THE_PHONE_NEVER_OPENS_BLACK_9_24_26.md
+
+THE ROW WAS MINE COMING BACK. The coordinator's sweep took it off my own record of
+400c374: the phone's screen was black for about three seconds the first time it opened,
+and "a phone that opens black is the 9/22b black rectangle in miniature".
+
+MEASURED BEFORE TOUCHING ANYTHING, real touch, photographing THE SLOT rather than asking
+the iframe how it feels: 120 ms after the tap 0.05% of the slot's pixels above black,
+400 ms 1.03%, 800 ms and after 3.24% (the phone's own screen). IDENTICAL AT 4x CPU
+THROTTLING, so the wait is the 2.1 MB fetch and parse and NOT the processor -- which means
+a fix that makes it faster stops holding on a slower phone. So the fix is not about speed.
+
+BUILT: the phone wears ITS OWN FACE while its page comes up. Above the frame, inside the
+slot: the hour it already knows, where he is standing, one line from a dead network, and
+THE SAME FRACTURE the pocket phone wears, cloned from the pocket phone's own glass at open
+time so there is one crack in this game and it cannot drift into two. It comes off when the
+phone's page has PAINTED, never on a timer.
+
+WHY NOT THE ROW'S OTHER OPTION, said rather than silently chosen: preloading the phone's
+page behind the loading screen costs 2.1 MB inside RUN's during-play budget (54.0 MB of 70,
+21 files of 30), a tenth of another lane's headroom to shorten a screen that is no longer
+black. The face costs zero bytes and holds on a phone whose page never arrives at all. If
+the coordinator wants the preload as well it is a line and it is cheap.
+
+THREE THINGS I GOT WRONG FIRST, EACH FOUND BY LOOKING AT THE GLASS:
+  (1) A DOCUMENT THAT SAYS 'complete' HAS NOT NECESSARILY PAINTED. Taking the face off at
+      readyState complete MEASURED WORSE THAN THE FACE (1.03% lit against 2.23%): the fix
+      was handing him a darker screen than the one it replaced. It waits for the phone's
+      own next two frames now, which is the browser saying it painted.
+  (2) A FUNCTION THAT ANSWERS FOR THE FUTURE: phoneBootDone() returned true the moment it
+      scheduled those frames, so a caller got "the phone is up" about a phone whose face
+      was still on. It reports what is true now.
+  (3) The face said the hour twice and called it a place (the bar's line is
+      "SUBURB - DAY 1 - 06:00"). Cut at the first separator.
+
+WHAT I COULD NOT DO: I could not reproduce his three seconds by holding the network back.
+A glob route matched nothing on a url that plainly contains the name (held requests: 0),
+and with a catch-all the page made NO request for the phone's page at all -- the service
+worker this game registers answers it. FOR EVERY LANE: a probe that throttles or blocks a
+request in this game may be doing nothing at all, and the only reason I noticed was a
+counter that said zero. So the wait is held open where it matters instead: the game's own
+"is the page in yet" answer is pinned to false, which is what a slow phone is.
+
+GATE: gates/the_phone_never_opens_black_gate.js 14 ok / 0 failed. It holds a property, not
+a duration: AT NO MOMENT BETWEEN THE TOUCH AND THE PHONE BEING UP IS THE GLASS BLACK. It
+photographs the slot as fast as the browser will take pictures and scores the WORST frame,
+and reads the pixels itself (the PNG inflated with node's own zlib, no new dependency).
+  THE SAMPLER HAD TO BE FIXED FIRST, and this is for every lane that photographs anything:
+  locator.screenshot took 2,272 ms A PICTURE, so the first cut of this gate took ONE
+  photograph in 2.6 seconds and reported it as a window. page.screenshot with a clip is 211
+  ms idle; the browser's own capture is the only one fast enough to be a sample.
+SIX MUTATIONS PROVED AND EACH RESTORED: take the face away -> 2 red and the glass reads
+0.06%, HIS BLACK back, measured; take it off on a TIMER -> 3 red and 0.06% again; never
+take it off -> 2 red; a second hand-drawn crack -> 2 red; an invented hour -> 1 red; the
+face under the frame instead of over it -> 1 red, AND THAT ONE IS CARRIED BY THE SOURCE
+ALONE: an iframe that has not painted is see-through, so the face still reads through it
+and the pixels stay lit. A weaker hold than the other five, written down rather than
+counted as a sixth catch.
+
+AND A DEFECT OF MINE IN THE ONE DRIVER, FIXED THE SAME ROUND: I added opts.door and
+opts.runtab on 9/23 and did not put them in KNOWN_OPTS, so the first caller that passed one
+-- my own throttled probe -- got a throw from the guard that exists to catch exactly that.
+Both are in the vocabulary now. PLUMBER: your file, second round running.
+
+*** AND THEN HE VOTED, MID-ROUND. [phone city only] CLAIMED, THE REVERT HALF DONE AND IN
+THIS PUSH. *** His second votes landed on main while this was being built. On
+ui-the-phone-in-your-pocket-9-23, the thing I shipped a round ago, thumb DOWN: "YOU ONLY
+SEE THE PHONE WHEN ITS UR ZOOMED OUT TO THE WHOLE CITY VIEW not when its the human close
+shit bro. And the phone should look like a cracked iphone bro" (rule 32c). NOTES ARE
+RULINGS, so it came out the same round it was read:
+  - no phone is drawn on the walked street; the phone is a CITY-VIEW object again
+  - the .street CSS is deleted rather than left dead, the tick is back to isCity
+  - MY OWN GATE HELD THE OPPOSITE. the_bar_fits_his_glass_gate's street legs asserted the
+    phone WAS there; they are turned round with the ruling rather than left to defend a
+    dead thing, and they now hold that the street is clear AND that no phone-shaped button
+    crept into the bar to replace it. 22/0.
+  - graveyard/POSTMORTEM_THE_PHONE_IN_YOUR_POCKET_9_24_26.txt, with the lesson that is
+    mine: RUN's defect was real, but "the morning is only reachable in the city view" has
+    two ends, and I took the end that put a new object on the one screen he had just said
+    was too busy, without a ruling that it belonged there.
+  - [phone black] is UNAFFECTED and that is not a convenience: the black was the OPEN
+    phone, which he still opens, in the city view. The face was rebuilt and re-photographed
+    in the city view and its gate crosses the seam before it asks anything.
+  - STILL OPEN, THE BIGGER HALF: the drawn phone becoming A CRACKED IPHONE (a real slab,
+    black glass, a spider crack, the chipping he liked). Next round of that row, and it
+    comes back as a NEW id quoting his words.
+
+RULE 22 COOK: ui-the-phone-while-it-wakes-up-9-24 in the VOTE tab, the black he got beside
+the face he gets now, both real captures of the same touch. One item, one question.
+
+NEXT: [phone city only] round two, the cracked iPhone. Then [the picks] -- loads B is in; opens C, talks A, vote tab D, top bar D with the
+chipping and the broken glass, choice looks A, writing D, screen C, label E, and a choice's
+size as a SETTING. Then [faces on the phone] (rule 31), [inner votes] (rule 25), [one hud]
+(rule 24). [PENDING Paolo] nothing.
+
 EYES AND EARS (eyes-5vql33): 9/24 (as) LATEST -- *** E22 [never ran] ROUND ONE (SCHOOL) DONE: HALF THIS ROW IS ALREADY BUILT, AND THE OTHER HALF HAS NO DATA AT ALL. *** Record: records/BOHEMIA_EYES_E22_ROUND_1_SCHOOL_A_RED_WITH_NO_AGE_9_24_26.md. Both standing jobs walked on a cut made fresh from main, BUILD 9/24g. THE STRANGER'S LIST and THE HORROR READING are rewritten on the front page.
   THE PREMISE (rule 12) HAS MOVED TWICE. '198 never ran' is ten rounds old; the last SUITE LINE says 632 ran, 0 never ran, 107 red. And the runner ALREADY does this row's first half, read in its own source: the budget stops DISPATCH and not execution (a running gate finishes, because cutting it mid-sentence turns a verdict into silence), every unstarted gate is NAMED, an unfinished run prints NOT GREEN AND NOT RED: UNFINISHED and is never a pass, and it works out the shard count it would have needed.
   THE HALF NOBODY HAS IS A RED'S AGE. No per-run history exists anywhere: the only artefact of a full run is the 9/14 census, which holds aggregates and not a row per gate per run. So nothing here can say when a red first appeared, whether it has been red every run since, or whether anybody ever looked at it. That is the exact shape of FACTION ARC sitting inside the red count for weeks while being a RED OVER 102 REAL GREENS.

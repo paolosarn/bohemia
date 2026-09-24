@@ -75,8 +75,13 @@ const MIME = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css
    driver now knows its own vocabulary and REFUSES anything outside it. An option a tool
    does not understand is a question it was asked and did not answer, and answering with
    a number anyway is the whole failure. */
-const KNOWN_OPTS = ['alpha', 'arm', 'beforeTap', 'boot', 'file', 'keepCards',
-                    'serve', 'settle', 'throttle', 'warmup', 'world'];
+/* 'door' and 'runtab' ADDED 9/24 BY THE LANE THAT FORGOT THEM (UI). I introduced both
+   knobs on 9/23 (TRAP 6 and TRAP 7 below) and did not put them in this list, so the very
+   first caller that tried to pass one -- my own throttled probe -- got a throw from the
+   guard that exists to catch exactly this. The list is the vocabulary; a knob that is not
+   in it does not exist. */
+const KNOWN_OPTS = ['alpha', 'arm', 'beforeTap', 'boot', 'door', 'file', 'keepCards',
+                    'runtab', 'serve', 'settle', 'throttle', 'warmup', 'world'];
 const ALPHA_FILE = 'BOHEMIA_ALPHA_0_9.html';
 const DEMO_FILE = 'BOHEMIA_DEMO.html';
 

@@ -1666,6 +1666,19 @@
     "how": "image",
     "src": "vote/COMBAT_THE_SAME_MAN_EVERY_FRAME_9_24.png"
    }
+  },
+  {
+   "id": "ui-the-phone-while-it-wakes-up-9-24",
+   "kind": "ui",
+   "lane": "ui",
+   "sha": "pending",
+   "made": "9/24",
+   "title": "THE PHONE WHILE IT WAKES UP",
+   "why": "You tapped the phone and got a black rectangle for a moment, the same thing that happened to you with the door. Both pictures are the real phone in the city view, same touch, same glass, same run: left is what you got, right is what you get now. The phone's page is 2 megabytes and takes a beat to arrive, so while it comes the phone wears its own face: the hour it already knows, where you are standing, and a dead network that is still looking. You said the phone belongs in the city view only and it is back to city only. Thumbs up and this stays. Thumbs down and tell me if you want it emptier, or you want the phone to just take the beat in silence.",
+   "show": {
+    "how": "image",
+    "src": "vote/UI_THE_PHONE_WHILE_IT_WAKES_UP_9_24.png"
+   }
   }
  ],
  "verdicts": [

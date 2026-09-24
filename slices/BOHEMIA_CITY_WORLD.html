@@ -546,7 +546,16 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font-family:var(--
   <div id="mktbtn">MARKET</div><!-- __THE_TRADING_HUB__ -->
   <div id="workbtn">WORK</div><!-- __A_DAYS_WORK__ -->
   <div id="buildbtn">BUILD HERE</div><!-- __BUILDER_WHERE_HE_WALKS__ -->
-  <div id="phonewrap"><div id="phonebar"><span id="phonewhere"></span><span id="phoneclose">CLOSE</span></div><div id="phoneslot"></div></div>
+  <!-- __THE_PHONE_NEVER_OPENS_BLACK__ (9/24, row [phone black]). The phone's own page is
+       2.1 MB and it is fetched the first time he opens it, so for the first fraction of a
+       second (about three on his phone, 0.12 s to 0.4 s measured on this box) THE GLASS WAS
+       BLACK. The coordinator's words: "a phone that opens black is the 9/22b black rectangle
+       in miniature." So the slot carries the phone's OWN FACE underneath: the hour it already
+       knows, where he is standing, one line from a dead network, and THE SAME FRACTURE the
+       pocket phone wears -- cloned from #cityfeedglass at open time so there is one crack in
+       this game and it cannot drift. It is above the frame and comes off only when the frame
+       is really in, so a slow load shows a lit phone and a failed load shows a lit phone. -->
+  <div id="phonewrap"><div id="phonebar"><span id="phonewhere"></span><span id="phoneclose">CLOSE</span></div><div id="phoneslot"><div id="phoneboot" aria-hidden="true"><div id="phonebootglass"></div><div id="phonebootin"><div class="pbclock">--:--</div><div class="pbwhere">THE VALLEY</div><div class="pbline">SEARCHING FOR A CARRIER</div></div></div></div></div>
   <div id="savepanel"></div>
   <div id="keypanel"></div>
   <div id="pfpanel"></div>
@@ -788,34 +797,11 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font-family:var(--
    ctOutfitBadge wrote down when its own chip moved: THE DOOR MOVING IS A DECISION, THE
    ALARM GOING SILENT IS AN ACCIDENT. Reused, never a second alert designed: the casing
    lights at its edge, the screen inside is untouched, and nothing grows. */
-/* *** THE POCKET PHONE, ON THE STREET (9/23, row [phone on the street]). ***
-   The same object, shrunk to a handset lying in the top right: casing, a sliver of
-   lit glass, nothing to read. It is the DOOR, not a feed -- the feed streams in CITY
-   mode where he asked for it. It sits clear of the left rail and clear of the walk
-   pad in the bottom right, and it is a whole thumb, because it is the only way into
-   the phone on this screen. */
-#cityfeed.street{ width:46px; max-height:none; height:62px; top:58px; right:7px;
-  padding:3px 3px 4px; border-radius:7px }
-#cityfeed.street #cityfeedlist,
-#cityfeed.street #cityfeedfade{ display:none }
-#cityfeed.street #cityfeedscreen{ height:100%; min-height:0 }
-/* THE GLANCE. A phone in your pocket is not a dead slab, it is a lit hour behind
-   cracked glass, and that is the whole reason you look at one. The bar is already the
-   object that carries the clock, so the pocket keeps THE BAR and drops everything on
-   it except the time: no invented widget, no second clock to drift from the first. */
-#cityfeed.street #cityfeedbar{ height:100%; justify-content:center; padding:0 2px;
-  border-bottom:0; letter-spacing:0; overflow:hidden }
-#cityfeed.street #cityfeedsig,
-#cityfeed.street #cityfeedname,
-#cityfeed.street #cityfeedbatt{ display:none }
-/* 9px, not 11: at 11 the hour touched both edges of a 38 px glass and the leading
-   digit went under the casing. The time has to be READ at a glance or the pocket is
-   just a slab again. */
-#cityfeed.street #cityfeedclock{ font-size:9px; color:#c8b681 }
-/* a whole thumb around it without moving the drawn object: the reach is a pad, the
-   phone is the picture. Same trade as the notes mark. */
-#cityfeed.street::after{ content:''; position:absolute; left:50%; top:50%;
-  width:44px; height:44px; transform:translate(-50%,-50%); }
+/* THE POCKET PHONE THAT WAS HERE IS GONE, and this note is the whole record of it in
+   this file: Paolo voted it DOWN on 9/23 ("you only see the phone when you're zoomed out
+   to the whole city view, not the human close shit"). The rules it carried that were NOT
+   about the street survive above and below -- the phone's clock reads the game's clock,
+   and the open phone never shows black glass. A post-mortem is in graveyard/. */
 #cityfeed.ring{border-color:#d8b45a;
   box-shadow:0 0 0 2px rgba(216,180,90,.85),
              0 7px 20px rgba(0,0,0,.66),
@@ -902,6 +888,32 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font-family:var(--
 #phoneclose{padding:0 6px;font-size:14px;color:var(--ink)}
 #phoneslot{flex:1;min-height:0;position:relative}
 #phoneslot iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block}
+/* THE FACE IT WEARS WHILE IT IS COMING UP. Not a spinner and not a word about loading:
+   this is the phone, lit, doing the two things a phone does when it has nothing else --
+   telling you the hour and looking for a network that is not there. ONE WRONG THING (the
+   bible, rule 1): everything here is an ordinary lock screen, and the clock is perfect
+   while the carrier is gone. Every colour is the screen's own; nothing new was invented. */
+#phoneboot{position:absolute;inset:0;z-index:2;display:flex;align-items:center;
+  justify-content:center;font-family:var(--face-screen);
+  background:radial-gradient(120% 90% at 50% 8%,#14120c 0%,#0a0906 62%,#070605 100%)}
+#phoneslot.ready #phoneboot{display:none}
+#phonebootin{text-align:center;position:relative;z-index:1}
+#phoneboot .pbclock{font-size:52px;line-height:1;color:#e6dcbe;
+  letter-spacing:var(--track-screen,1px);text-shadow:0 0 14px rgba(230,220,190,.20)}
+#phoneboot .pbwhere{margin-top:10px;font-size:11px;color:#8d8168;
+  letter-spacing:var(--track-casing,1.4px)}
+#phoneboot .pbline{margin-top:26px;font-size:10px;color:#6f6a52;
+  letter-spacing:var(--track-casing,1.4px)}
+/* the same fracture the pocket phone wears, cloned in at open time */
+#phonebootglass{position:absolute;inset:0;pointer-events:none;z-index:2}
+#phonebootglass svg{position:absolute;inset:0;width:100%;height:100%}
+/* SOFTER HERE THAN ON THE POCKET, and that is not a second opinion about the crack.
+   The same fracture stretched from a 46 px handset to a 378 px screen makes its lines
+   SIX TIMES LONGER, and at the pocket's opacity it stopped reading as glass and started
+   reading as a drawing over the screen. Looked at, then halved. */
+#phonebootglass .crk{fill:none;stroke:rgba(233,222,190,.15);
+  stroke-width:.7;vector-effect:non-scaling-stroke}
+#phonebootglass .crk.rng{stroke:rgba(233,222,190,.08);stroke-width:.5}
 </style>
 <style id="dayloopCss">
 /* __DAY_LOOP__ -- the day loop's surface, in the app's own palette. No new
@@ -59150,15 +59162,76 @@ window.addEventListener('message',function(ev){
     updHud(); render(); reportState();
   }catch(_e){}
 });
+/* __THE_PHONE_NEVER_OPENS_BLACK__ (9/24, row [phone black]) -- THE FACE IT WEARS WHILE
+   ITS PAGE IS COMING UP, and the one line that takes that face off again.
+   MEASURED BEFORE ANY OF IT, on the served cut, real touch, screenshotting the SLOT
+   rather than asking the iframe how it feels: 120 ms after the tap, 0.05% of the slot's
+   pixels were above black; at 400 ms, 1.03%; settled at 3.24%. On his phone the
+   coordinator clocked the same window at about three seconds. Identical at 4x CPU
+   throttling, which says the wait is the 2.1 MB fetch and the parse, NOT the processor --
+   so shortening it is not a fix that holds on a slower phone, and the fix has to be that
+   THERE IS NOTHING BLACK TO SEE AT ANY SPEED.
+   WHY NOT PRELOAD IT BEHIND THE LOADING SCREEN, the row's other option: the phone's page
+   is 2.1 MB and RUN's during-play budget is 54.0 MB of 70 with 21 files of 30, so warming
+   it spends a tenth of another lane's headroom to save a screen that is no longer black.
+   The face costs zero bytes and works on a phone that never finishes loading at all. */
+function phoneBootFace(){
+  var slot=document.getElementById('phoneslot');
+  var boot=document.getElementById('phoneboot'); if(!slot||!boot) return;
+  /* THE HOUR IT ALREADY KNOWS. One clock in this game: the same clockStr() the bar and
+     the pocket phone read, so the face cannot say a different time than the phone does
+     two hundred milliseconds later. */
+  try{ var full=(typeof clockStr==='function')?clockStr():'', bits=String(full).split('\u00b7');
+    var t=(bits.length>1?bits[bits.length-1]:full).trim();
+    var el=boot.querySelector('.pbclock'); if(el&&t) el.textContent=t; }catch(_e){}
+  /* WHERE HE IS STANDING, AND ONLY THAT. The bar's line is 'SUBURB \u00b7 DAY 1 \u00b7 06:00'
+     and the first cut of this put the whole thing under the clock, so the face said the
+     hour twice and called it a place. Looked at, then cut at the first separator. */
+  try{ var w=document.getElementById('phonewhere'), pw=boot.querySelector('.pbwhere');
+    var t=w?String(w.textContent).split('\u00b7')[0].trim():'';
+    if(pw&&t) pw.textContent=t; }catch(_e){}
+  /* THE SAME CRACK, NOT A SECOND ONE. Cloned from the pocket phone's own glass, so the
+     fracture in the open phone is literally the shape the folded one wears; a second
+     hand-drawn crack is how two objects that are one object start to drift. */
+  try{ var host=document.getElementById('phonebootglass');
+    if(host&&!host.firstChild){ var src=document.getElementById('cityfeedglass');
+      if(src&&src.firstElementChild) host.appendChild(src.firstElementChild.cloneNode(true)); } }catch(_e){}
+  slot.classList.remove('ready');
+}
+/* IT COMES OFF WHEN THE PAGE IS REALLY IN, and never on a timer. A timer would put the
+   black back on any phone slower than the one the timer was written on, which is the
+   whole defect. The frame's own load event says the document is parsed; asking its body
+   for children says something is actually drawn. */
+function phoneBootDone(){
+  var slot=document.getElementById('phoneslot'); if(!slot) return false;
+  try{
+    var w=PHONE_FR&&PHONE_FR.contentWindow, doc=PHONE_FR&&PHONE_FR.contentDocument;
+    if(!(w&&doc&&doc.readyState==='complete'&&doc.body&&doc.body.children.length>0)) return false;
+    /* *** A DOCUMENT THAT SAYS 'complete' HAS NOT NECESSARILY PAINTED. *** The first cut
+       of this took the face off at readyState complete and MEASURED WORSE THAN THE FACE:
+       1.03% of the slot's pixels lit against the face's 2.23%, because the phone's page
+       was parsed and not yet drawn, so the fix handed him a darker screen for a moment
+       than the one it replaced. It waits for the phone's OWN next two frames now, which
+       is the browser saying it painted rather than a timer saying it probably did. */
+    w.requestAnimationFrame(function(){ w.requestAnimationFrame(function(){
+      try{ slot.classList.add('ready'); }catch(_e){} }); });
+    /* IT REPORTS WHAT IS TRUE NOW, NOT WHAT IT JUST ASKED FOR. The first cut returned
+       true the moment it scheduled those two frames, so a caller reading it got "the
+       phone is up" about a phone whose face was still on. A function that answers for
+       the future is the same defect class as a checker that agrees with itself. */
+    return slot.classList.contains('ready');
+  }catch(_e){ return false; }
+}
 function phoneOpen(){
   const wrap=document.getElementById('phonewrap');
+  phoneBootFace();
   if(!PHONE_FR){
     PHONE_FR=document.createElement('iframe');
     PHONE_FR.setAttribute('title','the phone');
     PHONE_FR.src='BOHEMIA_CURRENT_SLICE.html';
-    PHONE_FR.addEventListener('load',function(){ setTimeout(function(){ phonePush(true); },400); });
+    PHONE_FR.addEventListener('load',function(){ phoneBootDone(); setTimeout(function(){ phonePush(true); phoneBootDone(); },400); });
     document.getElementById('phoneslot').appendChild(PHONE_FR);
-  }
+  } else phoneBootDone();
   PHONE_ON=true; wrap.classList.add('on'); phonePush(true);
   /* OPENING IT IS READING IT. Without this the ring never goes out: the morning would
      sit unread for the rest of the run and the gold would stop meaning "there is
@@ -76794,12 +76867,17 @@ window.BOHEMIA_FEED = (function(){
          in the top right clear of the rail and the walk pad. Tapping it opens the
          phone exactly as it does in the city. The feed itself still only streams in
          CITY mode, because that is where he asked to read it (9/4). */
-      var wantOn = true;                       /* the phone is always on him */
-      if(isCity!==on || PANEL.classList.contains('street')===isCity){
+      /* *** REVERTED BY HIM, 9/23 IN THE TAB (rule 32c). *** He voted the pocket phone
+         DOWN in his own words: "YOU ONLY SEE THE PHONE WHEN ITS UR ZOOMED OUT TO THE WHOLE
+         CITY VIEW not when its the human close shit bro." So the phone is a CITY-VIEW
+         OBJECT again, which is what it was before 9/23 and what he asked for on 9/4. The
+         morning and the night reach him when he zooms out, or through a mouth on the
+         street. I built the pocket phone off RUN's row and he looked at it and said no;
+         his word is the newer one and it wins. */
+      if(isCity!==on){
         on=isCity;
-        PANEL.classList.toggle('on',wantOn);
-        PANEL.classList.toggle('street',!isCity);
-        PANEL.setAttribute('aria-hidden','false');
+        PANEL.classList.toggle('on',on);
+        PANEL.setAttribute('aria-hidden', on?'false':'true');
         /* SEED IT THE MOMENT IT OPENS. Measured before this existed: the first life
            post was sixteen beats out, so a player who zoomed out met an EMPTY PHONE
            for eight seconds. A feed that teaches the world teaches nothing while it
@@ -76823,13 +76901,7 @@ window.BOHEMIA_FEED = (function(){
         }
       }
     }
-    /* *** WHERE IT SITS AND WHAT HOUR IT IS ARE NOT FEED WORK. ***
-       This used to be `if(!on) return;`, and `on` means THE FEED IS STREAMING, which is
-       city mode only. So on the street the pocket phone never re-measured the bar above
-       it and its clock never ran -- a phone in his pocket reading --:-- under a bar that
-       had moved. The stream still belongs to the city (9/4, his ruling); the OBJECT is on
-       him either way, so the two lines that keep the object honest run either way, and
-       the early return moved down to where the feed work actually starts. */
+    if(!on) return;
     /* SIT UNDER THE TOP BAR, WHEREVER IT ENDS. A fixed top:92px passed most runs and
        failed some, which is worse than failing every time: #topbar is a flex row and
        ITS HEIGHT IS NOT FIXED -- the music chip shows the CURRENT TRACK NAME, so a long
@@ -76859,7 +76931,6 @@ window.BOHEMIA_FEED = (function(){
         var bits = String(full).split('·');
         CLOCK.textContent = (bits.length>1 ? bits[bits.length-1] : full).trim(); }catch(_e){}
     }
-    if(!on) return;                       /* everything past here IS the feed */
     /* __THE_FEED_STREAM__ (LIFE + CITY lane, 9/5, board row [feed posts]). THE
        SURFACE READS ONE STREAM NOW. The law routes the surface here and the STREAM to
        another lane, and this file's own header said so -- "this is a reader, not a

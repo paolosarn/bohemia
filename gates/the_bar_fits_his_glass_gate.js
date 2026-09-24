@@ -81,12 +81,15 @@ const done = (d) => {
      leg is the gate refusing to report when that failed. */
   ok('the driver is really inside the game, not still on the splash', d.doorIsBehindUs());
 
-  /* ---- THE STREET, WHICH IS WHERE HE STARTS AND WHERE HE SPENDS THE MORNING ----
-     Row [phone on the street]: #cityfeed used to draw in CITY MODE ONLY, so from waking
-     up until he zooms out there was no phone on the screen at all -- and rule 19a sends
-     the morning and the night to the phone. The words were there and the door was not.
-     The answer is the phone folded into his pocket at the top right, not the chip he
-     already refused ("the phone is the phone button", 9/22). */
+  /* ---- THE STREET: THERE IS NO PHONE HERE, AND THAT IS HIS RULING ----
+     *** PAOLO 9/23 IN THE VOTE TAB, on ui-the-phone-in-your-pocket-9-23, thumb DOWN:
+     "YOU ONLY SEE THE PHONE WHEN ITS UR ZOOMED OUT TO THE WHOLE CITY VIEW not when its
+     the human close shit bro." (rule 32c) ***
+     These legs used to hold the opposite. I built the pocket phone on 9/23 off RUN's row,
+     he looked at it and said no, and the legs turn round with the ruling rather than
+     staying to defend a thing he killed. What they hold now is that the street is CLEAR:
+     no phone drawn on it AND no chip smuggled back into the bar to replace it, because
+     the chip is dead by his 9/22 word and a phone-shaped button is the same thing. */
   const whereIsIt = () => d.fr.evaluate(() => {
     const f = document.getElementById('cityfeed');
     if (!f) return { there: false };
@@ -94,6 +97,8 @@ const done = (d) => {
     const el = document.elementFromPoint(b.x + b.width / 2, b.y + b.height / 2);
     return { there: true, mode: (typeof MODE !== 'undefined' ? MODE : '?'),
              w: Math.round(b.width), h: Math.round(b.height),
+             shown: getComputedStyle(f).display !== 'none' && f.offsetParent !== null
+                    && b.width > 0 && b.height > 0,
              /* THE WHOLE CONTROL INSIDE THE GLASS, not `left < innerWidth` -- the
                 mistake at the top of this file, asked properly. */
              whole: b.left >= 0 && b.right <= innerWidth && b.top >= 0 && b.bottom <= innerHeight,
@@ -103,12 +108,13 @@ const done = (d) => {
              pe: getComputedStyle(f).pointerEvents };
   });
   const street = await whereIsIt();
-  ok('ON THE STREET the phone is drawn at all', street.there && street.w > 0 && street.h > 0,
-     street.w + 'x' + street.h + ' in mode ' + street.mode);
-  ok('  and the whole of it is on the glass', street.whole, street.at);
-  ok('  and it is a thumb wide', street.w >= 44 && street.h >= 44, street.w + 'x' + street.h);
-  ok('  and it owns its own middle pixel', street.mine,
-     'pointer-events ' + street.pe + ', the point goes to ' + street.owner);
+  ok('ON THE WALKED STREET THERE IS NO PHONE DRAWN, which is what he asked for',
+     !street.shown, street.w + 'x' + street.h + ' in mode ' + street.mode);
+  ok('  and no phone-shaped button crept into the bar to stand in for it',
+     await d.fr.evaluate(() => {
+       const bar = document.getElementById('topbar'); if (!bar) return true;
+       return !/phone/i.test(bar.textContent || '') && !document.getElementById('phonebtn');
+     }));
 
   const state = () => d.fr.evaluate(() => (typeof PHONE_ON !== 'undefined' ? !!PHONE_ON : null));
   const tapFeed = async () => {
@@ -124,11 +130,7 @@ const done = (d) => {
      second tap there answers IFRAME. An open phone also eats a pinch, which is how a
      probe of mine crossed no seam at all and still printed a heading that said THE CITY. */
   const fold = () => d.fr.evaluate(() => { try { phoneClose(); } catch (_e) {} return PHONE_ON; });
-
-  ok('  and it starts folded', (await state()) === false);
-  await tapFeed(); await d.page.waitForTimeout(500);
-  ok('  and THE FIRST REAL TOUCH opens the phone, on the street', (await state()) === true);
-  ok('  and it folds again', (await fold()) === false);
+  ok('  and the phone starts folded', (await state()) === false);
 
   /* ---- HIS FRAME IS CITY MODE, so cross the seam the way a thumb does and ask again.
      The first cut of this gate measured the phone on the walking screen, where it was
@@ -181,7 +183,7 @@ const done = (d) => {
   ok('IN THE CITY the drawn phone OWNS ITS OWN MIDDLE PIXEL', owns.mine,
      'pointer-events ' + owns.pe + ', the point goes to ' + owns.owner);
 
-  ok('  and the phone is folded here too', (await state()) === false);
+  ok('  and it is folded here too', (await state()) === false);
   await tapFeed(); await d.page.waitForTimeout(500);
   ok('  and THE FIRST REAL TOUCH opens it', (await state()) === true);
   ok('  and it folds again', (await fold()) === false);
