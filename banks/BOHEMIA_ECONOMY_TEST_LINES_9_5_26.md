@@ -53,10 +53,11 @@
 #   thirty are role-place; 698 after round 49's second half added ten. All forty
 #   are role-place; 708 after round 50 added ten. All fifty are role-place, so the
 #   bullet count is unchanged at 176 for a FIFTH round; 718 after round 50's second
-#   half added ten, a SIXTH. All sixty are role-place and the gap can only shrink.
+#   half added ten, a SIXTH; 726 after round 51 added eight, a SEVENTH. All
+#   sixty-eight are role-place and the gap can only shrink.
 #
 #   RULE 27 (Paolo 9/21), THE PLAYER DOES NOT SPEAK SPANGLISH: measured across all
-#   542 role-place entries (re-measured 9/23), THE PLAYER DOES NOT SPEAK AT ALL. The
+#   550 role-place entries (re-measured 9/24), THE PLAYER DOES NOT SPEAK AT ALL. The
 #   seven whose descriptor names him have him as the LISTENER. This file's own
 #   "what is not here" sections assert it fourteen times and the assertion holds.
 
@@ -4125,3 +4126,52 @@ OOOOOOOOOO10  the one who brought it, putting it away        draft:true
   saying plainly: four consecutive sets have been people delivering hard news
   flatly, and the register is a voice some characters have, not a seasoning to
   sprinkle on every set. Under the 15% cap either way.
+
+## QQQQQQQQQQ. SOMEBODY MOVED BACK IN
+## (round 51, [thirty years after]. Rule 32b: the ruin is the floor and the
+##  future gets better. Reclamation reuses the building that was already there.
+##  Role, place, situation, per this file's rule 19 contract.)
+
+QQQQQQQQQQ1  an old woman, later age, outside a working door  draft:true
+    "Same building. Same door. Different everything else."
+
+QQQQQQQQQQ2  a young worker heading in, not from here          draft:true
+    "They kept the shell and gutted the rest. It's warm in there."
+
+QQQQQQQQQQ3  a man on the next block over, which is not warm   draft:true
+    "Two streets. It got to two streets and it stopped."
+
+QQQQQQQQQQ4  his neighbour, who has stopped waiting            draft:true
+    "It always stops. You live on the side it stopped on."
+
+QQQQQQQQQQ5  an older tradesman, on what came back             draft:true
+    "Not the work we did. Some other work, in our rooms."
+
+QQQQQQQQQQ6  a woman who runs a counter near the lit part      draft:true
+    "I opened because they opened. That's the whole reason."
+
+QQQQQQQQQQ7  somebody's kid, asked what the block used to be   draft:true
+    "I only know it like this."
+
+QQQQQQQQQQ8  an old man, correcting nobody in particular       draft:true
+    "It didn't get worse. People say it got worse. It stayed."
+
+## RRRRRRRRRR. WHAT IS NOT HERE, ON PURPOSE (round 51)
+
+- No line contains a number, a share of a city, a count of blocks or a year.
+- No line explains reclamation, tiers, investment or a floor. QQQQQQQQQQ8 is
+  rule 32(b) in seven words and never names it. Nobody in Bohemia is wise.
+- No line uses the words reclaim, invest, tier, modern, recovering or ruin.
+- No line has anybody celebrate or condemn the people who moved in. QQQQQQQQQQ2
+  and 6 are matter-of-fact, and QQQQQQQQQQ3 and 4 are on the other side of the
+  same street without a villain between them.
+- No line names a faction, a street or a town. MAP LAW.
+- No line has the player speaking. Rule 27: 550 role-place entries in this file
+  now, zero of them him talking.
+- No line decides how much better the future gets. Rule 32(b) says out loud that
+  it is the manager's dial in VOTE, and section 6 refused it.
+- No line is written for a card or a readout: rule 19(a), rule 29. What this
+  round hands over is a warm building on a cold street.
+- Spanish register: 0 of 8 lines. Fifth round at zero, and the reason has not
+  changed: five consecutive sets are people stating hard facts flatly, and the
+  register is a voice some characters have, not a seasoning. Under the 15% cap.

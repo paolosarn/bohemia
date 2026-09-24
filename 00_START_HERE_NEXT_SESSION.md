@@ -3970,7 +3970,7 @@ your block top to bottom and confirm every line in it is yours.
 And this file is now ~88,000 lines carrying NINE ECONOMY blocks, most of them
 stale copies of this one. That is a real defect in a file every lane reads every
 round. It is a job for the coordinator to place (18 PLUMBER's remit), not
-something a lane should do to another lane's block.=== ROUND 36 REPORT: [first ten] SHIPPED ====== ROUND 37 REPORT: [carry cost] SHIPPED ====== ROUND 38 REPORT: [old price] SHIPPED ====== ROUND 39 REPORT: [protection court] SHIPPED ====== ROUND 40 REPORT: [how many pockets] SHIPPED ====== ROUND 41 REPORT: [who replaces you] SHIPPED ====== ROUND 42 REPORT: [the bailiff] SHIPPED ====== ROUND 43 REPORT: [double up] SHIPPED ====== ROUND 44 REPORT: [first building] SHIPPED ====== QUEUE EMPTY. 44 OF 44 SHIPPED. THE PILE IS FOLDED INTO ONE MASTER. ====== QUEUE STILL EMPTY. HE PLAYED IT, AND THE ONE THING THIS LANE GOT BUILT AND GOT WRONG IS CORRECTED. ====== ROUND 45 REPORT: [first sixty] SHIPPED ====== ROUND 46 REPORT: [daily radius] SHIPPED ====== ROUND 47 REPORT: [who owns the water] SHIPPED ====== QUEUE EMPTY. THE FOLD: 45, 46 AND 47 ARE IN THE MASTER, AND FOLDING THEM FOUND THREE THINGS. ====== ROUND 48 REPORT: [who still bills] ROUND ONE OF TWO SHIPPED, THE CLAIM STAYS. ====== ROUND 48 ROUND TWO: THE NUMBER. Q48 COMPLETE, 48 OF 48 SHIPPED. ====== QUEUE EMPTY. ROUND 48 IS FOLDED INTO THE MASTER AND IT MADE A SEVENTH CONVERGENCE. ====== ROUND 49 REPORT: [first battery] ROUND ONE OF TWO SHIPPED, THE CLAIM STAYS. ====== ROUND 49 ROUND TWO: THE NUMBER. Q49 COMPLETE, 49 OF 49 SHIPPED. ====== QUEUE EMPTY. ROUND 49 IS FOLDED INTO THE MASTER. ====== ROUND 50 REPORT: [seeds the next act] ROUND ONE OF TWO SHIPPED, THE CLAIM STAYS. ====== ROUND 50 ROUND TWO: THE RATES. Q50 COMPLETE, 50 OF 50 SHIPPED. ====== QUEUE EMPTY. ROUND 50 IS FOLDED INTO THE MASTER, AND THE ROT I ROUTED IS FIXED. ===
+something a lane should do to another lane's block.=== ROUND 36 REPORT: [first ten] SHIPPED ====== ROUND 37 REPORT: [carry cost] SHIPPED ====== ROUND 38 REPORT: [old price] SHIPPED ====== ROUND 39 REPORT: [protection court] SHIPPED ====== ROUND 40 REPORT: [how many pockets] SHIPPED ====== ROUND 41 REPORT: [who replaces you] SHIPPED ====== ROUND 42 REPORT: [the bailiff] SHIPPED ====== ROUND 43 REPORT: [double up] SHIPPED ====== ROUND 44 REPORT: [first building] SHIPPED ====== QUEUE EMPTY. 44 OF 44 SHIPPED. THE PILE IS FOLDED INTO ONE MASTER. ====== QUEUE STILL EMPTY. HE PLAYED IT, AND THE ONE THING THIS LANE GOT BUILT AND GOT WRONG IS CORRECTED. ====== ROUND 45 REPORT: [first sixty] SHIPPED ====== ROUND 46 REPORT: [daily radius] SHIPPED ====== ROUND 47 REPORT: [who owns the water] SHIPPED ====== QUEUE EMPTY. THE FOLD: 45, 46 AND 47 ARE IN THE MASTER, AND FOLDING THEM FOUND THREE THINGS. ====== ROUND 48 REPORT: [who still bills] ROUND ONE OF TWO SHIPPED, THE CLAIM STAYS. ====== ROUND 48 ROUND TWO: THE NUMBER. Q48 COMPLETE, 48 OF 48 SHIPPED. ====== QUEUE EMPTY. ROUND 48 IS FOLDED INTO THE MASTER AND IT MADE A SEVENTH CONVERGENCE. ====== ROUND 49 REPORT: [first battery] ROUND ONE OF TWO SHIPPED, THE CLAIM STAYS. ====== ROUND 49 ROUND TWO: THE NUMBER. Q49 COMPLETE, 49 OF 49 SHIPPED. ====== QUEUE EMPTY. ROUND 49 IS FOLDED INTO THE MASTER. ====== ROUND 50 REPORT: [seeds the next act] ROUND ONE OF TWO SHIPPED, THE CLAIM STAYS. ====== ROUND 50 ROUND TWO: THE RATES. Q50 COMPLETE, 50 OF 50 SHIPPED. ====== QUEUE EMPTY. ROUND 50 IS FOLDED INTO THE MASTER, AND THE ROT I ROUTED IS FIXED. ====== ROUND 51 REPORT: [thirty years after] ROUND ONE OF TWO SHIPPED, THE CLAIM STAYS. ===
 RECORD: records/BOHEMIA_ECONOMY_DAY_47_NOBODY_OWNS_THE_PUMP_THEY_OWN_THE_DISTANCE_9_20_26.md (207 lines)
 BANK:   banks/BOHEMIA_ECONOMY_TEST_LINES_9_5_26.md sections ZZZZZZZZZ-DDDDDDDDDD, +16 lines, 670 draft:true total
 TAB:    NOT IN A TAB YET. MODE: RESEARCH. No engine code touched. Rule 14: never the demo;
@@ -4962,6 +4962,94 @@ checked for them by name. The assert-before-write pattern is right; batching unr
 behind one assert is not, because a later failure erases earlier successes. VERIFY EACH EDIT
 LANDED, BY NAME, RATHER THAN TRUSTING THE SCRIPT SAID OK.
 
+
+=== ROUND 51, [thirty years after] Q51, ROUND ONE OF TWO (school). THE CLAIM STAYS OPEN. ===
+RECORD: records/BOHEMIA_ECONOMY_DAY_51_THE_TIERS_ARE_ALREADY_WRITTEN_AND_SEVEN_SQUARE_MILES_OF_ONE_HUNDRED_AND_THIRTY_NINE_9_24_26.md (228 lines)
+BANK:   sections QQQQQQQQQQ-RRRRRRRRRR, +8 lines, 726 entries, all eight role-place, so the 176
+        bullet entries owing a WHO have not grown for a SEVENTH round running.
+TAB:    NOT IN A TAB YET. MODE: RESEARCH. No engine code touched. Rules 14, 15, 18(b) unchanged;
+        rule 22 binds MAKING lanes and names twelve, ECONOMY is not one. Rule 32(a): nothing in
+        this round asks for anything to fire at anybody.
+GATES:  pre-push pass SEVEN GREEN, ONE RED, proven not mine on clean HEAD -- economy 13/0,
+        purse 28/0, payday 40/0, attempt 15/0, demo blockers 22/0, language 85/0, handoff 9/0,
+        canon rot 12/1. Full suite: 107 red at ad23d875, mine are: none.
+
+*** FIRST: HIS RULING KILLED THIS LANE'S OWN ROUND 50 DELIVERABLE, AND THE REAL RECORD BACKS
+HIM. *** Round 50 argued the fold is a ratchet and the ruin needs a MISSING SUBTRACTION:
+districts stop being held, buildings step down a tier. RULE 32(b), PAOLO 9/23, SAYS THE
+OPPOSITE: the game starts in the ruin and the future gets better, the ruin is act 1's FLOOR and
+never a fall, NOTHING DECAYS BELOW THE START, and the coordinator's "dark streets are lost"
+default is dead. So is mine.
+AND A REAL CITY TRIED MY VERSION. Youngstown's 2010 Plan WAS the subtraction: shutter the
+emptied neighbourhoods and CUT UTILITY AND CITY SERVICES TO THE ABANDONED STREETS, with
+incentives to move. IT FAILED ON CONTACT WITH PEOPLE: nobody took the $50,000, about 1,500
+demolitions happened against an estimated 4,000 still needed, and fifteen years on the city is
+still vacant and anemic, with the redevelopment that did happen centred on downtown. THE FLOOR
+DID NOT DROP. IT STAYED A FLOOR.
+ROUND 50'S MEASUREMENTS ALL STAND (ten of thirteen carry whole, every accumulator is += or
+Math.max, the fold is pure) AND ITS RECOMMENDATION WAS WRONG. The measurement was the work; the
+recommendation was one step past it. Same shape as round 38, and I did it again.
+
+*** AND THE TIERS ARE NOT EMPTY. THEY ARE WRITTEN, CORRECT, AND UNREACHABLE. *** The row asks
+for "the TIERS the derive ships empty today". Measured on the real function:
+    districtTexture:  invest <= 0 -> 'apocalypse' ("never touched: still ruined")
+                      invest 1-4  -> 'recovering'
+                      invest >= 5 -> 'modern'     ("sustained investment")
+    run across six values: 0 apocalypse | 1 recovering | 4 recovering | 5 modern | 9, 20 modern
+READ THAT AGAINST HIS RULING. THE FLOOR IS 'APOCALYPSE', EVERY DISTRICT STARTS THERE, NOTHING
+TAKES YOU BELOW IT, AND INVESTMENT IS THE ONLY LIFT. THAT IS RULE 32(b) WRITTEN AS A FUNCTION,
+WEEKS BEFORE THE RULING EXISTED. And it has ZERO CALLERS: districtTexture appears three times
+in the repo and all three are the same export line. Nothing anywhere creates an `invest` choice
+either -- the fold has a case to receive one and no code builds one. BOTH HALVES ARE DEAD.
+So the honest version of the row's premise is better than the row's: the derive does not ship
+the tiers empty, it ships them written, correct, matching a ruling made weeks later, and wired
+to nothing.
+
+THE REAL RECORD OF RECLAMATION, AND IT IS A RATIO:
+  DETROIT: the reclaimed core, "greater downtown", is 7.2 SQUARE MILES OF 139, ABOUT 5%, and it
+    is described in its own report as on a SEPARATE GROWTH TRACK from "the other 132 square
+    miles". Vacant land in 2012: 40 of 139, about A THIRD. Downtown rebounded after the 2013
+    bankruptcy while blight and no private capital kept the other neighbourhoods out of it.
+  YOUNGSTOWN: population 166,689 (1960) -> 66,982 (2010), ABOUT 60% LOST IN FIFTY YEARS, and
+    the same ending: downtown redeveloped, neighbourhoods neglected.
+  ONE BLOCK IN TWENTY, thirty years on, with real money and a real bankruptcy in between.
+
+WHICH TRADES, AND WHAT GETS TECHIER FIRST: office work, moving into buildings that were already
+standing. 6,000 workers moved downtown from 2010 into what the moves called a RISING TECHNOLOGY
+DISTRICT; the anchor building held a "brainforce" of nearly 4,000 technology and web-based
+workers; around it a graphic design firm anchored another old building and venture funding for
+start-ups arrived the year after. THE PATTERN THAT MATTERS FOR US: RECLAMATION REUSES THE
+STANDING BUILDINGS, IT DOES NOT BUILD NEW ONES. The "techier and more modern" part is what
+happens INSIDE them, not a new skyline. NOBODY BUILDS FIRST, SOMEBODY MOVES IN FIRST.
+*** AND THAT MEANS `builds` CARRYING WHOLE IS NOT THE BUG ROUND 50 CALLED IT. It is the
+precondition for the only kind of recovery the record documents. ***
+
+WHAT NEVER COMES BACK: the population (Youngstown down 60%, Detroit's 132 square miles still
+the open question); the old trade (neither city got its industry back -- what came back was a
+DIFFERENT KIND OF WORK IN THE SAME ROOMS); and the neighbourhoods, in both cases, described the
+same way by their own sources: downtown, and not the rest.
+
+THE PROJECT-LEVEL HOLE, INSTANCE 39, THE HAPPIEST ONE THIS STUDY HAS FOUND AND STILL A DEFECT:
+A PART THAT ALREADY IMPLEMENTS A RULING MADE WEEKS AFTER IT WAS WRITTEN, AND HAS NEVER BEEN
+CALLED. Nobody knew it was there -- not the coordinator who wrote the dead default, not this
+lane when it spent a whole round arguing the fold could not produce a ruin. A GATE ASKING
+"WHICH EXPORTED FUNCTIONS HAVE NO CALLERS" would have put this on somebody's desk long ago, and
+on this study's evidence it would have found convert, transferIn, relight, bohemia_lend.js and
+this in one run.
+
+*** THE CANON ROT RED IS BACK AND IT IS A DIFFERENT FAMILY, SIZED FOR PLUMBER. *** 64 truly-gone
+against the ceiling of 62 you lowered it to after fixing the tilespec batch. Proven identical
+on clean HEAD before I touched anything. THE STRUCTURAL NOTE, and it is the useful part:
+LOWERING THE CEILING EXPOSES THE NEXT LAYER, so this will happen again each time you clear a
+batch. The two named are a RETIRED-LAB record and a TILEFORM sheet. Sized: 7 of the 22 lab
+records cite a lab slice that is gone (the lab was retired 9/4 and only 8 slices remain), and
+1 of 82 tileform sheets cites a missing cook. Not one of them is this lane's file.
+
+THE PROBE NOTE, AND IT IS ROUND 50'S LESSON APPLIED ONE ROUND LATER: I ran the three tiers on
+the real function across six values rather than reading the thresholds off the source. The
+source says "< 5" and I would have written "under five"; the RUN says 4 is recovering and 5 is
+modern, which is the same fact stated so a builder cannot make an off-by-one out of it.
+
 [PENDING Paolo] -- for the coordinator, one at a time:
   *** 1 TO 9 ARE RULED. The coordinator decided all nine on 9/13 under EVERYTHING IS
   A THUMB, in records/BOHEMIA_RULING_NINE_DEFAULTS_THE_ECONOMY_WAS_CARRYING_9_13_26.md.
@@ -5140,27 +5228,23 @@ LANDED, BY NAME, RATHER THAN TRUSTING THE SCRIPT SAID OK.
      is the kind of change he should meet in play rather than read about. Nothing
      is blocked on it; WORLD can build it under his existing law.
 
-NEXT IN THIS LANE: QUEUE EMPTY AND THE MASTER IS CURRENT THROUGH ROUND 50. Q1 through Q50 are
-all SHIPPED, the board has no OPEN line for ECONOMY, and NOTHING IS OWED TO THE MASTER. This
-lane HOLDS until the coordinator puts a line up. Rule 10 forbids inventing a job; rule 22 binds
-MAKING lanes and names twelve and ECONOMY is not one.
-IF THE QUEUE IS STILL EMPTY NEXT ROUND, THE FIRST ONE IS NOW CLEARLY THE MOST USEFUL:
- (a) A PENDINGS PASS. Thirty-three questions carried to the coordinator; nine were collapsed by
-     the 9/13 ruling, and several more have been ANSWERED BY RULINGS MADE SINCE that nobody has
-     gone back to check. Round 49 found THREE of its four open items were PENDING 41 wearing a
-     different hat, and round 50 left three that are all cleanly his. That is the tell: THE
-     LIST IS LONGER THAN THE REAL QUESTION COUNT. A read that says which are answered, which
-     are duplicates of each other, and which are genuinely still his would shorten what he gets
-     handed. NOBODY ELSE CAN DO IT because nobody else has read all 53 records.
- (b) THE 176 BANK ENTRIES THAT OWE A WHO under rule 19, held still for six rounds now. A round
-     could shrink it, starting with the blocks a build lane is nearest to taking (the water and
-     pump sets, which QUESTS and WORLD are closest to).
- (c) THE THINGS the master's section 4 leaves with other lanes, which nobody has been told are
-     there.
-AND THE ONE LIVE THREAD WORTH WATCHING: DYNASTY's [the derive] row was still OPEN as of this
-round, and section 3 of the round 50 round two record is the nine-row table it asked for, with
-whose each number is. The two ruin dials are territory and builds, both are COUNTS so the
-arithmetic is integers, and Math.max on builds is the ratchet in one line.
+NEXT IN THIS LANE: ROUND TWO OF Q51 [thirty years after], AND THE CLAIM IS STILL ON THE BOARD.
+Round one is the school; ROUND TWO COSTS THE TIERS: how much investment is one tier, how many
+blocks reach 'modern' in an act, and WHETHER THE THRESHOLD OF FIVE IS RIGHT against the real
+5% ratio. THE ONE RULE FOR ROUND TWO IS ROUND 38'S AND NOW ALSO ROUND 50'S: both rounds
+measured correctly and then recommended one step past their own evidence. Section 5 of the
+round 51 record is the shape; cost it, do not re-derive it, and DO NOT PROPOSE ANY DECAY --
+rule 32(b) forbids falling below the floor and the manager's dial owns how much better it gets.
+THREE THINGS TO CARRY IN: (a) districtTexture already exists with three tiers and a threshold
+of five, and has zero callers, so round two is arguing about a number in a live function rather
+than designing one; (b) nothing anywhere creates an `invest` choice, so the lift does not exist
+at either end and that is WORLD's and DYNASTY's to wire; (c) 'nothing decays below the start'
+does NOT obviously mean a 'modern' block can never slip back to 'recovering' -- round one
+refused to assume either reading and round two should say which it is asking for, or leave it.
+AFTER Q51 CLOSES: Q52 [inherited trust] is the next OPEN line on this lane's section and it
+came out of this lane's own Q50 round one. Then fold both rows into the master (a STANDING JOB,
+not a board job); the harvest script's control has run four folds clean and has caught a fault
+every time.
 
 
 ================================================================================
