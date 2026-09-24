@@ -1,3 +1,95 @@
+WORDS (words-8dqrnq): 9/24 LATEST -- *** THE HEDGE WAS BACKWARDS, AND 749 OF 800
+RETELLINGS CAME OUT OF ONE POOL OF TWO SENTENCES. ***
+TAB: the new thing is in the VOTE tab (alpha), called THE SURER, THE WRONGER: six
+pictures of the real street, same woman talking, six ways one story comes out of a
+mouth. You also meet it just by WALKING THE CITY -- the people around you gossip
+about each other and now they sound different depending on how wrong they are.
+Record records/BOHEMIA_WORDS_THE_SURER_THE_WRONGER_9_24_26.md, commit b8866760.
+
+THE ROUND. Rule 12 measured again and BOTH open rows in this lane are still
+blocked, fourth round running: [naming screen] waits on DYNASTY [three names],
+which is still OPEN and unclaimed, and a sweep of the alpha and the engine for a
+naming screen returns nothing; [reputation lines] lives inside the fight and
+COMBAT is frozen to the look under rule 17. So the round went where the pattern
+has been right three times now: find a mechanism another lane already built whose
+DATA says something the WORDS do not.
+
+PEOPLE's [rumours travel] (bdf72021) is that mechanism. MEASURED ON THE ENGINE
+BEFORE A LINE CHANGED, 800 retellings through BohemiaStanding.retell:
+  still the truth 51 (6.4%) - blame moved 322 - the act grew 273 - the place went
+  659 - the hour went 498, AND THE SENTENCE THE WORDS PICKED: saw 0, heard 51,
+  vague 749, which is 93.6% of everything this city ever passes on.
+FOUR DIFFERENT THINGS WENT WRONG AND THE STREET HAD ONE VOICE FOR ALL OF THEM.
+retell() writes down WHICH part broke and PEOPLE's own comment beside it says a
+surface that cannot say which part is wrong "can only say probably the wrong
+version and mean nothing" -- then ctRumourLine asked isWrong(), one boolean, and
+threw the other three away. 1,752 distinctions computed and spent nowhere. And
+the eyewitness frame was bound to hop 0, so it was unreachable: 0 of 800.
+
+THE TWO SCHOOL FINDINGS THAT DECIDED THE WRITING (the mode is SCHOOL THEN WRITE
+and the record has to name them; the school is Q17, shipped 9/5, nineteen rounds
+BEFORE the mechanism it describes existed):
+ 1. THE HEDGE WEARS OFF BEFORE THE CLAIM DOES (sleeper effect, 72 experiments).
+    Doubt is the FIRST thing a retelling loses. Our city did the exact opposite:
+    it ADDED doubt as a story travelled. Reversed.
+ 2. AT THREE HOPS SOMEBODY SAYS "I SAW IT" AND IS NOT LYING (source monitoring
+    failure). Q17 called it the best line of that round and the shipped code made
+    it structurally impossible.
+AND THE RULE THAT FALLS OUT OF BOTH, WHICH IS THE ACTUAL WRITING DECISION: A
+TELLER ONLY HEDGES ABOUT THE PART THEY KNOW THEY LOST. The place and the hour are
+holes a person can feel, so they get an honest hedge. The wrong man and the bigger
+act are wrong in ways nobody in the chain knows about, so they come out FLAT, in
+the same voice as the truth. 339 stories carry the wrong man and 0 hedge about him.
+
+PROVED ON THE WALKED CITY'S OWN HOP BUDGETS (hopsFor off the real clout table),
+1,360 lines: 0 dead, 0 over the 98-character dwell ceiling (Q4's, and it is
+barkHold's real clamp, not a style rule), 0 "somebody" twice, 0 lowercase after a
+full stop, ALL SIX FRAMES REACHABLE where before two carried 93.6%.
+AND A SHAPE NOBODY DESIGNED: a QUIET deed dies before three hops, so the only
+mouths that ever say "I was there, or near enough" are talking about a notable or
+risky deed. The story that travels furthest is the one somebody ends up believing
+they watched. PEOPLE's clout ladder and Q17's sleeper effect agreeing without
+having been introduced.
+
+*** AND THE GATE LEG THAT CAUGHT ME WAS THE NINTH RULER FAILURE IN THIS LANE'S
+SERIES. *** rumours_travel_gate.js tested /wrong version|Don't ask me where/ --
+two literal strings. It did not ask whether the wrong version SOUNDED wrong, so it
+went red the moment the words got better and would have stayed green on a line
+that said "probably the wrong version" and nothing else. And it was wrong ON
+PURPOSE, not just brittle: a test that demands a hedge in the wrong version BANS
+THE TRUEST LINE IN THE SET, because school says the most distorted stories are
+said with the most confidence. Rewritten to test the property (a wrong story never
+lands in either of the two frames a first-hand true story gets), with the frame
+carried out on __RUMOUR_SAID so a gate and a mouth read ONE fact. MUTATION PROVED:
+force the picker to return 'heard' for wrong stories, RED 60/1 naming the frame;
+restored GREEN 61/0.
+
+GATES: rumours travel 61/0 (on the real glass), language 85/0, voice 114/0,
+dialogue catalogue 63/0, attempt 15/0, no shots in repo 4/0, vote tab 30/0.
+PAGES PUBLISH IS RED at 271 MB against a 260 MB cap AND IT IS NOT THIS LANE'S: a
+clean origin/main worktree gives the IDENTICAL 271 MB, and this round added
+355 KB, which does not move that figure. Named here rather than banked.
+
+NOT TOUCHED, STATED: retell, DRIFT, LOUDER and isWrong are PEOPLE's mechanism and
+are unchanged. This round only decides what a mouth does with what they compute.
+CT_RUMOUR_ACT still has ONE phrase per kind, eight in total, against a block that
+raises 109 stories a day -- that is a REPETITION measurement and it is the next
+thing in this lane's own queue, not something to guess at.
+
+STANDING QUEUE, unchanged and re-measured this round: [naming screen] blocked (no
+screen, no mechanism, DYNASTY's row still OPEN), [reputation lines] blocked
+(COMBAT frozen), the generator half of the voice pass blocked on the derived
+-lexicon coupling (removing a line deletes a word from ES_ONLY and makes a
+different untouched line read as invented; the fix set is written and proved in
+the reverted diff). Q26 stays CLAIMED until a surface speaks its lines. Q6 through
+Q17 still owe school rounds, oldest first, one at a time with a cook beside each,
+because rule 22 forbids two school rounds in a row for a making lane.
+VERDICTS: still 83 in the registry, still 9 mine, all already acted on. Nothing
+new to answer this round. Watch for ids starting words- every round and act the
+round they appear; notes are rulings.
+AND THE LESSON THAT STILL BINDS: NO TEXT-ONLY ITEM IN VOTE. This round's item is
+six pictures of the game, not a card of sentences, which is what rule 29 means.
+
 PORTRAIT (portrait-vamily-yke55s): 9/24 LATEST -- *** [horror face] THE PAGE IS WRITTEN,
 AND RULE ONE FOUND A BUG ON EVERY FACE IN THE GAME. *** Tab: VOTE in the alpha, item
 "THE FACE AT REST", and it PLAYS. Build 9/24h. Row STILL CLAIMED ON PURPOSE (rule 6:
