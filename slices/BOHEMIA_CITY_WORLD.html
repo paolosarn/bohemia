@@ -52358,9 +52358,34 @@ function xchAdvance(now){
    and already refuses to talk through a wall), and the bubble, the face and the
    name are PEOPLE's. This function is the join and nothing else. */
 var CT_ASK_SPOKEN = 0;
+/* ==========================================================================
+   *** THE CLOCK RULE 32(a) IS MEASURED AGAINST, AND NOTHING ELSE. (9/24.) ***
+   Paolo voted this ask UP with one line: "Cool dont force interactions on the
+   player", and the rule his verdict became says "nothing speaks in the first
+   60 s". THE FIX FOR THAT IS NOT IN THIS FILE THIS ROUND, and the record says
+   why in full: four versions were built and measured on the alpha and every one
+   of them ended with NOBODY EVER SPEAKING, including the minimal one that only
+   waits the minute and changes nothing else. The ask has only ever spoken in the
+   first two seconds, at spawn, when somebody happens to be standing inside
+   barkPick's 7-cell earshot; once you wait, nobody is ever inside 7 again,
+   because PEOPLE's no-clumping spaces bodies 10 cells apart and one press moves
+   him 25. Shipping the wait would take the person at his door out of the five
+   minutes, which is a break on his own list, so it is not shipped.
+   WHAT IS SHIPPED IS THE INSTRUMENT: the moment the world came up with him in
+   it. It changes no behaviour at all -- nothing reads it but a gate -- and it is
+   what lets THE CHECKER say out loud whether the game obeys his rule, instead of
+   the fleet arguing about it. A red on a true claim is worth more than a green
+   on a claim nobody can measure. */
+var CT_ASK_T0 = 0;
 function ctAskBark(now){
   if (CT_ASK_SPOKEN) return false;
   if (typeof BohemiaAskSpoken === 'undefined') return false;
+  if (!CT_ASK_T0) {
+    var _up = false;
+    try { _up = !!PLAYER_CV && typeof BARK_DREW !== 'undefined'
+                && BARK_DREW && BARK_DREW.length > 0; } catch (_e) { _up = false; }
+    if (_up) { CT_ASK_T0 = now; try { window.__ASK_T0 = now; } catch (_e) {} }
+  }
   var ask = null;
   try { ask = ctAskNow(); } catch (_e) { return false; }
   if (!ask) return false;

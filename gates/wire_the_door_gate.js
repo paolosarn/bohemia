@@ -91,45 +91,103 @@ const done = () => { console.log('WIRE THE DOOR GATE: ' + pass + ' passed, ' + f
   let d;
   try { d = await D.open({ alpha: true }); }
   catch (e) { ok('the one driver opens the alpha [' + e.message.slice(0, 80) + ']', false); done(); }
+  /* ======================================================================
+     *** RE-POINTED 9/24 BY HIS OWN VERDICT (rule 32(a)). ***
+     He voted this ask UP and wrote "Cool dont force interactions on the player."
+     This gate's leg used to read "*** BEFORE SIXTY SECONDS ***" -- it asserted
+     the exact behaviour he just banned, because it was written to rule 19(d)
+     (9/20) and 32(a) (9/23) reverses it. A gate testing a surface a ruling
+     deleted is obsolete, not failing, and this is the second time this lane has
+     had to say that about one of its own checkers.
+
+     AND THE DRIVE HAD TO CHANGE TOO, not just the assertion. The old loop
+     pressed i % 8 -- it wandered. Under "he has to come to her" a wandering walk
+     proves nothing either way, so this one LEARNS THE PAD (press each button,
+     watch where the body goes) and then STEERS AT the nearest drawn person.
+     Self-calibrating, because a hard-coded button-to-direction map is a guess
+     and this fleet has written down what guessed selectors cost.
+     ====================================================================== */
   const t0 = Date.now();
-  let spoke = null, cards = 0, presses = 0;
-  for (let i = 0; i < 60 && !spoke; i++) {
+  let spoke = null, cards = 0, presses = 0, spokeEarly = null;
+
+  const press = async (k) => {
     try {
-      await d.fr.evaluate(async (k) => {
-        const pad = document.querySelectorAll('#pad .pb')[k % 8];
+      await d.fr.evaluate(async (i) => {
+        const pad = document.querySelectorAll('#pad .pb')[i % 8];
         if (pad) {
           pad.dispatchEvent(new PointerEvent('pointerdown', { bubbles: true }));
           await new Promise(r => setTimeout(r, 60));
           pad.dispatchEvent(new PointerEvent('pointerup', { bubbles: true }));
         }
-      }, i);
+      }, k);
       presses++;
     } catch (e) {}
-    await new Promise(r => setTimeout(r, 250));
-    let st = {};
+    await new Promise(r => setTimeout(r, 120));
+  };
+  const look = async () => {
     try {
-      st = await d.fr.evaluate(() => ({
-        card: !!document.querySelector('#daycard.on'),
-        ask: window.__ASK_SPOKEN || null,
-        bubble: (typeof BARK !== 'undefined' && BARK.p) ? BARK.text : null,
-        head: (() => { try { const h = ctSpeakerHead(BARK.p); return h ? h.text : null; } catch (e) { return null; } })(),
-        faces: (typeof FACE_CV !== 'undefined') ? Object.keys(FACE_CV).length : 0
-      }));
-    } catch (e) {}
+      return await d.fr.evaluate(() => {
+        const drew = (typeof BARK_DREW !== 'undefined' && BARK_DREW) ? BARK_DREW : [];
+        let best = null, bd = 1e9;
+        for (const e of drew) {
+          if (!e || !e.at) continue;
+          const dd = Math.abs(e.at[0] - hx) + Math.abs(e.at[1] - hy);
+          if (dd > 0 && dd < bd) { bd = dd; best = e.at; }
+        }
+        return {
+          hx: hx, hy: hy, target: best, targetD: best ? bd : null,
+          card: !!document.querySelector('#daycard.on'),
+          ask: window.__ASK_SPOKEN || null,
+          t0: (typeof window.__ASK_T0 !== 'undefined') ? window.__ASK_T0 : null
+        };
+      });
+    } catch (e) { return {}; }
+  };
+
+  /* LEARN THE PAD: which button moves the body which way. */
+  const dirOf = {};
+  for (let k = 0; k < 8; k++) {
+    const a = await look(); await press(k); const b = await look();
+    if (a.hx != null && b.hx != null) dirOf[k] = [b.hx - a.hx, b.hy - a.hy];
+  }
+  const steer = (dx, dy) => {
+    let best = 0, bestDot = -1e9;
+    for (const k in dirOf) {
+      const v = dirOf[k]; if (!v || (!v[0] && !v[1])) continue;
+      const len = Math.hypot(v[0], v[1]) || 1;
+      const dot = (v[0] * dx + v[1] * dy) / len;
+      if (dot > bestDot) { bestDot = dot; best = +k; }
+    }
+    return best;
+  };
+
+  /* WALK AT THE NEAREST PERSON, PAST THE QUIET MINUTE, AND WATCH THE CLOCK. */
+  for (let i = 0; i < 400 && !spoke; i++) {
+    const st = await look();
     if (st.card) cards++;
-    /* THE RECORD IS THE GAME'S, TAKEN AT THE INSTANT IT SPOKE. This poller used
-       to overwrite head/faces/bubble with whatever it happened to see 250 ms
-       later, and a two-second bubble that expired in a gap made it report a
-       named speaker as nameless. It reads the record now and adds only its own
-       wall-clock timing, which is the one thing the page cannot know. */
-    if (st.ask) spoke = Object.assign({}, st.ask, { atMs: Date.now() - t0, presses: presses });
+    if (st.ask && !spoke) {
+      spoke = Object.assign({}, st.ask, { atMs: Date.now() - t0, presses: presses });
+      /* WAS IT INSIDE HIS QUIET MINUTE? measured against the game's own stamp,
+         not against this gate's wall clock, because the minute starts when the
+         world came up with him in it and the boot is not part of it. */
+      if (st.t0 != null && st.ask.at != null) spokeEarly = (st.ask.at - st.t0) < 60000;
+      break;
+    }
+    if (st.target) {
+      await press(steer(st.target[0] - st.hx, st.target[1] - st.hy));
+    } else {
+      await press(i % 8);
+    }
   }
 
   ok('*** A PERSON SPEAKS AN ASK ON THE GLASS *** ('
      + (spoke ? spoke.atMs + ' ms, ' + spoke.presses + ' press(es)' : 'NOBODY SPOKE') + ')', !!spoke);
   if (!spoke) { await d.close(); done(); }
 
-  ok('*** BEFORE SIXTY SECONDS *** (' + spoke.atMs + ' ms)', spoke.atMs < 60000);
+  /* *** THE LEG THAT REVERSED. *** His words, his number (rule 32(a)). */
+  ok('*** AND NOTHING SPOKE IN HIS FIRST SIXTY SECONDS *** (spoke '
+     + (spokeEarly === null ? 'UNMEASURED' : (spokeEarly ? 'INSIDE' : 'after')) + ' the quiet minute)',
+     spokeEarly === false);
   ok('*** ZERO CARDS *** (' + cards + ')', cards === 0);
   ok('the words it put on the glass are the ask itself',
      !!spoke.text && spoke.text.length > 20);

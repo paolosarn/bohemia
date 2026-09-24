@@ -27644,6 +27644,96 @@ since 9/6, it also holds 19 QUESTS (BUILD). The front page's chat-19 line says a
 chat with an empty queue takes QUESTS, and DYNASTY's queue went empty at Q16. The
 lane and its first row were claimed and pushed BEFORE any work started. ***
 
+ROUND 51 SHE HAS TO WAIT, AND SHE CANNOT. FOUR VERSIONS, ALL MEASURED, ALL DEAD.
+QUESTS, off HIS OWN VERDICT (rule 32a). DYNASTY [the flip] CLAIMED f24f7396 and
+CONTINUING -- not started, and this round says why.
+  records/BOHEMIA_QUESTS_SHE_HAS_TO_WAIT_AND_SHE_CANNOT_9_24_26.md
+
+*** HE VOTED THE ASK UP AND CORRECTED IT IN THE SAME BREATH. *** "Cool dont force
+interactions on the player." Rule 32(a): the first minutes are his, a person who
+wants something stands there AND CAN BE WALKED PAST, nothing speaks in the first
+60 s. His bugs beat the queue, so the claimed row waited.
+
+HE IS RIGHT AND IT IS MEASURED: the ask speaks at 6,483 ms after 8 presses on the
+alpha (earlier runs this week: 585 ms, 1,991 ms). The first thing the game does is
+talk at him.
+
+*** FOUR VERSIONS OF THE FIX, EVERY ONE MEASURED, EVERY ONE DEAD. *** Written up
+rather than dropped, because a fourth attempt is this repo's own tell.
+  V1 the quiet minute + "he has to come to her" on barkPick ... nobody spoke
+  V2 give the ask a reach of ONE STEP instead of a remark's ... nobody spoke
+  V3 record the first sighting DURING the minute (a real bug fixed: the half-bar
+     was being measured from halfway, unreachable by construction) ... nobody spoke
+  V4 kill the halving, reach = one body's width ................ nobody spoke
+  AND THE MINIMAL ONE, WHICH IS THE MEASUREMENT THAT MATTERS: the quiet minute
+  ALONE, barkPick and everything else untouched. NOBODY SPOKE EITHER.
+So it is not my design being clever. It is one line -- wait sixty seconds -- and
+the feature dies.
+
+*** THE BLOCKER IS THE ONE THIS LANE MEASURED ON 9/22, SHOWING ITS SECOND FACE. ***
+The ask has only ever spoken in the first two seconds, AT SPAWN, when somebody
+happens to be inside barkPick's 7 cells. Once you wait, nobody is inside 7 again.
+Read off a hook written AT THE DECISION ITSELF (three runs of this round were
+burned inferring instead of measuring), over 260-press walks steering STRAIGHT at
+the nearest person, the range to the nearest drawn body reads 2, 5, 8, 12, 15, 25,
+27 and sits at 8 to 12 for a hundred presses.
+
+    PEOPLE's no-clumping spaces bodies ..... 10 cells apart
+    the city's memory records a witness .... inside 8
+    barkPick's earshot ..................... 7
+    one press moves the player ............. 25
+
+THREE REACHES ALL SMALLER THAN THE SPACING, AND A STEP BIGGER THAN ALL FOUR. On
+9/22 that killed the minds. It turns out it killed every bark too, and the ask only
+looked alive because it fired before the crowd spread out.
+AND THE OTHER HALF OF HIS RULE WAS ALREADY TRUE AND I WAS REBUILDING IT: earshot 7
+against a 25-cell step means he already has to land next to her to be a candidate.
+"He came to her" shipped a week ago. Only the timing did not.
+
+*** WHY THE FIX IS NOT SHIPPED. *** Shipping the wait takes the person at his door
+out of the first five minutes, and "nobody with a name or a face at his door" is a
+break on HIS OWN LIST that came off because of this feature. Trading a forced
+interaction for no interaction is not honouring the ruling, it is making the cut
+worse, and the ratchet says never worse. The city keeps its behaviour.
+
+WHAT IS SHIPPED: (a) THE INSTRUMENT AND NOTHING ELSE -- one stamp, the moment the
+world came up with him in it; nothing reads it but the checker; no behaviour
+changes. (b) THE CHECKER RE-POINTED TO HIS RULING AND RED ON PURPOSE: the leg used
+to read *** BEFORE SIXTY SECONDS ***, asserting the exact behaviour he has now
+banned, because it was written to 19(d) and 32(a) reverses it. A gate testing a
+surface a ruling deleted is obsolete, not failing -- the SECOND time this lane has
+said that about one of its own checkers. It now reads *** AND NOTHING SPOKE IN HIS
+FIRST SIXTY SECONDS *** and measures "spoke INSIDE the quiet minute". The drive had
+to change too: the old loop pressed i % 8 and WANDERED, which proves nothing about
+"he has to come to her"; it now LEARNS THE PAD (press each button, watch where the
+body goes) and STEERS at the nearest drawn person, because a hard-coded
+button-to-direction map is a guess. WIRE THE DOOR 14/1, and the one red is a true
+statement about the game.
+
+*** A CONTRADICTION BETWEEN TWO OF HIS LAWS, FLAGGED NOT DECIDED. *** 19(d) (9/20)
+wants the first person at his door speaking INSIDE THE FIRST MINUTE; 32(a) (9/23)
+says NOTHING SPEAKS IN THE FIRST 60 s. Newest wins, so 32 governs. The
+reconciliation that keeps both, and this lane's recommendation: the person is still
+there from the first second, standing, named, with a face, walkable-past, and what
+changes is that SHE WAITS. That needs somebody to be standable-next-to, which is
+the blocker above. [PENDING Paolo via the coordinator] -- a lane does not retire
+one of his laws on its own.
+
+ROUTED: PEOPLE, the owner of the spacing -- three reaches are all smaller than the
+10-cell spacing and the step is 25; something has to give or nobody in this valley
+can be spoken to or remembered, and the fix is NOT to undo "nobody stands on
+anybody", which is right. COORDINATOR: the 19(d)/32(a) contradiction. QUESTS next
+round: the wait ships the moment somebody can be stood next to; the change is one
+line and it is already written down.
+
+DID NOT COOK THIS ROUND (rule 22), said plainly rather than dressed up: the round
+went into his correction and the measurement under it. DID NOT ISOLATE which
+condition refuses the ask after the minute -- the hook gives the range and the
+clock, not the culprit, and chasing it would have been a fifth version.
+
+PRE-PUSH PASS: WIRE THE DOOR 14/1 (the red above, on purpose), ALPHA LOADS 20/0,
+ASKS VISIBLE 38/0, INLINED-FRESH 3/0.
+
 ROUND 50 [the derive] SCHOOL ROUND TWO: THE FLIP'S PRICE IS THE WARDROBE.
 DYNASTY, SCHOOL (design in plain words, gate NAMED, no code). Rule 31. Claim d479202.
   records/BOHEMIA_DYNASTY_SCHOOL_THE_DERIVE_ROUND_TWO_9_24_26.md
