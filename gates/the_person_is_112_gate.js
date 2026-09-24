@@ -117,8 +117,14 @@ async function liveFight(page) {
    gate that dies cannot tell you which way it failed. */
 const READ = `(() => {
   const g = (n) => { try { return eval(n + '()'); } catch (e) { return null; } };
-  const out = { house: g('houseOn'), bodyScale: g('bodyScale') };
-  out.bodyPx = (out.bodyScale == null) ? null : Math.round(112 * out.bodyScale);
+  /* V225 SPLIT THE TWO SIZES AND THIS PROBE HAD TO FOLLOW. bodyScale() is now the
+     DRAWN size and divides by the live frame on purpose, so 112*bodyScale() is 137 at
+     a frame of 0.82 and comparing THAT to 112 fails the work for going right. The
+     RULED size -- how big a person IS -- is bodyRule(), and what lands on the glass is
+     measured off the blit in the sweep below. */
+  const out = { house: g('houseOn'), bodyScale: g('bodyScale'), bodyRule: g('bodyRule') };
+  const rule = (out.bodyRule == null) ? out.bodyScale : out.bodyRule;
+  out.bodyPx = (rule == null) ? null : Math.round(112 * rule);
   try { const c = document.getElementById('cv');
     out.tilePx = Math.min(c.width, c.height) * fieldPitch(c.width, c.height);
     out.cvW = c.width; out.cssW = Math.round(c.getBoundingClientRect().width); } catch (e) {}
@@ -133,7 +139,7 @@ const READ = `(() => {
   try { const c = document.getElementById('cv');
     const r = c.getBoundingClientRect();
     out.k = +(c.width / Math.max(1, r.width)).toFixed(3);
-    out.bodyCSS = +(out.bodyPx / out.k).toFixed(1);
+    out.bodyCSS = +(out.bodyPx / out.k).toFixed(1);   /* the RULED size in CSS px */
     out.tileCSS = +(out.tilePx / out.k).toFixed(1); } catch (e) {}
   return out;
 })()`;
@@ -233,14 +239,33 @@ async function walkAndCheck(browser, BASE, where, url) {
   if (!cf) { ok(where + ': the fight came up', false); await page.close(); return; }
   ok(where + ': a real fight, started the way he starts one', true);
   await sleep(2500);
-  /* the board can carry pixels before it carries a box, and every CSS number divides
-     by that box -- so wait for it rather than dividing by zero and reporting Infinity. */
-  for (let i = 0; i < 40; i++) {
-    const boxed = await cf.evaluate(() => { const c = document.getElementById('cv');
-      return !!c && c.getBoundingClientRect().width > 0; }).catch(() => false);
-    if (boxed) break;
+  /* *** WAIT FOR THE BOARD TO BE THE BOARD, WHICH IS PATIENCE AND NOT A PREDICATE. ***
+     MEASURED THIS ROUND, on both surfaces: EXACTLY ONE frame ever answers as a fight
+     (390x683, box 390, phase cover). There is no second frame to tell apart. Every bad
+     reading this gate has produced -- k=300, a 300x150 canvas, 0.5 CSS -- is that ONE
+     frame read BEFORE the panel gave it a box, when its canvas still sat at the HTML
+     default. Five finders were written to tell two frames apart and there were never
+     two.
+     V224's zero-box guard is what makes waiting work: size() now retries until the
+     board has a box instead of locking at 0x0 or 1x1 for ever, so the frame heals and
+     a patient gate finds it sized. Waiting for the CANVAS TO MATCH ITS BOX (k == 1) is
+     the whole fix. */
+  let boardK = null;
+  for (let i = 0; i < 160; i++) {
+    boardK = await cf.evaluate(() => { const c = document.getElementById('cv');
+      if (!c) return null;
+      const w = c.getBoundingClientRect().width;
+      return w > 0 ? +(c.width / w).toFixed(3) : null; }).catch(() => null);
+    if (boardK !== null && Math.abs(boardK - 1) < 0.01) break;
     await sleep(500);
   }
+  /* SAY WHAT IT WAITED FOR AND WHAT IT GOT, because a silent timeout here produced a
+     run that reported the sweep at 112 AND k=300 in the same half: the early capture
+     was taken on a board that had not been sized yet while the later sweep ran on one
+     that had. Thirty seconds was not enough; eighty is, and if it ever is not, this
+     line says so instead of the arms lying about the fighter. */
+  ok(where + ': the board is sized before anything is measured off it (k=' + boardK + ')',
+     boardK !== null && Math.abs(boardK - 1) < 0.01);
 
   const A = await cf.evaluate(READ);
   ok(where + ': the board a fight starts on IS the house board', A.house === true);
@@ -301,6 +326,45 @@ async function walkAndCheck(browser, BASE, where, url) {
      A.k + ')', A.k === 1);
   ok(where + ': and the lot came with it, so he still stands about half a lot (' +
      A.tileCSS + ' CSS lot)', Math.abs(A.tileCSS - 196) <= 1);
+
+  /* *** RULE 21'S OTHER HALF: 112 AT EVERY FRAME WIDTH, NOT JUST THIS ONE. *** The
+     coordinator's 9/23b note: "[fight looks] closes when he is 112 at EVERY frame
+     width". The fight has a camera the street does not, and it used to scale the person
+     with the ground.
+     MEASURED OFF THE PIXELS, because two softer versions of this measurement were
+     wrong in opposite directions: setting the zoom and multiplying by what you ASKED
+     for is wrong (the loop smooths it back before the draw, so one run read 112 six
+     times and the next read 176 down to 92), and multiplying by the LIVE zoom is worse
+     (it is 112 by algebra and measures nothing). This wraps the board's drawImage,
+     catches the blit whose SOURCE is the 112 body canvas, and multiplies its
+     destination by the LIVE TRANSFORM at that instant -- what actually lands on the
+     glass, assuming nothing. */
+  const sweep = await cf.evaluate(async () => {
+    const c = document.getElementById('cv'), x = c.getContext('2d');
+    const r = c.getBoundingClientRect(), k = c.width / Math.max(1, r.width);
+    const out = [], keep = G.userZoom;
+    for (const z of [1.30, 1.00, 0.60, 0.20]) {
+      G.userZoom = z; G._uzE = z;
+      const orig = x.drawImage.bind(x); let hit = null, seen = null;
+      x.drawImage = function () { const a = arguments, s2 = a[0];
+        if (s2 && s2.width === 112 && hit === null) {
+          let dw; if (a.length === 9) dw = a[7]; else if (a.length === 5) dw = a[3]; else dw = 112;
+          let m = null; try { m = x.getTransform(); } catch (e) {}
+          hit = dw * (m ? m.a : 1); seen = (G._uzE != null ? G._uzE : G.userZoom);
+        }
+        return orig.apply(null, a); };
+      await new Promise(r2 => setTimeout(r2, 420));
+      x.drawImage = orig;
+      out.push({ asked: z, frame: seen == null ? null : +seen.toFixed(3),
+                 css: hit == null ? null : +(hit / k).toFixed(1) });
+    }
+    G.userZoom = keep;
+    return out; });
+  const got = sweep.filter(r => r.css != null);
+  const held = got.filter(r => Math.abs(r.css - 112) <= 2);
+  ok(where + ': *** HE IS 112 AT EVERY FRAME WIDTH, SO THE CAMERA MOVES THE GROUND AND '
+     + 'NOT HIM *** (' + got.map(r => r.frame + '->' + r.css).join('  ') + ')',
+     got.length >= 3 && held.length === got.length);
 
   /* THE BODY BOARD DID NOT MOVE. */
   const B = await cf.evaluate(`(() => { G.houseTile = false; const r = ${READ}; G.houseTile = undefined; return r; })()`);
