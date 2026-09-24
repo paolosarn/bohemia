@@ -76,6 +76,34 @@ const MEASURE = `(async () => {
     const buf = await OAC.startRendering();
     return buf.getChannelData(0);
   }
+  /* *** THE PITCH RULER'S OWN ERROR, MEASURED, BEFORE IT IS USED ON ANYTHING. ***
+     Rule 2 asks whether a hum is 60 Hz or a whole multiple of it, which is a question
+     about a couple of percent. One bin of this window is 10.77 Hz, eighteen percent of
+     60, so the refinement below the bin is doing all the work -- and a tolerance quoted
+     from a textbook instead of from this instrument is a number nobody can defend. So:
+     pure sines at frequencies we know exactly, through the identical code path. */
+  function refine(p){
+    let pk = 0, k0 = 1;
+    for (let k=1;k<p.length;k++) if (p[k] > pk) { pk = p[k]; k0 = k; }
+    let hz = k0 * SR / N;
+    if (k0 > 1 && k0 < p.length - 1) {
+      const l = Math.log(p[k0-1] + 1e-30), c = Math.log(p[k0] + 1e-30),
+            r = Math.log(p[k0+1] + 1e-30);
+      const den = l - 2*c + r;
+      if (den !== 0) { const dl = 0.5 * (l - r) / den; if (dl > -1 && dl < 1) hz = (k0 + dl) * SR / N; }
+    }
+    return { hz: hz, binHz: k0 * SR / N };
+  }
+  const control = [];
+  for (const f of [60, 120, 180, 853]) {
+    const a = new Float32Array(N);
+    for (let i=0;i<N;i++) a[i] = Math.sin(2*Math.PI*f*i/SR) * 0.8;
+    const g = refine(spec(a));
+    control.push({ askedHz: f, readHz: +g.hz.toFixed(3), binHz: +g.binHz.toFixed(2),
+      errPct: +((g.hz - f) / f * 100).toFixed(3),
+      binErrPct: +((g.binHz - f) / f * 100).toFixed(3) });
+  }
+
   const rows = [];
   for (const ev of Object.keys(A).sort()) {
     const idx = (A[ev] && A[ev].length) ? A[ev][0] : 0;
@@ -105,6 +133,32 @@ const MEASURE = `(async () => {
        name says across an impact, a hiss bed and a tone over a carrier. The -20 dB point
        rides on noise scatter and the -3 dB point rides on whichever peak dominates (a
        footstep measured 108 Hz that way, and a carrier measured 86 Hz). */
+    /* THE LOUDEST BIN, which is the RIGHT reading for exactly one class of sound and the
+       wrong one for every other: a hum is a pitch, so rule 2 asks whether that pitch is
+       the grid's. It is recorded for all of them and only ASKED of the hums, because this
+       lane already measured a footstep at 108 Hz and a carrier at 86 Hz this way. */
+    let pk1 = 0, pkK = 1;
+    for (let k=1;k<p.length;k++) if (p[k] > pk1) { pk1 = p[k]; pkK = k; }
+    /* *** AND THE BIN NUMBER IS NOT THE PITCH, WHICH ALMOST PUT A FALSE ACCUSATION IN A
+       RECORD. This window is 4,096 samples at 44,100, so one bin is 10.77 Hz, which at
+       60 Hz is EIGHTEEN PERCENT. The first cut of this read the generator at "54 Hz" and
+       the sign at "118 Hz" and I was about to write down that neither hums at the grid's
+       pitch -- when 54 Hz is simply the nearest bin below 60 and 118 is the nearest bin to
+       120. A MEASUREMENT CANNOT ANSWER A QUESTION FINER THAN ITS OWN RESOLUTION, and a
+       3% rule read through an 18% ruler is not a reading.
+       Parabolic interpolation on the log magnitudes of the peak and its two neighbours,
+       which is the standard refinement and is good to well under a tenth of a bin on a
+       strong periodic component -- about 1 Hz here, so a 3% rule is answerable. */
+    let pkHz = pkK * SR / N;
+    if (pkK > 1 && pkK < p.length - 1) {
+      const l = Math.log(p[pkK-1] + 1e-30), c = Math.log(p[pkK] + 1e-30),
+            r2 = Math.log(p[pkK+1] + 1e-30);
+      const den = l - 2*c + r2;
+      if (den !== 0) {
+        const dlt = 0.5 * (l - r2) / den;
+        if (dlt > -1 && dlt < 1) pkHz = (pkK + dlt) * SR / N;
+      }
+    }
     let acc = 0, e95 = null, e99 = null;
     for (let k=1;k<p.length;k++){ acc += p[k];
       if (e95===null && acc >= 0.95*tot) e95 = k*SR/N;
@@ -112,16 +166,21 @@ const MEASURE = `(async () => {
     rows.push({ ev: ev, idx: idx, variants: (A[ev]||[]).length,
       peak: +peak.toFixed(5), rms: +rms.toFixed(6), zeros: zeros, samples: d.length,
       flat: +flat.toFixed(4), e95Hz: Math.round(e95||0), e99Hz: Math.round(e99||0),
+      peakHz: +pkHz.toFixed(2), peakBinHz: Math.round(pkK * SR / N), binHz: +(SR / N).toFixed(2),
       sharesSum: +shares.reduce((a,b)=>a+b,0).toFixed(6),
       sub80: +shares[0].toFixed(5), lo320: +shares[1].toFixed(5),
       mid1k: +shares[2].toFixed(5), up4k: +shares[3].toFixed(5),
       hi8k: +shares[4].toFixed(5), top: +shares[5].toFixed(5),
       above4k: +(shares[4]+shares[5]).toFixed(5) });
   }
-  return { rows: rows, events: Object.keys(A).length };
+  return { rows: rows, events: Object.keys(A).length, control: control };
 })()`;
 
-(async () => {
+/* ONE MEASURING BODY, EXPORTED, SO THE GATE DOES NOT CARRY A SECOND COPY OF IT.
+   A duplication in THIS lane is the exact bug that silenced every footstep in the game
+   for days, and a checker measuring with its own copy of a ruler is the same thing
+   wearing a different hat. */
+async function measureShelf() {
   const server = http.createServer((req, res) => {
     const u = decodeURIComponent(req.url.split('?')[0]);
     const f = path.join(ROOT, u.replace(/^\//, ''));
@@ -139,14 +198,26 @@ const MEASURE = `(async () => {
     { waitUntil: 'load', timeout: 300000 });
   /* WAIT FOR THE TABLE AND THE ENGINE, NOT FOR A NUMBER OF SECONDS. A fixed wait is not
      an event, which is written three times over in this lane's records. */
+  /* BARE IDENTIFIERS, NOT window.BOH_SFX, AND THE FIRST CUT OF THIS TIMED OUT FOR THREE
+     MINUTES BECAUSE OF IT: the engine is declared with a lexical binding, which lives in
+     the script's scope and never becomes a property of window, so `window.BOH_SFX` is
+     undefined in a build where the engine is perfectly loaded. That is the same shape as
+     every other false negative in this lane's records -- an instrument asking a question
+     the build was never going to answer, and reporting the answer as the build's fault. */
   await p.waitForFunction(
-    () => typeof window.BOH_SFX !== 'undefined' && !!window.__SFX_APPROVED,
+    () => typeof BOH_SFX !== 'undefined' && !!window.__SFX_APPROVED,
     null, { timeout: 180000 });
   const out = await p.evaluate(MEASURE);
   await b.close();
   server.close();
+  out.errs = errs;
+  return out;
+}
 
+async function main() {
+  const out = await measureShelf();
   if (out.fatal) { console.log('COULD NOT MEASURE: ' + out.fatal); process.exit(1); }
+  const errs = out.errs || [];
   const good = out.rows.filter(r => !r.err);
   const bad = out.rows.filter(r => r.err);
   console.log('measured ' + good.length + ' of ' + out.events + ' approved events'
@@ -162,6 +233,10 @@ const MEASURE = `(async () => {
   console.log('sounds that read as noise (flatness > 0.05): '
     + good.filter(r=>r.flat>0.05).length + ' of ' + good.length);
   console.log('page errors while measuring: ' + errs.length);
+  console.log('THE PITCH RULER, measured on sines we know exactly, before it is used:');
+  for (const c of (out.control||[])) console.log('    ' + c.askedHz + ' Hz  ->  bin '
+    + c.binHz + ' Hz (' + c.binErrPct + '%)  refined ' + c.readHz + ' Hz ('
+    + c.errPct + '%)');
   if (!PRINT_ONLY) {
     fs.writeFileSync(OUT, JSON.stringify({
       _readme: 'THE FROZEN SHELF (SOUNDS, 9/24). Every sound the game shipped on this '
@@ -170,7 +245,7 @@ const MEASURE = `(async () => {
         + 'these get duller, and holds every NEW sound to the law outright, so the debt '
         + 'can only shrink. Regenerate with tools/bohemia_the_keep_redo_list.js.',
       measured: '9/24/26', events: out.events,
-      medianAbove4k: med, rows: good
+      pitchRuler: out.control, medianAbove4k: med, rows: good
     }, null, 2) + '\n');
     console.log('wrote ' + path.relative(ROOT, OUT));
   }
@@ -181,4 +256,10 @@ const MEASURE = `(async () => {
     + r.flat.toFixed(4).padStart(6) + ' ' + String(r.e95Hz).padStart(6)
     + ' ' + String(r.e99Hz).padStart(6) + '  ' + (r.above4k*100).toFixed(3).padStart(7)
     + ' ' + (r.sub80*100).toFixed(2).padStart(7) + '  ' + r.peak.toFixed(3));
-})().catch(e => { console.log('CRASHED: ' + e.message); process.exit(1); });
+}
+
+module.exports = { measureShelf, MEASURE };
+
+if (require.main === module) {
+  main().catch(e => { console.log('CRASHED: ' + e.message); process.exit(1); });
+}

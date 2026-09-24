@@ -781,7 +781,11 @@
   var ROOM_SEAM = 0.08;    /* the hiss tail blends into its head over 80 ms */
   var ROOM_PARTS = [[1, 1.00], [2, 0.42], [3, 0.18]];
   var ROOM_HUM_MIX = 0.55, ROOM_HISS_MIX = 0.30;
-  var ROOM_REL_SHIPPED = 0.05;
+  /* HE PICKED B (9/23 in the tab, pasted 9/24): HOW LOW THE ROOM went UP with one
+     letter, and B on that page is 0.025, LOWER STILL. Rule 32e says it in words too.
+     -26.0 dB under the heartbeat became -32.0 dB. The gate holds this equal to the
+     alpha's own ROOM.REL, constant for constant, so the two copies cannot drift. */
+  var ROOM_REL_SHIPPED = 0.025;
 
   function roomHum(ctx, opts) {
     opts = opts || {};
@@ -888,6 +892,199 @@
      less high air in it and more low, because the far sound never arrives and the walls
      return the bottom. Measured in the declaration: outside runs to 5 kHz, inside to
      2.2 kHz, and the bottom comes up. */
+  /* ==== 11. A FOOTSTEP THAT IS NOT SAND ==========================================
+     *** PAOLO 9/23 IN THE TAB, THREE SOUNDS DOWN IN ONE BATCH, ONE COMPLAINT SAID THREE
+     WAYS: "These are all dogshit and unimpressive u needs to REALLY MAKE NEW SANDS NOT
+     THIS SAND SOUNDING SHIT LIKE IM ON THE Beach", "Bro this shit was like all sand
+     sounding bro it all sounded like sand", "Kinda dogshit". ***
+     He is right and the reason is in this file: every sound I cooked starts with
+     noiseInto() through bandTo(), which is band-limited white noise, and band-limited
+     white noise IS the sound of sand. Rule 32e makes the RECIPE the graveyard rather
+     than any one sound (laws/BOHEMIA_ADDENDUM_THE_SECOND_VOTES_9_24_26.md s5), and what
+     he KEPT all have a real source.
+
+     *** SO THERE IS NOT ONE NOISE GENERATOR IN THIS FUNCTION, AND THE GATE READS THE
+     SHIPPED FUNCTION'S OWN TEXT TO PROVE IT. ***
+
+     WHAT IT IS INSTEAD: the physics of one hard thing hitting another, which is what a
+     footstep is. Three parts, and only the third is a guess:
+
+     (1) THE CONTACT. A Hertzian impact is a half-sine force pulse of duration tau, and
+         the spectrum of that pulse is flat to about 1/tau and falls away above it. THAT
+         IS WHY A SIDEWALK IS BRIGHT AND A ROAD IS DULL, and it is not taste: tau is set
+         by how stiff the two things are. A heel on concrete is about 0.4 ms, so it
+         carries to about 2.5 kHz; on asphalt, which is an order of magnitude softer, the
+         contact lasts longer and the top goes with it. The pulse RADIATES DIRECTLY as
+         well as exciting the ground, and the direct part is the click.
+
+     (2) THE GROUND'S OWN MODES, COMPUTED FROM PUBLISHED CONSTANTS, NOT CHOSEN.
+         A slab is a plate, and a simply supported square plate of side a and thickness h
+         has modes at f(m,n) = (pi/2) * sqrt(D/(rho*h)) * (m^2+n^2)/a^2, with the flexural
+         rigidity D = E*h^3 / (12*(1-v^2)).
+           concrete  E 30 GPa   rho 2400   v 0.20   loss 0.06   ->  first mode about 227 Hz
+           asphalt   E  3 GPa   rho 2300   v 0.35   loss 0.30   ->  first mode about  77 Hz
+           boards    E 13 GPa   rho  500   v 0.30   loss 0.02   ->  its own answer
+         A sidewalk slab is 1.2 m across and 100 mm thick, which is the ordinary spec.
+         Asphalt's loss factor is an order of magnitude above concrete's because it is
+         viscoelastic, so a road THUDS and a sidewalk RINGS, from the material and not
+         from a decision.
+
+     (3) THE SHOE, AND IT IS THE ONE PART I PICKED: three short modes in the low kHz with
+         an 8 ms decay. A heel is small and stiff so its modes are up there, but I have no
+         published figures for a shoe, so this is named as a guess instead of dressed up
+         as physics.
+
+     AND A WALK IS TWO CONTACTS, NOT ONE: heel then the foot going flat, about 90 ms
+     apart, which is inside one beat at 120 BPM (500 ms) and is why a real footfall reads
+     as a foot rather than as a tap. The second contact is softer, so its tau is longer
+     and it is duller, which the same arithmetic gives for free. */
+  /* *** WHICH NUMBERS ARE COMPUTED AND WHICH ARE CHOSEN, SAID ON THE FACE OF THE TABLE.
+     E, rho and v are published material constants and the mode frequencies fall out of
+     them with no choice left in it. tau (the contact time) is bounded by how stiff the
+     two things are and is chosen inside that, an order of magnitude apart between
+     concrete and asphalt because their moduli are an order of magnitude apart.
+     LOSS IS THE ONE I HAD TO CORRECT AND THE CORRECTION WAS PHYSICAL, NOT COSMETIC:
+     I first used concrete's own internal loss, 0.06, and the slab rang for 23 ms at
+     227 Hz, which is a bell and not a sidewalk. A SLAB ON GRADE IS NOT A FREE PLATE --
+     it is lying on soil, and the soil and the radiation take the energy out of it far
+     faster than the concrete's own damping ever would. On grade the effective loss is
+     several tenths, which gives a few milliseconds of ring, which is what a pavement
+     really does. Floorboards on joists genuinely DO ring, so they keep a low loss, and
+     that difference is audible and correct. These three are engineering estimates and
+     they are labelled as such rather than dressed up as published figures. *** */
+  var GROUND = {
+    concrete: { E: 30e9, rho: 2400, v: 0.20, loss: 0.40, h: 0.10, a: 1.2, tau: 0.00040,
+                grains: 22, spread: 0.010, grit: 0.55,
+                why: 'a 100 mm sidewalk slab, 1.2 m across, lying on soil' },
+    asphalt:  { E: 3e9,  rho: 2300, v: 0.35, loss: 0.60, h: 0.10, a: 1.2, tau: 0.00110,
+                grains: 34, spread: 0.016, grit: 0.40,
+                why: 'a road course, an order of magnitude softer and viscoelastic on top of that' },
+    boards:   { E: 13e9, rho: 500,  v: 0.30, loss: 0.04, h: 0.025, a: 0.9, tau: 0.00055,
+                grains: 5,  spread: 0.006, grit: 0.30,
+                why: '25 mm floorboards on joists, which really do ring' }
+  };
+  function plateModes(g, count) {
+    var D = g.E * Math.pow(g.h, 3) / (12 * (1 - g.v * g.v));
+    var c = (Math.PI / 2) * Math.sqrt(D / (g.rho * g.h)) / (g.a * g.a);
+    var out = [], m, n;
+    for (m = 1; m <= 4; m++) for (n = 1; n <= 4; n++) out.push({ m: m, n: n, hz: c * (m*m + n*n) });
+    out.sort(function (p, q) { return p.hz - q.hz; });
+    return out.slice(0, count || 10);
+  }
+  function footstepModelled(ctx, opts) {
+    opts = opts || {};
+    var sr = ctx.sampleRate;
+    var which = opts.surface || 'concrete';
+    var g = GROUND[which] || GROUND.concrete;
+    var beat = opts.beat == null ? BEAT : opts.beat;
+    var heelToe = opts.heelToe == null ? 0.090 : opts.heelToe;   /* seconds, a real walk */
+    var n = Math.round(sr * beat);
+    var buf = ctx.createBuffer(1, n, sr);
+    var d = buf.getChannelData(0);
+    var modes = plateModes(g, 10);
+    var shoe = [1800, 3100, 4700];          /* THE GUESS, named as one */
+    var i, k;
+
+    /* ONE CONTACT: the half-sine force pulse, its direct radiation, and the modes it
+       rings. Nothing random anywhere in here. */
+    function contact(at, tau, gain, bright) {
+      var t0 = Math.round(at * sr), w = Math.max(2, Math.round(tau * sr));
+      /* THE DIRECT CLICK: a monopole radiates the RATE OF CHANGE of the force, so the
+         pulse is differentiated. That is what puts real energy above 1 kHz, and its
+         corner is 1/tau, which is the whole reason a stiff ground is bright. */
+      var prev = 0;
+      for (i = 0; i < w && t0 + i < n; i++) {
+        var f = Math.sin(Math.PI * i / w);
+        d[t0 + i] += (f - prev) * sr * tau * 0.55 * gain * bright;
+        prev = f;
+      }
+      /* THE GROUND, RINGING. Each mode is a decaying sine started by the pulse. The decay
+         comes from the material's loss factor: an amplitude e-fold takes 1/(pi*f*loss). */
+      for (k = 0; k < modes.length; k++) {
+        var hz = modes[k].hz;
+        if (hz >= sr / 2) continue;
+        var tail = 1 / (Math.PI * hz * g.loss);
+        /* higher modes take less of the pulse's energy, and the pulse itself rolls off
+           above 1/tau, so the mode amplitudes are the pulse's own spectrum */
+        /* THE GROUND IS THE BODY, NOT THE SOUND. 0.55 of the contact, because what you
+           actually hear standing on a pavement is the contact and the shoe; the slab
+           gives it somewhere to have happened. */
+        var amp = 0.55 * gain / (1 + Math.pow(hz * tau, 2)) / (1 + k * 0.35);
+        for (i = 0; t0 + i < n; i++) {
+          var t = i / sr, env = Math.exp(-t / tail);
+          if (env < 1e-4) break;
+          d[t0 + i] += Math.sin(2 * Math.PI * hz * t) * amp * env;
+        }
+      }
+      /* THE SHOE, the part that is a guess: short, high, quiet. */
+      for (k = 0; k < shoe.length; k++) {
+        var sh = shoe[k] * (which === 'boards' ? 0.8 : 1);
+        var st = 0.008;
+        for (i = 0; t0 + i < n; i++) {
+          var tt = i / sr, e2 = Math.exp(-tt / st);
+          if (e2 < 1e-4) break;
+          d[t0 + i] += Math.sin(2 * Math.PI * sh * tt) * 0.38 * gain * bright * e2 / (1 + k);
+        }
+      }
+    }
+
+    /* *** GRIT, AND IT IS THE REASON THIS DOES NOT SOUND LIKE A DOORBELL. ***
+       Ten modes and three shoe modes with no noise is a set of discrete partials, which
+       is a PING. A real footfall is dense because the ground is not smooth: a few dozen
+       grains of sand and stone crush under the heel, each one its own tiny impact. THAT
+       IS WHERE THE DENSITY COMES FROM IN THE REAL WORLD, and it is a sum of impulses
+       rather than a hiss bed -- there is still not one noise generator here. The grain
+       COUNT and the scatter of their arrival times are what the surface decides: a
+       sidewalk has a little, a road course has more and softer, boards have almost none.
+       The times are laid out by a fixed integer sequence so a checker measuring this
+       twice gets the same buffer; what is being modelled is WHEN particles arrive, never
+       a random waveform. */
+    function grit(at, count, spread, amp) {
+      var seed = 20260924, q, j;
+      for (q = 0; q < count; q++) {
+        seed = (seed * 1103515245 + 12345) & 0x7fffffff;
+        var frac = seed / 0x7fffffff;
+        var t0 = Math.round((at + frac * spread) * sr);
+        var w = Math.max(2, Math.round(0.00015 * sr));       /* a grain is tiny and stiff */
+        var prev = 0, lvl = amp * (0.35 + 0.65 * (1 - frac));  /* the first ones are loudest */
+        for (j = 0; j < w && t0 + j < n; j++) {
+          var f = Math.sin(Math.PI * j / w);
+          d[t0 + j] += (f - prev) * lvl;
+          prev = f;
+        }
+      }
+    }
+
+    contact(0.002, g.tau, 1.0, 1.0);                       /* the heel, on the beat */
+    grit(0.002, g.grains, g.spread, g.grit);
+    if (heelToe > 0) {
+      contact(0.002 + heelToe, g.tau * 2.2, 0.45, 0.6);     /* the foot going flat */
+      grit(0.002 + heelToe, Math.round(g.grains * 0.6), g.spread, g.grit * 0.5);
+    }
+
+    /* saturation instead of clipping (school rule 8): tanh rounds the peaks and adds
+       harmonics, which is what a machine too small for the sound does. */
+    for (i = 0; i < n; i++) d[i] = Math.tanh(d[i] * 1.2) * 0.92;
+    normalise(d, n, 0.85);
+
+    return {
+      buffer: buf, machine: MACHINE.EAR, seconds: beat, surface: which,
+      noiseSources: 0,
+      ground: { E: g.E, rho: g.rho, v: g.v, loss: g.loss, h: g.h, a: g.a, why: g.why },
+      contactMs: +(g.tau * 1000).toFixed(3),
+      contactCornerHz: Math.round(1 / g.tau),
+      modesHz: modes.map(function (x) { return +x.hz.toFixed(1); }),
+      firstModeHz: +modes[0].hz.toFixed(1),
+      shoeHz: shoe, shoeIsAGuess: true,
+      grains: g.grains, gritSpreadMs: +(g.spread * 1000).toFixed(1),
+      heelToeMs: +(heelToe * 1000).toFixed(1),
+      contacts: heelToe > 0 ? 2 : 1,
+      why: 'a heel on ' + g.why + ': a ' + (g.tau*1000).toFixed(2)
+        + ' ms contact radiating directly, ringing the slab\'s own modes from its '
+        + 'published stiffness, and NOT ONE NOISE GENERATOR ANYWHERE IN IT'
+    };
+  }
+
   /* ==== 10. THE VALLEY STILL BROADCASTS ==========================================
      DIRECTION'S BIBLE, RULE 9, AND NOTHING IN THIS GAME DOES IT: "THE MACHINES KEEP
      TALKING. Broadcasts, PA calls and signs repeat on schedule whatever happens; the
@@ -1098,6 +1295,9 @@
     fightCloud: fightCloud,
     theDoor: theDoor,
     theBroadcast: theBroadcast,
+    footstepModelled: footstepModelled,
+    GROUND: GROUND,
+    plateModes: plateModes,
     /* what a checker and a page both ask for, so neither invents a list */
     list: function () {
       return [
@@ -1117,8 +1317,18 @@
           title: 'THE DOOR' },
         { id: 'sounds-the-tape-is-slipping-9-23', make: 'songOnTape',
           title: 'THE TAPE IS SLIPPING' },
-        { id: 'sounds-the-valley-still-broadcasts-9-24', make: 'theBroadcast',
-          title: 'THE VALLEY STILL BROADCASTS' }
+        /* *** THE VALLEY STILL BROADCASTS IS BUILT, MEASURED AND NOT IN THIS LIST, AND
+           THAT IS THE POINT. It was cooked this round, and then his second batch of votes
+           landed: the tape, the run and the flip all DOWN with one complaint said three
+           ways -- "it all sounded like sand", "not this sand-sounding shit like I'm on the
+           beach", "kinda dogshit". Rule 32e (laws/BOHEMIA_ADDENDUM_THE_SECOND_VOTES_9_24_26.md
+           s5) makes the BAND-LIMITED-NOISE RECIPE the graveyard, not one sound.
+           The broadcast's carrier and its wear are that recipe. Putting it in front of him
+           would be the fourth sand sound in a row, and STOP PRODUCING says finding a legal
+           way to ship anyway IS the violation. So it stays in the module, held by its gate
+           claims, and it goes to VOTE only if it is rebuilt from real material. *** */
+        { id: 'sounds-a-footstep-that-is-not-sand-9-24', make: 'footstepModelled',
+          title: 'A FOOTSTEP THAT IS NOT SAND' }
       ];
     }
   };

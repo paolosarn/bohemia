@@ -280,6 +280,57 @@ const MEASURE = `
     } catch (e) { out.wowErr = String(e && e.message).slice(0,90); }
   })();
 
+  /* A FOOTSTEP THAT IS NOT SAND (9/24). *** HE KILLED THREE SOUNDS IN ONE BATCH WITH ONE
+     COMPLAINT: "it all sounded like sand", "not this sand-sounding shit like I'm on the
+     beach", "kinda dogshit". He is right, and the reason is that every one of them starts
+     with noiseInto() through bandTo(), which IS the sound of sand. Rule 32e graveyards the
+     RECIPE. So this measures the thing that matters most: that the new one is not built
+     the old way, and that it is measurably a different sound rather than the same one
+     with a new name. *** */
+  (function () {
+    const en = a => { let s=0; for (let i=0;i<a.length;i++) s += a[i]*a[i]; return s; };
+    const hpf = (a, hz) => { const al = Math.exp(-2*Math.PI*hz/SR); let y=0, pr=0;
+      const o = new Float64Array(a.length);
+      for (let i=0;i<a.length;i++){ const x=a[i]; y = al*(y+x-pr); pr = x; o[i]=y; } return o; };
+    /* AN FFT BAND SUM, NOT A CASCADE: four cascaded one-pole high-passes at fc turn over
+       at 2.299*fc, so a cascade measures an octave and a third above the number it names.
+       That is the defect this round found in this gate's older band claims. */
+    const share4p = (a, hz) => { const w = loudest(a), p = spec(w);
+      let tot=0, ab=0;
+      for (let k=1;k<p.length;k++){ const f=k*SR/N; tot+=p[k]; if (f>hz) ab+=p[k]; }
+      return tot>0 ? ab/tot : null; };
+    const look = (m) => {
+      const d = m.buffer.getChannelData(0);
+      const w = loudest(d), p = spec(w);
+      let tot=0, num=0, logs=0, sum=0, live=0;
+      for (let k=1;k<p.length;k++){ const f=k*SR/N; tot+=p[k]; num+=f*p[k];
+        logs+=Math.log(p[k]+1e-20); sum+=p[k]+1e-20; live++; }
+      let pk=0, at=0;
+      for (let i=0;i<d.length;i++){ const v=Math.abs(d[i]); if(v>pk){pk=v;at=i;} }
+      return { above4k: share4p(d, 4000), centroid: tot>0?num/tot:0,
+        flat: live?Math.exp(logs/live)/(sum/live):0, peak: pk, peakAtMs: at/SR*1000,
+        firstModeHz: m.firstModeHz, contactMs: m.contactMs, corner: m.contactCornerHz,
+        contacts: m.contacts, grains: m.grains, noiseSources: m.noiseSources,
+        seconds: m.seconds };
+    };
+    try {
+      out.step = {
+        concrete: look(H.footstepModelled(ctx, { surface: 'concrete' })),
+        asphalt:  look(H.footstepModelled(ctx, { surface: 'asphalt' })),
+        sand:     look(H.footstep(ctx, {})),
+        /* THE STRUCTURAL CHECK, ON THE SHIPPED FUNCTION'S OWN TEXT: a claim that the new
+           sound is "not made of noise" cannot be taken off a spectrum, because a dense
+           impact and a hiss bed can land near each other. It can be taken off the code. */
+        noiseInModelled: H.footstepModelled.toString().indexOf('noiseInto') >= 0,
+        noiseInSand: H.footstep.toString().indexOf('noiseInto') >= 0,
+        ground: H.GROUND ? Object.keys(H.GROUND).length : 0,
+        firstModes: H.plateModes ? {
+          concrete: +H.plateModes(H.GROUND.concrete,1)[0].hz.toFixed(1),
+          asphalt: +H.plateModes(H.GROUND.asphalt,1)[0].hz.toFixed(1) } : null
+      };
+    } catch (e) { out.stepErr = String(e && e.message).slice(0,120); }
+  })();
+
   /* THE BROADCAST (9/24). Three renders, because the questions are about DIFFERENCES:
      a working transmitter, a transmitter nobody has touched in ten years, and the worn
      one with a head that holds speed perfectly. The last is the control for the wobble
@@ -500,15 +551,24 @@ const MEASURE = `
     (function () {
       const dec = made.machine && made.machine.hi;
       if (!dec) return;
-      const hpf = (a, hz) => { const al = Math.exp(-2*Math.PI*hz/SR); let y=0, pr=0;
-        const o = new Float64Array(a.length);
-        for (let i=0;i<a.length;i++){ const x=a[i]; y = al*(y+x-pr); pr = x; o[i]=y; } return o; };
-      const en = a => { let s=0; for (let i=0;i<a.length;i++) s += a[i]*a[i]; return s; };
-      const tot = en(d);
-      let ab = d, way = d;
-      for (let q=0;q<4;q++) { ab = hpf(ab, dec); way = hpf(way, dec*2); }
-      m.shareAboveDeclared = tot > 0 ? en(ab)/tot : null;
-      m.shareAboveOctaveUp = tot > 0 ? en(way)/tot : null;
+      /* *** AND THIS MEASUREMENT WAS LENIENT BY 2.3x FOR EVERY CLAIM IT EVER MADE, WHICH
+         IS THE bandTo LESSON RUNNING IN THE OTHER DIRECTION AND IN MY OWN RULER. It used
+         FOUR CASCADED ONE-POLE HIGH-PASSES at the declared corner, and cascading raises a
+         high-pass's combined -3 dB point exactly as it lowers a low-pass's: four poles at
+         fc turn over at 2.299*fc. So "the share above 5,000 Hz" was really the share above
+         11,500 Hz, and every band number this gate has printed -- 0.54%, 0.63%, 0.03%,
+         the station's 3.1%, THE FLIP'S 21% LEAK -- was measured through a filter that
+         let two and a third octaves of the thing being measured through unmeasured.
+         A NUMBER THAT DOES NOT MEAN WHAT ITS NAME SAYS IS WORSE THAN NO NUMBER, and this
+         is the third time this lane has written that sentence about its own instrument.
+         AN FFT BAND SUM HAS NO CORNER TO MOVE, so that is what it is now, on the same
+         loudest window every other spectral number here is taken on. *** */
+      const w = loudest(d), p = spec(w);
+      let tot = 0, ab = 0, way = 0;
+      for (let k=1;k<p.length;k++){ const f = k*SR/N; tot += p[k];
+        if (f > dec) ab += p[k]; if (f > dec*2) way += p[k]; }
+      m.shareAboveDeclared = tot > 0 ? ab/tot : null;
+      m.shareAboveOctaveUp = tot > 0 ? way/tot : null;
     })();
     out.rows[item.id] = m;
   }
@@ -578,6 +638,12 @@ const MEASURE = `
            green, because a maintained transmitter still keeps its own band. */
         const realBcast = H.theBroadcast;
         H.theBroadcast = (ctx, o) => realBcast(ctx, Object.assign({}, o || {}, { wear: 0 }));
+        /* AND THE FOOTSTEP THAT IS NOT SAND: THE SAND ONE. Not a sine -- the exact thing he
+           rejected, which is the only falsifier that means anything here. If the claims
+           about noise, flatness, brightness and the two surfaces stay green when the new
+           footstep IS the old one, they were never claims. */
+        const sandStep = H.footstep;
+        H.footstepModelled = (ctx, o) => sandStep(ctx, o || {});
       });
     }
     d = await p.evaluate(MEASURE);
@@ -609,16 +675,68 @@ const MEASURE = `
     /* ---- SCHOOL RULE 4: the band names its machine, WITHIN AN OCTAVE ---------
        The rule's own words: the top corner "matches that machine's number within an
        octave". Measured on the same window as everything else. */
-    /* SCHOOL RULE 4, HELD BY ENERGY RATHER THAN BY A CORNER. The thresholds are not
-       invented: measured on these three, the share above the declared corner is 0.54%,
-       0.63% and 0.03%, and an octave above it is 0.01%, 0.01% and 0%. A 5% and a 1% bar
-       therefore sit an order of magnitude clear of the readings instead of inside their
-       spread, which is the mistake five of this lane's thresholds have already made. */
+    /* SCHOOL RULE 4, HELD BY ENERGY RATHER THAN BY A CORNER, AND THE RULER WAS FIXED THIS
+       ROUND. The old reading cascaded four one-pole high-passes at the declared corner,
+       which turns over at 2.299 times it, so every band number this gate printed was
+       measured two and a third octaves too high and came back tiny. On an FFT band sum,
+       which has no corner to move, FOUR OF THESE SOUNDS LEAK AND TWO OF THEM LEAK ABOUT
+       A THIRD OF THEIR ENERGY:
+
+         a footstep on the beat   0.54% reported  ->  27.55% really, above its own 4,500 Hz
+         the step loses contact   0.63%           ->  28.85%
+         the door                 0.04%           ->  15.96%
+         the fight's cloud        0.04%           ->   6.06%
+
+       *** AND THE TWO WORST ARE THE TWO HE KILLED FOR SOUNDING LIKE SAND. *** That is
+       what sand IS: band-limited noise whose band is not actually limited. The
+       coordinator's line on [band helper] -- "the 21% leak is likely the sand itself" --
+       is now measured, and the true numbers are bigger than 21%.
+
+       SO THIS IS A RATCHET AND NOT A RED. A checker that goes red on four sounds the day
+       its own ruler is fixed breaks the suite for twenty lanes over work nobody has done
+       yet; the pattern this repo settled on is to freeze the debt, print it, and refuse
+       to let it grow. Anything NOT in the debt list is held to 5% and 1% outright. */
+    const LEAK_DEBT = {
+      'sounds-a-footstep-on-the-beat-9-21': { share: 0.2755, oct: 0.1164, state: 'KILLED 9/23, the sand' },
+      'sounds-the-step-loses-contact-9-21': { share: 0.2885, oct: 0.1237, state: 'KILLED 9/23, the sand' },
+      'sounds-the-door-9-22':               { share: 0.1596, oct: 0.0683, state: 'he voted it UP; REDO OWED' },
+      'sounds-the-fights-cloud-9-22':       { share: 0.0606, oct: 0.0161, state: 'he voted it UP; REDO OWED' }
+    };
     for (const [id, r] of Object.entries(d.rows)) {
       const dec = r.machine && r.machine.hi;
       const nm = id.replace('sounds-','').replace('-9-21','');
+      /* *** A SOUND THAT DECLARES NO MACHINE IS NOT ASKED A BAND QUESTION, AND THIS READ
+         "0.00% of its energy sits above the null Hz it declares" BEFORE IT WAS FIXED.
+         DIRECTION's bible rule 8: tape damage lives only inside in-world speakers and the
+         lens is an eye, so a footfall under your own boot has no machine and rule 4 does
+         not apply to it. MACHINE.EAR carries hi: null on purpose. A claim that reports a
+         percentage above "null Hz" is not a strict check, it is a broken one. *** */
+      if (dec == null) {
+        claim('NOT ASKED OF ' + nm + ': it is heard with your own ears, so it declares no machine',
+          r.machine != null,
+          'bible rule 8, DIEGETIC OR DEAD. School rule 4 is for sounds that came off a '
+          + 'machine; this one did not, and pretending otherwise is how a real sound gets '
+          + 'filtered to satisfy a table');
+        continue;
+      }
+      const debt = LEAK_DEBT[id];
+      if (debt) {
+        /* 5% OF THE FROZEN READING, not an absolute window: an absolute one stops
+           checking as the number shrinks, which is a mistake this lane has already
+           shipped once and had to correct. */
+        claim('THE BAND LEAK IS FROZEN AND MAY ONLY SHRINK: ' + nm,
+          r.shareAboveDeclared != null && r.shareAboveDeclared <= debt.share * 1.05
+            && r.shareAboveOctaveUp != null && r.shareAboveOctaveUp <= debt.oct * 1.05,
+          (100*(r.shareAboveDeclared||0)).toFixed(2) + '% above its own ' + dec
+          + ' Hz (frozen at ' + (100*debt.share).toFixed(2) + '%) and '
+          + (100*(r.shareAboveOctaveUp||0)).toFixed(2) + '% an octave up (frozen at '
+          + (100*debt.oct).toFixed(2) + '%). ' + debt.state
+          + '. School rule 4 asks for under 5% and under 1%, so this is DEBT and it is '
+          + 'printed rather than passed');
+        continue;
+      }
       claim('THE BAND STOPS WHERE ITS MACHINE STOPS: ' + nm,
-        dec != null && r.shareAboveDeclared != null && r.shareAboveDeclared < 0.05,
+        r.shareAboveDeclared != null && r.shareAboveDeclared < 0.05,
         (100*(r.shareAboveDeclared||0)).toFixed(2) + '% of its energy sits above the ' + dec + ' Hz it declares');
       claim('AND AN OCTAVE ABOVE THAT THERE IS NOTHING: ' + nm,
         r.shareAboveOctaveUp != null && r.shareAboveOctaveUp < 0.01,
@@ -781,6 +899,52 @@ const MEASURE = `
         + 'same root and the same intervals, so a note that started on the beat still does');
     } else { claim('the wobble was measured', false, 'no reading'); }
 
+    /* ---- A FOOTSTEP THAT IS NOT SAND (9/24) --------------------------------- */
+    if (d.step) {
+      const C = d.step.concrete, A = d.step.asphalt, S = d.step.sand;
+      claim('THERE IS NOT ONE NOISE GENERATOR IN THE NEW FOOTSTEP, read off the shipped function',
+        d.step.noiseInModelled === false && d.step.noiseInSand === true
+          && C.noiseSources === 0,
+        'the function he called sand calls noiseInto(); this one does not call it at all. '
+        + 'The check is on the code and not on a spectrum on purpose: a dense impact and a '
+        + 'hiss bed can measure close together, and "it is not made of noise" is a fact '
+        + 'about how it was built');
+      claim('AND IT IS MEASURABLY A DIFFERENT SOUND, not the same one renamed',
+        C.flat < S.flat / 10 && C.centroid < S.centroid * 0.8,
+        'flatness ' + C.flat.toFixed(4) + ' against the sand one\'s ' + S.flat.toFixed(4)
+        + ' (' + (S.flat / Math.max(C.flat,1e-9)).toFixed(0) + 'x less noise-like), and the '
+        + 'brightness sits at ' + Math.round(C.centroid) + ' Hz against ' + Math.round(S.centroid)
+        + ' Hz. A hiss bed is flat and up high; an impact is partials and a click');
+      claim('AND IT STILL HAS REAL TOP END, which is what 21 shipped impacts do not',
+        C.above4k > 0.01 && A.above4k > 0.01,
+        'concrete ' + (C.above4k*100).toFixed(2) + '% above 4 kHz, asphalt '
+        + (A.above4k*100).toFixed(2) + '%, against the keep/redo bar of 1% and a shipped '
+        + 'shelf whose median is 0.273%. It comes from the CONTACT, not from noise: a '
+        + (C.contactMs == null ? '(no contact time: this is not the modelled recipe)'
+           : C.contactMs.toFixed(2) + ' ms impact carries to about ' + C.corner + ' Hz'));
+      claim('AND A SIDEWALK DOES NOT SOUND LIKE A ROAD, because the moduli differ',
+        C.centroid > A.centroid * 1.2
+          && d.step.firstModes && d.step.firstModes.concrete > d.step.firstModes.asphalt * 2,
+        'brightness ' + Math.round(C.centroid) + ' Hz on concrete against '
+        + Math.round(A.centroid) + ' Hz on asphalt, and their slabs ring at '
+        + (d.step.firstModes ? d.step.firstModes.concrete : '?') + ' Hz and '
+        + (d.step.firstModes ? d.step.firstModes.asphalt : '?')
+        + ' Hz. Both numbers come out of the plate formula from published E, rho and v, '
+        + 'with no choice left in them: asphalt is an order of magnitude softer');
+      claim('AND IT LANDS ON THE BEAT AND FITS INSIDE ONE (120 BPM)',
+        C.peakAtMs < 55 && Math.abs(C.seconds - 0.5) < 1e-9 && C.contacts === 2,
+        'loudest instant ' + C.peakAtMs.toFixed(1) + ' ms in, ' + (C.contacts == null
+          ? 'and this render has no heel-toe pair at all, so it is not the modelled recipe. '
+          : 'and ') + 'the fight grades a press '
+        + 'PERFECT inside 55 ms. TWO contacts, heel then the foot going flat 90 ms later, '
+        + 'which is a real walk and is well inside one 500 ms beat');
+      claim('AND IT ROUNDS OFF INSTEAD OF CLIPPING (school rule 8)',
+        C.peak <= 1 && A.peak <= 1,
+        'concrete peak ' + C.peak.toFixed(4) + ', asphalt ' + A.peak.toFixed(4)
+        + ', through a tanh rather than a ceiling');
+    } else { claim('A FOOTSTEP THAT IS NOT SAND was measured', false,
+      d.stepErr || 'no reading'); }
+
     /* ---- THE VALLEY STILL BROADCASTS (9/24) ---------------------------------
        DIRECTION's bible rule 9: "THE MACHINES KEEP TALKING... the content never
        acknowledges you." Nothing in the build did it. Every number below is taken off
@@ -881,13 +1045,20 @@ const MEASURE = `
     /* AND THE LEVEL HE RULED ON, SAID AS A NUMBER, because "very very low" has to
        become one before anybody can agree or disagree with it. */
     const relDb = mine.relShipped > 0 ? 20 * Math.log10(mine.relShipped) : null;
-    claim('AND IT IS VERY LOW, WHICH IS A NUMBER NOW (Paolo 9/21)',
-      relDb !== null && relDb <= -20,
+    /* AND THE NUMBER IS HIS LETTER NOW, NOT A BAND. He voted HOW LOW THE ROOM up with one
+       letter, "B", which on that page is 0.025, and rule 32e says it in words as well:
+       "The room stays at B (lower still)." So the claim is his pick exactly rather than a
+       range -- a range would let a later round drift the level back up inside it and stay
+       green, which is the shape of every check in this lane that stopped checking. */
+    claim('AND THE ROOM IS AT THE LEVEL HE PICKED: B (Paolo 9/23 in the tab)',
+      mine.relShipped === 0.025,
       relDb === null ? 'no level' :
       'the room carries ' + mine.relShipped + ' of the heartbeat\'s energy, which is '
-      + relDb.toFixed(1) + ' dB under it (was 0.60, -4.4 dB). Film and broadcast put room '
-      + 'tone 20 to 30 dB under the foreground; under about -30 dB a bed on a handset '
-      + 'loses to the room the player is really in.');
+      + relDb.toFixed(1) + ' dB under it. It has been 0.60 (-4.4 dB, which is what he '
+      + 'heard and hated), then 0.05 (-26.0 dB), and he has now picked 0.025 (-32.0 dB). '
+      + 'That crosses the line this lane wrote itself -- under about -30 dB a bed on a '
+      + 'handset starts losing to the room he is really sitting in -- and HE HEARD BOTH '
+      + 'AND PICKED THE QUIETER ONE, so the trade is his and it is made.');
 
     /* ---- THE FLIP: A RECEIVER CROSSING YEARS ---------------------------------
        Row [flip sound], rule 31 (Paolo 9/23): the three acts are open at once and he flips

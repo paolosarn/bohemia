@@ -1553,6 +1553,158 @@ NEXT: [cook panels] is the standing rule-22 row and is OPEN again; items 2, 3 an
 (the fight HUD, the talk panel, the vote tab's own frame) are drawn as sheets but not built
 as skins. [three d ui] still has no gate of its own. [vote plays sound] is still open and
 SOUNDS has items waiting that he cannot hear in the tab. [no slop] stays CLAIMED.
+SOUNDS (sound-xk7pjp): 9/24 (b) LATEST -- *** HE VOTED AGAIN AND KILLED THREE OF MY SOUNDS WITH ONE
+COMPLAINT, AND MY OWN RULER WAS HIDING WHY BY A FACTOR OF 51. *** Rows: [footsteps on the beat]
+SHIPPED to the walked surface, [analog horror sound] SHIPPED (round two of two, row closed),
+[not sand] CLAIMED with round one in. Build stamp 9/24l.
+Records: records/BOHEMIA_IT_ALL_SOUNDED_LIKE_SAND_9_24_26.md,
+records/BOHEMIA_A_RUN_NOW_SOUNDS_LIKE_A_RUN_9_24_26.md,
+records/BOHEMIA_THE_KEEP_REDO_LIST_9_24_26.md
+Gates: COOKED SOUNDS 82/0 (--mutate bites 21, was 13), FOOTSTEP 24/0 (was 14/0), and a new one,
+ANALOG HORROR SOUND 11/0, in the suite.
+Tab: VOTE, the new page is A FOOTSTEP THAT IS NOT SAND.
+
+HIS WORDS, THREE SOUNDS DOWN IN ONE BATCH: "These are all dogshit and unimpressive u needs to REALLY
+MAKE NEW SANDS NOT THIS SAND SOUNDING SHIT LIKE IM ON THE Beach" (the run), "Bro this shit was like all
+sand sounding bro it all sounded like sand" (the tape), "Kinda dogshit" (the flip). HE IS RIGHT AND THE
+PROOF IS IN MY OWN FILE: every sound this lane cooked starts with noiseInto() through bandTo(), which is
+white noise with a filter on it, and that is the sound of sand. Four in a row were made of it. What he
+KEPT all have a real source and it is not a coincidence: the door, the cloud, the song, the fold, the
+phone, the room are each a THING; the four he killed are a texture.
+
+*** AND THE BAND RULER IN MY OWN GATE WAS LENIENT BY 2.299x IN FREQUENCY AND BY UP TO 51x IN THE NUMBER
+IT PRINTED. *** It cascaded FOUR one-pole high-passes at the declared corner, and cascading raises a
+high-pass's corner exactly as it lowers a low-pass's: four poles at fc turn over at 2.299*fc. So "the
+share above 5,000 Hz" was really the share above 11,500 Hz. THAT IS THE bandTo LESSON RUNNING IN THE
+OTHER DIRECTION, and it is written down twice already in this lane's own records; I walked into the
+mirror image of it while holding the page it is written on. Replaced with an FFT band sum, which has no
+corner to move, on the same loudest window as every other spectral number here. THE REAL NUMBERS:
+  a footstep on the beat    0.54% reported -> 27.55% really, 11.64% an octave up   KILLED 9/23
+  the step loses contact    0.63%          -> 28.85%,        12.37%                KILLED 9/23
+  the door                 0.04%          -> 15.96%,         6.83%                he voted it UP
+  the fight's cloud        0.04%          ->  6.06%,         1.61%                he voted it UP
+  the phone, the song, the fold, the tape: 0.48% to 1.48%, genuinely fine
+THE TWO WORST ARE THE TWO HE KILLED FOR SOUNDING LIKE SAND, AND THAT IS WHAT SAND IS: BAND-LIMITED
+NOISE WHOSE BAND IS NOT ACTUALLY LIMITED. The coordinator's line on [band helper], "the 21% leak is
+likely the sand itself", is now measured and the true numbers are bigger than 21%. FROZEN AS A RATCHET
+rather than shipped as four reds (a checker going red the day its own ruler is fixed breaks the suite for
+twenty lanes over work nobody has done yet): each leak pinned at today's reading, printed every run with
+KILLED or REDO OWED beside it, tightened by 5% OF the frozen value and never an absolute window.
+
+COOKED, AND IT IS THE ROW'S OWN FIRST ITEM: A FOOTSTEP THAT IS NOT SAND. A IS THE ONE HE CALLED SAND,
+unchanged, on the page on purpose so the comparison is his complaint and not my description of it. B and
+C HAVE NOT ONE NOISE GENERATOR IN THEM: a Hertzian contact (a half-sine force pulse, 0.4 ms on concrete
+carrying to 2,500 Hz, 1.1 ms on asphalt reaching only 909 Hz, WHICH IS WHY A SIDEWALK IS BRIGHT AND A
+ROAD IS DULL and it is the material and not a setting), radiating DIRECTLY as the rate of change of the
+force, ringing the slab's own modes from the plate formula with published E, rho and v (concrete 227.3 Hz,
+asphalt 76.8 Hz, no choice left in it), plus GRIT: a couple of dozen grains crushing under the heel, each
+its own tiny impact, A SUM OF IMPULSES AND NOT A HISS BED, which is the difference between a footstep and
+a doorbell. Two contacts, heel then the foot flat 90 ms later, inside one 500 ms beat. MEASURED: flatness
+0.0081 against the sand one's 0.2283 (28x less noise-like), brightness 2,264 Hz against 3,604 Hz, 9.29%
+above 4 kHz on concrete and 7.81% on asphalt against a shelf whose median is 0.273%, loudest instant
+2.1 ms in against the fight's 55 ms PERFECT window. THE STRUCTURAL CHECK IS THE IMPORTANT ONE: "it is not
+made of noise" cannot be taken off a spectrum, because a dense impact and a hiss bed can land near each
+other, so the gate reads THE SHIPPED FUNCTION'S OWN TEXT. MUTATION PROVEN WITH THE SAND AS THE FALSIFIER
+rather than a sine: all five substantive claims go red.
+
+ONE CORRECTION MID-BUILD AND IT WAS PHYSICS, NOT TASTE: the first cut used concrete's own internal loss,
+0.06, and the slab rang 23 ms at 227 Hz, which is A BELL AND NOT A SIDEWALK, and the top end came out at
+0.002% -- WORSE than the sound I was replacing. A SLAB ON GRADE IS NOT A FREE PLATE: the soil and the
+radiation take the energy out far faster than the concrete's own damping, so on grade the effective loss
+is several tenths. The three loss factors are engineering estimates and the table says so on its face,
+beside the E, rho and v that are published. AND THE BOARDS CASE IS BUILT AND NOT OFFERED: it reads 0.001%
+above 4 kHz because a 53 ms ring at 150 Hz swamps a 0.4 ms click over the window the share is taken on,
+which is a limitation of the share measure as much as of the sound. Named, not fudged.
+
+AND I PULLED MY OWN COOK OUT OF HIS QUEUE. THE VALLEY STILL BROADCASTS was built, measured and gated this
+round -- DIRECTION's bible rule 9 says the machines keep talking on a schedule and never acknowledge you,
+and there is no broadcast, no PA and no scheduled emission ANYWHERE in the build, so it is a real hole.
+The real two-tone attention signal (853 and 960 together), and the standard asks for at least EIGHT
+SECONDS, which at 120 BPM is exactly SIXTEEN BEATS, FOUR BARS, with nothing bent; then one bar of dead air
+and the announcement never comes. Measured: the pair is +35.0 and +40.7 dB louder in the signal than in
+the air so the content really leaves, 0 digital zeros, the air holds 0.02486 then 0.02479 rms so it is a
+carrier and not a fade, 0.02% above its own 5 kHz, and the wrap step is 0.00835 against its own
+99.9th-percentile step of 0.11134 so it can loop forever without a click. AND TWO TAIL POLES WERE NOT
+ENOUGH, WHICH IS THE FLIP'S FINDING BITING A SECOND TIME: the dead air is the carrier ALONE, pure
+band-limited noise, and it read 9.99% above 5 kHz until four poles fixed it. *** AND IT IS NOT IN THE VOTE
+TAB, because its carrier and its wear are the recipe rule 32e just graveyarded and registering it would
+have been THE FOURTH SAND SOUND IN A ROW. STOP PRODUCING: finding a legal way to ship anyway IS the
+violation. It stays in the module, held by its own gate claims, and reaches VOTE only rebuilt from real
+material. ***
+
+HIS OTHER VOTE IS SET WITHOUT ASKING AGAIN: HOW LOW THE ROOM went UP with one letter, "B", which on that
+page is rel 0.025, and rule 32e says it in words too. 0.60 was -4.4 dB under the heartbeat (what he heard
+and hated), 0.05 was -26.0, and B is -32.0. That crosses a line this lane wrote itself -- under about
+-30 dB a bed on a handset starts losing to the room he is really sitting in -- and HE HEARD BOTH AND
+PICKED THE QUIETER ONE, so the trade is his and it is made. Both copies moved together and the gate now
+holds his letter EXACTLY rather than a range, because a range lets a later round drift the level back up
+inside it and stay green.
+
+A RUN NOW SOUNDS LIKE A RUN, SHIPPED TO THE WALKED SURFACE, AND I WAS WAITING FOR A VOTE I HAD NO RIGHT TO
+WAIT FOR: my own last handoff said the fix lands "the moment he picks B", and the coordinator's ruling
+sitting on that very row said SHIP IT. A ruling on the board beats a plan in my handoff (rule 12). The
+walked frame now says which house of the beat a footfall is and the shell keeps one limiter clock per
+house, booking the second half a beat later, DERIVED from the transport and never typed. Nothing else
+moved: both lots still land on the same beat, the glide still crosses both (SLIDE is his ruling and
+ANIMATION's), his approved footfall is byte for byte the same, the 0.12 s limiter is unchanged and still
+load-bearing, and a WALK is the same code path it always was. MEASURED ON THE GLASS through the one
+driver on the ALPHA: eight held presses, 1,509 cells in one continuous walk, 42 first-house footfalls and
+23 second-house ones, and EVERY SECOND-HOUSE GAP IS 0.250 s, MIN AND MAX, 17 of 17 matched pairs, against
+a beat of 0.500 s. Before this the smallest gap across 320 cells was 0.351 s. ONE NUMBER FOR RUN: across
+23 beats of holding east he covered 52 cells and stopped against something; on this walk NW moved him 632
+and SE 514 while two of the eight directions moved him ZERO. AND MY FIRST INSTRUMENT READ THE WRONG FIELD
+AND SAID HE HAD NOT MOVED (city.x instead of hx,hy): A ZERO FROM AN INSTRUMENT IS A CLAIM ABOUT THE
+INSTRUMENT UNTIL SOMETHING ELSE AGREES WITH IT.
+
+THE KEEP/REDO LIST IS IN AND [analog horror sound] IS CLOSED, AND THE BIBLE SAYS MOST OF THE SHELF IS A
+KEEP. DIRECTION's bible rule 8 is DIEGETIC OR DEAD: tape damage lives ONLY inside in-world speakers and
+the lens is an eye. My own school page's rule 4 says EVERY sound declares which machine it came off.
+Those contradict each other on the same date and THE BIBLE WINS, so round one's own "cheapest order"
+item 2 -- a machine per sound, all 65 -- IS WRONG AND THIS ROUND KILLS IT. Classified once, in
+banks/BOHEMIA_WHAT_MACHINE_IS_IT_9_24_26.json: 57 of 65 heard with your own ears, 3 machines you can
+point at, 5 through a speaker. THE LIST: 37 KEEP, 28 REDO. 21 hard-contact sounds with no top end (FIVE
+OF THE SIX FOOTSTEPS; step_concrete 0.281% above 4 kHz while step_gravel, same factory same job, reads
+9.5% -- A SIDEWALK IS TELLING HIS EARS IT IS A FILTERED THUD, which is the ear's half of his own "the
+streets do not read"), 3 hums off the grid, 5 interface sounds with nothing under them saying they came
+through a speaker. TWO INDEPENDENT RULERS AGREE: round one counted 51 of 65 as near-pure tones by
+flatness, this round puts 51 of 65 under one percent above 4 kHz -- the first time a number in this lane
+has been confirmed by something other than itself. RULE 2 GETS A NUMBER FOR THE FIRST TIME AND ALL THREE
+MACHINES ARE OFF THE GRID: generator 51.87 Hz (0.86x mains), power_on 90.47 Hz (1.51x), sign_alive
+123.27 Hz (2.05x, built for a ballast and 2.7% wide). AND THE FIRST CUT OF THAT NEARLY PUT A FALSE
+ACCUSATION IN A RECORD: it read 54 Hz and 118 Hz, and one bin of that window is 10.77 Hz, EIGHTEEN
+PERCENT at 60 Hz, so 54 is just the nearest bin below 60. A MEASUREMENT CANNOT ANSWER A QUESTION FINER
+THAN ITS OWN RESOLUTION. The pitch is refined below the bin and THE RULER IS NOW CHECKED ON SINES WE KNOW
+EXACTLY BEFORE IT IS USED: worst refined error 0.17% against the raw bin's 7.67%, so rule 2's tolerance
+is 1%, six times the instrument's own error rather than a number off a page.
+
+THE NEW GATE IS A RATCHET AND IT IS GREEN ON A SHELF THAT BREAKS EIGHT OF TEN RULES, ON PURPOSE.
+ANALOG HORROR SOUND 11/0, in the suite: today's shelf frozen in
+records/target/BOHEMIA_THE_KEEP_REDO_LIST_9_24_26.json, nothing may get duller or clip or grow past its
+own speaker, ANY sound added from now is held to its class OUTRIGHT with no grandfathering, and every
+sound must carry a line in the machine table so one cannot enter the game without somebody saying what it
+came off. It measures with the tool's own EXPORTED body and not a copy. MUTATION IS REAL AND NOT
+CALCULATED: the brightest sound loses half its top end and one loses its table line, both before any
+claim runs, and the two claims that carry the gate go red.
+
+NEXT, IN ORDER, AND THE FIRST TWO ARE THE SAME PIECE OF WORK:
+ 1. THE SHARED BAND HELPER AT THE NOMINAL CORNER. The leak is 28%, not 21%, measured honestly, and it is
+    the sand. Fixing bandTo re-renders every noise sound in the module, so each one that CHANGES is a
+    REDO with a new id quoting his up vote (the coordinator's own ruling on [band helper]). THE DOOR AND
+    THE CLOUD ARE REDOS OWED with numbers already: 15.96% and 6.06%.
+ 2. THE TAPE AND THE FLIP AS NEW IDS FROM REAL MATERIAL, quoting his words, the way the footstep just
+    got it. Neither has been re-cooked and neither should be re-cooked out of noise.
+ 3. THE VALLEY STILL BROADCASTS rebuilt from real material, then registered. The hole it fills is real
+    (bible rule 9, nothing in the build talks on a schedule) and the sound is built; it is the CARRIER
+    that has to stop being hiss.
+ 4. THE 21 HARD-CONTACT REDOS from the keep/redo list, footsteps first, on the model that just landed.
+ 5. THE THREE HUMS at the grid's pitch, which is three numbers and no new material.
+ 6. [beds play] still HELD; then [enemy heard], [fight music], [quiet floor], [rumour heard], [pump hum].
+TWO MUSIC HOLES, STILL OPEN AND STILL MINE: a room handing the music back does not check whether a fight
+owns it (INTERIORMUS's busy() guard binds one direction only), and the shell obeys the city's
+bohemiaCityMusic message with no fight guard at all.
+CARRIED, NAMED NOT FIXED: the alpha's second copy of the room recipe (the right end state is the alpha
+importing the module, held by rule 18; the gate holds the two equal constant for constant meanwhile).
+
 SOUNDS (sound-xk7pjp): 9/25 LATEST -- *** THE FLIP IS A RECEIVER CROSSING YEARS, AND THE GAP
 BETWEEN TWO STATIONS IS THE FUTURE HE HAS NOT BUILT YET. *** Row [flip sound] SHIPPED f8b3280. Nothing
 wired: DYNASTY owns the flip and rule 31 says the demo does not change.
