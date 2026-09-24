@@ -53,11 +53,12 @@
 #   thirty are role-place; 698 after round 49's second half added ten. All forty
 #   are role-place; 708 after round 50 added ten. All fifty are role-place, so the
 #   bullet count is unchanged at 176 for a FIFTH round; 718 after round 50's second
-#   half added ten, a SIXTH; 726 after round 51 added eight, a SEVENTH. All
-#   sixty-eight are role-place and the gap can only shrink.
+#   half added ten, a SIXTH; 726 after round 51 added eight, a SEVENTH; 734 after
+#   round 51's second half added eight, an EIGHTH. All seventy-six are role-place
+#   and the gap can only shrink.
 #
 #   RULE 27 (Paolo 9/21), THE PLAYER DOES NOT SPEAK SPANGLISH: measured across all
-#   550 role-place entries (re-measured 9/24), THE PLAYER DOES NOT SPEAK AT ALL. The
+#   558 role-place entries (re-measured 9/24), THE PLAYER DOES NOT SPEAK AT ALL. The
 #   seven whose descriptor names him have him as the LISTENER. This file's own
 #   "what is not here" sections assert it fourteen times and the assertion holds.
 
@@ -4174,4 +4175,56 @@ QQQQQQQQQQ8  an old man, correcting nobody in particular       draft:true
   round hands over is a warm building on a cold street.
 - Spanish register: 0 of 8 lines. Fifth round at zero, and the reason has not
   changed: five consecutive sets are people stating hard facts flatly, and the
+  register is a voice some characters have, not a seasoning. Under the 15% cap.
+
+## SSSSSSSSSS. ONE BLOCK, NOT A CITY
+## (round 51 round two. A generation of wages reclaims a handful of tiles; the
+##  world does the rest. Nobody says a number. Role, place, situation.)
+
+SSSSSSSSSS1  a man, on the block he spent everything on   draft:true
+    "This one. Not the street, not the district. This."
+
+SSSSSSSSSS2  his daughter, who wanted more than that      draft:true
+    "You worked your whole life for one block."
+
+SSSSSSSSSS3  the man, who has made his peace              draft:true
+    "I worked my whole life and I got one block. Those are two
+     different sentences."
+
+SSSSSSSSSS4  a woman watching a crew arrive, not local    draft:true
+    "They did in a season what we didn't do in twenty years."
+
+SSSSSSSSSS5  her brother, who is not grateful             draft:true
+    "And they'll leave in a season too."
+
+SSSSSSSSSS6  an old hand, on where it always starts       draft:true
+    "Look where the lights already are. It never starts anywhere else."
+
+SSSSSSSSSS7  a young one, wanting it to start at home     draft:true
+    "Our end's dark."
+
+SSSSSSSSSS8  the old hand, not unkind                     draft:true
+    "Then our end's later."
+
+## TTTTTTTTTT. WHAT IS NOT HERE, ON PURPOSE (round 51 round two)
+
+- No line contains a number, a count of blocks, a share, a wage or a threshold.
+  The round is nothing but arithmetic and not one figure is spoken.
+- No line explains that the world pays for most of it, or that a lifetime of
+  wages buys a handful of tiles. SSSSSSSSSS3 is the whole finding said as a man
+  correcting his daughter's grammar. Nobody in Bohemia is wise.
+- No line uses the words invest, reclaim, tier, modern, generation or ratio.
+- No line makes the outside crew heroes or villains. SSSSSSSSSS4 and 5 are the
+  two true things about them, said by two people who are both right.
+- No line names a faction, a street or a town, including the crew. MAP LAW.
+- No line has the player speaking. Rule 27: 558 role-place entries in this file
+  now, zero of them him talking.
+- No line decides how much better the future gets. Rule 32(b) says that is the
+  manager's dial in VOTE, and section 7 refused it.
+- No line has anything decay or fall. Rule 32(b): nothing below the floor.
+  SSSSSSSSSS7's "our end's dark" is the floor, not a fall.
+- No line is written for a card or a readout: rule 19(a), rule 29. What this
+  round hands over is a lit end of a street and a dark one.
+- Spanish register: 0 of 8 lines. Sixth round at zero and the reason stands:
+  these are people being plain with each other about hard arithmetic, and the
   register is a voice some characters have, not a seasoning. Under the 15% cap.

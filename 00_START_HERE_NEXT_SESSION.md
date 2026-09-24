@@ -4361,7 +4361,7 @@ your block top to bottom and confirm every line in it is yours.
 And this file is now ~88,000 lines carrying NINE ECONOMY blocks, most of them
 stale copies of this one. That is a real defect in a file every lane reads every
 round. It is a job for the coordinator to place (18 PLUMBER's remit), not
-something a lane should do to another lane's block.=== ROUND 36 REPORT: [first ten] SHIPPED ====== ROUND 37 REPORT: [carry cost] SHIPPED ====== ROUND 38 REPORT: [old price] SHIPPED ====== ROUND 39 REPORT: [protection court] SHIPPED ====== ROUND 40 REPORT: [how many pockets] SHIPPED ====== ROUND 41 REPORT: [who replaces you] SHIPPED ====== ROUND 42 REPORT: [the bailiff] SHIPPED ====== ROUND 43 REPORT: [double up] SHIPPED ====== ROUND 44 REPORT: [first building] SHIPPED ====== QUEUE EMPTY. 44 OF 44 SHIPPED. THE PILE IS FOLDED INTO ONE MASTER. ====== QUEUE STILL EMPTY. HE PLAYED IT, AND THE ONE THING THIS LANE GOT BUILT AND GOT WRONG IS CORRECTED. ====== ROUND 45 REPORT: [first sixty] SHIPPED ====== ROUND 46 REPORT: [daily radius] SHIPPED ====== ROUND 47 REPORT: [who owns the water] SHIPPED ====== QUEUE EMPTY. THE FOLD: 45, 46 AND 47 ARE IN THE MASTER, AND FOLDING THEM FOUND THREE THINGS. ====== ROUND 48 REPORT: [who still bills] ROUND ONE OF TWO SHIPPED, THE CLAIM STAYS. ====== ROUND 48 ROUND TWO: THE NUMBER. Q48 COMPLETE, 48 OF 48 SHIPPED. ====== QUEUE EMPTY. ROUND 48 IS FOLDED INTO THE MASTER AND IT MADE A SEVENTH CONVERGENCE. ====== ROUND 49 REPORT: [first battery] ROUND ONE OF TWO SHIPPED, THE CLAIM STAYS. ====== ROUND 49 ROUND TWO: THE NUMBER. Q49 COMPLETE, 49 OF 49 SHIPPED. ====== QUEUE EMPTY. ROUND 49 IS FOLDED INTO THE MASTER. ====== ROUND 50 REPORT: [seeds the next act] ROUND ONE OF TWO SHIPPED, THE CLAIM STAYS. ====== ROUND 50 ROUND TWO: THE RATES. Q50 COMPLETE, 50 OF 50 SHIPPED. ====== QUEUE EMPTY. ROUND 50 IS FOLDED INTO THE MASTER, AND THE ROT I ROUTED IS FIXED. ====== ROUND 51 REPORT: [thirty years after] ROUND ONE OF TWO SHIPPED, THE CLAIM STAYS. ===
+something a lane should do to another lane's block.=== ROUND 36 REPORT: [first ten] SHIPPED ====== ROUND 37 REPORT: [carry cost] SHIPPED ====== ROUND 38 REPORT: [old price] SHIPPED ====== ROUND 39 REPORT: [protection court] SHIPPED ====== ROUND 40 REPORT: [how many pockets] SHIPPED ====== ROUND 41 REPORT: [who replaces you] SHIPPED ====== ROUND 42 REPORT: [the bailiff] SHIPPED ====== ROUND 43 REPORT: [double up] SHIPPED ====== ROUND 44 REPORT: [first building] SHIPPED ====== QUEUE EMPTY. 44 OF 44 SHIPPED. THE PILE IS FOLDED INTO ONE MASTER. ====== QUEUE STILL EMPTY. HE PLAYED IT, AND THE ONE THING THIS LANE GOT BUILT AND GOT WRONG IS CORRECTED. ====== ROUND 45 REPORT: [first sixty] SHIPPED ====== ROUND 46 REPORT: [daily radius] SHIPPED ====== ROUND 47 REPORT: [who owns the water] SHIPPED ====== QUEUE EMPTY. THE FOLD: 45, 46 AND 47 ARE IN THE MASTER, AND FOLDING THEM FOUND THREE THINGS. ====== ROUND 48 REPORT: [who still bills] ROUND ONE OF TWO SHIPPED, THE CLAIM STAYS. ====== ROUND 48 ROUND TWO: THE NUMBER. Q48 COMPLETE, 48 OF 48 SHIPPED. ====== QUEUE EMPTY. ROUND 48 IS FOLDED INTO THE MASTER AND IT MADE A SEVENTH CONVERGENCE. ====== ROUND 49 REPORT: [first battery] ROUND ONE OF TWO SHIPPED, THE CLAIM STAYS. ====== ROUND 49 ROUND TWO: THE NUMBER. Q49 COMPLETE, 49 OF 49 SHIPPED. ====== QUEUE EMPTY. ROUND 49 IS FOLDED INTO THE MASTER. ====== ROUND 50 REPORT: [seeds the next act] ROUND ONE OF TWO SHIPPED, THE CLAIM STAYS. ====== ROUND 50 ROUND TWO: THE RATES. Q50 COMPLETE, 50 OF 50 SHIPPED. ====== QUEUE EMPTY. ROUND 50 IS FOLDED INTO THE MASTER, AND THE ROT I ROUTED IS FIXED. ====== ROUND 51 REPORT: [thirty years after] ROUND ONE OF TWO SHIPPED, THE CLAIM STAYS. ====== ROUND 51 ROUND TWO: THE NUMBERS. Q51 COMPLETE, 51 OF 51 SHIPPED. ===
 RECORD: records/BOHEMIA_ECONOMY_DAY_47_NOBODY_OWNS_THE_PUMP_THEY_OWN_THE_DISTANCE_9_20_26.md (207 lines)
 BANK:   banks/BOHEMIA_ECONOMY_TEST_LINES_9_5_26.md sections ZZZZZZZZZ-DDDDDDDDDD, +16 lines, 670 draft:true total
 TAB:    NOT IN A TAB YET. MODE: RESEARCH. No engine code touched. Rule 14: never the demo;
@@ -5441,6 +5441,88 @@ the real function across six values rather than reading the thresholds off the s
 source says "< 5" and I would have written "under five"; the RUN says 4 is recovering and 5 is
 modern, which is the same fact stated so a builder cannot make an off-by-one out of it.
 
+
+=== ROUND 51 ROUND TWO, [thirty years after] Q51, THE NUMBERS. THE ROW IS COMPLETE. ===
+RECORD: records/BOHEMIA_ECONOMY_DAY_51_ROUND_TWO_ONE_FIFTH_OF_DETROIT_AND_THE_PLAYER_IS_NOT_THE_ENGINE_9_24_26.md (212 lines)
+BANK:   sections SSSSSSSSSS-TTTTTTTTTT, +8 lines, 734 entries, all eight role-place, so the 176
+        bullet entries owing a WHO have not grown for an EIGHTH round running.
+TAB:    NOT IN A TAB YET. MODE: RESEARCH. No engine code touched. Rules 14, 15, 18(b)
+        unchanged; rule 22 binds MAKING lanes and names twelve, ECONOMY is not one. RULE 33
+        landed this round and gives this lane a new [bb money] row; not this row, not touched.
+GATES:  pre-push pass SIX GREEN, TWO RED, BOTH PROVEN NOT MINE ON CLEAN HEAD -- economy 13/0,
+        payday 40/0, attempt 15/0, demo blockers 22/0, language 85/0, handoff 9/0; purse 27/1
+        and canon rot 12/1. Full suite: 107 red at ad23d875, mine are: none.
+
+*** THE PURSE GATE WENT RED AND IT IS THE TRUTH HIERARCHY FAILING IN MACHINE FORM. ***
+FAIL: "ACT ONE ONLY (Paolo 7/28): the century rule is named as parked, and no act-2/3
+compounding is modelled here". I stashed and ran it on CLEAN HEAD: identical, 27/1. THE CAUSE,
+exactly: the check greps the purse SOURCE for the words "act 2" or "act 3" and fails if it
+finds any. WORLD added an act stamp to the purse THIS ROUND (c137fae, "the money that knows
+which act") UNDER RULE 31, and the purse now says "Rule 31 computes act 2 and act 3 from...".
+SO A 7/28 GATE IS ENFORCING DEAD CANON AGAINST A LANE DOING EXACTLY WHAT THE 9/23 LAW TOLD IT
+TO DO. Rule 31 says the three acts are OPEN AT ONCE; "act one only" is superseded by date.
+NEWEST DATE WINS, and CLAUDE.md names this exact class ("the 7/16 graveyard sweep found the
+laws master instructing a dead palette -- that class of rot is what this hierarchy exists to
+kill"). ROUTED TO PLUMBER (the check) AND WORLD (the file); this lane edits neither, and WORLD
+is not at fault.
+The canon rot red is the retired-lab and tileform batch this lane sized and routed last round,
+unchanged at 64.
+
+*** FIRST, WHAT A TIER IS KEYED BY, AND THE PROBE THAT SAVED THE ROUND. *** invest is keyed by
+districtId and I ASSUMED A DISTRICT WAS A NAMED NEIGHBOURHOOD, about fifteen of them. Measured:
+districtsOf returns BUILT OVERMAP TILES, {x,y,kind} -- commercial, suburb, apartment,
+substation, swapmeet, casino, park.
+    built tiles per valley, mean of ten seeds     2,770   (of the overmap's 9,216)
+The tell was that seed 7 gave 2,728 districts against 478 blocks -- MORE DISTRICTS THAN
+BLOCKS, an impossible shape, and that is what made me look. HAD I NOT CHECKED, EVERY NUMBER
+BELOW WOULD HAVE BEEN WRONG BY TWO ORDERS OF MAGNITUDE AND WOULD HAVE READ PERFECTLY
+PLAUSIBLY.
+
+*** THE COSTING, IN FOUR LINES. ***
+    Detroit reclaimed                    5.2% of its land
+    5.2% of 2,770 built tiles            144 tiles reach 'modern'
+    at the shipped threshold of 5 each   720 points of investment
+    A GENERATION'S GROSS WAGES           130 batteries
+That last line is DYNASTY'S OWN NUMBER, NOT MINE: their [days per life] row says "at fifteen
+real minutes a day, a hundred hours is 400 days, about 130 a generation". IT IS A PREMISE AND
+THEIR ROW IS STILL OPEN, so everything moves if it moves, and the record says so on its face.
+AND THE REAL NUMBER IS WORSE BECAUSE OF ROUND 49: work pays one, food costs one, the loan asks
+one a night. NET ZERO. So 130 is GROSS, not spendable.
+GIVE HIM THE IMPOSSIBLE BEST CASE ANYWAY, every gross battery to reclamation, eating nothing
+for thirty years: 130/5 = 26 TILES = 0.94% OF THE VALLEY = 18% OF THE REAL RATIO.
+
+*** SO THE PLAYER IS A NUDGE AND THE WORLD IS THE ENGINE, AND THAT IS WHAT THE RECORD SAYS. ***
+Detroit's core was not reclaimed by a person: it was ONE EMPLOYER MOVING 6,000 WORKERS into
+standing buildings, with a bankruptcy and a decade behind it. Youngstown's was a city
+government with $50,000 A HOUSEHOLD and it still failed. NOWHERE IN THE RECORD DOES AN
+INDIVIDUAL RECLAIM A DISTRICT. So most invest comes from factions, returning trades and
+employers; HIS FIVE BATTERIES MAKE ONE BLOCK HIS, which is the right size for a man who earns
+one a day.
+AND THE THRESHOLD OF FIVE IS DEFENSIBLE, SO LEAVE IT: five days of a working man's whole wage
+for one tile. A different threshold does not fix the arithmetic, because the arithmetic is
+about WHO IS PAYING, not how much.
+
+THE TIERS AS NUMBERS PER ACT: 'modern' RARE (144 of 2,770 is the CEILING a real city with real
+money reached in thirty years, not a target); 'recovering' UNCOMMON (Detroit's vacant land was
+about a third and the rest was standing, occupied, not renewed); 'apocalypse' THE GREAT
+MAJORITY even when somebody reclaims hard. Act 1 nearly all floor, act 2 the first reclaimed
+cluster, act 3 the floor plus what was kept. HOW MUCH BETTER IS THE MANAGER'S DIAL IN VOTE
+(rule 32b says so out loud); these are the walls it should sit between, not the setting.
+
+WHERE IT STARTS: round 47 measured that one faction holds all the running water in every valley
+that has any, and a plant runs only if the street it fronts is live. THE LIT STREET IS THE
+ANCHOR. The first tiles to leave 'apocalypse' are the ones beside it, and the kinds the record
+favours are already in our tile list: commercial and apartment near live ground, not the estate
+on the ridge. AND NOTHING NEEDS BUILDING: a reclaimed tile is the same tile with different work
+in it, which is why builds carrying whole is the precondition and not the bug.
+
+THE PROJECT-LEVEL HOLE, INSTANCE 40, AN ARITHMETIC ONE AND NEW: TWO SHIPPED NUMBERS THAT CANNOT
+BOTH BE SATISFIED, AND NOTHING CAN NOTICE. The tier threshold says five a tile; the purse says
+a day of work pays one; the shelf says food costs one. Each is correct, each passes its own
+gate, and together they say a generation of unbroken labour reclaims under one percent of the
+valley. NOTHING IN THE SUITE MULTIPLIES ONE SHIPPED CONSTANT BY ANOTHER AND ASKS WHETHER THE
+ANSWER IS A GAME.
+
 [PENDING Paolo] -- for the coordinator, one at a time:
   *** 1 TO 9 ARE RULED. The coordinator decided all nine on 9/13 under EVERYTHING IS
   A THUMB, in records/BOHEMIA_RULING_NINE_DEFAULTS_THE_ECONOMY_WAS_CARRYING_9_13_26.md.
@@ -5619,23 +5701,26 @@ modern, which is the same fact stated so a builder cannot make an off-by-one out
      is the kind of change he should meet in play rather than read about. Nothing
      is blocked on it; WORLD can build it under his existing law.
 
-NEXT IN THIS LANE: ROUND TWO OF Q51 [thirty years after], AND THE CLAIM IS STILL ON THE BOARD.
-Round one is the school; ROUND TWO COSTS THE TIERS: how much investment is one tier, how many
-blocks reach 'modern' in an act, and WHETHER THE THRESHOLD OF FIVE IS RIGHT against the real
-5% ratio. THE ONE RULE FOR ROUND TWO IS ROUND 38'S AND NOW ALSO ROUND 50'S: both rounds
-measured correctly and then recommended one step past their own evidence. Section 5 of the
-round 51 record is the shape; cost it, do not re-derive it, and DO NOT PROPOSE ANY DECAY --
-rule 32(b) forbids falling below the floor and the manager's dial owns how much better it gets.
-THREE THINGS TO CARRY IN: (a) districtTexture already exists with three tiers and a threshold
-of five, and has zero callers, so round two is arguing about a number in a live function rather
-than designing one; (b) nothing anywhere creates an `invest` choice, so the lift does not exist
-at either end and that is WORLD's and DYNASTY's to wire; (c) 'nothing decays below the start'
-does NOT obviously mean a 'modern' block can never slip back to 'recovering' -- round one
-refused to assume either reading and round two should say which it is asking for, or leave it.
-AFTER Q51 CLOSES: Q52 [inherited trust] is the next OPEN line on this lane's section and it
-came out of this lane's own Q50 round one. Then fold both rows into the master (a STANDING JOB,
-not a board job); the harvest script's control has run four folds clean and has caught a fault
-every time.
+NEXT IN THIS LANE: TWO OPEN LINES, AND THE FIRST ONE IS [bb money], NOT Q52. Rule 5 says take
+the FIRST line marked OPEN, and the board's order is:
+ (1) [bb money] THE-COMPANY-LEDGER -- rule 33 school (Paolo 9/24, "an executive decision": the
+     overworld is Battle Brothers). Two rounds. BB's daily wages, provisions, tools and
+     medicine consumed per day of travel, prices per town and how they move. NOTE FOR WHOEVER
+     TAKES IT: this lane has already measured most of the BB side in round 49 (wage +2 a level
+     compounding, 2 food per man per day, 1 medicine per injury per day, 1 tool per 15
+     durability, desertion when the wage is missed) -- READ ROUND 49 SECTION 3 BEFORE
+     RESEARCHING IT AGAIN. What is NEW in rule 33 is PRICES PER TOWN AND HOW THEY MOVE, and
+     this lane has a live finding waiting on exactly that: round 40 measured that all sixteen
+     markets share ONE stock ledger, so buying in a fortress empties a swap meet forty cells
+     away, AND THAT IS WHY THERE IS ONE PRICE IN THE WHOLE VALLEY. Pending 42 asks whether the
+     valley should have more than one shop. [bb money] is that pending wearing a Battle
+     Brothers hat.
+ (2) Q52 [inherited trust] -- this lane's own Q50 round one produced it.
+AFTER BOTH: fold rounds 51 and 52 into the master (a STANDING JOB, not a board job). The
+harvest control has run four folds clean and has caught a fault every time.
+AND CARRY THIS IN: the purse gate's ACT ONE ONLY check is red on main against a 9/23 law that
+supersedes it. It is routed and it is not this lane's to fix, but do not read it as new and do
+not chase it.
 
 
 ================================================================================
