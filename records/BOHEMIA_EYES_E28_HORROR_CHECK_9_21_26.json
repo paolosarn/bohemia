@@ -1,13 +1,13 @@
 {
   "what": "every pixel against the analog horror bible",
-  "when": "2026-09-23T03:51:03.405Z",
+  "when": "2026-09-24T04:29:54.004Z",
   "surface": "/tmp/claude-0/-home-user-bohemia/065fcaf1-af13-5362-9424-9d0305049a14/scratchpad/cut/slices/BOHEMIA_DEMO.html",
   "bible": "records/BOHEMIA_ANALOG_HORROR_BIBLE_9_20_26.md (AH-01)",
   "controls": [
     {
       "name": "C0 THE DOOR REALLY OPENED: the splash is gone and the game’s HUD is there",
       "pass": true,
-      "detail": "splash still shown: false, HUD music chip: \"MENU — DEAD VALLEY DAWN\" -- so these readings are the game and not a title screen"
+      "detail": "splash still shown: false, HUD music chip: \"MENU — THE POWER STILL ON SOMEWHERE\" -- so these readings are the game and not a title screen"
     },
     {
       "name": "C4 the comparator reads 0 for identical and 1 for opposite",
@@ -74,16 +74,16 @@
     "windows": 8,
     "window_ms": 2000,
     "per_window": [
+      0.0396,
+      0.0322,
+      0.0322,
+      0.0322,
       0,
-      0.0271,
-      0.0271,
-      0.0063,
-      0,
-      0,
-      0,
+      0.0134,
+      0.0049,
       0.0271
     ],
-    "worst_moving_fraction": 0.0271,
+    "worst_moving_fraction": 0.0396,
     "windows_over_the_bibles_ten_percent": 0,
     "bar": 0.1
   },
@@ -104,7 +104,7 @@
           "seeThrough": false,
           "alpha": 1,
           "style": "#8a7a58",
-          "at": 4730
+          "at": 4543
         },
         {
           "kind": "fillRect",
@@ -115,7 +115,7 @@
           "seeThrough": false,
           "alpha": 1,
           "style": "#20303e",
-          "at": 9231
+          "at": 8666
         },
         {
           "kind": "fillRect",
@@ -126,7 +126,7 @@
           "seeThrough": false,
           "alpha": 1,
           "style": "#20303e",
-          "at": 17464
+          "at": 17130
         }
       ],
       "full_frame_on_scratch_canvases": 135,
@@ -139,10 +139,10 @@
           "v": "source-atop",
           "cw": 112,
           "ch": 112,
-          "at": 20285
+          "at": 19876
         }
       ],
-      "draws": 3514120
+      "draws": 3514117
     },
     "shell": {
       "world_canvas": "378x830",

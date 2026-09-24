@@ -3,77 +3,77 @@
   "which": "deploy",
   "file": "BOHEMIA_DEMO.html",
   "surface": "/tmp/claude-0/-home-user-bohemia/065fcaf1-af13-5362-9424-9d0305049a14/scratchpad/cut/slices/BOHEMIA_DEMO.html",
-  "when": "2026-09-23T04:45:49.876Z",
+  "when": "2026-09-24T04:31:06.580Z",
   "law": "THE FIVE MINUTES (Paolo 9/13)",
   "lines": [
     {
-      "at": "00:22",
+      "at": "00:21",
       "did": "opened the link and waited",
-      "happened": "a front screen: \"BOHEMIA CLARK COUNTY POWER AUTHORITY READING THE VALLEY COUNTING WHAT STILL STANDS NO OPERATOR ON DUTY WINDING THE CLOCK CHECKING STREETS FOR LIGHT PUTTING PEOPLE ON IT 5 OF 5 BEGIN DEMO - BUILD 9/24e\"",
+      "happened": "a front screen: \"BOHEMIA CLARK COUNTY POWER AUTHORITY READING THE VALLEY COUNTING WHAT STILL STANDS NO OPERATOR ON DUTY WINDING THE CLOCK CHECKING STREETS FOR LIGHT PUTTING PEOPLE ON IT 5 OF 5 BEGIN DEMO - BUILD 9/24g\"",
       "promised": "TAP TO ENTER"
     },
     {
-      "at": "00:34",
+      "at": "00:33",
       "did": "tapped the front screen",
       "happened": "the screen changed",
       "promised": "that tapping enters the game"
     },
     {
-      "at": "00:35",
+      "at": "00:34",
       "did": "looked at the first screen without touching anything",
       "happened": "2 things with words on them, big enough to tap: ⚙ / 06:00",
       "promised": ""
     },
     {
-      "at": "00:44",
+      "at": "00:42",
       "did": "tapped \"⚙\" (the biggest thing on screen)",
       "happened": "the screen answered: its own panel",
       "promised": "⚙"
     },
     {
-      "at": "00:49",
+      "at": "00:47",
       "did": "held the walk dial down for two and a half seconds",
       "happened": "the world moved (8 arrows on the dial)",
       "promised": ""
     },
     {
-      "at": "01:43",
+      "at": "01:38",
       "did": "tapped \"EYESTABCONTROL\" (CONTROL: a tab, which answers on the first press and is a no-op on the second)",
       "happened": "the screen answered: somewhere",
       "promised": "EYESTABCONTROL"
     },
     {
-      "at": "01:44",
+      "at": "01:39",
       "did": "went looking for \"cbbuild\" on purpose",
       "happened": "it was NOT on screen on this route, and it is still built in slices/BOHEMIA_CITY_WORLD.html, so this walk says nothing about it",
       "promised": ""
     },
     {
-      "at": "01:45",
+      "at": "01:40",
       "did": "went looking for \"cbbig\" on purpose",
       "happened": "it was NOT on screen on this route, and it is still built in slices/BOHEMIA_CITY_WORLD.html, so this walk says nothing about it",
       "promised": ""
     },
     {
-      "at": "01:54",
+      "at": "01:49",
       "did": "tapped \"06:00\" (on the first screen and never pressed by the old script)",
       "happened": "the screen answered: its own panel",
       "promised": "06:00"
     },
     {
-      "at": "02:05",
+      "at": "01:59",
       "did": "tapped \"SUBURB · DAY 1 · 06:09\" (new on screen)",
       "happened": "NOTHING MOVED ANYWHERE, BOTH PRESSES",
       "promised": "SUBURB · DAY 1 · 06:09"
     },
     {
-      "at": "02:10",
+      "at": "02:04",
       "did": "tapped \"CLOSE\" (new on screen)",
       "happened": "THE PANEL VANISHED, which tells me nothing either way",
       "promised": "CLOSE"
     },
     {
-      "at": "02:18",
+      "at": "02:12",
       "did": "tapped \"06:09\" (new on screen)",
       "happened": "the screen answered: its own panel",
       "promised": "06:09"
@@ -108,7 +108,7 @@
     {
       "name": "THE DOOR OPENED: the splash is gone and the game’s HUD is there",
       "pass": true,
-      "detail": "splash still shown: false, HUD music chip: \"MENU — THE POWER STILL ON SOMEWHERE\" -- this walk is in the game"
+      "detail": "splash still shown: false, HUD music chip: \"MENU — DEAD VALLEY DAWN\" -- this walk is in the game"
     },
     {
       "name": "DEAD READS DEAD: a planted button with no handler is called dead",
@@ -147,16 +147,16 @@
     }
   ],
   "numbers": {
-    "time_until_something_is_tappable_s": 26.42,
+    "time_until_something_is_tappable_s": 25.44,
     "knocks_before_the_door_opened": 1,
-    "my_first_tap_at_s": 30.61,
+    "my_first_tap_at_s": 29.58,
     "ledger_after_warmup": {
       "words": 0,
-      "pixel_samples": 30
+      "pixel_samples": 33
     },
-    "extra_walk_rounds": 65,
+    "extra_walk_rounds": 68,
     "time_to_first_fight_s": "NONE",
-    "walk_ended_at_s": 302.1,
+    "walk_ended_at_s": 300.6,
     "dead_affordances": 0,
     "things_i_actually_pressed": 5,
     "alive_on_one_press_only": 3,
@@ -181,7 +181,7 @@
   "dead": [],
   "inert": [
     {
-      "at": "02:05",
+      "at": "01:59",
       "text": "SUBURB · DAY 1 · 06:09",
       "id": "phonewhere",
       "where": "frame",
@@ -235,15 +235,15 @@
           "novel_words_anywhere": [
             "SETTINGS",
             "TO",
-            "3",
-            "OFF",
             "HOLD",
+            "OFF",
             "WALK,",
             "LET",
-            "GO"
+            "GO",
+            "KEEP"
           ],
           "novel_words_anywhere_count": 29,
-          "novel_cells": 0,
+          "novel_cells": 4,
           "world_moved_in_the_null_window": 0,
           "panel": "#app",
           "panel_still_open": true,
@@ -270,7 +270,7 @@
             "EVENTS"
           ],
           "novel_words_anywhere_count": 23,
-          "novel_cells": 0,
+          "novel_cells": 4,
           "world_moved_in_the_null_window": 0,
           "panel": "#app",
           "panel_still_open": true,
@@ -458,12 +458,12 @@
     {
       "word_moves": 0,
       "words_that_moved": [],
-      "pixel_fraction": 0.0007
+      "pixel_fraction": 0.0008
     },
     {
       "word_moves": 0,
       "words_that_moved": [],
-      "pixel_fraction": 0.0008
+      "pixel_fraction": 0.0001
     },
     {
       "word_moves": 0,
@@ -625,7 +625,7 @@
   ],
   "closed_on_tap": [
     {
-      "at": "02:10",
+      "at": "02:04",
       "text": "CLOSE",
       "id": "phoneclose",
       "where": "frame",
