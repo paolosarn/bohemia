@@ -280,6 +280,45 @@ const MEASURE = `
     } catch (e) { out.wowErr = String(e && e.message).slice(0,90); }
   })();
 
+  /* *** WHAT THIS VALLEY STRIKES ON THE HOUR (9/24), row [bb ambience] + [not sand]. ***
+     Rule 33 puts the valley on a map with time passing, and the row asks for the clock
+     AUDIBLE. Rule 32e says new sounds come from real material. So: three struck metal
+     objects, no noise generator in any of them, every partial ratio a PUBLISHED series.
+     Measured off the rendered buffer, and the partial ratios are checked against the
+     published numbers rather than against whatever the table happens to hold. */
+  (function () {
+    const look = (m) => {
+      const d = m.buffer.getChannelData(0);
+      let pk = 0, at = 0;
+      for (let i = 0; i < d.length; i++) { const v = Math.abs(d[i]); if (v > pk) { pk = v; at = i; } }
+      const p = spec(loudest(d));
+      let mx = 0, num = 0, den = 0;
+      for (let k = 1; k < p.length; k++) { if (p[k] > mx) mx = p[k]; num += k*SR/N*p[k]; den += p[k]; }
+      /* is each declared partial REALLY in the sound, or only in the table */
+      const at1 = (hz) => { const k = Math.round(hz*N/SR); let best = 0;
+        for (let q = k-2; q <= k+2; q++) if (q > 0 && q < p.length && p[q] > best) best = p[q];
+        return best; };
+      const heard = m.ratios.map(r => +(10*Math.log10(at1(m.f0*r)/mx)).toFixed(1));
+      const steps = new Float64Array(d.length-1);
+      for (let i = 1; i < d.length; i++) steps[i-1] = Math.abs(d[i]-d[i-1]);
+      const sorted = Float64Array.from(steps).sort();
+      return { what: m.what, seconds: m.seconds, peak: pk, peakAtMs: at/SR*1000,
+        centroid: den > 0 ? num/den : 0, ratios: m.ratios, f0: m.f0,
+        partialsDb: heard, longestTail: m.longestTailSeconds, shortestTail: m.shortestTailSeconds,
+        noiseSources: m.noiseSources, fadeMs: m.fadeMs,
+        lastSample: Math.abs(d[d.length-1]),
+        stepP999: sorted[Math.floor(sorted.length*0.999)] };
+    };
+    try {
+      out.strike = {
+        bell: look(H.struckMetal(ctx, { what: 'bell' })),
+        cracked: look(H.struckMetal(ctx, { what: 'cracked' })),
+        pipe: look(H.struckMetal(ctx, { what: 'pipe' })),
+        noiseInSource: H.struckMetal.toString().indexOf('noiseInto') >= 0
+      };
+    } catch (e) { out.strikeErr = String(e && e.message).slice(0,120); }
+  })();
+
   /* *** THE BAND HELPER ITSELF, MEASURED BY ITS OWN TRANSFER FUNCTION. *** Row
      [band helper]: Paolo killed three sounds for sounding like sand and the sand was this
      one shared filter. A filter is measured with an IMPULSE, which gives its response
@@ -709,6 +748,18 @@ const MEASURE = `
            nothing can falsify is not a claim. The two honest claims must go red and the
            "the old chain really did leak" claim must stay GREEN, because it asks for the
            legacy path by name and still gets it. */
+        /* AND THE STRIKE: ONE SINE. A bell IS its partial series, so a single tone is the
+           exact thing it is not, and it is also what 51 of the 65 shipped sounds measure
+           as. The ratio, inharmonicity and top-dies-first claims must all go red. */
+        const realStrike = H.struckMetal;
+        H.struckMetal = (ctx, o) => {
+          const m = realStrike(ctx, o);
+          const dd = m.buffer.getChannelData(0), sr = ctx.sampleRate;
+          for (let i = 0; i < dd.length; i++)
+            dd[i] = Math.sin(2*Math.PI*220*i/sr) * Math.exp(-i/sr/0.4) * 0.85;
+          m.ratios = [1]; m.longestTailSeconds = 0.4; m.shortestTailSeconds = 0.4;
+          return m;
+        };
         const realBand = H.bandTo;
         H.bandTo = (d, n, lo, c, sr, p, band) =>
           realBand(d, n, lo, c, sr, p, Object.assign({}, band || {}, { legacy: true }));
@@ -982,6 +1033,69 @@ const MEASURE = `
         'the wobbled song is the same length as the steady one to the sample, and carries the '
         + 'same root and the same intervals, so a note that started on the beat still does');
     } else { claim('the wobble was measured', false, 'no reading'); }
+
+    /* ---- WHAT THIS VALLEY STRIKES ON THE HOUR (9/24) ------------------------ */
+    if (d.strike) {
+      const B = d.strike.bell, C = d.strike.cracked, P = d.strike.pipe;
+      claim('THERE IS NO NOISE IN ANY OF THE THREE STRIKES, read off the shipped function',
+        d.strike.noiseInSource === false
+          && B.noiseSources === 0 && C.noiseSources === 0 && P.noiseSources === 0,
+        'rule 32e: new sounds from real material. A struck metal object is a set of MODES, '
+        + 'so there is nothing here for a noise generator to do, and the check is on the '
+        + 'code rather than on a spectrum because that is a fact about how it was built');
+      /* THE PUBLISHED SERIES, WRITTEN OUT HERE SO THE TABLE CANNOT QUIETLY DRIFT OFF IT.
+         A founder tunes a bell to a MINOR THIRD: hum, prime, tierce at 6/5, quint, nominal.
+         A free-free bar is INHARMONIC: 1 : 2.756 : 5.404 : 8.933 : 13.34. */
+      claim('AND THE BELL IS TUNED THE WAY A FOUNDER TUNES ONE, on a minor third',
+        JSON.stringify(B.ratios.slice(0,5)) === JSON.stringify([0.5, 1.0, 1.2, 1.5, 2.0]),
+        'hum 0.5, prime 1, TIERCE 1.2 which is a minor third (6/5), quint 1.5, nominal 2. '
+        + 'The minor tierce is the whole character of a bell and it is also this lane\'s own '
+        + 'no-major-third rule agreeing with a bell founder by accident');
+      claim('AND THE PIPE IS A FREE-FREE BAR, which is not a chord at all',
+        JSON.stringify(P.ratios) === JSON.stringify([1, 2.756, 5.404, 8.933, 13.34]),
+        'the classic transverse series. That inharmonicity is why it reads as metal somebody '
+        + 'found rather than as a bell, and it is why the pipe measures '
+        + Math.round(P.centroid) + ' Hz bright against the bell\'s ' + Math.round(B.centroid));
+      /* AND THE COUNT IS PART OF THE CLAIM. The first cut only asked that the partials it
+         found were loud enough, so a BARE SINE walked straight through it under --mutate:
+         one ratio, one reading, at 0 dB, and `every` on a one-item list is always true. A
+         struck object is a SET of modes; one mode is a tone. So the number of modes really
+         present is checked before their levels are. A claim nothing can falsify is not a
+         claim, and this one had to be shown a sine before it admitted it. */
+      claim('AND EVERY DECLARED PARTIAL IS REALLY IN THE SOUND, not only in the table',
+        B.partialsDb.length >= 8 && P.partialsDb.length >= 5
+          && B.partialsDb.slice(0,5).every(x => x > -40) && P.partialsDb.slice(0,3).every(x => x > -40),
+        'the bell carries ' + B.partialsDb.length + ' modes and the pipe ' + P.partialsDb.length
+        + '; the bell\'s first five read ' + B.partialsDb.slice(0,5).join(', ')
+        + ' dB under its loudest bin, and the pipe\'s first three ' + P.partialsDb.slice(0,3).join(', ')
+        + '. A ratio in a table is a promise; this is the sound');
+      claim('AND THE TOP DIES FIRST, which is physics and not a choice',
+        B.longestTail > B.shortestTail * 4 && P.longestTail > P.shortestTail * 4,
+        'the bell rings ' + B.longestTail + ' s at the hum and ' + B.shortestTail
+        + ' s at its highest partial, ' + (B.longestTail/B.shortestTail).toFixed(1)
+        + 'x. Damping rises with frequency, which is why a bell WARMS as it decays');
+      claim('AND A CRACK TAKES THE RING OUT OF IT, which is the realistic one here',
+        C.longestTail < B.longestTail * 0.6,
+        'the bell rings ' + B.longestTail + ' s and the cracked one ' + C.longestTail
+        + ' s. A crack stops the shell moving as one piece, so nothing in a valley nobody '
+        + 'has maintained for ten years rings like a cast bell');
+      claim('AND THE STRIKE LANDS ON THE BEAT (the 120 BPM law)',
+        B.peakAtMs < 55 && C.peakAtMs < 55 && P.peakAtMs < 55,
+        'loudest instant ' + B.peakAtMs.toFixed(1) + ', ' + C.peakAtMs.toFixed(1) + ' and '
+        + P.peakAtMs.toFixed(1) + ' ms against the fight\'s 55 ms PERFECT window. The RING '
+        + 'runs on for seconds after, which is legal: the law is about when a sound starts');
+      claim('AND NO RING IS CHOPPED OFF, because a chopped ring is a click',
+        B.lastSample <= B.stepP999 * 0.05 && C.lastSample <= C.stepP999 * 0.05
+          && P.lastSample <= P.stepP999 * 0.05,
+        'last samples ' + B.lastSample.toFixed(6) + ', ' + C.lastSample.toFixed(6) + ', '
+        + P.lastSample.toFixed(6) + ' against their own 99.9th-percentile steps of '
+        + B.stepP999.toFixed(4) + ', ' + C.stepP999.toFixed(4) + ', ' + P.stepP999.toFixed(4)
+        + '. The first cut chopped the bell mid-ring with 0.21 rms still going');
+      claim('AND NONE OF THEM CLIPS (school rule 8)',
+        B.peak <= 1 && C.peak <= 1 && P.peak <= 1,
+        'peaks ' + B.peak.toFixed(4) + ', ' + C.peak.toFixed(4) + ', ' + P.peak.toFixed(4)
+        + ', through a tanh rather than a ceiling');
+    } else { claim('WHAT THIS VALLEY STRIKES was measured', false, d.strikeErr || 'no reading'); }
 
     /* ---- THE BAND HELPER (9/24), row [band helper] -------------------------- */
     if (d.band) {

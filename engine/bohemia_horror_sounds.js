@@ -1048,6 +1048,148 @@
     out.sort(function (p, q) { return p.hz - q.hz; });
     return out.slice(0, count || 10);
   }
+  /* ==== 12. WHAT THIS VALLEY STRIKES ON THE HOUR ==================================
+     *** RULE 33, PAOLO 9/24: the valley is crossed on a MAP the Battle Brothers way, time
+     passes as you travel, and the row asks for THE CLOCK AUDIBLE. Rule 33g, his words: "BB
+     is just a bunch of pictures... we can do more and put more life into it" -- so where
+     BB's map is a still with music over it, ours has a thing in it that MOVES and sounds.
+     And rule 32e: NO SAND, new sounds from REAL MATERIAL. ***
+
+     THERE IS NOT ONE NOISE GENERATOR IN THIS FUNCTION EITHER. A struck metal object is a
+     set of MODES, and the mode ratios of both objects here are PUBLISHED SERIES, not
+     numbers I liked:
+
+     A TUNED BELL is tuned to a MINOR THIRD, which is why a bell sounds sad and why this
+     one belongs in a dead valley. Its partials, as a bell founder tunes them, relative to
+     the prime:
+         0.5  hum        1.0  prime      1.2  tierce (a MINOR third: 6/5)
+         1.5  quint      2.0  nominal    2.5  deciem
+         3.0  undecim    4.0  double octave
+     The tierce being minor is the whole character, and it is also this lane's own no-major-
+     third rule agreeing with a bell founder by accident.
+
+     A STRUCK BAR OR PIPE is INHARMONIC, and that is why it reads as metal-you-found rather
+     than as a bell. The transverse modes of a free-free bar are the classic series
+         1 : 2.756 : 5.404 : 8.933 : 13.34
+     which is not a chord at all, and it is what somebody hitting a length of pipe gets.
+
+     A CRACKED BELL is the same bell with the ring taken out of it and its tuning pulled
+     off: a crack stops the shell from vibrating as one piece, so the partials go sharp and
+     flat of where they were cast and the decay collapses. Nothing in this valley has been
+     maintained for ten years, so this is the realistic one, and REALISM FIRST says it
+     leads.
+
+     HIGHER MODES DIE FIRST, WHICH IS PHYSICS AND NOT A CHOICE: damping rises with
+     frequency, so a bell's hum outlasts its nominal by many seconds and that is why a bell
+     "warms" as it decays. Each partial's decay here is derived from its own frequency.
+
+     AND IT LANDS ON THE BEAT (the 120 BPM law): the strike is at zero and the ring runs on
+     past it. A bell tail is seconds long, which is legal because the LAW is about when a
+     sound starts, never about how long it may hold. */
+  var STRIKE = {
+    bell: {
+      /* a founder's minor-third tuning */
+      ratios: [0.5, 1.0, 1.2, 1.5, 2.0, 2.5, 3.0, 4.0],
+      levels: [0.62, 1.00, 0.74, 0.55, 0.62, 0.30, 0.22, 0.12],
+      f0: 220, damp: 0.18, secs: 6.0, hit: 0.0016,
+      why: 'a cast bell tuned the way a founder tunes one, on a minor third'
+    },
+    cracked: {
+      /* THE SAME BELL, ten years unmaintained: the tuning pulled off and the ring gone */
+      ratios: [0.5, 1.0, 1.23, 1.44, 2.07, 2.42, 3.11, 4.09],
+      levels: [0.40, 1.00, 0.80, 0.70, 0.55, 0.40, 0.34, 0.22],
+      f0: 220, damp: 0.40, secs: 2.5, hit: 0.0011,
+      why: 'the same bell cracked: a crack stops the shell moving as one piece, so the partials go off their tuning and the ring collapses'
+    },
+    pipe: {
+      /* the transverse modes of a free-free bar, which are inharmonic */
+      ratios: [1, 2.756, 5.404, 8.933, 13.34],
+      /* a struck bar is CLANGY, and that is the high modes being LOUD, not an afterthought */
+      levels: [1.00, 0.92, 0.78, 0.60, 0.42],
+      f0: 196, damp: 0.08, secs: 5.0, hit: 0.0007,
+      why: 'a length of steel pipe, struck: the free-free bar series, which is not a chord'
+    }
+  };
+  function struckMetal(ctx, opts) {
+    opts = opts || {};
+    var which = opts.what || 'cracked';
+    var k = STRIKE[which] || STRIKE.cracked;
+    var sr = ctx.sampleRate;
+    var f0 = opts.f0 || k.f0;
+    var n = Math.round(sr * (opts.secs || k.secs));
+    var buf = ctx.createBuffer(1, n, sr);
+    var d = buf.getChannelData(0);
+    var i, q;
+
+    /* THE STRIKE ITSELF, and it is the same physics as the footstep's contact: a half-sine
+       force pulse of duration `hit`, radiating directly as its own rate of change, which is
+       the bright click of metal being hit. A harder object gives a shorter pulse and a
+       brighter click, which is why the pipe's is the shortest. */
+    var w = Math.max(2, Math.round(k.hit * sr)), prev = 0;
+    for (i = 0; i < w && i < n; i++) {
+      var f = Math.sin(Math.PI * i / w);
+      d[i] += (f - prev) * 0.42;
+      prev = f;
+    }
+
+    /* THE MODES. Each one is a decaying sine at its published ratio, and its decay time
+       falls with frequency because damping rises with it. */
+    var tails = [];
+    for (q = 0; q < k.ratios.length; q++) {
+      var hz = f0 * k.ratios[q];
+      if (hz >= sr / 2) continue;
+      /* AN AMPLITUDE E-FOLD: 1/(pi * f * loss), the same relation the footstep's slab uses,
+         and `damp` is the loss factor in PERCENT so the table reads in human numbers.
+         *** AND THE FIRST CUT OF THIS TABLE WAS TWENTY TIMES TOO DAMPED AND THE BELL RANG
+         FOR 85 MILLISECONDS. *** Metals barely lose energy: bronze and steel have loss
+         factors around 1e-4 to 1e-3, so a cast bell's hum rings for SECONDS and that is
+         the whole sound of a bell.
+         AND THEN THE SECOND CUT WENT TOO FAR THE OTHER WAY: at the bronze's own 0.03% the
+         hum rings 9.6 s, which is a CATHEDRAL bell and longer than any buffer worth
+         holding, and measuring the last quarter of the buffer found 0.21 rms still going
+         when the samples ran out. THIS IS A TOWN BELL, and what limits a town bell is not
+         the bronze, it is how hard it RADIATES and how it is MOUNTED, so 0.18% and a 1.6 s
+         hum, which is what a town bell really does. A CRACK raises the loss again because
+         the shell stops moving as one piece, so 0.40% gives 0.7 s and a thud; a pipe
+         somebody is holding sits below both at 0.08%. The numbers are the material's and
+         the mounting's; the first cut's were mine. */
+      var tail = 1 / (Math.PI * hz * (k.damp / 100));
+      tails.push({ hz: +hz.toFixed(2), tailSeconds: +tail.toFixed(3), level: k.levels[q] });
+      for (i = 0; i < n; i++) {
+        var t = i / sr, env = Math.exp(-t / tail);
+        if (env < 1e-4) break;
+        d[i] += Math.sin(2 * Math.PI * hz * t) * k.levels[q] * env;
+      }
+    }
+
+    /* saturation rather than a ceiling (school rule 8) */
+    for (i = 0; i < n; i++) d[i] = Math.tanh(d[i] * 0.9) * 0.94;
+
+    /* *** AND THE END OF THE BUFFER IS FADED, BECAUSE THE FIRST CUT CHOPPED THE RING OFF
+       AND A CHOPPED RING IS A CLICK. *** A raised cosine over the last 200 ms: long enough
+       that nothing can snap, short enough that nobody hears it as a fade-out. The gate
+       checks the last sample against the sound's own biggest step, so this cannot be
+       claimed without being measured. */
+    var fade = Math.min(n, Math.round(0.20 * sr));
+    for (i = 0; i < fade; i++) {
+      var u = i / fade;
+      d[n - fade + i] *= 0.5 * (1 + Math.cos(Math.PI * u));
+    }
+    normalise(d, n, 0.85);
+
+    return {
+      buffer: buf, machine: MACHINE.EAR, seconds: n / sr, what: which,
+      noiseSources: 0,
+      f0: f0, ratios: k.ratios, levels: k.levels, damp: k.damp,
+      hitMs: +(k.hit * 1000).toFixed(3), partials: tails,
+      /* the longest and shortest ring, so "the top dies first" is a number and not a claim */
+      longestTailSeconds: tails.length ? tails[0].tailSeconds : null,
+      shortestTailSeconds: tails.length ? tails[tails.length - 1].tailSeconds : null,
+      fadeMs: 200,
+      why: k.why
+    };
+  }
+
   function footstepModelled(ctx, opts) {
     opts = opts || {};
     var sr = ctx.sampleRate;
@@ -1369,6 +1511,8 @@
     theDoor: theDoor,
     theBroadcast: theBroadcast,
     footstepModelled: footstepModelled,
+    struckMetal: struckMetal,
+    STRIKE: STRIKE,
     /* exported so a judge page can play the BEFORE from THIS function and never from a
        second copy of it, and so a checker can measure the filter on its own */
     bandTo: bandTo,
@@ -1407,7 +1551,9 @@
         { id: 'sounds-a-footstep-that-is-not-sand-9-24', make: 'footstepModelled',
           title: 'A FOOTSTEP THAT IS NOT SAND' },
         { id: 'sounds-the-sand-is-out-9-24', make: 'theDoor',
-          title: 'THE SAND IS OUT OF THE ONES YOU LIKED' }
+          title: 'THE SAND IS OUT OF THE ONES YOU LIKED' },
+        { id: 'sounds-what-this-valley-strikes-9-24', make: 'struckMetal',
+          title: 'WHAT THIS VALLEY STRIKES ON THE HOUR' }
       ];
     }
   };
