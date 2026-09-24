@@ -1931,6 +1931,21 @@
      "how": "page",
      "src": "vote/COOK_THE_MAP_HAS_MARKERS.html"
     }
+   },
+   {
+    "id": "animation-the-other-half-9-24",
+    "kind": "animation",
+    "lane": "animation",
+    "sha": "PENDING",
+    "made": "9/24",
+    "title": "THE OTHER HALF OF THE SAME PROBLEM",
+    "why": "Last round I found the clips that were dead FACING you. Then I asked it the other way round and found the opposite, which is worse. NODDING WAS INVISIBLE FROM THE SIDE, the one direction a nod should be easiest to see. His head was tilted forward all the time and then swung eight degrees on top of that, which on a 22 pixel head is about a pixel and a half. Tilt gone, swing three times bigger, neck and shoulders with it: every side view went up and none is dead. The other two are last round's bug twice more. A thrust goes forward and forward is straight into the screen, so a spear drive and a knife jab both did nothing facing you, 12% each. Now he sinks into the lunge and punches out low: 55% and 45%, every side view untouched to a tenth of a point. This one PLAYS.",
+    "show": {
+     "how": "page",
+     "src": "vote/ANIMATION_THE_OTHER_HALF.html"
+    },
+    "redoOf": "nod, spear-drive and shiv-jab",
+    "said": "A lot of the ones I thumbed down were because some of the DIRECTIONS look like dog shit."
    }
  ],
  "verdicts": [

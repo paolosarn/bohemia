@@ -1501,7 +1501,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 9/24t - THE BUST</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 9/24u - THE OTHER HALF, ONE BACK</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -7152,7 +7152,23 @@ const POSE={
  drink:(d,ph)=>{const t=ph;const e=(a,b)=>Math.min(1,Math.max(0,(t-a)/(b-a)));const up=e(0.04,0.44)*(1-e(0.62,0.96))/* was e(0.1,0.3)*(1-e(0.7,0.9)): 6px of lift inside 2.4 drawn keys */;const g=gunT(d,3.5,2);return {ikR:[g[0][0],g[0][1]-6*up],bendR:'auto',head:-0.18*up,upL:0.25,foreL:-0.3};},
  smoke:(d,ph)=>{const t=ph;const e=(a,b)=>Math.min(1,Math.max(0,(t-a)/(b-a)));const up=e(0.02,0.42)*(1-e(0.52,0.92))/* was e(0.05,0.2)*(1-e(0.45,0.6)): the whole drag lived in under two drawn keys */;const g=gunT(d,3,1.5);return {ikR:[g[0][0],g[0][1]-5*up],bendR:'auto',head:0.04-0.1*up,upL:0.2,foreL:-0.25,spine:-0.02};},
  talk:(d,ph)=>{const s=Math.sin(ph*2*Math.PI),c=Math.sin(ph*4*Math.PI+0.7);const rR=gR(d),rL=gL(d);return {upR:rR*(0.25+0.2*s),foreR:rR*(0.7+0.25*s),upL:rL*(0.3-0.15*s),foreL:rL*(0.5-0.2*c),head:0.04*c,spine:0};},
- nod:(d,ph)=>{const s=Math.sin(ph*4*Math.PI);if(!_lat(d))return {head:0.15*s,hipOff:[0,1.7*Math.max(0,s)],upL:gL(d)*0.12,upR:gR(d)*0.12};const f=spF(d);return {head:f*(0.12+0.14*s),spine:f*0.02*Math.max(0,s),upL:gL(d)*0.12,upR:gR(d)*0.12};},
+ /* ===== THE MIRROR OF LAST ROUND'S DEFECT, 9/24c. The 47-clip sweep found
+    clips dead FACING THE CAMERA; asking the same question the other way round
+    found clips dead IN PROFILE, which is worse when it happens because a head or
+    a chest move is MOST visible from the side. nod is the case: alive head-on at
+    17.2% and dead on FIVE of the six side facings, best of them 12.8%.
+    records/BOHEMIA_THE_OTHER_HALF_OF_THE_DIRECTIONS_9_24_26.md ===== */
+ /* nod: the side branch was head:f*(0.12+0.14*s). The 0.12 is a permanent TILT
+    that eats the range before the swing starts, and 0.14 rad is eight degrees on
+    a 22 px head -- about a pixel and a half, which is nothing. A nod seen from
+    the side is the biggest arc a head makes in this game, so it is centred on
+    zero, swung three times as far, and the neck and shoulders go with it. */
+ nod:(d,ph)=>{const s=Math.sin(ph*4*Math.PI);if(!_lat(d))return {head:0.15*s,hipOff:[0,1.7*Math.max(0,s)],upL:gL(d)*0.12,upR:gR(d)*0.12};
+   const f=spF(d);
+   return {head:f*0.42*s,spine:f*0.07*Math.max(0,s),
+     hipOff:[0,1.3*Math.max(0,s)],
+     upL:gL(d)*0.12,upR:gR(d)*0.12,
+     armCompressL:0.05*Math.max(0,s),armCompressR:0.05*Math.max(0,s)};},
  'look-around':(d,ph)=>{const s=Math.sin(ph*2*Math.PI);return {head:0.14*s,spine:0.03*s,upL:gL(d)*0.1,upR:gR(d)*0.1,hipOff:[s*0.5,0]};},
  stumble:(d,ph)=>{const t=ph;const e=(a,b)=>Math.min(1,Math.max(0,(t-a)/(b-a)));const tr=e(0.05,0.25)*(1-e(0.5,0.75));const ca=e(0.5,0.75)*(1-e(0.85,1));const rL=gL(d),rR=gR(d);return {spine:spF(d)*(0.5*tr-0.1*ca),hipOff:[0,3*tr],head:0.1*tr*spF(d),upL:rL*(1.1*tr-0.2*ca),upR:rR*0.9*tr,foreL:rL*0.3,foreR:rR*0.35,legCompressL:0.25*tr,legCompressR:0.12*tr};},
  fistpump:(d,ph)=>{const t=(ph*2)%1;const e=(a,b)=>Math.min(1,Math.max(0,(t-a)/(b-a)));const p=e(0,0.3)*(1-e(0.55,0.85));const r=gR(d);return {upR:r*1.6*p,foreR:r*(0.9*p+0.1),upL:gL(d)*0.12,hipOff:[0,-1.2*p],head:-0.05*p*r,spine:0};},
@@ -7429,9 +7445,17 @@ const CANDIDATE_SRC={
  'cover-fire':"(d,ph)=>{const t=ph;const e=(a,b)=>Math.min(1,Math.max(0,(t-a)/(b-a)));const pk=e(0.02,0.25)*(1-e(0.7,0.95));const snap=e(0.28,0.38)*(1-e(0.6,0.8));const rec=e(0.38,0.44)*(1-e(0.5,0.62));const cr=1-0.55*pk;const lat=_lat(d);const inL=lat?fwdS(d):(-outL(d));const g=gunT(d,2.2+(RF+0.5-2.2)*snap-rec*2.2,RR);const iy=g[0][1]+2.2*(1-snap);return {hipOff:[0,4.6*cr-0.3*rec],legCompressL:0.38*cr,legCompressR:0.38*cr,spine:spF(d)*(0.26*cr-0.03*snap),head:spF(d)*(0.2*cr-0.05*snap),ikR:[g[0][0],iy],bendR:'auto',upL:inL*0.35*cr,foreL:inL*0.95*cr,armCompressL:0.18*cr,_gun:['pistol',[g[0][0],iy],g[2]],_fire:rec>0.5};}",
  'get-shoved':"(d,ph)=>{const t=ph;const e=(a,b)=>Math.min(1,Math.max(0,(t-a)/(b-a)));const im=e(0.02,0.1)*(1-e(0.35,0.65));const bk=e(0.05,0.3);const rec=e(0.65,0.95);const m=(RUNMIR[d]?-1:1);return {spine:-spF(d)*(0.38*im+0.1*(1-rec)),head:-spF(d)*0.3*im,hipOff:[-(spF(d)||0)*5.5*bk*(1-rec),1.4*im+0.8*(1-rec)],upL:gL(d)*(0.9*im+0.2),foreL:gL(d)*0.5*im,upR:gR(d)*(1.0*im+0.2),foreR:gR(d)*0.55*im,legCompressL:0.3*im+0.15*(1-rec),legCompressR:0.1*im,thighR:0.3*im*m};}",
  'floor-rise':"(d,ph)=>{const t=ph;const e=(a,b)=>Math.min(1,Math.max(0,(t-a)/(b-a)));const push=e(0.12,0.4);const knee=e(0.35,0.65);const stand=e(0.68,0.92);const down=1-knee;const lat=_lat(d);const gnd=lat?-spF(d):1;const o={hipOff:[0,11*down+4.4*knee*(1-stand)],thighL:gnd*1.3*down,thighR:gnd*1.18*down,shinL:gnd*-0.5*down,shinR:gnd*-0.42*down,legCompressL:0.34*knee*(1-stand),legCompressR:0.34*knee*(1-stand),spine:spF(d)*(0.46*down+0.24*knee*(1-stand)+0.02),head:spF(d)*(0.18*down+0.08*knee*(1-stand))};if(down>0.15){const g=gunT(d,3.2,2);o.ikR=[g[0][0]+2,g[0][1]+8.5*down*(1-push*0.35)];o.bendR='auto';o.ikL=[g[1][0]-2.5,g[1][1]+8*down*(1-push*0.3)];o.bendL='auto';}else{o.upL=gL(d)*0.15*(1-stand);o.upR=gR(d)*0.18*(1-stand);}return o;}",
- 'shiv-jab':"(d,ph)=>{const t=ph;const e=(a,b)=>Math.min(1,Math.max(0,(t-a)/(b-a)));const wu=e(0.08,0.3)*(1-e(0.34,0.46));const jab=e(0.34,0.46)*(1-e(0.7,0.92));const g=gunT(d,3+8.5*jab-1.8*wu,2);return {ikR:[g[0][0],g[0][1]+3-1.2*jab+1.5*wu],bendR:'auto',armCompressR:0.25*wu,spine:spF(d)*(-0.08*wu+0.2*jab),head:spF(d)*0.06*jab,upL:gL(d)*(0.25+0.2*jab),foreL:gL(d)*0.4,hipOff:[(spF(d)||0)*2.2*jab,0.5*wu+0.9*jab],legCompressL:0.1*jab,legCompressR:0.06*wu};}",
+ /* shiv-jab: the same cause, 12.6% facing you. A knife goes in short and fast,
+    so facing you it is the SHOULDER and the drop that sell it, not reach. */
+ 'shiv-jab':"(d,ph)=>{const t=ph;const e=(a,b)=>Math.min(1,Math.max(0,(t-a)/(b-a)));const wu=e(0.08,0.3)*(1-e(0.34,0.46));const jab=e(0.34,0.46)*(1-e(0.7,0.92));if(headOn(d)){const r=gR(d);return {upR:r*(0.55-0.30*wu+0.95*jab),foreR:r*(0.70-0.35*wu+0.55*jab),armCompressR:0.30*wu+0.26*jab,upL:gL(d)*(0.25+0.30*jab),foreL:gL(d)*0.4,head:0.10*wu+0.20*jab,hipOff:[r*1.8*jab,1.2*wu+3.4*jab],legCompressL:0.24*jab,legCompressR:0.12*wu};}const g=gunT(d,3+8.5*jab-1.8*wu,2);return {ikR:[g[0][0],g[0][1]+3-1.2*jab+1.5*wu],bendR:'auto',armCompressR:0.25*wu,spine:spF(d)*(-0.08*wu+0.2*jab),head:spF(d)*0.06*jab,upL:gL(d)*(0.25+0.2*jab),foreL:gL(d)*0.4,hipOff:[(spF(d)||0)*2.2*jab,0.5*wu+0.9*jab],legCompressL:0.1*jab,legCompressR:0.06*wu};}",
  'bat-arc':"(d,ph)=>{const t=ph;const e=(a,b)=>Math.min(1,Math.max(0,(t-a)/(b-a)));const wu=e(0.06,0.32)*(1-e(0.36,0.5));const sw=e(0.36,0.5)*(1-e(0.78,0.96));const r=gR(d);const m=(RUNMIR[d]?-1:1);return {upR:r*(-1.5*wu+1.9*sw+0.15),foreR:r*(0.55*wu-0.35*sw),upL:gL(d)*(0.3*wu+0.35*sw),foreL:gL(d)*0.3,spine:spF(d)*(-0.2*wu+0.34*sw),head:spF(d)*(-0.06*wu+0.1*sw),hipOff:[(spF(d)||0)*1.8*sw,0.6*wu+1.5*sw],legCompressL:0.14*sw,legCompressR:0.08*wu,thighR:0.12*sw*m};}",
- 'spear-drive':"(d,ph)=>{const t=ph;const e=(a,b)=>Math.min(1,Math.max(0,(t-a)/(b-a)));const wu=e(0.08,0.32)*(1-e(0.38,0.5));const dr=e(0.38,0.5)*(1-e(0.75,0.95));const g=gunT(d,2.5-2*wu+9.5*dr,-0.5-1.5*wu+3.5*dr);return {ikR:[g[0][0],g[0][1]+1],bendR:'auto',ikL:[g[1][0],g[1][1]+2.5],bendL:'auto',spine:spF(d)*(-0.14*wu+0.3*dr),head:spF(d)*0.08*dr,hipOff:[(spF(d)||0)*2.6*dr,0.5*wu+1.1*dr],legCompressL:0.12*dr,legCompressR:0.08*wu};}",
+ /* spear-drive: A THRUST GOES FORWARD, AND FORWARD IS INTO THE SCREEN. It aims
+    with gunT and every body term is spF, so facing you the whole drive scored
+    12.3%: a man standing still. Same cause as point, and this is the second and
+    third clip on that cause. Facing you the drive is spent DOWN and THROUGH: he
+    sinks into the lunge, the back leg folds, both arms punch out and low, the
+    head goes with the weight. */
+ 'spear-drive':"(d,ph)=>{const t=ph;const e=(a,b)=>Math.min(1,Math.max(0,(t-a)/(b-a)));const wu=e(0.08,0.32)*(1-e(0.38,0.5));const dr=e(0.38,0.5)*(1-e(0.75,0.95));if(headOn(d)){const r=gR(d),l=gL(d);return {upR:r*(0.35-0.25*wu+1.25*dr),foreR:r*(0.30-0.20*wu+0.95*dr),upL:l*(0.30+0.85*dr),foreL:l*(0.25+0.60*dr),armCompressR:0.22*wu,head:0.12*wu+0.26*dr,hipOff:[r*2.2*dr,1.6*wu+5.2*dr],legCompressL:0.34*dr,legCompressR:0.16*wu+0.22*dr};}const g=gunT(d,2.5-2*wu+9.5*dr,-0.5-1.5*wu+3.5*dr);return {ikR:[g[0][0],g[0][1]+1],bendR:'auto',ikL:[g[1][0],g[1][1]+2.5],bendL:'auto',spine:spF(d)*(-0.14*wu+0.3*dr),head:spF(d)*0.08*dr,hipOff:[(spF(d)||0)*2.6*dr,0.5*wu+1.1*dr],legCompressL:0.12*dr,legCompressR:0.08*wu};}",
 };
 /* ===== GRAVEYARD (Paolo's law, corrected 7/2/26): rejected clips are NEVER
    deleted from the sources. They live here, out of the game (never in CLIPS,

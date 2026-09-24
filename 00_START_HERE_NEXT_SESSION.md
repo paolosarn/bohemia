@@ -8785,6 +8785,94 @@ archive escape built in from the start so [handoff cut] is unblocked rather than
 THE WARNING FOR EVERY LANE: do not write this file from a copy you read at the start of your round.
 Re-read it immediately before you edit, and check your own block is still there after any rebase.
 
+ANIMATION (animation-lr9y9i): 9/24 (d) LATEST -- *** THE SAME QUESTION ASKED THE
+OTHER WAY ROUND, AND THE ANSWER WAS WORSE: THE NOD WAS INVISIBLE FROM THE SIDE.
+Three more of his forty-seven fixed and in the game. TAB: VOTE, playing, and
+ANIMATION for the clips. ***
+
+[redo killed] continues, 12 of 47. [judge two] waits on his thumb.
+
+=== THE MIRROR QUESTION
+Last round swept all 47 killed clips on all 8 facings and fixed three dead FACING
+THE CAMERA. The mirror question is whether any clip is dead IN PROFILE while
+alive head-on. That is worse when it happens, because a head or a chest move is
+MOST visible from the side.
+
+  clip          head-on best   side best   dead sideways
+  nod              17.2%         12.8%     NE E SE SW NW  (five of six)
+  point            42.1%         20.1%     SW NW
+  chest-thump      35.7%         29.8%     NW
+  inject           14.3%         25.8%     SW W NW
+
+point, chest-thump and inject are the OCCLUSION family: on the back-side facings
+the reaching arm is behind the body and the compositor is first-wins. That is the
+feature he killed three times, so this lane is stopped on it.
+NOD IS THE REAL ONE, and it is the inverse defect.
+
+=== WHY THE NOD WAS INVISIBLE FROM THE SIDE (eleven characters)
+    head: f*(0.12 + 0.14*s)
+  0.12 is a PERMANENT TILT: his head sits tipped forward the whole time, so the
+       swing starts from an offset instead of from rest.
+  0.14 rad is EIGHT DEGREES. His head is 22 px tall. That is about a pixel and a
+       half. A nod you can only find with a ruler.
+Centred on zero, swung to 0.42, neck and shoulders and a hip bob following:
+        NE    E    SE   SW   W    NW
+  before 4.1  9.7  6.6  9.1  12.8 5.5
+  after 14.5 22.8 17.6 15.6  21.8 13.5
+Head-on untouched (14.7 and 17.2) and that is its own gate claim, because the fix
+is in the lateral branch and a leak the other way would show up there.
+
+=== AND LAST ROUND'S BUG TWICE MORE, WHICH MAKES IT A CLASS
+A THRUST GOES FORWARD, AND FORWARD IS INTO THE SCREEN. spear-drive and shiv-jab
+both aim with gunT and write every body term as spF, which is zero on N and S, so
+facing you the whole attack was a man standing still.
+  spear-drive   N 12.3 -> 55.5%   S 18.9 -> 65.2%
+  shiv-jab      N 12.6 -> 45.1%   S 16.2 -> 55.5%
+ALL TWELVE side facings across both clips unchanged to a tenth of a point.
+
+=== GATE
+gates/a_clip_reads_facing_you_gate.js -- 17 claims, 3 more mutations caught: drop
+spear-drive's head-on branch (its own claim, back to 12.3%), put nod's permanent
+tilt back (the profile claim, worst side facing 7.6%), and let shiv-jab's head-on
+branch leak into the lateral path (the unchanged claim, all six named).
+AND THE CONTROL MOVED. It used to stand on nod. nod is a SUBJECT of this gate now,
+and A CONTROL THAT STANDS ON A CLIP THE ROUND EDITED IS ARGUING WITH ITSELF. It
+reads drunk, which this round did not touch.
+
+=== COOKED THIS ROUND (rule 22, rule 25)
+animation-the-other-half-9-24, and it PLAYS: the nod from the side and both
+thrusts facing him, what he killed beside what they are, twelve frames a bar on
+the real clock. No control in the page.
+
+=== WHERE [redo killed] STANDS
+12 of 47 touched: idle (voted UP); eat, drink, smoke, cough, whistle (their MOTION
+only, the face-reach redo graveyarded by ruling); point, taunt, chest-thump; nod,
+spear-drive, shiv-jab.
+THE ORDER IS THE MEASUREMENT, NOT TASTE: whichever remaining clip has the worst
+single facing goes next. The HOLDS (pistol, sleep, lean, pray, hands-up, the
+crouch-aims) are still on all eight ON PURPOSE and are never "fixed". The
+occlusion family is never touched until he asks.
+
+=== PROOF
+records/BOHEMIA_THE_OTHER_HALF_OF_THE_DIRECTIONS_9_24_26.md
+Pre-push pass green: READS FACING YOU 17/0, ENVELOPE RAMP 10/0, NECK HOLDS HEAD
+8/0, HAND TO FACE 1/0, ELDER STOOPS 9/0, SLIDE AND TURN 17/0, HEAD SNAPS 13/0,
+ELBOW BENDS 10/0, VOTE TAB 30/0, HANDOFF 9/0.
+Red and NOT mine, reproduced on a clean origin/main: ONE NUMBER BODY 5/1
+(cross-origin postMessage throw), PAGES PUBLISH 17/1 (over the size cap).
+Full suite: 107 red at ad23d875; mine are none on that list.
+
+=== NEXT, IN ORDER
+1. The remaining killed clips with the worst single facing, one at a time, with a
+   picture each. Never the holds, never the occlusion family.
+2. [judge two] is not SHIPPED until he judges pickup and laugh.
+3. [bake approved] -- 23 thumbed-up candidates go in verbatim. NOTE: several of
+   them (cower, psych-up, air-guitar, pat-pockets, scratch-back) carry the same
+   head-on hole, so baking them verbatim ships the defect.
+4. [horror motion] is still OPEN under the bible.
+
+[PENDING Paolo] Nothing.
+
 ANIMATION (animation-lr9y9i): 9/24 (c) LATEST -- *** "SOME OF THE DIRECTIONS LOOK
 LIKE DOG SHIT" IS NOW A NUMBER, ON ALL FORTY-SEVEN CLIPS HE KILLED. 21 of 47 have a
 direction where he does nothing. Three fixed and in the game. TAB: VOTE, playing,

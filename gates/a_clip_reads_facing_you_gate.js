@@ -76,7 +76,19 @@ const PICKUP_PCT_MIN = 55, LAUGH_PCT_MIN = 32;
 /* THE THREE KILLED CLIPS, floors set under what shipped and OVER what the bug
    scored, which is the lesson mutation taught this gate the first time round. */
 const HEADON = { point: { was: 3.1, min: 24 }, taunt: { was: 10.7, min: 28 },
-                 'chest-thump': { was: 8.2, min: 22 } };
+                 'chest-thump': { was: 8.2, min: 22 },
+                 /* 9/24c: two more on point's exact cause. A thrust goes FORWARD
+                    and forward is into the screen. */
+                 'spear-drive': { was: 12.3, min: 45 }, 'shiv-jab': { was: 12.6, min: 38 } };
+/* *** AND THE MIRROR CASE, 9/24c. *** Asking the same question the other way round
+   found clips dead IN PROFILE while alive head-on, which is worse when it happens
+   because a head or a chest move is MOST visible from the side. nod was alive
+   head-on at 17.2% and dead on FIVE of the six side facings, best of them 12.8%:
+   its side branch carried a permanent 0.12 rad TILT that ate the range before the
+   swing started, over a swing of 0.14 rad -- eight degrees on a 22 px head, about
+   a pixel and a half. THE FLOOR IS ON THE WORST SIDE FACING, not the best, because
+   "some of the directions look like dog shit" is a claim about the worst one. */
+const PROFILE = { nod: { wasWorst: 4.1, min: 12 } };
 
 (async () => {
   const { chromium } = require('/opt/node22/lib/node_modules/playwright');
@@ -117,7 +129,7 @@ const HEADON = { point: { was: 3.1, min: 24 }, taunt: { was: 10.7, min: 28 },
     /* the three off the killed list, every facing, so "not traded away" is asked
        of all eight rather than of the one I happened to check */
     const killed = {};
-    for (const c of ['point', 'taunt', 'chest-thump']) {
+    for (const c of ['point', 'taunt', 'chest-thump', 'spear-drive', 'shiv-jab', 'nod']) {
       killed[c] = {};
       /* THE PCT, NOT THE WHOLE READING. The first cut stored the object and every
          claim printed [object Object] while the drift check quietly compared an
@@ -141,8 +153,10 @@ const HEADON = { point: { was: 3.1, min: 24 }, taunt: { was: 10.7, min: 28 },
     }
     /* THE CONTROL: the pattern this fix copies is already in the file, so a build
        where headOn branches do nothing would take nod down with it. */
-    const nod = read('nod', 'S');
-    return { K, two, killed, still, nod, clips: clips.length };
+    /* drunk, not nod: nod is a SUBJECT of this gate now, and a control that
+       stands on a clip the round edited is arguing with itself. */
+    const ctl = read('drunk', 'S');
+    return { K, two, killed, still, ctl, clips: clips.length };
   });
 
   ok('the alpha loads with no page error (' + (errs.length ? errs[0] : 'none') + ')', errs.length === 0);
@@ -168,8 +182,8 @@ const HEADON = { point: { was: 3.1, min: 24 }, taunt: { was: 10.7, min: 28 },
   ok('and the side views are NOT traded away: pickup ' + p.E.cm + 'px, laugh ' + l.E.cm + 'px',
      p.E.cm >= 9 && l.E.cm >= 1.1);
 
-  ok('CONTROL: the headOn pattern this copies is alive elsewhere in the file ' +
-     '(nod still reads ' + R.nod.cm + 'px facing you)', R.nod.cm >= 1.5);
+  ok('CONTROL: the headOn pattern this copies is alive in a clip this round did ' +
+     'NOT touch (drunk still reads ' + R.ctl.cm + 'px facing you)', R.ctl.cm >= 1.5);
 
   /* === HIS OWN REASON FOR KILLING THEM, HELD === */
   for (const c of Object.keys(HEADON)) {
@@ -182,15 +196,30 @@ const HEADON = { point: { was: 3.1, min: 24 }, taunt: { was: 10.7, min: 28 },
      that leaked into the lateral path would pass every claim above. */
   const SIDE_WAS = { point: { NE: 20.1, E: 16.5, SE: 16.9, SW: 11.6, W: 15.3, NW: 10.4 },
                      taunt: { NE: 31.2, E: 34.1, SE: 28.7, SW: 29.4, W: 37.1, NW: 28.8 },
-                     'chest-thump': { NE: 16.1, E: 29.8, SE: 17.9, SW: 19.6, W: 19.3, NW: 8.2 } };
+                     'chest-thump': { NE: 16.1, E: 29.8, SE: 17.9, SW: 19.6, W: 19.3, NW: 8.2 },
+                     'spear-drive': { NE: 92.1, E: 102.1, SE: 89.2, SW: 90, W: 98, NW: 78.7 },
+                     'shiv-jab': { NE: 66.6, E: 82.6, SE: 72, SW: 74.6, W: 84.6, NW: 59.2 } };
   const drift = [];
   for (const c of Object.keys(SIDE_WAS)) for (const d of Object.keys(SIDE_WAS[c])) {
     const now = R.killed[c][d], was = SIDE_WAS[c][d];
     if (Math.abs(now - was) > 0.05) drift.push(c + ' ' + d + ' ' + was + ' -> ' + now);
   }
-  ok('and the six side facings of all three are UNCHANGED, to a tenth of a point ' +
+  ok('and the six side facings of all FIVE are UNCHANGED, to a tenth of a point ' +
      '(' + drift.length + ' drifted)' + (drift.length ? ': ' + drift.join(', ') : ''),
      drift.length === 0);
+
+  /* === THE MIRROR CASE === */
+  for (const c of Object.keys(PROFILE)) {
+    const f = PROFILE[c], r = R.killed[c];
+    const side = ['NE', 'E', 'SE', 'SW', 'W', 'NW'].map(d => r[d]);
+    const worst = Math.min.apply(null, side);
+    ok(c.toUpperCase() + ' IN PROFILE: the WORST of its six side facings is ' + worst +
+       '% (floor ' + f.min + '; it was ' + f.wasWorst + ')', worst >= f.min);
+    /* AND ITS HEAD-ON READING IS NOT TRADED AWAY EITHER. The fix is in the lateral
+       branch, so a change that leaked the other way would show up here. */
+    ok('  and nothing leaked the other way: head-on is still ' + r.N + '% and ' + r.S + '%',
+       Math.abs(r.N - 14.7) < 0.05 && Math.abs(r.S - 17.2) < 0.05);
+  }
 
   console.log('\n  THE SAME HOLE, STILL OPEN, named so this is not read as finished:');
   console.log('    ' + R.still.length + ' of ' + R.clips + ' clips move well from the side and barely at all');

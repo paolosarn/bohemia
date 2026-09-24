@@ -1,0 +1,90 @@
+<!doctype html><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>BOHEMIA — The Other Half</title>
+<!-- ANIMATION, [redo killed], 9/24c. RULE 25: an animation item PLAYS. Twelve
+     frames a bar on the real clock. No control inside the page; the row asks once. -->
+<style>
+  :root{--ink:#e8e0cc;--bg:#0d0d12;--card:#16161d;--line:#33313d;--gold:#c79a3f}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+       font:13px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace;padding:14px}
+  h1{font-size:13px;letter-spacing:2px;margin:0 0 4px;color:var(--gold)}
+  p{margin:0 0 12px;color:#a49a86;max-width:60ch}
+  b{color:var(--ink)}
+  .said{border-left:2px solid #7a4a4a;padding:6px 0 6px 10px;margin:0 0 14px;color:#b09a90}
+  .clip{background:var(--card);border:1px solid var(--line);border-radius:6px;
+        padding:8px;margin-bottom:10px}
+  .name{font-size:11px;letter-spacing:2px;color:var(--gold);margin-bottom:6px;
+        display:flex;justify-content:space-between;align-items:baseline}
+  .sub{color:#6f6862;font-size:10px;letter-spacing:0}
+  .pair{display:flex;gap:10px;flex-wrap:wrap}
+  .side{text-align:center}
+  .lab{font-size:10px;letter-spacing:1px;margin-bottom:3px}
+  .old{color:#9a6b6b}.new{color:#7fa06b}
+  .cell{width:112px;height:153px;image-rendering:pixelated;background:#101319;border-radius:3px}
+  .beat{height:3px;background:#2a2833;border-radius:2px;margin:10px 0 2px;overflow:hidden}
+  .beat i{display:block;height:100%;width:8.33%;background:var(--gold)}
+  .note{margin-top:12px;color:#6f6862;max-width:60ch}
+</style>
+<h1>THE OTHER HALF OF THE SAME PROBLEM</h1>
+<div class="said">Still working off your one line: "some of the DIRECTIONS look
+like dog shit."</div>
+<p>Last round I found the ones that were dead <b>facing you</b>. Then I asked it
+the other way round and found the opposite, which is worse. <b>Nodding was
+invisible from the side.</b> That is the one direction a nod should be easiest to
+see, because you are looking straight at his chin.</p>
+<p>The reason is stupid and I will own it. His head was tilted forward a bit all
+the time, and then it swung <b>eight degrees</b> on top of that. His head is
+twenty-two pixels tall. Eight degrees is about a pixel and a half. It was a nod
+you could only find with a ruler. Now the tilt is gone, the swing is three times
+bigger, and his neck and shoulders go with it.</p>
+<p>The other two are the same bug as last round, twice more. <b>A thrust goes
+forward, and forward is straight into the screen.</b> Turn him to face you and a
+spear drive and a knife jab both did nothing: <b>12%</b> each. Now he sinks into
+the lunge, the back leg folds, the arm punches out low. <b>55% and 45%</b>, and
+every side view untouched down to a tenth of a point.</p>
+<p>Left is what you killed. Right is now, on the real clock.</p>
+<div class="beat"><i id="beat"></i></div>
+<div id="clips"></div>
+<p class="note">That is twelve of the forty-seven you killed, and five of those
+twelve only got their movement fixed, not the hand thing you killed three times.
+The order is not my taste any more, it is the measurement: whichever one has the
+worst direction goes next.</p>
+<script>
+(function(){
+  var BEFORE='ANIMATION_THE_OTHER_HALF_BEFORE.png';
+  var AFTER ='ANIMATION_THE_OTHER_HALF_AFTER.png';
+  var ROWS=[['NODDING','from the side'],
+            ['SPEAR DRIVE','facing you'],
+            ['KNIFE JAB','facing you']];
+  var W=112,H=153,N=12,BEAT=500,LOOP=BEAT*4;   /* 120 BPM, four beats a bar */
+  var host=document.getElementById('clips'), cells=[];
+  ROWS.forEach(function(r,ri){
+    var box=document.createElement('div'); box.className='clip';
+    var n=document.createElement('div'); n.className='name';
+    n.innerHTML='<span>'+r[0]+'</span><span class="sub">'+r[1]+'</span>';
+    box.appendChild(n);
+    var pair=document.createElement('div'); pair.className='pair';
+    [['WHAT YOU KILLED','old',BEFORE],['NOW','new',AFTER]].forEach(function(spec){
+      var side=document.createElement('div'); side.className='side';
+      var l=document.createElement('div'); l.className='lab '+spec[1];
+      l.textContent=spec[0];
+      var c=document.createElement('div'); c.className='cell';
+      c.style.backgroundImage='url('+spec[2]+')';
+      c.style.backgroundSize=(N*W)+'px auto';
+      cells.push({el:c,row:ri});
+      side.appendChild(l); side.appendChild(c); pair.appendChild(side);
+    });
+    box.appendChild(pair); host.appendChild(box);
+  });
+  var bar=document.getElementById('beat'), t0=performance.now();
+  (function tick(){
+    var ph=((performance.now()-t0)%LOOP)/LOOP;
+    var f=Math.floor(ph*N)%N;
+    for(var i=0;i<cells.length;i++)
+      cells[i].el.style.backgroundPosition=(-f*W)+'px '+(-cells[i].row*H)+'px';
+    bar.style.transform='translateX('+(f*100)+'%)';
+    requestAnimationFrame(tick);
+  })();
+})();
+</script>
