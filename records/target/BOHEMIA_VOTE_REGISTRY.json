@@ -1549,6 +1549,19 @@
     "how": "text",
     "src": ""
    }
+  },
+  {
+   "id": "lifecity-the-shift-is-logged-9-24",
+   "kind": "tile",
+   "lane": "life+city",
+   "sha": "73bc976f",
+   "made": "9/24",
+   "title": "THE SHIFT IS LOGGED, AND THERE IS NOBODY TO HAND THE CARD TO",
+   "why": "This came out of something I measured this round, not out of my head. I pressed SCAVENGE in your game with one real finger. It took 477 minutes off your day, almost eight hours, paid you, and the only thing that told you was the clock going from 6:00 to 13:57. So I asked the game who that work belongs to. You work at 48,48 in the suburb, the power under it is DEAD, and NOBODY OWNS THAT GROUND. Across the whole valley, 3,449 blocks have a landlord and 5,767 have nobody. So here is the place that shift happens: a house being pulled apart, roof half off, salvage and pipe stacked on the lot, a barrow. All of it ordinary. ONE thing is wrong and it is the only lit thing in the picture: THE TIME CLOCK BY THE GATE IS STILL RUNNING, and it has punched your shift at 7:57 for an owner who does not exist. The 7:57 is the game's real number. Thumbs up and I build the work site into the street so you can walk up to it. Thumbs down and tell me if it is the place or the idea.",
+   "show": {
+    "how": "image",
+    "src": "vote/LIFECITY_THE_SHIFT_IS_LOGGED_9_24.png"
+   }
   }
  ],
  "verdicts": [

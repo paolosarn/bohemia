@@ -1,0 +1,24 @@
+{
+ "what": "the shift he is offered, and whose treasury pays for it",
+ "law": "9/16 ruling 9: a day's work is PAID FROM A TREASURY, NEVER MINTED; who pays is the ground you worked on",
+ "measuredOn": "BOHEMIA_ALPHA_0_9.html",
+ "cell": [
+  48,
+  48
+ ],
+ "offer": {
+  "kind": "scav",
+  "act": "scav",
+  "minutes": 477,
+  "district": "suburb",
+  "fits": true
+ },
+ "clockNow": 360,
+ "holder": null,
+ "ground": null,
+ "live": false,
+ "payTo": null,
+ "district": "suburb",
+ "blocksWithALandlord": 3449,
+ "blocksWithNone": 5767
+}
