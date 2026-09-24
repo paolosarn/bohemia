@@ -32767,7 +32767,7 @@ missing. A resolver that re-applies only what it remembers eats everything else.
 
 *** 9/24 (b) NEWEST -- HE VOTED ON THIS LANE FOR THE FIRST TIME: TWO UP, ONE
 DOWN, AND THE DOWN CAME WITH A RULE. ***
-records/BOHEMIA_WORLD_THE_MONEY_KNOWS_WHICH_ACT_9_24_26.md
+records/BOHEMIA_WORLD_THE_MONEY_KNOWS_WHICH_ACT_9_24_26.md  sha c137fae
 Rows [sand is dirt] and [act stamp], both SHIPPED.
 
 (0) THE VERDICTS, READ FIRST. THE RIG ON THE ROOF: UP. THE RING ROAD: UP. *** THE
