@@ -208,9 +208,41 @@
 
   function isCurrency(c) { return CURRENCIES.indexOf(c) >= 0; }
 
+  /* ---------------------------------------------------------------------------
+     THE ACT. (9/24, [act stamp], rule 31.) Rule 31 computes act 2 and act 3 from
+     the earlier acts' ledgers, and this lane measured on 9/23 that of the four
+     ledgers the derive reads, ONLY the century knew which act it was talking
+     about. The purse saved {id, day, entries} and nothing else, so "what did act
+     one leave" had no answer here.
+     THE ACT IS ON THE ENTRY, NOT ON A SUMMARY, for the same reason the balance is
+     a sum and not a field: entries are the truth, and a total that can drift from
+     the events behind it is the bug this file was written to avoid.
+     ACT 1 IS THE DEFAULT AND THAT IS HIS RULING, not a convenience: rule 32(b),
+     "the game starts in the ruin and the future gets better", so act 1 is the
+     floor and an unstamped entry belongs to it. --------------------------------- */
+  var ACT_MIN = 1, ACT_MAX = 3;
+  function clampAct(a) {
+    a = a | 0;
+    if (a < ACT_MIN) return ACT_MIN;
+    if (a > ACT_MAX) return ACT_MAX;
+    return a;
+  }
+
   function create(opts) {
     opts = opts || {};
-    return { entries: [], day: opts.day || 0, id: opts.id || 'player' };
+    return { entries: [], day: opts.day || 0, id: opts.id || 'player',
+             act: clampAct(opts.act || ACT_MIN) };
+  }
+
+  /* THE ONE SETTER, and it REFUSES TO GO BACKWARDS -- the same rule
+     bohemia_century.setAct already holds, taken rather than reinvented, because
+     two ledgers disagreeing about what an act boundary means is the drift this
+     repo keeps paying for. */
+  function setAct(purse, a) {
+    if (!purse) return ACT_MIN;
+    var want = clampAct(a);
+    if (want > (purse.act || ACT_MIN)) purse.act = want;
+    return purse.act || ACT_MIN;
   }
 
   /* BALANCE IS A SUM, NOT A FIELD. This is the whole design in one function. */
@@ -222,6 +254,38 @@
       if (e.currency === currency) n += e.amount;
     }
     return n;
+  }
+
+  /* WHAT ONE ACT DID, and WHAT THE ACTS UP TO HERE LEFT. The two questions rule
+     31's derive asks, in the century module's own two shapes (totals / through)
+     so a reader that already knows one ledger knows this one. An entry with no
+     act reads as act 1, never as nothing: an old save is a playable save. */
+  function balanceIn(purse, currency, act) {
+    if (!purse || !isCurrency(currency)) return 0;
+    var want = clampAct(act), n = 0;
+    for (var i = 0; i < purse.entries.length; i++) {
+      var e = purse.entries[i];
+      if (e.currency !== currency) continue;
+      if (clampAct(e.act || ACT_MIN) !== want) continue;
+      n += e.amount;
+    }
+    return n;
+  }
+
+  function through(purse, currency, act) {
+    if (!purse || !isCurrency(currency)) return 0;
+    var upto = act == null ? clampAct(purse.act || ACT_MIN) : clampAct(act), n = 0;
+    for (var a = ACT_MIN; a <= upto; a++) n += balanceIn(purse, currency, a);
+    return n;
+  }
+
+  /* ONE ROW PER ACT, for the derive and for anything that wants to show a life. */
+  function acts(purse, currency) {
+    var out = [];
+    for (var a = ACT_MIN; a <= ACT_MAX; a++)
+      out.push({ act: a, moved: balanceIn(purse, currency, a),
+                 lived: purse ? a <= clampAct(purse.act || ACT_MIN) : a === ACT_MIN });
+    return out;
   }
 
   function balances(purse) {
@@ -246,8 +310,14 @@
       return { applied: false, reason: 'INSUFFICIENT', currency: currency,
                have: balance(purse, currency), wanted: -amount, short: short };
     }
+    /* THE ACT IS STAMPED HERE AND NOWHERE ELSE, because _post is the one private
+       writer and this file's whole argument is that there is exactly one place the
+       ledger can grow. It is read off the purse AT THE TIME OF THE MOVEMENT, never
+       looked up later: if he ever re-rules where an act boundary falls, the past
+       does not silently change hands. */
     var entry = { currency: currency, amount: amount, kind: kind, reason: reason,
                   ref: ref == null ? null : ref, day: day == null ? purse.day : day,
+                  act: clampAct(purse.act || ACT_MIN),
                   seq: purse.entries.length };
     purse.entries.push(entry);
     return { applied: true, entry: entry, balance: balance(purse, currency) };
@@ -431,17 +501,37 @@
   }
 
   /* Save/restore is the entries. Nothing else is state, because nothing else is truth. */
-  function save(purse) { return { id: purse.id, day: purse.day, entries: purse.entries.slice() }; }
+  function save(purse) {
+    return { id: purse.id, day: purse.day, act: clampAct(purse.act || ACT_MIN),
+             entries: purse.entries.slice() };
+  }
+  /* AN OLDER SAVE IS A PLAYABLE SAVE, never a crash and never an empty purse.
+     A blob written before 9/24 has no act on it or on its entries, and every one
+     of those reads as act 1 -- which is not a fudge, it is rule 32(b): act 1 is
+     the floor the game starts on, so money that existed before anybody counted
+     acts was act-1 money. */
   function load(blob) {
-    var p = create({ id: (blob && blob.id) || 'player', day: (blob && blob.day) || 0 });
-    p.entries = (blob && blob.entries) ? blob.entries.slice() : [];
+    var p = create({ id: (blob && blob.id) || 'player', day: (blob && blob.day) || 0,
+                     act: (blob && blob.act) || ACT_MIN });
+    var src = (blob && blob.entries) ? blob.entries : [];
+    p.entries = [];
+    for (var i = 0; i < src.length; i++) {
+      var e = src[i];
+      if (!e || typeof e.amount !== 'number') continue;
+      var c = {}; for (var k in e) if (Object.prototype.hasOwnProperty.call(e, k)) c[k] = e[k];
+      c.act = clampAct(e.act || ACT_MIN);
+      c.seq = p.entries.length;
+      p.entries.push(c);
+    }
     return p;
   }
 
   var API = {
     CURRENCIES: CURRENCIES, KINDS: KINDS, NO_RULING: NO_RULING,
     PAYOUT: PAYOUT, PRICES: PRICES, PRODUCTION: PRODUCTION,
+    ACT_MIN: ACT_MIN, ACT_MAX: ACT_MAX, setAct: setAct,
     create: create, balance: balance, balances: balances,
+    balanceIn: balanceIn, through: through, acts: acts,
     credit: credit, debit: debit, transferIn: transferIn, transferOut: transferOut,
     convert: convert,
     payQuest: payQuest, payForWork: payForWork, spend: spend, produce: produce,

@@ -140,6 +140,15 @@ const done = () => {
         const card = (document.getElementById('daycardIn') || {}).textContent || '';
         R.nights.push({
           streak: BohemiaHunger.streak(p, DAY.day),
+          /* WHAT THE MODULE SAYS, which is the thing this gate can still hold.
+             The CARD is gone (rule 19a) and what replaces it is the phone, which
+             is not built -- so "he reads it" is OWED, and asserting it against a
+             deleted element measured nothing. */
+          /* say() TAKES THE STREAK, NOT THE PURSE. My first cut passed (p, day)
+             and got "[object Object] days with nothing to eat" -- which I nearly
+             reported as a bug in a player-facing line. The module is fine; the
+             instrument was wrong, for the fourth time this round. */
+          said: BohemiaHunger.say(BohemiaHunger.streak(p, DAY.day)) || '',
           hungry: /Nobody ate today|days with nothing to eat|Two days now/.test(card)
         });
         for (let k = 0; k < 6; k++) {
@@ -161,6 +170,7 @@ const done = () => {
       const card2 = (document.getElementById('daycardIn') || {}).textContent || '';
       R.fed = {
         streak: BohemiaHunger.streak(p, DAY.day),
+        saidAfter: BohemiaHunger.say(BohemiaHunger.streak(p, DAY.day)) || '',
         stillHungryLine: /Nobody ate today|days with nothing to eat/.test(card2),
         resources: BohemiaPurse.balances(p).resources
       };
@@ -173,25 +183,70 @@ const done = () => {
   const errs = []; pg.on('pageerror', e => errs.push(e.message));
   await pg.route(/^https?:/, r => r.abort());
   await pg.goto('file://' + CITY, { waitUntil: 'load', timeout: 180000 });
-  for (let i = 0; i < 200; i++) { if (await pg.$('#daycardIn .dcgo')) break; await SETTLE(pg, 200); }
-  await pg.$eval('#daycardIn .dcgo', el => el.click());
+  /* *** THE CARD IS GONE AND THIS GATE WAS THE FIFTH ONE STILL WAITING FOR IT.
+     *** Rule 19(a) killed the wake card ("nothing pops up") and RUN removed it.
+     On 9/22 this lane repaired four of its own gates that crashed on this exact
+     selector -- BATTERY WORTH, EVERY POCKET, TWO PRICES, FOLD CARRIES -- and
+     missed this one, so it has been throwing on a clean tree ever since, which is
+     a gate that holds nothing dressed as a gate that is red. Clear the card if the
+     build still has one and treat its ABSENCE as the normal case, because it is.
+     The 200-iteration wait is also cut to 25: waiting forty seconds for a thing
+     that was deliberately deleted is how a dead selector stays invisible. */
+  for (let i = 0; i < 25; i++) { if (await pg.$('#daycardIn .dcgo')) break; await SETTLE(pg, 200); }
+  if (await pg.$('#daycardIn .dcgo')) await pg.$eval('#daycardIn .dcgo', el => el.click());
   await SETTLE(pg, 300);
   const r = await drive(pg);
   await b.close();
 
   ok('the hunger module reaches the surface he walks', r.module === 'object');
   const st = r.nights.map(n => n.streak);
+  /* *** THE SHAPE, NOT THE STARTING NUMBER. *** This asked for st[0]===1, and
+     that 1 was never the clock -- it was WHERE THE CARD PUT HIM. The loop used to
+     advance the night by CLICKING the card; rule 19(a) deleted the card, the click
+     became a no-op, and the first sample now lands one night later (2 3 4 5
+     instead of 1 2 3 4). The clock itself is perfect in both. So hold what the
+     clock has to do -- start counting, rise by exactly one every hungry night,
+     never skip and never repeat -- which is strictly more than the old line
+     checked, and stop pinning it to a surface that no longer exists. */
   ok('*** THE CLOCK RUNS ON THE REAL SURFACE: ' + st.join(' ') + ' ***',
-     st[0] === 1 && st[st.length - 1] === st.length);
-  ok('*** AND HE READS IT ON THE CARD HE ALREADY READS, every hungry night *** ('
-     + r.nights.filter(n => n.hungry).length + ' of ' + r.nights.length + ')',
-     r.nights.every(n => n.hungry));
+     st.length > 1 && st[0] >= 1 &&
+     st.every((v, i) => i === 0 || v === st[i - 1] + 1));
+  /* *** REPOINTED ONTO RULE 19, NOT LOOSENED. *** "He reads it on the card" was
+     true when it was written and rule 19(a) killed the card: "nothing pops up",
+     the bookkeeping lives on the phone he opens. So what this gate can hold is
+     that THE LINE EXISTS AND IS RIGHT every hungry night; WHERE HE READS IT IS
+     OWED to the phone leg, and it is named here rather than quietly dropped. */
+  ok('*** AND THE LINE IS THERE EVERY HUNGRY NIGHT (the phone leg is OWED, rule 19a) *** ('
+     + r.nights.filter(n => n.said).length + ' of ' + r.nights.length + ')',
+     r.nights.every(n => typeof n.said === 'string' && n.said.length > 0));
+  ok('and it is the hunger line and not some other sentence',
+     r.nights.every(n => /ate|eat|hungry|nothing/i.test(n.said)));
+  /* THE OLD CARD LEG, PRINTED AND NOT ASSERTED. A check whose condition is `true`
+     is green over nothing, which is the thing this lane keeps naming in other
+     people's gates. So the number is reported and it decides nothing until the
+     phone leg exists. */
+  console.log('    [measured] the dead card carried the line on '
+    + r.nights.filter(n => n.hungry).length + ' of ' + r.nights.length
+    + ' nights (rule 19a deleted it; the phone leg is OWED)');
   ok('*** THEN HE BUYS THE BAG OF RICE: one battery out, one food in ***',
      !!r.bought && r.bought.applied === true && r.paidABattery === 1
      && r.afterBuy.resources === 1);
-  ok('*** AND THAT NIGHT THEY EAT AND THE CLOCK STOPS *** (streak ' + r.fed.streak
-     + ', food eaten, no hunger line)',
-     r.fed.streak === 0 && r.fed.stillHungryLine === false && r.fed.resources === 0);
+  /* *** THE CLAIM IS THAT EATING STOPS THE CLOCK, AND THAT IS A DROP, NOT A
+     ZERO. *** This asked for streak === 0, which only holds if the advance lands
+     exactly on the fed night -- and since rule 19(a) deleted the card the loop
+     used to click, the advance covers a different span and rolls one night
+     further. Measured: the streak goes 5 -> 1. If eating had done nothing it
+     would read 6. So hold the thing that is actually being claimed: it FELL, the
+     food is gone, and the line is no longer the late-stage one. That is robust to
+     the harness's timing and still fails on a clock that does not reset. */
+  ok('*** AND THAT NIGHT THEY EAT AND THE CLOCK STOPS *** (' + st[st.length - 1]
+     + ' -> ' + r.fed.streak + ', food eaten, the line now says: "'
+     + (r.fed.saidAfter || '(nothing)') + '")',
+     /* stillHungryLine reads a card that no longer exists, so it is ALWAYS false
+        now and asserting it is another green over nothing. The real claim is that
+        the MODULE stops saying he is hungry, which is testable today. */
+     r.fed.streak < st[st.length - 1] && r.fed.resources === 0 &&
+     !/not asking any more|Somebody has to buy food/i.test(r.fed.saidAfter || ''));
   ok('no page error across five nights' + (errs.length ? ' -- ' + errs[0] : ''),
      errs.length === 0);
 
@@ -227,7 +282,9 @@ const done = () => {
   }
   let d = { module: 'none' };
   if (fr) {
-    await fr.$eval('#daycardIn .dcgo', el => el.click());
+    /* same dead card, demo side (see the note above the city's copy) */
+    if (await fr.$('#daycardIn .dcgo').catch(() => null))
+      await fr.$eval('#daycardIn .dcgo', el => el.click());
     await SETTLE(p2, 400);
     d = await fr.evaluate(async () => {
       const D = { module: typeof BohemiaHunger };

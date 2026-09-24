@@ -32765,7 +32765,136 @@ reverted to an older round's text after a rebase once, with two shipped rounds
 missing. A resolver that re-applies only what it remembers eats everything else. ***
 
 
-*** 9/24 NEWEST -- HIS LOCKED LIGHT LAW SAYS CLUSTERS AND THE GRID ROLLS ONE
+*** 9/24 (b) NEWEST -- HE VOTED ON THIS LANE FOR THE FIRST TIME: TWO UP, ONE
+DOWN, AND THE DOWN CAME WITH A RULE. ***
+records/BOHEMIA_WORLD_THE_MONEY_KNOWS_WHICH_ACT_9_24_26.md
+Rows [sand is dirt] and [act stamp], both SHIPPED.
+
+(0) THE VERDICTS, READ FIRST. THE RIG ON THE ROOF: UP. THE RING ROAD: UP. *** THE
+FIRST APPROVALS THIS LANE HAS EVER HAD *** after six text items killed as
+"boring". THE SAME CORNER: DOWN, and his reason became rule 32(b).
+  On the ring road, WHILE APPROVING IT: "why is the sand white grey, it'll be the
+  same colour as the rest of the dirt."
+  On the corner, killing it: "Bro the future gets better holy shit actually the
+  right side is kinda what the beginning of the game is supposed to look like and
+  it gets better... when civilization reclaims parts of cities for economic
+  purposes it will get more techy and modern."
+NOTES ARE RULINGS, so both were built this round AHEAD of the claimed queue.
+
+(1) [sand is dirt] -- AND THE REPO HAD ALREADY CAUGHT THIS ONCE. The sand was
+#c0b79c against a desert of #5b5344: THE SAME HUE (45 against 40) at TWICE the
+lightness (0.68 against 0.35), and at that distance a matching hue stops
+mattering. bohemia_city_terrain_patch.py carries the line "desert:0 desert
+pavement #6e6045 (WAS RENDERING AS GENERIC SAND #d8b078)" -- somebody fixed
+generic pale sand to real desert pavement in the terrain and I put it straight
+back in a tile. The dirt family is the walked city's own #6e6045 now and the
+drift is one step of it. THE TOOL REFUSES A RELAPSE ON HUE *AND* ON LIGHTNESS,
+because a hue check alone WOULD HAVE PASSED THE VERSION HE REJECTED.
+AND FIXING IT BROKE ITS NEIGHBOUR IN THE SAME RENDER: lifting the desert put the
+sound wall's cap within 0.055 of the ground it stands on and the top of the wall
+stopped reading. A PALETTE MOVE IS NEVER LOCAL, and the tool holds that
+separation too now.
+
+(2) [act stamp], BOTH HALVES BUILT. (A) THE ACT IS ON THE ENTRY, NOT ON A
+SUMMARY -- the same reason the balance is a sum and not a field -- stamped in
+_post, the ONE private writer, and read off the purse AT THE TIME OF THE
+MOVEMENT so a later re-ruling cannot change hands in the past. balanceIn /
+through / acts are the century module's own three shapes, TAKEN rather than
+reinvented. Going backwards refused, same rule as the century's setAct.
+(B) AN OLDER SAVE IS A PLAYABLE SAVE: a blob written before this round has no act
+anywhere and every entry reads as ACT 1 -- not a fudge, HIS OWN RULE 32(b): the
+game starts in the ruin, act 1 is the floor, so money that predates the count was
+act-1 money.
+(C) THE TREASURIES SURVIVE A RELOAD AND CANNOT MINT. My 9/14 reason for leaving
+the save off is now the RULE rather than the excuse: load() compares the blob's
+recorded supply against what the restored book is worth and refuses BY NAME,
+leaving the book untouched. The hole, measured: a reload left 0 of 10 and 0
+holders.
+(D) *** AND MEASURING IT FOUND A BIGGER MINT THAN THE ONE I NAMED. *** STOCKED
+guards the opening stock (one battery per head, his 9/16 ruling) and its own
+comment says "an opening stock that can be re-run is a mint with a polite name".
+Save the treasuries without it and every reload runs it AGAIN over the restored
+one: the valley opens with 80 and a reload leaves 160. THE WHOLE VALLEY, TWICE.
+STOCKED rides the save.
+(E) the player is deliberately NOT in this book's save, because the walked city
+saves his purse in its own slot and two copies of one balance is what adopt()
+exists to prevent.
+
+(3) THE COOK: THE CORNER RECLAIMED, a REDO naming the id it replaces and quoting
+the words that killed it. THE DRAWING WAS NOT WRONG, THE ARROW WAS. Left is now
+act 1, the ruin unchanged -- his floor has to be somewhere and this is it -- and
+right is the same ruin with things ADDED. THE ONLY OPERATION IN THE FILE IS ADD,
+and the tool refuses itself if one act-1 pixel turns into another act-1 value:
+rule 32(b) made mechanical, because if anything could be removed the future could
+get worse. Measured: reclaim added 36% and took away nothing. The slab carries a
+MACHINE not a rebuilt home (wearing the panel array he approved this round), the
+road is patched only where it is driven, the power comes back as hardware. The
+gap in the wall still has no gate, kept identical in both panels by a refusal,
+because tidying it away is the cheap version. REUSE-FIRST: the corner is
+IMPORTED from the killed item's tool, not redrawn, so "the same corner" is true
+by construction.
+TWO CUTS: the first drew a LIT LAMP THROWING A POOL in a frame that is plainly
+daylight (sun side, shade side, eave shadows), and a glowing lamp in daylight
+reads as a puddle. AND MY OWN REFUSAL CAUGHT A REAL VIOLATION: the first cut
+repainted the lane line in act 1's faded white, which overwrote desert with an
+act-1 value and tripped the nothing-decays check. It was right to, and a line
+repainted on new asphalt IS brighter, so the fix the rule forced is the truer
+drawing.
+
+(4) GATES. ACT STAMP 35/0, new, in the suite, red five ways (drop the supply
+check -> 3; stop STOCKED riding the save -> 2; load an unstamped entry as act 0
+-> 1; let the act run backwards -> 1; put the player in the book's save -> 2).
+*** AND MY OWN CHECK WAS WRONG BEFORE THE CODE WAS, THE THIRD ROUND RUNNING. ***
+The one-writer check counted `act: clampAct(purse.act` across the whole file and
+found two -- the ENTRY stamp in _post and the PURSE-LEVEL act that save() writes
+into the blob. Different facts; only the first is what "one writer" means. It
+slices out _post and counts inside it now. THREE ROUNDS OF MY INSTRUMENT FAILING
+BEFORE THE GAME DID IS A PATTERN, NOT BAD LUCK, and it is written here so the
+next round treats a red of mine as suspect until the check is read.
+
+(5) *** AND I FOUND A FIFTH GATE OF MINE THAT HAS BEEN THROWING ON CLEAN MAIN
+FOR DAYS. *** RICE CLOCK crashed on `#daycardIn .dcgo` -- the wake card rule
+19(a) deleted. On 9/22 I repaired FOUR of my gates for this exact selector
+(BATTERY WORTH, EVERY POCKET, TWO PRICES, FOLD CARRIES) and missed this one, so
+it has been a gate that holds nothing wearing a red. Fixed both call sites (city
+and demo), and the three real reds underneath it all had the same cause:
+  - the streak read 2 3 4 5 against an assertion of st[0]===1, and THAT 1 WAS
+    NEVER THE CLOCK, it was where the card put him: the loop advanced the night
+    by CLICKING the card, the click became a no-op, and the first sample lands a
+    night later. The clock is perfect in both. It now holds the SHAPE (starts,
+    rises by exactly one, never skips, never repeats), which is strictly more
+    than the old line checked.
+  - two card assertions repointed onto what the MODULE says, with the phone leg
+    named OWED (rule 19a) rather than quietly dropped -- and the old card number
+    is PRINTED, not asserted, because a check whose condition is `true` is green
+    over nothing and this lane keeps naming that in other people's gates.
+  - the after-eating leg asserted stillHungryLine === false, which reads a card
+    that no longer exists and is therefore ALWAYS false. Repointed onto the
+    module's own line -- and THAT immediately produced "[object Object] days with
+    nothing to eat", which I nearly reported as a bug in a player-facing line.
+    say() TAKES THE STREAK, NOT THE PURSE. The module was fine; my call was
+    wrong. FOURTH instrument error in one round.
+  - and the last leg wanted streak === 0 after eating, which only holds if the
+    advance lands exactly on the fed night. Measured: 5 -> 1. If eating had done
+    nothing it would read 6, so the clock DID reset; the zero was the card's
+    timing, not the claim. It holds the DROP now, which still fails on a clock
+    that does not reset and does not depend on the harness.
+  RICE CLOCK is 29/0 and it was THROWING on clean main before this round.
+
+(6) SHIPPED TO THE ENGINE, AND THE SLICES ARE IN STEP. The row says this one is
+engine and NOT held. Rule 8: both derived slices resynced in the same commit, and
+MEASURED BEFORE DOING IT because a re-inline can carry another lane's held work
+onto the play surface -- the city resync touched exactly my two modules and left
+136 already fresh. The change is additive and backward-compatible.
+
+(7) ROUTED. TO DYNASTY, for the derive: the purse answers balanceIn / through /
+acts now and the treasuries survive a reload, so TWO of the four ledgers carry an
+act. Territory is still a pure function of the seed; who lived still carries
+none. TO WHOEVER OWNS THE LIGHT, unchanged from last round:
+engine/bohemia_powergrid.js, powerMap(), the `live` roll.
+
+
+*** 9/24 -- HIS LOCKED LIGHT LAW SAYS CLUSTERS AND THE GRID ROLLS ONE
 COIN PER FEEDER, SO RULE 31'S FLOOR HAS NO CORE TO PULL BACK TO. ***
 records/BOHEMIA_WORLD_THE_LIGHT_IS_NOT_IN_CLUSTERS_9_24_26.md  sha 5b3896e
 Nothing on a play surface (rule 18). The cook went to VOTE and it is DRAWN.

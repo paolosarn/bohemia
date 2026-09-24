@@ -40,6 +40,14 @@
        line and nobody has swept it, and it is the only shape on the tile that
        does not run parallel to everything else.
 
+   *** HIS CORRECTION, 9/23, ON HIS OWN UP VOTE: "why is the sand white grey,
+   it'll be the same colour as the rest of the dirt." He is right and the repo
+   had already caught this exact mistake once: bohemia_city_terrain_patch.py
+   carries the line "desert:0 desert pavement #6e6045 (WAS RENDERING AS GENERIC
+   SAND #d8b078)". Somebody fixed generic pale sand to real desert pavement in
+   the terrain, and I put generic pale sand straight back in a tile. The dirt
+   family is the game's own now and the drift is one step of it. ***
+
    NOT SHIPPED TO A PLAY SURFACE (rule 18): the rename touches the walked world's
    map generator and is none of loading, walking or the fight. Measured, gated
    and ready.
@@ -55,18 +63,34 @@ const S = 64;
 
 const PAL = {
   0:  '#00000000',
-  1:  '#5b5344',   /* desert, outside the fence */
-  2:  '#6a6151',   /* desert, the lighter drift */
+  1:  '#6e6045',   /* desert. *** NOT A VALUE I PICKED: this is the walked
+                      city's own desert pavement, tools/bohemia_city_terrain_patch.py,
+                      and the sand family is now a step of THIS and nothing else. *** */
+  2:  '#7b6c50',   /* desert, the lighter drift: one step of the same dirt */
   3:  '#3a3832',   /* asphalt */
   4:  '#33312c',   /* asphalt, the older lane */
   5:  '#8e8a7e',   /* lane line, faded */
   6:  '#7d7973',   /* Jersey barrier, top face */
   7:  '#5c5953',   /* Jersey barrier, sloped foot */
-  8:  '#6f6a60',   /* sound wall panel, lit */
-  9:  '#4d4941',   /* sound wall panel, shaded */
-  10: '#585349',   /* sound wall post */
+  8:  '#8b867b',   /* sound wall panel, lit. *** LIFTED WHEN THE DIRT WAS.
+                      *** Moving the desert onto the game's own #6e6045 made it
+                      LIGHTER, and the wall's cap sat 0.055 of lightness away
+                      from it, so the top of the wall stopped reading at all --
+                      his sand ruling fixed one thing and broke its neighbour.
+                      Concrete really is lighter than desert dirt in daylight, so
+                      the wall now reads by its own step and not by luck. */
+  9:  '#4a463d',   /* sound wall panel, shaded */
+  10: '#6a6459',   /* sound wall post */
   11: '#46433a',   /* shoulder, graded gravel */
-  12: '#c0b79c',   /* THE ONE WRONG THING: sand over the white line */
+  12: '#8e7d5c',   /* THE ONE WRONG THING: sand over the white line.
+                      *** WAS #c0b79c AND HE WAS RIGHT THAT IT READ WHITE-GREY. ***
+                      Same hue as the dirt (45 against 40) but TWICE the
+                      lightness (0.68 against 0.35), and at that distance a hue
+                      match stops mattering -- it reads as a different material.
+                      Loose sand IS the desert floor unpacked, so it is one step
+                      lighter than the dirt and no more. It still reads because
+                      the contrast that does the work is sand against ASPHALT,
+                      not sand against desert. */
   13: '#34322d',   /* joint, one value step off the asphalt and no more */
   14: '#24231f',   /* the shadow a raised thing throws */
 };
@@ -185,6 +209,40 @@ function main() {
   if (!(sand > 0)) { console.log('REFUSED: nothing is wrong in the frame'); process.exit(1); }
   if (share > 9) { console.log('REFUSED: the drift is ' + share.toFixed(1) + '% of the tile; one thing wrong is a SMALL thing'); process.exit(1); }
 
+  /* *** HIS RULING AS A REFUSAL, so the pale sand cannot come back a third time.
+     One palette: the sand must sit in the dirt's own hue AND within a step of
+     its lightness. A hue check alone would have PASSED the version he rejected
+     (#c0b79c is hue 45 against the dirt's 40), which is exactly why the check
+     is on lightness too. *** */
+  const hsl = (hex) => {
+    const n = parseInt(hex.slice(1, 7), 16);
+    const r = ((n >> 16) & 255) / 255, g = ((n >> 8) & 255) / 255, b = (n & 255) / 255;
+    const mx = Math.max(r, g, b), mn = Math.min(r, g, b), d = mx - mn;
+    let h = 0;
+    if (d) h = mx === r ? 60 * (((g - b) / d) % 6) : mx === g ? 60 * ((b - r) / d + 2) : 60 * ((r - g) / d + 4);
+    if (h < 0) h += 360;
+    return { h: h, l: (mx + mn) / 2 };
+  };
+  const dirt = hsl(PAL[1]), sandc = hsl(PAL[12]);
+  /* THE WALL MUST STILL SEPARATE FROM THE GROUND IT STANDS ON. Caught the hard
+     way: fixing the sand lifted the dirt and the sound wall's cap vanished into
+     it in the same render. A palette move is never local. */
+  const wall = hsl(PAL[8]);
+  if (Math.abs(wall.l - dirt.l) < 0.10) {
+    console.log('REFUSED: the sound wall is ' + wall.l.toFixed(2) + ' light against the dirt\'s '
+      + dirt.l.toFixed(2) + '; the top of the wall will not read'); process.exit(1);
+  }
+  const dh = Math.min(Math.abs(dirt.h - sandc.h), 360 - Math.abs(dirt.h - sandc.h));
+  if (dh > 12) {
+    console.log('REFUSED: the sand is hue ' + sandc.h.toFixed(0) + ' against the dirt\'s '
+      + dirt.h.toFixed(0) + '; his ruling is ONE palette'); process.exit(1);
+  }
+  if (sandc.l - dirt.l > 0.22) {
+    console.log('REFUSED: the sand is ' + sandc.l.toFixed(2) + ' light against the dirt\'s '
+      + dirt.l.toFixed(2) + '. That gap is what he called white grey, and a matching hue does'
+      + ' not save it.'); process.exit(1);
+  }
+
   /* TG-05: the road is the dominant surface, or this is a picture of a desert. */
   const road = (used[3] || 0) + (used[4] || 0);
   if (road < total * 0.35) {
@@ -201,6 +259,7 @@ function main() {
     coverage: Object.fromEntries(Object.keys(used).filter(k => LEG[k])
       .map(k => [LEG[k].name, +(100 * used[k] / total).toFixed(2)])),
     driftShare: +share.toFixed(2),
+    his_correction: "9/23, on his own up vote: 'why is the sand white grey, it will be the same colour as the rest of the dirt.' The dirt family is now the walked city's own desert pavement #6e6045 and the sand is one step of it; the tool refuses a sand that leaves the family on hue OR on lightness, because a hue check alone would have passed the version he rejected.",
     not_shipped: 'rule 18: the rename touches the walked world\'s map generator and is none of loading, walking or the fight.',
     build_source: build.toString()
   };

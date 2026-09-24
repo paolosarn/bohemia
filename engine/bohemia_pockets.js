@@ -243,11 +243,100 @@
 
   function reset() { BOOK = {}; STOCKED = false; }
 
+  /* ---------------------------------------------------------------------------
+     SAVE AND LOAD. (9/24, [act stamp].)
+
+     *** I LEFT THIS OFF ON PURPOSE ON 9/14 AND WROTE DOWN WHY: "no save key --
+     his own purse is memory-only and treasuries outliving it would mint
+     batteries across a reload." That was the right call against a memory-only
+     player purse. It is a hole under rule 31, whose derive reads what each act
+     left, and a book that empties every reload has nothing to tell it. ***
+
+     SO THE OLD REASON BECOMES THE RULE RATHER THAN THE EXCUSE: this pair may not
+     change the valley's money supply. load() adds up what the blob says the
+     supply was and what the restored book actually holds, and REFUSES rather
+     than quietly minting or burning.
+
+     *** AND MEASURING IT FOUND A BIGGER MINT THAN THE ONE I NAMED. *** STOCKED is
+     a module-level boolean guarding the opening stock -- one battery per head in
+     the valley, his 9/16 ruling -- and its own comment says "an opening stock
+     that can be re-run is a mint with a polite name". Save the treasuries without
+     it and every reload runs the opening stock AGAIN, over the top of the
+     restored one. That is not a rounding error, it is the whole valley's money a
+     second time. STOCKED rides the save. ------------------------------------- */
+  function save() {
+    var P = PURSE(); if (!P) return null;
+    var out = { V: 1, stocked: STOCKED, purses: {}, supply: {} };
+    var k;
+    for (k in BOOK) {
+      if (!Object.prototype.hasOwnProperty.call(BOOK, k)) continue;
+      /* THE PLAYER IS NOT IN HERE. The walked city already saves his purse in its
+         own slot, and two copies of one balance is exactly the "two player
+         balances that disagree" adopt() exists to prevent. */
+      if (k === PLAYER) continue;
+      out.purses[k] = P.save(BOOK[k]);
+    }
+    for (var i = 0; i < P.CURRENCIES.length; i++) {
+      var c = P.CURRENCIES[i];
+      out.supply[c] = _supplyOf(out.purses, c);
+    }
+    return out;
+  }
+
+  /* what a set of blobs is worth, without building purses, so the check is on the
+     bytes that will be written and not on objects that might be rebuilt wrong */
+  function _supplyOf(purses, currency) {
+    var n = 0, k, j;
+    for (k in purses) {
+      if (!Object.prototype.hasOwnProperty.call(purses, k)) continue;
+      var es = (purses[k] && purses[k].entries) || [];
+      for (j = 0; j < es.length; j++) if (es[j] && es[j].currency === currency) n += es[j].amount;
+    }
+    return n;
+  }
+
+  function load(blob) {
+    var P = PURSE();
+    if (!P) return { applied: false, reason: 'NO_PURSE_MODULE' };
+    if (!blob || typeof blob !== 'object' || !blob.purses)
+      return { applied: false, reason: 'NOTHING_TO_LOAD' };
+
+    var rebuilt = {}, k, count = 0;
+    for (k in blob.purses) {
+      if (!Object.prototype.hasOwnProperty.call(blob.purses, k)) continue;
+      if (k === PLAYER) continue;          /* his purse is the city's, not this book's */
+      rebuilt[k] = P.load(blob.purses[k]);
+      count++;
+    }
+
+    /* *** THE REFUSAL THAT MAKES THIS SAFE TO SHIP. *** If what came back is not
+       worth what the blob says it was worth, something in the middle minted or
+       burned, and a book that silently corrects itself is how a money supply
+       drifts. Say so and change nothing. */
+    var checked = {}, c, i;
+    for (i = 0; i < P.CURRENCIES.length; i++) {
+      c = P.CURRENCIES[i];
+      var want = (blob.supply && typeof blob.supply[c] === 'number') ? blob.supply[c] : null;
+      var got = 0, kk;
+      for (kk in rebuilt) if (Object.prototype.hasOwnProperty.call(rebuilt, kk)) got += P.balance(rebuilt[kk], c);
+      if (want !== null && Math.abs(want - got) > 1e-9)
+        return { applied: false, reason: 'SUPPLY_WOULD_CHANGE', currency: c, was: want, would_be: got };
+      checked[c] = got;
+    }
+
+    BOOK = rebuilt;
+    /* AND THE OPENING STOCK STAYS SPENT. Dropping this is the reload that mints
+       the whole valley a second time. */
+    STOCKED = !!blob.stocked;
+    return { applied: true, holders: count, supply: checked, stocked: STOCKED };
+  }
+
   var API = {
     PLAYER: PLAYER,
     of: of, adopt: adopt, seed: seed, has: has, holders: holders, factions: factions,
     hand: hand, worth: worth, supply: supply, ranked: ranked, flowOf: flowOf,
     OPENING: OPENING, stock: stock, stocked: stocked,
+    save: save, load: load,
     reset: reset
   };
   if (typeof module !== 'undefined' && module.exports) module.exports = API;

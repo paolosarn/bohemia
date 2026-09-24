@@ -450,4 +450,14 @@ function main() {
   console.log('  the one wrong thing is ' + wshare.toFixed(2) + '% of a panel, and it is in both');
 }
 
-main();
+/* *** HE KILLED THIS ITEM AND THE DRAWING SURVIVED. *** (9/23 in the tab: "Bro
+   the future gets better holy shit actually the right side is kinda what the
+   beginning of the game is supposed to look like and it gets better".) The
+   corner, the wall, the kerb and the slab are all still right; what was wrong
+   was the DIRECTION. So the geometry is exported rather than copied, and
+   bohemia_the_corner_reclaimed_cook_9_24_26.js draws the same corner the other
+   way round. REUSE-FIRST: one corner, one function, two items. */
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = { corner: corner, GEO: GEO, PALETTE: PALETTE, LEGEND: LEGEND, S: S, blank: blank, rnd: rnd };
+}
+if (require.main === module) main();
