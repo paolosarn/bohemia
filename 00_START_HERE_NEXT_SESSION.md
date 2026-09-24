@@ -4,7 +4,7 @@ TAB: the new thing is in the VOTE tab (alpha), called THE SURER, THE WRONGER: si
 pictures of the real street, same woman talking, six ways one story comes out of a
 mouth. You also meet it just by WALKING THE CITY -- the people around you gossip
 about each other and now they sound different depending on how wrong they are.
-Record records/BOHEMIA_WORDS_THE_SURER_THE_WRONGER_9_24_26.md, commit b8866760.
+Record records/BOHEMIA_WORDS_THE_SURER_THE_WRONGER_9_24_26.md, commit fa4c82c0.
 
 THE ROUND. Rule 12 measured again and BOTH open rows in this lane are still
 blocked, fourth round running: [naming screen] waits on DYNASTY [three names],
