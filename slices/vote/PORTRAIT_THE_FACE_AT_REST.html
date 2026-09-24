@@ -13,11 +13,17 @@
   h1{font-size:13px;letter-spacing:2px;margin:0 0 4px;color:var(--gold)}
   p{margin:0 0 12px;color:#a49a86;max-width:60ch}
   .said{border-left:2px solid #7a4a4a;padding:6px 0 6px 10px;margin:0 0 14px;color:#b09a90}
-  .pair{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:10px}
-  .side{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:8px;text-align:center}
-  .lab{font-size:10px;letter-spacing:1px;margin-bottom:5px;color:#6f6862}
+  /* THE PAIR NEVER WRAPS. He votes on a phone, and the whole claim is a COMPARISON:
+     stacked, he has to scroll from one face to the other and the point is gone. So no
+     wrap, and the canvases size to the viewport instead of to a fixed 256. */
+  .pair{display:flex;gap:10px;flex-wrap:nowrap;margin-bottom:10px;align-items:flex-start}
+  .side{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:7px;
+        text-align:center;flex:1 1 0;min-width:0}
+  .lab{font-size:10px;letter-spacing:1px;margin-bottom:5px;color:#6f6862;
+       white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .hot{color:#c79a3f}
-  canvas{width:256px;height:256px;image-rendering:pixelated;background:#101319;border-radius:3px;display:block}
+  canvas{width:100%;max-width:256px;aspect-ratio:1/1;height:auto;
+         image-rendering:pixelated;background:#101319;border-radius:3px;display:block;margin:0 auto}
   .note{margin-top:4px;color:#6f6862;max-width:62ch}
   b{color:#c8bfa8;font-weight:normal}
 </style>
