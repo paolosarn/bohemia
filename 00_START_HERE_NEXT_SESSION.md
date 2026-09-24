@@ -47481,7 +47481,26 @@ your first VAMILY and do steps 1 to 9.
 I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
-ROUND LOG 9/24b (latest): FIGHT VERDICT ROUND 8 on V225's fresh pair,
+ROUND LOG 9/24c (latest): [bb look] SHIPPED - rule 33's school and the
+card in one page (records/BOHEMIA_BB_SCHOOL_THE_MAPS_PAINTED_LOOK_9_24
+_26.md). School: BB's map reads at a glance because value does the
+work, places cheat their size, one saturated marker, three-value fog;
+the standing complaint is sameness after fifty hours. OUR CARD, the
+differences ruled: the map is THE WORLD FROM ABOVE, never an
+illustration (the aerial card's bands already are the value lesson);
+NO scale lie - a destination reads by BEING ALIVE (occupancy light,
+smoke, lit signs); the marker and route live ON THE PHONE GLASS only;
+the fog is THE DEAD INSTITUTION'S STALE DATA drawn on the glass in
+phosphor, never a veil on world pixels (R8); tracks stand as ruled;
+faction colour stays rims-and-marks at every zoom; sameness armored
+by real land use + the eras card. Routed: COOK [bb map art], RUN/UI
+wiring, EYES [bb reads]. FIGHT VERDICT ROUND 9 posted as no-change
+(no COMBAT/UI ship since V225; round 8 stands; round 10 triggers
+named). HOUSEKEEPING: wardrobe bank refreshed (330) - CHARACTER's
+kills executed, the bounce NARROWED from six to the original four
+(OLIVE x2 sat 0.33, GOLD x2 val 1.00, ratchet 123 vs 121); those four
+remain theirs, style gate 134/5 all theirs per rule 13.
+PREVIOUS: FIGHT VERDICT ROUND 8 on V225's fresh pair,
 and the card amended to his second votes the same round. THE WORLD
 HALF OF THE FIGHT IS PAID on the posted frames: one ruler on both
 reads fight 207 px vs walk 187-192 - ONE SIZE - on his street at his

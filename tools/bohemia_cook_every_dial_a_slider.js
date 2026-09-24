@@ -12,6 +12,13 @@
  * that opens. The faces beside it are drawn at 132 px, which is MEASURED, not chosen:
  * that is the size the portrait canvas actually occupies on a 390-wide phone.
  *
+ * REFERENCE CHECK (the 9/4 standing duty; added by DIRECTION 9/24 at the seam --
+ * sixth cook tool this stretch shipped without one): the rulers are FACE-01 and
+ * FACE-02 (the portrait construction every dial deforms against) and AH-01 rule 6
+ * (the still face; a dial panel photographs a HELD face). The photographed panel
+ * itself is chrome and answers to the act cards, not to a new reference. Both
+ * ids resolve in the reference library index.
+ *
  * Out: slices/vote/PORTRAIT_EVERY_DIAL_A_SLIDER.png
  *      slices/vote/PORTRAIT_EVERY_DIAL_A_SLIDER.html
  */
