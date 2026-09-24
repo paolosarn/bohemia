@@ -28,7 +28,13 @@ const REPO = path.dirname(__dirname);
 const ALPHA = path.join(REPO, 'slices/BOHEMIA_ALPHA_0_9.html');
 const LAW = path.join(REPO, 'laws/BOHEMIA_LAW_HE_CAN_BUILD_HIS_OWN_FACE_8_28_26.md');
 
-const SLIDERS_MIN = 12;   /* shape controls in the panel. before this turn: ZERO */
+/* *** RATCHET, AND HE MOVED IT TWICE. *** 12 was the first bar. 9/22 took the panel to
+   22 after measuring that 13 of 27 dials were unreachable. Then Paolo voted those eight
+   UP with a ruling attached -- "Fantastic progress it should all come with a slider"
+   (9/23 in the tab), which rule 32(g) writes as EVERY FACE DIAL A SLIDER -- and the
+   sweep found nine more live dials off the panel worth about 1,900 px of face.
+   32 is what "all of them" currently means. It may only go up. */
+const SLIDERS_MIN = 32;
 
 let pass = 0, fail = 0;
 const ok = (n, c, note) => { if (c) { pass++; console.log('  ok   ' + n + (note ? '   ' + note : '')); }
@@ -65,6 +71,61 @@ const ok = (n, c, note) => { if (c) { pass++; console.log('  ok   ' + n + (note 
 
       out.punk = shot();
       const PUNK0 = JSON.stringify(pface);
+
+      /* *** EVERY FACE DIAL IS A SLIDER (Paolo 9/23: "it should all come with a slider";
+         rule 32(g)). *** Two halves, and BOTH are needed or the claim is half a claim:
+         nothing LIVE may be missing from the panel, and nothing DEAD may be in the spec.
+         A spec field the renderer ignores is a promise the face does not keep (rule 14d),
+         and it is how nose.len and details.stubble sat there since 8/28.
+         Swept on twelve faces, on RENDERED PIXELS. faceClamp() takes no arguments -- it
+         works on the maker's own pface -- so this renders the mutated spec directly and
+         COUNTS anything that throws, because the first version of this sweep passed
+         faceClamp a spec, got undefined, threw on all 1,568 renders and reported the
+         entire face dead, face.top's 1315 px included. */
+      (function(){
+        const onPanel = new Set(FACE_SLIDERS.map(x => x[0]));
+        const base = faceFor('gatedial:0');
+        const keys = [];
+        for (const g of Object.keys(base)) {
+          const v = base[g];
+          if (v && typeof v === 'object' && !Array.isArray(v))
+            for (const k of Object.keys(v))
+              { if (typeof v[k] === 'number' || typeof v[k] === 'boolean') keys.push(g + '.' + k); }
+          else if (typeof v === 'number' || typeof v === 'boolean') keys.push(g);
+        }
+        const get = (o, k) => k.split('.').reduce((a, c) => a && a[c], o);
+        const set = (o, k, v) => { const q = k.split('.'); let a = o;
+          for (let i = 0; i < q.length - 1; i++) a = a[q[i]]; a[q[q.length - 1]] = v; };
+        let threw = 0, sweeps = 0;
+        const moved = {};
+        for (const key of keys) {
+          let worst = 0;
+          for (let i = 0; i < 12; i++) {
+            const sp = faceFor('gatedial:' + i), ramp = faceRampFor(sp);
+            const cur = get(sp, key); if (cur == null) continue;
+            const flat = renderFace(sp, { ramp });
+            const tries = (typeof cur === 'boolean') ? [!cur]
+              : [Math.max(0, Math.round(cur * 0.5)), Math.round(cur * 1.8) + 1, cur + 3, Math.max(0, cur - 3)];
+            for (const t of tries) {
+              const q = JSON.parse(JSON.stringify(sp)); set(q, key, t); sweeps++;
+              try {
+                const bb = renderFace(q, { ramp });
+                let n = 0;
+                for (let z = 0; z < bb.length; z += 4)
+                  if (bb[z] !== flat[z] || bb[z+1] !== flat[z+1] || bb[z+2] !== flat[z+2]) n++;
+                if (n > worst) worst = n;
+              } catch (e) { threw++; }
+            }
+          }
+          moved[key] = worst;
+        }
+        out.sweepThrew = threw;
+        out.sweepCount = sweeps;
+        out.sweepControl = moved['face.top'] || 0;     /* positive control: ~1315 px */
+        out.liveOffPanel = keys.filter(k => !onPanel.has(k) && moved[k] > 0)
+                               .map(k => k + ' ' + moved[k] + 'px');
+        out.deadFields   = keys.filter(k => moved[k] === 0);
+      })();
 
       /* EVERY SLIDER MOVES PIXELS, each from a clean PUNK, tried at both ends. */
       out.dead = [];
@@ -158,6 +219,22 @@ const ok = (n, c, note) => { if (c) { pass++; console.log('  ok   ' + n + (note 
      '(' + r.sliders + ' sliders; before this turn the editor changed COLOURS ONLY, zero shape)');
   ok('every slider moves the pixels', (r.dead || []).length === 0,
      (r.dead || []).length ? '(dead: ' + r.dead.join(', ') + ')' : '(' + r.sliders + ' of ' + r.sliders + ')');
+  /* THE SWEEP IS ONLY WORTH READING IF IT COULD HAVE FAILED. face.top is the biggest
+     dial on the face; if the control is small, every zero below is my instrument. */
+  ok('the dial sweep can see a dial at all', (r.sweepControl || 0) > 500 && (r.sweepThrew || 0) === 0,
+     '(positive control face.top ' + r.sweepControl + ' px over ' + r.sweepCount +
+     ' renders, ' + r.sweepThrew + ' threw)');
+
+  ok('*** EVERY FACE DIAL IS A SLIDER: nothing live is off his panel ***',
+     (r.liveOffPanel || []).length === 0,
+     (r.liveOffPanel || []).length ? '(off the panel: ' + r.liveOffPanel.join(', ') + ')'
+       : '(0 live dials unreachable; there were 9, worth ~1,900 px)');
+
+  ok('and nothing on the face promises something it does not do',
+     (r.deadFields || []).length === 0,
+     (r.deadFields || []).length ? '(dead fields in the spec: ' + r.deadFields.join(', ') + ')'
+       : '(0 dead fields; nose.len and hair.scalp were removed, details.stubble was wired)');
+
   ok('he cannot build a head that is not a head', (r.broken || []).length === 0,
      (r.broken || []).length ? '(' + r.broken.join(', ') + ')'
        : '(every slider driven to both ends; anatomy holds and it still renders)');

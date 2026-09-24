@@ -1,3 +1,93 @@
+PORTRAIT (portrait-vamily-yke55s): 9/24 (b) LATEST -- *** HE VOTED THE DIALS UP AND PUT
+THE NEXT JOB IN THE SAME SENTENCE: "Fantastic progress it should all come with a slider."
+22 SLIDERS -> 32, ZERO LIVE DIALS OFF HIS PANEL, ZERO DEAD FIELDS LEFT IN THE FACE. ***
+TAB: CHARACTER, tap your own face. Build 9/24p. VOTE item portrait-every-dial-a-slider-9-24.
+Record: records/BOHEMIA_EVERY_DIAL_A_SLIDER_9_24_26.md
+Cook: tools/bohemia_cook_every_dial_a_slider.js
+ROW [dead dials] SHIPPED. [customizations first] still CLAIMED (see the bottom).
+
+*** THE SWEEP SAID THE WHOLE FACE WAS DEAD AND THE SWEEP WAS THE BROKEN THING. *** All 34
+numeric fields at 0 px, face.top's 1,315 included. faceClamp() TAKES NO ARGUMENTS -- it
+works on the maker's own `pface` -- so passing it a spec returned undefined, renderFace
+threw on all 1,568 renders, and my catch block recorded every throw as "moves zero pixels".
+The instrument counts throws and carries face.top as a positive control now, and so does
+the gate leg built from it. Same family as PEOPLE's 9/24 probe that called a working module
+dead by reading .hair instead of .worn.hair: BEFORE BELIEVING A NEGATIVE, PROVE THE
+INSTRUMENT CAN PRODUCE A POSITIVE.
+
+THE HONEST READING: nine live dials off his panel, about 1,900 px of face.
+    hair.front 440   face.jawCornerY 378   face.cheekY 360   hair.side 348
+    hair.flare 158   hair.vol 100   hair.braid 91   eyes.gaze 26   eyes.hood 4
+
+*** AND I HAD WRITTEN TWO OF THEM OFF LAST ROUND, IN THE PANEL'S OWN SOURCE, as "not a
+dial, by design" because faceClamp re-derives them from top and len. THE CLAMP WAS THE
+DECISION, NOT THE FACT. *** They band now, like the four row heights already did, with
+ordering (cheekbone under the eye, jaw corner under the cheekbone, chin under that). Both
+bands contain the old derived value, so every saved face loads byte-identical and nothing
+moves until he drags. After: both hold, 0 snap-back.
+
+ASKED IN ADVANCE INSTEAD OF FOUND AFTERWARDS: do the hair dials hold? The crowd DERIVES
+side/front/vol/flare from the cut the body wears, so a slider on a stranger would snap back
+exactly like cheekY did; buildSpec is a straight copy of his own pface, so on HIS face they
+stand. That is the cheekY lesson applied one step earlier.
+
+FIVE SLIDERS POINTED AT KEYS HIS FACE DID NOT HAVE (the four hair shapes and gaze) -- five
+dead controls, alive in the crowd's generator and absent from pface. Caught by DRIVING
+every slider, not by trusting the table. THE DEFAULTS WERE SOLVED FOR, NOT PICKED: swept
+until each rendered BYTE-IDENTICAL to the key being absent -- side 0.90, front 0.20, vol 0,
+flare 0, gaze 0.
+
+STUBBLE IS WIRED, and all three tries were caught by LOOKING, never by a number, because
+151 px of mesh and 151 px of stubble are the same number: a BARCODE down the chin, then
+FISHNET (an ordered dither at half density IS a lattice by construction), then a hash of
+the pixel's own coordinates -- fixed per pixel, so no dice in the face. The beard line also
+ran flat across the cheekbones like a mask edge; it starts at the nose now and rides high
+at the sideburns.
+*** AND IT GREW A BEARD ON THE FACE HE APPROVED. *** PUNK carried stubble:1, a number that
+had never drawn a pixel, so wiring it moved his own face, 68caec4f -> f30d40e6. Caught by
+hashing his face against a CLEAN origin/main WORKTREE rather than trusting that a new
+feature only touches new things. Default is 0 now and re-verified equal. On the crowd,
+where it is wanted: 47 of 200 adults (23.5%, 22-56 px, 0 dead), 0 of 116 children and
+teens, because the generator's age gate holds.
+
+nose.len and hair.scalp are REMOVED, not hidden: the nose is drawn from the eye line down
+to f.noseY, so its length is already the NOSE HEIGHT slider he has had all along, and the
+portrait has no scalp opening for hair.scalp to switch.
+
+GATES: face_maker 16/0 (SLIDERS_MIN ratcheted 12 -> 22 -> 32) with THREE NEW LEGS -- a
+positive control on the sweep, nothing live off the panel, nothing dead in the spec --
+MUTATION-PROVED 13/3 red naming the exact slider and the exact dead field.
+portrait_haircut 15/0, and ONE LEG REPAIRED TO ITS SUBSTANCE rather than deleted: "the face
+Paolo approved did not move" was asserting his spec carried no side/front/vol/flare, which
+is now false BY HIS OWN REQUEST. The keys were never the claim, THE PIXELS ARE. Pinned to
+hash 68caec4f, mutation-proved red at 1212f3e6. (Same repair PEOPLE made to their A NAME
+gate on 9/24: repoint at a write, not a mention.)
+talking_portrait 30/1, the 1 the same known red: the face-distance floor, a metric that
+averages luminance over all 4,096 pixels and cannot see a dark face. Not moved by this.
+clothes_4x 13/0 with all 1,744 pinned garment hashes unmoved, portrait_matches_body 11/0,
+alpha_loads 20/0.
+
+RULE 32(f), SHOW IT FROM THE GAME'S CAMERA, taken literally: the card is a PHOTO of the
+real panel in the real alpha on a 390-wide phone, reached by waiting for the loading screen
+to go READY and tapping it (CHARACTER's become_gate sequence from this round, not a fourth
+invention of my own), and the faces beside each dial are 132 px -- MEASURED, the size the
+portrait canvas actually occupies there. THE COOK REFUSES TO WRITE rather than ship a
+picture that does not show what it says, and it fired twice on me: once photographing RUN's
+loading screen at "5 OF 5", once with the sliders below the fold, both under a caption
+reading "this is a photo of the real panel".
+
+STILL OPEN IN THIS LANE:
+  1. [customizations first] STAYS CLAIMED. Every NUMERIC dial is a slider; the COLOUR and
+     STRING fields are not swept the same way yet (skin, hair style/part/len/tex, and the
+     five colour rows). They are reachable as swatches, so this is a smaller question than
+     it looks, but I have not measured them and will not claim them.
+  2. [horror face] CLAIMED -- R4 THE LIGHT is the unbuilt half: 1.52 against the 9.84 the
+     world's own ruler wants, measured last round. Routed to [faces first].
+  3. [faces first] CLAIMED and blocked -- a stranger still meets zero faces in the demo.
+  4. [three faces] OPEN (rule 31, with CHARACTER). [blank faces] OPEN, school first.
+     [three d look], [speak along] OPEN.
+[PENDING Paolo] nothing.
+
 WORDS (words-8dqrnq): 9/24 (b) LATEST -- *** HE VOTED IT UP AND STILL COULD NOT
 READ THE SUBJECT OF THE SENTENCE: "wtf is the watch". ***
 TAB: the VOTE tab (alpha), THE SURER THE WRONGER, six pictures RE-SHOT because the

@@ -40,6 +40,10 @@ const CEIL_MIN  = 40;     /* distinct hair silhouettes renderable.    before 6  
    assertion below now reads "all of them", with a floor so an empty pool cannot win by
    having nothing left to fail. */
 const DIALS_FLOOR = 8;    /* the pool may shrink, but not to nothing.                    */
+/* THE APPROVED PLAYER FACE, PINNED ON PIXELS. Measured on a clean origin/main worktree
+   on 9/24 and identical in the tree that added ten face sliders. Nothing may move it
+   without Paolo; if this goes red, look at what changed his face, not at this number. */
+const PLAYER_FACE = '68caec4f';
 const N = 200;
 
 let pass = 0, fail = 0;
@@ -227,8 +231,18 @@ const ok = (n, c, note) => { if (c) { pass++; console.log('  ok   ' + n + (note 
      '(the default spec carries ' + JSON.stringify(r.defBraid) + ', a fresh face ' +
      JSON.stringify(r.freshBraid) + '; it used to be -1, which is truthy)');
 
-  ok('the face Paolo approved did not move', r.playerHasNew.length === 0,
-     '(the player takes the default path; hash ' + r.playerHash + ')');
+  /* *** THIS LEG USED TO CHECK FIELD NAMES AND IT WAS THE WRONG RULER. *** It asserted
+     his face carried no side/front/vol/flare, reading "he takes the default path" as
+     "those keys are absent". They are present from 9/24, because Paolo asked for every
+     face dial to be a slider and four of the nine that were missing are those. The keys
+     being absent was never the claim; THE PIXELS NOT MOVING is. So it is pinned to the
+     rendered hash instead, and the four values were chosen by SOLVING for byte-identical
+     against the absent case (side 0.90, front 0.20, vol 0, flare 0) rather than picked.
+     Repointed at a WRITE of pixels rather than a mention, the same repair PEOPLE made to
+     their own A NAME gate on 9/24. */
+  ok('*** THE FACE PAOLO APPROVED DID NOT MOVE ***', r.playerHash === PLAYER_FACE,
+     '(rendered hash ' + r.playerHash + ', pinned ' + PLAYER_FACE +
+     '; verified equal on a clean origin/main worktree the round the dials landed)');
 
   const law = fs.existsSync(LAW) ? fs.readFileSync(LAW, 'utf8') : '';
   ok('the law is written down', law.length > 1200, '(' + law.length + ' chars)');
