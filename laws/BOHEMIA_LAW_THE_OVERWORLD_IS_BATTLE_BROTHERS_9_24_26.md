@@ -66,6 +66,14 @@ OVERWORLD, TRAVEL, EVENTS, PLACES and THE COMPANY, and nothing else: its fight i
 its interface is a study only where UI's line says so. NEVER ADD A REFERENCE GAME HE HAS NOT NAMED
 stands: Battle Brothers is his, Rogue Fable 4 is his, nothing new enters.
 
+## 5b. WHERE BATTLE BROTHERS IS A STILL, WE MOVE (Paolo 9/24, same round; records/BOHEMIA_PAOLO_BB_IS_PICTURES_WE_PUT_LIFE_IN_IT_9_24_26.md)
+"Battle Brothers is just a bunch of pictures and the pictures can change, but we can do more and put
+more life into it with this analog horror pixel [direction] we're doing." We take the SHAPE of the
+map, the events and the places from Battle Brothers and none of its stillness: the map breathes
+(lights, weather, parties moving, tracks appearing), a place is a living street, an event is a
+person who moves and speaks under the bible with sound, never an illustrated card. Every [bb ...]
+school line ends its "shape for us" with what MOVES that Battle Brothers' picture does not.
+
 ## 6. WHAT THIS AMENDS
 - THE STEP IS A HOUSE (9/15): stands on the street and in the fight; it no longer describes how the
   valley is crossed. The overworld's unit is the map's own.
