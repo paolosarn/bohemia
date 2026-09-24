@@ -72,3 +72,16 @@ tab yet; when it lands, the phone in every tab is the door.
 KILLED: "the fold" as a one-way event at the end of an act (DYNASTY [fold carries] 9/16 stays as
 the LIST of what crosses; the crossing is now continuous, every flip). KEPT: the heir, the
 inheritance, the Angel, the Animal; who marries whom and who the Angel is stay his.
+
+## 9. AMENDED 9/24 BY HIS SECOND VOTES (laws/BOHEMIA_ADDENDUM_THE_SECOND_VOTES_9_24_26.md, NEWEST DATE WINS)
+(a) SECTION 2 IS RE-READ: ACT 1 IS THE RUIN, AND THE FUTURE GETS BETTER. "The right side is what the
+    beginning of the game is supposed to look like, and it gets better... when civilization reclaims parts
+    of cities for economic purposes it will get more techy and modern." The ruin is the FLOOR (act 1's
+    ground), never a fall from it; act 2 and 3 are the ruin plus what was reclaimed, and reclaimed reads
+    techier and more modern than the start. Nothing decays below the start; a do-nothing player flips
+    forward and sees the same ruin plus what the world did without him. How much better is the manager's
+    dial, in VOTE. The 9/24 default "a dark street loses its district" is dead.
+(b) SECTION 3 STANDS, WITH HIS A: the flip is on the phone. AND THE PHONE IS IN THE CITY VIEW ONLY (32c),
+    a cracked iPhone; flipping is a city-view act.
+(c) SECTION 5 IS DECIDED BY HIS VOTE: the three names come PREPARED, Battle Brothers style (a generated
+    name per slot, reshuffle, or type your own); no flip to an unnamed descendant.

@@ -1,0 +1,158 @@
+BOHEMIA VOTE -- 9/23 (his second COPY ALL, pasted to the coordinator 9/24; the first 83 rows repeat
+records/BOHEMIA_VOTE_VERDICTS_9_21_26.txt verbatim and are already in verdicts[]; the 31 rows dated
+9/23 are new. His words, untouched.)
+
+NO   THE ONE WHO STOOD THERE
+     id    people-the-one-who-stood-there-9-23
+     said  Wtf is this dogshit why does everything have to happen the first second of the game or even be in the demo? This shit is ass
+
+YES  THE GROUND TELLS YOU WHAT HAPPENED
+     id    cook-the-ground-tells-you-9-23
+     said  It wont be exactly a straight line but yeah amazing dont have it be exactly a straight line
+
+NO   THE SAME CORNER, A HUNDRED YEARS ON
+     id    world-the-same-corner-9-23
+     said  Bro the future gets better holy shit actually the right side is kinda what the beginning of the game is supposed to look like and it gets better how better is up to you and by better i mean when civilization reclaims parts of cities for economic purposes it will get more techy and modern and yeah man cmon
+
+NO   THE HAND IS IN FRONT NOW
+     id    animation-the-hand-in-front-9-23
+     said  WTF U MADE IT LOOK LIKE HES SCRATCHING THE BACK OF HIS HEAD ARE YOU FUCKING FR
+
+YES  THE LAST LIGHT
+     id    factions-the-last-light-9-23
+     said  Im confused the numbers look good cool but the picture we wont use that bro
+
+NO   ONE OF THESE SHIRTS IS NOT CLOTH
+     id    character-the-shirt-that-is-not-cloth-9-23
+     said  WTF IS THIS DOGSHIT
+
+YES  ONE STORY, THREE MOUTHS
+     id    people-one-story-three-mouths-9-22
+     said  Cool accidental story? Dont force this on me wtf is "the watch"
+
+YES  SOMEBODY STOPS YOU AT YOUR OWN DOOR
+     id    quests-somebody-stops-you-at-your-door-9-22
+     said  Cool dont force interactions on the player
+
+NO   THE PHONE IN YOUR POCKET
+     id    ui-the-phone-in-your-pocket-9-23
+     said  YOU ONLY SEE THE PHONE WHEN ITS UR ZOOMED OUT TO THE WHOLE CITY VIEW not when its the human close shit bro. And the phone should look like a cracked iphone bro
+
+YES  THE ELDER STOOPS
+     id    animation-the-elder-stoops-9-23
+
+YES  THE FLIP BETWEEN THE THREE ACTS: ON THE PHONE, OR A PLACE
+     id    coordinator-the-flip-is-on-the-phone-9-23
+     said  A
+
+YES  A NEW THIRTEEN, BUILT RUNWAY FROM THE START
+     id    character-a-new-thirteen-9-23
+     said  Fire make sure shit doesnt clip into places it shouldnt but yeah
+
+YES  THE THREE DESCENDANTS: NAMED AT THE START, OR WHEN YOU FIRST MEET THEM
+     id    coordinator-three-names-at-the-start-9-23
+     said  U cant flip to them until u name them previously or theres names already prepared for you like battle brothers and u can reshuffle names or name it yourself
+
+YES  THE STREET THAT IS STILL LIT
+     id    lifecity-the-street-that-is-still-lit-9-23
+
+YES  THE BIGGEST SCREEN EVER BUILT
+     id    cook-the-biggest-screen-ever-built-9-22
+     said  The square in the bottom left is clipping ontop bro and maybe theres a tiny hole in the roof if u could make that look good
+
+NO   WHAT A FLIP SOUNDS LIKE
+     id    sounds-what-a-flip-sounds-like-9-25
+     said  Kinda dogshit
+
+NO   DOES A RUN SOUND LIKE A RUN
+     id    sounds-does-a-run-sound-like-a-run-9-24
+     said  These are all dogshit and unimpressive u needs to REALLY MAKE NEW SANDS NOT THIS SAND SOUNDING SHIT LIKE IM ON THE Beach
+
+YES  FOOTSTEPS THAT LEAD YOU SOMEWHERE
+     id    cook-footsteps-that-lead-you-9-22
+     said  BRO U HAVE TO FIND OUT WHEN ITS FAVING NORTH SOUTH EAST AND WEST FR
+
+YES  HOW LOW THE ROOM
+     id    sounds-how-low-the-room-9-23
+     said  B
+
+YES  THE RING ROAD
+     id    world-the-ring-road-9-22
+     said  Why is the sand white grey u fuck itll be the same color as the rest of the dirt
+
+NO   THE DARK INSTITUTIONS
+     id    factions-the-dark-institutions-9-22
+     said  I DONT LIKE THESE BRO WTF
+
+YES  EIGHT DIALS THE GAME HAD AND YOU COULD NOT TOUCH
+     id    portrait-eight-dials-9-22
+     said  Fantastic progress it should all come with a slider
+
+YES  THE GROUND RULER
+     id    direction-the-ground-ruler-9-23
+
+YES  NOBODY STANDS ON ANYBODY
+     id    people-nobody-stands-on-anybody-9-22
+
+NO   THE HAND AT THE FACE (THIS ONE PLAYS)
+     id    animation-the-hand-at-the-face-plays-9-22
+     said  Nahhhhhhhhhh it looks bad glitchy and clipping and shit
+
+YES  EVERY PERSON IN THE VALLEY HAD THE SAME EYES
+     id    portrait-eye-range-9-22
+
+YES  THE RUNWAY CLOTHES WERE ALREADY HANGING THERE AND NOBODY WORE THEM
+     id    character-thirteen-on-the-runway-9-22
+     said  Nice just have the bright colors not so bright u know like the vibrance is turned down a little
+
+YES  THE SHOP THAT IS OPEN (THE REDO YOU ASKED FOR)
+     id    lifecity-the-shop-that-is-open-9-22
+     said  Nice
+
+YES  THE RIG ON THE ROOF
+     id    world-the-rig-on-the-roof-9-22
+     said  Nice
+
+YES  THE SIGNS AT NIGHT
+     id    factions-the-signs-at-night-9-22
+     said  BRO THIS GAME ISNT IN FIRST PERSON WHEN WOULD i see this????
+
+NO   THE TAPE IS SLIPPING
+     id    sounds-the-tape-is-slipping-9-23
+     said  Bro this shit was like all sand sounding bro it all sounded like sand
+
+ANYTHING ELSE
+More analog horror no more cards with quest just make an actual actual quiz make make the make the pixels make the sound
+
+--- FOR THE REGISTRY (the 31 new rows, as his export printed them) ---
+{"id":"people-the-one-who-stood-there-9-23","vote":"down","said":"Wtf is this dogshit why does everything have to happen the first second of the game or even be in the demo? This shit is ass","when":"9/23"},
+{"id":"cook-the-ground-tells-you-9-23","vote":"up","said":"It wont be exactly a straight line but yeah amazing dont have it be exactly a straight line","when":"9/23"},
+{"id":"world-the-same-corner-9-23","vote":"down","said":"Bro the future gets better holy shit actually the right side is kinda what the beginning of the game is supposed to look like and it gets better how better is up to you and by better i mean when civilization reclaims parts of cities for economic purposes it will get more techy and modern and yeah man cmon","when":"9/23"},
+{"id":"animation-the-hand-in-front-9-23","vote":"down","said":"WTF U MADE IT LOOK LIKE HES SCRATCHING THE BACK OF HIS HEAD ARE YOU FUCKING FR","when":"9/23"},
+{"id":"factions-the-last-light-9-23","vote":"up","said":"Im confused the numbers look good cool but the picture we wont use that bro","when":"9/23"},
+{"id":"character-the-shirt-that-is-not-cloth-9-23","vote":"down","said":"WTF IS THIS DOGSHIT","when":"9/23"},
+{"id":"people-one-story-three-mouths-9-22","vote":"up","said":"Cool accidental story? Dont force this on me wtf is \"the watch\"","when":"9/23"},
+{"id":"quests-somebody-stops-you-at-your-door-9-22","vote":"up","said":"Cool dont force interactions on the player","when":"9/23"},
+{"id":"ui-the-phone-in-your-pocket-9-23","vote":"down","said":"YOU ONLY SEE THE PHONE WHEN ITS UR ZOOMED OUT TO THE WHOLE CITY VIEW not when its the human close shit bro. And the phone should look like a cracked iphone bro","when":"9/23"},
+{"id":"animation-the-elder-stoops-9-23","vote":"up","said":"","when":"9/23"},
+{"id":"coordinator-the-flip-is-on-the-phone-9-23","vote":"up","said":"A","when":"9/23"},
+{"id":"character-a-new-thirteen-9-23","vote":"up","said":"Fire make sure shit doesnt clip into places it shouldnt but yeah","when":"9/23"},
+{"id":"coordinator-three-names-at-the-start-9-23","vote":"up","said":"U cant flip to them until u name them previously or theres names already prepared for you like battle brothers and u can reshuffle names or name it yourself","when":"9/23"},
+{"id":"lifecity-the-street-that-is-still-lit-9-23","vote":"up","said":"","when":"9/23"},
+{"id":"cook-the-biggest-screen-ever-built-9-22","vote":"up","said":"The square in the bottom left is clipping ontop bro and maybe theres a tiny hole in the roof if u could make that look good","when":"9/23"},
+{"id":"sounds-what-a-flip-sounds-like-9-25","vote":"down","said":"Kinda dogshit","when":"9/23"},
+{"id":"sounds-does-a-run-sound-like-a-run-9-24","vote":"down","said":"These are all dogshit and unimpressive u needs to REALLY MAKE NEW SANDS NOT THIS SAND SOUNDING SHIT LIKE IM ON THE Beach","when":"9/23"},
+{"id":"cook-footsteps-that-lead-you-9-22","vote":"up","said":"BRO U HAVE TO FIND OUT WHEN ITS FAVING NORTH SOUTH EAST AND WEST FR","when":"9/23"},
+{"id":"sounds-how-low-the-room-9-23","vote":"up","said":"B","when":"9/23"},
+{"id":"world-the-ring-road-9-22","vote":"up","said":"Why is the sand white grey u fuck itll be the same color as the rest of the dirt","when":"9/23"},
+{"id":"factions-the-dark-institutions-9-22","vote":"down","said":"I DONT LIKE THESE BRO WTF","when":"9/23"},
+{"id":"portrait-eight-dials-9-22","vote":"up","said":"Fantastic progress it should all come with a slider","when":"9/23"},
+{"id":"direction-the-ground-ruler-9-23","vote":"up","said":"","when":"9/23"},
+{"id":"people-nobody-stands-on-anybody-9-22","vote":"up","said":"","when":"9/23"},
+{"id":"animation-the-hand-at-the-face-plays-9-22","vote":"down","said":"Nahhhhhhhhhh it looks bad glitchy and clipping and shit","when":"9/23"},
+{"id":"portrait-eye-range-9-22","vote":"up","said":"","when":"9/23"},
+{"id":"character-thirteen-on-the-runway-9-22","vote":"up","said":"Nice just have the bright colors not so bright u know like the vibrance is turned down a little","when":"9/23"},
+{"id":"lifecity-the-shop-that-is-open-9-22","vote":"up","said":"Nice","when":"9/23"},
+{"id":"world-the-rig-on-the-roof-9-22","vote":"up","said":"Nice","when":"9/23"},
+{"id":"factions-the-signs-at-night-9-22","vote":"up","said":"BRO THIS GAME ISNT IN FIRST PERSON WHEN WOULD i see this????","when":"9/23"},
+{"id":"sounds-the-tape-is-slipping-9-23","vote":"down","said":"Bro this shit was like all sand sounding bro it all sounded like sand","when":"9/23"},

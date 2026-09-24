@@ -39572,6 +39572,16 @@ PLUMBER [covered controls]; WORLD [act stamp] first; FACTIONS [territory ledger]
 [lexicon frozen]; SOUNDS [band helper]. Ruled by default: dies of age past 70 in the next act (VOTE);
 the ruin subtracts on dark streets (DYNASTY design); the thirteen shapes are not his to assign; the
 band helper's changed sounds are redos. 31 items wait for him. Nothing else to judge.
+THEN (fj) HE VOTED AGAIN (9/23 in the tab, pasted 9/24): 31 verdicts, 20 up, 11 down, now in verdicts[]
+(114 of 123 judged, 9 waiting). Rule 32 on the front page; laws/BOHEMIA_ADDENDUM_THE_SECOND_VOTES_9_24_26.md; his words
+records/BOHEMIA_VOTE_VERDICTS_9_23_26.txt; the reading records/BOHEMIA_PAOLO_SECOND_VOTES_9_24_26.md. THE BIG ONES: nothing is forced and
+nothing happens in the first second (PEOPLE [creditor waits] first); the game STARTS in the ruin and
+the future gets better, reclaimed and techy (my subtraction default is dead; WORLD [future city], DYNASTY
+[the derive] re-aimed); the phone is in the city view only and is a cracked iPhone (UI [phone city only]
+first; the pocket phone reverted); the three names come prepared like Battle Brothers; NO SAND (SOUNDS
+[not sand] first; the noise recipe is dead); show it from the game's camera (the cook gate's leg); the
+hand at the face killed twice, graveyard. CLAUDE.md carries the line; the three-acts law has section 9.
+
 
 
 
