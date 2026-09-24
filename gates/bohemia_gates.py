@@ -5223,6 +5223,24 @@ GATES = [
      'tiles is re-hashed against the approved interior pool, so NO NEW ART is measured rather '
      'than promised -- and after the cut the surface places the player and NOBODY ELSE, '
      'because who survived ten years is Paolo\'s ruling, not the renderer\'s', False),
+    ('ROAD WORDS SAYABLE', ['node', 'gates/road_words_are_sayable_gate.js'],
+     'THE WORDS LANE, rule 33 school [bb event writing] (9/24). Paolo made the overworld '
+     'Battle Brothers and kept road events, and rule 19 says text comes from a MOUTH. '
+     'MEASURED AGAINST THE REFERENCE ITSELF: one real Battle Brothers event situation is '
+     '266 characters, three sentences, second person present, spoken by a narrator -- and '
+     "BB's own players say they stop reading them (\"there's so much text that i skip "
+     'almost all of it"). OUR TWELVE ROAD MOMENTS ARE THE SAME SHAPE AT HALF THE LENGTH: '
+     '134 characters average, 12 of 12 over the 98-character hold a bubble would give them, '
+     '0 of 12 opening with somebody speaking. They reach nobody today -- roadCard has ZERO '
+     'CALLERS because another lane killed the card under rule 19e and kept the table as '
+     '"content waiting for bodies to say them" -- so this is a READINESS CHECK on parked '
+     'content, not a claim that they ship, and the gate says so in its own output. Two '
+     'ratchets pinned at the measured debt (12 too long, 3 narrating him) so it can only go '
+     'down and a thirteenth long line is refused on arrival. The narration ruler is '
+     'GRAMMATICAL and came out of the twelve lines rather than out of a word list: a '
+     'narrator makes the player the SUBJECT of a verb, a speaker may make him the OBJECT. '
+     'Both ratchets mutation-proved RED, and a dropped debt prints re-pin rather than '
+     'passing quietly.', False),
     ('VOICE',          ['node', 'gates/voice_gate.js'],
      'THE WORDS LANE (Paolo 8/26): "it\'s time we have a new chat, like, write and sound like '
      'a human for Bohemia." The lane\'s honest premise is that THE WRITER IS A MACHINE AND '

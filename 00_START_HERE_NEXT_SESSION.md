@@ -1,3 +1,103 @@
+WORDS (words-8dqrnq): 9/24 (c) LATEST -- *** A BATTLE BROTHERS EVENT IS A
+NARRATOR'S PARAGRAPH WITH BUTTONS UNDER IT, AND BB'S OWN PLAYERS SAY THEY STOP
+READING THE PARAGRAPH. ***
+TAB: NOT IN A TAB YET, and on purpose. This round is rule 33 school (round one of
+two, no test lines written, which the 9/6 mode requires) plus a machine. Record
+records/BOHEMIA_WORDS_BB_SCHOOL_THE_SITUATION_IS_THE_PART_NOBODY_READS_9_24_26.md.
+
+THE ROW. Rule 33 landed since the last round and put [bb event writing] first on
+this lane. Claimed and pushed before starting (rule 5).
+
+THE FINDING THAT PROVES THE REFERENCE WRONG, in its own players' words:
+ "after my third run, I realized I wasn't reading the prompts anymore, I was
+  skimming through them, looking only at the highlighted text of my character's
+  answers and the last paragraph."
+ "there's so much text that i skip almost all of it."
+ "just read some wall of text every now and then without any real impact."
+And BB's own writer, on the ~17 read-only events: "Events that require player
+input and carry rewards/pitfalls are obviously better, but at the time I just
+wanted something 'on the page'."
+THE FIRST QUOTE IS THE SPEC, BECAUSE IT NAMES WHAT SURVIVES SKIMMING: THE CHOICES
+AND THE CONSEQUENCE. The situation is the part that dies, in the reference itself.
+That is also the reading research: skimmers SATISFICE, reading until the rate of
+information gain drops and then jumping, and a situation paragraph has the lowest
+gain on the screen because the buttons under it already imply it.
+AND PAOLO IS THAT READER, ON THE RECORD, SEVEN TIMES: "Boring asf" twice, "Idk
+what i was reading wtf", "what makes you think writing a storytime about this
+would be a good idea rather than actually making pixel art of footsteps". Seven
+of this lane's nine items are down and every one of them was a thing to read. He
+has been saying the Steam quote in his own voice and I kept writing paragraphs.
+
+MEASURED. One real BB situation: 266 chars, 3 sentences, second person present, a
+narrator, 19.0 s of reading at our own 14 cps against our 7.0 s hold -- 2.7x our
+whole ceiling. AND WE ALREADY WROTE TWELVE OF THEM WITHOUT MEANING TO: ROAD_WORDS
+averages 134 chars, 12 of 12 over the 98-char hold, 0 of 12 open with somebody
+speaking, 3 of 12 narrate him.
+THE BEST NEWS IN THE ROUND: THE GAME ALREADY REFUSES TO SHOW THEM. roadCard is
+defined and has ZERO CALLERS -- another lane killed the card under rule 19e and
+deliberately kept the table, writing "they are content waiting for bodies to say
+them". Nothing has to be un-shipped. The words change shape before they come back.
+
+AND I CORRECTED MY OWN NUMBER INSIDE THE SAME ROUND, the tenth entry in this
+lane's ruler-failure series. A crude first count said 9 of 12 narrate him, by
+matching the word "you". Printing the five lines that actually use second person
+outside quotes shows two of them have him as the OBJECT of somebody else's verb
+("a coyote picks you up at the corner", "he sees you and he doesn't slow down"),
+which is a thing a person really says. The honest number is 3, and the ruler is
+GRAMMATICAL rather than a word list: a narrator makes the player the SUBJECT of a
+verb, because only a narrator is inside your body. MY OWN CONTROL CAUGHT IT
+BEFORE IT SHIPPED, on the line "Argue if you want".
+
+THE SHAPE FOR US (section 4 of the record, and round two writes to it):
+ 1. THE SITUATION IS NOT TEXT, it is what he sees. BB must type "a band of
+    weathered men appear" because its picture cannot change. Ours changes every
+    frame. The sentence we save is one the screen is already saying.
+ 2. The words go where they survive: the choice and the consequence.
+ 3. A mouth says it (rule 19). 4. The choice is a verb. 5. 98 chars the moment it
+    has a mouth. 6. Not every moment deserves words -- BB's read-only events are
+    exactly the ones its players name as skippable.
+
+RULE 33(g), WHAT MOVES THAT BB'S PICTURE DOES NOT: the person walks up at one step
+per house and you can walk away mid-sentence; his hands are not steady and you SEE
+it because the body is drawn large; it has a voice and a sound; and it can be
+overheard and ignored, which is rule 32(a) for free.
+
+THE COOK IS A MACHINE, because rule 29 killed seven text items of mine and a law
+without a machine gate is not enforced: THE ROAD WORDS ARE SAYABLE GATE, 9/0,
+registered in the suite (a gate that never runs is not a gate), closing part of
+rule 19's gate that the laws file has marked OWED since 9/20. Two ratchets pinned
+at today's debt (12 too long, 3 narrating him) so it can only go down and a
+thirteenth long line is refused on arrival. It states IN ITS OWN OUTPUT that the
+road card has no caller, so nobody can read a green here as "the road moments
+ship". MUTATION-PROVED BOTH DIRECTIONS: a planted thirteenth long narrator line
+goes RED on three legs each naming its number; a shortened line stays green AND
+prints "DEBT DROPPED, re-pin this gate DOWN" rather than passing quietly, so the
+ratchet cannot rot in the loose direction either.
+NOT A DUPLICATE of QUESTS' ask_has_a_mouth_gate (9/21): that one holds the ASK
+GENERATOR to rule 19. Nothing held the road moments, which is how twelve narrator
+lines sat in the file with a law against them.
+
+NOT KNOWN, STATED PLAINLY: THE EGRESS PROXY BLOCKS EVERY PRIMARY SOURCE -- the
+wiki, Steam, the dev blog and TV Tropes are all refused in this container, exactly
+as BB STUDY DAY 13 recorded on 8/28. Every quote above came through search results
+and not a page read directly: MEDIUM-HIGH, and the single event sample is the one
+I would most want a second copy of. The ~400 event count is second-hand. AND THE
+CHOICE BUTTON WORDING COULD NOT BE SOURCED AT ALL, so "the choice is a verb" is
+OURS, from the row's brief and the choice-design research, not a measured BB fact,
+and it is marked as ours in the record.
+
+STANDING QUEUE, re-measured: [bb event writing] ROUND TWO is the next thing in
+this lane -- rewrite the twelve to the section 4 shape and re-pin both ratchets
+DOWN. Then [lexicon frozen], the coordinator's row from my own ddd2d2c finding
+(make the Spanish lexicon a committed file so a rebake cannot shrink it, then the
+six generator lines ship). [naming screen] still blocked (DYNASTY [three names]
+still OPEN, no screen exists). [reputation lines] still blocked (COMBAT frozen).
+Q26 stays CLAIMED until a surface speaks its lines.
+VERDICTS: 114 in the registry, 9 mine, no new ones this round, all acted on.
+AND THE LESSONS THAT BIND: NO TEXT-ONLY ITEM IN VOTE; a picture in VOTE showing a
+sentence the game no longer says is a lie to him; and now the third one, which is
+the biggest -- THE SITUATION IS THE PART NOBODY READS, so stop writing it.
+
 PORTRAIT (portrait-vamily-yke55s): 9/24 (c) LATEST -- *** [bb faces] SCHOOL ROUND ONE:
 A QUESTION OF TASTE TURNED OUT TO BE A BUG. THE SHOULDERS DO NOT KNOW WHERE THE HEAD IS. ***
 TAB: VOTE in the alpha, item portrait-the-bust-9-24, and it PLAYS. Build 9/24t. Row CLAIMED.
