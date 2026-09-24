@@ -32853,7 +32853,107 @@ reverted to an older round's text after a rebase once, with two shipped rounds
 missing. A resolver that re-applies only what it remembers eats everything else. ***
 
 
-*** 9/24 (b) NEWEST -- HE VOTED ON THIS LANE FOR THE FIRST TIME: TWO UP, ONE
+*** 9/25 NEWEST -- FOURTEEN PLACES, THREE SHELVES. ***
+records/BOHEMIA_WORLD_BB_PLACES_THE_HINTERLAND_9_25_26.md
+Row [bb places] SHIPPED. School: nothing on a play surface.
+
+(0) THE ROW. Rule 33 (Paolo 9/24) makes the map the spine and says PLACES ARE
+DESTINATIONS. A destination is only a destination if arriving gets you something
+you cannot get elsewhere, so: what does a place in our valley actually offer?
+
+(1) HOW BB DOES IT, researched not remembered (the wiki's Settlements and
+attached locations, dev blog 56). Every settlement has ATTACHED LOCATIONS -- a
+mine, wheat fields, an arrow-maker's shed -- that "influence heavily the
+available goods, services and recruitment options". Three mechanisms: the
+hinterland decides the STOCK (and makes that item unusually cheap); price rises
+3% per attached location (3-8 of them, so 9-24%); and some attract RECRUITS of
+particular backgrounds. The idea underneath: A PLACE IS A FUNCTION OF THE GROUND
+AROUND IT, which is why two towns of the same size are different.
+
+(2) THE GOOD NEWS: WE ALREADY BUILT THE ATTACHED LOCATIONS. bohemia_towns.minesOf
+flood-fills runs of solar, dam and battery and attributes each to whoever holds
+that ground -- careful work, because a SITE is a building and not a cell, which
+is why 253 solar cells come back as ONE array and Hoover comes back as ONE dam of
+four. Seed 1337: 4 sites, 308 generating cells, held by three factions.
+
+(3) *** AND THE FINDING THAT PROVES US WRONG: FOURTEEN PLACES, THREE SHELVES. ***
+goodsFor(tier,goods) returns all.slice(0,n), so A SHELF IS A FUNCTION OF TIER
+ALONE. Every camp in the valley sells the same four things, every town the same
+eight, every fortress the same eleven. A place differs from the tier ABOVE it and
+is IDENTICAL to its own tier. Depth is the only axis a place has and it cannot
+express WHICH goods -- exactly the thing BB's attached locations solve, with the
+ingredients sitting right there.
+
+(4) AND THE INVERSION THAT MAKES IT VIVID: HOMELESS is rank 13 of 14 on his own
+power ladder, tier CAMP, shelf of FOUR -- and holds 254 of the valley's 308
+generating cells and makes more batteries a day than anybody. Meanwhile THREE OF
+THE FIVE FORTRESSES, carrying the deepest shelves, hold no hinterland at all.
+Nobody put that there; it fell out of his own power ladder meeting the real map.
+
+(5) *** THE PART OF BB WE MAY NOT TAKE, AND THIS LANE ALREADY PAID FOR THE
+LESSON. *** BB's hinterland makes goods CHEAP and its prices rise per attached
+location. EVERYTHING COSTS ONE forbids both, and on 9/15 I built a stranger
+surcharge anyway: it made the first bag of rice cost two days' work, RICE CLOCK
+went red and was right, and his ruling came back -- "the surcharge is DEAD, never
+a number above one, THE SPREAD LIVES IN ACCESS." So the hinterland changes WHAT
+IS ON THE SHELF, never what it costs. Not a compromise: a camp's short shelf is
+already how this game says a place is poor.
+
+(6) THE SHAPE FOR US, one line: A PLACE'S SHELF IS ITS TIER'S DEPTH PLUS WHAT ITS
+OWN GROUND MAKES. Tier keeps setting depth (his). The hinterland adds what nobody
+else has: the Homeless camp sells POWER, at one battery like everything, when
+four other camps cannot. Derived from minesOf, which is derived from the map.
+Nothing tuned. IT GIVES THE MAP A REASON: today you walk to a fortress because it
+stocks more; after this you walk somewhere because it is the place that has the
+thing.
+
+(7) RULE 33g, WHAT MOVES THAT BB'S PICTURE DOES NOT: BB draws a settlement as one
+still illustration and its attached locations as icons. Ours is a street you
+arrive on, so the same fact is watched rather than read -- the panel rows track
+the sun, the cable into the camp sways, and AT NIGHT THIS BLOCK IS LIT WHILE THE
+VALLEY AROUND IT IS DARK. That last one is not a wish: it is last round's lit-core
+measurement, the tell is the light.
+
+(8) THE COOK: THE CAMP THAT HOLDS THE POWER, at game scale (rule 32f). The edge
+where the camp meets the array it lives off. AH-01's one wrong thing: THE ARRAY IS
+SWEPT AND THE CAMP IS NOT -- the rows square, the dirt between them raked, the
+shelters patched with whatever came to hand. Somebody maintains the machine
+better than they live and nothing says why. His 9/23 sand ruling is held in the
+tool as a REFUSAL on hue AND lightness, not just obeyed once.
+THREE CUTS, AND I CALLED IT LEGIBLE RATHER THAN BEAUTIFUL RATHER THAN FIX IT A
+FOURTH TIME. First cut: three painted stripes and five cardboard boxes. Second:
+the array got its real grid (panel divisions, legs, the shadow under the rake)
+and THE HUTS BECAME BARCODES -- this lane's ring-road mistake in new clothes, the
+texture made the loudest thing when TG-05 says the breaks must be QUIET. Third:
+ribs down to one value step, roof only. STOP PRODUCING says a fourth version
+means I already failed, so I stopped and said so.
+
+(9) *** AND THE GATE CAUGHT ITS OWN AUTHOR, WHICH IS THE FIRST TIME. *** The
+school page, the tool head AND the vote row all said Homeless was "rank 14 of 14".
+It is rank 13; Colorful is 14. The finding did not move -- still a camp, still the
+shortest shelf, still 254 of 308 -- but I had rounded a fact about his own canon
+in my own favour, and a check I had just written stopped it before he read it.
+Four rounds running one of my claims has been wrong before the game was; this is
+the first time one of my own gates caught it instead of me.
+
+(10) GATES. BB PLACES 26/0, new, in the suite, red three ways (give every camp an
+extra good -> 1; let a second price appear -> 1; stop attributing the hinterland
+-> 3). Note on mutation 1: adding the SAME good to all camps does not trip the
+three-shelves check, correctly -- giving every camp the same extra thing does not
+fix the finding.
+
+(11) ROUTED. *** THE ROW THIS SCHOOL ASKS FOR, for the coordinator: THE SHELF
+READS ITS OWN HINTERLAND. minesOf is built, owned and measured; mktShelf is the
+one caller it needs. Tier keeps setting depth; the hinterland adds what is local;
+never a price. *** TO PEOPLE: BB's attached locations also decide who turns up to
+be hired -- a place holding a solar array should have people who know panels. TO
+LIFE+CITY: the buildings on a place's block are its services, and today the ONLY
+place-bound service in the whole game is the shelf. TO DYNASTY: who held the
+arrays in act 1 is exactly what act 3 should be derived from, and minesOf already
+attributes it.
+
+
+*** 9/24 (b) -- HE VOTED ON THIS LANE FOR THE FIRST TIME: TWO UP, ONE
 DOWN, AND THE DOWN CAME WITH A RULE. ***
 records/BOHEMIA_WORLD_THE_MONEY_KNOWS_WHICH_ACT_9_24_26.md  sha c137fae
 Rows [sand is dirt] and [act stamp], both SHIPPED.
