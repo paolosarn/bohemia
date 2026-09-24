@@ -1562,6 +1562,18 @@
     "how": "image",
     "src": "vote/LIFECITY_THE_SHIFT_IS_LOGGED_9_24.png"
    }
+  },
+  {
+   "id": "world-the-valley-at-night-9-24",
+   "kind": "tile",
+   "lane": "world",
+   "made": "9/24",
+   "title": "THE VALLEY AT NIGHT",
+   "why": "Both of these are the whole valley after dark with the SAME number of street lights on. Left is what the game makes right now: the light is sprinkled evenly everywhere, 178 separate little patches, and the biggest lit thing in Las Vegas is twelve squares. Right is what your own light law says (you locked it back in July: the lights go out in CLUSTERS, never every other one), same lights, 11 patches, the biggest one 104 squares. Right gives you real lit neighbourhoods and real dark between them. Which Las Vegas do you want at night?",
+   "show": {
+    "how": "image",
+    "src": "vote/WORLD_THE_VALLEY_AT_NIGHT.png"
+   }
   }
  ],
  "verdicts": [
