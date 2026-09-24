@@ -36395,6 +36395,40 @@ PHOTOGRAPHS FOR DIRECTION, same session, one tap apart:
   records/target/combat/FIGHT_LOOKS_9_24_A_THE_WALK.jpg
   records/target/combat/FIGHT_LOOKS_9_24_B_THE_FIGHT.jpg
 
+*** TWO OF MY OWN GATES WERE MEASURING THE WRONG THING, AND ONE OF THEM FAILED V225 FOR
+GOING RIGHT. *** combat_scale_gate's rule 21 leg read 112*bodyScale(), and V225 is exactly
+the change that made bodyScale() the DRAWN size, which divides by the live frame on purpose.
+So at a frame of 0.20 the leg computed 560 px and called it a giant. Repointed to bodyRule(),
+the RULED size, with a fallback for a pre-V225 tree. NOT LOOSENED: it still asserts a man is
+112 px at every zoom, it just stops reading the number through the camera it is testing.
+7/1 -> 8/0. Same defect I had already fixed in the 112 gate's probe an hour earlier and did
+not think to look for in its sibling.
+
+house_board_gate HAS BEEN RED ON MAIN AND THE CAUSE WAS NEVER THE FIGHT. Baselined in a
+worktree at 6ef899d: same arm, same count, 1 passed 1 failed on main too. Then measured
+instead of guessed -- the element under the finger at the moment it taps a hostile is
+DIV#loadgl < DIV#loadwrap < DIV#front.load.ready: THE LOADING SCREEN, on top of a city frame
+that is alive and answering underneath. Its door was two blind clicks at (215,450), written
+before rule 18's loading screen existed. THE ONE DRIVER ALREADY CARRIES THIS SCAR IN WRITING
+(trap 6 names a gate that printed "NOTHING REACHABLE ... DIV#loadgl"). Door procedure copied
+from it, and the gate now refuses to report at all if the door did not open. It opens in ~8 s.
+Behind it a second stale step: it stood FIVE cells off the crew, off the glass since rule 16
+moved the street's zoom; it walks in now, nearest first, and prints what it saw at every
+distance. STILL RED at 2/1, and the red finally carries its numbers:
+  AT 1..5 CELLS  boxes 1  claimed 3  under "nothing"  pt [0,0]  view [430,890]
+                 rect [0,0,0,0]  board [418,861,"cv"]  hit0 [159,319,112,112]
+A 112x112 body, drawn, claimed by the street's own tap test, mapped through a canvas with
+418x861 of backing and A BOUNDING BOX OF 0x0. A board with pixels and no layout box: THE SAME
+DEFECT CLASS AS THE FIGHT FRAME, on the other surface. Two of my gates, one cause.
+
+THE PRE-PUSH PASS, SAID STRAIGHT: combat_scale 8/0, combat_floor 13/0, fight_floor_cache
+17/0, house_rulers 13/0, combat_runs_smoke 1/0, vote_tab 30/0, handoff 9/0; house_board 2/1
+(above, baselined red on main); the_person_is_112 26/10 and lot_is_sixteen_tiles 12/10, RE-RUN
+ALONE AND IDENTICAL, both printing k=300 / 0.4 CSS / 0 patch blits on both surfaces -- the
+unsized-frame signature, not a V225 regression. THE PROOF FOR V225 IS THE DRIVER SWEEP AND THE
+PHOTOGRAPHS, NOT THESE TWO GATES, and that is said here so nobody reads 26/10 as a verdict on
+the fighter.
+
 THE GATE IS STILL NOT TRUSTWORTHY AND THIS IS THE THIRD ROUND I HAVE SAID SO. It reaches a
 properly sized board only sometimes; when it does not its arms read k=300 and 0.4 CSS. Its
 new legs are right (the ruled size after V225's split, the every-frame sweep measured off the
