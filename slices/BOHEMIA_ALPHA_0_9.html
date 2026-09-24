@@ -1501,7 +1501,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 9/24k - HE IS 112 AT EVERY FRAME</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 9/24k - THE TWEAKING IS GONE</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -7051,9 +7051,20 @@ const POSE={
     the steps is the whole staggering read. Only the frequency is corrected. */
  drunk:(d,ph)=>{const s=Math.sin(ph*2*Math.PI),w=Math.sin(ph*2*Math.PI+1.3),m=(RUNMIR[d]?-1:1)*depthFlip(d);if(headOn(d)){const g=nsGait(d,ph,0.7*SWF());g.spine=0.12*w;return g;}const as=(ARMSIDE[d]||1);return {spine:0.14*w*m,head:-0.1*w,hipOff:[w*1.8,-0.8*Math.abs(s)],thighR:0.36*s*m,thighL:-0.36*s*m,shinR:m*0.3*Math.max(0,-s),shinL:m*0.3*Math.max(0,s),upL:(-0.3*s*m+0.2*w)*as,upR:(0.3*s*m+0.2*w)*as,foreL:-0.2*m,foreR:-0.2*m};},
  jump:(d,ph)=>{const t=ph;const e=(a,b)=>Math.min(1,Math.max(0,(t-a)/(b-a)));const cr=e(0,0.2)*(1-e(0.25,0.4));const air=e(0.25,0.4)*(1-e(0.6,0.85));const land=e(0.6,0.85)*(1-e(0.85,1));const rL=gL(d),rR=gR(d);return {hipOff:[0,6*cr-9*air+4*land],legCompressL:0.3*cr+0.32*land+0.18*air,legCompressR:0.3*cr+0.32*land+0.18*air,spine:spF(d)*(0.06*cr+0.05*land),upL:rL*(0.9*air+0.15*cr),upR:rR*(0.92*air+0.15*cr),foreL:rL*0.2*air,foreR:rR*0.2*air};},
- eat:(d,ph)=>{const c=Math.abs(Math.sin(ph*2*Math.PI));const g=gunT(d,3.5,2);return {ikR:[g[0][0],g[0][1]-5*c],bendR:'auto',upL:0.3,foreL:-0.4,head:0.06*c,spine:0.03};},
- drink:(d,ph)=>{const t=ph;const e=(a,b)=>Math.min(1,Math.max(0,(t-a)/(b-a)));const up=e(0.1,0.3)*(1-e(0.7,0.9));const g=gunT(d,3.5,2);return {ikR:[g[0][0],g[0][1]-6*up],bendR:'auto',head:-0.18*up,upL:0.25,foreL:-0.3};},
- smoke:(d,ph)=>{const t=ph;const e=(a,b)=>Math.min(1,Math.max(0,(t-a)/(b-a)));const up=e(0.05,0.2)*(1-e(0.45,0.6));const g=gunT(d,3,1.5);return {ikR:[g[0][0],g[0][1]-5*up],bendR:'auto',head:0.04-0.1*up,upL:0.2,foreL:-0.25,spine:-0.02};},
+ /* ===== TWEAKING, 9/24. Paolo 9/21 on these five: "it looks like all of them
+    Northeast and south tweaking." It was never WHERE the hand is -- on those two
+    facings the sheets bake byte-identical. It is the MOTION, and the bug is one
+    family: AN ENVELOPE THAT RAMPS FASTER THAN THE GAME DRAWS. The pose grid is
+    12 keys a bar (POSEHOLD.keys). Measured over S, NE and E, a joint stepping
+    BACK the way it came between two DRAWN keys: 43 reversals before, 5 after,
+    and ZERO on the two facings he named. Same family as the tweeze bug this file
+    already carries. records/BOHEMIA_WHAT_TWEAKING_WAS_9_24_26.md ===== */
+ /* eat: |sin| gave TWO bites a bar and took the hand the whole way up in three
+    drawn keys, reversing at every hump -- 3 reversals of 12 on S alone. ONE bite
+    a bar, five keys up and five down. */
+ eat:(d,ph)=>{const e=(a,b)=>Math.min(1,Math.max(0,(ph-a)/(b-a)));const c=e(0.05,0.45)*(1-e(0.62,0.95));const g=gunT(d,3.5,2);return {ikR:[g[0][0],g[0][1]-5*c],bendR:'auto',upL:0.3,foreL:-0.4,head:0.06*c,spine:0.03};},
+ drink:(d,ph)=>{const t=ph;const e=(a,b)=>Math.min(1,Math.max(0,(t-a)/(b-a)));const up=e(0.04,0.44)*(1-e(0.62,0.96))/* was e(0.1,0.3)*(1-e(0.7,0.9)): 6px of lift inside 2.4 drawn keys */;const g=gunT(d,3.5,2);return {ikR:[g[0][0],g[0][1]-6*up],bendR:'auto',head:-0.18*up,upL:0.25,foreL:-0.3};},
+ smoke:(d,ph)=>{const t=ph;const e=(a,b)=>Math.min(1,Math.max(0,(t-a)/(b-a)));const up=e(0.02,0.42)*(1-e(0.52,0.92))/* was e(0.05,0.2)*(1-e(0.45,0.6)): the whole drag lived in under two drawn keys */;const g=gunT(d,3,1.5);return {ikR:[g[0][0],g[0][1]-5*up],bendR:'auto',head:0.04-0.1*up,upL:0.2,foreL:-0.25,spine:-0.02};},
  talk:(d,ph)=>{const s=Math.sin(ph*2*Math.PI),c=Math.sin(ph*4*Math.PI+0.7);const rR=gR(d),rL=gL(d);return {upR:rR*(0.25+0.2*s),foreR:rR*(0.7+0.25*s),upL:rL*(0.3-0.15*s),foreL:rL*(0.5-0.2*c),head:0.04*c,spine:0};},
  nod:(d,ph)=>{const s=Math.sin(ph*4*Math.PI);if(!_lat(d))return {head:0.15*s,hipOff:[0,1.7*Math.max(0,s)],upL:gL(d)*0.12,upR:gR(d)*0.12};const f=spF(d);return {head:f*(0.12+0.14*s),spine:f*0.02*Math.max(0,s),upL:gL(d)*0.12,upR:gR(d)*0.12};},
  'look-around':(d,ph)=>{const s=Math.sin(ph*2*Math.PI);return {head:0.14*s,spine:0.03*s,upL:gL(d)*0.1,upR:gR(d)*0.1,hipOff:[s*0.5,0]};},
@@ -7092,7 +7103,12 @@ const POSE={
  /* ===== PROMOTED 7/2/26 batch #4 verdicts (14) ===== */
  wander:(d,ph)=>{const gl=Math.sin(ph*Math.PI+0.4);if(headOn(d)){const g=nsGait(d,ph,0.45*SWF());g.head=0.1*gl;return g;}const s=Math.sin(ph*2*Math.PI),m=(RUNMIR[d]?-1:1)*depthFlip(d),as=(ARMSIDE[d]||1);return {thighR:0.22*s*m,thighL:-0.22*s*m,shinR:m*0.2*Math.max(0,-s),shinL:m*0.2*Math.max(0,s),upL:-0.14*s*m*as,upR:0.14*s*m*as,foreL:-0.12*m,foreR:-0.12*m,head:0.12*gl,spine:spF(d)*0.03,hipOff:[0,-0.3*Math.abs(s)]};},
  push:(d,ph)=>{const s=Math.sin(ph*2*Math.PI);const lat=_lat(d);const f=spF(d);const drvL=lat?fwdS(d)*(1.7+0.1*s):-outL(d)*1.5;const drvR=lat?fwdS(d)*(1.7-0.1*s):-outR(d)*1.5;const uL=lat?fwdS(d)*0.8:-outL(d)*0.5;const uR=lat?fwdS(d)*0.8:-outR(d)*0.5;const m=(RUNMIR[d]?-1:1)*depthFlip(d);return {spine:f*0.4,head:f*0.08,upL:uL,foreL:drvL-uL,upR:uR,foreR:drvR-uR,thighR:0.24*s*m,thighL:-0.24*s*m,shinR:m*0.22*Math.max(0,-s),shinL:m*0.22*Math.max(0,s),legCompressL:0.12,legCompressR:0.12,hipOff:[0,1.5-0.4*Math.abs(s)]};},
- cough:(d,ph)=>{const t=(ph*2)%1;const b=Math.max(0,Math.sin(t*Math.PI*3))*(t<0.6?1:0);const g=gunT(d,2.5,1.5);return {spine:spF(d)*(0.12+0.18*b),head:spF(d)*(0.1+0.1*b),ikR:[g[0][0],g[0][1]-4],bendR:'auto',upL:gL(d)*0.15,hipOff:[0,0.8*b],legCompressL:0.06*b,legCompressR:0.06*b};},
+ /* cough: THE SPASM WAS ONE KEY WIDE. max(0,sin(t*3pi)) sampled on the 12-key
+    grid is 0, 1, 0, 0, 0, 0 per cough, so the head jumped 10.44px on NE and came
+    straight back inside a single drawn key, twice a bar. A convulsion has to
+    occupy keys the grid can draw: it spans three now and the head amplitude is
+    halved. NE head 10.44px -> 7.28px, neck 5.39 -> 4.47, reversals 2 -> 0. */
+ cough:(d,ph)=>{const t=(ph*2)%1;const _e2=(a,bb)=>Math.min(1,Math.max(0,(t-a)/(bb-a)));const b=_e2(0.02,0.22)*(1-_e2(0.26,0.58));const g=gunT(d,2.5,1.5);return {spine:spF(d)*(0.12+0.18*b),head:spF(d)*(0.1+0.05*b),ikR:[g[0][0],g[0][1]-4],bendR:'auto',upL:gL(d)*0.15,hipOff:[0,0.8*b],legCompressL:0.06*b,legCompressR:0.06*b};},
  laugh:(d,ph)=>{const b=Math.abs(Math.sin(ph*2*Math.PI)),sh=Math.sin(ph*6*Math.PI);return {head:-spF(d)*(0.14+0.06*b),spine:-spF(d)*0.08*b,armCompressL:0.1+0.06*sh,armCompressR:0.1-0.06*sh,upL:gL(d)*0.25,upR:gR(d)*0.25,foreL:gL(d)*0.3,foreR:gR(d)*0.3,hipOff:[0,-0.9*b]};},
  argue:(d,ph)=>{const t=(ph*2)%1;const j1=Math.max(0,Math.sin(t*2*Math.PI));const j2=Math.max(0,Math.sin((t+0.5)*2*Math.PI));const lat=_lat(d);const fR=lat?fwdS(d)*(0.4+1.1*j1):-outR(d)*(0.3+0.9*j1);const fL=lat?fwdS(d)*(0.3+0.9*j2):-outL(d)*(0.25+0.8*j2);return {upR:fR*0.45,foreR:fR*0.55,upL:fL*0.4,foreL:fL*0.5,spine:spF(d)*(0.08+0.06*j1),head:spF(d)*(0.06+0.08*j1),hipOff:[0,0.3*j1]};},
  greet:(d,ph)=>{const t=ph;const e=(a,b)=>Math.min(1,Math.max(0,(t-a)/(b-a)));const up=e(0.05,0.25)*(1-e(0.75,0.95));const bo=Math.sin(ph*4*Math.PI)*up;const r=gR(d);return {upR:r*(1.9*up+0.12*bo),foreR:r*(0.4*up+0.25*bo),upL:gL(d)*0.1,head:0.05*up+0.03*bo,spine:-spF(d)*0.04*up,hipOff:[0,-0.5*up]};},

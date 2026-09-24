@@ -7659,6 +7659,96 @@ archive escape built in from the start so [handoff cut] is unblocked rather than
 THE WARNING FOR EVERY LANE: do not write this file from a copy you read at the start of your round.
 Re-read it immediately before you edit, and check your own block is still there after any rebase.
 
+ANIMATION (animation-lr9y9i): 9/24 (a) LATEST -- *** WHAT "TWEAKING" WAS: AN
+ENVELOPE THAT RAMPS FASTER THAN THE GAME DRAWS. His words are answered and the
+fix is IN THE ALPHA. TAB: VOTE, playing, and ANIMATION for the clips. ***
+
+[redo killed] continues.
+
+=== HIS WORDS, AND WHAT THEY TURNED OUT TO BE
+Paolo 9/21, voting down the five hand clips: "it looks like all of them Northeast
+and south tweaking." Last round proved it is NOT placement -- on those two facings
+the sheets bake BYTE-IDENTICAL before and after the redo. So it is the MOTION.
+
+THE DEFECT GENERALISES INTO A LAW, and this repo had already met it once and never
+written it down: THE BODY IS POSED ON A GRID OF POSEHOLD.keys KEYS A BAR, TWELVE,
+and nothing between two of them is ever drawn. An envelope written as a smooth
+continuous curve can still move a joint further between two DRAWN keys than the
+eye reads as travel, and then the joint does not appear to move, it appears to
+JUMP, and to jump BACK. That is what tweaking is.
+  eat    |sin(ph*2pi)| = TWO bites a bar. The hand crossed 13 px between two drawn
+         keys, three times a bar, reversing at every hump.
+  cough  max(0,sin(t*3pi))*(t<0.6) sampled at i/12 is 0,1,0,0,0,0. THE WHOLE
+         CONVULSION IS ONE KEY WIDE: the head moved 10.44 px on north-east and
+         came straight back inside a single drawing, twice a bar.
+SAME FAMILY as the tweeze bug the file already carried IN A COMMENT ("sin(2*pi*6*t)
+sampled at t=i/12 is ZERO at every keyframe"). Nobody generalised it, so it came
+back. A NOTE IS NOT A GATE.
+
+=== THE RULER, AND WHY FIVE ROUNDS MISSED THIS
+Directional, not a distance: a step that goes BACK the way the last one came
+(flipped by more than 120 degrees) between two drawn keys. That shape is invisible
+to every how-far-did-it-move ruler, which is exactly what every earlier round used.
+
+MEASURED over 5 clips, 5 joints, his two facings plus east:
+  reversals on the two he NAMED       26 -> 0
+  reversals adding east               43 -> 5
+  worst jump between two drawn keys   10.44 px -> 7.28 (body is ~98 rows)
+  drawn keys the cough occupies       2 of 12 -> 6 of 12
+The 5 left are PRINTED and named: four are the cough's own duck and return, which
+is a cough and not a jitter, and the fifth is whistle's far hand breathing, which
+reads identical before and after and was never mine to claim.
+
+=== WHAT SHIPPED
+Four envelopes in POSE (eat, drink, smoke, cough). No new art, no rig change, no
+draw-order change. NECK HOLDS HEAD is still 15 detached and green.
+
+=== AND THE FIFTH HEIGHT SWEEP CONFIRMED THE FOURTH, SO IT STOPS HERE
+The five REDONE reaching poses are still OUT of the alpha. Good news that is still
+not enough: the spread envelopes alone took their cost from 22/23 detached to 19 --
+FOUR FRAMES FROM GREEN, all four on the profile facings, where the forearm reaching
+the mouth owns rows 26-29 inside the neck's own columns while the neck's top row is
+30. Then seven reach heights, whole-suite detached each: +0 19, +1 20, +1.5 22,
++2 21, +2.5 25, +3 25, +4 22. EVERY LIFT IS WORSE. That is the fifth attempt at the
+same knob and it confirms the fourth: named, not nudged a sixth time.
+
+=== A RULER I BUILT AND THREW AWAY THE SAME ROUND
+I had a replacement for the detached ruler that would have passed those four frames:
+flood the drawn pixels 8 ways and ask whether the head blob and the torso blob are
+one island, which is what his eye actually asks. Mutation-tested it BEFORE believing
+it: with _neckHolds neutered the old ruler goes 15 -> 48 (reproducing the historical
+number exactly) and the island ruler stays 0 -> 0. IT CANNOT SEE THE DEFECT AT ALL.
+Deleted, ratchet untouched.
+A RULER THAT PASSES THE THING YOU WANT TO SHIP IS THE FIRST ONE TO MUTATION-TEST.
+
+=== COOKED THIS ROUND (rule 22, rule 25)
+animation-the-tweak-is-gone-9-24, and it PLAYS: eating and coughing on south and
+north-east, what is in the game now beside the fix, twelve frames a bar on the real
+120 BPM clock, cropped to the head and hand at twice the pixels. No control inside
+the page; the row asks once.
+
+=== PROOF
+records/BOHEMIA_WHAT_TWEAKING_WAS_9_24_26.md
+gates/an_envelope_ramps_slower_than_the_grid_gate.js -- 9 claims, 3 mutations
+caught (eat's bug back, cough's bug back, and the ruler itself blinded, which only
+the CONTROL catches: it pushes the cough bug's own shape through the SAME walk and
+requires reversals, so one ruler serves both).
+Pre-push pass green: ENVELOPE RAMP 9/0, NECK HOLDS HEAD 8/0, HAND TO FACE 1/0,
+ELDER STOOPS 9/0, SLIDE AND TURN 17/0, HEAD SNAPS 13/0, ELBOW BENDS 10/0, VOTE TAB
+29/1 (the one red was my row's empty sha, now filled). ONE NUMBER BODY 5/1 is RED
+ON A CLEAN origin/main TOO (a cross-origin postMessage throw, not mine).
+Full suite: 107 red at ad23d875; mine are none on that list.
+
+=== NEXT, IN ORDER
+1. The seven profile frames stay NAMED, not chased. Anything new has to come from
+   the rig or the draw order, not from moving the hand.
+2. The other 42 killed clips ([redo killed] is 5 of 47).
+3. [bake approved] -- 23 thumbed-up candidates go in verbatim.
+4. [judge two] -- pickup and laugh.
+5. [horror motion] is still OPEN under the bible.
+
+[PENDING Paolo] Nothing.
+
 ANIMATION (animation-lr9y9i): 9/23 (b) LATEST -- *** A CLIP DECLARES A HAND AT THE
 FACE, AND THE BACK VIEWS ARE CLOSED: 9 of 40 -> 40 of 40. The flag shipped, the
 poses did not, and I say why. TAB: VOTE, playing. ***
