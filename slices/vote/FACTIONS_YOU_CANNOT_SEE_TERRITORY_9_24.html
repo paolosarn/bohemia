@@ -1,0 +1,114 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>BOHEMIA - YOU CANNOT SEE TERRITORY</title>
+<style>
+ :root{ --ink:#141210; --paper:#f4efe6; --hot:#a8391d; --dim:#4a443c }
+ *{ box-sizing:border-box }
+ body{ margin:0; background:var(--paper); color:var(--ink);
+       font:15px/1.5 ui-sans-serif,system-ui,-apple-system,Arial,sans-serif }
+ header{ padding:14px 14px 10px; border-bottom:3px solid var(--ink) }
+ h1{ margin:0 0 5px; font-size:19px; letter-spacing:.3px }
+ .sub{ font-size:14px; color:var(--dim) }
+ .said{ margin:10px 14px; padding:9px 12px; border-left:5px solid var(--hot);
+        background:#fff; font-size:14px }
+ .said b{ color:var(--hot) }
+ .quote{ margin:10px 14px; padding:9px 12px; border-left:5px solid #6b6252;
+         background:#fff; font-size:14px; font-style:italic; color:var(--dim) }
+ .quote b{ font-style:normal; color:var(--ink) }
+ .wrap{ padding:6px 14px 50px }
+ /* THE PICTURES ARE THE GAME. Nothing here is drawn. The top strip of each shot is
+    another lane's card, so the frame is clipped rather than re-shot. */
+ .shot{ background:#fff; border-bottom:3px solid var(--ink); padding:8px; margin-top:14px }
+ .clip{ position:relative; width:100%; overflow:hidden; border:1px solid #cabfa8 }
+ /* A PERCENTAGE MARGIN IS RELATIVE TO WIDTH, NEVER HEIGHT. The card is the top
+    12.4% of a 1134x2256 shot; -13.5% cropped only 6.8% of it and left the buttons
+    showing. The frame is 1.99x taller than it is wide, so the number is doubled. */
+ .clip img{ display:block; width:100%; margin-top:-25%; image-rendering:pixelated }
+ .cap{ font-size:14px; color:var(--dim); margin:9px 0 0 }
+ .cap b{ color:var(--ink) }
+ .tag{ display:inline-block; background:var(--ink); color:var(--paper); font:11px/1.5
+       ui-monospace,monospace; padding:1px 7px; letter-spacing:.5px; margin-bottom:6px }
+ table{ border-collapse:collapse; width:100%; background:#fff; margin-top:14px;
+        font:12px/1.4 ui-monospace,monospace }
+ th,td{ text-align:left; padding:5px 7px; border-bottom:1px solid #ddd5c4 }
+ th{ background:var(--ink); color:var(--paper) }
+ td.n{ text-align:right }
+</style></head><body>
+
+<header>
+ <h1>YOU CANNOT SEE TERRITORY</h1>
+ <div class="sub">Fourteen crews own every block of this valley. Here is the actual game.
+ Look for them. 9/24</div>
+</header>
+
+<div class="quote">
+ <b>You said:</b> "BRO THIS GAME ISNT IN FIRST PERSON WHEN WOULD i see this????" and
+ "the numbers look good cool but the picture we wont use that bro".
+ <br><br>
+ <b>You were right and it killed eight rounds of my work.</b> Every sign I made was drawn
+ head on, standing in front of it, at eye level. This game is looked down on from above.
+ You would never once see any of them. So this page draws nothing at all. Every picture
+ below is a photograph of your game, running, at its own camera.
+</div>
+
+<div class="wrap">
+
+ <div class="shot">
+  <span class="tag">YOUR STREET, REAL FRAME</span>
+  <div class="clip"><img src="FACTIONS_REAL_STREET_9_24.png" alt="the walked street"></div>
+  <div class="cap"><b>The thin orange line on the left is the whole of territory.</b> That is
+  the Mob's border, and it is the only thing on this screen that says whose ground you are
+  standing on. Everything else that reads as a sign, HOME and the shop name, belongs to a
+  building.</div>
+ </div>
+
+ <div class="shot">
+  <span class="tag">YOUR CITY VIEW, REAL FRAME</span>
+  <div class="clip"><img src="FACTIONS_REAL_CITY_9_24.png" alt="the city view"></div>
+  <div class="cap"><b>Now zoom out, where you would actually look at a map of who owns
+  what.</b> Fourteen crews, 9,216 blocks, every one of them owned. You can see none of it.
+  The valley is blank sand.</div>
+ </div>
+
+ <div class="said">
+  <b>SO THIS IS THE REAL PROBLEM, AND IT IS NOT THE SIGNS.</b> Colour is territory is one of
+  your oldest rules. Every crew has a colour, measured off your own clothes. The game knows
+  who owns all 9,216 blocks. <b>And on the two screens you actually play on, you can see one
+  orange line.</b>
+  <br><br>
+  A sign was never going to fix that. A sign is one building. This is the whole valley.
+ </div>
+
+ <table id="tbl"></table>
+ <div class="cap">What the game already knows and does not show you, measured off the running
+ game this round.</div>
+
+ <div class="said">
+  <b>AND ONE THING I CHECKED BECAUSE I ALMOST GOT IT WRONG.</b> Last round I told you the
+  block you wake up on keeps the same landlord across all three lives. That is true, and I
+  had got it right by luck: I was dividing by a number I made up. Done properly with the
+  game's own maths it holds. <b>Nothing within three houses of your door ever changes
+  hands. The nearest block that does is four houses away</b>, and it goes from the Church to
+  the Blues.
+ </div>
+
+</div>
+
+<script>
+var ROWS = [
+  ['blocks in the valley', '9,216'],
+  ['blocks with an owner', '9,216'],
+  ['crews holding ground', '14'],
+  ['crews with a published colour', '14'],
+  ['ways to see any of it on the street', '1 orange line'],
+  ['ways to see any of it from the city view', '0'],
+  ['blocks that change hands by your third life', '3,415'],
+  ['blocks within 3 houses of you that ever change', '0 of 49'],
+  ['distance to the nearest block that does', '4 houses']
+];
+var h = '<tr><th>WHAT</th><th class="n">HOW MANY</th></tr>';
+for (var i = 0; i < ROWS.length; i++)
+  h += '<tr><td>' + ROWS[i][0] + '</td><td class="n">' + ROWS[i][1] + '</td></tr>';
+document.getElementById('tbl').innerHTML = h;
+</script>
+</body></html>
