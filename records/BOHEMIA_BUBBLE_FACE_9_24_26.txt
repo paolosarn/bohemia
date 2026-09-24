@@ -1,0 +1,152 @@
+BOHEMIA -- BUBBLE FACE (9/24/26, PEOPLE lane)
+VAMILY job [bubble face], row THE-FACE-IN-THE-BUBBLE-IS-HER.
+
+THE ROW, from QUESTS f403acc: "36 of 40 people carry a face index into the city's
+baked cast and the bubble ignores it, rolling a face out of a hash of the id; the
+shell's own comment says it was fixed for the player alone. ONE ID, ONE WHOLE
+PERSON: the bubble draws the face the body carries."
+
+*** THE PICTURE THEY TOOK IS REAL AND THE CAUSE THEY NAMED IS NOT. ***
+Estella Gaines really does stop you at your own door with a face that reads as an
+older man. I photographed it again before touching anything. Credit where it is
+due: this lane would not have looked without their frame.
+
+================================================================================
+MEASURED ON THE ALPHA BEFORE A LINE WAS WRITTEN
+================================================================================
+  people carrying `face`                    40 of 40   (the row says 36 of 40)
+  the values `face` actually takes          0 to 7
+  entries in the baked cast                 11
+  what the line that makes a person says    face: r & 7,
+                                            // which of the 8 facings they idle in
+
+IT IS A FACING. A field was read by its name. There is no face index to hand
+across, and there is nothing on the other end to hand it to: the street draws a
+baked CLOTHING FIT picked by trade (longcoat, skirt, poncho, cape) and a clothing
+fit has no portrait in it. So "the bubble draws the face the body carries" cannot
+be built as written, because the body does not carry one.
+
+AND THE PORTRAIT WAS ALREADY DOING THE HARD PART. faceFor already dresses the
+face from BOH_PERSONLOOK with the canon garment pool, so the cut is a real
+per-person answer and not an unconstrained roll. PORTRAIT and CHARACTER built
+that and it works.
+
+*** AND MY FIRST PROBE OF THAT SAID IT WAS DEAD. *** It called a bare global
+`lookFor` and read `.hair`; the module is behind BOH_PERSONLOOK and the hair is at
+`.worn.hair`. It returned null for everybody with no error, and I was one step
+from "fixing" a system that is alive. Before believing a negative, prove the
+instrument can produce a positive: handed the pool, it dresses 20 of 20.
+
+================================================================================
+WHAT IS ACTUALLY WRONG, AND IT IS SMALLER AND DEEPER
+================================================================================
+*** NOTHING IN THIS GAME SAYS WHO IS A MAN AND WHO IS A WOMAN. ***
+Not the person record. Not the derived identity (key, tier, name, role, lookSeed,
+idSeed, lang, household, home, work, faction). Not the name bank. Not the face
+spec. ONE RIG (Paolo 7/25, LOCKED) settled the BODY question -- one rig, sliders,
+the separate female rig is dead -- and nobody ever came back for the reading.
+
+THE NAME IS THE ONLY THING IN THAT SPEECH BUBBLE THAT SAYS "SHE", AND NOTHING WAS
+LISTENING TO IT.
+
+================================================================================
+WHAT WAS BUILT
+================================================================================
+A. THE NAMES SAY WHAT THEY READ AS. 87 of the 90 given names Paolo approved on
+   9/21 are marked she or he. This is a FACT about names already in the bank, not
+   a new ruling about the world, and it is draft:true and his to overturn one line
+   at a time without touching code. Three are left reading EITHER on purpose --
+   Kai, Sunny, Juniper -- because a name that really does go both ways must not be
+   forced, and forcing it is the one place this table could invent instead of
+   report. The gate checks every marked name is really in the bank, so the table
+   cannot drift away from the thing it describes.
+
+B. THE CITY ANSWERS, because it is the only side that can turn an id back into a
+   person. The shell gets an id string and had nothing else to build from.
+   AND A NAME HE HAS NOT EARNED STEERS NOTHING: until you ask somebody their name
+   they are their trade, and a face built on a name the player has never heard
+   would be the game knowing something he does not. That is this lane's own 9/21
+   rule kept rather than quietly broken for a face.
+
+C. THE POOL IS NARROWED, NEVER THE PICK. Cuts that would contradict the name are
+   taken out and the generator chooses freely from everything left, so the luxury
+   odds, the trenchcoat rule, the colour, the skull and every other dial are
+   untouched. HAIR_READS marks only 5 of the 11 canon cuts: the three clipped
+   tapers and the two long falls. Locs, coils, a shag, a weave, short ropes and
+   the curtain cut stay open to everybody, because they are worn by anybody and
+   marking them would be inventing a rule.
+
+D. AND THE FACE FOLLOWS THE NAME THE MOMENT IT IS EARNED. The face is cached by id
+   and never asked twice, so the first time somebody speaks they are a stranger
+   and their face is steered by nothing. Without this she would keep a stranger's
+   face for ever under a plate carrying her name.
+
+================================================================================
+ON THE ALPHA, BEFORE AND AFTER, SAME PEOPLE AND SAME SEED
+================================================================================
+  people on the block with a name that reads one way    58
+  faces wearing a cut that fought their own name        10
+  after                                                  0
+  different cuts still worn across the street           11
+
+THE SECOND NUMBER IS THE CONTROL THAT MATTERS. Forcing everybody into one cut each
+way would pass "no face fights its name" and ruin the crowd. All eleven
+cuts are still in use.
+
+('either' is the old behaviour byte for byte, so the before column is the shipped
+code with the steer given nothing to steer by: one tree, one seed, one difference.)
+
+================================================================================
+THE COOK: HER NAME AND HER FACE
+================================================================================
+slices/BOHEMIA_HER_NAME_AND_HER_FACE_9_24_26.html, the ten faces that were wrong,
+before and after, rendered out of the real generator. Registered in VOTE.
+Estella and Idalia lose a clipped taper for a curtain cut; Marcus and Deshawn lose
+a heavy fringe.
+The first cut of this sheet photographed twelve people picked at random, which is
+mostly people who were already fine: an honest number and a useless picture.
+
+AND THREE WRONG GUESSES ABOUT ONE RETURN VALUE BEFORE ASKING IT WHAT IT WAS.
+renderFace hands back a raw Uint8ClampedArray of 64x64 RGBA. I tried ImageData,
+then a canvas, and got a sheet of red error boxes twice before printing the type.
+The shell already said so in its own hand: packIdx(renderFace(...), 64, 64).
+
+================================================================================
+THE GATE
+================================================================================
+gates/bubble_face_gate.js, driven on the ALPHA.
+  the names   the marking exists, every marked name is really in the bank, only
+              known values, full names read, the ambiguous ones left alone,
+              unknowns forced to nothing, draft, and the facing measurement quoted
+  the city    it answers through the identity module and not a second opinion, an
+              unearned name steers nothing, it rides with the ask, and the cache
+              is dropped when a name is earned
+  the shell   the pool filtered and the pick free, unmarked cuts never removed,
+              a person who reads neither way untouched
+  the alpha   10 before and 0 after, with the street still wearing 8 different cuts
+  the cook    two different sheets off the real generator, in VOTE
+
+================================================================================
+MEASURED AND NOT FIXED
+================================================================================
+IT IS ONLY THE HAIRCUT, AND THE FACES STILL DO NOT READ AS CLEARLY AS THEY SHOULD.
+The portrait has no other masculine or feminine dial to turn: one rig, one skull
+generator, and no jaw, brow-weight or lash that knows about any of this. Saying
+the faces now "read as women" would be selling something I did not measure. What
+I measured is that no face wears a cut that fights its own name.
+
+AND WHAT ACTUALLY DOMINATES THESE PORTRAITS IS EYEWEAR. Most of the faces on the
+sheet are wearing a wraparound band across the eyes, which is a known row already
+named elsewhere (70 of every 200 people wear shades you cannot see through). It is
+not this row and it is not fixed here, but it is the first thing you see.
+
+THE ROW'S OWN SHIP TEST IS NOT MET AND CANNOT BE AS WRITTEN. "The bubble draws the
+face the body carries" needs the body to carry a face. It carries clothes. Naming
+that is the honest close rather than marking a line SHIPPED against a test the
+game cannot satisfy.
+
+[PENDING Paolo] whether the faces should go further than the hair. That is a real
+fork about the game: one rig is LOCKED (7/25) and this is not a request to reopen
+it, only to say whether a portrait may read feminine beyond the cut.
+
+TAB: CITY, the walked street in the alpha. VOTE, for the before and after.

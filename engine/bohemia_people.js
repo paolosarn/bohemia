@@ -1929,6 +1929,67 @@
      itself is derived, exactly like everything else in this module. Two
      independent streams so a common first name and a common surname do not
      travel together across the valley. */
+  /* ==== WHAT A NAME READS AS (9/24, PEOPLE [bubble face]) ==================
+     ROW THE-FACE-IN-THE-BUBBLE-IS-HER. QUESTS photographed Estella Gaines at his
+     own door with a face that reads as an older man, and called it "two different
+     people, one id, in one picture". They were right about the picture.
+
+     *** THE CAUSE THEY NAMED DOES NOT EXIST, AND I MEASURED IT BEFORE BUILDING.
+     The row says "36 of 40 people carry `face`, an index into the city's baked
+     cast". On the alpha it is 40 of 40, its values run 0 to 7, the cast has
+     ELEVEN entries, and the line that makes a person says what it is in its own
+     words: `face: r & 7, // which of the 8 facings they idle in`. It is a FACING.
+     There is no face index to hand across, and the body carries no face either:
+     the street draws a baked CLOTHING FIT picked by trade (longcoat, skirt,
+     poncho), which has no portrait in it.
+
+     WHAT IS ACTUALLY WRONG IS SMALLER AND DEEPER. The portrait is already built
+     from the person's own identity and already dressed out of the canon hair
+     bank. The one thing it is not tied to is THE NAME, and the name is the only
+     thing in that picture that says "she". Nothing else in this game does:
+     not the person record, not the derived identity, not this bank, not the face
+     spec. ONE RIG (7/25, LOCKED) settled the BODY question and left the reading.
+
+     SO A NAME SAYS WHAT IT READS AS, AND NOTHING ELSE CHANGES. This is a fact
+     about names that are already in the bank, not a new ruling about the world:
+     these are the names Paolo approved on 9/21, marked for what an American
+     reader hears. Anything not listed reads EITHER and is steered by nothing,
+     which is the honest default for a name that genuinely goes both ways (Kai,
+     Sunny, Juniper) and for every name a future bank adds. draft:true, and he
+     overturns any single one of them with a word without touching code. */
+  var NAME_READS = {
+    /* reads as a woman */
+    'Marisol':'she','Rosa':'she','Imelda':'she','Lupe':'she','Nayeli':'she',
+    'Thuy':'she','Consuelo':'she','Priya':'she','Araceli':'she','Guadalupe':'she',
+    'Linh':'she','Paloma':'she','Xiomara':'she','Yolanda':'she','Perla':'she',
+    'Estella':'she','Socorro':'she','Anahi':'she','Renata':'she','Marisela':'she',
+    'Adaeze':'she','Citlali':'she','Nadia':'she','Ofelia':'she','Belen':'she',
+    'Idalia':'she','Reyna':'she','Lourdes':'she','Esperanza':'she','Clemencia':'she',
+    'Opal':'she','Pearl':'she','Hazel':'she','Fern':'she','Loretta':'she',
+    'Bonnie':'she','Della':'she','Latrice':'she','Keisha':'she','Anh':'she',
+    'Mei':'she','Trinh':'she',
+    /* reads as a man */
+    'Dante':'he','Terrence':'he','Kwame':'he','Silas':'he','Ambrose':'he',
+    'Odell':'he','Bishop':'he','Ezekiel':'he','Booker':'he','Casimir':'he',
+    'Delroy':'he','Otis':'he','Ignacio':'he','Amaury':'he','Rashad':'he',
+    'Hoang':'he','Malachi':'he','Everett':'he','Tobias':'he','Cyrus':'he',
+    'Jonah':'he','Wendell':'he','Amos':'he','Ruben':'he','Horace':'he',
+    'Emmett':'he','Abel':'he','Milo':'he','Roman':'he','Jarvis':'he',
+    'Wyatt':'he','Nolan':'he','Wade':'he','Clyde':'he','Garrett':'he',
+    'Harlan':'he','Travis':'he','Colton':'he','Jamal':'he','Tyrell':'he',
+    'Deshawn':'he','Andre':'he','Marcus':'he','Minh':'he','Jin':'he'
+    /* AND THE REST READ EITHER, ON PURPOSE: Kai, Sunny, Juniper. A name that
+       really does go both ways must not be forced, and forcing it would be the
+       one place this table could invent something instead of reporting it. */
+  };
+  /* WHAT THIS NAME READS AS. Takes a full name or a given name; anything unknown
+     reads 'either', which steers nothing. */
+  function readsAs(name) {
+    if (!name) return 'either';
+    var given = String(name).trim().split(/\s+/)[0];
+    return NAME_READS[given] || 'either';
+  }
+
   function generatedName(key) {
     var h = 0;
     for (var i = 0; i < key.length; i++) h = (Math.imul(h, 31) + key.charCodeAt(i)) >>> 0;
@@ -2589,6 +2650,7 @@
     VERSION: '7.31.26',
     KNOWN_AT_START: KNOWN_AT_START, NAMED_CAST: NAMED_CAST, LINES: LINES,
     GIVEN: GIVEN, SURNAME: SURNAME, generatedName: generatedName,
+    NAME_READS: NAME_READS, readsAs: readsAs,
     ROLE_WORDS: ROLE_WORDS, ACT_WORDS: ACT_WORDS,
     hash: hash, keyOf: keyOf, seatOf: seatOf,
     // LANG-1 (8/25): what somebody speaks, derived exactly like their name.

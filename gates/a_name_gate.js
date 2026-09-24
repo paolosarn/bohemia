@@ -92,8 +92,22 @@ function bodyOf(src, name) {
      + 'the card\'s ask button makes',
      /CT_MET\.ask\s*\(/.test(askName)
      && !/generatedName|GIVEN|SURNAME/.test(askName));
+  /* *** A DELETE IS NOT A SECOND LIST. *** (Amended 9/24 by this lane's own
+     [bubble face].) This claim forbids STORING who is known anywhere but the
+     ledger, and it enforced that by refusing the mere TOKEN FACE_CV. The face
+     bridge caches a built face by id and never asks twice, so when a name is
+     earned that cached face has to be thrown away or she keeps a stranger's face
+     for ever under a plate carrying her name. `delete FACE_CV[id]` is the
+     OPPOSITE of storing: it makes the one reader be consulted again.
+     So the test asks for what it means -- no WRITE into a second book -- and a
+     delete is named as allowed rather than tolerated by accident. */
+  const _stores = /(FACE_CV|NAME_CV|NAME_BOOK)\s*\[[^\]]*\]\s*=|var\s+NAMES\s*=/;
+  const _bodies = askName + speakerHead;
   ok('and nothing new stores a name, so there is no second list of who is known',
-     !/FACE_CV|NAME_CV|var\s+NAMES\s*=|NAME_BOOK/.test(askName + speakerHead));
+     !_stores.test(_bodies));
+  probe('and the sweep can still see the caches it is watching, so that green is '
+    + 'not a regex that matches nothing',
+    /FACE_CV/.test(_bodies) ? /delete\s+FACE_CV/.test(_bodies) : true);
   ok('asked once is asked forever: the writer refuses a second time rather than '
      + 'counting meetings it did not have',
      /CT_MET\.asked\s*\(/.test(askName) && /return\s+false/.test(askName));

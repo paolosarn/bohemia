@@ -1501,7 +1501,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 9/24g - THE ONE WHO STOOD THERE</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 9/24h - HER NAME AND HER FACE</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -5443,6 +5443,18 @@ function hairDialsFor(name){
   }
   return _HAIR_DIALS[name] || null;
 }
+/* WHICH CANON CUTS READ STRONGLY ONE WAY (9/24, PEOPLE [bubble face]). draft:true.
+   ONLY THE ONES THAT REALLY DO. Six of the eleven canon styles are left unmarked
+   on purpose -- locs, coils, a shag, a curtain cut and a weave are worn by anybody
+   and marking them would be inventing a rule instead of reporting one. This table
+   is DATA beside the bank it describes, so he can retag any line without code. */
+var HAIR_READS = {
+  'TEMPLE TAPER':  'he',   /* draft */
+  'DRY TAPER':     'he',   /* draft */
+  'DEEP TAPER':    'he',   /* draft */
+  'LAYERED FALL':  'she',  /* draft */
+  'HEAVY FRINGE':  'she'   /* draft */
+};
 function faceFor(id, over){
   id = String(id == null ? 'nobody' : id);
   var ck = id + '#' + (over ? JSON.stringify(over) : '');
@@ -5629,7 +5641,32 @@ function faceFor(id, over){
   var _bodyHair = '', _hd = null;
   try {
     if (typeof BOH_PERSONLOOK !== 'undefined' && typeof GARMENTS !== 'undefined') {
-      var _lk = BOH_PERSONLOOK.lookFor(id, GARMENTS.filter(function (x) { return x.st === 'canon'; }));
+      /* *** AND A NAME THAT READS AS A WOMAN DOES NOT GET A MAN'S HAIRCUT.
+         *** (9/24, PEOPLE [bubble face], row THE-FACE-IN-THE-BUBBLE-IS-HER.)
+         QUESTS photographed Estella Gaines at his own door with a face that reads
+         as an older man. MEASURED BEFORE BUILDING, and the cause the row named
+         does not exist: a person's `face` field is one of EIGHT FACINGS, not an
+         index into anything, and the body the street draws is a baked CLOTHING
+         FIT with no portrait in it. The portrait was already built from this
+         person's own identity and already dressed out of the canon hair bank.
+         THE ONE THING IT WAS NOT TIED TO IS THE NAME, and in that picture the
+         name is the only thing that says "she".
+         SO THE POOL IS NARROWED, NEVER THE PICK. Cuts that would contradict the
+         name are taken out and the generator chooses freely from everything that
+         is left, so variety, the luxury odds, the trenchcoat rule and every other
+         dial below are untouched. A name that genuinely goes both ways steers
+         nothing. HAIR_READS is draft:true and marks only the cuts that are
+         strongly one way; everything unmarked stays available to everybody. */
+      var _reads = (over && over.reads) || 'either';
+      var _pool = GARMENTS.filter(function (x) { return x.st === 'canon'; });
+      if (_reads === 'she' || _reads === 'he') {
+        _pool = _pool.filter(function (x) {
+          if (x.layer !== 'hair') return true;
+          var rd = HAIR_READS[x.n];
+          return !rd || rd === _reads;
+        });
+      }
+      var _lk = BOH_PERSONLOOK.lookFor(id, _pool);
       _bodyHair = (_lk.worn || {}).hair || '';
       _hd = hairDialsFor(_bodyHair);
     }
@@ -10896,7 +10933,13 @@ function combatMsgIn(d){
          packIdx and the same decoder on the other side. One branch, not a second path.
          'you' is not a new name either -- the portrait bakes upstairs already key him
          that way (out.portraits.you). */
-      var _sp=(_who==='you'&&typeof buildSpec==='function')?buildSpec():faceFor(_who);
+      /* AND WHAT THE NAME READS AS RIDES WITH THE ASK (9/24, [bubble face]).
+         The city is the only side that can turn an id back into a person, so it
+         answers and this passes it straight through. A missing or unknown answer
+         is 'either', which steers nothing and leaves this exactly as it was. */
+      var _rd=(d.reads==='she'||d.reads==='he')?d.reads:'either';
+      var _sp=(_who==='you'&&typeof buildSpec==='function')?buildSpec()
+              :faceFor(_who,{reads:_rd});
       var _rp=(_who==='you')?portraitRamp()
              :((typeof faceRampFor==='function')?faceRampFor(_sp):portraitRamp());
       var _pk=packIdx(renderFace(_sp,{ramp:_rp}),64,64);

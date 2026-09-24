@@ -8806,6 +8806,98 @@ ALSO STILL OPEN, not draw order: on NE in his own frame
 the right of the shoulders with a visible gap. That is the pose too.
 
 Nothing [PENDING Paolo].
+PEOPLE (people-7h9sfy): 9/24 LATEST -- *** [bubble face]. THE PICTURE WAS REAL AND
+THE CAUSE THE ROW NAMED DOES NOT EXIST, AND NOTHING IN THIS GAME KNOWS WHO IS A
+MAN AND WHO IS A WOMAN. ***
+
+THE ROW (QUESTS f403acc): "36 of 40 people carry a face index into the city's baked
+cast and the bubble ignores it... the bubble draws the face the body carries."
+Their PICTURE is real and this lane would not have looked without it: Estella
+Gaines stops you at your own door with a face that reads as an older man.
+
+MEASURED ON THE ALPHA BEFORE A LINE WAS WRITTEN:
+    people carrying `face`                 40 of 40, not 36
+    the values it takes                    0 to 7
+    entries in the baked cast              11
+    what the line that makes one says      face: r & 7,
+                                           // which of the 8 facings they idle in
+IT IS A FACING. A field was read by its name. And there is nothing on the other
+end to hand an index TO: the street draws a baked CLOTHING FIT picked by trade
+(longcoat, skirt, poncho, cape), and a clothing fit has no portrait in it.
+
+AND MY FIRST PROBE OF THE EXISTING SYSTEM SAID IT WAS DEAD. It called a bare
+global `lookFor` and read `.hair`; the module is behind BOH_PERSONLOOK and the
+hair is at `.worn.hair`. Null for everybody, no error, and I was one step from
+"fixing" a live system. Handed the pool it dresses 20 of 20. BEFORE BELIEVING A
+NEGATIVE, PROVE THE INSTRUMENT CAN PRODUCE A POSITIVE, hit again.
+
+*** SO WHAT IS ACTUALLY WRONG IS SMALLER AND DEEPER: NOTHING IN THIS GAME SAYS
+WHO IS A MAN AND WHO IS A WOMAN. *** Not the person record, not the derived
+identity, not the name bank, not the face spec. ONE RIG (7/25 LOCKED) settled the
+BODY and nobody came back for the reading. The NAME is the only thing in that
+speech bubble that says "she" and nothing was listening to it.
+
+BUILT:
+  the names say what they read as   87 of the 90 he approved 9/21, marked she/he.
+                                    A FACT about names already in the bank, draft,
+                                    his to overturn a line at a time. Kai, Sunny
+                                    and Juniper left reading EITHER on purpose.
+  the city answers                  it is the only side that can turn an id into a
+                                    person; AN UNEARNED NAME STEERS NOTHING, which
+                                    keeps this lane's own 9/21 rule
+  the pool is narrowed, never       5 of 11 cuts marked (three clipped tapers, two
+  the pick                          long falls); locs, coils, shag, weave, short
+                                    ropes and the curtain cut stay open to all
+  the face follows the name         the moment it is earned, by dropping the cached
+                                    face so the one reader is asked again
+
+ON THE ALPHA: 58 people with a name that reads one way, 10 faces wore a cut that
+fought their own name, NOW 0, AND ALL ELEVEN CUTS ARE STILL WORN ACROSS THE
+STREET. That second number is the control that matters: forcing everybody into one
+cut each way would pass the claim and ruin the crowd.
+
+COOK: HER NAME AND HER FACE in VOTE, the ten faces that were wrong, before and
+after, out of the real generator. The first sheet photographed twelve people at
+random, which is mostly people who were already fine: an honest number and a
+useless picture.
+AND THREE WRONG GUESSES ABOUT ONE RETURN VALUE before asking it what it was.
+renderFace hands back a raw Uint8ClampedArray; I tried ImageData, then a canvas,
+and got red error boxes twice. The shell already said so: packIdx(renderFace,64,64).
+
+GATE: gates/bubble_face_gate.js GREEN 40/0 on the alpha.
+
+*** AND I BROKE ONE OF MY OWN GATES AND REPAIRED IT TO ITS SUBSTANCE. *** A NAME
+went 47/0 to 46/1: its claim "nothing new stores a name, so there is no second
+list of who is known" refused the mere TOKEN FACE_CV, and I added
+`delete FACE_CV[id]`, which is the OPPOSITE of storing. Repointed at a WRITE
+rather than a mention, with a self-test that the sweep can still see the cache it
+watches. Back to 48/0.
+
+PRE-PUSH: bubble_face 40/0, a_name 48/0, portrait_haircut 12/0, family 15/0,
+face_maker 13/0, LANGUAGE 85/0 (the name bank change is clean).
+NOT MINE, being classified against clean main as this was written: talking_portrait
+28/1 (a face-distinctness threshold, identical on main two rounds running),
+face_thumb 21/2 (its candidate bank is 274 hours behind the alpha and wants a
+rebake; any alpha edit trips that leg).
+
+*** MEASURED AND NOT FIXED, AND THE ROW'S SHIP TEST IS NOT MET. *** "The bubble
+draws the face the body carries" needs the body to carry a face. It carries
+clothes. The line is NOT marked SHIPPED against a test the game cannot satisfy;
+what IS done is the real defect underneath it.
+AND IT IS ONLY THE HAIRCUT. The portrait has no other masculine or feminine dial:
+one rig, one skull generator, no jaw or brow weight that knows about any of this.
+Saying the faces now "read as women" would be selling something I did not measure.
+AND WHAT ACTUALLY DOMINATES THESE PORTRAITS IS EYEWEAR: most faces on the sheet
+wear a wraparound band across the eyes. Somebody else's row, named not fixed.
+
+[PENDING Paolo] whether a face may read feminine beyond the haircut. ONE RIG is
+LOCKED and this does not reopen it; it asks only about the portrait.
+Still carried: when a person dies of old age; how many game days is a year; who
+you marry; what a long injury costs to treat; the [honest crowd] trade; and how
+often a rumour should go wrong.
+
+NEXT: [somebody hires you] and [track leg] are the OPEN rows.
+
 PEOPLE (people-7h9sfy): 9/23 LATEST -- *** [creditor stands] SHIPPED. THE GAME
 TOLD YOU SOMEBODY WAS DEAD AND THEN KEPT DRAWING HIM AT HIS OWN DOOR. ***
 
