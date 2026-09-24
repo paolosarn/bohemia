@@ -106,7 +106,9 @@ const SPH_PAL = {
   12: '#4a4030',  // dead lamp post
   13: '#6e6658',  // plant room
   14: '#7a7264',  // loading yard
-  15: '#b09a72'   // kerb
+  15: '#b09a72',  // kerb
+  16: '#15140f',  // the hole in it, and what is behind the screen
+  17: '#c4bfb6'   // the torn lip of the hole, where the sun gets in
 };
 
 const SPH_LEG = {
@@ -125,7 +127,9 @@ const SPH_LEG = {
   12: { name: 'dead lamp post', kind: 'structure', act1: 'a car park lamp post with nothing in the head' },
   13: { name: 'plant room', kind: 'structure', act1: 'the plant room that used to run the screen' },
   14: { name: 'loading yard', kind: 'drive', act1: 'the loading yard on the back side (car-drivable)' },
-  15: { name: 'kerb', kind: 'structure', act1: 'the kerb around the apron' }
+  15: { name: 'kerb', kind: 'structure', act1: 'the kerb around the apron' },
+  16: { name: 'the hole in it', kind: 'structure', act1: 'a hole punched through the top of the screen. You can see into it and there is nothing in there.' },
+  17: { name: 'the torn lip', kind: 'structure', act1: 'the torn edge of the hole, bent up where the sun gets under it' }
 };
 
 const SPH_NOTES = {
@@ -178,9 +182,55 @@ function build(a) {
     a.set(a.fx(0.93), a.fy(0.13) + i * 9, 12);
   }
 
+  /* THE LOADING YARD and THE PLANT ROOM go in the two SOUTH CORNERS, because that is the
+     only ground on this plot the ball does not already own.
+
+     *** PAOLO 9/23, ON A THUMBS UP: "The square in the bottom left is clipping ontop bro". ***
+     He was right and the cause was the draw order. Round 5 drew these two AFTER the service
+     ring so the ring could not eat them -- which meant the yard ATE THE RING instead, and
+     its hard square corner ended up butted straight against the curve of the ball with no
+     road in between. A flat rectangle jammed into a curved form reads as pasted on top,
+     which is exactly the word he used. They go in FIRST now and the ring is drawn over them,
+     so the yard's inner edge is cut by the road that belongs there. */
+  /* AND REORDERING WAS NOT ENOUGH, WHICH THE RENDER SHOWED AND THE ORDER DID NOT. There is a
+     three-tile gap between the ball's edge and the service road's inner kerb, and the yard's
+     corner was landing in it -- so the ring was drawn, and the square STILL touched the ball,
+     because neither of them owned that gap. A piece of ground on this plot is either inside
+     the road or outside it. These two are outside it, so they are clipped to outside it. */
+  const SRO = R + T(9);
+  const outside = (x0, y0, x1, y1, code) => {
+    for (let y = y0; y <= y1; y++) for (let x = x0; x <= x1; x++) {
+      const dx = x - CX, dy = y - CY;
+      if (dx * dx + dy * dy >= SRO * SRO) a.set(x, y, code);
+    }
+  };
+  outside(a.fx(0.02), a.fy(0.78), a.fx(0.20), a.fy(0.96), 14);   // the loading yard
+  outside(a.fx(0.80), a.fy(0.80), a.fx(0.96), a.fy(0.94), 13);   // the plant room
+
+  /* AND A FLAT BLOCK OF ONE TONE READS AS A SWATCH WHEREVER YOU PUT IT, which is the other
+     half of what he was looking at. A real yard has a kerb round it and bays painted on it
+     (TG-05), and a plant room has an edge. One tone with a hard border is a colour sample;
+     an edge and some marks make it a place. */
+  const edge = (x0, y0, x1, y1, code, over) => {
+    for (let y = y0; y <= y1; y++) for (let x = x0; x <= x1; x++) {
+      if (x !== x0 && x !== x1 && y !== y0 && y !== y1) continue;
+      const dx = x - CX, dy = y - CY;
+      if (dx * dx + dy * dy >= SRO * SRO) a.set(x, y, code);
+    }
+  };
+  edge(a.fx(0.02), a.fy(0.78), a.fx(0.20), a.fy(0.96), 15);
+  edge(a.fx(0.80), a.fy(0.80), a.fx(0.96), a.fy(0.94), 15);
+  for (let y = a.fy(0.81); y < a.fy(0.95); y += 9) {
+    for (let x = a.fx(0.04); x <= a.fx(0.13); x++) {
+      const dx = x - CX, dy = y - CY;
+      if (dx * dx + dy * dy >= SRO * SRO) a.set(x, y, 4);     // dock bays in the yard
+    }
+  }
+
   /* THE SERVICE RING all the way round, because a venue this size is serviced from every
-     side (DIST-03). It is a ring of drivable road just outside the ball. */
-  const SR = R + T(9);
+     side (DIST-03). It is a ring of drivable road just outside the ball, and it is what
+     separates every one of these pieces from the ball itself. */
+  const SR = SRO;
   for (let dy = -SR; dy <= SR; dy++) {
     const o = Math.round(Math.sqrt(Math.max(0, SR * SR - dy * dy)));
     const i2 = Math.round(Math.sqrt(Math.max(0, (SR - T(7)) * (SR - T(7)) - dy * dy)));
@@ -188,12 +238,6 @@ function build(a) {
     a.rect(CX - o, CY + dy, CX - i2, CY + dy, 5);
     a.rect(CX + i2, CY + dy, CX + o, CY + dy, 5);
   }
-
-  /* THE LOADING YARD and THE PLANT ROOM go in the two SOUTH CORNERS, outside the service
-     ring, because that is the only ground on this plot that the ball does not already own.
-     Drawn AFTER the ring so the ring cannot eat them. */
-  a.rect(a.fx(0.02), a.fy(0.78), a.fx(0.20), a.fy(0.96), 14);   // the loading yard
-  a.rect(a.fx(0.80), a.fy(0.80), a.fx(0.96), a.fy(0.94), 13);   // the plant room
 
   /* THE SHADOW falls SOUTH-EAST, which is where every other tile in this game puts it.
      Drawn BEFORE the ball so the ball sits on its own shadow. A sphere's shadow is an
@@ -225,6 +269,36 @@ function build(a) {
     }
   }
 
+  /* *** THE HOLE IN IT. PAOLO 9/23, SAME THUMB: "maybe theres a tiny hole in the roof if u
+     could make that look good". ***
+     A hole in a screen is not a circle cut out of it. An LED wall is panels on a frame, so
+     when one lets go it takes a panel-shaped bite and the edge TEARS -- straight along the
+     lattice on two sides, ragged where the skin gave. So: a small panel-sized bite near the
+     top of the ball, north-west of the crown where the sun still lands, its inside the
+     darkest tone on the plot because there is nothing behind a screen but the frame, and a
+     torn lip on the sun side where the peeled skin bends up and catches the light. The lip
+     follows the same rule every mark in this game follows: open ground to the north or west
+     means the sun is on it.
+     It is about 8 m across on a 157 m ball, which is a twentieth of it: a tiny hole, his
+     word, and the one wrong thing in an ordinary frame (R1). */
+  const HR2 = Math.max(4, T(6));
+  const HX = CX - Math.round(R * 0.30), HY = CY - Math.round(R * 0.46);
+  const inHole = (x, y) => {
+    const dx = x - HX, dy = y - HY;
+    /* a bite, not a disc: squarer along the lattice, ragged on the low side */
+    const rag = 1 + 0.30 * Math.sin((x * 2.7 + y * 1.9) * 0.9);
+    return Math.max(Math.abs(dx) * 1.0, Math.abs(dy) * 1.15) <= HR2 * rag;
+  };
+  for (let dy = -HR2 * 2; dy <= HR2 * 2; dy++) {
+    for (let dx = -HR2 * 2; dx <= HR2 * 2; dx++) {
+      const x = HX + dx, y = HY + dy;
+      if ((x - CX) * (x - CX) + (y - CY) * (y - CY) > R * R) continue;   // stay on the ball
+      if (!inHole(x, y)) continue;
+      const lip = !inHole(x, y - 1) || !inHole(x - 1, y);
+      a.set(x, y, lip ? 17 : 16);
+    }
+  }
+
   /* THE DEAD GRID, AND THE FIRST ONE WAS A CAGE. Drawn as continuous lines every six
      tiles in a dark tone it read as chicken wire thrown over a ball: the grid shouted and
      the ball whispered, which is backwards. A puck is a POINT, not a line, and from 192 m
@@ -238,6 +312,7 @@ function build(a) {
       const ox = ((dy / 5) & 1) ? 2 : 0;
       const x = CX + dx + ox;
       if ((x - CX) * (x - CX) + dy * dy > R * R) continue;
+      if (inHole(x, CY + dy)) continue;        // no pucks where the panel is gone
       a.set(x, CY + dy, 10);
     }
   }
@@ -332,6 +407,46 @@ function main() {
     (fs.statSync(out).size / 1024).toFixed(0) + ' KB)');
   fs.writeFileSync('/tmp/sphere_grid.json',
     JSON.stringify({ cells: cellGrids, b, pal: SPH_PAL, leg: SPH_LEG }));
+
+  /* THE CARD IS BUILT HERE NOW. Round 5's was assembled by hand outside this tool, so it
+     could not be rebuilt and could silently disagree with the bank it illustrates -- which
+     matters the moment the plan changes, as it just did. One renderer, the same grid. */
+  const T2 = cellGrids[Object.keys(cellGrids)[0]].length;
+  const W = (b.x1 - b.x0 + 1) * T2, H = (b.y1 - b.y0 + 1) * T2;
+  const MAG = 4;
+  const hex = (h) => [parseInt(h.slice(1, 3), 16), parseInt(h.slice(3, 5), 16),
+                      parseInt(h.slice(5, 7), 16)];
+  const buf = Buffer.alloc(W * MAG * H * MAG * 3);
+  for (let y = 0; y < H * MAG; y++) for (let x = 0; x < W * MAG; x++) {
+    const vy = (y / MAG) | 0, vx = (x / MAG) | 0;
+    const g = cellGrids[(b.x0 + ((vx / T2) | 0)) + ',' + (b.y0 + ((vy / T2) | 0))];
+    const c = hex(SPH_PAL[g[vy % T2][vx % T2]] || '#000000');
+    const i = (y * W * MAG + x) * 3;
+    buf[i] = c[0]; buf[i + 1] = c[1]; buf[i + 2] = c[2];
+  }
+  const os = require('os');
+  const ppm = path.join(os.tmpdir(), 'sphere_plan.ppm');
+  fs.writeFileSync(ppm, Buffer.concat([
+    Buffer.from('P6\n' + (W * MAG) + ' ' + (H * MAG) + '\n255\n', 'ascii'), buf]));
+  const job = {
+    ppm, out: path.join(REPO, 'slices/vote/COOK_THE_HOLE_IN_THE_SCREEN.png'),
+    title: 'THE HOLE IN THE SCREEN',
+    sub: 'both the things you said, done: the square is off the ball and there is a hole in it',
+    legend: [16, 17, 6, 9, 10, 14, 15, 5, 11, 13].map(k => [SPH_PAL[k], SPH_LEG[k].name]),
+    foot: ['You said the square in the bottom left was clipping on top. It was: it had eaten '
+           + 'the service road and was sitting straight against the ball.',
+           'It is outside the road now, its corner is cut by the curve, and it has a kerb and '
+           + 'loading bays so it reads as a yard instead of a grey block.',
+           'And you asked for a tiny hole in the roof. It is 12 m across on a 157 m ball, torn '
+           + 'along the panel lines, with the sun catching the lip and nothing behind it.'],
+    pad: 26
+  };
+  fs.writeFileSync(path.join(os.tmpdir(), 'sphere_card.json'), JSON.stringify(job));
+  const r = require('child_process').spawnSync('python3',
+    [path.join(REPO, 'tools/bohemia_landmark_card.py'), path.join(os.tmpdir(), 'sphere_card.json')],
+    { encoding: 'utf8' });
+  process.stdout.write(r.stdout || ''); process.stderr.write(r.stderr || '');
+  if (r.status !== 0) { console.log('REFUSED: the card did not render'); process.exit(1); }
 }
 
 main();

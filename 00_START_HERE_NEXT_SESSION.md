@@ -20739,6 +20739,82 @@ THIS LANE'S ROLE, FIXED: 16 COOK, the production artist.
 THIS LANE'S SESSION SLUG: cook-mce6r5.
 
 
+COOK (cook-mce6r5): 9/24 LATEST (2) -- *** HE VOTED AGAIN. THREE MORE OF MINE UP, TWO OF THEM
+WITH INSTRUCTIONS, AND BOTH INSTRUCTIONS ARE BUILT THIS ROUND. *** Running score 6 up, 1 down.
+TAB: the VOTE tab, two new items, cook-which-way-is-he-facing-9-24 and
+cook-the-hole-in-the-screen-9-24. NOTHING WENT TO THE ALPHA OR THE DEMO (rule 18).
+
+HIS WORDS, BOTH ON THUMBS UP:
+  FOOTSTEPS: "BRO U HAVE TO FIND OUT WHEN ITS FAVING NORTH SOUTH EAST AND WEST FR"
+  THE GROUND TELLS YOU: "It wont be exactly a straight line but yeah amazing dont have it be
+  exactly a straight line"
+  THE SPHERE: "The square in the bottom left is clipping ontop bro and maybe theres a tiny
+  hole in the roof if u could make that look good"
+
+*** SIXTEEN FACINGS AND NOT ONE OF THEM RESAMPLED. *** Round 2 turned ONE bitmap to the
+heading with a nearest-neighbour rotate, which is the one thing you may never do to pixel
+art: at 45 degrees it chews the toe taper into stair-steps and the print stops being a boot.
+The boot is now a PROFILE -- twenty spans along its own long axis, read out of the silhouette
+he approved -- and a facing is RE-RASTERISED along that heading instead of rotated. Proved
+three ways in the tool: rasterising NORTH reproduces the first 13 rows of his mask BYTE FOR
+BYTE; east, south and west are exact quarter and half turns, which on a pixel grid are
+lossless; the four diagonals come off the same profile at 45 degrees. Eight headings, two
+feet, sixteen masks.
+
+*** AND ANSWERING HIM FOUND TWO DEFECTS IN THE BOOT HE HAD ALREADY APPROVED. ***
+ 1. THE LEFT AND RIGHT BOOTS WERE THE SAME BOOT. Every row of the approved mask is a
+    palindrome, so round 1's right-foot flip was a NO-OP and a trail has been laying one foot
+    twice since the beginning. The arch is medial: the waist moves one pixel to the outside of
+    the foot, 16 px of difference, which is what makes two lines of feet instead of one line
+    of stamps.
+ 2. HIS BOOT IS THE SAME WIDTH AT BOTH ENDS, SO IT DOES NOT SAY WHICH WAY HE WENT, and this
+    is the real answer to his words. Machinery that points a print correctly is worth nothing
+    if the print is a shape you cannot read a direction off. His ball is five rows of seven
+    and his heel is four rows of seven, both ending in the same rounded taper, so NORTH AND
+    SOUTH DREW THE SAME PICTURE. The toe half is his, untouched; the heel comes in one pixel
+    each side and ends flat, 7 px ball against a 5 px heel. BOTH BOOTS ARE ON THE CARD SIDE BY
+    SIDE in the same dirt at the same size, so he can put the old heel back with one word.
+
+THE WANDER IS SECOND-ORDER, NOT NOISE. Noise on a straight line is a ruler through a bad
+camera; a walk drifts and the drift itself drifts. Measured: 3.05 BOOT LENGTHS off the
+straight line between the first and last print, zero collinear triples, two of the eight
+facings used. The tool refuses under half a boot (his words) and over four (not a walk).
+Eight facings means a print is never more than 22.5 degrees off the way he walked and the
+worst on this walk is 22.4; that residual is printed, not hidden.
+
+THE SPHERE, BOTH HIS NOTES. The square was drawn AFTER the service ring, under a comment
+saying it went after "so the ring cannot eat them" -- so THE YARD ATE THE RING and its hard
+corner ended up straight against the ball with no road in between. AND REORDERING WAS NOT
+ENOUGH, WHICH THE RENDER SHOWED AND THE ORDER DID NOT: there is a three-tile gap between the
+ball's edge and the road's inner kerb and the corner was landing in it. It is clipped to
+outside the road now (nearest tile 117.4 against an outer edge of 117), its corner is cut by
+the curve, and it has a kerb and loading bays, because a flat block of one tone reads as a
+swatch wherever you put it. THE HOLE: a screen is panels on a frame, so a hole in one is not
+a circle cut out, it is a PANEL-SHAPED BITE that tears along the lattice. 12 m on a 157 m
+ball, the darkest tone on the plot inside it because there is nothing behind a screen, and a
+torn lip on the sun side under the same north-west sun as every other mark in this game. No
+pucks are drawn where the panel is gone.
+
+RULE 32(f) APPLIED TO MY OWN CARDS, his words: "this game isn't in first person, when would I
+see this?" Round 2's footsteps card had a blown-up study panel and would break that rule. The
+new one has none: every square on it is ground at the size the game draws it, and the eight
+facings are shown as prints lying in dirt, not as sprites on a sheet.
+
+AND THE SPHERE'S CARD IS REBUILDABLE AT LAST. It was assembled by hand outside its tool, so it
+could not be regenerated and could silently disagree with the bank it illustrates -- which
+matters the moment the plan changes, as it just did. It goes through the shared landmark card
+renderer now, from the same grid the bank carries.
+
+FOR WHOEVER RE-SERIALISES THE VOTE REGISTRY: it came back this round at a different
+indentation, and every lane that splices its item in by text with a hard-coded pattern breaks
+silently on that. Mine now finds the close of items[] by walking back from "verdicts" and
+writes at whatever indent the file is already using, then asserts nobody was lost. Worth
+copying rather than re-learning.
+
+STILL WAITING ON A VOTE: the wheel that stopped (the High Roller). STILL UP AND WAITING ON THE
+HOLD: the tower goes onto the street the round the hold allows; the edge and the lane line are
+already on the fight's ground.
+
 COOK (cook-mce6r5): 9/24 LATEST -- *** THE HIGH ROLLER IS DRAWN, AND THE MEASUREMENT IS THE
 WHOLE DESIGN: IT DOES NOT FIT ON ITS OWN GROUND. *** UNDRAWN LANDMARKS 4 -> 3.
 TAB: the VOTE tab, item cook-the-wheel-that-stopped-9-24. Once it is in the game it is the

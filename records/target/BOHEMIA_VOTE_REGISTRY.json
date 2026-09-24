@@ -1713,7 +1713,33 @@
     "how": "image",
     "src": "vote/LIFECITY_THE_SAME_STREET_RECLAIMED_9_24.png"
    }
-  }
+  },
+   {
+    "id": "cook-which-way-is-he-facing-9-24",
+    "kind": "tile",
+    "lane": "cook",
+    "sha": "PENDING",
+    "made": "9/24",
+    "title": "WHICH WAY IS HE FACING",
+    "why": "You said: find out when it's facing north south east and west. And: don't have it be exactly a straight line. Both done. There are eight facings now and every one is DRAWN at that angle instead of a bitmap spun round, which is why the diagonal ones stopped looking chewed up. The toe half is your boot, pixel for pixel, untouched. Two things I found while doing it, and you should look hard at both. ONE: your boot is the same width at both ends and both ends taper the same, so north and south came out as the SAME print and the ground never said which way he went. The heel is thinner and flat now. Both boots are on the card side by side, so say the word and the old heel goes back. TWO: every row of the old mask was a mirror of itself, so the left and right boots were literally the same boot and a trail has been laying one foot twice this whole time. The arch is on the inside now, so left and right lean away from each other. And the walk drifts as it goes: it wanders three boot lengths off the straight line between its first and last print, and no three prints in it sit on a line.",
+    "show": {
+     "how": "image",
+     "src": "vote/COOK_WHICH_WAY_IS_HE_FACING.png"
+    }
+   },
+    {
+     "id": "cook-the-hole-in-the-screen-9-24",
+     "kind": "tile",
+     "lane": "cook",
+     "sha": "PENDING",
+     "made": "9/24",
+     "title": "THE HOLE IN THE SCREEN",
+     "why": "You said the square in the bottom left was clipping on top, and asked for a tiny hole in the roof if I could make it look good. Both done. You were right about the square and the cause was stupid: it was drawn after the service road, so it ATE the road and ended up sitting straight against the ball with nothing in between. Moving it was not enough either, because there is a three tile gap between the ball and the road and the corner was landing in that. It is clipped to outside the road now, its corner is cut by the curve, and it has a kerb and loading bays so it reads as a yard and not a grey block. The hole is 12 metres across on a 157 metre ball. It is not a circle cut out, because a screen is panels on a frame, so it takes a panel shaped bite and tears along the lattice. The inside is the darkest thing on the plot, because there is nothing behind a screen. The sun catches the torn lip, same sun as everything else.",
+     "show": {
+      "how": "image",
+      "src": "vote/COOK_THE_HOLE_IN_THE_SCREEN.png"
+     }
+    }
  ],
  "verdicts": [
   {
