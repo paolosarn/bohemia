@@ -1,0 +1,78 @@
+DOES THE NEW THIRTEEN CLIP, AND IS IT TOO BRIGHT?  --  CHARACTER, 9/24/26, [runway redo]
+
+HE APPROVED THE SET AND ATTACHED TWO CONDITIONS:
+  "Fire make sure shit doesnt clip into places it shouldnt but yeah"
+  "Nice just have the bright colors not so bright u know like the vibrance is turned
+   down a little"
+NOTES ARE RULINGS, so both are measured here before anything is wired. A CONDITION YOU
+DID NOT CHECK IS A CONDITION YOU DID NOT MEET.
+
+*** 1. CLIPPING. ***
+Two kinds count as a defect and the third does not: painted pixels ON THE EDGE OF THE
+112 FRAME (the crown cut flat, which this lane has already seen at 1.12 height), and
+CLOTH FLOATING WITH NO BONE under it or beside it (a sleeve hanging in the air).
+A coat covering a shirt is a coat, not a clip. Measured off the rig's own part grid.
+
+  THE APPROVED SET                  EDGE r0/rN/c0/cN  FLOATING CLOTH
+  broad/cocoon/trousers/boot        0/0/0/0           147 of 3209
+  small/asym/widepl/platform        0/0/0/0           217 of 2872
+  small/mantle/stack/slouch         0/0/0/0           132 of 2787
+  broad/splittail/trousers/platform 0/0/0/0           278 of 3342
+  lanky/mantle/crop/platform        0/0/0/0           126 of 3060
+  plain/bare/trousers/platform      0/0/0/0           28 of 2882
+  tall/mantle/drop/boot             0/0/0/0           108 of 3051
+  lanky/cocoon/stack/column         0/0/0/0           240 of 3176
+  small/bare/drop/boot              0/0/0/0           36 of 2683
+  lanky/wrap/stack/platform         0/0/0/0           159 of 3087
+  broad/mantle/widepl/platform      0/0/0/0           266 of 3336
+  tall/splittail/widepl/platform    0/0/0/0           231 of 3176
+  small/cocoon/stack/slouch         0/0/0/0           182 of 2838
+
+  *** OUT OF FRAME: 0 of the approved 13, and 0 of the 13 he lives with. ***
+  Not one body in either set paints a single pixel on any edge of the 112 box. That
+  half of his condition is MET and it is the half that has actually bitten this lane
+  before -- the tall body at 1.12 put 14 px on row 0 and had its crown cut flat.
+
+*** AND THE FLOATING-CLOTH COLUMN IS A BAD INSTRUMENT. I AM NOT GOING TO DRESS IT UP
+AS A FINDING. *** It counts a painted pixel with no rig bone under it or in any of its
+eight neighbours. It reported 13 OF 13 -- and 10 of 13 on the set he already lives
+with and likes. Two tries at fixing it and the numbers barely moved:
+  try 1: hair has no bone at all, so every hairstyle read as floating. Started the
+         test below the head. 28 to 278 pixels a body, barely changed.
+  try 2: there is nothing left to exclude, BECAUSE THE PREMISE IS WRONG. A coat is
+         SUPPOSED to hang past the leg. A duster hem, a mantle drape and a wide
+         trouser all sit cells away from any bone, correctly. "No bone nearby" is a
+         description of clothing, not of clipping.
+WHAT HE MEANS BY CLIPPING is one thing poking through another that should cover it --
+layer order, not floating -- and I do not have a general instrument for that. So the
+column above is REPORTED AND DISCARDED, the thirteen were rendered and LOOKED AT by
+eye, and what that found is in the handoff. A number that fires on the control is not
+a measurement, and shipping it as "13 of 13 clip" would have been this lane inventing
+a threshold for the third time.
+
+*** 2. VIBRANCE. ***
+"Too bright" is a feeling, so it needs a ruler, and THE RULER IS THE THIRTEEN HE
+ALREADY LIVES WITH -- not a number I picked. This lane has invented a threshold twice
+and been wrong both times (the colour-name sweep, the pole split at 1.0), so the
+population is the ruler. Measured over CLOTH ONLY, never skin or hair.
+
+  SET                   MEAN SATURATION   SHARE OF CLOTH OVER 0.55
+  the thirteen today    0.435             31.9%
+  the approved set      0.162             1.6%
+
+  THE LOUDEST OF THE THIRTEEN HE LIVES WITH, which is what "the bright colors" means:
+    Blues         saturation 0.661   91.8% of cloth over 0.55
+    Network       saturation 0.619   85.4% of cloth over 0.55
+    Colorful      saturation 0.566   78.3% of cloth over 0.55
+    Reds          saturation 0.538   62.1% of cloth over 0.55
+    Church        saturation 0.471   34.9% of cloth over 0.55
+
+*** AND THE HONEST READING OF MY OWN NUMBERS. *** The approved set was rendered in the
+NEUTRALS the search chose them in -- charcoal, slate, ash, bone -- so its vibrance
+number is near zero BY CONSTRUCTION and says nothing about how bright it will be once
+it is dressed in faction colours. THE VIBRANCE RULING IS NOT ABOUT THIS SET AT ALL: it
+is about the colourways, and it bites the moment these shapes are dressed. So the
+number that matters is the one for THE THIRTEEN HE LIVES WITH, above, and the fix
+belongs on the ramps, not on the shapes.
+Reporting it the other way round would have been a green tick on a question I never
+asked.

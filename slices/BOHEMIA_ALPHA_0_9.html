@@ -26607,29 +26607,6 @@ window.CLO=(function(){
   /* ---- COOK BATCH 3: WORLD-GROUNDED. Dusty salvage tones, world-ambient (no purple).
      Environmental/scavenge palette -- desert sun, soot, rust, bleached bone. ---- */
   var DUSTSAND={dk:[86,72,50],mid:[128,110,80],lt:[164,146,112]};
-  /* ===== THE TWO HIDE RAMPS (9/23, CHARACTER, [runway redo]) =========================
-     RNWY-16, BOTTEGA VENETA, TROMPE-L'OEIL LEATHER. The FW22 show opened on a white tank
-     and straight jeans made ENTIRELY of leather, tooled to look exactly like cotton; the
-     SS23 check was printed twelve times over to reach flannel's depth. The garment is
-     mundane at a glance and wrong on the second look.
-     *** THIS IS THE ANALOG HORROR BIBLE'S RULE 1 WEARING CLOTHES: "the ordinary frame,
-     one wrong thing... name the wrong thing in one sentence or the frame fails." A plain
-     plaid shirt that is not cloth is exactly one wrong thing on an otherwise ordinary
-     body -- and it is the only one of the three houses Paolo named that answers rule 20
-     DIRECTLY instead of being decorated with it afterwards. ***
-     HOW IT IS BUILT, AND IT IS THE ONLY CHANNEL A SPRITE HAS. The MID STEP IS COPIED
-     BYTE FOR BYTE from the cloth ramp it imitates, because the mid step is what the eye
-     reads at a glance and that is what has to match. Then the floor is pulled DOWN and
-     the light step is pushed UP hard: leather holds a narrow specular band where cloth
-     diffuses, so the same garment comes back with a darker crease and a hot highlight and
-     nothing else different. Same hue, same cut, same pattern, same generator.
-     NO NEW ART AND NO NEW RENDER CODE: these are two ramp constants used by the existing
-     genTop and genPants. STRUCTURE-NOT-COLOR is not broken either -- the SHAPE is
-     identical on purpose, which is the entire idea.
-     MEASURED, not asserted: tools/bohemia_cook_the_shirt_that_is_not_cloth.js prints the
-     value spread of each pair and shows them side by side. */
-  var DUSTHIDE={dk:[58,48,33],mid:[128,110,80],lt:[206,188,150]};
-  var DENIMHIDE={dk:[26,33,48],mid:[64,80,110],lt:[150,176,214]};
   var ASHGREY={dk:[42,42,44],mid:[70,70,74],lt:[100,100,104]};
   var OXBLOOD={dk:[54,28,26],mid:[92,48,42],lt:[128,72,62]};
   var BONECLO={dk:[124,116,98],mid:[162,154,134],lt:[198,192,172]};
@@ -26642,6 +26619,20 @@ window.CLO=(function(){
   /* ---- COOK BATCH 5 palettes (7/18): more world-grounded volume + a new VEST type ---- */
   var OLIVEDRAB={dk:[46,50,34],mid:[74,80,54],lt:[104,112,78]};
   var FADEDBLK={dk:[28,28,30],mid:[48,48,52],lt:[74,74,80]};
+  /* ===== VIBRANCE DOWN ON THE LOUD FACTIONS (9/24, CHARACTER, [runway redo]) ==========
+     PAOLO 9/23, voting the runway re-dress UP: "Nice just have the bright colors not so
+     bright u know like the vibrance is turned down a little." NOTES ARE RULINGS.
+     WHICH RAMPS, MEASURED NOT GUESSED. Cloth-only saturation over the thirteen he lives
+     with (tools/bohemia_does_the_new_thirteen_clip.js): the set averages 0.456 and four
+     bodies sit far above it -- Blues 0.741 with 96.6% of its cloth over 0.55, Network
+     0.729 / 90.0%, Colorful 0.638 / 79.5%, Reds 0.551 / 62.1%. Those four ramps are
+     COBALT, TEALBRT, GRASSGRN and REDBRIGHT, and they are the only ones touched.
+     HOW: each step is pulled toward its own luminance by 0.20, which drops saturation and
+     LEAVES HUE AND BRIGHTNESS WHERE THEY WERE. COLOUR IS TERRITORY survives by
+     construction: blue is still blue, it is just not a screen colour any more. "A little"
+     is his word and 0.20 is the smallest step that moves the loudest body back inside the
+     set it belongs to; the record prints the before and after so the size of the step is
+     arguable rather than asserted. */
   var BRICK={dk:[74,38,32],mid:[112,58,48],lt:[146,80,66]};
   var SAGE={dk:[58,70,56],mid:[90,104,86],lt:[124,138,118]};
   var STEELB={dk:[48,58,70],mid:[76,90,106],lt:[108,124,142]};
@@ -26665,11 +26656,11 @@ window.CLO=(function(){
      yellow (every "vivid" item is the same red-brown family), so COLORFUL's
      literal-rainbow order was impossible without inventing the colors first.
      Six new saturated ramps, reusing existing generator SHAPES only. */
-  var REDBRIGHT={dk:[150,32,24],mid:[220,40,32],lt:[248,90,74]};
+  var REDBRIGHT={dk:[133,39,32],mid:[195,51,44],lt:[225,99,86]};
   var GOLDLEAF={dk:[176,140,50],mid:[255,215,92],lt:[255,238,160]};
-  var GRASSGRN={dk:[70,120,36],mid:[110,190,60],lt:[156,224,104]};
-  var TEALBRT={dk:[24,120,102],mid:[40,190,160],lt:[92,224,198]};
-  var COBALT={dk:[30,70,140],mid:[50,110,210],lt:[100,156,240]};
+  var GRASSGRN={dk:[75,115,48],mid:[118,182,78],lt:[163,217,121]};
+  var TEALBRT={dk:[37,114,99],mid:[60,180,156],lt:[110,216,195]};
+  var COBALT={dk:[37,69,125],mid:[61,109,189],lt:[110,155,222]};
   var ROSEBRT={dk:[150,48,58],mid:[220,70,85],lt:[245,118,128]};
   function mix(a,f){return [(a[0]*f)|0,(a[1]*f)|0,(a[2]*f)|0];}
   /* WORLD GRADE: pull a cloth color into the same air the skin sits in. The skin
@@ -29839,8 +29830,6 @@ window.CLO=(function(){
     {n:'SOOT TANK',st:'canon',layer:'base',gen:function(g){return wear(genTop(g,{ramp:CHARCLOTH,sleeves:false}),CHARCLOTH,13);}},
     /* --- CANON legs --- */
     {n:'BLUE JEANS',st:'canon',layer:'legs',gen:function(g){return genPants(g,{ramp:DENIM});}},
-    /* AND THE JEANS, WHICH IS THE FW22 OPENING LOOK ITSELF. RNWY-16. */
-    {n:'BLUE HIDE JEANS',st:'canon',fresh:true,layer:'legs',gen:function(g){return genPants(g,{ramp:DENIMHIDE});}},
     {n:'BLACK CARGOS',st:'canon',layer:'legs',gen:function(g){return genPants(g,{ramp:CARGO});}},
     {n:'GREY SWEATS',st:'canon',layer:'legs',gen:function(g){return genPants(g,{ramp:SWEAT});}},
     {n:'DUST TROUSERS',st:'canon',layer:'legs',gen:function(g){return wear(genPants(g,{ramp:DUSTSAND}),DUSTSAND,13);}},
@@ -29890,10 +29879,6 @@ window.CLO=(function(){
     {n:'SLATE SHORT-SLEEVE',st:'canon',layer:'base',gen:function(g){return wear(genTop(g,{ramp:SLATEW,sleeves:'short',neck:'button'}),SLATEW,12);}},
     {n:'SAGE STRIPED HENLEY',st:'canon',layer:'base',gen:function(g){return wear(genTop(g,{ramp:SAGE,sleeves:'long',neck:'henley',pattern:'stripe'}),SAGE,12);}},
     {n:'DUST PLAID SHIRT',st:'canon',layer:'base',gen:function(g){return wear(genTop(g,{ramp:DUSTSAND,sleeves:'short',neck:'button',pattern:'plaid'}),DUSTSAND,12);}},
-    /* THE SAME SHIRT, IN LEATHER. Same cut, same sleeves, same neck, same plaid, same
-       generator call -- only the ramp differs, and its mid step is byte-identical to the
-       cloth one above. RNWY-16. */
-    {n:'DUST PLAID HIDE',st:'canon',fresh:true,layer:'base',gen:function(g){return wear(genTop(g,{ramp:DUSTHIDE,sleeves:'short',neck:'button',pattern:'plaid'}),DUSTHIDE,12);}},
     /* ---- COOK BATCH 7 (7/18): HOODIES redone -- the hood is REAL GEOMETRY off the
        nape (pixels outside the skeleton), not a painted cowl. Fresh names. ---- */
     {n:'ASH HOODIE',st:'canon',layer:'base',gen:function(g){return wear(genTop(g,{ramp:STORMGRY,sleeves:'long',neck:'hood',hoodUp:CLO_HOODUP,pocket:true}),STORMGRY,12);}},
@@ -30527,7 +30512,6 @@ window.CLO=(function(){
 "SHOULDER LONGLINE":["thigh",0.231],
 "SLATE CAR COAT":["thigh",0.436],
 "SLATE COCOON COAT":["thigh",0.282],
-"BLUE HIDE JEANS":["shin",0.795],
 "COBALT COCOON COAT":["thigh",0.282],
 "BRICK COMMA COAT":["thigh",0.436],
 "OLIVE ASYM COAT":["thigh",0.385],

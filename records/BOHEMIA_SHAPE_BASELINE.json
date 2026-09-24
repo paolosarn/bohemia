@@ -1,7 +1,7 @@
 {
- "why": "TWO THINGS ARE IN THIS BAKE AND THE SECOND ONE MATTERS MORE. (1) MINE: two trompe-l'oeil garments (RNWY-16, Bottega), DUST PLAID HIDE and BLUE HIDE JEANS, same cut and pattern as the cloth they imitate, differing only by ramp -- the shape is identical on purpose. (2) NOT MINE, AND THIS BAKE ABSORBS IT: every one of the 330 existing silhouettes had already moved by about +15 opaque pixels at PORTRAIT's eye commit 79ae65d, which this lane pinned by running the gate at that commit and at its parent. Re-baking makes that drift the new accepted truth and the gate can never report it again. It is NOT fixed and it is NOT explained; it is recorded here and in records/BOHEMIA_THE_SHIRT_THAT_IS_NOT_CLOTH_9_23_26.txt so it cannot be lost with the red.",
- "record": "records/BOHEMIA_THE_SHIRT_THAT_IS_NOT_CLOTH_9_23_26.txt",
- "baked": "2026-09-23",
+ "why": "THE SHIRT THAT IS NOT CLOTH IS IN THE GRAVEYARD (Paolo 9/23: 'WTF IS THIS DOGSHIT'; rule 32(g) names it). DUST PLAID HIDE and BLUE HIDE JEANS are removed from the wardrobe along with their two ramps, so the baseline SHRINKS 332 -> 330. Nobody ever wore them: they were registered in VOTE and never wired, so no body in the game changes. Post-mortem records/BOHEMIA_GRAVEYARD_THE_SHIRT_THAT_IS_NOT_CLOTH_9_24_26.md. NOTE, CARRIED FORWARD FROM THE LAST BAKE AND STILL TRUE: every one of the 330 silhouettes still carries the +15 opaque pixels that arrived at PORTRAIT's eye commit 79ae65d. It is absorbed, not fixed, and not explained.",
+ "record": "records/BOHEMIA_GRAVEYARD_THE_SHIRT_THAT_IS_NOT_CLOTH_9_24_26.md",
+ "baked": "2026-09-24",
  "note": "THE OPAQUE MASK ONLY. Colour is thrown away, so a ramp change is invisible here and a shape change cannot hide behind one. Re-bake only with tools/bohemia_freeze_the_silhouettes.js, which refuses without a reason and a record.",
  "garments": {
   "TEMPLE TAPER": [
@@ -100,11 +100,6 @@
    "base"
   ],
   "BLUE JEANS": [
-   "57212c46",
-   2848,
-   "legs"
-  ],
-  "BLUE HIDE JEANS": [
    "57212c46",
    2848,
    "legs"
@@ -300,11 +295,6 @@
    "base"
   ],
   "DUST PLAID SHIRT": [
-   "57212c46",
-   2848,
-   "base"
-  ],
-  "DUST PLAID HIDE": [
    "57212c46",
    2848,
    "base"
