@@ -48,7 +48,8 @@ const fs = require('fs'), path = require('path');
 const ROOT = path.resolve(__dirname, '..');
 const ALPHA = path.join(ROOT, 'slices', 'BOHEMIA_ALPHA_0_9.html');
 const RECORD = path.join(ROOT, 'records', 'BOHEMIA_WHAT_TWEAKING_WAS_9_24_26.md');
-const VOTE = path.join(ROOT, 'slices', 'vote', 'ANIMATION_THE_TWEAK_IS_GONE.html');
+const GRAVE = path.join(ROOT, 'records', 'BOHEMIA_GRAVEYARD_THE_HAND_AT_THE_FACE_9_24_26.md');
+const VOTEDIR = path.join(ROOT, 'slices', 'vote');
 const { settle: SETTLE } = require(path.join(ROOT, 'gates', 'bohemia_settle.js'));
 
 let pass = 0, fail = 0;
@@ -64,14 +65,32 @@ ok('his words are still in the repo, so the complaint this answers can be read',
 
 /* RULE 25: an animation item PLAYS. The page is checked for a real clock and a
    real sheet, not for the word "animation". */
-/* RULE 25 has two halves and both are checked: it PLAYS (a real clock moving a
-   real sheet), and it does NOT ask inside the page -- no control of any kind, so
-   the only place the item is answered is the row. */
-ok('the item he is asked about PLAYS, on the beat, and carries no control of its own',
-   fs.existsSync(VOTE) && (() => { const v = fs.readFileSync(VOTE, 'utf8');
-     return /requestAnimationFrame/.test(v) && /performance\.now\(\)/.test(v)
-         && /backgroundPosition/.test(v)
-         && !/<button|<input|<select|<form|onclick=/i.test(v); })());
+/* *** THIS CLAIM USED TO POINT AT A VOTE PAGE I BUILT AND THEN HAD TO PULL. ***
+   I had an item on these same five clips measured and registered when his second
+   votes landed and killed the hand at the face a THIRD time. The ruling
+   (laws/BOHEMIA_ADDENDUM_THE_SECOND_VOTES_9_24_26.md s7) sends them to the
+   graveyard and stops this lane on them for the session, so the item was pulled
+   and its files deleted rather than shown to him a fourth time.
+   The code fix stays -- it removes a jitter from clips already in his game -- and
+   what this gate holds in the item's place is THE RULING ITSELF: the post-mortem
+   exists, and no page in the vote folder puts those five clips in front of him
+   again. A ruling with no machine behind it is a note. */
+ok('the post-mortem the ruling ordered exists and names all three of his verdicts',
+   fs.existsSync(GRAVE) && (() => { const g = fs.readFileSync(GRAVE, 'utf8');
+     return /Northeast and south tweaking/i.test(g)
+         && /glitchy and clipping/i.test(g)
+         && /SCRATCHING THE BACK OF HIS HEAD/i.test(g); })());
+
+ok('and no vote page puts the killed hand-at-face clips in front of him again',
+   (() => { if (!fs.existsSync(VOTEDIR)) return true;
+     const dead = fs.readdirSync(VOTEDIR).filter(f => /^ANIMATION_.*\.html$/.test(f))
+       .filter(f => { const v = fs.readFileSync(path.join(VOTEDIR, f), 'utf8');
+         /* a page that PLAYS one of the five, rather than one that merely says the
+            word: it has to drive a sheet AND name the clip */
+         return /requestAnimationFrame/.test(v) && /KILLED/.test(v) === false
+             && /(EATING|DRINKING|SMOKING|COUGHING|WHISTLING)/i.test(v); });
+     if (dead.length) console.log('       still showing: ' + dead.join(', '));
+     return dead.length === 0; })());
 
 /* THE CEILINGS ARE THE MEASUREMENT, not a guess, and they are held at what
    shipped so the number can only fall. HIS TWO FACINGS ARE HELD AT ZERO. */
