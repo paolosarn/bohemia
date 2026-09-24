@@ -1,0 +1,89 @@
+<!doctype html><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>BOHEMIA — The Bust</title>
+<!-- PORTRAIT, [bb faces]. Rule 33(g): BB's portrait is a still, ours moves. These are the
+     real renderer's pixels on the real 120 BPM clock. No vote of its own (rule 25). -->
+<style>
+  :root{--ink:#e8e0cc;--bg:#0d0d12;--card:#16161d;--line:#33313d;--gold:#c79a3f}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+       font:13px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace;padding:14px}
+  h1{font-size:13px;letter-spacing:2px;margin:0 0 4px;color:var(--gold)}
+  p{margin:0 0 12px;color:#a49a86;max-width:60ch}
+  .said{border-left:2px solid #7a4a4a;padding:6px 0 6px 10px;margin:0 0 14px;color:#b09a90}
+  b{color:#c8bfa8;font-weight:normal}
+  .row{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:8px;margin-bottom:9px}
+  .nm{font-size:10px;letter-spacing:1px;color:var(--gold);margin-bottom:6px;
+      display:flex;justify-content:space-between;gap:8px}
+  .sub{color:#6f6862;letter-spacing:0}
+  .two{display:flex;gap:10px;flex-wrap:nowrap}
+  .side{flex:1 1 0;min-width:0;text-align:center}
+  .lab{font-size:10px;letter-spacing:1px;color:#6f6862;margin-bottom:4px}
+  .hot{color:var(--gold)}
+  .px{font-size:10px;color:#6f6862;margin-top:4px}
+  canvas{width:100%;max-width:132px;aspect-ratio:1/1;height:auto;image-rendering:pixelated;
+         background:#101319;border-radius:3px;display:block;margin:0 auto}
+  .note{margin-top:2px;color:#6f6862;max-width:62ch}
+</style>
+<h1>THE BUST</h1>
+<div class="said">You made the overworld Battle Brothers and asked every chat to go and
+learn how BB does its part. This is mine.</div>
+<p>Their portraits are <b>busts</b>: the person fills the frame. I measured ours.
+<b>Only a third of the picture is the person. Over half is empty background.</b></p>
+<p>And the cause is not taste, it is a bug. Our shoulders are a fixed shape drawn at the
+same height on every single face, while the chin above them moves twelve rows across the
+crowd, and now moves whenever you drag your own face sliders. On a short face that leaves
+a long bare neck. Here they sit under the chin they actually belong to.</p>
+  <div class="row">
+    <div class="nm">A SHORT FACE<span class="sub">chin at row 43 of 64</span></div>
+    <div class="two">
+      <div class="side"><div class="lab">TODAY</div><canvas data-k="a0" width="64" height="64"></canvas>
+        <div class="px">56.2% of it is nobody</div></div>
+      <div class="side"><div class="lab hot">SHOULDERS THAT KNOW</div><canvas data-k="b0" width="64" height="64"></canvas>
+        <div class="px hot">46%</div></div>
+    </div></div>
+  <div class="row">
+    <div class="nm">THE MIDDLE OF THE CROWD<span class="sub">chin at row 49 of 64</span></div>
+    <div class="two">
+      <div class="side"><div class="lab">TODAY</div><canvas data-k="a1" width="64" height="64"></canvas>
+        <div class="px">55.8% of it is nobody</div></div>
+      <div class="side"><div class="lab hot">SHOULDERS THAT KNOW</div><canvas data-k="b1" width="64" height="64"></canvas>
+        <div class="px hot">53.7%</div></div>
+    </div></div>
+  <div class="row">
+    <div class="nm">A LONG FACE<span class="sub">chin at row 54 of 64</span></div>
+    <div class="two">
+      <div class="side"><div class="lab">TODAY</div><canvas data-k="a2" width="64" height="64"></canvas>
+        <div class="px">50.3% of it is nobody</div></div>
+      <div class="side"><div class="lab hot">SHOULDERS THAT KNOW</div><canvas data-k="b2" width="64" height="64"></canvas>
+        <div class="px hot">50.5%</div></div>
+    </div></div>
+<p class="note">Across all 200 people: 145 have less empty space, 27 have a hair more,
+28 are the same. The middle face gains 2 points, the best gains 12.</p>
+<p class="note"><b>It is OFF until you say.</b> It changes the framing of every face in
+the game, so it is not in the game yet.</p>
+<p class="note">And the part Battle Brothers cannot do: theirs is a painting that never
+moves. Watch these. They hold, they blink, and when somebody talks the mouth is driven by
+the letters they are saying.</p>
+<script>
+(function(){
+  var R=[{"a":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"b":[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]},{"a":[2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2],"b":[3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3]},{"a":[4,6,6,8,4,10,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,14,16,18],"b":[5,7,7,9,5,11,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,15,17,19]}], STEP=33.333333333333336, N=64;
+  var img=new Image(); img.src='PORTRAIT_THE_BUST.png';
+  var cs={};
+  document.querySelectorAll('canvas[data-k]').forEach(function(c){
+    var x=c.getContext('2d'); x.imageSmoothingEnabled=false; cs[c.dataset.k]=x; });
+  img.onload=function(){
+    var t0=performance.now();
+    (function loop(now){
+      var k=Math.floor((now-t0)/STEP);
+      R.forEach(function(r,i){
+        var fa=r.a[k%r.a.length], fb=r.b[k%r.b.length];
+        var A=cs['a'+i], B=cs['b'+i];
+        if(A){A.clearRect(0,0,N,N);A.drawImage(img,fa*N,0,N,N,0,0,N,N);}
+        if(B){B.clearRect(0,0,N,N);B.drawImage(img,fb*N,0,N,N,0,0,N,N);}
+      });
+      requestAnimationFrame(loop);
+    })(t0);
+  };
+})();
+</script>

@@ -1,3 +1,73 @@
+PORTRAIT (portrait-vamily-yke55s): 9/24 (c) LATEST -- *** [bb faces] SCHOOL ROUND ONE:
+A QUESTION OF TASTE TURNED OUT TO BE A BUG. THE SHOULDERS DO NOT KNOW WHERE THE HEAD IS. ***
+TAB: VOTE in the alpha, item portrait-the-bust-9-24, and it PLAYS. Build 9/24t. Row CLAIMED.
+Page: records/BOHEMIA_BB_FACES_SCHOOL_THE_BUST_9_24_26.md
+Cook: tools/bohemia_cook_the_bust.js
+
+RULE 33 (Paolo 9/24): the overworld is Battle Brothers and every chat carries a [bb ...]
+line, school first. I cannot open BB's art, so this page measures NO pixel of theirs. The
+lesson that is not in dispute: THEIR PORTRAITS ARE BUSTS, the person fills the frame.
+
+OURS, 200 MEASURED: the person is 32% of the frame, 54% is empty gradient, the top quarter
+is 72.7% nobody. THE VALUE STRUCTURE IS FINE -- 6 of 8 bands, a 107-of-255 range, a real
+painted face. THE COMPOSITION IS WHAT IS WRONG.
+
+*** AND MY FIRST TWO READINGS OF THAT NUMBER WERE BOTH WRONG. ***
+  "the head is too small, crop in"  -- the person's box is ALREADY 49x61 in a 64x64 frame.
+  "it sits too low, lift it"        -- the median gap above the hair is THREE ROWS. The top
+                                       quarter is empty at the SIDES, because a head is
+                                       narrow at the top. That is what a head looks like.
+THE THIRD READING SURVIVED AND IT IS NOT TASTE: the shirt is a FIXED polygon hard-coded at
+y=50 spanning x 8..56, while the chin it is supposed to sit under runs y=42 to y=54 across
+the crowd -- and now moves whenever he drags FACE TOP or FACE LENGTH, two of the 32 sliders
+he owns as of last round. Short face: EIGHT ROWS OF BARE NECK. Long face: the shoulders
+climb into the jaw.
+FOURTH TIME IN FOUR ROUNDS that one side of the face carried a hard-coded copy of something
+the other side owns: the cut SHAPE 8/28, the hair COLOUR 9/20, the braid sentinel 9/24,
+this. That pattern is worth a gate of its own and nobody has built one.
+
+THE FIX AND ITS SIZE, SAID PLAINLY: the shoulder line is derived from THIS face's chin,
+full canvas width, trapezius rising toward the neck.
+    145 of 200 less empty, 27 slightly more, 28 unchanged
+    median 2.1 points removed, best 11.7, worst -0.5
+IT DOES NOT MAKE THEM BUSTS. To fill the frame the way BB's do, the HEAD must be bigger in
+frame, which is his own dials plus the existing feature-scale knob. NAMED AND NOT TAKEN:
+that is not a decision to make quietly inside a school round.
+
+*** AND I BROKE IT ON A LONG FACE FIRST. *** chin+3 with no real ceiling pushed the
+shoulder mass off the bottom of the canvas: 50.3% empty became 54.1%, WORSE than what it
+replaced, while the short face went 56.2% to 46.0%. ONE FACE WOULD HAVE SHIPPED IT. Three
+caught it. THE CAST IS THE CLAIM: a short, a median and a long chin, not three faces I
+liked the look of.
+
+RULE 33(g), WHAT MOVES THAT THEIR PICTURE DOES NOT: a BB portrait is a painting and never
+moves. Ours holds (at most one small move per eight beats, 0 of 40 over), blinks 10-11
+times a minute, one person in eleven does not meet your eye, and the mouth is driven by the
+letters of the line being said. All of it already built and already gated, which is this
+department's whole answer to 33(g) and needed no new work.
+
+THE SHAPE FOR US (the row's brief): the face that speaks an event on the map IS the
+person's own portrait under the rules the face at the door already obeys. An event on the
+road is somebody standing there, not an illustrated card. Nothing new is needed in this
+lane to serve it.
+
+*** THE BUST IS OFF BY DEFAULT. *** It reframes every face in the game, so under rule 18
+the making goes to VOTE and not to the play surface. His approved face is byte-identical
+with it off (68caec4f, checked). window.BOH_FACE_BUST or opts.bust turns it on.
+
+STILL OPEN IN THIS LANE:
+  1. [customizations first] CLAIMED. Every NUMERIC dial is a slider (32 of them); the
+     COLOUR and STRING fields are not swept the same way yet. Reachable as swatches, so a
+     smaller question than it looks, but unmeasured and not claimed.
+  2. [horror face] CLAIMED -- R4 THE LIGHT is the unbuilt half: 1.52 against the 9.84 the
+     world's own ruler wants. NOTE: lighting took one DOWN from him already ("Dogshit more
+     analog horror"), so rule 30 applies -- a re-cook goes through DIRECTION's bible first
+     and comes back as a NEW id quoting his words. Not attempted this round on purpose.
+  3. [faces first] CLAIMED and blocked -- a stranger still meets zero faces in the demo.
+  4. [three faces] OPEN (rule 31, with CHARACTER). [blank faces] OPEN -- and this round fed
+     it: the faces are not flat, they are badly framed. [three d look], [speak along] OPEN.
+[PENDING Paolo] nothing.
+
 EYES AND EARS (eyes-5vql33): 9/24 (at) LATEST -- *** E22 [never ran] SHIPPED: A RED NOW HAS AN AGE, AND THE STANDING LIST IS ON THE FRONT PAGE. *** Records: records/BOHEMIA_EYES_E22_ROUND_2_A_RED_NOW_HAS_AN_AGE_9_24_26.md and records/BOHEMIA_EYES_E26_ROUND_16_A_BUTTON_WHOSE_LABEL_CANNOT_BE_PRESSED_9_24_26.md. Walked on a cut made fresh from main, BUILD 9/24n.
   WHAT SHIPPED: tools/bohemia_eyes_gate_history.py with six planted controls, and records/BOHEMIA_EYES_GATE_HISTORY.jsonl, the first per-run history this repo has had. It parses the runner's OWN PRINTED OUTPUT and touches nothing of PLUMBER's, because a checker that needs another lane's tool changed is a checker that does not ship. FIRST LIST, three real runs: 713 gates in the table; coverage measured on the newest run that TRIED EVERYTHING, which died at gate 153 when the container restarted, so 573 have NO VERDICT (unknown, never green); 69 gates whose NEWEST KNOWN verdict is red, one of them red three runs running; 570 in no run at all, because the history starts now.
   IT REFUSES THREE THINGS, AND EACH REFUSAL EXISTS BECAUSE IT GOT THAT ONE WRONG FIRST. A FILTERED RUN IS NOT COVERAGE: fed a --only run the first cut announced '709 never started', which reads as 709 checks skipped for lack of time and is false, they were never SELECTED; the three cases (unfinished / filtered / killed) are told apart off the runner's own output now. A RED COUNT FROM ONE RUN IS NOT THE FLEET'S: the reds are every gate whose newest known verdict is red, each carrying the run it came from. ONE RUN IS NOT A HISTORY: with a single run every streak reads 1, which looks like every red is fresh, so the age question is refused outright.
