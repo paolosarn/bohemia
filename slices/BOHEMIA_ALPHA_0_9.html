@@ -1501,7 +1501,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 9/24q - THE SAND WAS ONE FILTER</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 9/24r - NOBODY STOPS YOU YET</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -3969,11 +3969,11 @@ const SKR={fair:[[240,220,202],[214,184,162],[176,138,116],[128,92,78]],
 const PUNK={skin:'fair',
  face:{top:17,len:33,craniumH:10,foreheadW:24,cheekW:30,jawW:26,chinW:12,cheekY:31,jawCornerY:43,browY:26,eyeY:29,noseY:38,mouthY:44},
  brows:{color:[54,44,40],gap:4,len:7,thick:2,arch:1,angle:1},
- eyes:{w:6,h:4,gap:6,iris:[150,160,150],hood:1,gaze:0},
- nose:{w:3},
+ eyes:{w:6,h:4,gap:6,iris:[150,160,150],hood:1},
+ nose:{len:12,w:3},
  mouth:{w:8,fullLower:2,color:[184,120,114]},
- hair:{style:'wavy_mid',color:[216,208,192],roots:[64,54,48],part:'mid',len:'jaw',braid:0,side:0.90,front:0.20,vol:0,flare:0},   /* scalp:false IS GONE TOO (9/24, [dead dials]): it claimed to say whether a cut shows bare scalp and renderFace never read it, 0 px on twelve faces. The BODY's hair generator has a real scalp opening; the portrait does not, and carrying the word here implied it did. When the portrait grows one this comes back wired, not as a name. */   /* braid: 0 = NONE, -1 = a braid down the left, +1 down the right. IT USED TO BE -1 HERE AND -1 IS TRUTHY, so `if(h.braid)` drew one on EVERY FACE IN THE GAME, always on the left: measured 200 of 200 portraits carrying a 6-to-76-pixel dark stripe down the temple, while 0 of 200 bodies wore a braided cut. Eight lines below, this file already says braids belong to DEAD styles and there is nothing on the body to agree with. Found by DIRECTION's bible rule one -- a frame gets exactly ONE wrong thing -- when the card for the gaze had two. */   /* scalp:false = hair caps the head (occludes scalp skin); true = fade/bald/mohawk shows skin. Paolo owns per-style. */
- details:{stubble:0},   /* *** WAS 1, AND THAT NUMBER HAD NEVER DRAWN A PIXEL. *** The moment stubble was wired this round it grew a day of beard on THE FACE HE APPROVED, hash 68caec4f -> f30d40e6, caught by hashing his face against a clean origin/main worktree rather than trusting that a new feature only touches new things. A dead field quietly coming alive is a change to approved art. 0 is what his face has actually looked like all along, and STUBBLE is a slider now, so it is his to turn on. */
+ hair:{style:'wavy_mid',color:[216,208,192],roots:[64,54,48],part:'mid',len:'jaw',braid:0,scalp:false},   /* braid: 0 = NONE, -1 = a braid down the left, +1 down the right. IT USED TO BE -1 HERE AND -1 IS TRUTHY, so `if(h.braid)` drew one on EVERY FACE IN THE GAME, always on the left: measured 200 of 200 portraits carrying a 6-to-76-pixel dark stripe down the temple, while 0 of 200 bodies wore a braided cut. Eight lines below, this file already says braids belong to DEAD styles and there is nothing on the body to agree with. Found by DIRECTION's bible rule one -- a frame gets exactly ONE wrong thing -- when the card for the gaze had two. */   /* scalp:false = hair caps the head (occludes scalp skin); true = fade/bald/mohawk shows skin. Paolo owns per-style. */
+ details:{stubble:1},
  top:[20,20,24]};
 const SKIN_TONES=[["chalk",[[236,227,221],[204,191,183],[166,151,143]]],["porcelain",[[224,211,203],[191,175,166],[153,137,129]]],["pale",[[188,160,138],[153,127,108],[112,94,84]]],["fair",[[203,169,140],[167,137,113],[124,102,87]]],["olive",[[186,151,116],[154,123,94],[114,94,78]]],["tan",[[179,140,103],[147,115,87],[109,88,71]]],["bronze",[[156,118,87],[118,96,78],[90,70,56]]],["brown",[[118,94,78],[94,74,59],[71,54,44]]],["deep",[[83,66,54],[65,51,42],[48,38,31]]],["ebony",[[66,51,43],[49,38,31],[35,26,22]]],["onyx",[[51,40,34],[37,28,24],[26,19,16]]]]; /* WORLD-GRADED (Paolo 7/18 look revamp): skin graded to world ambient RGB(67,61,56) so the character sits IN the scene, not on top of it. Was the brighter ungraded set. */
 /* __HAIR_ON_EVERY_HEAD__ -- THE SWATCH ROW OFFERS WHAT THE VALLEY WEARS. HE CAN BUILD
@@ -4225,57 +4225,6 @@ function renderFace(spec,opts){
  for(let o=0;o<mOpen;o++)line(cx-(mw>>1)+1,my+1+o,cx+(mw>>1)-1,my+1+o,dark);
  for(let t=0;t<mLower;t++)line(cx-(mw>>1)+1,my+1+mOpen+t,cx+(mw>>1)-1,my+1+mOpen+t,m.color.map(c=>Math.min(255,c+16)));
  P(cx-(mw>>1),my,Ln);P(cx+(mw>>1),my,Ln);P(cx-1,my-1,Sh);P(cx+1,my-1,Sh);
- /* ===== STUBBLE, WHICH THE SPEC HAS CARRIED SINCE 8/28 AND NOTHING EVER DREW =====
-    details.stubble moved ZERO pixels on twelve faces and the renderer's source never
-    mentioned the word. Rule 14d: deliver it or remove it. A day's growth is a real thing
-    on a face and the field was already there, so it gets delivered.
-    IT READS THE FINISHED PIXELS INSTEAD OF GUESSING THE SHAPE. Only pixels that are
-    ALREADY this face's skin get darkened, so the growth cannot spill off the jaw, over
-    the lips, onto the nose or into the hair, whatever the skull dials are set to -- the
-    same reason the damage pass below runs last. No silhouette maths to get wrong when
-    the chin narrows.
-    THE SHAPE IS THE BEARD AREA, NOT A BOX: jaw and chin from under the nose down, and
-    nothing above the cheekbone.
-    DENSITY IS DITHER, NOT OPACITY. There is no alpha here and a solid grey chin is a
-    painted-on beard, so the growth is a fixed checker -- the SAME pixels every frame,
-    because NO DICE ANYWHERE IN THE FACE (8/27) is a rule the talking gate enforces. */
- const _stub=(spec.details&&+spec.details.stubble)||0;
- if(_stub>0){
-   const _sk=[L,Mn,ShSoft];
-   const _beard=[Mn[0]*0.62|0,Mn[1]*0.64|0,Mn[2]*0.66|0];
-   const _shad =[Sh[0]*0.80|0,Sh[1]*0.82|0,Sh[2]*0.84|0];
-   /* SCATTER, NOT A PATTERN, AND THIS IS THE THIRD TRY. Both earlier ones were caught by
-      rendering the four levels and LOOKING, never by a number, because 151 pixels of mesh
-      and 151 pixels of stubble are the same number:
-        1. every other column  -> a BARCODE down the chin.
-        2. a 4x4 ordered dither -> at half density an ordered dither IS a regular lattice
-           by construction, so three days' growth read as FISHNET.
-      A hash of the pixel's own coordinates has no lattice to see. It is fixed per pixel,
-      so the same face renders identically every frame and NO DICE ANYWHERE IN THE FACE
-      (8/27) still holds -- this is not random, it is just not lined up. */
-   const _T=_stub>=3?46:(_stub===2?30:15);        /* about 3/4, 1/2, 1/4 of the pixels */
-   /* AND THE GROWTH SITS ON THE BEARD AREA, WHICH IS NOT THE CHEEK. It started at the
-      cheekbone and climbed to just under the eyes, which is a mask, not a beard. It
-      starts at the NOSE LINE now and the top edge rides HIGH at the sides, where the
-      sideburn is, dipping toward the middle, which is the shape a jaw actually grows. */
-   const _hw=Math.max(1,f.cheekW>>1);
-   const _top=ny1, _drop=Math.max(1,Math.round((chin-ny1)*0.30));
-   for(let yy=_top;yy<=chin;yy++){
-     for(let xx=cx-_hw-1;xx<=cx+_hw+1;xx++){
-       if(xx<0||xx>=64||yy<0||yy>=64)continue;
-       const _edge=_top+Math.round(_drop*(1-Math.min(1,Math.abs(xx-cx)/_hw)));
-       if(yy<_edge)continue;
-       if(yy>=my-1&&yy<=my+1+mOpen+mLower&&xx>cx-(mw>>1)-1&&xx<cx+(mw>>1)+1)continue;
-       const i=(yy*64+xx)*4;
-       let hit=null;
-       for(const c of _sk) if(buf[i]===c[0]&&buf[i+1]===c[1]&&buf[i+2]===c[2]){hit=c;break;}
-       if(!hit)continue;
-       if(((Math.imul(xx,73856093)^Math.imul(yy,19349663))>>>3&63)>=_T)continue;
-       const c=(hit===ShSoft)?_shad:_beard;
-       buf[i]=c[0];buf[i+1]=c[1];buf[i+2]=c[2];
-     }
-   }
- }
  if(blood){for(const p of [[cx+1,ny1],[cx+1,ny1+2],[cx+2,ny1+4],[cx+2,my-1],[cx+2,my+1],[cx+3,my+3]]){P(p[0],p[1],[168,28,28]);P(p[0],p[1]+1,[120,18,18]);}}
  /* ===== V131 REAL DAMAGE ON THE BONES ==============================
     Paolo: "Pretty dogshit all u did was change the opacity of the nose bleed. U
@@ -5700,11 +5649,7 @@ function faceFor(id, over){
   sp.brows.angle = Math.round(B('ban') * 1.6);
 
   /* ---- NOSE + MOUTH ------------------------------------------------------- */
-  /* *** nose.len IS GONE (9/24, [dead dials]). *** It was computed here on every face and
-     read NOWHERE: the nose is drawn from the eye line down to f.noseY, so its length is
-     already NOSE HEIGHT, a slider he has had all along. Rule 14d, a thing that promises
-     something and does nothing is the worst bug in the game, and in spec form that is a
-     field whose name is a promise. The dial he wanted for it already existed. */
+  sp.nose.len = Math.max(7, Math.min(15, Math.round(f.noseY - f.eyeY + B('nl') * 2)));
   sp.nose.w   = child ? 2 : (R('nw') < 0.35 ? 2 : (R('nw') < 0.85 ? 3 : 4));
   /* A MOUTH IS A FRACTION OF THE FACE IT IS IN, NOT A FIXED NUMBER. The first cut
      rolled around a constant 8 and handed the CHILD a 10px mouth on a 21px jaw --
@@ -11824,6 +11769,19 @@ document.getElementById('front').addEventListener('click',()=>{
      AND IT IS NOW THE BEGIN TAP, which is the tap SOUNDS [first sound] was built
      for: the hum lands on a finished world instead of under a build. */
   try{ window.__roomStart && window.__roomStart(); }catch(_e){}
+  /* *** AND PLAY BEGINS HERE, WHICH IS THE ONLY HONEST ANCHOR FOR "the first
+     *** minutes are his" (9/24, PEOPLE [creditor waits], rule 32a). ***
+     The city frame is a different document with a different time origin, so this
+     does not send a timestamp: it says THAT it happened and the city stamps its
+     own clock. Two clocks compared across a frame boundary is a bug this lane has
+     already paid for once. Sent to the frame if it exists yet and stashed if it
+     does not, because the city frame is lazy and is usually not built at BEGIN. */
+  try{
+    window.__PLAY_BEGAN = true;
+    var _cf0 = document.getElementById('cityFrame');
+    if(_cf0 && _cf0.contentWindow)
+      _cf0.contentWindow.postMessage({type:'BOHEMIA_PLAY_BEGAN'},'*');
+  }catch(_e){}
   document.getElementById('front').style.display='none';
   /* AND THE TERMINAL GOES AWAY WITH IT. UI's QUIT brings this door back mid
      session, and what should be behind it then is his ordinary front door with the
@@ -18144,73 +18102,13 @@ const FACE_SLIDERS=[
   ['brows.gap',         'BROW SPACING',  3,  7],
   ['brows.arch',        'BROW ARCH',     0,  1],
   ['brows.angle',       'BROW ANGLE',    0,  3],
-  ['mouth.fullLower',   'LOWER LIP',     1,  3],
-  /* *** AND THEN HE SAID IT SHOULD BE ALL OF THEM. *** (Paolo 9/23, voting the eight
-     above UP: "Fantastic progress it should all come with a slider". Rule 32(g): every
-     face dial a slider.)
-     I swept every numeric field in the spec again, and THE FIRST SWEEP CAME BACK SAYING
-     THE ENTIRE FACE WAS DEAD -- all 34 fields, 0 px, including face.top, which is 1315.
-     faceClamp() takes NO ARGUMENTS (it works on the maker's own `pface`), so passing it
-     a spec returned undefined, renderFace threw on all 1,568 sweeps, and my catch block
-     recorded every throw as "moves zero pixels". A silent throw reading as a dead dial
-     is the exact shape of wrong answer this lane keeps paying for, so the sweep now
-     COUNTS throws and carries face.top as a positive control.
-     THE HONEST SECOND READING: nine live dials were off this panel, worth about 1,900
-     pixels of face he could not reach. Every one is here now, with what it moves:
-         hair.front       440 px   how far the hair comes down the forehead
-         face.jawCornerY  378      (see the ROW_FRAC note: it was being overwritten)
-         face.cheekY      360
-         hair.side        348      how far it falls past the ear
-         hair.flare       158      how wide it kicks out at the bottom
-         hair.vol         100      how much of it there is
-         hair.braid        91      a braid, left or right, or none
-         eyes.gaze         26      where he is looking
-         eyes.hood          4      the fold over the lid. Four pixels is honest and
-                                   small; it is on the panel because it is ALIVE, and
-                                   the number is written here so nobody calls it big.
-     THE HAIR DIALS HOLD, WHICH I CHECKED BEFORE BUILDING THEM. The crowd's portraits
-     DERIVE these five from the haircut the body wears, so a slider on a stranger would
-     snap back; buildSpec() is a straight copy of his own pface with no such derivation,
-     so on HIS face they stand. That is the cheekY mistake asked in advance instead of
-     found afterwards.
-     STILL NOT HERE, AND NOW FOR A REASON THAT SURVIVES A SECOND LOOK:
-         nose.len        REMOVED FROM THE SPEC this round, not hidden. The nose is drawn
-                         from the eye line down to f.noseY, so its length is already
-                         NOSE HEIGHT, a slider he has had all along. A second field
-                         claiming to set it was a lie the spec was carrying.
-         hair.scalp      a boolean that moved 0 px on twelve faces. Named, not guessed
-                         at; it is on the board as the rest of [dead dials]. */
-  ['face.cheekY',       'CHEEKBONES',    0,  0],   /* 0,0 = banded by ROW_FRAC, above */
-  ['face.jawCornerY',   'JAW CORNER',    0,  0],
-  ['hair.front',        'HAIR FRINGE',   0,  1],
-  ['hair.side',         'HAIR LENGTH',   0,  2],
-  ['hair.vol',          'HAIR VOLUME',   0,  3],
-  ['hair.flare',        'HAIR FLARE',    0,  1],
-  ['hair.braid',        'BRAID',        -1,  1],
-  ['eyes.gaze',         'GAZE',         -1,  1],
-  ['eyes.hood',         'HOODED LID',    0,  1],
-  ['details.stubble',   'STUBBLE',       0,  3]
+  ['mouth.fullLower',   'LOWER LIP',     1,  3]
 ];
 /* the four row positions are stored as a FRACTION of the face, not as a pixel row, so
    lengthening the face moves the eyes with it instead of leaving them stranded near the
    chin. Same reason faceFor writes them as fractions. */
-/* *** CHEEKBONE HEIGHT AND JAW CORNER JOINED THIS TABLE (Paolo 9/23 in the tab, on the
-   eight dials: "Fantastic progress it should all come with a slider"; rule 32(g), every
-   face dial a slider.) ***
-   They used to be HARD-ASSIGNED two lines into faceClamp, f.top + len*0.42 and *0.79, so
-   a slider on either would have snapped back the instant he let go. I wrote that down
-   last round as "not a dial, by design". MEASURED THIS ROUND ON THE RENDERER AND IT WAS
-   THE WRONG CALL: cheekY moves 360 px and jawCornerY 378 px, more than all but five
-   dials on his whole panel. They were never dead. The CLAMP was overwriting them, and a
-   clamp that overwrites is a decision, not a fact.
-   So they band like every other row instead of being assigned: a default derived from
-   top and len when he has not touched them, his value honoured inside a range that keeps
-   the skull coherent. Both bands contain the old derived value, so every face already
-   saved loads byte-identical and nothing moves until he drags. */
 const ROW_FRAC={'face.browY':[0.20,0.34],'face.eyeY':[0.29,0.44],
-                'face.cheekY':[0.32,0.54],
-                'face.noseY':[0.55,0.74],'face.jawCornerY':[0.68,0.90],
-                'face.mouthY':[0.74,0.92]};
+                'face.noseY':[0.55,0.74],'face.mouthY':[0.74,0.92]};
 function _fget(k){const [a,b]=k.split('.');return pface[a][b];}
 function _fset(k,v){const [a,b]=k.split('.');pface[a][b]=v;}
 /* A HEAD IS STILL A HEAD AFTERWARDS. The same three ordering rules faceFor applies to
@@ -18223,8 +18121,8 @@ function faceClamp(){
   f.chinW =Math.min(f.chinW, f.jawW-6);
   f.chinW =Math.max(4,f.chinW);
   const chin=f.top+f.len;
-  /* cheekY and jawCornerY are BANDED in the ROW_FRAC loop below now, not assigned here.
-     See the note on ROW_FRAC: assigning them made two 360-px dials unreachable. */
+  f.cheekY    =f.top+Math.round(f.len*0.42);
+  f.jawCornerY=f.top+Math.round(f.len*0.79);
   for(const k in ROW_FRAC){
     const [lo,hi]=ROW_FRAC[k];
     const cur=_fget(k);
@@ -18235,13 +18133,6 @@ function faceClamp(){
   if(f.noseY <=f.eyeY )f.noseY =f.eyeY+2;
   if(f.mouthY<=f.noseY)f.mouthY=f.noseY+2;
   if(f.mouthY>chin-2)f.mouthY=chin-2;
-  /* the two new rows keep their order too: the cheekbone sits under the eye, the jaw
-     corner under the cheekbone, the chin under that. THE NEIGHBOUR GIVES WAY, the same
-     rule the rest of this function already uses, so a slider always does something. */
-  if(f.cheekY    <=f.eyeY  )f.cheekY    =f.eyeY+1;
-  if(f.jawCornerY<=f.cheekY)f.jawCornerY=f.cheekY+2;
-  if(f.jawCornerY> chin-2  )f.jawCornerY=chin-2;
-  if(f.cheekY    > f.jawCornerY-2)f.cheekY=f.jawCornerY-2;
   pface.mouth.w=Math.max(5,Math.min(f.jawW-6,pface.mouth.w));
   pface.eyes.gap=Math.max(3,Math.min(11,pface.eyes.gap));
   /* THE NEW DIALS GET THE SAME TREATMENT AS THE OLD ONES: nothing is rejected, the
@@ -25789,44 +25680,12 @@ var SETTLED={"step_dirt.0":1,"step_dirt.1":1,"step_dirt.2":1,"step_dirt.3":1,"st
            because the studio did. Same reasoning as the heartbeat above. */
         this.bus.connect(sfxBus() || MUS.OUT || MUS.MAST || AC.destination);
 
-        /* THE MACHINE, IN THIS VOICE'S OWN CHAIN.
-           *** AND THIS USED TO BE ONE LOW-PASS SECTION AT Q 0.7, WHICH IS A SECOND-ORDER
-           FILTER, AND IT LEAKED. *** Paolo killed three sounds in one batch for sounding
-           like sand (9/23, rule 32e), and the sand is energy sitting above the band the
-           sound claims. Measured on white noise through an FFT band sum, against a
-           declared 5 kHz corner:
-             one section at Q 0.7 (order 2)    14.2% above the corner, 1.05% an octave up
-             four Butterworth sections (order 8) 2.6% above,            0.00% an octave up
-           School rule 4 asks for under 5% and under 1%, so the one-section version failed
-           both and this passes both.
-           *** AND THE REASON THIS HID FOR ROUNDS IS WORSE THAN THE LEAK. *** The room is
-           written TWICE, here and in engine/bohemia_horror_sounds.js, and the checker that
-           holds the two together compares six CONSTANTS (length, hum, low, high, seam,
-           level) and NEVER THE FILTER. So the constants matched, the gate was green, and
-           the two rooms were not the same room: this one leaked 14.2% and the module's copy
-           leaked 37.9%, because they used different filters at different corners. A
-           DUPLICATION CHECK THAT COMPARES THE NUMBERS AND NOT THE MACHINE IS NOT A
-           DUPLICATION CHECK. The gate now compares the ORDER as well.
-           Butterworth Q values for order 8, which is the maximally flat design: flat to
-           the corner, the -3 dB ON the number, then 48 dB an octave, which is what a
-           broadcast filter really is because the mask is steep by regulation.
-           THE BOTTOM END IS UNTOUCHED, one section at Q 0.7 exactly as before: the defect
-           measured is above the corner, and moving two ends at once would make his next
-           verdict unreadable. And the LEVEL looks after itself, because levelFor() measures
-           this buffer's rms against his heartbeat at run time, so a narrower band cannot
-           quietly change how loud the room sits. */
+        /* THE MACHINE, IN THIS VOICE'S OWN CHAIN. Two nodes, once. */
         var hp = AC.createBiquadFilter();
         hp.type = 'highpass'; hp.frequency.value = this.LO; hp.Q.value = 0.7;
-        var QS = [0.5098, 0.6013, 0.9000, 2.5629];   /* Butterworth, order 8 */
-        var head = null, tail = null;
-        for (var qi = 0; qi < QS.length; qi++) {
-          var lp = AC.createBiquadFilter();
-          lp.type = 'lowpass'; lp.frequency.value = this.HI; lp.Q.value = QS[qi];
-          if (tail) tail.connect(lp); else head = lp;
-          tail = lp;
-        }
-        this.bandOrder = 2 * QS.length;        /* what the checker compares */
-        hp.connect(head); tail.connect(this.bus);
+        var lp = AC.createBiquadFilter();
+        lp.type = 'lowpass';  lp.frequency.value = this.HI; lp.Q.value = 0.7;
+        hp.connect(lp); lp.connect(this.bus);
 
         var s = AC.createBufferSource();
         s.buffer = this.buf; s.loop = true;
@@ -25863,7 +25722,6 @@ var SETTLED={"step_dirt.0":1,"step_dirt.1":1,"step_dirt.2":1,"step_dirt.3":1,"st
   window.__roomState = function () {
     return { on: !!ROOM.src, ducked: ROOM.ducked, sec: ROOM.SEC, hum: ROOM.HUM,
              lo: ROOM.LO, hi: ROOM.HI, rel: ROOM.REL, duck: ROOM.DUCK,
-             bandOrder: ROOM.bandOrder || null,   /* the FILTER, not only the numbers */
              level: ROOM.level, startedAt: ROOM.startedAt,
              cycles60: ROOM.SEC * ROOM.HUM, beats: ROOM.SEC / 0.5 };
   };

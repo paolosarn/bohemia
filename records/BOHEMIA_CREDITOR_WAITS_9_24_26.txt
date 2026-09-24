@@ -1,0 +1,113 @@
+BOHEMIA -- CREDITOR WAITS (9/24/26, PEOPLE lane)
+VAMILY job [creditor waits], row THE-MAN-WHO-REMEMBERS-IS-ON-HIS-STREET-NOT-IN-
+HIS-FACE. Rule 32a, laws/BOHEMIA_ADDENDUM_THE_SECOND_VOTES_9_24_26.md section 1.
+
+*** THIS ROW IS PAOLO CORRECTING THIS LANE'S OWN SHIPPED WORK, AND HE IS RIGHT.
+He voted on [creditor stands] and said it three ways in one batch:
+    "Why does everything have to happen the first second of the game or even be
+     in the demo?"
+    "Don't force this on me."
+    "Don't force interactions on the player."
+
+The organ was right and the DELIVERY was wrong. The creditor who remembers his
+father is a good thing to have built. Having her speak the instant the world
+exists is the thing he has now complained about three times.
+
+================================================================================
+MEASURED ON THE ALPHA BEFORE A LINE WAS CHANGED
+================================================================================
+  the first word landed             0 ms after the city was playable
+  lines spoken in the first minute  2
+  furthest speaker                  2 cells (the reach half was already honest)
+  copies of the reach number        6, AND ONE OF THEM DISAGREED
+
+That last one is its own finding. Five mouths typed `> 6` and barkPick typed
+`> 7`. His rule -- "nothing speaks unless he is within its reach" -- cannot be
+checked while the answer is six numbers scattered through the file.
+
+================================================================================
+WHAT WAS BUILT
+================================================================================
+A. ONE CLOCK, STAMPED ONCE, AND NEVER COMPARED ACROSS A FRAME BOUNDARY.
+   Play begins at the BEGIN tap, which is the only honest anchor for "the first
+   minutes are his". The shell owns that tap and lives in a different document
+   with a different time origin, SO IT SENDS NO TIMESTAMP: it says THAT it
+   happened and the city stamps its own clock. This lane has already paid once for
+   reading a game-minute against performance.now() ([a human being], two clocks in
+   one file) and is not paying again.
+   AND THE FRAME IS USUALLY NOT BUILT WHEN HE TAPS BEGIN, so the message can land
+   before anybody is listening. The shell also leaves a flag on itself and the
+   city reads it once the frame exists. A surface with no door in front of it --
+   the workshop, a gate driving the city on its own -- stamps itself, so nothing
+   is mute for ever waiting on a tap that is not coming.
+
+B. ONE GATE, AT THE TOP OF THE ONE FUNCTION EVERY MOUTH GOES THROUGH.
+   ctMaySpeak() is asked first thing in barkTick, so a mouth added later is quiet
+   by default instead of quiet only if somebody remembered. A bubble already up is
+   left alone, so this can never cut somebody off mid-sentence.
+   AND NOTHING FIRES IN THE DEMO AT ALL, which he said in the same breath.
+
+C. EVERY SPOKEN LINE HAS A DECLARED DISTANCE, NAMED FOR WHAT KIND OF SPEECH IT IS.
+       toYou      6   somebody speaking TO him: the ask, the creditor, a witness
+       overheard  4   HIS WORD: "a rumour is OVERHEARD as he passes, never said to
+                      his face", so a story about somebody else carries LESS far
+       ambient    7   the street talking among itself, barkPick's own number, kept
+                      exactly as it was so the street he already has does not
+                      change under him
+   They are not all one number ON PURPOSE, and his own sentences are why. What is
+   one is the ANSWER: every mouth reads this table.
+
+================================================================================
+ON THE ALPHA, AFTER
+================================================================================
+  lines in his first minute      0     (it was 2, the first at 0 ms)
+  lines after the minute        93
+  furthest speaker               2 cells
+  lines in the demo              0
+  he can still walk with somebody mid-sentence
+
+*** THE SECOND NUMBER IS THE CONTROL THAT MATTERS. *** Shutting everybody up
+passes "nothing speaks in the first minute" and hands him a dead town. The street
+talks exactly as much as it did; it waits until he has walked.
+
+================================================================================
+THE COOK: NOBODY STOPS YOU YET
+================================================================================
+slices/BOHEMIA_NOBODY_STOPS_YOU_YET_9_24_26.html, registered in VOTE.
+BOTH FRAMES ARE THE WALKED STREET FROM THE GAME'S OWN CAMERA, which is rule 32f
+and is not a detail: he killed a picture in this same batch for exactly this --
+"this game isn't in first person, when would I see this?" -- and the last thing
+this lane put in the tab was a sheet of floating faces.
+  at thirty seconds   nobody says anything, nobody is in his door
+  past the minute     Estella Gaines, who his father never paid back, says it
+                      once as he goes by, from two steps away
+AND THE PLATE OVER HER READS HER NAME, not her trade, which is rule 32g's "no
+jargon in a mouth (what is the watch)" already satisfied by this lane's [a name]
+and [bubble face] rounds.
+
+================================================================================
+THE GATE
+================================================================================
+gates/creditor_waits_gate.js, driven on the ALPHA. The law names its own gate and
+this is it: "every spoken line has a distance and a delay; nothing speaks in the
+first 60 s of play; nothing speaks unless he is within its reach; nothing halts
+the pad." All four are legs here, plus the control that the street is not muted
+and the demo leg.
+
+================================================================================
+MEASURED AND NOT FIXED
+================================================================================
+THE SIXTY SECONDS IS A NUMBER HE SAID AND IT IS THE ONLY ONE IN HERE THAT IS NOT
+DERIVED. It is written as CT_QUIET_S = 60 so it reads as what it is and he can
+move it with a word.
+
+THE NAME UNDER HER FEET CLIPS on the frame in VOTE: the plate is drawn at the
+body and the wall edge cuts it. It is legible in the bubble and half-legible on
+the ground. Not this row, named rather than quietly cropped out of the picture.
+
+THE OTHER MOUTHS IN THE GAME ARE NOT ALL MINE. This covers every line that goes
+through the city's bark organ. The phone, the cards RUN is stripping, and the
+fight's own text are other lanes' surfaces, and his rule 32a covers those too.
+Named here so the next lane reading this does not assume the whole game is done.
+
+TAB: CITY, the walked street in the alpha. VOTE, for the two frames.

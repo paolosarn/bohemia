@@ -112,6 +112,13 @@ function pw() {
     out.drewShape = BARK_DREW.length ? Object.keys(BARK_DREW[0]).sort().join(',') : '';
     /* THE THROW CHECK. Call barkPass directly, OUTSIDE the try/catch the draw
        wraps it in, so an exception is visible instead of silent. */
+    /* *** HE HAS BEEN WALKING FOR A MINUTE. *** (9/24, rule 32a: "why does
+       everything have to happen the first second of the game".) Nothing in the
+       city speaks until play is 60 s old, so a gate that asserts speech has to
+       put him past that first, exactly as a player is by the time any of this
+       could happen. This is a PRECONDITION, not a bypass: the quiet floor is
+       still on and creditor_waits_gate is what proves it holds. */
+    try { CT_PLAY_MS = performance.now() - 61000; } catch (_e) {}
     BARK.next = 0; BARK.p = null;
     try { barkTick(performance.now()); out.tickThrew = null; }
     catch (e) { out.tickThrew = e.message.slice(0, 90); }

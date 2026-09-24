@@ -120,8 +120,19 @@ function stripComments(s) {
   try {
     const D = require(DRIVE);
     const t0 = Date.now();
-    const d = await D.open();
+    /* *** THIS CLAIM MOVED SURFACES BECAUSE HIS RULE MOVED UNDER IT (9/24).
+       *** Rule 32a: "or even be in the demo". NOTHING SPEAKS IN THE DEMO AT ALL
+       now, so a gate that waits on the demo for a speech bubble is waiting for a
+       thing his own ruling forbids, and would report a layout bug for ever.
+       The CLAIM is untouched -- a bubble must not cover the body it belongs to --
+       so it is measured where a bubble can exist: the alpha, past the quiet
+       minute, which is where a player meets one anyway. */
+    const d = await D.open({ file: 'BOHEMIA_ALPHA_0_9.html' });
     const doorAt = Date.now();
+    /* HE HAS BEEN WALKING FOR A MINUTE. A precondition, not a bypass: the quiet
+       floor stays on and creditor_waits_gate is what proves it holds. */
+    try { await d.fr.evaluate(() => { CT_PLAY_MS = performance.now() - 61000; }); }
+    catch (_e) {}
     /* WHEN DOES A PERSON ARRIVE. The row asked for this by name. */
     let firstAt = null; const marks = {};
     for (let i = 0; i < 14; i++) {

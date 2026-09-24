@@ -39800,7 +39800,7 @@ function walkSpeak(got, ask) {
     if (!d || !d.p || !d.at) continue;
     /* CLOSE ENOUGH TO BE THE ONE SPEAKING, the same test the deed bark applies,
        asked of the same list, so "who is near" cannot mean two things here. */
-    if (Math.abs(d.at[0] - hx) + Math.abs(d.at[1] - hy) > 6) continue;
+    if (Math.abs(d.at[0] - hx) + Math.abs(d.at[1] - hy) > CT_VOICE.toYou) continue;
     /* *** THE BARK SLOT RUNS ON performance.now(), NOT ON THE GAME CLOCK, AND
        THE FIRST CUT OF THIS USED THE WRONG ONE. ***
        barkTick is called with performance.now() and BARK.next is set with
@@ -49029,7 +49029,10 @@ function ctRumourBark(now){
   var drew = (typeof BARK_DREW !== 'undefined' && BARK_DREW) ? BARK_DREW : [];
   for (var i = 0; i < drew.length; i++) {
     var d0 = drew[i]; if (!d0 || !d0.p || !d0.at) continue;
-    if (Math.abs(d0.at[0] - hx) + Math.abs(d0.at[1] - hy) > 6) continue;
+    /* HIS WORD (32a): "A rumour is OVERHEARD as he passes, never said to his
+       face." So a story about somebody else carries the SHORT distance and he has
+       to be close enough to catch it, rather than be told it. */
+    if (Math.abs(d0.at[0] - hx) + Math.abs(d0.at[1] - hy) > CT_VOICE.overheard) continue;
     var m = CT_MINDS[d0.p.id]; if (!m || !m.deeds || !m.deeds.length) continue;
     for (var j = m.deeds.length - 1; j >= 0; j--) {
       var dd = m.deeds[j];
@@ -49111,7 +49114,11 @@ function ctStoodBark(now){
   var drew = (typeof BARK_DREW !== 'undefined' && BARK_DREW) ? BARK_DREW : [];
   for (var i = 0; i < drew.length; i++) {
     var d0 = drew[i]; if (!d0 || !d0.p || !d0.at) continue;
-    if (Math.abs(d0.at[0] - hx) + Math.abs(d0.at[1] - hy) > 6) continue;
+    /* AND THE CREDITOR SPEAKS TO HIM, which is his ruling too: "The creditor who
+       remembers his father is there when he walks by, one line, once." That is
+       addressed to him, so it is the speaking-to-you distance and not the
+       overheard one. Once, and walk past: CT_STOOD_SAID already holds that. */
+    if (Math.abs(d0.at[0] - hx) + Math.abs(d0.at[1] - hy) > CT_VOICE.toYou) continue;
     var m = CT_MINDS[d0.p.id]; if (!m || !m.deeds || !m.deeds.length) continue;
     for (var j = m.deeds.length - 1; j >= 0; j--) {
       var dd = m.deeds[j];
@@ -49145,7 +49152,7 @@ function ctDeedBark(now){
   for (var i = 0; i < drew.length; i++) {
     var d = drew[i]; if (!d || !d.p || !d.at) continue;
     /* CLOSE ENOUGH TO OVERHEAR, the same test the solo bark applies. */
-    if (Math.abs(d.at[0] - hx) + Math.abs(d.at[1] - hy) > 6) continue;
+    if (Math.abs(d.at[0] - hx) + Math.abs(d.at[1] - hy) > CT_VOICE.toYou) continue;
     var m = CT_MINDS[d.p.id]; if (!m || !m.deeds || !m.deeds.length) continue;
     for (var j = m.deeds.length - 1; j >= 0; j--) {
       var dd = m.deeds[j];
@@ -51882,6 +51889,85 @@ function ctKnownDeeds(id, limit){
 })(typeof window !== 'undefined' ? window : (typeof globalThis !== 'undefined' ? globalThis : this));
 
 /* ==== /engine/bohemia_exchanges.js (EXCHANGES) ==== */
+/* ==== NOTHING IS FORCED, AND NOTHING HAPPENS IN THE FIRST SECOND ==========
+   (9/24, PEOPLE [creditor waits], row THE-MAN-WHO-REMEMBERS-IS-ON-HIS-STREET-
+   NOT-IN-HIS-FACE. Rule 32a, laws/BOHEMIA_ADDENDUM_THE_SECOND_VOTES_9_24_26.md
+   section 1.)
+
+   *** PAOLO 9/23, VOTING ON THIS LANE'S OWN SHIPPED WORK, THREE WAYS IN ONE
+   *** BATCH: "Why does everything have to happen the first second of the game or
+   *** even be in the demo?" "Don't force this on me." "Don't force interactions
+   *** on the player."
+
+   MEASURED ON THE ALPHA BEFORE A LINE WAS CHANGED, and he is exactly right:
+       the first word landed                      0 ms after the city was playable
+       lines spoken in the first minute           2
+   Somebody talks the instant the world exists.
+
+   AND THE REACH WAS SIX COPIES OF A NUMBER, ONE OF WHICH DISAGREED: five mouths
+   typed `> 6` and barkPick typed `> 7`. His rule needs ONE answer to be checkable,
+   so the distances are declared here, named for WHAT KIND OF SPEECH THEY ARE,
+   and every mouth reads them. They are not all the same number on purpose: his
+   own words separate them. "A rumour is OVERHEARD as he passes, never said to his
+   face" is a shorter distance than a man stopping you at your door. */
+var CT_VOICE = {
+  toYou:     6,   /* somebody speaking TO him: the ask, the creditor who knew his
+                     father, a witness reacting to what he did. The distance the
+                     deed bark has always used. */
+  overheard: 4,   /* HIS WORD. A rumour about somebody else is caught in passing
+                     and is not addressed to him, so it carries less far than a
+                     man who wants his attention. */
+  ambient:   7    /* the street talking among itself, barkPick's own "earshot, not
+                     telepathy", kept at the number it has always been so the
+                     street he already has does not change under him. */
+};
+/* HOW LONG THE FIRST MINUTES ARE HIS. His word, in seconds, as a whole number so
+   it reads as what it is. */
+var CT_QUIET_S = 60;
+/* WHEN PLAY BEGAN, IN THIS DOCUMENT'S OWN CLOCK, AND ONLY EVER STAMPED ONCE.
+   *** ONE CLOCK. *** This lane has already paid for reading a game-minute against
+   performance.now() once ([a human being], two clocks in one file). The shell
+   owns the BEGIN tap and lives in a different document with a different time
+   origin, so it says WHEN IT HAPPENED BY SAYING THAT IT HAPPENED, and the stamp
+   is taken here. */
+var CT_PLAY_MS = 0;
+function ctPlayBegan(){
+  if (CT_PLAY_MS) return CT_PLAY_MS;          /* once */
+  try { CT_PLAY_MS = performance.now(); } catch (_e) { CT_PLAY_MS = Date.now(); }
+  return CT_PLAY_MS;
+}
+try { window.ctPlayBegan = ctPlayBegan; } catch (_e) {}
+/* MAY ANYBODY SPEAK YET. One question, asked in one place, by every mouth.
+   THE DEMO IS THE FOUR THINGS AND NOTHING ELSE FIRES IN IT (rule 18, and he said
+   it again here: "or even be in the demo"). */
+/* AND THE FRAME IS USUALLY NOT BUILT WHEN HE TAPS BEGIN, so the message can land
+   before anybody is listening. The shell also leaves a flag on itself; this reads
+   it once the frame exists. Same origin, so it is a plain read, and a read that
+   throws means a door we cannot see through, which the posted message covers.
+   NO PARENT AT ALL MEANS NO DOOR IN FRONT OF US: the workshop and a gate driving
+   the city on its own stamp themselves, so this is never mute for ever waiting on
+   a tap that is not coming. */
+function ctPlayPoll(){
+  if (CT_PLAY_MS) return CT_PLAY_MS;
+  var par = null;
+  try { par = (window.parent && window.parent !== window) ? window.parent : null; }
+  catch (_e) { par = null; }
+  if (!par) return ctPlayBegan();
+  var began = false;
+  try { began = !!par.__PLAY_BEGAN; } catch (_e2) { began = false; }
+  return began ? ctPlayBegan() : 0;
+}
+function ctMaySpeak(now){
+  if (typeof CT_IS_DEMO !== 'undefined' && CT_IS_DEMO) return false;
+  /* NO ANCHOR MEANS PLAY HAS NOT BEGUN, AND THE HONEST DEFAULT IS SILENCE for a
+     surface still behind the loading door. A surface opened without that door
+     (the workshop, a gate driving the city on its own) stamps itself on its first
+     draw, so it is never mute for ever waiting on a tap that is not coming. */
+  if (!CT_PLAY_MS) ctPlayPoll();
+  if (!CT_PLAY_MS) return false;
+  return (now - CT_PLAY_MS) >= CT_QUIET_S * 1000;
+}
+try { window.ctMaySpeak = ctMaySpeak; } catch (_e) {}
 var BARK = { p: null, text: '', until: 0, at: null, beat: -1, next: 0 };
 var BARK_SEEN = {};                 /* who has spoken recently, so it moves around */
 var BARK_DREW = [];                 /* filled by peoplePass: who is ON SCREEN */
@@ -52025,7 +52111,7 @@ function barkPick(){
            laws say nobody patrols the dark, and an empty street should sound
            empty. */
         var d = Math.abs(at[0] - hx) + Math.abs(at[1] - hy);
-        if (d > 7) continue;                              /* earshot, not telepathy */
+        if (d > CT_VOICE.ambient) continue;   /* earshot, not telepathy */
         if (BARK_SEEN[p.key || p.id] && d >= bestD) continue;
         if (d < bestD) { best = { p: p, at: at, d: d }; bestD = d; }
       }
@@ -52327,6 +52413,14 @@ function ctAskBark(now){
 }
 
 function barkTick(now){
+  /* *** THE FIRST MINUTES ARE HIS. *** (9/24, rule 32a.) ONE GATE, AT THE TOP OF
+     THE ONE FUNCTION EVERY MOUTH GOES THROUGH, rather than a check copied into
+     each of them: a mouth added later is quiet by default instead of quiet only
+     if somebody remembered. Measured before this line existed: the first word
+     landed 0 ms after the city was playable.
+     A BUBBLE ALREADY UP IS LEFT ALONE, so this can never cut somebody off
+     mid-sentence if the anchor lands late. */
+  if (!BARK.p && !ctMaySpeak(now)) return;
   if (BARK.p && now < BARK.until) return;
   if (BARK.p) {
     BARK.p = null;
@@ -61877,6 +61971,7 @@ function ctFaceAsk(who){
 }
 window.addEventListener('message', function (ev) {
   var m = ev && ev.data;
+  if (m && m.type === 'BOHEMIA_PLAY_BEGAN') { ctPlayBegan(); return; }
   if (!m || m.type !== 'BOHEMIA_CITY_FACE' || !m.who || !m.face) return;
   /* THE PLAYER'S OWN DECODER, not a second one. A face that arrived through a
      different unpacker than his would be the two-writers defect this lane has

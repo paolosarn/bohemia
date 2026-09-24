@@ -10065,6 +10065,82 @@ ALSO STILL OPEN, not draw order: on NE in his own frame
 the right of the shoulders with a visible gap. That is the pose too.
 
 Nothing [PENDING Paolo].
+PEOPLE (people-7h9sfy): 9/24 (b) LATEST -- *** [creditor waits] SHIPPED. HE
+CORRECTED THIS LANE'S OWN WORK AND HE WAS RIGHT: SOMEBODY TALKED THE INSTANT THE
+WORLD EXISTED. ***
+
+HIS WORDS, three ways in one batch, voting on [creditor stands] (rule 32a):
+"Why does everything have to happen the first second of the game or even be in the
+demo?" "Don't force this on me." "Don't force interactions on the player."
+
+MEASURED ON THE ALPHA BEFORE A LINE CHANGED:
+    the first word landed              0 ms after the city was playable
+    lines in his first minute          2
+    copies of the reach number         6, AND ONE OF THEM DISAGREED (7 against 6)
+
+BUILT:
+  one clock, stamped once     play begins at the BEGIN tap; the shell sends NO
+                              TIMESTAMP across the frame, it says THAT it happened
+                              and the city stamps its own clock. This lane already
+                              paid once for two clocks in one file.
+  one gate, one place         ctMaySpeak is the FIRST thing barkTick does, so a
+                              mouth added later is quiet by default. A bubble
+                              already up is left alone, so nobody is cut off.
+  declared distances          toYou 6, overheard 4, ambient 7, each named for the
+                              KIND of speech. NOT all one number on purpose: his
+                              own words separate them ("a rumour is OVERHEARD as
+                              he passes, never said to his face"). What is ONE is
+                              the answer: every mouth reads the table.
+  nothing in the demo         his "or even be in the demo", built
+
+ON THE ALPHA AFTER: 0 lines in the first minute, 93 after it, furthest speaker 2
+cells, 0 lines in the demo, AND HE CAN STILL WALK WITH SOMEBODY MID-SENTENCE.
+THE 93 IS THE CONTROL THAT MATTERS: shutting everybody up passes "quiet first
+minute" and hands him a dead town.
+
+COOK: NOBODY STOPS YOU YET in VOTE, and BOTH FRAMES ARE THE WALKED STREET FROM THE
+GAME'S OWN CAMERA, which is rule 32f and is not a detail: he killed a picture in
+this same batch for exactly that ("this game isn't in first person, when would I
+see this?") and the last thing this lane put in the tab was a sheet of floating
+faces. At 30 s nobody says anything; past the minute Estella Gaines says it once
+from two steps away. THE PLATE READS HER NAME, not her trade, so rule 32g's "no
+jargon in a mouth" is already satisfied on this bark.
+
+GATE: gates/creditor_waits_gate.js GREEN 39/0. The law names its own gate and this
+is it: a distance and a delay on every line, nothing in the first 60 s, nothing
+out of reach, nothing halts the pad.
+
+*** AND MY OWN CHANGE TURNED FOUR OF THIS LANE'S GATES RED, WHICH IS THE RIGHT
+KIND OF RED AND IS WORTH READING. *** creditor_stands 36/3, rumours_travel 57/4,
+city_barks 7/6, a_human_being 13/1. EVERY ONE was a gate asserting speech inside
+the first minute. Proved it was timing and not breakage by putting each past the
+quiet floor and watching them return to their exact prior scores: creditor_stands
+39/0, rumours_travel 61/0, city_barks 12/1 (its one red is the pre-existing WORDS
+one, identical on clean main), a_human_being 14/0.
+AND ONE OF THEM HAD TO MOVE SURFACES, not just clocks: a_human_being measured its
+bubble-layout claim ON THE DEMO, where his rule now means a bubble can never
+appear. It would have reported a layout bug for ever. The CLAIM is untouched and
+now runs on the alpha, where a player actually meets one.
+
+PRE-PUSH: creditor_waits 39/0, creditor_stands 39/0, rumours_travel 61/0,
+bubble_face 40/0, a_name 48/0, face_at_the_door 31/0, a_human_being 14/0.
+NOT MINE: city_barks 12/1, the WORDS-table red that is identical on clean main.
+
+MEASURED AND NOT FIXED: the 60 is the one number in here that is not derived; it
+is his, written as CT_QUIET_S = 60 so he can move it with a word. The name under
+her feet CLIPS against the wall edge in the VOTE frame, named rather than cropped
+out of the picture. And the other mouths in the game are not all mine: the phone,
+the cards RUN is stripping and the fight's own text are other lanes' surfaces and
+rule 32a covers those too.
+
+[PENDING Paolo] carried, unchanged: whether a face may read feminine beyond the
+haircut; when a person dies of old age; how many game days is a year; who you
+marry; what a long injury costs to treat; the [honest crowd] trade; and how often
+a rumour should go wrong.
+
+NEXT: [bubble face] was SET DOWN for this, not abandoned, and its round one is in.
+[somebody hires you] and [track leg] are the other OPEN rows.
+
 PEOPLE (people-7h9sfy): 9/24 LATEST -- *** [bubble face]. THE PICTURE WAS REAL AND
 THE CAUSE THE ROW NAMED DOES NOT EXIST, AND NOTHING IN THIS GAME KNOWS WHO IS A
 MAN AND WHO IS A WOMAN. ***

@@ -346,6 +346,13 @@ try {
     /* THE CONTROL FIRST: with NO story in the mind, the rumour bark must be
        silent. A bark that fires on an empty ledger proves nothing about a full one. */
     m.deeds = []; CT_RUMOUR_SAID = {};
+    /* *** HE HAS BEEN WALKING FOR A MINUTE. *** (9/24, rule 32a: "why does
+       everything have to happen the first second of the game".) Nothing in the
+       city speaks until play is 60 s old, so a gate that asserts speech has to
+       put him past that first, exactly as a player is by the time any of this
+       could happen. This is a PRECONDITION, not a bypass: the quiet floor is
+       still on and creditor_waits_gate is what proves it holds. */
+    try { CT_PLAY_MS = performance.now() - 61000; } catch (_e) {}
     BARK.p = null; BARK.until = 0; BARK.next = 0; window.__RUMOUR_SAID = null;
     try { barkTick(performance.now() + 2000); } catch (e) {}
     out.silentWithNothingToSay = !window.__RUMOUR_SAID;
