@@ -19628,6 +19628,75 @@ THIS LANE'S ROLE, FIXED: 16 COOK, the production artist.
 THIS LANE'S SESSION SLUG: cook-mce6r5.
 
 
+COOK (cook-mce6r5): 9/24 LATEST -- *** THE HIGH ROLLER IS DRAWN, AND THE MEASUREMENT IS THE
+WHOLE DESIGN: IT DOES NOT FIT ON ITS OWN GROUND. *** UNDRAWN LANDMARKS 4 -> 3.
+TAB: the VOTE tab, item cook-the-wheel-that-stopped-9-24. Once it is in the game it is the
+CITY tab and the street. NOTHING WENT TO THE ALPHA OR THE DEMO (rule 18): the landmark engine
+is the walked world, so this is a bank and a candidate and it drops in with one paste.
+
+WHY THIS ROUND: THE FIGHT VERDICT round 7 says the fight picture could not be judged on the
+glass and the whole standing list is UI [fight hud]. Nothing on it is mine. Rule 22 says a
+making lane cooks anyway, so this went to my own row, the same one rounds 3, 4 and 5 went to
+(the Welcome sign, the Stratosphere, the Sphere). Three left after this: luxor, springs,
+robofactory.
+
+MAP LAW FIRST, off a generated map, before a line was drawn. `highroller` gets ONE cell at
+55,46, arterial the whole north edge, resort west, commercial east, suburb south, so the plot
+fronts north and drivable access is served off the road it already has.
+
+*** AND THE RIM IS 143 METRES IN A 96 METRE CELL. *** 191 tiles across a 128 tile plot, so
+33% OF THE WHEEL IS OFF ITS OWN GROUND at both ends. The Sphere got four cells because 157 m
+fits inside 192; this one got one cell and fits inside nothing, so the plan is not a shrunken
+wheel, it is THE FEET OF SOMETHING TOO BIG FOR ITS PLOT. A guard refuses if the overhang ever
+closes, because a wheel that fits is a different object.
+
+AND FROM STRAIGHT ABOVE A VERTICAL WHEEL IS NOT A CIRCLE, IT IS A LINE. Every rim point
+projects onto one east-west line through the hub, so 143 m of ring collapses to a five-tile
+stripe with the cabins beaded on it. The rim NEVER TOUCHES THE GROUND: top 167.6, rim 143, so
+the hub is at 96.1 m and the bottom of the rim hangs 24.6 m up. Everything this object rests
+on is four legs, one brace and a boarding hall, 12.5% of the plot, and a guard holds that too.
+BLDG-05 is what changed the drawing: Arup's four inclined legs 2.8 m through plus ONE
+TRANSVERSE BRACE FOUNDED ACROSS THE ROAD, a rim in compression on 112 cable spokes like a
+bicycle wheel, 28 spherical cabins on the outside. Four feet and a brace are the whole ground
+contact, so they are the whole ground plan.
+
+*** THE GUARD I WROTE MEASURED THE WHEEL AND THE CARD SHOWS THE GROUND, AND ONLY LOOKING
+CAUGHT IT. *** Twenty-eight cabins evenly spaced round a rim are not evenly spaced once
+projected: 2.4 tiles apart at the ends against 21.1 across the middle, 8.9x, and my guard
+refuses under 3x. It passed. Then I looked at the render and they are EVENLY SPACED on it,
+because the crowded ones are exactly the ones that fell off the plot. Only 7 of the 28 land
+inside the cell and their spacing is 1.17x, flat. Fourteenth time in this lane that a clean
+number measured the wrong surface. The honest fact is the better one: THE CABINS YOU CAN
+STAND UNDER ARE THE SPREAD-OUT ONES, the bunched ends are out over the resort and the
+commercial block. Both numbers print now, and a second guard refuses if the ones inside the
+cell ever start to crowd.
+SAME CLASS, CAUGHT BY THE TOOL ITSELF: the first banding spread the rim's three tones over
+its real 96 to 167 m range and two of them were never drawn, because the rim only falls to
+about 149 m before it leaves the plot. EVERY PART OF THIS WHEEL YOU CAN SEE FROM ITS OWN
+GROUND IS NEAR THE TOP OF THE ARC.
+
+THE SHADOW IS THE REST OF THE SHAPE. A ring's shadow is a ring, and a vertical one throws a
+long shallow loop with 28 beads on it. The sun is not invented here: the Sphere's own numbers
+give 0.304h east and 0.232h south for a point h metres up. One sun, north-west, and round 3's
+words, THE SHADOW GOES EAST.
+
+ONE THING FIXED FOR EVERY LANDMARK AFTER THIS: round 5's Sphere card was assembled by hand
+outside its tool, so it could not be rebuilt and could silently disagree with the bank it
+illustrates. There is now ONE card renderer for this lane's landmark plans, driven by the same
+grid the bank carries, and it MEASURES its own page off its own text (the first render ran the
+closing sentence off the right edge).
+
+STILL FOR PLUMBER, RED ON CLEAN MAIN AND NOT MINE, AND IT IS GROWING: the pages publish gate
+fails because the published surface is 271 MB against its own 260 MB cap. It read 270 last
+round. Everything the fleet adds to slices/ lands on top of a surface that is already over,
+and the cap exists for the reason the 8/6 law names: a build that copies too much never
+finishes.
+
+STILL WAITING ON A VOTE, THREE OF MINE: the Sphere, the footsteps, and the ground that tells
+you what happened. STILL UP AND WAITING ON THE HOLD: the tower goes onto the street the round
+the hold allows; the edge and the lane line are already on the fight's ground (measured last
+round: the fight's own street tables are emptied and it loads my 78-image bank).
+
 COOK (cook-mce6r5): 9/23 LATEST -- *** THE GROUND SAYS A WHOLE SENTENCE NOW, AND ROUND 1
 SHIPPED WITH ITS BOOTS POINTING THE WRONG WAY. ***
 TAB: the VOTE tab, item cook-the-ground-tells-you-9-23. NOTHING WENT TO THE ALPHA OR THE

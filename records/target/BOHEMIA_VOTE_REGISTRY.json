@@ -1575,6 +1575,19 @@
     "src": "vote/WORLD_THE_VALLEY_AT_NIGHT.png"
    },
    "sha": "5b3896e"
+  },
+  {
+   "id": "cook-the-wheel-that-stopped-9-24",
+   "kind": "tile",
+   "lane": "cook",
+   "sha": "PENDING",
+   "made": "9/24",
+   "title": "THE WHEEL THAT STOPPED",
+   "why": "The map has seven famous Vegas places on it that nothing could ever build, so if you walk to one you find bare dirt. I have drawn four now. This is the High Roller, the giant wheel. Here is the thing I found before I drew a line: the wheel is 143 metres across and the map gives it 96 metres of ground. It does not fit, and it is not supposed to. A third of it hangs out over the neighbours. And from straight above a wheel standing on edge is not a circle, it is a LINE, so what you get is a bright stripe with glass balls beaded along it, four legs leaning in to hold up the axle, and one leg planted on the far side of the road, which is what the real one does. The rim never touches the ground at all. It hangs 25 metres up. The only way to see what shape the thing is is the shadow lying across the yard. Thumbs up and I do the pyramid next. Thumbs down and tell me if it is too big, too empty, or just not readable.",
+   "show": {
+    "how": "image",
+    "src": "vote/COOK_THE_WHEEL_THAT_STOPPED.png"
+   }
   }
  ],
  "verdicts": [
