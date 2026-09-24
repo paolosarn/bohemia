@@ -2981,3 +2981,22 @@ the story grew INTO. The belief is his; these are attempts.
     commit            Nobody does that for free.
     pushed_the_price  Rent does that to people.
     downed            It was always going there.
+
+## WHAT THE STREET CALLS A STRANGER (9/24, draft:true) -- rule 32(g)
+Paolo 9/23, voting the rumour item UP: **"wtf is 'the watch'"**. A trade word is
+fine on a name plate, which is a label. As the subject of a sentence it is a word
+the player was never taught. Lives as `CT_TRADE_SAID` in the walked city. Record:
+`records/BOHEMIA_WORDS_WTF_IS_THE_WATCH_9_24_26.md`.
+
+Each phrase is that archetype's own schedule from `engine/bohemia_agents.js` said
+in plain English, so it is true AND something he can walk over and check. Nothing
+invented. The collision form is for when the speaker wears the same plate as the
+person they are talking about, so nobody narrates themselves.
+
+    WATCH      the one out at night          / the other one out at night
+    KEEPER     the one who never goes out    / the other one who never goes out
+    WORKER     the one who leaves for work   / the other one who leaves for work
+    SCAVENGER  the one who scavenges         / the other one who scavenges
+
+**AND THE NAME BEATS ALL FOUR.** The moment the player has asked somebody's name
+he gets the name and none of this runs. These are only what you call a stranger.

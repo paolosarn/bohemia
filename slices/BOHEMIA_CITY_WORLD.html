@@ -48919,7 +48919,37 @@ var CT_RUMOUR_SAID = {};
    plate also read WATCH, so the street had a man narrating himself in the third
    person. A trade gets an article, and a trade that collides with the speaker's
    own plate gets dropped for a phrase that cannot be mistaken for either of
-   them. draft:true. */
+   them. draft:true.
+
+   *** AND THE ARTICLE WAS NEVER THE PROBLEM. PAOLO 9/23, ON THIS EXACT BUBBLE:
+   "Cool accidental story? Dont force this on me wtf is 'the watch'" *** He voted
+   the rumour item UP and still could not read the SUBJECT of the sentence, which
+   is rule 32(g), NO JARGON IN A MOUTH. Measured before rewriting: the sim has
+   four trade words -- WORKER, SCAVENGER, KEEPER, WATCH -- and a sweep of every
+   quoted string in this file found that the ONLY place any of them reaches a
+   mouth is this function. One function, four words, and two of them (KEEPER,
+   WATCH) are job titles this game never teaches anybody.
+
+   SO A TRADE IN A SENTENCE BECOMES WHAT THE PERSON DOES, IN A STRANGER'S WORDS.
+   Not invented: each phrase is that archetype's own schedule in bohemia_agents.js
+   said in plain English -- the keeper "barely leaves: tends the house/stock", the
+   watch "sleeps late, out at dusk". Which means each one is ALSO CHECKABLE ON A
+   SHORT WALK, and that is the Q17 school's last spec: an unmarked falsehood reads
+   as a bug, and a subject you cannot go and look at is not checkable. You can go
+   and see who never leaves their house. You cannot go and see a "watch".
+
+   THE NAME STILL WINS AND THAT IS THE POINT. The moment the player has asked
+   somebody's name, ctPersonName returns it and none of this runs: Paolo 7/31
+   keeps KNOWN_AT_START empty on purpose, so a name is earned by asking. This is
+   only what the street calls a stranger. draft:true, the phrasings are his. */
+var CT_TRADE_SAID = {
+  /* trade word -> what a neighbour says instead, and the collision form for when
+     the speaker wears the same plate and would otherwise narrate themselves */
+  'WATCH':     ['the one out at night',        'the other one out at night'],
+  'KEEPER':    ['the one who never goes out',  'the other one who never goes out'],
+  'WORKER':    ['the one who leaves for work', 'the other one who leaves for work'],
+  'SCAVENGER': ['the one who scavenges',       'the other one who scavenges']
+};
 function ctRumourWho(actorId, speakerHead){
   var nm = null;
   try { nm = ctPersonName(actorId); } catch (_e) {}
@@ -48930,11 +48960,23 @@ function ctRumourWho(actorId, speakerHead){
     named = !!(p && ctPerson(p) && ctPerson(p).name);
   } catch (_e2) { named = false; }
   if (named) return String(nm);
+  /* A TRADE, SO SAY WHAT THEY DO. The collision form fires when the speaker's own
+     plate is the same trade -- without it, somebody out at night says "the one
+     out at night" under a plate reading WATCH and appears to be talking about
+     themselves, which is the defect the first version of this function was
+     written to kill. */
+  var said = CT_TRADE_SAID[String(nm).toUpperCase()];
+  if (said) {
+    var same = speakerHead
+      && String(speakerHead).toUpperCase() === String(nm).toUpperCase();
+    return same ? said[1] : said[0];
+  }
+  /* NOT A TRADE WE HAVE WORDS FOR: the old article form, kept so a new role word
+     degrades to something readable instead of to nothing. NEVER THE WORD
+     "SOMEBODY": every act string above already ends in it ("did somebody a turn",
+     "squeezed somebody"), so a subject called somebody gives "somebody squeezed
+     somebody", which says nothing twice. */
   var word = String(nm).toLowerCase();
-  /* NEVER THE WORD "SOMEBODY": every act string below already ends in it ("did
-     somebody a turn", "squeezed somebody"), so a subject called somebody gives
-     "somebody squeezed somebody", which says nothing twice. The honest thing a
-     person says about the other one of their own trade is "the other X". */
   if (speakerHead && String(speakerHead).toLowerCase() === word)
     return 'the other ' + word;                /* draft */
   return 'the ' + word;                        /* draft */

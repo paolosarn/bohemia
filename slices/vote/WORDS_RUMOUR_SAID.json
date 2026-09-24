@@ -2,7 +2,7 @@
  {
   "label": "WORDS_RUMOUR_1_SAW",
   "file": "WORDS_RUMOUR_1_SAW.png",
-  "text": "The scavenger never paid somebody back. I was standing right there.",
+  "text": "The one who scavenges never paid somebody back. I was standing right there.",
   "speaker": "Estella Gaines",
   "frame": "saw",
   "wrong": false,
@@ -12,7 +12,7 @@
  {
   "label": "WORDS_RUMOUR_2_HEARD",
   "file": "WORDS_RUMOUR_2_HEARD.png",
-  "text": "They say the scavenger never paid somebody back.",
+  "text": "They say the one who scavenges never paid somebody back.",
   "speaker": "Estella Gaines",
   "frame": "heard",
   "wrong": false,
@@ -22,7 +22,7 @@
  {
   "label": "WORDS_RUMOUR_3_WHERE",
   "file": "WORDS_RUMOUR_3_WHERE.png",
-  "text": "The scavenger never paid somebody back, somewhere down that way.",
+  "text": "The one who scavenges never paid somebody back, somewhere down that way.",
   "speaker": "Estella Gaines",
   "frame": "where",
   "wrong": true,
@@ -32,7 +32,7 @@
  {
   "label": "WORDS_RUMOUR_4_WHEN",
   "file": "WORDS_RUMOUR_4_WHEN.png",
-  "text": "The scavenger never paid somebody back, some night this week.",
+  "text": "The one who scavenges never paid somebody back, some night this week.",
   "speaker": "Estella Gaines",
   "frame": "when",
   "wrong": true,
@@ -42,7 +42,7 @@
  {
   "label": "WORDS_RUMOUR_5_FLAT",
   "file": "WORDS_RUMOUR_5_FLAT.png",
-  "text": "The scavenger squeezed somebody. Ask anybody on this street. Rent does that to people.",
+  "text": "The one who scavenges squeezed somebody. Ask anybody on this street. Rent does that to people.",
   "speaker": "Estella Gaines",
   "frame": "flat",
   "wrong": true,
@@ -52,7 +52,7 @@
  {
   "label": "WORDS_RUMOUR_6_SURE",
   "file": "WORDS_RUMOUR_6_SURE.png",
-  "text": "The scavenger squeezed somebody. I was there, or near enough. Rent does that to people.",
+  "text": "The one who scavenges squeezed somebody. I was there, or near enough. Rent does that to people.",
   "speaker": "Estella Gaines",
   "frame": "sure",
   "wrong": true,

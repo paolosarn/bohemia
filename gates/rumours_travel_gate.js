@@ -411,6 +411,24 @@ try {
      !/\bsomebody \w+ somebody\b/.test(String(spoke.wrongLine || ''))
        && /THE OTHER/i.test(flat(city).slice(0, 0) + 'THE OTHER')
        && /the other ' \+ word/.test(city));
+  /* *** RULE 32(g): NO JARGON IN A MOUTH. PAOLO 9/23, ON THIS EXACT BUBBLE. ***
+     He voted this item UP and still wrote "wtf is 'the watch'". The sim has four
+     trade words and two of them (KEEPER, WATCH) are job titles the game never
+     teaches. A trade is fine on a NAME PLATE, which is a label; it is not fine as
+     the subject of a sentence, where the player has to already know it.
+
+     THIS TESTS BOTH LINES THE MOUTH PRODUCED, not the source text. The older leg
+     above greps this file for `the other ' + word`, which is a string that can
+     survive a rewrite that changed nothing -- so it cannot tell a live rule from
+     a dead one. This one reads what was actually SAID on the glass. */
+  var TRADE_IN_A_SENTENCE = /\b(?:the|a|an)\s+(?:other\s+)?(watch|keeper|scav|scavenger|worker)\b/i;
+  var saidLines = [spoke.trueLine, spoke.wrongLine].filter(Boolean);
+  var jargon = saidLines.filter(function (l) { return TRADE_IN_A_SENTENCE.test(l); });
+  ok('*** AND NOBODY IS CALLED BY A JOB TITLE THE GAME NEVER TAUGHT HIM *** '
+     + '(rule 32g, his words: "wtf is the watch")',
+     saidLines.length === 2 && jargon.length === 0,
+     jargon.length ? 'jargon in: ' + jargon.join(' | ')
+                   : saidLines.length + ' lines read, 0 job titles');
   ok('and nothing threw while any of it happened', d.errs.length === 0,
      'page errors ' + d.errs.length + (d.errs.length ? ': ' + d.errs[0] : ''));
   await d.close();

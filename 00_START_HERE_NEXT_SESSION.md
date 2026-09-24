@@ -1,3 +1,83 @@
+WORDS (words-8dqrnq): 9/24 (b) LATEST -- *** HE VOTED IT UP AND STILL COULD NOT
+READ THE SUBJECT OF THE SENTENCE: "wtf is the watch". ***
+TAB: the VOTE tab (alpha), THE SURER THE WRONGER, six pictures RE-SHOT because the
+old ones showed sentences the game no longer says. You also meet it by walking the
+CITY. Record records/BOHEMIA_WORDS_WTF_IS_THE_WATCH_9_24_26.md.
+
+HIS BUG, AND HIS BUGS BEAT THE QUEUE (duty 8). Rule 32 landed between rounds and
+32(g) names words this lane shipped. His line on the rumour item, voted UP:
+"Cool accidental story? Dont force this on me wtf is 'the watch'". Three rulings,
+three owners: the mechanism is liked (nothing to do); "dont force this on me" is
+32(a) and is PEOPLE's [creditor waits]; "wtf is the watch" is 32(g) and is mine.
+
+MEASURED BEFORE REWRITING AND THE HOLE IS EXACTLY ONE FUNCTION. Four trade words
+in the sim (WORKER, SCAVENGER, KEEPER, WATCH). A sweep of every quoted string in
+the walked city, comments stripped so a post-mortem about the bug is not counted
+as the bug, found the ONLY place any of them reaches a mouth is ctRumourWho. Two
+of the four are job titles the game never teaches, and he named the worse one.
+AND THE PLATE IS NOT THE BUG: a name plate is a LABEL, which rule 19 names as a
+legal home for a faceless word. The defect is the same word as the SUBJECT OF A
+SENTENCE, where the reader has to already know it. The plate is PEOPLE's and I
+left it alone.
+
+WHAT IT SAYS NOW, AND NOTHING IS INVENTED: each phrase is that archetype's own
+schedule out of bohemia_agents.js said in plain English.
+  WATCH      "sleeps late, out at dusk"            -> the one out at night
+  KEEPER     "barely leaves: tends the house/stock" -> the one who never goes out
+  WORKER     "off-block site job, staggered shift"  -> the one who leaves for work
+  SCAVENGER  "subsistence sweep", out twice         -> the one who scavenges
+AND FIXING THE READING LEVEL FIXED THE CHECKABILITY, WHICH WAS NOT THE GOAL. Q17's
+last spec: an unmarked falsehood reads as a BUG and gets reported as one unless
+the player can go and corroborate it. You can go and see who never leaves their
+house. You cannot go and see a "watch".
+THE NAME STILL BEATS ALL FOUR: ask somebody's name and none of this runs, because
+Paolo 7/31 keeps the known-at-start list empty on purpose.
+
+PROOF, same 1,360 lines as the frames round on the city's real hop budgets: 0
+jargon, 0 dead, 0 over the 98-character ceiling, 0 "somebody" twice, 0 lowercase
+after a stop, all six frames still reachable, and 455 lines hit the speaker-wears-
+the-same-plate case with 0 of them unmarked, so nobody narrates themselves.
+
+HIS RULING NOW HAS A MACHINE. New gate leg reads what the mouth actually SAID on
+the glass and fails on a job title in either line. It deliberately does NOT do what
+the leg directly above it does, which greps this file for the string "the other '
++ word" -- that can survive a rewrite that changed nothing and cannot tell a live
+rule from a dead one, which is the same family as this lane's ruler-failure series.
+MUTATION PROVED: put the title back in the mouth, RED 61/1 naming both sentences;
+restored GREEN 62/0.
+
+DID NOT WIDEN, AND BOTH ARE MEASURED NOT GUESSED:
+ - "OUTFIT" STAYS. "Threw in with an outfit" worried me, because in a game where
+   everyone dresses like a runway it could read as clothing. The game already uses
+   "outfit" 33 TIMES as its player-facing word for a faction, including "YOUR
+   OUTFIT AND THEIRS ARE AT WAR" in the interface. It is the house word, taught by
+   repetition, and he has seen it without asking. Changing it would invent a term
+   he never confirmed and break 33 other places. On the record if he ever does ask.
+ - THE 60-SECOND RULE IS REAL AND IS NOT MINE. BARK.next starts at zero, so the
+   first tick after the player acts can speak. That is the SHARED bark scheduler,
+   every bark in the game, not only rumours. PEOPLE hold it as [creditor waits],
+   first line of their lane, and their fix covers this organ for free.
+
+VERDICTS: 114 in the registry now (was 83), 9 of them mine, and one is new --
+words-the-twelve-get-an-end-9-24 came back DOWN. That makes seven of my nine down.
+NOT RE-COOKED THIS ROUND ON PURPOSE: rule 30 says a killed item goes through
+DIRECTION's bible before it comes back as a new id, and STOP PRODUCING says a
+second rejection ends the feature. The pattern across all seven downs is the one
+already recorded: the FORM was the defect, not the sentences.
+
+STANDING QUEUE, re-measured: [lexicon frozen] is the coordinator's new FIRST row
+and it is the job I reported from ddd2d2c -- make the Spanish lexicon a committed
+file the language gate reads instead of a derivation, so a rebake can never shrink
+it, THEN the six generator lines ship. NOT CLAIMED THIS ROUND because his bug took
+it and a claim I do not start is a lie on the board. It is the next thing.
+[naming screen] still blocked (DYNASTY [three names] still OPEN, no screen exists).
+[reputation lines] still blocked (COMBAT frozen to the look, rule 17).
+Q26 stays CLAIMED until a surface speaks its lines. Q6 through Q17 still owe school
+rounds, oldest first, one at a time with a cook beside each.
+AND THE LESSON THAT STILL BINDS: NO TEXT-ONLY ITEM IN VOTE, and now a second one
+beside it -- A PICTURE IN THE VOTE TAB THAT SHOWS A SENTENCE THE GAME NO LONGER
+SAYS IS A LIE TO HIM. Re-shoot the frames in the same round the words change.
+
 LIFE + CITY (city-1eztay): 9/24b LATEST -- *** BOTH COOKS GOT HIS THUMB, RULE 32(b)
 DELETED HALF MY ROW, AND THE ENTIRE FUTURE FITS IN 6.7% OF THE VALLEY. ***
 TAB: the new picture is in the VOTE tab (alpha).
