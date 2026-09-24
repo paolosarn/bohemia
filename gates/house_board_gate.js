@@ -56,7 +56,57 @@ const done = async (b) => { if (b) await b.close();
   const BASE = 'http://127.0.0.1:' + SRV.address().port;
   await page.goto(BASE + '/slices/BOHEMIA_ALPHA_0_9.html', { waitUntil: 'load', timeout: 120000 });
   await sleep(9000);
-  await page.mouse.click(215, 450); await sleep(2500); await page.mouse.click(215, 450);
+
+  /* *** THE DOOR WENT STALE AND THIS GATE SPENT ITS ROUNDS MEASURING A SPLASH. ***
+     MEASURED 9/24, on main and on this tree alike, printed by a throwaway arm: at the
+     moment this gate sends its finger at a hostile, the element under that point is
+     DIV#loadgl inside DIV#front.load.ready -- THE LOADING SCREEN, still on top, over a
+     city frame that is alive and answering every question underneath it. That is why
+     "the pointer can reach that body" is red: not a missing body, not a covered canvas
+     in the city, THE FRONT DOOR NEVER OPENED.
+
+     The two blind clicks at (215,450) were written before rule 18's loading screen
+     existed. The splash's own PLAY sits at the bottom of the screen and its handler
+     refuses until __LOAD_READY is set, so a finger in the middle at nine seconds hits
+     #loadgl and nothing happens, for ever.
+
+     The procedure below is COPIED FROM THE ONE DRIVER (tools/bohemia_drive_the_demo.js,
+     rule 14(g)), traps 5 and 6, which already carry the scars: there are TWO front doors
+     (#fronttap and #front) and only one of them opens on a given surface, so tap both;
+     and knocking is not getting in, so keep knocking on a CLOCK until the door is behind
+     you. The driver's own comment names a gate that printed "NOTHING REACHABLE ...
+     DIV#loadgl" for exactly this reason.
+     THIS IS NOT THE REAL FIX. The real fix is rule 14(g) itself -- put this gate ON the
+     driver instead of carrying a copy of its door. That is an instrument job on this
+     lane's row, and it is the second round it has been named. */
+  const knock = async () => {
+    for (const id of ['fronttap', 'front']) {
+      const b = await page.evaluate((i) => {
+        const f = document.getElementById(i);
+        if (!f || getComputedStyle(f).display === 'none') return null;
+        const r = f.getBoundingClientRect();
+        if (r.width < 4 || r.height < 4) return null;
+        return { x: r.x + r.width / 2, y: r.y + r.height / 2 };
+      }, id);
+      if (b) await page.mouse.click(b.x, b.y);
+      await page.evaluate((i) => { const f = document.getElementById(i); if (f) f.click(); }, id);
+    }
+  };
+  const doorStillThere = () => page.evaluate(() => {
+    const f = document.getElementById('fronttap') || document.getElementById('front');
+    return !!(f && getComputedStyle(f).display !== 'none' && f.offsetParent !== null);
+  });
+  const tKnock = Date.now();
+  await knock();
+  while ((await doorStillThere()) && Date.now() - tKnock < 90000) { await sleep(700); await knock(); }
+  /* AND REFUSE TO REPORT IF IT DID NOT OPEN, rather than measure the splash and call the
+     numbers a finding. Every arm past this point is about the fight; none of them mean
+     anything if the game never started. */
+  const doorLeft = !(await doorStillThere());
+  ok('the front door opened after ' + ((Date.now() - tKnock) / 1000).toFixed(1) + ' s, so '
+     + 'everything below is about the game and not the loading screen (this gate tapped '
+     + 'blind at a fixed point for rounds and was reading #loadgl)', doorLeft);
+  if (!doorLeft) return done(browser);
 
   let city = null;
   for (let i = 0; i < 900; i++) {
@@ -90,30 +140,66 @@ const done = async (b) => { if (b) await b.close();
   await page.evaluate(() => { const n = document.getElementById('openNot'), inv = document.getElementById('openInvite');
     if (inv && getComputedStyle(inv).display !== 'none' && n) n.click(); });
 
-  /* ---------- START A FIGHT THE WAY HE STARTS ONE ---------- */
-  const placed = await city.evaluate(() => {
-    const list = BohemiaHostiles.near({ seed: (typeof seed !== 'undefined' ? seed : 0), at: [hx, hy],
-      radius: 60, probe: hostileProbe, danger: hostDanger(), density: HOST_DENSITY, day: (T.day | 0) });
-    const c = list.map(x => ({ at: x.at, count: x.count,
-      d: Math.max(Math.abs(x.at[0] - hx), Math.abs(x.at[1] - hy)) })).sort((a, b) => a.d - b.d)[0];
-    if (!c) return null;
-    window.__CITY.human(c.at[0], c.at[1] + 5);
-    return { crew: c.at, count: c.count };
-  });
-  if (!placed) { ok('a crew to walk up to', false); return done(browser); }
-  await sleep(1500);
+  /* ---------- START A FIGHT THE WAY HE STARTS ONE ----------
+
+     STAND CLOSE ENOUGH THAT THE CREW IS ON THE SCREEN, AND DO NOT PICK THE NUMBER.
+     This stood the player FIVE cells south of the crew, which was a fine distance on the
+     street this gate was written against. Rule 16 made a step a house and the street's
+     zoom moved with it, so five cells is now off the glass: measured this round, the
+     street had drawn one hit box, its own tap test claimed all three sample points on it,
+     and elementFromPoint at those points returned NOTHING -- the body is real, it is
+     simply not on the screen the finger is touching.
+     So the gate WALKS IN instead of standing at a constant: nearest offset first, and it
+     stops at the first distance where a body is both claimed by the street and actually
+     under the finger. That is a search for the condition, not a new magic number, and it
+     survives the next time the zoom moves. */
   const fbox = await (await (page.frames().find(f => f.name() === 'cityFrame')).frameElement()).boundingBox();
-  const aim = await city.evaluate(() => {
-    const r = cv.getBoundingClientRect();
-    for (const h of (HOST_HIT || [])) for (const f of [0.5, 0.62, 0.74]) {
+  const AIM = () => city.evaluate(() => {
+    const r = cv.getBoundingClientRect(), hits = (typeof HOST_HIT !== 'undefined' && HOST_HIT) || [];
+    let claimed = 0, under = null, pt = null;
+    for (const h of hits) for (const f of [0.5, 0.62, 0.74]) {
       const cx = h.x + h.w / 2, cy = h.y + h.h * f;
       if (!streetTapFoe(cx, cy)) continue;
-      const el = document.elementFromPoint(r.left + cx * r.width / cv.width, r.top + cy * r.height / cv.height);
-      if (!el || el.tagName !== 'CANVAS') continue;
-      return { x: r.left + cx * r.width / cv.width, y: r.top + cy * r.height / cv.height };
+      claimed++;
+      const px = r.left + cx * r.width / cv.width, py = r.top + cy * r.height / cv.height;
+      const el = document.elementFromPoint(px, py);
+      if (!under) { under = el ? (el.tagName + (el.id ? '#' + el.id : '')) : 'nothing'; pt = [px | 0, py | 0]; }
+      if (el && el.tagName === 'CANVAS') return { x: px, y: py, boxes: hits.length };
     }
-    return null;
-  });
+    return { x: null, boxes: hits.length, claimed: claimed, under: under, pt: pt,
+             view: [innerWidth, innerHeight],
+             /* AND THE RULER ITSELF, because the first walk-in printed pt [0,0] at every
+                distance, which is not a body off the glass, it is a mapping that divides
+                by a board it is not standing on. Say which canvas answered and how big
+                its box is, so the next round starts from a number instead of a theory. */
+             rect: [r.left | 0, r.top | 0, r.width | 0, r.height | 0],
+             board: [cv.width, cv.height, cv.id || '(no id)'],
+             hit0: hits[0] ? [hits[0].x | 0, hits[0].y | 0, hits[0].w | 0, hits[0].h | 0] : null };
+  }).catch(e => ({ x: null, err: String(e).slice(0, 120) }));
+
+  let placed = null, aim = null;
+  for (const off of [1, 2, 3, 4, 5]) {
+    placed = await city.evaluate((o) => {
+      const list = BohemiaHostiles.near({ seed: (typeof seed !== 'undefined' ? seed : 0), at: [hx, hy],
+        radius: 60, probe: hostileProbe, danger: hostDanger(), density: HOST_DENSITY, day: (T.day | 0) });
+      const c = list.map(x => ({ at: x.at, count: x.count,
+        d: Math.max(Math.abs(x.at[0] - hx), Math.abs(x.at[1] - hy)) })).sort((a, b) => a.d - b.d)[0];
+      if (!c) return null;
+      window.__CITY.human(c.at[0], c.at[1] + o);
+      return { crew: c.at, count: c.count, off: o };
+    }, off);
+    if (!placed) break;
+    await sleep(1500);
+    aim = await AIM();
+    if (aim && aim.x != null) { console.log('  STOOD ' + off + ' CELLS OFF AND THE BODY WAS UNDER THE FINGER'); break; }
+    console.log('  AT ' + off + ' CELLS ' + JSON.stringify(aim));
+  }
+  if (aim && aim.x == null) aim = null;
+  if (!placed) { ok('a crew to walk up to', false); return done(browser); }
+  /* AND WHEN IT IS STILL RED, THE LINES ABOVE SAY WHAT IT SAW AT EVERY DISTANCE -- how
+     many bodies the street had drawn hit boxes for, how many of those its own tap test
+     claims, what is under the finger, and where the finger was against the frame's own
+     viewport. A red with no numbers is a rumour, and this arm was one for rounds. */
   if (!aim) { ok('a hostile body to tap', false); return done(browser); }
   const reach = await page.evaluate((arg) => { const e = document.elementFromPoint(arg.x, arg.y);
     return !!e && e.tagName === 'IFRAME' && e.id === 'cityFrame'; },

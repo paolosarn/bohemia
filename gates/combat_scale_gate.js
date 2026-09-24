@@ -66,7 +66,16 @@ function ok(name, cond, detail) {
        was at zoom 1, or the floor and the people are not dividing by the same
        number and somebody is a giant. */
     const ringNow = m * FIELD_PITCH;
-    const bodyNow = 112 * bodyScale();
+    /* V225 SPLIT THE TWO SIZES AND THIS PROBE HAD TO FOLLOW, exactly as the 112 gate's
+       probe did the same round. bodyScale() is now the DRAWN size and divides by the
+       live frame ON PURPOSE, because the body is blitted inside the camera's transform;
+       so 112*bodyScale() is 560 at a frame of 0.20 and comparing THAT to 112 fails the
+       work for going right. The RULED size -- how big a person IS, which is what the
+       ruling is about -- is bodyRule(). The fallback keeps this gate honest on a tree
+       that predates V225, where the one function was still doing both jobs.
+       THE ARM BELOW IS NOT LOOSENED BY THIS: it still asserts a man is 112 px at every
+       zoom, it just stops reading the number through the camera it is testing. */
+    const bodyNow = 112 * ((typeof bodyRule === 'function') ? bodyRule() : bodyScale());
     const ringRef = m * 0.085;          /* zoom 1: the board as it always was */
     const bodyRef = 112 * 1;
     return { zoom: FIELD_ZOOM,
