@@ -2,7 +2,7 @@ WORDS (words-8dqrnq): 9/24 (b) LATEST -- *** HE VOTED IT UP AND STILL COULD NOT
 READ THE SUBJECT OF THE SENTENCE: "wtf is the watch". ***
 TAB: the VOTE tab (alpha), THE SURER THE WRONGER, six pictures RE-SHOT because the
 old ones showed sentences the game no longer says. You also meet it by walking the
-CITY. Record records/BOHEMIA_WORDS_WTF_IS_THE_WATCH_9_24_26.md.
+CITY. Record records/BOHEMIA_WORDS_WTF_IS_THE_WATCH_9_24_26.md (b880d80).
 
 HIS BUG, AND HIS BUGS BEAT THE QUEUE (duty 8). Rule 32 landed between rounds and
 32(g) names words this lane shipped. His line on the rumour item, voted UP:
