@@ -1,0 +1,214 @@
+{
+  "what": "how the map reads on a phone",
+  "row": "[bb reads] round one, rule 33",
+  "when": "2026-09-24T22:20:04.890Z",
+  "surface": "/tmp/claude-0/-home-user-bohemia/065fcaf1-af13-5362-9424-9d0305049a14/scratchpad/cut/slices/BOHEMIA_DEMO.html",
+  "controls": [
+    {
+      "name": "C0 THE DOOR IS BEHIND US, and the driver says so itself",
+      "pass": true,
+      "detail": "the door held 22228 ms after the first knock"
+    },
+    {
+      "name": "C1 THE CAMERA ACTUALLY MOVED TO THE MAP, not just the mode flag",
+      "pass": true,
+      "detail": "before {\"mode\":\"human\",\"tw\":18,\"czoom\":1,\"hzoom\":11,\"hx\":6218,\"hy\":6268} after {\"mode\":\"city\",\"tw\":3.7,\"czoom\":0.208,\"hzoom\":11,\"hx\":6218,\"hy\":6268} (2 squeeze(s), settled after 4000 ms)"
+    },
+    {
+      "name": "C2 THE DRAW HOOK RECORDED SOMETHING, so a small number is a measurement and not an empty log",
+      "pass": true,
+      "detail": "4000 painted images seen"
+    }
+  ],
+  "squeezes_the_camera_needed": 2,
+  "street": {
+    "mode": "human",
+    "tw": 18,
+    "czoom": 1,
+    "hzoom": 11,
+    "hx": 6218,
+    "hy": 6268
+  },
+  "map": {
+    "mode": "city",
+    "tw": 3.7,
+    "czoom": 0.208,
+    "hzoom": 11,
+    "hx": 6218,
+    "hy": 6268
+  },
+  "camera_settled_after_ms": 4000,
+  "text_marks": [
+    {
+      "text": "NOTES",
+      "id": "noteplate",
+      "w": 31,
+      "h": 15,
+      "fontPx": 5,
+      "color": "rgb(216, 196, 154)",
+      "pointer": false,
+      "behind": [
+        55,
+        99,
+        127
+      ],
+      "contrast": 3.77
+    },
+    {
+      "text": "▮▮▮",
+      "id": "cityfeedsig",
+      "w": 15,
+      "h": 11,
+      "fontPx": 8,
+      "color": "rgb(111, 106, 82)",
+      "pointer": true,
+      "behind": [
+        67,
+        105,
+        128
+      ],
+      "contrast": 1.08
+    },
+    {
+      "text": "06:00",
+      "id": "cityfeedclock",
+      "w": 27,
+      "h": 11,
+      "fontPx": 8,
+      "color": "rgb(141, 129, 104)",
+      "pointer": true,
+      "behind": [
+        67,
+        105,
+        128
+      ],
+      "contrast": 1.53
+    },
+    {
+      "text": "@nightcount",
+      "id": "",
+      "w": 110,
+      "h": 13,
+      "fontPx": 9,
+      "color": "rgb(200, 182, 129)",
+      "pointer": true,
+      "behind": [
+        71,
+        108,
+        128
+      ],
+      "contrast": 2.81
+    },
+    {
+      "text": "@thevalley",
+      "id": "",
+      "w": 110,
+      "h": 13,
+      "fontPx": 9,
+      "color": "rgb(200, 182, 129)",
+      "pointer": true,
+      "behind": [
+        90,
+        118,
+        130
+      ],
+      "contrast": 2.41
+    },
+    {
+      "text": "@marisol_v",
+      "id": "",
+      "w": 110,
+      "h": 13,
+      "fontPx": 9,
+      "color": "rgb(200, 182, 129)",
+      "pointer": true,
+      "behind": [
+        108,
+        129,
+        131
+      ],
+      "contrast": 2.05
+    },
+    {
+      "text": "@waterline",
+      "id": "",
+      "w": 110,
+      "h": 13,
+      "fontPx": 9,
+      "color": "rgb(200, 182, 129)",
+      "pointer": true,
+      "behind": [
+        81,
+        77,
+        75
+      ],
+      "contrast": 4.16
+    },
+    {
+      "text": "@thecircuit",
+      "id": "",
+      "w": 110,
+      "h": 13,
+      "fontPx": 9,
+      "color": "rgb(200, 182, 129)",
+      "pointer": true,
+      "behind": [
+        138,
+        122,
+        88
+      ],
+      "contrast": 2.09
+    },
+    {
+      "text": "@nightcount",
+      "id": "",
+      "w": 110,
+      "h": 13,
+      "fontPx": 9,
+      "color": "rgb(200, 182, 129)",
+      "pointer": true,
+      "behind": [
+        138,
+        122,
+        88
+      ],
+      "contrast": 2.09
+    },
+    {
+      "text": "@thevalley",
+      "id": "",
+      "w": 110,
+      "h": 13,
+      "fontPx": 9,
+      "color": "rgb(200, 182, 129)",
+      "pointer": true,
+      "behind": [
+        138,
+        122,
+        88
+      ],
+      "contrast": 2.09
+    }
+  ],
+  "painted": {
+    "count": 4000,
+    "smallest_side_px": 2,
+    "p10_side_px": 2,
+    "median_side_px": 2,
+    "biggest_side_px": 7,
+    "world_canvas": "378x830"
+  },
+  "numbers": {
+    "squeezes_the_camera_needed": 2,
+    "text_marks_on_the_map": 10,
+    "smallest_text_height_px": 11,
+    "smallest_font_px": 5,
+    "marks_under_the_44px_touch_law": 9,
+    "tappable_text_marks": 9,
+    "worst_contrast": 1.08,
+    "marks_under_the_4_5_contrast_bar": 10,
+    "smallest_painted_side_px": 2,
+    "median_painted_side_px": 2
+  },
+  "failing_controls": []
+}

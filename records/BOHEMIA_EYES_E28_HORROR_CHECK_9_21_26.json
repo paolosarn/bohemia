@@ -1,6 +1,6 @@
 {
   "what": "every pixel against the analog horror bible",
-  "when": "2026-09-24T21:36:26.792Z",
+  "when": "2026-09-24T22:10:24.781Z",
   "surface": "/tmp/claude-0/-home-user-bohemia/065fcaf1-af13-5362-9424-9d0305049a14/scratchpad/cut/slices/BOHEMIA_DEMO.html",
   "bible": "records/BOHEMIA_ANALOG_HORROR_BIBLE_9_20_26.md (AH-01)",
   "controls": [
@@ -22,7 +22,7 @@
     {
       "name": "C1 the full-frame counter bites",
       "pass": true,
-      "detail": "263 -> 264 after a planted full-canvas fill"
+      "detail": "265 -> 266 after a planted full-canvas fill"
     },
     {
       "name": "C2 the filter counter bites",
@@ -75,23 +75,23 @@
     "window_ms": 2000,
     "per_window": [
       0,
-      0.0073,
       0,
-      0.0317,
-      0.0317,
-      0.0317,
-      0.0315,
+      0,
+      0.0063,
+      0,
+      0,
+      0,
       0
     ],
-    "worst_moving_fraction": 0.0317,
+    "worst_moving_fraction": 0.0063,
     "windows_over_the_bibles_ten_percent": 0,
     "bar": 0.1
   },
   "counters": {
     "world": {
       "world_canvas": "378x830",
-      "full_frame_on_the_world": 128,
-      "of_those_opaque_clears": 128,
+      "full_frame_on_the_world": 130,
+      "of_those_opaque_clears": 130,
       "of_those_SEE_THROUGH_OVERLAYS": 0,
       "overlay_examples": [],
       "clear_examples": [
@@ -104,7 +104,7 @@
           "seeThrough": false,
           "alpha": 1,
           "style": "#8a7a58",
-          "at": 4287
+          "at": 709
         },
         {
           "kind": "fillRect",
@@ -115,7 +115,7 @@
           "seeThrough": false,
           "alpha": 1,
           "style": "#20303e",
-          "at": 9015
+          "at": 5481
         },
         {
           "kind": "fillRect",
@@ -126,7 +126,7 @@
           "seeThrough": false,
           "alpha": 1,
           "style": "#20303e",
-          "at": 18224
+          "at": 14975
         }
       ],
       "full_frame_on_scratch_canvases": 135,
@@ -139,10 +139,10 @@
           "v": "source-atop",
           "cw": 112,
           "ch": 112,
-          "at": 21408
+          "at": 21392
         }
       ],
-      "draws": 3514124
+      "draws": 3565484
     },
     "shell": {
       "world_canvas": "378x830",
