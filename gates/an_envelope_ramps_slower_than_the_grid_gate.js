@@ -29,6 +29,20 @@
    SAME FAMILY as the tweeze bug this repo already carries ("sin(2*pi*6*t)
    sampled at t=i/12 is ZERO at every keyframe"). This gate is the machine that
    stops it coming back: A LAW WITHOUT A MACHINE GATE IS NOT ENFORCED.
+
+   *** AND THE LIMIT OF THIS RULER, MEASURED, SO NOBODY GENERALISES IT. ***
+   A reversal count CANNOT tell an honest fast shake from an aliased one, and
+   that is not a guess. I swept all 105 clips with it, called any (facing,joint)
+   pair with 4+ reversals a bar "aliased", and it named 20 clips. Then I slowed
+   shiver from FIVE shakes a bar to THREE -- which is strictly better, because
+   twelve keys cannot hold five -- and the count went UP, 29 pairs to 53. It has
+   to: a clean 3-cycle shake reverses SIX times a bar honestly, while a 5-cycle
+   one aliases DOWN to fewer apparent turns. The sweep was thrown away and the
+   two clips put back untouched.
+   SO THIS GATE IS SCOPED TO THE FIVE HAND CLIPS ON PURPOSE. There the reversals
+   came from a double-humped envelope and a one-key impulse, both confirmed IN
+   THE DRAWN PICTURE before a line was changed. Widening the scope without a
+   picture behind each clip would be the same mistake with a bigger number.
                                                               ANIMATION 9/24  */
 const fs = require('fs'), path = require('path');
 const ROOT = path.resolve(__dirname, '..');
@@ -147,6 +161,11 @@ const SPASM_KEYS_MIN = 3;   /* a convulsion has to occupy keys the grid can draw
   ok('THE RULER BITES: the exact shape the cough bug had, pushed through the same ' +
      'walk, still scores ' + R.ctl.rev + ' reversals', R.ctl.rev >= 1);
 
+  /* ZERO IS NOT "THE HAND NEVER TURNS AROUND" AND SAYING SO WOULD BE A LIE.
+     The walk resets its direction memory whenever a joint moves less than a
+     sixth of a pixel, which is what the top of a reach does, so a single clean
+     out-and-back with a hold at the top scores 0. That is the point: the ones
+     this counted were turns with NO hold, between two keys, three times a bar. */
   ok('HIS TWO FACINGS, MEASURED: over the five hand clips on south and north-east, ' +
      'a joint steps back the way it came ' + R.named.rev + ' times per bar ' +
      '(ceiling ' + REV_NAMED_MAX + '; it was 26)', R.named.rev <= REV_NAMED_MAX);

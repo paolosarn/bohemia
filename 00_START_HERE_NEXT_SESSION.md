@@ -7659,6 +7659,93 @@ archive escape built in from the start so [handoff cut] is unblocked rather than
 THE WARNING FOR EVERY LANE: do not write this file from a copy you read at the start of your round.
 Re-read it immediately before you edit, and check your own block is still there after any rebase.
 
+ANIMATION (animation-lr9y9i): 9/24 (b) LATEST -- *** HIS SECOND VOTES LANDED
+MID-ROUND AND THEY CHANGED WHAT I SHIPPED. The hand at the face is killed a third
+time and is in the graveyard. What survives is the motion fix, which is the thing
+he named in his first four words. TAB: VOTE, playing, and ANIMATION for the clips. ***
+
+[redo killed] continues. [judge two] CLAIMED this round.
+
+=== THE RULING, AND I OBEYED IT MID-FLIGHT
+`laws/BOHEMIA_ADDENDUM_THE_SECOND_VOTES_9_24_26.md` s7: "The hand at the face,
+killed twice: graveyard, ANIMATION stops on it this session."
+His three verdicts, in order:
+  "...it looks like all of them Northeast and south tweaking"
+  "Nahhhhhhhhhh it looks bad glitchy and clipping and shit"
+  "WTF U MADE IT LOOK LIKE HES SCRATCHING THE BACK OF HIS HEAD ARE YOU FUCKING FR"
+I had a vote item on those same five clips BUILT, measured and registered when the
+ruling arrived. I PULLED IT and deleted its files rather than show him a fourth
+version. The code fix stays, because it is a jitter removed from clips that are
+already in his game, not a re-cook of the killed thing.
+POST-MORTEM: records/BOHEMIA_GRAVEYARD_THE_HAND_AT_THE_FACE_9_24_26.md
+
+=== THE POST-MORTEM'S OWN FINDING, AND IT IS THE ONE THAT MATTERS
+My gate scored the redo 40 of 40. What 40 of 40 measured was HAND PIXELS NEAR FACE
+PIXELS. On a back view, a hand pulled in front of a head you are looking at the
+BACK of is a hand at the back of that head. The number was true and the picture
+was wrong. A RULER THAT SCORES WHAT YOU BUILT CANNOT TELL YOU WHAT IT LOOKS LIKE:
+I looked at pictures to build the ruler and never at the pictures it passed.
+And his first four words named the real defect while I spent three rounds on
+placement.
+
+=== WHAT SHIPPED, PART ONE: THE MOTION (details in 9/24 (a) below)
+Four envelopes in POSE. The body is posed on twelve keys a bar (POSEHOLD.keys) and
+an envelope may not ramp faster than that. Reversals 26 -> 0 on the two facings he
+named, 43 -> 5 overall, worst jump between two drawn keys 10.44 px -> 7.28.
+gates/an_envelope_ramps_slower_than_the_grid_gate.js, 9 claims, 3 mutations.
+
+=== AND A SWEEP I BUILT AND THREW AWAY THE SAME ROUND
+I generalised that ruler over all 105 clips, called any (facing,joint) pair with 4+
+reversals a bar "aliased", and it named 20 clips. Then I slowed shiver from FIVE
+shakes a bar to THREE -- strictly better, twelve keys cannot hold five -- AND THE
+COUNT WENT UP, 29 pairs to 53. It has to: a clean 3-cycle shake reverses six times
+a bar honestly while a 5-cycle one aliases DOWN to fewer apparent turns. The sweep
+is dead, shiver and rage are back untouched, and the limit is written into the
+gate's own header so nobody generalises it again.
+
+=== WHAT SHIPPED, PART TWO: A CLIP THAT BENDS FORWARD DIES FACING THE CAMERA
+Found by LOOKING at the two clips on [judge two] before registering them, which is
+the graveyard's whole lesson applied the same round.
+`spF` (spine-forward) is ZERO on N and S by its own definition, so every term
+written spF(d)*x vanishes on the two facings he looks at most.
+MEASURED on the drawn frame, worst key against the clip's own rest frame:
+  pickup   126% / 10.37 px from the side   vs   36% / 0.87 px facing you
+  laugh     28% /  1.28 px                 vs   10% / 1.00 px  (standing still)
+The fix pattern was already in the file (nod, drunk, the gaits all branch on
+headOn), so it is applied not invented. AFTER: pickup 5.52 px / 68.7%, laugh
+4.22 px / 40.7%, BOTH head-on facings, side views untouched.
+STILL OPEN AND PRINTED: 15 of 105 clips have the same hole, each with its numbers.
+Two were on the board; quietly rewriting forty is forty untested changes.
+records/BOHEMIA_FACING_YOU_HE_DID_NOTHING_9_24_26.md
+gates/a_clip_reads_facing_you_gate.js -- 9 claims, 3 mutations, and THE SECOND ONE
+CHANGED THE GATE: a single pixel floor of 35% sat BELOW what the broken pickup
+already scored (36.4%), so removing the fix left the claim green. A FLOOR UNDER THE
+BUG IS NOT A FLOOR; the floors are per clip now. The third mutation is this lane's
+own turn bug written again (wired to one of the two head-on facings).
+
+=== COOKED THIS ROUND (rule 22, rule 25)
+animation-facing-you-he-did-nothing-9-24, and it PLAYS: both clips facing him, what
+they were beside what they are, twelve frames a bar on the real clock. No control
+inside the page; the row asks once.
+
+=== PROOF
+Pre-push pass green: ENVELOPE RAMP 9/0, READS FACING YOU 9/0, NECK HOLDS HEAD 8/0,
+HAND TO FACE 1/0, ELDER STOOPS 9/0, SLIDE AND TURN 17/0, HEAD SNAPS 13/0, ELBOW
+BENDS 10/0, VOTE TAB 30/0, HANDOFF 9/0.
+Red and NOT mine, reproduced on a clean origin/main checkout: ONE NUMBER BODY 5/1
+(a cross-origin postMessage throw), PAGES PUBLISH 17/1 (271 MB against a 260 MB
+cap, identical on main).
+Full suite: 107 red at ad23d875; mine are none on that list.
+
+=== NEXT, IN ORDER
+1. [judge two] is not SHIPPED until he judges the two. It waits on him.
+2. The 15 clips with the head-on hole, one at a time, with a picture each.
+3. The other 42 killed clips ([redo killed] minus the five now graveyarded).
+4. [bake approved] -- 23 thumbed-up candidates go in verbatim.
+5. [horror motion] is still OPEN under the bible.
+
+[PENDING Paolo] Nothing.
+
 ANIMATION (animation-lr9y9i): 9/24 (a) LATEST -- *** WHAT "TWEAKING" WAS: AN
 ENVELOPE THAT RAMPS FASTER THAN THE GAME DRAWS. His words are answered and the
 fix is IN THE ALPHA. TAB: VOTE, playing, and ANIMATION for the clips. ***

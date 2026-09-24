@@ -1681,19 +1681,18 @@
    }
   },
   {
-   "id": "animation-the-tweak-is-gone-9-24",
+   "id": "animation-facing-you-he-did-nothing-9-24",
    "kind": "animation",
    "lane": "animation",
-   "sha": "26f7a90f",
+   "sha": "PENDING",
    "made": "9/24",
-   "title": "THE TWEAKING IS GONE",
-   "why": "You said these five look like they are tweaking on north-east and south. You were right, and it was not where his hand was, it was how it moved. His body only gets drawn twelve times a bar. Eating was written to lift his hand to his mouth and drop it TWICE in that bar, so the hand crossed thirteen pixels between two drawings and changed direction at every hump. Coughing was worse: the whole convulsion lived in ONE drawing, his head jumped ten pixels and came straight back before you could see it. Now eating is one bite a bar and the cough spreads over three drawings. A joint stepping back the way it came: 43 before, 5 after, ZERO on the two directions you named. This one PLAYS, side by side with what is in the game now.",
+   "title": "FACING YOU, HE WAS DOING NOTHING",
+   "why": "The last two clips from that old batch you never gave a thumb to: picking something up, and laughing. Before showing them I looked, and they were broken in a way nobody had measured. A man who bends over disappears when he faces you, because bending forward is a sideways move and there is nothing to show from the front. Picking something up changed 126% of his pixels from the side and 36% facing you, and moved his body ten pixels from the side against less than one facing you. Laughing facing you moved him ONE pixel. He was standing still. Now the squat is spent where it shows: he drops, his legs fold, his arms and head go down. A laugh is a bounce and a shake. 5.5 pixels instead of 0.9, and 4.2 instead of 1.0. From the side both are untouched. This one PLAYS.",
    "show": {
     "how": "page",
-    "src": "vote/ANIMATION_THE_TWEAK_IS_GONE.html"
+    "src": "vote/ANIMATION_FACING_YOU_HE_DID_NOTHING.html"
    },
-   "redoOf": "eat, drink, smoke, cough and whistle",
-   "said": "it looks like all of them Northeast and south tweaking."
+   "said": "a lot of them are good, a lot of them aren’t good"
   }
  ],
  "verdicts": [

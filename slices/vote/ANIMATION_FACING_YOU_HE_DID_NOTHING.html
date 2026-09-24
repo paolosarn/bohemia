@@ -1,0 +1,87 @@
+<!doctype html><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>BOHEMIA — Facing You He Did Nothing</title>
+<!-- ANIMATION, [judge two], 9/24. RULE 25 (Paolo 9/21): an animation item PLAYS.
+     Twelve frames a bar on the real clock. No control inside the page; the row
+     asks once. -->
+<style>
+  :root{--ink:#e8e0cc;--bg:#0d0d12;--card:#16161d;--line:#33313d;--gold:#c79a3f}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+       font:13px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace;padding:14px}
+  h1{font-size:13px;letter-spacing:2px;margin:0 0 10px;color:var(--gold)}
+  p{margin:0 0 12px;color:#a49a86;max-width:60ch}
+  b{color:var(--ink)}
+  .clip{background:var(--card);border:1px solid var(--line);border-radius:6px;
+        padding:8px;margin-bottom:10px}
+  .name{font-size:11px;letter-spacing:2px;color:var(--gold);margin-bottom:6px;
+        display:flex;justify-content:space-between;align-items:baseline}
+  .sub{color:#6f6862;font-size:10px;letter-spacing:0}
+  .pair{display:flex;gap:10px;flex-wrap:wrap}
+  .side{text-align:center}
+  .lab{font-size:10px;letter-spacing:1px;margin-bottom:3px}
+  .old{color:#9a6b6b}.new{color:#7fa06b}
+  .cell{width:112px;height:175px;image-rendering:pixelated;background:#101319;border-radius:3px}
+  .beat{height:3px;background:#2a2833;border-radius:2px;margin:10px 0 2px;overflow:hidden}
+  .beat i{display:block;height:100%;width:8.33%;background:var(--gold)}
+  .note{margin-top:12px;color:#6f6862;max-width:60ch}
+</style>
+<h1>FACING YOU, HE WAS DOING NOTHING</h1>
+<p>These are the last two clips from that old batch you never gave a thumb to.
+Before I put them in front of you I looked at them, and they were broken in a way
+nobody had ever measured.</p>
+<p><b>A man who bends over disappears when he faces you.</b> Bending forward is a
+sideways move, so it only shows from the side. Facing the camera there is nothing
+to show, and the code had no other plan. Picking something up changed
+<b>126%</b> of his pixels from the side and <b>36%</b> facing you. His whole body
+shifted <b>ten pixels</b> from the side and <b>less than one</b> facing you.
+Laughing was worse: facing you it moved him <b>one pixel</b>. He was standing
+still.</p>
+<p>Facing you, a squat has to be spent where it does show: he drops, his legs
+fold, his arms go down and his head goes with them. A laugh becomes a bounce and
+a shake in the shoulders. Picking up now moves him <b>5.5 pixels</b> facing you
+instead of 0.9. Laughing moves him <b>4.2</b> instead of 1.0. From the side both
+are untouched.</p>
+<p>Left is what they were. Right is now. Both facing you, on the real clock.</p>
+<div class="beat"><i id="beat"></i></div>
+<div id="clips"></div>
+<p class="note">This is not just these two. Every clip written as a forward bend
+has the same hole on the two directions you see most, and the fix pattern was
+already in the file on three other clips. These two are the ones on my list; I
+will name the rest with numbers rather than quietly change forty clips.</p>
+<script>
+(function(){
+  var BEFORE='ANIMATION_FACING_YOU_HE_DID_NOTHING_BEFORE.png';
+  var AFTER ='ANIMATION_FACING_YOU_HE_DID_NOTHING_AFTER.png';
+  var ROWS=[['PICKING SOMETHING UP'],['LAUGHING']];
+  var W=112,H=175,N=12,BEAT=500,LOOP=BEAT*4;   /* 120 BPM, four beats a bar */
+  var host=document.getElementById('clips'), cells=[];
+  ROWS.forEach(function(r,ri){
+    var box=document.createElement('div'); box.className='clip';
+    var n=document.createElement('div'); n.className='name';
+    n.innerHTML='<span>'+r[0]+'</span><span class="sub">facing you</span>';
+    box.appendChild(n);
+    var pair=document.createElement('div'); pair.className='pair';
+    [['WHAT IT WAS','old',BEFORE],['NOW','new',AFTER]].forEach(function(spec){
+      var side=document.createElement('div'); side.className='side';
+      var l=document.createElement('div'); l.className='lab '+spec[1];
+      l.textContent=spec[0];
+      var c=document.createElement('div'); c.className='cell';
+      c.style.backgroundImage='url('+spec[2]+')';
+      c.style.backgroundSize=(N*W)+'px auto';
+      cells.push({el:c,row:ri});
+      side.appendChild(l); side.appendChild(c); pair.appendChild(side);
+    });
+    box.appendChild(pair); host.appendChild(box);
+  });
+  var bar=document.getElementById('beat'), t0=performance.now();
+  (function tick(){
+    var ph=((performance.now()-t0)%LOOP)/LOOP;
+    var f=Math.floor(ph*N)%N;
+    for(var i=0;i<cells.length;i++)
+      cells[i].el.style.backgroundPosition=(-f*W)+'px '+(-cells[i].row*H)+'px';
+    bar.style.transform='translateX('+(f*100)+'%)';
+    requestAnimationFrame(tick);
+  })();
+})();
+</script>
