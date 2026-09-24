@@ -1699,6 +1699,19 @@ NEXT, IN ORDER, AND THE FIRST TWO ARE THE SAME PIECE OF WORK:
  4. THE 21 HARD-CONTACT REDOS from the keep/redo list, footsteps first, on the model that just landed.
  5. THE THREE HUMS at the grid's pitch, which is three numbers and no new material.
  6. [beds play] still HELD; then [enemy heard], [fight music], [quiet floor], [rumour heard], [pump hum].
+AND A FLAKE IN MY OWN GATE, FOUND WHILE CHECKING THIS ROUND AND NOT FIXED: FIRST SOUND read 18/1 once and
+19/0 three times on the SAME tree, and the claim that moves is "NOTHING WAS AUDIBLE BEFORE THE DOOR",
+which reads the audio context's STATE before the tap. Three of four runs report state suspended; one boot
+must have come back running. I am not claiming 19/0 flatly and I am not calling it clean: it is a one-in-
+four coin on a claim this lane already rewrote once for exactly this class of reason (a reading taken over
+a round trip cannot be load-independent). FOUR RUNS IS NOT A SAMPLE, which this lane wrote down itself
+after reading four greens as a fix. It needs the same treatment the fight-music claims got: wrap the real
+entry point instead of sampling a state. NEXT ROUND, named here so it cannot be forgotten.
+AND DERIVED FRESHNESS is 9/1 with two FACTIONS files drifting and NOT the alpha: the alpha WAS on that
+list until this round's work was committed and the two derived slices rebuilt (CLAUDE.md rule 8, because
+the diff touches engine/), and after that it is off it. That gate is on the front page's clean-main red
+list either way.
+
 TWO MUSIC HOLES, STILL OPEN AND STILL MINE: a room handing the music back does not check whether a fight
 owns it (INTERIORMUS's busy() guard binds one direction only), and the shell obeys the city's
 bohemiaCityMusic message with no fight guard at all.
