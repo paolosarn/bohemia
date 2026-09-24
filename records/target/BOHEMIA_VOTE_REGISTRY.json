@@ -1536,6 +1536,19 @@
     "how": "page",
     "src": "BOHEMIA_THE_ONE_WHO_STOOD_THERE_9_23_26.html"
    }
+  },
+  {
+   "id": "coordinator-when-a-person-dies-of-age-9-24",
+   "kind": "verdict",
+   "lane": "coordinator",
+   "sha": "9/24",
+   "made": "9/24",
+   "title": "WHEN A PERSON DIES OF OLD AGE: GONE PAST 70 IN THE NEXT ACT",
+   "why": "The game had a rule waiting on you: when does a person die of old age. Nothing ages anybody out, so the man your father owed is still at his door thirty years later, which is fine if he was 38 and wrong if he was 60. Default: thirty years pass between acts, and a person is gone in the next act if they would be past 70 there. A crashed valley is not a place people get old in. Up keeps 70. Down and tell me the number, or tell me nobody dies.",
+   "show": {
+    "how": "text",
+    "src": ""
+   }
   }
  ],
  "verdicts": [

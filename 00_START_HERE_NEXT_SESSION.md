@@ -38672,6 +38672,19 @@ reached main in one round), [one driver] (three lanes patched the driver; PLUMBE
 [become red]; RUN [way back] first. Front page: COOK LINE 107/83/24 waiting, DEPLOY LINE (the fetch step
 failed the bad push, as designed), BREAK LIST, SUITE LINE reds on clean main. His click still ends the
 race. Nothing to judge beyond the 24 waiting in VOTE.
+THEN (fi) VAMILY 9/24 (coordinator, records/BOHEMIA_COORDINATOR_ROUND_9_24_26.md). Shipped: DYNASTY school round one (three
+valleys cost nothing, the risk is three sets of obligations; one live clock, the flip resumes), WORLD
+found three of four ledgers carry no act (cooked the same corner at act 1 and act 3), ECONOMY Q50 done
+(the fold is a ratchet; the ruin is integer subtraction on counts; queue refilled Q51 Q52), PEOPLE the
+creditor still stands, SOUNDS the flip sound (and the band helper leaks 21%), ANIMATION the hand in
+front, COOK footprints r2, DIRECTION the door passes as a direction, WORDS voice pass 39 -> 14, EYES
+MERGE DEBRIS + six of seven controls live, LIFE+CITY proved the real bug is the opening banner in the
+alpha shell eating every finger across the top of the game. Routed: RUN [banner eats fingers] FIRST;
+PLUMBER [covered controls]; WORLD [act stamp] first; FACTIONS [territory ledger]; UI [door fixes]; WORDS
+[lexicon frozen]; SOUNDS [band helper]. Ruled by default: dies of age past 70 in the next act (VOTE);
+the ruin subtracts on dark streets (DYNASTY design); the thirteen shapes are not his to assign; the
+band helper's changed sounds are redos. 31 items wait for him. Nothing else to judge.
+
 
 
 
