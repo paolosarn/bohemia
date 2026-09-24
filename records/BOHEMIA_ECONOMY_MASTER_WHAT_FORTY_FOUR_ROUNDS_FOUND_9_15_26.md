@@ -1,10 +1,10 @@
-# THE ECONOMY MASTER — WHAT FORTY-NINE ROUNDS FOUND
+# THE ECONOMY MASTER — WHAT FIFTY ROUNDS FOUND
 
 *(The file keeps its FORTY_FOUR name on purpose: records and the board cite this path, and a
 rename would break every one of them. The name is the address; the title is the count.
-**FOLDED AGAIN 9/20/26** (rounds 45, 46, 47), **9/21/26** (round 48) **and 9/22/26** (round
-49), the last two each a two-round row, harvested by script the same way the first forty-four
-were.)*
+**FOLDED AGAIN 9/20/26** (rounds 45, 46, 47), **9/21/26** (round 48), **9/22/26** (round 49)
+**and 9/24/26** (round 50) — the last three each a two-round row — harvested by script the same
+way the first forty-four were.)*
 
 > ## *** CORRECTED 9/16/26: THE ONE THING THIS STUDY GOT BUILT AND GOT WRONG. ***
 >
@@ -52,24 +52,24 @@ were.)*
 > own repo, then say only what both support.
 
 
-ECONOMY lane, 9/15/26, folded again 9/20, 9/21 and 9/22/26. **The queue is empty: Q1 through Q49 are all SHIPPED.**
+ECONOMY lane, 9/15/26, folded again 9/20, 9/21, 9/22 and 9/24/26. **The queue is empty: Q1 through Q50 are all SHIPPED.**
 MODE: RESEARCH. No engine code was touched by this file either.
 
 **Why this exists, and it is not a job off the board.** CLAUDE.md carries a STANDING JOB:
 *"periodically fold addenda into the GDD/laws masters and archive the folded. Piles rot;
-masters stay clean."* Fifty-one records is a pile. Nobody building the game is going to
-read fifty-one files, so the lane's output has been getting used one round at a time, by
+masters stay clean."* Fifty-three records is a pile. Nobody building the game is going to
+read fifty-three files, so the lane's output has been getting used one round at a time, by
 whoever happened to see the last commit. **This is the pile folded into one page**, and
 every line in it was harvested out of the record files by script, not recalled.
 
-The 51 records stay where they are (49 rounds; Q48 and Q49 each took two). Nothing is archived; nothing here supersedes anything.
+The 53 records stay where they are (50 rounds; Q48, Q49 and Q50 each took two). Nothing is archived; nothing here supersedes anything.
 This is an index with the findings attached.
 
 ---
 
 ## 0. THE SEVEN THINGS THE WHOLE STUDY KEEPS ARRIVING AT
 
-Forty-nine rounds, four different questions each, and they converge on seven walls. Every
+Fifty rounds, four different questions each, and they converge on seven walls. Every
 one of these was reached from more than one direction, by rounds that were not looking for
 each other.
 
@@ -130,7 +130,7 @@ Two independent modules arrived at that same rung as the threshold for "they wil
 something for you."
 
 ### FIVE. *** THE PARTS ARE RIGHT AND THEY HAVE NEVER MET. ***
-Named in every round from 16 to 49 — **thirty-six instances over thirty-four rounds** — and
+Named in every round from 16 to 50 — **thirty-eight instances over thirty-five rounds** — and
 it is the one finding that is about us rather than about the world.
 
 *(Counter correction, kept because this study keeps them: the records number these instances
@@ -138,7 +138,7 @@ in their own gate notes, and round 44 says 29 while round 45 says 31. **Thirty w
 so rounds 45, 46 and 47 are instances **30, 31 and 32**, not 31, 32 and 33. The arithmetic is
 `instance = round − 15`. Round 48 ran twice on one row and took **33 and 34**, so the counter
 is now one ahead of the arithmetic on purpose. Round 49 also ran twice and took **35 and 36**;
-the next round numbers from 37.)* The gates check that a part does what it says.
+the next round numbers from 39. Round 50 ran twice and took 37 and 38.)* The gates check that a part does what it says.
 **Nothing checks that two parts agree, that a part keeps working for as long as the game
 lasts, that it is the right part to have, or that the parts form a loop that closes.**
 The catalogue of instances, all measured:
@@ -198,6 +198,17 @@ The catalogue of instances, all measured:
   battery on a handshake, asks one a night, clears the account on payment and writes a night
   count when you go short. **It is the answer to the row that was researching it**, and nothing
   in the game has ever called it.
+- *** A PART THAT DOCUMENTS ITS OWN DEFECT, CORRECTLY, IN WRITING, AND IS STILL SHIPPED THAT
+  WAY *** (round 50). Six of the fold's thirteen carry rows say in plain English that they are
+  wrong: *"a hard ratchet today"*, *"carries at 100% forever with no way to lose it"*, *"wealth
+  really persists about 0.3 to 0.4, less than half the name"*, *"accumulates only, never
+  subtracts"*, *"can only climb today"*, *"the rate is right and it is on the wrong field"*.
+  **Every gate is green because every field does exactly what its row says it does.**
+- *** A COMMENT AND ITS OWN CONSTANT DISAGREE, SIX INCHES APART, AND BOTH ARE SHIPPED ***
+  (round 50). `STANDING_DECAY_TO_NEUTRAL = 0.25`, so standings keep **0.75**. The comment
+  beside it says **0.79**. *The gates read the code and nobody reads the prose* — **and it cost
+  something real: it put a wrong sentence in this lane's own round-one record**, because that
+  round read the prose too.
 
 ### SIX. *** DISTANCE IS THE PRICE, AND WE HAVE BEEN WRITING IT AS A NUMBER. ***
 **Rounds 37, 43, 46, 47**, four subjects, one shape, and it is the finding the fold itself
@@ -257,7 +268,7 @@ not.
 
 ---
 
-## 1. THE FORTY-NINE, IN ORDER
+## 1. THE FIFTY, IN ORDER
 
 | # | row | what it found |
 |---|---|---|
@@ -312,27 +323,29 @@ not.
 | 48 | who still bills | *(the number)* every clock gives an absurd number, and the paper names the wrong payee |
 | 49 | first battery | *(school)* he cannot ask, and nobody in the valley pays money |
 | 49 | first battery | *(the number)* the loan is already built, and he is one short every day |
+| 50 | seeds the next act | *(school)* ten of thirteen carry whole, so the ruin cannot be derived |
+| 50 | seeds the next act | *(the rates)* every accumulator is a plus, and the ruin is all integers |
 
 ---
 
 ## 2. WHERE THE FINDINGS WENT
 
-Every record carries a ROUTED section; all 51 do (49 rounds; Q48 and Q49 each took two). Counting **distinct rounds** that routed
+Every record carries a ROUTED section; all 53 do (50 rounds; Q48, Q49 and Q50 each took two). Counting **distinct rounds** that routed
 something to each lane:
 
-    WORLD          47 rounds        WORDS           9
-    LIFE + CITY    29               COMBAT          6
-    FACTIONS       27               PLUMBER         5
-    COORDINATOR    27               COOK            4
-    PEOPLE         26               EYES            3
+    WORLD          48 rounds        WORDS          10
+    LIFE + CITY    30               COMBAT          6
+    COORDINATOR    28               PLUMBER         5
+    FACTIONS       27               COOK            4
+    PEOPLE         27               EYES            3
+    QUESTS         16               DYNASTY         2
     RUN            16               DIRECTION       1
-    QUESTS         15               CUTSCENE        1
-    UI             12               SOUNDS          1
-                                    DYNASTY         1
+    UI             12               CUTSCENE        1
+                                    SOUNDS          1
 
-**WORLD is the destination of this lane, 47 rounds out of 49.** That is by design — the
+**WORLD is the destination of this lane, 48 rounds out of 50.** That is by design — the
 lane's own MODE says every finding becomes a WORLD job — and it is also the risk: one lane
-holds nearly everything forty-nine rounds produced.
+holds nearly everything fifty rounds produced.
 
 *** AND THE PUBLISHED TABLE WAS MISSING THREE LANES. *** The 9/15 version of this section
 listed fourteen lanes. **COOK (4 rounds: 5, 6, 7, 8), SOUNDS (1: round 4) and DYNASTY (1:
@@ -343,10 +356,11 @@ the whole time and invisible on the page that exists so nobody has to read the r
 1-44**, which is how the three missing ones were found rather than argued about: an
 instrument that agrees with the published answer everywhere except where it adds something
 is an instrument you can believe. **Run again on 9/21 it reproduced all seventeen of the
-1-47 numbers before adding round 48's nine, and again on 9/22 it reproduced all seventeen of
-the 1-48 numbers before adding round 49's seven.** That is now the standing control on this
-table: the harvest is re-run and checked against the last published version every fold, and it
-has never once been believed before it passed.
+1-47 numbers before adding round 48's nine, again on 9/22 it reproduced all seventeen of
+the 1-48 numbers before adding round 49's seven, and again on 9/24 all seventeen of the 1-49
+numbers before adding round 50's seven.** That is the standing control on this table: the
+harvest is re-run and checked against the last published version every fold. **Four folds, four
+clean controls, and it has never once been believed before it passed.**
 
 (Probe note, kept: my first count reported **WORLD 77** by counting line hits instead of
 distinct rounds, which is more rounds than exist. The correction is the same discipline the
@@ -380,6 +394,11 @@ Derived, never typed, each with the round that measured it.
 | who will lend a stranger | **4 of 16**, and it is the **same four at every rung** from stranger to INSIDE | 49 |
 | the price of being able to ask | **six things given**; taking the free one moves him **zero rungs** | 49 |
 | informal loans, repaid | **95.16%**, interest-free, enforced by a severed tie | 49 |
+| *** a hundred years of total neglect *** | **costs one faction's opinion and nothing else**: land, buildings, capacity and karma byte-identical after two generations of doing nothing | 50 |
+| what a generation keeps, in code | every accumulator is **`+=` or `Math.max`**; **zero subtractions** in the whole fold | 50 |
+| status across a generation | **0.75**, the running constant, dead centre of the measured **0.70-0.75** *(the comment beside it says 0.79 and is the wrong one)* | 50 |
+| wealth across a generation | **0.48-0.59** measured; ours carries **whole** and our comment says 0.3-0.4 | 50 |
+| the ruin, in arithmetic | **territory and builds are COUNTS**, so losing them is dropping entries and stepping tiers: **no fraction is ever computed** | 50 |
 
 ---
 
@@ -440,6 +459,19 @@ confirmed:
 - **Who the first person is**, and **what he gives to climb the six**. PEOPLE casts people;
   QUESTS owns `[wire the door]`; the ladder counts givings and what a giving IS belongs to
   whoever builds the act.
+
+**AND ROUND 50 LEFT THREE, ALL OF THEM HIS, AND ONE OF THEM IS A DIAL RATHER THAN A NUMBER:**
+- **How many districts and how many tiers a neglected generation costs.** **This is the ruin
+  dial**, and it is the difference between a tutorial and a punishment. *One dial is all the
+  ruin needs.*
+- **Whether `karma` decays or dies.** A moral question wearing a number.
+- **Whether `trust` becomes a fourteenth field.** The real record is on its side (round 50
+  round one) and adding a field to a table eight of whose thirteen are already draft is
+  DYNASTY's row and his ruling.
+
+**AND A SECOND GATE THIS STUDY NOW WANTS, FROM ROUND 50: ONE THAT DIFFS EVERY NUMBER STATED IN
+A COMMENT AGAINST THE CONSTANT BESIDE IT.** It would have caught 0.79-against-0.75 the day it
+was written, and on round 48's evidence it would have caught several more.
 
 *** AND THE ONE THING THIS STUDY NOW WANTS MOST, ASKED FOR BY FOUR ROUNDS FROM FOUR
 DIRECTIONS: A GATE THAT PLAYS THE FIRST MORNING AS A MAN WITH NOTHING. *** Round 36 asked what
@@ -533,6 +565,12 @@ them with the date they broke.
   this study keeps arriving at anyway.* Round 48's deliverable was a piece of paper you pick
   up; round 49's was a battery in a hand and a night count. **Neither is a card of words, and
   both were chosen that way before the rule existed.**
+- **Rule 31, THE THREE ACTS AT ONCE (Paolo 9/23).** The biggest thing this lane has been
+  handed, and Q50 is the answer to it. **The good half: the fold is pure, deterministic and
+  non-mutating**, so *"derived on every flip, never authored"* was already safe before the law
+  existed. **The bad half: the fold is a ratchet**, so the ruin the law requires cannot come out
+  of it. *(OCARINA OF TIME is his reference for the flip and belongs to DYNASTY; this lane named
+  it once, to say it does not cite it.)*
 
 ---
 
@@ -544,15 +582,15 @@ The lane's other output is `banks/BOHEMIA_ECONOMY_TEST_LINES_9_5_26.md`, every l
 and that every lane answers **WHO SAYS THIS, WITH WHAT FACE, STANDING WHERE** before a
 sentence ships. So the bank got measured against it, by script.
 
-    draft:true matches in the file        714   (re-measured 9/22)
+    draft:true matches in the file        734   (re-measured 9/24)
       of those, header comment lines        16
-    ACTUAL BANK ENTRIES                   698
+    ACTUAL BANK ENTRIES                   718
 
-    written as ID + role + place          522   rounds 48 and 49 added 40 between them, all
-                                                of them in this format
-    written as a bare bullet              176   UNCHANGED FOR FOUR ROUNDS RUNNING
+    written as ID + role + place          542   rounds 48, 49 and 50 added 60 between them,
+                                                all of them in this format
+    written as a bare bullet              176   UNCHANGED FOR SIX ROUNDS RUNNING
 
-    the player speaking, anywhere            0   rule 27, measured the round it landed
+    the player speaking, anywhere            0   rule 27, re-measured 9/24 over all 542
 
     the 9/20 measurement, which the rest of this section reads:
 
@@ -584,7 +622,7 @@ the board, and the rule bites when a line ships, not while it sits in a bank.
 **AND WHAT HAPPENED NEXT, WHICH IS THE POINT OF WRITING A CONTRACT INSTEAD OF A NOTE.**
 Rounds 48 and 49 each ran twice and added **forty entries between them, every one of them in
 the role-place format**.
-**The bullet count has not moved off 176 for four rounds.** The gap is now a fixed number with
+**The bullet count has not moved off 176 for six rounds.** The gap is now a fixed number with
 nothing feeding it, which is the whole difference between a debt that shrinks and one that
 does not. Nothing was rewritten and nothing was deleted to get there.
 
@@ -599,4 +637,4 @@ re-running the measurement instead of trusting the last number.)*
 
 ---
 
-*ECONOMY, 49 of 49 shipped. Research only. Nothing in the game changed.*
+*ECONOMY, 50 of 50 shipped. Research only. Nothing in the game changed.*
