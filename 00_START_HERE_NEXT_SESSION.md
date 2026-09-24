@@ -25718,6 +25718,128 @@ since 9/6, it also holds 19 QUESTS (BUILD). The front page's chat-19 line says a
 chat with an empty queue takes QUESTS, and DYNASTY's queue went empty at Q16. The
 lane and its first row were claimed and pushed BEFORE any work started. ***
 
+ROUND 50 [the derive] SCHOOL ROUND TWO: THE FLIP'S PRICE IS THE WARDROBE.
+DYNASTY, SCHOOL (design in plain words, gate NAMED, no code). Rule 31. Claim d479202.
+  records/BOHEMIA_DYNASTY_SCHOOL_THE_DERIVE_ROUND_TWO_9_24_26.md
+BOTH SCHOOL ROUNDS ARE NOW DONE. The lane's next row is [the flip], and it is BUILD.
+
+*** THE MEASUREMENT ROUND ONE OWED AND WOULD NOT FAKE. *** Round one said the
+valley is free (170-239 ms from a seed on the phone profile) and said out loud that
+nobody should quote "a flip is one beat" until somebody broke the rest of the boot
+down. Broken down with Chrome's own sampling profiler over a reload:
+
+    the whole boot, page load to the pad working ....... 18,691 ms
+    building people's bodies (buildFrame, inclusive) ...  8,512 ms   46%
+    realizing world cells (realizeCell and family) .....  2,331 ms   12%
+    the valley itself (buildOvermap) ...................     ~60 ms  0.3%
+
+Counted with a wrapper ARMED BEFORE THE PAGE, because a counter attached after boot
+has already missed every call that matters (this fleet has written that trap down
+twice): 1,431 frame builds, 308 cache hits, to dress 61 people who between them are
+only 8 DISTINCT LOOKS and 8 DISTINCT FACES, out of a baked cast of 9. About 159
+frames per body.
+
+*** SO THE EXPENSIVE THING IS THE CATALOGUE, AND A CATALOGUE IS SHARED BY
+DEFINITION. *** Three acts need three casts drawn from ONE catalogue, which is how
+lookKey and the frame cache already work today. THE BUDGET RULE, and it is a budget
+not a preference: AN ACT MAY CHANGE WHAT A BODY WEARS, IT MAY NOT CHANGE WHAT A BODY
+IS. New garments cost their frames once and are free in every act after. A new rig,
+a new body size or a new frame count per act costs the whole 8.5 seconds again, per
+act, and that is the only thing in this design that can make a flip feel like a
+loading screen.
+
+PER-ACT VERSUS SHARED, the table round one owed:
+  SHARED, never rebuilt on a flip: the seed (10 digits), the layout (4,459 bytes:
+    freeway, arterials, Strip, reservoirs, water treatment, pump station, jail,
+    courthouse, radio station), the body and garment catalogue (8,512 ms), fonts,
+    sounds, UI.
+  PER ACT, rebuilt on a flip: the valley's fill (~60 ms), the cells actually on
+    screen, the cast drawn from the shared catalogue, that act's own ledgers.
+A flip is: swap the ledgers, re-derive the fill, re-pick the cast, redraw. None of
+that is the 8.5 seconds.
+
+*** AND SIX OF THE THIRTEEN CARRY FIELDS ARE NOT IN THE GAME. ***
+Asked of the RUNNING alpha, not read off a file:
+  LIVE (7): standings, deeds, territory, builds, economyCapacity, family, debt
+  NOT LIVE (6): invest, karma, virtues, wounds, blindSpot, recordedKnown
+They are not hiding under other names. Swept the whole walked city for every
+spelling: their only real appearances are the CARRY table that names them, a list in
+the heir module literally called NOT_MINE saying it does not touch them, and one
+gate that BANS karma as a stat gate.
+AND THE LEDGER HALF OF THE FOLD IS NOT IN THE GAME EITHER: foldGeneration exists
+only in the RETIRED slice, and selectHeir is not there at all. The walked city has
+the composer (BohemiaFold, 13 fields) and the memory fold (ctFold) and neither of
+the other two.
+SO THE DERIVE DOES NOT NEED THE RETIRED FOLD REVIVED. It needs a reader that asks
+the seven live systems directly, which is a smaller job than it looked. The six are
+a PREMISE NOT A GATE (rule 12): the derive ships on seven and NAMES a silent field
+rather than zeroing it, the same way the strike module refuses to turn silence into
+a verdict.
+
+*** HANDS VERSUS WORLD, THE DESIGN, IN ONE SENTENCE: ***
+THE WORLD IS WHAT HE FINDS. THE HANDS ARE WHAT HE DID SINCE HE GOT THERE.
+Re-deriving an act changes what he FINDS there and never touches what he DID.
+  standing is a FLOOR the derive sets; his own deeds in that act move it from there
+  deeds split by WHICH ACT did them: the earlier acts' RETOLD deeds are laid down
+    first, this act's own ledger is replayed on top, untouched (the machinery is
+    already there -- the memory fold keeps only retold deeds, and the standing web
+    already tells a father's deed from a son's by an `inherited` mark)
+  territory and builds: what he finds on arrival is world, what he took or put up
+    in that act is hands
+  DEBT DOES NOT CROSS, and this AMENDS the CARRY table's `debt: dies`. That ruling
+    is right and it is written FOR A FOLD; rule 31 removed the fold. Nobody dies
+    and hands over, three people are alive at once, so debt is simply PER ACT and
+    what crosses is THE PEOPLE HE OWED, still standing there -- which the table's
+    own last sentence already says.
+  karma and virtues stay OFF. Two of the six dead fields are a moral score, one
+    gate already bans karma, and round one's closing rule holds: every field in the
+    derive should finish the sentence "and then he walks up to it."
+
+*** THE GUT-PUNCH, AND WHY IT CANNOT HAPPEN HERE. *** He builds a shop in act 3,
+flips to act 1, re-derives -- what if the lot is gone? His hands would point at a
+place the world no longer has, and that is the failure every game with a rewritable
+past has to answer. OURS IS STRUCTURAL: THE LINES ARE SHARED AND ARE NOT AN OUTPUT
+OF THE DERIVE. A lot that exists in act 1 exists in act 3, always. The derive
+changes what STANDS on lots and who owns them, never where the lots are. The worst
+it can do is change what is next door, who owns the block and whether the street is
+lit, which is exactly the report card he asked for. Real cities agree (path
+dependence is measured) and so does the engine, which split lines from fill years
+before anybody said "three acts".
+
+*** THE GATE, NAMED (school names it, build builds it): *** gates/three_acts_gate.js,
+in the suite as THREE ACTS. Eight legs: (1) the floor is playable on an EMPTY act-1
+ledger -- a do-nothing future is a worse place, never an empty one (today's valley
+is 358 lit cells of 9,216, FACTIONS' number; the leg asserts more than zero and
+fewer than today, not a tuned number); (2) ONE act-1 row changes a NAMED act-3 fact,
+named so it cannot pass on noise; (3) the hands survive a re-derive; (4) THE LINES
+DO NOT MOVE, byte-identical across all three acts; (5) same ledgers, same future,
+twice; (6) a silent field is NAMED, not zeroed; (7) A FLIP DOES NOT REBAKE THE
+CATALOGUE (frame-build count may rise only by an act's new garments); (8) a flip
+lands inside a beat end to end, not just the valley. Five mutations must bite:
+skip "laid back on top" -> leg 3; let the derive write the layout -> leg 4; make an
+unread field contribute zero -> leg 6; rebuild the catalogue on flip -> leg 7;
+return an empty act 3 for an empty ledger -> leg 1.
+
+*** SAID PLAINLY, SO NOBODY QUOTES IT WRONG: *** 18.7 s is THIS CONTAINER, not a
+phone; the number that travels is the 46% SHARE, because a share is far more stable
+across machines than a total. The profile is of a RELOAD, so the HTTP cache is warm
+(the driver's own warm-up option says the same about second loads). The six dead
+fields were probed by names this lane guessed, then checked against a text sweep for
+every spelling: two instruments agreeing, not a proof. And legs 7 and 8 describe a
+flip nobody has built -- written now so the bar exists before the work instead of
+being written afterwards to fit what it did.
+
+ROUTED (proposals; only the coordinator adds rows): WORLD [one layout] -- the layout
+is built once and is the SAME OBJECT in all three acts, no act may write to it;
+WORLD [the report card] -- the reader that asks the seven live systems and names the
+six silent ones, replacing any revival of the retired fold; LIFE+CITY [the ruin] --
+what a do-nothing act 3 looks like on the glass, from Detroit's real shape (round
+one); CHARACTER and COOK -- an act changes what a body WEARS, never what a body IS;
+PLUMBER -- leg 7 in spirit, plus the armed-before-the-page counter used here is
+reusable; COORDINATOR -- the CARRY table's `debt: dies` needs the amendment above.
+DYNASTY next: [the flip], BUILD, carrying round one's requirement that the flip
+RESUMES and never restarts.
+
 ROUND 49 [three at once] SCHOOL ROUND ONE: THE MEMORY OBJECTION IS DEAD.
 DYNASTY, SCHOOL (record, no code). Rule 31, Paolo 9/23. Claimed 4655bce.
   records/BOHEMIA_DYNASTY_SCHOOL_THE_THREE_ACTS_AT_ONCE_ROUND_ONE_9_23_26.md
