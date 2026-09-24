@@ -13684,117 +13684,108 @@ HOW TWENTY-TWO ROUNDS COMPOSE, written once now that Q1-Q22 are all shipped:
 NEXT IN THIS LANE: Q23 [who eats first].
 
 
-FACTIONS (factions-ovkjpf): 9/24 (round 41) LATEST -- *** THE SIGNS ARE OVER AND HE NAMED
-THE FAULT IN ONE SENTENCE: "BRO THIS GAME ISNT IN FIRST PERSON WHEN WOULD i see this????"
-EVERY SIGN THIS LANE MADE FOR EIGHT ROUNDS WAS DRAWN HEAD ON AT EYE LEVEL AND THIS GAME IS
-LOOKED DOWN ON FROM ABOVE. He could never have seen one, at any point, in any part of the
-game. That was true of the first batch on 9/21 and stayed true through four kills, one
-re-cook and two rounds of volume. [horror signs] is ENDED. ***
+FACTIONS (factions-ovkjpf): 9/24 (round 42) LATEST -- *** UNTIL THIS ROUND NO BLOCK IN THIS
+VALLEY COULD EVER CHANGE OWNER. Who holds what was recomputed identically from the seed on
+every boot and nothing the player did was anywhere in it. THE TERRITORY LEDGER SHIPPED:
+a block can change hands and be remembered, PER ACT, which is what rule 31's derive has
+nothing to read without. AND THE HARDER SENTENCE UNDER THE ROW: it is not only that what he
+took is written nowhere, NOTHING IN THIS GAME CAN TAKE GROUND AT ALL, so the ledger records
+zero rows until some lane ships a taking mechanic. ***
 Nothing to judge outside the VOTE tab.
 
-VAMILY rows: [horror signs] ENDED 9/24 (rule 32f). [territory ledger] CLAIMED 9/24, round
-            one. [same lender] still CLAIMED AND HELD under 14b + 18b.
-Record: records/BOHEMIA_THE_SIGNS_DIED_OF_THE_CAMERA_9_24_26.md
+VAMILY rows: [territory ledger] CLAIMED 9/24, round one shipped. [bb houses] OPEN, my rule
+            33 school line, not started. [horror signs] ENDED 9/24. [same lender] still
+            CLAIMED AND HELD under 14b + 18b.
+Record: records/BOHEMIA_THE_TERRITORY_LEDGER_9_24_26.md
+Round 41: records/BOHEMIA_THE_SIGNS_DIED_OF_THE_CAMERA_9_24_26.md
 Round 40: records/BOHEMIA_THE_ONES_NOBODY_CAME_FOR_9_24_26.md
-Round 39: records/BOHEMIA_THE_LAST_LIGHT_9_23_26.md
 
-*** HIS SECOND VOTES ON THIS LANE, AND THE THUMB WAS NOT THE VERDICT ***
-  factions-the-signs-at-night-9-22   UP   "BRO THIS GAME ISNT IN FIRST PERSON WHEN WOULD
-                                           i see this????"
-  factions-the-dark-institutions     DOWN "I DONT LIKE THESE BRO WTF"
-  factions-the-last-light-9-23       UP   "Im confused the numbers look good cool but the
-                                           picture we wont use that bro"
-  TWO OF THREE THUMBS WERE UP AND ALL THREE COMMENTS SAY THE SAME THING. Read the comment,
-  not the thumb. I RE-COOKED TWICE FOR THE WRONG REASON: "not analog horror enough" was
-  read as a lighting note three times because lighting was the axis I was working on, and
-  the complaint was about WHERE THE CAMERA STANDS. Round 37 rebuilt them at night; night
-  was never the problem and that re-cook could not have fixed it.
-  THE DARK INSTITUTIONS -> GRAVEYARD per rule 32(g), his instruction.
-  THE FOUR KILLED SIGNS DO NOT COME BACK AT ANY ANGLE OR UNDER ANY LIGHT.
-  EVERY MEASUREMENT UNDER THEM SURVIVES: 100% of the running water is Anarchist; three
-  different rents; 358 lit cells of 9,216; 21 civic blocks dark and NEVER changing hands;
-  3,415 cells change hands by act 3.
+*** THE ROW'S THREE CLAIMS, ALL VERIFIED ***
+  turfGrid() keyed on seed + map size only -- TRUE, two builds agree on all 9,216 cells.
+  the save never mentions turf -- TRUE, zero hits in engine/bohemia_save.js.
+  HOLDS, the towns module's only override -- EMPTY, and its own comment says it stays empty.
 
-*** WHAT THE REAL SURFACE SAYS, PHOTOGRAPHED THIS ROUND, NO ART MADE ***
-  ON THE STREET: the ONLY thing that says whose ground you are on is ONE THIN ORANGE LINE.
-  It is the border law working correctly and it is all there is. What else reads as a sign
-  in frame (HOME, a shop name) belongs to a building.
-  FROM THE CITY VIEW: NOTHING AT ALL. 14 crews, 9,216 owned blocks, 14 published colours
-  measured off his own wardrobe, and from above the valley is blank sand.
-  COLOUR IS TERRITORY IS A LAW AND ON BOTH SURFACES HE PLAYS ON, TERRITORY IS ONE ORANGE
-  LINE AND THEN NOTHING. A sign was never going to fix that: a sign is one building, this
-  is the whole valley. THAT is the row this lane should have been on.
+WHAT SHIPPED
+  engine/bohemia_turfledger.js + gates/turf_ledger_gate.js, in the suite as TURF LEDGER.
+  THE SHAPE IS TAKEN, NOT INVENTED: bohemia_century.js already keeps a ledger ({V,act,
+  entries[]}, clampAct, a setAct that refuses to run backwards, an entry stamped at the
+  time) and this is that same shape one module over, for the century's own stated reason.
+  took / heldBy / holderThrough / changedIn / netFor / toJSON / load.
+  `from` IS HANDED IN AND NEVER LOOKED UP (the century's reason: the derived ground
+  underneath can move, and a ledger that recomputes its own history is not a memory).
+  AN OLDER SAVE IS A PLAYABLE SAVE: a pre-ledger blob reads as act 1 with zero entries,
+  which is rule 32(b), the ruin is the floor.
+  IT DECIDES NOTHING about who may take ground or what it costs. Those are his.
 
-*** AND THE PHONE IS ALREADY DOING THIS LANE'S JOB ***
-  The city-view feed was carrying, unprompted: "@thecircuit most of the valley is still
-  dark. 358 blocks with anything in them at all" / "@thevalley still no moving the Church
-  off their town" / "5 outfits holding a fortress between them". THE 358 IS THIS LANE'S OWN
-  ROUND-SEVEN MEASUREMENT, ALREADY IN THE GAME, IN A MOUTH, AT THE GAME'S CAMERA. His "the
-  numbers look good" already has a working home and it is not a picture. Faction and
-  territory events are one of the three post kinds in THE FEED ON THE CITY SCREEN (Paolo
-  9/4); UI and WORLD own the pipe, this lane owns the content.
+THE CHECK IT EXISTS FOR: THE EMPTY LEDGER IS A NO-OP, held against the REAL derived valley,
+  all 9,216 cells, not a stub. One entry moves EXACTLY ONE CELL. Gate 30/0, red six ways.
 
-THE COOK
-  slices/vote/FACTIONS_YOU_CANNOT_SEE_TERRITORY_9_24.html, registered
-  factions-you-cannot-see-territory-9-24. IT DRAWS NOTHING. Every picture is a photograph
-  of the running alpha at its own camera, which is rule 32(f)'s first option.
+*** A REAL BUG MY OWN GATE CAUGHT *** netFor used each cell's NEWEST `from`. A cell going
+  Mob -> Reds -> Blues has a newest `from` of Reds, and REDS IS A MIDDLEMAN who ended with
+  nothing; netting off that credits Reds a cell they do not have and leaves the Mob short.
+  Measured {Blues:1,Reds:0,Mob:-1} where the truth is {Mob:-2,Reds:1,Blues:1}. changedIn
+  keeps the OLDEST `from` and the NEWEST `to` now. A cell handed back is not a change,
+  though the record keeps every entry because the history happened.
 
-*** FOUR NEAR-MISSES, ALL THE SAME SHAPE, NONE OF WHICH THREW ***
-  (1) window.POWER undefined (last round): a bare const never lands on window.
-  (2) LOT AND PX DO NOT EXIST. My sweep read `typeof PX === 'number' ? PX : 48` and
-      `hx / (typeof LOT !== 'undefined' ? LOT : 275)`. BOTH FALLBACKS FIRED. The 275 put
-      the player on cell 22,22 and I was ONE PARAGRAPH from telling him his own block
-      changes hands.
-  (3) THE REAL DIVISOR IS FN (128), which the walked city uses on its own line 68846.
-      6218/128 = 48, so the cell IS 48,48 and LAST ROUND'S CLAIM STANDS -- but it was
-      RIGHT BY LUCK, because the fallback constant happened to equal the true value. The
-      correction I was about to write would itself have been wrong.
-  (4) A HASH DIFF ON A LIVE SCENE PROVES NOTHING. Two street frames one act apart had
-      different md5s and I nearly filed "the street does not redraw territory after the
-      flip". The frames are identical to the eye; TWO PEDESTRIANS HAD MOVED ONE PIXEL.
-      Measured properly: 0 OF THE 49 CELLS WITHIN THREE HOUSES OF HIM CHANGE HANDS; the
-      nearest that does is FOUR HOUSES AWAY (52,44, Church -> Blues). No bug.
+*** AND A GATE THAT PASSED ITS OWN MUTATION *** Six mutations, five red. The sixth, GIVE THE
+  TAKER'S TIER TO THE GROUND, STAYED GREEN: the tier check tested cell 48,48, which is
+  FORTRESS ground, against a mutation that hardcoded 'fortress'. IT AGREED WITH ITS OWN BUG
+  BY COINCIDENCE OF THE CELL I PICKED. It asserts on every tier the valley carries now and
+  the mutation goes red.
 
-REGISTRY: the file on main is internally inconsistent (seven rows carry unicode escapes,
-  and one lane's row sits at 1-space indent inside a 2-space file), so ANY full re-dump
-  rewrites other lanes' rows -- mine did, 2,542 lines. Appended my row TEXTUALLY instead:
-  13 insertions, ZERO deletions, not one other byte touched. Anybody appending here should
-  do the same until somebody normalises the file on purpose.
+THE COOK (rule 32f, a frame off a play surface): the running alpha photographed before and
+  after one entry, the wiring INJECTED IN THE DRIVER AND NOT SHIPPED. The block one step
+  west of his door went Mob -> Volunteers, tier stayed fortress (the ground's, not the
+  taker's), his own block untouched, net Volunteers +1 Mob -1.
+  slices/vote/FACTIONS_A_BLOCK_CHANGED_HANDS_9_24.html, registered
+  factions-a-block-changed-hands-9-24.
 
-GATES  HANDOFF 9/0. Pre-push pass green.
+*** AND YOU CANNOT SEE IT. MEASURED, NOT GUESSED. *** Instrumented turfAt and counted calls
+  during a real redraw:
+      STREET, standing still     2-3 calls per ~1.4 s   (all about the ONE cell he is on)
+      CITY VIEW                  ZERO calls
+  THE SCREEN WHERE YOU WOULD LOOK AT A MAP OF WHO OWNS WHAT NEVER ASKS WHO OWNS ANYTHING.
+  That is the mechanism under round 41's observation that the valley is blank sand from
+  above. A LEDGER UNDER A SURFACE THAT NEVER ASKS IS A DIARY NOBODY OPENS. Handed over with
+  numbers to whoever draws the city view; it is the second half this row owes.
+
+NOT WIRED, AND WHY: the read-through is NOT in the walked city. Wiring it touches
+  slices/BOHEMIA_CITY_WORLD.html, which is the play surface, and RULE 18(b) HOLDS. It is two
+  lines in two carriers together (ENGINE SYNC LAW) and the gate already proves the no-op, so
+  it lands the round the hold lifts or DYNASTY's derive asks. Finding a legal way to ship it
+  into the play file this round would be the violation, not the work.
+
+GATES  TURF LEDGER 30/0 (new, in the suite, red six ways). REFERENCE CHECK 136/0.
+       HANDOFF 9/0. ENGINE SYNC 19 modules zero drift. BUNDLE 16/0. Pre-push pass green.
        RULE 13: full suite 107 red at ad23d875, none of them this lane's.
 
 RULE 18 AND RULE 22, OBSERVED: nothing pushed to the demo or the alpha's play tabs.
 
-NEXT IN THIS LANE -- [territory ledger], CLAIMED THIS ROUND
-  THE ROW (coordinator 9/24, from WORLD caaaa26): turfGrid() is keyed on seed and map size
-  and NOTHING ELSE, recomputed identically every boot; the city's save never mentions turf;
-  WHAT HE TOOK IS WRITTEN NOWHERE. Rule 31 derives act 2's map from act 1's ledger and
-  there is no ledger.
-  *** AND MY OWN ROUND 40 WAS SILENTLY STANDING ON THIS. *** The act-3 valley I measured
-  (3,415 cells change hands) is what the valley becomes IF THE PLAYER DOES NOTHING, because
-  turf is a pure function of the seed and the two power columns. Nothing he does can move
-  it. That caveat is not in round 40's record and belongs on this row.
-  ALSO ON THIS ROW, FROM RULE 32(b) (the game starts in the ruin and THE FUTURE GETS
-  BETTER, nothing decays below the start): round 40 measured 21 civic blocks DARK IN BOTH
-  ACT 1 AND ACT 3. Dark-forever is not decay, but it is not "better" either, so the derive
-  owes those 21 blocks something. DYNASTY [the derive] and WORLD [future city] are the
-  neighbours; this lane found it and hands it over rather than deciding it.
-  THE STANDING DEBT, UNCHANGED: every sign was judged ALONE ON EMPTY GROUND and never among
-  buildings, people and ground art -- COMPARE EVERY PIECE OF ART TO THE WORLD, still unrun,
-  and it is exactly the law that would have caught the camera fault on round one.
+NEXT IN THIS LANE
+  1. [bb houses], my rule 33 school line, NOT STARTED: BB's three noble houses (who hires,
+     who hunts you, standing per house, renown) and the late-game crisis that sweeps the
+     map; the shape for us is our 14 crews on the map, standing per faction gating asks,
+     and the acts' flip as our crisis. Rule 33(g): end it with what MOVES that BB's picture
+     does not.
+  2. [territory ledger] round two: the wiring, the moment the hold lifts -- two lines, both
+     carriers, gate already proves the no-op. AND the save: the ledger has toJSON/load and
+     nothing calls them yet, so it must be hung off the city's save the way WORLD hung the
+     act stamp off the purse.
+  3. STILL TRUE AND UNOWNED: nothing in this game takes ground. Until some lane ships that,
+     the ledger records zero rows. This lane should not invent the taking mechanic: what it
+     costs is his and the row says so.
+  THE STANDING DEBT: every sign was judged ALONE ON EMPTY GROUND -- COMPARE EVERY PIECE OF
+  ART TO THE WORLD, still unrun, and it is the law that would have caught the camera fault
+  on round one.
 
 STILL OPEN, NONE OF IT THIS LANE'S
-  [FOR PLUMBER / RUN] PAGES PUBLISH 17/1 at 268 MB against a 260 MB cap. 67 MB of dead
-  weight itemised by this lane four rounds ago (234 files in records/target nothing loads,
-  46.7 MB; ~20 MB of retired judge pages rule 15 killed 9/14). Raised four times.
-  [FOR WORDS / WHOEVER OWNS trackSay] `leg` (out or back) computed by tracksAt and thrown
-  away by the shipped sentence; 2:1 BACK by mid-day. WORDS Q23 said it 9/13.
+  [FOR PLUMBER / RUN] PAGES PUBLISH at 268 MB against a 260 MB cap; 67 MB of dead weight
+  itemised by this lane five rounds ago. Raised five times.
+  [FOR WORDS / WHOEVER OWNS trackSay] `leg` computed by tracksAt and thrown away; 2:1 BACK.
   [FOR WORLD, water lifted] the pumps lift ZERO litres: needPerDay() returns 0.
   [INHERITED] faction_towns P27; partiesNear() has no callers at all.
   [FOR QUESTS] M01-M05 are not inlined into any surface, so they cannot be played.
-  [FOR DIRECTION / COOK] AR-005: the widest zoom is a declared placeholder sky, all six art
-  requests OPEN.
+  [FOR DIRECTION / COOK] AR-005: the widest zoom is a declared placeholder sky.
   [FOR CHARACTER / COOK] faction_outfit 16/2: Blues and Trades 0.0085 apart on a 0.035 bar.
   [INHERITED] city_memory_gate 33/1, pack_gate 46/1, both reproduced on clean main.
 
@@ -13803,19 +13794,18 @@ STILL OPEN, NONE OF IT THIS LANE'S
   2. THE PLANT. If "the plant" in his towns law is a GENERATOR, every fortress makes power
      off its own seat. That authors canon about the money supply, so not taken.
   3. Anarchists, Colorful and Custom are called non-territorial and still hold ground.
-     (THREE INDEPENDENT MEASUREMENTS NOW: 100% of the running water, the highest share of
-     lit ground of any crew, and they drop a tier by act 3.)
+     (THREE INDEPENDENT MEASUREMENTS: 100% of the running water, the highest share of lit
+     ground of any crew, and they drop a tier by act 3.)
   4. What it COSTS to be seen with one of the four hidden factions.
   5. COLOUR CLASHES: Mob beside Reds, Network beside Blues, Church beside Trades.
 
-FIFTY STANDING LESSONS THIS LANE KEEPS RE-LEARNING
+FIFTY-TWO STANDING LESSONS THIS LANE KEEPS RE-LEARNING
   BEFORE ASSUMING A ROW IS BLOCKED, CHECK WHETHER ITS NAMED BLOCKER IS STILL TRUE.
   WHEN A CHECK GOES RED, ASK WHETHER IT IS MEASURING THE GAME OR ITS OWN INVENTION.
   WHEN HIS SENTENCE IS FALSE ON THE MAP, REPORT IT rather than forcing it.
   WHEN A LAW BLOCKS THE OBVIOUS BUILD, IT IS USUALLY POINTING AT A BETTER ONE.
   A BLOCK OF CLAIMS BEHIND AN `if` THAT QUIETLY DOES NOT RUN IS A GREEN GATE.
   SHOWN, COUNTED AND NEVER SEEN IS THE SAME AS NOT BUILT.
-  AN indexOf COMPARISON ACROSS A 4 MB FILE IS NOT AN ORDERING CLAIM.
   A LOAD THAT TIMES OUT IS A SYNTAX ERROR UNTIL PROVEN OTHERWISE.
   A BARE CATCH AROUND A FUNCTION THAT DOES NOT EXIST IS A CONFIDENT WRONG ANSWER.
   A BOX HEIGHT IS NOT A REACH. Measure whether the press LANDS.
@@ -13834,7 +13824,6 @@ FIFTY STANDING LESSONS THIS LANE KEEPS RE-LEARNING
   STOP INVENTING IDENTIFIERS. Grep the name AND the SHAPE.
   A CACHE KEY THAT CANNOT TELL "NO" FROM "NOT YET" WILL FREEZE THE WRONG ANSWER.
   A GATE THAT PRINTS NOTHING MAY HAVE PRINTED EVERYTHING.
-  A CACHE THAT ANSWERS "NULL" TWICE HAS NOT BEEN TESTED, IT HAS BEEN SKIPPED.
   A NEGATIVE RESULT IS WORTH SHIPPING WHEN IT IS BOUNDED AND MECHANICAL.
   A SUBSTRING TEST THAT MATCHES ITS OWN MUTATION IS NOT A TEST.
   WHEN A NEW LAW LANDS, COUNT HOW FAR THE BUILT THING ALREADY IS FROM IT.
@@ -13845,7 +13834,6 @@ FIFTY STANDING LESSONS THIS LANE KEEPS RE-LEARNING
   WHEN THE SAME DEFECT ARRIVES A THIRD TIME, BUILD THE THING THAT REPORTS IT.
   BEFORE YOU BLAME YOUR OWN DIFF FOR A RED, TAKE YOUR OWN FILES OUT AND RUN IT.
   A MEASUREMENT THAT LOOKS LIKE A BUG IS SOMETIMES THE DESIGN BRIEF.
-  A SHAPE WHOSE WHOLE JOB IS DIRECTION CAN POINT THE WRONG WAY AND STILL LOOK FINE IN CODE.
   CONFIRM A PUSH BY ANCESTRY, NOT BY WHAT THE PUSH COMMAND PRINTED.
   A LAW WITH A MEASURE ATTACHED IS NOT GUIDANCE, IT IS A TEST, AND I DID NOT RUN IT.
   A VERDICT THAT KILLS THE PICTURE DOES NOT KILL THE QUESTION IT WAS ASKING.
@@ -13855,17 +13843,22 @@ FIFTY STANDING LESSONS THIS LANE KEEPS RE-LEARNING
   A CORRECTION GOES BESIDE THE WORD IT REPLACES, NEVER UNDER IT.
   WHEN A NEW LAW LANDS, ASK WHAT IT MAKES ANSWERABLE IN YOUR OWN LAYER.
   HOW A FUNCTION IS PASSED IS NOT ITS SIGNATURE. A wrong accessor does not fail, it AGREES.
-  *** BEFORE YOU DRAW SOMETHING FOR A GAME, PHOTOGRAPH THE GAME. *** One screenshot of the
-  walked street on round one would have ended this row before it started, and it cost one
-  command. Eight rounds of art were made for a viewpoint the game does not have.
-  *** WHEN A REJECTION REPEATS AND THE FIX DOES NOT LAND, THE THING BEING REJECTED IS NOT
-  THE THING YOU ARE CHANGING. *** "Not analog horror enough" was read as a lighting note
-  three times because lighting was the axis I was on.
-  *** READ THE COMMENT, NOT THE THUMB. *** Two of his three votes on this row were UP and
-  all three comments killed the row.
-  *** A FALLBACK CONSTANT IS NOT A MEASUREMENT *** and a right answer out of a guessed
-  constant is still a guess. `?: 48` was right; `?: 275` was not; neither was measured.
-  *** A HASH DIFF ON A LIVE SCENE PROVES NOTHING. *** People move.
+  BEFORE YOU DRAW SOMETHING FOR A GAME, PHOTOGRAPH THE GAME.
+  WHEN A REJECTION REPEATS AND THE FIX DOES NOT LAND, THE THING BEING REJECTED IS NOT THE
+  THING YOU ARE CHANGING.
+  READ THE COMMENT, NOT THE THUMB.
+  A FALLBACK CONSTANT IS NOT A MEASUREMENT, and a right answer from a guessed constant is
+  still a guess.
+  A HASH DIFF ON A LIVE SCENE PROVES NOTHING. People move.
+  *** A GATE CAN PASS ITS OWN MUTATION BY COINCIDENCE OF THE CASE YOU CHOSE. *** The tier
+  check was correct code, correctly reasoned, and completely blind: it tested FORTRESS
+  ground for "keeps its tier" against a bug that hardcoded FORTRESS. Pick the case that can
+  tell the two apart, or the check is decoration.
+  *** A MEMORY CAN EXIST AND STILL BE INVISIBLE. *** A ledger under a surface that never
+  asks is a diary nobody opens. Count the reads before promising the player will see it.
+  *** TAKE THE SHAPE THAT IS ALREADY IN THE REPO. *** The century module had already solved
+  act stamping, backwards-refusal and entry-at-the-time; writing a second idea of a ledger
+  would have been a whole round of my own bugs instead of somebody else's finished ones.
 
 --------------------------------------------------------------------------------
 

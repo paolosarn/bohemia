@@ -1,0 +1,108 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>BOHEMIA - A BLOCK CHANGED HANDS</title>
+<style>
+ :root{ --ink:#141210; --paper:#f4efe6; --hot:#a8391d; --dim:#4a443c }
+ *{ box-sizing:border-box }
+ body{ margin:0; background:var(--paper); color:var(--ink);
+       font:15px/1.5 ui-sans-serif,system-ui,-apple-system,Arial,sans-serif }
+ header{ padding:14px 14px 10px; border-bottom:3px solid var(--ink) }
+ h1{ margin:0 0 5px; font-size:19px; letter-spacing:.3px }
+ .sub{ font-size:14px; color:var(--dim) }
+ .said{ margin:10px 14px; padding:9px 12px; border-left:5px solid var(--hot);
+        background:#fff; font-size:14px }
+ .said b{ color:var(--hot) }
+ .quiet{ margin:10px 14px; padding:9px 12px; border-left:5px solid #6b6252;
+         background:#fff; font-size:13px; color:var(--dim) }
+ .quiet b{ color:var(--ink) }
+ .wrap{ padding:6px 14px 50px }
+ .pair{ display:flex; gap:8px; background:#fff; padding:8px; margin-top:14px;
+        border-bottom:3px solid var(--ink) }
+ .pair > div{ flex:1 1 50%; min-width:0 }
+ .tag{ display:block; background:var(--ink); color:var(--paper); font:10px/1.7
+       ui-monospace,monospace; padding:0 6px; letter-spacing:.5px; margin-bottom:5px }
+ /* A PERCENTAGE MARGIN IS RELATIVE TO WIDTH, NEVER HEIGHT: the card is the top
+    12.4% of a 1134x2256 shot and the frame is 1.99x taller than wide. */
+ .clip{ position:relative; width:100%; overflow:hidden; border:1px solid #cabfa8 }
+ .clip img{ display:block; width:100%; margin-top:-25%; image-rendering:pixelated }
+ .cap{ font-size:14px; color:var(--dim); margin:9px 0 0 }
+ .cap b{ color:var(--ink) }
+ table{ border-collapse:collapse; width:100%; background:#fff; margin-top:14px;
+        font:12px/1.4 ui-monospace,monospace }
+ th,td{ text-align:left; padding:5px 7px; border-bottom:1px solid #ddd5c4 }
+ th{ background:var(--ink); color:var(--paper) }
+ td.n{ text-align:right }
+</style></head><body>
+
+<header>
+ <h1>A BLOCK CHANGED HANDS</h1>
+ <div class="sub">The first one, ever, in this game. The block right next to your front
+ door. 9/24</div>
+</header>
+
+<div class="said">
+ <b>UNTIL THIS ROUND, NO BLOCK IN THIS VALLEY COULD EVER CHANGE OWNER.</b> Who holds what
+ was worked out fresh from the map every time the game started, and nothing you did was
+ anywhere in it. Take a crew's ground, burn their town, pay them or don't: the game came
+ back the next morning with the same fourteen owners, forever.
+ <br><br>
+ Now it can change, and it is remembered, and it is remembered <b>per life</b> so your
+ third generation can be handed what your first one took.
+</div>
+
+<div class="wrap">
+
+ <div class="pair">
+  <div><span class="tag">BEFORE</span>
+   <div class="clip"><img src="FACTIONS_TOOK_BEFORE_9_24.png" alt="the street before"></div></div>
+  <div><span class="tag">AFTER</span>
+   <div class="clip"><img src="FACTIONS_TOOK_AFTER_9_24.png" alt="the street after"></div></div>
+ </div>
+ <div class="cap">Both are photographs of your real game. In between them, <b>the block one
+ step west of your door stopped belonging to the Mob and started belonging to the
+ Volunteers.</b> Look for it. (There is one difference you can see and it is not that one:
+ a walking hint was up in the left picture. Nothing about who owns the ground moved a
+ single pixel.)</div>
+
+ <div class="said">
+  <b>YOU CANNOT FIND IT, AND THAT IS THE HONEST HALF OF THIS.</b> The ground changed owner
+  and the street did not say a word.
+  <br><br>
+  I counted why. While you stand on the street the game asks <b>two or three times a
+  second</b> who owns ground, and those are all asking about the one square you are
+  standing on. <b>And out in the city view it asks ZERO times.</b> The screen where you
+  would look at a map of who owns what never once asks who owns anything.
+ </div>
+
+ <table id="tbl"></table>
+ <div class="cap">What the record kept, off the real game. <b>The tier stays the ground's,
+ not the taker's</b>: taking a fortress block does not turn it into your fortress, because
+ what a place charges is a fact about the place.</div>
+
+ <div class="quiet">
+  <b>WHAT THIS IS AND IS NOT.</b> It is the memory, and the memory is the part that had to
+  exist first, because the three lives only work if the future can be worked out from what
+  the past did. <b>It decides nothing about how you take ground or what it costs.</b> Those
+  are yours, and nothing in the game takes ground yet. Nothing here touches the demo.
+ </div>
+
+</div>
+
+<script>
+var ROWS = [
+  ['the block', '47,48, one step west'],
+  ['who had it', 'Mob'],
+  ['who has it now', 'Volunteers'],
+  ['what it is worth', 'fortress ground, unchanged'],
+  ['your own block', 'Mob, untouched'],
+  ['the record', 'Volunteers +1, Mob -1'],
+  ['remembered for', 'life 1'],
+  ['what the street showed', 'nothing'],
+  ['times the city view asked who owns it', '0']
+];
+var h = '<tr><th>WHAT</th><th class="n">THE RECORD SAYS</th></tr>';
+for (var i = 0; i < ROWS.length; i++)
+  h += '<tr><td>' + ROWS[i][0] + '</td><td class="n">' + ROWS[i][1] + '</td></tr>';
+document.getElementById('tbl').innerHTML = h;
+</script>
+</body></html>

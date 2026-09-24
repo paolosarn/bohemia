@@ -761,6 +761,22 @@ GATES = [
      'Red four ways: let a dark pump lift anyway -> 4; put a fudge factor in the physics '
      '-> 2; ask the plant\'s own cell again -> 4 (and the failure reads 28604 -> 23804, '
      'the countdown restarting); count the water and never credit it -> 1.', True),
+    ('TURF LEDGER', ['node', 'gates/turf_ledger_gate.js'],
+     'ROW [territory ledger] (coordinator 9/24, from WORLD caaaa26): turfGrid() is keyed on '
+     'seed + map size and nothing else, the save never mentions turf, and HOLDS -- the towns '
+     'module\'s only override -- is empty and says so in its own comment. So the row\'s sentence '
+     'is true and there is a harder one under it: NOTHING IN THIS GAME CAN CHANGE WHO HOLDS A '
+     'BLOCK, so a ledger built today records zero rows. This is the place for it to be said and '
+     'nothing else; it decides nothing about who may take ground or what it costs, which are his. '
+     'Shape TAKEN from bohemia_century (V/act/entries, clampAct, a setAct that refuses to run '
+     'backwards, an entry stamped at the time) rather than a second idea of a ledger. THE CHECK '
+     'THIS EXISTS FOR: the empty ledger is a NO-OP against the real derived valley, all 9,216 '
+     'cells, so wiring the read-through changes nothing until somebody takes ground; and one '
+     'entry moves exactly one cell. Red six ways: run the act backwards -> 1; allow a change '
+     'that changes nothing -> 2; break the no-op -> 2; leak the future into an earlier act -> 1; '
+     'take the newest `from` instead of the oldest -> 4 (a real bug this gate caught in its own '
+     'module: a middleman cancels out and the net lies); give the taker\'s tier to the ground -> 1 '
+     '(which passed until the tier check stopped using a fortress cell to test fortress).', True),
     ('ACT STAMP', ['node', 'gates/act_stamp_gate.js'],
      'ROW [act stamp] (coordinator 9/24, off this lane\'s own caaaa26): three of the four '
      'ledgers rule 31\'s derive reads cannot say which act they mean. BOTH HALVES BUILT. '

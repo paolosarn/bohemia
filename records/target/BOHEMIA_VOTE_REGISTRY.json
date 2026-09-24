@@ -1879,6 +1879,19 @@
     "how": "text",
     "src": ""
    }
+  },
+  {
+    "id": "factions-a-block-changed-hands-9-24",
+    "kind": "tile",
+    "lane": "factions",
+    "sha": "PENDING",
+    "made": "9/24",
+    "title": "A BLOCK CHANGED HANDS",
+    "why": "Until this round no block in this valley could EVER change owner. Who holds what was worked out fresh from the map on every boot and nothing you did was anywhere in it, so you could take a crew's ground and the game came back next morning with the same fourteen owners forever. Now a block can change hands and be remembered, per life, so your third generation can inherit what your first one took. Here is the first one, one step west of your front door: Mob to Volunteers, fortress ground stays fortress ground, your own block untouched. Both pictures are photographs of your real game. AND YOU CANNOT SEE IT, which is the honest half: the street never says a word, and out in the city view the game asks who owns the ground exactly ZERO times. Thumbs up and I make a block changing hands something you can see. Thumbs down and the memory still stands, it just stays invisible.",
+    "show": {
+      "how": "page",
+      "src": "vote/FACTIONS_A_BLOCK_CHANGED_HANDS_9_24.html"
+    }
   }
  ],
  "verdicts": [
