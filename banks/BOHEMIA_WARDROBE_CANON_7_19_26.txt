@@ -4,7 +4,7 @@
 #   4th field added 7/21 for dress-code-by-rank -- bohemia_dress.js parse()
 #   widened to p.length>=3 the same turn; regenerate any embedded slice
 #   copy (tools/bohemia_life_slice.py) so its stamped parser matches)
-# count: 332
+# count: 330
 TEMPLE TAPER|hair|#201e1b|
 SHAG|hair|#523a26|
 ROPE LOCKS|hair|#201e1b|
@@ -25,7 +25,6 @@ BONE HENLEY|base|#a29a86|
 PATINA WORK SHIRT|base|#506e60|
 SOOT TANK|base|#363436|
 BLUE JEANS|legs|#40506e|
-BLUE HIDE JEANS|legs|#40506e|
 BLACK CARGOS|legs|#343a2e|
 GREY SWEATS|legs|#787882|
 DUST TROUSERS|legs|#806e50|
@@ -65,7 +64,6 @@ KHAKI BUTTON-UP|base|#7e6e50|
 SLATE SHORT-SLEEVE|base|#484e56|
 SAGE STRIPED HENLEY|base|#5a6856|stripe
 DUST PLAID SHIRT|base|#806e50|plaid
-DUST PLAID HIDE|base|#806e50|plaid
 ASH HOODIE|base|#46484e|
 COAL HOODIE|base|#303034|
 OLIVE HOODIE|base|#4a5036|
@@ -201,28 +199,28 @@ HIP SASH|waist|#5c302a|
 OUTLAW BANDANA|face|#40506e|
 SCRAP HELM|head|#724830|
 MOB PINSTRIPE SHIRT|base|#b08a2a|stripe
-SIGNAL RED SHIRT|base|#dc2820|
-SIGNAL RED BOOTS|feet|#dc2820|
+SIGNAL RED SHIRT|base|#c3332c|
+SIGNAL RED BOOTS|feet|#c3332c|
 VESTMENT GOLD SHIRT|base|#ffd75c|
 VESTMENT GOLD BOOTS|feet|#ffd75c|
-MOSS GREEN SHIRT|base|#6ebe3c|
-TEAL WORK SHIRT|base|#28bea0|
-COBALT WORK PANTS|legs|#326ed2|
-TEAL WORK PANTS|legs|#28bea0|
+MOSS GREEN SHIRT|base|#76b64e|
+TEAL WORK SHIRT|base|#3cb49c|
+COBALT WORK PANTS|legs|#3d6dbd|
+TEAL WORK PANTS|legs|#3cb49c|
 ROSE BANDANA|face|#dc4655|
-TEAL STRIPED TEE|base|#28bea0|stripe
-COBALT DUSTER|outer|#326ed2|
+TEAL STRIPED TEE|base|#3cb49c|stripe
+COBALT DUSTER|outer|#3d6dbd|
 ROSE KNIT CAP|head|#dc4655|
-COBALT KNIT CAP|head|#326ed2|
+COBALT KNIT CAP|head|#3d6dbd|
 GOLD WRAP SKIRT|legs|#ffd75c|
-GRASS SNEAKERS|feet|#6ebe3c|
-COBALT SHIRT|base|#326ed2|
-COBALT COAT|outer|#326ed2|
-COBALT BOOTS|feet|#326ed2|
+GRASS SNEAKERS|feet|#76b64e|
+COBALT SHIRT|base|#3d6dbd|
+COBALT COAT|outer|#3d6dbd|
+COBALT BOOTS|feet|#3d6dbd|
 ROSE DUSTER|outer|#dc4655|
 CHARCOAL ROAD CAPE|back|#363436|
-GRASS DUSTER|outer|#6ebe3c|
-COBALT SNEAKERS|feet|#326ed2|
+GRASS DUSTER|outer|#76b64e|
+COBALT SNEAKERS|feet|#3d6dbd|
 CHARCOAL WRAP SKIRT|legs|#363436|
 CHARCOAL BOOTS|feet|#363436|
 CHORE COAT|outer|#624e38|
@@ -243,8 +241,8 @@ BONE VEST|outer|#a29a86|
 OLIVE CAR COAT|outer|#4a5036|
 BRICK CAR COAT|outer|#703a30|
 SPLIT-TAIL WORK COAT|outer|#5c422c|
-COBALT CHORE COAT|outer|#326ed2|
-GRASS CAR COAT|outer|#6ebe3c|
+COBALT CHORE COAT|outer|#3d6dbd|
+GRASS CAR COAT|outer|#76b64e|
 HOOD-UP ASH HOODIE|base|#46484e|
 HOOD-UP COAL HOODIE|base|#303034|
 HOODED DUST PONCHO|outer|#806e50|
@@ -325,15 +323,15 @@ SLATE COMMA COAT|outer|#484e56|
 COLUMN PANT-BOOT|feet|#363436|
 COAL COLUMN|feet|#303034|
 ASH COLUMN|feet|#46464a|
-COBALT COCOON COAT|outer|#326ed2|
+COBALT COCOON COAT|outer|#3d6dbd|
 BRICK COMMA COAT|outer|#703a30|
 OLIVE ASYM COAT|outer|#4a5036|
-GRASS WRAP COAT|outer|#6ebe3c|
+GRASS WRAP COAT|outer|#76b64e|
 GOLD DROP TROUSER|legs|#ffd75c|
-TEAL STACK PANT|legs|#28bea0|
+TEAL STACK PANT|legs|#3cb49c|
 GOLD STACK BOOT|feet|#ffd75c|
-TEAL COLUMN|feet|#28bea0|
-COBALT COLUMN|feet|#326ed2|
+TEAL COLUMN|feet|#3cb49c|
+COBALT COLUMN|feet|#3d6dbd|
 OLIVE STACK BOOT|feet|#4a5036|
 BRICK CROP TROUSER|legs|#703a30|
-COBALT DROP TROUSER|legs|#326ed2|
+COBALT DROP TROUSER|legs|#3d6dbd|
