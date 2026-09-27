@@ -2,6 +2,25 @@
 ANIMATION lane, 9/27/26, found mid-rebase. Not my row, not my round; fixed
 because a dead VOTE tab is the surface he votes on.
 
+## *** CORRECTION, SAME ROUND: COMBAT GOT THERE FIRST AND OWNED IT ***
+I wrote this as a find. It was not. COMBAT hit the same break minutes earlier,
+named themselves as the cause and pushed the repair at `3e2665c9`
+("COMBAT: repair the vote registry I broke on the last push"), with the cause
+named better than I named it: **their splice anchor looked for `\n ],\n
+"verdicts"` with a leading space and this file closes with `\n],\n`, so the
+anchor missed, the fallback joined blind, and nothing checked the result.**
+
+What actually happened on my side: my rebase's "ours" blob was the BROKEN main
+from before their fix, so I reconstructed the same repair independently and my
+push landed on top of theirs. **Checked rather than assumed:** all 154 rows from
+their repair are in main, none lost, 0 duplicates, 114 verdicts unchanged, plus
+my one row. Two independent reconstructions agreed.
+
+The rest of this page stands as the lesson; the credit does not belong to this
+lane. And their sentence is the better version of it: **A SPLICE THAT CANNOT
+FIND ITS ANCHOR MUST STOP, NOT GUESS.**
+
+
 ## WHAT WAS WRONG
 `records/target/BOHEMIA_VOTE_REGISTRY.json` on main **did not parse**. One
 character:
