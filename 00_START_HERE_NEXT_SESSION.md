@@ -38989,7 +38989,68 @@ a memory reset. HE WILL NEVER TYPE ANYTHING BUT THE ONE WORD AGAIN. ***
     I will never paste anything to you again. From here on, the one word is the whole
     instruction.
 
-*** [one mode] V226 -- THE FIGHT'S PAD IS THE ONE CUT RING. ROUND 1 OF THE ROW. ***
+*** [bb fight] ROUND 1 -- THE ONE TERRAIN RULE HE KEPT HAS NEVER ONCE FIRED. ***
+His word this round was "Battle brothers vamily", so the rule 33 line came first. Record:
+records/BOHEMIA_COMBAT_BB_FIGHT_SCHOOL_AND_THE_MOUND_9_27_26.md
+
+THE MOUND, AND THERE WAS NOTHING TO DELETE. The row says "the only terrain effect is high
+ground = accuracy; remove any other tile effect that exists". Measured the dial's inputs
+first: how far he is, elite, behind stone, how you peek, shots taken, guns up, and ARE YOU
+ABOVE HIM. Exactly one is about the ground. This game never grew BB's hills, forest and
+swamp, so there is no terrain table to remove.
+
+THEN WHETHER THE ONE HE KEPT HAPPENS, over 120 and again over 160 seeded street fights on
+the shipped house board (a tile is a house, 12 m):
+  the raised slab exists in     71-74% of fights
+  it is                         9.1-9.3 tiles across  = about 111 metres
+  nearest way up                6.3-6.5 tiles         = about 77 metres
+  the player starts on it       0 of 160
+  it changed                    0 of 688 shots at the bell
+THE ONE TERRAIN RULE IN THE GAME HAS NEVER ONCE FIRED. Paolo ruled it 8/2 and it was built
+right; it is unreachable. And it is not a mound, it is a city block with a staircase.
+
+THE GATE: gates/one_terrain_effect_gate.js, 4 passed 2 failed, on the one driver. IT REFUSES
+A SECOND TERRAIN EFFECT WITHOUT GREPPING FOR ONE: it collects (what the game says decides
+this shot) -> (the dial it got) over 120 arenas and asserts THE MAP IS A FUNCTION. 519 shots
+into 6 input buckets, every bucket internally consistent; a tile that moved a number would
+make one tuple give two answers whatever it was called. PASS nothing else changes a number |
+PASS the effect is real (flat 0, a storey above 2) | FAIL it fires (0 of 519) | FAIL it is a
+mound (9.26 tiles).
+
+THE SCHOOL, against this repo and not a wiki. BB has that RF4 does not: fatigue (WE ALREADY
+HAVE IT, the stamina pip IS BB's fatigue), zone of control (WE DO NOT, and it is the cheapest
+thing on the page: rule 23 wants stepping in and out of reach to be the dance, and a free
+disengage is what makes reach a printed number instead of a decision), injuries (half: BB's
+are a post-battle MENU, ours would be one line, belongs with [armour morale]), two ablative
+armour pools (ours is the plate and it costs tape; a second number on every hit belongs to
+the dial), the line and flanking (HONEST NO: a line needs a squad, we have you and her), named
+brothers lost forever (ours is better and deliberate: she goes DOWN NOT DEAD, this lane's 9/12
+finding that permadeath cashes in a bond rather than creating one). THE ONE TO TAKE IS ZONE OF
+CONTROL, and it is NOT BUILT THIS ROUND on purpose (rule 6: it belongs to [fight feel]).
+
+RULE 33(g), WHAT MOVES THAT BB'S PICTURE DOES NOT: in BB the high ground is a tint on a hex
+and a number in a tooltip. Ours already has the beat, the cloud and bodies at the ruled size,
+so a mound is a thing you SEE THE CAMERA CLIMB and a body stand up on. The tell should be that
+the man below is suddenly worth looking down at, not a plus sign.
+
+TWO INSTRUMENT FINDINGS THAT COST ME TIME:
+ 1. THE OLD HARNESS IN THIS LANE'S GATES IS DEAD ON file://. It clicks blind at (215,450);
+    since RUN's loading screen landed it sits behind the splash for ever, because that screen
+    FETCHES five things and file:// blocks a fetch. Every gate still using that pattern is
+    waiting on a door that cannot open. The driver serves over http and knocks.
+ 2. THE FIGHT HAS ITS OWN FRONT DOOR: the COMBAT tab's frame opens on BOHEMIA / DEAD EYE DIAL
+    / TAP TO START with a live G and a working setupCombat underneath it. Two finders failed
+    to name that card and I STOPPED rather than write a third (the tell); the photograph was
+    taken by walking into a fight off the street. It is also a finding for [one mode]: the
+    fight is a second document WITH ITS OWN TITLE SCREEN.
+
+RULE 22: VOTE item combat-the-only-high-ground-9-27, a real fight walked into off the street
+with the four numbers on the card.
+
+BASELINED, NOT MINE: house_rulers_gate is 11/2 on clean main (aim line, and the way out at 4
+houses against a contentR of 3.86) and 12/1 on this tree, so this tree is one better.
+
+*** [one mode] V226 -- THE FIGHT'S PAD IS THE ONE CUT RING. ROUND 1, STILL CLAIMED. ***
 Stamp 9/24u. Record: records/BOHEMIA_COMBAT_THE_PAD_IS_ONE_RING_IN_THE_FIGHT_9_24_26.md
 
 FIRST, THE BOARD WAS WRONG AND IT WAS MY OWN ROW. It read "SHIPPED 9/24 648afbe [one mode]"

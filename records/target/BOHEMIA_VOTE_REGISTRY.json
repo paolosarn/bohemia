@@ -2064,7 +2064,21 @@
     "src": ""
    }
   }
-],
+],,
+  {
+   "id": "combat-the-only-high-ground-9-27",
+   "kind": "tile",
+   "lane": "combat",
+   "sha": "PENDING",
+   "made": "9/27",
+   "title": "THE ONLY HIGH GROUND IN THE FIGHT",
+   "why": "You made one call about ground in a fight: ONE terrain rule, high ground helps you aim, and nothing else on a tile changes a number. I went and checked what the game already builds for that, and this is it, photographed in a real fight I walked into off the street. Then I counted it over 120 fights. A tile is one house, 12 metres. The raised slab turns up in 71% of fights. IT IS NINE HOUSES ACROSS, about 111 metres, so it is a city block with a staircase, not a mound. The nearest way up is 6 houses away. You start on the ground 120 times out of 120. So the one rule you kept changed 0 of 519 shots. It has never once fired in a fight anybody has played. The good news is there is nothing to delete: the game never grew Battle Brothers' hills and swamps and forests, so high ground really is the only ground rule in here. What I want to do next is make it a MOUND: something small, one house, that you are standing on or one step away from, so taking the height is a move you make in the fight instead of a building across the street. And when you are up on it you should SEE it, not read a plus sign. Thumbs up and I build the mound that way. Thumbs down and tell me if you would rather keep the big raised block and just make it reachable.",
+   "show": {
+    "how": "image",
+    "src": "vote/COMBAT_THE_ONLY_HIGH_GROUND_9_27.png"
+   }
+  }
+ ],
  "verdicts": [
   {
    "id": "people-the-one-who-walks-with-you-9-21",
