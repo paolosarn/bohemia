@@ -32,6 +32,23 @@ maces knock a man out of his next turn. Daze (Mace: Bash) lowers AP. Knockback m
 TERRAIN: high ground +10% to hit and ranged range; low ground -10%; forest blocks line of sight and
 ranged fire; swamp costs AP and fatigue; night lowers ranged accuracy and sight. (THE MOUND: Paolo 9/24
 keeps ONLY high ground = accuracy for us; none of the rest.)
+  [COMBAT 9/27, MEASURED, not recall -- records/BOHEMIA_COMBAT_BB_FIGHT_SCHOOL_AND_THE_MOUND_9_27_26.md]
+  OUR SIDE OF THIS LINE, so the next lane does not have to go and count it: we already have exactly one
+  terrain effect and it is high ground; this game never grew BB's forest, swamp or snow, so there is no
+  table to delete. But the one we have HAS NEVER FIRED. Over 160 seeded street fights on the house board
+  the player started on the high ground 0 times and it changed 0 of 688 shots, because what the game
+  builds for it is a raised slab 9.1-9.3 tiles across with its nearest stair 6.3-6.5 tiles away. Under
+  rule 34 (9/27) a tile is no longer a house, so those distances are re-derived in cells and the mound
+  is ONE CELL of COVER.
+  AND THE SHAPE OF OURS IS NOT BB'S: BB's height is a hex you walk onto and read in a tooltip. Ours is
+  a FLOOR, not a bonus -- highGroundEdge only pays over a man who is in cover BELOW you, and it pulls
+  the dial's tier rather than adding a percent, because EVERYTHING COSTS ONE.
+
+ZONE OF CONTROL is the one rule on this page we do NOT have and should take [COMBAT 9/27, same record]:
+  measured against our repo, BB's fatigue is already our stamina pip, its two armour pools are our one
+  plate that costs tape, and its LINE needs a squad we do not have (we have you and one companion). A
+  free disengage is what makes rule 23's reach a decision instead of a printed number. It belongs to
+  [fight on the grid] now that a step is one cell.
 RANGED: bows and crossbows shoot over allies with a penalty at distance and a chance to hit a friend in
 the line (friendly fire is real); crossbows need a reload action; javelins and throwing axes 2 to 3 range.
 ROUNDS: a fight lasts until one side is dead, fled or you RETREAT (men off the map edge; those left
