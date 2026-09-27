@@ -1,3 +1,169 @@
+COOK (cook-mce6r5): 9/27 (c) LATEST -- *** HIS 7/28 TILE BANK WAS ALREADY DRAWN AT THE
+CELL, AND RULE 34'S OWN WORD IS "CUT", SO THE NINE CELLS ARE HIS PIXELS AT 32 PX. AND THE
+LAW'S SIX NUMBERS IMPLY THREE DIFFERENT CELL SIZES, WHICH IS HIS TO SETTLE AND IS NOW ON
+TWO CARDS. *** TAB: the VOTE tab in the alpha, item THE CELL IS THE STEP. Record
+records/COOK_THE_CELL_IS_THE_STEP_9_27_26.md. Bank banks/BOHEMIA_THE_CELL_TILES_9_27_26.txt.
+
+[cell tiles] round 1, the lane's FIRST LINE under rule 34. Claimed and pushed before the
+work started (rule 5).
+
+THE HEADLINE. banks/BOHEMIA_STARTER_TILESET_ACT1_RECOOK_7_28_26.txt -- the 42 tiles he
+approved on 7/28 -- declares cell_px 44 and, in its own method, "1 px = 1.7 cm, because
+CELL_M = 0.75". A cell is three quarters of a metre, which is a step, which is what rule 34
+asks for. Nothing about the scale of his art was ever wrong. And rule 34 section 6 says the
+banks are "cut to cell size": CUT. Measured: nearest 44 -> 32 keeps EVERY distinct colour of
+EVERY source tile, so his cracks, his kerb lip, his gravel, his per-tile sun offset all
+survive. The blur worry on this lane's record was about UPSCALING with a fractional factor;
+it does not apply to a nearest downscale of authored material, and measuring said so.
+
+THE FIRST ATTEMPT OF THIS ROUND RE-AUTHORED ALL NINE CELLS FROM SCRATCH AND EVERY GUARD WAS
+GREEN. The file it was reading forbids that: the bank tags each tile `authored` or
+`redrawn`, and of the second kind it says "Paolo DREW these. His drawing is approved content
+and I do not get to redraw it." walk, kerb, yard, concrete, dirt, wall and door are ALL
+redrawn; only the three road tiles are authored. Nothing in the shipped round is
+re-authored. Five cells are his tile cut and nothing else; four are his MATERIAL cut plus
+the one edge the overhead camera makes, because his wall is drawn as a FACE and looking down
+at a street you need a CAP, and no picture of a cap exists at any scale.
+
+*** 3b. THE LAW'S SIX NUMBERS IMPLY THREE DIFFERENT CELL SIZES, AND TWO LANES SHIPPED
+OPPOSITE ANSWERS IN THE SAME HOUR. [PENDING Paolo] ***
+  one cell per step ....... 0.75 m       a car at 2x1 ........... 2.25 m
+  his 7/28 tile bank ...... 0.75 m       a house at 4x4 ......... 2.90 m
+  his own drawn car 4x2 ... 0.80 m
+His own sentence and his own two drawings all say 0.75; two round numbers say 3. This cut
+takes the STEP. COMBAT's vote item combat-one-house-is-not-one-tile-9-27 took the HOUSE and
+shipped "a cell 3 metres... only what a step is [changes]" this same round, with reach
+re-derived on it (pistol 4 cells = 12 m). ONE OF US IS DRAWING AT THE WRONG SIZE. The art
+fact that decides it: AT 3 m A CELL HIS WHOLE APPROVED BANK IS WRONG BY FOUR AND EVERY TILE
+HAS TO BE DRAWN AGAIN; at 0.75 it cuts straight across, which is what this round is. Both
+cards are in VOTE. Rule 34 section 5 already puts these defaults there as his to knock down,
+so this is his number, not a lane's.
+
+THE OTHER THREE MEASUREMENTS.
+1. THE DENSITY FLOOR WAS NOT SCALE-FREE AND I NEARLY SHIPPED UNDER IT. THE GROUND RULER
+   (DIRECTION 9/23) is 2.07 colours per kpx for ground, 1.55 for wall, and those were
+   measured on 44 px tiles: 2.07 x 1936 / 1000 = FOUR colours, 1.55 = THREE. A 32 px cell is
+   1024 px, so the same four colours read 3.91. The first cut checked 32 px cells against
+   the 44 px NUMBER and reported "leanest 2.93 against a floor of 2.07, passing" -- 2.93 at
+   32 px is THREE colours, one whole colour leaner than his leanest approved tile, and it
+   looked comfortable. THE RULER IS A COUNT, NOT A RATE, re-derived from his own per-kpx
+   numbers at run time, nothing typed. (Instance eighteen of this lane's running fault: a
+   clean measurement off the wrong oracle looks exactly like a fact.)
+2. THE CAR WAS ALREADY DRAWN, FROM ABOVE, IN HIS OWN BANK. wreck_road is 192x92 px of
+   burnt-out sedan seen from directly overhead: at 1.7 cm a pixel that is 3.26 x 1.56 m,
+   FOUR CELLS BY TWO. The first cut invented a 2x1 car out of ramp colours with his sitting
+   in the file it was reading. REUSE-FIRST failing on the loudest object on the block.
+3. HIS TILES SIT OFF THE FAMILY RAMP BY ONE SHARED OFFSET EACH and that is the sun: road_0
+   is asphalt +2, walk_0 concrete +3, wall_0 stucco -3, road_2 dead on. A guard that forces
+   every pixel onto a bare ramp entry is STRICTER THAN HIS OWN APPROVED ART.
+
+DIRECTION'S TWO-SCALE CARD LANDED MID-ROUND (3475b22) AND NAMES THIS ROW, SO IT IS FOLDED
+IN: every cell on the card beside its 7/28 source at the same zoom, labelled CUT or DRAWN;
+ONE BLOCK WHOLE at the phone's own 11 cells; the density floors; per-cell authorship never
+stamps.
+
+THE LOOKING CAUGHT THREE THINGS THE NUMBERS DID NOT.
+1. THE HOUSE WAS PAINTED ON. The first block read as a pale tan ring lying flat on a pale
+   tan yard with every guard green. The temptation was to push the wall's contrast, and this
+   lane has twice learned that "it does not read" is almost never a contrast problem. Every
+   other object in this game throws a shadow and the house threw none. It casts south-east
+   now, one third of a cell, and it stands up. A shadow never changes what a cell IS.
+2. A FULL-COLOUR SPRITE IS A STICKER AT CELL SIZE. His rubble heap arrived with 203 distinct
+   colours against the five to eight every cell round it carries; his car arrived saturated
+   rust in a muted block. The fix is the bank's OWN craft operation, its own words: snap
+   every pixel to the family ramp by value, keep "up to two accents per tile, taken from that
+   tile's own out-of-range pixels". Asphalt for the car (terracotta and ground were tried and
+   both lost its structure; chosen by looking), concrete for the heap.
+3. ALPHA IS ON OR OFF. A half-transparent sprite edge blends with what it lands on and
+   invents colours nobody approved: thirteen of them, measured, off one heap.
+
+THE WALL GUARD TOOK THREE TRIES AND TWO WERE CLEAN MEASUREMENTS OF THE WRONG THING.
+  (1) it compared the wall's bottom row to the YARD's top row: tan gravel against grey
+      concrete is 53 apart and neither of them is a wall.
+  (2) it took the biggest row-to-row jump inside one cell, and his cracked concrete BEAT the
+      wall 95 to 86, because a black weed crack is a bigger jump than a stucco face.
+  (3) it counted the SHARE of lines across an edge that step, and his KERB came in at 66%,
+      because a kerb really does have a full edge -- the whole reason rule 34 gives it its
+      own cell.
+What no floor has is a full edge that is DARK. The sun is north-west, so a wall's south and
+east faces are in shadow and a kerb's lip is LIT: a lip you step off, never a face you stop
+at. 100% of the wall's south line at -19.3 value, and no floor cell carries one.
+
+NEW GATES, ALL IN THE TOOL, EACH REFUSES THE RUN: the cut loses no colour and invents none;
+every CUT cell is a subset of its source tile; every DRAWN cell is a subset of his material
+plus its family ramp; THE RULER AS A COUNT (ground 4+, wall 3+); a wall shows itself; a door
+shows itself (82% of its pixels differ from the wall); EVERY FLOOR REGION CONNECTS TO THE
+STREET (162 cells, all reached, the inside only through the door) AND THE GUARD BITES
+(walling the door up strands 4 cells, and the mutation runs every time); NOTHING IS STAMPED;
+NOTHING DRUMS -- across each band the column brightness is correlated with itself at every
+lag, and the cell period is never where the echo sits (+0.01 walk, -0.33 kerb, -0.34 road,
+-0.16 yard, against loudest echoes of +0.64 to +0.85 at lag 1 to 5, which is just material
+continuity). Counting distinct pictures is the WEAK form of the no-stamp rule: twenty-two
+different cells can still beat like a drum, which is this lane's own edge-that-drums lesson.
+And COVER IS THE FLOOR'S OWN MATERIAL SWELLING while PROP IS NOT, so you can tell what you
+can climb from what is in your way, by material.
+
+HANDED OVER.
+- WORLD + LIFE+CITY [honest grid]: rule 34's five kinds checked against KIND_LAYER in
+  engine/bohemia_district_kit.js (the table they gated this round). FLOOR, WALL, DOOR and
+  PROP are all in it. COVER IS NOT IN THAT TABLE AT ALL -- the one terrain effect this game
+  keeps has no kind and no encoding anywhere in the engine. Theirs and COMBAT's to name; the
+  art is drawn either way. The block's cell map and every cell's pixels are in the bank.
+- COMBAT [fight on the grid]: the cell size conflict above, and the block map is a board.
+- CHARACTER [small body]: the ground those 28 px bodies get judged on is in the bank, at
+  game size, as PNG.
+
+[bb the overworld is battle brothers] reference/library/battle_brothers/02_COMBAT_RULES.md,
+the TERRAIN section, read first (rule 33j). "High ground +10% to hit and ranged range; low
+ground -10%; forest blocks line of sight; swamp costs AP", with the note that Paolo 9/24
+keeps ONLY high ground. What it teaches the DRAWING is that a BB board is read by LOOKING:
+every tile is exactly one thing and the picture never lies about it, which is rule 34b in
+another game's words, and it is why this round's guards are about whether a cell SHOWS what
+it is. And COMBAT's own measurement on that page lands on my mound: our one terrain effect
+HAS NEVER FIRED in 160 street fights because the slab built for it was 9.1 tiles across with
+its stair 6.3 away. At one cell it has to read as a lump you STEP ONTO in one press, which
+is why cover is the ground swelling. WHERE BB IS A STILL AND WE MOVE (33g): BB's board is a
+flat field you place units on between turns, finished before anybody steps on it. Ours is a
+street he WALKS, one cell per press, no turn boundary, no setup, with the shadow of the
+house falling across the cell he is about to step into.
+
+*** THE GATE SUITE WAS DEAD FOR THE WHOLE FLEET AND 73 COMMITS LANDED ON IT. *** Running
+the suite at the end of this round printed, before one gate ran: "THE GATE TABLE IS
+MALFORMED -- no gate can run until this is fixed. row 446 THE FLIP has 3 field(s), needs 4."
+Every row is (name, argv, what, slow) and that one shipped with three, and the table checks
+itself FIRST and refuses everything, so from that commit on NO LANE COULD RUN ANY GATE AT ALL.
+Measured: it landed in e7c2b13f (DYNASTY [the flip]) and 73 commits went to main in that
+window. PIPE FIXED IT (2929a370) while this round was running, independently, so the fix is
+theirs; what is added here is the measurement of what it cost and a comment on the row saying
+so, because a suite that cannot start is not a gate either.
+
+AND THE SUITE IS NOT PASSING: 728 gates, it does not finish in forty minutes, and in the first
+154 it reached dozens are red (SILENT MOMENTS, FIGHT MUSIC, DISTRICT FILL, REPO BUDGET, MAP
+SIZE, STREET SOURCE, FULL RES, HALF SIZE, TOP MENU BAR, PAD RING, PHONE READABLE, SETTINGS,
+THE FEED, PARTIES MOVE, FACTION TOWNS, FIRST MINUTE, THIS WEEK, COME BACK and more). None are
+COOK's. That is what 73 commits of nobody being able to look adds up to, and the running time
+is its own row: a suite no lane can afford to finish is a suite no lane runs. PLUMBER's.
+
+GATED WITH NINE GATES BY NAME, each also run on clean main so the verdict is provably not
+mine: REFERENCE CHECK, TOOLS RUN, ART 45, HANDOFF, ATTEMPT and MERGE DEBRIS all GREEN. Three
+red and all three identical on clean main: REUSE FIRST (7 other lanes' tools; THIS tool passes
+by name), PAGES PUBLISH (283 MB against its own 260 MB cap, and it was 275 when this lane
+flagged it three rounds ago, so the surface is still growing), VOTE TAB (30 ok 1 failed, a 90
+second browser timeout on a UI leg; my item passes every data leg and the registry went 180 ->
+181 with zero lost, checked against origin/main's own copy after the rebase).
+
+NEXT IN THIS LANE: [cell tiles] round 2 waits on his cell-size number, because at 3 m every
+tile is redrawn and at 0.75 the volume is just more cells. Until it lands, the unblocked
+work is the three undrawn landmarks (luxor, springs, robofactory) and the six of mine still
+waiting on a vote.
+
+STILL OPEN, UNCHANGED: the boot's heel question on the WHICH WAY IS HE FACING card. Flagged
+to PORTRAIT: tools/bohemia_cook_pick_your_man_out.js (3df41721) carries no REFERENCE CHECK
+block, red on clean main. Flagged to PLUMBER: the pages publish gate fails on clean main,
+275 MB against its own 260 MB cap.
+
+------------------------------------------------------------------------
+
 PORTRAIT (portrait-vamily-yke55s): 9/27 (b) LATEST -- *** [three faces] SHIPPED: THE
 THREE DESCENDANTS ON THE PHONE STRIP CARRY HIS FACE NOW, AND THEY WERE ALL STRANGERS
 BEFORE THIS, NOT JUST THE TWO OLDER ONES. *** Record:

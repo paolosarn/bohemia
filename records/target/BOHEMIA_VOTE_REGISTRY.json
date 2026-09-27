@@ -2437,7 +2437,20 @@
         "how": "page",
         "src": "vote/PORTRAIT_NOT_STRANGERS_ANYMORE.html"
       }
-    }
+    },
+     {
+      "id": "cook-the-cell-is-the-step-9-27",
+      "kind": "tile",
+      "lane": "cook",
+      "sha": "PENDING",
+      "made": "9/27",
+      "title": "THE CELL IS THE STEP",
+      "why": "Your 7/28 tiles, cut to the new cell, and one whole block built out of them. Top of the page: every cell next to the tile of yours it came from, so you can see nothing got redrawn behind your back. Five of them are your pixels and nothing else. Four are your material with one edge added, because your wall is drawn as a FACE and looking down at a street you need a CAP, and no picture of a cap exists at any size. Bottom of the page: one block whole, at your phone's own width. Now the thing worth looking at. HOW BIG IS A CELL? The law gives six numbers and they do not agree. One cell per step says 0.75 metres. Your own 7/28 tile bank says 0.75. Your own drawn car, which is already drawn from above, measures 0.80. But a car at 2 by 1 says 2.25 and a house at 4 by 4 says 2.90. Your own sentence and your own two drawings all say 0.75, and two round numbers say 3. I built 0.75 and here is why, in one line: at 3 metres a cell your whole approved tile bank is at the wrong size by four and every tile has to be drawn again, and at 0.75 it cuts straight across, which is what this whole page is. Look at the car sitting in the road next to the house. The car is as long as the whole house. That is the 4 by 4 being wrong, not the car. COMBAT shipped 3 metres this same round off the house number, so one of us is drawing at the wrong size and it is a number for you, not for us. Up keeps 0.75 and a house gets bigger, about 15 by 17 cells. Down and say 3 and I redraw the bank.",
+      "show": {
+       "how": "image",
+       "src": "vote/COOK_THE_CELL_IS_THE_STEP.png"
+      }
+     }
   ],
   "verdicts": [
     {

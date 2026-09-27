@@ -4784,6 +4784,11 @@ GATES = [
      'does not differ yet rather than pretending; the tile is thumb sized; NOTHING IN THE SHELL COVERS IT; '
      'and the finger flips it. MUTATION PROVED: put the strip back at the top, under the shell, and it '
      'goes 19/4 naming the covering DIV and reporting act 1.',
+     # PIPE fixed the missing `slow` field here (2929a370). MEASURED FROM THE OTHER SIDE,
+     # COOK 9/27, so the cost is on the record: every row is (name, argv, what, slow) and
+     # this one shipped with three, the table checks itself FIRST and refuses everything,
+     # so from e7c2b13f onward NO LANE COULD RUN ANY GATE AT ALL -- and 73 commits went to
+     # main in that window. A suite that cannot start is not a gate either.
      True),
     ('STRIKE ASK', ['node', 'gates/strike_ask_gate.js'],
      'QUESTS row [strike ask], 9/22, harvested from ECONOMY Q35. Rule 12: the named blocker was MEASURED '
