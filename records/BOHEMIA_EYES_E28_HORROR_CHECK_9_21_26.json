@@ -1,13 +1,13 @@
 {
   "what": "every pixel against the analog horror bible",
-  "when": "2026-09-27T22:10:51.629Z",
+  "when": "2026-09-27T23:12:01.090Z",
   "surface": "/tmp/claude-0/-home-user-bohemia/065fcaf1-af13-5362-9424-9d0305049a14/scratchpad/cut/slices/BOHEMIA_DEMO.html",
   "bible": "records/BOHEMIA_ANALOG_HORROR_BIBLE_9_20_26.md (AH-01)",
   "controls": [
     {
       "name": "C0 THE DOOR REALLY OPENED: the splash is gone and the game’s HUD is there",
       "pass": true,
-      "detail": "splash still shown: false, HUD music chip: \"MENU — THE POWER STILL ON SOMEWHERE\" -- so these readings are the game and not a title screen"
+      "detail": "splash still shown: false, HUD music chip: \"THE WIND LEARNS WORDS\" -- so these readings are the game and not a title screen"
     },
     {
       "name": "C4 the comparator reads 0 for identical and 1 for opposite",
@@ -22,7 +22,7 @@
     {
       "name": "C1 the full-frame counter bites",
       "pass": true,
-      "detail": "263 -> 264 after a planted full-canvas fill"
+      "detail": "264 -> 265 after a planted full-canvas fill"
     },
     {
       "name": "C2 the filter counter bites",
@@ -75,11 +75,11 @@
     "window_ms": 2000,
     "per_window": [
       0,
+      0,
+      0,
+      0,
       0.0073,
       0,
-      0,
-      0,
-      0.0049,
       0,
       0
     ],
@@ -90,8 +90,8 @@
   "counters": {
     "world": {
       "world_canvas": "378x830",
-      "full_frame_on_the_world": 128,
-      "of_those_opaque_clears": 128,
+      "full_frame_on_the_world": 129,
+      "of_those_opaque_clears": 129,
       "of_those_SEE_THROUGH_OVERLAYS": 0,
       "overlay_examples": [],
       "clear_examples": [
@@ -104,7 +104,7 @@
           "seeThrough": false,
           "alpha": 1,
           "style": "#8a7a58",
-          "at": 5140
+          "at": 900
         },
         {
           "kind": "fillRect",
@@ -115,7 +115,7 @@
           "seeThrough": false,
           "alpha": 1,
           "style": "#20303e",
-          "at": 9807
+          "at": 5778
         },
         {
           "kind": "fillRect",
@@ -126,7 +126,7 @@
           "seeThrough": false,
           "alpha": 1,
           "style": "#20303e",
-          "at": 18454
+          "at": 15080
         }
       ],
       "full_frame_on_scratch_canvases": 135,
@@ -139,10 +139,10 @@
           "v": "source-atop",
           "cw": 112,
           "ch": 112,
-          "at": 21575
+          "at": 20662
         }
       ],
-      "draws": 3514058
+      "draws": 3539771
     },
     "shell": {
       "world_canvas": "378x830",
