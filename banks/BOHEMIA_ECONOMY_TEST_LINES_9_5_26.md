@@ -4297,3 +4297,60 @@ SSSSSSSSSSS12 the one he does not pay, without heat        draft:true
   seven rounds, and it is one character's voice rather than a seasoning: the
   woman who feeds people is the one admitting it in her own first language.
   Under the 15% cap.
+
+## SSSSSSSSSSSS. THE FACE THAT NEVER CHANGES
+## (round 52 round two, [bb money] round two. A missed night that means nothing
+##  to anybody, a lender who gave up a whole day for one battery, a borrower who
+##  owes a whole day back, and the difference between an excuse and a disappearance.
+##  Nobody says a number. Role, place, situation.)
+
+SSSSSSSSSSSS1  a man who missed a night again, at the door       draft:true
+    "Same face I made last time. Didn't cost me anything then either."
+
+SSSSSSSSSSSS2  the one he owes, letting him in anyway            draft:true
+    "It never does. That's the strange part."
+
+SSSSSSSSSSSS3  a lender, before he hands it over                 draft:true
+    "This is my whole day, you understand. Not some of it."
+
+SSSSSSSSSSSS4  the one taking it, meeting his eyes                draft:true
+    "I know what a day is worth. I'll owe you one back."
+
+SSSSSSSSSSSS5  a woman explaining why she covered him              draft:true
+    "He told me why. That's different from him just not showing up."
+
+SSSSSSSSSSSS6  her husband, less generous                          draft:true
+    "Different how? He still didn't pay."
+
+SSSSSSSSSSSS7  the woman, holding her ground                       draft:true
+    "If he vanishes on me next, ask me again."
+
+SSSSSSSSSSSS8  a man who has missed four nights running            draft:true
+    "Four in a row now. Somebody's going to start saying it different."
+
+SSSSSSSSSSSS9  his neighbour, who has not said anything yet         draft:true
+    "Not yet. Ask me after five."
+
+## TTTTTTTTTTTT. WHAT IS NOT HERE, ON PURPOSE (round 52 round two)
+
+- No line says a weight, a rung, a threshold or a count that isn't spoken as
+  a plain number of nights a character can count on their own fingers
+  (SSSSSSSSSSSS8, "four in a row"; SSSSSSSSSSSS9, "after five"). No mechanism
+  number appears anywhere.
+- No line says DEED_WEIGHT, rung, standing, opinion or corpus. The whole finding
+  is said as two neighbours disagreeing about when a miss starts to count.
+- No line makes the missed man cruel or the lender a fool. SSSSSSSSSSSS3 and 4
+  are both right at the same time, which is the whole point of section 2.
+- NOBODY'S FEELINGS ACTUALLY CHANGE IN THIS BLOCK, which is the finding, not a
+  gap in the writing: SSSSSSSSSSSS1 and 2 say it out loud, on purpose, because
+  right now nothing in the mechanism can change them either.
+- No line decides where the line is. SSSSSSSSSSSS5 through 9 stage the real
+  disagreement (an excuse forgiven, a pattern not) without resolving it, because
+  that resolution is a number and section 4 said plainly it is not this lane's.
+- No line names a town, a street or a faction. MAP LAW.
+- No line has the player speaking. Rule 27: 579 role-place entries in this file
+  now, zero of them him talking.
+- No line is written for a card, a tooltip or a readout: rule 19(a), rule 29.
+  What this round hands over is a door, a handshake and a count on the fingers.
+- Spanish register: 0 of 9 lines. Under the 15% cap; these are two blunt
+  disagreements in plain speech and the register did not fit either one.

@@ -6744,24 +6744,54 @@ are inside PLUMBER's own [no markers] row prose and are in origin/main too.
      can build it under it. It is in the pendings because it decides what failure
      FEELS like, and that is his, not ours. Nothing is blocked on it.
 
-NEXT IN THIS LANE: [bb money] IS HALF DONE AND THE CLAIM IS SHIPPED FOR ROUND ONE. Two things, in
-order:
- (1) [bb money] ROUND TWO. THE ROW'S LAST CLAUSE IS THE ONLY PART ROUND ONE DID NOT ANSWER: "the loan
-     of one a night as the wage". The module is engine/bohemia_lend.js and it is already written --
-     HANDSHAKE 1, DUE_A_NIGHT 1, CURRENCY electricity, SHORT_DEED 'loan:short' -- and round 49 already
-     proved it is not a debt trap (paid() clears the account, short() does not compound). NOTHING NEEDS
-     INVENTING. What round two owes is (a) WHAT A RUNG DROP COSTS in our own numbers, measured off
-     bohemia_standing / the rungs, because that is the punishment this lane argued for instead of
-     desertion, and (b) the two ends connected on paper: what somebody lends you a night IS what a
-     night of somebody's time costs, so the loan and the wage are one number seen from two sides.
-     DO NOT RE-RESEARCH BB's per-day consumption. Round 49 section 3 has it and round 52 cites it.
-     DO NOT RE-RESEARCH PRICES PER TOWN. Round 52 section 2 has it, including the discrepancy: the dev
-     blog says 5% per level after 11 and round 49's record says 3%, both are banked with both sources
-     named, and NEITHER IS OURS TO COPY.
- (2) Q52 [inherited trust] -- this lane's own Q50 round one produced it.
-AFTER BOTH: fold rounds 51 and 52 into the master (a STANDING JOB, not a board job). The harvest
+=== ROUND 52 ROUND TWO, [bb money] THE-COMPANY-LEDGER, ROUND TWO OF TWO. [bb money] COMPLETE. ===
+RECORD: records/BOHEMIA_ECONOMY_DAY_52_ROUND_TWO_A_RUNG_DROP_COSTS_ZERO_BECAUSE_NOBODY_WEIGHED_IT_9_27_26.md
+
+THE FINDING, ONE SENTENCE: A RUNG DROP COSTS ZERO TODAY, MEASURED WITH THE REAL 42-FILE QUEST CORPUS
+LOADED, and the loan and the wage needed no new number because they are already the same constant.
+
+MEASURED: loaded all 42 quests/bq/*.bq files through the ONLY function that ever fills
+bohemia_standing.DEED_WEIGHT (engine/bohemia_deeds.loadCorpus). Real output: 83 rows land, every one
+shaped q:<quest>:<stage>@<FACTION>, and NONE of the five city-published deed kinds -- loan:short,
+claim:met, claim:refused, commit, favour -- gets an entry. This is WORLD's own 9/12 finding
+([someone lends], 1ffb2d2c) confirmed fresh rather than re-discovered: opinionOf() returns 0 for a
+missed loan no matter how many nights in a row, because forceOf refuses to score a weightless kind
+before it ever looks at age or count. WORLD already named this and routed it correctly in
+bohemia_lend.placeholders() rather than inventing a number; this round agrees.
+THE SHAPE A FUTURE WEIGHT WOULD NEED, if Paolo ever rules one, DERIVED FROM HIS OWN CONSTANTS, no
+number invented: RUNG_STEP is 2 (the gap between every one of S.RUNGS' own boundaries, -3/-1/1/3),
+and the corpus's own divisor formula (maxAbs / RUNG_STEP) makes the single worst act ever authored
+against a faction in the whole game worth exactly one rung. A missed handshake is nowhere near that
+bad, and forceOf sums every witnessed deed with its own decay rather than keeping a running total, so
+the honest shape is several misses close together moving a rung, never one -- which lines up with
+Grameen's own peer groups, who cover a member with a stated reason and only cut off one who vanishes.
+PART (b) NEEDED NO NEW NUMBER: PAYOUT.COMPLETE.electricity (engine/bohemia_purse.js:129, "a day's work
+pays a battery") and bohemia_lend's HANDSHAKE / DUE_A_NIGHT are already the same 1, same currency,
+shipped nine days apart by two different lanes that never cited each other. A handshake IS somebody's
+whole day, given forward; squaring up IS the next day's wage, owed back. The row asked for the loan
+and the wage to be "one number seen from two sides" and they already are.
+FOURTH ROUND RUNNING catching my own mismeasurement, and a new flavour: I wrote a regex meant to pull
+DEED_WEIGHT's rows straight from the source text; DEED_WEIGHT's declaration is `var DEED_WEIGHT={};`
+with no newline before its closing brace, so my regex (which required one) silently skipped it and
+matched the NEXT multi-line object instead (LOUDER, the rumour-growth table) and reported six rows
+including loan:short, all of it about the wrong table. Caught only because running opinionOf() for
+real returned 0, which contradicted the parse -- a captured value and a run value disagreed and the
+run was right, the fourth time this shape has cost a round something. THE RULE FOR NEXT TIME: when a
+regex capture and a real function call disagree, the function wins, always, and note the disagreement.
+
+[bb money] COMPLETE, BOTH ROUNDS. Round one: BB's per-town price spread is illegal under EVERYTHING
+COSTS ONE, the replacement is access and count (already his 9/15 ruling), and BB's own strongest price
+signal (the ambushed trade route) agrees with us rather than with itself. Round two: the punishment
+side of the same law -- what happens when you cannot pay -- is silent rather than broken, and the loan
+and the wage turn out to already be one number.
+
+NEXT IN THIS LANE: Q52 [inherited trust] -- this lane's own Q50 round one produced it. Two rounds:
+what inherited trust does to prices, lending and who gets the first battery (Q49), and the one
+integer shape it could take. (records/BOHEMIA_COORDINATOR_ROUND_9_24_26.md)
+AFTER Q52: fold rounds 51 and 52 into the master (a STANDING JOB, not a board job). The harvest
 control has run four folds clean and has caught a fault every time.
-CARRY THESE IN, ALL THREE ALREADY ROUTED AND NONE OF THEM THIS LANE'S TO FIX:
+CARRY THESE IN, ALL THREE ALREADY ROUTED AND NONE OF THEM THIS LANE'S TO FIX, STILL RED AS OF THIS
+ROUND (checked fresh, neither file has moved since I routed them):
  - gates/four_verbs_gate.js CRASHES on main, on "#daycardIn .dcgo". Do not read it as new and do not
    chase it. It means the four upkeep verbs have no working end-to-end check, which matters to this
    lane more than to anybody, so if it is still red next round SAY SO AGAIN rather than assuming
@@ -6769,10 +6799,7 @@ CARRY THESE IN, ALL THREE ALREADY ROUTED AND NONE OF THEM THIS LANE'S TO FIX:
  - gates/purse_gate.js ACT ONE ONLY is red against a 9/23 law that supersedes it.
  - gates/canon_rot_gate.js is red at 63 gone against a ceiling of 62, and the new row is one
    word: a 9/1 tileform sheet cites TF-ART-019_grid_cook.py and the file is TF-ART-019_cook.py.
-   Routed. Not this lane's and not new work.
- - A GREP IS NOT A MEASUREMENT. Three rounds running this lane has published or nearly published a
-   number that came from a string match instead of from running the code. Run the probe. Paste the
-   output. If the record contains a figure with no pasted output behind it, it is not measured.
+
 
 ================================================================================
 
