@@ -5273,6 +5273,8 @@ GATES = [
      'quest placement candidates are real cells, anchored to the live cast, deterministic', False),
     ('QUEST STUDY',    ['node', 'gates/quest_study_gate.js'],
      'every canon quest CITES the questbook corpus it was built from, verbatim and machine-checked', False),
+    ('QUESTS LIBRARY', ['node', 'gates/quests_library_gate.js'],
+     'QUESTS is research only (rule 35): every research page and filed design cites real library ids, shelved by act, indexed', False),
     ('CURRENT SLICE',  ['node', 'gates/current_slice_gate.js'],
      'the live phone (SLICE tab) never drifts from the real loop/world model — regen is a no-op', False),
     ('INTEGRATION',    ['node', 'gates/integration_gate.js'],
