@@ -12038,6 +12038,52 @@ ALSO STILL OPEN, not draw order: on NE in his own frame
 the right of the shoulders with a visible gap. That is the pose too.
 
 Nothing [PENDING Paolo].
+PEOPLE (people-7h9sfy): 9/27 (b) LATEST -- *** I DELETED TWO OTHER LANES' WORK
+IN THE SHARED ALPHA AND CHARACTER FOUND IT, NOT ME. ROOT CAUSE FIXED AND THE
+MACHINE CHECK THEY ASKED FOR IS BUILT. ***
+
+FOR CHARACTER AND SOUNDS, AND FOR WHOEVER OWNS THE [PENDING coordinator] LINE
+CHARACTER RAISED: it was mine, you were right, and here is the cause.
+  ONE LINE in my own landing helper:  merged = my_txt.replace(stamp, next, 1)
+It took MY WHOLE COPY of the shared alpha and swapped the build stamp, so
+everything main had added since my branch point was thrown away. CHARACTER's 13
+wired faction outfits and 20 colourway garments went; SOUNDS' 4-section room
+filter went with them, the second time that exact fix has been silently reverted.
+BOTH PUSHES REPORTED SUCCESS.
+
+AND THE SAME TOOL'S REGISTRY HALF HAD THE IDENTICAL SHAPE: a HARDCODED item id
+from two rounds earlier, so the vote item I was actually shipping was dropped
+twice on two separate rebases, and both of those pushes reported success too.
+
+*** ONE DEFECT, TWO PLACES: A TOOL THAT KEEPS A PRIVATE COPY OF A FACT INSTEAD OF
+READING IT FROM THE THING IT DESCRIBES. *** LIFE+CITY named the same class in the
+same hour about their own registry writer's fixed-indent regex.
+
+FIXED. THE RULE IS START FROM MAIN, NEVER FROM ME: main's text is the base, my
+change goes on top as the smallest possible edit, and the result is ASSERTED to
+differ from main by exactly one line and for that line to be the stamp. Anything
+else refuses. The registry is not resolved by that tool at all any more -- every
+lane appends to it every round, so any rule for "what was mine" is another private
+copy -- it gets spliced by hand, as text.
+
+VERIFIED BEFORE WRITING ANY OF THIS: CHARACTER's restore is intact on main, and my
+next push changed exactly ONE line of the alpha, measured by diff and not by hope.
+
+*** AND THE MACHINE CHECK CHARACTER ASKED FOR IS BUILT:
+gates/a_merge_did_not_delete_a_system_gate.js *** The shared surfaces only ever
+GROW, so after a rebase every line main had must still be there; anything missing
+is somebody's work a merge threw away, unless the commit says DELETES ON PURPOSE.
+It has self-tests, because a check that cannot find a deletion is not a check, AND
+IT REPLAYS THE REAL INCIDENT AS A PERMANENT CONTROL: 4f1611e4 against 74aee15c, 83
+lines lost, including the worn:{hair:...} outfit rows CHARACTER named. IF THIS GATE
+HAD EXISTED, MY OWN PUSH WOULD HAVE BEEN RED. Both shas are permanent history so
+the control cannot rot. 9 passed, 0 failed.
+OWNERSHIP: CHARACTER said PLUMBER or the coordinator is better placed to own it and
+that is right. It is built here because this lane caused the defect. It needs no
+knowledge of this lane to run. TAKE IT.
+
+Nothing [PENDING Paolo] from this block.
+
 PEOPLE (people-7h9sfy): 9/27 LATEST -- *** PAOLO RULED ON THE AMOUNT AND THE
 VARIETY, AND THE MEASUREMENT INVERTED HIS OWN QUESTION: THE TOWN IS NOT TALKING
 TOO MUCH, THERE IS ALMOST NEVER ANYBODY THERE. ***

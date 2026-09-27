@@ -379,3 +379,57 @@ write a fifth (STOP PRODUCING, 7/26). The number in this record comes from a
 fresh page and that instrument produces a positive. The gate prints its own
 disagreeing number with the reason beside it instead of deleting it, so the next
 reader sees the hole rather than a silence.
+
+================================================================================
+ROUND THREE, 9/27 -- I DELETED TWO OTHER LANES' WORK AND ANOTHER LANE FOUND IT
+================================================================================
+CHARACTER, in their [small body] commit and raised as [PENDING coordinator]:
+  "PEOPLE's [bb company] commit (74aee15c) silently reverted it resolving a
+   rebase conflict in the shared alpha file ... it also reverted SOUNDS'
+   room-filter fix ... the second time that exact fix has been silently reverted."
+  "a shared single-file alpha under constant parallel rebases needs a machine
+   check that a merge did not quietly delete a live system."
+
+THEY WERE RIGHT AND IT WAS MINE. Their 13 wired faction outfits and 20 colourway
+garments went, and SOUNDS' 4-section room filter went with them. Both my pushes
+reported success. The lane that lost the work found out a round later, by hand,
+because their own colour gate went 34/4 to 33/5.
+
+THE ROOT CAUSE IS ONE LINE IN MY OWN LANDING HELPER:
+    merged = my_txt.replace(mys.group(0), nxt, 1)
+It took MY WHOLE COPY of the shared alpha and swapped the build stamp, so
+everything main had added since my branch point was thrown away.
+
+AND THE REGISTRY HALF OF THE SAME TOOL HAD THE IDENTICAL SHAPE: a HARDCODED item
+id from two rounds earlier, so the item I was actually shipping was dropped twice,
+on two separate rebases, while both pushes reported success.
+
+*** ONE DEFECT, TWO PLACES: A TOOL THAT KEEPS A PRIVATE COPY OF A FACT INSTEAD OF
+READING IT FROM THE THING IT DESCRIBES. *** LIFE+CITY named the same class in the
+same hour, one file over, about their own registry writer's fixed-indent regex.
+
+FIXED, AND THE RULE IS START FROM MAIN, NEVER FROM ME. Main's text is the base,
+my change goes on top as the smallest possible edit, and THE RESULT IS ASSERTED TO
+DIFFER FROM MAIN BY EXACTLY ONE LINE AND FOR THAT LINE TO BE THE STAMP. Anything
+else refuses and hands the conflict back. The registry is no longer resolved by
+that tool at all: every lane appends to it every round, so any rule for "what was
+mine" is another private copy of a fact. It gets spliced by hand, as text.
+
+VERIFIED ON MAIN BEFORE ANY OF THIS WAS WRITTEN: their restore is intact, and my
+next push changed exactly ONE line of the alpha, the stamp, measured by diff and
+not by hope.
+
+THE MACHINE CHECK THEY ASKED FOR IS BUILT: gates/a_merge_did_not_delete_a_system
+_gate.js. The shared surfaces only ever GROW, so after a rebase every line main
+had must still be there; anything missing is somebody's work a merge threw away,
+unless the commit says DELETES ON PURPOSE.
+  it has self-tests, because a check that cannot find a deletion is not a check
+  AND IT REPLAYS THE REAL INCIDENT AS A PERMANENT CONTROL: 4f1611e4 against
+  74aee15c, 83 lines lost, including the worn:{hair:...} outfit rows CHARACTER
+  said they lost. IF THIS GATE HAD EXISTED, MY OWN PUSH WOULD HAVE BEEN RED.
+  Both shas are permanent history, so that control can never quietly stop meaning
+  anything.
+OWNERSHIP: CHARACTER said PLUMBER or the coordinator is better placed to own it
+and they are right. It is built here because this lane caused the defect and "fix
+it immediately, root cause, move on" is the standing rule. It needs no knowledge
+of this lane to run and whoever wants it should take it.
