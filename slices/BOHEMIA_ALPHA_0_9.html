@@ -158,8 +158,20 @@ canvas{image-rendering:pixelated;image-rendering:crisp-edges}
    THE STAMP IS NOT HIDDEN. He needs to see which build he is on (7/20, after "I
    didn't see nothing new" twice), and a loading screen is the first place he looks. */
 #front.load #loadwrap{ padding-bottom:calc(92px + env(safe-area-inset-bottom,0px)) }
+/* *** THE BUTTON CLEARS A STAMP OF ANY LENGTH, BECAUSE THE STAMP IS NOT MINE TO
+   KEEP SHORT. *** (9/24.) The stamp is written by whichever lane ships last and it
+   grows: "BUILD 9/24o - A RUN SOUNDS LIKE A RUN, ONE BACK" wrapped to TWO LINES in a
+   390 px box and the box climbed from its 10 px footing up to y 812, printing through
+   the WAIT button, which is exactly the defect this screen's own gate was built to
+   catch after a photograph caught it the first time.
+   THE FIRST FIX I REACHED FOR WAS SHORTENING MY HEADLINE, which is fixing the
+   photograph rather than the camera: the next lane's headline would put it back.
+   The second was clipping the stamp to one line, and that loses the thing the stamp
+   exists for -- he has to be able to READ which build he is on (7/20, after "I didn't
+   see nothing new" twice). So the button gets out of the way instead: room for two
+   stamp lines under it, and the stamp still wraps and still reads in full. */
 #front.load #fronttap{ position:absolute; left:0; right:0; z-index:2;
-  bottom:calc(26px + env(safe-area-inset-bottom,0px));
+  bottom:calc(40px + env(safe-area-inset-bottom,0px));
   width:130px; margin:0 auto; min-height:48px;
   display:flex; align-items:center; justify-content:center; font-size:9px; letter-spacing:5px;
   color:#5d6b58; border:1px solid #1d2119; background:#0d0f0b; animation:none }
@@ -1501,7 +1513,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 9/27f - SOMEBODY WALKS WITH YOU</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 9/27e - NOTHING ON TOP</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -1751,15 +1763,33 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
                 border:1px solid #3a2f1c;border-radius:4px;background:rgba(12,10,7,.8);
                 color:#9a8a5e;font:11px ui-monospace,monospace;letter-spacing:1px">SKIP</button>
       </div>
+      <!-- *** THE STRIP TAKES ONLY ITS OWN TWO BUTTONS. *** (RUN 9/24, VAMILY
+           [banner eats fingers], measured by LIFE+CITY 492f40c and reproduced here on
+           the glass before anything was changed.)
+           MEASURED ON THE ALPHA, the link he actually taps: this banner draws at
+           0,106, 390 x 87, z-index 39, pointer-events AUTO -- and elementFromPoint
+           down the middle of the screen answered openInvite at y=110 and its inner
+           divs at y=140 and y=160, where the walked world is. An 87 px strip across
+           the top of the game was swallowing every finger, and the STANDING card's own
+           X sits under it: a real touch on that X produced ZERO events inside the
+           frame while el.click() closed it every time, which is how it got signed off
+           with a mouse and why he kept saying "when I press standing and I press
+           close, it doesn't close" (8/24).
+           AN IFRAME'S STACKING NEVER BEATS ITS PARENT'S, so no fix inside the walked
+           city file could have been honest; it had to be here, on the element.
+           pointer-events:none on the strip, auto on the two buttons: the banner still
+           reads, still shows, and the only things in it a finger can touch are the two
+           it is asking him about. -->
       <div id="openInvite" style="display:none;position:absolute;left:0;right:0;top:0;z-index:39;
+           pointer-events:none;
            padding:9px 12px;background:linear-gradient(#0d0b07,rgba(13,11,7,.94));
            border-bottom:1px solid #2a2114;font:12px/1.45 ui-monospace,monospace;color:#cdbd8a">
         <div style="color:#d8b45a;letter-spacing:2px;font-size:11px">DAY 1 BEGINS BEFORE THE DAY</div>
         <div style="margin-top:3px;color:#8d8168">The family, the table, ten years ago.</div>
         <div style="margin-top:7px;display:flex;gap:7px">
-          <button id="openWatch" style="padding:5px 12px;border:1px solid #d8b45a;border-radius:4px;
+          <button id="openWatch" style="pointer-events:auto;padding:5px 12px;border:1px solid #d8b45a;border-radius:4px;
                   background:#d8b45a;color:#191308;font:11px ui-monospace,monospace;letter-spacing:1px">&#9654; WATCH</button>
-          <button id="openNot" style="padding:5px 12px;border:1px solid #3a2f1c;border-radius:4px;
+          <button id="openNot" style="pointer-events:auto;padding:5px 12px;border:1px solid #3a2f1c;border-radius:4px;
                   background:transparent;color:#8d8168;font:11px ui-monospace,monospace;letter-spacing:1px">NOT NOW</button>
         </div>
       </div>
@@ -35855,6 +35885,39 @@ function openHasProgress(){
    -- somebody mid-story is not at the beginning, and being shown the beginning
    would read as a bug rather than as drama. */
 function openShould(){
+  /* ============================================================================
+     *** THE COLD OPEN IS CUT, SO THIS NEVER OFFERS IT AGAIN. ***
+     (RUN 9/27, VAMILY [banner eats fingers] + [cold open], rule 32a.)
+
+     PAOLO 9/23, in the tab, on the whole first minute: "why does everything have to
+     happen the first second of the game", "don't force this on me", "don't force
+     interactions on the player". THE REVAMP LIST spells out what that means for this
+     element by name: "THE COLD OPEN (RUN, PEOPLE): the family cutscene ('DAY 1 BEGINS
+     BEFORE THE DAY', WATCH / NOT NOW) AND THE BANNER THAT EATS FINGERS WITH IT."
+
+     I ARRIVED AT THIS ROUND ABOUT TO SHIP THE WRONG FIX. My row was "the banner eats
+     fingers", and I had it measured and gated: the strip drew 390 x 87 at 0,109 with
+     pointer-events auto, three real touches down it reached the walked frame 0 OF 3,
+     and pointer-events:none on the strip with auto on its two buttons took that to
+     3 of 3. All true, all proven, and all a plaster on something that had been ruled
+     dead while I was measuring it. NEWEST DATE WINS: he does not want a polite banner
+     in the first second, he wants nothing there.
+
+     THE ONE LINE THAT WAS ALWAYS THE WHOLE FIX: it never shows. Nothing is forced,
+     nothing sits over the top of the game, and the eighty-seven pixel band across the
+     walked world is gone rather than made transparent.
+
+     WHY HERE AND NOT BY DELETING THE MARKUP. This is the one question every path
+     through the opening asks first -- openInviteShow, the tab handler and the resume
+     all consult it -- so refusing here closes every door at once, including any future
+     caller. The markup, the WATCH and NOT NOW buttons and the scene engine are a
+     SHARED archive job with PEOPLE (RAY, DENISE, MARCO and NINA stay as people you
+     meet in the world), and half-deleting another lane's scene code to close my own
+     row is how a lane breaks three gates it does not own. The strip also keeps its
+     pointer-events:none as a second lock, so even a path that force-shows it cannot
+     take a finger. ============================================================== */
+  return false;
+
   if(OPEN_MIDFLIGHT) return false;          /* already in flight this session */
   try { if(localStorage.getItem(OPEN_SEEN_KEY)) return false; } catch(_e){ return false; }
   /* AN UNFINISHED OPENING IS NOT PROGRESS. openHasProgress asks "are they

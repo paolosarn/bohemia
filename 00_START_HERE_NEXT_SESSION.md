@@ -6769,6 +6769,138 @@ it is player-facing at all is worth deciding before restyling it. The source cou
 now understood as dead-declaration debt and can be swept file-wide in one pass instead of
 being chased surface by surface.
 
+RUN (run-eak241): 9/27 LATEST -- *** HE SPOKE TO THIS LANE, AND [banner eats fingers]
+SHIPPED. TAB: RUN (and CITY, the same walked world). Nothing to judge. ***
+
+=== HIS WORDS, FIRST, BECAUSE THEY ARE THE ONLY THING HERE HE SAID ===
+
+  "Battle brothers vamily"
+
+That is the whole message. Recorded verbatim in
+records/BOHEMIA_PAOLO_SAID_BATTLE_BROTHERS_TO_THE_RUN_9_27_26.md the turn it arrived.
+He typed BATTLE BROTHERS at the lane that owns the thing you play and the demo that goes
+into hands, and it is the fifth time in a week he has named that one game: the 9/20 line
+("Battle Brothers on a phone, a lot better"), rule 23 (the fight, quicker), QUESTS on
+arguing a price ("nothing less than Battle Brothers"), rule 32(d) (the three names come
+prepared).
+
+[PENDING Paolo -> THE COORDINATOR]: WHICH ROW THAT BECOMES IS NOT MINE. Rule 10 says only
+the coordinator adds jobs, and turning two words into a running order is the whole reason
+that chat exists. I did not stop to ask him (rule 1) and I did not guess a feature and
+build it, which is the exact failure STOP PRODUCING is written about. The words are on the
+record; the board line is his.
+
+=== [banner eats fingers] -- AN 87 PX STRIP WAS EATING EVERY FINGER ===
+
+PAOLO 8/24: "when I press standing and I press close, it doesn't close." This is the
+answer to that, and it had been sitting in front of everybody for a month.
+
+MEASURED ON THE ALPHA, WHICH IS THE LINK HE IS SENT, before one character changed. (The
+cut hides this banner outright, so measuring the DEMO would have reported a clean screen
+about a defect only he can hit. The gate says which surface it opened, out loud.)
+
+  #openInvite      390 x 87 at 0,109      z-index 39      pointer-events AUTO
+  elementFromPoint down the middle   y=110 -> openInvite, y=140 and y=160 -> its divs
+  three real touches down the strip, counted INSIDE the frame:   0 of 3 arrived
+
+WHY NOBODY'S CHECKER SAW IT. Two reasons and both are worth keeping:
+ 1. AN IFRAME'S STACKING NEVER BEATS ITS PARENT'S. Every control in that band lives in
+    the walked city document. Nothing written in there could have won against an element
+    in the page that contains it -- so every checker living in that file was CORRECT that
+    the controls were fine. They were fine. They were underneath something.
+ 2. A CHECK THAT CLICKS INSTEAD OF TOUCHING CANNOT SEE AN OVERLAY. el.click() closes that
+    X every single time; a finger hit-tests the screen and never arrives. That is how it
+    was signed off, and why he kept reporting a close button that does not close on a
+    build where the close button worked in every test we had.
+
+*** AND THEN THE RULING CHANGED THE FIX WHILE I WAS MEASURING. *** [cold open] was CUT to
+archive mid-round and it names this element by name: "the family cutscene and THE BANNER
+THAT EATS FINGERS WITH IT" (rule 32a, THE REVAMP LIST). Everything above stayed true and
+was still the wrong fix -- a POLITE banner in the first second is still a banner in the
+first second. NEWEST DATE WINS.
+
+SO WHAT SHIPPED IS NO STRIP. openShould() returns false, which is the one question every
+path through the opening asks first, so the banner, the tab handler and the resume all
+close at once and no future caller reopens it. The strip keeps pointer-events:none as a
+SECOND LOCK for any path that sets display directly. AFTER: the band is display:none,
+0 x 0, and three real touches where it used to be reach the walked world 3 of 3.
+
+AND IT IS A HIDE, NOT A RAID. The markup, WATCH, NOT NOW and the scene engine stay in the
+file: archiving them is a shared job with PEOPLE, and RAY, DENISE, MARCO and NINA stay as
+people you meet. Half-deleting another lane's scene code to close my own row is how a lane
+breaks three gates it does not own -- and the gate asserts they are still there.
+
+GATE: re-aimed and renamed to the new truth, NOTHING SITS ON TOP OF THE GAME, 7/0, new,
+registered. MUTATIONS on what shipped: let the cold open offer itself again -> 2 red; take
+the second lock off -> 1 red. On the shape that did NOT ship, proved before the ruling
+arrived: give the strip its fingers back -> 2 red at 0 of 3, the exact before number; take
+pointer-events off NOT NOW -> 2 red, because a strip nobody can press is not a fix, it is a
+different defect.
+
+*** THREE MISTAKES OF MINE INSIDE ONE GATE, ALL CAUGHT HERE AND NOT BY HIM. ***
+ - A THIRD LEG NEARLY PASSED FOR THE WRONG REASON TOO: forcing the strip visible gives a
+   0 x 0 box, so asking who owns a zero-width point answered "nothing" and ticked green.
+   It asserts the LOCK now, which needs no layout, reports the box instead of asserting on
+   it, and says out loud when there was nothing to hit-test.
+ - MY FIRST FINGER TEST PASSED WITHOUT TOUCHING THE THING IT WAS ABOUT. It found the
+   card's close control at y=744 -- four hundred pixels below an 87 px band at y=109 --
+   tapped it, and reported green. A test that can pass without reaching its subject is
+   worse than no test.
+ - AND THE FIRST CUT ASKED THE WRONG SCREEN. It measured the two buttons AFTER tapping
+   three times through the strip, and both button legs went red with WATCH reporting a
+   0 x 0 box on a banner still reading display:block. Tapping the world underneath
+   changes what the banner is doing. Each leg gets a clean state now.
+
+=== AND THE LOADING SCREEN'S STAMP GREW INTO ITS OWN BUTTON ===
+
+SCREEN HOLDS went red on "the build stamp does not print through the button". Cause: the
+stamp is written by whichever lane ships last and it GROWS -- "BUILD 9/24o - A RUN SOUNDS
+LIKE A RUN, ONE BACK" wrapped to two lines in a 390 px box and climbed from its 10 px
+footing to y 812, through the WAIT button. That is the exact defect a photograph caught
+the first time and that this gate was built for.
+I did not shorten my headline (that is fixing the photograph, not the camera -- the next
+lane's headline puts it straight back) and I did not clip the stamp to one line (he has to
+be able to READ which build he is on, 7/20). THE BUTTON MOVED UP instead: room for two
+stamp lines beneath it, the stamp still wraps and still reads in full. 27/0.
+
+=== THE PASS ===
+  NOTHING ON TOP 7/0 (new)   THE FOUR THINGS 28/0   NOTHING POPS UP 23/0
+  WALK NEVER MISSES 19/0   DRIVER REACHES 8/0   SCREEN HOLDS 27/0   DOOR WAITS 10/0
+  STRANGER 19/0   DEMO CURRENT 16/0   DEMO BUILD 25/0
+  THE WALK, BY HAND (rule 18c): 35 presses, 530 cells, 0 stuck, 4 into sealed ground,
+  0 held by somebody, 0 gaps walked past.
+
+  OPENING GATE 37/26, AND IT IS RED ON MAIN TOO, MEASURED BOTH WAYS THIS ROUND RATHER
+  THAN ASSUMED: 37/26 with my change and 37/26 with it stashed, identical. Its reds are
+  the cold-open scene's fight handoff, the grief dinner and the burial, none of which a
+  pointer-events line can reach. Rule 13: named, not mine, moving on.
+
+[PENDING nobody, STILL OPEN AND STILL NOT MINE]
+ - FROM THE VALLEY back to the street is still two spreads (the city's zoom is
+   continuous and he really is a long way out). Honest travel, not a dead press.
+ - his own block has 45 doorsteps and 0 straight walkable ways out, and four presses on
+   the block walk go into ground a body cannot reach. That is why five minutes of
+   pressing east covers 52 cells.
+ - he has ZERO batteries on day one while the market's whole shelf costs one each.
+
+NEXT, AND THE COORDINATOR HAS ALREADY WRITTEN IT: [bb map] THE-MAP-IS-HOW-YOU-TRAVEL is
+the new FIRST LINE of this lane, off his two words -- the city view becomes the Battle
+Brothers map, one party marker, tap a place, the party travels while the clock runs, roads
+faster than dirt, arrival puts him on that block's street. SCHOOL FIRST, one round, ending
+on what MOVES there that BB's picture does not (rule 33g). The map is also where the three
+acts flip, so the marker and the places get built so one map can be drawn at three dates.
+AND [open reachable] IS NOW MOOT AS WRITTEN: it asked for the cold open to be reachable
+after BEGIN, and the cold open is cut. The first face a stranger meets is still the
+question; it is a person in the world now, not a cutscene.
+Then [land on it] (LIFE+CITY c4e08b82: a full stride overshoots a place nearer than a
+stride and ping-pongs). [fast travel] stays CLAIMED and paused under rule 18.
+
+RECORDS: records/BOHEMIA_PAOLO_SAID_BATTLE_BROTHERS_TO_THE_RUN_9_27_26.md,
+records/BOHEMIA_AN_EIGHTY_SEVEN_PIXEL_STRIP_ATE_EVERY_FINGER_9_24_26.md,
+records/BOHEMIA_ONE_GESTURE_WAS_SPENDING_ITSELF_TWICE_9_24_26.md
+
+--------------------------------------------------------------------------------
+
 RUN (run-eak241): 9/24 LATEST -- *** [way back] SHIPPED, AND THE LOPSIDED SEAM WAS NOT
 THE SEAM: ONE GESTURE WAS SPENDING ITSELF TWICE. TAB: RUN (and CITY, the same walked
 world). Nothing to judge. ***
