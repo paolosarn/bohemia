@@ -1351,15 +1351,33 @@ const MEASURE = `
         'the killed flip published a ' + T.oldFlipBandHi + ' Hz AM ceiling while its own gap '
         + 'was built wider-banded than any AM channel on purpose. This is heard with your ears '
         + 'in the room, so there is no band to be wrong about');
-      claim('NEITHER NEW SOUND ENDS ON A STEP, and the one they replace does',
+      /* THIS CLAIM USED TO NAME A LIVE DEFECT AND THEN THE SAME ROUND FIXED IT. The first
+         cut asserted the sound they replace (songOnTape, which wraps songThroughSpeaker)
+         STILL clicks, because that was true when the claim was written: last sample
+         0.050992 against its own biggest step of 0.1074, 47.5% of it. Fixing that click
+         is item 1 of this lane's own NEXT list, and it landed in this same commit, so
+         asserting the old number here would be asserting a defect I had just removed --
+         a claim that is honest about the past and lying about the present.
+         AND IT SHIPS AS A FIX, NOT A NEW VOTE ITEM. Precedent: [band helper] changed the
+         actual rendered audio of six approved sounds (the door, the cloud, the song, the
+         fold, the phone, the room all measurably leaked less after that fix) and none of
+         the six went back to him for a fresh yes/no -- the fix was named on the board and
+         shipped, because there is no creative fork in "does this click less". A click is
+         not a taste question. EVERYTHING IS A THUMB: Claude decides, ships it, he corrects
+         what he hates; manufacturing a vote for an answer with no defensible other side is
+         the failure NEVER ASK HIM A TECHNICAL QUESTION warns about, aimed at himself. */
+      claim('NEITHER NEW SOUND ENDS ON A STEP; THE SOUND THEY REPLACE USED TO AND NOW DOES NOT',
         T.deckTail.last <= T.deckTail.step * 0.05 && T.changeTail.last <= T.changeTail.step * 0.05
-          && T.oldTail.last > T.oldTail.step * 0.2,
+          && T.oldTail.last <= T.oldTail.step * 0.05,
         'the deck ends at ' + T.deckTail.last.toFixed(6) + ' and the change at '
         + T.changeTail.last.toFixed(6) + ', against their own biggest steps of '
         + T.deckTail.step.toFixed(4) + ' and ' + T.changeTail.step.toFixed(4)
-        + '. THE SOUND THEY REPLACE ENDS AT ' + T.oldTail.last.toFixed(6) + ' against a step of '
-        + T.oldTail.step.toFixed(4) + ', which is a click at the end of it, found by this ruler '
-        + 'and named rather than quietly patched');
+        + '. THE SOUND THEY REPLACE was found this same round at 0.050992 against a step of '
+        + '0.1074 (47.5%), a real click at the end of an approved sound; it now ends at '
+        + T.oldTail.last.toFixed(6) + ' against ' + T.oldTail.step.toFixed(4)
+        + ' with a 12 ms tail fade (engine/bohemia_horror_sounds.js, songThroughSpeaker). '
+        + 'Shipped as a fix, not a new vote item: same precedent as the band helper\'s six '
+        + 'redos, which changed approved sounds\' actual audio and were never re-voted');
     } else { claim('the deck and the tape change were measured', false, d.tapeErr || 'no reading'); }
 
     /* ---- THE BAND HELPER (9/24), row [band helper] -------------------------- */
@@ -1505,9 +1523,12 @@ const MEASURE = `
         'the step from the last sample back to the first is ' + w.wrapStep.toFixed(5)
         + ' against this sound\'s own 99.9th-percentile step of ' + w.stepP999.toFixed(5)
         + ' (biggest anywhere ' + w.stepMax.toFixed(5) + '), so the wrap is an ordinary '
-        + 'step and not an outlier. THE CARRIER is blended across the seam the way the '
-        + 'room already is; the TONE restarting is not a click because it has its own '
-        + '8 ms rise, which is what a real signal does');
+        + 'step and not an outlier. THE CARRIER CLOSES ON ITS OWN NOW (round [not sand], '
+        + '9/27): a periodic hum has a real phase to return to, once a short pre-roll has '
+        + 'let the band filter settle, so there is no seam left to blend -- that trick '
+        + 'existed only because the old carrier was noise, which has no phase at all. The '
+        + 'TONE restarting is not a click either because it has its own 8 ms rise, which '
+        + 'is what a real signal does');
     } else { claim('THE VALLEY STILL BROADCASTS was measured', false,
       d.bcastErr || 'no reading'); }
 

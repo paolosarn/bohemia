@@ -470,9 +470,23 @@
       }
       events.push({ atSeconds: +(outs[k] * beats * beat).toFixed(3), ms: 42, depthDb: 13 });
     }
+    /* *** AND THE END OF THE BUFFER IS FADED, BECAUSE PAOLO APPROVED THIS SOUND WITH A
+       CLICK IN IT AND NOBODY HEARD IT UNTIL A RULER BUILT FOR A DIFFERENT SOUND FOUND IT
+       (round [not sand], 9/27). *** The hiss runs right up to the last sample, so a
+       one-shot buffer ending mid-amplitude is a discontinuity against the silence after
+       it, which is a click. Measured before this fix: last sample 0.050992 against the
+       sound's own biggest step of 0.1074, 47.5% of it -- not a rounding error, an audible
+       edge. The same 12 ms raised cosine used nowhere near either drop-out (the later one
+       sits at 2.92 s of a 4.0 s buffer, more than two seconds clear of this window), so
+       the fix touches only the tail. */
+    var fade = Math.min(n, Math.round(0.012 * sr));
+    for (i = 0; i < fade; i++) {
+      var u = i / fade;
+      d[n - fade + i] *= 0.5 * (1 + Math.cos(Math.PI * u));
+    }
     normalise(d, n, 0.85);
     return { buffer: buf, machine: MACHINE.AM, seconds: beats * beat, dry: false,
-             root: root, semitones: semis.slice(), dropouts: events,
+             root: root, semitones: semis.slice(), dropouts: events, fadeMs: fade / sr * 1000,
              why: 'the same warm phrase arriving through a dead broadcast: AM band, hiss under it, and it drops out twice' };
   }
 
@@ -1371,6 +1385,37 @@
     return a + (b - a) * Math.max(0, Math.min(1, through));
   }
 
+  /* A SPARSE TRAIN OF CRACKLE, FOR ATMOSPHERIC STATIC ON A RADIO BAND. Real static is not
+     a smooth hiss bed: it is distant lightning (sferics), which arrives as discrete
+     broadband clicks, a few to a few dozen a second depending on weather and distance.
+     Same mechanism as the footstep's grit (a seeded sum of tiny impulses, not a noise
+     generator) reused for a third material: a struck slab, a struck shell, now a struck
+     sky. Rate and level are engineering estimates for background atmospheric noise and
+     are named as such; the impulse SHAPE (a half-sine click, broadband by construction)
+     is not a choice. */
+  function crackleInto(d, n, sr, ratePerSec, amp, seed, marginSamples) {
+    var count = Math.round(ratePerSec * (n / sr));
+    var s = seed, q, j, events = [];
+    var lo = marginSamples || 0, span = n - 2 * lo;
+    for (q = 0; q < count; q++) {
+      s = (s * 1103515245 + 12345) & 0x7fffffff;
+      var fracT = s / 0x7fffffff;
+      var t0 = lo + Math.round(fracT * span);
+      s = (s * 1103515245 + 12345) & 0x7fffffff;
+      var fracA = s / 0x7fffffff;
+      var w = Math.max(2, Math.round((0.0006 + fracA * 0.0012) * sr));  /* 0.6 to 1.8 ms */
+      var lvl = amp * (0.3 + 0.7 * fracA);                              /* distant vs near */
+      var prev = 0;
+      for (j = 0; j < w && t0 + j < n; j++) {
+        var f = Math.sin(Math.PI * j / w);
+        d[t0 + j] += (f - prev) * lvl;
+        prev = f;
+      }
+      events.push(t0);
+    }
+    return events;
+  }
+
   /* ONE CLACK: a piece of plastic struck, ringing the shell's own modes. This is the
      footstep's contact physics and the bell's modal sum, on a third material, which is
      REUSE-FIRST doing what it is for: no third copy of either idea. */
@@ -1630,9 +1675,13 @@
      riser, no stinger, nothing rises (rule 20). The content never acknowledges you,
      which is the bible's own sentence.
 
-     NOTHING NEW ENTERED THE GAME: same pair as the phone he voted UP, same AM band
-     and the same four-pole limit (steep BY REGULATION), same slipping head as the
-     tape, same drop-out shape as every other one in this file. */
+     THE SHAPE AROUND THE CARRIER IS UNCHANGED FROM WHAT ALREADY SHIPPED: same pair as
+     the phone he voted UP, same AM band and the same four-pole limit (steep BY
+     REGULATION), same drop-out shape as every other one in this file, and the slipping
+     head now reads the SAME transport geometry the tape deck does rather than its own
+     number. WHAT IS NEW, ROUND [not sand] 9/27: the carrier itself, which used to be
+     the noise generator dressed as static and is now a mains hum plus a sparse click
+     train, neither of them a noise generator. */
   function theBroadcast(ctx, opts) {
     opts = opts || {};
     var sr = ctx.sampleRate;
@@ -1646,28 +1695,58 @@
     var d = buf.getChannelData(0);
     var i;
 
-    /* THE CARRIER FIRST, AND IT RUNS THE WHOLE LENGTH (school rule 7). A silence is
-       allowed to remove the content and never the carrier. Hiss is the wear: a
-       transmitter left running for ten years is noisier than one somebody maintains,
-       so wear buys hiss and nothing else buys it. */
-    var hiss = wear ? 0.52 : 0.26;
-    /* AND THE CARRIER HAS TO SURVIVE THE LOOP POINT, because option C is this thing on
-       repeat forever and a click every ten seconds is a defect, not dread. The room's
-       own trick, reused rather than reinvented: generate a seam's worth of extra noise
-       and blend the head into the tail, so the carrier is continuous across the wrap.
-       The TONE restarting is not a click: it has its own 8 ms rise, which is what a
-       real signal does. */
-    var seam = Math.max(1, Math.round(0.08 * sr));
-    var hi = new Float32Array(n + seam);
-    noiseInto(hi, hi.length, 1, 9660);
-    for (i = 0; i < seam; i++) { var u = i / seam; hi[i] = hi[i] * u + hi[n + i] * (1 - u); }
-    for (i = 0; i < n; i++) d[i] = hi[i] * hiss;
-    var pband = bandTo(d, n, MACHINE.AM.lo, MACHINE.AM.hi, sr, 4);
+    /* *** THE CARRIER, REBUILT (round [not sand], 9/27), AND NOT ONE NOISE GENERATOR IN
+       IT. *** This was the row's own IOU, pulled from queue last time because its carrier
+       and wear were the noise generator dressed as static: "registering it would have been THE
+       FOURTH SAND SOUND IN A ROW." What is really under an AM carrier's hiss is two real
+       things, neither of them a noise generator:
+         1. THE TRANSMITTER'S OWN MAINS RIPPLE: the same 60 Hz family the room hums with,
+            because it is the same grid (rule 7, "THE GRID IS ON IN BOTH ACTS"). Reused
+            straight from ROOM_HUM / ROOM_PARTS rather than a second copy of the numbers.
+         2. ATMOSPHERIC STATIC, WHICH IS SFERICS, NOT A HISS BED: distant lightning
+            arrives at a receiver as discrete broadband clicks, a handful a second in
+            quiet weather, not a smooth wash. crackleInto is the footstep's grit reused a
+            third time (REUSE-FIRST), on a struck sky instead of a struck slab or shell.
+       WEAR BUYS MORE OF BOTH, AND FOR TWO SEPARATE REAL REASONS: a corroded antenna and
+       dirty contacts let more atmospheric noise in, and the power supply's own filter
+       capacitor dries out over a decade, which is a well-documented aging failure and
+       means less ripple filtering, so the hum rises too. Both numbers below are
+       engineering estimates and are named as such; the click SHAPE (a half-sine impulse,
+       broadband by construction) is not a choice. */
+    var crackleRate = opts.crackleRate != null ? opts.crackleRate : (wear ? 220 : 30);  /* clicks/s, ESTIMATE */
+    var crackleAmp  = opts.crackleAmp  != null ? opts.crackleAmp  : (wear ? 0.34 : 0.15); /* ESTIMATE */
+    /* *** AND WEAR DOES BUY MORE HUM AFTER ALL, AND IT IS NOT A KNOB, IT IS A CAPACITOR.
+       *** A power supply's ripple is filtered by an electrolytic capacitor, and those
+       capacitors dry out over years: less filtering, more ripple on the rail, MORE hum,
+       which is a well-documented aging failure and not the "not a maintenance question"
+       this comment first said. Corrected in the same round it was written: ten years of
+       neglect buys both a noisier antenna (static) and a drier capacitor (hum). */
+    var humLevel = opts.humLevel != null ? opts.humLevel : (wear ? 0.62 : 0.28);  /* ESTIMATE */
+    /* A SHORT PRE-ROLL SO THE FILTER IS ALREADY WARM AT SAMPLE 0. bandTo has memory that
+       starts at zero, so without this the first cycle of hum carries a transient the last
+       cycle does not, and the loop would click at the wrap for a reason that has nothing
+       to do with the sound. The margin also keeps every crackle click clear of both ends,
+       so nothing straddles the wrap. This replaces the old noise-and-blend seam trick,
+       which existed only because a stochastic bed has no natural phase to close on; a
+       periodic hum does, once the filter has settled into it. */
+    var pre = Math.max(1, Math.round(0.05 * sr));
+    var work = new Float32Array(n + pre);
+    for (i = 0; i < work.length; i++) {
+      var t = i / sr, h = 0;
+      for (var k = 0; k < ROOM_PARTS.length; k++)
+        h += Math.sin(2 * Math.PI * ROOM_HUM * ROOM_PARTS[k][0] * t) * ROOM_PARTS[k][1];
+      work[i] = h * humLevel;
+    }
+    crackleInto(work, work.length, sr, crackleRate, crackleAmp, wear ? 51413 : 51417,
+                pre + Math.round(0.02 * sr));
+    var pband = bandTo(work, work.length, MACHINE.AM.lo, MACHINE.AM.hi, sr, 4);
+    for (i = 0; i < n; i++) d[i] = work[pre + i];
     /* THE TAIL POLES THAT USED TO BE HERE ARE GONE TOO: bandTo is a real filter now and
        the dead air, which is the carrier ALONE and therefore the worst case for a leak,
        measures inside school rule 4 without any help. */
     var carrierLevel = 0.30;
     for (i = 0; i < n; i++) d[i] *= carrierLevel;
+    var seam = 0;   /* reported field kept for the gate; there is no seam blend any more */
 
     /* THE PAIR, SOUNDED TOGETHER FOR SIXTEEN BEATS */
     var onFor = Math.round(sr * toneBeats * beat);
@@ -1709,14 +1788,23 @@
 
     /* THE SLIPPING HEAD, LAST, so the wobble is on everything the machine plays and
        not only on the tone. The length is preserved to a sample, so the 120 BPM law is
-       untouched: a signal that started on the beat still starts on the beat. */
+       untouched: a signal that started on the beat still starts on the beat.
+       *** THE RATE IS THE DECK'S OWN GEOMETRY, NOT A NUMBER I LIKED (round [not sand],
+       9/27), because this is the same shape of loop tape theTapeDeck plays: THE VALLEY
+       STILL BROADCASTS is a dead PA system replaying a recorded loop, which is why a
+       tape mechanism belongs here at all. wowRateAt(through) is the same function the
+       deck exposes, so the two do not carry two different guesses about how fast a
+       reel breathes. The depth (0.35%) is unchanged: rule 5's window, not the geometry's
+       question. What this replaces: a bare 1.4 Hz, which was inside the rule and matched
+       no wheel this file has ever measured. */
     var wow = null;
     /* opts.wow exists so a control can switch the head to PERFECT while leaving
        everything else alone. A control that changes two things at once proves nothing
        about either, and this lane has already shipped a mutation that was a no-op. */
     var wantWow = (opts.wow == null) ? !!wear : !!opts.wow;
     if (wantWow) {
-      var w = wowFlutter(ctx, buf.getChannelData(0), { depth: 0.0035, rate: 1.4 });
+      var wowHz = wowRateAt(opts.through == null ? 0.5 : opts.through);
+      var w = wowFlutter(ctx, buf.getChannelData(0), { depth: 0.0035, rate: wowHz });
       buf = w.buffer; d = buf.getChannelData(0);
       wow = { depth: w.depth, rate: w.rate };
     }
@@ -1731,7 +1819,12 @@
       toneOnForSeconds: toneBeats * beat, dropMs: 34, depthDb: 12,
       loops: true, seamSeconds: +(seam / sr).toFixed(4),
       toneBeats: toneBeats, airBeats: airBeats, bars: (toneBeats + airBeats) / 4,
-      wear: wear, hiss: hiss, carrierLevel: carrierLevel, dropouts: drops, wow: wow,
+      wear: wear, hiss: crackleAmp, carrierLevel: carrierLevel, dropouts: drops, wow: wow,
+      /* noiseSources:0 for the structural check (round [not sand], 9/27): the carrier is
+         mains hum plus a sparse click train now, never the noise generator. crackleRate
+         and crackleAmp are the wear-scaled static; humLevel is the ripple, which wear
+         does not touch. */
+      noiseSources: 0, crackleRate: crackleRate, crackleAmp: crackleAmp, humLevel: humLevel,
       why: wear
         ? 'the attention signal off a transmitter nobody has touched in ten years, then a bar of dead air, and nobody ever speaks'
         : 'the attention signal as it leaves the station: the band and the carrier a real transmitter has, and no wear at all'
@@ -1809,6 +1902,7 @@
     fightCloud: fightCloud,
     theDoor: theDoor,
     theBroadcast: theBroadcast,
+    crackleInto: crackleInto,
     footstepModelled: footstepModelled,
     struckMetal: struckMetal,
     STRIKE: STRIKE,
@@ -1868,7 +1962,12 @@
         { id: 'sounds-the-deck-is-not-the-hiss-9-27', make: 'theTapeDeck',
           title: 'THE DECK IS NOT THE HISS' },
         { id: 'sounds-a-flip-is-a-tape-changing-9-27', make: 'theTapeChange',
-          title: 'A FLIP IS A TAPE CHANGING' }
+          title: 'A FLIP IS A TAPE CHANGING' },
+        /* HELD OUT OF QUEUE 9/24, REBUILT AND REGISTERED 9/27: the carrier used to be
+           the same graveyarded noise recipe rule 32e killed; it is now mains hum plus a
+           sparse click train, zero noise generators. */
+        { id: 'sounds-the-valley-still-broadcasts-9-27', make: 'theBroadcast',
+          title: 'THE VALLEY STILL BROADCASTS' }
       ];
     }
   };

@@ -2236,126 +2236,143 @@
         "src": "NO GENERATIONS. ONE COMPANY, ONE MAP, THREE CRISIS CHECKPOINTS.\n\nBattle Brothers has no fold, no time skip, no heir screen. Men die constantly and nobody notices, because the company is a name and a ledger, not a body. What changes the world is a CRISIS: same roads, same rivers, same towns, but who holds them and what they need is rewritten.\n\nOur three acts already work this way and did not know it. One seed. One layout, 4,459 bytes, never rewritten. Measured on the real map this round: 6,899 ground pixels compared across all three acts, zero moved. Only what is lit and who owns it differs.\n\nSo stop saying generation. Say crisis checkpoint. Act 1 is before the crisis is answered. Acts 2 and 3 are the same crisis, further along, because the company (you, standing in three bodies) did more about it."
       }
     },
-   {
-    "id": "combat-one-house-is-not-one-tile-9-27",
-    "kind": "tile",
-    "lane": "combat",
-    "sha": "PENDING",
-    "made": "9/27",
-    "title": "ONE HOUSE IS NOT ONE TILE",
-    "why": "You said it: one house does not equal one tile, it is all fucked up. So here is the fight board you have right now, on the left, photographed in a real fight I walked into off the street. A tile is a whole house, 12 metres, and your phone holds TWO of them. That is why a fight feels like standing in a car park. On the right is the same picture with the new grid drawn on it. A cell is 32 pixels, so the phone holds 12 across and 20 down. A house is 4 by 4 cells, which makes a cell 3 metres and keeps a house at 12 metres, so nothing about the world changes size, only what a step is. Your man goes from 112 pixels to ONE CELL. Now the part worth looking at. The three squares are your reach, and I did not change a single distance you already picked: pistol 4 cells is still 12 metres, rifle 8 is still 24, scope 12 is still 36. Look what happens. Only the pistol fits on the phone. The rifle fills the whole board and the scope runs off the edge. That is not a bug, that is what a rifle actually is, and the fight camera already pulls back to hold everybody, so a rifle fight opens the shot by itself. Thumbs up and I build the fight on these cells. Thumbs down and tell me if your man is too small at one cell, or if a cell should be bigger than 32.",
-    "show": {
-     "how": "image",
-     "src": "vote/COMBAT_ONE_HOUSE_IS_NOT_ONE_TILE_9_27.png"
-    }
-   },
-   {
-     "id": "character-the-one-cell-sprite-9-27",
-     "kind": "animation",
-     "lane": "character",
-     "sha": "pending",
-     "made": "9/27",
-     "title": "YOUR CHARACTER GOES SMALL",
-     "why": "You said your character should stay tiny and move one square at a time, like the game used to. This is the first try at that small body. It plays: it is the game's own walk, shrunk down to the exact size a square will be. Nothing here is hand drawn yet, it is the big body run through a shrinking machine, so a hem or a stripe is gone but the shape and the colour are not. Seven people from seven different groups, each one still readable as themselves and still their own colour, measured, not guessed. Thumbs up and this is the road small bodies go down while somebody draws them by hand. Thumbs down and tell me if it is too small, too blurry, or if two of them look the same.",
-     "show": {
-      "how": "page",
-      "src": "vote/CHARACTER_THE_ONE_CELL_SPRITE.html"
-     }
-   },
-   {
-    "id": "animation-he-walks-at-one-cell-9-27",
-    "kind": "animation",
-    "lane": "animation",
-    "sha": "59861c44",
-    "made": "9/27",
-    "title": "HE WALKS AT ONE CELL",
-    "why": "You said the character is tiny again, one cell, one step per cell. First thing I had to answer: cut the big body down to one cell, is there still an animation in there? YES. All eight directions stay eight different pictures, nothing turned to mush, zero stray floating pixels. He is 24 rows tall with 168 lit pixels. The big art stays the source, like you said. BUT IT FOUND SOMETHING BROKEN THE WHOLE TIME, AT EVERY SIZE: the walk is built on a wave, and a wave is at zero twice per step, so frames 1 and 3 came out exactly the same picture on all six side-on directions. The side walk had THREE pictures, not four, and running too. At the big size you might not notice; at one cell it reads as a limp. A real walk's two middles differ because one leg is passing forward and THE PASSING FOOT CLEARS THE GROUND. That is the missing fourth picture and it is how legs work. This one PLAYS, with a panel at his actual size so it cannot flatter itself.",
-    "show": {
-     "how": "page",
-     "src": "vote/ANIMATION_ONE_CELL.html"
+    {
+      "id": "combat-one-house-is-not-one-tile-9-27",
+      "kind": "tile",
+      "lane": "combat",
+      "sha": "PENDING",
+      "made": "9/27",
+      "title": "ONE HOUSE IS NOT ONE TILE",
+      "why": "You said it: one house does not equal one tile, it is all fucked up. So here is the fight board you have right now, on the left, photographed in a real fight I walked into off the street. A tile is a whole house, 12 metres, and your phone holds TWO of them. That is why a fight feels like standing in a car park. On the right is the same picture with the new grid drawn on it. A cell is 32 pixels, so the phone holds 12 across and 20 down. A house is 4 by 4 cells, which makes a cell 3 metres and keeps a house at 12 metres, so nothing about the world changes size, only what a step is. Your man goes from 112 pixels to ONE CELL. Now the part worth looking at. The three squares are your reach, and I did not change a single distance you already picked: pistol 4 cells is still 12 metres, rifle 8 is still 24, scope 12 is still 36. Look what happens. Only the pistol fits on the phone. The rifle fills the whole board and the scope runs off the edge. That is not a bug, that is what a rifle actually is, and the fight camera already pulls back to hold everybody, so a rifle fight opens the shot by itself. Thumbs up and I build the fight on these cells. Thumbs down and tell me if your man is too small at one cell, or if a cell should be bigger than 32.",
+      "show": {
+        "how": "image",
+        "src": "vote/COMBAT_ONE_HOUSE_IS_NOT_ONE_TILE_9_27.png"
+      }
     },
-    "said": "your character stays tiny even as you zoom out"
-   },
-  {
-   "id": "coordinator-struck-down-twenty-percent-dead-9-27",
-   "kind": "verdict",
-   "lane": "coordinator",
-   "sha": "9/27",
-   "made": "9/27",
-   "title": "STRUCK DOWN IN A FIGHT: 20% DEAD, ELSE OUT FOR 30 TO 40 DAYS WITH A MARK",
-   "why": "Your words: only a 20% chance your character can die, otherwise a debilitating injury. Default: when one of yours is struck down, one in five dies for good and the company remembers. The other four in five live, are out of every fight for 30 to 40 game days, still cost their day, and keep a permanent mark: a scar, a limp, a lost eye, a stat that never comes back. Up keeps 20% and 30 to 40 days. Down and give me the number you want.",
-   "show": {
-    "how": "text",
-    "src": ""
-   }
-  },
-   {
-    "id": "combat-the-fight-is-on-cells-9-28",
-    "kind": "tile",
-    "lane": "combat",
-    "sha": "PENDING",
-    "made": "9/28",
-    "title": "THE FIGHT IS ON CELLS NOW",
-    "why": "You said one house does not equal one tile. It does not any more. Both of these are a real fight I walked into off the street on a phone, one build apart. On the left a tile was a whole house, 12 metres, 196 pixels, and the board held TWO of them. On the right a cell is 3 metres and 32 pixels, and the same phone holds 12 across and 20 down. Your man went from 112 pixels to one cell. Look at the right one: that is a street you could actually walk down, with a sidewalk and a road, instead of standing in a car park. Here is the part I care most about. NOT ONE DISTANCE YOU PICKED MOVED. A pistol was 1 tile and is now 4 cells, which is still 12 metres. Rifle 8 cells, still 24. Scope 12, still 36. Only the unit changed, and I did not touch the accuracy either. Two things I am not hiding from you. Your man is small now, and that is just what one cell costs. And the thumb ring in the corner is big next to the new board, which is a thing I already owe you a fix for. Thumbs up and I keep building the fight on these cells. Thumbs down and tell me which of those two is the problem: the man being small, or the ring being big.",
-    "show": {
-     "how": "image",
-     "src": "vote/COMBAT_THE_FIGHT_IS_ON_CELLS_9_28.png"
+    {
+      "id": "character-the-one-cell-sprite-9-27",
+      "kind": "animation",
+      "lane": "character",
+      "sha": "pending",
+      "made": "9/27",
+      "title": "YOUR CHARACTER GOES SMALL",
+      "why": "You said your character should stay tiny and move one square at a time, like the game used to. This is the first try at that small body. It plays: it is the game's own walk, shrunk down to the exact size a square will be. Nothing here is hand drawn yet, it is the big body run through a shrinking machine, so a hem or a stripe is gone but the shape and the colour are not. Seven people from seven different groups, each one still readable as themselves and still their own colour, measured, not guessed. Thumbs up and this is the road small bodies go down while somebody draws them by hand. Thumbs down and tell me if it is too small, too blurry, or if two of them look the same.",
+      "show": {
+        "how": "page",
+        "src": "vote/CHARACTER_THE_ONE_CELL_SPRITE.html"
+      }
+    },
+    {
+      "id": "animation-he-walks-at-one-cell-9-27",
+      "kind": "animation",
+      "lane": "animation",
+      "sha": "59861c44",
+      "made": "9/27",
+      "title": "HE WALKS AT ONE CELL",
+      "why": "You said the character is tiny again, one cell, one step per cell. First thing I had to answer: cut the big body down to one cell, is there still an animation in there? YES. All eight directions stay eight different pictures, nothing turned to mush, zero stray floating pixels. He is 24 rows tall with 168 lit pixels. The big art stays the source, like you said. BUT IT FOUND SOMETHING BROKEN THE WHOLE TIME, AT EVERY SIZE: the walk is built on a wave, and a wave is at zero twice per step, so frames 1 and 3 came out exactly the same picture on all six side-on directions. The side walk had THREE pictures, not four, and running too. At the big size you might not notice; at one cell it reads as a limp. A real walk's two middles differ because one leg is passing forward and THE PASSING FOOT CLEARS THE GROUND. That is the missing fourth picture and it is how legs work. This one PLAYS, with a panel at his actual size so it cannot flatter itself.",
+      "show": {
+        "how": "page",
+        "src": "vote/ANIMATION_ONE_CELL.html"
+      },
+      "said": "your character stays tiny even as you zoom out"
+    },
+    {
+      "id": "coordinator-struck-down-twenty-percent-dead-9-27",
+      "kind": "verdict",
+      "lane": "coordinator",
+      "sha": "9/27",
+      "made": "9/27",
+      "title": "STRUCK DOWN IN A FIGHT: 20% DEAD, ELSE OUT FOR 30 TO 40 DAYS WITH A MARK",
+      "why": "Your words: only a 20% chance your character can die, otherwise a debilitating injury. Default: when one of yours is struck down, one in five dies for good and the company remembers. The other four in five live, are out of every fight for 30 to 40 game days, still cost their day, and keep a permanent mark: a scar, a limp, a lost eye, a stat that never comes back. Up keeps 20% and 30 to 40 days. Down and give me the number you want.",
+      "show": {
+        "how": "text",
+        "src": ""
+      }
+    },
+    {
+      "id": "combat-the-fight-is-on-cells-9-28",
+      "kind": "tile",
+      "lane": "combat",
+      "sha": "PENDING",
+      "made": "9/28",
+      "title": "THE FIGHT IS ON CELLS NOW",
+      "why": "You said one house does not equal one tile. It does not any more. Both of these are a real fight I walked into off the street on a phone, one build apart. On the left a tile was a whole house, 12 metres, 196 pixels, and the board held TWO of them. On the right a cell is 3 metres and 32 pixels, and the same phone holds 12 across and 20 down. Your man went from 112 pixels to one cell. Look at the right one: that is a street you could actually walk down, with a sidewalk and a road, instead of standing in a car park. Here is the part I care most about. NOT ONE DISTANCE YOU PICKED MOVED. A pistol was 1 tile and is now 4 cells, which is still 12 metres. Rifle 8 cells, still 24. Scope 12, still 36. Only the unit changed, and I did not touch the accuracy either. Two things I am not hiding from you. Your man is small now, and that is just what one cell costs. And the thumb ring in the corner is big next to the new board, which is a thing I already owe you a fix for. Thumbs up and I keep building the fight on these cells. Thumbs down and tell me which of those two is the problem: the man being small, or the ring being big.",
+      "show": {
+        "how": "image",
+        "src": "vote/COMBAT_THE_FIGHT_IS_ON_CELLS_9_28.png"
+      }
+    },
+    {
+      "id": "factions-two-ladders-neither-reads-ground-9-27",
+      "kind": "tile",
+      "lane": "factions",
+      "sha": "3246ede6",
+      "made": "9/27",
+      "title": "TWO LADDERS, NEITHER READS GROUND",
+      "why": "This valley already tracks two separate numbers for how much a crew trusts you: a favour count, and a rank (TERRITORY up to MANDATE up to MAYOR) that decides where you can even build. Both are real and already on a card you can open. I checked every place either number moves. Both only move because a QUEST resolved. Holding a crew's fortress, losing it, paying their rent on time or missing it: none of that touches either ladder, in either direction. And you just ruled the quest chat ships no more game code, ever, only research, which means both ladders now have exactly one door and it is closing. This lane's own ledger already knows every block that changes hands and has never been asked a single question by either one. Thumbs up and I wire territory into standing. Thumbs down and they stay two separate systems.",
+      "show": {
+        "how": "page",
+        "src": "vote/FACTIONS_TWO_LADDERS_NEITHER_READS_GROUND_9_27.html"
+      }
+    },
+    {
+      "id": "lifecity-the-water-you-could-stand-on-9-27",
+      "kind": "tile",
+      "lane": "life+city",
+      "sha": "a012271e",
+      "made": "9/27",
+      "title": "THE WATER YOU COULD STAND ON",
+      "why": "This is not a drawing, it is the dam pulled straight out of the game and coloured by one question: can you stand here. Green means you can walk on it. Grey is something solid. Top picture is what the game actually believed until this round: THE WHOLE RESERVOIR IS RED, and red means you could walk out onto it. A third of that block was water you could stand on, 5,329 squares of it, plus the creek at the fort. It happened because every square has a word saying what it is, one list decides what each word does, and the word water was not on the list. Anything not on the list quietly becomes floor. Bottom picture is the same block after the fix: the water is water again, and nothing else moved, the solid stuff is identical in both. The dry stuff stayed walkable too, so empty fountains and drained pools are still floor like they should be. Thumbs up and the blue is what deep water looks like on the map from now on. Thumbs down and tell me what water should do to you instead.",
+      "show": {
+        "how": "image",
+        "src": "vote/LIFECITY_THE_SAME_STREET_THREE_TIMES_9_24.png"
+      }
+    },
+    {
+      "id": "ui-what-the-bar-says-9-27",
+      "kind": "ui",
+      "lane": "ui",
+      "sha": "871b1203",
+      "made": "9/27",
+      "title": "WHAT THE BAR SAYS",
+      "why": "The strip across the top of the game says NOTHING right now. I measured it: 390 by 50 pixels of black with one button in it. You said Battle Brothers is the game, and Battle Brothers keeps five numbers on screen every second and never takes them off. You also said less on screen. So this is the one question, asked once. All three phones are the same real shot of the street from the game's own camera, and only the strip changes. A is what you have. B is three readings: batteries, the hour, where you are. C is five, the Battle Brothers count: add the day and who is with you. The gold squares are the new cell size you just set, so you can see the strip costs one and a half rows of world either way, whether it says something or nothing. The readings are already built and switched off, so B and C are a switch, not new work.",
+      "show": {
+        "how": "image",
+        "src": "vote/UI_WHAT_THE_BAR_SAYS_9_27.png"
+      }
+    },
+    {
+      "id": "dynasty-three-names-reshuffle-9-27",
+      "kind": "tile",
+      "lane": "dynasty",
+      "sha": "pending",
+      "made": "9/27",
+      "title": "RESHUFFLE ONE. TYPE ONE. PICK A SEX.",
+      "why": "You said the three come prepared like Battle Brothers, with a reroll and a way to type your own. Here it is, shot on the real phone before and after. Left: the three prepared, Reyna, Ezekiel, Perla. Right: I tapped the little circle on the middle face to reroll just that one (Ezekiel became Araceli, the other two never moved), typed a name over the first one myself (Guadalupe), and picked a sex for the third (Jonah). One thing I am not hiding: the little faces did not change when the names did. That is a real gap and it is written up, not hidden behind a lucky screenshot. Thumbs up and this is how you set up your three when the naming screen ships. Thumbs down and tell me if it is the reroll, the crop, or the faces staying still.",
+      "show": {
+        "how": "image",
+        "src": "vote/DYNASTY_THREE_NAMES_RESHUFFLE_9_27.png"
+      }
+    },
+    {
+      "id": "sounds-the-valley-still-broadcasts-9-27",
+      "kind": "sound",
+      "lane": "sounds",
+      "sha": "PENDING",
+      "made": "9/27",
+      "title": "THE VALLEY STILL BROADCASTS",
+      "why": "Your own bible says the machines keep talking and never acknowledge you. Nothing in the game does that yet, and this is the one place a transmitter's band, hiss, wobble and drop-outs belong by right. I built it two rounds ago and then killed three sounds for sounding like sand in the same round, so I pulled this one out of your queue myself: its carrier was the same band-limited noise you had just rejected, and putting it in front of you anyway would have been the fourth sand sound in a row. Now it is rebuilt from real material. A transmitter's hiss is really two things: the power supply's own ripple (the same 60 Hz hum this valley's grid already has everywhere) and atmospheric static, which is not a smooth hiss at all, it is distant lightning arriving as separate clicks. Ten years of nobody buys more of both: a corroded antenna lets in more clicks, and a dried-out filter capacitor lets more ripple through. Zero noise generators in it. A plays it the way a maintained station sounds, B is the same signal off a machine nobody has touched in ten years, C is B on a loop, which is how you would actually meet it.",
+      "options": [
+        "A, as it left the station",
+        "B, as it arrives ten years later",
+        "C, and it never stops"
+      ],
+      "show": {
+        "how": "page",
+        "src": "BOHEMIA_THE_VALLEY_STILL_BROADCASTS_9_24_26.html"
+      }
     }
-   },
-  {
-    "id": "factions-two-ladders-neither-reads-ground-9-27",
-    "kind": "tile",
-    "lane": "factions",
-    "sha": "3246ede6",
-    "made": "9/27",
-    "title": "TWO LADDERS, NEITHER READS GROUND",
-    "why": "This valley already tracks two separate numbers for how much a crew trusts you: a favour count, and a rank (TERRITORY up to MANDATE up to MAYOR) that decides where you can even build. Both are real and already on a card you can open. I checked every place either number moves. Both only move because a QUEST resolved. Holding a crew's fortress, losing it, paying their rent on time or missing it: none of that touches either ladder, in either direction. And you just ruled the quest chat ships no more game code, ever, only research, which means both ladders now have exactly one door and it is closing. This lane's own ledger already knows every block that changes hands and has never been asked a single question by either one. Thumbs up and I wire territory into standing. Thumbs down and they stay two separate systems.",
-    "show": {
-      "how": "page",
-      "src": "vote/FACTIONS_TWO_LADDERS_NEITHER_READS_GROUND_9_27.html"
-    }
-  },
-  {
-   "id": "lifecity-the-water-you-could-stand-on-9-27",
-   "kind": "tile",
-   "lane": "life+city",
-   "sha": "a012271e",
-   "made": "9/27",
-   "title": "THE WATER YOU COULD STAND ON",
-   "why": "This is not a drawing, it is the dam pulled straight out of the game and coloured by one question: can you stand here. Green means you can walk on it. Grey is something solid. Top picture is what the game actually believed until this round: THE WHOLE RESERVOIR IS RED, and red means you could walk out onto it. A third of that block was water you could stand on, 5,329 squares of it, plus the creek at the fort. It happened because every square has a word saying what it is, one list decides what each word does, and the word water was not on the list. Anything not on the list quietly becomes floor. Bottom picture is the same block after the fix: the water is water again, and nothing else moved, the solid stuff is identical in both. The dry stuff stayed walkable too, so empty fountains and drained pools are still floor like they should be. Thumbs up and the blue is what deep water looks like on the map from now on. Thumbs down and tell me what water should do to you instead.",
-   "show": {
-    "how": "image",
-    "src": "vote/LIFECITY_THE_SAME_STREET_THREE_TIMES_9_24.png"
-   }
-  },
-  {
-   "id": "ui-what-the-bar-says-9-27",
-   "kind": "ui",
-   "lane": "ui",
-   "sha": "871b1203",
-   "made": "9/27",
-   "title": "WHAT THE BAR SAYS",
-   "why": "The strip across the top of the game says NOTHING right now. I measured it: 390 by 50 pixels of black with one button in it. You said Battle Brothers is the game, and Battle Brothers keeps five numbers on screen every second and never takes them off. You also said less on screen. So this is the one question, asked once. All three phones are the same real shot of the street from the game's own camera, and only the strip changes. A is what you have. B is three readings: batteries, the hour, where you are. C is five, the Battle Brothers count: add the day and who is with you. The gold squares are the new cell size you just set, so you can see the strip costs one and a half rows of world either way, whether it says something or nothing. The readings are already built and switched off, so B and C are a switch, not new work.",
-   "show": {
-    "how": "image",
-    "src": "vote/UI_WHAT_THE_BAR_SAYS_9_27.png"
-   }
-  }
-,
-  {
-    "id": "dynasty-three-names-reshuffle-9-27",
-    "kind": "tile",
-    "lane": "dynasty",
-    "sha": "pending",
-    "made": "9/27",
-    "title": "RESHUFFLE ONE. TYPE ONE. PICK A SEX.",
-    "why": "You said the three come prepared like Battle Brothers, with a reroll and a way to type your own. Here it is, shot on the real phone before and after. Left: the three prepared, Reyna, Ezekiel, Perla. Right: I tapped the little circle on the middle face to reroll just that one (Ezekiel became Araceli, the other two never moved), typed a name over the first one myself (Guadalupe), and picked a sex for the third (Jonah). One thing I am not hiding: the little faces did not change when the names did. That is a real gap and it is written up, not hidden behind a lucky screenshot. Thumbs up and this is how you set up your three when the naming screen ships. Thumbs down and tell me if it is the reroll, the crop, or the faces staying still.",
-    "show": {
-      "how": "image",
-      "src": "vote/DYNASTY_THREE_NAMES_RESHUFFLE_9_27.png"
-    }
-  }
-],
+  ],
   "verdicts": [
     {
       "id": "people-the-one-who-walks-with-you-9-21",

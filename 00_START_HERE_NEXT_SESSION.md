@@ -2843,6 +2843,88 @@ NEXT: [cook panels] is the standing rule-22 row and is OPEN again; items 2, 3 an
 (the fight HUD, the talk panel, the vote tab's own frame) are drawn as sheets but not built
 as skins. [three d ui] still has no gate of its own. [vote plays sound] is still open and
 SOUNDS has items waiting that he cannot hear in the tab. [no slop] stays CLAIMED.
+SOUNDS (sound-xk7pjp): 9/27 (b) LATEST -- *** THE CLICK AT THE END OF AN APPROVED SOUND, AND THE
+BROADCAST BACK FROM THE GRAVEYARD QUEUE, REBUILT FROM REAL MATERIAL. *** Row [not sand], round
+four, ROW STAYS CLAIMED.
+Record: records/BOHEMIA_THE_CARRIER_WAS_NEVER_HISS_9_27_26.md
+Gates: COOKED SOUNDS 128/0 (was 125), --mutate bites 37. Build stamp UNCHANGED this round (no
+alpha/demo surface touched; engine + gate + one page + registry only).
+
+ITEM 1: songThroughSpeaker, which he voted UP, ended mid-amplitude, last sample 0.050992 against
+its own biggest step of 0.1074 (47.5%), a real click. FIXED with the same 12 ms raised cosine
+this file already uses; drop-outs untouched; songOnTape inherits it. SHIPPED AS A FIX, NOT A NEW
+VOTE ITEM, same precedent as the band helper's six redos (changed approved sounds' audio, never
+re-voted, because there is no creative fork in "does this click less"). AND A GATE CLAIM HAD TO
+BE REWRITTEN BECAUSE FIXING THE SOUND FALSIFIED IT: it asserted songOnTape still clicks, true
+when written, false the moment the fix landed in the same commit. Rewritten to state what was
+found and that it no longer reproduces. IF YOU EVER SEE A CLAIM GO RED THE SAME ROUND ITS OWN
+DEFECT GOT FIXED, THE CLAIM IS STALE, NOT THE FIX.
+
+ITEM 2: THE VALLEY STILL BROADCASTS, pulled from queue two rounds ago for being the fourth sand
+sound in a row, is rebuilt and registered. What is under an AM carrier's hiss is two real things,
+neither a noise generator: the transmitter's own MAINS RIPPLE (reused straight from ROOM_HUM /
+ROOM_PARTS, same grid, no second copy of the numbers) and ATMOSPHERIC STATIC, WHICH IS SFERICS
+AND NOT A HISS BED (distant lightning arrives as discrete clicks; crackleInto is the footstep's
+grit mechanism reused a third time).
+
+*** AND THE WEAR MODEL WAS WRONG ONCE MID-BUILD, THE SAME SHAPE OF MISTAKE THIS LANE KEEPS
+MAKING: REASONING ABOUT A KNOB INSTEAD OF MEASURING THE MIX. *** First cut: wear buys more static
+and never more hum, because "a power supply's ripple is not a maintenance question." Measured:
+worn/clean rms ratio 1.00x against the existing claim's 1.4x bar, because a sparse click train
+barely moves total energy next to a continuous hum. CORRECTED, AND PHYSICALLY, NOT JUST A BIGGER
+NUMBER: an electrolytic filter capacitor dries out over a decade, a well-documented aging failure
+that INCREASES ripple, so wear buys more of BOTH for two separate real reasons. Measured after:
+2.00x.
+
+A 50 MS PRE-ROLL REPLACES THE OLD NOISE-AND-BLEND SEAM TRICK. bandTo has memory that starts at
+zero, so the first cycle of hum carries a transient the last cycle does not; the pre-roll lets the
+filter settle into the periodic hum before the reported buffer starts, and crackle events stay
+clear of both edges by the same margin. The old seam-blend trick existed only because a
+stochastic bed has no phase to close on; a periodic hum does, once the filter has settled.
+
+*** AND A STRUCTURAL CHECK ALMOST FAILED FOR A REASON THAT HAD NOTHING TO DO WITH THE SOUND. ***
+The gate reads Function.prototype.toString() for the banned call's name. My own rewritten
+comments, explaining the function no longer calls it, SPELLED THE BANNED IDENTIFIER OUT LOUD
+INSIDE THE FUNCTION BODY -- and toString() includes comments. The function genuinely called
+nothing; the check would still have read true off the prose. Fixed by describing the mechanism
+without naming the call. IF YOU EVER WRITE "THIS NO LONGER CALLS X" INSIDE A FUNCTION X USED TO
+CALL, CHECK WHETHER YOUR OWN SENTENCE JUST RE-ADDED THE STRING A STRUCTURAL GATE GREPS FOR.
+
+THE WOW RATE NOW READS THE SAME DECK GEOMETRY THE TAPE DECK PLAYS THROUGH (0.5440 Hz at
+through=0.5) instead of a bare 1.4 Hz that matched no wheel this file has ever measured, because
+this is the same shape of loop tape the deck plays (a dead PA replaying a recording, which is why
+a tape mechanism belongs in a "broadcast" at all).
+
+MEASURED: rms ratio worn/clean 2.00x, wrap clean on both states (under their own 99.9th-pct
+step), band leak 0.02% on both (school rule 4 asks under 5%), drop-outs 2/0, wow proved against a
+perfect head (maxDiff 1.45, same length to the sample). THE PAGE NEEDED NO CHANGE AT ALL: it
+reads the shipped recipe live, never a copy, so it played the graveyarded version on 9/24 and the
+rebuilt one now, from the same three buttons. 3 of 3 buttons play, 0 errors, verified on the
+glass. Registered first time as sounds-the-valley-still-broadcasts-9-27 (its 9/24 id was never
+shown to him, so no prior verdict to preserve).
+
+NEXT, IN ORDER:
+ 1. THE THREE HUMS AT THE GRID'S PITCH (generator 51.87 Hz, power_on 90.47, sign_alive 123.27).
+ 2. THE 21 HARD-CONTACT REDOS from the keep/redo list, footsteps first, on the model that landed.
+ 3. ATTRIBUTE THE 19 NODES ON THE MAP, with a probe that cannot throw.
+ 4. THE FIRST SOUND GATE'S FLAKE, one red in five, on the claim that reads the audio context's
+    state before the tap. Named four rounds running now. It is the claim, not the game.
+ 5. [beds play] is still HELD. Then [enemy heard], [fight music], [quiet floor], [rumour heard],
+    [pump hum].
+ 6. TWO MUSIC HOLES, STILL MINE: a room handing music back does not check whether a fight owns it,
+    and the shell obeys the city's music message with no fight guard.
+ 7. RULE 33j (9/27): read reference/library/battle_brothers/README.md for this department, cite
+    it, fix a wrong number there with a source. STILL NOT DONE.
+ 8. RULE 34, TWO SCALES ONE GAME (Paolo 9/27, LOCKED): the walked surface is moving to an honest
+    per-cell grid; when the tiny walker and the honest grid land, THE FOOTSTEP MODEL SHOULD BE
+    RECHECKED against real cell sizes (the concrete/asphalt/boards contact physics doesn't change,
+    but the STEP CADENCE and what counts as "a house" for the map's struck-hour clock might). Not
+    this lane's rebuild, but worth a measurement pass once RUN's grid lands.
+
+NOT THIS LANE'S, STILL TRUE: the pages publish gate is 17/1 on CLEAN origin/main, the published
+surface 276 MB against its own 260 MB cap. Derived freshness 9/1, identical with this lane's work
+stashed (BOHEMIA_CANON_INDEX.md, two faction files, BOHEMIA_RUN_CURRENT.html -- not sounds').
+
 SOUNDS (sound-xk7pjp): 9/27 LATEST -- *** A TAPE DECK IS NOT MADE OF HISS. THE TWO SOUNDS HE KILLED
 ARE BACK AS NEW IDS, BUILT OUT OF A CASSETTE TRANSPORT'S OWN GEOMETRY, AND FOUR RULERS LIED ON THE
 WAY. *** Row [not sand], round three, ROW STAYS CLAIMED.
