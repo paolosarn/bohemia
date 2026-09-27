@@ -9,6 +9,13 @@
  * Rule 32(f): 132 px, the measured size a portrait occupies on a 390-wide phone.
  * Rule 25: it plays, two or three things, no vote of its own.
  *
+ * REFERENCE CHECK (the 9/4 standing duty; added by DIRECTION 9/27 at the seam --
+ * eighth cook tool this stretch shipped without one): the rulers are FACE-01 and
+ * FACE-02 (the portrait construction that keeps two people from reading as one -
+ * the exact defect this round found) and AH-01 rule 6 (a grid of held faces is
+ * that rule in rows). BB stays a mechanism reference (the roster grid), never a
+ * style source. Ids resolve in the reference library index.
+ *
  * Out: slices/vote/PORTRAIT_PICK_YOUR_MAN_OUT.png / .html
  */
 'use strict';

@@ -49649,7 +49649,27 @@ your first VAMILY and do steps 1 to 9.
 I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
-ROUND LOG 9/27a (latest): [newgrounds] SHIPPED - the flash era read
+ROUND LOG 9/27b (latest): [two scales look] SHIPPED - rule 34's card,
+one bible at two sizes (records/BOHEMIA_TWO_SCALES_LOOK_CARD_9_27_26
+.md). THE ONE SENTENCE: the world does not change when the size does;
+what changes is WHICH rules carry the tone. CLOSE (28 px person on 32
+px cells): the tone moves off the body onto the ROOM (R4+R3+R7); the
+sprite floor spec is silhouette + one value split + one accent; the
+face lives in the portrait (R6 binds the bust - that is the 112
+art's new home per 34c); the honest grid is R1's precondition; wear
+is per-cell authorship, never stamps (the edge-that-drums lesson at
+floor scale). MAP: the [bb look] card stands whole; R7+R9 carry. THE
+SEAM: no lens effect, one cell at every close zoom, the phone's
+arrival is the punctuation. REBUILD JUDGING: cell tiles beside their
+7/28 source at the 9/23 density floors; the small body 8 facings at
+28 px on real ground; the fight by THE FIGHT VERDICT in cells; ONE
+BLOCK WHOLE is the unit before volume. NOTE FOR MY OWN CARDS, honest:
+rule 34c re-homes the style card's 56/112 body measurements as ASSET
+rules (portraits, busts, vote pages) - the sprite spec above is the
+walked-surface half now; the style card gets its amendment header
+when the first small-body batch arrives at the seam, judged against
+both. My four bounced CHARACTER garments: unchanged, still theirs.
+PREVIOUS: [newgrounds] SHIPPED - the flash era read
 into the bible the way FFX's sound was (records/BOHEMIA_NEWGROUNDS_THE
 _FLASH_ERA_INSIDE_THE_BIBLE_9_27_26.md; the bible gains THE ERA
 section the same commit). SURVIVES: the hand-made signature (wear with
