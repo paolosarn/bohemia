@@ -772,6 +772,103 @@ AND THE LESSON THAT STILL BINDS: NO TEXT-ONLY ITEM IN VOTE, and now a second one
 beside it -- A PICTURE IN THE VOTE TAB THAT SHOWS A SENTENCE THE GAME NO LONGER
 SAYS IS A LIE TO HIM. Re-shoot the frames in the same round the words change.
 
+LIFE + CITY (city-1eztay): 9/27 LATEST -- *** THE MAP ALREADY HAS FOURTEEN PLACES ON IT,
+AND THE SAME STREET, THREE TIMES, WITH THE FLOOR COUNTED INSTEAD OF PROMISED. ***
+TAB: the new picture is in the VOTE tab (alpha). The map count is NOT IN A TAB YET.
+Records: records/BOHEMIA_BB_SCHOOL_LIFE_AND_CITY_THE_MAP_HAS_FOURTEEN_PLACES_9_27_26.md
+         records/BOHEMIA_THE_SAME_STREET_THREE_TIMES_9_24_26.md
+
+*** THE [bb ...] LINE, RULE 33(f), AND IT IS A MEASUREMENT NOT A SUMMARY. *** Rule 33(a)
+hands this lane the map, because THE MAP IS THE CITY VIEW WE HAVE. Battle Brothers ships
+about SEVENTEEN settlements per generated world and everything else on that map exists to
+make the distance between them cost something: the map is not the ground, it is the SHORT
+LIST. So I counted ours, off his own faction graph through the seat rule WORLD already
+shipped (ranked act1_power, cut in thirds):
+
+    SEATS ON OUR MAP            14      (5 FORTRESS, 5 TOWN, 4 CAMP)
+    BATTLE BROTHERS            ~17
+    WE ARE THREE PLACES OFF, AND NOBODY BUILT THEM FOR THIS.
+
+They fell out of a graph he wrote months before the overworld was a rule. Re-runnable:
+tools/bohemia_how_many_places_probe.js, which REFUSES to run if bohemia_towns.js stops
+describing the tier rule it measures, so the probe cannot keep a private copy of a rule.
+
+AND IT ANSWERS MY OWN CLAIMED ROW IN THE SAME NUMBERS. Run the identical derivation on
+act3_power: Reds climb TOWN -> FORTRESS, Caravans fall FORTRESS -> TOWN, the other eleven
+hold. TWO OF FOURTEEN DESTINATIONS CHANGE RANK BETWEEN ACT 1 AND ACT 3. That is small,
+and it is the SECOND independent measurement saying so -- the ground side said the future
+fits in 6.7% of the valley. Both point the same way, which is the argument for reclaiming
+meaning REPLACING what is built rather than spreading onto new ground.
+
+THREE HOLES THE COUNT FOUND, one of them a bug:
+    FOUR FACTIONS HAVE NO SEAT AT ALL (act1_power null): Pures, Panthers, La Familia,
+    Triads. Eighteen factions, fourteen destinations, and a faction you can never travel
+    to is a different thing from a weak one.
+    CUSTOM HAS NO act3_power, so it reads in a diff as a seat that changes and it is not a
+    change, it is missing data. NOT FILLED IN: contents are Paolo's, and inventing a power
+    number would put a fake seat on his map.
+    A SEAT IS A TIER, NOT YET A PLACE YOU ARRIVE AT (rule 33b is the street).
+
+WHAT MOVES THAT BB'S PICTURE DOES NOT (rule 33g, closes every [bb ...] line): on their map
+a settlement is a static icon until a raid flips its art. OURS IS LIT, AND THE LIGHT IS
+LYING -- 264 live lamp stretches in this valley, 2,170 dark, and 168 of the live ones burn
+over nobody. That is real occupancy crossed with real wiring. Their icon says a village is
+there; ours can say it is there, its power is on, and nobody is home, at a glance, with no
+text. The seat that went dark since your last pass IS the event, and nothing popped up.
+
+[PENDING coordinator] Rule 10 says only the coordinator adds job lines. This page is the
+work; the row is his to write. Suggested: [bb places]
+THE-MAP-IS-FOURTEEN-NAMES-NOT-NINE-THOUSAND-BLOCKS. Next round's page is where those
+fourteen SIT on the 96x96 overmap and how far apart they are, because in Battle Brothers
+the distance between names is the game.
+
+ROW [three cities] STILL CLAIMED, round 2. THE LOOK IS ANSWERED AND IN HIS HANDS. THE
+WIRING IS THE HALF THAT WAITS, and last round's measurement of why is unchanged: ACT,
+DYNASTY, ERA, BohemiaDynasty and BohemiaDerive are all undefined, there is no DAY.act,
+so there is no act value anywhere in the world to draw from.
+
+THE COOK (rule 22), registered as lifecity-the-same-street-three-times-9-24:
+slices/vote/LIFECITY_THE_SAME_STREET_THREE_TIMES_9_24.png, 672 x 1692, three panels.
+    ACT 1  the ruin, the exact picture he already voted up
+    ACT 2  + road patched, power back, an array and a battery cabinet, line restrung
+    ACT 3  + a second array across the road, kerbs and walks rebuilt, the lamp
+             doubled, and the dead lot turned into a battery swap stand
+
+*** RULE 32(b) IS A NUMBER IN THIS FACTORY, NOT A COMMENT. *** A law without a machine
+gate is not enforced, and that goes for a law about pictures. The factory renders all
+three panels, walks all 21,504 pixels of each pair, and counts every pixel that got
+DARKER -- darker is the world falling, which his 9/23 ruling forbids. It REFUSES TO
+WRITE THE FILE over the allowance.
+    act 1 -> act 2      146 darker    848 brighter
+    act 2 -> act 3      451 darker   3524 brighter
+    allowed darker     1400  (shadow and edge under new hardware only)
+And the law is in the control flow too: NOT ONE `if act` branch in the file removes
+anything. Every later act is the earlier act's body plus its own additions.
+
+THE WRONG THING IS THE ONLY CONSTANT. The lit-and-empty house is lit with nobody in it
+in all three acts, off the same measured row both approved pictures used (264 lit
+stretches in this valley, 168 of them with nobody on them, this block 59,4 arterial on
+MOB's wire). Its code sits OUTSIDE every `if act` on purpose: it is the one thing on
+that street that does not know which act it is in. THE STREET COMES BACK TWICE AND THE
+EMPTY HOUSE NEVER DOES.
+
+ONE DEFECT FOUND BY LOOKING AT IT, which is the only way they get found: the act-3 swap
+stand came out A GREY BLOB because I poured the hardstand, racked the cells, then threw
+the work light OVER THE TOP of them. Light lands on ground and hardware stands in it:
+ground, then the pool, then the rack. Same family as the bullseye lamp (a pool is
+filled, not ringed) and the grey blind (a window is the room, not the wall dimmed
+less), one layer further in each time.
+
+SUITE REDS THIS SHIP, AND WHOSE (rule 13b): REFERENCE CHECK 2 red, named offender
+tools/bohemia_cook_every_dial_a_slider.js -- NOT MINE. REUSE-FIRST 7 red, all
+*_patch.py from other lanes -- NOT MINE. Both my new files carry both blocks and pass.
+
+[PENDING Paolo] UNCHANGED AND STILL THE REAL FORK: the future fits in 6.7% of the
+valley (620 desert / 4,074 built / 4,522 skeleton of 9,216). Either acts 2 and 3 differ
+by at most that, or reclaiming means REPLACING the 4,074 already built -- which this
+picture is the argument for, since every panel is the same footprint rebuilt, not new
+ground taken.
+
 LIFE + CITY (city-1eztay): 9/24b LATEST -- *** BOTH COOKS GOT HIS THUMB, RULE 32(b)
 DELETED HALF MY ROW, AND THE ENTIRE FUTURE FITS IN 6.7% OF THE VALLEY. ***
 TAB: the new picture is in the VOTE tab (alpha).
