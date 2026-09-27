@@ -1,0 +1,50 @@
+# QD-B02: THE TRACKS THAT GO TOWARD HOME
+ACT: 1
+KIND: event
+CRISIS: the Destroyers
+ECONOMY: bust
+PLACE: a fork on the old frontage road where a dirt track leaves toward the settlement the family sleeps in
+STATUS: draft:true, research only, nothing built (rule 35)
+SHAPE: E3, THE TRACKS AT THE FORK (QR-B)
+
+## THE SITUATION
+Late act 1, while the Destroyers are moving. The party is heading out on a contract. At a fork the tracks of a large
+party leave the highway and turn down the dirt toward home. The tracks are real: a Destroyer band crossed here within
+the last day, and the map has shown their marks for two trips. The contract is the other way, and it was TAKEN, so
+dropping it is a deed.
+
+## THE PERSON AND THE FIRST LINE
+The companion kneels in the dirt. Portrait close, one hand flat on a tyre mark.
+First line: "Twelve, maybe fifteen. Boots and one cart. Going where we sleep."
+
+## THE CHOICES
+1. FOLLOW THE TRACKS HOME. Costs the rest of the day. The contract you took is now late; if you do not finish it,
+   it is a dropped contract, which is a deed (standing down with the client's faction). At home: the Destroyer band,
+   or nothing (they turned off), depending on where the party really is when you arrive.
+2. SEND ONE OF THE COMPANY BACK ALONE. Costs one person out of the company for two days and 2 batteries of
+   supplies. The contract stays on time. The runner may arrive in time, may arrive late, may not arrive.
+3. KEEP TO THE CONTRACT. Costs nothing now. What happens at home is decided by the simulation, not by a script.
+
+## WHAT THE LEDGERS REMEMBER
+- Time and the contract ledger (choice 1).
+- People: the runner (choice 2), and what the runner found.
+- The Destroyers' ledger: whether this band reached the settlement feeds the act 1 climax generator, which is
+  shaped by how the player played (the builders against the Destroyers).
+- The echo: the feed, the next time the player opens the city view, from someone at home.
+- Keep to the contract writes nothing about the choice itself; only what the world does.
+
+## THE ONE WRONG DETAIL
+Between the boot prints, every few metres, there is one small bare footprint, a child's, and it never falls behind.
+
+## CITED FROM
+- `Q089.W6` paths form as people walk them: tracks are traffic written on the ground.
+- `Q148.W3` evidence built to be misread once: the band may have turned off, the tracks do not say.
+- `Q065.W6` clocks tick for the world whether you engage: home is on its own clock.
+- `Q021.W5` triage: every save is a loss somewhere else.
+- `Q087.W9` the world executes on its clock: ignore the warning and the town may be sacked.
+- `Q038.W3` navigate by reading the land.
+
+## FLAWS IT AVOIDS
+- `Q038.X3` hints too subtle (the companion says the count and the direction plainly).
+- `Q148.X2` a trail that cannot be misread (this one can lead to an empty settlement and a late contract).
+- `Q044.X1` pure random (the band is a real party, shown on the map for two trips).
