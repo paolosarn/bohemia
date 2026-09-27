@@ -8319,6 +8319,75 @@ full suite unmeasured since 7efb22cf. Rule 14(a): demo untouched, RUN cuts it.
 
 Record: records/BOHEMIA_ONE_DOOR_9_14_26.md
 
+PLUMBER (plumber-ont6t5): 9/27 LATEST -- *** CHAT 18. ROUND 41. [bb budget] SHIPPED. THE MARKERS ARE
+FREE, THE ANIMATION LOOP IS NOT. AND IT TOOK FIVE ATTEMPTS, EVERY FAILURE MINE. ***
+THE ANSWER FOR RUN, BEFORE IT BUILDS:
+  4x throttle (phone-shaped CPU)
+    an EMPTY per-frame loop, ZERO parties drawn            5.2 fps
+    60 parties + tracks + clock PAINTED ON THE BEAT        16 of 16 beats landed,
+                                                           1.7 ms a paint, 99.7% headroom
+  1x, the control that proves the harness (same code, same page, only the throttle differs)
+    idle 58.4 | empty loop 60.1 | 5/20/60/150 parties all 60.1 | 400 PARTIES 59.5 (worst 50 ms)
+    | +tracks 60.1 / 59.1 / 60.2 | +clock 60.1
+400 markers with trails and a clock holds 60 at 1x, which is more than SIX TIMES what a Battle
+Brothers map ever shows. DRAWING WAS NEVER THE PROBLEM.
+RECOMMENDATION, WITH THE NUMBER BEHIND IT: DO NOT PUT THE MAP ON A PER-FRAME LOOP. Move the parties
+and tick the clock ON THE BEAT and repaint then. 120 BPM is one beat every 500 ms, every other system
+in this game already runs on it, and a beat-painted map leaves 99.7% of the beat unused at 4x. The
+design answer costs nothing, matches the pillar, and the alternative does not survive a phone. It also
+means the map keeps being what it already is, a REDRAW-ON-DEMAND surface, idle until something moves
+it, which is right for a city view and kind to a battery. Keep that and drive it from the beat.
+*** THREE INSTRUMENT FAULTS, ALL MINE, ALL REPRODUCED, ALL THE SAME SHAPE: a live oracle answering
+happily about the wrong thing. ***
+(1) THE FIRST LADDER MEASURED AN IDLE PAGE AND CALLED IT SLOWNESS. MODE flips to 'city' on the FIRST
+squeeze while czoom is still 1 and the map is not up: rAF 2.4/s in human, 1.6/s at city+czoom 1,
+60.3/s at czoom 0.208. A "2.3 fps city view" was a page with nothing to draw. THE PROOF OF ARRIVAL IS
+CZOOM, NOT MODE, and any lane measuring the map needs to know that.
+(2) THE FIRST READ AFTER IDLE IS 6.9x LOW. Six back-to-back 2 s windows on the same unchanged map:
+8.7, 58.2, 60.3, 60.2, 60.3, 59.8. Run one is the outlier. That is this lane's own 9/21 [cold read]
+finding in a new place, and it caught the lane that shipped the fix for it. Every rung now throws a
+window away and reports the WORSE of two warm reads.
+(3) AND THE SURFACE COULD NOT BE REACHED AT ALL ON SOME BOOTS, which was the real blocker. One boot
+reached the map in two squeezes. Another sat at human/czoom 1 AFTER EIGHT, the squeezes doing nothing.
+*** THE CAUSE, ON THE GLASS, AND IT IS ONE OF THE FOUR FROM LAST ROUND:
+  before any squeeze    centre -> div#loadgl   above -> div#loadgl   below -> div#loadgl
+  after squeeze 1/2/3:  mode=human czoom=1 every time
+  inside the frame, centre -> canvas#cv
+#loadgl, THE LOADING CANVAS, WAS STILL COVERING THE ENTIRE PAGE, so every squeeze landed on it while
+canvas#cv answered every question happily underneath. It is the FIRST of the four incidents
+[covered controls] named, it is still live, and it is INTERMITTENT -- three controlled boots afterwards
+were all clean, which is exactly why a single green run never caught it.
+TWO FIXES IN THE ONE DRIVER, both small and both in this lane's remit:
+  d.toMap()  squeezes until THE STATE PROVES the map is up and THROWS with the state it got stuck at
+             otherwise. Nobody should be able to measure the street and call it the map. Proved both
+             ways: toMap(0) refuses and names mode=human czoom=1; toMap() reaches czoom 0.208 and says
+             so; a second call on the map is a no-op.
+  the door   check stopped naming ids. It asked only whether #fronttap or #front is displayed, and
+             #loadgl is a SEPARATE overlay that outlives the door -- the comment directly under that
+             check has named #loadgl since it was written and the check still did not test for it. It
+             now asks the only question that matters, CAN A FINGER REACH THE GAME, by elementFromPoint
+             at the frame's centre on the top page. That covers those two ids, #loadgl, and anything
+             anybody adds later. THIRD TIME THIS LANE HAS MOVED A CHECK FROM A SPELLING TO A MEANING.
+MEASURED SAFE FOR THE FLEET before shipping: three boots in a row report the door behind us, a finger
+reaching iframe#cityFrame, and the map reached at czoom 0.208. DRIVER SAYS 6/0 and COVERED CONTROLS
+8/0 after the change.
+FOR RUN, NAMED NOT FIXED: on the boots where #loadgl lingers the game is unplayable and every internal
+check says fine. A real finger would tap and get nothing. That is the loading screen's, not mine.
+NOT MEASURED, SAID PLAINLY: TRAVEL. The row names it, there is nothing to travel on yet, so there is
+no honest number; this lane prices it the round RUN lands travel. Guessing at it now would have been a
+fourth wrong number in a round that already produced three. And the 4x per-frame rungs stop at the
+floor by design, because an empty loop cannot clear 30 fps, so every rung below would measure the
+floor rather than the parties.
+PRE-PUSH PASS: DRIVER SAYS 6/0, COVERED CONTROLS 8/0, HANDOFF 9/0, REPLY CONTRACT 17/0. Box 0.97x of
+baseline when the ladder was taken. Rule 14(a): demo untouched, RUN cuts it.
+Record: records/BOHEMIA_WHAT_A_MAP_COSTS_ON_A_PHONE_9_27_26.md
+STILL OPEN IN MY SECTION: [one driver] (this round did half of it and says so), [three valleys],
+[slim build], [deep history], [real surface], [horror gate], [mode chip], [suite line], [pre-push
+pass], [cannot fail], [one way rulers], [spelling gates], [suite runs], [fight headroom], [dead
+gates], [handoff cut], [backlog archive].
+Still CLAIMED: [never worse], [sixty fps], [demo errors] (STANDING).
+NO [PENDING Paolo] FROM THIS LANE.
+
 PLUMBER (plumber-ont6t5): 9/24 (b) LATEST -- *** CHAT 18. ROUND 40. [covered controls] SHIPPED. IN THE
 SUITE AS COVERED CONTROLS, 8 PASSED 0 FAILED ON BOTH SURFACES, 102 s. AND TWICE ON THE WAY THE OBVIOUS
 RULE WAS THE WRONG ONE. ***

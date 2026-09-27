@@ -280,9 +280,33 @@ async function open(opts) {
      nobody is looking at.
      So: knock, then CHECK THE DOOR IS BEHIND US, and knock again until it is. Bounded,
      and it costs nothing at all on a boot where the old single knock already worked. */
+  /* *** THE DOOR CHECK NAMED TWO IDS AND THE THING THAT WAS ACTUALLY IN THE WAY WAS A
+     THIRD. (9/24, PLUMBER, row [bb budget].) *** It asked only whether #fronttap or
+     #front is displayed. #loadgl is a SEPARATE full-page overlay and it can outlive
+     the door -- the comment directly below has named it since it was written, and the
+     check still did not test for it.
+     REPRODUCED ON THE GLASS, one boot of the alpha: the door reported BEHIND US, and
+     the top page's elementFromPoint at the frame's centre, 150 above it and 150 below
+     it all returned div#loadgl. EIGHT squeezes changed nothing (mode stayed human,
+     czoom stayed 1) because every one of them landed on the overlay. Inside the frame
+     canvas#cv answered happily at its own centre the whole time, so nothing downstream
+     noticed. On another boot of the same file two squeezes reached the map, so it is
+     INTERMITTENT, which is why a single green run never caught it.
+     So the question stops being "is one of these two elements hidden" and becomes the
+     only one that matters: CAN A FINGER REACH THE GAME. That is the third time this
+     lane has moved a check from a SPELLING (a list of ids) to a MEANING, and it covers
+     #fronttap, #front, #loadgl and anything anybody adds later, for free. */
   const doorStillThere = () => page.evaluate(() => {
-    const f = document.getElementById('fronttap') || document.getElementById('front');
-    return !!(f && getComputedStyle(f).display !== 'none' && f.offsetParent !== null);
+    const named = document.getElementById('fronttap') || document.getElementById('front');
+    if (named && getComputedStyle(named).display !== 'none' && named.offsetParent !== null)
+      return true;
+    /* and the real test: is the play surface reachable from the top page at all? */
+    const frames = Array.from(document.querySelectorAll('iframe'))
+      .filter(f => { const r = f.getBoundingClientRect(); return r.width > 40 && r.height > 40; });
+    if (!frames.length) return false;          /* nothing to reach yet; the clock decides */
+    const f = frames[0], r = f.getBoundingClientRect();
+    const hit = document.elementFromPoint(r.x + r.width / 2, r.y + r.height / 2);
+    return !(hit && (hit === f || f.contains(hit) || hit.contains(f)));
   });
   /* KEEP KNOCKING UNTIL IT OPENS, ON A CLOCK RATHER THAN A COUNT. A count was the first
      cut and it was wrong for the alpha: the alpha is a bigger load than the demo, so a
@@ -489,6 +513,39 @@ async function open(opts) {
        waited or walked straight in rather than guessing */
     doorMs: () => doorMs,
     pinchOut: () => pinch(150, 25),          /* toward the city */
+    /* *** GET TO THE MAP AND PROVE YOU ARE ON IT (9/24, PLUMBER, row [bb budget]). ***
+       A squeeze is a touch gesture at fixed coordinates, and whether it lands is not
+       something the caller can see. MEASURED over four attempts at budgeting the map:
+       one boot reached it in TWO squeezes (human/czoom 1 -> city/czoom 1 -> city/czoom
+       0.208), and another sat at human/czoom 1 AFTER FOUR -- the squeezes did nothing
+       at all that boot. Both boots then answered every question I asked, happily, and
+       the second one was answering about the STREET. That is the same defect the door
+       knock already guards against on this driver: a live oracle under an overlay
+       answers, and the answer is about a screen nobody is looking at.
+       So this squeezes until THE STATE PROVES the map is up, and THROWS with the state
+       it got stuck at rather than handing back a surface it could not reach. Nobody
+       should be able to measure the street and call it the map.
+       The proof is czoom, not MODE: MODE flips to 'city' on the FIRST squeeze while
+       czoom is still 1 and the map is not up. Only czoom crossing well under 1 means
+       the valley is actually on screen (0.208 measured, tw 18 -> 3.7). */
+    toMap: async (tries = 8) => {
+      const at = async () => { try { return await fr.evaluate(() => ({
+        mode: typeof MODE !== 'undefined' ? MODE : '?',
+        czoom: typeof CZOOM !== 'undefined' ? +CZOOM.toFixed(3) : null })); }
+        catch (e) { return { mode: '?', czoom: null }; } };
+      const there = (s) => s.mode === 'city' && s.czoom !== null && s.czoom < 0.5;
+      let s = await at();
+      for (let i = 0; i < tries && !there(s); i++) {
+        await pinch(150, 25);
+        await page.waitForTimeout(2200);
+        s = await at();
+      }
+      if (!there(s)) throw new Error('toMap: after ' + tries + ' squeezes the map is still not '
+        + 'up (mode=' + s.mode + ' czoom=' + s.czoom + '). Refusing to hand back the street '
+        + 'as if it were the map -- every number measured here would be about the wrong screen.');
+      console.log('  [driver] the map is up: czoom ' + s.czoom);
+      return s;
+    },
     pinchIn:  () => pinch(25, 150),          /* back down to the street */
     /* the canvas only: the phone chrome is not the game */
     shot: async (file) => { await page.waitForTimeout(700);
