@@ -278,15 +278,28 @@ function note(t, v) { notes.push('  NOTE  ' + t + (v == null ? '' : '   ' + v));
      !!item && /0 of the 61/.test(item.why));
 
   /* ======================================================================== */
-  head('E. RULE 18: NOTHING IS ON THE PLAY SURFACE');
+  head('E. THE CHOOSER IS ON THE PLAY SURFACE NOW (9/24, [bb company])');
   /* ======================================================================== */
+  /* *** THESE TWO LEGS USED TO ASSERT THE OPPOSITE AND THEY WERE RIGHT WHEN THEY
+     WERE WRITTEN. *** On 9/21 rule 18 held this chooser off the play surface, so
+     the gate held the hold: "nothing in the game calls the chooser" and "the
+     follow pass is untouched, still enemies only". [bb company] is the row that
+     ends that, so the legs now hold TODAY'S truth instead of a frozen state.
+     A LEG THAT PINS AN IMPLEMENTATION STATE RATHER THAN A RULE goes red the
+     moment the row it belongs to advances, and this lane has paid for that shape
+     before: a test about the NAME of a thing is not a test about its RULE. */
   const city = fs.readFileSync(CITY, 'utf8');
   const alpha = fs.readFileSync(ALPHA, 'utf8');
-  ok('*** NOTHING IN THE GAME CALLS THE CHOOSER. *** The hold is on the play '
-     + 'surface, so the walked city and the alpha do not know this file exists',
-     !/bohemia_companion|companionPick|ctCompanion/.test(city + alpha));
-  ok('and the follow pass is untouched, still enemies only, exactly as it was',
-     /if \(!ag \|\| !ag\.signs\.follow\) continue;/.test(city));
+  ok('*** THE WALKED CITY CALLS THE CHOOSER NOW, AND NOBODY EVER WALKED WITH HIM '
+     + 'BEFORE IT DID ***',
+     /BohemiaCompanion\.pick\(/.test(city));
+  ok('and it is ONE copy of the rule, inlined verbatim inside a closure, never a '
+     + 'second chooser written into the city',
+     /inlined verbatim/.test(city) && !/function pick\(people, save\)[\s\S]{0,80}\/\* a second/.test(city));
+  ok('and the follow pass carries a friend through the SAME machinery an enemy '
+     + 'uses, not a second pass beside it',
+     /if \(!withMe && \(!ag \|\| !ag\.signs\.follow\)\) continue;/.test(city)
+     && (city.match(/function ctFollowStep/g) || []).length === 1);
   ok('the chooser lives in tools, not in engine, so no derived slice has to be '
      + 'rebuilt and no lane\'s demo cut is touched',
      fs.existsSync(MOD) && !fs.existsSync(path.join(ROOT, 'engine/bohemia_companion.js')));

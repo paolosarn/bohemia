@@ -1,0 +1,270 @@
+BOHEMIA -- THE COMPANY IS A CAST (9/24/26, PEOPLE lane)
+VAMILY job [bb company], row THE-COMPANY-IS-A-CAST. Rule 33 (THE OVERWORLD IS
+BATTLE BROTHERS), laws/BOHEMIA_LAW_THE_OVERWORLD_IS_BATTLE_BROTHERS_9_24_26.md
+sections 5 and 5b. Rule 33f asked for SCHOOL FIRST, then the shape for us.
+
+Paolo 9/24: "I need you to just continuously do big brain research on how Battle
+Brothers does things really good." And the same round: "Battle Brothers is just a
+bunch of pictures and the pictures can change, but we can do more and put more
+life into it with this analog horror pixel [direction] we're doing."
+
+================================================================================
+PART ONE -- THE SCHOOL: HOW BATTLE BROTHERS DOES THE COMPANY
+================================================================================
+The company is the thing every Battle Brothers player remembers, and players
+remember individual brothers BY NAME years later. Nobody wrote those stories.
+They come out of five pieces:
+
+1. A BROTHER IS A BACKGROUND FIRST. Every recruit arrives as one civilian word:
+   butcher, farmhand, sellsword, hedge knight, wildman, cripple, beggar,
+   daytaler, poacher, squire, witchhunter. That word sets his starting gear, his
+   starting stats, the ceiling he can grow to, what he costs to hire and WHAT HE
+   COSTS EVERY DAY. It is the densest characterisation in the game and it is one
+   word.
+
+2. THE WAGE IS THE SPINE, AND IT IS WHY IT IS A COMPANY AND NOT A PARTY. Every
+   brother costs crowns every single day, paid at the day's end, forever. A hedge
+   knight is superb and ruinous; a beggar is useless and nearly free. You cannot
+   field a roster of the best men because the wage bill outgrows the contracts.
+   THE MONEY IS THE ROSTER.
+
+3. HIDDEN TRAITS, FOUND OUT BY PLAYING. Craven, bloodthirsty, iron lungs, fat,
+   clumsy, dumb, hesitant, bleeder, loyal. Mostly hidden at hire. You learn them
+   by watching the man in a fight. THE GAP BETWEEN THE MAN YOU THOUGHT YOU HIRED
+   AND THE MAN YOU GOT IS WHERE THE STORIES COME FROM.
+
+4. MOOD AND WHO LIKED WHO. Brothers form opinions of each other. Mood runs from
+   angry to eager and moves on pay, food, victories, defeats and casualties, and
+   a man takes it harder when the one who fell was one he liked. Mood feeds
+   straight into resolve, so the social state is not decoration: it breaks the
+   line in a real fight.
+
+5. PERMADEATH, SO THE LOSS LANDS. A brother who dies is gone. That is the whole
+   reason anybody remembers a name.
+
+WHAT PLAYERS COMPLAIN ABOUT, AND IT IS ALL ONE COMPLAINT: THE DELIVERY.
+   - The roster is a spreadsheet. You run the company through a grid of small
+     portraits and tooltips.
+   - A background is a word you hover over.
+   - A brother never says anything. Ever.
+   - Events are illustrated cards with text, which is Paolo's own sentence.
+
+THE REAL WORLD, because everything in Bohemia is grounded in the real:
+   - The free companies (the White Company, the Catalan Company) were held
+     together by REGULAR PAY and the share-out. The recorded cause of a company
+     turning on its employer is almost always ARREARS OF PAY: when the money
+     stopped they plundered whoever was nearest. This repo already has that half
+     built and it is called [broke raiders] BB-UNPAID-TURNS-PREDATORY.
+   - What actually bound a band was the PAIR. Men marched, slept and fought
+     beside one specific other man. The combat-motivation literature is argued
+     over in its details and keeps landing on the same place: people do not hold
+     a line for a cause, they hold it for the man next to them.
+   - And in a collapse people move in twos. Every recorded collapse has this.
+
+================================================================================
+PART TWO -- MEASURED ON THE ALPHA BEFORE A LINE WAS CHANGED
+================================================================================
+  people carrying a background          61 of 61, all 15 kinds, off their key
+  backgrounds carrying a written line   15 of 15   (WORDS shipped them 9/23)
+  backgrounds ever said out loud         0
+  lines spoken past the first minute   224, AND NOT ONE OF THEM A BACKGROUND
+  people who ever walk with you          0, over 30 walked presses
+
+So the sad half was already built and nobody had a mouth. A man who dealt cards
+for thirty years has been carrying "I still cut the deck twice. There is no deck."
+around a street where he has never once opened his mouth. WORDS' own record for
+[trade slang] says it out loud: "NOTHING NEW DRAWS, verified not asserted: no
+reader of the new field exists." This round is the reader.
+
+================================================================================
+*** THE FINDING, AND IT IS NINE DAYS OLD AND IT IS NOT ABOUT COMPANIONS ***
+        THE STEP BECAME A HOUSE AND NOBODY RE-MEASURED WHO COULD KEEP UP
+================================================================================
+  one press of the pad moves the player     25 cells  (THE STEP IS A HOUSE, 9/15)
+  the follow pass believed                   9 cells  (BohemiaStanding.SEE_RANGE)
+  a drawn body standing on the glass        31 cells away, DRAWN EVERY PRESS
+  an enemy stubbed into following            0 of 8 presses in the follow map
+  THE CONTROL, same stub, reach widened      4 of 4 presses in the follow map
+
+The mechanism is named and controlled, not guessed: the drop is the reach and
+only the reach. The walked city's own comment says that walking off your schedule
+to stay near somebody is "the only thing in this world that overrides the address
+book, and IT TAKES AN ENEMY TO DO IT". AN ENEMY CANNOT DO IT EITHER. Since 9/15,
+nobody of any kind has been able to follow the player on any surface.
+
+THE CAUSE IS TWO QUESTIONS SHARING ONE NUMBER, which is this lane's oldest defect
+in a new coat. SEE_RANGE is nine because that is how far off you can watch
+something happen and have seen it -- correct, and still correct. "How far away can
+somebody be and still keep up with you" is a different question that went unasked
+when the step became a house, and nine cells is SMALLER THAN A SINGLE PRESS, so
+from 9/15 the answer was permanently no.
+
+NEITHER NEW NUMBER IS INVENTED. Keeping up is measured in presses: one press is
+how far he goes, plus the sight that made them start. 25 + 9 = 34.
+
+AND THE SECOND HALF OF RULE 16, WHICH WAS ONLY EVER APPLIED TO THE PLAYER. His own
+words, 9/15: "the player character and ALL CHARACTERS' MOVEMENTS AND ENEMIES'
+MOVEMENTS to be larger at the same time." The follow step moved ONE CELL, so at
+twenty five cells a press a follower fell twenty four cells further behind every
+time the player moved; inside the widened reach they would simply trail out of it
+again. A follower now covers a house, called once per cell so walls, the occupancy
+law and the never-onto-the-player rule are paid twenty five times instead of
+skipped once.
+
+================================================================================
+*** AND A THIRD DEFECT, SAME ROOT CAUSE, CAUGHT BY THE COOK'S OWN FRAME ***
+================================================================================
+The first frame shot for the vote tab showed the man walking with him DRAWN
+STRAIGHT THROUGH HIM. That is rule 30, NOBODY STANDS ON ANYBODY, which Paolo said
+twice and which this lane shipped.
+
+The draw already enforces it between roster bodies, by footprint, in pixels. It
+deliberately does NOT enforce it against the player, and the reason is written
+beside it and was right at the time: seeding that list with him meant nobody could
+stand beside him at all and the person at his door stopped being drawn, taking
+FACE AT THE DOOR from 31/0 to 25/6. "He is already covered by the cell law: one
+body per cell."
+
+ONE BODY PER CELL STOPPED BEING ENOUGH WHEN THE STEP BECAME A HOUSE. A body is
+drawn about a hundred pixels wide and a cell is a fraction of that, so one cell
+away is INSIDE HIM. The follower's hold was two cells, written when a cell was a
+body. A follower now stops closing at the same footprint the draw spaces every
+other pair of bodies by, and the number is not mine: it is the same expression the
+never-empty field already uses, the drawn body divided by the cell.
+
+================================================================================
+*** AND A FOURTH, FOUND BY THE GATE GOING RED ON ITS OWN CLAIM ***
+            A BLANK PLATE OVER A WOMAN THE GAME KNEW THE NAME OF
+================================================================================
+The leg "the speaker is a person with a name" went red. Measured rather than
+argued: of three people who introduced themselves, TWO came back with their names
+and the third came back with NOTHING.
+
+  id 14:11:118    asked: true    ctPerson(p).name: "Lupe Aguirre"
+                                 ctPersonName(p.id): null
+                                 the plate over her head: BLANK
+
+He was standing on block 12:12. She was borrowed onto his street by
+__THE_STREET_IS_NEVER_EMPTY__, which lends bodies from other blocks so the street
+he is on is never dead. ctPersonName resolves an ID against the BLOCK'S OWN
+roster, so a borrowed body could be drawn, could speak, and had no name.
+
+TWO WAYS TO ASK WHAT SOMEBODY IS CALLED, AND THEY DISAGREED. That is two writers
+for one fact, this lane's oldest defect; the people module paid a whole round for
+the identical shape when one human came back with two different former trades
+depending on which object you asked. The caller already holds the person, so the
+person answers and the id lookup is the fallback, with the trade word under both
+so a blank plate is the only wrong answer. Lupe Aguirre now has her name over her
+head, which the gate reads back live.
+
+AND THREE OF THE FOUR REDS IN THAT FIRST PASS WERE MY GATE, NOT THE GAME:
+  - the first-minute leg walked its clock to 96 s and then complained about 13
+    lines that were all legitimately past the minute
+  - the not-muted control asserted "more than 100 lines" and read 54 on a build
+    where nothing was muted, because how far a walk wanders into empty country
+    varies run to run. AN ABSOLUTE NUMBER THERE MEASURES THE WALK, NOT THE
+    CHANGE, and a number I would have had to keep lowering is not a control. It
+    is now a COMPARISON: the same walk on the same tree with these two mouths
+    held shut, 54 with against 42 without, and this row is 5 lines of the 54.
+  - the page leg wanted the control led with, and the page buried it
+
+================================================================================
+PART THREE -- THE SHAPE FOR US, AND WHAT WAS BUILT
+================================================================================
+A. A PERSON NEAR YOU TELLS YOU WHAT THEY USED TO BE. Once per person, ever, past
+   the quiet minute, inside the speaking-to-you distance, and you can walk past.
+   Fifteen written lines get a mouth. Somebody telling you their life tells you
+   their name, which is this lane's own rule from [a name].
+
+B. IF YOU ARE STILL THERE A COUPLE OF BEATS LATER, THEY FALL IN BESIDE YOU.
+   Nothing to press. WALKING ON IS THE REFUSAL and it costs nothing, which is
+   rule 32a built instead of written down. And Battle Brothers agrees with him:
+   you do not get a brother by walking past one, you stand in front of him, he
+   tells you what he was, and then you take him on.
+
+C. ON THE ROAD THEY SAY WHAT THEY KEPT. That is Battle Brothers' hidden trait,
+   found out by playing rather than read off a tooltip, because the man tells you
+   himself. A trade that DIED keeps nothing and says nothing here: the dealer,
+   the valet, the pit boss and the floor man carry keeps:null on purpose, and the
+   silence is the joke landing.
+
+D. ONE AT A TIME, AND NO ROSTER. Who walks with you is one id recomputed from
+   what was said and how far away they are, and the follow pass drops them at the
+   same line it drops everybody else. A save cannot carry a ghost.
+
+*** WHAT MOVES THAT BATTLE BROTHERS' PICTURE DOES NOT (rule 33g). *** There a
+brother is a still portrait in a grid and his past is a word in a tooltip. Here he
+walks a real street beside you at one step per house, with his own face in the
+bubble and his own name over his head, he says it in his own words, and you can
+walk away mid-sentence.
+
+================================================================================
+ON THE ALPHA, AFTER, PLAYED THE WAY A PERSON PLAYS
+================================================================================
+  somebody walks with you           yes, after 1 press, held at 3 cells
+  who                               Estella Gaines, DROVE A CAB
+  what she says meeting you         "Nine minutes if the arterial is open."
+  what she says once she is with you "KNOWS EVERY ROAD IN THE VALLEY"
+  backgrounds said out loud          2, two different trades, none said twice
+  lines said in total              224
+  lines in his first minute          0
+  lines in the demo                  0
+
+*** THE 224 IS THE CONTROL THAT MATTERS. *** The street says exactly as much as it
+did. A change that quietened the town would pass every other claim here.
+
+AND THE PROBE WAS THE BROKEN INSTRUMENT TWICE BEFORE ANY OF THIS WAS TRUE. Two
+passes read ZERO lines and zero companions, and both had pressed the pad 260 times
+in a loop, which at twenty five cells a press walks him into empty country where
+the organ has nobody to speak to. The number that settled it was the positive
+control: the same build, standing still, said 224. BEFORE BELIEVING A NEGATIVE,
+PROVE THE INSTRUMENT CAN PRODUCE A POSITIVE.
+
+================================================================================
+THE COOK: THE ONE WHO FELL IN
+================================================================================
+slices/BOHEMIA_THE_ONE_WHO_FELL_IN_9_24_26.html, registered in VOTE.
+EVERY FRAME IS THE WALKED STREET FROM THE GAME'S OWN CAMERA (rule 32f), and the
+BEFORE frame was shot on a stashed tree -- the actual build main is carrying --
+so the pair differs by the thing the row changed and nothing else.
+  before   four people on the same block and not one of them with him
+  now      Estella Gaines in the long red coat, walking down the street with him
+  the road her name, her face, and the line she kept from driving a cab
+
+================================================================================
+THE GATE
+================================================================================
+gates/the_company_is_a_cast_gate.js, driven on the ALPHA. It holds the reach
+measured in presses, the house-sized follow step, the join rule (nothing joins a
+stranger, not the instant you hear them, walking on is the refusal, one at a
+time), both mouths inside the one function every mouth goes through, and the live
+legs with the not-muted control, the first minute and the demo beside them.
+
+================================================================================
+MEASURED AND NOT FIXED
+================================================================================
+THE DRAW STILL DOES NOT SPACE ROSTER BODIES FROM THE PLAYER, only from each
+other. My follower now holds its footprint, but somebody standing next to him off
+their own schedule can still be drawn through him, and one of this round's frames
+shows it. THE FIX IS NOT A LINE I SHOULD WRITE HERE: the last attempt at it took
+FACE AT THE DOOR from 31/0 to 25/6 by making it impossible to stand beside him at
+all, and the correct version is the identical footprint test the roster already
+uses rather than an exclusion. That is [no clumping]'s row, it is SHIPPED, and
+re-opening somebody's shipped row on the strength of one frame is how the 25/6
+happened the first time. Named, with the mechanism, rather than half-fixed.
+
+THE PRICE OF KEEPING SOMEBODY IS NOT IN HERE. "One battery a night on a
+handshake" is ruled and it is FACTIONS' row [take them on]. Nobody is charged a
+battery by anything this round shipped, and building it here would have been
+doing another lane's job with a price in it.
+
+THE TWO DEBT LEDGERS ARE KEYED BY OUTFIT AND NOT BY PERSON, which [who follows]
+measured and wrote down. So the chooser's two strongest reasons -- you owe them,
+they owe you -- cannot be answered per person on this surface and are left ABSENT
+rather than faked. Every companion drawn this round came in on "their work is
+gone", which is the weaker reason and the honest one.
+
+THE NAME PLATE AT HER FEET STILL CLIPS on a wall edge, the same thing this lane
+named last round. Not this row, named again rather than cropped out of the frame.
+
+TAB: CITY, the walked street in the alpha. VOTE, for the three frames.

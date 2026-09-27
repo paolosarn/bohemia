@@ -11468,6 +11468,107 @@ ALSO STILL OPEN, not draw order: on NE in his own frame
 the right of the shoulders with a visible gap. That is the pose too.
 
 Nothing [PENDING Paolo].
+PEOPLE (people-7h9sfy): 9/24 (c) LATEST -- *** [bb company] SHIPPED, AND THE
+FINDING IS NINE DAYS OLD AND IS NOT ABOUT COMPANIONS: THE STEP BECAME A HOUSE AND
+NOBODY RE-MEASURED WHO COULD KEEP UP. ***
+
+Rule 33 (THE OVERWORLD IS BATTLE BROTHERS) asked every lane for a [bb ...] school
+line. This lane's is THE COMPANY IS A CAST.
+
+MEASURED ON THE ALPHA, MECHANISM NAMED AND CONTROLLED, BEFORE A LINE MOVED:
+    one press of the pad moves the player     25 cells (THE STEP IS A HOUSE, 9/15)
+    the follow pass believed                   9 cells (BohemiaStanding.SEE_RANGE)
+    a drawn body standing on the glass        31 cells away, DRAWN EVERY PRESS
+    an enemy stubbed into following            0 of 8 presses in the follow map
+    THE CONTROL, same stub, reach widened      4 of 4 presses in the follow map
+The walked city's own comment says overriding your schedule to stay near somebody
+"takes an enemy to do it". AN ENEMY CANNOT DO IT EITHER. Since 9/15 NOBODY OF ANY
+KIND has been able to follow the player on any surface, and the cause is TWO
+QUESTIONS SHARING ONE NUMBER: how far off you can watch something happen (nine,
+still correct) and how far somebody keeping up may be (never asked, and nine is
+smaller than one press).
+
+AND THE COMPANY'S OWN NUMBERS, SAME PASS:
+    people carrying a background           61 of 61, all 15 kinds, off their key
+    backgrounds carrying a written line    15 of 15 (WORDS shipped them 9/23)
+    backgrounds ever said out loud          0
+    lines spoken past the first minute    224, and NOT ONE of them a background
+    people who ever walk with you           0
+
+BUILT, all of it joining things that already existed. (1) The follow reach is
+measured in PRESSES, 25 + 9 = 34, neither number invented. (2) A follower covers a
+HOUSE, which is rule 16's own second half in his words -- "all characters'
+movements and enemies' movements to be larger at the same time" -- called once per
+cell so walls and occupancy are paid 25 times, not skipped once. (3) A person near
+you tells you what they used to be, once ever, past the quiet minute, walk-past-
+able. (4) Stay a couple of beats and they FALL IN BESIDE YOU; nothing to press,
+walking on is the refusal and costs nothing, which is rule 32a built instead of
+written. (5) On the road they say what they KEPT, which is Battle Brothers' hidden
+trait found out by playing instead of read off a tooltip. A trade that DIED keeps
+nothing and says nothing, and the silence is the joke landing.
+
+ON THE ALPHA, AFTER: somebody walks with him (218 beats beside him, held at 3
+cells, Estella Gaines who DROVE A CAB), 3 backgrounds said out loud in one play,
+none said twice, 0 lines in his first minute, 0 in the demo. THE CONTROL IS A
+COMPARISON, NOT A THRESHOLD: the same walk with these two mouths held shut says 42
+lines against 54 with them, so this row is 5 lines on top of a street that is not
+muted. Gate the_company_is_a_cast_gate.js 51/0.
+
+*** AND THE COOK'S OWN FRAME CAUGHT A THIRD DEFECT, SAME ROOT CAUSE. *** The first
+picture shot for the vote tab had the man walking with him DRAWN STRAIGHT THROUGH
+HIM. Rule 30. The draw spaces roster bodies from each other by footprint and
+deliberately not from the player, and the reason beside it was right at the time
+("one body per cell"). One body per cell stopped being enough when a body became
+a hundred pixels wide. A follower now stops closing at the same footprint the draw
+already uses, and the number is that same expression, not mine.
+
+*** AND A FOURTH, FOUND BY THE GATE GOING RED ON ITS OWN CLAIM: A BLANK PLATE OVER
+A WOMAN THE GAME KNEW THE NAME OF. *** Of three people who introduced themselves,
+two came back named and one came back with nothing. Her id was 14:11:118, he was
+standing on 12:12, and she was BORROWED onto his street by the never-empty field.
+ctPersonName resolves an id against the BLOCK'S roster, so a borrowed body could be
+drawn, could speak, and had no name while ctPerson(p).name said "Lupe Aguirre".
+Two ways to ask what somebody is called that disagree is TWO WRITERS FOR ONE FACT,
+and the people module paid a whole round for the identical shape. The caller holds
+the person, so the person answers; the id lookup is the fallback; the trade word is
+under both, so a blank plate is the only wrong answer.
+
+THREE OF THE FOUR REDS IN THE FIRST GATE PASS WERE MY GATE, NOT THE GAME: the
+first-minute leg walked its clock to 96 s and then complained about lines that were
+legitimately past the minute; the not-muted control asserted "more than 100 lines"
+and read 54 on a build where nothing was muted, because AN ABSOLUTE NUMBER THERE
+MEASURES THE WALK, NOT THE CHANGE. A number I would have had to keep lowering is
+not a control, so it is a comparison now.
+
+AND TWO PROBES READ ZERO BEFORE ANY OF THIS WAS TRUE, both because they pressed
+the pad 260 times in a loop, which at 25 cells a press walks him into empty country
+where the organ has nobody to speak to. The positive control settled it: the same
+build standing still said 224. BEFORE BELIEVING A NEGATIVE, PROVE THE INSTRUMENT
+CAN PRODUCE A POSITIVE.
+
+COOK: THE ONE WHO FELL IN, registered in VOTE, every frame the walked street from
+the game's own camera (rule 32f), and THE BEFORE FRAME WAS SHOT ON A STASHED TREE
+-- the build main is actually carrying -- so the pair differs by the row and
+nothing else. Record records/BOHEMIA_THE_COMPANY_IS_A_CAST_9_24_26.txt.
+
+MEASURED AND NOT FIXED, for whoever reads this next:
+  - THE DRAW STILL DOES NOT SPACE ROSTER BODIES FROM THE PLAYER, only from each
+    other, so somebody standing next to him off their own schedule can still be
+    drawn through him. That is [no clumping]'s row and it is SHIPPED. The last
+    attempt took FACE AT THE DOOR from 31/0 to 25/6 by making it impossible to
+    stand beside him at all; the correct version is the identical footprint test
+    the roster already uses, not an exclusion. Named with the mechanism rather
+    than half-fixed on the strength of one frame.
+  - THE PRICE IS NOT IN HERE. "One battery a night on a handshake" is ruled and
+    it is FACTIONS' row [take them on]. Nothing this round charges anybody.
+  - BOTH DEBT LEDGERS ARE KEYED BY OUTFIT, NOT BY PERSON ([who follows] measured
+    that), so the chooser's two strongest reasons -- you owe them, they owe you --
+    cannot be answered per person here and are left ABSENT rather than faked.
+    Every companion this round came in on "their work is gone", the weaker and
+    honest one.
+  - The name plate at her feet still clips on a wall edge, named again.
+
+Nothing [PENDING Paolo].
 PEOPLE (people-7h9sfy): 9/24 (b) LATEST -- *** [creditor waits] SHIPPED. HE
 CORRECTED THIS LANE'S OWN WORK AND HE WAS RIGHT: SOMEBODY TALKED THE INSTANT THE
 WORLD EXISTED. ***

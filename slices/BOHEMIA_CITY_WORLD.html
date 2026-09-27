@@ -45543,6 +45543,437 @@ function pplAt(p) {
   return pplAtSched(p);
 }
 
+/* ==== tools/bohemia_companion.js (WHO WALKS WITH YOU, inlined verbatim) =====
+   [bb company], 9/24. The chooser has been written, pure and gated since 9/21
+   and NOT ON THE PLAY SURFACE, because rule 18 held it off. Measured on the
+   alpha this round, before a line moved: NOBODY WALKS WITH YOU, 0 over 30
+   walked steps, and the follow machinery below says why in its own words --
+   walking off your schedule to stay near somebody is "the only thing in this
+   world that overrides the address book, AND IT TAKES AN ENEMY TO DO IT".
+
+   INLINED INSIDE ONE CLOSURE WITH A `module` SHIM, so the file stays byte-for-
+   byte the file the gate runs off disk and its short names (pick, score,
+   reasons, mix) cannot become globals in a file this size. A second copy of a
+   rule is two writers for one fact, which is this lane's own oldest defect. */
+(function (root) {
+  var module = { exports: {} };
+  /* ============================================================================
+     BOHEMIA -- WHO WALKS WITH YOU (9/21/26, PEOPLE lane, [walking companion]).
+
+     PAOLO 9/7: "I don't know about the companion right now, have it on shuffle
+     mode." So there is NO FIXED COMPANION AND NO FIXED NAME. Whoever walks with
+     you is DRAWN FROM THE PEOPLE ALREADY AROUND YOU, shuffled per save, named
+     from the pools that already exist, every word draft:true.
+
+     *** MEASURED ON THE ALPHA BEFORE A LINE OF THIS WAS WRITTEN: NOBODY WALKS
+     WITH YOU AND NOBODY EVER HAS. *** 0 of 61 people on his block answer
+     "follow", 0 are hostile, 0 are watching, and the follow map is empty and
+     stays empty over ten walked steps. THE PIPE ITSELF IS FINE: stub one person
+     into answering "follow" and somebody enters the map on the very first pass.
+     What is missing is not machinery, it is A REASON FOR A FRIEND TO USE IT --
+     today only an enemy is ever allowed to walk after you.
+
+     THIS FILE IS THE REASON, AND IT INVENTS NOTHING. It is pure: no DOM, no game
+     globals, no clock. It takes what the world already knows about the people
+     around you and answers three questions the row asks:
+
+       WHO      would plausibly walk with you, drawn from the world, shuffled
+       WANTS    something of their own that is already in the world
+       REFUSES  one thing, set from their own standing
+
+     NOTHING HERE IS ON THE PLAY SURFACE. Rule 18 holds this lane, so no game
+     file calls this; the gate and the vote page do. When the hold lifts, the
+     walked city calls pick() and hands the answer to the follow pass that this
+     round proved already works.
+
+     REALISM FIRST. Nobody in a collapsed valley walks with a stranger for
+     nothing. Every reason below is one that would actually move a person:
+       OWED        you owe them, and walking with you is how they get paid
+       OWING       they owe you, and being useful is cheaper than being hunted
+       NO SHIFT    their work is gone, so their day is empty and yours is not
+       SAFER       alone is worse than beside somebody, which is why people
+                   travelled in pairs in every collapse anybody has recorded
+     A person with none of these does not follow you, and that is most people.
+
+     module.exports = { pick, reasons, DIAL }
+     ========================================================================== */
+  'use strict';
+
+  /* THE DIAL, draft:true. Paolo has ruled on none of these numbers, so they ship
+     as a real attempt in one place he can change with a word, never sprayed
+     through the code (MECHANISM-MINE / CONTENTS-PAOLO'S). */
+  var DIAL = {
+    draft: true,
+    reach: 9,          /* cells: the game's own ctSeeRange, not a new number */
+    shortlist: 4,      /* how many candidates the shuffle considers */
+    minScore: 1        /* one real reason is enough; zero reasons is not */
+  };
+
+  /* WHY SOMEBODY WOULD WALK WITH YOU. The order is the strength: a debt moves a
+     person harder than an empty afternoon does. */
+  var REASONS = [
+    { key: 'owed',    weight: 4,
+      say: 'you owe them, and walking with you is how they get paid' },
+    { key: 'owing',   weight: 3,
+      say: 'they owe you, and being useful is cheaper than being hunted' },
+    { key: 'noshift', weight: 2,
+      say: 'their work is gone, so their day is empty and yours is not' },
+    { key: 'safer',   weight: 1,
+      say: 'alone is worse than beside somebody' }
+  ];
+
+  /* WHAT THEY WANT, and every one of these is a thing the world already holds:
+     a debt in the ledger, a person in their household, a place they go. Nothing
+     here is a new system and nothing here is a number. */
+  var WANTS = {
+    owed:    'to be paid what you owe them',
+    owing:   'to clear what they owe you',
+    noshift: 'a day\'s work that pays in batteries',
+    safer:   'to get home before dark with what they are carrying'
+  };
+
+  /* SAME SEED, SAME ANSWER, FOREVER, ON ANY PHONE, WITH NOTHING STORED. The
+     player's own face pipe works this way and so does the name bank; a companion
+     that shuffles differently on a reload is not shuffled, it is broken. */
+  function mix(s) {
+    var v = s >>> 0;
+    v ^= v >>> 16; v = Math.imul(v, 0x7feb352d);
+    v ^= v >>> 15; v = Math.imul(v, 0x846ca68b);
+    v ^= v >>> 16;
+    return v >>> 0;
+  }
+  function seedOf(save, id) {
+    var h = mix(save >>> 0), s = String(id);
+    for (var i = 0; i < s.length; i++) h = mix(h ^ s.charCodeAt(i));
+    return h >>> 0;
+  }
+
+  /* WHY THIS PERSON, ASKED OF FACTS THE WORLD ALREADY HAS.
+     Every field read here is one the caller got from the game, never guessed:
+       p.owedByYou   you owe them (the lender ledger already answers this)
+       p.owesYou     they owe you
+       p.work        where their shift is, or nothing
+       p.dist        how many cells away they are right now
+     A missing field is a NO, never a maybe: an absent fact cannot be a reason. */
+  function reasons(p) {
+    var out = [];
+    if (!p) return out;
+    if (p.owedByYou) out.push(REASONS[0]);
+    if (p.owesYou)   out.push(REASONS[1]);
+    if (!p.work)     out.push(REASONS[2]);
+    if (p.dist != null && p.dist <= DIAL.reach) out.push(REASONS[3]);
+    return out;
+  }
+  function score(p) {
+    var r = reasons(p), n = 0;
+    for (var i = 0; i < r.length; i++) n += r[i].weight;
+    return n;
+  }
+
+  /* WHAT THEY WILL NOT DO, AND IT COMES OFF THEIR OWN STANDING, NOT OFF A LIST I
+     WROTE. A person who runs with a faction will not cross that faction. A person
+     with somebody at home will not rob a house. A person with neither refuses the
+     one thing everybody refuses: they will not be the one who starts it.
+     THE PERSON IS NAMED BY THE CALLER, NEVER HERE: names are his. */
+  function refusal(p) {
+    if (!p) return null;
+    if (p.faction) return { kind: 'faction', who: p.faction,
+      say: 'will not cross the ' + p.faction };
+    if (p.household) return { kind: 'house',
+      say: 'will not rob a house with somebody living in it' };
+    return { kind: 'start', say: 'will not be the one who starts it' };
+  }
+
+  /* THE DRAW. Shuffled per save, off the people who actually have a reason.
+     NOT "the best one": the strongest reasons make the shortlist, and the save
+     picks from inside it, so two saves on the same block get different people
+     and neither gets somebody with no reason to be there. */
+  function pick(people, save) {
+    if (!people || !people.length) return null;
+    var able = [];
+    for (var i = 0; i < people.length; i++) {
+      var p = people[i];
+      if (!p || p.id == null) continue;
+      if (p.dist != null && p.dist > DIAL.reach) continue;   /* out of reach is out */
+      var sc = score(p);
+      if (sc < DIAL.minScore) continue;
+      able.push({ p: p, score: sc });
+    }
+    if (!able.length) return null;
+    able.sort(function (a, b) {
+      if (b.score !== a.score) return b.score - a.score;
+      return String(a.p.id) < String(b.p.id) ? -1 : 1;        /* stable, no clock */
+    });
+    var pool = able.slice(0, Math.max(1, DIAL.shortlist | 0));
+    var hit = pool[seedOf(save, 'companion') % pool.length];
+    var rs = reasons(hit.p);
+    var top = rs.length ? rs[0] : null;
+    return {
+      id: hit.p.id,
+      score: hit.score,
+      why: top ? top.say : null,
+      whyKey: top ? top.key : null,
+      wants: top ? WANTS[top.key] : null,
+      refuses: refusal(hit.p),
+      outOf: able.length,
+      draft: true
+    };
+  }
+
+  /* ==========================================================================
+     *** WHEN SOMEBODY FALLS IN BESIDE YOU, AND IT IS NEVER AT THE FIRST SECOND.
+     (9/24, [bb company]. Rule 32a, and Battle Brothers' own answer.) ***
+
+     pick() above says WHO WOULD. This says WHEN, and the difference is the whole
+     of rule 32a. A stranger who attaches himself to you the instant the world
+     exists is the thing Paolo has now complained about three times:
+     "don't force interactions on the player".
+
+     AND BATTLE BROTHERS AGREES WITH HIM. You do not get a brother by walking
+     past one. You stand in front of him, he tells you what he used to be, and
+     THEN you take him on. The background is the introduction; the handshake is
+     separate and it is yours.
+
+     SO THE RULE IS: THEY TOLD YOU WHO THEY USED TO BE, AND YOU WERE STILL THERE.
+     Nothing to press. Walking on is the refusal and it costs nothing, which is
+     what "nothing is forced" means when you build it instead of writing it down.
+
+     WHAT THIS IS NOT: it is not the PRICE of keeping somebody. That is ruled and
+     it is FACTIONS' row [take them on] -- one battery a night on a handshake --
+     and putting a price in here would be doing another lane's job. */
+  var JOIN = {
+    draft: true,
+    afterBeats: 2,     /* beats between hearing them and them falling in: long
+                          enough that walking on takes you out of it */
+    /* *** HOW FAR IS "STILL THERE" IS MEASURED IN PRESSES, NOT IN CELLS, AND THAT
+       COST THIS ROUND A MEASUREMENT TO LEARN. *** The first cut of this rule said
+       6 cells, copied off the city's speaking-to-you distance. Then the alpha was
+       measured: ONE PRESS MOVES THE PLAYER FOURTEEN CELLS, because THE STEP IS A
+       HOUSE (Paolo 9/15). A rule written in cells that is smaller than one press
+       can never be true after the player moves, so "still there" would have meant
+       "did not move at all". One press away is still beside you; two is walking
+       away. The SIZE of a press is the world's and is handed in. */
+    stayPresses: 1,
+    stay: 6            /* the fallback in cells, for a caller that cannot say how
+                          big a press is. Never used by the walked city. */
+  };
+
+  /* joins(m) -- m is facts the caller already has, never a person:
+       told        did they tell you what they used to be
+       beatsSince  beats since they told you
+       cells       how far away they are RIGHT NOW
+       onePress    how many cells one press of the pad carries the player
+       already     is somebody already walking with you
+     Returns { yes:true } or { no:'<the reason, in plain words>' }. A reason is
+     returned rather than a bare false so a gate and a record read the same
+     sentence, and so "nobody joined" can never be confused with "nothing ran". */
+  function joins(m) {
+    if (!m) return { no: 'nothing to read' };
+    if (m.already)  return { no: 'somebody is already walking with you' };
+    if (!m.told)    return { no: 'they have not told you anything yet' };
+    if ((m.beatsSince | 0) < JOIN.afterBeats)
+                    return { no: 'you only just heard them' };
+    var within = (m.onePress > 0)
+      ? (m.onePress | 0) * Math.max(1, JOIN.stayPresses | 0)
+      : JOIN.stay;
+    if (m.cells == null || m.cells > within)
+                    return { no: 'you walked away, which is the refusal' };
+    return { yes: true, after: JOIN.afterBeats, within: within, draft: true };
+  }
+
+  var API = { pick: pick, reasons: reasons, refusal: refusal,
+              score: score, DIAL: DIAL, REASONS: REASONS, WANTS: WANTS,
+              JOIN: JOIN, joins: joins };
+  module.exports = API;
+
+  try { root.BohemiaCompanion = module.exports; } catch (_e) {}
+})(typeof globalThis !== 'undefined' ? globalThis : this);
+/* ==== END tools/bohemia_companion.js ==== */
+
+
+/* ==== __THE_COMPANY_IS_A_CAST__ : SOMEBODY TELLS YOU WHAT THEY USED TO BE,
+        AND IF YOU STAY, THEY WALK WITH YOU. (9/24, PEOPLE, [bb company].) =====
+
+   RULE 33 SCHOOL, THE SHAPE FOR US. Battle Brothers' company is the thing every
+   player of it remembers, and it is built out of four pieces: a BACKGROUND (one
+   word that sets who a man was), a HIDDEN TRAIT you only find out by playing, a
+   WAGE every single day, and PERMADEATH so the loss lands. What people complain
+   about is the delivery: the roster is a spreadsheet of small portraits, a
+   background is a word in a tooltip, and a brother never says anything. Paolo's
+   own sentence this round: "Battle Brothers is just a bunch of pictures... we
+   can do more and put more life into it."
+
+   *** MEASURED ON THE ALPHA BEFORE A LINE OF THIS EXISTED. ***
+     61 of 61 people carry a background        all 15 kinds present, off their key
+     15 of 15 backgrounds carry a written line WORDS shipped them 9/23
+     0                                         have ever been said out loud
+     224 lines spoken past the first minute    and not one of them is a background
+     0 people ever walk with you               over 30 walked steps
+   So the sad half is already built and nobody has a mouth: a man who dealt cards
+   for thirty years is carrying "I still cut the deck twice. There is no deck."
+   around a street where he has never once opened his mouth.
+
+   WHAT THIS ADDS, AND ALL OF IT IS JOINING THINGS THAT ALREADY EXIST:
+     1  A PERSON NEAR YOU TELLS YOU WHAT THEY USED TO BE, once, ever, past the
+        quiet minute, inside the speaking-to-you distance, walk-past-able.
+     2  IF YOU ARE STILL THERE A COUPLE OF BEATS LATER, THEY FALL IN BESIDE YOU.
+        Nothing to press. Walking on IS the refusal and costs nothing, which is
+        rule 32a built instead of written down.
+     3  ON THE ROAD THEY SAY WHAT THEY KEPT from that trade -- which is Battle
+        Brothers' hidden trait, found out by playing rather than read in a
+        tooltip, because the man tells you himself.
+
+   WHAT MOVES THAT BATTLE BROTHERS' PICTURE DOES NOT (rule 33g): a brother there
+   is a still portrait in a grid and his past is a word in a tooltip. Here he
+   walks a real street beside you at one step per house, with his own face in the
+   bubble and his own name over his head, and you can walk away mid-sentence.
+
+   WHAT IS DELIBERATELY NOT HERE: THE PRICE. "One battery a night on a handshake"
+   is ruled and it is FACTIONS' row [take them on]. Nobody is charged in here.
+   AND NO ROSTER. Who walks with you is one id, recomputed from what was said and
+   how far away they are, exactly the rule bohemia_company.js paid for.
+   ========================================================================== */
+
+/* ==========================================================================
+   *** HOW FAR ONE PRESS CARRIES HIM, AND HOW FAR SOMEBODY KEEPING UP MAY BE.
+   THIS IS THE DEFECT THE ROW FOUND AND IT IS NINE DAYS OLD. ***
+
+   MEASURED ON THE ALPHA, THE MECHANISM NAMED AND CONTROLLED, NOT GUESSED:
+     one press moves the player            14 cells   (THE STEP IS A HOUSE, 9/15)
+     the follow pass believed              9 cells    (BohemiaStanding.SEE_RANGE)
+     a drawn body standing on the glass    31 cells away, drawn every press
+     an enemy stubbed into following       0 of 8 presses in the follow map
+     the SAME stub with the reach widened  4 of 4 presses in the follow map
+   So the drop is the reach and only the reach, and it drops EVERYBODY: friend,
+   enemy, anyone. The comment above pplAt says walking off your schedule to stay
+   near somebody "takes an enemy to do it" -- AN ENEMY CANNOT DO IT EITHER.
+
+   THE CAUSE IS TWO QUESTIONS SHARING ONE NUMBER, which is this lane's oldest
+   defect in a new coat. SEE_RANGE is nine because that is how far away you can
+   watch something happen and have seen it. "Can somebody keep up with you" is a
+   different question with a different answer, and it went unasked when the step
+   became a house: nine cells is SMALLER THAN A SINGLE PRESS, so from 9/15 the
+   answer was permanently no.
+
+   NEITHER NUMBER BELOW IS INVENTED. Keeping up is measured in presses: one press
+   is how far he goes, and the sight that made them start is still theirs. */
+function ctOnePress(){
+  var st = 1;
+  try { if (typeof STEP_CELLS === 'number' && STEP_CELLS > 0) st = STEP_CELLS | 0; } catch (_e) {}
+  return st;
+}
+function ctKeepUpRange(){ return ctOnePress() + ctSeeRange(); }
+
+/* *** AND HOW FAR APART TWO BODIES HAVE TO BE TO NOT BE INSIDE EACH OTHER.
+   THE SAME ROOT CAUSE, ON THE OTHER SIDE, AND THE COOK'S OWN FRAME CAUGHT IT. ***
+
+   NOBODY STANDS ON ANYBODY is rule 30 and Paolo said it twice. The draw already
+   enforces it BETWEEN ROSTER BODIES, by footprint, in pixels. It deliberately
+   does NOT enforce it against the PLAYER, and the reason is written down beside
+   it and was right at the time: seeding the list with him meant nobody could
+   stand beside him at all, and the person at his door stopped being drawn.
+   "He is already covered by the cell law: one body per cell."
+
+   ONE BODY PER CELL STOPPED BEING ENOUGH WHEN THE STEP BECAME A HOUSE. A body
+   is drawn about a hundred pixels wide and a cell is a fraction of that, so
+   "one cell away" is INSIDE HIM. The first frame shot for the vote tab showed
+   exactly that: the man walking with him drawn straight through him.
+   THE FOLLOWER'S HOLD WAS TWO CELLS, written when a cell was a body.
+
+   THE NUMBER IS NOT MINE. It is the same expression the never-empty field
+   already uses to space bodies: the drawn body divided by the cell. */
+function ctBodyApart(){
+  var n = 1;
+  try { n = Math.max(1, Math.round(bodyLadder(HZOOM) / HZOOM)); } catch (_e) { n = 1; }
+  return n;
+}
+try { window.ctOnePress = ctOnePress; window.ctKeepUpRange = ctKeepUpRange;
+      window.ctBodyApart = ctBodyApart; } catch (_e) {}
+
+/* WHO TOLD YOU WHAT THEY USED TO BE, AND ON WHICH BEAT. Once per person per
+   story: a man who introduces himself every time you walk past is not a
+   character, he is a broken record (the same rule the witness bark pays). */
+var CT_WAS_SAID = {};
+/* AND THE ONE WHO IS WALKING WITH YOU. ONE ID, NEVER A LIST. */
+var CT_WALKS_WITH = null;
+var CT_ROAD_SAID = {};
+
+/* THE FACTS THE CHOOSER IS ALLOWED TO READ, and every one comes off the world.
+   A MISSING FACT IS A NO, NEVER A MAYBE, which is the chooser's own rule: the
+   two debt ledgers in this repo are keyed by OUTFIT and not by person ([who
+   follows] measured that and wrote it down), so owedByYou and owesYou are NOT
+   answerable per person here and are left absent rather than faked. */
+function ctWalkFacts(p, at) {
+  if (!p || p.id == null) return null;
+  var f = { id: p.id };
+  try { f.dist = Math.abs(at[0] - hx) + Math.abs(at[1] - hy); } catch (_e) { return null; }
+  var b = null;
+  try { b = BohemiaAgents.whereAt(p, T.min | 0); } catch (_e) {}
+  f.work = (b && b.where === 'work') ? b.where : null;   /* a shift, or nothing */
+  try { f.faction = ctFactionOf(p) || null; } catch (_e) { f.faction = null; }
+  return f;
+}
+
+/* WHO, OF THE PEOPLE WHO HAVE TOLD YOU SOMETHING, WOULD ACTUALLY WALK WITH YOU.
+   The ranking is the chooser's, not a second copy of it here. */
+function ctWhoWouldWalk() {
+  if (typeof BohemiaCompanion === 'undefined') return null;
+  var drew = (typeof BARK_DREW !== 'undefined' && BARK_DREW) ? BARK_DREW : [];
+  var told = [];
+  for (var i = 0; i < drew.length; i++) {
+    var d = drew[i]; if (!d || !d.p || !d.at) continue;
+    if (!CT_WAS_SAID[d.p.id]) continue;          /* a stranger is still a stranger */
+    var f = ctWalkFacts(d.p, d.at);
+    if (f) told.push(f);
+  }
+  if (!told.length) return null;
+  /* THE GAME'S OWN ONE SEED, never a second idea of which world this is. The
+     overmap already fixed this exact bug for itself: it hardcoded 2026 while the
+     game ran on another number, so two parts of one world disagreed. */
+  var save = 0;
+  try { save = BOH_ONE_SEED() >>> 0; } catch (_e) { save = 0; }
+  var hit = null;
+  try { hit = BohemiaCompanion.pick(told, save); } catch (_e) { hit = null; }
+  return hit;
+}
+
+/* DID ANYBODY JOIN THIS STEP. Run out of the follow pass, so it obeys the world
+   movers law for free: nothing happens until he moves. */
+function ctJoinStep() {
+  if (typeof BohemiaCompanion === 'undefined') return null;
+  if (CT_WALKS_WITH != null) return null;
+  var hit = ctWhoWouldWalk();
+  if (!hit) return null;
+  var drew = (typeof BARK_DREW !== 'undefined' && BARK_DREW) ? BARK_DREW : [];
+  var cells = null, beat = 0;
+  for (var i = 0; i < drew.length; i++) {
+    var d = drew[i];
+    if (d && d.p && d.at && d.p.id === hit.id)
+      cells = Math.abs(d.at[0] - hx) + Math.abs(d.at[1] - hy);
+  }
+  try { beat = (BARK.beat | 0) - (CT_WAS_SAID[hit.id] | 0); } catch (_e) { beat = 0; }
+  var ans = null;
+  /* HOW BIG A PRESS IS COMES FROM THE WORLD, NEVER FROM THE RULE. The rule is
+     "one press away is still beside you, two is walking away"; the size of a
+     press is the walked city's and is handed over. */
+  try { ans = BohemiaCompanion.joins({ told: true, beatsSince: beat,
+                                       cells: cells, onePress: ctOnePress(),
+                                       already: false }); } catch (_e) {}
+  if (!ans || !ans.yes) return ans || null;
+  CT_WALKS_WITH = hit.id;
+  try { window.__WALKS_WITH = { who: String(hit.id), why: hit.why,
+        wants: hit.wants, outOf: hit.outOf, beatsSince: beat, cells: cells }; } catch (_e) {}
+  return ans;
+}
+
+/* THEY STOP WALKING WITH YOU AT THE BOTTOM OF THE FOLLOW PASS AND NOWHERE ELSE.
+   A second function here that also decided "are they still with me" would be two
+   writers for one fact, which is the defect this lane has paid for more than any
+   other: the follow pass already drops anybody it did not move this step, and
+   dropping the companion is that same line. */
+try { window.ctWhoWouldWalk = ctWhoWouldWalk;
+      window.ctWalksWith = function () { return CT_WALKS_WITH; }; } catch (_e) {}
+
 /* ==== __CITY_AGAINST__ : THEY FOLLOW, AND THEY STAND IN THE DOORWAY ========
    WORLD MOVERS LAW (Paolo 7/5/26): "NOTHING moves until you do." So this is not
    a chase loop and there is no timer: it runs once per step the player takes,
@@ -45558,7 +45989,7 @@ var CT_FOLLOW = {};
 function ctFollowStep(){
   if (typeof BohemiaAgainst === 'undefined') return 0;
   var drew = (typeof BARK_DREW !== 'undefined' && BARK_DREW) ? BARK_DREW : [];
-  var live = {}, moved = 0, range = ctSeeRange();
+  var live = {}, moved = 0, range = ctKeepUpRange();
   /* *** OCCUPANCY LAW, AND THE FIRST CUT BROKE IT IN FRONT OF ME. *** Three
      Cartel bodies followed the player for six hundred steps and every one of
      them converged on the SAME CELL, because each asked "one step toward him"
@@ -45568,17 +45999,55 @@ function ctFollowStep(){
      is; the next step it tries again from there, so they fan out behind you
      instead of stacking. */
   var taken = {}; taken[hx + ',' + hy] = 1;
+  /* __THE_COMPANY_IS_A_CAST__ -- DID SOMEBODY JOIN YOU THIS STEP. Asked here on
+     purpose: the world movers law says nothing moves until he does, and this
+     pass IS "he moved", so the join costs no clock and can never fire while he
+     is standing still reading something. */
+  try { ctJoinStep(); } catch(_e){}
   for (var i = 0; i < drew.length; i++) {
     var p = drew[i] && drew[i].p; if (!p || p.id == null) continue;
+    /* THE ONE WALKING WITH YOU USES THIS MACHINERY AND NOT A SECOND COPY OF IT.
+       Until now the only thing in this world that could walk off its own
+       schedule to stay near you WAS AN ENEMY -- the comment above pplAt says so
+       in those words. A friend is the same motion and a different reason, so
+       the reason is asked here and every rule below (occupancy, stepping aside,
+       losing sight of you) is paid exactly once. */
+    var withMe = (CT_WALKS_WITH != null && p.id === CT_WALKS_WITH);
     var ag = null; try { ag = ctAgainstMe(p); } catch(_e){}
-    if (!ag || !ag.signs.follow) continue;
+    if (!withMe && (!ag || !ag.signs.follow)) continue;
+    if (withMe) ag = ag || { signs: { follow: true, block: false } };
     var was = CT_FOLLOW[p.id] || pplAtSched(p);
     if (!BohemiaAgainst.inSight(was, [hx, hy], range)) continue;   /* lost you */
     /* THE DOORWAY FIRST, because a body that is blocking a door is not also
        drifting toward you -- it is already where it wants to be. */
     var door = (ag.signs.block) ? ctBlockCell(was) : null;
     var free = function (sx, sy) { return !taken[sx + ',' + sy] && pplStandable(sx, sy); };
-    var now = door ? door : BohemiaAgainst.follow(was, [hx, hy], free);
+    /* *** AND THEY COVER A HOUSE, LIKE HE DOES. THIS IS RULE 16 IN PAOLO'S OWN
+       WORDS AND IT WAS ONLY EVER APPLIED TO THE PLAYER: "the player character
+       and ALL CHARACTERS' MOVEMENTS AND ENEMIES' MOVEMENTS to be larger at the
+       same time" (9/15). follow() moves ONE CELL, so at fourteen cells a press a
+       follower fell thirteen cells further behind every time he moved -- inside
+       the widened reach they would simply trail out of it again.
+       CALLED ONCE PER CELL, NOT TELEPORTED A HOUSE: every cell still goes
+       through the same standable-and-not-taken test, so walls, the occupancy
+       law and the never-onto-the-player rule are all paid fourteen times
+       instead of being skipped once. It stops early the moment follow() holds,
+       which is how it keeps its distance instead of arriving on top of him. */
+    var now;
+    if (door) { now = door; }
+    else {
+      now = was;
+      var _apart = ctBodyApart();
+      for (var _c = 0, _cap = ctOnePress(); _c < _cap; _c++) {
+        /* NOBODY STANDS ON ANYBODY, INCLUDING ON HIM. Stop closing at the same
+           footprint the draw spaces every other pair of bodies by, so a person
+           walking with you is BESIDE you and never drawn through you. */
+        if (Math.max(Math.abs(now[0] - hx), Math.abs(now[1] - hy)) <= _apart) break;
+        var _nx = BohemiaAgainst.follow(now, [hx, hy], free);
+        if (!_nx || (_nx[0] === now[0] && _nx[1] === now[1])) break;   /* holding */
+        now = _nx;
+      }
+    }
     /* *** AND HOLDING IS NOT A FREE PASS THROUGH THE LAW. *** The first fix
        only guarded the cell a follower STEPPED to, so the two that had nowhere
        to go both fell back to `was` -- and if somebody was already standing
@@ -45597,6 +46066,9 @@ function ctFollowStep(){
      entirely rather than freezing where they stood -- a body parked forever off
      its own schedule is a ghost, and this game has shipped enough of those. */
   for (var k in CT_FOLLOW) if (!live[k]) delete CT_FOLLOW[k];
+  /* AND THE ONE WHO WAS WALKING WITH YOU GOES BACK TO THEIR DAY BY THE SAME
+     READING, so nothing has to be cleaned up and a save cannot carry a ghost. */
+  if (CT_WALKS_WITH != null && !live[CT_WALKS_WITH]) CT_WALKS_WITH = null;
   return moved;
 }
 
@@ -52840,6 +53312,75 @@ function ctAskBark(now){
   return true;
 }
 
+
+/* ==== __THE_COMPANY_IS_A_CAST__ : THE TWO MOUTHS. (9/24, PEOPLE.) ==========
+   Fifteen former trades exist with the sadness built into the data structure,
+   each carrying a written line since WORDS shipped them on 9/23, and their own
+   record says it out loud: "NOTHING NEW DRAWS, verified not asserted: no reader
+   of the new field exists." This is the reader.
+   BOTH GO THROUGH ctMaySpeak LIKE EVERY OTHER MOUTH, because they are added
+   inside barkTick and barkTick asks that question first (9/24, rule 32a). A
+   mouth added later is quiet by default instead of quiet only if somebody
+   remembered, which is the entire reason that gate sits where it sits. */
+
+/* 1. WHAT THEY USED TO BE. Once per person per story, addressed to him, so it
+      carries the speaking-TO-you distance and not the overheard one. */
+function ctWasBark(now){
+  if (typeof BohemiaPeople === 'undefined') return false;
+  var drew = (typeof BARK_DREW !== 'undefined' && BARK_DREW) ? BARK_DREW : [];
+  for (var i = 0; i < drew.length; i++) {
+    var d = drew[i]; if (!d || !d.p || !d.at) continue;
+    if (CT_WAS_SAID[d.p.id]) continue;
+    if (Math.abs(d.at[0] - hx) + Math.abs(d.at[1] - hy) > CT_VOICE.toYou) continue;
+    var w = null;
+    try { w = BohemiaPeople.wasOf(ctPerson(d.p)); } catch (_e) {}
+    if (!w || !w.says) continue;
+    /* THE BEAT THEY SAID IT ON, not a flag, because the join rule needs to know
+       how long ago and a boolean cannot answer that. */
+    CT_WAS_SAID[d.p.id] = (BARK.beat | 0) || 1;
+    /* SOMEBODY TELLING YOU THEIR LIFE TELLS YOU THEIR NAME, which is this
+       lane's own rule from [a name]: a person who comes to you with something
+       says who they are, and a person merely barking near you earns nothing. */
+    try { ctAskName(d.p); } catch (_e) {}
+    try { ctFaceAsk(d.p.id); } catch (_e) {}
+    BARK.p = d.p; BARK.at = d.at; BARK.text = w.says;
+    BARK.until = now + barkHold(w.says);
+    try { BARK_SEEN[d.p.key || d.p.id] = 1; } catch (_e) {}
+    try { var _h = ctSpeakerHead(d.p); window.__WAS_SAID = {
+          by: String(d.p.id), head: _h ? _h.text : null, trade: w.id,
+          was: w.was, keeps: w.keeps, text: w.says }; } catch (_e) {}
+    return true;
+  }
+  return false;
+}
+
+/* 2. AND ON THE ROAD, WHAT THEY KEPT. This is Battle Brothers' hidden trait and
+      it is the half that matters: there you read "Iron Lungs" off a tooltip in a
+      roster, here the man walking beside you tells you himself, once, after he
+      has already thrown his lot in with you.
+      FRONT OF HOUSE KEEPS NOTHING, on purpose -- the dealer, the valet, the pit
+      boss and the floor man carry keeps:null because the trade died with the
+      city. They say nothing here, and the silence is the joke landing. */
+function ctRoadBark(now){
+  if (CT_WALKS_WITH == null) return false;
+  if (CT_ROAD_SAID[CT_WALKS_WITH]) return false;
+  var drew = (typeof BARK_DREW !== 'undefined' && BARK_DREW) ? BARK_DREW : [];
+  for (var i = 0; i < drew.length; i++) {
+    var d = drew[i];
+    if (!d || !d.p || !d.at || d.p.id !== CT_WALKS_WITH) continue;
+    var w = null;
+    try { w = BohemiaPeople.wasOf(ctPerson(d.p)); } catch (_e) {}
+    if (!w || !w.keeps) return false;      /* the trade died: nothing to keep */
+    CT_ROAD_SAID[CT_WALKS_WITH] = 1;
+    BARK.p = d.p; BARK.at = d.at; BARK.text = w.keeps;
+    BARK.until = now + barkHold(w.keeps);
+    try { window.__ROAD_SAID = { by: String(d.p.id), keeps: w.keeps,
+          trade: w.id }; } catch (_e) {}
+    return true;
+  }
+  return false;
+}
+
 function barkTick(now){
   /* *** THE FIRST MINUTES ARE HIS. *** (9/24, rule 32a.) ONE GATE, AT THE TOP OF
      THE ONE FUNCTION EVERY MOUTH GOES THROUGH, rather than a check copied into
@@ -52907,6 +53448,12 @@ function barkTick(now){
      per speaker per story, so it can never become the street's whole voice, and
      the register-bearing ambient organ below is untouched. */
   if (ctRumourBark(now)) return;   /* __CITY_RUMOURS__ */
+  /* AND THEN YOUR OWN PEOPLE (9/24, [bb company]). The man who threw his lot in
+     with you outranks a stranger introducing himself, and both sit BELOW the
+     person who wants something and the one who knew your father, because those
+     two are about HIM. The ambient street below is untouched. */
+  if (ctRoadBark(now)) return;     /* __THE_COMPANY_IS_A_CAST__ */
+  if (ctWasBark(now)) return;      /* __THE_COMPANY_IS_A_CAST__ */
   var pick = barkPick();
   if (!pick) return;
   var lines;
@@ -58443,9 +58990,27 @@ function ctPersonName(key){
    second list of who is known. */
 function ctSpeakerHead(p){
   if (!p || p.id == null) return null;
-  var named = false, nm = null;
-  try { var who = ctPerson(p); named = !!(who && who.name); }catch(_e){ named = false; }
-  try { nm = ctPersonName(p.id); }catch(_e2){ nm = null; }
+  var named = false, nm = null, who = null;
+  try { who = ctPerson(p); named = !!(who && who.name); }catch(_e){ named = false; }
+  /* *** THE PERSON IN HAND ANSWERS FIRST, AND THIS IS A MEASURED FIX, NOT A
+     TIDY-UP. (9/24, [bb company].) *** ctPersonName resolves an ID against the
+     block's own roster, and __THE_STREET_IS_NEVER_EMPTY__ BORROWS BODIES FROM
+     OTHER BLOCKS onto his street. Measured on the alpha: of three people who
+     introduced themselves, two came back with their names and the third came
+     back with NOTHING -- a blank plate over a woman the identity module was
+     perfectly happy to call Lupe Aguirre. Her id was 14:11:118 and he was
+     standing on 12:12.
+     TWO WAYS TO ASK WHAT SOMEBODY IS CALLED THAT DISAGREE IS TWO WRITERS FOR ONE
+     FACT, which is this lane's oldest defect; the people module paid a whole
+     round for the same shape when one human came back with two different former
+     trades depending on which object you asked. The caller already holds the
+     person, so the person answers, and the id lookup is only the fallback. */
+  try { if (who && who.name) nm = who.name; }catch(_e4){}
+  if (!nm) { try { nm = ctPersonName(p.id); }catch(_e2){ nm = null; } }
+  /* AND A BORROWED BODY NOBODY HAS DEALT WITH IS STILL SOMETHING, which is the
+     same fallback ctPersonName itself uses: you do not know a stranger's name,
+     you know their trade. A blank plate is the only wrong answer. */
+  if (!nm) { try { nm = ctKindWord(p.archetype) || null; }catch(_e3){ nm = null; } }
   return nm ? { text: String(nm), named: named } : null;
 }
 function ctAskName(p){

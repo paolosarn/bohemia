@@ -161,5 +161,68 @@ function pick(people, save) {
   };
 }
 
-module.exports = { pick: pick, reasons: reasons, refusal: refusal,
-                   score: score, DIAL: DIAL, REASONS: REASONS, WANTS: WANTS };
+/* ==========================================================================
+   *** WHEN SOMEBODY FALLS IN BESIDE YOU, AND IT IS NEVER AT THE FIRST SECOND.
+   (9/24, [bb company]. Rule 32a, and Battle Brothers' own answer.) ***
+
+   pick() above says WHO WOULD. This says WHEN, and the difference is the whole
+   of rule 32a. A stranger who attaches himself to you the instant the world
+   exists is the thing Paolo has now complained about three times:
+   "don't force interactions on the player".
+
+   AND BATTLE BROTHERS AGREES WITH HIM. You do not get a brother by walking
+   past one. You stand in front of him, he tells you what he used to be, and
+   THEN you take him on. The background is the introduction; the handshake is
+   separate and it is yours.
+
+   SO THE RULE IS: THEY TOLD YOU WHO THEY USED TO BE, AND YOU WERE STILL THERE.
+   Nothing to press. Walking on is the refusal and it costs nothing, which is
+   what "nothing is forced" means when you build it instead of writing it down.
+
+   WHAT THIS IS NOT: it is not the PRICE of keeping somebody. That is ruled and
+   it is FACTIONS' row [take them on] -- one battery a night on a handshake --
+   and putting a price in here would be doing another lane's job. */
+var JOIN = {
+  draft: true,
+  afterBeats: 2,     /* beats between hearing them and them falling in: long
+                        enough that walking on takes you out of it */
+  /* *** HOW FAR IS "STILL THERE" IS MEASURED IN PRESSES, NOT IN CELLS, AND THAT
+     COST THIS ROUND A MEASUREMENT TO LEARN. *** The first cut of this rule said
+     6 cells, copied off the city's speaking-to-you distance. Then the alpha was
+     measured: ONE PRESS MOVES THE PLAYER FOURTEEN CELLS, because THE STEP IS A
+     HOUSE (Paolo 9/15). A rule written in cells that is smaller than one press
+     can never be true after the player moves, so "still there" would have meant
+     "did not move at all". One press away is still beside you; two is walking
+     away. The SIZE of a press is the world's and is handed in. */
+  stayPresses: 1,
+  stay: 6            /* the fallback in cells, for a caller that cannot say how
+                        big a press is. Never used by the walked city. */
+};
+
+/* joins(m) -- m is facts the caller already has, never a person:
+     told        did they tell you what they used to be
+     beatsSince  beats since they told you
+     cells       how far away they are RIGHT NOW
+     onePress    how many cells one press of the pad carries the player
+     already     is somebody already walking with you
+   Returns { yes:true } or { no:'<the reason, in plain words>' }. A reason is
+   returned rather than a bare false so a gate and a record read the same
+   sentence, and so "nobody joined" can never be confused with "nothing ran". */
+function joins(m) {
+  if (!m) return { no: 'nothing to read' };
+  if (m.already)  return { no: 'somebody is already walking with you' };
+  if (!m.told)    return { no: 'they have not told you anything yet' };
+  if ((m.beatsSince | 0) < JOIN.afterBeats)
+                  return { no: 'you only just heard them' };
+  var within = (m.onePress > 0)
+    ? (m.onePress | 0) * Math.max(1, JOIN.stayPresses | 0)
+    : JOIN.stay;
+  if (m.cells == null || m.cells > within)
+                  return { no: 'you walked away, which is the refusal' };
+  return { yes: true, after: JOIN.afterBeats, within: within, draft: true };
+}
+
+var API = { pick: pick, reasons: reasons, refusal: refusal,
+            score: score, DIAL: DIAL, REASONS: REASONS, WANTS: WANTS,
+            JOIN: JOIN, joins: joins };
+module.exports = API;
