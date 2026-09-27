@@ -2253,7 +2253,7 @@
     "id": "animation-he-walks-at-one-cell-9-27",
     "kind": "animation",
     "lane": "animation",
-    "sha": "PENDING",
+    "sha": "59861c44",
     "made": "9/27",
     "title": "HE WALKS AT ONE CELL",
     "why": "You said the character is tiny again, one cell, one step per cell. First thing I had to answer: cut the big body down to one cell, is there still an animation in there? YES. All eight directions stay eight different pictures, nothing turned to mush, zero stray floating pixels. He is 24 rows tall with 168 lit pixels. The big art stays the source, like you said. BUT IT FOUND SOMETHING BROKEN THE WHOLE TIME, AT EVERY SIZE: the walk is built on a wave, and a wave is at zero twice per step, so frames 1 and 3 came out exactly the same picture on all six side-on directions. The side walk had THREE pictures, not four, and running too. At the big size you might not notice; at one cell it reads as a limp. A real walk's two middles differ because one leg is passing forward and THE PASSING FOOT CLEARS THE GROUND. That is the missing fourth picture and it is how legs work. This one PLAYS, with a panel at his actual size so it cannot flatter itself.",
