@@ -2029,7 +2029,7 @@
     "id": "cook-the-valley-reads-as-land-9-27",
     "kind": "tile",
     "lane": "cook",
-    "sha": "PENDING",
+    "sha": "9507e3f1",
     "made": "9/27",
     "title": "THE VALLEY READS AS LAND",
     "why": "You made the overworld Battle Brothers. So I rendered the valley at the zoom you actually cross it at and looked. IT IS A GRID OF GREY SQUARES WITH BLACK LINES THROUGH IT. Roads are 38 percent of every cell in the valley and all of them are one near black. Everything built is the same grey. The mountains are a tenth of the map and you cannot see them at all. So on the one screen you are supposed to travel across, you cannot tell city from desert from mountain, and the only thing you CAN see is the street grid. That is backwards. Three changes, left picture is now, right picture is this. The land gets its own range so the mountains ring it, the open ground is warm, and the city is quiet inside its own grain because you are IN the city, you do not navigate by it. The street grid drops to a whisper, because at a quarter of the map it cannot be the subject. And the ridges catch the sun on their north west faces, same sun as every pixel in the game, which is what turns a dark patch into a mountain. The dust drifts across the open ground, one cell a beat. Thumbs down and tell me if it is too dark, too flat, or if you want your grid back.",
