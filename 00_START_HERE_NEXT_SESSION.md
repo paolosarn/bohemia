@@ -1,3 +1,35 @@
+QUESTS (quests-dvybth): 9/27 LATEST -- *** ROUND ONE UNDER RULE 35 (RESEARCH ONLY, AT
+VOLUME): ALL EIGHT QUESTIONS ANSWERED IN ONE ROUND, AND 48 DESIGNS ON THE SHELF. ***
+TAB: VOTE has ONE text line (quests-the-first-shelf-9-27); everything else is NOT IN A
+TAB, on purpose (rule 35: nothing implemented). Record:
+records/BOHEMIA_QUESTS_ROUND_ONE_THE_FIRST_SHELF_9_27_26.md.
+
+WHAT EXISTS: questbook/research/QR_A..QR_H (contracts and the free no; events on the road,
+ten shapes; the twist bank, 30 twists by cost; planted in one act paid in another; the ask in
+a place; the first sixty seconds, a second-by-second budget; what the 693 flaws forbid on a
+phone, all 693 placed in 30 families plus a 28-question checklist; the main line when the rest
+is contracts). questbook/designs/ holds 48 designs by shelf (act1 16, act2 13, act3 11, across
+8), four views in questbook/designs/INDEX.md (regenerate: python3 tools/quests_designs_index.py).
+1,220 finding ids from 151 of 152 studies, every one resolving. New gate QUESTS LIBRARY
+(gates/quests_library_gate.js, 88/0) holds pages and designs to real ids, shelf headers,
+draft:true, a current INDEX, no em dash.
+
+BUILDERS, CITE THESE: an event or contract without a QUESTS citation is refused (rule 35, law
+s4). Start from the record's "WHERE ALL EIGHT AGREE" (fee locked before the yes; a no writes
+nothing; dropping only in the world; every consequence has a visible tell; one open contract).
+
+FLAGS ROUTED (found, not decided): RUN/ECONOMY: bohemia_haggle.js writes a deed on a pushed
+haggle, which rule 35c says writes nothing. WORDS: the spoken no replies in
+bohemia_ask_spoken.js read as a hurt face. RUN/DYNASTY: the 7/19 cold open predates rule 32a;
+QR-F keeps the content and opens on the aftermath (QD-F01). PEOPLE: the void rule and the
+open-contract cap are untested. The library has NO Battle Brothers study.
+
+[PENDING Paolo] one fork: inside a taken contract, refusing the ugly part and paying for it,
+is that finishing or dropping? Default (library, Q139.P2): finishing.
+
+NEXT (board rows OPEN): [bank against checklist], [thin shelves] (1 earth-side nuke design, 2
+whisper broadcast), [second shelf] (twenty designs a round), [company voices].
+
 EYES AND EARS (eyes-5vql33): 9/27 (ax) LATEST -- *** [every screen] SHIPPED, BOTH ROUNDS: THE CRAWLER CAUGHT ITS OWN FIRST BUG BEFORE ANY NUMBER WAS TRUSTED. *** Record: records/BOHEMIA_EYES_E23_ROUND_2_A_DRIVEN_CRAWL_FINDS_THE_MODE_BUTTON_AT_40_9_27_26.md, tool tools/bohemia_eyes_every_screen.js. Standing jobs re-walked on the same fresh cut; THE STRANGER'S LIST and THE HORROR READING numbers hold within noise, unchanged on the front page.
   ROUND TWO BUILT THE DRIVEN CRAWL round one's school called for, on PLUMBER's one driver: press everything, fingerprint whatever comes up, recurse only into a fingerprint never seen. RULE ZERO caught the tool's own first bug before I trusted a single number: the fingerprint check I wrote only recognised four known container ids (a settings panel, a day card, a note, the phone), so a planted two-levels-deep card with none of those ids never changed the fingerprint and got misfiled as "led nowhere" -- the SAME MISTAKE this row exists to catch, a fixed list, just one layer down, in named containers instead of named cards.
   FIXED to fingerprint every currently-pressable thing, not only named containers. That fix then leaked the other way: the planted buttons sit on screen for the whole crawl, so they show up in every LATER state's signature too, and a real screen measured after the plant opened would have counted the plant's own card as its own. Fixed again by tracking which states a plant press actually caused, and stripping plant candidates out of every state's counted controls regardless.

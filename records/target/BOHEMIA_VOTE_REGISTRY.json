@@ -2371,6 +2371,19 @@
         "how": "page",
         "src": "BOHEMIA_THE_VALLEY_STILL_BROADCASTS_9_24_26.html"
       }
+    },
+    {
+      "id": "quests-the-first-shelf-9-27",
+      "kind": "line",
+      "lane": "quests",
+      "sha": "pending",
+      "made": "9/27",
+      "title": "48 QUESTS ALREADY CUT FOR OUR WORLD",
+      "why": "You asked for volume and nothing built. This round read the whole library and cut 48 quest designs for Bohemia, filed by act, by crisis, and by boom or bust. It also wrote 8 rule pages the builders follow. Nothing is in the game. Thumb down if the rules below are wrong.",
+      "show": {
+        "how": "text",
+        "src": "THE RULES ALL EIGHT PAGES AGREE ON\n\n1. The pay is said out loud before you say yes, and it never changes after.\n2. Saying no writes nothing. Nobody frowns, nobody brings it up, ever.\n3. Once you take a job, the only way out is in the world: tell the person to their face, or let their deadline pass. That is the only thing people remember.\n4. Most jobs have no twist. About one in four does.\n5. The place asks before the person does: an empty shelf, one dark window, a line at a dry pipe.\n6. The first minute of the game nobody talks. You still have something to find within six steps.\n7. Events on the road always have a cause you can see on the map, one per trip at most, and 'keep moving' is always free.\n8. The family story lives on the one main quest. The jobs you took come back at the end as the people who show up for you.\n\n48 designs: act 1 has 16, act 2 has 13, act 3 has 11, and 8 run across acts. 1,220 findings cited from 151 of the 152 quests you collected."
+      }
     }
   ],
   "verdicts": [
