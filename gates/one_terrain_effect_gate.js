@@ -134,17 +134,22 @@ const ok = (n, c, note) => { c ? (pass++, console.log('  PASS ' + n + (note ? ' 
 
     ok('*** AND IT ACTUALLY FIRES IN A FIGHT HE PLAYS. *** NOT TRUE YET, AND THIS IS THE '
        + 'NUMBER: the one terrain effect in the game changes no shots at all, because the '
-       + 'player never starts on the high ground and the stairs are houses away. The next '
+       + 'player never starts on the high ground and the stairs are cells away. The next '
        + 'thing in this row is the MOUND: high ground you are standing on or one step from, '
        + 'not a raised block across the street.',
        R.hgFires > 0, R.hgFires + ' of ' + R.hgShots + ' shots eased, player started up there '
        + R.onDeck + ' of ' + R.fights + ' times');
 
-    ok('*** AND THE HIGH GROUND IS A MOUND, NOT A CITY BLOCK. *** NOT TRUE YET: on the house '
-       + 'board a tile is a house, so the raised slab this game builds is about ' + deckAvg
-       + ' houses across. He asked for a SMALL MOUND. Same row as the leg above.',
-       deckAvg > 0 && deckAvg <= 3,
-       deckAvg + ' tiles across, about ' + (deckAvg * R.tileM).toFixed(0) + ' m');
+    /* RE-WORDED 9/28 FOR V227: this said "houses" because a tile was one. Rule 34 made a
+       tile a CELL of 3 m, and the same slab now measures about 27 m instead of 111 -- four
+       times closer to a mound, for free, because the board changed scale under it. Still
+       not one cell, so the leg stands. The CLAIM never moved; only the unit it prints. */
+    ok('*** AND THE HIGH GROUND IS A MOUND, NOT A CITY BLOCK. *** NOT TRUE YET: the raised '
+       + 'slab this game builds is about ' + deckAvg + ' cells across, and he asked for a '
+       + 'SMALL MOUND -- one cell. Same row as the leg above.',
+       deckAvg > 0 && deckAvg <= 1.5,
+       deckAvg + ' cells across, about ' + (deckAvg * R.tileM).toFixed(0) + ' m, against '
+       + 'one cell of ' + R.tileM + ' m');
 
     ok('no page errors while the fights were built', d.errs.length === 0, d.errs.slice(0, 2).join(' ; '));
   } finally {

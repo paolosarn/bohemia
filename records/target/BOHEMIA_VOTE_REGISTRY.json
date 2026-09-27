@@ -2289,6 +2289,19 @@
     "src": ""
    }
   },
+   {
+    "id": "combat-the-fight-is-on-cells-9-28",
+    "kind": "tile",
+    "lane": "combat",
+    "sha": "PENDING",
+    "made": "9/28",
+    "title": "THE FIGHT IS ON CELLS NOW",
+    "why": "You said one house does not equal one tile. It does not any more. Both of these are a real fight I walked into off the street on a phone, one build apart. On the left a tile was a whole house, 12 metres, 196 pixels, and the board held TWO of them. On the right a cell is 3 metres and 32 pixels, and the same phone holds 12 across and 20 down. Your man went from 112 pixels to one cell. Look at the right one: that is a street you could actually walk down, with a sidewalk and a road, instead of standing in a car park. Here is the part I care most about. NOT ONE DISTANCE YOU PICKED MOVED. A pistol was 1 tile and is now 4 cells, which is still 12 metres. Rifle 8 cells, still 24. Scope 12, still 36. Only the unit changed, and I did not touch the accuracy either. Two things I am not hiding from you. Your man is small now, and that is just what one cell costs. And the thumb ring in the corner is big next to the new board, which is a thing I already owe you a fix for. Thumbs up and I keep building the fight on these cells. Thumbs down and tell me which of those two is the problem: the man being small, or the ring being big.",
+    "show": {
+     "how": "image",
+     "src": "vote/COMBAT_THE_FIGHT_IS_ON_CELLS_9_28.png"
+    }
+   },
   {
     "id": "factions-two-ladders-neither-reads-ground-9-27",
     "kind": "tile",

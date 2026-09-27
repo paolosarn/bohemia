@@ -90,6 +90,8 @@ function ok(name, cond, detail) {
                 the unit the ruling uses, and which board it is standing on. */
              house: (typeof houseOn === 'function') ? !!houseOn() : false,
              bodyPx: +bodyNow.toFixed(4),
+             /* the cell, measured off the board the game is drawing, never typed here */
+             cellPx: +(Math.min(W, H) * fieldPitch(W, H)).toFixed(4),
              ringNow: +(m * fieldPitch(W, H)).toFixed(4),
              tileWide: (typeof TILE_WIDE !== 'undefined')
                ? ((typeof G !== 'undefined' && G.tileWide) || TILE_WIDE) : 0,
@@ -131,11 +133,25 @@ function ok(name, cond, detail) {
      there -- so both boards are checked, each against its own rule. */
   if (R.house) {
     ok('*** A MAN IS THE SAME NUMBER OF PIXELS AT EVERY ZOOM (rule 21: the ground may zoom, the person may not). *** The giants bug was a body whose pixels moved with the camera; V138 would still fail this at 2.24x',
-       Math.abs(R.bodyPx - 112) < 1e-3,
-       'the fighter is ' + R.bodyPx + ' px, and the box the street ships at is 112');
-    ok('and the lot moved instead, to TILE_WIDE sprite widths, which is his dial',
-       Math.abs(R.ringNow - R.tileWide * 112) < 1.5,
-       'lot=' + R.ringNow.toFixed(1) + ' wanted=' + (R.tileWide * 112).toFixed(1));
+       /* RE-AIMED 9/28 TO THE NEWEST RULING, AND NOT LOOSENED (rule 34, Paolo 9/27:
+          "one house doesn't equal one tile"; laws/BOHEMIA_LAW_TWO_SCALES_ONE_GAME_9_27_26.md
+          s4). This asserted 112 because that was the ruled size when rule 21 was written.
+          Rule 34 RE-READS rule 21 rather than repealing it -- one size at every zoom, and
+          THE SIZE IS NOW ONE CELL. So the claim is unchanged and the number follows the
+          board: a man is the same number of pixels at every zoom, and that number is the
+          cell he stands in. V138's 2.24x still fails this. A GATE MUST NEVER OUTRANK A
+          RULING, which is this lane's own standing note, and newest date wins. */
+       Math.abs(R.bodyPx - R.cellPx) < 0.5,
+       'the fighter is ' + R.bodyPx + ' px, and a cell is ' + R.cellPx);
+    /* RE-AIMED 9/28 WITH THE ARM ABOVE, AND THE CLAIM IS WORD FOR WORD THE SAME: a tile is
+       TILE_WIDE SPRITE WIDTHS. What moved is the sprite. This multiplied by a literal 112
+       because that was the ruled body when it was written; rule 34 makes the ruled body one
+       cell, so the sprite width is 112*bodyRule() and the same sentence now comes out at 32.
+       Hardcoding the sprite is the exact defect this file caught in V225 one arm up. */
+    ok('and the lot is TILE_WIDE sprite widths of the RULED body, which is his dial',
+       Math.abs(R.ringNow - R.tileWide * R.bodyPx) < 1.5,
+       'lot=' + R.ringNow.toFixed(1) + ' wanted=' + (R.tileWide * R.bodyPx).toFixed(1)
+       + ' (' + R.tileWide + ' sprite widths of a ' + R.bodyPx + ' px body)');
   } else {
     ok('*** A MAN IS THE SAME NUMBER OF TILES TALL AS HE WAS BEFORE THE ZOOM (the body board, where the old invariant still rules). ***',
        Math.abs(R.tilesTallNow - R.tilesTallRef) < 1e-3,

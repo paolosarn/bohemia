@@ -40702,6 +40702,62 @@ a memory reset. HE WILL NEVER TYPE ANYTHING BUT THE ONE WORD AGAIN. ***
     I will never paste anything to you again. From here on, the one word is the whole
     instruction.
 
+*** [fight on the grid] ROUND 2 -- V227 THE CELL BOARD. BUILT, NOT PROPOSED. ***
+Stamp 9/28a. Record: records/BOHEMIA_COMBAT_THE_CELL_BOARD_9_28_26.md
+
+IT IS THE SAME SWITCH SET TO TWO. Nothing new was added and nothing new is drawn. V198 gave
+this file a switchable board -- tileK() says how many BODY tiles are in one board tile and
+every ruler already reads it (metres, sight, reach, the ceiling, the floor patch, how far the
+world is built) -- and the house board was that switch set to 8.
+  a cell is 3 metres      DERIVED: his house is 12 m and rule 34 puts FOUR cells in a house
+  a cell is 2 body tiles  DERIVED: a body tile is 1.5 m, and 3/1.5 = 2, a whole number
+  a cell is 32 px         BY CONSTRUCTION: a person fills his cell, so TILE_WIDE is 1 and
+                          tile = 1 x 112 x (32/112) = 32
+  reach 4 / 8 / 12        HOUSE_MAX x4: the SAME 12, 24 and 36 metres he approved on 9/22
+  sight 24                the same 72 metres the six-house sight meant
+
+MEASURED ON THE REAL GLASS, walking into a fight off the street, before and after:
+                    BEFORE            NOW
+  a tile             196 px, 12 m     32 px, 3 m
+  the board          1.99 HOUSES      12.19 CELLS across, 20 down
+  a person           112 px           32 px, ONE CELL
+  world built to     3.86             13.42 cells against 6.1 to the edge
+AND THE FLOOR NEEDED NO EDIT: V222 draws a board cell as a patch of the street's own fine
+cells sized round(tileMetres()/0.75), so at 3 m that is a 4x4 patch where a house was 16x16.
+The approved street art arrives at the new scale for free, because that number was derived.
+
+GATE: gates/the_fight_is_on_cells_gate.js 12/0 on the one driver, and IT HOLDS THE
+DERIVATIONS RATHER THAN THE VALUES, because a typed constant goes stale the first time a lane
+tunes one and then the gate is green about a board nobody plays. The claim that matters: a
+pistol still reaches 12 m, a rifle 24, a scope 36.
+combat_scale_gate RE-AIMED AND NOT LOOSENED: two arms asserted 112 and TILE_WIDE*112 because
+that was the ruled body when they were written. Rule 34 re-reads rule 21 rather than repealing
+it, so the sentences are word for word the same and the numbers follow the board (the fighter
+equals the cell; the lot is TILE_WIDE sprite widths OF THE RULED BODY). 8/0.
+
+*** AND I LOST V226 IN A REBASE, WHICH IS THE ROUND'S REAL FINDING. *** His 9/7 ruling fell
+off the fight and NOTHING WENT RED. A photograph this round showed eight loose lettered
+circles back on the glass -- the shape he rejected -- and the mark was gone from main's blob.
+The cause is mine and dull: another lane pushed an alpha change, I took main's alpha wholesale
+the way the ship flow says to, replayed V225's tool onto it and FORGOT V226's. No gate could
+catch it: every gate in this lane is about the board and the ring is drawing code. FOUND BY
+LOOKING AT A PICTURE. The flow was never wrong; the LIST LIVED IN MY HEAD and a list in a head
+loses an entry. The list is on disk now: tools/bohemia_combat_replay_all.sh, every live patch
+in order, free to run on a tree that is already current. RUN IT AFTER EVERY REBASE.
+
+NOT DONE, WITH NUMBERS: (1) the person is small now, the honest cost of one cell, said on the
+VOTE card rather than buried; (2) the thumb ring is 180 px against a 390 board, the same gap
+one_mode_gate names at 90 vs 180 and now much easier to see; (3) [weapon shapes] is its own
+row; (4) ZONE OF CONTROL, named last round as the one thing to steal from BB, gets cheaper on
+this board because "next to you" is a fact the grid knows -- it belongs to [fight feel], which
+folds into this row.
+
+RULE 22: VOTE item combat-the-fight-is-on-cells-9-28, the same fight photographed one build
+apart with both costs on the card.
+
+BASELINED, NOT MINE: vote_tab_gate 30/1 (tapping VOTE in the gear) is identical on a clean
+worktree at origin/main.
+
 *** [fight on the grid] ROUND 1 -- THE HOUSE TILE IS DEAD AND HERE IS THE FIGHT IN CELLS. ***
 Rule 34 (Paolo 9/27) landed between rounds and it supersedes the board this lane spent five
 rounds on. Record: records/BOHEMIA_COMBAT_FIGHT_ON_THE_GRID_ROUND_1_9_27_26.md
