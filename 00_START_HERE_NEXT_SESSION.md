@@ -1,3 +1,66 @@
+WORDS (words-8dqrnq): 9/27 (b) LATEST -- *** THE TWELVE ROAD MOMENTS ARE
+REWRITTEN TO THE SCHOOL'S SHAPE, AND BOTH GATE RATCHETS ARE RE-PINNED TO ZERO. ***
+TAB: NOT IN A TAB YET. roadCard still has zero callers, so this is still
+readiness on parked content, not delivery. Record
+records/BOHEMIA_WORDS_THE_TWELVE_LEARN_TO_SHUT_UP_9_27_26.md.
+
+THIS CLOSES ROUND TWO of [bb event writing] under the 9/6 SCHOOL THEN WRITE mode.
+School (9/24) found: a Battle Brothers event is a narrator's paragraph with
+buttons under it, and BB's own players say they stop reading the paragraph. Our
+own twelve road moments were the same shape: 134 characters average, 12 of 12
+over the 98-char hold a mouth would give them, 3 of 12 making him the SUBJECT of
+a verb.
+
+REWRITTEN, NOT PADDED. The three that already had a quoted line now LEAD with it
+and the narrator wrapper around it is cut (scavenger_shakedown, toll_crew,
+casino_security_bot). The other nine have NO ESTABLISHED SPEAKER -- an animal, a
+machine, a crowd nobody has named -- and rule 19 asks for a mouth WITH A
+PORTRAIT, which none of these has. INVENTING ONE TO HIT THE SHAPE WOULD BE THE
+SAME DEFECT THIS ROUND FIXED, WORN A DIFFERENT WAY: a voice with nobody behind
+it. So they are trimmed captions, not speech, and whether any of the nine ever
+needs a real attributed speaker is left OPEN on purpose -- that decision belongs
+to whoever builds the body a road moment attaches to, not to this record.
+
+VERIFIED AGAINST THE REAL GATE, NOT A REIMPLEMENTATION: every draft ran through
+the gate's own regexes, pulled straight out of the gate file, before a single
+line touched the source. Result: 12 of 12 under 98 characters, 0 of 12 narrate
+him.
+
+AND A REGRESSION CAUGHT BY HAND THAT NO MACHINE WAS TOLD TO WATCH FOR. The
+comment above ROAD_PARTY cites literal ROAD_WORDS substrings as the audit trail
+for its hard-coded headcounts ("nothing here invents a headcount"). My first
+draft of toll_crew led straight with the quote and silently dropped the only
+place "four" appeared anywhere in the line -- a machine gate can only refuse what
+it was told to look for, and it was never told to watch this. Caught by checking
+every draft against what that comment actually cites, not just against the two
+machine-gated rulers. Fixed to "Four hold the ramp. \"Toll's a third...\""; the
+audit comment itself re-quoted to match the current text, so the next reader is
+not handed a comment pointing at a string that no longer exists.
+
+GATE RE-PINNED TO ZERO: DEBT_TOO_LONG and DEBT_NARRATES both went 12/3 -> 0. Zero
+is the floor now, so a thirteenth violation of either kind fails on arrival
+instead of hiding inside a debt. MUTATION-PROVED AT ZERO: put one narrator line
+back into coyote_shadow, RED 8/1 naming the count; restored, GREEN 9/0.
+
+NOT TOUCHED, STATED: ROAD_CHOICES, ROAD_PARTY, ROAD_COST and roadContactFight are
+this round's mechanism and are untouched -- words only. This lane does not hold
+the canon for whether a road moment ever gets a real body.
+
+STANDING QUEUE, unblocked or otherwise: [naming screen] still blocked, DYNASTY
+[three names] still OPEN and unclaimed, no naming screen exists anywhere in the
+alpha or engine. [reputation lines] is now blocked by something BIGGER than
+before: rule 34 made COMBAT's [fight on the grid] the new first line in that
+lane, "the house-tile board is dead", so the companion's four combat lines this
+row wants would be written onto a board that is being deleted out from under
+them. Re-measure both again next round rather than trusting this note. Q26
+stays CLAIMED until a surface speaks its lines.
+VERDICTS: 114 in the registry, 9 mine, no new ones this round, all acted on.
+AND THE LESSONS THAT BIND: NO TEXT-ONLY ITEM IN VOTE; a picture in VOTE showing a
+sentence the game no longer says is a lie to him; THE SITUATION IS THE PART
+NOBODY READS; A DERIVED FILE THAT HAS DRIFTED FROM ITS SOURCE CAN HOLD A GATE
+GREEN; and now a fifth -- DO NOT INVENT A MOUTH TO HIT A SHAPE. A voice with
+nobody behind it is the same defect as the paragraph nobody reads.
+
 EYES AND EARS (eyes-5vql33): 9/27 (aw) LATEST -- *** [every screen] ROUND ONE (SCHOOL) DONE: THREE OF THE ROW'S SIX NAMED CARDS ARE ALREADY GONE. *** Record: records/BOHEMIA_EYES_E23_ROUND_1_SCHOOL_THREE_OF_SIX_CARDS_ARE_GONE_9_27_26.md. Standing jobs on a demo cut fresh from main. THE STRANGER'S LIST and THE HORROR READING are rewritten on the front page.
   I READ THE WRONG FILE FIRST. Grepped the alpha SHELL for conversation/offer/nightfall/haggle/feed/fight and found almost nothing, nearly wrote that the whole premise had evaporated. The cards live in the CHILD FRAME (slices/BOHEMIA_CITY_WORLD.html), not the shell -- exactly the 7/18 VERIFY ON THE REAL SURFACE law. Re-grepped there: all six names are real strings (daycard 78, offer 336, nightfall 56, haggle 82, feed 298, fight 316). Caught before it went in a record.
   AND ONCE I READ THE RIGHT FILE, THREE OF THE SIX ARE STILL GONE, FOR REAL REASONS. `cardShow()` is the one funnel every real card draws through (9 call sites); `toPhone()` is the newer one that replaced it for some screens (3 call sites). OFFER's own function returns BEFORE reaching its cardShow call, guarded by a comment naming why: PEOPLE and QUESTS are building a mouth-and-portrait replacement under rule 20 (A QUEST IS PEOPLE PLACES AND THINGS, NEVER A CARD, Paolo 9/20). HAGGLE lives inside that same dead path. NIGHTFALL no longer opens a card at all -- rule 19a (NO POP UPS) moved the reckoning to the phone via toPhone(), and the day now turns by itself behind it. Only CONVERSATION (ctcard) is unchanged, and FEED was never a card, it is the scrolled phone screen. A checker built strictly to the row's list would silently measure two screens while claiming six.

@@ -39460,45 +39460,47 @@ var ROAD_COST = { ambient: 0, interactive: 10, forced: 20 };
 /* THE TWELVE ROAD MOMENTS. draft:true -- every word of this is his to rewrite in
    the WORDS tab, and none of it was ever put to him for approval. */
 var ROAD_WORDS = {
+  /* ROUND TWO OF [bb event writing] (9/27), TO THE SHAPE THE SCHOOL FOUND
+     (records/BOHEMIA_WORDS_BB_SCHOOL_THE_SITUATION_IS_THE_PART_NOBODY_READS
+     _9_24_26.md): every line under the 98-character hold a mouth would give
+     it, and nobody narrates the player as the subject of a verb -- the two
+     things gates/road_words_are_sayable_gate.js actually measures.
+     THE THREE THAT SPEAK NOW LEAD WITH THE MOUTH: scavenger_shakedown,
+     toll_crew and casino_security_bot already had a quoted line buried
+     inside a narrator paragraph; the paragraph is cut to the words that
+     still carry information the quote does not.
+     THE OTHER NINE HAVE NO ESTABLISHED SPEAKER -- an animal, a machine, or a
+     crowd nobody has named -- and rule 19 asks for a mouth WITH A PORTRAIT,
+     which none of these has. Inventing one to hit the shape would be the
+     same defect this round fixed, worn differently: a voice with nobody
+     behind it. So these are trimmed captions, not speech, and whether they
+     ever need an actual speaker is left open for whoever builds the body
+     that delivers them -- not decided here. */
   feral_dog_pack:
-    "Six of them come out of the wash, low and quiet. The lead one still has a "
-    + "collar on, tag swinging. None of them are barking.",
+    "Six dogs, low and quiet, out of the wash. One still wears a collar. None of them bark.",
   coyote_shadow:
-    "A coyote picks you up at the corner and just walks. Your speed, thirty feet "
-    + "off, never looks over. It'll do a block of that and then it's gone.",
+    "A coyote keeps pace at the corner, thirty feet off, never looking over.",
   rattlesnake:
-    "Something under the slab moves, then rattles. Dry and close. You've got "
-    + "about two seconds to pick where your foot goes.",
+    "Something under the slab, dry and close. It rattles once, then again, closer.",
   scavenger_shakedown:
-    "A guy steps out with a length of pipe and he's already talking. \"Look. "
-    + "Look, I don't want, I'm not, okay. Just what's in the bag. You got water "
-    + "in there?\" His hands aren't steady.",
+    "\"Look, I don't want -- just what's in the bag. You got water?\" His hands aren't steady.",
   toll_crew:
-    "Four of them have the ramp. One's sitting on a cooler like it's his desk. "
-    + "\"Toll's a third. Argue if you want. Ramp's been ours since March.\"",
+    "Four hold the ramp. \"Toll's a third. Argue if you want. Ramp's been ours "
+    + "since March.\"",
   the_snatcher:
-    "A kid comes off your blind side, takes something off your belt, gone before "
-    + "you finish turning. He's already forty feet out. Fast.",
+    "A kid off your blind side takes something off your belt, already forty feet out and running.",
   crazed_wanderer:
-    "A man comes up the middle of the road screaming at nobody. No shoes. He "
-    + "sees you and he doesn't slow down.",
+    "A man comes up the middle of the road screaming at nobody, no shoes, not slowing down.",
   bounty_squad:
-    "Three of them, spread wide, moving like they've done this before. One's "
-    + "carrying a folded piece of paper with your description on it. He checks "
-    + "it twice.",
+    "Three of them, spread wide. One checks a folded page with your description on it.",
   casino_security_bot:
-    "It rolls out from under the porte cochere still running its script. \"THIS "
-    + "PROPERTY IS PRIVATE. PLEASE PRESENT.\" Half its face is gone. It keeps "
-    + "coming.",
+    "\"THIS PROPERTY IS PRIVATE. PLEASE PRESENT.\" Half its face is gone. It keeps coming.",
   spotter_drone:
-    "It's been over you a while and you're only now hearing it. Small, four "
-    + "rotors, holding still. Then it climbs and turns north.",
+    "Small, four rotors, holding still overhead. It climbs, turns north, gone.",
   ghost_robotaxi:
-    "An empty cab pulls to the curb ahead and opens its door for nobody. Waits "
-    + "its ninety seconds. Pulls off.",
+    "An empty cab opens its door for nobody, waits its ninety seconds, pulls off.",
   patrols_collide:
-    "Two crews find each other at the seam and it goes off before anybody says "
-    + "anything. Six, maybe eight. Neither of them has looked your way."
+    "Two crews find each other at the seam. Six, maybe eight. Neither looks over."
 };
 
 /* __THE_ROAD_LEAVES_SOMETHING__ (8/27) -- WHAT IS LEFT ON THE ROAD, in kg of salvage,
@@ -39582,12 +39584,15 @@ var ROAD_CHOICES = {
    the encounter to the shipped fight authors NO damage number: the fight owns
    every one of them already.
 
-   WHO IS IN THE PARTY IS HIS, and every number below is read off ROAD_WORDS:
-     "Four of them have the ramp"          -> 4
+   WHO IS IN THE PARTY IS HIS, and every number below is read off ROAD_WORDS.
+   RE-QUOTED 9/27 after [bb event writing] round two rewrote these lines to the
+   shape the school found; the count still has to be visible in the words or
+   this audit trail is checking a string that no longer exists:
+     "Four hold the ramp"                  -> 4
      "Three of them, spread wide"          -> 3
-     "A guy steps out with a length of pipe" -> 1
+     "His hands aren't steady" (singular)  -> 1
      "A man comes up the middle of the road" -> 1
-     "It rolls out from under the porte cochere" -> 1, and it is a machine
+     "It" / "its face" (singular, a machine) -> 1
      "Six, maybe eight"                    -> 6 to 8
    Nothing here invents a headcount and nothing here invents a hostility.
 

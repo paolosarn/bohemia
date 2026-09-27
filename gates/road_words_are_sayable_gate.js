@@ -67,9 +67,10 @@ const head = t => console.log('\n' + t);
 
 /* ---- THE NUMBERS THIS IS PINNED TO ------------------------------------- */
 const HOLD_CEILING = 98;   // barkHold's clamp, in characters at 14 cps
-const DEBT_TOO_LONG = 12;  // of 12, measured 9/24 before a word was changed
-const DEBT_NARRATES = 3;   // of 12, measured 9/24 with the ruler below,
-                           // NOT the 9 a cruder first count reported
+const DEBT_TOO_LONG = 0;   // re-pinned 9/27: [bb event writing] round two
+                           // rewrote all twelve to the school's shape, was 12
+const DEBT_NARRATES = 0;   // re-pinned 9/27, was 3 (a cruder first count on
+                           // 9/24 said 9; both are history now, not the floor)
 const MOMENTS_EXPECTED = 12;
 
 const src = fs.readFileSync(CITY, 'utf8');
