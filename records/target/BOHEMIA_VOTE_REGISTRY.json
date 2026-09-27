@@ -2288,6 +2288,19 @@
       "how": "page",
       "src": "vote/FACTIONS_TWO_LADDERS_NEITHER_READS_GROUND_9_27.html"
     }
+  },
+  {
+   "id": "lifecity-the-water-you-could-stand-on-9-27",
+   "kind": "tile",
+   "lane": "life+city",
+   "sha": "a012271e",
+   "made": "9/27",
+   "title": "THE WATER YOU COULD STAND ON",
+   "why": "This is not a drawing, it is the dam pulled straight out of the game and coloured by one question: can you stand here. Green means you can walk on it. Grey is something solid. Top picture is what the game actually believed until this round: THE WHOLE RESERVOIR IS RED, and red means you could walk out onto it. A third of that block was water you could stand on, 5,329 squares of it, plus the creek at the fort. It happened because every square has a word saying what it is, one list decides what each word does, and the word water was not on the list. Anything not on the list quietly becomes floor. Bottom picture is the same block after the fix: the water is water again, and nothing else moved, the solid stuff is identical in both. The dry stuff stayed walkable too, so empty fountains and drained pools are still floor like they should be. Thumbs up and the blue is what deep water looks like on the map from now on. Thumbs down and tell me what water should do to you instead.",
+   "show": {
+    "how": "image",
+    "src": "vote/LIFECITY_THE_SAME_STREET_THREE_TIMES_9_24.png"
+   }
   }
 ],
   "verdicts": [
