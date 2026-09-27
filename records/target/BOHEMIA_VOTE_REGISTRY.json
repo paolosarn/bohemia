@@ -2063,8 +2063,7 @@
     "how": "text",
     "src": ""
    }
-  }
-],,
+  },
   {
    "id": "combat-the-only-high-ground-9-27",
    "kind": "tile",
@@ -2078,7 +2077,7 @@
     "src": "vote/COMBAT_THE_ONLY_HIGH_GROUND_9_27.png"
    }
   }
- ],
+],
  "verdicts": [
   {
    "id": "people-the-one-who-walks-with-you-9-21",
