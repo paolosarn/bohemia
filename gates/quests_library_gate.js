@@ -62,7 +62,8 @@ function checkDesign(rel, text) {
   var shelf = rel.split('/')[0];
   if (head.ACT) {
     var a = head.ACT;
-    var want = /->|across/i.test(a) ? 'across' : ('act' + (a.match(/[123]/) || ['?'])[0]);
+    // the LEADING token decides the shelf: "1->3" or "across" is across; "3 (reads the act 1 ledger)" is act3
+    var want = /^\s*(across|[123]\s*->)/i.test(a) ? 'across' : ('act' + (a.match(/^\s*([123])/) || ['', '?'])[1]);
     if (shelf !== want) errs.push('ACT "' + a + '" but filed on ' + shelf);
   }
   var l = ids(text);
