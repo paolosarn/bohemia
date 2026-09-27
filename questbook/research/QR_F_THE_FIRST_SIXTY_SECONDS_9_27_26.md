@@ -165,7 +165,7 @@ that thanks him for his restraint.
 and the lesson is that a faction web must be introduced "through PEOPLE, not org-charts" (`Q081.X4`).
 Crusader Kings III's tutorial drowns newcomers (`Q046.X2`); Citizen Sleeper's first hour is "a barrage of
 new mechanics" (`Q065.X2`); Bannerlord's interlocking systems intimidate (`Q061.X2`). FOR US: before second
-60, zero faction names, zero numbers above one on screen, zero currency counters that change, one verb
+60, zero faction names, zero numbers above one on screen, zero currency counters on screen, one verb
 learned at a time. The first NAME he hears is a person's (rule 34f: "the first person by name"), after 60 s.
 
 **B5. They refuse to spend the best thing in the first contact.** The House of Horrors spends its most

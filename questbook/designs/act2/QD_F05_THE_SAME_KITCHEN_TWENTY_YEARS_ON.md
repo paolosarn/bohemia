@@ -32,13 +32,12 @@ SECOND BY SECOND:
 
 ## THE PERSON AND THE FIRST LINE
 After 60 s, within two cells, the oldest person on the block, sitting where the relative sat on the step
-in act 1 (derived: if the relative lived, it is her, old; if not, a stranger), in the past tense: "Your
-grandfather stood right there the morning after. He didn't say a word either."
+in act 1 (derived: if the relative lived, it is her, old; if not, a stranger), in the past tense: "The
+one before you stood right there, the morning after they took the box. Didn't say a word either."
 
 ## THE CHOICES
-1. TAKE THE FRAME: a thing that crosses back. If he flips to act 1 carrying nothing new, the act 1 frame
-   is still on its wall; the act 2 frame is now in his hand. It costs nothing and later opens one
-   past-tense line anywhere a relative's face can be recognised.
+1. TAKE THE FRAME: a thing he carries in act 2. It costs nothing and later opens one past-tense line
+   from anyone in the valley who knew the act 1 family by face.
 2. LEAVE THE FRAME: nothing. The frame stays on the wall.
 3. FLIP BACK: he may leave within the minute; nothing is forced, nothing speaks.
 
