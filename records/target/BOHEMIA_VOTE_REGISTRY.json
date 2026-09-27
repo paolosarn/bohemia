@@ -2214,7 +2214,7 @@
       "id": "factions-territory-survives-the-rebuild-9-27",
       "kind": "tile",
       "lane": "factions",
-      "sha": "PENDING",
+      "sha": "8c917794",
       "made": "9/27",
       "title": "TERRITORY SURVIVES THE REBUILD",
       "why": "You just asked if we have to restart the whole enchilada for the new honest grid rule. For this lane, no. Territory lives one size up: the valley is 9,216 lots and fourteen crews own them, and that layer is untouched by your new rule, which only rebuilds what is INSIDE one lot (floor, wall, door, a house four cells across). I checked the actual numbers instead of assuming, and none of them collide. Everything this lane has measured and built, who owns the valley, the memory that lets a lot change hands and stay changed, still works exactly as it is. Nothing to vote on breaking here, just the reassurance with the numbers behind it.",
