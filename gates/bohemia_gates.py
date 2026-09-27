@@ -2890,6 +2890,21 @@ GATES = [
      "both came back near zero. This gate freezes THE GAP, not a count, because new "
      "rows arrive honestly and would push any absolute number around while the gap is "
      "immune to growth. It may only shrink; closing it means rulings survive shipping.", True),
+    ('MAP READS', ['node', 'gates/map_reads_gate.js'],
+     "EYES AND EARS lane 17, 9/27, [bb reads] under rule 33 (THE OVERWORLD IS BATTLE BROTHERS, "
+     "Paolo 9/24): THE CITY VIEW IS NOW THE MAP, AND A MAP IS READ AT A GLANCE AND PRESSED WITH A "
+     "THUMB. Three numbers may never get worse: the median painted mark on the map, the share of "
+     "marks under the published 11 px icon floor, and the worst text contrast measured against "
+     "what the text actually sits on. A RATCHET and not a bar, because today the median is 2 px "
+     "and 100% of marks are under the floor (at zoom 0.208 a tile is 3.7 px), so a bar would be "
+     "red from birth and E3 measured what happens to a gate that is always red. The numbers come "
+     "from tools/bohemia_eyes_map_reads.js, which reaches the map through PLUMBER's one driver, "
+     "PROVES THE CAMERA MOVED before reading anything (the mode flag flips a whole squeeze before "
+     "the picture does, measured on both surfaces), and refuses to report unless four controls "
+     "behave, one of which is a planted white-on-black and grey-on-grey pair that the contrast "
+     "meter must tell apart. It NEVER goes red for staleness, only for a regression, because a "
+     "gate that punishes eighteen lanes for one lane's cadence is the DEMO STALENESS lesson. "
+     "--selftest plants a worse reading and proves the ratchet bites.", False),
     ('MERGE DEBRIS', ['python3', 'gates/marker_sweep_gate.py'],
      "EYES AND EARS lane 17, 9/23, E21 [marker sweep]: A WHOLE CONFLICT SET LEFT IN A SHARED "
      "TEXT FILE. It has reached the shipped splash here once (8/27) and a PAGE gate caught it, "

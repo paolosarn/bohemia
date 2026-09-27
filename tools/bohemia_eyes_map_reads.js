@@ -171,6 +171,23 @@ const ratio = (a, b) => { const l1 = Math.max(a, b), l2 = Math.min(a, b); return
           return n ? [Math.round(r / n), Math.round(g / n), Math.round(b / n)] : null;
         } catch (e) { return null; }
       };
+      /* *** THE CONTRAST METER WAS READING THROUGH THE PANEL, AND ROUND ONE REFUSED TO PUBLISH
+         ITS NUMBERS BECAUSE OF IT. *** Version one sampled the WORLD CANVAS behind each label's
+         box, so pale text on the near-black phone panel came back at 1.08 to 1 -- a number that
+         says "invisible" about text you can read perfectly well in the photograph. What is
+         behind a label is whatever PAINTS last under it: the nearest ancestor with a background
+         colour that is not transparent. Only when nothing above the canvas paints one is the
+         canvas the right answer, and then it is marked as such. */
+      const backdrop = (el) => {
+        let n = el;
+        for (let i = 0; i < 12 && n; i++) {
+          const cs = getComputedStyle(n);
+          const m = /rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?/.exec(cs.backgroundColor || '');
+          if (m && (m[4] === undefined || +m[4] > 0.25)) return { rgb: [+m[1], +m[2], +m[3]], from: n.id || n.tagName };
+          n = n.parentElement;
+        }
+        return null;
+      };
       const marks = [];
       for (const el of doc.querySelectorAll('div,span,button,a')) {
         if (!vis(el)) continue;
@@ -179,24 +196,86 @@ const ratio = (a, b) => { const l1 = Math.max(a, b), l2 = Math.min(a, b); return
         if (!t || t.length > 30) continue;
         const r = el.getBoundingClientRect(), cs = getComputedStyle(el);
         marks.push({ text: t.slice(0, 24), id: el.id || '', w: Math.round(r.width), h: Math.round(r.height),
+                     box: { x: Math.round(r.x), y: Math.round(r.y), w: Math.round(r.width), h: Math.round(r.height) },
                      fontPx: Math.round(parseFloat(cs.fontSize) || 0), color: cs.color,
                      pointer: cs.pointerEvents !== 'none',
-                     behind: behind(r.x, r.y, r.width, r.height) });
+                     behind: behind(r.x, r.y, r.width, r.height),
+                     backdrop: backdrop(el) });
       }
       const draws = (win.__eyesDraws || []).slice(-4000);
       return { marks, draws, world: world ? world.width + 'x' + world.height : null };
     });
+
+    const parse = (c) => { const m = /rgba?\((\d+),\s*(\d+),\s*(\d+)/.exec(c || ''); return m ? [+m[1], +m[2], +m[3]] : null; };
+    /* RULE ZERO FOR THE CONTRAST METER. Two planted pairs whose true ratio is arithmetic:
+       white on black is 21.0, and #777 on #6e6e6e is about 1.1. A meter that cannot tell those
+       apart cannot be trusted with a real label, and round one's version failed exactly there. */
+    const planted = await d.pageEval(() => {
+      const mk = (id, fg, bg, txt) => {
+        const wrap = document.createElement('div');
+        wrap.id = id; wrap.style.cssText = 'position:fixed;left:2px;bottom:' + (id.endsWith('hi') ? 120 : 80)
+          + 'px;z-index:2147483647;background:' + bg + ';padding:6px';
+        const t = document.createElement('span');
+        t.id = id + '_t'; t.textContent = txt; t.style.cssText = 'color:' + fg + ';font-size:14px';
+        wrap.appendChild(t); document.body.appendChild(wrap);
+      };
+      mk('__eyes_c_hi', '#ffffff', '#000000', 'EYESCONTRASTHI');
+      mk('__eyes_c_lo', '#777777', '#6e6e6e', 'EYESCONTRASTLO');
+      const read = (id) => {
+        const t = document.getElementById(id + '_t');
+        const cs = getComputedStyle(t);
+        let n = t, bg = null;
+        for (let i = 0; i < 12 && n && !bg; i++) {
+          const m = /rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?/.exec(getComputedStyle(n).backgroundColor || '');
+          if (m && (m[4] === undefined || +m[4] > 0.25)) bg = [+m[1], +m[2], +m[3]];
+          n = n.parentElement;
+        }
+        return { fg: cs.color, bg };
+      };
+      const out = { hi: read('__eyes_c_hi'), lo: read('__eyes_c_lo') };
+      for (const e of document.querySelectorAll('[id^="__eyes_c_"]')) e.remove();
+      return out;
+    }).catch(() => null);
+    if (planted) {
+      const pr = (o) => { const f = parse(o.fg); return (f && o.bg) ? ratio(lum(...f), lum(...o.bg)) : null; };
+      const hi = pr(planted.hi), lo = pr(planted.lo);
+      out.contrast_controls = { white_on_black: hi, grey_on_grey: lo };
+      out.controls.push({ name: 'C3 THE CONTRAST METER KNOWS A REAL PAIR FROM A FLAT ONE',
+                          pass: hi != null && hi > 19 && lo != null && lo < 1.3,
+                          detail: 'white on black read ' + hi + ' (true 21.0), grey on grey read '
+                            + lo + ' (true about 1.1)' });
+    } else {
+      out.controls.push({ name: 'C3 THE CONTRAST METER KNOWS A REAL PAIR FROM A FLAT ONE',
+                          pass: false, detail: 'the planted pair could not be read at all' });
+    }
 
     const draws = reading.draws || [];
     out.controls.push({ name: 'C2 THE DRAW HOOK RECORDED SOMETHING, so a small number is a '
                               + 'measurement and not an empty log',
                         pass: draws.length > 0, detail: draws.length + ' painted images seen' });
 
-    const parse = (c) => { const m = /rgba?\((\d+),\s*(\d+),\s*(\d+)/.exec(c || ''); return m ? [+m[1], +m[2], +m[3]] : null; };
     out.text_marks = reading.marks.map((m) => {
-      const fg = parse(m.color), bg = m.behind;
-      return { ...m, contrast: (fg && bg) ? ratio(lum(...fg), lum(...bg)) : null };
+      const fg = parse(m.color);
+      const bg = (m.backdrop && m.backdrop.rgb) || m.behind;
+      return { ...m, contrast: (fg && bg) ? ratio(lum(...fg), lum(...bg)) : null,
+               contrast_measured_against: m.backdrop ? ('the panel it sits on (' + m.backdrop.from + ')')
+                                         : m.behind ? 'the world canvas, because nothing above it paints a background'
+                                         : 'nothing: no background could be resolved' };
     });
+    /* LABEL CROWDING, THE OTHER HALF OF HOW A MAP READS. The published practice is priority plus
+       collision: the important labels stay and the rest wait for room, and a leader line pulls a
+       label out of a crowd rather than letting two sit on each other. So count the labels and
+       count the PAIRS WHOSE BOXES OVERLAP, which is the cheapest measure of a map that has no
+       priority at all. */
+    const boxes = reading.marks.map(m => m.box).filter(Boolean);
+    let overlaps = 0;
+    for (let i = 0; i < boxes.length; i++)
+      for (let j = i + 1; j < boxes.length; j++) {
+        const a = boxes[i], b = boxes[j];
+        if (a.x < b.x + b.w && b.x < a.x + a.w && a.y < b.y + b.h && b.y < a.y + a.h) overlaps++;
+      }
+    out.label_overlaps = overlaps;
+
     const hs = draws.map(d2 => Math.min(d2[0], d2[1])).filter(x => x > 0).sort((a, b) => a - b);
     out.painted = { count: draws.length,
                     smallest_side_px: hs[0] || null,
@@ -216,6 +295,13 @@ const ratio = (a, b) => { const l1 = Math.max(a, b), l2 = Math.min(a, b); return
       marks_under_the_4_5_contrast_bar: out.text_marks.filter(m => m.contrast != null && m.contrast < 4.5).length,
       smallest_painted_side_px: out.painted.smallest_side_px,
       median_painted_side_px: out.painted.median_side_px,
+      painted_marks_under_the_11px_icon_floor_pct: hs.length
+        ? +(100 * hs.filter(x => x < 11).length / hs.length).toFixed(1) : null,
+      label_pairs_that_overlap: overlaps,
+      worst_contrast_against_what_it_sits_on: out.text_marks.map(m => m.contrast)
+        .filter(x => x != null).sort((a, b) => a - b)[0] || null,
+      marks_under_the_4_5_bar_measured_properly: out.text_marks
+        .filter(m => m.contrast != null && m.contrast < 4.5).length,
     };
   } catch (e) { out.ok = false; out.why = String(e).slice(0, 300); }
   try { await d.close(); } catch (e) {}

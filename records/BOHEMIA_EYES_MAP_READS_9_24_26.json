@@ -1,18 +1,23 @@
 {
   "what": "how the map reads on a phone",
   "row": "[bb reads] round one, rule 33",
-  "when": "2026-09-24T22:20:04.890Z",
+  "when": "2026-09-27T22:12:44.106Z",
   "surface": "/tmp/claude-0/-home-user-bohemia/065fcaf1-af13-5362-9424-9d0305049a14/scratchpad/cut/slices/BOHEMIA_DEMO.html",
   "controls": [
     {
       "name": "C0 THE DOOR IS BEHIND US, and the driver says so itself",
       "pass": true,
-      "detail": "the door held 22228 ms after the first knock"
+      "detail": "the door held 21755 ms after the first knock"
     },
     {
       "name": "C1 THE CAMERA ACTUALLY MOVED TO THE MAP, not just the mode flag",
       "pass": true,
       "detail": "before {\"mode\":\"human\",\"tw\":18,\"czoom\":1,\"hzoom\":11,\"hx\":6218,\"hy\":6268} after {\"mode\":\"city\",\"tw\":3.7,\"czoom\":0.208,\"hzoom\":11,\"hx\":6218,\"hy\":6268} (2 squeeze(s), settled after 4000 ms)"
+    },
+    {
+      "name": "C3 THE CONTRAST METER KNOWS A REAL PAIR FROM A FLAT ONE",
+      "pass": true,
+      "detail": "white on black read 21 (true 21.0), grey on grey read 1.14 (true about 1.1)"
     },
     {
       "name": "C2 THE DRAW HOOK RECORDED SOMETHING, so a small number is a measurement and not an empty log",
@@ -38,12 +43,22 @@
     "hy": 6268
   },
   "camera_settled_after_ms": 4000,
+  "contrast_controls": {
+    "white_on_black": 21,
+    "grey_on_grey": 1.14
+  },
   "text_marks": [
     {
       "text": "NOTES",
       "id": "noteplate",
       "w": 31,
       "h": 15,
+      "box": {
+        "x": 345,
+        "y": 18,
+        "w": 31,
+        "h": 15
+      },
       "fontPx": 5,
       "color": "rgb(216, 196, 154)",
       "pointer": false,
@@ -52,13 +67,28 @@
         99,
         127
       ],
-      "contrast": 3.77
+      "backdrop": {
+        "rgb": [
+          26,
+          22,
+          15
+        ],
+        "from": "noteplate"
+      },
+      "contrast": 10.54,
+      "contrast_measured_against": "the panel it sits on (noteplate)"
     },
     {
       "text": "▮▮▮",
       "id": "cityfeedsig",
       "w": 15,
       "h": 11,
+      "box": {
+        "x": 337,
+        "y": 77,
+        "w": 15,
+        "h": 11
+      },
       "fontPx": 8,
       "color": "rgb(111, 106, 82)",
       "pointer": true,
@@ -67,13 +97,28 @@
         105,
         128
       ],
-      "contrast": 1.08
+      "backdrop": {
+        "rgb": [
+          28,
+          26,
+          21
+        ],
+        "from": "stage"
+      },
+      "contrast": 3.19,
+      "contrast_measured_against": "the panel it sits on (stage)"
     },
     {
       "text": "06:00",
       "id": "cityfeedclock",
       "w": 27,
       "h": 11,
+      "box": {
+        "x": 255,
+        "y": 77,
+        "w": 27,
+        "h": 11
+      },
       "fontPx": 8,
       "color": "rgb(141, 129, 104)",
       "pointer": true,
@@ -82,13 +127,28 @@
         105,
         128
       ],
-      "contrast": 1.53
+      "backdrop": {
+        "rgb": [
+          28,
+          26,
+          21
+        ],
+        "from": "stage"
+      },
+      "contrast": 4.53,
+      "contrast_measured_against": "the panel it sits on (stage)"
     },
     {
       "text": "@nightcount",
       "id": "",
       "w": 110,
       "h": 13,
+      "box": {
+        "x": 256,
+        "y": 98,
+        "w": 110,
+        "h": 13
+      },
       "fontPx": 9,
       "color": "rgb(200, 182, 129)",
       "pointer": true,
@@ -97,13 +157,28 @@
         108,
         128
       ],
-      "contrast": 2.81
+      "backdrop": {
+        "rgb": [
+          28,
+          26,
+          21
+        ],
+        "from": "stage"
+      },
+      "contrast": 8.66,
+      "contrast_measured_against": "the panel it sits on (stage)"
     },
     {
       "text": "@thevalley",
       "id": "",
       "w": 110,
       "h": 13,
+      "box": {
+        "x": 256,
+        "y": 190,
+        "w": 110,
+        "h": 13
+      },
       "fontPx": 9,
       "color": "rgb(200, 182, 129)",
       "pointer": true,
@@ -112,13 +187,28 @@
         118,
         130
       ],
-      "contrast": 2.41
+      "backdrop": {
+        "rgb": [
+          28,
+          26,
+          21
+        ],
+        "from": "stage"
+      },
+      "contrast": 8.66,
+      "contrast_measured_against": "the panel it sits on (stage)"
     },
     {
       "text": "@marisol_v",
       "id": "",
       "w": 110,
       "h": 13,
+      "box": {
+        "x": 256,
+        "y": 282,
+        "w": 110,
+        "h": 13
+      },
       "fontPx": 9,
       "color": "rgb(200, 182, 129)",
       "pointer": true,
@@ -127,13 +217,28 @@
         129,
         131
       ],
-      "contrast": 2.05
+      "backdrop": {
+        "rgb": [
+          28,
+          26,
+          21
+        ],
+        "from": "stage"
+      },
+      "contrast": 8.66,
+      "contrast_measured_against": "the panel it sits on (stage)"
     },
     {
       "text": "@waterline",
       "id": "",
       "w": 110,
       "h": 13,
+      "box": {
+        "x": 256,
+        "y": 359,
+        "w": 110,
+        "h": 13
+      },
       "fontPx": 9,
       "color": "rgb(200, 182, 129)",
       "pointer": true,
@@ -142,13 +247,28 @@
         77,
         75
       ],
-      "contrast": 4.16
+      "backdrop": {
+        "rgb": [
+          28,
+          26,
+          21
+        ],
+        "from": "stage"
+      },
+      "contrast": 8.66,
+      "contrast_measured_against": "the panel it sits on (stage)"
     },
     {
       "text": "@thecircuit",
       "id": "",
       "w": 110,
       "h": 13,
+      "box": {
+        "x": 256,
+        "y": 437,
+        "w": 110,
+        "h": 13
+      },
       "fontPx": 9,
       "color": "rgb(200, 182, 129)",
       "pointer": true,
@@ -157,13 +277,28 @@
         122,
         88
       ],
-      "contrast": 2.09
+      "backdrop": {
+        "rgb": [
+          28,
+          26,
+          21
+        ],
+        "from": "stage"
+      },
+      "contrast": 8.66,
+      "contrast_measured_against": "the panel it sits on (stage)"
     },
     {
       "text": "@nightcount",
       "id": "",
       "w": 110,
       "h": 13,
+      "box": {
+        "x": 256,
+        "y": 529,
+        "w": 110,
+        "h": 13
+      },
       "fontPx": 9,
       "color": "rgb(200, 182, 129)",
       "pointer": true,
@@ -172,13 +307,28 @@
         122,
         88
       ],
-      "contrast": 2.09
+      "backdrop": {
+        "rgb": [
+          28,
+          26,
+          21
+        ],
+        "from": "stage"
+      },
+      "contrast": 8.66,
+      "contrast_measured_against": "the panel it sits on (stage)"
     },
     {
       "text": "@thevalley",
       "id": "",
       "w": 110,
       "h": 13,
+      "box": {
+        "x": 256,
+        "y": 620,
+        "w": 110,
+        "h": 13
+      },
       "fontPx": 9,
       "color": "rgb(200, 182, 129)",
       "pointer": true,
@@ -187,9 +337,19 @@
         122,
         88
       ],
-      "contrast": 2.09
+      "backdrop": {
+        "rgb": [
+          28,
+          26,
+          21
+        ],
+        "from": "stage"
+      },
+      "contrast": 8.66,
+      "contrast_measured_against": "the panel it sits on (stage)"
     }
   ],
+  "label_overlaps": 0,
   "painted": {
     "count": 4000,
     "smallest_side_px": 2,
@@ -205,10 +365,14 @@
     "smallest_font_px": 5,
     "marks_under_the_44px_touch_law": 9,
     "tappable_text_marks": 9,
-    "worst_contrast": 1.08,
-    "marks_under_the_4_5_contrast_bar": 10,
+    "worst_contrast": 3.19,
+    "marks_under_the_4_5_contrast_bar": 1,
     "smallest_painted_side_px": 2,
-    "median_painted_side_px": 2
+    "median_painted_side_px": 2,
+    "painted_marks_under_the_11px_icon_floor_pct": 100,
+    "label_pairs_that_overlap": 0,
+    "worst_contrast_against_what_it_sits_on": 3.19,
+    "marks_under_the_4_5_bar_measured_properly": 1
   },
   "failing_controls": []
 }
