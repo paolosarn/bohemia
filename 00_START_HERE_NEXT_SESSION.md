@@ -49709,7 +49709,26 @@ your first VAMILY and do steps 1 to 9.
 I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
-ROUND LOG 9/27b (latest): [two scales look] SHIPPED - rule 34's card,
+ROUND LOG 9/27c (latest): FIGHT VERDICT ROUND 11, and the finding that
+explains rounds 7-10: ONE DOOR, TWO FIGHTS. UI's crew-tap served the
+old cold page (measured: walk 9 things, fight 30, shared 0); COMBAT's
+walk served the warm street board (full bodies, ROSA named, calm
+procedural lines). The build carries BOTH fight surfaces with
+unstable routing - the collapsed gate, the hidden frame and my
+'proved on the pair, unproven on the glass' were all this one cause.
+Rule 24 violated by the build; COMBAT [one mode] holds; the rebuild
+(34e) inherits the warm board as look basis, the cold page dies with
+round 11 as post-mortem. SEAM: both sheets PASS as measurements -
+UI's gives [one hud] its before-number; COMBAT's proves the mound has
+NEVER fired (0 of 519 shots) and their frame is the best fight
+picture on file, R5's first ever pass on a fight (the beat lines are
+the dead institution's voice doing combat UI). Round 12 judges the
+first close-grid fight block against the two-scales card s5.
+NOT JUDGED THIS ROUND, named: COOK's who-is-that-on-the-road (a page
+that plays - thirteen faction parties moving; next at the seam with
+the two-scales card's map section), WORLD's pump, SOUNDS' two tape
+pages. Registry verdicts[]: no new votes since the second batch.
+PREVIOUS: [two scales look] SHIPPED - rule 34's card,
 one bible at two sizes (records/BOHEMIA_TWO_SCALES_LOOK_CARD_9_27_26
 .md). THE ONE SENTENCE: the world does not change when the size does;
 what changes is WHICH rules carry the tone. CLOSE (28 px person on 32
