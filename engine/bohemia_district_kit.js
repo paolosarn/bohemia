@@ -492,6 +492,22 @@
   var KIND_LAYER={
     ground:{layer:'ground',solid:false}, drive:{layer:'ground',solid:false}, walk:{layer:'ground',solid:false},
     marking:{layer:'ground',solid:false}, 'turf-dead':{layer:'ground',solid:false}, 'water-dead':{layer:'ground',solid:false},
+    /* WATER WAS THE ONE KIND THIS TABLE HAD NEVER HEARD OF (9/27, LIFE+CITY, rule 34b).
+       Measured across every registered district: 72 districts, 1,171 legend entries, 19
+       kinds in use, and EXACTLY ONE of them was missing from this table -- `water`, on the
+       dam's reservoir, the dam's tailrace and the fort's creek. An unknown kind falls to
+       the {ground, not solid} default at the top of tileLayer, silently, so on a generated
+       dam block 5,329 cells of reservoir and on the fort 534 cells of creek resolved to
+       ORDINARY WALKABLE FLOOR: a third of the dam block is water you can stand on.
+       Adding it here is PROVABLY INERT -- these values are byte-identical to the fallback
+       those three were already getting -- and that is the point. The fix is not this line,
+       it is that the kind is now KNOWN, so every_cell_has_a_class_gate.js can refuse the
+       next one instead of the table quietly swallowing it. WHAT the three cells are is
+       declared on the entries themselves, because a void is DECLARED, NEVER DERIVED (8/20,
+       four comment-paragraphs below). Shallow water -- a leak, seepage, a trickle, a
+       drained pool -- is genuinely floor and stays floor; that is 20 of the 25 water cells
+       in the valley and every one of them was already right. */
+    water:{layer:'ground',solid:false},
     court:{layer:'ground',solid:false}, play:{layer:'ground',solid:false},
     building:{layer:'structure',solid:true}, structure:{layer:'structure',solid:true}, fence:{layer:'structure',solid:true},
     panel:{layer:'structure',solid:true}, 'tree-dead':{layer:'prop',solid:true}, prop:{layer:'prop',solid:true},

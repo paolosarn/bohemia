@@ -2849,6 +2849,11 @@ GATES = [
      "proof pictures, which is what a temp dir is for", False),
     ('LANDLOCKED',      ['node', 'gates/landlocked_gate.js'],
      'an interior district with no real street is suburb/apt and relays a road out through a same-family neighbor', False),
+    ('EVERY CELL CLASS', ['node', 'gates/every_cell_has_a_class_gate.js'],
+     'rule 34b (Paolo 9/27): every legend kind in every district is KNOWN to the one table that '
+     'decides solid, because an unknown kind falls through to walkable floor in silence -- it was '
+     '`water` on the dam and the fort, 5,863 cells of standable reservoir; deep water is a void, '
+     'dry water stays ground', False),
     ('GARAGE',         ['node', 'gates/garage_gate.js'],
      'parking garage interior: multi-deck, ramps, 3D reachable from the entrance', False),
     ('CRYPT',          ['node', 'gates/crypt_gate.js'],

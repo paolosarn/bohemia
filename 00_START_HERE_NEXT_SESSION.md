@@ -910,6 +910,88 @@ AND THE LESSON THAT STILL BINDS: NO TEXT-ONLY ITEM IN VOTE, and now a second one
 beside it -- A PICTURE IN THE VOTE TAB THAT SHOWS A SENTENCE THE GAME NO LONGER
 SAYS IS A LIE TO HIM. Re-shoot the frames in the same round the words change.
 
+LIFE + CITY (city-1eztay): 9/27b LATEST -- *** A THIRD OF THE DAM WAS WATER YOU COULD
+STAND ON, AND ONE MISSING WORD IN ONE TABLE IS WHY. ***
+TAB: the new picture is in the VOTE tab (alpha).
+Record: records/BOHEMIA_A_THIRD_OF_THE_DAM_WAS_WATER_YOU_COULD_STAND_ON_9_27_26.md
+
+ROW [honest grid] CLAIMED 9/27 and pushed before the work (c3b028d8), rule 5. [three
+cities] STAYS CLAIMED and is PARKED BEHIND ITS OWN MEASUREMENT, not abandoned: its look
+half shipped and is in VOTE, its wiring half needs an act value that exists nowhere in the
+world (measured twice). Rule 34 then superseded the tile law this lane's ground rested on
+and 34(e) puts [honest grid] FIRST in his own order. Drawing three acts on a grid about to
+be rebuilt cell by cell would be drawing the wrong ground three times.
+
+THE ROW'S PREMISE WAS HALF WRONG AND MEASURING SAID SO. It reads "the block generator emits
+CELLS, never a picture over cells". IT ALREADY EMITS CELLS: every legend gives each code a
+kind, and ONE table (KIND_LAYER in the district kit) turns kind into {layer, solid}; the
+walked surface asks solidAt -> tileLayer -> that table. One source, already wired. Two
+false leads killed before they became findings: kind 'garage' and kind 'crypt' are RETURN-
+OBJECT types (what a building IS), not cells; move/outcome/wait/choice/site/scav are loop
+and scheduler words. Checked, not assumed.
+
+*** WHAT WAS ACTUALLY WRONG IS ONE WORD. *** tileLayer falls back to {ground, not solid}
+for a kind the table has never heard of, AND THE FALLBACK IS SILENT -- a typo or a new word
+does not fail, it becomes walkable floor. Swept every registered district:
+
+    DISTRICTS 72 - LEGEND ENTRIES 1,171 - KINDS IN USE 19
+    KINDS THE TABLE DID NOT KNOW: 1   ->  `water`
+    dam  reservoir 3,977 + tailrace 1,352 = 5,329 cells   32.5% OF THE BLOCK
+    fort creek                              534 cells
+    TOTAL 5,863 CELLS OF STANDABLE WATER
+
+FAIR TO THE AUTHOR, WHICH IS WHY THE FIX IS SHAPED LIKE THIS. All three declare solid:false
+-- TRUE, and half the answer: a lake does not stop you. There was no way to say the other
+half. The other half was already in the same file: the VOID third state the kit declared
+8/20 for the quarry lip, the intake shaft and the crusted pond (not solid, not walkable,
+DECLARED NEVER DERIVED). Deep water is a crust that will not hold you, one substance over.
+So `water` is now a KNOWN kind with values BYTE-IDENTICAL to the fallback (provably inert
+-- the fix is that the kind is known so the gate can refuse the next one), and the three
+deep cells declare 'void':true on themselves. THE OTHER 20 WATER CELLS WERE ALREADY RIGHT
+AND ARE UNTOUCHED: a drained pool, a dry font, seepage, a trickle are genuinely floor, and
+the gate checks that leg too, because a fix that drowned every empty fountain is worse than
+the bug.
+
+A CONTRADICTION SURFACED AND IS NOT MINE TO RULE: water:0 'open water' is solid TRUE (you
+bounce off it) while intake:8 'lake water' is floor. Same substance, opposite answers, two
+live files. Neither is a silent fallback, so both are left and named.
+
+THE GATE, gates/every_cell_has_a_class_gate.js, suite name EVERY CELL CLASS. IT READS THE
+TABLE, IT DOES NOT KEEP A COPY -- my first scratch sweep hardcoded the legal kinds and kept
+reporting `water` unknown AFTER I fixed it, the exact trap this lane warned about one round
+earlier, caught on myself within the hour. It REFUSES rather than passing vacuously if
+KIND_LAYER stops being exported.
+    clean main, before the fix   8 ok, 4 FAILED
+    with the fix                12 ok, 0 failed
+    MUTATION: an invented kind ('lagoon') is caught, and the gate proves the danger by
+              showing it resolves to walkable floor.
+NOTHING ELSE MOVED, run both ways: OCCUPANCY 16/0, DISTRICT KIT 24/0, LANDLOCKED 16/0,
+INTERIOR GROUND 21/0. HAZARD 70/4 -- the SAME four names byte for byte on clean main, NOT
+MINE. Engine changed so the derived city slice was resynced with the repo's own tool (duty
+8); it also picked up two modules other lanes had left stale.
+
+THE COOK (rule 22), and it IS the finding: slices/vote/LIFECITY_THE_WATER_YOU_COULD_STAND_
+ON_9_27.png. The dam off ITS OWN generator, one fixed seed, every cell coloured by one
+question -- may a body stand here. Nothing illustrated (rule 32f).
+    BEFORE standable 14,141 (86.3%)  of which WATER 5,329 (32.5%)
+    AFTER  standable  8,812 (53.8%)  void 5,329
+    solid 2,243 in BOTH -- nothing moved, only what you may do.
+ANALOG HORROR LINE: the wrong thing is not a monster, it is A SURFACE THAT AGREES WITH YOU.
+It looks like water, the game says pavement, nothing warns you, and it shipped green.
+TWO DEFECTS FOUND BY LOOKING, both mine, both one shape: the captions COLLIDED, then RAN
+OFF THE EDGE, because I sized text by eye twice. The factory now measures the label and
+refuses to write a picture with its own title cut in half.
+
+NOT DONE ON THIS ROW, and next round's first job: EVERY FLOOR REGION CONNECTS TO THE STREET
+for every district (this lane proved it for the suburb: 1,857 doorstep cells, 0 sealed,
+gate NO YARD IS SEALED 13/0) -- and making 5,863 cells unwalkable is exactly the change
+that should be re-checked against it. Then the third leg of 34(b), a press into a wall is
+never a dead pad.
+[PENDING Paolo] what deep water DOES. A void means you do not walk in and you can be put
+in; whether that is survivable, and whether anything swims, is a ruling about the game, not
+a mechanism. NOTHING WAITS ON IT: the cells are honest either way.
+[PENDING Paolo] unchanged: the future fits in 6.7% of the valley, and 2 of 14 destinations.
+
 LIFE + CITY (city-1eztay): 9/27 LATEST -- *** THE MAP ALREADY HAS FOURTEEN PLACES ON IT,
 AND THE SAME STREET, THREE TIMES, WITH THE FLOOR COUNTED INSTEAD OF PROMISED. ***
 TAB: the new picture is in the VOTE tab (alpha). The map count is NOT IN A TAB YET.

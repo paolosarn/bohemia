@@ -288,7 +288,15 @@
     0: { name: 'canyon rock', kind: 'ground', act1: 'bare canyon rock, blasted flat where the works needed it' },
     1: { name: 'crest road', kind: 'drive', act1: 'the two-lane road across the dam crest (car-drivable)' },
     2: { name: 'dam wall', kind: 'building', act1: 'the arch-gravity wall itself, a concrete curve wedged into the canyon', enter: 'a gallery inside the dam: wet concrete, a walkway, and the hum that is not there any more' },
-    3: { name: 'reservoir', kind: 'water', act1: 'what is left of the reservoir, a long way below the white mineral ring it used to reach', solid: false },
+    /* DEEP WATER IS A VOID, NOT A FLOOR (9/27, LIFE+CITY, rule 34b). `solid:false` was
+        the true half and there was no way to say the other half, so 3,977 cells of
+        reservoir resolved to ordinary standable ground. A void is the third state this
+        kit declared on 8/20 for the quarry lip, the intake shaft and the crusted pond:
+        it does not STOP you (a lake cannot block anything) and nothing that walks will
+        ever CHOOSE it. Same shape as the crust that will not hold you, one substance over.
+        CONSENT is the test, not depth: walking in is not something the game lets you do,
+        being put in is. Declared here, never derived, exactly as that law requires. */
+    3: { name: 'reservoir', kind: 'water', act1: 'what is left of the reservoir, a long way below the white mineral ring it used to reach', solid: false, 'void': true },
     4: { name: 'intake tower', kind: 'building', act1: 'an intake tower standing out of the water on its own plinth', enter: 'the tower head: a gantry, a dead hoist, and the shaft going straight down' },
     5: { name: 'road entrance', kind: 'gate', act1: 'where the crest road meets the canyon road', solid: false },
     6: { name: 'spillway', kind: 'ground', act1: 'a spillway: a concrete funnel cut into the canyon wall, dry for twenty years', solid: false },
@@ -297,7 +305,9 @@
     9: { name: 'transmission tower', kind: 'prop', act1: 'a transmission tower marching up the canyon wall, lines down' },
     10: { name: 'abandoned vehicle', kind: 'vehicle', act1: 'a car left on the crest where the road closed' },
     11: { name: 'powerhouse', kind: 'building', act1: 'the powerhouse in its U at the toe of the dam', enter: 'the generator hall: a row of housings the size of rooms, every one silent' },
-    12: { name: 'tailrace', kind: 'water', act1: 'the tailrace below the powerhouse, a slow green channel', solid: false },
+    /* THE TAILRACE IS THE SAME (9/27): a channel under the powerhouse, 1,352 cells, moving
+        water with concrete walls. Not solid, not somewhere a body walks. */
+    12: { name: 'tailrace', kind: 'water', act1: 'the tailrace below the powerhouse, a slow green channel', solid: false, 'void': true },
     13: { name: 'talus apron', kind: 'ground', act1: 'the talus apron below the works — broken rock the blasting left, tipped down the canyon side' },
     14: { name: 'pale rock band', kind: 'ground', act1: 'a pale band in the canyon rock where the strata change, running out of the wall' }
   };
@@ -473,7 +483,9 @@
     9: { name: 'post', kind: 'prop', act1: 'a corral post standing on its own' },
     10: { name: 'abandoned vehicle', kind: 'vehicle', act1: 'a park truck left outside the wall' },
     11: { name: 'interpretive path', kind: 'walk', act1: 'the visitor path, its plaques prised off' },
-    12: { name: 'creek', kind: 'water', act1: 'Las Vegas Creek: still running, which is the whole reason a city is here', solid: false },
+    /* THE CREEK IS STILL RUNNING, AND YOU DO NOT WALK UP IT (9/27): 534 cells that read as
+        pavement until now. Same declaration as the dam's water, same reason. */
+    12: { name: 'creek', kind: 'water', act1: 'Las Vegas Creek: still running, which is the whole reason a city is here', solid: false, 'void': true },
     13: { name: 'open desert', kind: 'ground', act1: 'the desert outside the fort, untouched since before any of this' },
     14: { name: 'creosote flat', kind: 'ground', act1: 'creosote in its evenly spaced grid outside the walls — they poison each other roots, which is why the spacing is even' }
   };
