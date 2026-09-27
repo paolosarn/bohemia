@@ -73,3 +73,15 @@ A CUT system is moved to archive/ THE ROUND IT IS CUT (GRAVEYARD IS FINAL; the r
 replaced it); nothing in slices/ or engine/ loads from archive/ (PLUMBER gates it); the assets it used
 stay where the live systems read them. Nobody builds on a cut system again: a row that touches one is
 refused by the coordinator.
+
+## AMENDED 9/27 BY PAOLO ("two scales", "one house doesn't equal one tile", "restart the whole enchilada"; laws/BOHEMIA_LAW_TWO_SCALES_ONE_GAME_9_27_26.md)
+- MOVED FROM KEEP TO REBUILD: THE FIGHT BOARD (the RF4 fight moves onto the close grid in cells; house tiles
+  are dead; reach re-derived in cells; the mound one cell; weapon shapes in cells). THE WALKED SURFACE
+  (the close grid: tiny character, one cell per step, an honest grid where a house is many cells).
+- MOVED FROM KEEP TO ASSET: the 112 px bodies, clothes and clips (the HD source the small sprites are cut
+  from; the portraits and vote pages keep using them). The walked sprite is REBUILT small.
+- NEW REBUILD ROWS: WORLD+LIFE+CITY [honest grid], COMBAT [fight on the grid], CHARACTER [small body],
+  ANIMATION [small clips], COOK [cell tiles], DIRECTION [two scales look], RUN [two scales], PLUMBER [grid budget].
+- THE ORDER, AMENDED: (1) [honest grid] for ONE block + PLUMBER [grid budget] + [bb map] school; (2) the
+  tiny character walking that block, one cell per press, the squeeze to the map and back; (3) the fight on
+  that grid; (4) the first person by name; (5) the demo re-cut: the first sixty seconds are a game.

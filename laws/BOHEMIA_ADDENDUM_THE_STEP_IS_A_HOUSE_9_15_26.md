@@ -1,3 +1,4 @@
+# *** SUPERSEDED 9/27 (NEWEST DATE WINS) by laws/BOHEMIA_LAW_TWO_SCALES_ONE_GAME_9_27_26.md: Paolo 9/27, 'one house doesn't equal one tile, it's all fucked up'; the step is ONE CELL, a house is many cells, the person is tiny. This file stays for the record; nothing builds on it. ***
 # BOHEMIA ADDENDUM -- THE STEP IS A HOUSE (Paolo 9/15/26, LOCKED)
 # His words, voice-to-text, verbatim in records/BOHEMIA_PAOLO_THE_STEP_IS_A_HOUSE_9_15_26.md.
 # The short of it: "I just entered combat and this is not at the scale that I needed it

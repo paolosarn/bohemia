@@ -1,3 +1,4 @@
+# *** RE-READ 9/27 by laws/BOHEMIA_LAW_TWO_SCALES_ONE_GAME_9_27_26.md: the person is still ONE SIZE at every zoom, and that size is ONE CELL (about 28 px on a 32 px cell), not 112 px; the 112 art is an asset. ***
 # BOHEMIA LAW -- THE GROUND MAY ZOOM, THE PERSON MAY NOT (coordinator 9/21/26, from four lanes' measurements of one defect)
 # Paolo 9/20 (rule 18a): "I'm zooming out and my person becomes bigger." Paolo 9/18 (rule 17):
 # "when combat started it was so fucking bad." Both sentences are the same bug.

@@ -1,3 +1,4 @@
+# *** AMENDED 9/27 (NEWEST DATE WINS) by laws/BOHEMIA_LAW_TWO_SCALES_ONE_GAME_9_27_26.md: the TILE half is dead (a combat tile is a CELL, a house is many cells); the BATTERIES half stands whole. ***
 # BOHEMIA ADDENDUM -- BATTERIES ARE THE MONEY, AND A COMBAT TILE IS A HOUSE
 # (Paolo 9/4/26, LOCKED. Three rulings in one message, recorded the same turn
 # by the coordinator. Newest date wins on exactly what is written here.)
