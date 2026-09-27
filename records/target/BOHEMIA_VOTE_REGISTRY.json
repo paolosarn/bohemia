@@ -1959,7 +1959,20 @@
      "how": "image",
      "src": "vote/UI_ONE_SET_OF_BUTTONS_9_25.png"
     }
+   },
+  {
+   "id": "combat-the-button-your-thumb-finds-9-24",
+   "kind": "tile",
+   "lane": "combat",
+   "sha": "PENDING",
+   "made": "9/24",
+   "title": "THE BUTTON YOUR THUMB FINDS",
+   "why": "You said the worst thing we ever did was teleporting you into a different game mode with different buttons. So I went and looked at what your thumb actually touches. Here is the same corner of the same phone, one tap apart. On the left is what the fight gave you until this round: eight separate little circles with letters on them, N, NE, E, and so on. In the middle is the walk. Back on 9/7 you looked at a sheet of these and picked one, and you said it in plain words: one action button, surrounded by ONE other circle, cut into the directions, and you did not want them to be independent circles. The walk built that the same round. THE FIGHT NEVER GOT THE MESSAGE, so the shape you threw out was the first thing your hand met every time a fight started. On the right is the fight now: the same one cut ring, the same eight arrows, the same colours, taken straight out of the walk rather than redrawn. I am not going to pretend the job is done. The fight's ring is still twice the size of the walk's, because the fight's middle button has to say words like SHOOT and NOTHING TO SHOOT and the walk's does not, and I measured that everything else on your screen still gets swapped out when a fight starts: 0 of the 13 things you could read survive it. That is the rest of this job and I am on it. Thumbs up and I keep going the same way. Thumbs down and tell me if it is the size, the arrows, or the corner it sits in.",
+   "show": {
+    "how": "image",
+    "src": "vote/COMBAT_THE_BUTTON_YOUR_THUMB_FINDS_9_24.png"
    }
+  }
  ],
  "verdicts": [
   {

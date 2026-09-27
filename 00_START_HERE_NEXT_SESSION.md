@@ -38598,7 +38598,68 @@ a memory reset. HE WILL NEVER TYPE ANYTHING BUT THE ONE WORD AGAIN. ***
     I will never paste anything to you again. From here on, the one word is the whole
     instruction.
 
-*** [fight looks] V225 -- THE FRAME MOVES THE GROUND, NOT THE PERSON. CONTINUING, ROUND 4. ***
+*** [one mode] V226 -- THE FIGHT'S PAD IS THE ONE CUT RING. ROUND 1 OF THE ROW. ***
+Stamp 9/24u. Record: records/BOHEMIA_COMBAT_THE_PAD_IS_ONE_RING_IN_THE_FIGHT_9_24_26.md
+
+FIRST, THE BOARD WAS WRONG AND IT WAS MY OWN ROW. It read "SHIPPED 9/24 648afbe [one mode]"
+while [fight looks] was still CLAIMED. 648afbe is V225, which is the [fight looks] work, and
+the coordinator's own record routes it the other way ("COMBAT [fight looks] -> SHIPPED (V225,
+112 at every frame width) ... Next: [one mode]", ROUND_9_24_26_B section 2). Nothing in V225
+makes the fight stop being a second document. Rule 6: a half-done job marked SHIPPED is worse
+than an open one, so the marker moved to the row it belongs to. [fight looks] SHIPPED with its
+rulings kept (rule 11); [one mode] CLAIMED 9/24 combat-nfnki9.
+
+THE MEASUREMENT, ON THE ONE DRIVER, WALKING INTO A REAL FIGHT, ONE TAP APART:
+  THE WALK   cityFrame   shown 390x802   13 things he can read
+  THE FIGHT  combatFrame shown 390x802   19 things he can read
+  WORDS THAT SURVIVED THE START OF THE FIGHT: 0
+Not one thing on his screen is the same. The city frame is not covered, it is TORN DOWN to
+0x0 and another document is put up in its place. That is the row, in a number.
+
+AND ONE OF THE THINGS THAT CHANGED IS A RULING HE LOCKED. The photographs put the two movers
+side by side and they are the same control drawn twice: the walk is ONE ring cut into eight
+segments; the fight was EIGHT LOOSE CIRCLES, 28 px, lettered N NE E SE S SW W NW. PAOLO 9/7,
+LOCKED, picking option 1 off his own sheet: "I want the action button to be only surrounded by
+ONE other circle, and that circle is CUT INTO how many parts of the directions that we need. I
+DON'T WANT THEM TO BE INDEPENDENT CIRCLES." The city built it that round; the fight never got
+the ruling, and buildMoveRing is Paolo 7/3/26, OLDER than the ruling. Newest date wins, and the
+ruling is about the control, not about which document it is drawn in.
+
+SHIPPED: the fight's mover is THE CITY'S CONTROL, not a lookalike. Every constant lifted out of
+their ring builder rather than re-picked (REUSE-FIRST): the 180 box, C=90 R0=50 R1=86 N=8
+GAP=3.5, the wedge maths, the walk arrows in position order, #1e1a13 on #2a2418 with a #d8c49a
+arrow. The fire button keeps every word and colour it says (red a clean line on you, amber one
+gun up, green a real lull) because that is the fight's own information and rule 24 allows what
+the fight ADDS; it was already wearing the city's face styling byte for byte, which is why only
+the ring was out of step. The verb buttons were RE-MEASURED, not nudged, against the new outer
+radius (V122's own comment says the old offset was measured against pips at R=66).
+
+WHAT IS NOT DONE, WITH THE NUMBERS, BECAUSE THIS IS ROUND 1 OF N:
+  THE WALK   ring box  90   face 40   centre 57 right, 51 up from the corner
+  THE FIGHT  ring box 180   face 80   centre 96 right, 96 up
+Same shape, same paint, TWICE THE SIZE. A control that doubles when a fight starts IS the
+buttons changing, and he ordered the walked screen halved. It is not a size tweak: the walk's
+face is 40 px and says one short label, the fight's says NOTHING TO SHOOT and ENGAGE - 2
+PINNED, so matching is a decision about WHERE THOSE WORDS LIVE. Next in this row, with UI
+[one hud]. And the big one is untouched: cityFightIn clicks the COMBAT tab, which IS the
+teleport.
+
+THE GATE IS RED ON PURPOSE AND IT SAYS WHICH HALF. gates/one_mode_gate.js, 7 passed 4 failed:
+  PASS one ring cut into eight, 0 loose circles | PASS the walk still has the same eight |
+  PASS the fight paints it with THE WALK'S OWN VALUES (read off both documents in one run, not
+  against a constant typed into the gate, which would go stale the first time either lane tuned
+  a colour) | FAIL same size (90 vs 180) | FAIL same place ([57,51] vs [96,96]) | FAIL nothing
+  replaced (0 of 13) | FAIL the walked world still on the glass.
+AND IT IS BUILT ON THE ONE DRIVER. Rule 14(g), third round this lane asked for it: two of my
+older gates read a loading screen and an unsized frame for rounds because each rolled its own
+door. This is the first new gate on the right side of that, and it is the pattern for moving
+the other two.
+
+RULE 22: in VOTE as combat-the-button-your-thumb-finds-9-24, three crops of the same corner of
+the same phone (the fight before, the walk, the fight now) off the real glass, with what is
+still wrong said ON the card.
+
+*** [fight looks] V225 -- THE FRAME MOVES THE GROUND, NOT THE PERSON. SHIPPED, ROUND 4 OF 5. ***
 The coordinator's 9/23b note answered. Stamp 9/24h. Record:
 records/BOHEMIA_COMBAT_THE_FRAME_MOVES_THE_GROUND_9_24_26.md
 
