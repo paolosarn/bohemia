@@ -6137,6 +6137,85 @@ gate, and together they say a generation of unbroken labour reclaims under one p
 valley. NOTHING IN THE SUITE MULTIPLIES ONE SHIPPED CONSTANT BY ANOTHER AND ASKS WHETHER THE
 ANSWER IS A GAME.
 
+=== ROUND 52, [bb money] THE-COMPANY-LEDGER, ROUND ONE OF TWO (rule 33 school). CLAIM SHIPPED. ===
+RECORD: records/BOHEMIA_ECONOMY_DAY_52_THE_SAME_COMMIT_WROTE_THE_LOOP_AND_LEFT_THE_DAY_FLAT_9_27_26.md
+BANK: 12 lines, SSSSSSSSSSS. 570 role-place entries, ZERO of them the player speaking (rule 27),
+counted by running the count instead of trusting last round's self-report. Spanish register 1 of 12.
+
+THE FINDING, ONE SENTENCE: BATTLE BROTHERS PUTS ITS VARIETY IN THE NUMBER AND WE ARE FORBIDDEN THE
+NUMBER, so every place BB varies a price we must vary a COUNT or an ACCESS instead. BB's spread is
+per-man wage demands, about 3% premium per attached location (3 to 8 of them, so a town runs 9-24%
+over), the same gem 500 here and 800 there, 200-250 crowns a run, relations deciding who will even
+sell to you. EVERYTHING COSTS ONE (8/15) plus BATTERIES ARE THE MONEY (9/4) make a price spread
+impossible here, so BB's core overworld loop -- buy low there, sell high here -- IS ILLEGAL IN
+BOHEMIA BY HIS OWN LAW. The replacement is already his: 9/15 ruling 1 with the 9/16 correction, THE
+SPREAD LIVES IN ACCESS AND DISTANCE, NEVER IN THE NUMBER. And BB's own strongest price signal agrees
+with us rather than with itself: the AMBUSHED TRADE ROUTE settlement event, where a town pays
+anything because it has been CUT OFF. That is access, not arithmetic.
+
+MEASURED, node output pasted verbatim in section 1 of the record:
+  COMPANY SIZE            9
+  nine mouths cost        1 of resources
+  one mouth cost          1 of resources  (company 1)
+  five circuits, three batteries -> lit 3 dark 2
+A COMPANY OF NINE COSTS WHAT A COMPANY OF ONE COSTS, and there is no cap on company size anywhere in
+bohemia_company.js. THE PRIMITIVE ALREADY SCALES: the caller loops for circuits and does not for the
+day. AND THE DATE IS THE FINDING: 18e5992 (day:ate, flat, one call for the whole day) and 5b61303
+(night:power, one call per circuit held, and the circuit you cannot pay goes dark while the paid ones
+stay lit) ARE THE SAME ROW ON THE SAME DATE, 9/5, hours apart. Twenty-two rounds later the flat one
+is the one that prices your people. The loop's own comment already argues our case: "IT PUTS OUT THE
+ONE IT COULD NOT PAY FOR, NOT ALL OF THEM ... Anything else would be a wipe, and a wipe is a
+punishment nobody ruled." Swap person for circuit and that paragraph is the company wage.
+THIRD MEASUREMENT, SHARPER THAN ROUND 40's: mktHub() at 61074 computes a key of seed + city cell +
+mode and caches on it. mktLedger() at 61112 -- SIX LINES BELOW -- is keyed by nothing. The game knows
+which town you are standing in and throws it away when it builds the shelf. Sixteen doors, one pantry,
+saved as one object. PENDING 42 ANSWERED FROM THE BB SIDE: the valley does not need a second SHOP, it
+needs the one shop to be sixteen different EMPTINESSES.
+
+THE FINDING THAT PROVES US WRONG. Pay arrears produce mutiny and desertion in every period (Roman
+legions, early modern mercenaries, the Continentals mutinying when Congress could not pay, Confederate
+troops west of the Mississippi never paid past 1863; Washington's own papers name the mechanism). THEN
+THE INVERSION: DESERTION FALLS WHEN THE OUTSIDE ECONOMY WORSENS, because there is nowhere else to be
+paid. In a deep collapse, and the ruin is this game's FLOOR (rule 32b), the unpaid man does NOT walk
+away. That contradicts bohemia_obligation.js's own stated stake (whoWalks, "the punishment is a person
+walking away") and it contradicts my own round 49 lean. REALISM FIRST says the realistic option leads,
+so the realistic act-one punishment is A RUNG DROP, not a departure: he is still there every morning
+and he will not lend to you. Routed to PEOPLE, whose module it is. NOT RULED HERE.
+AND LEBANON SAYS OUR WEIRDEST LAW IS THE REALISTIC ONE: a worker paid $5 an hour before the collapse
+was paid $5 to $6 for the ENTIRE SHIFT after it. The number never moved; what one unit buys collapsed.
+Venezuela from the other end: a MONTH's minimum wage, about $6, bought two cartons of eggs, a kilo of
+cornmeal and a box of pasta. That is EVERYTHING COSTS ONE, observed.
+
+THE PROJECT-LEVEL HOLE, INSTANCE 41, AND TWO LIVE INSTANCES IN ONE ROUND: A LAW MOVED AND THE PART
+THAT WAS WAITING ON IT WAS NEVER TOLD. (a) PEOPLE stopped on 9/7 citing NO DAMAGE BEFORE THE DIAL,
+correctly at the time -- "a hunger meter needs a RATE, and rates are his". That law was AMENDED on
+9/22 (rule 23 s4: a routine thing costs ONE with no dial, and the dial owns every number bigger than
+one). Rule 23 is COMBAT's law and grants the economy nothing, but it removes the ARGUMENT, and the
+economy never needed it anyway: nightPower won the same argument on 9/5, TWO DAYS BEFORE the module
+decided it could not be won. (b) gates/four_verbs_gate.js -- the gate guarding the very verbs this
+record is about -- now CRASHES on the selector "#daycardIn .dcgo", the wake card's GET UP button,
+which is built by a function and only in the DOM while that card is open. Both strings are still in
+the slice, so nothing was deleted; rule 32(a) (nothing forced in the first second, 9/24) is the
+suspect and I DID NOT CONFIRM IT. THE FOUR UPKEEP VERBS HAVE NO WORKING END-TO-END CHECK RIGHT NOW.
+Proven not mine: the gate reads the city slice, the purse and a tools patch, and this commit touches
+records, banks and the board only. NOTHING IN THIS REPO ASKS "WHAT DID THIS LAW JUST BREAK, AND WHAT
+DID IT JUST UNBLOCK?"
+
+MY OWN FAULT, KEPT. My first probe printed "CAP IN THE MODULE: yes" because my regex matched the word
+"limit" inside two COMMENTS. Third round running for the same shape (round 50 read a comment instead
+of the constant six inches below it). Then it bit me again in the gate pass, where grepping output for
+"FAIL" matched the words "0 failed" and called four GREEN gates red. THE RULE, WRITTEN DOWN FOR EVERY
+LANE: A GREP IS NOT A MEASUREMENT. A grep says a STRING is present. Only running the code, or reading
+the declaration the code actually uses, gives you a NUMBER. Every figure in this round's record is
+node output pasted verbatim.
+
+GATES: economy 13/13, payday 40/40, attempt 15/15, language green, rice clock green, company-in-asks
+green, purse 27 of 28 (the known ACT ONE ONLY dead-canon leg, routed, not mine), four verbs RED AND
+CRASHING (routed to PLUMBER, proven not mine). Main had moved, so this was rebased onto it and the
+board conflict was resolved keeping my own SHIPPED line; the two remaining marker strings in VAMILY.md
+are inside PLUMBER's own [no markers] row prose and are in origin/main too.
+
+
 [PENDING Paolo] -- for the coordinator, one at a time:
   *** 1 TO 9 ARE RULED. The coordinator decided all nine on 9/13 under EVERYTHING IS
   A THUMB, in records/BOHEMIA_RULING_NINE_DEFAULTS_THE_ECONOMY_WAS_CARRYING_9_13_26.md.
@@ -6315,27 +6394,49 @@ ANSWER IS A GAME.
      is the kind of change he should meet in play rather than read about. Nothing
      is blocked on it; WORLD can build it under his existing law.
 
-NEXT IN THIS LANE: TWO OPEN LINES, AND THE FIRST ONE IS [bb money], NOT Q52. Rule 5 says take
-the FIRST line marked OPEN, and the board's order is:
- (1) [bb money] THE-COMPANY-LEDGER -- rule 33 school (Paolo 9/24, "an executive decision": the
-     overworld is Battle Brothers). Two rounds. BB's daily wages, provisions, tools and
-     medicine consumed per day of travel, prices per town and how they move. NOTE FOR WHOEVER
-     TAKES IT: this lane has already measured most of the BB side in round 49 (wage +2 a level
-     compounding, 2 food per man per day, 1 medicine per injury per day, 1 tool per 15
-     durability, desertion when the wage is missed) -- READ ROUND 49 SECTION 3 BEFORE
-     RESEARCHING IT AGAIN. What is NEW in rule 33 is PRICES PER TOWN AND HOW THEY MOVE, and
-     this lane has a live finding waiting on exactly that: round 40 measured that all sixteen
-     markets share ONE stock ledger, so buying in a fortress empties a swap meet forty cells
-     away, AND THAT IS WHY THERE IS ONE PRICE IN THE WHOLE VALLEY. Pending 42 asks whether the
-     valley should have more than one shop. [bb money] is that pending wearing a Battle
-     Brothers hat.
- (2) Q52 [inherited trust] -- this lane's own Q50 round one produced it.
-AFTER BOTH: fold rounds 51 and 52 into the master (a STANDING JOB, not a board job). The
-harvest control has run four folds clean and has caught a fault every time.
-AND CARRY THIS IN: the purse gate's ACT ONE ONLY check is red on main against a 9/23 law that
-supersedes it. It is routed and it is not this lane's to fix, but do not read it as new and do
-not chase it.
+ 44. (new) WHEN YOU CANNOT FEED YOUR PEOPLE, DO THEY LEAVE, OR DO THEY STAY AND
+     STOP TRUSTING YOU? This is the one genuine fork [bb money] found and it is
+     not a number. The game he named answers it one way: miss the wage and the man
+     DESERTS. The real record answers it the OTHER way in a collapse -- desertion
+     FALLS when the outside economy worsens, because there is nowhere else to be
+     paid. So the realistic version is that he is standing at the pot again the
+     next morning, unpaid, and what changed is that he will not lend to you or
+     vouch for you. Both are honest and they make completely different games: one
+     is a company that shrinks when you fail, the other is a household that curdles
+     and never shrinks. REALISM FIRST points at the second and the ruin being the
+     floor (rule 32b) points at it too, so that is this lane's position and PEOPLE
+     can build it under it. It is in the pendings because it decides what failure
+     FEELS like, and that is his, not ours. Nothing is blocked on it.
 
+NEXT IN THIS LANE: [bb money] IS HALF DONE AND THE CLAIM IS SHIPPED FOR ROUND ONE. Two things, in
+order:
+ (1) [bb money] ROUND TWO. THE ROW'S LAST CLAUSE IS THE ONLY PART ROUND ONE DID NOT ANSWER: "the loan
+     of one a night as the wage". The module is engine/bohemia_lend.js and it is already written --
+     HANDSHAKE 1, DUE_A_NIGHT 1, CURRENCY electricity, SHORT_DEED 'loan:short' -- and round 49 already
+     proved it is not a debt trap (paid() clears the account, short() does not compound). NOTHING NEEDS
+     INVENTING. What round two owes is (a) WHAT A RUNG DROP COSTS in our own numbers, measured off
+     bohemia_standing / the rungs, because that is the punishment this lane argued for instead of
+     desertion, and (b) the two ends connected on paper: what somebody lends you a night IS what a
+     night of somebody's time costs, so the loan and the wage are one number seen from two sides.
+     DO NOT RE-RESEARCH BB's per-day consumption. Round 49 section 3 has it and round 52 cites it.
+     DO NOT RE-RESEARCH PRICES PER TOWN. Round 52 section 2 has it, including the discrepancy: the dev
+     blog says 5% per level after 11 and round 49's record says 3%, both are banked with both sources
+     named, and NEITHER IS OURS TO COPY.
+ (2) Q52 [inherited trust] -- this lane's own Q50 round one produced it.
+AFTER BOTH: fold rounds 51 and 52 into the master (a STANDING JOB, not a board job). The harvest
+control has run four folds clean and has caught a fault every time.
+CARRY THESE IN, ALL THREE ALREADY ROUTED AND NONE OF THEM THIS LANE'S TO FIX:
+ - gates/four_verbs_gate.js CRASHES on main, on "#daycardIn .dcgo". Do not read it as new and do not
+   chase it. It means the four upkeep verbs have no working end-to-end check, which matters to this
+   lane more than to anybody, so if it is still red next round SAY SO AGAIN rather than assuming
+   PLUMBER saw it.
+ - gates/purse_gate.js ACT ONE ONLY is red against a 9/23 law that supersedes it.
+ - gates/canon_rot_gate.js is red at 63 gone against a ceiling of 62, and the new row is one
+   word: a 9/1 tileform sheet cites TF-ART-019_grid_cook.py and the file is TF-ART-019_cook.py.
+   Routed. Not this lane's and not new work.
+ - A GREP IS NOT A MEASUREMENT. Three rounds running this lane has published or nearly published a
+   number that came from a string match instead of from running the code. Run the probe. Paste the
+   output. If the record contains a figure with no pasted output behind it, it is not measured.
 
 ================================================================================
 

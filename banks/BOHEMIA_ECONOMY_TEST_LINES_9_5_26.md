@@ -4228,3 +4228,72 @@ SSSSSSSSSS8  the old hand, not unkind                     draft:true
 - Spanish register: 0 of 8 lines. Sixth round at zero and the reason stands:
   these are people being plain with each other about hard arithmetic, and the
   register is a voice some characters have, not a seasoning. Under the 15% cap.
+
+## SSSSSSSSSSS. THE DAY ATE: ONE
+## (round 52, [bb money] round one. One bill for nine mouths; the head you cannot
+##  pay; a town with nothing on the shelf at any price; the man who stays because
+##  there is nowhere else to go. Nobody says a number. Role, place, situation.)
+
+SSSSSSSSSSS1  a woman who cooks for everyone, at the pot   draft:true
+    "Same pot as when there was four of us."
+
+SSSSSSSSSSS2  a man counting heads at the pot, quietly     draft:true
+    "Then somebody here isn't eating."
+
+SSSSSSSSSSS3  the woman, who already knows which one       draft:true
+    "Yo sé. It's me. It's been me since the spring."
+
+SSSSSSSSSSS4  the last one paid, at the end of the line    draft:true
+    "I'm not mad at you. I'm just last."
+
+SSSSSSSSSSS5  the one who was not paid, next morning       draft:true
+    "I showed up, didn't I."
+
+SSSSSSSSSSS6  his friend, who expected him gone            draft:true
+    "Where was I going to go?"
+
+SSSSSSSSSSS7  a lit block's man, explaining his lights     draft:true
+    "Yours went out because mine were first on the list.
+     That's the only reason."
+
+SSSSSSSSSSS8  a shopkeeper with an empty shelf             draft:true
+    "I'm not haggling with you. Look at it. There's nothing there."
+
+SSSSSSSSSSS9  a traveller who walked a long way for it     draft:true
+    "I didn't come because it's cheap here. I came because
+     it's here."
+
+SSSSSSSSSSS10 a road man, on a town nobody reaches         draft:true
+    "Nobody's got in or out of there in a month. They'll
+     take whatever you're carrying."
+
+SSSSSSSSSSS11 a man leading more people than he used to     draft:true
+    "Every one of them is one more mouth. That's the whole
+     arithmetic of me."
+
+SSSSSSSSSSS12 the one he does not pay, without heat        draft:true
+    "You'll get me tomorrow." (he will not, and both of them
+     know it, and he still says it the same way every morning)
+
+## TTTTTTTTTTT. WHAT IS NOT HERE, ON PURPOSE (round 52, [bb money] round one)
+
+- No line says a wage, a headcount, a percentage or a price. The round is a bill
+  and a shelf and not one figure is spoken.
+- No line says the words company, roster, upkeep, wage, ledger, stock, arbitrage
+  or trade route. SSSSSSSSSSS11 is the payroll finding said as a man describing
+  himself.
+- NOBODY IN THIS BLOCK WALKS AWAY. Section 3b measured that in a deep collapse
+  desertion falls, so SSSSSSSSSSS5 and 6 are the realistic version of an unpaid
+  man: he is still standing there in the morning, and that is worse.
+- No line makes the unpaid man noble or the payer cruel. SSSSSSSSSSS7 is a true
+  sentence from a man who did nothing wrong and it still ends somebody's night.
+- No line decides what a rung drop costs. That is not ruled and section 6 said so.
+- No line names a town, a street or a faction, including the cut-off one. MAP LAW.
+- No line has the player speaking. Rule 27: 570 role-place entries in this file
+  now, zero of them him talking.
+- No line is written for a card, a tooltip or a readout: rule 19(a), rule 29.
+  What this round hands over is a pot, a shelf and a man who came back.
+- Spanish register: 1 of 12 lines (SSSSSSSSSSS3, "Yo sé"). First non-zero in
+  seven rounds, and it is one character's voice rather than a seasoning: the
+  woman who feeds people is the one admitting it in her own first language.
+  Under the 15% cap.
