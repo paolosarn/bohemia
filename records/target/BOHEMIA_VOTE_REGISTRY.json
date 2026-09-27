@@ -2102,7 +2102,20 @@
     "how": "image",
     "src": "vote/WORLD_THE_ONLY_PUMP.png"
    }
-  }
+  },
+   {
+    "id": "cook-who-is-that-on-the-road-9-27",
+    "kind": "tile",
+    "lane": "cook",
+    "sha": "PENDING",
+    "made": "9/27",
+    "title": "WHO IS THAT ON THE ROAD",
+    "why": "Parties roam the map now, so I drew all thirteen factions moving on it. TAP THIS, IT PLAYS. But first the thing I found. Your thirteen faction colours are yours, measured off your own clothes, and they stay. I measured what they do as banners on a map. CARTEL AND MOB ARE THE SAME COLOUR. They are 3.6 apart on a scale that goes to 373. Eight more pairs are under 50. And nine of the thirteen are the same brightness as the city ground they would be standing on. Eight of them are brown and four are grey, because this is a valley of working people in dust, which is right. It just means you can never tell who is coming by the colour of the flag. So the SHAPE tells you what they are and the banner tells you who. Four shapes: someone on foot with a flag, a patrol in a rank with points over it, a caravan with a canvas and wheels, and a crowd carrying their bedding. Which faction gets which shape comes from each faction's own canon alignment in the game files, not from me. Thumbs down and tell me which two you still cannot tell apart.",
+    "show": {
+     "how": "page",
+     "src": "vote/COOK_WHO_IS_THAT_ON_THE_ROAD.html"
+    }
+   }
  ],
  "verdicts": [
   {

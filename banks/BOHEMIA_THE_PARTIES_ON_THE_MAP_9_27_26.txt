@@ -1,0 +1,506 @@
+{
+ "version": "BOHEMIA_THE_PARTIES_ON_THE_MAP_v1",
+ "built": "2026-09-27",
+ "lane": "COOK [bb map art] round 3",
+ "the_finding": {
+  "closest_pair": [
+   "Cartel",
+   "Mob",
+   3.6
+  ],
+  "widest_pair": 373,
+  "pairs_under_50": 10,
+  "banners_within_25_of_the_city_ground": 9,
+  "why_it_cannot_be_fixed_with_colour": "COLOUR IS TERRITORY (8/26): which hue a faction owns is his, measured off his own wardrobe, and faction_colour_gate holds it. So the shape carries the identification instead."
+ },
+ "shape_source": "engine/BOHEMIA_faction_graph.json `align`, whose own header says \"All canon; nothing invented\"",
+ "shape_of_align": {
+  "military": "PATROL",
+  "predatory": "PATROL",
+  "territorial": "PATROL",
+  "neutral": "CARAVAN",
+  "underground": "CROWD",
+  "nonprofit": "CROWD",
+  "community": "CROWD",
+  "evangelical": "CROWD"
+ },
+ "parties": {
+  "Anarchists": {
+   "shape": "ON FOOT",
+   "align": "anti-establishment",
+   "banner": "#573f2a"
+  },
+  "Blues": {
+   "shape": "ON FOOT",
+   "align": "socialist",
+   "banner": "#2d5fb3"
+  },
+  "Caravans": {
+   "shape": "CARAVAN",
+   "align": "neutral",
+   "banner": "#6c5b41"
+  },
+  "Cartel": {
+   "shape": "PATROL",
+   "align": "predatory",
+   "banner": "#434042"
+  },
+  "Church": {
+   "shape": "CROWD",
+   "align": "evangelical",
+   "banner": "#826c3e"
+  },
+  "Colorful": {
+   "shape": "CROWD",
+   "align": "community",
+   "banner": "#61a136"
+  },
+  "Homeless": {
+   "shape": "CROWD",
+   "align": "underground",
+   "banner": "#968b82"
+  },
+  "Mob": {
+   "shape": "PATROL",
+   "align": "territorial",
+   "banner": "#454142"
+  },
+  "Network": {
+   "shape": "ON FOOT",
+   "align": "psyop",
+   "banner": "#25a189"
+  },
+  "Reds": {
+   "shape": "ON FOOT",
+   "align": "capitalist",
+   "banner": "#773229"
+  },
+  "Remnants": {
+   "shape": "PATROL",
+   "align": "military",
+   "banner": "#4c5238"
+  },
+  "Trades": {
+   "shape": "CARAVAN",
+   "align": "neutral",
+   "banner": "#674b34"
+  },
+  "Volunteers": {
+   "shape": "CROWD",
+   "align": "nonprofit",
+   "banner": "#c1bdb5"
+  }
+ },
+ "shapes": {
+  "ON FOOT": {
+   "body": [
+    "..w....",
+    "..w....",
+    "..w....",
+    "..w....",
+    "..w....",
+    "..w....",
+    "..kk...",
+    ".kddk..",
+    ".kdwk..",
+    "..kk...",
+    ".kkkk..",
+    ".kkkk..",
+    "..k.k..",
+    ".sk.ks.",
+    "..s.s.."
+   ],
+   "part": [
+    [
+     [
+      3,
+      0,
+      [
+       "bbbb",
+       "bbbb",
+       "bbb.",
+       "bb.."
+      ]
+     ]
+    ],
+    [
+     [
+      3,
+      0,
+      [
+       "bbbb",
+       "bbb.",
+       "bbbb",
+       "bb.."
+      ]
+     ]
+    ],
+    [
+     [
+      3,
+      0,
+      [
+       "bbb.",
+       "bbbb",
+       "bbbb",
+       "b..."
+      ]
+     ]
+    ],
+    [
+     [
+      3,
+      0,
+      [
+       "bbbb",
+       "bbbb",
+       "bb..",
+       "bb.."
+      ]
+     ]
+    ]
+   ],
+   "moves": "the banner stirs"
+  },
+  "PATROL": {
+   "body": [
+    ".w...w...w...w",
+    ".w...w...w...w",
+    ".w...w...w...w",
+    "kkk.kkk.kkk.kk",
+    "kdk.kdk.kdk.kd",
+    "kkk.kkk.kkk.kk",
+    "kkk.kkk.kkk.kk",
+    ".k...k...k...k",
+    ".k...k...k...k",
+    "skk.skk.skk.sk",
+    ".ss..ss..ss..s",
+    ".............."
+   ],
+   "part": [
+    [
+     [
+      0,
+      0,
+      [
+       "b"
+      ]
+     ],
+     [
+      1,
+      7,
+      [
+       "k"
+      ]
+     ],
+     [
+      9,
+      8,
+      [
+       "k"
+      ]
+     ]
+    ],
+    [
+     [
+      0,
+      0,
+      [
+       "b"
+      ]
+     ],
+     [
+      1,
+      8,
+      [
+       "k"
+      ]
+     ],
+     [
+      9,
+      7,
+      [
+       "k"
+      ]
+     ]
+    ],
+    [
+     [
+      0,
+      0,
+      [
+       "b"
+      ]
+     ],
+     [
+      1,
+      7,
+      [
+       "k"
+      ]
+     ],
+     [
+      9,
+      8,
+      [
+       "k"
+      ]
+     ]
+    ],
+    [
+     [
+      0,
+      0,
+      [
+       "b"
+      ]
+     ],
+     [
+      1,
+      8,
+      [
+       "k"
+      ]
+     ],
+     [
+      9,
+      7,
+      [
+       "k"
+      ]
+     ]
+    ]
+   ],
+   "moves": "the two of them alternate stride"
+  },
+  "CARAVAN": {
+   "body": [
+    "................",
+    "....wwwwwwww....",
+    "...wwwwwwwwww...",
+    "..kwwwwwwwwwwk..",
+    "..kkkkkkkkkkkk..",
+    "..kddddddddddk..",
+    ".kkkkkkkkkkkkkk.",
+    "..kk........kk..",
+    "..kk........kk..",
+    ".skks......skks.",
+    "..ss........ss..",
+    "................"
+   ],
+   "part": [
+    [
+     [
+      2,
+      0,
+      [
+       "bb"
+      ]
+     ],
+     [
+      2,
+      7,
+      [
+       "kw"
+      ]
+     ],
+     [
+      12,
+      7,
+      [
+       "kw"
+      ]
+     ]
+    ],
+    [
+     [
+      2,
+      0,
+      [
+       "bb"
+      ]
+     ],
+     [
+      2,
+      7,
+      [
+       "wk"
+      ]
+     ],
+     [
+      12,
+      7,
+      [
+       "wk"
+      ]
+     ]
+    ],
+    [
+     [
+      2,
+      0,
+      [
+       "bb"
+      ]
+     ],
+     [
+      2,
+      8,
+      [
+       "kw"
+      ]
+     ],
+     [
+      12,
+      8,
+      [
+       "kw"
+      ]
+     ]
+    ],
+    [
+     [
+      2,
+      0,
+      [
+       "b."
+      ]
+     ],
+     [
+      2,
+      8,
+      [
+       "wk"
+      ]
+     ],
+     [
+      12,
+      8,
+      [
+       "wk"
+      ]
+     ]
+    ]
+   ],
+   "moves": "the wheel turns"
+  },
+  "CROWD": {
+   "body": [
+    "..w..........",
+    "..w.wwww.ww..",
+    ".kkkwkkkwkk..",
+    "kkkkkkkkkkkk.",
+    "kkkkkkkkkkkkk",
+    "kkkkkkkkkkkkk",
+    ".kkkkkkkkkkk.",
+    "..kkkkkkkkk..",
+    "..k.k.k.k.k..",
+    ".sk.k.k.k.ks.",
+    "..s.s.s.s.s.."
+   ],
+   "part": [
+    [
+     [
+      3,
+      0,
+      [
+       "bb",
+       "b."
+      ]
+     ],
+     [
+      2,
+      8,
+      [
+       "k"
+      ]
+     ],
+     [
+      8,
+      8,
+      [
+       "k"
+      ]
+     ]
+    ],
+    [
+     [
+      3,
+      0,
+      [
+       "bb",
+       ".b"
+      ]
+     ],
+     [
+      2,
+      8,
+      [
+       "."
+      ]
+     ],
+     [
+      8,
+      8,
+      [
+       "k"
+      ]
+     ]
+    ],
+    [
+     [
+      3,
+      0,
+      [
+       "b.",
+       "bb"
+      ]
+     ],
+     [
+      2,
+      8,
+      [
+       "k"
+      ]
+     ],
+     [
+      8,
+      8,
+      [
+       "."
+      ]
+     ]
+    ],
+    [
+     [
+      3,
+      0,
+      [
+       "bb",
+       "b."
+      ]
+     ],
+     [
+      2,
+      8,
+      [
+       "k"
+      ]
+     ],
+     [
+      8,
+      8,
+      [
+       "k"
+      ]
+     ]
+    ]
+   ],
+   "moves": "they shuffle, one body a beat"
+  }
+ },
+ "guard_amended": "round 1 refused any marker whose bottom third moved, because a machine still running has feet that do not. A party is people and people move their feet. The feet rule stays on the places; the rule here is that the GROUP MUST NOT DRIFT -- the centre of ink may not wander between frames.",
+ "library_cited": "reference/library/battle_brothers/01_WORLDMAP.md (rule 33j): parties are named by size and strength badges, \"you can see their banner and destination line\" -- so the reference separates WHAT a party is from WHO it belongs to, and gives the name on inspection.",
+ "not_drawn": "the tracks parties leave already exist (__WHOSE_FOOTPRINTS_ARE_THESE__, 9/12, passed by DIRECTION 9/13).",
+ "not_shipped": "rule 18: a bank and a VOTE candidate."
+}

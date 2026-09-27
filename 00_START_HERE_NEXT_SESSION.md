@@ -21901,6 +21901,73 @@ THIS LANE'S ROLE, FIXED: 16 COOK, the production artist.
 THIS LANE'S SESSION SLUG: cook-mce6r5.
 
 
+COOK (cook-mce6r5): 9/27 LATEST (2) -- *** CARTEL AND MOB ARE THE SAME COLOUR, AND NINE OF
+THIRTEEN BANNERS ARE THE SAME BRIGHTNESS AS THE GROUND THEY STAND ON. *** [bb map art] round
+3: the parties. Round 1 was the markers, round 2 the land, this is everybody else.
+TAB: the VOTE tab, cook-who-is-that-on-the-road-9-27, and it is a PAGE so THEY MOVE. Once
+placed it is the MAP tab. NOTHING WENT TO THE ALPHA'S PLAY SURFACE (rule 18).
+
+THE FINDING, MEASURED OFF HIS OWN FILES. The thirteen faction colours are his -- COLOUR IS
+TERRITORY (8/26), measured off his shipped wardrobe, gate-held -- so I measured what they DO
+as banners instead of touching them:
+  CARTEL AND MOB ARE 3.6 APART on a scale whose widest pair is 373. THE SAME COLOUR.
+  EIGHT MORE PAIRS UNDER 50: Anarchists/Trades 38, Caravans/Trades 39, Mob/Remnants 39,
+  Cartel/Remnants 42, Trades/Remnants 44, Anarchists/Remnants 47, Anarchists/Mob 48,
+  Caravans/Church 49.
+  NINE OF THIRTEEN sit within 25 luminance of the CITY ground (86) they stand on.
+Eight are browns at hue 30 and four are greys, because this is a valley of working people in
+dust, which is RIGHT. It just means a banner cannot be what identifies a party.
+
+SO THE SHAPE SAYS WHAT THEY ARE AND THE BANNER SAYS WHO, which is the library's own answer
+(01_WORLDMAP: parties are named by size and strength badges, "you can see their banner and
+destination line" -- it never asks the colour to carry everything). Four shapes, and WHICH
+FACTION TAKES WHICH IS DERIVED FROM CANON, not picked: every faction carries an `align` in
+engine/BOHEMIA_faction_graph.json, whose own header says "All canon; nothing invented".
+  military/predatory/territorial -> A PATROL     neutral -> A CARAVAN
+  underground/nonprofit/community/evangelical -> A CROWD     everything else -> ON FOOT
+
+*** AND I TRIED TO FIX THE DARK GROUND WITH CONTRAST TWICE BEFORE SEEING IT WAS THE DRAWING.
+*** Anarchists measured 2% findable on the mountain.
+ ATTEMPT 1, the lip INSIDE the body the way the footprints do it: on limbs one and two pixels
+   wide EVERY pixel has open ground to its north, so the marker became a pale outline with two
+   dark holes and all four shapes came out as the same smudge. The measurement went GREEN.
+ ATTEMPT 2, the lip OUTSIDE: a pale halo in every gap. Greener still. Worse again.
+ THE REAL PROBLEM: THE FOUR SHAPES WERE FOUR GROUPS OF PEOPLE, AND AT FOURTEEN PIXELS A PERSON
+   IS A PERSON. Redrawn to differ on the OUTER SILHOUETTE (tall and thin / wide and spiked /
+   long and wheeled / a low mass) with each carrying a REAL LIGHT THING it would own -- a
+   staff, spear points, a canvas tilt, bedding over their heads -- instead of a rim. The light
+   is an OBJECT, which is what makes them findable AND what makes them read as different
+   things. Worst in the set now: Church at 13% clear of the mountain; all thirteen pass on all
+   four grounds.
+Same failure this lane named in the footprints round, word for word: treating "it does not
+read" as a numbers problem when it is a drawing problem. Twice in one round this time.
+
+ROUND 1'S GUARD IS AMENDED, NOT LOOSENED: it refused any marker whose bottom third moved,
+because a machine still running has feet that do not. A PARTY IS PEOPLE AND PEOPLE MOVE THEIR
+FEET. The feet rule stays on the PLACES where it was earned; the rule here is THE GROUP MUST
+NOT DRIFT -- the centre of its ink may not wander between frames, or the marker slides around
+the map instead of walking on the spot.
+
+WHAT MOVES: the banner stirs / the rank steps / the wheels turn / they shuffle. 500 ms a
+frame, one beat at 120, the same clock as the places and the fight.
+
+NOT DRAWN, ON PURPOSE: the tracks parties leave already exist
+(__WHOSE_FOOTPRINTS_ARE_THESE__, 9/12, passed by DIRECTION 9/13).
+
+SCHOOL PAGE: records/COOK_BB_SCHOOL_WHO_IS_THAT_ON_THE_ROAD_9_27_26.md
+
+FOR PORTRAIT, RED ON CLEAN MAIN AND NOT MINE: the REFERENCE CHECK gate fails on
+tools/bohemia_cook_pick_your_man_out.js (3df41721, [bb faces] school r2). It has "cook" in
+its name so the gate sweeps it, and it carries no REFERENCE CHECK block, which also trips the
+second leg (the frozen baseline may only shrink: 86 unchecked now against 85 frozen). Measured
+on clean main before my change: 159 passed, 2 failed, the same two. It is one block at the top
+of that file and I am not writing another lane's reference check, because I do not know what
+they compared it to.
+
+SIX OF MINE ARE NOW WAITING FOR HIM and one carries a real question (the boot's heel). The
+others: the wheel that stopped, which way is he facing, the hole in the screen, the map
+markers, the valley reads as land, and this.
+
 COOK (cook-mce6r5): 9/27 LATEST -- *** THE MAP YOU CROSS THE VALLEY ON IS A GRID OF GREY
 SQUARES WITH BLACK LINES THROUGH IT, AND THAT IS THE WHOLE ROUND. *** [bb map art] round 2,
 the TILES half of the row (round 1 was the markers).
