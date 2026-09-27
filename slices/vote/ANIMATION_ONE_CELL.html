@@ -1,0 +1,101 @@
+<!doctype html><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>BOHEMIA — He Walks At One Cell</title>
+<!-- ANIMATION, [small clips], 9/27. Rule 34 (TWO SCALES, ONE GAME): the walked
+     person is ONE CELL, about 28 px, and the 112 art is the SOURCE not the
+     product. RULE 25: it PLAYS. No control in the page; the row asks once. -->
+<style>
+  :root{--ink:#e8e0cc;--bg:#0d0d12;--card:#16161d;--line:#33313d;--gold:#c79a3f}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+       font:13px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace;padding:14px}
+  h1{font-size:13px;letter-spacing:2px;margin:0 0 4px;color:var(--gold)}
+  p{margin:0 0 12px;color:#a49a86;max-width:60ch}
+  b{color:var(--ink)}
+  .said{border-left:2px solid #7a4a4a;padding:6px 0 6px 10px;margin:0 0 14px;color:#b09a90}
+  .clip{background:var(--card);border:1px solid var(--line);border-radius:6px;
+        padding:8px;margin-bottom:10px}
+  .name{font-size:11px;letter-spacing:2px;color:var(--gold);margin-bottom:6px;
+        display:flex;justify-content:space-between;align-items:baseline}
+  .sub{color:#6f6862;font-size:10px;letter-spacing:0}
+  .pair{display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end}
+  .side{text-align:center}
+  .lab{font-size:10px;letter-spacing:1px;margin-bottom:3px}
+  .old{color:#9a6b6b}.new{color:#7fa06b}
+  .cell{width:112px;height:112px;image-rendering:pixelated;background:#101319;border-radius:3px}
+  .real{width:28px;height:28px;image-rendering:pixelated;background:#101319;border-radius:2px}
+  .beat{height:3px;background:#2a2833;border-radius:2px;margin:12px 0 2px;overflow:hidden}
+  .beat i{display:block;height:100%;width:25%;background:var(--gold)}
+  .note{margin-top:12px;color:#6f6862;max-width:60ch}
+</style>
+<h1>HE WALKS AT ONE CELL</h1>
+<div class="said">Your call: the character is tiny again, one cell, one step per
+cell, and one house is many cells.</div>
+<p>First question I had to answer before anything else: <b>cut the big body down
+to one cell, is there still an animation in there?</b> I checked all four walk
+frames and all eight directions at the big size, at the size the street uses now,
+and at one cell.</p>
+<p><b>Yes.</b> At one cell all eight directions are still eight different
+pictures, and nothing turned to mush: zero stray floating pixels. He is 24 rows
+tall with 168 lit pixels and 15 colours. The big art stays as the source, exactly
+like you said.</p>
+<p><b>But it found something that was broken the whole time, at every size.</b>
+The walk is built on a wave, and a wave is at zero twice per step. So frames 1
+and 3 came out <b>exactly the same picture</b> on all six side-on directions. The
+side walk had <b>three</b> pictures, not four, and running had the same problem.
+At the big size you might not notice. At one cell it reads as a limp.</p>
+<p>A real walk's two middles are not the same: on one his left leg is passing
+forward, on the other his right is. <b>The passing foot clears the ground.</b>
+That is the missing fourth picture, and it is how legs work, not a patch.</p>
+<p>Left is what it was, right is now. Four frames, on the beat. The tiny ones
+next to them are the actual size he will be.</p>
+<div class="beat"><i id="beat"></i></div>
+<div id="clips"></div>
+<p class="note">Nothing at the big size was thrown away, and no new art was
+drawn: this is the same body, cut. The street still runs on the old grid, and
+rebuilding that is not my chat's job. What I own is that the clips are ready at
+the new size when it lands.</p>
+<script>
+(function(){
+  var BEFORE='ANIMATION_ONE_CELL_BEFORE.png';
+  var AFTER ='ANIMATION_ONE_CELL_AFTER.png';
+  var ROWS=[['WALKING','facing east'],['WALKING','facing south-east'],['WALKING','facing south-west']];
+  var W=112,H=112,N=4,BEAT=500,LOOP=BEAT*2;   /* 120 BPM, four keys over two beats */
+  var host=document.getElementById('clips'), cells=[];
+  ROWS.forEach(function(r,ri){
+    var box=document.createElement('div'); box.className='clip';
+    var n=document.createElement('div'); n.className='name';
+    n.innerHTML='<span>'+r[0]+'</span><span class="sub">'+r[1]+'</span>';
+    box.appendChild(n);
+    var pair=document.createElement('div'); pair.className='pair';
+    [['THREE PICTURES','old',BEFORE],['FOUR','new',AFTER]].forEach(function(spec){
+      var side=document.createElement('div'); side.className='side';
+      var l=document.createElement('div'); l.className='lab '+spec[1];
+      l.textContent=spec[0];
+      var c=document.createElement('div'); c.className='cell';
+      c.style.backgroundImage='url('+spec[2]+')';
+      c.style.backgroundSize=(N*W)+'px auto';
+      cells.push({el:c,row:ri,w:W,h:H});
+      side.appendChild(l); side.appendChild(c); pair.appendChild(side);
+    });
+    /* HIS REAL SIZE, 1x, so the page cannot flatter it */
+    var side=document.createElement('div'); side.className='side';
+    var l=document.createElement('div'); l.className='lab'; l.textContent='REAL SIZE';
+    var c=document.createElement('div'); c.className='real';
+    c.style.backgroundImage='url('+AFTER+')';
+    c.style.backgroundSize=(N*28)+'px auto';
+    cells.push({el:c,row:ri,w:28,h:28});
+    side.appendChild(l); side.appendChild(c); pair.appendChild(side);
+    box.appendChild(pair); host.appendChild(box);
+  });
+  var bar=document.getElementById('beat'), t0=performance.now();
+  (function tick(){
+    var ph=((performance.now()-t0)%LOOP)/LOOP;
+    var f=Math.floor(ph*N)%N;
+    for(var i=0;i<cells.length;i++)
+      cells[i].el.style.backgroundPosition=(-f*cells[i].w)+'px '+(-cells[i].row*cells[i].h)+'px';
+    bar.style.transform='translateX('+(f*100)+'%)';
+    requestAnimationFrame(tick);
+  })();
+})();
+</script>

@@ -1513,7 +1513,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 9/27e - NOTHING ON TOP</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 9/27h - FOUR PICTURES NOT THREE</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -7120,9 +7120,31 @@ const POSE={
      legCompressL:0, legCompressR:0};},  // IDLE LAW: feet NEVER move
  walk:(d,ph)=>{if(headOn(d))return nsGait(d,ph,0.72*SWF());const s=Math.sin(ph*2*Math.PI),m=(RUNMIR[d]?-1:1)*depthFlip(d),lat=Math.abs(Math.cos(FACEANG[d])),amp=(0.3+0.7*lat)*SWF(),A=0.42*amp,C=0.42*amp,F=0.4*amp;
    /* CONTRALATERAL LAW: arm phase flipped vs legs so same screen side opposes */
-   const as=(ARMSIDE[d]||1);return {thighR:A*s*m,thighL:-A*s*m,shinR:m*F*Math.max(0,-s),shinL:m*F*Math.max(0,s),upL:-C*s*m*as,foreL:-0.3*m,upR:C*s*m*as,foreR:-0.3*m,hipOff:[0,Math.abs(s)*-1-(1-lat)*0.6*Math.abs(s)]};},
+   /* *** THE TWO CROSSINGS WERE THE SAME PICTURE, 9/27. *** Everything here is
+      driven by s=sin(ph*2pi), and sin is ZERO at ph 0 AND at ph 0.5, so those two
+      keys came out BYTE-IDENTICAL on all six side facings -- measured at 112, 56
+      and 28, the same 6 of 48 pairs every time, so it was never the cut. The side
+      walk had THREE pictures, not four, and the same held for run.
+      A real walk's two crossings are NOT the same: on one the left leg is passing
+      forward, on the other the right is. What tells them apart is the DIRECTION of
+      travel, cos, which is +1 at ph 0 and -1 at ph 0.5, and the passing foot
+      CLEARS THE GROUND. That lift is the fourth picture, and it is anatomy, not a
+      nudge to beat a checker.
+      records/BOHEMIA_THE_WALK_HAD_THREE_PICTURES_9_27_26.md */
+   const c=Math.cos(ph*2*Math.PI), pass=0.55*F;
+   const as=(ARMSIDE[d]||1);return {thighR:A*s*m,thighL:-A*s*m,
+     shinR:m*(F*Math.max(0,-s)+pass*Math.max(0,-c)),
+     shinL:m*(F*Math.max(0,s)+pass*Math.max(0,c)),
+     upL:-C*s*m*as,foreL:-0.3*m,upR:C*s*m*as,foreR:-0.3*m,
+     hipOff:[0,Math.abs(s)*-1-(1-lat)*0.6*Math.abs(s)]};},
  run:(d,ph)=>{if(headOn(d))return nsGait(d,ph,1*SWF());const s=Math.sin(ph*2*Math.PI),m=(RUNMIR[d]?-1:1)*depthFlip(d),lat=Math.abs(Math.cos(FACEANG[d])),amp=(0.3+0.7*lat)*SWF(),A=0.62*amp,C=0.62*amp,F=0.55*amp;
-   const as=(ARMSIDE[d]||1);return {spine:0.10,thighR:A*s*m,thighL:-A*s*m,shinR:m*F*Math.max(0,-s),shinL:m*F*Math.max(0,s),upL:-C*s*m*as,foreL:-0.35*m,upR:C*s*m*as,foreR:-0.35*m,hipOff:[0,-2*Math.abs(s)-(1-lat)*1.2*Math.abs(s)]};},   /* ELBOW MIRROR (Paolo 7/2/26): forearms bend TRAVEL-FORWARD, so W/SW/NW bend west */
+   /* run: the same two-crossings collapse, and a run's passing foot clears further */
+   const c=Math.cos(ph*2*Math.PI), pass=0.7*F;
+   const as=(ARMSIDE[d]||1);return {spine:0.10,thighR:A*s*m,thighL:-A*s*m,
+     shinR:m*(F*Math.max(0,-s)+pass*Math.max(0,-c)),
+     shinL:m*(F*Math.max(0,s)+pass*Math.max(0,c)),
+     upL:-C*s*m*as,foreL:-0.35*m,upR:C*s*m*as,foreR:-0.35*m,
+     hipOff:[0,-2*Math.abs(s)-(1-lat)*1.2*Math.abs(s)]};},   /* ELBOW MIRROR (Paolo 7/2/26): forearms bend TRAVEL-FORWARD, so W/SW/NW bend west */
  pistol:(d,ph)=>{const bp=(ph*ANIMBEATS.pistol)%1;const br=Math.sin(bp*Math.PI*2);const[f,r,aim]=gunT(d,RF+br*0.35,RR);
    /* alive on the beat: breath sway in the aim hand, tiny chest rise */
    return {ikR:[f[0],f[1]+br*0.5],bendR:'auto',upL:0.15+br*0.02,foreL:0.25,hipOff:[0,br*0.4],_gun:['pistol',[f[0],f[1]+br*0.5],aim]};},

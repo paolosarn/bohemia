@@ -9894,6 +9894,100 @@ archive escape built in from the start so [handoff cut] is unblocked rather than
 THE WARNING FOR EVERY LANE: do not write this file from a copy you read at the start of your round.
 Re-read it immediately before you edit, and check your own block is still there after any rebase.
 
+ANIMATION (animation-lr9y9i): 9/27 (b) LATEST -- *** THE CUT TO ONE CELL SURVIVES,
+AND IT FOUND THE WALK HAD THREE PICTURES INSTEAD OF FOUR, AT EVERY SIZE, THE
+WHOLE TIME. Fixed in the source. TAB: ANIMATION for the clips, VOTE for the item,
+playing. ***
+
+[small clips] CLAIMED, the FIRST LINE under rule 34, and round one is done.
+[bb marker] round one done. [redo killed] 12 of 47. [judge two] and [facing you]
+wait on his thumbs.
+
+=== WHY THIS ROW WENT FIRST
+Rule 34 (TWO SCALES ONE GAME, Paolo 9/27, LOCKED) makes the walked person ONE
+CELL, about 28 px, one cell per step, and kills THE STEP IS A HOUSE. That is the
+law this lane's walk, step and body-size work was built on, and the coordinator
+marked [small clips] FIRST LINE. It goes before the rows still claimed here.
+
+=== THE QUESTION THE WHOLE ROW HANGS ON
+Cut 112 down to 28: is there still an animation in there? Measured at 112, at 56
+(what ships to the street today) and at 28, with the game's OWN nearest cut:
+                         112      56      28
+  body rows, facing S     98      49      24
+  lit pixels           2,732     680     168
+  colours                 22      22      15
+  identical facings, of 28 pairs   0   0   0
+  lonely pixels at 28                      0
+THE CUT SURVIVES. Nothing had to be redrawn; the 112 art is the source, as he
+said.
+
+=== AND THE SAME SWEEP FOUND A DEFECT THAT WAS THERE AT EVERY SIZE
+6 identical pairs of 48 for the walk, THE SAME SIX at 112, 56 and 28, so it was
+never the cut:
+  NE 0=0.5 | E 0=0.5 | SE 0=0.5 | SW 0=0.5 | W 0=0.5 | NW 0=0.5
+and run had exactly the same six.
+THE CAUSE IS ONE LETTER: the lateral walk is driven entirely by
+s = sin(ph*2*Math.PI), and SIN IS ZERO AT ph 0 AND AT ph 0.5, so both keys
+resolve to the same legs-together pose, byte for byte.
+THE SIDE WALK HAD THREE PICTURES, NOT FOUR. At 112 you might not notice. At 24
+rows it reads as a limp.
+
+=== THE FIX IS ANATOMY, NOT A NUDGE
+The two crossings differ because one leg is PASSING FORWARD. What tells them
+apart is the direction of travel (cos: +1 at ph 0, -1 at ph 0.5), and the
+passing foot CLEARS THE GROUND.
+  const c = Math.cos(ph*2*Math.PI), pass = 0.55*F;
+  shinR: m*(F*Math.max(0,-s) + pass*Math.max(0,-c)),
+  shinL: m*(F*Math.max(0, s) + pass*Math.max(0, c)),
+6 of 48 -> 0, AT 28 AND AT 112, because the defect was never the cut and a fix
+that only held small would be a fix in the wrong place. Run the same, bigger
+clear.
+
+=== A HYPOTHESIS I MEASURED AND THREW AWAY
+The 28 px sheet read SPECKLED to me, so I wrote a second cut: area-average the
+block, snap to a colour the art already uses, require most of a block to be ink.
+THE RULER SAID ZERO LONELY PIXELS IN BOTH. There was no speckle; the light marks
+are his hands and the coat's highlights and they are connected. The second cut
+moved 105 pixels, added a colour and fixed nothing. Deleted.
+A HYPOTHESIS THAT MEASURES THE SAME IS NOT A FIX.
+
+=== WHAT THIS ROUND DID NOT DO, SAID PLAINLY
+The GRID is a rebuild (the law says so) and belongs to the world and the map, not
+here. CAST_PX, the one body-size constant, is untouched; moving it is the
+rebuild's call. The street still runs on the old grid. What this lane owns is
+that THE CLIPS ARE READY at the new size when it lands.
+
+=== COOKED THIS ROUND (rule 22, rule 25)
+animation-he-walks-at-one-cell-9-27, and it PLAYS: the walk at one cell on three
+side facings, three pictures beside four, on the real clock, with a panel at HIS
+ACTUAL SIZE so the page cannot flatter it.
+
+=== PROOF
+records/BOHEMIA_THE_WALK_HAD_THREE_PICTURES_9_27_26.md
+gates/the_walk_has_four_pictures_at_one_cell_gate.js -- 9 claims, 3 mutations
+caught (passing foot removed; the lift driven off abs(cos) so both crossings lift
+the same; an EMPTY cut), with a CONTROL that the cut draws a real body and not an
+empty box, because a cut that drew nothing would score zero duplicates and zero
+lonely pixels and pass everything by drawing nothing.
+AND A NOTE FOR EVERY LANE: `git checkout` CANNOT RESTORE A MUTATED GATE THAT IS
+STILL UNTRACKED. My restore step failed silently and the "restored" run printed
+4/5. Copy the file aside before mutating a new gate, or restore by hand.
+Regression after touching walk and run, all green: SLIDE AND TURN 17/0, NECK
+HOLDS HEAD 8/0, HEAD SNAPS 13/0, ELBOW BENDS 10/0, READS FACING YOU 17/0,
+ENVELOPE RAMP 10/0, ELDER STOOPS 9/0.
+
+=== NEXT, IN ORDER
+1. [small clips] round two: the idle, the turn and the fight clips checked the
+   same way at one cell, and the same two-crossings question asked of every OTHER
+   gait clip (sneak, tired-walk, wander, drunk, gun-walk all use the same sine).
+2. [bb marker] round two: speed that carries information, other parties on the
+   same clock.
+3. The remaining killed clips with the worst single facing.
+4. [judge two] and [facing you] wait on his thumbs.
+5. [bake approved] -- several of the 23 carry the head-on hole.
+
+[PENDING Paolo] Nothing.
+
 ANIMATION (animation-lr9y9i): 9/27 (a) LATEST -- *** [bb marker] ROUND ONE, THE
 SCHOOL PAGE, AND THE MAP IS DEAD: the walk pad moves him ZERO lots out there
 against twenty-two on the street. The fork is picked and built. TAB: CITY for the
