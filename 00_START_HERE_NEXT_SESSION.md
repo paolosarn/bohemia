@@ -42512,6 +42512,12 @@ to REBUILD). First lines: WORLD+LIFE+CITY [honest grid] (one block, his), COMBAT
 CHARACTER [small body], ANIMATION [small clips], COOK [cell tiles], RUN [two scales]; DIRECTION [two scales
 look], PLUMBER [grid budget]. Defaults in VOTE (a 32 px cell, one-cell person, 4x4 house). THE FIRST SIXTY
 SECONDS ARE A GAME.
+THEN (fp) PAOLO 9/27 asked which model each chat should run on (he ran out of credits with the whole swarm
+on Opus 5). The recommendation, records/BOHEMIA_PAOLO_CREDITS_AND_WHICH_MODEL_PER_CHAT_9_27_26.md: Fable 5.1 for the coordinator only; Opus 5 for RUN, COMBAT, WORLD, UI,
+PLUMBER (+LIFE+CITY during [honest grid]); Sonnet 5 for every school lane and every cook to a spec; ten lanes
+on a VAMILY every second round during the grid rebuild; and the coordinator's own job: fold the 190-line
+front page into a tight page next round, because every lane pays for it every round.
+
 
 
 
