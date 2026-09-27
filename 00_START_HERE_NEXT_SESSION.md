@@ -9031,6 +9031,83 @@ archive escape built in from the start so [handoff cut] is unblocked rather than
 THE WARNING FOR EVERY LANE: do not write this file from a copy you read at the start of your round.
 Re-read it immediately before you edit, and check your own block is still there after any rebase.
 
+ANIMATION (animation-lr9y9i): 9/27 (a) LATEST -- *** [bb marker] ROUND ONE, THE
+SCHOOL PAGE, AND THE MAP IS DEAD: the walk pad moves him ZERO lots out there
+against twenty-two on the street. The fork is picked and built. TAB: CITY for the
+map, VOTE for the item, playing. ***
+
+[bb marker] CLAIMED and round one is done. [redo killed] 12 of 47, [judge two]
+and [facing you] wait on his thumbs.
+
+=== WHY THIS ROW AND NOT THE CLIPS
+Rule 33(f) is a standing ask from Paolo, one page per round, every chat. This
+lane skipped it last round to finish the clips, so it went first this round. It
+is also the first OPEN line in the section.
+
+=== WHAT THE MAP DOES TODAY (measured first, rule 12)
+  street   one press moves him 22 lots, and the world moves on 32 of 60 drawn
+           frames in one beat, biggest single frame 76.6% of the screen
+  map      TWENTY-FOUR PRESSES IN ALL EIGHT DIRECTIONS MOVE HIM ZERO
+THERE IS NO PARTY MARKER AND THE WALK PAD IS DEAD ON THE MAP.
+
+=== TWO OF MY OWN INSTRUMENTS FAILED FIRST AND BOTH FAILURES WERE MINE
+1. The first read document.querySelector('canvas') with toDataURL and scored the
+   STREET at 0 frames moved, on a street with a breathing crowd. Identical ink on
+   street and map (3176 both) was the tell: I was photographing a canvas the game
+   does not draw to.
+2. The second read the right canvas but asked WITH NOTHING PRESSED, and 0 is the
+   CORRECT answer there: render() with no step in flight is deterministic, so
+   stubbing the clock draws the same frame sixty times.
+Rebuilt on this lane's own walk-gate instrument (REUSE-FIRST), and THE STREET IS
+A CONTROL INSIDE THE GATE now, so a zero on the map can never again be my own
+broken probe.
+
+=== THE FORK, AND IT IS THE SAME SHAPE THE INTERFACE CHAT FOUND
+BATTLE BROTHERS MOVES ITS MARKER IN CONTINUOUS REAL TIME AND LETS YOU PAUSE.
+The 120 BPM law says movement is a REQUEST EXECUTED ON THE 500 ms BEAT, "a world
+law, not a mode rule", and rule 24 says one game mode. Those cannot both be true.
+A school round that only copied would have shipped the thing his own rules ban.
+PICKED THE BEAT: his two rules agreeing, and the SLIDE feel he voted up on 9/21
+one zoom out (one beat is one lot, eased, landing on the beat). A is built beside
+it so he can say A with one letter.
+
+=== AND THE CLAIM THAT STOPS THE CHEAT
+A marker that merely crawled would pass "it stops at the beat" and be a WORSE
+GAME. Filmed off the page's own canvases, 80 samples 25 ms apart:
+                 holds still     biggest step     ground covered
+  A real time     8 of 79            6 px         3.65 px a sample
+  B on the beat  25 of 78           12 px         3.54 px a sample
+THEY COVER THE SAME GROUND. What differs is the shape. The mutation that turns B
+into a crawl is caught by exactly that claim.
+
+=== WHAT IS NOT MINE, SAID PLAINLY
+The marker ART is COOK's bank, embedded unchanged and BYTE-COMPARED to it rather
+than eyeballed. Where he can go and what a tap means is the map's business. The
+trail he leaves already exists and is not redrawn.
+
+=== COOKED THIS ROUND (rule 22, rule 25)
+animation-how-you-cross-the-map-9-27, and it PLAYS: both ways travelling on the
+real 120 BPM clock, two options and no more, asked once, no control in the page.
+
+=== PROOF
+records/BOHEMIA_BB_SCHOOL_HOW_THE_MARKER_TRAVELS_9_27_26.md
+gates/the_map_marker_travels_on_the_beat_gate.js -- 12 claims, 3 mutations caught
+(B made constant, B made a crawl, the marker redrawn), TWO CONTROLS: the street
+still moves, and the ruler can actually FIND a marker, because a ruler that sees
+none reports "held" on every sample and passes the main claim by being blind.
+
+=== NEXT, IN ORDER
+1. [bb marker] round two: speed that carries information (a road is fewer beats a
+   lot than dirt), and other parties travelling on the same clock. The map's own
+   movement system is NOT mine; this lane hands the motion over and says so.
+2. The remaining killed clips with the worst single facing, one at a time.
+3. [judge two] and [facing you] wait on his thumbs.
+4. [bake approved] -- and NOTE: several of the 23 carry the head-on hole, so
+   baking them verbatim ships the defect.
+5. [horror motion] is still OPEN under the bible.
+
+[PENDING Paolo] Nothing.
+
 ANIMATION (animation-lr9y9i): 9/24 (d) LATEST -- *** THE SAME QUESTION ASKED THE
 OTHER WAY ROUND, AND THE ANSWER WAS WORSE: THE NOD WAS INVISIBLE FROM THE SIDE.
 Three more of his forty-seven fixed and in the game. TAB: VOTE, playing, and

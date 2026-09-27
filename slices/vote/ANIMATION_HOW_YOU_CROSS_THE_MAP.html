@@ -1,0 +1,122 @@
+<!doctype html><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>BOHEMIA &mdash; How You Cross The Map</title>
+<!-- ANIMATION, [bb marker], 9/27. Rule 33(f) school round one for this lane.
+     RULE 25: it PLAYS. The marker art is COOK's, unchanged (REUSE-FIRST); what
+     is mine is HOW IT TRAVELS. No control in the page; the row asks once. -->
+<style>
+  :root{--ink:#e8e0cc;--bg:#0d0d12;--card:#16161d;--line:#33313d;--gold:#c79a3f}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+       font:13px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace;padding:14px}
+  h1{font-size:13px;letter-spacing:2px;margin:0 0 4px;color:var(--gold)}
+  p{margin:0 0 12px;color:#a49a86;max-width:60ch}
+  b{color:var(--ink)}
+  .said{border-left:2px solid #7a4a4a;padding:6px 0 6px 10px;margin:0 0 14px;color:#b09a90}
+  .clip{background:var(--card);border:1px solid var(--line);border-radius:6px;
+        padding:8px;margin-bottom:10px}
+  .name{font-size:11px;letter-spacing:2px;color:var(--gold);margin-bottom:2px;
+        display:flex;justify-content:space-between;align-items:baseline}
+  .sub{color:#6f6862;font-size:10px;letter-spacing:0}
+  .why{color:#8d8474;font-size:11px;margin:4px 0 6px}
+  canvas{width:100%;height:auto;image-rendering:pixelated;background:#161410;
+         border-radius:3px;display:block}
+  .beat{height:3px;background:#2a2833;border-radius:2px;margin:12px 0 2px;overflow:hidden}
+  .beat i{display:block;height:100%;width:25%;background:var(--gold)}
+  .pick{color:#7fa06b}
+  .note{margin-top:12px;color:#6f6862;max-width:60ch}
+</style>
+<h1>HOW YOU CROSS THE MAP</h1>
+<div class="said">Your call: the valley is crossed the Battle Brothers way, a
+marker you send somewhere while the clock runs.</div>
+<p><b>First, what the map does now.</b> I pressed the walk pad twenty-four times
+in all eight directions while zoomed out. He moved <b>zero</b>. On the street the
+same press moves him twenty-two lots and shifts the whole screen. <b>There is no
+marker and the pad is dead out there.</b></p>
+<p>So how should the marker travel? Battle Brothers slides it along smoothly in
+real time and you can pause. But your own rule says everything in this game moves
+on the beat, twice a second, street and city both, <b>one game mode</b>. Those two
+cannot both be true, so this is the fork.</p>
+<p><b>I picked B and built it</b>, because it is your own two rules agreeing: one
+beat is one lot, and it is the exact feel you already voted for on foot. Tell me
+A and I will switch it.</p>
+<div class="beat"><i id="beat"></i></div>
+<div id="strips"></div>
+<p class="note">The marker itself is not mine and is not redrawn: it is the one
+the art chat already made, banner and all. What I built is the travelling. The
+banner hangs dead when he stops, which is their rule, and it holds on both.</p>
+<script>
+var M = {"w": 9, "h": 20, "frames": 4, "body": [".....k...", ".....k...", ".....k...", ".....k...", ".....k...", ".....k...", ".....k...", "...kkk...", "..kdddk..", "..kdwdk..", "..kdddk..", "...kkk...", "..kkkkk..", ".kkkkkkk.", ".kkkkkkk.", "..kkkkk..", "..kk.kk..", "..kk.kk..", ".skk.kks.", "..s...s.."], "part": [[[1, 2, ["aaaa", "aaaa", ".aaa", "..aa"]]], [[1, 2, ["aaaa", ".aaa", "aaaa", "..aa"]]], [[1, 2, [".aaa", "aaaa", "aaaa", ".aaa"]]], [[1, 2, ["aaaa", "aaaa", ".aaa", "...a"]]]], "palette": {"k": "#1b1813", "d": "#2e2a22", "l": "#4a4438", "w": "#8f8672", "a": "#d8b657", "A": "#f3e2a6", "s": "#12100c"}, "grounds": {"void": "#161410", "fabric": "#6a6258", "desert": "#8a7a58", "mountain": "#3b352b", "town": "#5f584c"}};
+(function(){
+  var BEAT=500, LOOP=BEAT*4, LOT=24;         /* one lot of map per beat */
+  var Z=3, VW=120, VH=34;                    /* the strip, in map pixels */
+  var ROWS=[
+    ['A','THE BATTLE BROTHERS WAY','smooth, real time, no beat'],
+    ['B','ON THE BEAT (what I built)','one lot per beat, sliding, the walk feel you picked']
+  ];
+  var host=document.getElementById('strips'), panes=[];
+  ROWS.forEach(function(r){
+    var box=document.createElement('div'); box.className='clip';
+    var n=document.createElement('div'); n.className='name';
+    n.innerHTML='<span>'+r[0]+'. '+r[1]+(r[0]==='B'?' <span class="pick">&lt; PICKED</span>':'')+
+                '</span><span class="sub">'+r[2]+'</span>';
+    box.appendChild(n);
+    var c=document.createElement('canvas'); c.width=VW*Z; c.height=VH*Z;
+    box.appendChild(c); host.appendChild(box);
+    panes.push({el:c,g:c.getContext('2d'),kind:r[0]});
+  });
+  /* THE MAP HOLDS STILL AND THE MARKER CROSSES IT. The first cut had the ground
+     sliding under a marker parked in the middle, which is the STREET's camera,
+     not a map -- his ruling is a party marker you send somewhere. Posts mark the
+     lots so a hop that lands on one is visible. */
+  function ground(g){
+    g.fillStyle=M.grounds.desert; g.fillRect(0,0,VW*Z,VH*Z);
+    g.fillStyle=M.grounds.fabric;
+    g.fillRect(0,22*Z,VW*Z,7*Z);                                  /* the road */
+    g.fillStyle=M.grounds.mountain;
+    for(var x=0;x<=VW;x+=LOT){
+      g.fillRect(x*Z,20*Z,1*Z,2*Z);                               /* lot posts */
+      g.fillRect(x*Z,29*Z,1*Z,2*Z);
+    }
+  }
+  function marker(g,px,py,frame,moving){
+    var P=M.palette;
+    for(var y=0;y<M.h;y++){ var row=M.body[y];
+      for(var x=0;x<M.w;x++){ var ch=row[x]; if(ch==='.')continue;
+        g.fillStyle=P[ch]||'#000'; g.fillRect((px+x)*Z,(py+y)*Z,Z,Z); } }
+    /* the banner: COOK's four frames, and it HANGS DEAD when he is stopped */
+    var part=M.part[moving?frame:0];
+    for(var i=0;i<part.length;i++){
+      var ox=part[i][0], oy=part[i][1], rows=part[i][2];
+      for(var ry=0;ry<rows.length;ry++){ var rr=rows[ry];
+        for(var rx=0;rx<rr.length;rx++){ var c2=rr[rx]; if(c2==='.')continue;
+          g.fillStyle=P[c2]||'#000';
+          g.fillRect((px+ox+rx)*Z,(py+oy+ry)*Z,Z,Z); } } }
+  }
+  /* SLIDE, the same curve the walk uses: ease in, ease out, land on the beat */
+  function slide(k){ return k<0.5 ? 2*k*k : 1-Math.pow(-2*k+2,2)/2; }
+  var bar=document.getElementById('beat'), t0=performance.now();
+  (function tick(){
+    var now=performance.now(), el=now-t0;
+    var barPh=(el%LOOP)/LOOP;
+    var beatN=Math.floor(el/BEAT), k=(el%BEAT)/BEAT;
+    var frame=Math.floor((el/125))%M.frames;
+    /* A: constant speed, no beat at all */
+    var offA=(el/BEAT)*LOT;
+    /* B: one lot per beat, eased, landing exactly on each beat, then a HOLD of
+       the last sixth so the arrival reads */
+    var kk=Math.min(1,k/(5/6));
+    var offB=(beatN+slide(kk))*LOT;
+    panes.forEach(function(p){
+      var off=(p.kind==='A')?offA:offB;
+      ground(p.g);
+      /* he walks the strip and starts over; the lots are the same in both */
+      var span=VW-M.w-4, x=2+(off%(span+LOT));
+      if(x>2+span) x=2+span-(x-(2+span));      /* turn round at the end */
+      marker(p.g,Math.round(x),4,frame,true);
+    });
+    bar.style.transform='translateX('+(Math.floor(barPh*4)*100)+'%)';
+    requestAnimationFrame(tick);
+  })();
+})();
+</script>
