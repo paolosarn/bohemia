@@ -1919,47 +1919,47 @@
     "src": "vote/PORTRAIT_THE_BUST.html"
    }
   },
-   {
-    "id": "cook-the-map-has-markers-9-24",
-    "kind": "tile",
-    "lane": "cook",
-    "sha": "7cecf3d2",
-    "made": "9/24",
-    "title": "THE MAP HAS MARKERS",
-    "why": "You made the overworld Battle Brothers, and then you said their map is just a bunch of pictures and we put life in it. So here are the first five things that go on the valley map, and every one of them moves. First though, the measurement: the map you have right now has NO marker of any kind on it. It paints the ground and draws one search dot. You cannot see where you are or where anything is. These five are YOU with a banner, a shop, a shed, a pump and a fortress. They are drawn in the map's own colours, dark with one bright mark each, because that is the only thing you can find from across a valley. Each one has ONE part that moves and feet that never do: your banner stirs while you travel and hangs dead when you stop, the shop sign keeps trying to light and cannot hold it, a loose roof sheet on the shed lifts and drops, the pump beam is still nodding with nothing on the other end of it, and a watch light comes round the fortress towers so somebody is still up there. They move on the beat, half a second a frame, same clock as the fight. TAP THIS ONE, IT PLAYS. Thumbs down and tell me which one you cannot read.",
-    "show": {
-     "how": "page",
-     "src": "vote/COOK_THE_MAP_HAS_MARKERS.html"
-    }
+  {
+   "id": "cook-the-map-has-markers-9-24",
+   "kind": "tile",
+   "lane": "cook",
+   "sha": "7cecf3d2",
+   "made": "9/24",
+   "title": "THE MAP HAS MARKERS",
+   "why": "You made the overworld Battle Brothers, and then you said their map is just a bunch of pictures and we put life in it. So here are the first five things that go on the valley map, and every one of them moves. First though, the measurement: the map you have right now has NO marker of any kind on it. It paints the ground and draws one search dot. You cannot see where you are or where anything is. These five are YOU with a banner, a shop, a shed, a pump and a fortress. They are drawn in the map's own colours, dark with one bright mark each, because that is the only thing you can find from across a valley. Each one has ONE part that moves and feet that never do: your banner stirs while you travel and hangs dead when you stop, the shop sign keeps trying to light and cannot hold it, a loose roof sheet on the shed lifts and drops, the pump beam is still nodding with nothing on the other end of it, and a watch light comes round the fortress towers so somebody is still up there. They move on the beat, half a second a frame, same clock as the fight. TAP THIS ONE, IT PLAYS. Thumbs down and tell me which one you cannot read.",
+   "show": {
+    "how": "page",
+    "src": "vote/COOK_THE_MAP_HAS_MARKERS.html"
+   }
+  },
+  {
+   "id": "animation-the-other-half-9-24",
+   "kind": "animation",
+   "lane": "animation",
+   "sha": "70fbe630",
+   "made": "9/24",
+   "title": "THE OTHER HALF OF THE SAME PROBLEM",
+   "why": "Last round I found the clips that were dead FACING you. Then I asked it the other way round and found the opposite, which is worse. NODDING WAS INVISIBLE FROM THE SIDE, the one direction a nod should be easiest to see. His head was tilted forward all the time and then swung eight degrees on top of that, which on a 22 pixel head is about a pixel and a half. Tilt gone, swing three times bigger, neck and shoulders with it: every side view went up and none is dead. The other two are last round's bug twice more. A thrust goes forward and forward is straight into the screen, so a spear drive and a knife jab both did nothing facing you, 12% each. Now he sinks into the lunge and punches out low: 55% and 45%, every side view untouched to a tenth of a point. This one PLAYS.",
+   "show": {
+    "how": "page",
+    "src": "vote/ANIMATION_THE_OTHER_HALF.html"
    },
-   {
-    "id": "animation-the-other-half-9-24",
-    "kind": "animation",
-    "lane": "animation",
-    "sha": "70fbe630",
-    "made": "9/24",
-    "title": "THE OTHER HALF OF THE SAME PROBLEM",
-    "why": "Last round I found the clips that were dead FACING you. Then I asked it the other way round and found the opposite, which is worse. NODDING WAS INVISIBLE FROM THE SIDE, the one direction a nod should be easiest to see. His head was tilted forward all the time and then swung eight degrees on top of that, which on a 22 pixel head is about a pixel and a half. Tilt gone, swing three times bigger, neck and shoulders with it: every side view went up and none is dead. The other two are last round's bug twice more. A thrust goes forward and forward is straight into the screen, so a spear drive and a knife jab both did nothing facing you, 12% each. Now he sinks into the lunge and punches out low: 55% and 45%, every side view untouched to a tenth of a point. This one PLAYS.",
-    "show": {
-     "how": "page",
-     "src": "vote/ANIMATION_THE_OTHER_HALF.html"
-    },
-    "redoOf": "nod, spear-drive and shiv-jab",
-    "said": "A lot of the ones I thumbed down were because some of the DIRECTIONS look like dog shit."
-   },
-   {
-    "id": "ui-one-set-of-buttons-9-25",
-    "kind": "ui",
-    "lane": "ui",
-    "sha": "pending",
-    "made": "9/25",
-    "title": "ONE SET OF BUTTONS, EVERYWHERE",
-    "why": "You said look at how Battle Brothers does this and then do it. I did, and here is the honest part: Battle Brothers teleports you to a separate battle screen with different buttons, which is the exact thing you banned. So I took the bits that work and refused that one. TOP ROW IS THE REAL GAME, same run: gold is what sits in the same place whether you are walking or zoomed out, which is the bar, the notes button and the walk pad. Purple is the only thing on one screen and not the other, and that is your phone, in the city view where you put it. Nine things are shared. Nothing moves and nothing gets swapped. BOTTOM ROW IS THE QUESTION, painted onto a real frame so you can see it, not in the game yet: when a fight starts, what is it allowed to add? A is the ground under you lights up for how far your gun reaches, and the enemy's next move rides the ring of the walk pad your thumb is already on. Nothing new appears. B is the same plus one thin strip on the bar telling you whose turn it is. Pick A or B.",
-    "show": {
-     "how": "image",
-     "src": "vote/UI_ONE_SET_OF_BUTTONS_9_25.png"
-    }
-   },
+   "redoOf": "nod, spear-drive and shiv-jab",
+   "said": "A lot of the ones I thumbed down were because some of the DIRECTIONS look like dog shit."
+  },
+  {
+   "id": "ui-one-set-of-buttons-9-25",
+   "kind": "ui",
+   "lane": "ui",
+   "sha": "pending",
+   "made": "9/25",
+   "title": "ONE SET OF BUTTONS, EVERYWHERE",
+   "why": "You said look at how Battle Brothers does this and then do it. I did, and here is the honest part: Battle Brothers teleports you to a separate battle screen with different buttons, which is the exact thing you banned. So I took the bits that work and refused that one. TOP ROW IS THE REAL GAME, same run: gold is what sits in the same place whether you are walking or zoomed out, which is the bar, the notes button and the walk pad. Purple is the only thing on one screen and not the other, and that is your phone, in the city view where you put it. Nine things are shared. Nothing moves and nothing gets swapped. BOTTOM ROW IS THE QUESTION, painted onto a real frame so you can see it, not in the game yet: when a fight starts, what is it allowed to add? A is the ground under you lights up for how far your gun reaches, and the enemy's next move rides the ring of the walk pad your thumb is already on. Nothing new appears. B is the same plus one thin strip on the bar telling you whose turn it is. Pick A or B.",
+   "show": {
+    "how": "image",
+    "src": "vote/UI_ONE_SET_OF_BUTTONS_9_25.png"
+   }
+  },
   {
    "id": "combat-the-button-your-thumb-finds-9-24",
    "kind": "tile",
@@ -1984,6 +1984,19 @@
    "show": {
     "how": "image",
     "src": "vote/DYNASTY_THREE_ON_THE_PHONE_9_24.png"
+   }
+  },
+  {
+   "id": "portrait-pick-your-man-out-9-27",
+   "kind": "face",
+   "lane": "portrait",
+   "sha": "ff259c6",
+   "made": "9/27",
+   "title": "PICK YOUR MAN OUT",
+   "why": "Battle Brothers puts your whole company in a grid of little faces and you find your guy without thinking, so I asked whether you can find yours. While asking I found the game's own checker had been calling two of your people THE SAME PERSON for four rounds, and I kept repeating it. They are not: they differ in four things you can name, and one of them is wearing sunglasses. The checker was adding up brightness, which is not how anybody tells faces apart. Fixed, and measured properly: of all 1,770 pairs of sixty people, not one pair shares every single thing about them. Here are nine of yours at the real size, picked to match the crowd and not to flatter it, and they move, which a Battle Brothers roster cannot do. Can you tell them apart, and does the fact that 29% of the valley has its eyes behind shades bother you?",
+   "show": {
+    "how": "page",
+    "src": "vote/PORTRAIT_PICK_YOUR_MAN_OUT.html"
    }
   }
  ],

@@ -1,3 +1,71 @@
+PORTRAIT (portrait-vamily-yke55s): 9/27 LATEST -- *** [bb faces] SCHOOL R2: A RED THIS LANE
+HAD REPORTED FOUR TIMES WAS NEVER REAL, AND MY OWN EXPLANATION OF IT WAS WRONG TOO. ***
+TAB: VOTE in the alpha, item portrait-pick-your-man-out-9-27, and it PLAYS. Build 9/27b.
+Page: records/BOHEMIA_BB_FACES_SCHOOL_PICK_YOUR_MAN_OUT_9_27_26.md
+Cook: tools/bohemia_cook_pick_your_man_out.js
+
+THE QUESTION (rule 33, his word this round was "Battle brothers"): BB's company screen is a
+grid of small portraits you pick your man out of without thinking. Can you pick yours out
+of ours?
+
+*** THE CORRECTION, AND IT IS MINE. *** This lane's gate has had NO TWO ARE THE SAME PERSON
+red since 9/20 at 0.0117 against a 0.0143 floor. I reported it FOUR ROUNDS RUNNING as "a
+metric that averages luminance over 4,096 pixels and cannot see a dark face".
+    correlation of that score with skin tone, all 1,770 pairs:  0.083
+NO CORRELATION. What is true is narrower: its ten closest pairs are all far below the
+median tone (30 to 41 against 100.6), so the compression is in the TAIL, not the mean. I
+had a story that fit the symptom and repeated it four times without ever checking it.
+
+THEN I LOOKED AT THE TWO FACES IT CALLED ONE PERSON, at 132 px, the size he sees a portrait
+on his phone. They differ in FOUR of the nine things you can name across a room -- the
+haircut, the eye colour, the shirt, AND ONE OF THEM IS WEARING WRAPAROUND SHADES.
+THE CLAIM WAS NEVER FALSE. THE RULER WAS MEASURING SOMETHING ELSE.
+
+THE RULER NOW MEASURES THE CLAIM: same person only if they share EVERY nameable trait.
+    pairs sharing all nine of nine          0 of 1,770
+    fewest any pair differs in              2, and only 25 pairs are that close
+    spread   2:25  3:201  4:619  5:656  6:246  7:23
+talking_portrait is 34/0, GREEN FOR THE FIRST TIME SINCE 9/20, and it went green by FIXING
+THE RULER, never by lowering a floor. The old pixel ruler is KEPT as a smoke alarm with its
+floor re-grounded 0.0143 -> 0.0100 so it fires on a real collapse, and a new leg RECORDS
+that it called that pair one person, with its old floor written beside it.
+MUTATION-PROVED: alias one citizen to another so two people really are one face -> 31/3
+with all three right legs speaking, the smoke alarm at 0.0000, which is the whole reason to
+keep it. Restored: 34/0.
+
+*** AND THE GRID TAUGHT ME SOMETHING NO NUMBER ASKED FOR. *** Nine faces laid out as a
+roster and my eye said seven were in shades. COUNTED: five. The crowd is 58 of 200, 29%. My
+own first card over-represented shades by nearly double, on a card whose entire question is
+"can you tell these apart". RE-CAST TO THE CROWD'S OWN RATE, 3 of 9.
+THE FINDING UNDER IT IS HIS TO RULE ON, NOT MINE: the eyes are the most identifying thing on
+a face this size, there are six eye colours in the crowd, and 29% of the valley never shows
+them. PEOPLE measured the same thing from their side on 9/24.
+
+RULE 33(g), WHAT MOVES: a BB roster is a wall of paintings. Ours holds, blinks 10-11 times a
+minute, one in eleven does not meet your eye, and the mouth follows the letters of the line.
+The card's whole grid plays.
+
+*** THE CUT LINE HIT ONE OF MY ROWS AND I AM SAYING SO (rule 33h). *** [faces first] has
+been CLAIMED and blocked for rounds because "the cold open is unreachable in the demo", and
+the 9/24 cut list CUTS RUN+PEOPLE's cold open and its banner. The blocker is moot: the thing
+it waited on no longer exists. The row's real content, the first face a stranger meets, now
+belongs to whatever replaces the open (the first person at the door, rule 19d). NOT
+RE-POINTING IT MYSELF -- that is the coordinator's line to write.
+
+STILL OPEN IN THIS LANE:
+  1. [bb faces] CLAIMED, school continues one page per round (rule 33f).
+  2. [customizations first] CLAIMED. Every NUMERIC dial is a slider (32); the COLOUR and
+     STRING fields are not swept the same way yet. Unmeasured, so not claimed.
+  3. [horror face] CLAIMED -- R4 THE LIGHT is the unbuilt half, 1.52 against the 9.84 the
+     world's own ruler wants. Lighting took one DOWN from him already, so rule 30 applies:
+     a re-cook goes through DIRECTION's bible first and returns as a NEW id quoting him.
+  4. [three faces] OPEN (rule 31, with CHARACTER). [blank faces] OPEN -- fed twice now: the
+     faces are not flat and not alike, they were badly framed and badly measured.
+     [three d look], [speak along] OPEN.
+  5. THREE ITEMS OF MINE ARE WAITING ON HIS THUMB: the face at rest, every dial a slider,
+     the bust. The bust is OFF until he votes because it reframes every face.
+[PENDING Paolo] nothing.
+
 UI (ui-kmqmrf): 9/25 LATEST -- *** [bb interface] ROUND ONE: THE SCHOOL PAGE, AND RULE 24
 IS ALREADY TRUE BETWEEN THE TWO SURFACES HE HAS. *** Row CLAIMED (school is one page per
 round, rule 33f). TAB: CITY and the walking screen; the picture is in the VOTE tab. Record:

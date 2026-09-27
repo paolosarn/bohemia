@@ -61,7 +61,17 @@ const done = () => { console.log('\n=== TALKING PORTRAIT GATE: ' + pass + ' pass
    own hand on 8/27, widened its skull ranges for exactly this reason, and the number it
    won back was partly this same lie. The faces are genuinely too alike. Widening them is
    PORTRAIT's row [blank faces], school first, and these floors may only go UP from here. */
-const PINNED_CLOSEST = 0.0143;  /* closest of 60 faces, honest measurement 0.01634 */
+/* *** DEMOTED 9/27 AND RE-GROUNDED, WITH THE NUMBER IT WAS. *** This is a mean absolute
+   luminance difference per pixel, and it was the gate's headline claim -- "no two are the
+   same person" -- for a month. IT DOES NOT MEASURE THAT CLAIM. Its closest pair differs in
+   FOUR of the nine things you can name from across a room, one of them wearing wraparound
+   shades, and looked at side by side at 132 px they are obviously two people.
+   It stays as a SMOKE ALARM, because a real collapse (one face drawn for everybody) would
+   still crater it, and the floor is re-grounded to just under the honest measurement so it
+   fires on a collapse instead of on a false alarm. THE OLD FLOOR WAS 0.0143, set on 9/11
+   from a then-honest 0.01634; the crowd reads 0.0117 today and every pair near that number
+   is a different person. The claim itself is now checked by the glanceable-trait leg. */
+const PINNED_CLOSEST = 0.0100;  /* smoke alarm only. was 0.0143; measured today 0.0117 */
 const PINNED_MEAN    = 0.0733;  /* mean distance,       honest measurement 0.07632 */
 const DYE_CAP        = 8.0;     /* % of a crowd with dyed hair, measured ~5 */
 const N              = 60;
@@ -96,6 +106,48 @@ const N              = 60;
       const dd = dist(faces[i].buf, faces[j].buf); sum += dd; cnt++;
       if (dd < worst) { worst = dd; worstPair = faces[i].id + ' / ' + faces[j].id; } }
     out.closest = worst; out.closestPair = worstPair; out.mean = sum / cnt;
+
+    /* *** 1a-bis. AND THE RULER ABOVE DOES NOT MEASURE THE CLAIM. *** ([bb faces] school
+       round two, 9/27. Paolo made the overworld Battle Brothers; BB's company screen is a
+       GRID of small portraits and you pick your man out of it instantly -- by his HAIR,
+       his HELMET, his BEARD, not by the average brightness of his cheek.)
+       The leg above went RED for four rounds at 0.0117 against a 0.0143 floor and I
+       reported it four times as "a metric that cannot see a dark face". THAT WORDING WAS
+       WRONG AND THE MEASUREMENT SAYS SO: the correlation between that score and skin tone
+       across all 1,770 pairs is 0.083, which is no correlation at all. What IS true is
+       narrower and stranger: all ten of its closest pairs are far below the median tone,
+       so the compression is in the tail, not the mean.
+       AND THEN I LOOKED AT THE PAIR IT CALLED THE SAME PERSON, at 132 px, the size Paolo
+       sees a portrait on his phone. Different hair, different shirt, different eyes, and
+       ONE OF THEM IS WEARING WRAPAROUND SHADES. They are obviously two people. The claim
+       was never false; the ruler was measuring something else.
+       SO THE CLAIM GETS A RULER THAT MEASURES IT: the things you can name from across a
+       room. Two faces are the same person only if they share EVERY one. */
+    const GLANCE = f => ({
+      hairCut: (f.sp.hair.name || '(none)'), hairCol: f.sp.hair.color.join(','),
+      skin: f.sp.skin, iris: f.sp.eyes.iris.join(','),
+      shades: f.sp.glasses ? 1 : 0, hat: f.sp.hat ? 1 : 0,
+      beard: (f.sp.details && f.sp.details.stubble) ? 1 : 0,
+      shirt: f.sp.top.join(','), braid: f.sp.hair.braid ? 1 : 0 });
+    const GK = Object.keys(GLANCE(faces[0]));
+    const GT = faces.map(GLANCE);
+    let twins = [], fewest = 99, fewestPair = null, hist = {};
+    for (let i = 0; i < cfg.N; i++) for (let j = i + 1; j < cfg.N; j++) {
+      let n = 0; for (const k of GK) if (GT[i][k] !== GT[j][k]) n++;
+      hist[n] = (hist[n] || 0) + 1;
+      if (n === 0) twins.push(faces[i].id + ' / ' + faces[j].id);
+      if (n < fewest) { fewest = n; fewestPair = faces[i].id + ' / ' + faces[j].id; }
+    }
+    out.glanceKeys = GK.length;
+    out.pairCount = cfg.N * (cfg.N - 1) / 2;
+    out.twins = twins;
+    out.fewestTraits = fewest; out.fewestTraitsPair = fewestPair;
+    out.traitHist = hist;
+    /* and what the OLD ruler's closest pair actually differs in, kept as the record */
+    (function(){ let n = 0; const a = worstPair ? worstPair.split(' / ') : [];
+      const i = faces.findIndex(f => f.id === a[0]), j = faces.findIndex(f => f.id === a[1]);
+      if (i >= 0 && j >= 0) for (const k of GK) if (GT[i][k] !== GT[j][k]) n++;
+      out.oldClosestDiffers = n; })();
 
     /* 1b. THE SAME PERSON IS THE SAME PERSON. Nothing is stored, so this is the
        only thing making a face you met yesterday the face you remember. */
@@ -388,7 +440,27 @@ const N              = 60;
   await b.close();
 
   /* ---- 1 ----------------------------------------------------------------- */
-  ok('*** EVERYBODY IN BOHEMIA HAS A FACE, AND NO TWO ARE THE SAME PERSON *** (closest of ' +
+  ok('*** EVERYBODY IN BOHEMIA HAS A FACE, AND NO TWO ARE THE SAME PERSON ***',
+     R.twins.length === 0,
+     '(0 of ' + R.pairCount + ' pairs share all ' + R.glanceKeys +
+     ' things you can name from across a room; the closest any two get is ' +
+     R.fewestTraits + ' apart, ' + R.fewestTraitsPair + ')');
+
+  /* THE NEGATIVE CONTROL. Zero twins is also what you get from a ruler that cannot find
+     a twin, so the crowd must not be uniformly different either: if nobody were ever
+     close, this would be nine dice and not a population. */
+  ok('and it is not passing because every face is a clown',
+     (R.traitHist && (R.traitHist['2'] || R.traitHist['3'])) > 0,
+     '(pairs by how many of the ' + R.glanceKeys + ' differ: ' + JSON.stringify(R.traitHist) + ')');
+
+  /* THE OLD RULER IS KEPT AND DEMOTED, WITH THE NUMBER IT WAS. */
+  ok('the old pixel-average ruler is recorded, not obeyed',
+     R.oldClosestDiffers >= 2,
+     '(it called ' + R.closestPair + ' the same person at ' + R.closest.toFixed(4) +
+     ', and they differ in ' + R.oldClosestDiffers + ' of ' + R.glanceKeys +
+     ' nameable things, one of them wearing shades. Its floor was 0.0143)');
+
+  ok('the crowd is spread on the old ruler too (kept as a smoke alarm) (closest of ' +
      N + ': ' + R.closest.toFixed(4) + ' >= ' + PINNED_CLOSEST + ', ' + R.closestPair + ')',
      R.closest >= PINNED_CLOSEST);
   ok('and the whole crowd is spread, not two faces with jitter (mean ' + R.mean.toFixed(4) +

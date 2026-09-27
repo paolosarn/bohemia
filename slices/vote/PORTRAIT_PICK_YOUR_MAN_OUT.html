@@ -1,0 +1,82 @@
+<!doctype html><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>BOHEMIA — Pick Your Man Out</title>
+<!-- PORTRAIT, [bb faces] r2. Real renderer pixels on the real 120 BPM clock. No vote of
+     its own (rule 25). Faces at 132 px, the measured size on a 390-wide phone (32f). -->
+<style>
+  :root{--ink:#e8e0cc;--bg:#0d0d12;--card:#16161d;--line:#33313d;--gold:#c79a3f;--red:#c56b6b}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+       font:13px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace;padding:14px}
+  h1{font-size:13px;letter-spacing:2px;margin:0 0 4px;color:var(--gold)}
+  p{margin:0 0 12px;color:#a49a86;max-width:60ch}
+  .said{border-left:2px solid #7a4a4a;padding:6px 0 6px 10px;margin:0 0 14px;color:#b09a90}
+  b{color:#c8bfa8;font-weight:normal}
+  .box{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:9px;margin-bottom:12px}
+  .nm{font-size:10px;letter-spacing:1px;color:var(--red);margin-bottom:7px}
+  .two{display:flex;gap:10px}
+  .two > div{flex:1 1 0;min-width:0}
+  canvas{width:100%;max-width:132px;aspect-ratio:1/1;height:auto;image-rendering:pixelated;
+         background:#101319;border-radius:3px;display:block;margin:0 auto}
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
+  ul{margin:8px 0 0;padding-left:18px;color:#a49a86}
+  li{margin:1px 0}
+  .note{margin-top:2px;color:#6f6862;max-width:62ch}
+</style>
+<h1>PICK YOUR MAN OUT</h1>
+<div class="said">You made the overworld Battle Brothers. Their company screen is a grid of
+little faces and you find your guy in it without thinking. So I asked whether you can find
+yours.</div>
+<p>First, a problem I found while asking. <b>The game's own checker said these two are the
+same person.</b> It has been saying so for four rounds and I kept repeating it.</p>
+<div class="box">
+  <div class="nm">THE GAME CALLED THESE ONE PERSON</div>
+  <div class="two"><div><canvas data-k="pa" width="64" height="64"></canvas></div>
+  <div><canvas data-k="pb" width="64" height="64"></canvas></div></div>
+  <ul><li>the haircut</li><li>eye colour</li><li>shades</li><li>what they are wearing</li></ul>
+</div>
+<p>That is <b>4 different things</b>, and one of them is wearing sunglasses.
+They were never the same person. The checker was adding up brightness, which is not how
+anybody tells two faces apart.</p>
+<p>So here is the real question, with the checker fixed. Nine of your people, at the size
+they actually appear on your phone. <b>Can you tell them apart?</b></p>
+<div class="box"><div class="grid">
+  <canvas data-k="g0" width="64" height="64"></canvas>
+  <canvas data-k="g1" width="64" height="64"></canvas>
+  <canvas data-k="g2" width="64" height="64"></canvas>
+  <canvas data-k="g3" width="64" height="64"></canvas>
+  <canvas data-k="g4" width="64" height="64"></canvas>
+  <canvas data-k="g5" width="64" height="64"></canvas>
+  <canvas data-k="g6" width="64" height="64"></canvas>
+  <canvas data-k="g7" width="64" height="64"></canvas>
+  <canvas data-k="g8" width="64" height="64"></canvas>
+</div></div>
+<p class="note">Measured across all 1,770 pairs of sixty people: <b>not one pair</b> shares
+every single thing you could name about them. The closest any two get is two things apart,
+and only 25 pairs are even that close.</p>
+<p class="note">These nine are picked to match the real crowd, not to flatter it:
+<b>3 of the 9 are in shades, because 29% of everybody is</b>. That is
+worth your eye on its own. The eyes are the most identifying thing on a face this small,
+and nearly a third of the valley has them covered.</p>
+<p class="note">And what a Battle Brothers roster cannot do: theirs are paintings. Watch
+these for a few seconds.</p>
+<script>
+(function(){
+  var P={"a":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,2,3,2,2,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"b":[4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,5,5,5,5,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4],"differs":["the haircut","eye colour","shades","what they are wearing"]}, G=[[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,2,3,2,2,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,7,8,9,10,10,9,8,8,7,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6],[11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,12,13,14,15,14,13,12,12,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11],[16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,17,18,19,20,21,19,18,17,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16],[22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,23,24,25,25,24,24,26,23,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22],[27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27],[28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,29,30,31,32,32,30,29,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28],[33,33,33,33,33,33,33,33,33,34,34,34,34,34,34,34,34,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33],[35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35]],
+      STEP=33.333333333333336, N=64;
+  var img=new Image(); img.src='PORTRAIT_PICK_YOUR_MAN_OUT.png';
+  var cs={};
+  document.querySelectorAll('canvas[data-k]').forEach(function(c){
+    var x=c.getContext('2d'); x.imageSmoothingEnabled=false; cs[c.dataset.k]=x; });
+  function put(k,f){var x=cs[k]; if(!x)return; x.clearRect(0,0,N,N); x.drawImage(img,f*N,0,N,N,0,0,N,N);}
+  img.onload=function(){
+    var t0=performance.now();
+    (function loop(now){
+      var k=Math.floor((now-t0)/STEP);
+      put('pa',P.a[k%P.a.length]); put('pb',P.b[k%P.b.length]);
+      G.forEach(function(s,i){ put('g'+i, s[k%s.length]); });
+      requestAnimationFrame(loop);
+    })(t0);
+  };
+})();
+</script>
