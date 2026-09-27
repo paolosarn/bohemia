@@ -4764,7 +4764,8 @@ GATES = [
      'same family; the flip moves; a tap on the act he is already in is NOT an event; the ground SAYS it '
      'does not differ yet rather than pretending; the tile is thumb sized; NOTHING IN THE SHELL COVERS IT; '
      'and the finger flips it. MUTATION PROVED: put the strip back at the top, under the shell, and it '
-     'goes 19/4 naming the covering DIV and reporting act 1.'),
+     'goes 19/4 naming the covering DIV and reporting act 1.',
+     True),
     ('STRIKE ASK', ['node', 'gates/strike_ask_gate.js'],
      'QUESTS row [strike ask], 9/22, harvested from ECONOMY Q35. Rule 12: the named blocker was MEASURED '
      'rather than waited on -- WORLD shipped engine/bohemia_strike.js on 9/21 (THE BLOCK HOLDS THE DOOR), '
