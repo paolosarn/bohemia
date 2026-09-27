@@ -40250,7 +40250,57 @@ a memory reset. HE WILL NEVER TYPE ANYTHING BUT THE ONE WORD AGAIN. ***
     I will never paste anything to you again. From here on, the one word is the whole
     instruction.
 
-*** [bb fight] ROUND 1 -- THE ONE TERRAIN RULE HE KEPT HAS NEVER ONCE FIRED. ***
+*** [fight on the grid] ROUND 1 -- THE HOUSE TILE IS DEAD AND HERE IS THE FIGHT IN CELLS. ***
+Rule 34 (Paolo 9/27) landed between rounds and it supersedes the board this lane spent five
+rounds on. Record: records/BOHEMIA_COMBAT_FIGHT_ON_THE_GRID_ROUND_1_9_27_26.md
+
+THE BOARD NOW, walked into off the street on the phone: canvas 390x641 CSS (1:1 since V224),
+a house tile draws at 196 px, so THE BOARD IS 1.99 HOUSES ACROSS. A body is 112 px. A tile is
+12 m, sight 6 tiles.
+THE SAME BOARD IN CELLS at the law's 32 px: 12.2 ACROSS, 20.0 DOWN. A house at 4x4 cells is 3
+across and 5 down. A person is ONE CELL, 32 px against 112.
+AND A CELL IS 3 METRES, DERIVED NOT PICKED: the fight's house is 12 m and the law puts 4 cells
+in a house. Nothing in the world changes size, only what a step is. It also lines up with the
+walked street's own 0.75 m fine cell: one fight cell is four of them.
+
+REACH RE-DERIVED (the row's ask, and it is in VOTE): keep the metres, change the unit. Pistol
+4 cells = 12 m, rifle 8 = 24, scope 12 = 36, all unchanged from his 9/22 numbers. DRAWING THEM
+ON THE REAL BOARD IS THE FINDING: ONLY THE PISTOL FITS ON THE PHONE. A rifle's 8 fills the
+board edge to edge and a scope's 12 runs off it. That is not an error, it is what a rifle is,
+and the fight already owns the answer -- V225's auto frame pulls back to hold every living
+enemy, so a rifle fight opens the shot by itself and a knife fight stays tight. NOTHING NEW HAS
+TO BE BUILT FOR IT. The alternative, shrinking reach so the longest fits at rest, would quietly
+halve distances he has already approved.
+
+THE SCHOOL, how RF4 runs a fight on its grid at speed, against what we have: ONE INPUT IS ONE
+TURN (already ours, EVERYTHING COSTS ONE plus the beat); THE WHOLE BOARD ON SCREEN (the grid
+buys this: 12x20 is a real roguelike room, 2 houses is not); LINE OF SIGHT IS THE TACTIC (THE
+HONEST GAP -- the walked world's WALLS never reach the fight board, and rule 34(b) closes it
+because every cell is FLOOR/WALL/DOOR/COVER/PROP); MONSTERS STEP VISIBLY AFTER YOU (ours, and
+easier at one cell a step); RETREAT IS A REAL MOVE (re-derive the way out in cells). And the
+one thing to steal from BB is ZONE OF CONTROL (cited: reference/library/battle_brothers/
+02_COMBAT_RULES.md), which gets cheaper here because "next to you" is a fact a cell grid knows.
+
+WHAT DIES AND WHAT SURVIVES of this lane's last five rounds, said plainly. DIES: the house board
+as the fight's scale, the lot of sixteen street cells, the body at 112 as the WALKED sprite, and
+reach expressed in houses. SURVIVES: the canvas 1:1 with the glass (V224); the camera moves the
+ground and not the person (V225 -- rule 34 RE-READS rule 21, it does not repeal it: one size at
+every zoom, and the size is now one cell); the floor being the street's own cooked art (V223);
+the mover being the walk's one cut ring (V226). The 112 art is not thrown away, it becomes the
+source the small sprite is cut from, and the portraits and vote pages stay at that size.
+
+RULE 22: VOTE item combat-one-house-is-not-one-tile-9-27, the same fight photographed twice,
+left as it is now and right with the cell grid and the three reach squares drawn on it.
+
+AND A SPLICE THAT COULD NOT FIND ITS ANCHOR STOPPED INSTEAD OF GUESSING, which is the fix for
+what I broke last round: another lane re-serialised the vote registry this round and the
+indentation moved, my assert fired, and I found the real close instead of joining blind.
+
+*** [bb fight] SHIPPED -- THE ONE TERRAIN RULE HE KEPT HAS NEVER ONCE FIRED. ***
+Closed this round with rule 33j: 02_COMBAT_RULES.md read and cited, and its TERRAIN and ZONE OF
+CONTROL lines now carry a MEASURED note from this lane instead of recall. The wiki could not be
+fetched (403 on both hosts from this machine), so nothing tagged (recall) was "corrected" out of
+my own memory.
 His word this round was "Battle brothers vamily", so the rule 33 line came first. Record:
 records/BOHEMIA_COMBAT_BB_FIGHT_SCHOOL_AND_THE_MOUND_9_27_26.md
 

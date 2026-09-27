@@ -2235,7 +2235,20 @@
         "how": "text",
         "src": "NO GENERATIONS. ONE COMPANY, ONE MAP, THREE CRISIS CHECKPOINTS.\n\nBattle Brothers has no fold, no time skip, no heir screen. Men die constantly and nobody notices, because the company is a name and a ledger, not a body. What changes the world is a CRISIS: same roads, same rivers, same towns, but who holds them and what they need is rewritten.\n\nOur three acts already work this way and did not know it. One seed. One layout, 4,459 bytes, never rewritten. Measured on the real map this round: 6,899 ground pixels compared across all three acts, zero moved. Only what is lit and who owns it differs.\n\nSo stop saying generation. Say crisis checkpoint. Act 1 is before the crisis is answered. Acts 2 and 3 are the same crisis, further along, because the company (you, standing in three bodies) did more about it."
       }
+    },
+   {
+    "id": "combat-one-house-is-not-one-tile-9-27",
+    "kind": "tile",
+    "lane": "combat",
+    "sha": "PENDING",
+    "made": "9/27",
+    "title": "ONE HOUSE IS NOT ONE TILE",
+    "why": "You said it: one house does not equal one tile, it is all fucked up. So here is the fight board you have right now, on the left, photographed in a real fight I walked into off the street. A tile is a whole house, 12 metres, and your phone holds TWO of them. That is why a fight feels like standing in a car park. On the right is the same picture with the new grid drawn on it. A cell is 32 pixels, so the phone holds 12 across and 20 down. A house is 4 by 4 cells, which makes a cell 3 metres and keeps a house at 12 metres, so nothing about the world changes size, only what a step is. Your man goes from 112 pixels to ONE CELL. Now the part worth looking at. The three squares are your reach, and I did not change a single distance you already picked: pistol 4 cells is still 12 metres, rifle 8 is still 24, scope 12 is still 36. Look what happens. Only the pistol fits on the phone. The rifle fills the whole board and the scope runs off the edge. That is not a bug, that is what a rifle actually is, and the fight camera already pulls back to hold everybody, so a rifle fight opens the shot by itself. Thumbs up and I build the fight on these cells. Thumbs down and tell me if your man is too small at one cell, or if a cell should be bigger than 32.",
+    "show": {
+     "how": "image",
+     "src": "vote/COMBAT_ONE_HOUSE_IS_NOT_ONE_TILE_9_27.png"
     }
+   }
   ],
   "verdicts": [
     {
