@@ -2358,7 +2358,7 @@
       "id": "sounds-the-valley-still-broadcasts-9-27",
       "kind": "sound",
       "lane": "sounds",
-      "sha": "PENDING",
+      "sha": "5bec0cfc",
       "made": "9/27",
       "title": "THE VALLEY STILL BROADCASTS",
       "why": "Your own bible says the machines keep talking and never acknowledge you. Nothing in the game does that yet, and this is the one place a transmitter's band, hiss, wobble and drop-outs belong by right. I built it two rounds ago and then killed three sounds for sounding like sand in the same round, so I pulled this one out of your queue myself: its carrier was the same band-limited noise you had just rejected, and putting it in front of you anyway would have been the fourth sand sound in a row. Now it is rebuilt from real material. A transmitter's hiss is really two things: the power supply's own ripple (the same 60 Hz hum this valley's grid already has everywhere) and atmospheric static, which is not a smooth hiss at all, it is distant lightning arriving as separate clicks. Ten years of nobody buys more of both: a corroded antenna lets in more clicks, and a dried-out filter capacitor lets more ripple through. Zero noise generators in it. A plays it the way a maintained station sounds, B is the same signal off a machine nobody has touched in ten years, C is B on a loop, which is how you would actually meet it.",
