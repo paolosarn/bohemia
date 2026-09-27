@@ -2564,7 +2564,10 @@ SOUNDS (sound-xk7pjp): 9/27 LATEST -- *** A TAPE DECK IS NOT MADE OF HISS. THE T
 ARE BACK AS NEW IDS, BUILT OUT OF A CASSETTE TRANSPORT'S OWN GEOMETRY, AND FOUR RULERS LIED ON THE
 WAY. *** Row [not sand], round three, ROW STAYS CLAIMED.
 Record: records/BOHEMIA_A_TAPE_DECK_IS_NOT_MADE_OF_HISS_9_27_26.md
-Gates: COOKED SOUNDS 125/0, --mutate bites 38 (was 27). Build stamp 9/27c.
+Gates: COOKED SOUNDS 125/0, --mutate bites 38 (was 27). Build stamp 9/27d. Shipped 8730aa3a.
+AND THE VOTE TAB GATE FLAKES ON A BUSY BOX: 27 of 30 twice when run in a batch with other browser
+gates, 30 of 30 five times run alone. Same shape as the 112 gate reading k=300 under load. It is
+the harness, not the tab, and it is named rather than quoted as a red.
 Tab: VOTE, the new page is THE DECK, AND A FLIP IS A TAPE CHANGING (two items on it).
 
 *** READ THIS BEFORE YOU TOUCH THE FLIP: A DATE LABEL ON THIS LANE'S OWN BOARD ALMOST ENDED A
