@@ -8,7 +8,7 @@ STATUS: draft:true, research only, nothing built (rule 35)
 TWIST: T11 THE REWARD IS GONE (bank: questbook/research/QR_C_THE_TWIST_BANK_9_27_26.md). Costs BATTERIES. Lands AT HAND-IN.
 
 ## THE SITUATION
-A motel keeper needs a sealed crate of water filters carried to his sister's household two days east, past a stretch the Destroyers have been burning. Fee: 6 batteries, agreed at the offer. The job is exactly what it says. The twist is at the end: when the party comes back to collect, the keeper's battery bank has been stolen in the night. He has nothing to pay with.
+A motel keeper needs a crate of water filters carried to his sister, two days east, past a stretch the Destroyers burn. Fee: 6 batteries, agreed at the offer. The job is what it says. The twist: when the party comes back, his battery bank was stolen in the night. He cannot pay.
 
 ## THE PERSON AND THE FIRST LINE
 Omar, the keeper, sixties, a floor-length black coat over a hotel bathrobe, cleaning a lamp that is already clean. He does not call out. He speaks when the player steps into the office.

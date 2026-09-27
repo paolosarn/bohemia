@@ -335,8 +335,9 @@ choice meant (it surfaces later as a thing, `Q128.X2`); a second person approach
    one ledger row; nothing on screen acknowledges it. (`Q050.W4`, `Q143.W8`)
 8. THE TELL COMES LATER. Every silent-choice ledger row has at least one later WORLD tell (an object, a
    state, a person's line after 60 s), authored with it. (`Q128.X2`, `Q096.X5`)
-9. NO NUMBERS, NO NAMES. Before t = 60 s: no faction name, no currency counter change, no number above
-   one on screen. (`Q081.X4`, `Q046.X2`, `Q065.X2`)
+9. NO NUMBERS, NO NAMES. Before t = 60 s: no faction name, no currency counter on screen, no number above
+   one on screen. A battery taken in the first minute is a THING in his hand; the count appears after
+   60 s. (`Q081.X4`, `Q046.X2`, `Q065.X2`)
 10. THE MAP IS ALWAYS ONE SQUEEZE AWAY, AND QUIET. The squeeze works from the first second; no map event
     fires before t = 60 s and before the first arrival. (34f, 33c)
 11. OVERHEARD MEANS NOT TO HIM. An overheard line is spoken between two NPCs, contains no second-person
