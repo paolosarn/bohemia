@@ -44016,6 +44016,15 @@ main quest, contracts you take or leave, once taken you finish, DECLINING IS FRE
 for blind spots: eight, each routed (records/BOHEMIA_THE_BLIND_SPOTS_9_27_26.md): no story yet, no hover on a phone, two clocks, the asset cliff,
 nothing to hand a friend for weeks, five references on one screen, saving three acts, declining vs a world that
 remembers. New rows: QUESTS [contracts at your pace], ECONOMY Q53 [two clocks].
+THEN (fs) PAOLO 9/27: "450 hours to master Battle Brothers' combat... this shit gotta get deep... quicker, less
+of a chess puzzle... 20% chance to die, else a debilitating injury 30 to 40 days... a chat for fine-tuning the
+numbers... a chat for mod-friendly code... difficulty sliders... no blind spots." Rule 36; laws/BOHEMIA_LAW_THE_FIGHT_GETS_DEEP_TUNING_AND_MODS_9_27_26.md; records/BOHEMIA_PAOLO_450_HOURS_THE_FIGHT_GETS_DEEP_9_27_26.md. TWO NEW
+CHATS on the board: 21 TUNING (every felt number in one table, the death rule, the sliders, the origins'
+difficulties; SCHOOL THEN TUNE) and 22 MODS (the data line, a mods/ folder; SCHOOL THEN BUILD with PLUMBER); a
+fresh chat whose first word is 'tuning' or 'mods' takes it. COMBAT [formation] and [gambits] (FF12), CHARACTER
+[attachments], PEOPLE [origins] + the injured. The death default is in VOTE. The order: the grid first; the
+schools run beside it. CLAUDE.md lane list and law list.
+
 
 
 

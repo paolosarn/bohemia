@@ -2262,8 +2262,21 @@
      "src": "vote/ANIMATION_ONE_CELL.html"
     },
     "said": "your character stays tiny even as you zoom out"
+   },
+  {
+   "id": "coordinator-struck-down-twenty-percent-dead-9-27",
+   "kind": "verdict",
+   "lane": "coordinator",
+   "sha": "9/27",
+   "made": "9/27",
+   "title": "STRUCK DOWN IN A FIGHT: 20% DEAD, ELSE OUT FOR 30 TO 40 DAYS WITH A MARK",
+   "why": "Your words: only a 20% chance your character can die, otherwise a debilitating injury. Default: when one of yours is struck down, one in five dies for good and the company remembers. The other four in five live, are out of every fight for 30 to 40 game days, still cost their day, and keep a permanent mark: a scar, a limp, a lost eye, a stat that never comes back. Up keeps 20% and 30 to 40 days. Down and give me the number you want.",
+   "show": {
+    "how": "text",
+    "src": ""
    }
-  ],
+  }
+],
   "verdicts": [
     {
       "id": "people-the-one-who-walks-with-you-9-21",
