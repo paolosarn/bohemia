@@ -40,7 +40,6 @@ const R = (p) => require(path.join(ROOT, p));
 const K = R('engine/bohemia_strike.js');
 const PU = R('engine/bohemia_purse.js');
 const MEM = R('engine/bohemia_memory.js');
-const N = R('engine/bohemia_notice.js');
 
 let pass = 0, fail = 0;
 const ok = (n, c, note) => {
@@ -142,22 +141,13 @@ section('B no weight is typed', () => {
   ok('the price is back where it was', K.backOn().costs === was);
 });
 
-/* ---- C. THE NOTICE THE BLOCK HOLDS THE DOOR AGAINST ---------------------- */
-section('C the notice to quit', () => {
-  const q = N.toQuit({ at: [75, 5], street: 'freeway', holder: 'Mob', day: 2, clock: '07:40', out: 3 });
-  ok('a notice to quit issues with a landlord on it', q.issued, q.reason || '');
-  ok('*** AND REFUSES WITHOUT ONE, because a notice with no landlord is a threatening letter ***',
-     (() => { const r = N.toQuit({ at: [1, 2], street: 'x', day: 1, clock: '08:00' });
-              return !r.issued && r.reason === 'NO_LANDLORD'; })());
-  ok('it names the premises, the ground and the day they must be out',
-     /PREMISES: FREEWAY 75-5/.test(q.en.join(' ')) &&
-     /GROUND: ARREARS OF 1 BATTERY/.test(q.en.join(' ')) &&
-     /GIVE UP POSSESSION OF THESE PREMISES ON DAY 5/.test(q.en.join(' ')));
-  ok('the ground is his ONE, not a number typed here',
-     q.amounts.owed === PU.PAYOUT.COMPLETE.electricity);
-  ok('it goes out in both languages', /AVISO DE DESALOJO/.test(q.es.join(' ')));
-});
-
+/* ---- C. THE NOTICE TO QUIT (CUT) ------------------------------------------------
+   *** CUT 9/27 UNDER RULE 33h, THE CUT LINE. *** This section checked
+   engine/bohemia_notice.js -- the ask as a text stream -- which is cut and in
+   archive/. All six items it produced were voted DOWN ("So boring", "Boring
+   asfff"), which became rule 29. The asks are rebuilt as contracts and events
+   from people in places, so a check on the notice's wording holds nothing.
+   EVERY OTHER SECTION IN THIS GATE IS REAL MECHANICS AND STAYS. -------------- */
 /* ---- D. THE DOOR HOLDS, ON THE DEMO HE PLAYS ----------------------------- */
 (async () => {
   let D;

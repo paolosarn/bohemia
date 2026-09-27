@@ -300,7 +300,7 @@
     "src": "vote/ANIMATION_THE_IDLE_REDO.html"
    },
    "redoOf": "idle",
-   "said": "a lot of them are good, a lot of them aren’t good... IF I KILLED IT I DON’T WANT IT GONE. I just think it could be done better. Make a new one."
+   "said": "a lot of them are good, a lot of them aren\u2019t good... IF I KILLED IT I DON\u2019T WANT IT GONE. I just think it could be done better. Make a new one."
   },
   {
    "id": "factions-the-sign-still-lights-9-21",
@@ -465,7 +465,7 @@
    "sha": "534d87a",
    "made": "9/21",
    "title": "HOW A STEP IS DRAWN (I PICKED ONE FOR YOU)",
-   "why": "One press moves him a whole house, 275 pixels, in half a second, and his legs can only show one pace of it. What shipped was nobody’s choice: an old number in the code made the whole street jump at once. I put in the tape skip: he stands still, the picture skips twice, he is there. Thumbs up keeps it. Thumbs down and say GRID (the street jumps at once) or SLIDE (the street slides the whole time) and I will switch it.",
+   "why": "One press moves him a whole house, 275 pixels, in half a second, and his legs can only show one pace of it. What shipped was nobody\u2019s choice: an old number in the code made the whole street jump at once. I put in the tape skip: he stands still, the picture skips twice, he is there. Thumbs up keeps it. Thumbs down and say GRID (the street jumps at once) or SLIDE (the street slides the whole time) and I will switch it.",
    "show": {
     "how": "page",
     "src": "vote/ANIMATION_HOW_A_STEP_IS_DRAWN.html"
@@ -699,7 +699,7 @@
    "sha": "228818a1",
    "made": "9/21",
    "title": "THE BATTERY SHED, THE FIRST BUILDING THAT MAKES MONEY",
-   "why": "You build this on your own lot and a battery comes in. It is the small one, about the size of half a garage, not the big fenced battery yard the game already has. I drew it in that yard’s own colours so they are the same world. One thing in the picture is on purpose and it is the whole idea: THE LITTLE AMBER LIGHT IS LIT. Nothing else on the lot has power, the meter needle is stuck, the door is chained, and this box is still working. Thumbs up and I put it in the game so you can place one. Thumbs down and tell me if it is the shape, the colour, or the light.",
+   "why": "You build this on your own lot and a battery comes in. It is the small one, about the size of half a garage, not the big fenced battery yard the game already has. I drew it in that yard\u2019s own colours so they are the same world. One thing in the picture is on purpose and it is the whole idea: THE LITTLE AMBER LIGHT IS LIT. Nothing else on the lot has power, the meter needle is stuck, the door is chained, and this box is still working. Thumbs up and I put it in the game so you can place one. Thumbs down and tell me if it is the shape, the colour, or the light.",
    "show": {
     "how": "image",
     "src": "vote/LIFECITY_THE_BATTERY_SHED_9_21.png"
@@ -907,7 +907,7 @@
    "sha": "PENDING",
    "made": "9/22",
    "title": "FOUR WAYS THE GAME LOADS",
-   "why": "The screen that covers everything before you can touch anything, with a bar that cannot lie and the writing chat’s words wired to real stages. A is built and handed to the play chat.",
+   "why": "The screen that covers everything before you can touch anything, with a bar that cannot lie and the writing chat\u2019s words wired to real stages. A is built and handed to the play chat.",
    "show": {
     "how": "page",
     "src": "BOHEMIA_FOUR_WAYS_THE_GAME_LOADS_9_22_26.html"
@@ -1030,7 +1030,7 @@
     "src": "vote/ANIMATION_THE_HAND_REACHES_THE_FACE.html"
    },
    "redoOf": "eat, drink, smoke, cough and whistle",
-   "said": "a lot of them are good, a lot of them aren’t good... some of the DIRECTIONS look like dog shit: when it’s facing north-east the hand was behind the head even though it’s supposed to be in front. IF I KILLED IT I DON’T WANT IT GONE. Make a new one."
+   "said": "a lot of them are good, a lot of them aren\u2019t good... some of the DIRECTIONS look like dog shit: when it\u2019s facing north-east the hand was behind the head even though it\u2019s supposed to be in front. IF I KILLED IT I DON\u2019T WANT IT GONE. Make a new one."
   },
   {
    "id": "people-what-people-repeat-about-you-9-22",
@@ -1483,7 +1483,7 @@
     "src": "vote/ANIMATION_THE_HAND_IN_FRONT_PLAYS.html"
    },
    "redoOf": "animation-the-hand-at-the-face-plays-9-22",
-   "said": "when it’s facing north-east the hand was behind the head even though it’s supposed to be in front"
+   "said": "when it\u2019s facing north-east the hand was behind the head even though it\u2019s supposed to be in front"
   },
   {
    "id": "world-the-same-corner-9-23",
@@ -1679,7 +1679,7 @@
     "how": "page",
     "src": "vote/ANIMATION_FACING_YOU_HE_DID_NOTHING.html"
    },
-   "said": "a lot of them are good, a lot of them aren’t good"
+   "said": "a lot of them are good, a lot of them aren\u2019t good"
   },
   {
    "id": "sounds-a-footstep-that-is-not-sand-9-24",
@@ -2025,32 +2025,32 @@
    },
    "sha": "fdec3fa"
   },
-   {
-    "id": "cook-the-valley-reads-as-land-9-27",
-    "kind": "tile",
-    "lane": "cook",
-    "sha": "9507e3f1",
-    "made": "9/27",
-    "title": "THE VALLEY READS AS LAND",
-    "why": "You made the overworld Battle Brothers. So I rendered the valley at the zoom you actually cross it at and looked. IT IS A GRID OF GREY SQUARES WITH BLACK LINES THROUGH IT. Roads are 38 percent of every cell in the valley and all of them are one near black. Everything built is the same grey. The mountains are a tenth of the map and you cannot see them at all. So on the one screen you are supposed to travel across, you cannot tell city from desert from mountain, and the only thing you CAN see is the street grid. That is backwards. Three changes, left picture is now, right picture is this. The land gets its own range so the mountains ring it, the open ground is warm, and the city is quiet inside its own grain because you are IN the city, you do not navigate by it. The street grid drops to a whisper, because at a quarter of the map it cannot be the subject. And the ridges catch the sun on their north west faces, same sun as every pixel in the game, which is what turns a dark patch into a mountain. The dust drifts across the open ground, one cell a beat. Thumbs down and tell me if it is too dark, too flat, or if you want your grid back.",
-    "show": {
-     "how": "image",
-     "src": "vote/COOK_THE_VALLEY_READS_AS_LAND.png"
-    }
-   },
-   {
-    "id": "ui-the-fight-is-a-different-game-9-27",
-    "kind": "ui",
-    "lane": "ui",
-    "sha": "pending",
-    "made": "9/27",
-    "title": "THE FIGHT IS STILL A DIFFERENT GAME",
-    "why": "You said one game mode, no teleporting, the buttons never change. Here is where that actually stands, measured, not guessed. Both shots are the real game in one run, seconds apart: I walked up to a crew and tapped them. LEFT is walking, with the bar, the notes button and the walk pad ringed. RIGHT is the fight. Every one of those is gone. Not moved, gone. The walk has 9 things on screen, the fight has 30, and they do not share a single one, because the fight is a separate page. And one number nobody had counted: of the fight's own buttons, only SHOOT is big enough to press with a thumb. The eight little compass dots are 28 pixels. Your reach is 44. This is not me asking you to approve anything, it is the before picture, and the fight lane already has this row open and agrees. What I am building toward: the ground under you lights up for reach, the walk pad you already hold carries the enemy's beat, the bar says whose turn it is, the phone tells you afterwards what it cost, and ONE new thing for the weapon you are holding. Thirty things become five, and four of them already exist.",
-    "show": {
-     "how": "image",
-     "src": "vote/UI_THE_FIGHT_IS_A_DIFFERENT_GAME_9_27.png"
-    }
-   },
+  {
+   "id": "cook-the-valley-reads-as-land-9-27",
+   "kind": "tile",
+   "lane": "cook",
+   "sha": "9507e3f1",
+   "made": "9/27",
+   "title": "THE VALLEY READS AS LAND",
+   "why": "You made the overworld Battle Brothers. So I rendered the valley at the zoom you actually cross it at and looked. IT IS A GRID OF GREY SQUARES WITH BLACK LINES THROUGH IT. Roads are 38 percent of every cell in the valley and all of them are one near black. Everything built is the same grey. The mountains are a tenth of the map and you cannot see them at all. So on the one screen you are supposed to travel across, you cannot tell city from desert from mountain, and the only thing you CAN see is the street grid. That is backwards. Three changes, left picture is now, right picture is this. The land gets its own range so the mountains ring it, the open ground is warm, and the city is quiet inside its own grain because you are IN the city, you do not navigate by it. The street grid drops to a whisper, because at a quarter of the map it cannot be the subject. And the ridges catch the sun on their north west faces, same sun as every pixel in the game, which is what turns a dark patch into a mountain. The dust drifts across the open ground, one cell a beat. Thumbs down and tell me if it is too dark, too flat, or if you want your grid back.",
+   "show": {
+    "how": "image",
+    "src": "vote/COOK_THE_VALLEY_READS_AS_LAND.png"
+   }
+  },
+  {
+   "id": "ui-the-fight-is-a-different-game-9-27",
+   "kind": "ui",
+   "lane": "ui",
+   "sha": "pending",
+   "made": "9/27",
+   "title": "THE FIGHT IS STILL A DIFFERENT GAME",
+   "why": "You said one game mode, no teleporting, the buttons never change. Here is where that actually stands, measured, not guessed. Both shots are the real game in one run, seconds apart: I walked up to a crew and tapped them. LEFT is walking, with the bar, the notes button and the walk pad ringed. RIGHT is the fight. Every one of those is gone. Not moved, gone. The walk has 9 things on screen, the fight has 30, and they do not share a single one, because the fight is a separate page. And one number nobody had counted: of the fight's own buttons, only SHOOT is big enough to press with a thumb. The eight little compass dots are 28 pixels. Your reach is 44. This is not me asking you to approve anything, it is the before picture, and the fight lane already has this row open and agrees. What I am building toward: the ground under you lights up for reach, the walk pad you already hold carries the enemy's beat, the bar says whose turn it is, the phone tells you afterwards what it cost, and ONE new thing for the weapon you are holding. Thirty things become five, and four of them already exist.",
+   "show": {
+    "how": "image",
+    "src": "vote/UI_THE_FIGHT_IS_A_DIFFERENT_GAME_9_27.png"
+   }
+  },
   {
    "id": "coordinator-the-cell-and-the-tiny-character-9-27",
    "kind": "verdict",
@@ -2090,8 +2090,20 @@
     "src": "vote/ANIMATION_HOW_YOU_CROSS_THE_MAP.html"
    },
    "said": "the valley is crossed on a MAP the Battle Brothers way: a party marker, tap where to go, time passes"
+  },
+  {
+   "id": "world-the-only-pump-9-27",
+   "kind": "tile",
+   "lane": "world",
+   "made": "9/27",
+   "title": "THE ONLY PUMP",
+   "why": "The Battle Brothers revamp says a place is a block and its buildings are what it offers. I built that and then counted the valley: 467 blocks, 215 of them offer nothing at all, and the ones that do are 249 shops, 12 sheds, 7 fortresses and ONE PUMP. The whole valley drinks through a single block. Battle Brothers towns have three to eight things attached to them; ours have one or none. So this is that block, from the camera you play on: two pumps, the pipes, the fence, the gate shut. The wrong thing is the path. There is only one worn into the yard and it goes to the electrical cabinet, not to the pumps. Somebody comes here a lot and only ever touches the switch.",
+   "show": {
+    "how": "image",
+    "src": "vote/WORLD_THE_ONLY_PUMP.png"
+   }
   }
-],
+ ],
  "verdicts": [
   {
    "id": "people-the-one-who-walks-with-you-9-21",
@@ -2264,7 +2276,7 @@
   {
    "id": "world-the-rules-run-with-the-dirt-9-21",
    "vote": "down",
-   "said": "Mfs charge batteries bro 🤣🤣🤣 i knkw buildings can help in our game but jesus christ mfs can charge batteries",
+   "said": "Mfs charge batteries bro \ud83e\udd23\ud83e\udd23\ud83e\udd23 i knkw buildings can help in our game but jesus christ mfs can charge batteries",
    "when": "9/21",
    "at": "2026-09-22"
   },

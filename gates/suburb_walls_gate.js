@@ -35,7 +35,6 @@ const R = (p) => require(path.join(ROOT, p));
 const T = R('engine/bohemia_tract.js');
 const OM = R('engine/bohemia_overmap.js');
 const GX = R('engine/bohemia_engine_graphics_7_14_26.js');
-const N = R('engine/bohemia_notice.js');
 const PU = R('engine/bohemia_purse.js');
 const PICKS = JSON.parse(fs.readFileSync(
   path.join(ROOT, 'banks/BOHEMIA_WALL_PICKS_7_14_26.txt'), 'utf8')).picks.map(p => p.key);
@@ -178,30 +177,13 @@ section('C two of the row\'s numbers name things that do not exist', () => {
        return above < n; })());
 });
 
-/* ---- D. THE COVENANT NOTICE --------------------------------------------- */
-section('D the covenant notice', () => {
-  const C = (x) => N.covenant(Object.assign({
-    by: 'Sunridge Homeowners Association', at: [75, 5], street: 'freeway',
-    section: '4.2', violation: 'the perimeter wall is not maintained in its original colour',
-    cure: 10, day: 3, clock: '11:15' }, x || {}));
-  const c = C();
-  ok('a covenant notice issues', c.issued, c.reason || '');
-  ok('it cites the section, the cure date and the daily fine',
-     /SECTION 4\.2 OF THE DECLARATION OF COVENANTS/.test(c.en.join(' ')) &&
-     /CORRECTED BY DAY 13/.test(c.en.join(' ')) &&
-     /1 BATTERY PER DAY/.test(c.en.join(' ')));
-  ok('the fine is his ruled ONE, not a number typed here',
-     c.amounts.fine === PU.PAYOUT.COMPLETE.electricity);
-  ok('*** AND IT REFUSES WITHOUT THE COVENANT IT IS ENFORCING, because a notice'
-   + ' that cites nothing is unenforceable ***',
-     C({ section: null }).reason === 'NO_SECTION_CITED');
-  ok('and without an association, or without a violation described',
-     C({ by: null }).reason === 'NO_ASSOCIATION' &&
-     C({ violation: null }).reason === 'NO_VIOLATION_DESCRIBED');
-  ok('it offers the hearing before the board', /HEARING BEFORE THE BOARD/.test(c.en.join(' ')));
-  ok('and goes out in both languages', /INFRACCION DE CONVENIO/.test(c.es.join(' ')));
-});
-
+/* ---- D. THE COVENANT NOTICE (CUT) ------------------------------------------------
+   *** CUT 9/27 UNDER RULE 33h, THE CUT LINE. *** This section checked
+   engine/bohemia_notice.js -- the ask as a text stream -- which is cut and in
+   archive/. All six items it produced were voted DOWN ("So boring", "Boring
+   asfff"), which became rule 29. The asks are rebuilt as contracts and events
+   from people in places, so a check on the notice's wording holds nothing.
+   EVERY OTHER SECTION IN THIS GATE IS REAL MECHANICS AND STAYS. -------------- */
 console.log('SUBURB WALLS GATE: ' + pass + ' passed, ' + fail + ' failed'
   + '  (the wall threshold is read against the wrong scale and 2,558 tracts are'
   + ' unwalled; the replacement table is derived from the map, not typed)');

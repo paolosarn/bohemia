@@ -45,7 +45,6 @@ const CE = R('engine/bohemia_cells.js');
 const PD = R('engine/bohemia_payday.js');
 const EC = R('engine/bohemia_economy.js');
 const PU = R('engine/bohemia_purse.js');
-const N  = R('engine/bohemia_notice.js');
 const G  = R('engine/BOHEMIA_faction_graph.json');
 
 let pass = 0, fail = 0;
@@ -172,29 +171,13 @@ section('D swapping and owing are the modules that already exist', () => {
      !/\b\d{2,}\b/.test(body), (body.match(/\b\d{2,}\b/g) || []).join(','));
 });
 
-/* ---- E. THE POSTED PRICE LIST ------------------------------------------- */
-section('E the list is still on the wall', () => {
-  const L = (x) => N.priceList(Object.assign({
-    by: "Ruben's", at: [75, 5], street: 'freeway', day: 9, clock: '08:05' }, x || {}));
-  const l = L({ dead: true });
-  ok('the shop posts its schedule', l.issued, l.reason || '');
-  ok('every good on it comes from the economy, not from a list typed in the notice',
-     l.goods.length === Object.keys(PU.PRICES).length && l.goods.length > 3,
-     l.goods.length + ' vs ' + Object.keys(PU.PRICES).length);
-  ok('and every line is his ONE', l.goods.every(g => g.amount === PU.PAYOUT.COMPLETE.electricity));
-  ok('it says prices are payable in the lawful currency',
-     /PAYABLE IN THE LAWFUL CURRENCY/.test(l.en.join(' ')));
-  ok('*** AND IT DOES NOT KNOW NOBODY CAN PAY IT: the list carries that beside'
-   + ' itself, never in its own words ***',
-     l.payable === false && !/nobody|worthless|cannot pay/i.test(l.en.join(' ')));
-  ok('with the money alive the same list is payable', L({ dead: false }).payable === true);
-  ok('and asked nothing it claims nothing', L({}).payable === null);
-
-  ok('a shop with nothing for sale gets no list, rather than a blank page',
-     L({ prices: {} }).reason === 'NOTHING_IS_FOR_SALE');
-  ok('and a list with no seller on it is refused', L({ by: null }).reason === 'NO_SELLER');
-});
-
+/* ---- E. THE POSTED PRICE LIST (CUT) ------------------------------------------------
+   *** CUT 9/27 UNDER RULE 33h, THE CUT LINE. *** This section checked
+   engine/bohemia_notice.js -- the ask as a text stream -- which is cut and in
+   archive/. All six items it produced were voted DOWN ("So boring", "Boring
+   asfff"), which became rule 29. The asks are rebuilt as contracts and events
+   from people in places, so a check on the notice's wording holds nothing.
+   EVERY OTHER SECTION IN THIS GATE IS REAL MECHANICS AND STAYS. -------------- */
 console.log('FULL SHELVES GATE: ' + pass + ' passed, ' + fail + ' failed'
   + '  (the valley really spends to nothing, broke is not dead, an uncounted save'
   + ' is neither, and swapping and owing are the modules that already existed)');
