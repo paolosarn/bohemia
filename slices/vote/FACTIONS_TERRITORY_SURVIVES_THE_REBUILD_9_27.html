@@ -1,0 +1,156 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>BOHEMIA - TERRITORY SURVIVES THE REBUILD</title>
+<style>
+ :root{ --ink:#141210; --paper:#f4efe6; --hot:#a8391d; --dim:#4a443c; --good:#2c6b35 }
+ *{ box-sizing:border-box }
+ body{ margin:0; background:var(--paper); color:var(--ink);
+       font:15px/1.5 ui-sans-serif,system-ui,-apple-system,Arial,sans-serif }
+ header{ padding:14px 14px 10px; border-bottom:3px solid var(--ink) }
+ h1{ margin:0 0 5px; font-size:19px; letter-spacing:.3px }
+ .sub{ font-size:14px; color:var(--dim) }
+ .said{ margin:10px 14px; padding:9px 12px; border-left:5px solid var(--good);
+        background:#fff; font-size:14px }
+ .said b{ color:var(--good) }
+ .quiet{ margin:10px 14px; padding:9px 12px; border-left:5px solid #6b6252;
+         background:#fff; font-size:13px; color:var(--dim) }
+ .quiet b{ color:var(--ink) }
+ .wrap{ padding:6px 14px 50px }
+ .shot{ background:#fff; border-bottom:3px solid var(--ink); padding:8px; margin-top:14px }
+ .tag{ display:inline-block; background:var(--ink); color:var(--paper); font:11px/1.6
+       ui-monospace,monospace; padding:1px 7px; letter-spacing:.5px; margin-bottom:6px }
+ .clip{ position:relative; width:100%; overflow:hidden; border:1px solid #cabfa8 }
+ .clip img{ display:block; width:100%; margin-top:-25%; image-rendering:pixelated }
+ .diagram{ background:#fff; border:1px solid #cabfa8 }
+ .diagram canvas{ display:block; width:100%; height:auto; image-rendering:pixelated }
+ .cap{ font-size:14px; color:var(--dim); margin:9px 0 0 }
+ .cap b{ color:var(--ink) }
+ table{ border-collapse:collapse; width:100%; background:#fff; margin-top:14px;
+        font:12px/1.4 ui-monospace,monospace }
+ th,td{ text-align:left; padding:5px 7px; border-bottom:1px solid #ddd5c4 }
+ th{ background:var(--ink); color:var(--paper) }
+</style></head><body>
+
+<header>
+ <h1>TERRITORY SURVIVES THE REBUILD</h1>
+ <div class="sub">You asked if the whole enchilada has to restart. Here is the one part of
+ it that does not have to. 9/27</div>
+</header>
+
+<div class="said">
+ <b>YOU JUST RULED THE BIG GRID REBUILD</b> — the character stays tiny, the grid has to be
+ honest, one house is many cells now instead of one. That is a real rebuild of how the
+ street and the fight are drawn.
+ <br><br>
+ <b>IT DOES NOT TOUCH WHO OWNS THIS VALLEY.</b> Territory lives one size up from the grid
+ you just changed, and I checked the numbers instead of assuming.
+</div>
+
+<div class="wrap">
+
+ <div class="diagram" id="dwrap"><canvas id="dg"></canvas></div>
+ <div class="cap"><b>TWO SIZES, NESTED, NOT IN CONFLICT.</b> The valley is 9,216 lots (the
+ grey grid). Fourteen crews own those lots and that is what this lane has been measuring all
+ along. <b>Zoom into ONE lot</b> and that is where your new rule lives: floor, wall, door,
+ cover, a house about four cells across. That rebuild happens entirely inside the small
+ square. The big grid around it never moves.</div>
+
+ <div class="shot">
+  <span class="tag">THE BIG GRID, REAL FRAME</span>
+  <div class="clip"><img src="FACTIONS_THE_MAP_9_27.png" alt="the map"></div>
+ </div>
+ <div class="cap">This is what territory is built on: the map, 9,216 lots. Nothing about
+ your new honest-grid rule changes a single one of these lot boundaries or who holds them.</div>
+
+ <table id="tbl"></table>
+ <div class="cap">Measured on the actual code, not assumed.</div>
+
+ <div class="quiet">
+  <b>WHAT THIS MEANS IN PLAIN TERMS.</b> Everything this lane has built and measured — who
+  owns the 9,216 lots, the three darkest crews being camp tier, the memory that lets a lot
+  change hands and stay changed, the map showing none of it yet — <b>all of that keeps
+  working exactly as it is.</b> Your new rule redraws the inside of one lot. It does not
+  move the lot.
+ </div>
+
+</div>
+
+<script>
+var cv = document.getElementById('dg');
+var W = 380, H = 260;
+cv.width = W; cv.height = H;
+var g = cv.getContext('2d');
+g.imageSmoothingEnabled = false;
+
+/* LEFT: the big grid, a small sample of the valley's 9,216 lots */
+var BX = 8, BY = 8, BW = 190, BH = 190, N = 8, LS = BW / N;
+g.fillStyle = '#f4efe6'; g.fillRect(0, 0, W, H);
+g.strokeStyle = '#9c907c'; g.lineWidth = 1;
+for (var i = 0; i <= N; i++){
+  g.beginPath(); g.moveTo(BX + i * LS, BY); g.lineTo(BX + i * LS, BY + BH); g.stroke();
+  g.beginPath(); g.moveTo(BX, BY + i * LS); g.lineTo(BX + BW, BY + i * LS); g.stroke();
+}
+/* colour a few lots so it reads as territory, not a blank grid */
+var owned = [['#454142',1,1],['#454142',2,1],['#25a189',5,2],['#25a189',5,3],
+             ['#773229',1,5],['#c1bdb5',6,6]];
+owned.forEach(function(o){
+  g.fillStyle = o[0];
+  g.fillRect(BX + o[1]*LS + 1, BY + o[2]*LS + 1, LS - 2, LS - 2);
+});
+/* the highlighted lot that gets blown up on the right */
+var hx = 3, hy = 4;
+g.fillStyle = '#e8c06a';
+g.fillRect(BX + hx*LS + 1, BY + hy*LS + 1, LS - 2, LS - 2);
+g.strokeStyle = '#141210'; g.lineWidth = 2;
+g.strokeRect(BX + hx*LS, BY + hy*LS, LS, LS);
+g.fillStyle = '#141210'; g.font = '11px ui-monospace,monospace';
+g.fillText('9,216 LOTS — THIS LANE’S LAYER', BX, BY + BH + 16);
+
+/* the arrow */
+g.strokeStyle = '#141210'; g.lineWidth = 2;
+g.beginPath(); g.moveTo(BX + BW + 8, BY + BH/2); g.lineTo(BX + BW + 26, BY + BH/2); g.stroke();
+g.beginPath();
+g.moveTo(BX + BW + 26, BY + BH/2 - 5);
+g.lineTo(BX + BW + 34, BY + BH/2);
+g.lineTo(BX + BW + 26, BY + BH/2 + 5);
+g.fill();
+
+/* RIGHT: one lot, blown up, showing rule 34's honest grid inside it */
+var RX = BX + BW + 46, RY = 8, RW = W - RX - 8, RH = 190, FN = 6, FS = RW / FN;
+g.fillStyle = '#e8c06a'; g.fillRect(RX, RY, RW, RH);
+g.strokeStyle = '#c9a44e'; g.lineWidth = 1;
+for (var j = 0; j <= FN; j++){
+  g.beginPath(); g.moveTo(RX + j*FS, RY); g.lineTo(RX + j*FS, RY + RH); g.stroke();
+  g.beginPath(); g.moveTo(RX, RY + j*FS); g.lineTo(RX + RW, RY + j*FS); g.stroke();
+}
+/* a small house, 4x4 fine cells, per rule 34's own default */
+g.fillStyle = '#8a7f6a';
+g.fillRect(RX + FS, RY + FS, FS*4, FS*4);
+g.strokeStyle = '#3a352c'; g.lineWidth = 1;
+g.strokeRect(RX + FS, RY + FS, FS*4, FS*4);
+/* the door */
+g.fillStyle = '#5a4a38';
+g.fillRect(RX + FS*2.5, RY + FS*5 - 3, FS, 4);
+/* the person, one fine cell */
+g.fillStyle = '#141210';
+g.fillRect(RX + FS*2 + 2, RY + FS*5.5 + 2, FS - 4, FS - 4);
+g.fillStyle = '#141210'; g.font = '11px ui-monospace,monospace';
+g.fillText('ONE LOT, RULE 34’S GRID — THE REBUILD', RX - 34, RY + RH + 16);
+</script>
+
+<script>
+var ROWS = [
+ ['the valley, in lots (this lane’s layer)', '9,216, 96 × 96'],
+ ['crews holding those lots', '14'],
+ ['old fine cells per lot (FN, pre-rule-34)', '128'],
+ ['rule 34’s new cell, per your own default', '~32 px, a house 4×4'],
+ ['does rule 34 rename or resize a lot', 'no'],
+ ['does the territory ledger change coordinates', 'no'],
+ ['lots that change hands between your first and third life', '3,415 of 9,216']
+];
+var h = '<tr><th>WHAT</th><th>MEASURED</th></tr>';
+for (var i = 0; i < ROWS.length; i++)
+  h += '<tr><td>' + ROWS[i][0] + '</td><td>' + ROWS[i][1] + '</td></tr>';
+document.getElementById('tbl').innerHTML = h;
+</script>
+</body></html>

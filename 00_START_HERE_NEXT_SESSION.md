@@ -15060,85 +15060,78 @@ HOW TWENTY-TWO ROUNDS COMPOSE, written once now that Q1-Q22 are all shipped:
 NEXT IN THIS LANE: Q23 [who eats first].
 
 
-FACTIONS (factions-ovkjpf): 9/27 (round 43) LATEST -- *** RULE 33 MADE THE MAP THE WHOLE
-GAME, SO I MEASURED WHAT OUR MAP SAYS ABOUT WHO OWNS THE VALLEY. IT SAYS NOTHING, AND IT IS
-NOT PAINTED BADLY, IT NEVER ASKS: a counter on turfAt reads 2-3 calls a second on the street
-(all about the one cell under his feet) and ZERO on the real map. 14 crews, 14 seats, 14
-published colours measured off his own wardrobe, and none of it reaches the screen. 52% of
-that screen is one colour and it is sand. ***
+FACTIONS (factions-ovkjpf): 9/27 (round 44) LATEST -- *** RULE 34 LANDED, A BIG REBUILD OF
+THE WALKED GRID (his own words: "I don't know if we have to restart the whole enchilada").
+CHECKED WHETHER IT TOUCHES TERRITORY. IT DOES NOT. Rule 34 redefines what is INSIDE one
+district cell (floor, wall, door, a house 4x4); it never mentions the district grid, the
+overmap, or turf anywhere in its own text. The 9,216 lots, who owns them, and the memory
+that lets one change hands all keep working exactly as they are. ***
 Nothing to judge outside the VOTE tab.
 
-VAMILY rows: [bb houses] CLAIMED 9/27, round one (school) done. [territory ledger] CLAIMED
-            9/24, round one shipped, round two named below. [horror signs] ENDED 9/24.
+VAMILY rows: [territory ledger] CLAIMED 9/24, round one shipped, round two named below,
+            blocked by the hold. [bb houses] CLAIMED 9/27, round one (school) done, round
+            two DELIBERATELY HELD this round (see below). [horror signs] ENDED 9/24.
             [same lender] still CLAIMED AND HELD under 14b + 18b.
-Record: records/BOHEMIA_BB_HOUSES_ROUND_1_SCHOOL_9_27_26.md
+Record: records/BOHEMIA_TERRITORY_SURVIVES_THE_REBUILD_9_27_26.md
+Round 43: records/BOHEMIA_BB_HOUSES_ROUND_1_SCHOOL_9_27_26.md
 Round 42: records/BOHEMIA_THE_TERRITORY_LEDGER_9_24_26.md
-Round 41: records/BOHEMIA_THE_SIGNS_DIED_OF_THE_CAMERA_9_24_26.md
 
-*** [bb houses] ROUND ONE, SCHOOL, RULE 33(f) ***
-  HOW BB DOES IT: three noble houses; EVERY SETTLEMENT CARRIES ITS HOLDER'S COLOURS so you
-  never open a menu to learn who owns a town; standing is PER HOUSE, not one number, and it
-  gates what work you are offered and what it pays; contracts come from holdings; the
-  late-game noble war sweeps the map and settlements visibly change hands. The lesson under
-  all of it: TERRITORY IS ONLY A STORY IF YOU CAN WATCH IT CHANGE.
-  WHAT WE ALREADY HAVE, AND IT IS MORE THAN I EXPECTED: 14 crews, 9,216 of 9,216 blocks
-  owned, 14 seats on ground their own canon names, 14 published colours off his wardrobe,
-  standing per crew (the belonging ladder), a crew refusing to deal with you (the against
-  organ's refuse sign), and as of last round a MEMORY of ground changing hands. ALMOST THE
-  WHOLE FEATURE IS BUILT. What is missing is not systems, it is that none of it reaches the
-  screen.
-  OUR MAP vs THEIRS, counted on the running game: party marker no / towns as places no /
-  who holds each place no / standing per crew no / roads that read as roads no / ground
-  changing hands not shown / TIMES THE MAP ASKS WHO OWNS A BLOCK: ZERO.
-  *** RULE 33(g), WHAT MOVES THAT BB'S PICTURE DOES NOT *** Their banner is a STILL. Ours
-  should not be a flag at all, it should be THE LIGHTS: only 358 blocks of 9,216 have power
-  and a crew that cannot pay is cut one block at a time, so a crew's holding already has a
-  living state the game computes. A crew losing does not get a new flag, THEIR VALLEY GOES
-  DARK BLOCK BY BLOCK, and you would watch a crew die from across the valley with no words
-  on screen, which is the analog horror register exactly. And BB's crisis has an answer
-  here too: their noble war happens once, ours is a century (3,415 of 9,216 blocks change
-  hands between act 1 and act 3, this lane measured it) and he can flip and watch it.
+*** RULE 34, TWO SCALES ONE GAME, AND WHETHER IT TOUCHES THIS LANE ***
+  Measured, not assumed: om.n = 96 (confirmed live, node), 9,216 district cells, FN = 128
+  fine cells per district cell (confirmed live in round 41's own measurement, 6218/128=48).
+  Rule 34's new cell is ~32 px, a house 4x4 of THOSE, per his own default. THAT IS A
+  DIFFERENT, INNER SCALE: the fine grid INSIDE one district cell, not the district grid
+  itself. Rule 34's own text names WALKING and THE FIGHT only, never the overmap or turf.
+  SO NOTHING THIS LANE SHIPPED NEEDS TO CHANGE: who owns the 9,216 lots ([who holds] 9/6),
+  the territory ledger (a block can change hands and be remembered, [territory ledger]
+  9/24), the 3,415-of-9,216 act-1-to-act-3 measurement, and the map's own blindness ([bb
+  houses] round one, 9/27) all survive the rebuild untouched.
 
-THE COOK: slices/vote/FACTIONS_FOURTEEN_CREWS_NONE_ON_THE_MAP_9_27.html, registered
-  factions-fourteen-crews-none-on-the-map-9-27. A real frame off the map (rule 32f), all
-  fourteen crews in the colours he picked himself, and the count beside it.
+*** CHECKED AGAINST A REAL DOWNSTREAM CONSUMER, AND IT IS CLEAN ***
+  WORLD's [future city] shipped this round; bohemia_future.js calls
+  BohemiaTurfLedger.netFor(ledgers.turf, act) directly -- the exact function this lane's own
+  gate caught a middleman-from bug in two rounds ago. Read the call: sums only positive net
+  entries, correct against the fixed function. NOTHING NEEDED TO CHANGE for that consumer.
+  ALSO CONFIRMED: nothing anywhere in the game calls .took() yet. The ledger is still
+  genuinely empty on the real surface -- the no-op property is not theoretical, it is what
+  is actually shipping.
 
-*** A NUMBER OF MINE THAT WAS RIGHT BY LUCK, AND IS NOW RIGHT ON PURPOSE ***
-  Last round I reported "the city view asks zero times", measured at mode=city czoom=1.
-  EYES [bb reads] then measured that ONE SQUEEZE SETS THE MODE FLAG AND LEAVES THE PICTURE
-  AS THE STREET for ten seconds -- so my number came off the frame that lies. Re-measured
-  at the real map (czoom 0.208, tile width 3.7): STILL ZERO. Nothing he was told changes so
-  no correction is owed to him, but it is the SECOND TIME IN THREE ROUNDS a claim of mine
-  was right for the wrong reason, and both were caught by somebody else measuring properly.
-  A NUMBER TAKEN ON THE WRONG FRAME IS NOT A MEASUREMENT EVEN WHEN IT IS THE RIGHT NUMBER.
+THE COOK: slices/vote/FACTIONS_TERRITORY_SURVIVES_THE_REBUILD_9_27.html, registered
+  factions-territory-survives-the-rebuild-9-27. A diagram (9,216-lot grid, one lot picked
+  out and blown up into rule 34's own grid inside it) beside a real frame off the map
+  (rule 32f), with the numbers.
 
-AND AN INSTRUMENT THAT REPORTED A FINDING WHEN IT HAD NOTHING: the colour sweep read the
-  faction ink file at its TOP level and got `_`, `measured`, `factions`, no hex anywhere, and
-  printed "crew inks on the map: 0 of 0" -- which reads exactly like the finding I wanted.
-  They are nested under .factions. It refuses to report now unless it parsed names. AND THE
-  RESULT IT THEN GAVE IS STILL NOT EVIDENCE: most crew inks are drab browns, the desert is
-  brown, and Cartel and Mob quantise into the SAME bucket, so near-matches say nothing about
-  territory. The call count is decisive; the colour count is noise and is reported as noise.
+*** WHAT THIS ROUND DELIBERATELY DID NOT DO, AND WHY ***
+  Not UI wiring, not the STANDING-panel reachability check, not [bb houses] round two. THE
+  WALKED SURFACE IS MID-REBUILD under rule 34's own revamp order (honest grid, tiny walker,
+  fight, first person, demo), and touching that surface now -- even to CHECK it -- risks the
+  ONE-SYSTEM-ONE-SESSION line with WORLD/RUN/LIFE+CITY who own the rebuild. Round one already
+  found: standing per crew EXISTS (ctStandings/gaveOf) and IS shown on a real card ("THE
+  [OUTFIT]", "WHO HAS LAID EYES ON YOU"), gated behind one tap with a badge/ring on change --
+  NOT invisible as last round's handoff overstated, just not passively visible on the map.
+  [bb houses] round two is safer and more honest done AFTER the honest-grid rebuild lands.
 
-GATES  HANDOFF 9/0. Pre-push pass green. (TURF LEDGER 30/0 from last round, untouched.)
+GATES  ART 45 16/0. REFERENCE CHECK 175/2 (both reds inherited, PORTRAIT's
+       tools/bohemia_cook_pick_your_man_out.js, pre-existing on clean main, not mine).
+       HANDOFF and pre-push pass green.
        RULE 13: full suite 107 red at ad23d875, none of them this lane's.
 
 RULE 18 AND RULE 22, OBSERVED: nothing pushed to the demo or the alpha's play tabs.
 
 NEXT IN THIS LANE
-  1. [territory ledger] ROUND TWO, THE SAVE HALF, AND IT IS BLOCKED BY THE HOLD, NOT BY ME:
-     the ledger has toJSON/load and NOTHING CALLS THEM. The city's save payload is built at
-     about line 56609 of slices/BOHEMIA_CITY_WORLD.html, beside purse: and century:, which
-     is the PLAY SURFACE FILE, so rule 18(b) keeps me out. It is ONE line beside those two
-     and one in the loader, exactly how WORLD hung the act stamp off the purse. Lands the
-     round the hold lifts.
-  2. [territory ledger] the read-through wiring: two lines in two carriers together (ENGINE
-     SYNC LAW); the gate already proves the empty ledger is a no-op on all 9,216 cells.
-  3. [bb houses] round two: standing per crew is BUILT and invisible. Measure what a player
-     can learn about his standing with all 14 crews without opening anything, then propose
-     the shape. Rule 33(f) wants a page per round.
+  1. [bb houses] round two, AFTER the honest-grid rebuild lands: re-verify the STANDING
+     panel's reachability on the NEW surface (do not assume the old wiring survives),
+     measure whether it can move to the map (rule 33's whole point), then propose the
+     shape (badge on the map marker itself, per crew, tied to the ledger).
+  2. [territory ledger] round two, THE SAVE HALF: toJSON/load have no caller. The city's
+     save payload is built inside slices/BOHEMIA_CITY_WORLD.html beside purse: and
+     century: (~line 56609), which is the play surface, rule 18(b) keeps me out. One line
+     there, one in the loader, same shape WORLD used for the act stamp. Lands when the hold
+     lifts OR when the walked-surface rebuild needs it (whichever comes first).
+  3. [territory ledger] the read-through wiring itself: two lines, both carriers (ENGINE
+     SYNC LAW), gate already proves the no-op on all 9,216 cells.
   4. STILL TRUE AND UNOWNED: nothing in this game takes ground, so the ledger records zero
-     rows. This lane should not invent the taking mechanic; what it costs is his.
+     rows. Not this lane's to invent; what it costs is his.
   THE STANDING DEBT: COMPARE EVERY PIECE OF ART TO THE WORLD, still unrun.
 
 STILL OPEN, NONE OF IT THIS LANE'S
@@ -15163,19 +15156,16 @@ STILL OPEN, NONE OF IT THIS LANE'S
   4. What it COSTS to be seen with one of the four hidden factions.
   5. COLOUR CLASHES: Mob beside Reds, Network beside Blues, Church beside Trades.
 
-FIFTY-FIVE STANDING LESSONS THIS LANE KEEPS RE-LEARNING
+FIFTY-SIX STANDING LESSONS THIS LANE KEEPS RE-LEARNING
   BEFORE ASSUMING A ROW IS BLOCKED, CHECK WHETHER ITS NAMED BLOCKER IS STILL TRUE.
   WHEN A CHECK GOES RED, ASK WHETHER IT IS MEASURING THE GAME OR ITS OWN INVENTION.
   WHEN HIS SENTENCE IS FALSE ON THE MAP, REPORT IT rather than forcing it.
-  WHEN A LAW BLOCKS THE OBVIOUS BUILD, IT IS USUALLY POINTING AT A BETTER ONE.
   A BLOCK OF CLAIMS BEHIND AN `if` THAT QUIETLY DOES NOT RUN IS A GREEN GATE.
   SHOWN, COUNTED AND NEVER SEEN IS THE SAME AS NOT BUILT.
   A LOAD THAT TIMES OUT IS A SYNTAX ERROR UNTIL PROVEN OTHERWISE.
   A BARE CATCH AROUND A FUNCTION THAT DOES NOT EXIST IS A CONFIDENT WRONG ANSWER.
   A BOX HEIGHT IS NOT A REACH. Measure whether the press LANDS.
-  A LINE PER THING IS HOW A CARD STOPS FITTING A PHONE. Measure the CARD.
   A GLOBAL THE RENDERER PUBLISHES AND NEVER CLEARS REPORTS THE LAST DRAW.
-  FORCING A MODE VARIABLE IS NOT PRESSING THE BUTTON.
   A WRITER THAT DOES NOT CLEAR AFTER ITSELF SILENCES EVERY WRITER THAT DOES.
   A GREP PROVES THE CODE EXISTS AND PROVES NOTHING ABOUT THE GLASS.
   A FRAME IS NOT A STEP. Mutation-test BOTH directions.
@@ -15183,47 +15173,37 @@ FIFTY-FIVE STANDING LESSONS THIS LANE KEEPS RE-LEARNING
   AN EMPTY READING CAN BE THE TRUTH.
   BEFORE BELIEVING A RED, ASK WHETHER THE CHECK CAN STILL GET TO THE THING IT IS JUDGING.
   A CLAIM'S PREMISE CAN GO STALE WITHOUT ANYONE TOUCHING IT.
-  OFF THE EDGE IS NOT UNPAINTED. getImageData clamps at the canvas edge.
-  BEFORE PUTTING SOMETHING BACK, FIND OUT WHY IT WENT. git log -S answers in one command.
   STOP INVENTING IDENTIFIERS. Grep the name AND the SHAPE.
-  A CACHE KEY THAT CANNOT TELL "NO" FROM "NOT YET" WILL FREEZE THE WRONG ANSWER.
   A GATE THAT PRINTS NOTHING MAY HAVE PRINTED EVERYTHING.
   A NEGATIVE RESULT IS WORTH SHIPPING WHEN IT IS BOUNDED AND MECHANICAL.
-  A SUBSTRING TEST THAT MATCHES ITS OWN MUTATION IS NOT A TEST.
   WHEN A NEW LAW LANDS, COUNT HOW FAR THE BUILT THING ALREADY IS FROM IT.
   A DRAWING IS CHECKED BY LOOKING AT IT, AND NOTHING ELSE FINDS THESE.
-  ONE RUN EACH SIDE IS NOT AN A/B.
   THE BEST COOK DRAWS AN ANSWER THE GAME ALREADY HAS.
-  A LAW CAN BE INVERTED BY A LAYOUT, NOT ONLY BY A RULING.
-  WHEN THE SAME DEFECT ARRIVES A THIRD TIME, BUILD THE THING THAT REPORTS IT.
   BEFORE YOU BLAME YOUR OWN DIFF FOR A RED, TAKE YOUR OWN FILES OUT AND RUN IT.
-  A MEASUREMENT THAT LOOKS LIKE A BUG IS SOMETIMES THE DESIGN BRIEF.
   CONFIRM A PUSH BY ANCESTRY, NOT BY WHAT THE PUSH COMMAND PRINTED.
-  A LAW WITH A MEASURE ATTACHED IS NOT GUIDANCE, IT IS A TEST, AND I DID NOT RUN IT.
   A VERDICT THAT KILLS THE PICTURE DOES NOT KILL THE QUESTION IT WAS ASKING.
   AN INSTRUMENT ONLY CHECKS THE AXIS YOU BUILT IT FOR.
   FIXING THE PICTURE IS NOT FIXING THE CLAIM. Re-read what you SAID about it.
-  WRITE THE THING WHERE IT IS USED. Hoist on the second caller, never the first guess.
   A CORRECTION GOES BESIDE THE WORD IT REPLACES, NEVER UNDER IT.
   WHEN A NEW LAW LANDS, ASK WHAT IT MAKES ANSWERABLE IN YOUR OWN LAYER.
   HOW A FUNCTION IS PASSED IS NOT ITS SIGNATURE. A wrong accessor does not fail, it AGREES.
   BEFORE YOU DRAW SOMETHING FOR A GAME, PHOTOGRAPH THE GAME.
-  WHEN A REJECTION REPEATS AND THE FIX DOES NOT LAND, THE THING BEING REJECTED IS NOT THE
-  THING YOU ARE CHANGING.
   READ THE COMMENT, NOT THE THUMB.
   A FALLBACK CONSTANT IS NOT A MEASUREMENT.
   A HASH DIFF ON A LIVE SCENE PROVES NOTHING. People move.
   A GATE CAN PASS ITS OWN MUTATION BY COINCIDENCE OF THE CASE YOU CHOSE.
   A MEMORY CAN EXIST AND STILL BE INVISIBLE. Count the reads before promising he will see it.
   TAKE THE SHAPE THAT IS ALREADY IN THE REPO.
-  *** A NUMBER TAKEN ON THE WRONG FRAME IS NOT A MEASUREMENT EVEN WHEN IT IS THE RIGHT
-  NUMBER. *** Twice in three rounds now, and both times another lane caught it.
-  *** AN INSTRUMENT THAT PARSED NOTHING REPORTS A ZERO THAT LOOKS LIKE A FINDING. *** Count
-  what you parsed and refuse to report without it.
-  *** CHECK WHAT REACHES THE GLASS BEFORE BUILDING ANOTHER SYSTEM BEHIND IT. *** We had
-  almost the whole Battle Brothers houses feature already built -- crews, seats, colours,
-  standing, refusal, and now a memory of ground changing hands -- and the map asks for none
-  of it.
+  A NUMBER TAKEN ON THE WRONG FRAME IS NOT A MEASUREMENT EVEN WHEN IT IS THE RIGHT NUMBER.
+  AN INSTRUMENT THAT PARSED NOTHING REPORTS A ZERO THAT LOOKS LIKE A FINDING.
+  CHECK WHAT REACHES THE GLASS BEFORE BUILDING ANOTHER SYSTEM BEHIND IT.
+  *** A BIG RULE LANDING IS NOT AUTOMATICALLY A BIG RULE FOR EVERY LANE. *** "Restart the
+  whole enchilada" reads as a call to audit everything; two greps and one node command
+  answered it in five minutes, because the new law names its own scope and this lane's
+  layer was never in it. Read what a law actually says before reacting to how big it sounds.
+  *** AND WHEN A SISTER LANE'S REBUILD IS IN FLIGHT, THE SAFEST WORK IS THE WORK THAT DOES
+  NOT TOUCH THEIR SURFACE YET. *** [bb houses] round two waited a round on purpose rather
+  than wiring against ground that WORLD/RUN/LIFE+CITY are actively moving.
 
 --------------------------------------------------------------------------------
 
