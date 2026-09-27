@@ -190,6 +190,18 @@ const DIRS = [[0, -1], [1, -1], [1, 0], [1, 1], [0, 1], [-1, 1], [-1, 0], [-1, -
     const legs = [[R, 0], [0, R], [-R, 0], [0, -R]];
 
     let stuck = 0, sealed = 0, blocked = 0, missed = 0, presses = 0, cells = 0;
+    let walled = 0; const walledWhere = [];
+    /* IS HE FLAT AGAINST A WALL IN THE DIRECTION HE PRESSED: the cell ahead and both
+       cells diagonally ahead are all unwalkable, so a one-cell stride has nowhere to go
+       and nowhere to slide. Asked of the game's own walk flag, never of a picture. */
+    const wallAhead = (x, y, dx, dy) => fr.evaluate((q) => {
+      const walk = (a, b) => { try { const c = cellAt(a, b); return !!(c && c.walk); }
+                               catch (e) { return false; } };
+      const px = -q.dy, py = q.dx;
+      return !walk(q.x + q.dx, q.y + q.dy)
+          && !walk(q.x + q.dx + px, q.y + q.dy + py)
+          && !walk(q.x + q.dx - px, q.y + q.dy - py);
+    }, { x: x, y: y, dx: dx, dy: dy });
     const stuckWhere = [], missedWhere = [], sealedWhere = [], blockedWhere = [];
     const tried = Object.create(null);   /* a harness that hammers one wall measures nothing */
 
@@ -271,6 +283,27 @@ const DIRS = [[0, -1], [1, -1], [1, 0], [1, 1], [0, 1], [-1, 1], [-1, 0], [-1, -
               blocked++; blockedWhere.push(a.hx + ',' + a.hy + ' ' + wedges[di].dir);
             } else if (await isSealed(a.hx, a.hy, v[0], v[1], R / 3)) {
               sealed++; sealedWhere.push(a.hx + ',' + a.hy + ' ' + wedges[di].dir);
+            } else if (await wallAhead(a.hx, a.hy, v[0], v[1])) {
+              /* *** A PRESS FLAT INTO A WALL IS THE WALL DOING ITS JOB. *** (RUN 9/27,
+                 [two scales], rule 34.) This gate already separates two honest refusals
+                 from a bug -- sealed ground and a body holding a cell -- and the
+                 one-cell stride creates a third it had never seen. With a twenty-five
+                 cell stride the slide could run along a wall face for its end and the
+                 press always produced movement; at one cell there is nowhere to slide
+                 to inside a single cell, so standing against a wall and pressing into it
+                 correctly moves him nowhere.
+                 MEASURED AT THE FOUR CELLS THIS RAISED, cell by cell with the game's own
+                 walk flag: at 6231..6234,6270 pressing south, SOUTH, SOUTH-EAST AND
+                 SOUTH-WEST WERE ALL UNWALKABLE and east and west were open. He is flat
+                 against a wall running east-west. Sliding him sideways on a press of
+                 DOWN would be the pad inventing a direction he did not ask for.
+                 WHAT IS ACTUALLY OWED HERE IS RULE 34(b), AND IT IS NOT THIS LANE'S:
+                 "a wall shows itself, a press into it is never a dead pad" -- the wall
+                 has to be VISIBLE, which is the honest grid WORLD and LIFE+CITY hold.
+                 The pad is not lying to him; the drawing is not telling him. Counted and
+                 named, never folded into the stuck number, because that number is his
+                 own complaint and it has to keep meaning what he meant. */
+              walled++; walledWhere.push(a.hx + ',' + a.hy + ' ' + wedges[di].dir);
             } else {
               stuck++; stuckWhere.push(a.hx + ',' + a.hy + ' ' + wedges[di].dir);
             }
@@ -303,24 +336,32 @@ const DIRS = [[0, -1], [1, -1], [1, 0], [1, 1], [0, 1], [-1, 1], [-1, 0], [-1, -
     }
 
     say('WALKED HIS BLOCK: ' + presses + ' presses, ' + cells + ' cells crossed, '
-        + stuck + ' stuck, ' + sealed + ' into sealed ground, '
+        + stuck + ' stuck, ' + walled + ' flat into a wall, ' + sealed + ' into sealed ground, '
         + blocked + ' held by somebody, ' + missed + ' gaps walked past');
     if (stuckWhere.length)  say('  stuck at: ' + stuckWhere.slice(0, 6).join(' | '));
     if (sealedWhere.length) say('  sealed at: ' + sealedWhere.slice(0, 6).join(' | '));
+    if (walledWhere.length)  say('  flat into a wall at: ' + walledWhere.slice(0, 6).join(' | ')
+                                 + '   (rule 34b owes the WALL a face he can see: WORLD/LIFE+CITY)');
     if (blockedWhere.length) say('  held by somebody at: ' + blockedWhere.slice(0, 6).join(' | '));
     if (missedWhere.length) say('  missed at: ' + missedWhere.slice(0, 6).join(' | '));
 
     ok('he actually walked (' + cells + ' cells over ' + presses + ' presses)', cells > 40);
-    ok('*** ZERO STUCK PRESSES *** (' + stuck + ' of ' + presses + '; ' + sealed
+    ok('*** ZERO STUCK PRESSES *** (' + stuck + ' of ' + presses + '; ' + walled
+       + ' were flat into a wall, ' + sealed
        + ' more were into ground a body cannot reach and ' + blocked
        + ' into a cell somebody was standing in -- a wall and a person, both doing '
        + 'their jobs)', stuck === 0);
     ok('*** ZERO GAPS WALKED PAST *** (' + missed + ')', missed === 0);
 
-    /* THE LOT IS THE CEILING, THE GROUND SETS THE LENGTH: no stride may be longer
-       than one lot, and the average must be shorter, or nothing is stopping early. */
+    /* *** THE STRIDE IS ONE CELL NOW, AND THIS LEG USED TO DEMAND THE OPPOSITE. ***
+       (RUN 9/27, [two scales].) It asserted `lot > 1` -- a stride LONGER than one cell --
+       which was THE STEP IS A HOUSE (9/15) written into a checker. Rule 34(c) supersedes
+       that law by name: PAOLO 9/27, "you move one grid at a time, that we had originally
+       ... one house doesn't equal one tile, it's all fucked up."
+       A GATE STILL ENFORCING A SUPERSEDED LAW IS WORSE THAN NO GATE, because it argues
+       with him in green ticks. Same shape, new number: the stride is exactly one cell. */
     const lot = await fr.evaluate(() => { try { return STEP_CELLS; } catch (e) { return null; } });
-    ok('one stride is capped at one lot (' + lot + ' cells)', lot > 1);
+    ok('one stride is ONE CELL (rule 34; it is ' + lot + ')', lot === 1);
     const avg = presses ? cells / (presses - stuck || 1) : 0;
     say('the ground set the length: ' + avg.toFixed(1) + ' cells a press against a '
         + lot + ' cell ceiling');

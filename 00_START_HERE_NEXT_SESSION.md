@@ -7241,6 +7241,107 @@ it is player-facing at all is worth deciding before restyling it. The source cou
 now understood as dead-declaration debt and can be swept file-wide in one pass instead of
 being chased surface by surface.
 
+RUN (run-eak241): 9/27b LATEST -- *** [two scales] THE STEP HALF SHIPPED: ONE PRESS IS ONE
+CELL, AND THE NUMBER THAT WAS WRONG WAS THIS LANE'S OWN. TAB: RUN (and CITY, the same world
+zoomed out). Nothing to judge. ***
+
+PAOLO 9/27, rule 34: "your character stays tiny even as you zoom out and YOU MOVE ONE GRID
+AT A TIME, THAT WE HAD ORIGINALLY... one house doesn't equal one tile, it's all fucked up...
+the demo is still not playable from the very beginning."
+
+MEASURED ON THE GLASS BEFORE ANYTHING CHANGED:
+
+  one cell drew           11 px
+  one press carried       25 cells = 275 px
+  the body drew          112 px, which is TEN CELLS wide
+
+A person ten cells across taking a twenty-five cell stride, on a grid where a house is
+thirteen cells. THE STRIDE WAS MINE: rule 16 gave this lane THE STEP, and THE STEP IS A
+HOUSE (9/15) is the law that put 25 there. Rule 34(c) supersedes it by name, with A COMBAT
+TILE IS A HOUSE (9/4).
+
+strideFine 25 -> 1. AFTER: 16 presses, 16 steps in the game, 16 cells, no press carrying
+more than one. The squeeze still costs one out and one back, AND HE LANDS ON THE CELL HE
+LEFT, not near it. THE OLD VALUE IS NOT KEPT AS A FALLBACK -- a dial that can quietly
+restore a superseded law is how a dead law comes back under a new name.
+
+*** AND THE MUTATION EXPLAINED WHY THE OLD WALK FELT BROKEN. *** With 25 put back, the
+sixteen presses read:
+
+  25, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+
+He crosses a lot, clips the next one, and then FOURTEEN PRESSES DO NOTHING. That is his own
+crashing-into-things complaint, and the stride was causing it.
+
+=== TWO CORRECTIONS TO MY OWN INSTRUMENT, BOTH CAUGHT HERE ===
+
+THE HARNESS LOSES TOUCHES MID-RUN, not only at the start, and a dropped press reads exactly
+like a two-cell stride (its movement lands on the next one). Measured three times:
+[1,1,0,1,0,2,...] at 320 ms, [0,2,1,1,...] at 700 ms, and [1,1,1,1,1,0,2,1,...] after I had
+already warmed the pad.
+ 1. MY FIRST FIX WAS AN EXCEPTION IN THE TALLY -- forgive a 2 that follows a 0 -- and I
+    threw it out. A rule with a carve-out for the measurement's own bad night cannot fail
+    honestly, and that same carve-out would hide a REAL two-cell stride.
+ 2. SO THE MEASUREMENT MOVED OFF MY HAND AND ONTO THE GAME. It wraps the one function that
+    carries him and records how far HE moved in THAT call. A dropped touch is one fewer
+    call, never a call worth two cells, so the plain sentence can be asserted with nothing
+    carved out of it.
+
+=== AND THE WALK GATE WAS ENFORCING THE DEAD LAW ===
+
+Its stride leg asserted a stride LONGER than one cell -- THE STEP IS A HOUSE written into a
+checker. A gate still enforcing a superseded law argues with him in green ticks. Re-aimed to
+exactly one cell.
+
+Its four new "stuck" presses are real and they are NOT a stuck pad. Measured cell by cell
+with the game's own walk flag: at 6231..6234,6270 pressing SOUTH, south, south-east and
+south-west are ALL unwalkable while east and west are open -- he is flat against a wall
+running east-west. At twenty-five cells the slide ran along a wall face for its end and
+every press produced movement; at one cell there is nowhere to slide inside a single cell,
+and sliding him sideways on a press of DOWN would be the pad inventing a direction.
+So the gate now classifies A PRESS FLAT INTO A WALL as its own thing, counted and named
+beside sealed ground and a body holding a cell, NEVER folded into the stuck number --
+because that number is his complaint and it has to keep meaning what he meant.
+WHAT IS OWED THERE IS RULE 34(b) AND IT IS NOT MINE: "a wall shows itself, a press into it
+is never a dead pad." The pad is not lying to him; the drawing is not telling him. That is
+the honest grid, WORLD and LIFE+CITY.
+
+=== WHAT I DID NOT TOUCH, BECAUSE RULE 34 IS FIVE LANES WIDE THIS ROUND ===
+ - THE ONE-CELL BODY IS CHARACTER'S [small body] ("about 28 px on a 32 px cell, cut down
+   from the 112"). Said plainly: until that lands he is a TEN-CELL person taking one-cell
+   steps, a different wrongness from the one just fixed, and theirs.
+ - THE HONEST GRID is WORLD's and LIFE+CITY's; the fight on it COMBAT's; the one-cell clips
+   ANIMATION's; the 32 px tile banks COOK's.
+
+=== AND THE 32 PX CELL IS A MEASUREMENT, NOT A WAIT (rule 12) ===
+Rule 34(d) wants a cell about 32 px. I measured the premise instead of waiting behind it:
+A HOUSE IS 13 CELLS TODAY, so at 32 px a house draws 416 px on a 378 px screen and DOES NOT
+FIT. The camera moves when WORLD's block lands, in the same change, or the screen breaks.
+
+=== THE PASS ===
+  STEP IS ONE CELL 11/0 (new)   WALK NEVER MISSES 19/0   THE FOUR THINGS 28/0
+  NOTHING POPS UP 23/0   DRIVER REACHES 8/0   NOTHING ON TOP 7/0   SCREEN HOLDS 27/0
+  SPAWN HOME 9/0   DEMO CURRENT 16/0
+  THE WALK, BY HAND (rule 18c): 56 presses, 52 cells crossed, 0 stuck, 4 flat into a wall,
+  0 into sealed ground, 0 held by somebody, 0 gaps walked past.
+  (The cells-per-press number fell from 530 to 52 ON PURPOSE: that is the whole change.)
+
+[PENDING nobody, STILL OPEN AND STILL NOT MINE]
+ - a press flat into a wall moves him nowhere and the wall has no face he can see (34b).
+ - the 32 px cell and the one-cell body, above, with their owners.
+ - he has ZERO batteries on day one while the market's whole shelf costs one each.
+
+NEXT: the rest of [two scales] -- the camera to the 32 px cell the moment WORLD's block
+exists, in one change with the body, and then re-cut. [bb map] folds into this row. [fast
+travel] and [excavate the walk] are rule 33h archive work on the cross-valley stride that
+the one-cell step has now made moot in the walked world.
+
+RECORDS: records/BOHEMIA_ONE_PRESS_IS_ONE_CELL_9_27_26.md,
+records/BOHEMIA_PAOLO_SAID_BATTLE_BROTHERS_TO_THE_RUN_9_27_26.md,
+records/BOHEMIA_AN_EIGHTY_SEVEN_PIXEL_STRIP_ATE_EVERY_FINGER_9_24_26.md
+
+--------------------------------------------------------------------------------
+
 RUN (run-eak241): 9/27 LATEST -- *** HE SPOKE TO THIS LANE, AND [banner eats fingers]
 SHIPPED. TAB: RUN (and CITY, the same walked world). Nothing to judge. ***
 

@@ -53864,7 +53864,22 @@ const BODY_SCALE = {
      LEFT FOR RUN, MEASURED NOT DECIDED: whether the stride should BE the lot. That is
      [one camera]'s call and it costs five stuck presses at 24 until the stride rules
      are re-measured at that length. */
-  strideFine: 25,   /* RUN's: how far one press carries him. Feeds STEP_CELLS below. */
+  /* *** ONE PRESS IS ONE CELL. RULE 34 (PAOLO 9/27), AND IT SUPERSEDES THE LAW THIS
+     NUMBER WAS BUILT FOR. *** His words: "your character stays tiny even as you zoom out
+     and YOU MOVE ONE GRID AT A TIME, THAT WE HAD ORIGINALLY... one house doesn't equal
+     one tile, it's all fucked up."
+     THE STEP IS A HOUSE (9/15) and A COMBAT TILE IS A HOUSE (9/4) are superseded by name
+     in rule 34(c). This number was 25 -- one lot per press -- and that was the whole of
+     the old law. MEASURED ON THE GLASS BEFORE CHANGING IT: one cell drew 11 px, one press
+     carried him 25 cells (275 px), and the body drew 112 px, which is TEN CELLS WIDE. A
+     person ten cells across taking a twenty-five cell stride is exactly the thing he
+     called fucked up, and it is this lane's own number.
+     IT IS 1. One press, one cell, every time, which is the sentence rule 34 puts into
+     rule 18: THE FIRST SIXTY SECONDS ARE A GAME.
+     THE OLD VALUE IS KEPT BY NAME above as STEP_CELLS_QUARTER's larger sibling in the
+     record, not as a live fallback: a dial that can quietly restore a superseded law is
+     how a dead law comes back under a new name. */
+  strideFine: 1,    /* RUN's: how far one press carries him. Feeds STEP_CELLS below. */
   /* AND THE LOT KEEPS ITS NAME, BECAUSE OTHER LANES ASK THIS OBJECT FOR IT. Removing it
      outright broke RUN's own gate on the next run: THE WALK NEVER MISSES asks for the lot
      in pixels and got NaN, "a house fits on the glass (NaN px lot on a 378 px screen)".

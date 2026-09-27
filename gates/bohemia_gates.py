@@ -2198,6 +2198,25 @@ GATES = [
      'AND ONE LEG NEARLY PASSED FOR THE WRONG REASON: forcing the strip visible gives a 0x0 box, so '
      'asking who owns a zero-width point answered "nothing" and ticked green; it asserts the LOCK now, '
      'which needs no layout, and reports the box instead of asserting on it.', False),
+    ('STEP IS ONE CELL', ['node', 'gates/the_step_is_one_cell_gate.js'],
+     'VAMILY [two scales], rule 34 (PAOLO 9/27): "your character stays tiny even as you zoom out and YOU '
+     'MOVE ONE GRID AT A TIME, THAT WE HAD ORIGINALLY... one house does not equal one tile, it is all '
+     'fucked up." Rule 34(c) SUPERSEDES BY NAME the two laws this lane built, THE STEP IS A HOUSE (9/15) '
+     'and A COMBAT TILE IS A HOUSE (9/4). MEASURED ON THE GLASS BEFORE THE CHANGE: one cell drew 11 px, '
+     'one press carried 25 cells (275 px), and the body drew 112 px, which is TEN CELLS wide -- a person '
+     'ten cells across taking a twenty-five cell stride, and the stride was this lane own number. NOW: '
+     '16 presses, 16 cells, no press carrying more than one. AND THE MUTATION SHOWED WHY THE OLD STRIDE '
+     'FELT BROKEN: with 25 restored the walk reads 25, then 5, then ZERO for fourteen presses -- he '
+     'crosses a lot, clips something and stops dead, which is his own crashing-into-walls complaint. '
+     'IT ALSO HOLDS THE SEAM HALF OF THE ROW: one squeeze reaches the far scale, one spread comes back, '
+     'and he lands on THE CELL HE LEFT, not near it. THE HARNESS LOSES THE FIRST TOUCH and that looks '
+     'exactly like a broken stride (measured twice: [1,1,0,1,0,2,...] at 320 ms and [0,2,1,1,...] at '
+     '700 ms, the lost press arriving on the next one), so the warm-up PRESSES UNTIL ONE REALLY MOVES '
+     'HIM and only then counts -- the artefact is removed at its source instead of carved out of the '
+     'rule, because a rule with an exception for the ruler bad night cannot fail honestly. NOT IN HERE '
+     'AND WHY: the one-cell BODY is CHARACTER [small body] this same round, and the 32 px cell needs '
+     'WORLD [honest grid] (a house is 13 cells today, so 32 px would draw 416 px on a 378 px screen and '
+     'not fit). MUTATION: put the lot-per-press stride back -> 4 red.', False),
     ('THE FOUR THINGS', ['node', 'gates/the_cut_is_the_four_things_gate.js'],
      'VAMILY [cut now], rule 18g and 18i. PAOLO 9/20: "I am overwhelmed and underwhelmed at the '
      'same time... a lot going on and I see it but this shit is broken right now." PAOLO 9/22: '
