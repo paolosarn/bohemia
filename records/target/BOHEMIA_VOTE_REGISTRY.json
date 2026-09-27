@@ -2160,6 +2160,42 @@
         "how": "page",
         "src": "BOHEMIA_WHAT_THIS_VALLEY_STRIKES_9_24_26.html"
       }
+    },
+    {
+      "id": "sounds-the-deck-is-not-the-hiss-9-27",
+      "kind": "sound",
+      "lane": "sounds",
+      "sha": "PENDING",
+      "made": "9/27",
+      "title": "THE DECK IS NOT THE HISS",
+      "why": "You killed the tape and you said it all sounded like sand. You were right: it was a band of hiss with a machine's name on it. This is the same idea rebuilt out of the machine instead. A tape deck is plastic being knocked and wheels turning, and hiss is the one part of a cassette a phone speaker would never pick up anyway. Press play and you get the lever, the head arriving 45 ms later, and the song SLIDING UP to speed, which is what a real deck does and what a whoosh was standing in for. Nothing in it is a number I picked: the standard says the tape moves 4.7625 cm a second, so the capstan turns 7.58 times a second and the reel 0.69, and those two are the wobble you hear. And the best part is free: the wobble gets SLOWER as the side plays, because the tape piling onto the reel makes it fatter. Same machine, slower breath. That is why a tape sounds tired instead of broken. Zero noise generators in it.",
+      "options": [
+        "A, the whole deck",
+        "B, just the machine, no song",
+        "C, a worn-out deck"
+      ],
+      "show": {
+        "how": "page",
+        "src": "BOHEMIA_THE_DECK_AND_THE_FLIP_9_27_26.html"
+      }
+    },
+    {
+      "id": "sounds-a-flip-is-a-tape-changing-9-27",
+      "kind": "sound",
+      "lane": "sounds",
+      "sha": "PENDING",
+      "made": "9/27",
+      "title": "A FLIP IS A TAPE CHANGING",
+      "why": "You said the old flip was kinda dogshit. It was hiss too, and it also claimed to be a radio while being built wider than any radio. This one is what the law already said a flip is: a tape changing. The flip is ONE TAP and it is always there, so you will hear it hundreds of times, which means the way it fails is not too quiet, it is I am sick of it. So: inside one beat, no riser, no whoosh, no sting, just the shell seating and the machine taking it. It is honest about what it is not, too: a real tape change takes several seconds, so this is the part of one you actually hear. The knock is a polystyrene shell ringing its own notes, which come from its shape and not from a setting. Zero noise generators in it.",
+      "options": [
+        "A, the shell seats and the machine takes it",
+        "B, one knock",
+        "C, the old one comes out first"
+      ],
+      "show": {
+        "how": "page",
+        "src": "BOHEMIA_THE_DECK_AND_THE_FLIP_9_27_26.html"
+      }
     }
   ],
   "verdicts": [

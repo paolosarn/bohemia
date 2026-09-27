@@ -2560,6 +2560,114 @@ NEXT: [cook panels] is the standing rule-22 row and is OPEN again; items 2, 3 an
 (the fight HUD, the talk panel, the vote tab's own frame) are drawn as sheets but not built
 as skins. [three d ui] still has no gate of its own. [vote plays sound] is still open and
 SOUNDS has items waiting that he cannot hear in the tab. [no slop] stays CLAIMED.
+SOUNDS (sound-xk7pjp): 9/27 LATEST -- *** A TAPE DECK IS NOT MADE OF HISS. THE TWO SOUNDS HE KILLED
+ARE BACK AS NEW IDS, BUILT OUT OF A CASSETTE TRANSPORT'S OWN GEOMETRY, AND FOUR RULERS LIED ON THE
+WAY. *** Row [not sand], round three, ROW STAYS CLAIMED.
+Record: records/BOHEMIA_A_TAPE_DECK_IS_NOT_MADE_OF_HISS_9_27_26.md
+Gates: COOKED SOUNDS 125/0, --mutate bites 38 (was 27). Build stamp 9/27c.
+Tab: VOTE, the new page is THE DECK, AND A FLIP IS A TAPE CHANGING (two items on it).
+
+*** READ THIS BEFORE YOU TOUCH THE FLIP: A DATE LABEL ON THIS LANE'S OWN BOARD ALMOST ENDED A
+LEGAL RE-COOK. *** The killed flip's id is `sounds-what-a-flip-sounds-like-9-25` and the row said
+SHIPPED 9/25, while git says f8b3280 landed 9/23 and his verdict on it is dated 9/23. A VOTE CANNOT
+PREDATE THE ITEM IT JUDGES. Read at a glance, a fresh-looking DOWN on a flip id plus the board's own
+"three DOWN in one batch: the tape, the run, the flip" says SECOND rejection, and under rule 32e and
+STOP PRODUCING a second down ENDS the thing for the session, so a third version would have been the
+violation. It is the FIRST down on the flip; the second rejection belongs to the NOISE RECIPE. The
+row is corrected to 9/23. A RULING IS WHAT HE TAPPED, NOT WHAT A ROW SAYS ABOUT IT: read the
+verdicts export, not the summary of it.
+
+WHAT A CASSETTE DECK IS ACTUALLY MADE OF, and hiss is not one of the four: plastic being knocked
+(the lever, the head, the shell), the speed not holding (wow and flutter ON the programme), the tape
+coming UP to speed, and the signal going AWAY (a drop-out is oxide lost, so it is SILENCE, not
+noise). The hiss everybody reaches for is the tape's own noise floor, which is the one part of a
+cassette a phone speaker in a dead valley would never reproduce, and it is the part this lane
+reached for three times running.
+
+EVERY RATE IS THE WHEEL'S OWN GEOMETRY. The standard fixes the tape speed at 1 7/8 ips = 4.7625
+cm/s exactly, and a wheel's rate is that over its circumference:
+  capstan      2 mm  ->  7.5798 rev/s   the FLUTTER rate
+  pinch roller 6 mm  ->  2.5266
+  hub, empty  22 mm  ->  0.6891 rev/s   the WOW rate at the START of a side
+  reel, full  38 mm  ->  0.3989 rev/s   the WOW rate at the END of one
+*** AND THAT LAST PAIR IS THE WHOLE SOUND: THE WOW RATE FALLS AS THE SIDE PLAYS, because the tape
+piling onto the take-up reel makes it fatter, so it turns slower for the same tape speed. That is
+why a tape sounds TIRED rather than BROKEN. *** Measured on a tone through the deck's own speed
+function, geometry against sound at five points: 0.6891/0.6912, 0.6165/0.6159, 0.5440/0.5424,
+0.4715/0.4740, 0.3989/0.3971, worst disagreement 0.54%. Each wheel alone: the reel 0.349% at
+0.6453 Hz, the capstan 0.080% at 7.5782 Hz. WHAT IT REPLACES: the wobble in this file was 1.4 Hz,
+inside school rule 5's window and no part of any machine.
+
+*** FOUR RULERS LIED THIS ROUND AND THE CONTROLS CAUGHT ALL FOUR. THIS IS THE PART TO KEEP. ***
+ (a) FLATNESS CANNOT TELL THE NEW SOUND FROM THE ONE HE KILLED: both read 0.0000, because the
+     loudest window of either is a musical note. Last round flatness was the RIGHT ruler for the
+     sand footstep; this round it is the wrong one. A RULER THAT CANNOT SEPARATE TWO THINGS PROVES
+     NOTHING ABOUT EITHER, so the gate states on its face that flatness is not the evidence here
+     and the structural read of the shipped function is.
+ (b) MY WOBBLE RULER READ A 318% PITCH SPREAD ON A SONG. That was the tune changing notes every
+     460 ms. A WOBBLE IN A READ SPEED CANNOT BE MEASURED ON A TUNE, which is exactly what wowProbe
+     was built for two rounds ago; the fix was to reuse the lesson, not to patch the ruler.
+ (c) THE SAME RULER THEN READ 2.85% ON A TONE WITH THE WOBBLE SWITCHED OFF, eight times the 0.35%
+     it was aimed at, because counting crossings in a 20 ms block at 440 Hz resolves to 5.7%. THE
+     CONTROL IS THE ONLY REASON THREE FALSE NUMBERS NEVER REACHED A RECORD, and it was run first
+     only because the band ruler cost this lane two rounds.
+ (d) AND THE GATE'S PROVEN WOW ANALYSER STILL COULD NOT SEE THE DRIFT: one bin of its 1024-point
+     transform is 440/1024 = 0.43 Hz and the drift is 0.29 Hz, so three "measured" rates read
+     0.859, 0.430 and 0.430 -- two bins, one bin, one bin, which is the grid and not the sound.
+     Widened to 8192 with an interpolated peak. IF YOU QUOTE A RATE, DIVIDE THE MEAN BY THE
+     TRANSFORM LENGTH FIRST AND SEE WHETHER YOUR ANSWER CAN EVEN EXIST.
+
+WHAT SHIPPED, TWO ITEMS, ZERO NOISE GENERATORS IN EITHER:
+ 1. THE DECK IS NOT THE HISS. The lever, the head arriving 45 ms later, the song sweeping UP to
+    speed (40.5% of final speed in the first 100 ms, 71.2% by 200, 94.5% by 400; the control with
+    the ramp off reads 100% in the first window, so the ramp is the cause and not the ruler). Two
+    knocks, not one, because one is a button. The knock is the shell's own plate modes off THE
+    FOOTSTEP'S OWN FUNCTION (polystyrene, 1.2 mm walls, 64 mm across: lowest mode 493 Hz ringing
+    32 ms over ten modes), so there is no third copy of that idea. The song sits 4.7 dB under the
+    clunk in rms. A reads 0.358% wobble, INSIDE rule 5; C the worn deck reads 0.635%, OUTSIDE it,
+    which is what worn means, and I wrote "still inside rule 5" first and the measurement said no.
+ 2. A FLIP IS A TAPE CHANGING, which is what rule 31's own law text always said it was. ONE TAP,
+    ALWAYS THERE, hundreds of times, so the failure mode is "I am sick of it", not "too quiet":
+    two knocks 155 ms apart, 0.500 s against a 0.5 s beat, no riser, no whoosh, no sting. HONEST
+    ABOUT WHAT IT IS NOT (a real tape change takes seconds, so this is the part you hear), and
+    option C at 0.655 s is MARKED as not fitting a beat rather than trimmed to look like it does.
+    It declares NO BAND, because the killed flip published a 5,000 Hz AM ceiling while its own gap
+    was built wider than any AM channel on purpose.
+
+A DEFECT IN A SOUND HE APPROVED, FOUND BY A RULER BUILT FOR SOMETHING ELSE AND NAMED RATHER THAN
+QUIETLY PATCHED: songThroughSpeaker, which he voted UP, ENDS AT 0.050992 against its own biggest
+step of 0.1074. That is a click at the end of an approved sound. Changing a sound he approved is a
+REDO by this lane's own ruling and it is not this row, so it is in the gate's claim text and it is
+item 1 below. A 12 ms raised-cosine fade fixes it; the question is whether it re-enters VOTE.
+
+AND THE MUTATION IS WHERE ONE CLAIM WAS EXPOSED AS NOT A CLAIM: "the mechanism is two knocks and
+not one" stayed GREEN under the first mutation because nothing in the falsifier reached the deck's
+knock count. The recipe now takes a `knocks` parameter that exists for the falsifier alone, the way
+bandTo carries `legacy`. IF A CLAIM SURVIVES YOUR MUTATION, THE MUTATION DID NOT REACH IT.
+
+NEXT, IN ORDER:
+ 1. THE APPROVED SONG'S CLICK (section 5 of the record): a 12 ms fade, measured before and after,
+    and decide honestly whether it re-enters VOTE as a redo or ships as a tail fix. Name it either
+    way; do not change a sound he approved silently.
+ 2. THE VALLEY STILL BROADCASTS rebuilt from real material, then registered. Built and gated right
+    now and deliberately OUT of his queue, because its carrier IS the graveyarded recipe.
+ 3. THE 21 HARD-CONTACT REDOS from the keep/redo list, footsteps first, on the model that landed.
+ 4. THE THREE HUMS AT THE GRID'S PITCH (generator 51.87 Hz, power_on 90.47, sign_alive 123.27).
+ 5. ATTRIBUTE THE 19 NODES ON THE MAP, with a probe that cannot throw.
+ 6. THE FIRST SOUND GATE'S FLAKE, one red in five, on the claim that reads the audio context's
+    state before the tap. Named four rounds running now. It is the claim, not the game.
+ 7. [beds play] is still HELD. Then [enemy heard], [fight music], [quiet floor], [rumour heard],
+    [pump hum].
+ 8. TWO MUSIC HOLES, STILL MINE: a room handing music back does not check whether a fight owns it,
+    and the shell obeys the city's music message with no fight guard.
+ 9. RULE 33j LANDED ON THIS LANE'S bb ROW WHILE THE ROUND WAS OUT: read
+    reference/library/battle_brothers/README.md for this department, cite it, and fix a wrong
+    number there with a source. NOT DONE THIS ROUND and not pretended otherwise.
+
+NOT THIS LANE'S, STILL TRUE: the pages publish gate is 17/1 on CLEAN origin/main, the published
+surface 276 MB against its own 260 MB cap, verified on a detached worktree with nothing of mine in
+it. This lane added 11 KB and one outward ref.
+
 SOUNDS (sound-xk7pjp): 9/24 (d) LATEST -- *** THE MAP MAKES 19 SOUNDS IN HALF A MINUTE AND THE STREET
 MAKES ZERO, WHICH IS BACKWARDS. AND THE VALLEY NOW STRIKES THE HOUR, FROM THREE STRUCK OBJECTS WITH
 NOT ONE NOISE GENERATOR IN THEM. *** Row [bb ambience] SHIPPED (rule 33's school row, round one).

@@ -319,6 +319,138 @@ const MEASURE = `
     } catch (e) { out.strikeErr = String(e && e.message).slice(0,120); }
   })();
 
+
+  /* *** THE DECK AND THE FLIP AS A TAPE CHANGING (9/27), row [not sand]. ***
+     Paolo killed both for sounding like sand. These are their new ids from real material,
+     and the material is a cassette transport, so the questions are: is there any noise in
+     them at all, do the wobble RATES match the wheels' own geometry, and does the wow rate
+     really fall across a side the way a filling reel makes it.
+
+     *** THE RATE RULER IS WIDENED HERE AND THE REASON IS ON THE FACE OF IT. *** analyse()
+     above takes a 1024-point transform of the frequency track, one bin of which is
+     mean/NW = 440/1024 = 0.43 Hz. The drift being claimed is 0.689 Hz down to 0.399 Hz,
+     which is 0.29 Hz: SMALLER THAN ONE BIN. Measured on the narrow ruler the three rates
+     read 0.859, 0.430 and 0.430 Hz, which is two bins, one bin and one bin -- the ruler's
+     grid, not the sound. At NW 8192 one bin is 0.054 Hz and the peak is interpolated. */
+  (function () {
+    const freqTrack = (arr) => {
+      const t = []; let prev = arr[0], lastX = null;
+      for (let i=1;i<arr.length;i++){
+        if (prev < 0 && arr[i] >= 0) {
+          const x = i - 1 + (0 - prev) / (arr[i] - prev);
+          if (lastX != null) t.push(SR / (x - lastX));
+          lastX = x;
+        }
+        prev = arr[i];
+      }
+      return t;
+    };
+    const wide = (arr, NW) => {
+      NW = NW || 8192;
+      const f = freqTrack(arr); if (f.length < 40) return null;
+      const mean = f.reduce((a,b)=>a+b,0)/f.length;
+      let v = 0; for (const x of f) v += (x-mean)*(x-mean);
+      const depth = Math.sqrt(v/f.length) * Math.SQRT2 / mean;
+      const re = new Float64Array(NW), im = new Float64Array(NW);
+      for (let i=0;i<NW;i++){ const w = 0.5-0.5*Math.cos(2*Math.PI*i/(NW-1));
+        re[i] = ((f[i] != null ? f[i] : mean) - mean) * w; }
+      for (let i=1,j=0;i<NW;i++){ let bit=NW>>1; for(;j&bit;bit>>=1) j^=bit; j^=bit;
+        if(i<j){ let t=re[i];re[i]=re[j];re[j]=t; t=im[i];im[i]=im[j];im[j]=t; } }
+      for (let len=2;len<=NW;len<<=1){ const ang=-2*Math.PI/len, wr=Math.cos(ang), wi=Math.sin(ang);
+        for (let i=0;i<NW;i+=len){ let cr=1,ci=0;
+          for (let k=0;k<len/2;k++){ const ur=re[i+k],ui=im[i+k];
+            const vr=re[i+k+len/2]*cr-im[i+k+len/2]*ci, vi=re[i+k+len/2]*ci+im[i+k+len/2]*cr;
+            re[i+k]=ur+vr; im[i+k]=ui+vi; re[i+k+len/2]=ur-vr; im[i+k+len/2]=ui-vi;
+            const ncr=cr*wr-ci*wi; ci=cr*wi+ci*wr; cr=ncr; } } }
+      const mag = (k) => re[k]*re[k] + im[k]*im[k];
+      let pk=1, pv=-1;
+      for (let k=1;k<NW/2;k++){ const m=mag(k); if(m>pv){pv=m;pk=k;} }
+      let frac = 0;
+      if (pk > 1 && pk < NW/2 - 1) {
+        const a=Math.sqrt(mag(pk-1)), b=Math.sqrt(mag(pk)), c=Math.sqrt(mag(pk+1));
+        const den = a - 2*b + c; if (den !== 0) frac = 0.5*(a-c)/den;
+      }
+      return { depthPct: depth*100, rateHz: (pk+frac)*mean/NW, binHz: mean/NW, meanHz: mean };
+    };
+    /* the mean pitch in a window, for the spin-up */
+    const meanHz = (d, a, b) => {
+      const f = freqTrack(d.slice(Math.round(a*SR), Math.round(b*SR)));
+      return f.length < 8 ? null : f.reduce((x,y)=>x+y,0)/f.length;
+    };
+    try {
+      const P = (o) => wide(H.transportProbe(ctx, o).buffer.getChannelData(0));
+      const deck = H.theTapeDeck(ctx, {});
+      const mach = H.theTapeDeck(ctx, { what: 'machine' });
+      const worn = H.theTapeDeck(ctx, { what: 'worn' });
+      const chg  = H.theTapeChange(ctx, {});
+      const seat = H.theTapeChange(ctx, { what: 'seat' });
+      const door = H.theTapeChange(ctx, { what: 'door' });
+      const rms = (d,a,b) => { let s=0,c=0; for(let i=a;i<b&&i<d.length;i++){s+=d[i]*d[i];c++;} return c?Math.sqrt(s/c):0; };
+      const dd = deck.buffer.getChannelData(0);
+      /* the spin-up on a 4 kHz probe, because a 100 ms window needs crossings to count */
+      const sp = H.transportProbe(ctx, { secs: 3, hz: 4000, spinUp: 0.120, wowDepth: 0, flutDepth: 0 });
+      const spd = sp.buffer.getChannelData(0);
+      const flat = H.transportProbe(ctx, { secs: 3, hz: 4000, wowDepth: 0, flutDepth: 0 });
+      const drift = [0, 0.25, 0.5, 0.75, 1].map((t) => {
+        const m = H.transportProbe(ctx, { secs: 22, through: t, flutDepth: 0 });
+        const a = wide(m.buffer.getChannelData(0));
+        return { through: t, geometryHz: m.speed.fWow, soundHz: a.rateHz,
+                 errPct: (a.rateHz - m.speed.fWow) / m.speed.fWow * 100 };
+      });
+      const tailStep = (m) => { const x = m.buffer.getChannelData(0); let st = 0;
+        for (let i=1;i<x.length;i++) st = Math.max(st, Math.abs(x[i]-x[i-1]));
+        return { last: Math.abs(x[x.length-1]), step: st }; };
+      out.tape = {
+        /* THE STRUCTURAL CHECK, read off the shipped functions, because "it is not made of
+           noise" is a fact about how it was built and not a shape on a spectrum. AND
+           FLATNESS IS DELIBERATELY NOT USED HERE: the sound he killed reads 0.0000 on it
+           and so does this one, because the loudest window of a tune is a note either way.
+           A ruler that cannot tell the two apart is not evidence about either. */
+        noiseInDeck:   H.theTapeDeck.toString().indexOf('noiseInto') >= 0,
+        noiseInChange: H.theTapeChange.toString().indexOf('noiseInto') >= 0,
+        noiseInSpeed:  H.transportSpeed.toString().indexOf('noiseInto') >= 0,
+        deckSources: deck.noiseSources, changeSources: chg.noiseSources,
+        /* the geometry, recomputed here from the standard's own tape speed so a drift in
+           the table cannot pass: 4.7625 cm/s over a circumference in cm */
+        speedCmS: H.TAPE_CM_PER_S,
+        capstanGeom: H.TAPE_CM_PER_S / (Math.PI * H.TRANSPORT.capstanMm / 10),
+        hubGeom:     H.TAPE_CM_PER_S / (Math.PI * H.TRANSPORT.hubMm / 10),
+        reelGeom:    H.TAPE_CM_PER_S / (Math.PI * H.TRANSPORT.fullReelMm / 10),
+        capstanSaid: deck.flutterRateHz, hubSaid: deck.wowRateStartHz, reelSaid: deck.wowRateEndHz,
+        /* each wheel measured on its own, off a tone through the DECK'S OWN speed law */
+        wowOnly:  P({ secs: 22, flutDepth: 0 }),
+        flutOnly: P({ secs: 22, wowDepth: 0 }),
+        control:  P({ secs: 22, wowDepth: 0, flutDepth: 0 }),
+        both:     P({ secs: 22 }),
+        wornBoth: P({ secs: 22, what: 'worn' }),
+        drift: drift,
+        /* the spin-up: percentage of final speed in the first windows */
+        spinUp: [[0,0.1],[0.1,0.2],[0.3,0.4],[2.0,2.5]].map(([a,b]) => {
+          const v = meanHz(spd, a, b); return v == null ? null : v / 4000 * 100; }),
+        spinUpControlPct: (meanHz(flat.buffer.getChannelData(0), 0, 0.1) || 0) / 4000 * 100,
+        /* the mechanism itself */
+        clacks: deck.clacks, clackGapMs: deck.clackGapMs,
+        shellLowestHz: deck.shellModes && deck.shellModes.length ? deck.shellModes[0].hz : null,
+        shellRingMs: deck.shellModes && deck.shellModes.length ? deck.shellModes[0].tailSeconds*1000 : null,
+        shellModeCount: deck.shellModes ? deck.shellModes.length : 0,
+        machineHasProgramme: mach.hasProgramme, deckHasProgramme: deck.hasProgramme,
+        /* is the song actually audible under the clunk */
+        clunkRms: rms(dd, 0, Math.round(0.20*SR)),
+        songRms:  rms(dd, Math.round(0.60*SR), Math.round(2.60*SR)),
+        /* the flip fits a beat, and the third option honestly does not */
+        changeSeconds: chg.seconds, changeFits: chg.fitsOneBeat, changeAtMs: chg.atMs,
+        seatFits: seat.fitsOneBeat, doorFits: door.fitsOneBeat, doorSeconds: door.seconds,
+        beat: chg.beatSeconds,
+        /* nothing ends on a step */
+        deckTail: tailStep(deck), changeTail: tailStep(chg),
+        /* and the one it replaces, measured on the same ruler */
+        oldTail: tailStep(H.songOnTape(ctx, {})),
+        /* the old flip declared a band it never obeyed; this one declares no band at all */
+        changeBandHi: chg.machine.hi, oldFlipBandHi: H.theFlip(ctx, {}).machine.hi
+      };
+    } catch (e) { out.tapeErr = String(e && e.message).slice(0,160); }
+  })();
+
   /* *** THE BAND HELPER ITSELF, MEASURED BY ITS OWN TRANSFER FUNCTION. *** Row
      [band helper]: Paolo killed three sounds for sounding like sand and the sand was this
      one shared filter. A filter is measured with an IMPULSE, which gives its response
@@ -743,6 +875,36 @@ const MEASURE = `
            footstep IS the old one, they were never claims. */
         const sandStep = H.footstep;
         H.footstepModelled = (ctx, o) => sandStep(ctx, o || {});
+        /* AND THE DECK: A DECK WITH NOTHING WRONG WITH IT, PLUS THE HISS EVERYBODY
+           REACHES FOR. Three falsifiers in one, because the round makes three kinds of
+           claim about it and a single sine would only break the first:
+             (1) noiseInto IS CALLED, so the structural claim has something to fail on.
+                 A structural check that reads a function's own text cannot be falsified
+                 by swapping the function for a different clean one, so the mutation has
+                 to be a dirty one.
+             (2) the two wobbles are ZERO and the tape starts AT speed, so every claim
+                 about the reel, the capstan, the drift and the spin-up must go red. A
+                 perfect machine is the right falsifier here for the same reason it was
+                 for the tape: the material is fine, the question is whether the machine
+                 is a machine.
+             (3) the tape change becomes ONE knock, which is a button and not a mechanism. */
+        const realDeck = H.theTapeDeck, realProbe = H.transportProbe, realChange = H.theTapeChange;
+        H.theTapeDeck = (ctx, o) => {
+          const m = realDeck(ctx, Object.assign({}, o || {},
+            { wowDepth: 0, flutDepth: 0, knocks: 1 }));
+          const dd = m.buffer.getChannelData(0);
+          H.noiseInto ? H.noiseInto(dd, dd.length, 0.15, 7) : (function () {
+            /* the hiss a cassette is always given and never needs: a plain noise bed */
+            let x = 12345;
+            for (let i = 0; i < dd.length; i++) { x = (x * 1103515245 + 12345) & 0x7fffffff;
+              dd[i] += ((x / 0x7fffffff) * 2 - 1) * 0.15; }
+          })();
+          m.noiseSources = 1;
+          return m;
+        };
+        H.transportProbe = (ctx, o) => realProbe(ctx, Object.assign({}, o || {},
+          { wowDepth: 0, flutDepth: 0, spinUp: 1e-9 }));
+        H.theTapeChange = (ctx, o) => realChange(ctx, Object.assign({}, o || {}, { what: 'seat' }));
         /* AND THE BAND HELPER: PUT THE OLD LEAKING CHAIN BACK. The band claims read
            H.bandTo directly, so nothing else in this harness touches them, and a claim
            nothing can falsify is not a claim. The two honest claims must go red and the
@@ -1096,6 +1258,109 @@ const MEASURE = `
         'peaks ' + B.peak.toFixed(4) + ', ' + C.peak.toFixed(4) + ', ' + P.peak.toFixed(4)
         + ', through a tanh rather than a ceiling');
     } else { claim('WHAT THIS VALLEY STRIKES was measured', false, d.strikeErr || 'no reading'); }
+
+    /* ---- THE DECK, AND THE FLIP AS A TAPE CHANGING (9/27) -------------------- */
+    if (d.tape) {
+      const T = d.tape;
+      claim('THERE IS NO NOISE IN THE DECK, THE TAPE CHANGE OR THE SPEED LAW, read off the shipped code',
+        T.noiseInDeck === false && T.noiseInChange === false && T.noiseInSpeed === false
+          && T.deckSources === 0 && T.changeSources === 0,
+        'rule 32e. AND FLATNESS IS NOT USED AS THE EVIDENCE HERE ON PURPOSE: the tape he '
+        + 'killed reads 0.0000 on it and so does this one, because the loudest window of a '
+        + 'tune is a note in both. A ruler that cannot separate them proves nothing about either');
+      /* THE GEOMETRY. 4.7625 cm/s is the Compact Cassette standard's tape speed, and a
+         wheel's rate is that over its circumference. Recomputed here so the table cannot
+         drift away from what the recipe reports. */
+      claim('EVERY RATE IN THE DECK IS THE WHEEL\'S OWN GEOMETRY, not a number somebody liked',
+        Math.abs(T.capstanSaid - T.capstanGeom) < 0.001 && Math.abs(T.hubSaid - T.hubGeom) < 0.001
+          && Math.abs(T.reelSaid - T.reelGeom) < 0.001 && Math.abs(T.speedCmS - 4.7625) < 1e-9,
+        'tape speed ' + T.speedCmS + ' cm/s (1 7/8 ips, by the standard): capstan '
+        + T.capstanGeom.toFixed(4) + ' rev/s, empty hub ' + T.hubGeom.toFixed(4)
+        + ', full reel ' + T.reelGeom.toFixed(4) + '. Before this the wobble in this file was '
+        + '1.4 Hz, which is inside the rule and is no part of any machine');
+      claim('AND THE INSTRUMENT IS NOT MEASURING ITS OWN ARITHMETIC',
+        T.control && T.control.depthPct < 0.01,
+        'the same tone with both wobbles switched off reads ' + T.control.depthPct.toFixed(4)
+        + '%. My first ruler read 2.85% on this control, which is eight times the 0.35% it '
+        + 'was aimed at, and the control is the only reason that never reached a record');
+      /* the expected rate is DERIVED from the two geometries and where in the side the
+         deck's default sits, never typed: hub + (reel - hub) * through, at through 0.15.
+         The first cut of this claim carried a literal 0.6455 and a stray `* 0`, which is a
+         number that would keep passing after the geometry changed underneath it. */
+      const THROUGH = 0.15;
+      const wowExpect = T.hubGeom + (T.reelGeom - T.hubGeom) * THROUGH;
+      claim('THE REEL IS HEARD AT THE REEL\'S RATE',
+        T.wowOnly && Math.abs(T.wowOnly.rateHz - wowExpect) < 0.02
+          && Math.abs(T.wowOnly.depthPct - 0.35) < 0.03,
+        'wow alone: ' + T.wowOnly.depthPct.toFixed(3) + '% at ' + T.wowOnly.rateHz.toFixed(4)
+        + ' Hz, against the reel\'s own ' + wowExpect.toFixed(4) + ' rev/s '
+        + (THROUGH*100) + '% of the way through a side, which is where the deck sits by default');
+      claim('AND THE CAPSTAN AT THE CAPSTAN\'S RATE, which is the other wheel and the faster wobble',
+        T.flutOnly && Math.abs(T.flutOnly.rateHz - T.capstanGeom) < 0.05
+          && Math.abs(T.flutOnly.depthPct - 0.08) < 0.02,
+        'flutter alone: ' + T.flutOnly.depthPct.toFixed(3) + '% at ' + T.flutOnly.rateHz.toFixed(4)
+        + ' Hz against the capstan\'s ' + T.capstanGeom.toFixed(4)
+        + '. Both wheels turn at once in the sound because both turn at once in the machine');
+      /* *** THE ONE THAT MATTERS: THE WOW RATE FALLS AS THE REEL FILLS. *** */
+      const worst = Math.max.apply(null, T.drift.map(x => Math.abs(x.errPct)));
+      claim('THE WOW RATE FALLS ACROSS A SIDE, BECAUSE THE TAKE-UP REEL GETS FATTER',
+        T.drift[0].soundHz > T.drift[4].soundHz * 1.5 && worst < 1.5,
+        T.drift.map(x => 'at ' + x.through.toFixed(2) + ' the geometry says '
+          + x.geometryHz.toFixed(4) + ' and the sound says ' + x.soundHz.toFixed(4)).join('; ')
+        + '. Worst disagreement ' + worst.toFixed(2) + '%. A deck at the end of a side breathes '
+        + 'slower than the same deck at the start, and that is the whole reason a tape sounds tired');
+      claim('THE TAPE COMES UP TO SPEED INSTEAD OF STARTING AT IT',
+        T.spinUp[0] != null && T.spinUp[0] < 55 && T.spinUp[1] > T.spinUp[0]
+          && T.spinUp[3] > 99 && T.spinUpControlPct > 99,
+        'percentage of final speed: ' + T.spinUp.map(x => x == null ? '?' : x.toFixed(1) + '%').join(', ')
+        + ' over the first 0.1, 0.2, 0.4 and 2.5 s. THE CONTROL with the ramp switched off reads '
+        + T.spinUpControlPct.toFixed(1) + '% from the first window, so the ramp is the cause '
+        + 'and not the ruler. This is the part a whoosh was standing in for');
+      claim('WHAT SHIPS IS INSIDE RULE 5 AND THE WORN ONE IS DELIBERATELY OUTSIDE IT',
+        T.both.depthPct >= 0.15 && T.both.depthPct <= 0.60 && T.wornBoth.depthPct > 0.60,
+        'A reads ' + T.both.depthPct.toFixed(3) + '% and C reads ' + T.wornBoth.depthPct.toFixed(3)
+        + '% against rule 5\'s 0.15 to 0.60%. A deck that tired is a deck outside the spec the '
+        + 'standard sets for it, which is what worn means. I wrote "still inside rule 5" in the '
+        + 'recipe first and the measurement said otherwise');
+      claim('THE MECHANISM IS TWO KNOCKS AND NOT ONE, because one is a button',
+        T.clacks === 2 && T.clackGapMs > 20 && T.clackGapMs < 120,
+        'the lever, then the head assembly and the roller arriving ' + T.clackGapMs
+        + ' ms later. The gap is the part that says machine');
+      claim('AND THE KNOCK IS THE SHELL\'S OWN PLATE MODES, off the footstep\'s own function',
+        T.shellModeCount >= 8 && T.shellLowestHz > 300 && T.shellLowestHz < 800
+          && T.shellRingMs > 10 && T.shellRingMs < 80,
+        'polystyrene, 1.2 mm walls, 64 mm across: lowest mode ' + Math.round(T.shellLowestHz)
+        + ' Hz ringing ' + T.shellRingMs.toFixed(1) + ' ms over ' + T.shellModeCount
+        + ' modes. Published E, rho and v; the loss factor is an engineering estimate and the '
+        + 'recipe says so on its face');
+      claim('THE SONG IS AUDIBLE UNDER THE CLUNK, and the machine-only option really has no song',
+        T.songRms > 0.03 && T.clunkRms > 0 && T.deckHasProgramme === true
+          && T.machineHasProgramme === false,
+        'the song sits ' + (20*Math.log10(T.songRms/T.clunkRms)).toFixed(1)
+        + ' dB under the clunk (rms, so it is loudness and not a peak). A mechanical clunk '
+        + 'really is louder than the music on a real deck');
+      claim('THE FLIP FITS ONE BEAT, and the option that does not says so',
+        T.changeFits === true && T.seatFits === true && T.doorFits === false
+          && T.changeSeconds <= T.beat + 1e-6,
+        'A is ' + T.changeSeconds.toFixed(3) + ' s with knocks at ' + T.changeAtMs.join(' and ')
+        + ' ms inside a ' + T.beat + ' s beat; C runs ' + T.doorSeconds.toFixed(3)
+        + ' s and is marked as not fitting rather than trimmed to look like it does. He will '
+        + 'hear this hundreds of times, so the failure mode is not "too quiet", it is "I am sick of it"');
+      claim('AND IT DECLARES NO BAND, because the old flip declared one it never obeyed',
+        T.changeBandHi === null && T.oldFlipBandHi !== null,
+        'the killed flip published a ' + T.oldFlipBandHi + ' Hz AM ceiling while its own gap '
+        + 'was built wider-banded than any AM channel on purpose. This is heard with your ears '
+        + 'in the room, so there is no band to be wrong about');
+      claim('NEITHER NEW SOUND ENDS ON A STEP, and the one they replace does',
+        T.deckTail.last <= T.deckTail.step * 0.05 && T.changeTail.last <= T.changeTail.step * 0.05
+          && T.oldTail.last > T.oldTail.step * 0.2,
+        'the deck ends at ' + T.deckTail.last.toFixed(6) + ' and the change at '
+        + T.changeTail.last.toFixed(6) + ', against their own biggest steps of '
+        + T.deckTail.step.toFixed(4) + ' and ' + T.changeTail.step.toFixed(4)
+        + '. THE SOUND THEY REPLACE ENDS AT ' + T.oldTail.last.toFixed(6) + ' against a step of '
+        + T.oldTail.step.toFixed(4) + ', which is a click at the end of it, found by this ruler '
+        + 'and named rather than quietly patched');
+    } else { claim('the deck and the tape change were measured', false, d.tapeErr || 'no reading'); }
 
     /* ---- THE BAND HELPER (9/24), row [band helper] -------------------------- */
     if (d.band) {

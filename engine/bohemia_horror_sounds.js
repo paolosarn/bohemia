@@ -1304,6 +1304,305 @@
     };
   }
 
+  /* ==== 14. THE DECK ITSELF, AND THE FLIP AS A TAPE CHANGING =======================
+     *** RULE 32e, PAOLO 9/23, ON THE TAPE AND ON THE FLIP: "IT ALL SOUNDED LIKE SAND",
+     "KINDA DOGSHIT". *** Both were band-limited noise wearing a mechanism's name, and the
+     recipe is the graveyard, not the sound. These are their NEW ids, from REAL MATERIAL,
+     and the material is the machine itself: a cassette transport, which is a set of
+     plastic parts being knocked and a set of wheels turning at rates the standard fixes.
+
+     *** THERE IS NOT ONE NOISE GENERATOR IN EITHER OF THESE FUNCTIONS, AND THE REASON IS
+     NOT DISCIPLINE, IT IS THAT A TAPE DECK IS NOT MADE OF HISS. *** What a cassette deck
+     actually sounds like is four things, and hiss is not among them:
+       1. PLASTIC BEING KNOCKED    the lever, the head assembly, the shell seating
+       2. THE SPEED NOT HOLDING    wow and flutter, on the programme, not beside it
+       3. THE TAPE COMING UP TO    a real deck sweeps UP to speed over about 120 ms
+          SPEED
+       4. THE SIGNAL GOING AWAY    a drop-out is oxide LOST, so it is silence, not noise
+     The hiss everybody reaches for is the recording medium's noise floor, which is the
+     one part of a cassette that a phone speaker in a dead valley would never reproduce
+     and the one part this lane kept reaching for anyway.
+
+     *** EVERY RATE IN HERE IS THE GEOMETRY, NOT A NUMBER I LIKED. *** The Compact
+     Cassette standard fixes the tape speed at 1 7/8 inches per second, which is 4.7625
+     cm/s exactly, and a wheel's rotation rate is that speed divided by its circumference:
+       capstan        2 mm across   ->  7.580 rev/s     THE FLUTTER RATE
+       pinch roller   6 mm across   ->  2.527 rev/s
+       hub, empty    22 mm across   ->  0.689 rev/s     THE WOW RATE AT THE START OF A SIDE
+       reel, full    38 mm across   ->  0.399 rev/s     THE WOW RATE AT THE END OF ONE
+     *** AND THAT LAST PAIR IS THE HONEST DETAIL THAT CARRIES THE WHOLE SOUND: THE WOW
+     RATE FALLS AS THE SIDE PLAYS, because the tape piling onto the take-up reel makes it
+     fatter, so it turns slower for the same tape speed. A deck at the end of a side
+     breathes slower than the same deck at the start. That is why a tape sounds tired
+     rather than broken, and it costs one parameter to be true instead of invented. Before
+     this, the wobble rate in this file was 1.4 Hz, which is inside school rule 5's window
+     and corresponds to no part of any machine.
+
+     WHAT IS AN ESTIMATE AND SAID SO: the shell's LOSS FACTOR. Polystyrene's E, rho and v
+     are published; how much energy a moulded shell loses per cycle depends on the mould
+     and what it is resting against, so 2% is an engineering estimate for a filled
+     polymer, in the same spirit as the slab's 0.40 in GROUND. The mode FREQUENCIES are
+     the plate formula's, unchanged, off the same function the footstep uses. */
+
+  /* THE CASSETTE, MEASURED IN MILLIMETRES BECAUSE THAT IS HOW THE STANDARD WRITES IT */
+  var TAPE_CM_PER_S = 4.7625;      /* 1 7/8 ips, exact, by the standard */
+  var TRANSPORT = {
+    capstanMm:  2.0,
+    rollerMm:   6.0,
+    hubMm:      22.0,             /* an empty hub, at the teeth */
+    fullReelMm: 38.0,             /* a wound C60 side */
+    spinUpS:    0.120,            /* the tape coming up to speed once the roller grabs */
+    why: 'a Compact Cassette transport: 4.7625 cm/s by the standard, and every rate below is that speed over a circumference'
+  };
+  /* the shell: polystyrene, and the plate formula does the rest. The walls are the thing
+     that rings when a lever hits the mechanism, and they are 1.2 mm of it. */
+  var SHELL = {
+    E: 3.2e9, rho: 1050, v: 0.34, h: 0.0012, a: 0.064,
+    loss: 0.02,                   /* ESTIMATE, a filled polymer. The frequencies are not. */
+    tau:  0.00035,                /* the contact time of plastic on plastic: short, so it clacks */
+    why:  'a moulded polystyrene cassette shell, 1.2 mm walls, 64 mm across'
+  };
+  function revsPerSecond(diameterMm) {
+    return TAPE_CM_PER_S / (Math.PI * diameterMm / 10);
+  }
+  /* the wow rate anywhere through a side: 0 is the first minute, 1 is the last */
+  function wowRateAt(through) {
+    var a = revsPerSecond(TRANSPORT.hubMm), b = revsPerSecond(TRANSPORT.fullReelMm);
+    return a + (b - a) * Math.max(0, Math.min(1, through));
+  }
+
+  /* ONE CLACK: a piece of plastic struck, ringing the shell's own modes. This is the
+     footstep's contact physics and the bell's modal sum, on a third material, which is
+     REUSE-FIRST doing what it is for: no third copy of either idea. */
+  function clackInto(d, n, sr, at, gain) {
+    var modes = plateModes(SHELL, 10);
+    var i0 = Math.round(at * sr), i, q;
+    /* the contact: a half-sine force pulse radiating as its own rate of change */
+    var w = Math.max(2, Math.round(SHELL.tau * sr)), prev = 0;
+    for (i = 0; i < w && i0 + i < n; i++) {
+      var f = Math.sin(Math.PI * i / w);
+      d[i0 + i] += (f - prev) * 0.55 * gain;
+      prev = f;
+    }
+    var rung = [];
+    for (q = 0; q < modes.length; q++) {
+      var hz = modes[q].hz;
+      if (hz >= sr / 2) continue;
+      /* the same amplitude e-fold as the slab and the bell: 1/(pi f loss) */
+      var tail = 1 / (Math.PI * hz * SHELL.loss);
+      /* the higher modes are excited harder by a short sharp contact and die sooner,
+         which together are the whole difference between a clack and a knock */
+      var lvl = gain / (1 + q * 0.55);
+      rung.push({ hz: +hz.toFixed(1), tailSeconds: +tail.toFixed(4), level: +lvl.toFixed(3) });
+      for (i = 0; i0 + i < n; i++) {
+        var t = i / sr, env = Math.exp(-t / tail);
+        if (env < 1e-4) break;
+        d[i0 + i] += Math.sin(2 * Math.PI * hz * t) * lvl * env;
+      }
+    }
+    return rung;
+  }
+
+  /* ONE SPEED LAW, USED BY THE DECK AND BY THE PROBE THAT MEASURES IT.
+     r is how far the head advances per output sample: 1 is dead on speed.
+       the spin-up   a deck sweeps UP to speed over about 120 ms after the roller grabs
+       the wow       once per turn of the take-up reel, 0.69 Hz falling to 0.40 Hz
+       the flutter   once per turn of the capstan, 7.58 Hz, much smaller
+     Both wobbles are there at once because both wheels are there at once. */
+  function transportSpeed(t, sp) {
+    var ramp = 1 - Math.exp(-t / sp.spinUp);
+    return ramp * (1 + sp.wow * Math.sin(2 * Math.PI * sp.fWow * t)
+                     + sp.flut * Math.sin(2 * Math.PI * sp.fFlut * t));
+  }
+
+  /* THE DECK: press play, the mechanism takes the tape, the song comes up to speed.
+     what: 'deck'    the whole thing, the song included            <- ships
+           'machine' the mechanism alone, for when nothing is playing
+           'worn'    the same deck with a flat spot on the roller  */
+  function theTapeDeck(ctx, opts) {
+    opts = opts || {};
+    var sr = ctx.sampleRate;
+    var which = opts.what || 'deck';
+    var through = opts.through == null ? 0.15 : opts.through;   /* where in the side */
+    var beat = opts.beat == null ? BEAT : opts.beat;
+    var secs = opts.secs == null ? (which === 'machine' ? 1.0 : 3.0) : opts.secs;
+    var n = Math.round(sr * secs);
+    var buf = ctx.createBuffer(1, n, sr);
+    var d = buf.getChannelData(0);
+    var i;
+
+    /* 1. THE MECHANISM. Two knocks, not one: the lever goes over, and 45 ms later the
+       head assembly and the pinch roller arrive against the tape. A single clack is a
+       button; two are a machine, and the gap is the part that says so. */
+    var LEVER = 0.0, SEAT = 0.045;
+    /* `knocks` exists so a checker can build the WRONG deck and watch the claim fail: one
+       knock is a button, two are a machine, and a claim that cannot be falsified is not a
+       claim. Same reason bandTo carries its `legacy` flag. Nothing in the game passes it. */
+    var knocks = opts.knocks == null ? 2 : opts.knocks;
+    var rung = clackInto(d, n, sr, LEVER, 0.80);
+    if (knocks > 1) clackInto(d, n, sr, SEAT, 0.62);
+
+    /* 2. THE SPEED. The roller grabs at SEAT, and the tape sweeps up over 120 ms: a real
+       deck does not start at pitch, and this is the thing a whoosh was standing in for. */
+    var fWow = wowRateAt(through);
+    var fFlut = revsPerSecond(TRANSPORT.capstanMm);
+    var wowDepth  = opts.wowDepth  == null ? 0.0035 : opts.wowDepth;   /* rule 5: 0.15 to 0.6% */
+    var flutDepth = opts.flutDepth == null ? 0.0008 : opts.flutDepth;
+    /* *** AND C IS DELIBERATELY OUTSIDE SCHOOL RULE 5, WHICH IS WHAT 'WORN' MEANS. ***
+       I first wrote "still inside rule 5" here and the measurement said otherwise: the two
+       wobbles together come to 0.635% on a tone, against rule 5's 0.15 to 0.60% window.
+       A deck this tired is a deck outside the spec the standard sets for it, so the number
+       being out of the window is the option, not a slip. A ships at 0.358%, inside. */
+    if (which === 'worn') { wowDepth = 0.0058; flutDepth = 0.0026; }
+
+    /* THE SPEED LAW LIVES IN transportSpeed() AND NOTHING COPIES IT, because the probe
+       below has to measure THE SAME FUNCTION the deck plays through. The first cut of
+       this round measured the wobble on the SONG by counting zero crossings, which read a
+       318% "pitch spread" -- that was the music changing notes, not the tape slipping. A
+       WOBBLE IN A READ SPEED CANNOT BE MEASURED ON A TUNE; it needs a steady tone, which
+       is exactly why wowProbe exists, and this is that lesson reused rather than relearnt. */
+    var sp = { wow: wowDepth, flut: flutDepth, fWow: fWow, fFlut: fFlut, spinUp: TRANSPORT.spinUpS };
+    var programme = null, pn = 0;
+    if (which !== 'machine') {
+      var song = songThroughSpeaker(ctx, { secs: secs, beat: beat });
+      programme = song.buffer.getChannelData(0);
+      pn = programme.length;
+    }
+    if (programme) {
+      var pos = 0;
+      var i0 = Math.round(SEAT * sr);
+      for (i = i0; i < n; i++) {
+        var t = (i - i0) / sr;
+        var r = transportSpeed(t, sp);
+        var j = Math.floor(pos), f2 = pos - j;
+        var a = (j >= 0 && j < pn) ? programme[j] : 0;
+        var b = (j + 1 >= 0 && j + 1 < pn) ? programme[j + 1] : 0;
+        /* the programme fades in with the ramp too, because a tape at half speed is also
+           being read at less head-to-tape contact than it wants */
+        var ramp = 1 - Math.exp(-t / TRANSPORT.spinUpS);
+        d[i] += (a + (b - a) * f2) * 0.85 * Math.min(1, ramp * 1.6);
+        pos += r;
+        if (pos > pn - 2) pos = pn - 2;
+      }
+    }
+
+    for (i = 0; i < n; i++) d[i] = Math.tanh(d[i] * 0.9) * 0.94;
+    var fade = Math.min(n, Math.round(0.12 * sr));
+    for (i = 0; i < fade; i++) d[n - fade + i] *= 0.5 * (1 + Math.cos(Math.PI * i / fade));
+    normalise(d, n, 0.85);
+
+    return {
+      buffer: buf, machine: MACHINE.EAR, seconds: n / sr, what: which,
+      noiseSources: 0,
+      clacks: knocks, clackGapMs: +((SEAT - LEVER) * 1000).toFixed(1),
+      shellModes: rung,
+      wowRateHz: +fWow.toFixed(4), flutterRateHz: +fFlut.toFixed(4),
+      wowDepth: wowDepth, flutterDepth: flutDepth,
+      through: through, spinUpMs: TRANSPORT.spinUpS * 1000,
+      wowRateStartHz: +revsPerSecond(TRANSPORT.hubMm).toFixed(4),
+      wowRateEndHz: +revsPerSecond(TRANSPORT.fullReelMm).toFixed(4),
+      hasProgramme: !!programme,
+      speed: sp,
+      why: which === 'machine'
+        ? 'the transport alone: the lever, the head seating 45 ms later, and the shell ringing its own modes'
+        : (which === 'worn'
+          ? 'the same deck with a flat spot on the roller, so it breathes harder and faster'
+          : 'press play: the lever, the head seating, and the song sweeping up to speed on a reel that breathes at 0.69 Hz')
+    };
+  }
+
+  /* A STEADY TONE THROUGH THE SAME TRANSPORT, FOR MEASUREMENT ONLY, AND THE GAME NEVER
+     PLAYS IT. Same reasoning as wowProbe, and for the same reason it had to exist: a
+     wobble is a property of a pitch over TIME, and the deck's programme is a tune whose
+     notes change every 460 ms, so counting anything on the tune measures the tune. This
+     hands the probe THE DECK'S OWN transportSpeed(), not a second copy of it, so a claim
+     measured here is a claim about what he hears. */
+  function transportProbe(ctx, opts) {
+    opts = opts || {};
+    var sr = ctx.sampleRate, secs = opts.secs == null ? 6 : opts.secs;
+    var which = opts.what || 'deck';
+    var hz = opts.hz == null ? 440 : opts.hz;
+    var n = Math.round(sr * secs);
+    var tone = new Float32Array(n), ph = 0, i;
+    for (i = 0; i < n; i++) { ph += 2 * Math.PI * hz / sr; tone[i] = Math.sin(ph) * 0.8; }
+    var sp = {
+      wow:  opts.wowDepth  == null ? (which === 'worn' ? 0.0058 : 0.0035) : opts.wowDepth,
+      flut: opts.flutDepth == null ? (which === 'worn' ? 0.0026 : 0.0008) : opts.flutDepth,
+      fWow: wowRateAt(opts.through == null ? 0.15 : opts.through),
+      fFlut: revsPerSecond(TRANSPORT.capstanMm),
+      /* THE SPIN-UP IS SWITCHED OFF FOR THE PROBE BY DEFAULT, and said so out loud: a
+         ramp from zero is a much bigger speed change than the wobble, so leaving it in
+         would swamp the thing being measured. The deck keeps it; the ruler does not. */
+      spinUp: opts.spinUp == null ? 1e-9 : opts.spinUp
+    };
+    var out = ctx.createBuffer(1, n, sr), d = out.getChannelData(0);
+    var pos = 0;
+    for (i = 0; i < n; i++) {
+      var r = transportSpeed(i / sr, sp);
+      var j = Math.floor(pos), f = pos - j;
+      var a = (j >= 0 && j < n) ? tone[j] : 0;
+      var b = (j + 1 >= 0 && j + 1 < n) ? tone[j + 1] : 0;
+      d[i] = a + (b - a) * f;
+      pos += r;
+      if (pos > n - 2) pos = n - 2;
+    }
+    return { buffer: out, machine: { lo: 40, hi: 12000, why: 'a test tone, not a game sound' },
+             seconds: secs, toneHz: hz, probe: true, speed: sp, what: which,
+             noiseSources: 0,
+             why: 'a steady 440 Hz tone through the deck\'s own speed law, so the two wobbles can be measured instead of described' };
+  }
+
+  /* THE FLIP, AS THE THING IT ALREADY SAID IT WAS: A TAPE CHANGING.
+     *** AND THE OLD ONE'S REAL DEFECT WAS NOT ONLY THE NOISE. It declared the AM band
+     while its own gap was deliberately wider-banded than any AM channel, so the number it
+     published never described the sound: the third time this lane has caught a claim
+     asking the wrong question. This one is heard with your ears in the room, so it
+     declares EAR and there is no band to lie about. ***
+     *** AND IT IS HONEST ABOUT WHAT IT IS NOT: A REAL TAPE CHANGE TAKES SECONDS AND HE
+     WILL DO THIS HUNDREDS OF TIMES. *** So this is not a whole tape change slowed down to
+     fit; it is the last part of one, the part you actually hear: the shell seating and the
+     transport taking it. One beat, no riser, no stinger.
+     what: 'change' the shell seats and the transport engages   <- ships
+           'seat'   one clack, the shell only
+           'door'   the old one comes out first, three knocks, and it runs past a beat */
+  function theTapeChange(ctx, opts) {
+    opts = opts || {};
+    var sr = ctx.sampleRate;
+    var which = opts.what || 'change';
+    var beat = opts.beat == null ? BEAT : opts.beat;
+    /* WHERE THE KNOCKS FALL, and the first is always ON the beat (the 120 BPM law is
+       about when a sound STARTS). The gaps are a hand's speed, not a musical figure. */
+    var AT = which === 'seat' ? [0]
+           : which === 'door' ? [0, 0.145, 0.315]
+           : [0, 0.155];
+    var GAIN = which === 'seat' ? [0.92]
+             : which === 'door' ? [0.70, 0.92, 0.66]
+             : [0.92, 0.66];
+    var tail = Math.max.apply(null, AT) + 0.34;
+    var n = Math.round(sr * Math.max(beat, tail));
+    var buf = ctx.createBuffer(1, n, sr);
+    var d = buf.getChannelData(0);
+    var i, rung = null;
+    for (i = 0; i < AT.length; i++) {
+      var r = clackInto(d, n, sr, AT[i], GAIN[i]);
+      if (!rung) rung = r;
+    }
+    for (i = 0; i < n; i++) d[i] = Math.tanh(d[i] * 0.9) * 0.94;
+    var fade = Math.min(n, Math.round(0.08 * sr));
+    for (i = 0; i < fade; i++) d[n - fade + i] *= 0.5 * (1 + Math.cos(Math.PI * i / fade));
+    normalise(d, n, 0.85);
+    return {
+      buffer: buf, machine: MACHINE.EAR, seconds: n / sr, what: which,
+      noiseSources: 0,
+      clacks: AT.length, atMs: AT.map(function (x) { return +(x * 1000).toFixed(1); }),
+      shellModes: rung, beatSeconds: beat,
+      fitsOneBeat: n / sr <= beat + 1e-6,
+      why: which === 'seat' ? 'one clack: the shell seating and nothing else'
+         : (which === 'door' ? 'the old shell out, the new one in, the transport taking it: three knocks, and it runs past a beat'
+                             : 'the shell seats and the transport takes it: the part of a tape change you actually hear, inside one beat')
+    };
+  }
+
   /* ==== 10. THE VALLEY STILL BROADCASTS ==========================================
      DIRECTION'S BIBLE, RULE 9, AND NOTHING IN THIS GAME DOES IT: "THE MACHINES KEEP
      TALKING. Broadcasts, PA calls and signs repeat on schedule whatever happens; the
@@ -1513,6 +1812,15 @@
     footstepModelled: footstepModelled,
     struckMetal: struckMetal,
     STRIKE: STRIKE,
+    theTapeDeck: theTapeDeck,
+    theTapeChange: theTapeChange,
+    transportProbe: transportProbe,
+    transportSpeed: transportSpeed,
+    TRANSPORT: TRANSPORT,
+    SHELL: SHELL,
+    revsPerSecond: revsPerSecond,
+    wowRateAt: wowRateAt,
+    TAPE_CM_PER_S: TAPE_CM_PER_S,
     /* exported so a judge page can play the BEFORE from THIS function and never from a
        second copy of it, and so a checker can measure the filter on its own */
     bandTo: bandTo,
@@ -1553,7 +1861,14 @@
         { id: 'sounds-the-sand-is-out-9-24', make: 'theDoor',
           title: 'THE SAND IS OUT OF THE ONES YOU LIKED' },
         { id: 'sounds-what-this-valley-strikes-9-24', make: 'struckMetal',
-          title: 'WHAT THIS VALLEY STRIKES ON THE HOUR' }
+          title: 'WHAT THIS VALLEY STRIKES ON THE HOUR' },
+        /* THE TWO HE KILLED FOR SOUNDING LIKE SAND, BACK AS NEW IDS FROM REAL MATERIAL
+           (rule 32e, and rule 15b: a redo is a new id that names the old one). The old
+           ids keep their DOWN and never render again. */
+        { id: 'sounds-the-deck-is-not-the-hiss-9-27', make: 'theTapeDeck',
+          title: 'THE DECK IS NOT THE HISS' },
+        { id: 'sounds-a-flip-is-a-tape-changing-9-27', make: 'theTapeChange',
+          title: 'A FLIP IS A TAPE CHANGING' }
       ];
     }
   };

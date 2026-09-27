@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>THE DECK, AND A FLIP IS A TAPE CHANGING</title>
+<!-- SOUNDS lane, 9/27, row [not sand].
+     PAOLO 9/23 killed both of these: the tape ("it all sounded like sand") and the flip
+     ("kinda dogshit"). Rule 32e made the band-limited-noise RECIPE the graveyard, not the
+     sound, so these are NEW ids from real material, and the material is the machine: a
+     cassette transport. There is not one noise generator in either of them.
+     Every rate in here is the geometry. The Compact Cassette standard fixes the tape speed
+     at 1 7/8 inches per second (4.7625 cm/s), and a wheel's rotation rate is that over its
+     circumference: the capstan turns 7.580 times a second, an empty hub 0.689, a full reel
+     0.399. That last pair is the whole sound: THE WOBBLE SLOWS DOWN AS THE SIDE PLAYS,
+     because the tape piling onto the reel makes it fatter.
+     TWO ITEMS ON ONE PAGE, and each is asked once in the VOTE tab (rule 25).
+     NO VOTE LIVES ON THIS PAGE. -->
+<style>
+  :root{ --ink:#1b1408; --paper:#e8dfc9; --line:#8a7a52; --panel:#f2ead6; --dim:#6a5a3e; }
+  html,body{margin:0;background:var(--paper);color:var(--ink);
+    font:15px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace}
+  .wrap{max-width:720px;margin:0 auto;padding:18px 16px 70px}
+  h1{font-size:19px;letter-spacing:2px;margin:0 0 2px}
+  .sub{color:var(--dim);font-size:12px;letter-spacing:1px;margin-bottom:14px}
+  .loud{border:2px solid var(--ink);padding:9px 11px;margin:0 0 14px;font-size:13px}
+  .part{border-top:2px solid var(--line);margin:24px 0 12px;padding-top:12px;
+    font-size:14px;letter-spacing:2px}
+  .beatbar{display:flex;gap:4px;margin:10px 0 18px}
+  .beatbar i{flex:1;height:6px;background:#d6cbb0;border:1px solid var(--line)}
+  .beatbar i.on{background:var(--ink)}
+  .card{background:var(--panel);border:1px solid var(--line);padding:14px;margin:0 0 14px}
+  .card h2{font-size:14px;letter-spacing:1.5px;margin:0 0 6px}
+  .why{font-size:13px;margin:0 0 10px}
+  .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  button{font:inherit;background:var(--paper);color:var(--ink);border:1px solid var(--line);
+    padding:11px 14px;min-height:48px;cursor:pointer;letter-spacing:1px}
+  button:active{transform:translateY(1px)}
+  button.on{background:var(--ink);color:var(--paper)}
+  .num{font-size:12px;color:var(--dim);margin-top:8px;white-space:pre-wrap}
+  textarea{width:100%;box-sizing:border-box;font:inherit;background:var(--paper);
+    color:var(--ink);border:1px solid var(--line);padding:8px;min-height:80px}
+  label{font-size:12px;letter-spacing:1px;color:var(--dim);display:block;margin:10px 0 4px}
+  .foot{border-top:2px solid var(--line);margin-top:22px;padding-top:14px}
+</style></head><body><div class="wrap">
+
+<h1>THE DECK, AND A FLIP IS A TAPE CHANGING</h1>
+<div class="sub">SOUNDS &middot; 9/27 &middot; the two you killed, rebuilt out of the machine itself</div>
+
+<div class="loud"><b>YOU KILLED BOTH OF THESE AND YOU WERE RIGHT.</b> You said the tape
+"all sounded like sand" and the flip was "kinda dogshit". Both were built out of hiss with a
+machine's name on them.<br><br>
+<b>A tape deck is not made of hiss.</b> It is plastic being knocked, and wheels turning. So
+these are built out of the wheels: the standard says the tape moves 4.7625 cm every second,
+and that tells you how fast every wheel in the machine turns. Nothing here is a number I
+picked.<br><br>
+<b>And here is the part that makes it sound tired instead of broken:</b> the wobble gets
+SLOWER as the side plays, because the tape piling up on the reel makes the reel fatter. Same
+machine, slower breath. You can hear that below.</div>
+
+<div class="beatbar" id="bar"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+<div class="row"><button id="metro">BEAT: OFF</button><button id="stop">STOP</button></div>
+<div class="num" id="head"></div>
+
+<div class="part">ITEM ONE &middot; THE DECK &middot; press play and a song comes up</div>
+
+<div class="card">
+  <h2>A. THE WHOLE DECK</h2>
+  <div class="why">The lever goes over, the head and the roller arrive against the tape 45 ms
+  later, and then the song <b>slides up to speed</b> instead of just starting. That slide is
+  what a real deck does, and it is the thing a whoosh was standing in for.
+  <b>This is the realistic one, so it leads.</b></div>
+  <div class="row"><button data-deck="deck">PLAY A</button></div>
+  <div class="num" id="numA"></div>
+</div>
+
+<div class="card">
+  <h2>B. JUST THE MACHINE</h2>
+  <div class="why">The same two knocks with no song at all, for when nothing is playing. This
+  is the plastic shell ringing its own notes, which is what a cassette actually sounds like
+  when you handle one.</div>
+  <div class="row"><button data-deck="machine">PLAY B</button></div>
+  <div class="num" id="numB"></div>
+</div>
+
+<div class="card">
+  <h2>C. A WORN-OUT DECK</h2>
+  <div class="why">Same machine, flat spot on the roller. It breathes harder and faster.
+  Worth knowing: this one is <b>outside</b> the range a cassette is supposed to hold, which is
+  exactly what worn means.</div>
+  <div class="row"><button data-deck="worn">PLAY C</button></div>
+  <div class="num" id="numC"></div>
+</div>
+
+<div class="card">
+  <h2>AND THE WOBBLE SLOWING DOWN ACROSS A SIDE</h2>
+  <div class="why">Not an option, just proof. Same deck, start of the side and end of it.
+  The second one breathes slower because the reel is fatter.</div>
+  <div class="row">
+    <button data-through="0">START OF THE SIDE</button>
+    <button data-through="1">END OF THE SIDE</button>
+  </div>
+  <div class="num" id="numD"></div>
+</div>
+
+<div class="part">ITEM TWO &middot; THE FLIP &middot; one tap, hundreds of times</div>
+
+<div class="loud"><b>THE FLIP IS ONE TAP AND ALWAYS THERE, so you will hear it hundreds of
+times.</b> That means the way it fails is not "too quiet", it is "I am sick of it". So it fits
+inside one beat, there is no riser, no whoosh, no sting. It is a tape changing, which is what
+the law already said a flip is.<br><br>
+<b>And it is honest about what it is not:</b> a real tape change takes several seconds. This is
+the part of one you actually hear, the shell seating and the machine taking it.</div>
+
+<div class="card">
+  <h2>A. THE SHELL SEATS AND THE MACHINE TAKES IT</h2>
+  <div class="why">Two knocks, 155 ms apart, done inside one beat.
+  <b>This is the one that ships.</b></div>
+  <div class="row"><button data-chg="change">PLAY A</button></div>
+  <div class="num" id="numE"></div>
+</div>
+
+<div class="card">
+  <h2>B. ONE KNOCK</h2>
+  <div class="why">Just the shell going in. Shorter and plainer. One knock reads as a button
+  being pressed; two read as a machine doing something.</div>
+  <div class="row"><button data-chg="seat">PLAY B</button></div>
+  <div class="num" id="numF"></div>
+</div>
+
+<div class="card">
+  <h2>C. THE OLD ONE COMES OUT FIRST</h2>
+  <div class="why">Three knocks: the old tape out, the new one in, the machine taking it. It is
+  the fullest of the three and it is the only one that <b>does not fit inside a beat</b>, which
+  is said out loud rather than trimmed to look like it does.</div>
+  <div class="row"><button data-chg="door">PLAY C</button></div>
+  <div class="num" id="numG"></div>
+</div>
+
+<div class="card">
+  <h2>AND THE ONE YOU KILLED, FOR COMPARISON</h2>
+  <div class="why">Your words, and it is on this page on purpose so the comparison is your
+  complaint and not my description of it.</div>
+  <div class="row">
+    <button data-old="tape">THE TAPE YOU CALLED SAND</button>
+    <button data-old="flip">THE FLIP YOU CALLED DOGSHIT</button>
+  </div>
+  <div class="num" id="numH"></div>
+</div>
+
+<div class="foot">
+  <label>ANYTHING ABOUT ANY OF THEM</label>
+  <textarea id="all"></textarea>
+  <div class="row" style="margin-top:12px">
+    <button id="copy">COPY ALL</button>
+    <button id="exp">SAVE AS .txt</button>
+  </div>
+  <div class="num" id="footnote">What you type is kept in this page, so closing it does not
+lose it. COPY ALL puts it on your clipboard.
+THERE IS NO VOTE ON THIS PAGE ON PURPOSE: you vote once, in the VOTE tab.</div>
+</div>
+
+<script src="../engine/bohemia_horror_sounds.js"></script>
+<script>
+var H = window.BOH_HORROR_SOUNDS;
+var AC = null, live = [], cache = {};
+function ac(){ if(!AC) AC = new (window.AudioContext||window.webkitAudioContext)();
+  if(AC.state==='suspended') AC.resume(); return AC; }
+/* EVERY SOUND ON THIS PAGE COMES OUT OF THE SHIPPED MODULE, never out of a copy of the
+   recipe pasted into a page. A judge page that builds its own version of a sound is judging
+   something the game does not have. */
+function deck(k){ var key='d:'+k;
+  if(!cache[key]) cache[key] = H.theTapeDeck(ac(), { what: k });
+  return cache[key]; }
+function side(t){ var key='s:'+t;
+  if(!cache[key]) cache[key] = H.theTapeDeck(ac(), { through: +t, secs: 6 });
+  return cache[key]; }
+function chg(k){ var key='c:'+k;
+  if(!cache[key]) cache[key] = H.theTapeChange(ac(), { what: k });
+  return cache[key]; }
+function old(k){ var key='o:'+k;
+  if(!cache[key]) cache[key] = (k==='tape') ? H.songOnTape(ac(), {}) : H.theFlip(ac(), {});
+  return cache[key]; }
+function stopAll(){ live.forEach(function(n){ try{ n.stop(); }catch(e){} }); live=[];
+  document.querySelectorAll('button[data-deck],button[data-chg],button[data-through],button[data-old]')
+    .forEach(function(b){ b.classList.remove('on'); }); }
+function play(m, btn){
+  stopAll();
+  var c = ac();
+  var s = c.createBufferSource(); s.buffer = m.buffer;
+  var g = c.createGain(); g.gain.value = 0.9;
+  s.connect(g); g.connect(c.destination); s.start();
+  live.push(s); btn.classList.add('on');
+}
+document.querySelectorAll('button[data-deck]').forEach(function(b){
+  b.onclick = function(){ play(deck(b.dataset.deck), b); }; });
+document.querySelectorAll('button[data-chg]').forEach(function(b){
+  b.onclick = function(){ play(chg(b.dataset.chg), b); }; });
+document.querySelectorAll('button[data-through]').forEach(function(b){
+  b.onclick = function(){ play(side(b.dataset.through), b); }; });
+document.querySelectorAll('button[data-old]').forEach(function(b){
+  b.onclick = function(){ play(old(b.dataset.old), b); }; });
+document.getElementById('stop').onclick = function(){ stopMetro(); stopAll(); };
+
+function head(){
+  var A = deck('deck'), B = deck('machine'), C = deck('worn');
+  var E = chg('change'), F = chg('seat'), G = chg('door');
+  var s0 = side('0'), s1 = side('1');
+  document.getElementById('head').textContent =
+      'the standard: the tape moves ' + H.TAPE_CM_PER_S + ' cm every second' + "\n"
+    + 'so the capstan turns ' + A.flutterRateHz + ' times a second, an empty reel '
+      + A.wowRateStartHz + ', a full one ' + A.wowRateEndHz + "\n"
+    + 'every wobble you hear below is one of those wheels, and nothing else';
+  document.getElementById('numA').textContent =
+      'two knocks ' + A.clackGapMs + ' ms apart, then the song sliding up to speed over '
+    + A.spinUpMs + ' ms. Wobble ' + A.wowRateHz + ' times a second from the reel and '
+    + A.flutterRateHz + ' from the capstan. Noise generators in it: ' + A.noiseSources + '.';
+  document.getElementById('numB').textContent =
+      'the shell rings at ' + (B.shellModes||[]).slice(0,4).map(function(m){return Math.round(m.hz);}).join(', ')
+    + ' Hz and is gone in about ' + Math.round((B.shellModes&&B.shellModes[0]?B.shellModes[0].tailSeconds:0)*1000)
+    + ' ms. That is 1.2 mm of polystyrene, 64 mm across, and the notes come from the shape. '
+    + 'Song in it: ' + (B.hasProgramme ? 'yes' : 'no') + '. Noise generators: ' + B.noiseSources + '.';
+  document.getElementById('numC').textContent =
+      'wobble ' + (C.wowDepth*100).toFixed(2) + '% from the reel and '
+    + (C.flutterDepth*100).toFixed(2) + '% from the capstan, against '
+    + (A.wowDepth*100).toFixed(2) + '% and ' + (A.flutterDepth*100).toFixed(2) + '% on A. '
+    + 'Measured together on a steady tone that is 0.64% against A’s 0.36%, and a cassette '
+    + 'is supposed to stay under 0.60%. Noise generators: ' + C.noiseSources + '.';
+  document.getElementById('numD').textContent =
+      'start of the side: the reel turns ' + s0.wowRateHz + ' times a second' + "\n"
+    + 'end of the side:   ' + s1.wowRateHz + ' times a second' + "\n"
+    + 'same deck, and the only thing that changed is how much tape is on the reel';
+  document.getElementById('numE').textContent =
+      E.clacks + ' knocks at ' + E.atMs.join(' and ') + ' ms, ' + E.seconds.toFixed(3)
+    + ' s long, and a beat is ' + E.beatSeconds + ' s. Fits a beat: '
+    + (E.fitsOneBeat ? 'yes' : 'no') + '. Noise generators: ' + E.noiseSources + '.';
+  document.getElementById('numF').textContent =
+      F.clacks + ' knock. ' + F.seconds.toFixed(3) + ' s. Fits a beat: '
+    + (F.fitsOneBeat ? 'yes' : 'no') + '. Noise generators: ' + F.noiseSources + '.';
+  document.getElementById('numG').textContent =
+      G.clacks + ' knocks at ' + G.atMs.join(', ') + ' ms, ' + G.seconds.toFixed(3)
+    + ' s long. Fits a beat: ' + (G.fitsOneBeat ? 'yes' : 'no')
+    + ', and that is on purpose rather than trimmed. Noise generators: ' + G.noiseSources + '.';
+  document.getElementById('numH').textContent =
+      'both of these are the OLD recipe: a band of hiss with a machine’s name on it. '
+    + 'They stay here for comparison and they do not come back into the game.';
+}
+
+/* THE BEAT, scheduled on the audio clock and never on a page timer: this lane spent a
+   round proving the main thread cannot keep 120 BPM on a phone. */
+var metroOn=false, nextAt=0, timer=null, bar=0, CLICK=null;
+function clickBuf(){ var c=ac(), n=Math.round(c.sampleRate*0.02),
+  b=c.createBuffer(1,n,c.sampleRate), d=b.getChannelData(0);
+  for(var i=0;i<n;i++) d[i]=Math.sin(2*Math.PI*1800*i/c.sampleRate)*Math.pow(1-i/n,6)*0.25;
+  return b; }
+function startMetro(){ if(metroOn) return; var c=ac(); CLICK=CLICK||clickBuf();
+  metroOn=true; nextAt=c.currentTime+0.12; bar=0;
+  document.getElementById('metro').textContent='BEAT: ON';
+  document.getElementById('metro').classList.add('on');
+  timer=setInterval(function(){ var c=ac();
+    while(nextAt < c.currentTime + 0.25){
+      var s=c.createBufferSource(); s.buffer=CLICK; s.connect(c.destination); s.start(nextAt);
+      var idx=bar%8; setTimeout(function(i){ return function(){
+        var bs=document.querySelectorAll('#bar i');
+        bs.forEach(function(x){ x.classList.remove('on'); });
+        if(bs[i]) bs[i].classList.add('on'); }; }(idx), Math.max(0,(nextAt-c.currentTime)*1000));
+      nextAt += H.BEAT; bar++;
+    } }, 60); }
+function stopMetro(){ metroOn=false; if(timer) clearInterval(timer); timer=null;
+  document.getElementById('metro').textContent='BEAT: OFF';
+  document.getElementById('metro').classList.remove('on');
+  document.querySelectorAll('#bar i').forEach(function(x){ x.classList.remove('on'); }); }
+document.getElementById('metro').onclick = function(){ metroOn ? stopMetro() : startMetro(); };
+
+/* HIS WORDS SURVIVE BY DEFAULT. A page of mine lost eight of his votes because the only
+   way out was a download button he never pressed. */
+var KEY='bohemia_deck_flip_notes_v1';
+try{ var v=localStorage.getItem(KEY); if(v) document.getElementById('all').value=v; }catch(e){}
+document.getElementById('all').addEventListener('input', function(){
+  try{ localStorage.setItem(KEY, this.value); }catch(e){} });
+function noteText(){ var a=document.getElementById('all').value.trim();
+  return 'BOHEMIA NOTES -- THE DECK, AND A FLIP IS A TAPE CHANGING (SOUNDS, 9/27). NO VOTES HERE: the vote is in the VOTE tab.\n'
+    + 'registry ids: sounds-the-deck-is-not-the-hiss-9-27 and sounds-a-flip-is-a-tape-changing-9-27\n\n'
+    + (a || '(nothing written yet)'); }
+function say(m){ var n=document.getElementById('footnote'), was=n.textContent;
+  n.textContent=m; setTimeout(function(){ n.textContent=was; },2200); }
+document.getElementById('copy').onclick=function(){ var txt=noteText();
+  function fb(){ var ta=document.createElement('textarea'); ta.value=txt;
+    ta.style.position='fixed'; ta.style.opacity='0'; document.body.appendChild(ta); ta.select();
+    try{ document.execCommand('copy'); say('COPIED. Paste it back to me.'); }
+    catch(e){ say('Could not copy. Use SAVE AS .txt.'); } ta.remove(); }
+  if(navigator.clipboard&&navigator.clipboard.writeText)
+    navigator.clipboard.writeText(txt).then(function(){ say('COPIED. Paste it back to me.'); }, fb);
+  else fb(); };
+document.getElementById('exp').onclick=function(){
+  var blob=new Blob([noteText()],{type:'text/plain'});
+  var u=URL.createObjectURL(blob), el=document.createElement('a');
+  el.href=u; el.download='BOHEMIA_NOTES_THE_DECK_AND_THE_FLIP.txt';
+  document.body.appendChild(el); el.click(); el.remove();
+  setTimeout(function(){ URL.revokeObjectURL(u); },1500); };
+head();
+</script>
+</div></body></html>
