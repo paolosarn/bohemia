@@ -279,7 +279,7 @@
   "heard:reckless": [
    {
     "id": "heard:reckless#0",
-    "text": "Everybody's heard. That's the whole point of what you did, isn't it.",
+    "text": "Everybody's heard. That was the idea, wasn't it.",
     "draft": true,
     "study": [
      {
@@ -385,7 +385,7 @@
   "heard:reckless@spanglish": [
    {
     "id": "heard:reckless@spanglish#0",
-    "text": "Todo el mundo's heard. That's the whole point of what you did, no?",
+    "text": "Todo el mundo's heard. That was the idea, no?",
     "draft": true,
     "study": [
      {

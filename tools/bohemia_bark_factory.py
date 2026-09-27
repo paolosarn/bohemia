@@ -1216,6 +1216,23 @@ EN_EXTRA = {
     'offence', 'complaint', 'suggestion', 'serial', 'photo', 'uncle',
     'repeat', 'crash', 'having', 'barks', 'steal', 'irony', 'funny',
     'sweeping', 'shade', 'thirst', 'nice',
+    # *** ADDED 9/27, AND FINDING THEM MISSING IS THE POINT OF THE ROW. ***
+    # These two were in the COMMITTED records/BOHEMIA_BARKS.json and were never
+    # in this set, so the only thing keeping gates/language_gate.js green on
+    # them was a DERIVED RECORD THAT HAD DRIFTED FROM ITS SOURCE. A rebake that
+    # changed nothing else re-derived englishAdditions from here, the two words
+    # vanished from the gate's yardstick, and it went red naming both:
+    #   records/BOHEMIA_QUIRKS.json#keeps-a-place-clean.es.dark        pass
+    #   records/BOHEMIA_REACTIONS.json#saw:risky@spanglish#1           closer
+    # Both are ordinary English words in Spanglish lines, which is exactly the
+    # case this set exists for, and the comment at the top of it says the answer
+    # is to write the word down here rather than to loosen the rule. Written
+    # down here.
+    'closer', 'pass',
+    # 'idea' arrived 9/27 with a rewritten reaction line, and the closed-set
+    # check refused the write until it was named here, which is the check
+    # doing its job: this game had never said the word in English before.
+    'idea',
 }
 
 
@@ -1262,6 +1279,62 @@ def base_forms(word):
     # is not a word, so it comes back as itself and matches nothing.
     out = [x for x in out if x]
     return out or [word.lower()]
+
+
+def english_evidence(min_lines=2):
+    """THE SAME CORPUS, BUT A WORD HAS TO BE SAID MORE THAN ONCE TO COUNT.
+
+    *** ONE ENGLISH LINE IS AN ANECDOTE, NOT EVIDENCE ABOUT A LANGUAGE. ***
+    (WORDS 9/27, row [lexicon frozen].) english_vocabulary() above is the right
+    yardstick for "has this game ever said that word", which is what the
+    missing-gloss check needs. It is the WRONG yardstick for "is this word
+    unmistakably Spanish", and the difference cost two words out of the sweep
+    list on every single rebake.
+
+    MEASURED BEFORE THIS WAS WRITTEN. A rebake with NOTHING CHANGED dropped
+    `hermano` and `las` from ES_ONLY, 274 words down to 272, every time. Two
+    different causes and neither is a deleted line, which is what the row
+    assumed:
+
+      hermano   ONE Spanglish line labelled `en` in the words book:
+                "So stop asking and start walking, hermano."
+      las       THE NAME OF THE CITY THIS GAME IS SET IN:
+                "POST-ECONOMIC APOCALYPSE - LAS VEGAS"
+                That line is correctly English. "las" in "Las Vegas" is a proper
+                noun, and a proper noun is not evidence about common vocabulary.
+
+    So the derivation was teaching itself that Spanish is English, one word at a
+    time, and the more Spanglish this game writes the blinder its Spanish
+    detector gets. That is a ratchet pointing the wrong way.
+
+    THE THRESHOLD IS NOT A SPECIAL CASE AND IT WAS MEASURED, NOT GUESSED. Across
+    all 277 glossed words, requiring TWO distinct English lines moves EXACTLY
+    the two broken ones and nothing else. The words that genuinely live in both
+    languages are nowhere near the line: `me` 221 English lines, `no` 114,
+    `son` 3. They stay out of the sweep, which is the whole reason the
+    derivation exists.
+    """
+    from collections import Counter
+    seen = Counter()
+    for key, (_c, lines) in BUCKETS.items():
+        if '@' in key:
+            continue
+        for t in lines:
+            for w in set(x.lower() for x in TOKEN.findall(t)):
+                seen[w] += 1
+    try:
+        book = json.load(open(WORDS, encoding='utf-8'))
+    except Exception:
+        book = {}
+    for b in book.get('books', []):
+        for ln in b.get('lines', []):
+            if (ln.get('lang') or 'en') != 'en':
+                continue
+            for w in set(x.lower() for x in TOKEN.findall(str(ln.get('text') or ''))):
+                seen[w] += 1
+    out = set(w for w, c in seen.items() if c >= min_lines)
+    out.update(EN_EXTRA)
+    return out
 
 
 def english_vocabulary():
@@ -1461,7 +1534,41 @@ def main():
     # them would fail every English objective in the build and the claim would
     # have to be weakened until it caught nothing. A claim that cries wolf gets
     # switched off, which is the same as never having written it.
-    es_only = sorted(w for w in ES_GLOSS if w not in en_vocab)
+    # *** DERIVED AGAINST EVIDENCE, NOT AGAINST A SINGLE SIGHTING. *** (9/27,
+    # row [lexicon frozen].) This used to subtract en_vocab, which counts a word
+    # as English the first time it appears anywhere -- so one Spanglish line
+    # mislabelled `en`, and the name of the city this game is set in, quietly
+    # deleted `hermano` and `las` from the sweep list on EVERY rebake, including
+    # a rebake that changed nothing. See english_evidence() for the measurement.
+    es_only = sorted(w for w in ES_GLOSS if w not in english_evidence())
+
+    # *** AND A REBAKE MAY NEVER SHRINK THE DICTIONARY. ***
+    # The belt behind the fix above, and the row's own words. The cause found
+    # this round was one I did not predict (a proper noun), so the guard is
+    # written against the SHAPE of the failure rather than against that cause:
+    # if a rebake would drop a word the committed file already has, it REFUSES
+    # THE WRITE and names the words, instead of narrowing the checker in silence.
+    # A checker that gets quietly weaker is worse than one that is loudly wrong.
+    try:
+        _committed = re.search(r'var ES_ONLY = (\[.*?\]);',
+                               open(PEOPLE, encoding='utf-8').read(), re.S)
+        if _committed:
+            _was = set(json.loads(_committed.group(1)))
+            _lost = sorted(_was - set(es_only))
+            if _lost:
+                raise SystemExit(
+                    'THIS REBAKE WOULD SHRINK THE SPANISH DICTIONARY, so nothing was\n'
+                    'written. The sweep list may only ever grow: a word that leaves it\n'
+                    'is a word gates/language_gate.js stops being able to see, and that\n'
+                    'failure is silent and green.\n'
+                    '  would lose (%d): %s\n'
+                    '  If a word really is English now, take it out of ES_GLOSS in this\n'
+                    '  file, on purpose, with the reason written beside it.'
+                    % (len(_lost), ', '.join(_lost)))
+    except SystemExit:
+        raise
+    except Exception:
+        pass   # no committed file yet is not a shrink
     lex_js = (
         '  var ES_LEX = ' + json.dumps(ES_GLOSS, ensure_ascii=False, indent=2, sort_keys=True) + ';\n'
         '  /* THE HALF OF THE LEXICON THAT CANNOT BE MISTAKEN FOR ENGLISH.\n'
@@ -1489,9 +1596,21 @@ def main():
         '    if (ap > 0 && ES_CLITIC.indexOf(w.slice(ap + 1)) >= 0) out.push(w.slice(0, ap));\n'
         '    return out;\n'
         '  }\n')
+    # *** AND THE SLOT HAS TO COVER EVERYTHING THE REPLACEMENT EMITS, OR THE
+    # REBAKE APPENDS INSTEAD OF REPLACING. *** (9/27, row [lexicon frozen].) The
+    # block written above ends with the esStems function, and this pattern did
+    # not reach it -- so every rebake left the old copy behind and added a new
+    # one. MEASURED: engine/bohemia_people.js already carries THREE identical
+    # esStems declarations on main, byte for byte, which means two rebakes have
+    # done this and nobody saw it. The last declaration wins in JavaScript, so
+    # nothing was broken; but editing one of the first two changes nothing, and
+    # that is a trap with a fuse on it. The comment blocks are optional in the
+    # pattern because the very first fill has none of them yet.
     pat = (r'\n  var ES_LEX = [\s\S]*?;\n'
            r'(  /\* THE HALF[\s\S]*?var ES_ONLY = [\s\S]*?;\n)?'
-           r'(  /\* WHAT MAY FOLLOW[\s\S]*?var ES_CLITIC = [\s\S]*?;\n)?')
+           r'(  /\* WHAT MAY FOLLOW[\s\S]*?var ES_CLITIC = [\s\S]*?;\n)?'
+           r'(  /\* ONE TOKEN[\s\S]*?\n  \}\n)*'
+           r'(  function esStems\(word\) \{[\s\S]*?\n  \}\n)*')
     if not re.search(pat, src):
         raise SystemExit('engine/bohemia_people.js has no ES_LEX slot to fill')
     src = re.sub(pat, '\n' + lex_js, src, count=1)

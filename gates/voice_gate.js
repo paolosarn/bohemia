@@ -487,9 +487,14 @@ book.books.forEach(b => b.lines.forEach(l => {
    A06_THE_FIRST_HARVEST, D001_MOTHS_AROUND_THE_LAST_LIGHT and
    M04_WHAT_THE_NEIGHBOUR_ASKS). Checked one file at a time: all five read zero now.
    The routing worked, so the floor moves. */
-const BAN_RATE_HITS = 14, BAN_RATE_LINES = 3148;  /* measured 9/23, down from 39, and 44 before that */
+const BAN_RATE_HITS = 6, BAN_RATE_LINES = 3148;  /* measured 9/27, down from 14,
+   from 39, and 44 before that. The 9/27 drop is the eight generator lines that
+   [lexicon frozen] finally made safe to rewrite: fixing them used to shrink the
+   Spanish dictionary and redden an untouched line, so the fix was reverted on
+   9/23. RE-PIN THIS DOWN EVERY TIME THE DEBT FALLS -- a ratchet left above the
+   real number is a gate that has quietly stopped biting. */
 const BAN_RATE_CEILING = BAN_RATE_HITS / BAN_RATE_LINES;
-const BAN_ABS_CEILING = 14;            /* and the absolute debt may not grow either */
+const BAN_ABS_CEILING = 6;            /* and the absolute debt may not grow either */
 let corpusLines = 0;
 book.books.forEach(b => { corpusLines += b.lines.length; });
 const banRate = corpusLines ? corpusBans / corpusLines : 0;

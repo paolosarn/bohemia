@@ -360,12 +360,12 @@ REACTIONS = {
  ]),
 
  'heard:reckless': (['persist', 'banal'], [
-    "Everybody's heard. That's the whole point of what you did, isn't it.",
+    "Everybody's heard. That was the idea, wasn't it.",
     "Two blocks and a caravan and it still got here before you.",
     "I'd never met you and I already had an opinion.",
  ]),
  'heard:reckless@spanglish': (['persist', 'banal'], [
-    "Todo el mundo's heard. That's the whole point of what you did, no?",
+    "Todo el mundo's heard. That was the idea, no?",
     "Two blocks and a caravan y llegó here before you.",
     "I'd never met you y ya tenía an opinion.",
  ]),

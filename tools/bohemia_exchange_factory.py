@@ -229,7 +229,7 @@ EX = [
     # ---- TRADE ------------------------------------------------------------
     dict(id='trade-price', kind='trade', who=('any', 'any'), join=1, leaks=False,
          cites=['banter', 'atmos'], turns=[
-             "What did it cost you?",
+             "What did you give up for it?",
              "Twice what it cost the last person who asked.",
              "Did you pay it?",
              "I paid it. Tomorrow it will be twice again and I will pay that too."]),
@@ -240,7 +240,7 @@ EX = [
              "Anything left out past the wash?",
              "Anything left is left because somebody looked at it and walked away.",
              "That is not a no.",
-             "It is not a no. It is bring somebody with you."]),
+             "I am not saying no. I am saying bring somebody with you."]),
     dict(id='trade-weigh', kind='trade', who=('keeper', 'any'), join=1, leaks=False,
          cites=['banter', 'atmos'], turns=[
              "Your scale is heavy.",
@@ -276,7 +276,7 @@ EX = [
              "Anybody come through here today?",
              "Plenty came through.",
              "Anybody stop.",
-             "Nobody stops here. That is the whole reason I like it."]),
+             "Nobody stops here. That is why I like it."]),
     dict(id='rumor-list', kind='rumor', who=('any', 'any'), join=2, leaks=True, subject='names',
          implies='Somebody is writing down who lives in which house.',
          
@@ -318,7 +318,7 @@ EX = [
              "It is busy out here today.",
              "It is busy every day now. You just used to leave earlier.",
              "There were not this many of us.",
-             "There were. They were inside, and inside got worse than out here."]),
+             "There were. They were inside, and inside got worse than the street."]),
     dict(id='street-heat', kind='atmos', who=('any', 'any'), join=2, leaks=False,
          cites=['atmos', 'dense'], turns=[
              "You are out in the middle of it again.",

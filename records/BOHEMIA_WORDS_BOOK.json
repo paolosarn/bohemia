@@ -6,7 +6,7 @@
   "sources": 60,
   "lines": 3148,
   "cited": 3048,
-  "fingerprint": "6e38083741e58c8d",
+  "fingerprint": "6b4d1ca2e031cc79",
   "index": "records/BOHEMIA_QUESTBOOK_LAW_INDEX.json (3672 laws)"
  },
  "books": [
@@ -86976,7 +86976,7 @@
      "src": "records/BOHEMIA_EXCHANGES.json",
      "speaker": "any",
      "node": "trade-price (trade)  [never heard]",
-     "text": "What did it cost you?",
+     "text": "What did you give up for it?",
      "draft": true,
      "cites": [
       {
@@ -87144,7 +87144,7 @@
      "src": "records/BOHEMIA_EXCHANGES.json",
      "speaker": "any",
      "node": "trade-empty (trade)",
-     "text": "It is not a no. It is bring somebody with you.",
+     "text": "I am not saying no. I am saying bring somebody with you.",
      "draft": true,
      "cites": [
       {
@@ -87624,7 +87624,7 @@
      "src": "records/BOHEMIA_EXCHANGES.json",
      "speaker": "any",
      "node": "rumor-nobody (rumor)",
-     "text": "Nobody stops here. That is the whole reason I like it.",
+     "text": "Nobody stops here. That is why I like it.",
      "draft": true,
      "cites": [
       {
@@ -88200,7 +88200,7 @@
      "src": "records/BOHEMIA_EXCHANGES.json",
      "speaker": "any",
      "node": "street-crowd (atmos)",
-     "text": "There were. They were inside, and inside got worse than out here.",
+     "text": "There were. They were inside, and inside got worse than the street.",
      "draft": true,
      "cites": [
       {
@@ -95931,7 +95931,7 @@
      "title": "ONE THING THAT IS THEIRS",
      "id": "records/BOHEMIA_QUIRKS.json#remembers-everybody.lit",
      "node": "remembers-everybody (asked in the light)",
-     "text": "I know yours already. I know everybody's on this block. It's {r}, that's the whole trick.",
+     "text": "I know yours already. I know everybody's on this block. It's {r}.",
      "lang": "en"
     },
     {
@@ -96020,7 +96020,7 @@
      "id": "records/BOHEMIA_QUIRKS.json#remembers-everybody.spanglish.lit",
      "node": "remembers-everybody (spanglish, asked in the light)",
      "lang": "spanglish",
-     "text": "Ya sé el tuyo. I know everybody's on this block. It's {r}, that's the whole trick."
+     "text": "Ya sé el tuyo. I know everybody's on this block. It's {r}."
     },
     {
      "kind": "quirk",
@@ -97048,7 +97048,7 @@
      "src": "records/BOHEMIA_REACTIONS.json",
      "speaker": "heard:reckless",
      "node": "heard:reckless",
-     "text": "Everybody's heard. That's the whole point of what you did, isn't it.",
+     "text": "Everybody's heard. That was the idea, wasn't it.",
      "draft": true,
      "cites": [
       {
@@ -97192,7 +97192,7 @@
      "src": "records/BOHEMIA_REACTIONS.json",
      "speaker": "heard:reckless@spanglish",
      "node": "heard:reckless@spanglish",
-     "text": "Todo el mundo's heard. That's the whole point of what you did, no?",
+     "text": "Todo el mundo's heard. That was the idea, no?",
      "draft": true,
      "cites": [
       {

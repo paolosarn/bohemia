@@ -1042,10 +1042,10 @@
    "id": "remembers-everybody",
    "kind": "ritual",
    "tell": "greets people by trade before they have spoken",
-   "lit": "I know yours already. I know everybody's on this block. It's {r}, that's the whole trick.",
+   "lit": "I know yours already. I know everybody's on this block. It's {r}.",
    "dark": "I know yours. I know who's stopped being on this block, too. Six. It's {r}.",
    "spanglish": {
-    "lit": "Ya sé el tuyo. I know everybody's on this block. It's {r}, that's the whole trick.",
+    "lit": "Ya sé el tuyo. I know everybody's on this block. It's {r}.",
     "dark": "I know yours. Y sé quién stopped being on this block, too. Seis. It's {r}."
    },
    "es": {

@@ -440,7 +440,7 @@
    "any"
   ],
   "turns": [
-   "What did it cost you?",
+   "What did you give up for it?",
    "Twice what it cost the last person who asked.",
    "Did you pay it?",
    "I paid it. Tomorrow it will be twice again and I will pay that too."
@@ -477,7 +477,7 @@
    "Anything left out past the wash?",
    "Anything left is left because somebody looked at it and walked away.",
    "That is not a no.",
-   "It is not a no. It is bring somebody with you."
+   "I am not saying no. I am saying bring somebody with you."
   ],
   "join": 2,
   "leaks": true,
@@ -647,7 +647,7 @@
    "Anybody come through here today?",
    "Plenty came through.",
    "Anybody stop.",
-   "Nobody stops here. That is the whole reason I like it."
+   "Nobody stops here. That is why I like it."
   ],
   "join": 1,
   "leaks": false,
@@ -851,7 +851,7 @@
    "It is busy out here today.",
    "It is busy every day now. You just used to leave earlier.",
    "There were not this many of us.",
-   "There were. They were inside, and inside got worse than out here."
+   "There were. They were inside, and inside got worse than the street."
   ],
   "join": 1,
   "leaks": false,

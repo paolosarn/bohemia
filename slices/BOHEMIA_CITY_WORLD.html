@@ -5870,34 +5870,6 @@ if(typeof window!=='undefined') window.BohemiaLattice=BOH_LATTICE;
     if (ap > 0 && ES_CLITIC.indexOf(w.slice(ap + 1)) >= 0) out.push(w.slice(0, ap));
     return out;
   }
-  /* ONE TOKEN, EVERY FORM WORTH LOOKING UP -- and this is the THIRD time this
-     lane has paid for two copies of one rule. The Python side learned that a
-     LEADING apostrophe is a quote mark and not a clitic ("'He turn." opens a
-     spoken line), fixed it there, and the gate's own tokenizer went red on the
-     very same two lines because the rule had not travelled. It lives HERE now
-     and everything that needs it calls it: esWordsIn below, and the gate. */
-  function esStems(word) {
-    var w = String(word == null ? "" : word).toLowerCase();
-    while (w.charAt(0) === "'") w = w.slice(1);
-    if (!w) return [];
-    var out = [w], ap = w.indexOf("'");
-    if (ap > 0 && ES_CLITIC.indexOf(w.slice(ap + 1)) >= 0) out.push(w.slice(0, ap));
-    return out;
-  }
-  /* ONE TOKEN, EVERY FORM WORTH LOOKING UP -- and this is the THIRD time this
-     lane has paid for two copies of one rule. The Python side learned that a
-     LEADING apostrophe is a quote mark and not a clitic ("'He turn." opens a
-     spoken line), fixed it there, and the gate's own tokenizer went red on the
-     very same two lines because the rule had not travelled. It lives HERE now
-     and everything that needs it calls it: esWordsIn below, and the gate. */
-  function esStems(word) {
-    var w = String(word == null ? "" : word).toLowerCase();
-    while (w.charAt(0) === "'") w = w.slice(1);
-    if (!w) return [];
-    var out = [w], ap = w.indexOf("'");
-    if (ap > 0 && ES_CLITIC.indexOf(w.slice(ap + 1)) >= 0) out.push(w.slice(0, ap));
-    return out;
-  }
 
   /* WHICH SPANISH WORDS A STRING CONTAINS -- ONE IMPLEMENTATION, FOR EVERYBODY.
      gates/language_gate.js calls THIS to sweep the objectives, the resolution
@@ -6899,7 +6871,7 @@ if(typeof window!=='undefined') window.BohemiaLattice=BOH_LATTICE;
     "I heard a version of it. Seguramente the wrong version."
   ],
   "heard:reckless": [
-    "Everybody's heard. That's the whole point of what you did, isn't it.",
+    "Everybody's heard. That was the idea, wasn't it.",
     "Two blocks and a caravan and it still got here before you.",
     "I'd never met you and I already had an opinion."
   ],
@@ -6909,7 +6881,7 @@ if(typeof window!=='undefined') window.BohemiaLattice=BOH_LATTICE;
     "I never meet you and already I have opinion."
   ],
   "heard:reckless@spanglish": [
-    "Todo el mundo's heard. That's the whole point of what you did, no?",
+    "Todo el mundo's heard. That was the idea, no?",
     "Two blocks and a caravan y llegó here before you.",
     "I'd never met you y ya tenía an opinion."
   ],
@@ -8029,7 +8001,7 @@ if(typeof window!=='undefined') window.BohemiaLattice=BOH_LATTICE;
     wasOf: wasOf,
     nowLineOf: nowLineOf, workLineOf: workLineOf,
     whereAt: whereAt, cardFor: cardFor, metWords: metWords,
-    makeLedger: makeLedger, clock: clock, REACTIONS: REACTIONS, REACTIONS: REACTIONS, REACTIONS: REACTIONS, REACTIONS: REACTIONS,
+    makeLedger: makeLedger, clock: clock, REACTIONS: REACTIONS, REACTIONS: REACTIONS, REACTIONS: REACTIONS, REACTIONS: REACTIONS, REACTIONS: REACTIONS,
     // what a person says when no quest is talking. FILLED 8/12 by
     // tools/bohemia_bark_factory.py, every line a draft he can retype in WORDS.
     linesFor: function (person, opts) {

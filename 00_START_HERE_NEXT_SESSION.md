@@ -1,3 +1,104 @@
+WORDS (words-8dqrnq): 9/27 LATEST -- *** THE SPANISH DICTIONARY WAS ERASING
+ITSELF, AND A REBAKE THAT CHANGED NOTHING LOST TWO WORDS EVERY TIME. ***
+TAB: NOT IN A TAB YET. This is machine work under the hood plus eight lines in
+the street's mouth. Record
+records/BOHEMIA_WORDS_THE_DICTIONARY_ERASED_ITSELF_9_27_26.md.
+
+THE ROW'S PREMISE WAS WRONG AND IT WAS MY OWN. [lexicon frozen] was written off
+my 9/23 finding, which said deleting a line deletes a word. Measured at HEAD in a
+throwaway worktree, touching nothing: ES_ONLY 274 -> 272, lost 'hermano' and
+'las'. NOBODY HAS TO DELETE ANYTHING. The committed file and the factory's own
+output have disagreed on every run for as long as both existed.
+
+ROOT CAUSE, TWO CAUSES WEARING ONE SYMPTOM. ES_ONLY is the list of Spanish words
+that cannot be mistaken for English, derived by subtracting every word this game
+has said in English -- AND OUR OWN WRITING IS SPANGLISH. So the more Spanglish
+this game writes, the fewer Spanish words its Spanish detector can see. Silent,
+and the gate stays green. The two leaks:
+  hermano  ONE Spanglish line labelled `en`: "So stop asking and start walking,
+           hermano."
+  las      THE NAME OF THE CITY THIS GAME IS SET IN: "POST-ECONOMIC APOCALYPSE -
+           LAS VEGAS". THAT LINE IS CORRECTLY ENGLISH. "las" in "Las Vegas" is a
+           proper noun and a proper noun is not evidence about common vocabulary,
+           so no re-labelling could ever fix it, and a special case for the city
+           name would be the eleventh ruler failure in this lane's series.
+
+THE FIX IS ONE SENTENCE: ONE ENGLISH LINE IS AN ANECDOTE, NOT EVIDENCE ABOUT A
+LANGUAGE. A word counts as English only if the corpus uses it in TWO distinct
+lines. MEASURED BEFORE WRITING, NOT GUESSED: across all 277 glossed words the
+threshold moves EXACTLY the two broken ones and nothing else, and the genuinely-
+both words are nowhere near it (me 221 english lines, no 114, son 3). The old
+english_vocabulary() is untouched and still answers the question the missing-
+gloss check needs; the new english_evidence() answers the different question and
+only the ES_ONLY derivation asks it. A no-op rebake is now IDENTITY: 274 in, 274
+out, nothing lost.
+
+AND THE BELT THE ROW ACTUALLY ASKED FOR. The cause found this round is one I did
+not predict, so the guard is written against the SHAPE of the failure: the
+factory now REFUSES THE WRITE if a rebake would lose a word, and names them.
+MUTATION-PROVED: take a word out of the glossary, it refuses, names it, and the
+engine diff is EMPTY -- a real refusal, not a warning printed beside a write that
+happened anyway. Both exist rather than either alone: if the corpus ever grows a
+second stray sighting the threshold stops catching it, and the guard is what
+catches that.
+
+A SECOND BUG FOUND ON THE WAY, ALREADY SHIPPED TWICE. The replace-slot did not
+cover everything the factory emits, so every rebake APPENDED instead of
+replacing. engine/bohemia_people.js carried THREE identical esStems declarations
+on main, byte for byte, and both derived slices carried three. The last wins in
+JavaScript so nothing was broken, but editing either of the first two does
+nothing at all, which is a trap with a fuse on it. Slot widened; three
+consecutive rebakes now come back byte-identical with esStems 1.
+
+*** AND THE LANGUAGE GATE HAD BEEN GREEN ON A STALE FILE. *** Syncing the derived
+record turned it RED 84/1 on 'pass' and 'closer'. ISOLATED RATHER THAN GUESSED:
+restoring ONLY the old record, keeping every other change of mine, went back to
+GREEN 85/0 -- so the red was the sync, not the fix. Those two words were in the
+COMMITTED record and were NEVER in the factory's source set, so the only thing
+keeping that gate green on them was a derived record that had drifted from what
+it derives from. Written down in the source where its own comment says they
+belong ("the answer is to write the word down here, never to loosen the rule").
+GREEN 85/0 on a yardstick that is actually derived.
+
+THEN THE ROW'S LAST CLAUSE SHIPPED. Eight player-facing banned-phrase lines
+rewritten IN THEIR FACTORIES, never in the JSON, because editing a derived table
+is the exact disease this row is about. "What did it cost you?" -> "What did you
+give up for it?"; "It is not a no. It is bring somebody with you." -> "I am not
+saying no. I am saying bring somebody with you."; "that's the whole trick." cut
+entirely; "That's the whole point of what you did, isn't it." -> "That was the
+idea, wasn't it."; and four more. THE CLOSED-SET CHECK REFUSED THE WRITE over one
+new English word ('idea'), which is the check working exactly as its comment
+promises, so it was written down rather than dodged by rewriting the line twice.
+
+AND THE BANNED-PHRASE DEBT WENT 14 -> 6, so the voice gate's ratchet was re-pinned
+DOWN to 6 in the same commit. A ratchet left above the real number is a gate that
+has quietly stopped biting, which is the same failure as everything else in this
+round.
+
+THE WHOLE POINT OF THE ROUND, PROVED: on 9/23 this exact rewrite shrank the
+dictionary and reddened a line I had never touched, and I reverted the lot. This
+round, after eight rewrites and four rebakes: ES_ONLY 274 -> 274, LOST NONE.
+
+The engine changed, so the derived city slice was resynced with the repo's own
+tool in the same commit (duty 8). BOHEMIA_RUN_CURRENT.html has no module markers
+so the tool correctly left it alone; that slice is RUN's and I did not reach into
+it beyond collapsing the duplicate blocks it already carried.
+DERIVED FRESHNESS is red and IS NOT MINE: a clean origin/main worktree gives the
+identical 9/1.
+
+STANDING QUEUE: [bb event writing] ROUND TWO is next -- rewrite the twelve road
+moments to the shape the school found (the situation is what he SEES, the words
+go on the choice and the consequence, a mouth says it, 98 characters) and re-pin
+both ratchets on the road-words gate DOWN. Then [naming screen] (still blocked:
+DYNASTY [three names] still OPEN, no screen exists) and [reputation lines] (still
+blocked: COMBAT frozen to the look). Q26 stays CLAIMED until a surface speaks it.
+VERDICTS: 114 in the registry, 9 mine, no new ones this round, all acted on.
+AND THE LESSONS THAT BIND: NO TEXT-ONLY ITEM IN VOTE; a picture in VOTE showing a
+sentence the game no longer says is a lie to him; THE SITUATION IS THE PART
+NOBODY READS, so stop writing it; and now the fourth -- A DERIVED FILE THAT HAS
+DRIFTED FROM ITS SOURCE CAN HOLD A GATE GREEN. Two did here, in opposite
+directions. Re-run your factory and diff before you trust a green.
+
 UI (ui-kmqmrf): 9/27 LATEST -- *** [bb interface] ROUND TWO: I GOT INTO THE FIGHT, AND IT IS
 9 THINGS AGAINST 30 WITH NOTHING SHARED. *** Row stays CLAIMED (school is one page a round).
 TAB: CITY and the walking screen; the picture is in the VOTE tab. Record:
