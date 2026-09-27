@@ -1,0 +1,119 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>BOHEMIA - TWO LADDERS, NEITHER READS GROUND</title>
+<style>
+ :root{ --ink:#141210; --paper:#f4efe6; --hot:#a8391d; --dim:#4a443c }
+ *{ box-sizing:border-box }
+ body{ margin:0; background:var(--paper); color:var(--ink);
+       font:15px/1.5 ui-sans-serif,system-ui,-apple-system,Arial,sans-serif }
+ header{ padding:14px 14px 10px; border-bottom:3px solid var(--ink) }
+ h1{ margin:0 0 5px; font-size:19px; letter-spacing:.3px }
+ .sub{ font-size:14px; color:var(--dim) }
+ .said{ margin:10px 14px; padding:9px 12px; border-left:5px solid var(--hot);
+        background:#fff; font-size:14px }
+ .said b{ color:var(--hot) }
+ .quiet{ margin:10px 14px; padding:9px 12px; border-left:5px solid #6b6252;
+         background:#fff; font-size:13px; color:var(--dim) }
+ .quiet b{ color:var(--ink) }
+ .wrap{ padding:6px 14px 50px }
+ .shot{ background:#fff; border-bottom:3px solid var(--ink); padding:8px; margin-top:14px }
+ .tag{ display:inline-block; background:var(--ink); color:var(--paper); font:11px/1.6
+       ui-monospace,monospace; padding:1px 7px; letter-spacing:.5px; margin-bottom:6px }
+ .clip{ position:relative; width:100%; overflow:hidden; border:1px solid #cabfa8; max-height:420px }
+ .clip img{ display:block; width:100%; image-rendering:pixelated }
+ .cap{ font-size:14px; color:var(--dim); margin:9px 0 0 }
+ .cap b{ color:var(--ink) }
+ .diagram{ background:#fff; border:1px solid #cabfa8; padding:10px }
+ .lane{ display:flex; align-items:center; gap:8px; padding:8px 0; font:13px ui-monospace,monospace }
+ .box{ background:#e8dcc4; border:1px solid #9c907c; padding:6px 10px; border-radius:3px; white-space:nowrap }
+ .arrow{ color:var(--dim) }
+ .x{ color:var(--hot); font-weight:700; font-size:16px }
+ table{ border-collapse:collapse; width:100%; background:#fff; margin-top:14px;
+        font:12px/1.4 ui-monospace,monospace }
+ th,td{ text-align:left; padding:5px 7px; border-bottom:1px solid #ddd5c4 }
+ th{ background:var(--ink); color:var(--paper) }
+</style></head><body>
+
+<header>
+ <h1>TWO LADDERS, NEITHER READS GROUND</h1>
+ <div class="sub">This game already ranks how much a crew trusts you, twice over. Neither
+ ranking has ever heard of the ground you hold. 9/27</div>
+</header>
+
+<div class="said">
+ <b>THIS VALLEY ALREADY TRACKS TWO SEPARATE THINGS CALLED YOUR STANDING WITH A CREW.</b> One
+ is a count of favours done. The other is a rank, TERRITORY up to MANDATE up to MAYOR, that
+ decides where you are even allowed to build. Both are real, both are on cards you can
+ already open.
+ <br><br>
+ <b>I checked every place either number moves. Both only move because of a QUEST.</b>
+ Holding a crew's ground, losing it, paying their rent on time or missing it: none of that
+ touches either ladder, in either direction.
+</div>
+
+<div class="wrap">
+
+ <div class="shot">
+  <span class="tag">THE REAL CARD, REAL FRAME</span>
+  <div class="clip"><img src="FACTIONS_WHERE_YOU_STAND_PANEL_9_27.png" alt="the standing panel"></div>
+ </div>
+ <div class="cap">This is the card the game already shows: YOUR RUNG (TERRITORY, on day one),
+ THE VALLEY (0 of 16 factions with you), and lower down THIS GROUND: Mob, RENT TONIGHT: 1
+ battery for 1 block. <b>The rent line and the rung line sit on the same screen and have
+ never spoken to each other.</b></div>
+
+ <div class="diagram">
+  <div class="lane">
+   <div class="box">a quest resolves in a crew's favour</div>
+   <span class="arrow">&#8594;</span>
+   <div class="box">favour count up</div>
+   <span class="arrow">&#8594;</span>
+   <div class="box">the rung, TERRITORY&#8594;MANDATE&#8594;MAYOR</div>
+  </div>
+  <div class="lane">
+   <div class="box">you hold their fortress, camp or town</div>
+   <span class="x">&#10005;</span>
+   <div class="box" style="opacity:.55">no line drawn to either ladder</div>
+  </div>
+  <div class="lane">
+   <div class="box">you pay or refuse their rent tonight</div>
+   <span class="x">&#10005;</span>
+   <div class="box" style="opacity:.55">no line drawn to either ladder</div>
+  </div>
+ </div>
+ <div class="cap">Traced in the actual code, not guessed: the favour count has exactly two
+ writers (a quest resolving, and a slow decay for being ignored) and the build-permission
+ rung reads only what a quest wrote down. Territory, rent and the ledger that remembers a
+ block changing hands are none of them in that chain.</div>
+
+ <table id="tbl"></table>
+
+ <div class="quiet">
+  <b>WHY THIS MATTERS RIGHT NOW.</b> You just said the quest chat ships no more game code,
+  ever, only research. That is the right call. But it means BOTH of these ladders now have
+  exactly one door they can walk through, and it is a door that is closing. If a crew's
+  trust in you is ever going to move because of something you actually DID on their ground,
+  rather than a scripted quest, that wire has to come from somewhere that still ships code.
+  This lane's ledger already knows every block that changes hands. It is sitting right next
+  to the rung and has never been asked a single question.
+ </div>
+
+</div>
+
+<script>
+var ROWS = [
+ ['ladder one: favour count', 'BohemiaBelonging, per crew'],
+ ['its two writers', 'a quest resolves · ignoring them too long'],
+ ['ladder two: the rung (build permission)', 'TERRITORY → MANDATE → MAYOR'],
+ ['what it reads', 'DQ.shared.faction, written only by a quest’s own @DO line'],
+ ['does holding ground move either ladder', 'no'],
+ ['does paying or refusing rent move either ladder', 'no'],
+ ['does the territory ledger get read by either', 'no'],
+ ['new code the quest chat will ship from now', 'none (rule 35)']
+];
+var h = '<tr><th>WHAT</th><th>MEASURED</th></tr>';
+for (var i = 0; i < ROWS.length; i++)
+  h += '<tr><td>' + ROWS[i][0] + '</td><td>' + ROWS[i][1] + '</td></tr>';
+document.getElementById('tbl').innerHTML = h;
+</script>
+</body></html>
