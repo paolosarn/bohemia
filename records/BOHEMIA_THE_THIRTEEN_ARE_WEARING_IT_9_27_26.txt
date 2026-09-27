@@ -1,0 +1,27 @@
+THE THIRTEEN ARE WEARING IT NOW  --  CHARACTER, 9/27/26, [runway redo]
+
+HIS RULING: "Fire make sure shit doesnt clip into places it shouldnt but yeah."
+The thirteen approved runway shapes are wired into the thirteen faction outfits.
+This page is the four factions whose colour the wiring nearly took.
+
+  FACTION     STRENGTH          BIGGEST COLOUR    FRAMES DIFFERENT
+  Caravans    0.33 -> 0.37      30 -> 30          4 of 8
+  Anarchists  0.51 -> 0.51      30 -> 30          6 of 8
+  Network     0.46 -> 0.47      180 -> 180        8 of 8
+  Mob         0.31 -> 0.35      neutral -> neutral6 of 8
+
+THE PAGE PLAYS (rule 25): every body walks, one step per beat at 120 BPM, driven off
+the clock. A coat that hangs past the hip only reads when the legs move under it, and
+this lane measured on 9/15 that 103 of 318 canon garments do exactly that.
+
+THE GROUND IS THE STREET'S GROUND (rule 32f): road #33333c, sidewalk #8a8478, kerb
+#3f3f47, the hexes the walked city paints its surfaces with. Last round's graveyard
+post-mortem names a contact sheet on a tan background as the defect; this is not one.
+
+TWO REFUSALS BUILT IN, both of them things this lane has got wrong before: a body
+whose eight frames are one picture is not an animation and the tool will not write,
+and a faction whose colour strength FELL is the opposite of the page's claim, so that
+does not write either.
+
+WHAT IS NOT CLAIMED: the walked street draws pre-baked sprites, so what he sees on
+the street itself does not change until those are re-baked. That is named, not hidden.

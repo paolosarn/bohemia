@@ -1,3 +1,68 @@
+CHARACTER (character-0lurbs): 9/27 LATEST -- *** THE THIRTEEN ARE WEARING IT. His "Fire"
+is built: all thirteen faction outfits re-dressed in the approved runway shapes, and the
+closest pair of silhouettes went 0.0085 to 0.0418, FIVE TIMES further apart. *** Row
+[runway redo] stays CLAIMED (the row is ongoing batch cooking to the three houses).
+TAB: the VOTE tab in the alpha, item THE THIRTEEN ARE WEARING IT NOW, and it PLAYS.
+Record: records/BOHEMIA_THE_THIRTEEN_ARE_WEARING_IT_9_27_26.md
+
+WHAT LANDED: thirteen outfits wired; 17 new faction colourways; the clash ratchet lowered
+4 -> 3; the silhouette baseline re-frozen with a reason; engine/BOHEMIA_faction_colours.json
+republished. No body dials moved. Bodies at the ruled 112 box, unchanged.
+
+THE ROUND'S REAL STORY, IN ONE LINE: every garment in the approved set is a NEUTRAL, because
+the search that chose the thirteen was a search on SILHOUETTE. Wiring them as they came
+stripped eleven of thirteen factions of their colour and dropped mean cloth saturation
+0.435 -> 0.259, a 40% drain, in the same round whose other ruling was "vibrance down A
+LITTLE". Four attempts at the ALGORITHM all failed and STOP PRODUCING fired correctly. THE
+BLOCKER WAS NEVER THE ALGORITHM, IT WAS INVENTORY: a faction can only keep its colour on a
+shape a colourway EXISTS for, and the three failing factions were all WARM EARTH factions
+whose shapes existed only in grey. Seventeen one-line colourways in the factions' own
+measured hues closed it. Final: 9 of 13 wear their own colour, the four that do not are the
+three the colour law names as drab on purpose plus Trades, and saturation settles 0.435 ->
+0.409 instead of draining.
+
+*** THREE DEFECTS NO COLOUR TEST COULD SEE, AND ALL THREE PASSED EVERY CHECK THAT EXISTS.
+THIS IS THE PART WORTH KEEPING. *** (1) A TEAL MONOLITH: giving Network its teal on all
+three swapped slots scored 180 at 97%, a perfect colour result, and drew a person with NO
+LEGS -- coat, trouser and pant-boot one teal, no knee, no ankle. Settled by the colour law's
+own header, "if these two ever disagree THE SILHOUETTE WINS": the coat carries the teal, the
+legs went dark. (2) THE VOLUNTEERS WENT CHARCOAL AND NOTHING NOTICED, because they sit on
+the drab exemption so both colour tests skip them; bone #c1bdb5 -> dark grey #454548, all
+green. DRAB IS NOT A COLOUR BUT IT IS STILL AN IDENTITY. (3) TWO FACTIONS IN FLOOR-LENGTH
+COATS: thirteen factions times his 10% is ONE, the approved set carries TWO split-tail
+dusters, and the first assignment handed out both (15.4%). Every colour and silhouette check
+stayed green because none of them is the trenchcoat law. Fixed two ways: BRICK SPLIT-TAIL
+DUSTER (which I added on 9/22 without the reserved tag) is tagged, and the second split-tail
+now stops at 0.62 instead of 1.0, which is shin not floor -- THE SHAPE IS KEPT AND THE HEM
+IS NOT. A green suite is a statement about the tests that exist, never about the picture.
+
+GATES, MINE AGAINST MAIN: FACTION COLOUR 34/4 both (the 4 are the empty street, red on
+main). FACTION OUTFIT 16/2 on main -> 17/1 here, one red CLOSED. TRENCHCOAT 12/0 both,
+broken and fixed inside this round. SHAPE FROZEN 12/0, re-baked with this record as its
+reason. VOTE TAB 30/0. HAIR, PORTRAIT HAIRCUT, FAMILY green. TALKING PORTRAIT 30/1 with the
+identical message on main, not mine. REFERENCE CHECK and REUSE-FIRST carry the same two
+reds with and without my tools, both other lanes'. PAGES PUBLISH red on main before my diff.
+
+SAID BEFORE ANYBODY ASKS: THE WALKED STREET DRAWS PRE-BAKED SPRITES (six townsfolk baked at
+boot), so re-dressing FACTION_LOOKS does not change what he sees while walking until those
+are re-baked. What changed is what the game believes a faction wears. Named, not hidden.
+
+FOR FACTIONS, UI [owner shown] AND COOK [border marked]: engine/BOHEMIA_faction_colours.json
+was republished by its own tool because thirteen outfits changed and the colour gate compares
+the published answer against the render every run. Church's dominant hue moved 30 -> 60 (its
+own gold went from minority to majority of its cloth; it was already 45% with second 60) and
+Network's hex moved with its new coat. NOBODY'S COLOUR WAS REASSIGNED -- the measurements
+moved because the clothes did.
+
+[PENDING Paolo] CARRIED, none of it blocking: which faction colour file wins if two ever
+disagree; the Cartel sits on the colour law's drab exemption list but is not named in the
+law text that grants it.
+
+NEXT ROUND: [bb gear] is the first OPEN line (rule 33 school -- how Battle Brothers reads a
+man's kit at a glance, then the shape for us on the runway thirteen). [three bodies] (rule
+31) is behind it and its "after [runway redo]" premise should be MEASURED, not assumed
+(rule 12).
+
 WORDS (words-8dqrnq): 9/27 LATEST -- *** THE SPANISH DICTIONARY WAS ERASING
 ITSELF, AND A REBAKE THAT CHANGED NOTHING LOST TWO WORDS EVERY TIME. ***
 TAB: NOT IN A TAB YET. This is machine work under the hood plus eight lines in

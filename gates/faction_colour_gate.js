@@ -127,8 +127,13 @@ const done = () => { console.log('\n=== FACTION COLOUR GATE: ' + pass + ' passed
      So this pins the number where it is and lets it only ever shrink -- the same
      downward ratchet the hair laws use, and it still fires the moment somebody adds
      a fourteenth faction in a colour that is already spoken for. */
-  const PINNED_CLASH = 4;   // 8 -> 5 the day it was written, 5 -> 4 on 9/6 when
-                            // the gate itself said so and nobody had done it
+  const PINNED_CLASH = 3;   // 8 -> 5 the day it was written, 5 -> 4 on 9/6 when
+                            // the gate itself said so and nobody had done it,
+                            // 4 -> 3 on 9/27 when CHARACTER [runway redo] wired the
+                            // approved thirteen and Mob went back to charcoal: hue 30
+                            // held three factions instead of four. The ratchet only
+                            // ever goes down, and this gate asked for it in its own
+                            // output rather than anybody choosing a number.
   const byHue = {};
   for (const q of R) { if (q.dom === 'neutral') continue; (byHue[q.dom] = byHue[q.dom] || []).push(q.n); }
   let clashes = 0; const clashList = [];

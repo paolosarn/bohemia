@@ -1,7 +1,7 @@
 {
- "why": "THE SHIRT THAT IS NOT CLOTH IS IN THE GRAVEYARD (Paolo 9/23: 'WTF IS THIS DOGSHIT'; rule 32(g) names it). DUST PLAID HIDE and BLUE HIDE JEANS are removed from the wardrobe along with their two ramps, so the baseline SHRINKS 332 -> 330. Nobody ever wore them: they were registered in VOTE and never wired, so no body in the game changes. Post-mortem records/BOHEMIA_GRAVEYARD_THE_SHIRT_THAT_IS_NOT_CLOTH_9_24_26.md. NOTE, CARRIED FORWARD FROM THE LAST BAKE AND STILL TRUE: every one of the 330 silhouettes still carries the +15 opaque pixels that arrived at PORTRAIT's eye commit 79ae65d. It is absorbed, not fixed, and not explained.",
- "record": "records/BOHEMIA_GRAVEYARD_THE_SHIRT_THAT_IS_NOT_CLOTH_9_24_26.md",
- "baked": "2026-09-24",
+ "why": "CHARACTER [runway redo] 9/27: the thirteen approved runway shapes are wired into all thirteen faction outfits, and 17 new faction colourways were added so nobody lost their colour doing it. Every one of the 13 outfits moved ON PURPOSE; the closest pair of silhouettes went 0.0085 to 0.0418, five times further apart, and the wiring tool refuses to write if that number gets worse. No body dials moved. NOTE, CARRIED FORWARD FROM THE LAST TWO BAKES AND STILL TRUE, because a re-bake is exactly how a live defect goes invisible: every silhouette still carries the +15 opaque pixels that arrived at PORTRAIT's eye commit 79ae65d. It is absorbed, not fixed, and not explained. Full reasoning, the four measured attempts, and the three defects no colour test could see: records/BOHEMIA_THE_THIRTEEN_ARE_WEARING_IT_9_27_26.md",
+ "record": "records/BOHEMIA_THE_THIRTEEN_ARE_WEARING_IT_9_27_26.md",
+ "baked": "2026-09-27",
  "note": "THE OPAQUE MASK ONLY. Colour is thrown away, so a ramp change is invisible here and a shape change cannot hide behind one. Re-bake only with tools/bohemia_freeze_the_silhouettes.js, which refuses without a reason and a record.",
  "garments": {
   "TEMPLE TAPER": [
@@ -1309,6 +1309,106 @@
    2908,
    "back"
   ],
+  "COBALT SHOULDER MANTLE": [
+   "fad79582",
+   2908,
+   "back"
+  ],
+  "COBALT WIDE TROUSER": [
+   "3be62d43",
+   3038,
+   "legs"
+  ],
+  "COBALT STACK BOOT": [
+   "23317671",
+   2882,
+   "feet"
+  ],
+  "BRICK SPLIT-TAIL DUSTER": [
+   "1d49fde4",
+   3006,
+   "outer"
+  ],
+  "BRICK WIDE TROUSER": [
+   "3be62d43",
+   3038,
+   "legs"
+  ],
+  "BRICK STACK BOOT": [
+   "23317671",
+   2882,
+   "feet"
+  ],
+  "GOLD SHOULDER MANTLE": [
+   "fad79582",
+   2908,
+   "back"
+  ],
+  "GRASS DROP TROUSER": [
+   "818050a8",
+   2892,
+   "legs"
+  ],
+  "GRASS BOOTS": [
+   "57212c46",
+   2848,
+   "feet"
+  ],
+  "SAND COCOON COAT": [
+   "8d58474",
+   2972,
+   "outer"
+  ],
+  "LEATHER WRAP COAT": [
+   "f5dccd7f",
+   2929,
+   "outer"
+  ],
+  "LEATHER STACK PANT": [
+   "f2387f92",
+   2912,
+   "legs"
+  ],
+  "LEATHER STACK BOOT": [
+   "23317671",
+   2882,
+   "feet"
+  ],
+  "OLIVE WIDE TROUSER": [
+   "3be62d43",
+   3038,
+   "legs"
+  ],
+  "TEAL COCOON COAT": [
+   "8d58474",
+   2972,
+   "outer"
+  ],
+  "CHARCOAL SHOULDER MANTLE": [
+   "fad79582",
+   2908,
+   "back"
+  ],
+  "CHARCOAL CROP TROUSER": [
+   "1700972e",
+   2892,
+   "legs"
+  ],
+  "BONE COCOON COAT": [
+   "8d58474",
+   2972,
+   "outer"
+  ],
+  "SPLIT-TAIL COAT": [
+   "71044ed1",
+   2943,
+   "outer"
+  ],
+  "LEATHER SPLIT-TAIL COAT": [
+   "71044ed1",
+   2943,
+   "outer"
+  ],
   "STORM PONCHO": [
    "342864d3",
    2849,
@@ -1657,56 +1757,56 @@
  },
  "outfits": {
   "Caravans": [
-   "28122822",
-   3056
+   "13a0c020",
+   3136
   ],
   "Colorful": [
-   "1ecdac0b",
-   3108
+   "84e23943",
+   3064
   ],
   "Anarchists": [
-   "f42a5cc",
-   3128
+   "7836fd8",
+   3149
   ],
   "Blues": [
-   "e2396cfd",
-   2935
+   "40de17be",
+   3201
   ],
   "Homeless": [
-   "50d5405c",
-   3114
+   "4a18d562",
+   3106
   ],
   "Church": [
-   "b570a11a",
-   3069
+   "70bbe844",
+   3113
   ],
   "Reds": [
-   "bca28084",
-   2974
+   "6919b17b",
+   3120
   ],
   "Cartel": [
-   "a2b36e4",
-   3073
+   "c1e5fd67",
+   3107
   ],
   "Trades": [
-   "1a681c32",
-   2928
+   "ecd42996",
+   3057
   ],
   "Mob": [
-   "108b5a01",
-   3119
+   "3a5a384c",
+   3031
   ],
   "Network": [
-   "a9690a08",
-   2875
+   "b52860a",
+   3079
   ],
   "Volunteers": [
-   "77985517",
-   2904
+   "f68192a0",
+   3152
   ],
   "Remnants": [
-   "7d2892bb",
-   3003
+   "9ff36410",
+   3164
   ]
  }
 }

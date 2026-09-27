@@ -3,198 +3,198 @@
  "measured": "wardrobe",
  "factions": {
   "Caravans": {
-   "hex": "#6c5b41",
+   "hex": "#6d5c42",
    "rgb": [
-    108,
-    91,
-    65
+    109,
+    92,
+    66
    ],
    "hue": 30,
    "drab": false,
-   "strength": 0.3322,
-   "share": 0.6653,
-   "second": "neutral",
-   "neutral": 0.2405,
+   "strength": 0.3853,
+   "share": 0.8791,
+   "second": "60",
+   "neutral": 0.0309,
    "draft": true
   },
   "Colorful": {
-   "hex": "#61a136",
+   "hex": "#689c46",
    "rgb": [
-    97,
-    161,
-    54
+    104,
+    156,
+    70
    ],
    "hue": 90,
    "drab": false,
-   "strength": 0.6402,
-   "share": 0.5776,
-   "second": "60",
-   "neutral": 0.039,
+   "strength": 0.5411,
+   "share": 0.8524,
+   "second": "neutral",
+   "neutral": 0.0543,
    "draft": true
   },
   "Anarchists": {
-   "hex": "#573f2a",
+   "hex": "#513a27",
    "rgb": [
-    87,
+    81,
+    58,
+    39
+   ],
+   "hue": 30,
+   "drab": false,
+   "strength": 0.5041,
+   "share": 0.9505,
+   "second": "neutral",
+   "neutral": 0.0495,
+   "draft": true
+  },
+  "Blues": {
+   "hex": "#3860a3",
+   "rgb": [
+    56,
+    96,
+    163
+   ],
+   "hue": 210,
+   "drab": false,
+   "strength": 0.6468,
+   "share": 0.9573,
+   "second": "neutral",
+   "neutral": 0.0273,
+   "draft": true
+  },
+  "Homeless": {
+   "hex": "#746d69",
+   "rgb": [
+    116,
+    109,
+    105
+   ],
+   "hue": null,
+   "drab": true,
+   "strength": 0.1825,
+   "share": 0.7376,
+   "second": "30",
+   "neutral": 0.7376,
+   "draft": true
+  },
+  "Church": {
+   "hex": "#f8d565",
+   "rgb": [
+    248,
+    213,
+    101
+   ],
+   "hue": 60,
+   "drab": false,
+   "strength": 0.5722,
+   "share": 0.5592,
+   "second": "30",
+   "neutral": 0.0881,
+   "draft": true
+  },
+  "Reds": {
+   "hex": "#63322a",
+   "rgb": [
+    99,
+    50,
+    42
+   ],
+   "hue": 0,
+   "drab": false,
+   "strength": 0.553,
+   "share": 0.9414,
+   "second": "neutral",
+   "neutral": 0.0426,
+   "draft": true
+  },
+  "Cartel": {
+   "hex": "#3f3d3f",
+   "rgb": [
     63,
+    61,
+    63
+   ],
+   "hue": null,
+   "drab": true,
+   "strength": 0.2095,
+   "share": 0.5276,
+   "second": "30",
+   "neutral": 0.5276,
+   "draft": true
+  },
+  "Trades": {
+   "hex": "#553e2a",
+   "rgb": [
+    85,
+    62,
     42
    ],
    "hue": 30,
    "drab": false,
-   "strength": 0.4811,
-   "share": 0.9043,
+   "strength": 0.4013,
+   "share": 0.7635,
    "second": "neutral",
-   "neutral": 0.0957,
-   "draft": true
-  },
-  "Blues": {
-   "hex": "#2d5fb3",
-   "rgb": [
-    45,
-    95,
-    179
-   ],
-   "hue": 210,
-   "drab": false,
-   "strength": 0.7252,
-   "share": 0.9428,
-   "second": "neutral",
-   "neutral": 0.0395,
-   "draft": true
-  },
-  "Homeless": {
-   "hex": "#968b82",
-   "rgb": [
-    150,
-    139,
-    130
-   ],
-   "hue": null,
-   "drab": true,
-   "strength": 0.3085,
-   "share": 0.4401,
-   "second": "0",
-   "neutral": 0.4401,
-   "draft": true
-  },
-  "Church": {
-   "hex": "#826c3e",
-   "rgb": [
-    130,
-    108,
-    62
-   ],
-   "hue": 30,
-   "drab": false,
-   "strength": 0.4882,
-   "share": 0.4535,
-   "second": "60",
-   "neutral": 0.0793,
-   "draft": true
-  },
-  "Reds": {
-   "hex": "#773229",
-   "rgb": [
-    119,
-    50,
-    41
-   ],
-   "hue": 0,
-   "drab": false,
-   "strength": 0.5641,
-   "share": 0.7889,
-   "second": "30",
-   "neutral": 0.0423,
-   "draft": true
-  },
-  "Cartel": {
-   "hex": "#434042",
-   "rgb": [
-    67,
-    64,
-    66
-   ],
-   "hue": null,
-   "drab": true,
-   "strength": 0.2668,
-   "share": 0.3944,
-   "second": "30",
-   "neutral": 0.3944,
-   "draft": true
-  },
-  "Trades": {
-   "hex": "#674b34",
-   "rgb": [
-    103,
-    75,
-    52
-   ],
-   "hue": 30,
-   "drab": false,
-   "strength": 0.4426,
-   "share": 0.8624,
-   "second": "neutral",
-   "neutral": 0.1376,
+   "neutral": 0.2365,
    "draft": true
   },
   "Mob": {
-   "hex": "#454142",
+   "hex": "#433f40",
    "rgb": [
-    69,
-    65,
-    66
+    67,
+    63,
+    64
    ],
    "hue": null,
    "drab": true,
-   "strength": 0.3596,
-   "share": 0.5527,
+   "strength": 0.3753,
+   "share": 0.538,
    "second": "30",
-   "neutral": 0.5527,
+   "neutral": 0.538,
    "draft": true
   },
   "Network": {
-   "hex": "#25a189",
+   "hex": "#369985",
    "rgb": [
-    37,
-    161,
-    137
+    54,
+    153,
+    133
    ],
    "hue": 180,
    "drab": false,
-   "strength": 0.553,
-   "share": 0.6222,
+   "strength": 0.5108,
+   "share": 0.7371,
    "second": "neutral",
-   "neutral": 0.2534,
+   "neutral": 0.2629,
    "draft": true
   },
   "Volunteers": {
-   "hex": "#c1bdb5",
+   "hex": "#7a756c",
    "rgb": [
-    193,
-    189,
-    181
+    122,
+    117,
+    108
    ],
    "hue": null,
    "drab": true,
-   "strength": 0.169,
-   "share": 0.6878,
+   "strength": 0.1325,
+   "share": 0.7108,
    "second": "30",
-   "neutral": 0.6878,
+   "neutral": 0.7108,
    "draft": true
   },
   "Remnants": {
-   "hex": "#4c5238",
+   "hex": "#4d5339",
    "rgb": [
-    76,
-    82,
-    56
+    77,
+    83,
+    57
    ],
    "hue": 60,
    "drab": false,
-   "strength": 0.3201,
-   "share": 0.4672,
+   "strength": 0.3079,
+   "share": 0.5618,
    "second": "90",
-   "neutral": 0.067,
+   "neutral": 0.0628,
    "draft": true
   }
  }

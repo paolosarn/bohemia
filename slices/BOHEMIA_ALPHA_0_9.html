@@ -1501,7 +1501,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 9/27b - PICK YOUR MAN OUT</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 9/27c - THE THIRTEEN ARE WEARING IT</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -4652,8 +4652,7 @@ var FACTION_LOOKS = [
   { faction:'Caravans', draft:true, age:'adult', shape:'broad / mantle / wide brim',
     why:'built for the road and the sun: load across the shoulders, brim against the sky',
     dials:{height:-0.30,belly:0.55,arms:0.30,shoulders:0.60,hips:0.15},
-    worn:{hair:'COIL CROWN',base:'DUST PLAID SHIRT',back:'OLIVE SHOULDER MANTLE',
-          head:'CHINESE RICE FARMER HAT',legs:'DUST TROUSERS',feet:'SANDWALKERS'} },
+    worn:{hair:'COIL CROWN',base:'DUST PLAID SHIRT',outer:'SAND COCOON COAT',back:'OLIVE SHOULDER MANTLE',head:'CHINESE RICE FARMER HAT',legs:'DUST TROUSERS',feet:'SANDWALKERS'} },
   { faction:'Colorful', draft:true, age:'adult', shape:'small / long coat / knit cap / long hem',
     why:'smallest body carrying the most line: the one silhouette built to be seen on purpose -- AND THE ONLY FACTION THAT REFUSES A SINGLE FLAG. Everybody else in the valley picks one colour so you know at fifty yards who would defend them. These wear five, which is its own answer to the same question.',
     /* *** THIS LINE WAS BONE ON BONE ON BONE. (Paolo 8/26: "the colorful, like,
@@ -4668,13 +4667,11 @@ var FACTION_LOOKS = [
        silhouette set from the 880-fit search is exactly what it was. Only the
        ramps moved, which is the half of identity his 8/26 ruling adds. */
     dials:{height:-0.60,belly:-0.30,arms:-0.30,shoulders:-0.40,hips:0.25},
-    worn:{hair:'SHAG',base:'TEAL STRIPED TEE',outer:'GRASS CAR COAT',head:'ROSE KNIT CAP',
-          legs:'GOLD WRAP SKIRT',feet:'COBALT SNEAKERS'} },
+    worn:{hair:'SHAG',base:'TEAL STRIPED TEE',outer:'GRASS CAR COAT',head:'ROSE KNIT CAP',legs:'GRASS DROP TROUSER',feet:'GRASS BOOTS'} },
   { faction:'Anarchists', draft:true, age:'adult', shape:'lanky / split-tail / knit cap',
     why:'the only torn hem in the valley -- the outline itself refuses to be tidy',
     dials:{height:0.45,belly:-0.45,arms:0.35,shoulders:-0.25,hips:-0.25},
-    worn:{hair:'LAYERED FALL',base:'BLACK TANK',outer:'SPLIT-TAIL DUSTER',
-          head:'CHARCOAL WATCH CAP',legs:'DUST TROUSERS',feet:'RUST BOOTS'} },
+    worn:{hair:'LAYERED FALL',base:'BLACK TANK',outer:'LEATHER WRAP COAT',head:'CHARCOAL WATCH CAP',legs:'LEATHER STACK PANT',feet:'LEATHER STACK BOOT'} },
   { faction:'Blues', draft:true, age:'adult', shape:'broad / mid coat / bare head',
     why:'the biggest headcount and the least performance: bulk, no signal, nothing on the head',
     /* *** KNOWN, MEASURED, AND DELIBERATELY NOT FIXED HERE. *** Blues and Trades carry
@@ -4697,33 +4694,27 @@ var FACTION_LOOKS = [
        In his own framing (8/26: "who would defend us") they were walking the
        valley flagged as the Reds. Same shapes in cobalt: long crew shirt, mid coat
        at len 0.82, work pants, boots. */
-    worn:{hair:'DRY TAPER',base:'COBALT SHIRT',outer:'COBALT CHORE COAT',
-          legs:'COBALT WORK PANTS',feet:'COBALT BOOTS'} },
+    worn:{hair:'DRY TAPER',base:'COBALT SHIRT',outer:'COBALT CHORE COAT',back:'COBALT SHOULDER MANTLE',legs:'COBALT WIDE TROUSER',feet:'COBALT STACK BOOT'} },
   { faction:'Homeless', draft:true, age:'adult', shape:'small / mantle / bare head / long hem',
     why:'a blanket over the shoulders reads as a mantle at this size, and it is the most Amalgamation-resistant thing anybody wears: nothing bought',
     dials:{height:-0.60,belly:-0.30,arms:-0.30,shoulders:-0.40,hips:0.25},
-    worn:{hair:'LAYERED FALL',base:'TATTERED TEE',back:'SHOULDER MANTLE',
-          legs:'ANKLE WRAP SKIRT',feet:'WRAPPED BOOTS'} },
+    worn:{hair:'LAYERED FALL',base:'TATTERED TEE',back:'SHOULDER MANTLE',legs:'STACKED JERSEY PANT',feet:'SLOUCH BOOT'} },
   { faction:'Church', draft:true, age:'adult', shape:'tall / mantle / skull cap',
     why:'reads as vestment from across a street: tall, shoulders covered, head covered',
     dials:{height:0.75,belly:-0.25,arms:0.10,shoulders:0.25,hips:-0.10},
-    worn:{hair:'COIL CROWN',base:'VESTMENT GOLD SHIRT',back:'SHOULDER MANTLE',
-          head:'BONE KNIT CAP',legs:'DUST TROUSERS',feet:'VESTMENT GOLD BOOTS'} },
+    worn:{hair:'COIL CROWN',base:'VESTMENT GOLD SHIRT',back:'GOLD SHOULDER MANTLE',head:'BONE KNIT CAP',legs:'GOLD DROP TROUSER',feet:'BROWN BOOTS'} },
   { faction:'Reds', draft:true, age:'adult', shape:'tall / mid coat / bare head',
     why:'the money faction, not the military one: the tallest, narrowest column on the street',
     dials:{height:0.75,belly:-0.25,arms:0.10,shoulders:0.25,hips:-0.10},
-    worn:{hair:'DRY TAPER',base:'SIGNAL RED SHIRT',outer:'BRICK CAR COAT',
-          legs:'DUST TROUSERS',feet:'SIGNAL RED BOOTS'} },
+    worn:{hair:'DRY TAPER',base:'SIGNAL RED SHIRT',outer:'BRICK SPLIT-TAIL DUSTER',legs:'BRICK WIDE TROUSER',feet:'BRICK STACK BOOT'} },
   { faction:'Cartel', draft:true, age:'adult', shape:'small / cape / knit cap',
     why:'small and covered, and it does not advertise: a shape that is hard to read on purpose',
     dials:{height:-0.60,belly:-0.30,arms:-0.30,shoulders:-0.40,hips:0.25},
-    worn:{hair:'DRY TAPER',base:'FADED BLACK LONGSLEEVE',back:'STEEL ROAD CAPE',
-          head:'CHARCOAL WATCH CAP',legs:'DUST TROUSERS',feet:'OXBLOOD BOOTS'} },
+    worn:{hair:'DRY TAPER',base:'FADED BLACK LONGSLEEVE',back:'STEEL ROAD CAPE',head:'CHARCOAL WATCH CAP',legs:'DUST TROUSERS',feet:'STACKED SOLE BOOT'} },
   { faction:'Trades', draft:true, age:'adult', shape:'broad / no coat / work cap',
     why:'a working body and a cap, nothing over it: a guild that never takes a public position wears no banner',
     dials:{height:-0.30,belly:0.55,arms:0.30,shoulders:0.60,hips:0.15},
-    worn:{hair:'TEMPLE TAPER',base:'SCAVENGER FLANNEL',head:'DUST WORK CAP',
-          legs:'DUST TROUSERS',feet:'DUST BROWN BOOTS',waist:'SOOT TOOL BELT'} },
+    worn:{hair:'TEMPLE TAPER',base:'SCAVENGER FLANNEL',outer:'LEATHER SPLIT-TAIL COAT',head:'DUST WORK CAP',legs:'DUST TROUSERS',feet:'STACKED SOLE BOOT',waist:'SOOT TOOL BELT'} },
   { faction:'Mob', draft:true, age:'adult', shape:'lanky / cape / bare head / long hem',
     why:'the Strip: tall, caped and hemmed, and it is the only outline that reads as ownership',
     dials:{height:0.45,belly:-0.45,arms:0.35,shoulders:-0.25,hips:-0.25},
@@ -4736,17 +4727,15 @@ var FACTION_LOOKS = [
        reserved. Tried it, measured it (it buried their mustard under 56% grey and
        collided them with three other neutral factions), reverted it, wrote it
        down. It is a row in the CLOTHES tab's vote board for him. */
-    worn:{hair:'DRY TAPER',base:'MOB PINSTRIPE SHIRT',back:'CHARCOAL ROAD CAPE',
-          legs:'CHARCOAL WRAP SKIRT',feet:'CHARCOAL BOOTS',waist:'LEATHER BELT'} },
+    worn:{hair:'DRY TAPER',base:'MOB PINSTRIPE SHIRT',back:'CHARCOAL SHOULDER MANTLE',legs:'CHARCOAL CROP TROUSER',feet:'STACKED SOLE BOOT',waist:'LEATHER BELT'} },
   { faction:'Network', draft:true, age:'adult', shape:'tall / nothing / nothing',
     why:'the manufactured one, and it shows: no coat, no hat, no wear -- eerily clean, like the lights',
     dials:{height:0.75,belly:-0.25,arms:0.10,shoulders:0.25,hips:-0.10},
-    worn:{hair:'TEMPLE TAPER',base:'TEAL WORK SHIRT',legs:'TEAL WORK PANTS',
-          feet:'STEEL SNEAKERS'} },
+    worn:{hair:'TEMPLE TAPER',base:'TEAL WORK SHIRT',outer:'TEAL COCOON COAT',legs:'STACKED JERSEY PANT',feet:'SLOUCH BOOT'} },
   { faction:'Volunteers', draft:true, age:'adult', shape:'small / nothing / nothing',
     why:'resource-poor by design, and the outline says it: the least on anybody in the valley',
     dials:{height:-0.60,belly:-0.30,arms:-0.30,shoulders:-0.40,hips:0.25},
-    worn:{hair:'HEAVY FRINGE',base:'WHITE TEE',legs:'DUST TROUSERS',feet:'WHITE SNEAKERS'} },
+    worn:{hair:'HEAVY FRINGE',base:'WHITE TEE',outer:'BONE COCOON COAT',legs:'STACKED JERSEY PANT',feet:'COLUMN PANT-BOOT'} },
   { faction:'Remnants', draft:true, age:'adult', shape:'broad / thigh coat / field cap',
     /* *** A HIP COAT DID NOT CHANGE THIS BODY'S OUTLINE AT ALL, AND THE GATE CAUGHT IT
        AT EXACTLY 0.0000 AGAINST TRADES. *** Remnants and Trades carry IDENTICAL body
@@ -4778,8 +4767,7 @@ var FACTION_LOOKS = [
        heavier. Nothing here invents canon -- it delivers the shape line that was
        already written. */
     dials:{height:-0.18,belly:0.85,arms:0.45,shoulders:0.80,hips:0.30},
-    worn:{hair:'TEMPLE TAPER',base:'OLIVE DRAB TEE',outer:'OLIVE CAR COAT',
-          head:'STORM KNIT CAP',legs:'DUST TROUSERS',feet:'OLIVE BOOTS'} }
+    worn:{hair:'TEMPLE TAPER',base:'OLIVE DRAB TEE',outer:'OLIVE ASYM COAT',head:'STORM KNIT CAP',legs:'OLIVE WIDE TROUSER',feet:'OLIVE STACK BOOT'} }
 ];
 window.FACTION_LOOKS = FACTION_LOOKS;
 
@@ -30481,6 +30469,75 @@ window.CLO=(function(){
     {n:'RUST QUIVER',st:'canon',layer:'back',gen:function(g){return wear(genBag(g,{ramp:RUSTIRON,kind:'quiver'}),RUSTIRON,10);}},
     {n:'STEEL ROAD CAPE',st:'canon',layer:'back',gen:function(g){return wear(genCape(g,{ramp:STEELB}),STEELB,8);}},
     {n:'OLIVE SHOULDER MANTLE',st:'canon',layer:'back',gen:function(g){return wear(genCape(g,{ramp:OLIVEDRAB,mantle:true}),OLIVEDRAB,10);}},
+    /* ===== THE LAST NINE COLOURWAYS, AND THEY CLOSE THE SAME HOLE TWICE (9/27, CHARACTER,
+       [runway redo]). The approved thirteen were searched on SILHOUETTE, so every garment in
+       them is a neutral. Wiring them as they came stripped ELEVEN of thirteen factions of
+       their colour and dropped the valley's mean cloth saturation 0.435 -> 0.259, in the same
+       round whose other ruling was "turn the vibrance down A LITTLE". That is not a little,
+       and COLOUR IS TERRITORY is a law.
+       Adding colour as a hard preference in the assignment recovered only three factions,
+       because a faction can only keep its colour on a shape a colourway EXISTS for. These
+       nine are exactly the shapes the assignment lands the four remaining colour factions on
+       -- Blues, Reds, Church and Colorful. Same generator, same shape flag, the faction's own
+       ramp, one line each. No new art. */
+    {n:'COBALT SHOULDER MANTLE',st:'canon',fresh:true,layer:'back',gen:function(g){return wear(genCape(g,{ramp:COBALT,mantle:true}),COBALT,14);}},
+    {n:'COBALT WIDE TROUSER',st:'canon',fresh:true,layer:'legs',gen:function(g){return wear(genPants(g,{ramp:COBALT,cut:'wide'}),COBALT,14);}},
+    {n:'COBALT STACK BOOT',st:'canon',fresh:true,layer:'feet',gen:function(g){return wear(genShoes(g,{ramp:COBALT,sole:'stack'}),COBALT,14);}},
+    /* hard:true because it is FLOOR LENGTH, and TRENCHCOATS ARE RESERVED (Paolo 8/27).
+       I added this garment on 9/22 and left the tag off; the trenchcoat gate caught it the
+       first round anybody actually wore it, which is what a gate is for. */
+    {n:'BRICK SPLIT-TAIL DUSTER',st:'canon',hard:true,fresh:true,layer:'outer',gen:function(g){return wear(genCoat(g,{ramp:BRICK,len:1.0,split:true}),BRICK,15);}},
+    {n:'BRICK WIDE TROUSER',st:'canon',fresh:true,layer:'legs',gen:function(g){return wear(genPants(g,{ramp:BRICK,cut:'wide'}),BRICK,15);}},
+    {n:'BRICK STACK BOOT',st:'canon',fresh:true,layer:'feet',gen:function(g){return wear(genShoes(g,{ramp:BRICK,sole:'stack'}),BRICK,15);}},
+    {n:'GOLD SHOULDER MANTLE',st:'canon',fresh:true,layer:'back',gen:function(g){return wear(genCape(g,{ramp:GOLDLEAF,mantle:true}),GOLDLEAF,8);}},
+    {n:'GRASS DROP TROUSER',st:'canon',fresh:true,layer:'legs',gen:function(g){return wear(genPants(g,{ramp:GRASSGRN,cut:'drop'}),GRASSGRN,14);}},
+    {n:'GRASS BOOTS',st:'canon',fresh:true,layer:'feet',gen:function(g){return wear(genShoes(g,{ramp:GRASSGRN}),GRASSGRN,14);}},
+    /* ===== AND THE LAST FIVE, FOR THE THREE FACTIONS WHOSE COLOUR IS AN EARTH TONE
+       (9/27, CHARACTER, [runway redo]). The nine above recovered four factions. Three were
+       still left below the colour floor when the wiring was measured on the real surface:
+       Caravans 0.33 -> 0.24, Anarchists 0.48 -> 0.09, Remnants 0.32 -> 0.26, against 0.28.
+       IT WAS NEVER THE ASSIGNMENT. It was inventory. All three of these factions own a
+       WARM EARTH hue -- Caravans sand (h30), Anarchists leather (h30), Remnants olive
+       (h60) -- and every runway shape the assignment lands them on existed only in grey,
+       bone or charcoal, because the search that chose the shapes was on silhouette alone.
+       A faction can only keep its colour on a shape a colourway EXISTS for, so these are
+       the exact five that were missing. The hues are not chosen by eye: they are read off
+       engine/BOHEMIA_faction_colours.json, which is that faction's own measured colour.
+       Same generator, same shape flag, same length as the neutral so the approved
+       silhouette is unchanged. One line each. No new art. */
+    {n:'SAND COCOON COAT',st:'canon',fresh:true,layer:'outer',gen:function(g){return wear(genCoat(g,{ramp:DUSTSAND,cocoon:true,len:0.56}),DUSTSAND,13);}},
+    {n:'LEATHER WRAP COAT',st:'canon',fresh:true,layer:'outer',gen:function(g){return wear(genCoat(g,{ramp:LEATHERV,wrap:true,len:0.56}),LEATHERV,12);}},
+    {n:'LEATHER STACK PANT',st:'canon',fresh:true,layer:'legs',gen:function(g){return wear(genPants(g,{ramp:LEATHERV,cut:'stack'}),LEATHERV,12);}},
+    {n:'LEATHER STACK BOOT',st:'canon',fresh:true,layer:'feet',gen:function(g){return wear(genShoes(g,{ramp:LEATHERV,sole:'stack'}),LEATHERV,12);}},
+    {n:'OLIVE WIDE TROUSER',st:'canon',fresh:true,layer:'legs',gen:function(g){return wear(genPants(g,{ramp:OLIVEDRAB,cut:'wide'}),OLIVEDRAB,14);}},
+    /* ===== AND THREE THAT KEEP A FACTION'S HUE, NOT JUST ITS STRENGTH (9/27, CHARACTER,
+       [runway redo]). With the five above, all thirteen factions cleared the colour floor
+       -- and the gate's OTHER leg caught what the floor cannot see: three factions kept a
+       strong colour and it was THE WRONG COLOUR. Network rendered NEUTRAL where the table
+       says teal, because the one neutral garment it took was the COAT and a coat is most of
+       a person. Mob rendered warm BROWN where the table says charcoal, because losing its
+       charcoal cape and boots left the leather belt to speak for it.
+       A COLOUR STRENGTH TEST AND A COLOUR IDENTITY TEST ARE TWO DIFFERENT TESTS. The first
+       asks "can you read a signal", the second asks "is it the faction's signal". The five
+       above answered the first; these three answer the second. */
+    {n:'TEAL COCOON COAT',st:'canon',fresh:true,layer:'outer',gen:function(g){return wear(genCoat(g,{ramp:TEALBRT,cocoon:true,len:0.56}),TEALBRT,12);}},
+    {n:'CHARCOAL SHOULDER MANTLE',st:'canon',fresh:true,layer:'back',gen:function(g){return wear(genCape(g,{ramp:CHARCLOTH,mantle:true}),CHARCLOTH,10);}},
+    {n:'CHARCOAL CROP TROUSER',st:'canon',fresh:true,layer:'legs',gen:function(g){return wear(genPants(g,{ramp:CHARCLOTH,cut:'crop'}),CHARCLOTH,12);}},
+    /* AND ONE FOR THE VOLUNTEERS, WHICH THE COLOUR GATE CANNOT SEE AT ALL. They sit on the
+       drab exemption, so both colour tests skip them -- and the wiring turned them from bone
+       (#c1bdb5) into a dark grey column (#454548) with every check still green. DRAB IS NOT
+       A COLOUR, IT IS STILL AN IDENTITY: people who own nothing read as pale and washed out,
+       not as charcoal. A coat is most of a person, so the coat is bone. */
+    {n:'BONE COCOON COAT',st:'canon',fresh:true,layer:'outer',gen:function(g){return wear(genCoat(g,{ramp:BONECLO,cocoon:true,len:0.56}),BONECLO,11);}},
+    /* ===== AND THE SPLIT TAIL AT A LENGTH THAT IS NOT RESERVED (9/27, CHARACTER,
+       [runway redo]). The approved thirteen contain TWO split-tail dusters, and TRENCHCOATS
+       ARE RESERVED (Paolo 8/27, his number): thirteen factions times ten per cent is ONE
+       floor-length coat in the whole valley. So the second one cannot be floor length.
+       His law is about coats that are LONG; the gate's own line is 0.70. These stop at
+       0.62, which is shin, so the split tail, the open front and the walking silhouette all
+       survive and the reserved band is not touched. THE SHAPE IS KEPT AND THE HEM IS NOT. */
+    {n:'SPLIT-TAIL COAT',st:'canon',fresh:true,layer:'outer',gen:function(g){return wear(genCoat(g,{ramp:CHARCLOTH,len:0.62,split:true}),CHARCLOTH,12);}},
+    {n:'LEATHER SPLIT-TAIL COAT',st:'canon',fresh:true,layer:'outer',gen:function(g){return wear(genCoat(g,{ramp:LEATHERV,len:0.62,split:true}),LEATHERV,12);}},
     {n:'STORM PONCHO',st:'canon',layer:'outer',gen:function(g){return wear(genPoncho(g,{ramp:STORMGRY}),STORMGRY,12);}},
     {n:'RUST GORGET',st:'canon',fresh:true,layer:'gear',gen:function(g){return genGear(g,{ramp:RUSTIRON,kind:'gorget'});}},
     {n:'SOOT GORGET',st:'canon',fresh:true,layer:'gear',gen:function(g){return genGear(g,{ramp:CHARCLOTH,kind:'gorget'});}},

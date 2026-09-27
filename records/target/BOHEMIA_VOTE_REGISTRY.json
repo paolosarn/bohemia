@@ -2129,6 +2129,19 @@
     "how": "image",
     "src": "vote/LIFECITY_THE_SAME_STREET_THREE_TIMES_9_24.png"
    }
+  },
+  {
+   "id": "character-the-thirteen-are-wearing-it-9-27",
+   "kind": "outfit",
+   "lane": "character",
+   "sha": "pending",
+   "made": "9/27",
+   "title": "THE THIRTEEN ARE WEARING IT NOW",
+   "why": "You said fire on the thirteen new runway shapes, so the thirteen groups put them on. This page PLAYS: every body walks at the speed the game runs at, standing on the street's own road and sidewalk, at the size the game draws a person. Four of them are here instead of thirteen, because these four are the ones that nearly lost their colour when the new clothes went on. The new clothes were searched on SHAPE, so every one of them came out grey or bone, and dressing everybody in them would have washed the colour out of eleven of thirteen groups in one go. Seventeen new colourways fixed that: same coat, same cut, the group's own colour, one line each, no new art. Nobody lost their colour and nobody changed body. Thumbs up and this is who is on your street. Thumbs down and tell me if it is the cut, the colour, or the boots.",
+   "show": {
+    "how": "page",
+    "src": "vote/CHARACTER_THE_THIRTEEN_ARE_WEARING_IT.html"
+   }
   }
  ],
  "verdicts": [
