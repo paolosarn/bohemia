@@ -1,3 +1,78 @@
+UI (ui-kmqmrf): 9/27 (b) LATEST -- *** [bb interface] ROUND THREE: THE HUD IN CELLS, AND
+THE BAR IS 50 PX OF BLACK WITH ONE BUTTON IN IT. *** Row stays CLAIMED (school is one page a
+round). TAB: the walking screen, and the picture is in the VOTE tab.
+Record: records/BOHEMIA_BB_SCHOOL_THE_INTERFACE_ROUND_THREE_THE_HUD_IN_CELLS_9_27_26.md
+
+RULE 34 RE-AIMED THIS ROUND THE SAME ROUND IT LANDED. My own handoff said round three was the
+bar. Rule 34 does not change that question, it puts a NUMBER under it: at a 32 px cell the
+phone stops being 390 by 844 pixels and becomes a board of 312 cells, so every piece of
+interface now costs a countable number of cells of world. Nobody had counted it.
+
+MEASURED ON THE REAL GAME, ONE RUN, THE DOOR WALKED THROUGH FIRST (22.3 s):
+    THE GLASS        390 x 844 = 12 x 26 = 312 CELLS
+    THE WORLD BOX    378 x 794 at 6,50 = 11 x 24 = 264 CELLS
+    THE FRAME COSTS  48 of the 312 before one control is drawn
+    menubar 390x50 = 1.6 cell rows, and it sits ABOVE the world, not over it
+    pad 90x90 = 9 cells OVER the world; gear 4; the first-run teaching 28
+    THE FINGER: 36 of 312 cell centres do not land on the world, 24 of them the top two rows
+
+*** AND THE BAR IS EMPTY, PROVED TWICE. *** In pixels: hide it and the top strip goes from
+23.1 to 25.0 of 255 brightness, a black strip either way. In the tree, and this is the useful
+half: HUMAN MODE, SUBURB - ON FOOT, DAY 1 - 06:00, the money block, MUSIC, SAVE and TOOLS are
+ALL display:none, with NOTES the only painted thing. Four readings and three buttons written
+and switched off. So putting readings back is a SWITCH, not new work.
+
+THE NUMBER THIS LANE OWNS UNDER RULE 34: a person becomes ONE CELL, about 28 px, and the walk
+pad stays 90 x 90. THE PAD THAT HID ONE MAN WILL HIDE NINE. A 44 px thumb is 1.4 cells: THE
+FINGER DOES NOT SHRINK WITH THE WORLD. That is [one hud]'s rule-34 half, and the shape follows
+Battle Brothers' own (library vol 10): their HUD is a FRAME, strips the world never reaches,
+and almost nothing floats on the map. Ours already is one. So every resident reading goes in
+the strip that is already spent, and what floats over the world is argued cell by cell.
+
+*** THREE INSTRUMENTS WRONG BEFORE ONE WAS RIGHT, ALL MINE, AND THE FOURTH REFUSED TO ANSWER.
+*** (1) Take one counted every absolutely-positioned rectangle and said THE HUD COVERS 100%:
+it had scored #teachwrap, a 390x844 transparent wrapper with pointer-events:none. A RECTANGLE
+IS NOT A COVER. (2) Take two hid the roots it found and diffed the picture; the only root in
+the top page is #app, which is the whole game. It hid the game and said 77%. (3) Take three
+decoded the shots with a PNG reader I wrote that assumed four channels -- Chromium writes
+colour type 2, three -- so every index was off and the map was noise dressed as a map. THE
+READER THAT KNOWS BETTER IS IN THIS LANE'S OWN GATE, the_phone_never_opens_black_gate.js,
+which reads the colour type and refuses what it cannot handle. Reuse-first is not only about
+art. (4) With the decoder fixed the diff STILL gave no number, and that is the finding worth
+keeping for every lane: two shots 400 ms apart WITH the interface on differ by up to 84 of 255
+in one cell. The game repaints more than the interface contributes, so a cell-sized picture
+diff cannot separate them on this surface. Geometry is the answer, and I report no painted
+count I do not trust.
+
+RULE 22 COOK: ui-what-the-bar-says-9-27 in the VOTE tab, slices/vote/UI_WHAT_THE_BAR_SAYS_9_27.png.
+Three phones, one real shot of the street from the game's own camera, only the strip changes:
+A nothing (what he has), B three readings, C five (the Battle Brothers count). The new cell
+grid is drawn across the strip so the cost is visible in both directions.
+
+*** AND A RED OF MINE THAT WAS TELLING EVERY LANE THE WRONG THING, FOUND AND FIXED. *** My own
+vote tab gate read 30/1 for two rounds on the leg "tapping VOTE in the gear opens the queue".
+It was red on a clean origin/main worktree too, so it was not this round's diff. THE CAUSE IS
+THIS LANE'S OWN 9/22 LANDING: the alpha now opens on VOTE, the cold open only appears when
+somebody taps RUN, so #openNot never becomes visible, the wait burned its full 90 seconds, and
+THE LEG NEVER ONCE TESTED THE DOOR IT IS NAMED AFTER. A dismissal that is not needed is not a
+failure: it now waits two seconds, dismisses the invite if it is there, and carries on. The
+gate reads 31/0 and the door really works (VOTE opens, 190x44 reach, settings close behind it).
+MUTATION-PROVED BOTH WAYS: make the gear's VOTE button do nothing -> 30/1 on that exact leg;
+restore -> 31/0, with the alpha byte-identical after.
+GATES THIS ROUND: vote tab 31/0, the bar fits his glass 22/0, the feed is a phone 22/0, handoff
+9/0. SUITE LINE: 107 red at ad23d875 (PLUMBER's, a fuller run was in flight); none of them named
+as this lane's. ONE MORE RED AND IT IS NOT MINE, BUT EVERYBODY IS FEEDING IT: the pages publish
+gate says the published surface is 282 MB against a 260 MB cap ON CLEAN MAIN, 283 with my round's
+396 KB picture in it. PLUMBER's, named not touched, and every lane registering pictures adds to it.
+
+NEXT: round four is THE ROSTER STRIP (BB keeps twelve faces with two rings each on screen and
+never hides them; what that is on 12 cells across, and what it means for the fight where the
+same faces carry whose beat it is). Then his A/B on the cracked phone, then [the picks],
+[door fixes], [faces on the phone], [inner votes]. [one hud] stays a design with a census
+under it and waits on COMBAT's [one mode] landing the same screen.
+[PENDING Paolo] IS NOW IN HIS HANDS INSTEAD OF IN THIS FILE: the empty top bar has been the
+one pending for four rounds, and it is now item ui-what-the-bar-says-9-27 with three options.
+My default if he says nothing stays B: batteries, the hour, where he is.
 CHARACTER (character-0lurbs): 9/27 (b) LATEST -- *** TWO THINGS: A REVERT FOUND AND FIXED,
 AND THE FIRST SMALL BODY UNDER RULE 34. *** Claimed [small body], the coordinator's own FIRST
 LINE for this lane under TWO SCALES, ONE GAME. TAB: the VOTE tab in the alpha, item YOUR

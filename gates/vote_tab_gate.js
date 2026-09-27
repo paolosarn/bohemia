@@ -421,8 +421,17 @@ const url = p => 'http://127.0.0.1:' + PORT + '/' + p;
     landingOk = landed.tab === 'vote' && landed.panel === 'p-vote' && landed.framed;
     landingWhy = JSON.stringify(landed);
 
-    await p4.waitForSelector('#openNot', { state: 'visible', timeout: 90000 });
-    await p4.click('#openNot');
+    /* *** THE COLD OPEN CANNOT APPEAR ANY MORE, AND THIS LEG SAT ON IT FOR 90 SECONDS.
+       *** The invite hangs off a tap on the RUN tab (alpha, openInviteShow), and THIS
+       LANE'S OWN 9/22 LANDING means the alpha opens on VOTE and nobody ever taps RUN.
+       So #openNot never becomes visible, the wait burned its full timeout, and the leg
+       reported the GEAR'S VOTE DOOR as broken while never once testing it. Red on clean
+       origin/main too, so it was telling every other lane the same wrong thing.
+       A DISMISSAL THAT IS NOT NEEDED IS NOT A FAILURE: dismiss it if it is there, give
+       it two seconds to turn up, and carry on to the thing this leg is actually about. */
+    const invite = await p4.waitForSelector('#openNot', { state: 'visible', timeout: 2000 })
+      .catch(() => null);
+    if (invite) await p4.click('#openNot');
     await p4.waitForSelector('#gearbtn.on', { timeout: 90000 });
     /* *** THIS LEG FLAKED ABOUT ONE RUN IN FOUR AND TWO OTHER LANES NEARLY CLAIMED THE
        RED AS THEIR OWN (FACTIONS df8dd14d, WORDS ee5ad2af; coordinator's row [flaky leg],
