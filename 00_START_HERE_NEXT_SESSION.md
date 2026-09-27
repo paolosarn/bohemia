@@ -29452,6 +29452,91 @@ since 9/6, it also holds 19 QUESTS (BUILD). The front page's chat-19 line says a
 chat with an empty queue takes QUESTS, and DYNASTY's queue went empty at Q16. The
 lane and its first row were claimed and pushed BEFORE any work started. ***
 
+ROUND 53 [bb legacy] IT IS NOT THREE GENERATIONS. IT IS THREE CRISES ON ONE MAP.
+DYNASTY, SCHOOL (rule 33f). No code, no gate.
+  records/BOHEMIA_BB_LEGACY_THE_COMPANY_ACROSS_TIME_9_27_26.md
+  vote: dynasty-bb-legacy-crisis-not-generation-9-27 (line, no art -- rule 22's
+  own SCHOOL clause)
+
+READ FIRST PER RULE 33(j): reference/library/battle_brothers/README.md and
+01_WORLDMAP.md, the department volume. Nothing in it read as wrong against
+anything this lane could check, so nothing was corrected this round.
+
+*** BATTLE BROTHERS HAS NO GENERATIONS AND NEVER NEEDED ONE. *** The persistent
+unit is never a person: a brother dies constantly, you hire another at the
+tavern, and the company's NAME, RENOWN and per-house RELATIONS are what carry.
+The world does not age -- it gets INTERRUPTED by a CRISIS ("THE WAR OF THE
+NOBLE HOUSES... A crisis changes what every town needs and what contracts
+appear"), which is the SAME map, settlements visibly changing hands, roads and
+rivers never moving.
+
+*** AND EVERY PIECE OF THAT MACHINERY ALREADY EXISTS HERE, SPLIT ACROSS FOUR
+LANES THAT WERE NOT TALKING TO BATTLE BROTHERS WHEN THEY BUILT IT: ***
+  BB has ................................ we have
+  one map, never redrawn, per crisis ..... one seed, one 4,459-byte layout,
+                                           shared by all three acts, never
+                                           rewritten (this lane's own school
+                                           round two)
+  renown & relations outlive any brother . standings that decay ~0.79/act as a
+                                           FLOOR his deeds move from, never a
+                                           reset (the fold's CARRY table)
+  a crisis that changes who holds what ... FACTIONS' territory ledger (9/24),
+                                           keyed on seed+act, waiting on a
+                                           took() nobody has called yet
+  a crisis rewriting what a town needs ... the century ledger, LAW SINCE 7/26
+                                           ("the city is the game's long
+                                           memory"), MECHANISM UNBUILT until
+                                           this lane's derive gave it a caller
+  settlements visibly redraw, live ....... MEASURED BY WORLD THIS MONTH on the
+                                           real map at night, all three acts:
+                                           6,899 ground pixels compared, ZERO
+                                           MOVED -- only lit/dark fill differs
+                                           (vote item
+                                           world-the-valley-three-acts-9-27,
+                                           sha fdec3fa)
+
+We did not need this study to invent the shape. We needed it to notice we
+already had it, in Battle Brothers' own vocabulary.
+
+*** THE SHAPE FOR US: STOP CALLING THEM THREE GENERATIONS. CALL THEM THREE
+CRISES ON ONE MAP. *** A generation implies a body that ages and a fold that
+happens once, off-screen. That was never the design -- rule 31 made all three
+PLAYABLE AT ONCE, which is a crisis system's shape (interrupt and resume,
+never a hard cut) wearing a family tree's clothes. Act 1 is the map before any
+crisis is answered (rule 32b's own floor). Acts 2 and 3 are the SAME
+unresolved crisis further along, because the company -- his own standing and
+territory, three bodies, one continuous account -- did more about it.
+RETIRING "generation," "fold," and "heir" FROM THIS LANE'S OWN VOCABULARY
+going forward, in favour of "crisis checkpoint."
+
+WHAT MOVES THAT BATTLE BROTHERS' PICTURE DOES NOT (rule 5b): no crisis title
+card -- the flip is a tap that redraws the map he is already standing on
+(measured last round with a real finger: the lit tile moves, the ground does
+not cut away). A block that changed hands gets a mark on the wall the next
+time he is near it, never a letter. The crisis is something a stranger
+mentions in passing (QUESTS' ask wire, PEOPLE's vouching), never a summary
+screen rule 19(a) already killed.
+
+ROUTED: FACTIONS (took() on the territory ledger is the crisis lever --
+calling it once turns "three acts" from language into a real crisis system).
+LIFE+CITY/WORLD (the century ledger, unbuilt since 7/26, now has a caller
+through this lane's derive). DYNASTY, own note for future rounds of this same
+chat: reach for "crisis checkpoint," never "generation" or "fold," when
+talking about act 2 or act 3.
+
+PRE-PUSH PASS: VOTE TAB 31/0. Registry re-verified as valid JSON (164 items).
+No code touched, so no other gate applies (rule 18b, rule 22 SCHOOL clause).
+
+QUESTS (this chat's other lane, both rows still HELD, untouched this round):
+[main quest live] finished 43/0 on the session branch, resynced last round.
+[light the pump] held since round 40 pending a coordinator re-point (three
+independent measured reasons it cannot ship as specified -- see that round's
+block). Neither touched this round; DYNASTY's own board took priority as the
+first unblocked OPEN line across both lanes this session holds.
+
+NEXT for DYNASTY: [three names] (NAMED-AND-SEXED-AT-THE-START) is the next
+OPEN line, then [horror heir].
+
 ROUND 52 [the flip] THREE FACES ON THE PHONE, AND A THUMB CHANGES WHO YOU ARE.
 DYNASTY, BUILD (the lane's first). Rule 31, his vote A, rules 32c/32d/33.
   records/BOHEMIA_DYNASTY_THE_FLIP_9_24_26.md

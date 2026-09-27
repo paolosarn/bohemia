@@ -2222,6 +2222,19 @@
         "how": "page",
         "src": "vote/FACTIONS_TERRITORY_SURVIVES_THE_REBUILD_9_27.html"
       }
+    },
+    {
+      "id": "dynasty-bb-legacy-crisis-not-generation-9-27",
+      "kind": "line",
+      "lane": "dynasty",
+      "sha": "pending",
+      "made": "9/27",
+      "title": "IT IS NOT THREE GENERATIONS. IT IS THREE CRISES ON ONE MAP.",
+      "why": "Battle Brothers never has generations. A brother dies, you hire another, and the company keeps its name, its crowns, and what every noble house thinks of it. The only thing that changes the world is a CRISIS: a war, an invasion, a plague of undead, that redraws who holds what without ever redrawing the map itself. That is closer to what your three acts already are than 'three lives' is. Same streets in all three, always. What changes is who holds them and what still works, which is exactly a Battle Brothers crisis. Research only, nothing to look at yet.",
+      "show": {
+        "how": "text",
+        "src": "NO GENERATIONS. ONE COMPANY, ONE MAP, THREE CRISIS CHECKPOINTS.\n\nBattle Brothers has no fold, no time skip, no heir screen. Men die constantly and nobody notices, because the company is a name and a ledger, not a body. What changes the world is a CRISIS: same roads, same rivers, same towns, but who holds them and what they need is rewritten.\n\nOur three acts already work this way and did not know it. One seed. One layout, 4,459 bytes, never rewritten. Measured on the real map this round: 6,899 ground pixels compared across all three acts, zero moved. Only what is lit and who owns it differs.\n\nSo stop saying generation. Say crisis checkpoint. Act 1 is before the crisis is answered. Acts 2 and 3 are the same crisis, further along, because the company (you, standing in three bodies) did more about it."
+      }
     }
   ],
   "verdicts": [
