@@ -337,4 +337,12 @@ function main() {
     + ', BIGGEST ' + a.biggest + ' AGAINST ' + b.biggest + ' ***');
 }
 
-main();
+/* EXPORTED SO THE THREE-ACT COOK DRAWS THE SAME VALLEY RATHER THAN A SECOND ONE.
+   REUSE-FIRST: one ground renderer, one palette, one idea of what the valley
+   looks like after dark. bohemia_the_valley_three_acts_cook_9_27_26.js requires
+   this and hands it a different set of lit cells per act. */
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = { panel: panel, clustered: clustered, blobsOf: blobsOf,
+                     PALETTE: PALETTE, LEGEND: LEGEND, N: N, blank: blank, rnd: rnd };
+}
+if (require.main === module) main();

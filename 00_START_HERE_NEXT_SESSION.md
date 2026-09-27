@@ -33420,7 +33420,93 @@ reverted to an older round's text after a rebase once, with two shipped rounds
 missing. A resolver that re-applies only what it remembers eats everything else. ***
 
 
-*** 9/25 NEWEST -- FOURTEEN PLACES, THREE SHELVES. ***
+*** 9/27 NEWEST -- THE FUTURE IS THE FLOOR PLUS WHAT CAME BACK, AND THE LINES
+DO NOT MOVE. ***
+records/BOHEMIA_WORLD_THE_FUTURE_IS_THE_FLOOR_PLUS_WHAT_CAME_BACK_9_27_26.md
+Row [future city] SHIPPED. Nothing on a play surface (rule 18).
+
+(0) THE BLOCKER WAS REAL AND IT IS GONE. The row said "waits for DYNASTY's two
+school rounds; claim nothing here yet". Rule 12 says measure it: BOTH have
+shipped ([three at once] 9/23, [the derive] 9/24). The clause was written when
+zero of two had landed. Claimed and pushed before the work.
+
+(1) WHAT THE ROW ASKS FOR AFTER HIS CORRECTION. Re-aimed 9/24 by his DOWN on THE
+SAME CORNER: "the future gets better... the right side is what the BEGINNING of
+the game is supposed to look like". ACT 1 IS THE FLOOR, act 2 and 3 are the floor
+plus what was reclaimed, nothing decays below the start. Plus rule 33: the future
+city IS the map at act 2 and 3, same roads, fill derived.
+
+(2) BUILT engine/bohemia_future.js, two things.
+THE REPORT CARD NAMES WHAT IT CANNOT READ. A field with no source contributing 0
+is indistinguishable from a field with a source that happens to be 0 -- THE FIRST
+IS A HOLE AND THE SECOND IS A FACT -- so it answers UNREAD by name with the
+reason, the same three-answer discipline bohemia_strike uses.
+  built      bohemia_century      per-act since it was written
+  batteries  bohemia_purse        per-act since WORLD [act stamp]      9/24
+  territory  bohemia_turfledger   per-act since FACTIONS shipped it    9/24
+  lived      nothing carries an act. UNREAD, by name.
+*** THREE OF THE FOUR NOW CARRY AN ACT. ON 9/23 IT WAS ONE. ***
+THE DERIVE: valley(act) = floor + what the ledgers say was reclaimed through that
+act. RULE 32(b) IS ENFORCED, NOT TRUSTED: it refuses by name
+(WOULD_DECAY_BELOW_THE_FLOOR, THE_LINES_MOVED) rather than returning a future
+that got worse -- writing "nothing decays" as a comment and trusting it is
+exactly how that clause would rot. THE FLOOR IS NOT MINE TO INVENT: the surface
+hands in the seed's own valley. LOOKS ships EMPTY like TIERS.
+
+(3) THE GATE, AND ITS LEGS ARE NOT MINE. gates/three_acts_gate.js 23/0. *** DYNASTY
+SCHOOL ROUND TWO NAMED THIS GATE AND ITS EIGHT LEGS BEFORE A LINE OF IT EXISTED,
+which is the bar existing before the work instead of after it. SIX ARE THE DERIVE
+AND ARE BUILT HERE. LEGS 7 AND 8 ARE THE FLIP -- a flip may not rebake the body
+catalogue, a flip lands inside a beat -- AND NOBODY HAS BUILT A FLIP YET (DYNASTY
+[the flip] is CLAIMED, not shipped), so THE GATE PRINTS THEM AS OWED ON EVERY RUN
+rather than quietly carrying six of eight, which is how a bar gets lowered
+without anybody deciding to. ***
+THE FLOOR IS THE REAL VALLEY, measured every run off the real generator and grid
+(seed 1337: 9216 cells, 3538 street, 432 lit, 215 people), so leg 1 is a
+statement about the game and not about a fixture.
+  1 the floor is playable on an EMPTY act-1 ledger
+  2 two act-1 builds move `standing` 0 -> 2 AND NOTHING ELSE MOVES (named, so it
+    cannot pass on noise)
+  3 act 3 keeps its own 5 builds when the past changes
+  4 9216 / 9216 / 9216, and the layout is the SAME OBJECT by reference
+  5 derive twice, byte for byte
+  6 with all three act-aware ledgers in, `lived` is STILL UNREAD and says why
+Red five ways: let the derive subtract -> 3; a silent field becomes a quiet zero
+-> 1; copy the layout instead of sharing it -> 1; a default in LOOKS -> 2; an act
+adds a cell -> 9.
+
+(4) THE COOK: THE SAME VALLEY, THREE ACTS, from the map camera (rule 32f). The
+row's claim in one picture: THE LINES DO NOT MOVE AND THE LIGHT COMES BACK.
+  act 1  432 lit, 12.2% of the grid, biggest patch 12, 178 patches
+  act 2  618 lit, 17.5%
+  act 3  771 lit, 21.8%, biggest patch 139, 163 patches
+Act 1 is what we ACTUALLY SHIP, read off the real grid, not an artist's ruin.
+Reclaim grows CLUSTERS from owned sources, which is his CLUSTERED POWER law
+(7/14) ARRIVING AS THE FUTURE RATHER THAN AS A FIX. Nothing is ever switched off.
+*** AND THE LINES WERE PROVED ON THE PIXELS, NOT PROMISED: 6,899 GROUND PIXELS
+COMPARED ACROSS THE THREE PANELS, 0 MOVED. *** That is leg 4 as a picture.
+AH-01's one wrong thing: THE DARK NEVER CHANGES SHAPE, so it is not a city
+growing, it is a city being switched back on inside a body that never changed.
+REUSE-FIRST: the valley is not redrawn; the renderer, palette and cluster-grower
+come from the 9/24 night tool. One valley, three sets of lit cells.
+
+(5) AND MY OWN REFUSAL CAUGHT THE FIRST CUT. clustered() takes an ABSOLUTE target
+and I passed "what the base has plus a step" then unioned it with the base, so
+each act laid a whole valley's worth of light on the last and ACT 3 CAME OUT WITH
+HALF THE GRID LIT. The tool refused in those words: "this is a hundred years of
+clawing back, not a restoration." One cut after that and it is right. The change
+between panels is visible but not dramatic, which is HONEST -- 12% to 22% over a
+century is what clawing back looks like and overstating it would be the lie.
+
+(6) ROUTED. TO DYNASTY for [the flip]: the derive is pure, so a flip can call it
+per act with nothing cached, and LEGS 7 AND 8 OF YOUR OWN GATE ARE STILL OPEN.
+TO LIFE+CITY for the proposed [the ruin]: the floor is the seed's valley and what
+it looks like on the glass is yours; the numbers are in the bank. STILL OPEN and
+named again: `lived` has no act-aware source anywhere, and the light has no core
+until the `live` roll in engine/bohemia_powergrid.js grows clusters.
+
+
+*** 9/25 -- FOURTEEN PLACES, THREE SHELVES. ***
 records/BOHEMIA_WORLD_BB_PLACES_THE_HINTERLAND_9_25_26.md  sha e3ef0e8
 Row [bb places] SHIPPED. School: nothing on a play surface.
 
