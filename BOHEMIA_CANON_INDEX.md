@@ -5,7 +5,7 @@ This index is the map. Consult it BEFORE citing an addendum as current.
 A contradiction between two files is a BUG: file it, gate it if mechanical,
 flag it [PENDING Paolo] if canon-level.
 
-395 canon files indexed across 2 locations.
+396 canon files indexed across 2 locations.
 
 ## THE GDD LINEAGE — ALL FOUR ARE LIVE (gated: node gdd_gate.js)
 
@@ -66,6 +66,7 @@ opening line. Each is the SOLE home of load-bearing canon. Never archive one.
   - `BOHEMIA_ADDENDUM_RECORDED_VS_UNRECORDED_7_1_26.md` -> RETIRED 7/20/26 by Paolo's TOTAL RECALL call (laws/BOHEMIA_ADDENDUM_SOCIAL_FEED_QUEST_LOG_7_20_26.md): everything is remembered on the feed, no recorded:false / off-feed channel. The two-ledger split was a Claude-originated engine framing Paolo rejected. Also overrides GDD v2 section blind-spot's "off-feed is the dynasty's advantage" premise; the Act 3 win runs through the feed (section 18: the feed is the battlefield), not around it. Moved to archive/.
   - `BOHEMIA_ADDENDUM_WOMAN_RIG_7_21_26.md` -> SUPERSEDED 7/25/26 by laws/BOHEMIA_ADDENDUM_ONE_RIG_VARIATIONS_7_25_26.md. Paolo killed the separate female rig after four rejected versions in one session ("remove the whole female rig... this two-rig, male and female shit you're doing is really bad"). Everything renders off the ONE male rig; body variety becomes VARIATION SLIDERS (height / belly / arms) on that rig, built in a new session. The whole premise of the 7/21 addendum -- that a second body gets DERIVED from the male paint by transform and judged as a candidate -- is dead, so the file cannot ride next to its replacement. Post-mortem: records/BOHEMIA_WOMAN_RIG_POSTMORTEM_7_25_26.txt. Moved to archive/.
   - `BOHEMIA_EW_DOORS_WHAT_IT_NEEDS_8_2_26.md` -> 8/3/26 | WRONG PREMISE. It read the E/W door bank as doors for east/west-FACING walls and claimed the blocker was a facade-geometry rebuild plus a building-silhouette ruling from Paolo. Measured: the W tile is opaque in columns 0..6 and the E tile in 37..43 -- 7px frame-edge strips for the NEIGHBOURING tile, i.e. the door's JAMB. No geometry rebuild, no ruling needed. Replaced by records/BOHEMIA_THE_SIDE_DOOR_HE_COULD_NOT_SEE_8_3_26.md
+  - `engine/bohemia_notice.js + tools/bohemia_the_first_notice.js + gates/first_notice_gate.js` -> CUT 9/27/26 under RULE 33h, THE CUT LINE (coordinator 9/24, records/BOHEMIA_THE_REVAMP_LIST_9_24_26.md): "THE ASKS AS A TEXT STREAM (QUESTS, WORLD, WORDS): notices, the night card, offer cards, the spoken ask as a line on screen. Rebuilt as contracts and events from people in places." THE MODULE WAS THE ASK AS A TEXT STREAM, ENTIRELY. It issued a disconnection notice, a clearance, a notice to quit, a covenant violation, an emergency alert and a price list off the live world -- six items, ALL SIX VOTED DOWN by Paolo 9/21 ("So boring", "Boring asfff"), which became rule 29 (TEXT ITEMS ARE BORING; MAKE THE PIXELS). MEASURED BEFORE CUTTING: ZERO CALLERS IN THE GAME (0 mentions in slices/BOHEMIA_CITY_WORLD.html); every reference was a gate or its own cook tool. first_notice_gate.js existed only to hold this module and goes with it. The three other gates that imported it (suburb_walls, full_shelves, block_strikes) each used exactly ONE maker -- covenant, priceList, toQuit -- and those legs are removed; every other check in those three is real mechanics and stays. The measured horror in unanswered() (every line declares who would answer it, and the count drops when a body comes back) is the idea worth carrying into contracts and events, and it is written down in records/BOHEMIA_WORLD_THE_FIRST_NOTICE_9_21_26.md. Post-mortem for the six: records/POSTMORTEM_WORLD_SIX_TEXT_ITEMS_9_22_26.txt. Assets kept: the six vote pages stay where they are, consumed.
 
 **LINE_COLOR_LAW  (+ ENFORCED)**
   - `BOHEMIA_ADDENDUM_LINE_COLOR_LAW_ENFORCED_7_16_26.md`  <- CURRENT
@@ -230,7 +231,8 @@ opening line. Each is the SOLE home of load-bearing canon. Never archive one.
 - `BOHEMIA_ADDENDUM_UNTHOUGHT_INFRA_7_5_26.md`
 - `BOHEMIA_ADDENDUM_CITYBUILDER_MODEL_7_1_26.md`
 
-### QUESTS & LORE (28)
+### QUESTS & LORE (29)
+- `BOHEMIA_ADDENDUM_QUESTS_IS_RESEARCH_ONLY_9_27_26.md`
 - `BOHEMIA_LAW_A_QUEST_IS_PEOPLE_PLACES_AND_THINGS_9_20_26.md`
 - `BOHEMIA_ADDENDUM_NEVER_ASK_HIM_TECHNICAL_QUESTIONS_8_15_26.md`
 - `BOHEMIA_ADDENDUM_DIALOGUE_REFERS_TO_THE_CATALOGUE_8_11_26.md`

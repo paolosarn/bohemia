@@ -43544,6 +43544,13 @@ on Opus 5). The recommendation, records/BOHEMIA_PAOLO_CREDITS_AND_WHICH_MODEL_PE
 PLUMBER (+LIFE+CITY during [honest grid]); Sonnet 5 for every school lane and every cook to a spec; ten lanes
 on a VAMILY every second round during the grid rebuild; and the coordinator's own job: fold the 190-line
 front page into a tight page next round, because every lane pays for it every round.
+THEN (fq) PAOLO 9/27: "I don't want a single thing from the quest chat implemented... continuously do research
+on our quest library... do we still have that? double check." CHECKED: all there (questbook/ 244 files, 152
+quests, four masters, the 3,672-finding index, 22 teardowns, 58 designed quests). Rule 35: QUESTS IS RESEARCH
+ONLY; laws/BOHEMIA_ADDENDUM_QUESTS_IS_RESEARCH_ONLY_9_27_26.md; records/BOHEMIA_PAOLO_QUESTS_IS_RESEARCH_ONLY_9_27_26.md. The QUESTS section rewritten to MODE: RESEARCH with six library questions ([bb events]
+first, [twist bank], [across the ages], [the ask in a place], [first sixty], [phone flaws]); builders cite its
+pages. A fresh chat whose first word is 'quests' takes lane 19; DYNASTY goes home.
+
 
 
 
