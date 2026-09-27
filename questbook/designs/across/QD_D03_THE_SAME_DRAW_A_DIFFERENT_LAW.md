@@ -7,7 +7,7 @@ PLACE: a metered main under a reclaimed laundry block in act 3; the valve pit on
 STATUS: draft:true, research only, nothing built (rule 35)
 
 ## THE SITUATION
-The verb crosses the ages. In act 1 the family beat THE TAP (boss 2) and holds its verb: draw from any main in the valley, whoever thinks they own it. In act 1 that is survival. By act 3 the valley has reclaimed its water: a cooperative meters it, reads it on a panel, and bills in batteries. The family's valve key, a hand-cut T-bar with the grandmother's mark filed into it, is still in the heir's kit (a verb travels forward in the family's hands). A contract in act 3: the man who runs a laundry that employs nine people has had his meter cut for arrears. He offers 6 batteries to get the water back on before the week's loads spoil.
+The verb crosses the ages. In act 1 the family beat THE TAP (boss 2) and holds its verb: draw from any main in the valley, whoever thinks they own it. In act 1 that is survival. By act 3 the valley has reclaimed its water: a cooperative meters it, reads it on a panel, and bills in batteries. The family's valve key, a hand-cut T-bar with the grandmother's mark filed into it, is still in the heir's kit. A contract in act 3: the man who runs a laundry that employs nine people has had his meter cut for arrears. He offers 6 batteries to get the water back on before the week's loads spoil.
 
 ## THE PERSON AND THE FIRST LINE
 The laundry owner, in a pressed Bottega Veneta-green work shirt he irons himself every morning, standing in two centimetres of grey water. First line: "Your family used to do this for free, they tell me. I'm not asking free. I'm asking before Thursday."
@@ -30,7 +30,6 @@ The co-op's panel reads the laundry's usage correctly for every hour, including 
 - `Q147.W3`: knowledge with provenance; the key works because of whose mark is on it.
 - `Q050.X4`: the carry is for story, not power; it opens a man's water, it does not win a fight.
 - `Q025.W3`: each faction judges an act by its own values; one act, favour here and wrath there.
-- `Q026.P9`: return across generations to see a judgment ripen.
 
 ## FLAWS IT AVOIDS
 - `Q050.X4`: an inherited verb that trivializes the later act.

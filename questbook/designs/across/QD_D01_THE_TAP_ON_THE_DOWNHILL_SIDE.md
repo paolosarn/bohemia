@@ -7,10 +7,10 @@ PLACE: a pressure-set shed on a buried water main below a cul-de-sac in the east
 STATUS: draft:true, research only, nothing built (rule 35)
 
 ## THE SITUATION
-Act 1, the anarchy decade. The crew that holds this main by share (their pumps, their pipe) has lost pressure uphill. They know why: somebody downhill has cut a tap into the line and runs it into a hydroponic tent. They offer a contract at their pump yard: cap the tap, 12 batteries. Declining is free and leaves nothing. If taken, the shed is a short walk off the dirt road, and the woman who cut the tap is inside it, rinsing lettuce for about twenty people on her block. The uphill side has a half-built clinic that needs the pressure to run a sterilizer.
+Act 1, the anarchy decade. The crew that holds this main by share (their pumps, their pipe) has lost pressure uphill. They know why: somebody downhill has cut a tap into the line and runs it into a hydroponic tent. They offer a contract at their pump yard: cap the tap, 12 batteries. Declining is free and leaves nothing. If taken, the shed is a short walk off the dirt road, and the woman who cut the tap is inside it, rinsing lettuce for about twenty people on her block. Uphill, a half-built clinic needs that pressure for its sterilizer.
 
 ## THE PERSON AND THE FIRST LINE
-The woman at the tent, in a cut-down Balenciaga work jacket with the sleeves taped, does not stop rinsing. Her first line: "Ya sé who sent you. Sit down, the lettuce doesn't care." She says plainly that nobody knows what happens to either block in ten years (the plant tells the truth about uncertainty; it does not label the hinge).
+The woman at the tent, in a cut-down Balenciaga work jacket with the sleeves taped, does not stop rinsing. Her first line: "Ya sé who sent you. Sit down, the lettuce doesn't care." She says plainly that nobody knows what happens to either block in ten years.
 
 ## THE CHOICES
 1. CAP IT. Paid 12. Two hours. Her tent dies within a week. The crew's standing rises. The clinic uphill gets its pressure.
@@ -34,7 +34,6 @@ In act 3 every crate of lettuce in the tower is stamped with the date of the aft
 - `Q147.W2`: the utility is the grief; pressure is the moral.
 - `Q147.P2`: the wound is visible at map scale and one plaque points to the cause.
 - `Q126.P35`: the answering deed; a second act on top of the first, same outcome, different act.
-- `Q001.W11`: no clean win; the rain roof still darkens somebody's yard.
 
 ## FLAWS IT AVOIDS
 - `Q086.X7`: not a gotcha; she says aloud that nobody knows how it goes.
