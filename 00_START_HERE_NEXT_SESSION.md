@@ -28219,6 +28219,97 @@ since 9/6, it also holds 19 QUESTS (BUILD). The front page's chat-19 line says a
 chat with an empty queue takes QUESTS, and DYNASTY's queue went empty at Q16. The
 lane and its first row were claimed and pushed BEFORE any work started. ***
 
+ROUND 52 [the flip] THREE FACES ON THE PHONE, AND A THUMB CHANGES WHO YOU ARE.
+DYNASTY, BUILD (the lane's first). Rule 31, his vote A, rules 32c/32d/33.
+  records/BOHEMIA_DYNASTY_THE_FLIP_9_24_26.md
+  engine/bohemia_acts.js · gates/the_flip_gate.js 23/0 · vote
+  dynasty-three-on-the-phone-9-24
+
+WHAT HE CAN DO NOW: zoom out to the map, and the cracked phone carries three faces
+along the bottom of its glass -- Reyna NOW, Ezekiel +35Y, Perla +70Y. The one he is
+is lit. Touch another and he is them: same screen, same buttons, nothing teleports.
+MEASURED ON THE ALPHA WITH A REAL FINGER: tap the third face, the act goes 1 -> 3,
+and the lit tile moves with him.
+
+Four of his rulings decided the placement and none was re-litigated: his vote A (on
+the phone, not a place in the world); the phone is CITY VIEW ONLY (32c); the city
+view IS the map (33a); the names come PREPARED (32d, "like Battle Brothers") --
+every slot filled from the first frame, so "no flip to an unnamed descendant" is
+true by construction rather than by a check somebody has to remember.
+
+WHAT IS MINE AND WHAT IS BORROWED: engine/bohemia_acts.js is WHO THE THREE ARE and
+WHICH ONE IS CURRENT, and nothing else. IT DOES NOT DERIVE A WORLD -- school round
+two named that field list and building it is WORLD's and LIFE+CITY's rows, and a
+flip that re-derived the valley from inside this file would be a second answer to
+another lane's question. The names come from the city's own bank, what a name reads
+as goes through the city's own door ('either' stays a legal answer), the faces come
+through the face door that already exists. Era names are HIS canon; THE GAP BETWEEN
+ACTS IS NOT RULED, so 0/+35/+70 is an attempt tagged draft, derived from the hundred
+years the laws already carry, and it is one word for him to knock down.
+
+*** THE FLIP IS HONEST WITH NOTHING BUILT YET, AND THAT IS HIS DESIGN. *** Tap a
+face and the ground does not change. That is rule 32(b) working: the game STARTS in
+the ruin and the future GETS BETTER, so a player who has done nothing SHOULD see the
+same ruin in all three. The module carries one function whose only job is to say so
+out loud rather than let a caller assume, and the vote item says it in his words
+instead of burying it. When WORLD's derive lands, that is the one line that stops
+saying "not yet", and ctActFlipTo is where the redraw hangs.
+
+*** THE ROUND'S REAL WORK WAS A CONTROL THAT COULD NOT BE TOUCHED. *** The strip
+painted on the first try. Then a real finger did nothing, and that took most of the
+round:
+    the tile was drawn ........................ 36 x 54 px
+    the handler was bound ..................... yes
+    elementFromPoint INSIDE the frame ......... canvas -> .af -> #actflip ->
+                                                #cityfeedscreen -> #cityfeed
+    every one of them pointer-events .......... auto
+    calling the flip from the console ......... worked, every time
+    a real finger ............................. NOTHING
+THEN I ASKED THE SHELL WHAT IS AT THAT SAME PAGE COORDINATE AND IT ANSWERED A PLAIN
+DIV, NOT THE CITY FRAME. Something in the shell covers the TOP of the phone. Moved
+the strip to the BOTTOM of the glass; the shell answers cityFrame and the finger
+works. THREE FINDINGS, all routed rather than worked around:
+ 1. THE SHELL COVERS THE TOP OF THE PHONE (UI). The phone's own signal-and-clock bar
+    is under it too, and nobody noticed because a clock is not a button.
+ 2. THE ONE DRIVER'S tapEl DOES NOT LAND WHERE IT SAYS (PLUMBER). It adds the frame
+    offset to a handle box that already carries it. ANY LANE THAT HAS USED IT TO
+    PROVE A DOM CONTROL WORKS HAS PROVED NOTHING. This gate uses the frame's own
+    rect plus the frame's page box, which is what the driver's own tapAt does.
+ 3. A touch-derived pointerdown must not be preventDefault-ed if you also want the
+    click. Click only now, which is the door the phone itself uses.
+This file already carried RUN's 9/23 lesson in its own margin -- a handler on
+something a finger cannot work is the same class of bug as a caught exception --
+and KNOWING A TRAP IS NOT CHECKING FOR IT. So the gate drives a real finger and has
+a leg that asks the SHELL whether anything is covering the tile.
+
+ALSO CAUGHT BY LOOKING AT THE PICTURE, which is the only reason it was caught: at
+real phone size the full names read "Ezekie..." and "Perla ...". A name he cannot
+read is a name that did not ship, so the tile shows the GIVEN NAME only and the full
+name stays on the label.
+
+GATE gates/the_flip_gate.js 23/0, registered as THE FLIP: twelve legs without a
+browser (three acts; every slot named; three different people; the eras are his
+canon; the unruled gap is marked draft; reshuffle differs; the same seed twice is
+the same family; the flip moves; a tap on the act he is already in is NOT an event;
+a bad act is refused; the years read off the table; the ground SAYS it does not
+differ yet) and eleven on the glass with a real finger. MUTATION PROVED: put the
+strip back at the top, under the shell, and it goes 19/4, naming the covering DIV
+and reporting act 1.
+
+COOKED (rule 22, and rule 32f -- a frame off the game's own camera):
+dynasty-three-on-the-phone-9-24, before and after the thumb.
+
+NOT DONE, SAID PLAINLY: the three faces are PLACEHOLDERS, not his family -- A FAMILY
+LOOKS LIKE A FAMILY says they should carry his own face forward by the heredity that
+already runs, and that is [three names] with CHARACTER and PORTRAIT. Reshuffle is in
+the module, not on the glass. The ground does not move on a flip until the derive
+lands.
+
+PRE-PUSH PASS: THE FLIP 23/0, INLINED-FRESH 3/0 (140 modules, the new one included),
+VOTE TAB 30/0, ALPHA LOADS 20/0.
+NEXT for this lane: [bb legacy] is the first OPEN line (rule 33 school), then
+[three names].
+
 ROUND 51 SHE HAS TO WAIT, AND SHE CANNOT. FOUR VERSIONS, ALL MEASURED, ALL DEAD.
 QUESTS, off HIS OWN VERDICT (rule 32a). DYNASTY [the flip] CLAIMED f24f7396 and
 CONTINUING -- not started, and this round says why.

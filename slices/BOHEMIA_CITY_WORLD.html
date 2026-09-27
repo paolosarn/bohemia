@@ -586,7 +586,17 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font-family:var(--
   <div id="cityfeed" aria-hidden="true">
     <div id="cityfeedscreen">
       <div id="cityfeedbar"><span id="cityfeedsig">▮▮▮</span><span id="cityfeedname">THE VALLEY</span><span id="cityfeedbatt" title="the grid where you are standing"></span><span id="cityfeedclock">--:--</span></div>
+      <!-- __THE_FLIP__ (9/24, DYNASTY row [the flip], rule 31 + rule 32c + rule 33).
+           THREE FACES ON THE PHONE, AND THE PHONE IS ON THE MAP. His own vote put
+           the flip here rather than at a place in the world ("A, on the phone"),
+           his 9/23 vote put the phone in the CITY VIEW ONLY, and rule 33 made the
+           city view the MAP. So one tap on a face is the whole time machine, and
+           it is the same screen and the same buttons as every other second of the
+           game (rule 24, no teleport, no second mode).
+           IT IS THIS LANE'S OWN BLOCK AND IT TOUCHES NOTHING UI WROTE: appended
+           inside the screen, above the feed, with its own id and its own paint. -->
       <div id="cityfeedlist" role="log" aria-live="polite"></div>
+      <div id="actflip" role="group" aria-label="who you are"></div>
       <div id="cityfeedfade"></div>
       <!-- THE FRACTURE. Three full-length diagonals were the first cut and they read as
            SCRATCHES ON A WINDOW, which is what looking at the picture showed: a real
@@ -925,6 +935,42 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font-family:var(--
   width:var(--battw,20%);background:var(--battc,#8a6a3a);transition:width .4s linear}
 #cityfeedbatt.lit{--battw:78%;--battc:var(--skin-battlit,#9adfd0)}
 #cityfeedbatt.dark{--battw:19%;--battc:var(--skin-battdark,#c07a4a)}
+/* __THE_FLIP__ (9/24, DYNASTY [the flip]). THREE FACES, ON THE GLASS, IN THE CASING'S
+   OWN LIGHT. Drawn to the screen register the phone already sets: the face is inherited
+   from #cityfeedscreen, the colours are the skin's variables, and nothing new is
+   invented to sit next to something that already has a look. The strip is a ROW of three
+   because that is what one tap has to reach on a phone, and the current one is lit
+   rather than boxed -- a box reads as a button you have not pressed, and he is not
+   choosing from a menu, he is standing in one of them. */
+/* *** AND IT SITS AT THE BOTTOM OF THE GLASS, WHICH IS A MEASUREMENT AND NOT A TASTE.
+   *** Built at the top first, under the phone's own signal-and-clock bar. Driven with
+   a real finger through the one driver: the point resolved correctly INSIDE the city
+   frame (canvas -> .af -> #actflip -> #cityfeedscreen -> #cityfeed, every one
+   pointer-events:auto) and NOTHING FLIPPED, while the same call from the console
+   flipped fine. Asked the SHELL what is at that same page coordinate and it answered a
+   plain DIV, not the city frame: something in the shell covers the top of the phone, so
+   a finger never reaches it. Moved to the bottom of the screen, where the glass is the
+   glass. (The shell overlay is named for UI; the phone's own bar is under it too, and
+   nobody noticed because a clock is not a button.) */
+#actflip{flex:0 0 auto;display:flex;gap:3px;padding:4px 5px 5px;position:relative;z-index:2;
+  border-top:1px solid var(--skin-screenedge,rgba(0,0,0,.55))}
+#actflip .af{flex:1 1 0;min-width:0;display:flex;flex-direction:column;align-items:center;
+  gap:2px;padding:3px 2px 4px;cursor:pointer;border-radius:3px;
+  background:rgba(0,0,0,.28);border:1px solid rgba(0,0,0,.45);
+  /* A FINGER, NOT A CURSOR: the whole tile takes the touch, not the little face. */
+  pointer-events:auto;-webkit-tap-highlight-color:transparent}
+#actflip .af canvas{width:26px;height:26px;image-rendering:pixelated;display:block;
+  background:rgba(0,0,0,.5);border-radius:2px}
+#actflip .af .afn{font-size:6px;letter-spacing:.2px;line-height:1.05;text-align:center;
+  color:var(--skin-dim,#9d9174);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  max-width:100%}
+#actflip .af .afy{font-size:6px;letter-spacing:.4px;color:var(--skin-dim,#7d7458);opacity:.85}
+/* THE ONE HE IS STANDING IN. Lit from inside, the way the casing lights when the phone
+   rings -- the same gold this device already uses to mean "this one", never a new
+   colour and never a tick. */
+#actflip .af.now{background:rgba(216,180,90,.13);border-color:rgba(216,180,90,.55);
+  box-shadow:inset 0 0 8px rgba(216,180,90,.18)}
+#actflip .af.now .afn{color:var(--skin-lit,#e6d9ae)}
 #cityfeedlist{flex:1 1 auto;min-height:0;overflow:hidden;padding:5px 7px 9px;position:relative;z-index:1}
 #cityfeed .fp{margin:0 0 7px;opacity:0;transform:translateY(7px);
   transition:opacity .28s linear,transform .28s linear}
@@ -13252,6 +13298,154 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
   root.BohemiaCells = API;
 })(typeof window !== 'undefined' ? window : (typeof globalThis !== 'undefined' ? globalThis : this));
 /* ==== /engine/bohemia_cells.js ==== */
+/* ==== engine/bohemia_acts.js ==== */
+// BOHEMIA ACTS -- THE THREE, AND THE FLIP BETWEEN THEM (9/24/26, DYNASTY lane)
+// Board row [the flip] / ONE-TAP-ON-THE-PHONE. Rule 31 (Paolo 9/23): "play all
+// three at the same time and flip through them."
+//
+// ============================================================================
+// WHAT THIS FILE IS AND, MORE IMPORTANTLY, WHAT IT IS NOT
+// ============================================================================
+// It is WHO THE THREE ARE and WHICH ONE IS CURRENT. That is the whole job.
+//
+// IT DOES NOT DERIVE A WORLD. School round two
+// (records/BOHEMIA_DYNASTY_SCHOOL_THE_DERIVE_ROUND_TWO_9_24_26.md) named the
+// derive's field list, its hands-versus-world split and its gate; building it is
+// WORLD's and LIFE+CITY's rows, not this one. A flip that re-derived the valley
+// from inside this file would be a second answer to a question another lane owns.
+//
+// AND THAT IS WHY THE FLIP IS HONEST WITH NOTHING BUILT YET. Rule 32(b), his own
+// words on 9/23: the game STARTS in the ruin and the future GETS BETTER; the base
+// of act 2 and act 3 is ACT 1'S RUIN, and the derive ADDS what was reclaimed. So
+// a player who has done nothing SHOULD see the same ruin in all three, and that
+// is not a missing feature, it is the tutorial: "the city is built like shit
+// because you're not making enough of an impact in your earlier act" (Paolo,
+// 9/23, which is the sentence rule 31 exists for). The date changes, the person
+// changes, the ground has not earned a change yet.
+//
+// ============================================================================
+// THE NAMES COME PREPARED (rule 32(d), Paolo 9/23, "like Battle Brothers")
+// ============================================================================
+// "a generated name per slot, reshuffle, or type your own; no flip to an unnamed
+// descendant." So: every slot is filled from the first frame, a reshuffle gives a
+// new one, and typing your own is [three names]' row, not this one. The names
+// come from THE CITY'S OWN BANK through BohemiaPeople.generatedName -- reuse
+// first, and it means the family reads like the valley reads, because it is the
+// same pool Paolo corrected toward the county on 9/22.
+//
+// ============================================================================
+// EVERY NUMBER IN HERE IS EITHER HIS OR MARKED
+// ============================================================================
+// The ERA NAMES are canon (Paolo 9/7: Animal / Human / Angel are ERAS, never
+// creatures -- the anarchy decade, the world clawing back, the cyberpunk
+// healing). THE GAP BETWEEN ACTS IS NOT RULED. The laws carry a HUNDRED YEARS
+// (the monument sums the virtues "at the end of the hundred years"), so three
+// lives across a century spaced evenly is 0, 35, 70 -- an ATTEMPT, tagged
+// draft:true, his to knock down in one word. Nothing else in this file is a
+// number anybody chose.
+(function (root) {
+  'use strict';
+
+  var DRAFT = true;
+
+  /* THE THREE. Era names are his; the years-later are the attempt. */
+  var ACTS = [
+    { act: 1, era: 'ANIMAL', later: 0,  draft: false,
+      of: 'the anarchy decade' },
+    { act: 2, era: 'HUMAN',  later: 35, draft: DRAFT,
+      of: 'the world clawing back' },
+    { act: 3, era: 'ANGEL',  later: 70, draft: DRAFT,
+      of: 'the cyberpunk healing' }
+  ];
+
+  function people() {
+    try { if (root && root.BohemiaPeople) return root.BohemiaPeople; } catch (e) {}
+    if (typeof module !== 'undefined' && typeof require !== 'undefined') {
+      try { return require('./bohemia_people.js'); } catch (e) {}
+    }
+    return null;
+  }
+
+  /* A NAME FOR A SLOT. Keyed by the world's seed and the act, so the same valley
+     always hands him the same family and a reshuffle is a different SALT rather
+     than a different pool. No pool means NO NAME, said rather than invented: the
+     city's bank is the only pool and this file does not carry a second one. */
+  function nameFor(seed, act, salt) {
+    var P = people();
+    if (!P || typeof P.generatedName !== 'function') return null;
+    var key = 'act:' + String(seed) + ':' + String(act) + ':' + String(salt || 0);
+    try { return P.generatedName(key); } catch (e) { return null; }
+  }
+
+  /* WHAT THE NAME READS AS. The city already answers this for every citizen and
+     the answer steers a body, so the descendants use the same door instead of a
+     second opinion about what a name means. 'either' is a legal answer and is
+     never converted into a guess. */
+  function readsAs(name) {
+    var P = people();
+    if (!P || typeof P.readsAs !== 'function') return 'either';
+    try { return P.readsAs(name) || 'either'; } catch (e) { return 'either'; }
+  }
+
+  /* THE THREE, PREPARED. Every slot filled, from the first frame, so rule 32(d)'s
+     "no flip to an unnamed descendant" is true by construction rather than by a
+     check somebody has to remember to run. */
+  function prepare(seed, salt) {
+    return ACTS.map(function (a) {
+      var nm = nameFor(seed, a.act, salt);
+      return {
+        act: a.act, era: a.era, of: a.of,
+        later: a.later, laterDraft: a.draft,
+        name: nm,                       /* null when no bank is loaded: SAID, not faked */
+        reads: nm ? readsAs(nm) : 'either',
+        named: !!nm,
+        draft: DRAFT
+      };
+    });
+  }
+
+  /* THE STATE. Which act he is standing in, and nothing else lives here. */
+  var CURRENT = 1;
+  function current() { return CURRENT; }
+  function isAct(n) { n = n | 0; return n === 1 || n === 2 || n === 3; }
+
+  /* THE FLIP. Returns what changed, so a caller can redraw exactly what moved
+     and a gate can assert it -- and returns `moved:false` for a tap on the act he
+     is already in, because a flip to where you already are is not an event and
+     must not cost a redraw or a sound. */
+  function flip(n) {
+    if (!isAct(n)) return { moved: false, why: 'NOT_AN_ACT' };
+    if (n === CURRENT) return { moved: false, why: 'ALREADY_THERE', act: CURRENT };
+    var from = CURRENT;
+    CURRENT = n | 0;
+    return { moved: true, from: from, to: CURRENT };
+  }
+  function setCurrent(n) { if (isAct(n)) CURRENT = n | 0; return CURRENT; }
+
+  /* HOW FAR APART TWO ACTS ARE, in years. Reads the table; never re-typed at a
+     call site, so his one ruling on the gap moves every surface at once. */
+  function yearsBetween(a, b) {
+    var A = ACTS[(a | 0) - 1], B = ACTS[(b | 0) - 1];
+    if (!A || !B) return null;
+    return Math.abs(B.later - A.later);
+  }
+
+  /* WHAT THE GROUND OWES HIM, AND THE HONEST ANSWER TODAY. A caller asks this
+     instead of assuming: with no derive built and no ledger behind it, act 2 and
+     act 3 ARE act 1's ruin (rule 32b), and that is a truthful state rather than a
+     stub. When WORLD's derive lands, this is the one place that stops saying it. */
+  function groundDiffers() { return { differs: false, why: 'NO_DERIVE_YET', draft: DRAFT }; }
+
+  var API = {
+    ACTS: ACTS, prepare: prepare, nameFor: nameFor, readsAs: readsAs,
+    current: current, setCurrent: setCurrent, flip: flip, isAct: isAct,
+    yearsBetween: yearsBetween, groundDiffers: groundDiffers, draft: DRAFT
+  };
+  if (typeof module !== 'undefined' && module.exports) module.exports = API;
+  if (root) root.BohemiaActs = API;
+  return API;
+})(typeof globalThis !== 'undefined' ? globalThis : this);
+/* ==== /engine/bohemia_acts.js ==== */
 /* ==== engine/bohemia_heir.js ==== */
 // BOHEMIA HEIR — WHAT THE NEXT ONE ACTUALLY WALKS INTO (9/16/26, WORLD lane)
 // Board row [fold carries] / THE-FOLD-CARRIES-THE-WRONG-THINGS.
@@ -62252,6 +62446,132 @@ window.addEventListener('message', function (ev) {
 });
 try { window.ctFaceAsk = ctFaceAsk; window.FACE_CV = FACE_CV; } catch (_e) {}
 
+/* ==========================================================================
+   __THE_FLIP__ -- ONE TAP ON THE PHONE, AND IT IS THE WHOLE TIME MACHINE.
+   (9/24, DYNASTY row [the flip]; rule 31 Paolo 9/23, his vote A on 9/23, the
+   phone is city-view only by rule 32c, and the city view is the MAP by rule 33.)
+
+   WHAT IT DOES: paints the three descendants on the cracked phone and flips who
+   you are when one is tapped. WHO THEY ARE is engine/bohemia_acts.js; this is the
+   glass and the finger, nothing else, which is the same split the ask wire uses.
+
+   THE FACE COMES THROUGH THE DOOR THAT ALREADY EXISTS (ctFaceAsk), so no second
+   face pipe is built. AND THE KNOWN GAP IS NAMED RATHER THAN HIDDEN: the shell
+   answers a face by ROLLING one out of a hash of the id, which this lane measured
+   and wrote up on 9/22 (records/BOHEMIA_QUESTS_THE_FACE_IN_THE_BUBBLE_IS_NOT_HER
+   _9_22_26.md). For a citizen that is wrong because the body already has a face.
+   For a descendant who has no body yet it is merely UNEARNED: A FAMILY LOOKS LIKE
+   A FAMILY says these three should carry his own face forward by the heredity that
+   already runs, and that is [three names]' row with CHARACTER and PORTRAIT, not
+   this one. Three rolled faces are the honest placeholder and they are said out
+   loud here rather than passed off as the family.
+   ========================================================================== */
+var ACTFLIP_SALT = 0, ACTFLIP_BUILT = '';
+function ctActSeed(){
+  try { if (typeof seed !== 'undefined' && seed) return String(seed); } catch (_e) {}
+  return 'bohemia';
+}
+function ctActList(){
+  try { return BohemiaActs.prepare(ctActSeed(), ACTFLIP_SALT) || []; }
+  catch (_e) { return []; }
+}
+/* PAINT. Rebuilt only when what it would say has actually changed, because this
+   is called from the phone's own tick and a strip that rewrites three canvases
+   every beat is sixty pointless bakes a second on the surface he is looking at. */
+function ctActFlipPaint(){
+  var box = null;
+  try { box = document.getElementById('actflip'); } catch (_e) {}
+  if (!box) return false;
+  var list = ctActList();
+  if (!list.length) { box.style.display = 'none'; return false; }
+  box.style.display = '';
+  var cur = 1; try { cur = BohemiaActs.current(); } catch (_e) {}
+  var sig = cur + '|' + ACTFLIP_SALT + '|' + list.map(function(a){ return a.name || '?'; }).join(',');
+  if (sig !== ACTFLIP_BUILT) {
+    box.innerHTML = '';
+    for (var i = 0; i < list.length; i++) {
+      (function (a) {
+        var t = document.createElement('div');
+        t.className = 'af' + (a.act === cur ? ' now' : '');
+        t.setAttribute('role', 'button');
+        t.setAttribute('tabindex', '0');
+        /* THE WHOLE LABEL IS THE ANSWER TO "who is this and when": the era is his
+           canon, the name is the city's own bank, the years are the attempt. */
+        t.setAttribute('aria-label', (a.name || a.era) + ', ' + a.era
+          + (a.later ? ', ' + a.later + ' years later' : ', now'));
+        var cv = document.createElement('canvas');
+        cv.width = 26; cv.height = 26;
+        t.appendChild(cv);
+        var nm = document.createElement('div'); nm.className = 'afn';
+        /* THE GIVEN NAME ONLY, BECAUSE THE TILE IS A THIRD OF A PHONE WIDE.
+           Shot at real size first and the full names came back "Ezekie...",
+           "Perla ...": a name he cannot read is a name that did not ship, which
+           is the bubble's own lesson wearing a different hat. The full name stays
+           on the tile's label for a screen reader and for the round that gives
+           these three a proper screen ([three names]). */
+        nm.textContent = String(a.name || a.era).split(/\s+/)[0];   /* draft:true */
+        var yr = document.createElement('div'); yr.className = 'afy';
+        yr.textContent = a.later ? ('+' + a.later + 'Y') : 'NOW';  /* draft:true */
+        t.appendChild(nm); t.appendChild(yr);
+        /* *** A REAL FINGER, NOT A CURSOR, AND THIS WAS MEASURED NOT ASSUMED. ***
+           The first cut listened on BOTH pointerdown and click and called
+           preventDefault on the pointer event. Driven with a real touch on the
+           alpha: the point resolved to this tile (elementFromPoint walked
+           canvas -> .af -> #actflip -> #cityfeedscreen -> #cityfeed, every one of
+           them pointer-events:auto) AND NOTHING FLIPPED, while calling the same
+           function from the console flipped fine. Preventing a touch-derived
+           pointerdown kills the compatibility events that follow it, and this
+           file already carries RUN's lesson in its own margin: a handler on
+           something a finger cannot actually work is the same class of bug as a
+           caught exception -- the code is there, it reads correct, and it
+           silently does nothing.
+           SO: click only, which is the door the phone itself uses, and the
+           propagation stop stays so a tap on a face is not also a tap on the
+           phone. */
+        var go = function (ev) {
+          try { ev.stopPropagation(); } catch (_e) {}
+          ctActFlipTo(a.act);
+        };
+        t.addEventListener('click', go);
+        box.appendChild(t);
+      })(list[i]);
+    }
+    ACTFLIP_BUILT = sig;
+  }
+  /* the faces, every pass, because one arrives a message after it is asked */
+  var tiles = box.querySelectorAll('.af');
+  for (var k = 0; k < tiles.length && k < list.length; k++) {
+    var who = 'act' + list[k].act, cvs = tiles[k].querySelector('canvas'), f = null;
+    try { f = ctFaceAsk(who); } catch (_e) { f = null; }
+    if (f && cvs) {
+      try {
+        var g = cvs.getContext('2d');
+        g.imageSmoothingEnabled = false;
+        g.clearRect(0, 0, cvs.width, cvs.height);
+        g.drawImage(f, 0, 0, cvs.width, cvs.height);
+      } catch (_e) {}
+    }
+  }
+  return true;
+}
+/* THE FLIP ITSELF. The module decides whether anything moved; this only redraws
+   and says so to the page, so a gate and the glass read one fact. */
+function ctActFlipTo(n){
+  var r = null;
+  try { r = BohemiaActs.flip(n); } catch (_e) { return false; }
+  if (!r || !r.moved) return false;
+  ACTFLIP_BUILT = '';                      /* the lit one moved: repaint */
+  try { window.__ACT_FLIP = { to: r.to, from: r.from, at: performance.now() }; } catch (_e) {}
+  try { ctActFlipPaint(); } catch (_e) {}
+  /* THE GROUND DOES NOT MOVE YET AND THAT IS THE TRUTH, NOT A GAP. Rule 32(b):
+     the base of act 2 and 3 is act 1's RUIN and the derive ADDS what was
+     reclaimed, so a player who has done nothing sees the same ruin in all three.
+     When WORLD's derive lands, this is where the redraw hangs. */
+  try { render(); } catch (_e) {}
+  return true;
+}
+try { window.ctActFlipPaint = ctActFlipPaint; window.ctActFlipTo = ctActFlipTo; } catch (_e) {}
+
 var CAST_CV = null;
 /* __CITY_TRADEFIT__ -- the NAME of each baked body, parallel to CAST_CV. Null
    until a bake that sends ids lands; an older bake leaves it null and the fit
@@ -77364,6 +77684,11 @@ window.BOHEMIA_FEED = (function(){
       if(isCity!==on){
         on=isCity;
         PANEL.classList.toggle('on',on);
+        /* __THE_FLIP__ rides the phone's own open, because the phone IS the map's
+           surface (rule 33) and the three faces are on it. Painted here rather
+           than on a clock of its own: one toggle, one paint, and nothing new
+           ticks. */
+        try{ if(on && typeof ctActFlipPaint==='function') ctActFlipPaint(); }catch(_e){}
         PANEL.setAttribute('aria-hidden', on?'false':'true');
         /* SEED IT THE MOMENT IT OPENS. Measured before this existed: the first life
            post was sixteen beats out, so a player who zoomed out met an EMPTY PHONE

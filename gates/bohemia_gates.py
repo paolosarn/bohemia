@@ -4667,6 +4667,18 @@ GATES = [
      'deliberately survives a redraw). Covers the DAY CARD only; the BUILD and BUILD BIG dead buttons '
      'EYES also found are on the city build card and belong to LIFE+CITY. Runs 14/0',
      True),
+    ('THE FLIP', ['node', 'gates/the_flip_gate.js'],
+     'DYNASTY row [the flip], 9/24, rule 31 (Paolo 9/23) with his own vote A and rule 32c. THREE FACES ON '
+     'THE CRACKED PHONE IN THE CITY VIEW, AND A REAL FINGER ON ONE CHANGES WHO YOU ARE. Driven with a '
+     'finger on purpose: the strip painted, the handler was bound, elementFromPoint inside the frame '
+     'walked straight to the tile, AND NOTHING FLIPPED, because the shell covers the top of the phone. A '
+     'checker dispatching a synthetic click would have been green through all of it. Legs: three acts; '
+     'every slot NAMED from the first frame (rule 32d, no unnamed descendant); three different people; the '
+     'eras are his canon; the unruled gap is marked draft; reshuffle differs; the same seed twice is the '
+     'same family; the flip moves; a tap on the act he is already in is NOT an event; the ground SAYS it '
+     'does not differ yet rather than pretending; the tile is thumb sized; NOTHING IN THE SHELL COVERS IT; '
+     'and the finger flips it. MUTATION PROVED: put the strip back at the top, under the shell, and it '
+     'goes 19/4 naming the covering DIV and reporting act 1.'),
     ('STRIKE ASK', ['node', 'gates/strike_ask_gate.js'],
      'QUESTS row [strike ask], 9/22, harvested from ECONOMY Q35. Rule 12: the named blocker was MEASURED '
      'rather than waited on -- WORLD shipped engine/bohemia_strike.js on 9/21 (THE BLOCK HOLDS THE DOOR), '

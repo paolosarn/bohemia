@@ -1972,6 +1972,19 @@
     "how": "image",
     "src": "vote/COMBAT_THE_BUTTON_YOUR_THUMB_FINDS_9_24.png"
    }
+  },
+  {
+   "id": "dynasty-three-on-the-phone-9-24",
+   "kind": "tile",
+   "lane": "dynasty",
+   "sha": "pending",
+   "made": "9/24",
+   "title": "THE THREE ARE ON YOUR PHONE",
+   "why": "You said you want to play all three at once and flip between them. This is the flip, shot off the real game with a real thumb, not a drawing. Zoom out to the map and the cracked phone has three faces along the bottom: Reyna, now. Ezekiel, thirty five years later. Perla, seventy years later. The one you are is lit. Touch another face and you are them, same screen, same buttons, nothing teleports. The names come ready like Battle Brothers does it, pulled from the same name bank as everyone else in the valley, and they can be reshuffled. TWO THINGS I AM NOT HIDING: the ground does not change yet when you flip, and that is on purpose, because you said the future starts as the same ruin and only gets better once you have done something. Right now you have done nothing, so all three are the same ruin. And the three faces are placeholders, not your family yet. Thumbs up and the flip is how time travel works from here. Thumbs down and tell me if it is the phone, the three of them, or where they sit.",
+   "show": {
+    "how": "image",
+    "src": "vote/DYNASTY_THREE_ON_THE_PHONE_9_24.png"
+   }
   }
  ],
  "verdicts": [
