@@ -42043,6 +42043,13 @@ per system, the order, the excavation rule). Rule 33h; THE CUT LINE on the front
 [asks stream]; new: RUN [excavate the walk], PLUMBER [excavate], COMBAT [weapon shapes] (the machine gun is
 the greatsword, rule 33i), DIRECTION [newgrounds] (NAMED by him: 'an old flash game website', the look's
 era inside the bible; CLAUDE.md reference line; records/BOHEMIA_PAOLO_NEWGROUNDS_AND_THE_MACHINE_GUN_9_24_26.md). The list is in VOTE as one line.
+THEN (fn) PAOLO 9/27: "go through the Battle Brothers wiki and download everything or remember everything,
+all the stats." THE LIBRARY: reference/library/battle_brothers/README.md, ten volumes written from memory (every number tagged recall) because
+the fleet cannot fetch the wiki (network policy, HTTP 000). Rule 33j: every [bb ...] line reads the library
+first and cites it. PLUMBER [bb library] is the download tool for the day the two hosts are allowed. His
+click: allow battlebrothers.fandom.com and battlebrothersgame.com in the environment's network settings.
+records/BOHEMIA_PAOLO_DOWNLOAD_THE_BATTLE_BROTHERS_WIKI_9_27_26.md
+
 
 
 

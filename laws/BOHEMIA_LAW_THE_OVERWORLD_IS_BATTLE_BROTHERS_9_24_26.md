@@ -102,3 +102,13 @@ assets we have. The list is in VOTE as one line; he knocks any row down.
 machine gun is comparable to a greatsword or a battle axe." Beside the reach rule (9/22: pistol 1, rifle
 2, scope 3) a weapon has a SHAPE on the tiles: the machine gun sweeps a line in one beat. Battle
 Brothers flavour under RF4 speed (s3). COMBAT [weapon shapes], school first. Everything still costs one.
+
+## 10. THE LIBRARY (Paolo 9/27: "go through the Battle Brothers wiki and download everything or remember everything, all the stats"; records/BOHEMIA_PAOLO_DOWNLOAD_THE_BATTLE_BROTHERS_WIKI_9_27_26.md)
+A BATTLE BROTHERS REFERENCE LIBRARY lives at reference/library/battle_brothers/README.md (ten volumes: the map, combat rules, weapons and
+their tile shapes, armour, perks, backgrounds, economy, contracts and events, enemies, the interface and
+feel). Every [bb ...] school line READS IT FIRST and cites the volume; a lane that finds a number wrong
+fixes it there with a source. The first volumes are written from memory, every number tagged (recall),
+because the fleet's machines cannot fetch the wiki (network policy); PLUMBER [bb library] is the tool
+that pulls every wiki page and dev blog to text the day the hosts are allowed, and the volumes then cite
+the fetched pages. The wiki's text is CC BY-SA: the library quotes facts and cites pages; it does not
+republish the wiki as ours.
