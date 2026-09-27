@@ -971,6 +971,21 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font-family:var(--
 #actflip .af.now{background:rgba(216,180,90,.13);border-color:rgba(216,180,90,.55);
   box-shadow:inset 0 0 8px rgba(216,180,90,.18)}
 #actflip .af.now .afn{color:var(--skin-lit,#e6d9ae)}
+/* THE RESHUFFLE, ONE SLOT AT A TIME (rule 32d, [three names]). A GLYPH ON THE
+   FACE, NOT A FOURTH ROW: the tile is already three rows tall inside a strip
+   that fought hard for its 54 px, and growing it risks the exact shell-overlap
+   this strip already measured its way out of once. So the tile itself carries
+   `position:relative` and the glyph sits in the canvas's own top-right corner --
+   the same tap surface the flip already proved a real finger can reach, a
+   different child of it. Its own click handler stops propagation for the same
+   reason the tile's does: a reshuffle must never also be a flip. */
+#actflip .af{position:relative}
+#actflip .afr{position:absolute;top:1px;right:1px;width:11px;height:11px;
+  border-radius:50%;background:rgba(0,0,0,.55);border:1px solid rgba(255,255,255,.22);
+  display:flex;align-items:center;justify-content:center;font-size:7px;line-height:1;
+  color:var(--skin-dim,#c9bd9a);pointer-events:auto;cursor:pointer;
+  -webkit-tap-highlight-color:transparent}
+#actflip .afr:active{background:rgba(216,180,90,.35)}
 #cityfeedlist{flex:1 1 auto;min-height:0;overflow:hidden;padding:5px 7px 9px;position:relative;z-index:1}
 #cityfeed .fp{margin:0 0 7px;opacity:0;transform:translateY(7px);
   transition:opacity .28s linear,transform .28s linear}
@@ -13391,12 +13406,26 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
 // ============================================================================
 // THE NAMES COME PREPARED (rule 32(d), Paolo 9/23, "like Battle Brothers")
 // ============================================================================
-// "a generated name per slot, reshuffle, or type your own; no flip to an unnamed
-// descendant." So: every slot is filled from the first frame, a reshuffle gives a
-// new one, and typing your own is [three names]' row, not this one. The names
-// come from THE CITY'S OWN BANK through BohemiaPeople.generatedName -- reuse
-// first, and it means the family reads like the valley reads, because it is the
-// same pool Paolo corrected toward the county on 9/22.
+// "a generated name per slot, reshuffle, or type your own; sex the same way; no
+// flip to an unnamed descendant." Board row [three names], THE-COMPANY-ACROSS-TIME's
+// own sibling row, built here: every slot is filled from the first frame, a tap
+// reshuffles ONE slot (never the other two -- Battle Brothers rerolls a single
+// recruit, not the whole tavern), typing a name is a real API a screen can call,
+// and sex is its own choice with the same three doors. The names come from THE
+// CITY'S OWN BANK through BohemiaPeople.generatedName -- reuse first, and it
+// means the family reads like the valley reads, because it is the same pool
+// Paolo corrected toward the county on 9/22.
+//
+// SEX IS THE PICK; THE NAME FOLLOWS IT, NOT THE OTHER WAY AROUND. Battle Brothers
+// generates a recruit with a sex first and a name that fits it second (measured
+// against the library: the tavern never hands you a mismatched pair). So a
+// prepared slot derives sex from its own hash, then tries a small run of name
+// sub-salts for one whose readsAs() agrees, and only falls through to a plain
+// pick (his own 'either' names, Juniper/Kai/Sunny, included) if none does inside
+// a few tries -- never an infinite search over a hash that might not contain a
+// match. A PLAYER-TYPED NAME NEVER GETS OVERRULED FOR A MISMATCH: he can name a
+// son Guadalupe if he wants to, because MECHANISM-MINE/CONTENTS-PAOLO'S means
+// this file suggests, it does not correct him.
 //
 // ============================================================================
 // EVERY NUMBER IN HERE IS EITHER HIS OR MARKED
@@ -13452,21 +13481,132 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
     try { return P.readsAs(name) || 'either'; } catch (e) { return 'either'; }
   }
 
+  /* SEX FOR A SLOT, DETERMINISTIC, NEVER 'EITHER' AS A FINAL ANSWER. A body has
+     to be built from it eventually, so unlike a name's reading -- which is
+     allowed to shrug -- a prepared slot's sex is always 'male' or 'female'. One
+     coin flip off the same hash family every other derive in this lane uses. */
+  function sexFor(seed, act, salt) {
+    var key = 'sex:' + String(seed) + ':' + String(act) + ':' + String(salt || 0);
+    var h = 0;
+    for (var i = 0; i < key.length; i++) h = ((h * 31) + key.charCodeAt(i)) >>> 0;
+    return (h & 1) ? 'female' : 'male';
+  }
+
+  /* A NAME THAT AGREES WITH A SEX, TRIED A FEW WAYS BEFORE GIVING UP. Never loops
+     over the whole bank -- five sub-salts is a search, not a guarantee, and a
+     bank with no match for either reading is a real possibility (his own three
+     'either' names exist for exactly this). Falls through to the plain pick,
+     which is never null-vs-mismatched, only ever mismatched-vs-absent. */
+  function nameAgreeing(seed, act, salt, sex) {
+    var want = (sex === 'female') ? 'she' : 'he';
+    var plain = nameFor(seed, act, salt);
+    if (!plain) return null;
+    if (readsAs(plain) === want) return plain;
+    for (var i = 1; i <= 5; i++) {
+      var nm = nameFor(seed, act, salt + ':' + i);
+      if (nm && readsAs(nm) === want) return nm;
+    }
+    return plain;                 /* no match found: the plain pick, not a blank */
+  }
+
   /* THE THREE, PREPARED. Every slot filled, from the first frame, so rule 32(d)'s
      "no flip to an unnamed descendant" is true by construction rather than by a
-     check somebody has to remember to run. */
+     check somebody has to remember to run. PURE: same seed and salt, same three,
+     forever -- the stateful roster() below is what a screen actually calls. */
   function prepare(seed, salt) {
     return ACTS.map(function (a) {
-      var nm = nameFor(seed, a.act, salt);
+      var sex = sexFor(seed, a.act, salt);
+      var nm = nameAgreeing(seed, a.act, salt, sex);
       return {
         act: a.act, era: a.era, of: a.of,
         later: a.later, laterDraft: a.draft,
         name: nm,                       /* null when no bank is loaded: SAID, not faked */
+        sex: sex,
         reads: nm ? readsAs(nm) : 'either',
         named: !!nm,
+        custom: false,                  /* prepare() never carries an override */
         draft: DRAFT
       };
     });
+  }
+
+  /* ==========================================================================
+     THE THREE, LIVE: RESHUFFLE ONE, TYPE ONE, PICK A SEX FOR ONE.
+     State the module owns, same as CURRENT below it -- a screen needs one place
+     to ask "what does slot 2 say right now", not a pure function it has to
+     remember the salt for.
+     ========================================================================== */
+  var SLOT_SALT = { 1: 0, 2: 0, 3: 0 };     /* bumped by reshuffle(), per slot */
+  var OVERRIDE = {};                        /* act -> {name?, sex?}, player-set */
+
+  /* THE LIVE ROSTER: prepare()'s three, with each slot's own salt and any
+     override laid on top. Called every time a screen needs the truth, never
+     cached, because SLOT_SALT and OVERRIDE are small and this is not a hot loop. */
+  function roster(seed) {
+    return ACTS.map(function (a) {
+      var ov = OVERRIDE[a.act] || {};
+      var sex = ov.sex || sexFor(seed, a.act, SLOT_SALT[a.act]);
+      var nm = ov.name || nameAgreeing(seed, a.act, SLOT_SALT[a.act], sex);
+      return {
+        act: a.act, era: a.era, of: a.of,
+        later: a.later, laterDraft: a.draft,
+        name: nm, sex: sex,
+        reads: nm ? readsAs(nm) : 'either',
+        named: !!nm,
+        custom: !!(ov.name || ov.sex),
+        draft: DRAFT
+      };
+    });
+  }
+
+  /* RESHUFFLE ONE SLOT. Battle Brothers rerolls the one recruit you point at,
+     never the whole tavern -- this bumps only that slot's salt and CLEARS its
+     override, because a reroll is "give me a new one", not "keep my typed name
+     but change the face". The other two slots are untouched, in state and in
+     the return value: a caller redraws one tile, not three. */
+  function reshuffle(act) {
+    if (!isAct(act)) return { changed: false, why: 'NOT_AN_ACT' };
+    SLOT_SALT[act] = (SLOT_SALT[act] || 0) + 1;
+    delete OVERRIDE[act];
+    return { changed: true, act: act | 0 };
+  }
+
+  /* A TYPED NAME. Refuses rather than accepting garbage, and refusing LEAVES THE
+     PRIOR NAME STANDING -- rule 32(d)'s "no flip to an unnamed descendant" holds
+     even mid-edit; a bad keystroke never blanks a slot. Trimmed, bounded (the
+     tile that shows it is a phone-width third of a phone, measured in [the flip]
+     at 36 px), and never rejected for what it reads as -- a typed name is his. */
+  function setName(act, name) {
+    if (!isAct(act)) return { ok: false, why: 'NOT_AN_ACT' };
+    var nm = String(name == null ? '' : name).trim();
+    if (!nm) return { ok: false, why: 'EMPTY' };
+    if (nm.length > 24) return { ok: false, why: 'TOO_LONG' };
+    if (!OVERRIDE[act]) OVERRIDE[act] = {};
+    OVERRIDE[act].name = nm;
+    return { ok: true, act: act | 0, name: nm };
+  }
+
+  /* A CHOSEN SEX. "Sex the same way" (rule 32d) -- its own door, same shape as a
+     typed name. Setting it does NOT touch a name the player already typed (his
+     typed word is never second-guessed by a later choice), but it DOES retire a
+     merely-prepared name if the sex changed under it, so the next read of
+     roster() derives a fresh one that agrees -- never leaves last round's
+     mismatch sitting there because nothing asked for a new name explicitly. */
+  function setSex(act, sex) {
+    if (!isAct(act)) return { ok: false, why: 'NOT_AN_ACT' };
+    var s = String(sex || '').toLowerCase();
+    if (s !== 'male' && s !== 'female') return { ok: false, why: 'NOT_A_SEX' };
+    if (!OVERRIDE[act]) OVERRIDE[act] = {};
+    OVERRIDE[act].sex = s;
+    if (!OVERRIDE[act].name) delete OVERRIDE[act].name;  /* re-derive, not stale */
+    return { ok: true, act: act | 0, sex: s };
+  }
+
+  /* RESET, for a screen that offers "start over" before he leaves it. Testing
+     hook too -- a gate that mutates state needs a way back to zero. */
+  function resetRoster() {
+    SLOT_SALT = { 1: 0, 2: 0, 3: 0 };
+    OVERRIDE = {};
   }
 
   /* THE STATE. Which act he is standing in, and nothing else lives here. */
@@ -13503,6 +13643,8 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
 
   var API = {
     ACTS: ACTS, prepare: prepare, nameFor: nameFor, readsAs: readsAs,
+    sexFor: sexFor, roster: roster, reshuffle: reshuffle,
+    setName: setName, setSex: setSex, resetRoster: resetRoster,
     current: current, setCurrent: setCurrent, flip: flip, isAct: isAct,
     yearsBetween: yearsBetween, groundDiffers: groundDiffers, draft: DRAFT
   };
@@ -63184,13 +63326,20 @@ try { window.ctFaceAsk = ctFaceAsk; window.FACE_CV = FACE_CV; } catch (_e) {}
    this one. Three rolled faces are the honest placeholder and they are said out
    loud here rather than passed off as the family.
    ========================================================================== */
-var ACTFLIP_SALT = 0, ACTFLIP_BUILT = '';
+var ACTFLIP_BUILT = '';
 function ctActSeed(){
   try { if (typeof seed !== 'undefined' && seed) return String(seed); } catch (_e) {}
   return 'bohemia';
 }
+/* *** THE LIST IS THE LIVE ROSTER NOW, NOT THE PURE PREPARE(). *** ([three names],
+   rule 32d.) A single shared ACTFLIP_SALT reshuffled all three at once, which was
+   never what "reshuffle" meant against a Battle Brothers tavern -- you reroll the
+   one recruit you are looking at. BohemiaActs.roster() carries per-slot salts and
+   any typed override as its OWN state now, so this file holds none: reading it
+   twice in a row without an edit between reads the same three, the same reason
+   CURRENT lives in the module and not here. */
 function ctActList(){
-  try { return BohemiaActs.prepare(ctActSeed(), ACTFLIP_SALT) || []; }
+  try { return BohemiaActs.roster(ctActSeed()) || []; }
   catch (_e) { return []; }
 }
 /* PAINT. Rebuilt only when what it would say has actually changed, because this
@@ -63204,7 +63353,10 @@ function ctActFlipPaint(){
   if (!list.length) { box.style.display = 'none'; return false; }
   box.style.display = '';
   var cur = 1; try { cur = BohemiaActs.current(); } catch (_e) {}
-  var sig = cur + '|' + ACTFLIP_SALT + '|' + list.map(function(a){ return a.name || '?'; }).join(',');
+  /* the sig is the roster's own state now (name AND sex, since a sex change can
+     leave the name untouched -- see setSex's own comment), not a shared salt this
+     file no longer holds. */
+  var sig = cur + '|' + list.map(function(a){ return (a.name || '?') + ':' + a.sex; }).join(',');
   if (sig !== ACTFLIP_BUILT) {
     box.innerHTML = '';
     for (var i = 0; i < list.length; i++) {
@@ -63251,6 +63403,20 @@ function ctActFlipPaint(){
           ctActFlipTo(a.act);
         };
         t.addEventListener('click', go);
+        /* THE RESHUFFLE GLYPH, ONE SLOT ([three names], rule 32d). Same door as
+           the tile's own click -- 'click' only, propagation stopped -- because
+           that is the ONE thing this round proved a real finger reaches on this
+           strip; a second, untested event pattern here would be reinventing the
+           exact trap [the flip] spent its round finding. */
+        var rs = document.createElement('div'); rs.className = 'afr';
+        rs.textContent = '⟳';
+        rs.setAttribute('role', 'button');
+        rs.setAttribute('aria-label', 'try another ' + a.era.toLowerCase() + ' descendant');
+        rs.addEventListener('click', function (ev) {
+          try { ev.stopPropagation(); } catch (_e) {}
+          ctActReshuffle(a.act);
+        });
+        t.appendChild(rs);
         box.appendChild(t);
       })(list[i]);
     }
@@ -63272,6 +63438,39 @@ function ctActFlipPaint(){
   }
   return true;
 }
+/* RESHUFFLE ONE SLOT. Redraws only that tile's contents (the whole strip's
+   innerHTML is rebuilt because the sig changed, same path a flip takes -- this
+   file does not carry a second, cheaper repaint for one tile, and three tiny
+   canvases is not the cost that mattered last round). Never touches CURRENT: a
+   reshuffle changes who slot 2 IS, not which slot he is standing in. */
+function ctActReshuffle(act){
+  var r = null;
+  try { r = BohemiaActs.reshuffle(act); } catch (_e) { return false; }
+  if (!r || !r.changed) return false;
+  ACTFLIP_BUILT = '';
+  try { ctActFlipPaint(); } catch (_e) {}
+  return true;
+}
+/* A TYPED NAME / A CHOSEN SEX, for the pre-game screen ([three names]'s sibling
+   UI row, WORDS/UI's) to call. Not wired to any control on THIS strip -- typing
+   needs a keyboard and that screen owns it -- but the capability is real and
+   gated now rather than promised for later. */
+function ctActSetName(act, name){
+  var r = null;
+  try { r = BohemiaActs.setName(act, name); } catch (_e) { return false; }
+  if (!r || !r.ok) return false;
+  ACTFLIP_BUILT = '';
+  try { ctActFlipPaint(); } catch (_e) {}
+  return true;
+}
+function ctActSetSex(act, sex){
+  var r = null;
+  try { r = BohemiaActs.setSex(act, sex); } catch (_e) { return false; }
+  if (!r || !r.ok) return false;
+  ACTFLIP_BUILT = '';
+  try { ctActFlipPaint(); } catch (_e) {}
+  return true;
+}
 /* THE FLIP ITSELF. The module decides whether anything moved; this only redraws
    and says so to the page, so a gate and the glass read one fact. */
 function ctActFlipTo(n){
@@ -63288,7 +63487,9 @@ function ctActFlipTo(n){
   try { render(); } catch (_e) {}
   return true;
 }
-try { window.ctActFlipPaint = ctActFlipPaint; window.ctActFlipTo = ctActFlipTo; } catch (_e) {}
+try { window.ctActFlipPaint = ctActFlipPaint; window.ctActFlipTo = ctActFlipTo;
+      window.ctActReshuffle = ctActReshuffle;
+      window.ctActSetName = ctActSetName; window.ctActSetSex = ctActSetSex; } catch (_e) {}
 
 var CAST_CV = null;
 /* __CITY_TRADEFIT__ -- the NAME of each baked body, parallel to CAST_CV. Null

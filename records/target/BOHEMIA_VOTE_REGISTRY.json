@@ -2341,6 +2341,20 @@
     "src": "vote/UI_WHAT_THE_BAR_SAYS_9_27.png"
    }
   }
+,
+  {
+    "id": "dynasty-three-names-reshuffle-9-27",
+    "kind": "tile",
+    "lane": "dynasty",
+    "sha": "pending",
+    "made": "9/27",
+    "title": "RESHUFFLE ONE. TYPE ONE. PICK A SEX.",
+    "why": "You said the three come prepared like Battle Brothers, with a reroll and a way to type your own. Here it is, shot on the real phone before and after. Left: the three prepared, Reyna, Ezekiel, Perla. Right: I tapped the little circle on the middle face to reroll just that one (Ezekiel became Araceli, the other two never moved), typed a name over the first one myself (Guadalupe), and picked a sex for the third (Jonah). One thing I am not hiding: the little faces did not change when the names did. That is a real gap and it is written up, not hidden behind a lucky screenshot. Thumbs up and this is how you set up your three when the naming screen ships. Thumbs down and tell me if it is the reroll, the crop, or the faces staying still.",
+    "show": {
+      "how": "image",
+      "src": "vote/DYNASTY_THREE_NAMES_RESHUFFLE_9_27.png"
+    }
+  }
 ],
   "verdicts": [
     {
