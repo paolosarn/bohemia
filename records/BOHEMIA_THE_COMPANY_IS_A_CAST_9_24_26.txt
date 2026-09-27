@@ -268,3 +268,114 @@ THE NAME PLATE AT HER FEET STILL CLIPS on a wall edge, the same thing this lane
 named last round. Not this row, named again rather than cropped out of the frame.
 
 TAB: CITY, the walked street in the alpha. VOTE, for the three frames.
+
+================================================================================
+ROUND TWO, 9/27 -- PAOLO'S RULING: BATTLE BROTHERS' AMOUNT, OUR VARIETY
+================================================================================
+HIS WORDS, VERBATIM: "I think the way you interact with people in battle Brothers
+is extremely well done maybe that's the amount that we should be interacting with
+people in our game maybe however all everything that we've done all the research
+we've done gives us way more chat bubble options or whatever so keep that in mind"
+
+Law written the same turn: laws/BOHEMIA_LAW_BATTLE_BROTHERS_AMOUNT_OUR_VARIETY
+_9_27_26.md. He said "maybe" twice and the hedge is preserved there rather than
+rounded off: the DIRECTION is a ruling, the NUMBER is not set.
+
+MEASURED BEFORE A LINE CHANGED
+    different lines written across every organ           625
+    ambient lines written into the table                 558 in 152 buckets
+    DIFFERENT LINES THE WHOLE STREET COULD EVER SAY       14
+    different lines heard in four minutes of play         13
+    times the most repeated line came back                10
+    lines in one person's pool                             5, for all 61 people
+
+FOUR REASONS, AND NOT ONE OF THEM WAS A MISSING WORD.
+
+1. FIRST MATCH WINS IS A PRIORITY RULE AND IT WAS BEING USED AS A POOL RULE.
+   A person's ambient line came from the FIRST bucket that matched, so the other
+   three went mute for ever. A reaction outranking the weather is about MEANING
+   and it stays; a keeper's hour bucket existing is no reason their trade, their
+   outfit and the time of day should never be heard. The generic buckets now ADD
+   UP. Not one new line was written.
+
+2. *** THE FIELD IS CALLED archetype AND THIS MODULE HAS SAID SO IN A COMMENT
+   SINCE 9/5 WHILE STILL READING role. *** Its own words: "52 of 52 people have
+   role UNDEFINED ... the population module calls the field archetype ... ONE
+   FIELD, TWO NAMES, and nobody noticed because SOMEBODY is a perfectly
+   good-looking answer." The readers that comment names were repaired. This one
+   was not. Measured 9/27: all 61 people read role undefined and archetype set
+   (scav 21, worker 15, watch 15, keeper 10), so 84 buckets and 324 lines could
+   never be reached and the only key in the valley that hit anything was
+   when:brownout. A NOTE IS NOT A GATE, for the second time this board has said it.
+
+3. THE CITY NEVER HANDED OVER THE FACTION IT ALREADY KNOWS. barkOpts read
+   p.faction, which is not set on this surface because allegiance is COMPUTED;
+   ctFactionOf is the city's own answer and the against organ has always called
+   it. All 61 read faction none, so 29 buckets and 82 lines were unreachable.
+
+4. THE PICKER WAS KEYED ON THE LENGTH OF SOMEBODY'S NAME. String(k).length, not
+   k. There are THREE key lengths in the whole valley (30 people at 7 characters,
+   30 at 8, 1 at 9), so on any beat the entire street had at most three answers
+   to choose between. Measured: 4 different lines across 61 people on one beat,
+   12 with the key itself.
+
+AFTER: the street's reachable pool went 14 -> 72 on his own block, and 14 -> 115
+across a whole day. Nobody wrote a line to do it.
+
+*** AND THEN THE PLAY WAS MEASURED AGAIN AND THE VARIETY HAD GONE DOWN. ***
+    different lines heard        13 -> 11
+    most repeated line           10 -> 16 times
+A POOL GETTING BIGGER IS NOT THE SAME AS HEARING MORE, and the only reason that
+sentence is in a law instead of in the game is that the play was measured after
+the pool was.
+
+THE CAUSE WAS MY OWN LAST ROUND. met:asked holds TWO lines and it is a REACTION,
+so it wins outright over every ambient bucket; the moment you learn somebody's
+name they say one of those two every time they ever speak again, for the rest of
+the game. [bb company] then called ctAskName on every introduction, which turned
+a slow leak into the loudest thing on the street.
+THE RULE THAT CAME OUT OF IT: A STATE COLOURS A VOICE, AN EVENT REPLACES IT. What
+somebody SAW or HEARD is news and still wins outright. Where you stand and whether
+you have met are true for ever, so they join the pool instead of owning it.
+
+================================================================================
+*** AND THE NUMBER THAT INVERTS HIS QUESTION ***
+================================================================================
+    people within earshot, mean                         0.22
+    the most there has EVER been at once                   1
+    beats with NOBODY close enough to speak         188 of 240
+    different people who spoke in the whole play           3
+    lines said by the busiest of those three              40 of 54
+    that speaker's own pool                                8 lines
+
+THE TOWN IS NOT TALKING TOO MUCH. There is almost never anybody there. What reads
+as chatter is ONE MAN with eight lines saying all eight of them five times,
+because he is the only person standing near you. VARIETY IS A CROWD PROBLEM
+BEFORE IT IS A WORDS PROBLEM, and no table is big enough at one person in earshot.
+
+THE STREET NOW TAKES TURNS -- somebody who has spoken stands down while anybody
+else is in earshot -- and it is shipped KNOWING IT CANNOT BITE YET, because the
+most people ever in earshot is one. It is correct, it costs nothing, and it is
+waiting for the crowd. That is said here rather than claimed as a win.
+
+HOW OFTEN THE STREET MAY SPEAK IS NOW ONE NAMED DIAL and the number is UNCHANGED
+at one line per four seconds. He said maybe twice; turning a quiet town silent on
+a maybe is not a ruling being followed, it is a lane guessing.
+
+================================================================================
+MEASURED AND NOT FIXED, ROUND TWO
+================================================================================
+442 OF THE 558 AMBIENT LINES ARE STILL OUT OF REACH across a whole day, in hour
+and act buckets this block's schedule never produces and factions nobody near him
+belongs to. That is the world being small on one block, not a bug, and it is the
+same shortfall enough_people_gate already carries.
+
+*** AND ONE MEASUREMENT IN THE GATE IS WRONG AND IS PRINTED ANYWAY. *** The
+earshot reading taken inside the gate reads zero; the real answer is 0.22. FOUR
+VERSIONS WERE BUILT -- at the end, at the start, with him put back on his own
+street, with the game clock put back too because walking spends minutes and the
+runs carry it into the night -- and all four read zero, so I STOPPED rather than
+write a fifth (STOP PRODUCING, 7/26). The number in this record comes from a
+fresh page and that instrument produces a positive. The gate prints its own
+disagreeing number with the reason beside it instead of deleting it, so the next
+reader sees the hole rather than a silence.

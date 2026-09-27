@@ -11998,6 +11998,73 @@ ALSO STILL OPEN, not draw order: on NE in his own frame
 the right of the shoulders with a visible gap. That is the pose too.
 
 Nothing [PENDING Paolo].
+PEOPLE (people-7h9sfy): 9/27 LATEST -- *** PAOLO RULED ON THE AMOUNT AND THE
+VARIETY, AND THE MEASUREMENT INVERTED HIS OWN QUESTION: THE TOWN IS NOT TALKING
+TOO MUCH, THERE IS ALMOST NEVER ANYBODY THERE. ***
+
+HIS WORDS: "the way you interact with people in battle Brothers is extremely well
+done maybe that's the amount that we should be interacting with people in our game
+maybe however all everything that we've done all the research we've done gives us
+way more chat bubble options or whatever so keep that in mind". Law written the
+same turn: laws/BOHEMIA_LAW_BATTLE_BROTHERS_AMOUNT_OUR_VARIETY_9_27_26.md. He said
+maybe TWICE and the hedge is kept: the direction is a ruling, the number is not.
+
+MEASURED BEFORE A LINE CHANGED
+    lines written across every organ            625
+    ambient lines in the table                  558, in 152 buckets
+    DIFFERENT LINES THE WHOLE STREET COULD SAY   14
+    different lines heard in four minutes        13, one of them 10 times
+    lines in one person's pool                    5, for all 61 people
+
+FOUR REASONS AND NOT ONE WAS A MISSING WORD. (1) First-match-wins is a PRIORITY
+rule and was being used as a POOL rule, so three of four ambient buckets went mute
+for ever. (2) *** THE FIELD IS CALLED archetype AND THIS MODULE SAID SO IN A
+COMMENT SINCE 9/5 WHILE STILL READING role *** -- 84 buckets and 324 lines
+unreachable, the only key in the valley that hit anything was when:brownout. A NOTE
+IS NOT A GATE, again. (3) barkOpts read p.faction, which this surface never sets
+because allegiance is COMPUTED; ctFactionOf is the city's own answer, 29 buckets
+and 82 lines unreachable. (4) The picker keyed on String(k).LENGTH: three key
+lengths in the valley, so at most three answers per beat, 4 different lines across
+61 people against 12 with the key. AFTER: 14 -> 72 on his block, 14 -> 115 across a
+day, no new line written.
+
+*** THEN THE PLAY WAS MEASURED AGAIN AND VARIETY HAD GONE DOWN: 13 different lines
+-> 11, most-repeated 10 -> 16. A POOL GETTING BIGGER IS NOT THE SAME AS HEARING
+MORE. *** The cause was MY OWN LAST ROUND: met:asked holds two lines and is a
+REACTION, so it outranks everything for ever, and [bb company] ask-marks everybody
+who introduces themselves. NEW RULE, now law: A STATE COLOURS A VOICE, AN EVENT
+REPLACES IT. What they SAW or HEARD still wins outright; met and rung join the pool.
+
+*** AND THE NUMBER THAT ANSWERS HIM ***
+    people within earshot, mean                0.22
+    most there has EVER been at once              1
+    beats with nobody close enough      188 of 240
+    different people who spoke in a play          3
+    lines said by the busiest of them            40 of 54, from a pool of 8
+ONE MAN WITH EIGHT LINES SAYING ALL EIGHT FIVE TIMES BECAUSE HE IS THE ONLY PERSON
+THERE. Variety is a CROWD problem before it is a words problem, which puts
+[honest crowd] and the enough-people shortfall upstream of every line anybody
+writes. The street now TAKES TURNS and that is shipped KNOWING IT CANNOT BITE YET,
+because the most ever in earshot is one. How often the street may speak is one
+named dial, UNCHANGED at one line per four seconds: turning a quiet town silent on
+a "maybe" is a lane guessing, not a ruling being followed.
+
+*** AND ONE MEASUREMENT IN MY OWN GATE IS WRONG AND IS PRINTED ANYWAY. *** The
+earshot reading taken inside the gate says zero; the real answer is 0.22. FOUR
+versions were built -- at the end, at the start, with him put back on his street,
+with the game clock put back too because walking spends minutes and carries it into
+the night -- and all four read zero, so I STOPPED rather than write a fifth (STOP
+PRODUCING). The record's number comes from a fresh page, an instrument that can
+produce a positive. The gate prints its disagreeing number with the reason beside
+it rather than deleting it.
+
+Gate the_company_is_a_cast 65/0. Record extended with round two. Stamp 9/27g.
+Derived slices rebuilt because the diff touches engine/. Canon index regenerated
+because an addendum landed.
+
+Nothing [PENDING Paolo] except the one he reserved: the NUMBER of interactions per
+five minutes. He said maybe twice and nobody has picked it.
+
 PEOPLE (people-7h9sfy): 9/24 (c) LATEST -- *** [bb company] SHIPPED, AND THE
 FINDING IS NINE DAYS OLD AND IS NOT ABOUT COMPANIONS: THE STEP BECAME A HOUSE AND
 NOBODY RE-MEASURED WHO COULD KEEP UP. ***

@@ -148,6 +148,7 @@ try {
     const out = { errs: [] };
     try { ctPeopleWipe(); render(); } catch (e) {}
     out.onePress = ctOnePress(); out.keepUp = ctKeepUpRange();
+    const HOME = [hx, hy], HOMEMIN = (T.min | 0);   /* where AND WHEN he woke up */
     let lines = [], keeps = [];
     try { lines = (BohemiaPeople.WAS_WORDS || []).map(w => w.says).filter(Boolean); } catch (e) {}
     try { keeps = (BohemiaPeople.WAS_WORDS || []).map(w => w.keeps).filter(Boolean); } catch (e) {}
@@ -226,6 +227,59 @@ try {
     CT_WAS_SAID = {}; CT_WALKS_WITH = null; CT_ROAD_SAID = {};
     const demo = run(120, 12, true);
     out.linesInTheDemo = demo.said;
+    /* *** PUT HIM BACK WHERE HE WOKE UP FIRST. *** Three cuts of this leg read
+       "nobody is ever in earshot, 0 of 96" on a street whose real answer is 0.22.
+       Every time it was the instrument: the runs above press the pad hundreds of
+       times, and at 25 cells a press that leaves him in country where a wipe
+       cannot seat anybody because there is no standable street to seat them on.
+       Taking it FIRST broke the runs below instead, because the pass moves him.
+       So he goes home, the block is re-seated, and the measurement is of his
+       street rather than of a walk nobody would take. */
+    /* *** AND THE HOUR, WHICH IS WHY PUTTING HIM BACK ON HIS OWN STREET WAS
+       STILL NOT ENOUGH. *** Walking costs game minutes, so the runs above spend
+       hundreds of presses and walk the clock deep into the night, and at night
+       this street is correctly EMPTY -- the bark organ says so in its own words,
+       "an empty street should sound empty". A crowd measurement taken at 3am is
+       a measurement of bedtime. */
+    try { hx = HOME[0]; hy = HOME[1]; T.min = HOMEMIN; ctPeopleWipe(); render(); } catch (e) {}
+    /* AND HOW MANY PEOPLE ARE EVER CLOSE ENOUGH TO SAY ANY OF IT.
+       *** PLAYED THE WAY A PERSON PLAYS, AND THE FIRST CUT OF THIS LEG WAS THE
+       BROKEN INSTRUMENT FOR THE THIRD TIME THIS ROUND. *** It pressed the pad 60
+       times in a row, which at 25 cells a press walks him clean out of the
+       populated block, and then reported that nobody is ever in earshot -- 0 of
+       0, which is not a measurement of the street, it is a measurement of a walk
+       nobody would take. Stand and look, then take two steps, the same shape the
+       record's numbers were taken with. */
+    const seen = [];
+    const lookAround = () => {
+      let n = 0;
+      for (const x of (BARK_DREW || [])) if (x && x.at &&
+        Math.abs(x.at[0] - hx) + Math.abs(x.at[1] - hy) <= CT_VOICE.ambient) n++;
+      seen.push(n);
+    };
+    for (let r2 = 0; r2 < 12; r2++) {
+      for (let b = 0; b < 6; b++) { try { render(); } catch (e) {} lookAround(); }
+      for (let k = 0; k < 2; k++) { try { stepOnce((r2 * 3 + k) % DIRS.length); render(); } catch (e) {} lookAround(); }
+      if (r2 % 6 === 5) { try { ctPeopleWipe(); render(); } catch (e) {} }
+    }
+    out.earshotHour = Math.floor(((T.min | 0) % 1440) / 60);
+    out.earshot = { mean: +(seen.reduce((a, b) => a + b, 0) / seen.length).toFixed(2),
+                    max: Math.max.apply(null, seen),
+                    zeroBeats: seen.filter(x => x === 0).length, beats: seen.length };
+
+    /* *** THE VARIETY NUMBERS (Paolo 9/27). Taken on the real surface, because
+       "how many lines exist" is a fact about a file and "how many the street can
+       say" is a fact about the game, and they were 558 against 14. *** */
+    try { ctPeopleWipe(); render(); } catch (e) {}
+    const everyone = ctEveryone() || [];
+    const union = new Set(); const sizes = [];
+    for (const p of everyone) {
+      let L = [];
+      try { L = BohemiaPeople.linesFor(p, barkOpts(p)) || []; } catch (e) {}
+      sizes.push(L.length); L.forEach(x => union.add(x));
+    }
+    out.pool = { everyPoolTogether: union.size,
+                 min: Math.min.apply(null, sizes), max: Math.max.apply(null, sizes) };
     return out;
   });
   await d.close();
@@ -284,6 +338,82 @@ if (live && !live.threw) {
      live.errs.join(' | ') || 'clean');
 } else {
   ok('the alpha could be driven', false, live ? live.threw : 'no result');
+}
+
+/* ======================================================================== */
+head("G. BATTLE BROTHERS' AMOUNT, OUR VARIETY (Paolo 9/27)");
+/* ======================================================================== */
+/* *** HIS RULING: "maybe that's the AMOUNT we should be interacting with people
+   in our game... however everything we've done, all the research we've done,
+   gives us way more chat bubble options." ***
+   MEASURED THE SAME ROUND: 558 ambient lines written into 152 buckets, and the
+   WHOLE STREET could only ever say 14 of them. These legs hold the four reasons
+   why, each of which was a field or a rule and not a missing word. */
+const PPL = fs.readFileSync(path.join(ROOT, 'engine/bohemia_people.js'), 'utf8');
+ok('the law he ruled exists and carries his own words',
+   fs.existsSync(path.join(ROOT, 'laws/BOHEMIA_LAW_BATTLE_BROTHERS_AMOUNT_OUR_VARIETY_9_27_26.md')));
+ok('*** THE AMBIENT BUCKETS ADD UP INSTEAD OF SHADOWING EACH OTHER ***',
+   /add\(at && trade && bucket\(trade \+ ':' \+ at\)\)/.test(PPL)
+   && /add\(bucket\('faction:' \+ fac\)\)|add\(fac && bucket\('faction:' \+ fac\)\)/.test(PPL));
+ok('and a line can never be in a pool twice',
+   /if \(typeof s !== 'string' \|\| seen\[s\]\) continue;/.test(PPL));
+/* *** THE FIELD IS CALLED archetype AND THIS MODULE SAID SO IN A COMMENT SINCE
+   9/5 WHILE STILL READING role. A NOTE IS NOT A GATE. *** */
+ok('*** IT READS THE FIELD THE WORLD ACTUALLY WRITES, NOT THE ONE A COMMENT WISHED FOR ***',
+   /var trade = person\.role \|\| person\.archetype \|\| null;/.test(PPL));
+probe('this leg can fail: the old bare person.role reads are gone',
+   !/\|\| \(at && bucket\(person\.role \+ ':' \+ at\)\)/.test(PPL));
+ok('and the city hands over the faction it already derives, not an empty field',
+   /o\.faction = ctFactionOf\(p\) \|\| p\.faction \|\| null;/.test(city));
+/* *** A STATE COLOURS A VOICE, AN EVENT REPLACES IT. This is the regression the
+   LAST round shipped: met:asked holds two lines and owned every person he had
+   ever learned the name of, for ever. *** */
+ok('*** AN EVENT STILL WINS OUTRIGHT: what they saw, what they heard ***',
+   /var pick = \(saw && react\('saw:' \+ saw\)\)\s*\|\| \(heard && react\('heard:' \+ heard\)\)/.test(PPL));
+ok('*** AND A STATE ONLY COLOURS IT: where you stand, whether you have met ***',
+   /add\(rung && react\('rung:' \+ rung\)\);\s*add\(met && react\('met:' \+ met\)\);/.test(PPL));
+probe('this leg can fail: the states are no longer in the outright chain',
+   !/\|\| \(rung && react\('rung:' \+ rung\)\)/.test(PPL));
+ok('the picker keys on the person, not on the LENGTH of their name',
+   !/\^ String\(k\)\.length\)/.test(city) && /\^ kh\) >>> 0\) % lines\.length/.test(city));
+ok('the street takes turns: somebody who spoke stands down while anybody else is there',
+   /var spoken = !!BARK_SEEN\[p\.key \|\| p\.id\];/.test(city));
+ok('and how often the street may speak is ONE named dial, his to set',
+   /var CT_HOW_OFTEN = \{/.test(city) && /BARK\.next = now \+ CT_HOW_OFTEN\.gapMs;/.test(city));
+
+if (live && !live.threw && live.pool) {
+  note('the street\'s reachable pool', live.pool.everyPoolTogether
+       + ' lines, was 14 before this round');
+  note('one person\'s own pool', live.pool.min + ' to ' + live.pool.max + ', was 5 for everybody');
+  ok('*** THE WHOLE STREET CAN SAY MORE THAN THE 14 IT COULD SAY BEFORE ***',
+     live.pool.everyPoolTogether > 14,
+     live.pool.everyPoolTogether + ' lines reachable on his own block');
+  ok('and not every person has the identical pool any more',
+     live.pool.max > live.pool.min, live.pool.min + '..' + live.pool.max);
+  /* *** AND THE NUMBER THAT SAYS WHY VARIETY IS A CROWD PROBLEM. Not a claim
+     about this row: a measurement kept on the board so the next lane sees it. */
+  note('*** people within earshot', 'mean ' + live.earshot.mean + ', most ever '
+       + live.earshot.max + ', ' + live.earshot.zeroBeats + ' of '
+       + live.earshot.beats + ' beats with nobody at all ***');
+  /* *** THIS IS NOT A CLAIM AND IT IS DELIBERATELY NOT ASSERTED. FOUR VERSIONS
+     OF IT WERE BUILT AND ALL FOUR READ ZERO ON A STREET WHOSE REAL ANSWER IS
+     0.22, SO I STOPPED. (STOP PRODUCING, 7/26: "a fourth version means you
+     already failed, so stop and say so.") ***
+     What was tried, in order: measure at the end (he has walked out of the
+     populated block); measure first (the pass moves him and every run below
+     starts somewhere else); put him back on his own street; put the CLOCK back
+     too, because walking spends game minutes and the runs above carry it into
+     the night when this street is correctly empty. All four still read zero, so
+     something else about a surface that has already been driven for minutes is
+     the cause and I have not found it.
+     THE REAL NUMBER EXISTS AND COMES FROM AN INSTRUMENT THAT CAN PRODUCE A
+     POSITIVE: a fresh page, stand and look, then two steps -- mean 0.22 people
+     in earshot, most ever ONE, 188 of 240 beats with nobody at all. It is in the
+     record with how it was taken. A number printed here that disagrees with it
+     is this gate's instrument, not the game, and it is printed anyway rather
+     than deleted so the next reader sees the disagreement instead of a silence. */
+  note('and that reading is NOT asserted here', 'four versions read zero at hour '
+       + live.earshotHour + '; the fresh-page instrument reads 0.22 mean, 1 max');
 }
 
 /* ======================================================================== */

@@ -8070,10 +8070,33 @@ if(typeof window!=='undefined') window.BohemiaLattice=BOH_LATTICE;
         for (var fi = 0; fi < fs.length; fi++) { fh ^= fs.charCodeAt(fi); fh = (fh * 16777619) >>> 0; }
         forceSpeaks = ((fh >>> 8) % 100) < 25;
       }
+      /* *** SOMETHING THAT IS ABOUT HIM STILL WINS OUTRIGHT, AND A NAMED PERSON
+         STILL SAYS THEIR OWN LINE. THAT HALF OF THIS CHAIN WAS ALWAYS RIGHT. ***
+         What a person SAW you do, what they HEARD, where you STAND with them,
+         what they remember of you, and a line written for that one human: any of
+         those beats the weather, and only the first of them speaks. */
+      /* *** AND ONLY THE ONES THAT ARE NEWS. THIS COST A REGRESSION I SHIPPED
+         MYSELF ONE ROUND AGO AND ONLY MEASURING AFTER CAUGHT IT. ***
+
+         WHAT THEY SAW and WHAT THEY HEARD are EVENTS. Somebody who watched you
+         do something reckless does not open with the weather, and that is the
+         rule this chain was written for. It stays, and it still wins outright.
+
+         WHERE YOU STAND and WHETHER YOU HAVE MET are STATES, and a state is
+         true for ever. met:asked holds TWO lines, so the moment you learned
+         somebody's name they said one of those two every time they ever spoke
+         again, for the rest of the game. [bb company] then made every person who
+         introduces themselves ask-marked on the spot, which turned a slow leak
+         into the loudest thing on the street: measured over four minutes of
+         play, ONE LINE CAME BACK SIXTEEN TIMES and the number of different
+         things he heard went DOWN from 13 to 11 in the same round that made the
+         pool five times bigger.
+         A POOL GETTING BIGGER IS NOT THE SAME AS HEARING MORE, and the only
+         reason that is written here instead of shipped is that the play was
+         measured again after the pool was. So a state COLOURS a voice: it joins
+         the ambient pool below instead of replacing it. */
       var pick = (saw && react('saw:' + saw))
         || (heard && react('heard:' + heard))
-        || (rung && react('rung:' + rung))
-        || (met && react('met:' + met))
         || bucket(person.key)
         /* ABOVE THE ROLE BUCKETS, AND THE FIRST VERSION HAD IT BELOW THEM.
            MEASURED: 40 carriers, stood beside every one, asked across six acts
@@ -8085,12 +8108,66 @@ if(typeof window!=='undefined') window.BohemiaLattice=BOH_LATTICE;
            screenful lower. What somebody quietly belongs to is a fact about the
            PERSON; their shift is a fact about the hour. */
         || (forceSpeaks && bucket('faction:' + force))
-        || (at && bucket(person.role + ':' + at))
-        || bucket(person.role)
-        || (fac && bucket('faction:' + fac))
-        || (when && bucket('when:' + when))
-        || [];
-      return pick.slice();
+        || null;
+      if (pick) return pick.slice();
+
+      /* *** AND THEN THE AMBIENT BUCKETS COMBINE INSTEAD OF SHADOWING EACH OTHER.
+         THIS IS PAOLO 9/27, AND IT IS THE SAME DEFECT THE PARAGRAPH ABOVE IS
+         ABOUT, ONE SCREENFUL LOWER AGAIN, FOR THE THIRD TIME. ***
+
+         HIS WORDS: "everything we've done, all the research we've done, gives us
+         way more chat bubble options."
+
+         MEASURED ON THE ALPHA BEFORE THIS CHANGED, and it is the whole finding:
+             ambient lines written into the table          534
+             different lines the WHOLE STREET can ever say  14
+             lines in one person's pool                      5, for all 61 people
+             different lines heard in four minutes of play  13
+             times the most repeated line came back         10
+
+         FIRST MATCH WINS IS A PRIORITY RULE AND IT WAS BEING USED AS A POOL RULE,
+         AND THOSE ARE NOT THE SAME THING. A reaction outranking the weather is
+         about MEANING and it stays. But a keeper's hour bucket existing is no
+         reason their role, their outfit and the time of day should go mute for
+         ever: nothing about those four is more or less true than the others, they
+         are four things the same person could say. So the specific ones still
+         come first and the generic ones ADD UP.
+
+         NOT ONE NEW LINE WAS WRITTEN TO DO THIS. The words are WORDS' and were
+         already in the table; they had nowhere to come out. */
+      var amb = [], seen = {};
+      function add(list) {
+        if (!list) return;
+        for (var ai = 0; ai < list.length; ai++) {
+          var s = list[ai];
+          if (typeof s !== 'string' || seen[s]) continue;   /* one line, once */
+          seen[s] = 1; amb.push(s);
+        }
+      }
+      /* *** AND THE FIELD IS NOT CALLED role. IT IS CALLED archetype, AND THIS
+         MODULE HAS SAID SO IN A COMMENT SINCE 9/5 WHILE STILL READING role. ***
+
+         Its own words, one screenful up: "52 of 52 people within six cells of
+         the spawn have `role` UNDEFINED ... the population module calls the
+         field `archetype` (worker / scav / keeper / watch), which is the SAME
+         four keys ROLE_WORDS holds. ONE FIELD, TWO NAMES, and nobody noticed
+         because 'SOMEBODY' is a perfectly good-looking answer."
+
+         A NOTE IS NOT A GATE. That was written down, left true, and the readers
+         it names were repaired while THIS one was not. Measured on the alpha
+         9/27: all 61 people read role undefined, so the four trade buckets -- 84
+         buckets and 324 lines of the table -- could never once be reached, and
+         the only key in the valley that hit anything was when:brownout. */
+      var trade = person.role || person.archetype || null;
+      /* THE STATES GO IN FIRST, so a person you know sounds like a person you
+         know, and then they have the rest of their own voice underneath. */
+      add(rung && react('rung:' + rung));
+      add(met && react('met:' + met));
+      add(at && trade && bucket(trade + ':' + at));
+      add(trade && bucket(trade));
+      add(fac && bucket('faction:' + fac));
+      add(when && bucket('when:' + when));
+      return amb;
     }
   };
   if (HASREQ) module.exports = API;
@@ -52905,7 +52982,13 @@ function barkOpts(p){
     var b = BohemiaAgents.whereAt(p, T.min | 0);
     if (b) { o.at = b.what || b.where || null; }
   } catch (_e) {}
-  try { o.faction = p.faction || null; } catch (_e) {}
+  /* *** THE SAME DEFECT, THE OTHER FIELD: p.faction IS NEVER SET ON THIS
+     SURFACE. *** Allegiance here is COMPUTED from the seats, which is why
+     ctFactionOf exists and why the against organ has always called it. Measured
+     9/27: all 61 people on his block read faction `none` through this line, so
+     29 faction buckets and 82 lines of the table were unreachable. Asking the
+     city's own answer costs one cached lookup an hour. */
+  try { o.faction = ctFactionOf(p) || p.faction || null; } catch (_e) {}
   /* __CITY_HIDDEN_FOUR__ -- AND THE THING THEY DO NOT ADVERTISE. (9/6,
      [hidden factions] THE-OTHER-FOUR.) Four factions in his graph hold no
      ground -- Pures, Panthers, La Familia, Triads, typed `social_force` -- and
@@ -53020,8 +53103,31 @@ function barkPick(){
            empty. */
         var d = Math.abs(at[0] - hx) + Math.abs(at[1] - hy);
         if (d > CT_VOICE.ambient) continue;   /* earshot, not telepathy */
-        if (BARK_SEEN[p.key || p.id] && d >= bestD) continue;
-        if (d < bestD) { best = { p: p, at: at, d: d }; bestD = d; }
+        /* *** THE STREET TAKES TURNS, AND UNTIL NOW IT NEVER DID. (9/27, Paolo:
+           "the research gives us way more chat bubble options.") ***
+
+           The old line let somebody who had already spoken be skipped ONLY if
+           they were not strictly nearer, which means the nearest person wins
+           every time, for ever. MEASURED over four minutes of play: THREE
+           different people spoke in the whole play and ONE OF THEM SAID 40 OF
+           THE 54 LINES, out of his own pool of 8. He said everything he had five
+           times over while two other people stood there.
+
+           AND THE NUMBER UNDERNEATH THAT IS THE REAL SHAPE OF THIS STREET: the
+           mean number of people within earshot is 0.22, the most there has ever
+           been at once is ONE, and 188 of 240 beats had NOBODY close enough to
+           say anything at all. So the town is not talking too much. It is one
+           man talking because he is the only one there.
+
+           SOMEBODY WHO HAS SPOKEN STANDS DOWN WHILE ANYBODY ELSE IS THERE, and
+           speaks again only when they are the last mouth on the street, so
+           nothing goes silent that was not already silent. */
+        var spoken = !!BARK_SEEN[p.key || p.id];
+        if (!spoken) {
+          if (!best || best.spoken || d < bestD) { best = { p: p, at: at, d: d, spoken: false }; bestD = d; }
+        } else if (!best || (best.spoken && d < bestD)) {
+          best = { p: p, at: at, d: d, spoken: true }; bestD = d;
+        }
       }
     }
   } catch (_e) { return null; }
@@ -53356,6 +53462,39 @@ function ctAskBark(now){
    mouth added later is quiet by default instead of quiet only if somebody
    remembered, which is the entire reason that gate sits where it sits. */
 
+/* ==========================================================================
+   *** HOW OFTEN THE STREET IS ALLOWED TO SAY ANYTHING. ONE DIAL, NAMED, SO ONE
+   WORD FROM HIM MOVES IT. (Paolo 9/27, laws/BOHEMIA_LAW_BATTLE_BROTHERS_AMOUNT
+   _OUR_VARIETY_9_27_26.md.) ***
+
+   HIS WORDS: "the way you interact with people in Battle Brothers is extremely
+   well done, maybe that's the AMOUNT we should be interacting with people in our
+   game, maybe. However everything we've done, all the research we've done, gives
+   us way more chat bubble options."
+
+   HE SAID MAYBE TWICE, SO THE NUMBER IS NOT CHANGED HERE. What changed is that
+   there IS a number now, in one place, instead of a 4000 typed into the middle
+   of a function nobody could find. Battle Brothers has no street and no ambient
+   talk at all, so its amount is not a number this can be set to; what his
+   sentence is really about is how often somebody addresses HIM, and the
+   measurement below says that is already near zero for a reason nobody expected.
+
+   MEASURED ON THE ALPHA, FOUR MINUTES OF PLAY, THE SAME ROUND HE SAID IT:
+       people within earshot, mean                      0.22
+       the most there has EVER been at once                1
+       beats with nobody close enough to speak      188 of 240
+       different people who spoke in the whole play        3
+       lines said by the busiest of those three           40 of 54
+   THE TOWN IS NOT TALKING TOO MUCH. There is almost never anybody there, and one
+   man with eight lines says all eight five times because he is the only one on
+   the street. Turning this dial down would make a quiet town silent and would
+   not touch the thing that actually repeats. */
+var CT_HOW_OFTEN = {
+  draft: true,
+  gapMs: 4000        /* the shortest gap between two lines from the street. His
+                        number to set; this is what the game has always done. */
+};
+
 /* 1. WHAT THEY USED TO BE. Once per person per story, addressed to him, so it
       carries the speaking-TO-you distance and not the overheard one. */
 function ctWasBark(now){
@@ -53443,7 +53582,7 @@ function barkTick(now){
      next draw can be LATE for, never an instant it has to hit.
      Still quantized where it counts: the HOLD is a whole number of beats. */
   if (now < (BARK.next || 0)) return;
-  BARK.next = now + 4000;
+  BARK.next = now + CT_HOW_OFTEN.gapMs;
   var beat = Math.floor(now / 500);
   BARK.beat = beat;
   /* A CONVERSATION BEATS A MONOLOGUE. If two people are standing together
@@ -53493,7 +53632,16 @@ function barkTick(now){
   try { lines = BohemiaPeople.linesFor(pick.p, barkOpts(pick.p)); } catch (_e) { return; }
   if (!lines || !lines.length) return;
   var k = pick.p.key || pick.p.id || 'x';
-  var idx = Math.abs(((beat * 2654435761) ^ String(k).length) >>> 0) % lines.length;
+  /* *** THE PICKER WAS KEYED ON THE LENGTH OF SOMEBODY'S NAME, NOT ON SOMEBODY.
+     (9/27, Paolo's amount-and-variety ruling.) *** String(k).length, not k. There
+     are THREE different key lengths in the whole valley -- 30 people at 7
+     characters, 30 at 8, 1 at 9 -- so on any one beat the entire street had at
+     most THREE answers to choose between no matter how many people were stood on
+     it. Measured on the alpha: 4 different lines across 61 people on one beat,
+     12 with the key itself. Same salted stream the rest of this organ uses. */
+  var kh = 0, ks = String(k);
+  for (var kq = 0; kq < ks.length; kq++) kh = (Math.imul(kh, 31) + ks.charCodeAt(kq)) >>> 0;
+  var idx = Math.abs(((beat * 2654435761) ^ kh) >>> 0) % lines.length;
   BARK.p = pick.p; BARK.at = pick.at; BARK.text = lines[idx];
   BARK.until = now + barkHold(BARK.text);
   BARK_SEEN[k] = 1;

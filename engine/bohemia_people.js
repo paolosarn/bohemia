@@ -2714,10 +2714,33 @@
         for (var fi = 0; fi < fs.length; fi++) { fh ^= fs.charCodeAt(fi); fh = (fh * 16777619) >>> 0; }
         forceSpeaks = ((fh >>> 8) % 100) < 25;
       }
+      /* *** SOMETHING THAT IS ABOUT HIM STILL WINS OUTRIGHT, AND A NAMED PERSON
+         STILL SAYS THEIR OWN LINE. THAT HALF OF THIS CHAIN WAS ALWAYS RIGHT. ***
+         What a person SAW you do, what they HEARD, where you STAND with them,
+         what they remember of you, and a line written for that one human: any of
+         those beats the weather, and only the first of them speaks. */
+      /* *** AND ONLY THE ONES THAT ARE NEWS. THIS COST A REGRESSION I SHIPPED
+         MYSELF ONE ROUND AGO AND ONLY MEASURING AFTER CAUGHT IT. ***
+
+         WHAT THEY SAW and WHAT THEY HEARD are EVENTS. Somebody who watched you
+         do something reckless does not open with the weather, and that is the
+         rule this chain was written for. It stays, and it still wins outright.
+
+         WHERE YOU STAND and WHETHER YOU HAVE MET are STATES, and a state is
+         true for ever. met:asked holds TWO lines, so the moment you learned
+         somebody's name they said one of those two every time they ever spoke
+         again, for the rest of the game. [bb company] then made every person who
+         introduces themselves ask-marked on the spot, which turned a slow leak
+         into the loudest thing on the street: measured over four minutes of
+         play, ONE LINE CAME BACK SIXTEEN TIMES and the number of different
+         things he heard went DOWN from 13 to 11 in the same round that made the
+         pool five times bigger.
+         A POOL GETTING BIGGER IS NOT THE SAME AS HEARING MORE, and the only
+         reason that is written here instead of shipped is that the play was
+         measured again after the pool was. So a state COLOURS a voice: it joins
+         the ambient pool below instead of replacing it. */
       var pick = (saw && react('saw:' + saw))
         || (heard && react('heard:' + heard))
-        || (rung && react('rung:' + rung))
-        || (met && react('met:' + met))
         || bucket(person.key)
         /* ABOVE THE ROLE BUCKETS, AND THE FIRST VERSION HAD IT BELOW THEM.
            MEASURED: 40 carriers, stood beside every one, asked across six acts
@@ -2729,12 +2752,66 @@
            screenful lower. What somebody quietly belongs to is a fact about the
            PERSON; their shift is a fact about the hour. */
         || (forceSpeaks && bucket('faction:' + force))
-        || (at && bucket(person.role + ':' + at))
-        || bucket(person.role)
-        || (fac && bucket('faction:' + fac))
-        || (when && bucket('when:' + when))
-        || [];
-      return pick.slice();
+        || null;
+      if (pick) return pick.slice();
+
+      /* *** AND THEN THE AMBIENT BUCKETS COMBINE INSTEAD OF SHADOWING EACH OTHER.
+         THIS IS PAOLO 9/27, AND IT IS THE SAME DEFECT THE PARAGRAPH ABOVE IS
+         ABOUT, ONE SCREENFUL LOWER AGAIN, FOR THE THIRD TIME. ***
+
+         HIS WORDS: "everything we've done, all the research we've done, gives us
+         way more chat bubble options."
+
+         MEASURED ON THE ALPHA BEFORE THIS CHANGED, and it is the whole finding:
+             ambient lines written into the table          534
+             different lines the WHOLE STREET can ever say  14
+             lines in one person's pool                      5, for all 61 people
+             different lines heard in four minutes of play  13
+             times the most repeated line came back         10
+
+         FIRST MATCH WINS IS A PRIORITY RULE AND IT WAS BEING USED AS A POOL RULE,
+         AND THOSE ARE NOT THE SAME THING. A reaction outranking the weather is
+         about MEANING and it stays. But a keeper's hour bucket existing is no
+         reason their role, their outfit and the time of day should go mute for
+         ever: nothing about those four is more or less true than the others, they
+         are four things the same person could say. So the specific ones still
+         come first and the generic ones ADD UP.
+
+         NOT ONE NEW LINE WAS WRITTEN TO DO THIS. The words are WORDS' and were
+         already in the table; they had nowhere to come out. */
+      var amb = [], seen = {};
+      function add(list) {
+        if (!list) return;
+        for (var ai = 0; ai < list.length; ai++) {
+          var s = list[ai];
+          if (typeof s !== 'string' || seen[s]) continue;   /* one line, once */
+          seen[s] = 1; amb.push(s);
+        }
+      }
+      /* *** AND THE FIELD IS NOT CALLED role. IT IS CALLED archetype, AND THIS
+         MODULE HAS SAID SO IN A COMMENT SINCE 9/5 WHILE STILL READING role. ***
+
+         Its own words, one screenful up: "52 of 52 people within six cells of
+         the spawn have `role` UNDEFINED ... the population module calls the
+         field `archetype` (worker / scav / keeper / watch), which is the SAME
+         four keys ROLE_WORDS holds. ONE FIELD, TWO NAMES, and nobody noticed
+         because 'SOMEBODY' is a perfectly good-looking answer."
+
+         A NOTE IS NOT A GATE. That was written down, left true, and the readers
+         it names were repaired while THIS one was not. Measured on the alpha
+         9/27: all 61 people read role undefined, so the four trade buckets -- 84
+         buckets and 324 lines of the table -- could never once be reached, and
+         the only key in the valley that hit anything was when:brownout. */
+      var trade = person.role || person.archetype || null;
+      /* THE STATES GO IN FIRST, so a person you know sounds like a person you
+         know, and then they have the rest of their own voice underneath. */
+      add(rung && react('rung:' + rung));
+      add(met && react('met:' + met));
+      add(at && trade && bucket(trade + ':' + at));
+      add(trade && bucket(trade));
+      add(fac && bucket('faction:' + fac));
+      add(when && bucket('when:' + when));
+      return amb;
     }
   };
   if (HASREQ) module.exports = API;
