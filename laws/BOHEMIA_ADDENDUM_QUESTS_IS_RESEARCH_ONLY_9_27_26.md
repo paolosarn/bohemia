@@ -23,3 +23,16 @@
    coordinator (the QUEST STUDY LAW's gate covers the .bq files; the coordinator covers the board).
 5. THE CHAT. A fresh chat whose first word is "quests" takes lane 19; the DYNASTY chat, which has held lane 19
    since 9/6, returns to its own lane. The VAMILY.md section for QUESTS is rewritten to this mode.
+
+6. AT VOLUME, SORTED FOR THE FUTURE (Paolo 9/27, same round; records/BOHEMIA_PAOLO_QUESTS_AT_VOLUME_AND_THE_BB_SHAPE_9_27_26.md). "I don't want you to finish one question
+   one round, I don't even want you to finish three." The lane works at volume: many pages a round, and the
+   product is a LIBRARY OF QUEST DESIGNS ALREADY SUITED TO OUR WORLD, filed by ACT (era), by EVENT, by
+   ENDGAME CRISIS, by BOOM OR BUST, each citing the findings it came from, so that months from now the pieces
+   are already cut. The six questions are the first shelf, not a pace.
+7. THE SHAPE IS BATTLE BROTHERS, SIMPLIFIED, AT YOUR PACE. ONE MAIN QUEST runs. SIDE QUESTS ARE CONTRACTS: a
+   person in a place offers, you take it or you do not; once TAKEN you finish it. A little more than Battle
+   Brothers: dialogue choices inside. DECLINING IS FREE: the game never makes you feel bad for turning a job
+   down, for the pay being low, for the job being beneath you or too strong for you; nobody remembers a no;
+   only a contract taken and dropped is a deed. The quests produced before this rule "look like dogshit" as
+   things; they stay a bank.
+8. THE BLIND SPOTS he asked for: records/BOHEMIA_THE_BLIND_SPOTS_9_27_26.md.

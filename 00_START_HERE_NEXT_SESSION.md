@@ -43530,6 +43530,13 @@ quests, four masters, the 3,672-finding index, 22 teardowns, 58 designed quests)
 ONLY; laws/BOHEMIA_ADDENDUM_QUESTS_IS_RESEARCH_ONLY_9_27_26.md; records/BOHEMIA_PAOLO_QUESTS_IS_RESEARCH_ONLY_9_27_26.md. The QUESTS section rewritten to MODE: RESEARCH with six library questions ([bb events]
 first, [twist bank], [across the ages], [the ask in a place], [first sixty], [phone flaws]); builders cite its
 pages. A fresh chat whose first word is 'quests' takes lane 19; DYNASTY goes home.
+THEN (fr) PAOLO 9/27: QUESTS works AT VOLUME (not one question a round, not three): a filed library of quest
+designs by act/event/crisis/boom for months from now; the shape is Battle Brothers simplified at your pace: one
+main quest, contracts you take or leave, once taken you finish, DECLINING IS FREE. Rule 35b-d; records/BOHEMIA_PAOLO_QUESTS_AT_VOLUME_AND_THE_BB_SHAPE_9_27_26.md. He asked
+for blind spots: eight, each routed (records/BOHEMIA_THE_BLIND_SPOTS_9_27_26.md): no story yet, no hover on a phone, two clocks, the asset cliff,
+nothing to hand a friend for weeks, five references on one screen, saving three acts, declining vs a world that
+remembers. New rows: QUESTS [contracts at your pace], ECONOMY Q53 [two clocks].
+
 
 
 
