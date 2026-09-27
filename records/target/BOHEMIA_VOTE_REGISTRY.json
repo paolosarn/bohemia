@@ -1998,6 +1998,19 @@
     "how": "page",
     "src": "vote/PORTRAIT_PICK_YOUR_MAN_OUT.html"
    }
+  },
+  {
+    "id": "factions-fourteen-crews-none-on-the-map-9-27",
+    "kind": "tile",
+    "lane": "factions",
+    "sha": "PENDING",
+    "made": "9/27",
+    "title": "FOURTEEN CREWS, NONE ON THE MAP",
+    "why": "You just ruled that the overworld IS the Battle Brothers map, which makes the zoomed out screen the most important one in the game. In Battle Brothers you look at that map and you instantly know who owns what, because every town flies its house's colours, and watching those colours change hands IS the story. Here is a photograph of OUR map on the running game. Fourteen crews own every block of this valley, all fourteen have a seat out there, every one has a colour you picked yourself off clothes you approved, AND YOU CAN SEE NONE OF IT. The one number that settles it: I put a counter on the question the game asks when it wants to know who owns a block. On the street it asks two or three times a second. Out on the map it asks ZERO times. It does not paint territory badly, it never asks. Thumbs up and I put the crews on the map. Thumbs down and the map stays sand.",
+    "show": {
+      "how": "page",
+      "src": "vote/FACTIONS_FOURTEEN_CREWS_NONE_ON_THE_MAP_9_27.html"
+    }
   }
  ],
  "verdicts": [

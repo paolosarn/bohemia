@@ -1,0 +1,119 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>BOHEMIA - FOURTEEN CREWS, NONE ON THE MAP</title>
+<style>
+ :root{ --ink:#141210; --paper:#f4efe6; --hot:#a8391d; --dim:#4a443c; --good:#2c6b35 }
+ *{ box-sizing:border-box }
+ body{ margin:0; background:var(--paper); color:var(--ink);
+       font:15px/1.5 ui-sans-serif,system-ui,-apple-system,Arial,sans-serif }
+ header{ padding:14px 14px 10px; border-bottom:3px solid var(--ink) }
+ h1{ margin:0 0 5px; font-size:19px; letter-spacing:.3px }
+ .sub{ font-size:14px; color:var(--dim) }
+ .said{ margin:10px 14px; padding:9px 12px; border-left:5px solid var(--hot);
+        background:#fff; font-size:14px }
+ .said b{ color:var(--hot) }
+ .quiet{ margin:10px 14px; padding:9px 12px; border-left:5px solid #6b6252;
+         background:#fff; font-size:13px; color:var(--dim) }
+ .quiet b{ color:var(--ink) }
+ .wrap{ padding:6px 14px 50px }
+ .shot{ background:#fff; border-bottom:3px solid var(--ink); padding:8px; margin-top:14px }
+ .tag{ display:inline-block; background:var(--ink); color:var(--paper); font:11px/1.6
+       ui-monospace,monospace; padding:1px 7px; letter-spacing:.5px; margin-bottom:6px }
+ /* A PERCENTAGE MARGIN IS RELATIVE TO WIDTH, NEVER HEIGHT. */
+ .clip{ position:relative; width:100%; overflow:hidden; border:1px solid #cabfa8 }
+ .clip img{ display:block; width:100%; margin-top:-25%; image-rendering:pixelated }
+ .cap{ font-size:14px; color:var(--dim); margin:9px 0 0 }
+ .cap b{ color:var(--ink) }
+ table{ border-collapse:collapse; width:100%; background:#fff; margin-top:14px;
+        font:12px/1.4 ui-monospace,monospace }
+ th,td{ text-align:left; padding:5px 7px; border-bottom:1px solid #ddd5c4 }
+ th{ background:var(--ink); color:var(--paper) }
+ td.y{ color:var(--good); font-weight:700 }
+ td.n{ color:var(--hot); font-weight:700 }
+ .sw{ display:inline-block; width:34px; height:11px; border:1px solid #6b6252;
+      vertical-align:-1px; margin-right:6px }
+ .crews{ background:#fff; padding:9px; margin-top:14px; border-bottom:3px solid var(--ink);
+         font:12px/1.9 ui-monospace,monospace }
+</style></head><body>
+
+<header>
+ <h1>FOURTEEN CREWS, NONE ON THE MAP</h1>
+ <div class="sub">You just made the map the whole game. Here is what it says about who owns
+ this valley. 9/27</div>
+</header>
+
+<div class="said">
+ <b>YOU RULED THAT THE OVERWORLD IS THE BATTLE BROTHERS MAP.</b> That makes the zoomed out
+ screen the most important one in the game: it is where you travel, where you choose, and
+ where you see the world.
+ <br><br>
+ In Battle Brothers you look at that map and you instantly know <b>who owns what</b>. Every
+ town flies its house's colours. Watching those colours change hands IS the story.
+</div>
+
+<div class="wrap">
+
+ <div class="shot">
+  <span class="tag">OUR MAP, REAL FRAME</span>
+  <div class="clip"><img src="FACTIONS_THE_MAP_9_27.png" alt="the map"></div>
+  <div class="cap">Photographed on the real game, on the map proper. <b>Fourteen crews own
+  every block of this valley and fourteen of them have a seat out there somewhere. You can
+  see none of it.</b></div>
+ </div>
+
+ <div class="crews" id="crews"></div>
+ <div class="cap">All fourteen crews, with the colour you gave each one yourself, measured
+ off the clothes you approved. <b>Every one of these is already in the game and none of them
+ is on that map.</b></div>
+
+ <table id="tbl"></table>
+ <div class="cap">What the map has against what Battle Brothers' map has. Not an opinion:
+ I counted it on the running game.</div>
+
+ <div class="said">
+  <b>THE ONE NUMBER THAT SETTLES IT.</b> I put a counter on the question the game asks when
+  it wants to know who owns a block. Standing on the street it asks two or three times a
+  second, all about the one square under your feet. <b>Out on the map it asks ZERO times.</b>
+  <br><br>
+  The map does not paint territory badly. <b>It never asks.</b>
+ </div>
+
+ <div class="quiet">
+  <b>AND HERE IS THE PART BATTLE BROTHERS CANNOT DO.</b> Their map is a painting. A town's
+  banner is a still picture that never moves.
+  <br><br>
+  Ours already has something alive to show: <b>the lights.</b> Only 358 blocks in this
+  whole valley have power, and when a crew cannot pay, their blocks go dark one at a time.
+  So a crew on our map does not need a flag. <b>It needs a glow that goes out.</b> You would
+  watch a crew lose from across the valley without a single word on screen.
+ </div>
+
+</div>
+
+<script>
+var CREWS = [
+  ['Mob','#454142'],['Network','#25a189'],['Remnants','#4c5238'],['Cartel','#434042'],
+  ['Reds','#773229'],['Caravans','#6c5b41'],['Anarchists','#573f2a'],['Blues','#2d5fb3'],
+  ['Church','#826c3e'],['Trades','#674b34'],['Colorful','#61a136'],['Homeless','#968b82'],
+  ['Custom','#363636'],['Volunteers','#c1bdb5']
+];
+document.getElementById('crews').innerHTML = CREWS.map(function(c){
+  return '<span class="sw" style="background:' + c[1] + '"></span>' + c[0];
+}).join('<br>');
+
+var ROWS = [
+  ['a party marker showing where you are', 'yes', 'no'],
+  ['towns marked as places you can go', 'yes', 'no'],
+  ['who holds each place, at a glance', 'yes', 'no'],
+  ['your standing with each crew', 'yes', 'no'],
+  ['roads that read as roads', 'yes', 'no'],
+  ['ground changing hands over time', 'yes', 'not shown'],
+  ['times the map asks who owns a block', 'every draw', '0']
+];
+var h = '<tr><th>ON THE MAP</th><th>BATTLE BROTHERS</th><th>OURS</th></tr>';
+for (var i = 0; i < ROWS.length; i++)
+  h += '<tr><td>' + ROWS[i][0] + '</td><td class="y">' + ROWS[i][1]
+     + '</td><td class="n">' + ROWS[i][2] + '</td></tr>';
+document.getElementById('tbl').innerHTML = h;
+</script>
+</body></html>
