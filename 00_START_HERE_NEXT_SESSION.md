@@ -21739,6 +21739,69 @@ THIS LANE'S ROLE, FIXED: 16 COOK, the production artist.
 THIS LANE'S SESSION SLUG: cook-mce6r5.
 
 
+COOK (cook-mce6r5): 9/27 LATEST -- *** THE MAP YOU CROSS THE VALLEY ON IS A GRID OF GREY
+SQUARES WITH BLACK LINES THROUGH IT, AND THAT IS THE WHOLE ROUND. *** [bb map art] round 2,
+the TILES half of the row (round 1 was the markers).
+TAB: the VOTE tab, cook-the-valley-reads-as-land-9-27. Once it lands it is the MAP tab.
+NOTHING WENT TO THE ALPHA'S PLAY SURFACE (rule 18).
+
+MEASURED AND LOOKED AT (rule 12, and the looking is what did it). Below FAR_ZOOM the MAP tab
+fills each cell with ONE FLAT COLOUR from a per-district table, and the valley is 96 cells
+across, so on a phone a cell is four pixels. Rendered:
+  ROADS ARE 38.1% OF EVERY CELL IN THE VALLEY, 3,515 of 9,216, ALL ONE NEAR-BLACK TONE
+    (arterial 2,423 / 26.3%, freeway 995 / 10.8%, plus beltway, strip, interchange)
+  EVERYTHING BUILT IS ONE GREY: suburb 2,610 / 28.3%, commercial, apartment, resort, strip,
+    all resolving to the same FABRIC tone
+  THE MOUNTAINS ARE 9.7% AND INVISIBLE: flat fill, value spread 0.0 of 255
+  THE DESERT IS 5.9% AND BARELY SHOWS
+So on the one surface he is meant to travel across you cannot tell city from desert from
+mountain, and the only thing you CAN see is the street grid. That is the exact inversion of a
+travel map, and it is what rule 33 walked into.
+
+THREE CHANGES, NOT A REPAINT, ALL MEASURED BEFORE AND AFTER:
+ 1. THE LAND GETS ITS OWN VALUE RANGE. mountain against city 27 -> 41 of 255; city against
+    open ground 41 -> 57. The city stays QUIET on purpose: he is inside it, he does not
+    navigate by it, and round 1's markers have to sit on top of it.
+ 2. THE ARTERIAL GRID BECOMES THE CITY'S GRAIN. It shouted 49 of 255 above the ground it
+    crosses; now 14. At a quarter of the valley it cannot be the subject.
+ 3. THE MOUNTAINS GET FORM, lit north-west off their own distance-to-not-mountain. Spread
+    0.0 -> 6.1, and the lit faces MEASURE as the north-west ones.
+15 colours in the whole valley against 27 before, every one a step of a six-step family ramp,
+and the tool refuses a tone off a ramp.
+
+*** AND THE GUARD I WROTE MEASURED THE GRID I FIXED AND NOT THE ONE I MADE. *** The first cut
+dropped the arterial from 49 to 14, passed every check, and the render came back with A BRIGHT
+WHITE LATTICE OWNING THE PICTURE EXACTLY AS THE BLACK ONE HAD, because I had put the freeway
+at the top of the whole map's value range. 995 cells, 10.8% of the valley: at maximum
+brightness that is not a route, it is a glare. A freeway reads as a line because it is
+CONTINUOUS and a different MATERIAL, not because it is brightest -- so it is concrete now,
+grey where the desert is warm, shout 47 -> 34, with a guard in BOTH directions because under
+8 it stops being a line at all. Fifteenth time in this lane a clean number measured the wrong
+surface, and the first time the wrong surface was one I had just created.
+
+WHAT MOVES (rule 33g): THE DUST. The dune banding runs north-east to south-west, the way the
+wind runs here, and one band steps one cell a beat. MEASURED: 226 to 238 cells change a beat
+out of 582 cells of open ground, so it is a drift you can see and not a claim.
+
+THE LIBRARY, READ AND CITED (rule 33j, which landed mid-round):
+reference/library/battle_brothers/01_WORLDMAP.md lands this round's real argument better than
+my own framing did. "Speed by terrain: roads fastest, plains, then forest and hills slower,
+swamp slowest, snow slow; MOUNTAINS IMPASSABLE." SO THE LAND READING FIRST IS NOT TASTE, IT IS
+THE MECHANIC: what kind of ground a cell is IS how fast you cross it, so a map where you
+cannot tell ground apart is a map you cannot plan a route on. And it backs the ring --
+mountains are the one thing you cannot go through, so they have to read as a wall.
+
+SCHOOL PAGE (rule 33f, one a round): records/COOK_BB_SCHOOL_THE_VALLEY_READS_AS_LAND_9_27_26.md
+
+FOR WHOEVER OWNS THE MAP TAB: this replaces that file's toneOf and nothing else. Where things
+are PLACED is not the art's business.
+
+*** MY QUEUE IS THE LONGEST IN THE FLEET AND THAT IS WORTH SAYING OUT LOUD: FIVE OF MINE ARE
+WAITING FOR HIM *** -- the wheel that stopped, which way is he facing, the hole in the screen,
+the map markers, and now this. The cook line's own count is 13 waiting, one per lane. One of
+the five carries a real question (the boot's heel: his boot is the same width at both ends so
+north and south drew the same print; I thinned and flattened it and put both on the card).
+
 COOK (cook-mce6r5): 9/24 LATEST (3) -- *** THE VALLEY MAP HAS NO MARKER OF ANY KIND ON IT,
 AND NOW IT HAS FIVE, AND EVERY ONE OF THEM MOVES. *** New row [bb map art], claimed and
 pushed before the work (rule 5).

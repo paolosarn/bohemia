@@ -1,0 +1,158 @@
+{
+ "version": "BOHEMIA_THE_VALLEY_TONES_v1",
+ "built": "2026-09-27",
+ "lane": "COOK [bb map art] round 2",
+ "measured_before_drawing": {
+  "cells": 9216,
+  "road_share_pct": 38.1,
+  "what_it_paints": "below FAR_ZOOM every cell is one flat colour from a per-district table, so the valley is a grid of grey squares with black lines through it and you cannot tell city from desert from mountain",
+  "colours_before": 27
+ },
+ "bands": {
+  "mountain": [
+   30,
+   62
+  ],
+  "city": [
+   74,
+   104
+  ],
+  "ground": [
+   118,
+   158
+  ],
+  "water": [
+   54,
+   78
+  ],
+  "route": [
+   108,
+   132
+  ],
+  "void": [
+   18,
+   24
+  ]
+ },
+ "hue": {
+  "mountain": 0.09,
+  "city": 0.09,
+  "ground": 0.1,
+  "water": 0.54,
+  "route": 0.11,
+  "void": 0.09
+ },
+ "sat": {
+  "mountain": 0.14,
+  "city": 0.09,
+  "ground": 0.22,
+  "water": 0.3,
+  "route": 0.04,
+  "void": 0.1
+ },
+ "steps": 6,
+ "ramps": {
+  "mountain": [
+   "#221e1a",
+   "#29251f",
+   "#312b25",
+   "#38322a",
+   "#3f3830",
+   "#473f35"
+  ],
+  "city": [
+   "#514b43",
+   "#575149",
+   "#5e574e",
+   "#645d54",
+   "#6b6359",
+   "#71695f"
+  ],
+  "ground": [
+   "#907b5c",
+   "#9a8462",
+   "#a18b6b",
+   "#a79375",
+   "#ad9b7f",
+   "#b3a289"
+  ],
+  "water": [
+   "#263e46",
+   "#29444c",
+   "#2d4a53",
+   "#304f59",
+   "#33555f",
+   "#375a65"
+  ],
+  "route": [
+   "#706d68",
+   "#75726c",
+   "#7a7771",
+   "#7f7c76",
+   "#84817a",
+   "#89867f"
+  ],
+  "void": [
+   "#141210",
+   "#151311",
+   "#161512",
+   "#181613",
+   "#191715",
+   "#1a1816"
+  ]
+ },
+ "city_step": {
+  "suburb": 2,
+  "apartment": 3,
+  "commercial": 3,
+  "resort": 4,
+  "strip": 4,
+  "casino": 4,
+  "mall": 3,
+  "stadium": 1,
+  "speedway": 1,
+  "airport": 1,
+  "airbase": 1,
+  "campus": 2,
+  "town": 3,
+  "farm": 1,
+  "solar": 0,
+  "rail": 1,
+  "estate": 2,
+  "golf": 1,
+  "convention": 3,
+  "waterpark": 2,
+  "minigp": 1,
+  "prison": 1,
+  "dam": 2,
+  "fort": 2,
+  "convention2": 3
+ },
+ "rules": [
+  "the land gets its own value range: mountains darkest, city quiet in the middle, open ground brightest and warmest",
+  "the arterial grid is the CITY GRAIN, one step off the fabric, because it is 38% of the valley and at that share it cannot be the subject",
+  "the freeway and the beltway are the only real lines and they go LIGHTER than the land, because a route is traced, not fallen into (BBM-03)",
+  "a ridge is lit on its north-west face and dark on its south-east, from its own distance-to-not-mountain, which is the same sun as every other pixel in the game"
+ ],
+ "what_moves": "the dust: one band of the desert banding steps one cell a beat, north-east to south-west. Nothing else on the land moves.",
+ "measurements": {
+  "mountain_vs_city": [
+   27,
+   41
+  ],
+  "city_vs_ground": [
+   41,
+   57
+  ],
+  "arterial_shout": [
+   49,
+   14
+  ],
+  "mountain_spread": [
+   0.0,
+   6.1
+  ]
+ },
+ "library_cited": "reference/library/battle_brothers/01_WORLDMAP.md (rule 33j): \"Speed by terrain: roads fastest, plains, then forest and hills slower, swamp slowest, snow slow; mountains impassable\" -- so the land reading first is the mechanic, not taste.",
+ "not_shipped": "rule 18: a bank and a VOTE candidate. It replaces the MAP tab's toneOf the round the hold allows."
+}
