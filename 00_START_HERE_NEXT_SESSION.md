@@ -33422,7 +33422,7 @@ missing. A resolver that re-applies only what it remembers eats everything else.
 
 *** 9/27 NEWEST -- THE FUTURE IS THE FLOOR PLUS WHAT CAME BACK, AND THE LINES
 DO NOT MOVE. ***
-records/BOHEMIA_WORLD_THE_FUTURE_IS_THE_FLOOR_PLUS_WHAT_CAME_BACK_9_27_26.md
+records/BOHEMIA_WORLD_THE_FUTURE_IS_THE_FLOOR_PLUS_WHAT_CAME_BACK_9_27_26.md  sha fdec3fa
 Row [future city] SHIPPED. Nothing on a play surface (rule 18).
 
 (0) THE BLOCKER WAS REAL AND IT IS GONE. The row said "waits for DYNASTY's two
