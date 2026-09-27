@@ -2050,8 +2050,21 @@
      "how": "image",
      "src": "vote/UI_THE_FIGHT_IS_A_DIFFERENT_GAME_9_27.png"
     }
+   },
+  {
+   "id": "coordinator-the-cell-and-the-tiny-character-9-27",
+   "kind": "verdict",
+   "lane": "coordinator",
+   "sha": "9/27",
+   "made": "9/27",
+   "title": "THE GRID: A CELL IS 32 PIXELS, YOU ARE ONE CELL, A HOUSE IS ABOUT 4 BY 4",
+   "why": "You said the character stays tiny and moves one grid at a time, and one house does not equal one tile. Default sizes so everyone builds the same grid: a cell is about 32 pixels on your phone (about 11 across the screen), you fit in one cell, a house is about 4 by 4 cells with a door and an inside, a car is 2 by 1, a street is 3 cells wide with a 1-cell sidewalk each side. Every cell is one of five things: floor, wall, door, cover, prop. Up keeps these. Down and say which number is wrong.",
+   "show": {
+    "how": "text",
+    "src": ""
    }
- ],
+  }
+],
  "verdicts": [
   {
    "id": "people-the-one-who-walks-with-you-9-21",

@@ -42440,6 +42440,18 @@ the fleet cannot fetch the wiki (network policy, HTTP 000). Rule 33j: every [bb 
 first and cites it. PLUMBER [bb library] is the download tool for the day the two hosts are allowed. His
 click: allow battlebrothers.fandom.com and battlebrothersgame.com in the environment's network settings.
 records/BOHEMIA_PAOLO_DOWNLOAD_THE_BATTLE_BROTHERS_WIKI_9_27_26.md
+THEN (fo) PAOLO 9/27: TWO SCALES, ONE GAME. "Your character stays tiny even as you zoom out and you move one
+grid at a time, that we had originally; zoom out and you get the bigger map so it feels like Battle
+Brothers... one house doesn't equal one tile, it's all fucked up... restart the whole enchilada... the demo
+is still not playable from the very beginning." Rule 34; laws/BOHEMIA_LAW_TWO_SCALES_ONE_GAME_9_27_26.md; records/BOHEMIA_PAOLO_TWO_SCALES_THE_TINY_CHARACTER_9_27_26.md. The tiny one-cell character on an
+HONEST GRID (floor/wall/door/cover/prop, the drawing agrees), the fight on that grid (RF4's grid), the map
+one squeeze away. SUPERSEDED: THE STEP IS A HOUSE, the tile half of the batteries law; rule 21 re-read (one
+size = one cell); the 112 art is an asset. Revamp list amended (the fight board and the walked surface move
+to REBUILD). First lines: WORLD+LIFE+CITY [honest grid] (one block, his), COMBAT [fight on the grid],
+CHARACTER [small body], ANIMATION [small clips], COOK [cell tiles], RUN [two scales]; DIRECTION [two scales
+look], PLUMBER [grid budget]. Defaults in VOTE (a 32 px cell, one-cell person, 4x4 house). THE FIRST SIXTY
+SECONDS ARE A GAME.
+
 
 
 
