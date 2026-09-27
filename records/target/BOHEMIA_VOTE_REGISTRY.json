@@ -2037,6 +2037,19 @@
      "how": "image",
      "src": "vote/COOK_THE_VALLEY_READS_AS_LAND.png"
     }
+   },
+   {
+    "id": "ui-the-fight-is-a-different-game-9-27",
+    "kind": "ui",
+    "lane": "ui",
+    "sha": "pending",
+    "made": "9/27",
+    "title": "THE FIGHT IS STILL A DIFFERENT GAME",
+    "why": "You said one game mode, no teleporting, the buttons never change. Here is where that actually stands, measured, not guessed. Both shots are the real game in one run, seconds apart: I walked up to a crew and tapped them. LEFT is walking, with the bar, the notes button and the walk pad ringed. RIGHT is the fight. Every one of those is gone. Not moved, gone. The walk has 9 things on screen, the fight has 30, and they do not share a single one, because the fight is a separate page. And one number nobody had counted: of the fight's own buttons, only SHOOT is big enough to press with a thumb. The eight little compass dots are 28 pixels. Your reach is 44. This is not me asking you to approve anything, it is the before picture, and the fight lane already has this row open and agrees. What I am building toward: the ground under you lights up for reach, the walk pad you already hold carries the enemy's beat, the bar says whose turn it is, the phone tells you afterwards what it cost, and ONE new thing for the weapon you are holding. Thirty things become five, and four of them already exist.",
+    "show": {
+     "how": "image",
+     "src": "vote/UI_THE_FIGHT_IS_A_DIFFERENT_GAME_9_27.png"
+    }
    }
  ],
  "verdicts": [

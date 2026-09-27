@@ -1,3 +1,88 @@
+UI (ui-kmqmrf): 9/27 LATEST -- *** [bb interface] ROUND TWO: I GOT INTO THE FIGHT, AND IT IS
+9 THINGS AGAINST 30 WITH NOTHING SHARED. *** Row stays CLAIMED (school is one page a round).
+TAB: CITY and the walking screen; the picture is in the VOTE tab. Record:
+records/BOHEMIA_BB_SCHOOL_THE_INTERFACE_ROUND_TWO_THE_FIGHT_COUNTED_9_27_26.md
+
+HOW, SINCE ROUND ONE COULD NOT. Rule 12: a dependency is a premise, not a gate. Round one
+ended with a question for COMBAT; I asked the game first and the game answered.
+streetTapFoe() reads HOST_HIT, the list of rectangles a tap can hit, and each entry can
+carry a .crew -- at the door there was already a crew of 2 at 217,79, 112 x 112. The only
+other thing in the way was two step counters (SF_GRACE 40, SF_COOLDOWN 60 against SF_STEPS
+0). Set the counters past their guards, tap the crew where the crew is. THAT IS THE PLAYER'S
+OWN ROUTE; the guards decide how OFTEN a fight starts, never where it goes.
+
+THE CENSUS, ONE RUN, SECONDS APART:
+    THE STREET     9 visible things
+    THE FIGHT     30 visible things, IN ITS OWN DOCUMENT
+    SHARED         none
+The frames at that moment are the evidence: cityFrame -> BOHEMIA_CITY_WORLD.html (still
+loaded, now hidden) and combatFrame -> about:srcdoc, with the shell moving from #p-city to
+#p-combat. THE WALK LOSES ALL EIGHT OF ITS NAMED CONTROLS: the bar, the notes button and its
+plate, the walk pad and its ring, the mode face and its label. Not moved. Gone.
+ONE id appears in both lists, cv, AND IT IS NOT A SHARED CONTROL: two different canvases in
+two different documents with the same name. Counting it would have been the easiest wrong
+number in this round.
+WHAT THE FIGHT ADDS, by what it says: a second SETTINGS gear, YOU 100/100 and a health bar,
+WAIT, SUPPRESS, SHOVE GOON (stun 1 - 30%), WAY OUT 4T, "out on the block", SHOOT, eight
+compass dots, RUN, GREN 2, RIFLE. That is line for line the fight he described on 9/18 when
+he sent the link to someone and was embarrassed.
+
+*** AND THE NUMBER THAT IS THIS LANE'S OWN LAW: THE FIGHT IS NOT A THUMB. *** Of 30 visible
+things, 4 measure 44 px or more both ways. Of the fight's own BUTTONS exactly one is a thumb:
+SHOOT 92x92. SHOVE GOON 165x29, SUPPRESS 78x29, WAIT 45x29, RUN/GREN 2/RIFLE 52x34 each, and
+THE EIGHT COMPASS DOTS ARE 28 x 28. Height binds, and every button but SHOOT is 28 to 34 px
+against a 44 px reach. Nobody had counted this.
+
+WHAT I AM NOT RULING ON, AND SAY SO: the fighters are FLAT COLOURED CIRCLES on a blue-grey
+checker five seconds after the fight starts. COMBAT measured 112 CSS px bodies in V224/V225
+and I believe that measurement, so either the bodies arrive later than five seconds or this
+cut's fight is not drawing them. Named with its number for COMBAT, not ruled on.
+AND NOBODY IS ACCUSED OF SHIPPING NOTHING: COMBAT corrected their own board line on 9/24
+before I measured anything -- [one mode] reads CLAIMED, not shipped, and their own words are
+"Nothing in V225 makes the fight stop being a second document: the fight is still an iframe
+built from srcdoc." This census AGREES with them and adds the counts.
+
+THE SHAPE FOR US, WHICH IS THIS LANE'S [one hud] DESIGN: thirty things become five and four
+of the five already exist. THE GROUND lights for reach (rule 23c) and kills the compass dots,
+WAY OUT and the whole idea of a board. THE WALK PAD he already holds carries the enemy's next
+beat; a lit direction is the step, holding is the shot; that kills the eight dots, RUN and
+SHOOT's position. THE BAR, which round one found EMPTY on the demo, says the hour and whose
+beat it is; that kills the second gear, WAY OUT 4T and "out on the block". THE PHONE is the
+after. ONE NEW THING ONLY: the weapon he is holding, because SHOVE, GREN 2, RIFLE and
+SUPPRESS are all the same question; one object on the pad's edge, a thumb tall. HIS HEALTH is
+NOT a bar across the top: it rides the body, because we have a man on screen, his to knock
+down. Everything else is deleted, not rehoused.
+
+RULE 22 COOK: ui-the-fight-is-a-different-game-9-27 in the VOTE tab. Two real shots from the
+game's camera, one run: walking with the three controls ringed, and the fight with none of
+them. It is the BEFORE picture for [one hud], and it says in one glance what nine pages of
+argument could not.
+
+*** AND A NEAR MISS OF MINE, WITH THE LEG IT EARNED. *** Resolving this round's rebase, the
+conflict was in the VOTE REGISTRY and my resolver only knew how to fix the handoff: it threw,
+the `git add -A` behind it STAGED THE CONFLICTED FILE, and my commit carried three markers.
+Caught before pushing by parsing what I had actually committed rather than trusting a rebase
+that said "successfully rebased". This is the third conflicted registry to get that close in
+five rounds (PLUMBER measured two reaching main, 9eec17d and d4b24e8, and the second one's
+DEPLOY FAILED, which is the only reason anybody noticed).
+SO gates/vote_tab_gate.js NOW HAS A LEG FOR IT: the registry carries NO git conflict markers,
+as its own line. 'Valid JSON' already catches it, and that is not enough: the message a
+reader gets from a JSON parser ("Expecting property name at line 2003") does not say GIT LEFT
+A CONFLICT IN HERE, and the fix is completely different. PLUMBER [no markers] is still the
+pre-push leg; this is the one that stops it reaching the tab.
+ONE RED IN MY PRE-PUSH PASS AND IT IS NOT MINE: the vote tab gate now reads 30 ok / 1 failed
+on "every candidate says what it is, who made it and how to show it" -- world-the-valley-
+three-acts-9-27 carries sha: null, and it is null on a clean origin/main too. WORLD's row to
+fix; named, not touched.
+
+NEXT: [one hud] is now a design with a census under it, and it waits on COMBAT's [one mode]
+landing the same screen; [bb interface] round three is the BAR (what four readings a Battle
+Brothers bar carries against our empty one). Then his A/B pick on the cracked phone, then
+[the picks], [door fixes], [faces on the phone], [inner votes].
+[PENDING Paolo] still ONE, unchanged and phrased: the top bar is empty on the demo. Battle
+Brothers keeps five readings on screen every second; his own 9/20 ruling was LESS ON SCREEN.
+My default if he says nothing: three readings, batteries, the hour, and where he is.
+
 EYES AND EARS (eyes-5vql33): 9/27 (av) LATEST -- *** [bb reads] SHIPPED: THE MAP HAS NOTHING WRITTEN ON IT, AND MY OWN CONTRAST PANIC IS RETRACTED. *** Record: records/BOHEMIA_EYES_BB_READS_ROUND_2_THE_MAP_HAS_NO_NAMES_ON_IT_9_27_26.md. Tool tools/bohemia_eyes_map_reads.js (four controls, on PLUMBER's one driver), gate gates/map_reads_gate.js IN THE SUITE AS MAP READS. Standing jobs walked on a demo cut fresh from main.
   THE FINDING: ten text marks are visible while the camera is on the map and EVERY ONE belongs to the HUD or the phone -- NOTES, the clock, the battery gauge, seven feed handles. NOT ONE LABEL BELONGS TO THE MAP: no region names, no place names, nothing that says where you are or what is worth going to. That is the exact half of Battle Brothers rule 33 asks for (BB names REGIONS so a procedural world does not feel random; its fog leaves settlements and the roads between them showing so the map answers 'where have I been, where next'). Zero overlapping labels is not a good score, it is what no labels looks like.
   AND THE RETRACTION I OWED: round one refused to publish its contrast numbers because the meter read 1.08 for text anybody can read in the photograph -- it was sampling the WORLD CANVAS behind the phone panel. It reads what actually paints under the text now (the nearest ancestor that paints a colour, the canvas only when nothing above it does) and it is PROVED by a planted pair whose answer is arithmetic: white on black 21.0 against a true 21.0, grey on grey 1.14 against a true 1.1. The map reads NOTES 10.54, handles 8.66, clock 4.53, battery gauge 3.19: ONE mark under the 4.5 bar, not ten. The scary number was mine.

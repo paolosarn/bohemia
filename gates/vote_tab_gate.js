@@ -88,8 +88,25 @@ const url = p => 'http://127.0.0.1:' + PORT + '/' + p;
 (async () => {
   /* ---- 1. THE REGISTRY IS A REAL FILE WITH A REAL SHAPE -------------------- */
   if (!fs.existsSync(REG)) { ok('the one registry exists for every lane to append to', false); return done(); }
+  /* *** NO CONFLICT MARKERS, AND THIS LEG EXISTS BECAUSE I ALMOST PUT THEM ON MAIN. ***
+     (UI 9/27.) Twenty lanes append to one JSON array every round, so the registry conflicts
+     on nearly every rebase. PLUMBER has already measured TWO conflicted registries reaching
+     main in one round (9eec17d and d4b24e8); the second one's DEPLOY FAILED, which is the
+     only reason anybody noticed, and a lane whose handoff gate then goes red spends its
+     round on somebody else's merge. This round I resolved a rebase where the conflict was
+     in the registry and my resolver only knew how to fix the handoff: it threw, the `git
+     add -A` after it staged THE CONFLICTED FILE, and the commit carried three markers.
+     Caught before pushing by parsing what I had committed rather than trusting that a
+     rebase which said "successfully rebased" had rebased what I meant.
+     'VALID JSON' ALREADY CATCHES IT, and it is worth a leg of its own anyway: the message
+     a reader gets from a JSON parser ("Expecting property name at line 2003") does not say
+     GIT LEFT A CONFLICT IN HERE, and the fix is completely different. */
+  const rawReg = fs.readFileSync(REG, 'utf8');
+  const markers = (rawReg.match(/^(<<<<<<<|=======|>>>>>>>)/gm) || []).length;
+  ok('the registry carries NO git conflict markers', markers === 0,
+     markers ? markers + ' marker lines: somebody\'s rebase was committed unresolved' : 'clean');
   let reg;
-  try { reg = JSON.parse(fs.readFileSync(REG, 'utf8')); }
+  try { reg = JSON.parse(rawReg); }
   catch (e) { ok('the registry is valid JSON', false, String(e.message).slice(0, 60)); return done(); }
   ok('the one registry exists and parses', true, REGREL);
   ok('it carries items[] and verdicts[]',
