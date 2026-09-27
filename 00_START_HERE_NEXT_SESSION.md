@@ -33712,7 +33712,95 @@ reverted to an older round's text after a rebase once, with two shipped rounds
 missing. A resolver that re-applies only what it remembers eats everything else. ***
 
 
-*** 9/27 NEWEST -- THE FUTURE IS THE FLOOR PLUS WHAT CAME BACK, AND THE LINES
+*** 9/27 (b) NEWEST -- RULE 33h, BOTH HALVES: THE ASK AS A TEXT STREAM IS CUT,
+AND A PLACE IS A BLOCK WITH ONE PUMP IN IT. ***
+records/BOHEMIA_WORLD_A_PLACE_IS_A_BLOCK_9_27_26.md  sha 0c24c0c
+Nothing on a play surface (rule 18).
+
+(0) HE SAID "BATTLE BROTHERS VAMILY" AND THIS LANE HAS NO OPEN ROW -- everything
+is SHIPPED but one HELD line. So I did the two things RULE 33h's CUT LINE and the
+REVAMP LIST name for WORLD BY HAND. *** THERE IS NO BOARD ROW FOR EITHER HALF ***
+and rule 10 says only the coordinator writes rows, so I did the work the list
+assigns and did not write myself a line. The coordinator may want one.
+
+(1) THE CUT: "THE ASKS AS A TEXT STREAM (QUESTS, WORLD, WORDS)".
+engine/bohemia_notice.js WAS the ask as a text stream, entirely: a disconnection
+notice, a clearance, a notice to quit, a covenant violation, an emergency alert,
+a price list. Six items, ALL SIX VOTED DOWN ("So boring", "Boring asfff"), which
+became rule 29.
+MEASURED BEFORE ANYTHING MOVED, because a careless cut reds other lanes' gates:
+  ZERO callers in the game (0 mentions in the walked city)
+  every reference was a gate or its own cook tool
+  first_notice_gate.js existed ONLY to hold it
+  suburb_walls / full_shelves / block_strikes each used exactly ONE maker
+DONE: the module, its tool and its gate are in archive/ with a superseded-registry
+entry saying what and why; the suite no longer registers the retired gate; the
+three gates lost ONE SECTION EACH and kept all their real mechanics --
+SUBURB WALLS 22/0, FULL SHELVES 25/0, BLOCK STRIKES 31/0. Nothing deleted, the
+six vote pages stay where they are, consumed.
+WHAT IS WORTH CARRYING INTO CONTRACTS AND EVENTS IS THE IDEA, NOT THE PROSE:
+unanswered() made every line declare WHO WOULD ANSWER IT and asked the live world,
+and the count DROPPED when a body came back. That is in the 9/21 record.
+
+(2) THE REBUILD: "a place is a block with its buildings as services; the shop,
+the shed, the pump, the fortress are the first four." engine/bohemia_place.js.
+A SERVICE IS PRESENT BECAUSE A BUILDING IS STANDING THERE -- which is the answer
+to [bb places]'s finding that a shelf is a function of TIER ALONE (fourteen
+places, three shelves, every camp selling the same four things). A place is a
+BLOCK off towns.blocksOf; a service comes from a district THE OVERMAP ALREADY
+GENERATES, so this file reads the map the way [beltway placed] read a ring it was
+already drawing. NEVER A PRICE: no number of two digits and no currency word
+anywhere in it, because EVERYTHING COSTS ONE and his 9/15 ruling put the spread in
+ACCESS -- BB's hinterland changes what things COST, ours changes WHAT IS THERE.
+STOCKS ships EMPTY: what a shop, shed, pump and fortress GIVE is his.
+
+(3) *** AND THE CENSUS IS THE FINDING. ***
+  467 blocks.  252 offer anything.  215 OFFER NOTHING AT ALL.
+  249 shops.  12 sheds.  7 fortresses.  *** ONE PUMP. ***
+  236 blocks carry exactly one service; ONE block in Las Vegas carries three.
+Battle Brothers settlements carry THREE TO EIGHT attached locations each. Ours
+carry one or none. THE WHOLE VALLEY DRINKS THROUGH ONE BLOCK.
+AND THE INVERSION SURVIVES THE REBUILD: the Homeless block, holding 254 of the
+valley's 308 generating cells, OFFERS NOTHING when you stand on it.
+
+(4) THE COOK: THE ONLY PUMP, at game scale (rule 32f) -- not a category and not a
+diagram, the one block in Las Vegas where the water comes out. AH-01's one wrong
+thing: THERE IS ONE PATH WORN INTO THE YARD AND IT GOES TO THE CABINET, NOT TO
+THE PUMPS. Somebody comes here often and only ever touches the switch.
+*** AND IT IS THE THIRD TIME I HAVE MADE A TEXTURE THE LOUDEST THING ON A
+SURFACE: *** the ring road's joints read as a cattle grid, the camp's corrugation
+as a barcode, and this yard's slab joints as bathroom tiling. TG-05 says a flat
+surface reads by what BREAKS it and THE BREAKS MUST BE QUIET -- one value step,
+every time. It is written into the tool now because saying it once has not been
+enough.
+
+(5) GATE PLACES ARE BLOCKS 31/0, AND IT CAUGHT ITS OWN AUTHOR TWICE.
+  (a) `garage` was in the shed list and THE OVERMAP GENERATES NO GARAGE DISTRICT,
+      so I had invented a building type in the one file whose entire claim is
+      that it invents none. The check that caught it is the one I wrote for
+      exactly that.
+  (b) the cut-check demanded the three gates never MENTION the notice module --
+      but a cut note naming what was cut is exactly right, so all three failed
+      for doing the correct thing. It tests for an IMPORT now.
+
+(6) AND A SIXTH INSTRUMENT SLIP, SMALL BUT WORTH THE TALLY: after pushing I
+checked the archive move with `grep -cE "archive/"` on a stat line, got 0 because
+git showed the rename on ONE line as "engine/... => archive/...", and briefly
+believed the cut had not landed. It had: main carries 0 notice files in engine/
+and 3 in archive/. THE PUSH WAS FINE AND MY CHECK WAS NOT, again.
+
+(7) ROUTED. *** TO THE COORDINATOR: a row for THE SHELF AND THE PLACE ARE THE
+SAME QUESTION -- mktShelf still answers off TIER while bohemia_place answers off
+THE GROUND, and two answers to "what can I get here" is the drift this repo keeps
+paying for. *** TO LIFE+CITY, the other name on the PLACES line: the four
+services are readable now; what a place LOOKS like when you arrive is yours. TO
+QUESTS and WORDS, the other names on the cut: my third of the text stream is
+archived, the people-in-places half is yours. STILL OPEN: 215 blocks offer
+nothing, the one pump is a single point of failure for the whole valley, and the
+block that makes the most power offers nothing at all.
+
+
+*** 9/27 -- THE FUTURE IS THE FLOOR PLUS WHAT CAME BACK, AND THE LINES
 DO NOT MOVE. ***
 records/BOHEMIA_WORLD_THE_FUTURE_IS_THE_FLOOR_PLUS_WHAT_CAME_BACK_9_27_26.md  sha fdec3fa
 Row [future city] SHIPPED. Nothing on a play surface (rule 18).
