@@ -4660,6 +4660,183 @@ function famFaceKey(m){
 }
 window.famFaceKey = famFaceKey;
 
+/* GREY IS AN AGE, NOT A COLOUR (8/31), hoisted to module scope 9/27 so faceFor's
+   de-grey loop and the descendant generator below (which ages hair the other
+   direction) read the SAME rule instead of two copies drifting apart. */
+function isGreyHair(c){
+  if (!c) return false;
+  var mx = Math.max(c[0], c[1], c[2]), mn = Math.min(c[0], c[1], c[2]);
+  return (mx - mn) < 26 && mx > 70;              /* washed out and not black */
+}
+
+/* ===== THE DESCENDANTS CARRY HIS FACE FORWARD ================================
+   PORTRAIT [three faces] / DYNASTY [the flip], 9/27/26. This lane's own words,
+   left where the flip strip actually lives (slices/BOHEMIA_CITY_WORLD.html,
+   [the flip]): "A FAMILY LOOKS LIKE A FAMILY says these three should carry his
+   own face forward by the heredity that already runs, and that is [three
+   names]' row with CHARACTER and PORTRAIT, not this one. Three rolled faces are
+   the honest placeholder and they are said out loud here rather than passed off
+   as the family." They were three random strangers. This ends that.
+
+   ACT 1 (Reyna, +0Y) IS HIM -- zero years have passed, so there is nobody to
+   derive FROM yet; the CITY_NEED_FACE bridge already special-cases 'you' as
+   buildSpec() and act 1 is wired onto that exact branch, not a second one.
+   ACT 2 (+35Y) and ACT 3 (+70Y) DESCEND from that one face.
+
+   *** WHY THIS IS NOT THE kin/famFaceKey MECHANISM ABOVE, SAID PLAINLY, BECAUSE
+   THE FILE'S OWN RULE READS LIKE IT SHOULD BE. *** "Heredity goes on the roll,
+   not on the result" is the right rule for FAMILY_CAST, where TWO PARENTS are
+   themselves faceFor() rolls (hashing an id reproduces their exact dice) and a
+   CHILD needs its own age-specific skull adjustments left intact by the blend.
+   Neither holds here. The player's face is HAND-BUILT in the face maker, not a
+   hash-derived roll -- there is no id whose hash reproduces buildSpec(), so
+   kinMix's whole trick (mix the PARENT'S ROLL, not the parent's finished face)
+   has no roll to read for this parent. And nobody in this trio is a child:
+   Reyna, Ezekiel and Perla are all drawn adult, at different points on one
+   lifeline, so the child-adjustment collapse the roll-based design exists to
+   prevent does not apply to any of the three. A single known ADULT ancestor,
+   blended into the finished RESULT after every anatomical correlation and
+   clamp the generator already enforces has run, is the correct shape for this
+   specific case -- it is not a general replacement for the mechanism above it.
+
+   THE SHAPE: roll the descendant as an ordinary adult first, so every clamp and
+   correlation the generator already runs (jaw <= cheek, eye pair fits the
+   cheekbones, and so on) is already true of the base face. THEN:
+     - every NUMERIC dial (skull, eyes, brows, nose, mouth widths and the row
+       heights) is blended toward the ancestor's ACTUAL number by a heritability
+       weight h, and the SAME anatomical clamps faceFor itself runs are
+       RE-APPLIED afterward, because a blend can walk a jaw past its cheek the
+       same way an unclamped roll can.
+     - every CATEGORICAL trait (skin, the whole haircut as one bundle so its
+       dials never mix with another cut's, eye colour, brow colour, lip colour)
+       is COPIED from the ancestor or left as the descendant's own independent
+       roll, decided by a DETERMINISTIC weighted coin (faceRollHash(id,salt) < h)
+       -- "a colour is not an average" (this file, 8/27) still holds; a category
+       is copied whole, never blended.
+   h compounds once per generation hop (Ezekiel, the modelled-but-undrawn middle
+   generation, is not built as its own object, so Perla's second hop is applied
+   directly against Reyna rather than chained through him): draft:true, his to
+   correct in VOTE.
+
+   HAIR GREYS WITH THE GENERATIONS, THE INVERSE OF THE EXISTING DE-GREY LOOP
+   ABOVE (8/31): no second palette, no invented colour -- ask NPCFactory's own
+   picker again, the identical shape, just trying UNTIL grey instead of UNTIL
+   not, so an older act has more chances to land on a draw the population
+   already produces at its own natural rate rather than a forced or faked one.
+   Applied AFTER the inherit-or-not decision either way: you can inherit your
+   parent's exact young colour and still go grey yourself, decades later.
+
+   *** MEASURED, AND ONE UNIFORM WEIGHT FOR EVERY CATEGORICAL TRAIT WAS WRONG. ***
+   The first cut used the same h for every category coin, compounded per hop like the
+   skull. Rendered against a real player face: Ezekiel (h~0.62) came out 2 nameable
+   things away from the ancestor against a 4.42 stranger average -- a real, visible
+   match. Perla (h~0.38) came out 4 away, INDISTINGUISHABLE FROM A STRANGER, because a
+   38% coin failed on both her hair AND her eyes at once, which is unlucky but not
+   rare at that weight. And the skull-distance numbers, checked at the same time, told
+   the truth underneath: Perla's skull IS measurably closer to her ancestor's than a
+   stranger's (0.86 vs 1.10) -- the resemblance was real and simply invisible, because
+   it lives in one or two pixels of skull proportion nobody can see on a canvas THE
+   FLIP STRIP DRAWS AT 26x26 PIXELS (slices/BOHEMIA_CITY_WORLD.html, #actflip .af
+   canvas). At that size a family only reads as a family through its LOUDEST channels
+   -- the haircut's silhouette and colour, and the skin tone -- exactly the two
+   things this file's own portrait work has independently found dominant four times
+   this session (the braid stripe, the hair-colour/body mismatch, the eye-visibility
+   measurement, the shades-hide-the-eyes finding). Iris, brow and lip colour are a
+   handful of pixels at that size and can vary independently without costing the
+   family its resemblance -- real relatives do not share eye colour either.
+   SO HAIR AND SKIN GET THEIR OWN WEIGHT, HIGH AND UNCOMPOUNDED ACROSS BOTH HOPS,
+   because the row's whole point fails at the one size he actually meets these three
+   if the loudest channel is left to a coin flip that can go either way twice running.
+   The minor colour traits keep the compounding weight, because some independent
+   variation there is realistic and does not cost the feature its purpose. */
+var DESCENDANT_H = { 2: 0.62, 3: 0.62 * 0.62 };      /* skull + minor colour. draft:true */
+/* *** 0.85 WAS STILL A COIN FLIP AND IT ALMOST LANDED WRONG. *** Checked the actual
+   number rather than trusting the reasoning: Perla's fixed hair coin is 0.8887 --
+   ABOVE 0.85 by less than four hundredths, so the "high, uncompounded" weight above
+   would still have handed her a stranger's haircut on this specific, permanent id.
+   THESE ARE NAMED, FIXED CHARACTERS, NOT A POPULATION: every player who ever plays
+   this game gets the same Perla, so this is a one-time design choice about ONE
+   person's resemblance, not a statistical claim to hold on average. 0.90 clears both
+   her hair (0.8887) and Ezekiel's (0.5958) comfortably, and both still leave iris,
+   brow and lip colour on the lower, compounding weight to vary independently. */
+var DESCENDANT_LOOK_H = { 2: 0.90, 3: 0.90 };        /* hair + skin: the loud channel, both hops */
+var DESCENDANT_GREY_TRIES = { 2: 3, 3: 6 };          /* extra NPCFactory draws before giving up */
+function descendantSpec(actNum, ancestor){
+  var id = 'act' + actNum;
+  var h = DESCENDANT_H[actNum] || 0;
+  var sp = faceFor(id, { age: 'adult' });            /* an ordinary, fully-clamped adult */
+  if (!h || !ancestor) return sp;
+  sp = JSON.parse(JSON.stringify(sp));
+  var f = sp.face, af = ancestor.face || {};
+  var blendNum = function (obj, aobj, k) {
+    if (typeof obj[k] !== 'number' || typeof aobj[k] !== 'number') return;
+    obj[k] = Math.round(obj[k] + (aobj[k] - obj[k]) * h);
+  };
+  ['len','craniumH','top','foreheadW','cheekW','jawW','chinW',
+   'cheekY','jawCornerY','browY','eyeY','noseY','mouthY'].forEach(function (k) { blendNum(f, af, k); });
+  /* THE SAME ORDER FACEFOR ITSELF ENFORCES ON A FRESH ROLL, RE-APPLIED, because a
+     blend toward a taller or wider ancestor can push these the same way an
+     unclamped die can. */
+  f.cheekW = Math.max(f.cheekW, f.foreheadW + 2);
+  f.jawW   = Math.min(f.jawW,   f.cheekW - 1);
+  f.chinW  = Math.min(f.chinW,  f.jawW - 6);
+  f.eyeY   = Math.max(f.browY + 2, f.eyeY);
+  f.noseY  = Math.max(f.eyeY + 5,  f.noseY);
+  f.mouthY = Math.max(f.noseY + 4, Math.min(f.top + f.len - 4, f.mouthY));
+
+  if (ancestor.eyes) { ['w','h','gap','hood'].forEach(function (k) { blendNum(sp.eyes, ancestor.eyes, k); }); }
+  while (sp.eyes.w > 4 && (sp.eyes.gap + 2 * sp.eyes.w) > (f.cheekW - 4)) sp.eyes.w--;
+  if (sp.eyes.h > 4 && (f.noseY - f.eyeY) < 7) sp.eyes.h = 4;
+
+  if (ancestor.brows) { ['thick','len','gap','angle'].forEach(function (k) { blendNum(sp.brows, ancestor.brows, k); }); }
+  sp.brows.gap = Math.max(3, Math.min(7, sp.brows.gap));
+
+  if (ancestor.nose)  blendNum(sp.nose, ancestor.nose, 'w');
+  if (ancestor.mouth) { ['w','fullLower'].forEach(function (k) { blendNum(sp.mouth, ancestor.mouth, k); }); }
+  sp.mouth.w = Math.max(5, Math.min(f.jawW - 8, sp.mouth.w));
+
+  /* CATEGORICAL: copied whole, or left as this descendant's own draw -- never averaged.
+     eyes.gaze and details.stubble are deliberately NOT on this list: a gaze is "not yet
+     hooked to anything true" (this file, 9/24) and stubble is a grooming choice, not a
+     bloodline trait, so both stay whatever the fresh adult roll gave this person. */
+  var lookH = DESCENDANT_LOOK_H[actNum] || h;
+  var coin = function (salt) { return faceRollHash(id, salt) < h; };
+  var lookCoin = function (salt) { return faceRollHash(id, salt) < lookH; };
+  /* HAIR AND SKIN ON THE LOUD WEIGHT (see the note above this function): the two
+     channels that still read as "the same family" on a 26x26 icon. */
+  if (ancestor.skin && lookCoin('descSkin')) sp.skin = ancestor.skin;
+  if (ancestor.eyes && ancestor.eyes.iris && coin('descIris')) sp.eyes.iris = ancestor.eyes.iris.slice();
+  if (ancestor.brows && ancestor.brows.color && coin('descBrowC')) sp.brows.color = ancestor.brows.color.slice();
+  if (ancestor.mouth && ancestor.mouth.color && coin('descLip')) sp.mouth.color = ancestor.mouth.color.slice();
+  /* THE WHOLE HAIRCUT MOVES AS ONE UNIT. Mixing one cut's `front` with another's `side`
+     draws a shape neither cut ever had -- the same reason a colour is copied, not
+     averaged, applied to a cut's own dial bundle. */
+  if (ancestor.hair && lookCoin('descHair')) {
+    ['color','roots','side','front','vol','flare','braid','tex','style','part','len']
+      .forEach(function (k) { if (ancestor.hair[k] !== undefined)
+        sp.hair[k] = (Array.isArray(ancestor.hair[k]) ? ancestor.hair[k].slice() : ancestor.hair[k]); });
+    /* `name` copies too, but explicitly -- the player's own buildSpec() has no
+       named cut (it draws from raw dials only), so on a player-ancestor this
+       correctly CLEARS the descendant's own independent name rather than
+       leaving it silently mismatched against the dial bundle above. */
+    sp.hair.name = ancestor.hair.name || null;
+  }
+
+  /* AND THEN THE YEARS DO WHAT INHERITANCE ALONE DOES NOT: turn the hair grey,
+     independent of whose colour it started as. */
+  var tries = DESCENDANT_GREY_TRIES[actNum] || 0;
+  if (tries) {
+    for (var _g = 0; _g < tries && !isGreyHair(sp.hair.color); _g++) {
+      var _alt = (typeof NPC_FACTORY !== 'undefined') ? NPC_FACTORY.npcFrom(id + '#grey' + _g) : null;
+      if (!_alt || !_alt.hairColor) break;
+      sp.hair.color = _alt.hairColor.slice();
+      sp.hair.roots = _alt.hairColor.map(function (c) { return c * 0.4 | 0; });
+    }
+  }
+  return sp;
+}
+window.descendantSpec = descendantSpec;
+
 /* ===== THE THIRTEEN OUTFITS ==================================================
    Paolo 7/19 STRUCTURE-NOT-COLOR, amended 8/15 to govern IDENTITY: a faction is
    told apart by its OUTLINE, with colour as the back-up channel and never the
@@ -5944,12 +6121,12 @@ function faceFor(id, over){
      population's weighting is untouched, only the age constraint is new. It is the
      same division of labour the skull already uses: the RANGE makes people different,
      the CLAMPS keep them people.
-     `young` covers the parents of small children, who are not old either. */
-  var _grey = function (c) {
-    if (!c) return false;
-    var mx = Math.max(c[0], c[1], c[2]), mn = Math.min(c[0], c[1], c[2]);
-    return (mx - mn) < 26 && mx > 70;            /* washed out and not black */
-  };
+     `young` covers the parents of small children, who are not old either.
+     HOISTED TO isGreyHair() (9/27, [three faces]): this used to be a closure private
+     to faceFor, and the descendant generator below needs the exact same rule to age
+     hair FORWARD the way this ages it BACKWARD -- ENGINE SYNC LAW says one canonical
+     definition, so it moved out rather than being typed a second time. */
+  var _grey = isGreyHair;
   /* *** ONLY WHERE THE AGE IS REALLY KNOWN, AND THAT LIMIT IS NOT TIMIDITY. ***
      The first cut gated on the ROLLED age, which fires for the anonymous crowd too --
      and talking_portrait_gate caught it immediately: the portrait's hair stopped
@@ -11288,9 +11465,18 @@ function combatMsgIn(d){
          answers and this passes it straight through. A missing or unknown answer
          is 'either', which steers nothing and leaves this exactly as it was. */
       var _rd=(d.reads==='she'||d.reads==='he')?d.reads:'either';
-      var _sp=(_who==='you'&&typeof buildSpec==='function')?buildSpec()
-              :faceFor(_who,{reads:_rd});
-      var _rp=(_who==='you')?portraitRamp()
+      /* THE DESCENDANTS CARRY HIS FACE FORWARD (9/27, [three faces]). The flip strip's
+         three ids arrive on this exact bridge as 'act1'/'act2'/'act3' -- ONE ID ONE
+         WHOLE PERSON forbids a second face pipe for them, the same rule that put 'you'
+         on the branch above instead of a roll. Act 1 (Reyna, +0Y) IS the face he
+         built, so it takes that SAME branch rather than a third path; acts 2 and 3
+         descend from it. Three rolled strangers were the honest placeholder this
+         lane's own words named; this is what replaces them. */
+      var _actM=/^act([123])$/.exec(_who), _actN=_actM?(_actM[1]|0):0;
+      var _sp=(_who==='you'||_actN===1)&&typeof buildSpec==='function' ? buildSpec()
+              : _actN&&typeof descendantSpec==='function' ? descendantSpec(_actN, (typeof buildSpec==='function')?buildSpec():null)
+              : faceFor(_who,{reads:_rd});
+      var _rp=(_who==='you'||_actN===1)?portraitRamp()
              :((typeof faceRampFor==='function')?faceRampFor(_sp):portraitRamp());
       var _pk=packIdx(renderFace(_sp,{ramp:_rp}),64,64);
       var _cf=document.getElementById('cityFrame');
