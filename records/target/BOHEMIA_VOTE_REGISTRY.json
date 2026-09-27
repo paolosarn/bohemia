@@ -2280,7 +2280,7 @@
     "id": "factions-two-ladders-neither-reads-ground-9-27",
     "kind": "tile",
     "lane": "factions",
-    "sha": "PENDING",
+    "sha": "3246ede6",
     "made": "9/27",
     "title": "TWO LADDERS, NEITHER READS GROUND",
     "why": "This valley already tracks two separate numbers for how much a crew trusts you: a favour count, and a rank (TERRITORY up to MANDATE up to MAYOR) that decides where you can even build. Both are real and already on a card you can open. I checked every place either number moves. Both only move because a QUEST resolved. Holding a crew's fortress, losing it, paying their rent on time or missing it: none of that touches either ladder, in either direction. And you just ruled the quest chat ships no more game code, ever, only research, which means both ladders now have exactly one door and it is closing. This lane's own ledger already knows every block that changes hands and has never been asked a single question by either one. Thumbs up and I wire territory into standing. Thumbs down and they stay two separate systems.",
