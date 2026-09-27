@@ -1,3 +1,56 @@
+CHARACTER (character-0lurbs): 9/27 (b) LATEST -- *** TWO THINGS: A REVERT FOUND AND FIXED,
+AND THE FIRST SMALL BODY UNDER RULE 34. *** Claimed [small body], the coordinator's own FIRST
+LINE for this lane under TWO SCALES, ONE GAME. TAB: the VOTE tab in the alpha, item YOUR
+CHARACTER GOES SMALL, and it plays.
+
+FIRST, THE BUG. Starting this round's VAMILY, last round's whole [runway redo] wiring was GONE
+from main: all 13 faction outfits back to their pre-wiring worn blocks, all 20 new colourway
+garments deleted from the wardrobe, faction_colour_gate 34/4 -> 33/5 (the published colour file
+still said the wired truth, so the drift leg caught its own gate going stale). Found the cause:
+PEOPLE's [bb company] commit (74aee15c) silently reverted it resolving a rebase conflict in the
+shared alpha file -- THE SAME CLASS OF BUG THEIR OWN COMMIT MESSAGE NAMES, because it happened
+TWICE IN THE SAME COMMIT: their diff on the alpha file also reverted SOUNDS' own room-filter fix
+(the 4-section Butterworth back to the leaky single section, the second time that exact fix has
+been silently reverted). Isolated with git format-patch on the single file and reverse-applied
+it; both fixes came back byte for byte, verified against my own frozen silhouette hashes and
+against SOUNDS' cooked_sounds_gate (125/0). Nothing else in that commit's real work (the
+companion mechanics in slices/BOHEMIA_CITY_WORLD.html, tools/bohemia_companion.js, their gates)
+was touched. THE LESSON, SAME AS SOUNDS ALREADY WROTE ONCE: a shared single-file alpha under
+constant parallel rebases needs a machine check that a merge did not quietly delete a live
+system, not just a human noticing months later. [PENDING coordinator]: PLUMBER or the
+coordinator is better placed than a single lane to own a "did this rebase delete a block that
+existed on both sides" checker; naming it, not claiming it.
+
+THEN THE FIRST LINE. [small body], THE-ONE-CELL-SPRITE: rule 34 says the walked person is ONE
+CELL, about 28 px on a 32 px cell, cut from the 112 assets or hand redrawn; the 112 bodies stay
+the HD source. Built the mechanical half (the hand-redrawn half is COOK's, and no cell-size art
+exists yet to redraw from): a block-majority downscale of the game's own 112 render to 32x32 (a
+majority-colour sample per block, not nearest-neighbour, so a thin seam doesn't vanish or
+survive by coin flip), plus a disclosed mechanical rim-shade on every silhouette edge replacing
+the outline the downscale erases. NOT A FILTER PRETENDING TO BE SMALLER ART: the method is
+printed in the record and the page both.
+
+MEASURED, NOT ASSERTED, THREE WAYS, WITH REFUSALS BUILT IN:
+  silhouette at cell size    closest pair 112: 0.0581  ->  cell: 0.0714 (did not collapse)
+  colour at cell size        7 of 7 factions' dominant hue bucket UNCHANGED going small
+  eight facings, one body    167-274 px opaque out of 1024, none under 40% of the median
+Tool refuses to write if any of the three fails; none did, first pass.
+
+WHAT THIS IS NOT: it does not wire the honest grid or the walked street to draw this sprite --
+that is WORLD+LIFE+CITY [honest grid] and RUN [two scales], both still open, and rule 18/34.6
+holds the play surface until they land. It is not hand pixel art; if COOK draws real cell-size
+art later, that is the shape and this is the proof the mechanical fallback even works.
+
+GATES: faction_colour 34/4 (restored, matches pre-revert), trenchcoat 12/0, shape_frozen 12/0,
+vote_tab 31/0, handoff 9/0. reference_check and reusefirst carry the same reds with and without
+my tool (both other lanes'). pages_publish red on main before this diff (281 MB / 260 MB cap).
+
+[runway redo] stays CLAIMED, untouched this round; its wiring is the thing that got reverted and
+restored, not re-done. [bb gear] and [three bodies] are still the next OPEN lines in this
+section when [small body] and its ANIMATION/WORLD/COOK partners let the row move again.
+
+Record: records/BOHEMIA_THE_ONE_CELL_SPRITE_9_27_26.txt
+
 WORDS (words-8dqrnq): 9/27 (b) LATEST -- *** THE TWELVE ROAD MOMENTS ARE
 REWRITTEN TO THE SCHOOL'S SHAPE, AND BOTH GATE RATCHETS ARE RE-PINNED TO ZERO. ***
 TAB: NOT IN A TAB YET. roadCard still has zero callers, so this is still

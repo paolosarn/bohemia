@@ -7,20 +7,20 @@ and every byte around it is left exactly as it was found."""
 import io, json, re, sys
 P = 'records/target/BOHEMIA_VOTE_REGISTRY.json'
 s = io.open(P, encoding='utf-8').read()
-MINE_ID = 'character-the-thirteen-are-wearing-it-9-27'
+MINE_ID = 'character-the-one-cell-sprite-9-27'
 if MINE_ID in s:
     print('already there'); sys.exit(0)
 obj = {
-  "id": MINE_ID, "kind": "outfit", "lane": "character",
+  "id": MINE_ID, "kind": "animation", "lane": "character",
   "sha": "pending", "made": "9/27",
-  "title": "THE THIRTEEN ARE WEARING IT NOW",
-  "why": "You said fire on the thirteen new runway shapes, so the thirteen groups put them on. This page PLAYS: every body walks at the speed the game runs at, standing on the street's own road and sidewalk, at the size the game draws a person. Four of them are here instead of thirteen, because these four are the ones that nearly lost their colour when the new clothes went on. The new clothes were searched on SHAPE, so every one of them came out grey or bone, and dressing everybody in them would have washed the colour out of eleven of thirteen groups in one go. Seventeen new colourways fixed that: same coat, same cut, the group's own colour, one line each, no new art. Nobody lost their colour and nobody changed body. Thumbs up and this is who is on your street. Thumbs down and tell me if it is the cut, the colour, or the boots.",
-  "show": {"how": "page", "src": "vote/CHARACTER_THE_THIRTEEN_ARE_WEARING_IT.html"}
+  "title": "YOUR CHARACTER GOES SMALL",
+  "why": "You said your character should stay tiny and move one square at a time, like the game used to. This is the first try at that small body. It plays: it is the game's own walk, shrunk down to the exact size a square will be. Nothing here is hand drawn yet, it is the big body run through a shrinking machine, so a hem or a stripe is gone but the shape and the colour are not. Seven people from seven different groups, each one still readable as themselves and still their own colour, measured, not guessed. Thumbs up and this is the road small bodies go down while somebody draws them by hand. Thumbs down and tell me if it is too small, too blurry, or if two of them look the same.",
+  "show": {"how": "page", "src": "vote/CHARACTER_THE_ONE_CELL_SPRITE.html"}
 }
-block = '\n'.join('  ' + ln for ln in json.dumps(obj, indent=1).split('\n'))
-m = re.search(r'\n  \}\n \],', s)
+block = '\n'.join('    ' + ln for ln in json.dumps(obj, indent=1).split('\n'))
+m = re.search(r'\n(\s*)\}\n(\s*)\],\n(\s*)"verdicts"', s)
 assert m, 'cannot find the end of items[]'
-out = s[:m.start()] + '\n  },\n' + block + '\n ],' + s[m.end():]
+out = s[:m.start()] + '\n    },\n' + block + '\n  ],\n' + m.group(3) + '"verdicts"' + s[m.end():]
 json.loads(out)
 io.open(P, 'w', encoding='utf-8', newline='').write(out)
 print('spliced; items', len(json.loads(out)['items']))

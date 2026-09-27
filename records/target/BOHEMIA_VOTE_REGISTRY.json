@@ -2250,6 +2250,19 @@
     }
    },
    {
+     "id": "character-the-one-cell-sprite-9-27",
+     "kind": "animation",
+     "lane": "character",
+     "sha": "pending",
+     "made": "9/27",
+     "title": "YOUR CHARACTER GOES SMALL",
+     "why": "You said your character should stay tiny and move one square at a time, like the game used to. This is the first try at that small body. It plays: it is the game's own walk, shrunk down to the exact size a square will be. Nothing here is hand drawn yet, it is the big body run through a shrinking machine, so a hem or a stripe is gone but the shape and the colour are not. Seven people from seven different groups, each one still readable as themselves and still their own colour, measured, not guessed. Thumbs up and this is the road small bodies go down while somebody draws them by hand. Thumbs down and tell me if it is too small, too blurry, or if two of them look the same.",
+     "show": {
+      "how": "page",
+      "src": "vote/CHARACTER_THE_ONE_CELL_SPRITE.html"
+     }
+   },
+   {
     "id": "animation-he-walks-at-one-cell-9-27",
     "kind": "animation",
     "lane": "animation",

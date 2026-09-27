@@ -1,0 +1,36 @@
+THE ONE CELL SPRITE  --  CHARACTER, 9/27/26, [small body], FIRST LINE under rule 34
+
+RULE 34 (TWO SCALES, ONE GAME, Paolo 9/27, LOCKED): the walked person is ONE CELL,
+about 28 px on a 32 px cell. The 112 body is the HD source now, never the walked
+sprite. This is the mechanical half of the law's own two options (cut down, or hand
+redrawn by COOK): block-majority downscale of the game's own render, plus a mechanical
+rim shade replacing the outline the downscale erases. No hand pixel art in this file.
+
+  FACTION     HUE 112 -> CELL       CELL PROFILE    WALK FRAMES OPAQUE (min..max)
+  Blues       210 -> 210            0.29 1.00 1.    164..205 of 1024 px
+  Reds        0 -> 0                0.29 1.00 1.    160..209 of 1024 px
+  Church      30 -> 30              0.50 0.88 0.    165..217 of 1024 px
+  Colorful    90 -> 90              0.63 0.88 0.    166..234 of 1024 px
+  Network     180 -> 180            0.71 1.00 0.    151..202 of 1024 px
+  Caravans    30 -> 30              0.25 0.88 1.    173..207 of 1024 px
+  Anarchists  30 -> 30              0.25 0.75 0.    167..216 of 1024 px
+
+SILHOUETTE STILL READS DISTINCT AT CELL SIZE, measured on the same 16-sample front
+width profile the runway fit search used:
+  closest pair at 112     0.0581   (Church / Caravans)
+  closest pair at cell size 0.0714   (Blues / Reds)
+  floor required (35% of the 112 number)  0.0203
+  CLEARS THE FLOOR
+
+COLOUR STILL READS THE SAME FACTION: all 7 of 7 dominant hue buckets unchanged going from 112 to the 32x32 cell.
+
+EIGHT FACINGS, ONE BODY (Blues), idle, opaque pixel count out of 1024:
+  S 264   SE 239   E 167   NE 248   N 274   NW 239   W 164   SW 258
+  median 248, floor 40% of median 99, none below it
+
+WHAT THIS DOES NOT DO. It does not wire the honest grid or the walked street to draw
+this sprite -- that is WORLD [honest grid] and RUN [two scales], both still open, and
+rule 18/34.6 holds the play surface until they land. It does not replace hand pixel
+art at cell size; if COOK draws real small art later, that is the shape, not this.
+It measures whether the MECHANICAL path is even viable before anyone spends a hand-
+drawn pass on thirteen factions at a size nobody has drawn for yet.
