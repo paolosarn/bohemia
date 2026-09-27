@@ -8569,6 +8569,57 @@ full suite unmeasured since 7efb22cf. Rule 14(a): demo untouched, RUN cuts it.
 
 Record: records/BOHEMIA_ONE_DOOR_9_14_26.md
 
+PLUMBER (plumber-ont6t5): 9/27 (b) LATEST -- *** CHAT 18. ROUND 42. [grid budget] SHIPPED. THE BLOCK IS
+CHEAP AND WORLD CAN BUILD IT. WHAT CANNOT CARRY IT IS THE SURFACE UNDERNEATH: ON THE WALKED STREET AT
+4x, A 500 ms BEAT LANDS THREE SECONDS LATE. ***
+Held to rule 34 section 5's own numbers rather than any of my own: a cell 32 CSS px, the phone showing
+11 across by 25 tall = 275 CELLS DRAWN, a 30x30 block = 900 SIMULATED, a person ONE CELL (~28 px).
+THE COST, timed with performance.now() around the draw itself, 1x then 4x:
+  275 cells as flat fills                     0.1 ms   0.9 ms
+  275 cells as REAL 32px SPRITE BLITS         0.3      2.0
+  + 1 / 8 / 30 / 80 people (one cell each)    0.4 0.4 0.3 0.4   |   2.4 3.9 2.3 3.1
+  + A FIGHT (8 fighters, reach lit on 12)     0.3      2.5
+THE WORST RUNG AT 4x IS 24% OF A 16.7 ms FRAME AND 0.8% OF A 500 ms BEAT. Eighty people is already far
+more than a block holds, and the fight costs nothing extra because reach is twelve rectangles. PLAN
+WITH SPRITES, about 2x flat fills at 4x, because a real grid blits tiles rather than filling rectangles.
+*** I DID NOT QUOTE THE FRAME-RATE COLUMN, AND THE REASON IS THE REASON. *** It disagreed with my own
+paint timer. At 1x, flat fills read 11.6 fps while costing 0.1 ms a paint, and sprite blits read 43.9
+fps while costing 0.3 ms -- THE CHEAPER DRAW READ FOUR TIMES WORSE. At 4x the fps sat at 0.8 to 2.6
+across EVERY rung while the paint cost moved 4x with the load. A number that does not move when the
+load moves ten times is measuring the host page, not my grid. THIRD ROUND RUNNING that a continuously
+animating overlay on this page at 4x cannot clear 30 fps whatever it draws.
+*** THE FINDING THAT MATTERS MORE THAN THE BUDGET. One boot, BOTH surfaces, the same timer, the same
+drawing, 8-second windows:
+  THE WALKED STREET   10/18 beats landed   one paint 0.5 ms   LATE BY MEDIAN 3,152 ms, WORST 5,254
+  THE MAP             16/16 beats landed   one paint 0.1 ms   late by median 7 ms, worst 18
+IT IS THE SURFACE, NOT THE HARNESS. The map keeps perfect time; the walked street turns a beat that
+should arrive every 500 ms into one arriving every ~3,600 ms, while the work it is asked to do costs
+half a millisecond. NOT NEW, BUT THE MAGNITUDE IS: round 3 of [sixty fps] measured beats late going
+9.9% -> 31.6% at 4x with 8.3% swallowed whole, which said a THIRD were late. This says the late ones
+are late BY SIX TO TEN BEATS. 120 BPM IS THE PILLAR AND ON A PHONE THE WALKED SURFACE IS NOT KEEPING IT.
+WHAT IT MEANS FOR RULE 34, PLAINLY:
+  1. BUILD THE BLOCK. 275 drawn cells, its people and a fight fit with room at both throttles.
+  2. PAINT IT ON THE BEAT, not every frame. Same conclusion the far map reached last round from the
+     other side (1.7 ms of a 500 ms beat, 99.7% headroom), reached again here on a different surface.
+  3. BUT THE WALKED STREET'S TIMER HAS TO BE FIXED BEFORE ANY OF IT CAN BE JUDGED ON A PHONE. Anything
+     added there now inherits a beat three seconds late and no measurement taken on it will mean
+     anything. Named, not fixed; it is neither this row's nor WORLD's.
+NOT MEASURED, SAID PLAINLY: THE REAL BLOCK -- WORLD has not shipped it, so this prices a faithful
+stand-in at the law's own numbers (a 30x30 state array stepped every paint, 275 cells blitted from a
+five-tile atlas at 32 px, people at one cell, a reach highlight), and this lane re-measures the real one
+when it lands rather than assuming the stand-in was right. AND TRAVEL, still, for last round's reason:
+there is nothing to travel on yet.
+PRE-PUSH PASS: HANDOFF 9/0, REPLY CONTRACT 17/0. The driver changes from last round (toMap and the
+widened door check) carried this round's measurements without a hitch, including the surface swap
+mid-boot. Rule 14(a): demo untouched, RUN cuts it.
+Record: records/BOHEMIA_A_BLOCK_OF_CELLS_AT_60_9_27_26.md
+STILL OPEN IN MY SECTION: [bb library], [excavate], [one driver] (half done and said so), [three
+valleys], [slim build], [deep history], [real surface], [horror gate], [mode chip], [suite line],
+[pre-push pass], [cannot fail], [one way rulers], [spelling gates], [suite runs], [fight headroom],
+[dead gates], [handoff cut], [backlog archive].
+Still CLAIMED: [never worse], [sixty fps], [demo errors] (STANDING).
+NO [PENDING Paolo] FROM THIS LANE.
+
 PLUMBER (plumber-ont6t5): 9/27 LATEST -- *** CHAT 18. ROUND 41. [bb budget] SHIPPED. THE MARKERS ARE
 FREE, THE ANIMATION LOOP IS NOT. AND IT TOOK FIVE ATTEMPTS, EVERY FAILURE MINE. ***
 THE ANSWER FOR RUN, BEFORE IT BUILDS:
