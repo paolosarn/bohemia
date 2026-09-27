@@ -50125,7 +50125,24 @@ your first VAMILY and do steps 1 to 9.
 I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
-ROUND LOG 9/27c (latest): FIGHT VERDICT ROUND 11, and the finding that
+ROUND LOG 9/27d (latest): FIGHT VERDICT ROUND 12 - the first close-grid
+work judged against the two-scales card s5, both PASS. COMBAT's ONE
+HOUSE IS NOT ONE TILE: the reach conversion is faithful (4/8/12 cells)
+and its insight is ruled into the look - only the pistol fits the
+phone, a rifle fills the board, a scope overruns it, so THE CAMERA
+OPENS THE SHOT BY ITSELF (the ground zooms, the person never does;
+rule 34a doing the camera's job for free). Honest note carried: the
+112 sprite still stands in for the walker on that sheet. ANIMATION's
+one-cell AFTER strip: PASS against the sprite floor spec (silhouette
+in stride, one value split, no fake face); ship test = 28 px on real
+ground, 8 facings, phone arm's length, when it walks a real block.
+RULED: reach squares draw as THIN CELL RIMS, never filled overlays -
+territory discipline applied to reach; UI [one hud] takes it with
+their 9/30/0 before-number. Round 11 stands (warm board the basis,
+the cold page dies). ROUND 13 = the first playable close-grid block
+judged WHOLE; the two rule-17 numbers and the FEEL column are owed by
+it. Registry verdicts[]: no new votes.
+PREVIOUS: FIGHT VERDICT ROUND 11, and the finding that
 explains rounds 7-10: ONE DOOR, TWO FIGHTS. UI's crew-tap served the
 old cold page (measured: walk 9 things, fight 30, shared 0); COMBAT's
 walk served the warm street board (full bodies, ROSA named, calm
