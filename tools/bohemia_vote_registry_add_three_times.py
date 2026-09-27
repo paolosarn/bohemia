@@ -12,7 +12,7 @@ if MINE_ID in s:
     print('already there'); sys.exit(0)
 obj = {
   "id": MINE_ID, "kind": "tile", "lane": "life+city",
-  "made": "9/24",
+  "sha": "830e46dc", "made": "9/24",
   "title": "THE SAME STREET, THREE TIMES",
   "why": "One block. Three dates. Top is the ruin, which is the picture you already gave a thumb up. Middle is the same street reclaimed: the road patched, the power back, solar on a roof and a battery cabinet beside it, the line restrung. Bottom is the same street paying for itself: a second array across the road, the kerbs and the walks rebuilt, a second lamp, and the dead lot turned into a battery swap stand you can work at night. Nothing is ever taken away between one picture and the next, because you said the ruin is the floor. The machine counts that, it does not just say it. And one thing never changes in any of the three: the third house has its lights on and nobody lives in it, in all three acts. Everything around it gets better twice over and it never does. Thumbs up and this is how the city screen draws the act you are in. Thumbs down and tell me which act is wrong.",
   "show": {"how": "image", "src": "vote/LIFECITY_THE_SAME_STREET_THREE_TIMES_9_24.png"}
