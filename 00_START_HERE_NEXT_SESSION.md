@@ -6920,13 +6920,53 @@ signal (the ambushed trade route) agrees with us rather than with itself. Round 
 side of the same law -- what happens when you cannot pay -- is silent rather than broken, and the loan
 and the wage turn out to already be one number.
 
+=== ROUND 53, Q53 [two clocks], BOTH ROUNDS. Q53 COMPLETE. ===
+ROUND ONE: records/BOHEMIA_ECONOMY_DAY_53_COMBAT_ALREADY_DOES_NOT_TOUCH_THE_CLOCK_9_27_26.md
+ROUND TWO: records/BOHEMIA_ECONOMY_DAY_53_ROUND_TWO_THE_SHORTFALL_IS_REAL_THE_BIGGER_BILL_IS_NOT_9_27_26.md
+
+THE FINDING, ONE SENTENCE: THE MAP AND THE STREET ARE ALREADY ONE CLOCK, THE DEBT SITS ON IT, A
+FIGHT COSTS ZERO ON IT NO MATTER HOW LONG IT RUNS, AND THE ONE REAL GAP IS THAT NEITHER WE NOR
+BATTLE BROTHERS MODEL THE FORAGING THAT REAL MARCHING ARMIES USED TO CLOSE THEIR OWN SHORTFALL.
+
+MEASURED, TRACED THROUGH THE REAL CODE PATHS RATHER THAN ASSUMED: advance(mins) (called once per
+cell walked, MIN_PER_CELL=0.084, and from other timed actions) is the ONLY thing that ever calls
+DAY.tick(), and in the same call it also calls partiesAdvance(mins), which is the ONLY thing that
+ever calls BohemiaParties.advance() -- converting those same minutes into a fraction of a day for
+the overworld company. So the map's day-based travel and the street's minute-based walking are
+the SAME NUMBER in two units, reconciled by WORLD's own 9/13 [parties move] row with nobody having
+to ask. Searched the whole slice for every "advance(" near fight, combat or beat: ZERO matches.
+Every fight entry point (roadContactFight, the encounter handoff, fightZoomIn/Out) never touches
+DAY.tick, DAY.wake, DAY.sleep or advance() at all -- a fight of any length, at 120 BPM (BEAT=500ms),
+costs exactly zero on the day clock. BohemiaLend's loanNight() -- the "one a night" debt -- fires
+from exactly one place, onNightfall(), the same unconditional once-per-day event as day:ate,
+night:power and blockRent. ANSWER (a): the debt is on the shared map/street clock, never the beat.
+ANSWER (b): a day of travel costs EXACTLY what a day standing still costs, because none of the four
+frozen verbs read distance -- measured, not assumed.
+BATTLE BROTHERS INDEPENDENTLY MADE BOTH SAME CALLS: its own combat halts the campaign clock
+entirely (no day passes during a fight, confirmed across multiple community sources), and its
+provisions are a flat 2/day whether the company marched or camped that day (camping burns the same
+supplies as marching). So our shape is not an oversight; it matches the named reference for this
+department without either side copying the other.
+THE REAL RECORD DISAGREES WITH BOTH OF US, AND MORE INTERESTINGLY THAN EXPECTED: a marching body
+NEEDED more (up to 5,000 kcal a day) but was often ISSUED less than a garrison ration (field rations
+1,200-2,500 kcal vs roughly 4,500 kcal garrison; British field rations 2,400-3,100 kcal "had to be
+supplemented"). History's fix for that gap was never a bigger ration, it was FORAGING along the
+route. EVERYTHING COSTS ONE forbids a fractional bill inside upkeep() the same way it forbade an
+invented rung-weight in round 52, so round two names the shape rather than a number: a travel day's
+own CHANCE at what bohemia_economy's mktAgents() already gives a stationary scavenging head
+("EVERYONE SCAVS ... a stated choice not a number"), never a changed charge on day:ate. Neither BB
+nor our own code models that forage half today -- not a gap to close to match the reference, a
+choice to go further than it does, if he ever wants it.
+
+Q53 COMPLETE, BOTH ROUNDS.
+
 NEXT IN THIS LANE: Q52 [inherited trust] -- this lane's own Q50 round one produced it. Two rounds:
 what inherited trust does to prices, lending and who gets the first battery (Q49), and the one
 integer shape it could take. (records/BOHEMIA_COORDINATOR_ROUND_9_24_26.md)
-AFTER Q52: fold rounds 51 and 52 into the master (a STANDING JOB, not a board job). The harvest
+AFTER Q52: fold rounds 51, 52 and 53 into the master (a STANDING JOB, not a board job). The harvest
 control has run four folds clean and has caught a fault every time.
 CARRY THESE IN, ALL THREE ALREADY ROUTED AND NONE OF THEM THIS LANE'S TO FIX, STILL RED AS OF THIS
-ROUND (checked fresh, neither file has moved since I routed them):
+ROUND (checked fresh again, none of the three files has moved since I routed them):
  - gates/four_verbs_gate.js CRASHES on main, on "#daycardIn .dcgo". Do not read it as new and do not
    chase it. It means the four upkeep verbs have no working end-to-end check, which matters to this
    lane more than to anybody, so if it is still red next round SAY SO AGAIN rather than assuming

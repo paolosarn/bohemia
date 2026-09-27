@@ -4354,3 +4354,54 @@ SSSSSSSSSSSS9  his neighbour, who has not said anything yet         draft:true
   What this round hands over is a door, a handshake and a count on the fingers.
 - Spanish register: 0 of 9 lines. Under the 15% cap; these are two blunt
   disagreements in plain speech and the register did not fit either one.
+
+## SSSSSSSSSSSSS. THE ROAD GIVES NOTHING BACK
+## (round 53, Q53 [two clocks], both rounds. A fight that costs no time, a day
+##  spent walking that costs what a day spent standing costs, and a road that
+##  never once hands you something a stationary block did not already have.
+##  Nobody says a number. Role, place, situation.)
+
+SSSSSSSSSSSSS1  a man back from three days on the road          draft:true
+    "I walked the whole valley and came back with nothing I didn't leave with."
+
+SSSSSSSSSSSSS2  his wife, who never left the block              draft:true
+    "I stayed right here and I didn't lose anything either."
+
+SSSSSSSSSSSSS3  the man, thinking about that                     draft:true
+    "Then what was the point of walking?"
+
+SSSSSSSSSSSSS4  a fighter, stepping out of a long one             draft:true
+    "Felt like an hour in there. Sun's exactly where I left it."
+
+SSSSSSSSSSSSS5  the one waiting for him outside                   draft:true
+    "It was. Nothing moved out here either."
+
+SSSSSSSSSSSSS6  a woman counting the night's bill again           draft:true
+    "Same number as every night. Doesn't matter what we did today."
+
+SSSSSSSSSSSSS7  her son, who marched all day for once             draft:true
+    "I earned that number today. Most nights I don't do anything for it."
+
+SSSSSSSSSSSSS8  the woman, unmoved                                 draft:true
+    "The book doesn't know the difference. Neither do I, tonight."
+
+## TTTTTTTTTTTTT. WHAT IS NOT HERE, ON PURPOSE (round 53, both rounds)
+
+- No line says a clock, a beat, a minute or a day count. The whole finding is
+  said as an odometer that does not move and a bill that does not care.
+- No line says advance, nightfall, day loop or the four verbs by name. The
+  mechanism stays out of every mouth.
+- No line claims the flat bill is wrong. SSSSSSSSSSSSS6 and 8 both accept it as
+  simply true, which is round one's own finding: it is not a defect, it matches
+  the named reference game on purpose.
+- No line resolves whether travelling should ever pay something extra.
+  SSSSSSSSSSSSS1 through 3 raise the question and stop, because that answer is
+  not this lane's to give.
+- No line names a town, a street or a faction. MAP LAW.
+- No line has the player speaking. Rule 27: 587 role-place entries in this file
+  now, zero of them him talking.
+- No line is written for a card, a tooltip or a readout: rule 19(a), rule 29.
+  What this round hands over is a road, a fight and a bill that reads the same
+  every night.
+- Spanish register: 0 of 8 lines. Under the 15% cap; these are two plain
+  domestic exchanges and neither one called for it.
