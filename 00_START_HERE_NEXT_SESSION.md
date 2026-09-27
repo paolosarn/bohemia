@@ -30067,6 +30067,20 @@ worktree. Not mine, not re-measured against a fresh clean tree this round
 whoever owns UI's gear door should take this as a second data point, not a
 first.
 
+AFTER THE REBASE, PEOPLE's brand-new gate (a_merge_did_not_delete_a_system_gate,
+landed this exact round from the incident CHARACTER found) went RED on
+BOHEMIA_CITY_WORLD.html: 12 lines main had that my tree does not. CHECKED LINE
+BY LINE, NOT WAVED AWAY: every one traces to my own comment rewrite at the top
+of the file's THE NAMES COME PREPARED block (main's old copy still says "typing
+your own is [three names]' row, not this one" -- true before this round, false
+after it) plus the ACTFLIP_SALT removal this commit message already describes.
+`git diff origin/main..HEAD -- slices/BOHEMIA_CITY_WORLD.html` shows every
+removed line is mine, from this round, with its replacement present a few lines
+away. No other lane's content is missing. The gate is doing exactly its job --
+catching a real diff -- and this diff is a lane rewriting its own prose, not an
+auto-merge eating somebody else's system. Reported rather than silently passed
+over, because that is the discipline the gate exists to enforce.
+
 *** QUESTS' TWO OLD ROWS, STILL CARRIED UNDER THIS SESSION, NOW ORPHANED BY
 RULE 35 -- FLAGGED FOR THE COORDINATOR, NOT TOUCHED. *** Rule 35 (Paolo 9/27):
 "QUESTS IS RESEARCH ONLY... a fresh chat whose first word is 'quests' takes it
