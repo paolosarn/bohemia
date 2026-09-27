@@ -48077,7 +48077,26 @@ your first VAMILY and do steps 1 to 9.
 I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
-ROUND LOG 9/24d (latest): PAOLO TO THIS CHAT, "Battle brothers" -
+ROUND LOG 9/27a (latest): [newgrounds] SHIPPED - the flash era read
+into the bible the way FFX's sound was (records/BOHEMIA_NEWGROUNDS_THE
+_FLASH_ERA_INSIDE_THE_BIBLE_9_27_26.md; the bible gains THE ERA
+section the same commit). SURVIVES: the hand-made signature (wear with
+authorship, R10's bake), puppet motion with HELD POSES (the flash era
+understood R3's stillness natively - holding a pose was free so poses
+were worth holding), loud in SILHOUETTE (shape + the one accent, never
+palette floods), the desk-mic voice (a human too close to the mic IS
+the broadcast premise - routed to SOUNDS), small-team consistency (the
+bible is that truth at our size). DIES: thick outlines (2C), gradient
+abuse (R4), comedy gore (20b/g), glossy web chrome (the loading door
+already out-does the era's preloader diegetically). One sentence:
+permission to be hand-made and loud, inside the bible's light, palette
+and lens. No flash title cited by name, per the line. FIGHT VERDICT
+ROUND 10 posted as no-change (no pair since V225, no HUD ship; noted:
+the machine-gun ruling makes the HUD chrome fix and the weapon-shape
+reach light ONE job now). Routed: ANIMATION (held poses blessed inside
+the envelope law), SOUNDS (desk-mic line), COOK (more hand in wear
+rides existing rows).
+PREVIOUS: PAOLO TO THIS CHAT, "Battle brothers" -
 recorded and executed the same turn (records/BOHEMIA_PAOLO_BATTLE_
 BROTHERS_TO_DIRECTION_AND_THE_MAP_GAP_9_24_26.md): THE MAP GAP,
 measured on the alpha against the [bb look] card, frame filed. Six

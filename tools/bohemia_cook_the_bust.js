@@ -9,6 +9,14 @@
  * RULE 32(f): shown at 132 px, the MEASURED size a portrait occupies on a 390-wide phone.
  * RULE 25: it plays, and it carries no vote of its own.
  *
+ * REFERENCE CHECK (the 9/4 standing duty; added by DIRECTION 9/27 at the seam --
+ * seventh cook tool this stretch shipped without one, the routed pattern holds):
+ * the rulers are FACE-01 and FACE-02 (the portrait construction the bust must
+ * keep) and AH-01 rule 6 (the still face performs restraint - a bust that holds
+ * and blinks rarely is that rule moving). Battle Brothers stays a mechanism
+ * reference here (the bust format), never a style source: structure from the
+ * reference, style from us. Ids resolve in the reference library index.
+ *
  * Out: slices/vote/PORTRAIT_THE_BUST.png   (frame strip)
  *      slices/vote/PORTRAIT_THE_BUST.html
  */

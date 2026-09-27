@@ -62,6 +62,20 @@ yet place one; that is rules R1/R7's build debt, world-data work, not art.
 The fight's row is the fight verdict's list wearing this bible's numbers.
 UNMEASURED is written where no instrument exists yet; naming it is rule 13.)
 
+## THE ERA (added 9/27, [newgrounds] - Paolo 9/24 named the flash site)
+Newgrounds is the LOOK'S ERA, his name, this page's alone: the early-
+2000s flash portal's hand-made, loud, crude-on-purpose, held-pose
+energy. THE CUT (records/BOHEMIA_NEWGROUNDS_THE_FLASH_ERA_INSIDE_THE_
+BIBLE_9_27_26.md): what survives is the HAND-MADE SIGNATURE (wear with
+authorship, R10's bake), PUPPET MOTION WITH HELD POSES (R3's stillness
+was the flash era's native craft), LOUD SILHOUETTE (shape and one
+accent, never palette floods), the DESK-MIC VOICE (a human too close
+to the microphone, which is the broadcast premise), and SMALL-TEAM
+CONSISTENCY (this page is that). What dies: thick outlines, gradient
+abuse (R4), comedy gore (not a monster), glossy web chrome. The one
+sentence: permission to be hand-made and loud, inside this page's
+light, palette and lens. No flash game is ever cited by name.
+
 ## WHO READS THIS
 THE FIGHT VERDICT judges against these ten from its next round. The
 compare-to-the-world gate carries this page as reference AH-01
@@ -78,5 +92,6 @@ broadcast, corrected in VOTE.
  "asset_classes":["tile","body","face","fight","street"],
  "serves":{"grime":"8/3 bake-time machine","beat":"120bpm as the dead pulse"},
  "overlays_allowed":["fight shade (value-only)","night (value-only)"],
+ "era":"newgrounds (9/27): hand-made + loud + held poses survive; outlines, gradients, gore, web chrome die",
  "judge":"name the one wrong thing in one sentence, point at every light's fixture, and prove nothing sits on the lens"}
 ```
