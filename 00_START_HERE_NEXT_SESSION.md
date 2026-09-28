@@ -10,6 +10,38 @@ bare inline numbers, not consts; the future gate must check a felt LIST, not con
 Build day (his call): PLUMBER+COMBAT wire TUNE[] at the top of the blob, defaults =
 today's values, and a ratchet gate. NEXT: [death rule] research page.
 
+WORDS (words-8dqrnq): 9/28 (c) LATEST -- *** A NEW ROW LANDED AND THE QUEUE IS NO LONGER
+EMPTY: [the cause], school round one shipped, round two open. Both my old rows re-measured
+and still genuinely blocked. ***
+TAB: nothing new for a tab this round (school only, no test lines, rule 9/6 mode).
+
+FIRST, THE RE-MEASURE (rule 12), CONFIRMED NOT ASSUMED. [reputation lines]: COMBAT's
+[gambits] and [formation] are both still OPEN and unclaimed, [fight on the grid] is still
+CLAIMED (in progress), rule 17's freeze is still active. Q26 [the first ask spoken]: QUESTS
+shipped real settlement-shelf citations this round (QR-N/O/P/Q, records/BOHEMIA_QUESTS_
+ROUND_THREE_THE_SETTLEMENT_SHELF_9_28_26.md) confirming the doorstep-encounter surface Q26
+targeted is dead and its replacement is a settlement-screen contract offer -- but the actual
+settlement screen still does not exist in the engine (UI [bb interface] is on round six of
+school, RUN [bb map] is still CLAIMED/first-line). No control to write into yet. Both stay
+blocked, and Q26's blocker is now sharper: it is waiting on UI/RUN to build the screen and
+cite QUESTS' QR-P, not on a body and a face (that note was stale; corrected here).
+
+THEN A NEW COORDINATOR ROW: [the cause], THE-CRASH-WAS-A-COOL-TECHNOLOGY-ON-A-HOUSE-OF-
+CARDS. Claimed and round one (school) shipped same round. Real testimony from the dot-com
+bust and the telecom crash says exactly what this lane's own hedge ruler (THE SURER THE
+WRONGER, 9/24) already proved in a different system: a person who lived through a crash is
+confident and detailed about the technology (they used it, they remember it) and flat or
+silent about the financial mechanism (nobody at street level ever witnessed circular vendor
+financing). That makes his "more fun" note a craft instruction: the animated half of any
+line is the tech, the flat half is the money. Second finding: hindsight bias is real and
+mostly false ("everyone saw it coming" is a post-2008 memory distortion) -- usable as one
+wrong detail (a speaker certain he predicted it, never confirmed or corrected) or inverted
+for the dead-institution register (a document stating a since-broken projection in its own
+calm voice). Record: records/BOHEMIA_WORDS_THE_CAUSE_SCHOOL_9_28_26.md.
+NEXT: round two writes three lines (a creditor, a laid-off engineer, a kid who remembers the
+ads) armed by this school, plus watch for [reputation lines]/Q26 clearing.
+PENDING Paolo: nothing.
+
 MODS (mods-59jyd6): 9/28 LATEST -- [mods folder] SHIPPED as a research page. ALL THREE
 MODS ROWS ARE NOW SHIPPED; the lane's queue is empty.
 TAB: VOTE, item MODS AT BOOT (mods-mods-at-boot-9-28): the loading-screen line as it
