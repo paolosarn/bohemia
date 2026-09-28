@@ -1,0 +1,86 @@
+<!doctype html><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>BOHEMIA — A Hit Facing You</title>
+<!-- ANIMATION [facing you], 9/28. Rule 38: the fight is on house tiles with the full 112
+     body, so these are the swings he sees. RULE 25: IT PLAYS, on the 120 beat. No control. -->
+<style>
+  :root{--ink:#e8e0cc;--bg:#0d0d12;--card:#16161d;--line:#33313d;--gold:#c79a3f}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+       font:13px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace;padding:14px}
+  h1{font-size:13px;letter-spacing:2px;margin:0 0 4px;color:var(--gold)}
+  p{margin:0 0 12px;color:#a49a86;max-width:60ch}
+  b{color:var(--ink)}
+  .said{border-left:2px solid #7a4a4a;padding:6px 0 6px 10px;margin:0 0 14px;color:#b09a90}
+  .oops{border-left:2px solid #c79a3f;padding:6px 0 6px 10px;margin:0 0 14px;color:#cbb88f}
+  .clip{background:var(--card);border:1px solid var(--line);border-radius:6px;
+        padding:8px;margin-bottom:10px}
+  .name{font-size:11px;letter-spacing:2px;color:var(--gold);margin-bottom:6px;
+        display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+  .sub{color:#6f6862;font-size:10px;letter-spacing:0;text-align:right}
+  .pair{display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end}
+  .side{text-align:center}
+  .lab{font-size:10px;letter-spacing:1px;margin-bottom:3px}
+  .old{color:#9a6b6b}.new{color:#7fa06b}
+  .big{width:112px;height:112px;image-rendering:pixelated;background:#101319;border-radius:3px}
+  .real{width:28px;height:28px;image-rendering:pixelated;background:#101319;border-radius:2px}
+  .beat{height:3px;background:#2a2833;border-radius:2px;margin:12px 0 2px;overflow:hidden}
+  .beat i{display:block;height:100%;width:8.333%;background:var(--gold)}
+  .note{margin-top:12px;color:#6f6862;max-width:60ch}
+</style>
+<h1>A HIT FACING YOU</h1>
+<div class="said">Your call: the fight is on house tiles with the full-size guy.
+So these are the swings you will actually see.</div>
+<p>A throw and a heavy punch both go <b>forward</b>. When he faces you, forward is
+<b>into the screen</b>, and the code only moved his body forward. So facing you,
+his whole body stood still and only an arm waved.</p>
+<p>Measured: from the side the throw moves 85 percent of him. Facing you it moved
+<b>34 percent</b>. The heavy punch the same: 85 from the side, <b>38 facing you</b>.</p>
+<p>Now, facing you: the <b>throw</b> goes up over his head and comes down with his
+weight stepping into it. The <b>punch</b> cocks back, then the fist comes across his
+chest at you with his hip behind it.</p>
+<p>The side views did not change at all, pixel for pixel. The last row is one from
+the side to prove it.</p>
+<p>Left is what it was, right is now. Twelve poses a bar, on the beat.</p>
+<div class="beat"><i id="beat"></i></div>
+<div id="clips"></div>
+<p class="note">No new art. The same body; facing you it finally moves like it does from the side.</p>
+<script>
+(function(){
+  var BEFORE='ANIMATION_A_HIT_FACING_YOU_BEFORE.png', AFTER='ANIMATION_A_HIT_FACING_YOU_AFTER.png';
+  var ROWS=[['THROW, FACING YOU','was 34%, now 69%'],
+            ['THROW, FROM BEHIND','the arm goes up and over'],
+            ['HEAVY PUNCH, FACING YOU','was 38%, now 68%'],
+            ['HEAVY PUNCH, FROM BEHIND','the weight goes into it'],
+            ['THROW, FROM THE SIDE','unchanged, pixel for pixel']];
+  var S=112,Z=1,N=12,BEAT=500,LOOP=BEAT*4;
+  var host=document.getElementById('clips'), cells=[];
+  ROWS.forEach(function(r,ri){
+    var box=document.createElement('div'); box.className='clip';
+    var n=document.createElement('div'); n.className='name';
+    n.innerHTML='<span>'+r[0]+'</span><span class="sub">'+r[1]+'</span>';
+    box.appendChild(n);
+    var pair=document.createElement('div'); pair.className='pair';
+    [['BEFORE','old',BEFORE],['NOW','new',AFTER]].forEach(function(spec){
+      var side=document.createElement('div'); side.className='side';
+      var l=document.createElement('div'); l.className='lab '+spec[1]; l.textContent=spec[0];
+      var c=document.createElement('div'); c.className='big';
+      c.style.backgroundImage='url('+spec[2]+')';
+      c.style.backgroundSize=(N*S*Z)+'px auto';
+      cells.push({el:c,row:ri,step:S*Z});
+      side.appendChild(l); side.appendChild(c); pair.appendChild(side);
+    });
+    box.appendChild(pair); host.appendChild(box);
+  });
+  var bar=document.getElementById('beat'), t0=performance.now();
+  (function tick(){
+    var ph=((performance.now()-t0)%LOOP)/LOOP, f=Math.floor(ph*N)%N;
+    for(var i=0;i<cells.length;i++){
+      var k=cells[i].step/S;
+      cells[i].el.style.backgroundPosition=(-f*cells[i].step)+'px '+(-cells[i].row*S*k)+'px';
+    }
+    bar.style.transform='translateX('+(f*100)+'%)';
+    requestAnimationFrame(tick);
+  })();
+})();
+</script>

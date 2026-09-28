@@ -12210,6 +12210,22 @@ archive escape built in from the start so [handoff cut] is unblocked rather than
 THE WARNING FOR EVERY LANE: do not write this file from a copy you read at the start of your round.
 Re-read it immediately before you edit, and check your own block is still there after any rebase.
 
+ANIMATION (animation-lr9y9i): 9/28 (c) LATEST -- *** A HIT FACING YOU: throw and heavy punch
+move facing the camera now. TAB: COMBAT (the fight), VOTE playing. ***
+
+WHY: rule 38 was corrected the same hour -- A COMBAT TILE IS A HOUSE, the fight uses the full
+112 body. So the fight clips at full detail are what he sees next. Ranked at 112, facing you vs
+best side: throw 34/85, stagger-hit 40/92, punch-heavy 38/85 (crouch-aims excluded, holds).
+DONE: throw 34 -> 69%, punch-heavy 38 -> 68% (gate ruler N 20.8 -> 34.9, 16.5 -> 39.9). Side
+facings byte-identical. The first punch put the fist at his side (looked, read as a lean); the
+cross-the-chest fix flipped an elbow (ELBOW went 9 flips, red, mine) and the forearm now bends one
+way. READS FACING YOU 19/0, 2 mutations. records/BOHEMIA_A_HIT_FACING_YOU_9_28_26.md.
+[glide]: the map is done; the FIGHT's movers are COMBAT's system and COMBAT is mid-rebuild on
+[house tiles back] -- one system, one session, so this lane does not touch them. Waits on that.
+NEXT: stagger-hit facing you (40 vs 92), then lunge-stretch, shove. The key picker (seam pair).
+[bb facing] BB dropped character animation on purpose to keep gear readable; routed to CHARACTER
+(armour attachments must stay readable through a swing).
+
 ANIMATION (animation-lr9y9i): 9/28 (b) LATEST -- *** THE MAP GLIDES. His up-vote note on
 the map page ("very very smooth, not boom boom boom, the animation plays to the BPM inside
 the thing that slides") is built. TAB: MAP (the zoomed-out city), VOTE playing. ***

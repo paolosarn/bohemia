@@ -2956,6 +2956,20 @@
     "how": "page",
     "src": "BOHEMIA_THREE_HUMS_OFF_THE_GRID_9_28_26.html"
    }
+  },
+  {
+    "id": "animation-a-hit-facing-you-9-28",
+    "kind": "animation",
+    "lane": "animation",
+    "sha": "PENDING",
+    "made": "9/28",
+    "title": "A HIT FACING YOU",
+    "why": "You said the fight is on house tiles with the full-size guy, so these are the swings you will actually see. A throw and a heavy punch both go forward, and when he faces you forward is into the screen, so facing you his whole body stood still and only an arm waved. From the side the throw moves 85 percent of him; facing you it moved 34. The heavy punch the same: 85 from the side, 38 facing you. Now facing you the throw goes up over his head and comes down with his weight stepping into it, and the punch cocks back and the fist comes across his chest at you with his hip behind it (69 and 68 percent now). The side views did not change, pixel for pixel. Before beside after, on the beat.",
+    "show": {
+      "how": "page",
+      "src": "vote/ANIMATION_A_HIT_FACING_YOU.html"
+    },
+    "said": "a tile is as big as a house"
   }
  ],
  "verdicts": [
