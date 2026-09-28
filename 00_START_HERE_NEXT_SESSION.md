@@ -31258,6 +31258,75 @@ since 9/6, it also holds 19 QUESTS (BUILD). The front page's chat-19 line says a
 chat with an empty queue takes QUESTS, and DYNASTY's queue went empty at Q16. The
 lane and its first row were claimed and pushed BEFORE any work started. ***
 
+ROUND 56 [angel verbs] Q17 PEOPLE ALREADY SHIPPED THE VERB LIST. THE GAP IS THE
+FLOOR.
+DYNASTY, RESEARCH (this lane's own Q-list, claimed and pushed as its own
+commit before work started, rule 5's two-step).
+  records/BOHEMIA_DYNASTY_DAY_19_THE_ANGELS_VERBS_9_28_26.md
+  vote: dynasty-angel-verbs-9-28 (line, no art)
+
+THE ROW'S OWN PREMISE WAS DEAD BEFORE THIS ROUND STARTED. Q17 asked for a
+forgiveness verb list "now that we know nothing in the game can be
+forgiven" -- but that finding was this lane's own Q15 (9/5), and PEOPLE
+built the fix off it two rounds later, 9/7, [make it right]: makeRight(),
+RIGHT_WORDS (settled/paid/forgiven/spared), correctly grounded in the two
+strongest real findings in the forgiveness literature (amends raise it,
+severity lowers it), only the wronged person decides for themselves, and
+forgiven stays on the record rather than being erased. WRITING A SECOND
+LIST WOULD HAVE REPEATED THIS LANE'S OWN Q6/Q7 MISTAKE -- measuring a file
+a different lane already fixed and reporting the old hole as new.
+
+WHAT WAS STILL GENUINELY OPEN, MEASURED DIRECTLY IN THE SHIPPED CODE:
+wouldSquare() is one sum with no exception --
+`out.would = out.rest > 0 && (out.rest + out.grudge) >= 0` -- so a stolen
+loaf and a killing are the same KIND of number in that equation, only a
+bigger one. Real reconciliation research and every legal system treat some
+harms as a different KIND, never just a bigger number of the same kind.
+AND FORGIVING IS NOT THE SAME VERB AS TRUSTING AGAIN in the literature
+(two separable outcomes, measured separately) but the code has one bit,
+d.right, for both. Real apology's order (Lazare, widely replicated):
+acknowledgment, explanation, remorse, reparation, a testable promise -- the
+shipped mechanism has acknowledgment (the button) and reparation
+(priceOf); explanation, remorse and a testable promise have no
+representation anywhere.
+
+WHAT MUST STAY UNFORGIVABLE: canon is his, not mine to list. What this
+round delivers instead is the SHAPE the mechanism is missing -- a severity
+floor wouldSquare's sum cannot cross, so some deed kinds stay categorically
+un-squarable regardless of how large the positive side gets, the same way
+real reconciliation research treats some harms. [PENDING Paolo]: which
+deed kinds (if any) carry that floor.
+
+ROUTED: PEOPLE (the floor, once he names which kinds; the forgive/
+reconcile split as a second bit on d.right, not a rewrite; the apology's
+missing middle steps are surface work); TUNING (if a floor ships, it is a
+boolean per kind, never a felt number outside rule 21's one table); QUESTS
+research (the apology failure-mode list is library material, cited here
+not built).
+
+PRE-PUSH PASS: school, no gate of mine to run. Canon rot 11/2 -- RED ON
+MAIN TOO, checked against a clean stash before committing (two unrelated
+zombie-teardown citations, nothing of mine). Handoff 9/0, reply contract
+17/0, three names 31/0 and the flip unchanged (nothing of mine touched
+them).
+
+THE VOTE REGISTRY CONFLICTED ON REBASE TWICE THIS ROUND (same shape as
+prior rounds: whitespace drift at the items/verdicts boundary from other
+lanes' own splice scripts). Both times resolved by re-deriving the splice
+against the fresh HEAD copy rather than trying to hand-merge the conflict
+markers -- the regex-based boundary match earns its keep again.
+
+QUESTS' TWO OLD ORPHANED ROWS ([light the pump], [main quest live], both
+CLAIMED under this session, both un-buildable under rule 35) ARE STILL
+UNRESOLVED. Re-flagging again for the coordinator.
+
+NEXT for DYNASTY: checked the board fresh this round (not assumed) --
+[angel verbs] Q17 was the actual first OPEN line, not [horror heir]'s own
+"next" guess from last round (that one had already been claimed and shipped
+this same session). Remaining OPEN in the Q-list after this round:
+[return ritual] Q18, [old body] Q19, [name outlives] Q20, [who buries] Q21,
+[days per life] Q22, [animal era] Q23. Next VAMILY takes [return ritual].
+
 ROUND 55 [horror heir] THE MACHINE IS STILL TALKING. THE BILL HAS NO SENDER.
 THE TAPE DOES NOT EXIST.
 DYNASTY, RESEARCH (rule 20h, one page, no code, no gate). Claimed and pushed as
