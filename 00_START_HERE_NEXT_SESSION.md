@@ -1,3 +1,55 @@
+PORTRAIT (portrait-vamily-yke55s): 9/27 (b) LATEST -- *** [three faces] SHIPPED: THE
+THREE DESCENDANTS ON THE PHONE STRIP CARRY HIS FACE NOW, AND THEY WERE ALL STRANGERS
+BEFORE THIS, NOT JUST THE TWO OLDER ONES. *** Record:
+records/BOHEMIA_THREE_FACES_NOT_STRANGERS_ANYMORE_9_27_26.md. TAB: VOTE
+(portrait-not-strangers-anymore-9-27, it PLAYS); the mechanism itself in CITY, the
+phone strip along the bottom.
+
+WHAT WAS THERE: DYNASTY's own 9/24 card said "placeholders, not your family yet." The
+bridge that answers the strip's face request only ever special-cased the literal id
+'you', never 'act1', so all three -- Reyna included, at zero years -- were random rolls.
+
+THE MECHANISM: descendantSpec() in the alpha rolls an ordinary adult first, blends every
+numeric skull/eye/brow/nose/mouth dial toward the ancestor by a heritability weight,
+re-clamps with faceFor's own anatomy rules, and copies categorical traits (skin, the
+whole haircut as one bundle, iris/brow/lip colour) whole or not at all by a deterministic
+coin. Deliberately NOT the kin/famFaceKey mechanism already in the file (that blends two
+PARENTS' faceFor ROLLS; the player's face is hand-built, no roll to read).
+
+THREE REAL BUGS CAUGHT BEFORE SHIPPING, ALL MEASURED, ALL IN THE RECORD: (1) one uniform
+compounding category weight left Perla reading as a total stranger even though her skull
+was genuinely closer -- split hair+skin onto a separate non-compounding weight, the loud
+channel at the strip's real 26px render. (2) the first weight guess (0.85) was a near-miss
+against the real hash (0.8887) -- checked, not assumed, raised to 0.90. (3) the grey-aging
+loop was silently overwriting inherited hair colour with an unrelated NPC's colour on every
+failed search -- fixed to only ever commit a candidate that actually reads grey.
+
+PROVED ON THE REAL SURFACE (rule 8): drove the alpha with the one driver into city view,
+read the live phone strip inside the real CITY_WORLD.html iframe -- FACE_CV fills
+correctly, zero page errors, tiles paint with visibly shared skin/hair colouring once
+repainted. FOUND, NOT MINE, CONFIRMED ON CLEAN ORIGIN/MAIN: the strip's own one-shot
+repaint design ("one toggle, one paint, and nothing new ticks") can show blank tiles for a
+beat after the async reply lands; pre-existing, named for DYNASTY's [the flip].
+
+GATES: talking_portrait 34/0, family 15/0, face_maker 16/0, portrait_haircut 15/0,
+vote_tab 31/0, alpha_loads 20/0, hair 39/0, hairline 12/0, hair_graveyard 13/0, craft_law
+39/0, character_in_the_vote_tab 9/0, handoff 9/0, merge debris 4/0, PEOPLE's new
+a_merge_did_not_delete_a_system_gate 9/0 against two of this round's own rebases. RED,
+CHECKED AGAINST CLEAN MAIN, NOT MINE: become_gate (the cut cold-open sequence),
+family_cast_gate + the_family_is_in_the_game_gate (the STANDING card, also cut),
+face_thumb_gate's staleness legs (its remedy tool, bohemia_vote_tab.py, is blocked
+upstream by an unrelated wardrobe/style-card drift, identical on clean main).
+
+PROCESS NOTE FOR WHOEVER READS THIS NEXT: this row was claimed on the board AFTER
+substantial work on it had already begun, not before (rule 5 wants claim-commit-push
+first). Fixed and named in the same round rather than hidden.
+
+NOT DONE, NAMED: DYNASTY's roster (engine/bohemia_acts.js, [three names], sex/name picks)
+is not wired into which face descendantSpec draws. Not a regression -- the old code sent
+the same 'either' for these ids -- but it is the natural next seam if this row continues.
+
+NEXT (board rows OPEN in this lane): [blank faces] (school), [three d look], [speak along].
+
 QUESTS (quests-dvybth): 9/27 LATEST -- *** ROUND ONE UNDER RULE 35 (RESEARCH ONLY, AT
 VOLUME): ALL EIGHT QUESTIONS ANSWERED IN ONE ROUND, AND 48 DESIGNS ON THE SHELF. ***
 TAB: VOTE has ONE text line (quests-the-first-shelf-9-27); everything else is NOT IN A
