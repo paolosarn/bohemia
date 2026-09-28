@@ -2811,7 +2811,7 @@
    "id": "mods-try-a-mod-9-28",
    "kind": "ui",
    "lane": "mods",
-   "sha": "pending",
+   "sha": "75ece9f",
    "made": "9/28",
    "title": "TRY A MOD",
    "why": "Research, nothing in the game. Big games all let a mod change one row of a data file, not replace the whole file. Here is that with the real four guns: edit the box, press APPLY, see the pistol's magazine change. Press BROKEN MOD to see a bad mod get named and skipped without crashing anything. Thumb up if this is how you want mods to work.",
