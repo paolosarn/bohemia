@@ -10418,6 +10418,104 @@ archive escape built in from the start so [handoff cut] is unblocked rather than
 THE WARNING FOR EVERY LANE: do not write this file from a copy you read at the start of your round.
 Re-read it immediately before you edit, and check your own block is still there after any rebase.
 
+ANIMATION (animation-lr9y9i): 9/27 (c) LATEST -- *** SIX MORE WALKS HAD THE SAME
+LIMP, AND FOUR WERE BROKEN IN EVERY DIRECTION. All fixed. TAB: ANIMATION for the
+clips, VOTE for the item, playing. ***
+
+[small clips] CLAIMED, round two done. [bb marker] round one done. [redo killed]
+12 of 47. [judge two] and [facing you] wait on his thumbs.
+
+=== THE QUESTION, ASKED OF EVERY GAIT THIS TIME
+Round one found the plain walk drawing THREE pictures instead of four, because a
+step has two leg crossings and the code drew them as one picture. Every gait in
+the file is built from the same sine, so I asked all nine of the others. Measured
+on the drawn pixels, ph 0 against ph 0.5, eight facings, at 112 and at 28:
+  tired-walk 8/8 identical   swagger 8/8   gun-walk 8/8
+  sneak      7/8             wander  5/8   push     4/8       FORTY OF FORTY-EIGHT
+  drunk 0/8, flee-sprint 0/8, flee-scramble 0/8 -- ALREADY CLEAN, and the reason
+  is worth keeping: EACH CARRIES A SECOND CLOCK AT A DIFFERENT FREQUENCY. That is
+  the only thing that kept their two crossings apart, and nobody designed it.
+
+=== AND IT WAS IN THE SHARED HEAD-ON BRANCH, AT THE SOURCE
+nsGait, the N/S gait every walking clip falls back to, is a pure function of s, so
+it returns one legs-together pose at BOTH crossings by construction. walk and run
+escaped there only because the pose-hold resolver happened to put their keys
+elsewhere. That is luck, not a fix, and it is fixed now.
+
+=== THE CLEARANCE IS PER GAIT, BECAUSE THEY ARE DIFFERENT WALKS
+  sneak 0.30  push 0.30  gun-walk 0.40  wander 0.50  swagger 0.65
+  (walk 0.55 and run 0.70 from round one)
+All six to 0/8. Worst bar 5 pictures -> 8-9. And the number that matters: the two
+crossings now differ by 5.4% to 13.1% OF THE BODY AT ONE CELL, where every one of
+them was 0.0%.
+
+=== I BROKE THE COAT, AND ANOTHER GATE OF MINE CAUGHT IT
+The first head-on lift, 0.13, took COAT ON LEGS from 12.1% to 25.7% of the coat's
+own area in one frame against its 22% ceiling. Red, and mine.
+A WRONG FIX, MEASURED AND THROWN AWAY THE SAME HOUR: I squared the bell on the
+theory that the kink at the stride extreme was the pop. It made the pop WORSE,
+25.7 -> 30.3, because narrowing a bell steepens its flanks.
+THEN THE AMPLITUDE WAS SWEPT INSTEAD OF PICKED:
+  0.13 -> 25.7%   0.09 -> 18.6%   0.06 -> 18.6%   0.04 -> 18.6%
+0.09 is the LARGEST value the coat does not notice at all, so it is the top of the
+range and not a retreat from it. The sweep is written into the source beside the
+number so nobody has to re-derive it.
+
+=== THE CUT TOOK NOTHING, ELEVEN TIMES OVER
+For all eleven gaits the picture count at 28 is EXACTLY the count at 112, facing
+for facing. Round one's conclusion again with eleven clips instead of two.
+
+=== THE IDLE, WHICH THIS ROW ALSO NAMES
+7 to 9 pictures a bar at BOTH sizes, 23% to 40% of the body moving, and the sole
+planted on all eight facings at 112 and at 28. It survives with nothing to fix.
+
+=== TWO RULERS OF MINE THAT NEEDED CHECKING, BOTH CAUGHT BEFORE THEY BECAME FINDINGS
+(a) My first sweep sampled 12 evenly spaced phases because POSEHOLD.keys is 12,
+and reported "103 of 103 clips draw fewer than 12 pictures". Not the grid: the
+resolver picks keys by EQUAL ARC LENGTH out of 24 buckets and 12 is a target, not
+a schedule; a hold legitimately resolves two. THE GAME ALREADY HAS THE COUNTER,
+poseHoldCount, AND NOTHING HAS EVER READ IT.
+(b) I thought the idle's foot was lifting at one cell. My foot ruler read the
+FIRST row of the leg region, which is the hip and is supposed to move. The foot is
+the LAST row and it never moves. A RULER POINTED AT THE WRONG END OF THE LEG IS
+NOT A FINDING.
+
+=== COOKED THIS ROUND (rule 22, rule 25)
+animation-six-more-walks-had-the-same-limp-9-27, and it PLAYS: every picture in it
+is the real one-cell sprite cut by the game's own cut, at 4x so it can be seen,
+with his true size beside it.
+[bb clips] school page (rule 33f): BB has NO body on the map, just a marker with
+footstep sound, and spends its fight budget on the moment a weapon lands. Counted
+ours: WE SPEND THE SAME ON A STROLL AS ON A PUNCH, and air-guitar is nearly twice
+a spear through the chest. THE OBVIOUS FIX IS WRONG FOR US: at one cell a hit
+cannot carry eight readable pictures, so the walk keeps the frames and the hit has
+to be carried by sound and by the board. Routed to SOUNDS and COMBAT.
+
+=== PROOF
+records/BOHEMIA_SIX_MORE_WALKS_HAD_THE_SAME_LIMP_9_27_26.md
+records/BOHEMIA_BB_SCHOOL_WHERE_A_BODY_SPENDS_ITS_PICTURES_9_27_26.md
+gates/the_walk_has_four_pictures_at_one_cell_gate.js -- 14 claims now (was 9), 3
+mutations caught, and the third is the one that earns its claim: the lift kept but
+made too small to see, where push came out NOT byte-identical (1.5%) and the
+visibility floor failed it anyway. A FLOOR THAT ONLY CATCHES BYTE-IDENTITY IS NOT
+A FLOOR. The three already-clean gaits sit in the table as a control on the fix.
+Pre-push pass: FOUR AT ONE CELL 14/0, COAT ON LEGS 9/1, ENVELOPE RAMP 10/0, READS
+FACING YOU 17/0, SLIDE AND TURN 17/0, NECK HOLDS HEAD 8/0, HEAD SNAPS 13/0, ELBOW
+BENDS 10/0, ELDER STOOPS 9/0, VOTE TAB 30/1.
+THE TWO REDS ARE BOTH BASELINED on a clean origin/main worktree, byte for byte:
+the coat 1.32x the body's widest row, and tapping VOTE in the gear. Not mine.
+
+=== NEXT, IN ORDER
+1. [small clips] round three: the fight clips at one cell (punch, shiv, spear,
+   kick, throw), which this row has not touched.
+2. [bb marker] round two: speed that carries information, other parties on the
+   same clock.
+3. The remaining killed clips with the worst single facing.
+4. [judge two] and [facing you] wait on his thumbs.
+5. [bake approved] -- several of the 23 carry the head-on hole.
+
+[PENDING Paolo] Nothing.
+
 ANIMATION (animation-lr9y9i): 9/27 (b) LATEST -- *** THE CUT TO ONE CELL SURVIVES,
 AND IT FOUND THE WALK HAD THREE PICTURES INSTEAD OF FOUR, AT EVERY SIZE, THE
 WHOLE TIME. Fixed in the source. TAB: ANIMATION for the clips, VOTE for the item,

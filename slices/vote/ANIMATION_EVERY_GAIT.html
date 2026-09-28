@@ -1,0 +1,116 @@
+<!doctype html><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>BOHEMIA — Six More Walks Had The Same Limp</title>
+<!-- ANIMATION, [small clips] round two, 9/27. Rule 34 (TWO SCALES, ONE GAME).
+     RULE 25: IT PLAYS. Every picture here is the real one-cell sprite, cut by
+     the game's own cut, shown at 4x so it can be seen, with the true size beside
+     it. No control in the page; the row asks once. -->
+<style>
+  :root{--ink:#e8e0cc;--bg:#0d0d12;--card:#16161d;--line:#33313d;--gold:#c79a3f}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+       font:13px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace;padding:14px}
+  h1{font-size:13px;letter-spacing:2px;margin:0 0 4px;color:var(--gold)}
+  p{margin:0 0 12px;color:#a49a86;max-width:60ch}
+  b{color:var(--ink)}
+  .said{border-left:2px solid #7a4a4a;padding:6px 0 6px 10px;margin:0 0 14px;color:#b09a90}
+  .clip{background:var(--card);border:1px solid var(--line);border-radius:6px;
+        padding:8px;margin-bottom:10px}
+  .name{font-size:11px;letter-spacing:2px;color:var(--gold);margin-bottom:6px;
+        display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+  .sub{color:#6f6862;font-size:10px;letter-spacing:0;text-align:right}
+  .pair{display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end}
+  .side{text-align:center}
+  .lab{font-size:10px;letter-spacing:1px;margin-bottom:3px}
+  .old{color:#9a6b6b}.new{color:#7fa06b}
+  .big{width:112px;height:112px;image-rendering:pixelated;background:#101319;border-radius:3px}
+  .real{width:28px;height:28px;image-rendering:pixelated;background:#101319;border-radius:2px}
+  .beat{height:3px;background:#2a2833;border-radius:2px;margin:12px 0 2px;overflow:hidden}
+  .beat i{display:block;height:100%;width:12.5%;background:var(--gold)}
+  .note{margin-top:12px;color:#6f6862;max-width:60ch}
+</style>
+<h1>SIX MORE WALKS HAD THE SAME LIMP</h1>
+<div class="said">Your call: the character is tiny again, one cell, one step per
+cell.</div>
+<p>Last round I found the walk was drawing <b>three pictures instead of four</b>,
+because a step has two middles and the code drew them as the same picture. Your
+left leg passing forward and your right leg passing forward are not the same
+thing.</p>
+<p>So I asked that question of <b>every other way this guy moves</b>. Nine more
+walks. Six of them had it, and four were broken in <b>every single direction</b>:
+</p>
+<p><b>tired walking, swagger, walking with the gun out</b> — all 8 directions the
+same picture twice. <b>Sneaking</b> 7 of 8. <b>Wandering</b> 5 of 8. <b>Shoving
+something</b> 4 of 8. Forty of forty-eight. Drunk, sprinting and scrambling were
+already fine, because each of those carries a second wobble on a different clock,
+and that is what saved them.</p>
+<p>Fixed the same way, but <b>the foot clears a different amount for each walk</b>,
+because they are different walks: a crouch and a shove keep the foot down, a
+stroll lifts it, a swagger is meant to be seen.</p>
+<p>And it was in the <b>facing-you</b> version too, at the source: one shared
+piece of code every walk runs through. Facing you, a passing leg reads as the
+knee coming at the camera.</p>
+<p>Left is what it was, right is now. Eight frames, on the beat, and <b>every
+picture here is the real one-cell sprite</b>, blown up 4x so you can see it. The
+tiny one on the right is his true size.</p>
+<div class="beat"><i id="beat"></i></div>
+<div id="clips"></div>
+<p class="note">One number worth knowing: how much of his body actually changes
+between those two middles, at one cell. It was <b>zero</b> for all six. It is now
+5% to 13%, and the machine check refuses anything under that, so this cannot
+quietly shrink back.</p>
+<p class="note">I broke the coat doing it and the coat's own checker caught me.
+The first lift I tried made the trenchcoat jump 26% of itself in one frame. I
+measured four sizes of lift and took the biggest one the coat does not notice at
+all. That is why the facing-you lift is the number it is.</p>
+<script>
+(function(){
+  var BEFORE='ANIMATION_EVERY_GAIT_BEFORE.png';
+  var AFTER ='ANIMATION_EVERY_GAIT_AFTER.png';
+  var ROWS=[['SNEAKING','was the same picture twice on 7 of 8 directions'],
+            ['TIRED WALKING','all 8 directions'],
+            ['WANDERING','5 of 8 directions'],
+            ['SWAGGER','all 8 directions'],
+            ['SHOVING SOMETHING','4 of 8 directions'],
+            ['WALKING WITH THE GUN','all 8 directions'],
+            ['THE PLAIN WALK, FACING YOU','the shared facing-you code had it too']];
+  var S=28,Z=4,N=8,BEAT=500,LOOP=BEAT*4;   /* 120 BPM, eight keys over four beats */
+  var host=document.getElementById('clips'), cells=[];
+  ROWS.forEach(function(r,ri){
+    var box=document.createElement('div'); box.className='clip';
+    var n=document.createElement('div'); n.className='name';
+    n.innerHTML='<span>'+r[0]+'</span><span class="sub">'+r[1]+'</span>';
+    box.appendChild(n);
+    var pair=document.createElement('div'); pair.className='pair';
+    [['BEFORE','old',BEFORE,Z],['NOW','new',AFTER,Z]].forEach(function(spec){
+      var side=document.createElement('div'); side.className='side';
+      var l=document.createElement('div'); l.className='lab '+spec[1];
+      l.textContent=spec[0];
+      var c=document.createElement('div'); c.className='big';
+      c.style.backgroundImage='url('+spec[2]+')';
+      c.style.backgroundSize=(N*S*spec[3])+'px auto';
+      cells.push({el:c,row:ri,step:S*spec[3]});
+      side.appendChild(l); side.appendChild(c); pair.appendChild(side);
+    });
+    var side=document.createElement('div'); side.className='side';
+    var l=document.createElement('div'); l.className='lab'; l.textContent='REAL SIZE';
+    var c=document.createElement('div'); c.className='real';
+    c.style.backgroundImage='url('+AFTER+')';
+    c.style.backgroundSize=(N*S)+'px auto';
+    cells.push({el:c,row:ri,step:S});
+    side.appendChild(l); side.appendChild(c); pair.appendChild(side);
+    box.appendChild(pair); host.appendChild(box);
+  });
+  var bar=document.getElementById('beat'), t0=performance.now();
+  (function tick(){
+    var ph=((performance.now()-t0)%LOOP)/LOOP;
+    var f=Math.floor(ph*N)%N;
+    for(var i=0;i<cells.length;i++){
+      var k=cells[i].step/S;
+      cells[i].el.style.backgroundPosition=(-f*cells[i].step)+'px '+(-cells[i].row*S*k)+'px';
+    }
+    bar.style.transform='translateX('+(f*100)+'%)';
+    requestAnimationFrame(tick);
+  })();
+})();
+</script>

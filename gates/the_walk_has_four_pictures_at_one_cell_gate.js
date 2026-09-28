@@ -31,7 +31,33 @@
    ZERO lonely pixels in BOTH. There was no speckle; the light marks are his
    hands and the coat's highlights, and they are connected. The second cut moved
    105 pixels, added a colour and fixed nothing, so it was deleted.
-   A HYPOTHESIS THAT MEASURES THE SAME IS NOT A FIX.       ANIMATION 9/27  */
+   A HYPOTHESIS THAT MEASURES THE SAME IS NOT A FIX.       ANIMATION 9/27
+
+   *** ROUND TWO, 9/27: THE SAME DEFECT WAS IN SIX MORE GAITS, AND FOUR OF THEM
+   WERE DEAD ON ALL EIGHT FACINGS. *** Every gait in the file is built from the
+   same sine, so the question round one answered for walk and run was asked of the
+   other nine. Measured on the drawn pixels, the two crossings byte-identical:
+     tired-walk 8/8 facings   swagger 8/8   gun-walk 8/8   sneak 7/8
+     wander     5/8           push    4/8
+     (drunk, flee-sprint and flee-scramble were already clean: each carries a
+      second clock at a different frequency, which is what saved them)
+   Forty of forty-eight. The same passing-foot fix, with a clearance PER GAIT
+   because they are different walks: a crouch and a shove keep the foot low (0.3
+   of the swing), an ordinary stroll lifts it (0.5), a swagger is meant to be seen
+   (0.65), a careful advance behind a pistol is between (0.4).
+   AND THE HEAD-ON BRANCH HAD IT TOO, at the source: nsGait is a pure function of
+   s, so every gait that goes through it drew one picture at both crossings. Head-
+   on a passing leg reads as the knee coming at the camera, which is what
+   legCompress already draws.
+   THE HEAD-ON AMPLITUDE IS THE COAT'S CEILING, NOT A TASTE: 0.13 took the coat
+   gate from 12.1% to 25.7% of its own area in one frame against a 22% ceiling --
+   red, and mine. Swept 0.13/0.09/0.06/0.04 -> 25.7/18.6/18.6/18.6, so 0.09 is the
+   largest value the coat does not notice at all. A squared bell was tried first on
+   the theory that the kink was the pop; it made the pop WORSE (30.3), because
+   narrowing a bell steepens its flanks. Measured, and thrown away.
+   AND THE CUT TOOK NOTHING: for all eleven gaits the picture count at 28 is
+   EXACTLY the count at 112, which is round one's conclusion again with eleven
+   clips instead of two.                                    ANIMATION 9/27  */
 const fs = require('fs'), path = require('path');
 const ROOT = path.resolve(__dirname, '..');
 const ALPHA = path.join(ROOT, 'slices', 'BOHEMIA_ALPHA_0_9.html');
@@ -53,6 +79,29 @@ ok('the item PLAYS on a real clock and carries no control of its own',
 
 const CELL = 28;
 
+/* EVERY GAIT, AND THE NUMBERS ARE THE MEASUREMENT, NOT A TASTE.
+   was    : facings of 8 whose two crossings were byte-identical before the fix
+   pics   : distinct drawn pictures on the WORST facing, of 24 buckets (floor)
+   seen   : share of the body that differs between the two crossings at ONE CELL,
+            worst facing (floor). It was 0.0% for every clip in the `was` column,
+            so any positive floor bites -- these are set one point under what the
+            fix measures so a later drift is caught too, not just a removal. */
+const GAITS = {
+  walk:          { was: 0, pics: 8, seen: 13 },
+  run:           { was: 0, pics: 8, seen: 16 },
+  sneak:         { was: 7, pics: 8, seen:  4 },
+  'tired-walk':  { was: 8, pics: 8, seen:  6 },
+  wander:        { was: 5, pics: 8, seen:  7 },
+  swagger:       { was: 8, pics: 8, seen: 12 },
+  push:          { was: 4, pics: 8, seen:  4 },
+  'gun-walk':    { was: 8, pics: 8, seen: 10 },
+  /* THE THREE THAT WERE ALREADY CLEAN ARE IN THE TABLE ON PURPOSE. They are the
+     control on the fix: a change that dragged them down would show here. */
+  drunk:         { was: 0, pics: 9, seen: 10 },
+  'flee-sprint': { was: 0, pics: 8, seen:  4 },
+  'flee-scramble': { was: 0, pics: 8, seen: 4 },
+};
+
 (async () => {
   const { chromium } = require('/opt/node22/lib/node_modules/playwright');
   const br = await chromium.launch();
@@ -61,7 +110,7 @@ const CELL = 28;
   await pg.goto('file://' + ALPHA, { waitUntil: 'load' });
   await SETTLE(pg, 2400);
 
-  const R = await pg.evaluate((N) => {
+  const R = await pg.evaluate(([N, GAITS]) => {
     const DIRS = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'], PH = [0, 0.25, 0.5, 0.75];
     /* THE GAME'S OWN CUT, not a prettier one: every Nth pixel, which is what
        _rgbaHalf does to reach the street today. */
@@ -110,9 +159,36 @@ const CELL = 28;
     }
     /* THE CONTROL. A cut that produced an EMPTY frame would score zero duplicate
        pairs and zero lonely pixels and pass everything by drawing nothing. */
+    /* ROUND TWO. Every gait, on the grid the game actually draws: all 24 phase
+       buckets, grouped byte for byte, at one cell and at the source. */
+    function gaitRead(names, n) {
+      const B = FRAME_CACHE.buckets, o = {};
+      function sig(a){let h=0x811c9dc5;for(let i=0;i<a.length;i++)h=((h^a[i])*16777619)>>>0;return h;}
+      function pctDiff(a,b){let d=0,lit=0;
+        for(let i=3;i<a.length;i+=4){ if(a[i]||b[i]) lit++;
+          if(a[i]!==b[i]||a[i-3]!==b[i-3]||a[i-2]!==b[i-2]||a[i-1]!==b[i-1]) d++; }
+        return lit ? 100*d/lit : 0; }
+      for (const c of names) {
+        if (!POSE[c]) { o[c] = { missing: true }; continue; }
+        const cross = [], pics = [], pics112 = [], seen = [];
+        for (const d of DIRS) {
+          const a = cut(buildFrame(d, c, 0), 112), b = cut(buildFrame(d, c, 0.5), 112);
+          if (same(a, b)) cross.push(d);
+          const s1 = new Set(), s2 = new Set();
+          for (let q = 0; q < B; q++) { const f = buildFrame(d, c, (q + 0.5) / B);
+            s1.add(sig(cut(f, n))); s2.add(sig(cut(f, 112))); }
+          pics.push(s1.size); pics112.push(s2.size);
+          seen.push(+pctDiff(cut(buildFrame(d, c, 0), n), cut(buildFrame(d, c, 0.5), n)).toFixed(1));
+        }
+        o[c] = { cross, pics: Math.min(...pics), pics112: Math.min(...pics112),
+                 sameCount: pics.join('') === pics112.join(''), seen: Math.min(...seen) };
+      }
+      return o;
+    }
     return { walk: dupes('walk', N), run: dupes('run', N),
-      walk112: dupes('walk', 112), facings: facingDupes(N), shape: shape(N) };
-  }, CELL);
+      walk112: dupes('walk', 112), facings: facingDupes(N), shape: shape(N),
+      gaits: gaitRead(GAITS, N) };
+  }, [CELL, Object.keys(GAITS)]);
 
   ok('the alpha loads with no page error (' + (errs.length ? errs[0] : 'none') + ')', errs.length === 0);
   ok('CONTROL: the cut draws a real body at one cell, not an empty box (' +
@@ -133,6 +209,36 @@ const CELL = 28;
      (R.facings.length || 'none') + ' identical)', R.facings.length === 0);
   ok('and nothing turned to mush: ' + R.shape.lone + ' lonely pixels (lit, with one ' +
      'neighbour or none)', R.shape.lone === 0);
+
+  /* ROUND TWO: EVERY GAIT, THREE CLAIMS EACH, ON ONE LINE EACH. */
+  const miss = Object.keys(GAITS).filter(c => R.gaits[c] && R.gaits[c].missing);
+  ok('every gait in the table is a clip in the file (' + (miss.join(', ') || 'all present') + ')',
+     miss.length === 0);
+
+  const stillSame = [], thinBar = [], invisible = [], cutLost = [];
+  for (const [c, want] of Object.entries(GAITS)) {
+    const g = R.gaits[c]; if (!g || g.missing) continue;
+    if (g.cross.length) stillSame.push(c + ' [' + g.cross.join(' ') + '], was ' + want.was + '/8');
+    if (g.pics112 < want.pics) thinBar.push(c + ' ' + g.pics112 + ' < ' + want.pics);
+    if (g.seen < want.seen) invisible.push(c + ' ' + g.seen + '% < ' + want.seen + '%');
+    if (!g.sameCount) cutLost.push(c);
+  }
+  ok('THE TWO LEG CROSSINGS ARE TWO PICTURES, IN EVERY GAIT, ON ALL EIGHT FACINGS (' +
+     (stillSame.join(' | ') || 'none collapsed; it was 40 of 48') + ')', stillSame.length === 0);
+  ok('AND YOU CAN SEE IT AT ONE CELL, not just measure it (' +
+     (invisible.join(' | ') || 'every gait over its floor; it was 0.0% for all of them') + ')',
+     invisible.length === 0);
+  ok('no gait lost pictures out of its bar (' + (thinBar.join(' | ') || 'all at or over floor') + ')',
+     thinBar.length === 0);
+  /* THE CUT IS NOT THE DEFECT, MEASURED ELEVEN MORE TIMES: if one cell showed a
+     different count from the source, the cut would be losing pictures. */
+  ok('THE CUT TO ONE CELL LOSES NO PICTURE: the count at 28 equals the count at 112, ' +
+     'facing for facing, for every gait (' + (cutLost.join(', ') || 'all eleven agree') + ')',
+     cutLost.length === 0);
+  for (const [c, w] of Object.entries(GAITS)) { const g = R.gaits[c]; if (!g || g.missing) continue;
+    console.log('       ' + c.padEnd(15) + 'crossings ' + (g.cross.length ? g.cross.length + '/8 SAME' : 'both drawn') +
+      '  was ' + w.was + '/8   pictures ' + g.pics112 + ' (floor ' + w.pics + ')   ' +
+      'crossings differ by ' + g.seen + '% of the body at one cell (floor ' + w.seen + '%)'); }
   await br.close();
   done();
 })().catch(e => { console.log('  FAIL ' + e.message); fail++; done(); });

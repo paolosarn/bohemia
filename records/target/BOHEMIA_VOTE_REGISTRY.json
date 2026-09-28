@@ -2397,6 +2397,33 @@
         "how": "page",
         "src": "BOHEMIA_WHO_YOU_WERE_9_27_26.html"
       }
+    },
+    {
+      "id": "animation-six-more-walks-had-the-same-limp-9-27",
+      "kind": "animation",
+      "lane": "animation",
+      "sha": "PENDING",
+      "made": "9/27",
+      "title": "SIX MORE WALKS HAD THE SAME LIMP",
+      "why": "Last round the plain walk turned out to be drawing THREE pictures instead of four, because a step has two middles and the code drew them as the same picture. So I asked that of every other way this guy moves. NINE MORE WALKS, SIX OF THEM HAD IT, AND FOUR WERE BROKEN IN EVERY SINGLE DIRECTION: tired walking, swagger and walking with the gun out on all 8; sneaking 7 of 8; wandering 5 of 8; shoving something 4 of 8. Forty of forty-eight. Drunk, sprinting and scrambling were already fine because each carries a second wobble on a different clock, and that is the only reason they escaped. Fixed the same way, but THE FOOT CLEARS A DIFFERENT AMOUNT FOR EACH WALK, because they are different walks: a crouch and a shove keep the foot down, a stroll lifts it, a swagger is meant to be seen. It was in the shared facing-you code too, at the source. How much of his body changes between those two middles at one cell: it was ZERO for all six, it is 5% to 13% now, and the machine check refuses anything under that. AND I BROKE THE COAT DOING IT and the coat's own checker caught me: the first lift made the trenchcoat jump 26% of itself in one frame, so I swept four sizes and took the biggest one the coat does not notice at all. This one PLAYS, and every picture in it is the real one-cell sprite with his true size beside it.",
+      "show": {
+        "how": "page",
+        "src": "vote/ANIMATION_EVERY_GAIT.html"
+      },
+      "said": "your character stays tiny even as you zoom out"
+    },
+    {
+      "id": "animation-bb-where-a-body-spends-its-pictures-9-27",
+      "kind": "verdict",
+      "lane": "animation",
+      "sha": "PENDING",
+      "made": "9/27",
+      "title": "BATTLE BROTHERS SCHOOL: WHERE A BODY SPENDS ITS PICTURES",
+      "why": "Battle Brothers has NO BODY on the map at all, just a marker with footstep sound, and in the fight it spends everything on the moment a weapon lands, not on the walking. I counted ours with the game's own counter: WE SPEND THE SAME ON A STROLL AS ON A PUNCH, and the most animated thing our guy owns is playing air guitar, at nearly twice the budget of a spear through the chest. The obvious answer is to move pictures from the walk to the hit, AND THAT IS WRONG FOR US: their fighter is a big sprite seen close, ours is now one cell, about 24 rows of body, and a hit that small cannot carry eight readable pictures. What a one-cell body CAN read is the silhouette changing, which is walking language. So my call: at one cell the walk keeps the pictures and the hit gets carried by sound and by the board. Up keeps that. Down and the hit gets the frames instead.",
+      "show": {
+        "how": "text",
+        "src": ""
+      }
     }
   ],
   "verdicts": [
