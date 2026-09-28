@@ -74,7 +74,12 @@ for(const f of fs.readdirSync(ENGINE).filter(n=>n.endsWith('.js'))){
 }
 const d=K.get('dam');
 if(!d){ fs.writeFileSync(OUTF, JSON.stringify({error:'the dam district is not registered'})); return; }
-const res=d.generate({x:10,y:10,seed:7,district:'dam',neighbors:{N:null,S:'arterial',E:null,W:null}});
+// THE GAME'S CALL, NOT A LOOKALIKE (9/28). bohemia_world.js builds a block as
+// generate(seed>>>0, {cw,ch,streets,district}). The first cut of this file passed one object
+// as the seed, a call the game never makes, and it drew a dam with 5,329 water cells; the
+// game's own call draws 5,832. Same finding, a third of the block, but the number he read
+// has to be the number the game makes.
+const res=d.generate(7>>>0,{cw:1,ch:1,streets:['S'],district:'dam'});
 const g=res&&(res.g||res.grid);
 if(!g){ fs.writeFileSync(OUTF, JSON.stringify({error:'the dam generator returned no grid'})); return; }
 const H=g.length, W=g[0].length, cls=[];

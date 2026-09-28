@@ -17315,7 +17315,28 @@ if(typeof module!=='undefined')module.exports=BOH_DAYCYCLE;
       G.rect(x-1,y-1,x+1,y+1,23); set(x,y,3); }               // the tree in its granite bed
     for(x=10;x<=118;x++){ if(get(x,8)===4)set(x,8,13); if(get(x,36)===4)set(x,36,13); }
     for(y=8;y<=36;y++){ if(get(10,y)===4)set(10,y,13); if(get(118,y)===4)set(118,y,13); }
-    for(x=60;x<=68;x++) if(get(x,36)===13) set(x,36,4);                  // the gap you walk in through
+    /* THE GATE INTO THE COURT, AND WHY THE OLD GAP WAS NEVER ONE (9/28, LIFE+CITY, rule 34b).
+       The line that used to sit here cut 'the gap you walk in through' at x60-68 of the south
+       wall. But the NAVE runs x52-76 from the apse straight down through the court, so those
+       cells were already church (code 2) and the line did nothing: the court was walled on
+       every side, split in two by the nave, and 2,296 cells of it -- the memorial court and the
+       orchard -- could be seen and never entered. On every seed this is the CHURCH'S HOME BASE
+       (rule 37e: fourteen home bases you can raid), so that was fight ground with no way onto it.
+       The intent was always written down: NOTES.circulation says 'the churchyard walk rings the
+       building to the transept door and the memorial court gate', and code 18's own act-1 line
+       is 'the gate into a memorial court'. So each HALF gets that gate, three wide, in its south
+       wall at the point nearest the nave where there is open ground outside to step onto --
+       found, not hard-coded, so a change to the building cannot quietly land it on stone again. */
+    [[51,11,-1],[77,117,1]].forEach(function(h){
+      for(var gxx=h[0]; gxx!==h[1]; gxx+=h[2]){
+        var ok=true;
+        for(var k=-1;k<=1;k++){
+          var wall=get(gxx+k,36), out=get(gxx+k,37), inn=get(gxx+k,35);
+          if(wall!==13 || !(out===14||out===12||out===7||out===4) || !(inn===4||inn===23)) { ok=false; break; }
+        }
+        if(ok){ for(k=-1;k<=1;k++) set(gxx+k,36,18); return; }
+      }
+    });
 
     /* THE WALK IS AN APRON, NOT A FIELD. Painting the whole churchyard "sidewalk" made one
        code 35.5% of the plot, which is the MONOBLOCK failure. A walk is the band that hugs

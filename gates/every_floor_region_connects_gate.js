@@ -13,8 +13,9 @@
  * and most of it was NOT a missing door. It was a thing you step over, classed as a wall by
  * its kind DEFAULT, so nobody had chosen it: the sign district's KERB sealed its whole parking
  * lot (1,394 cells), and the reclamation plant's POND BERM -- the thing its own legend says
- * the service road runs along the top of -- sealed 2,658. Both fixed the same round, both to
- * zero, and the valley's sealed ground went to 21,492 in 38 districts. The rest are real
+ * the service road runs along the top of -- sealed 2,734. Both fixed, both to zero: 20,927.
+ * Then the chapel, the Church's home base, got the gates its own notes describe: 18,645.
+ * (Numbers re-measured with the game's own generate call; see the lib's block().) The rest are real
  * missing gates (a fenced substation with a road inside, the stadium field inside the stands,
  * courtyards inside roof edges) and are listed, frozen, and owed.
  *
@@ -109,6 +110,14 @@ for (const [t, what] of [['sign', 'the parking lot behind its kerb'],
   ok('the ' + t + ' district: ' + what + ' is reachable', results[t] && results[t].sealed === 0,
      results[t] ? results[t].sealed + ' sealed' : 'missing');
 }
+/* THE CHURCH'S HOME BASE (9/28). The chapel is where the Church sits on every seed (rule 37e,
+   a home base you can raid), and its memorial court and orchard -- 2,296 cells -- were walled
+   on every side because the gap in the south wall landed on the nave. Each half of the court
+   has its gate now. What is left is 14 cells, the hollow of the fallen bell and the middle of
+   the churchyard cross, both drawing choices; anything above that means the gates are gone. */
+ok('the Church\'s home base: the memorial court has its gates (at most 14 sealed)',
+   results.chapel && results.chapel.sealed <= 14,
+   results.chapel ? results.chapel.sealed + ' sealed' : 'missing');
 /* And islands stay islands: the dam's rock out in the reservoir is reached only across water,
    never walked to and never sealed. If this flips to SEALED, something walled the lake; if it
    flips to walkable, somebody made the water floor again. */

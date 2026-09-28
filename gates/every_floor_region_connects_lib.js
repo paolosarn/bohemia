@@ -26,23 +26,31 @@
 
 const D4 = [[1, 0], [-1, 0], [0, 1], [0, -1]];
 
-/* The one generate call. Fixed seed, a street on the south, suburbs on the other three
-   sides, so every district is asked the same question under the same conditions. */
-function block(K, type) {
+/* THE ONE GENERATE CALL, IN THE SHAPE THE GAME MAKES IT. engine/bohemia_world.js builds a
+   block as  mod.generate(cell.seed >>> 0, {cw:1, ch:1, streets:[...], district:...})  --
+   a NUMBER seed and an options object. The first version of this file passed ONE object as
+   the seed (with the street hidden in a `neighbors` key nobody reads), which is a call the
+   game never makes: generators that do arithmetic on their seed got NaN and every street
+   defaulted. Its numbers were stable, which is exactly why it went unnoticed -- stable is not
+   the same as right. Caught 9/28 when a chapel measured identically on every street it was
+   given, because it had never been given one. */
+const SEED = 7;
+function block(K, type, opt) {
   const d = K.get(type);
   if (!d || !d.legend || !d.generate) return null;
+  opt = opt || {};
   let r;
   try {
-    r = d.generate({ x: 10, y: 10, seed: 7, district: type,
-                     neighbors: { N: 'suburb', S: 'arterial', E: 'suburb', W: 'suburb' } });
+    r = d.generate((opt.seed != null ? opt.seed : SEED) >>> 0,
+                   { cw: 1, ch: 1, streets: opt.streets || ['S'], district: type });
   } catch (e) { return { error: String(e && e.message || e) }; }
   const g = r && (r.g || r.grid);
   if (!g || !g.length) return { error: 'the generator returned no grid' };
   return { d: d, g: g, W: g[0].length, H: g.length };
 }
 
-function measure(K, type) {
-  const b = block(K, type);
+function measure(K, type, opt) {
+  const b = block(K, type, opt);
   if (!b) return null;
   if (b.error) return { type: type, error: b.error };
   const { d, g, W, H } = b;
@@ -83,4 +91,4 @@ function measure(K, type) {
            STAND: STAND, VOID: VOID, walk: walk, sealedCells: sealedCells, islandCells: islandCells };
 }
 
-module.exports = { measure: measure, block: block };
+module.exports = { measure: measure, block: block, SEED: SEED };

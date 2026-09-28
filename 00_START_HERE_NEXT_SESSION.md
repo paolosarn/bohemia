@@ -1734,6 +1734,50 @@ AND THE LESSON THAT STILL BINDS: NO TEXT-ONLY ITEM IN VOTE, and now a second one
 beside it -- A PICTURE IN THE VOTE TAB THAT SHOWS A SENTENCE THE GAME NO LONGER
 SAYS IS A LIE TO HIM. Re-shoot the frames in the same round the words change.
 
+LIFE + CITY (city-1eztay): 9/28b LATEST -- *** THE CHURCH HAD NO WAY INTO ITS OWN GARDEN, AND
+MY RULER WAS HELD WRONG. BOTH FIXED, EVERY NUMBER RE-MEASURED. ***
+TAB: the new picture is in the VOTE tab (alpha).
+Record: records/BOHEMIA_THE_CHURCH_HAD_NO_WAY_INTO_ITS_OWN_GARDEN_9_28_26.md
+
+ROW [honest grid] STILL CLAIMED, round 3, RE-AIMED BY RULES 37 AND 38: the close grid is the fight's
+ground and the special places', never the city floor. So the debt that matters is THE FLOOR A RAID
+IS FOUGHT ON. Measured: the 14 seats (game's own seat rule, 5 seeds) land on 17 district kinds, 10
+carry sealed floor.
+
+THE CHURCH'S HOME BASE, EVERY SEED, WAS THE CHAPEL, and its memorial court + orchard (2,296 cells)
+were walled on every side. The author meant a way in and WROTE IT DOWN THREE TIMES (a 'gap you walk
+in through' at x60-68, NOTES.circulation's 'memorial court gate', code 18's 'the gate into a
+memorial court'), but the NAVE runs x52-76 through the court, so the gap landed on church and the
+nave split the court into two sealed halves. Each half now gets that gate, found not hard-coded.
+    chapel 2,296 -> 14 on 25/25 seed x street-side combos (14 = bell hollow + cross middle, left)
+
+*** MY RULER WAS HELD WRONG. *** The game calls generate(seed>>>0, {cw,ch,streets,district})
+(bohemia_world.js). My shared lib passed ONE OBJECT AS THE SEED with the street in a key nobody
+reads. Found because the chapel measured identically on every street side: it had never been given
+one. STABLE IS NOT THE SAME AS RIGHT. Fixed in the one place the flood lives, then EVERYTHING
+re-measured with the game's call:
+    valley pre-kerb 25,544 -> actually 25,055 / 40 - pond field 2,658 -> actually 2,734
+    after kerb+berm 21,492 -> actually 20,927 / 38 - dam water 5,329 -> actually 5,832 (35.6%)
+    AFTER THE CHAPEL: 18,645 in 38.
+Every finding held. Ratchet RE-FROZEN with the game's numbers (the old freeze would have failed
+pumpstation 513 -> 575 with nothing changed but the ruler). Both unvoted VOTE items re-rendered and
+their words corrected; the places sheet's 'CHAPEL: STILL SEALED' row was about to be a false sentence
+in his tab, so it is now the chapel's own before (engine at 57b10258, out of git) and after, and the
+factory refuses a STILL SEALED label on unsealed ground.
+
+GATE 11/0 with a named Church leg; MUTATION chapel gates removed: 9 ok 2 FAILED 'chapel 14 -> 2296'.
+OCCUPANCY 16/0, DISTRICT KIT 24/0, LANDLOCKED 16/0, INTERIOR GROUND 21/0, WORLD MODEL 29/0, EVERY
+CELL CLASS 12/0. City slice resynced.
+
+COOK: slices/vote/LIFECITY_WHERE_A_RAID_IS_FOUGHT_9_28.png, the six home bases still sealed:
+Remnants police 850, Homeless pumps 575, Volunteers medical 568 (a parking grid, every stall walled),
+Remnants prison 206, Network radio 167, Caravans terminal 75 (a doorway onto nothing). Refuses any
+panel no longer sealed. THOSE SIX ARE THE NEXT JOBS, biggest first; then the dead-pad leg.
+
+HIS NOTE on the shift picture (UP): SCAVENGE as a settlement-screen button for when you are down
+bad, a bonus near a recent battle. Already rule 37(k); carried, not rebuilt. His three UPs this
+batch: the shift, the reclaimed street, the same street three times.
+
 LIFE + CITY (city-1eztay): 9/28 LATEST -- *** PLACES YOU CAN SEE AND NEVER ENTER: 25,544
 CELLS OF FLOOR WALLED IN WITH NO WAY IN, AND 4,052 OF THEM WERE A KERB AND A BERM. ***
 TAB: the new picture is in the VOTE tab (alpha).

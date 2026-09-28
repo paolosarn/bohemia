@@ -61,27 +61,37 @@ COL = {0: (136, 158, 132),   # reachable
        3: (70, 70, 80),      # solid
        4: (40, 60, 90)}      # void
 
-# (label, district, the one declaration to flip back for the BEFORE, or None)
+# (label, district, how the BEFORE is made, or None for the game as it is now)
+#   ('flip', code, key, value)  the same engine with ONE declaration put back in memory
+#   ('main', sha)               the engine exactly as main carried it at that commit
+# REVISED 9/28: the third row used to be 'CHAPEL: STILL SEALED'. The chapel got its gates the
+# same round, so that label became a false sentence in his VOTE tab before he had voted on it.
+# A picture that says something the game no longer does is a lie to him, so the row is now the
+# chapel's own before and after.
 PANELS = [
-    ('SIGN LOT: BEFORE', 'sign', (8, 'solid', True)),
+    ('SIGN LOT: BEFORE', 'sign', ('flip', 8, 'solid', True)),
     ('SIGN LOT: AFTER', 'sign', None),
-    ('POND FIELD: BEFORE', 'reclaim', (7, 'solid', True)),
+    ('POND FIELD: BEFORE', 'reclaim', ('flip', 7, 'solid', True)),
     ('POND FIELD: AFTER', 'reclaim', None),
-    ('STADIUM: STILL SEALED', 'stadium', None),
-    ('CHAPEL: STILL SEALED', 'chapel', None),
+    ('CHURCH HOME: BEFORE', 'chapel', ('main', '57b10258')),
+    ('CHURCH HOME: AFTER', 'chapel', None),
 ]
 
 HARVEST = r'''
 process.exit=function(){}; const log=console.log; console.log=function(){};
 const fs=require('fs'),path=require('path');
 const ROOT=process.argv[2], OUTF=process.argv[3], JOBS=JSON.parse(process.argv[4]);
-const K=require(path.join(ROOT,'engine','bohemia_district_kit.js'));
-for(const f of fs.readdirSync(path.join(ROOT,'engine')).filter(n=>n.endsWith('.js'))){ try{require(path.join(ROOT,'engine',f));}catch(e){} }
 const R=require(path.join(ROOT,'gates','every_floor_region_connects_lib.js'));
+const KS={};
+function kitAt(eng){ if(KS[eng]) return KS[eng];
+  const K=require(path.join(eng,'bohemia_district_kit.js'));
+  for(const f of fs.readdirSync(eng).filter(n=>n.endsWith('.js'))){ try{require(path.join(eng,f));}catch(e){} }
+  return KS[eng]=K; }
 const res=[];
-for(const [type,flip] of JOBS){
+for(const [type,how,eng] of JOBS){
+  const K=kitAt(eng||path.join(ROOT,'engine'));
   const d=K.get(type); if(!d){ res.push({error:type+' is not registered'}); continue; }
-  let saved;
+  let saved, flip=how&&how[0]==='flip'?how.slice(1):null;
   if(flip){ const L=d.legend[flip[0]]; saved=L[flip[1]]; L[flip[1]]=flip[2]; }
   const m=R.measure(K,type);
   if(flip){ const L=d.legend[flip[0]]; if(saved===undefined) delete L[flip[1]]; else L[flip[1]]=saved; }
@@ -98,14 +108,26 @@ fs.writeFileSync(OUTF, JSON.stringify(res));
 def harvest():
     """ASK THE GAME. The grids and every answer come out of the engine and the gate's own
     measurement; a python re-implementation would be a second opinion, and a second
-    opinion is the bug this whole row is about."""
+    opinion is the bug this whole row is about. A ('main', sha) BEFORE is read out of git
+    into a scratch folder, so it is the engine exactly as main carried it, not a guess."""
+    import shutil, tarfile, io as _io, tempfile
     tmp = os.path.join(ROOT, '.places_harvest.js')
     outf = os.path.join(ROOT, '.places_harvest.json')
-    jobs = [[p[1], list(p[2]) if p[2] else None] for p in PANELS]
+    scratch = tempfile.mkdtemp(prefix='places_main_')
+    jobs = []
+    for p in PANELS:
+        how, eng = p[2], None
+        if how and how[0] == 'main':
+            eng = os.path.join(scratch, how[1])
+            if not os.path.isdir(eng):
+                blob = subprocess.check_output(['git', 'archive', how[1], 'engine'], cwd=ROOT)
+                tarfile.open(fileobj=_io.BytesIO(blob)).extractall(eng)
+            eng = os.path.join(eng, 'engine')
+        jobs.append([p[1], list(how) if how else None, eng])
     open(tmp, 'w').write(HARVEST)
     try:
         subprocess.run(['node', tmp, ROOT, outf, json.dumps(jobs)], cwd=ROOT,
-                       stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, timeout=300)
+                       stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, timeout=400)
         if not os.path.exists(outf):
             sys.exit('REFUSING: the harvester wrote nothing.')
         res = json.load(open(outf))
@@ -113,6 +135,7 @@ def harvest():
         for f in (tmp, outf):
             if os.path.exists(f):
                 os.remove(f)
+        shutil.rmtree(scratch, ignore_errors=True)
     for r in res:
         if r.get('error'):
             sys.exit('REFUSING: ' + r['error'])
@@ -146,9 +169,16 @@ def main():
     for (lab, t, flip), r in zip(PANELS, res):
         if flip and r['sealed'] == 0:
             sys.exit('REFUSING: %s shows nothing sealed, so there is no before to show.' % lab)
-        if lab.endswith('AFTER') and r['sealed'] != 0:
-            sys.exit('REFUSING: %s still has %d sealed cells; the fix did not hold.'
-                     % (lab, r['sealed']))
+        # An AFTER may keep a sliver the fix was not about (the chapel keeps 14 cells: the
+        # hollow of the fallen bell and the middle of the churchyard cross, both drawing
+        # choices), but it must have cleared at least 99% of its BEFORE or it is not an after.
+        if lab.endswith('AFTER'):
+            before = res[PANELS.index(next(q for q in PANELS if q[0] == lab.replace('AFTER', 'BEFORE')))]
+            if r['sealed'] > before['sealed'] * 0.01:
+                sys.exit('REFUSING: %s still has %d of its %d sealed cells; the fix did not hold.'
+                         % (lab, r['sealed'], before['sealed']))
+        if 'STILL SEALED' in lab and r['sealed'] == 0:
+            sys.exit('REFUSING: %s is not sealed any more; the label would lie.' % lab)
     W, H = res[0]['W'], res[0]['H']
     cols, rows, gap = 2, 3, 2
     sheet = Image.new('RGB', (cols * W + gap, rows * (H + BAND) + (rows - 1) * gap), (14, 14, 16))
