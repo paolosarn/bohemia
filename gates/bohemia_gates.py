@@ -2197,7 +2197,7 @@ GATES = [
      'that shipped: let the cold open offer itself again -> 2 red; take the second lock off -> 1 red. '
      'AND ONE LEG NEARLY PASSED FOR THE WRONG REASON: forcing the strip visible gives a 0x0 box, so '
      'asking who owns a zero-width point answered "nothing" and ticked green; it asserts the LOCK now, '
-     'which needs no layout, and reports the box instead of asserting on it.', False),
+     'which needs no layout, and reports the box instead of asserting on it.', True),
     ('STEP IS ONE CELL', ['node', 'gates/the_step_is_one_cell_gate.js'],
      'VAMILY [two scales], rule 34 (PAOLO 9/27): "your character stays tiny even as you zoom out and YOU '
      'MOVE ONE GRID AT A TIME, THAT WE HAD ORIGINALLY... one house does not equal one tile, it is all '
@@ -2216,7 +2216,7 @@ GATES = [
      'rule, because a rule with an exception for the ruler bad night cannot fail honestly. NOT IN HERE '
      'AND WHY: the one-cell BODY is CHARACTER [small body] this same round, and the 32 px cell needs '
      'WORLD [honest grid] (a house is 13 cells today, so 32 px would draw 416 px on a 378 px screen and '
-     'not fit). MUTATION: put the lot-per-press stride back -> 4 red.', False),
+     'not fit). MUTATION: put the lot-per-press stride back -> 4 red.', True),
     ('THE FOUR THINGS', ['node', 'gates/the_cut_is_the_four_things_gate.js'],
      'VAMILY [cut now], rule 18g and 18i. PAOLO 9/20: "I am overwhelmed and underwhelmed at the '
      'same time... a lot going on and I see it but this shit is broken right now." PAOLO 9/22: '
