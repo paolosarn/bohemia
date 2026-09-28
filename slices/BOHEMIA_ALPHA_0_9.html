@@ -1513,7 +1513,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 9/28e - A STRANGER GETS THE WORST WORK</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 9/28f - SPIKED PAULDRON</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -29660,12 +29660,43 @@ window.CLO=(function(){
           o[i]=rEdge?r.lt:r.mid; } }
       for(i=0;i<g.length;i++)if(g[i]===4){ var yH2=(i/CW)|0,xH2=i%CW; if(yH2>tbH-S&&xH2>cxH)o[i]=r.dk; }
       return rivets(o); }
-    if(kind==='pauldron'){ var aR2=pExt(g,6); if(aR2.mx<0)return o;      /* one shoulder: the RIGHT arm's top rows + the torso corner it meets */
+    if(kind==='pauldron'||kind==='spiked'){ var aR2=pExt(g,6); if(aR2.mx<0)return o;      /* one shoulder: the RIGHT arm's top rows + the torso corner it meets */
       var top=aR2.mn, lim=top+4*S;
+      var plateMn=CW,plateMx=-1;                                        /* the plate's own x-run, for the spike row below */
       for(i=0;i<g.length;i++){ var p2=g[i],x3=i%CW,y4=(i/CW)|0;
         if(p2===6&&y4<lim+S)o[i]=(y4>=lim)?r.dk:(y4<top+S)?r.lt:r.mid;   /* plate: lit top edge, dark lower rim */
         if(p2===4&&y4<top+3*S){ var nearArm=false; for(var dd=1;dd<=2*S;dd++)if(g[y4*CW+(x3+dd)]===6||g[y4*CW+(x3-dd)]===6)nearArm=true;
           if(nearArm)o[i]=(y4>=top+2*S)?r.dk:r.mid; } }                  /* the strap lip onto the torso */
+      if(kind==='spiked'){
+        /* THE ATTACHMENT ROW (9/28, [attachments] school+cook, rule 36c). BB's own recall:
+           "a spiked impaler... each a trade of armour vs fatigue vs a special." This is the
+           visual half of that trade -- CHARACTER draws it, TUNING owns the number. REUSE-
+           FIRST: the plate under the spikes is the SAME genGear('pauldron') paint above,
+           unedited; nothing is a new mechanism except the spikes themselves, three points
+           rising off the plate's own lit top edge, spaced across its measured x-run rather
+           than a fixed offset, so a broad body and a narrow one both get spikes that sit ON
+           the plate instead of floating past its edge.
+           *** CLAUSE 1 CAUGHT A REAL BUG, NOT A FALSE ALARM: the plate is the right arm's own
+           visible extent, and near W the arm goes almost fully behind the torso (46 px left of
+           158 at a front facing) while its NEIGHBOUR, NW, still shows most of it -- a FIXED
+           spike height on a shrinking plate is a cliff, not a slope, and one_garment_per_slot
+           measured it exactly: rise jumped 0.063 between NW and W against a 0.04 ceiling that
+           every one of 221 other canon garments already holds. FIX: spike height SCALES with
+           how much plate is actually there this facing (its own pixel count against a facing
+           where the plate is whole), so it shrinks with the sliver instead of staying tall
+           over nothing. Swept 3*S/2*S/1*S against the same scale; 3*S max is what still reads
+           as a point rather than a bump once it is proportional. */
+        var plateArea=0;
+        for(i=0;i<g.length;i++)if(g[i]===6&&(i/CW|0)<lim+S){var xs=i%CW; if(xs<plateMn)plateMn=xs; if(xs>plateMx)plateMx=xs; plateArea++;}
+        var spikeMaxH=Math.round(3*S*Math.min(1,plateArea/(140*S/2)));   /* 140 px measured at S=2 on a nearly-full plate; scales with S */
+        if(plateMx>=plateMn&&spikeMaxH>0){ var pw=plateMx-plateMn;
+          var spikeX=[plateMn+Math.round(pw*0.2),plateMn+Math.round(pw*0.5),plateMn+Math.round(pw*0.8)];
+          for(var si=0;si<spikeX.length;si++){ var sx0=spikeX[si];
+            for(var sh=1;sh<=spikeMaxH;sh++){ var sy=top-sh; if(sy<0)continue;
+              var half=(sh<=spikeMaxH/3)?2:(sh<=2*spikeMaxH/3)?1:0;      /* tapers to a point: wide base, one pixel at the tip */
+              for(var sw=-half;sw<=half;sw++){ var sxp=sx0+sw; if(sxp<0||sxp>=CW)continue;
+                o[sy*CW+sxp]=(sh===spikeMaxH)?r.lt:r.dk; } } } }
+      }
       return rivets(o); }
     if(kind==='suspenders'){ var tbS=-1,ttS=CH,sxS=0,scS=0;
       for(i=0;i<g.length;i++)if(g[i]===4){var yS=(i/CW)|0;if(yS>tbS)tbS=yS;if(yS<ttS)ttS=yS;sxS+=i%CW;scS++;}
@@ -30763,6 +30794,18 @@ window.CLO=(function(){
        structure_gate.js assertion, not just a recolor of an existing silhouette. ---- */
     {n:'SAND KNEEPADS',st:'canon',layer:'gear',gen:function(g){return wear(genGear(g,{ramp:DUSTSAND,kind:'kneepads'}),DUSTSAND,10);}},
     {n:'STEEL PAULDRON',st:'canon',layer:'gear',gen:function(g){return wear(genGear(g,{ramp:STEELB,kind:'pauldron'}),STEELB,12);}},
+    /* ===== THE SPIKED IMPALER (9/28, [attachments] round 1). Battle Brothers' library recall:
+       "ATTACHMENTS (later DLC): a cloak, a padding, a spiked impaler, a leather aketon under
+       mail etc., each a trade of armour vs fatigue vs a special." School measured what this
+       wardrobe already has before drawing anything: CLOAK is ROAD CAPE (three colourways,
+       shipped since wave 3); PADDING is the VEST family (nine colourways, already a base-
+       layer garment); the spiked impaler had NOTHING. Reuses genGear('pauldron')'s exact
+       plate paint (kind:'spiked' shares that branch, REUSE not a new mechanism) and adds
+       three tapered spikes off the plate's own top edge. The trade DIRECTION and CHARACTER
+       draw: no extra armour value over the plain pauldron, a visible THREAT read instead
+       (TUNING's to number: a called-shot deterrent or a morale special, not built here). */
+    {n:'SPIKED PAULDRON',st:'canon',fresh:true,layer:'gear',gen:function(g){return wear(genGear(g,{ramp:RUSTIRON,kind:'spiked'}),RUSTIRON,13);}},
+    {n:'STEEL SPIKED PAULDRON',st:'canon',fresh:true,layer:'gear',gen:function(g){return wear(genGear(g,{ramp:STEELB,kind:'spiked'}),STEELB,13);}},
     {n:'OLIVE CHEST RIG',st:'canon',layer:'gear',gen:function(g){return wear(genGear(g,{ramp:OLIVEDRAB,kind:'chestrig'}),OLIVEDRAB,10);}},
     {n:'BRICK SUSPENDERS',st:'canon',layer:'gear',gen:function(g){return genGear(g,{ramp:BRICK,kind:'suspenders'});}},
     {n:'STEEL SHIN GUARDS',st:'canon',layer:'gear',gen:function(g){return wear(genGear(g,{ramp:STEELB,kind:'shinguards'}),STEELB,12);}},

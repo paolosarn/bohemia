@@ -453,6 +453,51 @@ now -- WHEN THE GROUND A SYSTEM STANDS ON GETS PULLED, THE WORDS SURVIVE AND
 THE MECHANISM WAITS. Don't rebuild speculatively; write down where the words
 go once the real surface exists.
 
+CHARACTER (character-0lurbs): 9/28 (c) LATEST -- *** [attachments] FIRST COOK SHIPPED:
+ONE NEW GARMENT, TWO OLD ONES RENAMED IN MEANING, A REAL SLOT COLLISION FOUND. ***
+TAB: CHARACTER (the garment shows on any faction wearing it), and the VOTE tab has
+the new item to judge (character-the-attachments-trade-9-28).
+
+Rule 36c gave me armour attachments, his own words "armour attachment
+customization." REUSE-FIRST first, as always: checked the closet before
+building anything. Three of the four attachment types from the reference
+library were already in the game under other names. A cloak is the ROAD CAPE,
+already shipped in 3 colours. A padding is the VEST family, already shipped in
+9 colours. An aketon is worn under armour and never seen, so there is nothing
+to draw for it. Only the spiked shoulder guard was missing. Built it this
+round: SPIKED PAULDRON and STEEL SPIKED PAULDRON, reusing the existing
+shoulder-plate art and adding only the three metal points.
+
+ONE GATE FOUND A REAL BUG, NOT A FALSE ALARM: the first version of the spike
+was a fixed height, and the shoulder-plate shape it sits on nearly disappears
+when the character faces sideways. That made the spike jump a full body-check
+gate limit between two camera angles that sit right next to each other.
+Fixed by making the spike shrink and grow with the plate it sits on, so it
+never pops. The rig gate is clean now.
+
+A REAL FINDING I AM NOT HIDING: the padding and a faction's own coat use the
+same clothing slot. On a faction that already wears a coat, adding the
+padding SWAPS OUT the coat, it does not layer on top. That is true to how the
+wardrobe already works, but it is worth TUNING knowing before pricing padding
+as something you can just add on top of anything.
+
+No stat is attached to any of this. Rule 36d says TUNING owns every felt
+number in one table; this round is the look and the trade in words only
+("a cloak conceals but flaps, a padding costs fatigue for protection, a
+spike threatens without adding armour, an aketon is comfort you cannot see").
+
+Gates run clean: structure 134/0, craft law 39/0, faction colour 34/4
+(unchanged baseline), hair 39/0, the rig's per-facing pop check 15/0 (was
+red before the spike fix, now clean), reference check 197/0, vote tab 30/1
+(the one red is two pre-existing coordinator items missing fields, not
+mine), reuse-first 228 passed / 8 failed (all 8 are other lanes' pre-existing
+files, none touched this round).
+
+Row stays CLAIMED: only one of the four named attachment types got a new
+garment this round, and DIRECTION has not judged this first cook yet.
+Record: records/BOHEMIA_THE_ATTACHMENTS_TRADE_9_28_26.txt. Tool:
+tools/bohemia_cook_the_attachments_trade.js.
+
 CHARACTER (character-0lurbs): 9/28 (b) LATEST -- *** CORRECTION, SAME ROUND: [small body]
 IS DEAD, AND IT DIED WHILE MY LAST COMMIT WAS STILL IN FLIGHT. *** Rebasing this round's
 [small body] revision (the palette-collapse commit, previous block below) onto a fresh

@@ -2677,7 +2677,20 @@
        "how": "page",
        "src": "BOHEMIA_A_STRANGER_GETS_THE_WORST_WORK_9_28_26.html"
      }
-   }
+   },
+ {
+  "id": "character-the-attachments-trade-9-28",
+  "kind": "outfit",
+  "lane": "character",
+  "sha": "pending",
+  "made": "9/28",
+  "title": "ARMOUR ATTACHMENTS, THE FIRST ONE",
+  "why": "You said you want to customize armor with attachments. I checked our closet first: a cloak and a padded vest were already in there under other names, nobody just called them attachments yet. The one thing missing was a spiked shoulder guard, so that is the one I built. Watch the guy on the right, he is wearing a cloak he already had plus the new spikes, walking. The other guy is wearing the padding. No numbers are attached to any of this yet, that part is a different job. Thumbs up and the spike joins the wardrobe for real. Thumbs down and tell me if the spikes are too small or in the wrong place.",
+  "show": {
+   "how": "page",
+   "src": "vote/CHARACTER_THE_ATTACHMENTS_TRADE.html"
+  }
+ }
  ],
  "verdicts": [
   {

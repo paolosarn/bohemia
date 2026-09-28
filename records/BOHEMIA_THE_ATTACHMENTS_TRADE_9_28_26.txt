@@ -1,0 +1,34 @@
+THE ATTACHMENTS TRADE  --  CHARACTER, 9/28/26, [attachments], rule 36c
+
+HIS WORDS (9/27): "armour attachment customization." Library, volume 04: "a cloak, a
+padding, a spiked impaler, a leather aketon under mail... each a trade of armour vs
+fatigue vs a special."
+
+SCHOOL FOUND THREE OF FOUR ALREADY SHIPPED, UNDER OTHER NAMES (REUSE-FIRST):
+  CLOAK    = ROAD CAPE (3 colourways, back slot, since wave 3)
+  PADDING  = the VEST family (9 colourways, outer slot)
+  AKETON   = no garment needed; BB's own description is a layer worn UNDER mail,
+             invisible on the model -- nothing to draw for an attachment whose point
+             is that you cannot see it.
+  SPIKED   = nothing existed. Built this round: SPIKED PAULDRON, STEEL SPIKED
+             PAULDRON. Reuses genGear('pauldron')'s own plate paint; only the three
+             tapered points are new code.
+
+A REAL SLOT FINDING, NOT GLOSSED OVER: PADDING (outer) and a faction's own coat
+(also outer) compete for the same layer. On a faction that already wears a coat,
+adding padding REPLACES it rather than layering under it -- true to the wardrobe's
+own engine, worth knowing before TUNING prices padding as an addable option. The
+cloak (back) and the spike (gear) do not have this problem; both layer cleanly.
+
+CARTEL, CLOAK + SPIKE: already wears the cloak (steel road cape); the spike layers on cleanly, gear collides with nothing.
+MOB, PADDING: wore no coat; the padding is a clean add here -- on a faction that already wears one, it would REPLACE the coat, not layer under it (the finding, stated in the record).
+
+SILHOUETTE CHECK: Cartel-with-spike vs Mob-with-padding, same 16-sample profile
+the runway work uses: 0.0575 apart -- CLEARS the collapse
+floor (0.02), two different people, not one costume swapped twice.
+
+THE TRADE, IN WORDS, TUNING'S TO NUMBER: a cloak conceals but flaps and catches; a
+padding adds protection at a cost in fatigue; a spike threatens (a called-shot
+deterrent or a morale read) without adding armour of its own; an aketon is comfort,
+not a stat, which is why it is invisible. No number is hard-coded on any of these
+garments -- rule 36d's own line, no felt number outside TUNING's one table.
