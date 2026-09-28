@@ -73,6 +73,14 @@ FOUND ON THE WAY, EACH SENT WHERE IT BELONGS:
   SQUARE). The fight is a different game DOWN: post-mortem in graveyard/; [one hud] now means ONE LOOK
   across map, settlement and fight, not one set of buttons.
 
+ONE RED IN MY GATE AND IT IS NOT MINE, FOR THE COORDINATOR: the vote tab gate reads 30/1 on "every
+candidate says what it is, who made it and how to show it". coordinator-the-map-floor-is-the-phones-
+pixels-9-28 and coordinator-the-strip-is-the-only-walked-place-9-28 (rule 38's commit 14029d6) carry
+NO sha and NO show, so the tab has nothing to show him for either. Every UI item passes. Not edited:
+never another lane's object. AND MY OWN SLIP: my push line ran the gate piped into tail, which
+always succeeds, so the push went out before I read the red. The red was not mine, but I read it
+after, not before. From now the gate's own count is read first and the push waits on it.
+
 NEXT: round five is THE MAN'S PAGE (what one tap on her face opens: PORTRAIT's face, PEOPLE's
 background and what she kept, rule 36's injury, on 12 cells across). Then his picks on the waiting
 items, then [the picks] (with the size setting), [door fixes], [inner votes], [warning clipped].
