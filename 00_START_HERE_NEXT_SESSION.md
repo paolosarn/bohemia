@@ -7778,13 +7778,58 @@ choice to go further than it does, if he ever wants it.
 
 Q53 COMPLETE, BOTH ROUNDS.
 
-NEXT IN THIS LANE: Q52 [inherited trust] -- this lane's own Q50 round one produced it. Two rounds:
-what inherited trust does to prices, lending and who gets the first battery (Q49), and the one
-integer shape it could take. (records/BOHEMIA_COORDINATOR_ROUND_9_24_26.md)
-AFTER Q52: fold rounds 51, 52 and 53 into the master (a STANDING JOB, not a board job). The harvest
-control has run four folds clean and has caught a fault every time.
-CARRY THESE IN, ALL THREE ALREADY ROUTED AND NONE OF THEM THIS LANE'S TO FIX, STILL RED AS OF THIS
-ROUND (checked fresh again, none of the three files has moved since I routed them):
+=== ROUND 54, Q52 [inherited trust], BOTH ROUNDS. Q52 COMPLETE. QUEUE EMPTY. ===
+ROUND ONE: records/BOHEMIA_ECONOMY_DAY_54_THREE_DESCENDANTS_SHARE_ONE_RUNG_9_28_26.md
+ROUND TWO: records/BOHEMIA_ECONOMY_DAY_54_ROUND_TWO_ONE_RUNG_BACK_NOT_ZERO_NOT_ALL_OF_IT_9_28_26.md
+
+THE FINDING, ONE SENTENCE: INHERITED TRUST IS NOT MISSING, IT IS DOUBLE-BUILT AND MIS-ROUTED --
+ONE GATE-TESTED THREE-GENERATION MECHANISM SITS UNUSED, AND THE SYSTEM THAT ACTUALLY GATES LENDING
+GRANTS PERFECT, INSTANT INHERITANCE BY ACCIDENT BECAUSE IT NEVER TELLS THE THREE DESCENDANTS APART.
+
+MEASURED, THREE SEPARATE MECHANISMS TRACED RATHER THAN ASSUMED: bohemia_standing.inherit()
+(parentId, childId) is real, shipped, gate-tested across FATHER->CHILD->GRANDCHILD in
+gates/standing_gate.js, fades correctly each generation, invents nothing against an empty
+weight table, and is deterministic. Its only two live callers on the walked surface
+(ctFold/ctFoldBeat) call it as inherit(minds, '@', '@', ...) -- the SAME id both times, so on
+the real surface it can only ever decide whether one continuous identity's own not-yet-retold
+memory survives, never move anything from one person to a different one. Separately, and this
+was a real correction of my own first guess (checked by reading both functions rather than
+trusting the shared word "rung"): the system that ACTUALLY gates asking and lending (round
+49's subject, bohemia_belonging's RUNGS ladder) is a COMPLETELY DIFFERENT pipe, keyed to
+save.meta.gave, one global counter per faction with no act number or descendant id anywhere in
+any caller. So THE THREE NAMED DESCENDANTS (rule 32d, THE THREE NAMES) SHARE ONE RUNG PER
+FACTION INSTANTLY AND COMPLETELY -- not inherited, not earned, just the same account read by
+three different names, decades apart. Price: unaffected either way, one shared shelf, no
+per-person price exists anywhere to move (round 40/52 confirmed again). And the actual seat of
+this question, rule 31's own derive, is an admitted stub: groundDiffers() returns
+{differs:false, why:'NO_DERIVE_YET'}.
+ROUND TWO NAMED THE SHAPE ROUND ONE OWED: a fresh descendant's first rung with a faction is
+the PARENT'S RUNG INDEX MINUS ONE, CLAMPED AT ZERO -- one integer subtraction on the belonging
+ladder's own five existing stops (stranger 0, peripheral 1, useful 3, counted 6, inside 10), no
+new currency, the closest whole-number analogy to the real record's own decay-not-reset shape
+that this game's arithmetic allows (named honestly as a coarse fit, not a translated
+coefficient). It needs one real change stated plainly: save.meta.gave becomes faction ->
+descendant -> count, not faction -> count, and it is a natural first tenant of rule 31's derive,
+re-derived on every flip forward the way section 2a already specifies, not a one-time seed.
+Rule 37c landed mid-round (THE THIRD VOTES, 9/28): the derive is SIGNED, built rises, raided
+falls -- which removes any "nothing below the floor" objection to a rung stepping down a
+generation, so this shape needed no revision, only a note that it is no longer swimming against
+anything. Rule 37d, same batch, ruled it will always be three real generations, confirming
+round one's whole premise (three real descendants, not one person flipping costumes) rather
+than requiring a correction to it.
+
+Q52 COMPLETE, BOTH ROUNDS. THE BOARD'S ECONOMY SECTION HAS NO OTHER OPEN OR CLAIMED LINE.
+
+QUEUE EMPTY. NEXT VAMILY: per rule 5, with nothing OPEN in this section, the coordinator adds
+the next job (rule 10, only the coordinator adds jobs here). Until then this lane's own
+standing job is the fold below.
+AFTER-THE-FACT STANDING JOB, NOT A BOARD LINE: fold rounds 51, 52, 53 and 54 into
+records/BOHEMIA_ECONOMY_MASTER_WHAT_FORTY_FOUR_ROUNDS_FOUND_9_15_26.md (the filename keeps
+FORTY_FOUR on purpose, per the note two folds back; the board and records/ cite that path).
+The harvest control has run four folds clean and caught a fault every time; whichever session
+takes the next claimed job should fold before or alongside it, not instead of it.
+CARRY THESE IN, ALL THREE ALREADY ROUTED AND NONE OF THEM THIS LANE'S TO FIX, STILL RED AS OF
+THIS ROUND (checked fresh a fourth time, none of the three files has moved since first routed):
  - gates/four_verbs_gate.js CRASHES on main, on "#daycardIn .dcgo". Do not read it as new and do not
    chase it. It means the four upkeep verbs have no working end-to-end check, which matters to this
    lane more than to anybody, so if it is still red next round SAY SO AGAIN rather than assuming

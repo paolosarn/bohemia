@@ -4405,3 +4405,49 @@ SSSSSSSSSSSSS8  the woman, unmoved                                 draft:true
   every night.
 - Spanish register: 0 of 8 lines. Under the 15% cap; these are two plain
   domestic exchanges and neither one called for it.
+
+## SSSSSSSSSSSSSS. THE FACTION THAT NEVER MET THE GRANDCHILD
+## (round 54, Q52 [inherited trust], both rounds. Three descendants who share one
+##  account nobody split, a rung that goes down one step by no fault of the one
+##  standing on it, and a family who never earned what they were handed. Nobody
+##  says a number. Role, place, situation.)
+
+SSSSSSSSSSSSSS1  a young one, greeted warmly at a door he never knocked on   draft:true
+    "You don't know me."
+
+SSSSSSSSSSSSSS2  the man at the door, sure that he does                      draft:true
+    "I know your name. That's enough for me."
+
+SSSSSSSSSSSSSS3  the young one, uneasy about it                              draft:true
+    "It shouldn't be. I haven't done anything for you."
+
+SSSSSSSSSSSSSS4  the man, meaning it kindly                                  draft:true
+    "Your grandmother did. I'm not going to make you start over."
+
+SSSSSSSSSSSSSS5  a woman a rung short of where her mother ended up           draft:true
+    "One step behind. Not nothing, not everything."
+
+SSSSSSSSSSSSSS6  her cousin, further down the same ladder                    draft:true
+    "One step behind you. It adds up if nobody climbs."
+
+SSSSSSSSSSSSSS7  the woman, thinking about that                              draft:true
+    "Then I better climb."
+
+## TTTTTTTTTTTTTT. WHAT IS NOT HERE, ON PURPOSE (round 54, both rounds)
+
+- No line says a rung, an index, a count or a generation number. The whole finding is
+  said as a door, a name, and a step somebody is standing one below.
+- No line says inherit, fold, derive, belonging or standing. The mechanism stays out of
+  every mouth.
+- No line claims the sharing (SSSSSSSSSSSSSS1-4) is wrong. The man at the door is being
+  generous, not foolish, and the young one's discomfort is the honest reaction, not a
+  correction of him.
+- No line resolves whether one rung back is the right amount. SSSSSSSSSSSSSS5 through 7
+  simply live inside it.
+- No line names a faction, a town or a street. MAP LAW.
+- No line has the player speaking. Rule 27: 594 role-place entries in this file now,
+  zero of them him talking.
+- No line is written for a card, a tooltip or a readout: rule 19(a), rule 29. What this
+  round hands over is a doorway and a ladder.
+- Spanish register: 0 of 7 lines. Under the 15% cap; two plain domestic exchanges, and
+  neither called for it.
