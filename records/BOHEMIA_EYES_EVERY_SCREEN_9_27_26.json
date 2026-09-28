@@ -1,0 +1,220 @@
+{
+  "what": "a driven crawl of every reachable card, not a named list",
+  "row": "E23 [every screen] round two",
+  "when": "2026-09-27T23:50:33.875Z",
+  "surface": "/tmp/claude-0/-home-user-bohemia/065fcaf1-af13-5362-9424-9d0305049a14/scratchpad/cut/slices/BOHEMIA_DEMO.html",
+  "controls": [
+    {
+      "name": "C0 THE DOOR IS BEHIND US, and the driver says so itself",
+      "pass": true,
+      "detail": "door held 16517 ms"
+    },
+    {
+      "name": "C1 A PLANTED TWO-LEVELS-DEEP CARD IS FOUND AND MEASURED",
+      "pass": true,
+      "detail": "30 controls on it"
+    },
+    {
+      "name": "C2 A PLANTED DEAD PATH IS REPORTED UNREACHABLE, never measured as a screen",
+      "pass": true,
+      "detail": "recorded as an attempt with no new state"
+    },
+    {
+      "name": "C3 A PLANTED SMALL BUTTON ON A DISCOVERED CARD IS CAUGHT",
+      "pass": true,
+      "detail": "[{\"x\":195,\"y\":203,\"w\":310,\"h\":17,\"text\":\"SETTINGS\",\"id\":\"\"},{\"x\":69,\"y\":245,\"w\":58,\"h\":15,\"text\":\"SOUND\",\"id\":\"\"},{\"x\":69,\"y\":299,\"w\":58,\"h\":15,\"text\":\"MUTE\",\"id\":\"\"},{\"x\":69,\"y\":353,\"w\":58,\"h\":15,\"text\":\"TEXT\",\"id\":\"\"},{\"x\":69,\"y\":407,\"w\":58,\"h\":15,\"text\":\"MOTION\",\"id\":\"\"},{\"x\":69,\"y\":461,\"w\":58,\"h\":15,\"text\":\"EVENTS\",\"id\":\"\"},{\"x\":69,\"y\":515,\"w\":58,\"h\":15,\"text\":\"NEW\",\"id\":\"\"},{\"x\":69,\"y\":569,\"w\":58,\"h\":15,\"text\":\"GAME\",\"id\":\"\"},{\"x\":79,\"y\":157,\"w\":18,\"h\":14,\"text\":\"X\",\"id\":\"__eyes_lvl2_small\"},{\"x\":333,\"y\":793,\"w\":40,\"h\":40,\"text\":\"\",\"id\":\"mode\"}]"
+    }
+  ],
+  "planting": {
+    "ok": true
+  },
+  "states_found": 4,
+  "transitions": [
+    {
+      "from": "STREET||__eyes_dead_parked:EYESDEADPARK@34,222:60x44;__eyes_lvl1:EYESLVL1@34,122:60x44;gearbtn:⚙@30,91:44x44;mode:@333,793:40x40;notebtn:NOTES@360,25:44x44",
+      "via": "⚙",
+      "to": "SETTINGS:SETTINGS SOUND MUTE OFF TEXT MOTION FULL||:@128,245:45x44;:@145,353:78x44;:@178,245:45x44;:@228,245:45x44;:@228,353:78x44;:@278,245:45x44;:@311,353:78x44;:@328,245:45x44;:EVENTS@69,461:58x15;:GAME@69,569:58x15;:MOTION@69,407:58x15;:MUTE@69,299:58x15;:NEW@69,515:58x15;:SETTINGS@195,203:310x17;:SOUND@69,245:58x15;:TEXT@69,353:58x15;__eyes_dead_parked:EYESDEADPARK@34,222:60x44;__eyes_lvl1:EYESLVL1@34,122:60x44;gearbtn:⚙@30,91:44x44;mode:@333,793:40x40;notebtn:NOTES@360,25:44x44;setclose:BACK TO THE GAME@195,627:310x44;setenc:AGAIN IN 3 DAYS@184,461:156x44;setmotion:FULL@138,407:64x44;setmute:OFF@134,299:55x44;setquit:QUIT@209,569:64x44;setsave:SAVE@138,569:64x44;setvote:VOTE ON WHAT IS NEW@201,515:190x44",
+      "plant": false
+    },
+    {
+      "from": "STREET||__eyes_dead_parked:EYESDEADPARK@34,222:60x44;__eyes_lvl1:EYESLVL1@34,122:60x44;gearbtn:⚙@30,91:44x44;mode:@333,793:40x40;notebtn:NOTES@360,25:44x44",
+      "via": "EYESLVL1",
+      "to": "SETTINGS:SETTINGS SOUND MUTE OFF TEXT MOTION FULL||:@128,245:45x44;:@145,353:78x44;:@178,245:45x44;:@228,245:45x44;:@228,353:78x44;:@278,245:45x44;:@311,353:78x44;:@328,245:45x44;:EVENTS@69,461:58x15;:GAME@69,569:58x15;:MOTION@69,407:58x15;:MUTE@69,299:58x15;:NEW@69,515:58x15;:SETTINGS@195,203:310x17;:SOUND@69,245:58x15;:TEXT@69,353:58x15;__eyes_dead_parked:EYESDEADPARK@34,222:60x44;__eyes_lvl1:EYESLVL1@34,122:60x44;__eyes_lvl2_card:EYESLVL2CARD@34,172:60x44;__eyes_lvl2_small:X@79,157:18x14;gearbtn:⚙@30,91:44x44;mode:@333,793:40x40;notebtn:NOTES@360,25:44x44;setclose:BACK TO THE GAME@195,627:310x44;setenc:AGAIN IN 3 DAYS@184,461:156x44;setmotion:FULL@138,407:64x44;setmute:OFF@134,299:55x44;setquit:QUIT@209,569:64x44;setsave:SAVE@138,569:64x44;setvote:VOTE ON WHAT IS NEW@201,515:190x44",
+      "plant": true
+    },
+    {
+      "from": "STREET||__eyes_dead_parked:EYESDEADPARK@34,222:60x44;__eyes_lvl1:EYESLVL1@34,122:60x44;gearbtn:⚙@30,91:44x44;mode:@333,793:40x40;notebtn:NOTES@360,25:44x44",
+      "via": "NOTES",
+      "to": "STREET||__eyes_dead_parked:EYESDEADPARK@34,222:60x44;__eyes_lvl1:EYESLVL1@34,122:60x44;__eyes_lvl2_card:EYESLVL2CARD@34,172:60x44;__eyes_lvl2_small:X@79,157:18x14;gearbtn:⚙@30,91:44x44;mode:@333,793:40x40;notebtn:NOTES@360,25:44x44",
+      "plant": false
+    }
+  ],
+  "unreachable_attempts": [
+    {
+      "from": "STREET",
+      "pressed": "EYESDEADPARK",
+      "threw": null
+    },
+    {
+      "from": "STREET",
+      "pressed": "mode",
+      "threw": null
+    },
+    {
+      "from": "STREET -> ⚙",
+      "pressed": "EYESLVL1",
+      "threw": null
+    },
+    {
+      "from": "STREET -> ⚙",
+      "pressed": "EYESDEADPARK",
+      "threw": null
+    },
+    {
+      "from": "STREET -> ⚙",
+      "pressed": "EYESLVL2CARD",
+      "threw": null
+    },
+    {
+      "from": "STREET -> ⚙",
+      "pressed": "X",
+      "threw": null
+    },
+    {
+      "from": "STREET -> ⚙",
+      "pressed": "mode",
+      "threw": null
+    },
+    {
+      "from": "STREET -> EYESLVL1",
+      "pressed": "EYESLVL1",
+      "threw": null
+    },
+    {
+      "from": "STREET -> EYESLVL1",
+      "pressed": "EYESDEADPARK",
+      "threw": null
+    },
+    {
+      "from": "STREET -> EYESLVL1",
+      "pressed": "EYESLVL2CARD",
+      "threw": null
+    },
+    {
+      "from": "STREET -> EYESLVL1",
+      "pressed": "X",
+      "threw": null
+    },
+    {
+      "from": "STREET -> EYESLVL1",
+      "pressed": "mode",
+      "threw": null
+    },
+    {
+      "from": "STREET -> NOTES",
+      "pressed": "EYESLVL1",
+      "threw": null
+    },
+    {
+      "from": "STREET -> NOTES",
+      "pressed": "EYESDEADPARK",
+      "threw": null
+    },
+    {
+      "from": "STREET -> NOTES",
+      "pressed": "EYESLVL2CARD",
+      "threw": null
+    },
+    {
+      "from": "STREET -> NOTES",
+      "pressed": "X",
+      "threw": null
+    },
+    {
+      "from": "STREET -> NOTES",
+      "pressed": "mode",
+      "threw": null
+    }
+  ],
+  "states": [
+    {
+      "fingerprint": "STREET||__eyes_dead_parked:EYESDEADPARK@34,222:60x44;__eyes_lvl1:EYESLVL1@34,122"
+    },
+    {
+      "fingerprint": "SETTINGS:SETTINGS SOUND MUTE OFF TEXT MOTION FULL||:@128,245:45x44;:@145,353:78x",
+      "controls": 3,
+      "small": [
+        " 40x40"
+      ],
+      "path": "STREET -> ⚙",
+      "tainted": false
+    },
+    {
+      "fingerprint": "SETTINGS:SETTINGS SOUND MUTE OFF TEXT MOTION FULL||:@128,245:45x44;:@145,353:78x",
+      "controls": 3,
+      "small": [
+        " 40x40"
+      ],
+      "path": "STREET -> EYESLVL1",
+      "tainted": true
+    },
+    {
+      "fingerprint": "STREET||__eyes_dead_parked:EYESDEADPARK@34,222:60x44;__eyes_lvl1:EYESLVL1@34,122",
+      "controls": 3,
+      "small": [
+        " 40x40"
+      ],
+      "path": "STREET -> NOTES",
+      "tainted": false
+    }
+  ],
+  "numbers": {
+    "states_discovered": 3,
+    "states_measured": 2,
+    "total_controls_measured": 6,
+    "controls_under_44px": 2,
+    "real_attempts_that_led_nowhere": 7
+  },
+  "small_controls_by_screen": [
+    "SETTINGS:SETTINGS SOUND MUTE OFF TEXT MOTION FULL:  40x40",
+    "STREET:  40x40"
+  ],
+  "attempts_that_led_nowhere": [
+    {
+      "from": "STREET",
+      "pressed": "mode",
+      "threw": null
+    },
+    {
+      "from": "STREET -> ⚙",
+      "pressed": "X",
+      "threw": null
+    },
+    {
+      "from": "STREET -> ⚙",
+      "pressed": "mode",
+      "threw": null
+    },
+    {
+      "from": "STREET -> EYESLVL1",
+      "pressed": "X",
+      "threw": null
+    },
+    {
+      "from": "STREET -> EYESLVL1",
+      "pressed": "mode",
+      "threw": null
+    },
+    {
+      "from": "STREET -> NOTES",
+      "pressed": "X",
+      "threw": null
+    },
+    {
+      "from": "STREET -> NOTES",
+      "pressed": "mode",
+      "threw": null
+    }
+  ],
+  "failing_controls": []
+}
