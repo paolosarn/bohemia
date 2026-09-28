@@ -36,3 +36,9 @@ THE UNDEAD SCOURGE (undead spread from the south; ancient dead legions), later H
 and others. A crisis changes what every town needs and what contracts appear.
 LEGENDARY LOCATIONS: the Goblin City, the Kraken, the Sunken Library, the Ijirok, the Black Monolith,
 the Witch Hut, the Rachegeist; each a named fight with a named reward.
+RENDERING (sourced 9/28, DIRECTION [bb density]; records/BOHEMIA_BB_DENSITY_THE_MAP_FLOOR_9_28_26.md): the
+world map is HEXAGONAL TILES, each with its own painted texture and decals/entities on top (locations,
+roads, mountains, forests); hand-painted raster, not pixel art; sprites packed at their own pixel size by
+the mod kit's brusher; rendered at the screen's native resolution with separate UI-scale and scene-scale
+sliders. So: one painted pixel per screen pixel (2,073,600 on a 1080p screen). Icon, banner, road and hex
+sizes in pixels are NOT yet measured (the sources were egress-blocked).

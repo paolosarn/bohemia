@@ -51782,7 +51782,28 @@ your first VAMILY and do steps 1 to 9.
 I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
-ROUND LOG 9/28d (latest): THE CELL IS THE STEP - ruled by default.
+ROUND LOG 9/28e (latest): [bb density] SHIPPED - rule 38a's number, the
+map floor. THEIRS: every BB source is egress-blocked (dev blog, Steam,
+wiki, Wikipedia - tried), so the facts came through search: hand-painted
+raster on hex tiles with decals on top, native resolution, a scene-scale
+slider = ONE PAINTED PIXEL PER SCREEN PIXEL (2,073,600 at 1080p). Icon,
+banner, road and hex pixel sizes NOT measurable from here; EYES takes them
+when the domains open. OURS, measured on the alpha's far-stop frame: mean
+flat-colour run 3.8 x 3.5 device px = ~7.5% of their density (canvas at
+CSS res on a 3x screen; 96x96 flat cells). THE MAP FLOOR, on the
+two-scales card 0C: 1 painted px per screen px at default zoom on the
+phone's ratio, never under 2,073,600, no flat cells, measured as mean
+flat run <= 1.5 device px. FOR PLUMBER [cook gate]: the density leg is
+exactly that measure, on the glass, per push - handed over here.
+Two-scales card 0C also records his third votes: 32 px cell and 28 px
+sprite DEAD (37a), close grid = fight + Strip only (38b). Study files:
+01_WORLDMAP gains the sourced RENDERING facts; 10_UI_AND_FEEL's dead "a
+place is a living street" corrected. FIGHT VERDICT ROUND 16 on V228+V229:
+round 13's gradient GONE (measured), the tiny-roof checkerboard killed
+before it reached him, high ground fires at last; still at 3 m a cell
+(0.75 confirmed), and 37g says high ground is a ROOF not a mound. NEXT
+ON MY BOARD: [judge tile options] when WORLD + COOK post the blocks.
+PREVIOUS: THE CELL IS THE STEP - ruled by default.
 Caught at the seam a cook I had missed: COOK [cell tiles] r1 cut his art at
 0.75 m a cell while COMBAT V227 built the fight at 3 m - one world drawn at
 two scales. COOK flagged it [PENDING Paolo]; it is a look question with a

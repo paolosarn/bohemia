@@ -21,6 +21,25 @@ DRAWN). His 7/28 bank cuts straight across; houses, cars and streets are
 drawn at real size in cells; the close view is ~9 m and the map carries
 distance. Section 0's defaults (house 4x4, car 2x1) are dead at this scale.
 
+## 0C. AMENDED 9/28 BY HIS THIRD VOTES AND RULE 38 (newest wins; read this before anything below)
+- NO ATARI (37a): "as many pixels as the zoomed-in roaming art... I don't
+  wanna treat a whole new character." THE 32 PX CELL AND THE 28 PX ONE-CELL
+  SPRITE ARE DEAD, and so is section 2's "silhouette + one value split + one
+  accent at 28 px" floor spec: TINY means small RELATIVE TO BUILDINGS at FULL
+  detail. The world unit stands (0B: one cell = one step = 0.75 m, confirmed
+  by the coordinator 9/28); the PIXEL size of a cell is set by what he picks
+  from WORLD + COOK [tile options] ([judge tile options] judges those blocks).
+- NO CITY WALK (38b): the close grid is the FIGHT'S ground and the special
+  places' (the Strip), never the city's floor. The city is crossed on the
+  MAP only; a place is a SETTLEMENT SCREEN (37b). Section 2 now reads as the
+  fight and the Strip.
+- THE MAP FLOOR (38a, records/BOHEMIA_BB_DENSITY_THE_MAP_FLOOR_9_28_26.md):
+  ONE PAINTED PIXEL PER SCREEN PIXEL at default map zoom on the phone's own
+  ratio, never fewer than Battle Brothers' 2,073,600 per screen; no
+  flat-colour cells; measured as a mean flat-colour run <= 1.5 device px on
+  both axes. Ours today: 3.8 x 3.5, about 7.5% of the floor. Every map cook
+  is judged against it.
+
 ## 1. WHAT CARRIES ACROSS BOTH SCALES, UNTOUCHED
 - The register: hue 18–47 at ground level; the aerial card's polarity
   (ground brightest, roads darkest, roofs warm between) at every zoom.
@@ -95,6 +114,7 @@ punctuation, and it needs no flash to announce itself.
 ```json
 {"card":"TWO_SCALES_LOOK","date":"9/27/26","law":"rule 34",
  "cell":"0.75 m = one step (9/28 ruling); real-size houses/cars/streets; close view ~9 m",
+ "amended_9_28":{"dead":["32px cell","28px one-cell sprite","sprite floor spec at 28px"],"cell_pixels":"his [tile options] pick","close_grid":"fight + the Strip only (38b)","map_floor":{"painted_per_screen_px":1,"min_per_screen":2073600,"mean_flat_run_max_px":1.5,"ours_9_24":[3.8,3.5]}},
  "carries":["hue 18-47 register","aerial polarity","R4 fixtures","R8 lens","R10 bake","purple","territory rims","eras floor","newgrounds cut"],
  "close":{"tone_carriers":["R4 room light","R3 hold","R7 occupancy"],"sprite_spec":"silhouette + one value split + one accent at 28px; face lives in the portrait (R6 binds the bust)","honest_grid":"R1's precondition - the drawing never lies about a cell","wear":"per-cell authorship, no stamps"},
  "map":{"card":"[bb look] 9/24 stands whole","tone_carriers":["R7 occupancy","R9 schedule"]},

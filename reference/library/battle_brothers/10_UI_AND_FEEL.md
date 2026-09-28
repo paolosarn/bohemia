@@ -22,5 +22,7 @@ SOUND (SOUNDS [bb ambience] verifies): map ambience by terrain and time (wind, b
 night, rain); footsteps of the marker; a horn when a party is spotted; the fight has a drum, weapon
 impacts by material, grunts, death cries, the shield thud; the settlement has crowd murmur and a
 blacksmith; music tracks per biome and a battle theme per enemy kind.
-(WHAT WE DO NOT COPY, rule 33g: the stills. Ours move: the map breathes, a place is a living street, an
-event is a person speaking, under the analog horror bible with Newgrounds' hand-made energy.)
+(WHAT WE DO NOT COPY, rule 33g: the stills. Ours move: the map breathes, an event is a person speaking,
+under the analog horror bible with Newgrounds' hand-made energy. CORRECTED 9/28 (DIRECTION [bb density]): this
+line said "a place is a living street" - dead since his third votes (37b) and rule 38b: a place is a
+SETTLEMENT SCREEN, as theirs is, and nothing walks the city; the close grid is the fight's and the Strip's.)
