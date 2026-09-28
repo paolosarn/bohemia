@@ -149,7 +149,10 @@ const ok = (n, c, note) => { c ? (pass++, console.log('  ok   ' + n + (note ? ' 
   let D2 = null;
   try { D2 = require(path.join(ROOT, 'tools', 'bohemia_drive_the_demo.js')); } catch (e) {}
   if (!D2) { ok('the one driver is available to check the turn', false); return done(); }
-  const d = await D2.open();
+  /* RE-AIMED 9/28 BY RUN (rule 38b/c): the demo opens on the map and no longer walks the city; the
+     slide and the turn are the walked street's, which lives in the ALPHA until [no city walk]
+     moves it to archive/. Same legs, measured where the street is. */
+  const d = await D2.open({ alpha: true });
   await d.page.waitForTimeout(2500);
   const turn = await d.fr.evaluate(async () => {
     if (!window.__TURN) return { ERR: 'no turn seam on this surface' };
