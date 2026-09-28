@@ -152,3 +152,11 @@ assets (sidewalk, kerb, yard, wall, door, car) DRESS the house-sized tiles, s13(
 112 px art on house tiles (rule 21, the fought surface). (e) The mound is a house tile with height (a roof,
 37g). (f) The tile OPTIONS (37a) are house tiles and street tiles at full detail, from the walk's banks.
 
+## 15. HOUSE-SIZED, NOT HOUSE-FILLED (Paolo 9/28, LOCKED; records/BOHEMIA_PAOLO_A_TILE_IS_HOUSE_SIZED_NOT_EVERY_TILE_IS_A_HOUSE_9_28_26.md)
+"My one tile is the size of a house doesn't mean every tile is a house. It still has to look like a city. We have
+neighbours, we have so many assets, we have streets." A COMBAT TILE IS A HOUSE names the SIZE of a tile. The
+CONTENT of a tile is whatever that piece of the city is: house, yard, street, sidewalk and kerb, lot, slab, car,
+shed, pump, wall, roof. The board is cut from the city as it stands (the block's own layout) and dressed from the
+banks we have (s13a). Gate OWED (COMBAT with WORLD): a fight board carries at least a street and a non-house tile
+kind beside its houses, and its layout matches the block it was cut from.
+
