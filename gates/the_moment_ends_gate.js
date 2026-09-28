@@ -105,7 +105,10 @@ function stripComments(s) {
   let R = null, driveErr = null;
   try {
     const D = require(DRIVE);
-    const d = await D.open();
+    /* RE-AIMED 9/28 BY RUN (rule 38b/c, [no city walk]): the demo opens on the map and its walk
+       pad is stripped, so a pad press there moves nothing by design. This measures the walked
+       street, which lives in the ALPHA until [no city walk] moves it to archive/. Same legs. */
+    const d = await D.open({ alpha: true });
     /* PROVE THE INSTRUMENT CAN PRODUCE A POSITIVE FIRST. This round alone, five
        probes returned a clean "nothing happened" and every one of them was the
        instrument. A gate that cannot show the thing working cannot show it
