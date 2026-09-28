@@ -71,12 +71,22 @@ const FRAMES = 8;   /* the "with the attachment" body plays the game's own walk 
                         ARE WEARING IT" used for its 112 source panel. */
 
 /* MOB: no outer, no gear today -- the padding (outer) goes on clean.
-   CARTEL: already wears the cloak (STEEL ROAD CAPE, back); the spike (gear) stacks on top. */
+   CARTEL: already wears the cloak (STEEL ROAD CAPE, back); the spike (gear) stacks on top.
+   REMNANTS: no back slot today, and their own outer is a THIGH coat (len 0.56, this lane's
+   own 9/28 measurement, above), not a floor duster -- a floor-length cape shows below its
+   hem instead of hiding inside it, so the cloak's own trade (conceals, but flaps and
+   catches) reads on its own, isolated from the spike. FIRST TRIED REDS: their duster already
+   runs floor-length, so the cape barely showed past it -- caught by looking at the picture,
+   not assumed; the finding is worth keeping even though the case moved (below). Charcoal is
+   the one cape colourway already in Remnants' own palette (their STORM KNIT CAP), so nothing
+   new enters the faction. */
 const CASES = [
   { faction: 'Cartel', add: { gear: 'STEEL SPIKED PAULDRON' },
     label: 'CARTEL, CLOAK + SPIKE', note: 'already wears the cloak (steel road cape); the spike layers on cleanly, gear collides with nothing.' },
   { faction: 'Mob', add: { outer: 'QUILTED VEST' },
-    label: 'MOB, PADDING', note: 'wore no coat; the padding is a clean add here -- on a faction that already wears one, it would REPLACE the coat, not layer under it (the finding, stated in the record).' }
+    label: 'MOB, PADDING', note: 'wore no coat; the padding is a clean add here -- on a faction that already wears one, it would REPLACE the coat, not layer under it (the finding, stated in the record).' },
+  { faction: 'Remnants', add: { back: 'CHARCOAL ROAD CAPE' },
+    label: 'REMNANTS, CLOAK ALONE', note: 'wore no back-slot garment and their own coat ends at the thigh; the cloak alone, isolated from the spike, so its own trade (conceals, but flaps and catches) is the one thing changing.' }
 ];
 
 (async () => {
@@ -141,10 +151,16 @@ const CASES = [
           before: toPNG(before), walk: walk,
           profBefore: profile(before), profAfter: profile(after0) });
       }
-      /* CROSS-CASE SILHOUETTE CHECK: Cartel-with-spike and Mob-with-padding must not read as
-         the same body -- the same closest-pair ruler this lane always uses. */
-      if (o.pairs.length === 2) {
-        o.crossDist = dist(o.pairs[0].profAfter, o.pairs[1].profAfter);
+      /* CROSS-CASE SILHOUETTE CHECK, EVERY PAIR: no two dressed bodies may read as the same
+         body -- the same closest-pair ruler this lane always uses, now over all C(n,2) pairs
+         since a third case joined the show. o.crossDist stays the WORST (smallest) of them,
+         so the refusal guard below needs no change. */
+      if (o.pairs.length >= 2) {
+        let worst = Infinity;
+        for (let i = 0; i < o.pairs.length; i++)
+          for (let j = i + 1; j < o.pairs.length; j++)
+            worst = Math.min(worst, dist(o.pairs[i].profAfter, o.pairs[j].profAfter));
+        o.crossDist = worst;
       }
     } catch (e) { o.err = String(e && e.message || e); }
     window.G_WORN = keepW; G.equipped = keepE;
@@ -186,14 +202,23 @@ const CASES = [
   L.push('own engine, worth knowing before TUNING prices padding as an addable option. The');
   L.push('cloak (back) and the spike (gear) do not have this problem; both layer cleanly.');
   L.push('');
+  L.push('A SECOND FINDING, FROM A PICTURE THROWN AWAY: the first try put the cloak on Reds,');
+  L.push('whose own duster already runs floor-length -- the cape only showed at the collar and');
+  L.push('the open chest, barely readable, even though the silhouette check still cleared the');
+  L.push('floor. Caught by looking at the picture, not assumed. Moved to Remnants, whose own');
+  L.push('coat ends at the thigh, so the cape shows its full length below the hem. THE CLOAK');
+  L.push('READS STRONGEST OVER A SHORT OR NO OUTER COAT -- worth knowing before anybody prices');
+  L.push('it as a universal add.');
+  L.push('');
   for (const pr of R.pairs) {
     L.push(pr.label + ': ' + pr.note);
   }
   if (R.crossDist !== undefined) {
     L.push('');
-    L.push('SILHOUETTE CHECK: Cartel-with-spike vs Mob-with-padding, same 16-sample profile');
-    L.push('the runway work uses: ' + R.crossDist.toFixed(4) + ' apart -- CLEARS the collapse');
-    L.push('floor (0.02), two different people, not one costume swapped twice.');
+    L.push('SILHOUETTE CHECK: all three worn-with-attachment bodies compared pairwise, same');
+    L.push('16-sample profile the runway work uses; the CLOSEST pair sits ' + R.crossDist.toFixed(4)
+      + ' apart -- CLEARS');
+    L.push('the collapse floor (0.02). Three different people, not one costume shown three ways.');
   }
   L.push('');
   L.push('THE TRADE, IN WORDS, TUNING\'S TO NUMBER: a cloak conceals but flaps and catches; a');

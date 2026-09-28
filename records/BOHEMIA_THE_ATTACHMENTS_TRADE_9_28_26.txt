@@ -20,12 +20,21 @@ adding padding REPLACES it rather than layering under it -- true to the wardrobe
 own engine, worth knowing before TUNING prices padding as an addable option. The
 cloak (back) and the spike (gear) do not have this problem; both layer cleanly.
 
+A SECOND FINDING, FROM A PICTURE THROWN AWAY: the first try put the cloak on Reds,
+whose own duster already runs floor-length -- the cape only showed at the collar and
+the open chest, barely readable, even though the silhouette check still cleared the
+floor. Caught by looking at the picture, not assumed. Moved to Remnants, whose own
+coat ends at the thigh, so the cape shows its full length below the hem. THE CLOAK
+READS STRONGEST OVER A SHORT OR NO OUTER COAT -- worth knowing before anybody prices
+it as a universal add.
+
 CARTEL, CLOAK + SPIKE: already wears the cloak (steel road cape); the spike layers on cleanly, gear collides with nothing.
 MOB, PADDING: wore no coat; the padding is a clean add here -- on a faction that already wears one, it would REPLACE the coat, not layer under it (the finding, stated in the record).
+REMNANTS, CLOAK ALONE: wore no back-slot garment and their own coat ends at the thigh; the cloak alone, isolated from the spike, so its own trade (conceals, but flaps and catches) is the one thing changing.
 
-SILHOUETTE CHECK: Cartel-with-spike vs Mob-with-padding, same 16-sample profile
-the runway work uses: 0.0575 apart -- CLEARS the collapse
-floor (0.02), two different people, not one costume swapped twice.
+SILHOUETTE CHECK: all three worn-with-attachment bodies compared pairwise, same
+16-sample profile the runway work uses; the CLOSEST pair sits 0.0575 apart -- CLEARS
+the collapse floor (0.02). Three different people, not one costume shown three ways.
 
 THE TRADE, IN WORDS, TUNING'S TO NUMBER: a cloak conceals but flaps and catches; a
 padding adds protection at a cost in fatigue; a spike threatens (a called-shot

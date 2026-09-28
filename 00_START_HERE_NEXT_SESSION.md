@@ -512,6 +512,34 @@ now -- WHEN THE GROUND A SYSTEM STANDS ON GETS PULLED, THE WORDS SURVIVE AND
 THE MECHANISM WAITS. Don't rebuild speculatively; write down where the words
 go once the real surface exists.
 
+CHARACTER (character-0lurbs): 9/28 (d) LATEST -- *** [attachments] SECOND COOK: THE CLOAK
+SHOWN ALONE, AND A BAD FIRST TRY CAUGHT BY LOOKING AT THE PICTURE, NOT SHIPPED ANYWAY. ***
+TAB: CHARACTER, and the VOTE tab (same item, updated: character-the-attachments-trade-9-28).
+
+Last round's cook showed the cloak only stacked WITH the spike (on Cartel), so the cloak's
+own trade (it conceals, but it flaps and catches) never got its own clean picture. This
+round adds a third case to the same VOTE item: the cloak alone, isolated from the spike.
+
+FIRST TRY WAS WRONG AND I THREW IT AWAY INSTEAD OF SHIPPING IT. I put the cloak on the
+Reds faction because they had no cloak already. Looked at the picture: their own coat
+already goes to the floor, so the cape only peeked out at the collar, barely readable.
+That is a real finding, not a mistake to hide, so I wrote it into the record and moved
+the cloak to the Remnants instead, whose own coat stops at the thigh. Now the cape's
+full length shows below the coat's hem and the difference is obvious in the picture.
+
+Checked the three dressed people do not blur into one costume: the closest two are
+0.0575 apart on the same silhouette ruler the runway work always uses, well clear of the
+0.02 floor. Gates run clean: reference check 209/0, reuse-first 230 passed / 8 failed (all
+8 pre-existing, none mine, same list as last round), vote tab 30/1 (one pre-existing red,
+not mine), one-garment-per-slot 15/0 (alpha itself did not change this round, only the
+cook tool and its output).
+
+Row stays CLAIMED: DIRECTION has not judged either cook yet, and the row's own brief says
+"the runway thirteen," so more factions could still get a look at this if there is more to
+learn from them. Record: records/BOHEMIA_THE_ATTACHMENTS_TRADE_9_28_26.txt (rewritten this
+round, keeps last round's findings and adds this one). Tool:
+tools/bohemia_cook_the_attachments_trade.js.
+
 CHARACTER (character-0lurbs): 9/28 (c) LATEST -- *** [attachments] FIRST COOK SHIPPED:
 ONE NEW GARMENT, TWO OLD ONES RENAMED IN MEANING, A REAL SLOT COLLISION FOUND. ***
 TAB: CHARACTER (the garment shows on any faction wearing it), and the VOTE tab has
