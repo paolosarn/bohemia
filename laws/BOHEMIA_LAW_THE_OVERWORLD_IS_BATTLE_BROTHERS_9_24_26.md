@@ -130,3 +130,14 @@ the city's floor. Section 1's "the street is where you arrive" was already dead 
 reads TRAVEL on the map, ARRIVAL on a settlement screen, THE FIGHT on the close grid. (c) RUN cuts the demo to
 that shape; nothing in the demo walks the city.
 
+## 13. THE ASSETS ARE THE FIGHT'S GROUND, AND NEVER ONE TILE PER SIDEWALK (Paolo 9/28, same round; records/BOHEMIA_PAOLO_THE_ASSETS_ARE_THE_FIGHTS_GROUND_AND_TUNING_MODS_ARE_RESEARCH_9_28_26.md)
+"All the assets we were creating for when you were just a person walking around zoomed in, tile by tile,
+even the sidewalk: all of these assets are going to be used for the combat. Don't get confused. You're never
+gonna be in a street fight where one tile is one sidewalk." (a) Every walked-city asset (the tile banks, the
+cells, the kerb, the yard, the wall, the door, the car from above, the house as many cells) is THE FIGHT'S
+GROUND; nothing of it is archived; s12's cut removes the WALK, not the tiles. (b) Section 3's "on house tiles"
+and rule 16's fight half (A COMBAT TILE IS A HOUSE) are DEAD FOR GOOD: the fight's cell is the small honest
+cell of rule 34; a sidewalk and a house are many cells; the tiny character stands on one. GRAVEYARD IS FINAL:
+a house-sized fight tile does not come back under a new name (gate OWED to COMBAT: the fight board's cell is
+the grid's cell, never a building).
+

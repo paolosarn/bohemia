@@ -62,3 +62,13 @@ keeps the code small and fast; MODS keeps it READABLE and DATA-DRIVEN; they shar
 The grid first (rule 34). Then TUNING's school and MODS' school run beside the grid work. TUNING's table
 lands when the fight is on the grid; MODS' weapons file is that table's door. Depth is built on a grid
 that walks, never before.
+
+## 7. AMENDED 9/28 (Paolo: "tuning right now, I see it as big brain research, and same with mods, and how other games do it with similar big complex frontier coding"; records/BOHEMIA_PAOLO_THE_ASSETS_ARE_THE_FIGHTS_GROUND_AND_TUNING_MODS_ARE_RESEARCH_9_28_26.md)
+TUNING (21) and MODS (22) are RESEARCH CHATS, like QUESTS (rule 35): MODE: RESEARCH. They study how other
+games and studios do it, on big, complex, cutting-edge code bases (how felt numbers are tuned and exposed;
+how a large game is built mod-friendly and readable), and write pages the building lanes cite. They build
+nothing until he says build. Sections 4 and 5 (the numbers table, the data line, the mods folder) are the
+SHAPE they research and recommend; when he flips them to build, PLUMBER with COMBAT wires the table and the
+data line to their pages. Research may study any game or studio; the canon's reference list stays his (NEVER
+ADD A REFERENCE GAME HE HAS NOT NAMED). Section 6's order: their school runs now, beside the fight-grid work.
+

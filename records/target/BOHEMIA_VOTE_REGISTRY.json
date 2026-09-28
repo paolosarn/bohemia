@@ -2535,7 +2535,17 @@
     "how": "page",
     "src": "BOHEMIA_THE_THREE_BEFORE_ACT_ONE_9_28_26.html"
    }
-  }
+  },
+{
+  "id": "coordinator-tuning-and-mods-research-until-you-say-build-9-28",
+  "kind": "verdict",
+  "lane": "coordinator",
+  "title": "TUNING AND MODS ONLY RESEARCH UNTIL YOU SAY BUILD",
+  "text": "You said tuning and mods are big brain research, like quests. So they study how other games do it and write pages, and they build nothing. When you want the numbers table or the mods folder actually wired in, say build and the plumber wires what they recommend. DOWN means you want them building now.",
+  "asked": "UP or DOWN",
+  "when": "2026-09-28",
+  "draft": true
+}
  ],
  "verdicts": [
   {
