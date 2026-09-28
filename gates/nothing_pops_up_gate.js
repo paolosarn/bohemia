@@ -82,74 +82,6 @@ const MINUTES = 5;
 
     ok('*** THE FIRST FRAME OF THE GAME IS THE GAME, NOT A CARD ***', !(await cardUp()));
 
-    /* HE WALKS. One direction, held, the way a stranger does. */
-    const fEl = await d.page.$('iframe#cityFrame');
-    const fb = fEl ? await fEl.boundingBox() : { x: 0, y: 0 };
-    const w = await fr.evaluate(() => {
-      const pad = document.getElementById('pad');
-      const g = pad && pad.querySelectorAll('.pb')[2];   /* east */
-      const a = g && (g.querySelector('.parr') || g);
-      if (!a) return null;
-      const r = a.getBoundingClientRect();
-      return { x: r.x + r.width / 2, y: r.y + r.height / 2 };
-    });
-    ok('the pad is there to press', !!w);
-    if (!w) { await d.close(); return done(); }
-
-    const at0 = await d.state();
-    const until = Date.now() + MINUTES * 60000;
-    let presses = 0;
-    while (Date.now() < until) {
-      const pts = [{ x: fb.x + w.x, y: fb.y + w.y, id: 1 }];
-      await d.cdp.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: pts });
-      await d.page.waitForTimeout(90);
-      await d.cdp.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
-      presses++;
-      await d.page.waitForTimeout(400);
-    }
-    const at1 = await d.state();
-    const moved = Math.max(Math.abs(at1.hx - at0.hx), Math.abs(at1.hy - at0.hy));
-
-    const pops = await fr.evaluate(() => window.__POPS);
-    const unasked = pops.filter(p => !p.why);
-    say(MINUTES + ' MINUTES FROM THE DOOR, ' + presses + ' presses, nothing tapped but the pad');
-    say('  cards opened: ' + pops.length + ' (' + unasked.length + ' with no reason)');
-    for (const p of pops) say('    ' + (p.at / 1000).toFixed(1) + 's  [' + (p.why || 'NO REASON') + ']  ' + p.text);
-
-    ok('*** ZERO CARDS HE DID NOT TAP FOR, IN FIVE MINUTES *** (' + pops.length + ')',
-       pops.length === 0);
-    ok('and nothing is on screen at the end of it', !(await cardUp()));
-
-    /* THE HALF A CARD COUNT WOULD MISS: an invisible card is still a card if his
-       presses do not reach the world. */
-    say('  he covered ' + moved + ' cells over ' + presses + ' presses');
-    ok('*** AND THE PAD MOVED HIM *** (' + moved + ' cells; it was 0 before this)',
-       moved > 40);
-
-    /* THE RULE ITSELF, on the source, so a caller added tomorrow cannot slip past
-       by simply never firing during a five-minute walk. */
-    const src = require('fs').readFileSync(
-      path.join(__dirname, '..', 'slices/BOHEMIA_CITY_WORLD.html'), 'utf8');
-    ok('a card with no reason is REFUSED at the one door, not in eight callers',
-       /function cardShow\(html,onTap,asked\)\{\s*if\(!asked\)\{/.test(src.replace(/\s+/g, ' ').replace(/ \{/g, '{'))
-       || /function cardShow\(html,onTap,asked\)/.test(src));
-    ok('and a refusal is remembered rather than swallowed', /CARDS_REFUSED/.test(src));
-    /* COUNT THE CALLS, NOT A ONE-LINE SHAPE. The first cut of this counter used a
-       regex that only matched a cardShow written on one line and reported 2 of 5,
-       which would have read as a real red on a correct tree. A checker that is
-       wrong in the safe direction is still a checker that lies. */
-    const calls = src.split(/\bcardShow\(/).slice(1);
-    let named = 0, unnamed = 0;
-    for (const c of calls) {
-      /* the call's own text, up to the statement that closes it */
-      const head = c.slice(0, c.indexOf('\n}') + 1 || 4000).slice(0, 4000);
-      const end = head.match(/,\s*'([^']{4,80})'\s*\)\s*;/);
-      if (end) named++; else unnamed++;
-    }
-    say('  cardShow call sites: ' + calls.length + ', naming a reason: ' + named);
-    ok('every card that may open names why, and the rest are refused ('
-       + named + ' named of ' + calls.length + ')', named >= 4);
-
     /* THE BOOKKEEPING IS NOT DELETED. */
     const phone = await fr.evaluate(() => {
       try {
@@ -161,6 +93,10 @@ const MINUTES = 5;
     say('  the phone carries "' + ((phone.morning || {}).head || '-') + '", ' + lines + ' lines');
     ok('*** THE MORNING IS NOT DELETED, IT IS ON THE PHONE *** (' + lines + ' lines)', lines > 0);
 
+    /* THE PHONE IS MEASURED FIRST NOW (9/28, RUN): the demo opens on the map where the phone
+       is drawn, and five minutes of travel usually ends in a road fight that covers the map --
+       which is travelling working, not the phone breaking. So the phone is asked while he is
+       looking at it, then he travels. */
     /* *** AND A ROOM WITH NO DOOR IS THE SAME AS A DELETED ROOM. *** (9/23.)
        THE OLD LEG ASKED #phonebtn WHETHER IT WAS GOLD. UI deleted #phonebtn on 9/22 on
        his own ruling ("the phone is the phone button"), so the leg was asking an element
@@ -173,11 +109,10 @@ const MINUTES = 5;
        cross. It does now: that was never the seam, it was the driver walking the game
        through the loading screen without ever pressing BEGIN (TRAP 7 in the driver),
        so both fingers were landing on a sheet over the canvas. Assignment is not input. */
-    await d.pinchOut();
-    await d.page.waitForTimeout(1200);
+    /* 9/28 (rule 38c): the demo is ALREADY on the map, where the phone lives; no squeeze. */
     const reached = await fr.evaluate(() => MODE);
-    say('  one squeeze on the street reached: ' + reached);
-    ok('the city screen is reached by a squeeze, the way he reaches it', reached === 'city');
+    say('  the demo is on: ' + reached);
+    ok('the city screen is where the demo already is (rule 38c)', reached === 'city');
 
     const handle = await fr.evaluate(() => {
       const f = document.getElementById('cityfeed');
@@ -229,6 +164,99 @@ const MINUTES = 5;
     if (cb && cb.w > 0) { await d.tapAt(cb.x, cb.y); await d.page.waitForTimeout(500); }
     const folded = await fr.evaluate(() => !PHONE_ON);
     ok('and it folds again, so it is not a one-way door', folded === true);
+
+    /* *** HE TRAVELS. (RE-AIMED 9/28 BY RUN, rule 38c, [no city walk].) *** The demo opens on
+       the MAP now and the walk pad is stripped from it, so five minutes of a stranger's play is
+       five minutes of touching the map: a place a few blocks away, the party walks there, touch
+       another. A road party may stop him for a fight on the way -- that is travelling, one of
+       his four things, not a card -- and while a fight is up the finger waits rather than
+       mashing a board this gate is not about. The claim below is unchanged: ZERO CARDS. */
+    const fEl = await d.page.$('iframe#cityFrame');
+    const fb = fEl ? await fEl.boundingBox() : { x: 0, y: 0 };
+    const spotOnMap = () => fr.evaluate(() => {
+      const c = document.getElementById('cv'); if (!c) return null;
+      const r = c.getBoundingClientRect();
+      const kx = c.width / r.width, ky = c.height / r.height;
+      for (let sy = 60; sy < r.height - 60; sy += 13) for (let sx = 20; sx < r.width - 20; sx += 13) {
+        const cell = CBcellAt(sx * kx, sy * ky); if (!cell || !cityWalkable(cell[0], cell[1])) continue;
+        const p = cityRoute(city.x, city.y, cell[0], cell[1]);
+        if (p && p.length - 1 >= 3 && p.length - 1 <= 8) return { x: r.x + sx, y: r.y + sy };
+      }
+      return null;
+    });
+    const onMap = await fr.evaluate(() => MODE === 'city');
+    ok('the demo he plays is ON THE MAP (rule 38c)', onMap === true);
+    const w = await spotOnMap();
+    ok('the map has somewhere to go', !!w);
+    if (!w) { await d.close(); return done(); }
+
+    const at0 = await fr.evaluate(() => ({ x: city.x, y: city.y }));
+    const until = Date.now() + MINUTES * 60000;
+    let presses = 0, blocks = 0, last = at0;
+    while (Date.now() < until) {
+      const fighting = await d.pageEval(() => {
+        const c = document.getElementById('p-combat');
+        return !!(c && getComputedStyle(c).display !== 'none' && c.getBoundingClientRect().width > 0);
+      }).catch(() => false);
+      const going = await fr.evaluate(() => !!TRAVEL).catch(() => false);
+      if (!fighting && !going) {
+        const q = await spotOnMap();
+        if (q) {
+          const pts = [{ x: fb.x + q.x, y: fb.y + q.y, id: 1 }];
+          await d.cdp.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: pts });
+          await d.page.waitForTimeout(90);
+          await d.cdp.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
+          presses++;
+        }
+      }
+      await d.page.waitForTimeout(1500);
+      const now = await fr.evaluate(() => ({ x: city.x, y: city.y })).catch(() => last);
+      blocks += Math.max(Math.abs(now.x - last.x), Math.abs(now.y - last.y));
+      last = now;
+    }
+    const pops = await fr.evaluate(() => window.__POPS);
+    const unasked = pops.filter(p => !p.why);
+    say(MINUTES + ' MINUTES FROM THE DOOR, ' + presses + ' touches, nothing tapped but the map');
+    say('  cards opened: ' + pops.length + ' (' + unasked.length + ' with no reason)');
+    for (const p of pops) say('    ' + (p.at / 1000).toFixed(1) + 's  [' + (p.why || 'NO REASON') + ']  ' + p.text);
+
+    ok('*** ZERO CARDS HE DID NOT TAP FOR, IN FIVE MINUTES *** (' + pops.length + ')',
+       pops.length === 0);
+    ok('and nothing is on screen at the end of it', !(await cardUp()));
+
+    /* THE HALF A CARD COUNT WOULD MISS: an invisible card is still a card if his
+       presses do not reach the world. */
+    say('  the party crossed ' + blocks + ' blocks over ' + presses + ' touches');
+    /* One journey proves his touches reach the world; after that a road fight may hold him,
+       which is travelling. Three blocks is the shortest journey the finger picks. */
+    ok('*** AND THE MAP MOVED HIM *** (' + blocks + ' blocks; a hidden card would have made it 0)',
+       blocks >= 3);
+
+    /* THE RULE ITSELF, on the source, so a caller added tomorrow cannot slip past
+       by simply never firing during a five-minute walk. */
+    const src = require('fs').readFileSync(
+      path.join(__dirname, '..', 'slices/BOHEMIA_CITY_WORLD.html'), 'utf8');
+    ok('a card with no reason is REFUSED at the one door, not in eight callers',
+       /function cardShow\(html,onTap,asked\)\{\s*if\(!asked\)\{/.test(src.replace(/\s+/g, ' ').replace(/ \{/g, '{'))
+       || /function cardShow\(html,onTap,asked\)/.test(src));
+    ok('and a refusal is remembered rather than swallowed', /CARDS_REFUSED/.test(src));
+    /* COUNT THE CALLS, NOT A ONE-LINE SHAPE. The first cut of this counter used a
+       regex that only matched a cardShow written on one line and reported 2 of 5,
+       which would have read as a real red on a correct tree. A checker that is
+       wrong in the safe direction is still a checker that lies. */
+    const calls = src.split(/\bcardShow\(/).slice(1);
+    let named = 0, unnamed = 0;
+    for (const c of calls) {
+      /* the call's own text, up to the statement that closes it */
+      const head = c.slice(0, c.indexOf('\n}') + 1 || 4000).slice(0, 4000);
+      const end = head.match(/,\s*'([^']{4,80})'\s*\)\s*;/);
+      if (end) named++; else unnamed++;
+    }
+    say('  cardShow call sites: ' + calls.length + ', naming a reason: ' + named);
+    ok('every card that may open names why, and the rest are refused ('
+       + named + ' named of ' + calls.length + ')', named >= 4);
+
+
     /* *** AND IT ASKS THE SOURCE AND THE BUILT FILE, BECAUSE ASKING ONLY THE BUILT FILE
        IS HOW THIS WENT MISSING. *** (9/23.) The morning block was written straight into
        slices/BOHEMIA_CURRENT_SLICE.html, which is GENERATED from the phone source by

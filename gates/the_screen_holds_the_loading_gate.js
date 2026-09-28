@@ -206,6 +206,10 @@ function serve() {
       const w = f && f.contentWindow;
       let drew = 0, painted = false;
       try { drew = (w.BARK_DREW || []).length; } catch (e) { }
+      /* 9/28 (RUN, rule 38c): THE DEMO OPENS ON THE MAP, where the people are the valley's
+         PARTIES (patrols, caravans, crews) walking and leaving tracks, not barks on a street.
+         Same question as the loading screen's own last stage, asked of what is shown. */
+      try { if (w.DEMO_ON_MAP === true) { const ps = w.partiesAll(); drew = ps ? ps.length : 0; } } catch (e) { }
       try { const c = w.document.querySelector('canvas'); painted = !!c && c.width > 300; } catch (e) { }
       return { drew, painted };
     }).catch(() => ({ drew: 0, painted: false }));
