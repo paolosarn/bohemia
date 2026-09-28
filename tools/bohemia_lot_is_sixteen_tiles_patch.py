@@ -2,6 +2,9 @@
 """
 V222 -- ONE TILE STRETCHED OVER A WHOLE HOUSE  (COMBAT lane, [fight looks])
 
+REUSE CHECK: nothing was cooked. A lot is painted from the fight's own STREET_IMG fine cells (COOK's
+cooked street bank); no new pixels and no bank file opened here.
+
 Paolo 9/20: "the combat is still dogshit, it's not at scale, it feels like it's in a
 different world than the demo." His friend, on the link: "a checkerboard of orange
 roof tiles for a floor."

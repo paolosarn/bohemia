@@ -2,6 +2,10 @@
 """
 V229 -- A HOUSE IS FOUR BY FOUR CELLS, AND ITS ROOF IS ONE ROOF  (COMBAT, [fight on the grid])
 
+REUSE CHECK: nothing was cooked. The roof slices were cut from the fight's own STREET_IMG 'house'
+bank (COOK's cooked street bank, already loaded by the fight); no bank file is opened here. The
+layout and the slices were deleted by V231 (overworld law s14); this file stays as history.
+
 A REGRESSION I CAUSED, FOUND BY PHOTOGRAPH. V227 made the fight's board cells of 3 m. The
 lot band beside the street was laid out by lotSubKind(wx,wy) -- "a wall every fourth column,
 house on even rows, yard on odd rows" -- and that layout was written when ONE BOARD TILE WAS

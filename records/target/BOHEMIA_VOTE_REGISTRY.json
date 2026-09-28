@@ -3022,7 +3022,20 @@
     "how": "page",
     "src": "vote/PORTRAIT_THE_HEAD_AND_THE_GEAR.html"
    }
-  }
+  },
+   {
+    "id": "combat-the-roof-you-stand-on-9-28",
+    "kind": "tile",
+    "lane": "combat",
+    "sha": "PENDING",
+    "made": "9/28",
+    "title": "THE HIGH GROUND IS A HOUSE WITH ITS ROOF ON",
+    "why": "You said a fight tile is a house, and you voted UP on high ground being a building you can stand on top of. So three things, same fight, before and after. ONE: the tiny-square board is gone for good, not kept as an option. TWO: the street was 17 houses wide in a fight, so you never saw a single house. Now it is 4 houses wide: two of road, a sidewalk each side, then yards and walls. THREE: the one high spot is a two-storey house on a yard, two or three houses from you, with a steel stair down the front. Walk up it and your shots get easier. Over 82 fights you got up there 80 times and it helped in all 80. What I am not hiding: the camera pulls way back to fit every enemy, so the house comes out smaller than the men. That is the next fix, not this one. Thumbs up and I keep building the street this way. Thumbs down and tell me if it is the street or the house.",
+    "show": {
+     "how": "image",
+     "src": "vote/COMBAT_THE_ROOF_YOU_STAND_ON_9_28.png"
+    }
+   }
  ],
  "verdicts": [
   {

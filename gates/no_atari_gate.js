@@ -24,6 +24,9 @@
 
    Every number is checked as ARITHMETIC where it is derived, so a lane tuning a row cannot
    leave this gate green about a board nobody plays. Runs on the one driver (rule 14g).
+   V231 (Paolo 9/28, overworld law s14: "for the combat a tile is as big as a house"): the cell row
+   is DELETED, not kept; the street is four houses wide, not seventeen; no roof lies on the ground;
+   and the one tile of high ground is a standing house on a lot, his 9/27 UP.
    ========================================================================== */
 const { open } = require('../tools/bohemia_drive_the_demo.js');
 
@@ -54,20 +57,32 @@ const ok = (n, c, note) => { c ? (pass++, console.log('  PASS ' + n + (note ? ' 
         const r = { opt: G.boardOpt || BOARD_DEFAULT, tileM: +tileMetres().toFixed(4),
           bodyPx: +(112 * bodyRule()).toFixed(3), wide: TILE_WIDE,
           tilePx: +(m * fieldPitch(W, H)).toFixed(2), sight: sightTiles(), ceil: reachCeil(),
-          reach: {}, lot: [] };
+          reach: {}, lot: [], bands: [] };
         for (const w of ['pistol', 'rifle', 'sniper']) r.reach[w] = houseRange(w).max;
-        /* the lot's layout, sampled across one property's worth of tiles */
-        for (let y = 0; y < 8; y++) for (let x = 10; x < 15; x++) r.lot.push(lotSubKind(x, y));
+        for (let y = 0; y < 8; y++) for (let x = -8; x < 12; x++) if (streetKindAt(x) === 'lot') r.lot.push(lotSubKind(x, y));
+        for (let x = -4; x <= 5; x++) r.bands.push(streetKindAt(x));
         return r; };
       const out = {};
       out.def = read();
-      setBoardOpt('cell'); out.cell = read();
-      setBoardOpt('house'); out.back = read();
+      out.cellRefused = setBoardOpt('cell') === false;
+      out.names = ['cellBoard', 'roofBlock', 'HOUSE_CELLS', 'LOT_PERIOD_X'].filter(n => { try { return typeof eval(n) !== 'undefined'; } catch (e) { return false; } });
+      out.back = read();
+      /* THE HIGH GROUND, across 60 arenas: where it stands, and whether it stands up */
+      const hg = { street: 0, withDeck: 0, onLot: 0, standing: 0, dists: [] };
+      for (let s = 1; s <= 60; s++) { try { BohemiaArena.set(s); setupCombat(); } catch (e) { continue; }
+        if (G.arenaKind !== 'street') continue; hg.street++;
+        if (!G.deck.length) continue; hg.withDeck++;
+        const q = pXY(G.deck[0]), k = streetKindAt(Math.round(G.worldOff.x + q[0]));
+        if (k === 'lot') hg.onLot++; if (standingHouse()) hg.standing++;
+        hg.dists.push(+Math.hypot(q[0], q[1]).toFixed(2)); }
+      out.hg = hg;
       return out;
     });
-    const D = R.def, C = R.cell, B = R.back;
+    const D = R.def, B = R.back, HG = R.hg;
     console.log('  DEFAULT ' + JSON.stringify({ opt: D.opt, tileM: D.tileM, bodyPx: D.bodyPx, tilePx: D.tilePx, reach: D.reach }));
-    console.log('  CELL    ' + JSON.stringify({ opt: C.opt, tileM: C.tileM, bodyPx: C.bodyPx, tilePx: C.tilePx, reach: C.reach }));
+    console.log('  STREET  ' + D.bands.join(' '));
+    console.log('  HIGH GROUND ' + JSON.stringify({ street: HG.street, withDeck: HG.withDeck, onLot: HG.onLot, standing: HG.standing,
+      near: Math.min(...HG.dists), far: Math.max(...HG.dists) }));
 
     /* ===== THE DEFAULT IS HIS PICK ===== */
     ok('*** THE BOARD A FIGHT STARTS ON IS THE ONE HE CHOSE (9/27 vote: "now looks better than '
@@ -75,8 +90,8 @@ const ok = (n, c, note) => { c ? (pass++, console.log('  PASS ' + n + (note ? ' 
     ok('*** NO ATARI: THE MAN IS AT FULL DETAIL, the 112 px art we made (rule 37a: "pixel detail '
        + 'is never reduced", the 28 px one-cell sprite is dead). ***',
        Math.abs(D.bodyPx - 112) < 0.5, 'the fighter is ' + D.bodyPx + ' px');
-    ok('a tile on the default board is a house of twelve metres, as the board he approved had it',
-       Math.abs(D.tileM - 12) < 1e-6, D.tileM + ' m');
+    ok('*** A COMBAT TILE IS A HOUSE (Paolo 9/28, overworld law s14: "for the combat a tile is as big '
+       + 'as a house"): twelve metres ***', Math.abs(D.tileM - 12) < 1e-6, D.tileM + ' m');
     ok('and the house is TILE_WIDE sprite widths of the full-detail man, which is his dial '
        + '(1.75, "his number, by eye")',
        D.wide === 1.75 && Math.abs(D.tilePx - D.wide * D.bodyPx) < 1.5,
@@ -86,25 +101,35 @@ const ok = (n, c, note) => { c ? (pass++, console.log('  PASS ' + n + (note ? ' 
        + 'scope thirty-six. ***',
        metres(D, 'pistol') === 12 && metres(D, 'rifle') === 24 && metres(D, 'sniper') === 36,
        'pistol ' + metres(D, 'pistol') + ', rifle ' + metres(D, 'rifle') + ', scope ' + metres(D, 'sniper'));
-    const approved = ['wall', 'house', 'yard', 'wall'];   /* the layout V97 wrote: wall every 4th column, house on even rows */
-    const oldLayout = (x, y) => (((x % 4) + 4) % 4 === 0) ? 'wall' : ((((y % 2) + 2) % 2 === 0) ? 'house' : 'yard');
-    let same = 0; for (let y = 0, i = 0; y < 8; y++) for (let x = 10; x < 15; x++, i++) if (D.lot[i] === oldLayout(x, y)) same++;
-    ok('the lot beside the road is laid out the way the board he approved laid it out (V229\'s '
-       + 'four-by-four layout was for the cell row only)', same === D.lot.length, same + ' of ' + D.lot.length + ' tiles');
 
-    /* ===== THE CELL ROW STAYS AN HONEST OPTION ===== */
-    ok('the cell row still derives when picked, so [tile options] can show it in the real fight: '
-       + 'a 3 m cell, two body tiles, his same metres',
-       C.opt === 'cell' && Math.abs(C.tileM - 3) < 1e-6
-       && metres(C, 'pistol') === 12 && metres(C, 'rifle') === 24 && metres(C, 'sniper') === 36,
-       C.tileM + ' m, pistol ' + metres(C, 'pistol') + ', rifle ' + metres(C, 'rifle') + ', scope ' + metres(C, 'sniper'));
-    ok('and switching back puts the default back exactly, so a preview can never strand him on '
-       + 'a board he did not pick',
+    /* ===== THE CELL BOARD IS GONE, NOT AN OPTION (s14b; GRAVEYARD IS FINAL) ===== */
+    ok('*** THE CELL BOARD IS GONE: asking for it is refused, and none of its names are left in the '
+       + 'fight (s14b: the cell-grid fight is dead) ***', R.cellRefused && R.names.length === 0,
+       R.cellRefused ? ('names left: ' + (R.names.join(', ') || 'none')) : 'setBoardOpt(\'cell\') still switches');
+    ok('and asking for it changes nothing, so no preview can strand him on a board he did not pick',
        B.opt === 'house' && B.bodyPx === D.bodyPx && B.tileM === D.tileM && B.tilePx === D.tilePx
        && JSON.stringify(B.reach) === JSON.stringify(D.reach),
-       'back: ' + B.opt + ', ' + B.bodyPx + ' px, ' + B.tileM + ' m');
+       'after: ' + B.opt + ', ' + B.bodyPx + ' px, ' + B.tileM + ' m');
 
-    ok('no page errors while the rows were switched', d.errs.length === 0, d.errs.slice(0, 2).join(' ; '));
+    /* ===== THE STREET IS A STREET, IN HOUSES ===== */
+    const road = D.bands.filter(k => k === 'road').length, walk = D.bands.filter(k => k === 'walk').length;
+    ok('*** THE STREET IS FOUR HOUSES WIDE, NOT SEVENTEEN: two tiles of road (24 m), one of sidewalk '
+       + 'each side, then the lots (it was 204 m of road on a glass 6.6 houses across) ***',
+       road === 2 && walk === 2 && D.bands.filter(k => k === 'lot').length === D.bands.length - 4,
+       D.bands.join(' '));
+    ok('*** NO ROOF LIES ON THE GROUND: the lot on the house board is yards and property walls, never '
+       + 'a flat roof where men walk (the 9/18 "checkerboard of orange roof tiles for a floor") ***',
+       D.lot.length > 0 && D.lot.every(k => k === 'yard' || k === 'wall'),
+       D.lot.filter(k => k !== 'yard' && k !== 'wall').length + ' roofs on the ground of ' + D.lot.length);
+
+    /* ===== THE HIGH GROUND IS A HOUSE WITH ITS ROOF ON (his UP, 9/27; s14e) ===== */
+    ok('*** THE HIGH GROUND STANDS ON A LOT, NEVER IN THE ROAD (measured before: 80 of 80 in the '
+       + 'carriageway) ***', HG.withDeck > 5 && HG.onLot === HG.withDeck, HG.onLot + ' of ' + HG.withDeck + ' street fights with one');
+    ok('and it is drawn as a standing house, two or three houses from him, in reach of a walk',
+       HG.standing === HG.withDeck && Math.min(...HG.dists) >= 1.9 && Math.max(...HG.dists) <= 4.3,
+       HG.standing + ' standing, ' + Math.min(...HG.dists) + ' to ' + Math.max(...HG.dists) + ' houses');
+
+    ok('no page errors while the board was asked for a dead row', d.errs.length === 0, d.errs.slice(0, 2).join(' ; '));
   } finally {
     console.log('=== NO ATARI GATE: ' + pass + ' passed, ' + fail + ' failed ===');
     await d.close();

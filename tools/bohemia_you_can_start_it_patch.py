@@ -2,6 +2,9 @@
 """
 V217 -- YOU CAN START IT  (COMBAT lane, VAMILY [start a fight])
 
+REUSE CHECK: nothing was cooked. The blit re-draws the existing people sprites through the existing
+pplTinted(); no new pixels and no bank file opened here.
+
 *** PAOLO 9/15: "I don't even know how to engage in combat and when that shit
     starts." ***
 

@@ -2,6 +2,9 @@
 """
 V223 -- THE PERSON IS 112, THE GROUND IS HIS OWN ART  (COMBAT lane, [fight looks])
 
+REUSE CHECK: nothing was cooked. The ground is the street's own cooked tile bank (COOK db792724)
+and the body is the existing 112 px HD sprite; this tool only changes sizes and which bank is read.
+
 Three things the board named this round, all inside this row, all in the picture.
 
 --------------------------------------------- ONE: THE PERSON IS 112 (RULE 21)

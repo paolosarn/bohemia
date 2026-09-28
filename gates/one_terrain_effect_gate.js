@@ -121,16 +121,25 @@ const ok = (n, c, note) => { c ? (pass++, console.log('  PASS ' + n + (note ? ' 
         out.tried++;
         G.phase = 'cover'; G.over = false; G.stam = (typeof STAM_MAX !== 'undefined') ? STAM_MAX : 3;
         let steps = 0;
-        for (; steps < 8 && myLvl() === 0 && !G.over; steps++) {
+        for (; steps < 10 && myLvl() === 0 && !G.over; steps++) {
           const S = G.stairs[0]; if (!S) break;
           const q = pXY(S), sx = Math.sign(Math.round(q[0])), sy = Math.sign(Math.round(q[1]));
           const di = DIRS.findIndex(v => v[0] === sx && v[1] === sy);
           if (di < 0) break;
-          const before = JSON.stringify(pXY(S).map(v => Math.round(v * 100)));
-          G.phase = 'cover'; G.inc = false;
-          try { doMove(di); } catch (e) { break; }
-          const after = JSON.stringify(pXY(S).map(v => Math.round(v * 100)));
-          if (before === after && myLvl() === 0) break;   /* the step was refused: blocked */
+          /* V231: THE HOUSE IS ACROSS THE SIDEWALK NOW, two or three houses off, so a rock in the
+             straight line is common. A thumb steps AROUND a rock: try the straight step, then
+             the two either side of it. Each is still a real doMove with its real price; a step
+             sideways is counted as a step. The straight-line-only number is printed beside it. */
+          let moved = false;
+          for (const dd of [0, 1, -1]) {
+            const d2 = (di + dd + 8) % 8;
+            const before = JSON.stringify(pXY(S).map(v => Math.round(v * 100)));
+            G.phase = 'cover'; G.inc = false;
+            try { doMove(d2); } catch (e) { break; }
+            const after = JSON.stringify(pXY(S).map(v => Math.round(v * 100)));
+            if (before !== after || myLvl() > 0) { moved = true; if (dd) out.sideSteps = (out.sideSteps || 0) + 1; break; }
+          }
+          if (!moved) break;   /* all three refused: blocked */
         }
         if (myLvl() > 0) {
           out.took++; out.stepsSum += steps;
@@ -207,7 +216,7 @@ const ok = (n, c, note) => { c ? (pass++, console.log('  PASS ' + n + (note ? ' 
     ok('and he can actually get up there: most mounds are reached in a couple of steps, not '
        + 'refused by a rock or a stair six cells away',
        R.tried > 0 && R.took / R.tried >= 0.6,
-       R.took + ' of ' + R.tried + ' reached');
+       R.took + ' of ' + R.tried + ' reached, ' + (R.sideSteps || 0) + ' side-steps around a rock');
 
     /* RE-WORDED 9/28 FOR V227: this said "houses" because a tile was one. Rule 34 made a
        tile a CELL of 3 m, and the same slab now measures about 27 m instead of 111 -- four

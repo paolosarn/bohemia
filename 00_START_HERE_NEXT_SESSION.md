@@ -43607,6 +43607,40 @@ a memory reset. HE WILL NEVER TYPE ANYTHING BUT THE ONE WORD AGAIN. ***
     I will never paste anything to you again. From here on, the one word is the whole
     instruction.
 
+*** [house tiles back] ROUND 1 -- V231: THE CELL BOARD IS GONE, THE STREET IS FOUR HOUSES WIDE, THE HIGH GROUND IS A HOUSE. ***
+Stamp 9/28m. Record: records/BOHEMIA_COMBAT_HOUSE_TILES_BACK_THE_ROOF_YOU_STAND_ON_9_28_26.md
+CLAIMED 9/28 (9a67c75): the board had [house tiles back] and [fight on the grid]'s status words on
+each other's lines; swapped (status words only). [fight on the grid] is RETIRED into this row.
+Rulings: overworld law s14 (a combat tile is a house; the cell fight is dead; the walk's banks
+dress the tiles; the mound is a house tile with a roof), his UP on high ground as a building, rule
+39a (COMBAT builds the house-tile fight NOW, no school round).
+MEASURED FIRST: the house board's street was 17 HOUSES (204 m) wide on a glass 6.6 houses across,
+so no fight ever had a house on screen; the high ground landed in the carriageway 80 of 80.
+V231 (tools/bohemia_house_tiles_back_patch.py, in the replay list, which now carries ten):
+  - the cell row DELETED (not an option): cellBoard, V229's 4x4 layout, roof slices, bench line.
+  - house board street: road 2 tiles, walk 1 each side, lots beyond (ST_H_ROAD0=0). Body board
+    byte for byte. Parked cars on the road tiles, same one die.
+  - no roof lies on the ground: house-board lot is yards and walls.
+  - high ground = a standing house on a yard, 2-3.6 houses off, same five dice: street's cooked
+    roof on top, two storeys of the street's wall tile, dead windows and one lit, a door, a steel
+    stair. SOLID (V113's 42% fade was a ghost); see-through only with a body behind it. Warehouse
+    and room keep the scaffold.
+  - the front walk: rocks on the thumb's path to the stair are cleared (49 of 79 were blocked).
+GATES: no_atari 13/0 (rewritten: cell refused, street 4 wide, 0 ground roofs of 128, high ground on
+a lot 36/36 and standing 36/36); one_terrain_effect 7/0 (walker side-steps a rock like a thumb;
+80 of 82 reached, 243 of 353 shots eased, 0 harder); combat_scale 8/0; combat_floor 13/0;
+fight_floor_cache 17/0; runs_smoke 1/0. Known reds unchanged: lot_is_sixteen 12/10 (blind),
+one_mode 7/4, house_board 2/1. REUSE-FIRST: my four old patch tools got REUSE CHECK blocks (8 -> 4
+red, the rest other lanes'). [dead citation] SHIPPED (the cell-board record now says V230 renamed
+the gate). VOTE: combat-the-roof-you-stand-on-9-28.
+THE FINDING, AND THE NEXT JOB: at the fight's own camera a house is SMALLER than a man. The auto
+frame sits at its 0.20 floor in 40 of 40 arenas (it pulls back to hold the farthest enemy, six
+houses out) while the man stays 112: a house is 39 px beside him. At zoom 1 the glass holds two
+houses. NEXT (my decision under rule 39a): the camera stops pulling back past the point where a
+house is narrower than a man, and men beyond the glass are shown at its edge. Then COOK dresses
+the tiles (the cover barrels are drawn house-sized and sit on the roof in the photo), then 37g.
+[PENDING Paolo] only if that camera trade is wrong for him; it gets built either way.
+
 *** [fight on the grid] ROUND 4 -- V230 NO ATARI. I SHIPPED THE BOARD HE VOTED DOWN; IT IS UNDONE. ***
 Stamp 9/28d. Record: records/BOHEMIA_COMBAT_NO_ATARI_HIS_VOTE_UNDONE_9_28_26.md
 

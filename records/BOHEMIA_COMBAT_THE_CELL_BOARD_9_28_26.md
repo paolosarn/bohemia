@@ -44,7 +44,7 @@ because that number was derived when it was written.
 
 ## THE GATE
 
-`gates/the_fight_is_on_cells_gate.js`, **12 passed, 0 failed**, on the one driver. It holds
+`the_fight_is_on_cells_gate.js` (V230 renamed it `gates/no_atari_gate.js` and turned it over; V231 deleted the cell row it measured), **12 passed, 0 failed** at the time, on the one driver. It holds
 **the derivations, not the values**, because a typed constant goes stale the first time a
 lane tunes one and then the gate is green about a board nobody is playing. It asserts a cell
 is three metres *because* four fit a house, that this makes it exactly two body tiles, that
@@ -98,5 +98,5 @@ street, photographed one build apart, with both costs said on the card.
 ---
 
 **Tool:** `tools/bohemia_the_cell_board_patch.py` · **Replay:**
-`tools/bohemia_combat_replay_all.sh` · **Gate:** `gates/the_fight_is_on_cells_gate.js` ·
+`tools/bohemia_combat_replay_all.sh` · **Gate:** `gates/no_atari_gate.js` (was the_fight_is_on_cells_gate.js; renamed by V230) ·
 **Stamp:** 9/28a · **Tab:** COMBAT, and any fight you walk into from CITY.
