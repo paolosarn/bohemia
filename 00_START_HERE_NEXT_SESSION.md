@@ -9012,6 +9012,61 @@ full suite unmeasured since 7efb22cf. Rule 14(a): demo untouched, RUN cuts it.
 
 Record: records/BOHEMIA_ONE_DOOR_9_14_26.md
 
+PLUMBER (plumber-ont6t5): 9/28 LATEST -- *** CHAT 18. ROUND 43. [bb library] CONTINUING, ABOUT 2 OF 3.
+THE TOOL IS BUILT AND PROVEN; THE FETCH WAITS ON ONE SETTING THAT IS PAOLO'S. ***
+KEPT CLAIMED, NOT SHIPPED, ON PURPOSE. The row has three parts: (1) a tool that pulls every wiki page
+and dev blog post to text -- DONE; (2) until the hosts are allowed it names the host that refused and
+exits CANNOT REACH -- DONE, and it is what it does today; (3) then every library volume cites fetched
+pages instead of (recall) -- NOT DONE, 8 (recall) citations remain, and it cannot be done until the
+tool can reach the wiki. Rule 6: a half-done job marked SHIPPED is worse than an open one.
+MEASURED BEFORE BELIEVING THE ROW, and the row was right:
+  battlebrothers.fandom.com    000   curl (56) CONNECT tunnel failed, response 403
+  battlebrothersgame.com       000   same
+  api.github.com               200   through THE SAME PROXY, so it is a per-host policy
+That is the environment's network policy, not a fault in this repo, and the tool does not route around
+it. What it prints today, run for real: both hosts named in the network's own words, "CANNOT REACH:
+nothing fetched, nothing written", exit 0.
+*** ONE THING IN THE ROW WAS WRONG AND THE TOOL DOES NOT DO IT. *** The row asked for "the CC BY-SA line
+at the top" of every file. The WIKI is CC BY-SA 3.0 and its files carry that line with source and
+revision. THE DEVELOPERS' BLOG IS OVERHYPE STUDIOS' OWN WRITING AND IS NOT UNDER A FREE LICENCE, so that
+line on a blog post would be a false licence claim in a file whose whole job is to be cited. Blog files
+say whose text it is and that it is kept for private study and citation, never republished.
+reference/ is already in the site's exclude list, commented "NEVER published: not ours to serve".
+POLITE, since it is somebody else's server: one request at a time, 1 s gap, maxlag=5, Retry-After
+honoured on 429/503 three times then stop; text fetched FIFTY AT A TIME by page id through the query API
+(the row said parse per page; batching is the same text for a fiftieth of the requests, which is the
+API's own etiquette); redirects skipped; a User-Agent naming the project and NO personal email in it; no
+images; every file written to .part and renamed, so a killed run never leaves half a page.
+IDEMPOTENT AND RESUMABLE: the page list is re-read every run; a page is fetched only if its file is
+missing or its stored revision differs from the wiki's lastrevid (blog: the stored modified date).
+NEW GATE BB LIBRARY, 17/0 in about a second, AND IT NEVER TOUCHES THE REAL HOSTS: a local stand-in that
+speaks MediaWiki (allpages with continuation, revisions, redirects) and WordPress REST (paged posts),
+run in its OWN process because the tool calls curl synchronously and a server in the gate's event loop
+would deadlock. Held: one file per page; redirects skipped; CC BY-SA on wiki files and NOT on blog files;
+images stay text; two titles that sanitise alike both survive; a second run writes NOTHING; one changed
+revision -> exactly ONE rewrite; --max stops and the rerun finishes without rewriting the first part; an
+unreachable host -> exit 0, CANNOT REACH, host named, nothing written, NO success count; a host that is
+not the API -> says so and does not guess.
+MUTATION-CHECKED FOUR WAYS, each red on exactly the right leg: blog files claiming CC BY-SA 16/1;
+idempotence removed 14/3; CANNOT REACH also printing a count 16/1; name collisions not told apart 12/5.
+Restored 17/0.
+NOT MEASURED, SAID PLAINLY: the real wiki's size (the tool prints bytes written, the first real run
+answers it, and the repo budget judges whether it belongs in git); whether the blog really is WordPress
+(believed, unverified; if not, the tool says so and fetches nothing rather than scraping HTML).
+NEXT ROUND: check reachability FIRST. If the two hosts are allowed, run the tool, replace the 8 (recall)
+citations with fetched-page links, and SHIP. If still refused, say so in one line and take the next OPEN
+line ([excavate]) rather than spend a round waiting on a setting.
+PRE-PUSH PASS: BB LIBRARY 17/0 and green through the suite runner; gate table 731 rows, 0 malformed;
+HANDOFF 9/0; REPLY CONTRACT 17/0. Rule 14(a): demo untouched.
+Record: records/BOHEMIA_THE_LIBRARY_FETCHER_AND_THE_LICENCE_IT_WILL_NOT_FAKE_9_28_26.md
+[PENDING Paolo] ONE SETTING: allow battlebrothers.fandom.com and battlebrothersgame.com in the cloud
+environment's Network access (the environment menu in the session title bar, then Edit).
+STILL OPEN IN MY SECTION: [excavate], [one driver] (half done and said so), [three valleys], [slim
+build], [deep history], [real surface], [horror gate], [mode chip], [suite line], [pre-push pass],
+[cannot fail], [one way rulers], [spelling gates], [suite runs], [fight headroom], [dead gates],
+[handoff cut], [backlog archive].
+Still CLAIMED: [bb library] (this one), [never worse], [sixty fps], [demo errors] (STANDING).
+
 PLUMBER (plumber-ont6t5): 9/27 (b) LATEST -- *** CHAT 18. ROUND 42. [grid budget] SHIPPED. THE BLOCK IS
 CHEAP AND WORLD CAN BUILD IT. WHAT CANNOT CARRY IT IS THE SURFACE UNDERNEATH: ON THE WALKED STREET AT
 4x, A 500 ms BEAT LANDS THREE SECONDS LATE. ***

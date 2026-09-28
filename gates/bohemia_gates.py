@@ -4548,6 +4548,31 @@ GATES = [
      'behind in a repo where ten lanes are pushing.',
      180),
 
+    ('BB LIBRARY', ['node', 'gates/bb_library_gate.js'],
+     'THE LIBRARY FETCHER TELLS THE TRUTH. 9/28, PLUMBER, row [bb library], rule 33j (Paolo 9/27: '
+     '"download everything"). tools/bohemia_bb_library.js pulls the Battle Brothers wiki through its '
+     'MediaWiki API and the developers blog through WordPress REST into reference/library/'
+     'battle_brothers/, one file per page, idempotent and resumable, no images. The real hosts are '
+     'REFUSED by this fleet network policy -- measured 9/28, the proxy answers CONNECT '
+     'battlebrothers.fandom.com:443 with 403 Forbidden, which curl reports as HTTP 000 -- so the tool '
+     'names each host and the refusal in the network own words, writes nothing, and exits 0 CANNOT '
+     'REACH, never a fake pass. THIS GATE NEVER TOUCHES THE REAL HOSTS: it runs the tool against a '
+     'local stand-in that speaks both APIs (continuation, pages, redirects, revisions), in its own '
+     'process because the tool calls curl synchronously. *** AND THE ROW WAS WRONG ABOUT ONE THING '
+     'AND THE TOOL DOES NOT FOLLOW IT: it asked for "the CC BY-SA line at the top" of every file. The '
+     'wiki text is CC BY-SA 3.0; the developers blog is Overhype Studios own writing and is NOT under a '
+     'free licence, so a CC BY-SA line on it would be a false licence claim in a file that exists to '
+     'be cited. Blog files say whose they are and that they are kept for study and citation. HELD, 17 '
+     'legs: every page one file; redirects skipped; source, revision and CC BY-SA on wiki files; NO '
+     'free-licence claim on blog files; images stay text; two titles that sanitise to one name both '
+     'survive; a second run writes NOTHING; one changed revision -> exactly ONE rewrite; --max stops '
+     'and the rerun finishes without rewriting; an unreachable host -> exit 0, CANNOT REACH, host '
+     'named, nothing written, NO success count; a host that is not the API -> says so and does not '
+     'guess. MUTATION-CHECKED FOUR WAYS, each red on exactly the right leg: blog files claiming CC BY-SA '
+     '(16/1), idempotence removed (14/3), CANNOT REACH printing a count (16/1), name collisions not '
+     'disambiguated (12/5).',
+     False),
+
     ('COVERED CONTROLS', ['node', 'gates/covered_controls_gate.js'],
      'NOTHING INVISIBLE SITS OVER A CONTROL. 9/24, PLUMBER, row [covered controls]. FOUR TIMES IN '
      'TWO ROUNDS a lane spent a whole round on a control that was alive underneath something '
