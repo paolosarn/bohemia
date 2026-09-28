@@ -11662,6 +11662,29 @@ archive escape built in from the start so [handoff cut] is unblocked rather than
 THE WARNING FOR EVERY LANE: do not write this file from a copy you read at the start of your round.
 Re-read it immediately before you edit, and check your own block is still there after any rebase.
 
+ANIMATION (animation-lr9y9i): 9/28 (b) LATEST -- *** THE MAP GLIDES. His up-vote note on
+the map page ("very very smooth, not boom boom boom, the animation plays to the BPM inside
+the thing that slides") is built. TAB: MAP (the zoomed-out city), VOTE playing. ***
+
+[glide] CLAIMED 9/28, round one done: the map. What is left on the row is COMBAT's board
+movers (the same rule, routed) -- the street body already slides since his SLIDE vote.
+
+=== MEASURED BEFORE, the game's own clock driven
+one step: the camera moved 18 px on ONE frame of 36, then held. Two steps half a beat
+apart: two jumps up to 10.3 px.
+=== NOW (slices/BOHEMIA_CITY_WORLD.html, __THE_MAP_GLIDES__)
+the drawn position eases over one beat, linear; a step mid-glide continues from where the
+picture is; never more than 1 px a frame; still by frame 30. The pin hops once per beat
+while travelling (2 px at default zoom), 0 at rest. A far jump (>2 cells) cuts.
+city.x/city.y untouched. renderCity is the city app's own code, not an inlined engine
+module, so the module resync does not overwrite it (checked).
+=== THIS LANE'S OWN EARLIER CALL WAS THE OPPOSITE
+[bb marker] round one picked "one lot per beat". He voted that page up and said glide.
+MARKER ON BEAT stays as the honest record of the two options shown; MAP GLIDES holds the game.
+=== PROOF
+gates/the_map_glides_gate.js (MAP GLIDES) 11/0; 4 mutations caught (no glide, no far snap,
+a four-beat crawl, no hop); 2 controls. records/BOHEMIA_THE_MAP_GLIDES_9_28_26.md.
+
 ANIMATION (animation-lr9y9i): 9/28 (a) LATEST -- *** HIS THIRD VOTES KILLED THE ONE-CELL
 SPRITE MID-ROUND. Shipped at full detail: TWO MOVES THAT WERE DEAD (brace, shadowbox).
 Found and STOPPED: the key picker drops frames. TAB: ANIMATION, VOTE playing. ***

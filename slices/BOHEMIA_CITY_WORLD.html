@@ -42038,10 +42038,48 @@ function vistaBackdrop(plateTop){
   }
 }
 
+/* __THE_MAP_GLIDES__ (ANIMATION [glide], Paolo 9/27 in the tab, rule 37h, LOCKED):
+   "I would like the Animation movement to be very very smooth. I don't want to see
+   move like a block at a time, boom boom boom boom. I just want it to glide very
+   nicely, even if Animation is playing within the thing that's sliding... the
+   Animation would still play to the BPM of the music and just slides."
+   MEASURED BEFORE: the map's camera and the YOU pin were both read straight off the
+   integer city.x/city.y, so every step moved the whole map one cell in ONE frame and
+   then held it -- the block he described, exactly.
+   NOW: what is DRAWN eases from where it was to where he is over ONE BEAT, linear,
+   so steps taken back to back chain into one constant speed (a new target starts
+   from the position on the glass, never from the old cell, so a press mid-glide
+   cannot snap). The pin HOPS once per beat while it travels, the BPM inside the
+   slide. A jump of more than two cells (landing, a ride, a load) is not a walk and
+   SNAPS, because gliding across half the valley would be a lie about how he got
+   there. city.x/city.y are NOT touched: every rule that asks where he is still gets
+   the whole cell; only the picture moves between cells. */
+var CITY_GLIDE={fx:null,fy:null,tx:null,ty:null,t0:0,raf:0};
+function cityGlideAt(G,now){
+  const u=Math.max(0,Math.min(1,(now-G.t0)/BEAT));
+  return {x:G.fx+(G.tx-G.fx)*u, y:G.fy+(G.ty-G.fy)*u, u:u};
+}
+function cityGlidePos(now){
+  const G=CITY_GLIDE;
+  if(G.tx===null){ G.fx=G.tx=city.x; G.fy=G.ty=city.y; G.t0=now-BEAT; }
+  if(city.x!==G.tx||city.y!==G.ty){
+    const cur=cityGlideAt(G,now);
+    const far=Math.abs(city.x-cur.x)+Math.abs(city.y-cur.y)>2.5;
+    G.fx=far?city.x:cur.x; G.fy=far?city.y:cur.y;
+    G.tx=city.x; G.ty=city.y; G.t0=now;
+  }
+  const p=cityGlideAt(G,now);
+  /* keep drawing until it lands: the city otherwise redraws on the beat, and a
+     glide drawn twice a second is the block again */
+  if(p.u<1&&!G.raf){ G.raf=requestAnimationFrame(function(){ G.raf=0;
+    try{ if(typeof MODE!=='undefined'&&MODE==='city') render(); }catch(_e){} }); }
+  return p;
+}
 function renderCity(){
   CITY_FRAME++;            /* __FRAME_CACHE__ -- one frame, one world snapshot */
   const N=om.n;
-  const ox=Math.round(cv.width/2-(city.x-city.y)*TW/2+panX), oy=Math.round(cv.height/2-(city.x+city.y)*TH/2+panY);   /* PIXEL FIX: whole-pixel camera */
+  const __G=cityGlidePos(performance.now());   /* __THE_MAP_GLIDES__: the DRAWN position */
+  const ox=Math.round(cv.width/2-(__G.x-__G.y)*TW/2+panX), oy=Math.round(cv.height/2-(__G.x+__G.y)*TH/2+panY);   /* PIXEL FIX: whole-pixel camera */
   const night=isNight(); window.__LAMPQ=null;
   /* __THE_TAP_PICKS_WHAT_YOU_SEE__ -- this frame's record starts empty, so the picker can
      never answer from a body that is no longer on the glass. */
@@ -42756,8 +42794,11 @@ function renderCity(){
      cannot be confused with a hollow ring at any size. He keeps his own colour inside it.
      It scales with the tile like everything else on this map, and it is drawn LAST so
      nothing can cover him. */
-  { const p=iso(city.x,city.y,ox,oy);
+  { const p=iso(__G.x,__G.y,ox,oy);                  /* __THE_MAP_GLIDES__: the pin rides the glide */
     const __gx=p.sx, __gy=p.sy+TH*0.4;                 /* where he is standing */
+    /* ONE HOP PER BEAT while he travels, and none standing still: sin over the
+       glide's own beat, so the hop lands exactly when the step does. */
+    const __lift=(__G.u<1)?Math.sin(Math.PI*__G.u)*Math.max(2,TW*0.07):0;
     /* SIZED AGAINST THE THING IT WAS BEING CONFUSED WITH. A town mark is a disc of
        2 x max(4, TW*0.34) of solid cream, so he is built to put MORE BRIGHT PIXELS on
        the glass than that at every zoom. Two cuts of this got it wrong and the gate
@@ -42771,6 +42812,7 @@ function renderCity(){
     /* the foot: a dark ellipse on the ground, so the pin is planted rather than floating */
     g.fillStyle='rgba(20,16,12,0.55)';
     g.beginPath(); g.ellipse(__gx,__gy,__hr*0.62,__hr*0.30,0,0,7); g.fill();
+    g.translate(0,-__lift);   /* the foot stays on the ground; the pin hops off it */
     /* the stem, rimmed dark so it holds on pale ground as well as dark */
     g.strokeStyle='#241d16'; g.lineWidth=Math.max(3,__hr*0.42);
     g.beginPath(); g.moveTo(__gx,__gy); g.lineTo(__gx,__gy-__st); g.stroke();

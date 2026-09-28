@@ -1,0 +1,62 @@
+<!doctype html><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>BOHEMIA — The Map Glides</title>
+<!-- ANIMATION [glide], 9/28. Rule 37h, his words on animation-how-you-cross-the-map.
+     RULE 25: IT PLAYS. Both strips are filmed off the game's own map canvas with its
+     own clock driven, two steps, two beats, 120 BPM. No control in the page. -->
+<style>
+  :root{--ink:#e8e0cc;--bg:#0d0d12;--card:#16161d;--line:#33313d;--gold:#c79a3f}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+       font:13px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace;padding:14px}
+  h1{font-size:13px;letter-spacing:2px;margin:0 0 4px;color:var(--gold)}
+  p{margin:0 0 12px;color:#a49a86;max-width:60ch}
+  b{color:var(--ink)}
+  .said{border-left:2px solid #7a4a4a;padding:6px 0 6px 10px;margin:0 0 14px;color:#b09a90}
+  .clip{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:8px;margin-bottom:10px}
+  .pair{display:flex;gap:10px;flex-wrap:wrap}
+  .side{text-align:center}
+  .lab{font-size:10px;letter-spacing:1px;margin-bottom:3px}
+  .old{color:#9a6b6b}.new{color:#7fa06b}
+  .film{width:160px;height:160px;image-rendering:pixelated;background:#101319;border-radius:3px;
+        background-repeat:no-repeat}
+  .beat{height:3px;background:#2a2833;border-radius:2px;margin:12px 0 2px;overflow:hidden;max-width:330px}
+  .beat i{display:block;height:100%;width:50%;background:var(--gold)}
+  .note{margin-top:12px;color:#6f6862;max-width:60ch}
+</style>
+<h1>THE MAP GLIDES</h1>
+<div class="said">You: "very very smooth... not a block at a time, boom boom boom...
+the animation plays to the BPM inside the thing that slides."</div>
+<p>Before, every step moved the whole map <b>one cell in a single frame</b>, then it
+froze until the next step. That is the boom boom boom. I measured it: the map
+jumped 18 pixels on 1 frame out of 36.</p>
+<p>Now the same distance is spread across the beat, <b>never more than 1 pixel a
+frame</b>. Two steps in a row flow into one smooth slide instead of two jumps.
+And your pin <b>hops once on every beat</b> while it travels, so the 120 BPM is
+still there inside the slide. When it stops, it sits still.</p>
+<p>A long jump, like landing somewhere new, still cuts instead of sliding across
+the whole city, because sliding there would lie about how you got there.</p>
+<p>Both are the real map, filmed off the game, two steps each.</p>
+<div class="beat"><i id="beat"></i></div>
+<div class="clip"><div class="pair">
+  <div class="side"><div class="lab old">BEFORE</div><div class="film" id="a"></div></div>
+  <div class="side"><div class="lab new">NOW</div><div class="film" id="b"></div></div>
+</div></div>
+<p class="note">Walking on the street already slid since your vote for SLIDE. The
+fight board is the combat chat's; the same rule goes to them.</p>
+<script>
+(function(){
+  var N=32,S=180,SHOW=160,LOOP=1000;   /* 32 frames over two beats at 120 BPM */
+  var A=document.getElementById('a'),B=document.getElementById('b');
+  A.style.backgroundImage='url(ANIMATION_THE_MAP_GLIDES_BEFORE.png)';
+  B.style.backgroundImage='url(ANIMATION_THE_MAP_GLIDES_AFTER.png)';
+  var k=SHOW/S; A.style.backgroundSize=B.style.backgroundSize=(N*S*k)+'px '+SHOW+'px';
+  var bar=document.getElementById('beat'), t0=performance.now();
+  (function tick(){
+    var ph=((performance.now()-t0)%LOOP)/LOOP, f=Math.floor(ph*N)%N;
+    A.style.backgroundPosition=B.style.backgroundPosition=(-f*S*k)+'px 0px';
+    bar.style.transform='translateX('+(ph<0.5?0:100)+'%)';
+    requestAnimationFrame(tick);
+  })();
+})();
+</script>
