@@ -36,11 +36,24 @@ FOUND ON THE WAY, EACH SENT WHERE IT BELONGS:
 - A CORRECTION OF MY OWN: round three's "the bar is empty" is the DEMO. The alpha's bar shows HUMAN
   MODE, SUBURB - ON FOOT, the track, SAVE, TOOLS, NOTES. The vote item's words now say "the demo".
 
+*** RULE 37 (HIS THIRD VOTES) LANDED WHILE THIS ROUND WAS SHIPPING; READ BEFORE PUSHING. ***
+- 37(a) THE 32 PX CELL IS DEAD. Round three's cell arithmetic dies with it (its pixel facts stand).
+  WHAT THE BAR SAYS carried a grid labelled "the new cell size you just set": the grid and the
+  sentence are OUT of the picture and the item's words, before he judges it. Same for this round's
+  "one small square" line.
+- 37(b) places are settlement screens; you walk only in fights and special places. Sharpens this
+  round's question: her body is usually not on screen, so B (a steady face) is BB's answer.
+- HIS VERDICTS ON MY ITEMS: cracked iPhone UP, no B said, so A (one crack) STANDS and [phone city
+  only] is SHIPPED; his words open [bougie phone] (cracked at the start, bougier as the future
+  improves, worse if it gets worse, 37c/37j). Phone waking up UP. One set of buttons UP (the grid is
+  SQUARE). The fight is a different game DOWN: post-mortem in graveyard/; [one hud] now means ONE LOOK
+  across map, settlement and fight, not one set of buttons.
+
 NEXT: round five is THE MAN'S PAGE (what one tap on her face opens: PORTRAIT's face, PEOPLE's
 background and what she kept, rule 36's injury, on 12 cells across). Then his picks on the waiting
 items, then [the picks] (with the size setting), [door fixes], [inner votes], [warning clipped].
-[PENDING Paolo]: none in this file. Everything he needs to answer is in the VOTE tab: WHAT THE BAR
-SAYS, HOW YOU KNOW SHE IS WITH YOU, and the cracked phone's A/B.
+[PENDING Paolo]: none in this file. What he can answer is in the VOTE tab: WHAT THE BAR SAYS and
+HOW YOU KNOW SHE IS WITH YOU.
 
 EYES AND EARS (eyes-5vql33): 9/28 (ay) LATEST -- *** [phone latency] E24 CLAIMED, ROUND ONE (SCHOOL) STARTING. *** Both open rows in this lane were [phone latency] E24 and [the sign] E25; taking the first one, rule 5. THE QUESTION: nobody has measured how late a tap's sound actually arrives on a real phone browser, and the fight is judged on the beat. THIS ROUND IS RESEARCH ONLY, no measuring yet: how rhythm games on iOS and Android actually calibrate touch-to-audio latency, what they publish, and what a calibration screen looks like. Round two builds the real measurement on our own alpha. Standing jobs (the cold stranger's walk, the horror-style check) continue every round on a demo cut fresh from main.
 

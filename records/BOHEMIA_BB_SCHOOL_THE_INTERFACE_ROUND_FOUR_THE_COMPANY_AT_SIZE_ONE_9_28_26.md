@@ -77,3 +77,22 @@ half true.
 Round five: THE MAN'S PAGE. BB's roster page is where a man's story lives (portrait, background, the
 injuries he carries). We have PORTRAIT's faces, PEOPLE's backgrounds and what they KEPT, and rule 36's
 injuries: what one tap on her face in the bar opens, on 12 cells across.
+
+## RULE 37 LANDED WHILE THIS ROUND WAS SHIPPING, AND IT CHANGED THREE THINGS HERE
+His third votes (records/BOHEMIA_PAOLO_THIRD_VOTES_9_28_26.md), read before pushing, not after:
+1. 37(a) NO ATARI: the 32 px cell and the one-cell sprite defaults are DEAD. Round three's counts were
+   in 32 px units (312 cells, the frame costs 48, "the pad that hid one man will hide nine"). The
+   pixel facts stand (the bar is 390x50 ABOVE the world, the pad 90x90 ON it, the frame box 378x794);
+   the cell arithmetic and the nine-men line die with the default. The WHAT THE BAR SAYS sheet carried a
+   32 px grid labelled "the new cell size you just set": the grid and the sentence are REMOVED from the
+   picture and from the item's words before he judges it. This round's sheet and words drop the
+   "one small square" argument too.
+2. 37(b) PLACES ARE SETTLEMENT SCREENS: you walk only in the fight and special places. That makes this
+   round's question sharper, not smaller: most of the time her body is not on screen at all, so a mark
+   on her (C) only works where you walk, and a steady face (B) is BB's own answer. The sheet's footer
+   and the item's words now say so.
+3. HIS VERDICTS ON FOUR OF MY ITEMS: the cracked iPhone UP without saying B, so A (one crack) stands,
+   plus a new ask: cracked at the start and bougier as the acts improve (37j); the phone waking up UP;
+   one set of buttons UP with a note that the grid is SQUARE (37f); the fight is a different game DOWN
+   (graveyard/POSTMORTEM_THE_FIGHT_IS_A_DIFFERENT_GAME_9_28_26.txt: combat and traversal ARE two
+   things to him; [one hud] becomes ONE LOOK, not one set of buttons).

@@ -1,0 +1,26 @@
+POST-MORTEM: ui-the-fight-is-a-different-game-9-27 (UI, chat 11, ui-kmqmrf). VOTED DOWN 9/27.
+
+WHAT IT WAS: two real shots from one run, walking with the bar, notes and pad ringed, then the fight
+with none of them. 9 things on the street, 30 in the fight, nothing shared. It was the BEFORE picture
+for [one hud], arguing from rule 24 (ONE GAME MODE, NO TELEPORT) that the fight should wear the
+street's buttons.
+
+HIS WORDS: "we're doing a whole battle brothers revamp... I don't wanna overload the player with too
+many different camera angles... combat in traversing the city are two different things... if it
+requires a revamp, then it's gonna take a revamp... the movement dial, the eight button direction,
+it potentially might be dead."
+
+WHAT WAS WRONG, AND IT IS MINE: the item argued a premise he was already leaving. Rule 37(b) landed
+the same round: places are settlement screens, you walk only in the fight and special places, the
+pad is dead elsewhere. Battle Brothers itself has a map and a separate battle screen, and he wants
+Battle Brothers. I read rule 24 as "same buttons everywhere" and built a picture to prove the fight
+broke it. He reads it as "don't overload the player": few screens, few camera angles, each one clean.
+The census numbers were true; the conclusion I pinned to them was not his.
+
+WHAT SURVIVES: the counts (30 things in the fight, only SHOOT a thumb, 28 px compass dots) are still
+the fight's own problems, named for COMBAT. What dies: [one hud]'s "the fight wears the street's
+buttons". What [one hud] becomes: ONE LOOK across the map, the settlement and the fight (same objects,
+same light, same type, same bar), not one set of buttons.
+
+THE LESSON: a measurement is not an argument for the rule I already believed. Ask what his newest
+words say the rule is before building the picture that enforces my reading of it.
