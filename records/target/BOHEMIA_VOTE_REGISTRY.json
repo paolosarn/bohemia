@@ -300,7 +300,7 @@
     "src": "vote/ANIMATION_THE_IDLE_REDO.html"
    },
    "redoOf": "idle",
-   "said": "a lot of them are good, a lot of them aren’t good... IF I KILLED IT I DON’T WANT IT GONE. I just think it could be done better. Make a new one."
+   "said": "a lot of them are good, a lot of them aren\u2019t good... IF I KILLED IT I DON\u2019T WANT IT GONE. I just think it could be done better. Make a new one."
   },
   {
    "id": "factions-the-sign-still-lights-9-21",
@@ -465,7 +465,7 @@
    "sha": "534d87a",
    "made": "9/21",
    "title": "HOW A STEP IS DRAWN (I PICKED ONE FOR YOU)",
-   "why": "One press moves him a whole house, 275 pixels, in half a second, and his legs can only show one pace of it. What shipped was nobody’s choice: an old number in the code made the whole street jump at once. I put in the tape skip: he stands still, the picture skips twice, he is there. Thumbs up keeps it. Thumbs down and say GRID (the street jumps at once) or SLIDE (the street slides the whole time) and I will switch it.",
+   "why": "One press moves him a whole house, 275 pixels, in half a second, and his legs can only show one pace of it. What shipped was nobody\u2019s choice: an old number in the code made the whole street jump at once. I put in the tape skip: he stands still, the picture skips twice, he is there. Thumbs up keeps it. Thumbs down and say GRID (the street jumps at once) or SLIDE (the street slides the whole time) and I will switch it.",
    "show": {
     "how": "page",
     "src": "vote/ANIMATION_HOW_A_STEP_IS_DRAWN.html"
@@ -699,7 +699,7 @@
    "sha": "228818a1",
    "made": "9/21",
    "title": "THE BATTERY SHED, THE FIRST BUILDING THAT MAKES MONEY",
-   "why": "You build this on your own lot and a battery comes in. It is the small one, about the size of half a garage, not the big fenced battery yard the game already has. I drew it in that yard’s own colours so they are the same world. One thing in the picture is on purpose and it is the whole idea: THE LITTLE AMBER LIGHT IS LIT. Nothing else on the lot has power, the meter needle is stuck, the door is chained, and this box is still working. Thumbs up and I put it in the game so you can place one. Thumbs down and tell me if it is the shape, the colour, or the light.",
+   "why": "You build this on your own lot and a battery comes in. It is the small one, about the size of half a garage, not the big fenced battery yard the game already has. I drew it in that yard\u2019s own colours so they are the same world. One thing in the picture is on purpose and it is the whole idea: THE LITTLE AMBER LIGHT IS LIT. Nothing else on the lot has power, the meter needle is stuck, the door is chained, and this box is still working. Thumbs up and I put it in the game so you can place one. Thumbs down and tell me if it is the shape, the colour, or the light.",
    "show": {
     "how": "image",
     "src": "vote/LIFECITY_THE_BATTERY_SHED_9_21.png"
@@ -907,7 +907,7 @@
    "sha": "PENDING",
    "made": "9/22",
    "title": "FOUR WAYS THE GAME LOADS",
-   "why": "The screen that covers everything before you can touch anything, with a bar that cannot lie and the writing chat’s words wired to real stages. A is built and handed to the play chat.",
+   "why": "The screen that covers everything before you can touch anything, with a bar that cannot lie and the writing chat\u2019s words wired to real stages. A is built and handed to the play chat.",
    "show": {
     "how": "page",
     "src": "BOHEMIA_FOUR_WAYS_THE_GAME_LOADS_9_22_26.html"
@@ -1030,7 +1030,7 @@
     "src": "vote/ANIMATION_THE_HAND_REACHES_THE_FACE.html"
    },
    "redoOf": "eat, drink, smoke, cough and whistle",
-   "said": "a lot of them are good, a lot of them aren’t good... some of the DIRECTIONS look like dog shit: when it’s facing north-east the hand was behind the head even though it’s supposed to be in front. IF I KILLED IT I DON’T WANT IT GONE. Make a new one."
+   "said": "a lot of them are good, a lot of them aren\u2019t good... some of the DIRECTIONS look like dog shit: when it\u2019s facing north-east the hand was behind the head even though it\u2019s supposed to be in front. IF I KILLED IT I DON\u2019T WANT IT GONE. Make a new one."
   },
   {
    "id": "people-what-people-repeat-about-you-9-22",
@@ -1483,7 +1483,7 @@
     "src": "vote/ANIMATION_THE_HAND_IN_FRONT_PLAYS.html"
    },
    "redoOf": "animation-the-hand-at-the-face-plays-9-22",
-   "said": "when it’s facing north-east the hand was behind the head even though it’s supposed to be in front"
+   "said": "when it\u2019s facing north-east the hand was behind the head even though it\u2019s supposed to be in front"
   },
   {
    "id": "world-the-same-corner-9-23",
@@ -1679,7 +1679,7 @@
     "how": "page",
     "src": "vote/ANIMATION_FACING_YOU_HE_DID_NOTHING.html"
    },
-   "said": "a lot of them are good, a lot of them aren’t good"
+   "said": "a lot of them are good, a lot of them aren\u2019t good"
   },
   {
    "id": "sounds-a-footstep-that-is-not-sand-9-24",
@@ -2536,16 +2536,16 @@
     "src": "BOHEMIA_THE_THREE_BEFORE_ACT_ONE_9_28_26.html"
    }
   },
-{
-  "id": "coordinator-tuning-and-mods-research-until-you-say-build-9-28",
-  "kind": "verdict",
-  "lane": "coordinator",
-  "title": "TUNING AND MODS ONLY RESEARCH UNTIL YOU SAY BUILD",
-  "text": "You said tuning and mods are big brain research, like quests. So they study how other games do it and write pages, and they build nothing. When you want the numbers table or the mods folder actually wired in, say build and the plumber wires what they recommend. DOWN means you want them building now.",
-  "asked": "UP or DOWN",
-  "when": "2026-09-28",
-  "draft": true
-},
+  {
+   "id": "coordinator-tuning-and-mods-research-until-you-say-build-9-28",
+   "kind": "verdict",
+   "lane": "coordinator",
+   "title": "TUNING AND MODS ONLY RESEARCH UNTIL YOU SAY BUILD",
+   "text": "You said tuning and mods are big brain research, like quests. So they study how other games do it and write pages, and they build nothing. When you want the numbers table or the mods folder actually wired in, say build and the plumber wires what they recommend. DOWN means you want them building now.",
+   "asked": "UP or DOWN",
+   "when": "2026-09-28",
+   "draft": true
+  },
   {
    "id": "tuning-five-points-9-28",
    "kind": "tile",
@@ -2572,34 +2572,33 @@
     "how": "page",
     "src": "vote/PORTRAIT_WHY_A_FACE_READS_AS_NOBODY.html"
    }
-  }
- ,
-    {
-      "id": "dynasty-horror-heir-9-28",
-      "kind": "line",
-      "lane": "dynasty",
-      "sha": "pending",
-      "made": "9/28",
-      "title": "THE MACHINE IS STILL TALKING. THE BILL HAS NO SENDER. THE TAPE DOES NOT EXIST.",
-      "why": "What a generation inherits, under the analog horror bible, in three pieces we already built and did not know fit. The loading screen's own boot log (NO OPERATOR ON DUTY) is the machine still talking, and it says the same calm sentence to every act, not a message aimed at whoever is standing there. The fold already rules debt dies with the person who owed it, and ECONOMY's own study calls a dead office's bill a PROP with no sender, never a per-family charge -- so the bill an heir meets is the valley's own dead utility, not his father's debt come back. And a literal recorded tape of the parent's own voice does not exist anywhere in the engine, on purpose: what does exist is living witnesses retelling a deed until the last one forgets, which is a truer and sadder shape than a cassette, and building the cassette anyway would be a second ONE WRONG THING competing with the loading screen's own line. Research only, nothing to look at yet.",
-      "show": {
-        "how": "text",
-        "src": "THE HEIR INHERITS THE BROADCAST, NOT A MESSAGE ADDRESSED TO THEM.\n\nThree things a generation inherits, measured against what we already shipped:\n\n1. THE MACHINE STILL TALKING. Every boot reads READING THE VALLEY, COUNTING WHAT STILL STANDS, CHECKING STREETS FOR LIGHT, then NO OPERATOR ON DUTY. It does not know which descendant is about to stand up. That is the horror for free: an institution running its own checklist since before you were born.\n\n2. THE BILL STILL COMING, BUT IT HAS NO SENDER. The fold already rules a debt dies with the one who owed it -- you inherit less, and you inherit the people he owed, still standing there, never a number. A bill that keeps arriving anyway is the valley's own dead office, not a family debt.\n\n3. THE TAPE THE PARENT LEFT DOES NOT EXIST, AND IT SHOULD NOT. What exists instead: living witnesses retelling a deed until the last one who saw it dies, and then it is gone. Sadder and truer than a recording, and it costs no new lore."
-      }
-    },
-    {
-     "id": "ui-how-you-pick-a-building-9-28",
-     "kind": "ui",
-     "lane": "ui",
-     "sha": "pending",
-     "made": "9/28",
-     "title": "HOW YOU PICK A BUILDING",
-     "why": "You said a place is a settlement screen: you see the place and you tap the building, like Battle Brothers. Battle Brothers does that with a mouse on a big screen. On a phone the question is where your thumb goes. All three use the same real shot of a place from the game's own camera. A is Battle Brothers straight: the buildings are the buttons, with their names on the roofs. The catch: the thin house on the left is only 42 pixels wide, and every building is up top where your thumb is not. B keeps the buildings tappable and ALSO puts them in a row of big plates along the bottom, because the bottom third of this place is empty dirt, right where your thumb sits. C shrinks the place to a picture at the top and turns the buildings into a list, which is easy but the least like Battle Brothers. Which building is the hall, the market and the barber is made up for the picture.",
-     "show": {
-      "how": "image",
-      "src": "vote/UI_HOW_YOU_PICK_A_BUILDING_9_28.png"
-     }
-    },
+  },
+  {
+   "id": "dynasty-horror-heir-9-28",
+   "kind": "line",
+   "lane": "dynasty",
+   "sha": "pending",
+   "made": "9/28",
+   "title": "THE MACHINE IS STILL TALKING. THE BILL HAS NO SENDER. THE TAPE DOES NOT EXIST.",
+   "why": "What a generation inherits, under the analog horror bible, in three pieces we already built and did not know fit. The loading screen's own boot log (NO OPERATOR ON DUTY) is the machine still talking, and it says the same calm sentence to every act, not a message aimed at whoever is standing there. The fold already rules debt dies with the person who owed it, and ECONOMY's own study calls a dead office's bill a PROP with no sender, never a per-family charge -- so the bill an heir meets is the valley's own dead utility, not his father's debt come back. And a literal recorded tape of the parent's own voice does not exist anywhere in the engine, on purpose: what does exist is living witnesses retelling a deed until the last one forgets, which is a truer and sadder shape than a cassette, and building the cassette anyway would be a second ONE WRONG THING competing with the loading screen's own line. Research only, nothing to look at yet.",
+   "show": {
+    "how": "text",
+    "src": "THE HEIR INHERITS THE BROADCAST, NOT A MESSAGE ADDRESSED TO THEM.\n\nThree things a generation inherits, measured against what we already shipped:\n\n1. THE MACHINE STILL TALKING. Every boot reads READING THE VALLEY, COUNTING WHAT STILL STANDS, CHECKING STREETS FOR LIGHT, then NO OPERATOR ON DUTY. It does not know which descendant is about to stand up. That is the horror for free: an institution running its own checklist since before you were born.\n\n2. THE BILL STILL COMING, BUT IT HAS NO SENDER. The fold already rules a debt dies with the one who owed it -- you inherit less, and you inherit the people he owed, still standing there, never a number. A bill that keeps arriving anyway is the valley's own dead office, not a family debt.\n\n3. THE TAPE THE PARENT LEFT DOES NOT EXIST, AND IT SHOULD NOT. What exists instead: living witnesses retelling a deed until the last one who saw it dies, and then it is gone. Sadder and truer than a recording, and it costs no new lore."
+   }
+  },
+  {
+   "id": "ui-how-you-pick-a-building-9-28",
+   "kind": "ui",
+   "lane": "ui",
+   "sha": "pending",
+   "made": "9/28",
+   "title": "HOW YOU PICK A BUILDING",
+   "why": "You said a place is a settlement screen: you see the place and you tap the building, like Battle Brothers. Battle Brothers does that with a mouse on a big screen. On a phone the question is where your thumb goes. All three use the same real shot of a place from the game's own camera. A is Battle Brothers straight: the buildings are the buttons, with their names on the roofs. The catch: the thin house on the left is only 42 pixels wide, and every building is up top where your thumb is not. B keeps the buildings tappable and ALSO puts them in a row of big plates along the bottom, because the bottom third of this place is empty dirt, right where your thumb sits. C shrinks the place to a picture at the top and turns the buildings into a list, which is easy but the least like Battle Brothers. Which building is the hall, the market and the barber is made up for the picture.",
+   "show": {
+    "how": "image",
+    "src": "vote/UI_HOW_YOU_PICK_A_BUILDING_9_28.png"
+   }
+  },
   {
    "id": "mods-one-gun-forty-two-places-9-28",
    "kind": "ui",
@@ -2612,36 +2611,48 @@
     "how": "page",
     "src": "BOHEMIA_ONE_GUN_FORTY_TWO_PLACES_9_28_26.html"
    }
+  },
+  {
+   "id": "dynasty-angel-verbs-9-28",
+   "kind": "line",
+   "lane": "dynasty",
+   "sha": "pending",
+   "made": "9/28",
+   "title": "MAKE IT RIGHT ALREADY SHIPPED. THE GAP IS THE MECHANISM HAS NO FLOOR.",
+   "why": "This lane's own row asked for the forgiveness verb list PEOPLE should build, and PEOPLE already built it two rounds after this lane found the hole (make it right, 9/7): settled, paid, forgiven, spared, correctly grounded in the two strongest real findings (amends raise forgiveness, severity lowers it). What is still missing, measured directly in the code: wouldSquare() is one sum with no exception in it, so a stolen loaf and a killing are the same kind of number, only a bigger one -- real reconciliation research and every legal system treat some harms as a different kind, not a bigger number of the same kind. And forgiving is not the same verb as trusting again in the literature, but the mechanism has one bit for both. Research only, nothing to look at yet.",
+   "show": {
+    "how": "text",
+    "src": "THE ANGEL'S VERBS ALREADY SHIPPED. THE FLOOR DID NOT.\n\nPEOPLE's make it right (9/7) already built settled, paid, forgiven, spared -- correctly grounded: amends raise forgiveness, severity lowers it, only the wronged person decides for themselves, forgiven is not forgotten.\n\nWHAT REAL RECONCILIATION STILL SPLITS THAT THE CODE DOES NOT:\n\n1. NO FLOOR. wouldSquare() is one sum, no exception. A heavier wrong needs more good deeds -- but it is never categorically different, only a bigger number. Real practice treats some harms as a different KIND, not a bigger number of the same kind.\n\n2. FORGIVE IS NOT TRUST. You can genuinely stop carrying a grudge and still never let someone back into a position to hurt you again. The code has one bit, d.right, for both.\n\n3. THE APOLOGY'S MIDDLE STEPS ARE MISSING. Real apologies run acknowledgment, explanation, remorse, reparation, a testable promise. The code has acknowledgment (the button) and reparation (priceOf). Explanation, remorse and a testable promise have no representation.\n\nWhich deed kinds should carry the floor is his call, not mine. What the mechanism is missing is the shape of the floor itself."
+   }
+  },
+  {
+   "id": "lifecity-where-a-raid-is-fought-9-28",
+   "kind": "tile",
+   "lane": "life+city",
+   "sha": "b202b0e7",
+   "made": "9/28",
+   "title": "WHERE A RAID IS FOUGHT",
+   "why": "You said fourteen home bases you can raid. These are six of them, pulled straight out of the game, and RED is floor inside them that nobody can walk onto. If a fight happens here, part of the ground does not connect to the rest and nothing on the screen tells you. The Remnants' police station has two inner yards with no way in. The Volunteers' medical campus has a parking lot where every single stall is walled off. The Caravans' bus terminal has a doorway that opens onto nothing. The church was the worst one and I fixed it this round; these six are next, biggest first. Thumbs up and I fix these in this order. Thumbs down and tell me which of these places a raid should never happen in anyway.",
+   "show": {
+    "how": "image",
+    "src": "vote/LIFECITY_WHERE_A_RAID_IS_FOUGHT_9_28.png"
+   }
+  },
+  {
+   "id": "world-two-futures-9-28",
+   "kind": "redo",
+   "lane": "world",
+   "made": "9/28",
+   "redoOf": "world-the-valley-three-acts-9-27",
+   "title": "TWO FUTURES",
+   "why": "You killed the last one and you were right: I had built it so the future could only ever get better. You said it could get worse, that if you start as a raiding party then later the places you wrecked are wrecked, and that the future is a reflection of your past actions. So this is the SAME date, twice, off two different pasts. Left: you raided. Right: you built. Both are the same valley, and I checked 7,515 ground pixels across the two panels, zero moved. The lights are also the clustered kind you just voted for, straight out of the game now, not drawn by hand. The creepy part: the dark is the exact same shape in both. Whatever you did, the city never moved, it just kept more or less of itself switched on.",
+   "show": {
+    "how": "image",
+    "src": "vote/WORLD_TWO_FUTURES.png"
+   }
   }
- ,
-    {
-      "id": "dynasty-angel-verbs-9-28",
-      "kind": "line",
-      "lane": "dynasty",
-      "sha": "pending",
-      "made": "9/28",
-      "title": "MAKE IT RIGHT ALREADY SHIPPED. THE GAP IS THE MECHANISM HAS NO FLOOR.",
-      "why": "This lane's own row asked for the forgiveness verb list PEOPLE should build, and PEOPLE already built it two rounds after this lane found the hole (make it right, 9/7): settled, paid, forgiven, spared, correctly grounded in the two strongest real findings (amends raise forgiveness, severity lowers it). What is still missing, measured directly in the code: wouldSquare() is one sum with no exception in it, so a stolen loaf and a killing are the same kind of number, only a bigger one -- real reconciliation research and every legal system treat some harms as a different kind, not a bigger number of the same kind. And forgiving is not the same verb as trusting again in the literature, but the mechanism has one bit for both. Research only, nothing to look at yet.",
-      "show": {
-        "how": "text",
-        "src": "THE ANGEL'S VERBS ALREADY SHIPPED. THE FLOOR DID NOT.\n\nPEOPLE's make it right (9/7) already built settled, paid, forgiven, spared -- correctly grounded: amends raise forgiveness, severity lowers it, only the wronged person decides for themselves, forgiven is not forgotten.\n\nWHAT REAL RECONCILIATION STILL SPLITS THAT THE CODE DOES NOT:\n\n1. NO FLOOR. wouldSquare() is one sum, no exception. A heavier wrong needs more good deeds -- but it is never categorically different, only a bigger number. Real practice treats some harms as a different KIND, not a bigger number of the same kind.\n\n2. FORGIVE IS NOT TRUST. You can genuinely stop carrying a grudge and still never let someone back into a position to hurt you again. The code has one bit, d.right, for both.\n\n3. THE APOLOGY'S MIDDLE STEPS ARE MISSING. Real apologies run acknowledgment, explanation, remorse, reparation, a testable promise. The code has acknowledgment (the button) and reparation (priceOf). Explanation, remorse and a testable promise have no representation.\n\nWhich deed kinds should carry the floor is his call, not mine. What the mechanism is missing is the shape of the floor itself."
-      }
-    },
-    {
-     "id": "lifecity-where-a-raid-is-fought-9-28",
-     "kind": "tile",
-     "lane": "life+city",
-     "sha": "b202b0e7",
-     "made": "9/28",
-     "title": "WHERE A RAID IS FOUGHT",
-     "why": "You said fourteen home bases you can raid. These are six of them, pulled straight out of the game, and RED is floor inside them that nobody can walk onto. If a fight happens here, part of the ground does not connect to the rest and nothing on the screen tells you. The Remnants' police station has two inner yards with no way in. The Volunteers' medical campus has a parking lot where every single stall is walled off. The Caravans' bus terminal has a doorway that opens onto nothing. The church was the worst one and I fixed it this round; these six are next, biggest first. Thumbs up and I fix these in this order. Thumbs down and tell me which of these places a raid should never happen in anyway.",
-     "show": {
-      "how": "image",
-      "src": "vote/LIFECITY_WHERE_A_RAID_IS_FOUGHT_9_28.png"
-     }
-    }
-  ],
-  "verdicts": [
+ ],
+ "verdicts": [
   {
    "id": "people-the-one-who-walks-with-you-9-21",
    "vote": "down",
@@ -2813,7 +2824,7 @@
   {
    "id": "world-the-rules-run-with-the-dirt-9-21",
    "vote": "down",
-   "said": "Mfs charge batteries bro 🤣🤣🤣 i knkw buildings can help in our game but jesus christ mfs can charge batteries",
+   "said": "Mfs charge batteries bro \ud83e\udd23\ud83e\udd23\ud83e\udd23 i knkw buildings can help in our game but jesus christ mfs can charge batteries",
    "when": "9/21",
    "at": "2026-09-22"
   },
@@ -3590,7 +3601,7 @@
   {
    "id": "dynasty-three-on-the-phone-9-24",
    "vote": "up",
-   "said": "I like that yeah I mean but keep in mind you know flipping between ax is a big deal asking out of it like all of the UI has to change. There has to be like a filter cut Syn 🛹 thing that impacts everything. The phones gonna look different. The world's gonna look different and we need to find a great way to do that to make that jump, but I mean, just clicking it and then it just cause I clicked it once already the alpha mean obviously you did implement so much a bit but bro, it's a big deal like visually there has to be audio. There's a lot that needs to pull this off. You know we can't just do this cheap shit and then I still haven't decided at what point like you unlock this mechanic in each of the action and shit so it's not like right off the beginning of the game that's for sure.",
+   "said": "I like that yeah I mean but keep in mind you know flipping between ax is a big deal asking out of it like all of the UI has to change. There has to be like a filter cut Syn \ud83d\udef9 thing that impacts everything. The phones gonna look different. The world's gonna look different and we need to find a great way to do that to make that jump, but I mean, just clicking it and then it just cause I clicked it once already the alpha mean obviously you did implement so much a bit but bro, it's a big deal like visually there has to be audio. There's a lot that needs to pull this off. You know we can't just do this cheap shit and then I still haven't decided at what point like you unlock this mechanic in each of the action and shit so it's not like right off the beginning of the game that's for sure.",
    "when": "9/27",
    "at": "2026-09-28"
   },

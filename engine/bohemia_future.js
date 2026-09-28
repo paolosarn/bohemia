@@ -7,19 +7,30 @@
 // an impact in your earlier act." The future is DERIVED from the earlier acts'
 // ledgers on every flip, never hand-placed.
 //
-// AND RULE 32(b) (Paolo 9/23, on his DOWN vote of THE SAME CORNER, which is the
-// sentence that decides the SHAPE of this file): "the future gets better. The
-// right side is what the BEGINNING of the game is supposed to look like, and it
-// gets better... reclaims parts of cities for economic purposes, more techy and
-// modern." ACT 1 IS THE FLOOR. Act 2 and 3 are the floor plus what was reclaimed.
-// NOTHING DECAYS BELOW THE START.
+// *** AND RULE 37(c) OVERTURNS THE RULE THIS FILE WAS BUILT TO ENFORCE. ***
+// (Paolo 9/27, on his DOWN vote of THE SAME VALLEY, THREE ACTS):
+//   "You know actually the future could get worse. You could choose the origin
+//    as a raiding party and then three acts later, the buildings that you
+//    destroyed or the people that you raided, in the future the surrounding
+//    buildings of their headquarters or their stuff could get worse. So yeah
+//    really the future is a reflection of your past actions and that's what it's
+//    gonna have to be."
+// THE DERIVE IS SIGNED. Rule 32(b)'s "nothing decays below the start" is DEAD;
+// what survives of it is that ACT 1 IS STILL THE STARTING POINT, not a ceiling.
 //
-// *** SO THE ONLY OPERATION IN THIS FILE IS ADD, AND THAT IS ENFORCED RATHER
-// THAN INTENDED. *** derive() builds an act by laying reclaim on top of the
-// floor and then CHECKS that nothing came out below it, refusing with a name if
-// it did. A future that can subtract is a future that can get worse, and he
-// ruled it cannot. Writing that as a comment and trusting it is exactly how the
-// "nothing decays" clause would rot in six rounds.
+// WHAT THIS FILE USED TO DO, AND IT WAS WRONG IN MY OWN HAND: it read only the
+// POSITIVE HALF of a ledger that already carried both. bohemia_century.through()
+// returns {built, demolished, net, housing} and I read `.built`, throwing the
+// demolitions away; and it returns a housing figure its OWN COMMENT says is
+// "allowed to be NEGATIVE... clamping that to zero would hide exactly the story
+// the century rule is for" -- and I clamped it to zero. The subtraction he asked
+// for was in the data the whole time and the clamp was mine.
+//
+// SO THE OPERATION IS NOW SIGNED ARITHMETIC, and the floor refusal is gone. What
+// is KEPT is the other refusal: THE LINES STILL DO NOT MOVE. His ruling is about
+// what STANDS on the lots and who holds them, never about where the lots are
+// (DYNASTY school round two, section 4; and rule 34's honest grid). An act that
+// added a cell would still be a bug.
 //
 // ---------------------------------------------------------------------------
 // TWO THINGS THIS FILE IS NOT.
@@ -116,11 +127,19 @@
       out.fields.push(field('built', 'bohemia_century', function () {
         return C.through(ledgers.century, a).built;
       }));
+      /* *** THE SIGNED ONE, AND IT IS THE FIELD THE DERIVE ACTUALLY USES. ***
+         built MINUS demolished. The card carried `built` alone until 9/28, which
+         is why a raiding past and a building past produced the same future: the
+         subtraction was in the ledger and never reached the arithmetic. */
+      out.fields.push(field('net', 'bohemia_century', function () {
+        return C.through(ledgers.century, a).net;
+      }));
       out.fields.push(field('housing', 'bohemia_century', function () {
         return C.through(ledgers.century, a).housing;
       }));
     } else {
       out.fields.push(silent('built', 'no century record was handed in'));
+      out.fields.push(silent('net', 'no century record was handed in'));
       out.fields.push(silent('housing', 'no century record was handed in'));
     }
 
@@ -148,6 +167,19 @@
        is a measurement this lane made on 9/23 and not a missing argument. */
     out.fields.push(silent('lived',
       'no source in the game stamps who lived with an act (WORLD measured it 9/23)'));
+
+    /* *** AND THE ONE HIS 9/27 RULING NEEDS THAT NOBODY KEEPS. *** He said the
+       future gets worse when "the buildings that you destroyed or the people
+       that you raided" leave a mark. The signed arithmetic below expresses
+       tearing down WHAT THE FAMILY PUT UP, because bohemia_century counts builds
+       and demolitions by the family. IT CANNOT YET EXPRESS RAZING THE CITY THAT
+       WAS ALREADY THERE: measured 9/28, bohemia_housing.homes() returns [] and
+       capacity() returns 0 on a fresh valley, because that module counts PLACED
+       buildings and nothing counts the generated ones as a standing quantity. So
+       a raid on somebody else's block has nothing to subtract from. Named here
+       rather than faked, and routed. */
+    out.fields.push(silent('razed',
+      'nothing counts the GENERATED city as a standing quantity -- homes() returns [] on a fresh valley -- so razing what was already there cannot be expressed yet (WORLD measured it 9/28)'));
 
     for (var i = 0; i < out.fields.length; i++)
       if (out.fields[i].why === UNREAD) out.unread.push(out.fields[i].field);
@@ -188,9 +220,14 @@
     /* *** THE ONLY OPERATION: ADD. *** Reclaim is what the ledgers say the family
        did THROUGH this act, laid on the floor. A field nobody can read adds
        nothing AND SAYS SO -- it is in card.unread, not folded in as a zero. */
+    /* *** SIGNED. *** `net` is built MINUS demolished, which the century ledger
+       has always returned and this file used to ignore; `housing` is carried
+       whole, negative and all, which is what that module's own comment asks for.
+       A generation that tore the place down really did tear it down, and that is
+       his 9/27 ruling in one line of arithmetic. */
     var reclaimed = {
-      standing: (by.built | 0),
-      people: (by.housing > 0 ? by.housing : 0),
+      standing: (by.net | 0),
+      people: (typeof by.housing === 'number' ? by.housing : 0),
       lit: 0,          /* what relights a circuit is a price and prices are his */
       cells: 0         /* THE LINES DO NOT MOVE. An act never adds a cell. */
     };
@@ -214,20 +251,20 @@
       card: card
     };
 
-    /* *** AND THE RULE IS CHECKED, NOT TRUSTED. *** Rule 32(b): nothing decays
-       below the start. If any number came out under the floor, this is refused by
-       name rather than returned, because a derive that can go down is a future
-       that can get worse. */
+    /* *** THE FLOOR REFUSAL IS GONE, BY HIS RULING. *** This used to return
+       WOULD_DECAY_BELOW_THE_FLOOR on any field under act 1. Rule 37(c) says the
+       future goes both ways, so a valley below its floor is now a legal answer
+       and often the true one. What replaces the refusal is a SIGN: the derive
+       says which way each field went, so a caller can tell a ruin it caused from
+       a ruin it inherited. NOTHING IS CLAMPED. */
+    out.went = {};
     var k;
     for (k in out.valley) {
       if (!Object.prototype.hasOwnProperty.call(out.valley, k)) continue;
-      if (out.valley[k] < floor[k]) {
-        return { ok: false, why: 'WOULD_DECAY_BELOW_THE_FLOOR', field: k,
-                 floor: floor[k], would_be: out.valley[k],
-                 rule: 'rule 32(b), Paolo 9/23: the game starts in the ruin and the future gets better' };
-      }
+      out.went[k] = out.valley[k] - floor[k];
     }
-    /* AND THE LINES REALLY DID NOT MOVE. */
+    /* AND THE LINES REALLY DID NOT MOVE. KEPT: his ruling is about what STANDS
+       on the lots, never about where the lots are. */
     if (out.valley.cells !== floor.cells) {
       return { ok: false, why: 'THE_LINES_MOVED', floor: floor.cells, would_be: out.valley.cells,
                rule: 'the layout is built once from the seed and no act may write to it' };

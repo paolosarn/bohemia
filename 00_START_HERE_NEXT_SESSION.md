@@ -1,3 +1,89 @@
+WORLD (world-9lfjtf): 9/28 LATEST -- *** HE KILLED MY PICTURE AND HE WAS RIGHT,
+AND THE CLAMP THAT MADE IT WRONG WAS MINE. ***
+TAB: NOT IN A TAB YET on a play surface (rule 18 holds). It IS in the VOTE tab
+as a candidate: world-two-futures-9-28, a redo of world-the-valley-three-acts
+-9-27. Record records/BOHEMIA_WORLD_THE_FUTURE_GOES_BOTH_WAYS_9_28_26.md.
+
+HIS TWO VERDICTS, both on this lane's own shipped work, same round:
+  THE SAME VALLEY THREE ACTS: DOWN -- "the future could get worse. You could
+  choose the origin as a raiding party and then three acts later, the buildings
+  that you destroyed or the people that you raided... really the future is a
+  reflection of your past actions." That is rule 37(c): THE DERIVE IS SIGNED,
+  and it kills rule 32(b).
+  THE VALLEY AT NIGHT: UP -- "A mix of both but im leaning towards the larger
+  clusters."
+
+*** THE FINDING, AND IT IS NOT FLATTERING. *** engine/bohemia_century.js has
+ALWAYS returned the subtraction he asked for. through() returns `net`, which is
+built MINUS demolished, and a housing figure its own comment says must be allowed
+to go negative ("clamping that to zero would hide exactly the story the century
+rule is for"). I read `.built`. Then I clamped housing to zero myself. Then I
+wrote a refusal, WOULD_DECAY_BELOW_THE_FLOOR, that made my own clamp a law of the
+module. The picture he rejected was never missing data. Every number he wanted was
+in the ledger behind two lines I wrote. SEVENTH TIME in this series that measuring
+found the premise already built or built wrong with nobody measuring; first time
+the wrong thing was mine.
+
+WHAT IS REAL NOW in engine/bohemia_future.js: standing is (by.net|0), signed;
+housing is carried whole, negative and all; the floor refusal is GONE and in its
+place the derive reports went[k] = valley[k] - floor[k], how far each field moved
+either way; THE_LINES_MOVED is KEPT, because his ruling is about what stands and
+what is lit and never about where the lots are (rule 34's honest grid -- an act
+never adds a cell). `net` had to be added to the report card or the first signed
+attempt read all zeros. Measured on a real fixture (build 10, raze 6): a raiding
+past leaves act 3 at 4 standing, doing nothing 10, a building past 16. LOOKS still
+ships empty -- what a poor or a rebuilt valley looks like is his.
+
+NEW UNREAD, NAMED NOT FAKED: `razed`. His words name "the buildings that you
+destroyed", and nothing anywhere counts the GENERATED city as a standing quantity
+(homes() returns [] on a fresh valley), so razing what was already there cannot be
+expressed yet. Razing what YOU built works today; the ledger has both sides of
+that. Whoever gets the row for the other half, this is the hole.
+
+*** AND MY OWN GATE WAS GREEN FOR THE WRONG REASON. *** When I pulled the floor
+refusal out, three_acts_gate stayed green: its check was a regex for
+WOULD_DECAY_BELOW_THE_FLOOR against the module source, and my replacement COMMENT
+still contained the words. It matched a comment describing a constant that no
+longer existed. Green over nothing, in my own gate, in the commit that deleted the
+thing it was checking. Re-anchored to a live-statement regex and re-aimed at the
+ruling. THREE ACTS 28/0, red four ways. Legs 7 and 8 (the flip) still print OWED
+every run -- nobody has built a flip, and the gate says so instead of quietly
+carrying six of eight. Two more instruments of mine were wrong the same round: my
+first fixture was 6 demolitions with 0 builds (standing -6, which is a typo not a
+history), and in light_clusters_gate one regex matched my own comment quoting the
+line it was checking for while another demanded open.length > 0 and went red the
+round he judged everything.
+
+HIS OTHER VOTE, BUILT: engine/bohemia_powergrid.js decided lit-or-dark with ONE
+COIN FLIP PER FEEDER, which scatters. growClusters() now seeds a few owned sources
+and grows outward through touching feeders until the lit fraction is reached. Same
+lamps, different shape: seed 1337, 425 lit of 3,538 street cells, 178 patches with
+a biggest of 12 became 11 patches with a biggest of 104. LIGHT CLUSTERS 37/0 (B
+holds the law now instead of measuring the hole, C proves there is a core, D proves
+the same light in a different shape against a simulated coin flip).
+
+COOK: TWO FUTURES, slices/vote/WORLD_TWO_FUTURES.png. Not the killed picture with a
+panel added -- the SAME ACT, TWICE, off TWO PASTS. Left is act 3 after a raiding
+past, right after a building past. The raid takes the two biggest lit blobs out,
+because his own law says outages are clusters too: a raid darkens districts, it
+does not scatter the grid. Lit 263 / 425 / 705; patches 9/11/14; biggest 49/104/185;
+*** 7,515 GROUND PIXELS COMPARED, 0 MOVED. *** The tool refuses itself four ways
+(must straddle the start, must be 25% apart, neither a blackout nor a restoration,
+and not one ground pixel may differ). AH-01: two photographs of a city at night is
+the ordinary frame; the wrong thing is that the dark is the same shape in both.
+
+THREE REDS I DID NOT CAUSE AND DID NOT CROSS A LANE TO FIX, stated so nobody reads
+my green as the suite's green:
+  ENGINE SYNC is RED ON CLEAN MAIN. The drifted module is the graphics master
+  against slices/BOHEMIA_RUN_CURRENT.html; last touched by LIFE+CITY (679ec1e) and
+  PEOPLE (137efe7), neither in my diff. My own resync ran clean (139 fresh). This
+  is a HARD LAW red sitting on main right now and every lane pushing is pushing
+  over it. [FOR THE COORDINATOR]
+  GATE REGISTRY is RED with 23 orphan gates across many lanes; none are mine.
+  VOTE TAB is RED on two coordinator- rows missing sha and show. Mine carries its
+  sha in the follow-up commit, the standing two-commit pattern, so the pushed tip
+  is green.
+
 MODS (mods-59jyd6): 9/28 LATEST -- *** A GUN LIVES IN 42 PLACES, AND OUR OWN
 TESTS FORBID TUNING IT. *** Row [bb modding], SHIPPED as a research page.
 TAB: VOTE (mods-one-gun-forty-two-places-9-28, a page: the fight as one strip

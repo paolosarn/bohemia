@@ -159,9 +159,15 @@ section('A the law says clusters', () => {
      /Every lit cluster is OWNED/i.test(law));
 });
 
-/* ---- B. *** AND THE GRID ALTERNATES *** --------------------------------- */
-section('B the grid rolls one coin per feeder', () => {
-  let worstBlobs = 0, worstBiggest = 0;
+/* ---- B. *** AND THE GRID OBEYS IT NOW, BY HIS VOTE *** ------------------
+   (Paolo 9/27, UP on WORLD's THE VALLEY AT NIGHT: "A mix of both but im leaning
+   towards the larger clusters.") THIS SECTION USED TO MEASURE THE DEFECT: it
+   asserted that past one feeder the light was indistinguishable from scatter,
+   178 patches with a biggest of 12, and its own failure message said "if these
+   have separated, somebody clustered the grid and this gate must be re-aimed."
+   SOMEBODY DID, ON HIS VOTE. It holds the law now instead of the hole. */
+section('B the light is in clusters', () => {
+  let worstBlobs = 0, bestBiggest = 0;
   SEEDS.forEach(seed => {
     const { lit, street } = litOf(seed);
     const b = blobsOf(lit);
@@ -169,86 +175,73 @@ section('B the grid rolls one coin per feeder', () => {
     const n1 = neighbourShare(lit, street, 1), n6 = neighbourShare(lit, street, 6);
     console.log('    [measured] seed ' + String(seed).padStart(4) + '  ' + lit.size
       + ' lit of ' + street.size + ' (' + (100 * frac).toFixed(1) + '%)  '
-      + b.blobs + ' BLOBS, biggest ' + b.biggest
-      + '   neighbours lit r=1 ' + (100 * n1).toFixed(1) + '%  r=6 ' + (100 * n6).toFixed(1)
-      + '%  (global ' + (100 * frac).toFixed(1) + '%)');
+      + b.blobs + ' patches, biggest ' + b.biggest
+      + '   neighbours lit r=1 ' + (100 * n1).toFixed(1) + '%  r=6 ' + (100 * n6).toFixed(1) + '%');
     worstBlobs = Math.max(worstBlobs, b.blobs);
-    worstBiggest = Math.max(worstBiggest, b.biggest);
-
-    ok('seed ' + seed + ': the lit fraction obeys the law (' + (100 * frac).toFixed(1) + '%)',
-       frac >= 0.09 && frac <= 0.16);
-
-    /* *** THE TEST THAT MATTERS: past one feeder, is the light still clustered? *** */
-    ok('seed ' + seed + ': *** PAST ONE FEEDER THE LIGHT IS SCATTER, NOT CLUSTER ***',
-       Math.abs(n6 - frac) < 0.05,
+    bestBiggest = Math.max(bestBiggest, b.biggest);
+    ok('seed ' + seed + ': the lit fraction still obeys his 10-15% band ('
+       + (100 * frac).toFixed(1) + '%)', frac >= 0.09 && frac <= 0.16);
+    ok('seed ' + seed + ': *** PAST ONE FEEDER THE LIGHT IS CLUSTER, NOT SCATTER ***',
+       n6 > frac * 2,
        'r=6 share ' + (100 * n6).toFixed(1) + '% against a global ' + (100 * frac).toFixed(1)
-         + '% -- if these have separated, somebody clustered the grid and this gate must be re-aimed');
-    /* and the near clustering is exactly the feeder, which is a code artifact */
-    ok('seed ' + seed + ': the only clustering it has is the feeder\'s own six cells',
-       n1 > frac * 2 && n1 < 0.5);
+         + '% -- if these have converged the coin flip is back');
+    ok('seed ' + seed + ': and the near neighbourhood is lit too', n1 > frac * 3);
   });
-
-  ok('*** THE VALLEY\'S LIGHT IS IN OVER A HUNDRED SEPARATE PIECES ***',
-     worstBlobs > 100, worstBlobs + ' blobs');
-  ok('*** AND THE BIGGEST LIT THING IN LAS VEGAS IS UNDER TWENTY CELLS ***',
-     worstBiggest < 20, 'biggest ' + worstBiggest);
+  ok('*** THE LIGHT IS IN A HANDFUL OF PIECES, NOT A HUNDRED ***',
+     worstBlobs < 40, worstBlobs + ' patches');
+  ok('*** AND THERE IS A REAL CORE: THE BIGGEST LIT THING IS OVER SIXTY CELLS ***',
+     bestBiggest > 60, 'biggest ' + bestBiggest);
 });
 
-/* ---- C. WHICH IS WHY RULE 31'S FLOOR CANNOT BE DRAWN TODAY -------------- */
-section('C there is no core to pull back to', () => {
+/* ---- C. AND RULE 31'S FLOOR HAS SOMETHING TO PULL BACK TO NOW ------------ */
+section('C there is a core', () => {
   const rec = path.join(ROOT, 'records/BOHEMIA_DYNASTY_SCHOOL_THE_THREE_ACTS_AT_ONCE_ROUND_ONE_9_23_26.md');
   ok('DYNASTY\'s school round one is on disk and this is not second-hand', fs.existsSync(rec));
   if (fs.existsSync(rec)) {
-    const s = fs.readFileSync(rec, 'utf8');
+    const t = fs.readFileSync(rec, 'utf8');
     ok('and it really does say the floor is the power pulled back to a live core',
-       /PLANNED SHRINKAGE/i.test(s) && /live core/i.test(s));
-    ok('and that CLUSTERED POWER already decides which corridors are lit',
-       /CLUSTERED POWER is already\s+the law/i.test(s));
+       /PLANNED SHRINKAGE/i.test(t) && /live core/i.test(t));
   }
-  /* the measurement above is the answer to that sentence, held as one line */
-  const { lit } = litOf(1337);
-  const b = blobsOf(lit);
-  ok('*** AND IT DOES NOT: 178 PIECES IS NOT A CORE, SO THERE IS NOTHING TO PULL BACK TO ***',
-     b.blobs > 100 && b.biggest < 20, b.blobs + ' blobs, biggest ' + b.biggest);
+  const b = blobsOf(litOf(1337).lit);
+  console.log('    [measured] the core is ' + b.biggest + ' cells, of ' + b.blobs + ' patches');
+  ok('*** AND THERE IS NOW A CORE TO PULL BACK TO, which there was not on 9/24 ***',
+     b.blobs < 40 && b.biggest > 60, b.blobs + ' patches, biggest ' + b.biggest);
 });
 
-/* ---- D. THE LAW, BUILT, AND THE FIX IS SMALL ---------------------------- */
-section('D the law built makes a core with the same light', () => {
+/* ---- D. *** SAME LIGHT, DIFFERENT SHAPE, WHICH WAS THE WHOLE PROMISE *** -
+   This used to BUILD the law beside the shipped coin flip to show the fix was
+   small. The law IS the grid now, so the comparison flips: the clustered grid is
+   measured against what a coin flip at the same fraction would have lit. */
+section('D same light, different shape', () => {
   SEEDS.forEach(seed => {
     const { m, lit, street } = litOf(seed);
     const circuits = PG.buildCircuits(m, 96);
-    const law = clustered(circuits, seed, 0.12, 14);
-    const b = blobsOf(law);
-    const drift = Math.abs(law.size - lit.size) / lit.size;
-    console.log('    [measured] seed ' + String(seed).padStart(4) + '  his law: ' + law.size
-      + ' lit (' + (100 * law.size / street.size).toFixed(1) + '%), ' + b.blobs
-      + ' blobs, biggest ' + b.biggest + '   against ours ' + lit.size + ' / '
-      + blobsOf(lit).blobs + ' / ' + blobsOf(lit).biggest);
-
-    ok('seed ' + seed + ': *** SAME LIGHT (' + (100 * drift).toFixed(1) + '% apart), which is the whole claim ***',
-       drift < 0.10, 'if the clustered build is simply brighter it proves nothing');
-    ok('seed ' + seed + ': and it stays inside the law\'s own 10-15% band',
-       law.size / street.size >= 0.09 && law.size / street.size <= 0.16);
-    ok('seed ' + seed + ': *** AND IT IS A CORE: ' + b.blobs + ' pieces, biggest ' + b.biggest + ' ***',
-       b.blobs < 40 && b.biggest > 60);
+    const r = rnd((seed ^ 0x11FE) >>> 0);
+    let coin = 0;
+    for (let i = 0; i < circuits.length; i++) if (r() < 0.12) coin += circuits[i].length;
+    const drift = Math.abs(lit.size - coin) / coin;
+    console.log('    [measured] seed ' + String(seed).padStart(4) + '  clustered ' + lit.size
+      + ' lit against a coin flip\'s ' + coin + '  (' + (100 * drift).toFixed(1) + '% apart)');
+    ok('seed ' + seed + ': *** SAME LIGHT, WITHIN A TENTH ***', drift < 0.12,
+       'the promise was not one extra lamp');
+    ok('seed ' + seed + ': and inside his own 10-15% band',
+       lit.size / street.size >= 0.09 && lit.size / street.size <= 0.16);
   });
-
-  /* THE SOURCE COUNT IS DERIVED, NOT TUNED, and that is checkable: it is the
-     number of factions that can hold ground, so moving the roster moves it. */
-  /* AND MY FIRST VERSION OF THIS CHECK WAS WRONG IN THE FLATTERING DIRECTION:
-     it read graph.factions as an ARRAY and got undefined, so `undefined >= 14`
-     was false and the gate said the number was not derived when the real answer
-     is that I could not read the file. The graph is an OBJECT of 18 outfits, and
-     the number that matters is the 14 that can HOLD GROUND -- which the pockets
-     module already derives off that same graph, so ask it rather than count. */
-  const outfits = Object.keys(JSON.parse(fs.readFileSync(
-    path.join(ROOT, 'engine/BOHEMIA_faction_graph.json'), 'utf8')).factions).length;
   const holders = R('engine/bohemia_pockets.js').factions().length;
-  console.log('    [measured] ' + outfits + ' outfits in his graph, ' + holders
-    + ' of them can hold ground -- and the sources are one per holder');
-  ok('the source count comes off his own faction graph, so it is derived not typed',
-     holders === 14 && outfits > holders,
-     holders + ' holders of ' + outfits + ' outfits against 14 sources');
+  const src = fs.readFileSync(path.join(ROOT, 'engine/bohemia_powergrid.js'), 'utf8');
+  const dflt = (src.match(/opts\.litSources == null \? (\d+)/) || [])[1];
+  console.log('    [measured] ' + holders + ' factions can hold ground; the grid defaults to '
+    + dflt + ' sources');
+  ok('the default source count is the number of factions that can hold ground',
+     String(holders) === dflt);
+  ok('and a caller can ask for fewer, which is his "larger clusters" dial',
+     /litSources/.test(src));
+  /* NOT "never mentions it": the comment above the fix QUOTES the old line, which
+     is exactly right. What matters is that no LIVE statement does it, so the
+     check is anchored to real code indentation rather than to the words. */
+  ok('*** THE COIN FLIP IS GONE FROM THE MODULE ***',
+     !/\n\s{6}const live\s*=\s*r\(\)\s*<\s*litFraction/.test(src));
+  ok('and the grid grows clusters instead', /function growClusters/.test(src));
 });
 
 /* ---- E. RULE 29: THE COOK IS A THING DRAWN ------------------------------ */
@@ -277,13 +270,20 @@ section('E the cook is a thing drawn', () => {
   const mine = reg.items.filter(i => i.lane === 'world');
   const judged = (reg.verdicts || []).map(v => v.id);
   const open = mine.filter(i => judged.indexOf(i.id) < 0);
-  ok('*** EVERY UNJUDGED ITEM THIS LANE HAS IS A THING TO LOOK AT, NOT A PAGE ***',
-     open.length > 0 && open.every(i => i.show && i.show.how === 'image'),
+  /* AN EMPTY QUEUE IS A GOOD ANSWER, NOT A FAILURE. This demanded open.length > 0
+     and went red the round he judged everything this lane had waiting. What the
+     rule says is that no item of ours is a PAGE, which is true of none as much as
+     of five. */
+  console.log('    [measured] ' + open.length + ' of this lane\'s ' + mine.length
+    + ' items are still waiting on him');
+  ok('*** NO UNJUDGED ITEM THIS LANE HAS IS A PAGE (rule 29) ***',
+     open.every(i => i.show && i.show.how === 'image'),
      open.map(i => i.id + ':' + (i.show && i.show.how)).join(' '));
   ok('and this round\'s picture is registered', mine.some(i => /valley-at-night/.test(i.id)));
 });
 
 console.log('LIGHT CLUSTERS GATE: ' + pass + ' passed, ' + fail + ' failed'
-  + '  (his locked law says the light is in clusters and the grid rolls one coin'
-  + ' per feeder: 178 pieces, biggest 12, so rule 31 has no core to pull back to)');
+  + '  (HIS VOTE 9/27 turned this gate around: the grid grew clusters, so 178'
+  + ' patches with a biggest of 12 became 11 with a biggest of 104, on the same'
+  + ' number of lamps, and rule 31 has a core to pull back to)');
 process.exit(fail ? 1 : 0);

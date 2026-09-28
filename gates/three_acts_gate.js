@@ -175,20 +175,70 @@ section('6 a silent field is named, not zeroed', () => {
      full.unread.indexOf('territory') < 0);
 });
 
-/* ---- AND THE RULE THE ROW TURNS ON, CHECKED NOT TRUSTED ------------------ */
-section('* nothing decays below the start (rule 32b)', () => {
-  const d = F.derive(LAYOUT, {}, 3);
-  ok('*** ACT 3 IS NEVER UNDER ACT 1 ON ANY FIELD ***',
-     Object.keys(d.valley).every(k => d.valley[k] >= d.floor[k]));
-  /* and the refusal is real: a floor that cannot be met is named, not returned */
-  const bad = F.derive({ cells: 9216, lit: 10, standing: 5, people: 10 }, {}, 3);
-  ok('the derive returns a floor it can always meet', bad.ok === true);
-  const src = fs.readFileSync(path.join(ROOT, 'engine/bohemia_future.js'), 'utf8');
-  ok('and the rule is ENFORCED in the module, not just written in a comment',
-     /WOULD_DECAY_BELOW_THE_FLOOR/.test(src) && /THE_LINES_MOVED/.test(src));
+/* ---- *** THE RULE THE ROW TURNS ON WAS OVERTURNED, AND THIS SECTION WAS
+   GREEN FOR THE WRONG REASON. *** ----------------------------------------------
+   Rule 37(c) (Paolo 9/27, on his DOWN vote of THE SAME VALLEY, THREE ACTS): "the
+   future could get worse... a reflection of your past actions". The derive is
+   SIGNED and rule 32(b)'s "nothing decays below the start" is DEAD.
 
-  /* the content valve is his and ships empty */
-  ok('*** LOOKS SHIPS EMPTY -- what a poor valley and a rebuilt one look like is his ***',
+   AND WHEN I REMOVED THE FLOOR REFUSAL, THIS GATE STAYED GREEN. Its check was
+   /WOULD_DECAY_BELOW_THE_FLOOR/.test(src) -- and the replacement COMMENT says
+   "this used to return WOULD_DECAY_BELOW_THE_FLOOR", so the regex still matched
+   a constant that no longer exists. That is green over nothing, in my own gate,
+   of exactly the kind this lane keeps naming in other people's. The section now
+   proves the thing he ruled instead. --------------------------------------- */
+section('* the future goes BOTH ways (rule 37c)', () => {
+  /* *** AND MY FIRST TEST HERE WAS UNREAL AND THE NUMBERS SAID SO. *** It
+     demolished six buildings in a ledger that had built none, and act 3 came back
+     with standing -6 -- fewer than no buildings. The module was right and the
+     FIXTURE was nonsense: bohemia_century counts what the family put up and took
+     down, so a demolition needs something to have stood. A raiding past now
+     builds ten and tears six of them down, which is a thing that can happen. */
+  function past(built, razed) {
+    const c = C.make({ act: 1 });
+    for (let i = 0; i < built; i++) C.note(c, 'build', { type: 'home', x: i * 3, y: 1, w: 2, h: 2 }, i);
+    for (let i = 0; i < razed; i++) C.note(c, 'demolish', { type: 'home', x: i * 3, y: 1, w: 2, h: 2 }, 50 + i);
+    return c;
+  }
+  const raid = F.derive(LAYOUT, { century: past(10, 6) }, 3);
+  const idle = F.derive(LAYOUT, { century: past(10, 0) }, 3);
+  const build = F.derive(LAYOUT, { century: past(16, 0) }, 3);
+  console.log('    [measured] act 3 standing -- raiding past ' + raid.valley.standing
+    + ', doing nothing ' + idle.valley.standing + ', building past ' + build.valley.standing);
+
+  ok('*** A RAIDING PAST LEAVES A WORSE ACT 3 ***',
+     raid.valley.standing < idle.valley.standing, 'went ' + raid.went.standing);
+  ok('*** A BUILDING PAST LEAVES A BETTER ONE ***',
+     build.valley.standing > idle.valley.standing, 'went +' + build.went.standing);
+  ok('and the derive SAYS which way it went, so a caller can tell a ruin it caused'
+   + ' from a ruin it inherited',
+     raid.went.standing < idle.went.standing && build.went.standing > idle.went.standing);
+
+  /* *** AND THE HALF OF HIS RULING NOBODY CAN COUNT YET, NAMED NOT FAKED. *** */
+  ok('*** RAZING THE CITY THAT WAS ALREADY THERE IS UNREAD, BY NAME ***',
+     raid.unread.indexOf('razed') >= 0,
+     'his ruling names "the buildings that you destroyed"; homes() returns [] on a fresh valley');
+
+  /* THE OLD CLAMP IS GONE, and it was mine: the century ledger has always
+     returned `net` (built minus demolished) and a housing figure its own comment
+     says must be allowed to go negative, and this file read `.built` and clamped
+     housing to zero. */
+  const src = fs.readFileSync(path.join(ROOT, 'engine/bohemia_future.js'), 'utf8');
+  ok('*** THE FLOOR REFUSAL IS REALLY GONE, not just renamed ***',
+     !/return \{ ok: false, why: 'WOULD_DECAY_BELOW_THE_FLOOR'/.test(src),
+     'a comment mentioning it is fine; a live refusal is not');
+  ok('and the derive reads the SIGNED field, not the positive half',
+     /standing: \(by\.net \| 0\)/.test(src));
+  ok('and housing is carried whole, negative and all',
+     !/by\.housing > 0 \?/.test(src));
+
+  /* KEPT: the lines still do not move. His ruling is about what STANDS. */
+  ok('*** THE LINES STILL DO NOT MOVE, which his ruling did not touch ***',
+     /THE_LINES_MOVED/.test(src) && raid.valley.cells === LAYOUT.cells
+       && build.valley.cells === LAYOUT.cells);
+
+  /* the content valve is still his and still ships empty */
+  ok('LOOKS ships EMPTY -- what a poor valley and a rebuilt one look like is his',
      Object.keys(F.LOOKS).length === 0);
   ok('and asking answers NO_RULING by name while still handing back the numbers',
      (() => { const l = F.looksOf(LAYOUT, {}, 3);
