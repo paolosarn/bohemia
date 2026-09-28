@@ -100,6 +100,29 @@ honestly carries no named cut rather than a silently mismatched one.
     Ezekiel, AFTER descendantSpec            1 apart
     Perla, AFTER descendantSpec              2 apart
 
+## PROVED ON THE REAL SURFACE, NOT JUST IN A SCRIPTED EVALUATE
+Rule 8, "play it before you call it shipped." Drove the actual alpha with the one driver
+(tools/bohemia_drive_the_demo.js), through the front card, into RUN, pinched out to city
+view four times, and read the live `#actflip` strip inside the real CITY_WORLD.html iframe --
+the same file, same postMessage bridge, same everything a real phone runs. `FACE_CV` filled
+with all three ids within one pass and zero page errors. Forcing a repaint (`ctActFlipPaint()`,
+the exact call this row's own [three names] gate already makes for the same reason) shows all
+three tiles fully painted, 676 of 676 pixels each, and by eye at the real 26x26 size the three
+share the same pale skin and light hair colouring a family would.
+
+**A SECOND, PRE-EXISTING GAP FOUND WHILE PROVING IT, CHECKED AGAINST CLEAN MAIN, NOT MINE:**
+the very first paint after pinching out showed all three tiles BLANK, even though `FACE_CV`
+already held the answers. `ctActFlipPaint()`'s own comment says why: "painted here rather
+than on a clock of its own: one toggle, one paint, and nothing new ticks." The strip paints
+once when the phone panel opens, and the async face reply can land a beat after that single
+paint already ran, with nothing to trigger a second one until the NEXT event that happens to
+call `ctActFlipPaint()` (a flip, a reshuffle, the panel closing and reopening). Reproduced
+byte-for-byte identically on a clean origin/main checkout with the same driver script, before
+writing this down -- it is not a regression from this row's change, and it predates it: the
+old random-stranger rolls went through the exact same async round trip and would have shown
+the same blank-then-late-paint behaviour. Named for DYNASTY's [the flip] row, not touched
+here (ONE SYSTEM, ONE SESSION).
+
 ## AN HONEST GAP, NAMED RATHER THAN LEFT QUIET
 DYNASTY's roster (engine/bohemia_acts.js, [three names]) now lets him pick or reshuffle each
 act's sex and name. `ctFaceReads('act2'/'act3')` in CITY_WORLD.html still resolves to
