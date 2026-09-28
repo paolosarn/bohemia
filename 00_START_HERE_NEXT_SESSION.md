@@ -1,3 +1,101 @@
+COOK (cook-mce6r5): 9/28 (b) LATEST -- *** A HOUSE IS ONE TILE, HIS CORRECTION, DRAWN THREE
+WAYS. AND MEASURING THE BOARD FIRST FOUND THE ROUND: THE FIGHT DRAWS A HOUSE AT 16 PIXELS PER
+METRE AND THE WALK'S ART THAT IS SUPPOSED TO DRESS IT IS 43. THEY ARE 2.6 TIMES APART. ***
+TAB: the VOTE tab in the alpha, item A HOUSE IS ONE TILE. Record
+records/COOK_A_HOUSE_IS_ONE_TILE_9_28_26.md. Bank banks/BOHEMIA_THE_HOUSE_TILE_9_28_26.txt.
+
+[tile options] round 2. His words, correcting the coordinator the same hour: "in combat the
+boards and the tiles are like big as a city like parts of the city LIKE A HOUSE IS ONE TILE and
+I've told you this millions of times." Round 1 of this row drew a block out of one-metre tiles.
+That was the exploration walk's scale and the walk is dead. Same question, right size.
+
+*** THE MEASUREMENT THAT IS THE ROUND ***
+COMBAT's live board, read out of their own gate (no_atari_gate.js, asserted 10/0) instead of
+guessed: a tile is 12 metres, the man is 112 px at full detail, TILE_WIDE is 1.75, so a tile is
+196 px. THAT IS 16.3 PIXELS PER METRE. The walk's banks that rule 38e says dress it are 42.9
+px per metre (measured last round off three sprites his own bank places, each with a real size).
+THEY ARE 2.6 TIMES APART. His words are "all the assets we were creating for the zoomed-in walk,
+even the sidewalk, are going to be used for the combat" -- and they cannot be PASTED on: his
+kerb arrives two and a half times too big, and shrinking it to fit throws away 62% of the pixels
+he had just finished saying never to throw away. THE ATARI COMPLAINT ARRIVING FROM THE OTHER
+DIRECTION, and nobody had put the number on it. So every tile here is DRAWN at his street's
+density (515 px for 12 m) and SHOWN at the board's (196 px): the art keeps its pixels whatever
+the board does with them, which is the only arrangement where "no Atari" and "a tile is a house"
+are both true at once.
+
+THE THREE OPTIONS, each one house tile and one street tile, all his art:
+  A  DOWN AT AN ANGLE, ROOFS ON   TG-02 (roof planes first, then the front face); BB's own
+                                  camera, and the one that makes rule 37g's "a building with
+                                  the roof that you can be on" work.
+  B  STRAIGHT DOWN                roof planes and the yard ring from straight overhead.
+  C  ACROSS                       the house front fills the tile, his 7/28 street's look.
+Each with FOUR TILES AT BOARD SIZE and the 112 man standing on one, because a tile means
+nothing until you see the figure on it; one of the four has its roof gone so the slab shows.
+
+THE STREET TILE IS A WHOLE STREET, MEASURED: at 12 m across, two 3.5 m lanes, a kerb and a 2 m
+sidewalk each side. His road tiles, his sidewalk tiles, his own walk_kerb on both sides, flipped
+on the far one so the lit lip faces the road (the sun is north-west). TG-04: the kerb is the
+street tile's strongest edge.
+
+THE MAN IS DRAWN 3.9 TIMES LIFE SIZE ON HIS OWN SQUARE: 112 px on a 196 px tile is 57% of it,
+where a 1.75 m man on a 12 m house lot is really 15%. That is the board-game convention and it
+is how Battle Brothers looks; it is COMBAT's number, not this lane's, and it is on the card in
+those words so he can knock it down if it reads wrong. (I wrote that guard expecting the man to
+be TALLER than a tile is wide and it fired, because he is not. The guard checks what is actually
+true now and reports the exaggeration instead of asserting a direction I had guessed.)
+
+*** FLAGGED, NOT FIXED, FOR COMBAT AND PLUMBER: TWO LIVE FILES CARRY OPPOSITE RULES. ***
+engine/bohemia_combatfloor.js refuses any plan whose tile is 112 px or more ("a tile at or above
+the sprite is a zoom IN, which is the opposite of the ruling") and the fight draws 196. The
+fight does not call that floor today (only the city world does), so nothing is broken right now,
+but a contradiction between two live files is a bug and not a reading (the truth hierarchy).
+
+I WROTE THE SAME BUG TWICE AND ONLY LOOKING CAUGHT IT BOTH TIMES. Last round the shadow pass
+picked its ramp by ROW, so a grey concrete floor came out tan. This round the first cut did it
+from the other end: it snapped the darkened pixel to the nearest entry across EVERY ramp at
+once, so his terracotta roof, shaded, landed on CONCRETE GREY and the far roof plane came out as
+a grey band lying on an orange roof. Same fault, new disguise, green guards both times. A shadow
+darkens WITHIN ITS OWN FAMILY, and the family is found per colour now.
+
+AND THE FIRST CUT OF THIS ROUND WAS NOT DRESSED WITH HIS ART AT ALL. It drew flat rectangles in
+his PALETTE and called that dressing. His colours are not his art, and that is the same fault as
+last round's re-authoring wearing different clothes. Every surface is his own tiles now, repeated
+with a variant rotation and a per-tile roll (a roll cannot add a colour or move the light,
+because it is a translation). Material repeating every metre is not wallpaper, it is what
+material does. A guard also caught two houses coming out byte-identical, because the seed reached
+the roll but not the variant choice.
+
+GUARDS, EACH REFUSES THE RUN: no atari (42.9 px/m, his own densest reading, re-derived from his
+sprites at run time); a tile is a house (12 m, the house ~11 of it, the yard the margin, TG-01);
+every pixel is his; the man reads as a figure on a square and the exaggeration is measured;
+nothing is stamped.
+
+HANDED OVER.
+- COMBAT [fight on the grid]: the 2.6x density gap, the 196-vs-112 contradiction between your
+  gate and the combat floor, and three cameras ready to judge. The tile art is in the bank at
+  515 px so the board can draw it at any size without inventing detail.
+- DIRECTION [judge tile options]: three cameras at one house per tile, against his vote.
+- WORLD [tile options]: the street tile's real measurements (2 lanes 3.5 m, kerb, 2 m walks).
+
+[bb the overworld is battle brothers] reference/library/battle_brothers/02_COMBAT_RULES.md, the
+BOARD line: "hex tiles with height levels; a fight is generated from the map terrain where it
+happens." BB's board tile is a piece of ground a man stands on and its art is QUIETER than the
+man on purpose: the figure is what you read, the tile is what you plan on. That is why the man
+being four times life size on his square is correct here and not a defect. WHERE BB IS A STILL
+AND WE MOVE (33g): BB's tile is flat ground with a marker of height, set before anybody steps on
+it; ours is a HOUSE, so its height is a roof you climb onto (37g, his own up-vote) and the tile
+has to say from above whether that roof is still there while a camera moves over it.
+
+NEXT IN THIS LANE: [bb map art] round 3, the map re-cooked at his density. All three of this
+lane's down-votes are map art and he has said it three times now.
+
+STILL OPEN, UNCHANGED: the boot's heel question on the WHICH WAY IS HE FACING card. Landmarks
+still undrawn: luxor, springs, robofactory. Flagged to PLUMBER: the pages publish gate fails on
+clean main, 283 MB against its own 260 MB cap; and two pushes this round had their deploys
+cancelled by the push storm, which the workflow's own comment already documents.
+
+------------------------------------------------------------------------
+
 QUESTS (quests-dvybth): 9/28 (c) LATEST -- *** ROUND FOUR: THE WHOLE LIBRARY IS CITABLE (5,356 ids from 236
 studies, was 3,672 from 152), SIEGES, AND 36 SITUATIONS THAT WRITE A BASE'S BOARD. *** NOT IN A TAB (rule 35).
 Record: records/BOHEMIA_QUESTS_ROUND_FOUR_THE_WHOLE_LIBRARY_9_28_26.md. Library 19 pages, 150 designs;
