@@ -2652,45 +2652,99 @@
    },
    "sha": "d8d1d37"
   },
-   {
-    "id": "cook-what-a-good-tile-looks-like-9-28",
-    "kind": "tile",
-    "lane": "cook",
-    "sha": "8b97875b",
-    "made": "9/28",
-    "title": "WHAT A GOOD TILE LOOKS LIKE",
-    "why": "You said show you options before the grid, so here is one block three ways, all built out of your own art. Same house, same yard, same road, same car in all three. The only thing that changes is where you are standing when you look at it. A is your 7/28 street exactly as you approved it, looking across. B is the same block with its roofs on, looking down at an angle, which is how Battle Brothers looks at its world. C is the same block roofless, looking straight down, which is what you need to fight inside a house. Under each one is a house tile and a street tile blown up four times so you can count the pixels yourself. NOW THE PART THAT MATTERS. You said everything has to be as many pixels as the zoomed-in roaming art. I went looking for that number and it is not written down anywhere, so I measured it off your own picture. Your bank records where every sprite stands, in tiles, and three of them have a real size: your person is 1.54 tiles tall, your car is 4.36 tiles long, your door is 2 tiles tall. All three say a tile in your street is about ONE METRE and your art is about 39 to 43 pixels per metre. Nothing on this page is drawn below that and the checker refuses if it ever is. AND YOU WERE RIGHT ABOUT THE THIN STUFF, EXACTLY RIGHT. The person in that road party I drew is 9 pixels tall with 28 lit pixels in his whole body, which is 5 pixels per metre. Yours is 67 pixels tall. That is eight times the pixels and the card puts them side by side at the same size so you can see it. But here is the thing worth knowing: all three things you killed are MAP art. The tiles were never the thin ones. The map is, and that is the same thing you told us about the Battle Brothers map back on the 24th. Pick A, B or C and I build the block out at that camera. Say none of them and tell me what you want to be looking at.",
-    "show": {
-     "how": "image",
-     "src": "vote/COOK_WHAT_A_GOOD_TILE_LOOKS_LIKE.png"
-    }
-   },
-   {
-     "id": "people-a-stranger-gets-the-worst-work-9-28",
-     "kind": "tile",
-     "lane": "people",
-     "sha": "c90f634",
-     "made": "9/28",
-     "title": "A STRANGER GETS THE WORST WORK",
-     "why": "A stranger standing at a real business still only gets scavenging work. Somebody who has done favors for the outfit running that block gets the real job. Same street, same corner, same minute in both pictures, from the game's own camera. Is this the right feeling for the first job you're ever offered?",
-     "show": {
-       "how": "page",
-       "src": "BOHEMIA_A_STRANGER_GETS_THE_WORST_WORK_9_28_26.html"
-     }
-   },
- {
-  "id": "character-the-attachments-trade-9-28",
-  "kind": "outfit",
-  "lane": "character",
-  "sha": "pending",
-  "made": "9/28",
-  "title": "ARMOUR ATTACHMENTS, THE FIRST ONE",
-  "why": "You said you want to customize armor with attachments. I checked our closet first: a cloak and a padded vest were already in there under other names, nobody just called them attachments yet. The one thing missing was a spiked shoulder guard, so that is the one I built. Watch the guy on the right, he is wearing a cloak he already had plus the new spikes, walking. The other guy is wearing the padding. No numbers are attached to any of this yet, that part is a different job. Thumbs up and the spike joins the wardrobe for real. Thumbs down and tell me if the spikes are too small or in the wrong place.",
-  "show": {
-   "how": "page",
-   "src": "vote/CHARACTER_THE_ATTACHMENTS_TRADE.html"
+  {
+   "id": "cook-what-a-good-tile-looks-like-9-28",
+   "kind": "tile",
+   "lane": "cook",
+   "sha": "8b97875b",
+   "made": "9/28",
+   "title": "WHAT A GOOD TILE LOOKS LIKE",
+   "why": "You said show you options before the grid, so here is one block three ways, all built out of your own art. Same house, same yard, same road, same car in all three. The only thing that changes is where you are standing when you look at it. A is your 7/28 street exactly as you approved it, looking across. B is the same block with its roofs on, looking down at an angle, which is how Battle Brothers looks at its world. C is the same block roofless, looking straight down, which is what you need to fight inside a house. Under each one is a house tile and a street tile blown up four times so you can count the pixels yourself. NOW THE PART THAT MATTERS. You said everything has to be as many pixels as the zoomed-in roaming art. I went looking for that number and it is not written down anywhere, so I measured it off your own picture. Your bank records where every sprite stands, in tiles, and three of them have a real size: your person is 1.54 tiles tall, your car is 4.36 tiles long, your door is 2 tiles tall. All three say a tile in your street is about ONE METRE and your art is about 39 to 43 pixels per metre. Nothing on this page is drawn below that and the checker refuses if it ever is. AND YOU WERE RIGHT ABOUT THE THIN STUFF, EXACTLY RIGHT. The person in that road party I drew is 9 pixels tall with 28 lit pixels in his whole body, which is 5 pixels per metre. Yours is 67 pixels tall. That is eight times the pixels and the card puts them side by side at the same size so you can see it. But here is the thing worth knowing: all three things you killed are MAP art. The tiles were never the thin ones. The map is, and that is the same thing you told us about the Battle Brothers map back on the 24th. Pick A, B or C and I build the block out at that camera. Say none of them and tell me what you want to be looking at.",
+   "show": {
+    "how": "image",
+    "src": "vote/COOK_WHAT_A_GOOD_TILE_LOOKS_LIKE.png"
+   }
+  },
+  {
+   "id": "people-a-stranger-gets-the-worst-work-9-28",
+   "kind": "tile",
+   "lane": "people",
+   "sha": "c90f634",
+   "made": "9/28",
+   "title": "A STRANGER GETS THE WORST WORK",
+   "why": "A stranger standing at a real business still only gets scavenging work. Somebody who has done favors for the outfit running that block gets the real job. Same street, same corner, same minute in both pictures, from the game's own camera. Is this the right feeling for the first job you're ever offered?",
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_A_STRANGER_GETS_THE_WORST_WORK_9_28_26.html"
+   }
+  },
+  {
+   "id": "character-the-attachments-trade-9-28",
+   "kind": "outfit",
+   "lane": "character",
+   "sha": "pending",
+   "made": "9/28",
+   "title": "ARMOUR ATTACHMENTS, THE FIRST ONE",
+   "why": "You said you want to customize armor with attachments. I checked our closet first: a cloak and a padded vest were already in there under other names, nobody just called them attachments yet. The one thing missing was a spiked shoulder guard, so that is the one I built. Watch the guy on the right, he is wearing a cloak he already had plus the new spikes, walking. The other guy is wearing the padding. No numbers are attached to any of this yet, that part is a different job. Thumbs up and the spike joins the wardrobe for real. Thumbs down and tell me if the spikes are too small or in the wrong place.",
+   "show": {
+    "how": "page",
+    "src": "vote/CHARACTER_THE_ATTACHMENTS_TRADE.html"
+   }
+  },
+  {
+   "id": "sounds-a-footstep-that-is-not-glass-9-28",
+   "kind": "sound",
+   "lane": "sounds",
+   "sha": "PENDING",
+   "made": "9/28",
+   "title": "A FOOTSTEP THAT IS NOT GLASS",
+   "why": "You said the last footstep had the reverb of a glass jar. You were right and I found exactly why: three high pure tones I made up (I never had real numbers for a shoe, and I said so at the time) were carrying a third of the whole sound's energy. Three clean tones ringing together is the textbook recipe for a chime, not a footstep. I deleted them. What is left is the real physics: the contact click and the grit, both already broadband on their own, with nothing invented layered on top. Same three options as before, same page, so you can hear the difference directly against what you rejected.",
+   "options": [
+    "A, the one you called sand, unchanged",
+    "B, concrete",
+    "C, asphalt"
+   ],
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_A_FOOTSTEP_THAT_IS_NOT_SAND_9_24_26.html"
+   }
+  },
+  {
+   "id": "sounds-the-deck-does-not-ring-9-28",
+   "kind": "sound",
+   "lane": "sounds",
+   "sha": "PENDING",
+   "made": "9/28",
+   "title": "THE DECK DOES NOT RING",
+   "why": "You voted this down with no note, but you also killed the flip that shares its knock the same round and said why: you hated the noises. Measured, the knock was ringing a single clean 493 Hz tone for 32 milliseconds, and that one pitch alone carried 56% of the sound. That is a wine glass being tapped, not a plastic shell. The shell is held in a hand and seated in a machine, so it cannot ring free the way the number I picked let it; I raised how much energy it loses per cycle and now it rings for about 3 milliseconds, in the same range as a real footstep's own ground contact. Same page, same three options.",
+   "options": [
+    "A, the whole deck",
+    "B, just the machine, no song",
+    "C, a worn-out deck"
+   ],
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_THE_DECK_AND_THE_FLIP_9_27_26.html"
+   }
+  },
+  {
+   "id": "sounds-the-flip-is-a-knock-not-a-chime-9-28",
+   "kind": "sound",
+   "lane": "sounds",
+   "sha": "PENDING",
+   "made": "9/28",
+   "title": "THE FLIP IS A KNOCK, NOT A CHIME",
+   "why": "You said you hated all these noises. Same shell as the deck above and the same fix: it was ringing one clean pitch for 32 milliseconds, carrying 56% of the sound by itself, because I let a plastic shell ring almost as freely as a struck bell. A shell in your hand is not a bell. It is now damped the way holding it and seating it in a machine actually damps it, so the ring is about 3 milliseconds, a knock you feel rather than a note you hear. You will hear this one hundreds of times if it lands, so it had to stop sounding like a chime. Same page, same three options.",
+   "options": [
+    "A, the shell seats and the machine takes it",
+    "B, one knock",
+    "C, the old one comes out first"
+   ],
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_THE_DECK_AND_THE_FLIP_9_27_26.html"
+   }
   }
- }
  ],
  "verdicts": [
   {

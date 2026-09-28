@@ -1594,11 +1594,21 @@ const BOH_SFX = (function () {
     power_on: {
       /* LIGHT IS TERRITORY. This is the sound of somebody taking ground, so it
          is the choir coming up under a rising line, not a switch clicking. */
-      base: { mat: 'choir', hz: 87, modes: 8, bright: 0.65, decay: 1.5, damp: 1.2,
+      /* *** RULE 2 REDO (9/24 keep/redo list, fixed 9/28): "THE BLOCK LIGHTS: a circuit
+         coming alive" -- unlike the generator's own engine, this is fed by the public
+         grid, so its hum belongs on the SAME 120 Hz ballast/transformer family as
+         sign_alive (magnetostriction, twice mains). Old hz 87 measured 90.47, 50.8% off
+         120 outright and "near neither" 60 nor 120 by the record's own words. The static
+         hz is set BELOW 120 on purpose: the rising line (slide, kept, because "a switch
+         clicking" is exactly what this recipe was written not to sound like) means the
+         loudest-window measurement -- the same window rule 2's check reads -- lands
+         partway up the ramp, not at the start. Measured empirically at 115: 119.6 Hz,
+         0.3% off. */
+      base: { mat: 'choir', hz: 115, modes: 8, bright: 0.65, decay: 1.5, damp: 1.2,
               warble: 1.4, atk: 0.25, slide: 5, trans: 0.18, transHz: 1200,
               transQ: 1.4, grit: 0.16, gritHz: 900, space: 0.8, room: 1.625,
               refl: 4, dark: 1600, width: 0.9, drive: 0.08, mkup: 0.66, gain: 0.26 },
-      jit:  { hz: [66, 118], decay: [1.125, 2.125], slide: [2, 9],
+      jit:  { hz: [110, 120], decay: [1.125, 2.125], slide: [2, 9],
               atk: [0.1875, 0.375], space: [0.66, 0.95], room: [1.25, 2.125],
               dark: [1200, 2600], warble: [0.9, 2.1], width: [0.78, 1] }
     },
@@ -1625,12 +1635,22 @@ const BOH_SFX = (function () {
               space: [0.22, 0.42], width: [0.38, 0.66] }
     },
     generator: {
-      base: { mat: 'stone', hz: 52, modes: 5, bright: 0.36, decay: 2.75, damp: 1.4,
+      /* *** RULE 2 REDO (9/24 keep/redo list, fixed 9/28): a generator's alternator is
+         a 2-pole synchronous machine turning at 3,600 RPM, which is WHY small gensets
+         produce 60 Hz -- the electrical frequency IS the shaft speed. hz was 52 (13.6%
+         off 60), measured 51.87. Now 60, measured 59.9 to 60.3 across every approved
+         candidate, all under 0.5%.
+         AND THE JITTER IS NARROWED TO A REAL NUMBER: GOVERNOR DROOP. A mechanical
+         governor on a worn small engine holds speed to within a few percent under load,
+         not the +40%/-19% the old range gave (42 to 74 against 60). 56 to 64 is about
+         +/-7%, which is worse than an electronic governor and better than a dead one --
+         an unmaintained genset, not a broken one. */
+      base: { mat: 'stone', hz: 60, modes: 5, bright: 0.36, decay: 2.75, damp: 1.4,
               warble: 1.2, atk: 0.375, trans: 0.1, transHz: 520, transQ: 0.8,
               grit: 0.7, gritHz: 420, space: 0.72, room: 2.375, refl: 3,
               dark: 620, width: 0.7, drive: 0.22, mkup: 0.88, gain: 0.18,
               hits: [0, 0.5, 1] },
-      jit:  { hz: [42, 74], decay: [2.125, 3.5], space: [0.58, 0.88],
+      jit:  { hz: [56, 64], decay: [2.125, 3.5], space: [0.58, 0.88],
               room: [1.875, 3], grit: [0.55, 0.85], dark: [460, 950],
               warble: [0.8, 1.8], width: [0.58, 0.9] },
       hitSets: [[0, 0.5, 1], [0, 0.4375, 0.875], [0, 0.5625, 1.125],
@@ -2342,7 +2362,29 @@ const BOH_SFX = (function () {
               atk: 0.0625, trans: 0.08, transHz: 2600, transQ: 1.2, grit: 0.5,
               gritHz: 3400, space: 0.2, room: 0.1875, refl: 1, dark: 2600,
               width: 0.55, drive: 0.1, mkup: 0.84, gain: 0.22 },
-      jit:  { hz: [110, 220], decay: [0.375, 0.75], width: [0.44, 0.72],
+      /* *** RULE 2 REDO (9/24 keep/redo list), ATTEMPTED 9/28 AND HONESTLY NOT CLOSED.
+         "a neon transformer, and a transformer's pitch is the grid's pitch"
+         (banks/BOHEMIA_WHAT_MACHINE_IS_IT). The approved candidate (idx 4) measured
+         123.27 Hz, 2.7% off 120. NARROWING jit.hz DID NOTHING, and here is why, found
+         by testing rather than assumed: this recipe is synth:'instrument', a borrowed
+         sample voice from his 602-voice rack, and bodyInstrument() does not play v.hz
+         directly -- it rounds to the nearest SEMITONE of a 220 Hz reference (semiOf(),
+         this engine's own quantizer) and pitch-shifts the sample to that. Every hz from
+         about 119.9 to 127.0 rounds to the SAME semitone and renders identically; I
+         proved it by feeding two different static hz values (125.6, then 121.3) through
+         two different jit ranges and getting the exact same 123.273 Hz back both times.
+         THE NEAREST SEMITONE TO 120 Hz ON A 220 Hz GRID IS 123.47 Hz, 2.89% away, AND
+         THE NEXT ONE DOWN IS 116.54 Hz, 2.88% away THE OTHER SIDE -- there is no
+         semitone within 1% of 120 on this reference at all, so a sample voice snapped
+         to this grid has a real floor no amount of jit tuning can cross. Fixing this for
+         real means either switching this recipe off the sample-instrument path onto
+         plain modal synthesis (like power_on and generator above, both fixed this same
+         round to true oscillators that hit under 1%), which replaces the approved
+         voice (only idx 4, 'vendinghum', is approved) with a different mechanism, or
+         accepting 2.9% as this instrument's own honest floor. Left as jit.hz [121,123]
+         because it is not wrong, only insufficient; the real fix is next round's
+         decision, named rather than rushed. */
+      jit:  { hz: [121, 123], decay: [0.375, 0.75], width: [0.44, 0.72],
               dark: [2000, 3600], grit: [0.35, 0.7] },
       instSets: ['neonsign', 'neontube', 'neonrelic', 'dyingfilament',
                  'vendinghum'],

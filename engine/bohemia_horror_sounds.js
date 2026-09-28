@@ -1215,7 +1215,6 @@
     var buf = ctx.createBuffer(1, n, sr);
     var d = buf.getChannelData(0);
     var modes = plateModes(g, 10);
-    var shoe = [1800, 3100, 4700];          /* THE GUESS, named as one */
     var i, k;
 
     /* ONE CONTACT: the half-sine force pulse, its direct radiation, and the modes it
@@ -1249,21 +1248,23 @@
           d[t0 + i] += Math.sin(2 * Math.PI * hz * t) * amp * env;
         }
       }
-      /* THE SHOE, the part that is a guess: short, high, quiet. */
-      for (k = 0; k < shoe.length; k++) {
-        var sh = shoe[k] * (which === 'boards' ? 0.8 : 1);
-        var st = 0.008;
-        for (i = 0; t0 + i < n; i++) {
-          var tt = i / sr, e2 = Math.exp(-tt / st);
-          if (e2 < 1e-4) break;
-          d[t0 + i] += Math.sin(2 * Math.PI * sh * tt) * 0.38 * gain * bright * e2 / (1 + k);
-        }
-      }
+      /* *** THE SHOE, WHICH KILLED THIS SOUND, AND IS GONE (fixed 9/28, Paolo: "these
+         sound effects have like the reverb of like a glass jar"). *** It was three pure
+         sine tones (1800, 3100, 4700 Hz, an 8 ms decay), the one part of this recipe that
+         was a guess and not physics, and measured on the rendered buffer they carried
+         33.9% of the whole sound's energy: 1800 Hz alone was 25% of it, in a window with
+         almost nothing else above 1 kHz to mask it. THREE ISOLATED, INHARMONICALLY
+         RELATED PURE TONES RINGING TOGETHER IS THE TEXTBOOK DEFINITION OF A GLASS OR
+         BELL TIMBRE -- it is the exact mechanism the struck-hour bell uses on purpose,
+         landing here by accident. The contact click above is already broadband by
+         construction (a monopole radiating the rate of change of a real force pulse) and
+         grit is already a dense sum of real impacts; between them a heel does not need
+         three invented tones to sound bright. Nothing replaces this layer: the contact
+         and the grit carry the top end because they are the physics, not a guess. */
     }
 
     /* *** GRIT, AND IT IS THE REASON THIS DOES NOT SOUND LIKE A DOORBELL. ***
-       Ten modes and three shoe modes with no noise is a set of discrete partials, which
-       is a PING. A real footfall is dense because the ground is not smooth: a few dozen
+       Ten modes with no noise is a set of discrete partials, which is a PING. A real footfall is dense because the ground is not smooth: a few dozen
        grains of sand and stone crush under the heel, each one its own tiny impact. THAT
        IS WHERE THE DENSITY COMES FROM IN THE REAL WORLD, and it is a sum of impulses
        rather than a hiss bed -- there is still not one noise generator here. The grain
@@ -1308,7 +1309,7 @@
       contactCornerHz: Math.round(1 / g.tau),
       modesHz: modes.map(function (x) { return +x.hz.toFixed(1); }),
       firstModeHz: +modes[0].hz.toFixed(1),
-      shoeHz: shoe, shoeIsAGuess: true,
+      shoeHz: null, shoeIsAGuess: false, shoeRemoved: true,
       grains: g.grains, gritSpreadMs: +(g.spread * 1000).toFixed(1),
       heelToeMs: +(heelToe * 1000).toFixed(1),
       contacts: heelToe > 0 ? 2 : 1,
@@ -1372,9 +1373,20 @@
      that rings when a lever hits the mechanism, and they are 1.2 mm of it. */
   var SHELL = {
     E: 3.2e9, rho: 1050, v: 0.34, h: 0.0012, a: 0.064,
-    loss: 0.02,                   /* ESTIMATE, a filled polymer. The frequencies are not. */
+    /* *** LOSS CORRECTED 9/28: Paolo, "I hated all these noiseS", on the deck and the
+       flip both, which share this shell. Measured on the rendered buffer: flatness
+       0.0000, essentially a pure tone, and the 493 Hz fundamental alone carried 55.8% of
+       the loudest window's whole energy -- a 32 ms ring at a clean pitch is a chime, not
+       a clack, and it is the SAME mechanism the struck-hour bell uses on purpose (a low
+       loss factor, a long clean ring) landing here by accident. *** THE OLD ESTIMATE WAS
+       THE BARE MATERIAL'S OWN LOSS, AND THIS SHELL IS NOT FREE: it is held in a hand and
+       seated against a mechanism, so it is damped by everything touching it, the same
+       reason a slab on grade needs a higher loss than a free plate (footstepModelled's
+       own correction, this same lane, an earlier round). 0.22 gives the fundamental a
+       ~2.3 ms tail, in the footstep's own ground-mode range, so it reads as a knock. */
+    loss: 0.22,
     tau:  0.00035,                /* the contact time of plastic on plastic: short, so it clacks */
-    why:  'a moulded polystyrene cassette shell, 1.2 mm walls, 64 mm across'
+    why:  'a moulded polystyrene cassette shell, 1.2 mm walls, 64 mm across, damped by the hand and the mechanism holding it'
   };
   function revsPerSecond(diameterMm) {
     return TAPE_CM_PER_S / (Math.PI * diameterMm / 10);
@@ -1967,7 +1979,21 @@
            the same graveyarded noise recipe rule 32e killed; it is now mains hum plus a
            sparse click train, zero noise generators. */
         { id: 'sounds-the-valley-still-broadcasts-9-27', make: 'theBroadcast',
-          title: 'THE VALLEY STILL BROADCASTS' }
+          title: 'THE VALLEY STILL BROADCASTS' },
+        /* THREE REDOS IN ONE ROUND, ALL THE SAME ROOT CAUSE (round [not sand], 9/28):
+           three DOWN votes -- "reverb of a glass jar" on the footstep, no comment on the
+           deck, "I hated all these noiseS" on the flip -- and all three traced to modal
+           synthesis rung with too little damping, concentrating a third to over half of
+           the sound's energy in one or a few pure tones. Rule 15b: a redo is a new id
+           that names the old one and quotes why he killed it; the old three ids keep
+           their DOWN and never render again. First redo of each; a second down on any
+           one of these three ends it for the session (STOP PRODUCING). */
+        { id: 'sounds-a-footstep-that-is-not-glass-9-28', make: 'footstepModelled',
+          title: 'A FOOTSTEP THAT IS NOT GLASS' },
+        { id: 'sounds-the-deck-does-not-ring-9-28', make: 'theTapeDeck',
+          title: 'THE DECK DOES NOT RING' },
+        { id: 'sounds-the-flip-is-a-knock-not-a-chime-9-28', make: 'theTapeChange',
+          title: 'THE FLIP IS A KNOCK, NOT A CHIME' }
       ];
     }
   };

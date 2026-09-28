@@ -1326,13 +1326,24 @@ const MEASURE = `
         T.clacks === 2 && T.clackGapMs > 20 && T.clackGapMs < 120,
         'the lever, then the head assembly and the roller arriving ' + T.clackGapMs
         + ' ms later. The gap is the part that says machine');
+      /* THE RING TIME WINDOW MOVED THIS ROUND, AND THE REASON IS PAOLO'S OWN WORDS.
+         The old bound (10 to 80 ms) matched loss 0.02, the bare material's own figure.
+         Measured on the rendered buffer: flatness 0.0000, a near-pure tone, and 493 Hz
+         alone carried 55.8% of the loudest window -- "I hated all these noiseS" on both
+         the deck and the flip that share this shell. A shell held in a hand and seated
+         against a mechanism is not a free plate (the footstep's own slab-on-grade
+         correction, reused rather than re-argued), so loss is now 0.22 and the
+         fundamental rings 2 to 4 ms, the same range the footstep's own ground modes sit
+         in (0.4 to 3.5 ms). 493 Hz's share of the loudest window fell to 15.9%, close to
+         the footstep's own peak-bin share (11.9%) on the fix Paolo has not yet objected
+         to. */
       claim('AND THE KNOCK IS THE SHELL\'S OWN PLATE MODES, off the footstep\'s own function',
         T.shellModeCount >= 8 && T.shellLowestHz > 300 && T.shellLowestHz < 800
-          && T.shellRingMs > 10 && T.shellRingMs < 80,
+          && T.shellRingMs > 1 && T.shellRingMs < 10,
         'polystyrene, 1.2 mm walls, 64 mm across: lowest mode ' + Math.round(T.shellLowestHz)
-        + ' Hz ringing ' + T.shellRingMs.toFixed(1) + ' ms over ' + T.shellModeCount
-        + ' modes. Published E, rho and v; the loss factor is an engineering estimate and the '
-        + 'recipe says so on its face');
+        + ' Hz ringing ' + T.shellRingMs.toFixed(2) + ' ms over ' + T.shellModeCount
+        + ' modes. Published E, rho and v; the loss factor is a damped-in-mounting estimate '
+        + 'and the recipe says so on its face');
       claim('THE SONG IS AUDIBLE UNDER THE CLUNK, and the machine-only option really has no song',
         T.songRms > 0.03 && T.clunkRms > 0 && T.deckHasProgramme === true
           && T.machineHasProgramme === false,
