@@ -13,13 +13,26 @@ door sits a neighbour in a Balenciaga puffer, smoking, with two phones on her kn
 the dark door. She is not looking at the window. She is very much not looking at it.
 
 ## THE PERSON AND THE FIRST LINE
-MARISOL DE LEÓN (name Paolo's), the neighbour. She speaks only when tapped; if the player just walks the
-row, she says one line to her phone as he passes (overheard, not addressed): "Tres días, the light."
+MARISOL DE LEÓN (name Paolo's), the neighbour. She speaks only when tapped; if the player opens the row's settlement screen and taps nothing, one line is overheard
+under the screen's sound, to her phone (not addressed): "Tres días, the light."
 FIRST LINE when tapped (FL10, the change in habit): "Mr. Okafor used to put his TV on at six. Every day.
 He stopped."
 THE TERMS: "Breaker box is inside the door, left side. Throw it, look in on him, come tell me. One
 electricity from me when his light's on."
 WITHHELD: she stopped paying his share for him two weeks ago, when her own went up.
+
+## THE SETTLEMENT AND THE OFFER SCREEN
+(Added 9/28, Paolo's ruling: contracts are the Battle Brothers settlement contract screen. records/BOHEMIA_PAOLO_QUESTS_ARE_THE_SETTLEMENT_CONTRACT_SCREEN_9_28_26.md. The job after the yes is unchanged; only the front door moved. Research: questbook/research/QR_P_THE_FRONT_DOOR_MOVED_9_28_26.md.)
+- SETTLEMENT: a reclaimed townhouse-row home base in Paradise; the settlement screen draws the row, every window lit but one.
+- BUILDING: the row's corner stoop, where the neighbour sits (the hall for this place).
+- CLIENT PORTRAIT: Marisol de León, the neighbour, a phone in her hand.
+- THE SCREEN'S LINES:
+  - "Mr. Okafor used to put his TV on at six. Every day. He stopped."
+  - "Breaker box is inside the door, left side. Throw it, look in on him, come tell me."
+  - "One electricity from me when his light's on."
+- PAY, SHOWN BEFORE ACCEPT: 1 electricity on return.
+- NEGOTIATION: ASK FOR MORE: "One. It's what I have this week." ADVANCE: none.
+- ACCEPT / DECLINE: ACCEPT opens his townhouse on the close grid. DECLINE, or closing the screen, or never tapping the building, writes nothing: no row, no line, no look, and the offer sits in the same building on the next visit while the job is still real.
 
 ## THE CHOICES
 1. TAKE IT. One electricity on return, from her hand. He enters the door cell (the squeeze into the

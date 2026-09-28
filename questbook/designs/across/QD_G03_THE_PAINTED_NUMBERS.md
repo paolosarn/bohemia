@@ -17,6 +17,9 @@ ACT 1: IKER, sixties, a surveyor's vest over a Rick Owens drape coat gone grey, 
 First line: "Four hundred and twelve. You live here? Then you're a number. Stand still."
 ACT 3: his daughter ALBA, at the street's first door, holding the same can, now empty.
 
+## THE FRONT DOOR AFTER 9/28
+(Added 9/28.) This is not a contract, so it has no offer screen. Under the third votes, on-foot play survives only in fights and SPECIAL PLACES; the flood channel camp is a map stop with a settlement screen; Iker is a face on that screen's main road (a building-slot) and 'walk past' becomes 'do not tap him', with the same ledger. The person here speaks only when tapped or approached on that ground, never first, and never in the first 60 s. See questbook/research/QR_P_THE_FRONT_DOOR_MOVED_9_28_26.md.
+
 ## THE CHOICES (Act 1)
 A. HELP HIM COUNT. One map day walking the camp with him, one cell at a time on the close grid. Cost: 1 day. Your family's shelter gets a number.
 B. PAY HIM TO SKIP YOUR BLOCK. 1 battery. "Nobody counts you, nobody finds you." Your family's shelter has no number.

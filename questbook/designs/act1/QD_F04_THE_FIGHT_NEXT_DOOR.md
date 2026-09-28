@@ -32,6 +32,9 @@ battery out before they come back with more."
 
 (If he fought: "Took you long enough. Help me get the battery out before they come back with more.")
 
+## THE FRONT DOOR AFTER 9/28
+(Added 9/28.) This is not a contract, so it has no offer screen. Under the third votes, on-foot play survives only in fights and SPECIAL PLACES; the two lots are the family home base's special place (the fight is on the close grid, which stays legal). The street down the block is drawn on the settlement screen, not walked. The person here speaks only when tapped or approached on that ground, never first, and never in the first 60 s. See questbook/research/QR_P_THE_FRONT_DOOR_MOVED_9_28_26.md.
+
 ## THE CHOICES
 1. HELP PULL THE BATTERY: the car battery comes out in two beats; it is the family's new seed capital
    (+2 batteries, shared). The sibling joins as companion. The main line opens.

@@ -17,6 +17,19 @@ Abel Quintero, machinist, a quilted black work jacket with the collar up to his 
 "Ocho baterías, y dos ahorita. The racks in the old data centre across the wash, the bolts are titanium. Bring me a
 bucket. Take a light. Nobody's there. Mostly."
 
+## THE SETTLEMENT AND THE OFFER SCREEN
+(Added 9/28, Paolo's ruling: contracts are the Battle Brothers settlement contract screen. records/BOHEMIA_PAOLO_QUESTS_ARE_THE_SETTLEMENT_CONTRACT_SCREEN_9_28_26.md. The job after the yes is unchanged; only the front door moved. Research: questbook/research/QR_P_THE_FRONT_DOOR_MOVED_9_28_26.md.)
+- SETTLEMENT: the rocket-works home base (act 3), at its edge.
+- BUILDING: the machinist's yard (the hall for this place).
+- CLIENT PORTRAIT: Abel Quintero, quilted black work jacket, collar to his ears, grinder sparks in frame.
+- THE SCREEN'S LINES:
+  - "Ocho baterías, y dos ahorita."
+  - "The racks in the old data centre across the wash. The bolts are titanium. Bring me a bucket."
+  - "Take a light. Nobody's there. Mostly."
+- PAY, SHOWN BEFORE ACCEPT: 8 batteries: 2 as an ADVANCE now, 6 on the bucket.
+- NEGOTIATION: ASK FOR MORE: "Ocho. It's a bust." The advance is his offer, shown on the screen.
+- ACCEPT / DECLINE: ACCEPT hands over 2 batteries; the wash is map travel (dirt, slow). DECLINE, or closing the screen, or never tapping the building, writes nothing: no row, no line, no look, and the offer sits in the same building on the next visit while the job is still real.
+
 ## THE CHOICES
 1. **"No."** He goes back to grinding. "Otro vendrá." COST: nothing. The rocket still gets its bolts: a week later the
    player can see a stranger's truck leaving the wash with buckets, and the rocket's frame gains a ring. The world

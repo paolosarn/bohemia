@@ -5,7 +5,7 @@ CRISIS: none
 ECONOMY: bust
 PLACE: a pump house on the dam road, the last one before the road turns to dirt; a rooftop cistern behind it
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
-SHOWS: the WALK-PAST and the PLAIN NO, both leaving nothing (QR-A rules C2, C6, C7, C8)
+SHOWS: the TAP-PAST (the old walk-past, moved to the settlement screen) and the PLAIN NO, both leaving nothing (QR-A rules C2, C6, C7, C8)
 
 ## THE SITUATION
 Bust decade, the anarchy years. Water is held by share, but the share reaches this house by hose, and the rooftop
@@ -14,15 +14,27 @@ with jerry cans. The house has nobody who can fight. It has three batteries.
 
 ## THE PERSON AND THE FIRST LINE
 Doña Remedios, sixties, a long black coat cut like a cape (the runway, in a pump house), sits on an upturned bucket
-by the door at dusk. She does not call out. If the player walks past, nothing happens and nothing is written (C2).
-If he stops and taps her, she speaks:
+by the door at dusk, drawn on the settlement screen. She does not call out. If he never taps the pump house, nothing happens and nothing is written (C2).
+If he taps it, the offer screen opens with her portrait:
 "Oye. You look like you sleep light. Two nights on my roof, tres baterías. They come after midnight, three or four
 of them, one has a pipe."
 (What, where, how many, the pay, and the window, in one breath: C3.)
 
+## THE SETTLEMENT AND THE OFFER SCREEN
+(Added 9/28, Paolo's ruling: contracts are the Battle Brothers settlement contract screen. records/BOHEMIA_PAOLO_QUESTS_ARE_THE_SETTLEMENT_CONTRACT_SCREEN_9_28_26.md. The job after the yes is unchanged; only the front door moved. Research: questbook/research/QR_P_THE_FRONT_DOOR_MOVED_9_28_26.md.)
+- SETTLEMENT: a small home base on the dam road, the last pump settlement before the road turns to dirt (a place that holds a hose-share of the water).
+- BUILDING: the pump house (the settlement's hall for this place: the building that holds its asks).
+- CLIENT PORTRAIT: Doña Remedios, sixties, long black coat cut like a cape, on an upturned bucket by the pump-house door at dusk; the face does not look at the camera until he taps.
+- THE SCREEN'S LINES:
+  - "Oye. You look like you sleep light. Two nights on my roof, tres baterías."
+  - "They come after midnight, three or four of them, one has a pipe."
+- PAY, SHOWN BEFORE ACCEPT: 3 batteries, paid at dawn after night two, counted into his hand.
+- NEGOTIATION: ASK FOR MORE once: she answers "Tres y la cena" (3 and a hot meal each night, the meal restores the companion); the fee then locks. ADVANCE: none; she has three batteries in the world and they are the pay.
+- ACCEPT / DECLINE: ACCEPT opens the roof on the close grid (a special place).  DECLINE, or closing the screen, or never tapping the building, writes nothing: no row, no line, no look, and the offer sits in the same building on the next visit while the job is still real.
+
 ## THE CHOICES
 1. **"No."** She nods once. "Bueno. Somebody will." She goes back to watching the road. COST: nothing. The player can
-   walk this street a hundred times and she will never mention it, and no companion comments (C6, C7).
+   open this settlement a hundred times and she will never mention it, and no companion comments (C6, C7).
 2. **"Four batteries."** (the one haggle, at the offer) She thinks. "Tres y la cena." Three and a hot meal each night
    (the meal restores the companion). Then the same take-or-leave. The fee locks here (C5).
 3. **"Deal."** TAKEN. Two nights on the close grid: the roof is many cells (cistern, parapet as cover, the hatch as
@@ -42,7 +54,7 @@ of them, one has a pipe."
 The cistern is drawn from every day, and the water line painted on its side never moves.
 
 ## CITED FROM
-- `Q013.W6`: the job starts by walking past a person, never from a menu; so she sits and waits to be noticed.
+- `Q013.W6`: the job starts by walking past a person; after 9/28 the walk-past is the building he does not tap, and she still waits to be noticed.
 - `Q126.N5`: clean terms, no subclause, with "No." on the same node as "Done.".
 - `Q126.W3`: the refusal costs nothing and closes nothing; she will ask again only because the job is still there.
 - `Q148.W1`: the fee is haggled once, at maximum ignorance, then locked.

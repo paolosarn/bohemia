@@ -4,7 +4,7 @@ ACT: 1
 KIND: contract
 CRISIS: none
 ECONOMY: bust
-PLACE: a battery-charging counter in a gutted gas station on the highway into Henderson (arrival street: one block on the close grid); the leg is a dead substation yard one map stop east.
+PLACE: a battery-charging counter in a gutted gas station on the highway into Henderson (a settlement screen; the counter is a building he taps); the leg is a dead substation yard one map stop east.
 STATUS: draft:true, research only, nothing built (rule 35)
 
 REBUILT FROM: the fetch chain ("collect two halves of an item", `Q095.X2`; back and forth between towns, `Q079.X1`, `Q083.X1`). The phone version is one leg, one place, three ways in, and the job ends when you hand it over.
@@ -13,9 +13,21 @@ REBUILT FROM: the fetch chain ("collect two halves of an item", `Q095.X2`; back 
 The valley charges its batteries at a few counters. This one is run by a woman with a solar array on the old canopy and a charge controller that cracked in the heat. The matching controller sits in a dead substation yard one stop east. What she does not know: a family of six lives in that yard now, and the controller is what runs their one light and their water filter.
 
 ## THE PERSON AND THE FIRST LINE
-NENA, fifties, charging counter, runway-cut black apron over a copper-wire belt. She is behind the counter, not waiting for you; the player walks up (nothing speaks until the player stops at the counter).
+NENA, fifties, charging counter, runway-cut black apron over a copper-wire belt. She is behind the counter, not waiting for you; nothing speaks until the player taps the counter on the settlement screen.
 First line: "Mira, one part. East yard, grey box, says CC-60 on the lid. Eight batteries when it's on my wall. That's the job, nothing else."
-The fee is fixed in that line, before anyone knows who lives in the yard (`Q148.W1`). Walking away from the counter writes nothing.
+The fee is fixed in that line, before anyone knows who lives in the yard (`Q148.W1`). Closing the screen writes nothing.
+
+## THE SETTLEMENT AND THE OFFER SCREEN
+(Added 9/28, Paolo's ruling: contracts are the Battle Brothers settlement contract screen. records/BOHEMIA_PAOLO_QUESTS_ARE_THE_SETTLEMENT_CONTRACT_SCREEN_9_28_26.md. The job after the yes is unchanged; only the front door moved. Research: questbook/research/QR_P_THE_FRONT_DOOR_MOVED_9_28_26.md.)
+- SETTLEMENT: a highway settlement at the edge of Henderson grown around a gutted gas station with a solar canopy (a home base whose trade is charging).
+- BUILDING: the charging counter (the hall for this place).
+- CLIENT PORTRAIT: Nena, runway-cut black apron over a copper-wire belt, the cracked controller on the counter in frame.
+- THE SCREEN'S LINES:
+  - "Mira, one part. East yard, grey box, says CC-60 on the lid."
+  - "Eight batteries when it's on my wall. That's the job, nothing else."
+- PAY, SHOWN BEFORE ACCEPT: 8 batteries when the part is on her wall, fixed before anyone knows who lives in the yard (`Q148.W1`).
+- NEGOTIATION: ASK FOR MORE: "Ocho." ADVANCE: 2, if asked; she writes it on the wall in chalk.
+- ACCEPT / DECLINE: ACCEPT puts the east yard on the map. DECLINE, or closing the screen, or never tapping the building, writes nothing: no row, no line, no look, and the offer sits in the same building on the next visit while the job is still real.
 
 ## THE CHOICES (in the yard, after the family is met)
 A. BUY IT. Pay the family 3 of the 8 batteries you will earn (you front them). They lose the light; they keep the filter on a hand pump you leave them. Cost: 3 batteries, no time.

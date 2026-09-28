@@ -21,6 +21,19 @@ they call nine. One battery, or" (he holds up the ticket) "you take nine and I g
 WITHHELD: why he will not leave the line himself (if he leaves, he loses nine; if she loses nine, she
 waits a week). He never says the word medicine.
 
+## THE SETTLEMENT AND THE OFFER SCREEN
+(Added 9/28, Paolo's ruling: contracts are the Battle Brothers settlement contract screen. records/BOHEMIA_PAOLO_QUESTS_ARE_THE_SETTLEMENT_CONTRACT_SCREEN_9_28_26.md. The job after the yes is unchanged; only the front door moved. Research: questbook/research/QR_P_THE_FRONT_DOOR_MOVED_9_28_26.md.)
+- SETTLEMENT: a reclaimed East Charleston home base whose settlement screen draws the clinic and the queue on the sidewalk.
+- BUILDING: the urgent-care clinic (the hall for this place; the take-a-number counter reads 8 on the screen).
+- CLIENT PORTRAIT: Davi Moreira, holding ticket nine up to the frame.
+- THE SCREEN'S LINES:
+  - "I'm not asking for a favor. I'm hiring."
+  - "My mother's at the bus shelter on Lamb. Walk her here before they call nine."
+  - "One battery, or you take nine and I go to the back."
+- PAY, SHOWN BEFORE ACCEPT: 1 battery, or ticket nine (one medicine, paid as one resources): both pays are on the screen before accept.
+- NEGOTIATION: The haggle IS the second pay option; ASK FOR MORE gets "That's all of it." ADVANCE: none.
+- ACCEPT / DECLINE: ACCEPT opens the walk to Lamb on the close grid. DECLINE, or closing the screen, or never tapping the building, writes nothing: no row, no line, no look, and the offer sits in the same building on the next visit while the job is still real.
+
 ## THE CHOICES
 1. TAKE IT FOR THE BATTERY. One battery, on return, from his hand. The walk to Lamb is on the close
    grid; his mother walks one cell every two beats, so the walk back is slow and the street is the test

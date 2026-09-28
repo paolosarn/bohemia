@@ -13,9 +13,22 @@ well, because the road has a crew with a gun truck. This job is priced for peopl
 
 ## THE PERSON AND THE FIRST LINE
 Yesenia Ochoa, caravan boss, cropped silver jacket over a welder's apron, stands at the diesel pumps with a clipboard
-made of a car door. When the player stops:
+made of a car door. When the player taps the diesel office on the truck stop's settlement screen:
 "Doce baterías to ride shotgun to the salt camp. I tell you straight: ocho hombres on that road, and a truck with a
 gun bolted on. We roll at first light. The horn goes twice before we move."
+
+## THE SETTLEMENT AND THE OFFER SCREEN
+(Added 9/28, Paolo's ruling: contracts are the Battle Brothers settlement contract screen. records/BOHEMIA_PAOLO_QUESTS_ARE_THE_SETTLEMENT_CONTRACT_SCREEN_9_28_26.md. The job after the yes is unchanged; only the front door moved. Research: questbook/research/QR_P_THE_FRONT_DOOR_MOVED_9_28_26.md.)
+- SETTLEMENT: a truck-stop settlement on the old interstate at the valley's north edge (a trade stop, not one of the big home bases).
+- BUILDING: the diesel office by the pumps (the hall).
+- CLIENT PORTRAIT: Yesenia Ochoa, cropped silver jacket over a welder's apron, the car-door clipboard in frame.
+- THE SCREEN'S LINES:
+  - "Doce baterías to ride shotgun to the salt camp."
+  - "I tell you straight: ocho hombres on that road, and a truck with a gun bolted on."
+  - "We roll at first light. The horn goes twice before we move."
+- PAY, SHOWN BEFORE ACCEPT: 12 batteries at the salt camp. The screen shows the danger (eight men, a gun truck) next to the pay, so a too-strong job reads as too strong before the yes.
+- NEGOTIATION: ASK FOR MORE: she will not move on the pay ("Doce is the road's price"), but the one push gets an ADVANCE of 2 batteries, which turns a missed horn into a debt. The player chooses whether to carry that risk.
+- ACCEPT / DECLINE: ACCEPT puts the dawn horn on the map's clock. "Too much for me" is the decline button's line. DECLINE, or closing the screen, or never tapping the building, writes nothing: no row, no line, no look, and the offer sits in the same building on the next visit while the job is still real.
 
 ## THE CHOICES
 1. **"Too much for me."** She does not argue and does not talk down. "Claro. The road will be here." COST: nothing.

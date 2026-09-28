@@ -18,6 +18,19 @@ generator itself.
 "Seis baterías to walk this to the clinica on Maryland. Dos now, cuatro when la doctora signs. It's heavy, it's
 worth a lot, and people will look at you."
 
+## THE SETTLEMENT AND THE OFFER SCREEN
+(Added 9/28, Paolo's ruling: contracts are the Battle Brothers settlement contract screen. records/BOHEMIA_PAOLO_QUESTS_ARE_THE_SETTLEMENT_CONTRACT_SCREEN_9_28_26.md. The job after the yes is unchanged; only the front door moved. Research: questbook/research/QR_P_THE_FRONT_DOOR_MOVED_9_28_26.md.)
+- SETTLEMENT: a night-market home base in a gutted casino parking structure.
+- BUILDING: level three, the dealer's stall (the hall for this place at night).
+- CLIENT PORTRAIT: Toño Villalobos, leather bomber off one shoulder, sunglasses at night, sitting on the generator.
+- THE SCREEN'S LINES:
+  - "Seis baterías to walk this to the clinica on Maryland."
+  - "Dos now, cuatro when la doctora signs."
+  - "It's heavy, it's worth a lot, and people will look at you."
+- PAY, SHOWN BEFORE ACCEPT: 6 batteries: 2 as an ADVANCE on accept, 4 on the doctor's signature. The screen shows both numbers.
+- NEGOTIATION: The advance is offered, not asked for; that is the point (it is what makes dropping a debt). ASK FOR MORE: "Seis. Dealers don't haggle down the street, and neither do I."
+- ACCEPT / DECLINE: ACCEPT hands over 2 batteries and the generator. DECLINE, or closing the screen, or never tapping the building, writes nothing: no row, no line, no look, and the offer sits in the same building on the next visit while the job is still real.
+
 ## THE CHOICES
 1. **"No."** "Ándale, next." COST: nothing; he carries it himself or finds another back.
 2. **"Deal."** TAKEN; two batteries in hand. Halfway, on the close grid, a girl of about ten stands on a porch and

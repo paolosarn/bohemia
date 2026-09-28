@@ -23,6 +23,19 @@ counter who carried him."
 WITHHELD: that the relay at the rocket yard will wipe anything not on the manifest, and his name is not
 on it. She knows. She has not decided whether that is what she wants.
 
+## THE SETTLEMENT AND THE OFFER SCREEN
+(Added 9/28, Paolo's ruling: contracts are the Battle Brothers settlement contract screen. records/BOHEMIA_PAOLO_QUESTS_ARE_THE_SETTLEMENT_CONTRACT_SCREEN_9_28_26.md. The job after the yes is unchanged; only the front door moved. Research: questbook/research/QR_P_THE_FRONT_DOOR_MOVED_9_28_26.md.)
+- SETTLEMENT: a reclaimed Fremont home base; the settlement screen draws the 24-hour diner, clean and bright.
+- BUILDING: the diner (the hall for this place).
+- CLIENT PORTRAIT: Inés Calloway, in the booth; the screen on the booth's wall is in frame and its portrait never speaks.
+- THE SCREEN'S LINES:
+  - "He's better company than he was. That's the problem."
+  - "His box is in the back. Take it to the relay at the rocket yard and hand it to the loader."
+  - "One clout: I tell the whole counter who carried him."
+- PAY, SHOWN BEFORE ACCEPT: 1 clout, or 1 battery if asked.
+- NEGOTIATION: ASK FOR A DIFFERENT PAY: "Keep it quiet, then. Fine." (1 battery). ADVANCE: none.
+- ACCEPT / DECLINE: ACCEPT puts the drive in the party's inventory and the rocket yard on the map. DECLINE, or closing the screen, or never tapping the building, writes nothing: no row, no line, no look, and the offer sits in the same building on the next visit while the job is still real.
+
 ## THE CHOICES
 1. TAKE IT. One clout on return (she says his name and the player's to the diner, out loud; the feed
    carries it). The walk to the rocket yard is a map trip; the drive in the player's pocket makes the

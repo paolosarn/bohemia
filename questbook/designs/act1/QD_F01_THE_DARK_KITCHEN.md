@@ -29,6 +29,9 @@ The relative on the step, only if he stops within two cells after 60 s, portrait
 and the stove. It was everything we had saved. Don't go alone." No ask, no quest card. The main beat
 (the recovery hunt, 7/24 beat 0) begins only when he follows the drag marks past the gate.
 
+## THE FRONT DOOR AFTER 9/28
+(Added 9/28.) This is not a contract, so it has no offer screen. Under the third votes, on-foot play survives only in fights and SPECIAL PLACES; the family house is the family home base's special place, so the kitchen and the yard stay a close-grid ground. The settlement screen of the family's block is the door out of it. The person here speaks only when tapped or approached on that ground, never first, and never in the first 60 s. See questbook/research/QR_P_THE_FRONT_DOOR_MOVED_9_28_26.md.
+
 ## THE CHOICES
 1. TAKE THE LAST CELL. +1 battery. The relative's lamp stays dark when he comes back. The hunt starts
    with something in his pocket.

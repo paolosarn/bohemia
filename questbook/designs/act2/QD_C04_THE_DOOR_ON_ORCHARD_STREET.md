@@ -11,8 +11,21 @@ TWIST: T04 THE JOB WAS A TEST, AND THE PASS WAS NO (bank: questbook/research/QR_
 A housing office is recruiting crews to keep order as the city rebuilds. The contract: collect three months of rent from a family on Orchard Street, or put them out. Fee: 8 batteries. The family cannot pay: the father's hands were crushed at the recycling yard. Whatever the company does, it must come back and report. At the report, the officer reveals it: the office sends every new crew to this door. It is how they hire.
 
 ## THE PERSON AND THE FIRST LINE
-Officer Mireya Duarte, thirties, a white uniform cut like a ball gown, sitting at a baccarat table used as a desk. She speaks when the player stops at the table.
+Officer Mireya Duarte, thirties, a white uniform cut like a ball gown, sitting at a baccarat table used as a desk. She speaks when the player taps the housing office on the settlement screen.
 First line: "One house. Rent or keys. Ocho baterías when you come back. Most crews don't come back the same."
+
+## THE SETTLEMENT AND THE OFFER SCREEN
+(Added 9/28, Paolo's ruling: contracts are the Battle Brothers settlement contract screen. records/BOHEMIA_PAOLO_QUESTS_ARE_THE_SETTLEMENT_CONTRACT_SCREEN_9_28_26.md. The job after the yes is unchanged; only the front door moved. Research: questbook/research/QR_P_THE_FRONT_DOOR_MOVED_9_28_26.md.)
+- SETTLEMENT: a reclaimed casino home base that has become the district's housing office.
+- BUILDING: the housing office in the lobby (the hall).
+- CLIENT PORTRAIT: Officer Mireya Duarte, white uniform cut like a ball gown, at a baccarat table.
+- THE SCREEN'S LINES:
+  - "One house. Rent or keys."
+  - "Ocho baterías when you come back."
+  - "Most crews don't come back the same."
+- PAY, SHOWN BEFORE ACCEPT: 8 batteries at the report, locked whatever the company does.
+- NEGOTIATION: ASK FOR MORE: "Ocho for everybody." (true: every new crew gets this door). ADVANCE: none.
+- ACCEPT / DECLINE: ACCEPT puts Orchard Street on the map; the house is a close-grid ground. DECLINE, or closing the screen, or never tapping the building, writes nothing: no row, no line, no look, and the offer sits in the same building on the next visit while the job is still real.
 
 ## THE CHOICES
 At the door:

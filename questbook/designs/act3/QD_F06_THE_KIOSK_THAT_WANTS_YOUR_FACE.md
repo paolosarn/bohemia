@@ -29,6 +29,9 @@ SECOND BY SECOND:
 After 60 s, within two cells, an old woman sitting on the charge kiosk's step who never uses it: "Free
 power. Free. Everybody forgets what free costs." One line. She does not explain.
 
+## THE FRONT DOOR AFTER 9/28
+(Added 9/28.) This is not a contract, so it has no offer screen. Under the third votes, on-foot play survives only in fights and SPECIAL PLACES; the kiosk is a building-slot on the family home base's settlement screen; 'walk past' becomes 'do not tap it', with the same zero. The person here speaks only when tapped or approached on that ground, never first, and never in the first 60 s. See questbook/research/QR_P_THE_FRONT_DOOR_MOVED_9_28_26.md.
+
 ## THE CHOICES
 1. USE THE KIOSK: +1 battery. His Gen 3 face is now recorded. Nothing happens now.
 2. WALK PAST: 0. His Gen 3 face stays unrecorded, the Amalgamation's blind spot.

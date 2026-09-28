@@ -11,8 +11,20 @@ TWIST: T20 THE CLIENT'S FEAR IS THE JOB (bank: questbook/research/QR_C_THE_TWIST
 Act 3, the healing age, and people have money and fear. A rich tenant pays the company to watch the couple across the courtyard for three days and report: are they working for the Network? Fee: 12 batteries, and 6 more "if it's true". The couple are ordinary. Almost. On the second night, the player sees the wife talking to a dead man on a screen. That is not the Network. It is a grief app, a cheap copy of her father. It is still the one thing the tenant could call proof.
 
 ## THE PERSON AND THE FIRST LINE
-Julian Arce, seventies, a long pleated Rick Owens-style robe, at a window with a telescope and a cup of cold tea. He speaks when the player stops beside him.
+Julian Arce, seventies, a long pleated Rick Owens-style robe, at a window with a telescope and a cup of cold tea. He speaks when the player taps his flat on the tower's settlement screen.
 First line: "Watch them tres días. Tell me what they are. If it's what I think, I pay double."
+
+## THE SETTLEMENT AND THE OFFER SCREEN
+(Added 9/28, Paolo's ruling: contracts are the Battle Brothers settlement contract screen. records/BOHEMIA_PAOLO_QUESTS_ARE_THE_SETTLEMENT_CONTRACT_SCREEN_9_28_26.md. The job after the yes is unchanged; only the front door moved. Research: questbook/research/QR_P_THE_FRONT_DOOR_MOVED_9_28_26.md.)
+- SETTLEMENT: a rebuilt glass-tower home base (act 3, the healing age).
+- BUILDING: the tenant's flat, reached from the tower's lobby (the hall for this place).
+- CLIENT PORTRAIT: Julian Arce, seventies, long pleated robe, the telescope's eyepiece at the edge of the frame.
+- THE SCREEN'S LINES:
+  - "Watch them tres días. Tell me what they are."
+  - "Doce baterías. If it's what I think, I pay double."
+- PAY, SHOWN BEFORE ACCEPT: 12 batteries, and 6 more "if it's true"; the bonus is on the screen before the yes, which is the whole trap.
+- NEGOTIATION: ASK FOR MORE: "The more is the six." ADVANCE: none.
+- ACCEPT / DECLINE: ACCEPT opens the courtyard on the close grid for three nights. DECLINE, or closing the screen, or never tapping the building, writes nothing: no row, no line, no look, and the offer sits in the same building on the next visit while the job is still real.
 
 ## THE CHOICES
 - A. TELL THE TRUTH: "They're a couple. She talks to her dad." Cost: STANDING with Arce (he does not believe it and says the company is soft). Paid 12.

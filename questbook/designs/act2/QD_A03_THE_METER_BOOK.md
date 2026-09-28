@@ -18,6 +18,18 @@ substation gate. A paper book of meter numbers, a pencil on a string.
 "Una batería for the route. Forty meters, four streets, write what the dial says. Nobody shoots at meter readers.
 Usually."
 
+## THE SETTLEMENT AND THE OFFER SCREEN
+(Added 9/28, Paolo's ruling: contracts are the Battle Brothers settlement contract screen. records/BOHEMIA_PAOLO_QUESTS_ARE_THE_SETTLEMENT_CONTRACT_SCREEN_9_28_26.md. The job after the yes is unchanged; only the front door moved. Research: questbook/research/QR_P_THE_FRONT_DOOR_MOVED_9_28_26.md.)
+- SETTLEMENT: a reclaimed residential home base that runs its own neighbourhood substation.
+- BUILDING: the substation gate (the hall for this place).
+- CLIENT PORTRAIT: Marisol Ybarra, oversized grey tailored coat with the sleeves pinned up, the paper meter book and the pencil on a string.
+- THE SCREEN'S LINES:
+  - "Una batería for the route. Forty meters, four streets."
+  - "Write what the dial says. Nobody shoots at meter readers. Usually."
+- PAY, SHOWN BEFORE ACCEPT: 1 battery on the book's return.
+- NEGOTIATION: ASK FOR MORE: "Una. Y te doy the brownout schedule a day early" (a real thing, see choice 2). ADVANCE: none.
+- ACCEPT / DECLINE: ACCEPT opens the four streets on the close grid (the route is the job's ground). DECLINE, or closing the screen, or never tapping the building, writes nothing: no row, no line, no look, and the offer sits in the same building on the next visit while the job is still real.
+
 ## THE CHOICES
 1. **"Not worth my time."** She shrugs and slides the book to the next person in line. "Somebody's cousin will do
    it." COST: nothing. She says nothing about it the next time the player passes the gate; the player's standing,

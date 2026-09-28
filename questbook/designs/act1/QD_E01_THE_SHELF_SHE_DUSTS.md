@@ -23,6 +23,19 @@ whatever's in it. One battery when it's on the shelf."
 WHAT SHE WITHHOLDS (FL03, the passive voice, only if asked "who drove it?"): "Somebody was sent for it
 Tuesday." She does not say it was her nephew.
 
+## THE SETTLEMENT AND THE OFFER SCREEN
+(Added 9/28, Paolo's ruling: contracts are the Battle Brothers settlement contract screen. records/BOHEMIA_PAOLO_QUESTS_ARE_THE_SETTLEMENT_CONTRACT_SCREEN_9_28_26.md. The job after the yes is unchanged; only the front door moved. Research: questbook/research/QR_P_THE_FRONT_DOOR_MOVED_9_28_26.md.)
+- SETTLEMENT: a strip-mall settlement off Boulder Highway (a small home base).
+- BUILDING: the corner bodega (the hall for this place; SCAVENGE sits on the same screen, which is why her one battery matters).
+- CLIENT PORTRAIT: Lupe Argüello, behind the bare shelf; the bare shelf is in the portrait's frame.
+- THE SCREEN'S LINES:
+  - "Shelf's been empty since the weekend and nobody's saying when."
+  - "Truck's on the wash road, past the second culvert. Bring back one crate, whatever's in it."
+  - "One battery when it's on the shelf."
+- PAY, SHOWN BEFORE ACCEPT: 1 battery on return.
+- NEGOTIATION: The haggle's second kind is the ADVANCE: ask for it up front and she pays the one battery now (choice 2 below). ASK FOR MORE gets "One. It's one crate."
+- ACCEPT / DECLINE: ACCEPT puts the wash road on the map. DECLINE, or closing the screen, or never tapping the building, writes nothing: no row, no line, no look, and the offer sits in the same building on the next visit while the job is still real.
+
 ## THE CHOICES
 1. TAKE IT. Pays one battery on return, from her hand. Costs the trip: two map legs out and back, time
    passes, and whatever is on the wash road is a group he fights on the close grid.

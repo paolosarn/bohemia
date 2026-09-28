@@ -11,8 +11,20 @@ TWIST: T11 THE REWARD IS GONE (bank: questbook/research/QR_C_THE_TWIST_BANK_9_27
 A motel keeper needs a crate of water filters carried to his sister, two days east, past a stretch the Destroyers burn. Fee: 6 batteries, agreed at the offer. The job is what it says. The twist: when the party comes back, his battery bank was stolen in the night. He cannot pay.
 
 ## THE PERSON AND THE FIRST LINE
-Omar, the keeper, sixties, a floor-length black coat over a hotel bathrobe, cleaning a lamp that is already clean. He does not call out. He speaks when the player steps into the office.
+Omar, the keeper, sixties, a floor-length black coat over a hotel bathrobe, cleaning a lamp that is already clean. He does not call out. He speaks when the player taps the motel office on the settlement screen.
 First line: "Six cells, mijo. Filters to my sister, east. Dos días. You say no, está bien, the door is right there."
+
+## THE SETTLEMENT AND THE OFFER SCREEN
+(Added 9/28, Paolo's ruling: contracts are the Battle Brothers settlement contract screen. records/BOHEMIA_PAOLO_QUESTS_ARE_THE_SETTLEMENT_CONTRACT_SCREEN_9_28_26.md. The job after the yes is unchanged; only the front door moved. Research: questbook/research/QR_P_THE_FRONT_DOOR_MOVED_9_28_26.md.)
+- SETTLEMENT: a motel settlement at the edge of a dead strip mall, on a dirt road off the main highway (a stop, not a home base).
+- BUILDING: the motel office (the hall).
+- CLIENT PORTRAIT: Omar, sixties, floor-length black coat over a hotel bathrobe, a clean lamp in his hands; behind him, the battery rack with its zip-tie padlock (the sign, visible on the screen itself).
+- THE SCREEN'S LINES:
+  - "Six cells, mijo. Filters to my sister, east. Dos días."
+  - "Past the stretch they burn. You say no, está bien."
+- PAY, SHOWN BEFORE ACCEPT: 6 batteries on return, locked at the offer.
+- NEGOTIATION: ASK FOR MORE: "Seis. It is what the rack holds." (true, and the twist). ADVANCE: none.
+- ACCEPT / DECLINE: ACCEPT loads the crate into the party's inventory; the trip is map travel. DECLINE, or closing the screen, or never tapping the building, writes nothing: no row, no line, no look, and the offer sits in the same building on the next visit while the job is still real.
 
 ## THE CHOICES
 At the offer: take it or not. Declining leaves nothing.

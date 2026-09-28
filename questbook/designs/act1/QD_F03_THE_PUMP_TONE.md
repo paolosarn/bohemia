@@ -7,6 +7,7 @@ PLACE: a standpipe on a cracked lot between four houses, fed by the share (dam a
 STATUS: draft:true, research only, nothing built (rule 35)
 
 ## THE SITUATION
+(9/28: the walk below was the round-one front door. Under the settlement ruling the lot is a settlement screen; the tone and the forming line play on that screen, the valve man is tapped at the standpipe, and the close-grid lot is the ground of the watch after ACCEPT. The lamp in the open house becomes a SCAVENGE result on this screen with the same ledger. See QR-P.)
 He starts in a doorway cell of a house on the lot. At second 20 a tone sounds from a pole speaker: one
 long flat note, no voice. It is the water schedule: the standpipe runs for three minutes. Doors open.
 People come out with jugs and form a line on the floor cells, not talking. The world keeps its schedule
@@ -24,8 +25,20 @@ SECOND BY SECOND:
   with the valve key speaks to him only if he reaches the front.
 
 ## THE PERSON AND THE FIRST LINE
-The valve man, at the front of the line, after 60 s: "One jug. You're new on this lot. I need a second
+The valve man, at the standpipe on the settlement screen, only when tapped, after 60 s: "One jug. You're new on this lot. I need a second
 pair of eyes on this pipe tomorrow when the tone goes. Pays a cell."
+
+## THE SETTLEMENT AND THE OFFER SCREEN
+(Added 9/28, Paolo's ruling: contracts are the Battle Brothers settlement contract screen. records/BOHEMIA_PAOLO_QUESTS_ARE_THE_SETTLEMENT_CONTRACT_SCREEN_9_28_26.md. The job after the yes is unchanged; only the front door moved. Research: questbook/research/QR_P_THE_FRONT_DOOR_MOVED_9_28_26.md.)
+- SETTLEMENT: a four-house lot home base fed by the share (dam and pumps), where the tone is the settlement's clock: the settlement screen plays the tone at its time and draws the queue forming.
+- BUILDING: the standpipe (a building-slot; the valve man stands at it only while the pipe runs).
+- CLIENT PORTRAIT: The valve man, pump-crew coat, the valve key on a cord, the line behind him.
+- THE SCREEN'S LINES:
+  - "One jug. You're new on this lot."
+  - "I need a second pair of eyes on this pipe tomorrow when the tone goes. Pays a cell."
+- PAY, SHOWN BEFORE ACCEPT: 1 battery after the watch.
+- NEGOTIATION: ASK FOR MORE: "A cell is a cell." ADVANCE: none; the jug of water he gives on the screen either way is not pay, it is the line's share.
+- ACCEPT / DECLINE: ACCEPT sets the next tone as the job's clock; the pipe on the close grid is the job's ground. DECLINE, or closing the screen, or never tapping the building, writes nothing: no row, no line, no look, and the offer sits in the same building on the next visit while the job is still real.
 
 ## THE CHOICES
 1. JOIN THE LINE AND TAKE THE JOB: one jug of water now; tomorrow at the tone he stands by the pipe for

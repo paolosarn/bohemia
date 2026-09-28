@@ -24,6 +24,19 @@ paper and I strike it. One battery either way. Manifest closes when the rocket's
 WITHHELD: who wrote line forty in. (Answer, found only by the job: the act 1 dynast did, sixty years ago,
 on a list that became this one.)
 
+## THE SETTLEMENT AND THE OFFER SCREEN
+(Added 9/28, Paolo's ruling: contracts are the Battle Brothers settlement contract screen. records/BOHEMIA_PAOLO_QUESTS_ARE_THE_SETTLEMENT_CONTRACT_SCREEN_9_28_26.md. The job after the yes is unchanged; only the front door moved. Research: questbook/research/QR_P_THE_FRONT_DOOR_MOVED_9_28_26.md.)
+- SETTLEMENT: the rocket-yard home base at the old Nellis fence line.
+- BUILDING: the outer gate's registration table (the hall for this place; the queue is drawn on the screen).
+- CLIENT PORTRAIT: Registrar Hale, the printed manifest under her hand.
+- THE SCREEN'S LINES:
+  - "Next. Oh. You're family of line forty."
+  - "Line forty's unsigned. Bring them here to sign, or bring me a death paper and I strike it."
+  - "One battery either way. Manifest closes when the rocket's done."
+- PAY, SHOWN BEFORE ACCEPT: 1 battery on return, signed or struck.
+- NEGOTIATION: ASK FOR MORE: "One. The rocket pays the rest." ADVANCE: none.
+- ACCEPT / DECLINE: ACCEPT puts the search on the map. DECLINE, or closing the screen, or never tapping the building, writes nothing: no row, no line, no look, and the offer sits in the same building on the next visit while the job is still real.
+
 ## THE CHOICES
 1. TAKE IT. One battery on return, whichever way it ends (signed or struck). The search is a map trip to
    the address the ledger derives; at the address the answer is a living great-grandchild, a grave, or

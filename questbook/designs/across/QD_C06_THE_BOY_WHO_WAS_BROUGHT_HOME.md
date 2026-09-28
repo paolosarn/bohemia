@@ -11,8 +11,21 @@ TWIST: T26 THE RESCUE FRAME DELIVERS THE VICTIM (bank: questbook/research/QR_C_T
 Act 1. A scrapyard boss pays the company to find his runaway nephew, who is living in the storm drains, and bring him home. Fee: 7 batteries. The job plays straight: find, talk, escort. The boy comes if asked kindly, because he is hungry. In act 2, when the player flips forward, the ledger is read: the nephew never left the yard again. He is the depot's night worker, fifteen years on, and he has never been paid.
 
 ## THE PERSON AND THE FIRST LINE
-Tío Rafa, fifties, a rubber apron over a sequined jacket, feeding a dog at the yard gate. He speaks when the party stops at the gate.
+Tío Rafa, fifties, a rubber apron over a sequined jacket, feeding a dog at the yard gate. He speaks when the player taps the yard gate on the scrapyard's settlement screen.
 First line: "My sister's boy ran off. Tráemelo. He's small, he's stupid, he's family."
+
+## THE SETTLEMENT AND THE OFFER SCREEN
+(Added 9/28, Paolo's ruling: contracts are the Battle Brothers settlement contract screen. records/BOHEMIA_PAOLO_QUESTS_ARE_THE_SETTLEMENT_CONTRACT_SCREEN_9_28_26.md. The job after the yes is unchanged; only the front door moved. Research: questbook/research/QR_P_THE_FRONT_DOOR_MOVED_9_28_26.md.)
+- SETTLEMENT: act 1: a scrapyard compound on a dirt track, a small home base of one extended family; act 2: the same place, rebuilt as a depot (its settlement screen is derived from the act 1 ledger).
+- BUILDING: the yard gate office (the hall).
+- CLIENT PORTRAIT: Tío Rafa, rubber apron over a sequined jacket, a dog's head at the bottom edge of the frame.
+- THE SCREEN'S LINES:
+  - "My sister's boy ran off. Tráemelo."
+  - "He's small, he's stupid, he's family."
+  - "He's in the drains under the highway. Siete when he's through this gate."
+- PAY, SHOWN BEFORE ACCEPT: 7 batteries, paid when the boy is through the gate.
+- NEGOTIATION: ASK FOR MORE: "Ocho, and you feed him on the way" (the extra battery is the food). ADVANCE: none; Rafa pays for results.
+- ACCEPT / DECLINE: ACCEPT opens the drain on the close grid. DECLINE, or closing the screen, or never tapping the building, writes nothing: no row, no line, no look, and the offer sits in the same building on the next visit while the job is still real.
 
 ## THE CHOICES (act 1)
 - A. BRING HIM HOME. Paid 7. Cost, acts later: A PERSON (the boy's adult life in act 2).

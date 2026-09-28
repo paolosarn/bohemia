@@ -11,9 +11,22 @@ TWIST: T18 A THIRD PARTY SHOWS UP (bank: questbook/research/QR_C_THE_TWIST_BANK_
 Act 2, the world clawing back, and water money is good. A share-holder on the pump committee hires the company to clear squatters out of a pump house before the committee's inspection. Fee: 14 batteries. On arrival, a second crew is already camped at the fence: the same client hired them too, to be sure. They want the whole fee and they are armed.
 
 ## THE PERSON AND THE FIRST LINE
-The client: Beatriz Solano, forties, a grey draped suit with enormous shoulders, standing under a solar awning on the dam road with a clipboard. She speaks when the party stops at the awning.
+The client: Beatriz Solano, forties, a grey draped suit with enormous shoulders, standing under a solar awning on the dam road with a clipboard. She speaks when the player taps the committee's awning on the settlement screen.
 First line: "Pump seven has people in it. Catorce if it's empty by the inspection. I hire whoever says yes."
 The rival crew's leader, met at the fence: Cano, a young man in a quilted coat to his ankles. "She hired you too? Claro que sí. She hires everybody."
+
+## THE SETTLEMENT AND THE OFFER SCREEN
+(Added 9/28, Paolo's ruling: contracts are the Battle Brothers settlement contract screen. records/BOHEMIA_PAOLO_QUESTS_ARE_THE_SETTLEMENT_CONTRACT_SCREEN_9_28_26.md. The job after the yes is unchanged; only the front door moved. Research: questbook/research/QR_P_THE_FRONT_DOOR_MOVED_9_28_26.md.)
+- SETTLEMENT: the dam road pump home base (a place that holds a share of power and water).
+- BUILDING: the pump committee's awning (the hall for this place).
+- CLIENT PORTRAIT: Beatriz Solano, grey draped suit with enormous shoulders, clipboard.
+- THE SCREEN'S LINES:
+  - "Pump seven has people in it."
+  - "Catorce if it's empty by the inspection."
+  - "I hire whoever says yes."
+- PAY, SHOWN BEFORE ACCEPT: 14 batteries at the inspection.
+- NEGOTIATION: ASK FOR MORE: "Catorce. Take it or somebody will." ADVANCE: none. The third line is the sign, said plainly on the screen: she hires everybody.
+- ACCEPT / DECLINE: ACCEPT puts the pump on the map with a paved and a dirt approach. DECLINE, or closing the screen, or never tapping the building, writes nothing: no row, no line, no look, and the offer sits in the same building on the next visit while the job is still real.
 
 ## THE CHOICES
 - A. SPLIT IT WITH CANO. Clear the pump together, 7 batteries each. Cost: 7 batteries; gained: STANDING with Cano's crew, who can be hired later.

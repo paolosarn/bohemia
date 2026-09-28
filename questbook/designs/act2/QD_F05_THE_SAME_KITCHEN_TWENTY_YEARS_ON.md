@@ -35,6 +35,9 @@ After 60 s, within two cells, the oldest person on the block, sitting where the 
 in act 1 (derived: if the relative lived, it is her, old; if not, a stranger), in the past tense: "The
 one before you stood right there, the morning after they took the box. Didn't say a word either."
 
+## THE FRONT DOOR AFTER 9/28
+(Added 9/28.) This is not a contract, so it has no offer screen. Under the third votes, on-foot play survives only in fights and SPECIAL PLACES; the family house stays a special place in every act; the reclaimed block around it is the family home base's settlement screen. The person here speaks only when tapped or approached on that ground, never first, and never in the first 60 s. See questbook/research/QR_P_THE_FRONT_DOOR_MOVED_9_28_26.md.
+
 ## THE CHOICES
 1. TAKE THE FRAME: a thing he carries in act 2. It costs nothing and later opens one past-tense line
    from anyone in the valley who knew the act 1 family by face.

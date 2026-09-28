@@ -13,9 +13,21 @@ REBUILT FROM: the refusal with no dignity path. `Q131.X7` (the strongest choice 
 Act 3, the rocket is being built for the one-way trip. The yard needs one weld on the fuel line that only one person in the valley has done before. She has refused the yard twice. The foreman offers the job: bring her in.
 
 ## THE PERSON AND THE FIRST LINE
-GIVER: TOMÁS, forties, the yard foreman, a Bottega-woven harness over a flight suit, standing under the scaffold. The player walks up; walking away writes nothing.
+GIVER: TOMÁS, forties, the yard foreman, a Bottega-woven harness over a flight suit, standing under the scaffold. He is the face in the launch yard's hall on the settlement screen; closing the screen writes nothing.
 First line: "She said no twice. Third time's you. Six batteries if she's on my scaffold by the end of the week."
 THE WELDER: DOÑA PILAR, seventies, in her workshop. When the player arrives she keeps welding and does not look up. Each time the player waits a turn she says one more line (the stall has script, `Q134.X2`'s law): "Still here?" / "My son welded the first one. For the Network." / "They put him in it after. The copy still calls me."
+
+## THE SETTLEMENT AND THE OFFER SCREEN
+(Added 9/28, Paolo's ruling: contracts are the Battle Brothers settlement contract screen. records/BOHEMIA_PAOLO_QUESTS_ARE_THE_SETTLEMENT_CONTRACT_SCREEN_9_28_26.md. The job after the yes is unchanged; only the front door moved. Research: questbook/research/QR_P_THE_FRONT_DOOR_MOVED_9_28_26.md.)
+- SETTLEMENT: the launch-yard home base on the old airfield.
+- BUILDING: the scaffold office (the hall for this place).
+- CLIENT PORTRAIT: Tomás, forties, a Bottega-woven harness over a flight suit, the scaffold behind him.
+- THE SCREEN'S LINES:
+  - "She said no twice. Third time's you."
+  - "Six batteries if she's on my scaffold by the end of the week."
+- PAY, SHOWN BEFORE ACCEPT: 6 batteries; 2 if the answer he brings back is her no (choice C).
+- NEGOTIATION: ASK FOR MORE: "Six. She's worth it, you're not." ADVANCE: none.
+- ACCEPT / DECLINE: ACCEPT puts her workshop on the map (one stop; the workshop is a close-grid special place). DECLINE, or closing the screen, or never tapping the building, writes nothing: no row, no line, no look, and the offer sits in the same building on the next visit while the job is still real.
 
 ## THE CHOICES
 A. PAY HER. Give her your 6-battery fee up front; she comes, welds, goes home. Cost: the whole fee. The rocket is on time.

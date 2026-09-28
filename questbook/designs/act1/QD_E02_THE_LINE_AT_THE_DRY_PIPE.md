@@ -21,6 +21,19 @@ THE TERMS: "Valve's up the wash, the red wheel by the culvert. Somebody turned i
 pipe runs. One resources from the share when it does."
 WITHHELD: that it has been turned off three times this month, and that the people who turn it wait near it.
 
+## THE SETTLEMENT AND THE OFFER SCREEN
+(Added 9/28, Paolo's ruling: contracts are the Battle Brothers settlement contract screen. records/BOHEMIA_PAOLO_QUESTS_ARE_THE_SETTLEMENT_CONTRACT_SCREEN_9_28_26.md. The job after the yes is unchanged; only the front door moved. Research: questbook/research/QR_P_THE_FRONT_DOOR_MOVED_9_28_26.md.)
+- SETTLEMENT: a residential home base below the dam road that draws its water from the share.
+- BUILDING: the pump shed window (the hall for this place; the queue of people with jugs is drawn on the settlement screen in front of it).
+- CLIENT PORTRAIT: Teo Vásquez, behind the window, a queue in the background of the frame.
+- THE SCREEN'S LINES:
+  - "You're here about the valve. Everybody is."
+  - "Valve's up the wash, the red wheel by the culvert. Somebody turned it."
+  - "One resources from the share when it runs."
+- PAY, SHOWN BEFORE ACCEPT: 1 resources from the share (water), or 1 battery if asked.
+- NEGOTIATION: ASK FOR A DIFFERENT PAY (the haggle's first kind): one battery instead; two asks land, the third gets the spoken limit. ADVANCE: none; the share pays on flow.
+- ACCEPT / DECLINE: ACCEPT puts the red wheel on the map. DECLINE, or closing the screen, or never tapping the building, writes nothing: no row, no line, no look, and the offer sits in the same building on the next visit while the job is still real.
+
 ## THE CHOICES
 1. TAKE IT. One resources on return (water share, paid from the ledger in his hand). The walk up the wash
    is on the close grid; the valve cell has a group standing on it, and the fight is there.

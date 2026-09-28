@@ -17,6 +17,19 @@ Ines Carvajal, farm manager, a sculpted white coverall, reading glasses on a cha
 "Cinco baterías. Three nights, hasta el camión. The harvest truck comes Thursday, you'll hear it test the horn
 Tuesday. Keep the pumps wet and keep people off six. Some nights people come."
 
+## THE SETTLEMENT AND THE OFFER SCREEN
+(Added 9/28, Paolo's ruling: contracts are the Battle Brothers settlement contract screen. records/BOHEMIA_PAOLO_QUESTS_ARE_THE_SETTLEMENT_CONTRACT_SCREEN_9_28_26.md. The job after the yes is unchanged; only the front door moved. Research: questbook/research/QR_P_THE_FRONT_DOOR_MOVED_9_28_26.md.)
+- SETTLEMENT: a reclaimed tower home base whose trade is hydroponic food.
+- BUILDING: the farm office on six (the hall for this place).
+- CLIENT PORTRAIT: Ines Carvajal, sculpted white coverall, reading glasses on a chain, grow lights behind her.
+- THE SCREEN'S LINES:
+  - "Cinco baterías. Three nights, hasta el camión."
+  - "Keep the pumps wet and keep people off six."
+  - "Some nights people come."
+- PAY, SHOWN BEFORE ACCEPT: 5 batteries on Thursday, plus first pick of the harvest at cost.
+- NEGOTIATION: ASK FOR MORE: "Cinco, and the pick." ADVANCE: none. The one other ask is the start day (choice 3).
+- ACCEPT / DECLINE: ACCEPT sets Thursday on the map's clock. DECLINE, or closing the screen, or never tapping the building, writes nothing: no row, no line, no look, and the offer sits in the same building on the next visit while the job is still real.
+
 ## THE CHOICES
 1. **"Not this week."** "Okay. I'll ask downstairs." COST: nothing. The farm finds someone, or loses a floor; either way
    it is a world event, and the market's lettuce price the next week shows it without naming anybody (C8).
