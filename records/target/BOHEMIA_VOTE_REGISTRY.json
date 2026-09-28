@@ -2604,7 +2604,7 @@
    "id": "mods-one-gun-forty-two-places-9-28",
    "kind": "ui",
    "lane": "mods",
-   "sha": "pending",
+   "sha": "1f3936f",
    "made": "9/28",
    "title": "ONE GUN, FORTY TWO PLACES",
    "why": "Research, nothing in the game. To change the pistol today a modder has to find it in 42 spots inside the fight's hidden code, and 10 tests break if a number moves. Tap AS DATA to see the same pistol as one row in one file, every number read from the real fight. Thumb up if one file per kind of thing is the direction.",
