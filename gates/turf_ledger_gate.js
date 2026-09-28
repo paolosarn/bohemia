@@ -1,4 +1,20 @@
-/* THE TERRITORY LEDGER GATE
+/* SUPERSEDED 9/28/26 — Paolo's third votes, item 5: "TERRITORY IS NOT A
+   MECHANIC; HOME BASES AND ROAMING PARTIES ARE" (records/BOHEMIA_PAOLO_THIRD_VOTES_9_28_26.md,
+   laws/BOHEMIA_ADDENDUM_THE_THIRD_VOTES_9_28_26.md). Per-cell, map-painted,
+   fought-over territory is DEAD. Replaced by VAMILY row [home bases]
+   (records/BOHEMIA_HOME_BASES_NOT_TERRITORY_SCHOOL_9_28_26.md): whole-settlement
+   capture at the 14-seat granularity the engine already computes.
+
+   THIS GATE STAYS LIVE, not deleted, ONLY because it proves engine/bohemia_turfledger.js
+   still behaves (the empty-ledger-is-a-no-op property), and that file stays live
+   only because gates/three_acts_gate.js (WORLD's, already shipped) hard-requires
+   it directly. Nothing calls turfAt/.took() on the real running surface, so this
+   gate passing changes nothing a player sees.
+
+   A DEAD SHAPE DOES NOT COME BACK UNDER A NEW NAME. Do not build new work on
+   this ledger. Build on [home bases] instead. *** END SUPERSEDED NOTICE. ***
+
+   THE TERRITORY LEDGER GATE
    FACTIONS lane, VAMILY row [territory ledger], 9/24/26.
 
    THE ROW: turfGrid() is keyed on seed and map size and nothing else, the save

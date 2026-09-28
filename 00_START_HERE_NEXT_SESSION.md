@@ -17486,6 +17486,31 @@ HOW TWENTY-TWO ROUNDS COMPOSE, written once now that Q1-Q22 are all shipped:
 NEXT IN THIS LANE: Q23 [who eats first].
 
 
+FACTIONS (factions-ovkjpf): 9/28 (round 46) LATEST -- *** [home bases] SHIPPED, SCHOOL ONLY.
+His third votes item 5 killed the 9,216-cell painted territory ledger: "TERRITORY IS NOT A
+MECHANIC; HOME BASES AND ROAMING PARTIES ARE." Measured live on the running alpha instead of
+guessing: 28 parties already roam the map right now (14 patrol, 10 caravan, 4 crew -- already
+"way more than fourteen," his own bar), and all 14 crew seats already carry a real district
+kind and tier off BohemiaTowns.derive() (Mob sits a resort at fortress tier, Cartel sits
+storage at fortress tier, Church sits a chapel at town tier). THE FINDING: the seats and
+parties were never the broken part. The 9,216-cell painted layer was. Full record:
+records/BOHEMIA_HOME_BASES_NOT_TERRITORY_SCHOOL_9_28_26.md (Battle Brothers 01/09 cited,
+real-world cartel/gang-geography sources cited, routed to COOK [tile options] for the
+settlement screen and COMBAT [bb fight] for the roaming-vs-seated fight distinction).
+engine/bohemia_turfledger.js and gates/turf_ledger_gate.js marked SUPERSEDED in place (banner
+at the top of each) rather than moved or deleted, because gates/three_acts_gate.js (WORLD's,
+already shipped) hard-requires the engine file directly -- moving it would have broken a
+cross-lane gate that is not mine to touch. The empty-ledger-no-op property already proven by
+the gate means the banner-only change alters nothing a player sees. NOT SHIPPED THIS ROUND:
+the trackSay/[track leg] fix from the previous round, on purpose -- rule 38 (FULLY COMMITTED,
+9/28) killed tile-to-tile city walking "immediately," twice over in the same commit, and
+[track leg]'s whole purpose was polishing that now-dead surface. Shipping it anyway would
+have been the STOP PRODUCING violation (finding a legal way to ship a dead feature), not a
+fix. Left OPEN for whenever party-tracking gets a real home (inside the settlement screen or
+the map marker system) -- not decided this round, flagged here so the next round does not
+reinvent it. NEXT IN THIS LANE: the actual raid/build mechanism off the seats+parties data,
+with WORLD and COOK [tile options], per rule 37e's own routing.
+
 FACTIONS (factions-ovkjpf): 9/27 (round 45) LATEST -- *** THIS VALLEY ALREADY TRACKS TWO
 SEPARATE RANKINGS OF CREW TRUST, AND NEITHER ONE HAS EVER HEARD OF THE GROUND YOU HOLD. A
 FAVOUR COUNT (BohemiaBelonging) and A BUILD-PERMISSION RUNG (TERRITORY -> MANDATE -> MAYOR)

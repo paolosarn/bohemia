@@ -2758,6 +2758,16 @@
       "src": "vote/ANIMATION_BRACE_AND_SHADOWBOX.html"
     },
     "said": "I don't wanna treat a whole new character"
+  },
+  {
+   "id": "factions-home-bases-not-territory-school-9-28",
+   "kind": "verdict",
+   "lane": "factions",
+   "title": "THE OLD TERRITORY MAP IS BURIED. HOME BASES AND ROAMING CREWS REPLACE IT.",
+   "text": "You killed the painted territory map. I checked what is already there instead: 28 crews already roam the map right now, way more than fourteen like you wanted, and all 14 crew home bases already have a real job (Mob runs a resort, Cartel runs storage, Church runs a chapel). Next round I build the actual raid and settlement screen off that. UP means keep going that way.",
+   "asked": "UP or DOWN",
+   "when": "2026-09-28",
+   "draft": true
   }
  ],
  "verdicts": [

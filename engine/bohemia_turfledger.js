@@ -1,4 +1,30 @@
 // BOHEMIA — THE TERRITORY LEDGER
+//
+// *** SUPERSEDED 9/28/26. READ THIS BEFORE BUILDING ON IT OR AGAINST IT. ***
+// Paolo's third votes (records/BOHEMIA_PAOLO_THIRD_VOTES_9_28_26.md item 5,
+// laws/BOHEMIA_ADDENDUM_THE_THIRD_VOTES_9_28_26.md s5): "territory is convoluted
+// ... not a real gameplay mechanic, you're not fighting over territory... if you
+// attack the whole faction settlement it's yours or ruined." TERRITORY AS A
+// PER-CELL, MAP-PAINTED, FOUGHT-OVER MECHANIC IS DEAD. VAMILY row [home bases]
+// (rule 37e) replaces it: fourteen HOME BASES (whole-settlement capture, taken or
+// ruined), not 9,216 cells of ledger entries. See this lane's own pivot record:
+// records/BOHEMIA_HOME_BASES_NOT_TERRITORY_SCHOOL_9_28_26.md.
+//
+// THIS FILE IS KEPT LIVE, NOT DELETED, for one reason only: gates/three_acts_gate.js
+// (WORLD, shipped, gated, load-bearing) requires it directly at this path, and
+// moving it would break a cross-lane gate that is not this lane's to touch.
+// bohemia_future.js's own dependency on it is already soft (DEP(), no-ops if
+// absent) and the empty-ledger-is-a-no-op property this file's gate proves means
+// its mere presence changes nothing on the real surface: nothing anywhere calls
+// .took(), so every reader of it reads through to the underlying grid unchanged.
+//
+// DO NOT BUILD NEW WORK ON THIS SHAPE. A dead mechanism does not come back under
+// a new name (A DEAD SHAPE DOES NOT COME BACK UNDER A NEW NAME, 8/30). If a
+// per-entity capture ledger is needed for home bases, it is FOURTEEN entities,
+// not 9,216 cells, and it is a fresh design against the new row, not a rename of
+// this one. See gates/bohemia_graveyard.txt for the registry entry.
+// *** END SUPERSEDED NOTICE. THE ORIGINAL HEADER FOLLOWS, FOR CONTEXT ONLY. ***
+//
 // FACTIONS lane, VAMILY row [territory ledger] WHAT-THE-PLAYER-TOOK-IS-WRITTEN-DOWN
 // (coordinator 9/24, from WORLD caaaa26). 9/24/26.
 //
