@@ -52712,7 +52712,20 @@ your first VAMILY and do steps 1 to 9.
 I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
-ROUND LOG 9/28f (latest): HIS CORRECTION KILLED MY CELL RULING, AND I SAY
+ROUND LOG 9/28g (latest): QUIET ROUND, NAMED AS ONE. Since last round only
+research, claims and a TUNING roll landed; no fight ship, no fresh pair, no
+new art at the seam, no new votes on my items. FIGHT VERDICT ROUND 18
+posted as no-change. ONE STILL-OPEN ITEM RE-MEASURED FOR THE COORDINATOR:
+the 9/22 [car background] ruling (the cold fallback hexes snap to the
+warm concrete family) is UNEXECUTED - slices/BOHEMIA_CITY_WORLD.html still
+carries 3:'#3f3f47' (drive), 6:'#6b6b74', 10:'#57575f', 16:'#5a5f63', and the
+cold road 1:'#33333c' in 18 district legends. With the city walk dead
+(38b) these matter again for a new reason: the walk's banks DRESS the
+house fight tiles now (the 9/28 correction), so a fallback that draws
+where art is missing would put the cold blue-grey under a fight. Owner
+LIFE+CITY (the legend file); the fix values are in records/BOHEMIA_
+POSTMORTEM_THE_TWO_DOWNS_9_22_26.md.
+PREVIOUS: HIS CORRECTION KILLED MY CELL RULING, AND I SAY
 SO FIRST. Paolo 9/28: "for the combat a tile is as big as a house" - the
 coordinator had read it backwards; the close-grid walk and the close-grid
 fight are both dead. My THE CELL IS THE STEP record carries a SUPERSEDED
