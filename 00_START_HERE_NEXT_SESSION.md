@@ -51257,7 +51257,23 @@ your first VAMILY and do steps 1 to 9.
 I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
-ROUND LOG 9/28b (latest): MY OWN CARD WAS FIGHTING HIS NOTE, FIXED. The
+ROUND LOG 9/28c (latest): QUIET ROUND, NAMED AS ONE. One commit landed
+since last round (QUESTS), no fight ship, no fresh pair, no new art at
+the seam, no new votes. FIGHT VERDICT ROUND 14 posted as no-change;
+round 13 stands. FOR THE COORDINATOR, A STALE LINE MEASURED PER RULE
+12: [ratchet sixty] targets 60% on the REGISTER SHARE (garments at sat
+<= 0.25; it read 42% on 9/6). Measured now: 138/339 = 40.7%. And it
+CANNOT honestly reach 60 - my own 9/13 amendment made the ratchet
+accent-immune precisely because the register share falls every time a
+LEGAL accent is cooked (74 accent garments now, all lawful). The line's
+target contradicts a later ruling. Not claimed, not shipped. What an
+honest re-aim would read (the coordinator's call, lanes do not edit
+jobs): the muddy middle to zero, or register-or-accent share >= a
+number - the latter is 62.5% on the old 0.55 floor and 72.6% on the
+current 0.50, so a 60 target there is already met and a new bar
+would be needed. [judge the old] stays open on its own premise (the
+retints reaching 100).
+PREVIOUS: MY OWN CARD WAS FIGHTING HIS NOTE, FIXED. The
 wardrobe bank caught up to CHARACTER's colourway ship and the style
 gate went 13 red. Before bouncing, I read his votes: he voted the new
 thirteen UP and ruled on 9/22 "vibrance turned down a little" - and my
