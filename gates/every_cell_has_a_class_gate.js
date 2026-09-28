@@ -37,6 +37,10 @@ const ENGINE = path.join(ROOT, 'engine');
    for our own verdict and restored before we use it. */
 const realExit = process.exit;
 process.exit = function () {};
+/* ...and print their own ok-lists while they do it. Muted while loading so this gate's
+   output is this gate's findings, not four hundred lines of other people's tests. */
+const realLog = console.log;
+console.log = function () {};
 
 const K = require(path.join(ENGINE, 'bohemia_district_kit.js'));
 for (const f of fs.readdirSync(ENGINE).filter(n => n.endsWith('.js'))) {
@@ -44,6 +48,7 @@ for (const f of fs.readdirSync(ENGINE).filter(n => n.endsWith('.js'))) {
 }
 
 process.exit = realExit;
+console.log = realLog;
 
 let pass = 0, fail = 0;
 const ok = (name, cond, detail) => {

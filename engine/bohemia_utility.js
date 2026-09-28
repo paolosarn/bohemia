@@ -778,7 +778,15 @@
               hard enough to trust". That is a floor that gives way, which is a hole with a
               lid on it, and it was modelled as a solid wall. */
            6:['crusted pond centre','structure','the crust in the middle of a pond, dried hard enough to walk on and not hard enough to trust',{'void':true}],
-           7:['pond berm','structure','the earth berm holding one pond off the next'],
+           /* A BERM IS WHAT THE ROAD SITS ON, NOT A WALL (9/28, LIFE+CITY, rule 34b). It was
+              solid by its KIND DEFAULT, never by anybody's choice, and this same legend says
+              otherwise twice: code 1 is 'the service road along the berm tops' and code 4 is
+              'the graded top of a berm between two ponds'. A body walks along a berm, which is
+              the whole point of one. As a wall it sealed 2,658 cells of this district, 24% of
+              its floor, pond by pond. structure + solid:false is the kit's own word for a low
+              earthwork you step up onto (the 8/20 void note names it), and it is NOT a void:
+              that is declared, and this is ground you can trust, unlike the crust at code 6. */
+           7:['pond berm','structure','the earth berm holding one pond off the next',{solid:false}],
            8:['pond water','water-dead','what is in the pond now — still, green, and not moving anywhere'],
            9:['pole light','prop','a plant light, head dark, standing over water that no longer moves anywhere'],
            10:['weir box / blower','prop','an outlet weir box on a pond corner, a blower on its pad'],

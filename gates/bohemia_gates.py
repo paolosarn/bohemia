@@ -2868,6 +2868,12 @@ GATES = [
      "proof pictures, which is what a temp dir is for", False),
     ('LANDLOCKED',      ['node', 'gates/landlocked_gate.js'],
      'an interior district with no real street is suburb/apt and relays a road out through a same-family neighbor', False),
+    ('FLOOR CONNECTS',   ['node', 'gates/every_floor_region_connects_gate.js'],
+     'rule 34b (Paolo 9/27): every floor region connects to the street. A RATCHET: sealed floor per '
+     'district (walled in by solid things with no gap) is frozen and may only go down, zero stays '
+     'zero, a new district is born at zero. Islands (reached only across water or a pit) are honest '
+     'and allowed. It started at 25,544 sealed cells in 40 districts; a kerb and a pond berm that '
+     'were walls by accident were 4,052 of them', False),
     ('EVERY CELL CLASS', ['node', 'gates/every_cell_has_a_class_gate.js'],
      'rule 34b (Paolo 9/27): every legend kind in every district is KNOWN to the one table that '
      'decides solid, because an unknown kind falls through to walkable floor in silence -- it was '

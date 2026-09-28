@@ -1298,6 +1298,66 @@ AND THE LESSON THAT STILL BINDS: NO TEXT-ONLY ITEM IN VOTE, and now a second one
 beside it -- A PICTURE IN THE VOTE TAB THAT SHOWS A SENTENCE THE GAME NO LONGER
 SAYS IS A LIE TO HIM. Re-shoot the frames in the same round the words change.
 
+LIFE + CITY (city-1eztay): 9/28 LATEST -- *** PLACES YOU CAN SEE AND NEVER ENTER: 25,544
+CELLS OF FLOOR WALLED IN WITH NO WAY IN, AND 4,052 OF THEM WERE A KERB AND A BERM. ***
+TAB: the new picture is in the VOTE tab (alpha).
+Record: records/BOHEMIA_PLACES_YOU_CAN_SEE_AND_NEVER_ENTER_9_28_26.md
+
+ROW [honest grid] STILL CLAIMED, round 2: rule 34(b)'s second leg, every floor region connects.
+Every one of 72 districts, one fixed seed, classed by the kit's own tileLayer, flooded from every
+standable border cell (generous on purpose, so every count is a floor under the truth):
+    STRANDED 26,908 cells (3.08%) in 978 pockets across 41 districts.
+
+*** THE DAM WAS MINE, AND IT WAS NOT A REGRESSION. *** 0 stranded before last round's water fix,
+889 after. Mapped before touching: five blocks of exposed rock OUT IN THE RESERVOIR, reached before
+only by walking on water that was pavement. They are islands now. So stranded ground is TWO things:
+    ISLAND  reached only across a void (water, a pit). Honest.      1,364 cells
+    SEALED  walled in by solid things with no gap. The lie.         25,544 cells in 40 districts
+Punishing islands would push somebody to make water walkable again, so they are counted, never
+ratcheted.
+
+MOST OF THE SEAL WAS NOT A MISSING DOOR: it was a thing you step over, classed as a wall. Swept for
+solid entries whose NAME is something a body steps over: 20, triaged one by one on ONE LINE --
+A VALUE WRITTEN ON PURPOSE IS A DECISION AND STAYS; A VALUE THAT FELL OUT OF A KIND DEFAULT IS AN
+ACCIDENT AND GETS FIXED. Two accidents:
+    sign     KERB, its own act1 says 'the low kerb'; sealed the whole parking lot    1,394 -> 0
+    reclaim  POND BERM, its own legend says the service road runs along the berm
+             tops; sealed 24% of the district                                         2,658 -> 0
+Both stay `structure` so they still DRAW raised; only solid:false changes. The 8/20 void note names
+'a knee-high wall as structure+solid:false' as legitimate, and it is not a void (voids are declared).
+Declared ones LEFT and listed: landfill cell berm, apartment exterior stair, mountain ridge crest.
+    VALLEY 25,544 -> 21,492 sealed, 40 -> 38 districts.
+
+WHAT IS LEFT IS REAL MISSING GATES, FROZEN BY NAME: stadium field + concourse inside the stands
+3,506 - landfill 3,428 (declared berms) - chapel memorial court + orchard 2,296 - watertreat basins
+1,790 - fueldepot containment 1,420 - library courtyard 1,009 - airport service road airside of the
+fence 868 - solar access road inside the switchgear fence 240 - a terminal DOORWAY that opens onto
+nothing 75 - and 29 smaller.
+
+THE GATE IS A RATCHET, NOT A PASS MARK: gates/every_floor_region_connects_gate.js, suite FLOOR
+CONNECTS, 4 s. Frozen per district in gates/every_floor_region_connects_baseline.json; a rise fails
+by name, zero stays zero (34 districts), an improvement says 'lower the baseline', a NEW district
+must be zero. ONE MEASUREMENT, THREE READERS: the flood lives once in
+gates/every_floor_region_connects_lib.js and the gate, the baseline and the VOTE picture all call
+it (cross-checked to the cell against the scratch sweep, 21,492 in 38).
+    10 ok 0 failed - MUTATION kerb back as a wall: 7 ok 3 FAILED, 'sign 0 -> 1394' by name -
+    MUTATION walled 4x4 yard: 16 SEALED - MUTATION dry rock in a pond: 1 ISLAND.
+Nothing else moved: OCCUPANCY 16/0, DISTRICT KIT 24/0, LANDLOCKED 16/0, INTERIOR GROUND 21/0,
+HAZARD 74/0, EVERY CELL CLASS 12/0. City slice resynced (duty 8). Both my gates now mute the engine's
+self-test chatter while loading.
+
+COOK (rule 22): slices/vote/LIFECITY_PLACES_YOU_CAN_SEE_AND_NEVER_ENTER_9_28.png. Six real blocks,
+each cell one answer from the SAME measurement the gate ratchets (green walk, grey solid, blue water,
+pale island, RED sealed): sign lot before/after, pond field before/after, stadium and chapel still
+sealed. The BEFOREs are the same generator and seed with the ONE declaration flipped back in memory;
+the factory refuses if a before shows no seal or an after still shows one, and measures its labels.
+ANALOG HORROR LINE: a place that looks entered and cannot be. A door that was never drawn.
+
+NEXT ON THIS ROW: the real missing gates biggest first (stadium tunnels, a gate in the solar and
+airport fences, the terminal doorway), lowering the ratchet as each lands; then the dead-pad leg.
+[three cities] stays CLAIMED, parked behind its own measurement.
+[PENDING Paolo] unchanged: what deep water does to you; the future fits in 6.7% of the valley.
+
 LIFE + CITY (city-1eztay): 9/27b LATEST -- *** A THIRD OF THE DAM WAS WATER YOU COULD
 STAND ON, AND ONE MISSING WORD IN ONE TABLE IS WHY. ***
 TAB: the new picture is in the VOTE tab (alpha).

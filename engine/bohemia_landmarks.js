@@ -574,7 +574,12 @@
     5:  { name: 'sign pole', kind: 'structure', act1: 'one of the two steel poles holding the diamond up' },
     6:  { name: 'parking apron', kind: 'drive', act1: 'the free parking apron, cracked and seal-patched (car-drivable)' },
     7:  { name: 'bay stripe', kind: 'ground', act1: 'a parking bay stripe, mostly worn off', solid: false },
-    8:  { name: 'kerb', kind: 'structure', act1: 'the low kerb around the apron' },
+    /* A KERB IS SOMETHING YOU STEP OVER (9/28, LIFE+CITY, rule 34b). Its own act-1 line
+       says 'the low kerb', and it was a WALL by its kind default -- nobody chose that. It
+       ringed the apron, so all 1,394 cells of this district's parking lot, 8.8% of its floor,
+       could be seen and never reached: a car park with no way in. Kept a structure so it
+       still DRAWS as a raised edge; only what it does to a body changes. */
+    8:  { name: 'kerb', kind: 'structure', act1: 'the low kerb around the apron', solid: false },
     9:  { name: 'dead lamp post', kind: 'structure', act1: 'a car park lamp post with nothing in the head' },
     10: { name: 'bollard', kind: 'structure', act1: 'a yellow bollard, sun-bleached to cream' },
     11: { name: 'kerb cut', kind: 'drive', act1: 'the kerb cut off the boulevard into the apron (car-drivable)' },
