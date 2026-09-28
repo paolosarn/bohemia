@@ -2895,7 +2895,17 @@
     "src": "vote/WORLD_THREE_SHAPES.png"
    },
    "sha": "5441e5f"
-  }
+  },
+{
+  "id": "coordinator-the-company-inherits-9-28",
+  "kind": "verdict",
+  "lane": "coordinator",
+  "title": "YOUR COMPANY PASSES DOWN. EACH ACT STARTS WITH THE LAST CREW'S HEIRS.",
+  "text": "You asked if the people you hire are part of the dynasty, and whether that means recruiting 36 instead of 12. Default: the company inherits. Each act starts with the heirs of the last act's crew, a killer's kid or apprentice with some of the parent's traits, gear kept in the family. About 12 people an act, 36 lives a game. Recruiting inside an act stays Battle Brothers hard. Keeping your killers alive and paid is how you get S-tier killers three acts later. DOWN means every act recruits from scratch, or say your version in a note.",
+  "asked": "UP or DOWN",
+  "when": "2026-09-28",
+  "draft": true
+}
  ],
  "verdicts": [
   {

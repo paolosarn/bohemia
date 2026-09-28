@@ -95,3 +95,20 @@ decides. REALISM FIRST leads with A: the cool technology that broke the world (7
 its records, which is section 2 word for word. Until his letter, DYNASTY [the frame] is SCHOOL ONLY and nothing
 in the alpha names the fiction.
 
+## 11. NO FLIP AT THE START; ONE PERSON, THEN THE NEXT IS GENERATED FROM HIM; THE COMPANY INHERITS; THE TWIST IS THE ENDING'S (Paolo 9/28, LOCKED; records/BOHEMIA_PAOLO_ENDINGS_THE_COMPANY_ACROSS_ACTS_NO_FLIP_AT_START_BUILD_IT_9_28_26.md)
+(a) "You start the game, you can't flip between the three people." The phone shows ONE person until the second
+generation unlocks (37j; the unlock moment is the manager's default until he rules: the first home base). Three
+faces from frame one (DYNASTY [the flip] as shipped 9/24) is DEAD; the strip grows a face at each unlock.
+(b) You customize ONE person at the start. At the first hop into the second generation you are given the option
+to customize that person, who STARTS OFF GENERATED FROM HOW YOU MADE THE FIRST (heredity: face, body, name bank);
+the third the same from the second. Section 4's naming-all-three-before-act-1 (32d as built) is DEAD as built;
+"names come prepared" survives at each first hop (a prepared name, a reshuffle, a field).
+(c) THE COMPANY INHERITS (manager's default, in VOTE): each act starts with the heirs of the last act's company,
+prepared from the ledger like the city is; gear stays in the family (37g); ~12 men an act, 36 lives a game.
+(d) ENDINGS: the Amalgamation is the real villain; good, bad or neutral toward it; different endings. If there is
+a twist it is the ENDING'S, never the frame of the whole game. DYNASTY [the ending] researches his signal idea
+(travel as data at radio speed; the third character on the Moon with the company) against canon (the Moon and
+Mars bases, GDD v2) and against s10's default A; nothing is canon until he rules.
+(e) Assassin's Creed is NAMED by him for the story frame and the ending twist only, "possibly"; study allowed,
+nothing built from it until an ending is ruled. Ocarina of Time stands as this law's reference.
+
