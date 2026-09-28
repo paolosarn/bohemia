@@ -237,6 +237,11 @@ const WITNESS = `(() => {
       if (W.watchStep && W.firstStep === null && typeof hx !== 'undefined') {
         if (hx !== W.hx0 || hy !== W.hy0) W.firstStep = performance.now();
       }
+      /* 9/28 (RUN, rule 38c): on the demo's map the first play is the PARTY moving, not
+         his feet -- the city is crossed on the map by a tap and nowhere else. */
+      if (W.watchStep && W.firstStep === null && W.cx0 != null && typeof city !== 'undefined') {
+        if (city.x !== W.cx0 || city.y !== W.cy0) W.firstStep = performance.now();
+      }
     } catch (e) {}
   };
   setInterval(tick, 60);
@@ -318,10 +323,15 @@ async function bootToPlay(page, base, pageFile, log, opts) {
      they are NOT properties of contentWindow -- they can only be read from
      inside the frame by bare name. Reading them through the parent returns
      undefined forever, which is a 90-second timeout that looks like a hang. */
+  /* 9/28 (RUN, rule 38b/c, [no city walk]): THE DEMO OPENS ON THE MAP. The world is ready
+     when the walked street has its pad (the alpha, and anything still booting a street) OR
+     when the demo has put the map up; waiting for MODE human on the demo now waits forever. */
   await pollUntil(fr, () =>
-    typeof MODE !== 'undefined' && MODE === 'human' &&
-    document.querySelectorAll('.pb').length === 8, 120000);
+    typeof MODE !== 'undefined' && (
+      (MODE === 'human' && document.querySelectorAll('.pb').length === 8) ||
+      (MODE === 'city' && typeof DEMO_ON_MAP !== 'undefined' && DEMO_ON_MAP === true)), 120000);
   M.world = at();
+  M.onMap = await fr.evaluate(() => MODE === 'city');
   /* WHAT HAD TO ARRIVE BEFORE ANYTHING WAS ON SCREEN. This is the stable load
      number; "bytes before you can MOVE" is much larger and much noisier, because
      it counts whatever the late loader managed to pull during the jam. */
@@ -351,13 +361,28 @@ async function bootToPlay(page, base, pageFile, log, opts) {
     catch (_e) {}
   }
 
-  const pad = await padPoints(page, fr);
+  const pad = M.onMap ? await mapPoint(page, fr) : await padPoints(page, fr);
   const cdp = page.__cdp;
   await fr.evaluate(() => { const W = window.__BOH_W;
     W.hx0 = (typeof hx !== 'undefined') ? hx : null;
     W.hy0 = (typeof hy !== 'undefined') ? hy : null;
+    W.cx0 = (typeof city !== 'undefined' && MODE === 'city') ? city.x : null;
+    W.cy0 = (typeof city !== 'undefined' && MODE === 'city') ? city.y : null;
     W.firstStep = null; W.watchStep = true; });
   M.padReady = at();
+  if (M.onMap) {
+    /* ON THE MAP A PERSON TAPS WHERE THEY WANT TO GO, once, and waits to see the party move.
+       A second tap would STOP the journey (volume 01's right-click), so this only taps
+       again if nothing has moved after two seconds -- the thumb that got nothing. */
+    let movedOnMap = false;
+    await touchDown(cdp, pad.up); await sleep(90); await touchUp(cdp);
+    for (let i = 0; i < 200 && !movedOnMap; i++) {
+      await sleep(150);
+      movedOnMap = await fr.evaluate(() => !!(window.__BOH_W && window.__BOH_W.firstStep !== null))
+        .catch(() => false);
+      if (!movedOnMap && i % 14 === 13) { await touchDown(cdp, pad.up); await sleep(90); await touchUp(cdp); }
+    }
+  } else {
 
   /* THE FIRST PRESS IS SPENT ON THE CARD, and that is not a guess. On boot
      #daycard is inset:0 over the whole walked surface: the browser's own hit
@@ -377,6 +402,7 @@ async function bootToPlay(page, base, pageFile, log, opts) {
     }
   }
   await touchUp(cdp);
+  }
   M.firstStepSeenAt = at();
 
   /* ---- put every witness mark on one wall clock ------------------------- */
@@ -467,6 +493,28 @@ async function clearTheWay(target, tries) {
 
 /* the eight pad buttons, in PAGE coordinates (the frame is offset by the tab
    strip, and a touch is dispatched to the page, not to the frame) */
+/* 9/28 (RUN, rule 38c): WHERE A THUMB TOUCHES THE DEMO'S MAP to go somewhere -- a block it
+   could stand on, three to six blocks of road away, found the way the travel gate finds it.
+   Returned in the pad's own shape so every caller that presses pad.up presses the map. */
+async function mapPoint(page, fr) {
+  const off = await page.evaluate(() => {
+    const f = document.getElementById('cityFrame');
+    const r = f.getBoundingClientRect(); return { x: r.x, y: r.y };
+  });
+  const q = await fr.evaluate(() => {
+    const c = document.getElementById('cv'), r = c.getBoundingClientRect();
+    const kx = c.width / r.width, ky = c.height / r.height;
+    for (let sy = 60; sy < r.height - 60; sy += 11) for (let sx = 20; sx < r.width - 20; sx += 11) {
+      const cell = CBcellAt(sx * kx, sy * ky); if (!cell || !cityWalkable(cell[0], cell[1])) continue;
+      const p = cityRoute(city.x, city.y, cell[0], cell[1]);
+      if (p && p.length - 1 >= 3 && p.length - 1 <= 6) return { x: r.x + sx, y: r.y + sy };
+    }
+    return { x: r.x + r.width * 0.3, y: r.y + r.height * 0.35 };
+  });
+  const P = { x: off.x + q.x, y: off.y + q.y };
+  return { up: P, right: P, down: P, left: P, all: [P], map: true };
+}
+
 async function padPoints(page, fr) {
   const off = await page.evaluate(() => {
     const f = document.getElementById('cityFrame');
