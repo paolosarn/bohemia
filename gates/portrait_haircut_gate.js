@@ -42,8 +42,17 @@ const CEIL_MIN  = 40;     /* distinct hair silhouettes renderable.    before 6  
 const DIALS_FLOOR = 8;    /* the pool may shrink, but not to nothing.                    */
 /* THE APPROVED PLAYER FACE, PINNED ON PIXELS. Measured on a clean origin/main worktree
    on 9/24 and identical in the tree that added ten face sliders. Nothing may move it
-   without Paolo; if this goes red, look at what changed his face, not at this number. */
-const PLAYER_FACE = '68caec4f';
+   without Paolo; if this goes red, look at what changed his face, not at this number.
+   REPOINTED 9/28 (this pin's own instruction, followed): "the portrait is HEAD ONLY for
+   now" is not a fresh candidate, it is rule 37i, one of THE THIRD VOTES -- 55 verdicts
+   Paolo already locked in the tab on 9/27 -- and NOTES ARE RULINGS means a locked verdict
+   builds into the real thing the same turn, never waits for a second thumb. Checked what
+   moved him first, same as every prior repoint of this pin: the default portrait stopped
+   drawing the flat, un-anatomical shoulder colour (spec.top, a rolled RGB with no real
+   garment behind it -- never his approved clothes, just a guess), which is exactly the
+   pixels rule 37i asked gone. Pin moves 68caec4f -> 8c2cac60; nothing else about his face
+   was touched. */
+const PLAYER_FACE = '8c2cac60';
 const N = 200;
 
 let pass = 0, fail = 0;
@@ -138,10 +147,18 @@ const ok = (n, c, note) => { if (c) { pass++; console.log('  ok   ' + n + (note 
     }
 
     /* 5 -- EVERY SHAPE DIAL MOVES PIXELS, one at a time, against the same face */
+    /* BARE-HEADED FOR THIS ONE TEST (rule 37i, 9/28): probe:0's own hash happens to roll
+       a durag on the body, and the portrait now correctly wears it (head gear MUST show).
+       A durag legitimately covers where 'front' moves the hairline, so 'front' stopped
+       moving pixels on THIS PROBE -- true on the glass, not a dead dial. This test's own
+       question is whether the shape mechanism is alive, not whether this one citizen's
+       headwear happens to hide it, so the clone strips the hat the same way it already
+       clones everything else before poking one field. */
     const moved = {};
-    const flat = renderFace(base, { ramp: faceRampFor(base) });
+    const bareBase = JSON.parse(JSON.stringify(base)); bareBase.hat = null;
+    const flat = renderFace(bareBase, { ramp: faceRampFor(bareBase) });
     for (const [k2, v] of [['side', 2.2], ['front', 0.34], ['vol', 3], ['flare', 0.30]]) {
-      const sp = JSON.parse(JSON.stringify(base));
+      const sp = JSON.parse(JSON.stringify(bareBase));
       sp.hair[k2] = v;
       const buf = renderFace(sp, { ramp: faceRampFor(sp) });
       let d = 0;

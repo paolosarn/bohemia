@@ -345,6 +345,56 @@ NEXT: [death rule] research page. Earlier this round: [bb numbers] SHIPPED.
 EYES AND EARS (eyes-5vql33): 9/28 (bb) LATEST -- *** [the sign] E25 CLAIMED, ROUND ONE (SCHOOL) STARTING. *** The only OPEN row left in this lane. THE QUESTION: COOK drew the Welcome to Las Vegas sign as one cell on the map, and its own picture already caught three things wrong with it (a lens instead of a diamond, no shadow, a slab apron) even though the numbers said it was fine. THIS ROUND IS RESEARCH ONLY, no measuring yet: how a landmark is supposed to read at map scale from far away (silhouette, shadow, what touches the ground), and the published rules for drawing a tiny icon that still reads correctly. Round two checks the drawn sign against the real one at its real address. Standing jobs (the cold stranger's walk, the horror-style check) continue every round on a demo cut fresh from main.
   NAMED BEFORE STARTING, SO ROUND ONE KNOWS TO CHECK IT: this game's whole map and grid system has been rebuilt several times just this round of work (rule 33/34/38), so before trusting anything about "cell 55,65," round one has to first confirm the sign this row is even about still exists on the map in the same place, at the same size, under whatever the map draws today.
 
+PORTRAIT (portrait-vamily-yke55s): 9/28 (b) LATEST -- *** [head and gear] SHIPPED, ALL FOUR
+BUNDLED PARTS OF RULE 37i (THE THIRD VOTES, LOCKED): HEAD GEAR SHOWS, HEAD ONLY BY DEFAULT,
+EYES NUDGED OFF DEAD-CENTRE, AND THE BARBER'S BB HOMEWORK DONE. *** Record:
+records/BOHEMIA_HEAD_AND_THE_GEAR_9_28_26.md. TAB: VOTE (portrait-the-head-and-the-gear-9-28).
+
+NOTES ARE RULINGS: rule 37i is already a locked tab verdict, not a fresh candidate, so all
+four parts went straight into the shipped renderer this same turn, no thumb requested.
+
+ONE, HAT/DURAG SHOWS: measured first -- 68 of 200 dressed citizens wear one on the body, 0 of
+200 portraits carried it (faceFor never asked). Now reads _np.equipped.hat the same way
+glasses already do ([shades on] pattern); renderFace draws it after hair, before glasses,
+sized off the face's own crown. ONE ID, ONE WHOLE PERSON, closed a fifth time this session.
+68 of 68 now.
+
+TWO, HEAD ONLY: the old default shoulder colour was `spec.top`, a rolled RGB with no
+`_np.equipped.top` behind it anywhere -- never a real garment, so it never met Paolo's own
+"if the clothing assets make it cheap" bar. Removed. THE COST, as he asked for one: nothing
+real, since nothing real was being shown (the polygon never tracked the chin either -- the
+exact defect the still-off-by-default bust mode already exists to fix). Bust mode untouched.
+
+THREE, EYES OFF-CENTRE: read as a camera note ("backgrounds may change" same sentence), not
+an order to touch the locked, deliberately-rare (1-in-12) eyes.gaze dial from [horror face].
+Done as a small fixed nudge on the destination draw in paintPortrait and the speaking-portrait
+loop only -- never inside renderFace, so no gate that measures a face off the raw buffer had
+to change.
+
+FOUR, THE BARBER (rule 33j, read first): all ten reference/library/battle_brothers/ volumes
+read; none cover appearance at all, because BB itself has no barber, no hair slider, nothing
+to count -- a recruit's portrait is one fixed painted bust per background. Written up as a
+real finding, not an invented number. Our own canon hair bank is 11 styles (down from 15 on
+8/28's graveyard sweep); "more than 11" logged as backlog, no new hair art drawn (research
+only, as the row scoped it).
+
+TWO GATES WENT RED FOR A TRUE REASON, BOTH FIXED IN THE GATE'S OWN ASSUMPTION: talking_
+portrait_gate's crown-ruled check couldn't tell "durag covers the crown on purpose" from "a
+dead straight part" (both read as <=1 hair-root pixels); now excludes hat-covered heads and
+counts them separately (26 of 60). portrait_haircut_gate's dial-liveness probe happened to
+roll a durag that legitimately hides the `front` dial's effect; now strips the hat from a
+cloned copy of that one probe before that one poke. That same gate's pinned approved-face
+hash also moved, correctly, because the shoulder removal touches every face including his;
+confirmed the cause was this locked ruling and repointed 68caec4f -> 8c2cac60 with the
+reasoning on record, per the pin's own instruction ("look at what changed his face").
+
+GATES: talking_portrait 34/0, portrait_haircut 15/0, family 15/0, face_maker 16/0, hair 39/0,
+hairline 12/0, hair_graveyard 13/0, craft_law 39/0, character_in_the_vote_tab 9/0, handoff
+9/0, alpha_loads 20/0, vote_tab 30/1 (pre-existing, two coordinator items, checked, not mine).
+
+NOT DONE: the barber BUILDING itself is not built (research only, as scoped this round); more
+canon hairstyles is backlog, not started.
+
 EYES AND EARS (eyes-5vql33): 9/28 (ba) LATEST -- *** [phone latency] E24 SHIPPED, BOTH ROUNDS: THE GAME ALREADY HAS A SAFETY NET FOR A BAD PHONE NUMBER, AND IT WORKS. *** Record: records/BOHEMIA_EYES_E24_ROUND_2_THE_SAFETY_NET_ALREADY_EXISTS_AND_WORKS_9_28_26.md, tool tools/bohemia_eyes_touch_to_sound.js. Standing jobs re-walked on a fresh cut; front page rewritten with fresh numbers below.
   ROUND ONE SAID THIS SANDBOX CANNOT PRODUCE A REAL SAFARI NUMBER, AND THAT STAYED TRUE. No WebKit binary anywhere in it, no real phone, no microphone. So round two measured the one thing that actually is testable here: does the game already have a way to survive whatever a real phone's number turns out to be. IT DOES. A button in the fight's own settings menu already runs the standard rhythm-game fix -- tap along to the beat 8 times, throw out the first two, take the middle of the rest, refuse the whole thing if the taps are too scattered -- and it feeds straight into the same clock the fight judges by.
   DRIVEN WITH KNOWN, DELIBERATE TIMING ERRORS TO PROVE IT ACTUALLY WORKS: aimed exactly on the beat, it stored zero. Aimed 90 ms late on purpose, it corrected by about 100 ms the right direction. Aimed 70 ms early, it corrected by exactly 70 ms the other direction. Given deliberately scattered, nonsense presses, it correctly refused to store anything. All four checks passed.

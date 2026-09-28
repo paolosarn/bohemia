@@ -1513,7 +1513,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 9/28k - FAMILY EYES DIFFER</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 9/28l - THE HAT SHOWS</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -4155,6 +4155,18 @@ function renderFace(spec,opts){
  const g=spec.top;
  const _bust=(typeof opts.bust!=='undefined')?opts.bust
             :((typeof window!=='undefined'&&window.BOH_FACE_BUST)||0);
+ /* HEAD ONLY FOR NOW (rule 37i, Paolo 9/27: "the portrait is head only for now, shoulders
+    only if the clothing assets make it cheap; say the cost"). Checked what spec.top
+    actually is before drawing it: three lines up the pipeline it is
+    `sp.top = [20+(R('top1')*26|0), ...]` -- a rolled RGB triple, never read from any
+    garment the citizen is wearing (there is no _np.equipped.top; the body's real shirt
+    asset is not consulted at all). So the old default shoulder poly below was never
+    "the clothing asset," it was a coloured guess -- drawing it is not cheap, it is
+    inventing a garment. THE COST OF DROPPING IT: nothing real is lost, because nothing
+    real was being shown; the head now sits on a bare neck against the background
+    gradient instead of a floating collar of a colour that matched no actual clothes.
+    THE BUST branch (still gated off by default, rule 18 hold) is untouched -- it is the
+    future home for real shoulders once a real garment asset is cheap to read here. */
  if(_bust){
    /* CAPPED AT 54, AND THE CAP IS THE WHOLE LESSON. The first cut used chin+3 with no
       real ceiling, and on a LONG face (chin 54) it pushed the shoulder mass off the
@@ -4164,8 +4176,6 @@ function renderFace(spec,opts){
    const sy=Math.max(34,Math.min(54,chin+3));
    poly([[0,64],[0,Math.min(63,sy+7)],[cx-21,sy+2],[cx-9,sy-1],[cx,sy+1],[cx+9,sy-1],
          [cx+21,sy+2],[63,Math.min(63,sy+7)],[63,64]],g);
- } else {
-   poly([[8,64],[12,52],[cx-8,50],[cx,53],[cx+8,50],[52,52],[56,64]],g);
  }
  const skull=[[cx-fw,Y0+2],[cx-fw,Y0-3],[cx-fw+3,headTop+2],[cx-5,headTop-1],[cx,headTop-2],[cx+5,headTop-1],[cx+fw-3,headTop+2],[cx+fw,Y0-3],[cx+fw+1,Y0+4],[cx+cw,chY],[cx+jw,jcY],[cx+chw,chin-2],[cx,chin],[cx-chw,chin-2],[cx-jw,jcY],[cx-cw,chY],[cx-fw-1,Y0+4]];
  poly(skull,Mn);
@@ -4532,6 +4542,27 @@ function renderFace(spec,opts){
     }
   }
   if(h.braid){let bs=h.braid,bx=cx+bs*(fw-1);for(let yy=Y0+5;yy<jaw-1;yy++){let z=((yy/2|0)%2);P(bx+bs*z,yy,[30,28,32]);P(bx+bs*(1-z),yy,[58,54,60]);}}}
+ /* *** THE PORTRAIT WEARS THE HAT THE BODY IS WEARING (rule 37i, Paolo 9/27: "head gear
+    MUST show in the portrait"). *** Same law as the glasses fix below, same shape: read
+    the garment off the body (spec.hat, set two hundred lines up from _np.equipped.hat),
+    take its colour from the painted garment's own ramp, nothing invented. Drawn AFTER
+    the hair so a durag's opaque cap covers whatever hair mass sits under it, the same way
+    a durag covers hair on the real head -- no second flag to suppress the hair draw, the
+    paint order already does it. Only one head-gear garment exists yet (hat/durag, 68 of
+    200 citizens measured wearing it); the shape below is sized to any face's own crown
+    (headTop, foreheadW, browY), never a fixed box, so it fits a child and an adult with
+    no second table -- the same requirement the glasses comment states for itself. */
+ if(spec.hat==='hat/durag'){ try{
+   var _hr=(typeof PD_DATA!=='undefined'&&PD_DATA.ramps)?PD_DATA.ramps[spec.hat]:null;
+   if(_hr&&_hr.length>=2){
+     var _hD=_hr[0],_hL=_hr[1];
+     var _hbY=f.browY-2;
+     poly([[cx-fw-2,Y0+3],[cx-fw,headTop+1],[cx-5,headTop-2],[cx,headTop-3],[cx+5,headTop-2],
+           [cx+fw,headTop+1],[cx+fw+2,Y0+3],[cx+fw-1,_hbY],[cx,_hbY-1],[cx-fw+1,_hbY]],_hD);
+     line(cx-fw-2,Y0+3,cx+fw+2,Y0+3,_hL);
+     P(cx-fw-1,_hbY,_hL);P(cx+fw+1,_hbY,_hL);
+   }
+ }catch(_he){} }
  /* *** THE PORTRAIT WEARS THE SHADES THE BODY IS WEARING. (Voted UP, Paolo 9/22.) ***
     Measured 9/21 over 200 dressed citizens: 70 of them wear wraparound shades you cannot
     see through, and ALL 70 had bare eyes in the portrait that pops up when they talk. A
@@ -6292,6 +6323,12 @@ function faceFor(id, over){
      everything below. */
   try { if (_np && _np.equipped && _np.equipped.glasses) sp.glasses = _np.equipped.glasses; }
   catch (_e6) {}
+  /* HEAD GEAR MUST SHOW IN THE PORTRAIT (rule 37i, Paolo 9/27), and the same shape as
+     the glasses fix two lines up: read it off the body, never roll a second one. Measured
+     before drawing anything: 68 of 200 dressed citizens wear a hat/durag on the body and
+     0 of 200 portraits carried the field at all -- faceFor never asked. */
+  try { if (_np && _np.equipped && _np.equipped.hat) sp.hat = _np.equipped.hat; }
+  catch (_e6b) {}
   sp.details = { stubble: (!child && !teen && R('stub') < 0.34) ? 1 : 0 };
   sp.top = [20 + ((R('top1') * 26) | 0), 20 + ((R('top2') * 26) | 0), 24 + ((R('top3') * 26) | 0)];
   sp._age = age;
@@ -6369,7 +6406,9 @@ function speakingPortrait(canvas, opts){
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.save();
     if (round) { ctx.beginPath(); ctx.arc(canvas.width/2, canvas.height/2, canvas.width/2, 0, 7); ctx.clip(); }
-    ctx.drawImage(off, 0, 0, 64, 64, 0, 0, canvas.width, canvas.height);
+    /* EYES REST SLIGHTLY OFF-CENTRE (rule 37i, 9/27) -- same display-side nudge as
+       paintPortrait, kept off the renderFace buffer so no gate has to know about it. */
+    ctx.drawImage(off, 0, 0, 64, 64, -canvas.width*(2/64), 0, canvas.width, canvas.height);
     ctx.restore();
   }
 
@@ -6409,7 +6448,15 @@ function speakingPortrait(canvas, opts){
 if (typeof window !== 'undefined') window.speakingPortrait = speakingPortrait;
 
 function paintPortrait(canvas){const buf=renderFace(buildSpec(),{ramp:portraitRamp(),blood:pface._blood,cig:pface._cig});const cc=document.createElement('canvas');cc.width=64;cc.height=64;const c2=cc.getContext('2d');const idd=c2.createImageData(64,64);idd.data.set(buf);c2.putImageData(idd,0,0);
-  const x=canvas.getContext('2d');x.imageSmoothingEnabled=false;x.clearRect(0,0,canvas.width,canvas.height);x.save();x.beginPath();x.arc(canvas.width/2,canvas.height/2,canvas.width/2,0,7);x.clip();x.drawImage(cc,0,0,64,64,0,0,canvas.width,canvas.height);x.restore();}
+  const x=canvas.getContext('2d');x.imageSmoothingEnabled=false;x.clearRect(0,0,canvas.width,canvas.height);x.save();x.beginPath();x.arc(canvas.width/2,canvas.height/2,canvas.width/2,0,7);x.clip();
+  /* EYES REST SLIGHTLY OFF-CENTRE (rule 37i, Paolo 9/27). Done here, at the display step,
+     not in renderFace: nudging the whole rendered face a couple of source pixels off the
+     canvas midline reads as a candid camera catching him, not a mugshot -- the same
+     instinct as "backgrounds may change" one clause over. Kept out of renderFace on
+     purpose: every gate measures faces straight off that buffer at cx=32, and this way
+     none of them have to know the display ever moves it. */
+  const _off=-canvas.width*(2/64);
+  x.drawImage(cc,0,0,64,64,_off,0,canvas.width,canvas.height);x.restore();}
 
 function portraitRamp(){const r=skinTone[1];return [r[0],r[1],r[2],r[2].map(c=>c*0.62|0)];}
 

@@ -429,12 +429,21 @@ const N              = 60;
                   browedFaces, browMin: browMin === 1e9 ? 0 : browMin };
 
     /* ---- 4. NO STRAIGHT LINE DOWN THE CROWN (HOW HAIR AND SHAPE WORK, 8/1) -- */
-    let ruled = 0;
-    faces.forEach(f => { const rt = f.sp.hair.roots, xs = new Set();
+    /* HEAD GEAR (rule 37i, 9/28) EXEMPTS A HEAD FROM THIS CHECK, NOT JUST FROM COUNTING
+       AGAINST IT. A durag's own opaque cap paints over the crown ON PURPOSE (the same
+       reason a real durag hides a real parting), so `xs.size === 0` on a covered head
+       means "there is no part to see," not "the part is a machine-ruled line" -- the
+       two read identically to the old check (both <= 1) and mean opposite things. Caught
+       the moment the hat fix shipped: 26 of 60 heads flagged, all of them durag-covered. */
+    let ruled = 0, covered = 0;
+    faces.forEach(f => {
+      if (f.sp.hat) { covered++; return; }
+      const rt = f.sp.hair.roots, xs = new Set();
       for (let y = 0; y < 30; y++) for (let x = 0; x < 64; x++) { const o = (y * 64 + x) * 4;
         if (f.buf[o] === rt[0] && f.buf[o+1] === rt[1] && f.buf[o+2] === rt[2]) xs.add(x); }
       if (xs.size <= 1) ruled++; });
     out.ruledParts = ruled;
+    out.ruledCovered = covered;
     return out;
   }, { N });
   await b.close();
@@ -529,7 +538,9 @@ const N              = 60;
 
   /* ---- 4 ----------------------------------------------------------------- */
   ok('HOW HAIR AND SHAPE WORK (8/1) clause 3: no ruled straight line down the crown (' +
-     R.ruledParts + ' of ' + N + ' heads still ruled, cap 6)', R.ruledParts <= 6);
+     R.ruledParts + ' of ' + (N - R.ruledCovered) + ' bare heads still ruled, cap 6; ' +
+     R.ruledCovered + ' of ' + N + ' wear head gear that covers the crown on purpose)',
+     R.ruledParts <= 6);
 
   /* ---- and the source keeps its promises --------------------------------- */
   const src = fs.readFileSync(ALPHA, 'utf8');
