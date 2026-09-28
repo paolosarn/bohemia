@@ -8,8 +8,8 @@ character moving tile the tile throughout the city it's not gonna be like that a
 change immediately
 Also, what were the new chats we needed to open up?"
 
-## THE READING (garble: "reverse the overworld" = revamp / traverse the overworld; "tile the tile" = tile to tile)
-1. FULLY COMMITTED. The overworld is a REVAMP: not close to what we were building. It is pretty much
+## THE READING (HIS OWN CORRECTION, the next message: "when I said this, I meant traverse not reverse". So: "even how we TRAVERSE the overworld is not even gonna be close to what we were building." "tile the tile" = tile to tile.)
+1. FULLY COMMITTED. HOW YOU TRAVERSE THE OVERWORLD IS A REVAMP: not close to what we were building. It is pretty much
    Battle Brothers. Rule 33 said it on 9/24; this closes every door that was still half open (the walked
    city, the tiny character crossing the valley cell by cell, the honest grid as the city's floor).
 2. THE MAP'S PIXELS: count how many pixels the Battle Brothers map has, and match that number EXACTLY AS
