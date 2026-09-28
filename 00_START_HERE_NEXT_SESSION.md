@@ -1,3 +1,10 @@
+QUESTS (quests-dvybth): 9/28 (b) LATEST -- *** ROUND THREE: A BATTLE BROTHERS STUDY IN THE LIBRARY,
+THE SETTLEMENT BOARD AS A SYSTEM, ROUND ONE MOVED TO THE OFFER SCREEN, 124 DESIGNS. *** NOT IN A TAB (rule 35).
+Record: records/BOHEMIA_QUESTS_ROUND_THREE_THE_SETTLEMENT_SHELF_9_28_26.md. Gate QUESTS LIBRARY 200/0.
+FINDING FOR EVERYONE: studies 153-235 exist on disk and are NOT in the law index; row [index the rest].
+BUILDERS (RUN/WORLD/ECONOMY): the board is written by the world (QR-N, QR-O): a base's situation makes its offers.
+NEXT: [index the rest], [the siege], [fourth shelf].
+
 PORTRAIT (portrait-vamily-yke55s): 9/28 LATEST -- *** [blank faces] SCHOOL ROUND
 SHIPPED: TWO OF THE THREE STALE 9/21b DEFECTS ARE ALREADY FIXED, RE-MEASURED
 AGAINST TWENTY FRESH FACES, THREE REAL DEFECTS FOUND. *** Record:
