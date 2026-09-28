@@ -48,7 +48,7 @@ The time clock in the crew shed still punches three cards at six every morning, 
 - `Q106.W3`: the first line is a change in habit.
 - `Q108.W1`: the giver who never asked for anything, at his post every shift.
 - `Q148.W9`: the client's closure is the same in every world; the weight sits on the professional.
-- `Q151.W3`: a boom draws labour to whoever pays.
+- `Q061.W2`: a world that runs without you; the rival settlement hires on its own logic.
 
 ## FLAWS IT AVOIDS
 - `Q108.X2`: the kind ending does not pay more.
