@@ -192,6 +192,12 @@ var wait = function (ms) { return new Promise(function (r) { setTimeout(r, ms); 
 
     var m = await fr.evaluate(function () {
       var o = {};
+      /* 9/28 (RUN, rule 38c): THE DEMO OPENS ON THE MAP NOW, where no body is drawn. This
+         section meets people standing on the street he starts on, which is setup (it moves
+         him and the clock itself below), so it steps onto that street the way a spread does.
+         Where the demo meets people from here is the SETTLEMENT SCREEN (RUN [settlement
+         screen]); named, not pretended. */
+      try { if (typeof MODE !== 'undefined' && MODE === 'city') { SEAM_INTENT = 'look'; swapMode(); } } catch (e) {}
       for (var q = 0; q < 6; q++) { var gb = document.querySelector('#daycardIn .dcgo'); if (gb) gb.click(); }
       try { cardHide(); } catch (e) {}
       T.min = 13 * 60;
