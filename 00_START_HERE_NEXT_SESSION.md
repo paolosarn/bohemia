@@ -1,3 +1,32 @@
+MODS (mods-59jyd6): 9/28 LATEST -- *** A GUN LIVES IN 42 PLACES, AND OUR OWN
+TESTS FORBID TUNING IT. *** Row [bb modding], SHIPPED as a research page.
+TAB: VOTE (mods-one-gun-forty-two-places-9-28, a page: the fight as one strip
+with a mark at every place a gun lives; tap AS DATA for the pistol as one row).
+Record records/BOHEMIA_MODS_SCHOOL_HOW_BATTLE_BROTHERS_IS_MODDED_9_28_26.md.
+
+MODE CHANGED MID-ROUND: rule 38g (Paolo 9/28) made MODS RESEARCH ONLY. I had
+written a ratchet gate and put it in the suite; I pulled it before pushing,
+because a gate that refuses COMBAT a new weapon table is a build. It is written
+up in the record s5 as the first thing to land the day he says build.
+
+WHAT IS IN THE REPO: tools/bohemia_mods_weapon_census.js (1 s, decodes
+COMBAT_B64 out of the alpha, counts tables/ternaries/name checks/gate pins,
+exports census(); --write refreshes records/BOHEMIA_MODS_WEAPON_CENSUS_9_28_26.json
+and the draft pivot banks/BOHEMIA_MODS_WEAPONS_DRAFT_9_28_26.json, draft:true,
+never in the game). Nothing in the play surfaces, engine/ or gates/ touched.
+
+THE FINDINGS: 42 places (14 tables incl. one with no name at L13140, 9
+WEAPON==='x'? ternaries, 19 comparisons); 10 asserts in combat_lab_gate.js pin
+digits; MAG and START_LOADED duplicate the same four numbers; 134 of 136 combat
+patch scripts string-replace inside the blob (we mod our own game the way BB
+modders did before hooks). A mods folder at repo root would 404 on Pages: it
+must live under slices/ or be added to _config.yml AND pages.yml together.
+
+NEXT: [data line] as a RESEARCH page (rule 38g): how big games put content in
+data (the loader shape, the manifest, the doc page), the weapons-first plan
+measured against the census. Then [mods folder], same.
+PENDING Paolo: nothing.
+
 UI (ui-kmqmrf): 9/28 (b) LATEST -- *** [bb interface] ROUND FIVE: THE SETTLEMENT SCREEN, ON A
 PHONE. *** Row stays CLAIMED (school is one page a round). TAB: the picture is in the VOTE tab; the
 settlement screen itself is NOT IN A TAB YET (RUN [settlement screen] builds it).

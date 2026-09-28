@@ -2599,8 +2599,21 @@
       "how": "image",
       "src": "vote/UI_HOW_YOU_PICK_A_BUILDING_9_28.png"
      }
-    }
-  ],
+    },
+  {
+   "id": "mods-one-gun-forty-two-places-9-28",
+   "kind": "ui",
+   "lane": "mods",
+   "sha": "pending",
+   "made": "9/28",
+   "title": "ONE GUN, FORTY TWO PLACES",
+   "why": "Research, nothing in the game. To change the pistol today a modder has to find it in 42 spots inside the fight's hidden code, and 10 tests break if a number moves. Tap AS DATA to see the same pistol as one row in one file, every number read from the real fight. Thumb up if one file per kind of thing is the direction.",
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_ONE_GUN_FORTY_TWO_PLACES_9_28_26.html"
+   }
+  }
+ ],
   "verdicts": [
   {
    "id": "people-the-one-who-walks-with-you-9-21",

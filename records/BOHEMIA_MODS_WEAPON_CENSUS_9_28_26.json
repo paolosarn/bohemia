@@ -1,0 +1,280 @@
+{
+ "_readme": "MODS [bb modding] 9/28: the measured cost of changing one weapon today. Written by tools/bohemia_mods_weapon_census.js --write. RESEARCH ONLY (rule 38g): no gate holds these counts yet; the recommended ratchet is in records/BOHEMIA_MODS_SCHOOL_HOW_BATTLE_BROTHERS_IS_MODDED_9_28_26.md s5.",
+ "measuredAt": "ab20498",
+ "ok": true,
+ "blobBytes": 1638017,
+ "blobLines": 14913,
+ "tables": [
+  {
+   "name": "WEAPON_MUZZLE",
+   "line": 1097,
+   "weapons": [
+    "pistol",
+    "smg",
+    "rifle",
+    "shotgun"
+   ]
+  },
+  {
+   "name": "CELL_MAX",
+   "line": 6250,
+   "weapons": [
+    "shotgun",
+    "pistol",
+    "smg",
+    "rifle",
+    "sniper"
+   ]
+  },
+  {
+   "name": "WEAPON_RANGE",
+   "line": 6312,
+   "weapons": [
+    "shotgun",
+    "pistol",
+    "smg",
+    "rifle"
+   ]
+  },
+  {
+   "name": "SWING_ARC",
+   "line": 6957,
+   "weapons": [
+    "pistol",
+    "smg",
+    "shotgun",
+    "rifle",
+    "sniper"
+   ]
+  },
+  {
+   "name": "WEAPON_PAIR",
+   "line": 9790,
+   "weapons": [
+    "pistol",
+    "rifle",
+    "smg",
+    "shotgun"
+   ]
+  },
+  {
+   "name": "WPN",
+   "line": 10021,
+   "weapons": [
+    "pistol",
+    "smg",
+    "rifle",
+    "shotgun"
+   ]
+  },
+  {
+   "name": "WEAPON_LETHAL",
+   "line": 10612,
+   "weapons": [
+    "pistol",
+    "smg",
+    "rifle",
+    "shotgun"
+   ]
+  },
+  {
+   "name": "WEAPON_CAP",
+   "line": 10613,
+   "weapons": [
+    "pistol",
+    "smg",
+    "rifle",
+    "shotgun"
+   ]
+  },
+  {
+   "name": "MAG",
+   "line": 10664,
+   "weapons": [
+    "pistol",
+    "smg",
+    "rifle",
+    "shotgun"
+   ]
+  },
+  {
+   "name": "START_LOADED",
+   "line": 10673,
+   "weapons": [
+    "pistol",
+    "smg",
+    "rifle",
+    "shotgun"
+   ]
+  },
+  {
+   "name": "WEAPON_WIDTH",
+   "line": 10866,
+   "weapons": [
+    "pistol",
+    "smg",
+    "rifle",
+    "shotgun"
+   ]
+  },
+  {
+   "name": "WEAPON_ID",
+   "line": 10867,
+   "weapons": [
+    "pistol",
+    "smg",
+    "rifle",
+    "shotgun"
+   ]
+  },
+  {
+   "name": "_hv",
+   "line": 13133,
+   "weapons": [
+    "pistol",
+    "smg",
+    "rifle",
+    "shotgun"
+   ]
+  }
+ ],
+ "anonymous": [
+  {
+   "name": null,
+   "line": 13140,
+   "context": "cale = (ks.style==='hammer'?1.3:1.0) * ("
+  }
+ ],
+ "ternaries": [
+  11048,
+  11048,
+  11048,
+  11065,
+  11065,
+  11065,
+  12385,
+  12385,
+  12385
+ ],
+ "comparisons": [
+  {
+   "line": 5560,
+   "text": "src==='shotgun'"
+  },
+  {
+   "line": 6272,
+   "text": "w==='sniper'"
+  },
+  {
+   "line": 6325,
+   "text": "w==='sniper'"
+  },
+  {
+   "line": 10575,
+   "text": "w==='rifle'"
+  },
+  {
+   "line": 10575,
+   "text": "w==='shotgun'"
+  },
+  {
+   "line": 11048,
+   "text": "WEAPON==='rifle'"
+  },
+  {
+   "line": 11048,
+   "text": "WEAPON==='shotgun'"
+  },
+  {
+   "line": 11048,
+   "text": "WEAPON==='smg'"
+  },
+  {
+   "line": 11065,
+   "text": "WEAPON==='rifle'"
+  },
+  {
+   "line": 11065,
+   "text": "WEAPON==='shotgun'"
+  },
+  {
+   "line": 11065,
+   "text": "WEAPON==='smg'"
+  },
+  {
+   "line": 12385,
+   "text": "WEAPON==='rifle'"
+  },
+  {
+   "line": 12385,
+   "text": "WEAPON==='shotgun'"
+  },
+  {
+   "line": 12385,
+   "text": "WEAPON==='smg'"
+  },
+  {
+   "line": 13632,
+   "text": "WEAPON==='shotgun'"
+  },
+  {
+   "line": 13632,
+   "text": "WEAPON==='rifle'"
+  },
+  {
+   "line": 13632,
+   "text": "WEAPON==='smg'"
+  },
+  {
+   "line": 13719,
+   "text": "WEAPON!=='shotgun'"
+  },
+  {
+   "line": 13722,
+   "text": "WEAPON==='shotgun'"
+  }
+ ],
+ "pins": [
+  {
+   "file": "gates/combat_lab_gate.js",
+   "line": 538
+  },
+  {
+   "file": "gates/combat_lab_gate.js",
+   "line": 560
+  },
+  {
+   "file": "gates/combat_lab_gate.js",
+   "line": 665
+  },
+  {
+   "file": "gates/combat_lab_gate.js",
+   "line": 667
+  },
+  {
+   "file": "gates/combat_lab_gate.js",
+   "line": 1133
+  },
+  {
+   "file": "gates/combat_lab_gate.js",
+   "line": 1134
+  },
+  {
+   "file": "gates/combat_lab_gate.js",
+   "line": 2231
+  },
+  {
+   "file": "gates/combat_lab_gate.js",
+   "line": 3328
+  },
+  {
+   "file": "gates/combat_lab_gate.js",
+   "line": 5034
+  },
+  {
+   "file": "gates/combat_lab_gate.js",
+   "line": 5699
+  }
+ ],
+ "places": 42
+}

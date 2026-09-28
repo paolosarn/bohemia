@@ -1,0 +1,105 @@
+{
+ "_readme": [
+  "DRAFT. NOT IN THE GAME. MODS [bb modding] 9/28, test material for [data line].",
+  "This is what a modder would edit if weapons were data: one row per weapon.",
+  "Every value was READ OUT OF THE LIVE FIGHT by tools/bohemia_mods_weapon_census.js, none typed.",
+  "A key named inline_L<n> is a table with no name at all, written straight into an expression.",
+  "TUNING owns what the numbers are. MODS owns that they live here."
+ ],
+ "draft": true,
+ "readFrom": "slices/BOHEMIA_ALPHA_0_9.html COMBAT_B64 at ab20498",
+ "weapons": {
+  "pistol": {
+   "WEAPON_MUZZLE": {
+    "ext": 1.5,
+    "casings": true
+   },
+   "CELL_MAX": 4,
+   "WEAPON_RANGE": {
+    "eff": 6,
+    "max": 12
+   },
+   "SWING_ARC": 1.31,
+   "WEAPON_PAIR": "rifle",
+   "WPN": "graze",
+   "WEAPON_LETHAL": 0.2,
+   "WEAPON_CAP": 8,
+   "MAG": 15,
+   "START_LOADED": 15,
+   "WEAPON_WIDTH": 1,
+   "WEAPON_ID": "balanced — up to your skill in shots, an even dial",
+   "_hv": 0.8,
+   "inline_L13140": 0.75
+  },
+  "smg": {
+   "WEAPON_MUZZLE": {
+    "ext": 2.5,
+    "casings": true
+   },
+   "CELL_MAX": 4,
+   "WEAPON_RANGE": {
+    "eff": 10,
+    "max": 15
+   },
+   "SWING_ARC": 1.05,
+   "WEAPON_PAIR": "shotgun",
+   "WPN": "graze",
+   "WEAPON_LETHAL": 0.35,
+   "WEAPON_CAP": 2,
+   "MAG": 30,
+   "START_LOADED": 30,
+   "WEAPON_WIDTH": 0.8,
+   "WEAPON_ID": "two shots a turn, but the dial is tight and mean",
+   "_hv": 0.7,
+   "inline_L13140": 0.95
+  },
+  "rifle": {
+   "WEAPON_MUZZLE": {
+    "ext": 4,
+    "casings": true
+   },
+   "CELL_MAX": 8,
+   "WEAPON_RANGE": {
+    "eff": 20,
+    "max": 16
+   },
+   "SWING_ARC": 0.7,
+   "WEAPON_PAIR": "pistol",
+   "WPN": "hit",
+   "WEAPON_LETHAL": 0.55,
+   "WEAPON_CAP": 1,
+   "MAG": 20,
+   "START_LOADED": 20,
+   "WEAPON_WIDTH": 1.3,
+   "WEAPON_ID": "one shot a turn — but the dial is wide and easy (the sniper)",
+   "_hv": 1.15,
+   "inline_L13140": 1.15
+  },
+  "shotgun": {
+   "WEAPON_MUZZLE": {
+    "ext": 3.5,
+    "casings": true
+   },
+   "CELL_MAX": 4,
+   "WEAPON_RANGE": {
+    "eff": 5,
+    "max": 9
+   },
+   "SWING_ARC": 0.96,
+   "WEAPON_PAIR": "smg",
+   "WPN": "hit",
+   "WEAPON_LETHAL": 1,
+   "WEAPON_CAP": 2,
+   "MAG": 6,
+   "START_LOADED": 6,
+   "WEAPON_WIDTH": 1.2,
+   "WEAPON_ID": "brutal up close, wide dial, one big hit",
+   "_hv": 1.45,
+   "inline_L13140": 1.55
+  },
+  "sniper": {
+   "CELL_MAX": 12,
+   "SWING_ARC": 0.35
+  }
+ }
+}
