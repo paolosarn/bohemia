@@ -2335,7 +2335,7 @@
       "sha": "871b1203",
       "made": "9/27",
       "title": "WHAT THE BAR SAYS",
-      "why": "The strip across the top of the game says NOTHING right now. I measured it: 390 by 50 pixels of black with one button in it. You said Battle Brothers is the game, and Battle Brothers keeps five numbers on screen every second and never takes them off. You also said less on screen. So this is the one question, asked once. All three phones are the same real shot of the street from the game's own camera, and only the strip changes. A is what you have. B is three readings: batteries, the hour, where you are. C is five, the Battle Brothers count: add the day and who is with you. The gold squares are the new cell size you just set, so you can see the strip costs one and a half rows of world either way, whether it says something or nothing. The readings are already built and switched off, so B and C are a switch, not new work.",
+      "why": "The strip across the top of the demo, the version your friends play, says NOTHING right now. I measured it: 390 by 50 pixels of black with one button in it. You said Battle Brothers is the game, and Battle Brothers keeps five numbers on screen every second and never takes them off. You also said less on screen. So this is the one question, asked once. All three phones are the same real shot of the street from the game's own camera, and only the strip changes. A is what you have. B is three readings: batteries, the hour, where you are. C is five, the Battle Brothers count: add the day and who is with you. The gold squares are the new cell size you just set, so you can see the strip costs one and a half rows of world either way, whether it says something or nothing. The readings are already built and switched off, so B and C are a switch, not new work.",
       "show": {
         "how": "image",
         "src": "vote/UI_WHAT_THE_BAR_SAYS_9_27.png"
@@ -2483,6 +2483,19 @@
   "asked": "UP or DOWN",
   "when": "2026-09-28",
   "draft": true
+},
+{
+ "id": "ui-how-you-know-she-is-with-you-9-28",
+ "kind": "ui",
+ "lane": "ui",
+ "sha": "pending",
+ "made": "9/28",
+ "title": "HOW YOU KNOW SHE IS WITH YOU",
+ "why": "Somebody walks with you now. In the real game Estella Gaines lost her work, told you about it, and fell in beside you. But look at the screen: the only thing that says she is yours is her body, and your body is standing in front of it. Her name shows only while she talks, and the little gold name tag at her feet is under your boots. In Battle Brothers you can never forget who is in your company, because their faces never leave the screen. So, one question: A is what you have now. B puts her face in the top bar with a gold ring that empties when she gets hurt, in the spot the song title had. C puts nothing up top and marks her instead: a gold ring on the ground at her feet and a small mark over her head. It matters more soon, because at your new one-square size a friend and a stranger are the same few pixels, and if she gets hurt and sits out for a month, only B still shows her.",
+ "show": {
+  "how": "image",
+  "src": "vote/UI_HOW_YOU_KNOW_SHE_IS_WITH_YOU_9_28.png"
+ }
 }
   ],
   "verdicts": [

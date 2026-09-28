@@ -1,3 +1,47 @@
+UI (ui-kmqmrf): 9/28 LATEST -- *** [bb interface] ROUND FOUR: SOMEBODY WALKS WITH YOU NOW, AND
+THE SCREEN NEVER SAYS SO. *** Row stays CLAIMED (school is one page a round). TAB: the walking
+screen on the alpha; the picture is in the VOTE tab.
+Record: records/BOHEMIA_BB_SCHOOL_THE_INTERFACE_ROUND_FOUR_THE_COMPANY_AT_SIZE_ONE_9_28_26.md
+
+BB SCHOOL (library vol 10, 02): the company is a row of faces with two rings each that never leaves
+the screen; a hurt man is an emptied ring; the man's page is where his story lives.
+ON THE ALPHA, WITH SOMEBODY ACTUALLY THERE (PEOPLE's own walk through the one driver): after 8 beats
+Estella Gaines fell in beside him. What says she is his: her body, in the cell behind his and about
+four fifths under it at 112 px; her name ONLY while she talks; a gold EST... tag under his boots. No
+face, no health, nothing that says company. Rule 34 makes it worse (one cell each: a friend and a
+stranger are the same pixels); rule 36(b) worse again (hurt means off the street 30-40 days, so a
+mark on her body has nothing to be drawn on).
+MY FIRST CENSUS SAID NOTHING NAMES HER AND WAS WRONG: the name lookup returned null, so it searched the
+glass for an empty string and found nothing. The picture showed her name in the bubble. Fourth round
+running that this lane's first number was clean and wrong; the picture is what catches it every time.
+
+RULE 22 COOK: ui-how-you-know-she-is-with-you-9-28 in the VOTE tab. One real shot, her beside him.
+A now / B her own face (cut out of the bubble the game drew for her) in the bar with a health ring, in
+the song title's place / C a gold ring at her feet and a mark over her head. Disclosed on the sheet:
+her bubble held off for one frame for the picture, because she talks on a loop while he stands.
+
+FOUND ON THE WAY, EACH SENT WHERE IT BELONGS:
+- MINE: [danger visible]'s line "2 OF THEM AND THEY ARE NOT FRIENDLY..." (#packline, 234x30 at 12,543)
+  sits under BUILD HERE (44x44 at 13,521): the COUNT is the covered word. Alpha only. New OPEN row
+  [warning clipped], held by rule 18. An elementFromPoint count said 290/290 covered and I threw it
+  out: that oracle skips pointer-events:none, so it cannot tell covered from click-through.
+- DYNASTY built my [faces on the phone] row ([the flip]). Measured: three tiles 36x54, under 44 on
+  width. His 9/21 vote ("looks better when it's tinier... could be changed in the settings") decides
+  it: small stays, and the SIZE SETTING [the picks] owes is the fix. Row marked built-by-DYNASTY.
+- DYNASTY's code comment says something in the shell covers the top of the phone and names UI. It
+  never reached this board, and it is STALE: a finger down the phone's middle lands on the city frame
+  from its top edge. Most likely closed by [banner eats fingers]. Comment not edited; theirs.
+- PEOPLE / CHARACTER [small body]: she stands behind him and his body covers most of hers (NOBODY
+  STANDS ON ANYBODY). The one-cell body fixes it by construction; a note, not a patch at 112.
+- A CORRECTION OF MY OWN: round three's "the bar is empty" is the DEMO. The alpha's bar shows HUMAN
+  MODE, SUBURB - ON FOOT, the track, SAVE, TOOLS, NOTES. The vote item's words now say "the demo".
+
+NEXT: round five is THE MAN'S PAGE (what one tap on her face opens: PORTRAIT's face, PEOPLE's
+background and what she kept, rule 36's injury, on 12 cells across). Then his picks on the waiting
+items, then [the picks] (with the size setting), [door fixes], [inner votes], [warning clipped].
+[PENDING Paolo]: none in this file. Everything he needs to answer is in the VOTE tab: WHAT THE BAR
+SAYS, HOW YOU KNOW SHE IS WITH YOU, and the cracked phone's A/B.
+
 EYES AND EARS (eyes-5vql33): 9/28 (ay) LATEST -- *** [phone latency] E24 CLAIMED, ROUND ONE (SCHOOL) STARTING. *** Both open rows in this lane were [phone latency] E24 and [the sign] E25; taking the first one, rule 5. THE QUESTION: nobody has measured how late a tap's sound actually arrives on a real phone browser, and the fight is judged on the beat. THIS ROUND IS RESEARCH ONLY, no measuring yet: how rhythm games on iOS and Android actually calibrate touch-to-audio latency, what they publish, and what a calibration screen looks like. Round two builds the real measurement on our own alpha. Standing jobs (the cold stranger's walk, the horror-style check) continue every round on a demo cut fresh from main.
 
 COOK (cook-mce6r5): 9/27 (c) LATEST -- *** HIS 7/28 TILE BANK WAS ALREADY DRAWN AT THE
