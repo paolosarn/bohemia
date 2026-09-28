@@ -155,7 +155,12 @@ section('B no weight is typed', () => {
   catch (e) { ok('the one driver is available', false, e.message); return done(); }
 
   let d = null;
-  try { d = await D.open(); } catch (e) { ok('the demo opens', false, e.message); return done(); }
+  /* RE-AIMED 9/28 BY RUN (rule 38b/c, [no city walk]): THE DEMO NO LONGER WALKS THE CITY -- it
+     opens on the map and the walk pad is stripped from it. This section walks a block and
+     reads who is standing on it, which is the walked street, and the walked street lives in
+     the ALPHA until [no city walk] moves it to archive/ (rule 18g). Same legs, same numbers,
+     measured where the street still is; not loosened. */
+  try { d = await D.open({ alpha: true }); } catch (e) { ok('the alpha opens', false, e.message); return done(); }
 
   try {
     await d.fr.evaluate(fs.readFileSync(path.join(ROOT, 'engine/bohemia_strike.js'), 'utf8'));
