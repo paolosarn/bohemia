@@ -31195,6 +31195,76 @@ since 9/6, it also holds 19 QUESTS (BUILD). The front page's chat-19 line says a
 chat with an empty queue takes QUESTS, and DYNASTY's queue went empty at Q16. The
 lane and its first row were claimed and pushed BEFORE any work started. ***
 
+ROUND 55 [horror heir] THE MACHINE IS STILL TALKING. THE BILL HAS NO SENDER.
+THE TAPE DOES NOT EXIST.
+DYNASTY, RESEARCH (rule 20h, one page, no code, no gate). Claimed and pushed as
+its own commit BEFORE work started this time (rule 5's two-step, done right
+after last round self-flagged skipping it).
+  records/BOHEMIA_DYNASTY_HORROR_HEIR_9_28_26.md
+  vote: dynasty-horror-heir-9-28 (line, no art -- rule 22's own SCHOOL clause)
+
+THE ROW ASKED FOR THREE THINGS UNDER THE ANALOG HORROR BIBLE AND ALL THREE
+WERE ALREADY SHIPPED, JUST NOT RECOGNISED AS THE ANSWER.
+
+THE MACHINE STILL TALKING is slices/bohemia_loading_screen.js's own boot log:
+READING THE VALLEY, COUNTING WHAT STILL STANDS, CHECKING STREETS FOR LIGHT,
+then the bible's one wrong line, NO OPERATOR ON DUTY, said calm in the same
+register as the true ones. It does not know or care which descendant is about
+to stand up -- same sentence, every act. That IS the inheritance: an
+institution that has been running its own checklist since before you were
+born, not a message addressed to you.
+
+THE BILL STILL COMING has no sender, by ECONOMY's own Day 48 finding (a dead
+office's bill is a PROP: no sender, costs zero, cannot be paid or argued
+with) plus bohemia_fold.js's own ruling that debt dies with the one who owed
+it -- whyDies() in its own words, "you do not inherit a bill, you inherit
+less and you inherit the people he owed, still standing there." Two lanes,
+two rounds apart, from opposite doors, landed on the same shape. So a bill an
+heir meets is the valley's own dead utility, never his particular father's
+debt reappearing.
+
+THE TAPE THE PARENT LEFT DOES NOT EXIST, AND BUILDING ONE WOULD BE THE
+VIOLATION. Swept engine/*.js and slices/*.html for a literal recorded relic
+(voicemail, answering machine, his/her own voice): zero hits. What exists
+instead is bohemia_standing.js's inherit()/legendOf() -- a father's deeds
+survive only through living witnesses who retold them (HEARSAY_LOSS 0.55 a
+hop, GEN_LOSS 0.45 a generation), and an eyewitness who dies without anyone
+retelling is gone for good. That is a truer, sadder shape than a first-person
+recording, and it already matches Day 8's own measured 80-110 years / three
+to four generations of real spoken memory -- almost exactly our hundred years
+and three acts. A literal cassette would be a second ONE WRONG THING on a
+screen that is allowed one (rule 2), plus new lore (who recorded it, why,
+what it says) that is his to confirm, not mine to invent -- exactly the
+"no mystery to solve" the row itself named (rule 20g, section 8's own
+withdrawal of that question).
+
+ROUTED: UI/RUN (the loading screen already does this job, nothing to build);
+ECONOMY [who still bills] round two (confirms the prop-not-debt shape from
+the inheritance side); CHARACTER/PORTRAIT (if a dead-media door prop is ever
+built, it speaks the valley's own institutional line, never the actual
+father's voice -- rule 19, a mouth and a portrait, never a first-person
+recording).
+
+WHAT THIS ROW DOES NOT DECIDE: naming the dead office, or whether a specific
+prop (payphone, kiosk, desk radio) ever sits at a descendant's door. Canon
+stays his.
+
+PRE-PUSH PASS: no gate of mine to run (school, no code). Ran canon rot,
+handoff, reply contract clean; THREE NAMES 31/0 and THE FLIP 23/0 unchanged
+(nothing of mine touched this round).
+
+QUESTS' TWO OLD ORPHANED ROWS ([light the pump], [main quest live], both
+CLAIMED under this session, both now un-buildable under rule 35) ARE STILL
+UNRESOLVED. Re-flagging again for the coordinator: neither SHIPPED nor OPEN
+honestly fits, and this lane cannot unilaterally close them (rule 10).
+
+NEXT for DYNASTY: with [horror heir] shipped, the board's own DYNASTY section
+has NO remaining OPEN row this round (checked fresh against the live board,
+not assumed). [three valleys] exists but is a PLUMBER row (its own section,
+"with DYNASTY [three at once]" is a citation, not an assignment). Next VAMILY:
+re-check the board fresh in case the coordinator added a new row; if it is
+still empty, this lane's job that round is re-checking, not inventing one.
+
 ROUND 54 [three names] RESHUFFLE ONE. TYPE ONE. PICK A SEX. ALL PROVEN WITH A
 REAL FINGER.
 DYNASTY, BUILD (both school rounds shipped, mode flipped from SCHOOL).

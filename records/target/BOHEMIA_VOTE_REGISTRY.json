@@ -2573,8 +2573,22 @@
     "src": "vote/PORTRAIT_WHY_A_FACE_READS_AS_NOBODY.html"
    }
   }
- ],
- "verdicts": [
+ ,
+    {
+      "id": "dynasty-horror-heir-9-28",
+      "kind": "line",
+      "lane": "dynasty",
+      "sha": "pending",
+      "made": "9/28",
+      "title": "THE MACHINE IS STILL TALKING. THE BILL HAS NO SENDER. THE TAPE DOES NOT EXIST.",
+      "why": "What a generation inherits, under the analog horror bible, in three pieces we already built and did not know fit. The loading screen's own boot log (NO OPERATOR ON DUTY) is the machine still talking, and it says the same calm sentence to every act, not a message aimed at whoever is standing there. The fold already rules debt dies with the person who owed it, and ECONOMY's own study calls a dead office's bill a PROP with no sender, never a per-family charge -- so the bill an heir meets is the valley's own dead utility, not his father's debt come back. And a literal recorded tape of the parent's own voice does not exist anywhere in the engine, on purpose: what does exist is living witnesses retelling a deed until the last one forgets, which is a truer and sadder shape than a cassette, and building the cassette anyway would be a second ONE WRONG THING competing with the loading screen's own line. Research only, nothing to look at yet.",
+      "show": {
+        "how": "text",
+        "src": "THE HEIR INHERITS THE BROADCAST, NOT A MESSAGE ADDRESSED TO THEM.\n\nThree things a generation inherits, measured against what we already shipped:\n\n1. THE MACHINE STILL TALKING. Every boot reads READING THE VALLEY, COUNTING WHAT STILL STANDS, CHECKING STREETS FOR LIGHT, then NO OPERATOR ON DUTY. It does not know which descendant is about to stand up. That is the horror for free: an institution running its own checklist since before you were born.\n\n2. THE BILL STILL COMING, BUT IT HAS NO SENDER. The fold already rules a debt dies with the one who owed it -- you inherit less, and you inherit the people he owed, still standing there, never a number. A bill that keeps arriving anyway is the valley's own dead office, not a family debt.\n\n3. THE TAPE THE PARENT LEFT DOES NOT EXIST, AND IT SHOULD NOT. What exists instead: living witnesses retelling a deed until the last one who saw it dies, and then it is gone. Sadder and truer than a recording, and it costs no new lore."
+      }
+    }
+  ],
+  "verdicts": [
   {
    "id": "people-the-one-who-walks-with-you-9-21",
    "vote": "down",
