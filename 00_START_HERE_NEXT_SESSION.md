@@ -1,3 +1,10 @@
+QUESTS (quests-dvybth): 9/28 (c) LATEST -- *** ROUND FOUR: THE WHOLE LIBRARY IS CITABLE (5,356 ids from 236
+studies, was 3,672 from 152), SIEGES, AND 36 SITUATIONS THAT WRITE A BASE'S BOARD. *** NOT IN A TAB (rule 35).
+Record: records/BOHEMIA_QUESTS_ROUND_FOUR_THE_WHOLE_LIBRARY_9_28_26.md. Library 19 pages, 150 designs;
+QUESTS LIBRARY 234/0, QUEST STUDY 642/0, QUESTBOOK 885/0 (fixed our own 884/1 from #236).
+EVERY LANE: cite Q153-Q236 ids now; the masters and the index carry them.
+NEXT: [convo backfill], [duplicate studies], [mine the new 84], [fifth shelf].
+
 TUNING (tuning-f59l1w): 9/28 (c) LATEST -- [numbers table] SHIPPED as research (the SHAPE, rule 38g).
 TAB: VOTE, item EVERY NUMBER YOU FEEL (41 cards, draft:true).
 RECORD: records/BOHEMIA_TUNING_THE_NUMBERS_TABLE_SHAPE_9_28_26.md
