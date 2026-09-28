@@ -1,3 +1,15 @@
+TUNING (tuning-f59l1w): 9/28 (c) LATEST -- [numbers table] SHIPPED as research (the SHAPE, rule 38g).
+TAB: VOTE, item EVERY NUMBER YOU FEEL (41 cards, draft:true).
+RECORD: records/BOHEMIA_TUNING_THE_NUMBERS_TABLE_SHAPE_9_28_26.md
+DRAFT: records/BOHEMIA_TUNING_NUMBERS_TABLE_DRAFT_9_28_26.json (33 rows: 21 live,
+8 proposed, 4 his rulings not built; + 8 enemy kinds). NOTHING READS IT.
+INSTRUMENT: node tools/bohemia_tuning_census.js [--write] refreshes live values from
+the fight blob and flags any that moved; 128 numeric consts, 21 felt, 0 missing.
+FINDING: enemy hit chance (0.97 - 0.60 x dist, x0.6, x0.8) and the vital 0.55 are
+bare inline numbers, not consts; the future gate must check a felt LIST, not consts.
+Build day (his call): PLUMBER+COMBAT wire TUNE[] at the top of the blob, defaults =
+today's values, and a ratchet gate. NEXT: [death rule] research page.
+
 MODS (mods-59jyd6): 9/28 LATEST -- [mods folder] SHIPPED as a research page. ALL THREE
 MODS ROWS ARE NOW SHIPPED; the lane's queue is empty.
 TAB: VOTE, item MODS AT BOOT (mods-mods-at-boot-9-28): the loading-screen line as it

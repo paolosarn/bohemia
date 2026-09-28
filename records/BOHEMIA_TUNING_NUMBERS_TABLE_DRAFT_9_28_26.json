@@ -1,0 +1,689 @@
+{
+ "_readme": "TUNING [numbers table] 9/28 -- DRAFT, draft:true, RESEARCH ONLY (rule 38g). NOTHING IN THE GAME READS THIS FILE. It is the SHAPE recommended for slices/data/tuning.json (MODS' one-file-per-kind line) the day Paolo flips TUNING to build. `live` fields are refreshed from the fight by tools/bohemia_tuning_census.js --write. Record: records/BOHEMIA_TUNING_THE_NUMBERS_TABLE_SHAPE_9_28_26.md",
+ "draft": true,
+ "schema": 1,
+ "fields": {
+  "id": "dotted, stable, what mods and sliders patch",
+  "const": "the fight constant it replaces today (empty = not in the build)",
+  "unit": "what the number counts",
+  "feel": "what the player feels, plain words",
+  "reason": "why this value",
+  "source": "the finding or ruling",
+  "owner": "lane that may change it",
+  "range": "[min,max] a slider or a mod may not leave",
+  "slider": "true = a difficulty slider may move it",
+  "status": "live | proposed | ruled-not-built"
+ },
+ "rows": [
+  {
+   "id": "kill.dmg",
+   "const": "KILL_DMG",
+   "unit": "hp",
+   "feel": "the dial shot kills",
+   "reason": "demo = always fatal",
+   "source": "records/BOHEMIA_TUNING_BB_NUMBERS_HOW_FIVE_POINTS_ARE_FELT_9_28_26.md s2",
+   "owner": "combat",
+   "range": [
+    60,
+    200
+   ],
+   "slider": false,
+   "status": "live",
+   "live": {
+    "value": 100,
+    "line": 13500
+   }
+  },
+  {
+   "id": "armour.plate.max",
+   "const": "PP_MAX",
+   "unit": "plates",
+   "feel": "how many free hits you can carry",
+   "reason": "his words: absorb a free shot",
+   "source": "records/BOHEMIA_TUNING_BB_NUMBERS_HOW_FIVE_POINTS_ARE_FELT_9_28_26.md s2",
+   "owner": "tuning",
+   "range": [
+    1,
+    5
+   ],
+   "slider": false,
+   "status": "live",
+   "live": {
+    "value": 3,
+    "line": 8811
+   }
+  },
+  {
+   "id": "armour.plate.start",
+   "const": "PLATE_START",
+   "unit": "plates",
+   "feel": "what you walk into a fight wearing",
+   "reason": "BB-THE-FIGHT-EATS-TAPE",
+   "source": "records/BOHEMIA_TUNING_BB_NUMBERS_HOW_FIVE_POINTS_ARE_FELT_9_28_26.md s2",
+   "owner": "tuning",
+   "range": [
+    0,
+    3
+   ],
+   "slider": true,
+   "status": "live",
+   "live": {
+    "value": 1,
+    "line": 8812
+   }
+  },
+  {
+   "id": "armour.plate.drop",
+   "const": "PLATE_CHANCE",
+   "unit": "chance",
+   "feel": "how often a fight gives you a plate back",
+   "reason": "loot cadence",
+   "source": "records/BOHEMIA_TUNING_BB_NUMBERS_HOW_FIVE_POINTS_ARE_FELT_9_28_26.md s4",
+   "owner": "tuning",
+   "range": [
+    0,
+    0.5
+   ],
+   "slider": true,
+   "status": "live",
+   "live": {
+    "value": 0.22,
+    "line": 10740
+   }
+  },
+  {
+   "id": "armour.boss",
+   "const": "BOSS_ARMOR",
+   "unit": "hp per hit",
+   "feel": "a boss shrugs off small hits",
+   "reason": "the only enemy armour in the build",
+   "source": "records/BOHEMIA_TUNING_BB_NUMBERS_HOW_FIVE_POINTS_ARE_FELT_9_28_26.md s3",
+   "owner": "tuning",
+   "range": [
+    0,
+    30
+   ],
+   "slider": true,
+   "status": "live",
+   "live": {
+    "value": 9,
+    "line": 9033
+   }
+  },
+  {
+   "id": "boss.hp",
+   "const": "BOSS_HP",
+   "unit": "x hp",
+   "feel": "a boss takes longer",
+   "reason": "boss multiplier",
+   "source": "records/BOHEMIA_TUNING_BB_NUMBERS_HOW_FIVE_POINTS_ARE_FELT_9_28_26.md s4",
+   "owner": "tuning",
+   "range": [
+    1,
+    4
+   ],
+   "slider": true,
+   "status": "live",
+   "live": {
+    "value": 2.2,
+    "line": 9025
+   }
+  },
+  {
+   "id": "boss.chance",
+   "const": "BOSS_CHANCE",
+   "unit": "chance",
+   "feel": "how often a fight has a boss",
+   "reason": "encounter mix",
+   "source": "records/BOHEMIA_TUNING_BB_NUMBERS_HOW_FIVE_POINTS_ARE_FELT_9_28_26.md s4",
+   "owner": "tuning",
+   "range": [
+    0,
+    0.4
+   ],
+   "slider": true,
+   "status": "live",
+   "live": {
+    "value": 0.14,
+    "line": 9035
+   }
+  },
+  {
+   "id": "fatigue.max",
+   "const": "STAM_MAX",
+   "unit": "pips",
+   "feel": "how much you can do before you must breathe",
+   "reason": "BB fatigue shrunk to the beat",
+   "source": "records/BOHEMIA_TUNING_BB_NUMBERS_HOW_FIVE_POINTS_ARE_FELT_9_28_26.md s1.4",
+   "owner": "tuning",
+   "range": [
+    2,
+    6
+   ],
+   "slider": false,
+   "status": "live",
+   "live": {
+    "value": 3,
+    "line": 8734
+   }
+  },
+  {
+   "id": "fatigue.run",
+   "const": "RUN_COVER_COST",
+   "unit": "pips",
+   "feel": "running cover to cover costs",
+   "reason": "fatigue is the price of armour and motion",
+   "source": "records/BOHEMIA_TUNING_BB_NUMBERS_HOW_FIVE_POINTS_ARE_FELT_9_28_26.md s1.4",
+   "owner": "tuning",
+   "range": [
+    1,
+    3
+   ],
+   "slider": false,
+   "status": "live",
+   "live": {
+    "value": 2,
+    "line": 9737
+   }
+  },
+  {
+   "id": "hit.moving",
+   "const": "MOVING_MISS",
+   "unit": "chance",
+   "feel": "a moving man is harder to hit",
+   "reason": "V153, Paolo 8/15",
+   "source": "records/BOHEMIA_TUNING_BB_NUMBERS_HOW_FIVE_POINTS_ARE_FELT_9_28_26.md s2",
+   "owner": "tuning",
+   "range": [
+    0,
+    0.6
+   ],
+   "slider": false,
+   "status": "live",
+   "live": {
+    "value": 0.35,
+    "line": 6545
+   }
+  },
+  {
+   "id": "beat.perfect",
+   "const": "PERFECT_MS",
+   "unit": "ms",
+   "feel": "how tight PERFECT is",
+   "reason": "the grade band",
+   "source": "records/BOHEMIA_TUNING_BB_NUMBERS_HOW_FIVE_POINTS_ARE_FELT_9_28_26.md s4",
+   "owner": "tuning",
+   "range": [
+    30,
+    90
+   ],
+   "slider": true,
+   "status": "live",
+   "live": {
+    "value": 55,
+    "line": 13514
+   }
+  },
+  {
+   "id": "beat.good",
+   "const": "GOOD_MS",
+   "unit": "ms",
+   "feel": "how tight GOOD is",
+   "reason": "the grade band",
+   "source": "records/BOHEMIA_TUNING_BB_NUMBERS_HOW_FIVE_POINTS_ARE_FELT_9_28_26.md s4",
+   "owner": "tuning",
+   "range": [
+    70,
+    160
+   ],
+   "slider": true,
+   "status": "live",
+   "live": {
+    "value": 110,
+    "line": 13514
+   }
+  },
+  {
+   "id": "beat.grace",
+   "const": "BEAT_GRACE",
+   "unit": "beats",
+   "feel": "how late a press still counts as on",
+   "reason": "permission press V68",
+   "source": "records/BOHEMIA_TUNING_BB_NUMBERS_HOW_FIVE_POINTS_ARE_FELT_9_28_26.md s4",
+   "owner": "tuning",
+   "range": [
+    0.1,
+    0.4
+   ],
+   "slider": true,
+   "status": "live",
+   "live": {
+    "value": 0.24,
+    "line": 13513
+   }
+  },
+  {
+   "id": "dial.power",
+   "const": "POWER_STEP",
+   "unit": "dial share",
+   "feel": "what one point of Power buys on the dial",
+   "reason": "RF4 power lives in the dial",
+   "source": "records/BOHEMIA_TUNING_BB_NUMBERS_HOW_FIVE_POINTS_ARE_FELT_9_28_26.md s4",
+   "owner": "tuning",
+   "range": [
+    0.02,
+    0.15
+   ],
+   "slider": false,
+   "status": "live",
+   "live": {
+    "value": 0.08,
+    "line": 9570
+   }
+  },
+  {
+   "id": "nerve.at",
+   "const": "NERVE_AT",
+   "unit": "hp share",
+   "feel": "when an enemy starts to break",
+   "reason": "morale threshold",
+   "source": "records/BOHEMIA_TUNING_BB_NUMBERS_HOW_FIVE_POINTS_ARE_FELT_9_28_26.md s4",
+   "owner": "tuning",
+   "range": [
+    0.2,
+    0.8
+   ],
+   "slider": true,
+   "status": "live",
+   "live": {
+    "value": 0.5,
+    "line": 8791
+   }
+  },
+  {
+   "id": "nerve.base",
+   "const": "NERVE_BASE",
+   "unit": "chance",
+   "feel": "how likely a hurt enemy breaks",
+   "reason": "morale base",
+   "source": "records/BOHEMIA_TUNING_BB_NUMBERS_HOW_FIVE_POINTS_ARE_FELT_9_28_26.md s4",
+   "owner": "tuning",
+   "range": [
+    0,
+    0.3
+   ],
+   "slider": true,
+   "status": "live",
+   "live": {
+    "value": 0.1,
+    "line": 8791
+   }
+  },
+  {
+   "id": "loot.chance",
+   "const": "LOOT_CHANCE",
+   "unit": "chance",
+   "feel": "how often a body has something",
+   "reason": "loot cadence",
+   "source": "records/BOHEMIA_TUNING_BB_NUMBERS_HOW_FIVE_POINTS_ARE_FELT_9_28_26.md s4",
+   "owner": "economy",
+   "range": [
+    0.2,
+    0.9
+   ],
+   "slider": true,
+   "status": "live",
+   "live": {
+    "value": 0.55,
+    "line": 10739
+   }
+  },
+  {
+   "id": "xp.kill",
+   "const": "KILL_XP_PCT",
+   "unit": "level share",
+   "feel": "how fast a kill levels you",
+   "reason": "progression",
+   "source": "records/BOHEMIA_TUNING_BB_NUMBERS_HOW_FIVE_POINTS_ARE_FELT_9_28_26.md s4",
+   "owner": "tuning",
+   "range": [
+    0.05,
+    0.5
+   ],
+   "slider": true,
+   "status": "live",
+   "live": {
+    "value": 0.25,
+    "line": 10738
+   }
+  },
+  {
+   "id": "xp.level",
+   "const": "XP_PER_LEVEL",
+   "unit": "xp",
+   "feel": "how long a level takes",
+   "reason": "progression",
+   "source": "records/BOHEMIA_TUNING_BB_NUMBERS_HOW_FIVE_POINTS_ARE_FELT_9_28_26.md s4",
+   "owner": "tuning",
+   "range": [
+    60,
+    300
+   ],
+   "slider": true,
+   "status": "live",
+   "live": {
+    "value": 120,
+    "line": 8831
+   }
+  },
+  {
+   "id": "heal.patch",
+   "const": "PATCH_HP",
+   "unit": "hp",
+   "feel": "what one patch heals",
+   "reason": "medicine",
+   "source": "records/BOHEMIA_TUNING_BB_NUMBERS_HOW_FIVE_POINTS_ARE_FELT_9_28_26.md s4",
+   "owner": "tuning",
+   "range": [
+    10,
+    50
+   ],
+   "slider": true,
+   "status": "live",
+   "live": {
+    "value": 25,
+    "line": 9382
+   }
+  },
+  {
+   "id": "highground.near",
+   "const": "NEAR_HG",
+   "unit": "tiles",
+   "feel": "how close the mound pays",
+   "reason": "the one terrain effect; to re-derive in cells (rule 34)",
+   "source": "records/BOHEMIA_TUNING_BB_NUMBERS_HOW_FIVE_POINTS_ARE_FELT_9_28_26.md s4",
+   "owner": "combat",
+   "range": [
+    1,
+    12
+   ],
+   "slider": false,
+   "status": "live",
+   "live": {
+    "value": 5,
+    "line": 10951
+   }
+  },
+  {
+   "id": "armour.plate.hold",
+   "const": "",
+   "unit": "hp",
+   "feel": "a plate stops any hit up to this; bigger cracks it and spills",
+   "reason": "makes slightly better armour possible",
+   "source": "records/BOHEMIA_TUNING_BB_NUMBERS_HOW_FIVE_POINTS_ARE_FELT_9_28_26.md s3",
+   "owner": "tuning",
+   "range": [
+    0,
+    60
+   ],
+   "slider": false,
+   "status": "proposed"
+  },
+  {
+   "id": "death.struck",
+   "const": "",
+   "unit": "chance",
+   "feel": "struck down: this share die",
+   "reason": "Paolo 9/27 default 20%",
+   "source": "laws/BOHEMIA_LAW_THE_FIGHT_GETS_DEEP_TUNING_AND_MODS_9_27_26.md s2",
+   "owner": "tuning",
+   "range": [
+    0,
+    0.5
+   ],
+   "slider": true,
+   "status": "ruled-not-built"
+  },
+  {
+   "id": "death.veteran",
+   "const": "",
+   "unit": "chance",
+   "feel": "a veteran of ~20 fights dies at this instead",
+   "reason": "Paolo 9/27 10%",
+   "source": "laws/BOHEMIA_ADDENDUM_THE_THIRD_VOTES_9_28_26.md s7",
+   "owner": "tuning",
+   "range": [
+    0,
+    0.5
+   ],
+   "slider": true,
+   "status": "ruled-not-built"
+  },
+  {
+   "id": "death.veteran.fights",
+   "const": "",
+   "unit": "fights",
+   "feel": "fights to become a veteran",
+   "reason": "Paolo 9/27 about 20",
+   "source": "laws/BOHEMIA_ADDENDUM_THE_THIRD_VOTES_9_28_26.md s7",
+   "owner": "tuning",
+   "range": [
+    5,
+    50
+   ],
+   "slider": false,
+   "status": "ruled-not-built"
+  },
+  {
+   "id": "injury.days",
+   "const": "",
+   "unit": "game days [min,max]",
+   "feel": "how long a struck-down man is out",
+   "reason": "Paolo 9/27 30 to 40",
+   "source": "laws/BOHEMIA_LAW_THE_FIGHT_GETS_DEEP_TUNING_AND_MODS_9_27_26.md s2",
+   "owner": "tuning",
+   "range": [
+    7,
+    90
+   ],
+   "slider": true,
+   "status": "ruled-not-built"
+  },
+  {
+   "id": "age.base",
+   "const": "",
+   "unit": "yearly risk",
+   "feel": "the curve every life rolls on",
+   "reason": "Gompertz B 6e-5",
+   "source": "records/BOHEMIA_TUNING_LIFESPANS_HOW_OLD_PEOPLE_LIVE_IS_A_ROLL_9_28_26.md s5A",
+   "owner": "tuning",
+   "range": [
+    0.00002,
+    0.0002
+   ],
+   "slider": false,
+   "status": "proposed"
+  },
+  {
+   "id": "age.doubling",
+   "const": "",
+   "unit": "years",
+   "feel": "death risk doubles every",
+   "reason": "real human 8.2",
+   "source": "records/BOHEMIA_TUNING_LIFESPANS_HOW_OLD_PEOPLE_LIVE_IS_A_ROLL_9_28_26.md s5A",
+   "owner": "tuning",
+   "range": [
+    6,
+    12
+   ],
+   "slider": false,
+   "status": "proposed"
+  },
+  {
+   "id": "age.badluck.crash",
+   "const": "",
+   "unit": "yearly risk",
+   "feel": "accidents and violence in a crash",
+   "reason": "0.005; median 69",
+   "source": "records/BOHEMIA_TUNING_LIFESPANS_HOW_OLD_PEOPLE_LIVE_IS_A_ROLL_9_28_26.md s5B",
+   "owner": "tuning",
+   "range": [
+    0,
+    0.02
+   ],
+   "slider": true,
+   "status": "proposed"
+  },
+  {
+   "id": "age.badluck.good",
+   "const": "",
+   "unit": "yearly risk",
+   "feel": "accidents and violence in good times",
+   "reason": "0.0005; median 81",
+   "source": "records/BOHEMIA_TUNING_LIFESPANS_HOW_OLD_PEOPLE_LIVE_IS_A_ROLL_9_28_26.md s5B",
+   "owner": "tuning",
+   "range": [
+    0,
+    0.02
+   ],
+   "slider": true,
+   "status": "proposed"
+  },
+  {
+   "id": "age.stress.crash",
+   "const": "",
+   "unit": "x",
+   "feel": "how hard a crash leans on the body",
+   "reason": "1.8",
+   "source": "records/BOHEMIA_TUNING_LIFESPANS_HOW_OLD_PEOPLE_LIVE_IS_A_ROLL_9_28_26.md s5B",
+   "owner": "tuning",
+   "range": [
+    1,
+    3
+   ],
+   "slider": true,
+   "status": "proposed"
+  },
+  {
+   "id": "age.scar",
+   "const": "",
+   "unit": "x per scar",
+   "feel": "what a permanent mark costs in years",
+   "reason": "1.08",
+   "source": "records/BOHEMIA_TUNING_LIFESPANS_HOW_OLD_PEOPLE_LIVE_IS_A_ROLL_9_28_26.md s5C",
+   "owner": "tuning",
+   "range": [
+    1,
+    1.3
+   ],
+   "slider": false,
+   "status": "proposed"
+  },
+  {
+   "id": "age.omen",
+   "const": "",
+   "unit": "yearly risk",
+   "feel": "when the body starts to show it",
+   "reason": "0.03",
+   "source": "records/BOHEMIA_TUNING_LIFESPANS_HOW_OLD_PEOPLE_LIVE_IS_A_ROLL_9_28_26.md s5D",
+   "owner": "tuning",
+   "range": [
+    0.01,
+    0.1
+   ],
+   "slider": false,
+   "status": "proposed"
+  }
+ ],
+ "enemies": {
+  "note": "archetype rows (hp, acc, dmg) read live; one row per kind when built",
+  "live": {
+   "human": {
+    "name": "GOON",
+    "hp": 60,
+    "acc": 0.55,
+    "dmg": [
+     14,
+     26
+    ],
+    "line": 4464
+   },
+   "bot": {
+    "name": "SEC-BOT",
+    "hp": 160,
+    "acc": 0.62,
+    "dmg": [
+     18,
+     30
+    ],
+    "line": 4477
+   },
+   "shiv": {
+    "name": "SHIV",
+    "hp": 60,
+    "acc": 0,
+    "dmg": [
+     14,
+     20
+    ],
+    "line": 4487
+   },
+   "bat": {
+    "name": "BAT",
+    "hp": 85,
+    "acc": 0,
+    "dmg": [
+     26,
+     38
+    ],
+    "line": 4488
+   },
+   "spear": {
+    "name": "SPEAR",
+    "hp": 70,
+    "acc": 0,
+    "dmg": [
+     18,
+     26
+    ],
+    "line": 4489
+   },
+   "sniper": {
+    "name": "SNIPER",
+    "hp": 45,
+    "acc": 0.72,
+    "dmg": [
+     32,
+     48
+    ],
+    "line": 4499
+   },
+   "medic": {
+    "name": "MEDIC",
+    "hp": 60,
+    "acc": 0.55,
+    "dmg": [
+     14,
+     26
+    ],
+    "line": 4510
+   },
+   "breacher": {
+    "name": "BREACHER",
+    "hp": 60,
+    "acc": 0.55,
+    "dmg": [
+     14,
+     26
+    ],
+    "line": 4518
+   }
+  }
+ },
+ "census": {
+  "numericConstsInFight": 128,
+  "feltRowsFound": 21,
+  "feltRowsMissing": [],
+  "blobLines": 14928
+ }
+}
