@@ -162,7 +162,7 @@ and he made it in one frame). THE GENERAL RULE HIS KILL SETS:
     "accent_area_px112_min": 48, "accent_sat_min": 0.50,
     "silhouette_pole_delta_px112": 4,
     "greyscale_survives": "guaranteed - two channels cannot both be colour"},
-  "ground": {"colours_per_kpx_min": 2.07, "wall_colours_per_kpx_min": 1.55, "ruler_bank": "banks/BOHEMIA_STARTER_TILESET_ACT1_RECOOK_7_28_26.txt", "amended": "9/23 [density ruler]", "ramp_hue_shift_deg_min": 3.0,
+  "ground": {"colours_per_kpx_min": 2.07, "wall_colours_per_kpx_min": 1.55, "ground_colours_per_cell_min": 4, "wall_colours_per_cell_min": 3, "unit_note": "the count binds at every tile size (9/28); the per-kpx figures are the 44px originals", "ruler_bank": "banks/BOHEMIA_STARTER_TILESET_ACT1_RECOOK_7_28_26.txt", "amended": "9/23 [density ruler]", "ramp_hue_shift_deg_min": 3.0,
              "rulers": {"density": "tools/bohemia_eyes_reference_score.py colours_per_kpx",
                         "hue": "mean adjacent-step hue delta, luminance-ordered, usage-weighted, sat>=0.08"},
              "scope": "new and re-cooked ground tiles from 9/6; CBB-frozen act-1 set exempt until its re-cook row"}
@@ -183,6 +183,14 @@ ratchet is re-frozen at the new band WITHOUT the pieces bounced this round
 (records/BOHEMIA_STYLE_CARD_BASELINE_9_5_26.json carries the reason), so it
 still only falls. This does NOT touch the value ends: a pure-white accent
 (val 1.00) is not "turned down", it is the opposite of his note.
+
+## 5A-bis. THE DENSITY FLOOR IS A COUNT, NOT A RATE (amended 9/28)
+COOK [cell tiles] r1 measured it: 2.07 colours/kpx on a 44 px tile is FOUR
+colours, and the same rate on a 32 px cell reads a whole colour leaner. The
+9/23 floors restated in the unit his leanest approved tiles actually carry:
+A GROUND CELL HOLDS >= 4 UNIQUE COLOURS; A WALL CELL >= 3. Scale-free, so it
+binds 44 px tiles and 32 px cells alike (records/BOHEMIA_RULING_THE_CELL_IS_
+THE_STEP_9_28_26.md).
 
 ## 5B. THE RATCHET IS ACCENT-IMMUNE (amended 9/13)
 COOK's TEAL WORK PANTS - a LEGAL accent in Paolo's own Network colour -

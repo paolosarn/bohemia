@@ -51314,7 +51314,28 @@ your first VAMILY and do steps 1 to 9.
 I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
-ROUND LOG 9/28c (latest): QUIET ROUND, NAMED AS ONE. One commit landed
+ROUND LOG 9/28d (latest): THE CELL IS THE STEP - ruled by default.
+Caught at the seam a cook I had missed: COOK [cell tiles] r1 cut his art at
+0.75 m a cell while COMBAT V227 built the fight at 3 m - one world drawn at
+two scales. COOK flagged it [PENDING Paolo]; it is a look question with a
+defensible default, so under EVERYTHING IS A THUMB I ruled it (records/
+BOHEMIA_RULING_THE_CELL_IS_THE_STEP_9_28_26.md): ONE CELL = ONE STEP = 0.75
+m. The decider is the honest-grid law itself - at 3 m a wall, a door, a
+mound and a person cannot each be drawn as one cell without lying. Also
+his sentence, his 7/28 bank and his 4x2 car, RF4's person-per-tile, and
+a house needing an inside. COSTS SAID PLAINLY: the close view is ~9 m
+(the map carries distance); 34d's house-4x4 / car-2x1 / street-3 defaults
+die at this scale; reach counts go to TUNING (rule 36), the metres are not
+frozen. Both lanes' cards already sit in VOTE for his knock-down. Cards
+amended: two-scales 0B (the cell), style card 5A-bis (the density floor
+is a COUNT - ground cell >= 4 colours, wall >= 3 - COOK caught that a
+per-kpx rate is not scale-free). SEAM: COOK's cell tiles PASS (every cell
+beside its 7/28 source, CUT vs DRAWN labelled); COOK's valley-reads-as-land
+PASS and pays two map-gap items (the rim, the void), with ONE FLAG: the
+freeway is pale on the map and dark on the street - scales must agree, the
+street is the source. FIGHT VERDICT ROUND 15 posted. Style gate 172/9, all
+nine reds CHARACTER's four swatches.
+PREVIOUS: QUIET ROUND, NAMED AS ONE. One commit landed
 since last round (QUESTS), no fight ship, no fresh pair, no new art at
 the seam, no new votes. FIGHT VERDICT ROUND 14 posted as no-change;
 round 13 stands. FOR THE COORDINATOR, A STALE LINE MEASURED PER RULE

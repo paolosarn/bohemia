@@ -13,6 +13,14 @@ warm), ONE light law, ONE wrong thing per frame. What changes with size
 is WHICH bible rules carry the tone, because a 28 px person cannot act
 with his face and a map cannot hold a pose.
 
+## 0B. THE CELL IS THE STEP, 0.75 m (amended 9/28, DIRECTION default)
+records/BOHEMIA_RULING_THE_CELL_IS_THE_STEP_9_28_26.md: one cell = one step =
+0.75 m, because only at that scale can the drawing and the honest grid agree
+cell for cell (a wall, a door, a mound and a person are each one cell AS
+DRAWN). His 7/28 bank cuts straight across; houses, cars and streets are
+drawn at real size in cells; the close view is ~9 m and the map carries
+distance. Section 0's defaults (house 4x4, car 2x1) are dead at this scale.
+
 ## 1. WHAT CARRIES ACROSS BOTH SCALES, UNTOUCHED
 - The register: hue 18–47 at ground level; the aerial card's polarity
   (ground brightest, roads darkest, roofs warm between) at every zoom.
@@ -86,6 +94,7 @@ punctuation, and it needs no flash to announce itself.
 
 ```json
 {"card":"TWO_SCALES_LOOK","date":"9/27/26","law":"rule 34",
+ "cell":"0.75 m = one step (9/28 ruling); real-size houses/cars/streets; close view ~9 m",
  "carries":["hue 18-47 register","aerial polarity","R4 fixtures","R8 lens","R10 bake","purple","territory rims","eras floor","newgrounds cut"],
  "close":{"tone_carriers":["R4 room light","R3 hold","R7 occupancy"],"sprite_spec":"silhouette + one value split + one accent at 28px; face lives in the portrait (R6 binds the bust)","honest_grid":"R1's precondition - the drawing never lies about a cell","wear":"per-cell authorship, no stamps"},
  "map":{"card":"[bb look] 9/24 stands whole","tone_carriers":["R7 occupancy","R9 schedule"]},
