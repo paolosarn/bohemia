@@ -226,6 +226,30 @@ const LOUDEST = function (skip) {
      HISTORICAL BUG, which is the single easiest thing in this repo to believe
      without checking. A harness that presses in a way no thumb presses is not a
      thumb. */
+  /* *** AND ON THE MAP THE MAP IS THE CONTROL (RUN 9/28, rule 38c). *** The demo opens on the
+     map now and the city is crossed by touching it; the walk pad this hand used to find is
+     stripped. The map is a canvas, so the selector above could never see it, and a stranger's
+     eye sees nothing on that screen louder than the map itself. Scored like everything else
+     (area first, a canvas has no fill so no contrast bonus), and the press lands where a thumb
+     mashes -- a rotating point away from the middle, because the middle is where HE stands
+     and touching yourself is not a journey. Only on the map: on a walked street a canvas tap
+     is not a control, and this does not pretend it is. */
+  try {
+    const cv = document.getElementById('cv');
+    if (cv && typeof MODE !== 'undefined' && MODE === 'city' && vis(cv)
+        && skip.indexOf('cv') < 0) {
+      const r = cv.getBoundingClientRect();
+      const area = Math.min(r.width, innerWidth) * Math.min(r.height, innerHeight);
+      if (!best || area > best.score) {
+        const SPOTS = [[0.30, 0.35], [0.70, 0.62], [0.26, 0.70], [0.74, 0.30], [0.50, 0.22], [0.40, 0.80]];
+        const n = (window.__COLD_M = ((window.__COLD_M | 0) + 1));
+        const f = SPOTS[n % SPOTS.length];
+        best = { score: area, area: Math.round(area), x: r.x + r.width * f[0], y: r.y + r.height * f[1],
+                 el: cv, id: 'cv', cls: '', tag: 'canvas',
+                 pos: { x: Math.round(r.width * f[0]), y: Math.round(r.height * f[1]) } };
+      }
+    }
+  } catch (_e) {}
   document.querySelectorAll('[data-coldhand]').forEach(e => e.removeAttribute('data-coldhand'));
   if (best && best.el) { best.el.setAttribute('data-coldhand', '1'); delete best.el; }
   return best;
@@ -302,7 +326,7 @@ const LOUDEST = function (skip) {
       if (tried.indexOf(label) < 0) tried.push(label);
       const target = useCity ? frame : page;
       /* A REAL TAP, on the element the eye picked. Never a synthetic click. */
-      try { await target.tap('[data-coldhand]', { timeout: 3000 }); }
+      try { await target.tap('[data-coldhand]', pick.pos ? { timeout: 3000, position: pick.pos } : { timeout: 3000 }); }
       catch (e) {
         try { await target.click('[data-coldhand]', { timeout: 3000 }); } catch (e2) { }
       }

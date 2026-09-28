@@ -343,10 +343,23 @@ const GROUND_FLOOR = 2000;
       return out;
     });
 
-    ok('all eight directions are on screen (' + thumb.pads + ')', thumb.pads === 8);
-    ok('and NOTHING is sitting on top of them -- every one takes the tap'
-      + (thumb.coveredCount ? ' (covered by ' + thumb.covered.join(', ') + ')' : ''),
-      thumb.coveredCount === 0);
+    /* *** RE-AIMED 9/28 BY RUN (rule 38b/c, [no city walk]). *** PAOLO 9/28: "your character
+       moving tile to tile throughout the city, it's not gonna be like that anymore, that has
+       to change immediately." The demo opens ON THE MAP and a stranger crosses it by a TAP;
+       the eight-button pad is stripped from the demo (the fight keeps its own). So what a
+       stranger needs is the opposite of what this asked: NO walk pad, and the MAP itself
+       taking the finger, with nothing sitting on top of it. Asked of the map, not of an
+       empty list -- 'nothing covers zero wedges' is true of nothing. */
+    ok('the demo carries NO walk pad now -- the city is crossed on the map (' + thumb.pads + ' wedges drawn)',
+       thumb.pads === 0);
+    const mapTop = await city.evaluate(() => {
+      const c = document.getElementById('cv'); if (!c) return null;
+      const r = c.getBoundingClientRect();
+      const e = document.elementFromPoint(r.x + r.width * 0.5, r.y + r.height * 0.45);
+      return e ? (e.id || e.tagName) : null;
+    });
+    ok('and NOTHING is sitting on top of the map -- its middle takes the tap (' + mapTop + ')',
+       mapTop === 'cv');
     /* *** THIS ASKED FOR A FLOOR HIS NEWEST WORD REMOVED. *** It read the walk
        buttons against 44 as proof the served build gets the thumb injection that
        a file:// load cannot. Two things ended that:
@@ -361,9 +374,7 @@ const GROUND_FLOOR = 2000;
        What a stranger actually needs from this pad is that it is ALL THERE and
        that nothing is sitting on top of it, which is the next claim down and the
        bug this lane really did ship once. Size is his ruling's answer. */
-    ok('the walk pad is all eight wedges, at the size his 9/6 halving made them ('
-      + thumb.minW + 'x' + thumb.minH + 'px, and the floor is thumb_gate\'s '
-      + 'question, not this one\'s)', thumb.pads === 8);
+    /* (the pad-size leg went with the pad, 9/28, rule 38b) */
 
     /* THE ONE THAT IS NOT COSMETIC. The city's toolbar carries a builder drawer
        whose REROLL regenerates the world under the player's own session. The
@@ -383,24 +394,28 @@ const GROUND_FLOOR = 2000;
        all eight walks a circle and a circle measures the harness, not the game.
        (That mistake was made on the first walk and caught before it was
        written down.) */
-    await clearCards();          /* and once more before the press test */
-    const before = await city.evaluate(() => ({ hx, hy }));
-    const east = await city.evaluateHandle(() =>
-      /* BY THE DIRECTION IT CARRIES, NOT BY ITS TEXT: the arrows are drawn SVG
-         since 9/7, so textContent is empty and this fell through to [2]. */
-      [...document.querySelectorAll('#pad .pb')].find(
-        b => (b.dataset && b.dataset.walk === '\u2192')
-          || (b.textContent || '').trim() === '\u2192')
-      || document.querySelectorAll('#pad .pb')[2]);
-    for (let i = 0; i < 12; i++) {
-      try { await east.asElement().tap({ timeout: 3000 }); }
-      catch (e) { try { await east.asElement().click({ timeout: 3000 }); } catch (e2) { } }
-    }
-    await SETTLE(page, 800);
-    const after = await city.evaluate(() => ({ hx, hy }));
-    const movedBy = Math.abs(after.hx - before.hx) + Math.abs(after.hy - before.hy);
-    ok('pressing a direction moves him -- twelve taps east moved him ' + movedBy
-      + ' cells, which is the first thing a stranger checks', movedBy >= 1);
+    /* RE-AIMED 9/28 (rule 38c): THE FIRST THING A STRANGER TESTS is still whether anything
+       happens when he touches it -- and on the demo what he touches is the map. Find a block
+       three to six blocks of road away the way a thumb would, touch it ONCE, read the
+       game's own marker. */
+    await clearCards();
+    const before = await city.evaluate(() => ({ x: city.x, y: city.y }));
+    const FB = await (await city.frameElement()).boundingBox();
+    const spot = await city.evaluate(() => {
+      const c = document.getElementById('cv'), r = c.getBoundingClientRect();
+      const kx = c.width / r.width, ky = c.height / r.height;
+      for (let sy = 60; sy < r.height - 60; sy += 11) for (let sx = 20; sx < r.width - 20; sx += 11) {
+        const cell = CBcellAt(sx * kx, sy * ky); if (!cell || !cityWalkable(cell[0], cell[1])) continue;
+        const p = cityRoute(city.x, city.y, cell[0], cell[1]);
+        if (p && p.length - 1 >= 3 && p.length - 1 <= 6) return { x: r.x + sx, y: r.y + sy };
+      }
+      return null;
+    });
+    if (spot) { await page.touchscreen.tap(FB.x + spot.x, FB.y + spot.y); await SETTLE(page, 4500); }
+    const after = await city.evaluate(() => ({ x: city.x, y: city.y }));
+    const movedBy = Math.abs(after.x - before.x) + Math.abs(after.y - before.y);
+    ok('touching the map moves him -- one tap moved the party ' + movedBy
+      + ' blocks, which is the first thing a stranger checks', !!spot && movedBy >= 1);
 
     ok('and after all of that the demo has still thrown NOTHING'
       + (errs.length ? ' -- first: ' + errs[0] : ''), errs.length === 0);
