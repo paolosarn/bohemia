@@ -106,14 +106,16 @@ function serve() {
   ok('a hold latches only after a real hold, never on a tap',
      /heldBeats >= LATCH_AFTER\)\{ LATCH_DIR = held/.test(city));
   ok('and any press clears one, so it is always interruptible',
-     /latchStop\(\);\s*\n\s*held=di; pend=di; heldBeats=0; \}/.test(city));
+     /* 9/28 (RUN, [bb map]): a journey on the map is cleared by the same press, on a line
+        between these two; the claim is that ANY press clears, so both must be there. */
+     /latchStop\(\);[\s\S]{0,400}?travelStop\(\);[\s\S]{0,120}?held=di; pend=di; heldBeats=0; \}/.test(city));
   ok('*** EVERY REASON TO STOP LIVES IN ONE FUNCTION *** -- so a new one cannot '
     + 'be added to one caller and forgotten in another',
      /function latchShouldStop\(\)/.test(city));
   ok('and that function knows about a card, a crew, the mode and the day ending',
      /getElementById\('daycard'\)[\s\S]{0,400}HOST_DREW[\s\S]{0,300}DAY\.phase === 'ended'/.test(city));
   ok('a latched step is the SAME stepOnce a tapped step is -- it removes no cost',
-     /const di=\(held!==null\)\?held:\(pend!==null\?pend:LATCH_DIR\);/.test(city));
+     /(?:const|let) di=\(held!==null\)\?held:\(pend!==null\?pend:LATCH_DIR\);/.test(city));
 }
 
 /* ---- 2. THE REAL SURFACE ------------------------------------------------- */
@@ -124,25 +126,20 @@ function serve() {
 
   const srv = await serve();
   const base = 'http://127.0.0.1:' + srv.address().port + '/';
-  const browser = await chromium.launch({ args: ['--no-sandbox'] });
+  /* RE-AIMED 9/28 BY RUN (rule 38b/c, [no city walk]): THE DEMO NO LONGER WALKS THE CITY. It
+     opens on the map with the walk pad stripped, so a hold on the demo's pad presses a 0x0
+     box -- measured, heldBeats 0. The latch is a street feature and the walked street lives
+     in the ALPHA until [no city walk] excavates it, so the real surface here is the alpha,
+     opened by THE ONE DRIVER (it knows the alpha's door and its RUN tab). Same legs. */
+  let browser = null;
   try {
-    const ctx = await browser.newContext({ viewport: { width: 390, height: 844 },
-                                           hasTouch: true, isMobile: true });
-    const page = await ctx.newPage();
-    const errs = [];
-    page.on('pageerror', e => errs.push(String(e.message).slice(0, 140)));
-    await page.goto(base + 'BOHEMIA_DEMO.html', { waitUntil: 'load', timeout: 240000 });
-    await SETTLE(page, 2500);
-    await page.tap('#front').catch(async () => { await page.click('#front').catch(() => { }); });
-    await SETTLE(page, 90000, async () => {
-      const f = page.frames().find(x => x.name() === 'cityFrame');
-      if (!f) return false;
-      try {
-        return await f.evaluate(() => typeof DAY !== 'undefined' && DAY.day >= 1
-          && typeof latchShouldStop === 'function' && typeof LATCH_AFTER !== 'undefined');
-      } catch (e) { return false; }
-    });
-    const city = page.frames().find(x => x.name() === 'cityFrame');
+    const drive = require(path.join(__dirname, '..', 'tools', 'bohemia_drive_the_demo.js'));
+    const dd = await drive.open({ alpha: true, keepCards: true });
+    browser = dd.browser;
+    const page = dd.page;
+    const errs = dd.errs;
+    const city = dd.fr;
+    const FB = await (await city.frameElement()).boundingBox();
     ok('the walked world is up', !!city);
     if (!city) { await browser.close(); srv.close(); return done(); }
 
@@ -173,7 +170,7 @@ function serve() {
       if (!el) return null;
       const r = el.getBoundingClientRect();
       return { x: Math.round(r.x + r.width / 2), y: Math.round(r.y + r.height / 2) };
-    }, g);
+    }, g).then(q => q && { x: q.x + FB.x, y: q.y + FB.y });
     const state = () => city.evaluate(() => ({
       hx: hx, hy: hy, min: T.min, held: held, heldBeats: heldBeats,
       latch: LATCH_DIR, still: LATCH_STILL,

@@ -48,10 +48,16 @@ const GONE = [
   ['hclock',  'the DAY 1 - 06:00 readout'],
   ['blstack', 'the left rail: STANDING, BUILD HERE, SCAVENGE, BIKE, SLEEP, MARKET'],
   ['note',    'the line of prose with no mouth'],
-  ['devbtn',  "the builder's drawer"]
+  ['devbtn',  "the builder's drawer"],
+  /* 9/28, rule 38b/37b: the city is crossed on the map by a tap, so the eight-button walk pad
+     and DROP IN leave the demo; the fight keeps its own pad in its own frame. */
+  ['nav',     'the walk pad and DROP IN (rule 38b: no walking the city)']
 ];
 /* and what he must still be able to reach */
-const KEPT = [['pad', 'the walk pad'], ['notebtn', 'NOTES']];
+/* RE-AIMED 9/28 (rule 38c): THE FOUR THINGS ARE LOADING, TRAVEL ON THE MAP, ARRIVAL, THE FIGHT
+   AND THE FIRST PERSON. The walk pad was KEPT here because walking was item 2; travel on the
+   map replaced it, so the pad moves to GONE and the map's tap is proved below instead. */
+const KEPT = [['notebtn', 'NOTES']];
 
 const drawn = (fr, id) => fr.evaluate((i) => {
   const el = document.getElementById(i);
@@ -125,22 +131,26 @@ const drawn = (fr, id) => fr.evaluate((i) => {
     say('  NOTES sits at x=' + nb.x + ' of 390');
     ok('and NOTES is still on the right, where his thumb left it', nb.x > 195);
 
-    /* THE PAD MOVES HIM. The game's own cell numbers, not a picture diff. */
-    const where = () => fr.evaluate(() => ({ x: hx, y: hy }));
+    /* A TAP ON THE MAP MOVES HIM (9/28, rule 38c: TRAVEL is item 2 now). The game's own
+       block numbers, not a picture diff: find a block a thumb could pick three to six blocks
+       of road away, touch it once, and read where the marker is. */
+    const where = () => fr.evaluate(() => ({ x: city.x, y: city.y }));
     const before = await where();
-    const arrow = await fr.evaluate(() => {
-      const pad = document.getElementById('pad');
-      const g = pad && pad.querySelectorAll('.pb')[2];        /* east */
-      const a = g && (g.querySelector('.parr') || g);
-      if (!a) return null;
-      const r = a.getBoundingClientRect();
-      return { x: r.x + r.width / 2, y: r.y + r.height / 2 };
+    const spot = await fr.evaluate(() => {
+      const c = document.getElementById('cv'), r = c.getBoundingClientRect();
+      const kx = c.width / r.width, ky = c.height / r.height;
+      for (let sy = 60; sy < r.height - 60; sy += 11) for (let sx = 20; sx < r.width - 20; sx += 11) {
+        const cell = CBcellAt(sx * kx, sy * ky); if (!cell || !cityWalkable(cell[0], cell[1])) continue;
+        const p = cityRoute(city.x, city.y, cell[0], cell[1]);
+        if (p && p.length - 1 >= 3 && p.length - 1 <= 6) return { x: r.x + sx, y: r.y + sy };
+      }
+      return null;
     });
-    if (arrow) for (let i = 0; i < 12; i++) { await d.tapAt(arrow.x, arrow.y); await d.page.waitForTimeout(120); }
+    if (spot) { await d.tapAt(spot.x, spot.y); await d.page.waitForTimeout(4500); }
     const after = await where();
     const moved = Math.abs(after.x - before.x) + Math.abs(after.y - before.y);
-    say('  twelve presses on the pad moved him ' + moved + ' cells');
-    ok('*** THE PAD STILL WALKS HIM ON THE STRIPPED CUT ***', moved > 0);
+    say('  one tap on the map moved the marker ' + moved + ' blocks');
+    ok('*** A TAP ON THE MAP MOVES HIM ON THE STRIPPED CUT ***', !!spot && moved > 0);
 
     /* NOTES OPENS AND HOLDS WORDS. Open, and STILL open, with text in it. */
     if (nb.seen) { await d.tapAt(nb.x + nb.w / 2, nb.y + nb.h / 2); await d.page.waitForTimeout(700); }
