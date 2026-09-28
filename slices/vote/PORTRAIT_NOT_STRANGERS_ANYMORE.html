@@ -1,0 +1,84 @@
+<!doctype html><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>BOHEMIA — Not Strangers Anymore</title>
+<!-- PORTRAIT [three faces]. Real renderer pixels on the real 120 BPM clock.
+     No vote of its own beyond the row this rides inside (rule 25). Faces at
+     132 px, the measured VOTE-tab size (rule 32f). -->
+<style>
+  :root{--ink:#e8e0cc;--bg:#0d0d12;--card:#16161d;--line:#33313d;--gold:#c79a3f;--red:#c56b6b;--good:#7fae6e}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+       font:13px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace;padding:14px}
+  h1{font-size:13px;letter-spacing:2px;margin:0 0 4px;color:var(--gold)}
+  p{margin:0 0 12px;color:#a49a86;max-width:60ch}
+  .said{border-left:2px solid #7a4a4a;padding:6px 0 6px 10px;margin:0 0 14px;color:#b09a90}
+  b{color:#c8bfa8;font-weight:normal}
+  .good{color:var(--good)}
+  .box{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:9px;margin-bottom:12px}
+  .nm{font-size:10px;letter-spacing:1px;color:var(--red);margin-bottom:7px}
+  .nm.g{color:var(--good)}
+  .three{display:flex;gap:10px}
+  .three > div{flex:1 1 0;min-width:0;text-align:center}
+  .three .lbl{font-size:9px;color:#6f6862;margin-top:4px;letter-spacing:1px}
+  canvas.big{width:100%;max-width:132px;aspect-ratio:1/1;height:auto;image-rendering:pixelated;
+         background:#101319;border-radius:3px;display:block;margin:0 auto}
+  canvas.tiny{width:26px;height:26px;image-rendering:pixelated;background:#101319;
+         border-radius:2px;display:block;margin:4px auto 0}
+  .note{margin-top:2px;color:#6f6862;max-width:62ch}
+</style>
+<h1>NOT STRANGERS ANYMORE</h1>
+<div class="said">The flip strip has said since 9/24: "the three faces are placeholders, not
+your family yet." That is fixed now. Here is the exact same three slots, before and after.</div>
+<div class="box">
+  <div class="nm">BEFORE -- what the strip actually asked for, played back</div>
+  <div class="three">
+    <div><canvas class="big" data-k="b0" width="64" height="64"></canvas><div class="lbl">REYNA, +0Y</div></div>
+    <div><canvas class="big" data-k="b1" width="64" height="64"></canvas><div class="lbl">EZEKIEL, +35Y</div></div>
+    <div><canvas class="big" data-k="b2" width="64" height="64"></canvas><div class="lbl">PERLA, +70Y</div></div>
+  </div>
+</div>
+<p>All three were random rolls, Reyna included -- the bridge only ever special-cased the id
+"you", never the literal id "act1", so even the person at +0 years was a stranger.</p>
+<div class="box">
+  <div class="nm g">AFTER -- derived from the face you built</div>
+  <div class="three">
+    <div><canvas class="big" data-k="a0" width="64" height="64"></canvas><div class="lbl">REYNA, +0Y (YOU)</div></div>
+    <div><canvas class="big" data-k="a1" width="64" height="64"></canvas><div class="lbl">EZEKIEL, +35Y</div></div>
+    <div><canvas class="big" data-k="a2" width="64" height="64"></canvas><div class="lbl">PERLA, +70Y</div></div>
+  </div>
+</div>
+<p class="note">Measured on this exact bake, against 50 strangers averaging
+<b>4.42</b> nameable things apart: before the fix, Ezekiel and Perla's random rolls
+were <b>3</b> and <b>4</b> things apart from you -- indistinguishable
+from a stranger. After, they are <b class="good">1</b> and
+<b class="good">2</b> apart.</p>
+<p class="note">And the size you actually meet these three at, on the phone's own strip, is
+26 pixels, not 132 -- shown here true to scale, unscaled:</p>
+<div class="box"><div class="three">
+  <div><canvas class="tiny" data-k="a0t" width="26" height="26"></canvas></div>
+  <div><canvas class="tiny" data-k="a1t" width="26" height="26"></canvas></div>
+  <div><canvas class="tiny" data-k="a2t" width="26" height="26"></canvas></div>
+</div></div>
+<p class="note">draft:true, both the skull-blend weight and the hair-and-skin weight are picked
+by me, not measured off anything you said. Thumbs up and this stands as the family. Thumbs
+down and tell me if it reads as too alike or still too much like strangers.</p>
+<script>
+(function(){
+  var B=[[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,3,3,4,3,3,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],[5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,6,7,8,9,8,7,7,10,6,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5]], A=[[11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,12,13,14,15,14,13,13,12,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11],[16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,17,18,19,20,19,18,17,17,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16],[21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,22,23,24,25,24,23,23,26,22,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21]],
+      STEP=33.333333333333336, N=64;
+  var img=new Image(); img.src='PORTRAIT_NOT_STRANGERS_ANYMORE.png';
+  var cs={};
+  document.querySelectorAll('canvas[data-k]').forEach(function(c){
+    var x=c.getContext('2d'); x.imageSmoothingEnabled=false; cs[c.dataset.k]=x; });
+  function put(k,f,size){var x=cs[k]; if(!x)return; x.clearRect(0,0,size,size); x.drawImage(img,f*N,0,N,N,0,0,size,size);}
+  img.onload=function(){
+    var t0=performance.now();
+    (function loop(now){
+      var k=Math.floor((now-t0)/STEP);
+      B.forEach(function(s,i){ put('b'+i, s[k%s.length], 64); });
+      A.forEach(function(s,i){ put('a'+i, s[k%s.length], 64); put('a'+i+'t', s[k%s.length], 26); });
+      requestAnimationFrame(loop);
+    })(t0);
+  };
+})();
+</script>

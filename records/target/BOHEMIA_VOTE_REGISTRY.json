@@ -2424,6 +2424,19 @@
         "how": "text",
         "src": ""
       }
+    },
+    {
+      "id": "portrait-not-strangers-anymore-9-27",
+      "kind": "face",
+      "lane": "portrait",
+      "sha": "pending",
+      "made": "9/27",
+      "title": "NOT STRANGERS ANYMORE",
+      "why": "Your own phone strip has said since the flip shipped: the three faces are placeholders, not your family yet. That is fixed now, and it turned out worse than I thought before I measured it: ALL THREE were random rolls, not just the two older ones. The bridge that hands the strip a face only ever recognized the exact word you, so even Reyna at zero years was a stranger. Here are the same three slots, before and after, played on the real clock so you can watch them, not a still. Measured on things you can name about a face (haircut, hair colour, skin, eye colour, shades, hat, stubble, shirt, a braid), against 50 strangers who average 4.4 things apart from you: before the fix, Ezekiel and Perla were 3 and 4 things apart, no different from strangers. After, they are 1 and 2. And because the size you actually meet these three at is 26 pixels on the phone, not the 132 this card shows them at, the true-scale row is here too so the claim is honest about what you will actually see. draft:true: I picked both weights myself, you have not corrected either yet.",
+      "show": {
+        "how": "page",
+        "src": "vote/PORTRAIT_NOT_STRANGERS_ANYMORE.html"
+      }
     }
   ],
   "verdicts": [
