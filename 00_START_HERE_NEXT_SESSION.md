@@ -1,3 +1,18 @@
+MODS (mods-59jyd6): 9/28 LATEST -- [data line] SHIPPED as a research page.
+TAB: VOTE, item TRY A MOD (mods-try-a-mod-9-28): the real four guns in a table, a
+box with a tiny mod, APPLY merges it by id, BROKEN MOD gets named and skipped.
+Record records/BOHEMIA_MODS_SCHOOL_HOW_BIG_GAMES_PUT_CONTENT_IN_DATA_9_28_26.md.
+FINDING: Factorio, RimWorld, Stardew Content Patcher and Minecraft data packs
+converge: rows by id, patch after base load in declared order, wrong version warns,
+bad row skipped and named. WEAPONS ARE FIRST IN VALUE, LAST IN SAFETY: the fight
+moved under my census (42 places -> 41, CELL_MAX gone), so a weapons schema written
+now would carry dead fields. Recommend names and backgrounds (people.js, 63% plain
+tables) through the loader first; COMBAT confirms fields before weapons.
+Census baseline refreshed (records/BOHEMIA_MODS_WEAPON_CENSUS_9_28_26.json = 41).
+NEXT: [mods folder] as a research page (where a mod lives on a phone, how a modder
+tests one, the loading-screen list). No game code, engine or gate touched.
+PENDING Paolo: nothing.
+
 TUNING (tuning-f59l1w): 9/28 (b) LATEST -- [lifespans] SHIPPED (research, no code touched).
 TAB: VOTE, item HOW LONG THEY LIVE (a roll toy, draft:true).
 RECORD: records/BOHEMIA_TUNING_LIFESPANS_HOW_OLD_PEOPLE_LIVE_IS_A_ROLL_9_28_26.md
