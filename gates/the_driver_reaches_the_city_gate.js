@@ -42,10 +42,14 @@ function ok(what, cond, note) {
 (async () => {
   let d = null;
   try {
-    d = await D.open();
+    /* RE-AIMED 9/28 BY RUN (rule 38b/c, [no city walk]): THE DEMO OPENS ON THE MAP NOW and a spread
+       on it never drops him onto a walked street -- both held by THE MAP IS HOW YOU TRAVEL. The
+       seam this gate proves the driver can cross (street -> map -> street) is the walked street's,
+       which lives in the ALPHA until [no city walk] moves it to archive/. Same legs, same numbers. */
+    d = await D.open({ alpha: true });
 
     const door = await d.state();
-    ok('the demo opens on foot, which is where a stranger starts',
+    ok('the walked street opens on foot (the alpha; the demo opens on the map, rule 38c)',
       door.mode === 'human', JSON.stringify(door));
 
     /* THE POSITIVE, FIRST. A gate that only proves a thing is absent proves
@@ -149,9 +153,16 @@ function ok(what, cond, note) {
                seen: s.display !== 'none' && s.visibility !== 'hidden'
                      && b.width > 4 && b.height > 4 };
     });
+    /* 9/28 (RUN): this gate measures the ALPHA now (rule 38c took the street out of the demo),
+       and the alpha keeps its rail on purpose (rule 18g strips it from the DEMO only) -- drawn,
+       and no longer down the old axis. So on the alpha the claim is the one that still means
+       something there: the rail is DRAWN (the alpha kept everything) and the old axis does not
+       land on some other control instead. The demo-side half, the rail OFF the demo's screen,
+       is held by THE FOUR THINGS (#blstack in its GONE list). */
     ok('the old pinch axis is accounted for: it either still hits the rail, or the '
       + 'rail is really off the screen (rule 18g) rather than moved under another finger',
-      railGone ? (rail.seen === false) : (rail.seen === true),
+      d.isAlpha() ? (rail.seen === true && (railGone || fingers.acrossLeft.indexOf('blstack') >= 0))
+                  : (railGone ? (rail.seen === false) : (rail.seen === true)),
       'across-left ' + fingers.acrossLeft + ', the rail is '
         + (rail.seen ? 'drawn' : (rail.there ? 'in the markup and not drawn' : 'absent')));
 
