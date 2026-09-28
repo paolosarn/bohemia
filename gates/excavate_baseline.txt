@@ -1,6 +1,7 @@
 # EXCAVATE BASELINE (PLUMBER, row [excavate], rule 33h, measured 9/28/26).
 # Every published file (slices/, engine/, records/target/) that NOTHING the game can reach names,
 # frozen at the first measurement: 423 files, 90.2 MB of 288.5 MB published.
+# +1 AT LANDING (main moved during the round): slices/vote/LIFECITY_WHERE_A_RAID_IS_FOUGHT_9_28.png, added by b202b0e7 and not in the VOTE registry; routed to LIFE+CITY. 424 lines.
 # THIS LIST MAY ONLY SHRINK. gates/excavate_gate.js refuses any unreached published file not on it.
 # A line comes off when its file is moved off the site or the game starts loading it; the gate prints which.
 engine/BOHEMIA_AGENT_LOOK_7_10_26.js
@@ -418,6 +419,7 @@ slices/vote/COOK_THE_MAP_HAS_MARKERS.png
 slices/vote/COOK_WHO_IS_THAT_ON_THE_ROAD.png
 slices/vote/LIFECITY_PLACES_YOU_CAN_SEE_AND_NEVER_ENTER_9_28.png
 slices/vote/LIFECITY_THE_WATER_YOU_COULD_STAND_ON_9_27.png
+slices/vote/LIFECITY_WHERE_A_RAID_IS_FOUGHT_9_28.png
 slices/vote/PEOPLE_BUBBLE_READS.json
 slices/vote/PEOPLE_NOCLUMP_NOW_10_9_22.png
 slices/vote/PEOPLE_RUMOUR_SAID.json

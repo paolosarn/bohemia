@@ -4597,7 +4597,7 @@ GATES = [
      'reached; no reachable file names a file that lives only in archive/ (the site never publishes '
      'archive/, so that is a 404 on his phone); every archive/ file has a GRAVEYARD registry line; every '
      'rule-33h CUT line is really cut; and every published file the game cannot reach is on '
-     'gates/excavate_baseline.txt, frozen at 423 files and 90.2 MB of 288.5 MB published, so a new one is '
+     'gates/excavate_baseline.txt, frozen at landing at 424 files and 90.3 MB of 289.9 MB published, so a new one is '
      'refused by name. FIRST RUN FOUND ONE: a registry line written with an arrow instead of the pipe, so '
      'the carry gate, the canon index and the master builder had never read it. Mutation-checked four '
      'ways (8/1 each), about two seconds, no browser.',

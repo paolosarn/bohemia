@@ -10430,6 +10430,46 @@ full suite unmeasured since 7efb22cf. Rule 14(a): demo untouched, RUN cuts it.
 
 Record: records/BOHEMIA_ONE_DOOR_9_14_26.md
 
+PLUMBER (plumber-ont6t5): 9/28 (b) LATEST -- *** CHAT 18. ROUND 44. [excavate] CONTINUING, ABOUT 2 OF 3.
+NOTHING LIVE LOADS FROM ARCHIVE, AND THE WEIGHT NOTHING LOADS CAN NOW ONLY FALL. THE MOVE WAITS ON PAOLO. ***
+KEPT CLAIMED ON PURPOSE (rule 6). Record: records/BOHEMIA_NOTHING_LIVE_LOADS_FROM_ARCHIVE_9_28_26.md.
+  BUILT: tools/bohemia_what_loads.js (the sweep: what a phone can reach from the alpha, the demo and the
+  service worker, through page source AND data files, plus a stem rule for run-time names; 1.5 s warm)
+  and gates/excavate_gate.js, IN THE SUITE AS EXCAVATE, 9/0, no browser. Legs: planted self-test (4),
+  entries + VOTE registry reached, nothing live names an archived file, every archive file has a
+  registry line, every rule-33h CUT line really cut, unreached list frozen at 423
+  (gates/excavate_baseline.txt). Mutation-checked four ways on the real tree, 8/1 each, restored 9/0.
+  CHECKED AGAINST THE GLASS, TWICE (before and after RUN's e4c66f2b made the demo open on the map): a
+  phone-shaped boot of the alpha and the demo through the one driver fetched 18 and 16 files, ZERO on
+  the unreached list, zero outside the published folders, zero 404s, zero page errors.
+  NUMBERS: 1,043 published, 620 reached, 423 unreached = 90.2 MB of 289.9 MB. Zero live files name any
+  of the 18 archived files.
+  FIRST RUN FOUND: the 7/31 YOU HAVE TO ASK registry line used an arrow, not the pipe, so the carry gate,
+  the canon index and the master builder skipped it for eight weeks (fixed, carry 57 -> 58); four archive
+  files had no line (added from their own headers; canon index regenerated).
+  NOT DONE -- [PENDING Paolo]: 146 files, 32.6 MB (100 old screenshots in records/target, 29 proof
+  pictures and 15 retired judge pages in slices/, 2 photos) passed five tests (unreached; named by no
+  gate/tool/engine/config/bank/quest file by name or stem; cited by no law or record; not an asset --
+  fonts, sprite sheets, tiles, logos, combat, vote and all of engine/ left out, rule 38e; fetched by no
+  real boot). Listed in gates/excavate_move_list.txt. THE MOVE WAS REFUSED BY THIS SESSION'S PERMISSION
+  CHECK, so nothing moved; it needs Paolo's yes. It would also take PAGES PUBLISH (289 MB against its
+  260 MB cap, red since before 9/24, growing about 4 MB a round) to about 256 MB.
+  NOT TOUCHED ON PURPOSE: the "29 unloaded engine modules" (this lane's [dead modules] already proved
+  that premise wrong once; 39 files, 0.5 MB, rule 38e keeps assets).
+  RED ON CLEAN MAIN, NOT MINE, ROUTED OR NAMED: CANON ROT C2 10/6 (WORLD's notice cut 0c24c0cb: line on
+  WORLD) and C3 66/62 (one was MINE, a "..." filename in my own 9/24 record, fixed -> 65; one line each on
+  COMBAT, ECONOMY, MODS). DERIVED FRESH, red on clean main e4c66f2b: five derived files re-derive
+  differently (records/factions/BOHEMIA_FACTION_BLUES.md, the faction dossier judge page, and the MAP,
+  CURRENT SLICE and RUN CURRENT pages in slices/); named here, not yet routed by lane.
+  AT LANDING: LIFE+CITY's b202b0e7 put a vote picture on the site that is not in the VOTE registry;
+  it joined the frozen list (424) because it landed first, and LIFE+CITY has one line to register it.
+  [bb library] STILL CLAIMED, still blocked: both hosts 000 again this round (CONNECT 403). [PENDING
+  Paolo]: allow battlebrothers.fandom.com and battlebrothersgame.com in the environment's network access.
+  NEXT: the move the moment it is allowed (then PAGES PUBLISH and one more boot), else [density leg],
+  unblocked now that DIRECTION [bb density] shipped its floor (9e93bc7).
+  PROOF: EXCAVATE 9/0 (1.5 s); CARRY 58/0; GDD LINEAGE, PLACES ARE BLOCKS green; mutation 8/1 x4;
+  real boot alpha 18 / demo 16 fetched, 0 in the unreached set; canon rot 65/10 vs main 66/10.
+
 PLUMBER (plumber-ont6t5): 9/28 LATEST -- *** CHAT 18. ROUND 43. [bb library] CONTINUING, ABOUT 2 OF 3.
 THE TOOL IS BUILT AND PROVEN; THE FETCH WAITS ON ONE SETTING THAT IS PAOLO'S. ***
 KEPT CLAIMED, NOT SHIPPED, ON PURPOSE. The row has three parts: (1) a tool that pulls every wiki page
