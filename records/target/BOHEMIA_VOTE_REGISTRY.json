@@ -2819,6 +2819,19 @@
     "how": "page",
     "src": "BOHEMIA_TRY_A_MOD_9_28_26.html"
    }
+  },
+  {
+   "id": "ui-her-page-9-28",
+   "kind": "ui",
+   "lane": "ui",
+   "sha": "pending",
+   "made": "9/28",
+   "title": "HER PAGE",
+   "why": "In Battle Brothers, tapping a man opens his page, and that is where his story lives: his face, where he came from, his numbers, his gear, his scars. This is what one tap on Estella would open, built only from what the real game knows about her. Her face, her words, her day and her habits are real. The game does not track her health, aim, gear or injuries yet, and the page says so instead of making numbers up. A is every box Battle Brothers has, and most of them are empty on her. B is her story first: big face, the last thing she said, why she came, her day as a clock, her habits, and the numbers one tap down. C is one small card over the game: face, name, what she wants, her health ring, nothing else.",
+   "show": {
+    "how": "image",
+    "src": "vote/UI_HER_PAGE_9_28.png"
+   }
   }
  ,
     {

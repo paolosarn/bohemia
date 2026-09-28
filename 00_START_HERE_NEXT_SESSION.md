@@ -1,3 +1,24 @@
+UI (ui-kmqmrf): 9/28 (c) LATEST -- *** [bb interface] ROUND SIX: HER PAGE. THE STORY HALF IS
+REAL, THE NUMBERS HALF DOES NOT EXIST YET. *** Row stays CLAIMED. TAB: the picture is in the VOTE
+tab; the page itself is NOT IN A TAB YET.
+Record: records/BOHEMIA_BB_SCHOOL_THE_INTERFACE_ROUND_SIX_HER_PAGE_9_28_26.md
+
+BB (vol 10): a man's page is portrait, background, stats, perks, paper doll, traits, level; "where the
+story lives". Opened from his face in the roster, which is round four's option B.
+READ OFF THE ALPHA, the companion's own record (taken off her speech after two lookups found the
+wrong object): archetype 'watch'; a schedule (watches the street 17:35-23:23); nightOut, darkStay,
+wetStay; why she came; what she wants; her lines. NOT on her record: her name (the speech system
+resolves it) or her background (wasOf returns null for 'watch', named for PEOPLE). NOT IN THE GAME
+AT ALL: health, stats, gear, injuries, level.
+RULE 22 COOK: ui-her-page-9-28. A every BB box (most dashed NOT IN THE GAME YET on her) / B her story
+first, her day as a 24-hour ring, numbers one tap down (MY DEFAULT) / C one card over the dimmed game.
+Every word on it is her real record; nothing invented.
+NO VERDICTS SINCE LAST ROUND on the three waiting (bar, company, building).
+NEXT: [bougie phone] options (cracked at the start, bougier with the future, worse if it falls);
+then [the picks] with the size setting, [warning clipped], [door fixes], [inner votes]. [bb interface]
+round seven: THE EVENT ON THE ROAD (the face that stops the party, with PORTRAIT [bb faces]).
+[PENDING Paolo]: none in this file. Four picks wait in the VOTE tab.
+
 MODS (mods-59jyd6): 9/28 LATEST -- [data line] SHIPPED as a research page.
 TAB: VOTE, item TRY A MOD (mods-try-a-mod-9-28): the real four guns in a table, a
 box with a tiny mod, APPLY merges it by id, BROKEN MOD gets named and skipped.
