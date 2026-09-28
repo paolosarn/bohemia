@@ -86,3 +86,5 @@ COOK [cell tiles] becomes [tile options] with WORLD; RUN [two scales] re-aimed t
 [honest grid] stands (it is the fight's and the special places' grid); FACTIONS' territory rows re-aimed to
 home bases and roaming parties; the street-arrival default is dead; the map-is-the-city-view default is dead as
 drawn (the map is revamped with more pixels; the squeeze stays the door).
+
+## 16. THE SAME HOUR (coordinator 9/28): DIRECTION's ruling f739e36, THE CELL IS THE STEP (0.75 m), landed minutes before this law. It stands as the WORLD UNIT (one cell = one step = 0.75 m; his sentence, his bank, his car). It does NOT set the pixels: s1 kills the 32 px cell and the 28 px person, and the pixel size of a cell is his pick from [tile options]. A world unit and a pixel size are two numbers; the first is ruled, the second is his.

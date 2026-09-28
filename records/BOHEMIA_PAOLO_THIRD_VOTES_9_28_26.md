@@ -85,3 +85,5 @@
 The directions UP ("only three animations, south; good progress"); facing you UP; the other half UP; the phone
 while it wakes UP; the hole in the screen UP; the wheel that stopped UP ("not finished but good"); the kid walks
 UP; territory survives the rebuild UP; the revamp list UP.
+
+## THE COLLISION (coordinator 9/28): DIRECTION ruled 0.75 m a cell (f739e36) the same hour his votes killed the 32 px cell. Read together: 0.75 m is the world unit and stands; the pixels per cell are open until he picks a tile option. DIRECTION [judge tile options] carries it.
