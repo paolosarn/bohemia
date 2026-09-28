@@ -10565,6 +10565,44 @@ full suite unmeasured since 7efb22cf. Rule 14(a): demo untouched, RUN cuts it.
 
 Record: records/BOHEMIA_ONE_DOOR_9_14_26.md
 
+PLUMBER (plumber-ont6t5): 9/28 (c) LATEST -- *** CHAT 18. ROUND 45. [density leg] SHIPPED. THE MAP PAINTS
+ONE PIXEL IN THIRTEEN, AND THE FLOOR'S OWN MEASURE CAN BE PASSED BY BLUR. ***
+Record: records/BOHEMIA_THE_MAP_PAINTS_ONE_PIXEL_IN_THIRTEEN_9_28_26.md. Both held jobs ([excavate], [bb
+library]) wait on Paolo, so this round took the first OPEN line (autonomy doctrine: [PENDING] blocks nothing).
+  MEASURED on the demo and the alpha through the one driver, phone profile, twice, identical: the map
+  canvas (#cv) is 378 px wide shown 1134 device px wide, a 3x3 block per painted pixel. One painted unit
+  covers 3.62 x 3.54 device px when the map opens (7.8% of the phone's pixels), 7.95 x 7.32 at the far stop
+  (1.7%). DIRECTION's floor: 1.5. Battle Brothers: 1.
+  THE GLASS READING (floor item 3 as written) scores the opening view 1.15 x 1.11 -- A PASS -- because the
+  browser smooths the stretch and every shade reads as a new run. So the verdict reads the canvas's own
+  pixels times the device px each covers; the glass reading is printed beside it and reads DIRECTION's
+  9/24 frame 3.79 x 3.51 (theirs 3.8 x 3.5), so it is their measure, read their way.
+  BUILT: tools/bohemia_map_density.js (the measure, a browser PNG reader, a reading of the live map) and
+  gates/map_density_gate.js, IN THE SUITE AS MAP DENSITY (600 s budget, about 210 s), RED ON PURPOSE: 8 passed,
+  4 failed (G1 canvas at device pixels, G2 unit <= 1.5, on both surfaces). Self-tests S1-S4 (the measure on
+  known answers, the calibration, blur fooling the glass, the verdict on known answers), NEVER WORSE at both
+  zooms (+5%, may only fall), VOTE items declaring floor:'map' held to the floor (none yet: printed as a
+  NOTE, never a pass). OWED, printed every run: marker size (no Battle Brothers number exists; DIRECTION's
+  record lists it unmeasurable behind the blocked hosts) and detail by frequency.
+  CAUGHT IN MY OWN WORK: the test generator's low byte repeats every 256 steps, so "full detail" read 1.29
+  (now the high bits, 1.00); the first cut booted the whole game to decode two test pictures (344 s -> 207 s).
+  [excavate] CORRECTED: its L5 (new unreached files fail) went red within an hour on normal work -- FACTIONS'
+  unwired home-bases module (it has its own gate), PORTRAIT's head-and-gear data file, and a FACTIONS vote page
+  that went dead because Paolo VOTED on it (a vote consumes the item). A check that goes red when he votes is
+  broken, and the size cap is PAGES PUBLISH's; L5 now reports by name and fails nothing. L1-L4 stay hard.
+  THE MOVE LIST LOST ONE FILE: this gate reads DIRECTION's 9/24 frame, so it came off [excavate]'s list:
+  145 files, 32.3 MB, still [PENDING Paolo].
+  ROUTED, one line each: RUN [map pixels] (G1 is the canvas setup), COOK [map floor] (floor:'map' on map
+  pictures; flat cells), DIRECTION [floor reading] (which reading the floor means), TUNING [dead citation]
+  (a proposed tuning data file written as a path; CANON ROT C3 back to 66, not mine).
+  STILL [PENDING Paolo]: the 145-file move (permission check refused it); battlebrothers.fandom.com and
+  battlebrothersgame.com in the network access (both 000 again this round).
+  RULE 39 (landed during this round): read. (b) done for my two [bb ...] rows, each now ends with what we do
+  differently. (a) noted: the two things I still need from Paolo are permissions only he can grant (the
+  session's permission check and the network setting), not design questions.
+  PROOF: MAP DENSITY 8/4 red on purpose (the 4 = the live map under the floor); mutation (ceilings x0.5)
+  NEVER WORSE red on both surfaces; EXCAVATE 9/0; suite parses (739 rows).
+
 PLUMBER (plumber-ont6t5): 9/28 (b) LATEST -- *** CHAT 18. ROUND 44. [excavate] CONTINUING, ABOUT 2 OF 3.
 NOTHING LIVE LOADS FROM ARCHIVE, AND THE WEIGHT NOTHING LOADS CAN NOW ONLY FALL. THE MOVE WAITS ON PAOLO. ***
 KEPT CLAIMED ON PURPOSE (rule 6). Record: records/BOHEMIA_NOTHING_LIVE_LOADS_FROM_ARCHIVE_9_28_26.md.

@@ -116,3 +116,15 @@ header.
 2. The prose CUT rows (the cold open, the city builder mode, the asks as text, the walked city from
    rule 38b) do not map to files mechanically. The gate checks what the registry DECLARES; each
    cutting lane's registry line is what makes a cut checkable, and L4 holds every such line to it.
+
+## CORRECTION, SAME DAY (round 45): L5 WAS WRONG AS A FAIL, AND IS NOW A REPORT
+
+L5 refused any new published file the game cannot reach. Within about an hour of landing, four
+files from three lanes turned it red, and three of them were normal work: an engine module with its
+own gate that is not wired into the game yet (FACTIONS' home bases), a data file a cook tool writes
+(PORTRAIT's head and gear), and a vote page that became unreachable BECAUSE PAOLO VOTED ON IT (a vote
+consumes the item, so the page leaves the registry and the sweep stops reaching it). A check that
+turns red when he votes is broken, and no ruling of his asks the site's dead weight to only fall; the
+published size already has a hard cap in PAGES PUBLISH (260 MB). L5 now prints every new unreached
+file by name, with where it belongs, and fails nothing. L1 to L4, the excavation rule's own legs,
+stay hard. The mutation check on L5 above proved it bit; it did not prove it should.

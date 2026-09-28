@@ -4612,11 +4612,12 @@ GATES = [
      'were on its unreached list. Legs: a self-test on a planted tree; the entries and the VOTE registry '
      'reached; no reachable file names a file that lives only in archive/ (the site never publishes '
      'archive/, so that is a 404 on his phone); every archive/ file has a GRAVEYARD registry line; every '
-     'rule-33h CUT line is really cut; and every published file the game cannot reach is on '
-     'gates/excavate_baseline.txt, frozen at landing at 424 files and 90.3 MB of 289.9 MB published, so a new one is '
-     'refused by name. FIRST RUN FOUND ONE: a registry line written with an arrow instead of the pipe, so '
-     'the carry gate, the canon index and the master builder had never read it. Mutation-checked four '
-     'ways (8/1 each), about two seconds, no browser.',
+     'rule-33h CUT line is really cut; and every published file the game cannot reach that is not on '
+     'gates/excavate_baseline.txt (frozen at 424 files, 90.3 MB of 289.9 MB) is REPORTED by name, not failed: a hard '
+     'fail went red within an hour on normal work, including a vote page Paolo had just voted on, and the size cap is '
+     'PAGES PUBLISH. FIRST RUN FOUND ONE: a registry line written with an arrow instead of the pipe, so '
+     'the carry gate, the canon index and the master builder had never read it. Mutation-checked on L2, L3 '
+     'and L4 (8/1 each), about two seconds, no browser.',
      False),
     ('BB LIBRARY', ['node', 'gates/bb_library_gate.js'],
      'THE LIBRARY FETCHER TELLS THE TRUTH. 9/28, PLUMBER, row [bb library], rule 33j (Paolo 9/27: '

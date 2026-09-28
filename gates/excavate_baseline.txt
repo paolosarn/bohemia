@@ -2,7 +2,8 @@
 # Every published file (slices/, engine/, records/target/) that NOTHING the game can reach names,
 # frozen at the first measurement: 423 files, 90.2 MB of 288.5 MB published.
 # +1 AT LANDING (main moved during the round): slices/vote/LIFECITY_WHERE_A_RAID_IS_FOUGHT_9_28.png, added by b202b0e7 and not in the VOTE registry; routed to LIFE+CITY. 424 lines.
-# THIS LIST MAY ONLY SHRINK. gates/excavate_gate.js refuses any unreached published file not on it.
+# gates/excavate_gate.js REPORTS (by name, not as a fail) any unreached published file not on it; the size cap is PAGES PUBLISH.
+# (It refused them for one hour on 9/28 and that was wrong: a vote consumes an item, so his own vote made a page 'new dead'.)
 # A line comes off when its file is moved off the site or the game starts loading it; the gate prints which.
 engine/BOHEMIA_AGENT_LOOK_7_10_26.js
 engine/BOHEMIA_AGENT_RAGS_7_10_26.js

@@ -27,9 +27,14 @@
             GRAVEYARD registry says what replaced it), by name, or by a folder line.
      L4     every CUT line in that registry (rule 33h) is really cut: each path it names
             is gone from where it lived and is in archive/.
-     L5     THE WEIGHT CAN ONLY FALL: every published file the game cannot reach is on
-            gates/excavate_baseline.txt, the list frozen at the first measurement. A new
-            one is refused by name, with where it should go instead.
+     L5     THE WEIGHT, REPORTED BY NAME, NOT FAILED: every published file the game cannot
+            reach that is not on gates/excavate_baseline.txt (frozen at the first
+            measurement) is printed with where it belongs. It was a hard fail for one hour
+            and it was WRONG: within that hour four files landed from three lanes, and three
+            were normal work (an engine module with its own gate, not wired yet; a data file
+            a cook tool writes; a vote page that went dead because PAOLO VOTED ON IT, since a
+            vote consumes the item). A check that goes red when he votes is broken. The site's
+            size already has a hard cap (PAGES PUBLISH, 260 MB); this leg names the files.
 
    HOW IT DECIDES WHAT THE GAME REACHES: tools/bohemia_what_loads.js, generous on
    purpose (names in page source AND data files, and a stem rule for names built at run
@@ -154,14 +159,17 @@ const baseline = new Set(fs.readFileSync(path.join(ROOT, BASE), 'utf8').split('\
 const fresh = r.dead.filter(f => !baseline.has(f));
 const deadSet = new Set(r.dead);
 const shrunk = [...baseline].filter(f => !deadSet.has(f));
-ok('L5 the weight nothing loads can only fall (' + r.dead.length + ' unreached files, '
-   + mb(r.deadBytes) + '; baseline ' + baseline.size + ')', !fresh.length,
-   'NEW, published and loaded by nothing: ' + fresh.slice(0, 8).map(f => f + ' (' + mb(r.size.get(f)) + ')')
-   .join(', ') + (fresh.length > 8 ? ' and ' + (fresh.length - 8) + ' more' : '')
-   + '\n         The deploy copies slices/, engine/ and records/target/ whole, so this rides to '
-   + 'every phone. If the game should load it, link it from the alpha, the demo or the VOTE '
-   + 'registry. If it is a picture for a record, it belongs under records/ (not records/target/), '
-   + 'which is never published.');
+if (fresh.length) {
+  console.log('  NOTE L5: ' + fresh.length + ' published file(s) the game cannot reach and not on the 9/28 baseline '
+    + '(reported, not failed; the size cap is PAGES PUBLISH):');
+  fresh.slice(0, 12).forEach(f => console.log('           ' + f + ' (' + mb(r.size.get(f)) + ')'));
+  if (fresh.length > 12) console.log('           and ' + (fresh.length - 12) + ' more');
+  console.log('         If the game should load it, link it from the alpha, the demo or the VOTE registry. A picture '
+    + 'for a record belongs under records/ (not records/target/), which is never published.');
+} else {
+  console.log('  NOTE L5: no published file the game cannot reach is new since the 9/28 baseline ('
+    + r.dead.length + ' unreached, ' + mb(r.deadBytes) + ')');
+}
 if (shrunk.length) {
   console.log('  NOTE: ' + shrunk.length + ' baseline line(s) no longer unreached (moved off the site, '
     + 'or the game loads them now). Take them off ' + BASE + ' to lock the win in: '
