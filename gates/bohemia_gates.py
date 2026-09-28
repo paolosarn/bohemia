@@ -4699,6 +4699,24 @@ GATES = [
      'went for, so the choice is exercised and only the page load is not.',
      180),
 
+    ('MAP DENSITY', ['node', 'gates/map_density_gate.js'],
+     'THE MAP AT BATTLE BROTHERS PIXELS OR IT IS RED. 9/28, PLUMBER, row [density leg], rule 38a (Paolo: '
+     '"how many pixels the Battle Brothers map is and we need to have that exact same number at the bare '
+     'minimum... that has to happen like now"); the cook gate map leg, in its own file because it needs a '
+     'browser. THE FLOOR is DIRECTION (records/BOHEMIA_BB_DENSITY_THE_MAP_FLOOR_9_28_26.md): the map canvas '
+     'at the phone own pixels, and one painted unit per 1.5 device px or finer. LANDS RED ON PURPOSE: on '
+     'the demo and the alpha, twice, identical, the map canvas is 378 px wide shown 1134 device px wide, '
+     'so one painted unit covers 3.6 x 3.5 device px at the opening zoom and 8.0 x 7.3 at the far stop. '
+     '*** THE FLOOR MEASURE AS WRITTEN CAN BE PASSED BY BLUR: the browser smooths the 3x stretch and the '
+     'glass reads 1.15 x 1.11, under the floor, on a map painting a third of the pixels each way. So the '
+     'verdict reads the canvas own pixels times the device pixels each one covers; the glass reading is '
+     'printed beside it (it reads DIRECTION filed 9/24 frame 3.79 x 3.51, their 3.8 x 3.5). *** Legs: '
+     'self-tests (the measure, the calibration, blur fooling the glass, the verdict on known answers); per '
+     'surface: canvas found and readable, at device pixels, unit <= 1.5, NEVER WORSE at the opening zoom '
+     'and the far stop (+5% ceilings, may only fall); VOTE items declaring floor:map held to the floor. '
+     'OWED and printed: marker size, detail by frequency. Mutation: halved ceilings turn NEVER WORSE red '
+     'on both surfaces. About 210 s.',
+     600),
     ('COOK EVERY ROUND', ['node', 'gates/cook_every_round_gate.js'],
      'ONE MADE THING PER MAKING LANE, OR THE ROUND DID NOT HAPPEN. 9/21, PLUMBER lane, row '
      '[cook gate], PAOLO rule 22e. His words: "I will enter the sound chat and it is not even '

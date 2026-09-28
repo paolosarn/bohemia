@@ -1,6 +1,6 @@
 # THE OLD PAGES, PROVEN SAFE TO MOVE (PLUMBER 9/28/26, row [excavate], the revamp list CUT row
 # "THE OLD PAGES (PLUMBER) ... Off the site, into archive/").
-# 146 files, 32.6 MB. Each one passed all five tests on 9/28/26:
+# 145 files, 32.3 MB. Each one passed all five tests on 9/28/26:
 #   1. the game cannot reach it (tools/bohemia_what_loads.js: not named by any page or data file reachable
 #      from the alpha, the demo or the service worker, by name or by stem);
 #   2. no file in gates/, tools/, engine/, .github/, banks/ or quests/ names it, by name or by stem
@@ -11,9 +11,11 @@
 #   5. a real phone-shaped boot of the alpha and the demo through the one driver fetched none of them.
 # STATUS: NOT MOVED. The move was refused by this session's permission check (a change to shared
 # files needs the owner's yes). Waiting on Paolo [PENDING Paolo]. Moving them takes the published
-# surface from 288.5 MB to about 256 MB, under the 260 MB cap PAGES PUBLISH has been over since 9/24.
+# surface from 289.9 MB to about 258 MB, under the 260 MB cap PAGES PUBLISH has been over since 9/24.
 # Where they would go: archive/old_pages/<the same path>, one registry folder line, and each line
 # taken off gates/excavate_baseline.txt (EXCAVATE prints which).
+# 9/28 (b): records/target/DIRECTION_THE_MAP_TODAY_9_24.png came OFF this list (146 -> 145): gates/map_density_gate.js
+#   reads it to prove its glass reading is DIRECTION's own measure, so test 2 no longer holds for it.
 # Columns: path <TAB> bytes
 records/target/BOHEMIA_EIGHT_DIALS_YOU_COULD_NOT_TOUCH_9_22_26.png	151998
 records/target/BOHEMIA_GRID_airport.png	9830
@@ -74,7 +76,6 @@ records/target/DIRECTION_THE_FREEWAY_REJUDGED_9_14_26.png	243407
 records/target/DIRECTION_THE_HANDOFF_BEFORE_9_12_26.png	266746
 records/target/DIRECTION_THE_HANDOFF_FIGHT_9_12_26.png	416874
 records/target/DIRECTION_THE_HANDOFF_MID_9_12_26.png	217934
-records/target/DIRECTION_THE_MAP_TODAY_9_24.png	385342
 records/target/DIRECTION_THE_MOB_SWAP_9_13_26.png	11957
 records/target/DIRECTION_THE_MOON_ZOOM_9_15_26.png	156942
 records/target/DIRECTION_THE_PHONE_AND_THE_AERIAL_LIVE_9_12_26.png	390936
