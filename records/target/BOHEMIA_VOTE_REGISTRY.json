@@ -2251,15 +2251,15 @@
     },
     {
       "id": "character-the-one-cell-sprite-9-27",
-      "kind": "animation",
+      "kind": "verdict",
       "lane": "character",
       "sha": "pending",
       "made": "9/28",
-      "title": "YOUR CHARACTER GOES SMALL",
-      "why": "You said your character should stay tiny and move one square at a time, like the game used to. This is that small body, cleaned up so it is simple on purpose: one main colour split light and dark, plus one accent colour, standing on the real sidewalk your street already uses. It plays, it is the game's own walk shrunk down. Seven people from seven different groups, each one still their own colour and still shaped different from the others, measured, not guessed. Thumbs up and this is the road small bodies go down while somebody draws them by hand. Thumbs down and tell me if it is too small, too plain, or if two of them look the same.",
+      "title": "THIS ONE IS ALREADY DEAD, NOTHING TO TAP",
+      "why": "This was your small character shrunk down small. You already killed the idea behind it in your last votes: you said not to make a whole new tiny character, keep the same one, same detail. So this does not need a thumb, it is already dead. I wrote down what happened and why in the records so nobody builds it again by mistake. Nothing for you to do here.",
       "show": {
-        "how": "page",
-        "src": "vote/CHARACTER_THE_ONE_CELL_SPRITE.html"
+        "how": "text",
+        "src": ""
       }
     },
     {

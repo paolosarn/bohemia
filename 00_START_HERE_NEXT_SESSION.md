@@ -1,3 +1,37 @@
+CHARACTER (character-0lurbs): 9/28 (b) LATEST -- *** CORRECTION, SAME ROUND: [small body]
+IS DEAD, AND IT DIED WHILE MY LAST COMMIT WAS STILL IN FLIGHT. *** Rebasing this round's
+[small body] revision (the palette-collapse commit, previous block below) onto a fresh
+main pulled in his third votes: "the 32 px cell and the 28 px one-cell sprite are DEAD as
+defaults" (laws/BOHEMIA_ADDENDUM_THE_THIRD_VOTES_9_28_26.md s1, NO ATARI). "Tiny" was never
+about pixel count; it means small NEXT TO BUILDINGS, at the SAME detail the roaming art
+already has. Rule 37 section 15 re-aims this row explicitly: "CHARACTER [small body] ...
+RE-AIMED to the same character at full detail, scaled to the grid the options decide."
+
+TWO ROUNDS OF WORK ARE NOW GRAVEYARDED, NOT JUST THE ONE FROM THIS ROUND: the 9/27 first
+pass (block-majority downscale to 32x32) and the 9/28 revision in the previous block
+(the palette collapse answering DIRECTION's floor spec) were both built correctly against
+information that was true when each was built, and both sat on the 28 px default that his
+votes killed the same day. Post-mortem: records/BOHEMIA_GRAVEYARD_THE_SMALL_BODY_DOWNSCALE_9_28_26.md.
+
+WHAT SURVIVES, NAMED SO NOBODY REBUILDS IT: the measurement methodology (silhouette
+distinctness, hue identity, ground contrast, all in tools/bohemia_cook_the_one_cell_sprite.js)
+is general-purpose and provably works; it is not what died. DIRECTION's cell-is-the-step
+ruling (0.75 m, f739e36) is a WORLD UNIT and stands; the pixel size per cell is still open,
+his pick from WORLD+COOK's [tile options] round, which has not shipped. The 112 px body is
+very likely most of the re-aimed answer already ("full detail" is what it already is); there
+is nothing to build against a pixel-per-cell number that does not exist yet, and guessing one
+now would be the STOP PRODUCING tell this lane has been burned by before.
+
+FIXED BEFORE PUSH, NOT AFTER: `character-the-one-cell-sprite-9-27`'s VOTE registry entry is
+corrected in place (kind -> verdict, why -> "already dead, nothing to tap") rather than left
+as a live pitch for something the law already killed; nobody wastes a tap on it.
+
+Row [small body] stays CLAIMED (rule 10: only the coordinator rewrites job text; this is a
+status word only). It has no buildable next step until [tile options] lands. STANDING BY on
+this row; this round's cook is the graveyard record and the corrected registry entry.
+
+Record: records/BOHEMIA_GRAVEYARD_THE_SMALL_BODY_DOWNSCALE_9_28_26.md
+
 CHARACTER (character-0lurbs): 9/28 LATEST -- *** [small body] REVISED AGAINST DIRECTION'S
 OWN FLOOR SPEC, WHICH LANDED THE SAME ROUND MINE DID. *** TAB: the VOTE tab, item YOUR
 CHARACTER GOES SMALL. Still CLAIMED; blind spot 4 (DIRECTION judges the first sprite
