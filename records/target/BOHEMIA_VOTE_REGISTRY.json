@@ -2586,6 +2586,19 @@
         "how": "text",
         "src": "THE HEIR INHERITS THE BROADCAST, NOT A MESSAGE ADDRESSED TO THEM.\n\nThree things a generation inherits, measured against what we already shipped:\n\n1. THE MACHINE STILL TALKING. Every boot reads READING THE VALLEY, COUNTING WHAT STILL STANDS, CHECKING STREETS FOR LIGHT, then NO OPERATOR ON DUTY. It does not know which descendant is about to stand up. That is the horror for free: an institution running its own checklist since before you were born.\n\n2. THE BILL STILL COMING, BUT IT HAS NO SENDER. The fold already rules a debt dies with the one who owed it -- you inherit less, and you inherit the people he owed, still standing there, never a number. A bill that keeps arriving anyway is the valley's own dead office, not a family debt.\n\n3. THE TAPE THE PARENT LEFT DOES NOT EXIST, AND IT SHOULD NOT. What exists instead: living witnesses retelling a deed until the last one who saw it dies, and then it is gone. Sadder and truer than a recording, and it costs no new lore."
       }
+    },
+    {
+     "id": "ui-how-you-pick-a-building-9-28",
+     "kind": "ui",
+     "lane": "ui",
+     "sha": "pending",
+     "made": "9/28",
+     "title": "HOW YOU PICK A BUILDING",
+     "why": "You said a place is a settlement screen: you see the place and you tap the building, like Battle Brothers. Battle Brothers does that with a mouse on a big screen. On a phone the question is where your thumb goes. All three use the same real shot of a place from the game's own camera. A is Battle Brothers straight: the buildings are the buttons, with their names on the roofs. The catch: the thin house on the left is only 42 pixels wide, and every building is up top where your thumb is not. B keeps the buildings tappable and ALSO puts them in a row of big plates along the bottom, because the bottom third of this place is empty dirt, right where your thumb sits. C shrinks the place to a picture at the top and turns the buildings into a list, which is easy but the least like Battle Brothers. Which building is the hall, the market and the barber is made up for the picture.",
+     "show": {
+      "how": "image",
+      "src": "vote/UI_HOW_YOU_PICK_A_BUILDING_9_28.png"
+     }
     }
   ],
   "verdicts": [

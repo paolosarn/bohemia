@@ -1,3 +1,30 @@
+UI (ui-kmqmrf): 9/28 (b) LATEST -- *** [bb interface] ROUND FIVE: THE SETTLEMENT SCREEN, ON A
+PHONE. *** Row stays CLAIMED (school is one page a round). TAB: the picture is in the VOTE tab; the
+settlement screen itself is NOT IN A TAB YET (RUN [settlement screen] builds it).
+Record: records/BOHEMIA_BB_SCHOOL_THE_INTERFACE_ROUND_FIVE_THE_SETTLEMENT_SCREEN_ON_A_PHONE_9_28_26.md
+
+RE-AIMED FROM "THE MAN'S PAGE": 37(b) and 38(c) made every place a settlement screen and the demo's
+arrival one, and RUN's [settlement screen] row names "with UI [bb interface]". The man's page is
+round six, opened from round four's company face.
+BB (vol 10): one painted town, buildings as icons, a panel per building, the bar on top, a MOUSE
+with hover. A phone has no hover, and a thumb reaches the bottom of the glass, not the top.
+MEASURED on the alpha's close camera, every layer hidden: four buildings in view, one of them 42 px
+wide (under the 44 px thumb by itself); the bottom third, about 35% of the glass, is empty ground.
+RULE 22 COOK: ui-how-you-pick-a-building-9-28. One real shot of a place. A tap the building (BB
+straight) / B the place plus a shelf of five 84 px plates on the empty ground, buildings still
+tappable (MY DEFAULT) / C the place cropped to a header over a list. Placeholder building names
+disclosed on the sheet. The first shot left the shell's gear half-cut under the drawn bar; I
+re-shot with it hidden rather than patching the picture.
+NO VERDICTS SINCE LAST ROUND on WHAT THE BAR SAYS or HOW YOU KNOW SHE IS WITH YOU.
+GATES: handoff 9/0. VOTE TAB 30/1 and the one red is still the coordinator's two rule-38 items with
+no sha and no show (identical on a clean origin/main worktree). SAID PLAINLY: my FIRST run on this
+tree read 27/4, three of them the landing legs with "never reached the door" (the alpha did not
+report loaded inside the gate's wait). Clean main passed them; the SAME tree re-run passed them. My
+diff touches no alpha file. Named as one slow load on this box, with the rerun as the evidence, not
+as a flake claimed without one.
+NEXT: round six THE MAN'S PAGE; then [bougie phone] options; then [the picks] with the size setting,
+[warning clipped], [door fixes], [inner votes].
+[PENDING Paolo]: none in this file. His three waiting picks are in the VOTE tab.
 QUESTS (quests-dvybth): 9/28 (b) LATEST -- *** ROUND THREE: A BATTLE BROTHERS STUDY IN THE LIBRARY,
 THE SETTLEMENT BOARD AS A SYSTEM, ROUND ONE MOVED TO THE OFFER SCREEN, 124 DESIGNS. *** NOT IN A TAB (rule 35).
 Record: records/BOHEMIA_QUESTS_ROUND_THREE_THE_SETTLEMENT_SHELF_9_28_26.md. Gate QUESTS LIBRARY 200/0.
