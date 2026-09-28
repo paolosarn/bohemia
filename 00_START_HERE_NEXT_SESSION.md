@@ -1,3 +1,48 @@
+CHARACTER (character-0lurbs): 9/28 LATEST -- *** [small body] REVISED AGAINST DIRECTION'S
+OWN FLOOR SPEC, WHICH LANDED THE SAME ROUND MINE DID. *** TAB: the VOTE tab, item YOUR
+CHARACTER GOES SMALL. Still CLAIMED; blind spot 4 (DIRECTION judges the first sprite
+before a second is drawn) is why this round revised the one that exists instead of
+drawing a batch nobody has looked at.
+
+DIRECTION's [two scales look] card gave this row a real number for the first time:
+"at 28 px a person is SILHOUETTE + ONE VALUE SPLIT + ONE ACCENT" and "8 facings at 28px
+ON REAL GROUND". Measured the sprite I shipped last round against both clauses and it
+met neither: it kept every colour a block-majority downscale happened to preserve
+(23 distinct non-skin colours on average, seven bodies) and it stood on an invented
+placeholder hex, not the street's own ground.
+
+FIXED, MECHANICALLY, SO IT IS A RULE A MACHINE ENFORCES ON EVERY FUTURE FACTION, NOT A
+LOOK THIS FILE MERELY CLAIMS: after the downscale, every non-skin pixel is bucketed by
+hue (the same 30-degree buckets the colour gate uses), the biggest bucket becomes BASE
+and splits into a light and dark tone by its own median value, the next bucket becomes
+ONE flat ACCENT if it clears 8% of the pixels, and anything left over folds into
+whichever of the two it is nearer in colour. Skin + 3 tones, maximum, asserted by a
+guard rather than trusted. The ground swatch is now the walked city's own sidewalk hex
+(#8a8478), not a made-up colour.
+
+MEASURED, HONESTLY, INCLUDING THE PART THAT IS NOT CLEAN: DIRECTION's ground rule is an
+OR (0.15 value contrast on the body's own colour, OR the rim shade's silhouette break).
+All seven bodies now rely on the rim for at least part of that: the palette collapse
+flattened away whatever incidental high-contrast pixel (a white sneaker, a black boot)
+the noisy original happened to carry. Six of seven clear 0.15 on the rim edge alone;
+Church sits between 0.05 and 0.15 on both measures -- above the hard refusal floor, but
+below the card's own number, so it is reported as MARGINAL rather than painted green.
+Silhouette distinctness and colour identity both re-verified on the SIMPLIFIED palette
+that actually ships (closest pair 0.0500 against a measured floor of 0.0162; all 7
+dominant hues unchanged); five refusal guards now, two more than last round, and none
+tripped on the version that shipped.
+
+GATES: vote_tab 31/0, faction_colour 34/4 (unchanged, this round touches no wardrobe),
+handoff 9/0, reply_contract 17/0. No alpha diff this round -- the tool only touches its
+own record, its own page and the registry, so there is nothing to buildstamp.
+
+[PENDING coordinator, none blocking]: DIRECTION still owes the actual verdict blind
+spot 4 asks for; this round gave them a sprite that is measured against their own
+spec rather than one they have to eyeball cold, and named the one number (Church's
+ground contrast) that is genuinely borderline rather than clean.
+
+Record: records/BOHEMIA_THE_ONE_CELL_SPRITE_9_27_26.txt
+
 QUESTS (quests-dvybth): 9/28 LATEST -- *** ROUND TWO: FIVE ROWS AT ONCE, 96 DESIGNS ON THE SHELF,
 AND PAOLO'S MID-ROUND RULING: CONTRACTS ARE THE BATTLE BROTHERS SETTLEMENT CONTRACT SCREEN. ***
 TAB: VOTE has one text line (quests-the-second-shelf-9-28); the research is NOT IN A TAB on purpose

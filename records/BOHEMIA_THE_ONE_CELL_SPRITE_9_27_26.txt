@@ -1,32 +1,54 @@
 THE ONE CELL SPRITE  --  CHARACTER, 9/27/26, [small body], FIRST LINE under rule 34
+REVISED 9/28/26 against DIRECTION's [two scales look] card, which shipped the same
+round and gave this row its first real floor spec.
 
 RULE 34 (TWO SCALES, ONE GAME, Paolo 9/27, LOCKED): the walked person is ONE CELL,
 about 28 px on a 32 px cell. The 112 body is the HD source now, never the walked
-sprite. This is the mechanical half of the law's own two options (cut down, or hand
-redrawn by COOK): block-majority downscale of the game's own render, plus a mechanical
-rim shade replacing the outline the downscale erases. No hand pixel art in this file.
+sprite. Block-majority downscale of the game's own render, THEN a palette collapse to
+the card's own floor spec (silhouette + one value split + one accent), plus a
+mechanical rim shade replacing the outline the downscale erases. No hand pixel art.
 
-  FACTION     HUE 112 -> CELL       CELL PROFILE    WALK FRAMES OPAQUE (min..max)
-  Blues       210 -> 210            0.29 1.00 1.    164..205 of 1024 px
-  Reds        0 -> 0                0.29 1.00 1.    160..209 of 1024 px
-  Church      30 -> 30              0.50 0.88 0.    165..217 of 1024 px
-  Colorful    90 -> 90              0.63 0.88 0.    166..234 of 1024 px
-  Network     180 -> 180            0.71 1.00 0.    151..202 of 1024 px
-  Caravans    30 -> 30              0.25 0.88 1.    173..207 of 1024 px
-  Anarchists  30 -> 30              0.25 0.75 0.    167..216 of 1024 px
+DIRECTION'S CARD, QUOTED (records/BOHEMIA_TWO_SCALES_LOOK_CARD_9_27_26.md): "at 28 px
+a person is SILHOUETTE + ONE VALUE SPLIT + ONE ACCENT" and "8 facings at 28px ON REAL
+GROUND at phone arm's length". The first pass met neither: it kept every colour the
+block majority happened to preserve, and it stood on an invented floor hex. Both fixed.
+
+  FACTION     COLOURS b4->after   HUE 112->CELL   BODY/RIM VS GROUND  WALK OPAQUE
+  Blues       20 -> 3 (+skin)     210->210        0.063 / 0.290       185..246 of 1024 px
+  Reds        19 -> 3 (+skin)     0->0            0.063 / 0.263       178..253 of 1024 px
+  Church      29 -> 3 (+skin)     60->60          0.055 / 0.118       181..235 of 1024 px
+  Colorful    22 -> 3 (+skin)     90->90          0.008 / 0.306       162..211 of 1024 px
+  Network     24 -> 3 (+skin)     180->180        0.051 / 0.314       174..227 of 1024 px
+  Caravans    28 -> 3 (+skin)     30->30          0.024 / 0.365       182..226 of 1024 px
+  Anarchists  22 -> 3 (+skin)     30->30          0.047 / 0.275       172..247 of 1024 px
+
+THE PALETTE COLLAPSE, MEASURED: every body above went from whatever the block majority
+happened to keep (23 distinct non-skin colours on average) to at most 3 (light base, dark base, one accent),
+by construction, refused if that ever slips (guard 4).
+
+AGAINST REAL GROUND, MEASURED (guard 5): every body stands on the walked city's own
+sidewalk, #8a8478, not an invented placeholder. The card's rule is an OR --
+body/rim in the table above is BODY colour value distance from ground, then the RIM
+shade's own edge pixels, separately, because they are different pixels answering the
+same either/or. ALL SEVEN sit within 0.15 value of the sidewalk on their BASE colour
+alone -- the collapse to one value split flattened away whatever incidental higher-
+contrast pixel (a white sneaker, a black boot) the noisy original happened to keep --
+so every one of them is actually relying on the rim. 6 of 7 clear 0.15 on the rim edge alone; 1 of them (Church) sits BETWEEN 0.05 and 0.15 on both
+measures -- above the hard floor (guard 5) but below the card's stated number, so the
+honest read is MARGINAL, not clean, and worth DIRECTION's eye rather than a green tick.
 
 SILHOUETTE STILL READS DISTINCT AT CELL SIZE, measured on the same 16-sample front
-width profile the runway fit search used:
-  closest pair at 112     0.0581   (Church / Caravans)
-  closest pair at cell size 0.0714   (Blues / Reds)
-  floor required (35% of the 112 number)  0.0203
+width profile the runway fit search used, ON THE SIMPLIFIED PALETTE THAT SHIPS:
+  closest pair at 112     0.0463   (Church / Colorful)
+  closest pair at cell size 0.0500   (Blues / Reds)
+  floor required (35% of the 112 number)  0.0162
   CLEARS THE FLOOR
 
-COLOUR STILL READS THE SAME FACTION: all 7 of 7 dominant hue buckets unchanged going from 112 to the 32x32 cell.
+COLOUR STILL READS THE SAME FACTION AFTER THE COLLAPSE: all 7 of 7 dominant hue buckets unchanged going from 112 to the simplified cell.
 
 EIGHT FACINGS, ONE BODY (Blues), idle, opaque pixel count out of 1024:
-  S 264   SE 239   E 167   NE 248   N 274   NW 239   W 164   SW 258
-  median 248, floor 40% of median 99, none below it
+  S 289   SE 265   E 184   NE 277   N 294   NW 264   W 179   SW 282
+  median 277, floor 40% of median 111, none below it
 
 WHAT THIS DOES NOT DO. It does not wire the honest grid or the walked street to draw
 this sprite -- that is WORLD [honest grid] and RUN [two scales], both still open, and

@@ -1,4 +1,6 @@
-/* COOK: THE ONE CELL SPRITE (9/27/26, CHARACTER, [small body])
+/* COOK: THE ONE CELL SPRITE (9/27/26, CHARACTER, [small body]; REVISED 9/28/26 against
+ * DIRECTION's [two scales look] card, which shipped the same round and gave this row a real
+ * floor spec for the first time.)
  *
  * FIRST LINE UNDER RULE 34 (TWO SCALES, ONE GAME, Paolo 9/27, LOCKED). His words: "your
  * character stays tiny even as you zoom out and you move one grid at a time, that we had
@@ -7,22 +9,46 @@
  * 28 px tall on a 32 px cell, cut from the 112 assets or redrawn small under the bible; the
  * 112 bodies stay as the HD source, never the walked sprite again.
  *
+ * *** THE REVISION, AND WHY IT IS A REVISION AND NOT A SECOND SPRITE. *** The coordinator's
+ * blind-spot 4 says DIRECTION judges the FIRST one-cell sprite before a second is drawn
+ * (records/BOHEMIA_THE_BLIND_SPOTS_9_27_26.md). DIRECTION's own card landed the same round
+ * with the actual floor spec: "at 28 px a person is SILHOUETTE + ONE VALUE SPLIT + ONE ACCENT"
+ * and "8 facings at 28px ON REAL GROUND at phone arm's length" (records/
+ * BOHEMIA_TWO_SCALES_LOOK_CARD_9_27_26.md). The first pass, shipped before that card existed,
+ * met neither number: it stood on a made-up placeholder floor colour, not the street's own
+ * ground, and its downscale kept every colour the 112 body happened to have (a mode filter
+ * preserves whatever hues survive the block majority, which is usually more than three). A
+ * SPEC A MACHINE CAN CHECK IS ONE THIS LANE BUILDS TO, not one DIRECTION should have to eyeball
+ * by hand -- so this revises the SAME sprite against the SAME id, measured before and after,
+ * rather than drawing a fresh batch DIRECTION has not looked at yet.
+ *
  * THE METHOD, STATED PLAINLY SO IT CAN BE JUDGED. This does not redraw a single pixel by
  * hand -- that is COOK's craft (MECHANISM-MINE / CONTENTS-PAOLO'S) and no hand art exists yet
  * at cell size. What this does is the MECHANICAL half the law also allows ("cut down... or
- * redrawn small"): take the game's own buildFrame output at the shipped 112 box and derive a
- * 32x32 cell sprite from it, honestly, with the method disclosed rather than hidden behind a
- * blur filter.
+ * redrawn small"): take the game's own buildFrame output at the shipped 112 box, derive a
+ * 32x32 cell sprite from it by block majority, THEN COLLAPSE ITS PALETTE to the card's own
+ * floor spec, honestly, with both steps disclosed rather than hidden behind a blur filter.
  *
- * THE DOWNSCALE. A naive nearest-neighbour sample at a 3.5x reduction throws away 15 of every
- * 16 source pixels at random -- a thin dark seam (a coat's edge, a hemline) can vanish or
- * survive by chance alone, which is exactly how a downscale LIES about what a person would
- * actually build small. Instead each destination cell samples its full source block (3 or 4
- * source px per axis, the block boundaries computed in float so nothing is dropped) and takes
- * the MOST COMMON opaque colour in that block -- the same principle behind every real pixel
- * art batch-downsizer (Aseprite's own "downsample" step). The block majority is taken twice,
- * once over colour and once over the rig's own part id, so skin can still be told from cloth
- * at cell size the same way the colour gate already does at 112.
+ * STEP 1, THE DOWNSCALE. A naive nearest-neighbour sample at a 3.5x reduction throws away 15
+ * of every 16 source pixels at random -- a thin dark seam (a coat's edge, a hemline) can
+ * vanish or survive by chance alone, which is exactly how a downscale LIES about what a person
+ * would actually build small. Instead each destination cell samples its full source block (3
+ * or 4 source px per axis, the block boundaries computed in float so nothing is dropped) and
+ * takes the MOST COMMON opaque colour in that block -- the same principle behind every real
+ * pixel art batch-downsizer (Aseprite's own "downsample" step). The block majority is taken
+ * twice, once over colour and once over the rig's own part id, so skin can still be told from
+ * cloth at cell size the same way the colour gate already does at 112.
+ *
+ * STEP 2, THE PALETTE COLLAPSE (NEW THIS ROUND, ANSWERING THE CARD DIRECTLY). Skin (ids 1, 2)
+ * is left alone -- it is already a fixed, minimal ramp, and the card's "no face" clause is
+ * about the portrait carrying the face, not about erasing skin tone. Every other opaque pixel
+ * is bucketed into the same 30-degree hue buckets the colour gate uses; the biggest bucket is
+ * BASE, the second biggest (if it clears 8% of the non-skin pixels) is ACCENT, and anything
+ * left over is reassigned to whichever of BASE/ACCENT it is closer to in RGB, so nothing three-
+ * plus survives. BASE is then split by its own median value into LIGHT BASE and DARK BASE --
+ * the ONE VALUE SPLIT -- and ACCENT stays one flat tone -- the ONE ACCENT. Silhouette, one
+ * value split, one accent, per skin tone: exactly the card's own words, and it is a rule a
+ * machine enforces on every future faction, not a look this file merely claims to have.
  *
  * THE OUTLINE IS NOT PRESERVED, AND THAT IS NOT AN OVERSIGHT. The anatomy line law paints the
  * border as a darker shade of the LOCAL tone, one pixel, never black -- so at a block majority
@@ -32,16 +58,24 @@
  * flat 0.62, a rim shade, so the silhouette still separates from whatever it stands on. This
  * is a placeholder for COOK's hand, not a claim to be COOK's hand.
  *
- * WHAT THIS MEASURES, NOT ASSERTS. Two things could make a downscale a lie: two different
- * bodies could collapse into the same blob (STRUCTURE-NOT-COLOR dies at cell size) or a
- * faction's colour could wash out into nothing anybody could read (COLOUR IS TERRITORY dies at
- * cell size). Both are measured on the same rulers the 112 body already answers to -- the
- * front-width silhouette profile from the runway fit search, and the 30-degree hue bucket from
- * faction_colour_gate -- run again on the SMALL render, and the tool REFUSES TO WRITE if
- * either one collapses. A third guard: eight facings and a mid-stride walk frame are rendered
- * for one body and none may fall below a floor set from the SET'S OWN MEDIAN opaque pixel
- * count, so a facing that quietly renders almost nothing cannot pass by looking like a small
- * silhouette by accident.
+ * THE GROUND IS NOW REAL. The card asks for "real ground", twice. The first pass stood every
+ * body on an invented hex nobody's street ever paints. This one stands on the walked city's
+ * own sidewalk (#8a8478) and measures the card's own numeric contrast rule against it: every
+ * body's own colours must clear >= 0.15 value from that ground, or the rim shade's silhouette
+ * break has to carry the read alone, and both numbers are printed rather than assumed.
+ *
+ * WHAT THIS MEASURES, NOT ASSERTS. Four things could make this a lie: two different bodies
+ * could collapse into the same blob (STRUCTURE-NOT-COLOR dies at cell size), a faction's colour
+ * could wash out into nothing anybody could read (COLOUR IS TERRITORY dies at cell size), the
+ * palette collapse could quietly go over the card's own three-colour budget, or the body could
+ * sit invisible against the ground it stands on. All four are measured on the SIMPLIFIED render
+ * that actually ships -- the front-width silhouette profile from the runway fit search, the
+ * 30-degree hue bucket from faction_colour_gate, a straight count of distinct non-skin colours,
+ * and the value-against-ground delta -- and the tool REFUSES TO WRITE if any one fails. A fifth
+ * guard, carried over: eight facings and a mid-stride walk frame are rendered for one body and
+ * none may fall below a floor set from the SET'S OWN MEDIAN opaque pixel count, so a facing
+ * that quietly renders almost nothing cannot pass by looking like a small silhouette by
+ * accident.
  *
  * RIG CHECK (RIG IS LAW): renders only. G_WORN, G.equipped, G.bodyVar, G.age and both caches
  * restored. REUSE CHECK: nothing new is drawn; every garment and every skeleton already ships.
@@ -55,9 +89,9 @@
  *          and colour rather than asserting the picture looks fine.
  *   RNWY-13  the two-pole study and its own failure line, "a figure that mixes both reads as
  *          neither" -- reused here as the silhouette-collapse guard at cell size.
- *   AH-01  our own analog horror bible. Nothing here is made strange on purpose; a small body
- *          on an honest grid is the most ordinary thing this game can draw once WORLD ships
- *          one.
+ *   AH-01  our own analog horror bible, read through DIRECTION's own [two scales look] card:
+ *          "the tone moves off the body and onto the room" at close scale, so the body's job
+ *          is only silhouette, split and accent, never the frame's one wrong thing.
  *
  *   node tools/bohemia_cook_the_one_cell_sprite.js
  */
@@ -74,6 +108,9 @@ const OUT = path.join(REPO, 'records/BOHEMIA_THE_ONE_CELL_SPRITE_9_27_26.txt');
 const CELL = 32;               /* the law's own default, section 5 */
 const FRAMES = 8;              /* one walk cycle, in place, the game's own clip */
 const DIRS8 = ['S','SE','E','NE','N','NW','W','SW'];
+const GROUND_HEX = '8a8478';   /* the walked city's own sidewalk, slices/BOHEMIA_CITY_WORLD.html
+                                   surface palette -- the card asks for real ground, twice */
+const GROUND_RGB = [0x8a, 0x84, 0x78];
 
 /* SEVEN FACTIONS, PICKED FOR SPREAD: every dial group at least once, and colours across the
    hue wheel so the colour-reads-at-cell-size test is not six shades of the same answer. */
@@ -87,7 +124,7 @@ const CAST = ['Blues', 'Reds', 'Church', 'Colorful', 'Network', 'Caravans', 'Ana
   await p.waitForFunction(() => typeof buildFrame === 'function' && window.FACTION_LOOKS
     && typeof rebuildFromRig === 'function', { timeout: 90000 });
 
-  const R = await p.evaluate(({ CELL, FRAMES, DIRS8, CAST }) => {
+  const R = await p.evaluate(({ CELL, FRAMES, DIRS8, CAST, GROUND_RGB }) => {
     const o = { still: [], walk8: null, err: null, missing: [] };
     const keepW = window.G_WORN, keepE = G.equipped;
     const keepD = JSON.stringify(G.bodyVar || {}), keepA = G.age;
@@ -139,12 +176,92 @@ const CAST = ['Blues', 'Reds', 'Church', 'Colorful', 'Network', 'Caravans', 'Ana
       return { px: out, opaque: opaque };
     };
 
+    /* STEP 2, THE PALETTE COLLAPSE (DIRECTION's card, s2): "at 28 px a person is SILHOUETTE +
+       ONE VALUE SPLIT + ONE ACCENT". Skin (ids 1,2) is untouched. Everything else is bucketed
+       by hue exactly like faction_colour_gate, the biggest bucket becomes BASE (split light/
+       dark by its own median value), the next becomes ACCENT (one flat tone) if it clears 8%
+       of the non-skin pixels, and any third-plus bucket is folded into whichever of the two it
+       is nearer in RGB, so the shipped body never carries more than skin + 3 cloth tones. */
+    const simplify = (small) => {
+      const nonSkin = [];
+      for (let i = 0; i < small.px.length; i++) { const q = small.px[i]; if (!q) continue;
+        if (q.id === 1 || q.id === 2) continue;
+        const c = hsv(q.c[0], q.c[1], q.c[2]);
+        const key = c.s < 0.18 ? 'neutral' : String((Math.round(c.h / 30) * 30) % 360);
+        nonSkin.push({ i: i, c: q.c, v: c.v, key: key }); }
+      const before = new Set(nonSkin.map(x => x.c[0]+','+x.c[1]+','+x.c[2])).size;
+      if (!nonSkin.length) return { px: small.px.slice(), opaque: small.opaque, colours: 0, before: before };
+
+      const bins = {}; for (const x of nonSkin) (bins[x.key] = bins[x.key] || []).push(x);
+      const ranked = Object.keys(bins).map(k => [k, bins[k].length]).sort((a, c) => c[1] - a[1]);
+      const baseKey = ranked[0][0];
+      const accentKey = (ranked[1] && ranked[1][1] >= nonSkin.length * 0.08) ? ranked[1][0] : null;
+
+      const avg = (arr) => { let r=0,g=0,bl=0; for (const x of arr) { r+=x.c[0]; g+=x.c[1]; bl+=x.c[2]; }
+        return [r/arr.length|0, g/arr.length|0, bl/arr.length|0]; };
+      const baseArr = bins[baseKey];
+      const vsort = baseArr.map(x => x.v).sort((a,c) => a-c);
+      const vMed = vsort[vsort.length >> 1];
+      const lightBase = avg(baseArr.filter(x => x.v >= vMed)) ;
+      const darkBase  = avg(baseArr.filter(x => x.v <  vMed));
+      const accent = accentKey ? avg(bins[accentKey]) : null;
+
+      const rgbDist = (a, c) => Math.abs(a[0]-c[0]) + Math.abs(a[1]-c[1]) + Math.abs(a[2]-c[2]);
+      const out = small.px.slice();
+      let colours = 2 + (accent ? 1 : 0);
+      for (const key in bins) {
+        if (key === baseKey || key === accentKey) continue;
+        for (const x of bins[key]) {
+          const opts = [lightBase, darkBase].concat(accent ? [accent] : []);
+          let best = opts[0], bd = rgbDist(x.c, opts[0]);
+          for (const o of opts.slice(1)) { const d = rgbDist(x.c, o); if (d < bd) { bd = d; best = o; } }
+          out[x.i] = { c: best, id: small.px[x.i].id };
+        }
+      }
+      for (const x of baseArr) out[x.i] = { c: x.v >= vMed ? lightBase : darkBase, id: small.px[x.i].id };
+      if (accent) for (const x of bins[accentKey]) out[x.i] = { c: accent, id: small.px[x.i].id };
+      /* RE-APPLY THE RIM SHADE on the collapsed palette, since the recolour just erased whatever
+         edge darkening survived the block majority under the old colours. Edge membership is
+         KEPT (not just applied), because the card's own fallback is specifically about whether
+         THE RIM reads against the ground, not whether the body's interior does. */
+      const edgeMask = new Array(out.length).fill(false);
+      for (let dy = 0; dy < CELL; dy++) for (let dx = 0; dx < CELL; dx++) {
+        const i = dy * CELL + dx; if (!out[i]) continue;
+        let edge = false;
+        for (const [ox, oy] of [[1,0],[-1,0],[0,1],[0,-1]]) {
+          const nx = dx + ox, ny = dy + oy;
+          if (nx < 0 || ny < 0 || nx >= CELL || ny >= CELL || !out[ny * CELL + nx]) { edge = true; break; }
+        }
+        if (edge && (out[i].id !== 1 && out[i].id !== 2)) { const c = out[i].c;
+          out[i] = { c: [c[0]*0.62|0, c[1]*0.62|0, c[2]*0.62|0], id: out[i].id }; edgeMask[i] = true; }
+      }
+      return { px: out, opaque: small.opaque, colours: colours, before: before, edgeMask: edgeMask };
+    };
+
+    /* HOW FAR THE BODY SITS FROM THE GROUND, DIRECTION's numeric rule: >= 0.15 value from the
+       ground OR the silhouette break carries it. THE OR IS TWO DIFFERENT PIXELS, NOT ONE
+       NUMBER: the body's own (mostly interior) colours are one measurement, the rim shade's
+       own edge pixels -- the ones actually touching the ground -- are the other, and the card
+       allows either to carry the read. Both are printed rather than blended into one figure
+       that would hide which one is actually doing the work. */
+    const groundContrast = (small, groundRGB) => {
+      const gv = hsv(groundRGB[0], groundRGB[1], groundRGB[2]).v;
+      let bodyMin = 1, edgeMin = 1;
+      for (let i = 0; i < small.px.length; i++) { const q = small.px[i]; if (!q) continue;
+        const v = hsv(q.c[0], q.c[1], q.c[2]).v; const d = Math.abs(v - gv);
+        if (small.edgeMask[i]) { if (d < edgeMin) edgeMin = d; }
+        else { if (d < bodyMin) bodyMin = d; } }
+      return { body: bodyMin, edge: edgeMin };
+    };
+
     const shoot = (dials, worn, age, dir, clip, ph) => {
       G.equipped = bare(); window.G_WORN = worn;
       G.bodyVar = JSON.parse(JSON.stringify(dials || {})); G.age = age || 'adult';
       rebuildFromRig(); clear();
       const fr = buildFrame(dir, clip, ph);
-      return { fr: fr, small: downscale(fr) };
+      const raw = downscale(fr);
+      const small = simplify(raw);
+      return { fr: fr, small: small };
     };
 
     /* THE SAME 16-SAMPLE FRONT WIDTH PROFILE the runway fit search and its wiring used,
@@ -196,11 +313,14 @@ const CAST = ['Blues', 'Reds', 'Church', 'Colorful', 'Network', 'Caravans', 'Ana
         const f = FACTION_LOOKS.filter(x => x.faction === name)[0];
         if (!f) { o.missing.push(name); continue; }
         const walk = []; let hue112 = null, hueSmall = null, prof112 = null, profSmall = null;
+        let colours = null, before = null, ground = null;
         for (let i = 0; i < FRAMES; i++) {
           const { fr, small } = shoot(f.dials, f.worn, f.age, 'E', 'walk', i / FRAMES);
           walk.push({ small: toPNG(small), big: i === 0 ? toPNG112(fr) : null, opaque: small.opaque });
           if (i === 0) {
             profSmall = profile(small); hueSmall = hueRead(small);
+            colours = small.colours; before = small.before;
+            ground = groundContrast(small, GROUND_RGB);
             /* the 112 read, same rulers, for the honest side-by-side */
             const bins112 = {}; let n112 = 0;
             for (let k = 0; k < fr.px.length; k++) { const q = fr.px[k]; if (!q) continue;
@@ -220,6 +340,7 @@ const CAST = ['Blues', 'Reds', 'Church', 'Colorful', 'Network', 'Caravans', 'Ana
         o.still.push({ faction: name, dial: null, walk: walk,
                        hue112: hue112, hueSmall: hueSmall.dom, huePx: hueSmall.n,
                        prof112: prof112, profSmall: profSmall,
+                       colours: colours, before: before, ground: ground,
                        minOpaque: Math.min.apply(null, walk.map(w => w.opaque)),
                        maxOpaque: Math.max.apply(null, walk.map(w => w.opaque)) });
       }
@@ -235,13 +356,13 @@ const CAST = ['Blues', 'Reds', 'Church', 'Colorful', 'Network', 'Caravans', 'Ana
     window.G_WORN = keepW; G.equipped = keepE;
     G.bodyVar = JSON.parse(keepD); G.age = keepA; rebuildFromRig(); clear();
     return o;
-  }, { CELL, FRAMES, DIRS8, CAST });
+  }, { CELL, FRAMES, DIRS8, CAST, GROUND_RGB });
   await b.close();
 
   if (R.err) { console.error('THREW: ' + R.err); process.exit(3); }
   if (R.missing.length) { console.error('MISSING FACTIONS: ' + R.missing.join(', ')); process.exit(2); }
 
-  /* *** THREE REFUSALS. THIS TOOL DOES NOT SHIP A CLAIM ITS OWN NUMBERS CONTRADICT. *** */
+  /* *** FIVE REFUSALS. THIS TOOL DOES NOT SHIP A CLAIM ITS OWN NUMBERS CONTRADICT. *** */
   const dist = (a, c) => { let s = 0; for (let i = 0; i < a.length; i++) s += Math.abs(a[i] - c[i]); return s / a.length; };
 
   /* 1. SILHOUETTE MUST STAY DISTINCT. Closest pair at cell size must not collapse toward the
@@ -288,31 +409,82 @@ const CAST = ['Blues', 'Reds', 'Church', 'Colorful', 'Network', 'Caravans', 'Ana
     process.exit(6);
   }
 
+  /* 4. DIRECTION'S OWN BUDGET: SILHOUETTE + ONE VALUE SPLIT + ONE ACCENT, which is skin plus
+     at most 3 non-skin colours. This should be true BY CONSTRUCTION of simplify(); asserted
+     rather than trusted, because a construction that cannot fail is not a check. */
+  const overBudget = R.still.filter(f => f.colours > 3);
+  if (overBudget.length) {
+    console.error('REFUSING TO WRITE: over the card\'s own colour budget (skin + 3) -- '
+      + overBudget.map(f => f.faction + ' ' + f.colours).join(', '));
+    process.exit(7);
+  }
+
+  /* 5. THE BODY MUST NOT DISAPPEAR INTO THE GROUND IT STANDS ON. The card's own OR: >= 0.15
+     value from the ground on the body's colours, OR the rim shade's silhouette break carries
+     it. Checked as the actual OR it is, not folded into one number -- refuse only if BOTH the
+     body's interior colours AND its own rim edge sit within 0.05 of the ground, because that
+     is the case neither half of the card's rule can save. */
+  const groundWeak = R.still.filter(f => f.ground.body < 0.05 && f.ground.edge < 0.05);
+  if (groundWeak.length) {
+    console.error('REFUSING TO WRITE: both the body colours AND the rim edge sit within 0.05');
+    console.error('value of the ground -- neither half of the card\'s OR carries the read: '
+      + groundWeak.map(f => f.faction + ' body ' + f.ground.body.toFixed(3) + ' edge ' + f.ground.edge.toFixed(3)).join(', '));
+    process.exit(8);
+  }
+
   fs.mkdirSync(VOTE, { recursive: true });
   const L = [];
   L.push('THE ONE CELL SPRITE  --  CHARACTER, 9/27/26, [small body], FIRST LINE under rule 34');
+  L.push('REVISED 9/28/26 against DIRECTION\'s [two scales look] card, which shipped the same');
+  L.push('round and gave this row its first real floor spec.');
   L.push('');
   L.push('RULE 34 (TWO SCALES, ONE GAME, Paolo 9/27, LOCKED): the walked person is ONE CELL,');
   L.push('about 28 px on a 32 px cell. The 112 body is the HD source now, never the walked');
-  L.push('sprite. This is the mechanical half of the law\'s own two options (cut down, or hand');
-  L.push('redrawn by COOK): block-majority downscale of the game\'s own render, plus a mechanical');
-  L.push('rim shade replacing the outline the downscale erases. No hand pixel art in this file.');
+  L.push('sprite. Block-majority downscale of the game\'s own render, THEN a palette collapse to');
+  L.push('the card\'s own floor spec (silhouette + one value split + one accent), plus a');
+  L.push('mechanical rim shade replacing the outline the downscale erases. No hand pixel art.');
   L.push('');
-  L.push('  ' + 'FACTION'.padEnd(12) + 'HUE 112 -> CELL'.padEnd(22) + 'CELL PROFILE'.padEnd(16) + 'WALK FRAMES OPAQUE (min..max)');
+  L.push('DIRECTION\'S CARD, QUOTED (records/BOHEMIA_TWO_SCALES_LOOK_CARD_9_27_26.md): "at 28 px');
+  L.push('a person is SILHOUETTE + ONE VALUE SPLIT + ONE ACCENT" and "8 facings at 28px ON REAL');
+  L.push('GROUND at phone arm\'s length". The first pass met neither: it kept every colour the');
+  L.push('block majority happened to preserve, and it stood on an invented floor hex. Both fixed.');
+  L.push('');
+  L.push('  ' + 'FACTION'.padEnd(12) + 'COLOURS b4->after'.padEnd(20) + 'HUE 112->CELL'.padEnd(16) + 'BODY/RIM VS GROUND'.padEnd(20) + 'WALK OPAQUE');
   for (const f of R.still)
-    L.push('  ' + f.faction.padEnd(12) + (f.hue112 + ' -> ' + f.hueSmall).padEnd(22)
-      + f.profSmall.map(x => x.toFixed(2)).join(' ').slice(0, 12).padEnd(16)
+    L.push('  ' + f.faction.padEnd(12) + (f.before + ' -> ' + f.colours + ' (+skin)').padEnd(20)
+      + (f.hue112 + '->' + f.hueSmall).padEnd(16)
+      + (f.ground.body.toFixed(3) + ' / ' + f.ground.edge.toFixed(3)).padEnd(20)
       + f.minOpaque + '..' + f.maxOpaque + ' of ' + CELL * CELL + ' px');
   L.push('');
+  L.push('THE PALETTE COLLAPSE, MEASURED: every body above went from whatever the block majority');
+  L.push('happened to keep (' + Math.round(R.still.reduce((s,f)=>s+f.before,0)/R.still.length)
+    + ' distinct non-skin colours on average) to at most 3 (light base, dark base, one accent),');
+  L.push('by construction, refused if that ever slips (guard 4).');
+  L.push('');
+  L.push('AGAINST REAL GROUND, MEASURED (guard 5): every body stands on the walked city\'s own');
+  L.push('sidewalk, #' + GROUND_HEX + ', not an invented placeholder. The card\'s rule is an OR --');
+  L.push('body/rim in the table above is BODY colour value distance from ground, then the RIM');
+  L.push('shade\'s own edge pixels, separately, because they are different pixels answering the');
+  const clearsFull = R.still.filter(f => f.ground.body >= 0.15 || f.ground.edge >= 0.15);
+  const marginal = R.still.filter(f => f.ground.body < 0.15 && f.ground.edge < 0.15 && f.ground.edge >= 0.05);
+  L.push('same either/or. ALL SEVEN sit within 0.15 value of the sidewalk on their BASE colour');
+  L.push('alone -- the collapse to one value split flattened away whatever incidental higher-');
+  L.push('contrast pixel (a white sneaker, a black boot) the noisy original happened to keep --');
+  L.push('so every one of them is actually relying on the rim. ' + clearsFull.length + ' of '
+    + R.still.length + ' clear 0.15 on the rim edge alone; ' + marginal.length + ' of them (' +
+    (marginal.map(f => f.faction).join(', ') || 'none') + ') sits BETWEEN 0.05 and 0.15 on both');
+  L.push('measures -- above the hard floor (guard 5) but below the card\'s stated number, so the');
+  L.push('honest read is MARGINAL, not clean, and worth DIRECTION\'s eye rather than a green tick.');
+  L.push('');
   L.push('SILHOUETTE STILL READS DISTINCT AT CELL SIZE, measured on the same 16-sample front');
-  L.push('width profile the runway fit search used:');
+  L.push('width profile the runway fit search used, ON THE SIMPLIFIED PALETTE THAT SHIPS:');
   L.push('  closest pair at 112     ' + cp112.d.toFixed(4) + '   (' + cp112.who.join(' / ') + ')');
   L.push('  closest pair at cell size ' + cpSmall.d.toFixed(4) + '   (' + cpSmall.who.join(' / ') + ')');
   L.push('  floor required (35% of the 112 number)  ' + SILHOUETTE_FLOOR.toFixed(4));
   L.push('  ' + (cpSmall.d >= SILHOUETTE_FLOOR ? 'CLEARS THE FLOOR' : 'BELOW FLOOR -- would not have written'));
   L.push('');
-  L.push('COLOUR STILL READS THE SAME FACTION: all ' + R.still.length + ' of ' + R.still.length
-    + ' dominant hue buckets unchanged going from 112 to the 32x32 cell.');
+  L.push('COLOUR STILL READS THE SAME FACTION AFTER THE COLLAPSE: all ' + R.still.length + ' of '
+    + R.still.length + ' dominant hue buckets unchanged going from 112 to the simplified cell.');
   L.push('');
   L.push('EIGHT FACINGS, ONE BODY (Blues), idle, opaque pixel count out of ' + (CELL*CELL) + ':');
   L.push('  ' + DIRS8.map(d => d + ' ' + R.walk8[d].opaque).join('   '));
@@ -329,9 +501,11 @@ const CAST = ['Blues', 'Reds', 'Church', 'Colorful', 'Network', 'Caravans', 'Ana
   console.log(L.join('\n'));
 
   /* THE PAGE. Self-contained, frames baked in. The walk plays in place (rule 25); the ground
-     under each pair is a flat 32 px cell swatch -- the size the law rules, not a placeholder
-     tan card, because no cell art ships yet (COOK [cell tiles] is separately open) and this is
-     honest about that rather than borrowing a finished floor that does not exist. */
+     under each pair is a flat 32 px cell swatch in the walked city's own sidewalk colour --
+     real ground, per DIRECTION's card, not the invented hex the first pass used. Still flat
+     colour rather than drawn tile: no cell art ships yet (COOK [cell tiles] is separately
+     open), and a flat swatch in the real hue is honest about that where a fake tile would not
+     be. */
   const cells = R.still.map((f, i) => `
     <section>
       <h2>${f.faction.toUpperCase()}</h2>
@@ -341,12 +515,13 @@ const CAST = ['Blues', 'Reds', 'Church', 'Colorful', 'Network', 'Caravans', 'Ana
           <figcaption>32 px cell, ${CELL} &times; ${CELL}, blown up ${8}&times; to see it</figcaption></figure>
       </div>
       <p class="num">colour ${f.hue112} &rarr; <b>${f.hueSmall}</b> (unchanged) &nbsp;&nbsp;
-        walk frames ${f.minOpaque}&ndash;${f.maxOpaque} px opaque</p>
+        ${f.before} colours &rarr; <b>${f.colours} + skin</b> &nbsp;&nbsp;
+        body ${f.ground.body.toFixed(2)} / rim ${f.ground.edge.toFixed(2)} from the ground</p>
     </section>`).join('');
   const html = `<!doctype html><meta charset="utf-8">
 <title>THE ONE CELL SPRITE</title>
 <style>
-  :root{ --floor:#5a5648; }
+  :root{ --floor:#${GROUND_HEX}; }
   html,body{ margin:0; background:#1b1b20; color:#d8d2c4;
     font:13px ui-monospace,SFMono-Regular,Menlo,monospace; }
   .wrap{ padding:16px; max-width:760px; }
