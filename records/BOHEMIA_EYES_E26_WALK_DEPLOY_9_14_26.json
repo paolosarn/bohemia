@@ -2,84 +2,84 @@
   "ok": true,
   "which": "deploy",
   "file": "BOHEMIA_DEMO.html",
-  "surface": "/tmp/claude-0/-home-user-bohemia/065fcaf1-af13-5362-9424-9d0305049a14/scratchpad/cut/slices/BOHEMIA_DEMO.html",
-  "when": "2026-09-27T23:35:05.362Z",
+  "surface": "/tmp/claude-0/-home-user-bohemia/065fcaf1-af13-5362-9424-9d0305049a14/scratchpad/cut2/slices/BOHEMIA_DEMO.html",
+  "when": "2026-09-28T01:05:06.890Z",
   "law": "THE FIVE MINUTES (Paolo 9/13)",
   "lines": [
     {
-      "at": "00:25",
+      "at": "00:29",
       "did": "opened the link and waited",
-      "happened": "a front screen: \"BOHEMIA CLARK COUNTY POWER AUTHORITY READING THE VALLEY COUNTING WHAT STILL STANDS NO OPERATOR ON DUTY WINDING THE CLOCK CHECKING STREETS FOR LIGHT PUTTING PEOPLE ON IT 5 OF 5 BEGIN DEMO - BUILD 9/27h\"",
+      "happened": "a front screen: \"BOHEMIA CLARK COUNTY POWER AUTHORITY READING THE VALLEY COUNTING WHAT STILL STANDS NO OPERATOR ON DUTY WINDING THE CLOCK CHECKING STREETS FOR LIGHT PUTTING PEOPLE ON IT 5 OF 5 BEGIN DEMO - BUILD 9/27k\"",
       "promised": "TAP TO ENTER"
     },
     {
-      "at": "00:35",
+      "at": "00:40",
       "did": "tapped the front screen",
       "happened": "the screen changed",
       "promised": "that tapping enters the game"
     },
     {
-      "at": "00:37",
+      "at": "00:42",
       "did": "looked at the first screen without touching anything",
       "happened": "2 things with words on them, big enough to tap: ⚙ / NOTES",
       "promised": ""
     },
     {
-      "at": "00:46",
+      "at": "00:51",
       "did": "tapped \"⚙\" (the biggest thing on screen)",
       "happened": "the screen answered: its own panel",
       "promised": "⚙"
     },
     {
-      "at": "00:51",
+      "at": "00:57",
       "did": "held the walk dial down for two and a half seconds",
       "happened": "the world moved (8 arrows on the dial)",
       "promised": ""
     },
     {
-      "at": "01:47",
+      "at": "02:04",
       "did": "tapped \"EYESTABCONTROL\" (CONTROL: a tab, which answers on the first press and is a no-op on the second)",
-      "happened": "the screen answered: somewhere",
+      "happened": "NOTHING MOVED ANYWHERE, BOTH PRESSES",
       "promised": "EYESTABCONTROL"
     },
     {
-      "at": "01:47",
+      "at": "02:05",
       "did": "went looking for \"cbbuild\" on purpose",
       "happened": "it was NOT on screen on this route, and it is still built in slices/BOHEMIA_CITY_WORLD.html, so this walk says nothing about it",
       "promised": ""
     },
     {
-      "at": "01:49",
+      "at": "02:06",
       "did": "went looking for \"cbbig\" on purpose",
       "happened": "it was NOT on screen on this route, and it is still built in slices/BOHEMIA_CITY_WORLD.html, so this walk says nothing about it",
       "promised": ""
     },
     {
-      "at": "01:58",
+      "at": "02:16",
       "did": "tapped \"NOTES\" (on the first screen and never pressed by the old script)",
       "happened": "the screen answered: its own panel",
       "promised": "NOTES"
     },
     {
-      "at": "02:05",
+      "at": "02:24",
       "did": "tapped \"SAVE AND KEEP PLAYING\" (new on screen)",
       "happened": "THE PANEL VANISHED, which tells me nothing either way",
       "promised": "SAVE AND KEEP PLAYING"
     },
     {
-      "at": "02:13",
+      "at": "02:32",
       "did": "tapped \"CLOSE\" (new on screen)",
       "happened": "the screen answered: somewhere",
       "promised": "CLOSE"
     },
     {
-      "at": "02:22",
+      "at": "02:41",
       "did": "tapped \"COPY ALL\" (new on screen)",
       "happened": "the screen answered: somewhere",
       "promised": "COPY ALL"
     },
     {
-      "at": "02:31",
+      "at": "02:50",
       "did": "tapped \"EXPORT\" (new on screen)",
       "happened": "the screen answered: somewhere",
       "promised": "EXPORT"
@@ -114,7 +114,7 @@
     {
       "name": "THE DOOR OPENED: the splash is gone and the game’s HUD is there",
       "pass": true,
-      "detail": "splash still shown: false, HUD music chip: \"MENU — DEAD VALLEY DAWN\" -- this walk is in the game"
+      "detail": "splash still shown: false, HUD music chip: \"MENU — THE POWER STILL ON SOMEWHERE\" -- this walk is in the game"
     },
     {
       "name": "DEAD READS DEAD: a planted button with no handler is called dead",
@@ -133,8 +133,8 @@
     },
     {
       "name": "A TAB IS NOT DEAD: a planted control that answers on the first press and is a no-op on the second is called alive",
-      "pass": true,
-      "detail": "verdict was \"did something, somewhere\". THIS IS THE CONTROL FOR THIS ROUND'S WRONG CLAIM: on the alpha the walk called VOTE, 3D, LOOK and WORDS dead, and all four open real tabs -- they answer hugely once and then correctly do nothing, because you are already standing on them, while the repeat rule demanded an answer on BOTH presses."
+      "pass": false,
+      "detail": "verdict was \"did nothing\". THIS IS THE CONTROL FOR THIS ROUND'S WRONG CLAIM: on the alpha the walk called VOTE, 3D, LOOK and WORDS dead, and all four open real tabs -- they answer hugely once and then correctly do nothing, because you are already standing on them, while the repeat rule demanded an answer on BOTH presses."
     },
     {
       "name": "ALIVE READS ALIVE: a planted button that writes one word is called alive",
@@ -149,25 +149,25 @@
     {
       "name": "THE WORLD MOVES ON ITS OWN: the null window is measured, not assumed",
       "pass": true,
-      "detail": "0 of 28 windows with no input at all still moved the screen. The world held still, so the old equality test was not the cause of the disagreement."
+      "detail": "2 of 28 windows with no input at all still moved the screen. So equality was the wrong test and every earlier \"the tap worked\" on this game is unsafe."
     }
   ],
   "numbers": {
-    "time_until_something_is_tappable_s": 27.04,
+    "time_until_something_is_tappable_s": 31.63,
     "knocks_before_the_door_opened": 1,
-    "my_first_tap_at_s": 31.44,
+    "my_first_tap_at_s": 36.42,
     "ledger_after_warmup": {
-      "words": 0,
-      "pixel_samples": 2
+      "words": 10,
+      "pixel_samples": 573
     },
-    "extra_walk_rounds": 59,
+    "extra_walk_rounds": 51,
     "time_to_first_fight_s": "NONE",
-    "walk_ended_at_s": 301.6,
+    "walk_ended_at_s": 302,
     "dead_affordances": 0,
     "things_i_actually_pressed": 6,
     "alive_on_one_press_only": 2,
     "closed_the_panel_so_proves_nothing": 1,
-    "words_the_world_writes_by_itself": 0,
+    "words_the_world_writes_by_itself": 19,
     "named_items_pressed_on_purpose": 0,
     "named_items_not_reachable_on_this_route": 2,
     "named_items_removed_from_the_game": 0,
@@ -175,10 +175,23 @@
     "tapped_and_inert_but_never_claimed_to_be_a_button": 0,
     "pairs_void_because_the_screen_changed_between_presses": 0,
     "null_windows_measured": 28,
-    "null_windows_that_moved_on_their_own": 0,
+    "null_windows_that_moved_on_their_own": 2,
     "worst_null_window": {
-      "word_moves": 0,
-      "pixel_fraction": 0
+      "word_moves": 10,
+      "words_that_moved": [
+        "It",
+        "still",
+        "runs",
+        "the",
+        "route.",
+        "Nobody",
+        "in",
+        "it",
+        "for",
+        "years."
+      ],
+      "pixel_fraction": 0.0132,
+      "warmup": true
     },
     "page_errors": 0,
     "console_errors": 2,
@@ -221,7 +234,7 @@
             "KEEP"
           ],
           "novel_words_anywhere_count": 29,
-          "novel_cells": 5,
+          "novel_cells": 0,
           "world_moved_in_the_null_window": 0,
           "panel": "#app",
           "panel_still_open": true,
@@ -296,11 +309,11 @@
             "COPY",
             "NOTES",
             "BUILD",
-            "9/27h",
-            "FOUR",
-            "PICTURES"
+            "9/27k",
+            "THE",
+            "FAMILY"
           ],
-          "novel_words_anywhere_count": 25,
+          "novel_words_anywhere_count": 24,
           "novel_cells": 0,
           "world_moved_in_the_null_window": 0,
           "panel": "DIV.wrap",
@@ -310,10 +323,10 @@
             "DEMO",
             "-",
             "BUILD",
-            "9/27h",
-            "FOUR",
-            "PICTURES",
-            "NOT"
+            "9/27k",
+            "THE",
+            "FAMILY",
+            "FLIP"
           ]
         },
         {
@@ -354,11 +367,11 @@
             "COPY",
             "NOTES",
             "BUILD",
-            "9/27h",
-            "FOUR",
-            "PICTURES"
+            "9/27k",
+            "THE",
+            "FAMILY"
           ],
-          "novel_words_anywhere_count": 25,
+          "novel_words_anywhere_count": 24,
           "novel_cells": 0,
           "world_moved_in_the_null_window": 0,
           "panel": "#noterow",
@@ -506,95 +519,116 @@
     {
       "word_moves": 0,
       "words_that_moved": [],
-      "pixel_fraction": 0
-    },
-    {
-      "word_moves": 0,
-      "words_that_moved": [],
       "pixel_fraction": 0.0001
     },
     {
       "word_moves": 0,
       "words_that_moved": [],
-      "pixel_fraction": 0,
-      "warmup": true
-    },
-    {
-      "word_moves": 0,
-      "words_that_moved": [],
-      "pixel_fraction": 0,
-      "warmup": true
-    },
-    {
-      "word_moves": 0,
-      "words_that_moved": [],
-      "pixel_fraction": 0,
-      "warmup": true
-    },
-    {
-      "word_moves": 0,
-      "words_that_moved": [],
-      "pixel_fraction": 0,
-      "warmup": true
-    },
-    {
-      "word_moves": 0,
-      "words_that_moved": [],
-      "pixel_fraction": 0,
-      "warmup": true
-    },
-    {
-      "word_moves": 0,
-      "words_that_moved": [],
-      "pixel_fraction": 0,
-      "warmup": true
-    },
-    {
-      "word_moves": 0,
-      "words_that_moved": [],
-      "pixel_fraction": 0,
-      "warmup": true
-    },
-    {
-      "word_moves": 0,
-      "words_that_moved": [],
-      "pixel_fraction": 0,
-      "warmup": true
-    },
-    {
-      "word_moves": 0,
-      "words_that_moved": [],
       "pixel_fraction": 0
     },
     {
       "word_moves": 0,
       "words_that_moved": [],
-      "pixel_fraction": 0
+      "pixel_fraction": 0.0114,
+      "warmup": true
     },
     {
       "word_moves": 0,
       "words_that_moved": [],
-      "pixel_fraction": 0
+      "pixel_fraction": 0.0118,
+      "warmup": true
     },
     {
       "word_moves": 0,
       "words_that_moved": [],
-      "pixel_fraction": 0
+      "pixel_fraction": 0.0121,
+      "warmup": true
     },
     {
       "word_moves": 0,
       "words_that_moved": [],
-      "pixel_fraction": 0
+      "pixel_fraction": 0.0122,
+      "warmup": true
+    },
+    {
+      "word_moves": 10,
+      "words_that_moved": [
+        "It",
+        "still",
+        "runs",
+        "the",
+        "route.",
+        "Nobody",
+        "in",
+        "it",
+        "for",
+        "years."
+      ],
+      "pixel_fraction": 0.0132,
+      "warmup": true
     },
     {
       "word_moves": 0,
       "words_that_moved": [],
-      "pixel_fraction": 0
+      "pixel_fraction": 0.0131,
+      "warmup": true
     },
     {
       "word_moves": 0,
       "words_that_moved": [],
-      "pixel_fraction": 0
+      "pixel_fraction": 0.0119,
+      "warmup": true
+    },
+    {
+      "word_moves": 0,
+      "words_that_moved": [],
+      "pixel_fraction": 0.0136,
+      "warmup": true
+    },
+    {
+      "word_moves": 9,
+      "words_that_moved": [
+        "Empty",
+        "your",
+        "hands.",
+        "Slow.",
+        "Where",
+        "I",
+        "can",
+        "see",
+        "them."
+      ],
+      "pixel_fraction": 0.012
+    },
+    {
+      "word_moves": 0,
+      "words_that_moved": [],
+      "pixel_fraction": 0.0132
+    },
+    {
+      "word_moves": 0,
+      "words_that_moved": [],
+      "pixel_fraction": 0.0119
+    },
+    {
+      "word_moves": 0,
+      "words_that_moved": [],
+      "pixel_fraction": 0.0126
+    },
+    {
+      "word_moves": 0,
+      "words_that_moved": [],
+      "pixel_fraction": 0.0118
+    },
+    {
+      "word_moves": 0,
+      "words_that_moved": [],
+      "pixel_fraction": 0.0133
+    },
+    {
+      "word_moves": 0,
+      "words_that_moved": [],
+      "pixel_fraction": 0.011
     },
     {
       "word_moves": 0,
@@ -679,7 +713,7 @@
   ],
   "closed_on_tap": [
     {
-      "at": "02:05",
+      "at": "02:24",
       "text": "SAVE AND KEEP PLAYING",
       "id": "notesave",
       "where": "frame",
