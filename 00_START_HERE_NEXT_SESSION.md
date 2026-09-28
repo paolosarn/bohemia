@@ -1,3 +1,9 @@
+EYES AND EARS (eyes-5vql33): 9/28 (bd) LATEST -- *** STANDING JOBS: THE FIRST SCREEN CHANGED SHAPE, AND FOUR NEW DEAD CONTROLS, NAMED NOT YET ROUTED. *** THE STRANGER'S LIST and THE HORROR READING rewritten on the front page.
+  THE COLD WALK LOOKS DIFFERENT THIS ROUND FOR THE FIRST TIME SINCE THIS LIST STARTED: 13 things offered on the first screen where every earlier round read 2, 15 pressed, first tappable thing faster than usual at 25.8 seconds. Still no fight found in five minutes.
+  FOUR NEW DEAD CONTROLS, all company roster name tags (a person's name with an age or a status next to it), each pressed twice while the notes panel was open, with no new words and no new movement either time -- the exact careful test this lane's own rule 14(h) asks for, done right, and it still came back dead.
+  NOT ROUTED YET, ON PURPOSE: this lane has caught itself publishing a wrong accusation off a first look twice already this week (both caught before anything shipped). Naming it once on the list is the honest move; if it is still dead next round, that becomes the real bounce-back.
+  Standing jobs continue every round.
+
 WORLD (world-9lfjtf): 9/28 (b) LATEST -- *** HE SAID MAYBE THE ANIMALS CAME OUT
 OF A LAB. THE REAL RECORD SAYS WHAT ESCAPES IS NOT AN ANIMAL. ***
 TAB: NOT IN A TAB YET on a play surface (rule 18, and 37n is a direction not a

@@ -1,12 +1,159 @@
 {
+  "ok": true,
   "which": "deploy",
   "file": "BOHEMIA_DEMO.html",
-  "ok": true,
+  "surface": "/tmp/claude-0/-home-user-bohemia/065fcaf1-af13-5362-9424-9d0305049a14/scratchpad/cut4/slices/BOHEMIA_DEMO.html",
+  "when": "2026-09-28T22:43:03.228Z",
+  "law": "THE FIVE MINUTES (Paolo 9/13)",
+  "lines": [
+    {
+      "at": "00:23",
+      "did": "opened the link and waited",
+      "happened": "a front screen: \"BOHEMIA CLARK COUNTY POWER AUTHORITY READING THE VALLEY COUNTING WHAT STILL STANDS NO OPERATOR ON DUTY WINDING THE CLOCK CHECKING STREETS FOR LIGHT PUTTING PEOPLE ON IT 5 OF 5 BEGIN DEMO - BUILD 9/28i\"",
+      "promised": "TAP TO ENTER"
+    },
+    {
+      "at": "00:34",
+      "did": "tapped the front screen",
+      "happened": "the screen changed",
+      "promised": "that tapping enters the game"
+    },
+    {
+      "at": "00:35",
+      "did": "looked at the first screen without touching anything",
+      "happened": "13 things with words on them, big enough to tap: ⚙ / NOTES / ▮▮▮ 06:00 / @nightcount / @thevalley / @marisol_v / @waterline / @thecircuit / @nightcount / @thevalley / Reyna NOW ? / Ezekiel +35Y ? / Perla +70Y ?",
+      "promised": ""
+    },
+    {
+      "at": "00:43",
+      "did": "tapped \"▮▮▮ 06:00\" (the biggest thing on screen)",
+      "happened": "the screen answered: its own panel",
+      "promised": "▮▮▮ 06:00"
+    },
+    {
+      "at": "00:44",
+      "did": "looked for a way to walk",
+      "happened": "no walk control found on the first screen",
+      "promised": ""
+    },
+    {
+      "at": "01:36",
+      "did": "tapped \"EYESTABCONTROL\" (CONTROL: a tab, which answers on the first press and is a no-op on the second)",
+      "happened": "NOTHING MOVED ANYWHERE, BOTH PRESSES",
+      "promised": "EYESTABCONTROL"
+    },
+    {
+      "at": "01:36",
+      "did": "went looking for \"cbbuild\" on purpose",
+      "happened": "it was NOT on screen on this route, and it is still built in slices/BOHEMIA_CITY_WORLD.html, so this walk says nothing about it",
+      "promised": ""
+    },
+    {
+      "at": "01:37",
+      "did": "went looking for \"cbbig\" on purpose",
+      "happened": "it was NOT on screen on this route, and it is still built in slices/BOHEMIA_CITY_WORLD.html, so this walk says nothing about it",
+      "promised": ""
+    },
+    {
+      "at": "01:45",
+      "did": "tapped \"⚙\" (on the first screen and never pressed by the old script)",
+      "happened": "the screen answered: its own panel",
+      "promised": "⚙"
+    },
+    {
+      "at": "01:53",
+      "did": "tapped \"NOTES\" (on the first screen and never pressed by the old script)",
+      "happened": "the screen answered: its own panel",
+      "promised": "NOTES"
+    },
+    {
+      "at": "02:02",
+      "did": "tapped \"@nightcount\" (on the first screen and never pressed by the old script)",
+      "happened": "the screen answered: its own panel",
+      "promised": "@nightcount"
+    },
+    {
+      "at": "02:10",
+      "did": "tapped \"@thevalley\" (on the first screen and never pressed by the old script)",
+      "happened": "the screen answered: its own panel",
+      "promised": "@thevalley"
+    },
+    {
+      "at": "02:18",
+      "did": "tapped \"@marisol_v\" (on the first screen and never pressed by the old script)",
+      "happened": "NOTHING MOVED ANYWHERE, BOTH PRESSES",
+      "promised": "@marisol_v"
+    },
+    {
+      "at": "02:26",
+      "did": "tapped \"@waterline\" (on the first screen and never pressed by the old script)",
+      "happened": "the screen answered: somewhere",
+      "promised": "@waterline"
+    },
+    {
+      "at": "02:34",
+      "did": "tapped \"@thecircuit\" (on the first screen and never pressed by the old script)",
+      "happened": "the screen answered: somewhere else on screen",
+      "promised": "@thecircuit"
+    },
+    {
+      "at": "02:43",
+      "did": "tapped \"Reyna NOW ?\" (on the first screen and never pressed by the old script)",
+      "happened": "NOTHING MOVED ANYWHERE, BOTH PRESSES",
+      "promised": "Reyna NOW ?"
+    },
+    {
+      "at": "02:51",
+      "did": "tapped \"Ezekiel +35Y ?\" (on the first screen and never pressed by the old script)",
+      "happened": "NOTHING MOVED ANYWHERE, BOTH PRESSES",
+      "promised": "Ezekiel +35Y ?"
+    },
+    {
+      "at": "02:59",
+      "did": "tapped \"Perla +70Y ?\" (on the first screen and never pressed by the old script)",
+      "happened": "NOTHING MOVED ANYWHERE, BOTH PRESSES",
+      "promised": "Perla +70Y ?"
+    },
+    {
+      "at": "03:03",
+      "did": "tapped \"SAVE AND KEEP PLAYING\" (new on screen)",
+      "happened": "THE PANEL VANISHED, which tells me nothing either way",
+      "promised": "SAVE AND KEEP PLAYING"
+    },
+    {
+      "at": "03:12",
+      "did": "tapped \"CLOSE\" (new on screen)",
+      "happened": "the screen answered: somewhere",
+      "promised": "CLOSE"
+    },
+    {
+      "at": "03:20",
+      "did": "tapped \"COPY ALL\" (new on screen)",
+      "happened": "the screen answered: somewhere",
+      "promised": "COPY ALL"
+    },
+    {
+      "at": "03:29",
+      "did": "tapped \"EXPORT\" (new on screen)",
+      "happened": "the screen answered: somewhere",
+      "promised": "EXPORT"
+    }
+  ],
+  "errors": [
+    {
+      "kind": "console",
+      "msg": "Potential permissions policy violation: clipboard-write is not allowed in this document."
+    },
+    {
+      "kind": "console",
+      "msg": "Potential permissions policy violation: clipboard-write is not allowed in this document."
+    }
+  ],
   "controls": [
     {
       "name": "COLD START: no earlier play is being read back",
       "pass": true,
-      "detail": "2 keys at first paint [\"bohemia_sfxvol\",\"bohemia:look\"] -- none of them carry progress, so this is a first run"
+      "detail": "1 keys at first paint [\"bohemia_sfxvol\"] -- none of them carry progress, so this is a first run"
     },
     {
       "name": "ERROR CATCH: a planted page error is captured",
@@ -56,60 +203,2014 @@
     {
       "name": "THE WORLD MOVES ON ITS OWN: the null window is measured, not assumed",
       "pass": true,
-      "detail": "3 of 28 windows with no input at all still moved the screen. So equality was the wrong test and every earlier \"the tap worked\" on this game is unsafe."
+      "detail": "22 of 46 windows with no input at all still moved the screen. So equality was the wrong test and every earlier \"the tap worked\" on this game is unsafe."
     }
   ],
-  "failing_controls": [
-    "A TAB IS NOT DEAD: a planted control that answers on the first press and is a no-op on the second is called alive",
-    "NO FALSE ZERO: every item an earlier round called dead was pressed on purpose"
-  ],
   "numbers": {
-    "time_until_something_is_tappable_s": 49.1,
+    "time_until_something_is_tappable_s": 25.84,
     "knocks_before_the_door_opened": 1,
-    "my_first_tap_at_s": 55.06,
+    "my_first_tap_at_s": 30.01,
     "ledger_after_warmup": {
-      "words": 26,
-      "pixel_samples": 572
+      "words": 55,
+      "pixel_samples": 0
     },
-    "extra_walk_rounds": 27,
+    "extra_walk_rounds": 187,
     "time_to_first_fight_s": "NONE",
-    "walk_ended_at_s": 303.2,
-    "dead_affordances": 0,
-    "things_i_actually_pressed": 6,
-    "alive_on_one_press_only": 2,
+    "walk_ended_at_s": 300.6,
+    "dead_affordances": 4,
+    "things_i_actually_pressed": 15,
+    "alive_on_one_press_only": 5,
     "closed_the_panel_so_proves_nothing": 1,
-    "words_the_world_writes_by_itself": 26,
+    "words_the_world_writes_by_itself": 66,
     "named_items_pressed_on_purpose": 0,
     "named_items_not_reachable_on_this_route": 2,
     "named_items_removed_from_the_game": 0,
     "named_items_still_dead": 0,
     "tapped_and_inert_but_never_claimed_to_be_a_button": 0,
     "pairs_void_because_the_screen_changed_between_presses": 0,
-    "null_windows_measured": 28,
-    "null_windows_that_moved_on_their_own": 3,
+    "null_windows_measured": 46,
+    "null_windows_that_moved_on_their_own": 22,
     "worst_null_window": {
-      "word_moves": 10,
+      "word_moves": 31,
       "words_that_moved": [
-        "It",
-        "still",
-        "runs",
-        "the",
-        "route.",
-        "Nobody",
-        "in",
-        "it",
+        "at",
+        "06:32",
+        "@nightcount",
+        "5",
+        "outfits",
+        "holding",
+        "a",
+        "fortress",
+        "between",
+        "them.",
+        "that",
+        "lot",
+        "walls",
         "for",
-        "years."
+        "one",
+        "still",
+        "the",
+        "@thecircuit",
+        "most",
+        "valley",
+        "dark.",
+        "420",
+        "blocks",
+        "with",
+        "anything",
+        "in",
+        "them",
+        "all.",
+        "valle",
+        "07:19",
+        "@nig"
       ],
-      "pixel_fraction": 0.0135,
-      "warmup": true
+      "pixel_fraction": 0.0128
     },
     "page_errors": 0,
     "console_errors": 2,
     "failed_requests": 0
   },
-  "lines": 13,
-  "dead": [],
-  "inert": 0,
-  "first_screen": 2
+  "dead": [
+    {
+      "at": "02:18",
+      "text": "@marisol_v",
+      "id": "",
+      "where": "frame",
+      "size": "110x13",
+      "looked_tappable_because": "pointer cursor",
+      "pressed_twice": true,
+      "novel_movement_either_time": "none",
+      "evidence": [
+        {
+          "spoke_to_the_browser": false,
+          "started_a_download": false,
+          "the_control_itself_vanished": false,
+          "novel_words_anywhere": [
+            "everybody",
+            "knows",
+            "it."
+          ],
+          "novel_words_anywhere_count": 3,
+          "novel_cells": 0,
+          "world_moved_in_the_null_window": 0,
+          "panel": "#notecard",
+          "panel_still_open": true,
+          "novel_words_inside_the_panel": []
+        },
+        {
+          "spoke_to_the_browser": false,
+          "started_a_download": false,
+          "the_control_itself_vanished": false,
+          "novel_words_anywhere": [],
+          "novel_words_anywhere_count": 0,
+          "novel_cells": 0,
+          "world_moved_in_the_null_window": 0,
+          "panel": "#notecard",
+          "panel_still_open": true,
+          "novel_words_inside_the_panel": []
+        }
+      ]
+    },
+    {
+      "at": "02:43",
+      "text": "Reyna NOW ?",
+      "id": "",
+      "where": "frame",
+      "size": "36x54",
+      "looked_tappable_because": "pointer cursor",
+      "pressed_twice": true,
+      "novel_movement_either_time": "none",
+      "evidence": [
+        {
+          "spoke_to_the_browser": false,
+          "started_a_download": false,
+          "the_control_itself_vanished": false,
+          "novel_words_anywhere": [],
+          "novel_words_anywhere_count": 0,
+          "novel_cells": 0,
+          "world_moved_in_the_null_window": 29,
+          "panel": "#notecard",
+          "panel_still_open": true,
+          "novel_words_inside_the_panel": []
+        },
+        {
+          "spoke_to_the_browser": false,
+          "started_a_download": false,
+          "the_control_itself_vanished": false,
+          "novel_words_anywhere": [
+            "sit",
+            "on.",
+            "t"
+          ],
+          "novel_words_anywhere_count": 3,
+          "novel_cells": 0,
+          "world_moved_in_the_null_window": 0,
+          "panel": "#notecard",
+          "panel_still_open": true,
+          "novel_words_inside_the_panel": []
+        }
+      ]
+    },
+    {
+      "at": "02:51",
+      "text": "Ezekiel +35Y ?",
+      "id": "",
+      "where": "frame",
+      "size": "36x54",
+      "looked_tappable_because": "pointer cursor",
+      "pressed_twice": true,
+      "novel_movement_either_time": "none",
+      "evidence": [
+        {
+          "spoke_to_the_browser": false,
+          "started_a_download": false,
+          "the_control_itself_vanished": false,
+          "novel_words_anywhere": [],
+          "novel_words_anywhere_count": 0,
+          "novel_cells": 0,
+          "world_moved_in_the_null_window": 23,
+          "panel": "#notecard",
+          "panel_still_open": true,
+          "novel_words_inside_the_panel": []
+        },
+        {
+          "spoke_to_the_browser": false,
+          "started_a_download": false,
+          "the_control_itself_vanished": false,
+          "novel_words_anywhere": [
+            "everybody",
+            "knows",
+            "it."
+          ],
+          "novel_words_anywhere_count": 3,
+          "novel_cells": 0,
+          "world_moved_in_the_null_window": 0,
+          "panel": "#notecard",
+          "panel_still_open": true,
+          "novel_words_inside_the_panel": []
+        }
+      ]
+    },
+    {
+      "at": "02:59",
+      "text": "Perla +70Y ?",
+      "id": "",
+      "where": "frame",
+      "size": "36x54",
+      "looked_tappable_because": "pointer cursor",
+      "pressed_twice": true,
+      "novel_movement_either_time": "none",
+      "evidence": [
+        {
+          "spoke_to_the_browser": false,
+          "started_a_download": false,
+          "the_control_itself_vanished": false,
+          "novel_words_anywhere": [],
+          "novel_words_anywhere_count": 0,
+          "novel_cells": 0,
+          "world_moved_in_the_null_window": 30,
+          "panel": "#notecard",
+          "panel_still_open": true,
+          "novel_words_inside_the_panel": []
+        },
+        {
+          "spoke_to_the_browser": false,
+          "started_a_download": false,
+          "the_control_itself_vanished": false,
+          "novel_words_anywhere": [],
+          "novel_words_anywhere_count": 0,
+          "novel_cells": 0,
+          "world_moved_in_the_null_window": 0,
+          "panel": "#notecard",
+          "panel_still_open": true,
+          "novel_words_inside_the_panel": []
+        }
+      ]
+    }
+  ],
+  "inert": [],
+  "pressed": [
+    {
+      "text": "▮▮▮ 06:00",
+      "id": "cityfeedbar",
+      "where": "frame",
+      "verdict": "did something, its own panel",
+      "answered_in": [
+        "its own panel"
+      ],
+      "presses_with_novel_movement": 1,
+      "in_its_own_panel": [
+        true,
+        false
+      ],
+      "somewhere_else": [
+        false,
+        false
+      ],
+      "evidence": [
+        {
+          "spoke_to_the_browser": false,
+          "started_a_download": false,
+          "the_control_itself_vanished": false,
+          "novel_words_anywhere": [
+            "1",
+            "06:00",
+            "SUBURB",
+            "DAY",
+            "CLOSE"
+          ],
+          "novel_words_anywhere_count": 5,
+          "novel_cells": 0,
+          "world_moved_in_the_null_window": 29,
+          "panel": "#stage",
+          "panel_still_open": true,
+          "novel_words_inside_the_panel": [
+            "▮▮▮",
+            "06:00",
+            "of",
+            "is",
+            "valley.",
+            "@thevalley",
+            "no",
+            "moving"
+          ]
+        },
+        {
+          "spoke_to_the_browser": false,
+          "started_a_download": false,
+          "the_control_itself_vanished": false,
+          "novel_words_anywhere": [],
+          "novel_words_anywhere_count": 0,
+          "novel_cells": 0,
+          "world_moved_in_the_null_window": 18,
+          "panel": "#phonewrap.on",
+          "panel_still_open": true,
+          "novel_words_inside_the_panel": []
+        }
+      ]
+    },
+    {
+      "text": "⚙",
+      "id": "gearbtn",
+      "where": "shell",
+      "verdict": "did something, its own panel",
+      "answered_in": [
+        "its own panel",
+        "its own panel"
+      ],
+      "presses_with_novel_movement": 2,
+      "in_its_own_panel": [
+        true,
+        true
+      ],
+      "somewhere_else": [
+        false,
+        false
+      ],
+      "evidence": [
+        {
+          "spoke_to_the_browser": false,
+          "started_a_download": false,
+          "the_control_itself_vanished": false,
+          "novel_words_anywhere": [
+            "SETTINGS",
+            "TO",
+            "OFF",
+            "SOUND",
+            "MUTE",
+            "TEXT",
+            "MOTION",
+            "FULL"
+          ],
+          "novel_words_anywhere_count": 22,
+          "novel_cells": 0,
+          "world_moved_in_the_null_window": 0,
+          "panel": "#app",
+          "panel_still_open": true,
+          "novel_words_inside_the_panel": [
+            "SETTINGS",
+            "SOUND",
+            "MUTE",
+            "OFF",
+            "TEXT",
+            "MOTION",
+            "FULL",
+            "EVENTS"
+          ]
+        },
+        {
+          "spoke_to_the_browser": false,
+          "started_a_download": false,
+          "the_control_itself_vanished": false,
+          "novel_words_anywhere": [
+            "SETTINGS",
+            "SOUND",
+            "MUTE",
+            "OFF",
+            "TEXT",
+            "MOTION",
+            "FULL",
+            "EVENTS"
+          ],
+          "novel_words_anywhere_count": 23,
+          "novel_cells": 0,
+          "world_moved_in_the_null_window": 0,
+          "panel": "#app",
+          "panel_still_open": true,
+          "novel_words_inside_the_panel": [
+            "SETTINGS",
+            "SOUND",
+            "MUTE",
+            "OFF",
+            "TEXT",
+            "MOTION",
+            "FULL",
+            "EVENTS"
+          ]
+        }
+      ]
+    },
+    {
+      "text": "NOTES",
+      "id": "notebtn",
+      "where": "frame",
+      "verdict": "did something, its own panel",
+      "answered_in": [
+        "its own panel",
+        "its own panel"
+      ],
+      "presses_with_novel_movement": 2,
+      "in_its_own_panel": [
+        true,
+        true
+      ],
+      "somewhere_else": [
+        false,
+        false
+      ],
+      "evidence": [
+        {
+          "spoke_to_the_browser": false,
+          "started_a_download": false,
+          "the_control_itself_vanished": false,
+          "novel_words_anywhere": [
+            "1",
+            "SUBURB",
+            "DAY",
+            "06:00",
+            "CLOSE",
+            "everybody",
+            "knows",
+            "it."
+          ],
+          "novel_words_anywhere_count": 8,
+          "novel_cells": 0,
+          "world_moved_in_the_null_window": 0,
+          "panel": "DIV.wrap",
+          "panel_still_open": true,
+          "novel_words_inside_the_panel": [
+            "NOTES",
+            "SUBURB",
+            "·",
+            "valley.",
+            "everybody",
+            "knows",
+            "it.",
+            "DEMO"
+          ]
+        },
+        {
+          "spoke_to_the_browser": false,
+          "started_a_download": false,
+          "the_control_itself_vanished": false,
+          "novel_words_anywhere": [
+            "everybody",
+            "knows",
+            "it."
+          ],
+          "novel_words_anywhere_count": 3,
+          "novel_cells": 0,
+          "world_moved_in_the_null_window": 0,
+          "panel": "DIV.wrap",
+          "panel_still_open": true,
+          "novel_words_inside_the_panel": [
+            "valley."
+          ]
+        }
+      ]
+    },
+    {
+      "text": "@nightcount",
+      "id": "",
+      "where": "frame",
+      "verdict": "did something, its own panel",
+      "answered_in": [
+        "its own panel",
+        "its own panel"
+      ],
+      "presses_with_novel_movement": 2,
+      "in_its_own_panel": [
+        true,
+        true
+      ],
+      "somewhere_else": [
+        false,
+        false
+      ],
+      "evidence": [
+        {
+          "spoke_to_the_browser": false,
+          "started_a_download": false,
+          "the_control_itself_vanished": false,
+          "novel_words_anywhere": [],
+          "novel_words_anywhere_count": 0,
+          "novel_cells": 0,
+          "world_moved_in_the_null_window": 0,
+          "panel": "DIV.wrap",
+          "panel_still_open": true,
+          "novel_words_inside_the_panel": [
+            "sit",
+            "on."
+          ]
+        },
+        {
+          "spoke_to_the_browser": false,
+          "started_a_download": false,
+          "the_control_itself_vanished": false,
+          "novel_words_anywhere": [
+            "sit",
+            "on.",
+            "t"
+          ],
+          "novel_words_anywhere_count": 3,
+          "novel_cells": 0,
+          "world_moved_in_the_null_window": 0,
+          "panel": "DIV.wrap",
+          "panel_still_open": true,
+          "novel_words_inside_the_panel": [
+            "anyway.",
+            "sit",
+            "on."
+          ]
+        }
+      ]
+    },
+    {
+      "text": "@thevalley",
+      "id": "",
+      "where": "frame",
+      "verdict": "did something, its own panel",
+      "answered_in": [
+        "its own panel",
+        "its own panel"
+      ],
+      "presses_with_novel_movement": 2,
+      "in_its_own_panel": [
+        true,
+        true
+      ],
+      "somewhere_else": [
+        false,
+        false
+      ],
+      "evidence": [
+        {
+          "spoke_to_the_browser": false,
+          "started_a_download": false,
+          "the_control_itself_vanished": false,
+          "novel_words_anywhere": [
+            "sit",
+            "on.",
+            "anyway.",
+            "t"
+          ],
+          "novel_words_anywhere_count": 4,
+          "novel_cells": 0,
+          "world_moved_in_the_null_window": 0,
+          "panel": "DIV.wrap",
+          "panel_still_open": true,
+          "novel_words_inside_the_panel": [
+            "everybody",
+            "knows",
+            "it.",
+            "anyway."
+          ]
+        },
+        {
+          "spoke_to_the_browser": false,
+          "started_a_download": false,
+          "the_control_itself_vanished": false,
+          "novel_words_anywhere": [
+            "anyway.",
+            "everybody",
+            "knows",
+            "it."
+          ],
+          "novel_words_anywhere_count": 4,
+          "novel_cells": 0,
+          "world_moved_in_the_null_window": 0,
+          "panel": "DIV.wrap",
+          "panel_still_open": true,
+          "novel_words_inside_the_panel": [
+            "valley.",
+            "everybody",
+            "knows",
+            "it."
+          ]
+        }
+      ]
+    },
+    {
+      "text": "@marisol_v",
+      "id": "",
+      "where": "frame",
+      "verdict": "did nothing",
+      "answered_in": [
+        "somewhere else on screen"
+      ],
+      "presses_with_novel_movement": 1,
+      "in_its_own_panel": [
+        false,
+        false
+      ],
+      "somewhere_else": [
+        true,
+        false
+      ],
+      "evidence": [
+        {
+          "spoke_to_the_browser": false,
+          "started_a_download": false,
+          "the_control_itself_vanished": false,
+          "novel_words_anywhere": [
+            "everybody",
+            "knows",
+            "it."
+          ],
+          "novel_words_anywhere_count": 3,
+          "novel_cells": 0,
+          "world_moved_in_the_null_window": 0,
+          "panel": "#notecard",
+          "panel_still_open": true,
+          "novel_words_inside_the_panel": []
+        },
+        {
+          "spoke_to_the_browser": false,
+          "started_a_download": false,
+          "the_control_itself_vanished": false,
+          "novel_words_anywhere": [],
+          "novel_words_anywhere_count": 0,
+          "novel_cells": 0,
+          "world_moved_in_the_null_window": 0,
+          "panel": "#notecard",
+          "panel_still_open": true,
+          "novel_words_inside_the_panel": []
+        }
+      ]
+    },
+    {
+      "text": "@waterline",
+      "id": "",
+      "where": "frame",
+      "verdict": "did something, somewhere",
+      "answered_in": [],
+      "presses_with_novel_movement": 2,
+      "in_its_own_panel": [
+        false,
+        false
+      ],
+      "somewhere_else": [
+        true,
+        true
+      ],
+      "evidence": [
+        {
+          "spoke_to_the_browser": false,
+          "started_a_download": false,
+          "the_control_itself_vanished": true,
+          "novel_words_anywhere": [
+            "sit",
+            "on.",
+            "t"
+          ],
+          "novel_words_anywhere_count": 3,
+          "novel_cells": 0,
+          "world_moved_in_the_null_window": 0,
+          "panel": "#notecard",
+          "panel_still_open": true,
+          "novel_words_inside_the_panel": []
+        },
+        {
+          "spoke_to_the_browser": false,
+          "started_a_download": false,
+          "the_control_itself_vanished": true,
+          "novel_words_anywhere": [
+            "sit",
+            "on.",
+            "anyway.",
+            "t"
+          ],
+          "novel_words_anywhere_count": 4,
+          "novel_cells": 0,
+          "world_moved_in_the_null_window": 0,
+          "panel": "#notecard",
+          "panel_still_open": true,
+          "novel_words_inside_the_panel": []
+        }
+      ]
+    },
+    {
+      "text": "@thecircuit",
+      "id": "",
+      "where": "frame",
+      "verdict": "did something, somewhere else on screen",
+      "answered_in": [
+        "somewhere else on screen",
+        "somewhere else on screen"
+      ],
+      "presses_with_novel_movement": 2,
+      "in_its_own_panel": [
+        false,
+        false
+      ],
+      "somewhere_else": [
+        true,
+        true
+      ],
+      "evidence": [
+        {
+          "spoke_to_the_browser": false,
+          "started_a_download": false,
+          "the_control_itself_vanished": false,
+          "novel_words_anywhere": [
+            "anyway.",
+            "everybody",
+            "knows",
+            "it."
+          ],
+          "novel_words_anywhere_count": 4,
+          "novel_cells": 0,
+          "world_moved_in_the_null_window": 0,
+          "panel": "#notecard",
+          "panel_still_open": true,
+          "novel_words_inside_the_panel": []
+        },
+        {
+          "spoke_to_the_browser": false,
+          "started_a_download": false,
+          "the_control_itself_vanished": false,
+          "novel_words_anywhere": [
+            "everybody",
+            "knows",
+            "it."
+          ],
+          "novel_words_anywhere_count": 3,
+          "novel_cells": 0,
+          "world_moved_in_the_null_window": 0,
+          "panel": "#notecard",
+          "panel_still_open": true,
+          "novel_words_inside_the_panel": []
+        }
+      ]
+    },
+    {
+      "text": "Reyna NOW ?",
+      "id": "",
+      "where": "frame",
+      "verdict": "did nothing",
+      "answered_in": [
+        "somewhere else on screen"
+      ],
+      "presses_with_novel_movement": 1,
+      "in_its_own_panel": [
+        false,
+        false
+      ],
+      "somewhere_else": [
+        false,
+        true
+      ],
+      "evidence": [
+        {
+          "spoke_to_the_browser": false,
+          "started_a_download": false,
+          "the_control_itself_vanished": false,
+          "novel_words_anywhere": [],
+          "novel_words_anywhere_count": 0,
+          "novel_cells": 0,
+          "world_moved_in_the_null_window": 29,
+          "panel": "#notecard",
+          "panel_still_open": true,
+          "novel_words_inside_the_panel": []
+        },
+        {
+          "spoke_to_the_browser": false,
+          "started_a_download": false,
+          "the_control_itself_vanished": false,
+          "novel_words_anywhere": [
+            "sit",
+            "on.",
+            "t"
+          ],
+          "novel_words_anywhere_count": 3,
+          "novel_cells": 0,
+          "world_moved_in_the_null_window": 0,
+          "panel": "#notecard",
+          "panel_still_open": true,
+          "novel_words_inside_the_panel": []
+        }
+      ]
+    },
+    {
+      "text": "Ezekiel +35Y ?",
+      "id": "",
+      "where": "frame",
+      "verdict": "did nothing",
+      "answered_in": [
+        "somewhere else on screen"
+      ],
+      "presses_with_novel_movement": 1,
+      "in_its_own_panel": [
+        false,
+        false
+      ],
+      "somewhere_else": [
+        false,
+        true
+      ],
+      "evidence": [
+        {
+          "spoke_to_the_browser": false,
+          "started_a_download": false,
+          "the_control_itself_vanished": false,
+          "novel_words_anywhere": [],
+          "novel_words_anywhere_count": 0,
+          "novel_cells": 0,
+          "world_moved_in_the_null_window": 23,
+          "panel": "#notecard",
+          "panel_still_open": true,
+          "novel_words_inside_the_panel": []
+        },
+        {
+          "spoke_to_the_browser": false,
+          "started_a_download": false,
+          "the_control_itself_vanished": false,
+          "novel_words_anywhere": [
+            "everybody",
+            "knows",
+            "it."
+          ],
+          "novel_words_anywhere_count": 3,
+          "novel_cells": 0,
+          "world_moved_in_the_null_window": 0,
+          "panel": "#notecard",
+          "panel_still_open": true,
+          "novel_words_inside_the_panel": []
+        }
+      ]
+    },
+    {
+      "text": "Perla +70Y ?",
+      "id": "",
+      "where": "frame",
+      "verdict": "did nothing",
+      "answered_in": [],
+      "presses_with_novel_movement": 0,
+      "in_its_own_panel": [
+        false,
+        false
+      ],
+      "somewhere_else": [
+        false,
+        false
+      ],
+      "evidence": [
+        {
+          "spoke_to_the_browser": false,
+          "started_a_download": false,
+          "the_control_itself_vanished": false,
+          "novel_words_anywhere": [],
+          "novel_words_anywhere_count": 0,
+          "novel_cells": 0,
+          "world_moved_in_the_null_window": 30,
+          "panel": "#notecard",
+          "panel_still_open": true,
+          "novel_words_inside_the_panel": []
+        },
+        {
+          "spoke_to_the_browser": false,
+          "started_a_download": false,
+          "the_control_itself_vanished": false,
+          "novel_words_anywhere": [],
+          "novel_words_anywhere_count": 0,
+          "novel_cells": 0,
+          "world_moved_in_the_null_window": 0,
+          "panel": "#notecard",
+          "panel_still_open": true,
+          "novel_words_inside_the_panel": []
+        }
+      ]
+    },
+    {
+      "text": "SAVE AND KEEP PLAYING",
+      "id": "notesave",
+      "where": "frame",
+      "verdict": "THE PANEL CLOSED, so this press proves nothing (rule 14h)",
+      "answered_in": [],
+      "presses_with_novel_movement": 0,
+      "in_its_own_panel": [
+        false
+      ],
+      "somewhere_else": [
+        false
+      ],
+      "evidence": [
+        {
+          "spoke_to_the_browser": false,
+          "started_a_download": false,
+          "the_control_itself_vanished": true,
+          "novel_words_anywhere": [],
+          "novel_words_anywhere_count": 0,
+          "novel_cells": 0,
+          "world_moved_in_the_null_window": 22,
+          "panel": "#noterow",
+          "panel_still_open": false,
+          "novel_words_inside_the_panel": [
+            "PLAYING",
+            "CLOSE",
+            "COPY",
+            "ALL",
+            "EXPORT",
+            "PLAYINGCLOSECOPY",
+            "ALLEXPORT"
+          ]
+        }
+      ]
+    },
+    {
+      "text": "CLOSE",
+      "id": "noteback",
+      "where": "frame",
+      "verdict": "did something, somewhere",
+      "answered_in": [],
+      "presses_with_novel_movement": 2,
+      "in_its_own_panel": [
+        true,
+        true
+      ],
+      "somewhere_else": [
+        false,
+        false
+      ],
+      "evidence": [
+        {
+          "spoke_to_the_browser": false,
+          "started_a_download": false,
+          "the_control_itself_vanished": true,
+          "novel_words_anywhere": [
+            "06:00",
+            "06:05"
+          ],
+          "novel_words_anywhere_count": 2,
+          "novel_cells": 421,
+          "world_moved_in_the_null_window": 23,
+          "panel": "#stage",
+          "panel_still_open": true,
+          "novel_words_inside_the_panel": [
+            "▮▮▮",
+            "06:00",
+            "valley.",
+            "Reyna",
+            "NOW",
+            "?",
+            "Ezekiel",
+            "+35Y"
+          ]
+        },
+        {
+          "spoke_to_the_browser": false,
+          "started_a_download": false,
+          "the_control_itself_vanished": true,
+          "novel_words_anywhere": [
+            "06:05",
+            "06:10"
+          ],
+          "novel_words_anywhere_count": 2,
+          "novel_cells": 490,
+          "world_moved_in_the_null_window": 22,
+          "panel": "#stage",
+          "panel_still_open": true,
+          "novel_words_inside_the_panel": [
+            "▮▮▮",
+            "06:05",
+            "valley.",
+            "Reyna",
+            "NOW",
+            "?",
+            "Ezekiel",
+            "+35Y"
+          ]
+        }
+      ]
+    },
+    {
+      "text": "COPY ALL",
+      "id": "notecopy",
+      "where": "frame",
+      "verdict": "did something, somewhere",
+      "answered_in": [],
+      "presses_with_novel_movement": 2,
+      "in_its_own_panel": [
+        true,
+        true
+      ],
+      "somewhere_else": [
+        false,
+        false
+      ],
+      "evidence": [
+        {
+          "spoke_to_the_browser": false,
+          "started_a_download": false,
+          "the_control_itself_vanished": true,
+          "novel_words_anywhere": [
+            "06:16",
+            "06:21"
+          ],
+          "novel_words_anywhere_count": 2,
+          "novel_cells": 478,
+          "world_moved_in_the_null_window": 30,
+          "panel": "#stage",
+          "panel_still_open": true,
+          "novel_words_inside_the_panel": [
+            "▮▮▮",
+            "06:16",
+            "valley.",
+            "Reyna",
+            "NOW",
+            "?",
+            "Ezekiel",
+            "+35Y"
+          ]
+        },
+        {
+          "spoke_to_the_browser": false,
+          "started_a_download": false,
+          "the_control_itself_vanished": true,
+          "novel_words_anywhere": [
+            "07:35"
+          ],
+          "novel_words_anywhere_count": 1,
+          "novel_cells": 29,
+          "world_moved_in_the_null_window": 31,
+          "panel": "#stage",
+          "panel_still_open": true,
+          "novel_words_inside_the_panel": [
+            "▮▮▮",
+            "07:29",
+            "valley.",
+            "Reyna",
+            "NOW",
+            "?",
+            "Ezekiel",
+            "+35Y"
+          ]
+        }
+      ]
+    },
+    {
+      "text": "EXPORT",
+      "id": "noteout",
+      "where": "frame",
+      "verdict": "did something, somewhere",
+      "answered_in": [],
+      "presses_with_novel_movement": 2,
+      "in_its_own_panel": [
+        true,
+        true
+      ],
+      "somewhere_else": [
+        false,
+        false
+      ],
+      "evidence": [
+        {
+          "spoke_to_the_browser": false,
+          "started_a_download": false,
+          "the_control_itself_vanished": true,
+          "novel_words_anywhere": [
+            "07:35",
+            "07:56"
+          ],
+          "novel_words_anywhere_count": 2,
+          "novel_cells": 30,
+          "world_moved_in_the_null_window": 0,
+          "panel": "#stage",
+          "panel_still_open": true,
+          "novel_words_inside_the_panel": [
+            "▮▮▮",
+            "07:35",
+            "valley.",
+            "Reyna",
+            "NOW",
+            "?",
+            "Ezekiel",
+            "+35Y"
+          ]
+        },
+        {
+          "spoke_to_the_browser": false,
+          "started_a_download": false,
+          "the_control_itself_vanished": true,
+          "novel_words_anywhere": [
+            "09:06"
+          ],
+          "novel_words_anywhere_count": 1,
+          "novel_cells": 5,
+          "world_moved_in_the_null_window": 2,
+          "panel": "#stage",
+          "panel_still_open": true,
+          "novel_words_inside_the_panel": [
+            "▮▮▮",
+            "09:01",
+            "valley.",
+            "Reyna",
+            "NOW",
+            "?",
+            "Ezekiel",
+            "+35Y"
+          ]
+        }
+      ]
+    }
+  ],
+  "null_windows": [
+    {
+      "word_moves": 29,
+      "words_that_moved": [
+        "at",
+        "@nightcount",
+        "5",
+        "outfits",
+        "holding",
+        "a",
+        "fortress",
+        "between",
+        "them.",
+        "that",
+        "lot",
+        "walls",
+        "for",
+        "one",
+        "still",
+        "the",
+        "@thecircuit",
+        "most",
+        "valley",
+        "dark.",
+        "420",
+        "blocks",
+        "with",
+        "anything",
+        "in",
+        "them",
+        "all.",
+        "valle",
+        "@nig"
+      ],
+      "pixel_fraction": 0
+    },
+    {
+      "word_moves": 18,
+      "words_that_moved": [
+        "at",
+        "@thecircuit",
+        "most",
+        "of",
+        "valley",
+        "is",
+        "still",
+        "dark.",
+        "420",
+        "blocks",
+        "with",
+        "@waterline",
+        "queue",
+        "standpipe",
+        "already.",
+        "bring",
+        "something",
+        "to"
+      ],
+      "pixel_fraction": 0
+    },
+    {
+      "word_moves": 21,
+      "words_that_moved": [
+        "at",
+        "@waterline",
+        "queue",
+        "the",
+        "standpipe",
+        "already.",
+        "bring",
+        "something",
+        "to",
+        "is",
+        "one",
+        "no",
+        "@marisol_v",
+        "water",
+        "battery",
+        "today.",
+        "se,",
+        "pero",
+        "we",
+        "drink",
+        "an"
+      ],
+      "pixel_fraction": 0,
+      "warmup": true
+    },
+    {
+      "word_moves": 0,
+      "words_that_moved": [],
+      "pixel_fraction": 0,
+      "warmup": true
+    },
+    {
+      "word_moves": 20,
+      "words_that_moved": [
+        "@marisol_v",
+        "water",
+        "is",
+        "one",
+        "battery",
+        "today.",
+        "se,",
+        "pero",
+        "we",
+        "drink",
+        "the",
+        "still",
+        "@thevalley",
+        "moving",
+        "Church",
+        "off",
+        "their",
+        "town.",
+        "an",
+        "everybod"
+      ],
+      "pixel_fraction": 0,
+      "warmup": true
+    },
+    {
+      "word_moves": 0,
+      "words_that_moved": [],
+      "pixel_fraction": 0,
+      "warmup": true
+    },
+    {
+      "word_moves": 20,
+      "words_that_moved": [
+        "@thevalley",
+        "still",
+        "no",
+        "moving",
+        "the",
+        "Church",
+        "off",
+        "their",
+        "town.",
+        "is",
+        "@nightcount",
+        "5",
+        "outfits",
+        "holding",
+        "a",
+        "fortress",
+        "between",
+        "them.",
+        "that",
+        "everybod"
+      ],
+      "pixel_fraction": 0,
+      "warmup": true
+    },
+    {
+      "word_moves": 0,
+      "words_that_moved": [],
+      "pixel_fraction": 0,
+      "warmup": true
+    },
+    {
+      "word_moves": 19,
+      "words_that_moved": [
+        "@nightcount",
+        "5",
+        "outfits",
+        "holding",
+        "a",
+        "fortress",
+        "between",
+        "them.",
+        "that",
+        "of",
+        "still",
+        "the",
+        "@thecircuit",
+        "most",
+        "valley",
+        "dark.",
+        "420",
+        "blocks",
+        "with"
+      ],
+      "pixel_fraction": 0,
+      "warmup": true
+    },
+    {
+      "word_moves": 0,
+      "words_that_moved": [],
+      "pixel_fraction": 0,
+      "warmup": true
+    },
+    {
+      "word_moves": 0,
+      "words_that_moved": [],
+      "pixel_fraction": 0
+    },
+    {
+      "word_moves": 0,
+      "words_that_moved": [],
+      "pixel_fraction": 0
+    },
+    {
+      "word_moves": 20,
+      "words_that_moved": [
+        "@marisol_v",
+        "water",
+        "is",
+        "one",
+        "battery",
+        "today.",
+        "se,",
+        "pero",
+        "we",
+        "drink",
+        "the",
+        "still",
+        "@thevalley",
+        "moving",
+        "Church",
+        "off",
+        "their",
+        "town.",
+        "an",
+        "everybod"
+      ],
+      "pixel_fraction": 0
+    },
+    {
+      "word_moves": 20,
+      "words_that_moved": [
+        "@thevalley",
+        "still",
+        "no",
+        "moving",
+        "the",
+        "Church",
+        "off",
+        "their",
+        "town.",
+        "is",
+        "@nightcount",
+        "5",
+        "outfits",
+        "holding",
+        "a",
+        "fortress",
+        "between",
+        "them.",
+        "that",
+        "everybod"
+      ],
+      "pixel_fraction": 0
+    },
+    {
+      "word_moves": 19,
+      "words_that_moved": [
+        "@nightcount",
+        "5",
+        "outfits",
+        "holding",
+        "a",
+        "fortress",
+        "between",
+        "them.",
+        "that",
+        "of",
+        "still",
+        "the",
+        "@thecircuit",
+        "most",
+        "valley",
+        "dark.",
+        "420",
+        "blocks",
+        "with"
+      ],
+      "pixel_fraction": 0
+    },
+    {
+      "word_moves": 18,
+      "words_that_moved": [
+        "at",
+        "@thecircuit",
+        "most",
+        "of",
+        "valley",
+        "is",
+        "still",
+        "dark.",
+        "420",
+        "blocks",
+        "with",
+        "@waterline",
+        "queue",
+        "standpipe",
+        "already.",
+        "bring",
+        "something",
+        "to"
+      ],
+      "pixel_fraction": 0
+    },
+    {
+      "word_moves": 21,
+      "words_that_moved": [
+        "at",
+        "@waterline",
+        "queue",
+        "the",
+        "standpipe",
+        "already.",
+        "bring",
+        "something",
+        "to",
+        "is",
+        "one",
+        "no",
+        "@marisol_v",
+        "water",
+        "battery",
+        "today.",
+        "se,",
+        "pero",
+        "we",
+        "drink",
+        "an"
+      ],
+      "pixel_fraction": 0
+    },
+    {
+      "word_moves": 20,
+      "words_that_moved": [
+        "@marisol_v",
+        "water",
+        "is",
+        "one",
+        "battery",
+        "today.",
+        "se,",
+        "pero",
+        "we",
+        "drink",
+        "the",
+        "still",
+        "@thevalley",
+        "moving",
+        "Church",
+        "off",
+        "their",
+        "town.",
+        "an",
+        "everybod"
+      ],
+      "pixel_fraction": 0
+    },
+    {
+      "word_moves": 20,
+      "words_that_moved": [
+        "@thevalley",
+        "still",
+        "no",
+        "moving",
+        "the",
+        "Church",
+        "off",
+        "their",
+        "town.",
+        "is",
+        "@nightcount",
+        "5",
+        "outfits",
+        "holding",
+        "a",
+        "fortress",
+        "between",
+        "them.",
+        "that",
+        "everybod"
+      ],
+      "pixel_fraction": 0
+    },
+    {
+      "word_moves": 0,
+      "words_that_moved": [],
+      "pixel_fraction": 0
+    },
+    {
+      "word_moves": 0,
+      "words_that_moved": [],
+      "pixel_fraction": 0
+    },
+    {
+      "word_moves": 0,
+      "words_that_moved": [],
+      "pixel_fraction": 0
+    },
+    {
+      "word_moves": 0,
+      "words_that_moved": [],
+      "pixel_fraction": 0
+    },
+    {
+      "word_moves": 0,
+      "words_that_moved": [],
+      "pixel_fraction": 0
+    },
+    {
+      "word_moves": 0,
+      "words_that_moved": [],
+      "pixel_fraction": 0
+    },
+    {
+      "word_moves": 0,
+      "words_that_moved": [],
+      "pixel_fraction": 0
+    },
+    {
+      "word_moves": 0,
+      "words_that_moved": [],
+      "pixel_fraction": 0
+    },
+    {
+      "word_moves": 0,
+      "words_that_moved": [],
+      "pixel_fraction": 0
+    },
+    {
+      "word_moves": 0,
+      "words_that_moved": [],
+      "pixel_fraction": 0
+    },
+    {
+      "word_moves": 0,
+      "words_that_moved": [],
+      "pixel_fraction": 0
+    },
+    {
+      "word_moves": 0,
+      "words_that_moved": [],
+      "pixel_fraction": 0
+    },
+    {
+      "word_moves": 0,
+      "words_that_moved": [],
+      "pixel_fraction": 0
+    },
+    {
+      "word_moves": 0,
+      "words_that_moved": [],
+      "pixel_fraction": 0
+    },
+    {
+      "word_moves": 29,
+      "words_that_moved": [
+        "at",
+        "@nightcount",
+        "5",
+        "outfits",
+        "holding",
+        "a",
+        "fortress",
+        "between",
+        "them.",
+        "that",
+        "lot",
+        "walls",
+        "for",
+        "one",
+        "still",
+        "the",
+        "@thecircuit",
+        "most",
+        "valley",
+        "dark.",
+        "420",
+        "blocks",
+        "with",
+        "anything",
+        "in",
+        "them",
+        "all.",
+        "valle",
+        "@nig"
+      ],
+      "pixel_fraction": 0
+    },
+    {
+      "word_moves": 0,
+      "words_that_moved": [],
+      "pixel_fraction": 0
+    },
+    {
+      "word_moves": 23,
+      "words_that_moved": [
+        "standpipe",
+        "already.",
+        "bring",
+        "something",
+        "to",
+        "sit",
+        "on.",
+        "@thecircuit",
+        "most",
+        "of",
+        "is",
+        "one",
+        "no",
+        "@marisol_v",
+        "water",
+        "battery",
+        "today.",
+        "se,",
+        "pero",
+        "we",
+        "drink",
+        "anyway.",
+        "t"
+      ],
+      "pixel_fraction": 0
+    },
+    {
+      "word_moves": 0,
+      "words_that_moved": [],
+      "pixel_fraction": 0
+    },
+    {
+      "word_moves": 30,
+      "words_that_moved": [
+        "@thevalley",
+        "still",
+        "no",
+        "moving",
+        "the",
+        "Church",
+        "off",
+        "their",
+        "town.",
+        "everybody",
+        "knows",
+        "it.",
+        "@marisol_v",
+        "water",
+        "is",
+        "one",
+        "of",
+        "@nightcount",
+        "5",
+        "outfits",
+        "holding",
+        "a",
+        "fortress",
+        "between",
+        "them.",
+        "that",
+        "lot",
+        "walls",
+        "for",
+        "valle"
+      ],
+      "pixel_fraction": 0
+    },
+    {
+      "word_moves": 0,
+      "words_that_moved": [],
+      "pixel_fraction": 0
+    },
+    {
+      "word_moves": 22,
+      "words_that_moved": [
+        "valley",
+        "is",
+        "still",
+        "dark.",
+        "420",
+        "blocks",
+        "with",
+        "anything",
+        "in",
+        "them",
+        "all.",
+        "@waterline",
+        "queue",
+        "standpipe",
+        "already.",
+        "bring",
+        "something",
+        "to",
+        "sit",
+        "on.",
+        "@nig",
+        "t"
+      ],
+      "pixel_fraction": 0
+    },
+    {
+      "word_moves": 23,
+      "words_that_moved": [
+        "standpipe",
+        "already.",
+        "bring",
+        "something",
+        "to",
+        "sit",
+        "on.",
+        "@thecircuit",
+        "most",
+        "of",
+        "is",
+        "one",
+        "no",
+        "@marisol_v",
+        "water",
+        "battery",
+        "today.",
+        "se,",
+        "pero",
+        "we",
+        "drink",
+        "anyway.",
+        "t"
+      ],
+      "pixel_fraction": 0
+    },
+    {
+      "word_moves": 22,
+      "words_that_moved": [
+        "at",
+        "is",
+        "one",
+        "battery",
+        "today.",
+        "se,",
+        "pero",
+        "we",
+        "drink",
+        "anyway.",
+        "@waterline",
+        "queue",
+        "still",
+        "@thevalley",
+        "moving",
+        "Church",
+        "off",
+        "their",
+        "town.",
+        "everybody",
+        "knows",
+        "it."
+      ],
+      "pixel_fraction": 0
+    },
+    {
+      "word_moves": 30,
+      "words_that_moved": [
+        "@thevalley",
+        "still",
+        "no",
+        "moving",
+        "the",
+        "Church",
+        "off",
+        "their",
+        "town.",
+        "everybody",
+        "knows",
+        "it.",
+        "@marisol_v",
+        "water",
+        "is",
+        "one",
+        "of",
+        "@nightcount",
+        "5",
+        "outfits",
+        "holding",
+        "a",
+        "fortress",
+        "between",
+        "them.",
+        "that",
+        "lot",
+        "walls",
+        "for",
+        "valle"
+      ],
+      "pixel_fraction": 0
+    },
+    {
+      "word_moves": 31,
+      "words_that_moved": [
+        "at",
+        "06:32",
+        "@nightcount",
+        "5",
+        "outfits",
+        "holding",
+        "a",
+        "fortress",
+        "between",
+        "them.",
+        "that",
+        "lot",
+        "walls",
+        "for",
+        "one",
+        "still",
+        "the",
+        "@thecircuit",
+        "most",
+        "valley",
+        "dark.",
+        "420",
+        "blocks",
+        "with",
+        "anything",
+        "in",
+        "them",
+        "all.",
+        "valle",
+        "07:19",
+        "@nig"
+      ],
+      "pixel_fraction": 0.0128
+    },
+    {
+      "word_moves": 0,
+      "words_that_moved": [],
+      "pixel_fraction": 0
+    },
+    {
+      "word_moves": 2,
+      "words_that_moved": [
+        "08:18",
+        "08:50"
+      ],
+      "pixel_fraction": 0.0123
+    }
+  ],
+  "named": [
+    {
+      "id": "cbbuild",
+      "said": "EYES round 2 and 3 called it dead",
+      "result": "NOT ON SCREEN on this route, but it is still in the game",
+      "lives_in": "slices/BOHEMIA_CITY_WORLD.html"
+    },
+    {
+      "id": "cbbig",
+      "said": "EYES round 2 and 3 called it dead",
+      "result": "NOT ON SCREEN on this route, but it is still in the game",
+      "lives_in": "slices/BOHEMIA_CITY_WORLD.html"
+    }
+  ],
+  "undecided": [],
+  "alive_on_one_press_only": [
+    {
+      "text": "▮▮▮ 06:00",
+      "id": "cityfeedbar"
+    },
+    {
+      "text": "EYESTABCONTROL",
+      "id": "__eyes_tab_btn"
+    },
+    {
+      "text": "@marisol_v",
+      "id": ""
+    },
+    {
+      "text": "Reyna NOW ?",
+      "id": ""
+    },
+    {
+      "text": "Ezekiel +35Y ?",
+      "id": ""
+    }
+  ],
+  "closed_on_tap": [
+    {
+      "at": "03:03",
+      "text": "SAVE AND KEEP PLAYING",
+      "id": "notesave",
+      "where": "frame",
+      "size": "147x44",
+      "panel": "#noterow",
+      "why": "the panel it lives in closed, and a card closes on any tap it does not recognise"
+    }
+  ],
+  "shots": [
+    "records/eyes_e26_walk_deploy/00_00_splash.png",
+    "records/eyes_e26_walk_deploy/01_01_entered.png",
+    "records/eyes_e26_walk_deploy/02_02_first_tap.png",
+    "records/eyes_e26_walk_deploy/03_03_walked.png",
+    "records/eyes_e26_walk_deploy/04_04_cards.png",
+    "records/eyes_e26_walk_deploy/05_05_map.png",
+    "records/eyes_e26_walk_deploy/06_06_end.png"
+  ],
+  "first_screen": [
+    {
+      "where": "shell",
+      "id": "gearbtn",
+      "text": "⚙",
+      "looks_tappable_because": "pointer cursor",
+      "w": 44,
+      "h": 44,
+      "x": 30,
+      "y": 91
+    },
+    {
+      "where": "frame",
+      "id": "notebtn",
+      "text": "NOTES",
+      "looks_tappable_because": "pointer cursor",
+      "w": 44,
+      "h": 44,
+      "x": 360,
+      "y": 25
+    },
+    {
+      "where": "frame",
+      "id": "cityfeedbar",
+      "text": "▮▮▮ 06:00",
+      "looks_tappable_because": "pointer cursor",
+      "w": 124,
+      "h": 20,
+      "x": 311,
+      "y": 83
+    },
+    {
+      "where": "frame",
+      "id": "",
+      "text": "@nightcount",
+      "looks_tappable_because": "pointer cursor",
+      "w": 110,
+      "h": 13,
+      "x": 311,
+      "y": 105
+    },
+    {
+      "where": "frame",
+      "id": "",
+      "text": "@thevalley",
+      "looks_tappable_because": "pointer cursor",
+      "w": 110,
+      "h": 13,
+      "x": 311,
+      "y": 196
+    },
+    {
+      "where": "frame",
+      "id": "",
+      "text": "@marisol_v",
+      "looks_tappable_because": "pointer cursor",
+      "w": 110,
+      "h": 13,
+      "x": 311,
+      "y": 288
+    },
+    {
+      "where": "frame",
+      "id": "",
+      "text": "@waterline",
+      "looks_tappable_because": "pointer cursor",
+      "w": 110,
+      "h": 13,
+      "x": 311,
+      "y": 366
+    },
+    {
+      "where": "frame",
+      "id": "",
+      "text": "@thecircuit",
+      "looks_tappable_because": "pointer cursor",
+      "w": 110,
+      "h": 13,
+      "x": 311,
+      "y": 443
+    },
+    {
+      "where": "frame",
+      "id": "",
+      "text": "@nightcount",
+      "looks_tappable_because": "pointer cursor",
+      "w": 110,
+      "h": 13,
+      "x": 311,
+      "y": 535
+    },
+    {
+      "where": "frame",
+      "id": "",
+      "text": "@thevalley",
+      "looks_tappable_because": "pointer cursor",
+      "w": 110,
+      "h": 13,
+      "x": 311,
+      "y": 627
+    },
+    {
+      "where": "frame",
+      "id": "",
+      "text": "Reyna NOW ?",
+      "looks_tappable_because": "pointer cursor",
+      "w": 36,
+      "h": 54,
+      "x": 272,
+      "y": 319
+    },
+    {
+      "where": "frame",
+      "id": "",
+      "text": "Ezekiel +35Y ?",
+      "looks_tappable_because": "pointer cursor",
+      "w": 36,
+      "h": 54,
+      "x": 311,
+      "y": 319
+    },
+    {
+      "where": "frame",
+      "id": "",
+      "text": "Perla +70Y ?",
+      "looks_tappable_because": "pointer cursor",
+      "w": 36,
+      "h": 54,
+      "x": 350,
+      "y": 319
+    }
+  ]
 }
