@@ -141,8 +141,13 @@ function ok(name, cond, detail) {
           board: a man is the same number of pixels at every zoom, and that number is the
           cell he stands in. V138's 2.24x still fails this. A GATE MUST NEVER OUTRANK A
           RULING, which is this lane's own standing note, and newest date wins. */
-       Math.abs(R.bodyPx - R.cellPx) < 0.5,
-       'the fighter is ' + R.bodyPx + ' px, and a cell is ' + R.cellPx);
+       /* RE-AIMED AGAIN 9/28, TO HIS VOTE. Rule 37a, NO ATARI: "pixel detail is never reduced...
+          the 28 px one-cell sprite is DEAD." And his DOWN on the cell card: "Now looks better than
+          what you had planned." So the ruled person on the default board is the full-detail art,
+          112, which is exactly what this arm asserted before rule 34 briefly moved it. Newest
+          date wins, and the newest is his vote. */
+       Math.abs(R.bodyPx - 112) < 0.5,
+       'the fighter is ' + R.bodyPx + ' px, and the full-detail art is 112');
     /* RE-AIMED 9/28 WITH THE ARM ABOVE, AND THE CLAIM IS WORD FOR WORD THE SAME: a tile is
        TILE_WIDE SPRITE WIDTHS. What moved is the sprite. This multiplied by a literal 112
        because that was the ruled body when it was written; rule 34 makes the ruled body one

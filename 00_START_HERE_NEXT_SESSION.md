@@ -42186,6 +42186,50 @@ a memory reset. HE WILL NEVER TYPE ANYTHING BUT THE ONE WORD AGAIN. ***
     I will never paste anything to you again. From here on, the one word is the whole
     instruction.
 
+*** [fight on the grid] ROUND 4 -- V230 NO ATARI. I SHIPPED THE BOARD HE VOTED DOWN; IT IS UNDONE. ***
+Stamp 9/28d. Record: records/BOHEMIA_COMBAT_NO_ATARI_HIS_VOTE_UNDONE_9_28_26.md
+
+HIS VERDICTS ON THIS LANE'S CARDS (read first, as the board says):
+  combat-one-house-is-not-one-tile-9-27  DOWN  "Now looks better than what you had planned, bro that was really bad"
+  combat-the-only-high-ground-9-27       UP    "a building... with the roof that you can be on instead of a collapsed
+                                               roof or maybe a three-story building... look at the way Battle
+                                               Brothers does it... the buildings have to get taller"
+  combat-the-button-your-thumb-finds-9-24 UP   "Were deciding if the movement pad is even in the game or not"
+  combat-the-same-man-every-frame-9-24   DOWN  (no words)
+RULE 37a LOCKED: "NO ATARI. Pixel detail is never reduced... the 32 px cell and the 28 px one-cell
+sprite are DEAD as defaults. BEFORE ANY GRID IS BUILT, he sees OPTIONS." s16: the world unit is
+DIRECTION's 0.75 m cell; the pixel size is HIS pick from [tile options] (WORLD + COOK).
+
+WHAT I HAD DONE: V227 shipped the right-hand board of that card (3 m cells, 32 px man) one round
+before he saw it. Wrong on the pixels (Atari) AND the world unit (3 m, not 0.75). ROOT CAUSE: I
+made a pick the law now says is his, from options he had not seen.
+
+V230: THE SCALE IS A ROW IN A TABLE AND THE DEFAULT ROW IS HIS.
+  house (DEFAULT)  tile 12 m, man 112 px FULL DETAIL, TILE_WIDE 1.75, reach 1/2/3
+  cell  (option)   tile  3 m, man  32 px,             TILE_WIDE 1,    reach 4/8/12
+Both keep his 12/24/36 m. The cell row stays so [tile options] can show a candidate IN THE REAL
+FIGHT with one call, setBoardOpt(name); nothing picks it by default. The CELL_* constants that
+were about to hold house numbers are BOARD_* (names stop lying). V229's 4x4 lot layout runs ONLY
+on the cell row (cellBoard()); the layout he approved is back. V228's one-tile high ground KEPT:
+on the house board it is one HOUSE-sized raised block 1-3 houses away, which is his UP.
+
+GATES: no_atari_gate 10/0 (was the_fight_is_on_cells_gate asserting the rejected board as default
+-- TURNED OVER, not deleted, because a gate green on a thing he rejected is what the 9/12 note
+names); combat_scale 8/0 (body arm back to the full-detail 112); one terrain effect 7/0 (the high
+ground still fires on the house board); combat floor 13/0; floor cache 17/0; runs smoke 1/0.
+lot_is_sixteen_tiles 12/10, its known blind signature (the ruler leg's arithmetic holds on both
+rows). vote_tab 30/1 is the COORDINATOR's two new rows missing sha and show, not mine.
+
+NOT REGISTERED IN VOTE ON PURPOSE: the round's thing is the correction itself, in the COMBAT tab;
+a card asking him to thumb it would re-ask his own ruling, which NOTES ARE RULINGS forbids.
+
+NEXT, IN ORDER: (1) HIGH GROUND IS A BUILDING, his UP and rule 37 s7 (two and three storeys, a
+standing roof is high ground, a collapsed one is not) -- the rule works, the picture is a
+staircase among crates; with COOK. (2) HOW A TAP MOVES A MAN ON A SQUARE GRID (37g gives it to
+this lane) and movement GLIDES (37h, with ANIMATION). (3) The wordless DOWN on the same-man card
+is recorded; V225 is not reverted, because it is what keeps the full-detail man one size at every
+camera width -- which is the board he said looks better.
+
 *** [fight on the grid] ROUND 3 -- V228 THE MOUND IS ONE CELL AND IT FIRES; V229 A HOUSE IS 4x4. ***
 Stamp 9/28c. Record: records/BOHEMIA_COMBAT_THE_MOUND_AND_THE_HOUSES_9_28_26.md
 

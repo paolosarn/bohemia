@@ -24,6 +24,7 @@ for t in \
   tools/bohemia_the_cell_board_patch.py \
   tools/bohemia_the_mound_is_one_cell_patch.py \
   tools/bohemia_a_house_is_four_by_four_patch.py \
+  tools/bohemia_no_atari_patch.py \
 ; do
   [ -f "$t" ] || { echo "MISSING $t"; exit 1; }
   printf '%-58s ' "$t"

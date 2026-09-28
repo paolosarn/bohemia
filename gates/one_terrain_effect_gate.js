@@ -214,8 +214,9 @@ const ok = (n, c, note) => { c ? (pass++, console.log('  PASS ' + n + (note ? ' 
        times closer to a mound, for free, because the board changed scale under it. Still
        not one cell, so the leg stands. The CLAIM never moved; only the unit it prints. */
     ok('*** AND THE HIGH GROUND IS A MOUND, NOT A CITY BLOCK (rule 34: "the mound is ONE CELL"). '
-       + '*** It was a slab 9 houses across, then 8.86 cells; V228 made it one. It measures '
-       + deckAvg + ' cells across.',
+       + '*** It was a slab 9 tiles across; V228 made it one tile. On the default board a tile '
+       + 'is a house, so it is ONE BUILDING you can get up on -- his 9/27 up: "a building with the '
+       + 'roof that you can be on". It measures ' + deckAvg + ' tiles across.',
        deckAvg > 0 && deckAvg <= 1.5,
        deckAvg + ' cells across, about ' + (deckAvg * R.tileM).toFixed(0) + ' m, against '
        + 'one cell of ' + R.tileM + ' m');
