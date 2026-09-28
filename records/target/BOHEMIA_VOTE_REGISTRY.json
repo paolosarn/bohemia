@@ -2450,6 +2450,19 @@
        "how": "image",
        "src": "vote/COOK_THE_CELL_IS_THE_STEP.png"
       }
+     },
+     {
+      "id": "lifecity-places-you-can-see-and-never-enter-9-28",
+      "kind": "tile",
+      "lane": "life+city",
+      "sha": "57b10258",
+      "made": "9/28",
+      "title": "PLACES YOU CAN SEE AND NEVER ENTER",
+      "why": "Six real spots pulled straight out of the game, every square coloured by one answer. Green, you can walk there. Grey, it is solid. Blue, water. RED means floor that is walled in with no way in at all: you can see it and you can never get there. Across the whole valley there were 25,544 red squares in 40 places. Most were not a missing door, they were something you step over that the game treated as a wall. Top row: a parking lot sealed off by its own curb, fixed, now green. Middle row: nine ponds where the dirt banks between them, the ones the road runs along, were walls, fixed, now green. Bottom row is what is still broken: a stadium field nobody can reach and a church courtyard with no way in. Those need real gates and they are next. From now on none of it can get worse without the checker naming the place. Thumbs up if red-means-you-cannot-get-there is the right thing to chase. Thumbs down and tell me which of these should stay locked on purpose.",
+      "show": {
+       "how": "image",
+       "src": "vote/LIFECITY_THE_SAME_STREET_THREE_TIMES_9_24.png"
+      }
      }
   ],
   "verdicts": [
