@@ -112,3 +112,11 @@ Mars bases, GDD v2) and against s10's default A; nothing is canon until he rules
 (e) Assassin's Creed is NAMED by him for the story frame and the ending twist only, "possibly"; study allowed,
 nothing built from it until an ending is ruled. Ocarina of Time stands as this law's reference.
 
+## 12. WHEN A MAN DIES IN ONE ACT (Paolo's hole 9/28; the answer is s2(c) applied to people; records/BOHEMIA_PAOLO_WHEN_A_MAN_DIES_IN_ONE_ACT_9_28_26.md)
+Time in the derive flows one way. A death in act 1 removes that line from acts 2 and 3 on the next flip forward
+(no heir unless he already had a kid). A death in act 2 or 3 touches nothing in the past; it is that act's own
+ledger, and you recruit there. A change in the past re-derives the future's ROSTER but never un-does the future's
+deeds. A man recruited later in the past appears as an heir on the next flip forward. The main character never
+dies (37g). Heir thresholds are TUNING's rows (default: survived the act, or 60 days with the company, or a
+family in the background; heirs 15 to 35 years old; half the parent's traits; the family's gear).
+
