@@ -18239,7 +18239,53 @@ HOW TWENTY-TWO ROUNDS COMPOSE, written once now that Q1-Q22 are all shipped:
 NEXT IN THIS LANE: Q23 [who eats first].
 
 
-FACTIONS (factions-ovkjpf): 9/28 (round 46) LATEST -- *** [home bases] SHIPPED, SCHOOL ONLY.
+FACTIONS (factions-ovkjpf): 9/28 (round 47) LATEST -- *** [home bases] ROUND TWO: THE MARKER LIST IS BUILT,
+AND ROUND ONE'S FINDING WAS WRONG, AND THAT WAS MINE. *** Round one closed the row SHIPPED after the school half alone
+(rules 6 and 11: it also dropped his ruling from the line); reopened to CLAIMED first thing this round, ruling restored.
+ROUND ONE'S FINDING, "28 parties already beat his 'way more than fourteen'", compared us to his guess and never measured
+Battle Brothers. Measured now, from search snippets (dev blog, wiki, Steam are egress-blocked): BB PUBLISHES NO FIXED PARTY
+COUNT; every location, settlements and hostile camps alike, BUYS parties out of its own resources and sends them out
+(smaller ones fewer), a camp is weaker until its party returns, players report a group every one to two days; a typical
+map is 17 settlements across three houses; the "24 and 40" a mod mentions is a warband's SIZE, not a count. Fixed in the
+library (reference/library/battle_brothers/01_WORLDMAP.md, PARTIES AT ONCE). THE REAL FINDING, in our own code: THE 28
+PARTIES ARE A FIXED ROSTER. bohemia_parties.all() runs once at boot, every party walks to its destination and back for
+ever, nothing buys, loses or replaces one; only the SEND half of WORLD's "Places BUY and SEND" row exists. So a base that
+fell would keep sending patrols out of a ruin. Also live: day one has every party standing ON its base (none advanced),
+after two waking days 24 of 28 are away, at most 10 cells; ctBases() equals derive() 14 for 14, one definition, no drift.
+BUILT (engine only, rule 18 hold untouched): engine/bohemia_homebases.js + gates/homebases_gate.js (HOME BASES, 59
+checks, red 20 ways by mutation). Fourteen whole bases (held, yours, taken, ruined), a per-act ledger in the century
+module's shape (took, ruined, heldBy at an act, netFor and ruinsThrough signed for the derive: raided falls), the hard
+ones late in an act off his own DEPTH thirds (openAt = DEPTH minus camp: a camp from the start, a town a third in, a
+fortress two thirds in; progress is the CALLER's, absent means null), PARTIES LEFT (a party exists because its base
+still holds it; empty ledger silences nobody), and markers(): ids, classes and numbers, never a sentence, gate-refused.
+THE DEAD-SHAPE GATE LEG: the logic reads no cell, grid or turf, and nothing but the named few files touches the
+superseded 9,216-cell ledger. THE COOK, in VOTE: THE FOURTEEN HOME BASES ON THE MAP (vote/FACTIONS_THE_FOURTEEN_HOME_BASES_9_28.html,
+id factions-the-fourteen-home-bases-9-28): real frames of the game's own map, same camera: as it is / the list / a raid /
+the north pile close up before and after / early, a third in, two thirds in. Measured on it: at the map's current zoom
+6 of the 14 markers overlap another (north pile at 6.3 to 13.4 px), which is the map's pixel count, not the list.
+HOW THE PICTURE WAS MADE, for the next cook: driver toMap() lands on the SKY rung ('REGION'), where skyValley clips half
+the valley under the horizon and ctBases diamonds are not drawn where you think; call skyExit(), set city to 48,48 and
+panY 22, then wrap render() so the overlay follows every redraw (the map draws on demand, no loop); positions are the
+list's x,y through the game's own iso(); advance the parties with the game's own partiesAdvance(waking*2) or all 28
+hide under their bases; a ruin must draw last or Network covers the Mob; quantizing the PNGs to 160 colours washed the
+crew colours out (kept full colour, 2x downscale instead). RETIRED with it: two of my own stale VOTE cards (the
+two-ladders ask died with rule 37e, round one's card carried the wrong claim), and [track leg] (rule 38b removed the walk it
+spoke on; not built: shipping a polish fix to a killed surface twice over is STOP PRODUCING). ROUTED: WORLD [future
+city] (bohemia_future.js) still reads the OLD ledger's netFor in its territory field: point a bases field at
+BohemiaHomeBases.netFor / ruinsThrough, which is the "raided falls" number it says it cannot read; WORLD [parties move]
+owns the missing BUY half, partiesLeft is the seam; COMBAT [bb fight] calls took() and ruined() when a raid ends;
+RUN [bb map] and COOK [bb map art] draw from markers(); UI [settlement screen] reads state and raidable; QUESTS [the
+siege] SHIPPED QR-R this round, read it before the siege state is added. WHEN THE HOLD LIFTS, my own code: the map still
+paints per-lot territory ink and a border ([who holds], [colours fixed], 9/6), which rule 37e says must not be drawn as
+territory colour: it leaves the play surface then. [PENDING coordinator] CLAUDE.md's pillars paragraph still says the
+house-sized fight tile is dead for good; VAMILY rule 38's own correction the same hour says A COMBAT TILE IS A HOUSE
+stands. Two live files disagree. NEXT IN THIS LANE: [home bases] and [territory ledger] stay CLAIMED. Next round: each
+base "doing a different thing" as facts on its marker, power and water, read off minesFor and the pumps and handed in
+(Homeless holds 254 of 308 generating cells, Anarchists all the live water: two bases already differ), never typed;
+then the derive reading the new ledger once WORLD wires it. WHAT WE DO DIFFERENTLY FROM BB (rule 39b) is in the record.
+Record: records/BOHEMIA_HOME_BASES_ROUND_TWO_THE_MARKER_LIST_9_28_26.md.
+
+FACTIONS (factions-ovkjpf): 9/28 (round 46) LATEST -- *** [home bases] SHIPPED, SCHOOL ONLY. (CORRECTED IN ROUND 47: it was not SHIPPED, and its central claim was wrong; see round 47 above.)
 His third votes item 5 killed the 9,216-cell painted territory ledger: "TERRITORY IS NOT A
 MECHANIC; HOME BASES AND ROAMING PARTIES ARE." Measured live on the running alpha instead of
 guessing: 28 parties already roam the map right now (14 patrol, 10 caravan, 4 crew -- already

@@ -92,6 +92,18 @@ wraps `render()` rather than drawing once.
   (rule 38b). The direction a party is heading is now carried by the map trail's fade and by the marker
   list's party `at` and `agenda`. WORDS' Q23 lines stay in banks/ untouched.
 
+## 5b. WHAT WE DO DIFFERENTLY FROM BATTLE BROTHERS (rule 39b: so nobody can call it a rip-off)
+- BB's settlements burn in a late crisis and stay a scenery of the campaign. OURS ARE A LEDGER THE FUTURE IS COMPUTED
+  FROM: a base taken or ruined is a signed mark, and act 2 and act 3 are derived from it (raided falls, reclaimed
+  rises), so the same map can be drawn at three dates (rule 31, 37c). BB has no derive across acts.
+- BB's three houses hold a third of the map each. OURS ARE FOURTEEN CREWS WITH THEIR OWN COLOURS, and a base's job is
+  what the valley runs on, power and water and lights, not gold and food: Homeless powers the valley from a camp,
+  Anarchists hold all the live water, and a crew that cannot pay goes dark a block at a time (lights, not a flag).
+- BB labels its map. OURS CARRIES NO TEXT: a marker is an id and a class, and the world says it with lights, people and
+  trails, never a label (37e).
+- BB's parties are bought and lost by an economy we do not have yet. Ours are a fixed roster today, which is the honest
+  gap in section 1, not a difference to be proud of.
+
 ## 6. ROUTED
 - **WORLD [future city]** (bohemia_future.js, not mine): the report card's `territory` field reads the
   superseded ledger's `netFor`. Point a `bases` field at `BohemiaHomeBases.netFor(rec, act)` and `ruinsThrough`;
