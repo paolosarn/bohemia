@@ -2452,19 +2452,6 @@
    }
   },
   {
-   "id": "lifecity-places-you-can-see-and-never-enter-9-28",
-   "kind": "tile",
-   "lane": "life+city",
-   "sha": "b202b0e7",
-   "made": "9/28",
-   "title": "PLACES YOU CAN SEE AND NEVER ENTER",
-   "why": "Six real spots pulled straight out of the game, every square coloured by one answer. Green, you can walk there. Grey, it is solid. Blue, water. RED means floor walled in with no way in at all: you can see it and never get there. Across the valley there were 25,055 red squares in 40 places. Top row: a parking lot sealed off by its own curb, fixed. Middle row: nine ponds where the dirt banks the road runs along were walls, fixed. Bottom row: the Church's home base, where the garden behind the church had a wall all the way round and no gate, even though the church's own notes say there is one. It has two gates now. Thumbs up if red-means-you-cannot-get-there is the right thing to chase. Thumbs down and tell me which of these should stay locked on purpose.",
-   "show": {
-    "how": "image",
-    "src": "vote/LIFECITY_THE_SAME_STREET_THREE_TIMES_9_24.png"
-   }
-  },
-  {
    "id": "coordinator-the-map-floor-is-the-phones-pixels-9-28",
    "kind": "verdict",
    "lane": "coordinator",
@@ -2623,19 +2610,6 @@
    "show": {
     "how": "text",
     "src": "THE ANGEL'S VERBS ALREADY SHIPPED. THE FLOOR DID NOT.\n\nPEOPLE's make it right (9/7) already built settled, paid, forgiven, spared -- correctly grounded: amends raise forgiveness, severity lowers it, only the wronged person decides for themselves, forgiven is not forgotten.\n\nWHAT REAL RECONCILIATION STILL SPLITS THAT THE CODE DOES NOT:\n\n1. NO FLOOR. wouldSquare() is one sum, no exception. A heavier wrong needs more good deeds -- but it is never categorically different, only a bigger number. Real practice treats some harms as a different KIND, not a bigger number of the same kind.\n\n2. FORGIVE IS NOT TRUST. You can genuinely stop carrying a grudge and still never let someone back into a position to hurt you again. The code has one bit, d.right, for both.\n\n3. THE APOLOGY'S MIDDLE STEPS ARE MISSING. Real apologies run acknowledgment, explanation, remorse, reparation, a testable promise. The code has acknowledgment (the button) and reparation (priceOf). Explanation, remorse and a testable promise have no representation.\n\nWhich deed kinds should carry the floor is his call, not mine. What the mechanism is missing is the shape of the floor itself."
-   }
-  },
-  {
-   "id": "lifecity-where-a-raid-is-fought-9-28",
-   "kind": "tile",
-   "lane": "life+city",
-   "sha": "b202b0e7",
-   "made": "9/28",
-   "title": "WHERE A RAID IS FOUGHT",
-   "why": "You said fourteen home bases you can raid. These are six of them, pulled straight out of the game, and RED is floor inside them that nobody can walk onto. If a fight happens here, part of the ground does not connect to the rest and nothing on the screen tells you. The Remnants' police station has two inner yards with no way in. The Volunteers' medical campus has a parking lot where every single stall is walled off. The Caravans' bus terminal has a doorway that opens onto nothing. The church was the worst one and I fixed it this round; these six are next, biggest first. Thumbs up and I fix these in this order. Thumbs down and tell me which of these places a raid should never happen in anyway.",
-   "show": {
-    "how": "image",
-    "src": "vote/LIFECITY_WHERE_A_RAID_IS_FOUGHT_9_28.png"
    }
   },
   {
@@ -2868,6 +2842,19 @@
    "show": {
     "how": "page",
     "src": "BOHEMIA_MODS_AT_BOOT_9_28_26.html"
+   }
+  },
+  {
+   "id": "lifecity-the-street-falls-and-the-house-stays-lit-9-28",
+   "kind": "tile",
+   "lane": "life+city",
+   "sha": "60174a9f",
+   "made": "9/28",
+   "title": "THE STREET FALLS AND THE EMPTY HOUSE STAYS LIT",
+   "why": "You gave the same-street-three-times picture a thumbs up, and then you said the future can get worse. So this is that street in act 3 after three different pasts, and the game decides what stands, not me: the numbers come straight from the part that computes the future from what you did. Built a lot: panels on both sides, the swap stand, a second lamp. Built some: less. Tore it down: the solar rack stripped bare, the cabinet door ripped off, the swap stand a burn mark, the windows it fed gone dark. The old houses never come down, because the game cannot count wrecking the city that was already there yet, so I did not fake it. And in every one of the four, the empty house is still lit with nobody in it. Everything around it rises or falls and it never changes. Thumbs up and this is how an act draws itself from your past. Thumbs down and tell me which future is wrong.",
+   "show": {
+    "how": "image",
+    "src": "vote/LIFECITY_THE_STREET_FALLS_AND_THE_HOUSE_STAYS_LIT_9_28.png"
    }
   }
  ],
