@@ -2856,8 +2856,21 @@
   "asked": "UP or DOWN",
   "when": "2026-09-28",
   "draft": true
-}
-  ],
+},
+  {
+   "id": "mods-mods-at-boot-9-28",
+   "kind": "ui",
+   "lane": "mods",
+   "sha": "pending",
+   "made": "9/28",
+   "title": "MODS AT BOOT",
+   "why": "Research, nothing in the game. This is what the loading screen would say about mods, with a real button that reads a file off your phone. Press TWO SAMPLE MODS to see one mod override another and get named. Add your own file to see a bad one get refused without crashing. Thumb up if this is how mods should show up when the game starts.",
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_MODS_AT_BOOT_9_28_26.html"
+   }
+  }
+ ],
   "verdicts": [
   {
    "id": "people-the-one-who-walks-with-you-9-21",

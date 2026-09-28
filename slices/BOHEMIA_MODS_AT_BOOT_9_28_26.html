@@ -1,0 +1,132 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mods At Boot</title>
+<style>
+:root{--bg:#0b0d0c;--ink:#cfd6cc;--dim:#6f7a70;--red:#d8352a;--amber:#d9a441;--ok:#7fb069;--line:#1d2320}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.4 ui-monospace,Menlo,Consolas,monospace;overflow-x:hidden}
+body:after{content:"";position:fixed;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(0,0,0,.28) 0 1px,transparent 1px 3px)}
+.wrap{max-width:560px;margin:0 auto;padding:14px 16px 40px}
+h1{font-size:20px;letter-spacing:.08em;margin:6px 0 2px;text-transform:uppercase}
+.sub{color:var(--dim);font-size:12px;margin-bottom:12px}
+.log{border:1px solid var(--line);background:#0e1110;padding:10px;min-height:150px;font-size:13px}
+.log div{padding:1px 0;white-space:pre-wrap;word-break:break-word}
+.t{color:var(--dim)}.ok{color:var(--ok)}.warn{color:var(--amber)}.bad{color:#f0908a}
+.btns{display:flex;gap:8px;margin:10px 0}
+.btns button,.btns label{flex:1;padding:13px 4px;background:#141816;color:var(--ink);border:1px solid var(--line);font:inherit;letter-spacing:.06em;text-align:center;cursor:pointer;display:block;margin:0}
+.btns button:active,.btns label:active{border-color:var(--red)}
+input[type=file]{position:absolute;left:-9999px}
+textarea{width:100%;height:110px;background:#101312;color:var(--ink);border:1px solid var(--line);font-family:inherit;font-size:12px;padding:8px}
+.h{color:var(--dim);font-size:11px;letter-spacing:.1em;margin:14px 0 4px}
+.mod{display:flex;justify-content:space-between;gap:8px;padding:8px 0;border-bottom:1px solid var(--line);font-size:13px}
+.mod button{background:none;border:1px solid var(--line);color:var(--dim);font:inherit;padding:2px 8px}
+.note{color:var(--dim);font-size:11px;margin-top:14px}
+</style></head><body><div class="wrap">
+<h1>Mods at boot</h1>
+<div class="sub">MODS. Draft, not in the game. What the loading screen would say, and a real button that reads a file off your phone. Try it: it never leaves this page.</div>
+<div class="h">THE LOADING SCREEN LINE</div>
+<div class="log" id="log"></div>
+<div class="btns"><label for="pick">ADD A MOD FILE</label><button id="reload">REBOOT</button><button id="clear">REMOVE ALL</button></div>
+<input type="file" id="pick" accept=".json,.txt,application/json,text/plain" multiple>
+<div class="h">OR PASTE ONE</div>
+<textarea id="paste" spellcheck="false" autocapitalize="off" autocorrect="off" placeholder='{"mod":{"id":"x","name":"X","version":"1.0.0","schema":1},"weapons":{"pistol":{"mag":17}}}'></textarea>
+<div class="btns"><button id="addpaste">ADD PASTED MOD</button><button id="sample">TWO SAMPLE MODS</button></div>
+<div class="h">INSTALLED ON THIS PHONE</div>
+<div id="mods"></div>
+<div class="note" id="note"></div>
+</div>
+<script>
+var BASE={"pistol":{"mag":15,"startLoaded":15,"cap":8,"lethal":0.2,"width":1,"arc":1.31,"rangeEff":6,"rangeMax":12},"smg":{"mag":30,"startLoaded":30,"cap":2,"lethal":0.35,"width":0.8,"arc":1.05,"rangeEff":10,"rangeMax":15},"rifle":{"mag":20,"startLoaded":20,"cap":1,"lethal":0.55,"width":1.3,"arc":0.7,"rangeEff":20,"rangeMax":16},"shotgun":{"mag":6,"startLoaded":6,"cap":2,"lethal":1,"width":1.2,"arc":0.96,"rangeEff":5,"rangeMax":9}};
+var GAME_SCHEMA=1;
+var FIELDS=['mag','startLoaded','cap','lethal','width','arc','rangeEff','rangeMax'];
+function clone(o){return JSON.parse(JSON.stringify(o));}
+function merge(base,mod){
+  var out=clone(base),log=[];
+  if(!mod||typeof mod!=='object'||!mod.mod||typeof mod.mod.id!=='string'){return {out:out,log:[['bad','SKIPPED: no manifest. A mod needs mod.id, name, version, schema.']]};}
+  var m=mod.mod;
+  if(m.schema!==GAME_SCHEMA)log.push(['warn',m.name+': written for data schema '+m.schema+', this game reads '+GAME_SCHEMA+'. Loaded anyway, may not fit.']);
+  var w=mod.weapons||{};
+  Object.keys(w).forEach(function(id){
+    var row=w[id],exists=id in out,next=exists?clone(out[id]):{},ok=true;
+    Object.keys(row).forEach(function(k){
+      if(FIELDS.indexOf(k)<0){log.push(['warn',id+'.'+k+': no such field, ignored. Fields are: '+FIELDS.join(', ')]);return;}
+      if(typeof row[k]!=='number'||!isFinite(row[k])){log.push(['bad',id+'.'+k+': wants a number, got '+JSON.stringify(row[k])+'. That one value is skipped.']);return;}
+      next[k]=row[k];
+    });
+    if(!exists){var miss=FIELDS.filter(function(f){return !(f in next);});
+      if(miss.length){log.push(['bad',id+': NEW gun needs every field, missing '+miss.join(', ')+'. Gun skipped, the rest of the mod still loads.']);ok=false;}
+      else log.push(['ok',id+': new gun added.']);}
+    else{var ch=Object.keys(row).filter(function(k){return FIELDS.indexOf(k)>=0&&next[k]!==out[id][k];});log.push([ch.length?'ok':'warn',id+': '+(ch.length?'changed '+ch.join(', ')+'.':'nothing changed.')]);}
+    if(ok)out[id]=next;
+  });
+  log.push(['ok','Mod "'+m.name+'" v'+m.version+' finished. The game did not crash.']);
+  return {out:out,log:log};
+}
+var KEY='bohemia_mods_boot_demo';
+var LIMIT_BYTES=20000,LIMIT_MODS=12;
+function load(){try{return JSON.parse(localStorage.getItem(KEY)||'[]');}catch(e){return null;}}
+function save(a){try{localStorage.setItem(KEY,JSON.stringify(a));return true;}catch(e){return false;}}
+var notes=[];var store=load();var storeOK=store!==null;if(!storeOK)store=[];
+function order(mods){
+  var out=[],seen={},state={},skipped=[];
+  var byId={};mods.forEach(function(m){byId[m.mod&&m.mod.id]=m;});
+  function visit(m,stack){var id=m.mod.id;if(state[id]==='done'||state[id]==='skipped')return;
+    if(state[id]==='doing'){var at=stack.indexOf(id),ring=stack.slice(at);ring.forEach(function(x){state[x]='skipped';});
+      skipped.push([ring.join(', '),'loadAfter loop: '+ring.concat(id).join(' -> ')+'. All of them skipped.']);return;}
+    state[id]='doing';((m.mod.loadAfter)||[]).forEach(function(d){if(byId[d])visit(byId[d],stack.concat(id));});
+    if(state[id]==='doing'){out.push(m);state[id]='done';}}
+  mods.forEach(function(m){if(m.mod&&typeof m.mod.id==='string')visit(m,[]);});
+  return {out:out,skipped:skipped};
+}
+function boot(){
+  var log=document.getElementById('log');log.innerHTML='';
+  function L(c,t){var d=document.createElement('div');d.className=c;d.textContent=t;log.appendChild(d);}
+  L('t','BOHEMIA BOOT  base data embedded, 4 guns');
+  var res={out:JSON.parse(JSON.stringify(BASE)),log:[]},owners={},ok=0,skip=0,warn=0;
+  if(!storeOK){L('warn','MODS  this browser blocks storage, running with none');}
+  else if(!store.length){L('t','MODS  none installed. Nothing extra loaded.');}
+  else{
+    var o=order(store);
+    o.skipped.forEach(function(s){L('bad','MOD SKIPPED  '+s[0]+'  '+s[1]);skip++;});
+    o.out.forEach(function(m){
+      var r=merge(res.out,m);
+      var bad=r.log.filter(function(l){return l[0]==='bad';}).length,w=r.log.filter(function(l){return l[0]==='warn';}).length;
+      Object.keys(m.weapons||{}).forEach(function(id){Object.keys(m.weapons[id]).forEach(function(f){var k=id+'.'+f;if(owners[k]&&owners[k]!==m.mod.id&&FIELDS.indexOf(f)>=0){L('warn','CONFLICT  '+k+'  '+m.mod.name+' overrides '+owners[k]+' (loads later, wins)');warn++;}owners[k]=m.mod.id;});});
+      res.out=r.out;
+      L(bad?'bad':w?'warn':'ok','MOD '+(bad?'PARTLY LOADED':'LOADED')+'  '+m.mod.name+' v'+m.mod.version+(bad?'  '+bad+' problem(s)':'')+(w?'  '+w+' warning(s)':''));
+      r.log.forEach(function(l){if(l[0]!=='ok')L(l[0],'   '+l[1]);});
+      bad?skip++:ok++;
+    });
+  }
+  notes.forEach(function(n){L(n[0],'>> '+n[1]);});notes=[];
+  var p=res.out.pistol;
+  L('t','FIGHT READS  pistol mag '+p.mag+', '+Object.keys(res.out).length+' guns');
+  L(skip?'warn':'ok','MODS  '+ok+' loaded, '+skip+' with problems, '+warn+' conflicts. The game started anyway.');
+  var box=document.getElementById('mods');box.innerHTML='';
+  store.forEach(function(m,i){var d=document.createElement('div');d.className='mod';
+    var s=document.createElement('span');s.textContent=((m.mod&&m.mod.name)||'(no name)')+'  v'+((m.mod&&m.mod.version)||'?');
+    var b=document.createElement('button');b.textContent='REMOVE';b.onclick=function(){store.splice(i,1);save(store);boot();};
+    d.appendChild(s);d.appendChild(b);box.appendChild(d);});
+  if(!store.length)box.innerHTML='<div class="t">nothing yet</div>';
+}
+function addText(text,name){
+  if(text.length>LIMIT_BYTES){flash('bad','TOO BIG  '+(name||'that file')+' is '+text.length+' bytes, the limit is '+LIMIT_BYTES+'. Not added.');boot();return;}
+  if(store.length>=LIMIT_MODS){flash('bad','TOO MANY MODS  the limit is '+LIMIT_MODS+'. Not added.');return;}
+  var o;try{o=JSON.parse(text);}catch(e){flash('bad','NOT JSON  '+(name||'that')+' could not be read ('+e.message+'). Not added.');boot();return;}
+  if(!o||!o.mod||typeof o.mod.id!=='string'){flash('bad','NO MANIFEST  '+(name||'that')+' has no mod.id. Not added.');boot();return;}
+  store=store.filter(function(m){return m.mod.id!==o.mod.id;});
+  store.push(o);if(!save(store))flash('warn','could not save on this phone, it will be gone after reboot.');
+  boot();
+}
+function flash(c,t){notes.push([c,t]);}
+document.getElementById('pick').onchange=function(e){var fs=[].slice.call(e.target.files||[]);var n=fs.length;
+  fs.forEach(function(f){var r=new FileReader();r.onload=function(){addText(String(r.result),f.name);};r.onerror=function(){flash('bad','COULD NOT READ '+f.name);boot();};r.readAsText(f);});e.target.value='';};
+document.getElementById('addpaste').onclick=function(){var t=document.getElementById('paste').value.trim();if(t)addText(t,'pasted text');};
+document.getElementById('reload').onclick=boot;
+document.getElementById('clear').onclick=function(){store=[];save(store);boot();};
+document.getElementById('sample').onclick=function(){
+  addText(JSON.stringify({mod:{id:"bigger-mags",name:"Bigger Mags",version:"1.0.0",schema:1},weapons:{pistol:{mag:17,startLoaded:17}}}),'sample');
+  addText(JSON.stringify({mod:{id:"snub-pistol",name:"Snub Pistol",version:"0.3.0",schema:1,loadAfter:["bigger-mags"]},weapons:{pistol:{mag:6,startLoaded:6,rangeEff:4}}}),'sample');};
+document.getElementById('note').textContent='Rules shown here: a mod is data, never code, so a file from a stranger cannot run anything. Size limit '+LIMIT_BYTES+' bytes, '+LIMIT_MODS+' mods. On an iPhone, Safari clears saved data after 7 days without a visit unless the game is added to the Home Screen, so a mod can vanish. The real loading screen should say so (not built here).';
+boot();
+</script></body></html>

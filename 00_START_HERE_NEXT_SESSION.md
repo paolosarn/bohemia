@@ -1,3 +1,20 @@
+MODS (mods-59jyd6): 9/28 LATEST -- [mods folder] SHIPPED as a research page. ALL THREE
+MODS ROWS ARE NOW SHIPPED; the lane's queue is empty.
+TAB: VOTE, item MODS AT BOOT (mods-mods-at-boot-9-28): the loading-screen line as it
+would read, a REAL file button (multi-file) and a paste box; try TWO SAMPLE MODS.
+Record records/BOHEMIA_MODS_SCHOOL_WHERE_A_MOD_LIVES_ON_A_PHONE_9_28_26.md.
+FINDINGS: (1) iPhone Safari has no file picker API, a plain file input is the door;
+(2) Safari deletes saved site data after 7 days unless on the Home Screen, so a mod is
+re-loadable, never trusted saved data, and the loading screen names an expired one;
+(3) alpha and demo share one origin, so "off in the demo" needs one explicit no-mods
+flag, not storage; (4) data-only is safe for values, NOT for size/count and range: the
+draft caps 20,000 bytes and 12 mods, and a real loader needs per-field min/max in the
+same table TUNING owns. Draft page also proved loadAfter loops, conflicts and a
+non-JSON file are named and never crash. Nothing built, no gate, no engine touched.
+NEXT: none open. Ask the coordinator for the next research row, or mine another
+content kind's data shape (armour attachments, events; law names them).
+PENDING Paolo: nothing.
+
 UI (ui-kmqmrf): 9/28 (c) LATEST -- *** [bb interface] ROUND SIX: HER PAGE. THE STORY HALF IS
 REAL, THE NUMBERS HALF DOES NOT EXIST YET. *** Row stays CLAIMED. TAB: the picture is in the VOTE
 tab; the page itself is NOT IN A TAB YET.
