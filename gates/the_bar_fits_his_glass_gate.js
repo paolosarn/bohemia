@@ -108,8 +108,14 @@ const done = (d) => {
              pe: getComputedStyle(f).pointerEvents };
   });
   const street = await whereIsIt();
-  ok('ON THE WALKED STREET THERE IS NO PHONE DRAWN, which is what he asked for',
-     !street.shown, street.w + 'x' + street.h + ' in mode ' + street.mode);
+  /* RE-AIMED 9/28 BY RUN (rule 38c, [no city walk]): THE DEMO OPENS ON THE MAP NOW, so this
+     leg was asking the map a question about the street. His 9/23 ruling has two halves and
+     the leg now holds whichever one the screen is on: on a walked street NO phone; on the map
+     (the whole-city view he named) THE phone. Stricter than before, not looser -- it used to
+     say nothing about the map at all. */
+  ok('THE PHONE FOLLOWS HIS RULING: none on a walked street, drawn on the map',
+     street.mode === 'human' ? !street.shown : (street.mode === 'city' && street.shown),
+     street.w + 'x' + street.h + ' in mode ' + street.mode);
   ok('  and no phone-shaped button crept into the bar to stand in for it',
      await d.fr.evaluate(() => {
        const bar = document.getElementById('topbar'); if (!bar) return true;
