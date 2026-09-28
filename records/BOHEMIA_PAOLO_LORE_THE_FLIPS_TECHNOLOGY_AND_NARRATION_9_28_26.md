@@ -58,3 +58,5 @@ Yes. Two ways, both real:
 DEFAULT (EVERYTHING IS A THUMB, in VOTE): the machine's text (the phone, the feed, the institution's lines, the
 narrator of the flip) is read aloud by the phone's own voice under the bible; people keep the portrait mouth
 (rule 19) with no voice yet. SOUNDS [read aloud] with WORDS and PLUMBER.
+
+## LANDED AS 820ca7f (9/28) under a borrowed commit headline (a merge script took the other lane's message); the real headline is on the commit after it. Content unaffected.
