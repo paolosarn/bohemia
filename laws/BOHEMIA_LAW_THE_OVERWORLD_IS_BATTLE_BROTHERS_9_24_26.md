@@ -112,3 +112,8 @@ because the fleet's machines cannot fetch the wiki (network policy); PLUMBER [bb
 that pulls every wiki page and dev blog to text the day the hosts are allowed, and the volumes then cite
 the fetched pages. The wiki's text is CC BY-SA: the library quotes facts and cites pages; it does not
 republish the wiki as ours.
+
+## 11. AMENDED 9/28 BY HIS THIRD VOTES (laws/BOHEMIA_ADDENDUM_THE_THIRD_VOTES_9_28_26.md)
+Section 1's "the street is where you arrive" default is DEAD: a place opens a SETTLEMENT SCREEN; the map is
+REVAMPED with more pixels (the squeeze stays the door); factions are HOME BASES and ROAMING PARTIES, not
+territory; movement GLIDES; the grid is SQUARE.

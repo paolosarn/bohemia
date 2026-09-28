@@ -62,3 +62,10 @@ people, the money, territory, the door, the look and the acts, no.
 sentence: THE FIRST SIXTY SECONDS ARE A GAME. Loading, then he is a small figure on an honest grid and
 every press moves him one cell; the map one squeeze away; the fight where he stands; the first person by
 name. RUN cuts it when the grid exists; until then the demo is what it is and nobody pretends otherwise.
+
+## 8. AMENDED 9/28 BY HIS THIRD VOTES (laws/BOHEMIA_ADDENDUM_THE_THIRD_VOTES_9_28_26.md, NEWEST DATE WINS)
+(a) NO ATARI: "tiny" means small relative to buildings at FULL pixel detail; the 32 px cell and the 28 px sprite
+    defaults are DEAD; he sees tile OPTIONS from our assets first (WORLD + COOK [tile options]).
+(b) PLACES ARE SETTLEMENT SCREENS: arriving opens a Battle Brothers-style settlement screen (tap a building);
+    walking on foot survives only in the fight and in special places (the Strip); the pad is dead elsewhere.
+(c) THE GRID IS SQUARE. (d) Sections 5 and 7 are read through this; section 2's honest grid stands for the fight.

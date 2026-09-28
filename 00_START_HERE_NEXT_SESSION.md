@@ -45213,6 +45213,15 @@ difficulties; SCHOOL THEN TUNE) and 22 MODS (the data line, a mods/ folder; SCHO
 fresh chat whose first word is 'tuning' or 'mods' takes it. COMBAT [formation] and [gambits] (FF12), CHARACTER
 [attachments], PEOPLE [origins] + the injured. The death default is in VOTE. The order: the grid first; the
 schools run beside it. CLAUDE.md lane list and law list.
+THEN (ft) HE VOTED A THIRD TIME (9/27 in the tab, pasted 9/28): 55 verdicts into verdicts[] (169 of 180). Rule 37;
+laws/BOHEMIA_ADDENDUM_THE_THIRD_VOTES_9_28_26.md; records/BOHEMIA_PAOLO_THIRD_VOTES_9_28_26.md; records/BOHEMIA_VOTE_VERDICTS_9_27_26.txt. SIX COORDINATOR DEFAULTS FELL: NO ATARI (the 32 px cell and one-cell sprite are dead; tile
+OPTIONS first: WORLD + COOK [tile options] first lines); PLACES ARE SETTLEMENT SCREENS (RUN [settlement screen];
+on foot only in the fight and the Strip; the pad is dead elsewhere); THE FUTURE GOES BOTH WAYS; THREE GENERATIONS
+ALWAYS; HOME BASES AND ROAMING PARTIES not territory (FACTIONS [home bases] first); SQUARE GRID. Also: the main
+character never dies, veterans 10%; high ground is a roof; ANIMATION [glide] first; PORTRAIT [head and gear]
+first; TUNING [lifespans]; WORLD [scavenge], [creatures]; the flip is a big transition unlocked mid-act; sounds
+have 'the reverb of a glass jar'. CLAUDE.md law list; the two-scales, overworld and second-votes laws amended.
+
 
 
 

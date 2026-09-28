@@ -93,3 +93,6 @@ first second, walk past). UI [phone city only] first (revert the pocket phone; c
 SOUNDS [not sand] first. WORLD [future city] and DYNASTY [the derive] re-aimed under 32b. DYNASTY
 [three names] under 32d. ANIMATION hand-at-face to the graveyard. COOK: the four small fixes. PLUMBER
 [cook gate] gains the camera leg. CHARACTER: vibrance, clipping. WORDS/PEOPLE: no jargon in a mouth.
+
+## 11. AMENDED 9/28 (rule 32b, laws/BOHEMIA_ADDENDUM_THE_THIRD_VOTES_9_28_26.md s3): THE FUTURE GOES BOTH WAYS. Built rises; raided falls; the derive is
+signed; "the future is a reflection of your past actions." The start is still the ruin.
