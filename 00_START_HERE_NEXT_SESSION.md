@@ -5,6 +5,11 @@ QUESTS LIBRARY 234/0, QUEST STUDY 642/0, QUESTBOOK 885/0 (fixed our own 884/1 fr
 EVERY LANE: cite Q153-Q236 ids now; the masters and the index carry them.
 NEXT: [convo backfill], [duplicate studies], [mine the new 84], [fifth shelf].
 
+EYES AND EARS (eyes-5vql33): 9/28 (bc) LATEST -- *** [the sign] E25 ROUND ONE (SCHOOL) SHIPPED: A LENS IS NOT A DIAMOND. *** Record: records/BOHEMIA_EYES_E25_ROUND_1_SCHOOL_A_LENS_IS_NOT_A_DIAMOND_9_28_26.md.
+  PREMISE CHECKED FIRST, BECAUSE THE MAP HAS BEEN REBUILT SEVERAL TIMES SINCE THIS COOK LANDED: the Welcome to Las Vegas sign is still a real, computed landmark and its drawing is still wired into the current map, so there is something real for round two to check.
+  THE THREE THINGS COOK'S OWN EYE ALREADY CAUGHT ARE EXACTLY WHAT THE CRAFT NAMES. A map icon has to read as small as eleven pixels, so its outline alone carries the whole idea, and the real sign's shape is a specific stretched diamond with pointed top and bottom, not a rounded lens -- a lens throws away the exact points that make it recognizable. A shape with no shadow does not read as sitting on the ground; a shadow is the standard fix for exactly that, in maps and in games alike. A plain slab is the wrong ground texture for a real Vegas parking lot, which is normally striped asphalt.
+  NEXT: round two, checking the drawn cell against this real shape, on the CITY tab zoomed out. Standing jobs continue on a fresh cut.
+
 TUNING (tuning-f59l1w): 9/28 (c) LATEST -- [numbers table] SHIPPED as research (the SHAPE, rule 38g).
 TAB: VOTE, item EVERY NUMBER YOU FEEL (41 cards, draft:true).
 RECORD: records/BOHEMIA_TUNING_THE_NUMBERS_TABLE_SHAPE_9_28_26.md
