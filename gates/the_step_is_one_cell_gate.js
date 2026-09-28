@@ -58,7 +58,10 @@ const PRESSES = 16;
      && !/strideFine:\s*2[0-9]\b/.test(WORLD));
 
   let d;
-  try { d = await drive.open({ keepCards: true }); }
+  /* RE-AIMED 9/28 (RUN, rule 38b): one cell per press survives in the fight and the Strip;
+     the demo no longer walks the city, so the street step is measured in the ALPHA, which
+     keeps the walked street until [no city walk] excavates it. Not loosened. */
+  try { d = await drive.open({ alpha: true, keepCards: true }); }
   catch (e) { ok('the demo boots [' + String(e.message).slice(0, 120) + ']', false); return done(); }
 
   try {

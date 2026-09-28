@@ -40985,7 +40985,14 @@ function stepOnce(di){
   const [dx,dy]=DIRS[di];
   if(MODE==='city'){
     const nx=city.x+dx, ny=city.y+dy;
-    if(cityWalkable(nx,ny)){ city.x=nx; city.y=ny; advance(10); moversAdvance();
+    /* __THE_MAP_IS_HOW_YOU_TRAVEL__ (9/28): this charged a typed advance(10) for
+       every cell of the valley, so a freeway cost what an open wash cost. The cost
+       is now derived from the street's own baseline and the street's own road
+       factor -- roads faster than dirt, his words and volume 01's rule, with no
+       second opinion about the number living up here. Ten minutes was very nearly
+       right for rough going (FN * MIN_PER_CELL = 10.75), which is why nobody
+       noticed the road was not cheaper. */
+    if(cityWalkable(nx,ny)){ city.x=nx; city.y=ny; advance(cityStepMins(nx,ny)); moversAdvance();
       ROAD_LASTDIR=di;   /* __THE_ROAD_IS_A_DECISION__: which way the cab would be going */
       /* __THE_ROAD_INTERRUPTS__: TEN MINUTES OF HIS DAY JUST WENT BY. Hand it to the
          approved director and let the road have its say. This is the whole wiring:
@@ -41429,7 +41436,13 @@ setInterval(()=>{
   /* __THE_TIME_NOT_THE_TAPS__: a latched direction is the last thing consulted, so a
      real press always wins over one he let go of. */
   if(LATCH_DIR !== null && latchShouldStop()) latchStop();
-  const di=(held!==null)?held:(pend!==null?pend:LATCH_DIR);
+  let di=(held!==null)?held:(pend!==null?pend:LATCH_DIR);
+  /* __THE_MAP_IS_HOW_YOU_TRAVEL__: the route is consulted LAST, after everything a
+     finger is doing, for the same reason the latch is -- a real press always wins
+     over a journey he set going. TRAV is non-null only while the route is driving
+     this beat, so the bookkeeping below cannot fire on a pressed step. */
+  const TRAV = (di===null) ? travelNext() : null;
+  if(TRAV!==null) di=TRAV;
   if(di===null)return;
   pend=null;
   const running=(held!==null&&heldBeats>=2)&&!RIDING;   // the bike IS the speed, no run ramp
@@ -41446,6 +41459,8 @@ setInterval(()=>{
   if(moved) glideStart(_gfr[0], _gfr[1], _gsp);   /* __WALK_FEEL_SLIDE__ */
   if(held!==null)heldBeats++;
   if(moved){ animate((running||RIDING)?'run':'walk'); reportState(); footingUpdate(); /* __FLOOR_DOES_SOMETHING__ */ }
+  /* __THE_MAP_IS_HOW_YOU_TRAVEL__: only when the route drove this beat. */
+  if(TRAV!==null) travelStepped(moved);
   /* __THE_TIME_NOT_THE_TAPS__: A WALL ENDS IT. Two beats with nothing to show for them and
      the latch lets go -- walking into a building forever is exactly the
      not-working-button feeling this game has been bitten by before. */
@@ -41513,6 +41528,9 @@ function startHold(di){
      cannot interrupt is worse than one you have to hold. Done here rather than
      in the button handler so every way in cancels it, not just the pad. */
   latchStop();
+  /* __THE_MAP_IS_HOW_YOU_TRAVEL__: and a journey ends the same way, for the same
+     reason. A control you cannot interrupt is worse than one you have to hold. */
+  try{ travelStop(); }catch(_e){}
   held=di; pend=di; heldBeats=0; }
 function endHold(){
   /* __THE_TIME_NOT_THE_TAPS__: LETTING GO IS NOT STOPPING, if he really was walking. A tap
@@ -41520,6 +41538,170 @@ function endHold(){
      only a hold that got going carries on. */
   if(held !== null && heldBeats >= LATCH_AFTER){ LATCH_DIR = held; LATCH_STILL = 0; }
   held=null; heldBeats=0; }
+
+/* ==== __THE_MAP_IS_HOW_YOU_TRAVEL__ (RUN, 9/28/26, VAMILY [bb map], rule 33) ====
+   PAOLO 9/24, called an executive decision: "the valley is crossed on a map the
+   Battle Brothers way: a party marker, tap where to go, time passes, roads faster
+   than dirt." The library, volume 01 THE WORLD MAP, TRAVEL: "one marker for the
+   company. Click a point or a settlement and the company walks in real time...
+   Speed by terrain: roads fastest... TIME AND COST: a day passes as you travel."
+
+   MEASURED ON THE GLASS BEFORE A LINE OF THIS WAS WRITTEN, and the measurement is
+   why this block is small (records/BOHEMIA_BB_MAP_SCHOOL_9_28_26.md). SEVEN OF THE
+   NINE THINGS THE ROW NAMES WERE ALREADY BUILT on the far view: his pin is drawn
+   last so nothing can cover him; 28 parties (14 patrols, 10 caravans, 4 crews)
+   carry their own business and advance with the clock; their tracks draw as fading
+   trails; the towns are marked; the phone is on the map and nowhere else; a press
+   of the pad already moves the marker ONE overmap cell and spends ten minutes; and
+   the spread back already lands him on the street of the cell the marker stands on.
+   TWO WERE MISSING, AND THEY ARE THE TWO IN THIS BLOCK:
+
+     A TAP DID NOT TRAVEL. It called cityTapPlot, which selects a builder plot --
+     and the demo strips the builder's drawer, so on the demo's map a tap was a tap
+     that did nothing a player could see. Measured: a tap at 30%/32% of the canvas
+     set CB.sel to [27,35] and moved him zero cells, with no visible answer.
+
+     THE CLOCK WAS FLAT. The city step charged a typed advance(10) for every cell,
+     so a freeway cost exactly what an open wash cost. Roads faster than dirt is in
+     his sentence and in volume 01, and the street has had the number since 9/5.
+
+   HOW IT IS BUILT, AND WHAT IT REFUSES TO REBUILD:
+     THE ROUTE IS THE LATCH WITH A DESTINATION. __THE_TIME_NOT_THE_TAPS__ already
+     keeps him walking on the beat after he lets go; this reads the next direction
+     off a route instead of off one held finger, through the SAME metronome and the
+     SAME stepOnce, so every travelled cell pays its own clock, fires the road
+     director and moves the valley's parties exactly as a pressed cell does. NOT
+     FAST TRAVEL, and not a second mover.
+     ONE NUMBER IN ONE PLACE for the speed: the baseline is the street's own
+     MIN_PER_CELL times FN (a cell of the map is FN fine cells of the street), and
+     the road discount is the street's own PAVED_SPEED.factor. Nothing here holds a
+     second opinion about how fast a road is, so tuning the street tunes the map.
+     THE ROUTE ONLY USES STEPS HE COULD HAVE PRESSED: the search walks DIRS, the
+     same eight the pad has, over cityWalkable only. A route no finger could have
+     produced would be a second movement system wearing this one's clothes.
+     A REFUSAL SAYS WHY. Paolo 9/13: "I press it, nothing happens" is the worst bug
+     in the game. A tap with no way through writes one line and nothing moves.
+   ============================================================================ */
+var TRAVEL = null;       /* {path:[[x,y],...], i, cells, mins, to:[x,y]} or null */
+
+/* WHICH GROUND IS A ROAD. cityWalkable admits ROAD districts and `wash`; of those,
+   rail and wash are rough going (a rail bed and a dry wash are not a road surface,
+   they are only crossable), so the discount lands on the five that are asphalt. */
+var CITY_PAVED = { freeway:1, arterial:1, strip:1, beltway:1, interchange:1 };
+
+function cityStepMins(x,y){
+  var base = ((typeof MIN_PER_CELL==='number'?MIN_PER_CELL:0.084)
+              * (typeof FN==='number'?FN:128));
+  var f = 1;
+  try{ var t=om.at(x,y);
+       if(t && CITY_PAVED[t.district]) f = PAVED_SPEED.factor; }catch(_e){}
+  return base*f;
+}
+
+/* THE ONE PLACE A JOURNEY ENDS, for the same reason latchStop() is one place: a new
+   reason to stop must not be added to one caller and forgotten in another. */
+function travelStop(){ if(TRAVEL){ TRAVEL=null; try{ render(); }catch(_e){} } }
+
+/* WHAT THE MAP SAYS OUT LOUD. It writes to the line the street already shares with
+   the pack and the road (rule 19c: no player-facing sentence outside the phone
+   without a mouth -- this is a machine panel's own line, the same slot the address
+   countdown and the tracks use, not somebody speaking). draft:true. */
+function travelSay(s){
+  try{ var l=document.getElementById('packline'); if(l) l.textContent=s; }catch(_e){}
+}
+
+/* THE SEARCH. Breadth-first over the cells a press could cross, capped by the map's
+   own size so it cannot run away on a valley that grows. */
+function cityRoute(ax,ay,bx,by){
+  var n=0; try{ n=om.n|0; }catch(_e){ return null; }
+  if(!n || (ax===bx&&ay===by)) return null;
+  if(!cityWalkable(bx,by)) return null;
+  var K=function(x,y){ return y*n+x; };
+  var from={}, seen={}, q=[[ax,ay]], head=0, found=false;
+  seen[K(ax,ay)]=1;
+  while(head<q.length && head<n*n){
+    var c=q[head++];
+    if(c[0]===bx && c[1]===by){ found=true; break; }
+    for(var d=0;d<DIRS.length;d++){
+      var nx=c[0]+DIRS[d][0], ny=c[1]+DIRS[d][1];
+      if(nx<0||ny<0||nx>=n||ny>=n) continue;
+      var k=K(nx,ny); if(seen[k]) continue;
+      if(!cityWalkable(nx,ny)) continue;
+      seen[k]=1; from[k]=[c[0],c[1]]; q.push([nx,ny]);
+    }
+  }
+  if(!found) return null;
+  var path=[[bx,by]], cur=[bx,by];
+  while(!(cur[0]===ax&&cur[1]===ay)){
+    var p=from[K(cur[0],cur[1])]; if(!p) return null;
+    path.push(p); cur=p;
+    if(path.length>n*n) return null;
+  }
+  path.reverse();
+  return path;
+}
+
+/* A TAP ON THE MAP. Canvas coordinates, the same ones cityTapPlot is handed. */
+function travelTo(sx,sy){
+  var c=null; try{ c=CBcellAt(sx,sy); }catch(_e){ c=null; }
+  if(!c) return false;
+  var tx=c[0], ty=c[1];
+  /* A THUMB IS 44 PX WIDE AND A ROOF IS NOT A REFUSAL. If the cell under the
+     fingertip cannot be stood on, the nearest one that can within two cells is
+     what he meant. Past two cells it is a real refusal and it says so. */
+  if(!cityWalkable(tx,ty)){
+    var best=null;
+    for(var r=1;r<=2&&!best;r++){
+      var bd=99;
+      for(var a=-r;a<=r;a++) for(var b=-r;b<=r;b++){
+        if(Math.max(Math.abs(a),Math.abs(b))!==r) continue;
+        if(!cityWalkable(tx+a,ty+b)) continue;
+        var dd=Math.abs(a)+Math.abs(b);
+        if(dd<bd){ bd=dd; best=[tx+a,ty+b]; }
+      }
+    }
+    if(!best){ travelSay('No road that way.'); return false; }
+    tx=best[0]; ty=best[1];
+  }
+  if(tx===city.x && ty===city.y){ travelStop(); travelSay('You are standing there.'); return false; }
+  var p=cityRoute(city.x,city.y,tx,ty);
+  if(!p){ travelSay('No way through to there.'); return false; }
+  var mins=0; for(var i=1;i<p.length;i++) mins+=cityStepMins(p[i][0],p[i][1]);
+  TRAVEL={ path:p, i:1, cells:0, mins:0, to:[tx,ty] };
+  travelSay('Setting out: '+(p.length-1)+' blocks, about '+Math.round(mins/60*10)/10+' h.');
+  try{ render(); }catch(_e){}
+  return true;
+}
+
+/* THE NEXT DIRECTION, or null when nothing is travelling. Peeks only: the route
+   advances in travelStepped(), after the step is known to have landed. */
+function travelNext(){
+  if(!TRAVEL) return null;
+  try{ if(typeof MODE==='undefined' || MODE!=='city'){ travelStop(); return null; } }catch(_e){ return null; }
+  if(TRAVEL.i>=TRAVEL.path.length){ travelStop(); return null; }
+  var t=TRAVEL.path[TRAVEL.i];
+  var dx=t[0]-city.x, dy=t[1]-city.y;
+  for(var d=0;d<DIRS.length;d++) if(DIRS[d][0]===dx && DIRS[d][1]===dy) return d;
+  /* OFF THE ROUTE IS NOT A CRASH. Anything that moved the marker out from under a
+     journey (a restore, a marker message) ends the journey rather than guessing. */
+  travelStop(); return null;
+}
+
+function travelStepped(moved){
+  if(!TRAVEL) return;
+  if(!moved){ travelSay('The way is blocked.'); travelStop(); return; }
+  TRAVEL.i++; TRAVEL.cells++;
+  if(TRAVEL.i>=TRAVEL.path.length){
+    var to=TRAVEL.to, cells=TRAVEL.cells;
+    TRAVEL=null;
+    /* ARRIVAL IS ALREADY BUILT: the seam lands him on the street of the cell the
+       marker is standing on (swapMode, SEAM_INTENT). So arriving says where he is
+       and leaves the spread to him -- no teleport, no mode (rule 24). */
+    travelSay('Arrived: '+cells+' block'+(cells===1?'':'s')+' crossed.');
+    try{ render(); }catch(_e){}
+  }
+}
+/* ==== /__THE_MAP_IS_HOW_YOU_TRAVEL__ ==== */
 
 // ---- WORLD MOVERS LAW (Paolo 7/5/26): NOTHING moves until you do, cars and
 // planes included. Movers advance ONLY on player steps, then TWEEN fluidly over
@@ -41622,7 +41804,15 @@ function setZoomAt(z,pvx,pvy){
      mutation proved it: putting the strict test back left the round trip at one spread.
      A CHANGE I CANNOT MAKE BITE IS A CHANGE WITH NO MEASUREMENT BEHIND IT, and this
      lane has reverted one of those before rather than leave it in looking like work. */
-  if(z>zmax&&Math.abs(CZOOM-zmax)<1e-4&&typeof swapMode==='function'){
+  /* __NO_CITY_WALK__ (RUN 9/28, rule 38b, Paolo: 'your character moving tile to tile
+     throughout the city, it's not gonna be like that anymore, that has to change
+     immediately'). IN THE DEMO THE MAP IS THE WHOLE CITY: pinching in at the closest
+     map zoom no longer drops him onto a walked street. Rule 37b makes arrival a
+     SETTLEMENT SCREEN ([settlement screen], the next row of this lane) and until it
+     exists the camera simply stops at its closest, like any camera. The alpha keeps
+     the walked street (rule 18g) until [no city walk] excavates it. */
+  var __demoMap = (typeof CT_IS_DEMO!=='undefined' && CT_IS_DEMO);
+  if(!__demoMap&&z>zmax&&Math.abs(CZOOM-zmax)<1e-4&&typeof swapMode==='function'){
     SEAM_INTENT='look';   /* __LOOKING_IS_NOT_TRAVELLING__: and so is pinching back in */
     SEAM_GUARD=true;
     swapMode(); return; }
@@ -42794,6 +42984,40 @@ function renderCity(){
      cannot be confused with a hollow ring at any size. He keeps his own colour inside it.
      It scales with the tile like everything else on this map, and it is drawn LAST so
      nothing can cover him. */
+  /* __THE_MAP_IS_HOW_YOU_TRAVEL__ (9/28) -- WHERE HE IS GOING, DRAWN AHEAD OF HIM.
+     Rule 33g, his words: Battle Brothers is a bunch of pictures and we put life in
+     it. BB draws a static dotted line to the click; this SHORTENS as he crosses,
+     because the route is the live remainder of the journey and nothing redraws it.
+     THIN, NOT FILLED. The fight verdict's ruling this round on reach -- cell rims,
+     never filled overlays, the territory card's one-pixel discipline -- is the same
+     rule for a route, so this is a dot per block and a ring at the end, under the
+     pin, which still draws last so nothing can cover him. */
+  if(TRAVEL && TRAVEL.path && TRAVEL.i<TRAVEL.path.length){
+    g.save();
+    for(var __ri=TRAVEL.i; __ri<TRAVEL.path.length; __ri++){
+      var __rp=iso(TRAVEL.path[__ri][0], TRAVEL.path[__ri][1], ox, oy);
+      if(__rp.sx<-40||__rp.sx>cv.width+40||__rp.sy<-40||__rp.sy>cv.height+40) continue;
+      var __last=(__ri===TRAVEL.path.length-1);
+      var __ry=__rp.sy+TH*0.4;
+      if(__last){
+        /* the destination: a thin ring, wider than a dot, on the ground. Its own
+           alpha is set here rather than inherited: the dots above dim as they go
+           and the end of the journey is not the faintest thing on the map. */
+        g.globalAlpha=1;
+        g.strokeStyle='rgba(255,255,255,0.85)';
+        g.lineWidth=Math.max(1,Math.min(TW*0.05,2));
+        g.beginPath(); g.ellipse(__rp.sx,__ry,Math.max(4,TW*0.30),Math.max(2,TW*0.15),0,0,7); g.stroke();
+      } else {
+        /* one dot per block still to cross, brightest nearest him */
+        var __f=1-((__ri-TRAVEL.i)/Math.max(1,TRAVEL.path.length-TRAVEL.i));
+        g.globalAlpha=0.25+__f*0.45;
+        g.fillStyle='#fff';
+        var __rr=Math.max(1,TW*0.07);
+        g.beginPath(); g.ellipse(__rp.sx,__ry,__rr,__rr*0.55,0,0,7); g.fill();
+      }
+    }
+    g.restore();
+  }
   { const p=iso(__G.x,__G.y,ox,oy);                  /* __THE_MAP_GLIDES__: the pin rides the glide */
     const __gx=p.sx, __gy=p.sy+TH*0.4;                 /* where he is standing */
     /* ONE HOP PER BEAT while he travels, and none standing still: sin over the
@@ -57595,6 +57819,12 @@ function cityHandOver(msg, skin){
      own design, so a bell that also blurs simply saves twice and that is free. */
   try{ if(typeof flushState==='function') flushState(); }catch(_e){}
   /* ===== /V215 __SAVE_BEFORE_THE_BELL__ ===== */
+  /* __THE_MAP_IS_HOW_YOU_TRAVEL__ (RUN 9/28): A FIGHT ENDS THE JOURNEY, HERE, AT THE
+     ONE DOOR. Measured: a tap on the map set a 27-block route and a road party met
+     him 5 s in -- and the route was STILL SET when the fight opened, so the metronome
+     behind the fight kept walking the marker away from the fight he was in. The door
+     every fight comes through is the one place that cannot miss a way in. */
+  try{ if(typeof travelStop==='function') travelStop(); }catch(_e){}
   /* V207 __FIGHT_KNOWS_DAY__: THE WORLD IS STAMPED ON EVERY ENTRY, IN ONE PLACE.
      All four ways into a fight already come through this door (V205), so the
      hour, the weather and the shade ride with a street bump, a crew, a road
@@ -57876,7 +58106,24 @@ document.getElementById('bikebtn').addEventListener('click',()=>{
       try{ vistaClose(); }catch(_e){}
       CB._tapStart=null; pts.delete(e.pointerId); return;
     }
-    if(MODE==='city' && CB._tapStart && CB._tapMoved<8 && pts.size<=1){ cityTapPlot(CB._tapStart.x,CB._tapStart.y); }
+    /* __THE_MAP_IS_HOW_YOU_TRAVEL__ (9/28, rule 33a): ON THE MAP, A TAP IS WHERE YOU
+       ARE GOING. It was plot selection, which is the city builder, and rule 33h CUT
+       the city builder AS A MODE -- so on the demo's map, where the builder's drawer
+       is stripped, a tap selected an invisible plot and answered nothing.
+       THE BUILDER IS NOT DELETED AND IS NOT THIS LANE'S TO DELETE. It is another
+       lane's system; it stays exactly as it is behind its own drawer, and while that
+       drawer is open a tap still picks plots. Closed, which is every second of the
+       demo, the map is a map. One boundary, readable from the screen, measurable in
+       both directions.
+       AND A SECOND TAP CANCELS, which is volume 01's right-click: tapping while a
+       journey is running stops it where it stands rather than queueing a new one. */
+    if(MODE==='city' && CB._tapStart && CB._tapMoved<8 && pts.size<=1){
+      var __tray=null; try{ __tray=document.getElementById('devtray'); }catch(_e){}
+      var __trayOpen = !!(__tray && getComputedStyle(__tray).display!=='none');
+      if(__trayOpen){ cityTapPlot(CB._tapStart.x,CB._tapStart.y); }
+      else if(TRAVEL){ travelStop(); travelSay('Stopped.'); }
+      else { travelTo(CB._tapStart.x,CB._tapStart.y); }
+    }
     if(MODE==='city') CB._tapStart=null;
     /* __EVERY_PANEL_CLOSES__ (8/24). Paolo: "an artifact from one of the first
        builds is that when I click a tile it'll show me the tile but now it's not
@@ -59514,9 +59761,31 @@ function showChoice(card){
    until told, because the workshop is the safe default and a demo that never
    ends is a smaller failure than a bench that stops on day two. */
 var CT_IS_DEMO = false;
+/* __NO_CITY_WALK__ (RUN 9/28, rule 38c): THE DEMO OPENS ON THE MAP. "LOADING, TRAVEL on
+   the map, ARRIVAL on a settlement screen, THE FIGHT, THE FIRST PERSON; nothing in it
+   walks the city." The world still boots on his street, because every system here
+   seats itself from his feet (his house, his block, the marker); the demo then takes
+   the same look-out the squeeze takes (SEAM_INTENT 'look', swapMode), once, before
+   the loading screen lets go -- so the first thing a stranger's thumb meets is the
+   map. MEASURED: a tap there set a route and a road party met him 5 s later, which
+   is the first fight the stranger's list has ever recorded inside five minutes. */
+var DEMO_ON_MAP = false;
+function demoOpensOnMap(tries){
+  if(DEMO_ON_MAP || !CT_IS_DEMO) return;
+  var ready = false;
+  try{ ready = (typeof om!=='undefined' && om && om.n>0 && typeof MODE!=='undefined'
+                && typeof swapMode==='function' && !transing); }catch(_e){ ready=false; }
+  if(!ready){ if((tries|0) < 200) setTimeout(function(){ demoOpensOnMap((tries|0)+1); }, 100); return; }
+  DEMO_ON_MAP = true;
+  if(MODE !== 'city'){
+    try{ SEAM_INTENT='look'; swapMode(); }catch(_e){}
+  }
+  try{ render(); }catch(_e){}
+}
 window.addEventListener('message', function(ev){
-  try { if (ev && ev.data && typeof ev.data.bohemiaIsDemo === 'boolean')
-          CT_IS_DEMO = ev.data.bohemiaIsDemo; } catch(_e){}
+  try { if (ev && ev.data && typeof ev.data.bohemiaIsDemo === 'boolean'){
+          CT_IS_DEMO = ev.data.bohemiaIsDemo;
+          if(CT_IS_DEMO) demoOpensOnMap(0); } } catch(_e){}
   /* __CITY_FEEDBACK__ -- AND WHICH BUILD, WHICH THE CITY HAS NEVER KNOWN.
      A tester's paste that does not say which build they were on is an anecdote
      (row 0f, amended 8/25). The stamp is on the shell's splash and the shell is

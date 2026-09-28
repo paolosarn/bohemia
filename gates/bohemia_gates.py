@@ -2198,6 +2198,17 @@ GATES = [
      'AND ONE LEG NEARLY PASSED FOR THE WRONG REASON: forcing the strip visible gives a 0x0 box, so '
      'asking who owns a zero-width point answered "nothing" and ticked green; it asserts the LOCK now, '
      'which needs no layout, and reports the box instead of asserting on it.', True),
+    ('THE MAP IS HOW YOU TRAVEL', ['node', 'gates/the_map_is_how_you_travel_gate.js'],
+     'VAMILY [bb map] + [no city walk], rules 33 and 38 (PAOLO 9/24: "a party marker, tap where to go, '
+     'time passes, roads faster than dirt"; PAOLO 9/28: "your character moving tile to tile throughout '
+     'the city, it is not gonna be like that anymore, that has to change immediately"). MEASURED FIRST: '
+     'seven of the nine map behaviours already existed; a tap on the map selected an invisible builder '
+     'plot and moved him 0 cells, and the map charged a typed ten minutes per block whatever the ground. '
+     'HOLDS, by a real finger on the baked demo: the demo opens ON THE MAP; no walk pad and no DROP IN; '
+     'a road block 5.38 min, a dirt block 10.75, both the street own numbers; a tap sets a route and '
+     'the marker walks it on the beat; every block charges exactly its own ground; a short journey '
+     'arrives and says so; a second tap stops; a spread never drops him onto a walked street; a fight '
+     'ends the journey at the one door. Mutations in the round record.', True),
     ('STEP IS ONE CELL', ['node', 'gates/the_step_is_one_cell_gate.js'],
      'VAMILY [two scales], rule 34 (PAOLO 9/27): "your character stays tiny even as you zoom out and YOU '
      'MOVE ONE GRID AT A TIME, THAT WE HAD ORIGINALLY... one house does not equal one tile, it is all '

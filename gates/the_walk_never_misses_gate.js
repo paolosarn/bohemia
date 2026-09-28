@@ -52,7 +52,11 @@ const DIRS = [[0, -1], [1, -1], [1, 0], [1, 1], [0, 1], [-1, 1], [-1, 0], [-1, -
 
 (async () => {
   let d;
-  try { d = await drive.open({}); }
+  /* RE-AIMED 9/28 (RUN, rule 38b/c): THE DEMO NO LONGER WALKS THE CITY. It opens on the map
+     and the walk pad is stripped from it, so the walked street this gate holds lives in the
+     ALPHA until [no city walk] excavates it (rule 18g: the alpha keeps everything). Same
+     legs, same numbers, measured where the street still is -- not loosened. */
+  try { d = await drive.open({ alpha: true }); }
   catch (e) { ok('the demo boots [' + String(e.message).slice(0, 120) + ']', false); return done(); }
 
   try {
