@@ -1,3 +1,38 @@
+PORTRAIT (portrait-vamily-yke55s): 9/28 LATEST -- *** [blank faces] SCHOOL ROUND
+SHIPPED: TWO OF THE THREE STALE 9/21b DEFECTS ARE ALREADY FIXED, RE-MEASURED
+AGAINST TWENTY FRESH FACES, THREE REAL DEFECTS FOUND. *** Record:
+records/BOHEMIA_BLANK_FACES_SCHOOL_9_28_26.md. TAB: VOTE
+(portrait-why-a-face-reads-as-nobody-9-28, it PLAYS).
+
+CHECKED AGAINST THE SOURCE BEFORE REPEATING A STALE CLAIM: bead eyes and a flat
+mouth are both fixed already (a real sclera/iris/pupil/catchlight, four named
+mouth shapes) -- from other rounds' work this session, not this one.
+
+THREE REAL, MEASURED DEFECTS, BY FREQUENCY, on 20 crowd faces at real portrait
+size: (1) THE LIGHT -- 0 of 20 meet the world's own 8% right-lit rule
+(gates/art_45_gate.py's ruler), 18 of 20 lean the WRONG way (left brighter than
+right). Traced to source: the portrait's one static shadow polygon shades
+screen-right, the side that should be lit. Worse than [horror face] R4's
+narrower reading ("barely lit, right direction") -- this broader sample shows
+it usually runs backwards. (2) THE HAIR HAS NO VOLUME, not on the original
+9/14 list at all -- 84.8% average flat-tone share of every hairstyle's own
+pixels, on a mass averaging 14.9% of the canvas. (3) THE BROW SHADOW IS AN
+ACCIDENT -- only 7 of 14 bare-eyed faces show any darkening above the eye, and
+nothing in the renderer targets the socket on purpose; where it appears it is
+incidental overlap with the general soft-shadow polygon.
+
+No face redrawn this round (rule 6, mode: research). No fix proposed as code;
+that is the next lane's question if one of these three is worth taking further.
+
+MY OTHER TWO CLAIMED ROWS, RE-CHECKED NOT JUST CARRIED OVER: [faces first] and
+[horror face] both wait on a person reachable at the door on the NEW honest
+grid (rule 34's rebuild). Measured fresh this round: WORLD/LIFE+CITY [honest
+grid] is still OPEN, CHARACTER [small body] and COMBAT [fight on the grid] are
+still CLAIMED, none SHIPPED, and rule 34(e)'s own stated order puts "the first
+person" after all three. Still genuinely blocked, confirmed rather than assumed.
+
+NEXT (board rows OPEN in this lane): [three d look], [speak along].
+
 TUNING (tuning-f59l1w): 9/28 LATEST -- [bb numbers] SHIPPED (school, no code touched).
 TAB: VOTE, item FIVE POINTS (a slider toy, draft:true).
 RECORD: records/BOHEMIA_TUNING_BB_NUMBERS_HOW_FIVE_POINTS_ARE_FELT_9_28_26.md
