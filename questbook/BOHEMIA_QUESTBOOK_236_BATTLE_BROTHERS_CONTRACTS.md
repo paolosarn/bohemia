@@ -1,4 +1,4 @@
-# BOHEMIA QUESTBOOK #236: "THE HALL AND THE HAGGLE (THE BATTLE BROTHERS CONTRACT SYSTEM)"
+# BOHEMIA QUESTBOOK #236 — "THE HALL AND THE HAGGLE (THE BATTLE BROTHERS CONTRACT SYSTEM)"
 **Game:** Battle Brothers (2017, with the Beasts and Exploration, Warriors of the North and Blazing Deserts expansions)
 **Studio:** Overhype Studios
 **Quest:** not one quest but the CONTRACT CLASS: the settlement screen, the hall, the offer, the haggle, the job on the map, the twist, the hand-in, and the world state the whole loop feeds.
@@ -125,13 +125,17 @@ WHAT THIS NODE COSTS: nothing when clean; the refusal twist makes the player pri
 
 ## 5 HONEST FLAWS (BANKED)
 
-**F1: THE HAGGLE IS SOLVED MATH.** Players publish the numbers (the Steam "Negotiation Mechanics" thread) and conclude only one option is a net gain; the advance loses money to rounding [V]. Once solved, the face stops being a person and becomes a slot machine. **LAW FOR BOHEMIA:** the ask for more must be readable on the face, not solvable from a forum: a visible ceiling the face shows, one or two asks, never a hidden random walk (QR-L P8).
+**F1 — THE HAGGLE IS SOLVED MATH.** Players publish the numbers (the Steam "Negotiation Mechanics" thread) and conclude only one option is a net gain; the advance loses money to rounding [V]. Once solved, the face stops being a person and becomes a slot machine.
+**LAW FOR BOHEMIA:** the ask for more must be readable on the face, not solvable from a forum: a visible ceiling the face shows, one or two asks, never a hidden random walk (QR-L P8).
 
-**F2: THE TWIST IS A TEMPLATE.** Veteran players describe the contraband caravan and the bigger camp as expected beats; the turn stops being news after the tenth time [R]. **LAW FOR BOHEMIA:** ration the twist to a minority on an unpredictable schedule (QR-C rule 2, the same law `Q148.X3` gave).
+**F2 — THE TWIST IS A TEMPLATE.** Veteran players describe the contraband caravan and the bigger camp as expected beats; the turn stops being news after the tenth time [R].
+**LAW FOR BOHEMIA:** ration the twist to a minority on an unpredictable schedule (QR-C rule 2, the same law `Q148.X3` gave).
 
-**F3: THE CLIENT IS A VENDING MACHINE.** The elder has a portrait and a mood, but no want beyond the fee, no memory beyond a relations number, and no life on the map [R]. **LAW FOR BOHEMIA:** the client is a person in a place with a want the player can see (QR-E), whose place changes where the player can see it after the hand-in.
+**F3 — THE CLIENT IS A VENDING MACHINE.** The elder has a portrait and a mood, but no want beyond the fee, no memory beyond a relations number, and no life on the map [R].
+**LAW FOR BOHEMIA:** the client is a person in a place with a want the player can see (QR-E), whose place changes where the player can see it after the hand-in.
 
-**F4: THE CRUNCH FORCES THE YES.** The daily wage burn makes refusing expensive in practice; the decline is free in the ledger but not on the treasury [R]. **LAW FOR BOHEMIA:** keep the pressure but keep a second income (scavenge in the settlement screen, third votes) so a no is never a slow death.
+**F4 — THE CRUNCH FORCES THE YES.** The daily wage burn makes refusing expensive in practice; the decline is free in the ledger but not on the treasury [R].
+**LAW FOR BOHEMIA:** keep the pressure but keep a second income (scavenge in the settlement screen, third votes) so a no is never a slow death.
 
 ---
 
@@ -152,7 +156,7 @@ W10. THE WAGE TREADMILL MAKES CONTRACTS MATTER. Money out every day means every 
 
 ## 7 BOHEMIA PORTS
 
-### PORT 1: THE HALL IN THE SETTLEMENT SCREEN [W1, W2]
+### PORT 1 — THE HALL IN THE SETTLEMENT SCREEN [W1, W2]
 **System:** the fourteen home bases (third votes), the settlement screen, WORLD's situations. Each home base has one building that holds the asks; its offers are generated from that base's current situation (short of water, a raid coming, a roaming party on the dam road). One active contract. Cross-ref QR-E (the ask in a place), #148 PORT 1.
 ```
 @TALK hall_offer speaker=client entry=hall_tapped
@@ -165,7 +169,7 @@ W10. THE WAGE TREADMILL MAKES CONTRACTS MATTER. Money out every day means every 
 @END
 ```
 
-### PORT 2: THE FACE WITH A CEILING, NOT A DICE ROLL [W4, W5, F1]
+### PORT 2 — THE FACE WITH A CEILING, NOT A DICE ROLL [W4, W5, F1]
 The client's portrait shows mood; the first "more" lands, the second shows the ceiling in a line ("That's the top. Take it or don't."), a third ends the offer. Deterministic, readable, never solvable only from a forum. Draft lines:
 ```
 @TALK haggle_1 speaker=client
@@ -176,13 +180,13 @@ The client's portrait shows mood; the first "more" lands, the second shows the c
 ```
 [PENDING, Paolo's call: whether a thrown-out haggle counts as a deed at all, given DECLINING IS FREE. QR-E OPEN 1 asks the same.]
 
-### PORT 3: DECLINE WRITES NOTHING [W7]
+### PORT 3 — DECLINE WRITES NOTHING [W7]
 Walking away writes no ledger byte; only accept, finish, fail and drop are deeds. Matches QR-A.
 
-### PORT 4: THE RESULT IS THE BASE'S NEW SITUATION [W8]
+### PORT 4 — THE RESULT IS THE BASE'S NEW SITUATION [W8]
 A finished pump job flips the base from "dry" to "running" and its price for water drops; a failed one lets the roaming party take the pump. Cross-ref the future goes both ways (third votes).
 
-### PORT 5: ADVANCE AS AN HONEST LOAN [W6, F1]
+### PORT 5 — ADVANCE AS AN HONEST LOAN [W6, F1]
 An advance is shown as what it is: one battery now, one less at the end, no rounding loss. QR-L owns the numbers; TUNING owns the values.
 
 ---

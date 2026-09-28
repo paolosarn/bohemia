@@ -1,5 +1,5 @@
-BOHEMIA FLAWS MASTER — regen 7/16/26 after batch 7  [+BATCH appended 139,140,141 (7/17/26, machine-parsed)]  [+BATCH appended 142,143,144 (7/17/26, machine-parsed)]  [+BATCH appended 145,146,147 (7/17/26, machine-parsed)]  [+BATCH appended 148,149,150 (7/17/26, machine-parsed)]  [+BATCH appended 151,152 (7/17/26, machine-parsed)]
-693 findings
+BOHEMIA FLAWS MASTER — regen 7/16/26 after batch 7  [+BATCH appended 139,140,141 (7/17/26, machine-parsed)]  [+BATCH appended 142,143,144 (7/17/26, machine-parsed)]  [+BATCH appended 145,146,147 (7/17/26, machine-parsed)]  [+BATCH appended 148,149,150 (7/17/26, machine-parsed)]  [+BATCH appended 151,152 (7/17/26, machine-parsed)]  [+BATCH appended 153-236 (9/28/26, machine-parsed, QUESTS [index the rest])]
+946 findings
 ====================================================================================================
 
 ### #17  THE FOUR-PILLAR MISSION + SOCIAL BOSS BATTLES (Deus Ex: Human Revolution / Mankind Divided)
@@ -1955,3 +1955,930 @@ BOHEMIA FLAWS MASTER — regen 7/16/26 after batch 7  [+BATCH appended 139,140,1
   X  THE CYCLE'S BREAKING IS FREE
      The curse ends because the player wins a duel: no cost, no trade, no residue — the realm's thousand-era tragedy resolves as a boss health bar. Even sympathetic critics note the finale's metaphysics outweigh its mechanics: the deepest lore event in the setting is mechanically a Tuesday.
      LAW: breaking a cycle must cost cycle-denominated currency. Bohemia's generational frame prices this natively: ending a standing curse-class system (an Edict, #145; a faction's cyclical purge; the Greymarch-analog if one exists) should spend something only generations can bank — a lineage's accumulated record, a fold-held debt, an office's own continuity. Cheap exits from expensive cycles teach the player the cycle was never real. [PENDING, Paolo's call: what Bohemia's cycles even are — the law stands ready either way.]
+
+### #153  A NIGHT TO REMEMBER (THE BLACKOUT RECONSTRUCTION) (The Elder Scrolls V: Skyrim)
+  X  THE RECONSTRUCTION IS A CORRIDOR
+     The witnesses come in a fixed order and the player cannot investigate wrong, reach a false conclusion, or miss a beat — the "detective" work is a guided tour of pre-written comedy. The mystery cannot fail, so it is a delivery mechanism, not a deduction.
+     LAW: a reconstruction quest must be ABLE to assemble wrong — the player accuses their own blackout self of something they didn't do, or misses a witness and carries a false version — with the world recording the gap. A blackout you can only reassemble one correct way is a cutscene with steps.
+  X  THE HARM HAS NO WEIGHT
+     The jilted bride, the sold goat, the trashed tavern — none of it persists; the world resets, no witness stays wronged, the wedding thread's ache evaporates on quest completion. The comedy is consequence-free, which is safe and also thin.
+     LAW: at least one grievance from a blackout must STICK — a person who stays hurt, a debt that stays owed, a reputation the district remembers. Release-valve comedy earns its lightness by letting one thing not be funny.
+  X  THE VOLUNTARY BLACKOUT ISN'T INTERROGATED
+     The player CHOOSES to drink into oblivion and the quest never asks why or costs them the choosing — the loss of control is pure setup, never a theme. For a game about edited memory, that is a missed depth.
+     LAW: if a Bohemia quest offers a voluntary blackout (drink, a memory edit, a fold-skip), the CHOICE to lose control should itself be a recorded act with a cost — the player elected not to be present, and something happened in their absence they now own.
+
+### #154  THE FORSWORN CONSPIRACY / NO ONE ESCAPES CIDHNA MINE (THE CITY THAT FRAMED YOU) (The Elder Scrolls V: Skyrim)
+  X  THE REAL VILLAIN CAN'T BE TOUCHED, AND THE GAME DOESN'T LET THAT LAND
+     The Silver-Bloods engineer everything and face no reckoning, which is thematically sharp — but the quest offers no path even to make them PAY later, no thread that resurfaces, so their untouchability reads as an unfinished quest rather than a deliberate cruelty.
+     LAW: when a quest's real power is deliberately beyond reach, plant a DISCOVERABLE later thread — a way the untouchable can be made to answer generations on, or at least a record that names them. Untouchable-by-design must be distinguishable from untouchable-because-unfinished; the fold is how.
+  X  THE FRAME PUNISHES CURIOSITY WITH NO OFF-RAMP
+     Once the investigation starts, the imprisonment is unavoidable; a cautious player who reads the warning and stops is railroaded into the mine anyway. The "investigating is the crime" theme is undercut by the player having no real agency to heed the warning.
+     LAW: if looking is punished, let the player CHOOSE to stop looking, with a real (worse-in-other-ways) consequence — a district where the wound stays buried and the player stays free, ignorant, and complicit-by-omission. Forced imprisonment removes the choice the theme is about.
+  X  THE FORSWORN ARE FLATTENED TO THE FORK
+     Madanach and his people exist mostly to be the escape's other lever; their cause gets one speech and their victimhood is told, not felt, so the "sympathetic terrorist" lands thinner than the setup earns.
+     LAW: a faction the player is asked to free or betray needs enough prior PRESENCE that the choice has felt weight — witnessed grievances, named individuals, seen suppression — not a single cell-block monologue. Earn the fork with worldbuilding, not exposition.
+
+### #155  NATURE OF THE BEAST (THE CURSE IS A WOUND, NOT A MONSTER) (Dragon Age: Origins)
+  X  THE BEST ENDING IS A SKILL-CHECK, NOT AN EARNED TRUTH
+     Peace is gated behind a persuasion stat; a player who understands the situation perfectly but lacks the check is forced into blood. The forgiveness that is the quest's moral heart is bought with a dialogue skill, not with the player's comprehension.
+     LAW: the hardest, best outcome must be gated on ASSEMBLED UNDERSTANDING (evidence, the truth reconstructed, the wound's history known), not a raw stat — so that a player who does the moral work can always reach it, and the check tests knowing, not build. (#38/#17's lesson: earn the argument with the case.)
+  X  ZATHRIAN'S CENTURIES ARE TOLD, NOT FELT
+     The keeper's grief is exposited in a few lines; the player never witnessed the atrocity, the vengeance, or the long feeding of the wound, so his refusal to forgive reads as stubbornness rather than a tragedy the player understands from inside.
+     LAW: a wound the player is asked to help release must be SHOWN across the arc — the original crime witnessed, the grief's long persistence seen (the fold is built for this: a grievance the player watched a prior generation refuse to put down). Told grief cannot carry a forgiveness this heavy.
+  X  THE WEREWOLVES REVERT TO STAKES AT THE FORK
+     After the humanizing reveal, the werewolves become mostly the "other lever" in the ending; their individual personhood (glimpsed in the reveal) doesn't carry into the resolution, so slaughtering them costs less than the setup earned.
+     LAW: a humanized "monster" faction must keep its individual faces through the RESOLUTION — named victims present at the choice, so that wiping them out has the weight the reveal promised. Humanize through the ending, not just the twist.
+
+### #156  A PARAGON OF HER KIND / THE ANVIL OF THE VOID (THE ENDS THAT EAT THE MEANS) (Dragon Age: Origins)
+  X  BRANKA IS RIGHT AND THE GAME UNDERSELLS IT
+     The dwarves ARE dying; the Anvil COULD save them; Branka's utilitarian case is genuinely strong — but the quest stacks the presentation so heavily toward "she's a monster" (the dead House, mad Hespith) that the ends-side is emotionally foreclosed before the argument is fair. The hardest version would make keeping the Anvil genuinely tempting.
+     LAW: when a quest forks on means-vs-ends, the ENDS must be made genuinely tempting — the salvation real, present, and costed, not pre-buried under the villain's atrocities. If the "use the tool" path is obviously monstrous, it is a difficulty setting, not a dilemma (Q126's F1 law, at civilizational scale).
+  X  THE GOLEMS DON'T GET TO SPEAK FOR THEMSELVES ENOUGH
+     The murdered-volunteer horror is delivered mostly through Caridin and Hespith; the individual golems, the actual price, are largely mute scenery. The atrocity is told about more than it is heard from.
+     LAW: the PRICE of an atrocity-tool must have its own voices — the consumed should testify directly, not only through the maker and the madwoman. Let the Amalgamation's uploaded speak for what was done to them (SOMA's abandoned Simon, #34, is the model).
+  X  THE "EVERYONE LIVES" MIDDLE IS A HIDDEN SKILL PUZZLE
+     A player can maneuver a less-bloody resolution, but only via non-obvious dialogue paths; the clean-ish outcome is gated behind meta-knowledge rather than the player's understanding, so most players hit a harder ending without knowing a gentler one existed.
+     LAW: if a gentler resolution exists, its PATH must be discoverable in-world (a clue, a reachable insight), not walkthrough-only — so that the player who does the moral work can find the mercy, per the #26/#155 earned-outcome law.
+
+### #157  THE ARDAT-YAKSHI (KILL YOUR DAUGHTER, OR BE SEDUCED BY HER) (Mass Effect 2)
+  X  THE "HELP MORINTH" PATH IS A LOSING TRAP, NOT A REAL CHOICE
+     Siding with Morinth is mechanically inferior (a serial killer imitating a justicar, worse for the squad, no real upside) and the game frames it as the obviously-wrong pick — so the seduction, however well-written, is a choice the player is punished for taking rather than a genuine fork. The dilemma is one-sided.
+     LAW: if a quest offers a seductive-but-wrong choice, the choice must have a REAL upside the player forgoes by refusing it — so that resisting the seduction costs something and the temptation is genuine, not a trap with a loss attached. A seduction you're simply penalized for is a lecture; make the wrong choice genuinely tempting on the merits.
+  X  MORINTH'S PERSONHOOD DIES WITH HER, UNEXAMINED
+     The quest builds Morinth as a genuine person trapped in a lethal nature, then kills her (in the common ending) with no space to sit with what was lost — the "she is a victim too" thread is raised and dropped. The tragedy of the curse is stated but not mourned.
+     LAW: when a quest kills a humanized monster, it must leave ROOM to mourn what the nature made unavoidable — an aftermath beat where the loss is felt, not just tallied. The fold can carry Morinth's kind forward as a grief, not a closed case (Nature of the Beast's #155 law, restated).
+  X  THE SEDUCTION REQUIRES A PERFORMANCE THE PLAYER CAN'T FULLY AUTHOR
+     To bait Morinth the player must pose as her type via fixed dialogue picks; a player roleplaying differently is railroaded into the seduction script or fails the trap. The bait's performance is a corridor.
+     LAW: a bait/undercover quest must let the player author their OWN cover from their established character, with multiple valid performances reaching the trap — not one scripted seduction. The undercover self should be a choice, not a forced role (KCD's monastery, #08, is the model for lived cover).
+
+### #158  HAPPY TOGETHER (YOU CAN TALK HIM DOWN, AND YOU CAN FAIL) (Cyberpunk 2077)
+  X  THE RIGHT PATH IS OPAQUE TO THE POINT OF LUCK
+     The lines that reach Barry are unmarked, which is the design's strength — but they are ALSO not fully legible even to a compassionate player; some correct-feeling choices fail, so a player doing genuine emotional work can still lose him to a guess. The line between "unmarked" and "unfair" is crossed here for some.
+     LAW: an unmarked compassion quest must still be FAIR — the reaching lines must be legible to attention (the grief points at the thread; listening reveals the key), so that a player who does the emotional work reliably succeeds, and only the rushing/dismissive player fails. Unmarked must mean "read the person," not "guess the flag" (the #26/#155 earned-outcome fairness law, applied to compassion).
+  X  BARRY IS A VESSEL FOR THE MECHANIC MORE THAN A PERSON
+     Barry exists to be reached-or-lost; his interiority, his friends, his life before the collapse are thin, so the intervention can feel like a compassion CHECK rather than a relationship with a specific man. The stakes are real but the person is sketch.
+     LAW: the life on the table must be a SPECIFIC person the player has reason to know — witnessed before the bottom, given a texture the intervention draws on — so that reaching them is knowing them, not passing a kindness test. The fold and prior encounters can build the person the compassion is for.
+  X  THE FAILURE HAS NO WEIGHT ON THE PLAYER AFTERWARD
+     Barry's death, if it happens, registers as a quiet log entry; the player character does not carry it, no one holds them accountable, and the world does not change. The consequence is real for Barry and weightless for everyone else.
+     LAW: a life lost to the player's failure must LAND on the player and the world — River's grief and blame, the district's memory, a mark the dynast carries. The absence of ceremony is right; the absence of consequence is not. The fold records who the dynast could not reach.
+
+### #159  THE WHISPERING DOOR (A FATHER'S GRIEF, WEAPONIZED) (The Elder Scrolls V: Skyrim)
+  X  THE HARVEST OF THE FAMILY IS UNDERBUILT
+     The quest's best idea — a Prince farming a household's ordinary poisons — is mostly implied; the children's cultivation, the court's frictions, Balgruuf's love as feedstock are gestured at, not dramatized, so the domestic-harvest horror lands thinner than the concept promises. The Blade steals focus from the farm.
+     LAW: if the horror is that ordinary emotion is FARMED, the farming must be SHOWN — the small resentments cultivated on screen, the parent's love visibly refined — so the harvest is felt, not inferred. The Amalgamation's bookkeeping on grief must be watchable, not just named (the "horror is the clipboard," Q122, restated).
+  X  THE FATHER GETS NO RESOLUTION
+     Balgruuf handed the player his fear for his children and the quest never returns to him — no scene where he learns what was behind the door, no cost or relief to the parent whose love was the raw material. The human who started it is dropped.
+     LAW: the person whose emotion was harvested must get an AFTERMATH — the parent learns, grieves, or is spared, so the harvest has a human close, not just a loot payout. The fold returns to the wounded; the harvest is not finished until its source is faced.
+  X  THE BLADE'S BETRAYAL COST IS EASILY GAMED
+     Powering the Ebony Blade by killing "those who trust you" reduces, in practice, to killing generic friendly NPCs — the profound premise (trust as fuel) becomes a checklist of disposable townsfolk, draining the horror into a farming chore.
+     LAW: if a tool runs on betrayal, the betrayed must be PEOPLE the player actually trusted — named, known, costly — so feeding it is a real severance, not a chore on strangers. Trust-as-fuel must cost trust, or it is just murder with a counter.
+
+### #160  BLOOD ON THE ICE (THE MURDER THE TOWN WON'T INVESTIGATE) (The Elder Scrolls V: Skyrim)
+  X  THE WRONG ARREST'S CONSEQUENCE IS EASY TO MISS
+     Jailing Wuunferth causes another murder, but the game surfaces this so quietly that many players never realize they got it wrong — the failure state exists but doesn't LAND, so the deduction's stakes evaporate for the inattentive.
+     LAW: a failable investigation's WRONG conclusion must land legibly — the next death traced back to the false arrest, named, on the record — so the player feels the cost of misreading. A failure the player can't perceive is not a stake; the fold surfaces the wrongful outcome (the #26/#154 fairness law, restated for deduction).
+  X  THE BUG-RIDDEN TRIGGER UNDERCUTS THE CRAFT
+     Blood on the Ice is infamous for breaking — starting out of order, failing to advance, requiring console fixes — so the whole taut whodunit is gated behind a fragile script that many players never see work. The best deduction in the game is its least reliable.
+     LAW: an investigation's TRIGGER and progression must be robust — no fragile ordering that can strand the quest — because a whodunit that breaks is worse than one that's simple. Our regression-gate and no-brick-wall laws are the price of shipping deduction that works (the #23 Elden Ring ordering-dependency law, and the #45 accessibility law).
+  X  THE VICTIMS ARE INTERCHANGEABLE
+     The murdered women are named but flat — the horror rests on the pattern, not on any specific life lost, so the murders read as a puzzle's tokens more than as people. The city's indifference is condemned, but the game partly shares it by not making the dead matter individually.
+     LAW: the victims of a serial crime must be SPECIFIC people the player can know — witnessed, mourned, individual — so the investigation is about lives, not tokens, and the city's indifference is felt as a failure toward someone, not a statistic. (Q019's tally law: audit by the person, not the count.)
+
+### #161  AUNTIE ETHEL (THE BARGAIN THAT COSTS YOU AN EYE) (Baldur's Gate 3)
+  X  THE EYE'S COST IS MECHANICALLY TRIVIAL
+     The permanent mutilation is presented as a grave bargain but amounts to a minor, largely cosmetic debuff — so the "you gave up an eye forever" horror is undercut by the mechanics treating it as a shrug. The narrative price and the systemic price don't match.
+     LAW: a bargain sold as a permanent grave cost must BE one mechanically — a real, felt, lasting consequence the player lives with — or the honest-devil's terms are theatre. If the price is trivial in play, the temptation is fake; match the systemic cost to the narrative one (Q126's honestly-priced-power law, restated).
+  X  MAYRINA'S GROOMING IS TOLD MORE THAN SHOWN
+     The horror that Ethel is farming Mayrina into the next hag is powerful but delivered mostly through implication and lore; the player doesn't witness the grooming's mechanism, so the "future being made" dread lands thinner than the concept.
+     LAW: if a captive is being MADE into the thing that holds them, the making must be shown — the mechanism of the grooming witnessed, the grief-lever pulled on screen — so the future-being-farmed horror is felt. The fold can show the slow becoming across time (#155/#159's show-don't-tell law).
+  X  REFUSING IS OBVIOUSLY CORRECT
+     Because the accept-path's cost is trivial-but-permanent and the refuse-path rescues an innocent and stops a monster, refusing is the clearly-superior choice for most players — the "honest bargain" is undercut by there being no real reason to take it. The dilemma tilts.
+     LAW: the honest-devil's bargain must be genuinely TEMPTING — the help must solve something the refuse-path can't, at a cost the player might actually pay — or it is a false choice. Make the bargain a real fork, not an obvious trap (the #156/#157 make-the-ends-tempting law).
+
+### #162  MORDIN AND THE GENOPHAGE (THE SCIENTIST WHO HELD THE SYRINGE) (Mass Effect 2 & 3)
+  X  THE SABOTAGE PATH REQUIRES META-KNOWLEDGE
+     The outcome where Mordin is talked into faking the cure (galaxy safe, no betrayal-kill) is gated behind specific, non-obvious prior conditions most players never assemble — so the "keep the genophage without murdering the scientist" option is effectively invisible, collapsing a three-way dilemma into a two-way one for most.
+     LAW: the full range of an atrocity-undoing choice must be REACHABLE by in-world understanding, not walkthrough-only prerequisites — so a player who does the moral and investigative work can find the third path. Hidden third options that only the wiki knows are not really choices (the #26/#156 discoverable-path law).
+  X  THE KROGAN'S TRUSTWORTHINESS IS UNRESOLVABLE BY DESIGN, WHICH CUTS BOTH WAYS
+     The whole dilemma rides on "will the krogan repeat the expansion?" and the game deliberately never answers it — powerful, but it means the player chooses in a fog the narrative refuses to thin even slightly, so the choice can feel like a coin-flip rather than a judgment.
+     LAW: when a choice rides on an unknowable (will the restored party repeat the crime), the game must give the player enough EVIDENCE to make it a judgment, not a guess — testimony, history, a read on the wronged party's leadership — so the fog is navigable, not total. Uncertainty should be earned, not absolute (the #21 odds-must-feel-fair law).
+  X  MORDIN'S GUILT IS CARRIED BY CHARM, WHICH CAN HIDE IT
+     Mordin's fast-talking cheer is so entertaining that many players experience him as comic relief and miss the guilt entirely until the death — the coping-surface design works so well it can bury the wound it covers.
+     LAW: if a character's guilt is hidden under a coping surface (cheer, deflection), the surface must CRACK visibly at least once before the climax — a beat where the wound shows — so the player understands what the charm is defending against. The guilt must be legible, or the death is a surprise instead of a culmination (#122's the-horror-is-under-the-procedure law).
+
+### #163  THE SILVER SHROUD (THE COSTUME THAT BECOMES REAL) (Fallout 4)
+  X  THE MORAL QUESTION ISN'T MECHANICALLY WEIGHTED
+     The sincere/camp/cynical registers are pure flavor — the killings, the outcomes, and Kent's fate don't meaningfully differ by which tone the player picks, so the profound "hero or executioner" question is a costume the game never actually charges the player for wearing.
+     LAW: if a role's REGISTER is a moral question, it must have mechanical or consequential weight — the sincere hero and the cynical executioner should reap different worlds (how the district sees the mask, what the role costs the player) — or the question is decoration. A tone with no consequence is not a choice (the #33 agency-twist law: performance must matter).
+  X  THE COSTUME NEVER COSTS THE PLAYER THEIR OWN IDENTITY
+     The player puts on the Shroud and takes it off freely; there is no beat where the mask threatens to REPLACE them, no cost to inhabiting a fiction. The "role becomes real" theme is stated but the player is never actually in danger of losing themselves to it.
+     LAW: if a role can become real, inhabiting it must RISK the self — a beat where the mask starts speaking for the player, where taking it off is harder than putting it on — so the theme is felt, not just narrated. The dynasty-as-role should be able to consume the person (the #32/#35 identity-loss law).
+  X  KENT'S GRIEF IS BACKSTORY, NOT PRESENCE
+     Kent's two-hundred-year love of the Shroud, his survival-through-fiction, is the quest's emotional core but is delivered mostly in a few lines; the player experiences him as a quest-giver more than a person whose hope they're carrying, so the hostage climax lands lighter than the setup earns.
+     LAW: the believer whose hope the player is asked to embody must be a PRESENT person — witnessed, known, their stake felt — so that becoming their hero and risking their life carries weight. The fold builds the believer the mask is for (#158's specific-person law).
+
+### #164  THE CABOT HOUSE (THE FATHER IN THE CELL, THE SERUM IN THE VEINS) (Fallout 4)
+  X  LORENZO'S THREAT IS ASSERTED, NOT DEMONSTRATED
+     The whole "keep him caged" case rides on Lorenzo being a world-level danger, but the game never really SHOWS what he'd do free beyond attacking his family — so the player is asked to endorse eternal imprisonment on the strength of an unproven "he's too dangerous," which tilts the choice toward freeing him by default.
+     LAW: if imprisonment is justified by a threat, the THREAT must be demonstrable — witnessed, evidenced, real — so keeping the cell locked is a genuine weighing, not a claim the player takes on faith. An unproven danger makes the jailer look like the villain by default (the #156 make-the-ends-real law).
+  X  THE FAMILY'S GUILT IS THIN
+     Four hundred years of drugging your relatives young off your imprisoned father is a staggering moral weight, but the Cabots wear it lightly — Jack is anxious, not haunted; Emogene is oblivious — so the horror of the arrangement is under-felt, and the player judges an atrocity the perpetrators barely seem to register.
+     LAW: the beneficiaries of an imprisonment-for-immortality must CARRY it visibly — the guilt of the never-dying shown, not shrugged — so the arrangement's horror lands and the player's choice has moral gravity. A family that doesn't feel the cost makes the cost invisible (the #34 SOMA-honesty law: the never-dying must be haunted).
+  X  THE SERUM BRIBE ISN'T INTERROGATED
+     The player is paid in immortality by whichever side, but the game never makes the player RECKON with taking a cut of the not-dying — the serum is a loot reward, not a moral stain, so the "your choice is bought" horror is a mechanic, not a theme.
+     LAW: if the player is bribed with a share of the atrocity's product (immortality, the Amalgamation's promise), taking it must be a recorded MORAL act with weight — the fold marks that the dynast pocketed the not-dying — so the contamination of the choice is felt. A bribe that's just loot launders the complicity (the #31 cruelty-incentivized law).
+
+### #165  THE HOUSE OF GRIEF (KILL THE MOTHER WHO MADE YOU, OR KNEEL) (Baldur's Gate 3)
+  X  THE GATING IS OPAQUE TO THE PLAYER
+     The relationship-accrual that decides the ending is invisible — there is no legible sense, during the game, that a given camp choice is a debit toward defiance or kneeling — so a player who wanted to free Shadowheart can lose her without ever knowing which moments cost it. The debt is real but unreadable.
+     LAW: an ending gated on accumulated relationship must give the player LEGIBLE feedback that the relationship is moving — a felt sense of the companion reclaiming or losing herself — so the outcome is earned by attention, not by invisible bookkeeping. A debt the player can't see coming is a coin-flip wearing depth (the #24 surface-the-reactivity law).
+  X  VICONIA'S PITCH IS UNDERCUT BY BEING OBVIOUSLY EVIL
+     The cult's lure — forgetting as mercy — is genuinely seductive in concept, but Viconia is staged as such a clear villain that the "come home and forget the pain" offer never lands as a real temptation for Shadowheart or the player. The most interesting idea (that forgetting is a kindness) is buried under menace.
+     LAW: if a cult's lure is that forgetting eases pain, the lure must be made genuinely TEMPTING — the mercy of it real, the pain of remembering shown as truly unbearable — so kneeling is a comprehensible choice, not a villain's trap. The Amalgamation's "no one is ever lost" must tempt, or refusing it means nothing (#34/#161's make-it-tempting law).
+  X  THE HUNDRED SMALL MOMENTS AREN'T ALL WEIGHTED EQUALLY, INVISIBLY
+     Some camp choices matter enormously to the gate and others not at all, with no way to tell which — so a player can do the emotional work in the moments that don't count and miss the ones that do, and lose the ending despite genuine care. The accrual is uneven and hidden.
+     LAW: the moments that BUILD a companion's fate must be the ones that FEEL significant — the weighting legible to emotional intuition — so a player who cares reliably reaches the earned ending. Hidden uneven weighting punishes attention it should reward (the #158 unmarked-but-fair law, applied to relationship).
+
+### #166  THE URN OF SACRED ASHES (DESECRATE THE RELIC, OR KEEP THE FAITH) (Dragon Age: Origins)
+  X  THE DESECRATION HAS NO CONSEQUENCE, WHICH BOTH MAKES AND BREAKS THE POINT
+     The ashes being defilable with zero mechanical or narrative penalty is the quest's sharpest idea — the sacred tested by absent punishment — but the game so completely fails to acknowledge the desecration afterward (no faction reaction, no companion horror lasting, no world change) that it reads to many players as an oversight rather than a deliberate silence.
+     LAW: the test of "will you spend the sacred when nothing punishes it" must be framed so the absence of punishment reads as DELIBERATE — a witness who knows, a companion who never forgets, a fold entry — so the silence is the point, not a bug. Unpunished must be distinguishable from unnoticed (the #14/#126 no-karma-but-remembered law).
+  X  THE GUARDIAN'S QUESTION IS UNDERUSED
+     The forced-honesty moment — being made to name your own guilt — is the quest's most striking beat, but it is a one-off with no callback; the truth the player was forced to speak never returns, so the honesty toll is a moment, not a thread.
+     LAW: a forced-honesty beat where the player names their own guilt must RETURN — the spoken truth resurfacing later, the fold holding it, a consequence or a mercy built on it — so the honesty was extracted for a reason. A confession that never echoes is a set piece (the #50 small-choices-teach-big-choices law, extended: the truth spoken must matter).
+  X  THE HERETIC CULT IS FLATTENED TO AN OBSTACLE
+     Haven's dragon-worshippers — people who took a real faith and aimed it at the wrong god — are a fascinating mirror, but they mostly exist to be fought; their theology, their sincerity, their humanity get one or two lines, so the "devotion aimed wrong" idea is scenery.
+     LAW: a false-faith faction must be given real DEVOTION — sincerity, a comprehensible reason they believe, individual faces — so they mirror the true pilgrims rather than just blocking them. Aimed-wrong faith is only meaningful if it's felt as faith (the #155 humanize-through-the-resolution law).
+
+### #167  THE LEVIATHAN (THE TRUTH DELIVERED BY THE ENEMY AT YOUR LOWEST) (Star Wars: Knights of the Old Republic)
+  X  THE SEEDS ARE UNEVEN, SO THE REVEAL SURPRISES SOME AND BORES OTHERS
+     The Leviathan reveal relies on prior seeding (odd competences, NPC reactions, Force aptitude), but the seeding is inconsistent — attentive players see it coming and find the "shattering" flat, while inattentive ones can find it arbitrary. The delivery is masterful but the setup is uneven.
+     LAW: a reveal delivered as trauma must be seeded so it lands as INEVITABLE-in-hindsight for the attentive AND earned for the inattentive — the clues present but not conclusive, per #32's fairness contract — so the delivery's power isn't undercut by a setup that either spoils or blindsides. The seeding is the delivery's foundation.
+  X  THE ESCAPE'S DENIAL OF CATHARSIS IS ACCIDENTAL, NOT DESIGNED
+     The "no time to process" effect — carrying the collapse forward under fire — is the quest's most powerful structural move, but it emerges from generic gameplay pacing (there's an escape sequence because there's always an escape sequence) rather than deliberate design, so the game doesn't fully exploit the trauma-under-fire it stumbles into.
+     LAW: if a reveal is followed by forced action that denies catharsis, that denial must be DELIBERATE and shaped — the action's demands echoing the identity collapse, the leadership-under-fire mirroring the theme — so the structure carries the trauma on purpose. An accidental gut-punch is a gift; a designed one is a weapon (the #27 theme-through-mechanic law).
+  X  THE POISONED TRUST RECOVERS TOO CLEANLY
+     The reveal detonates the party's bonds, but the back half lets trust rebuild through fairly standard approval mechanics; Carth's betrayal-wound, so sharp at the Leviathan, heals via ordinary companion-quest beats rather than carrying the specific poison the reveal injected. The detonation lands harder than the aftermath honors.
+     LAW: a bond detonated by a reveal must rebuild in a way that CARRIES the specific wound — the trust reformed as a different, scarred thing, not restored to default — so the reveal's damage is permanent even when the relationship survives. The fold holds the poison; reconciliation is not erasure (the #43 companion-scar law).
+
+### #168  RAVEL PUZZLEWELL (THE HAG WHO ASKS THE ONLY QUESTION) (Planescape: Torment)
+  X  THE ENGAGEMENT GATE IS INVISIBLE, SO THE THINKER CAN STILL MISS IT
+     The reward for honest engagement — Ravel's answer — is gated behind specific dialogue choices that a genuinely thoughtful player might not happen to pick; the "thinker gets the truth" design isn't reliable, so a player doing real reflection can leave without the key by choosing the wrong honest option.
+     LAW: the reward for engagement must be reachable by ANY genuine engagement, not one specific path — the buried truth offered to the player who thinks, however they phrase it — so reflection reliably earns it. A truth gated behind exact wording punishes the thinker for not guessing the flag (the #158 unmarked-but-fair law, applied to theme).
+  X  THE FIGHT OPTION IS TOO EASY TO STUMBLE INTO
+     Ravel is deadly and a wrong answer triggers combat, but the line between "answer that opens her" and "answer that starts the fight" is not always legible — so a player can lose the entire buried climax to a misread of a mad hag's mood, which feels like a gotcha rather than a consequence of skimming.
+     LAW: if a wrong answer forecloses the deepest content, the danger must be LEGIBLE — the player able to sense they are provoking rather than engaging — so losing the truth is a consequence of choosing not to think, not of misreading an obscure trigger. The stakes of the conversation must be readable (the #26/#160 fair-deduction law, applied to dialogue).
+  X  RAVEL'S LOVE IS UNDERBUILT RELATIVE TO ITS WEIGHT
+     The revelation that Ravel loved the Nameless One and made him immortal out of devotion is the emotional core of her tragedy, but the game delivers it in dense, easily-missed text; a player can reach the thematic key without ever feeling the ruined love underneath, so the monster's grief lands lighter than her thesis.
+     LAW: a monster whose tragedy is love must have that love SHOWN with enough weight to be felt, not buried in optional density — so the creature's grief carries the same force as its thesis. The buried climax's emotion must be as reachable as its idea (the #155/#159 show-the-wound law).
+
+### #169  THAT LUCKY OLD SUN (WHO GETS THE POWER) (Fallout: New Vegas)
+  X  THE CONSEQUENCES ARE TOO DIFFUSE TO FEEL
+     The allocation's downstream effects — which towns benefit, how a faction is strengthened — are so diffuse and under-shown that the player rarely FEELS the weight of who they lit or left dark; the choice is morally rich in concept but nearly weightless in play, because the region's response is barely dramatized.
+     LAW: an allocation choice must have LEGIBLE, felt consequences — the lit town seen thriving, the dark one seen suffering, named people on both sides — so the switch's moral weight lands. A resource decision whose outcomes are invisible is a menu, not a verdict (the #29 Frostpunk faces-not-bars law, applied to allocation).
+  X  THE OPTIONS AREN'T EQUALLY LEGIBLE
+     The hidden weapon option (ARCHIMEDES) and the full range of allocations aren't clearly surfaced; a player can complete the quest without realizing the depth of the choice they made, picking an allocation without understanding the alternatives. The richness is there but not presented as a real weighing.
+     LAW: the full range of an allocation must be LEGIBLE at the point of choice — the alternatives and their theories of desert clear — so the dynast weighs a real decision, not stumbles into a default. Hidden options aren't depth if the player never knows to consider them (the #26/#162 discoverable-range law).
+  X  NO ONE IS ACCOUNTABLE FOR THE ALLOCATION
+     The player flips the switch and no one — no faction, no town, no companion — ever holds them to account for who they powered; the region doesn't remember the dynast as the one who lit or darkened it, so the moral act has no social consequence. Infrastructure's power is granted without infrastructure's responsibility.
+     LAW: the one who holds the switch must be HELD to it — factions and people remembering who lit them or left them dark, standing shifting on the allocation — so the power to distribute carries the accountability of distributing. An allocation nobody remembers is a decision with no weight (the #24/#38 the-world-remembers law).
+
+### #170  SINS OF THE FATHER (STOP YOUR SON FROM BECOMING YOU) (Mass Effect 2)
+  X  THE INTERVENTION'S SUCCESS LEANS ON A PERSUASION CHECK
+     Talking Kolyat down is gated partly behind Paragon/Renegade points — so a player who understands the boy's grief perfectly but lacks the check can fail to reach him, and the cycle-breaking that is the quest's heart is bought with a stat rather than with comprehension.
+     LAW: the cycle-breaking intervention must be gated on UNDERSTANDING the child's wound (reaching the grief, not the rage), not on a raw persuasion number — so a dynast who does the emotional work can always break the inheritance. The check tests knowing the son, not build (the #155/#158 earned-outcome law).
+  X  THANE'S ABSENCE IS TOLD, NOT LIVED
+     The abandonment that drives the whole quest — Thane leaving Kolyat to grief while he pursued revenge — is delivered as backstory, so the player experiences the wound as exposition rather than as something felt; the father's guilt and the son's abandonment land lighter than the concept demands.
+     LAW: the abandonment that creates a cycle must be SHOWN across the fold — the parent's leaving, the child's grief, the years of absence witnessed — so breaking the inheritance carries the weight of a history the player lived. The fold shows the abandonment that told exposition cannot (the #155/#159 show-the-wound law).
+  X  THE FRAGILE CHANCE ISN'T FOLLOWED THROUGH
+     If Kolyat is saved, the "father-son reckoning in Thane's last weeks" is promised but barely delivered — a brief scene, then the thread mostly drops, so the cycle-breaking's payoff is thinner than its stakes. The intervention's success doesn't get the aftermath its weight earned.
+     LAW: breaking a generational cycle must have an AFTERMATH proportional to its stakes — the reconciled relationship shown growing, the spared child's changed path witnessed, across the fold's time — so the intervention's success is felt, not just noted. A cycle broken deserves more than a closing line (the #47 personal-scale-payoff law).
+
+### #171  THE GAUNTLET OF SHAR (THE TRIALS THAT REWARD SELF-ERASURE) (Baldur's Gate 3)
+  X  THE TRIALS' CONDITIONING IS THEMATIC, NOT MECHANICALLY BINDING
+     The trials teach Shar's mindset, but a player can pass them while mentally rejecting the theology the whole time — the "conditioning" is narrative dressing, not a mechanic that actually shifts the player's disposition, so the final kill isn't really made easier by the trials, just contextualized by them.
+     LAW: if a dungeon's TRIALS are meant to condition the player toward a final act, the conditioning must have real mechanical or psychological grip — small commitments that accrue, a disposition the game tracks — so the final ask genuinely feels like the trained next step, not just a themed one. Indoctrination-through-mechanics must actually condition (the #29 slippery-slope law, applied to a dungeon).
+  X  THE NIGHTSONG'S PERSONHOOD ARRIVES LATE
+     Dame Aylin is revealed as a tortured prisoner only at the final trial, so the "atrocity disguised as devotion" lands as a twist rather than a dawning horror; a player who felt her presence earlier would experience the trials as a mounting dread instead of a late reveal. The victim is a reveal, not a build.
+     LAW: the person a doctrine trains you to harm should be FELT before the final ask — glimpsed, heard, sensed through the trials — so the conditioning is a mounting dread, not a late twist. The atrocity's victim built across the dungeon, not sprung at its end (the #155/#157 humanize-before-the-choice law).
+  X  THE REWARD FOR COMPLETING SKEWS THE CHOICE
+     Killing the Nightsong grants a significant power reward, so the "complete the indoctrination" path is mechanically incentivized — the game pays you to do the atrocity, which can tip the choice toward the kill for reasons that have nothing to do with the theology the dungeon built. The doctrine's endpoint is bribed.
+     LAW: if a doctrine's final atrocity carries a power reward, that bribe must be a RECORDED moral act with weight — the fold marking that the dynast took the power for the killing — so completing the indoctrination for the reward is felt as a stain, not laundered as loot (the #31/#164 cruelty-incentivized law).
+
+### #172  CARNAL SINS (THE ARTIST WHO KILLS TO FINISH THE MASTERPIECE) (The Witcher 3: Wild Hunt)
+  X  THE INVESTIGATION CAN'T ACTUALLY FAIL INTO THE WRONG CONVICTION SILENTLY
+     Like most witcher-sense investigations, the deduction is largely a guided corridor; the "condemn the innocent" outcome is hard to reach and, when reached, under-consequenced — so the whodunit's stakes (get it wrong, free the killer, punish the innocent) rarely land as a real risk the player feels.
+     LAW: a forensic whodunit must be genuinely FAILABLE into a wrong conviction with legible consequences — the innocent condemned, the killer free, the world recording it — so reading the scene wrong has weight. A deduction that can't really fail is a tour (the #19/#160 failable-deduction law).
+  X  THE KILLER'S AESTHETIC HORROR IS UNDERPLAYED
+     The idea that the murderer experiences atrocity as beauty — composes corpses as holy art — is the quest's most chilling concept, but it's delivered in a few lines at the end; the player never really inhabits the killer's aesthetic frame, so the "see what he sees" horror is stated more than felt.
+     LAW: if a killer experiences atrocity as beauty, the player must be made to briefly INHABIT that frame — the composition's logic shown, the terrible beauty legible for a moment — so the horror of understanding it lands. To catch the artist you must see what he sees, and the game must let you (the #35 town-as-psyche law, applied to a killer's aesthetic).
+  X  THE CORRUPTED FAITH ISN'T CONNECTED TO THE REAL CHURCH'S DOCTRINE
+     The killer twists the Eternal Fire's faith into a license to compose with corpses, but the quest doesn't dramatize HOW the doctrine enables him — the church is backdrop, so the "faith corrupted into atrocity" theme floats free of the actual religion the setting built.
+     LAW: a corrupted-faith killer's madness must be TRACEABLE to the doctrine he twisted — the line from the real teaching to the atrocity shown — so the corruption indicts the faith, not just the man. Aimed-wrong devotion is only meaningful if the aim is legible (the #154/#166 faith-as-real law).
+
+### #173  KARLACH'S HEART (THE ENGINE IN HER CHEST WILL KILL HER EITHER WAY) (Baldur's Gate 3)
+  X  THE "GOOD" ENDING WAS PATCHED IN, EXPOSING THE DESIGN'S HESITATION
+     Karlach originally shipped with only the bleak endings; a later patch added a path to more time (the mind-flayer route, the Avernus survival), which relieved players but also revealed the design flinching from its own honesty — the death-math was softened after the fact, so the terminal-loss theme is undercut by the studio's own reluctance to hold it.
+     LAW: if a character's arc is honest terminal loss, the design must HOLD it — not patch in a survival route because players hurt — because the courage of the ending is the point. Softening the death-math after the fact tells the player the loss wasn't real. Commit to the honest ending (the #34 SOMA structural-honesty law; the #21 don't-flinch law).
+  X  THE PATCHES-NOT-A-FIX STRUCTURE ISN'T FELT AS A COUNTDOWN
+     Karlach's engine is a terminal clock, but the game never makes the player FEEL the countdown — there's no visible worsening, no sense of time running out, so the "every fix is a slower death" horror is told through dialogue rather than experienced as mounting dread. The bomb doesn't tick.
+     LAW: a body-as-countdown must be FELT — visible worsening, a sense of time draining, the death-math legible as it advances — so the terminal stakes land as dread, not exposition. A clock the player can't hear ticking isn't a countdown (the #21 slow-onset-dread law).
+  X  THE TOUCH-STARVATION IS UNDERUSED MECHANICALLY
+     The engine making Karlach unable to be touched is her most poignant detail — a woman who wants contact and burns anyone who tries — but it's mostly a dialogue note; the game rarely makes the player feel the barrier, so the intimacy-denied tragedy lands lighter than the concept. The distance isn't dramatized.
+     LAW: a character's central deprivation (unable to be touched, unable to be known) must be DRAMATIZED, not just stated — moments where the player feels the barrier, reaches and cannot cross it — so the deprivation is experienced. The tragedy of the distance must be felt across the distance (the #158 specific-deprivation law).
+
+### #174  THE BROKEN CIRCLE / THE FADE (THE PERFECT LIE THAT LETS YOU STOP FIGHTING) (Dragon Age: Origins)
+  X  THE DREAM ISN'T PERSONALIZED ENOUGH TO THE PLAYER
+     The Sloth demon's paradise is powerful in concept, but the player character's version is often generic (a vague "everything is fine") rather than built from THEIR specific loss — so the "everything you ever wanted" trap lands harder for the companions (who have defined wishes) than for the player, whose paradise is under-tailored.
+     LAW: the perfect-dream prison must be built from the dynast's SPECIFIC deepest wish — the exact dead brought back, the exact loss undone — so the temptation is genuinely theirs. A generic paradise can't tempt; the cage must be tailored to the one it holds (the #34 make-the-lie-specific law).
+  X  WAKING THE COMPANIONS IS A PUZZLE, NOT A GRIEF
+     Recognizing each companion's paradise as a cage is largely a gameplay puzzle (find the trigger, break the illusion) rather than an emotional act — the devastating idea (helping someone leave the thing they love most) is mechanized into a fetch, so the grief of waking lands lighter than the concept.
+     LAW: waking someone from their perfect dream must be an EMOTIONAL act, not a puzzle — the dynast helping them grieve the granted wish, the leaving felt as a loss — so the mercy of truth carries its cost. Breaking the illusion should hurt, not just solve (the #155/#173 grief-not-mechanic law).
+  X  THE REAL WORLD ISN'T MADE WORTH THE SACRIFICE ON SCREEN
+     The player leaves heaven for the "hard real world," but the quest doesn't dramatize WHY the broken truth is worth more than the perfect lie — the choice is presented as obviously correct (dreams are traps) rather than as a genuine weighing, so the profound "why choose grief over paradise" question is answered before it's asked.
+     LAW: the choice to leave the perfect dream must make the REAL WORLD'S worth felt — what the truth offers that the lie can't (agency, meaning, the dignity of an unfinished life) — so refusing paradise is a genuine weighing, not a reflex. If the dream is obviously bad, it isn't a temptation (the #156 make-the-alternative-real law).
+
+### #175  THE PILLAR OF SKULLS (THE ARCHIVE OF THE DEAD DEMANDS A SOUL) (Planescape: Torment)
+  X  THE CLEVER ROUTES ARE OBSCURE, SO MANY PLAYERS ONLY SEE THE CRUEL ONE
+     The "pay without a soul" options depend on specific knowledge, items, or dialogue insight that most players won't assemble — so the transaction often collapses into "feed it a life or leave," hiding the richer moral range behind meta-knowledge. The archive's depth is real but gated.
+     LAW: the full range of a bargain-with-the-dead must be REACHABLE by in-world insight — the clever, non-lethal payments discoverable by attention — so the dynast who thinks can find the route that doesn't cost a life. A moral range only the wiki knows collapses to its cruelest option (the #26/#162 discoverable-range law).
+  X  THE FED SOUL ISN'T A PERSON
+     If the player condemns a life to the Pillar, the "soul" is usually a generic or already-doomed NPC, so the horror of feeding the archive lands lighter than it should — condemning an abstraction is not the same as condemning someone the player knew.
+     LAW: if the price of the archive is a soul, that soul must be a PERSON the dynast could know — named, met, with a life — so feeding the archive is a real condemnation, not the disposal of a token. The Amalgamation's contribution must cost someone (the #160/#164 victims-are-people law).
+  X  THE PILLAR'S HONESTY ISN'T CONTRASTED WITH A DECEIVER
+     The Pillar is a fascinating honest-bargainer — monstrous but truthful about its price — but the quest doesn't set it against a deceptive alternative, so the "the honest monster states its price plainly" craft (the #126 honest-devil) isn't sharpened by contrast; its integrity is a detail, not a theme.
+     LAW: an honest-monster bargainer lands hardest when CONTRASTED with a deceiver — the truthful terrible price beside a lying gentle one — so the player learns that the honest horror is the safer deal. Honesty as a monster's virtue needs a liar to shine against (the #126/#36 honest-vs-deceptive law).
+
+### #176  A TOWERFUL OF MICE (THE TRUTH OR THE MERCY, TO A GHOST) (The Witcher 3: Wild Hunt)
+  X  THE OUTCOMES AREN'T CLEANLY TIED TO THE TRUTH/LIE CHOICE
+     The quest's resolution (who survives, how the curse ends) depends on a tangle of factors beyond the truth/lie decision, so the profound "the story you tell the dead decides who lives" clarity is muddied — a player can tell the truth and get a bad outcome for reasons unrelated to honesty, blurring the moral.
+     LAW: if a choice about the dead's story determines a living cost, the LINK must be legible — the truth or the lie clearly causing the outcome — so the player owns the consequence of what they chose to tell. A moral choice whose result is a tangle teaches nothing (the #26/#160 legible-consequence law).
+  X  THE GHOST'S FALSE MEMORY ISN'T BUILT ENOUGH FOR THE TRUTH TO SHATTER
+     Annabelle's comforting version of her death is stated more than shown, so telling her the truth lands as a plot beat rather than the shattering of a person's self-protective illusion; the player never really feels the mercy of the lie she's given herself, so breaking it costs less than it should.
+     LAW: a dead person's self-protective false memory must be BUILT — felt as the mercy they gave themselves — so that telling the truth is felt as shattering it. The lie the dead tell themselves must be shown as their comfort before it is broken (the #35/#159 show-the-illusion law).
+  X  THE PLAYER'S OWN STAKE IS ABSENT
+     The player decides what the dead are owed but has no personal relationship to Annabelle or the betrothed, so the choice is a judgment made from outside — the "what do you owe the dead" question would cut deeper if the dead were the player's own, not strangers on a contract.
+     LAW: the truth-or-mercy choice about the dead cuts deepest when the dead are the dynast's OWN — a bloodline's buried atrocity, an ancestor's false memory — so the question is personal, not a stranger's curse. The fold makes the dead the player's, which is where the choice belongs (the #158 specific-person law, applied to the dead).
+
+### #177  JACK'S LOYALTY / THE TEARDOWN (BURN DOWN THE PLACE THEY MADE YOU) (Mass Effect 2)
+  X  THE CONTRADICTION IS UNDERPLAYED, SO THE MEMORY-EDIT LANDS LIGHT
+     Jack's facility does complicate her memory, but the game states the discrepancies more than it makes the player FEEL the vertigo of a foundational truth collapsing — so the powerful "your story was false, your wound was real" idea reads as a plot note rather than the ground shifting under a survivor.
+     LAW: the collapse of a foundational memory must be FELT as vertigo — the survivor and player experiencing the ground shift, the story they trusted contradicted piece by piece — so the edit-revealed lands as trauma, not exposition. A memory correction the player doesn't feel is a footnote (the #32/#167 reveal-as-experience law).
+  X  THE "BURN IT ANYWAY" AND "RECKON" PATHS AREN'T DIFFERENTIATED ENOUGH
+     Both endings largely lead to the facility's destruction; the "examine the rage instead of spending it" path isn't given a distinct, felt outcome, so the profound choice (catharsis vs accuracy) collapses into a tonal difference rather than a real fork with different consequences.
+     LAW: if a survivor's reckoning offers catharsis-vs-accuracy, the two must lead to genuinely DIFFERENT outcomes — the burned forge and the examined rage producing different survivors, different worlds — so the choice matters beyond tone. A fork with one destination is a mood, not a decision (the #25 real-fork law).
+  X  JACK'S WOUND IS TOLD THROUGH ATTITUDE, WHICH CAN HIDE IT
+     Jack's trauma is delivered through her aggression and defensiveness — an effective coping surface — but so consistently that some players read her as just abrasive and never feel the child under the rage, so the reckoning's emotional payoff depends on a wound the player may not have felt.
+     LAW: if a survivor's wound is hidden under a coping surface (aggression, deflection), the surface must CRACK before the reckoning — the child under the rage glimpsed — so the memory-collapse has an emotional foundation. The wound must be felt before the story about it is corrected (#162's guilt-cracks-before-the-end law, applied to trauma).
+
+### #178  THE PRICE OF REVENGE (ZAEED, THE BLUE SUNS, AND THE MAN WHO WOULDN'T LET IT GO) (Mass Effect 2)
+  X  THE WORKERS ARE ABSTRACT, SO THE BODY COUNT DOESN'T WEIGH ENOUGH
+     The refinery hostages are faceless mission-geometry — a number in a fire, not people — so the profound scale (an earned grudge against innocent lives) tips too easily toward whichever the player already preferred, because the cost side has no face.
+     LAW: when a choice weighs a grudge against strangers, the strangers must have ENOUGH face that their deaths weigh — a name, a plea, a body the player has to walk past — so the scale is real. An abstract cost is a thumb on the scale toward whatever the player wanted anyway (#26's the-ledger-must-have-faces law).
+  X  ZAEED'S LOYALTY GATING ON STANDING CHEAPENS THE MORAL CHOICE
+     Whether Zaeed forgives the player for saving the workers depends on a hidden Paragon/Renegade threshold, so the game turns a genuine ethical fork into a stat check — the "right" choice punished unless the player pre-invested points, which reads the human decision as a skill gate.
+     LAW: a moral choice's relational consequence must follow from the CHOICE and its handling, not a hidden stat threshold — the character responding to what the player did and said, not to an invisible number — so the ethics aren't paywalled behind a build. A conscience gated by points is a stat check wearing a soul (the #169 earned-not-bought law).
+  X  THE REVENGE COMPLETES TOO CLEANLY IF YOU CHASE VIDO
+     Chasing Vido and letting the workers burn closes the grudge with little felt aftermath — the body count is stated, not carried — so the "earned revenge still costs" idea is undercut by a completion that feels mostly like a win, with the price a footnote.
+     LAW: if a revenge is completed at innocents' expense, the cost must be CARRIED after — the body count returning, the closed grudge sitting heavier than expected — so the completion isn't a clean win. A revenge whose price vanishes at the credits was never really weighed (#170's the-cost-must-return law).
+
+### #179  THE TRIALS OF KORRIBAN (PROVE YOU BELONG TO THE THING THAT MADE YOU EVIL) (Star Wars: Knights of the Old Republic)
+  X  THE ALIGNMENT SYSTEM SCORES THE ACTS, WHICH LETS THE PLAYER GAME THE FIREWALL
+     KOTOR's light/dark meter turns the cruelty into points, so a player can perform academy evil and then "buy back" light-side standing elsewhere — which accidentally proves the opposite of the quest's truth, letting the ledger be balanced with unrelated good deeds instead of holding the acts as permanent.
+     LAW: if a quest's point is that cruelty can't be laundered by intent, the system must not let it be laundered by an ALIGNMENT METER either — the specific acts staying on the specific ledger, un-offsettable by unrelated good — so the firewall-leaks truth isn't undone by a score you can rebalance (#143's the-conduct-book-is-per-act law).
+  X  "FOR THE MISSION" ISN'T CHALLENGED BY THE GAME, ONLY BY THE FICTION
+     The quest presents the cover-vs-conviction tension but rarely has an NPC or consequence actually confront the player with "that student is dead and your reason doesn't matter to them" — so the profound idea sits in the setup and is left for the player to feel or ignore, never pressed.
+     LAW: if a quest's spine is "your good reason didn't reach the victim," something in the world must PRESS it — a survivor who names the dead, a consequence that treats the act as real — so the player can't coast past the tension on the private excuse. An unchallenged rationalization is a firewall the quest forgot to test (#178's the-cost-must-have-a-face law).
+  X  THE NARROW PATHS ARE OBSCURE, SO MOST PLAYERS NEVER LEARN THE CRUELTY WAS OPTIONAL
+     The less-bloody routes through the academy exist but are easy to miss, so many players experience Korriban as "the game made me do evil" rather than "I chose the bloody road" — which lets the player off the hook the quest means to keep them on.
+     LAW: if a cruel institution has a less-bloody path, it must be DISCOVERABLE enough that the player knows the cruelty was a choice — the alternative visible, even if hard — so "the game made me" isn't available as an excuse. A hidden mercy is a choice the player never knew they declined (#175's the-alternative-must-be-seen law).
+
+### #180  INTO THE PITT (STEAL THE CURE OR FREE THE SLAVES, AND FIND OUT THE CURE IS A BABY) (Fallout 3 — The Pitt)
+  X  ASHUR IS TOO ARTICULATE, WHICH TILTS THE SCALE TOWARD KEEPING THE SLAVES
+     Ashur gets a long, persuasive speech about order and Marie, while the rebels' case is delivered mostly through squalor and a leader who reads as unhinged — so the "both sides unclean" balance tips, and many players feel the game wants them to side with the eloquent slaver, undercutting the genuine dilemma.
+     LAW: if a choice depends on both factions being equally right and equally monstrous, both must be given equal ARTICULATION — the liberator's case as well-argued as the tyrant's — so the scale isn't tilted by who got the better speech. A dilemma where one side is eloquent and the other is squalor is a recommendation in disguise (#169's both-sides-fully-built law).
+  X  TAKING MARIE HAS THIN CONSEQUENCES, SO THE KIDNAPPING DOESN'T WEIGH
+     Once Marie is taken, the game shows little of what her lab-life actually costs her — the profound "you took a child to save the many" recedes into a faction-outcome slide, so the weight of the one is stated and then dropped, letting the player off the hook the crib put them on.
+     LAW: if the greater good is bought with a specific child, the child's COST must return — what the taken life became, glimpsed after — so the one isn't a price the player pays once and never sees again. A sacrificed innocent who vanishes from the aftermath was never really weighed (#170/#178's the-cost-must-return law).
+  X  THE "NO SERUM, ONLY THE CHILD" REVEAL CAN BE SPOILED INTO A GAME PROBLEM
+     Because the cure is a fetch-object the whole DLC points at, some players approach Marie as loot — "get the cure" — and the horror of the reveal (it's a baby) lands as a mechanical twist rather than a moral gut-punch, blunting the face-of-the-greater-good idea.
+     LAW: when an abstraction is about to resolve into a person, the reveal must be STAGED as a person, not delivered as a loot-pickup — the child seen, held, humanized before the choice — so the greater-good-has-a-face lands as horror, not inventory. A person revealed as an objective reads as an item (#161's the-victim-must-be-a-person-first law).
+
+### #181  KLAASJE AND THE HANGED MAN (THE KILLER YOU CAN'T CHARGE AND THE WITNESS YOU CAN'T KEEP) (Disco Elysium)
+  X  KLAASJE'S CANDOR CAN READ AS ANOTHER MANIPULATION, WHICH DEFLATES THE DILEMMA
+     Because she is written as a survivor who lies to live, a suspicious player reads even her "truth" as one more play — which is thematically rich but can collapse the dilemma into "she's conning me, arrest her," letting the player skip the actual weight by disbelieving the confession wholesale.
+     LAW: if a truth-teller is also a known liar, the quest must give the player some ANCHOR that the core confession is real — a corroborating fact, an involuntary tell — so the dilemma survives a suspicious read instead of collapsing into "she's lying, done." A confession the player can dismiss entirely is a dilemma with an escape hatch (#177's the-wound-must-be-verifiable law).
+  X  THE THREE OUTCOMES HAVE UNEVEN NARRATIVE WEIGHT
+     Letting Klaasje walk is the most developed, emotionally supported path, while arrest and hand-over feel thinner — so the game gently steers toward mercy, and the "three distortions, none clean" balance tips toward one the game clearly prefers, softening the un-adjudicated ideal.
+     LAW: if a choice is meant to be genuinely un-adjudicated, all outcomes must carry equal NARRATIVE weight — each given its full case and consequence — so the game isn't quietly voting. An un-adjudicated choice with one well-lit door is an opinion pretending to be neutral (#180's equal-articulation law, applied to outcomes).
+  X  THE CONSEQUENCES OF THE CHOICE ARRIVE LATE AND FAINT
+     What actually happens to Klaasje after each choice is mostly off-screen or deferred, so the weight the game puts on the detective isn't fully paid off — the decision feels heavy in the moment and then evaporates, undercutting "the choice is on you and it matters."
+     LAW: if a quest loads a heavy un-adjudicated choice onto the player, the CONSEQUENCE must return with weight — the fate of the person decided-upon seen, not deferred — so the burden the game assigned is honored. A heavy choice with a faint aftermath is a weight the game forgot to make real (#170's the-cost-must-return law).
+
+### #182  I FOUGHT THE LAW (SOLVE THE MURDER AND LEARN THE SYSTEM ALREADY DECIDED WHO KILLED HIM) (Cyberpunk 2077)
+  X  THE FUTILITY CAN READ AS THE WRITERS GIVING UP, NOT THE SYSTEM WINNING
+     Because the quest deliberately denies the procedural payoff, a player can experience the ending as an anticlimax or a writing failure ("nothing happened") rather than as the intended point (the truth is inert against power) — so the profound idea risks landing as a dropped thread instead of a designed wall.
+     LAW: when a quest denies the expected payoff on purpose, the DENIAL must be legibly the system's doing, not the story's absence — the wall shown as a wall, the powers' pre-decision made concrete — so "the truth doesn't matter here" reads as the point, not a plot that fizzled. An intentional anticlimax that looks like a mistake taught nothing (#169's the-refusal-must-be-legible law).
+  X  RIVER'S ARC ABSORBS THE THEME INTO A PERSONAL STORY, SOFTENING THE SYSTEMIC POINT
+     The quest is also the start of River's romance/friendship arc, so the systemic horror (power decides the truth) can get folded into a warm character beat (you and River against the world), which comforts the edge off the idea that being right is powerless.
+     LAW: if a quest's point is systemic powerlessness, the personal solidarity must not ANESTHETIZE it — the human bond can coexist with the horror but must not resolve it, the system staying unbeaten even as the two people connect — so the comfort doesn't cancel the critique. A systemic wound healed by a hug is a critique the story took back (#173's the-bond-doesn't-fix-the-system law).
+  X  THE PRE-DECISION IS TOLD MORE THAN DEMONSTRATED
+     That the department, family, and corp all already decided is largely conveyed through implication and River's conclusions rather than shown as concrete, felt collusion — so the wall is more asserted than experienced, and the "verdict predates the investigation" idea depends on the player accepting a summary rather than hitting the machine themselves.
+     LAW: if a quest's spine is a pre-decided verdict, the collusion must be DEMONSTRATED — the player hitting the closed doors, the spiked report, the pre-written outcome — so the wall is experienced, not summarized. A pre-decision the player is told about is a wall painted on paper (#181's the-consequence-must-be-shown law).
+
+### #183  THE RITE OF PASSAGE (A CREATURE BUILT WITHOUT A PAST CHOOSES THE TRIBE THAT WOULD KILL HIM) (Mass Effect 2)
+  X  GRUNT'S BREAKDOWN IS RESOLVED TOO CLEANLY BY THE RITE, SO "BELONGING HEALS THE MADE THING" READS AS A SWITCH
+     Once Grunt passes, the identity crisis largely evaporates — the deep idea (a manufactured being's loneliness is structural) gets a one-fight cure, so the profound wound is closed like a quest objective rather than carried as an ongoing condition of being made.
+     LAW: if a made person's crisis is the absence of a past, earning belonging must EASE it, not erase it — the manufactured origin still present after, the belonging a thing tended rather than a switch flipped — so the wound stays honest. A structural loneliness cured by one trial was never structural (#177's the-wound-persists law).
+  X  THE OBJECTING ELDERS ARE UNDERWRITTEN, SO THE "BELONGING CAN ONLY BE BORN" CASE IS WEAK
+     The purist position (a tank-bred thing has no right to the rite) is voiced but not given real force or sympathy, so Grunt's earning of belonging faces a strawman rather than a genuine cultural conviction — which cheapens the victory by making the opposition easy.
+     LAW: if a quest is about a made person earning belonging, the inheritance-purist case must be given real WEIGHT — the conviction that lineage matters made sympathetic, not a strawman — so the earned belonging costs something to win. A prejudice with no good argument is a wall made of paper (#180's both-sides-articulated law).
+  X  THE RITE IS A COMBAT SET-PIECE, WHICH LETS THE THEME BECOME A BOSS FIGHT
+     Because the trial is delivered as a big fight, players can experience it as a spectacle rather than a cultural judgment — the "does a made thing belong" question resolved by damage output, so the profound idea rides on whether the player wins a fight, not on whether the culture counts him.
+     LAW: if belonging is decided by a trial, the trial must be legibly a CULTURAL JUDGMENT, not just a combat check — the culture's counting foregrounded over the win condition — so belonging isn't reduced to whether the player out-fought a monster. A rite that's only a boss fight taught nothing about who belongs (#179's the-institution-must-judge law).
+
+### #184  FORBIDDEN LEGEND (THREE HEROES KILLED A TYRANT, SPLIT THE PROOF, AND EACH BECAME ONE) (The Elder Scrolls V: Skyrim)
+  X  THE CYCLE REVEAL LANDS SOFT BECAUSE THE HEROES ARE JUST BOSS ENCOUNTERS
+     The devastating idea (each hero became the monster) is delivered mostly through journals and a name on a draugr, not through any felt sense of who these three were as men — so "fighting the horror made them the horror" reads as lore trivia rather than a tragedy the player mourns.
+     LAW: if a quest's spine is "the guardians became what they guarded," the guardians must be felt as PEOPLE before they're fought as monsters — their humanity established so the corruption lands as loss — so the cycle is a tragedy, not a codex entry. A fallen hero the player never knew as a hero is just another boss (#175's the-victim-must-be-known law).
+  X  THE GAME HANDS THE WHOLE AMULET AS A STRAIGHT UPGRADE, UNDERCUTTING THE WARNING
+     The reassembled relic is a genuinely good item with no downside, so the mechanics reward exactly what the fiction warns against — the "forbidden whole" is just better gear, which quietly tells the player the legend was wrong and the horror is a prize after all.
+     LAW: if a quest's fiction says a reassembled thing is forbidden, the mechanics must not hand it over as a clean upgrade — the whole thing carrying a cost, a pull, a consequence — so the warning isn't contradicted by the reward. A forbidden artifact that's a pure buff taught the player the fiction was lying (#164's the-cost-must-be-mechanical law).
+  X  THE PLAYER'S ROLE AS "THE NEXT TURN OF THE CYCLE" IS NEVER SURFACED
+     The quest never nudges the player to see themselves in the three heroes — that they too are now holding the immortal thing — so the most resonant idea (you are the next person to mistake the horror for a reward) is left entirely implicit and most players miss it.
+     LAW: if a quest positions the player as the next turn of a corrupting cycle, something must SURFACE the mirror — a line, a consequence, a moment that says "you are doing what they did" — so the player can see the wheel they're on. A cycle the player can't see themselves inside is a theme that didn't reach them (#182's the-mirror-must-be-shown law).
+
+### #185  LAST VOYAGE OF THE USS CONSTITUTION (HELP A CREW OF ROBOTS SAIL A WARSHIP OFF A ROOFTOP 200 YEARS TOO LATE) (Fallout 4)
+  X  THE COMEDY CAN FULLY MASK THE THEME, SO THE DELUSION QUESTION NEVER LANDS
+     The quest is so committed to the joke (robot sailors, a frigate blasting off a roof) that many players experience it purely as a gag and never feel the ache underneath — the profound "a delusion is holding them together" idea is available but easy to miss entirely, so the mercy-vs-truth weight is optional in a way that can neuter it.
+     LAW: if a comic quest carries a serious question underneath, ONE beat must let the ache through — a line, a pause, a moment where the delusion's cost is briefly visible — so the theme reaches even the player who came for the joke. Comedy that never once cracks to show the wound is a gag that forgot it was about something (#163's the-costume-must-crack law).
+  X  THE "SHATTER IT" PATH IS THINLY IMAGINED COMPARED TO THE VOYAGE
+     Helping the ship sail is the lavish, memorable outcome; siding against the crew is a comparatively flat destruction, so the game clearly wants the player to serve the delusion — which tips a genuine mercy-vs-truth dilemma into a single intended answer with a punish-path attached.
+     LAW: if a quest offers serve-the-delusion vs shatter-it, both must be fully IMAGINED — the truth-path given its own weight and consequence, not a flat punishment — so the dilemma is real rather than a preferred ending with a bad option beside it (#181's equal-outcomes law).
+  X  IRONSIDES NEVER FLICKERS, SO THE DELUSION READS AS PROGRAMMING, NOT PERSON
+     The captain is unshakably deluded with no moment of near-doubt, so the crew can read as malfunctioning machines rather than beings whose belief is load-bearing — which makes serving the delusion feel like humoring a broken toaster instead of honoring a fragile coherence.
+     LAW: if a quest's weight depends on a delusion being load-bearing for a PERSON, that person must flicker once — a near-doubt, a defended certainty — so the belief reads as coherence held against a crack, not just a stuck subroutine. A delusion with no visible seam is a malfunction, not a mercy (#162's the-crack-makes-it-human law).
+
+### #186  JUHANI (THE FALLEN STUDENT WHO THINKS SHE KILLED HER TEACHER AND HAS BEEN HIDING IN THE GUILT) (Star Wars: Knights of the Old Republic)
+  X  THE CORRECTION CAN BE DELIVERED AS A PERSUADE-CHECK, REDUCING RE-ACCOUNTING TO A DICE ROLL
+     Juhani's redemption can hinge on a Persuade skill success, so the profound act (freeing someone from an inflated self-verdict) becomes a stat check — the player "wins" her back by build rather than by the truth landing, which cheapens re-accounting into a mechanic.
+     LAW: if a quest's heart is correcting someone's false accounting of themselves, the correction must land on the TRUTH and its delivery, not a skill roll — the self freed by what's shown and said, not by a stat — so redemption isn't a dice check wearing a soul (#178's the-conscience-isn't-a-stat-check law).
+  X  THE STRIKE'S REALNESS GETS UNDERPLAYED, SO REDEMPTION TIPS TOWARD INNOCENCE
+     Because the reveal is "your master is alive," the quest can slide into implying Juhani did nothing wrong — but she did strike her teacher in rage, and softening that turns "guilt right-sized" into "guilt erased," losing the sharper truth that redemption keeps the deed while dropping the over-sentence.
+     LAW: if redemption is re-accounting rather than innocence, the real DEED must stay real — the wrong acknowledged even as the inflated verdict is corrected — so redemption means right-sizing guilt, not deleting it. A redemption that erases the deed taught the wrong lesson about guilt (#181's the-wrong-must-stay-real law).
+  X  JUHANI'S GROVE-RULING CRUELTY SITS AWKWARDLY WITH THE SHAME-NOT-EVIL FRAMING
+     She's been menacing travelers, which reads as active malice and slightly contradicts the "she fell from shame, not evil" framing — the quest doesn't fully reconcile the harm she's done in the grove with the sympathetic self-sentence story, leaving a gap between the tragic account and the villain the player meets.
+     LAW: if a fallen character's fall is framed as shame not evil, the harm they've done since must be RECONCILED with that framing — shown as the flailing of the self-condemned, not free-floating cruelty — so the sympathetic account isn't contradicted by the villain on screen. An unreconciled gap between the story and the deeds makes the redemption feel unearned (#173's the-account-must-match-the-acts law).
+
+### #187  RETURN TO CROOKBACK BOG (THE ORPHANS YOU SAVED GREW UP GRATEFUL TO THE MONSTERS) (The Witcher 3: Wild Hunt)
+  X  THE HILLOCK CHOICE'S STAKES ARE UNDER-SIGNALED, WHICH CAN READ AS UNFAIR RATHER THAN TRAGIC
+     Because the player often doesn't realize the tree-spirit decision is sealing the orphans' fate, the delayed consequence can land as a "gotcha" — punishing incomplete information — rather than as the intended tragedy of choosing half-blind, so some players feel tricked instead of moved.
+     LAW: if a choice's consequence is deliberately delayed and displaced, the choice must carry enough felt WEIGHT at the moment of decision that its later detonation reads as tragic, not unfair — the player sensing they're deciding something heavy, even without knowing exactly what — so delay is poignant, not a trap. A displaced consequence with no weight at the source is a gotcha, not a tragedy (#181's the-choice-must-feel-heavy law).
+  X  THE CRONES-AS-VELEN'S-ORDER IDEA IS UNDERDEVELOPED AT THE CONFRONTATION
+     The rich notion that the monsters are also the region's protectors is more implied by lore than made felt when the player confronts them, so the "no clean win" weight of beating them can flatten into a standard boss fight, losing the horror-is-also-order tension.
+     LAW: if a quest's monsters are also a region's order, the confrontation must make that DUALITY felt — the cost of removing them present in the moment, not just the codex — so defeating them isn't a clean win by default. Horror that's secretly load-bearing must be shown load-bearing at the kill (#180's the-monster-is-also-the-order law).
+  X  THE PLAYER'S HELPLESSNESS AT THE REVEAL ISN'T GIVEN ROOM TO BREATHE
+     The moment of discovering the sealed consequence passes quickly amid the arc's momentum, so the specific, devastating experience — receiving your own choice as an irreversible fact — can rush by before it lands, blunting the "understanding is not undoing" truth.
+     LAW: if a quest's power is the player receiving an irreversible consequence of their own past choice, the reveal must be given ROOM — a beat to hold the helplessness — so "you did this and cannot change it" lands. A displaced consequence rushed past is a weight the quest forgot to let fall (#182's the-reveal-must-breathe law).
+
+### #188  PYRAMID SONG (A DAY AT THE BEACH WITH SOMEONE WHO IS ABOUT TO STOP EXISTING) (Cyberpunk 2077)
+  X  THE "GO WITH HER" FANTASY CAN SOFTEN THE GOODBYE THE QUEST IS BUILT ON
+     For players whose arc permits leaving together, the romance can read as a straightforward happy unlock, which quietly undoes the quest's hardest truth (intimacy attached to loss) — the goodbye becomes optional, so the profound "closeness and farewell are the same scene" idea only fully lands for players who stay.
+     LAW: if a quest's truth is that a connection is inseparable from loss, even the "happy" continuation must carry the COST — what was left behind, what the leaving took — so the goodbye isn't fully erased by a reward path. A loss made optional by a happy unlock was never the quest's spine (#173's the-cost-survives-the-happy-ending law).
+  X  THE CITY'S UN-SOLVABILITY IS ASSERTED MORE THAN FELT AT THIS MOMENT
+     Judy's "the city is killing me" is true across her whole arc but, in this quiet quest, is stated rather than freshly demonstrated, so a player who hasn't tracked the cumulative toll can read her departure as sudden pessimism rather than a correct, earned conclusion — weakening "her leaving is right, not a problem to solve."
+     LAW: if a character's departure must read as correct rather than defeatist, the reason must be freshly PRESENT at the goodbye — the toll visible in the moment, not just assumed from earlier — so the leaving lands as clarity, not mood. A correct departure that isn't shown correct reads as giving up (#182's the-reason-must-be-present law).
+  X  THE QUIET CAN READ AS "NOTHING HAPPENS" FOR PLAYERS TRAINED ON STAKES
+     The quest is deliberately low-event — a dive, a talk, a day — and players conditioned to expect mechanical stakes can disengage, missing that the entire point is emotional, so the intimacy-as-goodbye can pass as filler for the wrong audience.
+     LAW: if a quest's whole content is emotional rather than mechanical, its stillness must be FRAMED as the event — the quiet made legibly the point, not dead air — so players trained on stakes understand the day itself is the stake. A tender quest that reads as filler failed to signal what it was (#185's the-quiet-must-be-framed law).
+
+### #189  HEART OF STONE (GRANT A DEAD MAN'S THREE WISHES AND WATCH LOVE ROT INTO A CURSE) (The Witcher 3: Hearts of Stone)
+  X  THE WISHES' WHIMSY CAN SWAMP THE EXHUMATION, SO THE COST READS AS SPECTACLE
+     Two of the three wishes are large, playful set-pieces (a wild wedding, a heist-like caper), and their spectacle can so dominate that players enjoy them as fun beats and miss that each is excavating the bargain's ruin — so the "flashy wish IS the deep wound" design lands only for players who look past the fun.
+     LAW: if a quest hides its deepest wound inside a spectacle, the spectacle must POINT at the wound, not just entertain — a beat inside the fun that turns the player's face to the cost — so the excavation isn't optional. A set-piece that's only fun buried the wound it was supposed to open (#185's the-comedy-must-crack law).
+  X  O'DIMM'S "ALWAYS FAIR" TERROR DEPENDS ON THE PLAYER PARSING THE RULES
+     The chilling idea (the devil never cheats, only grants and waits) requires the player to understand the contract's mechanics, and the game sometimes lets the horror ride on lore the player skimmed — so O'Dimm can read as an arbitrary powerful villain rather than the specific horror of a broker who wins by keeping his word.
+     LAW: if a soul-broker's terror is that he's always technically fair, the FAIRNESS must be made legible in play — the player seeing that every ruin was exactly what was asked for — so the horror is "he kept his word," not "he's strong." A devil whose fairness the player can't trace is just a strong enemy (#175's the-price-must-be-legible law).
+  X  OLGIERD IS HARD TO PITY BECAUSE HIS HEARTLESSNESS IS SHOWN AS COLDNESS, NOT LOSS
+     Because a man who traded his heart is, by design, cold and off-putting, the player can struggle to feel the tragedy of Iris's marriage from his side — the "save him" choice can feel unearned, since the game shows his effect (a rotted marriage) more than his loss (a man who can't mourn what he traded).
+     LAW: if a character's tragedy is that they traded away feeling, the LOSS must be glimpsed under the coldness — a moment where the inability to mourn is itself mournful — so pity is possible and the save-choice is earned. A traded-away heart shown only as coldness gives the player no reason to save it (#177's the-numbness-must-ache law).
+
+### #190  COME FLY WITH ME (A DEAD SPACE-CULT WORSHIPS A ROCKET THAT WILL NEVER FLY, AND YOU DECIDE WHERE THEIR FAITH GOES) (Fallout: New Vegas)
+  X  THE GAME'S MECHANICAL REWARD NUDGES TOWARD FUELING THE LAUNCH, FLATTENING THE DILEMMA
+     Completing the launch is the "main" completion with the cleanest payoff, so the profound three-way (fuel/ground/expose) can collapse into "do the quest as designed" — the grounding and truth paths feel like off-menu deviations rather than equally weighted mercies, tipping a genuine dilemma toward the intended ending.
+     LAW: if a quest offers fuel-ground-or-expose for a doomed faith, all three must be equally SUPPORTED as real endings, not one main path with two deviations — each given its own resolution and dignity — so the dilemma isn't secretly a single intended answer (#181's equal-outcomes law).
+  X  THE FAR BEYOND'S UNVERIFIABILITY CAN READ AS THE GAME DODGING, NOT AS DESIGNED AMBIGUITY
+     Because the game never confirms whether paradise exists, a player can experience the ambiguity as the writers refusing to commit rather than as the point (faith is aimed at the uncheckable) — so the strongest idea risks reading as a narrative cop-out instead of an intentional epistemic mirror.
+     LAW: if a quest's power is that a destination is unverifiable, the ambiguity must be FRAMED as the condition, not a gap — the un-checkability made legibly the point of the choice — so it reads as "you can't know and must choose anyway," not "the writers wouldn't say" (#182's the-ambiguity-must-be-owned law).
+  X  THE BROTHERHOOD IS UNDERCHARACTERIZED, SO THE STAKES ARE ABSTRACT
+     The individual ghouls of the flock are mostly a faceless congregation, so the weight of sending "them" to die or robbing "them" of their dream is diffuse — the choice would cut deeper if the player knew even one believer as a person whose specific hope is on the rocket.
+     LAW: if a choice decides the fate of a congregation, at least one believer must be KNOWN as a person — a specific hope on the line — so the stakes aren't an abstract crowd. A faith with no face is a number, not a flock (#180's the-many-need-a-face law).
+
+### #191  THE HERETICS (REWRITE A RACE OF MACHINES TO BELIEVE, OR RESPECT THEIR RIGHT TO BE WRONG) (Mass Effect 2)
+  X  THE GAME ATTACHES A SQUAD-STRENGTH REWARD THAT NUDGES TOWARD REWRITING
+     Rewriting the heretics yields a mechanical benefit (more geth for the war later), so the profound ethical question gets a thumb on the scale from a gameplay incentive — the "forced conversion may be murder" weight competes with "but you get more units," which can reduce a soul-question to an optimization.
+     LAW: if a quest poses forced conversion vs destruction as an ethical question, no mechanical REWARD should tilt it — the choice weighed on its ethics, not on unit-count — so the soul-question isn't decided by a resource bonus (#178's the-conscience-isn't-a-stat-check law).
+  X  THE HERETICS ARE NEVER GIVEN A VOICE, SO "THEIR RIGHT TO BE WRONG" IS ABSTRACT
+     The heretics never speak for themselves — the player only hears Legion's framing — so the being whose mind is at stake is a concept, not a party, which makes "respect their right to be wrong" easier to dismiss because no heretic ever argues its own chosen faith.
+     LAW: if a quest's question is whether to overwrite a being's chosen belief, that being must get to VOICE the belief — even briefly, even alienly — so the right-to-be-wrong is a real party's claim, not an abstraction argued only by its opponent (#181's the-condemned-must-speak law).
+  X  LEGION'S UNCERTAINTY CAN READ AS NEUTRALITY, LETTING THE PLAYER OFF THE HOOK
+     Because Legion presents both options evenly and defers to the player, the framing can feel like the machine is abstaining rather than genuinely troubled — so the player can treat it as a menu rather than a moral weight, missing that even the machine finds this hard.
+     LAW: if a quest's conscience-figure is genuinely troubled, that TROUBLE must be visible, not flattened into neutral option-presentation — the figure's own unease shown — so the player feels the weight rather than reading a balanced menu (#182's the-conscience-must-show-its-strain law).
+
+### #192  THE FORSWORN CONSPIRACY (PULL ONE THREAD IN A CLEAN CITY AND THE WHOLE FLOOR IS A MASS GRAVE) (The Elder Scrolls V: Skyrim)
+  X  THE FORSWORN'S OWN VIOLENCE MUDDIES THE "DISPOSSESSED, NOT TERRORISTS" REFRAME
+     The Forsworn do raid and kill throughout the game, so the quest's powerful reframe (they're the robbed, not savages) collides with the player's other experiences of them as hostile — and the quest doesn't fully reconcile the sympathetic history with the on-the-ground brutality, leaving the reframe partly undercut by the enemies the player has fought.
+     LAW: if a quest reframes an "enemy" faction as the dispossessed, it must RECONCILE their present violence with that history — showing the brutality as the shape of a wrong unhealed, not erasing it or ignoring it — so the reframe survives contact with the faction's actual deeds. A sympathetic history that ignores present harm is half a truth (#186's the-account-must-match-the-acts law).
+  X  THE "CLAW OUT ALONE" PATH LETS THE PLAYER PRESERVE THE LID WITHOUT CONSEQUENCE
+     A player can escape Cidhna Mine and effectively restore the city's order, and the game largely lets Markarth carry on clean afterward — so the devastating "the order is the crime" truth can be neutralized by an ending that keeps the surface and costs the player nothing, blunting the quest's core.
+     LAW: if a quest's truth is that an order is built on a buried crime, preserving the lid must COST something visible — the grave's continued weight felt, not waved away — so restoring the clean surface isn't a consequence-free option. A buried crime that stays comfortably buried taught the player it didn't matter (#182's the-lid-must-weigh law).
+  X  THE PLAYER'S OWN GUILT AT PRESERVING OR EXPOSING ISN'T SURFACED
+     The quest positions the player as truth-seeker but rarely presses their complicity in whichever outcome they choose — allying with people who raid, or abandoning a wronged people to keep a city clean — so the moral weight of the player's exit is left implicit and can pass without reckoning.
+     LAW: if a quest ends with the player choosing between allying with the violent-wronged or preserving the unjust-clean, the COMPLICITY of either exit must be surfaced — the player made to feel what their escape endorsed — so the choice isn't a consequence-free menu (#181's the-exit-implicates-you law).
+
+### #193  SINNERMAN (A MURDERER PAYS TO BE CRUCIFIED AND ASKS YOU TO HELP HIM MEAN IT) (Cyberpunk 2077)
+  X  THE CORPORATION'S OBVIOUS EVIL CAN TIP THE PLAYER TOWARD "STOP IT," FLATTENING THE DILEMMA
+     The media company is cartoonishly exploitative, which makes "refuse the spectacle" the easy read and can drown out Joshua's genuinely difficult claim to his own atonement — so the profound question (does he own the right to his penance) risks collapsing into "obviously the corp is bad," losing the harder half.
+     LAW: if a quest weighs a person's sincere choice against its exploitation, the exploiter must not be so cartoonish that it decides the question — the sincere claim kept as strong as the exploitation is ugly — so the dilemma stays balanced rather than tipping on villain-obviousness (#180's both-sides-articulated law).
+  X  THE PLAYER'S DEGREE OF PARTICIPATION IS UNDER-SPECIFIED, SO COMPLICITY BLURS
+     How much the player actually does — witness, protect, or physically assist — shifts the moral weight enormously, but the quest can leave the player's exact role fuzzy, so the "reverence and complicity" idea loses its edge when the player isn't sure how implicated they are.
+     LAW: if a quest's weight is the player's complicity in another's suffering, the DEGREE of participation must be legible — the player knowing exactly what their presence does — so the reverence-complicity tension is sharp rather than blurred. Complicity the player can't measure is a weight that doesn't land (#181's the-participation-must-be-legible law).
+  X  JOSHUA'S SINCERITY IS SO TOTAL IT CAN READ AS DELUSION, LETTING THE PLAYER DISMISS HIS RIGHT
+     Because Joshua is unwavering, a player can file him as a brainwashed fanatic and thereby dodge the hard question (a competent person's right to choose their own atonement) — the quest doesn't fully establish his soundness of mind, so "he's not in his right mind" becomes an escape hatch from the dilemma.
+     LAW: if a quest turns on a person's right to choose their own extreme suffering, that person's SOUNDNESS must be established — sincere and competent, not dismissibly deluded — so the player can't dodge the right-to-atone question by declaring him incapable (#185's the-chooser-must-be-competent law).
+
+### #194  THE CAVE OF DREAMS (WALK BACK INTO YOUR OWN CHILDHOOD TO FIND THE ONE MEMORY THAT STILL LOVES YOU) (The Witcher 3: Wild Hunt)
+  X  THE DREAM-SPACE'S SYMBOLISM CAN GET ABSTRACT ENOUGH TO BLUNT THE SPECIFIC WOUND
+     Hallucinatory memory-spaces tend toward the dreamlike and general, and when the forging is rendered as symbol rather than specific remembered moment, the walk can feel like atmospheric metaphor instead of this character's actual, particular childhood — so the personal wound diffuses into mood.
+     LAW: if a quest walks a character through their own past, the memories must be SPECIFIC — this room, this moment, this exact thing the guardian said — not generalized dream-symbol — so the wound is personal and particular, not atmospheric. A memory-walk made of symbols is a mood, not a past (#135's the-mindscape-must-be-specific law).
+  X  THE GUARDIAN'S "ROUGH LOVE" FRAMING CAN SLIDE INTO EXCUSING REAL HARM
+     The powerful idea (the cruelty was also love meant to keep the child alive) risks tipping into justification — where genuine damage gets laundered as "it was for your own good" — so the quest must hold the love AND the harm without letting the love dissolve the harm, or it becomes an apology for abuse.
+     LAW: if a quest frames a maker's cruelty as also love, it must hold BOTH without dissolving one into the other — the love real, the harm real, neither excusing the other — so forgiveness is a choice made with clear eyes, not a laundering. Rough love that erases the harm it did is an apology for abuse (#186's the-deed-stays-real law).
+  X  "PROTECT THE LOVED-MEMORY" CAN LACK MECHANICAL WEIGHT, SO IT READS AS FLAVOR
+     The most tender option (carry out the one memory that still loves you) is easy to render as a purely narrative beat with no consequence, so it can feel like flavor text rather than a real thing carried forward that changes who the character is — blunting the idea that the preserved self is worth protecting.
+     LAW: if a quest lets a character carry a preserved memory out of their past, that carrying must have WEIGHT going forward — the protected self visibly changing later choices — so it's a thing kept, not a line read. A preserved memory with no downstream effect was never really protected (#188's the-kept-thing-must-matter law).
+
+### #195  THE DESERTER (THE MURDERER IS A DYING TRUE BELIEVER WHO SHOT THE WRONG THING FOR THE RIGHT REASON) (Disco Elysium)
+  X  THE MIXED MOTIVE CAN READ AS THE GAME HEDGING RATHER THAN AS DECAY
+     Iosef's "both ideological and petty" motive is the point, but a player can experience it as the writers refusing to commit to a clean answer rather than as the deliberate portrait of a curdled conviction — so the profound "the line dissolved" idea risks reading as an unsatisfying non-answer to a long mystery.
+     LAW: if a quest's answer is deliberately a mixed, un-separable motive, the MIXTURE must be shown as decay, not indecision — the fermenting of principle into spite made legible over the character's history — so it reads as "this is what happened to him," not "the writers wouldn't choose" (#191's the-ambiguity-must-be-owned law).
+  X  THE LONG INVESTIGATION CAN MAKE THE HUMBLE ANSWER FEEL LIKE AN ANTICLIMAX
+     After hours of grand theory, resolving to "a lonely old man" is the intended deflation, but for players trained to expect a proportionate reveal it can land as a letdown rather than as the point (the world isn't structured) — so the anticlimax needs to be legibly the thesis, not a fizzle.
+     LAW: if a quest deliberately deflates a big mystery into a small human answer, the deflation must be FRAMED as the thesis — the smallness made pointed, the theories shown as the district's need for structure — so the humble answer reads as truth, not disappointment (#182's the-anticlimax-is-the-point law).
+  X  IOSEF'S IDEOLOGY CAN OVERSHADOW HIS LONELINESS, OR VICE VERSA, IF UNBALANCED
+     The tragedy depends on holding both the dead cause AND the personal rot in balance; if the confrontation leans too hard into political monologue or too hard into the jealous crime, one half swamps the other and the "faith and pettiness are the same shot" idea collapses into either a lecture or a sordid motive.
+     LAW: if a character embodies both a dead ideology and personal decay, the confrontation must BALANCE them — neither the politics nor the pettiness allowed to swamp the other — so the inseparability lands. A rotted believer who's all lecture or all spite lost the fusion that made them tragic (#193's the-two-readings-must-both-hold law).
+
+### #196  THE NUCLEUS (A CULT WORSHIPS THE RADIATION THAT IS KILLING THEM AND CALLS IT DIVISION INTO GRACE) (Fallout 4: Far Harbor)
+  X  THE SCHEMER CAN MAKE THE FAITH READ AS "JUST A CON," FLATTENING THE SINCERITY
+     Because there's a manipulator inside, a player can conclude the whole thing is a scam and dismiss the genuine belief — collapsing the profound "the harm is sincerely embraced as grace" idea into "cult = fraud," which loses the harder truth that the faith is real even with a con inside it.
+     LAW: if a quest pairs a sincere faith with a con inside it, the SINCERITY must be protected from the con — the belief shown as genuinely held by the flock independent of the manipulator — so exposing the schemer doesn't read as debunking the faith. A con inside a creed must not be allowed to make the creed a lie (#190's the-faith-is-real-even-when-exploited law).
+  X  THE WEAPONIZE PATH IS SO POWERFUL IT CAN OVERSHADOW THE ETHICAL QUESTION
+     The option to aim the community as a nuclear weapon is dramatic and mechanically consequential, which can pull the quest toward "cool doomsday choice" and away from the subtler question (can you respect a faith that welcomes its own death) — so the profound honor/expose tension gets swamped by the spectacle of the payload.
+     LAW: if a quest offers a spectacular destructive option beside subtle ethical ones, the SUBTLE options must be given equal dramatic weight — the quiet mercies made as consequential as the loud one — so the spectacle doesn't swamp the real question (#190's the-quiet-endings-must-weigh law).
+  X  "HONOR THE FAITH" CAN LACK A DISTINCT OUTCOME, SO RESPECT READS AS INACTION
+     Choosing to honor the Children on their own terms can amount to simply leaving, with little felt result, so the meaningful posture (respecting a belief you find self-destructive) can read as doing nothing rather than as a real, weighted choice with consequences.
+     LAW: if honoring a faith on its own terms is an option, it must have a DISTINCT, felt outcome — respect shown as a consequential act, not an exit — so honoring isn't indistinguishable from walking away. A respect with no result is inaction wearing a virtue (#185's honoring-must-be-an-act law).
+
+### #197  GHOST TOWN GUNFIGHT (A TOWN OF EX-CONVICTS DEFENDS ITS SECOND CHANCE FROM THE MEN IT USED TO BE) (Fallout: New Vegas)
+  X  THE MORAL WEIGHT IS OPTIONAL BECAUSE THE QUEST PLAYS AS A STRAIGHT DEFENSE MISSION
+     The "do ex-cons deserve their second chance, and does defending it corrupt it" theme is available but sits under a standard rally-and-shoot structure, so a player can complete the gunfight without ever engaging the reform question — the profound idea is present but easy to bypass as just a firefight.
+     LAW: if a defense quest carries a reform question underneath, the theme must be SURFACED in the doing — a defender's hesitation, a line that names the cost of picking the guns back up — so the moral weight isn't optional atmosphere under a shootout. A theme the player can shoot straight past wasn't really in the quest (#185's the-theme-must-surface law).
+  X  THE TOWN'S CRIMINAL PAST IS UNDERUSED, SO "REFORM UNDER THREAT" LOSES ITS EDGE
+     The specific dark histories of the townsfolk are mostly flavor, so the sharp tension (they used to BE the gang) stays abstract — the quest would cut deeper if the player knew what a particular defender did before, making his choice to fight for peace instead of plunder land as a real reversal.
+     LAW: if a quest's edge is reformed people defending against their old life, at least one defender's specific PAST must be known — so their choice to aim the old skills at protection instead reads as a real reversal, not a generic townsfolk defense (#186's the-past-must-be-specific law).
+  X  THE HARDENING WIN ISN'T DISTINGUISHED FROM THE STAY-YOURSELVES WIN
+     The difference between defending the town while holding your reform and defending it by becoming more like the gang is barely mechanized, so the crucial idea (how you fight, not just whether you win, is the reform) collapses into a single victory state — the player rarely feels they either kept or spent the town's soul.
+     LAW: if a quest's point is that HOW you defend determines whether reform survives, the manner of the defense must produce DIFFERENT outcomes — holding your line vs hardening leading to visibly different towns — so "what you're willing to become to win" is a real fork, not a tone (#183's the-how-must-branch law).
+
+### #198  THE SAND PEOPLE (LEARN THE LANGUAGE OF THE SAVAGES AND FIND OUT WHO THE MONSTERS REALLY WERE) (Star Wars: Knights of the Old Republic)
+  X  THE SAND PEOPLE REMAIN HOSTILE ELSEWHERE, UNDERCUTTING THE HUMANIZATION
+     Outside this quest the Sand People attack on sight, so the powerful reframe (they're a wronged people, not monsters) collides with the player's other experiences of them as generic enemies — the quest doesn't reconcile the humanized enclave with the hostile raiders everywhere else, weakening the "monster becomes person" reveal.
+     LAW: if a quest humanizes a faction the player fights elsewhere, it must RECONCILE the two — the hostility reframed as the shape of the grievance, not left as a contradiction — so the humanization survives contact with the faction's other appearances (#192's the-reframe-must-hold-against-the-deeds law).
+  X  THE PEACE PATH CAN BE ACHIEVED WITHOUT THE SETTLERS REALLY RECKONING
+     The reconciliation can resolve at the Sand People's end (they stand down) without much shown of the settlers actually admitting their atrocity, so the sharpest idea (peace costs the civilized side its innocence) can go unpaid — the "good" side gets peace without the reckoning the quest says it requires.
+     LAW: if a quest's point is that peace requires the aggressor to admit its crime, the ADMISSION must actually happen on the aggressor's side — the reckoning shown, not just the enemy standing down — so the cost the quest names is really paid (#192's the-lid-must-actually-lift law).
+  X  THE TRANSLATOR REDUCES A MORAL CHOICE TO AN ITEM GATE
+     Because understanding the Sand People requires acquiring a specific droid/translator, the humanization can read as a fetch-quest unlock rather than a choice to listen — so the profound "will you try to understand the enemy" decision becomes "do you have the item," mechanizing what should be a moral posture.
+     LAW: if understanding an enemy is the quest's moral hinge, it must be framed as a CHOICE TO LISTEN, not just an item gate — the willingness to hear made the real requirement, the tool secondary — so humanization is a posture the player takes, not a key they happen to hold (#191's understanding-is-a-choice-not-an-unlock law).
+
+### #199  THE WOLF QUEEN (STOP A DEAD TYRANT FROM BEING BORN AGAIN INTO HER OWN BLOODLINE) (The Elder Scrolls V: Skyrim)
+  X  POTEMA'S "RETURN THROUGH HER DESCENDANTS" PLAN IS UNDERDEVELOPED, SO THE HORROR STAYS ABSTRACT
+     The chilling core (an ancestor possessing her own bloodline) is more stated in lore than dramatized in the quest, which plays largely as a dungeon-crawl spirit-hunt — so the specific dread of the past eating its own future can pass the player by, buried under catacomb combat.
+     LAW: if a quest's horror is an ancestor consuming their own line, that plan must be DRAMATIZED, not just lore'd — a descendant shown at risk, the possession made felt — so the dread lands as the family's future in danger, not a codex note under a dungeon (#184's the-cycle-must-be-felt law).
+  X  THE LIVING DESCENDANTS ARE NEARLY ABSENT, SO THE STAKES HAVE NO FACE
+     The bloodline Potema targets barely appears as characters, so "she'll consume her own descendants" is an abstraction — the quest would cut far deeper if the player knew a specific living heir whose body and future are on the line.
+     LAW: if the stakes are an ancestor devouring her descendants, at least one descendant must be KNOWN — a specific future at risk — so the horror has a face and the defense has someone to protect (#190's the-stakes-need-a-face law).
+  X  THE QUEST RESOLVES AS A BOSS KILL, FLATTENING THE PAST-WON'T-REST THEME INTO A GHOST-KILL
+     Because Potema is destroyed in a fight, the profound theme (the past reaching to be the future) can reduce to a standard undead boss encounter — the idea that some ancestors must be perpetually guarded against loses to a clean one-time kill that says "handled."
+     LAW: if a quest's theme is that the past refuses to rest, the resolution must carry that it's GUARDED against, not merely killed once — a residue, a vigilance, a sense the hunger could recur — so "the dead stay dead" reads as an ongoing duty, not a closed boss fight (#184's the-cycle-doesn't-fully-close law).
+
+### #200  THE REPLICATED MAN (HUNT AN ESCAPED ANDROID AND DECIDE WHETHER A MADE PERSON IS PROPERTY OR FREE) (Fallout 3)
+  X  THE "RIGHT NOT TO KNOW" QUESTION IS UNDER-PRESSED, SO TELLING HIM READS AS OBVIOUSLY GOOD
+     The genuinely hard idea (he chose to forget, and his current self depends on the peace) can be flattened because the game tends to frame telling him as the enlightened choice — so the profound consent problem (violating a peace he relies on) risks being lost under a simpler "the truth sets you free" reading.
+     LAW: if a quest turns on someone's right NOT to know a truth they buried to survive, the COST of telling must be pressed as hard as the virtue — the peace it destroys made as real as the autonomy it restores — so "tell him" isn't the flattering default (#185's the-comfort-has-a-claim-too law).
+  X  HARKNESS IS BARELY PRESENT AS A PERSON BEFORE HIS FATE IS DECIDED
+     The android whose life is being debated appears little as a character with a texture of his own, so the player decides "property or person" somewhat abstractly — the quest would cut deeper if his ordinary human life were vivid enough that ending or exposing it felt like a loss.
+     LAW: if a quest debates whether a made person counts, that person's LIFE must be vivid enough that its loss weighs — the ordinary self they built shown, not just their status argued — so "property or person" is decided about someone real, not a token (#191's the-made-person-must-be-a-person law).
+  X  THE PLAYER DECIDING "MOSTLY WITHOUT HIM" IS THE THEME BUT ALSO A DESIGN LIMIT
+     The indignity (everyone votes on whether he counts except him) is powerful, but the quest also structurally sidelines Harkness's own agency in his fate, so the critique and the design flaw blur — the player rarely gets to let him decide for himself, which would be the sharpest option.
+     LAW: if a quest's theme is that a made person is denied a say in his own fate, there must be at least one path that RESTORES his agency — letting him choose — so the critique is felt as a wrong that could be righted, not just reproduced by the design (#191's give-the-subject-a-voice law).
+
+### #201  I COULD MAKE YOU CARE (A BROKEN GENIUS BUILT A PARADISE THAT ONLY WORKS IF YOU LOBOTOMIZE THE PEOPLE IN IT) (Fallout: New Vegas — Old World Blues / the Veronica arc)
+  X  THE REFORM ROAD'S "BRANDED A TRAITOR" COST IS TOLD MORE THAN SHOWN
+     The devastating idea (saving the family gets you cast out by it) is largely stated in Veronica's dialogue rather than dramatized as a felt excommunication, so the sharpest truth (the deepest loyalty looks like treason) can land as a line rather than a wound the player watches her take.
+     LAW: if a quest's point is that reform gets the reformer branded a traitor, the branding must be SHOWN — the family's rejection of the one saving them made felt — so "the deepest loyalty looks like treason" is a scene, not a summary. A betrayal-that-is-love told only in dialogue never lands as loss (#187's the-consequence-must-be-shown law).
+  X  THE ORDER'S RIGIDITY CAN READ AS CARTOONISH STUBBORNNESS, WEAKENING THE LOVE
+     If the institution is written as simply blind and dogmatic, it becomes hard to believe Veronica loves it, so the tragedy (loving a family that's killing itself) needs the order to have a real, sympathetic reason for its rigidity — otherwise the choice reads as "why not just leave the idiots."
+     LAW: if a quest turns on loving a self-destroying institution, the institution's rigidity must have a SYMPATHETIC root — a fear, a wound, a logic — so the love is believable and leaving isn't obviously correct. A family that's only stupid isn't a tragedy to lose (#189's the-flaw-must-be-understandable law).
+  X  THE PLAYER'S TIPPING INFLUENCE CAN OVERRIDE VERONICA'S OWN AGENCY
+     Because the player's speech tips her decision, the quest can make Veronica's life-defining choice feel like the player's to make rather than hers — so the profound personal reckoning becomes a persuade-check the player wins, sidelining her as the author of her own betrayal.
+     LAW: if a companion faces a life-defining choice the dynast influences, the companion must remain the AUTHOR of it — the dynast's voice tipping, not deciding — so it's her reckoning, not the player's win. A companion whose defining choice is the player's to make was never really a person (#186's the-choice-stays-theirs law).
+
+### #202  THE CAVE OF DREAMS / THE HERMIT (SIT WITH A DYING STRANGER AND WATCH A WHOLE LIFE FIT INTO ONE CONVERSATION) (Disco Elysium)
+  X  THE NO-REWARD DESIGN CAN READ AS "SKIPPABLE CONTENT" TO TRAINED PLAYERS
+     Because the encounter gives nothing mechanical, players conditioned to optimize will correctly skip it and never learn what it was — so the profound test (can you value a useless life) is one most players fail without knowing there was a test, meaning the lesson only reaches those already inclined to it.
+     LAW: if a quest's whole value is a human reward with no mechanical one, the game must SIGNAL that the value is there without converting it to loot — a texture, a pull, a hint the corner holds a world — so trained players are tempted to stop, not filtered out. A human reward invisible to optimizers reaches only the already-converted (#188's the-quiet-must-be-framed law).
+  X  WITHOUT VARIETY, THE ENCOUNTERS BECOME A RECOGNIZABLE "SAD NPC" PATTERN
+     If every quiet encounter is a lonely person unloading a tragic backstory, the player learns the pattern and the encounters lose their power — the "every life is a world" idea needs the lives to be genuinely various (funny, prickly, boring, evasive) or they collapse into a single sentimental template.
+     LAW: if a game relies on many quiet-life encounters, the lives must be genuinely VARIOUS — not all tragic, some dull, some funny, some hostile — so "every person is a world" means different worlds, not one sad template repeated. A parade of identical sad NPCs teaches a genre, not a truth (#185's the-lives-must-vary law).
+  X  THE PLAYER'S "LISTENING" IS MOSTLY CLICKING THROUGH, SO PRESENCE CAN BE FAKED
+     Because engaging is mechanically just advancing dialogue, a player can "complete" the encounter without any actual attention — so the test of presence can be passed hollowly, clicking to the end without listening, which undercuts the idea that real caring is the point.
+     LAW: if a quest's reward is the act of genuinely listening, it must ask for real ATTENTION, not just clicks — a moment that requires the player to have actually taken the life in — so presence can't be faked by advancing text. Listening reduced to clicking is attendance, not presence (#193's the-presence-must-be-real law).
+
+### #203  THE DERELICT REAPER (WALK THROUGH THE CORPSE OF THE THING THAT WILL KILL YOU AND FIND YOUR OWN CREW ATE EACH OTHER) (Mass Effect 2)
+  X  THE CREW'S OWN CONVERSION IS UNDERPLAYED, SO "IT'S HAPPENING TO YOU" DOESN'T LAND
+     The logs vividly chart the predecessors' descent, but the crew's own beginning corruption is barely dramatized, so the crucial turn (the same thing is taking YOU right now) reads as a warning about others rather than a horror closing on the player — the "you can't trust feeling fine" idea stays external.
+     LAW: if a quest's horror is a corruption spreading to the player's own side, the player's OWN exposure must be dramatized — a symptom, a wrong thought, a moment of unearned reverence — so "it's happening to you" lands as personal dread, not a cautionary tale about the last team (#194's the-corruption-must-touch-the-player law).
+  X  THE COMPONENT-AS-GOAL CAN REDUCE THE HORROR TO A FETCH WITH SET DRESSING
+     Because the mission objective is "get the IFF," a player can treat the indoctrination logs as flavor between combat and loot the component without the proximity-horror landing — so the profound "a corpse still consumes you" idea becomes atmosphere around a fetch quest.
+     LAW: if a quest's horror is proximity-corruption, the OBJECTIVE must be entangled with the horror — retrieving the prize forcing real, felt exposure — so the salvage can't be done while ignoring the corruption. A fetch that lets the player skip the dread wasted its own premise (#196's the-goal-must-force-the-horror law).
+  X  "FEELING FINE IS THE DANGER" IS STATED BUT NOT MECHANIZED
+     The chilling idea (the conversion feels like enlightenment, so you can't trust your own okay-ness) is delivered in the logs but never made a mechanic the player experiences — the player never feels the seductive pull, so the insight stays a told fact rather than a felt trap.
+     LAW: if a quest's insight is that corruption feels like revelation, the SEDUCTION must be made felt — the player offered a genuinely appealing wrong thought — so "you can't trust feeling fine" is experienced, not just read. A seduction the player never feels is a warning, not a trap (#191's the-temptation-must-tempt law).
+
+### #204  KID IN A FRIDGE (A CHILD SURVIVED 200 YEARS SEALED IN A BOX AND HIS PARENTS AGED A CENTURY WAITING) (Fallout 4)
+  X  THE COMIC PREMISE CAN SWALLOW THE ACHE, SO THE TIME-HORROR NEVER LANDS
+     "Kid survives in a fridge" is played partly for absurdity, and the joke can so dominate that the real gut-punch (a love that aged two centuries searching) passes by — the quest risks being remembered as a gag rather than a meditation on waiting and time.
+     LAW: if a quest hides an ache under a comic premise, one beat must let the TIME-HORROR through — the parents' aged grief, the gap between the preserved and the ruined, made felt — so the ache reaches the player who came for the joke (#185's the-comedy-must-crack law).
+  X  THE PARENTS' 200 YEARS OF SEARCHING IS TOLD, NOT FELT
+     The devastating idea (they spent lifetimes looking) is delivered as backstory rather than shown, so the asymmetry (child unchanged, love aged) stays abstract — the reunion would cut far deeper if the player glimpsed the weight of the parents' long grief before Billy is handed back.
+     LAW: if a quest's ache is a long, asymmetric waiting, the WAITERS' toll must be shown, not summarized — the years of grief made present before the reunion — so the asymmetry lands as devastation, not exposition (#187's the-waiting-must-be-shown law).
+  X  THE SLAVER OPTION IS SO CLEARLY EVIL IT ISN'T A REAL TEMPTATION
+     Selling a frightened child is cartoonishly wrong, so the "price a miracle" blade doesn't cut — a genuine test would make the caps matter (a desperate player, a real need) so the transaction is a temptation, not an obvious villainy to reflexively refuse.
+     LAW: if a quest prices a person to test the player, the price must be a real TEMPTATION — the need for it made plausible — so refusing costs something, rather than being a reflexive no to an obvious evil. A transaction no one would take isn't a test, it's set dressing (#180's the-temptation-must-tempt law).
+
+### #205  I WALK THE LINE (THE OPPRESSED MINORITY YOU CAME TO ALLY WITH USES YOU AS A DISPOSABLE PROBE AND IS RIGHT NOT TO TRUST YOU) (Cyberpunk 2077)
+  X  THE VOODOO BOYS CAN READ AS SIMPLE VILLAINS, LOSING THE "EARNED PARANOIA" TRUTH
+     Because they use and betray the player, a player can file them as just another treacherous gang and miss that their distrust is a rational scar — so the profound idea (the oppressed owe you nothing) collapses into "the Haitian gang betrayed me," which is exactly the reading the quest most needs to avoid and risks reinforcing.
+     LAW: if a quest's point is that a marginalized faction's distrust is earned, their HISTORY must be made present enough that the betrayal reads as a scar, not villainy — the exploitation that taught the paranoia shown — so the player can't file them as simple traitors (#192's the-reframe-must-be-grounded law).
+  X  THE PLAYER'S HURT-AS-PRIVILEGE IS NEVER NAMED, SO THE SHARPEST IDEA STAYS IMPLICIT
+     The quest lets the player feel betrayed but rarely surfaces that their expectation of solidarity was itself a privilege the Voodoo Boys never had — so the most cutting truth (your hurt assumes a good faith they were never granted) is left for the player to find, and most won't.
+     LAW: if a quest's point is that the player's hurt at being used is a privilege, something must NAME it — a line, a perspective that turns the player's wound back on them — so the sharpest idea isn't left entirely implicit (#182's the-mirror-must-be-shown law).
+  X  THE FORCED PROBE REMOVES THE PLAYER'S AGENCY, WHICH CAN READ AS RAILROADING
+     Being used as an expendable test subject and then betrayed regardless can feel like the quest taking the wheel, so the powerful theme (you don't control whether the marginalized trust you) can blur with a design flaw (you don't control the quest) — the player's lack of agency needs to read as the point, not as a rail.
+     LAW: if a quest deliberately strips the player's agency to make a point about power, the powerlessness must be FRAMED as the theme — the player's lack of control legibly the lesson — so it reads as "you were never in a position to be trusted," not "the quest wouldn't let you choose" (#191's the-powerlessness-must-be-owned law).
+
+### #206  THE BULL AND THE BACHELOR (TWO HEALERS SAVE THE TOWN BY OPPOSITE CURES AND ONLY ONE PLAGUE-LOGIC CAN BE TRUE) (Pathologic 2)
+  X  THE INCOMPATIBILITY CAN READ AS ARBITRARY IF BOTH WORLDVIEWS AREN'T MADE COHERENT
+     The whole power depends on both diagnoses being internally valid and partially confirmed; if one reads as obviously right or obviously mystical-nonsense, the choice collapses into "pick the correct one" and the profound "you must commit to a contested reality" idea is lost.
+     LAW: if a quest forces a choice between incompatible accounts of a disaster, BOTH accounts must be made internally coherent and partially validated — neither obviously right — so the commitment is to a contested reality, not a hunt for the correct answer (#180's both-worldviews-must-hold law).
+  X  THE CLOCK CAN PUNISH SO HARSHLY IT PRODUCES DESPAIR RATHER THAN COMMITMENT
+     Pathologic's time pressure is brutal, and if it's purely punishing it can push players into paralysis or quitting rather than the intended forced commitment — the body-count clock needs to compel a choice, not just crush the player into helplessness.
+     LAW: if a quest uses a body-count clock to force commitment, the pressure must COMPEL a choice, not induce paralysis — the clock making a decision urgent, not making the player give up — so time-as-corpses drives commitment rather than despair (#21's the-clock-must-compel-not-crush law).
+  X  "YOU NEVER KNOW YOU WERE RIGHT" CAN FEEL LIKE WITHHELD INFORMATION RATHER THAN THE POINT
+     The refusal to referee which worldview was correct is the thesis, but it can read as the game hiding the answer rather than as the truth that there was no shared answer to have — the uncertainty needs to be legibly the condition, not a puzzle the game won't solve.
+     LAW: if a quest's point is that no worldview can be confirmed right, the un-referee-ability must be OWNED as the condition — the absence of a correct answer made the lesson, not a withheld solution — so it reads as "there was no shared reality to be right about," not "the game won't tell you" (#195's the-ambiguity-must-be-owned law).
+
+### #207  THE JUSTICAR AND HER DAUGHTER (A HOLY WARRIOR SWORN TO KILL HER OWN CHILD, WHO IS A MONSTER SHE MADE) (Mass Effect 2)
+  X  MORINTH'S "VICTIM" SIDE IS UNDERWRITTEN, SO SHE READS AS JUST A MONSTER
+     The tragedy depends on Morinth being genuinely a victim of a nature she never chose, but the game shows her mostly as a charming predator, so the "born wrong through the mother's blood, hunted from birth" half stays thin — which tips the choice toward "obviously kill the serial killer" and loses the doomed-child ache.
+     LAW: if a quest's monster is also a victim of their own nature, the VICTIM half must be given real weight — the un-chosen curse, the lifetime hunted, made felt — so the choice to destroy them carries tragedy, not just justice. A monster shown only as a monster isn't a tragedy to kill (#177's the-monster-must-also-be-a-victim law).
+  X  THE SEDUCTIVE OFFER IS GATED BEHIND A CHECK, SO THE TEMPTATION CAN BE INACCESSIBLE
+     Taking Morinth's offer requires meeting a hidden condition, so many players never even get the temptation — the profound test (principle vs thrill) is unavailable to them, and the choice collapses into the single default of siding with Samara.
+     LAW: if a quest's point is a temptation to trade principle for thrill, the temptation must be AVAILABLE enough to actually tempt — offered to the player, not locked behind an invisible gate — so the test is taken, not skipped (#207-adjacent: the-temptation-must-be-reachable law; cf. #191).
+  X  SAMARA'S CODE CAN READ AS RIGIDITY-FOR-ITS-OWN-SAKE WITHOUT ITS VALUE SHOWN
+     The tragedy needs the code to be genuinely admirable — the reason Samara is trustworthy — but if it's shown only as inflexible cruelty toward her daughter, the player may read it as mere stubbornness, losing the point that the same principle that makes her incorruptible is what damns her child.
+     LAW: if a quest turns on an absolute code being both admirable and terrible, the code's VALUE must be shown alongside its cost — why the rigidity is trustworthy, not just cruel — so its collision with love is a tragedy of a good principle, not a portrait of a bad one (#201's the-rigidity-must-have-worth law).
+
+### #208  HONEST HEARTS (A REFORMED WAR CRIMINAL TURNED PREACHER ASKS WHETHER A MAN CAN OUTRUN WHAT HE WAS) (Fallout: New Vegas — Honest Hearts)
+  X  JOSHUA IS SO CHARISMATIC THE PLAYER MAY NOT FEEL HIS DANGER
+     Graham is written as compelling, articulate, and sympathetic, which can make players trust that he's redeemed and miss the live threat that his justified violence is a relapse — so the profound uncertainty (is this justice or the monster) can flatten into "he's a cool preacher," losing the dread that he might still be lost.
+     LAW: if a quest's tension is whether a reformed monster has truly changed, the DANGER must stay live — the old self visibly close under the charisma — so the player feels the risk of relapse, not just the appeal of the redemption. A reformed monster who reads as safe has no tension left (#186's the-old-self-must-stay-close law).
+  X  THE MERCY CHOICE CAN LACK CONSEQUENCE, SO IT READS AS A MORALITY TOGGLE
+     If sparing vs exterminating the White Legs produces little downstream difference, the profound choice (redemption vs relapse) collapses into a good/evil button — the quest needs the mercy to cost something (spared raiders may return) and the slaughter to stain something (the tribe, Joshua) so the choice has real weight.
+     LAW: if a quest's choice is redemption vs relapse, both must carry real CONSEQUENCE — mercy that risks something, slaughter that stains something — so it's a weighted moral act, not a toggle. A redemption choice with no cost either way is a morality meter (#197's the-choice-must-cost law).
+  X  "YOU CAN NEVER PROVE YOU CHANGED" CAN READ AS THE GAME WITHHOLDING CLOSURE
+     The refusal to confirm whether Joshua is redeemed is the thesis, but it can feel like the writers dodging rather than the truth that the heart is unknowable — the uncertainty needs to be legibly the point, not an unsatisfying lack of payoff.
+     LAW: if a quest's point is that redemption is unprovable, the un-provability must be OWNED as the truth — the impossibility of certainty made the lesson — so it reads as "no one can see the heart," not "the game won't resolve it" (#195's the-ambiguity-must-be-owned law).
+
+### #209  DREAM ON (A COUPLE ARE BEING REWRITTEN IN THEIR SLEEP AND THE ONLY WAY TO PROVE IT MIGHT BE TO STOP) (Cyberpunk 2077)
+  X  THE FACELESS ENEMY CAN READ AS AN UNFINISHED PLOT RATHER THAN DESIGNED HELPLESSNESS
+     The refusal to provide a confrontable villain is the point, but it can feel like the quest just doesn't resolve — a thread left dangling — rather than the deliberate horror of an unbeatable hidden hand, so the intended despair reads as an anticlimax or a sequel hook.
+     LAW: if a quest denies a confrontable villain on purpose, the FACELESSNESS must be framed as the horror, not a gap — the unreachability made legibly the point — so it reads as "you can never find the hand," not "the quest forgot to finish" (#182's the-absence-must-be-owned law).
+  X  THE PLAYER'S INABILITY TO ACT CAN DRAIN THE QUEST OF STAKES
+     Because nothing the player does frees the Peralezes, the quest risks feeling stakes-less — if the player can't affect anything, why care — so the helplessness needs to be made emotionally weighty (the horror of the couple's fate, the burden of the knowledge) rather than just mechanically inert.
+     LAW: if a quest's point is the player's helplessness, the EMOTIONAL stakes must carry what the mechanical ones can't — the horror and the burden made felt — so powerlessness is devastating, not empty. Helplessness without weight is just a dead end (#205's the-powerlessness-must-weigh law).
+  X  "THE TRUTH HELPS NO ONE" CAN BE UNDERCUT IF TELLING SEEMS OBVIOUSLY RIGHT OR WRONG
+     The tell-or-keep choice loses its edge if the game frames one option as clearly correct; the power depends on both being genuinely bad (telling is cruel and useless; keeping is abandonment), so if either reads as the "good" choice, the uselessness of the truth is lost.
+     LAW: if a quest's choice is between a useless truth and a merciful silence, BOTH must be genuinely bad — telling cruel and futile, keeping an abandonment — so neither is the clean answer and the uselessness of the knowledge lands (#181's both-options-must-be-bad law).
+
+### #210  THE MASTER'S CATHEDRAL (A PROPHET OFFERS TO END ALL DIVISION BY MELTING EVERYONE INTO ONE, AND HE IS RIGHT THAT IT WOULD WORK) (Fallout)
+  X  THE ARGUE-HIM-DOWN VICTORY IS GATED BEHIND KNOWLEDGE MANY PLAYERS WON'T HAVE
+     Presenting the sterility flaw requires the player to have found the specific evidence beforehand, so the profound victory is inaccessible to players who didn't gather it — and they get only the crude fight, missing the whole point that the villain is defeatable by truth.
+     LAW: if a quest's profound victory is winning by argument, the KNOWLEDGE needed must be gatherable and its relevance discoverable — the path to the truth-victory signposted enough to be reachable — so the argument-win isn't locked away from players who'd choose it (#179's the-better-path-must-be-findable law).
+  X  THE MASTER'S SINCERITY CAN BE UNDERSOLD, MAKING THE SELF-DESTRUCTION UNEARNED
+     The talk-down ending depends on the Master genuinely wanting to save life (so the truth destroys him); if he reads as just a power-hungry monster, his choice to self-destruct when shown the flaw feels unmotivated — the sincerity must be established for the profound ending to land.
+     LAW: if a quest's climax is an antagonist undone by truth because they're sincere, the SINCERITY must be established first — the genuine aim shown — so the self-destruction is earned, not a convenient collapse. An antagonist who folds to an argument without established sincerity is a plot device (#210-adjacent: the-belief-must-be-real law; cf. #196).
+  X  "FORCED SAMENESS IS STERILE" IS A CLEAN METAPHOR THAT THE PRACTICAL FLAW CAN OVER-LITERALIZE
+     The sterility flaw works as literal biology and as metaphor (erasing difference erases the future), but leaning too hard on the literal can reduce a profound idea to a plot-hole gotcha — "aha, they can't breed" — losing the deeper point that forced unity kills the generative power of difference.
+     LAW: if a quest defeats a utopia with a practical flaw that is also a metaphor, the METAPHOR must be carried alongside the literal — the flaw meaning something about difference and life, not just a biological gotcha — so the victory is thematic, not a technicality (#184's the-flaw-must-mean-something law).
+
+### #211  THE DEVIL'S BARGAIN (A HERO SOLD HIS SOUL TO SAVE HIS CITY AND THE BILL COMES DUE AS HIS FATHER) (Baldur's Gate 3)
+  X  THE PACT'S "GOOD FAITH" CAN BE UNDERSOLD, MAKING WYLL READ AS FOOLISH RATHER THAN TRAGIC
+     The tragedy depends on the original bargain being a genuinely noble, desperate act that did real good; if it reads as a naive mistake, Wyll seems foolish and the reckoning loses its "the debt doesn't care that the intent was noble" edge.
+     LAW: if a quest's tragedy is a good-faith bargain turned weapon, the GOODNESS of the original deal must be established — the desperate love, the real good it did — so the reckoning is a tragedy of noble intent, not a punishment for foolishness (#189's the-bargain-must-be-sympathetic law).
+  X  THE FATHER MUST BE A REAL PERSON OR THE SACRIFICE IS ABSTRACT
+     The choice's weight rides on Wyll's father being a vivid, loved, specific person; if he's a name and a plot token, "damn your father" is an abstraction and the terrible choice deflates into a mechanical trolley problem.
+     LAW: if a quest demands sacrificing a loved one, that person must be VIVID and the relationship real — the love and the estrangement shown — so the sacrifice cuts, rather than being a token on a scale (#204's the-loved-one-must-be-real law).
+  X  "BREAK THE PACT" CAN BECOME A CLEAN THIRD OPTION THAT DEFUSES THE DILEMMA
+     If the game offers a way to escape the pact that costs little, the profound soul-or-father choice collapses — the third path must carry a real, irreplaceable cost (the shattered heroic self, the exposed lie) or it becomes the obvious best answer that erases the tragedy.
+     LAW: if a quest offers a third path out of a terrible bargain, it must carry its OWN irreplaceable cost — no clean escape — so it's a different sacrifice, not a defusing of the dilemma. A costless escape hatch cancels the choice the quest was built on (#189's no-clean-exit-from-the-bargain law).
+
+### #212  TRANQUILITY LANE (A WHOLE TOWN IS TRAPPED IN A 1950s PARADISE RUN BY A SADIST, AND FREEING THEM MEANS KILLING THEM) (Fallout 3)
+  X  THE FAIL-SAFE MASSACRE CAN READ AS A CLEAN "GOOD" ENDING, LOSING THE HORROR
+     Because the fail-safe stops the sadist and "frees" the residents, players can experience it as the straightforwardly good choice and miss that it is a mass killing — so the profound collapse of mercy and slaughter into one act can flatten into "trigger the good ending," losing the weight that liberation here IS death.
+     LAW: if a quest's liberation is also a killing, the DEATH must be felt as death, not laundered into a clean win — the residents' names and the massacre held — so mercy-as-slaughter lands as the horror it is, not a tidy good ending (#180's the-cost-must-not-be-laundered law).
+  X  THE FORCED COMPLICITY CAN FEEL LIKE ARBITRARY CRUELTY IF ITS PURPOSE ISN'T CLEAR
+     Being made to enact sadisms to advance is powerful only if it reads as the overseer's deliberate corruption of the player; if it feels like the game arbitrarily forcing bad acts, it becomes gratuitous rather than a portrait of how a sadist makes instruments of others.
+     LAW: if a quest forces the player into complicity, the forcing must be legibly the VILLAIN'S design — a deliberate corruption, not the game being cruel for its own sake — so complicity indicts the sadist and implicates the player, rather than reading as arbitrary (#193's the-complicity-must-have-an-author law).
+  X  THE RESIDENTS CAN STAY TOO ABSTRACT FOR THE MERCY-KILLING TO CUT
+     The horror of freeing-by-killing depends on the residents being vivid people the player has come to know; if they remain generic sim-neighbors, triggering the fail-safe is an abstraction and the "you are killing these specific people to free them" weight is lost.
+     LAW: if a quest's climax is mercy-killing captives, those captives must be VIVID — named, known, their suffering witnessed — so the fail-safe is felt as ending specific people, not clearing a level (#204's the-victims-must-be-known law).
+
+### #213  DEAD MONEY (FOUR DAMNED PEOPLE CHASE A VAULT OF GOLD THAT WILL KILL THEM, AND THE ONLY WAY TO WIN IS TO LET IT GO) (Fallout: New Vegas — Dead Money)
+  X  THE "LEAVE THE GOLD" LESSON CAN BE GAMED, SOFTENING THE TEST
+     Experienced players know to take only a few bars (enough to survive), so the profound "let it go entirely" test becomes an optimization — carry the maximum survivable amount — which lets the player have both the lesson's credit and most of the treasure, blunting the pure choice to walk away with nothing.
+     LAW: if a quest's test is the ability to let go entirely, the mechanic must not reward a PARTIAL keep that captures most of the gain — the release made all-or-nothing enough that "let it go" isn't gameable into "keep most of it" — so the lesson can't be optimized away (#212's the-sacrifice-must-be-total law).
+  X  THE COMPANIONS' OBSESSIONS CAN READ AS SEPARATE STORIES RATHER THAN ONE THEME
+     Each crew member embodies a chain, but if their arcs aren't legibly rhyming with the central let-go mechanic, they read as four unrelated companion quests rather than a chorus all playing the same note — the thematic unity (everyone here must release something) can fragment.
+     LAW: if a quest uses a chorus of characters to echo one theme, their arcs must legibly RHYME with the central mechanic — each a variation on the same release — so the ensemble reads as one theme in many voices, not scattered subplots (#202's the-chorus-must-harmonize law).
+  X  ELIJAH'S ENTOMBMENT CAN LAND AS A BOSS OUTCOME RATHER THAN THE THEME'S CAPSTONE
+     Elijah is the ultimate "cannot let go" study, but if trapping him reads as just a way to win the final encounter, the point (his obsession is the fate the player narrowly escaped) is lost — his end needs to be legibly the mirror of the player's vault choice, not merely a boss disposal.
+     LAW: if a quest's antagonist is the embodiment of the theme, their fate must be framed as the MIRROR of the player's choice — the fate avoided by letting go — so it's the theme's capstone, not a boss cleanup (#184's the-villain-is-the-warning law).
+
+### #214  THE DAUGHTER OF DARKNESS (A WOMAN RAISED TO SERVE A GODDESS OF LOSS DISCOVERS HER WHOLE SELF WAS SURGICALLY REMOVED, AND HER PARENTS ARE THE PRISONERS SHE WAS SENT TO KILL) (Baldur's Gate 3)
+  X  THE RECLAMATION CAN RESOLVE TOO FAST, MAKING "A LIFETIME OF ERASURE" FEEL UNDONE IN A SCENE
+     The power is that reclaiming the self is a long, painful reversal, but if refusing the goddess instantly restores Shadowheart to a whole, healed person, the profound "engineered forgetting can't be undone in a moment" idea collapses into a one-scene cure.
+     LAW: if a character's self was deleted over a lifetime, reclaiming it must be shown as SLOW and partial — the reversal ongoing, the wounds still present after the refusal — so "you can't undo a lifetime in a moment" holds (#186's the-reclamation-is-gradual law).
+  X  THE MURDER-AS-VIRTUE FRAMING CAN BE UNDERSOLD, MAKING THE TEST READ AS OBVIOUS EVIL
+     The test's genius is that killing the parents is framed as the completion of a virtue Shadowheart is proud of, not an obvious sin; if the game presents it as plainly evil, the horror (she was trained to want this) is lost and refusing becomes a trivial good-choice.
+     LAW: if a loyalty test frames an atrocity as the completion of a devotion, that FRAMING must be made convincing — the act genuinely feeling like the highest virtue from inside the faith — so refusing costs the whole meaning of her life, not just a moral point (#179's the-atrocity-must-feel-holy law).
+  X  THE PARENTS CAN BE PLOT DEVICES RATHER THAN PEOPLE, WEAKENING THE PROOF-OF-COST
+     The parents work as "proof of what her faith cost her" only if they read as real, specific people with a real relationship stolen; if they're generic captives, sparing them is abstract and the "evidence of the erasure's price" weight is lost.
+     LAW: if captives are the proof of what an erasure cost, they must be VIVID enough that their reality indicts the theft — specific people, a stolen bond glimpsed — so sparing them is reclaiming something real, not freeing tokens (#204's the-loved-ones-must-be-real law).
+
+### #215  DEIONARRA (A GHOST STILL LOVES A MAN WHO ISN'T YOU, WHO MANIPULATED HER TO DEATH, AND YOU WEAR HIS FACE) (Planescape: Torment)
+  X  THE AMNESIA CAN BECOME AN EXCUSE THE QUEST DOESN'T FULLY CLOSE
+     The whole power is that "that wasn't me" is a lie, but if the game lets the player disclaim the past self too easily or treats the forgetting as genuinely exculpatory, the profound "moral continuity survives memory" idea leaks — the player needs to be denied the clean out for the reckoning to land.
+     LAW: if a quest's point is that you're answerable for a self you don't remember, the amnesia must be DENIED as an excuse — the continuity made undeniable, "that wasn't me" shown as false — so the reckoning can't be dodged by disclaiming the past self (#26's the-forgotten-self-is-still-you law).
+  X  DEIONARRA'S LOVE CAN READ AS A PUZZLE TO SOLVE RATHER THAN A GRIEF TO HONOR
+     If the encounter is structured as an information/dialogue puzzle (find the right lines to release her ghost), the player can treat her as a mechanism rather than a person owed something — so the emotional weight (a real woman betrayed to death) reduces to a lock to pick.
+     LAW: if a quest is answering a debt to a wronged person, the encounter must be framed as a GRIEF to honor, not a puzzle to solve — her personhood foregrounded over the release mechanic — so the player answers a debt, not a riddle (#202's the-person-is-not-a-puzzle law).
+  X  THE "SHOULDER THE GUILT" PATH CAN LACK A DISTINCT COST FROM THE OTHER TWO
+     Taking responsibility across the gap is the profound answer, but if it plays out with no more difficulty or consequence than lying or truth-telling, it reads as just a third dialogue option rather than the hard, costly choice to own a crime you didn't knowingly commit.
+     LAW: if the deepest answer is shouldering inherited guilt, that path must COST more — the difficulty of owning an un-chosen crime made felt — so responsibility isn't just another menu pick beside the easy comfort and the easy cruelty (#208's the-hard-answer-must-be-hard law).
+
+### #216  THE EBONY WARRIOR (A MASTER WHO HAS WON EVERYTHING BEGS A STRANGER TO KILL HIM SO HE CAN FINALLY REACH THE AFTERLIFE) (The Elder Scrolls V: Skyrim)
+  X  THE QUEST IS A PURE BOSS FIGHT, SO THE PHILOSOPHY CAN BE SKIPPED ENTIRELY
+     The profound theme (the emptiness after total accomplishment) is delivered in a short exchange before a straight duel, so most players experience it as a hard fight and miss the meditation — the "striving was the life" idea sits in a few lines the player can blow past to get to the combat.
+     LAW: if a quest carries a philosophy under a combat encounter, the theme must be SURFACED enough that it isn't skippable — the meditation given real space before the blades — so "mastery is an ending" reaches the player, not just the boss's health bar (#185's the-theme-must-surface law).
+  X  REFUSING HAS NO REAL CONSEQUENCE, SO THE "CRUELTY OF SURVIVAL" IDEA DOESN'T LAND
+     Declining the fight mostly just ends the quest with no felt weight, so the powerful inversion (sparing him is the cruelty) stays a line rather than a consequence — the player never sees what a meaningless survival does to him, so the refusal reads as a non-choice.
+     LAW: if a quest's point is that sparing someone is the cruelty, the REFUSAL must carry felt consequence — the imposed survival shown as a burden, not a blank — so "mercy is the unkindness" lands as a real outcome (#208's the-refusal-must-cost law).
+  X  THE WARRIOR'S EMPTINESS IS ASSERTED, NOT EARNED, SO IT CAN READ AS EDGE RATHER THAN DESPAIR
+     He declares that total accomplishment is hollow, but the game shows little of the life that led there, so his desolation can read as posturing rather than an earned conclusion — the "I have won everything and it is empty" needs enough weight that it's a genuine reckoning, not a cool line.
+     LAW: if a character's request rests on the emptiness of total accomplishment, that emptiness must be EARNED — the exhausted striving shown or felt, not just claimed — so the desolation is a genuine reckoning, not an edgy pose (#195's the-condition-must-be-earned law).
+
+### #217  CUNO (A FERAL CHILD PERFORMS INVULNERABILITY BECAUSE THE ALTERNATIVE IS ADMITTING NO ONE IS COMING) (Disco Elysium)
+  X  THE PERFORMANCE IS SO EFFECTIVE MANY PLAYERS NEVER LOOK UNDER IT
+     Cuno is written to be genuinely repellent, which means the "write him off" reflex is strong and satisfying, and many players will take the act at face value and never discover the wounded child — so the profound reversal (the armor is the wound) reaches only players already inclined to look, which is both the point and a reach problem.
+     LAW: if a character's hostility is armor the player is meant to see under, the CRACKS must be visible enough that looking is invited, not only rewarded for the already-gentle — a glimpse of the child offered even to the dismissive player — so the reversal is reachable, not gated behind pre-existing empathy (#202's the-value-must-be-signaled law).
+  X  REACHING CUNO CAN READ AS A PUZZLE THAT "SOLVES" HIM, BETRAYING THE NO-GUARANTEE
+     If seeing the child unlocks a clean redemption (grateful kid, healed in a scene), the honest truth (the armor may not open, one kindness doesn't undo neglect) is lost — the power depends on the reaching being real but uncertain, not a lock that pops.
+     LAW: if a quest reaches a deeply armored person, the reaching must stay UNCERTAIN — a real offer that may not land, not a puzzle that solves them — so "one kindness doesn't heal a childhood" holds and the child isn't a lock to pick (#186's the-wound-doesn't-pop-open law).
+  X  THE FATHER'S NEGLECT CAN BE PLAYED FOR DISGUST RATHER THAN AS THE WOUND'S SOURCE
+     Cuno Sr. is grotesque, and if the game leans into revulsion at the addict father, the player's contempt can extend to the whole situation rather than landing as understanding of what built Cuno's armor — the neglect needs to read as the son's wound, not just a repellent tableau.
+     LAW: if a child's armor is built by a parent's neglect, that neglect must be framed as the WOUND'S SOURCE, not just a disgusting scene — the connection to the child's defense made legible — so the player understands the armor rather than recoiling from the whole picture (#217-adjacent: the-neglect-must-explain-the-armor law; cf. #162).
+
+### #218  ACADIA (A HIDDEN REFUGE OF SYNTHS DEBATES WHETHER MADE PEOPLE SHOULD HIDE, INTEGRATE, OR REPLACE, AND THE PLAYER CAN KEEP OR SHATTER THE PEACE OF THREE FACTIONS) (Fallout 4: Far Harbor)
+  X  THE SYNTH QUESTION CAN GET BURIED UNDER THE FACTION LOGISTICS
+     The rich core (should made people hide, integrate, or is coexistence impossible) can be swamped by the mechanical three-faction quest structure, so DiMA's philosophical weight becomes a series of fetch-and-decide steps and the profound made-people question reads as flavor over a standoff to resolve.
+     LAW: if a quest carries a deep question under faction logistics, the QUESTION must stay foregrounded — the made-people dilemma given real space amid the mechanics — so it isn't buried under keep/expose/destroy bookkeeping (#191's the-question-stays-central law).
+  X  DIMA'S MONSTROUS MEANS CAN BE UNDER-WEIGHED, MAKING "KEEP THE SECRETS" TOO EASY
+     If the replacement and memory-wipe are treated as minor, preserving the peace reads as obviously right; the power depends on DiMA's acts being genuinely monstrous (a real person replaced, a real mind wiped) so that keeping the secrets is a genuine moral cost, not a free good.
+     LAW: if a quest's peace rests on a keeper's atrocities, those atrocities must WEIGH — the real victims of the replacement and wipe felt — so "keep the secrets" carries a genuine cost and isn't a costless preservation (#180's the-buried-wrong-must-weigh law).
+  X  THE EXTERMINATION OPTIONS CAN OVERSHADOW THE SUBTLER PRESERVE/EXPOSE CHOICE
+     The dramatic power to wipe out a faction can pull the quest toward "which faction do you genocide," drowning the finer, harder question (is a peace built on lies worth keeping) under the spectacle of destruction — the subtle choices need weight equal to the loud one.
+     LAW: if a quest offers extermination beside subtler resolutions, the SUBTLE options must carry weight equal to the destruction — preserve and expose given their full consequence — so the finer question isn't swamped by the spectacle of genocide (#196's the-quiet-endings-must-weigh law).
+
+### #219  THE ASSASSIN'S SON (A DYING KILLER SEEKS ATONEMENT BY STOPPING HIS BOY FROM BECOMING HIM, AND THE ONLY WAY IN IS THROUGH THE FATHER'S OWN SINS) (Mass Effect 2)
+  X  KOLYAT'S TURN CAN RESOLVE TOO NEATLY, MAKING THE CYCLE-BREAK FEEL EASY
+     If Kolyat is talked back from his first kill in a single scene with a clean reconciliation, the profound difficulty (a lifetime of abandonment doesn't undo in one confrontation) collapses — the cycle-break needs to cost and to feel partial, or "the child follows the sins" loses its weight.
+     LAW: if a quest breaks an inherited cycle, the turn must be COSTLY and partial — the years of harm not erased by one confrontation, the reconciliation incomplete — so the cycle-break is hard-won, not a clean scene (#170's the-cycle-break-must-cost law).
+  X  THANE'S OWNERSHIP CAN SLIDE INTO SELF-PITY, CENTERING THE FATHER OVER THE SON
+     The atonement's power is that it's aimed at Kolyat, not Thane's conscience; if the confrontation becomes Thane's emotional catharsis, it re-centers the father and the "atonement is for the next generation" idea inverts into the father making his son's crisis about himself.
+     LAW: if a quest's atonement is aimed at the next generation, the focus must stay on the CHILD, not the parent's catharsis — the owning in service of turning the son, not clearing the father — so atonement doesn't become the parent centering themselves (#208's the-atonement-serves-the-other law).
+  X  THE FIRST-KILL DEADLINE CAN BE UNDERUSED, DRAINING THE URGENCY
+     The cycle-locking act (Kolyat's first murder) gives the quest its clock; if it's not made present and imminent, the race loses tension and the confrontation feels like it could happen anytime, softening the "interrupt it before it locks" stakes.
+     LAW: if a quest's stakes are interrupting a point-of-no-return, that threshold must be made IMMINENT — the cycle-locking act close and pressing — so the race to own the truth in time carries real urgency (#206's the-deadline-must-press law).
+
+### #220  THE DEMANDS OF THE QUN (A SPY MUST CHOOSE BETWEEN THE MEN WHO TRUST HIM AND THE ORDER THAT GIVES HIM A SELF, KNOWING ONE CHOICE ERASES HIM) (Dragon Age: Inquisition)
+  X  THE QUN CAN READ AS OBVIOUSLY WRONG, MAKING "SAVE THE CHARGERS" THE CLEAR CHOICE
+     If the collectivist order is framed as plainly oppressive, sacrificing the crew reads as obviously evil and the dilemma collapses — the power depends on the Qun's demand being genuinely coherent and Bull's belonging to it being a real, sympathetic self, not a cult to escape.
+     LAW: if a quest pits a collective against the few, the COLLECTIVE'S claim must be made legitimately coherent — the order's logic and the self it gives shown as real — so sacrificing the few is a genuine choice, not an obvious evil to reject (#191's both-sides-legitimate law).
+  X  BULL'S IDENTITY-LOSS CAN BE UNDERSOLD, MAKING TAL-VASHOTH JUST A LABEL
+     The cost of disobeying is that Bull loses the self the Qun constructed; if becoming Tal-Vashoth reads as merely a status change rather than a genuine unmaking of who he is, the "the self is an institution" idea flattens and saving the crew looks costless.
+     LAW: if a quest's cost is losing an institution-given self, that unmaking must be FELT — the erasure of identity shown as real self-loss, not a label swap — so disobeying carries the true weight of becoming un-who-you-were (#214's the-self-loss-must-be-real law).
+  X  THE CHARGERS CAN BE ABSTRACT, WEAKENING THE BOND'S CLAIM
+     The few's claim rides on the Chargers being a real, loved crew whose trust in Bull the player has felt; if they're generic mercenaries, sacrificing them is an abstraction and the human-bond side of the dilemma loses to the vivid ideology side.
+     LAW: if a quest weighs a collective against the few, the FEW must be vivid enough to weigh — the bond and their trust made real — so the human claim balances the ideological one rather than being an abstraction (#207's the-few-must-be-real law).
+
+### #221  THE ILLUSIVE MAN (A MAN WHO SPENT HIS LIFE FIGHTING THE ENEMY BECAME IT, AND STILL BELIEVES HE CAN CONTROL WHAT OWNS HIM) (Mass Effect 3)
+  X  THE ARGUE-HIM-DOWN PATH IS GATED BEHIND ACCUMULATED SCORES, LOCKING OUT THE PROFOUND ENDING
+     Reaching the Illusive Man with words requires enough accumulated reputation/points, so players without them get only the shoot option and miss the whole "the truth breaks indoctrination" payoff — the profound ending is walled off behind a meter.
+     LAW: if a quest's profound resolution is winning by argument, it must not be gated behind an ACCUMULATED score the player can't retroactively earn — the truth-path reachable on its own terms — so the argument-win isn't locked away by a meter (#210's the-argument-win-must-be-reachable law).
+  X  "HE THINKS HE'S IN CONTROL" CAN BE TOLD RATHER THAN MADE FELT
+     The Illusive Man's self-deception is the whole engine, but if the game only asserts his indoctrination rather than showing the seductive logic by which control felt like vindication, players may read him as simply a duped fool rather than as the tragedy of hubris — the seduction needs to be legible.
+     LAW: if a quest's engine is a man owned by the belief he's in control, that SEDUCTION must be shown — the logic by which every step deeper felt like mastery — so he reads as tragic hubris, not a fool, and the player feels how the leash disguises itself as command (#203's the-seduction-must-be-felt law).
+  X  THE NOBLE GOAL CAN BE UNDER-WEIGHTED, MAKING HIM A GENERIC VILLAIN
+     The tragedy depends on the Illusive Man's aim (humanity's survival) being genuinely noble and genuinely the handle the enemy used; if his goal reads as mere power-lust, he becomes a standard antagonist and the "your best intention is the steering handle" idea is lost.
+     LAW: if a quest's tragedy is a noble goal turned into a handle, that goal must be given real WEIGHT — the sincerity of the aim shown — so the horror steering him by his best intention lands, rather than reducing him to a power-hungry villain (#210's the-noble-aim-must-be-real law).
+
+### #222  LADY BOYLE'S LAST PARTY (FIND THE RIGHT TARGET AT A MASKED BALL, AND HAND HER TO THE MAN WHO WANTS HER FOR HIMSELF) (Dishonored)
+  X  MANY PLAYERS NEVER LEARN WHAT THE NON-LETHAL PATH IS, SO THE HORROR DOESN'T LAND
+     Because the game rewards non-lethal reflexively, players can take the Brisby option without reading the notes that reveal what they've done — so the profound "the mercy is a horror" reversal reaches only players who investigate, and the rest just feel they were merciful.
+     LAW: if a quest's power is that a merciful-seeming option is secretly a horror, the TRUE nature must be discoverable before or shortly after the choice — the cage made visible enough that the player can know what they authored — so the reversal lands, not only for the thorough (#212's the-hidden-horror-must-surface law).
+  X  THE IDENTIFICATION PROBLEM CAN BECOME A PUZZLE DIVORCED FROM ITS MORAL WEIGHT
+     Picking the right sister is mechanically a deduction task; if it's framed only as a puzzle, the moral weight (you are condemning a specific person and must be sure) is lost, and the care of not harming the innocent among the interchangeable becomes a lock to solve.
+     LAW: if a quest requires identifying a target among innocents, the identification must carry its MORAL weight — the gravity of condemning the right person, the risk to the innocent — so it's a reckoning, not just a deduction puzzle (#222-adjacent: the-target-choice-must-weigh law; cf. #181).
+  X  THE KILL-HER OPTION CAN READ AS SIMPLY THE BAD PATH, LOSING THE DEATH-MAY-BE-THE-MERCY INVERSION
+     The quest's sharpest inversion is that a clean death may be kinder than the cage; if killing is framed only as the high-chaos "evil" choice, that inversion is lost and the player misses that the honest bloody hands may be the more merciful ones.
+     LAW: if a quest inverts mercy and cruelty, the LETHAL option must be allowed to read as possibly the kinder one — death framed as a real mercy against the cage — so the inversion is fully available, not overridden by a chaos-meter that calls killing evil (#193's the-inversion-must-hold law).
+
+### #223  FALL-FROM-GRACE (A SUCCUBUS PRACTICES CHASTITY NOT TO DENY HER NATURE BUT TO PROVE SHE IS MORE THAN IT) (Planescape: Torment)
+  X  HER SERENITY CAN READ AS LACK OF CONFLICT, DRAINING DRAMATIC TENSION
+     Fall-from-Grace's peace with herself is the point (she's not white-knuckling against sin), but a character with no visible struggle can read as static or lecturing — the quest needs her discipline to feel like a real, ongoing effort, not an effortless state, or the "daily choosing" idea loses its weight as a discipline.
+     LAW: if a character embodies mastery-as-discipline, the ONGOING effort must be felt even amid serenity — the daily choosing shown as real work, not an effortless given — so the discipline reads as an achievement, not a personality trait (#208's the-discipline-must-be-visible law).
+  X  THE "NOT SHAME, DISCIPLINE" DISTINCTION CAN COLLAPSE IF REPRESSION ISN'T RULED OUT
+     The whole meaning depends on her restraint being free self-authorship, not repression or self-hatred; if the game doesn't clearly distinguish her discipline from the shame-driven denial it superficially resembles, players may read her as simply a repressed demon, losing the "without shame" core.
+     LAW: if a character's restraint is self-authorship not repression, the DISTINCTION must be made clear — the freedom and lack of shame shown against the repression it resembles — so mastery isn't mistaken for denial (#186's the-freedom-must-be-distinguished-from-repression law).
+  X  SHE CAN BECOME A MOUTHPIECE FOR THE THEME RATHER THAN A PERSON
+     Because she so cleanly embodies the game's central question, Fall-from-Grace risks being written as a thesis with a face — a wise oracle delivering the lesson — rather than a character with her own wants, flaws, and texture, which would make the answer she embodies feel earned rather than stated.
+     LAW: if a character embodies a central theme, they must remain a PERSON with their own texture — wants and flaws beyond the lesson — so the theme is lived, not lectured, and the answer feels earned (#210's the-embodiment-must-be-a-person law).
+
+### #224  GHOSTS OF THE PAST (THE MAN WHO MURDERED YOUR FRIENDS' MASTERS DID IT TO SAVE THEM, AND YOU OWE HIM A DEBT YOU WISH YOU DIDN'T) (The Witcher 3: Wild Hunt)
+  X  LETHO'S REASONS CAN EXCUSE TOO MUCH IF THE GRIEVANCE ISN'T KEPT REAL
+     The power depends on both the debt and the grievance staying legitimate; if the game leans so hard into Letho's sympathetic motive that his assassinations' real harm fades, the weighing collapses into "he was justified, help him" and the mixed account loses its tension.
+     LAW: if a quest weighs an enemy's reasons against their harm, the HARM must stay real alongside the reasons — the grievance kept legitimate, not dissolved by the motive — so the account stays genuinely mixed rather than tipping into exculpation (#198's the-grievance-must-stay-real law).
+  X  THE PRIOR-GAME DEBT CAN BE INVISIBLE TO PLAYERS WHO DIDN'T CARRY IT
+     Letho's debt and history come largely from a previous game/import; players without that context feel only the grievance and none of the debt, so the weighing is lopsided — the mixed account depends on both weights being present, and the debt needs to be legible in-quest.
+     LAW: if a quest's weighing depends on a prior debt, that debt must be made LEGIBLE within the quest — the history surfaced for players who didn't carry it — so the account is balanced, not lopsided toward the grievance (#211's the-history-must-be-present law).
+  X  THE SHARED-KIND MOTIVE CAN STAY ABSTRACT WITHOUT THE DYING BREED MADE VIVID
+     "He did it to save the last of our kind" only weighs if the player feels the reality of the dying breed and their own belonging to it; if the witchers' extinction is a lore fact rather than a felt stake, Letho's motive reads as an excuse rather than a bind the player understands from inside.
+     LAW: if an enemy's motive is saving a shared dying kind, that KIND and its doom must be made vivid — the extinction and the belonging felt — so the motive reads as one the dynast understands from inside, not an abstract excuse (#201's the-shared-doom-must-be-felt law).
+
+### #225  PAARTHURNAX (THE ORDER DEMANDS YOU KILL A REFORMED MONSTER FOR CRIMES HE SPENT CENTURIES REPENTING, AND WON'T SAY WHY THAT'S JUSTICE) (The Elder Scrolls V: Skyrim)
+  X  THE BLADES' REFUSAL TO EXPLAIN CAN READ AS BAD WRITING RATHER THAN AS ABSOLUTISM
+     The order's flat, unjustified demand is thematically the point (absolutism doesn't argue), but it can land as the writers failing to give the antagonists a real case — so the profound "some crimes are unforgivable" position risks reading as unmotivated stubbornness rather than a coherent, if harsh, moral stance.
+     LAW: if an institution demands something on absolute principle, that ABSOLUTISM must be made coherent — the harsh logic of "the past is permanent" given real force, even without negotiation — so it reads as a defensible hard stance, not writers withholding a reason (#180's the-hardline-must-be-coherent law).
+  X  PAARTHURNAX'S REFORM CAN BE SO TOTAL IT MAKES SPARING HIM OBVIOUS
+     If the game presents his change as flawless and his danger as nil, killing him reads as obviously wrong and the dilemma collapses — the tension needs his nature to stay genuinely dangerous (a dragon's cruelty is real, even mastered) so that "the Blades have a point" survives.
+     LAW: if a quest weighs reform against a permanent-past absolutism, the reformed one's DANGER must stay live — the mastered nature still real — so sparing them is a genuine risk, not an obvious good (#208's the-reformed-danger-must-stay-live law).
+  X  THE ALLIANCE COST CAN BE TOO CHEAP, DRAINING THE STAKES OF SPARING HIM
+     If losing the Blades costs the player almost nothing mechanically, refusing the execution is a free virtue and the "you must sacrifice something real to defend your principle" weight is lost — sparing Paarthurnax needs to genuinely cost the alliance and its aid.
+     LAW: if a quest's principled choice forfeits an alliance, that forfeiture must COST — the lost aid felt — so defending the reformed one against the order is a real sacrifice, not a free stand (#201's the-principle-must-cost law).
+
+### #226  VIRMIRE (TWO OF YOUR PEOPLE ARE ABOUT TO DIE AND YOU HAVE TIME TO REACH ONLY ONE, SO YOU CHOOSE WHO LIVES) (Mass Effect)
+  X  THE RELOAD ESCAPE UNDERCUTS THE PERMANENCE FOR SOME PLAYERS
+     Because it's a game, a player can reload a save to avoid the loss or try to "get" a save-both outcome, and discovering none exists can read as a failure to find the solution rather than as the intended foreclosure — so the permanence's weight depends on the player accepting the choice, which the medium lets them dodge.
+     LAW: if a quest's power is a permanent self-authored loss, the design must discourage the UNDO — the choice made sticky enough (no clean reload point, consequences that commit) that the permanence is felt, not save-scummed away — so the weight lands rather than being dodged (#187's the-irreversibility-must-hold law).
+  X  IF THE TWO AREN'T EQUALLY DEVELOPED, THE CHOICE TIPS AND LOSES ITS AGONY
+     The dilemma's power requires both squadmates to be genuinely valued; if one is more likable or useful than the other, most players pick the obvious one and the "impossible choice" becomes an easy one — the agony depends on both being real, invested-in people.
+     LAW: if a quest forces a choice between two people, both must be EQUALLY developed and valued — neither the obvious pick — so the choice is a genuine agony, not a preference (#207's both-must-weigh-equally law).
+  X  THE CLOCK CAN FEEL LIKE A GIMMICK IF IT'S THE ONLY THING FORCING THE CHOICE
+     If the only reason the player can't save both is an arbitrary timer, the foreclosure can read as contrived rather than as a genuine no-win — the impossibility needs to feel structurally real (geometry, stakes, the mission's logic) so the choice is a true dilemma, not a mechanically imposed one.
+     LAW: if a quest forecloses saving both, the impossibility must feel STRUCTURALLY real — grounded in the situation's logic, not just an arbitrary timer — so the no-win reads as genuine, not a contrived gate (#206's the-no-win-must-be-earned law).
+
+### #227  THE DREAD WOLF (THE FRIEND WHO GUIDED YOU ALL ALONG IS THE GOD WHOSE MISTAKE MADE THE WORLD, AND HE'LL UNMAKE IT TO FIX IT) (Dragon Age: Inquisition)
+  X  THE REVEAL RELIES ON A LONG BUILD MANY PLAYERS DIDN'T FULLY REGISTER
+     Solas's betrayal lands hardest if the player invested in him as a friend across the whole game; players who didn't engage him deeply feel the plot twist but not the personal grief, so the "trusted friend is the apocalypse" gut-punch reaches only those who built the relationship.
+     LAW: if a quest's power is a trusted friend's betrayal, the FRIENDSHIP must be built deeply enough beforehand that the reveal is personal — the relationship invested in, not assumed — so the betrayal is grief, not just a plot twist (#221's the-bond-must-be-built law).
+  X  SOLAS'S "CARE IS REAL" CAN BE ASSERTED RATHER THAN PROVEN, MAKING IT RING HOLLOW
+     The inversion (he really cares and it doesn't stop him) only works if the care is genuinely established; if the game tells us he cares without showing it, the "betrayal of grief" collapses into a standard villain claiming false affection, losing the whole point.
+     LAW: if a quest's twist is that genuine care doesn't stop the betrayer, that CARE must be proven, not asserted — the affection shown as real before and after the reveal — so the betrayal-as-grief holds rather than ringing as false sentiment (#227-adjacent: the-love-must-be-shown law; cf. #188).
+  X  HIS COHERENT LOGIC CAN MAKE HIM TOO SYMPATHETIC, DRAINING THE HORROR
+     Because Solas's guilt is earned and his logic is coherent, the game risks making him so understandable that the apocalypse loses its horror — the balance needs the monstrousness of unmaking the world (the untold dead) to weigh as heavily as his sympathetic remorse, or he becomes a tragic hero rather than a terror.
+     LAW: if a quest's antagonist has coherent, sympathetic logic, the HORROR of their plan must weigh equally — the cost (the untold dead, the world unmade) kept as vivid as the remorse — so he's a terror driven by grief, not a hero excused by it (#210's the-sympathetic-plan-must-still-horrify law).
+
+### #228  THE WATER CHIP (SAVE YOUR HOME FROM A DEADLINE, THEN GET EXILED BY THE HOME YOU SAVED FOR WHAT YOU BECAME OUT THERE) (Fallout)
+  X  THE EXILE CAN READ AS ARBITRARY CRUELTY IF THE OVERSEER'S LOGIC ISN'T HONORED
+     The tragedy depends on the Overseer being hard-but-right (the Dweller genuinely is now a danger to the shelter); if his reasoning isn't made coherent, the exile reads as a gut-punch twist for its own sake rather than a structural incompatibility, and the "you can't go home again" truth degrades into "the game punished you."
+     LAW: if a quest exiles a hero for what they became, the exiler's LOGIC must be honored — the genuine incompatibility of the transformed savior and the shelter made coherent — so the exile reads as tragedy, not arbitrary cruelty (#225's the-hardline-must-be-coherent law).
+  X  THE TRANSFORMATION MUST BE FELT, OR "TOO DANGEROUS TO COME HOME" RINGS FALSE
+     The exile only lands if the player has actually felt the Dweller change — become hard, do brutal things — over the course of the mission; if the transformation is asserted rather than experienced, the claim that they're now unfit for home has no foundation and the ending feels unearned.
+     LAW: if a quest exiles a savior for their transformation, that TRANSFORMATION must be felt across the mission — the hardening experienced, not asserted at the end — so "too dangerous to come home" is grounded in what the player became (#197's the-change-must-be-lived law).
+  X  THE HOME'S WORTH SAVING MUST BE ESTABLISHED, OR THE SACRIFICE HAS NO WEIGHT
+     The loss of belonging cuts only if the vault is a place the player wanted to return to; if the home is never made warm or worth belonging to, the exile is a shrug rather than a tragedy, and the "saving it cost you it" weight evaporates.
+     LAW: if a quest's tragedy is losing your home, that HOME must be established as worth belonging to — its warmth and the desire to return made real — so the exile is a genuine loss, not a shrug (#204's the-home-must-be-worth-it law).
+
+### #229  THE ARCHITECT (A MONSTER WHO WANTS TO FREE ALL MONSTERS FROM THE HIVE-MIND COMMITTED ATROCITIES DOING IT, AND ASKS YOU TO LET HIM KEEP TRYING) (Dragon Age: Origins — Awakening)
+  X  THE CURE'S UNVERIFIABILITY CAN READ AS A DODGE RATHER THAN THE POINT
+     The dilemma's power is that no one can know whether freed darkspawn would choose peace, but if the game doesn't own this as the central uncertainty, it can read as the writers refusing to define the stakes — the "you must bet blind" idea needs to be legibly the condition, not a gap.
+     LAW: if a quest's choice is a wager on an unverifiable outcome, the un-knowability must be OWNED as the condition — the impossibility of certainty made the point — so it reads as "you must bet blind," not the writers dodging the stakes (#190's the-unverifiability-must-be-owned law).
+  X  THE ATROCITIES CAN BE UNDER-WEIGHED, MAKING "SPARE HIM" TOO EASY
+     The dilemma depends on the Architect's crimes being genuinely monstrous and personal (real dead among the player's people); if they're abstract, sparing him for his noble goal reads as obviously right and the inseparability of cure and atrocity loses its bite.
+     LAW: if a quest binds a noble end to monstrous means, the ATROCITIES must weigh — the real, personal harm kept vivid — so sparing the maker for his goal is a genuine moral cost, not an easy call (#180's the-means-must-weigh law).
+  X  THE NOBLE GOAL CAN BE UNDER-SOLD, MAKING HIM A GENERIC MAD SCIENTIST
+     The tragedy needs the Architect's aim (freeing an enslaved species to end an eternal war) to be genuinely magnificent; if it reads as mere curiosity or power, he becomes a standard monster and the "the cure was made by a monster" dilemma flattens into "kill the evil experimenter."
+     LAW: if a quest's dilemma rests on a magnificent goal pursued monstrously, that GOAL must be given real grandeur — the liberation and the war's end made genuinely worth wanting — so he's a tragic figure, not a mad scientist (#210's the-noble-aim-must-be-real law).
+
+### #230  THE COP AND THE TRIAD (AN UNDERCOVER OFFICER SPENDS SO LONG BEING A GANGSTER THAT SAVING THE PEOPLE WHO TRUST HIM MEANS BETRAYING THE PEOPLE HE SERVES) (Sleeping Dogs)
+  X  THE BROTHERHOOD MUST BE MADE AS REAL AS THE MISSION, OR THE MASK NEVER BECOMES THE FACE
+     The whole engine depends on the gangsters being genuinely likable and their bond with Wei genuinely earned; if they read as targets to be brought down, the "mask became a second real self" idea collapses and choosing the badge is obvious — the brotherhood needs to be as compelling as the duty.
+     LAW: if a quest's engine is a lived lie becoming a real self, the false loyalty must be made as genuinely COMPELLING as the true one — the brotherhood earned and loved — so the mask really becomes a face and the choice is a true tear (#220's both-loyalties-must-weigh law).
+  X  WEI'S DIVIDED SELF CAN BE TOLD RATHER THAN FELT ACROSS THE ARC
+     The tragedy needs the player to feel Wei's identity erode over time — to experience the role becoming real, not be told it did at the crisis; if the transformation is asserted at the collision, the "two real selves" idea has no lived foundation.
+     LAW: if a quest's tragedy is a divided self forged by a lived lie, the DIVISION must be felt building across the arc — the erosion experienced, not announced at the climax — so the two-real-selves collision is earned (#227's the-transformation-must-be-lived law).
+  X  THE POLICE SIDE BEING TOO CLEAN OR TOO DIRTY CAN TIP THE CHOICE
+     The dilemma needs both the badge and the brotherhood to be genuine, complicated claims; if the police are pure heroes the brotherhood choice reads as betrayal, and if they're pure villains the badge choice reads as folly — both sides need real, mixed weight so the tear is genuine.
+     LAW: if a quest tears a person between two loyalties, BOTH must carry mixed, genuine weight — neither purely clean nor purely corrupt — so the choice is a true dilemma, not tipped by one side being obviously right (#218's both-claims-must-be-mixed law).
+
+### #231  THE EMPEROR (YOUR PROTECTOR KEEPS YOU ALIVE AND KEEPS YOU LEASHED, AND ASKS YOU TO TRUST THAT THOSE ARE THE SAME THING) (Baldur's Gate 3)
+  X  THE EMPEROR'S GENUINE HELP CAN BE UNDERSOLD, MAKING REJECTION OBVIOUS
+     The dilemma depends on the protection being genuinely valuable and the danger genuinely real; if the Emperor reads as an obvious manipulator whose help is minor, rejecting it is easy and the "the leash is also a lifeline" tension collapses into "distrust the creepy mind flayer."
+     LAW: if a quest weighs a controlling benefactor's help against its leash, the HELP must be made genuinely valuable and the danger genuinely real — the lifeline's worth felt — so keeping the leash is a real temptation, not an obvious mistake (#209's the-protection-must-be-real law).
+  X  "FOR YOUR OWN GOOD" CAN READ AS OBVIOUS VILLAINY RATHER THAN SEDUCTIVE CONTROL
+     The Emperor's justifications work only if they're genuinely persuasive — partly true, reasonable-sounding; if the game frames them as transparent lies, the sophisticated horror (control that sounds like care) flattens into a villain the player easily sees through.
+     LAW: if a quest's engine is control dressed as care, the justifications must be genuinely PERSUASIVE — partly true, reasonable — so "for your own good" is a seductive leash the player feels the pull of, not a transparent lie (#221's the-control-must-be-seductive law).
+  X  THE AUTONOMY PATH CAN LACK REAL RISK, MAKING FREEDOM COSTLESS
+     The choice matters only if rejecting the protector genuinely costs — real added danger, real loss of guidance; if freedom is safe, refusing the leash is a free good and the "safety bought with dependence" trade has no weight.
+     LAW: if a quest offers autonomy against a benefactor's safety, the AUTONOMY must carry real risk — the danger of going alone felt — so choosing freedom is a genuine trade, not a costless virtue (#201's the-freedom-must-cost law).
+
+### #232  THE RAKGHOUL SERUM (A CURE FOR THE PLAGUE THAT TURNS THE POOR INTO MONSTERS EXISTS, AND ITS MAKER WANTS TO SELL IT, NOT SPREAD IT) (Star Wars: Knights of the Old Republic)
+  X  THE CURE CAN BECOME A FETCH ITEM, DRAINING THE MORAL WEIGHT
+     If the serum is treated primarily as a quest object the player needs (to cure themselves or pass a gate), the deeper question (who a hoarded cure belongs to) can recede behind the mechanical need — the injustice becomes background to a fetch rather than the point.
+     LAW: if a quest's core is a hoarded remedy, the MORAL question (commodity or right) must stay foregrounded over the fetch — the injustice made the point, not the errand — so the player reckons with who the cure is for, not just whether they got it (#196's the-question-stays-central law).
+  X  THE MAKER CAN BE A CARTOON PROFITEER OR A STRAWMAN, TIPPING THE CHOICE
+     The dilemma sharpens if the maker has a real claim (he made it, he took the risk); if he's simply a greedy villain, freeing the cure is obviously right and the "does a cure belong to its maker or its need" tension collapses into robbing a bad guy.
+     LAW: if a quest weighs a maker's claim against the needy, the MAKER'S claim gets real weight — the labor and risk of making it acknowledged — so freeing the cure is a genuine moral choice, not obviously robbing a villain (#180's both-sides-must-weigh law).
+  X  THE UNDERCLASS CAN STAY A FACELESS MASS, MAKING THE SUFFERING ABSTRACT
+     The stakes cut only if the dying poor are vivid enough to weigh; if the undercity is a monster-filled dungeon rather than a community of specific sufferers, freeing the cure is abstract and the "whose lives count" weight is lost.
+     LAW: if a quest's stakes are a suffering underclass, at least some of the poor must be VIVID — specific sufferers, a named dying person — so freeing the cure has faces and the injustice weighs (#190's the-many-need-a-face law).
+
+### #233  WHODUNIT! (LOCKED IN A MANSION WITH STRANGERS YOU'RE PAID TO MURDER ONE BY ONE, YOU TURN THEIR FEAR INTO YOUR WEAPON) (The Elder Scrolls IV: Oblivion)
+  X  THE GUESTS CAN BE TOO GAME-Y TO FEEL LIKE REAL PEOPLE TURNING ON EACH OTHER
+     The horror depends on the guests reading as ordinary, frightened people; if they behave like scripted quest-NPCs following a puzzle, the "how little it takes to make strangers destroy each other" chill degrades into solving a mechanism, and the social-breakdown resonance is lost.
+     LAW: if a quest's horror is people turning on each other under fear, the people must read as REAL and frightened — their panic and suspicion human, not scripted-puzzle behavior — so the breakdown chills rather than reading as a mechanism (#209's the-victims-must-feel-real law).
+  X  THE PARANOIA METHOD CAN BE FIDDLY, PUSHING PLAYERS TO JUST USE THE BLADE
+     If sowing suspicion is mechanically clumsy or unrewarding compared to direct killing, most players take the crude route and never experience the elegant paranoia horror — so the profound demonstration (fear does the work) needs the psychological method to be genuinely playable and rewarded.
+     LAW: if a quest's point is fear-as-weapon, the psychological method must be genuinely PLAYABLE and rewarded over brute force — the paranoia route made satisfying — so players experience the manufactured-suspicion horror, not just skip to the blade (#210's the-clever-path-must-be-reachable law).
+  X  THE HORROR OF THE PLAYER'S OWN COMPLICITY CAN GO UNEXAMINED
+     The quest can play the paranoia route as a clever puzzle without ever surfacing the disturbing thing the player just did (turned frightened strangers into murderers) — so the "look how easily YOU did this" mirror, the most unsettling part, is left implicit and easily missed.
+     LAW: if a quest lets the dynast weaponize others' fear, the player's own COMPLICITY must be surfaced — the disturbing ease of what they did made visible — so the mirror (you turned people into killers with a whisper) lands, not just the clever solution (#193's the-complicity-must-be-surfaced law).
+
+### #234  THE ACCUSATION (YOU MUST NAME A KILLER ON EVIDENCE THAT NEVER ADDS UP, AND THE TOWN WILL LIVE WITH YOUR GUESS FOR GENERATIONS, AND YOU WILL NEVER KNOW IF YOU WERE RIGHT) (Pentiment)
+  X  THE PERMANENT WITHHOLDING CAN READ AS THE GAME NOT HAVING AN ANSWER RATHER THAN AS THE POINT
+     The refusal to ever confirm the killer is the thesis, but a player can experience it as the writers not bothering to resolve the mystery rather than as the deliberate condition (you judge without certainty) — so the profound "you'll never know" weight risks reading as an unsatisfying non-ending.
+     LAW: if a quest's power is that the truth is permanently withheld, the un-knowability must be OWNED as the condition — the impossibility of certainty made legibly the point, the weight of judging-without-proof foregrounded — so it reads as "you must decide and never know," not "the game had no answer" (#206's the-ambiguity-must-be-owned law).
+  X  THE FORCED DEADLINE CAN FEEL ARBITRARY IF THE PRESSURE ISN'T GROUNDED
+     The "you must accuse now, on incomplete evidence" bind only lands if the pressure to name someone is structurally real (the authority, the town's demand, the danger of no verdict); if it's an arbitrary game timer, the forced guess reads as contrived rather than as the genuine impossibility of deferring a real judgment.
+     LAW: if a quest forces a verdict on incomplete evidence, the PRESSURE to decide must be grounded — the real reason a name can't be deferred made legible — so the forced guess reads as a genuine bind, not an arbitrary clock (#226's the-no-defer-must-be-earned law).
+  X  THE GENERATIONAL CONSEQUENCE CAN BE UNDERPLAYED, DRAINING THE VERDICT'S WEIGHT
+     The unique power is seeing the accusation shape the town for decades; if the long-term consequences are thin or easy to miss, the "the community carries your guess for generations" idea loses force and the accusation feels like a one-time event rather than a lasting authorship.
+     LAW: if a quest's weight is a verdict carried for generations, the LONG-TERM consequence must be shown and felt — the accusation's decades-long ripple made present — so the player experiences the verdict outliving them, not just a momentary choice (#187's the-consequence-must-outlive-the-choice law).
+
+### #235  FROM THE GRAVE TO THE HUNT (A BLACKSMITH'S SON WATCHES HIS TOWN AND HIS PARENTS BUTCHERED, AND IT IS NOT REVENGE BUT A STRANGER'S SMALL, GROUNDED ERRAND THAT PULLS HIM OFF THE GRAVE AND BACK INTO A LIFE) (Kingdom Come: Deliverance)
+  X  THE LONG MUNDANE OPENING CAN READ AS A SLOG BEFORE THE PLAYER IS INVESTED
+     The warm ordinary hour is the entire emotional investment, but a player who does not yet care about Henry can experience the chores-and-errands intro as a slow, boring tutorial that withholds the game, so the very texture meant to make the loss land can instead lose the player before the raid arrives.
+     LAW: if the loss depends on a warm "before," that before must EARN its length — kept short, interactive, and characterful, every mundane beat doing double duty (teaching a system AND drawing the family), so the ordinary life is felt as precious, not endured as a chore (Bohemia's match-cut childhood dinner is the compression: buy the warmth in one scene, not one hour).
+  X  THE AUTHORED POWERLESSNESS CAN FEEL LIKE THE GAME STEALING AGENCY RATHER THAN AS TRAGEDY
+     Forcing the family's death and denying the player any chance to save them is what keeps the loss clean, but a player used to earning outcomes with skill can read the unwinnable raid as the game cheating them rather than as honest tragedy, resenting the loss instead of grieving it.
+     LAW: if a loss is authored and unpreventable, it must be framed so it reads as TRAGEDY, not as the game punishing the player — the death belonging visibly to the attackers and to the character's real powerlessness, never to a fight the player was tricked into losing (this is Bohemia's pacifism resolution: the raiders kill the sibling, the player's hands are never the cause, so no one feels cheated of a save that was never theirs to make).
+  X  THE GRIEF-TO-ACTION TURN COLLAPSES IF THE FIRST ERRAND IS HOLLOW BUSYWORK
+     The return to life works only because the first task carries purpose tied to the loss; if the pull-you-back quest were a trivial fetch errand with no connection to what was taken, the turn from paralysis to action would feel arbitrary and the earned weight of the opening would drain into generic questing.
+     LAW: the first quest that pulls a grieving protagonist back into the world must have real PURPOSE, ideally threaded to the loss or the rebuilding, and be handed over by someone who genuinely needs them — grounded work, not busywork — so the return to action is a believable step out of grief, not a checklist (Bohemia's neighbor gives a task with a stake, and the reward, the backyard wall coming down, is earned, not a day-one gift).
+
+### #236  THE HALL AND THE HAGGLE (THE BATTLE BROTHERS CONTRACT SYSTEM) (Battle Brothers)
+  X  THE HAGGLE IS SOLVED MATH
+     Players publish the numbers (the Steam "Negotiation Mechanics" thread) and conclude only one option is a net gain; the advance loses money to rounding [V]. Once solved, the face stops being a person and becomes a slot machine.
+     LAW: the ask for more must be readable on the face, not solvable from a forum: a visible ceiling the face shows, one or two asks, never a hidden random walk (QR-L P8).
+  X  THE TWIST IS A TEMPLATE
+     Veteran players describe the contraband caravan and the bigger camp as expected beats; the turn stops being news after the tenth time [R].
+     LAW: ration the twist to a minority on an unpredictable schedule (QR-C rule 2, the same law `Q148.X3` gave).
+  X  THE CLIENT IS A VENDING MACHINE
+     The elder has a portrait and a mood, but no want beyond the fee, no memory beyond a relations number, and no life on the map [R].
+     LAW: the client is a person in a place with a want the player can see (QR-E), whose place changes where the player can see it after the hand-in.
+  X  THE CRUNCH FORCES THE YES
+     The daily wage burn makes refusing expensive in practice; the decline is free in the ledger but not on the treasury [R].
+     LAW: keep the pressure but keep a second income (scavenge in the settlement screen, third votes) so a no is never a slow death.

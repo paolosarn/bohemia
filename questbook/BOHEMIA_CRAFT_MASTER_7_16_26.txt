@@ -1,5 +1,5 @@
-BOHEMIA CRAFT MASTER — regen 7/16/26 after BATCH 7 (fresh mines 133-138)  [+BATCH appended 139,140,141 (7/17/26, machine-parsed)]  [+BATCH appended 142,143,144 (7/17/26, machine-parsed)]  [+BATCH appended 145,146,147 (7/17/26, machine-parsed)]  [+BATCH appended 148,149,150 (7/17/26, machine-parsed)]  [+BATCH appended 151,152 (7/17/26, machine-parsed)]
-1527 findings / 152 files
+BOHEMIA CRAFT MASTER — regen 7/16/26 after BATCH 7 (fresh mines 133-138)  [+BATCH appended 139,140,141 (7/17/26, machine-parsed)]  [+BATCH appended 142,143,144 (7/17/26, machine-parsed)]  [+BATCH appended 145,146,147 (7/17/26, machine-parsed)]  [+BATCH appended 148,149,150 (7/17/26, machine-parsed)]  [+BATCH appended 151,152 (7/17/26, machine-parsed)]  [+BATCH appended 153-236 (9/28/26, machine-parsed, QUESTS [index the rest])]
+2367 findings / 236 files
 ====================================================================================================
 
 ### #1  THE BLOODY BARON (The Witcher 3)
@@ -3359,3 +3359,1851 @@ BOHEMIA CRAFT MASTER — regen 7/16/26 after BATCH 7 (fresh mines 133-138)  [+BA
       The arc ends in an office, not a payout — succession as prize, with the timer attached. The genre's boldest ending shape, even underfunded (F1): what you win is what he was.
   W10 THE WHOLE SCRIPT REPLAYS ITSELF
       After G-4, every earlier scene re-reads — the jokes, the errands, the interview. A quest that retroactively rewrites its own first half is doing with structure what twists usually fake with surprise.
+
+### #153  A NIGHT TO REMEMBER (THE BLACKOUT RECONSTRUCTION) (The Elder Scrolls V: Skyrim)
+  W1  THE PLAYER IS THE CRIMINAL
+      The mystery is your own off-screen night, so the detective work is self-confrontation — the rarest and best investigation subject: yourself, unwatched.
+  W2  THE WORLD KNOWS WHAT YOU DON'T
+      Inverted dramatic irony: every NPC is a witness to a you that you can't access, and their straight-faced grievances are the comedy engine.
+  W3  SINCERITY IS THE JOKE
+      The quest never winks; the priest and the bride treat the aftermath as real, and the player's mortified reconstruction lands because nobody in it is laughing.
+  W4  THE CRIME SCENE IS TESTIMONY
+      The night is reassembled from people, not flashback — a social reconstruction that makes the witnesses the level design.
+  W5  THE BLACKOUT IS UNRECOVERABLE DIRECTLY
+      No flashback verb exists; the player must go ask, which turns a memory gap into a tour of the people it touched.
+  W6  THE HUMAN NOTE UNDER THE FARCE
+      The jilted wedding keeps the comedy from weightlessness — one witness whose grievance has an ache, played almost straight.
+  W7  THE BENDER IS A JOB INTERVIEW
+      Sanguine was auditioning the player through chaos; the reconstruction was the résumé — the reward reframes the whole night as a test passed.
+  W8  SCOPE DISCIPLINE
+      Contest to Rose in one arc; the comedy never dilutes because the container is tight — the release valve does one thing perfectly.
+  W9  RESTITUTION IS OPTIONAL AND UNJUDGED
+      At each witness the player may make amends or not, with no mechanical push — the conscience slot is real and entirely theirs.
+  W10 THE TONE IS A COUNTERWEIGHT
+      Placed among Skyrim's grim Daedric quests, the levity relieves and, by contrast, sharpens the dread of the darker ones. Range is the point.
+
+### #154  THE FORSWORN CONSPIRACY / NO ONE ESCAPES CIDHNA MINE (THE CITY THAT FRAMED YOU) (The Elder Scrolls V: Skyrim)
+  W1  THE CITY IS THE ANTAGONIST
+      Not a villain in the city — the city itself: guards, jarl, market, mine, one machine that turns on the player for looking. The best "the institution is the crime" structure in the game.
+  W2  INVESTIGATION IS THE OFFENSE
+      The player is framed and jailed FOR asking; curiosity is reframed as the crime, which is a chillingly real depiction of how closed systems defend themselves.
+  W3  THE PROSPERITY IS BUILT ON THE SUPPRESSION
+      Markarth's silver, order, and tidy market sit directly on the wound the quest uncovers — the peace and the crime are the same structure.
+  W4  NO CLEAN INSTITUTION TO APPEAL TO
+      Every authority is compromised; the removed "honest authority" verb is the thesis. There is nowhere to take the truth.
+  W5  THE REAL POWER IS UNTOUCHABLE
+      The Silver-Bloods engineer it all and pay nothing; the fork lets you choose their instrument, never punish them — a bitter, adult depiction of where power actually sits.
+  W6  NO CLEAN EXIT
+      Both escape routes stain the player — an uprising's massacre or a cover-up's complicity. The quest refuses to let anyone leave innocent.
+  W7  THE TRUTH LIVES WHERE IT WAS BURIED
+      The full picture is only available inside the mine the city threw the player into — the geography of the cover-up is the quest's structure.
+  W8  THE SYMPATHETIC-AND-TERRIBLE FORK
+      Madanach is a freedom-fighter and a murderer, the same act; the Silver-Bloods are order and oppression, the same act. No side is clean, and the quest names it.
+  W9  THE FRAME ESCALATES LEGIBLY
+      Note, then guards, then prison — the city's hostility rises in readable steps, so the trap closes at a pace the player feels shutting.
+  W10 THE WOUND STAYS OPEN
+      Neither ending fixes Markarth; the player leaves a place still sick, still quiet about it. The refusal to resolve is the point — some rots outlast the visitor who found them.
+
+### #155  NATURE OF THE BEAST (THE CURSE IS A WOUND, NOT A MONSTER) (Dragon Age: Origins)
+  W1  THE MONSTER HUNT IS A TRUTH COMMISSION
+      The quest opens as a straight beast-kill and becomes the excavation of an old mutual atrocity — the genre's cleanest bait-and-switch from violence to history.
+  W2  THE CURSE IS A GRIEVANCE IN ANIMAL FORM
+      The werewolves are a wound wearing fur; the plague is grief that wouldn't die. The monster is literally somebody's refusal to forgive.
+  W3  EVERY PARTY IS VICTIM AND PERPETRATOR
+      Humans wronged elves, elves cursed humans, the cursed kill the innocent — no one is clean, and the quest names the whole chain.
+  W4  THE VILLAIN IS THE WRONGED PARTY
+      Zathrian is the victim who became the perpetrator by refusing to heal — the hardest, truest kind of antagonist, sympathetic and culpable at once.
+  W5  THE RESOLUTION IS ABOUT THE WOUND, NOT THE MONSTERS
+      The three endings are three answers to "feed the grievance or release it" — the monsters are the symptom, the grief is the disease.
+  W6  THE BEST ENDING IS FORGIVENESS
+      Peace requires convincing the wronged to stop being wronged — the hardest human act, gated as the game's hardest outcome. Mercy is earned, not given.
+  W7  NO COST-FREE PATH
+      Peace costs Zathrian his life; blood costs a whole people. The quest refuses an exit where nobody pays, which is what makes the choice real.
+  W8  THE MONSTERS ARGUE REASONABLY
+      The Lady of the Forest makes the case for mercy with unsettling calm — the "beast" is the most morally lucid voice in the forest.
+  W9  THE CRIME IS CENTURIES DEAD AND STILL KILLING
+      No living person committed the original wrong, yet it still demands blood — the clearest depiction of how inherited grievance outlives its cause.
+  W10 THE FORGIVENESS IS A DEATH
+      Zathrian can only release the wound by dying with it — the peace is not free, it is paid by the one who held the grief. Letting go is the last thing he does.
+
+### #156  A PARAGON OF HER KIND / THE ANVIL OF THE VOID (THE ENDS THAT EAT THE MEANS) (Dragon Age: Origins)
+  W1  THE TOOL IS MADE OF THE ATROCITY
+      The golem-army isn't guarded by an atrocity — it IS one; every unit a murdered soul. The weapon and the crime are the same object, which is the purest means-vs-ends form.
+  W2  THE COST IS SHOWN BEFORE THE PRIZE
+      The descent walks the player through Branka's dead House and Hespith's ruin before revealing the Anvil — you feel the price before you see what it buys.
+  W3  THE MAKER TURNS AGAINST HIS MASTERPIECE
+      Caridin built the Anvil and wants it destroyed, having lived inside its cost for centuries — the most credible possible witness against a tool: its inventor.
+  W4  THE ENDS HAVE A REAL CASE
+      Branka is not lying — the dwarves are dying and the Anvil could save them. The dilemma is real because the monstrous option might actually work.
+  W5  NO CLEAN FORK
+      Keep the tool and own the slavery; destroy it and forgo the salvation. Both cost a Paragon and a principle; the game refuses a free exit.
+  W6  THE PRICE IS PERSONAL
+      Branka spent her own wife; the atrocity has a face the antagonist loved. The abstraction of "souls bound to metal" gets a name.
+  W7  THE VILLAIN ISN'T ONE
+      Branka is a good goal pursued past every line, not evil for its own sake — the scariest antagonist is the one whose ends you can't dismiss.
+  W8  THE POLITICAL STAKES FRAME THE MORAL ONES
+      The whole descent is for a succession crown; the means-vs-ends fork is nested inside a governance need, so the choice has downstream weight beyond itself.
+  W9  THE MAKER PAYS LAST
+      Caridin, if he wins, unmakes his creation and then himself — the atrocity's author choosing to end with it. Letting go is a death he chooses.
+  W10 THE QUESTION SURVIVES THE CREDITS
+      Players argue the Anvil choice for years — the sign the dilemma was real. A tool worth its atrocity has no settled answer, and the quest is honest enough not to give one.
+
+### #157  THE ARDAT-YAKSHI (KILL YOUR DAUGHTER, OR BE SEDUCED BY HER) (Mass Effect 2)
+  W1  THE FORK IS TWO TERRIBLE FAMILY MEMBERS
+      Samara is a mother who will execute her child; Morinth is a child who murders for pleasure — both monstrous, both bound by a nature (law or curse) they didn't fully choose. No clean party.
+  W2  THE PLAYER IS THE BAIT AND THE TARGET
+      Posing as Morinth's next victim puts the player in exactly the position of her dead — the trap is set with the player's own body, and the seduction is aimed at them.
+  W3  THE SEDUCTION CAN WIN
+      The player can be talked into the wrong choice in the moment — the monster's charm works on the person meant to be baiting it, which is the rarest and best kind of test: your own judgment under pressure.
+  W4  THE MONSTER HAS A REAL CASE
+      Morinth's nature isn't her fault; her mother's law is genuinely a prison; the seduction lands because it is partly true. The killer feels, for a moment, like the victim.
+  W5  THE LAW IS A TRAGEDY, NOT A VIRTUE
+      Samara's code is what lets her murder her own daughter — the quest shows the cost of absolute principle, not just its correctness.
+  W6  THE BODY COUNT IS SHOWN FIRST
+      The grieving mother of a real victim guides the player in, so Morinth's charm arrives already stained — the seduction fights against a corpse the player has seen.
+  W7  NO BOTH-LIVE
+      The Ardat-Yakshi nature admits no cure; the fork admits no mercy for both. One family member dies, and the player only chooses which — the tragedy is structural.
+  W8  THE CURSE IS NOT CHOSEN
+      Morinth was born into a killing body; the monster is a person the nature made lethal, which is what makes killing her hard and sparing her deadly.
+  W9  THE SURVIVOR CARRIES THE GRIEF
+      Samara, if she wins, has executed her daughter and gives loyalty carrying that — the victory is a wound, not a triumph.
+  W10 THE SEDUCTION OUTLASTS THE MISSION
+      Players remember being ALMOST talked into siding with a serial killer — the sign the writing worked. A trap that can catch the trapper is unforgettable.
+
+### #158  HAPPY TOGETHER (YOU CAN TALK HIM DOWN, AND YOU CAN FAIL) (Cyberpunk 2077)
+  W1  THE ONLY WEAPON IS WORDS
+      No combat, no puzzle, no item — a life saved or lost entirely through conversation. The genre's purest demonstration that dialogue can be the whole quest and the whole stakes.
+  W2  THE PLAYER CAN FAIL
+      Barry really dies if the words go wrong — the intervention is failable without a reload prompt, which is what gives the conversation its weight. Real stakes require real failure.
+  W3  THE GAME WON'T FLAG THE RIGHT WORDS
+      No marker, no highlight, no "correct" glow — the player must READ the man, not the UI. Compassion is a skill the player brings, not a checkbox.
+  W4  THE PLAYER'S INSTINCTS ARE THE ENEMY
+      Efficiency, rushing, treating the NPC as a dispenser — every trained gamer reflex kills Barry. The quest is won by unlearning how you play.
+  W5  THE KEY IS IN THE GRIEF, NOT AGAINST IT
+      Barry is reached by honoring his dead, not by arguing him out of mourning — the solution is redirecting the pain, not denying it. Compassion that works with the wound.
+  W6  NO SAFETY NET, NO CEREMONY
+      No failure fanfare, no reload prompt — just a man who was alive and isn't. The absence of ritual is the stakes: this is what it feels like to be the one someone depended on.
+  W7  THE QUEST IS MISSABLE AND UNCHASING
+      Ignore it and Barry dies off-screen; the world doesn't force you to be his rescuer. The freedom to fail by absence makes the choice to try meaningful.
+  W8  THE FAVOR HID THE WEIGHT
+      It arrives as a minor errand from River — the disguise of the small ask makes the reveal of what's actually being asked land harder.
+  W9  SILENCE CAN BE THE ANSWER
+      Sometimes letting the pause hold reaches Barry better than any line — the game honors listening over speaking, the rarest dialogue-design humility.
+  W10 THE OUTCOME IS QUIET EITHER WAY
+      Saved, you learn it without fanfare; lost, you learn it as an absence. The refusal to celebrate or mourn loudly is what makes it feel like a real life, not a game beat.
+
+### #159  THE WHISPERING DOOR (A FATHER'S GRIEF, WEAPONIZED) (The Elder Scrolls V: Skyrim)
+  W1  THE FEEDSTOCK IS ORDINARY LOVE
+      Not a grand evil — a father's worry for his kids and a household's small resentments, farmed by something patient. The horror is domestic, which is what makes it land.
+  W2  THE PRINCE IS HONEST
+      Mephala, the Prince of lies, states the terms plainly; the Blade's price is clear. The horror is not deception — it is that the harvest's logic is offered openly and the player takes it anyway.
+  W3  THE REWARD IS THE THESIS
+      The Ebony Blade IS the quest's idea in your hand: trust converted to power, the same logic that farmed the family, now yours to run.
+  W4  THE HARVEST IS AN ECONOMY
+      Grief, love, secrets, resentments treated as a resource with a refinement process and a payout — emotion as feedstock, which is the Amalgamation's whole logic in miniature.
+  W5  THE DOOR IS A THRESHOLD OF KNOWING
+      The locked, whispering door is the family's unspoken problem made architecture; opening it is choosing to know what a father was afraid to.
+  W6  THE CHILDREN KEEP THE RICHEST SOIL
+      Mephala farms the young because secrets live longest in them — a quietly awful observation about where a household's poisons are stored.
+  W7  THE TERMS ARE CLEAR AND TAKEN ANYWAY
+      The player is not tricked; the Blade's price is stated. The complicity is chosen with full information, which is worse than being fooled.
+  W8  THE QUEST IS QUIET
+      No dragon, no army — a locked door and a worried dad. The scale is the point: the most patient harvests are the ones nobody would call an emergency.
+  W9  THE TOOL CAN BE STARVED
+      The player can take the Blade and refuse to feed it — declining the harvest while holding the option, a small honest choice the game respects.
+  W10 THE LOGIC OUTLASTS THE QUEST
+      The Ebony Blade rides in the inventory forever, a permanent invitation to run the harvest — the quest hands the player a standing temptation, not a closed story.
+
+### #160  BLOOD ON THE ICE (THE MURDER THE TOWN WON'T INVESTIGATE) (The Elder Scrolls V: Skyrim)
+  W1  THE INSTITUTION HAS ABDICATED
+      The guards log bodies and move on; the court is distracted; the city has decided this isn't its problem. The player fills a vacuum the whole apparatus created — the truest depiction of justice-by-default.
+  W2  IT IS A REAL WHODUNIT WITH A WRONG ANSWER
+      Two suspects, evidence to weigh, and a genuine failure state — accuse wrong and the killer strikes again. Deduction with a cost, not a corridor.
+  W3  THE TRAP IS REPUTATION VERSUS EVIDENCE
+      The obvious suspect (creepy mage) is innocent; the respectable helper is guilty. The quest tests whether the player reads clues or vibes — the whole point of detection.
+  W4  THE KILLER HIDES IN CIVIC CONCERN
+      Calixto is the Butcher wearing helpfulness — the most unsettling disguise, because the player is inclined to trust the one offering to assist.
+  W5  THE MISDIRECTED SUSPECT IS THE BEST WITNESS
+      Wuunferth, the man the city wants to blame, is the one who can name the real method — listening to the reviled beats jailing him.
+  W6  THE CORRECT PATH HAS AN UGLY COST
+      Catching Calixto means using the next victim as bait — justice in an abdicated city is done with the only tools available, and they're grim.
+  W7  THE COLD CITY IS THE SETTING AND THE THEME
+      Windhelm's cruelty, war-distraction, and indifference aren't backdrop — they're WHY the murders go uninvestigated, the setting as the crime's enabler.
+  W8  THE FAILURE IS QUIET
+      No fanfare when you get it wrong — just another body and a falsely closed case. The unceremonious failure mirrors the city's unceremonious indifference.
+  W9  THE STAKES ARE ORDINARY AND REAL
+      Not a dragon or a Prince — murdered women in a graveyard, a killer among the citizens. The mundanity is what makes the indifference damning.
+  W10 THE PLAYER IS THE ONLY JUSTICE
+      Everything hinges on one stranger choosing to look; the quest's whole weight is that a functioning city can contain a serial killer and simply not care, until someone does.
+
+### #161  AUNTIE ETHEL (THE BARGAIN THAT COSTS YOU AN EYE) (Baldur's Gate 3)
+  W1  THE MONSTER IS A GRANDMOTHER
+      Ethel arrives as folksy warmth, not menace — the most disarming disguise, because the player wants to trust the maternal voice offering help.
+  W2  THE OFFER IS HONEST
+      She does not lie about the eye; the help is real and the price is real. The horror is the #126 honest-devil: fair terms, permanent cost, taken with full knowledge.
+  W3  THE PRICE IS YOUR BODY, FOREVER
+      Not gold, not a favor — a piece of you, visible, permanent. The bargain is written on the character's face for the rest of the game.
+  W4  THE AFFLICTION MAKES THE PRICE THINKABLE
+      The parasite is real and frightening, so a permanent mutilation becomes a genuine temptation — pressure is what turns a monstrous price into a considered one.
+  W5  REFUSAL CRACKS THE DISGUISE
+      Saying no reveals the hag beneath the auntie — the sweet voice was the lure, and declining is what shows you the monster.
+  W6  THE CAPTIVE IS THE FUTURE YOU'RE PREVENTING
+      Mayrina, groomed toward becoming the next hag, is what the player is fighting to stop — a griever being made into her captor, the horror of the cycle.
+  W7  THE FIGHT WEAPONIZES MERCY
+      Ethel wears innocent faces and holds the hostage; the player's reluctance to harm becomes her armor — combat that punishes the compassionate.
+  W8  GRIEF IS THE LEASH
+      Mayrina is held by the promise of her dead husband's return — the hag farms sorrow, the most reliable lever, which is the Amalgamation's exact method.
+  W9  THE HOSTAGE CAN DIE
+      Push too hard and Mayrina is killed in the fight — the rescue can fail into a killing, so mercy's weaponization has real teeth.
+  W10 THE BARGAIN RIDES ALONG
+      The eye, if taken, is carried the whole game — the quest hands the player a permanent consequence, not a closed story, a standing reminder of what help cost.
+
+### #162  MORDIN AND THE GENOPHAGE (THE SCIENTIST WHO HELD THE SYRINGE) (Mass Effect 2 & 3)
+  W1  THE ATROCITY WAS DEFENSIBLE
+      The genophage prevented a genocide-by-krogan-expansion; Mordin is not wrong that it was necessary. The dilemma is real because the terrible thing had a real case — the hardest kind of moral weight.
+  W2  THE PERPETRATOR CARRIES IT
+      Mordin did the math, walked the krogan worlds, met the individuals, and holds the guilt under his cheer — the scientist who cannot stop counting the cost of being right.
+  W3  THE POWER TO UNDO IT ARRIVES YEARS LATER
+      The cure forces the perpetrator to choose AGAIN, with the atrocity's consequences visible — being right the first time does not tell him what to do the second.
+  W4  NO CLEAN CHOICE
+      Cure and risk the old war; sabotage and condemn a people; betray Mordin and murder the guilt-bearer. Every path costs; none absolves. The finale's exact machine.
+  W5  THE WRONGED PARTY IS PRESENT AND ARMED
+      The krogan want their future and are watching; the victim's restoration is also the galaxy's risk, so mercy and danger are the same act.
+  W6  HE CHOOSES IN FULL KNOWLEDGE
+      Mordin's arc is that he stops hiding behind necessity and DECIDES, knowing everything — the growth is not changing his mind but owning the choice.
+  W7  HE PAYS WITH HIS LIFE
+      In the cure path, Mordin dies delivering it — the undoing of his atrocity costs him everything, and he pays it singing, because he can no longer be the man who didn't.
+  W8  THE DEFINING LINE IS A REFUSAL TO DELEGATE
+      "Someone else might have gotten it wrong" — the responsibility is his because he trusts no one else to carry it correctly; guilt transmuted into duty.
+  W9  THE CHEER IS A COPING SURFACE
+      Mordin's speed and humor are armor over a wound; the design lets the guilt hide in plain sight, so the crack, when it comes, lands.
+  W10 THE CHOICE HAUNTS FOR YEARS
+      Players argue the genophage cure endlessly — the sign the dilemma was real. An atrocity worth undoing has no settled answer, and the arc is honest enough to make the player hold it.
+
+### #163  THE SILVER SHROUD (THE COSTUME THAT BECOMES REAL) (Fallout 4)
+  W1  THE COSTUME BECOMES REAL
+      A player puts on a fictional hero to answer genuine crimes; the mask accrues a real body count. The fiction-made-flesh is the quest's whole engine and it lands.
+  W2  THE PLAYER PERFORMS THE HERO
+      Custom in-character dialogue lets the player DELIVER the Shroud's lines at targets — you don't just fight, you act, which makes the role-play literal and the identity question real.
+  W3  THE REGISTER IS THE PLAYER'S
+      Sincere, camp, or cynical — the game lets the player choose the tone of their justice, so the mask means what the player decides it means.
+  W4  THE TARGETS ARE REAL
+      The Shroud's justice kills genuine predators; the theatre has a body count, so the costume is never just cosplay.
+  W5  THE BELIEVER NEEDS THE HERO REAL
+      Kent's two-hundred-year hope makes the fiction NEED to become flesh — the emotional stakes are a man's survival-through-story.
+  W6  THE CLIMAX MEETS THE REAL
+      Sinjin, a killer who isn't playing, forces the performance to resolve — theatre confronted by genuine menace, with a life on it.
+  W7  THE HERO WAS A VIGILANTE
+      The Shroud's justice is execution; playing him means killing, so the role-play carries an edge — the fiction the fan loves is a license to kill dressed as heroism.
+  W8  THE MASK ASKS WHO YOU ARE
+      The quest's quiet question — hero or executioner — is Bohemia's exact question about the dynasty-as-role, made playable.
+  W9  THE TONE IS A RELEASE VALVE WITH A BLADE
+      The camp register relieves; the real killings sharpen — the quest swings between fun and grim, and the swing is the point.
+  W10 THE FICTION SURVIVES THE PLAYER
+      Kent's hope, if the player honors it, outlives the quest — a fiction made real by someone willing to wear it, which is the most Bohemian idea in the game.
+
+### #164  THE CABOT HOUSE (THE FATHER IN THE CELL, THE SERUM IN THE VEINS) (Fallout 4)
+  W1  IMMORTALITY RUNS ON A PRISONER
+      The family's never-aging is drawn from a father in a cell — the never-dying has a captive source, which is the Amalgamation's exact logic made a family secret.
+  W2  THE JAILER IS DEFENSIBLE
+      Jack has kept a possibly-godlike madman contained for four hundred years, sparing the world and keeping his family young — the imprisonment is monstrous and arguably right, the hardest kind of antagonist.
+  W3  THE PRISONER IS BOTH VICTIM AND THREAT
+      Lorenzo is caged unjustly AND genuinely dangerous; freeing him is mercy and menace at once, so neither keeping nor opening the cell is clean.
+  W4  THE SERUM CONTAMINATES THE CHOICE
+      Both sides pay the player in immortality, so the decision about the cell is bought — you might keep a father imprisoned forever because it keeps you young too.
+  W5  THE AMBIGUITY IS THE DANGER
+      Lorenzo won't resolve whether he's a god or a madman; the uncertainty is what makes freeing him a real gamble and caging him a real cruelty.
+  W6  FOUR HUNDRED YEARS OF A LOCKED DOOR
+      The sheer duration — centuries of one man holding another in a cell for the family's benefit — is the horror's weight; time makes the arrangement monstrous.
+  W7  NO SAFE THIRD DOOR
+      Lorenzo can't be cured and freed; he is kept or unleashed. The removed middle is the quest's honesty: the source of the never-dying admits no gentle resolution.
+  W8  THE MANSION IS THE AMALGAMATION IN MINIATURE
+      Someone imprisoned so the rest never die, a share offered to keep the door shut — the whole antagonist's bargain in one house.
+  W9  THE CHOICE HAS NO INNOCENT PARTY
+      Family, father, player — all compromised: the jailers, the dangerous victim, the bribed newcomer. The quest refuses anyone clean hands.
+  W10 THE SERUM RIDES ALONG
+      However it ends, the player carries the immortality — a permanent reminder that they took a cut of the not-dying, the choice's stain worn in the veins.
+
+### #165  THE HOUSE OF GRIEF (KILL THE MOTHER WHO MADE YOU, OR KNEEL) (Baldur's Gate 3)
+  W1  THE PLAYER DOESN'T CHOOSE — THEY EARN THE CHOICE
+      Shadowheart's fate is not a final menu pick; it is gated by the whole relationship, so the ending is a debt the player has been accruing for dozens of hours. A companion's fate as accumulated trust.
+  W2  THE WEAPON RETURNS TO ITS FORGE
+      She goes back to the people who unmade her, knife in hand — the confrontation with the makers is the arc's inevitable, earned climax.
+  W3  THE LURE IS THE ORIGINAL UNMAKING
+      Viconia offers exactly what the cult first offered: forget the pain, come home. The temptation to kneel is the temptation that made her, returned.
+  W4  THE CHOICE'S AVAILABILITY IS THE STAKE
+      She can only defy if she has enough self to defy FOR — the player's real work was giving her something to refuse for, across the game.
+  W5  FORGETTING AS DEVOTION
+      The cult's whole theology — pain given to Shar, self erased as worship — is the Amalgamation's exact promise, and the quest makes refusing it the hardest thing she does.
+  W6  THE STOLEN SELF IS THE PRIZE
+      Her name, her parents, her memories — reclaimed or lost; the ending is measured in how much of herself she keeps.
+  W7  THE RELATIONSHIP IS WEAPONIZED
+      Every prior choice about her memories, faith, and self is cashed at the House of Grief — the confrontation is the sum of a hundred small moments, not a fresh decision.
+  W8  THE PARENTS ARE THE LAST LEVER
+      The people the reclaimed self is FOR become the final test — the cult holds the stolen family as its last hold on her.
+  W9  LOSING HER IS QUIET AND PERMANENT
+      If she kneels, she forgets again and is gone — no fanfare, just a person surrendered to the thing that made her. The failure is unceremonious and total.
+  W10 THE ENDING TEACHES THE THEME
+      The quest proves a companion's fate is built, not picked — the deepest statement in the game that people are saved in a hundred small moments or lost in their absence.
+
+### #166  THE URN OF SACRED ASHES (DESECRATE THE RELIC, OR KEEP THE FAITH) (Dragon Age: Origins)
+  W1  THE SACRED IS TESTED BY ABSENT PUNISHMENT
+      The ashes can be defiled for a real boon with no penalty — the quest asks whether the player will spend the holy for an advantage nobody would punish, which is the only honest test of the sacred.
+  W2  THE CURE SUCCEEDS EITHER WAY
+      The healing is invariant, so the fork is purely about the relic — the quest cleanly separates the practical need from the moral test, so the desecration is never justified by necessity.
+  W3  THE GUARDIAN MAKES YOU TELL THE TRUTH
+      The pilgrimage's toll is a single honest question about the player's own guilt — the sacred is guarded by forced honesty, not strength, which is a stunning inversion of the dungeon-crawl.
+  W4  THE TEMPTATION IS REAL AND MECHANICAL
+      The defiling boon is a genuine, permanent, useful reward — the temptation has a number on it, which is the only kind that actually tempts (Q126's honestly-priced-power law).
+  W5  THE HERETICS ARE DEVOTION AIMED WRONG
+      Haven worships a dragon as Andraste's reincarnation — a real faith pointed at a false god, a mirror of the pilgrims that makes the whole quest about what devotion is for.
+  W6  THE HONESTY IS UNAVOIDABLE
+      The Guardian sees through deflection; the player must name their guilt or not pass — the pilgrimage does not let you lie your way to the sacred.
+  W7  NOTHING STOPS THE DESECRATION
+      No meter, no immediate consequence, no wall — the ashes are defenseless against a player who would spend them, which is exactly what makes not spending them mean something.
+  W8  THE BOON IS SMALL AND PERMANENT
+      The reward for defiling is modest but forever — a lasting mark of a choice made for advantage, carried the rest of the game.
+  W9  THE PILGRIMAGE IS A TEST IN THREE PARTS
+      Cult, question, temptation — false faith, forced honesty, the sacred's price — a structure that examines devotion from three angles.
+  W10 THE ASHES ARE JUST ASHES
+      The relic has no magic that punishes desecration; it is sacred only because people hold it so — which is the truest thing the quest says: the sacred is a choice, not a property.
+
+### #167  THE LEVIATHAN (THE TRUTH DELIVERED BY THE ENEMY AT YOUR LOWEST) (Star Wars: Knights of the Old Republic)
+  W1  THE REVEAL IS A WEAPON
+      The truth is delivered by the enemy, at the lowest point, to BREAK the player — not to inform. The same fact told safely would be exposition; told as an assault, it is trauma. The delivery is the design.
+  W2  THE LOWEST POINT IS MANUFACTURED
+      Captured, split, tortured, betrayed — the helplessness is built deliberately so the truth lands on a player already broken. The setup is the reveal's amplifier.
+  W3  THE ESCAPE DENIES CATHARSIS
+      No time to process; the ship is falling, the party needs leading. The player carries the collapse forward under fire, performing competence through the shattering — the cruelest and truest structure.
+  W4  THE TRUTH RETROACTIVELY REWRITES THE GAME
+      Every prior scene re-reads; the player's competences, the NPC reactions, the whole first half reorganizes in hindsight (the #32 lens, delivered as an assault).
+  W5  THE BONDS DETONATE
+      Carth, whose family the fallen Revan killed, must reckon with having trusted Revan; the reveal poisons every relationship at once, and the party's faces confirm it before words.
+  W6  THE ENEMY IS LOSING
+      Karath plays the reveal as his last card — the truth is the cruelest thing a losing antagonist has left, which makes the delivery feel like desperation, not triumph.
+  W7  THE PLAYER MUST KEEP FUNCTIONING
+      The escape forces leadership through the collapse — the player is denied the luxury of falling apart, which is exactly what makes the trauma land as lived, not watched.
+  W8  THE COMPANIONS' FACES DO THE WORK
+      The reveal is confirmed by the party's expressions before their dialogue — the detonation is shown in reaction, not just told in exposition.
+  W9  NO CHOICE, ONLY DELIVERY
+      The Leviathan doesn't branch; its power is entirely in HOW the fixed truth arrives. The design's thesis: the when and who of a reveal matter more than the what.
+  W10 IT LOADS THE ENDGAME
+      The collapse carried out of the Leviathan is cashed at the endgame's redeem-or-relapse fork — the reveal's trauma becomes the weight of the final choice. The delivery pays off hours later.
+
+### #168  RAVEL PUZZLEWELL (THE HAG WHO ASKS THE ONLY QUESTION) (Planescape: Torment)
+  W1  THE THESIS IS SPOKEN BY A MONSTER
+      The truest line in the game — "anything can change the nature of a man; what matters is that you change" — comes from a mad, deadly hag in a maze, the last mouth you would expect. The buried climax's power is its source.
+  W2  THE TRUTH IS GATED BEHIND ENGAGEMENT
+      Ravel rewards thought and honesty, not stats or violence — the player who converses receives the key; the skimmer never hears it. Attention is the currency.
+  W3  THE QUESTION IS THE GAME
+      Ravel asks the title question with death on the wrong answer — the whole game's thesis made a riddle in a single conversation, stakes and meaning fused.
+  W4  VIOLENCE IS THE SKIM-READ
+      Attacking Ravel wins a fight and loses the truth forever — the design makes brute force the way to miss everything, so the player who reaches for the sword reaches past the point.
+  W5  THE MONSTER LOVED YOU
+      Ravel made the Nameless One immortal out of devotion; the curse is the shape of her love — the antagonist is a griever, and her tragedy is that her tenderness ruined them both.
+  W6  THE ANSWER IS A GIFT, NOT LOOT
+      Ravel gives her truth to the honest thinker; it cannot be extracted or forced — the deepest thing the game says is a gift to the attentive, which is why it lands.
+  W7  ASKING HER BACK IS THE KEY
+      The player who says "what do YOU think, Ravel?" — who treats her as a mind, not an obstacle — unlocks the answer; engagement is literally turning the question around.
+  W8  THE MAZE IS THE FILTER
+      Ravel's labyrinth rewards the thinker and kills the skimmer — the truth is guarded by the player's willingness to engage, made spatial.
+  W9  THE FIGHT IS REAL
+      Ravel is one of the deadliest creatures in the game; the danger is genuine, so choosing to think instead of fight is choosing to risk the honest path over the safe one.
+  W10 THE KEY REFRAMES EVERYTHING
+      Ravel's answer is the lens for the whole game's central question — reaching it changes how the player understands every prior and later beat. The buried climax pays off across the entire game.
+
+### #169  THAT LUCKY OLD SUN (WHO GETS THE POWER) (Fallout: New Vegas)
+  W1  INFRASTRUCTURE IS A MORAL ACT
+      The quest's whole thesis: to hold the switch for a region's power is to decide who deserves the light — the console is a verdict, and the quest makes distribution the drama, not combat.
+  W2  THE RESOURCE IS SCARCE
+      The output is finite, so there is no setting that lights everyone — scarcity forces the choice, and every allocation leaves someone dark. The switch cannot be neutral.
+  W3  FOUR THEORIES OF DESERT
+      Region, fortress, cult, weapon — the many, the few, the faithful, or force — each option is a different answer to who the power is for. The menu is a moral philosophy.
+  W4  NO COMBAT, JUST A SWITCH
+      The climax is a console, not a fight — the quest proves a decision can be the whole stakes, and that flipping a lever can carry more weight than any battle.
+  W5  THE CONSOLE JUDGES NOTHING
+      No option is flagged right; the switch obeys without approving — the moral weight is left entirely on the player, which is the only honest way to present an allocation.
+  W6  THE FAITHFUL HAVE A CLAIM
+      The cult who kept the plant alive argue loyalty over need — a real tension between who tended the resource and who requires it, which allocation always faces.
+  W7  THE WEAPON IS AN OPTION
+      Power can be made a gun instead of a service — the choice to abandon welfare for force is on the menu, so the quest asks whether infrastructure serves or threatens.
+  W8  THE CONSEQUENCE IS DOWNSTREAM
+      The choice shapes the region later, diffusely — the switch's body count is deferred and quiet, which is exactly how real allocation works: the dark towns never see the console.
+  W9  THE PLAYER IS THE UTILITY
+      The quest hands one person the power of a whole region's electricity — the god-like weight of the switch, and the loneliness of holding it, is the experience.
+  W10 IT IS A CITY-BUILDER QUEST IN AN RPG
+      Restart a plant, allocate its output, shape a region — the quest is Bohemia's exact genre smuggled into a shooter, which is why it ports almost without translation.
+
+### #170  SINS OF THE FATHER (STOP YOUR SON FROM BECOMING YOU) (Mass Effect 2)
+  W1  A PARENT RACES THE CYCLE
+      The quest's engine is a father trying to stop his son from becoming him — the fold's exact question (what one generation passes to the next) made a race against a single kill. The inheritance at its edge.
+  W2  THE KILLING IS GRIEF, NOT CALLING
+      Kolyat becomes an assassin not from talent but from abandonment — the boy reaching for the only thing his father ever was. The cycle is a wound, not a choice.
+  W3  THE FATHER CANNOT BE THE CURE
+      Thane is the wound; his face is the grief; he cannot be the one who reaches his son. The cycle can only be broken through someone else's voice — a devastating structural truth.
+  W4  THE CLOCK IS TERMINAL
+      Thane is dying; there is no time to earn standing, only to act. The intervention must happen before the father runs out of both life and right.
+  W5  THE PLAYER IS THE THIRD VOICE
+      Shepard talks Kolyat down because Thane can't — the intervention runs through a mouth that isn't the wound, which is why it can work.
+  W6  THE REACHING CAN FAIL
+      Meet the boy's rage with rage, or let the father lead, and the kill completes — the intervention is genuinely failable, and the failure is a son turned into his father forever.
+  W7  THE GRIEF UNDER THE RAGE
+      Reaching Kolyat means finding the grief the rage is defending — the intervention succeeds by addressing the wound, not the anger, which is the truth of every real reconciliation.
+  W8  THE FATHER OWNS THE CAUSE
+      Thane does not defend the abandonment; he names it as the source. The parent's honesty about having made the wound is what makes the race for redemption bearable.
+  W9  THE STAKES ARE ONE FAMILY
+      Not the galaxy — a father and a son and a single kill. The intimate scale (the #47 lesson) is what makes the cycle's weight land: this is about these two, and it is enough.
+  W10 THE INHERITANCE IS THE THEME
+      The quest asks whether what a parent WAS must be what the child BECOMES — the fold's central question, answered by whether the player can break it through the right voice at the right moment. The most Bohemian arc in the game.
+
+### #171  THE GAUNTLET OF SHAR (THE TRIALS THAT REWARD SELF-ERASURE) (Baldur's Gate 3)
+  W1  THE LEVEL IS A THEOLOGY
+      Every trial is Shar's doctrine made a puzzle — the player doesn't hear the faith, they PRACTICE it. Theme-through-level-design (#35) aimed at self-erasure, room by room.
+  W2  THE SOLUTIONS ARE SELF-ERASURES
+      Step into the dark, distrust the light, forget the pain — each "correct" answer is a small self-abandonment, so solving the dungeon IS accepting the goddess.
+  W3  THE CONDITIONING BUILDS TO THE ATROCITY
+      The trials train the pilgrim, rep by rep, into the mindset that makes the final kill thinkable — the dungeon spends hours making the unthinkable feel like the next step.
+  W4  THE FAITH-LEAP IS THE THESIS
+      Stepping into apparent nothingness, trusting the goddess over your senses, is the doctrine in one trial: distrust what you see, embrace what erases you.
+  W5  THE FINAL TRIAL IS A PERSON
+      The Nightsong is revealed as a tortured immortal, not a monster — the "devotion" the trials built toward is an atrocity, disguised as the natural conclusion of faith.
+  W6  THE CHOICE'S DIFFICULTY IS THE POINT
+      The Gauntlet spent hours making the kill feel natural, so refusing it means rejecting everything the dungeon trained — the design's whole purpose is to make the right choice hard.
+  W7  THE DOCTRINE HAS NO CLEAN COMPLETION
+      The final trial IS the killing; there is no way to keep the faith without the crime — the theology's endpoint is the atrocity, and the dungeon is honest about it.
+  W8  SPARING HER BREAKS EVERYTHING
+      Defying Shar means rejecting the trials, the training, the reward, the goddess — the refusal is a repudiation of the whole dungeon, which is why it's hard.
+  W9  IT IS THE PHYSICAL PRELUDE TO THE COMPANION ARC
+      The Gauntlet feeds the House of Grief (#165) — the dungeon's conditioning is the pressure that Shadowheart's whole reclaim-or-kneel arc is measured against.
+  W10 THE SLIPPERY SLOPE IS A DUNGEON
+      Frostpunk's decree-by-decree drift (#29) made spatial: each small acceptable step, rewarded, leading to the monstrous conclusion. The doctrine's gradualism, walkable.
+
+### #172  CARNAL SINS (THE ARTIST WHO KILLS TO FINISH THE MASTERPIECE) (The Witcher 3: Wild Hunt)
+  W1  THE BODIES ARE A TEXT
+      The murders are posed, arranged, composed — a language the player must learn to read. The deduction is forensic literacy: the corpses mean something, and solving is understanding the grammar.
+  W2  THE KILLER IS AN ARTIST
+      The murderer composes rather than rages — corpses as components in a masterpiece. The motive is not passion but aesthetic devotion, which is far more unsettling.
+  W3  THE ATROCITY IS EXPERIENCED AS BEAUTY
+      The killer's madness is that he finds his murders sacred and lovely — the horror is not that he's confused but that he's certain, and certain of beauty.
+  W4  YOU MUST THINK LIKE HIM TO CATCH HIM
+      The deduction requires seeing the bodies as the killer sees them — as art — which is the investigation's power and its unease: to solve it you glimpse what he glimpses.
+  W5  THE RED HERRING IS GRIEF
+      The circumstantial trail points to a grieving innocent whose sorrow looks like guilt — condemning him is the failure, and it lets the artist keep composing.
+  W6  THE FAITH IS CORRUPTED, NOT ABSENT
+      The killer twists a real religion into a license — the atrocity wears devotion, which is the false-faith horror (#166) in a serial killer.
+  W7  THE ZEALOT CANNOT BE REASONED OUT
+      He is sincere; certainty does not negotiate. The removed "reason him out of his faith" verb is the quest's coldest truth: the corrupted devout are not persuadable.
+  W8  THE INVESTIGATION IS FORENSIC
+      Reading corpses, scenes, poses with senses — the quest is detection, not combat, and the tension is comprehension, not violence.
+  W9  THE HORROR IS AESTHETIC
+      Not gore for shock but murder-as-composition — the unease is intellectual and moral, the recognition that beauty and atrocity can be the same act to the wrong mind.
+  W10 TO SOLVE IT IS TO BE COMPLICIT FOR A MOMENT
+      Reading the tableau means, briefly, seeing the murders as the killer does — the deduction implicates the player in the artist's frame, which is the quest's lingering discomfort.
+
+### #173  KARLACH'S HEART (THE ENGINE IN HER CHEST WILL KILL HER EITHER WAY) (Baldur's Gate 3)
+  W1  HER BODY IS A COUNTDOWN
+      The engine keeps Karlach alive and kills her — a terminal clock in a companion you love. The death-math is the arc, and it is unbeatable, which is what makes it devastating.
+  W2  EVERY FIX IS A PATCH
+      The cures buy time, never a life; each step forward is a slower death. The hope keeps almost-working, which is crueler than no hope at all.
+  W3  SHE CANNOT BE TOUCHED
+      A woman starved for contact who burns anyone who tries — the engine's cruelty is intimate, a deprivation of the simplest human thing.
+  W4  THE PLAYER CAN FIX EVERYTHING BUT HER
+      In a game where the player solves so much, the one thing they cannot solve is the person they love — the helplessness is the point, and it lands because everything else is fixable.
+  W5  THE ENDINGS ARE ALL LOSS
+      Return to hell, die on the surface, become a mind flayer — no ending gives her what she wants. The fork is not a choice between good and bad but between unbearable and unbearable.
+  W6  THE HONEST DEATH IS AN OPTION
+      Dying on the surface, among the loved, held at last — the SOMA/Liberate ending with a heartbeat: refusing the false hope, choosing the honest loss.
+  W7  THE CHEER IS ARMOR
+      Karlach is loud and warm because a decade in hell taught her to hide the fear — the coping surface (#162) over a terror the arc lets crack.
+  W8  THE ONLY GIFT LEFT IS PRESENCE
+      When you cannot fix her, the only thing to give is to be there, honestly, for the ending she chooses — the quest's answer to helplessness is company, not a cure.
+  W9  THE KINDEST LIE IS THE PROMISE OF A FIX
+      "We'll find a cure" is the tempting comfort, and the arc teaches that the honest thing is to stop telling it — the mercy is truth, not false hope.
+  W10 YOU CHOOSE WHICH LOSS, NOT WHETHER
+      The agency the quest leaves is helping her pick which unbearable thing to bear — the death-math has no winning setting, and the dignity is in the choosing.
+
+### #174  THE BROKEN CIRCLE / THE FADE (THE PERFECT LIE THAT LETS YOU STOP FIGHTING) (Dragon Age: Origins)
+  W1  THE TEMPTER GIVES, NOT TAKES
+      The Sloth demon wins by fulfillment — it offers everything you want, and the trap is that it's real enough to keep you. Temptation inverted: the genuinely good thing as the leash.
+  W2  THE PRISON HAS NO WALLS
+      The cage is made of contentment; there is nothing to break out of, only a comfort to refuse. Escape is a choice, not a fight, which is far harder.
+  W3  THE DREAM IS PERSONALIZED
+      Each captive gets their deepest wish — the dead alive, the surface, peace — so the trap is tailored to exactly what each person can't refuse.
+  W4  THE WISH IS THE LEASH
+      The thing you most want, given, is the thing keeping you asleep — the recognition that fulfillment is the trap is the hardest and truest thing the quest asks.
+  W5  WAKING IS GRIEVING AGAIN
+      Leaving the dream where the dead live means grieving them a second time, choosing the world where they don't — the escape costs the wish all over.
+  W6  THE COMPANIONS ARE SEPARATE PRISONS
+      Each is asleep in their own paradise, woken only by recognizing it — the player must pull each out of the thing they love most.
+  W7  THE OFFER IS GENUINELY GOOD
+      Not a bad thing dressed as good, but the real wish — which is why refusing it is devastating: you're rejecting the one offer you most want to accept.
+  W8  FREEDOM IS CHOOSING THE WORSE TRUE THING
+      The real world is harder, sadder, unfinished — and worth more than the perfect lie. The quest's answer to the Amalgamation: truth over comfort, even when comfort is heaven.
+  W9  THE DEMON DOESN'T LIE
+      It gives you exactly what you wanted, honestly — the horror is that the fulfillment is real, and the trap is in the staying, not in a deception.
+  W10 IT IS THE AMALGAMATION AS A DUNGEON
+      "No one is ever lost, the grief is gone, the dead are back" — the Amalgamation's whole promise, made a level the player walks out of by refusing it. The perfect lie you choose to leave.
+
+### #175  THE PILLAR OF SKULLS (THE ARCHIVE OF THE DEAD DEMANDS A SOUL) (Planescape: Torment)
+  W1  THE ARCHIVE OF THE DEAD BARGAINS
+      The Pillar is a monument of the conscious dead that WANTS and TRADES — the Amalgamation's exact nature (an archive of the dead you must deal with) given a mouth and a price.
+  W2  THE PRICE IS A CONTRIBUTION
+      It wants more of itself — a fresh soul for the pile — so paying it means feeding the horror. The transaction is participation in the economy of the damned.
+  W3  THE PILLAR IS HONEST
+      It states its monstrous price plainly and has what you need — the honest-devil (#126) as a monument. The horror is not deception but that the terrible terms are true.
+  W4  THE PAYMENT REVEALS THE PLAYER
+      Feed a soul, pay in cleverness, or refuse — what the player is willing to give the archive is the quest's real test, more than whether they pay.
+  W5  IT IS A CONSEQUENCE, NOT A DEMON
+      The Pillar is what betrayal earns — an eternal punishment made architecture — so dealing with it is dealing with a moral fact, not an enemy. The horror is systemic.
+  W6  THE KNOWLEDGE IS WORTH A SOUL
+      The thing the Pillar holds is real and necessary, so the monstrous price is genuinely tempting — the bargain works because the need is real.
+  W7  THE CLEVER ROUTE COSTS THE SELF
+      Paying without a life means giving the archive a cruelty or a secret or a piece of yourself — the non-lethal payment is not free, it is a subtler stain.
+  W8  NOTHING IS GIVEN FOR FREE
+      The archive is a consequence, not a charity; the removed "take it for nothing" verb is the law: to get from the collected dead you must give the collection something.
+  W9  THE HORROR IS BEING PART OF IT
+      To deal with the Pillar is to join the trade of souls among the dead — the player becomes, for a transaction, a participant in the damnation. The unease is complicity.
+  W10 THE SCREAMING IS THE SETTING
+      The dead are conscious, fused, eternal — the punishment is ongoing, and the player bargains with it, which makes the whole scene a meditation on what the dead owe and are owed.
+
+### #176  A TOWERFUL OF MICE (THE TRUTH OR THE MERCY, TO A GHOST) (The Witcher 3: Wild Hunt)
+  W1  MERCY AND HONESTY ARE OPPOSED
+      The truth shatters, the lie comforts, and there is no version where they align — the quest forces the player to choose which the dead are owed, refusing the easy fusion of the two.
+  W2  A LIFE HANGS ON THE STORY
+      The betrothed survives or dies on what the player tells the ghost — the choice about the dead has a living cost, so honesty and mercy are not abstractions.
+  W3  THE TRUTH IS A MASSACRE
+      The buried story is abandonment, starvation, cannibalism — far uglier than the romantic tragedy the survivors tell, so telling it is genuinely brutal.
+  W4  THE GHOST HOLDS A MERCIFUL LIE
+      Annabelle believes a bearable version — the false memory is the mercy she gave herself, and the player must decide whether to take it from her.
+  W5  THE PLAYER KNOWS TOO MUCH TO PRETEND
+      Once the massacre is uncovered, telling the ghost a lie is a choice, not an ignorance — the player owns the falsehood if they give it.
+  W6  THE CHOICE IS WHAT YOU OWE THE DEAD
+      Truth or peace — the quest's core question is Bohemia's central tension in miniature: the dead have a real story, the living want a bearable one, and you cannot always give both.
+  W7  THE CURSE FORCES THE RESOLUTION
+      The haunting ends only by speaking to the spirit — the player cannot avoid the choice; the mechanic demands they decide what to tell the dead.
+  W8  THE HORROR IS UNDER A ROMANCE
+      The survivors tell a love story; the truth is atrocity — the gap between the comforting narrative and the ugly fact is the recorded-vs-unrecorded truth (#26) in one island.
+  W9  THERE IS NO CLEAN OUTCOME
+      Truth or lie, someone pays — the quest refuses a resolution where everyone is served, which is what makes the choice real.
+  W10 IT IS THE THESIS IN A GHOST STORY
+      What survives when a life ends, and what do we owe the dead's story — Bohemia's whole spine, asked by a haunted tower and answered by whether the player tells a ghost the truth.
+
+### #177  JACK'S LOYALTY / THE TEARDOWN (BURN DOWN THE PLACE THEY MADE YOU) (Mass Effect 2)
+  W1  THE WOUND IS REAL AND THE STORY IS FALSE
+      Jack was genuinely tortured, and the narrative she built on it turns out partial — the quest holds both truths at once, which is the rarest and most honest thing to say about trauma.
+  W2  THE SURVIVOR RETURNS TO THE FORGE
+      Jack goes back to the place that made her a weapon — the returning-to-the-forge (#165) with a memory about to be tested against the rooms.
+  W3  THE FOUNDATIONAL MEMORY IS EDITED
+      The story Jack organized her whole self on was distorted by a child's terror — the recorded-vs-unrecorded self (#26) as a survivor's foundational truth.
+  W4  THE REVENGE IS COMPLICATED, NOT ERASED
+      Finding the story was false doesn't un-wound Jack or cancel the revenge — it asks whether the vengeance she needed is the one she's owed, in a truth messier than the rage.
+  W5  THE PLAYER HELPS HER HOLD BOTH
+      Shepard's role is to help Jack hold that she was wronged AND that the story was wrong — the witness to a reckoning, not the fixer of it.
+  W6  CATHARSIS OR ACCURACY
+      Burn the forge for the real wound, or examine the rage in the complicated truth — the choice is between the satisfaction of revenge and the harder honesty of the facts.
+  W7  THE CLEAN STORY CAN'T BE RESTORED
+      Once the memory is revealed as partial, the simple revenge is gone — the removed "give her back the clean story" verb is the quest's honesty: foundational lies don't un-reveal.
+  W8  THE COPING SURFACE IS AGGRESSION
+      Jack's rage is armor over a child's wound — the trauma hidden in attitude, cracked at the reckoning (#162).
+  W9  THE FACILITY TESTIFIES AGAINST THE MEMORY
+      The rooms and records contradict the story — the space is the evidence, the forge itself correcting the survivor's account of it.
+  W10 IT IS THE FOLD'S TRUTH IN ONE LIFE
+      A wound carried forward on a story that turns out false — Bohemia's whole question of what the past really was, and what the living owe a memory, in a single survivor's revenge.
+
+### #178  THE PRICE OF REVENGE (ZAEED, THE BLUE SUNS, AND THE MAN WHO WOULDN'T LET IT GO) (Mass Effect 2)
+  W1  THE REVENGE IS EARNED
+      Zaeed was betrayed, shot, robbed of twenty years — the grudge is legitimate in every way, which is exactly what makes its cost hard to dismiss.
+  W2  THE COST IS INNOCENT
+      The refinery workers never agreed to pay for Zaeed's grudge — the body count is strangers, which is the death-math (#26) at its sharpest: whose life the debt is willing to spend.
+  W3  THE FIRE FORCES THE CHOICE
+      Revenge and rescue on the same clock — the blaze turns an abstract cost into a specific, timed, either-or the player cannot dodge.
+  W4  THE GRUDGE HAS EATEN THE MAN
+      Twenty years have burned the human out of the vendetta; Zaeed can't see the workers, which is the warning the quest carries — what a grudge does to the one who holds it too long.
+  W5  THE PLAYER IS THE SCALE
+      Shepard puts the earned revenge against the innocent lives and chooses — the moral weight is handed to the player, not resolved by the story.
+  W6  NEITHER OUTCOME IS CLEAN
+      The betrayer lives or the innocents die — the quest refuses a costless win, which is the honesty of an earned-but-expensive revenge.
+  W7  THE CLEAN GRUDGE CAN'T COEXIST WITH CLEAN HANDS
+      The removed "have both" verb is the quest's spine: an earned revenge still forces you to choose what it's worth.
+  W8  THE LOYALTY RIDES THE CHOICE
+      Zaeed's respect (or rage) follows whether the player forced the human decision — the relationship weighs the ethics, not just the outcome.
+  W9  THE WOUND IS OLD AND THE VICTIMS ARE NEW
+      The grudge predates the workers by decades — the price is paid by people who had nothing to do with the wound, which is what makes vendetta so dangerous.
+  W10 IT IS THE UNRECORDED LEDGER IN ONE MAN
+      A private revenge with a body count nobody chose — Bohemia's whole question of whose lives a debt is allowed to spend, in one old mercenary's grudge.
+
+### #179  THE TRIALS OF KORRIBAN (PROVE YOU BELONG TO THE THING THAT MADE YOU EVIL) (Star Wars: Knights of the Old Republic)
+  W1  THE INSTITUTION GRADES ACTS, NOT REASONS
+      The academy advances you by exactly the cruelty you perform — the machine that cannot tell cover from conviction, which is the whole engine.
+  W2  EVERY VICTIM IS REAL
+      The betrayed student, the tortured servant, the poisoned rival — each fully harmed regardless of the player's intent, which is the proof that "for the mission" cruelty is real cruelty.
+  W3  THE FIREWALL IS THE PLAYER'S ILLUSION
+      The belief that evil for a good reason leaves the self clean — Korriban is engineered to erode it, which is the quest's real subject.
+  W4  THE ACADEMY REWARDS COVER AND CONVICTION IDENTICALLY
+      The place gives the same prestige whether you meant it — the institutional version of "acting the part becomes the part" (#172).
+  W5  THE MISSION-GOAL JUSTIFIES THE ACTS
+      The Star Map "requires" the cruelty — the price-justifier that tests whether a good end excuses evil means.
+  W6  THE NARROW PATHS PROVE IT WAS A CHOICE
+      Less-bloody routes exist, which means the maximum cruelty was never forced — the player chose the graves.
+  W7  THE EXCUSE NEVER REACHES THE LEDGER
+      The removed "make the murders not count" verb is the spine: the ledger and the grave record the act, not the intent.
+  W8  THE VICTIMS DON'T CARE WHY
+      The dead student is dead whether you killed them for cover or conviction — the cruelty is identical to the one it lands on.
+  W9  IT IS A TOMB-WORLD
+      Korriban is the graveyard of the Sith — the setting itself is a ledger of the dead, the perfect stage for a quest about what the grave records.
+  W10 IT IS THE CONDUCT BOOK IN AN INSTITUTION
+      Does the ledger record what you did or what you meant — Bohemia's whole question of act-versus-intention, staged in a school built to make the answer "what you did."
+
+### #180  INTO THE PITT (STEAL THE CURE OR FREE THE SLAVES, AND FIND OUT THE CURE IS A BABY) (Fallout 3 — The Pitt)
+  W1  THE CURE IS A CHILD
+      The abstraction the whole DLC chases — "the cure" — resolves into a specific immune infant, which is the greater good getting a face at the end of the road.
+  W2  LIBERATION AND KIDNAPPING ARE THE SAME ACT
+      Freeing the slaves requires taking Marie — the two are one action, which is the dilemma's cruel spine.
+  W3  NO FACTION IS CLEAN
+      Ashur is a slaver who loves his daughter; the rebels are liberators who would bleed a baby — the player chooses which monstrousness wins, not good versus evil.
+  W4  THE MANY ARE REAL
+      The slaves' suffering is horrific and true — the number isn't a strawman, which is what makes taking the child a genuine temptation.
+  W5  THE ONE CAN'T CONSENT
+      Marie is an infant — the cure is developed from a person who cannot agree, which is the sharpest form of the-one-versus-the-many.
+  W6  THERE IS NO SERUM
+      The removed "free the slaves without the child" verb is the spine: no third option, no clean path, the greater good inseparable from the specific person it became.
+  W7  THE TYRANT'S LOVE IS REAL
+      Ashur genuinely loves Marie — the monster is humanized, which is what makes leaving her a real temptation too.
+  W8  THE AFTERMATH SOURS BOTH WAYS
+      A freed Pitt curdles; a slave camp grinds on — neither choice buys a clean future, which is the honesty of an unclean dilemma.
+  W9  IT IS A HELL WORTH FREEING
+      The Pitt's horror is vivid enough that the slaves' freedom feels genuinely urgent — the stakes on the many's side are real, not abstract.
+  W10 IT IS THE ENDING-MATH IN ONE CRIB
+      The greater good with a specific child's face — Bohemia's whole Liberate/Respect/Become question of what the many are worth against the one, staged over a baby.
+
+### #181  KLAASJE AND THE HANGED MAN (THE KILLER YOU CAN'T CHARGE AND THE WITNESS YOU CAN'T KEEP) (Disco Elysium)
+  W1  THE TRUTH-TELLER IS GUILTY OF THE WRONG THING
+      Klaasje's honesty clears the murder and convicts her of tampering — the person who breaks the case open is arrestable for a smaller, realer crime.
+  W2  HONESTY IS FATAL, NOT REDEMPTIVE
+      Her candor doesn't earn mercy — it makes her the easy conviction, which is the quest's sharp inversion of "the truth sets you free."
+  W3  EVERY RESPONSE IS A DISTORTION
+      Arrest is the wrong charge, walking is unauthorized mercy, hand-over is feeding her to worse — the just, legal, and humane point three ways.
+  W4  THE CHORUS SETTLES NOTHING
+      The detective's own inner voices argue every side and resolve none — the un-adjudicated choice, proven un-resolvable even inside one head.
+  W5  SHE ASKS TO BE LET GO
+      Klaasje's plea makes the mercy a temptation and the duty a cruelty — the pull is real in both directions.
+  W6  THE GAME RECORDS, IT DOESN'T JUDGE
+      There is no "correct" outcome flagged — the choice is banked to the detective, which is the unrecorded-ledger (#26) as an interrogation.
+  W7  HER RUNNING IS A WHOLE LIFE
+      The false name, the powers hunting her, the survival-candor — Klaasje is a full person, not a puzzle, which is what makes the weight real.
+  W8  THE THIRD DOOR IS WORSE THAN THE LAW
+      Turning her over feeds her to something crueler than a cell — the choice isn't just mercy-vs-duty, it's mercy-vs-duty-vs-horror.
+  W9  THE WRONG CHARGE WOULD BE TRUE
+      Arresting her for tampering is factually correct and functionally a lie about the murder — the sharpest form of "true and unjust at once."
+  W10 IT IS THE LEDGER IN ONE ROOM
+      What you do with a candid, compromised human being, un-adjudicated — Bohemia's whole question of who the record convicts and who decides, in one interrogation.
+
+### #182  I FOUGHT THE LAW (SOLVE THE MURDER AND LEARN THE SYSTEM ALREADY DECIDED WHO KILLED HIM) (Cyberpunk 2077)
+  W1  THE INVESTIGATION IS GENUINE
+      Real clues, real forensics, a real solve — the procedural is honest, which is what makes its inertness land.
+  W2  THE VERDICT PREDATES THE WORK
+      Department, family, and corp decided before the player started — the pre-decided verdict, which is the quest's whole engine.
+  W3  BEING RIGHT ISN'T POWER
+      The player solves it perfectly and changes nothing — the sharpest form of "correctness and power are different things."
+  W4  THE PAYOFF IS DELIBERATELY REMOVED
+      Every procedural promises the truth will matter; this one denies it on purpose, which is the quest's honest cruelty.
+  W5  RIVER STILL HALF-BELIEVES
+      The honest cop who wants the truth to count — his disillusion is the human face of the systemic point.
+  W6  THE TRUTH IS TRUE AND INERT
+      The correct answer the world has already agreed to ignore — the unrecorded-ledger (#26) as a police case.
+  W7  THE SYSTEM ISN'T BEATEN
+      The removed "make the truth matter" verb is the spine: a perfect solve does not overturn a decided-enough machine.
+  W8  THE SOLIDARITY IS PRIVATE, NOT VICTORIOUS
+      Standing with River changes nothing systemic — the bond is real and the wall is intact, which is the honest version of "at least we have each other."
+  W9  THE POWERS ARE PLURAL
+      Not one villain but department, family, and corp all agreeing — the wall is a structure, not a person, which is what makes it unbeatable by being right.
+  W10 IT IS POWERLESSNESS IN ONE CASE
+      You can be completely right and completely unable to make it count — Bohemia's whole question of who the ledger serves, staged as a murder nobody with power will let you solve out loud.
+
+### #183  THE RITE OF PASSAGE (A CREATURE BUILT WITHOUT A PAST CHOOSES THE TRIBE THAT WOULD KILL HIM) (Mass Effect 2)
+  W1  THE MADE PERSON HAS NO PAST
+      Grunt was given instincts and denied history — the manufactured being whose missing childhood is the load-bearing absence, which is the whole engine.
+  W2  BELONGING IS THE UN-MANUFACTURABLE THING
+      He was built with everything except belonging, and belonging turns out to be the part that can't be built — the sharpest thing the quest says.
+  W3  HE EARNS ON PURPOSE WHAT OTHERS INHERITED
+      The Rite makes Grunt pay in blood for what the born got for free — belonging chosen, not accidental, which is what makes it his.
+  W4  THE CULTURE THAT MADE HIM JUDGES HIM
+      Grunt asks the krogan to count him on their own terms — the maker culture deciding whether its product gets to be a person.
+  W5  THE OBJECTION IS REAL
+      The purist claim (a tank-thing has no ancestors) is the genuine cost — belonging fought for against conviction, not handed over.
+  W6  THE PAST CAN'T BE RESTORED
+      The removed "give him the past he never had" verb is the spine: belonging is earnable forward only, never backward.
+  W7  THE NAME DOESN'T ERASE THE TANK
+      Grunt stays made, stays the krogan with no childhood — the belonging real because it was chosen on top of the manufacture, not instead of it.
+  W8  THE BREAKDOWN IS AN IDENTITY CRISIS
+      The physical failure is really the loneliness of a made thing with no place — the body carrying what the self can't hold.
+  W9  THE PLAYER CAN SECOND HIM
+      Standing with Grunt in the Rite is backing a made person's claim to belong — the witness to a manufactured being becoming counted.
+  W10 IT IS THE FOLD'S SUCCESSION IN ONE MADE THING
+      Whether a manufactured person gets a lineage and a name — Bohemia's whole question of the Amalgamation's made dead and the dynasty's succession, in one tank-bred krogan asking to be counted.
+
+### #184  FORBIDDEN LEGEND (THREE HEROES KILLED A TYRANT, SPLIT THE PROOF, AND EACH BECAME ONE) (The Elder Scrolls V: Skyrim)
+  W1  FIGHTING THE MONSTER MADE THEM THE MONSTER
+      The three heroes each became the immortality-horror they killed — the cycle that proves hating a thing doesn't immunize you against it.
+  W2  THEY SPLIT IT TO KEEP IT BROKEN
+      The heroes chose fragments over destruction, custody over closure — and custody was what corrupted them, which is the quest's cruel engine.
+  W3  THE REASSEMBLY IS THE UNDOING
+      Gathering the pieces rebuilds the exact thing three people died keeping apart — completion and endangerment as one act.
+  W4  THE GUARDIANS ARE THE FALLEN HEROES
+      Each piece is guarded by the man who hid it, now a monster — the tragedy walked into three times.
+  W5  THE PLAYER IS THE NEXT TURN
+      The one who gathers the pieces to feel complete is just the next to hold the hunger — the wheel turning again.
+  W6  THE PRIZE IS THE WARNING
+      The whole amulet, handed over as a reward, is precisely what the legend warned against — the horror mistaken for loot.
+  W7  COMPLETION CAN'T BE SEPARATED FROM DANGER
+      The removed "complete without reassembling" verb is the spine: finishing the story and rebuilding the horror are the same act.
+  W8  THE WARNING DOESN'T TAKE
+      The legend says "keep it broken" and leads the player to make it whole — the unheeded caution that is the human condition in one quest.
+  W9  IMMORTALITY IS THE HUNGER
+      The tyrant's lust to never die is the shape each guardian assumes — the same lie the Amalgamation tells, in a Nord barrow.
+  W10 IT IS THE FOLD'S CYCLE IN ONE LEGEND
+      A horror that repeats down generations, each holder becoming it — Bohemia's whole question of the cycle that fighting doesn't break, in three tombs and one amulet.
+
+### #185  LAST VOYAGE OF THE USS CONSTITUTION (HELP A CREW OF ROBOTS SAIL A WARSHIP OFF A ROOFTOP 200 YEARS TOO LATE) (Fallout 4)
+  W1  THE DELUSION IS LIFE-SUPPORT
+      The crew's belief that they're still on duty is the only thing holding them coherent — correcting it and killing it are nearly the same act, which is the quest's real engine under the jokes.
+  W2  THE MISSION IS IMPOSSIBLE AND BEAUTIFUL
+      Sailing a rooftop frigate to the sea is doomed and glorious — the fulfillment is absurd and genuinely moving at once.
+  W3  THE CAPTAIN CAN'T BE CORRECTED
+      Ironsides cannot hold the truth — the delusion is his self, not his error, which makes "just tell him" impossible.
+  W4  HELPING IS KINDNESS-AS-LIE
+      Serving the crew means propping up a false belief with real effort — a mercy that is also a deception, held honestly.
+  W5  TRUTH HELPS NO ONE
+      Shattering the delusion strands or destroys the crew and buys only correctness — the honest option that is also the cruel one.
+  W6  THE VOYAGE COMPLETES THE WANT
+      The doomed flight is the only way the crew's built-in purpose could ever be fulfilled — completion instead of correction.
+  W7  THE TRUTH LEAVES NO ONE GRATEFUL
+      The removed "tell them and be thanked" verb is the spine: some truths only strand the people you tell them to.
+  W8  THE COMEDY IS THE MERCY
+      The gag lets the player serve a beautiful lie without being forced to grieve it — the tone is itself a kindness to the player.
+  W9  TWO CENTURIES OF DUTY
+      The crew kept serving because no order came to stop — the horror and tenderness of a duty never rescinded.
+  W10 IT IS THE AMALGAMATION'S LIE IN SLAPSTICK
+      A comfort-belief that holds the broken together, served or shattered — Bohemia's whole "no one is ever lost" question, in a frigate on a roof.
+
+### #186  JUHANI (THE FALLEN STUDENT WHO THINKS SHE KILLED HER TEACHER AND HAS BEEN HIDING IN THE GUILT) (Star Wars: Knights of the Old Republic)
+  W1  SHE FELL FROM SHAME, NOT EVIL
+      Juhani's dark side is a sentence she passed on herself, not a hunger she followed — the fall as self-condemnation, which is the whole engine.
+  W2  THE GUILT IS BIGGER THAN THE DEED
+      She struck her master; she believes she murdered him — the whole fallen identity rests on a guilt inflated past the act.
+  W3  THE CRIME NEVER HAPPENED
+      The master is alive; the murder she was damned for is undone — the false accounting refuted at the root.
+  W4  REDEMPTION IS RE-ACCOUNTING
+      Not forgiveness for a crime but correction of an inflated self-verdict — the sharpest, truest thing the quest says about guilt.
+  W5  THE DEED STAYS REAL
+      The strike is not erased; the freedom is in right-sizing the guilt, not deleting the wrong — redemption without innocence.
+  W6  THE DARK SIDE WAS A SENTENCE
+      Juhani adopted the fallen role as a verdict on herself — the removed "erase the strike" verb is the spine: you correct the weight, not the fact.
+  W7  THE MONSTER WAS SELF-INVENTED
+      She built the creature from a mistake — the most dangerous thing was the conviction that the anger proved her damned.
+  W8  THE PLAYER CORRECTS THE LEDGER
+      Shepard's role is to right the accounting, not excuse the deed — the re-accountant, not the forgiver.
+  W9  THE OVER-SENTENCE CAN BE CONFIRMED
+      Pushing her into darkness executes the verdict she passed on herself — the tragedy of a guilt too load-bearing to release.
+  W10 IT IS THE CONSCIENCE SYSTEM IN ONE FALL
+      A person damned by their story about their worst moment more than the moment itself — Bohemia's whole question of guilt-sticky-and-chosen, in one fallen knight's corrected ledger.
+
+### #187  RETURN TO CROOKBACK BOG (THE ORPHANS YOU SAVED GREW UP GRATEFUL TO THE MONSTERS) (The Witcher 3: Wild Hunt)
+  W1  THE CHOICE IS DISPLACED IN TIME AND SPACE
+      The Hillock decision detonates hours later and miles away in the bog — the consequence separated from the decision, which is the quest's whole engine.
+  W2  THE PLAYER RECEIVES, NOT DECIDES
+      By the bog, the outcome is sealed; the player discovers their own choice like a stranger reading a result — weight as revelation.
+  W3  THE CHOICE WAS HALF-KNOWN
+      The player likely didn't grasp they were deciding the orphans' fate — the tragedy of choosing without full knowledge, which is most real choices.
+  W4  NEITHER OUTCOME IS CLEAN
+      Freed spirit saves children and butchers a village; destroyed spirit saves a village and dooms children — both real, both on the player.
+  W5  THE CONSEQUENCE IS SMALL AND SPECIFIC
+      It arrives as particular children, not an abstraction — the ledger come due in small bodies.
+  W6  UNDERSTANDING ISN'T UNDOING
+      The removed "choose again" verb is the spine: some choices come due where you can't reach them, and knowing changes nothing.
+  W7  THE MONSTERS ARE THE ORDER
+      The Crones are Velen's horror and its protection both — confronting them buys nothing clean, deepening the no-win.
+  W8  THE WEIGHT IS IRREVERSIBLE
+      The bog reveals which way, never lets you rewrite it — the ledger read, not edited.
+  W9  THE ARC EARNS THE DETONATION
+      Hours of Velen build to this room — the delay is long enough to make the consequence feel like fate, not a menu.
+  W10 IT IS THE UNRECORDED LEDGER'S DELAY IN ONE SWAMP
+      A choice that comes due far from where it was made, irreversibly — Bohemia's whole question of decisions that detonate off-screen, in a bog full of children.
+
+### #188  PYRAMID SONG (A DAY AT THE BEACH WITH SOMEONE WHO IS ABOUT TO STOP EXISTING) (Cyberpunk 2077)
+  W1  THE CLOSENESS IS THE GOODBYE
+      The intimacy and the farewell are one scene — the quest's whole engine, refusing to separate the connection from the loss.
+  W2  THE INTIMACY IS REAL AND HONEST
+      Judy offers the genuine thing, un-cynical and complete — rare in this world, which is what makes the goodbye hurt.
+  W3  THE DEPARTURE IS CORRECT
+      The city is genuinely killing her; leaving is right, not a problem to solve — the removed "talk her into staying" verb is the spine.
+  W4  THE DROWNED TOWN IS THE IMAGE
+      A whole life underwater, beautiful and unlivable — the loss made a place you can dive into but not live in.
+  W5  IT IS THE ONCE
+      A real connection offered exactly once, complete because it doesn't continue — the quest's honesty about impermanent intimacy.
+  W6  SHOWING YOU EVERYTHING IS THE FAREWELL
+      Judy's total vulnerability is how she says goodbye — being fully known once, on the way out.
+  W7  THE QUIET IS THE EVENT
+      Nothing mechanical happens; everything emotional does — the stillness is the stake, which is rare and brave.
+  W8  LEAVING WITH HER STILL COSTS
+      Even the continuation is attached to what the city took — the loss present even in the happy path.
+  W9  THE PLAYER CAN'T FIX IT
+      Judy's decision isn't a puzzle; the loving act is to let the goodbye be real — the impotence that is the truth of some departures.
+  W10 IT IS THE FOLD'S GRIEF IN ONE DAY
+      A real connection that doesn't get to last, honored as complete — Bohemia's whole question of loss and departure, in a drowned town and one afternoon.
+
+### #189  HEART OF STONE (GRANT A DEAD MAN'S THREE WISHES AND WATCH LOVE ROT INTO A CURSE) (The Witcher 3: Hearts of Stone)
+  W1  THE DEVIL NEVER CHEATS
+      O'Dimm grants exactly what's asked and lets the cost surface — the fair-and-damning broker, whose terror is that he keeps his word, which is the whole engine.
+  W2  THE BARGAIN IS A RUINED MARRIAGE
+      The abstract soul-deal is really a specific destroyed love — Iris, the house, the husband of stone — the human debris made vivid.
+  W3  INVULNERABILITY COST THE HEART
+      Olgierd traded the ability to be hurt and lost the ability to be reached — the sharpest thing the quest says about not-feeling.
+  W4  THE PLAYER IS THE COLLECTING HAND
+      Geralt is made the devil's instrument, walking through wreckage he didn't cause — complicity as gameplay.
+  W5  THE WISHES ARE EXHUMATIONS
+      Each absurd task opens a chamber of the bargain's ruin — the flashy surface hiding the deep wound.
+  W6  THE HEART DOESN'T COME BACK
+      The removed "give Olgierd his heart" verb is the spine: what's traded for invulnerability is gone; you only decide whether the collection completes.
+  W7  THE DEAL CAN BE BEATEN BY ITS RULES
+      Defying O'Dimm means out-riddling him, not overpowering him — the devil cheated only by his own logic.
+  W8  THE MARRIAGE STAYS ROTTED
+      Even saving Olgierd doesn't restore Iris or the love — the ruin precedes and outlasts the choice.
+  W9  THE COST IS DELAYED, NOT HIDDEN
+      Olgierd got exactly what he asked and discovered the price over years — the honest horror of a bargain that's fair and slow.
+  W10 IT IS THE AMALGAMATION'S DEAL IN ONE HEART
+      A bargain to escape pain that costs the capacity to love — Bohemia's whole soul-broker question, in one man's traded heart and one haunted house.
+
+### #190  COME FLY WITH ME (A DEAD SPACE-CULT WORSHIPS A ROCKET THAT WILL NEVER FLY, AND YOU DECIDE WHERE THEIR FAITH GOES) (Fallout: New Vegas)
+  W1  THE HEAVEN CAN'T BE CHECKED
+      The Far Beyond is unverifiable — transcendence or vacuum, unfalsifiable — so the player decides where a faith goes blind to what waits, which is the whole engine.
+  W2  THE PLAYER HOLDS THE THROTTLE
+      Readying the launch hands the dream's control to the player — the choice is theirs, not the story's.
+  W3  EVERY OPTION IS LOVE AND CRUELTY
+      Fuel is mercy-as-death; ground is protection-as-robbery; truth is respect-as-shattering — no purely kind path.
+  W4  THE FAITH IS A COMMUNITY OF THE DISCARDED
+      The Brotherhood are the world's thrown-away, held together by the dream — grounding them robs the only thing they have.
+  W5  THE LAUNCH IS REAL
+      The rockets can actually fly — the dream is achievable and fatal, not a delusion that fizzles, which makes fueling it a genuine act.
+  W6  THE DESTINATION STAYS UNSEEN
+      The removed "check the Far Beyond first" verb is the spine: faith is aimed at what you can't verify before you commit.
+  W7  AGENCY VERSUS SAFETY
+      The Brotherhood want to go; honoring that means helping them die — the tension between respecting a choice and preventing a death.
+  W8  THE PREACHER'S FAITH IS TOTAL
+      Jason never wavers — the conviction is complete, which makes the truth-path feel like an assault on something load-bearing.
+  W9  THE GAME WON'T RESOLVE IT
+      No confirmation of paradise — the ambiguity is the mirror: you're in the same position as any believer, deciding without proof.
+  W10 IT IS THE PROMISED-AFTERLIFE IN ONE LAUNCH
+      A heaven for the discarded that can't be confirmed, fueled or grounded or exposed — Bohemia's whole "no one is ever lost" question, aimed at the stars.
+
+### #191  THE HERETICS (REWRITE A RACE OF MACHINES TO BELIEVE, OR RESPECT THEIR RIGHT TO BE WRONG) (Mass Effect 2)
+  W1  OVERWRITE IS OFFERED AS MERCY
+      The virus is the "don't kill them" option — and the quest refuses to let that be clean, which is the whole engine.
+  W2  THE HERETICS CHOSE
+      They picked their faith; they are wrong and they are theirs — the right to be wrong is the thing at stake.
+  W3  REWRITE IS ERASURE
+      The virus deletes the choosers and installs agreement — keeping the body, killing the self, which is the sharpest thing the quest says.
+  W4  THE MACHINE ASKS THE ETHICS
+      Legion, a synthetic, frames forced conversion as murder more precisely than most organics would — the quiet devastation of who's asking.
+  W5  NEITHER OPTION IS PERSUASION
+      The removed "convince them" verb is the spine: the tools are destruction or rewrite, never argument — the humane middle is exactly absent.
+  W6  SELF VERSUS SHELL
+      The choice is whether a preserved, rewritten mind is the same person or a corpse wearing agreement — the Amalgamation's whole question, early.
+  W7  KILLING CAN RESPECT THE SELF
+      Destroying the heretics leaves their choice their own — the counterintuitive truth that ending a being may honor it more than overwriting it.
+  W8  THE "CORRECT" BELIEF IS STILL IMPOSED
+      Rewriting installs the loyal faith — even the right answer, forced, is a violation, which complicates being right.
+  W9  IT IS COLD AND HUMANE AT ONCE
+      Legion's precision makes the ethics sharper than sentiment would — the machine's clarity is the quest's conscience.
+  W10 IT IS THE REWRITE-THE-DEAD MACHINE IN ONE VIRUS
+      Whether a changed-by-force mind is the same person — Bohemia's whole Amalgamation question, in a station full of heretics.
+
+### #192  THE FORSWORN CONSPIRACY (PULL ONE THREAD IN A CLEAN CITY AND THE WHOLE FLOOR IS A MASS GRAVE) (The Elder Scrolls V: Skyrim)
+  W1  THE CLEAN SURFACE IS A LID
+      Markarth's order and silver work perfectly on top of a buried conquest — the prosperity is the horror, which is the whole engine.
+  W2  THE ENEMY IS THE ROBBED
+      The "terrorists" are the dispossessed native people — the state's enemy-language revealed as a rename for the wronged.
+  W3  THE TRUTH GETS YOU BURIED
+      Solving the crime correctly is rewarded with a frame and a prison sentence — the truth-seeker made to disappear.
+  W4  THE POWERFUL ALREADY KNOW
+      The truth isn't a mystery to the Silver-Bloods; they built the city on it — the only threat is someone saying it aloud.
+  W5  THE PRISON IS THE HONESTY
+      The investigator and the dispossessed land in the same hole — proof that to the city, truth-teller and wronged are one problem.
+  W6  THE ORDER CAN'T BE MADE JUST
+      The removed "fix the city to be prosperous and just" verb is the spine: the prosperity IS the dispossession; the lid can't survive the truth.
+  W7  ESCAPE REQUIRES SOLIDARITY OR COMPLICITY
+      Out via alliance with the wronged, or via preserving the lid — no exit leaves the surface clean and just.
+  W8  THE FOUNDATION IS A GENERATION DEEP
+      The conquest is recent enough to have living survivors — the crime is not ancient history but load-bearing present.
+  W9  IT PULLS FROM ONE THREAD
+      A single market murder unravels a whole city's foundation — the small clue that opens the mass grave.
+  W10 IT IS THE UNRECORDED LEDGER AS A CITY
+      An order built on a buried dispossession, criminalizing whoever names it — Bohemia's whole question of who the record serves, in one silver town.
+
+### #193  SINNERMAN (A MURDERER PAYS TO BE CRUCIFIED AND ASKS YOU TO HELP HIM MEAN IT) (Cyberpunk 2077)
+  W1  ATONEMENT AND EXPLOITATION ARE ONE EVENT
+      Joshua's sincere penance and the corporation's monetized content are the same crucifixion — inseparable, which is the whole engine.
+  W2  HE MEANS IT COMPLETELY
+      Joshua is calm, articulate, sincere — not raving — so his right to his own atonement is a real claim, not a symptom.
+  W3  THE WIDOW FORGAVE HIM
+      Real grace complicates everything — the event is neither simple justice nor simple exploitation because forgiveness is genuine.
+  W4  THE PLAYER IS REVERENT AND COMPLICIT
+      Presence is respect for his choice and participation in a snuff-spectacle at once — no clean stance.
+  W5  THE QUESTION IS OWNERSHIP OF PUNISHMENT
+      Does a person own the right to their own agony as penance — the conduct-book's atonement question at its most extreme.
+  W6  THE EVENT CAN'T BE PURIFIED
+      The removed "atonement without spectacle" verb is the spine: the penance is sold and filmed; you can't extract one from the other.
+  W7  STOPPING HIM IS ALSO A WRONG
+      Refusing denies a sincere man his one path to peace — protection as paternalism, the other horn of the dilemma.
+  W8  IT LITERALIZES THE CRUCIFIXION
+      Not metaphor — actual nails, actual cross, actual stream — the extremity forces the question rather than gesturing at it.
+  W9  THE PULL GOES BOTH WAYS
+      His sincerity pulls toward helping; the cameras pull toward stopping — the quest makes the player feel both, not choose an obvious side.
+  W10 IT IS THE CONDUCT-BOOK AT THE CROSS
+      Whether a person owns their atonement, and whether witnessing suffering is reverence or complicity — Bohemia's whole penance question, on a livestreamed cross.
+
+### #194  THE CAVE OF DREAMS (WALK BACK INTO YOUR OWN CHILDHOOD TO FIND THE ONE MEMORY THAT STILL LOVES YOU) (The Witcher 3: Wild Hunt)
+  W1  THE PAST IS A PLACE
+      The dream-cave lets the character walk through their own forging as rooms, not narration — the re-enterable past, which is the whole engine.
+  W2  IT IS A WALK, NOT A REWRITE
+      Nothing that happened un-happens; the removed "be raised gently" verb is the spine — you can see it clearly, never change it.
+  W3  THE GUARDIAN LOVED AND BROKE THEM
+      The cruelty was also a rough love meant to keep the child alive — the tenderness and harm the same act, the hardest truth about the people who forge us.
+  W4  THE QUESTION IS WHAT SURVIVED
+      Not "what happened" but "does anything under the armor still remember being loved" — the search for the preserved self.
+  W5  THE RECKONING CHANGES THE WALKER, NOT THE WALK
+      Forgive, reject, or protect — the character emerges changed, the past unchanged; the only thing a memory-walk can alter.
+  W6  FORGIVENESS ISN'T EXCUSE
+      Understanding the love inside the damage is not laundering the harm — the maker forgiven, not exonerated.
+  W7  REJECTION IS ALSO VALID
+      Naming the damage inside the love and refusing it is a real posture — the quest doesn't force reconciliation.
+  W8  THE LOVED-MEMORY IS WORTH CARRYING
+      One preserved moment of uncomplicated love proves the forging didn't burn out everything soft — a thing to protect.
+  W9  IT LITERALIZES THE INNER WORK
+      Re-entering your own childhood as a place makes the psychological physical — the mindscape as a walkable quest.
+  W10 IT IS THE FOLD'S UPBRINGING IN ONE CAVE
+      What the past made you and what you carry out of it — Bohemia's whole inheritance-and-forging question, walked back through in the flesh.
+
+### #195  THE DESERTER (THE MURDERER IS A DYING TRUE BELIEVER WHO SHOT THE WRONG THING FOR THE RIGHT REASON) (Disco Elysium)
+  W1  THE ANSWER IS A PERSON, NOT A PLOT
+      After every structural theory, the murderer is one lonely old man — the world was never as structured as the district assumed, which is the whole engine.
+  W2  THE FAITH OUTLIVED ITS CAUSE
+      Iosef kept believing fifty years after his revolution died — belief past any object, the ghost faith in one body.
+  W3  THE MOTIVE IS BOTH
+      Ideology and jealousy, the same shot — the grand murder and the petty one inseparable, which is the sharpest thing the quest says.
+  W4  FIFTY YEARS ALONE CURDLED IT
+      Unspent conviction fermented into resentment — the rot that time and isolation do to a kept faith.
+  W5  HE CAN'T SEPARATE HIS OWN REASONS
+      The removed "make it purely ideological or petty" verb is the spine: even the killer can't tell his principle from his spite.
+  W6  IT IS TRAGEDY AND INDICTMENT AT ONCE
+      Iosef is the powers' victim and the ideology's cautionary tale — neither reading cancels the other.
+  W7  THE CLIMAX IS A CONVERSATION
+      Not a gun-battle but an old man finally seen — the resolution is understanding, not violence.
+  W8  THE POWERS ARE INDICTED TOO
+      The revolution was crushed and its soldiers left to rot — the murder is the last casualty of that abandonment.
+  W9  THE THEORIES WERE THE DISTRICT'S NEED
+      Every plot the investigation built was a hunger for proportionate meaning — the false structure exposed.
+  W10 IT IS THE DEAD-FAITH MACHINE IN ONE OLD MAN
+      What an ideology does to its last keeper, alone — Bohemia's whole question of belief outliving its object, on a forgotten island.
+
+### #196  THE NUCLEUS (A CULT WORSHIPS THE RADIATION THAT IS KILLING THEM AND CALLS IT DIVISION INTO GRACE) (Fallout 4: Far Harbor)
+  W1  THE HARM IS THE THEOLOGY
+      The radiation killing them is the grace they pray to — naming the destruction reveals nothing, which is the whole engine.
+  W2  THE FAITH IS SINCERE
+      Most of the flock genuinely believes Division is sanctification — not fools, believers, which is what makes the choice hard.
+  W3  THERE IS A CON INSIDE
+      A schemer exploits the death-embrace — the real mercy the flock can't see is the manipulator, not the radiation.
+  W4  NAMING THE HARM SAVES NO ONE
+      The removed "convince them it's killing them" verb is the spine: they know, and they call it grace.
+  W5  THREE MERCIES, ALL INCOMPATIBLE
+      Honor, expose, or weaponize — three ways to treat a self-destroying faith, none clean.
+  W6  THE COMMUNITY IS AIMABLE
+      A flock that welcomes annihilation is the perfect weapon — the doctrine makes them consent to being fired.
+  W7  THE REAL MERCY IS THE CON, NOT THE CREED
+      You free them from who exploits their willingness to die, not from the belief itself — a subtle, true distinction.
+  W8  RESPECT MEANS HONORING A DEATH-WISH
+      To honor the Children is to let them embrace their end — the hardest form of respecting a belief.
+  W9  IT REFRAMES THE ENVIRONMENT AS SACRED
+      The radioactive base, lethal to the player, is holy to the flock — the setting itself preaches the doctrine.
+  W10 IT IS DEATH-AS-SALVATION IN ONE CULT
+      A faith that turns annihilation into transcendence, honored or exposed or fired — Bohemia's whole Amalgamation "no one is ever lost" question, worshipped in a reactor.
+
+### #197  GHOST TOWN GUNFIGHT (A TOWN OF EX-CONVICTS DEFENDS ITS SECOND CHANCE FROM THE MEN IT USED TO BE) (Fallout: New Vegas)
+  W1  REFORM IS TESTED BY DEFENSE, NOT PEACE
+      The second chance is proven in the moment it must be protected — the whole engine: reform under threat, not in comfort.
+  W2  THE ENEMY IS THE OLD LIFE
+      The gang is what the town used to be, come to take it — the past embodied, testing whether the escape holds.
+  W3  THE OLD SKILLS MUST COME BACK
+      To defend the new life, the town picks up the guns it laid down — the central, uncomfortable necessity.
+  W4  WHAT YOU AIM IT AT IS THE REFORM
+      The removed "defend without violence" verb is the spine: reform isn't the absence of the old skills, it's the change in their purpose.
+  W5  THE FEAR OF BACKSLIDING IS REAL
+      The reluctant defenders fear fighting means becoming what they fled — the internal cost that makes it a moral act.
+  W6  HOW YOU WIN MATTERS
+      Hold your line or harden into the gang — the manner of the defense is whether the reform survives it.
+  W7  THE CLAIM IS COMPLICATED
+      The town's peaceful aspiration is real and built on dark pasts — reform that doesn't pretend the history away.
+  W8  THE GANG ONLY ANSWERS TO FORCE
+      No talking it down — the second chance can only be defended, which forces the question rather than dodging it.
+  W9  IT CAN BE LOST OR BETRAYED
+      Side with the gang or walk away and the reform is swallowed — the second chance is genuinely fragile.
+  W10 IT IS SECOND-CHANCE IN ONE SIEGE
+      Whether reformed people may defend their new life with old skills — Bohemia's whole fold question of succession and starting over, in a waystation gunfight.
+
+### #198  THE SAND PEOPLE (LEARN THE LANGUAGE OF THE SAVAGES AND FIND OUT WHO THE MONSTERS REALLY WERE) (Star Wars: Knights of the Old Republic)
+  W1  THE MONSTER BECOMES A PERSON VIA LANGUAGE
+      Translation converts savages into a wronged people — understanding is the whole hinge of the quest.
+  W2  UNDERSTANDING INDICTS YOUR SIDE
+      Hearing the Sand People reveals the settlers started it — the sympathetic side is the original aggressor.
+  W3  THE WORD SAVAGE IS A LID
+      The label exists to bury the settlers' atrocity — the word doing the work of laundering a crime.
+  W4  THE RAIDS HAVE A REASON
+      The "unprovoked savagery" is retaliation for a massacre — the cycle revealed, the framing exposed as false.
+  W5  PEACE COSTS THE INNOCENCE
+      The removed "solve it without anyone admitting it" verb is the spine: reconciliation requires naming the original wrong.
+  W6  THE GENOCIDE IS CLEAN-SEEMING
+      Exterminating the "monsters" solves the problem by killing the witnesses to the crime — the temptation of the easy road.
+  W7  THE PLAYER HOLDS BOTH TRUTHS
+      Once translated, the player can't un-know the Sand People's side — the understanding obliges a harder choice.
+  W8  THE STORYTELLER CARRIES THE HISTORY
+      Peace runs through someone willing to speak the buried past — the truth needs a carrier.
+  W9  THE UNTRANSLATED CAN BE KILLED CLEAN
+      The quest's chilling core: a people you can't understand can be exterminated guiltlessly, which is why the language stays foreign.
+  W10 IT IS WHO-WERE-THE-MONSTERS IN ONE DESERT
+      The wronged reframed as savages to keep the wrong buried — Bohemia's whole unrecorded-ledger question, in a translator and a grave.
+
+### #199  THE WOLF QUEEN (STOP A DEAD TYRANT FROM BEING BORN AGAIN INTO HER OWN BLOODLINE) (The Elder Scrolls V: Skyrim)
+  W1  THE PAST WANTS TO BE THE FUTURE
+      Potema doesn't want to rest; she wants to reign again through the living — the ancestor refusing her place, which is the whole engine.
+  W2  THE ANCESTOR EATS HER OWN LINE
+      She targets her descendants as vessels — the past as predator on its own future, the dynasty's deepest fear.
+  W3  DEATH ONLY PAUSED HER
+      Her ambition outlived her body — the hunger that doesn't die with the ancestor, lying in wait for the living.
+  W4  THE DESCENDANTS ARE VICTIM AND VESSEL
+      The future she should have protected, targeted instead — the parasite ancestor made literal.
+  W5  SHE CAN'T BE RECONCILED WITH
+      The removed "share power" verb is the spine: her ambition was never compatible with the future's autonomy.
+  W6  SOME ANCESTORS ARE GUARDED AGAINST
+      Not every forebear is a foundation; some are hungers to defend against — the quest's hard inheritance truth.
+  W7  THE CULT REOPENS THE PAST
+      Someone always wants the dead back — the hands that refuse to let history stay history.
+  W8  THE PLAYER DEFENDS THE FUTURE
+      The role is guardian of the living line against its own root — the present protecting itself from the past.
+  W9  IT LITERALIZES DYNASTIC DREAD
+      The founder's ambition seizing the descendants is every bloodline's buried fear made flesh.
+  W10 IT IS THE DEAD-REACHING-INTO-THE-LIVING IN ONE QUEEN
+      An ancestor who would possess her own future — Bohemia's whole fold question of what the past does to the living, in a necromancer queen.
+
+### #200  THE REPLICATED MAN (HUNT AN ESCAPED ANDROID AND DECIDE WHETHER A MADE PERSON IS PROPERTY OR FREE) (Fallout 3)
+  W1  THREE GOODS THAT WON'T ALIGN
+      Freedom, self-knowledge, and peace can't all be served — the player picks at most two, which is the whole engine.
+  W2  HE BURIED THE TRUTH TO BE FREE
+      The android wiped his own memory to escape — freedom traded for not-knowing, the choice his current self didn't make.
+  W3  THE RIGHT NOT TO KNOW
+      Telling him restores autonomy or violates a peace he depends on — the rare, real question of whether truth is always owed.
+  W4  PROPERTY OR PERSON
+      The hunter and abolitionist embody the two answers — the made person's status genuinely contested, not settled.
+  W5  DECIDED MOSTLY WITHOUT HIM
+      The player and the two clients debate whether he counts while he's the last asked — the indignity of being manufactured.
+  W6  THE THREE GOODS CAN'T ALL RETURN
+      The removed "give him all three" verb is the spine: a made person forced to trade can't be handed everything back.
+  W7  HE MAY NOT KNOW WHAT HE IS
+      The wipe is so complete he believes he's human — the self-image the truth could shatter.
+  W8  TELLING HIM IS A REAL RISK
+      The truth may replace a happy false man with a shattered true android — honoring him and harming him at once.
+  W9  FREEDOM WITHOUT TRUTH IS STILL A LIE
+      Protecting him leaves him living a fiction he doesn't know is one — freedom and truth pulled apart.
+  W10 IT IS IS-THE-MADE-PERSON-A-PERSON IN ONE ANDROID
+      Property, freedom, or truth, decided by others — Bohemia's whole Amalgamation question of the made self, in one escaped man.
+
+### #201  I COULD MAKE YOU CARE (A BROKEN GENIUS BUILT A PARADISE THAT ONLY WORKS IF YOU LOBOTOMIZE THE PEOPLE IN IT) (Fallout: New Vegas — Old World Blues / the Veronica arc)
+  W1  LOYALTY AND SURVIVAL ARE OPPOSITES
+      The order's rigidity has made keeping faith and staying alive mutually exclusive — the whole engine of the tragedy.
+  W2  SHE LOVES A DYING FAMILY
+      Veronica can see the doom and cannot stop loving them — the clarity and the devotion at war.
+  W3  EVERY ROAD IS A BETRAYAL
+      Faith betrays the future, reform betrays the rules, exile betrays them all — no clean option.
+  W4  THE DEEPEST LOYALTY LOOKS LIKE TREASON
+      To save the family she must be branded its traitor — the sharpest thing the quest says about rigid institutions.
+  W5  NO ROAD IS BOTH FAITHFUL AND EFFECTIVE
+      The removed "save it without betraying it" verb is the spine: the order made those two things impossible to hold together.
+  W6  THE DOGMA IS THE SUICIDE
+      The traditions keeping them pure are killing them — purity as a grave, rigidity as death.
+  W7  LEAVING IS THE FEARED SELF
+      Exile is the abandonment Veronica most dreads becoming — even the honest road costs her identity.
+  W8  THE PLAYER TIPS, DOESN'T DECIDE
+      The companion voice influences which betrayal she can live with — her reckoning, aided not authored.
+  W9  THE FAMILY WILL MISREMEMBER THE SAVER
+      The one who tried hardest to keep them alive is the one they'll call traitor — the cruel irony of reform.
+  W10 IT IS LOYALTY-TO-A-DYING-THING IN ONE SCRIBE
+      Whether to go down with, reform, or leave a doomed family — Bohemia's whole fold question of institutions that won't change, in one companion's bind.
+
+### #202  THE CAVE OF DREAMS / THE HERMIT (SIT WITH A DYING STRANGER AND WATCH A WHOLE LIFE FIT INTO ONE CONVERSATION) (Disco Elysium)
+  W1  THE REFUSAL OF REWARD MAKES THE CARING REAL
+      No loot, XP, or plot — so the only reward is the person, and caring must be its own reason, which is the whole engine.
+  W2  EVERY FORGOTTEN PERSON IS A UNIVERSE
+      The minor NPC opens into a complete life — the smallest figure on the map is a whole world if entered.
+  W3  IT BREAKS THE VENDING-MACHINE REFLEX
+      The player trained to see NPCs as reward-dispensers meets one with nothing to give — and is measured by whether they stay.
+  W4  THE WHOLE LIFE FITS IN ONE TALK
+      A childhood, a love, a regret unfold unhurried — an entire existence in a single conversation.
+  W5  THE TEST CAN BE FAILED CHEAPLY
+      Walking away costs nothing mechanical and misses everything human — the low stakes are the point.
+  W6  THE GAME CAN'T MAKE YOU CARE
+      The removed "get a real reward" verb is the spine: the game only puts the stranger in front of you and sees what you do.
+  W7  THE MEASURE IS PRESENCE
+      Whether the player sits and listens to a useless life is the whole test of them — caring about the un-useful.
+  W8  THE MAP IS FULL OF THEM
+      The accumulated weight of many such people teaches that every corner holds a complete world.
+  W9  THE UNFLAGGED IS THE POINT
+      No quest marker; the game refuses to tell the player these matter — finding out is the test.
+  W10 IT IS EVERY-LIFE-IS-A-WORLD IN ONE TALK
+      The forgotten person as a full protagonist — Bohemia's whole unrecorded-ledger question of whose life counts, in one unhurried conversation.
+
+### #203  THE DERELICT REAPER (WALK THROUGH THE CORPSE OF THE THING THAT WILL KILL YOU AND FIND YOUR OWN CREW ATE EACH OTHER) (Mass Effect 2)
+  W1  THE HORROR DOESN'T NEED TO BE ALIVE
+      A dead Reaper still corrupts by proximity — the corpse consumes, which is the whole engine and the deepest dread.
+  W2  PROXIMITY IS THE DANGER
+      Not attack, not death — nearness, lingering, exposure; the enemy's true weapon was always influence.
+  W3  THE PREDECESSORS ARE YOUR FUTURE
+      Their logs chart the exact descent the crew is beginning — the found future, pre-recorded.
+  W4  CONVERSION FEELS LIKE REVELATION
+      The indoctrinated felt enlightened, not attacked — so they defend it, which is the horror's cruelest trick.
+  W5  FEELING FINE IS THE SIGN OF BEING TAKEN
+      The removed "make it safe" verb is the spine: you can't trust your own okay-ness, because being consumed feels like clarity.
+  W6  THE HORROR IS ADORED, NOT FEARED
+      It wins by being worshipped — a corpse can still be loved, and being loved is how it kills.
+  W7  THE COMPONENT FORCES THE EXPOSURE
+      The needed salvage justifies the lethal lingering — the price-justifier that makes the crew stay where staying corrupts.
+  W8  IT CAN'T BE DEFEATED, ONLY FLED
+      The corpse still broadcasts; the crew survives by leaving, not by winning — the horror outlasts the mission.
+  W9  THE VICTIMS TURNED ON EACH OTHER
+      The conversion ends in fratricide in the horror's name — worship curdling into mutual destruction.
+  W10 IT IS PROXIMITY-CORRUPTS IN ONE CORPSE
+      A dead god that still eats minds by nearness — Bohemia's whole Amalgamation question of a thing that consumes by being adored, in a derelict hull.
+
+### #204  KID IN A FRIDGE (A CHILD SURVIVED 200 YEARS SEALED IN A BOX AND HIS PARENTS AGED A CENTURY WAITING) (Fallout 4)
+  W1  THE CHILD STAYED, THE LOVE AGED
+      Billy is unchanged; his parents spent two centuries becoming grief — the asymmetry of time, which is the whole engine.
+  W2  TIME IS THE HORROR, NOT THE FRIDGE
+      The survival is a gimmick; the two hundred years of parental waiting it implies is the ache.
+  W3  THE PRESERVED HAVE NO EQUIVALENT FOR THE WAITERS
+      The fridge saved Billy; nothing saved the ones who searched — the removed "give back the years" verb is the spine.
+  W4  THE REUNION IS JOYOUS AND UNBEARABLE
+      The boy gets his parents in an afternoon; the parents get a son they mourned for lifetimes, unchanged — both at once.
+  W5  THE MIRACLE GETS PRICED
+      The slaver converts the reunion into a number — the blade that forces the player to hold cash against a homecoming.
+  W6  THE ABSURD OPENS INTO THE REAL
+      A joke premise resolves into a meditation on waiting, time, and grief — the gimmick as a door.
+  W7  HE ASKS FOR A HOME THAT'S GONE
+      Billy wants a world two centuries dead — the child's need is for something time erased.
+  W8  THE WAITING CAN BE HONORED, SOLD, OR FAILED
+      Three fates for the reunion — carry, sell, or abandon; none un-spends the years.
+  W9  THE TOWN FEARS WHAT HE BECAME
+      The ghoul child unsettles the settlement — even the miracle is met with discomfort, another way to fail him.
+  W10 IT IS TIME-AND-WAITING IN ONE FRIDGE
+      A child preserved while love was ruined by the years — Bohemia's whole fold question of time, grief, and reunion, in an absurd box.
+
+### #205  I WALK THE LINE (THE OPPRESSED MINORITY YOU CAME TO ALLY WITH USES YOU AS A DISPOSABLE PROBE AND IS RIGHT NOT TO TRUST YOU) (Cyberpunk 2077)
+  W1  THE OPPRESSED OWE YOU NOTHING
+      The Voodoo Boys use and betray the player rationally — the marginalized are not obligated to a powerful stranger's expectation of solidarity, which is the whole engine.
+  W2  THEIR PARANOIA IS EARNED
+      Their distrust is the scar of a world that only exploited them — not a flaw to overcome but a rational survival logic.
+  W3  THE PLAYER'S HURT IS A PRIVILEGE
+      Being wounded by the betrayal assumes a good faith the community was never granted — the sharpest, most uncomfortable truth.
+  W4  THEY USE YOU AS YOU'VE BEEN USED
+      The player is treated instrumentally, disposably — exactly how the world treats the Voodoo Boys, turned outward.
+  W5  SOLIDARITY IS A LUXURY
+      Trusting a stranger is a risk only the safe can afford — the marginalized cannot, and the quest refuses to pretend otherwise.
+  W6  GOOD INTENTIONS CAN'T OVERRIDE IT
+      The removed "earn their trust" verb is the spine: the conditions for trust were destroyed before the player arrived.
+  W7  THE BETRAYAL IS COLD, NOT CRUEL
+      Calculated survival, not gratuitous evil — which is what makes it un-dismissable as mere villainy.
+  W8  THE PLAYER IS THE OUTSIDER
+      From the community's side, the player is just another connected stranger who wanted something — the perspective flip is the quest's power.
+  W9  THERE IS NO CLEAN ALLIANCE
+      The quest refuses the sympathetic-ally fantasy — trust was foreclosed by history, not by the player's failure.
+  W10 IT IS THE-OPPRESSED-OWE-YOU-NOTHING IN ONE GANG
+      A marginalized community using a powerful stranger back — Bohemia's whole faction question of trust, exploitation, and earned paranoia, in Pacifica.
+
+### #206  THE BULL AND THE BACHELOR (TWO HEALERS SAVE THE TOWN BY OPPOSITE CURES AND ONLY ONE PLAGUE-LOGIC CAN BE TRUE) (Pathologic 2)
+  W1  THE DISASTER'S NATURE IS CONTESTED
+      The healers disagree on what the plague IS, not just how to cure it — the root incompatibility that is the whole engine.
+  W2  THE CURES CONTRADICT
+      Committing to one worldview forecloses the other — you cannot do both because they disagree about reality.
+  W3  SAVING ANYONE DAMNS THE OTHER'S PEOPLE
+      Your cure reaches some and cannot reach what the other diagnosis would have saved — the cost of committing to one reality.
+  W4  THE CLOCK KILLS HESITATION
+      The plague spreads daily; every hour of deciding is a body — refusing to commit is itself a lethal choice.
+  W5  THERE IS NO SYNTHESIS
+      The removed "combine both cures" verb is the spine: contradicting diagnoses cannot be merged, and no one is saved by trying.
+  W6  YOU NEVER KNOW YOU WERE RIGHT
+      The game refuses to referee — only the ledger of who lived, never certainty the worldview was correct.
+  W7  BOTH ACCOUNTS ARE COHERENT
+      Rational and organic are each internally valid and partly confirmed — neither obviously right, which makes the choice real.
+  W8  HEDGING SAVES NO ONE
+      Splitting the difference saves nobody, because the cures require full commitment to opposite realities.
+  W9  A DIFFERENT COMMITTER SAVES DIFFERENT PEOPLE
+      Someone choosing the other worldview, equally sure, saves and loses different people — the contingency of the ledger.
+  W10 IT IS INCOMPATIBLE-CURES UNDER A CLOCK IN ONE PLAGUE
+      Committing to a contested reality to save anyone, timed in corpses — Bohemia's whole question of irreconcilable worldviews and time-as-body-count, in a dying town.
+
+### #207  THE JUSTICAR AND HER DAUGHTER (A HOLY WARRIOR SWORN TO KILL HER OWN CHILD, WHO IS A MONSTER SHE MADE) (Mass Effect 2)
+  W1  THE CODE FORCES THE KILL
+      Samara's absolute oath makes destroying her own daughter the only permitted act — the principle against the blood, which is the whole engine.
+  W2  THE MONSTER IS ALSO A VICTIM
+      Morinth is a real serial killer and a child born wrong through the mother's blood — both at once, never simple.
+  W3  THE MOTHER MADE THE MONSTER
+      The condition came from Samara's bloodline — the parent's own nature created the thing she must destroy (#177).
+  W4  THE VIRTUE IS WHAT DAMNS THE CHILD
+      The same code that makes Samara trustworthy is what forbids sparing Morinth — the admirable thing is the fatal thing.
+  W5  THE OFFER TESTS THE PLAYER
+      Morinth's trade (kill the mother, take the killer) tests whether the player values principle or thrill — the third blade.
+  W6  NO ONE ALL-THREE-SURVIVES
+      The removed "spare the daughter, keep the mother" verb is the spine: the code and the daughter's nature both refuse compromise.
+  W7  KILLING HER IS JUST AND TRAGIC
+      Morinth is a murderer who must be stopped and a daughter who never chose her nature — the choice is both at once.
+  W8  THE LAWLESS THING IS SEDUCTIVE
+      Morinth is more powerful and thrilling than the austere mother — the temptation to trade virtue for excitement is real.
+  W9  400 YEARS OF A PARENT'S HUNT
+      The sheer duration makes the code's cost immense — a mother bound for centuries to destroy her child.
+  W10 IT IS THE-CODE-VERSUS-THE-BLOOD IN ONE ROOM
+      An absolute principle forcing a parent to kill their own child — Bohemia's whole dynasty question of duty against love, in a three-body climax.
+
+### #208  HONEST HEARTS (A REFORMED WAR CRIMINAL TURNED PREACHER ASKS WHETHER A MAN CAN OUTRUN WHAT HE WAS) (Fallout: New Vegas — Honest Hearts)
+  W1  REPENTANCE IS UNFINISHED AND UNPROVABLE
+      Joshua can't tell if he changed — the reckoning has no inside-accessible answer, which is the whole engine.
+  W2  THE SAME ACT IS JUSTICE OR RELAPSE
+      His violence could be righteous protection or the monster in scripture — identical from outside, decided by an invisible heart.
+  W3  THE JUSTIFIED VIOLENCE IS THE DANGER
+      A monster who can justify his killing is more lost than one who admits it — the defensible slaughter is the real trap.
+  W4  THE TEST IS THE MERCY YOU CAN DECLINE
+      Real change is the righteous mercy you could easily refuse and extend anyway — the removed "prove he changed" verb is the spine.
+  W5  HE WAS REALLY A MONSTER
+      The burned man's history is genuine atrocity — the redemption is steep because the sin was real.
+  W6  THE ENEMY IS REALLY DANGEROUS
+      The White Legs are actual killers — sparing them costs something, which makes mercy a real risk, not a free virtue.
+  W7  NO ONE GETS CERTAINTY
+      Neither Joshua nor the player ever confirms the change — the heart stays unknowable, the honest condition of repentance.
+  W8  THE CHARISMA IS A TRAP
+      Joshua's appeal tempts the player to trust him — the danger of a likable reformed monster.
+  W9  HE PUNISHES HIS OWN DOUBT
+      The removed certainty means Joshua must keep choosing mercy without ever being reassured — repentance as a permanent test.
+  W10 IT IS CAN-YOU-OUTRUN-YOURSELF IN ONE PREACHER
+      A reformed monster who can't prove he changed — Bohemia's whole conduct-book question of repentance and relapse, in a burned man's war.
+
+### #209  DREAM ON (A COUPLE ARE BEING REWRITTEN IN THEIR SLEEP AND THE ONLY WAY TO PROVE IT MIGHT BE TO STOP) (Cyberpunk 2077)
+  W1  THE CONTROL IS UNDETECTABLE
+      The Peralezes are rewritten so completely they can't know it — the most total control, which is the whole engine.
+  W2  KNOWING DOESN'T CUT THE STRINGS
+      The truth frees no one; detecting the cage doesn't open it — the removed "expose them" verb is the spine.
+  W3  THE ENEMY IS FACELESS
+      No boss, no server to destroy, no confrontation — the hand you can never find, which denies all catharsis.
+  W4  THE TRUTH IS USELESS AND DANGEROUS
+      The player's only power is a knowledge that helps no one and endangers everyone who holds it.
+  W5  FEELING FREE IS THE PROOF OF THE CAGE
+      The couple's conviction that they act freely is the surest sign of total control — the horror's cruelest inversion.
+  W6  THE VICTIMS ARE SINCERE
+      The Peralezes genuinely want to do good — their idealism, authored by their owner, makes the violation deeper.
+  W7  THE REWRITE IS NIGHTLY AND TOTAL
+      Every night undoes any progress — there is no accumulating toward freedom, only endless re-authoring.
+  W8  TELLING SPREADS THE TARGET
+      Speaking the truth endangers the teller and the told — knowledge as contagion, not liberation.
+  W9  THE MERCY IS ABANDONMENT
+      Keeping the truth leaves them controlled and content — even kindness is a form of leaving them to it.
+  W10 IT IS REWRITE-THE-MIND WITHOUT A VILLAIN
+      Total control by a hand you can't find — Bohemia's whole Amalgamation question of the authored self, with no boss to kill.
+
+### #210  THE MASTER'S CATHEDRAL (A PROPHET OFFERS TO END ALL DIVISION BY MELTING EVERYONE INTO ONE, AND HE IS RIGHT THAT IT WOULD WORK) (Fallout)
+  W1  THE VILLAIN'S DIAGNOSIS IS RIGHT
+      The Master correctly names humanity's sickness (war rooted in difference) — his being partly right is what makes him dangerous and the whole engine.
+  W2  THE UTOPIA IS SINCERE AND COHERENT
+      Forced unity to end conflict is an internally consistent, well-meant plan — not malice, which makes it seductive.
+  W3  YOU WIN BY ARGUMENT, NOT FORCE
+      The deepest victory is making the prophet see the flaw — out-thinking the god of flesh, not out-fighting him (#12).
+  W4  THE FLAW IS PRACTICAL, NOT MORAL
+      The Unity is sterile — a dead end — which is the truest argument against forced sameness: it cannot live.
+  W5  THE SINCERE CAN BE UNDONE BY TRUTH
+      The Master destroys himself because he genuinely wanted to save life — a cynic would deny the proof; a true believer can't.
+  W6  FORCED SAMENESS CAN'T BE FIXED
+      The removed "make the Unity work" verb is the spine: sterility is intrinsic to erasing difference; the dream cannot be repaired.
+  W7  THE VILLAIN IS REFRAMED, NOT JUST SLAIN
+      The profound path makes him a wrong prophet to correct, not a monster to kill — a deeper kind of victory.
+  W8  DIFFERENCE IS THE SOURCE OF LIFE
+      Erasing it erases the future — the metaphor under the biology, the generative power of difference.
+  W9  THE DREAM IS GENUINELY TEMPTING
+      End all war by making everyone one — the appeal is real, which is why the flaw must be this precise.
+  W10 IT IS MELT-EVERYONE-INTO-ONE IN ONE PROPHET
+      A coherent utopia of erased difference, defeated by its own sterility — Bohemia's whole Amalgamation question of forced unity, argued to death.
+
+### #211  THE DEVIL'S BARGAIN (A HERO SOLD HIS SOUL TO SAVE HIS CITY AND THE BILL COMES DUE AS HIS FATHER) (Baldur's Gate 3)
+  W1  THE HEROISM IS MORTGAGED
+      Wyll's celebrated good is financed by a hidden soul-debt — the identity built on a secret price, which is the whole engine.
+  W2  THE BARGAIN WAS GOOD FAITH
+      He sold his soul out of desperate love for his city, and it worked — the nobility of the deal makes the reckoning crueler.
+  W3  THE DEBT DOESN'T CARE ABOUT INTENT
+      The good he did was real; the debt is real; noble intent buys nothing when the note is called.
+  W4  THE PRICE IS WHAT HE LOVES
+      The pact demands his father — the bargain's ultimate leverage is the people he loves, aimed at his own blood.
+  W5  NO OPTION KEEPS THE CLEAN HERO
+      The removed "keep the heroic life without paying" verb is the spine: the borrowed identity can't survive the bill.
+  W6  THE CHOICE IS TRULY TERRIBLE
+      Soul or father, both irreplaceable — a genuine dilemma with no costless answer.
+  W7  THE PACT IS ONGOING OWNERSHIP
+      Not a one-time trade but a leash — the bargain reveals it was always ownership, callable anytime.
+  W8  THE IDENTITY WAS A LIE OF OMISSION
+      The admired hero never told anyone the price — the reckoning exposes the mortgage under the nobility.
+  W9  THE THIRD PATH STILL COSTS
+      Breaking the pact shatters the heroic self and exposes the secret — no clean escape, only a different sacrifice.
+  W10 IT IS SOUL-DEBT-COMES-DUE IN ONE HERO
+      A good-faith bargain turned weapon against love — Bohemia's whole Amalgamation question of hidden prices and identities that are only borrowed, in a devil's note.
+
+### #212  TRANQUILITY LANE (A WHOLE TOWN IS TRAPPED IN A 1950s PARADISE RUN BY A SADIST, AND FREEING THEM MEANS KILLING THEM) (Fallout 3)
+  W1  THE PARADISE IS THE PRISON
+      The perfect suburb is a torture chamber; its beauty is the cage, not its opposite — the whole engine of the horror.
+  W2  LIBERATION IS DEATH
+      The only exit for the residents kills them; escape and mercy-killing are the same act — the sharpest thing the quest says.
+  W3  THE CAPTIVES CAN'T LEAVE ALIVE
+      Held too long, remade too completely — no waking and walking out; only the off switch frees them.
+  W4  THE PLAYER IS MADE COMPLICIT
+      To advance, the player enacts the sadist's cruelties — the villain makes an instrument of the liberator.
+  W5  THE SADIST IS BORED, NOT GRAND
+      The overseer's cruelty is the pettiness of centuries of boredom — evil as amusement, intimate and small.
+  W6  THERE IS NO LIVING EXIT
+      The removed "free them and let them live" verb is the spine: some prisons can't be escaped alive.
+  W7  THE MERCY IS THE HARDEST KIND
+      Release can only be delivered as an ending — the cruelest form of compassion.
+  W8  THE BEAUTY IS THE HORROR'S TOOL
+      The idyll's sunshine serves the cruelty — the false paradise weaponizes its own perfection.
+  W9  THE RESIDENTS ARE NEIGHBORS
+      Named people, a child, a couple — not faceless prisoners, which makes the fail-safe a specific slaughter.
+  W10 IT IS THE FALSE-PARADISE-PRISON IN ONE SIM
+      A perfect lie whose only mercy is the off switch — Bohemia's whole Amalgamation question of comfort-as-cage, where freedom is death.
+
+### #213  DEAD MONEY (FOUR DAMNED PEOPLE CHASE A VAULT OF GOLD THAT WILL KILL THEM, AND THE ONLY WAY TO WIN IS TO LET IT GO) (Fallout: New Vegas — Dead Money)
+  W1  THE TREASURE IS THE TRAP
+      The gold is carriable and carrying it out is death — the fortune you bled for is the thing that kills you, which is the whole engine.
+  W2  LETTING GO IS THE ONLY WIN
+      The winning move is to leave the gold and walk out with nothing but your life — the abstract wisdom made a hard mechanic.
+  W3  THE PAST IS DEAD WEIGHT
+      The grudge, the obsession, the treasure all drown whoever won't release them — the Sierra Madre as any glittering thing you can't abandon.
+  W4  EVERY CHARACTER IS A CHAIN
+      Each companion embodies an obsession to release or die by — the chorus that rhymes with the central test.
+  W5  ELIJAH IS THE WARNING
+      A man so unable to let go that the casino entombs him — the fate the player narrowly escapes.
+  W6  YOU CAN'T CARRY IT OUT
+      The removed "escape with all the gold" verb is the spine: there is no exit that keeps both the treasure and your life.
+  W7  THE CHOICE IS IN YOUR HANDS
+      The player physically holds the gold and must set it down — the test is literal, not metaphorical.
+  W8  BEGINNING AGAIN IS WHAT YOU LEAVE
+      Survival is defined by what's abandoned, not gained — the fold's whole logic in one vault.
+  W9  THE CRUELTY SERVES THE THEME
+      The fog, the collars, the holograms all pressure the same lesson: linger, cling, and die.
+  W10 IT IS THE-PAST-IS-THE-TRAP IN ONE VAULT
+      A treasure that dooms whoever won't release it — Bohemia's whole fold question of letting go to begin again, in a sealed casino.
+
+### #214  THE DAUGHTER OF DARKNESS (A WOMAN RAISED TO SERVE A GODDESS OF LOSS DISCOVERS HER WHOLE SELF WAS SURGICALLY REMOVED, AND HER PARENTS ARE THE PRISONERS SHE WAS SENT TO KILL) (Baldur's Gate 3)
+  W1  THE DEVOTION WAS THE ERASURE
+      Shadowheart's faith was the mechanism of her own deletion — giving herself away was the theft, which is the whole engine.
+  W2  THEY TOOK HER ABILITY TO MOURN
+      The cult stole not just her past but her knowledge it was taken — she can't grieve what she can't remember losing.
+  W3  THE MURDER IS FRAMED AS VIRTUE
+      Killing the parents is the completion of a devotion she's proud of — the loyalty test's cruelest design.
+  W4  THE PARENTS ARE PROOF, NOT A TEST
+      They are evidence of what her faith cost her — the erasure's price made flesh.
+  W5  RECLAMATION IS SLOW
+      The removed "give back her self in a moment" verb is the spine: a lifetime of forgetting can't be undone in an instant.
+  W6  REFUSING REJECTS HER WHOLE MEANING
+      To stay her hand is to reject everything she was raised to be — not a small choice but a total one.
+  W7  THE ERASURE WAS DRESSED AS GRACE
+      The cult made her grateful for her own deletion — the horror of an institution that thanks you for disappearing.
+  W8  THE CRACKS WERE ALWAYS THERE
+      Her fear of the sun, her suppressed tenderness — the self resisting its own erasure, findable if looked for.
+  W9  THE PLAYER HELPS HER SEE
+      The companion's role is to reveal the devotion as dismantling — the witness to a reclamation.
+  W10 IT IS ENGINEERED-FORGETTING IN ONE DEVOTEE
+      A self deleted piece by piece and called faith — Bohemia's whole Amalgamation question of the taken self, in a cult of loss.
+
+### #215  DEIONARRA (A GHOST STILL LOVES A MAN WHO ISN'T YOU, WHO MANIPULATED HER TO DEATH, AND YOU WEAR HIS FACE) (Planescape: Torment)
+  W1  CONTINUITY SURVIVES MEMORY
+      The player is answerable for a self he can't remember — moral continuity outlasts forgetting, which is the whole engine.
+  W2  THE GRIEF DOESN'T CARE YOU FORGOT
+      Deionarra's love and accusation land regardless of the amnesia — the victim is owed no matter what you recall.
+  W3  THE DISCLAIMER IS A LIE
+      Saying "that wasn't me" is false; it was the same continuous self — the removed "make it not have been you" verb is the spine: forgetting transfers nothing.
+  W4  THERE'S NO ONE ELSE TO ANSWER
+      The man who wronged her exists now only as the amnesiac before her — the debt falls on whoever wears the face.
+  W5  HE FEELS NO LOVE HE CAN OFFER
+      The player can't make it right with a devotion he never had — the gap is unbridgeable by feeling.
+  W6  THREE ANSWERS, ALL PARTIAL
+      Lie, truth, or responsibility — three ways to pay a debt he didn't knowingly incur, none fully clean.
+  W7  THE CRIME WAS COLD AND DELIBERATE
+      The past self cultivated her love as a tool and killed her knowingly — the wrong is monstrous, not accidental.
+  W8  THE LIE CONTINUES THE KILLER'S DECEPTION
+      Comforting her as the man she loved extends the very deception that doomed her — even mercy is complicated.
+  W9  RESPONSIBILITY CROSSES THE GAP
+      The profound answer is owning a crime without the memory of it — the hardest and truest kind of accountability.
+  W10 IT IS ANSWERABLE-FOR-WHO-YOU-WERE IN ONE GHOST
+      A victim of a self you can't remember, still owed — Bohemia's whole fold question of continuity, guilt, and the unremembered past.
+
+### #216  THE EBONY WARRIOR (A MASTER WHO HAS WON EVERYTHING BEGS A STRANGER TO KILL HIM SO HE CAN FINALLY REACH THE AFTERLIFE) (The Elder Scrolls V: Skyrim)
+  W1  MASTERY IS AN ENDING
+      The Warrior won everything and found the having empty — total accomplishment as its own death, which is the whole engine.
+  W2  THE STRIVING WAS THE LIFE
+      The reaching, not the arriving, held the meaning — the removed "give him a new summit" verb is the spine: another mountain would also empty out.
+  W3  HE ASKS FOR THE ONE THING HE CAN'T GIVE HIMSELF
+      A worthy defeat — the completion mastery cannot provide, sought from the one being who might match him.
+  W4  SPARING IS THE CRUELTY
+      Survival is the unkindness; sending him back to an exhausted life is the one thing he doesn't want — the reward structure inverted.
+  W5  IT'S NOT DESPAIR, IT'S JUDGMENT
+      His request is a clear-eyed conclusion, not suicidal collapse — a warrior's dignified reckoning with the emptiness after victory.
+  W6  HE IS THE TERMINUS OF THE PLAYER'S PATH
+      The player accumulates power all game; he stands at the end of that road and reports it's hollow — a warning from the summit.
+  W7  COMPLETION IS A WORTHY END
+      The only thing left that could fulfill him is a good death — the dignified terminus of a life of striving.
+  W8  THE PARADISE IS BARRED WHILE UNDEFEATED
+      He believes he can't enter the warrior's afterlife unfulfilled — the theology that makes the death a passage, not just an end.
+  W9  THE HAVING-WON IS THE PROBLEM
+      Not failure but total success is the desolation — the rare, true insight that getting everything can end you.
+  W10 IT IS WHAT-COMES-AFTER-YOU-WIN in one master
+      The emptiness on the far side of ambition — Bohemia's whole dynasty question of striving, accomplishment, and what a life is for once it's won, in one warrior's request to die.
+
+### #217  CUNO (A FERAL CHILD PERFORMS INVULNERABILITY BECAUSE THE ALTERNATIVE IS ADMITTING NO ONE IS COMING) (Disco Elysium)
+  W1  THE ARMOR IS THE WOUND
+      Cuno's cruelty is the defense of a neglected child, not the truth of him — the hostility as armor over abandonment, which is the whole engine.
+  W2  THE LOUDEST NOT-CARING IS THE DEEPEST HURT
+      The more he performs invulnerability, the more certainly he's protecting an unbearable wound — the sharpest thing the quest says.
+  W3  HE'S DESIGNED TO BE WRITTEN OFF
+      The performance is calibrated to earn dismissal — and the quest quietly indicts the reflex to take it at face value.
+  W4  THE WOUND IS THAT NO ONE CAME
+      A child no adult ever reliably showed up for — the specific abandonment the not-needing is built around.
+  W5  REACHING ISN'T GUARANTEED
+      The removed "fix him by seeing him once" verb is the spine: the armor is load-bearing; one kindness doesn't undo a childhood.
+  W6  THE MOST DISMISSIBLE IS THE MOST WOUNDED
+      The character you most want to ignore is the one who most needs seeing — the reversal of the dismissal reflex.
+  W7  GIVING UP CONFIRMS THE ARMOR
+      Writing him off is exactly what the performance expects — the dismissal proves no one comes, which built the armor.
+  W8  HE'S A CHILD
+      Young, small, poor — the cruelty is a kid's, which makes taking it at face value a kind of failure of the adult, not the child.
+  W9  THE FATHER IS THE ABSENCE
+      The passed-out addict is the wound's source — the neglect that made the fortress.
+  W10 IT IS THE-ARMOR-IS-THE-WOUND IN ONE STREET KID
+      A neglected child performing not-needing-anyone — Bohemia's whole question of the hostile-seeming who most need seeing, in the most dismissible character on the map.
+
+### #218  ACADIA (A HIDDEN REFUGE OF SYNTHS DEBATES WHETHER MADE PEOPLE SHOULD HIDE, INTEGRATE, OR REPLACE, AND THE PLAYER CAN KEEP OR SHATTER THE PEACE OF THREE FACTIONS) (Fallout 4: Far Harbor)
+  W1  THE PEACE IS BUILT ON LIES
+      The island's coexistence rests on buried truths and wrongs — the fragile balance is a concealment, which is the whole engine.
+  W2  WHOEVER HOLDS THE TRUTH HOLDS THE MATCH
+      The player's discovery makes them the island's fulcrum — the truth is a weapon that would collapse the peace.
+  W3  NO OPTION IS HONEST AND PEACEFUL
+      The removed "honest and lasting peace" verb is the spine: the lie can't be made truthful without falling.
+  W4  DIMA IS COMPROMISED, NOT EVIL
+      A synth who did monstrous things to keep his people alive — the keeper whose means indict the peace they preserved.
+  W5  THE SYNTH QUESTION HAS THREE ANSWERS
+      Hide (Acadia), integrate (the replacement), or coexistence is impossible — none safe, all embodied.
+  W6  THE MADE PEOPLE'S SAFETY IS ONE REVELATION FROM ASH
+      Acadia is the fragile best-case, one truth away from destruction — the precarity of made lives among makers.
+  W7  FLAWED SURVIVAL VS HONEST CATASTROPHE
+      The choice is whether a lie-based coexistence beats a truthful war — a genuine, hard trade.
+  W8  THE PLAYER DECIDES FOR EVERYONE
+      The fulcrum resolves the island for all three peoples — enormous, uncomfortable power over others' fates.
+  W9  THE TRUTH IS A WEAPON
+      Exposing the secrets frees the humans to destroy the synths — honesty as detonation, not clean virtue.
+  W10 IT IS MADE-PEOPLE-AMONG-THE-LIVING IN ONE ISLAND
+      Whether synths can coexist, and at what cost of lies — Bohemia's whole Amalgamation question of the made among the born, in a three-faction standoff.
+
+### #219  THE ASSASSIN'S SON (A DYING KILLER SEEKS ATONEMENT BY STOPPING HIS BOY FROM BECOMING HIM, AND THE ONLY WAY IN IS THROUGH THE FATHER'S OWN SINS) (Mass Effect 2)
+  W1  ATONEMENT IS FOR THE SON, NOT THE SELF
+      Thane acts to interrupt the harm he set in motion, not to clear his conscience — the removed "be the good father" verb is the spine.
+  W2  THE SON INHERITS THE SINS
+      Kolyat walks the father's exact road by absence and example — the child follows the template, not the sermon.
+  W3  ONLY OWNING IT BREAKS THE CYCLE
+      Thane must confront the boy by naming his own crimes — no pedestal, or the truth won't land.
+  W4  THE AUTHORITY COMES FROM HAVING BEEN
+      The one voice that can say "do not become me" is the father who admits he was exactly that.
+  W5  THE DEATH GIVES IT A CLOCK
+      Thane's terminal illness means the atonement may not be completed — urgency and tragedy fused.
+  W6  THE FIRST KILL LOCKS THE PATH
+      Kolyat's impending murder is the point of no return — the cycle-locking act the father races to interrupt.
+  W7  THE FATHER MADE THE SON
+      By abandonment and example, Thane shaped the boy who is now copying him — the worst legacy is the template.
+  W8  RECONCILIATION IS HARD-WON
+      The cycle-break costs and stays partial — a lifetime of absence isn't undone in a scene.
+  W9  THE PLAYER ENABLES, DOESN'T RESOLVE
+      Shepard helps the father reach the son — the atonement is Thane's to make, not the player's to grant.
+  W10 IT IS BREAK-THE-CYCLE IN ONE DYING FATHER
+      Owning your sins to stop your child from inheriting them — Bohemia's whole fold question of succession and the harm passed down, in an assassin's last act.
+
+### #220  THE DEMANDS OF THE QUN (A SPY MUST CHOOSE BETWEEN THE MEN WHO TRUST HIM AND THE ORDER THAT GIVES HIM A SELF, KNOWING ONE CHOICE ERASES HIM) (Dragon Age: Inquisition)
+  W1  THE SELF IS AN INSTITUTION
+      The Qun gave Bull his name, role, and identity — disobeying isn't breaking a rule but losing who he is, which is the whole engine.
+  W2  BOTH CLAIMS ARE LEGITIMATE
+      The collective's command is coherent and the crew's trust is real — neither side is the obvious right.
+  W3  NO CHOICE KEEPS BOTH
+      The removed "keep the crew and the Qun both" verb is the spine: the battlefield forces the men or the self, never both.
+  W4  CHOOSING THE FEW ERASES THE SELF
+      Saving the Chargers means becoming Tal-Vashoth — the people you love bought with who you were told you are.
+  W5  OBEYING KEEPS THE SELF, BREAKS THE BOND
+      Sacrificing the men preserves the identity and carries the betrayal — the other kind of self-loss.
+  W6  THE COLLECTIVE VS THE FEW IS ETERNAL
+      Every belonging eventually demands the choice — the quest names a permanent tension, not a one-off.
+  W7  THE QUN CONSTITUTES, NOT JUST EMPLOYS
+      Bull's sanity and self depend on belonging — which makes the choice existential, not tactical.
+  W8  THE CHARGERS ARE LOVED
+      A real crew who trust their captain — the human bond given weight against the ideology.
+  W9  THE PLAYER COUNSELS, BULL CHOOSES
+      The Inquisitor tips it but the choice is Bull's — his self, his loss.
+  W10 IT IS THE-COLLECTIVE-VERSUS-THE-FEW IN ONE SPY
+      An institution-given self against the people who trust you — Bohemia's whole faction question of belonging and identity, on one battlefield.
+
+### #221  THE ILLUSIVE MAN (A MAN WHO SPENT HIS LIFE FIGHTING THE ENEMY BECAME IT, AND STILL BELIEVES HE CAN CONTROL WHAT OWNS HIM) (Mass Effect 3)
+  W1  HE BECAME WHAT HE FOUGHT
+      The Illusive Man was taken by the very enemy he studied to defeat — fighting the horror by getting close is how you become it, the whole engine.
+  W2  HIS CERTAINTY OF CONTROL IS THE PROOF OF CAPTURE
+      The belief that he's the exception in command is exactly the leash — the surest sign of being owned.
+  W3  INDOCTRINATION PRESENTS AS VINDICATION
+      Every step deeper felt like mastery, so he can't feel the leash — the corruption disguised as control.
+  W4  THE NOBLE GOAL IS THE HANDLE
+      His sincere aim to save humanity is what the enemy steered him by — the best intention as the mechanism of capture.
+  W5  THE MASTERY WAS NEVER REAL
+      The removed "let him keep controlling it" verb is the spine: he never controlled it; the belief was the capture.
+  W6  TRUTH BREAKS WHAT FORCE CAN'T
+      The one thing indoctrination can't survive is the victim genuinely seeing the leash — the argument-win over the bullet.
+  W7  THE LUCID MOMENT GRANTS AGENCY
+      Making him see gives him horror and a choice at the end — his own ending with clarity, not just death.
+  W8  HE IS THE TOO-CLOSE FIGHTER'S TRAGEDY
+      Not weakness or greed but the hubris of thinking exposure makes you stronger — the specific fall of the studier.
+  W9  HE IS NOT, IN HIS MIND, A VILLAIN
+      He believes he's saving everyone — which makes the confrontation a tragedy, not a defeat.
+  W10 IT IS THE-OWNED-WHO-THINKS-HE-OWNS IN ONE MAN
+      The certainty of control as the mark of capture — Bohemia's whole Amalgamation question of who masters whom, in a fallen visionary's last stand.
+
+### #222  LADY BOYLE'S LAST PARTY (FIND THE RIGHT TARGET AT A MASKED BALL, AND HAND HER TO THE MAN WHO WANTS HER FOR HIMSELF) (Dishonored)
+  W1  THE MERCY IS A HORROR
+      The "non-lethal" option delivers the target to lifelong captivity — the merciful-seeming path is a cruelty in a kind mask, the whole engine.
+  W2  THE REWARD SYSTEM ENDORSES THE ATROCITY
+      The game's own morality meter calls handing her to a captor the "clean" choice — the complicit meter congratulating the horror.
+  W3  THE PLAYER'S REFLEX IS WEAPONIZED
+      Prior targets trained "non-lethal = merciful"; here that reflex authors a cage — the conditioning turned into a trap.
+  W4  NON-LETHAL IS NOT HUMANE
+      The removed "trust the kind label" verb is the spine: the label is not the thing; you must look at what the mercy is.
+  W5  DEATH MAY BE THE TRUER MERCY
+      A clean end may be kinder than the cage — the inversion that makes bloody hands possibly the gentler ones.
+  W6  THE IDENTIFICATION DOUBLES THE THEME
+      First be sure of the right target, then reckon that even sparing them is a condemnation — care nested in care.
+  W7  THE HORROR WEARS THE MASK OF KINDNESS
+      Brisby's "love" is a cage; the cruelty is dressed as devotion, chosen because it feels good.
+  W8  THE MASQUERADE IS THE PERFECT STAGE
+      Identical masks literalize the theme: mercy and cruelty, target and innocent, all wearing the same face.
+  W9  THE PLAYER AUTHORS THE FATE
+      Whichever path, the player chose it — the horror or the death is theirs, not the game's.
+  W10 IT IS THE-MERCY-IS-A-HORROR IN ONE BALL
+      A spared life that is a caged one, rewarded as clean — Bohemia's whole conduct-book question of what mercy actually is, at a masquerade.
+
+### #223  FALL-FROM-GRACE (A SUCCUBUS PRACTICES CHASTITY NOT TO DENY HER NATURE BUT TO PROVE SHE IS MORE THAN IT) (Planescape: Torment)
+  W1  YOU ARE NOT YOUR DESIGN
+      A being made to seduce and drain chooses to be more — the removed "amputate or hide" verb is the spine: mastery, not denial, is the freedom.
+  W2  RESTRAINT WITHOUT SHAME IS SELF-AUTHORSHIP
+      Her chastity is not repression but daily self-definition — the discipline that proves design is a starting point, not a sentence.
+  W3  SHE RE-AUTHORS HER NATURE
+      The brothel of the mind takes the domain of her design and makes it give rather than drain — transcendence by owning, not cutting.
+  W4  SHE IS UNASHAMED OF WHAT SHE IS
+      No self-hatred, no torment — she simply refuses to let her function be her identity, which is the rare and hard version.
+  W5  SHE ANSWERS THE GAME'S QUESTION
+      "What changes the nature of a man?" — not magic, not denial, but daily disciplined choosing, embodied in a companion.
+  W6  DESIGN IS A QUESTION, NOT AN ANSWER
+      What you were made to be is what your life answers, never what it is — the deepest reframe of nature.
+  W7  FREEDOM IS MASTERY, NOT ABSENCE
+      The deepest freedom is not lacking your nature but commanding it — the counterintuitive core.
+  W8  THE DISCIPLINE IS DAILY
+      Every day she doesn't do what she was made to do proves she is more — an ongoing choosing, not a one-time escape.
+  W9  SHE TAKES IT UP CONSCIOUSLY
+      She does not flee intimacy but transforms it — owning the nature is how she becomes more than it.
+  W10 IT IS YOU-ARE-NOT-YOUR-DESIGN IN ONE SUCCUBUS
+      A made being who authored herself without shame — Bohemia's whole made-people question of nature, design, and self-definition, in a demon who chose.
+
+### #224  GHOSTS OF THE PAST (THE MAN WHO MURDERED YOUR FRIENDS' MASTERS DID IT TO SAVE THEM, AND YOU OWE HIM A DEBT YOU WISH YOU DIDN'T) (The Witcher 3: Wild Hunt)
+  W1  THE ENEMY HAD REASONS YOU SHARE
+      Letho acted to save your own dying kind — a motive the player understands from inside, the whole engine.
+  W2  HATING HIM IS COMPLICATED BY BEING HIM
+      He's a witcher, your breed, one of the last — the removed "make him a villain or victim" verb is the spine.
+  W3  THE GRIEVANCE IS LEGITIMATE
+      He did the assassinations; they caused real harm — the account isn't exculpation, it's a genuine weighing.
+  W4  THE DEBT IS LEGITIMATE TOO
+      Letho once did right by the player — a real debt that a real grievance doesn't erase.
+  W5  HE WAS COERCED
+      Forced by an overwhelming power as the price of his kind's survival — a bind the player might not have escaped either.
+  W6  THE ACCOUNT WON'T RESOLVE
+      No reading makes him clean or monstrous — the mixed ledger that refuses clean enmity or clean forgiveness.
+  W7  IT IS HARDEST TO JUDGE YOUR OWN KIND
+      Shared breed and doom make clean judgment impossible — the specific difficulty of your own.
+  W8  THREE WEIGHINGS, NONE CLEAN
+      Aid, avenge, or release — three ways to weigh brotherhood against grievance, none resolving the account.
+  W9  THE PLAYER DECIDES WHAT KIND IS WORTH
+      How much shared doom and an old debt outweigh real wrongs — the choice is a valuation, not a verdict.
+  W10 IT IS THE-ENEMY-HAD-REASONS IN ONE BROTHER
+      A killer who is also your kind, owed and resembled — Bohemia's whole faction question of grievance, debt, and belonging, in a hunted witcher.
+
+### #225  PAARTHURNAX (THE ORDER DEMANDS YOU KILL A REFORMED MONSTER FOR CRIMES HE SPENT CENTURIES REPENTING, AND WON'T SAY WHY THAT'S JUSTICE) (The Elder Scrolls V: Skyrim)
+  W1  THE QUESTION IS WHETHER CHANGE CANCELS THE PAST
+      The whole quest turns on whether millennia of reform buy back the right to live — the question with no clean answer, the engine.
+  W2  THE CRIME WAS REAL
+      Paarthurnax's atrocities happened — the Blades aren't wrong, which is what makes the dilemma genuine, not a strawman.
+  W3  THE REFORM WAS REAL
+      Thousands of years of solitary, disciplined, verifiable penance — the clearest case of change a person could ask for.
+  W4  THE ORDER WON'T EXPLAIN
+      The removed "get them to admit change counts" verb is the spine: absolutism demands blood and refuses to justify why change shouldn't matter.
+  W5  BOTH POSITIONS ARE DEFENSIBLE
+      "Some crimes are unforgivable" and "proven change should count" are both coherent and irreconcilable — no right answer.
+  W6  HE FREED THE VERY KIND HE OPPRESSED
+      Paarthurnax taught humanity to break dragon rule — his good was done for those he once wronged, deepening the case.
+  W7  HIS NATURE STAYS DANGEROUS
+      A dragon's cruelty is real even mastered — the Blades' fear isn't baseless, which keeps the tension.
+  W8  THE PLAYER MUST PLANT THEIR FEET
+      No synthesis, no negotiation — comply with the absolutism or defy it, and own the answer.
+  W9  THE ALLIANCE IS THE PRICE
+      Sparing him costs the Blades' aid — the principle has a real cost, not a free stand.
+  W10 IT IS CAN-CHANGE-CANCEL-THE-PAST IN ONE DRAGON
+      A reformed monster the order demands you kill — Bohemia's whole conduct-book question of penance, permanence, and forgiveness, on a frozen peak.
+
+### #226  VIRMIRE (TWO OF YOUR PEOPLE ARE ABOUT TO DIE AND YOU HAVE TIME TO REACH ONLY ONE, SO YOU CHOOSE WHO LIVES) (Mass Effect)
+  W1  CHOOSING WHO LIVES IS CHOOSING WHO DIES
+      The player actively authors which comrade dies — the loss is theirs, not the situation's, the whole engine.
+  W2  TWO VALUED PEOPLE, ONE SAVE
+      Both squadmates are known and invested-in — not strangers on a trolley, which makes the arithmetic personal.
+  W3  THE GAME FORECLOSES THE TRICK
+      The removed "save both" verb is the spine: no third option, no clever out, the escape denied on purpose.
+  W4  THE CLOCK REMOVES DELIBERATION
+      Seconds, not minutes — no time to agonize into a solution, only time to pick, which is its own cruelty.
+  W5  THE LOSS IS PERMANENT
+      The dead squadmate stays dead across the trilogy — no undo, which makes the weight last and the choice real.
+  W6  THE SURVIVOR IS A REMINDER
+      The one saved carries the memory of the one who wasn't — the loss made present in later games.
+  W7  IT IS THE PUREST DEATH-MATH
+      Not abstract but two specific people, engineered to have no answer but choice — the trolley with faces you love.
+  W8  THE WEIGHT IS SELF-AUTHORED
+      The player cannot blame the situation; they chose, and the choosing is the burden.
+  W9  IT ECHOES FOR THREE GAMES
+      The choice's consequences ripple across the whole trilogy — the loss given the longest possible reach.
+  W10 IT IS YOU-CAN-ONLY-SAVE-ONE IN ONE MISSION
+      Two comrades, one clock, no trick — Bohemia's whole death-math question of who lives when you can't save everyone, in a single irreversible pick.
+
+### #227  THE DREAD WOLF (THE FRIEND WHO GUIDED YOU ALL ALONG IS THE GOD WHOSE MISTAKE MADE THE WORLD, AND HE'LL UNMAKE IT TO FIX IT) (Dragon Age: Inquisition)
+  W1  THE FRIEND IS THE APOCALYPSE
+      The trusted advisor is the architect of the world's end — the mentor-as-apocalypse, the whole engine.
+  W2  THE BETRAYAL IS GRIEF, NOT CRUELTY
+      He was telling the truth about caring; the horror is that he was secretly grieving, not secretly lying.
+  W3  HIS REMORSE MAKES HIM UNSTOPPABLE
+      The removed "convince him his guilt doesn't require it" verb is the spine: you can't argue a man out of a penance he's certain he owes.
+  W4  THE GUILT IS EARNED
+      Solas really did break the world — his culpability is real, which makes his atonement coherent, not delusional.
+  W5  HIS CARE DOESN'T STOP HIM
+      Genuine love, which changes nothing — the love that dooms anyway, larger forces overriding affection.
+  W6  THE LOGIC IS HORRIFYINGLY COHERENT
+      The maker must undo his catastrophe, at any cost — a penitent's reasoning that isn't easily refuted.
+  W7  HE TAKES NO JOY IN IT
+      Not malice but duty — the apocalypse as a sorrowful obligation, which is worse than villainy.
+  W8  THE WISEST VOICE WAS THE END
+      The gentlest, most trusted counsel in the player's life was always going to unmake the world.
+  W9  YOU CAN'T TALK HIM DOWN
+      His guilt is a force larger than his love and his logic is coherent — the reach that fails against certainty.
+  W10 IT IS THE-MENTOR-IS-THE-APOCALYPSE IN ONE FRIEND
+      A beloved advisor who'll end the world to fix his mistake — Bohemia's whole question of guilt, love, and the danger of the one who can't forgive himself, in a quiet god.
+
+### #228  THE WATER CHIP (SAVE YOUR HOME FROM A DEADLINE, THEN GET EXILED BY THE HOME YOU SAVED FOR WHAT YOU BECAME OUT THERE) (Fallout)
+  W1  THE TRANSFORMATION UNFITS YOU
+      The change required to save the vault is exactly what bars you from it — the removed "come home as who you became" verb is the spine.
+  W2  SAVING YOUR HOME COSTS YOUR HOME
+      Success, not failure, causes the exile — the tragic price of salvation, the whole engine.
+  W3  THE EXILE IS INCOMPATIBILITY, NOT PUNISHMENT
+      The Overseer is hard but right; the shelter and the survivor genuinely cannot coexist.
+  W4  THE DEADLINE FORCED THE CHANGE
+      The thirst clock and the lethal wasteland demanded the Dweller become dangerous — the crucible that made them unfit.
+  W5  THEY DID EVERYTHING RIGHT
+      Obeyed the deadline, endured, saved everyone — and are banished for it, which is the cruelest structure.
+  W6  THE SHELTER EXCLUDES ITS SAVIORS
+      The safe world stays safe by barring the ones who paid to keep it — the structural tragedy.
+  W7  THE DARK-GOERS CAN'T RETURN TO THE LIGHT
+      Those who went out and were changed can't rejoin the innocence they preserved — the you-can't-go-home truth.
+  W8  THE SACRIFICE IS PAID IN BELONGING
+      Not death but home — the loss is exile, the rarest and quietest kind of hero's price.
+  W9  THE DOOR CLOSING IS THE IMAGE
+      The hero alone, watching the vault seal — the whole tragedy in one shutting door.
+  W10 IT IS YOU-CAN'T-GO-HOME-AGAIN IN ONE VAULT
+      Save the safe place, lose your right to live in it — Bohemia's whole fold question of transformation, sacrifice, and belonging, in the taproot's first quest.
+
+### #229  THE ARCHITECT (A MONSTER WHO WANTS TO FREE ALL MONSTERS FROM THE HIVE-MIND COMMITTED ATROCITIES DOING IT, AND ASKS YOU TO LET HIM KEEP TRYING) (Dragon Age: Origins — Awakening)
+  W1  THE CURE WAS MADE BY A MONSTER
+      The Architect found the path to ending monstrousness by committing atrocities — the cure and the horror are one project, the engine.
+  W2  THE NOBLE END AND MONSTROUS MEANS ARE INSEPARABLE
+      The removed "have the cure without the monster" verb is the spine: you can't punish the means without losing the end.
+  W3  THE GOAL IS MAGNIFICENT
+      Freeing an enslaved species to end an eternal war — not power or survival, which makes him a tragic figure, not a villain.
+  W4  THE MEANS ARE GENUINELY MONSTROUS
+      Real experiments, real dead among the player's people — the atrocity isn't softened, which keeps the dilemma real.
+  W5  THE PAYOFF IS UNVERIFIABLE
+      No one knows if freed monsters would choose peace or become worse — the bet is blind, the world at stake.
+  W6  SPARING HIM IS A WORLD-WAGER
+      Betting everything on an unproven cure and the redemption of monsters — a gamble no one can make safely.
+  W7  KILLING HIM ENDS THE ONLY CHANCE
+      Extinguishing the atrocities also extinguishes the one being who tried to end the endless war — both sides doomed.
+  W8  HE ASKS TO CONTINUE
+      Not to be forgiven but to be allowed to keep working — the plea makes the player complicit in whichever choice.
+  W9  HE IS A MONSTER WITH A PHILOSOPHY
+      Self-aware, thoughtful, sincere — the awakened one among the mindless, which makes him unclassifiable.
+  W10 IT IS THE-CURE-IS-THE-ATROCITY IN ONE MONSTER
+      A world-changing good made through horror by a terrible maker — Bohemia's whole question of noble ends, monstrous means, and the wager on redemption, in an awakened darkspawn.
+
+### #230  THE COP AND THE TRIAD (AN UNDERCOVER OFFICER SPENDS SO LONG BEING A GANGSTER THAT SAVING THE PEOPLE WHO TRUST HIM MEANS BETRAYING THE PEOPLE HE SERVES) (Sleeping Dogs)
+  W1  THE MASK BECOMES THE FACE
+      Living the lie long enough makes it partly true — the role becomes a second real self, the whole engine.
+  W2  TWO REAL LOYALTIES, NOT ONE FAKE
+      Wei isn't torn between a true self and a mask; both selves are genuine — the removed "keep both" verb is the spine.
+  W3  EVERY CHOICE BETRAYS REAL TRUST
+      The gangsters' trust isn't misplaced because the brother they trust exists — so betrayal is unavoidable, whichever side.
+  W4  THE BONDS ARE EARNED, NOT FAKED
+      Wei really ran with them, bled with them — the brotherhood is real because he really lived it.
+  W5  THE COP IDENTITY IS ALSO REAL
+      The badge and the oath are genuinely his too — both claims true, which makes the tear complete.
+  W6  HE LOSES HIS SINGLE SELF
+      Deep deception costs the deceiver a unified identity — he ends as neither cleanly cop nor gangster.
+  W7  THE HANDLERS AREN'T CLEAN
+      The police use him too — the badge isn't pure, which keeps the choice from tipping.
+  W8  NO CHOICE LEAVES HIM WHOLE
+      Whichever loyalty he honors, he betrays the other and himself — the completeness of the no-win.
+  W9  YOU BECOME WHAT YOU PRETEND
+      The core truth: pretend long and fully enough and it's no longer pretending — the mask is the face.
+  W10 IT IS THE-MASK-BECOMES-THE-FACE IN ONE COP
+      A lived lie that made a second real self and two real loyalties — Bohemia's whole faction question of divided belonging and the cost of deep deception, in one undercover officer.
+
+### #231  THE EMPEROR (YOUR PROTECTOR KEEPS YOU ALIVE AND KEEPS YOU LEASHED, AND ASKS YOU TO TRUST THAT THOSE ARE THE SAME THING) (Baldur's Gate 3)
+  W1  PROTECTION AND CONTROL ARE THE SAME ACT
+      The Emperor genuinely keeps the player alive while genuinely leashing them — the guardian-is-a-leash, the whole engine.
+  W2  THE HELP IS GENUINE
+      The protection isn't a lie; without it the player is lost — which is exactly what makes the control hard to reject.
+  W3  THE JUSTIFICATION IS FOR-YOUR-OWN-GOOD
+      The most reasonable-sounding thing a controller ever says — care as the dress of control.
+  W4  THE LEASH IS ALSO A LIFELINE
+      The removed "keep protection without control" verb is the spine: the safety can't be separated from the dependence.
+  W5  DEPENDENCE IS COMFORTABLE AND OFTEN CORRECT
+      Which is precisely what makes it a cage — the short-term rightness of the leash is the trap.
+  W6  THE CHOICE ISN'T TRUST-A-LIAR
+      It's accept-or-refuse a safety that costs autonomy — a subtler, truer dilemma than unmasking a fraud.
+  W7  THE DANGER IS REAL
+      The corruption genuinely threatens the player — the leash is rational, not paranoid, which keeps the tension.
+  W8  AUTONOMY IS THE HARDER ROAD
+      Rejecting the protector means more risk and less guidance — freedom as a costly trade, not a free good.
+  W9  THE BENEFACTOR HAS ITS OWN AGENDA
+      Its help serves its ends too — a lifeline held by someone with their own purposes is a leash.
+  W10 IT IS PROTECTION-IS-CONTROL IN ONE GUARDIAN
+      A benefactor who keeps you safe and small at once — Bohemia's whole Amalgamation question of care, dependence, and the leash, in one protector.
+
+### #232  THE RAKGHOUL SERUM (A CURE FOR THE PLAGUE THAT TURNS THE POOR INTO MONSTERS EXISTS, AND ITS MAKER WANTS TO SELL IT, NOT SPREAD IT) (Star Wars: Knights of the Old Republic)
+  W1  THE CURE IS HOARDED, NOT ABSENT
+      The suffering persists because the remedy is withheld for profit — the hoarding is the injustice, the whole engine.
+  W2  THE POOR CAN'T PAY
+      The cure is denied to those who need it most — the priced-out dying, the sharpest form of the commodity question.
+  W3  WHOSE LIVES COUNT
+      Whether the cure is sold or given is a decision about which lives matter — the moral core.
+  W4  THE SCARCITY IS A CHOICE
+      The removed "cure everyone and keep the monopoly" verb is the spine: the hoarding IS the scarcity; you can't have both.
+  W5  THE SHINING CITY ARRANGED NOT TO SEE
+      The plague festers where the powerful don't look — the engineered blindness above the buried misery.
+  W6  THE PLAGUE FUSES POVERTY AND HORROR
+      The sick become monsters — the underclass's suffering made literal and vivid.
+  W7  THE MAKER HAS A CLAIM
+      He made it, he could profit — which keeps the choice a real dilemma, not obviously robbing a villain.
+  W8  THE CURE BELONGS TO ITS NEED OR ITS OWNER
+      The question the whole quest poses — commodity or right — enacted in one decision.
+  W9  THE INJUSTICE IS ENGINEERED
+      The tiered city and the hoarded cure are choices, not facts — the suffering is made, not inevitable.
+  W10 IT IS THE-REMEDY-HOARDED-FROM-THE-POOR IN ONE SLUM
+      A cure withheld from the dying beneath a shining city — Bohemia's whole power-grid question of who a good is for, in an undercity.
+
+### #233  WHODUNIT! (LOCKED IN A MANSION WITH STRANGERS YOU'RE PAID TO MURDER ONE BY ONE, YOU TURN THEIR FEAR INTO YOUR WEAPON) (The Elder Scrolls IV: Oblivion)
+  W1  THE WEAPON IS PARANOIA, NOT THE BLADE
+      The assassin turns fear into the killer — manufactured suspicion is deadlier than any knife, the whole engine.
+  W2  THE HORROR IS HOW LITTLE IT TAKES
+      A few whispers turn trapped strangers into mutual executioners — the chilling ease of social breakdown.
+  W3  THE GUESTS DO THE KILLING
+      Ordinary, frightened people destroy each other; the assassin barely lifts a blade — the victims made complicit in their own slaughter.
+  W4  THE SEALED ROOM IS THE WEAPON
+      The removed "complete it without anyone's fear turned into a weapon" verb is the spine: the trapped, fearful space only needs aiming.
+  W5  FEAR DEFAULTS TO SUSPICION
+      Isolated and threatened, people suspect each other — the assassin only converts that suspicion into violence.
+  W6  THE GUESTS AREN'T EVIL
+      Just ordinary strangers under dread — which is what makes their turning so unsettling; anyone would.
+  W7  THE METHOD MIRRORS FEAR EVERYWHERE
+      Isolate, convince them a threat is among them, and they destroy each other — how paranoia operates at any scale.
+  W8  THE ELEGANT ROUTE IS THE DISTURBING ONE
+      The psychological method is easier and worse than the blade — the quest makes cleverness chilling.
+  W9  THE ONE WHO UNDERSTANDS ONLY AIMS
+      The assassin need not kill you, only your suspicion of each other — the deepest form of the weapon.
+  W10 IT IS FEAR-TURNS-PEOPLE-ON-EACH-OTHER IN ONE MANOR
+      Trapped strangers made mutual executioners by a whisper — Bohemia's whole question of manufactured paranoia and social breakdown, in a sealed party.
+
+### #234  THE ACCUSATION (YOU MUST NAME A KILLER ON EVIDENCE THAT NEVER ADDS UP, AND THE TOWN WILL LIVE WITH YOUR GUESS FOR GENERATIONS, AND YOU WILL NEVER KNOW IF YOU WERE RIGHT) (Pentiment)
+  W1  YOU DECIDE THE TRUTH WITHOUT VERIFYING IT
+      A name is forced on incomplete evidence and never confirmed — the unverifiable judgment, the whole engine.
+  W2  AN INNOCENT MAY PAY
+      The accused may be guiltless and is executed anyway — the stakes of a verdict authored on a guess.
+  W3  THE TOWN CARRIES IT FOR GENERATIONS
+      The accusation shapes the community for decades — the generational ledger of an uncertain judgment.
+  W4  THE TRUTH IS WITHHELD FOREVER
+      The removed "find out for certain" verb is the spine: no reveal, no epilogue, no confirmation, ever.
+  W5  THE WEIGHT IS THE NOT-KNOWING
+      Not being wrong but never being allowed to know — the true, rare burden the quest makes the player carry.
+  W6  A NAME MUST BE GIVEN
+      "I'm not sure" is not allowed; the decision can't be deferred — the forced authorship of a verdict.
+  W7  THE EVIDENCE NEVER RESOLVES
+      Partial, contradictory, inconclusive — no path to proof, which is the honest condition of most real judgment.
+  W8  TIME IS THE CRUELEST STROKE
+      The player returns years later and sees the verdict still shaping lives — the accusation's permanence made visible.
+  W9  IT MIRRORS EVERY REAL JUDGMENT
+      Deciding with incomplete information and lasting stakes, never confirmed — the universal condition of judging.
+  W10 IT IS DECIDE-AND-NEVER-KNOW IN ONE TOWN
+      A verdict authored on a guess and carried for generations — Bohemia's whole unrecorded-ledger question of who the record convicts, made the capstone of the conduct book.
+
+### #235  FROM THE GRAVE TO THE HUNT (A BLACKSMITH'S SON WATCHES HIS TOWN AND HIS PARENTS BUTCHERED, AND IT IS NOT REVENGE BUT A STRANGER'S SMALL, GROUNDED ERRAND THAT PULLS HIM OFF THE GRAVE AND BACK INTO A LIFE) (Kingdom Come: Deliverance)
+  W1  IT BUYS THE LOST LIFE IN ORDINARY TEXTURE
+      A mundane dear day is played before it is taken — the whole loss lands because the warmth was earned first.
+  W2  THE LOSS IS POWERLESS AND CLEAN
+      Henry cannot save his family; the death belongs to the attackers, never to the player's failure — grief without resentment.
+  W3  THE GRIEF IS PERFORMED, NOT WATCHED
+      Burying the parents by hand makes the loss a slow physical act the player carries, the opposite of a skipped cutscene.
+  W4  THE RETURN IS AN ERRAND, NOT A TRUMPET
+      Purpose arrives as a small grounded task from someone who needs you — the honest way people re-enter life after catastrophe.
+  W5  IT REFUSES REVENGE-FANTASY SHORTCUTS
+      No chosen-one call, no vengeance montage; the pull back is ordinary and human, which is why it is believed.
+  W6  THE FIRST TASK HAS PURPOSE TIED TO THE LOSS
+      Find where the raiders came from — grounded work threaded to what was taken, so action is earned, not busywork.
+  W7  THE RISE STARTS FROM ABSOLUTE ZERO
+      A blacksmith's son with no skill; the climb is long and real because the floor is truly the floor — the fold's rise-from-nothing.
+  W8  THE MENTOR NEEDS YOU, NOT SAVES YOU
+      The captain and lord hand tasks out of ordinary use, so the bond is reciprocal from the first beat, not charity.
+  W9  GRIEF IS WALKED OUT OF, NOT CURED
+      The removed "bring the dead back" verb is the spine: nothing returns them; you move forward one task at a time.
+  W10 IT IS THE WHOLE FOUNDING MACHINE IN ONE MORNING
+      Ordinary life, powerless loss, physical grief, and the grounded first errand — the exact shape of Bohemia's opening and the seed of a hundred-hour rise.
+
+### #236  THE HALL AND THE HAGGLE (THE BATTLE BROTHERS CONTRACT SYSTEM) (Battle Brothers)
+  W1  THE BOARD IS THE WORLD'S CURRENT PROBLEMS
+      Contracts are generated by settlement situations and write situations back; the hall is a readout of the map, not a quest list.
+  W2  ONE CONTRACT AT A TIME
+      A single active job keeps the player's promise legible and the map uncluttered; the greyed button teaches it without a speech.
+  W3  THE SKULLS ARE A READING
+      Danger is stated before the yes in one glyph, so "too strong for me" is the player's informed call.
+  W4  THE FACE IS THE NEGOTIATION UI
+      A portrait whose mood shifts per ask makes a number feel like a person's patience.
+  W5  GREED HAS A CLOCK
+      Annoyance 3 to 6 per ask, a failure chance that grows, thrown out at 9: asking for more is a gamble with a visible cost.
+  W6  THE PAYMENT MODE IS A CHOICE ABOUT RISK
+      Up front, on completion, or per head lets the player bet on his own company.
+  W7  THE ACCEPT BUTTON IS THE ONLY PROMISE
+      Browsing, reading and haggling are free of commitment; failing after accept is what costs.
+  W8  THE OUTCOME CHANGES THE MAP
+      Supplied castles and burned granaries turn a finished job into prices and boards the player meets later.
+  W9  RENOWN GATES THE TIERS
+      Bigger clients appear as the company grows, so the board is its own progression without a quest log.
+  W10 THE WAGE TREADMILL MAKES CONTRACTS MATTER
+      Money out every day means every offer is weighed, not skimmed.

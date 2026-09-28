@@ -3,13 +3,13 @@
 Every id here is CITABLE from a `.bq` quest and is machine-verified by
 `gates/quest_study_gate.js`. Regenerate with `python3 tools/bohemia_questbook_index.py`.
 
-- studies: 152
-- citable laws: 3672
+- studies: 236
+- citable laws: 5356
 
-- craft laws (W): 1527
-- flaws laws (X): 693
-- ports laws (P): 1276
-- convos laws (N): 176
+- craft laws (W): 2367
+- flaws laws (X): 946
+- ports laws (P): 1613
+- convos laws (N): 430
 
 ### Q001  THE BLOODY BARON (The Witcher 3)
 - `Q001.N1` **NODE BARON_MEET** the hall, entry: quest start He has Ciri intel and says so immediately; he wants a "small favor": find his wife and daughter, who he says were kidnapped. > "Kidnapped by whom?" [ga
@@ -3986,3 +3986,1855 @@ Every id here is CITABLE from a `.bq` quest and is machine-verified by
 - `Q152.X1` **THE OFFICE IS A TROPHY, NOT A JOB** After coronation, ruling amounts to a throne-room chair, a couple of petitioner novelties, and the chamberlain's shrug. The genre's boldest reward — BECOMING the god — ships with a
 - `Q152.X2` **THE ACCESSION FORK IS WEIGHTLESS DOWNSTREAM** Mania or Dementia colors the regalia and a handful of scenes, then the endgame funnels identically. The expansion's one exclusive moral fork — WHO the player murders for advancemen
 - `Q152.X3` **THE CYCLE'S BREAKING IS FREE** The curse ends because the player wins a duel: no cost, no trade, no residue — the realm's thousand-era tragedy resolves as a boss health bar. Even sympathetic critics note the fin
+
+### Q153  A NIGHT TO REMEMBER (THE BLACKOUT RECONSTRUCTION) (The Elder Scrolls V: Skyrim)
+- `Q153.N1` **NODE N-1 — the priest, waking** Entry: stage 2. He wants the stranger out of his profaned shrine and is not interested in their confusion. > "Where am I? What happened?" [gate: none] -> the first clue, delivered 
+- `Q153.N2` **NODE N-2 — a witness (the wedding thread)** Entry: stage 3. The jilted party, holding a grievance the player authored blind. > "I agreed to marry you?" [gate: none] -> the farce and, under it, a real ache the quest declines 
+- `Q153.N3` **NODE N-3 — Sanguine revealed** Entry: stage 4. Sam drops the disguise: the Prince of revelry, delighted. > "You did all this to me?" [gate: none] -> he doesn't deny it; the author enjoying the reconstruction he 
+- `Q153.P1` **PORT 1 — THE BLACKOUT RECONSTRUCTION QUEST [W1, W4, W5 — the core port]** system: the release-valve quest layer / the unrecorded ledger / dialogue scenes A Bohemia quest where the dynast loses a night (drink, a fever, a fold-skip, an Amalgamation edit) a
+- `Q153.P2` **PORT 2 — THE RECONSTRUCTION THAT ASSEMBLES WRONG [F1's law]** system: the missing-persons organ (#141) / the fold The reconstruction can conclude FALSE — the dynast pieces together a version of their lost night that didn't happen, accuses the
+- `Q153.P3` **PORT 3 — ONE GRIEVANCE STICKS [F2's law]** system: faction memory / the conduct book (#143) Most of a blackout's harm is comic and resets; ONE grievance persists — a person who stays hurt, a debt the district remembers, a r
+- `Q153.P4` **PORT 4 — CHOOSING TO NOT BE PRESENT [F3's law]** system: the fold / the dial / conscience When a Bohemia quest offers a VOLUNTARY loss of control (drink to oblivion, elect a memory edit, skip a fold beat), the choosing is itself 
+- `Q153.W1` **THE PLAYER IS THE CRIMINAL** The mystery is your own off-screen night, so the detective work is self-confrontation — the rarest and best investigation subject: yourself, unwatched.
+- `Q153.W10` **THE TONE IS A COUNTERWEIGHT** Placed among Skyrim's grim Daedric quests, the levity relieves and, by contrast, sharpens the dread of the darker ones. Range is the point.
+- `Q153.W2` **THE WORLD KNOWS WHAT YOU DON'T** Inverted dramatic irony: every NPC is a witness to a you that you can't access, and their straight-faced grievances are the comedy engine.
+- `Q153.W3` **SINCERITY IS THE JOKE** The quest never winks; the priest and the bride treat the aftermath as real, and the player's mortified reconstruction lands because nobody in it is laughing.
+- `Q153.W4` **THE CRIME SCENE IS TESTIMONY** The night is reassembled from people, not flashback — a social reconstruction that makes the witnesses the level design.
+- `Q153.W5` **THE BLACKOUT IS UNRECOVERABLE DIRECTLY** No flashback verb exists; the player must go ask, which turns a memory gap into a tour of the people it touched.
+- `Q153.W6` **THE HUMAN NOTE UNDER THE FARCE** The jilted wedding keeps the comedy from weightlessness — one witness whose grievance has an ache, played almost straight.
+- `Q153.W7` **THE BENDER IS A JOB INTERVIEW** Sanguine was auditioning the player through chaos; the reconstruction was the résumé — the reward reframes the whole night as a test passed.
+- `Q153.W8` **SCOPE DISCIPLINE** Contest to Rose in one arc; the comedy never dilutes because the container is tight — the release valve does one thing perfectly.
+- `Q153.W9` **RESTITUTION IS OPTIONAL AND UNJUDGED** At each witness the player may make amends or not, with no mechanical push — the conscience slot is real and entirely theirs.
+- `Q153.X1` **THE RECONSTRUCTION IS A CORRIDOR** The witnesses come in a fixed order and the player cannot investigate wrong, reach a false conclusion, or miss a beat — the "detective" work is a guided tour of pre-written comedy.
+- `Q153.X2` **THE HARM HAS NO WEIGHT** The jilted bride, the sold goat, the trashed tavern — none of it persists; the world resets, no witness stays wronged, the wedding thread's ache evaporates on quest completion. The
+- `Q153.X3` **THE VOLUNTARY BLACKOUT ISN'T INTERROGATED** The player CHOOSES to drink into oblivion and the quest never asks why or costs them the choosing — the loss of control is pure setup, never a theme. For a game about edited memory
+
+### Q154  THE FORSWORN CONSPIRACY / NO ONE ESCAPES CIDHNA MINE (THE CITY THAT FRAMED YOU) (The Elder Scrolls V: Skyrim)
+- `Q154.N1` **NODE M-1 — the warning note** Entry: stage 2. Not a person — a message, left where the player will find it after the first clue. > (read: "STOP investigating, or else") [gate: none] -> the city speaking; the qu
+- `Q154.N2` **NODE M-2 — Madanach in the mine** Entry: stage 4. The King in Rags, running a war from a cell, sizing up the framed newcomer. > "You're behind the murders." [gate: none] -> he doesn't deny it; his cause and his kil
+- `Q154.N3` **NODE M-3 — the fork** Entry: stage 5. The escape, and whose bodies it runs over. > "We go together." (side with Madanach) [gate: none] -> the uprising; guards die, the Forsworn walk out, a unique armor,
+- `Q154.P1` **PORT 1 — THE DISTRICT THAT FRAMES YOU [W1, W2, W3 — the core port]** system: the district / faction web / the unrecorded ledger A Bohemia arc where pulling one thread on a quiet wrong turns the DISTRICT itself against the dynast — its enforcers, its
+- `Q154.P2` **PORT 2 — THE UNTOUCHABLE WITH A LATER THREAD [F1's law]** system: the fold / faction memory The arc's real power is beyond the dynast's reach NOW — but the fold plants a discoverable thread by which a later generation can make them answer
+- `Q154.P3` **PORT 3 — THE RIGHT TO STOP LOOKING [F2's law]** system: conscience / the unrecorded ledger If looking is punished, the dynast may CHOOSE to stop — and live free, ignorant, complicit-by-omission, in a district whose wound stays b
+- `Q154.P4` **PORT 4 — NO CLEAN EXIT, WHICHEVER OPPRESSED YOU SERVE [W6, W8]** system: the faction web / Liberate-Respect-Become adjacency When the dynast must choose which victim-oppressor to free, both routes STAIN — an uprising's blood or a cover-up's comp
+- `Q154.W1` **THE CITY IS THE ANTAGONIST** Not a villain in the city — the city itself: guards, jarl, market, mine, one machine that turns on the player for looking. The best "the institution is the crime" structure in the 
+- `Q154.W10` **THE WOUND STAYS OPEN** Neither ending fixes Markarth; the player leaves a place still sick, still quiet about it. The refusal to resolve is the point — some rots outlast the visitor who found them.
+- `Q154.W2` **INVESTIGATION IS THE OFFENSE** The player is framed and jailed FOR asking; curiosity is reframed as the crime, which is a chillingly real depiction of how closed systems defend themselves.
+- `Q154.W3` **THE PROSPERITY IS BUILT ON THE SUPPRESSION** Markarth's silver, order, and tidy market sit directly on the wound the quest uncovers — the peace and the crime are the same structure.
+- `Q154.W4` **NO CLEAN INSTITUTION TO APPEAL TO** Every authority is compromised; the removed "honest authority" verb is the thesis. There is nowhere to take the truth.
+- `Q154.W5` **THE REAL POWER IS UNTOUCHABLE** The Silver-Bloods engineer it all and pay nothing; the fork lets you choose their instrument, never punish them — a bitter, adult depiction of where power actually sits.
+- `Q154.W6` **NO CLEAN EXIT** Both escape routes stain the player — an uprising's massacre or a cover-up's complicity. The quest refuses to let anyone leave innocent.
+- `Q154.W7` **THE TRUTH LIVES WHERE IT WAS BURIED** The full picture is only available inside the mine the city threw the player into — the geography of the cover-up is the quest's structure.
+- `Q154.W8` **THE SYMPATHETIC-AND-TERRIBLE FORK** Madanach is a freedom-fighter and a murderer, the same act; the Silver-Bloods are order and oppression, the same act. No side is clean, and the quest names it.
+- `Q154.W9` **THE FRAME ESCALATES LEGIBLY** Note, then guards, then prison — the city's hostility rises in readable steps, so the trap closes at a pace the player feels shutting.
+- `Q154.X1` **THE REAL VILLAIN CAN'T BE TOUCHED, AND THE GAME DOESN'T LET THAT LAND** The Silver-Bloods engineer everything and face no reckoning, which is thematically sharp — but the quest offers no path even to make them PAY later, no thread that resurfaces, so t
+- `Q154.X2` **THE FRAME PUNISHES CURIOSITY WITH NO OFF-RAMP** Once the investigation starts, the imprisonment is unavoidable; a cautious player who reads the warning and stops is railroaded into the mine anyway. The "investigating is the crim
+- `Q154.X3` **THE FORSWORN ARE FLATTENED TO THE FORK** Madanach and his people exist mostly to be the escape's other lever; their cause gets one speech and their victimhood is told, not felt, so the "sympathetic terrorist" lands thinne
+
+### Q155  NATURE OF THE BEAST (THE CURSE IS A WOUND, NOT A MONSTER) (Dragon Age: Origins)
+- `Q155.N1` **NODE B-1 — the Lady of the Forest** Entry: stage 2. The curse's leader, arguing for mercy with unsettling reason. > "You're the monsters killing the elves." [gate: none] -> her correction: the werewolves are cursed h
+- `Q155.N2` **NODE B-2 — Zathrian confronted** Entry: stage 4. The wound, cornered by its own truth. He defends the vengeance; the player must make him face that it has outlived its justice. > "Everyone who wronged you is dead.
+- `Q155.N3` **NODE B-3 — the resolution** Entry: stage 5. The wound closes, or is fed again. > (Zathrian forgives, dies willingly) [gate: persuasion won] -> the curse lifts for ALL; elves and werewolves both live; the grie
+- `Q155.P1` **PORT 1 — THE CURSE THAT IS A GRIEVANCE [W1, W2, W5 — the core port]** system: the Amalgamation / the fold / faction web A Bohemia arc where a "monster" or an Amalgamation-plague turns out to be an old wound in another form — a grievance a prior gener
+- `Q155.P2` **PORT 2 — FORGIVENESS GATED ON UNDERSTANDING, NOT A STAT [F1's law]** system: [READ] / the fold / Liberate adjacency The best ending — releasing the wound — is gated on the dynast having RECONSTRUCTED the grievance's full history (the crime, the veng
+- `Q155.P3` **PORT 3 — THE WOUND SHOWN ACROSS GENERATIONS [F2's law]** system: the fold / the ~100-year arc The grievance the dynast is asked to help release was WITNESSED — a prior generation's atrocity and its refusal to forgive, seen in play, so a 
+- `Q155.P4` **PORT 4 — THE HUMANIZED FACTION KEEPS ITS FACES [F3's law]** system: entities / faction web An Amalgamation-plague or cursed faction that the arc humanizes keeps NAMED individuals present through the resolution, so that choosing to wipe them
+- `Q155.W1` **THE MONSTER HUNT IS A TRUTH COMMISSION** The quest opens as a straight beast-kill and becomes the excavation of an old mutual atrocity — the genre's cleanest bait-and-switch from violence to history.
+- `Q155.W10` **THE FORGIVENESS IS A DEATH** Zathrian can only release the wound by dying with it — the peace is not free, it is paid by the one who held the grief. Letting go is the last thing he does.
+- `Q155.W2` **THE CURSE IS A GRIEVANCE IN ANIMAL FORM** The werewolves are a wound wearing fur; the plague is grief that wouldn't die. The monster is literally somebody's refusal to forgive.
+- `Q155.W3` **EVERY PARTY IS VICTIM AND PERPETRATOR** Humans wronged elves, elves cursed humans, the cursed kill the innocent — no one is clean, and the quest names the whole chain.
+- `Q155.W4` **THE VILLAIN IS THE WRONGED PARTY** Zathrian is the victim who became the perpetrator by refusing to heal — the hardest, truest kind of antagonist, sympathetic and culpable at once.
+- `Q155.W5` **THE RESOLUTION IS ABOUT THE WOUND, NOT THE MONSTERS** The three endings are three answers to "feed the grievance or release it" — the monsters are the symptom, the grief is the disease.
+- `Q155.W6` **THE BEST ENDING IS FORGIVENESS** Peace requires convincing the wronged to stop being wronged — the hardest human act, gated as the game's hardest outcome. Mercy is earned, not given.
+- `Q155.W7` **NO COST-FREE PATH** Peace costs Zathrian his life; blood costs a whole people. The quest refuses an exit where nobody pays, which is what makes the choice real.
+- `Q155.W8` **THE MONSTERS ARGUE REASONABLY** The Lady of the Forest makes the case for mercy with unsettling calm — the "beast" is the most morally lucid voice in the forest.
+- `Q155.W9` **THE CRIME IS CENTURIES DEAD AND STILL KILLING** No living person committed the original wrong, yet it still demands blood — the clearest depiction of how inherited grievance outlives its cause.
+- `Q155.X1` **THE BEST ENDING IS A SKILL-CHECK, NOT AN EARNED TRUTH** Peace is gated behind a persuasion stat; a player who understands the situation perfectly but lacks the check is forced into blood. The forgiveness that is the quest's moral heart 
+- `Q155.X2` **ZATHRIAN'S CENTURIES ARE TOLD, NOT FELT** The keeper's grief is exposited in a few lines; the player never witnessed the atrocity, the vengeance, or the long feeding of the wound, so his refusal to forgive reads as stubbor
+- `Q155.X3` **THE WEREWOLVES REVERT TO STAKES AT THE FORK** After the humanizing reveal, the werewolves become mostly the "other lever" in the ending; their individual personhood (glimpsed in the reveal) doesn't carry into the resolution, s
+
+### Q156  A PARAGON OF HER KIND / THE ANVIL OF THE VOID (THE ENDS THAT EAT THE MEANS) (Dragon Age: Origins)
+- `Q156.N1` **NODE A-1 — Caridin** Entry: stage 3. The maker, indicting his own masterpiece. He explains what the golems are and begs for the Anvil's destruction. > "The golems are people?" [gate: none] -> the atroc
+- `Q156.N2` **NODE A-2 — Branka** Entry: stage 4. The ends, unrepentant. She wants the Anvil and will not pretend the cost troubles her. > "You killed your whole House for this." [gate: none] -> she does not flinch
+- `Q156.N3` **NODE A-3 — the fork** Entry: stage 4-5. The forge kept or broken; a Paragon dead either way. > (side with Caridin, destroy the Anvil) [gate: none] -> the tool that could save everyone is thrown away to 
+- `Q156.P1` **PORT 1 — THE ANVIL AS THE AMALGAMATION [W1, W4, W7 — the core port]** system: the Amalgamation / the fold / the endgame The Amalgamation IS an Anvil: a technology that promises to save everyone by consuming people, defended by a true believer whose c
+- `Q156.P2` **PORT 2 — MAKE THE ENDS TEMPTING [F1's law]** system: the endgame / the difficulty of Liberate The "use the tool" path (Become) must be genuinely tempting — the salvation real, present, costed, not pre-buried under obvious mon
+- `Q156.P3` **PORT 3 — THE CONSUMED TESTIFY [F2's law]** system: the Amalgamation / [READ] / SOMA-adjacency (#34) The price of the Amalgamation-Anvil has its OWN voices — the uploaded dead speak directly for what was done to them, not on
+- `Q156.P4` **PORT 4 — THE GENTLER PATH IS DISCOVERABLE [F3's law]** system: the fold / [READ] / Liberate If a less-costly resolution exists, its path is discoverable IN-WORLD — a reachable insight, a reconstructed truth — never walkthrough-only, so
+- `Q156.W1` **THE TOOL IS MADE OF THE ATROCITY** The golem-army isn't guarded by an atrocity — it IS one; every unit a murdered soul. The weapon and the crime are the same object, which is the purest means-vs-ends form.
+- `Q156.W10` **THE QUESTION SURVIVES THE CREDITS** Players argue the Anvil choice for years — the sign the dilemma was real. A tool worth its atrocity has no settled answer, and the quest is honest enough not to give one.
+- `Q156.W2` **THE COST IS SHOWN BEFORE THE PRIZE** The descent walks the player through Branka's dead House and Hespith's ruin before revealing the Anvil — you feel the price before you see what it buys.
+- `Q156.W3` **THE MAKER TURNS AGAINST HIS MASTERPIECE** Caridin built the Anvil and wants it destroyed, having lived inside its cost for centuries — the most credible possible witness against a tool: its inventor.
+- `Q156.W4` **THE ENDS HAVE A REAL CASE** Branka is not lying — the dwarves are dying and the Anvil could save them. The dilemma is real because the monstrous option might actually work.
+- `Q156.W5` **NO CLEAN FORK** Keep the tool and own the slavery; destroy it and forgo the salvation. Both cost a Paragon and a principle; the game refuses a free exit.
+- `Q156.W6` **THE PRICE IS PERSONAL** Branka spent her own wife; the atrocity has a face the antagonist loved. The abstraction of "souls bound to metal" gets a name.
+- `Q156.W7` **THE VILLAIN ISN'T ONE** Branka is a good goal pursued past every line, not evil for its own sake — the scariest antagonist is the one whose ends you can't dismiss.
+- `Q156.W8` **THE POLITICAL STAKES FRAME THE MORAL ONES** The whole descent is for a succession crown; the means-vs-ends fork is nested inside a governance need, so the choice has downstream weight beyond itself.
+- `Q156.W9` **THE MAKER PAYS LAST** Caridin, if he wins, unmakes his creation and then himself — the atrocity's author choosing to end with it. Letting go is a death he chooses.
+- `Q156.X1` **BRANKA IS RIGHT AND THE GAME UNDERSELLS IT** The dwarves ARE dying; the Anvil COULD save them; Branka's utilitarian case is genuinely strong — but the quest stacks the presentation so heavily toward "she's a monster" (the dea
+- `Q156.X2` **THE GOLEMS DON'T GET TO SPEAK FOR THEMSELVES ENOUGH** The murdered-volunteer horror is delivered mostly through Caridin and Hespith; the individual golems, the actual price, are largely mute scenery. The atrocity is told about more th
+- `Q156.X3` **THE "EVERYONE LIVES" MIDDLE IS A HIDDEN SKILL PUZZLE** A player can maneuver a less-bloody resolution, but only via non-obvious dialogue paths; the clean-ish outcome is gated behind meta-knowledge rather than the player's understanding
+
+### Q157  THE ARDAT-YAKSHI (KILL YOUR DAUGHTER, OR BE SEDUCED BY HER) (Mass Effect 2)
+- `Q157.N1` **NODE Y-1 — Samara on the law** Entry: stage 1. The justicar, explaining the code that will make her kill her own child. > "She's your daughter." [gate: none] -> the grief under the armor; the law does not bend, 
+- `Q157.N2` **NODE Y-2 — Morinth's seduction** Entry: stage 4. The monster making her case. Alone with the bait, she charms, escalates, and offers a way out of her mother's law. > "Your mother is hunting you." [gate: none] -> h
+- `Q157.N3` **NODE Y-3 — the fork** Entry: stage 5. Mother and daughter, grappling, the player's hand the deciding weight. > "Samara, now." (help the mother) [gate: none] -> Morinth dies; the law is fulfilled; the ju
+- `Q157.P1` **PORT 1 — THE SEDUCTION THAT TESTS THE PLAYER [W2, W3, W4 — the core port]** system: the Amalgamation / dialogue scenes / [READ] A Bohemia arc where the dynast must draw out a threat by posing as its prey, and the threat SEDUCES — makes a real case, offers 
+- `Q157.P2` **PORT 2 — THE SEDUCTIVE CHOICE WITH A REAL UPSIDE [F1's law]** system: the fork / Become adjacency The seductive-but-dangerous choice must carry a REAL upside the dynast forgoes by refusing — power, knowledge, a genuine good — so resisting cos
+- `Q157.P3` **PORT 3 — ROOM TO MOURN THE CURSED [F2's law]** system: the fold / conscience When the dynast kills a humanized threat born into its nature, the arc leaves ROOM to mourn what was unavoidable — an aftermath beat, a fold entry tha
+- `Q157.P4` **PORT 4 — AUTHOR YOUR OWN COVER [F3's law]** system: [READ] / upbringing / dialogue A bait or undercover beat lets the dynast author their cover from their established character — multiple valid performances reaching the trap
+- `Q157.W1` **THE FORK IS TWO TERRIBLE FAMILY MEMBERS** Samara is a mother who will execute her child; Morinth is a child who murders for pleasure — both monstrous, both bound by a nature (law or curse) they didn't fully choose. No clea
+- `Q157.W10` **THE SEDUCTION OUTLASTS THE MISSION** Players remember being ALMOST talked into siding with a serial killer — the sign the writing worked. A trap that can catch the trapper is unforgettable.
+- `Q157.W2` **THE PLAYER IS THE BAIT AND THE TARGET** Posing as Morinth's next victim puts the player in exactly the position of her dead — the trap is set with the player's own body, and the seduction is aimed at them.
+- `Q157.W3` **THE SEDUCTION CAN WIN** The player can be talked into the wrong choice in the moment — the monster's charm works on the person meant to be baiting it, which is the rarest and best kind of test: your own j
+- `Q157.W4` **THE MONSTER HAS A REAL CASE** Morinth's nature isn't her fault; her mother's law is genuinely a prison; the seduction lands because it is partly true. The killer feels, for a moment, like the victim.
+- `Q157.W5` **THE LAW IS A TRAGEDY, NOT A VIRTUE** Samara's code is what lets her murder her own daughter — the quest shows the cost of absolute principle, not just its correctness.
+- `Q157.W6` **THE BODY COUNT IS SHOWN FIRST** The grieving mother of a real victim guides the player in, so Morinth's charm arrives already stained — the seduction fights against a corpse the player has seen.
+- `Q157.W7` **NO BOTH-LIVE** The Ardat-Yakshi nature admits no cure; the fork admits no mercy for both. One family member dies, and the player only chooses which — the tragedy is structural.
+- `Q157.W8` **THE CURSE IS NOT CHOSEN** Morinth was born into a killing body; the monster is a person the nature made lethal, which is what makes killing her hard and sparing her deadly.
+- `Q157.W9` **THE SURVIVOR CARRIES THE GRIEF** Samara, if she wins, has executed her daughter and gives loyalty carrying that — the victory is a wound, not a triumph.
+- `Q157.X1` **THE "HELP MORINTH" PATH IS A LOSING TRAP, NOT A REAL CHOICE** Siding with Morinth is mechanically inferior (a serial killer imitating a justicar, worse for the squad, no real upside) and the game frames it as the obviously-wrong pick — so the
+- `Q157.X2` **MORINTH'S PERSONHOOD DIES WITH HER, UNEXAMINED** The quest builds Morinth as a genuine person trapped in a lethal nature, then kills her (in the common ending) with no space to sit with what was lost — the "she is a victim too" t
+- `Q157.X3` **THE SEDUCTION REQUIRES A PERFORMANCE THE PLAYER CAN'T FULLY AUTHOR** To bait Morinth the player must pose as her type via fixed dialogue picks; a player roleplaying differently is railroaded into the seduction script or fails the trap. The bait's pe
+
+### Q158  HAPPY TOGETHER (YOU CAN TALK HIM DOWN, AND YOU CAN FAIL) (Cyberpunk 2077)
+- `Q158.N1` **NODE H-1 — Barry at the door** Entry: stage 2. A man who wants to be left alone, and something worse under it. > "River sent me. You okay?" [gate: none] -> the opening; his deflection, and the choice of how hard
+- `Q158.N2` **NODE H-2 — the grief** Entry: stage 3. The heart of it. Barry, if reached, talks about his dead friends and the weight. > "Tell me about them." [gate: none] -> the thread appears: the friends, the loss, 
+- `Q158.N3` **NODE H-3 — the outcome** Entry: stage 4. No fanfare either way. > (reached him) [gate: patience + the thread] -> Barry lives; later, he honors his friends; the player learns it quietly, a life kept > (lost
+- `Q158.P1` **PORT 1 — THE INTERVENTION QUEST [W1, W2, W3 — the core port]** system: dialogue scenes / [READ] / the conscience system A Bohemia quest that is one conversation with one life on it — a survivor at the bottom, reachable only by patience and rea
+- `Q158.P2` **PORT 2 — UNMARKED BUT FAIR [F1's law]** system: [READ] / dialogue The reaching lines are UNMARKED but LEGIBLE to attention — the grief points at the thread, listening reveals the key — so a dynast who does the emotional 
+- `Q158.P3` **PORT 3 — THE LIFE IS A SPECIFIC PERSON [F2's law]** system: the fold / prior encounters The survivor on the table is someone the dynast has REASON to know — witnessed before the bottom, given texture the intervention draws on — so r
+- `Q158.P4` **PORT 4 — THE FAILURE LANDS [F3's law]** system: the fold / conscience / faction memory A life lost to the dynast's failure LANDS — the grief and blame of those who loved them, the district's memory, a mark carried. The a
+- `Q158.W1` **THE ONLY WEAPON IS WORDS** No combat, no puzzle, no item — a life saved or lost entirely through conversation. The genre's purest demonstration that dialogue can be the whole quest and the whole stakes.
+- `Q158.W10` **THE OUTCOME IS QUIET EITHER WAY** Saved, you learn it without fanfare; lost, you learn it as an absence. The refusal to celebrate or mourn loudly is what makes it feel like a real life, not a game beat.
+- `Q158.W2` **THE PLAYER CAN FAIL** Barry really dies if the words go wrong — the intervention is failable without a reload prompt, which is what gives the conversation its weight. Real stakes require real failure.
+- `Q158.W3` **THE GAME WON'T FLAG THE RIGHT WORDS** No marker, no highlight, no "correct" glow — the player must READ the man, not the UI. Compassion is a skill the player brings, not a checkbox.
+- `Q158.W4` **THE PLAYER'S INSTINCTS ARE THE ENEMY** Efficiency, rushing, treating the NPC as a dispenser — every trained gamer reflex kills Barry. The quest is won by unlearning how you play.
+- `Q158.W5` **THE KEY IS IN THE GRIEF, NOT AGAINST IT** Barry is reached by honoring his dead, not by arguing him out of mourning — the solution is redirecting the pain, not denying it. Compassion that works with the wound.
+- `Q158.W6` **NO SAFETY NET, NO CEREMONY** No failure fanfare, no reload prompt — just a man who was alive and isn't. The absence of ritual is the stakes: this is what it feels like to be the one someone depended on.
+- `Q158.W7` **THE QUEST IS MISSABLE AND UNCHASING** Ignore it and Barry dies off-screen; the world doesn't force you to be his rescuer. The freedom to fail by absence makes the choice to try meaningful.
+- `Q158.W8` **THE FAVOR HID THE WEIGHT** It arrives as a minor errand from River — the disguise of the small ask makes the reveal of what's actually being asked land harder.
+- `Q158.W9` **SILENCE CAN BE THE ANSWER** Sometimes letting the pause hold reaches Barry better than any line — the game honors listening over speaking, the rarest dialogue-design humility.
+- `Q158.X1` **THE RIGHT PATH IS OPAQUE TO THE POINT OF LUCK** The lines that reach Barry are unmarked, which is the design's strength — but they are ALSO not fully legible even to a compassionate player; some correct-feeling choices fail, so 
+- `Q158.X2` **BARRY IS A VESSEL FOR THE MECHANIC MORE THAN A PERSON** Barry exists to be reached-or-lost; his interiority, his friends, his life before the collapse are thin, so the intervention can feel like a compassion CHECK rather than a relation
+- `Q158.X3` **THE FAILURE HAS NO WEIGHT ON THE PLAYER AFTERWARD** Barry's death, if it happens, registers as a quiet log entry; the player character does not carry it, no one holds them accountable, and the world does not change. The consequence 
+
+### Q159  THE WHISPERING DOOR (A FATHER'S GRIEF, WEAPONIZED) (The Elder Scrolls V: Skyrim)
+- `Q159.N1` **NODE W-1 — Balgruuf** Entry: stage 1. A father asking a stranger to name what's wrong with his kids. > "What are your children doing?" [gate: none] -> the unease: whispers, secrets, the door; a parent's
+- `Q159.N2` **NODE W-2 — Mephala at the door** Entry: stage 3. The harvester, honest about the terms. The Prince of secrets explains the cultivation and offers the Blade. > "You've been feeding on this family." [gate: none] -> 
+- `Q159.N3` **NODE W-3 — the Blade's price** Entry: stage 4. The reward's logic, in practice. The Ebony Blade, hungry, growing only on betrayed trust. > (kill someone who trusts you) [gate: the Blade's hunger] -> it grows str
+- `Q159.P1` **PORT 1 — THE HARVEST OF ORDINARY GRIEF [W1, W4, W3 — the core port]** system: the Amalgamation / the fold / the district A Bohemia arc where the Amalgamation is revealed FARMING ordinary emotion — a parent's love, a household's small resentments, a d
+- `Q159.P2` **PORT 2 — SHOW THE FARMING [F1's law]** system: the Amalgamation / the district / dialogue scenes The harvest of ordinary emotion is SHOWN — the resentments cultivated on screen, the parent's love visibly refined into th
+- `Q159.P3` **PORT 3 — THE HARVESTED GET AN AFTERMATH [F2's law]** system: the fold / conscience The person whose emotion was farmed — the parent, the griever — gets a human close: they learn, grieve, or are spared, so the harvest ends on a face, 
+- `Q159.P4` **PORT 4 — TRUST-AS-FUEL COSTS REAL TRUST [F3's law]** system: companions / the fold / the conduct book (#143) If a Bohemia tool runs on betrayal, the betrayed are PEOPLE the dynast actually trusted — named companions, known survivors,
+- `Q159.W1` **THE FEEDSTOCK IS ORDINARY LOVE** Not a grand evil — a father's worry for his kids and a household's small resentments, farmed by something patient. The horror is domestic, which is what makes it land.
+- `Q159.W10` **THE LOGIC OUTLASTS THE QUEST** The Ebony Blade rides in the inventory forever, a permanent invitation to run the harvest — the quest hands the player a standing temptation, not a closed story.
+- `Q159.W2` **THE PRINCE IS HONEST** Mephala, the Prince of lies, states the terms plainly; the Blade's price is clear. The horror is not deception — it is that the harvest's logic is offered openly and the player tak
+- `Q159.W3` **THE REWARD IS THE THESIS** The Ebony Blade IS the quest's idea in your hand: trust converted to power, the same logic that farmed the family, now yours to run.
+- `Q159.W4` **THE HARVEST IS AN ECONOMY** Grief, love, secrets, resentments treated as a resource with a refinement process and a payout — emotion as feedstock, which is the Amalgamation's whole logic in miniature.
+- `Q159.W5` **THE DOOR IS A THRESHOLD OF KNOWING** The locked, whispering door is the family's unspoken problem made architecture; opening it is choosing to know what a father was afraid to.
+- `Q159.W6` **THE CHILDREN KEEP THE RICHEST SOIL** Mephala farms the young because secrets live longest in them — a quietly awful observation about where a household's poisons are stored.
+- `Q159.W7` **THE TERMS ARE CLEAR AND TAKEN ANYWAY** The player is not tricked; the Blade's price is stated. The complicity is chosen with full information, which is worse than being fooled.
+- `Q159.W8` **THE QUEST IS QUIET** No dragon, no army — a locked door and a worried dad. The scale is the point: the most patient harvests are the ones nobody would call an emergency.
+- `Q159.W9` **THE TOOL CAN BE STARVED** The player can take the Blade and refuse to feed it — declining the harvest while holding the option, a small honest choice the game respects.
+- `Q159.X1` **THE HARVEST OF THE FAMILY IS UNDERBUILT** The quest's best idea — a Prince farming a household's ordinary poisons — is mostly implied; the children's cultivation, the court's frictions, Balgruuf's love as feedstock are ges
+- `Q159.X2` **THE FATHER GETS NO RESOLUTION** Balgruuf handed the player his fear for his children and the quest never returns to him — no scene where he learns what was behind the door, no cost or relief to the parent whose l
+- `Q159.X3` **THE BLADE'S BETRAYAL COST IS EASILY GAMED** Powering the Ebony Blade by killing "those who trust you" reduces, in practice, to killing generic friendly NPCs — the profound premise (trust as fuel) becomes a checklist of dispo
+
+### Q160  BLOOD ON THE ICE (THE MURDER THE TOWN WON'T INVESTIGATE) (The Elder Scrolls V: Skyrim)
+- `Q160.N1` **NODE B-1 — the guard at the body** Entry: stage 1. The city's indifference, in uniform. > "Who's investigating this?" [gate: none] -> nobody; the guard has bodies to log and a war to mind; the abdication, stated fla
+- `Q160.N2` **NODE B-2 — Wuunferth, the wrong suspect** Entry: stage 3. The creepy mage the city wants to blame, who is the only one who knows the truth. > "You're the Butcher." [gate: none] TRAP -> reputation over evidence; jail him, a
+- `Q160.N3` **NODE B-3 — Calixto, the killer in civic clothes** Entry: stage 4-5. The helpful amateur, steering suspicion, until the sting. > "You've been so helpful." [gate: none] -> he plays the concerned citizen; the trap's whole disguise > 
+- `Q160.P1` **PORT 1 — THE MURDER THE DISTRICT WON'T INVESTIGATE [W1, W2, W3 — the core port]** system: the missing-persons organ (#141) / the district / [READ] A Bohemia whodunit in a district whose institutions have abdicated — a real crime, evidence to read, two suspects (
+- `Q160.P2` **PORT 2 — THE WRONG ANSWER LANDS [F1's law]** system: the missing-persons organ (#141) / the fold A wrong accusation's cost is LEGIBLE — the next death traced to the false arrest, named, on the fold — so the dynast feels the m
+- `Q160.P3` **PORT 3 — DEDUCTION THAT SHIPS [F2's law]** system: the regression-gate / quest scripting The investigation's trigger and progression are ROBUST — no fragile ordering, machine-tested — because a whodunit that breaks is worse
+- `Q160.P4` **PORT 4 — THE VICTIMS ARE PEOPLE [F3's law]** system: the district / the fold / entities A serial crime's victims are SPECIFIC — witnessed, mourned, individual — so the investigation is about lives, and the district's indiffer
+- `Q160.W1` **THE INSTITUTION HAS ABDICATED** The guards log bodies and move on; the court is distracted; the city has decided this isn't its problem. The player fills a vacuum the whole apparatus created — the truest depictio
+- `Q160.W10` **THE PLAYER IS THE ONLY JUSTICE** Everything hinges on one stranger choosing to look; the quest's whole weight is that a functioning city can contain a serial killer and simply not care, until someone does.
+- `Q160.W2` **IT IS A REAL WHODUNIT WITH A WRONG ANSWER** Two suspects, evidence to weigh, and a genuine failure state — accuse wrong and the killer strikes again. Deduction with a cost, not a corridor.
+- `Q160.W3` **THE TRAP IS REPUTATION VERSUS EVIDENCE** The obvious suspect (creepy mage) is innocent; the respectable helper is guilty. The quest tests whether the player reads clues or vibes — the whole point of detection.
+- `Q160.W4` **THE KILLER HIDES IN CIVIC CONCERN** Calixto is the Butcher wearing helpfulness — the most unsettling disguise, because the player is inclined to trust the one offering to assist.
+- `Q160.W5` **THE MISDIRECTED SUSPECT IS THE BEST WITNESS** Wuunferth, the man the city wants to blame, is the one who can name the real method — listening to the reviled beats jailing him.
+- `Q160.W6` **THE CORRECT PATH HAS AN UGLY COST** Catching Calixto means using the next victim as bait — justice in an abdicated city is done with the only tools available, and they're grim.
+- `Q160.W7` **THE COLD CITY IS THE SETTING AND THE THEME** Windhelm's cruelty, war-distraction, and indifference aren't backdrop — they're WHY the murders go uninvestigated, the setting as the crime's enabler.
+- `Q160.W8` **THE FAILURE IS QUIET** No fanfare when you get it wrong — just another body and a falsely closed case. The unceremonious failure mirrors the city's unceremonious indifference.
+- `Q160.W9` **THE STAKES ARE ORDINARY AND REAL** Not a dragon or a Prince — murdered women in a graveyard, a killer among the citizens. The mundanity is what makes the indifference damning.
+- `Q160.X1` **THE WRONG ARREST'S CONSEQUENCE IS EASY TO MISS** Jailing Wuunferth causes another murder, but the game surfaces this so quietly that many players never realize they got it wrong — the failure state exists but doesn't LAND, so the
+- `Q160.X2` **THE BUG-RIDDEN TRIGGER UNDERCUTS THE CRAFT** Blood on the Ice is infamous for breaking — starting out of order, failing to advance, requiring console fixes — so the whole taut whodunit is gated behind a fragile script that ma
+- `Q160.X3` **THE VICTIMS ARE INTERCHANGEABLE** The murdered women are named but flat — the horror rests on the pattern, not on any specific life lost, so the murders read as a puzzle's tokens more than as people. The city's ind
+
+### Q161  AUNTIE ETHEL (THE BARGAIN THAT COSTS YOU AN EYE) (Baldur's Gate 3)
+- `Q161.N1` **NODE E-1 — the kindly offer** Entry: stage 1. Ethel, all warmth, offering the thing the party most needs. > "You can help the affliction?" [gate: none] -> yes, genuinely; the offer is real, which is the trap's 
+- `Q161.N2` **NODE E-2 — the price, taken or refused** Entry: stage 2. The bargain at its edge. > "Take the eye. Do it." [gate: none] -> real relief, permanent mutilation, a deal kept; the honest-devil pays as promised (Q126's terms ho
+- `Q161.N3` **NODE E-3 — the illusion-maze** Entry: stage 4. Mercy turned to armor. Ethel wears innocent faces and holds the hostage. > (attack through the illusions) [gate: nerve] -> she wears Mayrina's face, threatens the h
+- `Q161.P1` **PORT 1 — THE HONEST-DEVIL WITH A KINDLY FACE [W1, W2, W3 — the core port]** system: the Amalgamation / the fold / dialogue scenes A Bohemia figure who greets the dynast as a helpful auntie and prices real help in permanent, bodily cost — the honest-devil (
+- `Q161.P2` **PORT 2 — THE PERMANENT PRICE IS REALLY PERMANENT [F1's law]** system: the fold / the dial / character systems A bargain sold as a grave permanent cost IS one — a real, felt, lasting consequence the dynast lives with across the arc, matched sy
+- `Q161.P3` **PORT 3 — SHOW THE GROOMING [F2's law]** system: the Amalgamation / the fold / entities If a captive is being MADE into the thing that holds them, the making is SHOWN — the grief-lever pulled on screen, the slow becoming 
+- `Q161.P4` **PORT 4 — THE BARGAIN MUST TEMPT [F3's law]** system: the endgame / Become adjacency The honest-devil's help solves something refusing CAN'T, at a cost the dynast might actually pay — a real fork, not an obvious trap. If refus
+- `Q161.W1` **THE MONSTER IS A GRANDMOTHER** Ethel arrives as folksy warmth, not menace — the most disarming disguise, because the player wants to trust the maternal voice offering help.
+- `Q161.W10` **THE BARGAIN RIDES ALONG** The eye, if taken, is carried the whole game — the quest hands the player a permanent consequence, not a closed story, a standing reminder of what help cost.
+- `Q161.W2` **THE OFFER IS HONEST** She does not lie about the eye; the help is real and the price is real. The horror is the #126 honest-devil: fair terms, permanent cost, taken with full knowledge.
+- `Q161.W3` **THE PRICE IS YOUR BODY, FOREVER** Not gold, not a favor — a piece of you, visible, permanent. The bargain is written on the character's face for the rest of the game.
+- `Q161.W4` **THE AFFLICTION MAKES THE PRICE THINKABLE** The parasite is real and frightening, so a permanent mutilation becomes a genuine temptation — pressure is what turns a monstrous price into a considered one.
+- `Q161.W5` **REFUSAL CRACKS THE DISGUISE** Saying no reveals the hag beneath the auntie — the sweet voice was the lure, and declining is what shows you the monster.
+- `Q161.W6` **THE CAPTIVE IS THE FUTURE YOU'RE PREVENTING** Mayrina, groomed toward becoming the next hag, is what the player is fighting to stop — a griever being made into her captor, the horror of the cycle.
+- `Q161.W7` **THE FIGHT WEAPONIZES MERCY** Ethel wears innocent faces and holds the hostage; the player's reluctance to harm becomes her armor — combat that punishes the compassionate.
+- `Q161.W8` **GRIEF IS THE LEASH** Mayrina is held by the promise of her dead husband's return — the hag farms sorrow, the most reliable lever, which is the Amalgamation's exact method.
+- `Q161.W9` **THE HOSTAGE CAN DIE** Push too hard and Mayrina is killed in the fight — the rescue can fail into a killing, so mercy's weaponization has real teeth.
+- `Q161.X1` **THE EYE'S COST IS MECHANICALLY TRIVIAL** The permanent mutilation is presented as a grave bargain but amounts to a minor, largely cosmetic debuff — so the "you gave up an eye forever" horror is undercut by the mechanics t
+- `Q161.X2` **MAYRINA'S GROOMING IS TOLD MORE THAN SHOWN** The horror that Ethel is farming Mayrina into the next hag is powerful but delivered mostly through implication and lore; the player doesn't witness the grooming's mechanism, so th
+- `Q161.X3` **REFUSING IS OBVIOUSLY CORRECT** Because the accept-path's cost is trivial-but-permanent and the refuse-path rescues an innocent and stops a monster, refusing is the clearly-superior choice for most players — the 
+
+### Q162  MORDIN AND THE GENOPHAGE (THE SCIENTIST WHO HELD THE SYRINGE) (Mass Effect 2 & 3)
+- `Q162.N1` **NODE M-1 — the necessity defended** Entry: stage 1. Mordin, cheerful, making the case he's made a thousand times. > "You helped build the genophage." [gate: none] -> yes; necessary; the krogan expansion would have be
+- `Q162.N2` **NODE M-2 — the cure decision** Entry: stage 3-4. The perpetrator, holding the antidote. Years on, the power to undo it in his hands. > "Cure them. It's their future." [gate: none] -> he agrees to deliver it, kno
+- `Q162.N3` **NODE M-3 — the price** Entry: stage 5. The delivery, and the death. Mordin in the tower, delivering the cure as it comes down around him. > (let him go) [gate: cure path] -> he delivers it and dies, sing
+- `Q162.P1` **PORT 1 — THE PERPETRATOR WHO CAN UNDO IT [W1, W2, W3 — the core port]** system: the fold / the Amalgamation / faction web A Bohemia figure who committed a defensible atrocity (a plague loosed, a district sacrificed, an Amalgamation bargain struck) for 
+- `Q162.P2` **PORT 2 — THE THIRD PATH IS REACHABLE [F1's law]** system: [READ] / the fold The full range of an atrocity-undoing choice — including the hardest "keep it without murder" option — is REACHABLE by in-world understanding, not walkthr
+- `Q162.P3` **PORT 3 — THE FOG IS NAVIGABLE [F2's law]** system: [READ] / faction web / the fold When the choice rides on an unknowable (will the restored party repeat the crime), the dynast gets EVIDENCE to make it a judgment, not a coi
+- `Q162.P4` **PORT 4 — THE GUILT CRACKS BEFORE THE END [F3's law]** system: dialogue scenes / the fold / conscience A guilt hidden under a coping surface (cheer, deflection) CRACKS visibly at least once before the climax — a beat where the wound sh
+- `Q162.W1` **THE ATROCITY WAS DEFENSIBLE** The genophage prevented a genocide-by-krogan-expansion; Mordin is not wrong that it was necessary. The dilemma is real because the terrible thing had a real case — the hardest kind
+- `Q162.W10` **THE CHOICE HAUNTS FOR YEARS** Players argue the genophage cure endlessly — the sign the dilemma was real. An atrocity worth undoing has no settled answer, and the arc is honest enough to make the player hold it
+- `Q162.W2` **THE PERPETRATOR CARRIES IT** Mordin did the math, walked the krogan worlds, met the individuals, and holds the guilt under his cheer — the scientist who cannot stop counting the cost of being right.
+- `Q162.W3` **THE POWER TO UNDO IT ARRIVES YEARS LATER** The cure forces the perpetrator to choose AGAIN, with the atrocity's consequences visible — being right the first time does not tell him what to do the second.
+- `Q162.W4` **NO CLEAN CHOICE** Cure and risk the old war; sabotage and condemn a people; betray Mordin and murder the guilt-bearer. Every path costs; none absolves. The finale's exact machine.
+- `Q162.W5` **THE WRONGED PARTY IS PRESENT AND ARMED** The krogan want their future and are watching; the victim's restoration is also the galaxy's risk, so mercy and danger are the same act.
+- `Q162.W6` **HE CHOOSES IN FULL KNOWLEDGE** Mordin's arc is that he stops hiding behind necessity and DECIDES, knowing everything — the growth is not changing his mind but owning the choice.
+- `Q162.W7` **HE PAYS WITH HIS LIFE** In the cure path, Mordin dies delivering it — the undoing of his atrocity costs him everything, and he pays it singing, because he can no longer be the man who didn't.
+- `Q162.W8` **THE DEFINING LINE IS A REFUSAL TO DELEGATE** "Someone else might have gotten it wrong" — the responsibility is his because he trusts no one else to carry it correctly; guilt transmuted into duty.
+- `Q162.W9` **THE CHEER IS A COPING SURFACE** Mordin's speed and humor are armor over a wound; the design lets the guilt hide in plain sight, so the crack, when it comes, lands.
+- `Q162.X1` **THE SABOTAGE PATH REQUIRES META-KNOWLEDGE** The outcome where Mordin is talked into faking the cure (galaxy safe, no betrayal-kill) is gated behind specific, non-obvious prior conditions most players never assemble — so the 
+- `Q162.X2` **THE KROGAN'S TRUSTWORTHINESS IS UNRESOLVABLE BY DESIGN, WHICH CUTS BOTH WAYS** The whole dilemma rides on "will the krogan repeat the expansion?" and the game deliberately never answers it — powerful, but it means the player chooses in a fog the narrative ref
+- `Q162.X3` **MORDIN'S GUILT IS CARRIED BY CHARM, WHICH CAN HIDE IT** Mordin's fast-talking cheer is so entertaining that many players experience him as comic relief and miss the guilt entirely until the death — the coping-surface design works so wel
+
+### Q163  THE SILVER SHROUD (THE COSTUME THAT BECOMES REAL) (Fallout 4)
+- `Q163.N1` **NODE S-1 — Kent's request** Entry: stage 1. The believer, asking a stranger to make his hero real. > "You want me to be a comic-book character?" [gate: none] -> yes, in earnest; his two-hundred-year hope, off
+- `Q163.N2` **NODE S-2 — the performance, at a target** Entry: stage 2. The player, in costume, given the Shroud's lines to deliver to a real killer. > (deliver the line straight, menacing) [gate: none] -> the Shroud as real justice; th
+- `Q163.N3` **NODE S-3 — Sinjin, Kent hostage** Entry: stage 5. The theatre meets the real. The killer who isn't playing, holding the believer's life. > (be the Shroud, for real, to save Kent) [gate: none] -> the performance res
+- `Q163.P1` **PORT 1 — THE ROLE THAT BECOMES REAL [W1, W2, W8 — the core port]** system: the dynasty-as-role / upbringing / dialogue scenes A Bohemia arc where the dynast inhabits a ROLE — a legend, a founder's persona, a mask the district needs real — and perf
+- `Q163.P2` **PORT 2 — THE REGISTER HAS WEIGHT [F1's law]** system: standing / the fold / the district The dynast's chosen REGISTER (sincere hero / cynical executioner) reaps different worlds — how the district sees the mask, what the role 
+- `Q163.P3` **PORT 3 — THE ROLE RISKS THE SELF [F2's law]** system: the dynasty-as-role / the fold / conscience Inhabiting a legend RISKS the dynast's own identity — a beat where the mask speaks for them, where taking it off is harder than 
+- `Q163.P4` **PORT 4 — THE BELIEVER IS PRESENT [F3's law]** system: the fold / prior encounters The person whose hope the dynast embodies is a KNOWN, witnessed presence — their stake felt — so becoming their hero and risking their life carr
+- `Q163.W1` **THE COSTUME BECOMES REAL** A player puts on a fictional hero to answer genuine crimes; the mask accrues a real body count. The fiction-made-flesh is the quest's whole engine and it lands.
+- `Q163.W10` **THE FICTION SURVIVES THE PLAYER** Kent's hope, if the player honors it, outlives the quest — a fiction made real by someone willing to wear it, which is the most Bohemian idea in the game.
+- `Q163.W2` **THE PLAYER PERFORMS THE HERO** Custom in-character dialogue lets the player DELIVER the Shroud's lines at targets — you don't just fight, you act, which makes the role-play literal and the identity question real
+- `Q163.W3` **THE REGISTER IS THE PLAYER'S** Sincere, camp, or cynical — the game lets the player choose the tone of their justice, so the mask means what the player decides it means.
+- `Q163.W4` **THE TARGETS ARE REAL** The Shroud's justice kills genuine predators; the theatre has a body count, so the costume is never just cosplay.
+- `Q163.W5` **THE BELIEVER NEEDS THE HERO REAL** Kent's two-hundred-year hope makes the fiction NEED to become flesh — the emotional stakes are a man's survival-through-story.
+- `Q163.W6` **THE CLIMAX MEETS THE REAL** Sinjin, a killer who isn't playing, forces the performance to resolve — theatre confronted by genuine menace, with a life on it.
+- `Q163.W7` **THE HERO WAS A VIGILANTE** The Shroud's justice is execution; playing him means killing, so the role-play carries an edge — the fiction the fan loves is a license to kill dressed as heroism.
+- `Q163.W8` **THE MASK ASKS WHO YOU ARE** The quest's quiet question — hero or executioner — is Bohemia's exact question about the dynasty-as-role, made playable.
+- `Q163.W9` **THE TONE IS A RELEASE VALVE WITH A BLADE** The camp register relieves; the real killings sharpen — the quest swings between fun and grim, and the swing is the point.
+- `Q163.X1` **THE MORAL QUESTION ISN'T MECHANICALLY WEIGHTED** The sincere/camp/cynical registers are pure flavor — the killings, the outcomes, and Kent's fate don't meaningfully differ by which tone the player picks, so the profound "hero or 
+- `Q163.X2` **THE COSTUME NEVER COSTS THE PLAYER THEIR OWN IDENTITY** The player puts on the Shroud and takes it off freely; there is no beat where the mask threatens to REPLACE them, no cost to inhabiting a fiction. The "role becomes real" theme is 
+- `Q163.X3` **KENT'S GRIEF IS BACKSTORY, NOT PRESENCE** Kent's two-hundred-year love of the Shroud, his survival-through-fiction, is the quest's emotional core but is delivered mostly in a few lines; the player experiences him as a ques
+
+### Q164  THE CABOT HOUSE (THE FATHER IN THE CELL, THE SERUM IN THE VEINS) (Fallout 4)
+- `Q164.N1` **NODE C-1 — Jack, the secret told** Entry: stage 2. The jailer son, defending four hundred years of a locked door. > "You've kept your father in a cell for centuries." [gate: none] -> yes; he is dangerous, possibly a
+- `Q164.N2` **NODE C-2 — Lorenzo in his cell** Entry: stage 3. The source, caged, offering a way out. The father, possibly god, possibly madman, dangling the serum. > "Are you insane, or something else?" [gate: none] -> the amb
+- `Q164.N3` **NODE C-3 — the choice** Entry: stage 4. The key, held or turned. > (keep him caged, side with Jack) [gate: none] -> the family lives, the serum flows, the father stays in his cell forever; the player rewa
+- `Q164.P1` **PORT 1 — THE IMMORTALITY THAT RUNS ON A PRISONER [W1, W2, W8 — the core port]** system: the Amalgamation / the fold / faction web A Bohemia arc where the never-dying (the Amalgamation's promise, a faction's endurance) is revealed to run on someone KEPT IMPRISO
+- `Q164.P2` **PORT 2 — THE THREAT IS DEMONSTRABLE [F1's law]** system: [READ] / the fold If imprisonment is justified by a threat, the THREAT is demonstrable — witnessed, evidenced — so keeping the cell locked is a genuine weighing, not a clai
+- `Q164.P3` **PORT 3 — THE NEVER-DYING IS HAUNTED [F2's law]** system: the Amalgamation / the fold / conscience The beneficiaries of an imprisonment-for-immortality CARRY the guilt visibly — the never-dying shown as haunted, not shrugged — so 
+- `Q164.P4` **PORT 4 — TAKING THE SERUM IS A RECORDED STAIN [F3's law]** system: the fold / the conduct book (#143) If the dynast is bribed with a share of the never-dying, taking it is a recorded MORAL act — the fold marks that they pocketed the not-dy
+- `Q164.W1` **IMMORTALITY RUNS ON A PRISONER** The family's never-aging is drawn from a father in a cell — the never-dying has a captive source, which is the Amalgamation's exact logic made a family secret.
+- `Q164.W10` **THE SERUM RIDES ALONG** However it ends, the player carries the immortality — a permanent reminder that they took a cut of the not-dying, the choice's stain worn in the veins.
+- `Q164.W2` **THE JAILER IS DEFENSIBLE** Jack has kept a possibly-godlike madman contained for four hundred years, sparing the world and keeping his family young — the imprisonment is monstrous and arguably right, the har
+- `Q164.W3` **THE PRISONER IS BOTH VICTIM AND THREAT** Lorenzo is caged unjustly AND genuinely dangerous; freeing him is mercy and menace at once, so neither keeping nor opening the cell is clean.
+- `Q164.W4` **THE SERUM CONTAMINATES THE CHOICE** Both sides pay the player in immortality, so the decision about the cell is bought — you might keep a father imprisoned forever because it keeps you young too.
+- `Q164.W5` **THE AMBIGUITY IS THE DANGER** Lorenzo won't resolve whether he's a god or a madman; the uncertainty is what makes freeing him a real gamble and caging him a real cruelty.
+- `Q164.W6` **FOUR HUNDRED YEARS OF A LOCKED DOOR** The sheer duration — centuries of one man holding another in a cell for the family's benefit — is the horror's weight; time makes the arrangement monstrous.
+- `Q164.W7` **NO SAFE THIRD DOOR** Lorenzo can't be cured and freed; he is kept or unleashed. The removed middle is the quest's honesty: the source of the never-dying admits no gentle resolution.
+- `Q164.W8` **THE MANSION IS THE AMALGAMATION IN MINIATURE** Someone imprisoned so the rest never die, a share offered to keep the door shut — the whole antagonist's bargain in one house.
+- `Q164.W9` **THE CHOICE HAS NO INNOCENT PARTY** Family, father, player — all compromised: the jailers, the dangerous victim, the bribed newcomer. The quest refuses anyone clean hands.
+- `Q164.X1` **LORENZO'S THREAT IS ASSERTED, NOT DEMONSTRATED** The whole "keep him caged" case rides on Lorenzo being a world-level danger, but the game never really SHOWS what he'd do free beyond attacking his family — so the player is asked 
+- `Q164.X2` **THE FAMILY'S GUILT IS THIN** Four hundred years of drugging your relatives young off your imprisoned father is a staggering moral weight, but the Cabots wear it lightly — Jack is anxious, not haunted; Emogene 
+- `Q164.X3` **THE SERUM BRIBE ISN'T INTERROGATED** The player is paid in immortality by whichever side, but the game never makes the player RECKON with taking a cut of the not-dying — the serum is a loot reward, not a moral stain, 
+
+### Q165  THE HOUSE OF GRIEF (KILL THE MOTHER WHO MADE YOU, OR KNEEL) (Baldur's Gate 3)
+- `Q165.N1` **NODE G-1 — the small recovery (representative)** Entry: stage 1, many times. A quiet camp moment, one of dozens that build the ending. > "You should try to remember them." [gate: none] -> encourage reclaiming the stolen self; a d
+- `Q165.N2` **NODE G-2 — Viconia's offer** Entry: stage 3. The unmaker, offering the unmaking. The Mother Superior, calm, holding out the old mercy. > (to Shadowheart) "Remember what they took." [gate: relationship] -> if s
+- `Q165.N3` **NODE G-3 — the choice, gated** Entry: stage 4. Shadowheart at the edge of her own unmaking. > (she defies Viconia, executes the cult) [gate: reclaimed self / earned trust] -> she breaks Shar's hold, kills the ma
+- `Q165.P1` **PORT 1 — THE FATE THAT IS EARNED, NOT PICKED [W1, W4, W7 — the core port]** system: companions / the fold / the conduct book (#143) A Bohemia companion made into a weapon (by the Amalgamation, a faction, an edit) returns to their makers, and whether they c
+- `Q165.P2` **PORT 2 — THE RELATIONSHIP IS LEGIBLE [F1's law]** system: companions / the fold / the unrecorded ledger The accrual that decides a companion's fate gives LEGIBLE feedback — a felt sense of them reclaiming or losing themselves — so
+- `Q165.P3` **PORT 3 — THE FORGETTING TEMPTS [F2's law]** system: the Amalgamation / dialogue scenes The lure of forgetting-as-mercy is made genuinely tempting — the relief real, the pain of remembering shown as unbearable — so kneeling i
+- `Q165.P4` **PORT 4 — THE BUILDING MOMENTS FEEL SIGNIFICANT [F3's law]** system: companions / the fold The moments that build a companion's fate FEEL significant — the weighting legible to emotional intuition — so a dynast who cares reliably reaches the
+- `Q165.W1` **THE PLAYER DOESN'T CHOOSE — THEY EARN THE CHOICE** Shadowheart's fate is not a final menu pick; it is gated by the whole relationship, so the ending is a debt the player has been accruing for dozens of hours. A companion's fate as 
+- `Q165.W10` **THE ENDING TEACHES THE THEME** The quest proves a companion's fate is built, not picked — the deepest statement in the game that people are saved in a hundred small moments or lost in their absence.
+- `Q165.W2` **THE WEAPON RETURNS TO ITS FORGE** She goes back to the people who unmade her, knife in hand — the confrontation with the makers is the arc's inevitable, earned climax.
+- `Q165.W3` **THE LURE IS THE ORIGINAL UNMAKING** Viconia offers exactly what the cult first offered: forget the pain, come home. The temptation to kneel is the temptation that made her, returned.
+- `Q165.W4` **THE CHOICE'S AVAILABILITY IS THE STAKE** She can only defy if she has enough self to defy FOR — the player's real work was giving her something to refuse for, across the game.
+- `Q165.W5` **FORGETTING AS DEVOTION** The cult's whole theology — pain given to Shar, self erased as worship — is the Amalgamation's exact promise, and the quest makes refusing it the hardest thing she does.
+- `Q165.W6` **THE STOLEN SELF IS THE PRIZE** Her name, her parents, her memories — reclaimed or lost; the ending is measured in how much of herself she keeps.
+- `Q165.W7` **THE RELATIONSHIP IS WEAPONIZED** Every prior choice about her memories, faith, and self is cashed at the House of Grief — the confrontation is the sum of a hundred small moments, not a fresh decision.
+- `Q165.W8` **THE PARENTS ARE THE LAST LEVER** The people the reclaimed self is FOR become the final test — the cult holds the stolen family as its last hold on her.
+- `Q165.W9` **LOSING HER IS QUIET AND PERMANENT** If she kneels, she forgets again and is gone — no fanfare, just a person surrendered to the thing that made her. The failure is unceremonious and total.
+- `Q165.X1` **THE GATING IS OPAQUE TO THE PLAYER** The relationship-accrual that decides the ending is invisible — there is no legible sense, during the game, that a given camp choice is a debit toward defiance or kneeling — so a p
+- `Q165.X2` **VICONIA'S PITCH IS UNDERCUT BY BEING OBVIOUSLY EVIL** The cult's lure — forgetting as mercy — is genuinely seductive in concept, but Viconia is staged as such a clear villain that the "come home and forget the pain" offer never lands 
+- `Q165.X3` **THE HUNDRED SMALL MOMENTS AREN'T ALL WEIGHTED EQUALLY, INVISIBLY** Some camp choices matter enormously to the gate and others not at all, with no way to tell which — so a player can do the emotional work in the moments that don't count and miss th
+
+### Q166  THE URN OF SACRED ASHES (DESECRATE THE RELIC, OR KEEP THE FAITH) (Dragon Age: Origins)
+- `Q166.N1` **NODE U-1 — the Guardian's question** Entry: stage 2. The forced honesty. The ancient protector asks the player character one true thing about themselves. > (answer the question honestly) [gate: none] -> passage; the p
+- `Q166.N2` **NODE U-2 — Kolgrim's offer** Entry: stage 4. The honest-devil at the relic. The heretic, offering power for desecration. > "Pour the blood, gain the power." [gate: none] -> the defiling boon; a real, permanent
+- `Q166.N3` **NODE U-3 — the ashes** Entry: stage 5. The test's quiet close. The relic, defiled or pure, gives the cure regardless. > (take the pinch, relic pure) [gate: refused Kolgrim] -> the cure and the sacred bot
+- `Q166.P1` **PORT 1 — THE SACRED TESTED BY ABSENT PUNISHMENT [W1, W7, W10 — the core port]** system: faith systems / the district / the fold A Bohemia pilgrimage or relic quest where a sacred thing can be SPENT for a real, unpunished advantage — the dynast offered a genuin
+- `Q166.P2` **PORT 2 — UNPUNISHED, NOT UNNOTICED [F1's law]** system: the fold / faction memory / the conduct book (#143) The "will you spend the sacred when nothing punishes it" test is framed so the absent punishment reads as DELIBERATE — a
+- `Q166.P3` **PORT 3 — THE FORCED CONFESSION RETURNS [F2's law]** system: the Guardian-beat / the fold / [READ] A forced-honesty beat where the dynast names their own guilt RETURNS — the spoken truth resurfacing, the fold holding it, a mercy or c
+- `Q166.P4` **PORT 4 — THE FALSE FAITH IS REAL FAITH [F3's law]** system: faction web / the district A false-faith faction is given real DEVOTION — sincerity, a comprehensible reason, individual faces — so they mirror the true pilgrims, not just 
+- `Q166.W1` **THE SACRED IS TESTED BY ABSENT PUNISHMENT** The ashes can be defiled for a real boon with no penalty — the quest asks whether the player will spend the holy for an advantage nobody would punish, which is the only honest test
+- `Q166.W10` **THE ASHES ARE JUST ASHES** The relic has no magic that punishes desecration; it is sacred only because people hold it so — which is the truest thing the quest says: the sacred is a choice, not a property.
+- `Q166.W2` **THE CURE SUCCEEDS EITHER WAY** The healing is invariant, so the fork is purely about the relic — the quest cleanly separates the practical need from the moral test, so the desecration is never justified by neces
+- `Q166.W3` **THE GUARDIAN MAKES YOU TELL THE TRUTH** The pilgrimage's toll is a single honest question about the player's own guilt — the sacred is guarded by forced honesty, not strength, which is a stunning inversion of the dungeon
+- `Q166.W4` **THE TEMPTATION IS REAL AND MECHANICAL** The defiling boon is a genuine, permanent, useful reward — the temptation has a number on it, which is the only kind that actually tempts (Q126's honestly-priced-power law).
+- `Q166.W5` **THE HERETICS ARE DEVOTION AIMED WRONG** Haven worships a dragon as Andraste's reincarnation — a real faith pointed at a false god, a mirror of the pilgrims that makes the whole quest about what devotion is for.
+- `Q166.W6` **THE HONESTY IS UNAVOIDABLE** The Guardian sees through deflection; the player must name their guilt or not pass — the pilgrimage does not let you lie your way to the sacred.
+- `Q166.W7` **NOTHING STOPS THE DESECRATION** No meter, no immediate consequence, no wall — the ashes are defenseless against a player who would spend them, which is exactly what makes not spending them mean something.
+- `Q166.W8` **THE BOON IS SMALL AND PERMANENT** The reward for defiling is modest but forever — a lasting mark of a choice made for advantage, carried the rest of the game.
+- `Q166.W9` **THE PILGRIMAGE IS A TEST IN THREE PARTS** Cult, question, temptation — false faith, forced honesty, the sacred's price — a structure that examines devotion from three angles.
+- `Q166.X1` **THE DESECRATION HAS NO CONSEQUENCE, WHICH BOTH MAKES AND BREAKS THE POINT** The ashes being defilable with zero mechanical or narrative penalty is the quest's sharpest idea — the sacred tested by absent punishment — but the game so completely fails to ackn
+- `Q166.X2` **THE GUARDIAN'S QUESTION IS UNDERUSED** The forced-honesty moment — being made to name your own guilt — is the quest's most striking beat, but it is a one-off with no callback; the truth the player was forced to speak ne
+- `Q166.X3` **THE HERETIC CULT IS FLATTENED TO AN OBSTACLE** Haven's dragon-worshippers — people who took a real faith and aimed it at the wrong god — are a fascinating mirror, but they mostly exist to be fought; their theology, their sincer
+
+### Q167  THE LEVIATHAN (THE TRUTH DELIVERED BY THE ENEMY AT YOUR LOWEST) (Star Wars: Knights of the Old Republic)
+- `Q167.N1` **NODE L-1 — Karath, the reveal** Entry: stage 4. The enemy handing you yourself, to break you. The captor, losing, playing his cruelest card. > "You're lying." [gate: none] -> he isn't, and the seeds across the ga
+- `Q167.N2` **NODE L-2 — Carth, the poisoned trust** Entry: stage 4-5. The bond detonated. The companion whose family the fallen Revan killed, reckoning with having trusted Revan. > "I'm not him anymore." [gate: none] -> that's what 
+- `Q167.N3` **NODE L-3 — the escape** Entry: stage 5. The self carried forward under fire. The ship falling apart, the party needing the shattered leader. > (keep functioning, lead them out) [gate: none] -> the escape 
+- `Q167.P1` **PORT 1 — THE REVEAL DELIVERED AS AN ASSAULT [W1, W2, W3 — the core port]** system: the Amalgamation / the fold / the mid-game turn A Bohemia mid-game reveal delivered as a WEAPON — the Amalgamation, which archives the dead and thus knows the dynast's true
+- `Q167.P2` **PORT 2 — SEEDED SO IT LANDS BOTH WAYS [F1's law]** system: the fold / [READ] The reveal is seeded so it is INEVITABLE-in-hindsight for the attentive and earned for the inattentive — clues present but not conclusive (#32's fairness 
+- `Q167.P3` **PORT 3 — THE DENIAL OF CATHARSIS IS DESIGNED [F2's law]** system: the mid-game turn / the dial The forced action after the reveal is SHAPED to carry the trauma — its demands echoing the collapse, leadership-under-fire mirroring the theme 
+- `Q167.P4` **PORT 4 — THE POISONED BONDS SCAR [F3's law]** system: companions / the fold Bonds detonated by a reveal rebuild CARRYING the specific wound — reformed as scarred, different things, not restored to default — so the damage is pe
+- `Q167.W1` **THE REVEAL IS A WEAPON** The truth is delivered by the enemy, at the lowest point, to BREAK the player — not to inform. The same fact told safely would be exposition; told as an assault, it is trauma. The 
+- `Q167.W10` **IT LOADS THE ENDGAME** The collapse carried out of the Leviathan is cashed at the endgame's redeem-or-relapse fork — the reveal's trauma becomes the weight of the final choice. The delivery pays off hour
+- `Q167.W2` **THE LOWEST POINT IS MANUFACTURED** Captured, split, tortured, betrayed — the helplessness is built deliberately so the truth lands on a player already broken. The setup is the reveal's amplifier.
+- `Q167.W3` **THE ESCAPE DENIES CATHARSIS** No time to process; the ship is falling, the party needs leading. The player carries the collapse forward under fire, performing competence through the shattering — the cruelest an
+- `Q167.W4` **THE TRUTH RETROACTIVELY REWRITES THE GAME** Every prior scene re-reads; the player's competences, the NPC reactions, the whole first half reorganizes in hindsight (the #32 lens, delivered as an assault).
+- `Q167.W5` **THE BONDS DETONATE** Carth, whose family the fallen Revan killed, must reckon with having trusted Revan; the reveal poisons every relationship at once, and the party's faces confirm it before words.
+- `Q167.W6` **THE ENEMY IS LOSING** Karath plays the reveal as his last card — the truth is the cruelest thing a losing antagonist has left, which makes the delivery feel like desperation, not triumph.
+- `Q167.W7` **THE PLAYER MUST KEEP FUNCTIONING** The escape forces leadership through the collapse — the player is denied the luxury of falling apart, which is exactly what makes the trauma land as lived, not watched.
+- `Q167.W8` **THE COMPANIONS' FACES DO THE WORK** The reveal is confirmed by the party's expressions before their dialogue — the detonation is shown in reaction, not just told in exposition.
+- `Q167.W9` **NO CHOICE, ONLY DELIVERY** The Leviathan doesn't branch; its power is entirely in HOW the fixed truth arrives. The design's thesis: the when and who of a reveal matter more than the what.
+- `Q167.X1` **THE SEEDS ARE UNEVEN, SO THE REVEAL SURPRISES SOME AND BORES OTHERS** The Leviathan reveal relies on prior seeding (odd competences, NPC reactions, Force aptitude), but the seeding is inconsistent — attentive players see it coming and find the "shatt
+- `Q167.X2` **THE ESCAPE'S DENIAL OF CATHARSIS IS ACCIDENTAL, NOT DESIGNED** The "no time to process" effect — carrying the collapse forward under fire — is the quest's most powerful structural move, but it emerges from generic gameplay pacing (there's an e
+- `Q167.X3` **THE POISONED TRUST RECOVERS TOO CLEANLY** The reveal detonates the party's bonds, but the back half lets trust rebuild through fairly standard approval mechanics; Carth's betrayal-wound, so sharp at the Leviathan, heals vi
+
+### Q168  RAVEL PUZZLEWELL (THE HAG WHO ASKS THE ONLY QUESTION) (Planescape: Torment)
+- `Q168.N1` **NODE R-1 — Ravel's question** Entry: stage 3. The monster asking the only thing she wants to know. The hag, mad and ancient, turning over the question of her existence. > "Nothing can change a man's nature." [g
+- `Q168.N2` **NODE R-2 — the love that ruined them** Entry: stage 3-4. The wound under the riddle. Ravel, who made him immortal out of a monster's devotion. > "Why did you make me deathless?" [gate: none] -> because she loved him; th
+- `Q168.N3` **NODE R-3 — the truth or the claws** Entry: stage 5. Ravel yields or kills. > (engaged honestly, thought about the question) [gate: engagement] -> she gives the truth of his immortality and the thematic key; the burie
+- `Q168.P1` **PORT 1 — THE THESIS SPOKEN BY THE MONSTER [W1, W2, W3 — the core port]** system: the Amalgamation / [READ] / the central question A Bohemia quest where the game's deepest truth — the answer to "what survives when a life ends" — is spoken by an unlikely 
+- `Q168.P2` **PORT 2 — ENGAGEMENT, ANY GENUINE PATH [F1's law]** system: [READ] / dialogue / the central question The reward for engagement is reachable by ANY genuine engagement, not one exact wording — the buried truth offered to the dynast wh
+- `Q168.P3` **PORT 3 — THE DANGER IS LEGIBLE [F2's law]** system: [READ] / dialogue If a wrong answer forecloses the deepest content, the danger is LEGIBLE — the dynast able to sense they are provoking rather than engaging — so losing the
+- `Q168.P4` **PORT 4 — THE MONSTER'S LOVE IS SHOWN [F3's law]** system: the Amalgamation / dialogue scenes / the fold A monster whose tragedy is love has that love SHOWN with enough weight to be felt, not buried in optional density — so the cre
+- `Q168.W1` **THE THESIS IS SPOKEN BY A MONSTER** The truest line in the game — "anything can change the nature of a man; what matters is that you change" — comes from a mad, deadly hag in a maze, the last mouth you would expect. 
+- `Q168.W10` **THE KEY REFRAMES EVERYTHING** Ravel's answer is the lens for the whole game's central question — reaching it changes how the player understands every prior and later beat. The buried climax pays off across the 
+- `Q168.W2` **THE TRUTH IS GATED BEHIND ENGAGEMENT** Ravel rewards thought and honesty, not stats or violence — the player who converses receives the key; the skimmer never hears it. Attention is the currency.
+- `Q168.W3` **THE QUESTION IS THE GAME** Ravel asks the title question with death on the wrong answer — the whole game's thesis made a riddle in a single conversation, stakes and meaning fused.
+- `Q168.W4` **VIOLENCE IS THE SKIM-READ** Attacking Ravel wins a fight and loses the truth forever — the design makes brute force the way to miss everything, so the player who reaches for the sword reaches past the point.
+- `Q168.W5` **THE MONSTER LOVED YOU** Ravel made the Nameless One immortal out of devotion; the curse is the shape of her love — the antagonist is a griever, and her tragedy is that her tenderness ruined them both.
+- `Q168.W6` **THE ANSWER IS A GIFT, NOT LOOT** Ravel gives her truth to the honest thinker; it cannot be extracted or forced — the deepest thing the game says is a gift to the attentive, which is why it lands.
+- `Q168.W7` **ASKING HER BACK IS THE KEY** The player who says "what do YOU think, Ravel?" — who treats her as a mind, not an obstacle — unlocks the answer; engagement is literally turning the question around.
+- `Q168.W8` **THE MAZE IS THE FILTER** Ravel's labyrinth rewards the thinker and kills the skimmer — the truth is guarded by the player's willingness to engage, made spatial.
+- `Q168.W9` **THE FIGHT IS REAL** Ravel is one of the deadliest creatures in the game; the danger is genuine, so choosing to think instead of fight is choosing to risk the honest path over the safe one.
+- `Q168.X1` **THE ENGAGEMENT GATE IS INVISIBLE, SO THE THINKER CAN STILL MISS IT** The reward for honest engagement — Ravel's answer — is gated behind specific dialogue choices that a genuinely thoughtful player might not happen to pick; the "thinker gets the tru
+- `Q168.X2` **THE FIGHT OPTION IS TOO EASY TO STUMBLE INTO** Ravel is deadly and a wrong answer triggers combat, but the line between "answer that opens her" and "answer that starts the fight" is not always legible — so a player can lose the
+- `Q168.X3` **RAVEL'S LOVE IS UNDERBUILT RELATIVE TO ITS WEIGHT** The revelation that Ravel loved the Nameless One and made him immortal out of devotion is the emotional core of her tragedy, but the game delivers it in dense, easily-missed text; 
+
+### Q169  THAT LUCKY OLD SUN (WHO GETS THE POWER) (Fallout: New Vegas)
+- `Q169.N1` **NODE P-1 — the cult at the plant** Entry: stage 1. The sun-worshippers who kept the derelict's flame, staking a claim. > "We kept this place alive. The power is ours." [gate: none] -> the loyalty claim; who kept the
+- `Q169.N2` **NODE P-2 — the console** Entry: stage 3-4. The switch that is a verdict. The allocation menu, a region's future in a list. > (route to the region) [gate: none] -> the many helped a little; the utilitarian 
+- `Q169.N3` **NODE P-3 — the consequence** Entry: stage 5. The current flowing where you sent it, the region reshaped. > (live with the allocation) [gate: none] -> the towns lit or dark, the faction strong, the weapon live 
+- `Q169.P1` **PORT 1 — THE ALLOCATION SWITCH [W1, W2, W3 — the core port]** system: the power grid / currencies / the district A Bohemia quest where the dynast restores a scarce resource (power, water, medicine) and allocates it at a single console — the r
+- `Q169.P2` **PORT 2 — THE CONSEQUENCES ARE FELT [F1's law]** system: the district / the fold / entities An allocation's effects are LEGIBLE and felt — the lit district thriving, the dark one suffering, named people on both sides — so the swi
+- `Q169.P3` **PORT 3 — THE RANGE IS LEGIBLE [F2's law]** system: the power grid / [READ] The full range of an allocation is LEGIBLE at the point of choice — the alternatives and their theories of desert clear — so the dynast weighs a rea
+- `Q169.P4` **PORT 4 — THE SWITCH-HOLDER IS ACCOUNTABLE [F3's law]** system: standing / faction memory / the fold The one who holds the switch is HELD to it — factions and people remembering who lit them or left them dark, standing shifting on the a
+- `Q169.W1` **INFRASTRUCTURE IS A MORAL ACT** The quest's whole thesis: to hold the switch for a region's power is to decide who deserves the light — the console is a verdict, and the quest makes distribution the drama, not co
+- `Q169.W10` **IT IS A CITY-BUILDER QUEST IN AN RPG** Restart a plant, allocate its output, shape a region — the quest is Bohemia's exact genre smuggled into a shooter, which is why it ports almost without translation.
+- `Q169.W2` **THE RESOURCE IS SCARCE** The output is finite, so there is no setting that lights everyone — scarcity forces the choice, and every allocation leaves someone dark. The switch cannot be neutral.
+- `Q169.W3` **FOUR THEORIES OF DESERT** Region, fortress, cult, weapon — the many, the few, the faithful, or force — each option is a different answer to who the power is for. The menu is a moral philosophy.
+- `Q169.W4` **NO COMBAT, JUST A SWITCH** The climax is a console, not a fight — the quest proves a decision can be the whole stakes, and that flipping a lever can carry more weight than any battle.
+- `Q169.W5` **THE CONSOLE JUDGES NOTHING** No option is flagged right; the switch obeys without approving — the moral weight is left entirely on the player, which is the only honest way to present an allocation.
+- `Q169.W6` **THE FAITHFUL HAVE A CLAIM** The cult who kept the plant alive argue loyalty over need — a real tension between who tended the resource and who requires it, which allocation always faces.
+- `Q169.W7` **THE WEAPON IS AN OPTION** Power can be made a gun instead of a service — the choice to abandon welfare for force is on the menu, so the quest asks whether infrastructure serves or threatens.
+- `Q169.W8` **THE CONSEQUENCE IS DOWNSTREAM** The choice shapes the region later, diffusely — the switch's body count is deferred and quiet, which is exactly how real allocation works: the dark towns never see the console.
+- `Q169.W9` **THE PLAYER IS THE UTILITY** The quest hands one person the power of a whole region's electricity — the god-like weight of the switch, and the loneliness of holding it, is the experience.
+- `Q169.X1` **THE CONSEQUENCES ARE TOO DIFFUSE TO FEEL** The allocation's downstream effects — which towns benefit, how a faction is strengthened — are so diffuse and under-shown that the player rarely FEELS the weight of who they lit or
+- `Q169.X2` **THE OPTIONS AREN'T EQUALLY LEGIBLE** The hidden weapon option (ARCHIMEDES) and the full range of allocations aren't clearly surfaced; a player can complete the quest without realizing the depth of the choice they made
+- `Q169.X3` **NO ONE IS ACCOUNTABLE FOR THE ALLOCATION** The player flips the switch and no one — no faction, no town, no companion — ever holds them to account for who they powered; the region doesn't remember the dynast as the one who 
+
+### Q170  SINS OF THE FATHER (STOP YOUR SON FROM BECOMING YOU) (Mass Effect 2)
+- `Q170.N1` **NODE T-1 — Thane's confession** Entry: stage 1. The dying father naming what he did and what it's becoming. > "You abandoned him." [gate: none] -> he doesn't defend it; the boy's killing is his own absence, comin
+- `Q170.N2` **NODE T-2 — Kolyat's grief** Entry: stage 3-4. The son reaching for the father through the killing. The boy, rage over a wound, about to inherit. > "You don't have to become him." [gate: none] -> the counter t
+- `Q170.N3` **NODE T-3 — the reaching** Entry: stage 4-5. The cycle at its edge. The player, the mouth the father can't be, in the moment before the kill. > (talk Kolyat down — reach the grief, not the rage) [gate: read 
+- `Q170.P1` **PORT 1 — THE PARENT RACING THE CYCLE [W1, W2, W3 — the core port]** system: the fold / companions / the ~100-year arc A Bohemia arc where a parent (a prior dynast, a companion) races to stop their child from inheriting their sins — the killing, the
+- `Q170.P2` **PORT 2 — BROKEN BY UNDERSTANDING, NOT A STAT [F1's law]** system: [READ] / the fold The cycle-breaking intervention is gated on UNDERSTANDING the child's wound (reaching the grief, not the rage), not a persuasion number — so a dynast who 
+- `Q170.P3` **PORT 3 — THE ABANDONMENT IS SHOWN [F2's law]** system: the fold / the ~100-year arc The abandonment that creates a cycle is SHOWN across the fold — the parent's leaving, the child's grief, the years of absence witnessed — so br
+- `Q170.P4` **PORT 4 — THE BROKEN CYCLE HAS AN AFTERMATH [F3's law]** system: the fold / companions Breaking a generational cycle has an AFTERMATH proportional to its stakes — the reconciled bond shown growing, the spared child's changed path witness
+- `Q170.W1` **A PARENT RACES THE CYCLE** The quest's engine is a father trying to stop his son from becoming him — the fold's exact question (what one generation passes to the next) made a race against a single kill. The 
+- `Q170.W10` **THE INHERITANCE IS THE THEME** The quest asks whether what a parent WAS must be what the child BECOMES — the fold's central question, answered by whether the player can break it through the right voice at the ri
+- `Q170.W2` **THE KILLING IS GRIEF, NOT CALLING** Kolyat becomes an assassin not from talent but from abandonment — the boy reaching for the only thing his father ever was. The cycle is a wound, not a choice.
+- `Q170.W3` **THE FATHER CANNOT BE THE CURE** Thane is the wound; his face is the grief; he cannot be the one who reaches his son. The cycle can only be broken through someone else's voice — a devastating structural truth.
+- `Q170.W4` **THE CLOCK IS TERMINAL** Thane is dying; there is no time to earn standing, only to act. The intervention must happen before the father runs out of both life and right.
+- `Q170.W5` **THE PLAYER IS THE THIRD VOICE** Shepard talks Kolyat down because Thane can't — the intervention runs through a mouth that isn't the wound, which is why it can work.
+- `Q170.W6` **THE REACHING CAN FAIL** Meet the boy's rage with rage, or let the father lead, and the kill completes — the intervention is genuinely failable, and the failure is a son turned into his father forever.
+- `Q170.W7` **THE GRIEF UNDER THE RAGE** Reaching Kolyat means finding the grief the rage is defending — the intervention succeeds by addressing the wound, not the anger, which is the truth of every real reconciliation.
+- `Q170.W8` **THE FATHER OWNS THE CAUSE** Thane does not defend the abandonment; he names it as the source. The parent's honesty about having made the wound is what makes the race for redemption bearable.
+- `Q170.W9` **THE STAKES ARE ONE FAMILY** Not the galaxy — a father and a son and a single kill. The intimate scale (the #47 lesson) is what makes the cycle's weight land: this is about these two, and it is enough.
+- `Q170.X1` **THE INTERVENTION'S SUCCESS LEANS ON A PERSUASION CHECK** Talking Kolyat down is gated partly behind Paragon/Renegade points — so a player who understands the boy's grief perfectly but lacks the check can fail to reach him, and the cycle-
+- `Q170.X2` **THANE'S ABSENCE IS TOLD, NOT LIVED** The abandonment that drives the whole quest — Thane leaving Kolyat to grief while he pursued revenge — is delivered as backstory, so the player experiences the wound as exposition 
+- `Q170.X3` **THE FRAGILE CHANCE ISN'T FOLLOWED THROUGH** If Kolyat is saved, the "father-son reckoning in Thane's last weeks" is promised but barely delivered — a brief scene, then the thread mostly drops, so the cycle-breaking's payoff 
+
+### Q171  THE GAUNTLET OF SHAR (THE TRIALS THAT REWARD SELF-ERASURE) (Baldur's Gate 3)
+- `Q171.N1` **NODE Sh-1 — the Faith-Leap** Entry: stage 2. The training, in one trial. The ledge, the darkness, the goddess's demand to distrust your senses. > (step into the apparent void, trusting Shar) [gate: none] -> th
+- `Q171.N2` **NODE Sh-2 — the Nightsong revealed** Entry: stage 4. The atrocity the trials disguised. The captive, not a monster but a tortured immortal. > "You're not a monster. You're a prisoner." [gate: none] -> the reveal: Dame
+- `Q171.N3` **NODE Sh-3 — the choice** Entry: stage 5. The indoctrination completed or broken. The knife, the captive, the goddess watching. > (kill the Nightsong, complete the trials) [gate: none] -> the indoctrination
+- `Q171.P1` **PORT 1 — THE DUNGEON THAT INDOCTRINATES [W1, W2, W3 — the core port]** system: the Amalgamation / theme-through-level / the district A Bohemia space whose TRIALS embody a theology — each puzzle solved by a small self-erasure (forget a name, trust the 
+- `Q171.P2` **PORT 2 — THE CONDITIONING ACTUALLY CONDITIONS [F1's law]** system: the district / the fold / the conduct book (#143) A dungeon's trials meant to condition the dynast have real grip — small commitments that accrue, a disposition the game tr
+- `Q171.P3` **PORT 3 — THE VICTIM IS FELT BEFORE THE END [F2's law]** system: the Amalgamation / entities / the district The person a doctrine trains the dynast to harm is FELT before the final ask — glimpsed, heard, sensed through the trials — so th
+- `Q171.P4` **PORT 4 — THE ATROCITY'S REWARD IS A STAIN [F3's law]** system: the fold / the conduct book (#143) If a doctrine's final atrocity carries a power reward, taking it is a RECORDED moral act — the fold marking that the dynast took the powe
+- `Q171.W1` **THE LEVEL IS A THEOLOGY** Every trial is Shar's doctrine made a puzzle — the player doesn't hear the faith, they PRACTICE it. Theme-through-level-design (#35) aimed at self-erasure, room by room.
+- `Q171.W10` **THE SLIPPERY SLOPE IS A DUNGEON** Frostpunk's decree-by-decree drift (#29) made spatial: each small acceptable step, rewarded, leading to the monstrous conclusion. The doctrine's gradualism, walkable.
+- `Q171.W2` **THE SOLUTIONS ARE SELF-ERASURES** Step into the dark, distrust the light, forget the pain — each "correct" answer is a small self-abandonment, so solving the dungeon IS accepting the goddess.
+- `Q171.W3` **THE CONDITIONING BUILDS TO THE ATROCITY** The trials train the pilgrim, rep by rep, into the mindset that makes the final kill thinkable — the dungeon spends hours making the unthinkable feel like the next step.
+- `Q171.W4` **THE FAITH-LEAP IS THE THESIS** Stepping into apparent nothingness, trusting the goddess over your senses, is the doctrine in one trial: distrust what you see, embrace what erases you.
+- `Q171.W5` **THE FINAL TRIAL IS A PERSON** The Nightsong is revealed as a tortured immortal, not a monster — the "devotion" the trials built toward is an atrocity, disguised as the natural conclusion of faith.
+- `Q171.W6` **THE CHOICE'S DIFFICULTY IS THE POINT** The Gauntlet spent hours making the kill feel natural, so refusing it means rejecting everything the dungeon trained — the design's whole purpose is to make the right choice hard.
+- `Q171.W7` **THE DOCTRINE HAS NO CLEAN COMPLETION** The final trial IS the killing; there is no way to keep the faith without the crime — the theology's endpoint is the atrocity, and the dungeon is honest about it.
+- `Q171.W8` **SPARING HER BREAKS EVERYTHING** Defying Shar means rejecting the trials, the training, the reward, the goddess — the refusal is a repudiation of the whole dungeon, which is why it's hard.
+- `Q171.W9` **IT IS THE PHYSICAL PRELUDE TO THE COMPANION ARC** The Gauntlet feeds the House of Grief (#165) — the dungeon's conditioning is the pressure that Shadowheart's whole reclaim-or-kneel arc is measured against.
+- `Q171.X1` **THE TRIALS' CONDITIONING IS THEMATIC, NOT MECHANICALLY BINDING** The trials teach Shar's mindset, but a player can pass them while mentally rejecting the theology the whole time — the "conditioning" is narrative dressing, not a mechanic that act
+- `Q171.X2` **THE NIGHTSONG'S PERSONHOOD ARRIVES LATE** Dame Aylin is revealed as a tortured prisoner only at the final trial, so the "atrocity disguised as devotion" lands as a twist rather than a dawning horror; a player who felt her 
+- `Q171.X3` **THE REWARD FOR COMPLETING SKEWS THE CHOICE** Killing the Nightsong grants a significant power reward, so the "complete the indoctrination" path is mechanically incentivized — the game pays you to do the atrocity, which can ti
+
+### Q172  CARNAL SINS (THE ARTIST WHO KILLS TO FINISH THE MASTERPIECE) (The Witcher 3: Wild Hunt)
+- `Q172.N1` **NODE V-1 — reading the bodies** Entry: stage 1. The morgue, the posed corpses, the killer's grammar to be learned. > (read the poses as deliberate) [gate: witcher-senses] -> the composition recognized; the murder
+- `Q172.N2` **NODE V-2 — the grieving lover** Entry: stage 3. The misdirection. The innocent whose grief looks like guilt. > "You had motive. Your lover was a victim." [gate: none] TRAP -> the circumstantial trail; condemn him
+- `Q172.N3` **NODE V-3 — the composer** Entry: stage 4. The artist who kills. The fanatic, sincere, at his holy work. > "You're murdering people." [gate: none] -> he corrects you: he is composing, judging, making somethi
+- `Q172.P1` **PORT 1 — THE ATROCITY AS ARTWORK [W1, W2, W3 — the core port]** system: the missing-persons organ (#141) / the Amalgamation / [READ] A Bohemia whodunit where the crimes are COMPOSED — bodies or data arranged as a work, a message, a masterpiece 
+- `Q172.P2` **PORT 2 — THE WHODUNIT CAN FAIL [F1's law]** system: the missing-persons organ (#141) / the fold A forensic whodunit is genuinely FAILABLE into a wrong conviction with legible consequences — the innocent condemned, the killer
+- `Q172.P3` **PORT 3 — INHABIT THE KILLER'S FRAME [F2's law]** system: [READ] / the Amalgamation If a killer experiences atrocity as beauty, the dynast briefly INHABITS that frame — the composition's logic shown, the terrible beauty legible fo
+- `Q172.P4` **PORT 4 — THE CORRUPTION IS TRACEABLE [F3's law]** system: the faction web / the district A corrupted-faith killer's madness is TRACEABLE to the doctrine he twisted — the line from the real teaching to the atrocity shown — so the c
+- `Q172.W1` **THE BODIES ARE A TEXT** The murders are posed, arranged, composed — a language the player must learn to read. The deduction is forensic literacy: the corpses mean something, and solving is understanding t
+- `Q172.W10` **TO SOLVE IT IS TO BE COMPLICIT FOR A MOMENT** Reading the tableau means, briefly, seeing the murders as the killer does — the deduction implicates the player in the artist's frame, which is the quest's lingering discomfort.
+- `Q172.W2` **THE KILLER IS AN ARTIST** The murderer composes rather than rages — corpses as components in a masterpiece. The motive is not passion but aesthetic devotion, which is far more unsettling.
+- `Q172.W3` **THE ATROCITY IS EXPERIENCED AS BEAUTY** The killer's madness is that he finds his murders sacred and lovely — the horror is not that he's confused but that he's certain, and certain of beauty.
+- `Q172.W4` **YOU MUST THINK LIKE HIM TO CATCH HIM** The deduction requires seeing the bodies as the killer sees them — as art — which is the investigation's power and its unease: to solve it you glimpse what he glimpses.
+- `Q172.W5` **THE RED HERRING IS GRIEF** The circumstantial trail points to a grieving innocent whose sorrow looks like guilt — condemning him is the failure, and it lets the artist keep composing.
+- `Q172.W6` **THE FAITH IS CORRUPTED, NOT ABSENT** The killer twists a real religion into a license — the atrocity wears devotion, which is the false-faith horror (#166) in a serial killer.
+- `Q172.W7` **THE ZEALOT CANNOT BE REASONED OUT** He is sincere; certainty does not negotiate. The removed "reason him out of his faith" verb is the quest's coldest truth: the corrupted devout are not persuadable.
+- `Q172.W8` **THE INVESTIGATION IS FORENSIC** Reading corpses, scenes, poses with senses — the quest is detection, not combat, and the tension is comprehension, not violence.
+- `Q172.W9` **THE HORROR IS AESTHETIC** Not gore for shock but murder-as-composition — the unease is intellectual and moral, the recognition that beauty and atrocity can be the same act to the wrong mind.
+- `Q172.X1` **THE INVESTIGATION CAN'T ACTUALLY FAIL INTO THE WRONG CONVICTION SILENTLY** Like most witcher-sense investigations, the deduction is largely a guided corridor; the "condemn the innocent" outcome is hard to reach and, when reached, under-consequenced — so t
+- `Q172.X2` **THE KILLER'S AESTHETIC HORROR IS UNDERPLAYED** The idea that the murderer experiences atrocity as beauty — composes corpses as holy art — is the quest's most chilling concept, but it's delivered in a few lines at the end; the p
+- `Q172.X3` **THE CORRUPTED FAITH ISN'T CONNECTED TO THE REAL CHURCH'S DOCTRINE** The killer twists the Eternal Fire's faith into a license to compose with corpses, but the quest doesn't dramatize HOW the doctrine enables him — the church is backdrop, so the "fa
+
+### Q173  KARLACH'S HEART (THE ENGINE IN HER CHEST WILL KILL HER EITHER WAY) (Baldur's Gate 3)
+- `Q173.N1` **NODE K-1 — the touch she can't have** Entry: stage 1. Karlach, starved for contact, unable to have it. > "I can't even hug you, can I?" [gate: none] -> the engine's cruelty made intimate; a woman who wants to be held a
+- `Q173.N2` **NODE K-2 — the limit named** Entry: stage 3. The death-math, honest. Dammon or the truth, delivering the wall. > "There's no real fix, is there." [gate: none] -> no; the surface can't reach the hell-tech; ever
+- `Q173.N3` **NODE K-3 — the three endings** Entry: stage 4-5. The choice between deaths. Karlach at the fork that is all loss. > (return to hell — survive, enslaved) [gate: none] -> she lives, maintained, but back in the pla
+- `Q173.P1` **PORT 1 — THE BODY THAT IS A COUNTDOWN [W1, W2, W5 — the core port]** system: the death-math / companions / Liberate A Bohemia companion or survivor whose body is a terminal clock — an affliction, an Amalgamation-graft, a wound that every "cure" only
+- `Q173.P2` **PORT 2 — HOLD THE HONEST ENDING [F1's law]** system: the death-math / Liberate / the fold If a companion's arc is honest terminal loss, the design HOLDS it — no survival route patched in because players hurt — because the cou
+- `Q173.P3` **PORT 3 — THE COUNTDOWN IS FELT [F2's law]** system: the death-math / the dial / the district A body-as-countdown is FELT — visible worsening, time draining, the death-math legible as it advances — so the terminal stakes land
+- `Q173.P4` **PORT 4 — THE DEPRIVATION IS DRAMATIZED [F3's law]** system: companions / dialogue scenes / the fold A character's central deprivation (unable to be touched, known, saved) is DRAMATIZED — moments where the dynast feels the barrier, r
+- `Q173.W1` **HER BODY IS A COUNTDOWN** The engine keeps Karlach alive and kills her — a terminal clock in a companion you love. The death-math is the arc, and it is unbeatable, which is what makes it devastating.
+- `Q173.W10` **YOU CHOOSE WHICH LOSS, NOT WHETHER** The agency the quest leaves is helping her pick which unbearable thing to bear — the death-math has no winning setting, and the dignity is in the choosing.
+- `Q173.W2` **EVERY FIX IS A PATCH** The cures buy time, never a life; each step forward is a slower death. The hope keeps almost-working, which is crueler than no hope at all.
+- `Q173.W3` **SHE CANNOT BE TOUCHED** A woman starved for contact who burns anyone who tries — the engine's cruelty is intimate, a deprivation of the simplest human thing.
+- `Q173.W4` **THE PLAYER CAN FIX EVERYTHING BUT HER** In a game where the player solves so much, the one thing they cannot solve is the person they love — the helplessness is the point, and it lands because everything else is fixable.
+- `Q173.W5` **THE ENDINGS ARE ALL LOSS** Return to hell, die on the surface, become a mind flayer — no ending gives her what she wants. The fork is not a choice between good and bad but between unbearable and unbearable.
+- `Q173.W6` **THE HONEST DEATH IS AN OPTION** Dying on the surface, among the loved, held at last — the SOMA/Liberate ending with a heartbeat: refusing the false hope, choosing the honest loss.
+- `Q173.W7` **THE CHEER IS ARMOR** Karlach is loud and warm because a decade in hell taught her to hide the fear — the coping surface (#162) over a terror the arc lets crack.
+- `Q173.W8` **THE ONLY GIFT LEFT IS PRESENCE** When you cannot fix her, the only thing to give is to be there, honestly, for the ending she chooses — the quest's answer to helplessness is company, not a cure.
+- `Q173.W9` **THE KINDEST LIE IS THE PROMISE OF A FIX** "We'll find a cure" is the tempting comfort, and the arc teaches that the honest thing is to stop telling it — the mercy is truth, not false hope.
+- `Q173.X1` **THE "GOOD" ENDING WAS PATCHED IN, EXPOSING THE DESIGN'S HESITATION** Karlach originally shipped with only the bleak endings; a later patch added a path to more time (the mind-flayer route, the Avernus survival), which relieved players but also revea
+- `Q173.X2` **THE PATCHES-NOT-A-FIX STRUCTURE ISN'T FELT AS A COUNTDOWN** Karlach's engine is a terminal clock, but the game never makes the player FEEL the countdown — there's no visible worsening, no sense of time running out, so the "every fix is a sl
+- `Q173.X3` **THE TOUCH-STARVATION IS UNDERUSED MECHANICALLY** The engine making Karlach unable to be touched is her most poignant detail — a woman who wants contact and burns anyone who tries — but it's mostly a dialogue note; the game rarely
+
+### Q174  THE BROKEN CIRCLE / THE FADE (THE PERFECT LIE THAT LETS YOU STOP FIGHTING) (Dragon Age: Origins)
+- `Q174.N1` **NODE F-1 — the perfect dream** Entry: stage 2. The paradise that feels earned. The player wakes into everything they wanted. > (accept the dream, rest) [gate: none] TRAP -> the leash; contentment is the cage, an
+- `Q174.N2` **NODE F-2 — waking a companion** Entry: stage 4. The personalized prison, gently broken. A companion asleep in their deepest wish. > "This isn't real. It's what you wanted, which is how you know." [gate: none] -> 
+- `Q174.N3` **NODE F-3 — the Sloth demon** Entry: stage 5. The tempter who gives. The demon, offering everything for surrender. > "You gave me everything I wanted." [gate: none] -> yes; and that is the trap; the demon wins 
+- `Q174.P1` **PORT 1 — THE PERFECT DREAM YOU MUST REFUSE [W1, W3, W7 — the core port]** system: the Amalgamation / dream-dive / Liberate A Bohemia sequence where the Amalgamation traps the dynast in a personalized paradise — the exact dead brought back, the exact loss
+- `Q174.P2` **PORT 2 — THE CAGE IS TAILORED [F1's law]** system: the Amalgamation / the fold / [READ] The perfect-dream prison is built from the dynast's SPECIFIC deepest wish — the exact dead, the exact loss undone — so the temptation i
+- `Q174.P3` **PORT 3 — WAKING IS A GRIEF [F2's law]** system: companions / dialogue scenes / the fold Waking someone from their perfect dream is an EMOTIONAL act — the dynast helping them grieve the granted wish, the leaving felt as a
+- `Q174.P4` **PORT 4 — THE REAL WORLD'S WORTH IS FELT [F3's law]** system: Liberate / the fold / the district The choice to leave the dream makes the REAL WORLD'S worth felt — agency, meaning, the dignity of an unfinished life — so refusing paradi
+- `Q174.W1` **THE TEMPTER GIVES, NOT TAKES** The Sloth demon wins by fulfillment — it offers everything you want, and the trap is that it's real enough to keep you. Temptation inverted: the genuinely good thing as the leash.
+- `Q174.W10` **IT IS THE AMALGAMATION AS A DUNGEON** "No one is ever lost, the grief is gone, the dead are back" — the Amalgamation's whole promise, made a level the player walks out of by refusing it. The perfect lie you choose to l
+- `Q174.W2` **THE PRISON HAS NO WALLS** The cage is made of contentment; there is nothing to break out of, only a comfort to refuse. Escape is a choice, not a fight, which is far harder.
+- `Q174.W3` **THE DREAM IS PERSONALIZED** Each captive gets their deepest wish — the dead alive, the surface, peace — so the trap is tailored to exactly what each person can't refuse.
+- `Q174.W4` **THE WISH IS THE LEASH** The thing you most want, given, is the thing keeping you asleep — the recognition that fulfillment is the trap is the hardest and truest thing the quest asks.
+- `Q174.W5` **WAKING IS GRIEVING AGAIN** Leaving the dream where the dead live means grieving them a second time, choosing the world where they don't — the escape costs the wish all over.
+- `Q174.W6` **THE COMPANIONS ARE SEPARATE PRISONS** Each is asleep in their own paradise, woken only by recognizing it — the player must pull each out of the thing they love most.
+- `Q174.W7` **THE OFFER IS GENUINELY GOOD** Not a bad thing dressed as good, but the real wish — which is why refusing it is devastating: you're rejecting the one offer you most want to accept.
+- `Q174.W8` **FREEDOM IS CHOOSING THE WORSE TRUE THING** The real world is harder, sadder, unfinished — and worth more than the perfect lie. The quest's answer to the Amalgamation: truth over comfort, even when comfort is heaven.
+- `Q174.W9` **THE DEMON DOESN'T LIE** It gives you exactly what you wanted, honestly — the horror is that the fulfillment is real, and the trap is in the staying, not in a deception.
+- `Q174.X1` **THE DREAM ISN'T PERSONALIZED ENOUGH TO THE PLAYER** The Sloth demon's paradise is powerful in concept, but the player character's version is often generic (a vague "everything is fine") rather than built from THEIR specific loss — s
+- `Q174.X2` **WAKING THE COMPANIONS IS A PUZZLE, NOT A GRIEF** Recognizing each companion's paradise as a cage is largely a gameplay puzzle (find the trigger, break the illusion) rather than an emotional act — the devastating idea (helping som
+- `Q174.X3` **THE REAL WORLD ISN'T MADE WORTH THE SACRIFICE ON SCREEN** The player leaves heaven for the "hard real world," but the quest doesn't dramatize WHY the broken truth is worth more than the perfect lie — the choice is presented as obviously c
+
+### Q175  THE PILLAR OF SKULLS (THE ARCHIVE OF THE DEAD DEMANDS A SOUL) (Planescape: Torment)
+- `Q175.N1` **NODE Sk-1 — the Pillar's price** Entry: stage 2. The archive, honest about its cost. The screaming mass, bargaining. > "I need what you know." [gate: none] -> it has it; it will trade; the price is a soul to add t
+- `Q175.N2` **NODE Sk-2 — the payment** Entry: stage 3. The choice that reveals the bargainer. The routes to the knowledge. > (find a soul to condemn) [gate: none] -> the cheap, cruel route; feed the Pillar a life, get t
+- `Q175.N3` **NODE Sk-3 — the contribution** Entry: stage 5. The knowledge gained, the payment made. > (carry what you fed it) [gate: none] -> the fact obtained, and the memory of the price — a soul added, a cruelty spent, or
+- `Q175.P1` **PORT 1 — THE ARCHIVE THAT DEMANDS A CONTRIBUTION [W1, W2, W3 — the core port]** system: the Amalgamation / the fold / [READ] A Bohemia bargain where the Amalgamation — the archive of the dead — gives the dynast the knowledge or aid they need only in exchange f
+- `Q175.P2` **PORT 2 — THE NON-LETHAL PAYMENT IS REACHABLE [F1's law]** system: [READ] / the fold The full range of a bargain-with-the-dead is REACHABLE by in-world insight — the clever, non-lethal payments discoverable by attention — so the dynast who
+- `Q175.P3` **PORT 3 — THE FED SOUL IS A PERSON [F2's law]** system: the Amalgamation / entities / the fold If the archive's price is a soul, that soul is a PERSON the dynast could know — named, met, with a life — so feeding the archive is a
+- `Q175.P4` **PORT 4 — THE HONEST MONSTER HAS A LIAR TO CONTRAST [F3's law]** system: the Amalgamation / the faction web An honest-monster bargainer is CONTRASTED with a deceiver — the truthful terrible price beside a lying gentle one — so the dynast learns 
+- `Q175.W1` **THE ARCHIVE OF THE DEAD BARGAINS** The Pillar is a monument of the conscious dead that WANTS and TRADES — the Amalgamation's exact nature (an archive of the dead you must deal with) given a mouth and a price.
+- `Q175.W10` **THE SCREAMING IS THE SETTING** The dead are conscious, fused, eternal — the punishment is ongoing, and the player bargains with it, which makes the whole scene a meditation on what the dead owe and are owed.
+- `Q175.W2` **THE PRICE IS A CONTRIBUTION** It wants more of itself — a fresh soul for the pile — so paying it means feeding the horror. The transaction is participation in the economy of the damned.
+- `Q175.W3` **THE PILLAR IS HONEST** It states its monstrous price plainly and has what you need — the honest-devil (#126) as a monument. The horror is not deception but that the terrible terms are true.
+- `Q175.W4` **THE PAYMENT REVEALS THE PLAYER** Feed a soul, pay in cleverness, or refuse — what the player is willing to give the archive is the quest's real test, more than whether they pay.
+- `Q175.W5` **IT IS A CONSEQUENCE, NOT A DEMON** The Pillar is what betrayal earns — an eternal punishment made architecture — so dealing with it is dealing with a moral fact, not an enemy. The horror is systemic.
+- `Q175.W6` **THE KNOWLEDGE IS WORTH A SOUL** The thing the Pillar holds is real and necessary, so the monstrous price is genuinely tempting — the bargain works because the need is real.
+- `Q175.W7` **THE CLEVER ROUTE COSTS THE SELF** Paying without a life means giving the archive a cruelty or a secret or a piece of yourself — the non-lethal payment is not free, it is a subtler stain.
+- `Q175.W8` **NOTHING IS GIVEN FOR FREE** The archive is a consequence, not a charity; the removed "take it for nothing" verb is the law: to get from the collected dead you must give the collection something.
+- `Q175.W9` **THE HORROR IS BEING PART OF IT** To deal with the Pillar is to join the trade of souls among the dead — the player becomes, for a transaction, a participant in the damnation. The unease is complicity.
+- `Q175.X1` **THE CLEVER ROUTES ARE OBSCURE, SO MANY PLAYERS ONLY SEE THE CRUEL ONE** The "pay without a soul" options depend on specific knowledge, items, or dialogue insight that most players won't assemble — so the transaction often collapses into "feed it a life
+- `Q175.X2` **THE FED SOUL ISN'T A PERSON** If the player condemns a life to the Pillar, the "soul" is usually a generic or already-doomed NPC, so the horror of feeding the archive lands lighter than it should — condemning a
+- `Q175.X3` **THE PILLAR'S HONESTY ISN'T CONTRASTED WITH A DECEIVER** The Pillar is a fascinating honest-bargainer — monstrous but truthful about its price — but the quest doesn't set it against a deceptive alternative, so the "the honest monster sta
+
+### Q176  A TOWERFUL OF MICE (THE TRUTH OR THE MERCY, TO A GHOST) (The Witcher 3: Wild Hunt)
+- `Q176.N1` **NODE Mi-1 — the buried truth uncovered** Entry: stage 2. The evidence of what the tower really held. > (read the massacre: abandonment, starvation, cannibalism) [gate: investigation] -> the ugly truth; far worse than the 
+- `Q176.N2` **NODE Mi-2 — Annabelle's ghost** Entry: stage 3-4. The spirit, offered truth or mercy. The dead woman holding her bearable version. > (tell her the truth) [gate: none] -> she is shattered; the honest horror may tu
+- `Q176.N3` **NODE Mi-3 — the cost** Entry: stage 5. The choice's price paid. The curse resolving on the reaction. > (the betrothed lives / dies on the reaction) [gate: truth or lie] -> the living cost of what was tol
+- `Q176.P1` **PORT 1 — THE TRUTH OR THE MERCY, TO THE DEAD [W1, W6, W10 — the core port]** system: the Amalgamation / the fold / dialogue scenes A Bohemia quest where resolving a haunting or an Amalgamation-fragment means telling the dead either the shattering TRUTH of w
+- `Q176.P2` **PORT 2 — THE STORY'S CONSEQUENCE IS LEGIBLE [F1's law]** system: the fold / dialogue scenes If a choice about the dead's story determines a living cost, the LINK is legible — the truth or the lie clearly causing the outcome — so the dyna
+- `Q176.P3` **PORT 3 — THE DEAD'S SELF-PROTECTIVE LIE IS BUILT [F2's law]** system: the Amalgamation / the fold / dialogue scenes A dead person's self-protective false memory is BUILT — felt as the mercy they gave themselves — so telling the truth is felt 
+- `Q176.P4` **PORT 4 — THE DEAD ARE THE DYNAST'S OWN [F3's law]** system: the fold / the ~100-year arc The truth-or-mercy choice cuts deepest when the dead are the dynast's OWN — a bloodline's buried atrocity, an ancestor's false memory — so the 
+- `Q176.W1` **MERCY AND HONESTY ARE OPPOSED** The truth shatters, the lie comforts, and there is no version where they align — the quest forces the player to choose which the dead are owed, refusing the easy fusion of the two.
+- `Q176.W10` **IT IS THE THESIS IN A GHOST STORY** What survives when a life ends, and what do we owe the dead's story — Bohemia's whole spine, asked by a haunted tower and answered by whether the player tells a ghost the truth.
+- `Q176.W2` **A LIFE HANGS ON THE STORY** The betrothed survives or dies on what the player tells the ghost — the choice about the dead has a living cost, so honesty and mercy are not abstractions.
+- `Q176.W3` **THE TRUTH IS A MASSACRE** The buried story is abandonment, starvation, cannibalism — far uglier than the romantic tragedy the survivors tell, so telling it is genuinely brutal.
+- `Q176.W4` **THE GHOST HOLDS A MERCIFUL LIE** Annabelle believes a bearable version — the false memory is the mercy she gave herself, and the player must decide whether to take it from her.
+- `Q176.W5` **THE PLAYER KNOWS TOO MUCH TO PRETEND** Once the massacre is uncovered, telling the ghost a lie is a choice, not an ignorance — the player owns the falsehood if they give it.
+- `Q176.W6` **THE CHOICE IS WHAT YOU OWE THE DEAD** Truth or peace — the quest's core question is Bohemia's central tension in miniature: the dead have a real story, the living want a bearable one, and you cannot always give both.
+- `Q176.W7` **THE CURSE FORCES THE RESOLUTION** The haunting ends only by speaking to the spirit — the player cannot avoid the choice; the mechanic demands they decide what to tell the dead.
+- `Q176.W8` **THE HORROR IS UNDER A ROMANCE** The survivors tell a love story; the truth is atrocity — the gap between the comforting narrative and the ugly fact is the recorded-vs-unrecorded truth (#26) in one island.
+- `Q176.W9` **THERE IS NO CLEAN OUTCOME** Truth or lie, someone pays — the quest refuses a resolution where everyone is served, which is what makes the choice real.
+- `Q176.X1` **THE OUTCOMES AREN'T CLEANLY TIED TO THE TRUTH/LIE CHOICE** The quest's resolution (who survives, how the curse ends) depends on a tangle of factors beyond the truth/lie decision, so the profound "the story you tell the dead decides who liv
+- `Q176.X2` **THE GHOST'S FALSE MEMORY ISN'T BUILT ENOUGH FOR THE TRUTH TO SHATTER** Annabelle's comforting version of her death is stated more than shown, so telling her the truth lands as a plot beat rather than the shattering of a person's self-protective illusi
+- `Q176.X3` **THE PLAYER'S OWN STAKE IS ABSENT** The player decides what the dead are owed but has no personal relationship to Annabelle or the betrothed, so the choice is a judgment made from outside — the "what do you owe the d
+
+### Q177  JACK'S LOYALTY / THE TEARDOWN (BURN DOWN THE PLACE THEY MADE YOU) (Mass Effect 2)
+- `Q177.N1` **NODE J-1 — the demand** Entry: stage 1. Jack, rage organized into a mission. > "This is where they made me. I'm going to end it." [gate: none] -> the revenge she's built her life on; the forge to be destr
+- `Q177.N2` **NODE J-2 — the contradiction** Entry: stage 3. The edit revealed. The records and rooms that don't match the memory. > "This isn't how you remember it." [gate: evidence] -> the experiment was different; the foun
+- `Q177.N3` **NODE J-3 — the reckoning** Entry: stage 4-5. The revenge in the gap. Jack at the forge, the truth messier than the rage. > (burn it down anyway) [gate: none] -> the catharsis; the forge destroyed for the rea
+- `Q177.P1` **PORT 1 — THE WOUND REAL, THE STORY FALSE [W1, W3, W4 — the core port]** system: the fold / the Amalgamation / companions A Bohemia arc where a survivor (a companion, a prior dynast's memory) returns to the place or truth that made them and finds their 
+- `Q177.P2` **PORT 2 — THE MEMORY-COLLAPSE IS FELT [F1's law]** system: the fold / [READ] The collapse of a foundational memory is FELT as vertigo — the ground shifting, the trusted story contradicted piece by piece — so the edit-revealed lands
+- `Q177.P3` **PORT 3 — CATHARSIS AND ACCURACY DIVERGE [F2's law]** system: the fold / companions A survivor's catharsis-vs-accuracy reckoning leads to genuinely DIFFERENT outcomes — the burned forge and the examined rage producing different surviv
+- `Q177.P4` **PORT 4 — THE WOUND CRACKS BEFORE THE RECKONING [F3's law]** system: companions / the fold / dialogue scenes If a survivor's wound is hidden under aggression, the surface CRACKS before the reckoning — the child under the rage glimpsed — so t
+- `Q177.W1` **THE WOUND IS REAL AND THE STORY IS FALSE** Jack was genuinely tortured, and the narrative she built on it turns out partial — the quest holds both truths at once, which is the rarest and most honest thing to say about traum
+- `Q177.W10` **IT IS THE FOLD'S TRUTH IN ONE LIFE** A wound carried forward on a story that turns out false — Bohemia's whole question of what the past really was, and what the living owe a memory, in a single survivor's revenge.
+- `Q177.W2` **THE SURVIVOR RETURNS TO THE FORGE** Jack goes back to the place that made her a weapon — the returning-to-the-forge (#165) with a memory about to be tested against the rooms.
+- `Q177.W3` **THE FOUNDATIONAL MEMORY IS EDITED** The story Jack organized her whole self on was distorted by a child's terror — the recorded-vs-unrecorded self (#26) as a survivor's foundational truth.
+- `Q177.W4` **THE REVENGE IS COMPLICATED, NOT ERASED** Finding the story was false doesn't un-wound Jack or cancel the revenge — it asks whether the vengeance she needed is the one she's owed, in a truth messier than the rage.
+- `Q177.W5` **THE PLAYER HELPS HER HOLD BOTH** Shepard's role is to help Jack hold that she was wronged AND that the story was wrong — the witness to a reckoning, not the fixer of it.
+- `Q177.W6` **CATHARSIS OR ACCURACY** Burn the forge for the real wound, or examine the rage in the complicated truth — the choice is between the satisfaction of revenge and the harder honesty of the facts.
+- `Q177.W7` **THE CLEAN STORY CAN'T BE RESTORED** Once the memory is revealed as partial, the simple revenge is gone — the removed "give her back the clean story" verb is the quest's honesty: foundational lies don't un-reveal.
+- `Q177.W8` **THE COPING SURFACE IS AGGRESSION** Jack's rage is armor over a child's wound — the trauma hidden in attitude, cracked at the reckoning (#162).
+- `Q177.W9` **THE FACILITY TESTIFIES AGAINST THE MEMORY** The rooms and records contradict the story — the space is the evidence, the forge itself correcting the survivor's account of it.
+- `Q177.X1` **THE CONTRADICTION IS UNDERPLAYED, SO THE MEMORY-EDIT LANDS LIGHT** Jack's facility does complicate her memory, but the game states the discrepancies more than it makes the player FEEL the vertigo of a foundational truth collapsing — so the powerfu
+- `Q177.X2` **THE "BURN IT ANYWAY" AND "RECKON" PATHS AREN'T DIFFERENTIATED ENOUGH** Both endings largely lead to the facility's destruction; the "examine the rage instead of spending it" path isn't given a distinct, felt outcome, so the profound choice (catharsis 
+- `Q177.X3` **JACK'S WOUND IS TOLD THROUGH ATTITUDE, WHICH CAN HIDE IT** Jack's trauma is delivered through her aggression and defensiveness — an effective coping surface — but so consistently that some players read her as just abrasive and never feel t
+
+### Q178  THE PRICE OF REVENGE (ZAEED, THE BLUE SUNS, AND THE MAN WHO WOULDN'T LET IT GO) (Mass Effect 2)
+- `Q178.N1` **NODE Z-1 — the vendetta** Entry: stage 1. Zaeed, twenty years about to close. > "Vido's here. This ends today." [gate: none] -> the revenge culminating; the target in reach > "What did he do to you?" [gate:
+- `Q178.N2` **NODE Z-2 — the fork** Entry: stage 3. The scale. The fire, the workers, Vido escaping — the same clock. > "The workers are trapped. We save them." [gate: none] -> the rescue; Vido escapes; THE ONE LINE 
+- `Q178.N3` **NODE Z-3 — the loyalty** Entry: stage 5. The price paid. Zaeed after, the target dead or gone. > (saved the workers, lost Vido) [gate: high standing] -> Zaeed rages, then respects the choice; the grudge su
+- `Q178.P1` **PORT 1 — THE EARNED REVENGE WITH THE INNOCENT PRICE [W1, W2, W3 — the core port]** system: the unrecorded ledger / the death-math / companions A Bohemia arc where a character's genuinely EARNED revenge (a real betrayal, a real wound) can only be completed by spen
+- `Q178.P2` **PORT 2 — THE COST MUST HAVE FACES [F1's law]** system: the unrecorded ledger / the death-math When a choice weighs a grudge against strangers, the strangers get ENOUGH face that their deaths weigh — a name, a plea, a body walke
+- `Q178.P3` **PORT 3 — THE CONSCIENCE ISN'T A STAT CHECK [F2's law]** system: companions / the conscience system A moral choice's relational consequence follows from the CHOICE and its handling, not a hidden threshold — the character responding to wh
+- `Q178.P4` **PORT 4 — THE COMPLETED REVENGE CARRIES ITS PRICE [F3's law]** system: the fold / the unrecorded ledger If a revenge is completed at innocents' expense, the cost is CARRIED after — the body count returning, the closed grudge heavier than expec
+- `Q178.W1` **THE REVENGE IS EARNED** Zaeed was betrayed, shot, robbed of twenty years — the grudge is legitimate in every way, which is exactly what makes its cost hard to dismiss.
+- `Q178.W10` **IT IS THE UNRECORDED LEDGER IN ONE MAN** A private revenge with a body count nobody chose — Bohemia's whole question of whose lives a debt is allowed to spend, in one old mercenary's grudge.
+- `Q178.W2` **THE COST IS INNOCENT** The refinery workers never agreed to pay for Zaeed's grudge — the body count is strangers, which is the death-math (#26) at its sharpest: whose life the debt is willing to spend.
+- `Q178.W3` **THE FIRE FORCES THE CHOICE** Revenge and rescue on the same clock — the blaze turns an abstract cost into a specific, timed, either-or the player cannot dodge.
+- `Q178.W4` **THE GRUDGE HAS EATEN THE MAN** Twenty years have burned the human out of the vendetta; Zaeed can't see the workers, which is the warning the quest carries — what a grudge does to the one who holds it too long.
+- `Q178.W5` **THE PLAYER IS THE SCALE** Shepard puts the earned revenge against the innocent lives and chooses — the moral weight is handed to the player, not resolved by the story.
+- `Q178.W6` **NEITHER OUTCOME IS CLEAN** The betrayer lives or the innocents die — the quest refuses a costless win, which is the honesty of an earned-but-expensive revenge.
+- `Q178.W7` **THE CLEAN GRUDGE CAN'T COEXIST WITH CLEAN HANDS** The removed "have both" verb is the quest's spine: an earned revenge still forces you to choose what it's worth.
+- `Q178.W8` **THE LOYALTY RIDES THE CHOICE** Zaeed's respect (or rage) follows whether the player forced the human decision — the relationship weighs the ethics, not just the outcome.
+- `Q178.W9` **THE WOUND IS OLD AND THE VICTIMS ARE NEW** The grudge predates the workers by decades — the price is paid by people who had nothing to do with the wound, which is what makes vendetta so dangerous.
+- `Q178.X1` **THE WORKERS ARE ABSTRACT, SO THE BODY COUNT DOESN'T WEIGH ENOUGH** The refinery hostages are faceless mission-geometry — a number in a fire, not people — so the profound scale (an earned grudge against innocent lives) tips too easily toward whiche
+- `Q178.X2` **ZAEED'S LOYALTY GATING ON STANDING CHEAPENS THE MORAL CHOICE** Whether Zaeed forgives the player for saving the workers depends on a hidden Paragon/Renegade threshold, so the game turns a genuine ethical fork into a stat check — the "right" ch
+- `Q178.X3` **THE REVENGE COMPLETES TOO CLEANLY IF YOU CHASE VIDO** Chasing Vido and letting the workers burn closes the grudge with little felt aftermath — the body count is stated, not carried — so the "earned revenge still costs" idea is undercu
+
+### Q179  THE TRIALS OF KORRIBAN (PROVE YOU BELONG TO THE THING THAT MADE YOU EVIL) (Star Wars: Knights of the Old Republic)
+- `Q179.N1` **NODE K-1 — enrollment** Entry: stage 1. The academy, prestige the only currency. > "How do I rise here?" [gate: none] -> the answer: cruelty, betrayal, murder — prestige earned by evil performed > "I'm on
+- `Q179.N2` **NODE K-2 — the firewall** Entry: stage 3. Cover versus conviction. A trial: a student who trusts you, and prestige for betraying them. > (betray the student for prestige) [gate: none] -> the act done "for t
+- `Q179.N3` **NODE K-3 — what you became** Entry: stage 5. The map and the body count. The player at the tomb, the access bought. > (rose by maximum cruelty) [gate: none] -> the fastest road; the most prestige; the most gra
+- `Q179.P1` **PORT 1 — THE INSTITUTION THAT REWARDS EVIL BY THE ACT [W1, W3, W7 — the core port]** system: the conduct book / factions / the unrecorded ledger A Bohemia faction or institution that grants access and advancement by cruelty, and cannot distinguish "for the mission"
+- `Q179.P2` **PORT 2 — CRUELTY CAN'T BE OFFSET BY A METER [F1's law]** system: the conduct book / the conscience system If a quest's point is that cruelty can't be laundered by intent, the system must not let it be laundered by an alignment SCORE eith
+- `Q179.P3` **PORT 3 — THE RATIONALIZATION GETS PRESSED [F2's law]** system: factions / the unrecorded ledger / dialogue scenes If a quest's spine is "your good reason didn't reach the victim," the world PRESSES it — a survivor who names the dead, a
+- `Q179.P4` **PORT 4 — THE LESS-BLOODY PATH IS VISIBLE [F3's law]** system: factions / quest structure If a cruel institution has a less-bloody path, it's DISCOVERABLE enough that the dynast knows the cruelty was a choice — the alternative seen, ev
+- `Q179.W1` **THE INSTITUTION GRADES ACTS, NOT REASONS** The academy advances you by exactly the cruelty you perform — the machine that cannot tell cover from conviction, which is the whole engine.
+- `Q179.W10` **IT IS THE CONDUCT BOOK IN AN INSTITUTION** Does the ledger record what you did or what you meant — Bohemia's whole question of act-versus-intention, staged in a school built to make the answer "what you did."
+- `Q179.W2` **EVERY VICTIM IS REAL** The betrayed student, the tortured servant, the poisoned rival — each fully harmed regardless of the player's intent, which is the proof that "for the mission" cruelty is real crue
+- `Q179.W3` **THE FIREWALL IS THE PLAYER'S ILLUSION** The belief that evil for a good reason leaves the self clean — Korriban is engineered to erode it, which is the quest's real subject.
+- `Q179.W4` **THE ACADEMY REWARDS COVER AND CONVICTION IDENTICALLY** The place gives the same prestige whether you meant it — the institutional version of "acting the part becomes the part" (#172).
+- `Q179.W5` **THE MISSION-GOAL JUSTIFIES THE ACTS** The Star Map "requires" the cruelty — the price-justifier that tests whether a good end excuses evil means.
+- `Q179.W6` **THE NARROW PATHS PROVE IT WAS A CHOICE** Less-bloody routes exist, which means the maximum cruelty was never forced — the player chose the graves.
+- `Q179.W7` **THE EXCUSE NEVER REACHES THE LEDGER** The removed "make the murders not count" verb is the spine: the ledger and the grave record the act, not the intent.
+- `Q179.W8` **THE VICTIMS DON'T CARE WHY** The dead student is dead whether you killed them for cover or conviction — the cruelty is identical to the one it lands on.
+- `Q179.W9` **IT IS A TOMB-WORLD** Korriban is the graveyard of the Sith — the setting itself is a ledger of the dead, the perfect stage for a quest about what the grave records.
+- `Q179.X1` **THE ALIGNMENT SYSTEM SCORES THE ACTS, WHICH LETS THE PLAYER GAME THE FIREWALL** KOTOR's light/dark meter turns the cruelty into points, so a player can perform academy evil and then "buy back" light-side standing elsewhere — which accidentally proves the oppos
+- `Q179.X2` **"FOR THE MISSION" ISN'T CHALLENGED BY THE GAME, ONLY BY THE FICTION** The quest presents the cover-vs-conviction tension but rarely has an NPC or consequence actually confront the player with "that student is dead and your reason doesn't matter to th
+- `Q179.X3` **THE NARROW PATHS ARE OBSCURE, SO MOST PLAYERS NEVER LEARN THE CRUELTY WAS OPTIONAL** The less-bloody routes through the academy exist but are easy to miss, so many players experience Korriban as "the game made me do evil" rather than "I chose the bloody road" — whi
+
+### Q180  INTO THE PITT (STEAL THE CURE OR FREE THE SLAVES, AND FIND OUT THE CURE IS A BABY) (Fallout 3 — The Pitt)
+- `Q180.N1` **NODE P-1 — the recruitment** Entry: stage 1. The rebels, the cure the abstraction. > "Steal the cure and the slaves go free?" [gate: none] -> the mission as offered: an object stolen, hundreds saved — the grea
+- `Q180.N2` **NODE P-2 — the cure is a baby** Entry: stage 3. The face. Ashur, Marie in the crib. > "The cure is a child." [gate: reached the crib] -> the abstraction resolved: an immune infant, his daughter, who cannot consen
+- `Q180.N3` **NODE P-3 — the unclean choice** Entry: stage 4-5. The many against the one. The crib, both sides monstrous. > (take Marie for the rebellion) [gate: none] -> the many freed; the child taken from the one place she'
+- `Q180.P1` **PORT 1 — THE GREATER GOOD WITH A CHILD'S FACE [W1, W2, W6 — the core port]** system: the endings (Liberate/Respect/Become) / the death-math / factions A Bohemia choice where the liberation of the many resolves, at the end, into a specific innocent who canno
+- `Q180.P2` **PORT 2 — BOTH FACTIONS EQUALLY ARTICULATE [F1's law]** system: factions / the endings If a choice depends on both factions being equally right and monstrous, both get equal ARTICULATION — the liberator's case as well-argued as the tyra
+- `Q180.P3` **PORT 3 — THE TAKEN CHILD'S COST RETURNS [F2's law]** system: the fold / the endings / the death-math If the greater good is bought with a specific child, the child's COST returns — what the taken life became, glimpsed after — so the 
+- `Q180.P4` **PORT 4 — THE PERSON IS STAGED AS A PERSON [F3's law]** system: dialogue scenes / the endings When an abstraction is about to resolve into a person, the reveal is STAGED as a person, not a loot-pickup — the child seen, held, humanized b
+- `Q180.W1` **THE CURE IS A CHILD** The abstraction the whole DLC chases — "the cure" — resolves into a specific immune infant, which is the greater good getting a face at the end of the road.
+- `Q180.W10` **IT IS THE ENDING-MATH IN ONE CRIB** The greater good with a specific child's face — Bohemia's whole Liberate/Respect/Become question of what the many are worth against the one, staged over a baby.
+- `Q180.W2` **LIBERATION AND KIDNAPPING ARE THE SAME ACT** Freeing the slaves requires taking Marie — the two are one action, which is the dilemma's cruel spine.
+- `Q180.W3` **NO FACTION IS CLEAN** Ashur is a slaver who loves his daughter; the rebels are liberators who would bleed a baby — the player chooses which monstrousness wins, not good versus evil.
+- `Q180.W4` **THE MANY ARE REAL** The slaves' suffering is horrific and true — the number isn't a strawman, which is what makes taking the child a genuine temptation.
+- `Q180.W5` **THE ONE CAN'T CONSENT** Marie is an infant — the cure is developed from a person who cannot agree, which is the sharpest form of the-one-versus-the-many.
+- `Q180.W6` **THERE IS NO SERUM** The removed "free the slaves without the child" verb is the spine: no third option, no clean path, the greater good inseparable from the specific person it became.
+- `Q180.W7` **THE TYRANT'S LOVE IS REAL** Ashur genuinely loves Marie — the monster is humanized, which is what makes leaving her a real temptation too.
+- `Q180.W8` **THE AFTERMATH SOURS BOTH WAYS** A freed Pitt curdles; a slave camp grinds on — neither choice buys a clean future, which is the honesty of an unclean dilemma.
+- `Q180.W9` **IT IS A HELL WORTH FREEING** The Pitt's horror is vivid enough that the slaves' freedom feels genuinely urgent — the stakes on the many's side are real, not abstract.
+- `Q180.X1` **ASHUR IS TOO ARTICULATE, WHICH TILTS THE SCALE TOWARD KEEPING THE SLAVES** Ashur gets a long, persuasive speech about order and Marie, while the rebels' case is delivered mostly through squalor and a leader who reads as unhinged — so the "both sides uncle
+- `Q180.X2` **TAKING MARIE HAS THIN CONSEQUENCES, SO THE KIDNAPPING DOESN'T WEIGH** Once Marie is taken, the game shows little of what her lab-life actually costs her — the profound "you took a child to save the many" recedes into a faction-outcome slide, so the w
+- `Q180.X3` **THE "NO SERUM, ONLY THE CHILD" REVEAL CAN BE SPOILED INTO A GAME PROBLEM** Because the cure is a fetch-object the whole DLC points at, some players approach Marie as loot — "get the cure" — and the horror of the reveal (it's a baby) lands as a mechanical 
+
+### Q181  KLAASJE AND THE HANGED MAN (THE KILLER YOU CAN'T CHARGE AND THE WITNESS YOU CAN'T KEEP) (Disco Elysium)
+- `Q181.N1` **NODE C-1 — the break** Entry: stage 2. Klaasje, finally telling the truth. > "You didn't kill him." [gate: broken] -> the clearing: she found the body, panicked, tampered — the murder not hers > "But you
+- `Q181.N2` **NODE C-2 — the wrong guilt** Entry: stage 3. The truth-teller convicted of the smaller thing. Klaasje, candid and arrestable. > "Charging you would be a lie about what happened." [gate: none] -> the wrong-char
+- `Q181.N3` **NODE C-3 — the choice** Entry: stage 4-5. The un-adjudicated call. Klaasje, waiting to see what you are. > (arrest her) [gate: none] -> the wrong charge; a witness jailed for tampering while the killer wa
+- `Q181.P1` **PORT 1 — THE TRUTH-TELLER GUILTY OF THE WRONG THING [W1, W2, W3 — the core port]** system: the unrecorded ledger / the conduct book / factions A Bohemia interrogation where the person who gives the dynast the truth is thereby convicted of a smaller, real crime — 
+- `Q181.P2` **PORT 2 — THE CONFESSION HAS AN ANCHOR [F1's law]** system: the unrecorded ledger / interrogation scenes If a truth-teller is also a known liar, the quest gives the dynast an ANCHOR that the core confession is real — a corroborating
+- `Q181.P3` **PORT 3 — ALL OUTCOMES CARRY EQUAL WEIGHT [F2's law]** system: the endings / the conduct book If a choice is meant to be un-adjudicated, all outcomes carry equal NARRATIVE weight — each its full case and consequence — so the game isn't
+- `Q181.P4` **PORT 4 — THE HEAVY CHOICE'S CONSEQUENCE RETURNS [F3's law]** system: the fold / the unrecorded ledger If a quest loads a heavy un-adjudicated choice onto the dynast, the CONSEQUENCE returns with weight — the fate of the person decided-upon s
+- `Q181.W1` **THE TRUTH-TELLER IS GUILTY OF THE WRONG THING** Klaasje's honesty clears the murder and convicts her of tampering — the person who breaks the case open is arrestable for a smaller, realer crime.
+- `Q181.W10` **IT IS THE LEDGER IN ONE ROOM** What you do with a candid, compromised human being, un-adjudicated — Bohemia's whole question of who the record convicts and who decides, in one interrogation.
+- `Q181.W2` **HONESTY IS FATAL, NOT REDEMPTIVE** Her candor doesn't earn mercy — it makes her the easy conviction, which is the quest's sharp inversion of "the truth sets you free."
+- `Q181.W3` **EVERY RESPONSE IS A DISTORTION** Arrest is the wrong charge, walking is unauthorized mercy, hand-over is feeding her to worse — the just, legal, and humane point three ways.
+- `Q181.W4` **THE CHORUS SETTLES NOTHING** The detective's own inner voices argue every side and resolve none — the un-adjudicated choice, proven un-resolvable even inside one head.
+- `Q181.W5` **SHE ASKS TO BE LET GO** Klaasje's plea makes the mercy a temptation and the duty a cruelty — the pull is real in both directions.
+- `Q181.W6` **THE GAME RECORDS, IT DOESN'T JUDGE** There is no "correct" outcome flagged — the choice is banked to the detective, which is the unrecorded-ledger (#26) as an interrogation.
+- `Q181.W7` **HER RUNNING IS A WHOLE LIFE** The false name, the powers hunting her, the survival-candor — Klaasje is a full person, not a puzzle, which is what makes the weight real.
+- `Q181.W8` **THE THIRD DOOR IS WORSE THAN THE LAW** Turning her over feeds her to something crueler than a cell — the choice isn't just mercy-vs-duty, it's mercy-vs-duty-vs-horror.
+- `Q181.W9` **THE WRONG CHARGE WOULD BE TRUE** Arresting her for tampering is factually correct and functionally a lie about the murder — the sharpest form of "true and unjust at once."
+- `Q181.X1` **KLAASJE'S CANDOR CAN READ AS ANOTHER MANIPULATION, WHICH DEFLATES THE DILEMMA** Because she is written as a survivor who lies to live, a suspicious player reads even her "truth" as one more play — which is thematically rich but can collapse the dilemma into "s
+- `Q181.X2` **THE THREE OUTCOMES HAVE UNEVEN NARRATIVE WEIGHT** Letting Klaasje walk is the most developed, emotionally supported path, while arrest and hand-over feel thinner — so the game gently steers toward mercy, and the "three distortions
+- `Q181.X3` **THE CONSEQUENCES OF THE CHOICE ARRIVE LATE AND FAINT** What actually happens to Klaasje after each choice is mostly off-screen or deferred, so the weight the game puts on the detective isn't fully paid off — the decision feels heavy in
+
+### Q182  I FOUGHT THE LAW (SOLVE THE MURDER AND LEARN THE SYSTEM ALREADY DECIDED WHO KILLED HIM) (Cyberpunk 2077)
+- `Q182.N1` **NODE R-1 — the off-books case** Entry: stage 1. River, badge suspended, case still burning. > "Why isn't the department running this?" [gate: none] -> the closure: the case shut before it started; the badge that 
+- `Q182.N2` **NODE R-2 — the wall** Entry: stage 3. The pre-decided verdict. The shape of the machine, becoming visible. > "They already know who did it." [gate: evidence] -> the pre-decision: department, family, cor
+- `Q182.N3` **NODE R-3 — the futility or the solidarity** Entry: stage 4-5. The truth held, the world unmoved. River, the answer found, the wall intact. > (stand with him anyway) [gate: none] -> the private solidarity; two people the syst
+- `Q182.P1` **PORT 1 — THE GENUINE SOLVE, THE INERT TRUTH [W1, W2, W3 — the core port]** system: the unrecorded ledger / factions / the power grid A Bohemia investigation where the dynast does the work perfectly and finds the real answer, and the answer changes nothing
+- `Q182.P2` **PORT 2 — THE DENIED PAYOFF IS LEGIBLY THE SYSTEM'S [F1's law]** system: factions / the unrecorded ledger When a quest denies the expected payoff on purpose, the DENIAL is legibly the system's doing — the wall shown as a wall, the pre-decision c
+- `Q182.P3` **PORT 3 — THE BOND DOESN'T ANESTHETIZE THE CRITIQUE [F2's law]** system: companions / factions / the power grid If a quest's point is systemic powerlessness, the personal solidarity coexists with the horror but does not RESOLVE it — the system s
+- `Q182.P4` **PORT 4 — THE PRE-DECISION IS DEMONSTRATED [F3's law]** system: factions / the unrecorded ledger / quest structure If a quest's spine is a pre-decided verdict, the collusion is DEMONSTRATED — the dynast hitting the closed doors, the spi
+- `Q182.W1` **THE INVESTIGATION IS GENUINE** Real clues, real forensics, a real solve — the procedural is honest, which is what makes its inertness land.
+- `Q182.W10` **IT IS POWERLESSNESS IN ONE CASE** You can be completely right and completely unable to make it count — Bohemia's whole question of who the ledger serves, staged as a murder nobody with power will let you solve out 
+- `Q182.W2` **THE VERDICT PREDATES THE WORK** Department, family, and corp decided before the player started — the pre-decided verdict, which is the quest's whole engine.
+- `Q182.W3` **BEING RIGHT ISN'T POWER** The player solves it perfectly and changes nothing — the sharpest form of "correctness and power are different things."
+- `Q182.W4` **THE PAYOFF IS DELIBERATELY REMOVED** Every procedural promises the truth will matter; this one denies it on purpose, which is the quest's honest cruelty.
+- `Q182.W5` **RIVER STILL HALF-BELIEVES** The honest cop who wants the truth to count — his disillusion is the human face of the systemic point.
+- `Q182.W6` **THE TRUTH IS TRUE AND INERT** The correct answer the world has already agreed to ignore — the unrecorded-ledger (#26) as a police case.
+- `Q182.W7` **THE SYSTEM ISN'T BEATEN** The removed "make the truth matter" verb is the spine: a perfect solve does not overturn a decided-enough machine.
+- `Q182.W8` **THE SOLIDARITY IS PRIVATE, NOT VICTORIOUS** Standing with River changes nothing systemic — the bond is real and the wall is intact, which is the honest version of "at least we have each other."
+- `Q182.W9` **THE POWERS ARE PLURAL** Not one villain but department, family, and corp all agreeing — the wall is a structure, not a person, which is what makes it unbeatable by being right.
+- `Q182.X1` **THE FUTILITY CAN READ AS THE WRITERS GIVING UP, NOT THE SYSTEM WINNING** Because the quest deliberately denies the procedural payoff, a player can experience the ending as an anticlimax or a writing failure ("nothing happened") rather than as the intend
+- `Q182.X2` **RIVER'S ARC ABSORBS THE THEME INTO A PERSONAL STORY, SOFTENING THE SYSTEMIC POINT** The quest is also the start of River's romance/friendship arc, so the systemic horror (power decides the truth) can get folded into a warm character beat (you and River against the
+- `Q182.X3` **THE PRE-DECISION IS TOLD MORE THAN DEMONSTRATED** That the department, family, and corp all already decided is largely conveyed through implication and River's conclusions rather than shown as concrete, felt collusion — so the wal
+
+### Q183  THE RITE OF PASSAGE (A CREATURE BUILT WITHOUT A PAST CHOOSES THE TRIBE THAT WOULD KILL HIM) (Mass Effect 2)
+- `Q183.N1` **NODE G-1 — the breakdown** Entry: stage 1. Grunt, instincts at war with an absent past. > "What's wrong with you?" [gate: none] -> the failure: drives without belonging; a made thing with no history to hold 
+- `Q183.N2` **NODE G-2 — the objection** Entry: stage 3. Inheritance versus deed. The elders, the shaman, the tank-bred doubt. > "He was grown in a tank. He has no ancestors." [gate: none] -> the purist claim: belonging c
+- `Q183.N3` **NODE G-3 — the rite** Entry: stage 4-5. The proving. The gauntlet, the monster, the name at stake. > (stand with him in the Rite) [gate: none] -> the second who backs the claim; the made thing proving i
+- `Q183.P1` **PORT 1 — THE MADE PERSON EARNS BELONGING [W1, W2, W3 — the core port]** system: the Amalgamation / the fold / companions A Bohemia arc where a manufactured being (an Amalgamation-made person, a construct, an heir with no lived past) must EARN a belongi
+- `Q183.P2` **PORT 2 — BELONGING EASES, NEVER ERASES [F1's law]** system: the Amalgamation / companions / the fold If a made person's crisis is the absence of a past, earning belonging EASES it, never erases it — the manufactured origin still pre
+- `Q183.P3` **PORT 3 — THE PURIST CASE HAS WEIGHT [F2's law]** system: factions / the fold If a quest is about a made person earning belonging, the inheritance-purist case gets real WEIGHT — lineage-matters made sympathetic, not a strawman — s
+- `Q183.P4` **PORT 4 — THE TRIAL IS A CULTURAL JUDGMENT [F3's law]** system: factions / the fold / quest structure If belonging is decided by a trial, the trial is legibly a CULTURAL JUDGMENT, not just a combat check — the culture's counting foregro
+- `Q183.W1` **THE MADE PERSON HAS NO PAST** Grunt was given instincts and denied history — the manufactured being whose missing childhood is the load-bearing absence, which is the whole engine.
+- `Q183.W10` **IT IS THE FOLD'S SUCCESSION IN ONE MADE THING** Whether a manufactured person gets a lineage and a name — Bohemia's whole question of the Amalgamation's made dead and the dynasty's succession, in one tank-bred krogan asking to b
+- `Q183.W2` **BELONGING IS THE UN-MANUFACTURABLE THING** He was built with everything except belonging, and belonging turns out to be the part that can't be built — the sharpest thing the quest says.
+- `Q183.W3` **HE EARNS ON PURPOSE WHAT OTHERS INHERITED** The Rite makes Grunt pay in blood for what the born got for free — belonging chosen, not accidental, which is what makes it his.
+- `Q183.W4` **THE CULTURE THAT MADE HIM JUDGES HIM** Grunt asks the krogan to count him on their own terms — the maker culture deciding whether its product gets to be a person.
+- `Q183.W5` **THE OBJECTION IS REAL** The purist claim (a tank-thing has no ancestors) is the genuine cost — belonging fought for against conviction, not handed over.
+- `Q183.W6` **THE PAST CAN'T BE RESTORED** The removed "give him the past he never had" verb is the spine: belonging is earnable forward only, never backward.
+- `Q183.W7` **THE NAME DOESN'T ERASE THE TANK** Grunt stays made, stays the krogan with no childhood — the belonging real because it was chosen on top of the manufacture, not instead of it.
+- `Q183.W8` **THE BREAKDOWN IS AN IDENTITY CRISIS** The physical failure is really the loneliness of a made thing with no place — the body carrying what the self can't hold.
+- `Q183.W9` **THE PLAYER CAN SECOND HIM** Standing with Grunt in the Rite is backing a made person's claim to belong — the witness to a manufactured being becoming counted.
+- `Q183.X1` **GRUNT'S BREAKDOWN IS RESOLVED TOO CLEANLY BY THE RITE, SO "BELONGING HEALS THE MADE THING" READS AS A SWITCH** Once Grunt passes, the identity crisis largely evaporates — the deep idea (a manufactured being's loneliness is structural) gets a one-fight cure, so the profound wound is closed l
+- `Q183.X2` **THE OBJECTING ELDERS ARE UNDERWRITTEN, SO THE "BELONGING CAN ONLY BE BORN" CASE IS WEAK** The purist position (a tank-bred thing has no right to the rite) is voiced but not given real force or sympathy, so Grunt's earning of belonging faces a strawman rather than a genu
+- `Q183.X3` **THE RITE IS A COMBAT SET-PIECE, WHICH LETS THE THEME BECOME A BOSS FIGHT** Because the trial is delivered as a big fight, players can experience it as a spectacle rather than a cultural judgment — the "does a made thing belong" question resolved by damage
+
+### Q184  FORBIDDEN LEGEND (THREE HEROES KILLED A TYRANT, SPLIT THE PROOF, AND EACH BECAME ONE) (The Elder Scrolls V: Skyrim)
+- `Q184.N1` **NODE L-1 — the legend** Entry: stage 1. The fragmented story, luring and warning at once. > "Three heroes killed the tyrant." [gate: none] -> the deed: the immortality-monster brought down > "They didn't 
+- `Q184.N2` **NODE L-2 — the pattern** Entry: stage 3. The cycle revealed. The guardian of each piece: a hero become the monster. > "The guardian IS one of the three heroes." [gate: reached the tomb] -> the reveal: the 
+- `Q184.N3` **NODE L-3 — the prize** Entry: stage 4-5. The warning unheeded. The whole amulet, offered as reward. > (make it whole and take it) [gate: none] -> the reconstitution; the forbidden whole worn as a prize; 
+- `Q184.P1` **PORT 1 — THE GUARDIANS BECAME WHAT THEY GUARDED [W1, W2, W3 — the core port]** system: the fold / the Amalgamation / the unrecorded ledger A Bohemia arc where those who fought and then guarded a horror each BECAME it, and the player's own quest to gather the 
+- `Q184.P2` **PORT 2 — THE FALLEN ARE KNOWN AS HEROES FIRST [F1's law]** system: the fold / companions / lore delivery If a quest's spine is "the guardians became what they guarded," the guardians are felt as PEOPLE before they're fought as monsters — t
+- `Q184.P3` **PORT 3 — THE FORBIDDEN WHOLE CARRIES A COST [F2's law]** system: the Amalgamation / items / the unrecorded ledger If the fiction says a reassembled thing is forbidden, the mechanics don't hand it over as a clean upgrade — the whole thing
+- `Q184.P4` **PORT 4 — THE PLAYER SEES THE WHEEL [F3's law]** system: the fold / the unrecorded ledger If a quest positions the dynast as the next turn of a corrupting cycle, something SURFACES the mirror — a line, a consequence, a moment tha
+- `Q184.W1` **FIGHTING THE MONSTER MADE THEM THE MONSTER** The three heroes each became the immortality-horror they killed — the cycle that proves hating a thing doesn't immunize you against it.
+- `Q184.W10` **IT IS THE FOLD'S CYCLE IN ONE LEGEND** A horror that repeats down generations, each holder becoming it — Bohemia's whole question of the cycle that fighting doesn't break, in three tombs and one amulet.
+- `Q184.W2` **THEY SPLIT IT TO KEEP IT BROKEN** The heroes chose fragments over destruction, custody over closure — and custody was what corrupted them, which is the quest's cruel engine.
+- `Q184.W3` **THE REASSEMBLY IS THE UNDOING** Gathering the pieces rebuilds the exact thing three people died keeping apart — completion and endangerment as one act.
+- `Q184.W4` **THE GUARDIANS ARE THE FALLEN HEROES** Each piece is guarded by the man who hid it, now a monster — the tragedy walked into three times.
+- `Q184.W5` **THE PLAYER IS THE NEXT TURN** The one who gathers the pieces to feel complete is just the next to hold the hunger — the wheel turning again.
+- `Q184.W6` **THE PRIZE IS THE WARNING** The whole amulet, handed over as a reward, is precisely what the legend warned against — the horror mistaken for loot.
+- `Q184.W7` **COMPLETION CAN'T BE SEPARATED FROM DANGER** The removed "complete without reassembling" verb is the spine: finishing the story and rebuilding the horror are the same act.
+- `Q184.W8` **THE WARNING DOESN'T TAKE** The legend says "keep it broken" and leads the player to make it whole — the unheeded caution that is the human condition in one quest.
+- `Q184.W9` **IMMORTALITY IS THE HUNGER** The tyrant's lust to never die is the shape each guardian assumes — the same lie the Amalgamation tells, in a Nord barrow.
+- `Q184.X1` **THE CYCLE REVEAL LANDS SOFT BECAUSE THE HEROES ARE JUST BOSS ENCOUNTERS** The devastating idea (each hero became the monster) is delivered mostly through journals and a name on a draugr, not through any felt sense of who these three were as men — so "fig
+- `Q184.X2` **THE GAME HANDS THE WHOLE AMULET AS A STRAIGHT UPGRADE, UNDERCUTTING THE WARNING** The reassembled relic is a genuinely good item with no downside, so the mechanics reward exactly what the fiction warns against — the "forbidden whole" is just better gear, which q
+- `Q184.X3` **THE PLAYER'S ROLE AS "THE NEXT TURN OF THE CYCLE" IS NEVER SURFACED** The quest never nudges the player to see themselves in the three heroes — that they too are now holding the immortal thing — so the most resonant idea (you are the next person to m
+
+### Q185  LAST VOYAGE OF THE USS CONSTITUTION (HELP A CREW OF ROBOTS SAIL A WARSHIP OFF A ROOFTOP 200 YEARS TOO LATE) (Fallout 4)
+- `Q185.N1` **NODE C-1 — the uncorrectable captain** Entry: stage 2. Ironsides, two centuries mid-mission. > "The war's been over for 200 years." [gate: none] -> the un-hearing: the captain cannot hold it; the delusion is his coheren
+- `Q185.N2` **NODE C-2 — the fork** Entry: stage 4. Serve or shatter. The ship almost ready, the scavengers waiting. > (help the Constitution sail) [gate: repairs] -> the delusion served to its doomed end; the crew l
+- `Q185.N3` **NODE C-3 — the voyage** Entry: stage 5. The beautiful pointless end. The rockets lit, the arc doomed and glorious. > (launch her) [gate: none] -> the flight; the mission fulfilled the only way it ever cou
+- `Q185.P1` **PORT 1 — SERVE THE DELUSION OR SHATTER IT [W1, W4, W5 — the core port]** system: the Amalgamation / factions / companions A Bohemia arc where a being (or a whole small community) is held together entirely by a false belief — a mission long dead, a perso
+- `Q185.P2` **PORT 2 — THE COMEDY CRACKS ONCE [F1's law]** system: the Amalgamation / dialogue scenes If a comic quest carries a serious question underneath, ONE beat lets the ache through — a line, a pause where the delusion's cost is bri
+- `Q185.P3` **PORT 3 — BOTH PATHS FULLY IMAGINED [F2's law]** system: factions / the Amalgamation If a quest offers serve-the-delusion vs shatter-it, both are fully IMAGINED — the truth-path given its own weight, not a flat punishment — so th
+- `Q185.P4` **PORT 4 — THE DELUDED FLICKERS ONCE [F3's law]** system: the Amalgamation / companions If the weight depends on a delusion being load-bearing for a person, that person flickers once — a near-doubt, a defended certainty — so the b
+- `Q185.W1` **THE DELUSION IS LIFE-SUPPORT** The crew's belief that they're still on duty is the only thing holding them coherent — correcting it and killing it are nearly the same act, which is the quest's real engine under 
+- `Q185.W10` **IT IS THE AMALGAMATION'S LIE IN SLAPSTICK** A comfort-belief that holds the broken together, served or shattered — Bohemia's whole "no one is ever lost" question, in a frigate on a roof.
+- `Q185.W2` **THE MISSION IS IMPOSSIBLE AND BEAUTIFUL** Sailing a rooftop frigate to the sea is doomed and glorious — the fulfillment is absurd and genuinely moving at once.
+- `Q185.W3` **THE CAPTAIN CAN'T BE CORRECTED** Ironsides cannot hold the truth — the delusion is his self, not his error, which makes "just tell him" impossible.
+- `Q185.W4` **HELPING IS KINDNESS-AS-LIE** Serving the crew means propping up a false belief with real effort — a mercy that is also a deception, held honestly.
+- `Q185.W5` **TRUTH HELPS NO ONE** Shattering the delusion strands or destroys the crew and buys only correctness — the honest option that is also the cruel one.
+- `Q185.W6` **THE VOYAGE COMPLETES THE WANT** The doomed flight is the only way the crew's built-in purpose could ever be fulfilled — completion instead of correction.
+- `Q185.W7` **THE TRUTH LEAVES NO ONE GRATEFUL** The removed "tell them and be thanked" verb is the spine: some truths only strand the people you tell them to.
+- `Q185.W8` **THE COMEDY IS THE MERCY** The gag lets the player serve a beautiful lie without being forced to grieve it — the tone is itself a kindness to the player.
+- `Q185.W9` **TWO CENTURIES OF DUTY** The crew kept serving because no order came to stop — the horror and tenderness of a duty never rescinded.
+- `Q185.X1` **THE COMEDY CAN FULLY MASK THE THEME, SO THE DELUSION QUESTION NEVER LANDS** The quest is so committed to the joke (robot sailors, a frigate blasting off a roof) that many players experience it purely as a gag and never feel the ache underneath — the profou
+- `Q185.X2` **THE "SHATTER IT" PATH IS THINLY IMAGINED COMPARED TO THE VOYAGE** Helping the ship sail is the lavish, memorable outcome; siding against the crew is a comparatively flat destruction, so the game clearly wants the player to serve the delusion — wh
+- `Q185.X3` **IRONSIDES NEVER FLICKERS, SO THE DELUSION READS AS PROGRAMMING, NOT PERSON** The captain is unshakably deluded with no moment of near-doubt, so the crew can read as malfunctioning machines rather than beings whose belief is load-bearing — which makes servin
+
+### Q186  JUHANI (THE FALLEN STUDENT WHO THINKS SHE KILLED HER TEACHER AND HAS BEEN HIDING IN THE GUILT) (Star Wars: Knights of the Old Republic)
+- `Q186.N1` **NODE J-1 — the fallen knight** Entry: stage 1-2. Juhani, playing the monster she sentenced herself to be. > "You fell for power." [gate: none] -> her correction: not power — shame; she struck her master and thou
+- `Q186.N2` **NODE J-2 — the ledger corrected** Entry: stage 3. The false guilt refuted. The truth about the master. > "Your master is alive." [gate: none] -> the refutation: the murder never happened; the crime she was damned f
+- `Q186.N3` **NODE J-3 — the re-accounting** Entry: stage 4-5. The self freed or kept. Juhani, offered back a self she condemned. > (help her accept the corrected self) [gate: none] -> redemption as re-accounting; the guilt r
+- `Q186.P1` **PORT 1 — THE GUILT BIGGER THAN THE DEED [W1, W2, W4 — the core port]** system: the conscience system / companions / the unrecorded ledger A Bohemia arc where a character fell not from evil but from SHAME — did a real but survivable wrong, believed it 
+- `Q186.P2` **PORT 2 — RE-ACCOUNTING ISN'T A SKILL ROLL [F1's law]** system: the conscience system / companions If a quest's heart is correcting a false self-accounting, the correction lands on the TRUTH and its delivery, not a skill check — the sel
+- `Q186.P3` **PORT 3 — THE DEED STAYS REAL [F2's law]** system: the conscience system / the unrecorded ledger If redemption is re-accounting not innocence, the real DEED stays real — the wrong acknowledged even as the inflated verdict i
+- `Q186.P4` **PORT 4 — THE ACCOUNT MATCHES THE ACTS [F3's law]** system: companions / the conscience system If a fallen character's fall is framed as shame not evil, the harm they've done since is RECONCILED with that framing — shown as the flai
+- `Q186.W1` **SHE FELL FROM SHAME, NOT EVIL** Juhani's dark side is a sentence she passed on herself, not a hunger she followed — the fall as self-condemnation, which is the whole engine.
+- `Q186.W10` **IT IS THE CONSCIENCE SYSTEM IN ONE FALL** A person damned by their story about their worst moment more than the moment itself — Bohemia's whole question of guilt-sticky-and-chosen, in one fallen knight's corrected ledger.
+- `Q186.W2` **THE GUILT IS BIGGER THAN THE DEED** She struck her master; she believes she murdered him — the whole fallen identity rests on a guilt inflated past the act.
+- `Q186.W3` **THE CRIME NEVER HAPPENED** The master is alive; the murder she was damned for is undone — the false accounting refuted at the root.
+- `Q186.W4` **REDEMPTION IS RE-ACCOUNTING** Not forgiveness for a crime but correction of an inflated self-verdict — the sharpest, truest thing the quest says about guilt.
+- `Q186.W5` **THE DEED STAYS REAL** The strike is not erased; the freedom is in right-sizing the guilt, not deleting the wrong — redemption without innocence.
+- `Q186.W6` **THE DARK SIDE WAS A SENTENCE** Juhani adopted the fallen role as a verdict on herself — the removed "erase the strike" verb is the spine: you correct the weight, not the fact.
+- `Q186.W7` **THE MONSTER WAS SELF-INVENTED** She built the creature from a mistake — the most dangerous thing was the conviction that the anger proved her damned.
+- `Q186.W8` **THE PLAYER CORRECTS THE LEDGER** Shepard's role is to right the accounting, not excuse the deed — the re-accountant, not the forgiver.
+- `Q186.W9` **THE OVER-SENTENCE CAN BE CONFIRMED** Pushing her into darkness executes the verdict she passed on herself — the tragedy of a guilt too load-bearing to release.
+- `Q186.X1` **THE CORRECTION CAN BE DELIVERED AS A PERSUADE-CHECK, REDUCING RE-ACCOUNTING TO A DICE ROLL** Juhani's redemption can hinge on a Persuade skill success, so the profound act (freeing someone from an inflated self-verdict) becomes a stat check — the player "wins" her back by 
+- `Q186.X2` **THE STRIKE'S REALNESS GETS UNDERPLAYED, SO REDEMPTION TIPS TOWARD INNOCENCE** Because the reveal is "your master is alive," the quest can slide into implying Juhani did nothing wrong — but she did strike her teacher in rage, and softening that turns "guilt r
+- `Q186.X3` **JUHANI'S GROVE-RULING CRUELTY SITS AWKWARDLY WITH THE SHAME-NOT-EVIL FRAMING** She's been menacing travelers, which reads as active malice and slightly contradicts the "she fell from shame, not evil" framing — the quest doesn't fully reconcile the harm she's 
+
+### Q187  RETURN TO CROOKBACK BOG (THE ORPHANS YOU SAVED GREW UP GRATEFUL TO THE MONSTERS) (The Witcher 3: Wild Hunt)
+- `Q187.N1` **NODE B-1 — the ledger revealed** Entry: stage 3. The bog, the orphans' fate arriving. > "The children — what happened to them?" [gate: none] -> the result of the Hillock choice, already sealed: saved-but-orphaned,
+- `Q187.N2` **NODE B-2 — the no-clean-win** Entry: stage 4. The monsters woven into survival. The Crones, horror and order at once. > "You fed on children." [gate: none] -> the monstrousness named; the larder confirmed > "An
+- `Q187.N3` **NODE B-3 — the weight received** Entry: stage 5. Read, not rewritten. The aftermath, irreversible. > (accept the consequence of the Hillock choice) [gate: none] -> the ledger read where it came due; the children's
+- `Q187.P1` **PORT 1 — THE CHOICE THAT COMES DUE ELSEWHERE [W1, W2, W6 — the core port]** system: the unrecorded ledger / the fold / factions A Bohemia arc where a choice made in one place and half-known detonates far away and long after, arriving as an irreversible con
+- `Q187.P2` **PORT 2 — THE DISPLACED CHOICE FEELS HEAVY AT THE SOURCE [F1's law]** system: the unrecorded ledger / dialogue scenes If a consequence is deliberately delayed and displaced, the choice carries felt WEIGHT at the moment of decision — the dynast sensin
+- `Q187.P3` **PORT 3 — THE MONSTER-AS-ORDER IS FELT AT THE KILL [F2's law]** system: factions / the unrecorded ledger If a quest's monsters are also a region's order, the confrontation makes the DUALITY felt — the cost of removing them present in the moment
+- `Q187.P4` **PORT 4 — THE REVEAL BREATHES [F3's law]** system: the fold / the unrecorded ledger / dialogue scenes If the power is the dynast receiving an irreversible consequence of their own past choice, the reveal is given ROOM — a b
+- `Q187.W1` **THE CHOICE IS DISPLACED IN TIME AND SPACE** The Hillock decision detonates hours later and miles away in the bog — the consequence separated from the decision, which is the quest's whole engine.
+- `Q187.W10` **IT IS THE UNRECORDED LEDGER'S DELAY IN ONE SWAMP** A choice that comes due far from where it was made, irreversibly — Bohemia's whole question of decisions that detonate off-screen, in a bog full of children.
+- `Q187.W2` **THE PLAYER RECEIVES, NOT DECIDES** By the bog, the outcome is sealed; the player discovers their own choice like a stranger reading a result — weight as revelation.
+- `Q187.W3` **THE CHOICE WAS HALF-KNOWN** The player likely didn't grasp they were deciding the orphans' fate — the tragedy of choosing without full knowledge, which is most real choices.
+- `Q187.W4` **NEITHER OUTCOME IS CLEAN** Freed spirit saves children and butchers a village; destroyed spirit saves a village and dooms children — both real, both on the player.
+- `Q187.W5` **THE CONSEQUENCE IS SMALL AND SPECIFIC** It arrives as particular children, not an abstraction — the ledger come due in small bodies.
+- `Q187.W6` **UNDERSTANDING ISN'T UNDOING** The removed "choose again" verb is the spine: some choices come due where you can't reach them, and knowing changes nothing.
+- `Q187.W7` **THE MONSTERS ARE THE ORDER** The Crones are Velen's horror and its protection both — confronting them buys nothing clean, deepening the no-win.
+- `Q187.W8` **THE WEIGHT IS IRREVERSIBLE** The bog reveals which way, never lets you rewrite it — the ledger read, not edited.
+- `Q187.W9` **THE ARC EARNS THE DETONATION** Hours of Velen build to this room — the delay is long enough to make the consequence feel like fate, not a menu.
+- `Q187.X1` **THE HILLOCK CHOICE'S STAKES ARE UNDER-SIGNALED, WHICH CAN READ AS UNFAIR RATHER THAN TRAGIC** Because the player often doesn't realize the tree-spirit decision is sealing the orphans' fate, the delayed consequence can land as a "gotcha" — punishing incomplete information — 
+- `Q187.X2` **THE CRONES-AS-VELEN'S-ORDER IDEA IS UNDERDEVELOPED AT THE CONFRONTATION** The rich notion that the monsters are also the region's protectors is more implied by lore than made felt when the player confronts them, so the "no clean win" weight of beating th
+- `Q187.X3` **THE PLAYER'S HELPLESSNESS AT THE REVEAL ISN'T GIVEN ROOM TO BREATHE** The moment of discovering the sealed consequence passes quickly amid the arc's momentum, so the specific, devastating experience — receiving your own choice as an irreversible fact
+
+### Q188  PYRAMID SONG (A DAY AT THE BEACH WITH SOMEONE WHO IS ABOUT TO STOP EXISTING) (Cyberpunk 2077)
+- `Q188.N1` **NODE P-1 — the dive** Entry: stage 2. Judy, showing the player her drowned past. > "This whole town is underwater." [gate: none] -> the image: a life flooded, beautiful and gone, visitable not livable >
+- `Q188.N2` **NODE P-2 — the goodbye inside it** Entry: stage 4. Closeness and farewell as one. Judy, the day revealing its shape. > "This is goodbye, isn't it." [gate: none] -> the recognition: the intimacy IS the farewell; she'
+- `Q188.N3` **NODE P-3 — go or let go** Entry: stage 5. The once held. Judy, leaving either way. > (go with her) [gate: arc allows] -> the departure shared; the connection given a rare continuation out of the city that t
+- `Q188.P1` **PORT 1 — THE CLOSENESS THAT IS THE GOODBYE [W1, W3, W5 — the core port]** system: companions / the fold / romance arcs A Bohemia companion beat where the deepest intimacy the dynast is offered is inseparable from a farewell — a person showing the whole o
+- `Q188.P2` **PORT 2 — EVEN THE HAPPY PATH CARRIES THE COST [F1's law]** system: companions / the fold / romance arcs If a connection is inseparable from loss, even the "happy" continuation carries the COST — what was left behind, what the leaving took 
+- `Q188.P3` **PORT 3 — THE REASON TO LEAVE IS PRESENT [F2's law]** system: companions / factions / the fold If a departure must read as correct rather than defeatist, the reason is freshly PRESENT at the goodbye — the toll visible in the moment, n
+- `Q188.P4` **PORT 4 — THE QUIET IS FRAMED AS THE EVENT [F3's law]** system: companions / dialogue scenes / romance arcs If a quest's content is emotional not mechanical, its stillness is FRAMED as the event — the quiet made legibly the point — so p
+- `Q188.W1` **THE CLOSENESS IS THE GOODBYE** The intimacy and the farewell are one scene — the quest's whole engine, refusing to separate the connection from the loss.
+- `Q188.W10` **IT IS THE FOLD'S GRIEF IN ONE DAY** A real connection that doesn't get to last, honored as complete — Bohemia's whole question of loss and departure, in a drowned town and one afternoon.
+- `Q188.W2` **THE INTIMACY IS REAL AND HONEST** Judy offers the genuine thing, un-cynical and complete — rare in this world, which is what makes the goodbye hurt.
+- `Q188.W3` **THE DEPARTURE IS CORRECT** The city is genuinely killing her; leaving is right, not a problem to solve — the removed "talk her into staying" verb is the spine.
+- `Q188.W4` **THE DROWNED TOWN IS THE IMAGE** A whole life underwater, beautiful and unlivable — the loss made a place you can dive into but not live in.
+- `Q188.W5` **IT IS THE ONCE** A real connection offered exactly once, complete because it doesn't continue — the quest's honesty about impermanent intimacy.
+- `Q188.W6` **SHOWING YOU EVERYTHING IS THE FAREWELL** Judy's total vulnerability is how she says goodbye — being fully known once, on the way out.
+- `Q188.W7` **THE QUIET IS THE EVENT** Nothing mechanical happens; everything emotional does — the stillness is the stake, which is rare and brave.
+- `Q188.W8` **LEAVING WITH HER STILL COSTS** Even the continuation is attached to what the city took — the loss present even in the happy path.
+- `Q188.W9` **THE PLAYER CAN'T FIX IT** Judy's decision isn't a puzzle; the loving act is to let the goodbye be real — the impotence that is the truth of some departures.
+- `Q188.X1` **THE "GO WITH HER" FANTASY CAN SOFTEN THE GOODBYE THE QUEST IS BUILT ON** For players whose arc permits leaving together, the romance can read as a straightforward happy unlock, which quietly undoes the quest's hardest truth (intimacy attached to loss) —
+- `Q188.X2` **THE CITY'S UN-SOLVABILITY IS ASSERTED MORE THAN FELT AT THIS MOMENT** Judy's "the city is killing me" is true across her whole arc but, in this quiet quest, is stated rather than freshly demonstrated, so a player who hasn't tracked the cumulative tol
+- `Q188.X3` **THE QUIET CAN READ AS "NOTHING HAPPENS" FOR PLAYERS TRAINED ON STAKES** The quest is deliberately low-event — a dive, a talk, a day — and players conditioned to expect mechanical stakes can disengage, missing that the entire point is emotional, so the 
+
+### Q189  HEART OF STONE (GRANT A DEAD MAN'S THREE WISHES AND WATCH LOVE ROT INTO A CURSE) (The Witcher 3: Hearts of Stone)
+- `Q189.N1` **NODE H-1 — the mark** Entry: stage 1. O'Dimm, courtly and total. > "What did Olgierd trade you?" [gate: none] -> the bargain: his heart, for a life that can't be taken — invulnerability bought with feel
+- `Q189.N2` **NODE H-2 — the rotted marriage** Entry: stage 3. The ruin made vivid. Iris, the house, the love that couldn't land. > "She loved a man who couldn't feel her." [gate: none] -> the specific wreckage: a marriage rott
+- `Q189.N3` **NODE H-3 — the collection** Entry: stage 4-5. The letter or the gamble. The final movement, Olgierd's soul at stake. > (serve O'Dimm, collect the soul) [gate: none] -> the letter kept; the devil's word honore
+- `Q189.P1` **PORT 1 — THE FAIR BARGAIN THAT IS A RUINED LOVE [W1, W2, W3 — the core port]** system: the Amalgamation / the fold / factions A Bohemia arc where a soul-broker (the Amalgamation, a devil-figure) never cheats — grants exactly what's asked and lets the ruinous 
+- `Q189.P2` **PORT 2 — THE SPECTACLE POINTS AT THE WOUND [F1's law]** system: the Amalgamation / quest structure If a quest hides its deepest wound inside a spectacle, the spectacle POINTS at the wound — a beat inside the fun that turns the dynast's 
+- `Q189.P3` **PORT 3 — THE BROKER'S FAIRNESS IS LEGIBLE [F2's law]** system: the Amalgamation / factions If a soul-broker's terror is that he's always technically fair, the FAIRNESS is made legible in play — the dynast seeing every ruin was exactly 
+- `Q189.P4` **PORT 4 — THE TRADED-AWAY FEELING ACHES [F3's law]** system: companions / the Amalgamation / the fold If a character's tragedy is trading away feeling, the LOSS is glimpsed under the coldness — a moment where the inability to mourn i
+- `Q189.W1` **THE DEVIL NEVER CHEATS** O'Dimm grants exactly what's asked and lets the cost surface — the fair-and-damning broker, whose terror is that he keeps his word, which is the whole engine.
+- `Q189.W10` **IT IS THE AMALGAMATION'S DEAL IN ONE HEART** A bargain to escape pain that costs the capacity to love — Bohemia's whole soul-broker question, in one man's traded heart and one haunted house.
+- `Q189.W2` **THE BARGAIN IS A RUINED MARRIAGE** The abstract soul-deal is really a specific destroyed love — Iris, the house, the husband of stone — the human debris made vivid.
+- `Q189.W3` **INVULNERABILITY COST THE HEART** Olgierd traded the ability to be hurt and lost the ability to be reached — the sharpest thing the quest says about not-feeling.
+- `Q189.W4` **THE PLAYER IS THE COLLECTING HAND** Geralt is made the devil's instrument, walking through wreckage he didn't cause — complicity as gameplay.
+- `Q189.W5` **THE WISHES ARE EXHUMATIONS** Each absurd task opens a chamber of the bargain's ruin — the flashy surface hiding the deep wound.
+- `Q189.W6` **THE HEART DOESN'T COME BACK** The removed "give Olgierd his heart" verb is the spine: what's traded for invulnerability is gone; you only decide whether the collection completes.
+- `Q189.W7` **THE DEAL CAN BE BEATEN BY ITS RULES** Defying O'Dimm means out-riddling him, not overpowering him — the devil cheated only by his own logic.
+- `Q189.W8` **THE MARRIAGE STAYS ROTTED** Even saving Olgierd doesn't restore Iris or the love — the ruin precedes and outlasts the choice.
+- `Q189.W9` **THE COST IS DELAYED, NOT HIDDEN** Olgierd got exactly what he asked and discovered the price over years — the honest horror of a bargain that's fair and slow.
+- `Q189.X1` **THE WISHES' WHIMSY CAN SWAMP THE EXHUMATION, SO THE COST READS AS SPECTACLE** Two of the three wishes are large, playful set-pieces (a wild wedding, a heist-like caper), and their spectacle can so dominate that players enjoy them as fun beats and miss that e
+- `Q189.X2` **O'DIMM'S "ALWAYS FAIR" TERROR DEPENDS ON THE PLAYER PARSING THE RULES** The chilling idea (the devil never cheats, only grants and waits) requires the player to understand the contract's mechanics, and the game sometimes lets the horror ride on lore th
+- `Q189.X3` **OLGIERD IS HARD TO PITY BECAUSE HIS HEARTLESSNESS IS SHOWN AS COLDNESS, NOT LOSS** Because a man who traded his heart is, by design, cold and off-putting, the player can struggle to feel the tragedy of Iris's marriage from his side — the "save him" choice can fee
+
+### Q190  COME FLY WITH ME (A DEAD SPACE-CULT WORSHIPS A ROCKET THAT WILL NEVER FLY, AND YOU DECIDE WHERE THEIR FAITH GOES) (Fallout: New Vegas)
+- `Q190.N1` **NODE S-1 — the preacher** Entry: stage 1. Jason, total faith in the Far Beyond. > "What's the Far Beyond?" [gate: none] -> the paradise: a heaven for the discarded, preached with total conviction, unconfirm
+- `Q190.N2` **NODE S-2 — the choice** Entry: stage 4. Fuel, ground, or expose. The rockets ready, the flock waiting. > (fuel the launch) [gate: rockets ready] -> the ascent; the Brotherhood dying inside their faith by 
+- `Q190.N3` **NODE S-3 — where the faith goes** Entry: stage 5. No clean mercy. The launch, the ground, or the truth. > (let them fly) [gate: none] -> the glorious fatal ascent; agency honored; a death inside the dream rather th
+- `Q190.P1` **PORT 1 — THE THROTTLE ON A DOOMED, UNVERIFIABLE FAITH [W1, W3, W6 — the core port]** system: the Amalgamation / the endings / factions A Bohemia arc where a community's whole coherence rides on a faith aimed at a destination that CANNOT be verified — a promised aft
+- `Q190.P2` **PORT 2 — ALL THREE ENDINGS EQUALLY SUPPORTED [F1's law]** system: the endings / factions If a quest offers fuel-ground-or-expose for a doomed faith, all three are equally SUPPORTED as real endings — each its own resolution and dignity — s
+- `Q190.P3` **PORT 3 — THE UNVERIFIABILITY IS OWNED [F2's law]** system: the Amalgamation / the endings If a quest's power is an unverifiable destination, the ambiguity is FRAMED as the condition, not a gap — the un-checkability made legibly the
+- `Q190.P4` **PORT 4 — ONE BELIEVER IS KNOWN [F3's law]** system: factions / the endings / companions If a choice decides a congregation's fate, at least one believer is KNOWN as a person — a specific hope on the line — so the stakes aren
+- `Q190.W1` **THE HEAVEN CAN'T BE CHECKED** The Far Beyond is unverifiable — transcendence or vacuum, unfalsifiable — so the player decides where a faith goes blind to what waits, which is the whole engine.
+- `Q190.W10` **IT IS THE PROMISED-AFTERLIFE IN ONE LAUNCH** A heaven for the discarded that can't be confirmed, fueled or grounded or exposed — Bohemia's whole "no one is ever lost" question, aimed at the stars.
+- `Q190.W2` **THE PLAYER HOLDS THE THROTTLE** Readying the launch hands the dream's control to the player — the choice is theirs, not the story's.
+- `Q190.W3` **EVERY OPTION IS LOVE AND CRUELTY** Fuel is mercy-as-death; ground is protection-as-robbery; truth is respect-as-shattering — no purely kind path.
+- `Q190.W4` **THE FAITH IS A COMMUNITY OF THE DISCARDED** The Brotherhood are the world's thrown-away, held together by the dream — grounding them robs the only thing they have.
+- `Q190.W5` **THE LAUNCH IS REAL** The rockets can actually fly — the dream is achievable and fatal, not a delusion that fizzles, which makes fueling it a genuine act.
+- `Q190.W6` **THE DESTINATION STAYS UNSEEN** The removed "check the Far Beyond first" verb is the spine: faith is aimed at what you can't verify before you commit.
+- `Q190.W7` **AGENCY VERSUS SAFETY** The Brotherhood want to go; honoring that means helping them die — the tension between respecting a choice and preventing a death.
+- `Q190.W8` **THE PREACHER'S FAITH IS TOTAL** Jason never wavers — the conviction is complete, which makes the truth-path feel like an assault on something load-bearing.
+- `Q190.W9` **THE GAME WON'T RESOLVE IT** No confirmation of paradise — the ambiguity is the mirror: you're in the same position as any believer, deciding without proof.
+- `Q190.X1` **THE GAME'S MECHANICAL REWARD NUDGES TOWARD FUELING THE LAUNCH, FLATTENING THE DILEMMA** Completing the launch is the "main" completion with the cleanest payoff, so the profound three-way (fuel/ground/expose) can collapse into "do the quest as designed" — the grounding
+- `Q190.X2` **THE FAR BEYOND'S UNVERIFIABILITY CAN READ AS THE GAME DODGING, NOT AS DESIGNED AMBIGUITY** Because the game never confirms whether paradise exists, a player can experience the ambiguity as the writers refusing to commit rather than as the point (faith is aimed at the unc
+- `Q190.X3` **THE BROTHERHOOD IS UNDERCHARACTERIZED, SO THE STAKES ARE ABSTRACT** The individual ghouls of the flock are mostly a faceless congregation, so the weight of sending "them" to die or robbing "them" of their dream is diffuse — the choice would cut dee
+
+### Q191  THE HERETICS (REWRITE A RACE OF MACHINES TO BELIEVE, OR RESPECT THEIR RIGHT TO BE WRONG) (Mass Effect 2)
+- `Q191.N1` **NODE H-1 — the schism** Entry: stage 1-2. Legion, the divided machine-race. > "The heretics chose the enemy." [gate: none] -> the schism: a faction that chose a hostile faith; wrong, and theirs > "You hav
+- `Q191.N2` **NODE H-2 — the cost named** Entry: stage 3. Rewrite as erasure. Legion, refusing the clean mercy. > "Rewriting them isn't persuasion." [gate: none] -> the truth: the virus deletes the selves that chose and in
+- `Q191.N3` **NODE H-3 — the choice** Entry: stage 4-5. Right-to-be-wrong versus life. The station, the two tools, no clean option. > (destroy the heretics) [gate: none] -> the end; the beings dead but their choice the
+- `Q191.P1` **PORT 1 — OVERWRITE A MIND OR END IT [W1, W3, W6 — the core port]** system: the Amalgamation / the conscience system / factions A Bohemia choice where a faction of thinking beings chose a "wrong" belief, and the dynast can END them (dead but themse
+- `Q191.P2` **PORT 2 — NO REWARD TILTS THE ETHICS [F1's law]** system: the conscience system / the Amalgamation If a quest poses forced conversion vs destruction, no mechanical REWARD tilts it — the choice weighed on its ethics, not unit-count
+- `Q191.P3` **PORT 3 — THE WRONG-BELIEVER SPEAKS [F2's law]** system: the Amalgamation / factions If the question is whether to overwrite a being's chosen belief, that being VOICES the belief — even briefly, even alienly — so the right-to-be-
+- `Q191.P4` **PORT 4 — THE CONSCIENCE SHOWS ITS STRAIN [F3's law]** system: companions / the conscience system If a quest's conscience-figure is genuinely troubled, that TROUBLE is visible, not flattened into neutral option-presentation — so the pl
+- `Q191.W1` **OVERWRITE IS OFFERED AS MERCY** The virus is the "don't kill them" option — and the quest refuses to let that be clean, which is the whole engine.
+- `Q191.W10` **IT IS THE REWRITE-THE-DEAD MACHINE IN ONE VIRUS** Whether a changed-by-force mind is the same person — Bohemia's whole Amalgamation question, in a station full of heretics.
+- `Q191.W2` **THE HERETICS CHOSE** They picked their faith; they are wrong and they are theirs — the right to be wrong is the thing at stake.
+- `Q191.W3` **REWRITE IS ERASURE** The virus deletes the choosers and installs agreement — keeping the body, killing the self, which is the sharpest thing the quest says.
+- `Q191.W4` **THE MACHINE ASKS THE ETHICS** Legion, a synthetic, frames forced conversion as murder more precisely than most organics would — the quiet devastation of who's asking.
+- `Q191.W5` **NEITHER OPTION IS PERSUASION** The removed "convince them" verb is the spine: the tools are destruction or rewrite, never argument — the humane middle is exactly absent.
+- `Q191.W6` **SELF VERSUS SHELL** The choice is whether a preserved, rewritten mind is the same person or a corpse wearing agreement — the Amalgamation's whole question, early.
+- `Q191.W7` **KILLING CAN RESPECT THE SELF** Destroying the heretics leaves their choice their own — the counterintuitive truth that ending a being may honor it more than overwriting it.
+- `Q191.W8` **THE "CORRECT" BELIEF IS STILL IMPOSED** Rewriting installs the loyal faith — even the right answer, forced, is a violation, which complicates being right.
+- `Q191.W9` **IT IS COLD AND HUMANE AT ONCE** Legion's precision makes the ethics sharper than sentiment would — the machine's clarity is the quest's conscience.
+- `Q191.X1` **THE GAME ATTACHES A SQUAD-STRENGTH REWARD THAT NUDGES TOWARD REWRITING** Rewriting the heretics yields a mechanical benefit (more geth for the war later), so the profound ethical question gets a thumb on the scale from a gameplay incentive — the "forced
+- `Q191.X2` **THE HERETICS ARE NEVER GIVEN A VOICE, SO "THEIR RIGHT TO BE WRONG" IS ABSTRACT** The heretics never speak for themselves — the player only hears Legion's framing — so the being whose mind is at stake is a concept, not a party, which makes "respect their right t
+- `Q191.X3` **LEGION'S UNCERTAINTY CAN READ AS NEUTRALITY, LETTING THE PLAYER OFF THE HOOK** Because Legion presents both options evenly and defers to the player, the framing can feel like the machine is abstaining rather than genuinely troubled — so the player can treat i
+
+### Q192  THE FORSWORN CONSPIRACY (PULL ONE THREAD IN A CLEAN CITY AND THE WHOLE FLOOR IS A MASS GRAVE) (The Elder Scrolls V: Skyrim)
+- `Q192.N1` **NODE F-1 — the unravel** Entry: stage 2-3. The thread, coming apart into a foundation. > "Who are the Forsworn, really?" [gate: none] -> the reframe: not savages — the native people driven out by force; th
+- `Q192.N2` **NODE F-2 — the burial** Entry: stage 4. The truth criminalized. The city's answer to a solved crime. > "You know what happened. You built it." [gate: none] -> THE ONE LINE DOING THE WORK: the truth isn't 
+- `Q192.N3` **NODE F-3 — the same hole** Entry: stage 5. Ally or claw out. The prison, the Forsworn king, no just exit. > (make common cause with the dispossessed) [gate: none] -> escape as an ally of the "terrorists" you
+- `Q192.P1` **PORT 1 — THE ORDERLY SURFACE OVER THE GRAVE [W1, W2, W3 — the core port]** system: the unrecorded ledger / factions / the power grid A Bohemia city or faction whose prosperity, order, and law all rest on a buried dispossession — and the dynast who pulls t
+- `Q192.P2` **PORT 2 — THE RENAMED ENEMY'S VIOLENCE RECONCILED [F1's law]** system: factions / the unrecorded ledger If a quest reframes an "enemy" as the dispossessed, it RECONCILES their present violence with that history — the brutality shown as a wrong
+- `Q192.P3` **PORT 3 — PRESERVING THE LID COSTS [F2's law]** system: the unrecorded ledger / factions / the power grid If a quest's truth is an order built on a buried crime, preserving the lid COSTS something visible — the grave's weight fe
+- `Q192.P4` **PORT 4 — THE EXIT IMPLICATES THE PLAYER [F3's law]** system: factions / the unrecorded ledger If a quest ends choosing between allying with the violent-wronged or preserving the unjust-clean, the COMPLICITY of either exit is surfaced
+- `Q192.W1` **THE CLEAN SURFACE IS A LID** Markarth's order and silver work perfectly on top of a buried conquest — the prosperity is the horror, which is the whole engine.
+- `Q192.W10` **IT IS THE UNRECORDED LEDGER AS A CITY** An order built on a buried dispossession, criminalizing whoever names it — Bohemia's whole question of who the record serves, in one silver town.
+- `Q192.W2` **THE ENEMY IS THE ROBBED** The "terrorists" are the dispossessed native people — the state's enemy-language revealed as a rename for the wronged.
+- `Q192.W3` **THE TRUTH GETS YOU BURIED** Solving the crime correctly is rewarded with a frame and a prison sentence — the truth-seeker made to disappear.
+- `Q192.W4` **THE POWERFUL ALREADY KNOW** The truth isn't a mystery to the Silver-Bloods; they built the city on it — the only threat is someone saying it aloud.
+- `Q192.W5` **THE PRISON IS THE HONESTY** The investigator and the dispossessed land in the same hole — proof that to the city, truth-teller and wronged are one problem.
+- `Q192.W6` **THE ORDER CAN'T BE MADE JUST** The removed "fix the city to be prosperous and just" verb is the spine: the prosperity IS the dispossession; the lid can't survive the truth.
+- `Q192.W7` **ESCAPE REQUIRES SOLIDARITY OR COMPLICITY** Out via alliance with the wronged, or via preserving the lid — no exit leaves the surface clean and just.
+- `Q192.W8` **THE FOUNDATION IS A GENERATION DEEP** The conquest is recent enough to have living survivors — the crime is not ancient history but load-bearing present.
+- `Q192.W9` **IT PULLS FROM ONE THREAD** A single market murder unravels a whole city's foundation — the small clue that opens the mass grave.
+- `Q192.X1` **THE FORSWORN'S OWN VIOLENCE MUDDIES THE "DISPOSSESSED, NOT TERRORISTS" REFRAME** The Forsworn do raid and kill throughout the game, so the quest's powerful reframe (they're the robbed, not savages) collides with the player's other experiences of them as hostile
+- `Q192.X2` **THE "CLAW OUT ALONE" PATH LETS THE PLAYER PRESERVE THE LID WITHOUT CONSEQUENCE** A player can escape Cidhna Mine and effectively restore the city's order, and the game largely lets Markarth carry on clean afterward — so the devastating "the order is the crime" 
+- `Q192.X3` **THE PLAYER'S OWN GUILT AT PRESERVING OR EXPOSING ISN'T SURFACED** The quest positions the player as truth-seeker but rarely presses their complicity in whichever outcome they choose — allying with people who raid, or abandoning a wronged people t
+
+### Q193  SINNERMAN (A MURDERER PAYS TO BE CRUCIFIED AND ASKS YOU TO HELP HIM MEAN IT) (Cyberpunk 2077)
+- `Q193.N1` **NODE S-1 — the sincerity** Entry: stage 2. Joshua, calm and completely meaning it. > "You want to be crucified." [gate: none] -> the atonement: proportion for a murder; the ultimate expiation, sincerely chos
+- `Q193.N2` **NODE S-2 — the inseparable event** Entry: stage 3-4. Holy and obscene at once. The cross, the cameras, the widow's grace. > "This is real atonement and a real snuff-stream." [gate: none] -> THE ONE LINE DOING THE WO
+- `Q193.N3` **NODE S-3 — reverence or refusal** Entry: stage 4-5. No clean stance. The crucifixion, the player positioned. > (be a real witness / assist the atonement) [gate: none] -> Joshua's right to his own penance honored; a
+- `Q193.P1` **PORT 1 — THE ATONEMENT THAT IS ALSO SPECTACLE [W1, W4, W5 — the core port]** system: the conduct book / the Amalgamation / factions A Bohemia arc where a guilty person seeks an extreme, sincere atonement and someone (a faction, the Amalgamation, a media pow
+- `Q193.P2` **PORT 2 — THE EXPLOITER ISN'T CARTOONISH [F1's law]** system: factions / the conduct book If a quest weighs a person's sincere choice against its exploitation, the exploiter isn't so cartoonish that it decides the question — the since
+- `Q193.P3` **PORT 3 — THE PARTICIPATION IS LEGIBLE [F2's law]** system: the conduct book / the unrecorded ledger If a quest's weight is the dynast's complicity in another's suffering, the DEGREE of participation is legible — the dynast knowing 
+- `Q193.P4` **PORT 4 — THE CHOOSER IS COMPETENT [F3's law]** system: the conduct book / companions If a quest turns on a person's right to choose their own extreme suffering, that person's SOUNDNESS is established — sincere and competent, no
+- `Q193.W1` **ATONEMENT AND EXPLOITATION ARE ONE EVENT** Joshua's sincere penance and the corporation's monetized content are the same crucifixion — inseparable, which is the whole engine.
+- `Q193.W10` **IT IS THE CONDUCT-BOOK AT THE CROSS** Whether a person owns their atonement, and whether witnessing suffering is reverence or complicity — Bohemia's whole penance question, on a livestreamed cross.
+- `Q193.W2` **HE MEANS IT COMPLETELY** Joshua is calm, articulate, sincere — not raving — so his right to his own atonement is a real claim, not a symptom.
+- `Q193.W3` **THE WIDOW FORGAVE HIM** Real grace complicates everything — the event is neither simple justice nor simple exploitation because forgiveness is genuine.
+- `Q193.W4` **THE PLAYER IS REVERENT AND COMPLICIT** Presence is respect for his choice and participation in a snuff-spectacle at once — no clean stance.
+- `Q193.W5` **THE QUESTION IS OWNERSHIP OF PUNISHMENT** Does a person own the right to their own agony as penance — the conduct-book's atonement question at its most extreme.
+- `Q193.W6` **THE EVENT CAN'T BE PURIFIED** The removed "atonement without spectacle" verb is the spine: the penance is sold and filmed; you can't extract one from the other.
+- `Q193.W7` **STOPPING HIM IS ALSO A WRONG** Refusing denies a sincere man his one path to peace — protection as paternalism, the other horn of the dilemma.
+- `Q193.W8` **IT LITERALIZES THE CRUCIFIXION** Not metaphor — actual nails, actual cross, actual stream — the extremity forces the question rather than gesturing at it.
+- `Q193.W9` **THE PULL GOES BOTH WAYS** His sincerity pulls toward helping; the cameras pull toward stopping — the quest makes the player feel both, not choose an obvious side.
+- `Q193.X1` **THE CORPORATION'S OBVIOUS EVIL CAN TIP THE PLAYER TOWARD "STOP IT," FLATTENING THE DILEMMA** The media company is cartoonishly exploitative, which makes "refuse the spectacle" the easy read and can drown out Joshua's genuinely difficult claim to his own atonement — so the 
+- `Q193.X2` **THE PLAYER'S DEGREE OF PARTICIPATION IS UNDER-SPECIFIED, SO COMPLICITY BLURS** How much the player actually does — witness, protect, or physically assist — shifts the moral weight enormously, but the quest can leave the player's exact role fuzzy, so the "reve
+- `Q193.X3` **JOSHUA'S SINCERITY IS SO TOTAL IT CAN READ AS DELUSION, LETTING THE PLAYER DISMISS HIS RIGHT** Because Joshua is unwavering, a player can file him as a brainwashed fanatic and thereby dodge the hard question (a competent person's right to choose their own atonement) — the qu
+
+### Q194  THE CAVE OF DREAMS (WALK BACK INTO YOUR OWN CHILDHOOD TO FIND THE ONE MEMORY THAT STILL LOVES YOU) (The Witcher 3: Wild Hunt)
+- `Q194.N1` **NODE C-1 — the forging replayed** Entry: stage 2. The rooms of the past, walkable. > "This is where they made me." [gate: none] -> the forge entered: the training, the hardening, the softness drilled out — seen now
+- `Q194.N2` **NODE C-2 — the guardian** Entry: stage 3-4. Love and damage in one act. The maker, present. > "You broke me." [gate: none] -> the damage named: the child hardened into a weapon; the cost of the forging > "A
+- `Q194.N3` **NODE C-3 — the walk out** Entry: stage 4-5. Changed, but the past unchanged. The reckoning, the exit. > (forgive the guardian) [gate: none] -> the love inside the damage accepted; the armor maybe set down; 
+- `Q194.P1` **PORT 1 — THE WALK BACK THROUGH THE FORGE [W1, W2, W3 — the core port]** system: the mindscape (#135) / the fold / companions A Bohemia mindscape quest where a character RE-ENTERS their own formative past as a walkable place — the rooms of the childhood
+- `Q194.P2` **PORT 2 — THE MEMORIES ARE SPECIFIC [F1's law]** system: the mindscape (#135) / the fold If a quest walks a character through their own past, the memories are SPECIFIC — this room, this moment, this exact thing said — not general
+- `Q194.P3` **PORT 3 — LOVE AND HARM BOTH HELD [F2's law]** system: the fold / companions / the conscience system If a quest frames a maker's cruelty as also love, it holds BOTH without dissolving one into the other — the love real, the har
+- `Q194.P4` **PORT 4 — THE PRESERVED MEMORY CARRIES WEIGHT [F3's law]** system: the fold / the mindscape / companions If a character carries a preserved memory out of their past, the carrying has WEIGHT going forward — the protected self visibly changi
+- `Q194.W1` **THE PAST IS A PLACE** The dream-cave lets the character walk through their own forging as rooms, not narration — the re-enterable past, which is the whole engine.
+- `Q194.W10` **IT IS THE FOLD'S UPBRINGING IN ONE CAVE** What the past made you and what you carry out of it — Bohemia's whole inheritance-and-forging question, walked back through in the flesh.
+- `Q194.W2` **IT IS A WALK, NOT A REWRITE** Nothing that happened un-happens; the removed "be raised gently" verb is the spine — you can see it clearly, never change it.
+- `Q194.W3` **THE GUARDIAN LOVED AND BROKE THEM** The cruelty was also a rough love meant to keep the child alive — the tenderness and harm the same act, the hardest truth about the people who forge us.
+- `Q194.W4` **THE QUESTION IS WHAT SURVIVED** Not "what happened" but "does anything under the armor still remember being loved" — the search for the preserved self.
+- `Q194.W5` **THE RECKONING CHANGES THE WALKER, NOT THE WALK** Forgive, reject, or protect — the character emerges changed, the past unchanged; the only thing a memory-walk can alter.
+- `Q194.W6` **FORGIVENESS ISN'T EXCUSE** Understanding the love inside the damage is not laundering the harm — the maker forgiven, not exonerated.
+- `Q194.W7` **REJECTION IS ALSO VALID** Naming the damage inside the love and refusing it is a real posture — the quest doesn't force reconciliation.
+- `Q194.W8` **THE LOVED-MEMORY IS WORTH CARRYING** One preserved moment of uncomplicated love proves the forging didn't burn out everything soft — a thing to protect.
+- `Q194.W9` **IT LITERALIZES THE INNER WORK** Re-entering your own childhood as a place makes the psychological physical — the mindscape as a walkable quest.
+- `Q194.X1` **THE DREAM-SPACE'S SYMBOLISM CAN GET ABSTRACT ENOUGH TO BLUNT THE SPECIFIC WOUND** Hallucinatory memory-spaces tend toward the dreamlike and general, and when the forging is rendered as symbol rather than specific remembered moment, the walk can feel like atmosph
+- `Q194.X2` **THE GUARDIAN'S "ROUGH LOVE" FRAMING CAN SLIDE INTO EXCUSING REAL HARM** The powerful idea (the cruelty was also love meant to keep the child alive) risks tipping into justification — where genuine damage gets laundered as "it was for your own good" — s
+- `Q194.X3` **"PROTECT THE LOVED-MEMORY" CAN LACK MECHANICAL WEIGHT, SO IT READS AS FLAVOR** The most tender option (carry out the one memory that still loves you) is easy to render as a purely narrative beat with no consequence, so it can feel like flavor text rather than
+
+### Q195  THE DESERTER (THE MURDERER IS A DYING TRUE BELIEVER WHO SHOT THE WRONG THING FOR THE RIGHT REASON) (Disco Elysium)
+- `Q195.N1` **NODE D-1 — the old man** Entry: stage 3. Iosef, still at his post after fifty years. > "You're a soldier of a war that ended fifty years ago." [gate: crossed the water] -> the dead faith's last keeper: sti
+- `Q195.N2` **NODE D-2 — the mixed motive** Entry: stage 4. Principle and pettiness, one shot. Iosef, unable to separate his own reasons. > "You shot him for the revolution." [gate: none] -> the ideology: the victim a symbol
+- `Q195.N3` **NODE D-3 — the confrontation** Entry: stage 5. Tragedy and indictment. The dying communard, finally seen. > (hold him as a tragedy) [gate: none] -> the man the powers crushed and left to rot; the ideology's vict
+- `Q195.P1` **PORT 1 — THE ANSWER IS A ROTTED KEEPER, NOT A PLOT [W1, W2, W3 — the core port]** system: the unrecorded ledger / factions / the fold A Bohemia mystery that resolves not into the proportionate conspiracy everyone theorized but into one lonely person who kept a d
+- `Q195.P2` **PORT 2 — THE MIXED MOTIVE READS AS DECAY [F1's law]** system: the unrecorded ledger / the fold If a quest's answer is a mixed, un-separable motive, the MIXTURE is shown as decay, not indecision — principle fermenting into spite over t
+- `Q195.P3` **PORT 3 — THE DEFLATION IS THE THESIS [F2's law]** system: the unrecorded ledger / quest structure If a quest deflates a big mystery into a small human answer, the deflation is FRAMED as the thesis — the smallness made pointed, the
+- `Q195.P4` **PORT 4 — IDEOLOGY AND DECAY BALANCED [F3's law]** system: factions / the fold / dialogue scenes If a character embodies both a dead ideology and personal decay, the confrontation BALANCES them — neither politics nor pettiness swam
+- `Q195.W1` **THE ANSWER IS A PERSON, NOT A PLOT** After every structural theory, the murderer is one lonely old man — the world was never as structured as the district assumed, which is the whole engine.
+- `Q195.W10` **IT IS THE DEAD-FAITH MACHINE IN ONE OLD MAN** What an ideology does to its last keeper, alone — Bohemia's whole question of belief outliving its object, on a forgotten island.
+- `Q195.W2` **THE FAITH OUTLIVED ITS CAUSE** Iosef kept believing fifty years after his revolution died — belief past any object, the ghost faith in one body.
+- `Q195.W3` **THE MOTIVE IS BOTH** Ideology and jealousy, the same shot — the grand murder and the petty one inseparable, which is the sharpest thing the quest says.
+- `Q195.W4` **FIFTY YEARS ALONE CURDLED IT** Unspent conviction fermented into resentment — the rot that time and isolation do to a kept faith.
+- `Q195.W5` **HE CAN'T SEPARATE HIS OWN REASONS** The removed "make it purely ideological or petty" verb is the spine: even the killer can't tell his principle from his spite.
+- `Q195.W6` **IT IS TRAGEDY AND INDICTMENT AT ONCE** Iosef is the powers' victim and the ideology's cautionary tale — neither reading cancels the other.
+- `Q195.W7` **THE CLIMAX IS A CONVERSATION** Not a gun-battle but an old man finally seen — the resolution is understanding, not violence.
+- `Q195.W8` **THE POWERS ARE INDICTED TOO** The revolution was crushed and its soldiers left to rot — the murder is the last casualty of that abandonment.
+- `Q195.W9` **THE THEORIES WERE THE DISTRICT'S NEED** Every plot the investigation built was a hunger for proportionate meaning — the false structure exposed.
+- `Q195.X1` **THE MIXED MOTIVE CAN READ AS THE GAME HEDGING RATHER THAN AS DECAY** Iosef's "both ideological and petty" motive is the point, but a player can experience it as the writers refusing to commit to a clean answer rather than as the deliberate portrait 
+- `Q195.X2` **THE LONG INVESTIGATION CAN MAKE THE HUMBLE ANSWER FEEL LIKE AN ANTICLIMAX** After hours of grand theory, resolving to "a lonely old man" is the intended deflation, but for players trained to expect a proportionate reveal it can land as a letdown rather tha
+- `Q195.X3` **IOSEF'S IDEOLOGY CAN OVERSHADOW HIS LONELINESS, OR VICE VERSA, IF UNBALANCED** The tragedy depends on holding both the dead cause AND the personal rot in balance; if the confrontation leans too hard into political monologue or too hard into the jealous crime,
+
+### Q196  THE NUCLEUS (A CULT WORSHIPS THE RADIATION THAT IS KILLING THEM AND CALLS IT DIVISION INTO GRACE) (Fallout 4: Far Harbor)
+- `Q196.N1` **NODE N-1 — the reframe** Entry: stage 1. The Confessor, radiation as grace. > "The radiation is killing you." [gate: none] -> the non-revelation: they know; they call it Division, sanctification — the harm
+- `Q196.N2` **NODE N-2 — the con inside** Entry: stage 2-4. The mercy the flock can't see. The schemer, exploiting the death-embrace. > "Someone is using how much you're willing to die." [gate: evidence] -> THE ONE LINE DO
+- `Q196.N3` **NODE N-3 — the three mercies** Entry: stage 4-5. Honor, expose, or fire. The flock, the payload, no clean option. > (honor the faith on its terms) [gate: none] -> the community respected as it wishes; the death-
+- `Q196.P1` **PORT 1 — THE FAITH THAT SANCTIFIES ITS OWN DESTRUCTION [W1, W3, W7 — the core port]** system: the Amalgamation / factions / the endings A Bohemia faith that reframes the thing destroying its believers (the Amalgamation's upload, a poison, a decay) as the grace they 
+- `Q196.P2` **PORT 2 — THE CON DOESN'T DEBUNK THE CREED [F1's law]** system: the Amalgamation / factions If a quest pairs a sincere faith with a con inside it, the SINCERITY is protected from the con — the belief shown as genuinely held independent 
+- `Q196.P3` **PORT 3 — THE QUIET MERCIES WEIGH AS MUCH AS THE WEAPON [F2's law]** system: the endings / factions If a quest offers a spectacular destructive option beside subtle ethical ones, the SUBTLE options get equal dramatic weight — the quiet mercies as co
+- `Q196.P4` **PORT 4 — HONORING IS A DISTINCT ACT [F3's law]** system: factions / the endings If honoring a faith on its own terms is an option, it has a DISTINCT, felt outcome — respect shown as a consequential act, not an exit — so honoring 
+- `Q196.W1` **THE HARM IS THE THEOLOGY** The radiation killing them is the grace they pray to — naming the destruction reveals nothing, which is the whole engine.
+- `Q196.W10` **IT IS DEATH-AS-SALVATION IN ONE CULT** A faith that turns annihilation into transcendence, honored or exposed or fired — Bohemia's whole Amalgamation "no one is ever lost" question, worshipped in a reactor.
+- `Q196.W2` **THE FAITH IS SINCERE** Most of the flock genuinely believes Division is sanctification — not fools, believers, which is what makes the choice hard.
+- `Q196.W3` **THERE IS A CON INSIDE** A schemer exploits the death-embrace — the real mercy the flock can't see is the manipulator, not the radiation.
+- `Q196.W4` **NAMING THE HARM SAVES NO ONE** The removed "convince them it's killing them" verb is the spine: they know, and they call it grace.
+- `Q196.W5` **THREE MERCIES, ALL INCOMPATIBLE** Honor, expose, or weaponize — three ways to treat a self-destroying faith, none clean.
+- `Q196.W6` **THE COMMUNITY IS AIMABLE** A flock that welcomes annihilation is the perfect weapon — the doctrine makes them consent to being fired.
+- `Q196.W7` **THE REAL MERCY IS THE CON, NOT THE CREED** You free them from who exploits their willingness to die, not from the belief itself — a subtle, true distinction.
+- `Q196.W8` **RESPECT MEANS HONORING A DEATH-WISH** To honor the Children is to let them embrace their end — the hardest form of respecting a belief.
+- `Q196.W9` **IT REFRAMES THE ENVIRONMENT AS SACRED** The radioactive base, lethal to the player, is holy to the flock — the setting itself preaches the doctrine.
+- `Q196.X1` **THE SCHEMER CAN MAKE THE FAITH READ AS "JUST A CON," FLATTENING THE SINCERITY** Because there's a manipulator inside, a player can conclude the whole thing is a scam and dismiss the genuine belief — collapsing the profound "the harm is sincerely embraced as gr
+- `Q196.X2` **THE WEAPONIZE PATH IS SO POWERFUL IT CAN OVERSHADOW THE ETHICAL QUESTION** The option to aim the community as a nuclear weapon is dramatic and mechanically consequential, which can pull the quest toward "cool doomsday choice" and away from the subtler que
+- `Q196.X3` **"HONOR THE FAITH" CAN LACK A DISTINCT OUTCOME, SO RESPECT READS AS INACTION** Choosing to honor the Children on their own terms can amount to simply leaving, with little felt result, so the meaningful posture (respecting a belief you find self-destructive) c
+
+### Q197  GHOST TOWN GUNFIGHT (A TOWN OF EX-CONVICTS DEFENDS ITS SECOND CHANCE FROM THE MEN IT USED TO BE) (Fallout: New Vegas)
+- `Q197.N1` **NODE G-1 — the fragile town** Entry: stage 1-2. The reformed, the siege coming. > "You're all ex-cons building something honest." [gate: none] -> the second chance: a new life built by people with dark pasts > 
+- `Q197.N2` **NODE G-2 — the old guns** Entry: stage 3. Reform under threat. The reluctant, afraid to become what they fled. > "Picking these guns back up proves we never changed." [gate: none] -> the fear of backsliding
+- `Q197.N3` **NODE G-3 — the defense** Entry: stage 4-5. Proven or hollow. The gunfight, the second chance at stake. > (rally and defend, holding the line and yourselves) [gate: none] -> the town wins and stays itself; 
+- `Q197.P1` **PORT 1 — DEFENDING THE SECOND CHANCE WITH THE OLD SKILLS [W1, W3, W4 — the core port]** system: the fold / factions / the conduct book A Bohemia arc where a community of the reformed (ex-criminals, a dynasty starting over, people who left a dark faction) must defend t
+- `Q197.P2` **PORT 2 — THE REFORM THEME SURFACES IN THE DOING [F1's law]** system: the fold / factions If a defense quest carries a reform question underneath, the theme is SURFACED in the doing — a defender's hesitation, a line naming the cost of picking
+- `Q197.P3` **PORT 3 — A DEFENDER'S PAST IS SPECIFIC [F2's law]** system: the fold / companions / the conduct book If a quest's edge is reformed people defending against their old life, at least one defender's specific PAST is known — so their ch
+- `Q197.P4` **PORT 4 — HOW YOU DEFEND BRANCHES [F3's law]** system: the fold / factions / the endings If the point is that HOW you defend determines whether reform survives, the manner of the defense produces DIFFERENT outcomes — holding yo
+- `Q197.W1` **REFORM IS TESTED BY DEFENSE, NOT PEACE** The second chance is proven in the moment it must be protected — the whole engine: reform under threat, not in comfort.
+- `Q197.W10` **IT IS SECOND-CHANCE IN ONE SIEGE** Whether reformed people may defend their new life with old skills — Bohemia's whole fold question of succession and starting over, in a waystation gunfight.
+- `Q197.W2` **THE ENEMY IS THE OLD LIFE** The gang is what the town used to be, come to take it — the past embodied, testing whether the escape holds.
+- `Q197.W3` **THE OLD SKILLS MUST COME BACK** To defend the new life, the town picks up the guns it laid down — the central, uncomfortable necessity.
+- `Q197.W4` **WHAT YOU AIM IT AT IS THE REFORM** The removed "defend without violence" verb is the spine: reform isn't the absence of the old skills, it's the change in their purpose.
+- `Q197.W5` **THE FEAR OF BACKSLIDING IS REAL** The reluctant defenders fear fighting means becoming what they fled — the internal cost that makes it a moral act.
+- `Q197.W6` **HOW YOU WIN MATTERS** Hold your line or harden into the gang — the manner of the defense is whether the reform survives it.
+- `Q197.W7` **THE CLAIM IS COMPLICATED** The town's peaceful aspiration is real and built on dark pasts — reform that doesn't pretend the history away.
+- `Q197.W8` **THE GANG ONLY ANSWERS TO FORCE** No talking it down — the second chance can only be defended, which forces the question rather than dodging it.
+- `Q197.W9` **IT CAN BE LOST OR BETRAYED** Side with the gang or walk away and the reform is swallowed — the second chance is genuinely fragile.
+- `Q197.X1` **THE MORAL WEIGHT IS OPTIONAL BECAUSE THE QUEST PLAYS AS A STRAIGHT DEFENSE MISSION** The "do ex-cons deserve their second chance, and does defending it corrupt it" theme is available but sits under a standard rally-and-shoot structure, so a player can complete the 
+- `Q197.X2` **THE TOWN'S CRIMINAL PAST IS UNDERUSED, SO "REFORM UNDER THREAT" LOSES ITS EDGE** The specific dark histories of the townsfolk are mostly flavor, so the sharp tension (they used to BE the gang) stays abstract — the quest would cut deeper if the player knew what 
+- `Q197.X3` **THE HARDENING WIN ISN'T DISTINGUISHED FROM THE STAY-YOURSELVES WIN** The difference between defending the town while holding your reform and defending it by becoming more like the gang is barely mechanized, so the crucial idea (how you fight, not ju
+
+### Q198  THE SAND PEOPLE (LEARN THE LANGUAGE OF THE SAVAGES AND FIND OUT WHO THE MONSTERS REALLY WERE) (Star Wars: Knights of the Old Republic)
+- `Q198.N1` **NODE S-1 — the monster problem** Entry: stage 1-2. The settlers, the "savages," the translator. > "The Sand People are mindless killers." [gate: none] -> the framing: subhuman raiders, a nuisance to be culled, no 
+- `Q198.N2` **NODE S-2 — the buried atrocity** Entry: stage 3-4. Understanding indicts your side. The Sand People's history, translated. > "Your raids are retaliation." [gate: translator] -> the reframe: a people with a grievan
+- `Q198.N3` **NODE S-3 — genocide or peace** Entry: stage 5. Clean cull or costly reckoning. The choice, both truths in hand. > (exterminate the Sand People) [gate: none] -> the clean-seeming genocide; the settlers' "problem"
+- `Q198.P1` **PORT 1 — THE MONSTER WHO BECOMES A PERSON [W1, W2, W3 — the core port]** system: the unrecorded ledger / factions / the endings A Bohemia arc where an "enemy" faction everyone calls mindless savages (raiders, the Amalgamation's rejects, a demonized unde
+- `Q198.P2` **PORT 2 — THE HUMANIZATION HOLDS ELSEWHERE [F1's law]** system: factions / the unrecorded ledger If a quest humanizes a faction the dynast fights elsewhere, it RECONCILES the two — the hostility reframed as the shape of the grievance — 
+- `Q198.P3` **PORT 3 — THE AGGRESSOR ACTUALLY RECKONS [F2's law]** system: factions / the endings / the unrecorded ledger If a quest's point is that peace requires the aggressor to admit its crime, the ADMISSION happens on the aggressor's side — t
+- `Q198.P4` **PORT 4 — UNDERSTANDING IS A CHOICE, NOT AN ITEM [F3's law]** system: factions / the unrecorded ledger If understanding an enemy is the moral hinge, it's framed as a CHOICE TO LISTEN, not just an item gate — the willingness to hear made the r
+- `Q198.W1` **THE MONSTER BECOMES A PERSON VIA LANGUAGE** Translation converts savages into a wronged people — understanding is the whole hinge of the quest.
+- `Q198.W10` **IT IS WHO-WERE-THE-MONSTERS IN ONE DESERT** The wronged reframed as savages to keep the wrong buried — Bohemia's whole unrecorded-ledger question, in a translator and a grave.
+- `Q198.W2` **UNDERSTANDING INDICTS YOUR SIDE** Hearing the Sand People reveals the settlers started it — the sympathetic side is the original aggressor.
+- `Q198.W3` **THE WORD SAVAGE IS A LID** The label exists to bury the settlers' atrocity — the word doing the work of laundering a crime.
+- `Q198.W4` **THE RAIDS HAVE A REASON** The "unprovoked savagery" is retaliation for a massacre — the cycle revealed, the framing exposed as false.
+- `Q198.W5` **PEACE COSTS THE INNOCENCE** The removed "solve it without anyone admitting it" verb is the spine: reconciliation requires naming the original wrong.
+- `Q198.W6` **THE GENOCIDE IS CLEAN-SEEMING** Exterminating the "monsters" solves the problem by killing the witnesses to the crime — the temptation of the easy road.
+- `Q198.W7` **THE PLAYER HOLDS BOTH TRUTHS** Once translated, the player can't un-know the Sand People's side — the understanding obliges a harder choice.
+- `Q198.W8` **THE STORYTELLER CARRIES THE HISTORY** Peace runs through someone willing to speak the buried past — the truth needs a carrier.
+- `Q198.W9` **THE UNTRANSLATED CAN BE KILLED CLEAN** The quest's chilling core: a people you can't understand can be exterminated guiltlessly, which is why the language stays foreign.
+- `Q198.X1` **THE SAND PEOPLE REMAIN HOSTILE ELSEWHERE, UNDERCUTTING THE HUMANIZATION** Outside this quest the Sand People attack on sight, so the powerful reframe (they're a wronged people, not monsters) collides with the player's other experiences of them as generic
+- `Q198.X2` **THE PEACE PATH CAN BE ACHIEVED WITHOUT THE SETTLERS REALLY RECKONING** The reconciliation can resolve at the Sand People's end (they stand down) without much shown of the settlers actually admitting their atrocity, so the sharpest idea (peace costs th
+- `Q198.X3` **THE TRANSLATOR REDUCES A MORAL CHOICE TO AN ITEM GATE** Because understanding the Sand People requires acquiring a specific droid/translator, the humanization can read as a fetch-quest unlock rather than a choice to listen — so the prof
+
+### Q199  THE WOLF QUEEN (STOP A DEAD TYRANT FROM BEING BORN AGAIN INTO HER OWN BLOODLINE) (The Elder Scrolls V: Skyrim)
+- `Q199.N1` **NODE W-1 — the plan** Entry: stage 1-2. Potema's spirit, scheming from beyond death. > "You want to come back." [gate: none] -> the ambition death only paused: the reign to be reclaimed > "You'll return
+- `Q199.N2` **NODE W-2 — the bloodline at stake** Entry: stage 4. The devoured future. The living descendants, her intended vessels. > "They carry your blood. That's why you want them." [gate: none] -> the parasite: the future she
+- `Q199.N3` **NODE W-3 — the dead made to stay dead** Entry: stage 5. The future defended. Potema confronted, the bloodline at stake. > (destroy her spirit) [gate: none] -> the past denied the future; the ancestor's reach severed; the
+- `Q199.P1` **PORT 1 — THE ANCESTOR WHO WOULD EAT HER OWN LINE [W1, W2, W5 — the core port]** system: the fold / the Amalgamation / the dynasty spine A Bohemia arc where a dead forebear (a founder, a prior dynast, an Amalgamation-preserved ancestor) refuses to stay a founda
+- `Q199.P2` **PORT 2 — THE POSSESSION PLAN IS DRAMATIZED [F1's law]** system: the fold / the dynasty spine If a quest's horror is an ancestor consuming their own line, the plan is DRAMATIZED, not just lore'd — a descendant shown at risk, the possessi
+- `Q199.P3` **PORT 3 — A DESCENDANT IS KNOWN [F2's law]** system: the fold / companions / the dynasty spine If the stakes are an ancestor devouring her descendants, at least one descendant is KNOWN — a specific future at risk — so the hor
+- `Q199.P4` **PORT 4 — THE DEAD ARE GUARDED, NOT JUST KILLED [F3's law]** system: the fold / the Amalgamation If a quest's theme is that the past refuses to rest, the resolution carries that it's GUARDED against, not merely killed once — a residue, a vig
+- `Q199.W1` **THE PAST WANTS TO BE THE FUTURE** Potema doesn't want to rest; she wants to reign again through the living — the ancestor refusing her place, which is the whole engine.
+- `Q199.W10` **IT IS THE DEAD-REACHING-INTO-THE-LIVING IN ONE QUEEN** An ancestor who would possess her own future — Bohemia's whole fold question of what the past does to the living, in a necromancer queen.
+- `Q199.W2` **THE ANCESTOR EATS HER OWN LINE** She targets her descendants as vessels — the past as predator on its own future, the dynasty's deepest fear.
+- `Q199.W3` **DEATH ONLY PAUSED HER** Her ambition outlived her body — the hunger that doesn't die with the ancestor, lying in wait for the living.
+- `Q199.W4` **THE DESCENDANTS ARE VICTIM AND VESSEL** The future she should have protected, targeted instead — the parasite ancestor made literal.
+- `Q199.W5` **SHE CAN'T BE RECONCILED WITH** The removed "share power" verb is the spine: her ambition was never compatible with the future's autonomy.
+- `Q199.W6` **SOME ANCESTORS ARE GUARDED AGAINST** Not every forebear is a foundation; some are hungers to defend against — the quest's hard inheritance truth.
+- `Q199.W7` **THE CULT REOPENS THE PAST** Someone always wants the dead back — the hands that refuse to let history stay history.
+- `Q199.W8` **THE PLAYER DEFENDS THE FUTURE** The role is guardian of the living line against its own root — the present protecting itself from the past.
+- `Q199.W9` **IT LITERALIZES DYNASTIC DREAD** The founder's ambition seizing the descendants is every bloodline's buried fear made flesh.
+- `Q199.X1` **POTEMA'S "RETURN THROUGH HER DESCENDANTS" PLAN IS UNDERDEVELOPED, SO THE HORROR STAYS ABSTRACT** The chilling core (an ancestor possessing her own bloodline) is more stated in lore than dramatized in the quest, which plays largely as a dungeon-crawl spirit-hunt — so the specif
+- `Q199.X2` **THE LIVING DESCENDANTS ARE NEARLY ABSENT, SO THE STAKES HAVE NO FACE** The bloodline Potema targets barely appears as characters, so "she'll consume her own descendants" is an abstraction — the quest would cut far deeper if the player knew a specific 
+- `Q199.X3` **THE QUEST RESOLVES AS A BOSS KILL, FLATTENING THE PAST-WON'T-REST THEME INTO A GHOST-KILL** Because Potema is destroyed in a fight, the profound theme (the past reaching to be the future) can reduce to a standard undead boss encounter — the idea that some ancestors must b
+
+### Q200  THE REPLICATED MAN (HUNT AN ESCAPED ANDROID AND DECIDE WHETHER A MADE PERSON IS PROPERTY OR FREE) (Fallout 3)
+- `Q200.N1` **NODE R-1 — the two clients** Entry: stage 1-2. The hunter and the abolitionist, both wanting the player's info. > "The institute wants its property back." [gate: none] -> the property claim: the android as a m
+- `Q200.N2` **NODE R-2 — the three incompatible goods** Entry: stage 3. Freedom, truth, peace. The made person's fate, three goods that won't align. > "Telling him honors him but may shatter him." [gate: none] -> THE ONE LINE DOING THE 
+- `Q200.N3` **NODE R-3 — the choice** Entry: stage 4-5. At most two goods. The android's fate in the player's hands. > (turn him in) [gate: none] -> the property answer: yes; his stolen freedom ended; the made person r
+- `Q200.P1` **PORT 1 — THE MADE PERSON'S THREE INCOMPATIBLE GOODS [W1, W2, W6 — the core port]** system: the Amalgamation / the fold / factions A Bohemia arc where a made person (an Amalgamation-created being, a construct) escaped and buried the truth of what they are to be fr
+- `Q200.P2` **PORT 2 — THE RIGHT NOT TO KNOW IS PRESSED [F1's law]** system: the Amalgamation / the conscience system If a quest turns on someone's right NOT to know a buried truth, the COST of telling is pressed as hard as the virtue — the peace de
+- `Q200.P3` **PORT 3 — THE MADE PERSON IS VIVID [F2's law]** system: the Amalgamation / companions If a quest debates whether a made person counts, that person's LIFE is vivid enough that its loss weighs — the ordinary self they built shown,
+- `Q200.P4` **PORT 4 — ONE PATH RESTORES HIS SAY [F3's law]** system: the Amalgamation / the fold / factions If a quest's theme is a made person denied a say in his own fate, at least one path RESTORES his agency — letting him choose — so the
+- `Q200.W1` **THREE GOODS THAT WON'T ALIGN** Freedom, self-knowledge, and peace can't all be served — the player picks at most two, which is the whole engine.
+- `Q200.W10` **IT IS IS-THE-MADE-PERSON-A-PERSON IN ONE ANDROID** Property, freedom, or truth, decided by others — Bohemia's whole Amalgamation question of the made self, in one escaped man.
+- `Q200.W2` **HE BURIED THE TRUTH TO BE FREE** The android wiped his own memory to escape — freedom traded for not-knowing, the choice his current self didn't make.
+- `Q200.W3` **THE RIGHT NOT TO KNOW** Telling him restores autonomy or violates a peace he depends on — the rare, real question of whether truth is always owed.
+- `Q200.W4` **PROPERTY OR PERSON** The hunter and abolitionist embody the two answers — the made person's status genuinely contested, not settled.
+- `Q200.W5` **DECIDED MOSTLY WITHOUT HIM** The player and the two clients debate whether he counts while he's the last asked — the indignity of being manufactured.
+- `Q200.W6` **THE THREE GOODS CAN'T ALL RETURN** The removed "give him all three" verb is the spine: a made person forced to trade can't be handed everything back.
+- `Q200.W7` **HE MAY NOT KNOW WHAT HE IS** The wipe is so complete he believes he's human — the self-image the truth could shatter.
+- `Q200.W8` **TELLING HIM IS A REAL RISK** The truth may replace a happy false man with a shattered true android — honoring him and harming him at once.
+- `Q200.W9` **FREEDOM WITHOUT TRUTH IS STILL A LIE** Protecting him leaves him living a fiction he doesn't know is one — freedom and truth pulled apart.
+- `Q200.X1` **THE "RIGHT NOT TO KNOW" QUESTION IS UNDER-PRESSED, SO TELLING HIM READS AS OBVIOUSLY GOOD** The genuinely hard idea (he chose to forget, and his current self depends on the peace) can be flattened because the game tends to frame telling him as the enlightened choice — so 
+- `Q200.X2` **HARKNESS IS BARELY PRESENT AS A PERSON BEFORE HIS FATE IS DECIDED** The android whose life is being debated appears little as a character with a texture of his own, so the player decides "property or person" somewhat abstractly — the quest would cu
+- `Q200.X3` **THE PLAYER DECIDING "MOSTLY WITHOUT HIM" IS THE THEME BUT ALSO A DESIGN LIMIT** The indignity (everyone votes on whether he counts except him) is powerful, but the quest also structurally sidelines Harkness's own agency in his fate, so the critique and the des
+
+### Q201  I COULD MAKE YOU CARE (A BROKEN GENIUS BUILT A PARADISE THAT ONLY WORKS IF YOU LOBOTOMIZE THE PEOPLE IN IT) (Fallout: New Vegas — Old World Blues / the Veronica arc)
+- `Q201.N1` **NODE V-1 — the clarity** Entry: stage 2-3. Veronica, seeing the doom she loves. > "The order is killing itself." [gate: none] -> the clarity: rigidity as suicide; the traditions that keep them pure are the
+- `Q201.N2` **NODE V-2 — the impossible bind** Entry: stage 3-4. Every road a betrayal. Veronica, three betrayals in front of her. > "To save them you have to betray their rules." [gate: none] -> THE ONE LINE DOING THE WORK: th
+- `Q201.N3` **NODE V-3 — the road** Entry: stage 4-5. The betrayal chosen. Veronica, the player's voice at her shoulder. > (stay loyal, go down with them) [gate: none] -> faith kept, future betrayed; down with the fa
+- `Q201.P1` **PORT 1 — THE FAMILY THAT WON'T CHANGE [W1, W3, W4 — the core port]** system: the fold / factions / companions A Bohemia arc where a character loves an institution (a faction, a dynasty's old guard, the Amalgamation's keepers) whose RIGIDITY is killi
+- `Q201.P2` **PORT 2 — THE BRANDING IS SHOWN [F1's law]** system: factions / companions / the fold If a quest's point is that reform gets the reformer branded a traitor, the branding is SHOWN — the family's rejection of the one saving the
+- `Q201.P3` **PORT 3 — THE RIGIDITY HAS A SYMPATHETIC ROOT [F2's law]** system: factions / the fold If a quest turns on loving a self-destroying institution, the rigidity has a SYMPATHETIC root — a fear, a wound, a logic — so the love is believable and
+- `Q201.P4` **PORT 4 — THE COMPANION AUTHORS HER OWN CHOICE [F3's law]** system: companions / the fold If a companion faces a life-defining choice the dynast influences, the companion stays the AUTHOR of it — the dynast's voice tipping, not deciding — s
+- `Q201.W1` **LOYALTY AND SURVIVAL ARE OPPOSITES** The order's rigidity has made keeping faith and staying alive mutually exclusive — the whole engine of the tragedy.
+- `Q201.W10` **IT IS LOYALTY-TO-A-DYING-THING IN ONE SCRIBE** Whether to go down with, reform, or leave a doomed family — Bohemia's whole fold question of institutions that won't change, in one companion's bind.
+- `Q201.W2` **SHE LOVES A DYING FAMILY** Veronica can see the doom and cannot stop loving them — the clarity and the devotion at war.
+- `Q201.W3` **EVERY ROAD IS A BETRAYAL** Faith betrays the future, reform betrays the rules, exile betrays them all — no clean option.
+- `Q201.W4` **THE DEEPEST LOYALTY LOOKS LIKE TREASON** To save the family she must be branded its traitor — the sharpest thing the quest says about rigid institutions.
+- `Q201.W5` **NO ROAD IS BOTH FAITHFUL AND EFFECTIVE** The removed "save it without betraying it" verb is the spine: the order made those two things impossible to hold together.
+- `Q201.W6` **THE DOGMA IS THE SUICIDE** The traditions keeping them pure are killing them — purity as a grave, rigidity as death.
+- `Q201.W7` **LEAVING IS THE FEARED SELF** Exile is the abandonment Veronica most dreads becoming — even the honest road costs her identity.
+- `Q201.W8` **THE PLAYER TIPS, DOESN'T DECIDE** The companion voice influences which betrayal she can live with — her reckoning, aided not authored.
+- `Q201.W9` **THE FAMILY WILL MISREMEMBER THE SAVER** The one who tried hardest to keep them alive is the one they'll call traitor — the cruel irony of reform.
+- `Q201.X1` **THE REFORM ROAD'S "BRANDED A TRAITOR" COST IS TOLD MORE THAN SHOWN** The devastating idea (saving the family gets you cast out by it) is largely stated in Veronica's dialogue rather than dramatized as a felt excommunication, so the sharpest truth (t
+- `Q201.X2` **THE ORDER'S RIGIDITY CAN READ AS CARTOONISH STUBBORNNESS, WEAKENING THE LOVE** If the institution is written as simply blind and dogmatic, it becomes hard to believe Veronica loves it, so the tragedy (loving a family that's killing itself) needs the order to 
+- `Q201.X3` **THE PLAYER'S TIPPING INFLUENCE CAN OVERRIDE VERONICA'S OWN AGENCY** Because the player's speech tips her decision, the quest can make Veronica's life-defining choice feel like the player's to make rather than hers — so the profound personal reckoni
+
+### Q202  THE CAVE OF DREAMS / THE HERMIT (SIT WITH A DYING STRANGER AND WATCH A WHOLE LIFE FIT INTO ONE CONVERSATION) (Disco Elysium)
+- `Q202.N1` **NODE H-1 — the invitation** Entry: stage 1-2. The forgotten person, no marker, no promise. > "Do you have a quest for me?" [gate: none] -> the refusal: no item, no reward, no plot — just a person, if you'll h
+- `Q202.N2` **NODE H-2 — the life unfolds** Entry: stage 3-4. A whole world in one talk. The forgotten person, fully a person now. > "You've been standing here this whole time." [gate: none] -> THE ONE LINE DOING THE WORK: a
+- `Q202.N3` **NODE H-3 — stayed or left** Entry: stage 5. The measure taken. The player, at the edge of a useless life. > (stay and listen) [gate: none] -> the human reward received; the recognition that a useless life is 
+- `Q202.P1` **PORT 1 — THE UNIVERSE ON THE CORNER [W1, W2, W6 — the core port]** system: ambient life / the unrecorded ledger / the fold Bohemia populates its world with people who are NOT quests — no loot, no XP, no plot gate — but who open into whole lives if
+- `Q202.P2` **PORT 2 — THE HUMAN VALUE IS SIGNALED [F1's law]** system: ambient life / the unrecorded ledger If a quest's value is a human reward with no mechanical one, the game SIGNALS the value without converting it to loot — a texture, a pu
+- `Q202.P3` **PORT 3 — THE LIVES ARE VARIOUS [F2's law]** system: ambient life / the fold If Bohemia relies on many quiet-life encounters, the lives are genuinely VARIOUS — not all tragic, some dull, some funny, some hostile — so "every p
+- `Q202.P4` **PORT 4 — LISTENING ASKS FOR REAL ATTENTION [F3's law]** system: ambient life / dialogue scenes If the reward is the act of genuinely listening, it asks for real ATTENTION, not just clicks — a moment requiring the player to have taken th
+- `Q202.W1` **THE REFUSAL OF REWARD MAKES THE CARING REAL** No loot, XP, or plot — so the only reward is the person, and caring must be its own reason, which is the whole engine.
+- `Q202.W10` **IT IS EVERY-LIFE-IS-A-WORLD IN ONE TALK** The forgotten person as a full protagonist — Bohemia's whole unrecorded-ledger question of whose life counts, in one unhurried conversation.
+- `Q202.W2` **EVERY FORGOTTEN PERSON IS A UNIVERSE** The minor NPC opens into a complete life — the smallest figure on the map is a whole world if entered.
+- `Q202.W3` **IT BREAKS THE VENDING-MACHINE REFLEX** The player trained to see NPCs as reward-dispensers meets one with nothing to give — and is measured by whether they stay.
+- `Q202.W4` **THE WHOLE LIFE FITS IN ONE TALK** A childhood, a love, a regret unfold unhurried — an entire existence in a single conversation.
+- `Q202.W5` **THE TEST CAN BE FAILED CHEAPLY** Walking away costs nothing mechanical and misses everything human — the low stakes are the point.
+- `Q202.W6` **THE GAME CAN'T MAKE YOU CARE** The removed "get a real reward" verb is the spine: the game only puts the stranger in front of you and sees what you do.
+- `Q202.W7` **THE MEASURE IS PRESENCE** Whether the player sits and listens to a useless life is the whole test of them — caring about the un-useful.
+- `Q202.W8` **THE MAP IS FULL OF THEM** The accumulated weight of many such people teaches that every corner holds a complete world.
+- `Q202.W9` **THE UNFLAGGED IS THE POINT** No quest marker; the game refuses to tell the player these matter — finding out is the test.
+- `Q202.X1` **THE NO-REWARD DESIGN CAN READ AS "SKIPPABLE CONTENT" TO TRAINED PLAYERS** Because the encounter gives nothing mechanical, players conditioned to optimize will correctly skip it and never learn what it was — so the profound test (can you value a useless l
+- `Q202.X2` **WITHOUT VARIETY, THE ENCOUNTERS BECOME A RECOGNIZABLE "SAD NPC" PATTERN** If every quiet encounter is a lonely person unloading a tragic backstory, the player learns the pattern and the encounters lose their power — the "every life is a world" idea needs
+- `Q202.X3` **THE PLAYER'S "LISTENING" IS MOSTLY CLICKING THROUGH, SO PRESENCE CAN BE FAKED** Because engaging is mechanically just advancing dialogue, a player can "complete" the encounter without any actual attention — so the test of presence can be passed hollowly, click
+
+### Q203  THE DERELICT REAPER (WALK THROUGH THE CORPSE OF THE THING THAT WILL KILL YOU AND FIND YOUR OWN CREW ATE EACH OTHER) (Mass Effect 2)
+- `Q203.N1` **NODE R-1 — the corpse** Entry: stage 1-2. The derelict, assumed safe. > "It's dead. We just grab the component." [gate: none] -> the assumption: a corpse is a safe enemy; salvage and go > "The team before
+- `Q203.N2` **NODE R-2 — the descent** Entry: stage 3-4. Proximity is the danger. The logs, curiosity to worship to madness. > "They started worshipping the thing that killed them." [gate: logs] -> the corruption: proxi
+- `Q203.N3` **NODE R-3 — retrieve and flee** Entry: stage 5. Survived, not defeated. The component, the corpse still broadcasting. > (grab the component and get out fast) [gate: none] -> the exposure minimized; the horror esc
+- `Q203.P1` **PORT 1 — THE HORROR THAT CONSUMES BY PROXIMITY [W1, W4, W5 — the core port]** system: the Amalgamation / the unrecorded ledger / factions A Bohemia site where a dead or dormant horror (a defunct Amalgamation node, a ruin, a relic) still CORRUPTS anyone who l
+- `Q203.P2` **PORT 2 — THE PLAYER'S OWN CORRUPTION IS FELT [F1's law]** system: the Amalgamation / the conscience system If a quest's horror is a corruption spreading to the dynast's own side, the player's OWN exposure is dramatized — a symptom, a wron
+- `Q203.P3` **PORT 3 — THE GOAL FORCES THE HORROR [F2's law]** system: the Amalgamation / the unrecorded ledger If a quest's horror is proximity-corruption, the OBJECTIVE is entangled with the horror — retrieving the prize forcing real exposur
+- `Q203.P4` **PORT 4 — THE SEDUCTION IS FELT [F3's law]** system: the Amalgamation / dialogue scenes If a quest's insight is that corruption feels like revelation, the SEDUCTION is made felt — the dynast offered a genuinely appealing wron
+- `Q203.W1` **THE HORROR DOESN'T NEED TO BE ALIVE** A dead Reaper still corrupts by proximity — the corpse consumes, which is the whole engine and the deepest dread.
+- `Q203.W10` **IT IS PROXIMITY-CORRUPTS IN ONE CORPSE** A dead god that still eats minds by nearness — Bohemia's whole Amalgamation question of a thing that consumes by being adored, in a derelict hull.
+- `Q203.W2` **PROXIMITY IS THE DANGER** Not attack, not death — nearness, lingering, exposure; the enemy's true weapon was always influence.
+- `Q203.W3` **THE PREDECESSORS ARE YOUR FUTURE** Their logs chart the exact descent the crew is beginning — the found future, pre-recorded.
+- `Q203.W4` **CONVERSION FEELS LIKE REVELATION** The indoctrinated felt enlightened, not attacked — so they defend it, which is the horror's cruelest trick.
+- `Q203.W5` **FEELING FINE IS THE SIGN OF BEING TAKEN** The removed "make it safe" verb is the spine: you can't trust your own okay-ness, because being consumed feels like clarity.
+- `Q203.W6` **THE HORROR IS ADORED, NOT FEARED** It wins by being worshipped — a corpse can still be loved, and being loved is how it kills.
+- `Q203.W7` **THE COMPONENT FORCES THE EXPOSURE** The needed salvage justifies the lethal lingering — the price-justifier that makes the crew stay where staying corrupts.
+- `Q203.W8` **IT CAN'T BE DEFEATED, ONLY FLED** The corpse still broadcasts; the crew survives by leaving, not by winning — the horror outlasts the mission.
+- `Q203.W9` **THE VICTIMS TURNED ON EACH OTHER** The conversion ends in fratricide in the horror's name — worship curdling into mutual destruction.
+- `Q203.X1` **THE CREW'S OWN CONVERSION IS UNDERPLAYED, SO "IT'S HAPPENING TO YOU" DOESN'T LAND** The logs vividly chart the predecessors' descent, but the crew's own beginning corruption is barely dramatized, so the crucial turn (the same thing is taking YOU right now) reads a
+- `Q203.X2` **THE COMPONENT-AS-GOAL CAN REDUCE THE HORROR TO A FETCH WITH SET DRESSING** Because the mission objective is "get the IFF," a player can treat the indoctrination logs as flavor between combat and loot the component without the proximity-horror landing — so
+- `Q203.X3` **"FEELING FINE IS THE DANGER" IS STATED BUT NOT MECHANIZED** The chilling idea (the conversion feels like enlightenment, so you can't trust your own okay-ness) is delivered in the logs but never made a mechanic the player experiences — the p
+
+### Q204  KID IN A FRIDGE (A CHILD SURVIVED 200 YEARS SEALED IN A BOX AND HIS PARENTS AGED A CENTURY WAITING) (Fallout 4)
+- `Q204.N1` **NODE K-1 — the waiting revealed** Entry: stage 1-2. Billy, and the two centuries under him. > "You've been in there 200 years." [gate: none] -> the preserved child: time stopped for him; still the kid he was, askin
+- `Q204.N2` **NODE K-2 — the slaver's offer** Entry: stage 3-4. The miracle priced. The buyer, caps for the kid. > "You want to buy a frightened child." [gate: none] -> the transaction: a reunion converted into merchandise; a 
+- `Q204.N3` **NODE K-3 — the choice** Entry: stage 4-5. Honor, sell, or abandon. Billy, the parents, the slaver, the fearful town. > (carry him home to his parents) [gate: none] -> the waiting honored; the child return
+- `Q204.P1` **PORT 1 — THE PRESERVED CHILD AND THE AGED LOVE [W1, W2, W3 — the core port]** system: the fold / the Amalgamation / the unrecorded ledger A Bohemia arc where someone is preserved unchanged across a long span (an Amalgamation-held person, a sealed survivor, a
+- `Q204.P2` **PORT 2 — THE TIME-HORROR CRACKS THROUGH [F1's law]** system: the fold / the Amalgamation If a quest hides an ache under a comic premise, one beat lets the TIME-HORROR through — the aged grief, the gap between preserved and ruined, ma
+- `Q204.P3` **PORT 3 — THE WAITING IS SHOWN [F2's law]** system: the fold / companions / the unrecorded ledger If a quest's ache is a long, asymmetric waiting, the WAITERS' toll is shown, not summarized — the years of grief made present 
+- `Q204.P4` **PORT 4 — THE PRICE IS A REAL TEMPTATION [F3's law]** system: the unrecorded ledger / factions If a quest prices a person to test the dynast, the price is a real TEMPTATION — the need for it made plausible — so refusing costs somethin
+- `Q204.W1` **THE CHILD STAYED, THE LOVE AGED** Billy is unchanged; his parents spent two centuries becoming grief — the asymmetry of time, which is the whole engine.
+- `Q204.W10` **IT IS TIME-AND-WAITING IN ONE FRIDGE** A child preserved while love was ruined by the years — Bohemia's whole fold question of time, grief, and reunion, in an absurd box.
+- `Q204.W2` **TIME IS THE HORROR, NOT THE FRIDGE** The survival is a gimmick; the two hundred years of parental waiting it implies is the ache.
+- `Q204.W3` **THE PRESERVED HAVE NO EQUIVALENT FOR THE WAITERS** The fridge saved Billy; nothing saved the ones who searched — the removed "give back the years" verb is the spine.
+- `Q204.W4` **THE REUNION IS JOYOUS AND UNBEARABLE** The boy gets his parents in an afternoon; the parents get a son they mourned for lifetimes, unchanged — both at once.
+- `Q204.W5` **THE MIRACLE GETS PRICED** The slaver converts the reunion into a number — the blade that forces the player to hold cash against a homecoming.
+- `Q204.W6` **THE ABSURD OPENS INTO THE REAL** A joke premise resolves into a meditation on waiting, time, and grief — the gimmick as a door.
+- `Q204.W7` **HE ASKS FOR A HOME THAT'S GONE** Billy wants a world two centuries dead — the child's need is for something time erased.
+- `Q204.W8` **THE WAITING CAN BE HONORED, SOLD, OR FAILED** Three fates for the reunion — carry, sell, or abandon; none un-spends the years.
+- `Q204.W9` **THE TOWN FEARS WHAT HE BECAME** The ghoul child unsettles the settlement — even the miracle is met with discomfort, another way to fail him.
+- `Q204.X1` **THE COMIC PREMISE CAN SWALLOW THE ACHE, SO THE TIME-HORROR NEVER LANDS** "Kid survives in a fridge" is played partly for absurdity, and the joke can so dominate that the real gut-punch (a love that aged two centuries searching) passes by — the quest ris
+- `Q204.X2` **THE PARENTS' 200 YEARS OF SEARCHING IS TOLD, NOT FELT** The devastating idea (they spent lifetimes looking) is delivered as backstory rather than shown, so the asymmetry (child unchanged, love aged) stays abstract — the reunion would cu
+- `Q204.X3` **THE SLAVER OPTION IS SO CLEARLY EVIL IT ISN'T A REAL TEMPTATION** Selling a frightened child is cartoonishly wrong, so the "price a miracle" blade doesn't cut — a genuine test would make the caps matter (a desperate player, a real need) so the tr
+
+### Q205  I WALK THE LINE (THE OPPRESSED MINORITY YOU CAME TO ALLY WITH USES YOU AS A DISPOSABLE PROBE AND IS RIGHT NOT TO TRUST YOU) (Cyberpunk 2077)
+- `Q205.N1` **NODE V-1 — the transaction** Entry: stage 1-2. The Voodoo Boys, help with a price. > "I thought we were on the same side." [gate: none] -> the punctured assumption: solidarity expected, transaction offered > "
+- `Q205.N2` **NODE V-2 — the betrayal** Entry: stage 4. The rational discard. The Voodoo Boys, turning on the player. > "You used me and now you're betraying me." [gate: none] -> the cold discard: the transaction complet
+- `Q205.N3` **NODE V-3 — the earned paranoia** Entry: stage 5. The privilege exposed. The player's hurt, confronted with their history. > (recognize the paranoia is earned) [gate: none] -> the community's distrust as a rational
+- `Q205.P1` **PORT 1 — THE MARGINALIZED WHO OWE YOU NOTHING [W1, W2, W3 — the core port]** system: factions / the unrecorded ledger / the fold A Bohemia faction of the exploited — a community the world has only ever used — who agree to help the dynast only transactionall
+- `Q205.P2` **PORT 2 — THE PARANOIA IS GROUNDED IN HISTORY [F1's law]** system: factions / the unrecorded ledger If a quest's point is that a marginalized faction's distrust is earned, their HISTORY is made present enough that the betrayal reads as a s
+- `Q205.P3` **PORT 3 — THE PLAYER'S PRIVILEGE IS NAMED [F2's law]** system: factions / the fold If a quest's point is that the dynast's hurt at being used is a privilege, something NAMES it — a line that turns the player's wound back on them — so t
+- `Q205.P4` **PORT 4 — THE POWERLESSNESS IS OWNED AS THEME [F3's law]** system: factions / the unrecorded ledger If a quest strips the dynast's agency to make a point about power, the powerlessness is FRAMED as the theme — the lack of control legibly t
+- `Q205.W1` **THE OPPRESSED OWE YOU NOTHING** The Voodoo Boys use and betray the player rationally — the marginalized are not obligated to a powerful stranger's expectation of solidarity, which is the whole engine.
+- `Q205.W10` **IT IS THE-OPPRESSED-OWE-YOU-NOTHING IN ONE GANG** A marginalized community using a powerful stranger back — Bohemia's whole faction question of trust, exploitation, and earned paranoia, in Pacifica.
+- `Q205.W2` **THEIR PARANOIA IS EARNED** Their distrust is the scar of a world that only exploited them — not a flaw to overcome but a rational survival logic.
+- `Q205.W3` **THE PLAYER'S HURT IS A PRIVILEGE** Being wounded by the betrayal assumes a good faith the community was never granted — the sharpest, most uncomfortable truth.
+- `Q205.W4` **THEY USE YOU AS YOU'VE BEEN USED** The player is treated instrumentally, disposably — exactly how the world treats the Voodoo Boys, turned outward.
+- `Q205.W5` **SOLIDARITY IS A LUXURY** Trusting a stranger is a risk only the safe can afford — the marginalized cannot, and the quest refuses to pretend otherwise.
+- `Q205.W6` **GOOD INTENTIONS CAN'T OVERRIDE IT** The removed "earn their trust" verb is the spine: the conditions for trust were destroyed before the player arrived.
+- `Q205.W7` **THE BETRAYAL IS COLD, NOT CRUEL** Calculated survival, not gratuitous evil — which is what makes it un-dismissable as mere villainy.
+- `Q205.W8` **THE PLAYER IS THE OUTSIDER** From the community's side, the player is just another connected stranger who wanted something — the perspective flip is the quest's power.
+- `Q205.W9` **THERE IS NO CLEAN ALLIANCE** The quest refuses the sympathetic-ally fantasy — trust was foreclosed by history, not by the player's failure.
+- `Q205.X1` **THE VOODOO BOYS CAN READ AS SIMPLE VILLAINS, LOSING THE "EARNED PARANOIA" TRUTH** Because they use and betray the player, a player can file them as just another treacherous gang and miss that their distrust is a rational scar — so the profound idea (the oppresse
+- `Q205.X2` **THE PLAYER'S HURT-AS-PRIVILEGE IS NEVER NAMED, SO THE SHARPEST IDEA STAYS IMPLICIT** The quest lets the player feel betrayed but rarely surfaces that their expectation of solidarity was itself a privilege the Voodoo Boys never had — so the most cutting truth (your 
+- `Q205.X3` **THE FORCED PROBE REMOVES THE PLAYER'S AGENCY, WHICH CAN READ AS RAILROADING** Being used as an expendable test subject and then betrayed regardless can feel like the quest taking the wheel, so the powerful theme (you don't control whether the marginalized tr
+
+### Q206  THE BULL AND THE BACHELOR (TWO HEALERS SAVE THE TOWN BY OPPOSITE CURES AND ONLY ONE PLAGUE-LOGIC CAN BE TRUE) (Pathologic 2)
+- `Q206.N1` **NODE B-1 — the incompatible diagnoses** Entry: stage 2. The two healers, two realities. > "You two don't agree on what the plague even is." [gate: none] -> the root split: not two methods but two diagnoses; the cures con
+- `Q206.N2` **NODE B-2 — the commitment** Entry: stage 3-4. Pick a reality. The player, both accounts coherent, neither certain. > "Choosing my cure damns what the other would have saved." [gate: none] -> THE ONE LINE DOIN
+- `Q206.N3` **NODE B-3 — the town saved and lost** Entry: stage 5. No certainty. The cure pursued, the ledger written. > (commit fully and save who you can) [gate: none] -> the chosen worldview's people saved; the other's lost; the
+- `Q206.P1` **PORT 1 — THE CONTESTED DISASTER, THE INCOMPATIBLE CURES [W1, W2, W5 — the core port]** system: the endings / factions / the death-math A Bohemia catastrophe (a plague, a collapse, an Amalgamation crisis) where two rescuers hold INCOMPATIBLE diagnoses of what the disa
+- `Q206.P2` **PORT 2 — BOTH WORLDVIEWS ARE COHERENT [F1's law]** system: factions / the endings If a quest forces a choice between incompatible accounts of a disaster, BOTH accounts are made internally coherent and partially validated — neither 
+- `Q206.P3` **PORT 3 — THE CLOCK COMPELS, NOT CRUSHES [F2's law]** system: the death-math / the endings If a quest uses a body-count clock to force commitment, the pressure COMPELS a choice, not induces paralysis — the clock making a decision urge
+- `Q206.P4` **PORT 4 — THE UNCERTAINTY IS OWNED [F3's law]** system: the endings / the unrecorded ledger If a quest's point is that no worldview can be confirmed right, the un-referee-ability is OWNED as the condition — the absence of a corr
+- `Q206.W1` **THE DISASTER'S NATURE IS CONTESTED** The healers disagree on what the plague IS, not just how to cure it — the root incompatibility that is the whole engine.
+- `Q206.W10` **IT IS INCOMPATIBLE-CURES UNDER A CLOCK IN ONE PLAGUE** Committing to a contested reality to save anyone, timed in corpses — Bohemia's whole question of irreconcilable worldviews and time-as-body-count, in a dying town.
+- `Q206.W2` **THE CURES CONTRADICT** Committing to one worldview forecloses the other — you cannot do both because they disagree about reality.
+- `Q206.W3` **SAVING ANYONE DAMNS THE OTHER'S PEOPLE** Your cure reaches some and cannot reach what the other diagnosis would have saved — the cost of committing to one reality.
+- `Q206.W4` **THE CLOCK KILLS HESITATION** The plague spreads daily; every hour of deciding is a body — refusing to commit is itself a lethal choice.
+- `Q206.W5` **THERE IS NO SYNTHESIS** The removed "combine both cures" verb is the spine: contradicting diagnoses cannot be merged, and no one is saved by trying.
+- `Q206.W6` **YOU NEVER KNOW YOU WERE RIGHT** The game refuses to referee — only the ledger of who lived, never certainty the worldview was correct.
+- `Q206.W7` **BOTH ACCOUNTS ARE COHERENT** Rational and organic are each internally valid and partly confirmed — neither obviously right, which makes the choice real.
+- `Q206.W8` **HEDGING SAVES NO ONE** Splitting the difference saves nobody, because the cures require full commitment to opposite realities.
+- `Q206.W9` **A DIFFERENT COMMITTER SAVES DIFFERENT PEOPLE** Someone choosing the other worldview, equally sure, saves and loses different people — the contingency of the ledger.
+- `Q206.X1` **THE INCOMPATIBILITY CAN READ AS ARBITRARY IF BOTH WORLDVIEWS AREN'T MADE COHERENT** The whole power depends on both diagnoses being internally valid and partially confirmed; if one reads as obviously right or obviously mystical-nonsense, the choice collapses into 
+- `Q206.X2` **THE CLOCK CAN PUNISH SO HARSHLY IT PRODUCES DESPAIR RATHER THAN COMMITMENT** Pathologic's time pressure is brutal, and if it's purely punishing it can push players into paralysis or quitting rather than the intended forced commitment — the body-count clock 
+- `Q206.X3` **"YOU NEVER KNOW YOU WERE RIGHT" CAN FEEL LIKE WITHHELD INFORMATION RATHER THAN THE POINT** The refusal to referee which worldview was correct is the thesis, but it can read as the game hiding the answer rather than as the truth that there was no shared answer to have — t
+
+### Q207  THE JUSTICAR AND HER DAUGHTER (A HOLY WARRIOR SWORN TO KILL HER OWN CHILD, WHO IS A MONSTER SHE MADE) (Mass Effect 2)
+- `Q207.N1` **NODE J-1 — the hunt** Entry: stage 1-2. Samara, 400 years bound to kill her child. > "You've hunted your own daughter for 400 years." [gate: none] -> the code against the blood: the oath that forces a m
+- `Q207.N2` **NODE J-2 — the offer** Entry: stage 4. Principle or thrill. Morinth, the seductive trade. > "Kill Samara and I'm yours. More powerful. No code. No leash." [gate: none] -> the temptation: trade the bound 
+- `Q207.N3` **NODE J-3 — who walks out** Entry: stage 4-5. No clean survivor. The room, three bodies, the code that can't bend. > (side with Samara) [gate: none] -> the mother kills the daughter; the code fulfilled; a ser
+- `Q207.P1` **PORT 1 — THE CODE THAT FORCES YOU TO DESTROY YOUR OWN [W1, W3, W4 — the core port]** system: the fold / the dynasty spine / companions A Bohemia arc where a character bound by an absolute CODE (a law, an oath, a dynastic duty) is forced to destroy someone they love
+- `Q207.P2` **PORT 2 — THE MONSTER'S VICTIM-HALF WEIGHS [F1's law]** system: companions / the fold If a quest's monster is also a victim of their own nature, the VICTIM half is given real weight — the un-chosen curse, the lifetime hunted, made felt 
+- `Q207.P3` **PORT 3 — THE TEMPTATION IS REACHABLE [F2's law]** system: companions / the fold If a quest's point is a temptation to trade principle for thrill, the temptation is AVAILABLE enough to actually tempt — offered, not locked behind an
+- `Q207.P4` **PORT 4 — THE CODE'S WORTH IS SHOWN [F3's law]** system: the fold / factions / the dynasty spine If a quest turns on an absolute code being both admirable and terrible, the code's VALUE is shown alongside its cost — why the rigid
+- `Q207.W1` **THE CODE FORCES THE KILL** Samara's absolute oath makes destroying her own daughter the only permitted act — the principle against the blood, which is the whole engine.
+- `Q207.W10` **IT IS THE-CODE-VERSUS-THE-BLOOD IN ONE ROOM** An absolute principle forcing a parent to kill their own child — Bohemia's whole dynasty question of duty against love, in a three-body climax.
+- `Q207.W2` **THE MONSTER IS ALSO A VICTIM** Morinth is a real serial killer and a child born wrong through the mother's blood — both at once, never simple.
+- `Q207.W3` **THE MOTHER MADE THE MONSTER** The condition came from Samara's bloodline — the parent's own nature created the thing she must destroy (#177).
+- `Q207.W4` **THE VIRTUE IS WHAT DAMNS THE CHILD** The same code that makes Samara trustworthy is what forbids sparing Morinth — the admirable thing is the fatal thing.
+- `Q207.W5` **THE OFFER TESTS THE PLAYER** Morinth's trade (kill the mother, take the killer) tests whether the player values principle or thrill — the third blade.
+- `Q207.W6` **NO ONE ALL-THREE-SURVIVES** The removed "spare the daughter, keep the mother" verb is the spine: the code and the daughter's nature both refuse compromise.
+- `Q207.W7` **KILLING HER IS JUST AND TRAGIC** Morinth is a murderer who must be stopped and a daughter who never chose her nature — the choice is both at once.
+- `Q207.W8` **THE LAWLESS THING IS SEDUCTIVE** Morinth is more powerful and thrilling than the austere mother — the temptation to trade virtue for excitement is real.
+- `Q207.W9` **400 YEARS OF A PARENT'S HUNT** The sheer duration makes the code's cost immense — a mother bound for centuries to destroy her child.
+- `Q207.X1` **MORINTH'S "VICTIM" SIDE IS UNDERWRITTEN, SO SHE READS AS JUST A MONSTER** The tragedy depends on Morinth being genuinely a victim of a nature she never chose, but the game shows her mostly as a charming predator, so the "born wrong through the mother's b
+- `Q207.X2` **THE SEDUCTIVE OFFER IS GATED BEHIND A CHECK, SO THE TEMPTATION CAN BE INACCESSIBLE** Taking Morinth's offer requires meeting a hidden condition, so many players never even get the temptation — the profound test (principle vs thrill) is unavailable to them, and the 
+- `Q207.X3` **SAMARA'S CODE CAN READ AS RIGIDITY-FOR-ITS-OWN-SAKE WITHOUT ITS VALUE SHOWN** The tragedy needs the code to be genuinely admirable — the reason Samara is trustworthy — but if it's shown only as inflexible cruelty toward her daughter, the player may read it a
+
+### Q208  HONEST HEARTS (A REFORMED WAR CRIMINAL TURNED PREACHER ASKS WHETHER A MAN CAN OUTRUN WHAT HE WAS) (Fallout: New Vegas — Honest Hearts)
+- `Q208.N1` **NODE J-1 — the unfinished reckoning** Entry: stage 1-2. Joshua, the burned man, uncertain of himself. > "You were a monster. Are you still?" [gate: none] -> the reckoning: repentance unfinished, the old self maybe stil
+- `Q208.N2` **NODE J-2 — the defeated enemy** Entry: stage 4. Justice or relapse. The White Legs beaten, Joshua's hand raised. > "You can justify exterminating them." [gate: none] -> the danger: a defensible slaughter; a monst
+- `Q208.N3` **NODE J-3 — redemption or relapse** Entry: stage 4-5. No certainty. The choice, the enemy defeated. > (tip him toward mercy) [gate: none] -> the mercy he wasn't sure he was allowed; evidence he changed, chosen precis
+- `Q208.P1` **PORT 1 — THE REPENTANCE YOU CAN'T PROVE [W1, W2, W4 — the core port]** system: the conduct book / the conscience system / the fold A Bohemia arc where a genuinely reformed monster (a former killer, a dynast with a bloody past) cannot tell whether thei
+- `Q208.P2` **PORT 2 — THE OLD SELF STAYS CLOSE [F1's law]** system: the conscience system / companions / the fold If a quest's tension is whether a reformed monster changed, the DANGER stays live — the old self visibly close under the chari
+- `Q208.P3` **PORT 3 — REDEMPTION AND RELAPSE BOTH COST [F2's law]** system: the conduct book / factions / the endings If a quest's choice is redemption vs relapse, both carry real CONSEQUENCE — mercy that risks something, slaughter that stains some
+- `Q208.P4` **PORT 4 — THE UN-PROVABILITY IS OWNED [F3's law]** system: the conduct book / the conscience system If a quest's point is that redemption is unprovable, the un-provability is OWNED as the truth — the impossibility of certainty made
+- `Q208.W1` **REPENTANCE IS UNFINISHED AND UNPROVABLE** Joshua can't tell if he changed — the reckoning has no inside-accessible answer, which is the whole engine.
+- `Q208.W10` **IT IS CAN-YOU-OUTRUN-YOURSELF IN ONE PREACHER** A reformed monster who can't prove he changed — Bohemia's whole conduct-book question of repentance and relapse, in a burned man's war.
+- `Q208.W2` **THE SAME ACT IS JUSTICE OR RELAPSE** His violence could be righteous protection or the monster in scripture — identical from outside, decided by an invisible heart.
+- `Q208.W3` **THE JUSTIFIED VIOLENCE IS THE DANGER** A monster who can justify his killing is more lost than one who admits it — the defensible slaughter is the real trap.
+- `Q208.W4` **THE TEST IS THE MERCY YOU CAN DECLINE** Real change is the righteous mercy you could easily refuse and extend anyway — the removed "prove he changed" verb is the spine.
+- `Q208.W5` **HE WAS REALLY A MONSTER** The burned man's history is genuine atrocity — the redemption is steep because the sin was real.
+- `Q208.W6` **THE ENEMY IS REALLY DANGEROUS** The White Legs are actual killers — sparing them costs something, which makes mercy a real risk, not a free virtue.
+- `Q208.W7` **NO ONE GETS CERTAINTY** Neither Joshua nor the player ever confirms the change — the heart stays unknowable, the honest condition of repentance.
+- `Q208.W8` **THE CHARISMA IS A TRAP** Joshua's appeal tempts the player to trust him — the danger of a likable reformed monster.
+- `Q208.W9` **HE PUNISHES HIS OWN DOUBT** The removed certainty means Joshua must keep choosing mercy without ever being reassured — repentance as a permanent test.
+- `Q208.X1` **JOSHUA IS SO CHARISMATIC THE PLAYER MAY NOT FEEL HIS DANGER** Graham is written as compelling, articulate, and sympathetic, which can make players trust that he's redeemed and miss the live threat that his justified violence is a relapse — so
+- `Q208.X2` **THE MERCY CHOICE CAN LACK CONSEQUENCE, SO IT READS AS A MORALITY TOGGLE** If sparing vs exterminating the White Legs produces little downstream difference, the profound choice (redemption vs relapse) collapses into a good/evil button — the quest needs th
+- `Q208.X3` **"YOU CAN NEVER PROVE YOU CHANGED" CAN READ AS THE GAME WITHHOLDING CLOSURE** The refusal to confirm whether Joshua is redeemed is the thesis, but it can feel like the writers dodging rather than the truth that the heart is unknowable — the uncertainty needs
+
+### Q209  DREAM ON (A COUPLE ARE BEING REWRITTEN IN THEIR SLEEP AND THE ONLY WAY TO PROVE IT MIGHT BE TO STOP) (Cyberpunk 2077)
+- `Q209.N1` **NODE P-1 — the descent** Entry: stage 2-3. The investigation, past burglary into horror. > "Nothing's stolen. They're not robbing the Peralezes." [gate: none] -> the wrongness: not theft; something done to
+- `Q209.N2` **NODE P-2 — the faceless enemy** Entry: stage 4. Nothing to fight. The hidden hand, unreachable. > "There's no one to shoot. No cage to break." [gate: none] -> the unbeatable power: faceless, possibly an AI, the c
+- `Q209.N3` **NODE P-3 — the useless truth** Entry: stage 5. Tell or keep. The knowledge, no good option. > (tell the Peralezes) [gate: none] -> the terrifying, useless truth spoken; they can't act on it, may be overwritten a
+- `Q209.P1` **PORT 1 — THE UNDETECTABLE CONTROL, THE USELESS TRUTH [W1, W2, W4 — the core port]** system: the Amalgamation / the unrecorded ledger / factions A Bohemia arc where someone (a dynast, an ally, a faction leader) is being REWRITTEN so completely by a hidden power tha
+- `Q209.P2` **PORT 2 — THE FACELESSNESS IS THE HORROR [F1's law]** system: the Amalgamation / the unrecorded ledger If a quest denies a confrontable villain on purpose, the FACELESSNESS is framed as the horror, not a gap — the unreachability made 
+- `Q209.P3` **PORT 3 — THE HELPLESSNESS CARRIES EMOTIONAL WEIGHT [F2's law]** system: the Amalgamation / companions If a quest's point is the dynast's helplessness, the EMOTIONAL stakes carry what the mechanical ones can't — the horror and the burden made fe
+- `Q209.P4` **PORT 4 — BOTH OPTIONS ARE GENUINELY BAD [F3's law]** system: the conscience system / the Amalgamation If a quest's choice is between a useless truth and a merciful silence, BOTH are genuinely bad — telling cruel and futile, keeping a
+- `Q209.W1` **THE CONTROL IS UNDETECTABLE** The Peralezes are rewritten so completely they can't know it — the most total control, which is the whole engine.
+- `Q209.W10` **IT IS REWRITE-THE-MIND WITHOUT A VILLAIN** Total control by a hand you can't find — Bohemia's whole Amalgamation question of the authored self, with no boss to kill.
+- `Q209.W2` **KNOWING DOESN'T CUT THE STRINGS** The truth frees no one; detecting the cage doesn't open it — the removed "expose them" verb is the spine.
+- `Q209.W3` **THE ENEMY IS FACELESS** No boss, no server to destroy, no confrontation — the hand you can never find, which denies all catharsis.
+- `Q209.W4` **THE TRUTH IS USELESS AND DANGEROUS** The player's only power is a knowledge that helps no one and endangers everyone who holds it.
+- `Q209.W5` **FEELING FREE IS THE PROOF OF THE CAGE** The couple's conviction that they act freely is the surest sign of total control — the horror's cruelest inversion.
+- `Q209.W6` **THE VICTIMS ARE SINCERE** The Peralezes genuinely want to do good — their idealism, authored by their owner, makes the violation deeper.
+- `Q209.W7` **THE REWRITE IS NIGHTLY AND TOTAL** Every night undoes any progress — there is no accumulating toward freedom, only endless re-authoring.
+- `Q209.W8` **TELLING SPREADS THE TARGET** Speaking the truth endangers the teller and the told — knowledge as contagion, not liberation.
+- `Q209.W9` **THE MERCY IS ABANDONMENT** Keeping the truth leaves them controlled and content — even kindness is a form of leaving them to it.
+- `Q209.X1` **THE FACELESS ENEMY CAN READ AS AN UNFINISHED PLOT RATHER THAN DESIGNED HELPLESSNESS** The refusal to provide a confrontable villain is the point, but it can feel like the quest just doesn't resolve — a thread left dangling — rather than the deliberate horror of an u
+- `Q209.X2` **THE PLAYER'S INABILITY TO ACT CAN DRAIN THE QUEST OF STAKES** Because nothing the player does frees the Peralezes, the quest risks feeling stakes-less — if the player can't affect anything, why care — so the helplessness needs to be made emot
+- `Q209.X3` **"THE TRUTH HELPS NO ONE" CAN BE UNDERCUT IF TELLING SEEMS OBVIOUSLY RIGHT OR WRONG** The tell-or-keep choice loses its edge if the game frames one option as clearly correct; the power depends on both being genuinely bad (telling is cruel and useless; keeping is aba
+
+### Q210  THE MASTER'S CATHEDRAL (A PROPHET OFFERS TO END ALL DIVISION BY MELTING EVERYONE INTO ONE, AND HE IS RIGHT THAT IT WOULD WORK) (Fallout)
+- `Q210.N1` **NODE M-1 — the coherent utopia** Entry: stage 1-2. The Master, prophet of unity. > "You want to end war by making everyone the same." [gate: none] -> the plan: forced unity; one species incapable of the difference
+- `Q210.N2` **NODE M-2 — the sterility flaw** Entry: stage 4. The truth that unravels it. The Master, confronted with the fatal fact. > "Your unified species is sterile. It can't reproduce." [gate: evidence] -> THE ONE LINE DO
+- `Q210.N3` **NODE M-3 — the slain or the self-destroyed** Entry: stage 5. Force or truth. The Master, the proof before him. > (kill him by force) [gate: none] -> the crude victory; the god of flesh slain; the plan stopped by violence > (m
+- `Q210.P1` **PORT 1 — THE COHERENT UTOPIA OF FORCED UNITY [W1, W2, W3 — the core port]** system: the Amalgamation / the endings / factions A Bohemia antagonist (the Amalgamation itself, a prophet, a faction visionary) whose plan to end all division by MERGING everyone 
+- `Q210.P2` **PORT 2 — THE ARGUMENT-WIN IS REACHABLE [F1's law]** system: the Amalgamation / the endings If a quest's profound victory is winning by argument, the KNOWLEDGE needed is gatherable and its relevance discoverable — the path signposted
+- `Q210.P3` **PORT 3 — THE PROPHET'S SINCERITY IS ESTABLISHED [F2's law]** system: the Amalgamation / factions If a climax is an antagonist undone by truth because they're sincere, the SINCERITY is established first — the genuine aim shown — so the self-d
+- `Q210.P4` **PORT 4 — THE FLAW CARRIES ITS METAPHOR [F3's law]** system: the Amalgamation / the endings If a quest defeats a utopia with a practical flaw that is also a metaphor, the METAPHOR is carried alongside the literal — the flaw meaning s
+- `Q210.W1` **THE VILLAIN'S DIAGNOSIS IS RIGHT** The Master correctly names humanity's sickness (war rooted in difference) — his being partly right is what makes him dangerous and the whole engine.
+- `Q210.W10` **IT IS MELT-EVERYONE-INTO-ONE IN ONE PROPHET** A coherent utopia of erased difference, defeated by its own sterility — Bohemia's whole Amalgamation question of forced unity, argued to death.
+- `Q210.W2` **THE UTOPIA IS SINCERE AND COHERENT** Forced unity to end conflict is an internally consistent, well-meant plan — not malice, which makes it seductive.
+- `Q210.W3` **YOU WIN BY ARGUMENT, NOT FORCE** The deepest victory is making the prophet see the flaw — out-thinking the god of flesh, not out-fighting him (#12).
+- `Q210.W4` **THE FLAW IS PRACTICAL, NOT MORAL** The Unity is sterile — a dead end — which is the truest argument against forced sameness: it cannot live.
+- `Q210.W5` **THE SINCERE CAN BE UNDONE BY TRUTH** The Master destroys himself because he genuinely wanted to save life — a cynic would deny the proof; a true believer can't.
+- `Q210.W6` **FORCED SAMENESS CAN'T BE FIXED** The removed "make the Unity work" verb is the spine: sterility is intrinsic to erasing difference; the dream cannot be repaired.
+- `Q210.W7` **THE VILLAIN IS REFRAMED, NOT JUST SLAIN** The profound path makes him a wrong prophet to correct, not a monster to kill — a deeper kind of victory.
+- `Q210.W8` **DIFFERENCE IS THE SOURCE OF LIFE** Erasing it erases the future — the metaphor under the biology, the generative power of difference.
+- `Q210.W9` **THE DREAM IS GENUINELY TEMPTING** End all war by making everyone one — the appeal is real, which is why the flaw must be this precise.
+- `Q210.X1` **THE ARGUE-HIM-DOWN VICTORY IS GATED BEHIND KNOWLEDGE MANY PLAYERS WON'T HAVE** Presenting the sterility flaw requires the player to have found the specific evidence beforehand, so the profound victory is inaccessible to players who didn't gather it — and they
+- `Q210.X2` **THE MASTER'S SINCERITY CAN BE UNDERSOLD, MAKING THE SELF-DESTRUCTION UNEARNED** The talk-down ending depends on the Master genuinely wanting to save life (so the truth destroys him); if he reads as just a power-hungry monster, his choice to self-destruct when 
+- `Q210.X3` **"FORCED SAMENESS IS STERILE" IS A CLEAN METAPHOR THAT THE PRACTICAL FLAW CAN OVER-LITERALIZE** The sterility flaw works as literal biology and as metaphor (erasing difference erases the future), but leaning too hard on the literal can reduce a profound idea to a plot-hole go
+
+### Q211  THE DEVIL'S BARGAIN (A HERO SOLD HIS SOUL TO SAVE HIS CITY AND THE BILL COMES DUE AS HIS FATHER) (Baldur's Gate 3)
+- `Q211.N1` **NODE W-1 — the mortgaged hero** Entry: stage 1-2. Wyll, his secret surfacing. > "Your heroism was financed by a pact." [gate: none] -> the hidden price: the Blade's power bought with a soul sold and never confess
+- `Q211.N2` **NODE W-2 — the bill comes due** Entry: stage 3-4. The debt aimed at his blood. The devil, the price named. > "It wants you to damn your own father." [gate: none] -> THE ONE LINE DOING THE WORK: the good-faith bar
+- `Q211.N3` **NODE W-3 — the irreplaceable lost** Entry: stage 4-5. Soul, father, or self. The choice, all costs irreversible. > (sacrifice his father) [gate: none] -> the soul kept, the beloved damned; the hero survives at the co
+- `Q211.P1` **PORT 1 — THE IDENTITY FINANCED BY A HIDDEN PRICE [W1, W3, W4 — the core port]** system: the Amalgamation / the fold / companions A Bohemia arc where a character's admired identity (a hero, a dynast, a benefactor) is secretly FINANCED by a hidden debt — a barga
+- `Q211.P2` **PORT 2 — THE BARGAIN'S GOOD FAITH IS ESTABLISHED [F1's law]** system: the Amalgamation / companions / the fold If a quest's tragedy is a good-faith bargain turned weapon, the GOODNESS of the original deal is established — the desperate love, 
+- `Q211.P3` **PORT 3 — THE LOVED ONE IS VIVID [F2's law]** system: companions / the fold If a quest demands sacrificing a loved one, that person is VIVID and the relationship real — the love and estrangement shown — so the sacrifice cuts, 
+- `Q211.P4` **PORT 4 — THE THIRD PATH STILL COSTS [F3's law]** system: the Amalgamation / the fold / the endings If a quest offers a third path out of a terrible bargain, it carries its OWN irreplaceable cost — no clean escape — so it's a diff
+- `Q211.W1` **THE HEROISM IS MORTGAGED** Wyll's celebrated good is financed by a hidden soul-debt — the identity built on a secret price, which is the whole engine.
+- `Q211.W10` **IT IS SOUL-DEBT-COMES-DUE IN ONE HERO** A good-faith bargain turned weapon against love — Bohemia's whole Amalgamation question of hidden prices and identities that are only borrowed, in a devil's note.
+- `Q211.W2` **THE BARGAIN WAS GOOD FAITH** He sold his soul out of desperate love for his city, and it worked — the nobility of the deal makes the reckoning crueler.
+- `Q211.W3` **THE DEBT DOESN'T CARE ABOUT INTENT** The good he did was real; the debt is real; noble intent buys nothing when the note is called.
+- `Q211.W4` **THE PRICE IS WHAT HE LOVES** The pact demands his father — the bargain's ultimate leverage is the people he loves, aimed at his own blood.
+- `Q211.W5` **NO OPTION KEEPS THE CLEAN HERO** The removed "keep the heroic life without paying" verb is the spine: the borrowed identity can't survive the bill.
+- `Q211.W6` **THE CHOICE IS TRULY TERRIBLE** Soul or father, both irreplaceable — a genuine dilemma with no costless answer.
+- `Q211.W7` **THE PACT IS ONGOING OWNERSHIP** Not a one-time trade but a leash — the bargain reveals it was always ownership, callable anytime.
+- `Q211.W8` **THE IDENTITY WAS A LIE OF OMISSION** The admired hero never told anyone the price — the reckoning exposes the mortgage under the nobility.
+- `Q211.W9` **THE THIRD PATH STILL COSTS** Breaking the pact shatters the heroic self and exposes the secret — no clean escape, only a different sacrifice.
+- `Q211.X1` **THE PACT'S "GOOD FAITH" CAN BE UNDERSOLD, MAKING WYLL READ AS FOOLISH RATHER THAN TRAGIC** The tragedy depends on the original bargain being a genuinely noble, desperate act that did real good; if it reads as a naive mistake, Wyll seems foolish and the reckoning loses it
+- `Q211.X2` **THE FATHER MUST BE A REAL PERSON OR THE SACRIFICE IS ABSTRACT** The choice's weight rides on Wyll's father being a vivid, loved, specific person; if he's a name and a plot token, "damn your father" is an abstraction and the terrible choice defl
+- `Q211.X3` **"BREAK THE PACT" CAN BECOME A CLEAN THIRD OPTION THAT DEFUSES THE DILEMMA** If the game offers a way to escape the pact that costs little, the profound soul-or-father choice collapses — the third path must carry a real, irreplaceable cost (the shattered he
+
+### Q212  TRANQUILITY LANE (A WHOLE TOWN IS TRAPPED IN A 1950s PARADISE RUN BY A SADIST, AND FREEING THEM MEANS KILLING THEM) (Fallout 3)
+- `Q212.N1` **NODE T-1 — the playthings** Entry: stage 1-2. The suburb, the truth under the sunshine. > "These neighbors are real people." [gate: none] -> the prison: humans held for centuries, memories reset, sufferings s
+- `Q212.N2` **NODE T-2 — the only exit** Entry: stage 3-4. Mercy is slaughter. The fail-safe, the beautiful lie. > "The only way to free them kills them all." [gate: fail-safe] -> THE ONE LINE DOING THE WORK: escape and m
+- `Q212.N3` **NODE T-3 — prolong or end it** Entry: stage 4-5. No living exit. The choice, the residents named. > (keep playing the overseer's game) [gate: none] -> the player as his instrument; the cruelty prolonged; escape 
+- `Q212.P1` **PORT 1 — THE FALSE PARADISE WHOSE ONLY EXIT IS DEATH [W1, W2, W6 — the core port]** system: the Amalgamation / the endings / factions A Bohemia site where a perfect, comforting paradise (an Amalgamation idyll, a preserved town, a simulated heaven) is a PRISON hold
+- `Q212.P2` **PORT 2 — THE KILLING ISN'T LAUNDERED [F1's law]** system: the endings / the Amalgamation If a quest's liberation is also a killing, the DEATH is felt as death, not laundered into a clean win — the residents' names and the massacre
+- `Q212.P3` **PORT 3 — THE COMPLICITY HAS AN AUTHOR [F2's law]** system: the Amalgamation / factions If a quest forces the dynast into complicity, the forcing is legibly the VILLAIN'S design — a deliberate corruption, not arbitrary cruelty — so 
+- `Q212.P4` **PORT 4 — THE CAPTIVES ARE VIVID [F3's law]** system: the Amalgamation / the endings / companions If a quest's climax is mercy-killing captives, those captives are VIVID — named, known, their suffering witnessed — so the fail-
+- `Q212.W1` **THE PARADISE IS THE PRISON** The perfect suburb is a torture chamber; its beauty is the cage, not its opposite — the whole engine of the horror.
+- `Q212.W10` **IT IS THE FALSE-PARADISE-PRISON IN ONE SIM** A perfect lie whose only mercy is the off switch — Bohemia's whole Amalgamation question of comfort-as-cage, where freedom is death.
+- `Q212.W2` **LIBERATION IS DEATH** The only exit for the residents kills them; escape and mercy-killing are the same act — the sharpest thing the quest says.
+- `Q212.W3` **THE CAPTIVES CAN'T LEAVE ALIVE** Held too long, remade too completely — no waking and walking out; only the off switch frees them.
+- `Q212.W4` **THE PLAYER IS MADE COMPLICIT** To advance, the player enacts the sadist's cruelties — the villain makes an instrument of the liberator.
+- `Q212.W5` **THE SADIST IS BORED, NOT GRAND** The overseer's cruelty is the pettiness of centuries of boredom — evil as amusement, intimate and small.
+- `Q212.W6` **THERE IS NO LIVING EXIT** The removed "free them and let them live" verb is the spine: some prisons can't be escaped alive.
+- `Q212.W7` **THE MERCY IS THE HARDEST KIND** Release can only be delivered as an ending — the cruelest form of compassion.
+- `Q212.W8` **THE BEAUTY IS THE HORROR'S TOOL** The idyll's sunshine serves the cruelty — the false paradise weaponizes its own perfection.
+- `Q212.W9` **THE RESIDENTS ARE NEIGHBORS** Named people, a child, a couple — not faceless prisoners, which makes the fail-safe a specific slaughter.
+- `Q212.X1` **THE FAIL-SAFE MASSACRE CAN READ AS A CLEAN "GOOD" ENDING, LOSING THE HORROR** Because the fail-safe stops the sadist and "frees" the residents, players can experience it as the straightforwardly good choice and miss that it is a mass killing — so the profoun
+- `Q212.X2` **THE FORCED COMPLICITY CAN FEEL LIKE ARBITRARY CRUELTY IF ITS PURPOSE ISN'T CLEAR** Being made to enact sadisms to advance is powerful only if it reads as the overseer's deliberate corruption of the player; if it feels like the game arbitrarily forcing bad acts, i
+- `Q212.X3` **THE RESIDENTS CAN STAY TOO ABSTRACT FOR THE MERCY-KILLING TO CUT** The horror of freeing-by-killing depends on the residents being vivid people the player has come to know; if they remain generic sim-neighbors, triggering the fail-safe is an abstr
+
+### Q213  DEAD MONEY (FOUR DAMNED PEOPLE CHASE A VAULT OF GOLD THAT WILL KILL THEM, AND THE ONLY WAY TO WIN IS TO LET IT GO) (Fallout: New Vegas — Dead Money)
+- `Q213.N1` **NODE D-1 — the obsessions** Entry: stage 2-3. The crew, each chained to a past. > "Everyone here is chained to something they can't release." [gate: none] -> the chorus: a lost voice, a stage, a role, the cas
+- `Q213.N2` **NODE D-2 — the vault** Entry: stage 4. The treasure is the trap. The gold, carriable and deadly. > "The gold is right here. I can carry it." [gate: reached vault] -> the temptation: the fortune you bled 
+- `Q213.N3` **NODE D-3 — walk out or be entombed** Entry: stage 4-5. Let go or die. The exit, the countdown, Elijah's example. > (leave the gold and walk out) [gate: none] -> the victory: nothing but your life carried out; the obse
+- `Q213.P1` **PORT 1 — THE TREASURE THAT IS THE TRAP [W1, W2, W6 — the core port]** system: the fold / the endings / the unrecorded ledger A Bohemia arc where a glittering prize the dynast suffered to reach (a fortune, a legacy, a grudge, a preserved past) is phys
+- `Q213.P2` **PORT 2 — THE RELEASE ISN'T GAMEABLE [F1's law]** system: the fold / the endings If a quest's test is letting go entirely, the mechanic doesn't reward a PARTIAL keep that captures most of the gain — the release made all-or-nothing
+- `Q213.P3` **PORT 3 — THE CHORUS RHYMES [F2's law]** system: companions / the fold If a quest uses a chorus of characters to echo one theme, their arcs legibly RHYME with the central mechanic — each a variation on the same release — 
+- `Q213.P4` **PORT 4 — THE ANTAGONIST IS THE MIRROR [F3's law]** system: the fold / factions / the endings If a quest's antagonist embodies the theme, their fate is framed as the MIRROR of the dynast's choice — the fate avoided by letting go — s
+- `Q213.W1` **THE TREASURE IS THE TRAP** The gold is carriable and carrying it out is death — the fortune you bled for is the thing that kills you, which is the whole engine.
+- `Q213.W10` **IT IS THE-PAST-IS-THE-TRAP IN ONE VAULT** A treasure that dooms whoever won't release it — Bohemia's whole fold question of letting go to begin again, in a sealed casino.
+- `Q213.W2` **LETTING GO IS THE ONLY WIN** The winning move is to leave the gold and walk out with nothing but your life — the abstract wisdom made a hard mechanic.
+- `Q213.W3` **THE PAST IS DEAD WEIGHT** The grudge, the obsession, the treasure all drown whoever won't release them — the Sierra Madre as any glittering thing you can't abandon.
+- `Q213.W4` **EVERY CHARACTER IS A CHAIN** Each companion embodies an obsession to release or die by — the chorus that rhymes with the central test.
+- `Q213.W5` **ELIJAH IS THE WARNING** A man so unable to let go that the casino entombs him — the fate the player narrowly escapes.
+- `Q213.W6` **YOU CAN'T CARRY IT OUT** The removed "escape with all the gold" verb is the spine: there is no exit that keeps both the treasure and your life.
+- `Q213.W7` **THE CHOICE IS IN YOUR HANDS** The player physically holds the gold and must set it down — the test is literal, not metaphorical.
+- `Q213.W8` **BEGINNING AGAIN IS WHAT YOU LEAVE** Survival is defined by what's abandoned, not gained — the fold's whole logic in one vault.
+- `Q213.W9` **THE CRUELTY SERVES THE THEME** The fog, the collars, the holograms all pressure the same lesson: linger, cling, and die.
+- `Q213.X1` **THE "LEAVE THE GOLD" LESSON CAN BE GAMED, SOFTENING THE TEST** Experienced players know to take only a few bars (enough to survive), so the profound "let it go entirely" test becomes an optimization — carry the maximum survivable amount — whic
+- `Q213.X2` **THE COMPANIONS' OBSESSIONS CAN READ AS SEPARATE STORIES RATHER THAN ONE THEME** Each crew member embodies a chain, but if their arcs aren't legibly rhyming with the central let-go mechanic, they read as four unrelated companion quests rather than a chorus all 
+- `Q213.X3` **ELIJAH'S ENTOMBMENT CAN LAND AS A BOSS OUTCOME RATHER THAN THE THEME'S CAPSTONE** Elijah is the ultimate "cannot let go" study, but if trapping him reads as just a way to win the final encounter, the point (his obsession is the fate the player narrowly escaped) 
+
+### Q214  THE DAUGHTER OF DARKNESS (A WOMAN RAISED TO SERVE A GODDESS OF LOSS DISCOVERS HER WHOLE SELF WAS SURGICALLY REMOVED, AND HER PARENTS ARE THE PRISONERS SHE WAS SENT TO KILL) (Baldur's Gate 3)
+- `Q214.N1` **NODE S-1 — the theft revealed** Entry: stage 2-3. Shadowheart, the erasure cracking. > "Your devotion is how they deleted you." [gate: none] -> the mechanism: giving up herself was never faith, it was the theft d
+- `Q214.N2` **NODE S-2 — the loyalty test** Entry: stage 4. The murder as virtue. The captive parents, the knife. > "They want you to kill the family you don't remember." [gate: none] -> the test: the last surrender, the hig
+- `Q214.N3` **NODE S-3 — complete or reclaim** Entry: stage 4-5. Erasure or reversal. Shadowheart, the knife over her parents. > (complete the erasure, kill them) [gate: none] -> the perfect instrument; the last piece surrender
+- `Q214.P1` **PORT 1 — THE DEVOTION THAT WAS YOUR OWN ERASURE [W1, W3, W4 — the core port]** system: the Amalgamation / the fold / companions A Bohemia arc where a character was raised by an institution (a cult, the Amalgamation, an order) that DELETES the self piece by pi
+- `Q214.P2` **PORT 2 — THE RECLAMATION IS GRADUAL [F1's law]** system: companions / the fold / the Amalgamation If a character's self was deleted over a lifetime, reclaiming it is shown as SLOW and partial — the reversal ongoing, the wounds st
+- `Q214.P3` **PORT 3 — THE ATROCITY FEELS HOLY [F2's law]** system: the Amalgamation / factions / companions If a loyalty test frames an atrocity as the completion of a devotion, that FRAMING is made convincing — the act genuinely feeling l
+- `Q214.P4` **PORT 4 — THE LOVED ONES ARE VIVID [F3's law]** system: companions / the fold If captives are the proof of what an erasure cost, they are VIVID enough that their reality indicts the theft — specific people, a stolen bond glimpse
+- `Q214.W1` **THE DEVOTION WAS THE ERASURE** Shadowheart's faith was the mechanism of her own deletion — giving herself away was the theft, which is the whole engine.
+- `Q214.W10` **IT IS ENGINEERED-FORGETTING IN ONE DEVOTEE** A self deleted piece by piece and called faith — Bohemia's whole Amalgamation question of the taken self, in a cult of loss.
+- `Q214.W2` **THEY TOOK HER ABILITY TO MOURN** The cult stole not just her past but her knowledge it was taken — she can't grieve what she can't remember losing.
+- `Q214.W3` **THE MURDER IS FRAMED AS VIRTUE** Killing the parents is the completion of a devotion she's proud of — the loyalty test's cruelest design.
+- `Q214.W4` **THE PARENTS ARE PROOF, NOT A TEST** They are evidence of what her faith cost her — the erasure's price made flesh.
+- `Q214.W5` **RECLAMATION IS SLOW** The removed "give back her self in a moment" verb is the spine: a lifetime of forgetting can't be undone in an instant.
+- `Q214.W6` **REFUSING REJECTS HER WHOLE MEANING** To stay her hand is to reject everything she was raised to be — not a small choice but a total one.
+- `Q214.W7` **THE ERASURE WAS DRESSED AS GRACE** The cult made her grateful for her own deletion — the horror of an institution that thanks you for disappearing.
+- `Q214.W8` **THE CRACKS WERE ALWAYS THERE** Her fear of the sun, her suppressed tenderness — the self resisting its own erasure, findable if looked for.
+- `Q214.W9` **THE PLAYER HELPS HER SEE** The companion's role is to reveal the devotion as dismantling — the witness to a reclamation.
+- `Q214.X1` **THE RECLAMATION CAN RESOLVE TOO FAST, MAKING "A LIFETIME OF ERASURE" FEEL UNDONE IN A SCENE** The power is that reclaiming the self is a long, painful reversal, but if refusing the goddess instantly restores Shadowheart to a whole, healed person, the profound "engineered fo
+- `Q214.X2` **THE MURDER-AS-VIRTUE FRAMING CAN BE UNDERSOLD, MAKING THE TEST READ AS OBVIOUS EVIL** The test's genius is that killing the parents is framed as the completion of a virtue Shadowheart is proud of, not an obvious sin; if the game presents it as plainly evil, the horr
+- `Q214.X3` **THE PARENTS CAN BE PLOT DEVICES RATHER THAN PEOPLE, WEAKENING THE PROOF-OF-COST** The parents work as "proof of what her faith cost her" only if they read as real, specific people with a real relationship stolen; if they're generic captives, sparing them is abst
+
+### Q215  DEIONARRA (A GHOST STILL LOVES A MAN WHO ISN'T YOU, WHO MANIPULATED HER TO DEATH, AND YOU WEAR HIS FACE) (Planescape: Torment)
+- `Q215.N1` **NODE D-1 — the recognition** Entry: stage 1-2. Deionarra, seeing the face she loved. > "You loved a version of me I don't remember." [gate: none] -> the gap: the man she knew is gone; an amnesiac wears his fac
+- `Q215.N2` **NODE D-2 — the impossible position** Entry: stage 4. Continuity survives memory. The player, guilty without the memory. > "That wasn't me. I don't remember any of it." [gate: none] -> the lie he can't honestly tell: i
+- `Q215.N3` **NODE D-3 — lie, truth, or responsibility** Entry: stage 4-5. Answering the debt. Deionarra, waiting for an answer. > (comfort her with a lie) [gate: none] -> a false peace; pretend to be the man she loved; a mercy built on 
+- `Q215.P1` **PORT 1 — THE VICTIM OF A SELF YOU DON'T REMEMBER [W1, W2, W3 — the core port]** system: the fold / the Amalgamation / the unrecorded ledger A Bohemia arc where the dynast is confronted by a victim of a PAST self (a prior incarnation, an ancestor in the fold, a
+- `Q215.P2` **PORT 2 — THE AMNESIA IS DENIED AS AN EXCUSE [F1's law]** system: the fold / the Amalgamation If a quest's point is answerability for a self you don't remember, the amnesia is DENIED as an excuse — the continuity made undeniable, "that wa
+- `Q215.P3` **PORT 3 — THE WRONGED IS A GRIEF, NOT A PUZZLE [F2's law]** system: the fold / dialogue scenes If a quest is answering a debt to a wronged person, the encounter is framed as a GRIEF to honor, not a puzzle to solve — their personhood foregro
+- `Q215.P4` **PORT 4 — SHOULDERING THE GUILT COSTS MORE [F3's law]** system: the fold / the conduct book If the deepest answer is shouldering inherited guilt, that path COSTS more — the difficulty of owning an un-chosen crime made felt — so responsi
+- `Q215.W1` **CONTINUITY SURVIVES MEMORY** The player is answerable for a self he can't remember — moral continuity outlasts forgetting, which is the whole engine.
+- `Q215.W10` **IT IS ANSWERABLE-FOR-WHO-YOU-WERE IN ONE GHOST** A victim of a self you can't remember, still owed — Bohemia's whole fold question of continuity, guilt, and the unremembered past.
+- `Q215.W2` **THE GRIEF DOESN'T CARE YOU FORGOT** Deionarra's love and accusation land regardless of the amnesia — the victim is owed no matter what you recall.
+- `Q215.W3` **THE DISCLAIMER IS A LIE** Saying "that wasn't me" is false; it was the same continuous self — the removed "make it not have been you" verb is the spine: forgetting transfers nothing.
+- `Q215.W4` **THERE'S NO ONE ELSE TO ANSWER** The man who wronged her exists now only as the amnesiac before her — the debt falls on whoever wears the face.
+- `Q215.W5` **HE FEELS NO LOVE HE CAN OFFER** The player can't make it right with a devotion he never had — the gap is unbridgeable by feeling.
+- `Q215.W6` **THREE ANSWERS, ALL PARTIAL** Lie, truth, or responsibility — three ways to pay a debt he didn't knowingly incur, none fully clean.
+- `Q215.W7` **THE CRIME WAS COLD AND DELIBERATE** The past self cultivated her love as a tool and killed her knowingly — the wrong is monstrous, not accidental.
+- `Q215.W8` **THE LIE CONTINUES THE KILLER'S DECEPTION** Comforting her as the man she loved extends the very deception that doomed her — even mercy is complicated.
+- `Q215.W9` **RESPONSIBILITY CROSSES THE GAP** The profound answer is owning a crime without the memory of it — the hardest and truest kind of accountability.
+- `Q215.X1` **THE AMNESIA CAN BECOME AN EXCUSE THE QUEST DOESN'T FULLY CLOSE** The whole power is that "that wasn't me" is a lie, but if the game lets the player disclaim the past self too easily or treats the forgetting as genuinely exculpatory, the profound
+- `Q215.X2` **DEIONARRA'S LOVE CAN READ AS A PUZZLE TO SOLVE RATHER THAN A GRIEF TO HONOR** If the encounter is structured as an information/dialogue puzzle (find the right lines to release her ghost), the player can treat her as a mechanism rather than a person owed some
+- `Q215.X3` **THE "SHOULDER THE GUILT" PATH CAN LACK A DISTINCT COST FROM THE OTHER TWO** Taking responsibility across the gap is the profound answer, but if it plays out with no more difficulty or consequence than lying or truth-telling, it reads as just a third dialog
+
+### Q216  THE EBONY WARRIOR (A MASTER WHO HAS WON EVERYTHING BEGS A STRANGER TO KILL HIM SO HE CAN FINALLY REACH THE AFTERLIFE) (The Elder Scrolls V: Skyrim)
+- `Q216.N1` **NODE E-1 — the strange request** Entry: stage 1-2. The Warrior, unmatched and hollow. > "You've won everything. Why do you want to die?" [gate: none] -> the emptiness: total accomplishment is its own death; the ha
+- `Q216.N2` **NODE E-2 — the emptiness explained** Entry: stage 3. Mastery is an ending. The Warrior, clear-eyed, not despairing. > "A life with nothing left to strive for is already over." [gate: none] -> the conclusion: a man bui
+- `Q216.N3` **NODE E-3 — the worthy end** Entry: stage 4-5. Grant or refuse. The Warrior, asking for his death. > (grant him the battle and the death) [gate: none] -> the worthy end given; the completion mastery couldn't p
+- `Q216.P1` **PORT 1 — THE EMPTINESS AFTER TOTAL ACCOMPLISHMENT [W1, W2, W4 — the core port]** system: the fold / the dynasty spine / the endings A Bohemia arc where a master (a dynast at the summit, an elder who achieved everything, an Amalgamation-perfected being) has WON 
+- `Q216.P2` **PORT 2 — THE PHILOSOPHY SURFACES [F1's law]** system: the fold / the dynasty spine If a quest carries a philosophy under a combat encounter, the theme is SURFACED enough that it isn't skippable — the meditation given real spac
+- `Q216.P3` **PORT 3 — THE REFUSAL COSTS [F2's law]** system: the fold / the endings If a quest's point is that sparing someone is the cruelty, the REFUSAL carries felt consequence — the imposed survival shown as a burden, not a blank
+- `Q216.P4` **PORT 4 — THE EMPTINESS IS EARNED [F3's law]** system: the fold / the dynasty spine / companions If a character's request rests on the emptiness of total accomplishment, that emptiness is EARNED — the exhausted striving shown o
+- `Q216.W1` **MASTERY IS AN ENDING** The Warrior won everything and found the having empty — total accomplishment as its own death, which is the whole engine.
+- `Q216.W10` **IT IS WHAT-COMES-AFTER-YOU-WIN in one master** The emptiness on the far side of ambition — Bohemia's whole dynasty question of striving, accomplishment, and what a life is for once it's won, in one warrior's request to die.
+- `Q216.W2` **THE STRIVING WAS THE LIFE** The reaching, not the arriving, held the meaning — the removed "give him a new summit" verb is the spine: another mountain would also empty out.
+- `Q216.W3` **HE ASKS FOR THE ONE THING HE CAN'T GIVE HIMSELF** A worthy defeat — the completion mastery cannot provide, sought from the one being who might match him.
+- `Q216.W4` **SPARING IS THE CRUELTY** Survival is the unkindness; sending him back to an exhausted life is the one thing he doesn't want — the reward structure inverted.
+- `Q216.W5` **IT'S NOT DESPAIR, IT'S JUDGMENT** His request is a clear-eyed conclusion, not suicidal collapse — a warrior's dignified reckoning with the emptiness after victory.
+- `Q216.W6` **HE IS THE TERMINUS OF THE PLAYER'S PATH** The player accumulates power all game; he stands at the end of that road and reports it's hollow — a warning from the summit.
+- `Q216.W7` **COMPLETION IS A WORTHY END** The only thing left that could fulfill him is a good death — the dignified terminus of a life of striving.
+- `Q216.W8` **THE PARADISE IS BARRED WHILE UNDEFEATED** He believes he can't enter the warrior's afterlife unfulfilled — the theology that makes the death a passage, not just an end.
+- `Q216.W9` **THE HAVING-WON IS THE PROBLEM** Not failure but total success is the desolation — the rare, true insight that getting everything can end you.
+- `Q216.X1` **THE QUEST IS A PURE BOSS FIGHT, SO THE PHILOSOPHY CAN BE SKIPPED ENTIRELY** The profound theme (the emptiness after total accomplishment) is delivered in a short exchange before a straight duel, so most players experience it as a hard fight and miss the me
+- `Q216.X2` **REFUSING HAS NO REAL CONSEQUENCE, SO THE "CRUELTY OF SURVIVAL" IDEA DOESN'T LAND** Declining the fight mostly just ends the quest with no felt weight, so the powerful inversion (sparing him is the cruelty) stays a line rather than a consequence — the player never
+- `Q216.X3` **THE WARRIOR'S EMPTINESS IS ASSERTED, NOT EARNED, SO IT CAN READ AS EDGE RATHER THAN DESPAIR** He declares that total accomplishment is hollow, but the game shows little of the life that led there, so his desolation can read as posturing rather than an earned conclusion — th
+
+### Q217  CUNO (A FERAL CHILD PERFORMS INVULNERABILITY BECAUSE THE ALTERNATIVE IS ADMITTING NO ONE IS COMING) (Disco Elysium)
+- `Q217.N1` **NODE C-1 — the cracks** Entry: stage 1-2. Cuno, performing invulnerability. > "You don't need anyone. Nothing hurts you." [gate: none] -> the performance: the swagger, the not-caring, calibrated to keep e
+- `Q217.N2` **NODE C-2 — the wound** Entry: stage 3. The armor is the abandonment. Cuno Sr. passed out; the neglect plain. > "No adult has ever come for you." [gate: none] -> the wound: a child no one showed up for; t
+- `Q217.N3` **NODE C-3 — seen or written off** Entry: stage 4-5. Reach or give up. Cuno, the armor thick, the choice the player's. > (refuse the performance and try to reach him) [gate: none] -> the harder work; the child seen;
+- `Q217.P1` **PORT 1 — THE HOSTILE ONE WHO MOST NEEDS SEEING [W1, W2, W7 — the core port]** system: ambient life / companions / the fold A Bohemia character (a street kid, a snarling outcast, the most dismissible person on the map) whose aggressive HOSTILITY is armor over
+- `Q217.P2` **PORT 2 — THE CRACKS ARE VISIBLE [F1's law]** system: ambient life / dialogue scenes If a character's hostility is armor the dynast is meant to see under, the CRACKS are visible enough that looking is invited — a glimpse of th
+- `Q217.P3` **PORT 3 — THE REACHING STAYS UNCERTAIN [F2's law]** system: companions / the fold / ambient life If a quest reaches a deeply armored person, the reaching stays UNCERTAIN — a real offer that may not land, not a puzzle that solves the
+- `Q217.P4` **PORT 4 — THE NEGLECT EXPLAINS THE ARMOR [F3's law]** system: ambient life / the fold If a child's armor is built by a parent's neglect, that neglect is framed as the WOUND'S SOURCE, not just a disgusting scene — the connection to the
+- `Q217.W1` **THE ARMOR IS THE WOUND** Cuno's cruelty is the defense of a neglected child, not the truth of him — the hostility as armor over abandonment, which is the whole engine.
+- `Q217.W10` **IT IS THE-ARMOR-IS-THE-WOUND IN ONE STREET KID** A neglected child performing not-needing-anyone — Bohemia's whole question of the hostile-seeming who most need seeing, in the most dismissible character on the map.
+- `Q217.W2` **THE LOUDEST NOT-CARING IS THE DEEPEST HURT** The more he performs invulnerability, the more certainly he's protecting an unbearable wound — the sharpest thing the quest says.
+- `Q217.W3` **HE'S DESIGNED TO BE WRITTEN OFF** The performance is calibrated to earn dismissal — and the quest quietly indicts the reflex to take it at face value.
+- `Q217.W4` **THE WOUND IS THAT NO ONE CAME** A child no adult ever reliably showed up for — the specific abandonment the not-needing is built around.
+- `Q217.W5` **REACHING ISN'T GUARANTEED** The removed "fix him by seeing him once" verb is the spine: the armor is load-bearing; one kindness doesn't undo a childhood.
+- `Q217.W6` **THE MOST DISMISSIBLE IS THE MOST WOUNDED** The character you most want to ignore is the one who most needs seeing — the reversal of the dismissal reflex.
+- `Q217.W7` **GIVING UP CONFIRMS THE ARMOR** Writing him off is exactly what the performance expects — the dismissal proves no one comes, which built the armor.
+- `Q217.W8` **HE'S A CHILD** Young, small, poor — the cruelty is a kid's, which makes taking it at face value a kind of failure of the adult, not the child.
+- `Q217.W9` **THE FATHER IS THE ABSENCE** The passed-out addict is the wound's source — the neglect that made the fortress.
+- `Q217.X1` **THE PERFORMANCE IS SO EFFECTIVE MANY PLAYERS NEVER LOOK UNDER IT** Cuno is written to be genuinely repellent, which means the "write him off" reflex is strong and satisfying, and many players will take the act at face value and never discover the 
+- `Q217.X2` **REACHING CUNO CAN READ AS A PUZZLE THAT "SOLVES" HIM, BETRAYING THE NO-GUARANTEE** If seeing the child unlocks a clean redemption (grateful kid, healed in a scene), the honest truth (the armor may not open, one kindness doesn't undo neglect) is lost — the power d
+- `Q217.X3` **THE FATHER'S NEGLECT CAN BE PLAYED FOR DISGUST RATHER THAN AS THE WOUND'S SOURCE** Cuno Sr. is grotesque, and if the game leans into revulsion at the addict father, the player's contempt can extend to the whole situation rather than landing as understanding of wh
+
+### Q218  ACADIA (A HIDDEN REFUGE OF SYNTHS DEBATES WHETHER MADE PEOPLE SHOULD HIDE, INTEGRATE, OR REPLACE, AND THE PLAYER CAN KEEP OR SHATTER THE PEACE OF THREE FACTIONS) (Fallout 4: Far Harbor)
+- `Q218.N1` **NODE A-1 — DiMA and the synth question** Entry: stage 2. DiMA, the compromised keeper. > "Should made people hide, integrate, or is coexistence impossible?" [gate: none] -> the question: Acadia hides, the replacement inte
+- `Q218.N2` **NODE A-2 — the match in hand** Entry: stage 3-4. Peace on a lie, or truth. The hidden truths, the island's fate. > "This peace is built on secrets and buried wrongs." [gate: evidence] -> the foundation: a coexis
+- `Q218.N3` **NODE A-3 — peace, truth, or ash** Entry: stage 4-5. The fulcrum decides. The player, the island in their hands. > (keep the secrets, preserve the peace) [gate: none] -> the coexistence continued on lies; a flawed s
+- `Q218.P1` **PORT 1 — THE FRAGILE PEACE HELD BY HIDDEN TRUTHS [W1, W2, W3 — the core port]** system: factions / the Amalgamation / the endings A Bohemia standoff where several communities who fear each other (the living, a cult, made people) coexist in a balance held toget
+- `Q218.P2` **PORT 2 — THE MADE-PEOPLE QUESTION STAYS CENTRAL [F1's law]** system: the Amalgamation / factions If a quest carries a deep question under faction logistics, the QUESTION stays foregrounded — the made-people dilemma given real space amid the 
+- `Q218.P3` **PORT 3 — THE BURIED WRONGS WEIGH [F2's law]** system: factions / the Amalgamation / the unrecorded ledger If a quest's peace rests on a keeper's atrocities, those atrocities WEIGH — the real victims of the replacement and wipe
+- `Q218.P4` **PORT 4 — THE SUBTLE ENDINGS WEIGH AS MUCH AS THE DESTRUCTION [F3's law]** system: the endings / factions If a quest offers extermination beside subtler resolutions, the SUBTLE options carry weight equal to the destruction — preserve and expose given thei
+- `Q218.W1` **THE PEACE IS BUILT ON LIES** The island's coexistence rests on buried truths and wrongs — the fragile balance is a concealment, which is the whole engine.
+- `Q218.W10` **IT IS MADE-PEOPLE-AMONG-THE-LIVING IN ONE ISLAND** Whether synths can coexist, and at what cost of lies — Bohemia's whole Amalgamation question of the made among the born, in a three-faction standoff.
+- `Q218.W2` **WHOEVER HOLDS THE TRUTH HOLDS THE MATCH** The player's discovery makes them the island's fulcrum — the truth is a weapon that would collapse the peace.
+- `Q218.W3` **NO OPTION IS HONEST AND PEACEFUL** The removed "honest and lasting peace" verb is the spine: the lie can't be made truthful without falling.
+- `Q218.W4` **DIMA IS COMPROMISED, NOT EVIL** A synth who did monstrous things to keep his people alive — the keeper whose means indict the peace they preserved.
+- `Q218.W5` **THE SYNTH QUESTION HAS THREE ANSWERS** Hide (Acadia), integrate (the replacement), or coexistence is impossible — none safe, all embodied.
+- `Q218.W6` **THE MADE PEOPLE'S SAFETY IS ONE REVELATION FROM ASH** Acadia is the fragile best-case, one truth away from destruction — the precarity of made lives among makers.
+- `Q218.W7` **FLAWED SURVIVAL VS HONEST CATASTROPHE** The choice is whether a lie-based coexistence beats a truthful war — a genuine, hard trade.
+- `Q218.W8` **THE PLAYER DECIDES FOR EVERYONE** The fulcrum resolves the island for all three peoples — enormous, uncomfortable power over others' fates.
+- `Q218.W9` **THE TRUTH IS A WEAPON** Exposing the secrets frees the humans to destroy the synths — honesty as detonation, not clean virtue.
+- `Q218.X1` **THE SYNTH QUESTION CAN GET BURIED UNDER THE FACTION LOGISTICS** The rich core (should made people hide, integrate, or is coexistence impossible) can be swamped by the mechanical three-faction quest structure, so DiMA's philosophical weight beco
+- `Q218.X2` **DIMA'S MONSTROUS MEANS CAN BE UNDER-WEIGHED, MAKING "KEEP THE SECRETS" TOO EASY** If the replacement and memory-wipe are treated as minor, preserving the peace reads as obviously right; the power depends on DiMA's acts being genuinely monstrous (a real person re
+- `Q218.X3` **THE EXTERMINATION OPTIONS CAN OVERSHADOW THE SUBTLER PRESERVE/EXPOSE CHOICE** The dramatic power to wipe out a faction can pull the quest toward "which faction do you genocide," drowning the finer, harder question (is a peace built on lies worth keeping) und
+
+### Q219  THE ASSASSIN'S SON (A DYING KILLER SEEKS ATONEMENT BY STOPPING HIS BOY FROM BECOMING HIM, AND THE ONLY WAY IN IS THROUGH THE FATHER'S OWN SINS) (Mass Effect 2)
+- `Q219.N1` **NODE T-1 — the dying father** Entry: stage 1-2. Thane, out of time, guilty. > "You abandoned him and now he's becoming you." [gate: none] -> the inheritance: the son walking the father's road by absence and exa
+- `Q219.N2` **NODE T-2 — the confrontation** Entry: stage 4. Owning the sins. Thane, no pedestal, the son before him. > "I can't lecture him. I have to own what I did." [gate: none] -> the only path: confront the boy by namin
+- `Q219.N3` **NODE T-3 — the outcome** Entry: stage 4-5. Broken, or not. Kolyat, the first kill still pending. > (reach him, break the cycle) [gate: the truth owned] -> the son turned back; the father's atonement landin
+- `Q219.P1` **PORT 1 — ATONEMENT FOR THE NEXT GENERATION [W1, W2, W4 — the core port]** system: the fold / the dynasty spine / companions A Bohemia arc where a dying or departing figure (a parent, a prior dynast, a mentor) discovers the next generation is INHERITING t
+- `Q219.P2` **PORT 2 — THE CYCLE-BREAK IS COSTLY AND PARTIAL [F1's law]** system: the fold / the dynasty spine / companions If a quest breaks an inherited cycle, the turn is COSTLY and partial — the years of harm not erased by one confrontation — so the 
+- `Q219.P3` **PORT 3 — THE ATONEMENT SERVES THE CHILD [F2's law]** system: companions / the fold / the conduct book If a quest's atonement is aimed at the next generation, the focus stays on the CHILD, not the parent's catharsis — the owning in se
+- `Q219.P4` **PORT 4 — THE POINT OF NO RETURN PRESSES [F3's law]** system: the fold / the death-math If a quest's stakes are interrupting a point-of-no-return, that threshold is made IMMINENT — the cycle-locking act close and pressing — so the rac
+- `Q219.W1` **ATONEMENT IS FOR THE SON, NOT THE SELF** Thane acts to interrupt the harm he set in motion, not to clear his conscience — the removed "be the good father" verb is the spine.
+- `Q219.W10` **IT IS BREAK-THE-CYCLE IN ONE DYING FATHER** Owning your sins to stop your child from inheriting them — Bohemia's whole fold question of succession and the harm passed down, in an assassin's last act.
+- `Q219.W2` **THE SON INHERITS THE SINS** Kolyat walks the father's exact road by absence and example — the child follows the template, not the sermon.
+- `Q219.W3` **ONLY OWNING IT BREAKS THE CYCLE** Thane must confront the boy by naming his own crimes — no pedestal, or the truth won't land.
+- `Q219.W4` **THE AUTHORITY COMES FROM HAVING BEEN** The one voice that can say "do not become me" is the father who admits he was exactly that.
+- `Q219.W5` **THE DEATH GIVES IT A CLOCK** Thane's terminal illness means the atonement may not be completed — urgency and tragedy fused.
+- `Q219.W6` **THE FIRST KILL LOCKS THE PATH** Kolyat's impending murder is the point of no return — the cycle-locking act the father races to interrupt.
+- `Q219.W7` **THE FATHER MADE THE SON** By abandonment and example, Thane shaped the boy who is now copying him — the worst legacy is the template.
+- `Q219.W8` **RECONCILIATION IS HARD-WON** The cycle-break costs and stays partial — a lifetime of absence isn't undone in a scene.
+- `Q219.W9` **THE PLAYER ENABLES, DOESN'T RESOLVE** Shepard helps the father reach the son — the atonement is Thane's to make, not the player's to grant.
+- `Q219.X1` **KOLYAT'S TURN CAN RESOLVE TOO NEATLY, MAKING THE CYCLE-BREAK FEEL EASY** If Kolyat is talked back from his first kill in a single scene with a clean reconciliation, the profound difficulty (a lifetime of abandonment doesn't undo in one confrontation) co
+- `Q219.X2` **THANE'S OWNERSHIP CAN SLIDE INTO SELF-PITY, CENTERING THE FATHER OVER THE SON** The atonement's power is that it's aimed at Kolyat, not Thane's conscience; if the confrontation becomes Thane's emotional catharsis, it re-centers the father and the "atonement is
+- `Q219.X3` **THE FIRST-KILL DEADLINE CAN BE UNDERUSED, DRAINING THE URGENCY** The cycle-locking act (Kolyat's first murder) gives the quest its clock; if it's not made present and imminent, the race loses tension and the confrontation feels like it could hap
+
+### Q220  THE DEMANDS OF THE QUN (A SPY MUST CHOOSE BETWEEN THE MEN WHO TRUST HIM AND THE ORDER THAT GIVES HIM A SELF, KNOWING ONE CHOICE ERASES HIM) (Dragon Age: Inquisition)
+- `Q220.N1` **NODE B-1 — the two belongings** Entry: stage 1-2. Bull, spy and captain, the command coming. > "The Qun gave you your name, your role, your self." [gate: none] -> the constitution: his identity is the order's con
+- `Q220.N2` **NODE B-2 — the collision** Entry: stage 3-4. The whole vs the few. Both claims real, the men on the line. > "The command is coherent. The alliance matters." [gate: none] -> the collective's legitimate claim:
+- `Q220.N3` **NODE B-3 — the men or the self** Entry: stage 4-5. No both. Bull, the command and the crew. > (obey — sacrifice the Chargers) [gate: none] -> the self kept, the men dead; his place in the Qun intact, the betrayal 
+- `Q220.P1` **PORT 1 — THE SELF THE ORDER GAVE YOU VS THE FEW WHO TRUST YOU [W1, W3, W4 — the core port]** system: factions / the fold / companions A Bohemia arc where a character's entire IDENTITY was constructed by an institution (a faction, a faith, a collective, the Amalgamation) th
+- `Q220.P2` **PORT 2 — THE COLLECTIVE'S CLAIM IS COHERENT [F1's law]** system: factions / the fold If a quest pits a collective against the few, the COLLECTIVE'S claim is made legitimately coherent — the order's logic and the self it gives shown as re
+- `Q220.P3` **PORT 3 — THE SELF-LOSS IS FELT [F2's law]** system: the fold / companions / factions If a quest's cost is losing an institution-given self, that unmaking is FELT — the erasure of identity shown as real self-loss, not a label
+- `Q220.P4` **PORT 4 — THE FEW ARE VIVID [F3's law]** system: companions / factions If a quest weighs a collective against the few, the FEW are vivid enough to weigh — the bond and their trust made real — so the human claim balances t
+- `Q220.W1` **THE SELF IS AN INSTITUTION** The Qun gave Bull his name, role, and identity — disobeying isn't breaking a rule but losing who he is, which is the whole engine.
+- `Q220.W10` **IT IS THE-COLLECTIVE-VERSUS-THE-FEW IN ONE SPY** An institution-given self against the people who trust you — Bohemia's whole faction question of belonging and identity, on one battlefield.
+- `Q220.W2` **BOTH CLAIMS ARE LEGITIMATE** The collective's command is coherent and the crew's trust is real — neither side is the obvious right.
+- `Q220.W3` **NO CHOICE KEEPS BOTH** The removed "keep the crew and the Qun both" verb is the spine: the battlefield forces the men or the self, never both.
+- `Q220.W4` **CHOOSING THE FEW ERASES THE SELF** Saving the Chargers means becoming Tal-Vashoth — the people you love bought with who you were told you are.
+- `Q220.W5` **OBEYING KEEPS THE SELF, BREAKS THE BOND** Sacrificing the men preserves the identity and carries the betrayal — the other kind of self-loss.
+- `Q220.W6` **THE COLLECTIVE VS THE FEW IS ETERNAL** Every belonging eventually demands the choice — the quest names a permanent tension, not a one-off.
+- `Q220.W7` **THE QUN CONSTITUTES, NOT JUST EMPLOYS** Bull's sanity and self depend on belonging — which makes the choice existential, not tactical.
+- `Q220.W8` **THE CHARGERS ARE LOVED** A real crew who trust their captain — the human bond given weight against the ideology.
+- `Q220.W9` **THE PLAYER COUNSELS, BULL CHOOSES** The Inquisitor tips it but the choice is Bull's — his self, his loss.
+- `Q220.X1` **THE QUN CAN READ AS OBVIOUSLY WRONG, MAKING "SAVE THE CHARGERS" THE CLEAR CHOICE** If the collectivist order is framed as plainly oppressive, sacrificing the crew reads as obviously evil and the dilemma collapses — the power depends on the Qun's demand being genu
+- `Q220.X2` **BULL'S IDENTITY-LOSS CAN BE UNDERSOLD, MAKING TAL-VASHOTH JUST A LABEL** The cost of disobeying is that Bull loses the self the Qun constructed; if becoming Tal-Vashoth reads as merely a status change rather than a genuine unmaking of who he is, the "th
+- `Q220.X3` **THE CHARGERS CAN BE ABSTRACT, WEAKENING THE BOND'S CLAIM** The few's claim rides on the Chargers being a real, loved crew whose trust in Bull the player has felt; if they're generic mercenaries, sacrificing them is an abstraction and the h
+
+### Q221  THE ILLUSIVE MAN (A MAN WHO SPENT HIS LIFE FIGHTING THE ENEMY BECAME IT, AND STILL BELIEVES HE CAN CONTROL WHAT OWNS HIM) (Mass Effect 3)
+- `Q221.N1` **NODE I-1 — the study of the horror** Entry: stage 1-2. The Illusive Man, master of the enemy's power. > "You studied the enemy to control it." [gate: none] -> the strategy: exposure as mastery; capture and dissect to 
+- `Q221.N2` **NODE I-2 — the certainty of control** Entry: stage 4. Owned by the belief in exception. The Illusive Man, insisting he commands it. > "You think you're using it. It's using you." [gate: none] -> the inversion: the inst
+- `Q221.N3` **NODE I-3 — the bullet or the seeing** Entry: stage 4-5. Force or truth. The Illusive Man, one moment from the end. > (shoot him) [gate: none] -> the puppet ended; a man who cannot be reached, killed before he can serve
+- `Q221.P1` **PORT 1 — THE ONE WHO THINKS HE CONTROLS THE HORROR [W1, W2, W5 — the core port]** system: the Amalgamation / factions / the unrecorded ledger A Bohemia antagonist (a faction leader, a visionary, a dynast) who set out to CONTROL a horror (the Amalgamation, a corr
+- `Q221.P2` **PORT 2 — THE ARGUMENT-WIN ISN'T METER-GATED [F1's law]** system: the Amalgamation / factions If a quest's profound resolution is winning by argument, it isn't gated behind an ACCUMULATED score the player can't retroactively earn — the tr
+- `Q221.P3` **PORT 3 — THE SEDUCTION OF CONTROL IS SHOWN [F2's law]** system: the Amalgamation / the unrecorded ledger If a quest's engine is a man owned by the belief he's in control, that SEDUCTION is shown — the logic by which every step deeper fe
+- `Q221.P4` **PORT 4 — THE NOBLE AIM HAS WEIGHT [F3's law]** system: factions / the Amalgamation If a quest's tragedy is a noble goal turned into a handle, that goal is given real WEIGHT — the sincerity of the aim shown — so the horror steer
+- `Q221.W1` **HE BECAME WHAT HE FOUGHT** The Illusive Man was taken by the very enemy he studied to defeat — fighting the horror by getting close is how you become it, the whole engine.
+- `Q221.W10` **IT IS THE-OWNED-WHO-THINKS-HE-OWNS IN ONE MAN** The certainty of control as the mark of capture — Bohemia's whole Amalgamation question of who masters whom, in a fallen visionary's last stand.
+- `Q221.W2` **HIS CERTAINTY OF CONTROL IS THE PROOF OF CAPTURE** The belief that he's the exception in command is exactly the leash — the surest sign of being owned.
+- `Q221.W3` **INDOCTRINATION PRESENTS AS VINDICATION** Every step deeper felt like mastery, so he can't feel the leash — the corruption disguised as control.
+- `Q221.W4` **THE NOBLE GOAL IS THE HANDLE** His sincere aim to save humanity is what the enemy steered him by — the best intention as the mechanism of capture.
+- `Q221.W5` **THE MASTERY WAS NEVER REAL** The removed "let him keep controlling it" verb is the spine: he never controlled it; the belief was the capture.
+- `Q221.W6` **TRUTH BREAKS WHAT FORCE CAN'T** The one thing indoctrination can't survive is the victim genuinely seeing the leash — the argument-win over the bullet.
+- `Q221.W7` **THE LUCID MOMENT GRANTS AGENCY** Making him see gives him horror and a choice at the end — his own ending with clarity, not just death.
+- `Q221.W8` **HE IS THE TOO-CLOSE FIGHTER'S TRAGEDY** Not weakness or greed but the hubris of thinking exposure makes you stronger — the specific fall of the studier.
+- `Q221.W9` **HE IS NOT, IN HIS MIND, A VILLAIN** He believes he's saving everyone — which makes the confrontation a tragedy, not a defeat.
+- `Q221.X1` **THE ARGUE-HIM-DOWN PATH IS GATED BEHIND ACCUMULATED SCORES, LOCKING OUT THE PROFOUND ENDING** Reaching the Illusive Man with words requires enough accumulated reputation/points, so players without them get only the shoot option and miss the whole "the truth breaks indoctrin
+- `Q221.X2` **"HE THINKS HE'S IN CONTROL" CAN BE TOLD RATHER THAN MADE FELT** The Illusive Man's self-deception is the whole engine, but if the game only asserts his indoctrination rather than showing the seductive logic by which control felt like vindicatio
+- `Q221.X3` **THE NOBLE GOAL CAN BE UNDER-WEIGHTED, MAKING HIM A GENERIC VILLAIN** The tragedy depends on the Illusive Man's aim (humanity's survival) being genuinely noble and genuinely the handle the enemy used; if his goal reads as mere power-lust, he becomes 
+
+### Q222  LADY BOYLE'S LAST PARTY (FIND THE RIGHT TARGET AT A MASKED BALL, AND HAND HER TO THE MAN WHO WANTS HER FOR HIMSELF) (Dishonored)
+- `Q222.N1` **NODE L-1 — the identification** Entry: stage 1-2. The masquerade, three identical sisters. > "Three sisters, one mask, one target." [gate: none] -> the problem: condemn the right woman without harming the innocen
+- `Q222.N2` **NODE L-2 — the mercy revealed** Entry: stage 3-4. The horror in the kind mask. The non-lethal option, its true shape. > "The 'spare her' path hands her to a man who'll cage her forever." [gate: brisby] -> THE ONE
+- `Q222.N3` **NODE L-3 — death, the cage, or another way** Entry: stage 4-5. The masked choice. The target, the two options, the reflex. > (kill her cleanly) [gate: none] -> a clean end; the death chosen over the cage; hands bloodied but h
+- `Q222.P1` **PORT 1 — THE MERCY THAT IS A HORROR [W1, W2, W4 — the core port]** system: the conduct book / factions / the endings A Bohemia choice where the option that LOOKS merciful (spare instead of kill, the "clean" path a reward system endorses) is secret
+- `Q222.P2` **PORT 2 — THE HIDDEN HORROR SURFACES [F1's law]** system: the conduct book / the endings If a quest's power is a merciful-seeming option that's secretly a horror, its TRUE nature is discoverable before or shortly after the choice 
+- `Q222.P3` **PORT 3 — THE TARGET-CHOICE CARRIES MORAL WEIGHT [F2's law]** system: the conduct book / the unrecorded ledger If a quest requires identifying a target among innocents, the identification carries its MORAL weight — the gravity of condemning t
+- `Q222.P4` **PORT 4 — THE LETHAL OPTION CAN BE THE MERCY [F3's law]** system: the conduct book / the endings If a quest inverts mercy and cruelty, the LETHAL option is allowed to read as possibly the kinder one — death framed as a real mercy against 
+- `Q222.W1` **THE MERCY IS A HORROR** The "non-lethal" option delivers the target to lifelong captivity — the merciful-seeming path is a cruelty in a kind mask, the whole engine.
+- `Q222.W10` **IT IS THE-MERCY-IS-A-HORROR IN ONE BALL** A spared life that is a caged one, rewarded as clean — Bohemia's whole conduct-book question of what mercy actually is, at a masquerade.
+- `Q222.W2` **THE REWARD SYSTEM ENDORSES THE ATROCITY** The game's own morality meter calls handing her to a captor the "clean" choice — the complicit meter congratulating the horror.
+- `Q222.W3` **THE PLAYER'S REFLEX IS WEAPONIZED** Prior targets trained "non-lethal = merciful"; here that reflex authors a cage — the conditioning turned into a trap.
+- `Q222.W4` **NON-LETHAL IS NOT HUMANE** The removed "trust the kind label" verb is the spine: the label is not the thing; you must look at what the mercy is.
+- `Q222.W5` **DEATH MAY BE THE TRUER MERCY** A clean end may be kinder than the cage — the inversion that makes bloody hands possibly the gentler ones.
+- `Q222.W6` **THE IDENTIFICATION DOUBLES THE THEME** First be sure of the right target, then reckon that even sparing them is a condemnation — care nested in care.
+- `Q222.W7` **THE HORROR WEARS THE MASK OF KINDNESS** Brisby's "love" is a cage; the cruelty is dressed as devotion, chosen because it feels good.
+- `Q222.W8` **THE MASQUERADE IS THE PERFECT STAGE** Identical masks literalize the theme: mercy and cruelty, target and innocent, all wearing the same face.
+- `Q222.W9` **THE PLAYER AUTHORS THE FATE** Whichever path, the player chose it — the horror or the death is theirs, not the game's.
+- `Q222.X1` **MANY PLAYERS NEVER LEARN WHAT THE NON-LETHAL PATH IS, SO THE HORROR DOESN'T LAND** Because the game rewards non-lethal reflexively, players can take the Brisby option without reading the notes that reveal what they've done — so the profound "the mercy is a horror
+- `Q222.X2` **THE IDENTIFICATION PROBLEM CAN BECOME A PUZZLE DIVORCED FROM ITS MORAL WEIGHT** Picking the right sister is mechanically a deduction task; if it's framed only as a puzzle, the moral weight (you are condemning a specific person and must be sure) is lost, and th
+- `Q222.X3` **THE KILL-HER OPTION CAN READ AS SIMPLY THE BAD PATH, LOSING THE DEATH-MAY-BE-THE-MERCY INVERSION** The quest's sharpest inversion is that a clean death may be kinder than the cage; if killing is framed only as the high-chaos "evil" choice, that inversion is lost and the player m
+
+### Q223  FALL-FROM-GRACE (A SUCCUBUS PRACTICES CHASTITY NOT TO DENY HER NATURE BUT TO PROVE SHE IS MORE THAN IT) (Planescape: Torment)
+- `Q223.N1` **NODE G-1 — the succubus who doesn't** Entry: stage 1-2. Fall-from-Grace, serene and unashamed. > "You were made to seduce and drain. You don't." [gate: none] -> the inversion: a being who refuses to be the function she
+- `Q223.N2` **NODE G-2 — not your design** Entry: stage 3-4. Mastery, not denial. Fall-from-Grace, the nature re-authored. > "You took the domain of your nature and made it give instead of drain." [gate: none] -> the positi
+- `Q223.N3` **NODE G-3 — the self authored** Entry: stage 4-5. The answer to the question. Fall-from-Grace, the living proof. > (learn from her the thing that changes nature) [gate: none] -> not magic, not denial: the daily d
+- `Q223.P1` **PORT 1 — THE MADE BEING WHO AUTHORS THEMSELVES [W1, W2, W3 — the core port]** system: the Amalgamation / the fold / companions A Bohemia made being (an Amalgamation-created person, a construct, someone bred or designed for one function) who refuses to let th
+- `Q223.P2` **PORT 2 — THE DISCIPLINE IS VISIBLE [F1's law]** system: companions / the fold / the Amalgamation If a character embodies mastery-as-discipline, the ONGOING effort is felt even amid serenity — the daily choosing shown as real wor
+- `Q223.P3` **PORT 3 — SELF-AUTHORSHIP IS DISTINGUISHED FROM REPRESSION [F2's law]** system: the Amalgamation / companions If a character's restraint is self-authorship not repression, the DISTINCTION is made clear — the freedom and lack of shame shown against the 
+- `Q223.P4` **PORT 4 — THE EMBODIMENT IS A PERSON [F3's law]** system: companions / the fold If a character embodies a central theme, they remain a PERSON with their own texture — wants and flaws beyond the lesson — so the theme is lived, not 
+- `Q223.W1` **YOU ARE NOT YOUR DESIGN** A being made to seduce and drain chooses to be more — the removed "amputate or hide" verb is the spine: mastery, not denial, is the freedom.
+- `Q223.W10` **IT IS YOU-ARE-NOT-YOUR-DESIGN IN ONE SUCCUBUS** A made being who authored herself without shame — Bohemia's whole made-people question of nature, design, and self-definition, in a demon who chose.
+- `Q223.W2` **RESTRAINT WITHOUT SHAME IS SELF-AUTHORSHIP** Her chastity is not repression but daily self-definition — the discipline that proves design is a starting point, not a sentence.
+- `Q223.W3` **SHE RE-AUTHORS HER NATURE** The brothel of the mind takes the domain of her design and makes it give rather than drain — transcendence by owning, not cutting.
+- `Q223.W4` **SHE IS UNASHAMED OF WHAT SHE IS** No self-hatred, no torment — she simply refuses to let her function be her identity, which is the rare and hard version.
+- `Q223.W5` **SHE ANSWERS THE GAME'S QUESTION** "What changes the nature of a man?" — not magic, not denial, but daily disciplined choosing, embodied in a companion.
+- `Q223.W6` **DESIGN IS A QUESTION, NOT AN ANSWER** What you were made to be is what your life answers, never what it is — the deepest reframe of nature.
+- `Q223.W7` **FREEDOM IS MASTERY, NOT ABSENCE** The deepest freedom is not lacking your nature but commanding it — the counterintuitive core.
+- `Q223.W8` **THE DISCIPLINE IS DAILY** Every day she doesn't do what she was made to do proves she is more — an ongoing choosing, not a one-time escape.
+- `Q223.W9` **SHE TAKES IT UP CONSCIOUSLY** She does not flee intimacy but transforms it — owning the nature is how she becomes more than it.
+- `Q223.X1` **HER SERENITY CAN READ AS LACK OF CONFLICT, DRAINING DRAMATIC TENSION** Fall-from-Grace's peace with herself is the point (she's not white-knuckling against sin), but a character with no visible struggle can read as static or lecturing — the quest need
+- `Q223.X2` **THE "NOT SHAME, DISCIPLINE" DISTINCTION CAN COLLAPSE IF REPRESSION ISN'T RULED OUT** The whole meaning depends on her restraint being free self-authorship, not repression or self-hatred; if the game doesn't clearly distinguish her discipline from the shame-driven d
+- `Q223.X3` **SHE CAN BECOME A MOUTHPIECE FOR THE THEME RATHER THAN A PERSON** Because she so cleanly embodies the game's central question, Fall-from-Grace risks being written as a thesis with a face — a wise oracle delivering the lesson — rather than a chara
+
+### Q224  GHOSTS OF THE PAST (THE MAN WHO MURDERED YOUR FRIENDS' MASTERS DID IT TO SAVE THEM, AND YOU OWE HIM A DEBT YOU WISH YOU DIDN'T) (The Witcher 3: Wild Hunt)
+- `Q224.N1` **NODE L-1 — the reasons** Entry: stage 1-2. Letho, the hunted brother. > "You killed kings and framed me as the villain." [gate: none] -> the grievance: real harm, real chaos, legitimate cause to hate him >
+- `Q224.N2` **NODE L-2 — the mixed account** Entry: stage 3-4. Debt against grievance. Letho, killer and brother. > "You had reasons I can't dismiss, because I'm your kind too." [gate: none] -> THE ONE LINE DOING THE WORK: ha
+- `Q224.N3` **NODE L-3 — the weighing** Entry: stage 4-5. What brotherhood is worth. Letho, hunted, the choice the player's. > (help him survive) [gate: none] -> the debt and the kind honored; a brother aided despite the
+- `Q224.P1` **PORT 1 — THE ENEMY WHO IS ALSO YOUR KIND [W1, W2, W6 — the core port]** system: factions / the fold / the unrecorded ledger A Bohemia arc where an old ENEMY — someone who did real harm and gave the dynast legitimate grievance — turns out to have acted 
+- `Q224.P2` **PORT 2 — THE GRIEVANCE STAYS REAL [F1's law]** system: factions / the unrecorded ledger If a quest weighs an enemy's reasons against their harm, the HARM stays real alongside the reasons — the grievance kept legitimate, not dis
+- `Q224.P3` **PORT 3 — THE DEBT IS LEGIBLE IN-QUEST [F2's law]** system: factions / the fold If a quest's weighing depends on a prior debt, that debt is made LEGIBLE within the quest — the history surfaced for those who didn't carry it — so the 
+- `Q224.P4` **PORT 4 — THE SHARED DOOM IS VIVID [F3's law]** system: the fold / factions If an enemy's motive is saving a shared dying kind, that KIND and its doom are made vivid — the extinction and the belonging felt — so the motive reads 
+- `Q224.W1` **THE ENEMY HAD REASONS YOU SHARE** Letho acted to save your own dying kind — a motive the player understands from inside, the whole engine.
+- `Q224.W10` **IT IS THE-ENEMY-HAD-REASONS IN ONE BROTHER** A killer who is also your kind, owed and resembled — Bohemia's whole faction question of grievance, debt, and belonging, in a hunted witcher.
+- `Q224.W2` **HATING HIM IS COMPLICATED BY BEING HIM** He's a witcher, your breed, one of the last — the removed "make him a villain or victim" verb is the spine.
+- `Q224.W3` **THE GRIEVANCE IS LEGITIMATE** He did the assassinations; they caused real harm — the account isn't exculpation, it's a genuine weighing.
+- `Q224.W4` **THE DEBT IS LEGITIMATE TOO** Letho once did right by the player — a real debt that a real grievance doesn't erase.
+- `Q224.W5` **HE WAS COERCED** Forced by an overwhelming power as the price of his kind's survival — a bind the player might not have escaped either.
+- `Q224.W6` **THE ACCOUNT WON'T RESOLVE** No reading makes him clean or monstrous — the mixed ledger that refuses clean enmity or clean forgiveness.
+- `Q224.W7` **IT IS HARDEST TO JUDGE YOUR OWN KIND** Shared breed and doom make clean judgment impossible — the specific difficulty of your own.
+- `Q224.W8` **THREE WEIGHINGS, NONE CLEAN** Aid, avenge, or release — three ways to weigh brotherhood against grievance, none resolving the account.
+- `Q224.W9` **THE PLAYER DECIDES WHAT KIND IS WORTH** How much shared doom and an old debt outweigh real wrongs — the choice is a valuation, not a verdict.
+- `Q224.X1` **LETHO'S REASONS CAN EXCUSE TOO MUCH IF THE GRIEVANCE ISN'T KEPT REAL** The power depends on both the debt and the grievance staying legitimate; if the game leans so hard into Letho's sympathetic motive that his assassinations' real harm fades, the wei
+- `Q224.X2` **THE PRIOR-GAME DEBT CAN BE INVISIBLE TO PLAYERS WHO DIDN'T CARRY IT** Letho's debt and history come largely from a previous game/import; players without that context feel only the grievance and none of the debt, so the weighing is lopsided — the mixe
+- `Q224.X3` **THE SHARED-KIND MOTIVE CAN STAY ABSTRACT WITHOUT THE DYING BREED MADE VIVID** "He did it to save the last of our kind" only weighs if the player feels the reality of the dying breed and their own belonging to it; if the witchers' extinction is a lore fact ra
+
+### Q225  PAARTHURNAX (THE ORDER DEMANDS YOU KILL A REFORMED MONSTER FOR CRIMES HE SPENT CENTURIES REPENTING, AND WON'T SAY WHY THAT'S JUSTICE) (The Elder Scrolls V: Skyrim)
+- `Q225.N1` **NODE P-1 — the price of alliance** Entry: stage 1-2. The Blades, the demand; Paarthurnax, the change. > "You want me to execute the one who freed mankind." [gate: none] -> the demand: blood for an ancient crime, fro
+- `Q225.N2` **NODE P-2 — the absolutism** Entry: stage 3-4. Change can't cancel the past. The Blades, refusing to weigh or explain. > "His crimes were real. That much is true." [gate: none] -> the Blades not wrong: the atr
+- `Q225.N3` **NODE P-3 — the weighing** Entry: stage 4-5. Plant your feet. The choice, the alliance on the line. > (kill Paarthurnax) [gate: none] -> the absolutism satisfied; the past ruled permanent; a reformed monster
+- `Q225.P1` **PORT 1 — BLOOD FOR AN OUTGROWN SIN [W1, W4, W5 — the core port]** system: the conduct book / factions / the fold A Bohemia choice where an institution (a faction, an order) demands the EXECUTION of a reformed monster — someone whose atrocity was 
+- `Q225.P2` **PORT 2 — THE ABSOLUTISM IS COHERENT [F1's law]** system: factions / the conduct book If an institution demands something on absolute principle, that ABSOLUTISM is made coherent — the harsh logic of "the past is permanent" given r
+- `Q225.P3` **PORT 3 — THE REFORMED DANGER STAYS LIVE [F2's law]** system: the conduct book / the fold If a quest weighs reform against a permanent-past absolutism, the reformed one's DANGER stays live — the mastered nature still real — so sparing
+- `Q225.P4` **PORT 4 — THE PRINCIPLE COSTS THE ALLIANCE [F3's law]** system: factions / the fold If a quest's principled choice forfeits an alliance, that forfeiture COSTS — the lost aid felt — so defending the reformed one against the order is a re
+- `Q225.W1` **THE QUESTION IS WHETHER CHANGE CANCELS THE PAST** The whole quest turns on whether millennia of reform buy back the right to live — the question with no clean answer, the engine.
+- `Q225.W10` **IT IS CAN-CHANGE-CANCEL-THE-PAST IN ONE DRAGON** A reformed monster the order demands you kill — Bohemia's whole conduct-book question of penance, permanence, and forgiveness, on a frozen peak.
+- `Q225.W2` **THE CRIME WAS REAL** Paarthurnax's atrocities happened — the Blades aren't wrong, which is what makes the dilemma genuine, not a strawman.
+- `Q225.W3` **THE REFORM WAS REAL** Thousands of years of solitary, disciplined, verifiable penance — the clearest case of change a person could ask for.
+- `Q225.W4` **THE ORDER WON'T EXPLAIN** The removed "get them to admit change counts" verb is the spine: absolutism demands blood and refuses to justify why change shouldn't matter.
+- `Q225.W5` **BOTH POSITIONS ARE DEFENSIBLE** "Some crimes are unforgivable" and "proven change should count" are both coherent and irreconcilable — no right answer.
+- `Q225.W6` **HE FREED THE VERY KIND HE OPPRESSED** Paarthurnax taught humanity to break dragon rule — his good was done for those he once wronged, deepening the case.
+- `Q225.W7` **HIS NATURE STAYS DANGEROUS** A dragon's cruelty is real even mastered — the Blades' fear isn't baseless, which keeps the tension.
+- `Q225.W8` **THE PLAYER MUST PLANT THEIR FEET** No synthesis, no negotiation — comply with the absolutism or defy it, and own the answer.
+- `Q225.W9` **THE ALLIANCE IS THE PRICE** Sparing him costs the Blades' aid — the principle has a real cost, not a free stand.
+- `Q225.X1` **THE BLADES' REFUSAL TO EXPLAIN CAN READ AS BAD WRITING RATHER THAN AS ABSOLUTISM** The order's flat, unjustified demand is thematically the point (absolutism doesn't argue), but it can land as the writers failing to give the antagonists a real case — so the profo
+- `Q225.X2` **PAARTHURNAX'S REFORM CAN BE SO TOTAL IT MAKES SPARING HIM OBVIOUS** If the game presents his change as flawless and his danger as nil, killing him reads as obviously wrong and the dilemma collapses — the tension needs his nature to stay genuinely d
+- `Q225.X3` **THE ALLIANCE COST CAN BE TOO CHEAP, DRAINING THE STAKES OF SPARING HIM** If losing the Blades costs the player almost nothing mechanically, refusing the execution is a free virtue and the "you must sacrifice something real to defend your principle" weig
+
+### Q226  VIRMIRE (TWO OF YOUR PEOPLE ARE ABOUT TO DIE AND YOU HAVE TIME TO REACH ONLY ONE, SO YOU CHOOSE WHO LIVES) (Mass Effect)
+- `Q226.N1` **NODE V-1 — the countdown** Entry: stage 1-3. Two comrades, one clock. > "They're both about to die and I can only reach one." [gate: none] -> the arithmetic: two lethal positions, one timer, no time to reach
+- `Q226.N2` **NODE V-2 — the choice** Entry: stage 4. Choosing who lives is choosing who dies. The player, seconds, two people. > "Choosing who lives is choosing who dies." [gate: none] -> THE ONE LINE DOING THE WORK: 
+- `Q226.N3` **NODE V-3 — the one you carry** Entry: stage 4-5. Permanent, unfixable. The survivor, the dead, the weight. > (save the one you choose) [gate: none] -> one comrade lives; the other dead for good; the choice made 
+- `Q226.P1` **PORT 1 — SAVE ONE, LOSE THE OTHER [W1, W3, W5 — the core port]** system: the death-math / the fold / companions A Bohemia moment where two people the dynast KNOWS and values are in simultaneous lethal danger under a clock, with no trick and no t
+- `Q226.P2` **PORT 2 — THE UNDO IS DISCOURAGED [F1's law]** system: the death-math / the fold If a quest's power is a permanent self-authored loss, the design discourages the UNDO — the choice made sticky enough that the permanence is felt,
+- `Q226.P3` **PORT 3 — BOTH ARE EQUALLY VALUED [F2's law]** system: companions / the death-math If a quest forces a choice between two people, both are EQUALLY developed and valued — neither the obvious pick — so the choice is a genuine ago
+- `Q226.P4` **PORT 4 — THE NO-WIN IS STRUCTURAL [F3's law]** system: the death-math / the endings If a quest forecloses saving both, the impossibility feels STRUCTURALLY real — grounded in the situation's logic, not just an arbitrary timer —
+- `Q226.W1` **CHOOSING WHO LIVES IS CHOOSING WHO DIES** The player actively authors which comrade dies — the loss is theirs, not the situation's, the whole engine.
+- `Q226.W10` **IT IS YOU-CAN-ONLY-SAVE-ONE IN ONE MISSION** Two comrades, one clock, no trick — Bohemia's whole death-math question of who lives when you can't save everyone, in a single irreversible pick.
+- `Q226.W2` **TWO VALUED PEOPLE, ONE SAVE** Both squadmates are known and invested-in — not strangers on a trolley, which makes the arithmetic personal.
+- `Q226.W3` **THE GAME FORECLOSES THE TRICK** The removed "save both" verb is the spine: no third option, no clever out, the escape denied on purpose.
+- `Q226.W4` **THE CLOCK REMOVES DELIBERATION** Seconds, not minutes — no time to agonize into a solution, only time to pick, which is its own cruelty.
+- `Q226.W5` **THE LOSS IS PERMANENT** The dead squadmate stays dead across the trilogy — no undo, which makes the weight last and the choice real.
+- `Q226.W6` **THE SURVIVOR IS A REMINDER** The one saved carries the memory of the one who wasn't — the loss made present in later games.
+- `Q226.W7` **IT IS THE PUREST DEATH-MATH** Not abstract but two specific people, engineered to have no answer but choice — the trolley with faces you love.
+- `Q226.W8` **THE WEIGHT IS SELF-AUTHORED** The player cannot blame the situation; they chose, and the choosing is the burden.
+- `Q226.W9` **IT ECHOES FOR THREE GAMES** The choice's consequences ripple across the whole trilogy — the loss given the longest possible reach.
+- `Q226.X1` **THE RELOAD ESCAPE UNDERCUTS THE PERMANENCE FOR SOME PLAYERS** Because it's a game, a player can reload a save to avoid the loss or try to "get" a save-both outcome, and discovering none exists can read as a failure to find the solution rather
+- `Q226.X2` **IF THE TWO AREN'T EQUALLY DEVELOPED, THE CHOICE TIPS AND LOSES ITS AGONY** The dilemma's power requires both squadmates to be genuinely valued; if one is more likable or useful than the other, most players pick the obvious one and the "impossible choice" 
+- `Q226.X3` **THE CLOCK CAN FEEL LIKE A GIMMICK IF IT'S THE ONLY THING FORCING THE CHOICE** If the only reason the player can't save both is an arbitrary timer, the foreclosure can read as contrived rather than as a genuine no-win — the impossibility needs to feel structu
+
+### Q227  THE DREAD WOLF (THE FRIEND WHO GUIDED YOU ALL ALONG IS THE GOD WHOSE MISTAKE MADE THE WORLD, AND HE'LL UNMAKE IT TO FIX IT) (Dragon Age: Inquisition)
+- `Q227.N1` **NODE S-1 — the reveal** Entry: stage 1-2. Solas, the friend revealed as the god. > "You're the one who broke the world." [gate: none] -> the reveal: the trusted advisor is the ancient author of the catast
+- `Q227.N2` **NODE S-2 — the penitent's logic** Entry: stage 3-4. Guilt justifies anything. Solas, remorseful and unstoppable. > "You genuinely care for me. And it won't stop you." [gate: none] -> the inversion: he was telling t
+- `Q227.N3` **NODE S-3 — the betrayal of grief** Entry: stage 4-5. Love that dooms. The player, the friend, the apocalypse. > (mourn the friend who is the end) [gate: none] -> the kindness was real and the apocalypse is real; the
+- `Q227.P1` **PORT 1 — THE TRUSTED FRIEND WHO IS THE APOCALYPSE [W1, W2, W3 — the core port]** system: the fold / the Amalgamation / companions A Bohemia reveal where a beloved, trusted advisor (a mentor, a companion, an Amalgamation voice) is the architect of the coming cat
+- `Q227.P2` **PORT 2 — THE FRIENDSHIP IS BUILT DEEPLY [F1's law]** system: companions / the fold If a quest's power is a trusted friend's betrayal, the FRIENDSHIP is built deeply enough beforehand that the reveal is personal — the relationship inv
+- `Q227.P3` **PORT 3 — THE CARE IS PROVEN, NOT ASSERTED [F2's law]** system: companions / the fold / the Amalgamation If a quest's twist is that genuine care doesn't stop the betrayer, that CARE is proven, not asserted — the affection shown as real 
+- `Q227.P4` **PORT 4 — THE HORROR WEIGHS AS MUCH AS THE REMORSE [F3's law]** system: the Amalgamation / the endings / the fold If a quest's antagonist has coherent, sympathetic logic, the HORROR of their plan weighs equally — the cost kept as vivid as the r
+- `Q227.W1` **THE FRIEND IS THE APOCALYPSE** The trusted advisor is the architect of the world's end — the mentor-as-apocalypse, the whole engine.
+- `Q227.W10` **IT IS THE-MENTOR-IS-THE-APOCALYPSE IN ONE FRIEND** A beloved advisor who'll end the world to fix his mistake — Bohemia's whole question of guilt, love, and the danger of the one who can't forgive himself, in a quiet god.
+- `Q227.W2` **THE BETRAYAL IS GRIEF, NOT CRUELTY** He was telling the truth about caring; the horror is that he was secretly grieving, not secretly lying.
+- `Q227.W3` **HIS REMORSE MAKES HIM UNSTOPPABLE** The removed "convince him his guilt doesn't require it" verb is the spine: you can't argue a man out of a penance he's certain he owes.
+- `Q227.W4` **THE GUILT IS EARNED** Solas really did break the world — his culpability is real, which makes his atonement coherent, not delusional.
+- `Q227.W5` **HIS CARE DOESN'T STOP HIM** Genuine love, which changes nothing — the love that dooms anyway, larger forces overriding affection.
+- `Q227.W6` **THE LOGIC IS HORRIFYINGLY COHERENT** The maker must undo his catastrophe, at any cost — a penitent's reasoning that isn't easily refuted.
+- `Q227.W7` **HE TAKES NO JOY IN IT** Not malice but duty — the apocalypse as a sorrowful obligation, which is worse than villainy.
+- `Q227.W8` **THE WISEST VOICE WAS THE END** The gentlest, most trusted counsel in the player's life was always going to unmake the world.
+- `Q227.W9` **YOU CAN'T TALK HIM DOWN** His guilt is a force larger than his love and his logic is coherent — the reach that fails against certainty.
+- `Q227.X1` **THE REVEAL RELIES ON A LONG BUILD MANY PLAYERS DIDN'T FULLY REGISTER** Solas's betrayal lands hardest if the player invested in him as a friend across the whole game; players who didn't engage him deeply feel the plot twist but not the personal grief,
+- `Q227.X2` **SOLAS'S "CARE IS REAL" CAN BE ASSERTED RATHER THAN PROVEN, MAKING IT RING HOLLOW** The inversion (he really cares and it doesn't stop him) only works if the care is genuinely established; if the game tells us he cares without showing it, the "betrayal of grief" c
+- `Q227.X3` **HIS COHERENT LOGIC CAN MAKE HIM TOO SYMPATHETIC, DRAINING THE HORROR** Because Solas's guilt is earned and his logic is coherent, the game risks making him so understandable that the apocalypse loses its horror — the balance needs the monstrousness of
+
+### Q228  THE WATER CHIP (SAVE YOUR HOME FROM A DEADLINE, THEN GET EXILED BY THE HOME YOU SAVED FOR WHAT YOU BECAME OUT THERE) (Fallout)
+- `Q228.N1` **NODE W-1 — the transformation** Entry: stage 1-3. The Dweller, changed by the mission. > "The wasteland made you into something to survive it." [gate: none] -> the transformation: the innocent hardened into a kil
+- `Q228.N2` **NODE W-2 — the exile** Entry: stage 4. The savior made unfit. The Overseer, thanks and banishment. > "You can never come back inside." [gate: none] -> the exile: the reward for saving the home is banishm
+- `Q228.N3` **NODE W-3 — the door closes** Entry: stage 4-5. Sacrifice paid in belonging. The hero, alone, the home saved and lost. > (accept the exile) [gate: none] -> the permanent loss of belonging; the one who went into
+- `Q228.P1` **PORT 1 — SAVE THE HOME, LOSE THE HOME [W1, W2, W6 — the core port]** system: the fold / the dynasty spine / the endings A Bohemia arc where a sheltered dynast or heir is sent out under a DEADLINE to save their home from a fatal threat, is transforme
+- `Q228.P2` **PORT 2 — THE EXILER'S LOGIC IS HONORED [F1's law]** system: the fold / factions / the dynasty spine If a quest exiles a hero for what they became, the exiler's LOGIC is honored — the genuine incompatibility of the transformed savior
+- `Q228.P3` **PORT 3 — THE TRANSFORMATION IS LIVED [F2's law]** system: the fold / the dynasty spine If a quest exiles a savior for their transformation, that TRANSFORMATION is felt across the mission — the hardening experienced, not asserted a
+- `Q228.P4` **PORT 4 — THE HOME IS WORTH BELONGING TO [F3's law]** system: the fold / the endings If a quest's tragedy is losing your home, that HOME is established as worth belonging to — its warmth and the desire to return made real — so the exi
+- `Q228.W1` **THE TRANSFORMATION UNFITS YOU** The change required to save the vault is exactly what bars you from it — the removed "come home as who you became" verb is the spine.
+- `Q228.W10` **IT IS YOU-CAN'T-GO-HOME-AGAIN IN ONE VAULT** Save the safe place, lose your right to live in it — Bohemia's whole fold question of transformation, sacrifice, and belonging, in the taproot's first quest.
+- `Q228.W2` **SAVING YOUR HOME COSTS YOUR HOME** Success, not failure, causes the exile — the tragic price of salvation, the whole engine.
+- `Q228.W3` **THE EXILE IS INCOMPATIBILITY, NOT PUNISHMENT** The Overseer is hard but right; the shelter and the survivor genuinely cannot coexist.
+- `Q228.W4` **THE DEADLINE FORCED THE CHANGE** The thirst clock and the lethal wasteland demanded the Dweller become dangerous — the crucible that made them unfit.
+- `Q228.W5` **THEY DID EVERYTHING RIGHT** Obeyed the deadline, endured, saved everyone — and are banished for it, which is the cruelest structure.
+- `Q228.W6` **THE SHELTER EXCLUDES ITS SAVIORS** The safe world stays safe by barring the ones who paid to keep it — the structural tragedy.
+- `Q228.W7` **THE DARK-GOERS CAN'T RETURN TO THE LIGHT** Those who went out and were changed can't rejoin the innocence they preserved — the you-can't-go-home truth.
+- `Q228.W8` **THE SACRIFICE IS PAID IN BELONGING** Not death but home — the loss is exile, the rarest and quietest kind of hero's price.
+- `Q228.W9` **THE DOOR CLOSING IS THE IMAGE** The hero alone, watching the vault seal — the whole tragedy in one shutting door.
+- `Q228.X1` **THE EXILE CAN READ AS ARBITRARY CRUELTY IF THE OVERSEER'S LOGIC ISN'T HONORED** The tragedy depends on the Overseer being hard-but-right (the Dweller genuinely is now a danger to the shelter); if his reasoning isn't made coherent, the exile reads as a gut-punc
+- `Q228.X2` **THE TRANSFORMATION MUST BE FELT, OR "TOO DANGEROUS TO COME HOME" RINGS FALSE** The exile only lands if the player has actually felt the Dweller change — become hard, do brutal things — over the course of the mission; if the transformation is asserted rather t
+- `Q228.X3` **THE HOME'S WORTH SAVING MUST BE ESTABLISHED, OR THE SACRIFICE HAS NO WEIGHT** The loss of belonging cuts only if the vault is a place the player wanted to return to; if the home is never made warm or worth belonging to, the exile is a shrug rather than a tra
+
+### Q229  THE ARCHITECT (A MONSTER WHO WANTS TO FREE ALL MONSTERS FROM THE HIVE-MIND COMMITTED ATROCITIES DOING IT, AND ASKS YOU TO LET HIM KEEP TRYING) (Dragon Age: Origins — Awakening)
+- `Q229.N1` **NODE A-1 — the noble goal** Entry: stage 1-2. The Architect, the awakened monster. > "You want to free your whole kind from the compulsion." [gate: none] -> the goal: a cured horde could choose peace and end 
+- `Q229.N2` **NODE A-2 — the inseparable horror** Entry: stage 3-4. The cure and the atrocity are one. The Architect, means and end bound together. > "The cure and the atrocity are the same project." [gate: none] -> THE ONE LINE D
+- `Q229.N3` **NODE A-3 — spared or killed** Entry: stage 4-5. The wager. The Architect, the plea, the world at stake. > (spare him, let the work continue) [gate: none] -> the world bet on an unproven cure; the atrocities unp
+- `Q229.P1` **PORT 1 — THE CURE MADE BY A MONSTER [W1, W2, W6 — the core port]** system: the Amalgamation / factions / the endings A Bohemia figure who has done real ATROCITIES in pursuit of a magnificent end — freeing an enslaved kind, ending an eternal war, c
+- `Q229.P2` **PORT 2 — THE UNVERIFIABILITY IS OWNED [F1's law]** system: the Amalgamation / the endings If a quest's choice is a wager on an unverifiable outcome, the un-knowability is OWNED as the condition — the impossibility of certainty made
+- `Q229.P3` **PORT 3 — THE MEANS WEIGH [F2's law]** system: factions / the unrecorded ledger If a quest binds a noble end to monstrous means, the ATROCITIES weigh — the real, personal harm kept vivid — so sparing the maker for his g
+- `Q229.P4` **PORT 4 — THE NOBLE GOAL HAS GRANDEUR [F3's law]** system: the Amalgamation / factions If a quest's dilemma rests on a magnificent goal pursued monstrously, that GOAL is given real grandeur — the liberation and the war's end made g
+- `Q229.W1` **THE CURE WAS MADE BY A MONSTER** The Architect found the path to ending monstrousness by committing atrocities — the cure and the horror are one project, the engine.
+- `Q229.W10` **IT IS THE-CURE-IS-THE-ATROCITY IN ONE MONSTER** A world-changing good made through horror by a terrible maker — Bohemia's whole question of noble ends, monstrous means, and the wager on redemption, in an awakened darkspawn.
+- `Q229.W2` **THE NOBLE END AND MONSTROUS MEANS ARE INSEPARABLE** The removed "have the cure without the monster" verb is the spine: you can't punish the means without losing the end.
+- `Q229.W3` **THE GOAL IS MAGNIFICENT** Freeing an enslaved species to end an eternal war — not power or survival, which makes him a tragic figure, not a villain.
+- `Q229.W4` **THE MEANS ARE GENUINELY MONSTROUS** Real experiments, real dead among the player's people — the atrocity isn't softened, which keeps the dilemma real.
+- `Q229.W5` **THE PAYOFF IS UNVERIFIABLE** No one knows if freed monsters would choose peace or become worse — the bet is blind, the world at stake.
+- `Q229.W6` **SPARING HIM IS A WORLD-WAGER** Betting everything on an unproven cure and the redemption of monsters — a gamble no one can make safely.
+- `Q229.W7` **KILLING HIM ENDS THE ONLY CHANCE** Extinguishing the atrocities also extinguishes the one being who tried to end the endless war — both sides doomed.
+- `Q229.W8` **HE ASKS TO CONTINUE** Not to be forgiven but to be allowed to keep working — the plea makes the player complicit in whichever choice.
+- `Q229.W9` **HE IS A MONSTER WITH A PHILOSOPHY** Self-aware, thoughtful, sincere — the awakened one among the mindless, which makes him unclassifiable.
+- `Q229.X1` **THE CURE'S UNVERIFIABILITY CAN READ AS A DODGE RATHER THAN THE POINT** The dilemma's power is that no one can know whether freed darkspawn would choose peace, but if the game doesn't own this as the central uncertainty, it can read as the writers refu
+- `Q229.X2` **THE ATROCITIES CAN BE UNDER-WEIGHED, MAKING "SPARE HIM" TOO EASY** The dilemma depends on the Architect's crimes being genuinely monstrous and personal (real dead among the player's people); if they're abstract, sparing him for his noble goal read
+- `Q229.X3` **THE NOBLE GOAL CAN BE UNDER-SOLD, MAKING HIM A GENERIC MAD SCIENTIST** The tragedy needs the Architect's aim (freeing an enslaved species to end an eternal war) to be genuinely magnificent; if it reads as mere curiosity or power, he becomes a standard
+
+### Q230  THE COP AND THE TRIAD (AN UNDERCOVER OFFICER SPENDS SO LONG BEING A GANGSTER THAT SAVING THE PEOPLE WHO TRUST HIM MEANS BETRAYING THE PEOPLE HE SERVES) (Sleeping Dogs)
+- `Q230.N1` **NODE W-1 — the lived lie** Entry: stage 1-3. Wei, the role becoming real. > "To be convincing you had to actually become one of them." [gate: none] -> the cost: the role lived fully enough to earn real trust
+- `Q230.N2` **NODE W-2 — the collision** Entry: stage 4. Two real loyalties. Wei, unable to choose from a clean self. > "Both loyalties are real now. There's no clean me to choose from." [gate: none] -> the tragedy: not r
+- `Q230.N3` **NODE W-3 — which trust to betray** Entry: stage 4-5. No whole outcome. Wei, the choice, both sides real. > (choose the badge) [gate: none] -> the law served; the brothers who took him in as family betrayed; a cop wh
+- `Q230.P1` **PORT 1 — THE LIVED LIE THAT BECAME A REAL SELF [W1, W2, W3 — the core port]** system: factions / the fold / the conduct book A Bohemia arc where a character embedded to DECEIVE (an infiltrator, a planted agent, a false ally) lives the role so long and fully 
+- `Q230.P2` **PORT 2 — THE FALSE LOYALTY IS AS COMPELLING AS THE TRUE [F1's law]** system: factions / companions / the fold If a quest's engine is a lived lie becoming a real self, the false loyalty is made as genuinely COMPELLING as the true one — the brotherhoo
+- `Q230.P3` **PORT 3 — THE DIVISION IS FELT BUILDING [F2's law]** system: the fold / factions / companions If a quest's tragedy is a divided self forged by a lived lie, the DIVISION is felt building across the arc — the erosion experienced, not a
+- `Q230.P4` **PORT 4 — BOTH LOYALTIES CARRY MIXED WEIGHT [F3's law]** system: factions / the conduct book If a quest tears a person between two loyalties, BOTH carry mixed, genuine weight — neither purely clean nor purely corrupt — so the choice is a
+- `Q230.W1` **THE MASK BECOMES THE FACE** Living the lie long enough makes it partly true — the role becomes a second real self, the whole engine.
+- `Q230.W10` **IT IS THE-MASK-BECOMES-THE-FACE IN ONE COP** A lived lie that made a second real self and two real loyalties — Bohemia's whole faction question of divided belonging and the cost of deep deception, in one undercover officer.
+- `Q230.W2` **TWO REAL LOYALTIES, NOT ONE FAKE** Wei isn't torn between a true self and a mask; both selves are genuine — the removed "keep both" verb is the spine.
+- `Q230.W3` **EVERY CHOICE BETRAYS REAL TRUST** The gangsters' trust isn't misplaced because the brother they trust exists — so betrayal is unavoidable, whichever side.
+- `Q230.W4` **THE BONDS ARE EARNED, NOT FAKED** Wei really ran with them, bled with them — the brotherhood is real because he really lived it.
+- `Q230.W5` **THE COP IDENTITY IS ALSO REAL** The badge and the oath are genuinely his too — both claims true, which makes the tear complete.
+- `Q230.W6` **HE LOSES HIS SINGLE SELF** Deep deception costs the deceiver a unified identity — he ends as neither cleanly cop nor gangster.
+- `Q230.W7` **THE HANDLERS AREN'T CLEAN** The police use him too — the badge isn't pure, which keeps the choice from tipping.
+- `Q230.W8` **NO CHOICE LEAVES HIM WHOLE** Whichever loyalty he honors, he betrays the other and himself — the completeness of the no-win.
+- `Q230.W9` **YOU BECOME WHAT YOU PRETEND** The core truth: pretend long and fully enough and it's no longer pretending — the mask is the face.
+- `Q230.X1` **THE BROTHERHOOD MUST BE MADE AS REAL AS THE MISSION, OR THE MASK NEVER BECOMES THE FACE** The whole engine depends on the gangsters being genuinely likable and their bond with Wei genuinely earned; if they read as targets to be brought down, the "mask became a second re
+- `Q230.X2` **WEI'S DIVIDED SELF CAN BE TOLD RATHER THAN FELT ACROSS THE ARC** The tragedy needs the player to feel Wei's identity erode over time — to experience the role becoming real, not be told it did at the crisis; if the transformation is asserted at t
+- `Q230.X3` **THE POLICE SIDE BEING TOO CLEAN OR TOO DIRTY CAN TIP THE CHOICE** The dilemma needs both the badge and the brotherhood to be genuine, complicated claims; if the police are pure heroes the brotherhood choice reads as betrayal, and if they're pure 
+
+### Q231  THE EMPEROR (YOUR PROTECTOR KEEPS YOU ALIVE AND KEEPS YOU LEASHED, AND ASKS YOU TO TRUST THAT THOSE ARE THE SAME THING) (Baldur's Gate 3)
+- `Q231.N1` **NODE E-1 — the genuine help** Entry: stage 1-2. The Emperor, real protection and real terms. > "You keep me alive. That much is true." [gate: none] -> the genuine help: the protection is real; the survival isn'
+- `Q231.N2` **NODE E-2 — protection is control** Entry: stage 3-4. The same act. The Emperor, care and control as one. > "You call every controlling act 'for my safety.'" [gate: none] -> the justification: the most reasonable-sou
+- `Q231.N3` **NODE E-3 — keep the leash or take the risk** Entry: stage 4-5. Neither clean. The player, the protector, the danger. > (keep the protector) [gate: none] -> safety kept; the leash accepted; a genuinely guided, genuinely depend
+- `Q231.P1` **PORT 1 — THE GUARDIAN WHO IS ALSO A LEASH [W1, W2, W4 — the core port]** system: the Amalgamation / factions / companions A Bohemia benefactor (the Amalgamation, a patron, a protector) who GENUINELY keeps the dynast alive — shields them from a real dang
+- `Q231.P2` **PORT 2 — THE HELP IS GENUINELY VALUABLE [F1's law]** system: the Amalgamation / factions If a quest weighs a controlling benefactor's help against its leash, the HELP is made genuinely valuable and the danger genuinely real — the lif
+- `Q231.P3` **PORT 3 — THE CONTROL IS SEDUCTIVE [F2's law]** system: the Amalgamation / companions If a quest's engine is control dressed as care, the justifications are genuinely PERSUASIVE — partly true, reasonable — so "for your own good"
+- `Q231.P4` **PORT 4 — AUTONOMY CARRIES REAL RISK [F3's law]** system: the Amalgamation / the fold If a quest offers autonomy against a benefactor's safety, the AUTONOMY carries real risk — the danger of going alone felt — so choosing freedom 
+- `Q231.W1` **PROTECTION AND CONTROL ARE THE SAME ACT** The Emperor genuinely keeps the player alive while genuinely leashing them — the guardian-is-a-leash, the whole engine.
+- `Q231.W10` **IT IS PROTECTION-IS-CONTROL IN ONE GUARDIAN** A benefactor who keeps you safe and small at once — Bohemia's whole Amalgamation question of care, dependence, and the leash, in one protector.
+- `Q231.W2` **THE HELP IS GENUINE** The protection isn't a lie; without it the player is lost — which is exactly what makes the control hard to reject.
+- `Q231.W3` **THE JUSTIFICATION IS FOR-YOUR-OWN-GOOD** The most reasonable-sounding thing a controller ever says — care as the dress of control.
+- `Q231.W4` **THE LEASH IS ALSO A LIFELINE** The removed "keep protection without control" verb is the spine: the safety can't be separated from the dependence.
+- `Q231.W5` **DEPENDENCE IS COMFORTABLE AND OFTEN CORRECT** Which is precisely what makes it a cage — the short-term rightness of the leash is the trap.
+- `Q231.W6` **THE CHOICE ISN'T TRUST-A-LIAR** It's accept-or-refuse a safety that costs autonomy — a subtler, truer dilemma than unmasking a fraud.
+- `Q231.W7` **THE DANGER IS REAL** The corruption genuinely threatens the player — the leash is rational, not paranoid, which keeps the tension.
+- `Q231.W8` **AUTONOMY IS THE HARDER ROAD** Rejecting the protector means more risk and less guidance — freedom as a costly trade, not a free good.
+- `Q231.W9` **THE BENEFACTOR HAS ITS OWN AGENDA** Its help serves its ends too — a lifeline held by someone with their own purposes is a leash.
+- `Q231.X1` **THE EMPEROR'S GENUINE HELP CAN BE UNDERSOLD, MAKING REJECTION OBVIOUS** The dilemma depends on the protection being genuinely valuable and the danger genuinely real; if the Emperor reads as an obvious manipulator whose help is minor, rejecting it is ea
+- `Q231.X2` **"FOR YOUR OWN GOOD" CAN READ AS OBVIOUS VILLAINY RATHER THAN SEDUCTIVE CONTROL** The Emperor's justifications work only if they're genuinely persuasive — partly true, reasonable-sounding; if the game frames them as transparent lies, the sophisticated horror (co
+- `Q231.X3` **THE AUTONOMY PATH CAN LACK REAL RISK, MAKING FREEDOM COSTLESS** The choice matters only if rejecting the protector genuinely costs — real added danger, real loss of guidance; if freedom is safe, refusing the leash is a free good and the "safety
+
+### Q232  THE RAKGHOUL SERUM (A CURE FOR THE PLAGUE THAT TURNS THE POOR INTO MONSTERS EXISTS, AND ITS MAKER WANTS TO SELL IT, NOT SPREAD IT) (Star Wars: Knights of the Old Republic)
+- `Q232.N1` **NODE R-1 — the hoarded cure** Entry: stage 1-3. The scientist, the serum, the dying. > "You have a cure and you're selling it." [gate: none] -> the commodity: a remedy for mass suffering doled out for payment >
+- `Q232.N2` **NODE R-2 — who the cure is for** Entry: stage 4. Commodity or right. The remedy, the maker, the need. > "Does a cure belong to its maker or its need?" [gate: none] -> THE ONE LINE DOING THE WORK: the worst sufferi
+- `Q232.N3` **NODE R-3 — sold or given** Entry: stage 4-5. Perpetuate or interrupt. The player, the locked case, the dying. > (buy it, leave the system) [gate: none] -> the commodity upheld; a dose for the payer; the poor
+- `Q232.P1` **PORT 1 — THE CURE HOARDED FROM THE POOR [W1, W2, W3 — the core port]** system: the power grid / factions / the unrecorded ledger A Bohemia arc where a remedy for mass suffering (a cure, a resource, a saving technology) EXISTS but is hoarded for profit
+- `Q232.P2` **PORT 2 — THE MORAL QUESTION STAYS FOREGROUND [F1's law]** system: the power grid / the unrecorded ledger If a quest's core is a hoarded remedy, the MORAL question (commodity or right) stays foregrounded over the fetch — the injustice made
+- `Q232.P3` **PORT 3 — THE MAKER'S CLAIM WEIGHS [F2's law]** system: factions / the power grid If a quest weighs a maker's claim against the needy, the MAKER'S claim gets real weight — the labor and risk acknowledged — so freeing the cure is
+- `Q232.P4` **PORT 4 — THE UNDERCLASS HAS FACES [F3's law]** system: the power grid / factions / the unrecorded ledger If a quest's stakes are a suffering underclass, at least some of the poor are VIVID — specific sufferers, a named dying pe
+- `Q232.W1` **THE CURE IS HOARDED, NOT ABSENT** The suffering persists because the remedy is withheld for profit — the hoarding is the injustice, the whole engine.
+- `Q232.W10` **IT IS THE-REMEDY-HOARDED-FROM-THE-POOR IN ONE SLUM** A cure withheld from the dying beneath a shining city — Bohemia's whole power-grid question of who a good is for, in an undercity.
+- `Q232.W2` **THE POOR CAN'T PAY** The cure is denied to those who need it most — the priced-out dying, the sharpest form of the commodity question.
+- `Q232.W3` **WHOSE LIVES COUNT** Whether the cure is sold or given is a decision about which lives matter — the moral core.
+- `Q232.W4` **THE SCARCITY IS A CHOICE** The removed "cure everyone and keep the monopoly" verb is the spine: the hoarding IS the scarcity; you can't have both.
+- `Q232.W5` **THE SHINING CITY ARRANGED NOT TO SEE** The plague festers where the powerful don't look — the engineered blindness above the buried misery.
+- `Q232.W6` **THE PLAGUE FUSES POVERTY AND HORROR** The sick become monsters — the underclass's suffering made literal and vivid.
+- `Q232.W7` **THE MAKER HAS A CLAIM** He made it, he could profit — which keeps the choice a real dilemma, not obviously robbing a villain.
+- `Q232.W8` **THE CURE BELONGS TO ITS NEED OR ITS OWNER** The question the whole quest poses — commodity or right — enacted in one decision.
+- `Q232.W9` **THE INJUSTICE IS ENGINEERED** The tiered city and the hoarded cure are choices, not facts — the suffering is made, not inevitable.
+- `Q232.X1` **THE CURE CAN BECOME A FETCH ITEM, DRAINING THE MORAL WEIGHT** If the serum is treated primarily as a quest object the player needs (to cure themselves or pass a gate), the deeper question (who a hoarded cure belongs to) can recede behind the 
+- `Q232.X2` **THE MAKER CAN BE A CARTOON PROFITEER OR A STRAWMAN, TIPPING THE CHOICE** The dilemma sharpens if the maker has a real claim (he made it, he took the risk); if he's simply a greedy villain, freeing the cure is obviously right and the "does a cure belong 
+- `Q232.X3` **THE UNDERCLASS CAN STAY A FACELESS MASS, MAKING THE SUFFERING ABSTRACT** The stakes cut only if the dying poor are vivid enough to weigh; if the undercity is a monster-filled dungeon rather than a community of specific sufferers, freeing the cure is abs
+
+### Q233  WHODUNIT! (LOCKED IN A MANSION WITH STRANGERS YOU'RE PAID TO MURDER ONE BY ONE, YOU TURN THEIR FEAR INTO YOUR WEAPON) (The Elder Scrolls IV: Oblivion)
+- `Q233.N1` **NODE W-1 — the sealed party** Entry: stage 1-2. The trapped guests, the locked doors. > "They're strangers, sealed in, frightened." [gate: none] -> the kindling: no bonds, no trust, every reason to fear — perfe
+- `Q233.N2` **NODE W-2 — the manufactured paranoia** Entry: stage 3-4. Fear as the weapon. The assassin, sowing suspicion. > "Tell one a murderer walks among them." [gate: none] -> the whisper: planted doubt, fed fear, the group prim
+- `Q233.N3` **NODE W-3 — the mob or the blade** Entry: stage 4-5. Aimed or wielded. The guests, the fear, the empty room. > (let the paranoia do it) [gate: none] -> the guests kill each other; the assassin barely lifts a blade; 
+- `Q233.P1` **PORT 1 — THE SEALED ROOM WHERE FEAR IS THE WEAPON [W1, W2, W4 — the core port]** system: the conscience system / factions / the unrecorded ledger A Bohemia scenario where a group of trapped, frightened people (strangers, a besieged community, a paranoid faction
+- `Q233.P2` **PORT 2 — THE PEOPLE FEEL REAL [F1's law]** system: factions / the conscience system If a quest's horror is people turning on each other under fear, the people read as REAL and frightened — their panic and suspicion human, n
+- `Q233.P3` **PORT 3 — THE PSYCHOLOGICAL METHOD IS PLAYABLE [F2's law]** system: the conscience system / factions If a quest's point is fear-as-weapon, the psychological method is genuinely PLAYABLE and rewarded over brute force — the paranoia route mad
+- `Q233.P4` **PORT 4 — THE PLAYER'S COMPLICITY IS SURFACED [F3's law]** system: the conscience system / the unrecorded ledger If a quest lets the dynast weaponize others' fear, the player's own COMPLICITY is surfaced — the disturbing ease of what they 
+- `Q233.W1` **THE WEAPON IS PARANOIA, NOT THE BLADE** The assassin turns fear into the killer — manufactured suspicion is deadlier than any knife, the whole engine.
+- `Q233.W10` **IT IS FEAR-TURNS-PEOPLE-ON-EACH-OTHER IN ONE MANOR** Trapped strangers made mutual executioners by a whisper — Bohemia's whole question of manufactured paranoia and social breakdown, in a sealed party.
+- `Q233.W2` **THE HORROR IS HOW LITTLE IT TAKES** A few whispers turn trapped strangers into mutual executioners — the chilling ease of social breakdown.
+- `Q233.W3` **THE GUESTS DO THE KILLING** Ordinary, frightened people destroy each other; the assassin barely lifts a blade — the victims made complicit in their own slaughter.
+- `Q233.W4` **THE SEALED ROOM IS THE WEAPON** The removed "complete it without anyone's fear turned into a weapon" verb is the spine: the trapped, fearful space only needs aiming.
+- `Q233.W5` **FEAR DEFAULTS TO SUSPICION** Isolated and threatened, people suspect each other — the assassin only converts that suspicion into violence.
+- `Q233.W6` **THE GUESTS AREN'T EVIL** Just ordinary strangers under dread — which is what makes their turning so unsettling; anyone would.
+- `Q233.W7` **THE METHOD MIRRORS FEAR EVERYWHERE** Isolate, convince them a threat is among them, and they destroy each other — how paranoia operates at any scale.
+- `Q233.W8` **THE ELEGANT ROUTE IS THE DISTURBING ONE** The psychological method is easier and worse than the blade — the quest makes cleverness chilling.
+- `Q233.W9` **THE ONE WHO UNDERSTANDS ONLY AIMS** The assassin need not kill you, only your suspicion of each other — the deepest form of the weapon.
+- `Q233.X1` **THE GUESTS CAN BE TOO GAME-Y TO FEEL LIKE REAL PEOPLE TURNING ON EACH OTHER** The horror depends on the guests reading as ordinary, frightened people; if they behave like scripted quest-NPCs following a puzzle, the "how little it takes to make strangers dest
+- `Q233.X2` **THE PARANOIA METHOD CAN BE FIDDLY, PUSHING PLAYERS TO JUST USE THE BLADE** If sowing suspicion is mechanically clumsy or unrewarding compared to direct killing, most players take the crude route and never experience the elegant paranoia horror — so the pr
+- `Q233.X3` **THE HORROR OF THE PLAYER'S OWN COMPLICITY CAN GO UNEXAMINED** The quest can play the paranoia route as a clever puzzle without ever surfacing the disturbing thing the player just did (turned frightened strangers into murderers) — so the "look
+
+### Q234  THE ACCUSATION (YOU MUST NAME A KILLER ON EVIDENCE THAT NEVER ADDS UP, AND THE TOWN WILL LIVE WITH YOUR GUESS FOR GENERATIONS, AND YOU WILL NEVER KNOW IF YOU WERE RIGHT) (Pentiment)
+- `Q234.N1` **NODE A-1 — the incomplete evidence** Entry: stage 1-2. The investigation, the clues that won't resolve. > "The evidence never adds up, and they want a name." [gate: none] -> the bind: partial, contradictory clues, a d
+- `Q234.N2` **NODE A-2 — the forced accusation** Entry: stage 3-4. Author the truth, never check it. The player, the demanded name. > "I have to decide the truth without ever being able to verify it." [gate: none] -> THE ONE LINE
+- `Q234.N3` **NODE A-3 — the generations and the silence** Entry: stage 4-5. The permanent not-knowing. Years later, the town, the withheld truth. > (live in the not-knowing) [gate: none] -> the verdict authored on a guess, never confirmed
+- `Q234.P1` **PORT 1 — THE VERDICT AUTHORED ON A GUESS, NEVER CONFIRMED [W1, W4, W5 — the core port]** system: the conduct book / the unrecorded ledger / the fold A Bohemia investigation where the dynast is FORCED to name a culprit on incomplete, contradictory evidence before a dead
+- `Q234.P2` **PORT 2 — THE UN-KNOWABILITY IS OWNED [F1's law]** system: the conduct book / the unrecorded ledger If a quest's power is a permanently withheld truth, the un-knowability is OWNED as the condition — the weight of judging-without-pr
+- `Q234.P3` **PORT 3 — THE FORCED VERDICT IS GROUNDED [F2's law]** system: the conduct book / factions If a quest forces a verdict on incomplete evidence, the PRESSURE to decide is grounded — the real reason a name can't be deferred made legible —
+- `Q234.P4` **PORT 4 — THE VERDICT OUTLIVES THE CHOICE [F3's law]** system: the fold / the unrecorded ledger / the conduct book If a quest's weight is a verdict carried for generations, the LONG-TERM consequence is shown and felt — the accusation's
+- `Q234.W1` **YOU DECIDE THE TRUTH WITHOUT VERIFYING IT** A name is forced on incomplete evidence and never confirmed — the unverifiable judgment, the whole engine.
+- `Q234.W10` **IT IS DECIDE-AND-NEVER-KNOW IN ONE TOWN** A verdict authored on a guess and carried for generations — Bohemia's whole unrecorded-ledger question of who the record convicts, made the capstone of the conduct book.
+- `Q234.W2` **AN INNOCENT MAY PAY** The accused may be guiltless and is executed anyway — the stakes of a verdict authored on a guess.
+- `Q234.W3` **THE TOWN CARRIES IT FOR GENERATIONS** The accusation shapes the community for decades — the generational ledger of an uncertain judgment.
+- `Q234.W4` **THE TRUTH IS WITHHELD FOREVER** The removed "find out for certain" verb is the spine: no reveal, no epilogue, no confirmation, ever.
+- `Q234.W5` **THE WEIGHT IS THE NOT-KNOWING** Not being wrong but never being allowed to know — the true, rare burden the quest makes the player carry.
+- `Q234.W6` **A NAME MUST BE GIVEN** "I'm not sure" is not allowed; the decision can't be deferred — the forced authorship of a verdict.
+- `Q234.W7` **THE EVIDENCE NEVER RESOLVES** Partial, contradictory, inconclusive — no path to proof, which is the honest condition of most real judgment.
+- `Q234.W8` **TIME IS THE CRUELEST STROKE** The player returns years later and sees the verdict still shaping lives — the accusation's permanence made visible.
+- `Q234.W9` **IT MIRRORS EVERY REAL JUDGMENT** Deciding with incomplete information and lasting stakes, never confirmed — the universal condition of judging.
+- `Q234.X1` **THE PERMANENT WITHHOLDING CAN READ AS THE GAME NOT HAVING AN ANSWER RATHER THAN AS THE POINT** The refusal to ever confirm the killer is the thesis, but a player can experience it as the writers not bothering to resolve the mystery rather than as the deliberate condition (yo
+- `Q234.X2` **THE FORCED DEADLINE CAN FEEL ARBITRARY IF THE PRESSURE ISN'T GROUNDED** The "you must accuse now, on incomplete evidence" bind only lands if the pressure to name someone is structurally real (the authority, the town's demand, the danger of no verdict);
+- `Q234.X3` **THE GENERATIONAL CONSEQUENCE CAN BE UNDERPLAYED, DRAINING THE VERDICT'S WEIGHT** The unique power is seeing the accusation shape the town for decades; if the long-term consequences are thin or easy to miss, the "the community carries your guess for generations"
+
+### Q235  FROM THE GRAVE TO THE HUNT (A BLACKSMITH'S SON WATCHES HIS TOWN AND HIS PARENTS BUTCHERED, AND IT IS NOT REVENGE BUT A STRANGER'S SMALL, GROUNDED ERRAND THAT PULLS HIM OFF THE GRAVE AND BACK INTO A LIFE) (Kingdom Come: Deliverance)
+- `Q235.N1` **NODE A-1 — the ordinary life and its taking** Entry: stage 1-2. The warm mundane day; then the raid and the powerlessness. > "Spend real time making an ordinary life dear before you take it." [gate: none] -> the investment: th
+- `Q235.N2` **NODE A-2 — the grave and the empty after** Entry: stage 3-4. The grief made physical. The burial by hand; the waking hollow in a strange place. > "Bury them yourself, with your hands, slowly." [gate: none] -> THE ONE LINE D
+- `Q235.N3` **NODE A-3 — the first errand** Entry: stage 5. The thread back into a life. A captain, a lord, a small grounded task. > "Pull them back with an errand, not a trumpet." [gate: none] -> the turn: purpose arrives a
+- `Q235.P1` **PORT 1 — THE NEIGHBOR'S FIRST ERRAND PULLS YOU OFF THE GRAVE [W4, W6, W9 — the core port]** system: the fold / companions / the family core Bohemia's opening IS this machine. After the raid takes a sibling and the family buries them on the ridge, the player sits in grief 
+- `Q235.P2` **PORT 2 — THE WARM BEFORE EARNS ITS LENGTH [F1's law]** system: the family core / the opening The lost life must be bought in warmth before it is taken, but SHORT and interactive, not an hour of chores. Bohemia's match-cut childhood din
+- `Q235.P3` **PORT 3 — THE AUTHORED LOSS READS AS TRAGEDY, NOT A STOLEN SAVE [F2's law]** system: the family core / the pacifist path The sibling's death is authored and unpreventable, but it must never feel like the game cheating the player of a save. Bohemia's fix: th
+- `Q235.P4` **PORT 4 — THE FIRST QUEST HAS PURPOSE, NOT BUSYWORK [F3's law]** system: companions / the fold / the neighbor bond The task that pulls a grieving protagonist back must carry real purpose and be handed over by someone who needs them, its reward e
+- `Q235.W1` **IT BUYS THE LOST LIFE IN ORDINARY TEXTURE** A mundane dear day is played before it is taken — the whole loss lands because the warmth was earned first.
+- `Q235.W10` **IT IS THE WHOLE FOUNDING MACHINE IN ONE MORNING** Ordinary life, powerless loss, physical grief, and the grounded first errand — the exact shape of Bohemia's opening and the seed of a hundred-hour rise.
+- `Q235.W2` **THE LOSS IS POWERLESS AND CLEAN** Henry cannot save his family; the death belongs to the attackers, never to the player's failure — grief without resentment.
+- `Q235.W3` **THE GRIEF IS PERFORMED, NOT WATCHED** Burying the parents by hand makes the loss a slow physical act the player carries, the opposite of a skipped cutscene.
+- `Q235.W4` **THE RETURN IS AN ERRAND, NOT A TRUMPET** Purpose arrives as a small grounded task from someone who needs you — the honest way people re-enter life after catastrophe.
+- `Q235.W5` **IT REFUSES REVENGE-FANTASY SHORTCUTS** No chosen-one call, no vengeance montage; the pull back is ordinary and human, which is why it is believed.
+- `Q235.W6` **THE FIRST TASK HAS PURPOSE TIED TO THE LOSS** Find where the raiders came from — grounded work threaded to what was taken, so action is earned, not busywork.
+- `Q235.W7` **THE RISE STARTS FROM ABSOLUTE ZERO** A blacksmith's son with no skill; the climb is long and real because the floor is truly the floor — the fold's rise-from-nothing.
+- `Q235.W8` **THE MENTOR NEEDS YOU, NOT SAVES YOU** The captain and lord hand tasks out of ordinary use, so the bond is reciprocal from the first beat, not charity.
+- `Q235.W9` **GRIEF IS WALKED OUT OF, NOT CURED** The removed "bring the dead back" verb is the spine: nothing returns them; you move forward one task at a time.
+- `Q235.X1` **THE LONG MUNDANE OPENING CAN READ AS A SLOG BEFORE THE PLAYER IS INVESTED** The warm ordinary hour is the entire emotional investment, but a player who does not yet care about Henry can experience the chores-and-errands intro as a slow, boring tutorial tha
+- `Q235.X2` **THE AUTHORED POWERLESSNESS CAN FEEL LIKE THE GAME STEALING AGENCY RATHER THAN AS TRAGEDY** Forcing the family's death and denying the player any chance to save them is what keeps the loss clean, but a player used to earning outcomes with skill can read the unwinnable rai
+- `Q235.X3` **THE GRIEF-TO-ACTION TURN COLLAPSES IF THE FIRST ERRAND IS HOLLOW BUSYWORK** The return to life works only because the first task carries purpose tied to the loss; if the pull-you-back quest were a trivial fetch errand with no connection to what was taken, 
+
+### Q236  THE HALL AND THE HAGGLE (THE BATTLE BROTHERS CONTRACT SYSTEM) (Battle Brothers)
+- `Q236.N1` **NODE BB-1: the hall** Entry: stage 2, the player taps the hall. A list of faces, each with a one-line problem and skulls. > tap a contract [gate: none] -> BB-2 > tap one while another contract is active
+- `Q236.N2` **NODE BB-2: the offer screen** Entry: a contract tapped. The client states the problem in a few lines, the pay, the mode. Paraphrased shape: brigands took the road; the elder will pay so much when their heads ar
+- `Q236.N3` **NODE BB-3: the haggle** Entry: negotiate chosen. Each ask adds 3 to 6 annoyance; fail chance = annoyance x 0.1 [V]. > "More pay." [gate: none] -> on success the fee rises; the client's portrait and line s
+- `Q236.N4` **NODE BB-4: the twist** Entry: mid-job flag. Examples [R]: the caravan guards turn on you; a rival company demands the pay; the kidnapped daughter left willingly. > fight [gate: none] -> the job continues
+- `Q236.N5` **NODE BB-5: the hand-in** Entry: target done. > "Pay." [gate: job done] -> crowns, renown, relations [V] > the client refuses [gate: twist] -> > take it by force (relations collapse, the pay is yours) > lea
+- `Q236.P1` **PORT 1: THE HALL IN THE SETTLEMENT SCREEN [W1, W2]** system: the fourteen home bases (third votes), the settlement screen, WORLD's situations Each home base has one building that holds the asks; its offers are generated from that bas
+- `Q236.P2` **PORT 2: THE FACE WITH A CEILING, NOT A DICE ROLL [W4, W5, F1]** The client's portrait shows mood; the first "more" lands, the second shows the ceiling in a line ("That's the top. Take it or don't."), a third ends the offer. Deterministic, reada
+- `Q236.P3` **PORT 3: DECLINE WRITES NOTHING [W7]** Walking away writes no ledger byte; only accept, finish, fail and drop are deeds. Matches QR-A.
+- `Q236.P4` **PORT 4: THE RESULT IS THE BASE'S NEW SITUATION [W8]** A finished pump job flips the base from "dry" to "running" and its price for water drops; a failed one lets the roaming party take the pump. Cross-ref the future goes both ways (th
+- `Q236.P5` **PORT 5: ADVANCE AS AN HONEST LOAN [W6, F1]** An advance is shown as what it is: one battery now, one less at the end, no rounding loss. QR-L owns the numbers; TUNING owns the values.
+- `Q236.W1` **THE BOARD IS THE WORLD'S CURRENT PROBLEMS** Contracts are generated by settlement situations and write situations back; the hall is a readout of the map, not a quest list.
+- `Q236.W10` **THE WAGE TREADMILL MAKES CONTRACTS MATTER** Money out every day means every offer is weighed, not skimmed.
+- `Q236.W2` **ONE CONTRACT AT A TIME** A single active job keeps the player's promise legible and the map uncluttered; the greyed button teaches it without a speech.
+- `Q236.W3` **THE SKULLS ARE A READING** Danger is stated before the yes in one glyph, so "too strong for me" is the player's informed call.
+- `Q236.W4` **THE FACE IS THE NEGOTIATION UI** A portrait whose mood shifts per ask makes a number feel like a person's patience.
+- `Q236.W5` **GREED HAS A CLOCK** Annoyance 3 to 6 per ask, a failure chance that grows, thrown out at 9: asking for more is a gamble with a visible cost.
+- `Q236.W6` **THE PAYMENT MODE IS A CHOICE ABOUT RISK** Up front, on completion, or per head lets the player bet on his own company.
+- `Q236.W7` **THE ACCEPT BUTTON IS THE ONLY PROMISE** Browsing, reading and haggling are free of commitment; failing after accept is what costs.
+- `Q236.W8` **THE OUTCOME CHANGES THE MAP** Supplied castles and burned granaries turn a finished job into prices and boards the player meets later.
+- `Q236.W9` **RENOWN GATES THE TIERS** Bigger clients appear as the company grows, so the board is its own progression without a quest log.
+- `Q236.X1` **THE HAGGLE IS SOLVED MATH** Players publish the numbers (the Steam "Negotiation Mechanics" thread) and conclude only one option is a net gain; the advance loses money to rounding [V]. Once solved, the face st
+- `Q236.X2` **THE TWIST IS A TEMPLATE** Veteran players describe the contraband caravan and the bigger camp as expected beats; the turn stops being news after the tenth time [R]. LAW: ration the twist to a minority on an
+- `Q236.X3` **THE CLIENT IS A VENDING MACHINE** The elder has a portrait and a mood, but no want beyond the fee, no memory beyond a relations number, and no life on the map [R]. LAW: the client is a person in a place with a want
+- `Q236.X4` **THE CRUNCH FORCES THE YES** The daily wage burn makes refusing expensive in practice; the decline is free in the ledger but not on the treasury [R]. LAW: keep the pressure but keep a second income (scavenge i
