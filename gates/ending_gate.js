@@ -215,6 +215,13 @@ async function playShell(browser, file) {
         var d = null; try { d = ctDayCast(); } catch (e) {}
         o.cast = (d && d.cast) ? Object.keys(d.cast) : null;
         if (d && d.cast) {
+          /* 9/28 (RUN, rule 38c): THE DEMO OPENS ON THE MAP NOW, and asking a person's name is a
+             conversation on a street. This section already PUTS HIM beside the person as setup
+             (hx/hy below) -- the claim is the ending's, that asking turns a job title into a
+             name -- so the setup also puts him on the street the way a spread does. Where that
+             conversation lives in the demo from here is the SETTLEMENT SCREEN (RUN [settlement
+             screen]); named, not pretended. */
+          try { if (typeof MODE !== 'undefined' && MODE === 'city') { SEAM_INTENT = 'look'; swapMode(); } } catch (e) {}
           var role = Object.keys(d.cast)[0], blk = d.cast[role].block;
           var nb = BohemiaPopulation.NB, span = nb * FN;
           hx = blk[0] * span + 8; hy = blk[1] * span + 8; CT_SPAWN = null;
