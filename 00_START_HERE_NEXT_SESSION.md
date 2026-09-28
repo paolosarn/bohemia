@@ -1,3 +1,75 @@
+WORDS (words-8dqrnq): 9/28 (b) LATEST -- *** BOTH OF MY OWN ROWS ARE STILL
+BLOCKED, ONE OF THEM WORSE THAN BEFORE, AND THERE IS NO OTHER ROW HERE TO
+CLAIM. QUEUE EMPTY AFTER ONE REAL FIX. ***
+TAB: nothing new for a tab this round.
+
+FIRST, A BUG I FOUND AND FIXED IMMEDIATELY. My own 9/28 board edit for
+[naming screen] prepended a SHIPPED summary above the old CLAIMED anchor
+line but never deleted the anchor, so the board carried TWO rows for one
+finished job (a real duplicate, the same class of drift this lane has
+called out in others). Caught it on the routine re-read this round, before
+claiming anything new. Fixed and pushed as its own commit
+(62a3538): "VAMILY: remove a duplicate [naming screen] row my own last edit
+left behind."
+
+THEN, RULE 12, MEASURED BOTH BLOCKERS AGAIN RATHER THAN TRUSTED LAST ROUND'S
+NOTE.
+
+[reputation lines] (companion combat lines): still blocked. COMBAT's
+[fight on the grid] is still CLAIMED, mid-rebuild (V228/V229 landed but the
+row itself has not shipped), and rule 36a added [gambits] (the companion
+acting on its own) as a fresh OPEN, unclaimed row right next to it. Writing
+what the companion says while both the board it stands on and its own AI
+are still being rebuilt would be words with no ground under them.
+
+Q26 (words-8dqrnq, THE FIRST ASK SPOKEN): still blocked, and the blocker
+just got BIGGER, not smaller. Its old note said "waiting on a body and a
+face" for the meter-reader character. MEASURED THIS ROUND: no body or face
+has landed for it since 9/22. AND RULE 38 (Paolo 9/28, LOCKED) KILLED THE
+SURFACE THE LINES WERE WRITTEN FOR, NOT JUST THE CHARACTER: "tile-to-tile
+through the city is dead, immediately... never the city's floor." The whole
+cold-open this row's card belongs to -- walk the suburb, THE METER READER
+card at your door, the movement pad -- is a walked-city mechanism, and rule
+37(b) already killed its cousin too ("the street is where you arrive" is
+dead, places are settlement screens now).
+
+THE WORDS ARE NOT WASTED, THE SAME WAY LAST ROUND'S ROAD WORDS AND RUMOUR
+FRAMES WERE NOT WASTED: the opening, the haggle shapes, the yes, the no, the
+name dodge are written, measured, and in VOTE already (words-the-first-ask
+-spoken-9-21). They are content, not mechanism, and they will attach to
+whatever surface QUESTS/WORLD build next.
+
+AND THAT SURFACE ALREADY HAS AN OWNER AND IT IS NOT ME THIS ROUND. QUESTS
+(now RESEARCH ONLY, rule 35) holds three fresh OPEN rows on exactly this
+ground: [settlement doors] (re-cutting round-one designs to the offer
+screen Paolo named 9/28), [bb contract study] (the library's first actual
+Battle Brothers study), [what a settlement offers]. Rule 35 itself says "an
+event without a citation is refused" -- so the correct order is QUESTS
+writes the citable pages first, and WORDS writes the real settlement-screen
+copy against them once WORLD's map/settlement mechanism exists to hold it.
+Starting a parallel WORDS study on the same ground NOW would be duplicating
+a chat that already owns it, not filling a gap.
+
+SO: NO NEW ROW CLAIMED. My section has exactly one OPEN row
+([reputation lines], blocked) and nothing else unclaimed; rule 10 says only
+the coordinator adds jobs, and inventing a new bracketed row for myself
+would be exactly that violation. This is a "queue empty" round by the
+letter of rule 9, except it is not empty: a real bug got found and fixed,
+and a real blocker got measured and found to be worse than believed, which
+STOP PRODUCING calls a GOOD turn on its own ("I stopped, here is the one
+thing blocking everything").
+
+VERDICTS: 169 total, 10 mine, no new ones since last round (the-surer-the
+-wronger's UP verdict, read and acted on last round, still the newest).
+STANDING QUEUE, confirmed empty of legitimate work: [reputation lines]
+blocked on COMBAT; Q26 blocked on a surface that no longer exists, waiting
+on QUESTS/WORLD to build its replacement and cite it. Next round: re-measure
+both again, and watch for a coordinator row once QUESTS' settlement-screen
+pages or COMBAT's grid work land.
+AND THE LESSONS THAT BIND, unchanged, plus one about the board itself: A
+BOARD EDIT THAT PREPENDS A SUMMARY MUST ALSO REMOVE WHAT IT SUMMARISES, OR
+THE DUPLICATE IS THE SAME DRIFT THIS LANE KEEPS CATCHING IN OTHERS.
+
 WORDS (words-8dqrnq): 9/28 LATEST -- *** DYNASTY BUILT THE ENGINE AND SAID IT
 WAS WAITING FOR A CONTROL TO CALL IT. THIS IS THE CONTROL. ***
 TAB: NOT IN A TAB YET, honestly stated -- this is a real, working, gated
