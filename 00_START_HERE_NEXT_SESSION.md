@@ -8526,6 +8526,58 @@ it is player-facing at all is worth deciding before restyling it. The source cou
 now understood as dead-declaration debt and can be swept file-wide in one pass instead of
 being chased surface by surface.
 
+RUN (run-eak241): 9/28 LATEST -- *** [bb map] ROUND ONE AND [no city walk]'S DEMO HALF SHIPPED:
+THE DEMO OPENS ON THE MAP, AND A TAP IS HOW YOU TRAVEL. TAB: the DEMO link (and CITY in the
+alpha, the same map). Nothing to judge. ***
+
+PAOLO 9/24 (rule 33): "a party marker, tap where to go, time passes, roads faster than dirt."
+PAOLO 9/28 (rule 38): "your character moving tile to tile throughout the city, it's not gonna be
+like that anymore, that has to change immediately."
+
+MEASURED FIRST: seven of the nine things [bb map] names already existed on the far view (his
+pin, 28 parties with their own business, their tracks, town rings, the phone on the map only, a
+press moving the marker one block, the seam landing him on the street). TWO WERE MISSING: a tap
+on the map selected a builder plot the demo strips (CB.sel [27,35], moved 0 cells, nothing
+answered), and the map charged a typed 10 minutes a block whatever the ground.
+
+SHIPPED: a tap sets a route (BFS over cityWalkable using the pad's own 8 moves) walked on the
+beat through the same stepOnce, so every block pays its clock and fires the road; roads 5.38
+min a block, dirt 10.75 (FN x MIN_PER_CELL, x PAVED_SPEED.factor -- the street's numbers, one
+place); the route draws ahead as thin dots and a ring and shortens as he walks, under
+ANIMATION's gliding pin; a second tap stops; a fight ends the journey at cityHandOver, the one
+door. THE DEMO OPENS ON THE MAP (demoOpensOnMap on CT_IS_DEMO), the cutter strips #nav (the
+walk pad and DROP IN), and a spread on the demo's map never crosses into a walked street. The
+loading screen's last stage asked for barks the map never draws, so the door NEVER OPENED on the
+first cut; on the map it asks for the parties now.
+
+THE FIRST JOURNEY MET A FIGHT 5 s AFTER THE TAP (a dead casino security bot). The stranger's
+list's oldest line, "no fight in five minutes", is off it.
+
+GATE: THE MAP IS HOW YOU TRAVEL, 17/0, new, registered slow. Four mutations, each caught and
+restored: the flat 10 back -> 2 red; the tap back to plot selection -> 5 red; a fight that does
+not end the journey -> 1 red; the demo opening on the street -> 6 red.
+
+RULE 13, EVERY RED NAMED: 585 checkers run here AND on main without this change. 21 went red
+because the demo stopped walking; all re-aimed to his ruling, none loosened -- street ones to
+the ALPHA where the street still is, stranger ones to the map, and the phone-speed harness
+(gates/bohemia_phone_perf.js, PLUMBER's) counts the party moving as the demo's first play. One
+was a real latent defect in another lane's work: the naming screen's reshuffle mark U+27F3 is not
+in the phone's ROM face (no circular arrow is); it had never been on screen until the phone was;
+now '?' -> WORDS/DYNASTY [three names], UI [glass face] if a real reroll arrow is wanted.
+8 were load (pass alone). LOOK and REACHABILITY are mtime artefacts of a working tree. 238 were
+red on main before and are not this lane's (loudest cause: checkers still pressing #daycardIn).
+Record: records/BOHEMIA_BB_MAP_SCHOOL_9_28_26.md (school, library cited, s8 the accounting).
+
+NOT DONE, SAID PLAINLY: arrival is a line, not the settlement screen; the first person stood at
+his door on the street and is not in the demo until the settlement screen holds him; the
+companion is not on the marker; night does not slow travel (TUNING's number); the map draws at
+~7.5% of BB's pixel floor (DIRECTION [bb density]); the walked street is still in the ALPHA and
+has not gone to archive/.
+
+NEXT: [settlement screen] -- arrival opens the place (school from library 01/10 first, then the
+place drawn alive, buildings tappable, the first person in it); then the rest of [no city walk]:
+the walked street to archive/ from the alpha too, with the gates that now measure it there.
+
 RUN (run-eak241): 9/27b LATEST -- *** [two scales] THE STEP HALF SHIPPED: ONE PRESS IS ONE
 CELL, AND THE NUMBER THAT WAS WRONG WAS THIS LANE'S OWN. TAB: RUN (and CITY, the same world
 zoomed out). Nothing to judge. ***

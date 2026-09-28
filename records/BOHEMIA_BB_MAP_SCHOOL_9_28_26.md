@@ -108,11 +108,14 @@ Every red was run twice, on this tree and on main without it, and only the ones 
 main and red here are counted as mine. **736 checkers in the table; 585 run (every one
 that reads a surface this round touched), 151 that read none of them skipped.**
 
-- **Mine, and fixed by following the ruling, never by loosening (19):** BAR FITS GLASS
+- **Mine, and fixed by following the ruling, never by loosening (21):** BAR FITS GLASS
   (the phone leg now holds both halves of his 9/23 ruling: none on a street, drawn on
   the map), SCREEN FACE (the reshuffle mark `⟳` is not in the phone's own face; it had
   never been on screen before the demo opened on the map; now `?`), THE FOUR THINGS
-  (the pad moves to GONE, a tap on the map is proved instead), STRANGER OPENS (no walk
+  (the pad moves to GONE, a tap on the map is proved instead), NOTHING POPS UP (five
+  minutes of touching the map, 0 cards; the phone is measured before he travels, because a
+  road fight holds him and covers it), THE SCREEN HOLDS THE LOADING (on the map the people
+  already there are the parties), STRANGER OPENS (no walk
   pad, the map takes the finger, a tap moves the party), COLD HAND (on the map the map
   is the control), FIGHT FLOOR CACHE (the phone-speed harness now counts the party
   moving as the demo's first play). Moved to the ALPHA, where the walked street still
