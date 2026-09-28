@@ -777,6 +777,22 @@ GATES = [
      'take the newest `from` instead of the oldest -> 4 (a real bug this gate caught in its own '
      'module: a middleman cancels out and the net lies); give the taker\'s tier to the ground -> 1 '
      '(which passed until the tier check stopped using a fortress cell to test fortress).', True),
+    ('HOME BASES', ['node', 'gates/homebases_gate.js'],
+     'ROWS [home bases] (the map\'s marker list) and [territory ledger] (RE-AIMED 9/28 to record who holds '
+     'which HOME BASE), Paolo 9/27, rule 37e: fourteen home bases, taken or ruined as a whole, the hard ones late '
+     'in an act, no text he did not ask for. MEASURED FIRST: the 28 roaming parties are a FIXED ROSTER, built once '
+     'and walking for ever, so a base that fell would keep sending its patrols; in Battle Brothers a location buys '
+     'parties out of what it has and is weaker until they return. THREE CHECKS THIS EXISTS FOR: the empty ledger is a '
+     'NO-OP against the real valley (14 held, 0 of 28 parties silenced); a party exists because its base still holds '
+     'it; and A DEAD SHAPE DOES NOT COME BACK: the logic reads no cell, no grid, no per-lot ownership, and nothing but '
+     'five named files touches the superseded 9,216-cell ledger. The hard-ones-late cut is his own DEPTH thirds and moves '
+     'with that table; how far through an act is the CALLER\'S and its absence answers null, never a guess. A marker is ids, '
+     'classes and numbers, never a sentence. Red twenty ways: run the act backwards -> 1; allow a change that changes '
+     'nothing -> 3; take `from` on the caller\'s word -> 1; let a ruin fall twice -> 1; move into a ruin in the act it fell '
+     '-> 2; read ignoring the act -> 1; forget who lost a base -> 3; silence everybody on an empty ledger -> 3; type the '
+     'fortress threshold -> 1; type every threshold -> 1; guess a missing clock -> 2; raid a ruin -> 2; put a label on a '
+     'marker -> 2; put a sentence on a party -> 1; let a fallen base keep sending -> 4; read a cell -> 1; require the dead '
+     'ledger -> 1; shuffle the list -> 1; keep junk on load -> 1; mark a ruin as held -> 3.', True),
     ('PLACES ARE BLOCKS', ['node', 'gates/places_are_blocks_gate.js'],
      'RULE 33h, the REVAMP LIST\'s rebuild line: "PLACES (WORLD, LIFE+CITY): a place is a '
      'block with its buildings as services; the shop, the shed, the pump, the fortress are the '
