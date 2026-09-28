@@ -1,0 +1,81 @@
+<!doctype html><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>BOHEMIA — Two Moves That Were Dead</title>
+<!-- ANIMATION, [small clips] round three, 9/28, at FULL DETAIL (rule 37a killed the
+     one-cell sprite). RULE 25: IT PLAYS, on the 120 beat. No control. -->
+<style>
+  :root{--ink:#e8e0cc;--bg:#0d0d12;--card:#16161d;--line:#33313d;--gold:#c79a3f}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+       font:13px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace;padding:14px}
+  h1{font-size:13px;letter-spacing:2px;margin:0 0 4px;color:var(--gold)}
+  p{margin:0 0 12px;color:#a49a86;max-width:60ch}
+  b{color:var(--ink)}
+  .said{border-left:2px solid #7a4a4a;padding:6px 0 6px 10px;margin:0 0 14px;color:#b09a90}
+  .oops{border-left:2px solid #c79a3f;padding:6px 0 6px 10px;margin:0 0 14px;color:#cbb88f}
+  .clip{background:var(--card);border:1px solid var(--line);border-radius:6px;
+        padding:8px;margin-bottom:10px}
+  .name{font-size:11px;letter-spacing:2px;color:var(--gold);margin-bottom:6px;
+        display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+  .sub{color:#6f6862;font-size:10px;letter-spacing:0;text-align:right}
+  .pair{display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end}
+  .side{text-align:center}
+  .lab{font-size:10px;letter-spacing:1px;margin-bottom:3px}
+  .old{color:#9a6b6b}.new{color:#7fa06b}
+  .big{width:112px;height:112px;image-rendering:pixelated;background:#101319;border-radius:3px}
+  .real{width:28px;height:28px;image-rendering:pixelated;background:#101319;border-radius:2px}
+  .beat{height:3px;background:#2a2833;border-radius:2px;margin:12px 0 2px;overflow:hidden}
+  .beat i{display:block;height:100%;width:8.333%;background:var(--gold)}
+  .note{margin-top:12px;color:#6f6862;max-width:60ch}
+</style>
+<h1>TWO MOVES THAT WERE DEAD</h1>
+<div class="said">Your call: no tiny Atari guy. Same character, full detail.</div>
+<div class="oops">Heard. The one-cell version is in the graveyard and every picture
+on this page is the full-size body.</div>
+<p><b>Bracing</b> (getting ready to take a hit) was two pictures in a whole bar, and
+facing you it moved 1 percent of his body. That is how still a guy aiming a gun
+is on purpose. Now he plants, drops his weight, tightens, resets.</p>
+<p><b>Shadowboxing</b> was just the arm. An arm is small. Now the body throws the
+punch, and facing you the fist comes at you.</p>
+<p>Left is what it was, right is now. Twelve poses a bar, on the beat.</p>
+<div class="beat"><i id="beat"></i></div>
+<div id="clips"></div>
+<p class="note">No new art. Same body; the two moves just move now.</p>
+<script>
+(function(){
+  var BEFORE='ANIMATION_BRACE_AND_SHADOWBOX_BEFORE.png', AFTER='ANIMATION_BRACE_AND_SHADOWBOX_AFTER.png';
+  var ROWS=[['BRACING, FROM THE SIDE','was 2 pictures a bar'],
+            ['BRACING, FACING YOU','was 1% of his body'],
+            ['SHADOWBOX, FACING YOU','was 30%, now 68%'],
+            ['SHADOWBOX, FROM THE SIDE','the body throws it now']];
+  var S=112,Z=1,N=12,BEAT=500,LOOP=BEAT*4;
+  var host=document.getElementById('clips'), cells=[];
+  ROWS.forEach(function(r,ri){
+    var box=document.createElement('div'); box.className='clip';
+    var n=document.createElement('div'); n.className='name';
+    n.innerHTML='<span>'+r[0]+'</span><span class="sub">'+r[1]+'</span>';
+    box.appendChild(n);
+    var pair=document.createElement('div'); pair.className='pair';
+    [['BEFORE','old',BEFORE],['NOW','new',AFTER]].forEach(function(spec){
+      var side=document.createElement('div'); side.className='side';
+      var l=document.createElement('div'); l.className='lab '+spec[1]; l.textContent=spec[0];
+      var c=document.createElement('div'); c.className='big';
+      c.style.backgroundImage='url('+spec[2]+')';
+      c.style.backgroundSize=(N*S*Z)+'px auto';
+      cells.push({el:c,row:ri,step:S*Z});
+      side.appendChild(l); side.appendChild(c); pair.appendChild(side);
+    });
+    box.appendChild(pair); host.appendChild(box);
+  });
+  var bar=document.getElementById('beat'), t0=performance.now();
+  (function tick(){
+    var ph=((performance.now()-t0)%LOOP)/LOOP, f=Math.floor(ph*N)%N;
+    for(var i=0;i<cells.length;i++){
+      var k=cells[i].step/S;
+      cells[i].el.style.backgroundPosition=(-f*cells[i].step)+'px '+(-cells[i].row*S*k)+'px';
+    }
+    bar.style.transform='translateX('+(f*100)+'%)';
+    requestAnimationFrame(tick);
+  })();
+})();
+</script>

@@ -77,7 +77,7 @@ ok('the item PLAYS on a real clock and carries no control of its own',
      return /requestAnimationFrame/.test(v) && /performance\.now\(\)/.test(v)
          && !/<button|<input|<select|<form|onclick=/i.test(v); })());
 
-const CELL = 28;
+const CELL = 112;   /* RE-AIMED 9/28: rule 37a killed the one-cell sprite; the body is the full-detail 112 art */
 
 /* EVERY GAIT, AND THE NUMBERS ARE THE MEASUREMENT, NOT A TASTE.
    was    : facings of 8 whose two crossings were byte-identical before the fix
@@ -191,11 +191,11 @@ const GAITS = {
   }, [CELL, Object.keys(GAITS)]);
 
   ok('the alpha loads with no page error (' + (errs.length ? errs[0] : 'none') + ')', errs.length === 0);
-  ok('CONTROL: the cut draws a real body at one cell, not an empty box (' +
+  ok('CONTROL: the ruler reads a real body, not an empty box (' +
      R.shape.lit + ' lit pixels over ' + R.shape.rows + ' rows, ' + R.shape.colours +
-     ' colours)', R.shape.lit > 90 && R.shape.rows > 15);
+     ' colours)', R.shape.lit > 1500 && R.shape.rows > 80);
 
-  ok('THE WALK HAS FOUR PICTURES AT ONE CELL on every facing (' +
+  ok('THE WALK HAS FOUR PICTURES on every facing, at full detail (' +
      (R.walk.length ? R.walk.join(', ') : 'no duplicate keys') + '; it was 6 of 48)',
      R.walk.length === 0);
   /* AND AT THE SOURCE SIZE TOO, because the defect was never the cut and a fix
@@ -205,7 +205,7 @@ const GAITS = {
   ok('RUN TOO, which had the same collapse (' +
      (R.run.length ? R.run.join(', ') : 'no duplicate keys') + ')', R.run.length === 0);
 
-  ok('the eight facings are still eight different pictures at one cell (' +
+  ok('the eight facings are eight different pictures (' +
      (R.facings.length || 'none') + ' identical)', R.facings.length === 0);
   ok('and nothing turned to mush: ' + R.shape.lone + ' lonely pixels (lit, with one ' +
      'neighbour or none)', R.shape.lone === 0);
@@ -225,20 +225,18 @@ const GAITS = {
   }
   ok('THE TWO LEG CROSSINGS ARE TWO PICTURES, IN EVERY GAIT, ON ALL EIGHT FACINGS (' +
      (stillSame.join(' | ') || 'none collapsed; it was 40 of 48') + ')', stillSame.length === 0);
-  ok('AND YOU CAN SEE IT AT ONE CELL, not just measure it (' +
+  ok('AND YOU CAN SEE IT, not just measure it (' +
      (invisible.join(' | ') || 'every gait over its floor; it was 0.0% for all of them') + ')',
      invisible.length === 0);
   ok('no gait lost pictures out of its bar (' + (thinBar.join(' | ') || 'all at or over floor') + ')',
      thinBar.length === 0);
-  /* THE CUT IS NOT THE DEFECT, MEASURED ELEVEN MORE TIMES: if one cell showed a
-     different count from the source, the cut would be losing pictures. */
-  ok('THE CUT TO ONE CELL LOSES NO PICTURE: the count at 28 equals the count at 112, ' +
-     'facing for facing, for every gait (' + (cutLost.join(', ') || 'all eleven agree') + ')',
-     cutLost.length === 0);
+  /* THE CUT CLAIM WAS DELETED 9/28, NOT LEFT: with the one-cell sprite dead (rule
+     37a) CELL is 112, so "the count at 28 equals the count at 112" became 112
+     against 112. A COMPARISON THAT CANNOT FAIL IS NOT A CLAIM. */
   for (const [c, w] of Object.entries(GAITS)) { const g = R.gaits[c]; if (!g || g.missing) continue;
     console.log('       ' + c.padEnd(15) + 'crossings ' + (g.cross.length ? g.cross.length + '/8 SAME' : 'both drawn') +
       '  was ' + w.was + '/8   pictures ' + g.pics112 + ' (floor ' + w.pics + ')   ' +
-      'crossings differ by ' + g.seen + '% of the body at one cell (floor ' + w.seen + '%)'); }
+      'crossings differ by ' + g.seen + '% of the body (floor ' + w.seen + '%)'); }
   await br.close();
   done();
 })().catch(e => { console.log('  FAIL ' + e.message); fail++; done(); });

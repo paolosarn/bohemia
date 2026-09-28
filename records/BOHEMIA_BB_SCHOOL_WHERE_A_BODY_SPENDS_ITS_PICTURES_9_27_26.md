@@ -1,8 +1,16 @@
 # [bb clips] WHERE A BODY SPENDS ITS PICTURES (ANIMATION school, rule 33f, 9/27/26)
 
-Read first, per rule 33(j): reference/library/battle_brothers/README.md, 10_UI_AND_FEEL.md
-and 02_COMBAT_RULES.md. One page, this round, on the question rule 34 just handed this
-lane: a body is now ONE CELL, so what does it spend its pictures on?
+## *** SUPERSEDED 9/28. SECTION 4 BELOW RESTS ON A SIZE PAOLO KILLED, AND IT WAS WRONG ANYWAY. ***
+Section 4 argued that a one-cell body cannot carry a readable hit, so the walk should keep
+the pictures and the hit should be carried by sound. TWO THINGS HAPPENED TO IT:
+(1) PAOLO KILLED THE ONE-CELL BODY in his 9/27 votes (rule 37a: "I don't wanna treat a
+    whole new character... not some Atari bullshit"). The body is the full-detail 112 art.
+(2) BEFORE THAT LANDED, THE NEXT ROUND MEASURED THE CLAIM AND IT WAS FALSE EVEN AT 28 px:
+    punch-heavy moved 47-86% of the body, bat-arc 56-93%, shiv-jab 72-91%, against the
+    walk's 42-73%. It was reasoned from Battle Brothers' sprite size and never checked
+    against our own pixels.
+WHAT SURVIVES: BB spends its budget on the landing, and sound carries impact. The
+conclusion drawn from it does not. Record: records/BOHEMIA_TWO_MOVES_THAT_WERE_DEAD_9_28_26.md
 
 ## 1. WHAT BATTLE BROTHERS ACTUALLY SPENDS ANIMATION ON
 On the map there is NO BODY AT ALL. The company is a marker; what sells it moving is

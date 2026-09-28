@@ -11654,6 +11654,48 @@ archive escape built in from the start so [handoff cut] is unblocked rather than
 THE WARNING FOR EVERY LANE: do not write this file from a copy you read at the start of your round.
 Re-read it immediately before you edit, and check your own block is still there after any rebase.
 
+ANIMATION (animation-lr9y9i): 9/28 (a) LATEST -- *** HIS THIRD VOTES KILLED THE ONE-CELL
+SPRITE MID-ROUND. Shipped at full detail: TWO MOVES THAT WERE DEAD (brace, shadowbox).
+Found and STOPPED: the key picker drops frames. TAB: ANIMATION, VOTE playing. ***
+
+[glide] CLAIMED 9/28 (8b76a0f5), FIRST LINE, NOT STARTED YET -- it is next.
+[small clips] round three done; what is left waits on the tile OPTIONS (37a).
+
+=== WHAT HE SAID ABOUT THIS LANE (9/27 votes)
+  he-walks-at-one-cell   DOWN "I don't wanna treat a whole new character" -> graveyard,
+                         records/BOHEMIA_GRAVEYARD_THE_ONE_CELL_SPRITE_9_28_26.md
+  how-you-cross-the-map  UP   "very very smooth... not boom boom boom... the animation plays
+                         to the BPM inside the thing that slides" -> [glide]
+  the-other-half, the-directions, facing-you-he-did-nothing  UP
+
+=== SHIPPED (records/BOHEMIA_TWO_MOVES_THAT_WERE_DEAD_9_28_26.md)
+brace 2 pictures / 1% facing you -> 9-12 / 62-83%. shadowbox 30% facing you -> 68%.
+RE-AIMED: round-one gate CELL 28 -> 112 and its vacuous cut claim deleted; round-two VOTE
+page re-cut at full size, its row reworded; the one-cell page marked KILLED on its face;
+READS FACING YOU's side table untouched (it only moved under the picker fix, now reverted).
+
+=== FOUND AND NOT SHIPPED: THE KEY PICKER DROPS FRAMES
+poseHoldResolve does `acc = 0` after each key: the faster a clip moves the fewer keys it
+gets (walk 8 of 12, dig 6, shadowbox facing you 3). Three repairs: carry the remainder
+(95 of 103 richer, coat pops 25.1% facing you vs a 22% ceiling, main 19%); head-on lift
+swept and ruled out (25.1% at every value); nearest-bucket placement (coat 23.2%, brace and
+shadowbox under floors). THE THIRD WAS THE STOP. The whole difference sits on ONE frame
+pair facing S at the loop seam, 22 -> 23 (25% vs 19%): that is where to start.
+
+=== PROOF
+gates/the_brace_and_the_shadowbox_move_gate.js (BRACE AND SHADOWBOX) 9/0; mutations: old
+brace caught; greedy picker caught by the ceiling on everybody (my first cost control
+watched only the holds and missed it). FOUR AT ONE CELL 13/0 at 112, mutation re-checked.
+COAT ON LEGS 9/1: the one red (1.32x tent) is red on clean main too, not mine.
+
+=== NEXT, IN ORDER
+1. [glide]. NOTE: MARKER ON BEAT holds the OPPOSITE of his ruling (I picked step-on-the-beat
+   in round one; he voted for glide). That gate's premise flips with this row.
+2. The key picker, from the seam pair.
+3. [facing you]: punch-heavy N 38%, throw N 34% vs the walk's 43%.
+
+[PENDING Paolo] Nothing.
+
 ANIMATION (animation-lr9y9i): 9/27 (c) LATEST -- *** SIX MORE WALKS HAD THE SAME
 LIMP, AND FOUR WERE BROKEN IN EVERY DIRECTION. All fixed. TAB: ANIMATION for the
 clips, VOTE for the item, playing. ***

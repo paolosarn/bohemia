@@ -2405,7 +2405,7 @@
    "sha": "c248f61f",
    "made": "9/27",
    "title": "SIX MORE WALKS HAD THE SAME LIMP",
-   "why": "Last round the plain walk turned out to be drawing THREE pictures instead of four, because a step has two middles and the code drew them as the same picture. So I asked that of every other way this guy moves. NINE MORE WALKS, SIX OF THEM HAD IT, AND FOUR WERE BROKEN IN EVERY SINGLE DIRECTION: tired walking, swagger and walking with the gun out on all 8; sneaking 7 of 8; wandering 5 of 8; shoving something 4 of 8. Forty of forty-eight. Drunk, sprinting and scrambling were already fine because each carries a second wobble on a different clock, and that is the only reason they escaped. Fixed the same way, but THE FOOT CLEARS A DIFFERENT AMOUNT FOR EACH WALK, because they are different walks: a crouch and a shove keep the foot down, a stroll lifts it, a swagger is meant to be seen. It was in the shared facing-you code too, at the source. How much of his body changes between those two middles at one cell: it was ZERO for all six, it is 5% to 13% now, and the machine check refuses anything under that. AND I BROKE THE COAT DOING IT and the coat's own checker caught me: the first lift made the trenchcoat jump 26% of itself in one frame, so I swept four sizes and took the biggest one the coat does not notice at all. This one PLAYS, and every picture in it is the real one-cell sprite with his true size beside it.",
+   "why": "Last round the plain walk turned out to be drawing THREE pictures instead of four, because a step has two middles and the code drew them as the same picture. So I asked that of every other way this guy moves. NINE MORE WALKS, SIX OF THEM HAD IT, AND FOUR WERE BROKEN IN EVERY SINGLE DIRECTION: tired walking, swagger and walking with the gun out on all 8; sneaking 7 of 8; wandering 5 of 8; shoving something 4 of 8. Forty of forty-eight. Drunk, sprinting and scrambling were already fine because each carries a second wobble on a different clock, and that is the only reason they escaped. Fixed the same way, but THE FOOT CLEARS A DIFFERENT AMOUNT FOR EACH WALK, because they are different walks: a crouch and a shove keep the foot down, a stroll lifts it, a swagger is meant to be seen. It was in the shared facing-you code too, at the source. How much of his body changes between those two middles: it was ZERO for all six, and the machine check refuses zero now. AND I BROKE THE COAT DOING IT and the coat's own checker caught me: the first lift made the trenchcoat jump 26% of itself in one frame, so I swept four sizes and took the biggest one the coat does not notice at all. This one PLAYS, at full size (it first showed a tiny one-cell cut, which you killed, so that is gone; the fix never depended on the size).",
    "show": {
     "how": "page",
     "src": "vote/ANIMATION_EVERY_GAIT.html"
@@ -2744,6 +2744,20 @@
     "how": "page",
     "src": "BOHEMIA_THE_DECK_AND_THE_FLIP_9_27_26.html"
    }
+  },
+  {
+    "id": "animation-two-moves-that-were-dead-9-28",
+    "kind": "animation",
+    "lane": "animation",
+    "sha": "PENDING",
+    "made": "9/28",
+    "title": "TWO MOVES THAT WERE DEAD",
+    "why": "Heard you: no tiny Atari guy, same character, full detail. The one-cell version is in the graveyard. Two moves were basically dead. BRACING (getting ready to take a hit) was two pictures in a whole bar, and facing you it moved 1 percent of his body, as still as a guy aiming a gun on purpose. Now he plants, drops his weight, tightens, resets. SHADOWBOXING was just the arm; now the body throws the punch and facing you the fist comes at you. Full size, on the beat, before beside after.",
+    "show": {
+      "how": "page",
+      "src": "vote/ANIMATION_BRACE_AND_SHADOWBOX.html"
+    },
+    "said": "I don't wanna treat a whole new character"
   }
  ],
  "verdicts": [
