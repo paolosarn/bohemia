@@ -4586,6 +4586,22 @@ GATES = [
      'behind in a repo where ten lanes are pushing.',
      180),
 
+    ('EXCAVATE', ['node', 'gates/excavate_gate.js'],
+     'NOTHING LIVE LOADS FROM ARCHIVE, AND THE WEIGHT NOTHING LOADS CAN ONLY FALL. 9/28, PLUMBER, row '
+     '[excavate], rule 33h (the excavation rule, records/BOHEMIA_THE_REVAMP_LIST_9_24_26.md: "nothing in '
+     'slices/ or engine/ loads from archive/ (PLUMBER gates it)"). tools/bohemia_what_loads.js walks what '
+     'a phone can reach from the alpha, the demo and the service worker, through page source AND data '
+     'files (the VOTE tab loads its pictures through its registry JSON) plus a stem rule for names built '
+     'at run time; checked against a real boot of both pages through the one driver, zero fetched files '
+     'were on its unreached list. Legs: a self-test on a planted tree; the entries and the VOTE registry '
+     'reached; no reachable file names a file that lives only in archive/ (the site never publishes '
+     'archive/, so that is a 404 on his phone); every archive/ file has a GRAVEYARD registry line; every '
+     'rule-33h CUT line is really cut; and every published file the game cannot reach is on '
+     'gates/excavate_baseline.txt, frozen at 423 files and 90.2 MB of 288.5 MB published, so a new one is '
+     'refused by name. FIRST RUN FOUND ONE: a registry line written with an arrow instead of the pipe, so '
+     'the carry gate, the canon index and the master builder had never read it. Mutation-checked four '
+     'ways (8/1 each), about two seconds, no browser.',
+     False),
     ('BB LIBRARY', ['node', 'gates/bb_library_gate.js'],
      'THE LIBRARY FETCHER TELLS THE TRUTH. 9/28, PLUMBER, row [bb library], rule 33j (Paolo 9/27: '
      '"download everything"). tools/bohemia_bb_library.js pulls the Battle Brothers wiki through its '

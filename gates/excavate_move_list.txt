@@ -1,0 +1,163 @@
+# THE OLD PAGES, PROVEN SAFE TO MOVE (PLUMBER 9/28/26, row [excavate], the revamp list CUT row
+# "THE OLD PAGES (PLUMBER) ... Off the site, into archive/").
+# 146 files, 32.6 MB. Each one passed all five tests on 9/28/26:
+#   1. the game cannot reach it (tools/bohemia_what_loads.js: not named by any page or data file reachable
+#      from the alpha, the demo or the service worker, by name or by stem);
+#   2. no file in gates/, tools/, engine/, .github/, banks/ or quests/ names it, by name or by stem
+#      (so no checker or tool reads it);
+#   3. no law or record cites its full path (so the canon rot gate does not move);
+#   4. it is not an asset: fonts, sprite sheets, floor tiles, logos, the combat and vote folders and
+#      everything under engine/ were left out on purpose (rule 38e: the assets stay);
+#   5. a real phone-shaped boot of the alpha and the demo through the one driver fetched none of them.
+# STATUS: NOT MOVED. The move was refused by this session's permission check (a change to shared
+# files needs the owner's yes). Waiting on Paolo [PENDING Paolo]. Moving them takes the published
+# surface from 288.5 MB to about 256 MB, under the 260 MB cap PAGES PUBLISH has been over since 9/24.
+# Where they would go: archive/old_pages/<the same path>, one registry folder line, and each line
+# taken off gates/excavate_baseline.txt (EXCAVATE prints which).
+# Columns: path <TAB> bytes
+records/target/BOHEMIA_EIGHT_DIALS_YOU_COULD_NOT_TOUCH_9_22_26.png	151998
+records/target/BOHEMIA_GRID_airport.png	9830
+records/target/BOHEMIA_GRID_arterial.png	16431
+records/target/BOHEMIA_GRID_arterial_x.png	12829
+records/target/BOHEMIA_GRID_casino.png	15414
+records/target/BOHEMIA_GRID_convention.png	12535
+records/target/BOHEMIA_GRID_dam.png	11181
+records/target/BOHEMIA_GRID_datafort.png	19086
+records/target/BOHEMIA_GRID_freeway.png	18662
+records/target/BOHEMIA_GRID_interchange.png	26987
+records/target/BOHEMIA_GRID_minigp.png	12252
+records/target/BOHEMIA_GRID_mountain.png	13729
+records/target/BOHEMIA_GRID_prison.png	13837
+records/target/BOHEMIA_GRID_quarry.png	37691
+records/target/BOHEMIA_GRID_radio.png	34336
+records/target/BOHEMIA_GRID_resort.png	12930
+records/target/BOHEMIA_GRID_strip.png	20708
+records/target/BOHEMIA_GRID_strip_x.png	20389
+records/target/BOHEMIA_ICON_GRID.png	62426
+records/target/BOHEMIA_ICON_INTERSECTION.png	18613
+records/target/BOHEMIA_PORTRAIT_MATCHES_BODY_9_20_26.png	152867
+records/target/BOHEMIA_THE_EYES_HAVE_RANGE_9_22_26.png	134250
+records/target/BOHEMIA_THE_FOUR_FACES_HE_MEETS_9_21_26.png	105956
+records/target/CHARACTER_ONE_STEP_FROM_THE_CROWD_9_6_26.png	32348
+records/target/COOK_CAR_AT_ONE_TO_ONE_9_16_26.png	90722
+records/target/COOK_CITY_FROM_ABOVE_LAST_FIVE_9_12_26.png	33477
+records/target/COOK_EVERY_GROUND_TILE_THE_FIGHT_OWNS_9_20_26.png	194208
+records/target/COOK_EVERY_PROP_AT_ONE_TO_ONE_9_18_26.png	213001
+records/target/COOK_HAIR_21_COLOURS_9_11_26.png	71348
+records/target/COOK_PURPLE_THE_32_9_12_26.png	88463
+records/target/COOK_PURPLE_WIDER_BAND_9_12_26.png	44656
+records/target/COOK_STREET_AS_HE_SEES_IT_9_13_26.png	465301
+records/target/COOK_TEAL_LEGS_9_13_26.png	24116
+records/target/COOK_THE_FIGHT_DRAWS_THE_GREY_STREET_9_20_26.png	54534
+records/target/COOK_THE_STREET_BESIDE_THE_FIGHT_9_20_26.png	468453
+records/target/COOK_THE_WELCOME_SIGN_9_12_26.png	33894
+records/target/COORDINATOR_FIVE_MINUTES_9_13_A_title.png	322305
+records/target/COORDINATOR_FIVE_MINUTES_9_13_D_first_card.png	148812
+records/target/COORDINATOR_FIVE_MINUTES_9_13_F2_after_round.png	130062
+records/target/COORDINATOR_FIVE_MINUTES_9_13_F_street.png	382356
+records/target/COORDINATOR_FIVE_MINUTES_9_13_G2_after_round.png	346922
+records/target/COORDINATOR_FIVE_MINUTES_9_13_G_walk_up.png	446622
+records/target/COORDINATOR_FIVE_MINUTES_9_13_H_walk_right.png	633597
+records/target/COORDINATOR_FIVE_MINUTES_9_13_I_zoomed_out.png	478465
+records/target/DIRECTION_DEMO_FIRST_SCREEN_9_6_26.png	122893
+records/target/DIRECTION_DEMO_SECOND_SCREEN_9_6_26.png	108596
+records/target/DIRECTION_FIGHT_VERDICT_1_THE_FIGHT_9_20_26.png	382094
+records/target/DIRECTION_FIGHT_VERDICT_1_THE_STREET_9_20_26.png	156739
+records/target/DIRECTION_THE_AERIAL_GREYSCALE_9_13_26.png	139770
+records/target/DIRECTION_THE_AERIAL_JUDGED_9_13_26.png	393666
+records/target/DIRECTION_THE_BUILT_SHRINK_9_12_26.png	265452
+records/target/DIRECTION_THE_CAR_RECOOK_JUDGED_9_7_26.png	299998
+records/target/DIRECTION_THE_DOOR_9_23.png	71657
+records/target/DIRECTION_THE_FREEWAY_AFTER_THE_DECK_FIX_9_13_26.png	239134
+records/target/DIRECTION_THE_FREEWAY_AS_SHIPPED_9_13_26.png	326671
+records/target/DIRECTION_THE_FREEWAY_REJUDGED_9_14_26.png	243407
+records/target/DIRECTION_THE_HANDOFF_BEFORE_9_12_26.png	266746
+records/target/DIRECTION_THE_HANDOFF_FIGHT_9_12_26.png	416874
+records/target/DIRECTION_THE_HANDOFF_MID_9_12_26.png	217934
+records/target/DIRECTION_THE_MAP_TODAY_9_24.png	385342
+records/target/DIRECTION_THE_MOB_SWAP_9_13_26.png	11957
+records/target/DIRECTION_THE_MOON_ZOOM_9_15_26.png	156942
+records/target/DIRECTION_THE_PHONE_AND_THE_AERIAL_LIVE_9_12_26.png	390936
+records/target/DIRECTION_THE_REDO_COVER_DROP_8_FACINGS_9_13_26.png	18213
+records/target/DIRECTION_THE_REDO_TAKE_COVER_8_FACINGS_9_13_26.png	19333
+records/target/DIRECTION_THE_STREET_AS_SHIPPED_9_13_26.png	275384
+records/target/DIRECTION_THE_STREET_REJUDGED_9_14_26.png	193030
+records/target/DIRECTION_THE_TRACKS_JUDGED_9_13_26.png	148328
+records/target/DIRECTION_THE_TRACKS_MAGNIFIED_9_13_26.png	125783
+records/target/DIRECTION_THE_TRADES_SWAP_9_13_26.png	10338
+records/target/DIRECTION_THE_TURN_FROZEN_AT_THE_SWAP_9_12_26.png	457560
+records/target/DIRECTION_THE_WALL_HAS_FEET_9_13_26.png	72586
+records/target/DIRECTION_THE_YARD_AFTER_9_13_26.png	188623
+records/target/FEATURE_COMPARE.png	91419
+records/target/FRAME_NEW.png	271320
+records/target/FRAME_OLD.png	405413
+records/target/FRONT_SCREEN.png	314469
+records/target/HOUSE_02_FACING_AB.png	20403
+records/target/HOUSE_02_SOUTH.png	3901
+records/target/HOUSE_02_SW.png	12228
+records/target/JUDGE_ASK_SHOT.png	197579
+records/target/LIFE_HUB_SHOT.png	331638
+records/target/LOOK_AGAIN_RECOOK.png	688712
+records/target/PALETTE_AB.png	594476
+records/target/PAL_FROZEN.png	1676437
+records/target/PAL_RECOOK.png	271320
+records/target/PAOLO_THE_NIGHT_CARD_9_20_26.jpg	228542
+records/target/PAOLO_THE_SNATCHER_CARD_9_20_26.jpg	129448
+records/target/PERIMETER_JUDGE_PROOF.png	383328
+records/target/PERIMETER_RUNS.png	504896
+records/target/PIXEL_CRAFT_JUDGE_SHOT.png	261360
+records/target/PIXEL_CRAFT_JUDGE_SHOT2.png	129511
+records/target/PROOF_car.png	128956
+records/target/PROOF_roof.png	184331
+records/target/RECOOK_FRAME_AB.png	507988
+records/target/RUN_TAB_IS_CITY.png	280857
+records/target/STREET_AFTER_YARD.png	623439
+records/target/STREET_TEXTURED.png	693659
+records/target/TEXTURE_SEAM_3x3.png	273695
+records/target/VALLEY_DOWNTOWN.png	734782
+records/target/VALLEY_STRIP.png	537758
+records/target/VEG_HARDWARE.png	88072
+slices/BOHEMIA_BAKE_V8_GALLERY_7_10_26.html	371050
+slices/BOHEMIA_BEAT_PERMISSION_PROOF_7_26_26.png	238132
+slices/BOHEMIA_BUILTLOT_PROOF_7_18_26.png	7107
+slices/BOHEMIA_DOOR_SINGLE_LEAF_PROOF_7_14_26.html	572632
+slices/BOHEMIA_FIGHT_PULSE_PROOF_7_26_26.png	169155
+slices/BOHEMIA_FIVE_WAYS_A_LABEL_SITS_ON_THE_WORLD_9_18_26.html	5138
+slices/BOHEMIA_FIVE_WAYS_A_ROW_HAS_A_BODY_9_16_26.html	5661
+slices/BOHEMIA_FLOORPLAN_PROOF_7_18_26.png	7558
+slices/BOHEMIA_FREE_MOVEMENT_PROOF_7_26_26.png	83163
+slices/BOHEMIA_GROOVE_PROOF_7_26_26.png	83640
+slices/BOHEMIA_HOUSE_PART_ROLES_7_14_26.html	1103050
+slices/BOHEMIA_INTERIOR_PROOF_HOUSE_7_26_26.png	362491
+slices/BOHEMIA_INTERIOR_PROOF_SCHOOL_7_26_26.png	422572
+slices/BOHEMIA_MULTICELL_TRAINING_7_10_26.html	530291
+slices/BOHEMIA_NEW_ENCOUNTER_SONG_PROOF_7_26_26.png	380517
+slices/BOHEMIA_OVERWORLD_BAG_PROOF_7_26_26.png	128429
+slices/BOHEMIA_PEOPLE_NAMED_ALPHA_7_31_26_STRANGER.png	89994
+slices/BOHEMIA_PULSE_LADDER_PROOF_7_26_26.png	205098
+slices/BOHEMIA_QUANTIZED_FREEZE_PROOF_7_26_26.png	463733
+slices/BOHEMIA_QUEST_DEMO_7_19_26.html	7615
+slices/BOHEMIA_QUEST_JUDGE_PROOF_7_26_26.png	272807
+slices/BOHEMIA_RHYTHM_PROOF_7_26_26.png	241112
+slices/BOHEMIA_RING_QUARTER_PROOF_7_26_26.png	419390
+slices/BOHEMIA_RUN_HANDOFF_PROOF_7_26_26.png	475228
+slices/BOHEMIA_RUN_INTERIOR_DRESSED_7_26_26.png	167718
+slices/BOHEMIA_RUN_PROOF_loud_7_26_26.png	31839
+slices/BOHEMIA_RUN_PROOF_quiet_7_26_26.png	30411
+slices/BOHEMIA_RUN_TARGET_LOOK_7_26_26.png	178156
+slices/BOHEMIA_SESSION_SHOWCASE_7_10_26.html	728838
+slices/BOHEMIA_SFX_JUDGE_PROOF_7_29_26.png	294201
+slices/BOHEMIA_SONGS_PLAY_OUT_PROOF_7_26_26.png	374542
+slices/BOHEMIA_SPRINT_FREE_PROOF_7_26_26.png	72134
+slices/BOHEMIA_STALL_STRIPING_PROOF_7_14_26.html	176159
+slices/BOHEMIA_THE_REACH_AT_HALF_9_7_26.html	7673
+slices/BOHEMIA_THE_RING_DRESSED_9_7_26.html	7843
+slices/BOHEMIA_UI_SIZE_OPTIONS_9_6_26.html	7193
+slices/BOHEMIA_UI_SKIN_OPTIONS_9_7_26.html	5552
+slices/BOHEMIA_V12_BAKE_PROOF_33_6.html	629658
+slices/BOHEMIA_V12_BAKE_PROOF_33_6.png	471854
+slices/BOHEMIA_V12_BAKE_PROOF_34_6.html	598938
+slices/BOHEMIA_V12_BAKE_PROOF_34_6.png	448813
+slices/BOHEMIA_V12_BAKE_PROOF_35_6.png	540123
+slices/BOHEMIA_V12_BAKE_PROOF_36_6.png	491072
+slices/BOHEMIA_WORLD_ZOOM_PROOF_7_18_26.png	3956

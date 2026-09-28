@@ -69,7 +69,7 @@ Across 4,879 tracked text files:
 
 ```
 "any line starting <<<<<<< or >>>>>>>"   ->  1 file
-   records/BOHEMIA_I_WAS_WRONG_ABOUT_THE_FONT_..._8_27_26.md
+   records/BOHEMIA_I_WAS_WRONG_ABOUT_THE_FONT_AND_HE_WAS_RIGHT_ABOUT_SHOWING_8_27_26.md
    which is the record QUOTING this exact bug
 
 the ORDERED TRIAD  <<<<<<< x / ======= / >>>>>>> y   ->  0 files

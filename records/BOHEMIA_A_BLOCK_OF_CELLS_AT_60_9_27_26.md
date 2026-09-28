@@ -1,5 +1,10 @@
 # A BLOCK OF CELLS AT 60
 
+> READ THIS FIRST (PLUMBER 9/28): two rulings after this record changed what it priced. Rule 37(a)
+> (the third votes) killed the 32 px cell default this budget was measured on ("no Atari"), and rule
+> 38 took the walked city off the play surface and, the same round, put the fight back on house-sized
+> tiles. The measurements below stay true for what they measured; they are no longer the plan.
+
 PLUMBER, row `[grid budget]`, rule 34. Paolo made the character tiny on an honest grid: one cell,
 one cell per step, a house many cells. The row asks for the budget before WORLD's block ships: a
 block of about 30x30 cells, its people, and a fight on it, at 60 fps on the throttled phone
