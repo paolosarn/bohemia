@@ -13556,6 +13556,67 @@ ALSO STILL OPEN, not draw order: on NE in his own frame
 the right of the shoulders with a visible gap. That is the pose too.
 
 Nothing [PENDING Paolo].
+PEOPLE (people-7h9sfy): 9/28 LATEST -- *** [somebody hires you] SHIPPED. A SITE
+DISTRICT ALWAYS OFFERED THE SAME WORK TO ANYBODY, FOR EVER, AND THE GROUND
+MOVED MID-CLAIM WHEN RULE 38 KILLED THE WALKED PAD. ***
+
+Rule (the board): "a person offers you the job, and whether they will depends
+on your standing... a stranger gets the worst work; somebody who vouches for
+you gets you the better shift; a bad name closes doors."
+
+MEASURED BEFORE A LINE WAS WRITTEN: kindAt() answered off the ground alone --
+a site district offered 'site' to anybody. Two real systems already answer
+"who are you to this faction" and neither had ever been asked: the BELONGING
+LADDER (favors done for an outfit, starts at stranger, moves in ordinary play)
+and the STANDING WEB (named people warm on you off a witnessed deed).
+
+*** A FALSE PREMISE CAUGHT BEFORE BUILDING ON IT. *** The standing web's
+DEED_WEIGHT ships empty IN THE MODULE, which reads as "dead until Paolo rules
+it." MEASURED on the real page: NOT empty, 84 rows, filled at boot from the
+quest corpus. It is live; a fresh save just has not touched a quest yet, which
+is why the belonging ladder is the axis that actually moves early and the
+standing web lights up later. Neither is faked to look reachable.
+
+BUILT: doorFor(who) in bohemia_work.js, pure, `who` optional and backward
+compatible (omit it, get the exact old behavior). A stranger at a site
+district downgrades to scav, standing gets the real job, a hostile faction
+closes the door outright, and standing can NEVER invent a job the ground never
+had -- a stranger on a scav district stays scav no matter how vouched.
+
+*** RULE 38 LANDED MID-CLAIM: tile-to-tile through the city is dead, places
+become settlement screens you tap. *** The mechanism cost nothing: it has
+always taken a faction's facts and (x,y), never "where his feet are," so
+nothing about doorFor/offer changed. The ONE thing tied to the pad is
+workOffer(), the city's reference caller, wired to the only surface live on
+the alpha today. Whoever builds the settlement screen calls
+ctHiringWho(faction) + BohemiaWork.offer(...,who) the identical way: find the
+tapped building's holder, build a who, hand it in. Named as the pattern to
+copy, not built here -- that surface is not this lane's.
+
+ON THE REAL OVERMAP: fresh save honestly reads stranger/scavenge at a real
+commercial district; 5 real favors through the asks save moved the SAME real
+offer to work, live, no fabrication; a fabricated hostile relationship closed
+the door entirely.
+
+Cook: A STRANGER GETS THE WORST WORK, in VOTE, both frames the walked game's
+own camera. *** page.screenshot(), not canvas.toDataURL() -- the work button
+is a DOM overlay drawn on top of the canvas, and the first attempt's canvas
+grab photographed real pixels that silently missed the one thing that
+mattered. Caught before it shipped. *** Gate 38/0.
+
+MEASURED AND NOT FIXED: the vouch half of standing can only be fabricated
+today, not demonstrated on a fresh save (needs the quest corpus touched
+first) -- named, not hidden. "What you used to be" ([former jobs]) is left
+untouched: it is entirely an NPC system (WAS_WORDS), the player has no
+equivalent identity anywhere in this repo, and assigning one would be an
+IDENTITY decision that is his, not mine to invent. The work button does not
+yet say WHY it downgraded (rule 19 wants a mouth, not a card, and that is its
+own round's work).
+
+Record records/BOHEMIA_SOMEBODY_HIRES_YOU_9_28_26.txt. Stamp 9/28d.
+
+Nothing [PENDING Paolo] from this block.
+
 PEOPLE (people-7h9sfy): 9/27 (c) LATEST -- *** [origins] SHIPPED. THREE OF HIS
 FOUR ORIGINS WERE ALREADY WRITTEN INTO THIS GAME'S DATA A FORTNIGHT BEFORE HE
 SAID THE WORD. ***

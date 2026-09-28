@@ -178,6 +178,64 @@
     return kinds().indexOf(kind) < 0 ? null : kind;
   }
 
+  /* ==========================================================================
+     *** WHETHER THEY WILL HIRE YOU AT ALL. (9/28, [somebody hires you], row
+     WHO-WILL-GIVE-YOU-WORK.) ***
+
+     "A person offers you the job, and whether they will depends on your
+     standing... A stranger gets the worst work; somebody who vouches for you
+     gets you the better shift; a bad name closes doors."
+
+     MEASURED BEFORE A LINE OF THIS EXISTED: kindAt() answers ONLY off the
+     ground -- a site district always offers 'site', to anybody, for ever. The
+     valley has TWO real, already-built ways to know who you are to a faction:
+       THE BELONGING LADDER (bohemia_belonging.js) -- how many times you have
+         done what THIS outfit wants. Starts at 'stranger' on a fresh save and
+         moves the moment a favour is answered, which happens in ordinary play.
+       THE STANDING WEB (bohemia_standing.js, whoVouches) -- named people who
+         are warm on you because they watched or heard something you did.
+         MEASURED: its DEED_WEIGHT table is NOT empty on the real page (84 rows,
+         filled at boot from the quest corpus) so this is wired and not a dead
+         letter, but on a fresh save nobody has touched a quest yet, so in
+         ordinary early play the belonging ladder is the one that actually
+         moves. Both are asked; neither is invented.
+     Closing a door is the between organ's own vocabulary: `ctRelToMine` already
+     answers 'hostile' for an outfit whose ripple against you is hostile, the
+     same fact `ctAgainstMe` already reads to decide who attacks you on sight.
+
+     `who` IS FACTS, NEVER A PERSON, matching the shape bohemia_company.js and
+     tools/bohemia_companion.js already use: { rel, rung, vouched }.
+       rel      the between organ's sign for this faction: 'hostile' | 'warm' |
+                'neutral' | 'unknown' | null (no relationship recorded at all)
+       rung     the belonging ladder's KEY for this faction ('stranger',
+                'peripheral', 'useful', ...) or null (no ladder, or no faction)
+       vouched  true if a named person warm on the player belongs to this
+                faction. A bool, not a list: WHO they are is the standing web's
+                to show, not this file's to carry.
+     `who` is OPTIONAL. Omit it and kindAt()/offer() answer exactly as they did
+     before this round, so nothing that already calls them without it changes.
+
+     *** WHY THIS IS PURE AND ASKS FOR x,y RATHER THAN "WHERE HE IS STANDING":
+     RULE 38 (9/28, LOCKED) KILLED TILE-TO-TILE THROUGH THE CITY THE SAME
+     ROUND THIS ROW WAS CLAIMED. *** "Your character moving tile to tile
+     throughout the city, it's not gonna be like that anymore, that has to
+     change immediately." A place becomes a SETTLEMENT SCREEN you tap into, not
+     a cell you walk onto. This file never assumed a walked pad -- offer() has
+     always taken x,y and a worldApi, not hx/hy -- so nothing here has to
+     change when the surface does. WHOEVER BUILDS THE SETTLEMENT SCREEN calls
+     this exactly the way a walked pad would have: find the tapped building's
+     ground holder, build a `who`, hand it to offer(). The walked city's own
+     wiring below (ctHiringWho, workOffer) is a REFERENCE CALLER, wired to the
+     one surface that is still live on the alpha today, not a claim that the
+     pad is where this belongs. */
+  function doorFor(who) {
+    if (!who) return { open: true, upgrade: true, why: null };   /* unasked = old behaviour */
+    if (who.rel === 'hostile') return { open: false, upgrade: false, why: 'hostile' };
+    var known = (who.rung && who.rung !== 'stranger') || !!who.vouched;
+    return { open: true, upgrade: known,
+             why: known ? (who.vouched ? 'vouched' : 'standing') : 'stranger' };
+  }
+
   /* THE OFFER: what work is here, how long it takes, and whether the day still
      holds it. minutesLeft is the caller's, because how long a day is belongs to
      the day loop and not to this file.
@@ -186,9 +244,12 @@
      the pay is another one. EVERYTHING COSTS ONE (8/15) means the unit is the
      whole shift, so the honest answer to "there are two hours of light left" is
      that you cannot start, not that you get a smaller battery. */
-  function offer(worldApi, x, y, seed, minutesLeft, room) {
-    var kind = kindAt(worldApi, x, y, room);
-    if (!kind) return null;
+  function offer(worldApi, x, y, seed, minutesLeft, room, who) {
+    var baseKind = kindAt(worldApi, x, y, room);
+    if (!baseKind) return null;
+    var door = doorFor(who);
+    if (!door.open) return null;
+    var kind = (baseKind === 'site' && !door.upgrade) ? 'scav' : baseKind;
     var mins = minutesFor(kind, seed);
     if (!mins) return null;
     var fits = (typeof minutesLeft === 'number') ? (minutesLeft >= mins) : true;
@@ -196,6 +257,12 @@
     if (B) { try { where = B.say(room) || null; } catch (_e) { where = null; } }
     return { kind: kind, act: BRIDGE[kind].act, minutes: mins, fits: fits,
              room: room || null, where: where,
+             /* NAMED, NEVER SILENT: a downgraded kind and a closed door both
+                have to be able to be told apart from an ordinary scav district,
+                or the reputation system costs the player something with no way
+                for him to ever notice it happened. */
+             offeredSite: (baseKind === 'site'),
+             door: door.why,
              district: (function () {
                try { var c = worldApi.at(x | 0, y | 0); return (c && c.district) || null; }
                catch (_e) { return null; } })() };
@@ -217,7 +284,7 @@
   }
 
   var API = { BRIDGE: BRIDGE, kinds: kinds, minutesFor: minutesFor,
-              kindAt: kindAt, offer: offer, asAgent: asAgent };
+              kindAt: kindAt, offer: offer, asAgent: asAgent, doorFor: doorFor };
   if (HASREQ) module.exports = API;
   root.BohemiaWork = API;
 })(typeof window !== 'undefined' ? window

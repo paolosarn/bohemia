@@ -1,0 +1,151 @@
+BOHEMIA -- SOMEBODY HIRES YOU (9/28/26, PEOPLE lane)
+VAMILY job [somebody hires you], row WHO-WILL-GIVE-YOU-WORK. With WORLD
+[a days work].
+
+Paolo, on the board: "a person offers you the job, and whether they will
+depends on your standing and on what you used to be. Both are already built
+([your reputation], [former jobs]). A stranger gets the worst work; somebody
+who vouches for you gets you the better shift; a bad name closes doors."
+
+================================================================================
+MEASURED BEFORE A LINE WAS WRITTEN
+================================================================================
+A site district (commercial/industrial/medical/solar) has always offered the
+same 'site' work to anybody who stands on it, for ever. A stranger and a
+faction's own closest ally got the identical job. The reputation system this
+lane already built has never once been asked a question about hiring.
+
+TWO SYSTEMS ALREADY ANSWER "WHO ARE YOU TO THIS OUTFIT":
+  THE BELONGING LADDER (bohemia_belonging.js) -- how many times you have done
+    what an outfit wants. Starts at 'stranger' on a fresh save. Moves the
+    moment a favor is answered through the asks screen, which is ordinary play.
+  THE STANDING WEB (bohemia_standing.js, whoVouches) -- named people who are
+    warm on you because they personally saw or heard something you did.
+
+*** AND A FALSE PREMISE CAUGHT BEFORE ANYTHING WAS BUILT ON IT. *** The
+standing web's DEED_WEIGHT table ships EMPTY in the module, which read as "dead
+until Paolo rules it" and would have been the wrong foundation for half this
+design. MEASURED on the real page: it is NOT empty. 84 rows, filled at boot
+from the quest corpus (152 quests, mined the same way the questbook always
+has). The web is genuinely live; a fresh save just has not touched a quest
+yet, which is why the belonging ladder is the axis that actually moves in
+ordinary early play and the standing web is the one that lights up later.
+Neither is faked to look reachable; both are real.
+
+A third fact closes doors: ctRelToMine already answers 'hostile' for a faction
+your own outfit has fought, the SAME fact ctAgainstMe reads to decide who
+attacks you on sight. Nothing new was invented for "a bad name."
+
+================================================================================
+WHAT WAS BUILT
+================================================================================
+engine/bohemia_work.js gained ONE pure function, doorFor(who), and offer() now
+accepts an optional fourth argument. `who` is three facts, never a person:
+  rel      the faction relationship's sign: hostile / warm / neutral / unknown / null
+  rung     the belonging ladder's key for this faction: stranger / peripheral /
+           useful / ... or null
+  vouched  true if somebody warm on the player also belongs to this faction
+
+THE DOOR CAN ONLY DOWNGRADE OR CLOSE, NEVER INVENT A JOB THE GROUND NEVER HAD.
+A stranger at a scav district still just scavenges. Standing cannot conjure a
+site job out of nowhere; it can only mean you get the real job a site district
+already offers instead of being quietly downgraded to the worst of it.
+
+`who` is OPTIONAL and omitting it reproduces the exact old behavior, byte for
+byte, which is how every existing caller (a_days_work_gate.js) stays green
+with zero changes.
+
+THE CITY WIRES IT WITH THREE DOORS IT ALREADY HAD:
+  ctHiringWho(faction) reads the belonging ladder for that faction, the same
+  ripple-sign ctAgainstMe already reads, and the standing web -- with a
+  mind-to-faction lookup (ctFactionOfMind) that reuses this lane's own 8/11
+  lesson rather than guessing a person back out of an id.
+  workOffer() finds the ground's holder through the SAME door doWork() already
+  pays through, so what block hires you and what treasury pays you can never
+  quietly disagree about whose ground this is.
+
+================================================================================
+*** AND THE GROUND MOVED MID-ROUND, THE SAME ROUND THIS ROW WAS CLAIMED ***
+================================================================================
+Rule 38 (Paolo 9/28, LOCKED): "your character moving tile to tile throughout
+the city, it's not gonna be like that anymore, that has to change immediately."
+Places become SETTLEMENT SCREENS you tap into; the eight-button pad and
+tile-to-tile walking through the city are dead, effective immediately, for
+everywhere except the fight and named special places.
+
+THIS DID NOT COST THE MECHANISM ANYTHING. doorFor() and offer() have always
+taken a faction's facts and (x, y) coordinates, never "where his feet are" --
+nothing about them assumed a walked pad, so nothing about them had to change
+under rule 38. The ONE piece that is tied to the pad is workOffer()/workCell(),
+the city's reference caller, wired to the only surface still live on the alpha
+today. Whoever builds the settlement screen calls ctHiringWho(faction) and
+BohemiaWork.offer(...,who) the identical way: find the tapped building's
+ground holder, build a who, hand it to offer(). That is the whole re-wire, and
+it is a few lines, not a redesign.
+
+================================================================================
+ON THE ALPHA, ON THE REAL OVERMAP
+================================================================================
+Found a real commercial district held by a real faction (Network) and asked
+the real, live functions, no fabrication:
+  fresh save, never touched this faction     stranger, worst work: SCAVENGE
+  after 5 real favors through the asks save  useful rung, real work: WORK
+  a fabricated hostile relationship          the door closes: no offer at all
+  the old unasked call                       unchanged: still 'site', still free
+
+Both screenshots are the SAME corner, same minute, same day: only the standing
+changed, and the button on screen changed with it, live.
+
+================================================================================
+THE COOK: A STRANGER GETS THE WORST WORK
+================================================================================
+slices/BOHEMIA_A_STRANGER_GETS_THE_WORST_WORK_9_28_26.html, registered in VOTE.
+BOTH FRAMES ARE THE WALKED GAME'S OWN CAMERA (rule 32f) -- page.screenshot(),
+not a canvas grab, because the work button is a DOM overlay drawn on top of the
+canvas and the first attempt's canvas-only grab photographed real pixels that
+silently missed the one thing that mattered. Caught before it shipped.
+
+================================================================================
+THE GATE
+================================================================================
+gates/somebody_hires_you_gate.js. Pure-function legs on doorFor/offer with a
+self-test that can fail on purpose, city-wiring legs that read the real
+functions off the inlined city, and live legs on the real overmap: the fresh
+default is honestly a stranger, a real favor moves the real offer, a
+fabricated hostile relationship really closes the door.
+
+================================================================================
+MEASURED AND NOT FIXED
+================================================================================
+THE VOUCH HALF OF "WHO WILL GIVE YOU WORK" CANNOT BE DEMONSTRATED ON A FRESH
+SAVE TODAY, ONLY FABRICATED. The standing web is real and wired (proven: 84
+weighted deed kinds exist and a hand-built mind with one of them correctly
+produces a vouch), but reaching it in ordinary play requires touching the
+quest corpus, which nothing in an early save has done yet. The belonging
+ladder is the axis that actually moves for a new player; this is named rather
+than quietly relied on.
+
+WHAT "WHAT YOU USED TO BE" ([former jobs]) MEANS FOR THE PLAYER, NOT BUILT.
+The row cites [former jobs] (BB-WHAT-YOU-WERE) alongside [your reputation], and
+that system is entirely about NPCs' pre-collapse trades (bohemia_people.js
+WAS_WORDS), derived from a person's own key. The player has no equivalent
+identity anywhere in this repo, and assigning one would be inventing an
+IDENTITY decision that is his to make, not a mechanism this lane should build
+unasked. This row is built on the reading that "your standing" covers both the
+faction ladder and the personal deed web, and "what you used to be" is left
+untouched rather than guessed at with an invented player background.
+
+THE WORK BUTTON DOES NOT YET SAY WHY IT DOWNGRADED OR WHY A DOOR CLOSED.
+Rule 19 (text from a mouth with a portrait, nothing pops up) means the right
+answer is a bark, not a card, and building that bark well needs its own round;
+today the downgrade is only visible as WORK becoming SCAVENGE, which is honest
+but silent about the reason. Named rather than rushed.
+
+THE CITY WIRING (workOffer/workCell) IS ON GROUND RULE 38 JUST DECLARED DEAD.
+It is the only surface live on the alpha today, so it is the honest place to
+prove the mechanism works, but it is not where this belongs going forward. The
+re-wire onto a settlement screen, once one exists, is named above as the
+pattern to copy, not built here -- that surface is not this lane's to build.
+
+TAB: CITY, the walked street in the alpha (until the settlement screen lands).
+VOTE, for the two frames.
