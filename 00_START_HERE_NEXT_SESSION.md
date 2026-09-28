@@ -51257,7 +51257,39 @@ your first VAMILY and do steps 1 to 9.
 I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
-ROUND LOG 9/27d (latest): FIGHT VERDICT ROUND 12 - the first close-grid
+ROUND LOG 9/28b (latest): MY OWN CARD WAS FIGHTING HIS NOTE, FIXED. The
+wardrobe bank caught up to CHARACTER's colourway ship and the style
+gate went 13 red. Before bouncing, I read his votes: he voted the new
+thirteen UP and ruled on 9/22 "vibrance turned down a little" - and my
+9/5 accent floor (0.55) called any accent turned down a little MUD.
+Accents measure median 0.58; a tenth down is 0.52, exactly CHARACTER's
+LEATHER. Card 5C: accent floor 0.50; ratchet re-frozen honestly at 91
+(the reason is in the baseline file, the bounced pieces excluded so
+it still only falls). THE REAL BOUNCE IS FOUR SWATCHES, NOT TWELVE
+GARMENTS: GOLD #ffd75c at val 1.00 (x3; the opposite of 'not so
+bright') -> #d1b254; OLIVE #4a5036 sat .33 (x3) -> #4b4f3e; SAND
+#806e50 sat .38 -> #807563; BONE outer val .64 -> #575348 or bone on a
+base layer. Four hex edits clear eight garments and the ratchet;
+records/BOHEMIA_VERDICT_THE_COLOURWAYS_FOUR_SWATCHES_9_28_26.md.
+Style gate 172/9, every red one of those four swatches. Wardrobe bank
+refreshed (350 items).
+PREVIOUS: FIGHT VERDICT ROUND 13 on COMBAT V227, the
+first close-grid fight on the glass. PAID: the entire chrome list of
+rounds 5-10 is gone (diamonds, CLEAR, OUT, lollipop, ellipse) - seven
+rounds of the same list paid by the grid replacing them, which is the
+best evidence rule 34 was right; person one cell; reach 4/8/12 cells
+(= his 12/24/36 m); reach as thin cell rims, my round-12 ruling on the
+glass; floor still his street at 4x4 patches (faint repeat, stdev 3.8,
+watch). THE NEW LIE, MEASURED: a mood gradient over the whole floor -
+the road runs hue 22 -> 14 -> 1 -> 347 -> 351 top to bottom (orange to
+rose-magenta), sat to 0.44 against the approved road's 0.10-0.15,
+purple-hued pixels 0.1% -> 4.4%. R4 FAIL + purple reservation; one
+cause across the frame = a tint (R8 WATCH if it is a full-frame
+draw). Also: the thumb ring outsizes the fight (UI [one hud]); his 9/7
+ring lost in a rebase (COMBAT owned it); SWAP TO RIFLE in the old
+SHOOT socket. Round 14: the same pair with the tint out. Record
+records/BOHEMIA_FIGHT_VERDICT_ROUND_13_9_28_26.md.
+PREVIOUS: FIGHT VERDICT ROUND 12 - the first close-grid
 work judged against the two-scales card s5, both PASS. COMBAT's ONE
 HOUSE IS NOT ONE TILE: the reach conversion is faithful (4/8/12 cells)
 and its insight is ruled into the look - only the pistol fits the

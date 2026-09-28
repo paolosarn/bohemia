@@ -4,7 +4,7 @@
 #   4th field added 7/21 for dress-code-by-rank -- bohemia_dress.js parse()
 #   widened to p.length>=3 the same turn; regenerate any embedded slice
 #   copy (tools/bohemia_life_slice.py) so its stamped parser matches)
-# count: 330
+# count: 350
 TEMPLE TAPER|hair|#201e1b|
 SHAG|hair|#523a26|
 ROPE LOCKS|hair|#201e1b|
@@ -266,6 +266,26 @@ DUST BEDROLL|back|#806e50|
 RUST QUIVER|back|#724830|
 STEEL ROAD CAPE|back|#4c5a6a|
 OLIVE SHOULDER MANTLE|back|#4a5036|
+COBALT SHOULDER MANTLE|back|#3d6dbd|
+COBALT WIDE TROUSER|legs|#3d6dbd|
+COBALT STACK BOOT|feet|#3d6dbd|
+BRICK SPLIT-TAIL DUSTER|outer|#703a30|
+BRICK WIDE TROUSER|legs|#703a30|
+BRICK STACK BOOT|feet|#703a30|
+GOLD SHOULDER MANTLE|back|#ffd75c|
+GRASS DROP TROUSER|legs|#76b64e|
+GRASS BOOTS|feet|#76b64e|
+SAND COCOON COAT|outer|#806e50|
+LEATHER WRAP COAT|outer|#5c422c|
+LEATHER STACK PANT|legs|#5c422c|
+LEATHER STACK BOOT|feet|#5c422c|
+OLIVE WIDE TROUSER|legs|#4a5036|
+TEAL COCOON COAT|outer|#3cb49c|
+CHARCOAL SHOULDER MANTLE|back|#363436|
+CHARCOAL CROP TROUSER|legs|#363436|
+BONE COCOON COAT|outer|#a29a86|
+SPLIT-TAIL COAT|outer|#363436|
+LEATHER SPLIT-TAIL COAT|outer|#5c422c|
 STORM PONCHO|outer|#46484e|
 RUST GORGET|gear|#724830|
 SOOT GORGET|gear|#363436|

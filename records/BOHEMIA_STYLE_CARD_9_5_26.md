@@ -141,7 +141,7 @@ and he made it in one frame). THE GENERAL RULE HIS KILL SETS:
   "base_val_max": 0.85,
   "val_floor": 0.08,
   "val_ceil": 0.92,
-  "accent_sat_min": 0.55,
+  "accent_sat_min": 0.50,
   "accent_max_pieces": 1,
   "ramp_steps": [4, 6],
   "poles": {
@@ -159,7 +159,7 @@ and he made it in one frame). THE GENERAL RULE HIS KILL SETS:
   "objects_pixel_native": {"rule": "any body-scale object passes the 7/27 pixel craft bars; photographic texture on objects is dead; ground keeps only what he already approved", "judge": "side by side against a real wreck AND the body beside it"},
   "hostile_contrast": {"channels_required": 2,
     "value_delta_min": 0.15, "crowd_median_measured": 0.44,
-    "accent_area_px112_min": 48, "accent_sat_min": 0.55,
+    "accent_area_px112_min": 48, "accent_sat_min": 0.50,
     "silhouette_pole_delta_px112": 4,
     "greyscale_survives": "guaranteed - two channels cannot both be colour"},
   "ground": {"colours_per_kpx_min": 2.07, "wall_colours_per_kpx_min": 1.55, "ruler_bank": "banks/BOHEMIA_STARTER_TILESET_ACT1_RECOOK_7_28_26.txt", "amended": "9/23 [density ruler]", "ramp_hue_shift_deg_min": 3.0,
@@ -168,6 +168,21 @@ and he made it in one frame). THE GENERAL RULE HIS KILL SETS:
              "scope": "new and re-cooked ground tiles from 9/6; CBB-frozen act-1 set exempt until its re-cook row"}
 }
 ```
+
+## 5C. THE ACCENT FLOOR IS 0.50 (amended 9/28, his ruling beats this card)
+PAOLO 9/22 on character-thirteen-on-the-runway-9-22, voted UP: "Nice just
+have the bright colors not so bright u know like the vibrance is turned down
+a little." NOTES ARE RULINGS, and his date is newer than this card's 0.55.
+Measured: the game's 74 accent garments sit at median saturation 0.58; "a
+little" down is about one tenth, 0.52 - which is exactly where CHARACTER's
+LEATHER colourway landed (#5c422c, sat 0.52), and the 0.55 floor called that
+mud. A floor his own note cannot pass is a broken ruler (the density-ruler
+lesson, 9/23). THE ACCENT FLOOR IS NOW 0.50: the register stays <= 0.25, the
+muddy middle is 0.25-0.50, and everything else in 5 and 5B stands. The
+ratchet is re-frozen at the new band WITHOUT the pieces bounced this round
+(records/BOHEMIA_STYLE_CARD_BASELINE_9_5_26.json carries the reason), so it
+still only falls. This does NOT touch the value ends: a pure-white accent
+(val 1.00) is not "turned down", it is the opposite of his note.
 
 ## 5B. THE RATCHET IS ACCENT-IMMUNE (amended 9/13)
 COOK's TEAL WORK PANTS - a LEGAL accent in Paolo's own Network colour -
