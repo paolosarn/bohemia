@@ -64382,7 +64382,14 @@ function ctActFlipPaint(){
            strip; a second, untested event pattern here would be reinventing the
            exact trap [the flip] spent its round finding. */
         var rs = document.createElement('div'); rs.className = 'afr';
-        rs.textContent = '⟳';
+        /* '?' NOT '⟳' (RUN 9/28, for WORDS/DYNASTY [three names], one character). The
+           phone's own face (BohemiaROM) has NO circular arrow at all -- measured: ⟳ ↻ ↺ ⟲
+           ⇄ ⇆ ↔ all fall through to serif -- so this glyph drew in a second typeface on
+           the glass and THE SCREEN HAS ITS OWN FACE went red the moment the demo opened
+           on the map and put the phone on the first screen. '?' is in the face and is the
+           random-name mark most naming screens use. Whoever wants a real reroll arrow
+           adds it to the ROM face; UI [glass face]. */
+        rs.textContent = '?';
         rs.setAttribute('role', 'button');
         rs.setAttribute('aria-label', 'try another ' + a.era.toLowerCase() + ' descendant');
         rs.addEventListener('click', function (ev) {
