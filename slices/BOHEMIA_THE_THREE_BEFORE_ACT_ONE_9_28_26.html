@@ -1,0 +1,237 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>The Three, Before Act One</title>
+<!-- WORDS lane, row [naming screen], THREE-NAMES-MALE-OR-FEMALE (Paolo 9/23,
+     rule 31 section 5): "one screen before act 1, three names typed by the
+     player, male or female each; the faces and bodies come from his own by
+     the heredity the family law already runs."
+
+     DYNASTY's [three names] (9/27, records/BOHEMIA_DYNASTY_THREE_NAMES_9_27_26.md)
+     built the mechanism and routed the screen here by name: "ctActSetName/
+     ctActSetSex are real and gated, waiting for the naming screen's own
+     control to call them." This IS that control.
+
+     REUSE-FIRST: nothing here re-derives a name or a sex. BohemiaActs.roster()
+     is the live truth, exactly the function the phone's own flip strip
+     (#actflip in slices/BOHEMIA_CITY_WORLD.html) already reads; this screen
+     is a second, full-size READER of the same engine, not a second engine.
+     The palette below matches that strip's own gold-on-near-black, so this
+     reads as the same game and not a separate study page.
+
+     THIS IS ALPHA WORK (rule 18): the demo does not change. Nothing here is
+     wired into the alpha's own boot sequence yet -- that is RUN's/UI's
+     integration step, named and not hidden in the record this page ships
+     with. What is real: every word on this screen calls the live, gated
+     engine (BohemiaActs.setName / setSex / reshuffle), the same functions
+     DYNASTY's own gate proves 31/0.
+
+     RULE 27, THE PLAYER DOES NOT SPEAK SPANGLISH: every word of UI copy on
+     this screen is English. draft:true throughout -- his to retype in one
+     word, MECHANISM-MINE/CONTENTS-PAOLO'S. -->
+<style>
+  :root{
+    --bg:#0b0a07; --ink:#e6d9ae; --dim:#9d9174; --dimmer:#7d7458;
+    --gold:#d8b45a; --goldglow:rgba(216,180,90,.18);
+    --card:#15130d; --cardedge:rgba(0,0,0,.45); --panel:rgba(0,0,0,.28);
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{margin:0;background:var(--bg);color:var(--ink);
+    font:14px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    -webkit-text-size-adjust:100%;height:100%}
+  body{display:flex;flex-direction:column;min-height:100vh;padding:0 0 18px}
+  .top{padding:22px 18px 6px;text-align:center}
+  h1{font-size:15px;letter-spacing:.22em;margin:0 0 6px;font-weight:600;color:var(--ink)}
+  .sub{color:var(--dim);font-size:11.5px;letter-spacing:.03em;line-height:1.5;
+       max-width:340px;margin:0 auto}
+  .cards{flex:1 1 auto;display:flex;flex-direction:column;gap:10px;
+         padding:16px 14px 6px;max-width:420px;margin:0 auto;width:100%}
+  .card{background:var(--card);border:1px solid var(--cardedge);border-radius:8px;
+        padding:12px;display:flex;gap:10px;align-items:flex-start}
+  .card.now{background:linear-gradient(180deg,var(--goldglow),transparent 60%),var(--card);
+            border-color:rgba(216,180,90,.5)}
+  .port{flex:0 0 auto;width:52px;height:52px;border-radius:5px;
+        background:rgba(0,0,0,.5);image-rendering:pixelated;display:block}
+  .body2{flex:1 1 0;min-width:0}
+  .era{font-size:10px;letter-spacing:.18em;color:var(--dim)}
+  .card.now .era{color:var(--gold)}
+  .of{font-size:10px;color:var(--dimmer);margin:1px 0 8px}
+  .row2{display:flex;gap:6px;align-items:center;margin:0 0 6px}
+  input.nm{flex:1 1 0;min-width:0;background:var(--panel);border:1px solid var(--cardedge);
+        border-radius:4px;color:var(--ink);font:inherit;font-size:13px;padding:6px 8px;
+        letter-spacing:.02em}
+  input.nm:focus{outline:none;border-color:var(--gold)}
+  input.nm::placeholder{color:var(--dimmer)}
+  .rs{flex:0 0 auto;width:26px;height:26px;border-radius:50%;background:var(--panel);
+      border:1px solid var(--cardedge);color:var(--dim);font-size:13px;line-height:1;
+      display:flex;align-items:center;justify-content:center;cursor:pointer}
+  .rs:active{background:var(--goldglow);border-color:var(--gold)}
+  .sexrow{display:flex;gap:6px}
+  .sx{flex:1 1 0;text-align:center;padding:5px 4px;border-radius:4px;font-size:10.5px;
+      letter-spacing:.1em;background:var(--panel);border:1px solid var(--cardedge);
+      color:var(--dim);cursor:pointer}
+  .sx.on{background:var(--goldglow);border-color:var(--gold);color:var(--gold)}
+  .reads{font-size:9.5px;color:var(--dimmer);margin-top:6px}
+  .bottom{padding:16px 18px 6px;max-width:420px;margin:0 auto;width:100%}
+  .go{display:block;width:100%;padding:12px;border-radius:6px;border:1px solid var(--gold);
+      background:var(--goldglow);color:var(--gold);font:inherit;font-size:13px;
+      letter-spacing:.18em;text-align:center;cursor:pointer}
+  .go:active{background:rgba(216,180,90,.32)}
+  .note{color:var(--dimmer);font-size:10px;text-align:center;margin-top:10px;line-height:1.5}
+  @media (prefers-color-scheme:light){
+    :root:not([data-theme="dark"]){ --bg:#efece5; --ink:#3a3323; --dim:#7a7259;
+      --dimmer:#9a9280; --card:#fbf9f3; --cardedge:#ddd6c2; --panel:#f1ede2; }
+  }
+</style></head><body>
+
+<div class="top">
+  <h1>YOUR THREE</h1>
+  <p class="sub">One family, three lives. Name them, or take who came prepared.
+  Pick a sex for each. You will flip between them once the game begins.</p>
+</div>
+
+<div class="cards" id="cards"></div>
+
+<div class="bottom">
+  <div class="go" id="go" role="button" tabindex="0">BEGIN</div>
+  <p class="note" id="note">draft:true &middot; every word here is his to retype</p>
+</div>
+
+<script src="../engine/bohemia_people.js"></script>
+<script src="../engine/bohemia_acts.js"></script>
+<script>
+(function(){
+  'use strict';
+  // A FIXED SEED FOR THE ATTEMPT. The real screen reads the run's own world
+  // seed (the same one CITYSAVE carries); standalone, there is no save, so
+  // this page picks one string and stays on it -- draft:true, not his canon.
+  var SEED = 'the-three-before-act-one';
+  try { BohemiaActs.resetRoster(); } catch (_e) {}
+
+  var cardsEl = document.getElementById('cards');
+  var built = false;
+
+  function faceCanvas(){
+    // A PLACEHOLDER, ON PURPOSE. DYNASTY's own record: "THE FACE DOES NOT
+    // CHANGE WHEN THE NAME DOES... fixing it is CHARACTER's and PORTRAIT's
+    // heredity work, not a second face-roll built here." Same law applies
+    // to a face that does not exist at all outside the walked city's own
+    // ctFaceAsk. This screen draws a plain dark tile rather than fake one.
+    var cv = document.createElement('canvas');
+    cv.className = 'port'; cv.width = 52; cv.height = 52;
+    return cv;
+  }
+
+  function render(){
+    var list = [];
+    try { list = BohemiaActs.roster(SEED); } catch (_e) { list = []; }
+    if (!list.length) {
+      cardsEl.innerHTML = '<p class="sub">The family bank did not load. Nothing to name yet.</p>';
+      return;
+    }
+    var cur = 1;
+    if (!built) { cardsEl.innerHTML = ''; }
+    list.forEach(function(a){
+      var id = 'act' + a.act;
+      var el = built ? document.getElementById(id) : null;
+      var fresh = !el;
+      if (fresh) {
+        el = document.createElement('div');
+        el.id = id;
+        el.className = 'card' + (a.act === cur ? ' now' : '');
+        el.appendChild(faceCanvas());
+        var body = document.createElement('div');
+        body.className = 'body2';
+        var era = document.createElement('div'); era.className = 'era';
+        body.appendChild(era);
+        var of = document.createElement('div'); of.className = 'of';
+        body.appendChild(of);
+        var row = document.createElement('div'); row.className = 'row2';
+        var input = document.createElement('input');
+        input.className = 'nm'; input.type = 'text'; input.maxLength = 24;
+        input.setAttribute('aria-label', 'name this descendant');
+        var rs = document.createElement('div');
+        rs.className = 'rs'; rs.textContent = '⟳';
+        rs.setAttribute('role', 'button');
+        rs.setAttribute('aria-label', 'try another name and face');
+        row.appendChild(input); row.appendChild(rs);
+        body.appendChild(row);
+        var sexrow = document.createElement('div'); sexrow.className = 'sexrow';
+        var m = document.createElement('div'); m.className = 'sx'; m.textContent = 'MALE';
+        var f = document.createElement('div'); f.className = 'sx'; f.textContent = 'FEMALE';
+        sexrow.appendChild(m); sexrow.appendChild(f);
+        body.appendChild(sexrow);
+        var reads = document.createElement('div'); reads.className = 'reads';
+        body.appendChild(reads);
+        el.appendChild(body);
+        cardsEl.appendChild(el);
+
+        // WIRE EACH CONTROL TO THE LIVE ENGINE. A typed name calls setName
+        // the moment he stops typing (blur, not every keystroke, so a half
+        // -typed name never overwrites a real one mid-word) -- and Enter
+        // blurs, for a real keyboard's own "done" key.
+        input.addEventListener('blur', function(){
+          var v = input.value;
+          if (!v || !v.trim()) return;   // an emptied field is not a name; setName refuses it too
+          try { BohemiaActs.setName(a.act, v); } catch (_e) {}
+          render();
+        });
+        input.addEventListener('keydown', function(ev){
+          if (ev.key === 'Enter') input.blur();
+        });
+        rs.addEventListener('click', function(){
+          try { BohemiaActs.reshuffle(a.act); } catch (_e) {}
+          render();
+        });
+        m.addEventListener('click', function(){
+          try { BohemiaActs.setSex(a.act, 'male'); } catch (_e) {}
+          render();
+        });
+        f.addEventListener('click', function(){
+          try { BohemiaActs.setSex(a.act, 'female'); } catch (_e) {}
+          render();
+        });
+      }
+      // REPAINT WHAT CHANGED, ALWAYS -- the same "every pass" rule the flip
+      // strip already uses, because a reshuffle or a sex change on another
+      // slot must never leave this one showing stale text.
+      el.querySelector('.era').textContent =
+        a.era + (a.later ? ' · +' + a.later + 'Y' : ' · NOW');
+      el.querySelector('.of').textContent = 'of ' + a.of;
+      var inputEl = el.querySelector('.nm');
+      if (document.activeElement !== inputEl) inputEl.value = a.name || '';
+      inputEl.placeholder = a.named ? '' : 'type a name';
+      var sx = el.querySelectorAll('.sx');
+      sx[0].classList.toggle('on', a.sex === 'male');
+      sx[1].classList.toggle('on', a.sex === 'female');
+      el.querySelector('.reads').textContent = a.custom
+        ? 'yours, typed'
+        : 'came prepared · tap ⟳ to try another';
+    });
+    built = true;
+  }
+
+  render();
+
+  // BEGIN. What it does past this screen (handing the three off to the run
+  // that is about to start) is RUN's / UI's wiring, not this page's -- named
+  // here rather than faked. On THIS page it confirms the roster is complete
+  // (rule 32d: no flip to an unnamed descendant) and says so.
+  var goEl = document.getElementById('go');
+  var noteEl = document.getElementById('note');
+  function doBegin(){
+    var list = [];
+    try { list = BohemiaActs.roster(SEED); } catch (_e) { list = []; }
+    var allNamed = list.length === 3 && list.every(function(a){ return a.named; });
+    noteEl.textContent = allNamed
+      ? 'all three are named · draft:true, the words above are his to retype'
+      : 'every slot needs a name before act 1 can begin · draft:true';
+    try {
+      window.__NAMING_SCREEN_CONFIRM = { at: performance.now(), allNamed: allNamed,
+        roster: list.map(function(a){ return { act:a.act, name:a.name, sex:a.sex }; }) };
+    } catch (_e) {}
+  }
+  goEl.addEventListener('click', doBegin);
+  goEl.addEventListener('keydown', function(ev){ if (ev.key === 'Enter' || ev.key === ' ') doBegin(); });
+})();
+</script>
+</body></html>

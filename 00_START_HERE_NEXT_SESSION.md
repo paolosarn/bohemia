@@ -1,3 +1,80 @@
+WORDS (words-8dqrnq): 9/28 LATEST -- *** DYNASTY BUILT THE ENGINE AND SAID IT
+WAS WAITING FOR A CONTROL TO CALL IT. THIS IS THE CONTROL. ***
+TAB: NOT IN A TAB YET, honestly stated -- this is a real, working, gated
+screen that nothing calls yet; wiring it into the alpha's boot sequence is
+RUN's/UI's job. It IS in the VOTE tab as a candidate: words-the-three-before
+-act-one-9-28. Record records/BOHEMIA_WORDS_YOUR_THREE_9_28_26.md.
+
+THE ROW. My old first-OPEN blocker, DYNASTY [three names], shipped 9/27 and
+routed the job here by name: "ctActSetName/ctActSetSex are real and gated,
+waiting for the naming screen's own control to call them." Claimed, measured
+the actual engine (roster/reshuffle/setName/setSex, gated 31/0), and built
+the screen those functions were waiting for.
+
+WHAT IS REAL: slices/BOHEMIA_THE_THREE_BEFORE_ACT_ONE_9_28_26.html loads the
+LIVE engine/bohemia_people.js and engine/bohemia_acts.js (REUSE-FIRST, no
+second copy of the name bank or the acts module). Three cards, one per act,
+each with a prepared name, a reshuffle glyph, a real text field, a MALE/
+FEMALE toggle, wired to the real gated functions. DRIVEN ON THE REAL GLASS
+WITH A REAL FINGER AND A REAL KEYBOARD, the exact standard DYNASTY held its
+own gate to: first frame all three named and sexed (rule 32d); tap reshuffle
+on slot 2, one slot changed, the other two held; tap MALE, it sets; type a
+real name with a real keyboard, sticks after Enter, tagged "yours, typed",
+never bled into another slot.
+
+SWEPT: rule 27 against the real 274-word closed Spanish set (0 hits, 43
+words), voice_gate's own banned-phrase list (0 hits), no em dash, draft:true
+on the page itself. GATE naming_screen_gate.js, 19/0, registered in the
+suite, mutation-proved (rewired reshuffle to always hit slot 1, RED 17/2
+naming both broken legs; restored GREEN 19/0). ONE LEG CHECKS THE ALPHA
+DOES NOT YET REFERENCE THIS PAGE, so a green here can never be misread as
+"it ships wired" -- stated, not hidden.
+
+NOT DONE, STATED: the face is a placeholder on purpose (DYNASTY's own gap,
+CHARACTER's/PORTRAIT's heredity work, not a second face-roll built here).
+Routed to RUN/UI for the actual boot-sequence wiring.
+
+*** AND A REAL RULING LANDED ON AN OLDER SHIP OF MINE, WORTH READING BEFORE
+ANYONE BUILDS MORE ON EITHER SYSTEM IT TOUCHES. *** words-the-surer-the-
+wronger-9-24 (the six rumour frames) came back UP, but his words matter more
+than the vote: "keep this in mind... we're doing a revamp transition where
+it's like pop-up time random events... maybe as you move around you might
+see like speech bubbles of people talking to each other potentially... we're
+in a transition phase." He likes the IDEA and is explicitly asking to wait,
+not build now.
+
+THIS MATTERS FOR TWO THINGS I SHIPPED THIS WEEK, NOT JUST THE RUMOURS.
+Rule 38 (Paolo 9/28, LOCKED): "tile-to-tile through the city is dead,
+immediately... never the city's floor." Both the rumour barks (walked-NPC
+speech, fires off BARK_DREW on the stepped city) AND the twelve ROAD_WORDS
+moments (fire "on the walked step", per roadContactFight's own comment) were
+built for a mechanism -- crossing the city one cell at a time -- that this
+rule just killed. NEITHER WAS WASTED: the words are content, not mechanism,
+and my own [bb event writing] record already said "whoever builds the body a
+road moment attaches to gets to decide" the delivery shape. We now know that
+shape: pop-up events during MAP TRAVEL (rule 33c, 37b), not per-step walking.
+NOT ACTED ON THIS ROUND, ON PURPOSE: redoing either system now, before RUN/
+WORLD build the revamped map and its pop-up-event surface, would be
+guessing at a shape that does not exist yet -- STOP PRODUCING's own tell.
+Flagged here so whoever builds that surface finds this note before writing
+new event text from nothing.
+
+STANDING QUEUE: [reputation lines] still blocked -- COMBAT [fight on the
+grid] is still CLAIMED, mid-rebuild (V228/V229 landed this round). Q26 stays
+CLAIMED until a surface speaks its lines. This lane's queue of owed school
+rounds is untouched this round; naming screen and the rumour-ruling read
+took priority under "his bugs beat your queue" and rule 12 (measure the
+blocker every round).
+VERDICTS: 169 total, 10 mine now (one new: the-surer-the-wronger, up, read
+above). All acted on or flagged.
+AND THE LESSONS THAT BIND, plus a sixth: NO TEXT-ONLY ITEM IN VOTE; a
+picture in VOTE showing a sentence the game no longer says is a lie to him;
+THE SITUATION IS THE PART NOBODY READS; A DERIVED FILE THAT HAS DRIFTED FROM
+ITS SOURCE CAN HOLD A GATE GREEN; DO NOT INVENT A MOUTH TO HIT A SHAPE; and
+now -- WHEN THE GROUND A SYSTEM STANDS ON GETS PULLED, THE WORDS SURVIVE AND
+THE MECHANISM WAITS. Don't rebuild speculatively; write down where the words
+go once the real surface exists.
+
 CHARACTER (character-0lurbs): 9/28 (b) LATEST -- *** CORRECTION, SAME ROUND: [small body]
 IS DEAD, AND IT DIED WHILE MY LAST COMMIT WAS STILL IN FLIGHT. *** Rebasing this round's
 [small body] revision (the palette-collapse commit, previous block below) onto a fresh

@@ -3000,3 +3000,25 @@ person they are talking about, so nobody narrates themselves.
 
 **AND THE NAME BEATS ALL FOUR.** The moment the player has asked somebody's name
 he gets the name and none of this runs. These are only what you call a stranger.
+
+## YOUR THREE -- THE NAMING SCREEN (9/28, draft:true)
+Row [naming screen]. `slices/BOHEMIA_THE_THREE_BEFORE_ACT_ONE_9_28_26.html`,
+gated 19/0. Every word on the real screen; record
+`records/BOHEMIA_WORDS_YOUR_THREE_9_28_26.md`.
+
+    title      YOUR THREE
+    subhead    One family, three lives. Name them, or take who came prepared.
+               Pick a sex for each. You will flip between them once the game
+               begins.
+    era row    {ERA} · NOW / +35Y / +70Y  (the eras and the gap are canon)
+    of line    of {of}  (the anarchy decade / the world clawing back / the
+               cyberpunk healing -- his own words already in bohemia_acts.js)
+    reshuffle  ⟳  (aria: "try another {era} descendant")
+    sex toggle MALE / FEMALE
+    status     "came prepared · tap ⟳ to try another"  /  "yours, typed"
+    confirm    BEGIN
+    footnote   draft:true · every word here is his to retype
+
+Nothing invented past bohemia_acts.js's own comments: the era names, the eras'
+"of" phrases and the years-later attempt were already his file's canon; this
+round only gave them a screen and a real name field.

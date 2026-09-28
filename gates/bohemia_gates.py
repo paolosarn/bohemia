@@ -5397,6 +5397,25 @@ GATES = [
      'narrator makes the player the SUBJECT of a verb, a speaker may make him the OBJECT. '
      'Both ratchets mutation-proved RED, and a dropped debt prints re-pin rather than '
      'passing quietly.', False),
+    ('NAMING SCREEN', ['node', 'gates/naming_screen_gate.js'],
+     'THE WORDS LANE, row [naming screen] (9/28). DYNASTY\'s [three names] (9/27) built '
+     'the mechanism (BohemiaActs.setName/setSex/reshuffle, gated 31/0) and routed the '
+     'screen here by name: "waiting for the naming screen\'s own control to call them." '
+     'slices/BOHEMIA_THE_THREE_BEFORE_ACT_ONE_9_28_26.html IS that control, loading the '
+     'real engine/bohemia_people.js and engine/bohemia_acts.js by the same relative path '
+     'other standalone slices already use, no second copy of either. DRIVEN ON THE REAL '
+     'GLASS WITH A REAL FINGER AND A REAL KEYBOARD, the same standard DYNASTY held its '
+     'own gate to: all three slots named and sexed from the first frame (rule 32d, no '
+     'flip to an unnamed descendant); a real tap on the reshuffle glyph changes ONE slot '
+     'and leaves the other two exactly where they were; a real tap sets a sex; a name '
+     'typed with a real keyboard sticks after Enter and never bleeds into another slot. '
+     'Swept for rule 27 (the player never speaks Spanglish) against the real closed set '
+     'in engine/bohemia_people.js, and against voice_gate\'s own banned-phrase list, not '
+     'a reimplementation of either. STATES WHAT IT DOES NOT CLAIM: the alpha does not yet '
+     'call this page, so a green here is readiness, not delivery, and the gate fails '
+     'itself if that stops being true without this note being updated. Mutation-proved: '
+     'reshuffle rewired to always hit slot 1, RED 17/2 naming both broken legs; restored '
+     'GREEN 19/0.', False),
     ('VOICE',          ['node', 'gates/voice_gate.js'],
      'THE WORDS LANE (Paolo 8/26): "it\'s time we have a new chat, like, write and sound like '
      'a human for Bohemia." The lane\'s honest premise is that THE WRITER IS A MACHINE AND '
