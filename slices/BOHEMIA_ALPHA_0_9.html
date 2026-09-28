@@ -4654,8 +4654,42 @@ function famFaceKey(m){
   var parent = m.survivesIf === 'always';
   var over = { age: m.age || 'adult' };
   /* a child inherits; a parent of small children is not old enough to be grey */
-  if (parent) over.young = true;
-  else { var ps = famParents(); if (ps.length) over.kin = ps; }
+  if (parent) {
+    over.young = true;
+    /* A MARRIED COUPLE ARE NOT SIBLINGS -- nothing ties their rolls together, so
+       two independent draws off a six-colour palette land on the same iris about
+       one time in six, which is how RAY and DENISE, who share no blood, wore the
+       identical eyes (measured 9/28, [family eyes]: 100% agreement, four for four).
+       The SECOND parent processed avoids whatever the FIRST already actually
+       wears, one direction only so there is nothing circular to resolve -- the
+       first parent still rolls free. Then the coin the children take between the
+       two of them has two different faces to land on instead of a coincidence
+       wearing two names. */
+    var parentOrder = (window.FAMILY_CAST||[]).filter(function(p){ return p.survivesIf === 'always'; });
+    var already = parentOrder.slice(0, parentOrder.indexOf(m));
+    if (already.length) over.avoidFaces = already.map(function(p){
+      var pk = famFaceKey(p);
+      return faceFor(pk.id, pk.over);
+    });
+  }
+  else {
+    var parents = (window.FAMILY_CAST||[]).filter(function(p){ return p.survivesIf === 'always'; });
+    if (parents.length) {
+      over.kin = parents.map(function(p){ return p.role+':'+p.name; });
+      /* CHILDREN READ A PARENT'S ACTUAL FACE, NOT A SECOND ROLL OF THE SAME DICE
+         (9/28, PEOPLE [family eyes]). Without this, faceFor's copy branch re-hashed
+         the parent's id from scratch, so two people nothing has ever told they are
+         related -- the parents themselves -- could land on the identical iris by
+         chance, and this cast is fixed, not re-rolled, so 80,110,150 four times over
+         would never change. The DESCENDANTS generator below already does it right,
+         reading ancestor.eyes.iris instead of re-deriving it; this is that same fix
+         one generation up, same order both times so kin[i] and kinFaces[i] agree. */
+      over.kinFaces = parents.map(function(p){
+        var pk = famFaceKey(p);
+        return faceFor(pk.id, pk.over);
+      });
+    }
+  }
   return { id: m.role+':'+m.name, over: Object.assign(over, m.face || null) };
 }
 window.famFaceKey = famFaceKey;
@@ -5810,6 +5844,8 @@ function faceFor(id, over){
      h = 0.62: the child sits most of the way to its parents' mean and keeps a third of
      its own draw. Real facial morphology is high-heritability but not a copy. */
   var kin = (over && over.kin && over.kin.length) ? over.kin : null;
+  var kinFaces = (over && over.kinFaces && over.kinFaces.length) ? over.kinFaces : null;
+  var avoidFaces = (over && over.avoidFaces && over.avoidFaces.length) ? over.avoidFaces : null;
   var kinMix = function(fn){
     if (!kin) return function(salt){ return fn(id, salt); };
     return function(salt){
@@ -5826,14 +5862,42 @@ function faceFor(id, over){
      index 3 (green) would hand a child grey, which is neither parent and is not how
      anything is inherited. So a categorical trait is COPIED from one parent, with a
      small share left over for the grandparents nobody drew. */
-  var pick = function(arr, salt){
+  var pick = function(arr, salt, path){
     if (kin) {
       if (faceRollHash(id, salt + '|which') < 0.86) {
-        var pi = kin[(faceRollHash(id, salt + '|from') * kin.length) | 0];
+        var pidx = (faceRollHash(id, salt + '|from') * kin.length) | 0;
+        /* READ THE PARENT'S ACTUAL VALUE WHEN WE HAVE IT (9/28, [family eyes]) --
+           re-hashing pi from scratch here is the bug: it asks "what colour would
+           this parent's id roll", which can answer differently than the colour that
+           parent is actually wearing, and for two unrelated people (the parents
+           themselves) landing on the same answer by the coincidence of a six-colour
+           palette is not rare. path is only passed for the traits that bug hit. */
+        if (kinFaces && kinFaces[pidx] && path) {
+          var val = path.split('.').reduce(function(o,k){ return o ? o[k] : null; }, kinFaces[pidx]);
+          if (val) return val.slice ? val.slice() : val;
+        }
+        var pi = kin[pidx];
         return arr[(faceRollHash(pi, salt) * arr.length) | 0];
       }
     }
-    return arr[(R(salt) * arr.length) | 0];
+    /* THE RARE THIRD IS A GRANDPARENT NOBODY DREW, NOT A BLEND OF THE TWO WHO WERE:
+       faceRollHash(id,salt) here, never R(salt) -- R rides kinMix toward the parents'
+       mean, right for a numeric dial and wrong for a colour (three lines up, this
+       file's own rule). When kin is null this is exactly what R(salt) already was,
+       so nothing changes for anybody without parents; the 14% that skips inheritance
+       now actually skips it instead of leaning back toward it. */
+    var idx = (faceRollHash(id, salt) * arr.length) | 0;
+    if (avoidFaces && path) {
+      var mine = arr[idx];
+      var clash = avoidFaces.some(function(af){
+        var v = path.split('.').reduce(function(o,k){ return o ? o[k] : null; }, af);
+        return v && mine && v[0] === mine[0] && v[1] === mine[1] && v[2] === mine[2];
+      });
+      /* NUDGED ONE SEAT OVER, NEVER RE-ROLLED: still this id's own draw, just not
+         the one seat that would make a co-parent an accidental twin. */
+      if (clash) idx = (idx + 1) % arr.length;
+    }
+    return arr[idx];
   };
 
   /* AGE FIRST, because it moves the skull and everything else hangs off that. */
@@ -5926,10 +5990,10 @@ function faceFor(id, over){
      worth reading (who is lying to you, who is already gone) this is the hook, and until
      then it is honest to say it is a die and not a meaning. */
   sp.eyes.gaze = (R('gaze') < 0.083) ? (R('gazeside') < 0.5 ? -1 : 1) : 0;
-  sp.eyes.iris = pick(IRIS, 'iris');
+  sp.eyes.iris = pick(IRIS, 'iris', 'eyes.iris');
 
   /* ---- BROWS: the loudest thing on a face this size ----------------------- */
-  sp.brows.color = pick(BROWC, 'browc');
+  sp.brows.color = pick(BROWC, 'browc', 'brows.color');
   sp.brows.thick = child ? 1 : (R('bt') < 0.30 ? 1 : (R('bt') < 0.82 ? 2 : 3));
   sp.brows.len   = Math.max(4, Math.min(10, Math.round(7 + B('bl') * 2.2)));
   sp.brows.gap   = Math.max(3, Math.min(7, Math.round(sp.eyes.gap - 1 + B('bg'))));
@@ -5952,7 +6016,7 @@ function faceFor(id, over){
   sp.mouth.w = Math.round(f.cheekW * ((child ? 0.25 : 0.29) + B('mw') * 0.035));
   sp.mouth.w = Math.max(5, Math.min(f.jawW - 8, sp.mouth.w));
   sp.mouth.fullLower= child ? 2 : (R('fl') < 0.30 ? 1 : (R('fl') < 0.80 ? 2 : 3));
-  sp.mouth.color    = pick(LIPS, 'lips');
+  sp.mouth.color    = pick(LIPS, 'lips', 'mouth.color');
 
   /* ---- HAIR + SKIN -------------------------------------------------------- */
   /* *** ONE ID, ONE WHOLE PERSON. SKIN AND HAIR COME FROM THE BODY, NOT FROM HERE. ***
