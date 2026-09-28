@@ -93,8 +93,20 @@ function validate(d,label){
      "text src is the words themselves", and the coordinator's philosophical items (rule
      15a) carry everything in `why` with src "". This check fired on all three of them the
      first time it ran, which was MY RULE being wrong, not the data. Same lesson as the
-     dial sweep an hour earlier: prove the instrument before believing what it says. */
-  const noSrc=d.items.filter(i=>!i.show||!i.show.how||(i.show.how!=='text'&&!i.show.src));
+     dial sweep an hour earlier: prove the instrument before believing what it says.
+     *** SAME LESSON A SECOND TIME (9/28), CAUGHT BEFORE IT REFUSED A CLEAN MERGE: ***
+     a newer 'verdict' shape (coordinator-the-map-floor-is-the-phones-pixels-9-28 and its
+     sibling) skips `.show` entirely and carries `text` + `asked` at the item's own top
+     level -- a quick yes/no ask with no rendered visual, one step lighter than the ten
+     older `kind:'verdict'` items that still nest under `.show`. Both are real, both are on
+     main, and this check knew about neither shape when it was written. A merge tool that
+     dies on a schema it has not seen yet is not safe, it is just an early opinion; the
+     job here is to move data without corrupting it, not to gatekeep every future shape. */
+  const noSrc=d.items.filter(i=>{
+    if(i.show && i.show.how) return i.show.how!=='text' && !i.show.src;
+    if(!i.show && (i.text||'').trim()) return false;   /* the top-level text+asked verdict shape */
+    return true;
+  });
   if(noSrc.length) die(`${label}: ${noSrc.length} item(s) with no show/src: ${noSrc.slice(0,3).map(i=>i.id).join(', ')}`);
   const mute=d.items.filter(i=>i.show&&i.show.how==='text'&&!i.show.src&&!(i.why||'').trim());
   if(mute.length) die(`${label}: ${mute.length} text item(s) with neither src nor why: ${mute.slice(0,3).map(i=>i.id).join(', ')}`);

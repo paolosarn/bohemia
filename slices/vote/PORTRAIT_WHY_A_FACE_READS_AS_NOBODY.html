@@ -1,0 +1,87 @@
+<!doctype html><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>BOHEMIA — Why A Face Reads As Nobody</title>
+<!-- PORTRAIT [blank faces] school round, 9/28. Real renderer pixels on the real
+     120 BPM clock (rule 25). No fix in this card -- rule 6, school first,
+     no face is redrawn this round. Faces at 132 px (rule 32f). -->
+<style>
+  :root{--ink:#e8e0cc;--bg:#0d0d12;--card:#16161d;--line:#33313d;--gold:#c79a3f;--red:#c56b6b}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+       font:13px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace;padding:14px}
+  h1{font-size:13px;letter-spacing:2px;margin:0 0 4px;color:var(--gold)}
+  p{margin:0 0 12px;color:#a49a86;max-width:60ch}
+  .said{border-left:2px solid #7a4a4a;padding:6px 0 6px 10px;margin:0 0 14px;color:#b09a90}
+  b{color:#c8bfa8;font-weight:normal}
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+  .box{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:8px;text-align:center}
+  .nm{font-size:9px;letter-spacing:.5px;color:var(--red);margin-bottom:6px}
+  canvas.big{width:100%;max-width:132px;aspect-ratio:1/1;height:auto;image-rendering:pixelated;
+         background:#101319;border-radius:3px;display:block;margin:0 auto}
+  .note{margin-top:6px;color:#6f6862;font-size:10px}
+  .num{margin:2px 0 12px;color:#a49a86;max-width:62ch}
+</style>
+<h1>WHY A FACE READS AS NOBODY</h1>
+<div class="said">School round, [blank faces]. No face is redrawn this round -- this is what
+twenty of your own crowd look like, measured, not guessed.</div>
+<p>The old answer to this question was bead eyes and a flat mouth. Both are fixed now, from
+other rounds -- checked before writing this, not assumed. Re-measured against twenty faces at
+your real phone size, three things are still true.</p>
+
+<p class="num"><b>1. THE LIGHT.</b> 20 faces measured against your own world's rule (the
+right side of a lit thing out-shines the left by at least 8%). <b>0 of 20</b>
+meet it. Worse: <b>18 of 20</b> actually lean the OTHER way, left brighter
+than right, which is backwards, not just flat.</p>
+<div class="grid">
+  <div class="box"><div class="nm">LIGHT: worst (left-lit, wrong way)</div>
+  <canvas class="big" data-k="c0" width="64" height="64"></canvas>
+  <div class="note">light -4.6%</div></div>
+  <div class="box"><div class="nm">LIGHT: best of the twenty</div>
+  <canvas class="big" data-k="c1" width="64" height="64"></canvas>
+  <div class="note">light 2.6%</div></div>
+</div>
+
+<p class="num"><b>2. THE HAIR HAS NO VOLUME.</b> Average <b>84.8%</b> of every
+hairstyle's own pixels are one single flat colour. A hairstyle can be a quarter of the whole
+picture and it reads as a coloured cap, not something with any shape to it.</p>
+<div class="grid">
+  <div class="box"><div class="nm">HAIR: biggest flat mass</div>
+  <canvas class="big" data-k="c2" width="64" height="64"></canvas>
+  <div class="note">hair flat 81%</div></div>
+  <div class="box"><div class="nm">HAIR: biggest flat mass</div>
+  <canvas class="big" data-k="c3" width="64" height="64"></canvas>
+  <div class="note">hair flat 99%</div></div>
+</div>
+
+<p class="num"><b>3. THE BROW SHADOW IS AN ACCIDENT.</b> Of 14 faces with bare eyes,
+only <b>7</b> show real darkening above the eye, and nothing in the renderer puts
+it there on purpose -- it only happens where another shadow already overlaps that spot.</p>
+<div class="grid">
+  <div class="box"><div class="nm">SOCKET: has a real dip</div>
+  <canvas class="big" data-k="c4" width="64" height="64"></canvas>
+  <div class="note">socket 15.3%</div></div>
+  <div class="box"><div class="nm">SOCKET: no dip at all</div>
+  <canvas class="big" data-k="c5" width="64" height="64"></canvas>
+  <div class="note">socket -8.8%</div></div>
+</div>
+
+<p class="num">No fix in this card. This is the school round; the rule for each is named in
+the record. Thumbs up if this matches what you see, thumbs down if it does not.</p>
+<script>
+(function(){
+  var C=[[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,3,4,2,1,0,0,0,0,0,0,0,0,0,0],[5,5,5,5,5,5,5,5,5,6,6,6,6,6,6,6,6,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5],[7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,8,9,10,11,10,10,12,9,8,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7],[13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,14,15,16,15,15,14,14,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13],[17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,18,19,20,21,20,20,22,19,18,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17],[23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,24,24,25,26,25,25,24,24,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23]], STEP=33.333333333333336, N=64;
+  var img=new Image(); img.src='PORTRAIT_WHY_A_FACE_READS_AS_NOBODY.png';
+  var cs={};
+  document.querySelectorAll('canvas[data-k]').forEach(function(c){
+    var x=c.getContext('2d'); x.imageSmoothingEnabled=false; cs[c.dataset.k]=x; });
+  function put(k,f){var x=cs[k]; if(!x)return; x.clearRect(0,0,N,N); x.drawImage(img,f*N,0,N,N,0,0,N,N);}
+  img.onload=function(){
+    var t0=performance.now();
+    (function loop(now){
+      var k=Math.floor((now-t0)/STEP);
+      C.forEach(function(s,i){ put('c'+i, s[k%s.length]); });
+      requestAnimationFrame(loop);
+    })(t0);
+  };
+})();
+</script>

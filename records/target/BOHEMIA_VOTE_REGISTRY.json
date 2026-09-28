@@ -2536,16 +2536,16 @@
     "src": "BOHEMIA_THE_THREE_BEFORE_ACT_ONE_9_28_26.html"
    }
   },
-  {
-   "id": "coordinator-tuning-and-mods-research-until-you-say-build-9-28",
-   "kind": "verdict",
-   "lane": "coordinator",
-   "title": "TUNING AND MODS ONLY RESEARCH UNTIL YOU SAY BUILD",
-   "text": "You said tuning and mods are big brain research, like quests. So they study how other games do it and write pages, and they build nothing. When you want the numbers table or the mods folder actually wired in, say build and the plumber wires what they recommend. DOWN means you want them building now.",
-   "asked": "UP or DOWN",
-   "when": "2026-09-28",
-   "draft": true
-  },
+{
+  "id": "coordinator-tuning-and-mods-research-until-you-say-build-9-28",
+  "kind": "verdict",
+  "lane": "coordinator",
+  "title": "TUNING AND MODS ONLY RESEARCH UNTIL YOU SAY BUILD",
+  "text": "You said tuning and mods are big brain research, like quests. So they study how other games do it and write pages, and they build nothing. When you want the numbers table or the mods folder actually wired in, say build and the plumber wires what they recommend. DOWN means you want them building now.",
+  "asked": "UP or DOWN",
+  "when": "2026-09-28",
+  "draft": true
+},
   {
    "id": "tuning-five-points-9-28",
    "kind": "tile",
@@ -2558,6 +2558,19 @@
    "show": {
     "how": "page",
     "src": "BOHEMIA_TUNING_FIVE_POINTS_9_28_26.html"
+   }
+  },
+  {
+   "id": "portrait-why-a-face-reads-as-nobody-9-28",
+   "kind": "face",
+   "lane": "portrait",
+   "sha": "pending",
+   "made": "9/28",
+   "title": "WHY A FACE READS AS NOBODY",
+   "why": "School round, [blank faces]. The old answer to why a face reads as nobody was bead eyes and a flat mouth, from a round ago. Both are fixed now, checked before I wrote this, not assumed. So I measured twenty of your own crowd fresh, at your real phone size, and three things are still true. ONE, THE LIGHT: your own world rule says the right side of a lit thing should out-shine the left by at least 8 percent. Zero of twenty faces meet that. Eighteen of twenty actually lean the other way, left brighter than right, which is backwards, not just flat. TWO, THE HAIR HAS NO SHAPE: on average 85 percent of every hairstyle's own pixels are one single flat colour. A hairstyle can be a quarter of the whole picture and it still reads as a coloured cap. THREE, THE SHADOW ABOVE THE EYE IS AN ACCIDENT: of the faces with bare eyes, only half show any darkening there at all, and nothing in the renderer puts it there on purpose, it only happens where another shadow already overlaps that spot by luck. No fix in this card, this is the school round. Does this match what you see when you look at your own people?",
+   "show": {
+    "how": "page",
+    "src": "vote/PORTRAIT_WHY_A_FACE_READS_AS_NOBODY.html"
    }
   }
  ],
