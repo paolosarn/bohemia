@@ -45297,6 +45297,8 @@ ALWAYS; HOME BASES AND ROAMING PARTIES not territory (FACTIONS [home bases] firs
 character never dies, veterans 10%; high ground is a roof; ANIMATION [glide] first; PORTRAIT [head and gear]
 first; TUNING [lifespans]; WORLD [scavenge], [creatures]; the flip is a big transition unlocked mid-act; sounds
 have 'the reverb of a glass jar'. CLAUDE.md law list; the two-scales, overworld and second-votes laws amended.
+THEN (fu) HE SAID IT AGAIN, HARDER (9/28): 'fully committed... a revamp... pretty much like Battle Brothers... how many pixels the Battle Brothers map is, that exact same number at the bare minimum, now... your character moving tile to tile throughout the city, not anymore, immediately.' Rule 38; overworld law s12; two-scales law s9; third-votes s17; records/BOHEMIA_PAOLO_THE_MAP_AT_BB_PIXELS_AND_NO_TILE_TO_TILE_9_28_26.md. DIRECTION [bb density] first (measure the number); RUN [no city walk] first (the walked city off the play surface, arrival is a settlement screen); PLUMBER [density leg]; [honest grid], [small body], [small clips], [fight on the grid], [tile options] all re-aimed at the fight ground and the Strip. Two coordinator defaults in VOTE (the phone's full pixel count as the floor; the Strip as the only walked place). He asked which chats to open: quests, tuning, mods. Registry 183 items, 169 verdicts.
+
 
 
 

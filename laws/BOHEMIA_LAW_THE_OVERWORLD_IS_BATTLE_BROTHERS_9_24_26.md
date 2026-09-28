@@ -117,3 +117,16 @@ republish the wiki as ours.
 Section 1's "the street is where you arrive" default is DEAD: a place opens a SETTLEMENT SCREEN; the map is
 REVAMPED with more pixels (the squeeze stays the door); factions are HOME BASES and ROAMING PARTIES, not
 territory; movement GLIDES; the grid is SQUARE.
+
+## 12. FULLY COMMITTED: A REVAMP, THE MAP AT BATTLE BROTHERS' PIXELS, NO TILE-TO-TILE THROUGH THE CITY (Paolo 9/28, LOCKED; records/BOHEMIA_PAOLO_THE_MAP_AT_BB_PIXELS_AND_NO_TILE_TO_TILE_9_28_26.md)
+"Fully committed... not even gonna be close to what we were building, it's gonna be a revamp... pretty much
+like Battle Brothers." (a) THE MAP'S PIXEL COUNT IS A FLOOR: measure how many pixels the Battle Brothers map
+draws and match that number exactly as the bare minimum; "that has to happen like now." DIRECTION [bb density]
+measures it and every map cook is checked against it (gate OWED: PLUMBER, the cook gate's density leg for map
+items). Until the measurement lands, the floor is one painted pixel per screen pixel at the phone's own ratio.
+(b) THE CHARACTER MOVING TILE TO TILE THROUGH THE CITY IS DEAD, "immediately." The city is crossed on the map
+only. The close grid (rule 34) is the FIGHT'S ground and the special places' ground (the Strip; his list), never
+the city's floor. Section 1's "the street is where you arrive" was already dead (s11); s4's TRAVEL + ARRIVAL now
+reads TRAVEL on the map, ARRIVAL on a settlement screen, THE FIGHT on the close grid. (c) RUN cuts the demo to
+that shape; nothing in the demo walks the city.
+

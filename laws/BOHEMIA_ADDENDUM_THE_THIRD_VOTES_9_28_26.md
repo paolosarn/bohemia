@@ -88,3 +88,5 @@ home bases and roaming parties; the street-arrival default is dead; the map-is-t
 drawn (the map is revamped with more pixels; the squeeze stays the door).
 
 ## 16. THE SAME HOUR (coordinator 9/28): DIRECTION's ruling f739e36, THE CELL IS THE STEP (0.75 m), landed minutes before this law. It stands as the WORLD UNIT (one cell = one step = 0.75 m; his sentence, his bank, his car). It does NOT set the pixels: s1 kills the 32 px cell and the 28 px person, and the pixel size of a cell is his pick from [tile options]. A world unit and a pixel size are two numbers; the first is ruled, the second is his.
+
+## 17. THE SAME ROUND (Paolo 9/28, laws/BOHEMIA_LAW_THE_OVERWORLD_IS_BATTLE_BROTHERS_9_24_26.md s12): s1's 'more pixels' has a number now: Battle Brothers' map pixel count, measured, as the bare minimum. s2's 'on foot only in the fight and special places' is total: tile-to-tile through the city is dead immediately.

@@ -69,3 +69,11 @@ name. RUN cuts it when the grid exists; until then the demo is what it is and no
 (b) PLACES ARE SETTLEMENT SCREENS: arriving opens a Battle Brothers-style settlement screen (tap a building);
     walking on foot survives only in the fight and in special places (the Strip); the pad is dead elsewhere.
 (c) THE GRID IS SQUARE. (d) Sections 5 and 7 are read through this; section 2's honest grid stands for the fight.
+
+## 9. AMENDED 9/28 (Paolo, laws/BOHEMIA_LAW_THE_OVERWORLD_IS_BATTLE_BROTHERS_9_24_26.md s12): THE CLOSE SCALE IS
+THE FIGHT AND THE SPECIAL PLACES, NOT THE CITY. "Your character moving tile to tile throughout the city, it's
+not gonna be like that anymore, that has to change immediately." One cell per step stands where he is on foot:
+the fight and the Strip (and whatever he names). Crossing the city is the map. Section 1's 'the tiny character
+crosses the city one cell at a time' is DEAD; sections 2 and 6 (the honest grid, the cell kinds) stand for the
+grounds that are walked. The far scale is the Battle Brothers map at Battle Brothers' pixel count or more.
+

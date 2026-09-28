@@ -2463,7 +2463,27 @@
        "how": "image",
        "src": "vote/LIFECITY_THE_SAME_STREET_THREE_TIMES_9_24.png"
       }
-     }
+     },
+{
+  "id": "coordinator-the-map-floor-is-the-phones-pixels-9-28",
+  "kind": "verdict",
+  "lane": "coordinator",
+  "title": "THE MAP DRAWS AT THE PHONE'S FULL PIXEL COUNT UNTIL BATTLE BROTHERS' NUMBER IS MEASURED",
+  "text": "Your ruling: the map has as many pixels as the Battle Brothers map, exactly, as the bare minimum. Until DIRECTION measures that number off real screenshots, the floor is one painted pixel per screen pixel at your phone's own ratio (no scaled-up blocks anywhere on the map). DOWN means you want a different floor named.",
+  "asked": "UP or DOWN",
+  "when": "2026-09-28",
+  "draft": true
+},
+{
+  "id": "coordinator-the-strip-is-the-only-walked-place-9-28",
+  "kind": "verdict",
+  "lane": "coordinator",
+  "title": "THE STRIP IS THE ONLY SPECIAL PLACE YOU WALK, UNTIL YOU NAME ANOTHER",
+  "text": "Tile-to-tile through the city is dead. You are on foot in the fight and in special places. The Strip is the one you named, so it is the only walked place for now. DOWN means you have more places in mind; say them in a note.",
+  "asked": "UP or DOWN",
+  "when": "2026-09-28",
+  "draft": true
+}
   ],
   "verdicts": [
     {
