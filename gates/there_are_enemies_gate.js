@@ -169,26 +169,25 @@ function serve() {
 
   const srv = await serve();
   const base = 'http://127.0.0.1:' + srv.address().port + '/';
-  const browser = await chromium.launch({ args: ['--no-sandbox'] });
+  /* RE-AIMED 9/28 BY RUN (rule 38b/c, [no city walk]): THE DEMO NO LONGER WALKS THE CITY -- it
+     opens on the map with the walk pad stripped, so "walking at them" cannot happen there and
+     the leg read 0 drawn for that reason alone. Enemies on a walked street are measured where
+     the walked street still is, the ALPHA, opened by THE ONE DRIVER (it knows the alpha's door
+     and RUN tab), until [no city walk] moves the street to archive/. Same legs. */
+  let browser = null;
   try {
-    const ctx = await browser.newContext({ viewport: { width: 390, height: 844 },
-                                           hasTouch: true, isMobile: true });
-    const page = await ctx.newPage();
-    const errs = [];
-    page.on('pageerror', e => errs.push(String(e.message).slice(0, 140)));
-    await page.goto(base + 'BOHEMIA_DEMO.html', { waitUntil: 'load', timeout: 240000 });
-    await SETTLE(page, 2500);
-    await page.tap('#front').catch(async () => { await page.click('#front').catch(() => { }); });
-    /* THE READINESS CHECK THAT IS ACTUALLY ONE -- see the header. */
+    const drive = require(path.join(__dirname, '..', 'tools', 'bohemia_drive_the_demo.js'));
+    const dd = await drive.open({ alpha: true, keepCards: true });
+    browser = dd.browser;
+    const page = dd.page;
+    const errs = dd.errs;
+    const city = dd.fr;
     await SETTLE(page, 90000, async () => {
-      const f = page.frames().find(x => x.name() === 'cityFrame');
-      if (!f) return false;
       try {
-        return await f.evaluate(() => typeof DAY !== 'undefined' && DAY.day >= 1
+        return await city.evaluate(() => typeof DAY !== 'undefined' && DAY.day >= 1
           && typeof ctBases === 'function' && typeof BohemiaBetween !== 'undefined');
       } catch (e) { return false; }
     });
-    const city = page.frames().find(x => x.name() === 'cityFrame');
     ok('the walked world is up, all the way to the end of its own file', !!city);
     if (!city) { await browser.close(); srv.close(); return done(); }
 
