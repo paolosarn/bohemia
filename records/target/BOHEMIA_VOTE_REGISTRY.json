@@ -2846,7 +2846,17 @@
         "how": "text",
         "src": "WHAT SHOULD WAIT FOR YOU WHEN YOU COME BACK.\n\nOne line. The last thing you wrote in your own voice, on the phone that already rings.\n\nAfter a night: that one line. After about a week: that line, plus who you last spoke to and where you are standing. Never a list. Never a number of days. Never a reward.\n\nWHY: the world freezes while you are away, so nothing is owed (absence is free). One missed day barely matters to a real habit (66 days median, one miss changes almost nothing), so a streak that punishes a miss is against the research. A daily gift teaches you the visit is for the gift. A cue left at the moment you stopped is what makes getting back in fast.\n\nWHAT IT COSTS TO BUILD: no new writing and no new screen. The lines exist (249 of them) and the phone exists. It needs one time stamp and one pick of the right line."
       }
-    }
+    },
+{
+  "id": "coordinator-the-phone-reads-the-machines-text-aloud-9-28",
+  "kind": "verdict",
+  "lane": "coordinator",
+  "title": "THE PHONE READS THE MACHINE'S TEXT OUT LOUD, IN ITS OWN ROBOT VOICE",
+  "text": "You asked if narration is possible. It is. Default: the phone's built-in voice reads the machine's text aloud (the feed, the institution's lines, the flip's narration). It sounds too even, like a machine, which is the analog horror voice on purpose. People on the street keep their talking portrait with no voice for now. DOWN means no read-aloud, or say in a note if you want real human voices instead.",
+  "asked": "UP or DOWN",
+  "when": "2026-09-28",
+  "draft": true
+}
   ],
   "verdicts": [
   {

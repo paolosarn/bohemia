@@ -133,3 +133,10 @@ decentralized-AI trend. (Full URLs in the research transcript; reproduce on requ
 ---
 *BOHEMIA — Emerging Tech Research → 2045-2060 — 7.24.26*
 *The bubble built the future faster than the world could use it, then left it lying in the dark. The ghost story was the tech all along.*
+
+## RESTATED 9/28 BY PAOLO (records/BOHEMIA_PAOLO_LORE_THE_FLIPS_TECHNOLOGY_AND_NARRATION_9_28_26.md): "the reason the economic apocalypse happened... is because there was some
+really cool technology getting developed, it just was leaning too much on an international crazy house of
+cards." LOCKED #2 stands in his own words, with a direction: "we need to have more fun with this." The
+technology is the fun and it survives; the finance is what died. WORDS [the cause] tells it through mouths;
+ECONOMY [the bubble] schools what a tech bubble leaves standing (railway mania, telecom, dot-com).
+

@@ -85,3 +85,13 @@ inheritance, the Angel, the Animal; who marries whom and who the Angel is stay h
     a cracked iPhone; flipping is a city-view act.
 (c) SECTION 5 IS DECIDED BY HIS VOTE: the three names come PREPARED, Battle Brothers style (a generated
     name per slot, reshuffle, or type your own); no flip to an unnamed descendant.
+
+## 10. WHAT THE FLIP IS, IN THE STORY (Paolo 9/28, thinking out loud, ONE QUESTION OPEN; records/BOHEMIA_PAOLO_LORE_THE_FLIPS_TECHNOLOGY_AND_NARRATION_9_28_26.md)
+He asked what the flip is story-wise and technology-wise, floated an upload, a genetic link, and a
+"technological box" twist, and ruled only this: "it has to make sense story wise and technology wise," and
+"we need to have more fun with this." The manager's holes and the three shapes are in the record; his letter
+decides. REALISM FIRST leads with A: the cool technology that broke the world (7/24 LOCKED #2, restated by him
+9/28) is the machine still running in the ruin, and the flip is that machine deriving a family's future from
+its records, which is section 2 word for word. Until his letter, DYNASTY [the frame] is SCHOOL ONLY and nothing
+in the alpha names the fiction.
+
