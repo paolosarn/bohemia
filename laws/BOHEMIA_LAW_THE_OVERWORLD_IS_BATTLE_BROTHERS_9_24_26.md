@@ -130,7 +130,7 @@ the city's floor. Section 1's "the street is where you arrive" was already dead 
 reads TRAVEL on the map, ARRIVAL on a settlement screen, THE FIGHT on the close grid. (c) RUN cuts the demo to
 that shape; nothing in the demo walks the city.
 
-## 13. THE ASSETS ARE THE FIGHT'S GROUND, AND NEVER ONE TILE PER SIDEWALK (Paolo 9/28, same round; records/BOHEMIA_PAOLO_THE_ASSETS_ARE_THE_FIGHTS_GROUND_AND_TUNING_MODS_ARE_RESEARCH_9_28_26.md)
+## 13. *** (b) OF THIS SECTION WAS WRONG AND IS REVERSED BY s14 (Paolo 9/28: 'in combat a tile is as big as a house... I've told you this millions of times'). *** THE ASSETS ARE THE FIGHT'S GROUND, AND NEVER ONE TILE PER SIDEWALK (Paolo 9/28, same round; records/BOHEMIA_PAOLO_THE_ASSETS_ARE_THE_FIGHTS_GROUND_AND_TUNING_MODS_ARE_RESEARCH_9_28_26.md)
 "All the assets we were creating for when you were just a person walking around zoomed in, tile by tile,
 even the sidewalk: all of these assets are going to be used for the combat. Don't get confused. You're never
 gonna be in a street fight where one tile is one sidewalk." (a) Every walked-city asset (the tile banks, the
@@ -140,4 +140,15 @@ and rule 16's fight half (A COMBAT TILE IS A HOUSE) are DEAD FOR GOOD: the fight
 cell of rule 34; a sidewalk and a house are many cells; the tiny character stands on one. GRAVEYARD IS FINAL:
 a house-sized fight tile does not come back under a new name (gate OWED to COMBAT: the fight board's cell is
 the grid's cell, never a building).
+
+## 14. A COMBAT TILE IS A HOUSE. THE COORDINATOR READ s13(b) BACKWARDS. (Paolo 9/28, LOCKED; records/BOHEMIA_PAOLO_A_COMBAT_TILE_IS_A_HOUSE_I_READ_IT_BACKWARDS_9_28_26.md)
+"In combat the boards and the tiles are as big as parts of the city: a house is one tile. I've told you this
+millions of times. We're getting rid of walking the city tile by tile, each tile being a sidewalk, for the
+exploration. But for the combat a tile is as big as a house." (a) A COMBAT TILE IS A HOUSE (9/4) stands in
+full, as s3 said on 9/24; s13(b) is DEAD; the fight is on HOUSE TILES, never on sidewalk-sized cells. (b) The
+sidewalk-sized cell (rule 34's close grid) was the EXPLORATION walk, which s12 killed; the cell-grid FIGHT
+(rule 34's fight leg, COMBAT V227 to V229) was the coordinator's reading and is dead with it. (c) The walk's
+assets (sidewalk, kerb, yard, wall, door, car) DRESS the house-sized tiles, s13(a). (d) The fight sprite is the
+112 px art on house tiles (rule 21, the fought surface). (e) The mound is a house tile with height (a roof,
+37g). (f) The tile OPTIONS (37a) are house tiles and street tiles at full detail, from the walk's banks.
 

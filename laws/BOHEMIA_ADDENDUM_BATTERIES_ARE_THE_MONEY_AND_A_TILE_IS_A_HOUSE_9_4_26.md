@@ -1,3 +1,4 @@
+# *** 9/28 (Paolo, records/BOHEMIA_PAOLO_A_COMBAT_TILE_IS_A_HOUSE_I_READ_IT_BACKWARDS_9_28_26.md): THE FIGHT HALF OF THIS LAW IS LIVE AGAIN. 'For the combat a tile is as big as a house.' The 9/27 superseded note below applies to the WALK only (dead), never to the fight. ***
 # *** AMENDED 9/27 (NEWEST DATE WINS) by laws/BOHEMIA_LAW_TWO_SCALES_ONE_GAME_9_27_26.md: the TILE half is dead (a combat tile is a CELL, a house is many cells); the BATTERIES half stands whole. ***
 # BOHEMIA ADDENDUM -- BATTERIES ARE THE MONEY, AND A COMBAT TILE IS A HOUSE
 # (Paolo 9/4/26, LOCKED. Three rulings in one message, recorded the same turn

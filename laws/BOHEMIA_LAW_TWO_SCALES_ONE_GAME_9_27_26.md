@@ -77,3 +77,10 @@ the fight and the Strip (and whatever he names). Crossing the city is the map. S
 crosses the city one cell at a time' is DEAD; sections 2 and 6 (the honest grid, the cell kinds) stand for the
 grounds that are walked. The far scale is the Battle Brothers map at Battle Brothers' pixel count or more.
 
+## 10. AMENDED 9/28, SECOND TIME (Paolo: 'for the combat a tile is as big as a house'; records/BOHEMIA_PAOLO_A_COMBAT_TILE_IS_A_HOUSE_I_READ_IT_BACKWARDS_9_28_26.md): THIS LAW'S CLOSE
+SCALE WAS THE EXPLORATION WALK, AND THE WALK IS DEAD (s9). Its fight leg ("the fight is on the close grid where
+he stands", s1, s7) was the coordinator's reading and is DEAD: the fight is on HOUSE TILES (A COMBAT TILE IS A
+HOUSE, 9/4, 9/24, 9/28). What survives of this law: the person never grows with the zoom (rule 21), the squeeze
+is the door, the far scale is the Battle Brothers map, and the honest-grid idea only where a place is walked on
+foot (the Strip; his list). The one-cell sprite and the cell tiles stop.
+

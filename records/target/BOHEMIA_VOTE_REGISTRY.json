@@ -2782,7 +2782,17 @@
       "src": "vote/ANIMATION_THE_MAP_GLIDES.html"
     },
     "said": "I just wanted it to glide very nicely"
-  }
+  },
+{
+  "id": "coordinator-the-strip-on-foot-uses-the-112-walk-9-28",
+  "kind": "verdict",
+  "lane": "coordinator",
+  "title": "ON THE STRIP YOU WALK WITH THE ART WE ALREADY HAVE",
+  "text": "Combat is on house tiles, and the tile-by-tile city walk is dead. The Strip is the one place you still walk on foot. Default: it uses the walk art we already have, the normal-sized person, no tiny sprite. DOWN means you want the Strip done another way; say it in a note.",
+  "asked": "UP or DOWN",
+  "when": "2026-09-28",
+  "draft": true
+}
  ],
  "verdicts": [
   {
