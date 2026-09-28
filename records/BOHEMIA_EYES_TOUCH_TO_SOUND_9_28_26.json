@@ -1,0 +1,279 @@
+{
+  "what": "E24 [phone latency] round two: the calibration mechanism, driven with real taps at known bias",
+  "when": "2026-09-28T16:59:54.799Z",
+  "controls": [
+    {
+      "name": "C-1 the loading screen is confirmed gone before any real tap is trusted",
+      "pass": false,
+      "detail": "STILL BEHIND THE DOOR -- every control below is void"
+    },
+    {
+      "name": "C0 the calibration mechanism exists and is reachable",
+      "pass": true,
+      "detail": "calStart, calTap, audioMs and #synccal all answered; fight started by: startGame() called by hand (neither a mouse click nor a touch tap on the start screen created an AudioContext)"
+    },
+    {
+      "name": "C1 taps aimed at the beat yield a small |audioOffset|",
+      "pass": true,
+      "detail": "audioOffset after 8 on-beat-aimed taps: {\"audioOffset\":0,\"calStillOpen\":false,\"readLine\":\"STREAK 0 · ENEMIES 3\"}"
+    },
+    {
+      "name": "C2 taps aimed 90ms LATE shift audioOffset negative, by roughly 90",
+      "pass": true,
+      "detail": "audioOffset after 8 taps aimed +90ms late: {\"audioOffset\":-100,\"calStillOpen\":false,\"readLine\":\"STREAK 0 · ENEMIES 3\"}"
+    },
+    {
+      "name": "C3 taps aimed 70ms EARLY shift audioOffset positive, by roughly 70",
+      "pass": true,
+      "detail": "audioOffset after 8 taps aimed -70ms early: {\"audioOffset\":70,\"calStillOpen\":false,\"readLine\":\"STREAK 0 · ENEMIES 3\"}"
+    },
+    {
+      "name": "C4 taps scattered +-90ms are REFUSED, never stored as a real offset",
+      "pass": true,
+      "detail": "audioOffset after 8 deliberately-scattered taps (should stay 0, refused): {\"audioOffset\":0,\"calStillOpen\":false,\"readLine\":\"STREAK 0 · ENEMIES 3\"}"
+    }
+  ],
+  "startedBy": "startGame() called by hand (neither a mouse click nor a touch tap on the start screen created an AudioContext)",
+  "zero": {
+    "biasMs": 0,
+    "dispatched": [
+      {
+        "i": 0,
+        "biasMs": 0,
+        "waitedMs": 31.070294784580454,
+        "dispatchAt": 3
+      },
+      {
+        "i": 1,
+        "biasMs": 0,
+        "waitedMs": 11.52380952380927,
+        "dispatchAt": 2
+      },
+      {
+        "i": 2,
+        "biasMs": 0,
+        "waitedMs": 9.392290249432556,
+        "dispatchAt": 5
+      },
+      {
+        "i": 3,
+        "biasMs": 0,
+        "waitedMs": 489.84580498866313,
+        "dispatchAt": 2
+      },
+      {
+        "i": 4,
+        "biasMs": 0,
+        "waitedMs": 11.705215419501869,
+        "dispatchAt": 3
+      },
+      {
+        "i": 5,
+        "biasMs": 0,
+        "waitedMs": 9.573696145125155,
+        "dispatchAt": 6
+      },
+      {
+        "i": 6,
+        "biasMs": 0,
+        "waitedMs": 10.344671201814037,
+        "dispatchAt": 4
+      },
+      {
+        "i": 7,
+        "biasMs": 0,
+        "waitedMs": 11.115646258504697,
+        "dispatchAt": 3
+      }
+    ],
+    "result": {
+      "audioOffset": 0,
+      "calStillOpen": false,
+      "readLine": "STREAK 0 · ENEMIES 3"
+    }
+  },
+  "late": {
+    "biasMs": 90,
+    "dispatched": [
+      {
+        "i": 0,
+        "biasMs": 90,
+        "waitedMs": 141.16099773242766,
+        "dispatchAt": 4
+      },
+      {
+        "i": 1,
+        "biasMs": 90,
+        "waitedMs": 499.7097505668934,
+        "dispatchAt": 2
+      },
+      {
+        "i": 2,
+        "biasMs": 90,
+        "waitedMs": 521.5691609977357,
+        "dispatchAt": 6
+      },
+      {
+        "i": 3,
+        "biasMs": 90,
+        "waitedMs": 499.8911564625851,
+        "dispatchAt": 2
+      },
+      {
+        "i": 4,
+        "biasMs": 90,
+        "waitedMs": 521.7505668934257,
+        "dispatchAt": 5
+      },
+      {
+        "i": 5,
+        "biasMs": 90,
+        "waitedMs": 500.07256235827685,
+        "dispatchAt": 11
+      },
+      {
+        "i": 6,
+        "biasMs": 90,
+        "waitedMs": 501.6145124716546,
+        "dispatchAt": 5
+      },
+      {
+        "i": 7,
+        "biasMs": 90,
+        "waitedMs": 520.5714285714295,
+        "dispatchAt": 12
+      }
+    ],
+    "result": {
+      "audioOffset": -100,
+      "calStillOpen": false,
+      "readLine": "STREAK 0 · ENEMIES 3"
+    }
+  },
+  "early": {
+    "biasMs": -70,
+    "dispatched": [
+      {
+        "i": 0,
+        "biasMs": -70,
+        "waitedMs": 0.07256235827696855,
+        "dispatchAt": 2
+      },
+      {
+        "i": 1,
+        "biasMs": -70,
+        "waitedMs": 9.551020408164419,
+        "dispatchAt": 3
+      },
+      {
+        "i": 2,
+        "biasMs": -70,
+        "waitedMs": 10.321995464853302,
+        "dispatchAt": 2
+      },
+      {
+        "i": 3,
+        "biasMs": -70,
+        "waitedMs": 11.092970521542185,
+        "dispatchAt": 7
+      },
+      {
+        "i": 4,
+        "biasMs": -70,
+        "waitedMs": 11.863945578231068,
+        "dispatchAt": 4
+      },
+      {
+        "i": 5,
+        "biasMs": -70,
+        "waitedMs": 9.73242630385613,
+        "dispatchAt": 5
+      },
+      {
+        "i": 6,
+        "biasMs": -70,
+        "waitedMs": 10.503401360545013,
+        "dispatchAt": 6
+      },
+      {
+        "i": 7,
+        "biasMs": -70,
+        "waitedMs": 11.274376417233896,
+        "dispatchAt": 2
+      }
+    ],
+    "result": {
+      "audioOffset": 70,
+      "calStillOpen": false,
+      "readLine": "STREAK 0 · ENEMIES 3"
+    }
+  },
+  "scatter": {
+    "biasMs": "scatter +-90",
+    "dispatched": [
+      {
+        "i": 0,
+        "biasMs": 90,
+        "waitedMs": 161.97732426303816,
+        "dispatchAt": 2
+      },
+      {
+        "i": 1,
+        "biasMs": -90,
+        "waitedMs": 331.8185941043089,
+        "dispatchAt": 2
+      },
+      {
+        "i": 2,
+        "biasMs": 90,
+        "waitedMs": 199.12018140589552,
+        "dispatchAt": 2
+      },
+      {
+        "i": 3,
+        "biasMs": -90,
+        "waitedMs": 339.9365079365103,
+        "dispatchAt": 3
+      },
+      {
+        "i": 4,
+        "biasMs": 90,
+        "waitedMs": 181.11564625850477,
+        "dispatchAt": 2
+      },
+      {
+        "i": 5,
+        "biasMs": -90,
+        "waitedMs": 339.34693877550956,
+        "dispatchAt": 10
+      },
+      {
+        "i": 6,
+        "biasMs": 90,
+        "waitedMs": 180.5260770975076,
+        "dispatchAt": 2
+      },
+      {
+        "i": 7,
+        "biasMs": -90,
+        "waitedMs": 341.6598639455798,
+        "dispatchAt": 6
+      }
+    ],
+    "result": {
+      "audioOffset": 0,
+      "calStillOpen": false,
+      "readLine": "STREAK 0 · ENEMIES 3"
+    }
+  },
+  "failing_controls": [
+    "C-1 the loading screen is confirmed gone before any real tap is trusted"
+  ],
+  "pageErrors": [],
+  "blind_spots": [
+    "no WebKit binary anywhere in this sandbox (checked /opt/pw-browsers): iOS Safari itself was never touched, only Chromium",
+    "no real phone, so the touch dispatch here is Playwright's touchscreen.tap(), the same input class a finger produces but with a script's own timing, not a human's hand or a real touch sensor's pipeline",
+    "no microphone: nothing here confirms what actually leaves a speaker, only what the browser and the game claim",
+    "a real player's tap bias (people tap 20-100ms early, per round one's school) is not reproduced; this measures the ALGORITHM's correctness under a KNOWN bias, not a human calibrating it"
+  ]
+}

@@ -1,13 +1,13 @@
 {
   "what": "every pixel against the analog horror bible",
-  "when": "2026-09-28T01:05:06.891Z",
-  "surface": "/tmp/claude-0/-home-user-bohemia/065fcaf1-af13-5362-9424-9d0305049a14/scratchpad/cut2/slices/BOHEMIA_DEMO.html",
+  "when": "2026-09-28T17:08:46.413Z",
+  "surface": "/tmp/claude-0/-home-user-bohemia/065fcaf1-af13-5362-9424-9d0305049a14/scratchpad/cut3/slices/BOHEMIA_DEMO.html",
   "bible": "records/BOHEMIA_ANALOG_HORROR_BIBLE_9_20_26.md (AH-01)",
   "controls": [
     {
       "name": "C0 THE DOOR REALLY OPENED: the splash is gone and the game’s HUD is there",
       "pass": true,
-      "detail": "splash still shown: false, HUD music chip: \"TWO COINS FOR THE FERRYMAN\" -- so these readings are the game and not a title screen"
+      "detail": "splash still shown: false, HUD music chip: \"MENU — THE POWER STILL ON SOMEWHERE\" -- so these readings are the game and not a title screen"
     },
     {
       "name": "C4 the comparator reads 0 for identical and 1 for opposite",
@@ -22,7 +22,7 @@
     {
       "name": "C1 the full-frame counter bites",
       "pass": true,
-      "detail": "263 -> 264 after a planted full-canvas fill"
+      "detail": "257 -> 258 after a planted full-canvas fill"
     },
     {
       "name": "C2 the filter counter bites",
@@ -67,31 +67,30 @@
     }
   ],
   "shots": [
-    "records/eyes_e28_horror/00_front.png",
     "records/eyes_e28_horror/01_world.png"
   ],
   "R3": {
     "windows": 8,
     "window_ms": 2000,
     "per_window": [
+      0.0112,
+      0,
+      0.0007,
       0,
       0,
-      0,
-      0,
-      0.0073,
-      0,
+      0.0105,
       0,
       0
     ],
-    "worst_moving_fraction": 0.0073,
+    "worst_moving_fraction": 0.0112,
     "windows_over_the_bibles_ten_percent": 0,
     "bar": 0.1
   },
   "counters": {
     "world": {
       "world_canvas": "378x830",
-      "full_frame_on_the_world": 128,
-      "of_those_opaque_clears": 128,
+      "full_frame_on_the_world": 122,
+      "of_those_opaque_clears": 122,
       "of_those_SEE_THROUGH_OVERLAYS": 0,
       "overlay_examples": [],
       "clear_examples": [
@@ -104,7 +103,7 @@
           "seeThrough": false,
           "alpha": 1,
           "style": "#8a7a58",
-          "at": 877
+          "at": 1492
         },
         {
           "kind": "fillRect",
@@ -115,7 +114,7 @@
           "seeThrough": false,
           "alpha": 1,
           "style": "#20303e",
-          "at": 6400
+          "at": 9976
         },
         {
           "kind": "fillRect",
@@ -126,7 +125,7 @@
           "seeThrough": false,
           "alpha": 1,
           "style": "#20303e",
-          "at": 16251
+          "at": 25298
         }
       ],
       "full_frame_on_scratch_canvases": 135,
@@ -139,10 +138,10 @@
           "v": "source-atop",
           "cw": 112,
           "ch": 112,
-          "at": 22341
+          "at": 35802
         }
       ],
-      "draws": 3514058
+      "draws": 3353964
     },
     "shell": {
       "world_canvas": "378x830",
