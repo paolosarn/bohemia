@@ -2773,7 +2773,7 @@
     "id": "animation-the-map-glides-9-28",
     "kind": "animation",
     "lane": "animation",
-    "sha": "PENDING",
+    "sha": "37337e48",
     "made": "9/28",
     "title": "THE MAP GLIDES",
     "why": "You said: very very smooth, not a block at a time, boom boom boom, and the animation plays to the beat inside the thing that slides. Before, every step moved the whole map one cell in a single frame and then it froze: I measured 18 pixels on 1 frame out of 36. Now the same distance is spread across the beat, never more than 1 pixel a frame, and two steps in a row flow into one slide instead of two jumps. Your pin hops once on every beat while it travels, so the 120 BPM is still there inside the slide, and it sits still when it stops. A long jump, like landing somewhere new, still cuts. Both strips are the real map filmed off the game.",
