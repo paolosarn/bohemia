@@ -803,6 +803,23 @@ GATES = [
      'the module when a cut note naming it is exactly right. Rule 22/29/32(f): the cook is '
      'DRAWN at game scale, slices/vote/WORLD_THE_ONLY_PUMP.png. '
      'records/BOHEMIA_WORLD_A_PLACE_IS_A_BLOCK_9_27_26.md', True),
+    ('CREATURES SCHOOL', ['node', 'gates/creatures_school_gate.js'],
+     'ROW [creatures], rule 37(n) (Paolo 9/27: de-extinction labs, mammoths and dire wolves, '
+     'labs that lost their funding, an AI playing with genetics or an airborne thing -- and his '
+     'word was "maybe"). A DIRECTION, NOT A LAW, so this gate\'s first job is the unusual one: '
+     'IT HOLDS THE ROUND TO BEING A SCHOOL. Nothing the round produced may become canon, enter '
+     'an engine module, reach a slice, or edit the roster PEOPLE owns. *** AND IT HOLDS THE '
+     'SENTENCE THAT ARGUES BACK: *** engine/bohemia_wildlife.js ships with "Nothing on this page '
+     'is a creature somebody made up" and the 8/25 bestiary research found that "a pack of '
+     'somebody\'s golden retrievers is worse than a mutant, because it is true" -- a creature '
+     'school is precisely the round that would erode both, so they are read back off disk, and '
+     'TIER 3 STAYS RESERVED TO HIM. Holds the three shapes on their measurements (the outline '
+     'must not move, because the twenty edits were a body size and a coat colour; the coat must '
+     'be paler but not so pale it reads as a different animal; the body exactly a quarter '
+     'bigger) and holds ACT ONE HAS NOTHING GREEN IN IT (8/26) by proving every green pixel is '
+     'inside the one panel about the thing that got out. EVERY REFUSAL IS ANCHORED TO A LIVE '
+     'process.exit AND NEVER TO PROSE: this lane shipped a gate the same round that was green '
+     'because a regex matched a deleted constant\'s name inside a comment.', False),
     ('THREE ACTS', ['node', 'gates/three_acts_gate.js'],
      'ROW [future city], rule 31 (act 2 and act 3 are DERIVED from the earlier acts\' ledgers, '
      'never hand-placed) and rule 32(b) (Paolo 9/23, killing THE SAME CORNER: "the future gets '

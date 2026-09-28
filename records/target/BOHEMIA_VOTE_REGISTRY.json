@@ -300,7 +300,7 @@
     "src": "vote/ANIMATION_THE_IDLE_REDO.html"
    },
    "redoOf": "idle",
-   "said": "a lot of them are good, a lot of them aren’t good... IF I KILLED IT I DON’T WANT IT GONE. I just think it could be done better. Make a new one."
+   "said": "a lot of them are good, a lot of them aren\u2019t good... IF I KILLED IT I DON\u2019T WANT IT GONE. I just think it could be done better. Make a new one."
   },
   {
    "id": "factions-the-sign-still-lights-9-21",
@@ -465,7 +465,7 @@
    "sha": "534d87a",
    "made": "9/21",
    "title": "HOW A STEP IS DRAWN (I PICKED ONE FOR YOU)",
-   "why": "One press moves him a whole house, 275 pixels, in half a second, and his legs can only show one pace of it. What shipped was nobody’s choice: an old number in the code made the whole street jump at once. I put in the tape skip: he stands still, the picture skips twice, he is there. Thumbs up keeps it. Thumbs down and say GRID (the street jumps at once) or SLIDE (the street slides the whole time) and I will switch it.",
+   "why": "One press moves him a whole house, 275 pixels, in half a second, and his legs can only show one pace of it. What shipped was nobody\u2019s choice: an old number in the code made the whole street jump at once. I put in the tape skip: he stands still, the picture skips twice, he is there. Thumbs up keeps it. Thumbs down and say GRID (the street jumps at once) or SLIDE (the street slides the whole time) and I will switch it.",
    "show": {
     "how": "page",
     "src": "vote/ANIMATION_HOW_A_STEP_IS_DRAWN.html"
@@ -699,7 +699,7 @@
    "sha": "228818a1",
    "made": "9/21",
    "title": "THE BATTERY SHED, THE FIRST BUILDING THAT MAKES MONEY",
-   "why": "You build this on your own lot and a battery comes in. It is the small one, about the size of half a garage, not the big fenced battery yard the game already has. I drew it in that yard’s own colours so they are the same world. One thing in the picture is on purpose and it is the whole idea: THE LITTLE AMBER LIGHT IS LIT. Nothing else on the lot has power, the meter needle is stuck, the door is chained, and this box is still working. Thumbs up and I put it in the game so you can place one. Thumbs down and tell me if it is the shape, the colour, or the light.",
+   "why": "You build this on your own lot and a battery comes in. It is the small one, about the size of half a garage, not the big fenced battery yard the game already has. I drew it in that yard\u2019s own colours so they are the same world. One thing in the picture is on purpose and it is the whole idea: THE LITTLE AMBER LIGHT IS LIT. Nothing else on the lot has power, the meter needle is stuck, the door is chained, and this box is still working. Thumbs up and I put it in the game so you can place one. Thumbs down and tell me if it is the shape, the colour, or the light.",
    "show": {
     "how": "image",
     "src": "vote/LIFECITY_THE_BATTERY_SHED_9_21.png"
@@ -907,7 +907,7 @@
    "sha": "PENDING",
    "made": "9/22",
    "title": "FOUR WAYS THE GAME LOADS",
-   "why": "The screen that covers everything before you can touch anything, with a bar that cannot lie and the writing chat’s words wired to real stages. A is built and handed to the play chat.",
+   "why": "The screen that covers everything before you can touch anything, with a bar that cannot lie and the writing chat\u2019s words wired to real stages. A is built and handed to the play chat.",
    "show": {
     "how": "page",
     "src": "BOHEMIA_FOUR_WAYS_THE_GAME_LOADS_9_22_26.html"
@@ -1030,7 +1030,7 @@
     "src": "vote/ANIMATION_THE_HAND_REACHES_THE_FACE.html"
    },
    "redoOf": "eat, drink, smoke, cough and whistle",
-   "said": "a lot of them are good, a lot of them aren’t good... some of the DIRECTIONS look like dog shit: when it’s facing north-east the hand was behind the head even though it’s supposed to be in front. IF I KILLED IT I DON’T WANT IT GONE. Make a new one."
+   "said": "a lot of them are good, a lot of them aren\u2019t good... some of the DIRECTIONS look like dog shit: when it\u2019s facing north-east the hand was behind the head even though it\u2019s supposed to be in front. IF I KILLED IT I DON\u2019T WANT IT GONE. Make a new one."
   },
   {
    "id": "people-what-people-repeat-about-you-9-22",
@@ -1483,7 +1483,7 @@
     "src": "vote/ANIMATION_THE_HAND_IN_FRONT_PLAYS.html"
    },
    "redoOf": "animation-the-hand-at-the-face-plays-9-22",
-   "said": "when it’s facing north-east the hand was behind the head even though it’s supposed to be in front"
+   "said": "when it\u2019s facing north-east the hand was behind the head even though it\u2019s supposed to be in front"
   },
   {
    "id": "world-the-same-corner-9-23",
@@ -1679,7 +1679,7 @@
     "how": "page",
     "src": "vote/ANIMATION_FACING_YOU_HE_DID_NOTHING.html"
    },
-   "said": "a lot of them are good, a lot of them aren’t good"
+   "said": "a lot of them are good, a lot of them aren\u2019t good"
   },
   {
    "id": "sounds-a-footstep-that-is-not-sand-9-24",
@@ -2870,19 +2870,31 @@
     "src": "BOHEMIA_TUNING_EVERY_NUMBER_9_28_26.html"
    }
   },
-   {
-    "id": "cook-a-house-is-one-tile-9-28",
-    "kind": "tile",
-    "lane": "cook",
-    "sha": "37dc1cb3",
-    "made": "9/28",
-    "title": "A HOUSE IS ONE TILE",
-    "why": "You said it again: in combat a tile is as big as a house. Last round I drew a block out of one-metre tiles, which was the walking scale, and the walking is dead. Same question, right size. Three ways to look at one house tile, all made from your own art. A is down at an angle with the roof on, which is how Battle Brothers looks at its board and the one that makes your roof-you-can-stand-on idea work. B is straight down. C is across, your 7/28 street's look. Each one has four tiles beside it at the size the board actually draws them, with your man standing on one, because a tile means nothing until you see the figure on it. One of the four has its roof gone so you can see the slab inside. NOW THE THING MEASURING FOUND. The fight board draws a house at 16 pixels per metre. Your street art is 43. They are 2.6 times apart. You said all the walking art gets used for the combat, and it cannot just be pasted on: your kerb would arrive two and a half times too big, and shrinking it to fit throws away 62 percent of the pixels. That is the Atari thing again coming from the other side. So every tile here is DRAWN at your street's density, 515 pixels for 12 metres, and SHOWN at the board's 196. The art keeps its pixels whatever the board does with them. That is the only way both your rules hold at once. ONE MORE THING YOU SHOULD SEE. Your man is 112 pixels on a 196 pixel tile, which is 57 percent of it. A real man on a real 12 metre house lot is 15 percent. So he is drawn about four times life size on his own square. That is the board-game way and it is how Battle Brothers looks, but it is the number everything else follows, so if it reads wrong to you say so now. Pick A, B or C and I build the tiles out at that camera.",
-    "show": {
-     "how": "image",
-     "src": "vote/COOK_A_HOUSE_IS_ONE_TILE.png"
-    }
+  {
+   "id": "cook-a-house-is-one-tile-9-28",
+   "kind": "tile",
+   "lane": "cook",
+   "sha": "37dc1cb3",
+   "made": "9/28",
+   "title": "A HOUSE IS ONE TILE",
+   "why": "You said it again: in combat a tile is as big as a house. Last round I drew a block out of one-metre tiles, which was the walking scale, and the walking is dead. Same question, right size. Three ways to look at one house tile, all made from your own art. A is down at an angle with the roof on, which is how Battle Brothers looks at its board and the one that makes your roof-you-can-stand-on idea work. B is straight down. C is across, your 7/28 street's look. Each one has four tiles beside it at the size the board actually draws them, with your man standing on one, because a tile means nothing until you see the figure on it. One of the four has its roof gone so you can see the slab inside. NOW THE THING MEASURING FOUND. The fight board draws a house at 16 pixels per metre. Your street art is 43. They are 2.6 times apart. You said all the walking art gets used for the combat, and it cannot just be pasted on: your kerb would arrive two and a half times too big, and shrinking it to fit throws away 62 percent of the pixels. That is the Atari thing again coming from the other side. So every tile here is DRAWN at your street's density, 515 pixels for 12 metres, and SHOWN at the board's 196. The art keeps its pixels whatever the board does with them. That is the only way both your rules hold at once. ONE MORE THING YOU SHOULD SEE. Your man is 112 pixels on a 196 pixel tile, which is 57 percent of it. A real man on a real 12 metre house lot is 15 percent. So he is drawn about four times life size on his own square. That is the board-game way and it is how Battle Brothers looks, but it is the number everything else follows, so if it reads wrong to you say so now. Pick A, B or C and I build the tiles out at that camera.",
+   "show": {
+    "how": "image",
+    "src": "vote/COOK_A_HOUSE_IS_ONE_TILE.png"
    }
+  },
+  {
+   "id": "world-three-shapes-9-28",
+   "kind": "tile",
+   "lane": "world",
+   "made": "9/28",
+   "title": "THREE SHAPES",
+   "why": "You said maybe the animals came out of a lab. I went and read what actually happened in the real world, and it is not monsters. Three pairs here, and in every one the LEFT side is what we already ship and the RIGHT side is the thing that is slightly off. TOP: the dire wolf that was on the news was three normal wolves with twenty gene edits for a bigger body and a paler coat, and their own head scientist admitted it. So that is our coyote, a quarter bigger, a shade paler. You cannot tell across a street, and the tool refuses to draw it if you can. MIDDLE: when a lab runs out of money the real record is that they put the animals down, not set them free. So what is loose is the one the paperwork missed, an ordinary dog with a numbered ear tag. BOTTOM, and this is the one that surprised me: almost everything that has ever escaped a lab for real is a PLANT, not an animal. Weedkiller-proof grass got out and now lives on roadsides in nine countries. And we already have a rule that act one has nothing green in it anywhere. So the only green thing in Las Vegas is the thing that beat us, it is growing out of the kerb, and the spray is what it was built to survive. None of this is canon. Which one do you want?",
+   "show": {
+    "how": "image",
+    "src": "vote/WORLD_THREE_SHAPES.png"
+   }
+  }
  ],
  "verdicts": [
   {
@@ -3056,7 +3068,7 @@
   {
    "id": "world-the-rules-run-with-the-dirt-9-21",
    "vote": "down",
-   "said": "Mfs charge batteries bro 🤣🤣🤣 i knkw buildings can help in our game but jesus christ mfs can charge batteries",
+   "said": "Mfs charge batteries bro \ud83e\udd23\ud83e\udd23\ud83e\udd23 i knkw buildings can help in our game but jesus christ mfs can charge batteries",
    "when": "9/21",
    "at": "2026-09-22"
   },
@@ -3833,7 +3845,7 @@
   {
    "id": "dynasty-three-on-the-phone-9-24",
    "vote": "up",
-   "said": "I like that yeah I mean but keep in mind you know flipping between ax is a big deal asking out of it like all of the UI has to change. There has to be like a filter cut Syn 🛹 thing that impacts everything. The phones gonna look different. The world's gonna look different and we need to find a great way to do that to make that jump, but I mean, just clicking it and then it just cause I clicked it once already the alpha mean obviously you did implement so much a bit but bro, it's a big deal like visually there has to be audio. There's a lot that needs to pull this off. You know we can't just do this cheap shit and then I still haven't decided at what point like you unlock this mechanic in each of the action and shit so it's not like right off the beginning of the game that's for sure.",
+   "said": "I like that yeah I mean but keep in mind you know flipping between ax is a big deal asking out of it like all of the UI has to change. There has to be like a filter cut Syn \ud83d\udef9 thing that impacts everything. The phones gonna look different. The world's gonna look different and we need to find a great way to do that to make that jump, but I mean, just clicking it and then it just cause I clicked it once already the alpha mean obviously you did implement so much a bit but bro, it's a big deal like visually there has to be audio. There's a lot that needs to pull this off. You know we can't just do this cheap shit and then I still haven't decided at what point like you unlock this mechanic in each of the action and shit so it's not like right off the beginning of the game that's for sure.",
    "when": "9/27",
    "at": "2026-09-28"
   },

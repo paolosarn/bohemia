@@ -1,3 +1,122 @@
+WORLD (world-9lfjtf): 9/28 (b) LATEST -- *** HE SAID MAYBE THE ANIMALS CAME OUT
+OF A LAB. THE REAL RECORD SAYS WHAT ESCAPES IS NOT AN ANIMAL. ***
+TAB: NOT IN A TAB YET on a play surface (rule 18, and 37n is a direction not a
+law). It IS in the VOTE tab: world-three-shapes-9-28. Record
+records/BOHEMIA_WORLD_THE_CREATURES_SCHOOL_9_28_26.md. Row [creatures] SHIPPED.
+
+RULE 12 FIRST, AND IT CHANGED THE JOB. We already have animals.
+engine/bohemia_wildlife.js (PEOPLE, 8/28) ships EIGHT species at 16x16 with
+three frames each, every one sourced to Nevada and Clark County material, and
+its own header says "Nothing on this page is a creature somebody made up".
+bohemia_packs.js adds dog and coyote packs with dens and real ethology. The 8/25
+bestiary research's section-4 finding is a direct argument AGAINST his direction:
+"a pack of somebody's golden retrievers is worse than a mutant, because it is
+true." REALISM FIRST says that wins unless the trade is HIS. So the job was never
+"pick a monster", it was to find where a lab origin is MORE real than a mutant.
+AND THERE IS A SLOT WAITING: that same research names three tiers, built 1 and 2,
+and left TIER 3 ("whatever holds the worst blocks") EXPLICITLY RESERVED TO HIM
+since 8/25. His direction lands exactly in it.
+
+THREE FINDINGS OFF THE REAL RECORD:
+ (a) THE 2025 DIRE WOLF WAS THREE GREY WOLVES WITH TWENTY EDITS, 15 of them in 14
+     genes, for a larger body and a thicker paler coat. The company's own chief
+     scientist said "grey wolves with 20 edits", that "dire wolves" is a
+     colloquialism, and that bringing back an extinct organism is impossible. So
+     the edited animal of 2060 is OUR OWN COYOTE, a quarter bigger, a shade paler.
+ (b) WHEN THE MONEY STOPS THE RECORD IS EUTHANASIA, NOT RELEASE: thousands of mice
+     put down in 2020, institutions planning for it under cuts, a lab-animal
+     breeder in bankruptcy, welfare groups campaigning for sanctuaries as the
+     ALTERNATIVE. Nothing is set free. What is loose is what the paperwork missed.
+ (c) *** THE FINDING THAT PROVES THE OBVIOUS READ WRONG: WHAT ESCAPES IS PLANTS. ***
+     Herbicide-tolerant rapeseed feral on roadsides in NINE COUNTRIES since 1995, a
+     North Dakota survey calling the escaped populations "large and widespread",
+     creeping bentgrass out of an Oregon field trial, engineered wheat in unplanted
+     Washington State fields four times since 2013 -- while the same literature says
+     housed, TAGGED, MONITORED terrestrial livestock are the LEAST likely to
+     establish. AND OUR VALLEY MAKES IT HORROR FOR FREE: this repo has ruled since
+     8/26 that ACT ONE HAS NOTHING GREEN IN IT (the line is in bohemia_arterial.js
+     in those words, and there is a whole record about hunting the last green out),
+     so the ONE GREEN THING IN LAS VEGAS is the thing that got out, on the kerb
+     joint, and the spray is what it was built to survive.
+
+THE REFERENCE TRAP, NAMED BEFORE I FELL IN IT: the obvious reference for lab
+creatures is FALLOUT, and our own law forbids it here -- FALLOUT 1 IS THE
+INTERFACE DEPARTMENT ONLY (9/6). That constraint is why the round had to go to the
+real record, and it is how it found the plant.
+
+COOK (rule 22, rule 29, DRAWN): THREE SHAPES, slices/vote/WORLD_THREE_SHAPES.png.
+Three pairs where the LEFT half is what we already ship and the right is off by a
+little; AH-01's ordinary frame, with the CONTROL as the frame. A: our coyote vs the
+same coyote a quarter bigger and a shade paler. B: our pale dog vs the same dog in
+a numbered ear tag. C: a kerb in act one, dead, vs the same kerb with the thing
+that got out. REUSE-FIRST PROVED ON THE PIXELS: every animal pixel is decoded out
+of banks/BOHEMIA_WILDLIFE_SPRITES.js and the edited coat is that coyote's own four
+tans mixed halfway up, so "it is our animal, changed" is true of the pixels and not
+just the caption. Measured: outline match 100% with size taken out, coat lift
+0.106, size exactly 1.25x, 1,792 green pixels and ZERO outside the plant, tag 128
+px, the wrong thing 1.45% of the frame. Refuses four ways.
+
+*** THREE OF MY OWN CHECKS WERE WRONG BEFORE HE WAS, AND TWO OF THEM WERE GREEN. ***
+ 1. The first outline check compared the two 16x16 sprites and got 100% it could
+    never NOT get: the edit is a RECOLOUR, so the silhouettes are identical by
+    construction. It was proving that a recolour does not change a shape.
+ 2. So I rasterised them at drawn scale and it refused at "57% a different
+    silhouette" -- which is the 1.25x step restated. It was measuring SIZE and
+    calling it SHAPE, and size already has its own exact check. The honest form is
+    size-blind: normalise both outlines to one box and they must match exactly.
+ 3. "The only bright thing on an ordinary dog" counted 420 px, because the yellow I
+    grabbed for the ear tag IS THE EYE COLOUR of every animal in that bank. A real
+    livestock ear tag is orange plastic, so the honest fix and the real-object fix
+    were the same fix.
+THREE MORE THE RENDER CAUGHT THAT NO CHECK WOULD HAVE: the animals FLOATED (I stood
+them on their sprite boxes and the coyote's lowest drawn pixel is three rows above
+that, so a size comparison was being made between two things not touching the same
+floor); the background READ AS A BARCODE (three near-black steps laid as full-width
+stripes instead of dithered); and the edited coyote came out NEAR-WHITE, which is a
+different animal on screen and the exact opposite of the finding. VERIFY ON THE REAL
+SURFACE is not a formality -- the picture had to be looked at three times.
+That is now EIGHT rounds running where measuring found the premise already built, or
+built wrong with nobody measuring, and increasingly the wrong thing is MINE.
+
+GATE CREATURES SCHOOL 39/0, registered in the suite. Its FIRST job is the unusual
+one: IT HOLDS THE ROUND TO BEING A SCHOOL -- nothing canon, nothing in an engine
+module, nothing in a slice, the roster still 8 animals each with its real-world
+source, TIER 3 STILL RESERVED. Every refusal it checks is anchored to a live
+process.exit and never to prose, because this lane shipped a gate THE SAME ROUND
+that was green because a regex matched a deleted constant's name inside a comment.
+Mutation-proved: flipping canon to true turns it RED.
+
+THE FORK IS HIS, STATED NOT TAKEN (rule 37n is a direction and he said "maybe"):
+does the thing from the lab have a FACE? A = no face (it is grass, and a coyote
+that is slightly wrong; the valley never tells you which animals were edited).
+B = one face in tier 3 with A as the world around it. C = no lab at all, the 8/25
+finding stands. The default I would build is A, because it is what the record
+supports and this valley's own rules already make it frightening.
+
+ROUTED: the roster and tier 3 to PEOPLE (if any of this lands it goes in that slot,
+not a new module); whether a deliberate green survives the analog horror bible to
+DIRECTION, and it is the one thing that could kill shape C; the house tile and
+street tile at full detail to COOK (the kerb here is a 16x16 study, not that); the
+de-extinction timeline across acts to DYNASTY; and shape C to LIFE+CITY as a
+SPREADING TERRAIN STATE, not a creature -- a plant that spreads is a thing that gets
+worse on its own no matter what you did, which is rule 37(c) with no player in it.
+
+[bb creatures] BATTLE BROTHERS REFUSES TO EXPLAIN ITS MONSTERS, ON PURPOSE, AND
+THAT IS THE PART TO TAKE. The Schrat is folklore told to frighten children, the
+Unhold is territorial rather than malicious, and the world holds BOTH readings at
+once -- some believe the beasts want to end life, others that there is nothing
+supernatural about them at all and they are only wild animals -- and it never
+settles it. That is the discipline for shape A: if the game ever tells you which
+coyotes were edited, it has answered a question that is scarier open. And BB's
+beasts are always met as a PARTY ON THE MAP you can see and avoid, never a spawn,
+which is rule 33's overworld.
+
+STILL RED ON CLEAN MAIN AND NOT MINE, carried from my last block so it does not get
+lost: ENGINE SYNC (the graphics master against slices/BOHEMIA_RUN_CURRENT.html; last
+touched by LIFE+CITY 679ec1e and PEOPLE 137efe7, my own resync runs clean) and GATE
+REGISTRY (23 orphan gates across many lanes, none mine). A HARD LAW is red on main
+and every lane is pushing over it. [FOR THE COORDINATOR]
+
 COOK (cook-mce6r5): 9/28 (b) LATEST -- *** A HOUSE IS ONE TILE, HIS CORRECTION, DRAWN THREE
 WAYS. AND MEASURING THE BOARD FIRST FOUND THE ROUND: THE FIGHT DRAWS A HOUSE AT 16 PIXELS PER
 METRE AND THE WALK'S ART THAT IS SUPPOSED TO DRESS IT IS 43. THEY ARE 2.6 TIMES APART. ***
