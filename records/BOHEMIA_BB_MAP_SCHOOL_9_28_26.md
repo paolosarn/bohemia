@@ -100,3 +100,31 @@ starts a fight on the tile you were crossing; and the clock you spend is the sam
 clock the valley's own parties spend, so the world you arrive at moved while you
 walked. Under the bible, the next thing to move is the settlement screen: lights,
 people, weather, a place that is alive when you get there.
+
+## 8. THE CHECKERS THAT WERE MEASURING THE OLD DEMO (rule 13: which reds are mine)
+
+Taking the street out of the demo changes the surface twenty lanes' checkers stand on.
+Every red was run twice, on this tree and on main without it, and only the ones green on
+main and red here are counted as mine. **736 checkers in the table; 585 run (every one
+that reads a surface this round touched), 151 that read none of them skipped.**
+
+- **Mine, and fixed by following the ruling, never by loosening (19):** BAR FITS GLASS
+  (the phone leg now holds both halves of his 9/23 ruling: none on a street, drawn on
+  the map), SCREEN FACE (the reshuffle mark `⟳` is not in the phone's own face; it had
+  never been on screen before the demo opened on the map; now `?`), THE FOUR THINGS
+  (the pad moves to GONE, a tap on the map is proved instead), STRANGER OPENS (no walk
+  pad, the map takes the finger, a tap moves the party), COLD HAND (on the map the map
+  is the control), FIGHT FLOOR CACHE (the phone-speed harness now counts the party
+  moving as the demo's first play). Moved to the ALPHA, where the walked street still
+  is: THE WALK NEVER MISSES, THE STEP IS ONE CELL, BLOCK STRIKES, TIME NOT TAPS,
+  THERE ARE ENEMIES, SLIDE AND TURN, POOL IS REAL, MOMENT ENDS, DRIVER REACHES THE
+  CITY. Setup steps onto the street the way a spread does: ENDING, USED TO BE, PEOPLE
+  GATHER, ON THE WAY, WALK ENCOUNTER.
+- **Load, not the change (passed alone):** ZOOM SEAM, ONE NUMBER, INTENSITY WIRED, RUN
+  BEAT, COVERED CONTROLS, DRIVER SAYS, PEOPLE, CARD FOLD, LOADING IN PLAY.
+- **Timestamp artefacts, not the change:** LOOK and REACHABILITY compare file mtimes, and
+  editing a file in a working tree makes it "newer" than a picture or a census that did
+  not change. A fresh checkout has one mtime for everything, which is why main reads green.
+- **Red on main before this round and still red: 238.** Not this lane's; the list is the
+  comparison output, and the loudest cause is checkers still reaching for `#daycardIn`,
+  the card rule 19a removed.

@@ -118,6 +118,12 @@ var wait = function (ms) { return new Promise(function (r) { setTimeout(r, ms); 
     var m = await fr.evaluate(function () {
       var o = { wired: typeof walkInterrupt === 'function' && typeof WALK_TABLE !== 'undefined',
                 fires: [], liar: null };
+      /* 9/28 (RUN, rule 38c): THE DEMO OPENS ON THE MAP NOW, and stepOnce there moves the PARTY
+         across the map (which fires the ROAD director, THE MAP IS HOW YOU TRAVEL's business).
+         These are the WALKED street's encounters, so the setup steps onto the street the way a
+         spread does before it walks. Where the street lives from here: the alpha, until
+         [no city walk] moves it to archive/. */
+      try { if (typeof MODE !== 'undefined' && MODE === 'city') { SEAM_INTENT = 'look'; swapMode(); } } catch (e) {}
       for (var q = 0; q < 6; q++) {
         var gb = document.querySelector('#daycardIn .dcgo'); if (gb) gb.click(); }
       try { cardHide(); } catch (e) {}
