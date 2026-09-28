@@ -412,12 +412,17 @@ def main():
     acts = [panel(P, a) for a in (1, 2, 3)]
     d12 = floor_check(acts[0], acts[1])
     d23 = floor_check(acts[1], acts[2])
+    # *** THIS USED TO REFUSE, AND PAOLO OVERTURNED THE RULE IT ENFORCED. *** Rule 37(c),
+    # his third votes, 9/27: 'the future could get worse... a reflection of your past
+    # actions'; the derive is SIGNED. Rule 32(b)'s 'nothing decays below the start' is
+    # dead, so a factory that refuses to draw a darker act is enforcing a law he killed --
+    # and it would refuse the very picture the signed derive needs, the street that FELL
+    # because of what you did. The count stays, because it is still the honest measure of
+    # which way this block moved; it is now REPORTED, never a refusal. This picture draws
+    # the better direction. The worse one is a different picture, not a forbidden one.
     if d12[0] > DARKER_ALLOWED or d23[0] > DARKER_ALLOWED:
-        sys.exit('REFUSING TO WRITE THE PICTURE: rule 32(b) says the ruin is the floor '
-                 'and nothing decays below the start, but %d pixels went darker from '
-                 'act 1 to 2 and %d from act 2 to 3 (allowed %d). A picture that shows '
-                 'him the world falling is worse than no picture.'
-                 % (d12[0], d23[0], DARKER_ALLOWED))
+        print('  NOTE: %d pixels darker act 1 -> 2, %d act 2 -> 3. Under rule 37(c) the '
+              'future goes both ways, so this is reported, not refused.' % (d12[0], d23[0]))
 
     labels = [('ACT 1   THE RUIN', 'the floor'),
               ('ACT 2   RECLAIMED', 'power back'),
@@ -437,10 +442,10 @@ def main():
     print('  act 2  + road patched, power back, an array and a cabinet, line restrung')
     print('  act 3  + a second array across the road, kerbs and walks rebuilt, the')
     print('         lamp doubled, and the dead lot turned into a battery swap stand')
-    print('  RULE 32(b) CHECKED, NOT PROMISED (darker pixels = the world falling):')
+    print('  WHICH WAY THE BLOCK MOVED (darker pixels = the world falling; rule 37(c) allows both):')
     print('    act 1 -> act 2     : %5d darker, %5d brighter' % (d12[0], d12[1]))
     print('    act 2 -> act 3     : %5d darker, %5d brighter' % (d23[0], d23[1]))
-    print('    allowed darker     : %5d  (shadow and edge under new hardware only)'
+    print('    old 32(b) limit    : %5d  (a reference only since 37(c); never refuses)'
           % DARKER_ALLOWED)
     print('  AND IT IS A REAL BLOCK, off a measured row (bible rule 7):')
     print('    measured on        : %s, overmap %s' % (D['measuredOn'], D['overmap']))

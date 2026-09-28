@@ -1353,6 +1353,22 @@ sealed. The BEFOREs are the same generator and seed with the ONE declaration fli
 the factory refuses if a before shows no seal or an after still shows one, and measures its labels.
 ANALOG HORROR LINE: a place that looks entered and cannot be. A door that was never drawn.
 
+*** RULE 37 LANDED THE SAME ROUND (Paolo's third votes) AND IT MOVES THIS LANE THREE WAYS. ***
+  37(b) PLACES ARE SETTLEMENT SCREENS; the coordinator re-aimed [honest grid]: the settlement SCREEN is
+        this lane's place drawing (with RUN [settlement screen]); THE GRID IS FOR THE FIGHT AND THE STRIP.
+        The sealed-floor work still stands: a fight on a stadium block cannot have a field nobody reaches.
+        The missing-gates list is now aimed at blocks a fight can happen on.
+  37(c) THE FUTURE GOES BOTH WAYS ('the future could get worse... a reflection of your past actions').
+        That KILLS rule 32(b)'s 'nothing decays below the start', and my three-acts factory REFUSED to
+        draw a darker act. A check enforcing a law he killed would refuse the exact picture the signed
+        derive needs. Retired this round: the darker/brighter count is still measured and REPORTED, never
+        a refusal. The picture is byte-identical. It also reopens half of [three cities]: rule 31's
+        'built up OR FALLEN DOWN from the ledger' is back, and the 6.7%-of-the-valley pending softens
+        (the future can differ by falling as well as by building).
+  37(e) FOURTEEN parts of Vegas as generated HOME BASES you can raid. That is the same 14 this lane
+        counted off his faction graph in the [bb places] page (5 fortress, 5 town, 4 camp). His number
+        and the measured one agree; the 4 factions with no seat (Pures, Panthers, La Familia, Triads)
+        are the open question under it.
 NEXT ON THIS ROW: the real missing gates biggest first (stadium tunnels, a gate in the solar and
 airport fences, the terminal doorway), lowering the ratchet as each lands; then the dead-pad leg.
 [three cities] stays CLAIMED, parked behind its own measurement.
