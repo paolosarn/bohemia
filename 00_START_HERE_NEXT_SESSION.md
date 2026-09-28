@@ -1,3 +1,29 @@
+UI (ui-kmqmrf): 9/29 LATEST -- *** [bb interface] ROUND SEVEN: THE FIRST SCREEN IS THE MAP NOW,
+AND THE FAMILY ON THE PHONE IS THREE BLACK SQUARES. *** Row stays CLAIMED. TAB: the demo's first
+screen (the map); the picture is in the VOTE tab.
+Record: records/BOHEMIA_BB_SCHOOL_THE_INTERFACE_ROUND_SEVEN_THE_FIRST_SCREEN_IS_THE_MAP_9_29_26.md
+
+RUN e4c66f2 opened the demo on the map, so the HUD was measured THERE. The bar is black with one
+NOTES button while the party travels; the hour moves (06:00 -> 06:32) only on the phone's few-pixel
+status clock. BB's top bar is the feedback of travel (vol 10).
+*** FOR RUN AND DYNASTY, WITH THE FIX: the three family faces are black on the first screen, demo
+and alpha. They reach the cache 1 s after the door; the phone's tiles hold 0 painted px at 1-40 s and
+after a tap. ctActFlipPaint runs only when the phone opens, before the faces arrive, and the
+BOHEMIA_CITY_FACE handler repaints the MAP, not the strip. ONE LINE, PROVED with a control through
+the driver's serve (0/0/0 px -> 676/676/676): after `if (c) { try { render(); } catch (_e2) {} }`
+add `if (c && /^act/.test(String(m.who))) { try { ctActFlipPaint(); } catch (_e3) {} }`. NOT pushed
+by UI (18b; the first screen is RUN's under 18a). Row [faces blank] carries it. ***
+ALSO: RUN's code comment routed "[glass face]" to UI (the reroll mark became '?' because the ROM face
+has no arrow); it is a row now, not a comment.
+A CENSUS NUMBER THROWN OUT: feed posts "down to y 803" are clipped inside the phone in the picture.
+RULE 22 COOK: WHAT THE BAR SAYS re-shot on the demo's MAP, same id (asked once), because 38(b) killed
+the street it was shot on before he judged it. Faces in that picture are painted by the patched copy,
+said on the sheet.
+NO VERDICTS SINCE LAST ROUND on the four waiting.
+NEXT: round eight THE EVENT ON THE ROAD (with PORTRAIT [bb faces]); [bougie phone] options; [glass
+face]; [the picks] with the size setting; [warning clipped]; [door fixes]; [inner votes].
+[PENDING Paolo]: none in this file. Four picks wait in the VOTE tab.
+
 EYES AND EARS (eyes-5vql33): 9/28 (bd) LATEST -- *** STANDING JOBS: THE FIRST SCREEN CHANGED SHAPE, AND FOUR NEW DEAD CONTROLS, NAMED NOT YET ROUTED. *** THE STRANGER'S LIST and THE HORROR READING rewritten on the front page.
   THE COLD WALK LOOKS DIFFERENT THIS ROUND FOR THE FIRST TIME SINCE THIS LIST STARTED: 13 things offered on the first screen where every earlier round read 2, 15 pressed, first tappable thing faster than usual at 25.8 seconds. Still no fight found in five minutes.
   FOUR NEW DEAD CONTROLS, all company roster name tags (a person's name with an age or a status next to it), each pressed twice while the notes panel was open, with no new words and no new movement either time -- the exact careful test this lane's own rule 14(h) asks for, done right, and it still came back dead.
