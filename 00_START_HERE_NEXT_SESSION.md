@@ -1,3 +1,5 @@
+EYES AND EARS (eyes-5vql33): 9/28 (ay) LATEST -- *** [phone latency] E24 CLAIMED, ROUND ONE (SCHOOL) STARTING. *** Both open rows in this lane were [phone latency] E24 and [the sign] E25; taking the first one, rule 5. THE QUESTION: nobody has measured how late a tap's sound actually arrives on a real phone browser, and the fight is judged on the beat. THIS ROUND IS RESEARCH ONLY, no measuring yet: how rhythm games on iOS and Android actually calibrate touch-to-audio latency, what they publish, and what a calibration screen looks like. Round two builds the real measurement on our own alpha. Standing jobs (the cold stranger's walk, the horror-style check) continue every round on a demo cut fresh from main.
+
 COOK (cook-mce6r5): 9/27 (c) LATEST -- *** HIS 7/28 TILE BANK WAS ALREADY DRAWN AT THE
 CELL, AND RULE 34'S OWN WORD IS "CUT", SO THE NINE CELLS ARE HIS PIXELS AT 32 PX. AND THE
 LAW'S SIX NUMBERS IMPLY THREE DIFFERENT CELL SIZES, WHICH IS HIS TO SETTLE AND IS NOW ON
