@@ -1,0 +1,88 @@
+{
+ "bank": "THE BLOCK THREE WAYS",
+ "date": "9/28/26",
+ "law": "rule 37a",
+ "his_words": "present me options of what a house tile street tile would look like using assets we already have... I need to see what a good tile looks like first OK",
+ "from": "banks/BOHEMIA_STARTER_TILESET_ACT1_RECOOK_7_28_26.txt",
+ "authority": "Paolo 7/28/26, verbatim: \"I checked it to do the other 41 mark it approved.\" Verdict record: records/BOHEMIA_PIXEL_CRAFT_VERDICT_7_28_26.txt",
+ "tile_px": 44,
+ "density": {
+  "measured_on": "the sprites his own bank places, in tiles",
+  "readings": {
+   "his person": {
+    "tiles": 1.5368181818181816,
+    "metres": 1.75,
+    "px_per_metre": 38.64,
+    "metres_per_tile": 1.1387163561076605
+   },
+   "his car": {
+    "tiles": 4.363636363636363,
+    "metres": 4.5,
+    "px_per_metre": 42.666666666666664,
+    "metres_per_tile": 1.03125
+   },
+   "his door": {
+    "tiles": 2.0,
+    "metres": 2.05,
+    "px_per_metre": 42.926829268292686,
+    "metres_per_tile": 1.025
+   }
+  },
+  "floor_px_per_metre": 38.64,
+  "note": "the bank METHOD line says CELL_M 0.75 (58.7 px/m); the layout he approved says a tile is about one metre, three ways. The picture is the oracle, not the comment."
+ },
+ "the_thin_ones": {
+  "road party person_px": 9,
+  "lit_px": 28,
+  "px_per_metre": 5,
+  "note": "the three items he voted down are all MAP art; the 32 px cell was 42.7 px/m, already at his density"
+ },
+ "block": {
+  "w": 11,
+  "h": 16,
+  "house_x": 1,
+  "house_w": 5,
+  "house_y": 1,
+  "house_h": 5,
+  "door_x": 3,
+  "yard_to": 8,
+  "walk": 8,
+  "kerb": 9,
+  "road": [
+   10,
+   12
+  ],
+  "kerb2": 13,
+  "walk2": 14,
+  "car": [
+   10,
+   4
+  ]
+ },
+ "options": [
+  {
+   "id": "A",
+   "name": "ACROSS THE STREET",
+   "what": "his 7/28 street as approved: ground you look across, buildings standing up behind",
+   "from_his_art": "untouched"
+  },
+  {
+   "id": "B",
+   "name": "DOWN AT AN ANGLE",
+   "what": "the same block with its roofs on, above-at-an-angle (TG-02, and BB's own camera)",
+   "from_his_art": "his roof pieces, his layout"
+  },
+  {
+   "id": "C",
+   "name": "STRAIGHT DOWN",
+   "what": "roofless, wall caps and an inside floor: the fight's ground (rule 38b)",
+   "from_his_art": "his stucco, only the edge drawn"
+  }
+ ],
+ "proved": [
+  "no atari: every option at or above his own art's px per metre",
+  "every pixel is his: no colour off his tiles or their ramps",
+  "the three options are the same block, byte-identical street band",
+  "a tile is not a stamp: no row repeats one picture"
+ ]
+}

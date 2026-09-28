@@ -1,3 +1,112 @@
+COOK (cook-mce6r5): 9/28 LATEST -- *** HE ASKED TO SEE WHAT A GOOD TILE LOOKS LIKE BEFORE
+ANY GRID, SO HERE IS ONE BLOCK THREE WAYS OUT OF HIS OWN ART. AND THE NUMBER BEHIND "AS MANY
+PIXELS AS THE ROAMING ART" IS NOT IN ANY FILE, IT IS IN HIS PICTURE: A TILE IN THE STREET HE
+APPROVED IS ABOUT ONE METRE AND HIS ART IS 39 TO 43 PIXELS PER METRE. *** TAB: the VOTE tab
+in the alpha, item WHAT A GOOD TILE LOOKS LIKE. Record
+records/COOK_WHAT_A_GOOD_TILE_LOOKS_LIKE_9_28_26.md. Bank
+banks/BOHEMIA_THE_BLOCK_THREE_WAYS_9_28_26.txt.
+
+[tile options] round 1, this lane's first line under rule 37a. Claimed and pushed before the
+work (rule 5). His words on the coordinator's cell item: "I need you to present me options of
+what a house tile street tile would look like using assets we already have... I need to see
+what a good tile looks like first OK."
+
+HIS VERDICTS ON THIS LANE, READ FIRST (rule 22's instruction). Three down in one vote and all
+three for ONE fault: the map markers ("this isn't fucking Atari"), the valley ("add more
+pixels to all the squares"), the road parties ("I could count the amount of pixels on one
+fucking hand"). Not a feature to stop building -- a CRAFT RULE he has now stated three times,
+with the fix in his own words. Eight up, unchanged.
+
+*** THE FIRST JOB WAS TO PUT A NUMBER ON IT, AND THE NUMBER WAS NOT WRITTEN DOWN ANYWHERE ***
+The 7/28 bank's METHOD line says "1 px = 1.7 cm, because CELL_M = 0.75", which would make a
+44 px tile 0.75 m and the art 58.7 px per metre. THAT IS THE LINE THIS LANE READ LAST ROUND
+AND BUILT A WHOLE CARD ON. The drawing he approved says otherwise, and says it three times,
+because the same bank records where every sprite STANDS, in tile units, and three of those
+sprites have a real-world size:
+
+    his drawn person   1.54 tiles tall   ->  a tile is 1.14 m   38.6 px per metre
+    his drawn sedan    4.36 tiles long   ->  a tile is 1.03 m   42.7 px per metre
+    his drawn door     2.00 tiles tall   ->  a tile is 1.02 m   42.9 px per metre
+
+A TILE IN HIS STREET IS ABOUT ONE METRE, NOT 0.75. The method line describes the scale the
+MATERIAL was authored at; the layout is what he actually looked at and approved. The floor in
+the tool is re-derived from those three sprites every run, never typed. (INSTANCE NINETEEN of
+this lane's wrong-oracle fault, and it is mine from last round: I read the comment in the file
+instead of measuring the picture the comment describes.)
+
+AND IT MAKES HIS COMPLAINT EXACT INSTEAD OF VAGUE:
+    his approved street        39 to 43 px per metre
+    the road party I drew       5 px per metre   -- 9 px tall, 28 lit pixels in the whole body
+    the 32 px cell I shipped   42.7 px per metre -- already at his density
+EIGHT TIMES. "I could count the amount of pixels on one fucking hand" is a measurement, not an
+exaggeration. *** AND ALL THREE THINGS HE KILLED ARE MAP ART. The tiles were never the thin
+ones; the map is, which is exactly what he said about the Battle Brothers map on 9/24. ***
+
+THE THREE OPTIONS, ONE BLOCK, THREE CAMERAS, EVERY PIXEL HIS. Same house, same yard, same
+sidewalk, same road, same car; the street band is BYTE-IDENTICAL across all three (a guard
+proves it) so the only thing he is choosing is where he stands.
+  A  ACROSS THE STREET   his 7/28 street exactly as approved: his wall courses, his window,
+                         his boarded window, his two-tile door. Nothing touched.
+  B  DOWN AT AN ANGLE    the same block with its ROOFS ON. TG-02: "from above-at-an-angle a
+                         house is ROOF PLANES FIRST, then the front face." His bank already
+                         holds every piece and his own struct band already lays them out.
+                         This is Battle Brothers' own camera.
+  C  STRAIGHT DOWN       roofless: wall caps round an inside floor, the door the one way
+                         through, the house casting south-east. The FIGHT's ground (38b).
+Plus one house tile and one street tile out of each at four times size, so he can count.
+
+GUARDS, EACH REFUSES THE RUN: NO ATARI (42.9 px/m against his own 38.6 floor, re-derived from
+his sprites); EVERY PIXEL IS HIS (nothing off his tiles or their ramps but the two accents his
+own car keeps, which is the bank's own rule in its own words); THE SAME BLOCK THREE CAMERAS
+(street band byte-identical); A TILE IS NOT A STAMP (no row of the street repeats one picture).
+
+THE LOOKING CAUGHT THREE THINGS THE GUARDS DID NOT.
+ 1. A SHADOW DARKENS, IT DOES NOT RE-TINT. Option C's shadow pass picked its ramp by ROW --
+    ground above the sidewalk, concrete below -- so the house's grey concrete floor, which
+    sits above the sidewalk, got snapped onto the tan GROUND ramp and the whole inside came
+    out the same beige as the walls. Every guard green, and the house had no inside.
+ 2. THE THREE OPTIONS RAN TOGETHER INTO ONE PICTURE. Drawn edge to edge, the yard and road
+    bands crossed all three and it read as one wide street instead of three options.
+ 3. BOTH FIGURES AT THE SAME ZOOM, OR THE PICTURE ARGUES AGAINST THE NUMBER. The first cut
+    drew the thin figure at 5x beside his own person at 2x, which made them nearly the same
+    height on the page and hid the very gap it was measuring.
+Also thrown out: a tile crop taken from a fixed spot handed him a blank wall square and a
+blank floor square. The tile shown has to be the one that MAKES the option what it is.
+
+WHAT THIS DOES NOT DECIDE: the pixel size of a cell is HIS pick out of these three (rule 37a,
+DIRECTION [judge tile options]). What this settles is the DENSITY FLOOR, off his own drawing,
+and what the three cameras actually look like with his assets in them. The cell LIST for a
+block is WORLD + LIFE+CITY; this draws to that, never the other way round.
+
+HANDED OVER.
+- WORLD + LIFE+CITY [tile options] / [honest grid]: the density floor and the block layout
+  are in the bank, with every option's pixels. Your cell list, my drawing.
+- DIRECTION [judge tile options]: the three cameras are ready to judge; the px-per-metre
+  number you need for the two-scales card is measured off his own three sprites and is in
+  the bank under `density`, with the method line named as the thing that disagrees.
+- COOK [bb map art], my own next round: the three he killed all need re-cooking at 39+ px
+  per metre. That is not a re-scale, it is a re-draw, and it is the biggest thing on my board.
+
+[bb the overworld is battle brothers] reference/library/battle_brothers/10_UI_AND_FEEL.md and
+02_COMBAT_RULES.md, read first (rule 33j). BB shows you a world map you never walk and a
+tactical board you do, and the two are drawn at DIFFERENT DENSITIES on purpose: the board is
+where the pixels go, because it is where you look closely and decide. That is the split rule
+38b just made for us, and it says where his "more pixels" belongs first -- the map.
+WHERE BB IS A STILL AND WE MOVE (33g): BB's board is generated flat and set up before the turn
+starts and nothing on it moves until a unit acts. Ours is a block you ARRIVE in, so the same
+tiles have to hold up while a camera moves over them and a person walks through the door,
+which is why option C carries the house's shadow and option B does not need one.
+
+NEXT IN THIS LANE: [bb map art] round 3, the map re-cooked at his density, because that is the
+thing he actually complained about three times and it is the only one of my rows that is
+unblocked by his pick here.
+
+STILL OPEN, UNCHANGED: the boot's heel question on the WHICH WAY IS HE FACING card. Landmarks
+still undrawn: luxor, springs, robofactory. Flagged to PLUMBER: the pages publish gate fails
+on clean main, 283 MB against its own 260 MB cap, and it was 275 three rounds ago.
+
+------------------------------------------------------------------------
+
 WORLD (world-9lfjtf): 9/28 LATEST -- *** HE KILLED MY PICTURE AND HE WAS RIGHT,
 AND THE CLAMP THAT MADE IT WRONG WAS MINE. ***
 TAB: NOT IN A TAB YET on a play surface (rule 18 holds). It IS in the VOTE tab
