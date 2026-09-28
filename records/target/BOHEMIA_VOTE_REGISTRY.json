@@ -2653,6 +2653,19 @@
    }
   },
   {
+   "id": "people-real-families-dont-come-out-four-of-four-9-28",
+   "kind": "tile",
+   "lane": "people",
+   "sha": "pending",
+   "made": "9/28",
+   "title": "REAL FAMILIES DO NOT COME OUT FOUR OF FOUR",
+   "why": "You said the cold-open family's eyes all came out the same, 80,110,150 for the dad, the mom, the brother and the sister. That was real: two bugs stacked, a kid copying a parent's eyes by re-rolling instead of reading what the parent actually wears, and the mom and dad landing on the same colour by pure chance since they share no blood. The dad keeps his eyes, the mom now avoids his colour instead of risking it again, and the two kids each still take their own coin flip between their real mom and dad. Same four people, same generator, nothing else touched. Does the family read as a family now?",
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_REAL_FAMILIES_DONT_COME_OUT_FOUR_OF_FOUR_9_28_26.html"
+   }
+  },
+  {
    "id": "character-the-attachments-trade-9-28",
    "kind": "outfit",
    "lane": "character",

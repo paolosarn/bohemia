@@ -1,0 +1,128 @@
+BOHEMIA -- FAMILY EYES (9/28/26, PEOPLE lane)
+VAMILY job [family eyes], row FOUR-OF-FOUR-SHARE-ONE-EYE-COLOUR. HELD under rule 18
+since 9/21b, re-measured and taken this round under rule 12 (a dependency is a
+premise, not a gate).
+
+PORTRAIT 53cbb684, the row on the board: "DENISE, RAY, MARCO and NINA all have
+eyes 80,110,150; heredity copies one parent and never varies. Real families do
+not come out four of four. The fix is a coin between the two parents per child
+and a rare third."
+
+================================================================================
+MEASURED BEFORE A LINE WAS WRITTEN
+================================================================================
+family_gate.js already carried the claim and was already GREEN: family eye-colour
+agreement 100.0% against a 17.3% stranger baseline off the same generator. A gate
+that only asks "does the family share more than strangers" cannot tell a healthy
+family from a degenerate one -- 100% passes that claim just as easily as 50% does,
+and 100% is the exact bug in the row.
+
+TWO SEPARATE BUGS WERE STACKED, NOT ONE:
+
+ONE. pick()'s copy-from-a-parent branch re-hashed the parent's id from scratch
+(faceRollHash(pi, salt)) instead of reading the colour that parent is actually
+wearing. Two writers for one fact, this lane's oldest, recurring defect -- and
+the fix was already sitting in the same file: the DESCENDANTS generator, built
+for the three-generation flip, already reads `ancestor.eyes.iris` directly rather
+than re-deriving it. This bug never mattered until a family's PARENTS also
+happened to collide (see below), because until then a child copying "the wrong
+way" still landed on a real, different-looking colour by chance.
+
+TWO. RAY and DENISE -- who share no blood, and whose colours are each an
+independent roll with no kin -- had already landed on the identical palette
+entry, [80,110,150], a straight 1-in-6 coincidence on the six-colour IRIS
+palette. This is not something a child-side fix can ever repair: if both
+parents already wear the same colour, every child "inheriting from a parent"
+necessarily looks the same regardless of which parent they copy. And because
+FAMILY_CAST is a fixed, hand-authored cast (never re-rolled between saves),
+this coincidence was permanent, not a one-in-six-of-the-time accident a
+player might not even see.
+
+================================================================================
+WHAT WAS BUILT
+================================================================================
+famFaceKey (engine of the cold-open family, inlined in the alpha) now resolves
+a CHILD's parents through faceFor FIRST, in the same order as the existing
+over.kin id list, and hands the child their parents' real rendered specs as
+over.kinFaces. pick() reads the parent's actual value off it when it has a path
+to that trait (iris, brow colour, lip colour -- the three categorical picks
+this bug class touches; hair texture and hair part, never the named bug, keep
+their old behaviour untouched).
+
+Separately, famFaceKey now has the SECOND parent processed avoid whatever the
+FIRST parent already actually wears (over.avoidFaces), one direction only so
+there is nothing circular to resolve -- the first parent still rolls free, and
+pick()'s final "own roll" branch nudges one seat over in the palette on a
+collision rather than re-rolling. A married couple are not siblings; nothing
+should tie their colours together, but nothing should let them collide either.
+
+AND A THIRD, SMALLER BUG IN THE SAME FUNCTION: the branch meant to be "a rare
+third, a grandparent nobody drew" used R(salt), which rides kinMix toward the
+parents' blended mean -- right for a numeric dial, wrong for a colour, and the
+file's own comment three lines above it says exactly that ("a colour is not an
+average"). Changed to faceRollHash(id,salt) directly. This is a no-op for
+anybody without parents (R already equalled that) and makes the 14% branch
+actually independent for anybody with them.
+
+================================================================================
+MEASURED AFTER
+================================================================================
+family_gate.js's original claim still holds, honestly this time: 50.0% pairwise
+eye-colour agreement against the 17.3% stranger baseline, not 100%. Skin and hair
+colour agreement are BYTE-FOR-BYTE unchanged (16.7% each) -- hair colour already
+read a parent's real value through a separate, already-correct path (NPCFactory),
+and was never the named bug.
+
+RAY: iris unchanged, [80,110,150], rolls first, keeps his own draw.
+DENISE: iris moved to [90,140,90] -- the same "own roll" index, nudged one seat
+  over because it collided with RAY's.
+MARCO and NINA: both now read [90,140,90], DENISE's actual colour, each having
+  independently coin-flipped which real parent to copy. Both landing on the same
+  parent is not a bug -- full siblings resembling the same parent on a given
+  trait is ordinary heredity, and each of them still takes their OWN coin flip
+  and their own 14% chance at an independent third colour.
+
+NEGATIVE-CONTROLLED: the two new gate claims ("the house is not four of four"
+and "the parents do not share by coincidence") were run against the pre-fix
+code (extracted from the parent commit, not stashed, so the working tree was
+never disturbed) and both correctly went RED there -- 100.0% agreement, parents
+colliding -- proving the claims can fail before trusting that they pass.
+
+================================================================================
+THE COOK: REAL FAMILIES DO NOT COME OUT FOUR OF FOUR
+================================================================================
+slices/BOHEMIA_REAL_FAMILIES_DONT_COME_OUT_FOUR_OF_FOUR_9_28_26.html, registered
+in VOTE. Eight real portraits, not swatches: all four family members' actual
+faces, rendered by the same renderFace() the whole valley uses, BEFORE (pre-fix
+code, extracted from git history) and AFTER (this commit), so what he sees is
+the real generator's output both times, not a mockup.
+
+================================================================================
+THE GATE
+================================================================================
+gates/family_gate.js, EXTENDED not replaced (REUSE-FIRST): this row's own claim
+already lived there since 8/31, so the two new legs joined it instead of a new
+gate file. 17/0, including the two negative-controlled legs above.
+
+================================================================================
+MEASURED AND NOT FIXED
+================================================================================
+THE RARE THIRD IS STILL RARE, NOT ZERO: with only 2 parents and a 14% independent
+chance per categorical trait per child, a hand-authored, never-re-rolled cast of
+exactly four people could in principle still land on a repeat by chance on some
+future edit to FAMILY_CAST. Nothing about this fix makes coincidence impossible,
+it only stops the ROLL ITSELF from manufacturing one out of thin air, and nudges
+away from the one coincidence this cast actually had. Named, not chased further:
+guaranteeing zero coincidence for a fixed four-person cast forever would mean
+hand-picking colours, which is content, not mechanism, and not this lane's to
+invent.
+
+THE SAME BUG CLASS MAY STILL LIVE WHEREVER ELSE A CATEGORICAL TRAIT IS COPIED
+FROM AN ID STRING INSTEAD OF A REAL VALUE. This round only swept pick()'s three
+callers that matched the named bug (iris, brow colour, lip colour); hair colour
+was already correct through NPCFactory. Not swept: anywhere outside FAMILY_CAST
+that might someday build kinship between two rolled (not hand-authored) people --
+none exists yet, so there was nothing further to measure.
+
+TAB: CHARACTER, the family cards; also visible in the opening's talking portrait
+(RUN). VOTE, for the eight-face comparison.

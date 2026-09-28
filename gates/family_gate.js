@@ -68,6 +68,16 @@ const ok = (n, c, note) => { if (c) { pass++; console.log('  ok   ' + n + (note 
       .length === kids.length;
     out.parentsHaveNone = fam.filter(f => !f.kin).length === parents.length;
 
+    /* FOUR OF FOUR (9/28, [family eyes]): the two PARENTS specifically, who share no
+       blood, are the actual source of a degenerate "whole house has one eye colour" --
+       a child copying either parent can never un-do it once it happens. Named and
+       checked directly rather than only through the pairwise stat below, which a lucky
+       shuffle could pass at 100% agreement without anybody noticing that number is the
+       bad case, not the good one. */
+    const _ray = fam.find(f => f.role === 'FATHER'), _denise = fam.find(f => f.role === 'MOTHER');
+    out.parentsShareIris = !!(_ray && _denise && _ray.spec.eyes.iris && _denise.spec.eyes.iris &&
+      _ray.spec.eyes.iris.join(',') === _denise.spec.eyes.iris.join(','));
+
     const SHAPE = ['len', 'craniumH', 'foreheadW', 'cheekW', 'jawW', 'chinW'];
     const trait = s => ({
       skin: (s._tone && s._tone[0]) || null,
@@ -143,6 +153,9 @@ const ok = (n, c, note) => { if (c) { pass++; console.log('  ok   ' + n + (note 
      '(' + pc(r.famHair) + ' vs ' + pc(r.ctlHair) + ')');
   ok('*** and eye colour ***', r.famIris > r.ctlIris,
      '(' + pc(r.famIris) + ' vs ' + pc(r.ctlIris) + ')');
+  ok('*** but the house is not four of four -- somebody always differs (9/28, [family eyes]) ***',
+     r.famIris < 1, '(' + pc(r.famIris) + ' agreement, was 100.0% before the fix)');
+  ok('the father and mother do not share an eye colour by coincidence', !r.parentsShareIris);
   ok('*** and their skulls are closer together than strangers\' ***',
      r.famShape < r.ctlShape,
      '(' + r.famShape.toFixed(2) + ' vs ' + r.ctlShape.toFixed(2) + ', lower is more alike)');
