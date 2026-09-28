@@ -2510,6 +2510,20 @@
     "src": "WHAT CHANGED THIS ROUND\n\n1. Every job is a Battle Brothers contract now: you walk into a town, tap the hall, a face offers the job with the pay, you haggle, you take it or leave it.\n2. The pay is worked out from days, danger and how scarce things are, never typed in by hand.\n3. Push the haggle too far and the offer closes for that visit. Nothing else. Nobody holds it against you.\n4. A crisis never runs a countdown. It changes what each town's board is offering.\n5. No loyalty meter for your company. You see loyalty in how they fight, and some of them quit.\n6. Every old quest we wrote was checked against the phone checklist. None passed. 14 become contracts, 11 become road events, 12 stay story beats, 5 are retired.\n\n96 designs now: act 1 has 31, act 2 has 34, act 3 has 22, and 9 run across acts. All 152 quests you collected are cited."
   }
 }
+,
+   {
+    "id": "combat-houses-and-a-mound-9-28",
+    "kind": "tile",
+    "lane": "combat",
+    "sha": "PENDING",
+    "made": "9/28",
+    "title": "HOUSES, AND A MOUND YOU CAN STAND ON",
+    "why": "Two things, same fight, same spot, one build apart. FIRST THE ROOFS. On the left is what my last change did by accident: I made a cell 3 metres, and one piece of the code still thought a cell was a whole house, so it stamped a whole roof on every little square. That is the orange checkerboard, the exact thing your friend saw on 9/18. On the right a house is 4 by 4 cells, which is the number you set, and its roof is drawn ONCE across the whole house, with a yard behind it and a wall between neighbours. It reads as a street with houses on it now. SECOND THE MOUND. You picked one ground rule for fights: high ground helps you aim. It had never fired once, because the high ground was a block the size of a city block, six cells away. It is ONE CELL now, about two steps from you. Over 84 fights you got up there 77 times, and standing on it made the shot easier on 112 men, every single one who was hiding behind something. Before this it had never happened in a fight anybody played. What I am not hiding: the mound still draws as a little striped ladder, not as a hill. That is the art and it is next. Thumbs up and I keep going this way. Thumbs down and tell me if it is the roofs or the mound.",
+    "show": {
+     "how": "image",
+     "src": "vote/COMBAT_HOUSES_AND_A_MOUND_9_28.png"
+    }
+   }
   ],
   "verdicts": [
     {

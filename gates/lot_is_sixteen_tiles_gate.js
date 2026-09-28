@@ -255,8 +255,13 @@ async function walkAndCheck(browser, BASE, where, url) {
   const A = await cf.evaluate(REBUILD(''));
   const sub = k => A.hist[k] || 0;
   ok(where + ': the board a fight starts on IS the house board', A.house === true);
-  ok(where + ': the ruler is derived, not typed (12 m lot / 0.75 m cell = ' + A.lotSub + ')',
-     A.lotSub === 16 && A.tileM === 12);
+  /* RE-AIMED 9/28 TO RULE 34, AND IT IS STILL THE SAME CLAIM: the ruler is DERIVED, not
+     typed. This asserted 16 and 12 because a board tile was a 12 m house when it was
+     written. V227 made a tile a 3 m cell, so the patch is 3 / 0.75 = 4 street cells. Typing
+     4 here would be the very defect the leg exists to refuse, so it checks the ARITHMETIC:
+     the patch size is the tile's metres over the street's fine cell, whatever the tile is. */
+  ok(where + ': the ruler is derived, not typed (' + A.tileM + ' m tile / 0.75 m cell = ' + A.lotSub + ')',
+     A.tileM > 0 && A.lotSub === Math.max(1, Math.round(A.tileM / 0.75)));
   const patch = Object.entries(A.hist)
     .filter(([k]) => { const m2 = /^(\d+)x(\d+)$/.exec(k);
       return m2 && +m2[1] === +m2[2] && +m2[1] === Math.ceil(A.tile) + 1; })

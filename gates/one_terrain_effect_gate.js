@@ -104,6 +104,55 @@ const ok = (n, c, note) => { c ? (pass++, console.log('  PASS ' + n + (note ? ' 
           out.easedWhenAbove = { flat: flat, above: above };
         }
       } catch (err) { out.easedWhenAbove = { err: String(err).slice(0, 90) }; }
+      /* ===== AND THEN HE TAKES IT, THROUGH THE REAL MOVE (V228) =====
+         The leg below used to count only AT THE BELL, before anyone had moved. A mound is
+         a thing you step onto, and "high ground you are standing on or ONE STEP FROM" is
+         what this lane wrote on 9/27, so counting before the first step measures a moment
+         the mound can never win. So for every arena with high ground, walk him to it with
+         doMove -- the button his thumb presses, turns and all -- and then ask the shipped
+         highGroundEdge how many men it eases. A pillar in the way or a fight that ends
+         first counts as NOT TAKEN, because that is what happened. */
+      out.took = 0; out.tried = 0; out.stepsSum = 0; out.easedAfter = 0; out.shotsAfter = 0;
+      out.firedFights = 0;
+      const DIRS = [[0,-1],[1,-1],[1,0],[1,1],[0,1],[-1,1],[-1,0],[-1,-1]];
+      for (let a = 1; a <= N; a++) {
+        try { BohemiaArena.set(a); setupCombat(); } catch (e) { continue; }
+        if (!(G.stairs || []).length) continue;
+        out.tried++;
+        G.phase = 'cover'; G.over = false; G.stam = (typeof STAM_MAX !== 'undefined') ? STAM_MAX : 3;
+        let steps = 0;
+        for (; steps < 8 && myLvl() === 0 && !G.over; steps++) {
+          const S = G.stairs[0]; if (!S) break;
+          const q = pXY(S), sx = Math.sign(Math.round(q[0])), sy = Math.sign(Math.round(q[1]));
+          const di = DIRS.findIndex(v => v[0] === sx && v[1] === sy);
+          if (di < 0) break;
+          const before = JSON.stringify(pXY(S).map(v => Math.round(v * 100)));
+          G.phase = 'cover'; G.inc = false;
+          try { doMove(di); } catch (e) { break; }
+          const after = JSON.stringify(pXY(S).map(v => Math.round(v * 100)));
+          if (before === after && myLvl() === 0) break;   /* the step was refused: blocked */
+        }
+        if (myLvl() > 0) {
+          out.took++; out.stepsSum += steps;
+          /* SAME MEN, SAME PLACES, ONLY THE HEIGHT CHANGES. The first cut of this counted
+             highGroundEdge(e) > 0 and read 0 of 333 -- and it would read 0 for ever, because
+             that function only pays over a man IN COVER, and V90 takes away the cover of every
+             man below you the moment you are up (realCoverPillar: "if we are on different
+             floors, the stone between us on the ground is not between us at all"). The two
+             rules cancel; the accuracy arrives through the cover term instead. So this asks the
+             DIAL, which is the only thing he feels. */
+          const UP = myLvl(); let n = 0;
+          for (const e of (G.e || [])) { if (!e || e.dead) continue; out.shotsAfter++;
+            G.lvl = 0; updateGeomCover(); const d0 = dialFor(e), g0 = e.gcov;
+            G.lvl = UP; updateGeomCover(); const d1 = dialFor(e), h1 = highGroundEdge(e);
+            if (g0) out.coveredBelow = (out.coveredBelow || 0) + 1;
+            if (d1 < d0) { out.easedAfter++; n++; out.tiers = (out.tiers || 0) + (d0 - d1); }
+            if (d1 > d0) out.harder = (out.harder || 0) + 1;
+            if (h1 > 0) out.viaEdge = (out.viaEdge || 0) + 1; }
+          G.lvl = UP; updateGeomCover();
+          if (n > 0) out.firedFights++;
+        }
+      }
       out.houseOn = (typeof houseOn === 'function') ? !!houseOn() : null;
       try { out.tileM = +tileMetres().toFixed(1); } catch (e) {}
       return out;
@@ -132,21 +181,41 @@ const ok = (n, c, note) => { c ? (pass++, console.log('  PASS ' + n + (note ? ' 
        !!R.easedWhenAbove && R.easedWhenAbove.above > R.easedWhenAbove.flat,
        R.easedWhenAbove ? ('flat ' + R.easedWhenAbove.flat + ', above ' + R.easedWhenAbove.above) : 'not measured');
 
-    ok('*** AND IT ACTUALLY FIRES IN A FIGHT HE PLAYS. *** NOT TRUE YET, AND THIS IS THE '
-       + 'NUMBER: the one terrain effect in the game changes no shots at all, because the '
-       + 'player never starts on the high ground and the stairs are cells away. The next '
-       + 'thing in this row is the MOUND: high ground you are standing on or one step from, '
-       + 'not a raised block across the street.',
-       R.hgFires > 0, R.hgFires + ' of ' + R.hgShots + ' shots eased, player started up there '
-       + R.onDeck + ' of ' + R.fights + ' times');
+    /* RE-AIMED 9/28 WITH V228, AND THE CLAIM IS THE SAME SENTENCE: it actually fires in a
+       fight he plays. What changed is WHEN it is counted. At the bell nobody has moved, and a
+       mound is a move -- this leg could never have gone green for the thing it was asking
+       for. It is now counted after he takes the mound with the real button, and the bell
+       number is still printed beside it so the change is visible, not hidden. */
+    console.log('  AT THE BELL: ' + R.hgFires + ' of ' + R.hgShots + ' shots eased (nobody has moved)');
+    console.log('  HE TAKES IT: ' + R.took + ' of ' + R.tried + ' mounds reached with the real move, '
+      + (R.took ? (R.stepsSum / R.took).toFixed(2) : '-') + ' steps on average; then '
+      + R.easedAfter + ' of ' + R.shotsAfter + ' shots eased (' + (R.coveredBelow || 0)
+      + ' were in cover on the ground), ' + (R.tiers || 0) + ' dial tiers saved, in '
+      + R.firedFights + ' fights; ' + (R.harder || 0) + ' made harder');
+    console.log('  THE OLD DOOR: highGroundEdge eased ' + (R.viaEdge || 0) + ' of those. It pays only '
+      + 'over a man in cover below you, and V90 removes the cover of every man below you, so it '
+      + 'cannot fire. Named, not deleted: his 8/2 words are above it, and the distance falloff it '
+      + 'tried to add is a felt number for TUNING (chat 21).');
+    ok('*** AND IT ACTUALLY FIRES IN A FIGHT HE PLAYS (Paolo 9/24: "a small mound = accuracy '
+       + 'bonus"). *** Walked there with the button his thumb presses, turns and all, standing on '
+       + 'it makes real shots easier on the DIAL -- the same men in the same places, only the '
+       + 'height changed. Before V228 nobody could get to it, so it had never happened once.',
+       R.easedAfter > 0 && R.took > 0 && !(R.harder > 0),
+       R.easedAfter + ' of ' + R.shotsAfter + ' shots eased after taking it, in ' + R.firedFights
+       + ' of ' + R.took + ' fights where he got up there');
+
+    ok('and he can actually get up there: most mounds are reached in a couple of steps, not '
+       + 'refused by a rock or a stair six cells away',
+       R.tried > 0 && R.took / R.tried >= 0.6,
+       R.took + ' of ' + R.tried + ' reached');
 
     /* RE-WORDED 9/28 FOR V227: this said "houses" because a tile was one. Rule 34 made a
        tile a CELL of 3 m, and the same slab now measures about 27 m instead of 111 -- four
        times closer to a mound, for free, because the board changed scale under it. Still
        not one cell, so the leg stands. The CLAIM never moved; only the unit it prints. */
-    ok('*** AND THE HIGH GROUND IS A MOUND, NOT A CITY BLOCK. *** NOT TRUE YET: the raised '
-       + 'slab this game builds is about ' + deckAvg + ' cells across, and he asked for a '
-       + 'SMALL MOUND -- one cell. Same row as the leg above.',
+    ok('*** AND THE HIGH GROUND IS A MOUND, NOT A CITY BLOCK (rule 34: "the mound is ONE CELL"). '
+       + '*** It was a slab 9 houses across, then 8.86 cells; V228 made it one. It measures '
+       + deckAvg + ' cells across.',
        deckAvg > 0 && deckAvg <= 1.5,
        deckAvg + ' cells across, about ' + (deckAvg * R.tileM).toFixed(0) + ' m, against '
        + 'one cell of ' + R.tileM + ' m');

@@ -41811,6 +41811,61 @@ a memory reset. HE WILL NEVER TYPE ANYTHING BUT THE ONE WORD AGAIN. ***
     I will never paste anything to you again. From here on, the one word is the whole
     instruction.
 
+*** [fight on the grid] ROUND 3 -- V228 THE MOUND IS ONE CELL AND IT FIRES; V229 A HOUSE IS 4x4. ***
+Stamp 9/28c. Record: records/BOHEMIA_COMBAT_THE_MOUND_AND_THE_HOUSES_9_28_26.md
+
+V228, THE MOUND. The row's own words: "the mound is ONE CELL of COVER." Before: a slab 8.86
+cells across (27 m), stair six cells off, the player on it 0 of 120, 0 of 519 shots eased.
+Now one cell, 1 to 3 cells from him. A one-cell deck is its OWN STAIR (the entrance is the
+deck tile nearest the bottom edge, and there is one), so V106's climb/descent do the stepping
+and his V114 pip is the price -- no new movement code. V140 already keeps enemies off high
+ground inside your reach, so the mound starts empty. THE DICE DEAL THE SAME CARDS: the same
+five draws in the same order; the tool counts them and refuses to write if it is not five.
+
+AND MEASURING IT FOUND A RULE THAT COULD NEVER FIRE. Walked there with the real doMove: 77 of
+84 reached in 1.96 steps. Then highGroundEdge eased 0 of 333. Why, measured: 333 of 333 men
+below him, 288 in range, 0 IN COVER. TWO OLD RULES CANCEL: V90 realCoverPillar ("if we are on
+different floors, the stone between us... is not between us at all") switches every enemy's
+cover off the instant you climb, and V114 highGroundEdge only pays over a man IN cover below
+you. It has never fired since the day it was written.
+BUT V90 IS THE ACCURACY BONUS. Same men, same places, only the height changed: 112 of 333 were
+in cover on the ground and the height eased ALL 112, 138 dial tiers saved, 0 made harder, 63
+of 77 fights, and 0 through highGroundEdge. THE ONE TERRAIN RULE HE KEPT NOW FIRES, in 82% of
+fights where he takes it. highGroundEdge NAMED NOT DELETED (his 8/2 words above it; the
+distance falloff it tried to add is a felt number for chat 21 TUNING).
+GATE one_terrain_effect_gate re-aimed twice, NOT LOOSENED: it asked at the bell (a mound can
+never win before anyone moves), then counted highGroundEdge (the dead door); it now asks THE
+DIAL, the only thing he feels. 4/2 for two rounds -> 7/0.
+
+V229, A REGRESSION I CAUSED, FOUND BY PHOTOGRAPH. The mound's photo showed both lots as AN
+ORANGE CHECKERBOARD OF TINY ROOFS -- word for word what embarrassed him in front of a friend on
+9/18. V227 made a tile 3 m and did not re-derive lotSubKind, which was written when a tile was
+a house ("a wall every fourth column, house on even rows, yard on odd rows"; his "a house with
+a big backyard is one by two tiles"), so a roof stripe one cell tall, and the whole-roof art
+stamped into every 32 px cell. THE SAME DEFECT CLASS THIS LANE FINDS IN OTHER CODE, AND I WROTE
+IT. Fixed, derived: a house 4x4 cells (rule 34 s5), house 4 + yard 4 (his "one by two"), one
+cell of property wall (V97's). And A ROOF IS DRAWN ONCE ACROSS ITS HOUSE: each house cell draws
+its slice of one roof built four cells square, in its own cache (asking the street's cache for
+4x size would empty it on every cell of every frame). The lots read as houses now.
+
+GATES: one terrain 7/0, on cells 12/0, combat scale 8/0, combat floor 13/0, floor cache 17/0,
+runs smoke ok, vote tab 31/0, handoff ok. lot_is_sixteen_tiles 10/12 (or better after the
+re-aim below): its RULER leg was newly red from MY V227 -- it typed "16 and 12" -- and is
+re-aimed to the arithmetic (tile metres / 0.75), not to a new typed 4. The other ten reds are
+its known blindness: it reads the COMBAT tab frame before it has a box (cv 300x150), three
+rounds running. WHEN SOMEONE MOVES IT ONTO THE ONE DRIVER, its "roofs draw once across the
+cell" leg must become "once across the HOUSE" -- V229 changed that on purpose.
+
+NOT DONE: (1) THE MOUND LOOKS LIKE A LITTLE LADDER, NOT A HILL (the stair glyph) -- art, COOK
+[cell tiles] + DIRECTION; (2) the fight still draws its own street, not the cells he stands
+on -- the rest of this row and of [one mode]; (3) the thumb ring 180 px against a 390 board;
+(4) highGroundEdge dead code, for TUNING.
+
+REBASES EAT PATCHES AND IT IS FLEET-WIDE (CHARACTER's e409be2 says the same). The replay list
+tools/bohemia_combat_replay_all.sh carries EIGHT now. Run it after every rebase.
+
+RULE 22: VOTE item combat-houses-and-a-mound-9-28, same fight same spot one build apart.
+
 *** [fight on the grid] ROUND 2 -- V227 THE CELL BOARD. BUILT, NOT PROPOSED. ***
 Stamp 9/28a. Record: records/BOHEMIA_COMBAT_THE_CELL_BOARD_9_28_26.md
 
