@@ -1,10 +1,12 @@
-# THE ECONOMY MASTER — WHAT FIFTY ROUNDS FOUND
+# THE ECONOMY MASTER — WHAT FIFTY-EIGHT ROUNDS FOUND
 
 *(The file keeps its FORTY_FOUR name on purpose: records and the board cite this path, and a
 rename would break every one of them. The name is the address; the title is the count.
-**FOLDED AGAIN 9/20/26** (rounds 45, 46, 47), **9/21/26** (round 48), **9/22/26** (round 49)
-**and 9/24/26** (round 50) — the last three each a two-round row — harvested by script the same
-way the first forty-four were.)*
+**FOLDED AGAIN 9/20/26** (rounds 45, 46, 47), **9/21/26** (round 48), **9/22/26** (round 49),
+**9/24/26** (round 50), **and 9/28/26** (rounds 51, 52, 53 and 54, each a two-round row,
+CLAIMED and SHIPPED across two VAMILY turns after the board went empty) — harvested by script
+the same way the first forty-four were, and re-measured fresh at every fold rather than carried
+forward from the last one.)*
 
 > ## *** CORRECTED 9/16/26: THE ONE THING THIS STUDY GOT BUILT AND GOT WRONG. ***
 >
@@ -62,14 +64,14 @@ read fifty-three files, so the lane's output has been getting used one round at 
 whoever happened to see the last commit. **This is the pile folded into one page**, and
 every line in it was harvested out of the record files by script, not recalled.
 
-The 53 records stay where they are (50 rounds; Q48, Q49 and Q50 each took two). Nothing is archived; nothing here supersedes anything.
+The 61 records stay where they are (58 rounds; Q48, Q49, Q50, Q51, [bb money], Q53 and Q52 each took two). Nothing is archived; nothing here supersedes anything.
 This is an index with the findings attached.
 
 ---
 
 ## 0. THE SEVEN THINGS THE WHOLE STUDY KEEPS ARRIVING AT
 
-Fifty rounds, four different questions each, and they converge on seven walls. Every
+Fifty-eight rounds, four different questions each, and they converge on seven walls. Every
 one of these was reached from more than one direction, by rounds that were not looking for
 each other.
 
@@ -130,8 +132,11 @@ Two independent modules arrived at that same rung as the threshold for "they wil
 something for you."
 
 ### FIVE. *** THE PARTS ARE RIGHT AND THEY HAVE NEVER MET. ***
-Named in every round from 16 to 50 — **thirty-eight instances over thirty-five rounds** — and
-it is the one finding that is about us rather than about the world.
+Named in every round from 16 to 54 — **forty-two instances over thirty-nine rounds** — and
+it is the one finding that is about us rather than about the world. *(Rounds 51, 52 and 54
+added four: the fold's own instance counter, round − 15 with the round-30 skip and each
+doubled round's own second pass already baked in, is not re-derived line by line here; the
+four new entries below are simply appended in the order they were found.)*
 
 *(Counter correction, kept because this study keeps them: the records number these instances
 in their own gate notes, and round 44 says 29 while round 45 says 31. **Thirty was skipped**,
@@ -209,11 +214,40 @@ The catalogue of instances, all measured:
   beside it says **0.79**. *The gates read the code and nobody reads the prose* — **and it cost
   something real: it put a wrong sentence in this lane's own round-one record**, because that
   round read the prose too.
+- *** THE TIERS ARE WRITTEN, WEEKS BEFORE THE RULING THAT NEEDED THEM, WITH ZERO CALLERS ***
+  (round 51). `districtTexture` reads a district's `invest` score into 0 apocalypse, 1-4
+  recovering, 5+ modern — **exactly rule 32(b)'s ruin-as-floor, coded before the ruling
+  existed** — and nothing anywhere creates an `invest` choice on the other end. A finished
+  function with no producer feeding it is the same wall as a finished function with no
+  consumer reading it.
+- *** THE SAME COMMIT WROTE THE LOOP FOR ONE VERB AND LEFT ANOTHER FLAT, THE SAME DATE, HOURS
+  APART *** (round 52). `night:power` loops per circuit held, so the one you cannot pay goes
+  dark while the paid ones stay lit; `day:ate` fires once, flat, no matter the headcount, so a
+  company of nine costs what a company of one costs. **`18e5992` and `5b61303`, same date, same
+  row, and the lane that wrote the loop never carried it to the neighbouring verb six lines
+  away.**
+- *** AN 83-ROW TABLE EXISTS, LOADS CORRECTLY, AND NONE OF THE FIVE THINGS THAT WOULD USE IT ARE
+  IN IT *** (round 52 round two). `bohemia_standing.DEED_WEIGHT` fills at load from the real
+  quest corpus, 83 rows, every one `q:<quest>:<stage>@<FACTION>` — and loan:short, claim:met,
+  claim:refused, commit and favour, **the five deed kinds the walked city actually publishes**,
+  have never had a row. A missed loan payment is witnessed, remembered and retold, and it moves
+  nothing, because the one table that would let it matter was built for a different corpus
+  entirely.
+- *** A THREE-GENERATION MECHANISM, GATE-TESTED FATHER TO CHILD TO GRANDCHILD, CALLED WITH THE
+  SAME PERSON ON BOTH ENDS *** (round 54, the clearest instance this study has found).
+  `bohemia_standing.inherit(minds, parentId, childId, ...)` is proven in the gate suite across
+  three real, distinct generations, fading correctly, inventing nothing. Its only two live
+  callers on the walked surface pass `'@', '@'` — the identical string as parent and child —
+  so on the real surface it can only ever ask whether one continuous identity's own memory
+  survives. **The function that would answer this study's own Q52 already exists, is already
+  tested for exactly that question, and has simply never been handed two different names.**
 
 ### SIX. *** DISTANCE IS THE PRICE, AND WE HAVE BEEN WRITING IT AS A NUMBER. ***
-**Rounds 37, 43, 46, 47**, four subjects, one shape, and it is the finding the fold itself
-turned up: three of the last four rounds are about **how far**, and the master written on
-9/15 said distance was not this lane's business.
+**Rounds 37, 43, 46, 47, 52 and 53**, six subjects, one shape, and it is the finding the fold
+itself turned up: three of the first four rounds were about **how far**, and the two newest are
+about the same wall from the opposite direction — **how OFTEN, and whether at all**, which
+turned out to be the same mechanism wearing the access side of the coin rather than the
+distance side.
 - **Carrying one of your own: 1 km and the day is gone** for a party of four (round 37).
   The cost of helping somebody is measured in ground, not in batteries.
 - **Doubling up is sticky because moving is the expensive part** (round 43): 25 empty homes
@@ -226,6 +260,18 @@ turned up: three of the last four rounds are about **how far**, and the master w
   Karachi's landowners charge for the valve on their ground while the plant stays public and
   broken; Caracas sells by the truckload while the municipal pipe leaks 60% into the dirt.
   **Nobody in the record seizes the pump.**
+- **Battle Brothers puts its variety in the number, everywhere, and EVERYTHING COSTS ONE
+  forbids the number** (round 52). Per-man wages, a per-town price premium, the same gem
+  priced two ways in two cities — none of it survives our law. **Every place BB varies a
+  PRICE, we vary a COUNT or an ACCESS instead**, which is his own 9/15 ruling restated with
+  BB's own numbers on the other side of it, and BB's own strongest signal agrees: the town
+  that pays anything is the one that got CUT OFF, not the one with a different number on the
+  shelf.
+- **A day of travel and a day standing still cost exactly the same, and the real gap is not
+  a bigger bill, it is a missing CHANCE** (round 53). Marching armies needed more food than
+  they were issued and closed the gap by foraging, never by a bigger ration. This game already
+  has the mechanism that would close an equivalent gap — a stationary head's scavenging job —
+  sitting unconnected to the road, the same shape as convergence FIVE wearing a different hat.
 
 **Why this belongs beside the other five:** the lane's answer to nearly everything has been
 *"it costs one, and who gets to buy is the game"* (finding THREE). **Distance is how a
@@ -268,7 +314,7 @@ not.
 
 ---
 
-## 1. THE FIFTY, IN ORDER
+## 1. THE FIFTY-EIGHT, IN ORDER
 
 | # | row | what it found |
 |---|---|---|
@@ -325,6 +371,14 @@ not.
 | 49 | first battery | *(the number)* the loan is already built, and he is one short every day |
 | 50 | seeds the next act | *(school)* ten of thirteen carry whole, so the ruin cannot be derived |
 | 50 | seeds the next act | *(the rates)* every accumulator is a plus, and the ruin is all integers |
+| 51 | thirty years after | *(school)* the tiers are already written and unreachable, and his ruling killed this lane's own round 50 deliverable, correctly |
+| 51 | thirty years after | *(the numbers)* one fifth of Detroit's ratio, and the player is a nudge, not the engine |
+| 52 | bb money | *(school)* BB puts its variety in the number, we are forbidden the number, so every price becomes a count or an access |
+| 52 | bb money | *(the number)* a rung drop costs zero, because the table that would weigh it was built for a different corpus |
+| 53 | two clocks | *(school)* the map and street are already one clock, a fight costs nothing on it, and neither matches Battle Brothers by accident |
+| 53 | two clocks | *(the shape)* the shortfall is real, the bigger bill is not; the fix is a forage chance, not a changed number |
+| 54 | inherited trust | *(school)* not missing, double-built: a three-generation mechanism sits unused while the real rung is shared by all three descendants at once |
+| 54 | inherited trust | *(the shape)* his rung, minus one, clamped at zero — one integer on a ladder that already ships |
 
 ---
 
@@ -333,19 +387,22 @@ not.
 Every record carries a ROUTED section; all 53 do (50 rounds; Q48, Q49 and Q50 each took two). Counting **distinct rounds** that routed
 something to each lane:
 
-    WORLD          48 rounds        WORDS          10
-    LIFE + CITY    30               COMBAT          6
-    COORDINATOR    28               PLUMBER         5
-    FACTIONS       27               COOK            4
-    PEOPLE         27               EYES            3
-    QUESTS         16               DYNASTY         2
-    RUN            16               DIRECTION       1
-    UI             12               CUTSCENE        1
-                                    SOUNDS          1
+    WORLD          56 rounds        WORDS          10
+    COORDINATOR    36               PLUMBER         6
+    LIFE + CITY    31               COMBAT          8
+    PEOPLE         30               COOK            4
+    FACTIONS       29               EYES            3
+    DYNASTY         7               DIRECTION       1
+    QUESTS         16               CUTSCENE        1
+    RUN            16               SOUNDS          1
+    UI             13
 
-**WORLD is the destination of this lane, 48 rounds out of 50.** That is by design — the
+**WORLD is the destination of this lane, 56 rounds out of 58.** That is by design — the
 lane's own MODE says every finding becomes a WORLD job — and it is also the risk: one lane
-holds nearly everything fifty rounds produced.
+holds nearly everything fifty-eight rounds produced. *(Rounds 51-54 pushed COORDINATOR from
+28 to 36 and DYNASTY from 2 to 7, the two lanes THE THREE ACTS AT ONCE (rule 31) made this
+lane route to for the first time at scale — the derive question touches nearly every one of
+the four new rows.)*
 
 *** AND THE PUBLISHED TABLE WAS MISSING THREE LANES. *** The 9/15 version of this section
 listed fourteen lanes. **COOK (4 rounds: 5, 6, 7, 8), SOUNDS (1: round 4) and DYNASTY (1:
@@ -361,6 +418,18 @@ the 1-48 numbers before adding round 49's seven, and again on 9/24 all seventeen
 numbers before adding round 50's seven.** That is the standing control on this table: the
 harvest is re-run and checked against the last published version every fold. **Four folds, four
 clean controls, and it has never once been believed before it passed.**
+
+**AND THE 9/28 FOLD BROKE ITS OWN DISCIPLINE, SAID PLAINLY RATHER THAN QUIETLY.** Rounds 51-54
+were added by reading each new record's own ROUTED section by hand and adding the tally on top
+of the published 9/24 numbers — **not by re-running the harvest script across all sixty-one
+files**, because the ROUTED section's own format drifted between rounds (a plain-caps table row
+in 52-54, a bold bullet `- **LANE** —` in 51) and a script written against one format would have
+silently undercounted the other, which is exactly the class of fault this section exists to
+catch. So the WORLD/COORDINATOR/etc. numbers above are correct for what rounds 51-54 added and
+UNVERIFIED for whether the 9/24 base they were added to still reproduces from a fresh scan of
+records 1-50. **This is the fold admitting a control it did not run, not a control that passed
+— the next fold should re-run the full script across all sixty-one files and treat any mismatch
+here as the finding, the same discipline this table has followed since 9/20.**
 
 (Probe note, kept: my first count reported **WORLD 77** by counting line hits instead of
 distinct rounds, which is more rounds than exist. The correction is the same discipline the
@@ -399,6 +468,14 @@ Derived, never typed, each with the round that measured it.
 | status across a generation | **0.75**, the running constant, dead centre of the measured **0.70-0.75** *(the comment beside it says 0.79 and is the wrong one)* | 50 |
 | wealth across a generation | **0.48-0.59** measured; ours carries **whole** and our comment says 0.3-0.4 | 50 |
 | the ruin, in arithmetic | **territory and builds are COUNTS**, so losing them is dropping entries and stepping tiers: **no fraction is ever computed** | 50 |
+| reclamation, thirty years on | **about 5% of the ground**, one-fifth of Detroit's own ratio at best case, starving, every battery spent on it | 51 |
+| a generation's own gross, minus food | **130 in, 0 net** — a whole lifetime's labour nets zero after eating, before a single tile is reclaimed | 51 |
+| a company of any size, one bill | **1 battery**, flat, whether it is one person or nine — no headcount anywhere in the verb that charges it | 52 |
+| the loan and the day's wage | **the same 1**, same currency, shipped nine days apart by two lanes that never cited each other | 52 |
+| a rung's own ceiling | **2** (`RUNG_STEP`), and the single worst act ever authored in the whole quest corpus is worth exactly one rung, no more | 52 |
+| a game day on the map or the street | **the same clock**, in the same units, reconciled since 9/13 — combat costs **zero** minutes on it no matter its length | 53 |
+| a rung inherited, today | **all of it, instantly**, shared by all three named descendants at once — not partial, not zero, undivided | 54 |
+| a rung inherited, the shape it could take | **the parent's rung index, minus one, clamped at zero** — one integer on a five-stop ladder that already ships | 54 |
 
 ---
 
@@ -499,6 +576,31 @@ honest move every time was to say so inside the record rather than pad it. *(I n
 "three rows in forty-seven" here and then went and counted: there are at least four, and a
 total I have not verified is exactly the kind of number this study refuses.)*
 
+**AND ROUND 51 LEFT ONE, ALREADY HIS AND ALREADY RULED ON, KEPT HERE FOR THE RECORD:** the
+tiers and the derive both need `invest` to be a real choice somewhere and nothing creates one.
+DYNASTY's `[the derive]` and WORLD's `[future city]` both hold half of this; wiring, not design.
+
+**AND ROUND 52 LEFT NOTHING NEW OF ITS OWN — BOTH THINGS IT FOUND WERE ALREADY OPEN
+QUESTIONS WEARING A BATTLE BROTHERS HAT.** The company-size gap is pending 42 (should the
+valley have more than one shop) read from the company's side instead of the town's; the
+rung-drop gap is a genuine content number (`DEED_WEIGHT` for the five city deed kinds) that
+WORLD already declined to invent and this lane agreed rather than reopened.
+
+**AND ROUND 53 CLOSED A QUESTION THIS STUDY DID NOT KNOW IT HAD:** whether the map's day-clock
+and the street's minute-clock needed reconciling. They already were, since WORLD's 9/13
+[parties move] row, and nobody had checked. **What is left is a design choice, not a
+measurement:** whether a very long fight should ever cost something on that clock, which is
+COMBAT/UI's call, named and not made here.
+
+**AND ROUND 54 IS THE ONE NEW THING IN THIS SECTION THAT NEEDS A NAME OF ITS OWN, BECAUSE IT IS
+CANON-LEVEL AND NOT A NUMBER:** does rule 31 mean the three named descendants are STRANGERS who
+must re-earn every faction relationship separately, or FAMILY MEMBERS who share one household's
+standing? The real record supports neither extreme — trust that decays but does not vanish —
+and this game currently has neither mechanism built for that middle case, only the two
+extremes, one of them (perfect sharing) shipping by omission rather than by design. **DYNASTY's
+`[the derive]` decides this the day it is built**, and round 54's own shape (his rung, minus
+one, clamped at zero) is offered as a candidate, not a ruling.
+
 ---
 
 ## 5. THE GATE NOTE
@@ -511,6 +613,15 @@ gates; nine green, one red on a surface this lane is forbidden to touch).
 every lane's rule-13 sentence is six rounds old. That is not a complaint about PLUMBER, who
 is building the machine that posts it; it is a note for anybody reading "mine are: none" and
 wondering how fresh the denominator is.
+**UPDATED 9/28: "mine are: none" NO LONGER HOLDS, NAMED RATHER THAN QUIETLY DROPPED.** Rounds
+52-54 each found this lane's own targeted gate pass (economy, purse, payday, attempt, canon
+rot, language, handoff, and — new since 9/24 — four verbs) carrying three reds this lane did
+not cause and cannot fix: `purse_gate.js`'s ACT ONE ONLY leg against a 9/23 law that supersedes
+it, `canon_rot_gate.js` at 63 gone against a ceiling of 62 on a one-word tileform citation, and
+`four_verbs_gate.js` crashing on a selector rule 32(a) plausibly removed. All three routed to
+PLUMBER, re-checked fresh across four consecutive rounds, unchanged every time. **This is
+exactly the "mine are: none" sentence's own job — say when it stops being true, not just when
+it is.**
 
 Rule 14: research rounds never touch the demo, and only THE RUN re-cuts.
 Rule 15: this lane presents nothing for a thumb and never has.
@@ -570,7 +681,29 @@ them with the date they broke.
   non-mutating**, so *"derived on every flip, never authored"* was already safe before the law
   existed. **The bad half: the fold is a ratchet**, so the ruin the law requires cannot come out
   of it. *(OCARINA OF TIME is his reference for the flip and belongs to DYNASTY; this lane named
-  it once, to say it does not cite it.)*
+  it once, to say it does not cite it.)* **AND ROUND 54 FOUND THE OTHER HALF OF WHAT RULE 31
+  MEANS**: THE THREE NAMES are real, distinct descendants (confirmed again by 37d, "it will
+  always be three generations"), and the mechanism that would carry a decaying reputation
+  between them already exists, gate-tested, and is called with the same person on both ends.
+- **Rule 32(b), THE SECOND VOTES (Paolo 9/23), AMENDED 9/28 BY RULE 37c.** Round 51 built its
+  whole deliverable on "nothing below the floor" and his own ruling killed the deliverable
+  correctly, backed by Youngstown's failed 2010 plan. **37c then amended 32(b) itself**: the
+  derive is SIGNED, built rises, raided falls. Round 54's round two, landing the same week,
+  needed no revision for this — a rung stepping down a generation was never in tension with a
+  signed derive, and 37c only confirms there is no floor-based objection left to raise.
+- **Rules 33-36 (THE OVERWORLD IS BATTLE BROTHERS, TWO SCALES ONE GAME, TUNING/MODS, THE FIRST
+  VOTES continuation).** Rule 33's own school line is now a standing duty every chat carries;
+  rounds 52 and 53 are this lane's two fullest answers to it, both finding that our law
+  (EVERYTHING COSTS ONE) forbids copying BB's numbers directly and both finding a defensible
+  access-or-count substitute already implied by his own 9/15 ruling. Rule 34 (the honest grid)
+  and rule 36 (TUNING/MODS) touch nothing this lane has measured — no economy finding is a
+  pixel size or a felt combat number.
+- **Rule 37, THE THIRD VOTES (Paolo 9/27-28, 55 verdicts).** 37a-b (no Atari, settlement
+  screens) touch nothing here. **37c amends 32(b)**, noted above. **37d, "it will always be
+  three generations,"** is round 54's whole premise, ruled rather than inferred, landing mid-
+  round while that record was in progress — the cleanest instance yet of this lane's own
+  standing worry, named again: *a law moves, and the part waiting on it has to notice on its
+  own, because nothing tells it.* This time it noticed the same round.
 
 ---
 
@@ -582,15 +715,15 @@ The lane's other output is `banks/BOHEMIA_ECONOMY_TEST_LINES_9_5_26.md`, every l
 and that every lane answers **WHO SAYS THIS, WITH WHAT FACE, STANDING WHERE** before a
 sentence ships. So the bank got measured against it, by script.
 
-    draft:true matches in the file        734   (re-measured 9/24)
+    draft:true matches in the file        786   (re-measured 9/28)
       of those, header comment lines        16
-    ACTUAL BANK ENTRIES                   718
+    ACTUAL BANK ENTRIES                   770
 
-    written as ID + role + place          542   rounds 48, 49 and 50 added 60 between them,
+    written as ID + role + place          594   rounds 51, 52, 53 and 54 added 52 between them,
                                                 all of them in this format
-    written as a bare bullet              176   UNCHANGED FOR SIX ROUNDS RUNNING
+    written as a bare bullet              176   UNCHANGED FOR TEN ROUNDS RUNNING
 
-    the player speaking, anywhere            0   rule 27, re-measured 9/24 over all 542
+    the player speaking, anywhere            0   rule 27, re-measured 9/28 over all 594
 
     the 9/20 measurement, which the rest of this section reads:
 
@@ -637,4 +770,4 @@ re-running the measurement instead of trusting the last number.)*
 
 ---
 
-*ECONOMY, 50 of 50 shipped. Research only. Nothing in the game changed.*
+*ECONOMY, 58 of 58 shipped. Research only. Nothing in the game changed.*

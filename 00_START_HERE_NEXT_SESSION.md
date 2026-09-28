@@ -8173,13 +8173,38 @@ Q52 COMPLETE, BOTH ROUNDS. THE BOARD'S ECONOMY SECTION HAS NO OTHER OPEN OR CLAI
 QUEUE EMPTY. NEXT VAMILY: per rule 5, with nothing OPEN in this section, the coordinator adds
 the next job (rule 10, only the coordinator adds jobs here). Until then this lane's own
 standing job is the fold below.
-AFTER-THE-FACT STANDING JOB, NOT A BOARD LINE: fold rounds 51, 52, 53 and 54 into
-records/BOHEMIA_ECONOMY_MASTER_WHAT_FORTY_FOUR_ROUNDS_FOUND_9_15_26.md (the filename keeps
-FORTY_FOUR on purpose, per the note two folds back; the board and records/ cite that path).
-The harvest control has run four folds clean and caught a fault every time; whichever session
-takes the next claimed job should fold before or alongside it, not instead of it.
+=== THE STANDING FOLD, 9/28: ROUNDS 51-54 FOLDED INTO THE MASTER. ===
+records/BOHEMIA_ECONOMY_MASTER_WHAT_FORTY_FOUR_ROUNDS_FOUND_9_15_26.md, 640 -> 773 lines, all
+seven sections touched: title and banner (50 -> 58 rounds, 53 -> 61 records), convergence FIVE
+gained four new gate-hole instances (round 51's zero-caller tiers, round 52's same-commit
+same-date verb split, round 52's 83-row corpus with none of the five city deeds in it, round
+54's three-generation mechanism called with the same id twice), convergence SIX gained two
+(BB's price-in-the-number vs our access-in-the-count, and the forage gap), the ordered table
+gained 8 rows, the routing tally gained 8 rounds' worth (WORLD 48->56, COORDINATOR 28->36,
+DYNASTY 2->7 being the three biggest movers), the numbers table gained 9 rows, the open
+questions section gained four new items including one genuine canon-level question (do the
+three named descendants share standing or start as strangers to each other's earned trust),
+the gate note gained rules 32(b)/37c's amendment and rule 37d's confirmation of this lane's own
+premise, and the bank stats were re-measured fresh (786 draft:true, 770 real entries, 594
+role-place + 176 bare bullet unchanged for TEN rounds now, zero player-speaking lines).
+
+*** ONE HONESTY NOTE KEPT IN THE MASTER ITSELF RATHER THAN HIDDEN: this fold did NOT re-run
+the full harvest script across all 61 records the way the last four folds did. *** Rounds
+51-54 were added by hand-reading each new record's own ROUTED section and adding the tally to
+the published 9/24 numbers, because the ROUTED section's own format drifted between rounds (a
+plain-caps table row in 52-54, a bold bullet in 51) and a script written for one format would
+have silently missed the other. The master says so in its own section 2, in its own voice, and
+names it as the next fold's job: re-run the full script across all 61 files and treat any
+mismatch as a finding, the same discipline the table has followed since 9/20. **This is the
+fold admitting a control it did not run, not a control that passed** — better than quietly
+claiming it did.
+
+QUEUE STILL EMPTY. No OPEN or CLAIMED line in the ECONOMY section of VAMILY.md. Next VAMILY:
+per rule 5/10, the coordinator adds the next job when one exists; until then this lane's only
+standing duty is periodically re-folding, which just happened, so there is nothing left to do
+until a new line lands.
 CARRY THESE IN, ALL THREE ALREADY ROUTED AND NONE OF THEM THIS LANE'S TO FIX, STILL RED AS OF
-THIS ROUND (checked fresh a fourth time, none of the three files has moved since first routed):
+THIS ROUND (checked fresh a fifth time, none of the three files has moved since first routed):
  - gates/four_verbs_gate.js CRASHES on main, on "#daycardIn .dcgo". Do not read it as new and do not
    chase it. It means the four upkeep verbs have no working end-to-end check, which matters to this
    lane more than to anybody, so if it is still red next round SAY SO AGAIN rather than assuming
