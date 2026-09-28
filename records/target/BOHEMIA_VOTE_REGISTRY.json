@@ -2820,8 +2820,22 @@
     "src": "BOHEMIA_TRY_A_MOD_9_28_26.html"
    }
   }
- ],
- "verdicts": [
+ ,
+    {
+      "id": "dynasty-return-ritual-9-28",
+      "kind": "line",
+      "lane": "dynasty",
+      "sha": "pending",
+      "made": "9/28",
+      "title": "COMING BACK: ONE LINE IN YOUR OWN VOICE, NO STREAK, NO GIFT, NO NUMBER OF DAYS.",
+      "why": "What should be waiting when you open the game tomorrow, or after a week away. The world already freezes while you are gone, so nothing rots and nothing is owed. That makes absence free, which is the strongest thing a return can have. The words to say where you stopped already exist: 249 first-person journal lines across all 42 quests, and nothing hands them to you when you come back. The real habit research says a habit takes a median of 66 days and one missed day barely matters, so a streak that punishes a miss is against the science, and a daily gift teaches you the visit is for the gift. So the morning is one line, the last thing you wrote, on the phone that already rings, longer after a longer gap, never a list, never a count of days. Research only, nothing to look at yet.",
+      "show": {
+        "how": "text",
+        "src": "WHAT SHOULD WAIT FOR YOU WHEN YOU COME BACK.\n\nOne line. The last thing you wrote in your own voice, on the phone that already rings.\n\nAfter a night: that one line. After about a week: that line, plus who you last spoke to and where you are standing. Never a list. Never a number of days. Never a reward.\n\nWHY: the world freezes while you are away, so nothing is owed (absence is free). One missed day barely matters to a real habit (66 days median, one miss changes almost nothing), so a streak that punishes a miss is against the research. A daily gift teaches you the visit is for the gift. A cue left at the moment you stopped is what makes getting back in fast.\n\nWHAT IT COSTS TO BUILD: no new writing and no new screen. The lines exist (249 of them) and the phone exists. It needs one time stamp and one pick of the right line."
+      }
+    }
+  ],
+  "verdicts": [
   {
    "id": "people-the-one-who-walks-with-you-9-21",
    "vote": "down",

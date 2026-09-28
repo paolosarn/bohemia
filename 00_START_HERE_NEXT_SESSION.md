@@ -31848,6 +31848,65 @@ since 9/6, it also holds 19 QUESTS (BUILD). The front page's chat-19 line says a
 chat with an empty queue takes QUESTS, and DYNASTY's queue went empty at Q16. The
 lane and its first row were claimed and pushed BEFORE any work started. ***
 
+ROUND 57 [return ritual] Q18 ABSENCE IS FREE. ONE LINE IS WAITING. NO STREAK.
+DYNASTY, RESEARCH (claimed and pushed as its own commit before work, rule 5).
+  records/BOHEMIA_DYNASTY_DAY_20_THE_RETURN_RITUAL_9_28_26.md
+  vote: dynasty-return-ritual-9-28 (line, no art -- school mode)
+
+MEASURED FIRST, ON THE REPO: (1) Q16 said the return was built zero times; the WORDS
+are there and bigger than counted -- 249 @LOG lines in 42 of 42 quests (Q16: 164 in 27),
+first person past tense, one per stage. (2) Nothing hands them to a returning player;
+only the STANDING panel (D.standing(), last eight, on demand) and the feed's "what you
+did" posts read them. (3) The morning is ONE entry (MORNING, toPhone()) replaced each
+day and built by scraping the wake card's HTML: it reports the day, not the player.
+(4) Nothing knows he was away: bohemia_save.js uses Date.now only for slot generation;
+the flush on pagehide/freeze/blur/visibilitychange is hardened so STATE survives, but
+the INTENT is never saved. (5) The world is frozen while he is away BY DESIGN (rule 31,
+map clock runs on travel), so ABSENCE IS FREE -- nothing rots, nothing is owed -- and
+nobody had written that down as a return design.
+
+RESEARCH (published, cited by author and year in the record): habits take a median 66
+days and a single miss barely matters (Lally 2009), so a streak that punishes a miss
+contradicts its own headline finding; habits ride a stable cue not a reward (Wood and
+Neal 2007); paid returns decay when the pay stops (Lepper 1973; Ryan, Rigby,
+Przybylski 2006); a specific plan releases an unfinished goal (Masicampo and Baumeister
+2011; the classic Zeigarnik memory effect replicates poorly and is said so); a cue left
+at the moment of leaving shortens the way back in (Altmann and Trafton 2002); recap
+depth should scale with the gap (Cepeda 2006); peak-end decides how returning feels.
+
+THE MORNING, DELIVERED: one line, his own last @LOG line, on the phone that already
+rings. After a night that line; after about a week that line plus who he last spoke to
+and where the marker stands. Never a count of days, a list, a streak, a gift or a
+timer. Per act (each act's clock is frozen with its own ledger). The machine, named not
+built: one field (last-hidden time, written by the flush that already runs), one
+selector (current stage's @LOG for the act he stands in), one gate (a gap return shows
+exactly one line, no number, no list, no reward; inside the hour shows none; nothing in
+the state changed between hide and return).
+
+REFERENCE LAW KEPT (Q16's rule): only BATTLE BROTHERS, from the library; checked all ten
+volumes: no save, resume or time-away content (nearest cue: AMBITIONS, a standing chosen
+goal). No other game named. PLUMBER [bb library] should fetch the wiki when reachable.
+
+ROUTED: RUN/UI (field, selector, the phone); TUNING (gap thresholds are felt numbers,
+drafts only here); WORDS and QUESTS research (do the 249 lines stand alone read cold);
+PLUMBER [bb library]. NOTHING [PENDING Paolo]: no canon touched.
+
+PRE-PUSH PASS: school, no code. Handoff and reply contract run; three names and the flip
+untouched. Canon rot 11/2 is red on main too (checked on a clean stash last round, two
+unrelated citations).
+
+QUESTS' TWO ORPHANED ROWS ([light the pump], [main quest live], CLAIMED under this
+session, un-buildable under rule 35) are STILL unresolved: re-flagging for the
+coordinator once more; not touched.
+
+NEW ON THE FRONT PAGE THIS ROUND (read fresh, as required): rule 38 (Paolo 9/28) --
+the walk through the city is dead, the map draws at BB pixel counts, and the same-hour
+correction restores A COMBAT TILE IS A HOUSE. Neither touches the phone strip, the flip
+or the three names (all FAR-scale map work). TUNING and MODS are research-only now.
+
+NEXT for DYNASTY: [old body] Q19 is the next OPEN line (checked on the live board).
+Then [name outlives] Q20, [who buries] Q21, [days per life] Q22, [animal era] Q23.
+
 ROUND 56 [angel verbs] Q17 PEOPLE ALREADY SHIPPED THE VERB LIST. THE GAP IS THE
 FLOOR.
 DYNASTY, RESEARCH (this lane's own Q-list, claimed and pushed as its own
