@@ -2496,6 +2496,19 @@
   "how": "image",
   "src": "vote/UI_HOW_YOU_KNOW_SHE_IS_WITH_YOU_9_28.png"
  }
+},
+{
+  "id": "quests-the-second-shelf-9-28",
+  "kind": "line",
+  "lane": "quests",
+  "sha": "pending",
+  "made": "9/28",
+  "title": "96 QUESTS ON THE SHELF, NOW ON YOUR CONTRACT SCREEN",
+  "why": "Round two, built to your settlement contract screen the moment you said it. Nothing is in the game. Thumb down any rule below you hate.",
+  "show": {
+    "how": "text",
+    "src": "WHAT CHANGED THIS ROUND\n\n1. Every job is a Battle Brothers contract now: you walk into a town, tap the hall, a face offers the job with the pay, you haggle, you take it or leave it.\n2. The pay is worked out from days, danger and how scarce things are, never typed in by hand.\n3. Push the haggle too far and the offer closes for that visit. Nothing else. Nobody holds it against you.\n4. A crisis never runs a countdown. It changes what each town's board is offering.\n5. No loyalty meter for your company. You see loyalty in how they fight, and some of them quit.\n6. Every old quest we wrote was checked against the phone checklist. None passed. 14 become contracts, 11 become road events, 12 stay story beats, 5 are retired.\n\n96 designs now: act 1 has 31, act 2 has 34, act 3 has 22, and 9 run across acts. All 152 quests you collected are cited."
+  }
 }
   ],
   "verdicts": [

@@ -1,3 +1,27 @@
+QUESTS (quests-dvybth): 9/28 LATEST -- *** ROUND TWO: FIVE ROWS AT ONCE, 96 DESIGNS ON THE SHELF,
+AND PAOLO'S MID-ROUND RULING: CONTRACTS ARE THE BATTLE BROTHERS SETTLEMENT CONTRACT SCREEN. ***
+TAB: VOTE has one text line (quests-the-second-shelf-9-28); the research is NOT IN A TAB on purpose
+(rule 35). Records: records/BOHEMIA_QUESTS_ROUND_TWO_THE_SECOND_SHELF_9_28_26.md and his ruling,
+records/BOHEMIA_PAOLO_QUESTS_ARE_THE_SETTLEMENT_CONTRACT_SCREEN_9_28_26.md.
+
+HIS WORDS (9/28): "quest aren't gonna be like traditional quest like it's gonna be based off like this
+settlement menu contract pop-up screen shit". FOR THE COORDINATOR: rule 20 (never a card, nothing pops
+up) needs amending as LAW for contracts; QUESTS recorded it and did not touch the laws.
+
+NEW: QR-I (all 42 .bq scored against the 28-line checklist; none pass; 14 contract / 11 event / 12 main
+beat / 5 retire), QR-J (a crisis rewrites the settlement board in stages, never a timer; 12 crisis
+designs), QR-K (how an event shape repeats for 100 hours), QR-L (the pay: computed, one number on the
+screen, locks at accept), QR-M (the company: no loyalty meter, reactions only after a yes). 48 designs,
+every contract with "## THE SETTLEMENT AND THE OFFER SCREEN". Library total: 13 pages, 96 designs,
+1,370 ids, all 152 studies cited. QUESTS LIBRARY gate 156/0.
+
+FLAGS: ECONOMY/TUNING: "ask for more" becomes a real step; pushing too far closes the offer for that
+visit and writes nothing. PEOPLE/RUN: no company member speaks on the offer screen. WORDS: QD-C02's
+insulin vial must be an opened one to agree with S26. No Battle Brothers study exists in the library.
+
+NEXT (board rows OPEN): [settlement doors] (re-cut round one's 48 to the offer screen), [bb contract
+study], [what a settlement offers], [third shelf].
+
 UI (ui-kmqmrf): 9/28 LATEST -- *** [bb interface] ROUND FOUR: SOMEBODY WALKS WITH YOU NOW, AND
 THE SCREEN NEVER SAYS SO. *** Row stays CLAIMED (school is one page a round). TAB: the walking
 screen on the alpha; the picture is in the VOTE tab.

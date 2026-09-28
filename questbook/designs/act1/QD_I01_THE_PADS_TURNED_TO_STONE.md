@@ -16,7 +16,7 @@ Act 1, a heat wave. The co-op keeps one cooled room for the people who cannot su
 ## THE SETTLEMENT AND THE OFFER SCREEN
 SETTLEMENT: the co-op block (a settlement on the map). BUILDING: the co-op office, a front desk in the old motel lobby.
 CLIENT PORTRAIT LINE: DOÑA INÉS, sixties, a cut-off Balenciaga work jacket over a nurse's tunic, a wet towel on her neck (name and look Paolo's).
-THE SCREEN (3 lines, 38 words): "It's on. It's wet. The room's at ninety-one." / "Four of mine can't walk out of it." / "Make it cold before the heat peaks, two days. Eight batteries."
+THE SCREEN (3 lines, 27 words): "It's on. It's wet. The room's at ninety-one." / "Four of mine can't walk out of it." / "Make it cold before the heat peaks, two days. Eight batteries."
 PAY: 8 batteries on report, whichever road. NEGOTIATION: ask for more (she goes to 9, then 10; the third ask closes the screen for this visit, nothing written, the offer is back next visit); ask for an advance (2 now, 6 after). ACCEPT or DECLINE. Decline closes the screen; her line: "Bueno. Another time."
 
 ## THE PERSON AND THE FIRST LINE

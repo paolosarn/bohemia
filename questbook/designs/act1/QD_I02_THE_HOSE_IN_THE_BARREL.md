@@ -16,7 +16,7 @@ Act 1. Nine houses on one main have the same bad water, and they are not next to
 ## THE SETTLEMENT AND THE OFFER SCREEN
 SETTLEMENT: the hillside block. BUILDING: the clinic room, a front parlour with a folding table.
 CLIENT PORTRAIT LINE: ROSA, thirties, the block's nurse, Rick Owens-style long black layers with a clean white apron tied over them.
-THE SCREEN (3 lines, 36 words): "Nine houses, same water, and it isn't food." / "Every day it's another door. I chalk them." / "Find what's doing it and stop it. Seven batteries, and whatever the block can spare."
+THE SCREEN (3 lines, 31 words): "Nine houses, same water, and it isn't food." / "Every day it's another door. I chalk them." / "Find what's doing it and stop it. Seven batteries, and whatever the block can spare."
 PAY: 7 batteries on report. NEGOTIATION: ask for more (8; the second ask closes the screen for this visit, nothing written); ask for an advance (she gives a jar of boiled water, not batteries). ACCEPT or DECLINE; decline: "Fine. I'll keep chalking."
 
 ## THE PERSON AND THE FIRST LINE

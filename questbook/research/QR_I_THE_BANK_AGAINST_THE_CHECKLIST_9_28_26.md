@@ -92,7 +92,7 @@ The Act 1 openings were written to one rule ("THE ASK IS A CLAIM, AND A CLAIM IS
 
 ### F4. The givers talk too much for an offer screen.
 
-Line 13 fails in 19 files. The house style gives the giver three @SAY lines, which passes the line count, but the lines grew: the median opening is 59 words and the longest is 92 (S13 THE PAPER THAT SAYS SO). After the WORDS lane's voice pass (8/26 to 8/27) S01 gained a fourth line. `Q074.X5` (it assumes you will read a lot), `Q111.X6` (the payoff arrives as walls of text) and `Q068.X3` (lore-dump in big talky chunks) are the checklist's ids. The 9/28 offer screen makes this sharper: a Battle Brothers contract is the client's portrait and a few lines, then the pay. The re-cuts put the offer at 2 to 4 short lines (under 45 words), and move the rest of each giver's best writing into the job itself, where the player meets it on the grid.
+Line 13 fails in 19 files. The house style gives the giver three @SAY lines, which passes the line count, but the lines grew: the median opening is 59 words and the longest is 92 (S13 THE PAPER THAT SAYS SO). S01 gained a fourth line when its analog horror detail was added (9/21). `Q074.X5` (it assumes you will read a lot), `Q111.X6` (the payoff arrives as walls of text) and `Q068.X3` (lore-dump in big talky chunks) are the checklist's ids. The 9/28 offer screen makes this sharper: a Battle Brothers contract is the client's portrait and a few lines, then the pay. The re-cuts put the offer at 2 to 4 short lines (under 45 words), and move the rest of each giver's best writing into the job itself, where the player meets it on the grid.
 
 ### F5. The bank predates three rules, and they show.
 

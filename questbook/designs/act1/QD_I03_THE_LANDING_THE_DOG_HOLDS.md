@@ -16,7 +16,7 @@ Act 1. Something holds the stairwell of a squatted block, and nobody passes the 
 ## THE SETTLEMENT AND THE OFFER SCREEN
 SETTLEMENT: the north block (a settlement on the map). BUILDING: the ground-floor laundry room where the elder keeps the building's book.
 CLIENT PORTRAIT LINE: DON FAUSTO, seventies, a Bottega-woven vest over a hospital gown, reading glasses on a cord.
-THE SCREEN (3 lines, 34 words): "Something holds the landing on two. It doesn't chase. It holds." / "Twelve families want those rooms." / "Clear the stairwell. Six batteries. Nobody's been past it in four days."
+THE SCREEN (3 lines, 28 words): "Something holds the landing on two. It doesn't chase. It holds." / "Twelve families want those rooms." / "Clear the stairwell. Six batteries. Nobody's been past it in four days."
 PAY: 6 batteries on report. NEGOTIATION: ask for more (7; the second ask closes the screen for this visit, nothing written); ask for an advance (a meal for the company). ACCEPT or DECLINE; decline: "Okay. It'll keep."
 
 ## THE PERSON AND THE FIRST LINE

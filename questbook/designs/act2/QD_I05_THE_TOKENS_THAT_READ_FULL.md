@@ -16,7 +16,7 @@ Act 2, a boom: batteries are the money, and the market runs on stamped tokens, e
 ## THE SETTLEMENT AND THE OFFER SCREEN
 SETTLEMENT: the market. BUILDING: the clearing house, a counter with a meter and a scale.
 CLIENT PORTRAIT LINE: SEÑOR ABEL, fifties, a dove-grey Balenciaga overcoat with the lining cut out for the heat, a loupe on a chain.
-THE SCREEN (3 lines, 36 words): "Eleven tokens yesterday read full and held nothing." / "A laundry, two kids and a man who sells eggs were holding them." / "Find the bench they come from. Nine batteries, tested at this counter."
+THE SCREEN (3 lines, 33 words): "Eleven tokens yesterday read full and held nothing." / "A laundry, two kids and a man who sells eggs were holding them." / "Find the bench they come from. Nine batteries, tested at this counter."
 PAY: 9 batteries, each tested on his meter in front of the player. NEGOTIATION: ask for more (10; the second ask closes the screen for this visit, nothing written); ask for an advance (3 now). ACCEPT or DECLINE; decline: "Claro. The counter's open."
 
 ## THE PERSON AND THE FIRST LINE
