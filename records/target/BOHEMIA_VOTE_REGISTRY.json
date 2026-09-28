@@ -2896,16 +2896,67 @@
    },
    "sha": "5441e5f"
   },
-{
-  "id": "coordinator-the-company-inherits-9-28",
-  "kind": "verdict",
-  "lane": "coordinator",
-  "title": "YOUR COMPANY PASSES DOWN. EACH ACT STARTS WITH THE LAST CREW'S HEIRS.",
-  "text": "You asked if the people you hire are part of the dynasty, and whether that means recruiting 36 instead of 12. Default: the company inherits. Each act starts with the heirs of the last act's crew, a killer's kid or apprentice with some of the parent's traits, gear kept in the family. About 12 people an act, 36 lives a game. Recruiting inside an act stays Battle Brothers hard. Keeping your killers alive and paid is how you get S-tier killers three acts later. DOWN means every act recruits from scratch, or say your version in a note.",
-  "asked": "UP or DOWN",
-  "when": "2026-09-28",
-  "draft": true
-}
+  {
+   "id": "coordinator-the-company-inherits-9-28",
+   "kind": "verdict",
+   "lane": "coordinator",
+   "title": "YOUR COMPANY PASSES DOWN. EACH ACT STARTS WITH THE LAST CREW'S HEIRS.",
+   "text": "You asked if the people you hire are part of the dynasty, and whether that means recruiting 36 instead of 12. Default: the company inherits. Each act starts with the heirs of the last act's crew, a killer's kid or apprentice with some of the parent's traits, gear kept in the family. About 12 people an act, 36 lives a game. Recruiting inside an act stays Battle Brothers hard. Keeping your killers alive and paid is how you get S-tier killers three acts later. DOWN means every act recruits from scratch, or say your version in a note.",
+   "asked": "UP or DOWN",
+   "when": "2026-09-28",
+   "draft": true
+  },
+  {
+   "id": "sounds-the-generator-is-sixty-hertz-9-28",
+   "kind": "sound",
+   "lane": "sounds",
+   "sha": "PENDING",
+   "made": "9/28",
+   "title": "THE GENERATOR IS SIXTY HERTZ",
+   "why": "Last round I fixed this hum's pitch in place and had to undo it, because you already thumbed it and a judged sound cannot change what it sounds like. This is the right way to fix it: a brand new sound, a real 2-pole alternator running at 3,600 RPM, which makes 60 Hz by shaft speed, not by choice. Measured at 60.3 Hz, under 1% off. The old one keeps your thumb and keeps playing until you hear this and decide.",
+   "options": [
+    "A, the sixty hertz version",
+    "B, keep the one that is already in the game"
+   ],
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_THREE_HUMS_OFF_THE_GRID_9_28_26.html"
+   }
+  },
+  {
+   "id": "sounds-the-block-lights-at-one-twenty-9-28",
+   "kind": "sound",
+   "lane": "sounds",
+   "sha": "PENDING",
+   "made": "9/28",
+   "title": "THE BLOCK LIGHTS AT ONE TWENTY",
+   "why": "Same story as the generator: this hum is judged and frozen, so the fix is a new sound, not an edit. A transformer energizing a city block has a core that pulls twice every power cycle, so it settles at 120 Hz once it comes up. This one rises from 40 Hz over six tenths of a second and lands at 119.1, under 1% off.",
+   "options": [
+    "A, the one twenty version",
+    "B, keep the one that is already in the game"
+   ],
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_THREE_HUMS_OFF_THE_GRID_9_28_26.html"
+   }
+  },
+  {
+   "id": "sounds-the-sign-catches-then-holds-9-28",
+   "kind": "sound",
+   "lane": "sounds",
+   "sha": "PENDING",
+   "made": "9/28",
+   "title": "THE SIGN CATCHES, THEN HOLDS",
+   "why": "This one is not just a fix, it is a real limit found in the old sound: it played through a borrowed instrument that can only hit certain notes, and no note on it sits within 3% of the true 120 Hz a sign's ballast actually hums at. Built fresh from real oscillators instead, so it hits 120 Hz for real (119.1 measured), with a few uneven catches before it holds, like a sign coming on.",
+   "options": [
+    "A, the one twenty version, catching then holding",
+    "B, keep the one that is already in the game"
+   ],
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_THREE_HUMS_OFF_THE_GRID_9_28_26.html"
+   }
+  }
  ],
  "verdicts": [
   {

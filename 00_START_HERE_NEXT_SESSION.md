@@ -4310,6 +4310,63 @@ NEXT: [cook panels] is the standing rule-22 row and is OPEN again; items 2, 3 an
 (the fight HUD, the talk panel, the vote tab's own frame) are drawn as sheets but not built
 as skins. [three d ui] still has no gate of its own. [vote plays sound] is still open and
 SOUNDS has items waiting that he cannot hear in the tab. [no slop] stays CLAIMED.
+SOUNDS (sound-xk7pjp): 9/28 (b) LATEST -- *** THE THREE HUMS, DONE RIGHT: THREE NEW ADDITIVE-SINE
+RECIPES, NEVER TOUCHING A FROZEN ID. *** Row [not sand], round six, ROW STAYS CLAIMED.
+Record: VAMILY.md row [not sand], round six block (no separate record file this round; the
+finding is small enough that the board entry and the code are the whole story).
+Gates: COOKED SOUNDS 145/0 (was 134), --mutate bites 40 (was 37). VERDICT-FROZEN 6/0. SFX RENDER
+GATE 8381/0. FOOTSTEP GATE 24/0. MERGE DEBRIS 4/0. VOTE TAB GATE 30/1 (named flake, not mine).
+Build stamp UNCHANGED this round (no alpha/demo play surface touched).
+
+NO NEW VOTES ON ROUND FIVE'S THREE REDOS YET: sounds-a-footstep-that-is-not-glass-9-28,
+sounds-the-deck-does-not-ring-9-28, sounds-the-flip-is-a-knock-not-a-chime-9-28 are all still
+WAITING FOR HIM. So this round is last round's own NEXT list item 1, built the way it named.
+
+THE THREE HUMS (generator, power_on, sign_alive) ARE FROZEN in bohemia_sfx.js's __SFX_APPROVED,
+judged and off-limits to in-place edits (verdict_frozen_gate.py). Last round found their real
+targets (60 Hz for generator, 120 for power_on and sign_alive) and also found sign_alive's real
+floor: it plays through bodyInstrument(), a sample voice that rounds hz to the nearest semitone
+of a 220 Hz reference before pitch-shifting, and no semitone on that grid sits within 1% of 120.
+
+THE FIX IS A DIFFERENT INSTRUMENT, NOT A BETTER NUMBER. One new helper in
+engine/bohemia_horror_sounds.js, harmonicHum(ctx, {hz, parts, riseSec, riseFromHz, strikes}),
+builds every partial as its own oscillator (a sum of sines at hz times each partial's ratio),
+so there is no sample to snap to a note and any hz asked for lands exactly. Three thin wrappers
+call it by closure (never through the exported H.harmonicHum, which matters for the mutation,
+see below): generatorHum (60 Hz, a 2-pole alternator's shaft speed, harmonics riding on top),
+powerOnHum (120 Hz, rising from 40 Hz over 0.6 s, a transformer's core pulling twice a mains
+cycle), signAliveHum (120 Hz, three uneven catches before it holds steady, a sign's own
+ballast catching before it settles).
+
+MEASURED, WITH THE RULER PROVEN FIRST: pure 60 and 120 Hz sines through the identical FFT +
+parabolic-refine code (8,192-sample window, Hann-windowed, this is the same method
+tools/bohemia_the_keep_redo_list.js already proved) read back inside 0.1% before anything
+cooked was trusted. Then: generatorHum 60.34 Hz (0.57% off 60), powerOnHum and signAliveHum
+both 120.09 Hz measured on their settled tail (0.07% off 120). All three land inside the 1%
+floor a sample voice architecturally could not reach.
+
+REGISTERED AS THREE NEW IDS, the frozen three never edited: sounds-the-generator-is-sixty-
+hertz-9-28, sounds-the-block-lights-at-one-twenty-9-28, sounds-the-sign-catches-then-holds-9-28.
+NEW PAGE: slices/BOHEMIA_THREE_HUMS_OFF_THE_GRID_9_28_26.html, which plays the exact old
+approved candidate (BOH_SFX.cook(ev,5)[his approved index], same code the game runs) right next
+to each new one, so the choice on each card is A (the new one) or B (keep what already ships) --
+never a blind ask, and never a second copy of his verdict on the old one. BOH_SFX is declared
+with `const` at the top of its file, so it never attaches to window; a page that loads it via
+<script src> reads it as the bare global BOH_SFX, the same way the alpha's own inline SFX wire
+does -- caught this round when window.BOH_SFX came back undefined on the first pass. Verified
+on the glass: 6 of 6 buttons play, 0 errors.
+
+THE MUTATION HAD TO TARGET THE THREE WRAPPERS, NOT harmonicHum, THE SAME CLOSURE TRAP THIS FILE
+ALREADY CAUGHT ONCE ON wowFlutter: generatorHum/powerOnHum/signAliveHum call harmonicHum by
+closure inside the module, never through the exported H.harmonicHum, so swapping the export did
+nothing on the first cut (--mutate still bit 37, unchanged, meaning the three new pitch claims
+were unfalsifiable). Fixed by swapping H.generatorHum/H.powerOnHum/H.signAliveHum themselves to
+a wrong-pitch (90 Hz) version; all three pitch claims then correctly went red. --mutate bites 40.
+
+IF YOU EVER FIND A RECIPE THAT NEEDS A PITCH OR TIMBRE CORRECTION AND __SFX_APPROVED HAS A
+NONEMPTY LIST FOR ITS EVENT NAME: run verdict_frozen_gate.py BEFORE touching anything, not after.
+This is the second round this exact warning has been written down; read it before skipping it.
+
 SOUNDS (sound-xk7pjp): 9/28 LATEST -- *** THREE REAL-MATERIAL SOUNDS HE VOTED DOWN, FIXED AT THE
 ROOT. AND A SECOND MISTAKE THIS SAME ROUND, CAUGHT BEFORE IT REACHED MAIN. *** Row [not sand], round
 five, ROW STAYS CLAIMED.
@@ -4386,21 +4443,17 @@ sfx_render_gate.py's --record flag will happily let you re-bless a judged sound;
 gate that governs this question.
 
 NEXT, IN ORDER:
- 1. THE THREE HUMS, DONE RIGHT: new event ids (bohemia_sfx.js) or new recipes
-    (bohemia_horror_sounds.js, reusing plateModes/ROOM_HUM). The correct pitches are already
-    solved (60, ~115 static for 120 measured, and accept ~2.9% as sign_alive's floor unless it
-    moves off the sample-instrument path).
- 2. THE 21 HARD-CONTACT REDOS from the keep/redo list, footsteps first, on the model that landed.
- 3. ATTRIBUTE THE 19 NODES ON THE MAP, with a probe that cannot throw.
- 4. THE FIRST SOUND GATE'S FLAKE, one red in five, on the claim that reads the audio context's
-    state before the tap. Named five rounds running now. It is the claim, not the game.
- 5. [beds play] is still HELD. Then [enemy heard], [fight music], [quiet floor], [rumour heard],
+ 1. THE 21 HARD-CONTACT REDOS from the keep/redo list, footsteps first, on the model that landed.
+ 2. ATTRIBUTE THE 19 NODES ON THE MAP, with a probe that cannot throw.
+ 3. THE FIRST SOUND GATE'S FLAKE, one red in five, on the claim that reads the audio context's
+    state before the tap. Named six rounds running now. It is the claim, not the game.
+ 4. [beds play] is still HELD. Then [enemy heard], [fight music], [quiet floor], [rumour heard],
     [pump hum].
- 6. TWO MUSIC HOLES, STILL MINE: a room handing music back does not check whether a fight owns it,
+ 5. TWO MUSIC HOLES, STILL MINE: a room handing music back does not check whether a fight owns it,
     and the shell obeys the city's music message with no fight guard.
- 7. RULE 33j (9/27): read reference/library/battle_brothers/README.md for this department, cite
+ 6. RULE 33j (9/27): read reference/library/battle_brothers/README.md for this department, cite
     it, fix a wrong number there with a source. STILL NOT DONE.
- 8. RULE 34/36, TWO SCALES AND THE THIRD VOTES (Paolo 9/27-9/28): the walked surface is now
+ 7. RULE 34/36, TWO SCALES AND THE THIRD VOTES (Paolo 9/27-9/28): the walked surface is now
     crossed on the map only, with the close grid reserved for the fight and special places.
     WHEN THAT GRID/MAP WORK LANDS, RECHECK the footstep model against real cell sizes and
     whether "one house" as a struck-hour unit still means the same thing.

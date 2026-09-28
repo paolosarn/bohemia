@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>THREE HUMS OFF THE GRID</title>
+<!-- SOUNDS lane, 9/28, row [not sand], round six.
+     generator, power_on and sign_alive are JUDGED and FROZEN in bohemia_sfx.js
+     (__SFX_APPROVED). Last round I found their pitch was off the real target and tried
+     to fix them in place; verdict_frozen_gate.py caught it before it reached main: a
+     judged sound can never change what it sounds like, the fix is a NEW event id. So
+     these three are brand new sounds, built out of real oscillators (no sample voice,
+     nothing to snap to a note), and they sit next to the one already in the game so the
+     comparison is direct.
+     THREE ITEMS ON ONE PAGE, each asked once in the VOTE tab. NO VOTE LIVES ON THIS PAGE. -->
+<style>
+  :root{ --ink:#1b1408; --paper:#e8dfc9; --line:#8a7a52; --panel:#f2ead6; --dim:#6a5a3e; }
+  html,body{margin:0;background:var(--paper);color:var(--ink);
+    font:15px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace}
+  .wrap{max-width:720px;margin:0 auto;padding:18px 16px 70px}
+  h1{font-size:19px;letter-spacing:2px;margin:0 0 2px}
+  .sub{color:var(--dim);font-size:12px;letter-spacing:1px;margin-bottom:14px}
+  .loud{border:2px solid var(--ink);padding:9px 11px;margin:0 0 14px;font-size:13px}
+  .part{border-top:2px solid var(--line);margin:24px 0 12px;padding-top:12px;
+    font-size:14px;letter-spacing:2px}
+  .card{background:var(--panel);border:1px solid var(--line);padding:14px;margin:0 0 14px}
+  .card h2{font-size:14px;letter-spacing:1.5px;margin:0 0 6px}
+  .why{font-size:13px;margin:0 0 10px}
+  .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  button{font:inherit;background:var(--paper);color:var(--ink);border:1px solid var(--line);
+    padding:11px 14px;min-height:48px;cursor:pointer;letter-spacing:1px}
+  button:active{transform:translateY(1px)}
+  button.on{background:var(--ink);color:var(--paper)}
+  .num{font-size:12px;color:var(--dim);margin-top:8px;white-space:pre-wrap}
+  textarea{width:100%;box-sizing:border-box;font:inherit;background:var(--paper);
+    color:var(--ink);border:1px solid var(--line);padding:8px;min-height:80px}
+  label{font-size:12px;letter-spacing:1px;color:var(--dim);display:block;margin:10px 0 4px}
+  .foot{border-top:2px solid var(--line);margin-top:22px;padding-top:14px}
+</style></head><body><div class="wrap">
+
+<h1>THREE HUMS OFF THE GRID</h1>
+<div class="sub">SOUNDS &middot; 9/28 &middot; the generator, the block lighting up, and a sign catching, rebuilt so their pitch is real</div>
+
+<div class="loud"><b>YOU ALREADY THUMBED THE OLD THREE, SO THEY CANNOT CHANGE.</b> A rule
+in this game says once you have judged a sound it stays exactly what you heard. So I did not
+touch them. Instead each one below is a BRAND NEW sound, built to actually hit the real
+number: a running generator's alternator makes 60 Hz because of how fast its shaft turns, and
+a transformer lighting up a block (or a sign) hums at 120 Hz because its core gets pulled
+twice every power cycle. The old sign in particular could never get closer than about 3%
+off, because it plays through a borrowed instrument that can only hit certain notes. These
+three play through real oscillators instead, so they land on the number for real.<br><br>
+<b>Each card has the old one you already approved and the new one, back to back.</b> If you
+like the new one better, that is A. If you would rather keep what is already in the game,
+that is B, and nothing changes.</div>
+
+<div class="part">ITEM ONE &middot; THE GENERATOR &middot; somebody is running one</div>
+
+<div class="card">
+  <h2>THE ONE ALREADY IN THE GAME</h2>
+  <div class="why">What you already thumbed, played from the exact same code the game uses.</div>
+  <div class="row"><button data-old="generator">PLAY THE OLD ONE</button></div>
+  <div class="num" id="numA1"></div>
+</div>
+
+<div class="card">
+  <h2>THE NEW ONE, AT SIXTY HERTZ FOR REAL</h2>
+  <div class="why">A 2-pole alternator at 3,600 RPM makes 60 Hz mains by shaft speed. Built
+  from oscillators, so it lands on 60 exactly instead of near it.</div>
+  <div class="row"><button data-new="generator">PLAY THE NEW ONE</button></div>
+  <div class="num" id="numA2"></div>
+</div>
+
+<div class="part">ITEM TWO &middot; THE BLOCK LIGHTS &middot; the grid takes a block</div>
+
+<div class="card">
+  <h2>THE ONE ALREADY IN THE GAME</h2>
+  <div class="why">What you already thumbed, played from the exact same code the game uses.</div>
+  <div class="row"><button data-old="power_on">PLAY THE OLD ONE</button></div>
+  <div class="num" id="numB1"></div>
+</div>
+
+<div class="card">
+  <h2>THE NEW ONE, SETTLING AT ONE TWENTY FOR REAL</h2>
+  <div class="why">A transformer's core pulls twice every mains cycle, so it settles at 120 Hz,
+  not a switch clicking. This one rises into it over six tenths of a second, same idea as the
+  old one, but it actually lands on the number.</div>
+  <div class="row"><button data-new="power_on">PLAY THE NEW ONE</button></div>
+  <div class="num" id="numB2"></div>
+</div>
+
+<div class="part">ITEM THREE &middot; THE SIGN CATCHES &middot; a sign coming on</div>
+
+<div class="card">
+  <h2>THE ONE ALREADY IN THE GAME</h2>
+  <div class="why">What you already thumbed, played from the exact same code the game uses.
+  This one is the one with the real limit: it plays through a borrowed instrument that can
+  only hit certain notes, and none of them sit within 3% of 120 Hz.</div>
+  <div class="row"><button data-old="sign_alive">PLAY THE OLD ONE</button></div>
+  <div class="num" id="numC1"></div>
+</div>
+
+<div class="card">
+  <h2>THE NEW ONE, CATCHING THEN HOLDING AT ONE TWENTY</h2>
+  <div class="why">Same 120 Hz core pull as a transformer, with a few uneven catches before it
+  holds steady, the way a neon or fluorescent sign actually starts. No borrowed instrument, so
+  no note to snap to.</div>
+  <div class="row"><button data-new="sign_alive">PLAY THE NEW ONE</button></div>
+  <div class="num" id="numC2"></div>
+</div>
+
+<div class="foot">
+  <label>ANYTHING ABOUT ANY OF THEM</label>
+  <textarea id="all"></textarea>
+  <div class="row" style="margin-top:12px">
+    <button id="copy">COPY ALL</button>
+    <button id="exp">SAVE AS .txt</button>
+  </div>
+  <div class="num" id="footnote">What you type is kept in this page, so closing it does not
+lose it. COPY ALL puts it on your clipboard.
+THERE IS NO VOTE ON THIS PAGE ON PURPOSE: you vote once, in the VOTE tab.</div>
+</div>
+
+<script src="../engine/bohemia_horror_sounds.js"></script>
+<script src="../engine/bohemia_sfx.js"></script>
+<script>
+var H = window.BOH_HORROR_SOUNDS;
+/* BOH_SFX is declared with const at the top of its file, so it never attaches to
+   window; it is reachable as a bare global in any later script on this page, the same
+   way the alpha's own inline SFX wire reads it. */
+var SFX = BOH_SFX;
+var AC = null, live = [], cache = {};
+function ac(){ if(!AC) AC = new (window.AudioContext||window.webkitAudioContext)();
+  if(AC.state==='suspended') AC.resume(); return AC; }
+/* THE OLD ONE, PLAYED FROM THE EXACT SAME CANDIDATE HE ALREADY THUMBED: index 0 of his
+   first approved list for the generator and the power_on, index 4 for sign_alive, which is
+   the only one __SFX_APPROVED carries for it. Never a second copy of his verdict. */
+var OLD_IDX = { generator: 0, power_on: 0, sign_alive: 4 };
+function oldOf(ev){ var key='old:'+ev;
+  if(!cache[key]){
+    var vec = SFX.cook(ev, 5)[OLD_IDX[ev]];
+    var secs = SFX.beatsOf(vec) * SFX.BEAT + 0.6;
+    var buf = ac().createBuffer(1, Math.ceil(ac().sampleRate*secs), ac().sampleRate);
+    /* render() writes onto a live AudioContext destination bus normally; here it is asked
+       for a buffer, so it renders through an OfflineAudioContext at the same rate instead. */
+    var OAC = new (window.OfflineAudioContext)(1, buf.length, ac().sampleRate);
+    var bus = OAC.createGain(); bus.gain.value = 1; bus.connect(OAC.destination);
+    SFX.render(vec, OAC, bus, 0.02);
+    cache[key] = { renderOAC: OAC, secs: secs };
+  }
+  return cache[key];
+}
+function newOf(ev){ var key='new:'+ev;
+  if(!cache[key]) cache[key] = ({
+    generator: H.generatorHum, power_on: H.powerOnHum, sign_alive: H.signAliveHum
+  })[ev](ac(), {});
+  return cache[key];
+}
+function stopAll(){ live.forEach(function(n){ try{ n.stop(); }catch(e){} }); live=[];
+  document.querySelectorAll('button[data-old],button[data-new]')
+    .forEach(function(b){ b.classList.remove('on'); }); }
+function playBuffer(buf, btn){
+  stopAll();
+  var c = ac();
+  var s = c.createBufferSource(); s.buffer = buf;
+  var g = c.createGain(); g.gain.value = 0.9;
+  s.connect(g); g.connect(c.destination); s.start();
+  live.push(s); btn.classList.add('on');
+}
+function playOld(ev, btn){
+  var o = oldOf(ev);
+  o.renderOAC.startRendering().then(function(buf){ playBuffer(buf, btn); });
+}
+document.querySelectorAll('button[data-old]').forEach(function(b){
+  b.onclick = function(){ playOld(b.dataset.old, b); }; });
+document.querySelectorAll('button[data-new]').forEach(function(b){
+  b.onclick = function(){ playBuffer(newOf(b.dataset.new).buffer, b); }; });
+
+function head(){
+  var g = newOf('generator'), p = newOf('power_on'), s = newOf('sign_alive');
+  document.getElementById('numA2').textContent =
+    'target 60 Hz, built from ' + g.seconds + ' s of pure oscillators, no sample voice.';
+  document.getElementById('numB2').textContent =
+    'target 120 Hz, rising from ' + p.riseFromHz + ' Hz over ' + p.riseSec + ' s, then holding.';
+  document.getElementById('numC2').textContent =
+    'target 120 Hz, ' + s.strikes + ' uneven catches over ' + s.seconds + ' s before it holds steady.';
+  document.getElementById('numA1').textContent =
+  document.getElementById('numB1').textContent =
+  document.getElementById('numC1').textContent =
+    'the exact candidate you already thumbed, rendered live, never a second copy of it.';
+}
+
+/* HIS WORDS SURVIVE BY DEFAULT. A page of mine lost eight of his votes because the only
+   way out was a download button he never pressed. */
+var KEY='bohemia_three_hums_notes_v1';
+try{ var v=localStorage.getItem(KEY); if(v) document.getElementById('all').value=v; }catch(e){}
+document.getElementById('all').addEventListener('input', function(){
+  try{ localStorage.setItem(KEY, this.value); }catch(e){} });
+function noteText(){ var a=document.getElementById('all').value.trim();
+  return 'BOHEMIA NOTES -- THREE HUMS OFF THE GRID (SOUNDS, 9/28). NO VOTES HERE: the vote is in the VOTE tab.\n'
+    + 'registry ids: sounds-the-generator-is-sixty-hertz-9-28, sounds-the-block-lights-at-one-twenty-9-28, sounds-the-sign-catches-then-holds-9-28\n\n'
+    + (a || '(nothing written yet)'); }
+function say(m){ var n=document.getElementById('footnote'), was=n.textContent;
+  n.textContent=m; setTimeout(function(){ n.textContent=was; },2200); }
+document.getElementById('copy').onclick=function(){ var txt=noteText();
+  function fb(){ var ta=document.createElement('textarea'); ta.value=txt;
+    ta.style.position='fixed'; ta.style.opacity='0'; document.body.appendChild(ta); ta.select();
+    try{ document.execCommand('copy'); say('COPIED. Paste it back to me.'); }
+    catch(e){ say('Could not copy. Use SAVE AS .txt.'); } ta.remove(); }
+  if(navigator.clipboard&&navigator.clipboard.writeText)
+    navigator.clipboard.writeText(txt).then(function(){ say('COPIED. Paste it back to me.'); }, fb);
+  else fb(); };
+document.getElementById('exp').onclick=function(){
+  var blob=new Blob([noteText()],{type:'text/plain'});
+  var u=URL.createObjectURL(blob), el=document.createElement('a');
+  el.href=u; el.download='BOHEMIA_NOTES_THREE_HUMS_OFF_THE_GRID.txt';
+  document.body.appendChild(el); el.click(); el.remove();
+  setTimeout(function(){ URL.revokeObjectURL(u); },1500); };
+head();
+</script>
+</div></body></html>

@@ -451,6 +451,95 @@ const MEASURE = `
     } catch (e) { out.tapeErr = String(e && e.message).slice(0,160); }
   })();
 
+  /* *** THE THREE HUMS OFF THE GRID (round six of [not sand], 9/28). ***
+     generator/power_on/sign_alive are FROZEN in bohemia_sfx.js (__SFX_APPROVED); this
+     module's new additive-sine redos are the fix, so the question is whether they
+     actually land on the real target -- 60 Hz for a 2-pole alternator, 120 Hz for a
+     transformer or a ballast's own core pull -- and land there PROVABLY, not by eye.
+     A 4,096-sample window is 10.77 Hz a bin, 18% of 60 Hz, so a bin READING is not a
+     pitch reading (this lane's own instrument almost wrote down "54 Hz" for exactly
+     this reason two rounds ago). Longer window, and the peak refined by parabolic
+     interpolation on the log magnitudes of the three bins around it -- the same
+     method tools/bohemia_the_keep_redo_list.js already proved good to well under a
+     tenth of a bin, PROVED HERE TOO, on pure sines through the identical code path,
+     before it is trusted on anything cooked. */
+  (function () {
+    try {
+      const HN = 8192;
+      function hfft(re, im) {
+        const n = re.length;
+        for (let i = 1, j = 0; i < n; i++) {
+          let bit = n >> 1;
+          for (; j & bit; bit >>= 1) j ^= bit;
+          j ^= bit;
+          if (i < j) { let t = re[i]; re[i] = re[j]; re[j] = t; t = im[i]; im[i] = im[j]; im[j] = t; }
+        }
+        for (let len = 2; len <= n; len <<= 1) {
+          const ang = -2 * Math.PI / len, wr = Math.cos(ang), wi = Math.sin(ang);
+          for (let i = 0; i < n; i += len) {
+            let cr = 1, ci = 0;
+            for (let k = 0; k < len / 2; k++) {
+              const ur = re[i + k], ui = im[i + k];
+              const vr = re[i + k + len / 2] * cr - im[i + k + len / 2] * ci;
+              const vi = re[i + k + len / 2] * ci + im[i + k + len / 2] * cr;
+              re[i + k] = ur + vr; im[i + k] = ui + vi;
+              re[i + k + len / 2] = ur - vr; im[i + k + len / 2] = ui - vi;
+              const ncr = cr * wr - ci * wi; ci = cr * wi + ci * wr; cr = ncr;
+            }
+          }
+        }
+      }
+      function hspec(d) {
+        const re = new Float64Array(HN), im = new Float64Array(HN);
+        for (let i = 0; i < HN && i < d.length; i++) re[i] = d[i] * (0.5 - 0.5 * Math.cos(2 * Math.PI * i / (HN - 1)));
+        hfft(re, im);
+        const half = HN >> 1, p = new Float64Array(half);
+        for (let k = 0; k < half; k++) p[k] = re[k] * re[k] + im[k] * im[k];
+        return p;
+      }
+      function hrefine(p) {
+        let pk = 0, k0 = 1;
+        for (let k = 1; k < p.length; k++) if (p[k] > pk) { pk = p[k]; k0 = k; }
+        let hz = k0 * SR / HN;
+        if (k0 > 1 && k0 < p.length - 1) {
+          const l = Math.log(p[k0 - 1] + 1e-30), c = Math.log(p[k0] + 1e-30), r = Math.log(p[k0 + 1] + 1e-30);
+          const den = l - 2 * c + r;
+          if (den !== 0) { const dl = 0.5 * (l - r) / den; if (dl > -1 && dl < 1) hz = (k0 + dl) * SR / HN; }
+        }
+        return hz;
+      }
+      const hControl = [60, 120].map(f => {
+        const a = new Float32Array(HN);
+        for (let i = 0; i < HN; i++) a[i] = Math.sin(2 * Math.PI * f * i / SR) * 0.8;
+        const hz = hrefine(hspec(a));
+        return { askedHz: f, readHz: +hz.toFixed(3), errPct: +((hz - f) / f * 100).toFixed(4) };
+      });
+      const gen = H.generatorHum(ctx, {});
+      const genHz = hrefine(hspec(loudest(gen.buffer.getChannelData(0))));
+      const pon = H.powerOnHum(ctx, {});
+      const ponD = pon.buffer.getChannelData(0);
+      const ponSkip = Math.round((pon.riseSec + 0.2) * SR);
+      const ponHz = hrefine(hspec(ponD.subarray(Math.min(ponSkip, ponD.length - HN))));
+      const sgn = H.signAliveHum(ctx, {});
+      const sgnD = sgn.buffer.getChannelData(0);
+      const sgnHz = hrefine(hspec(sgnD.subarray(Math.max(0, sgnD.length - HN))));
+      out.hums = {
+        control: hControl,
+        generatorHz: +genHz.toFixed(3),
+        powerOnHz: +ponHz.toFixed(3),
+        signAliveHz: +sgnHz.toFixed(3),
+        /* THE STRUCTURAL CHECK: no noise generator, and no sample-based voice for a
+           pitch to be rounded onto -- the exact mechanism that put a real floor under
+           the frozen sign_alive (bodyInstrument()'s semiOf() snaps to the nearest
+           semitone of a 220 Hz reference before pitch-shifting a sample). */
+        noiseInHum: H.harmonicHum.toString().indexOf('noiseInto') >= 0,
+        sampleVoiceInHum: /semiOf|bodyInstrument|synthV/.test(H.harmonicHum.toString()),
+        synthTag: gen.synth,
+        strikes: sgn.strikes, riseSec: pon.riseSec, riseFromHz: pon.riseFromHz
+      };
+    } catch (e) { out.humsErr = String(e && e.message).slice(0, 160); }
+  })();
+
   /* *** THE BAND HELPER ITSELF, MEASURED BY ITS OWN TRANSFER FUNCTION. *** Row
      [band helper]: Paolo killed three sounds for sounding like sand and the sand was this
      one shared filter. A filter is measured with an IMPULSE, which gives its response
@@ -925,6 +1014,17 @@ const MEASURE = `
         const realBand = H.bandTo;
         H.bandTo = (d, n, lo, c, sr, p, band) =>
           realBand(d, n, lo, c, sr, p, Object.assign({}, band || {}, { legacy: true }));
+        /* AND THE THREE HUMS: THE WRONG PITCH, WHICH IS THE ONLY QUESTION THIS ROUND
+           ASKS OF THEM. Not a structural swap -- the recipe is right on purpose, so the
+           falsifier is the one thing rule 2 actually tests: a hum off the grid. AND IT
+           HAS TO REPLACE THE THREE EXPORTED WRAPPERS, NOT harmonicHum: generatorHum,
+           powerOnHum and signAliveHum call harmonicHum BY CLOSURE, never through H, the
+           exact trap this file already caught once on wowFlutter (a mutation on a name
+           nothing calls is not a mutation). If the three pitch claims stay green while
+           every hum reads 90 Hz instead of its real target, they were never claims. */
+        const realHarmonic = H.harmonicHum;
+        const wrong = (ctx, o) => realHarmonic(ctx, Object.assign({}, o || {}, { hz: 90, riseFromHz: 90, parts: [[1,1]] }));
+        H.generatorHum = wrong; H.powerOnHum = wrong; H.signAliveHum = wrong;
       });
     }
     d = await p.evaluate(MEASURE);
@@ -1390,6 +1490,41 @@ const MEASURE = `
         + 'Shipped as a fix, not a new vote item: same precedent as the band helper\'s six '
         + 'redos, which changed approved sounds\' actual audio and were never re-voted');
     } else { claim('the deck and the tape change were measured', false, d.tapeErr || 'no reading'); }
+
+    /* ---- THE THREE HUMS OFF THE GRID (9/28), row [not sand] round six -------- */
+    if (d.hums) {
+      const U = d.hums;
+      /* THE RULER, PROVED BEFORE IT IS TRUSTED: pure sines at 60 and 120 through the
+         identical refine() code. If the instrument cannot read a known pitch inside a
+         tenth of a percent, no claim below means anything. */
+      claim('THE HUM RULER READS A KNOWN PITCH INSIDE A TENTH OF A PERCENT',
+        U.control.every(c => Math.abs(c.errPct) < 0.1),
+        U.control.map(c => c.askedHz + ' Hz read as ' + c.readHz + ' (' + c.errPct + '%)').join('; ')
+        + '. A 4,096-sample window is 10.77 Hz a bin, 18% of 60 Hz; parabolic '
+        + 'interpolation on the log magnitudes around the peak is what gets under 1%');
+      claim('THE GENERATOR HUMS AT SIXTY HERTZ, not a nearby bin',
+        Math.abs(U.generatorHz - 60) / 60 * 100 < 1,
+        U.generatorHz + ' Hz against a 2-pole alternator at 3,600 RPM, which makes 60 Hz '
+        + 'mains by shaft speed and not by choice; error ' + (Math.abs(U.generatorHz-60)/60*100).toFixed(3) + '%');
+      claim('THE BLOCK LIGHTS AT ONE TWENTY, once the rise settles',
+        Math.abs(U.powerOnHz - 120) / 120 * 100 < 1,
+        U.powerOnHz + ' Hz measured after the ' + U.riseSec + ' s rise from ' + U.riseFromHz
+        + ' Hz; a transformer\'s core pulls twice a mains cycle, so it settles at 120 Hz, '
+        + 'error ' + (Math.abs(U.powerOnHz-120)/120*100).toFixed(3) + '%');
+      claim('THE SIGN SETTLES AT ONE TWENTY TOO, WHERE THE OLD SAMPLE VOICE COULD NOT',
+        Math.abs(U.signAliveHz - 120) / 120 * 100 < 1,
+        U.signAliveHz + ' Hz after ' + U.strikes + ' uneven catches, error '
+        + (Math.abs(U.signAliveHz-120)/120*100).toFixed(3) + '%. The frozen sign_alive is '
+        + 'synth:\'instrument\', a sample voice snapped to the nearest semitone of a 220 Hz '
+        + 'reference before pitch-shifting -- proved two different hz through two different '
+        + 'jit ranges rendering the identical 123.273 Hz. No semitone on that grid sits '
+        + 'within 1% of 120 Hz; this recipe has no sample and nothing to snap to a note');
+      claim('NONE OF THE THREE ARE MADE OF NOISE OR A SAMPLE VOICE, read off the shipped function',
+        U.noiseInHum === false && U.sampleVoiceInHum === false && U.synthTag === 'additive',
+        'harmonicHum() never calls the noise generator and never touches semiOf(), '
+        + 'bodyInstrument() or the borrowed sample rack (synthV): every partial is its own '
+        + 'oscillator, so any hz lands exactly instead of snapping to a note');
+    } else { claim('the three hums were measured', false, d.humsErr || 'no reading'); }
 
     /* ---- THE BAND HELPER (9/24), row [band helper] -------------------------- */
     if (d.band) {

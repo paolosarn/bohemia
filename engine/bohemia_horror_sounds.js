@@ -918,6 +918,113 @@
              why: 'the room the loading sits in, at ' + (20 * Math.log10(rel)).toFixed(1) + ' dB under the heartbeat' };
   }
 
+  /* ==== 5b. THREE HUMS OFF THE GRID (round six of [not sand], 9/28) =============
+     Redo of generator/power_on/sign_alive, three moments in bohemia_sfx.js's own
+     RECIPE table, judged and FROZEN (__SFX_APPROVED, verdict_frozen_gate.py: "the fix
+     for a red is never to re-bless the file, give the new sound a NEW EVENT ID").
+     Last round measured generator at 60 Hz and power_on at 115-with-slide both under
+     1% of their real targets already, but sign_alive is synth:'instrument', a
+     borrowed sample voice, and bodyInstrument() rounds hz to the nearest SEMITONE of
+     a 220 Hz reference before pitch-shifting the sample -- proved by feeding two
+     different hz through two different jit ranges and getting the identical
+     123.273 Hz back both times. No semitone on that grid sits within 1% of 120 Hz.
+
+     THE FIX IS NOT A BETTER NUMBER, IT IS A DIFFERENT INSTRUMENT: every partial below
+     is its own oscillator built at the exact hz asked for, so there is no sample to
+     snap to a note. And rather than touch a frozen id, all three ship here as new
+     recipes under new ids, which sidesteps the frozen-verdict question entirely by
+     never writing to bohemia_sfx.js at all.
+
+     ONE HELPER, THREE REAL MACHINES, this lane's own school rule 2 (a live circuit
+     hums at 60 Hz or an integer multiple of it, a dead one does not hum at all): a
+     2-pole alternator at 3,600 RPM makes 60 Hz mains BY SHAFT SPEED, not by choice; a
+     transformer or a ballast's core pulls twice every mains cycle (magnetostriction),
+     so it hums at 120 Hz whether it is energising a city block or lighting a sign. */
+  function harmonicHum(ctx, opts) {
+    opts = opts || {};
+    var sr = ctx.sampleRate;
+    var secs = opts.secs == null ? 4.0 : opts.secs;
+    var hz = opts.hz;
+    var parts = opts.parts || [[1, 1.0]];
+    var riseSec = opts.riseSec || 0;
+    var riseFromHz = opts.riseFromHz || hz;
+    var strikes = opts.strikes || 0;        /* a sign catching before it holds steady */
+    var n = Math.round(sr * secs);
+    var buf = ctx.createBuffer(1, n, sr), d = buf.getChannelData(0);
+    var i, k, t, f, h;
+    for (i = 0; i < n; i++) {
+      t = i / sr;
+      if (riseSec > 0 && t < riseSec) {
+        f = riseFromHz + (hz - riseFromHz) * (t / riseSec);   /* the choir coming up under a rising line, not a switch clicking */
+      } else {
+        f = hz;
+      }
+      h = 0;
+      for (k = 0; k < parts.length; k++) h += Math.sin(2 * Math.PI * f * parts[k][0] * t) * parts[k][1];
+      d[i] = h;
+    }
+    /* THE STRIKES: a few uneven catches before the hum holds, each one the SAME hum
+       gated on and off. Not a separate noise layer, and not shoe-style invented tones:
+       the only sound source is the hum itself, switched. */
+    if (strikes > 0) {
+      var seed = 20260928, cursor = 0, env = new Float32Array(n);
+      for (k = 0; k < strikes && cursor < n * 0.6; k++) {
+        seed = (seed * 1103515245 + 12345) & 0x7fffffff;
+        var on = Math.round((0.02 + (seed / 0x7fffffff) * 0.05) * sr);
+        seed = (seed * 1103515245 + 12345) & 0x7fffffff;
+        var off = Math.round((0.02 + (seed / 0x7fffffff) * 0.10) * sr);
+        for (i = cursor; i < Math.min(n, cursor + on); i++) env[i] = 1;
+        cursor += on + off;
+      }
+      for (i = cursor; i < n; i++) env[i] = 1;   /* holds steady after the last catch */
+      for (i = 0; i < n; i++) d[i] *= env[i];
+    }
+    normalise(d, n, 0.9);
+    for (i = 0; i < n; i++) d[i] = Math.tanh(d[i] * 1.15) * 0.88;   /* saturation, not clipping (school rule 8) */
+    return {
+      buffer: buf, seconds: secs, hz: hz, riseSec: riseSec, riseFromHz: riseFromHz,
+      strikes: strikes, noiseSources: 0, synth: 'additive',
+      /* heard directly, the same as a footfall under your own boot (DIRECTION's bible
+         rule 8): a generator, a transformer or a sign is not an in-world speaker, so it
+         declares no machine and school rule 4's band question is not asked of it. */
+      machine: MACHINE.EAR,
+      why: opts.why || 'a live circuit built from oscillators, so its hum lands on the real target exactly'
+    };
+  }
+
+  function generatorHum(ctx, opts) {
+    opts = opts || {};
+    return harmonicHum(ctx, {
+      secs: opts.secs == null ? 4.0 : opts.secs,
+      hz: 60,
+      parts: [[1, 1.0], [2, 0.5], [3, 0.28], [5, 0.12]],
+      why: 'a 2-pole alternator at 3,600 RPM makes 60 Hz mains by shaft speed; a small engine\'s own harmonics ride on top of it'
+    });
+  }
+
+  function powerOnHum(ctx, opts) {
+    opts = opts || {};
+    return harmonicHum(ctx, {
+      secs: opts.secs == null ? 2.0 : opts.secs,
+      hz: 120,
+      parts: [[1, 1.0], [2, 0.35]],
+      riseSec: opts.riseSec == null ? 0.6 : opts.riseSec,
+      riseFromHz: 40,
+      why: 'a transformer energising a block: its core pulls twice a mains cycle, so it settles at 120 Hz, not a switch clicking'
+    });
+  }
+
+  function signAliveHum(ctx, opts) {
+    opts = opts || {};
+    return harmonicHum(ctx, {
+      secs: opts.secs == null ? 3.0 : opts.secs,
+      hz: 120,
+      parts: [[1, 1.0], [2, 0.30], [3, 0.10]],
+      strikes: opts.strikes == null ? 3 : opts.strikes,
+      why: 'a neon or fluorescent sign\'s own ballast, the same 120 Hz core pull as a transformer, catching unevenly before it holds'
+    });
+  }
+
   /* ==== 6. THE FIGHT'S CLOUD =====================================================
      A CLOUD CROSSING THE FIGHT, which COMBAT owns as a picture (rule 17, "the cloud
      passes across the turn as he ruled"). A cloud makes no sound, so the honest question
@@ -1900,6 +2007,10 @@
     theFlip: theFlip,
     walkCadence: walkCadence,
     roomHum: roomHum,
+    harmonicHum: harmonicHum,
+    generatorHum: generatorHum,
+    powerOnHum: powerOnHum,
+    signAliveHum: signAliveHum,
     ROOM: { sec: ROOM_SEC, hum: ROOM_HUM, lo: ROOM_LO, hi: ROOM_HI, seam: ROOM_SEAM,
             parts: ROOM_PARTS, humMix: ROOM_HUM_MIX, hissMix: ROOM_HISS_MIX,
             relShipped: ROOM_REL_SHIPPED,
@@ -1993,7 +2104,17 @@
         { id: 'sounds-the-deck-does-not-ring-9-28', make: 'theTapeDeck',
           title: 'THE DECK DOES NOT RING' },
         { id: 'sounds-the-flip-is-a-knock-not-a-chime-9-28', make: 'theTapeChange',
-          title: 'THE FLIP IS A KNOCK, NOT A CHIME' }
+          title: 'THE FLIP IS A KNOCK, NOT A CHIME' },
+        /* THREE HUMS OFF THE GRID (round six of [not sand], 9/28): generator, power_on
+           and sign_alive redone as new additive-sine recipes, never touching their
+           frozen ids in bohemia_sfx.js (verdict_frozen_gate.py). No jit here: a hum has
+           one honest pitch, not a range, so each plays its single measured target. */
+        { id: 'sounds-the-generator-is-sixty-hertz-9-28', make: 'generatorHum',
+          title: 'THE GENERATOR IS SIXTY HERTZ' },
+        { id: 'sounds-the-block-lights-at-one-twenty-9-28', make: 'powerOnHum',
+          title: 'THE BLOCK LIGHTS AT ONE TWENTY' },
+        { id: 'sounds-the-sign-catches-then-holds-9-28', make: 'signAliveHum',
+          title: 'THE SIGN CATCHES, THEN HOLDS' }
       ];
     }
   };
