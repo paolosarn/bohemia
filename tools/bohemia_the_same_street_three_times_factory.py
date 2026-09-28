@@ -124,7 +124,16 @@ def night(c, k=0.42):
     return tuple(max(0, min(255, int(v * k))) for v in c)
 
 
-def panel(P, act):
+# THE EIGHT THINGS A FAMILY PUTS UP ON THIS BLOCK, in the order they go up (9/28).
+# Named so a panel can be drawn from a LEDGER instead of from an act number: rule 37(c)
+# says the future goes both ways, so act 3 is no longer one picture, it is whatever the
+# century ledger says stood. The defaults below are exactly what acts 1-3 always drew, so
+# the picture he approved is byte-identical (checked with cmp the round this was split).
+ITEMS = ['patches', 'array1', 'topwin', 'farwin', 'swap', 'kerbs', 'array2', 'lamp2']
+ACT_ITEMS = {1: set(), 2: {'patches', 'array1', 'topwin', 'farwin'}, 3: set(ITEMS)}
+
+
+def panel(P, act, has=None, torn=()):
     """One act of the same block. ACT 1 is the approved picture, untouched. Every
     later act is this body PLUS whatever its own `if act >= n` blocks add, which is
     rule 32(b) written as control flow: there is no branch anywhere below that takes
@@ -139,6 +148,8 @@ def panel(P, act):
     GRAVEL = night(shade(P[11], 1.0))
     DEBRIS = night(shade(P[13], 1.0))
     COLD_DIM, COLD = (58, 66, 74), (206, 226, 240)   # panel-fed light, in every act
+    has = ACT_ITEMS[act] if has is None else set(has)
+    torn = set(torn)
 
     im = Image.new('RGB', (W, H), YARD)
     d = ImageDraw.Draw(im)
@@ -158,7 +169,7 @@ def panel(P, act):
     # is not the thing is how two parts of one world start to drift, and it put six
     # orange dashes in a frame that is supposed to have one bright thing in it.
 
-    if act >= 2:
+    if 'patches' in has:
         # RECLAIMED: THE ROAD IS PATCHED. Act two is act one PLUS, so the patches are
         # laid ON the same asphalt and the same kerbs -- nothing about act one is
         # removed, and a patch is lighter than what it covers, never darker.
@@ -166,7 +177,7 @@ def panel(P, act):
             d.rectangle([px, py, px + pw, py + ph], fill=night(shade(P[1], 1.34)))
             d.rectangle([px, py, px + pw, py], fill=night(shade(P[1], 1.52)))
 
-    if act >= 3:
+    if 'kerbs' in has:
         # ACT THREE: THE PATCHES JOINED UP. The road is resurfaced end to end, which
         # is the same asphalt one shade further along, and then the KERBS ARE REBUILT
         # -- a real kerb with a face and a top, and a walk behind it on both sides.
@@ -223,7 +234,7 @@ def panel(P, act):
         # blue. His own words for act two are "more techy and modern", and that is
         # what new light looks like next to an old bulb. So the untouched house is now
         # the WARM one in a street of cold light, and it reads instantly.
-        if act >= 2 and i != LIT:
+        if 'topwin' in has and i != LIT:
             for wx in (hx + 4, hx + 12):
                 for k in range(5):
                     t = 0.82 - k * 0.11
@@ -232,7 +243,7 @@ def panel(P, act):
                 d.rectangle([wx, 45, wx + 6, 45], fill=night(shade(P[2], 0.22)))
                 d.rectangle([wx, 50, wx + 6, 51], fill=night(shade(P[2], 1.20)))
 
-    if act >= 2:
+    if 'array1' in has:
         # ---- RECLAIMED: TECHIER AND MORE MODERN, IN HIS OWN WORDS ----------
         # "reclaims parts of cities for economic purposes, more techy and modern".
         # A panel array on the first roof and a battery cabinet beside it, drawn in
@@ -272,7 +283,7 @@ def panel(P, act):
         d.rectangle([hx + 18, 88, hx + 26, 95], fill=GARAGE)
         d.rectangle([hx + 20, 83, hx + 26, 88], fill=DRIVE)
         d.rectangle([hx + 1, 84, hx + 16, 88], fill=GRAVEL)
-        if act >= 2:                                    # lit now, and cold: panel-fed
+        if 'farwin' in has:                             # lit now, and cold: panel-fed
             for wx in (hx + 2, hx + 9):
                 for k in range(4):
                     t = 0.78 - k * 0.13
@@ -286,7 +297,7 @@ def panel(P, act):
                 d.rectangle([wx, 90, wx + 5, 90], fill=night(shade(P[2], 0.95)))
                 d.rectangle([wx, 94, wx + 5, 95], fill=night(shade(P[2], 0.22)))
 
-    if act >= 3:
+    if 'array2' in has:
         # ACT THREE: THE FAR SIDE GETS ITS OWN. One array and one cabinet was one
         # household's luck; a second one across the road is the street doing it, and
         # that is the difference between a survivor and a neighbourhood. The line
@@ -301,6 +312,7 @@ def panel(P, act):
         d.rectangle([bx - 7, 104, bx - 5, 105], fill=(190, 230, 190))
         d.line([(128, 82), (bx + 1, 100)], fill=night(shade(P[4], 1.9)))
 
+    if 'swap' in has:
         # AND THE DEAD LOT TURNS INTO SOMETHING THAT PAYS. The fourth yard is the one
         # with the drift in it in act 1 -- a lot nobody used. Batteries are the money
         # (9/4), so what a reclaimed street puts on its dead lot is a SWAP STAND: a
@@ -329,6 +341,39 @@ def panel(P, act):
         d.rectangle([sx + 9, 48, sx + 10, 52], fill=night(shade(P[4], 1.9)))  # its post
         d.rectangle([sx + 8, 47, sx + 11, 48], fill=COLD)                # and its head
 
+    # ---- WHAT A TORN-DOWN THING LEAVES (9/28, rule 37c: the future goes both ways) --
+    # Only for things the century ledger says were BUILT AND THEN DEMOLISHED. A thing that
+    # was never built draws nothing; a thing taken down leaves what taking it down leaves,
+    # because concrete does not vanish and a raider takes the panels, not the rack. The
+    # ORIGINAL houses are never touched here: razing the city that was already standing is
+    # UNREAD in the derive (WORLD names it), so drawing it would be faking a number the game
+    # cannot count. The cold windows a torn array fed simply go dark again -- the default.
+    def torn_array(x0, y0, cx0, cy0, pole, head):
+        d.rectangle([x0, y0, x0 + 24, y0 + 16], outline=night(shade(P[11], 0.95)))      # the rack
+        d.rectangle([x0 + 2, y0 + 1, x0 + 5, y0 + 7], fill=night(shade(P[16], 0.95)))   # one left,
+        d.rectangle([x0 + 14, y0 + 8, x0 + 17, y0 + 15], fill=night(shade(P[16], 0.80)))  # one cracked
+        d.line([(x0 + 14, y0 + 8), (x0 + 17, y0 + 15)], fill=night(shade(P[16], 1.40)))
+        d.rectangle([cx0, cy0, cx0 + 8, cy0 + 10], fill=night(shade(P[6], 0.80)))       # the cabinet
+        d.rectangle([cx0 + 1, cy0 + 2, cx0 + 7, cy0 + 9], fill=(16, 16, 18))            # door gone
+        d.line([pole, head], fill=night(shade(P[4], 1.5)))                               # line cut
+    if 'array1' in torn:
+        ax = homes[0]
+        torn_array(ax + 3, 18, ax + 30, 24, (40, 61), (43, 53))
+    if 'array2' in torn:
+        bx = far[2]
+        torn_array(bx + 1, 100, bx - 10, 100, (128, 82), (125, 90))
+    if 'swap' in torn:
+        sx = homes[3] + 1
+        d.rectangle([sx, 53, sx + 20, 59], fill=night(shade(P[11], 1.22)))    # the slab stays
+        d.ellipse([sx + 3, 53, sx + 17, 59], fill=night(shade(P[13], 0.55)))    # scorched
+        d.rectangle([sx + 15, 58, sx + 16, 59], fill=night(shade(P[16], 1.10)))  # a cell, dropped
+        d.rectangle([sx + 4, 55, sx + 5, 56], fill=night(shade(P[16], 1.10)))
+        for fx in range(sx, sx + 21, 10):                                   # half the fence
+            d.rectangle([fx, 58, fx, 59], fill=night(shade(P[4], 1.55)))
+        d.rectangle([sx + 9, 48, sx + 10, 52], fill=night(shade(P[4], 1.9)))  # the post, no head
+    if 'lamp2' in torn:
+        d.rectangle([127, 79, 129, 83], fill=night(shade(P[4], 1.2)))       # a stub, no head
+
     # ---- THE STREET LAMP, AND IT IS ORDINARY -------------------------------
     # Rule 4: the light has a fixture you can point at, and it lights the road it
     # stands over and nothing else. This is the peach dot he asked about, close up.
@@ -339,7 +384,7 @@ def panel(P, act):
     # ACT THREE DOUBLES IT: one working lamp on a block is what is left; two is what
     # somebody put back. The second one stands on the far kerb and throws the same
     # way, because one street has one light direction (BLDG-03).
-    lamps = [(40, 61)] + ([(128, 82)] if act >= 3 else [])
+    lamps = [(40, 61)] + ([(128, 82)] if 'lamp2' in has else [])
     for (lx, ly) in lamps:
         for rr, a in ((22, 0.05), (17, 0.09), (13, 0.15), (9, 0.24), (6, 0.34)):
             d.ellipse([lx - rr, ly + 3 - rr // 2, lx + rr, ly + 3 + rr // 2],

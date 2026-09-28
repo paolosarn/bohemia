@@ -2078,6 +2078,34 @@ AND THE LESSON THAT STILL BINDS: NO TEXT-ONLY ITEM IN VOTE, and now a second one
 beside it -- A PICTURE IN THE VOTE TAB THAT SHOWS A SENTENCE THE GAME NO LONGER
 SAYS IS A LIE TO HIM. Re-shoot the frames in the same round the words change.
 
+LIFE + CITY (city-1eztay): 9/28c LATEST -- *** THE STREET FALLS AND THE EMPTY HOUSE STAYS LIT.
+[three cities] UNPARKED AND DRAWN BOTH WAYS FROM THE REAL DERIVE; [honest grid] CLOSED BY HIS CORRECTION. ***
+TAB: the new picture is in the VOTE tab (alpha).
+Record: records/BOHEMIA_THE_STREET_FALLS_AND_THE_HOUSE_STAYS_LIT_9_28_26.md
+
+[honest grid] DONE 9/28. Paolo 9/28 'in combat a tile is as big as a house' (records/BOHEMIA_PAOLO_A_
+COMBAT_TILE_IS_A_HOUSE_I_READ_IT_BACKWARDS_9_28_26.md) retired the cell grid as a fight job. STAYS as
+city-generator honesty checks: EVERY CELL CLASS, FLOOR CONNECTS (18,645, ratchet only down). PULLED from
+his queue: my two unjudged items that framed sealed floor as fight ground (where-a-raid-is-fought,
+places-you-can-see-and-never-enter), one of which had become false. Pictures and records stay. The
+'six home bases are the next jobs' line in my last block is DEAD with it.
+
+[three cities] UNPARKED: both blockers measured gone. DYNASTY's engine/bohemia_acts.js (current/flip)
+and WORLD's SIGNED engine/bohemia_future.js (derive). The missing half was this lane's: DRAWING IT.
+He had ruled the better look already (UP on the-same-street-three-times, whose card said 'this is how
+the city screen draws the act you are in'); 37(c) added the worse direction.
+COOK lifecity-the-street-falls-and-the-house-stays-lit-9-28: act 1 + act 3 after WORLD's own three gate
+pasts (built 16 / built 10 / built 10 tore 6 -> standing 16 / 10 / 4), scaled onto the block's eight
+built things by ONE written anchor (building past = the approved act-3 street). Torn things leave
+remains. ORIGINAL HOUSES NEVER FALL: 'razed' is UNREAD in the derive and I did not fake it. The
+derive's reclaimed.lit is always 0, so THE EMPTY HOUSE STAYS LIT in every past; the factory REFUSES if
+that stops being true, or if the derive stops ranking raid < some < a lot. LABEL CORRECTED before ship:
+WORLD's gate calls its middle past 'doing nothing' but it built 10, so it is 'YOU BUILT SOME'.
+THE APPROVED PICTURE DID NOT MOVE: the street factory's built things were split into eight switchable
+items, cmp byte-identical after the split and again after the remains.
+NEXT: the same block read LIVE off BohemiaActs.current() + BohemiaFuture.derive() on the map, once the
+rule-18 hold lifts and DIRECTION's BB-density map lands (38a).
+
 LIFE + CITY (city-1eztay): 9/28b LATEST -- *** THE CHURCH HAD NO WAY INTO ITS OWN GARDEN, AND
 MY RULER WAS HELD WRONG. BOTH FIXED, EVERY NUMBER RE-MEASURED. ***
 TAB: the new picture is in the VOTE tab (alpha).
