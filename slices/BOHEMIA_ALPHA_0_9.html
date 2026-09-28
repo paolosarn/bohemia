@@ -4823,14 +4823,25 @@ function descendantSpec(actNum, ancestor){
   }
 
   /* AND THEN THE YEARS DO WHAT INHERITANCE ALONE DOES NOT: turn the hair grey,
-     independent of whose colour it started as. */
+     independent of whose colour it started as. TRY UNTIL GREY, NEVER UNTIL
+     TIRED: a candidate only lands if it actually reads grey; running out of
+     tries leaves the colour exactly where inheritance (or the descendant's
+     own roll) put it. THE BUG THIS REPLACES: the first cut committed EVERY
+     candidate on the way there, so a run that never found a grey draw within
+     its budget ended on the LAST FAILED candidate -- a random unrelated NPC's
+     colour, discovered by testing a vivid non-grey ancestor and watching the
+     inherited colour disappear into a shade neither the ancestor nor any
+     grey draw produced. */
   var tries = DESCENDANT_GREY_TRIES[actNum] || 0;
-  if (tries) {
-    for (var _g = 0; _g < tries && !isGreyHair(sp.hair.color); _g++) {
+  if (tries && !isGreyHair(sp.hair.color)) {
+    for (var _g = 0; _g < tries; _g++) {
       var _alt = (typeof NPC_FACTORY !== 'undefined') ? NPC_FACTORY.npcFrom(id + '#grey' + _g) : null;
       if (!_alt || !_alt.hairColor) break;
-      sp.hair.color = _alt.hairColor.slice();
-      sp.hair.roots = _alt.hairColor.map(function (c) { return c * 0.4 | 0; });
+      if (isGreyHair(_alt.hairColor)) {
+        sp.hair.color = _alt.hairColor.slice();
+        sp.hair.roots = _alt.hairColor.map(function (c) { return c * 0.4 | 0; });
+        break;
+      }
     }
   }
   return sp;
