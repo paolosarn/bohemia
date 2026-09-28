@@ -2319,10 +2319,10 @@
    "id": "lifecity-the-water-you-could-stand-on-9-27",
    "kind": "tile",
    "lane": "life+city",
-   "sha": "a012271e",
+   "sha": "b202b0e7",
    "made": "9/27",
    "title": "THE WATER YOU COULD STAND ON",
-   "why": "This is not a drawing, it is the dam pulled straight out of the game and coloured by one question: can you stand here. Green means you can walk on it. Grey is something solid. Top picture is what the game actually believed until this round: THE WHOLE RESERVOIR IS RED, and red means you could walk out onto it. A third of that block was water you could stand on, 5,329 squares of it, plus the creek at the fort. It happened because every square has a word saying what it is, one list decides what each word does, and the word water was not on the list. Anything not on the list quietly becomes floor. Bottom picture is the same block after the fix: the water is water again, and nothing else moved, the solid stuff is identical in both. The dry stuff stayed walkable too, so empty fountains and drained pools are still floor like they should be. Thumbs up and the blue is what deep water looks like on the map from now on. Thumbs down and tell me what water should do to you instead.",
+   "why": "This is not a drawing, it is the dam pulled straight out of the game and coloured by one question: can you stand here. Green means you can walk on it. Grey is something solid. Top picture is what the game actually believed: THE WHOLE RESERVOIR IS RED, and red means you could walk out onto it. Over a third of that block was water you could stand on, 5,832 squares of it, plus the creek at the fort. It happened because every square has a word saying what it is, one list decides what each word does, and the word water was not on the list. Anything not on the list quietly becomes floor. Bottom picture is the same block after the fix: the water is water again and nothing else moved. Empty fountains and drained pools are still floor like they should be. Thumbs up and the blue is what deep water looks like from now on. Thumbs down and tell me what water should do to you instead.",
    "show": {
     "how": "image",
     "src": "vote/LIFECITY_THE_SAME_STREET_THREE_TIMES_9_24.png"
@@ -2455,10 +2455,10 @@
    "id": "lifecity-places-you-can-see-and-never-enter-9-28",
    "kind": "tile",
    "lane": "life+city",
-   "sha": "57b10258",
+   "sha": "b202b0e7",
    "made": "9/28",
    "title": "PLACES YOU CAN SEE AND NEVER ENTER",
-   "why": "Six real spots pulled straight out of the game, every square coloured by one answer. Green, you can walk there. Grey, it is solid. Blue, water. RED means floor that is walled in with no way in at all: you can see it and you can never get there. Across the whole valley there were 25,544 red squares in 40 places. Most were not a missing door, they were something you step over that the game treated as a wall. Top row: a parking lot sealed off by its own curb, fixed, now green. Middle row: nine ponds where the dirt banks between them, the ones the road runs along, were walls, fixed, now green. Bottom row is what is still broken: a stadium field nobody can reach and a church courtyard with no way in. Those need real gates and they are next. From now on none of it can get worse without the checker naming the place. Thumbs up if red-means-you-cannot-get-there is the right thing to chase. Thumbs down and tell me which of these should stay locked on purpose.",
+   "why": "Six real spots pulled straight out of the game, every square coloured by one answer. Green, you can walk there. Grey, it is solid. Blue, water. RED means floor walled in with no way in at all: you can see it and never get there. Across the valley there were 25,055 red squares in 40 places. Top row: a parking lot sealed off by its own curb, fixed. Middle row: nine ponds where the dirt banks the road runs along were walls, fixed. Bottom row: the Church's home base, where the garden behind the church had a wall all the way round and no gate, even though the church's own notes say there is one. It has two gates now. Thumbs up if red-means-you-cannot-get-there is the right thing to chase. Thumbs down and tell me which of these should stay locked on purpose.",
    "show": {
     "how": "image",
     "src": "vote/LIFECITY_THE_SAME_STREET_THREE_TIMES_9_24.png"
@@ -2626,6 +2626,19 @@
         "how": "text",
         "src": "THE ANGEL'S VERBS ALREADY SHIPPED. THE FLOOR DID NOT.\n\nPEOPLE's make it right (9/7) already built settled, paid, forgiven, spared -- correctly grounded: amends raise forgiveness, severity lowers it, only the wronged person decides for themselves, forgiven is not forgotten.\n\nWHAT REAL RECONCILIATION STILL SPLITS THAT THE CODE DOES NOT:\n\n1. NO FLOOR. wouldSquare() is one sum, no exception. A heavier wrong needs more good deeds -- but it is never categorically different, only a bigger number. Real practice treats some harms as a different KIND, not a bigger number of the same kind.\n\n2. FORGIVE IS NOT TRUST. You can genuinely stop carrying a grudge and still never let someone back into a position to hurt you again. The code has one bit, d.right, for both.\n\n3. THE APOLOGY'S MIDDLE STEPS ARE MISSING. Real apologies run acknowledgment, explanation, remorse, reparation, a testable promise. The code has acknowledgment (the button) and reparation (priceOf). Explanation, remorse and a testable promise have no representation.\n\nWhich deed kinds should carry the floor is his call, not mine. What the mechanism is missing is the shape of the floor itself."
       }
+    },
+    {
+     "id": "lifecity-where-a-raid-is-fought-9-28",
+     "kind": "tile",
+     "lane": "life+city",
+     "sha": "b202b0e7",
+     "made": "9/28",
+     "title": "WHERE A RAID IS FOUGHT",
+     "why": "You said fourteen home bases you can raid. These are six of them, pulled straight out of the game, and RED is floor inside them that nobody can walk onto. If a fight happens here, part of the ground does not connect to the rest and nothing on the screen tells you. The Remnants' police station has two inner yards with no way in. The Volunteers' medical campus has a parking lot where every single stall is walled off. The Caravans' bus terminal has a doorway that opens onto nothing. The church was the worst one and I fixed it this round; these six are next, biggest first. Thumbs up and I fix these in this order. Thumbs down and tell me which of these places a raid should never happen in anyway.",
+     "show": {
+      "how": "image",
+      "src": "vote/LIFECITY_WHERE_A_RAID_IS_FOUGHT_9_28.png"
+     }
     }
   ],
   "verdicts": [
