@@ -12387,6 +12387,87 @@ ALSO STILL OPEN, not draw order: on NE in his own frame
 the right of the shoulders with a visible gap. That is the pose too.
 
 Nothing [PENDING Paolo].
+PEOPLE (people-7h9sfy): 9/27 (c) LATEST -- *** [origins] SHIPPED. THREE OF HIS
+FOUR ORIGINS WERE ALREADY WRITTEN INTO THIS GAME'S DATA A FORTNIGHT BEFORE HE
+SAID THE WORD. ***
+
+Rule 36c, Paolo 9/27: "origins at different difficulties." Law s3 splits it:
+"PEOPLE writes the origins (the people), TUNING the difficulties."
+
+THE SCHOOL, and its lesson is the sharpest thing in the subject: a Battle
+Brothers origin that players remember changes A RULE TRUE FOR THE WHOLE RUN (who
+you can ever hire, what work you can take, who will deal with you, a rule only
+you have), never just a poorer start. AN ORIGIN THAT ONLY CHANGES A NUMBER IS A
+DIFFICULTY SETTING. AN ORIGIN THAT CHANGES A RULE IS A DIFFERENT GAME.
+
+*** MEASURED BEFORE A LINE WAS WRITTEN. *** WAS_WORDS has carried 15 former
+trades since 9/6, and laid beside the four names he spoke:
+  THE CASINO FLOOR   is the table's entire `front` house -- dealer, valet, pit
+                     boss, floor man -- AND ALL FOUR CARRY keeps:null. Written
+                     9/6 for a different reason ("the trade died and the empty
+                     half has to be visible or the joke is not there") and it IS
+                     this origin's whole rule, sitting in the data, early.
+  THE LINEMAN'S CREW the machine half, every one keeping something that works
+  THE NURSE'S WARD   the people half, every one keeping something
+  THE EX-CONS        NOT IN THE TABLE AT ALL, because it is a list of JOBS and
+                     being inside is not a job. Their crew is drawn from what
+                     those men were BEFORE they went in, which is also the better
+                     story: a yard already mixes every trade in the valley.
+
+NO ORIGIN CARRIES A DIFFICULTY NUMBER: every row publishes difficulty:null and
+names TUNING, because the law says so and because the school says a number picked
+here would BE the design. The ladder is COUNTED: casino 0.00, excons 0.73 (marked
+isPool, never a starting crew of 15), lineman 1.00, ward 1.00. THE FIRST AXIS
+HONESTLY CANNOT SEPARATE TWO OF THE FOUR and that is admitted rather than padded,
+so the table's own `house` field ships as the second axis. PROVEN NOT ASSERTED:
+the gate hands the module a DOCTORED table where the dealer keeps something and
+the casino floor moves 0 of 4 to 1 of 4, so a private copy would have been caught.
+
+AND [the injured], rule 36b. *** NOBODY HAD EVER BEEN INJURED IN THIS GAME: the
+down book on the alpha held ZERO people, so the 9/11 promise has been true by
+accident, exactly the way that module's own header warns. *** Built the PERSON
+half the law gives this lane: a MARK THAT OUTLIVES THE INJURY (a scar, a limp,
+two fingers that do not close), TWO different sentences -- what a man says while
+still OUT is not about the injury, it is about being no use -- no number ever
+spoken aloud, and THEY ARE STILL YOURS WHILE DOWN with nothing written to make it
+true, because the company is computed and there is no list to remove them from.
+
+*** [PENDING Paolo] TWO OF HIS OWN LOCKED RULINGS COLLIDE AND I DID NOT PICK. ***
+  9/11 LOCKED: "I don't want anyone to permanently die, or even have permanent
+    debuffs."
+  9/27 rule 36b: 20% die, and a PERMANENT mark including "a stat that never
+    comes back".
+Built the half where both stay true, on a distinction he drew himself: A SCAR IS
+NOT A DEBUFF, A LIMP YOU CARRY IS NOT A STAT YOU LOST. Left to him and to TUNING:
+the death chance (a number, and the exact thing 9/11 forbids) and the lost stat (a
+permanent debuff in the plainest words). His 9/27 words were "your CHARACTER can
+die", which may have meant the player and not the roster; that reading leaves both
+rulings standing. ALSO NAMED: the injury lengths in the module are 9/11's own
+examples (7/90/365 days) and rule 36b says 30 to 40. Both are numbers, TUNING owns
+numbers, so this lane did not re-dial them.
+
+RULE 34 SUPERSEDED THE STEP IS A HOUSE, WHICH LAST ROUND'S WORK CITED, AND IT
+COSTS NOTHING: every number [bb company] shipped is DERIVED (the follow reach is
+ctOnePress()+ctSeeRange(), the body spacing is the drawn body over the cell, the
+join is measured in presses), so when RUN makes a step one cell they all follow on
+their own. That is gated, not hoped: the_company_is_a_cast_gate holds that
+ctOnePress reads the game's own step rather than a number somebody typed.
+
+Cook WHO YOU WERE, in VOTE, both frames the walked street from the game's camera,
+and they turned out to be THE SAME MAN TWICE: Trinh Nguyen saying what he can
+still do, then the same man on the same corner after he went down. Gate 49/0.
+Record records/BOHEMIA_WHO_YOU_WERE_9_27_26.txt. Derived slices rebuilt.
+
+AND ONE MORE GATE LEG BUILT THE HARD WAY: two cuts of "the injured talk about it"
+read zero on a build where they do, because a driven walk left nobody hurt in
+earshot. A third cut of the same shape would have been the fourth version of a
+thing that already failed, so it is a DIFFERENT KIND of test instead: stand next
+to an injured man and ask the mouth directly. Deterministic, on the real surface,
+and it can still fail.
+
+Nothing [PENDING Paolo] except the collision above, which is the only thing in
+this round that is his.
+
 PEOPLE (people-7h9sfy): 9/27 (b) LATEST -- *** I DELETED TWO OTHER LANES' WORK
 IN THE SHARED ALPHA AND CHARACTER FOUND IT, NOT ME. ROOT CAUSE FIXED AND THE
 MACHINE CHECK THEY ASKED FOR IS BUILT. ***

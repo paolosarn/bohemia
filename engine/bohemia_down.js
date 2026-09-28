@@ -131,7 +131,94 @@
     return w + ', ' + left + ' DAYS';
   }
 
-  var API = { HURT: HURT, KINDS: KINDS,
-              fall: fall, isDown: isDown, daysLeft: daysLeft, say: say };
+  /* ==========================================================================
+     *** THE PERSON, NOT THE READOUT. (9/27, [origins] / [the injured], rule
+     36b.) ***
+
+     PAOLO 9/27: "you're gonna die a lot and I love that feeling... maybe only a
+     20% chance your character can die, else a debilitating injury, 30 to 40
+     days." The law that became (s2) says the survivor "leaves a permanent mark
+     (a scar, a limp, a lost eye, a stat that never comes back)", and it splits
+     the work in one sentence: "TUNING owns the numbers; PEOPLE owns the person
+     (the injured stay in the company, cost their day, talk about it)."
+
+     *** AND THAT RULING COLLIDES HEAD-ON WITH THE ONE THIS MODULE WAS BUILT TO
+     KEEP, WHICH IS ALSO HIS AND ALSO LOCKED. *** Paolo 9/11: "I don't want
+     anyone to permanently die, or even have permanent debuffs." This file is
+     shaped so the bad state is UNREACHABLE and a gate proves it by trying.
+
+     WHAT IS BUILT HERE IS THE PART WHERE BOTH OF HIS RULINGS ARE TRUE AT ONCE,
+     AND IT IS NOT A COMPROMISE, IT IS THE DISTINCTION HE ALREADY DREW:
+         A SCAR IS NOT A DEBUFF. A LIMP YOU CARRY IS NOT A STAT YOU LOST.
+     A mark you can SEE and HEAR takes nothing away from you and stays for ever,
+     which is exactly the half of 9/27 that 9/11 does not forbid. So the mark is
+     built and it is permanent.
+     WHAT IS NOT BUILT IS "a stat that never comes back", because that is a
+     permanent debuff in the plainest words, it is the half 9/11 forbids, AND IT
+     IS A NUMBER, which the same law hands to TUNING. It is flagged rather than
+     quietly chosen: see the record, [PENDING Paolo].
+
+     NOTHING HERE CAN KILL ANYBODY EITHER, for the same reason as the rest of
+     this file. The 20% death branch is a NUMBER and belongs to TUNING, and this
+     module still has no way to express it. */
+  /* TWO SENTENCES EACH, AND THEY ARE DIFFERENT SENTENCES ON PURPOSE.
+     `down` is said while they are still out, and none of the three is about the
+     injury: what hurts a person who is out for a month is BEING NO USE, which is
+     the whole feeling his ruling is reaching for. `says` is what they say ever
+     after, carrying the mark, and it is lighter -- a man does not keep telling
+     you how bad it was, he tells you the shape his life took instead. */
+  var MARK = {
+    knocked: { mark: 'A SCAR ACROSS THE EYEBROW',                /* draft:true */
+               down: 'I am no good to you like this. Do not wait on me.',
+               says: 'It opened up. It closed up. Stop looking at it.' },
+    leg:     { mark: 'A LIMP THAT NEVER QUITE WENT',
+               down: 'Go. I will be here. I am not going anywhere, am I.',
+               says: 'I can still walk it. I just take the long way now.' },
+    hand:    { mark: 'TWO FINGERS THAT DO NOT CLOSE',
+               down: 'I cannot hold anything. Do not hand me anything.',
+               says: 'They set it wrong and there was nobody to argue with.' }
+  };
+
+  /* markOf(book, id) -- what somebody carries FOR EVER, after they are healed.
+     Asked of the record, so a person who was never hurt carries nothing and a
+     person who healed years ago still carries it. THE MARK OUTLIVES THE INJURY
+     AND THAT IS THE ENTIRE POINT: isDown goes false on its own, and this does
+     not. */
+  function markOf(book, id) {
+    var r = book && book[id];
+    if (!r || !MARK[r.kind]) return null;
+    return { kind: r.kind, mark: MARK[r.kind].mark, from: r.from, draft: true };
+  }
+
+  /* mouth(book, id, day) -- WHAT THEY SAY ABOUT IT, in their own voice.
+     say() above is a readout for a card and it stays; this is a person talking,
+     which is what rule 19 asks for ("text comes from a mouth with a portrait")
+     and what rule 36b asks for ("talk about it"). They say a different thing
+     while they are still down than they do years later, because those are
+     different sentences and a person who has healed does not report a countdown.
+     NO NUMBER IN EITHER ONE. A person does not say "forty-three days" out loud,
+     and the countdown already exists on the card for anybody who wants it. */
+  function mouth(book, id, day) {
+    var r = book && book[id];
+    if (!r || !MARK[r.kind]) return null;
+    if (isDown(book, id, day)) {
+      /* STILL DOWN. They are out of the fight and they know it, and the thing
+         that hurts is not the injury, it is being no use. */
+      return { text: MARK[r.kind].down, down: true, draft: true };
+    }
+    return { text: MARK[r.kind].says, down: false,
+             mark: MARK[r.kind].mark, draft: true };
+  }
+
+  /* *** AND THEY ARE STILL YOURS, WHICH IS A CLAIM ABOUT A LEDGER THIS MODULE
+     DOES NOT OWN AND SO IS NOT WRITTEN HERE. *** bohemia_company.js computes
+     membership from bonds and witnesses and keeps no list, so an injury cannot
+     remove anybody: there is nothing to remove them FROM. That is the promise
+     being kept by the shape of two modules rather than by a line either of them
+     runs, and the gate holds it by injuring one of yours and asking again. */
+
+  var API = { HURT: HURT, KINDS: KINDS, MARK: MARK,
+              fall: fall, isDown: isDown, daysLeft: daysLeft, say: say,
+              markOf: markOf, mouth: mouth };
   if (HASREQ) module.exports = API; else root.BohemiaDown = API;
 })(typeof globalThis !== 'undefined' ? globalThis : this);

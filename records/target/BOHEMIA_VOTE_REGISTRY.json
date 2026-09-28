@@ -2384,6 +2384,19 @@
         "how": "text",
         "src": "THE RULES ALL EIGHT PAGES AGREE ON\n\n1. The pay is said out loud before you say yes, and it never changes after.\n2. Saying no writes nothing. Nobody frowns, nobody brings it up, ever.\n3. Once you take a job, the only way out is in the world: tell the person to their face, or let their deadline pass. That is the only thing people remember.\n4. Most jobs have no twist. About one in four does.\n5. The place asks before the person does: an empty shelf, one dark window, a line at a dry pipe.\n6. The first minute of the game nobody talks. You still have something to find within six steps.\n7. Events on the road always have a cause you can see on the map, one per trip at most, and 'keep moving' is always free.\n8. The family story lives on the one main quest. The jobs you took come back at the end as the people who show up for you.\n\n48 designs: act 1 has 16, act 2 has 13, act 3 has 11, and 8 run across acts. 1,220 findings cited from 151 of the 152 quests you collected."
       }
+    },
+    {
+      "id": "people-who-you-were-9-27",
+      "kind": "tile",
+      "lane": "people",
+      "sha": "PENDINGSHA",
+      "made": "9/27",
+      "title": "WHO YOU WERE THE DAY THE MONEY DIED",
+      "why": "Your four origins. Three of them were already written into this game weeks ago and nobody noticed: the casino floor is the four trades that kept nothing when the city died, and that is why it is the hard one. I did not pick which is hardest, it is counted. Both pictures are the walked street from the game's own camera: the same man saying what he can still do, then saying it after he went down and could not. Is this the right four, and is the casino floor the one you would play?",
+      "show": {
+        "how": "page",
+        "src": "BOHEMIA_WHO_YOU_WERE_9_27_26.html"
+      }
     }
   ],
   "verdicts": [

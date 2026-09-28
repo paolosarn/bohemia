@@ -1,0 +1,210 @@
+BOHEMIA -- WHO YOU WERE THE DAY THE MONEY DIED (9/27/26, PEOPLE lane)
+VAMILY job [origins], rule 36c, and [the injured], rule 36b.
+laws/BOHEMIA_LAW_THE_FIGHT_GETS_DEEP_TUNING_AND_MODS_9_27_26.md sections 2 and 3.
+
+PAOLO 9/27: "origins at different difficulties." And: "you're gonna die a lot and
+I love that feeling... maybe only a 20% chance your character can die, else a
+debilitating injury, 30 to 40 days."
+
+The law splits the work in one sentence, twice: "PEOPLE writes the origins (the
+people), TUNING the difficulties" and "TUNING owns the numbers; PEOPLE owns the
+person (the injured stay in the company, cost their day, talk about it)".
+
+================================================================================
+PART ONE -- THE SCHOOL: WHAT A BATTLE BROTHERS ORIGIN CHANGES BEYOND THE START
+================================================================================
+An origin in that game is not a difficulty setting with a story painted on it.
+The ones players remember change A RULE THAT IS TRUE FOR THE WHOLE RUN:
+
+  WHO YOU CAN EVER HIRE   the Peasant Militia cannot take professionals, ever;
+                          the Cultists are closed to whole backgrounds. A
+                          permanent shape on your roster, not a poor start.
+  WHAT WORK YOU CAN TAKE  the Beast Hunters are paid differently for beasts and
+                          for men; the Manhunters lose contracts outright.
+  WHO WILL DEAL WITH YOU  the Northern Raiders begin at war with people other
+                          companies trade with.
+  A RULE ONLY YOU HAVE    the Cultists sacrifice their own and are paid in a way
+                          nobody else is; the Lone Wolf is ONE man, so the whole
+                          risk of the game is a different shape.
+
+*** AND THE LESSON IS THE SHARPEST THING IN THE SUBJECT ***
+    AN ORIGIN THAT ONLY CHANGES A NUMBER IS A DIFFICULTY SETTING.
+    AN ORIGIN THAT CHANGES A RULE IS A DIFFERENT GAME.
+The weak Battle Brothers origins hand you less money and the same game. The
+remembered ones take something away for ever and give you a way to live without
+it. A stated difficulty is the CONSEQUENCE of that rule, never the point of it.
+
+================================================================================
+*** MEASURED BEFORE A LINE WAS WRITTEN: THREE OF HIS FOUR ORIGINS WERE ALREADY
+WRITTEN INTO THIS GAME'S DATA A FORTNIGHT BEFORE HE SAID THE WORD ***
+================================================================================
+bohemia_people.js has carried WAS_WORDS since 9/6: fifteen former trades, each
+with what somebody WAS, what they still KEEP, and a line they say. Laid beside
+the four names he spoke, on the alpha, 61 of 61 people carrying one:
+
+  THE CASINO FLOOR   is the table's entire `front` house -- dealer, valet, pit
+                     boss, floor man -- AND ALL FOUR CARRY keeps:null. Somebody
+                     wrote that on 9/6 for a different reason ("the trade died
+                     and the empty half has to be visible or the joke is not
+                     there") and IT IS THIS ORIGIN'S WHOLE RULE, sitting in the
+                     data, a fortnight early.
+  THE LINEMAN'S CREW is the machine half -- high voltage, the boilers, the water
+                     plant, engines -- every one keeping something that works.
+  THE NURSE'S WARD   is the people half -- the ward, a kitchen that feeds a crowd
+                     off nothing, a laundry, a teacher.
+  THE EX-CONS        IS NOT IN THE TABLE AT ALL. Fifteen trades and not one
+                     convict, because the table is a list of JOBS and being
+                     inside is not a job. The only one of the four that needed a
+                     rule written rather than read, and its crew is drawn from
+                     whatever those men were BEFORE they went in -- which is the
+                     honest answer and the better story: a yard is the one place
+                     in the valley that already mixes every trade.
+
+================================================================================
+THE LADDER, COUNTED RATHER THAN LABELLED
+================================================================================
+  casino     crew 4        keeps 0 of 4     share 0.00   house: front 4
+  excons     a POOL of 15  keeps 11 of 15   share 0.73   house: back 6 front 4 off 5
+  lineman    crew 4        keeps 4 of 4     share 1.00   house: back 3 off 1
+  ward       crew 4        keeps 4 of 4     share 1.00   house: off 2 back 2
+
+NO ORIGIN CARRIES A DIFFICULTY NUMBER. Every row publishes difficulty:null and
+names TUNING as the one who sets it, because the law says so and because the
+school's lesson says a number picked here would BE the design.
+
+AND THE FIRST AXIS HONESTLY CANNOT SEPARATE TWO OF THE FOUR: the lineman's crew
+and the nurse's ward both read 1.00. That is not the measurement failing, it is
+the measurement saying those two are alike in HOW MUCH they kept and different in
+WHAT. The table already knows which, in its `house` field, so both numbers are
+published rather than one number padded until it separated things.
+
+AND THE EX-CONS' 15 IS MARKED isPool. Reading it as "you start with fifteen men"
+would be a number nobody ruled arriving by accident.
+
+THE CREW IS READ FROM THE TABLE, PROVEN NOT ASSERTED: the gate hands the module a
+DOCTORED table where the dealer keeps something, and the casino floor's score
+moves from 0 of 4 to 1 of 4. A module with its own copy would have sailed through
+every other check and been wrong the first time WORDS edits a line.
+
+================================================================================
+PART TWO -- THE INJURED, AND TWO OF HIS OWN LOCKED RULINGS COLLIDE
+================================================================================
+*** MEASURED: NOBODY HAS EVER BEEN INJURED IN THIS GAME. *** The down book on the
+alpha holds zero people. bohemia_down.js has been built and correct since 9/12
+and the only thing that may call it is COMBAT's downed body, which has not
+shipped. So the promise was kept exactly the way that module's own header warns
+about: true by accident, because there is nobody to hurt.
+
+*** AND THE TWO RULINGS ***
+  PAOLO 9/11, LOCKED: "I don't want anyone to permanently die, or even have
+    permanent debuffs. There could be debuffs that are a lot longer than others."
+  PAOLO 9/27, rule 36b: 20% they die; 80% live with an injury of 30 to 40 days
+    "and leaves a PERMANENT MARK (a scar, a limp, a lost eye, A STAT THAT NEVER
+    COMES BACK)".
+
+WHAT WAS BUILT IS THE PART WHERE BOTH ARE TRUE AT ONCE, and it is not a
+compromise, it is a distinction he already drew himself:
+        A SCAR IS NOT A DEBUFF. A LIMP YOU CARRY IS NOT A STAT YOU LOST.
+A mark you can SEE and HEAR takes nothing away from you and stays for ever, which
+is exactly the half of 9/27 that 9/11 does not forbid. So the mark is built and it
+is permanent, and it OUTLIVES THE INJURY by design: isDown goes false on its own,
+the mark does not.
+
+  knocked  A SCAR ACROSS THE EYEBROW
+  leg      A LIMP THAT NEVER QUITE WENT
+  hand     TWO FINGERS THAT DO NOT CLOSE
+
+AND THEY TALK ABOUT IT, with two different sentences on purpose. What a person
+says while still OUT is not about the injury at all -- it is about being no use,
+which is the feeling his ruling reaches for -- and what they say ever after is
+lighter, because a man does not keep telling you how bad it was.
+  down   "Go. I will be here. I am not going anywhere, am I."
+  after  "I can still walk it. I just take the long way now."
+NO NUMBER IN EITHER. A person does not say "forty-three days" out loud, and the
+countdown already exists on the card for anybody who wants it.
+
+AND THEY ARE STILL YOURS WHILE THEY ARE DOWN, and nothing was written to make it
+true: your company is COMPUTED from bonds and witnesses and keeps no list, so
+there is nothing an injury could remove them from. The gate proves it by injuring
+one of yours and asking again.
+
+================================================================================
+ON THE ALPHA, AFTER
+================================================================================
+  people ever injured, before        0
+  after, through the game's own door 1  (Trinh Nguyen, a leg)
+  the mark he carries                A LIMP THAT NEVER QUITE WENT
+  he says it                         once, never twice
+  still one of yours while down      yes
+  lines in his first minute          0
+  lines in the demo                  0
+  the street is not muted            the control, and it holds
+
+================================================================================
+THE COOK: WHO YOU WERE THE DAY THE MONEY DIED
+================================================================================
+slices/BOHEMIA_WHO_YOU_WERE_9_27_26.html, registered in VOTE. BOTH FRAMES ARE THE
+WALKED STREET FROM THE GAME'S OWN CAMERA (rule 32f), and they turned out to be
+THE SAME MAN TWICE, which is better than two men: Trinh Nguyen saying what he can
+still do, and then the same man on the same corner after he went down.
+
+================================================================================
+MEASURED AND NOT FIXED
+================================================================================
+*** [PENDING Paolo] TWO OF YOUR OWN LOCKED RULINGS DISAGREE AND I AM NOT PICKING
+FOR YOU. *** On 9/11 you said nobody dies and nothing is permanent. On 9/27 you
+said a 20% chance to die and a permanent mark including "a stat that never comes
+back". The scar half is built because a scar takes nothing from you. THE TWO
+HALVES I DID NOT BUILD, AND WHY:
+  - THE DEATH CHANCE. It is a NUMBER, so the law gives it to TUNING, and it is
+    also the exact thing 9/11 forbids. Nothing in this module can express it.
+  - A STAT THAT NEVER COMES BACK. That is a permanent debuff in the plainest
+    words. Also a number, also TUNING's.
+Your 9/27 words were "your CHARACTER can die", which may have meant the player
+and not the whole roster. That reading would leave both rulings standing. It is
+your call and it is the only thing in this round that is.
+
+THE INJURY LENGTHS ARE THE 9/11 LAW'S AND NOT RULE 36b'S: 7, 90 and 365 days,
+built from your own examples ("a leg that takes a season, a hand that takes a
+year"). Rule 36b says 30 to 40. Both are numbers and TUNING owns numbers, so the
+module was not re-dialled by this lane; it is named here so nobody thinks the
+disagreement went unnoticed.
+
+NOBODY IS CHARGED A BATTERY. "The injured cost their day" is a wage, the price of
+keeping somebody is ruled, and it is FACTIONS' row [take them on].
+
+THE DRAW STILL DOES NOT SPACE ROSTER BODIES FROM THE PLAYER, so in both cook
+frames the man speaking is drawn partly through him. Named last round with the
+mechanism and named again rather than cropped out of the picture; it is [no
+clumping]'s row and it is SHIPPED, and the last attempt at it cost FACE AT THE
+DOOR six checks.
+
+TAB: CITY, the walked street in the alpha. VOTE, for the two frames.
+
+================================================================================
+AND RULE 34 LANDED MID-ROUND, WHICH TURNED LAST ROUND'S CLAIM INTO A TEST
+================================================================================
+RUN shipped [two scales] while this was in flight: one press is now ONE CELL, and
+THE STEP IS A HOUSE is superseded. Last round's handoff CLAIMED every number
+[bb company] shipped would follow on its own, because all of them are derived and
+none was typed. MEASURED ON THE ALPHA AFTER THE CHANGE, WITH NO EDIT BY THIS LANE:
+
+  the game's own step        25  ->   1
+  one press                  25  ->   1     followed
+  the follow reach           34  ->  10     followed (one press plus sight)
+  "still there" for a join   25  ->   1     followed (it is written in presses)
+  a real measured press      25  ->   1     agrees with the constant
+
+  THE BODY SPACING           10  ->  10     DID NOT MOVE, AND THAT IS CORRECT.
+It reads the DRAWN body over the cell, and the walked street still draws the old
+112 px body: rule 34(e) puts [honest grid] and the tiny walker ahead of it, and
+CHARACTER's own [small body] commit says their one-cell sprite is not wired to the
+street yet. So a follower still holds ten cells off, which is right while a body
+is still ten cells wide, and it will follow by itself the moment the sprite
+shrinks. A derived number tracking the thing it describes is the whole point.
+
+NAMED, NOT FIXED: the follow reach (10) and the body spacing (10) are now equal,
+so a companion hovers exactly at the edge of the reach instead of walking beside
+him. That is a real consequence of two derivations meeting at the same number on
+this one build, it disappears when the sprite shrinks, and it is not worth a
+hand-tuned constant that would then be wrong for ever. Written down instead.
