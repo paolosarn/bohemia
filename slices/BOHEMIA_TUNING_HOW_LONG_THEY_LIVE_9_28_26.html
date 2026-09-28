@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>How Long They Live</title>
+<!-- TUNING 9/28 [lifespans], draft:true. A toy, never in the game.
+     Yearly risk = A + 6e-5 * e^(0.085*age) * stress * 1.08^marks (Gompertz-Makeham).
+     Record: records/BOHEMIA_TUNING_LIFESPANS_HOW_OLD_PEOPLE_LIVE_IS_A_ROLL_9_28_26.md -->
+<style>
+:root{--bg:#0d0b09;--ink:#d8cdb4;--dim:#7d715c;--hot:#e8593a;--ok:#8fe89a;--amb:#e8a04a;--line:#2a241c}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.4 ui-monospace,Menlo,monospace;padding:16px}
+h1{font-size:18px;letter-spacing:2px;margin:0 0 4px}p{color:var(--dim);margin:4px 0 12px}
+button{background:#1a1510;color:var(--ink);border:1px solid var(--line);padding:10px 12px;font:inherit;margin:2px}
+button.on{border-color:var(--amb);color:var(--amb)}
+.bar{position:relative;height:18px;margin:5px 0;background:#15110d}
+.fill{position:absolute;left:0;top:0;bottom:0;background:#3a3226}
+.om{position:absolute;top:0;bottom:0;background:var(--amb);opacity:.55}
+.lab{position:absolute;right:4px;top:0;font-size:12px}
+input[type=range]{width:100%}
+</style></head><body>
+<h1>HOW LONG THEY LIVE</h1>
+<p>Twelve adults, each rolled fresh. Grey is their life. Orange is when the body starts to show it. Pick the times, add scars, roll again.</p>
+<div id="times"></div>
+<div>SCARS EACH <b id="mv">0</b><input id="m" type="range" min="0" max="4" value="0"></div>
+<button id="r">ROLL AGAIN</button>
+<div id="out"></div>
+<p id="sum"></p>
+<script>
+var T={CRASH:[0.005,1.8],HARD:[0.002,1.3],GOOD:[0.0005,1]},cur='CRASH';
+function roll(){var A=T[cur][0],s=T[cur][1]*Math.pow(1.08,+m.value),a=18,om=0;
+ while(a<110){var h=A+6e-5*Math.exp(0.085*a)*s;if(!om&&h>0.03)om=a;if(Math.random()<1-Math.exp(-h))break;a++;}
+ return [a,om];}
+function draw(){mv.textContent=m.value;var s='',ds=[];
+ for(var i=0;i<12;i++){var r=roll();ds.push(r[0]);
+  s+='<div class="bar"><div class="fill" style="width:'+(r[0]/110*100)+'%"></div>'+(r[1]&&r[1]<r[0]?'<div class="om" style="left:'+(r[1]/110*100)+'%;width:'+((r[0]-r[1])/110*100)+'%"></div>':'')+'<span class="lab">'+r[0]+'</span></div>';}
+ out.innerHTML=s;ds.sort(function(a,b){return a-b});
+ sum.textContent='Middle of the twelve: '+Math.round((ds[5]+ds[6])/2)+'. Youngest '+ds[0]+', oldest '+ds[11]+'.';}
+var th='';for(var k in T)th+='<button data-k="'+k+'">'+k+'</button>';times.innerHTML=th;
+function mark(){[].forEach.call(times.children,function(b){b.className=b.dataset.k===cur?'on':''});}
+times.onclick=function(e){if(e.target.dataset.k){cur=e.target.dataset.k;mark();draw();}};
+m.oninput=draw;r.onclick=draw;mark();draw();
+</script></body></html>

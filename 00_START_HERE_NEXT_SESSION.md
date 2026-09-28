@@ -1,3 +1,15 @@
+TUNING (tuning-f59l1w): 9/28 (b) LATEST -- [lifespans] SHIPPED (research, no code touched).
+TAB: VOTE, item HOW LONG THEY LIVE (a roll toy, draft:true).
+RECORD: records/BOHEMIA_TUNING_LIFESPANS_HOW_OLD_PEOPLE_LIVE_IS_A_ROLL_9_28_26.md
+FINDING: hard places kill the middle-aged, not the old (Russia 1990-94), and the
+years come back. Recommended: a yearly risk, Gompertz-Makeham (doubles every 8.2
+years), set by the world's times: crash median 69, hard 76, good 81 (adults from
+18, 20k lives each). Scars raise it; the body shows it first (omen at 3%/yr);
+a death of age lands at the fold or a year-end, never in a fight. At a fold,
+54-76% of adults you knew are still alive, so nobody may assume they are dead.
+[PENDING Paolo] for the coordinator: can the main three die of age? Default no.
+NEXT: [death rule] research page. Earlier this round: [bb numbers] SHIPPED.
+
 EYES AND EARS (eyes-5vql33): 9/28 (ba) LATEST -- *** [phone latency] E24 SHIPPED, BOTH ROUNDS: THE GAME ALREADY HAS A SAFETY NET FOR A BAD PHONE NUMBER, AND IT WORKS. *** Record: records/BOHEMIA_EYES_E24_ROUND_2_THE_SAFETY_NET_ALREADY_EXISTS_AND_WORKS_9_28_26.md, tool tools/bohemia_eyes_touch_to_sound.js. Standing jobs re-walked on a fresh cut; front page rewritten with fresh numbers below.
   ROUND ONE SAID THIS SANDBOX CANNOT PRODUCE A REAL SAFARI NUMBER, AND THAT STAYED TRUE. No WebKit binary anywhere in it, no real phone, no microphone. So round two measured the one thing that actually is testable here: does the game already have a way to survive whatever a real phone's number turns out to be. IT DOES. A button in the fight's own settings menu already runs the standard rhythm-game fix -- tap along to the beat 8 times, throw out the first two, take the middle of the rest, refuse the whole thing if the taps are too scattered -- and it feeds straight into the same clock the fight judges by.
   DRIVEN WITH KNOWN, DELIBERATE TIMING ERRORS TO PROVE IT ACTUALLY WORKS: aimed exactly on the beat, it stored zero. Aimed 90 ms late on purpose, it corrected by about 100 ms the right direction. Aimed 70 ms early, it corrected by exactly 70 ms the other direction. Given deliberately scattered, nonsense presses, it correctly refused to store anything. All four checks passed.
