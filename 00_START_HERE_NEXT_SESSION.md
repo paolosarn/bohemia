@@ -3899,6 +3899,101 @@ NEXT: [cook panels] is the standing rule-22 row and is OPEN again; items 2, 3 an
 (the fight HUD, the talk panel, the vote tab's own frame) are drawn as sheets but not built
 as skins. [three d ui] still has no gate of its own. [vote plays sound] is still open and
 SOUNDS has items waiting that he cannot hear in the tab. [no slop] stays CLAIMED.
+SOUNDS (sound-xk7pjp): 9/28 LATEST -- *** THREE REAL-MATERIAL SOUNDS HE VOTED DOWN, FIXED AT THE
+ROOT. AND A SECOND MISTAKE THIS SAME ROUND, CAUGHT BEFORE IT REACHED MAIN. *** Row [not sand], round
+five, ROW STAYS CLAIMED.
+Record: records/BOHEMIA_THREE_REAL_MATERIAL_SOUNDS_FIXED_AND_A_MISTAKE_CAUGHT_9_28_26.md
+Gates: COOKED SOUNDS 134/0, --mutate bites 37. FOOTSTEP GATE 24/0. VERDICT-FROZEN 6/0. SFX RENDER
+GATE clean (8381). Build stamp UNCHANGED this round (no alpha/demo play surface touched).
+
+HIS VOTES ON ROUND FOUR'S COOKS, READ BEFORE ANYTHING ELSE PER STANDING PRACTICE: three DOWN, all
+with useful words. "Reverb of a glass jar" on the footstep. No note on the deck. "I hated all these
+noiseS" on the flip. His bugs beat the queue (rule 8), so this came before the NEXT list.
+
+ITEM 1, THE FOOTSTEP. Measured the shipped function instead of guessing: the "shoe" layer (three
+pure sine tones, 1800/3100/4700 Hz, an 8 ms decay, already flagged as a guess in its own comment
+two rounds ago) carried 33.9% of the loudest window's total energy, 1800 Hz alone at 25%. THREE
+ISOLATED INHARMONIC PURE TONES RINGING TOGETHER IS THE TEXTBOOK GLASS/BELL TIMBRE. Deleted outright
+rather than replaced: the contact click and the grit are already broadband by construction and
+carry the brightness on their own. Flatness 0.0081 -> 0.0858, peak bin moved from the 1800 Hz guess
+to the slab's own 226 Hz mode.
+
+ITEM 2, THE DECK AND THE FLIP, WHICH SHARE ONE SHELL. Measured: flatness 0.0000 (a near-pure tone),
+493 Hz alone carrying 55.8% of the loudest window, at SHELL.loss=0.02 -- the bare polystyrene's own
+figure, and this shell is not free, it is held in a hand and seated against a mechanism. RAISED TO
+0.22, the exact same reasoning as the footstep's own slab-on-grade correction (a mounted object is
+not a free plate), reused rather than re-argued. Fundamental now rings 2.9 ms, in the footstep's own
+ground-mode range (0.4 to 3.5 ms); 493 Hz's share fell to 15.9%, close to the footstep's own
+peak-bin share (11.9%) on a fix he has not objected to.
+
+BOTH REGISTERED AS REDOS, NEW IDS PER RULE 15B, NEITHER PAGE NEEDED A LINE CHANGED (both read the
+shipped recipe live): sounds-a-footstep-that-is-not-glass-9-28, sounds-the-deck-does-not-ring-9-28,
+sounds-the-flip-is-a-knock-not-a-chime-9-28. Verified on the glass: 3/3 and 10/10 buttons play, 0
+errors. A SECOND DOWN ON ANY ONE OF THESE THREE ENDS IT FOR THE SESSION (STOP PRODUCING); this is
+the first redo of each, so no third attempt is legal if it goes down again.
+
+*** ITEM 3, THE THREE HUMS (last round's NEXT item 1), BUILT, MEASURED CLEAN, ALMOST SHIPPED WRONG,
+AND CAUGHT. *** generator -> 60 Hz (a 2-pole alternator at 3,600 RPM makes 60 Hz BY the shaft speed,
+not by choice), measured 60.5, under 1%. power_on -> 115 Hz with its rising slide kept (the "not a
+switch clicking" intent), measured 119.6, 0.3% off 120 (a transformer/ballast on the public grid).
+sign_alive EXPOSED A REAL FLOOR, NOT A MISSED NUMBER: it is synth:'instrument', a borrowed sample
+voice, and bodyInstrument() rounds hz to the nearest SEMITONE of a 220 Hz reference before
+pitch-shifting the sample -- proved by feeding two different static hz values through two
+different jit ranges and getting the IDENTICAL 123.273 Hz back both times. The nearest semitone to
+120 Hz on that grid is 123.47 (2.89% away); the next one down is 116.54 (2.88% the other side).
+THERE IS NO SEMITONE WITHIN 1% OF 120 AT ALL on this reference; a sample voice snapped to it has a
+floor no jit range crosses.
+
+THEN I RAN sfx_render_gate.py --record AND ALMOST SHIPPED A RE-BLESSED JUDGED SOUND. All three hums
+are approved (__SFX_APPROVED: generator [0,1,2,3], power_on [0,4], sign_alive [4]).
+verdict_frozen_gate.py (8/16, written after 30 of his thumbs were silently reassigned to a
+different sound under the same id, "I didn't see the new sound effect") is explicit: "the fix for
+a red is never to re-bless the file: it is to give the new sound a NEW EVENT ID." I ran the WRONG
+gate's escape valve first (sfx_render_gate.py's own --record flag is real, but it answers a
+DIFFERENT question: did an engine refactor accidentally change a sound nobody meant to touch, not
+did a sound he already thumbed change what it sounds like) and only found the frozen-verdict gate
+after, which failed on all nine judged candidates.
+
+CAUGHT BEFORE IT REACHED MAIN: reverted the fingerprint re-record (git checkout --) and the three
+recipe blocks to their exact pre-round text from the parent commit; the diff against that commit
+is now a pure subtraction, nothing else touched. Re-ran both gates: verdict-frozen 6/0 (was 1
+FAILED on 9 ids), sfx render gate 0 failed of 8381 (was 18 FAILED). Rebaked the alpha's inlined copy
+to match (tools/bohemia_sfx_factory.py).
+
+THE CORRECT FIX, NAMED FOR NEXT ROUND RATHER THAN RUSHED: either three new event ids in
+bohemia_sfx.js (miss->miss_past is the engine's own precedent for exactly this), or -- likelier the
+right call, since the VOTE tab is now the one authoritative judge surface and the MUSIC-tab SFX
+sheet predates that consolidation -- three small hum recipes in bohemia_horror_sounds.js reusing
+this round's own modal-synthesis machinery (plateModes, the ROOM_HUM/ROOM_PARTS reuse this same
+lane already used for the broadcast's carrier), which sidesteps the frozen-id question entirely by
+never touching the old system. Do NOT edit generator/power_on/sign_alive in bohemia_sfx.js again
+without a new event id.
+
+IF YOU EVER FIND A RECIPE THAT NEEDS A PITCH OR TIMBRE CORRECTION AND __SFX_APPROVED HAS A
+NONEMPTY LIST FOR ITS EVENT NAME: run verdict_frozen_gate.py BEFORE touching anything, not after.
+sfx_render_gate.py's --record flag will happily let you re-bless a judged sound; it is not the
+gate that governs this question.
+
+NEXT, IN ORDER:
+ 1. THE THREE HUMS, DONE RIGHT: new event ids (bohemia_sfx.js) or new recipes
+    (bohemia_horror_sounds.js, reusing plateModes/ROOM_HUM). The correct pitches are already
+    solved (60, ~115 static for 120 measured, and accept ~2.9% as sign_alive's floor unless it
+    moves off the sample-instrument path).
+ 2. THE 21 HARD-CONTACT REDOS from the keep/redo list, footsteps first, on the model that landed.
+ 3. ATTRIBUTE THE 19 NODES ON THE MAP, with a probe that cannot throw.
+ 4. THE FIRST SOUND GATE'S FLAKE, one red in five, on the claim that reads the audio context's
+    state before the tap. Named five rounds running now. It is the claim, not the game.
+ 5. [beds play] is still HELD. Then [enemy heard], [fight music], [quiet floor], [rumour heard],
+    [pump hum].
+ 6. TWO MUSIC HOLES, STILL MINE: a room handing music back does not check whether a fight owns it,
+    and the shell obeys the city's music message with no fight guard.
+ 7. RULE 33j (9/27): read reference/library/battle_brothers/README.md for this department, cite
+    it, fix a wrong number there with a source. STILL NOT DONE.
+ 8. RULE 34/36, TWO SCALES AND THE THIRD VOTES (Paolo 9/27-9/28): the walked surface is now
+    crossed on the map only, with the close grid reserved for the fight and special places.
+    WHEN THAT GRID/MAP WORK LANDS, RECHECK the footstep model against real cell sizes and
+    whether "one house" as a struck-hour unit still means the same thing.
+
 SOUNDS (sound-xk7pjp): 9/27 (b) LATEST -- *** THE CLICK AT THE END OF AN APPROVED SOUND, AND THE
 BROADCAST BACK FROM THE GRAVEYARD QUEUE, REBUILT FROM REAL MATERIAL. *** Row [not sand], round
 four, ROW STAYS CLAIMED.
