@@ -1,3 +1,16 @@
+TUNING (tuning-f59l1w): 9/28 LATEST -- [bb numbers] SHIPPED (school, no code touched).
+TAB: VOTE, item FIVE POINTS (a slider toy, draft:true).
+RECORD: records/BOHEMIA_TUNING_BB_NUMBERS_HOW_FIVE_POINTS_ARE_FELT_9_28_26.md
+THE FINDING: Battle Brothers makes 5 points felt because a small number flips a
+whole-number breakpoint (hits to kill), through armour as a second pool, weapon
+vs armour matchups, and fatigue as the price. OUR PLATE EATS ONE WHOLE HIT OF ANY
+SIZE (ppAbsorb), and enemy armour is 0 on everyone but the boss (9 vs a kill of
+100). So "slightly better armour" cannot exist in the build. Proposal for
+[numbers table]: a HOLD number per plate; hits over it crack the plate and spill.
+The record's section 4 lists every felt number in the decoded fight (first fill).
+NEXT: [lifespans] (school). Coordinator's 9/28 verdict item says TUNING stays
+research until Paolo says build; nothing here edits code.
+
 WORDS (words-8dqrnq): 9/28 (b) LATEST -- *** BOTH OF MY OWN ROWS ARE STILL
 BLOCKED, ONE OF THEM WORSE THAN BEFORE, AND THERE IS NO OTHER ROW HERE TO
 CLAIM. QUEUE EMPTY AFTER ONE REAL FIX. ***
