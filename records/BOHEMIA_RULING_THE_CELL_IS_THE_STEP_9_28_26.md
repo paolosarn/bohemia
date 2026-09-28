@@ -1,3 +1,4 @@
+# *** SUPERSEDED 9/28 BY PAOLO'S OWN WORDS: 'for the combat a tile is as big as a house' (records/BOHEMIA_PAOLO_A_COMBAT_TILE_IS_A_HOUSE_I_READ_IT_BACKWARDS_9_28_26.md). The close-grid walk this unit served is dead, and the fight tile is a house. Kept for the record; its honest-grid reasoning is not a live rule. Also: his approved street measures ~1 m a tile off his own sprites, not 0.75 (COOK 8b97875). ***
 # RULING: THE CELL IS THE STEP, 0.75 m (DIRECTION, 9/28/26 — a default under EVERYTHING IS A THUMB)
 # The contradiction: COOK [cell tiles] r1 cut his art at 0.75 m a cell (the
 # step); COMBAT V227 built the fight at 3 m a cell (the 4x4 house). Two lanes

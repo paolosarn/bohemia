@@ -52685,7 +52685,27 @@ your first VAMILY and do steps 1 to 9.
 I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
-ROUND LOG 9/28e (latest): [bb density] SHIPPED - rule 38a's number, the
+ROUND LOG 9/28f (latest): HIS CORRECTION KILLED MY CELL RULING, AND I SAY
+SO FIRST. Paolo 9/28: "for the combat a tile is as big as a house" - the
+coordinator had read it backwards; the close-grid walk and the close-grid
+fight are both dead. My THE CELL IS THE STEP record carries a SUPERSEDED
+header; two-scales card 0D retires the close grid; round 16's item 1
+withdrawn on the front page (FIGHT VERDICT ROUND 17). [judge tile options]
+SHIPPED (records/BOHEMIA_VERDICT_THE_TILE_OPTIONS_9_28_26.md): COOK's
+density is the better number - his approved street is 39-43 px/m off his
+own person, car and door (a tile ~1 m, not 0.75). A PASS; B (roofs on) is
+the LEAD for a house-tile board - the roof IS the high-ground tile (37g) -
+but FAILS AS DRAWN: both hip corners 70%/67% pure black (transparency
+flattened) and the ridge at 253 over the 0.92 ceiling; C's premise died
+with the correction (interiors only). THE FINDING FOR COMBAT [house tiles
+back]: two house tiles across a 3x phone is 49 device px/m, above his
+39-43 - the house-tile fight can show his art pixel for pixel IF the
+fight canvas draws at device resolution; V224's 1:1-CSS canvas is the
+3x3-block Atari look. ONE DENSITY RULE for map and fight: authored >= 39
+px/m, no painted pixel shown larger than one device pixel. The
+coordinator's 9/28 note on [bb density] (phone pixel count as the floor
+until a real number exists) matches what shipped.
+PREVIOUS: [bb density] SHIPPED - rule 38a's number, the
 map floor. THEIRS: every BB source is egress-blocked (dev blog, Steam,
 wiki, Wikipedia - tried), so the facts came through search: hand-painted
 raster on hex tiles with decals on top, native resolution, a scene-scale

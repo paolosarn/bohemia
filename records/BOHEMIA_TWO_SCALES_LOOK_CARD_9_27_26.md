@@ -40,6 +40,18 @@ distance. Section 0's defaults (house 4x4, car 2x1) are dead at this scale.
   both axes. Ours today: 3.8 x 3.5, about 7.5% of the floor. Every map cook
   is judged against it.
 
+## 0D. AMENDED 9/28 BY HIS CORRECTION: A COMBAT TILE IS A HOUSE (newest wins over 0B/0C)
+"In combat the boards and the tiles are as big as parts of the city, a house is
+one tile... we're getting rid of walking the city tile by tile." THE CLOSE GRID
+IS RETIRED: the city walk is dead, and the fight is on HOUSE TILES. 0B (the
+0.75 m cell) is dead with it. What survives of this card: the bible across two
+sizes, now the MAP and the HOUSE-TILE FIGHT; the map floor (0C); and ONE
+DENSITY RULE for both (records/BOHEMIA_VERDICT_THE_TILE_OPTIONS_9_28_26.md):
+art authored at >= his street's 39 px/m (measured off his own sprites), shown
+with no painted pixel larger than one device pixel - two house tiles across a
+3x phone is 49 device px/m, so his art shows pixel for pixel at house scale
+when the canvas draws at device resolution.
+
 ## 1. WHAT CARRIES ACROSS BOTH SCALES, UNTOUCHED
 - The register: hue 18–47 at ground level; the aerial card's polarity
   (ground brightest, roads darkest, roofs warm between) at every zoom.
@@ -113,6 +125,7 @@ punctuation, and it needs no flash to announce itself.
 
 ```json
 {"card":"TWO_SCALES_LOOK","date":"9/27/26","law":"rule 34",
+ "amended_0D":{"date":"9/28","close_grid":"retired - walk dead, fight tile is a house","cell_0_75":"dead","density_rule":{"authored_min_px_per_m":39,"shown_max_device_px_per_painted_px":1}},
  "cell":"0.75 m = one step (9/28 ruling); real-size houses/cars/streets; close view ~9 m",
  "amended_9_28":{"dead":["32px cell","28px one-cell sprite","sprite floor spec at 28px"],"cell_pixels":"his [tile options] pick","close_grid":"fight + the Strip only (38b)","map_floor":{"painted_per_screen_px":1,"min_per_screen":2073600,"mean_flat_run_max_px":1.5,"ours_9_24":[3.8,3.5]}},
  "carries":["hue 18-47 register","aerial polarity","R4 fixtures","R8 lens","R10 bake","purple","territory rims","eras floor","newgrounds cut"],
