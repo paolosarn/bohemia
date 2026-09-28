@@ -129,6 +129,14 @@ ok('A4 the cut demo loads the walked city, which is where this code lives',
     const target = framed
       ? (page.frames().filter(f => /BOHEMIA_CITY_WORLD/.test(f.url()))[0] || null)
       : page;
+    /* 9/28 (RUN, rule 38c): THE DEMO OPENS ON THE MAP NOW, where no body is drawn. What is
+       measured here is people on the street, so the setup steps onto the street the way a
+       spread does; where the demo meets people from here is RUN [settlement screen]. */
+    if (framed && target) {
+      await target.evaluate(() => { try { if (typeof MODE !== 'undefined' && MODE === 'city') {
+        SEAM_INTENT = 'look'; swapMode(); render(); } } catch (e) {} });
+      await page.waitForTimeout(2500);
+    }
     return { ctx, page, target, errs };
   }
 
