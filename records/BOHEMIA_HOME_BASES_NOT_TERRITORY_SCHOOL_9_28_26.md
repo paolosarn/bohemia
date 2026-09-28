@@ -1,4 +1,10 @@
 # FOURTEEN PARTS OF VEGAS YOU CAN RAID — SCHOOL ROUND
+
+> **CORRECTED 9/28, ROUND TWO, BY THIS LANE.** The finding below says 28 parties "already exceed his bar".
+> That compared our number to his guess, not to Battle Brothers, and BB publishes no fixed count of parties at once.
+> The real gap is that ours are a fixed roster nothing buys, loses or replaces, so a base that falls would keep
+> sending them. Read records/BOHEMIA_HOME_BASES_ROUND_TWO_THE_MARKER_LIST_9_28_26.md section 1 before citing this page.
+
 FACTIONS lane, VAMILY row `[home bases]`, MODE: SCHOOL. 9/28/26.
 Implements nothing. Research only, per Paolo's third votes item 5:
 "TERRITORY IS NOT A MECHANIC; HOME BASES AND ROAMING PARTIES ARE."

@@ -2303,19 +2303,6 @@
    }
   },
   {
-   "id": "factions-two-ladders-neither-reads-ground-9-27",
-   "kind": "tile",
-   "lane": "factions",
-   "sha": "3246ede6",
-   "made": "9/27",
-   "title": "TWO LADDERS, NEITHER READS GROUND",
-   "why": "This valley already tracks two separate numbers for how much a crew trusts you: a favour count, and a rank (TERRITORY up to MANDATE up to MAYOR) that decides where you can even build. Both are real and already on a card you can open. I checked every place either number moves. Both only move because a QUEST resolved. Holding a crew's fortress, losing it, paying their rent on time or missing it: none of that touches either ladder, in either direction. And you just ruled the quest chat ships no more game code, ever, only research, which means both ladders now have exactly one door and it is closing. This lane's own ledger already knows every block that changes hands and has never been asked a single question by either one. Thumbs up and I wire territory into standing. Thumbs down and they stay two separate systems.",
-   "show": {
-    "how": "page",
-    "src": "vote/FACTIONS_TWO_LADDERS_NEITHER_READS_GROUND_9_27.html"
-   }
-  },
-  {
    "id": "lifecity-the-water-you-could-stand-on-9-27",
    "kind": "tile",
    "lane": "life+city",
@@ -2773,16 +2760,6 @@
     "said": "I don't wanna treat a whole new character"
   },
   {
-   "id": "factions-home-bases-not-territory-school-9-28",
-   "kind": "verdict",
-   "lane": "factions",
-   "title": "THE OLD TERRITORY MAP IS BURIED. HOME BASES AND ROAMING CREWS REPLACE IT.",
-   "text": "You killed the painted territory map. I checked what is already there instead: 28 crews already roam the map right now, way more than fourteen like you wanted, and all 14 crew home bases already have a real job (Mob runs a resort, Cartel runs storage, Church runs a chapel). Next round I build the actual raid and settlement screen off that. UP means keep going that way.",
-   "asked": "UP or DOWN",
-   "when": "2026-09-28",
-   "draft": true
-  },
-  {
     "id": "animation-the-map-glides-9-28",
     "kind": "animation",
     "lane": "animation",
@@ -3035,7 +3012,20 @@
      "how": "image",
      "src": "vote/COMBAT_THE_ROOF_YOU_STAND_ON_9_28.png"
     }
-   }
+   },
+  {
+    "id": "factions-the-fourteen-home-bases-9-28",
+    "kind": "tile",
+    "lane": "factions",
+    "sha": "5a99e148",
+    "made": "9/28",
+    "title": "THE FOURTEEN HOME BASES ON THE MAP",
+    "why": "You said territory is not a thing: home bases and roaming crews are, a base can be taken or ruined, and the hard ones come late in an act. Here is the list the map will draw from, put on the game's own map so you can see it. Fourteen bases, big for a fortress, small for a camp, in their crew's own colour; a dashed ring means it can be attacked now; the little shapes are the 28 roaming crews. Then a raid: one base ruined, one yours, one taken by another crew, and the eight crews those three had out are gone. I also owe you a correction: last round I said the game already had enough crews. It has 28, but they are a fixed set that walks forever, and at this zoom 6 of the 14 bases sit on top of another. Nothing can raid a base yet, and it is not on the live map. Thumbs up if this is the right shape, thumbs down and tell me what is wrong.",
+    "show": {
+      "how": "page",
+      "src": "vote/FACTIONS_THE_FOURTEEN_HOME_BASES_9_28.html"
+    }
+  }
  ],
  "verdicts": [
   {

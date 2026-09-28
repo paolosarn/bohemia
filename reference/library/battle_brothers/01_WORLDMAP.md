@@ -42,3 +42,12 @@ roads, mountains, forests); hand-painted raster, not pixel art; sprites packed a
 the mod kit's brusher; rendered at the screen's native resolution with separate UI-scale and scene-scale
 sliders. So: one painted pixel per screen pixel (2,073,600 on a 1080p screen). Icon, banner, road and hex
 sizes in pixels are NOT yet measured (the sources were egress-blocked).
+PARTIES AT ONCE (sourced 9/28, FACTIONS [home bases]; records/BOHEMIA_HOME_BASES_ROUND_TWO_THE_MARKER_LIST_9_28_26.md;
+search snippets only, the dev blog, wiki and Steam pages are egress-blocked so none was read in full): THERE IS NO
+PUBLISHED FIXED COUNT of roaming parties at once. It is emergent. EVERY LOCATION, settlements and hostile camps alike,
+"buys" parties out of its own resources (each with an agenda, AI, strength and troop mix) and sends them out;
+smaller locations send fewer and less often; a camp is weaker until its party returns; players report a camp
+sending a group every one to two days. A typical map is about 17 settlements split among three houses (6/6/5 up to
+10/5/2), plus the hostile locations, each of which also sends parties. A mod's "24 and 40" is a warband's SIZE
+(men in a roaming party versus in a camp), not a count of parties. SO: do not size our parties against a BB number;
+there is none. Size them by what each home base can pay for and send.

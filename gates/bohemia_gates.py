@@ -785,7 +785,7 @@ GATES = [
      'parties out of what it has and is weaker until they return. THREE CHECKS THIS EXISTS FOR: the empty ledger is a '
      'NO-OP against the real valley (14 held, 0 of 28 parties silenced); a party exists because its base still holds '
      'it; and A DEAD SHAPE DOES NOT COME BACK: the logic reads no cell, no grid, no per-lot ownership, and nothing but '
-     'five named files touches the superseded 9,216-cell ledger. The hard-ones-late cut is his own DEPTH thirds and moves '
+     'the named few files touch the superseded 9,216-cell ledger. The hard-ones-late cut is his own DEPTH thirds and moves '
      'with that table; how far through an act is the CALLER\'S and its absence answers null, never a guess. A marker is ids, '
      'classes and numbers, never a sentence. Red twenty ways: run the act backwards -> 1; allow a change that changes '
      'nothing -> 3; take `from` on the caller\'s word -> 1; let a ruin fall twice -> 1; move into a ruin in the act it fell '

@@ -254,7 +254,7 @@ const stripComments = (s) => s.replace(/\/\*[\s\S]*?\*\//g, '').replace(/(^|[^:]
       if (/BohemiaTurfLedger|bohemia_turfledger/.test(src)) offenders.push(rel);
     }
   }
-  ok('NOTHING BUT THE FIVE NAMED FILES TOUCHES THE SUPERSEDED 9,216-CELL LEDGER: a new reader is a dead shape returning',
+  ok('NOTHING BUT THE NAMED FEW FILES TOUCHES THE SUPERSEDED 9,216-CELL LEDGER: a new reader is a dead shape returning',
      offenders.length === 0, offenders.join(', '));
   const banner = fs.readFileSync(path.join(ROOT, 'engine/bohemia_turfledger.js'), 'utf8').slice(0, 900);
   ok('the old ledger still says, at the top, that it is superseded', /SUPERSEDED 9\/28\/26/.test(banner));
