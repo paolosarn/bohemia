@@ -117,3 +117,16 @@ This law is a vibe the game wears for fun, not a thesis. Nobody writes essays ab
 nobody builds lore around the wrong thing in the frame, nobody asks him whether the mystery
 gets solved (that question is withdrawn). FUN CARRIES THE TIE (8/25): where the tone and the
 fun pull apart, fun wins. Section 2 is a mood board in words; read it, then go make things.
+
+## 10. THE TWO VOICES: THE AI-SLOP NARRATOR AND THE SQUIGGLE (Paolo 9/29, LOCKED; records/BOHEMIA_PAOLO_TWO_VOICES_THE_AI_SLOP_NARRATOR_AND_THE_SQUIGGLE_9_29_26.md)
+"I'm really falling in love with this AI slop analog horror direction... grab the voice and make it creepy as
+fuck... it will narrate events, read a bunch of shit; but any time it's someone speaking it's that squiggly Animal
+Crossing voice we chose a month back, and the different variations of that voice." (a) THE NARRATOR is the
+machine's synthetic voice made creepy (too even, tape, room): it narrates events and reads the machine's text
+(the feed, the institution, the road events' setup, the flip's year); never a person's line; never in the first
+minute; first heard when he zooms out to the map. (b) PEOPLE speak the 7/21 squiggle (Animalese-style gibberish,
+the talking portrait speaking along), with variations per person. (c) 'AI SLOP' is a named strand of this bible:
+the machine's output is smooth and a little wrong on purpose; the hand-made world around it is rough; the contrast
+is the fear. A direction, never a reference game. (d) Gate: every spoken line carries its speaker kind and gets the
+matching voice; a narrator voice on a person or a squiggle on the machine is red.
+

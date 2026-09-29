@@ -2814,8 +2814,8 @@
    "id": "coordinator-the-phone-reads-the-machines-text-aloud-9-28",
    "kind": "verdict",
    "lane": "coordinator",
-   "title": "THE PHONE READS THE MACHINE'S TEXT OUT LOUD, IN ITS OWN ROBOT VOICE",
-   "text": "You asked if narration is possible. It is. Default: the phone's built-in voice reads the machine's text aloud (the feed, the institution's lines, the flip's narration). It sounds too even, like a machine, which is the analog horror voice on purpose. People on the street keep their talking portrait with no voice for now. DOWN means no read-aloud, or say in a note if you want real human voices instead.",
+   "title": "RULED: THE NARRATOR IS THE MACHINE'S VOICE, MADE CREEPY (NOTHING TO TAP)",
+   "text": "You ruled it: narration in the machine's voice, AI slop on purpose, creepy as fuck; people keep the squiggle voice with variations. This item is closed by your words.",
    "asked": "UP or DOWN",
    "when": "2026-09-28",
    "draft": true
