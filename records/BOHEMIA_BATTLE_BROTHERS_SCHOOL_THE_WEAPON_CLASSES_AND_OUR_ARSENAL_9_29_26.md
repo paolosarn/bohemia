@@ -2,6 +2,8 @@
 # Paolo: 'what type of guns would fit their type of melee weapons... Battle Brothers has a handgun; is that a bazooka now?'
 # Each line: BB CLASS | ITS RULE (what makes it that class) | OUR WEAPON THAT FITS | notes. Reach is in house tiles (9/22: pistol 1, rifle 2, scope 3).
 
+HIS ANCHORS (9/29, records/BOHEMIA_PAOLO_MOSTLY_CITY_A_BLOCK_WAR_PISTOL_IS_A_DAGGER_9_29_26.md): A PISTOL IS A DAGGER (cheap, fast, close, the finisher everybody carries); A MACHINE GUN IS A TWO-HANDED HAMMER 'or something' (the big two-hander: COMBAT picks per gun, the light MG sweeps like the greatsword (33i), the heavy MG knocks down like the hammer). The table follows his anchors.
+
 MELEE
 - SWORD (riposte, precise, low fatigue, weak vs armour) | a RIPOSTE stance and a sure hit | the MACHETE and the BAT: the sure-hit close weapon; riposte is the counter-swing
 - AXE (splits shields, heavy) | breaks SHIELDS/cover | the FIRE AXE and the SLEDGE: breaks cover tiles (cars, barriers, doors) in one swing

@@ -55,10 +55,10 @@ fence, a cliff) | DRESSING (the small things that sell the place with no rule: s
 LIGHT (day, night, dusk; the sodium lamp, the fire) | WEATHER (dust, rain, the monsoon flood, heat shimmer;
 looks only). Fifteen terrains x eight kinds is the inventory sheet COOK fills with HAVE / NEED counts.
 
-## 4. THE COUNT, HONEST
+## 4. THE COUNT, HONEST (CORRECTED BY HIM THE SAME HOUR, records/BOHEMIA_PAOLO_MOSTLY_CITY_A_BLOCK_WAR_PISTOL_IS_A_DAGGER_9_29_26.md: 'most of it will be city-based terrain... every combat fight damn near like a block war'; the order below is REVERSED: CITY GAPS FIRST, the nature terrains after, because nature is the valley's edge and the beasts' ground, a minority of fights)
 We have the CITY half well (T1, T2 partly, T8, T13, T14 partly) and the NATURE half almost not at all (T4, T5,
 T6, T9, T11, T15). Battle Brothers is mostly nature; our valley is mostly desert and ruin around a city, so the
-nature half is the bigger cook and the first cook: T4 OPEN DESERT, T5 THE SHORE, T6 THE HILLS, then T11 THE RUIN.
+nature half looked like the bigger cook. BUT HE RULED MOST FIGHTS ARE BLOCK WARS, so the FIRST cook is the CITY'S GAPS: T1's roofs as high ground, burnt and collapsed variants, fences and gates; T7's barriers and the overpass; T8's cart corrals and the big-box roof; T9's trailers and tanks; T11's rubble mounds; T3's containers; THEN T4 OPEN DESERT, T5 THE SHORE, T6 THE HILLS, T15 THE LANDFILL for the beasts.
 Every cook goes through DIRECTION's card and the reference check (compare to the real Mojave, real freeways,
 real landfills), and every tile is house-sized (rule 38h).
 
