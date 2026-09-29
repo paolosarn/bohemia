@@ -11004,6 +11004,33 @@ full suite unmeasured since 7efb22cf. Rule 14(a): demo untouched, RUN cuts it.
 
 Record: records/BOHEMIA_ONE_DOOR_9_14_26.md
 
+PLUMBER (plumber-ont6t5): 9/29 LATEST -- *** CHAT 18. ROUND 46. [one driver] CONTINUING, ROUND 1 OF SEVERAL.
+292 CHECKERS OPEN THE GAME IN A BROWSER; 290 BUILT THEIR OWN DOOR. TWO WERE RED AT THE DOOR AND NOW REACH THE CITY. ***
+Record: records/BOHEMIA_THE_DOOR_IS_ONE_PROCEDURE_9_29_26.md. Both older claims ([excavate], [bb library]) still
+wait on Paolo, so this round took the first OPEN line (the fleet's most-asked row).
+  MEASURED: 292 suite checkers open the alpha or the demo in a browser. Before this round 2 went through the one
+  driver; 290 built their own browser and door, 239 as a local file (blind to the city frame, SOUNDS 9/23).
+  MOVED: CITY DEEDS and CITY MEMORY (PEOPLE's) were red on main AT THE DOOR -- a 30 s click on a RUN tab that had
+  moved. Through the driver they reach the city again: DEEDS 36 passed 7 failed, MEMORY 25 passed 9 failed (both
+  were 0 passed). The reds left are real and routed to PEOPLE [deeds and memory].
+  BUILT: gates/one_driver_gate.js, IN THE SUITE AS ONE DRIVER, 3/0, under a second: the driver refuses a wait that
+  is not a number and an unknown option; no NEW checker opens the game with its own browser
+  (gates/one_driver_baseline.txt, 288, may only shrink); a moved checker is never still listed. Mutation-checked
+  three ways, each restored.
+  DRIVER FIXES: (1) runtab: true had been a ONE-millisecond wait (`opts.x || default` against a clock); my own
+  map-density tool did it for a round and got lucky; now it throws (no other caller did it, checked). (2) noWorker:
+  true blocks the service worker so a network probe measures the wire (UI's ask). Booted: alpha 40 s, worker in
+  control; demo with noWorker 147 s, no worker; 0 page errors each.
+  FOLDED: [real surface] retired into [one driver] (the coordinator's words on the row).
+  ROUTED: PEOPLE [deeds and memory]; COMBAT [unregistered] (four of its driver gates are not in the suite).
+  MY MISTAKE, NAMED: I killed processes by matching command text after a mutation run and it matched my own shell
+  (second time in this lane). Restores had already run, checked file by file. Kill by process id only.
+  STILL [PENDING Paolo]: the 145-file move (32.3 MB, the permission check refused it); the two Battle Brothers hosts
+  in the network access (both 000 again this round).
+  NEXT: the baseline in batches, the ones red at the door first, each run before and after.
+  PROOF: ONE DRIVER 3/0; CITY DEEDS 36/7 and CITY MEMORY 25/9 through the driver (were 0 passed, timeout);
+  mutation x3; driver boots alpha + demo(noWorker) clean; EXCAVATE 8/0; canon rot 63/10 (main's own, not mine).
+
 PLUMBER (plumber-ont6t5): 9/28 (c) LATEST -- *** CHAT 18. ROUND 45. [density leg] SHIPPED. THE MAP PAINTS
 ONE PIXEL IN THIRTEEN, AND THE FLOOR'S OWN MEASURE CAN BE PASSED BY BLUR. ***
 Record: records/BOHEMIA_THE_MAP_PAINTS_ONE_PIXEL_IN_THIRTEEN_9_28_26.md. Both held jobs ([excavate], [bb
