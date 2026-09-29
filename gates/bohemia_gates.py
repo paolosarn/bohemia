@@ -4627,6 +4627,18 @@ GATES = [
      'behind in a repo where ten lanes are pushing.',
      180),
 
+    ('ONE DRIVER', ['node', 'gates/one_driver_gate.js'],
+     'THE DOOR IS ONE PROCEDURE, AND NO NEW CHECKER BUILDS ITS OWN. 9/29, PLUMBER, row [one driver], rule '
+     '14(g) ("there is one driver... every lane that walks the five minutes uses it or extends it"). '
+     'Measured: 292 suite checkers open the alpha or the demo in a browser; 288 build their own browser '
+     'and door, 239 as a local file that cannot see into the city frame ([real surface]). CITY DEEDS and '
+     'CITY MEMORY were red on main at the door (a 30 s click on a RUN tab that had moved) and were moved '
+     'onto the driver the same round: they reached the city for the first time since, DEEDS 36 passed, '
+     'MEMORY 25 passed, and their remaining reds are real findings routed to PEOPLE. Legs: the driver '
+     'refuses an unknown option and a wait that is not a number (runtab: true had been a 1 ms wait); no '
+     'NEW checker opens the game with its own browser (gates/one_driver_baseline.txt, 288, may only '
+     'shrink); a moved checker is never still listed. Mutation-checked three ways. Static, under a second.',
+     False),
     ('EXCAVATE', ['node', 'gates/excavate_gate.js'],
      'NOTHING LIVE LOADS FROM ARCHIVE, AND THE WEIGHT NOTHING LOADS CAN ONLY FALL. 9/28, PLUMBER, row '
      '[excavate], rule 33h (the excavation rule, records/BOHEMIA_THE_REVAMP_LIST_9_24_26.md: "nothing in '

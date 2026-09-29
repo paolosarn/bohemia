@@ -110,7 +110,7 @@ function line(tag, m) {
 
 /* the two views every surface is read at: the zoom the map opens on, and the far stop */
 async function readSurface(open, which) {
-  const d = await open(which === 'alpha' ? { alpha: true, runtab: true } : {});
+  const d = await open(which === 'alpha' ? { alpha: true } : {});
   try {
     await d.page.waitForTimeout(3000);
     for (let i = 0; i < 4; i++) { if ((await d.state()).mode === 'city') break; await d.pinchOut(); }

@@ -29,6 +29,7 @@
  */
 'use strict';
 const { settle: SETTLE } = require(__dirname + '/bohemia_settle.js');
+const { open } = require(__dirname + '/../tools/bohemia_drive_the_demo.js');
 const fs = require('fs');
 const path = require('path');
 
@@ -99,19 +100,16 @@ ok('A5 the throttle does not spend a minute it recorded nothing in '
 
 (async () => {
   console.log('CITY MEMORY GATE, somebody remembers seeing you, on the tab he taps');
-  const { chromium } = requirePlaywright();
-  const browser = await chromium.launch();
-  const errs = [];
+  /* THROUGH THE ONE DRIVER (PLUMBER 9/29, row [one driver], rule 14g). This gate used to
+     open the alpha as a local file and click #front and the RUN tab itself. The tab strip
+     moved, the click timed out after 30 s, and the gate was red on main for every lane
+     while its subject was never reached. The door is one procedure and the driver owns
+     it: knock until the door is behind us, then land on RUN with the city frame shown. */
+  const d = await open({ alpha: true });
+  const errs = d.errs;
   try {
-    const page = await browser.newPage({ viewport: { width: 390, height: 844 } });
-    page.on('pageerror', e => errs.push(e.message.slice(0, 140)));
-    await page.goto('file://' + ALPHA, { waitUntil: 'load', timeout: 180000 });
-    await page.waitForSelector('#front', { timeout: 40000 });
-    await page.click('#front');
-    await SETTLE(page, 1200);
-    await page.click('.tab[data-p="run"]');
-    await SETTLE(page, 20000);
-    const fr = await (await page.$('#cityFrame')).contentFrame();
+    const page = d.page;
+    const fr = d.fr;
     ok('B1 the RUN tab shows the city frame', !!fr);
     if (!fr) return;
 
@@ -390,7 +388,7 @@ ok('A5 the throttle does not spend a minute it recorded nothing in '
     ok('B15 the city frame threw no errors' + (errs.length ? ': ' + errs[0] : ''),
       errs.length === 0);
   } finally {
-    await browser.close();
+    await d.close();
   }
   console.log('CITY MEMORY GATE: ' + pass + ' passed, ' + fail.length + ' failed');
   process.exit(fail.length ? 1 : 0);
