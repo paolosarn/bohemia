@@ -18729,6 +18729,47 @@ HOW TWENTY-TWO ROUNDS COMPOSE, written once now that Q1-Q22 are all shipped:
 NEXT IN THIS LANE: Q23 [who eats first].
 
 
+FACTIONS (factions-ovkjpf): 9/29 (round 48) LATEST -- *** [home bases] ROUND THREE: THE WORLD ALREADY WANTS TO RAID
+AND NOTHING ANSWERS. [crews exist] WAS ALREADY TRUE AND IS CLOSED BY MEASUREMENT. *** The old first line of this lane
+(coordinator 9/16, "no crew has ever been on the map") measured false on the live alpha at a fresh boot: 4 of the 28
+parties are crews, their tracks read at all 4 of their own cells, and it is the same four on three node valleys
+(seeds 12345, 1337, 7). Closed SHIPPED by measurement, original text kept (rule 11). THE FINDING WITH TEETH: what the
+four crews are heading at is a RIVAL'S HOME BASE (Caravans at the Cartel, Cartel at the Remnants and the Caravans,
+Remnants at the Cartel), and on arrival advance() flips arrived and turns them round: nothing happens. The world
+already has intended raids pointed at fourteen bases that have no state to receive one. BUILT (engine only, rule 18
+hold and the map untouched): engine/bohemia_homebases.js markers now carry a party's destination line (to, the cell it
+is heading for right now) and leg (the parties module's own legOf), and each base's threat (who is coming for it: a crew
+that is OUT, at that base's own cell, not its holder's; derived, sorted, ids only; a crew going home, the holder's own
+crew, a ruin, and a crew whose own base fell all threaten nobody), plus ownedBy() for rule 39c (first home base unlocks
+the second generation) and 40b (build only in a settlement you own). Gate HOME BASES 75 checks, red 29 ways. THE COOK,
+in VOTE: FOUR CREWS ARE ALREADY WALKING AT SOMEBODY'S BASE (vote/FACTIONS_WHO_IS_COMING_FOR_WHOM_9_29.html, id
+factions-crews-are-heading-at-bases-9-29): real frames of the game's own map: south-east as it is, drawn from the list
+(thin line per crew, thick dashed with an arrow for the four going to take something, red rings on the three bases a crew
+is heading at), and the whole valley. MY DEFAULT, rule 39a, a thumb: a base falls only from what the player does until
+he says otherwise (a valley that rewrites itself unseen changes the economy under him and the future is computed from
+HIS past); it also answers QUESTS QR-R's "siege when the company is absent": a siege waits for the company. MEASURED ON THE
+LIVE SEED, and it is a finding against the law's own sentence: 4 of 14 bases make any power (Network 2, Cartel the dam,
+Trades 1, Volunteers 1), lit wire held by name runs Network 67 down to Anarchists 0 and Homeless 0, and ALL SIX PUMPS ARE
+DARK at boot, so "each powering and watering its own blocks" (37e) is true of a few and false of most, and ECONOMY Q47's
+"Anarchists hold all the live water" reads as nobody has live water now (likely WORLD's 9/27 clusters ruling, not proved,
+one seed, needs the city to measure). A base's JOB is a data gap, not a picture gap: routed to WORLD and ECONOMY, none
+invented. HOW THE FRAME WAS MADE: driver toMap() lands on the SKY rung, so skyExit() first, city at 70,68, TW 8; parties
+advanced 0.06 of a waking day through the game's own partiesAdvance (at 0.15 two crews had already turned home and the
+threat correctly vanished); the overlay wraps render(); positions through the game's own iso(). ROUTED: RUN [bb map] and
+COOK [bb map art] draw from markers() (to = line, leg, threat = ring), following the RIDERS pattern in
+tools/bohemia_city_work_patch.py with a patch of their own; I do NOT touch the map's renderer while RUN is rebuilding it.
+DYNASTY [one then heirs] reads ownedBy for the first-home-base unlock; LIFE+CITY [build a lot] reads it for "a base you
+own". PLUMBER: BATTLE BROS H5 goes red for any lane with an unpushed engine diff (the lab it guards was retired 9/4) and
+is green after the push; the ENGINE CENSUS gate rewrites records/BOHEMIA_ENGINE_CENSUS.json on every run and dirties the
+tree with other lanes' modules (I restored it, never committed it); PARTIES MOVE's browser leg waits for the removed wake
+card (#daycardIn .dcgo). [PENDING coordinator]: COLOUR IS TERRITORY (8/26, gate faction_colour_gate.js) still says a
+faction's colour is its ground and 37e says nothing on the map is drawn as territory colour; my default for both is the
+colour lives on the base banner, the party banner and the light, the ground stays unpainted, and the border, ground ink
+and their gates are re-aimed not deleted blind; I left them alone because RUN is in that code. NEXT IN THIS LANE:
+[home bases] and [territory ledger] stay CLAIMED. When RUN's map is up, look at it and, if the border and ground ink
+still draw, cut them (my code, rule 40f lifted the hold for the map); when a raid exists (COMBAT), inline the module
+and wire the save. Record: records/BOHEMIA_HOME_BASES_ROUND_THREE_WHO_IS_COMING_FOR_WHOM_9_29_26.md.
+
 FACTIONS (factions-ovkjpf): 9/28 (round 47) LATEST -- *** [home bases] ROUND TWO: THE MARKER LIST IS BUILT,
 AND ROUND ONE'S FINDING WAS WRONG, AND THAT WAS MINE. *** Round one closed the row SHIPPED after the school half alone
 (rules 6 and 11: it also dropped his ruling from the line); reopened to CLAIMED first thing this round, ruling restored.
