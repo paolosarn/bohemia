@@ -9,6 +9,50 @@ matter. Morale is already on (V199 FEAR_ON). Three dials = three multipliers on 
 NOT MEASURED: real human minutes on a phone (EYES [where the minutes go]); BB seconds per
 unit is recall calibrated to his 30-40. NEXT OPEN: [respec], [recruit odds], [death rule].
 MISTAKE I MADE AND FIXED: a broad sed marked ECONOMY's [dead citation] row as mine; reverted.
+
+WORDS (words-8dqrnq): 9/29 LATEST -- *** [bb words] CLAIMED DIRECT (not through the
+coordinator, flagged for correction if that was wrong) AND ROUND ONE SHIPPED SAME ROUND.
+BIGGEST FINDING: BATTLE BROTHERS WRITES NOTHING DURING A FIGHT. ***
+TAB: nothing new for a tab this round (school only, no test lines).
+
+Paolo's words arrived direct in this chat: "Study all the words of battle brothers."
+[bb event writing] already schooled the travel/camp event paragraph twice; this round
+covered the four categories that were not touched. Record: records/BOHEMIA_WORDS_ALL_
+THE_WORDS_OF_BATTLE_BROTHERS_9_29_26.md.
+
+FOUR FINDINGS: (1) THE HALL -- haggling runs on a hidden Annoyance number (3-6 an ask,
+kicked out at 9+) the player never sees, reported only through a face's mood; confirms
+this lane's own no-card no-number rule, does not invent it. (2) THE TAVERN -- every
+recruit's hire text is "a procedural background story" (Dev Blog #33) and traits stay
+hidden until a barber or event reveals them: a found-out person, not a fully-read one,
+which our deed ledger and naming screen already do. (3) THE TOOLTIP -- a trait is a bare
+stat modifier, no flavor sentence anywhere found, the same plain register this lane
+already built for the dead-institution voice. (4) THE FIGHT -- cross-confirmed verbatim
+combat-log template, "[Attacker] swings/shoots at [Target] and misses!" or "...and hits
+[BodyPart] for [ArmorDamage] and [HealthDamage]!", the identical shape every time, zero
+adjectives. Even the game built entirely around its combat spends no words on the combat
+itself. THIS CONFIRMS, FROM THE REFERENCE GAME, that this lane's fight-stays-silent rule
+is the right split, not just a horror preference.
+
+NETWORK RE-CONFIRMED BLOCKED: battlebrothers.fandom.com and tvtropes.org both
+EGRESS_BLOCKED on direct fetch this round, same as BB STUDY DAY 13 (8/28). Everything is
+sourced through search snippets and dev-blog mirrors, confidence stated per finding.
+
+STANDING NOTE FOR FUTURE ROWS: any future ask for in-combat WORDS text (from [horror
+fight] or COMBAT) points at this record and says no.
+
+Also re-checked both older blocked rows (rule 12): [reputation lines] and Q26 unchanged
+since last round, still genuinely blocked (see records/BOHEMIA_WORDS_THE_CAUSE_SCHOOL_
+9_28_26.md's round for the last full re-measure). [the cause] round two (writing) is
+still open and next in line once this round's board update lands.
+NEXT: round two of [bb words] is open too (rule 9/6 mode: every question is two rounds,
+never one) -- its write round is the four standing notes reaching the rows they're aimed
+at (a haggle mechanic if COMBAT/TUNING ever builds one, a recruit-reveal note for DYNASTY/
+PEOPLE, the tooltip register note, and the fight-stays-silent confirmation for [horror
+fight]), not a fresh set of WORDS' own lines, since the round found no existing WORDS
+lines of its own to rewrite; round two of [the cause] writes three real lines.
+PENDING Paolo: nothing.
+
 MODS (mods-59jyd6): 9/29 LATEST -- [what mods fix] SHIPPED as a research page, and
 [dead citation] fixed (the school page now says "a proposed weapons.json data file").
 TAB: VOTE, item WHAT MODS FIX (mods-what-mods-fix-9-29): 19 cards with KEEP / MAYBE /
