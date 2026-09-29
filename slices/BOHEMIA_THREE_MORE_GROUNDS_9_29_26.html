@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>THREE MORE GROUNDS UNDER YOUR FEET</title>
+<!-- SOUNDS lane, 9/29, row [not sand], continuing the keep/redo list
+     (records/BOHEMIA_THE_KEEP_REDO_LIST_9_24_26.md 3b): step_dirt, step_sand and step_wood
+     are three of the 21 frozen sounds this lane's own measurement found had no real top
+     end. All three are JUDGED in bohemia_sfx.js (__SFX_APPROVED), so they are never edited
+     in place (verdict_frozen_gate.py); these are new ids from the same real-material model
+     that already shipped for concrete and asphalt, footsteps first as the handoff named.
+     THREE ITEMS ON ONE PAGE. NO VOTE LIVES ON THIS PAGE. -->
+<style>
+  :root{ --ink:#1b1408; --paper:#e8dfc9; --line:#8a7a52; --panel:#f2ead6; --dim:#6a5a3e; }
+  html,body{margin:0;background:var(--paper);color:var(--ink);
+    font:15px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace}
+  .wrap{max-width:720px;margin:0 auto;padding:18px 16px 70px}
+  h1{font-size:19px;letter-spacing:2px;margin:0 0 2px}
+  .sub{color:var(--dim);font-size:12px;letter-spacing:1px;margin-bottom:14px}
+  .loud{border:2px solid var(--ink);padding:9px 11px;margin:0 0 14px;font-size:13px}
+  .part{border-top:2px solid var(--line);margin:24px 0 12px;padding-top:12px;
+    font-size:14px;letter-spacing:2px}
+  .card{background:var(--panel);border:1px solid var(--line);padding:14px;margin:0 0 14px}
+  .card h2{font-size:14px;letter-spacing:1.5px;margin:0 0 6px}
+  .why{font-size:13px;margin:0 0 10px}
+  .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  button{font:inherit;background:var(--paper);color:var(--ink);border:1px solid var(--line);
+    padding:11px 14px;min-height:48px;cursor:pointer;letter-spacing:1px}
+  button:active{transform:translateY(1px)}
+  button.on{background:var(--ink);color:var(--paper)}
+  .num{font-size:12px;color:var(--dim);margin-top:8px;white-space:pre-wrap}
+  textarea{width:100%;box-sizing:border-box;font:inherit;background:var(--paper);
+    color:var(--ink);border:1px solid var(--line);padding:8px;min-height:80px}
+  label{font-size:12px;letter-spacing:1px;color:var(--dim);display:block;margin:10px 0 4px}
+  .foot{border-top:2px solid var(--line);margin-top:22px;padding-top:14px}
+</style></head><body><div class="wrap">
+
+<h1>THREE MORE GROUNDS UNDER YOUR FEET</h1>
+<div class="sub">SOUNDS &middot; 9/29 &middot; dirt, sand and a wood floor, built the same way the sidewalk was</div>
+
+<div class="loud"><b>THE SIDEWALK ALREADY GOT FIXED. THESE THREE NEVER HAD A CHANCE TO.</b>
+Same idea as the concrete and asphalt you already heard: a real boot hitting real ground is
+a hard click (a monopole radiating the change in force) plus the ground ringing its own
+notes plus a few dozen grains crushing. No noise generator anywhere. What changes per
+ground is how stiff it is and how much it damps.<br><br>
+<b>Dirt and sand are the honest surprise.</b> Packed soil and loose sand are so much softer
+than a sidewalk that the same formula puts their ring below what you can hear at all, so
+turning the ring off (rather than tuning it to a note nobody would hear) is the physically
+correct move, not a shortcut. What you hear on those two is almost entirely the click and
+the grit. The wood floor is the opposite: floorboards on joists really do ring, so it keeps
+almost none of its ring damped out, on purpose.</div>
+
+<div class="part">ITEM ONE &middot; DIRT &middot; packed trail soil</div>
+
+<div class="card">
+  <h2>A FOOTSTEP ON DIRT</h2>
+  <div class="why">Subgrade-order stiffness, tens of megapascals, two orders of magnitude
+  softer than concrete. The ring is real physics, not a mute button: at that softness the
+  plate formula's own mode sits below hearing, so the loss that would kill an AUDIBLE ring
+  on concrete kills an inaudible one here just as fast.</div>
+  <div class="row"><button data-surface="dirt">PLAY IT</button></div>
+  <div class="num" id="numA"></div>
+</div>
+
+<div class="part">ITEM TWO &middot; SAND &middot; loose, dry, no coherent ring</div>
+
+<div class="card">
+  <h2>A FOOTSTEP ON SAND</h2>
+  <div class="why">Not the "sand" you killed twice for sounding like band-limited noise --
+  that was a filter recipe standing in for every surface at once. This is one real material:
+  loose sand does not propagate a plate wave the way a slab does, so almost the whole sound
+  is the contact and the grain crush, the way a boot sinking into sand actually behaves.</div>
+  <div class="row"><button data-surface="sand">PLAY IT</button></div>
+  <div class="num" id="numB"></div>
+</div>
+
+<div class="part">ITEM THREE &middot; A WOOD FLOOR &middot; floorboards on joists</div>
+
+<div class="card">
+  <h2>A FOOTSTEP ON A WOOD FLOOR</h2>
+  <div class="why">The one surface here that really does ring: 25 mm floorboards on joists
+  keep almost all of their ring, on purpose, because a wood floor genuinely does that.</div>
+  <div class="row"><button data-surface="boards">PLAY IT</button></div>
+  <div class="num" id="numC"></div>
+</div>
+
+<div class="card">
+  <h2>FOR COMPARISON, THE SIDEWALK YOU ALREADY HEARD</h2>
+  <div class="why">Same function, same machinery, the one already fixed for "the reverb of a
+  glass jar."</div>
+  <div class="row"><button data-surface="concrete">PLAY IT</button></div>
+  <div class="num" id="numD"></div>
+</div>
+
+<div class="foot">
+  <label>ANYTHING ABOUT ANY OF THEM</label>
+  <textarea id="all"></textarea>
+  <div class="row" style="margin-top:12px">
+    <button id="copy">COPY ALL</button>
+    <button id="exp">SAVE AS .txt</button>
+  </div>
+  <div class="num" id="footnote">What you type is kept in this page, so closing it does not
+lose it. COPY ALL puts it on your clipboard.
+THERE IS NO VOTE ON THIS PAGE ON PURPOSE: you vote once, in the VOTE tab.</div>
+</div>
+
+<script src="../engine/bohemia_horror_sounds.js"></script>
+<script>
+var H = window.BOH_HORROR_SOUNDS;
+var AC = null, live = [], cache = {};
+function ac(){ if(!AC) AC = new (window.AudioContext||window.webkitAudioContext)();
+  if(AC.state==='suspended') AC.resume(); return AC; }
+/* EVERY SOUND ON THIS PAGE COMES OUT OF THE SHIPPED MODULE, never out of a copy of the
+   recipe pasted into a page. */
+function surface(k){ var key='s:'+k;
+  if(!cache[key]) cache[key] = H.footstepModelled(ac(), { surface: k });
+  return cache[key]; }
+function stopAll(){ live.forEach(function(n){ try{ n.stop(); }catch(e){} }); live=[];
+  document.querySelectorAll('button[data-surface]').forEach(function(b){ b.classList.remove('on'); }); }
+function play(m, btn){
+  stopAll();
+  var c = ac();
+  var s = c.createBufferSource(); s.buffer = m.buffer;
+  var g = c.createGain(); g.gain.value = 0.9;
+  s.connect(g); g.connect(c.destination); s.start();
+  live.push(s); btn.classList.add('on');
+}
+document.querySelectorAll('button[data-surface]').forEach(function(b){
+  b.onclick = function(){ play(surface(b.dataset.surface), b); }; });
+
+function head(){
+  var d = surface('dirt'), s = surface('sand'), w = surface('boards'), c = surface('concrete');
+  document.getElementById('numA').textContent =
+    'ground mode ' + d.firstModeHz.toFixed(1) + ' Hz (below hearing, so the ring is silent by physics, not by mute), '
+    + 'contact ' + d.contactMs.toFixed(2) + ' ms, ' + d.grains + ' grains. Noise generators: ' + d.noiseSources + '.';
+  document.getElementById('numB').textContent =
+    'ground mode ' + s.firstModeHz.toFixed(1) + ' Hz (same story, even softer), '
+    + 'contact ' + s.contactMs.toFixed(2) + ' ms, ' + s.grains + ' grains, the most of any surface here. Noise generators: ' + s.noiseSources + '.';
+  document.getElementById('numC').textContent =
+    'ground mode ' + w.firstModeHz.toFixed(1) + ' Hz, kept ringing on purpose, '
+    + 'contact ' + w.contactMs.toFixed(2) + ' ms, ' + w.grains + ' grains (a clean board has few). Noise generators: ' + w.noiseSources + '.';
+  document.getElementById('numD').textContent =
+    'ground mode ' + c.firstModeHz.toFixed(1) + ' Hz, contact ' + c.contactMs.toFixed(2) + ' ms, '
+    + c.grains + ' grains. Noise generators: ' + c.noiseSources + '.';
+}
+
+/* HIS WORDS SURVIVE BY DEFAULT. A page of mine lost eight of his votes because the only
+   way out was a download button he never pressed. */
+var KEY='bohemia_three_more_grounds_notes_v1';
+try{ var v=localStorage.getItem(KEY); if(v) document.getElementById('all').value=v; }catch(e){}
+document.getElementById('all').addEventListener('input', function(){
+  try{ localStorage.setItem(KEY, this.value); }catch(e){} });
+function noteText(){ var a=document.getElementById('all').value.trim();
+  return 'BOHEMIA NOTES -- THREE MORE GROUNDS UNDER YOUR FEET (SOUNDS, 9/29). NO VOTES HERE: the vote is in the VOTE tab.\n'
+    + 'registry ids: sounds-a-footstep-on-dirt-9-29, sounds-a-footstep-on-sand-9-29, sounds-a-footstep-on-a-wood-floor-9-29\n\n'
+    + (a || '(nothing written yet)'); }
+function say(m){ var n=document.getElementById('footnote'), was=n.textContent;
+  n.textContent=m; setTimeout(function(){ n.textContent=was; },2200); }
+document.getElementById('copy').onclick=function(){ var txt=noteText();
+  function fb(){ var ta=document.createElement('textarea'); ta.value=txt;
+    ta.style.position='fixed'; ta.style.opacity='0'; document.body.appendChild(ta); ta.select();
+    try{ document.execCommand('copy'); say('COPIED. Paste it back to me.'); }
+    catch(e){ say('Could not copy. Use SAVE AS .txt.'); } ta.remove(); }
+  if(navigator.clipboard&&navigator.clipboard.writeText)
+    navigator.clipboard.writeText(txt).then(function(){ say('COPIED. Paste it back to me.'); }, fb);
+  else fb(); };
+document.getElementById('exp').onclick=function(){
+  var blob=new Blob([noteText()],{type:'text/plain'});
+  var u=URL.createObjectURL(blob), el=document.createElement('a');
+  el.href=u; el.download='BOHEMIA_NOTES_THREE_MORE_GROUNDS.txt';
+  document.body.appendChild(el); el.click(); el.remove();
+  setTimeout(function(){ URL.revokeObjectURL(u); },1500); };
+head();
+</script>
+</div></body></html>

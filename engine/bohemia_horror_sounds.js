@@ -1149,7 +1149,21 @@
      several tenths, which gives a few milliseconds of ring, which is what a pavement
      really does. Floorboards on joists genuinely DO ring, so they keep a low loss, and
      that difference is audible and correct. These three are engineering estimates and
-     they are labelled as such rather than dressed up as published figures. *** */
+     they are labelled as such rather than dressed up as published figures. ***
+
+     TWO MORE, ADDED FOR THE HARD-CONTACT REDO LIST (records/BOHEMIA_THE_KEEP_REDO_LIST_9_24_26.md
+     3b, step_dirt and step_sand, both frozen in bohemia_sfx.js and both redone here as new
+     ids rather than touched in place, same rule as the three hums). DIRT is packed trail
+     soil: geotechnical subgrade design figures put compacted soil's resilient modulus at
+     roughly 20 to 100 MPa, two orders of magnitude softer than concrete, and soil's own
+     internal damping runs well above a paved surface's -- so a HIGHER loss than asphalt,
+     same shape as the concrete-to-asphalt step. SAND IS THE PHYSICALLY HONEST CASE: loose
+     sand does not propagate a coherent flexural wave the way a slab does, so this is not
+     "sand tuned quieter", it is the SAME contact-plus-grit machine with the ring driven to
+     almost nothing (loss high enough that a mode dies in about a millisecond) -- what is
+     left is the contact click and the grain crush, which is the actual physics of a boot
+     sinking into loose ground. Small-strain shear-modulus figures for loose dry sand sit in
+     the low tens of MPa; both are engineering estimates, labelled as such. */
   var GROUND = {
     concrete: { E: 30e9, rho: 2400, v: 0.20, loss: 0.40, h: 0.10, a: 1.2, tau: 0.00040,
                 grains: 22, spread: 0.010, grit: 0.55,
@@ -1159,7 +1173,13 @@
                 why: 'a road course, an order of magnitude softer and viscoelastic on top of that' },
     boards:   { E: 13e9, rho: 500,  v: 0.30, loss: 0.04, h: 0.025, a: 0.9, tau: 0.00055,
                 grains: 5,  spread: 0.006, grit: 0.30,
-                why: '25 mm floorboards on joists, which really do ring' }
+                why: '25 mm floorboards on joists, which really do ring' },
+    dirt:     { E: 80e6, rho: 1700, v: 0.35, loss: 2.00, h: 0.10, a: 1.2, tau: 0.00130,
+                grains: 26, spread: 0.012, grit: 0.50,
+                why: 'packed trail soil, subgrade-order stiffness (tens of MPa): so much softer than a slab that the plate formula puts its mode below hearing, and the loss that kills a genuinely audible ring at 227 Hz on concrete kills an inaudible one here just as fast, so the loss is raised to match rather than left to ring silently at a frequency nobody would hear' },
+    sand:     { E: 8e6,  rho: 1600, v: 0.30, loss: 3.00, h: 0.10, a: 1.2, tau: 0.00160,
+                grains: 45, spread: 0.020, grit: 0.45,
+                why: 'loose dry sand: no coherent plate ring at this loss (a mode dies in about a millisecond), so what carries the sound is the contact and the grain crush, which is what sand actually does under a boot' }
   };
   function plateModes(g, count) {
     var D = g.E * Math.pow(g.h, 3) / (12 * (1 - g.v * g.v));
@@ -1425,6 +1445,13 @@
         + 'published stiffness, and NOT ONE NOISE GENERATOR ANYWHERE IN IT'
     };
   }
+
+  /* THREE THIN WRAPPERS SO H.list()'S GENERIC SWEEP (rule 22a: `H[item.make](ctx, {})`,
+     always empty opts) CAN REACH THE OTHER THREE GROUND MATERIALS, the same reason
+     generatorHum/powerOnHum/signAliveHum wrap harmonicHum instead of exporting it bare. */
+  function footstepDirt(ctx, opts) { return footstepModelled(ctx, Object.assign({}, opts || {}, { surface: 'dirt' })); }
+  function footstepSand(ctx, opts) { return footstepModelled(ctx, Object.assign({}, opts || {}, { surface: 'sand' })); }
+  function footstepWood(ctx, opts) { return footstepModelled(ctx, Object.assign({}, opts || {}, { surface: 'boards' })); }
 
   /* ==== 14. THE DECK ITSELF, AND THE FLIP AS A TAPE CHANGING =======================
      *** RULE 32e, PAOLO 9/23, ON THE TAPE AND ON THE FLIP: "IT ALL SOUNDED LIKE SAND",
@@ -2027,6 +2054,9 @@
     theBroadcast: theBroadcast,
     crackleInto: crackleInto,
     footstepModelled: footstepModelled,
+    footstepDirt: footstepDirt,
+    footstepSand: footstepSand,
+    footstepWood: footstepWood,
     struckMetal: struckMetal,
     STRIKE: STRIKE,
     theTapeDeck: theTapeDeck,
@@ -2114,7 +2144,17 @@
         { id: 'sounds-the-block-lights-at-one-twenty-9-28', make: 'powerOnHum',
           title: 'THE BLOCK LIGHTS AT ONE TWENTY' },
         { id: 'sounds-the-sign-catches-then-holds-9-28', make: 'signAliveHum',
-          title: 'THE SIGN CATCHES, THEN HOLDS' }
+          title: 'THE SIGN CATCHES, THEN HOLDS' },
+        /* THREE MORE GROUNDS (9/29): continuing the keep/redo list's footstep family
+           (records/BOHEMIA_THE_KEEP_REDO_LIST_9_24_26.md 3b), the other three of the six
+           frozen step_* ids -- dirt, sand and a wood floor -- from the same model that
+           already shipped for concrete and asphalt. */
+        { id: 'sounds-a-footstep-on-dirt-9-29', make: 'footstepDirt',
+          title: 'A FOOTSTEP ON DIRT' },
+        { id: 'sounds-a-footstep-on-sand-9-29', make: 'footstepSand',
+          title: 'A FOOTSTEP ON SAND' },
+        { id: 'sounds-a-footstep-on-a-wood-floor-9-29', make: 'footstepWood',
+          title: 'A FOOTSTEP ON A WOOD FLOOR' }
       ];
     }
   };

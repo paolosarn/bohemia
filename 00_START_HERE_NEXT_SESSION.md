@@ -4510,6 +4510,90 @@ NEXT: [cook panels] is the standing rule-22 row and is OPEN again; items 2, 3 an
 (the fight HUD, the talk panel, the vote tab's own frame) are drawn as sheets but not built
 as skins. [three d ui] still has no gate of its own. [vote plays sound] is still open and
 SOUNDS has items waiting that he cannot hear in the tab. [no slop] stays CLAIMED.
+SOUNDS (sound-xk7pjp): 9/29 LATEST -- *** THE HARD-CONTACT REDO LIST, FOOTSTEPS FIRST: DIRT,
+SAND AND A WOOD FLOOR. *** Row [not sand], round seven, ROW STAYS CLAIMED.
+Record: VAMILY.md row [not sand], round seven block (no separate record file this round).
+Gates: COOKED SOUNDS 157/0 (was 145), --mutate bites 44 (was 40). FOOTSTEP GATE 24/0.
+VERDICT-FROZEN 6/0. MERGE DEBRIS 4/0. HANDOFF GATE 9/0. Build stamp UNCHANGED this round (no
+alpha/demo play surface touched).
+
+NO NEW VOTES ON ROUNDS FIVE OR SIX'S SIX CANDIDATES YET (the footstep, deck and flip redos from
+round five; the three hums from round six), all still WAITING FOR HIM. So this round is last
+round's own NEXT item 1: records/BOHEMIA_THE_KEEP_REDO_LIST_9_24_26.md 3b, 21 frozen
+hard-contact sounds this lane's own measurement found had no real top end, footsteps first as
+the list named.
+
+OF THE SIX FROZEN step_* FOOTSTEP IDS, concrete and asphalt already have real-material redos in
+the VOTE tab from rounds one and five. This round builds the other three -- step_dirt,
+step_sand, step_wood -- on the exact same model (footstepModelled's contact-plus-grit machine),
+extending engine/bohemia_horror_sounds.js's GROUND table with two new materials rather than
+touching a frozen id (all six step_* ids are __SFX_APPROVED, judged, off-limits to in-place
+edits per verdict_frozen_gate.py, confirmed by checking the alpha's own APPROVED table before
+starting).
+
+DIRT (packed trail soil, subgrade-order stiffness, tens of MPa per published geotechnical
+design figures) and SAND (loose, dry) are both so much softer than concrete that the plate
+formula's own mode sits below hearing -- dirt's first mode measured 14.6 Hz, sand's 4.7 Hz,
+against concrete's 227.3 Hz. RATHER THAN LET AN INAUDIBLE TONE RING FOR TENS OF MILLISECONDS,
+THE LOSS IS RAISED TO KILL IT FAST, the same physics as the concrete slab-on-grade correction
+two rounds ago (a slab on grade is not a free plate; loose ground even less so), just a bigger
+number because the mode is already off the audible map either way. What is left on both is the
+contact click and the grain crush, which is what a boot actually does sinking into soft ground.
+First cut used a lower loss for dirt (0.75) and it measured as basically one inaudible sub-bass
+tone dominating the reading (flatness 0.0001, centroid 19 Hz) -- caught by comparing the
+measured spectrum against what a listener would actually perceive, not just trusting the number;
+raised to 2.00 and it settled at flatness 0.0025, centroid 74 Hz, texture rather than a boom.
+
+WOOD is footstepModelled's EXISTING 'boards' material (GROUND.boards, built earlier this row,
+never before exposed as its own VOTE candidate). Floorboards on joists really do ring on
+purpose: flatness 0.0000, first mode 149.6 Hz, kept undamped rather than killed like dirt and
+sand.
+
+Sand carries the most grains of any surface here (45, the loosest ground), dirt next (26), wood
+almost none (5, because a board flexes under a boot rather than crushing like granular ground).
+
+REGISTERED AS THREE NEW IDS: sounds-a-footstep-on-dirt-9-29, sounds-a-footstep-on-sand-9-29,
+sounds-a-footstep-on-a-wood-floor-9-29. NEW PAGE: slices/BOHEMIA_THREE_MORE_GROUNDS_9_29_26.html,
+with the already-fixed sidewalk alongside for comparison. NOT THE GRAVEYARDED SAND, SAID ON THE
+PAGE'S OWN FACE: "sand" was also the name of the band-limited-noise recipe he killed twice
+(rule 32e), so the page is explicit that this is one real material, never that recipe. Verified
+on the glass: 4 of 4 buttons play, 0 errors.
+
+H.list()'s GENERIC SWEEP (rule 22a) CALLS `H[item.make](ctx, {})` WITH ALWAYS-EMPTY OPTS, so
+footstepModelled('dirt'/'sand'/'boards') needed three thin wrapper functions
+(footstepDirt/footstepSand/footstepWood) the same way generatorHum/powerOnHum/signAliveHum
+wrap harmonicHum last round -- named here so the pattern is recognised faster next time it is
+needed rather than re-discovered.
+
+GATES: COOKED SOUNDS 157/0 (was 145 last round), --mutate bites 44 (was 40): the new claims
+correctly go red when the existing mutation globally swaps footstepModelled for the sand
+recipe, the same falsifier that already covered concrete and asphalt, so no new mutation code
+was needed. FOOTSTEP GATE 24/0, VERDICT-FROZEN 6/0, MERGE DEBRIS 4/0, HANDOFF GATE 9/0, all
+re-run clean; bohemia_sfx.js untouched this round (confirmed by diff before shipping).
+
+NEXT, IN ORDER:
+ 1. THE REST OF THE HARD-CONTACT REDO LIST, 18 of 21 now done or in queue: block, boots_go,
+    demolish, dirt_take, door_more, hit, melee_hit, parts_pass, pickup, set_down, seton_more,
+    shot_more, tread_more, walk_more, wood_more. Combat and object-contact sounds, not
+    footsteps, on the same contact-plus-grit model where the object fits it (a bell/pipe
+    strike model already exists too, struckMetal, for anything that rings like metal rather
+    than thuds like ground).
+ 2. ATTRIBUTE THE 19 NODES ON THE MAP, with a probe that cannot throw.
+ 3. THE FIRST SOUND GATE'S FLAKE, one red in five, on the claim that reads the audio context's
+    state before the tap. Named seven rounds running now. It is the claim, not the game.
+ 4. [beds play] is still HELD. Then [enemy heard], [fight music], [quiet floor], [rumour heard],
+    [pump hum].
+ 5. TWO MUSIC HOLES, STILL MINE: a room handing music back does not check whether a fight owns
+    it, and the shell obeys the city's music message with no fight guard.
+ 6. RULE 33j (9/27): read reference/library/battle_brothers/README.md for this department,
+    cite it, fix a wrong number there with a source. STILL NOT DONE.
+ 7. THE MAP IS BATTLE BROTHERS AGAIN, CANON AS OF 9/28-9/29: the close-grid walk this row's
+    item 8 used to name is DEAD (superseded a second time; a combat tile is a house again,
+    the walk's assets dress the fight tiles, the city is crossed on the map). Nothing this row
+    has built depends on cell size, so nothing here needs rechecking -- footstepModelled is a
+    per-contact recipe, not a per-cell one, and plays the same regardless of what draws the
+    ground under it.
+
 SOUNDS (sound-xk7pjp): 9/28 (b) LATEST -- *** THE THREE HUMS, DONE RIGHT: THREE NEW ADDITIVE-SINE
 RECIPES, NEVER TOUCHING A FROZEN ID. *** Row [not sand], round six, ROW STAYS CLAIMED.
 Record: VAMILY.md row [not sand], round six block (no separate record file this round; the

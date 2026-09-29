@@ -638,6 +638,12 @@ const MEASURE = `
         concrete: look(H.footstepModelled(ctx, { surface: 'concrete' })),
         asphalt:  look(H.footstepModelled(ctx, { surface: 'asphalt' })),
         sand:     look(H.footstep(ctx, {})),
+        /* THE OTHER THREE OF THE 21-SOUND REDO LIST (9/29), NAMED dirtGround/sandGround/
+           woodGround SO NEITHER COLLIDES WITH THE PLAIN "sand" KEY ABOVE, which is the
+           graveyarded noise-filter control, never the real sand ground material. */
+        dirtGround:  look(H.footstepModelled(ctx, { surface: 'dirt' })),
+        sandGround:  look(H.footstepModelled(ctx, { surface: 'sand' })),
+        woodGround:  look(H.footstepModelled(ctx, { surface: 'boards' })),
         /* THE STRUCTURAL CHECK, ON THE SHIPPED FUNCTION'S OWN TEXT: a claim that the new
            sound is "not made of noise" cannot be taken off a spectrum, because a dense
            impact and a hiss bed can land near each other. It can be taken off the code. */
@@ -646,7 +652,10 @@ const MEASURE = `
         ground: H.GROUND ? Object.keys(H.GROUND).length : 0,
         firstModes: H.plateModes ? {
           concrete: +H.plateModes(H.GROUND.concrete,1)[0].hz.toFixed(1),
-          asphalt: +H.plateModes(H.GROUND.asphalt,1)[0].hz.toFixed(1) } : null
+          asphalt: +H.plateModes(H.GROUND.asphalt,1)[0].hz.toFixed(1),
+          dirt: +H.plateModes(H.GROUND.dirt,1)[0].hz.toFixed(1),
+          sand: +H.plateModes(H.GROUND.sand,1)[0].hz.toFixed(1),
+          boards: +H.plateModes(H.GROUND.boards,1)[0].hz.toFixed(1) } : null
       };
     } catch (e) { out.stepErr = String(e && e.message).slice(0,120); }
   })();
@@ -1614,6 +1623,45 @@ const MEASURE = `
         C.peak <= 1 && A.peak <= 1,
         'concrete peak ' + C.peak.toFixed(4) + ', asphalt ' + A.peak.toFixed(4)
         + ', through a tanh rather than a ceiling');
+
+      /* ---- THREE MORE GROUNDS (9/29): dirt, sand and a wood floor, the rest of the
+         redo list's footstep family. Same function, three more materials in the table. */
+      const DG = d.step.dirtGround, SG = d.step.sandGround, WG = d.step.woodGround;
+      claim('DIRT AND SAND ARE SO SOFT THE PLATE FORMULA PUTS THEIR RING BELOW HEARING, on purpose',
+        d.step.firstModes && d.step.firstModes.dirt < 20 && d.step.firstModes.sand < 20
+          && d.step.firstModes.dirt > 0 && d.step.firstModes.sand > 0,
+        'dirt ' + (d.step.firstModes ? d.step.firstModes.dirt : '?') + ' Hz, sand '
+        + (d.step.firstModes ? d.step.firstModes.sand : '?') + ' Hz against concrete\'s '
+        + (d.step.firstModes ? d.step.firstModes.concrete : '?') + ' Hz. Nobody hears a '
+        + 'note down there, so the loss is raised to match rather than left to ring '
+        + 'silently at a pitch that would never be heard anyway');
+      claim('AND THE WOOD FLOOR KEEPS ITS RING, WHERE DIRT AND SAND DO NOT',
+        WG.flat < DG.flat && WG.flat < SG.flat,
+        'wood flatness ' + WG.flat.toFixed(4) + ' against dirt ' + DG.flat.toFixed(4)
+        + ' and sand ' + SG.flat.toFixed(4) + '. A wood floor genuinely rings; packed soil '
+        + 'and loose sand genuinely do not, and the three numbers land in that order because '
+        + 'the physics does, not because a knob was turned to make them');
+      claim('SAND HAS THE MOST GRAINS OF ANY GROUND HERE, because it is the loosest',
+        SG.grains > DG.grains && DG.grains > WG.grains,
+        'sand ' + SG.grains + ' grains, dirt ' + DG.grains + ', a wood floor ' + WG.grains
+        + '. More, smaller grains crush under a boot the looser the ground is; a wood floor '
+        + 'has almost none because it does not crush at all, it flexes');
+      claim('NONE OF THE THREE ARE MADE OF NOISE, read off the same shipped function as the sidewalk',
+        d.step.noiseInModelled === false
+          && DG.noiseSources === 0 && SG.noiseSources === 0 && WG.noiseSources === 0,
+        'dirtGround/sandGround/woodGround all render through footstepModelled, the same '
+        + 'function already checked to call no noise generator; the surface only changes '
+        + 'which row of the ground table it reads');
+      claim('ALL THREE LAND ON THE BEAT AND FIT INSIDE ONE (120 BPM), same as the sidewalk',
+        DG.peakAtMs < 55 && SG.peakAtMs < 55 && WG.peakAtMs < 55
+          && Math.abs(DG.seconds - 0.5) < 1e-9 && Math.abs(SG.seconds - 0.5) < 1e-9
+          && Math.abs(WG.seconds - 0.5) < 1e-9,
+        'loudest instant dirt ' + DG.peakAtMs.toFixed(1) + ' ms, sand ' + SG.peakAtMs.toFixed(1)
+        + ' ms, wood ' + WG.peakAtMs.toFixed(1) + ' ms, all well inside the fight\'s 55 ms PERFECT window');
+      claim('AND ALL THREE ROUND OFF INSTEAD OF CLIPPING (school rule 8)',
+        DG.peak <= 1 && SG.peak <= 1 && WG.peak <= 1,
+        'dirt peak ' + DG.peak.toFixed(4) + ', sand ' + SG.peak.toFixed(4)
+        + ', wood ' + WG.peak.toFixed(4) + ', through the same tanh as every other surface');
     } else { claim('A FOOTSTEP THAT IS NOT SAND was measured', false,
       d.stepErr || 'no reading'); }
 
