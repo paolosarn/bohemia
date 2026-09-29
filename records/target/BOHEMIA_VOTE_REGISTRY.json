@@ -3171,7 +3171,20 @@
      "how": "image",
      "src": "vote/COOK_THE_CIRCLES_BECOME_PLACES.png"
     }
-   }
+   },
+  {
+    "id": "factions-crews-are-heading-at-bases-9-29",
+    "kind": "tile",
+    "lane": "factions",
+    "sha": "45c2a04b",
+    "made": "9/29",
+    "title": "FOUR CREWS ARE ALREADY WALKING AT SOMEBODY'S BASE",
+    "why": "Four of the game's 28 roaming crews are already walking at a rival's home base: the Caravans, the Cartel and the Remnants going at each other. When they arrive, nothing happens. The map can show it: every crew's path, and a red ring on a base a crew is heading at. Tap LOOK AT IT. My default is that a base only falls from what you do, until you say otherwise. Thumbs up keeps it that way. Thumbs down lets crews take bases while you are not looking.",
+    "show": {
+      "how": "page",
+      "src": "vote/FACTIONS_WHO_IS_COMING_FOR_WHOM_9_29.html"
+    }
+  }
  ],
  "verdicts": [
   {

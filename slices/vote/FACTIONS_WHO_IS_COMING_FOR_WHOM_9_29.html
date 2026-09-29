@@ -1,0 +1,109 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>BOHEMIA - FOUR CREWS ARE WALKING AT A BASE</title>
+<style>
+ :root{ --ink:#141210; --paper:#f4efe6; --hot:#a8391d; --dim:#4a443c; --good:#2c6b35 }
+ *{ box-sizing:border-box }
+ body{ margin:0; background:var(--paper); color:var(--ink);
+       font:15px/1.5 ui-sans-serif,system-ui,-apple-system,Arial,sans-serif }
+ header{ padding:14px 14px 10px; border-bottom:3px solid var(--ink) }
+ h1{ margin:0 0 5px; font-size:19px; letter-spacing:.3px }
+ .sub{ font-size:14px; color:var(--dim) }
+ .said{ margin:10px 14px; padding:9px 12px; border-left:5px solid var(--good);
+        background:#fff; font-size:14px }
+ .said b{ color:var(--good) }
+ .fork{ margin:10px 14px; padding:9px 12px; border-left:5px solid var(--hot);
+        background:#fff; font-size:14px }
+ .fork b{ color:var(--hot) }
+ .quiet{ margin:10px 14px; padding:9px 12px; border-left:5px solid #6b6252;
+         background:#fff; font-size:13px; color:var(--dim) }
+ .quiet b{ color:var(--ink) }
+ .wrap{ padding:6px 14px 50px }
+ .shot{ background:#fff; border-bottom:3px solid var(--ink); padding:8px; margin-top:14px }
+ .tag{ display:inline-block; background:var(--ink); color:var(--paper); font:11px/1.6
+       ui-monospace,monospace; padding:1px 7px; letter-spacing:.5px; margin-bottom:6px }
+ .shot a{ display:block }
+ .shot img{ display:block; width:100%; height:auto; border:1px solid #cabfa8; image-rendering:pixelated }
+ .cap{ font-size:14px; color:var(--dim); margin:9px 0 0 }
+ .cap b{ color:var(--ink) }
+ .key{ display:flex; flex-wrap:wrap; gap:6px 14px; margin:8px 0 0; font:12px/1.4 ui-monospace,monospace }
+ .key span{ white-space:nowrap }
+ table{ border-collapse:collapse; width:100%; background:#fff; margin-top:14px;
+        font:12px/1.4 ui-monospace,monospace }
+ th,td{ text-align:left; padding:5px 7px; border-bottom:1px solid #ddd5c4 }
+ th{ background:var(--ink); color:var(--paper) }
+</style></head><body>
+
+<header>
+ <h1>FOUR CREWS ARE ALREADY WALKING AT SOMEBODY'S BASE</h1>
+ <div class="sub">The map can show who is coming for whom. Nothing happens when they get there. 9/29</div>
+</header>
+
+<div class="said">
+ <b>WHAT I FOUND.</b> The game already sends crews at home bases. Four of the 28 roaming crews are
+ "going to take something," and what they are heading at is a rival's base: the Caravans crew at the
+ Cartel, two Cartel crews at the Remnants and the Caravans, the Remnants crew at the Cartel. It is the
+ same four on every valley I tried. When they arrive, nothing happens.
+</div>
+
+<div class="wrap">
+
+ <div class="shot">
+  <span class="tag">THE MAP AS IT IS, REAL FRAME</span>
+  <a href="FACTIONS_WHO_IS_COMING_AS_IT_IS_9_29.png" target="_blank" rel="noopener"><img src="FACTIONS_WHO_IS_COMING_AS_IT_IS_9_29.png" alt="the south-east of the map as the game draws it"></a>
+  <div class="cap"><b>Zoomed on the three bases in the south-east.</b> They are thin gold outlines. You cannot see
+  who is going where, or that anyone is going at all.</div>
+ </div>
+
+ <div class="shot">
+  <span class="tag">SAME MAP, SAME CAMERA, DRAWN FROM THE LIST</span>
+  <a href="FACTIONS_WHO_IS_COMING_LINES_9_29.png" target="_blank" rel="noopener"><img src="FACTIONS_WHO_IS_COMING_LINES_9_29.png" alt="the same map with every crew's path and red rings on the bases being headed for"></a>
+  <div class="cap"><b>Every crew shows the line it is walking along,</b> the way Battle Brothers shows a party's
+  banner and its destination line. The crews going to take something get a thick dashed line and an arrow.
+  A base a crew is heading at gets a red ring: a warning on the map.</div>
+  <div class="key">
+   <span>THIN LINE = where a crew is walking</span><span>THICK DASHED + ARROW = going to take something</span>
+   <span>RED RING = a crew is heading at this base</span><span>CIRCLE = caravan</span><span>SQUARE = patrol</span><span>TRIANGLE = a crew going to take something</span>
+  </div>
+ </div>
+
+ <div class="shot">
+  <span class="tag">THE WHOLE VALLEY THE SAME WAY</span>
+  <a href="FACTIONS_WHO_IS_COMING_WHOLE_9_29.png" target="_blank" rel="noopener"><img src="FACTIONS_WHO_IS_COMING_WHOLE_9_29.png" alt="the whole valley with every crew's path"></a>
+  <div class="cap"><b>All 28 paths.</b> The south-east and the north pile are busy. The rest is quiet.</div>
+ </div>
+
+ <div class="fork">
+  <b>WHAT I DID NOT BUILD, AND MY DEFAULT.</b> When a crew gets there, nothing happens. I did not let crews
+  take bases on their own. My default is that a base only falls from what YOU do, until you say otherwise,
+  because a valley that rewrites itself while you look away is a big change. The warning is also how a
+  siege would start: a warning on the map, then an offer, then one fight.
+  <br><br>
+  Thumbs up keeps it that way. Thumbs down means let crews take each other's bases when nobody is watching.
+ </div>
+
+ <table id="tbl"></table>
+
+ <div class="quiet">
+  <b>WHERE THIS LIVES.</b> The map's markers are RUN's job this round; this list is what they can draw from,
+  so these rings and lines are NOT IN A TAB YET on the live map. The picture above is the game's real map
+  with the list drawn on top of it.
+ </div>
+
+</div>
+
+<script>
+var ROWS = [
+ ['roaming crews out', '28 (14 patrol, 10 caravan, 4 going to take something)'],
+ ['crews going to take a base', '4, on every valley I tried (3 valleys, and the live game)'],
+ ['bases with a crew heading at them', '3 of 14: Caravans, Cartel, Remnants'],
+ ['crews heading at the Cartel', '2 (Caravans and Remnants)'],
+ ['what happens when a crew arrives', 'nothing'],
+ ['words on any marker', '0']
+];
+var h = '<tr><th>WHAT</th><th>MEASURED</th></tr>';
+for (var i = 0; i < ROWS.length; i++)
+  h += '<tr><td>' + ROWS[i][0] + '</td><td>' + ROWS[i][1] + '</td></tr>';
+document.getElementById('tbl').innerHTML = h;
+</script>
+</body></html>
