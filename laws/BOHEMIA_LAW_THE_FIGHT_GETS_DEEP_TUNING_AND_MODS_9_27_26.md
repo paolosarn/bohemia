@@ -84,3 +84,11 @@ block, and in the derived future (rule 31). The separate builder screen stays CU
 you do in a place. (c) The split is measured: EYES reports where a session's minutes go; the fight is under a
 third of them (default, in VOTE).
 
+## 9. CORRECTED BY HIM THE SAME HOUR (records/BOHEMIA_PAOLO_TOUGH_BATTLES_ARE_30_40_MINUTES_9_29_26.md): "tough battles can be 30 to 40 minutes... I don't know about 90
+seconds, who told you that... shorter than 30 to 40 even for tough battles... either the enemy is higher level,
+or better equipment, or you fucked up." s8(a)'s 90-second and 4-minute numbers were the manager's invention and
+are DEAD. The ruling: shorter than Battle Brothers' 30 to 40 minutes even for tough fights. Defaults (in VOTE;
+TUNING measures real play and refines): a routine fight 2 to 4 minutes; a tough fight 8 to 15, never past 15.
+A fight is tough for exactly three reasons, and those are TUNING's difficulty dials: enemy level, enemy gear,
+your mistake.
+

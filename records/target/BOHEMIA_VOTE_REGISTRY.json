@@ -3030,8 +3030,8 @@
   "id": "coordinator-a-routine-fight-ends-inside-90-seconds-9-29",
   "kind": "verdict",
   "lane": "coordinator",
-  "title": "A ROUTINE FIGHT ENDS INSIDE 90 SECONDS. A BOSS FIGHT INSIDE 4 MINUTES.",
-  "text": "You said Battle Brothers spends most of its hours on the chess board and you want faster combat and a deeper, buildable world. Default: a routine fight is over inside 90 seconds of beats, a boss fight inside 4 minutes, and your gambits carry the routine so you only touch the shots that matter. The tuning chat researches the real Battle Brothers numbers next. DOWN means longer fights, or say your number in a note.",
+  "title": "DEAD: THE 90-SECOND FIGHT (YOU CORRECTED IT, NOTHING TO TAP)",
+  "text": "You said tough Battle Brothers battles run 30 to 40 minutes and nobody told me 90 seconds. Right. This one is dead; the new default is the next item.",
   "asked": "UP or DOWN",
   "when": "2026-09-29",
   "draft": true
@@ -3042,6 +3042,16 @@
   "lane": "coordinator",
   "title": "YOU BUILD YOUR HOME BASE FROM ITS OWN SETTLEMENT SCREEN, LOT BY LOT",
   "text": "Buildable world, your words. Default: in a home base you own, the settlement screen has a build action. Tap a lot, put a shed, a pump, a wall, a shop or a roof on it from the art we have. It costs batteries and time. It shows on the map, on the fight board when you fight there, and in your descendants' future. No separate builder screen. DOWN means no building, or say your version in a note.",
+  "asked": "UP or DOWN",
+  "when": "2026-09-29",
+  "draft": true
+},
+{
+  "id": "coordinator-fights-shorter-than-battle-brothers-even-when-tough-9-29",
+  "kind": "verdict",
+  "lane": "coordinator",
+  "title": "A ROUTINE FIGHT 2 TO 4 MINUTES. A TOUGH ONE NEVER PAST 15. TOUGH MEANS LEVEL, GEAR, OR YOUR MISTAKE.",
+  "text": "Your correction: tough Battle Brothers battles run 30 to 40 minutes, and ours should be shorter even when tough. Default: a routine fight takes 2 to 4 minutes, a tough fight 8 to 15 and never past 15. A fight is tough for three reasons only: the enemy is higher level, the enemy has better gear, or you messed up. Those three are the difficulty dials. DOWN means different numbers; say them in a note.",
   "asked": "UP or DOWN",
   "when": "2026-09-29",
   "draft": true
