@@ -418,9 +418,7 @@ slices/look/runway-before-after.png
 slices/vote/CHARACTER_THE_ONE_CELL_SPRITE.html
 slices/vote/COOK_THE_MAP_HAS_MARKERS.png
 slices/vote/COOK_WHO_IS_THAT_ON_THE_ROAD.png
-slices/vote/LIFECITY_PLACES_YOU_CAN_SEE_AND_NEVER_ENTER_9_28.png
 slices/vote/LIFECITY_THE_WATER_YOU_COULD_STAND_ON_9_27.png
-slices/vote/LIFECITY_WHERE_A_RAID_IS_FOUGHT_9_28.png
 slices/vote/PEOPLE_BUBBLE_READS.json
 slices/vote/PEOPLE_NOCLUMP_NOW_10_9_22.png
 slices/vote/PEOPLE_RUMOUR_SAID.json

@@ -50,7 +50,8 @@ spec = importlib.util.spec_from_file_location(
 places = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(places)
 
-places.OUT = os.path.join(places.ROOT, 'slices', 'vote', 'LIFECITY_WHERE_A_RAID_IS_FOUGHT_9_28.png')
+# OFF THE SITE 9/29 ([vote picture]): withdrawn from his queue, kept for the record, never published.
+places.OUT = os.path.join(places.ROOT, 'records', 'lifecity_pictures', 'LIFECITY_WHERE_A_RAID_IS_FOUGHT_9_28.png')
 places.PANELS = [
     ('REMNANTS: POLICE', 'policestation', None),
     ('HOMELESS: PUMPS', 'pumpstation', None),

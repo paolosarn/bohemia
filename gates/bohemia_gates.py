@@ -2912,6 +2912,10 @@ GATES = [
      "proof pictures, which is what a temp dir is for", False),
     ('LANDLOCKED',      ['node', 'gates/landlocked_gate.js'],
      'an interior district with no real street is suburb/apt and relays a road out through a same-family neighbor', False),
+    ('BUILD A LOT',      ['node', 'gates/build_a_lot_gate.js'],
+     'rule 40b (Paolo 9/29): what can be built on a lot in your home base and what it does -- every piece '
+     'a real kit piece, one battery and one day each, each houses a family or makes one currency (the wall '
+     'nothing), a finished build moves the real derive, and it pays once a day even across a save and load', False),
     ('FLOOR CONNECTS',   ['node', 'gates/every_floor_region_connects_gate.js'],
      'rule 34b (Paolo 9/27): every floor region connects to the street. A RATCHET: sealed floor per '
      'district (walled in by solid things with no gap) is frozen and may only go down, zero stays '

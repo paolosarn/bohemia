@@ -52,7 +52,9 @@ import json, os, subprocess, sys
 from PIL import Image, ImageDraw
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-OUT = os.path.join(ROOT, 'slices', 'vote', 'LIFECITY_PLACES_YOU_CAN_SEE_AND_NEVER_ENTER_9_28.png')
+# OFF THE SITE 9/29 ([vote picture]): withdrawn from his queue when a combat tile became a house again,
+# so it is a picture for the record, and records/ is not published.
+OUT = os.path.join(ROOT, 'records', 'lifecity_pictures', 'LIFECITY_PLACES_YOU_CAN_SEE_AND_NEVER_ENTER_9_28.png')
 SCALE, BAND = 2, 12
 
 COL = {0: (136, 158, 132),   # reachable

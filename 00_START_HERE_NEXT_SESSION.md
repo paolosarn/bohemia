@@ -2501,6 +2501,36 @@ AND THE LESSON THAT STILL BINDS: NO TEXT-ONLY ITEM IN VOTE, and now a second one
 beside it -- A PICTURE IN THE VOTE TAB THAT SHOWS A SENTENCE THE GAME NO LONGER
 SAYS IS A LIE TO HIM. Re-shoot the frames in the same round the words change.
 
+LIFE + CITY (city-1eztay): 9/29 LATEST -- *** BUILDING IS BACK, ON YOUR OWN LOT: WHAT YOU CAN BUILD AND
+WHAT IT DOES, RUNNING ON THE REAL PURSE, LEDGER AND DERIVE. ***
+TAB: the new picture is in the VOTE tab (alpha).
+Record: records/BOHEMIA_BUILDING_IS_BACK_ON_YOUR_OWN_LOT_9_29_26.md
+
+ROW [build a lot] CLAIMED 9/29 (rule 40b, this lane's first line; [three cities] and the floor work fold
+under it). BUILT engine/bohemia_lotbuild.js: SEVEN things, every one a piece the game already draws
+(shed=trailer:7, pump house=pumpstation:2, garden bed=school:13, solar panel=solar:7, vendor stall=
+swapmeet:6, roof=suburb:2, wall=suburb:4). Each costs one battery and one day (8/15 + 9/4); each houses a
+family or makes ONE currency (7/26), three of materials, one of batteries (WORLD's ruled yield, READ from
+bohemia_powerbuild), one of name/clout, the roof a household, the wall nothing and it says so. On the fight
+board: the roof is HIGH GROUND (37g), the wall a wall. NO SECOND LEDGER: purse for money, century for deeds
+(so the derive counts it in acts 2 and 3 and a raid can tear it down), purse PRODUCTION for output.
+TWO BUGS OF MINE CAUGHT BEFORE SHIP: a roof housed nobody (housing table empty in a clean process; the module
+now fills it, act 3 people 215 -> 217.2); a reload paid twice (paid-today was a field the purse does not save;
+now counted from the ledger's own produce entries).
+GATE BUILD A LOT 26/0, in the suite, two mutations.
+COOK: slices/vote/LIFECITY_TWO_DAYS_OF_BUILDING_9_29.png -- the module running for real on HIS APPROVED STREET
+(two of the seven already drawn there: the panel+cabinet, the swap stand as the stall): day 0 batteries 1,
+day 1 batteries 1, day 2 batteries 2 name 1; act 3 inherits 2. NOT SHIPPED: a catalog sheet cut out of map
+blocks -- two passes and still flat blocks, the look he killed three times; kept in records/lifecity_pictures.
+ROUTED TO COOK: shed, pump house, garden bed, roof and wall need their pieces drawn from his approved street.
+ROUTED TO RUN: the settlement screen calls BohemiaLotBuild.list/start/tick (ready, not yet embedded in a play
+surface). COMBAT reads fightTile(); COOK's map markers read markerOf().
+[vote picture] DONE: both pulled pictures moved off the site to records/lifecity_pictures/, factories
+re-pointed, two lines off gates/excavate_baseline.txt, EXCAVATE 8/0.
+*** AND A MERGE UNDID MY WITHDRAWALS: PORTRAIT's 604688cc resolved a registry conflict by taking an older copy
+and restored both items I had pulled (unjudged). Pulled again. Worth every lane checking that commit for its
+own rows; same resolver bug WORLD named on its own helper. ***
+
 LIFE + CITY (city-1eztay): 9/28c LATEST -- *** THE STREET FALLS AND THE EMPTY HOUSE STAYS LIT.
 [three cities] UNPARKED AND DRAWN BOTH WAYS FROM THE REAL DERIVE; [honest grid] CLOSED BY HIS CORRECTION. ***
 TAB: the new picture is in the VOTE tab (alpha).
