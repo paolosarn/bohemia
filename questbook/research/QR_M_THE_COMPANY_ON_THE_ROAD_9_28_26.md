@@ -218,7 +218,7 @@ macros... and enjoy watching it run", and it "automates the mundane and focuses 
 says about giving an automated fighter a personality:
 - Personhood by proximity. Dragon's Dogma insists its pawns cannot feel, then shows "fear, worry, and grief" because
   the player's soul rubs off over time (`Q084.W3`). A companion whose gambit behaviour slowly bends toward how the
-  player plays is that finding on a grid.
+  player plays is that finding on the fight board.
 - The resolve check. At breaking point, a Darkest Dungeon hero either cracks and acts on their own or overcomes with a
   rare clutch buff (`Q041.W2`); the virtue is "an unplannable ~15% overcoming" that makes the dread bearable
   (`Q041.W10`). This is the one time an automated companion should break its orders: rarely, visibly, and in
@@ -255,13 +255,13 @@ says about giving an automated fighter a personality:
    expressed as behaviour: formation, gambits, camp position, one line. (`Q083.W6`, `Q076.X3`, `Q125.X9`, `Q137.X2`)
 2. LOYALTY LIVES IN THE FIGHT. A member's regard for the player changes what he DOES on the fight board, never his
    damage number: whom he covers, whether he takes the flank you give him, whether he steps back to help a downed
-   friend. Every such change has a tell a player can see in one fight (a line, a stance, a cell he will not enter).
+   friend. Every such change has a tell a player can see in one fight (a line, a stance, a tile he will not enter).
    (`Q137.W3`, `Q006.W7`, with `Q137.X1` fixed by the tell)
 3. A NO IS NOT THEIRS. On the settlement's offer screen, before the yes, no company member speaks. After a decline,
    no member mentions the contract, ever. A companion's reaction to a contract exists only after it is TAKEN, inside
    the job. (rule 35, `Q131.X7` inverted on purpose, `Q043.X1`)
 4. DISAGREEMENT IS A PRICED PATH, NOT A LEAVE BUTTON. A member who objects to a taken job may ask to sit it out
-   (one fewer in the formation for that job), may offer a third way on the grid, or, for his one red line, leave
+   (one fewer in the formation for that job), may offer a third way on the fight board, or, for his one red line, leave
    the company at the next settlement with his reason said aloud. One red line per member, stated to the player in
    a road line before it can ever fire. (`Q136.P3`, `Q139.P2`, `Q116.W8`, `Q137.X1`)
 5. NO CHORUS. A company reaction to a choice never has every member agreeing. If two or more speak, at least one
@@ -346,7 +346,7 @@ composition-driven events.
    morale stat. Whether fight morale is shown as a number or only as a stance is TUNING's and COMBAT's call.
 3. THE GAMBIT OVERRIDE RATE. `Q041.W10` gives Darkest Dungeon's ~15% virtue rate as a thrill at a breaking point. No
    study gives the right rate for an override in a 120 BPM fight. TUNING measures.
-4. THE SAME PERSON IN TWO AGES. Because the acts are open at once (rule 31), an act 1 member and his act 3 grandchild
+4. THE SAME PERSON IN TWO AGES. Because the acts are open together once unlocked (rule 31, rule 39c), and the company INHERITS (rule 39d: each act starts with the heirs of the last act's company, prepared from the ledger, the gear kept in the family), an act 1 member and his act 3 grandchild
    can both be on screen in one session. The library's across-generations cases (`Q067.W6`, `Q069.W3`) are linear.
    DYNASTY owns how the flip reads a member who is alive in act 1 and a memory in act 3.
 5. DOES THE COMPANY SPEAK SPANGLISH? Rule: people speak Spanglish, the player does not. Company members are people;

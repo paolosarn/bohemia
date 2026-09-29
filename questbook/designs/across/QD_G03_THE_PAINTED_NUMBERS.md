@@ -30,7 +30,7 @@ On arrival in Act 3 the player sees the landing on the first screen of the stree
 - A: your family's house is number 412 and Alba says "My father said you held the can." The house is yours to enter.
 - B: your family's block is the one gap in the street, a lot of rubble between two new houses. Alba: "You asked him not to. He didn't."
 - C (the floor, full weight): a house is built for the empty shelter he numbered, and a stranger lives in it who says she was never in the channel. Your family's house exists, one number off.
-If the player flips to Act 3 before meeting Iker, the street shows the C read, and it re-derives the next time Act 3 is opened after the Act 1 choice. Every act stands alone: Act 1 is complete as a small scene; Act 3 is complete without it (`Q022.X2`). One flag crosses, not six.
+If the player flips to Act 3 (once it has unlocked) before meeting Iker, the street shows the C read, and it re-derives the next time Act 3 is opened after the Act 1 choice. Every act stands alone: Act 1 is complete as a small scene; Act 3 is complete without it (`Q022.X2`). One flag crosses, not six.
 
 ## THE ONE WRONG DETAIL
 In Act 3, two generations later, the painted numbers on the new doors are still wet.
@@ -43,4 +43,4 @@ In Act 3, two generations later, the painted numbers on the new doors are still 
 - `Q140.P2`: the read arrives regardless; taken as the full-weight floor read.
 
 ## FLAWS IT AVOIDS
-`Q098.X1` (six scattered pieces), `Q104.X3` (thesis in the unmarked optional), `Q096.X1` and `Q121.X1` (payoff gated on bookkeeping across games), `Q022.X2` (a pass that does not stand on its own), `Q023.X2` (hidden order: the player may flip to Act 3 first and the street still reads).
+`Q098.X1` (six scattered pieces), `Q104.X3` (thesis in the unmarked optional), `Q096.X1` and `Q121.X1` (payoff gated on bookkeeping across games), `Q022.X2` (a pass that does not stand on its own), `Q023.X2` (hidden order: the player may reach Act 3 before meeting Iker and the street still reads).

@@ -29,7 +29,7 @@ C. THE CLEARING HOUSE TAKES HIM. The player walks him to the counter. Cost: a ma
 The fee is identical on A, B and C.
 
 ## WHAT THE LEDGERS REMEMBER
-A: the forger is at his bench on every later visit, and the hollow count Abel mentions drops each visit (a spoken reader). B: the wall of serials is a prop on the clearing house for the rest of Act 2, with some numbers crossed out by hand. C: the bench in the east yards is empty and padlocked; in the city view the feed posts: "Clearing house made an example today. Tokens are good again." In Act 3, the market's token (or its absence) is read from which of these happened (the flip reads this act's ledger; if Act 2 was never played, the default is A). Declining writes nothing.
+A: the forger is at his bench on every later visit, and the hollow count Abel mentions drops each visit (a spoken reader). B: the wall of serials is a prop on the clearing house for the rest of Act 2, with some numbers crossed out by hand. C: the bench in the east yards is empty and padlocked; in the city view the feed posts: "Clearing house made an example today. Tokens are good again." In Act 3, the market's token (or its absence) is read from which of these happened (the flip reads this act's ledger; if this Act 2 contract was never taken, the default is A). Declining writes nothing.
 
 ## THE ONE WRONG DETAIL
 On Abel's scale every hollow token weighs exactly one gram more than a good one.

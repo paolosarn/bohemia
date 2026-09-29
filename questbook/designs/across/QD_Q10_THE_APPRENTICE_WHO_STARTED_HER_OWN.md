@@ -21,7 +21,7 @@ Act 3 (the landing, a road meeting with her party on the map):
 - SENT HOME / DEFAULT: a stranger's company with a girl's name on the banner; she does not know you.
 
 ## WHAT THE LEDGERS REMEMBER
-Act 2: she is in the roster, or not. Act 3: her party is on the map, its size and banner derived. If a company member died while she rode, her party carries that member's name on the banner.
+Act 2: she is in the roster, or not. Act 3: her party is on the map, its size and banner derived. (Swept 9/29, rule 39d: the act 3 company is the heirs of the act 2 company; she is the one act 2 member whose line does not carry into it, because she left to found her own. Her party is a roaming party, never a second copy of the family's.) If a company member died while she rode, her party carries that member's name on the banner.
 
 ## THE ONE WRONG DETAIL
 Her company's banner, in every version, has one more star than she has people.

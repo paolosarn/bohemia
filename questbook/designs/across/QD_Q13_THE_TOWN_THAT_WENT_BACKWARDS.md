@@ -24,7 +24,7 @@ B. GET THE PEOPLE OUT. At night, through the tunnels; the band keeps the base, t
 C. "I WON'T FIGHT INSIDE." Priced: the family escorts only those who come to the gate; pay 7; half the people stay.
 
 ## WHAT THE LEDGERS REMEMBER
-Act 2: which base the family held (or neither: then both are taken in act 3 and the offer comes from the family's own base). DEFAULT (act 2 not played): the generator picks which base is taken and the elder's line is "Nobody stood with them." A: the base is a home base again; the future got better. B: two bases' worth of people in one; the held base grows. C: an attempt, recorded.
+Act 2: which base the family held (or neither: then both are taken in act 3 and the offer comes from the family's own base). DEFAULT (the act 2 stand never reached before act 3 opened): the generator picks which base is taken and the elder's line is "Nobody stood with them." A: the base is a home base again; the future got better. B: two bases' worth of people in one; the held base grows. C: an attempt, recorded.
 
 ## THE ONE WRONG DETAIL
 The band keeps the hospital's visiting hours posted and exact, and nobody inside is sick.

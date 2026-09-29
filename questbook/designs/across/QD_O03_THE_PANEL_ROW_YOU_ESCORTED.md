@@ -25,7 +25,7 @@ panels. Act 3 reads it: whether that row stands decides whether the field's boar
 3. Leave the truck at the first sign and save the men: a finished contract at a price (2 batteries, twenty panels).
 
 ## WHAT THE LEDGERS REMEMBER
-Declining leaves nothing. Act 3 (flipped to): with forty panels, the field is a fortress board, three offers, and
+Declining leaves nothing. Act 3 (once unlocked, and on every flip to it): with forty panels, the field is a fortress board, three offers, and
 Tomás's daughter is the client. With twenty, a town board. Never done: a town board and the default read.
 
 ## THE ONE WRONG DETAIL

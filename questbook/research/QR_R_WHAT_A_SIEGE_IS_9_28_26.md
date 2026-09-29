@@ -132,7 +132,7 @@ off, a RETAKE contract in the exiles' new hall, and a later act that SHOWS it (`
 ### 4. The days between the yes and the fight: preparation is the depth
 
 - THE LEVEL REMEMBERS YOUR PREPARATION. `Q116.W9`. Accepting a defend contract gives the company the stated map days
-  before the assault. Each day can be spent: raising cover cells (the base's honest grid gets sandbags and cars),
+  before the assault. Each day can be spent: raising cover (the base's house tiles get sandbags and cars),
   hiring the base's militia, moving the kids out, buying medicine. Rule 36's law says formation and gear are the depth;
   a siege is where formation meets ground the player shaped.
 - ROLE ASSIGNMENT IS THE SKILL CHECK. `Q006.W4` and `Q137.W4`: the finale's authorship is WHO goes where; `Q006.P3`
@@ -155,15 +155,16 @@ off, a RETAKE contract in the exiles' new hall, and a later act that SHOWS it (`
 
 ### 5. The fight on the fight board
 
-- ONE BLOCK, ONE FIGHT. `Q060.W4`: a small grid "so you hold the WHOLE puzzle in your head". QR-G checklist 8: the
+- ONE BLOCK, ONE FIGHT. `Q060.W4`: a small grid "so you hold the WHOLE puzzle in your head"; our board is small because its tiles are house-sized. QR-G checklist 8: the
   work fits one leg and one block. A siege is ONE fight on the base's own drawn block (third votes s2: the fight board is
   the fight's ground), against a group, on the beat, with the companion, as every fight is. Waves are beats inside
-  that fight, not extra fights.
+  that fight, not extra fights. A siege is a TOUGH fight: 8 to 15 minutes, never past 15 (rule 40a); the HOLD count
+  of bars is set inside that ceiling (at 120 BPM, 15 minutes is 450 bars, so a hold is far fewer).
 - THE CLOSED BOX. `Q007.W1` and `Q007.P1` ("a besieged shelter"): a sealed location with a fixed cast concentrates the
   design. Inside the fight, the base is a closed box with ONE exception, next line.
 - THE FLEE OPTION NEVER CLOSES. `Q151.W7`: abandoning everything mid-siege stays on the table, "and its standing
   availability is what makes staying a CHOICE instead of a checkpoint". `Q140.W8`: the off-ramp is real. Every siege
-  grid has a way-out edge; the company can leave through it at any beat. Leaving is the priced refusal (`Q139.P2`,
+  fight board has a way-out edge; the company can leave through it at any beat. Leaving is the priced refusal (`Q139.P2`,
   QR-G checklist 12): the contract finishes at a stated lower pay, the base's outcome is computed from what stood.
 - HIGH GROUND IS A ROOF, AND ROOFS FALL. Third votes s7: a roof still standing is the high ground; a collapsed roof is
   not. `Q099.W4`: "the building takes your floor in the first ten seconds". A siege is the one fight where the ground
@@ -174,7 +175,7 @@ off, a RETAKE contract in the exiles' new hall, and a later act that SHOWS it (`
   party's leader down), never extermination. An attacker's win is the HALL or the PUMP held at the end. `Q142.W10`:
   the fight settles nothing by design, which is why the outcome is decided by what stands, not by the body count.
 - NOBODY IS A BYSTANDER. `Q030.W1`: re-centre catastrophe on the powerless; `Q030.W8`: community is a survival
-  resource. The base's own people are ON the grid as their own side (the militia hold a door, a cook carries water).
+  resource. The base's own people are ON the fight board as their own side (the militia hold a door, a cook carries water).
   `Q116.W8`: you can hide in a closet and let your brother handle it; the militia can hold without the company, badly.
 - NOT A FARM. `Q151.X1`: siege AI collapses into patterns; veteran bases "harvest their own attackers". `Q151.P3`: sieges
   that LEARN (the next attacker reads the last breach point and varies). `Q061.X5` and `Q030.X3`: sieges get repetitive
@@ -193,7 +194,7 @@ off, a RETAKE contract in the exiles' new hall, and a later act that SHOWS it (`
 | pay | lower, often part in kind (hours of power, food, treatment; QR-O raided shape) | higher, in batteries (`Q031.W5`) |
 | clock | the attacker's: a stated day, in map days | the player's: he chooses the night, but the defenders prepare too |
 | ground | known, shaped by the preparation days (`Q116.W9`) | unknown until scouted; knowledge is the gate (`Q146.W7`) |
-| people on the grid | the base's civilians and militia, on the player's side (`Q030.W1`) | the same civilians, now in the player's way; the lane out stays open for them (`Q151.W7` mirrored) |
+| people on the fight board | the base's civilians and militia, on the player's side (`Q030.W1`) | the same civilians, now in the player's way; the lane out stays open for them (`Q151.W7` mirrored) |
 | win | HOLD for N bars, or break the leader | the hall or the pump held at the end |
 | the talk option | pay tribute, buy days, parley at the gate (`Q151.P2`) | open the gate on terms: the defenders walk out with what they carry (`Q136.P5`) |
 | the priced refusal | leave by the way out with the civilians, half pay (`Q137.W5`) | "I won't go inside": hold the road only, half pay |

@@ -4,11 +4,20 @@ QUESTION (row [the ask in a place], question (d) of laws/BOHEMIA_ADDENDUM_QUESTS
 How do the best of the 152 hand the player a job through a PERSON in a PLACE, never a board or a card?
 What does the person say FIRST, what do they withhold, what does the place itself tell you before anyone
 talks, and how do body, location and timing do the work? How is the price stated and argued? Then: the
-SHAPE for our asks on the close-scale street the player arrives on after travel: never forced, nothing in
+SHAPE for our asks at the place the player arrives at after travel (swept 9/29: the settlement screen, not a
+walked street): never forced, nothing in
 the first 60 seconds, a mouth with a portrait, and the free no.
 
 STATUS: research only (rule 35). Nothing here is built. Every sentence of dialogue on this page is an
 attempt, draft:true, and the contents (names, lines) are Paolo's to change.
+
+SWEPT 9/29 (VAMILY rules 38 to 40; questbook/research/QR_W_THE_SHELF_SWEPT_FOR_RULES_38_TO_40_9_29_26.md):
+the close-scale street this page was written for is dead. Nobody walks through the city (rule 38): the city
+is crossed on the map, a place is a SETTLEMENT SCREEN, and the fight is on the FIGHT BOARD, house-sized
+tiles cut from the city. QR-P already moved the contract's door to the offer screen. What survives here is
+the person, the first line, the terms, the free no and the PLACE THAT ASKS, which is now a building drawn
+wrong on the settlement screen instead of a set of cells on a walked street. Sections 10, 11 and the rules
+below are re-read that way in place.
 
 ## THE ANSWER IN ONE PARAGRAPH
 
@@ -260,9 +269,10 @@ THE FIRST VOTES). The flaw on the other side is the lore dump: long talky chunks
 
 ## 10. THE CATALOGUE OF PLACES THAT ASK (ids PL01 to PL14)
 
-A place that asks is a spot on the fight board whose DRAWING tells you something is wrong before any
-person speaks. On our honest grid every one of these is cells: a shelf is a PROP, a window is part of a
-WALL, a queue is people standing on FLOOR, a door is a DOOR (laws/BOHEMIA_LAW_TWO_SCALES_ONE_GAME_9_27_26.md).
+A place that asks is a building or spot on the settlement screen whose DRAWING tells you something is
+wrong before any person speaks (swept 9/29: it used to be cells on the honest grid, which died with the walk,
+rule 38). A shelf, a window, a queue, a door are drawn things in the settlement's one view, and the same
+block cut as the fight board keeps them if a fight happens there.
 The ones marked (asks.js) already exist as generator change ids in engine/bohemia_asks.js.
 
 | id | THE PLACE | WHAT THE PLAYER SEES FIRST | WHO STANDS THERE | SOURCE |
@@ -270,7 +280,7 @@ The ones marked (asks.js) already exist as generator change ids in engine/bohemi
 | PL01 | THE EMPTY SHELF (asks.js shelf_refills) | One shelf bare in a stocked room, or a stocked shelf in a bare room. | The one who keeps it. | `Q097.W1`, `Q023.P4` |
 | PL02 | THE DARK WINDOW (asks.js light_comes_back) | One unlit window on a lit block. | A neighbour on the step. | `Q128.P3`, `Q147.W2` |
 | PL03 | THE QUEUE | People standing in a line for something that is not coming. | The one at the front, or the one who keeps it. | `Q114.N1`, `Q146.W2` |
-| PL04 | THE FENCE THAT MOVED (asks.js block_changes_hands) | A boundary one cell off from where it was. | Whoever lost the cell. | `Q151.W5`, `Q023.W4` |
+| PL04 | THE FENCE THAT MOVED (asks.js block_changes_hands) | A boundary one lot off from where it was. | Whoever lost the lot. | `Q151.W5`, `Q023.W4` |
 | PL05 | THE DRY TAP | A standpipe, a hose, a trough, dry, with jugs around it. | The one with the jugs. | `Q147.W7`, `Q147.W8` |
 | PL06 | THE UNCOLLECTED LETTER | Mail, a note, a parcel at a door that has sat too long. | Nobody yet; the neighbour who noticed. | `Q128.P3`, `Q128.W9` |
 | PL07 | THE LOOP ON A SPEAKER | A voice repeating from a doorway radio or a dead intercom. | Nobody alive, maybe. | `Q101.W3`, `Q088.W8` |
@@ -284,26 +294,25 @@ The ones marked (asks.js) already exist as generator change ids in engine/bohemi
 
 ---
 
-## 11. THE SHAPE FOR OUR ASKS ON THE CLOSE STREET
+## 11. THE SHAPE FOR OUR ASKS AT THE PLACE (was: ON THE CLOSE STREET)
 
-The player arrives from the map (the squeeze in) onto a street on the honest grid. The shape below is
+The player arrives from the map onto the place's settlement screen (swept 9/29: not a walked street). The shape below is
 what the library says an ask there should be, bound to our laws (32a: nothing forced, nothing in the
-first 60 s, walk past; rule 19: a mouth with a portrait; and the 9/27 contract shape: declining is free).
+first 60 s, never forced (walking past is now not tapping); rule 19: a mouth with a portrait; and the 9/27 contract shape: declining is free).
 
 1. ARRIVE. The first 60 seconds after load are silent by law. After travel, arrival is quiet too: the
-   street is looked at before anyone looks back (the library's reason: the place speaks first,
-   `Q114.N1`). Nobody walks toward him. Nobody's line fires on arrival.
+   settlement is looked at before anyone looks back (the library's reason: the place speaks first,
+   `Q114.N1`). Nobody comes toward him. Nobody's line fires on arrival.
 2. SEE. The ask is a PLACE THAT ASKS (section 10) with a person in it, doing their thing (`Q095.W3`,
    `Q083.W1`). No marker, no icon, no floating text (`Q114.W2`, `Q023.X4`). What makes it findable is the
-   drawing: a street that holds an ask must look different from one that does not (`Q037.W2`, the
+   drawing: a settlement that holds an ask must look different from one that does not (`Q037.W2`, the
    fairness fix).
-3. APPROACH. The person does not stop him. They look up when he is within reach (a set number of cells,
-   a distance and a delay, per the second votes' gate). They may say ONE ambient line to the air, the
-   FL01 kind, which is overheard, not addressed (32a: "a rumour is OVERHEARD as he passes"). If he walks
-   on, that is the whole interaction.
+3. APPROACH. The person does not stop him. When he taps their building they look up (a delay, per the
+   second votes' gate). They may say ONE ambient line to the air, the FL01 kind, which is overheard, not
+   addressed (32a: "a rumour is OVERHEARD"). If he taps elsewhere, that is the whole interaction.
 4. OPEN LINE. Only if he taps them. Portrait up, one sentence, the FL pattern of that ask. About them and
    the place.
-5. TERMS. Before any yes: WHAT, WHERE (a place on the map or on this street), WHAT IT PAYS (one, in one
+5. TERMS. Before any yes: WHAT, WHERE (a place on the map or in this settlement), WHAT IT PAYS (one, in one
    currency), in that person's mouth. The why and the risk may be withheld (`Q003.N1`); the terms may not
    (`Q126.N5`). The fee is fixed now and never renegotiated after the yes (`Q148.W1`, `Q148.P1`).
 6. ARGUE (optional). The haggle asset's two kinds: A DIFFERENT ONE, or UP FRONT. Two land; the third
@@ -319,15 +328,16 @@ first 60 s, walk past; rule 19: a mouth with a portrait; and the 9/27 contract s
 
 ## THE RULE FOR THE BUILDERS (numbered, testable)
 
-1. THE PLACE FIRST. Every ask is bound to a PLACE THAT ASKS: a set of cells whose drawing differs from the
-   same block without the ask. Test: render the block with and without the ask; the difference must be
-   visible at the close zoom without any person present. (`Q114.N1`, `Q147.W7`, `Q023.W4`)
+1. THE PLACE FIRST. Every ask is bound to a PLACE THAT ASKS: a building on the settlement screen whose
+   drawing differs from the same settlement without the ask. Test: render the settlement screen with and
+   without the ask; the difference must be visible at phone size without any person present. (`Q114.N1`, `Q147.W7`, `Q023.W4`)
 2. NOBODY SPEAKS FIRST TO HIM IN THE FIRST 60 S, AND NOBODY ON ARRIVAL. Test: the speech log is empty for
-   60 s after load and for a set delay after every squeeze-in. (32a; `Q114.N1` SEEN gates)
+   60 s after load and for a set delay after every arrival from the map. (32a; `Q114.N1` SEEN gates)
 3. THE PERSON IS DOING SOMETHING. Every asker has an idle action at their place that is not "stand and
    wait for the player". Test: no asker's idle clip is the default stand. (`Q095.W3`, `Q083.W1`, `Q149.X3`)
-4. NO STOP. An asker never moves into his path, never halts the pad, never follows him. Test: the asker's
-   cells never intersect his next cell. (32a; `Q013.W6`)
+4. NO STOP. An asker never blocks a building, never opens a screen on him, never follows him to the map.
+   Test: no asker's line or portrait appears on a screen he did not open. (Swept 9/29: the old test, about
+   cells on a walked street, died with the walk.) (32a; `Q013.W6`)
 5. THE ASK OPENS ON HIS TAP, NEVER ON PROXIMITY. Proximity allows at most one ambient line, not addressed
    to him, once per visit. Test: no line with a second-person ask fires without a tap. (32a)
 6. A MOUTH AND A FACE. Every ask line has a speaker id and a portrait bound. (rule 19, THE FACE PERFORMS)
@@ -349,7 +359,7 @@ first 60 s, walk past; rule 19: a mouth with a portrait; and the 9/27 contract s
     map trip unless its place changed. (`Q126.W3`, `Q131.W4`, `Q085.W3`)
 13. THE YES IS THE LINE. After the yes the contract is his to finish; dropping it is a deed and the only
     one. (Paolo 9/27; `Q133.W3`, `Q133.P3`)
-14. THE RESULT IS VISIBLE IN THE PLACE. The completion writes a change to the same cells that asked. Test:
+14. THE RESULT IS VISIBLE IN THE PLACE. The completion writes a change to the same building that asked. Test:
     before and after renders differ at the ask's place. (rule 19; `Q149.W9`, `Q147.W8`)
 15. ONE TWIST, RATIONED. At most one twist per ask, and most asks none. Test: the generator's twist rate
     per batch stays under a set minority. (`Q148.X3`, `Q148.P4`)
@@ -365,7 +375,7 @@ first 60 s, walk past; rule 19: a mouth with a portrait; and the 9/27 contract s
   they should be flat: "Okay." / "Sure, no problem." / the person just goes back to work.
 - THE HIDDEN FRONT DOOR: `Q147.X1` (the suite hides its own entrance), `Q097.X5` (the thesis behind a
   curtain), `Q023.X1` (missable at scale), `Q114.X3` (no markers makes guides mandatory). Our fix is the
-  drawing (rule 1) and the small street, not a marker (`Q023.X4`).
+  drawing (rule 1) and the small settlement, not a marker (`Q023.X4`).
 - THE SILENT CLOCK: `Q106.X5` (a 7 pm appointment deletes the act), `Q128.X1` and `Q128.X2` (timetables
   nobody can read; failure nobody sees), `Q108.X3` (the giver dies before he can ask). At our pace,
   windows are rare and always leave a tell.
@@ -374,7 +384,7 @@ first 60 s, walk past; rule 19: a mouth with a portrait; and the 9/27 contract s
 - THE PRICE THAT DEFLATES THE CHOICE: `Q108.X2` (moral choice also pays more), `Q148.X1` (the white lie
   with zero risk).
 - THE HOARD: `Q037.X2` (stacking thirty jobs floods the player). Our contract rule (take it, finish it)
-  already guards this; the builders should not let the street offer more asks than a person can hold.
+  already guards this; the builders should not let a settlement offer more asks than a person can hold.
 - THE STAGED LOCK THAT CAN BE CHEESED: `Q138.X1`. If an ask is gated by a person's attention, the
   attention needs senses, not a sightline cone.
 - THE HIDDEN RULE: `Q132.X1` (mercy gated on knowledge the world never taught), `Q130.X3` (the most
@@ -387,15 +397,17 @@ first 60 s, walk past; rule 19: a mouth with a portrait; and the 9/27 contract s
    says nobody remembers a no and only a taken-and-dropped contract is a deed. A pushed haggle is not a
    taken contract. Our reading: the withdrawal stays, the deed goes. That is a mechanism call for the
    building lane (RUN/ECONOMY), flagged here, not decided.
-2. HOW MANY ASKS A STREET HOLDS. The library has density (`Q013.W1`, a hundred substories) and the
-   hoarding flaw (`Q037.X2`), but no number for a phone street. PLUMBER and RUN measure it on the grid.
+2. HOW MANY ASKS A SETTLEMENT HOLDS. The library has density (`Q013.W1`, a hundred substories) and the
+   hoarding flaw (`Q037.X2`), but no number for a phone screen. PLUMBER and RUN measure it on the settlement
+   screen (QR-O answers most of this since).
 3. WHETHER A REFUSED OFFER EVER EXPIRES. Raphael's never does (`Q126.W3`); S.T.A.L.K.E.R. lets NPCs take
    the job themselves (`Q085.W3`). Both fit the free no. Which one a given ask uses is content.
 4. THE ACROSS-ACT ASK. An ask refused in act 1 cannot write a deed, so it cannot be planted for act 3.
    Only a TAKEN contract can carry across (question (c)'s page owns this).
-5. THE PORTRAIT ON A TINY BODY. The library's staging assumes a readable body at play scale. Ours is one
-   cell. How much of "shown doing something" survives at one cell is a CHARACTER/ANIMATION question; the
-   portrait carries the face, the cell carries the action.
+5. THE PORTRAIT ON A SMALL FIGURE. The library's staging assumes a readable body at play scale. Ours is a
+   figure drawn in a settlement's one view (swept 9/29: the one-cell body died with the walk). How much of
+   "shown doing something" survives at that size is a CHARACTER/ANIMATION question; the portrait carries
+   the face, the drawing carries the action.
 
 ## PROOF LINE
 

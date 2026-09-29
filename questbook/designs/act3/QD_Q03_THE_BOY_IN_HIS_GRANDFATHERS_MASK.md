@@ -14,7 +14,7 @@ Act 3. The party is stopped by a teenage boy at the shelter. He is wearing a Des
 The event screen, his face, the mask pushed up on his forehead like sunglasses: "¿Van pa' Henderson? I can carry stuff. I don't eat much."
 
 ## THE CHOICES
-1. GIVE HIM A RIDE. Half a day. On the road he asks what the mask is. The player's company member from act 1 (if one lived) answers in one line; if none lived, nobody answers.
+1. GIVE HIM A RIDE. Half a day. On the road he asks what the mask is. The company member whose grandparent rode in the act 1 company answers in one line, from the story that came down with him (rule 39d: the act 3 company is the heirs of the last act's company); if no act 1 line carried this far, nobody answers.
 2. HIRE HIM. He joins the company as a green recruit. He fights like his grandfather, badly and bravely. Rule 36 applies.
 3. LEAVE HIM. Nothing written. He waves.
 

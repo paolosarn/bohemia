@@ -2,7 +2,7 @@
 
 QUESTION (row [twist bank], question (b)): Every twist the studied quests use (the client lied, the target moved, a third party shows up, the thing you were sent for is a person, the job was a test, the reward is gone, and the rest). Build THE TWIST BANK: each twist with a name, the ids that show it, what it costs the player (nothing / time / batteries / standing / a person), how late it lands (at the offer, mid-job, at hand-in, acts later), and which of our contracts it fits (boom or bust, which act). Sort by cost. This is the bank a Battle Brothers-style contract draws its ONE twist from. Also the rule: when a twist is fair versus a cheat, and how a twist respects DECLINING IS FREE and ONCE TAKEN YOU FINISH IT.
 
-STATUS: draft:true, research only, nothing built (rule 35). For RUN, WORLD, PEOPLE, WORDS when the map and the grid exist.
+STATUS: draft:true, research only, nothing built (rule 35). For RUN, WORLD, PEOPLE, WORDS when the map and the fight board exist.
 
 ## THE ANSWER IN ONE PARAGRAPH
 
@@ -171,7 +171,7 @@ When a twist proves the client LIED about the job (T17, and T20 when the client 
 ### 10. A twist lands at one of four times, and each time has a job
 
 - AT THE OFFER is not a twist. Anything true at the offer must be sayable at the offer, or it traps the yes. The fee locks here (`Q148.W1`). The only "twist" allowed at the offer is the dirty errand being visible to a careful reader (`Q003.W1`), which is information.
-- MID-JOB is the default and the Battle Brothers shape: something on the road or on the grid changes the job, and the player gets a new fork on the map. Most of the bank lives here (T01 to T03, T07 to T10, T13 to T15, T17 to T19, T21 to T24).
+- MID-JOB is the default and the Battle Brothers shape: something on the road or on the fight board changes the job, and the player gets a new fork on the map. Most of the bank lives here (T01 to T03, T07 to T10, T13 to T15, T17 to T19, T21 to T24).
 - AT HAND-IN is the conversation twist: the reward is gone, the test is revealed, the fear is fed. It must still let the player close the contract (`Q148.W9`).
 - ACTS LATER is the three-acts-at-once twist: the job planted in act 1 lands in act 2 or 3. The library's delayed, displaced consequence (`Q004.W5`) and the delayed organic trigger (`Q009.W10`) are the model; the silent-failure law applies (`Q128.X2`: one diegetic tell per broken link). Because the future is derived from the past acts' ledgers, an acts-later twist is not scripted, it is READ from the ledger; the only authoring is the tell.
 
@@ -182,7 +182,7 @@ When a twist proves the client LIED about the job (T17, and T20 when the client 
 3. THE HEAVY TWISTS ARE RARER. A-PERSON twists (T23 to T28) are rarer than the rest together, and T23 (THE THING IS A PERSON) is the rarest, because it is the one that wore out the formula (`Q148.X3`).
 4. THE FEE LOCKS AT THE OFFER. The fee in batteries is fixed when the player says yes; no twist edits it. A twist may remove the payer (T11, T12) or add a second offer (T14) (`Q148.W1`).
 5. NOTHING AT THE OFFER TRAPS THE YES. No debt, no body, no obligation exists until the player accepts (`Q134.W2` is banned). Test: an offer declined leaves every ledger byte-identical.
-6. THE WORLD TESTIFIES FIRST. Every twist has at least one readable sign BEFORE its fork, on the grid or in a mouth: an object, a line, a wrong detail (`Q149.X2`, `Q130.W2`, `Q032.P4`). The contract file lists the sign. Test: a twist with no `sign:` line is refused.
+6. THE WORLD TESTIFIES FIRST. Every twist has at least one readable sign BEFORE its fork, on the settlement screen, the fight board or in a mouth: an object, a line, a wrong detail (`Q149.X2`, `Q130.W2`, `Q032.P4`). The contract file lists the sign. Test: a twist with no `sign:` line is refused.
 7. THE VERBS TELL THE TRUTH. Every choice's label describes what it does; the twist can change the situation, never the meaning of a verb (`Q107.X1`, `Q121.W7`).
 8. ONE FINGERPRINT. Every twist carries one line from a mouth that says, plainly, that it happened (`Q129.X1`), in the analog horror register: said plainly, never explained.
 9. A TWIST CHANGES THE MAP. After the twist the player has a new destination, a new person to talk to, or a new verb, not only new text (`Q033.X2`).
@@ -226,5 +226,5 @@ Battle Brothers is the reference for the board, the contract, and the road. Its 
 2. THE TARGET MOVES, TRULY. The library's "target moved" cases are all schedules (`Q011.W2`, `Q128.W1`). No study shows a target that relocates across a map because it heard you coming. Our map with roaming parties and tracks can do this natively; it has no library proof yet.
 3. THE RIGHT RATIO. `Q148.P4` says "strict minority"; nothing in the library gives a number. One in four is a proposal for RUN to tune on a real board.
 4. PAYMENT IN KIND. T11's fix (the broke client pays in a name, a door, a bed) rests on `Q089.W3` and on the Kenshi and Pathologic evidence that unpaid work can still matter (`Q113.X4` is the warning that no reward at all loses players). The exchange rate between batteries and favours is ECONOMY's.
-5. TWISTS ON THE GRID. The library's twists are almost all told in dialogue or found in rooms. What a twist looks like as a change on the fight grid (a group that switches sides on the beat, a cover tile that is a person) is for COMBAT, with T29 as the only bridge.
-6. HOW A TWIST READS ON A PHONE. None of the 152 are phone games. Whether the "sign" of rule 6 is readable on a one-cell character at close scale is DIRECTION's and UI's question.
+5. TWISTS ON THE FIGHT BOARD. The library's twists are almost all told in dialogue or found in rooms. What a twist looks like as a change on the fight board (a group that switches sides on the beat, a cover tile that is a person) is for COMBAT, with T29 as the only bridge.
+6. HOW A TWIST READS ON A PHONE. None of the 152 are phone games. Whether the "sign" of rule 6 is readable on a settlement screen and on a house-sized fight tile at phone size is DIRECTION's and UI's question (swept 9/29: the one-cell character at close scale died with the walk, rule 38).

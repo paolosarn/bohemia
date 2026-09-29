@@ -21,7 +21,7 @@ nothing and forecloses nothing (`Q126.W3`, `Q126.N13`, `Q126.N12`), the world th
 `Q061.W2`), the exit that never closes once you take the job (`Q151.W7`, `Q140.W8`, `Q040.W2`) and the drop priced as
 a deed (`Q087.W9`, `Q086.W8`). All of that now lives inside the offer screen and on the map. What dies is the
 walk-up: QR-A rule C1's "never a board, list, card or pop-up", QR-E's whole "place that asks on the close street"
-apparatus, and QR-F's walked first minute on the fight board. The library itself already held the other door:
+apparatus, and QR-F's walked first minute on the close street (the walk itself died 9/28, rule 38). The library itself already held the other door:
 `Q148.W2`, THE BOARD IS A DIGNIFIED FRONT DOOR ("a job system that never begs"), and `Q148.P1`, a settlement board
 port. Round one read those as the thing to avoid; Paolo's ruling makes them the thing to build, and they are the
 better fit for a phone. The one real loss is DISCOVERY BY WALKING (`Q013.W6`, `Q114.W2`, `Q114.N1`): the city no
@@ -134,11 +134,13 @@ the map clock and the tone plays on the settlement screen at its time.
 ### 3. What changes shape: QR-F, the first sixty seconds
 
 QR-F's fifteen rules were written for a figure standing on a close grid at second zero. Under the third votes the
-game's normal surface is the map and the settlement screen; the fight board is the fight and the special places. Rule
+game's normal surface is the map and the settlement screen; the fight is on the fight board (house-sized tiles, a
+piece of the city; swept 9/29, rule 38: the close grid and the walk are dead, and a special place on foot uses the
+112 walk art, never a cell grid). Rule
 by rule:
 
 - QR-F 1 SILENCE GATE: survives exactly. `Q134.X3` and `Q134.X9` (spending the best beat in the first minute).
-- QR-F 2 ONE CELL, FIRST PRESS: moves to the special place or the fight. On the map, the first tap moves the party
+- QR-F 2 ONE CELL, FIRST PRESS: dead with the walk (rule 38); its spirit, the first input answers at once, moves to the first tap. On the map, the first tap moves the party
   marker; `Q060.X4` (clunky touch controls, direct for a phone) and `Q038.X4` (dated tile-by-tile friction) now argue
   FOR the map and the settlement screen as the first surface.
 - QR-F 3 SOMETHING WITHIN SIX: becomes "something within one tap". `Q055.X1` (the empty start) and `Q087.X3` (the
@@ -175,8 +177,8 @@ A sketch, for RUN and WORLD to test against, built only from surviving rules:
   place), and SCAVENGE. Nothing speaks (QR-F 1). The wrong detail is in the picture: a charge post whose sockets all
   read full with nothing plugged in (QD-F02's detail, moved).
 - 20 to 60 s: one silent choice. SCAVENGE turns up the family's last battery cell in the back room; take it or leave
-  it; nothing acknowledges it (QR-F 7, `Q143.W8`). Or he taps the family house and walks the kitchen on the close
-  grid (QD-F01, a special place, where on-foot play is legal).
+  it; nothing acknowledges it (QR-F 7, `Q143.W8`). Or he taps the family house and the kitchen opens in one view, things to tap
+  (QD-F01, re-cut 9/29; nothing is walked).
 - After 60 s: the first portrait may appear, only on his tap. The first contract is in the hall (or the charge post
   building on the first settlement): Nina's four lines, 1 battery, accept or decline, and decline writes nothing.
 - After the first arrival elsewhere, and never before 60 s, road events may fire on the map.
@@ -186,7 +188,7 @@ This keeps the promise QR-F was protecting (`Q134.X3`, `Q134.X9`): the first min
 ## THE RULE FOR THE BUILDERS (numbered, testable)
 
 P1. THE CONTRACT'S DOOR IS THE OFFER SCREEN IN A SETTLEMENT BUILDING. Test: every contract definition names a
-settlement id, a building id and a client portrait id; none fires from a close-grid proximity trigger.
+settlement id, a building id and a client portrait id; none fires from a proximity trigger (there is no walk to be near anything in, rule 38).
 (Paolo 9/28; `Q148.W2`, `Q148.P1`, `Q108.W1`)
 
 P2. THREE TAPS, ALL HIS. Settlement, building, offer. Test: no offer screen opens without the tap on its building in
@@ -211,8 +213,8 @@ before, except the clock; the building's drawing does not change because of a de
 P8. THE WORLD REDRAWS THE SETTLEMENT. A job done, failed or done by someone else changes the settlement picture on
 the next visit, written without his id when he was not involved. (`Q149.W9`, `Q147.W7`, `Q055.W1`, `Q085.W3`)
 
-P9. THE JOB IS STILL PEOPLE, PLACES AND THINGS. After accept, the job is on the map and the fight board, with people
-met there. (rule 20's surviving half; `Q095.W3`, `Q083.W1`, `Q023.W4`)
+P9. THE JOB IS STILL PEOPLE, PLACES AND THINGS. After accept, the job is on the map, at the place's screen, and on the fight board if it comes to a fight,
+with people met there. (rule 20's surviving half; `Q095.W3`, `Q083.W1`, `Q023.W4`)
 
 P10. DISCOVERY LIVES ON THE ROAD AND IN SPECIAL PLACES. Chance encounters are road events (a face, 2 or 3 choices) or
 people on a job's ground, never an offer screen that opens itself. (`Q013.W6` re-read, `Q114.W2`, `Q050.W9`)
@@ -236,7 +238,7 @@ QR-A C15 sets. (`Q148.X3`, `Q148.P4`)
 - `Q046.X2`, `Q065.X2`, `Q081.X4`: a first settlement screen that opens as a spreadsheet of names and prices.
 - `Q149.X3`: portraits that idle the same way in every building.
 - `Q055.X1`, `Q087.X3`: a first settlement with nothing to tap.
-- `Q060.X4`, `Q038.X4`: putting fiddly cell-walking back on the first surface of a phone game.
+- `Q060.X4`, `Q038.X4`: putting fiddly cell-walking back on any surface of a phone game (rule 38 killed it everywhere).
 
 ## WHAT CHANGED IN THE DESIGNS THIS ROUND
 

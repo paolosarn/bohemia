@@ -28,7 +28,7 @@ B. THE FULL LOAD, ON CREDIT. The best harvest in nine years, a debt to the carav
 C. COME BACK EMPTY WITH THE OLD WOMAN'S PLAN. Tell Marisol the sacks do not breed; the co-op signs a thin year on purpose, in public, all saved seed. Cost: the priced refusal, 4 batteries instead of 10, and a hungry winter the co-op chose.
 
 ## WHAT THE LEDGERS REMEMBER
-A: a small green patch on the far side of the ridge on the map, and the old woman's rows intact beside the store. B: in spring (the next visit after the season turns) a man from the caravans sits in the co-op office asking about the water rights (the debt's reader); the old woman's rows are the same green as the rest. C: the signed paper hangs in the grain store, every household's mark on it. In Act 3 the co-op's fields read this ledger: A and C still have the saved line, B buys seed from the road forever. If Act 2 was never played, the default is A. Declining writes nothing.
+A: a small green patch on the far side of the ridge on the map, and the old woman's rows intact beside the store. B: in spring (the next visit after the season turns) a man from the caravans sits in the co-op office asking about the water rights (the debt's reader); the old woman's rows are the same green as the rest. C: the signed paper hangs in the grain store, every household's mark on it. In Act 3 the co-op's fields read this ledger: A and C still have the saved line, B buys seed from the road forever. If this Act 2 contract was never taken, the default is A. Declining writes nothing.
 
 ## THE ONE WRONG DETAIL
 The sacks leak seed onto the caravan's yard every day, and nothing ever comes up there.

@@ -11,7 +11,7 @@ CHECKLIST: passes all 28. Line 23: the assignment scene is talk; the launch-day 
 Shaped from the story master: the launch is one-way "with the player's chosen companions (the ones who agree to go)". QD-H06 is the eve on the rock. This beat is before it and on the ground: somebody has to stay. The pad needs guarding, the families near the blast zone need moving, the Network's last loyalists may come. The heir assigns the company, one person per post. It is the roll call as work.
 
 ## THE PERSON AND THE FIRST LINE
-The oldest company member (read from the roster: most fights, alive), at the family's table, a map spread under the plates: "Okay. Who's going and who's staying. Say it now, not on the day."
+The oldest company member (read from the roster: most fights, alive; by act 3 the company is the heirs of the act 2 company, rule 39d, so the roster carries family names from act 1), at the family's table, a map spread under the plates: "Okay. Who's going and who's staying. Say it now, not on the day."
 
 ## THE CHOICES
 Five posts on the map: THE PAD, THE BLAST ZONE (moving families), THE MAST ROAD (loyalists), THE BASE (home), and THE CREW (going up). The player drags each company member to one post. Each member says one line when placed, read from their history (their injuries, their deaths averted, their act 1 or act 2 ties). A member asked to go who does not want to says so, and can be asked twice, never forced.

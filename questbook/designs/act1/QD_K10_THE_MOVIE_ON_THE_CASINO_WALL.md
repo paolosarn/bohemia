@@ -32,8 +32,8 @@ First line: "It's free. If you sit, you pedal a turn."
   lot and the morale gain is the same whether the company watched or gave (`Q125.X9`).
 - The feed, next city view: a blurry photo of the wall, "Movie night on the back lot. Bring legs." It names no one.
 - THE FLIP: in act 3, the casino wall is a real outdoor screen with its own power, and a small plaque names the kids
-  who pedalled. If the company left a cell, one of the names on the plaque is the company's. If act 1 was not played,
-  the plaque names only the kids.
+  who pedalled. If the company left a cell, one of the names on the plaque is the company's. If the company never
+  stopped at the wall in act 1, the plaque names only the kids.
 
 ## THE ONE WRONG DETAIL
 The kid pedalling stopped ten minutes ago, and the projector is still running.

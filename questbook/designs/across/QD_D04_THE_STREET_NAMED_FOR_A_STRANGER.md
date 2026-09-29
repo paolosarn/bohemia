@@ -7,8 +7,8 @@ PLACE: a flood-control wash and the underpass it runs through, act 1; the street
 STATUS: draft:true, research only, nothing built (rule 35)
 
 ## THE SITUATION
-This is the design for the player who flips forward first. In act 3, on a reclaimed street over an old wash, the sign reads CALLE TEODORA RUIZ. Nobody in the family knows the name. A woman at the corner says Teodora walked eleven children out through the flooded underpass in the anarchy decade, "and somebody paid her way, nobody knows who." This street exists in the derive even for a do-nothing family: it is what the world did without him.
-Flip to act 1. At the mouth of the wash, Teodora is a person in a place, offering a contract: escort her and the children up the wash to the dam road, through ground a Destroyer party is working. 8 batteries, most of what she has.
+This is the design for the player who looks ahead first: act 1 is always played first and act 3 opens only once it unlocks (rule 39c), but this act 1 offer can still be untaken when it does. In act 3, on a reclaimed street over an old wash, the sign reads CALLE TEODORA RUIZ. Nobody in the family knows the name. A woman at the corner says Teodora walked eleven children out through the flooded underpass in the anarchy decade, "and somebody paid her way, nobody knows who." This street exists in the derive even for a do-nothing family: it is what the world did without him.
+Flip back to act 1. At the mouth of the wash, Teodora is a person in a place, offering a contract: escort her and the children up the wash to the dam road, through ground a Destroyer party is working. 8 batteries, most of what she has.
 
 ## THE PERSON AND THE FIRST LINE
 Teodora, in a floor-length black Rick Owens coat she wears because it hides what she is carrying (the youngest). First line: "You're the third one I asked. The first two wanted to walk in front."

@@ -8,7 +8,7 @@ QUESTION: What do the 152 say a MAIN LINE is when the side content is contracts?
 quest stay alive and pull the player while they are free to do contracts at their own pace (no
 timers that punish, no nagging)? How do the best main lines use the side content, how often does a
 main beat land, how is the line carried by people and places and not a journal, and how is the
-ending earned? Then: THE SHAPE of Bohemia's main line across the three acts that are open at once.
+ending earned? Then: THE SHAPE of Bohemia's main line across the three acts that are open at once (swept 9/29, rule 39c: open together once unlocked; act 1 is played first with one person and the next generation unlocks later, default the first home base).
 
 ## THE ANSWER IN ONE PARAGRAPH
 
@@ -98,7 +98,7 @@ being cut before the door (`Q102.P8`, `Q136.X1`).
   is an offer placed in the world, never a nag: a thing you can hear, walk to, or walk past.
 - SEED THE HOOK EARLY. `Q047.X3` ("seed enough EARLY intrigue that players invest before the
   drip-feed pays off"), `Q067.X4` (the first generation of the first generational saga "is a boring
-  stroll through monotony"). With three acts open at once, act 1 cannot be the boring generation.
+  stroll through monotony"). With three acts open together once unlocked, act 1 cannot be the boring generation, and since every player lives act 1 first (rule 39c) it is also the one generation nobody skips.
 
 ### 3. How the best main lines use the side content
 
@@ -184,7 +184,7 @@ being cut before the door (`Q102.P8`, `Q136.X1`).
   if I was right"), `Q073.W7` ("his last goal is someone else's future"). These fit the canon's
   endings exactly: LIBERATE saves one valley, "and that is enough."
 
-### 7. The spine across generations, and across acts open at once
+### 7. The spine across generations, and across acts open together (once unlocked, rule 39c)
 
 - PLANT IN ONE AGE, LAND IN ANOTHER. `Q004.P1` (choices whose true stakes land a generation later),
   `Q026.P9` (return across generations to see judgments ripen), `Q137.W8` (the dead stay dead across
@@ -231,7 +231,7 @@ the Amalgamation's ("a family that never ends, nothing is ever lost"). The three
 - ACT 3: the war path or the conversion path is set by act 2 (story master). The contracts the
   family took for the Network's un-implanted members are the conversion path's roll call.
 
-### How the three acts open at once change the spine
+### How the three acts, open together once unlocked, change the spine
 
 - Every main beat is tagged with the act it lives in. The player can reach the act 3 beats early,
   but the act 3 city they arrive in is derived from acts 1 and 2 (THREE ACTS AT ONCE, section 2).

@@ -287,7 +287,10 @@ builder can test, all draft:
    up, so it cannot be missed in a corner (`Q108.X4`).
 
 ## HOW EVENTS DIFFER BY ACT
-The acts are eras of one family, all open at once, and the future is derived from the past acts' ledgers.
+The acts are eras of one family, and the future is derived from the past acts' ledgers. (Swept 9/29, rule 39c:
+they are not all open at the start. Act 1 is played first with one person; the next generation unlocks later,
+default the first home base, and after that the flip is his. An act 3 road feature written by an act 1 event is
+seen once act 3 has unlocked.)
 - ACT 1, THE RUIN (Animal). Events are about the body and the stranger. The stranger is a threat until proven
   otherwise (`Q093.W3`), you start as nobody (`Q055.W3`), and most events price medicine, batteries and the lives
   in the company. The shapes that fire most: E1, E3, E4, E7. The Destroyers are a force on the road, and their
@@ -307,7 +310,7 @@ The acts are eras of one family, all open at once, and the future is derived fro
   cross-act consequence we have, and it is on the map where he looks.
 
 ## THE RULE FOR THE BUILDERS (numbered, testable)
-1. Every event names its CAUSE in the world state (a party id, a grid cell, a road owner, a roster pair, a ledger
+1. Every event names its CAUSE in the world state (a party id, a map tile, a road owner, a roster pair, a ledger
    entry). An event with no cause does not ship. (`Q044.W2`, `Q061.X4`)
 2. Every event has a face with a portrait and a mouth, and two or three choices. One is always "keep moving".
    (`Q151.W7`, `Q126.W3`)
@@ -342,8 +345,9 @@ touch, `Q108.X4` missed in the corner, `Q114.X4` one correct script, `Q041.X3` a
 1. The exact cooldown in minutes of real play. The library gives the shape (rare, paced, relief after pain) but no
    number for a phone session. Needs a playtest once the map exists; ECONOMY's two-clocks row decides what one map
    day is.
-2. Whether an event's fight happens on a street grid built on the spot or on the nearest real street. The studies
-   are silent on a two-scale map; COMBAT and WORLD decide.
+2. Whether an event's fight happens on a fight board cut from the nearest real block or on one built on the spot.
+   (Swept 9/29: the fight is on house tiles, a piece of the city, rule 38; the nearest real block is the default.)
+   The studies are silent on this; COMBAT and WORLD decide.
 3. How many events a hundred-hour game needs. Yakuza shipped 100 substories and the guides call some padding
    (`Q114.W1`, `Q114.X1`). A guess from the frequency rules: 60 to 90 hand-made event instances across the three
    acts, over the ten skeletons.

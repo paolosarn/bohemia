@@ -15,7 +15,7 @@ ACT 1 (the plant): SETTLEMENT the depot, BUILDING the hall (the dispatch office)
 ACT 3 (the landing), by read:
 - HELD IN ACT 1: CLIENT is Rosa's granddaughter ITZEL ITURBE, the depot's chief, in a white tech-shell coat with Rosa's jacket patches sewn on the sleeve. LINES: "Your people walled the east. We kept the trucks there, painted." / "The ones coming know it. Their grandfather died on those trucks." / "Six days." PAY: 16 batteries. NEGOTIATION: to 18; advance 5.
 - FELL IN ACT 1: CLIENT is Itzel. "It fell once, through the side you didn't wall. We rebuilt it. They'll try the same side." PAY: 16.
-- NEVER PLAYED (act 1 not played or the contract never taken): CLIENT is Itzel. "Somebody held this yard once. Nobody remembers which side. Pick one." Full job, same pay.
+- NEVER PLAYED (the act 1 siege contract never taken; act 1 itself is always played first): CLIENT is Itzel. "Somebody held this yard once. Nobody remembers which side. Pick one." Full job, same pay.
 
 ## THE CHOICES
 Act 3:

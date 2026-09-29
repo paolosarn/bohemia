@@ -198,7 +198,8 @@ portrait and speaks. Test: every contract definition names a person id and a pla
 (`Q108.W1`, `Q013.W6`, `Q114.W2`, `Q148.W2` translated.)
 
 C2. **NOTHING OFFERS ITSELF.** The client may be walked past; the offer opens only when the player stops and talks
-(rule 34, the second votes). Walking past is not a decline and writes nothing. Test: no contract has an entry that
+(rule 34, the second votes). Walking past is not a decline and writes nothing. (Swept 9/29: there is no walking
+through the city any more, rule 38; "walked past" now reads "the building he did not tap", QR-P 2.2.) Test: no contract has an entry that
 fires on proximity alone.
 
 C3. **CLEAN TERMS IN ONE BREATH.** The first offer node states: what, where, how many (the danger), the pay in
@@ -300,5 +301,6 @@ Never "you again?". (`Q126.W3`, C6.)
 4. **What Battle Brothers itself does.** The blind spots record says its game docks relations for a refused contract.
    None of the 152 studies is Battle Brothers, so the library cannot confirm or refute it; the rule above does not
    depend on it.
-5. **Whether "one open contract" survives the three acts at once.** If the player flips acts with a contract open in
+5. **Whether "one open contract" survives the three acts at once.** (Swept 9/29: the flip exists only once the next
+   act has unlocked, rule 39c, so this only arises mid-game.) If the player flips acts with a contract open in
    Act 1, does the contract's window run while he is in Act 3? DYNASTY owns the flip; the library is silent.

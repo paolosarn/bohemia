@@ -1,6 +1,6 @@
 # QR-D: PLANTED IN ONE ACT, PAID IN ANOTHER
 
-QUESTION (rows [across the ages], question (c), rule 31): The delayed payoff in the library (the Bloody Baron's Whispering Hillock choice, Q001/Q004, and its kin across the 152): how long is the gap between plant and landing, what did the player know at the plant, how is the landing shown, is it fair? Then the SHAPE for a quest planted in act 1 and paid in act 3, given that in Bohemia all three acts are open at once and the player FLIPS between them, with the future DERIVED from the past acts' ledgers (so the player can see the landing, flip back, and change the plant). Also: a promise made by the grandparent and paid by the heir; a VERB earned from a boss in one age used in another. What makes this satisfying versus confusing on a phone.
+QUESTION (rows [across the ages], question (c), rule 31): The delayed payoff in the library (the Bloody Baron's Whispering Hillock choice, Q001/Q004, and its kin across the 152): how long is the gap between plant and landing, what did the player know at the plant, how is the landing shown, is it fair? Then the SHAPE for a quest planted in act 1 and paid in act 3, given that in Bohemia the three acts become open together (swept 9/29, rule 39c: one person at the start, the next generation unlocks later, default the first home base) and the player then FLIPS between them, with the future DERIVED from the past acts' ledgers (so the player can see the landing, flip back, and change the plant). Also: a promise made by the grandparent and paid by the heir; a VERB earned from a boss in one age used in another. What makes this satisfying versus confusing on a phone.
 
 STATUS: research only, nothing built (rule 35). Written for DYNASTY (the flip and the derive), WORLD and LIFE+CITY (the derived cities that must show a landing), PEOPLE (the named people who carry a debt across ages), WORDS (the past-tense lines), ECONOMY (what a plant costs in batteries).
 
@@ -42,7 +42,7 @@ Longest (across acts that are years apart, or across sequels):
 - A spared enemy ripens across sequels (`Q042.W7`); the dead stay dead across a sequel, "the corpus's longest consequence tail" (`Q137.W8`).
 - A victory's meaning lands "1,000 years later" in a different game (`Q080.W9`).
 
-THE FINDING: the gap the player FEELS is not hours; it is the number of other things that happened in between plus the change of place and people (`Q004.W5`, `Q001.W5`). In Bohemia the in-world gap is fixed by canon (act 1 ~2060 to act 3 a generation or two on), but the PLAY gap can be zero, because the player may flip to act 3 in the first minute (three acts law, section 2b). So the play gap is no longer something we control. What we control is displacement: a different place, a different person, a different act.
+THE FINDING: the gap the player FEELS is not hours; it is the number of other things that happened in between plus the change of place and people (`Q004.W5`, `Q001.W5`). In Bohemia the in-world gap is fixed by canon (act 1 ~2060 to act 3 a generation or two on), but the PLAY gap can be short, because once act 3 has unlocked the player may flip to it at any moment (three acts law, section 2b; swept 9/29: never in the first minute of the game, since act 1 is played first with one person and the next generation unlocks later, rule 39c). So the play gap is no longer something we fully control, though it now has a floor: the player has lived act 1 long enough to win a home base before any landing can be seen. What we control is displacement: a different place, a different person, a different act.
 
 ### 3. WHAT THE PLAYER KNEW AT THE PLANT
 
@@ -77,7 +77,7 @@ THE HILLOCK'S OWN VERDICT: fair by these rules, just. The uncertainty was stated
 
 ### 6. WHAT THE FLIP CHANGES (the part no study had)
 
-Bohemia's three acts are open at once and act 3 is derived from act 1's ledgers (three acts law, section 2a to 2c). The library has partial cousins:
+Bohemia's three acts are open together once unlocked (rule 39c: act 1 first, the next act unlocks later) and act 3 is derived from act 1's ledgers (three acts law, section 2a to 2c). The library has partial cousins:
 - Time travel as a consequence engine: "actions in one era materially reshape another" (`Q050.W5`), ported as "plant now, forest later; a sin now, a haunted heir later" (`Q050.P5`).
 - The loop that carries knowledge: you learn the schedule on one cycle and execute it on the next (`Q011.W4`); the loop "carries knowledge + inventory" (`Q020.W3`); knowing the path collapses the loops (`Q020.W8`). The port for us: "a quest the SECOND dynasty solves cleaner because the first mapped it" (`Q011.P5`).
 - Two perspectives converged by the player (`Q011.W6`) and the don't-help-too-early dependency (`Q011.W7`), which the port says must be telegraphed "so it doesn't feel like a gotcha" (`Q011.P8`).
@@ -130,7 +130,7 @@ Satisfying, per the library:
 - Small choices teach big ones: front-load a low-stakes lesson that the world watches (`Q050.W4`, `Q050.P4`).
 - Parameterized generation from input variables (`Q056.W9`): a derived city can show a landing as a rule, not a scene.
 
-For a phone specifically: one thumb, a small screen, short sessions, no hover (blind spot 2). The flip is a city-view act on the cracked phone (three acts law 9b). So the landing must be readable at the SCALE the flip lands on: the Battle Brothers map first (a place visibly different), then the street (a person who speaks past tense). A landing that only exists as a line in a menu is invisible here.
+For a phone specifically: one thumb, a small screen, short sessions, no hover (blind spot 2). The flip is a city-view act on the cracked phone (three acts law 9b). So the landing must be readable at the SCALE the flip lands on: the Battle Brothers map first (a place visibly different), then the settlement screen (a person who speaks past tense). A landing that only exists as a line in a menu is invisible here.
 
 ## THE RULE FOR THE BUILDERS
 
@@ -149,7 +149,7 @@ For a phone specifically: one thumb, a small screen, short sessions, no hover (b
 13. CARRY IS FOR STORY, NOT POWER. An inherited verb does not make the later act's fights easier; it opens a place or a person (`Q050.X4`, `Q089.W7`).
 14. FEW AND DEEP. At most three across-acts plants are live in one district at a time, and each landing differs enough to be seen from the map scale (`Q042.X2`, `Q145.X1`, `Q067.X1`).
 15. ONE TELL PER LANDING, READABLE FROM THE MAP. The derived act 3 map shows the wound at map scale (a dark block, a dry channel, a lit tower) before the street shows the person (`Q128.P3`, `Q147.W7`). The phone's feed may carry one rumour post pointing at it, never an instruction.
-16. NEVER IN THE FIRST SIXTY SECONDS. No landing speaks in a player's first minute of any act, and the first flip to act 3 shows the ruin plus what the world did, not a scripted callback (three acts law 9a, second votes).
+16. NEVER IN THE FIRST SIXTY SECONDS. No landing speaks in a player's first minute of any act, and the first hop into act 3, once it unlocks, shows the ruin plus what the world did, not a scripted callback (three acts law 9a, second votes).
 17. NO CONFESSION VERB AT THE LANDING. The person in act 3 does not know it was your family unless the record says someone told them (`Q004.N3`); the heir cannot buy relief with a line (`Q126.P24` was the comfort-verb law; this is its other side).
 18. THE FLAG ACROSS AN ACT BOUNDARY HAS A NAMED TEST. Any ledger row read by a later act's derive ships with a checker case (`Q126.P7`, the three acts law 2d).
 

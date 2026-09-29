@@ -15,7 +15,7 @@ ACT 1 (the plant): SETTLEMENT the strip mall, BUILDING the hall (a laundromat). 
 ACT 3 (the landing), by read:
 - STOOD: CLIENT is Rita's grandson. "My abuela built this with your people. We're adding a floor." PAY: 8 batteries and a place to rest.
 - FELL (raided in act 2): CLIENT is a squatter, a woman in Rita's old jacket. "It fell before I was born. We live in the laundromat. Help us wall it again?" PAY: 6 batteries, and the base returns to the map as a home base if done.
-- DEFAULT (act 1 contract never taken, or act 2 never played): the base is whatever the world generator made; the act 3 client says "Somebody walled this once. Help us?" Full job.
+- DEFAULT (act 1 contract never taken, or the act 2 retake never reached before act 3 opened): the base is whatever the world generator made; the act 3 client says "Somebody walled this once. Help us?" Full job.
 
 ## THE CHOICES
 Act 3: A. REBUILD IT AS IT WAS (the old walls, 5 days). B. BUILD IT NEW (solar roof, the future's look, 7 days, same pay). C. "I'll wall the front, not the back." Priced: half pay, the base comes back as a small base.

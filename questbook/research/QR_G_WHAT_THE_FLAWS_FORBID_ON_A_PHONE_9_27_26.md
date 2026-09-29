@@ -58,7 +58,7 @@ Total: 693.
 
 **F2. "You cannot see it" is the phone's disease.** SILF, TIME, ORDR, WIKI, OPTL and JOUR together hold 110 flaws. The library keeps confirming it: `Q095.X1` calls a silent timer "a bug wearing a design costume"; `Q128.X2` says "players lose the chain without learning they lost it"; `Q112.X5` counts the sixth confirmation that silent sequencing is a bug; `Q071.X2` says a quest that needs a wiki has outsourced its design. On a PC a player can alt-tab to a guide in a long evening. On a phone, in a five-minute sitting, the player who hits the wall closes the app.
 
-**F3. Our two hard rules collide here, and the collision is the design problem.** NOTHING POPS UP forbids the usual cure (a banner, a marker, a "quest failed" toast). So every tell must be DIEGETIC: a face on the road, a changed prop on the grid, a line in the city-view phone's feed. The library has this cure too: `Q146.P4` (the world warns about itself), `Q037.P2` (flood the world with in-world direction), `Q128.X2`'s own law (one diegetic tell per broken link), `Q143.P3` (an NPC reads your conduct aloud, once).
+**F3. Our two hard rules collide here, and the collision is the design problem.** NOTHING POPS UP forbids the usual cure (a banner, a marker, a "quest failed" toast). So every tell must be DIEGETIC: a face on the road, a changed prop on the settlement screen, a line in the city-view phone's feed. The library has this cure too: `Q146.P4` (the world warns about itself), `Q037.P2` (flood the world with in-world direction), `Q128.X2`'s own law (one diegetic tell per broken link), `Q143.P3` (an NPC reads your conduct aloud, once).
 
 **F4. Size is a phone rule.** `Q148.W10` praises the contract as "the genre's best-scoped quest container" because it runs notice to payment in one sitting. The worst loss flaws are all size mismatches: `Q093.X2` (days of progress lost in one raid), `Q128.X3` (one failed corridor wastes three real-time days), `Q111.X2` (failure costs a full loop), `Q094.X4` (the best content needs a second job). A five-minute sitting cannot carry an hour-long leg.
 
@@ -68,12 +68,12 @@ Total: 693.
 
 ## THE TOP 25, ONE BY ONE
 
-Each entry: THE X IDS (the strongest; the full list is in the APPENDIX), IN BOHEMIA (contracts, map events, the three acts and the flip, the tiny grid), THE RULE (checkable), THE FIX (W/P ids).
+Each entry: THE X IDS (the strongest; the full list is in the APPENDIX), IN BOHEMIA (contracts, map events, the three acts and the flip, the fight board), THE RULE (checkable), THE FIX (W/P ids).
 
 ### 1. SILF, silent fail (28, bite 5)
 X IDS: `Q071.X1`, `Q128.X2`, `Q116.X2`, `Q092.X6`, `Q140.X2`, `Q143.X1`, `Q149.X2`, `Q091.X1`, `Q127.X8`, `Q137.X4`, `Q086.X7`, `Q046.X5`.
 IN BOHEMIA: a contract taken on the map whose giver dies in a faction raid while the party is two stops away, and the contract just stops existing; a map event where the "kind" choice quietly starves a camp that the player never passes again (`Q092.X6`, "a consequence the player never discovers isn't a consequence, it's trivia"); a flip to Act 3 where the derived future is worse because of an Act 1 choice the game never named (`Q046.X5`, the heir who starts disliked for no legible reason).
-THE RULE: every state change that closes, fails or worsens a contract, event or act-to-act outcome writes ONE diegetic tell the player will meet within the next two map stops or the next open of the city view: a face at the place, a changed prop on the grid, or a feed post. Machine test: every fail edge in a contract file names its tell.
+THE RULE: every state change that closes, fails or worsens a contract, event or act-to-act outcome writes ONE diegetic tell the player will meet within the next two map stops or the next open of the city view: a face at the place, a changed prop on the settlement screen, or a feed post. Machine test: every fail edge in a contract file names its tell.
 THE FIX: `Q071.P9` (feedback plus a way back), `Q037.W7` (the unmarked recovery path), `Q017.W8` (failure reroutes), `Q146.P4` (the world warns about itself), `Q143.P3` (teach the register once, aloud), `Q059.W4` (the failure loop made kind).
 
 ### 2. TIME, hidden and hard clocks (12, bite 5)
@@ -84,8 +84,8 @@ THE FIX: `Q095.P7` (visible expiry), `Q142.P5` (the clock that respects the room
 
 ### 3. ORDR, order traps and soft-locks (8, bite 5)
 X IDS: `Q023.X2`, `Q112.X5`, `Q104.X6`, `Q101.X1`, `Q071.X4`, `Q113.X2`, `Q038.X2`, `Q111.X3`.
-IN BOHEMIA: THREE ACTS AT ONCE is the largest order-dependency surface any game in the library ever had. The player flips to Act 3 before finishing Act 1, and the future is derived from the past ledgers. `Q104.X6` (side content silently fails main content) becomes "an Act 3 contract silently breaks an Act 1 beat". `Q101.X1` (lose a consumable, the quest exit is gone) becomes a contract whose only exit is one battery the player spent on the road.
-THE RULE: every cross-act read declares its source flag AND a default read for "not yet played" (the future must exist before the past is done); no contract's exit depends on a single consumable; a validator plays every contract in every order against the three acts and fails on any dead end.
+IN BOHEMIA: THREE ACTS AT ONCE is the largest order-dependency surface any game in the library ever had. Once Act 3 has unlocked (rule 39c: act 1 is played first, the next act unlocks later), the player can flip to Act 3 before finishing Act 1, and the future is derived from the past ledgers. `Q104.X6` (side content silently fails main content) becomes "an Act 3 contract silently breaks an Act 1 beat". `Q101.X1` (lose a consumable, the quest exit is gone) becomes a contract whose only exit is one battery the player spent on the road.
+THE RULE: every cross-act read declares its source flag AND a default read for "not yet played" (the future must exist before the past is done; swept 9/29: act 1 itself is always begun first, so "not yet played" means that part of the earlier act, not the whole act); no contract's exit depends on a single consumable; a validator plays every contract in every order against the three acts and fails on any dead end.
 THE FIX: `Q037.W6` (a world you can break, with a warning and another path), `Q037.P6`, `Q023.P9` (telegraph order or make failure recoverable), `Q086.W6` (the game refuses a fail state), `Q139.P3` (sequence agency as a tell, never a cheat).
 
 ### 4. WIKI, wiki-required (25, bite 5)
@@ -96,7 +96,7 @@ THE FIX: `Q037.P2` (flood diegetic direction), `Q017.W9` (the space teaches its 
 
 ### 5. LOSS, loss sized for a long sitting (8, bite 5)
 X IDS: `Q093.X2`, `Q128.X3`, `Q111.X2`, `Q088.X3`, `Q094.X4`, `Q128.X10`, `Q066.X2`, `Q144.X3`.
-IN BOHEMIA: a Rogue Fable 4 fight on the grid lost at the end of a contract, and the retry means walking the whole street again; a party death that throws away an hour of map travel; `Q128.X10` (every retry replays known beats in real time).
+IN BOHEMIA: a Rogue Fable 4 fight on the fight board lost at the end of a contract, and the retry means replaying the whole leg again; a party death that throws away an hour of map travel; `Q128.X10` (every retry replays known beats in real time).
 THE RULE: the most a single failure may cost is the current contract's own leg (one place, one street), paid in map days, batteries or people, never in real minutes replayed; a retry never replays a scene the player already read.
 THE FIX: `Q088.W9` (the inheritance that survives death), `Q059.W4` (kind failure), `Q006.W5` (death legible and earned), `Q140.P5` (the retry ledger: the world remembers the attempt), `Q048.W3` (defeat fuels a rival).
 
@@ -114,8 +114,8 @@ THE FIX: `Q010.W6` (one perfect line beats a lore dump), `Q064.W9` (brevity plus
 
 ### 8. PLAT, platform traps (4, bite 5)
 X IDS: `Q060.X4`, `Q141.X3`, `Q092.X3`, `Q057.X4`.
-IN BOHEMIA: the tiny character on an honest grid moves one cell per press, so a thumb must hit one cell reliably; a clue that only exists as a sound fails for every player on a bus with the volume off.
-THE RULE: every tap target on the grid and the map meets the platform's minimum touch size at the zoom the player is at; every clue or warning exists in two channels (sound plus picture, or spoken plus written); nothing in a quest touches the real device (files, clock, notifications).
+IN BOHEMIA: the fight board's house-sized tiles and the settlement screen's buildings are the tap targets, so a thumb must hit one tile or one building reliably (swept 9/29: the tiny character on an honest grid died with the walk, rule 38); a clue that only exists as a sound fails for every player on a bus with the volume off.
+THE RULE: every tap target on the fight board, the settlement screen and the map meets the platform's minimum touch size at the zoom the player is at; every clue or warning exists in two channels (sound plus picture, or spoken plus written); nothing in a quest touches the real device (files, clock, notifications).
 THE FIX: `Q045.W10` (accessibility is what lets depth reach people, "our #1 lesson for mobile"), `Q052.W10` (easy to learn, enormous depth), `Q054.W10` (feel smart), `Q038.P7` (an iPhone-legible UX around timeless depth).
 
 ### 9. REFU, the no is punished, empty or missing (21, bite 4)
@@ -132,7 +132,7 @@ THE FIX: `Q114.W3` and `Q114.P3` (you cannot miss them; botch costs the item, no
 
 ### 11. REPL, payoff gated on a replay, a sequel or a spoiler (13, bite 4)
 X IDS: `Q096.X1`, `Q121.X1`, `Q022.X2`, `Q024.X3`, `Q124.X2`, `Q085.X5`, `Q111.X4`, `Q057.X3`, `Q147.X3`.
-IN BOHEMIA: this is the flip's own family. `Q096.X1` (the best branch gated on cross-game bookkeeping) and `Q121.X1` (a consequence that only pays out in a sequel is a promissory note) describe exactly a Gen 1 choice that only matters in Gen 3. Because the player flips freely, we can cash the note, but only if each act stands on its own (`Q022.X2`).
+IN BOHEMIA: this is the flip's own family. `Q096.X1` (the best branch gated on cross-game bookkeeping) and `Q121.X1` (a consequence that only pays out in a sequel is a promissory note) describe exactly a Gen 1 choice that only matters in Gen 3. Because the player flips freely once the next act has unlocked (rule 39c), we can cash the note, but only if each act stands on its own (`Q022.X2`).
 THE RULE: every planted cross-act payoff has (a) a visible landing the player meets on arrival in the later act and (b) a full-weight read when the plant was never set; no single scene requires more than one flag from another act.
 THE FIX: `Q004.W5` and `Q004.P1` (the delayed, displaced consequence), `Q009.P10` (the quest that calls you later), `Q042.W4` (the origin pays off late), `Q144.P3` (past-tense variants for every NPC who crosses acts).
 
@@ -144,7 +144,7 @@ THE FIX: `Q051.P9` (teach the world's language early and legibly), `Q046.P8` (la
 
 ### 13. FTCH, fetch padding and errand chains (13, bite 4)
 X IDS: `Q095.X2`, `Q083.X1`, `Q079.X1`, `Q071.X3`, `Q084.X2`, `Q087.X4`, `Q074.X1`, `Q022.X3`, `Q080.X5`.
-IN BOHEMIA: the Battle Brothers contract ("bring this there") is a fetch by shape. `Q087.X4` is the sixth confirmation of the fetch-chain law. On a phone each extra leg is another sitting; on the tiny grid, every errand costs hundreds of steps.
+IN BOHEMIA: the Battle Brothers contract ("bring this there") is a fetch by shape. `Q087.X4` is the sixth confirmation of the fetch-chain law. On a phone each extra leg is another sitting; every errand is another trip on the map and another screen.
 THE RULE: a contract has ONE leg (go there, deal with it, come back is the most); the leg offers at least three ways through (buy, sneak, talk, fight); the thing fetched is a person's want, said by that person.
 THE FIX: `Q079.W6` and `Q079.P6` (each leg has 3+ solutions), `Q001.W1` (the transaction carries emotion), `Q003.W1` (the dirty errand: the weight is in the hire), `Q050.P7` (compact, not padded), `Q148.W10` (one sitting, whole arc).
 
@@ -156,8 +156,8 @@ THE FIX: `Q012.W1` and `Q012.P2` (one question, whole game), `Q068.W1` (the pilg
 
 ### 15. BACK, backtracking and getting lost (6, bite 4)
 X IDS: `Q051.X3`, `Q113.X1`, `Q087.X3`, `Q099.X3`, `Q072.X2`, `Q130.X5`.
-IN BOHEMIA: TWO SCALES, ONE GAME. Far is the map (tap to travel, cheap); close is the honest grid (one cell per press, expensive). `Q113.X1` ("walking across town is the theme") warns that the walk must mean something every time or it is a tax.
-THE RULE: long distance is always the map's job; a contract's street part fits one block of the city, cut as the fight board; every close-grid walk longer than a short stretch has something on it (a person, a prop, a choice).
+IN BOHEMIA: TWO SCALES, ONE GAME, re-read 9/28 and 9/29 (rule 38): far is the map (tap to travel, cheap); close is the settlement screen and the fight board (house-sized tiles, a piece of the city). Walking through the city is dead. `Q113.X1` ("walking across town is the theme") warns that any travel must mean something every time or it is a tax, which is why the map, not a walk, crosses the city.
+THE RULE: long distance is always the map's job; a contract's street part fits one block of the city, cut as the fight board; every trip on the map longer than a short stretch has something on it (a road event, a place, a choice).
 THE FIX: `Q139.P4` (the mandatory walk, on the beat, where every step is chosen), `Q013.W6` (the city snags you), `Q015.W3` (earned tools that solve traversal), `Q001.P6` (duration as an emotional instrument, used rarely).
 
 ### 16. METR, meters and reward framing (58, bite 3)
@@ -169,7 +169,7 @@ THE FIX: `Q004.W4` (zero reward difference), `Q010.W3` (moral tests with no mech
 ### 17. AMNE, world amnesia (45, bite 3)
 X IDS: `Q078.X2`, `Q130.X10`, `Q131.X2`, `Q133.X4`, `Q134.X7`, `Q146.X1`, `Q151.X3`, `Q039.X2`, `Q024.X2`, `Q129.X8`.
 IN BOHEMIA: the three acts derive the future from the past's ledgers; if the ledger is not SEEN, the flip feels random. The city view's phone feed is the perfect witness: `Q045.X4` asks for exactly a readable chronicle.
-THE RULE: every finished contract writes at least one thing the world shows: a feed post in the city view, a line from someone at the place, or a changed prop; a flip to a later act shows at least one visible trace of the earlier act within the first screen.
+THE RULE: every finished contract writes at least one thing the world shows: a feed post in the city view, a line from someone at the place, or a changed prop; the first hop into a later act, and every flip after it, shows at least one visible trace of the earlier act within the first screen.
 THE FIX: `Q146.P2` (the ledger as the missing witness), `Q151.P5` (the settlement testifies), `Q147.P4` (maintenance counted), `Q144.P3`.
 
 ### 18. RAIL, forks that do not fork (40, bite 3)
@@ -180,8 +180,8 @@ THE FIX: `Q148.P3` (investigations that can conclude wrong), `Q017.W8`, `Q014.W8
 
 ### 19. COMB, combat tax in front of the scene (33, bite 3)
 X IDS: `Q095.X3`, `Q098.X2`, `Q104.X2`, `Q118.X6`, `Q039.X4`, `Q017.X1`, `Q136.X3`, `Q080.X6`.
-IN BOHEMIA: every fight is always against a group, on the fight board, on the beat. `Q095.X3`: if the thematic climax has a fight in front of it, the fight is a tax. `Q017.X1`: preaching many paths then forcing one fight at the climax. On a phone a fight is the longest thing in a sitting.
-THE RULE: no contract's emotional scene sits behind a mandatory fight unless the fight IS the scene; every contract with a fight has one route that avoids or shortens it; a lost fight routes to a result, never to a reload.
+IN BOHEMIA: every fight is always against a group, on the fight board, on the beat. `Q095.X3`: if the thematic climax has a fight in front of it, the fight is a tax. `Q017.X1`: preaching many paths then forcing one fight at the climax. On a phone a fight is the longest thing in a sitting, which is why it has a ceiling (rule 40a): a routine fight 2 to 4 minutes, a tough one 8 to 15 and never past 15.
+THE RULE: no fight runs past 15 minutes, and a routine fight is 2 to 4; no contract's emotional scene sits behind a mandatory fight unless the fight IS the scene; every contract with a fight has one route that avoids or shortens it; a lost fight routes to a result, never to a reload.
 THE FIX: `Q052.P6` and `Q060.P2` (telegraphed, fair fights), `Q095.P7` (make the dial earn its place), `Q140.P2` (the verdict arrives regardless of skill).
 
 ### 20. GRND, grind and repetition (24, bite 3)
@@ -272,7 +272,7 @@ The silent timer (`Q095.X1`, `Q106.X5`). The silent break (`Q071.X1`, `Q128.X2`)
 
 1. THE RESUME. No study measures a player coming back after two days. The library has the parts (`Q037.W3`, `Q021.W7`, `Q109.P6`) but never the moment. Is the resume a "first sixty seconds" under our law (nothing speaks)? RUN and UI own that call; this page only says the map must answer "what was I doing" without text.
 2. THE CAP ON TAKEN CONTRACTS. `Q037.X2` says focus; no study gives a number for a phone. PEOPLE/RUN pick it and measure.
-3. WHERE THE TELL LIVES WHEN THE PLAYER IS ON THE STREET. The feed is in the city view only (Paolo 9/23). A tell for a fail that happens while the player is on the fight board must be a person or a prop there, or it waits for the next city view. Which is better is a playtest question, not a library one.
+3. WHERE THE TELL LIVES WHEN THE PLAYER IS ON THE STREET. The feed is in the city view only (Paolo 9/23). A tell for a fail that happens while the player is on the fight board or a settlement screen must be a person or a prop there, or it waits for the next city view. Which is better is a playtest question, not a library one.
 4. THE REFUSAL INSIDE vs "ONCE TAKEN YOU FINISH IT". Our law says a taken contract is finished or it is a deed. The library says an in-contract refusal must be a path (`Q139.P2`). This page reads them together: the priced refusal FINISHES the contract. If Paolo reads "finish" as "do what was asked", the refusal becomes the drop, and it is a deed. His call.
 5. `Q148.W2` praises the notice board as "a dignified front door". Our law says NEVER A CARD and the ask comes from a person, so this page takes `Q148.W1` (the fee locks before the truth) and leaves the board.
 
