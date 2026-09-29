@@ -949,6 +949,40 @@ const BOH_POWERGRID=(()=>{
     }
     return circuits;
   }
+  /* THE LAW, BUILT. Grow lit ground OUTWARD from a few owned sources through
+     feeders that TOUCH, until the valley reaches the fraction asked for. Pure and
+     seeded, so the same valley lights the same way every boot -- the grid has
+     always been a function of the map and the seed and it still is. */
+  function growClusters(circuits,seed,target,sources){
+    const r=rng((seed^0x5EED)>>>0);
+    const cellOf={};
+    circuits.forEach((c,i)=>c.forEach(([x,y])=>{ cellOf[x+','+y]=i; }));
+    const adj=circuits.map(()=>new Set());
+    circuits.forEach((c,i)=>c.forEach(([x,y])=>{
+      for(const [dx,dy] of [[1,0],[-1,0],[0,1],[0,-1]]){
+        const j=cellOf[(x+dx)+','+(y+dy)];
+        if(j!=null&&j!==i){ adj[i].add(j); adj[j].add(i); }
+      }
+    }));
+    const cells=circuits.reduce((n,c)=>n+c.length,0);
+    const want=Math.round(cells*target);
+    const live=new Set(); let got=0; const front=[];
+    for(let k=0;k<sources;k++){
+      const s=(r()*circuits.length)|0;
+      if(live.has(s)) continue;
+      live.add(s); got+=circuits[s].length; front.push(s);
+    }
+    let guard=0;
+    while(got<want&&front.length&&guard++<100000){
+      const i=front[(r()*front.length)|0];
+      const nb=[...adj[i]].filter(j=>!live.has(j));
+      if(!nb.length){ front.splice(front.indexOf(i),1); continue; }
+      const j=nb[(r()*nb.length)|0];
+      live.add(j); got+=circuits[j].length; front.push(j);
+    }
+    return live;
+  }
+
   function powerMap(m,seed,opts){
     opts=opts||{};
     const litFraction=opts.litFraction==null?0.12:opts.litFraction;
@@ -1007,9 +1041,35 @@ const BOH_POWERGRID=(()=>{
       try { return (typeof gridOpt === 'function') ? (gridOpt() || null) : gridOpt; }
       catch(_e){ return null; }
     }
+    /* *** THE LIGHT IS IN CLUSTERS, AND HE PICKED IT. *** (Paolo 9/27, UP on
+       WORLD's THE VALLEY AT NIGHT: "A mix of both but im leaning towards the
+       larger clusters.")
+
+       THIS LINE USED TO BE `const live = r() < litFraction` -- ONE INDEPENDENT
+       COIN PER FEEDER, which is the definition of alternating, and his CLUSTERED
+       POWER law (7/14, LOCKED, "I like the answers") says in its own words that
+       "outages/survivals are CLUSTERS, never alternating". WORLD measured the
+       gap on 9/24: 432 lit cells in 178 SEPARATE BLOBS with a biggest of 12, and
+       share-of-neighbours-lit decaying to the global fraction by range 6, so past
+       one feeder the light was statistically indistinguishable from scatter. The
+       only clustering it had was the feeder's own six cells, which is an artifact
+       of slicing runs into sixes and not an obeyed law.
+
+       LIGHT SPREADS FROM A SOURCE ALONG THE WIRE, which is what a live substation
+       does. A few owned sources, then growth through TOUCHING feeders until the
+       valley reaches the same fraction it always had. NOT ONE EXTRA LAMP: the
+       band is his 10-15% and the default is the 12% this file has always used.
+       The source count is DERIVED, not tuned -- one per faction that can hold
+       ground, which is the law's own "every lit cluster is OWNED" -- and a caller
+       that hands in no roster falls back to the same count the graph gives.
+       HIS "LEANING TOWARDS THE LARGER CLUSTERS" IS THE SOURCE COUNT: fewer
+       sources, bigger clusters, same light. */
+    const sources = Math.max(1, (opts.litSources == null ? 14 : opts.litSources) | 0);
+    const litSet = growClusters(circuits, seed, litFraction, sources);
+
     for(let ci=0;ci<circuits.length;ci++){
       const c=circuits[ci];
-      const live=r()<litFraction;
+      const live=litSet.has(ci);
       let owner=null, faction=null, free=false;
       /* WHOSE LAND IT RUNS UNDER, lit or not, because a dark circuit is still on
          somebody's block and that is the whole of [block rent]'s question. Read

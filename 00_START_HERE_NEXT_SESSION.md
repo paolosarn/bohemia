@@ -1,3 +1,127 @@
+WORLD (world-9lfjtf): 9/29 LATEST -- *** A BLOCK RUNS OUT, AND LUCK DECIDES
+WHETHER, NEVER HOW MANY. *** Rows [scavenge] and [cut citations] both SHIPPED.
+TAB: NOT IN A TAB YET on a play surface (rule 18). It IS in the VOTE tab:
+world-picked-clean-9-29. Record records/BOHEMIA_WORLD_A_BLOCK_RUNS_OUT_9_29_26.md.
+
+[scavenge], rule 37k. engine/bohemia_scavenge.js. FOUR CALLS, each forced by
+something already ruled:
+ 1 LUCK DECIDES WHETHER, NEVER HOW MANY. A search returns ONE THING OR NOTHING.
+   EVERYTHING COSTS ONE (8/15), and this repo already measured what a variable
+   faucet does to it: [people charge] 9/22 found an ordinary panel offering 9.33
+   cells a day against a day's work paying ONE, which "would end EVERYTHING COSTS
+   ONE inside a week". His "test your luck" decides IF and WHICH, never how much.
+   Held across 305 real searches on 40 real blocks, not asserted in a comment.
+ 2 WHAT YOU CAN FIND IS WHAT THE BLOCK REALLY HAS, not a loot table. A loot table
+   is the spreadsheet-simulator move the three-currencies law names as its
+   anti-reference, and it is the IDENTICAL defect [bb places] measured on 9/25,
+   where a shelf was a function of TIER ALONE and every camp sold the same four
+   things. The overmap already districts every cell and bohemia_place already
+   turns a block into what stands on it, so a scavenge READS THE BLOCK.
+ 3 A BLOCK IS FINITE, AND IT IS A COUNT, NOT A DIAL. The obvious build is a
+   percentage chance per search, and that number would be MINE, invented, and
+   exactly what rule 36 hands to TUNING. A stock needs no such number: a block
+   starts with as many findable things as its own searchable cells, a search takes
+   at most one, an empty one answers PICKED_CLEAN by name. Diminishing returns
+   fall out free, they are what really happens to a scavenged street, and the
+   chance is left/total -- a ratio of two counts the world already decided. The
+   module stores ONLY how many times a block gave something up.
+ 4 TIME IS THE ONLY COST, because he said it is for when you are DOWN BAD and a
+   scavenge that charges batteries is unreachable by the player it exists for.
+
+MEASURED, seed 1337: 467 blocks, 451 worth searching, 3,166 findable things,
+biggest block 233, and 16 blocks with nothing on them at all (an answer, not a gap).
+
+*** THE ROLL WAS BIASED AND I MEASURED IT BEFORE ANYTHING ELSE DID. *** The first
+cut was a bare xorshift over a seed built as block*k + taken*k2 + day*k3. Driven
+for real it took 199 SEARCHES to clear a six-thing block when total x H(total) says
+about 15. Not uniform: it was tracking the structure in its own seed, and the verb
+would have been unusable for a reason with nothing to do with the design -- the
+kind of defect that gets diagnosed as "scavenging feels bad, raise the drop rate"
+and fixed in the wrong place forever. Murmur3 finalizer now, and THE GATE HOLDS THE
+MEASURED PACE AGAINST THE ARITHMETIC: 1->1 (theory 1.0), 2->3 (3.0), 6->24 (14.7),
+233->1247 (1405.1). Putting the old roll back turns it red at 7.82x.
+
+TWO THINGS NOT DECIDED, NAMED NOT FAKED:
+ (a) THE RECENT-BATTLE BONUS IS UNREAD. Nothing records that a fight happened
+     anywhere. AND MY FIRST VERSION OF THAT NOTE WAS WRONG: I wrote that
+     bohemia_claims and bohemia_haggle publish into the deed ledger. They do not.
+     Both only BUILD ROWS "in the shape bohemia_deeds.publish already takes", and
+     claims says in its own file "This module never publishes it". THE ONLY TWO
+     PUBLISH CALLS IN THE GAME ARE IN THE WALKED SURFACE AND BOTH ARE ON A QUEST
+     STAGE -- no engine module publishes a deed at all. My gate's first sweep
+     looked only in engine/, printed an EMPTY LIST, and therefore proved nothing;
+     it sweeps the slice too now and REFUSES AN EMPTY SWEEP outright.
+ (b) MEDICINE IS A CURRENCY QUESTION THAT IS NOT MINE. The currencies are LOCKED
+     at three and the purse has carried "a third icon is [PENDING Paolo]" since
+     7/26. His scavenge sentence is the strongest evidence yet for what that icon
+     is. medicine ships as a FIND KIND, never a balance, and the gate holds that
+     the module never credits or debits anything at all. YIELDS ships EMPTY.
+
+COOK (rule 22/29): PICKED CLEAN, slices/vote/WORLD_PICKED_CLEAN.png. ONE REAL
+BLOCK of Vegas (block 43, eight cells, two commercial six suburb) drawn three
+times: as you find it, halfway, picked clean. 4,228 ground pixels compared, 0
+MOVED; finds 128 -> 64 -> 0; 0.89% of the frame. Refuses if a ground pixel differs,
+if the finds do not reach zero, and -- the important one -- IF ITS OWN COUNT
+DISAGREES WITH THE MODULE'S, so the picture is read out of the engine rather than
+drawn to illustrate it. GATE SCAVENGE 37/0, registered, mutation-proved three ways.
+
+[cut citations]. My four stale citations now each say the module, its tool and its
+gate were cut 9/27 under rule 33h and are in archive/: C2 10 -> 6, at ceiling. The
+gate STAYED RED on C3 on a citation nobody had flagged -- the TF-ART-019 grid-kit
+sheet pointed at a cook file with _grid_ in the middle of its name and the real one
+has no such word. LIFE+CITY's file, a one-word doc typo and not a system of theirs,
+so I fixed the word rather than leave main red. *** AND THEN WRITING THE RECORD
+BROKE THE SAME GATE AGAIN: *** my first draft spelled the dead filename out in full
+so a reader could see the typo, and the gate reads any path in a record as a
+citation, so DOCUMENTING A BROKEN CITATION CREATED ONE. C3 has no "described it as
+dead" escape the way C2 does, so the cure is not to write the dead path at all.
+ECONOMY hit the identical trap on their own row the same round (fc597e1), which
+makes it a shape worth a gate leg rather than two lanes' bad luck. CANON ROT 13/0,
+61 gone, under ceiling.
+
+*** AND I FIXED AN ENGINE SYNC RED THAT I HAD BLAMED ON ANOTHER LANE IN THIS VERY
+FILE. *** Last round's block said the drift was the graphics master against
+BOHEMIA_RUN_CURRENT.html, "last touched by LIFE+CITY and PEOPLE, my own resync runs
+clean", and flagged it for the coordinator. IT WAS BOH_POWERGRID, DRIFTED BY MY OWN
+growClusters CHANGE: I resynced the walked city and never the other carriers. The
+walked-city resync tool only ever updates the walked city, which is the whole reason
+tools/bohemia_module_reinline.py exists, and I did not reach for it. It fixed three
+carriers and the gate STAYED RED, because THE GRAPHICS MASTER CARRIES THE MODULE
+TWICE and that tool only reaches one copy per file; the second copy was replaced
+through the sync gate's own reader (never a second extractor, per the tool's own
+header). ENGINE SYNC LAW HOLDS: 19 modules, zero drift. THE TOOL GAP IS REAL AND IS
+PLUMBER'S: a module carried twice in one file cannot be re-inlined by that tool, and
+nothing warns you.
+
+THAT IS NINE ROUNDS RUNNING where measuring found the premise already built, or
+built wrong with nobody measuring -- and this round FOUR of the wrong things were
+mine (the biased roll, the empty gate sweep, the wrong publishers note, and a red I
+blamed on another lane that was my own). The pattern is no longer "the repo is
+rotten", it is "my instruments are wrong before the game is", and the only thing
+that keeps catching it is driving the thing for real instead of reading it.
+
+ROUTED: COMBAT -- one publish call when a fight ends turns the bonus from UNREAD
+into a derive, nothing else needed. TUNING -- how long one search costs is the only
+felt number here; the arithmetic is total x H(total) and my default is a quarter of
+a day. RUN [settlement screen] -- the module answers NOT_A_PLACE, NOTHING_TO_SEARCH,
+PICKED_CLEAN, found-nothing and found-one, which is every state a button needs.
+LIFE+CITY [build a lot] -- rule 40(b) puts building in the same screen; scavenging
+takes a block down and building puts something back on it, same block, one count.
+PLUMBER -- the re-inline tool's one-copy-per-file gap. [PENDING Paolo] -- the third
+RESOURCES icon, empty since 7/26, and his scavenge sentence names medicine.
+
+STILL RED ON MAIN AND NOT MINE: GATE REGISTRY, orphan gates across many lanes;
+neither of mine is among them.
+
+[bb scavenge] BB HAS NO SCAVENGE BUTTON AND THE GAP IS THE POINT: its loot comes
+from bodies and from contracts, so its world is a place you pass through to reach
+the next fight, which is exactly what rule 40 says we are not doing. OUR TWIST
+(rule 39b): BB's map is a supply of OPPORTUNITIES and never runs down; ours is a
+supply of THINGS and does. A BB village visited twenty times is identical to one
+never seen. Ours remembers you, gets thinner, and eventually has nothing left to
+give -- and since the derive is signed (37c, 9/28), a valley you strip in act one is
+a poorer valley in act three. The map is a resource you can spend.
+
 TUNING (tuning-f59l1w): 9/29 LATEST -- [fight length] SHIPPED (research, no code touched); [dead citation] SHIPPED.
 TAB: VOTE, item HOW LONG A FIGHT TAKES (two bars vs the 15 minute ceiling, draft:true).
 RECORD: records/BOHEMIA_TUNING_FIGHT_LENGTH_WHY_BB_RUNS_40_MINUTES_AND_OURS_DOES_NOT_9_29_26.md

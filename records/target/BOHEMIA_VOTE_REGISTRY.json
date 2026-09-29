@@ -3130,6 +3130,18 @@
     "how": "page",
     "src": "BOHEMIA_THREE_MORE_GROUNDS_9_29_26.html"
    }
+  },
+  {
+   "id": "world-picked-clean-9-29",
+   "kind": "tile",
+   "lane": "world",
+   "made": "9/29",
+   "title": "PICKED CLEAN",
+   "why": "The scavenge button you asked for. Here is the one decision that matters: a search gives you ONE thing or NOTHING, never a pile. A pile would kill everything costs one inside a week, and this game already got caught doing exactly that once with solar panels. So luck decides IF you find something, not how much. The other decision: a block RUNS OUT. This is one real block of Vegas, eight lots, drawn three times. Left, how you find it. Middle, halfway. Right, picked clean. Nothing was destroyed, nothing moved, nobody is there, there is just nothing left on it and you are the reason. I checked 4,228 ground pixels across the three and zero moved. Searching a street does not rearrange it. Every other game's scavenge button pays forever. Yours is a map you can spend, and since the future is signed now, a valley you strip in act one is a poorer valley in act three.",
+   "show": {
+    "how": "image",
+    "src": "vote/WORLD_PICKED_CLEAN.png"
+   }
   }
  ],
  "verdicts": [

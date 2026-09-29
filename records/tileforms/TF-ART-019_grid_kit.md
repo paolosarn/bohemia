@@ -90,7 +90,7 @@
 - SEAMS: bay pieces band by position in the measured 19x20 bay (pad ring,
   tank, radiator wall); container pieces band the 14-cell run so five
   40-foot lids subdivide what the world merged. Full build spec lives in
-  the cook docstring (tools/tfcook/TF-ART-019_grid_cook.py).
+  the cook docstring (tools/tfcook/TF-ART-019_cook.py).
 - NO readable text anywhere (words are his).
 
 ## F. THE CAPTION

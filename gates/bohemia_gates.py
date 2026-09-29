@@ -819,6 +819,23 @@ GATES = [
      'the module when a cut note naming it is exactly right. Rule 22/29/32(f): the cook is '
      'DRAWN at game scale, slices/vote/WORLD_THE_ONLY_PUMP.png. '
      'records/BOHEMIA_WORLD_A_PLACE_IS_A_BLOCK_9_27_26.md', True),
+    ('SCAVENGE', ['node', 'gates/scavenge_gate.js'],
+     'ROW [scavenge], rule 37(k) (Paolo 9/27: a SCAVENGE button in the settlement screen -- '
+     'spend time, test your luck, for materials, for when you are down bad on food, medicine '
+     'or batteries; a settlement may show a bonus). *** THE LOAD-BEARING LEG IS THAT LUCK '
+     'DECIDES WHETHER, NEVER HOW MANY: *** EVERYTHING COSTS ONE (8/15) and this repo already '
+     'measured what a variable faucet does to it -- [people charge] found a solar panel '
+     'offering 9.33 cells a day against a day\'s work paying ONE, which would end the ruling '
+     'inside a week -- so a search returns one thing or nothing, held across hundreds of real '
+     'searches on dozens of real blocks rather than asserted. A BLOCK RUNS OUT and says '
+     'PICKED_CLEAN by name; its total is re-derived from its own cells every time and the only '
+     'state stored is how many times it gave something up. *** AND ONE LEG EXISTS BECAUSE THE '
+     'AUTHOR\'S ROLL WAS BIASED: *** the first cut took 199 searches to clear a six-thing block '
+     'when total x H(total) says about 15, so the measured pace is now held against that '
+     'arithmetic. WHAT A FIND GIVES YOU IS HIS (YIELDS empty, NO_RULING by name) AND NO FOURTH '
+     'CURRENCY IS CREATED -- medicine is a find kind, never a balance, because the third '
+     'RESOURCES icon has been [PENDING Paolo] since 7/26. The recent-battle bonus answers '
+     'UNREAD because nothing in the game records that a fight happened anywhere.', False),
     ('CREATURES SCHOOL', ['node', 'gates/creatures_school_gate.js'],
      'ROW [creatures], rule 37(n) (Paolo 9/27: de-extinction labs, mammoths and dire wolves, '
      'labs that lost their funding, an AI playing with genetics or an airborne thing -- and his '

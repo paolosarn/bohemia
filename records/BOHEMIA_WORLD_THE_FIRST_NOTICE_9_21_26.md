@@ -39,8 +39,14 @@ So this is a **document on a phone**. That is the only thing built.
 
 ## 3. WHAT WAS MADE
 
-`engine/bohemia_notice.js` — a real utility **disconnection notice** and a
-five-slot **emergency alert**, issued off the machines that already run.
+> **CUT 9/27 UNDER RULE 33h. `engine/bohemia_notice.js` is in `archive/` and is
+> no longer live.** Everything below describes what it did when it shipped, and
+> is kept because the measurements in it are still true. The ask as a text stream
+> is dead; it is rebuilt as contracts and events from people in places.
+
+`engine/bohemia_notice.js` (now archived) — a real utility **disconnection
+notice** and a five-slot **emergency alert**, issued off the machines that
+already run.
 
 Driven on seed 1337, against the real overmap, the real power grid, the real turf
 holders and the real pumps. Nothing below was typed:
@@ -163,7 +169,9 @@ of the bodies in the table in section 5.
 
 ## 8. THE GATE, AND WHAT IT REFUSES
 
-`gates/first_notice_gate.js`, in the suite as **FIRST NOTICE**, 41 passed 0 failed.
+`gates/first_notice_gate.js` — **retired 9/27 to `archive/` with the module it
+held, and no longer registered in the suite.** When it ran it was **FIRST
+NOTICE**, 41 passed 0 failed.
 Proved red four ways rather than claimed green:
 
 ```
@@ -209,7 +217,8 @@ Two rows, both this lane's:
   empty with the paperwork still going out. No live brand is named anywhere.
 
 The page is `slices/BOHEMIA_THE_FIRST_NOTICE_9_21_26.html` and it is **generated**
-by `tools/bohemia_the_first_notice.js` from the module, never typed. The gate
+by `tools/bohemia_the_first_notice.js` (**archived 9/27 with the module; no
+longer live**) from the module, never typed. The gate
 re-runs the generator and fails if the file on disk has drifted, so the page he
 votes on cannot describe a module that has since moved.
 

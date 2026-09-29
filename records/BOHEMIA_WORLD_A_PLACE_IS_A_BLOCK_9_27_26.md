@@ -17,7 +17,8 @@ myself a line.
 > offer cards, the spoken ask as a line on screen. Rebuilt as contracts and
 > events from people in places.
 
-`engine/bohemia_notice.js` **was** the ask as a text stream, entirely: a
+`engine/bohemia_notice.js` — **cut this same round under rule 33h and now in
+`archive/`, no longer live** — **was** the ask as a text stream, entirely: a
 disconnection notice, a clearance, a notice to quit, a covenant violation, an
 emergency alert, a price list. Six items, **all six voted down** ("So boring",
 "Boring asfff"), which became rule 29.
