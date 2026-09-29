@@ -72,3 +72,15 @@ SHAPE they research and recommend; when he flips them to build, PLUMBER with COM
 data line to their pages. Research may study any game or studio; the canon's reference list stays his (NEVER
 ADD A REFERENCE GAME HE HAS NOT NAMED). Section 6's order: their school runs now, beside the fight-grid work.
 
+## 8. THE HOURS GO TO THE WORLD, NOT THE CHESS BOARD (Paolo 9/29, LOCKED; records/BOHEMIA_PAOLO_FASTER_COMBAT_DEEPER_BUILDABLE_WORLD_9_29_26.md)
+"In Battle Brothers the chess-playstyle board is the longest part of the gameplay, not the traversing, contracts,
+exploration, map. I want it to lean into faster combat and a more deep, rich, interactable, buildable world."
+(a) The fight is fast: depth from formation, gear and the dial (s1), speed from gambits carrying the routine; a
+routine fight ends inside 90 seconds of beats and a boss fight inside 4 minutes (manager's defaults, TUNING
+researches the real Battle Brothers numbers and proposes ours; in VOTE). (b) The hours go to the map, the
+settlements, the contracts, the people and BUILDING: a home base you own (37e) is built up from its settlement
+screen, lot by lot, from the assets we have; what is built shows on the map, on the fight board cut from that
+block, and in the derived future (rule 31). The separate builder screen stays CUT (rule 24); building is a thing
+you do in a place. (c) The split is measured: EYES reports where a session's minutes go; the fight is under a
+third of them (default, in VOTE).
+
