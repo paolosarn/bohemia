@@ -48109,6 +48109,7 @@ THEN (gj) THE BEASTS ARE LAB-MADE (Paolo 9/29): rule 42, law laws/BOHEMIA_LAW_TH
 THEN (gk) WHERE YOU BUILD (Paolo 9/29, stuck): default A, you build what you hold and holding grows block by block; Pocket City 2 edit-everything is not this game. Rule 43; fight-gets-deep law s11; notes on LIFE+CITY, FACTIONS, WORLD, COMBAT; one default in VOTE. records/BOHEMIA_PAOLO_WHERE_CAN_YOU_BUILD_BASE_SETTLEMENT_OR_EVERYTHING_9_29_26.md.
 THEN (gl) THE LAB COULD BE A STATE OR TWO OVER (Paolo 9/29): the Vegas lab is one source; nature spread the rest along real corridors; the acts are waves of arrival; WORLD's file carries origin, corridor, arrival act. Beasts law s3 amended; rule 42e. records/BOHEMIA_PAOLO_THE_LAB_COULD_BE_A_STATE_OR_TWO_OVER_9_29_26.md.
 THEN (gm) THE INVASIVE LENS (coordinator 9/29, his 'do you need more research'): round one with real precedents and tiers; notes on WORLD [creatures], COMBAT [bestiary], LIFE+CITY [build a lot]; rule 42f. records/BOHEMIA_THE_BEASTS_OF_BOHEMIA_ROUND_ONE_THE_INVASIVE_LENS_9_29_26.md.
+THEN (gn) ROUND TWO OF THE BEASTS (his 'are you bullshitting me', 9/29): dinosaurs via bird atavism, swarms (killer bees as the real lab escape), microbes, plants, birds (Haast's eagle), the water; rows ECONOMY [what grows], PEOPLE [the plague]; notes on WORLD and COMBAT; rule 42g. records/BOHEMIA_THE_BEASTS_OF_BOHEMIA_ROUND_TWO_DINOSAURS_INSECTS_PLANTS_BIRDS_MICROBES_9_29_26.md.
 
 
 
