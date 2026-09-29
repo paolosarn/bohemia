@@ -1,5 +1,5 @@
 {
- "_readme": "TUNING [numbers table] 9/28 -- DRAFT, draft:true, RESEARCH ONLY (rule 38g). NOTHING IN THE GAME READS THIS FILE. It is the SHAPE recommended for slices/data/tuning.json (MODS' one-file-per-kind line) the day Paolo flips TUNING to build. `live` fields are refreshed from the fight by tools/bohemia_tuning_census.js --write. Record: records/BOHEMIA_TUNING_THE_NUMBERS_TABLE_SHAPE_9_28_26.md",
+ "_readme": "TUNING [numbers table] 9/28 -- DRAFT, draft:true, RESEARCH ONLY (rule 38g). NOTHING IN THE GAME READS THIS FILE. It is the SHAPE recommended for a proposed tuning.json data file (MODS one-file-per-kind line) the day Paolo flips TUNING to build. `live` fields are refreshed from the fight by tools/bohemia_tuning_census.js --write. Record: records/BOHEMIA_TUNING_THE_NUMBERS_TABLE_SHAPE_9_28_26.md",
  "draft": true,
  "schema": 1,
  "fields": {

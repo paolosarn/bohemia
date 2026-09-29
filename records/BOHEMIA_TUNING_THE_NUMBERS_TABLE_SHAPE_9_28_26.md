@@ -35,7 +35,7 @@ fight "tuned in one place" and miss the numbers that decide whether you live. So
 list is the table's own ids. Five of these inline numbers are named in the draft's next rows (section 5).
 
 ## 4. THE SHAPE, RECOMMENDED
-ONE FILE, slices/data/tuning.json (Pages publishes slices/; MODS' door). Each row:
+ONE FILE, a tuning.json data file, proposed and not written (it would sit where Pages publishes; MODS' door). Each row:
   id       dotted and stable: armour.plate.hold, death.struck, age.doubling. Mods and sliders patch by id.
   value    the number (the draft carries it as `live` read from the build).
   unit     hp, chance, ms, beats, pips, game days, x.
