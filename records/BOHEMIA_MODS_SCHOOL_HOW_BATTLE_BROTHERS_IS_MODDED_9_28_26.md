@@ -121,7 +121,7 @@ data moves, so the debt stops growing on the day the work starts.
   [mods folder] builds.
 - **RUN**: [mods folder] will be listed on the loading screen (rule 18h), off by default in the
   demo; nothing for you this round.
-- **The next row, [data line]** (a research page now, rule 38g; the build below is the shape): weapons first. A `slices/data/weapons.json` (served by Pages,
+- **The next row, [data line]** (a research page now, rule 38g; the build below is the shape): weapons first. A proposed `weapons.json` data file (served by Pages from slices/,
   no config change), one loader in the fight that builds the 14 tables FROM it at boot so no
   combat logic changes, a doc page, and the census baseline dropping from 42 to the ternaries
   and name checks only. Then the ternaries become keys.
