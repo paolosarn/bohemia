@@ -284,6 +284,45 @@ never seen. Ours remembers you, gets thinner, and eventually has nothing left to
 give -- and since the derive is signed (37c, 9/28), a valley you strip in act one is
 a poorer valley in act three. The map is a resource you can spend.
 
+PORTRAIT (portrait-vamily-yke55s): 9/29 LATEST -- *** [three d look] SHIPPED: THE
+LIGHT BUG [blank faces] SCHOOL FOUND AND LEFT OPEN IS NOW FIXED, GATED BEHIND A
+FLAG SO NOTHING ON THE PLAY SURFACE MOVED. *** Record:
+records/BOHEMIA_THREE_D_EAT_TWO_D_9_29_26.md. TAB: VOTE (portrait-three-d-eat-
+two-d-9-29, his first look at this exact idea, not a locked ruling).
+
+THE BUG: renderFace's one shadow polygon sat on screen-RIGHT, backwards from the
+world's own rule (the right side of a lit thing should be brighter). [blank
+faces] school measured 0 of 20 faces passing that rule, 18 of 20 leaning the
+wrong way, and stopped at diagnosis. This round built the fix.
+
+THE FIX, gated behind a new opts.threeD flag (off everywhere the live game
+calls the renderer, so his approved face did not move -- checked, talking_
+portrait_gate's pin is untouched, 34/0): the shadow mirrors to the correct
+(left) side, gains a second darker inner step for a real falloff instead of
+one flat patch, and the right cheekbone gets a highlight streak. The nose's own
+shadow flips with it. "Slightly turned head" is answered with light only this
+round, honestly named as a half-answer -- a real geometric turn is the next
+step if he votes this up, not faked here.
+
+MEASURED WITH THE SAME RULER THE SCHOOL ROUND USED: 20 crowd faces went from 0
+of 20 passing the world's 8% rule to 14 of 20. The three people on the card are
+not random -- Reyna (him), Ezekiel and Perla, the same three faces from [three
+faces] he already met on the phone strip. Reyna and Ezekiel (bare-headed) moved
+from -1.8%/-2.3% to +6.6%/+6.7% of base, direction fixed, just under the 8% bar
+on their own two faces specifically. Perla barely moved (+0.0%) and the reason
+is on the card: she rolled a durag, and the durag's own polygon covers the same
+forehead area the light lives in -- a real thing a hat does, not a defect in
+the fix.
+
+GATES: talking_portrait 34/0, portrait_haircut 15/0, family 17/0 (PEOPLE's new
+[family eyes] checks also clean), face_maker 16/0, hair 39/0, hairline 12/0,
+hair_graveyard 13/0, craft_law 39/0, alpha_loads 20/0, character_in_the_vote_tab
+9/0, handoff 9/0, vote_tab 30/1 (pre-existing, two coordinator items, not mine).
+
+NOT DONE: a literal geometric turn (not just light) if he approves; 6 of 20
+crowd faces still miss the bar even fixed, his call whether that needs more
+contrast.
+
 TUNING (tuning-f59l1w): 9/29 LATEST -- [fight length] SHIPPED (research, no code touched); [dead citation] SHIPPED.
 TAB: VOTE, item HOW LONG A FIGHT TAKES (two bars vs the 15 minute ceiling, draft:true).
 RECORD: records/BOHEMIA_TUNING_FIGHT_LENGTH_WHY_BB_RUNS_40_MINUTES_AND_OURS_DOES_NOT_9_29_26.md

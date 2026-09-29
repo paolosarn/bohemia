@@ -1513,7 +1513,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 9/29c - ONE HUMAN, ONE PAST</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 9/29d - THE LIGHT SWITCHES SIDES</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -4179,8 +4179,29 @@ function renderFace(spec,opts){
  }
  const skull=[[cx-fw,Y0+2],[cx-fw,Y0-3],[cx-fw+3,headTop+2],[cx-5,headTop-1],[cx,headTop-2],[cx+5,headTop-1],[cx+fw-3,headTop+2],[cx+fw,Y0-3],[cx+fw+1,Y0+4],[cx+cw,chY],[cx+jw,jcY],[cx+chw,chin-2],[cx,chin],[cx-chw,chin-2],[cx-jw,jcY],[cx-cw,chY],[cx-fw-1,Y0+4]];
  poly(skull,Mn);
+ /* *** [three d look], Paolo 9/14: "try to make it look 3-D too while we're at it."
+    ONE LIGHT, THE WORLD'S OWN. The shipping shadow below (the else branch, byte-
+    identical, untouched) sits on screen-RIGHT, which is BACKWARDS: art_45_gate.py's
+    own rule says a lit mass out-lums right-third over left-third by 8%+, and
+    [blank faces] school measured 0 of 20 faces meeting that, 18 of 20 leaning the
+    wrong way, traced to this exact polygon. This is the fix, gated behind opts.threeD
+    so it never moves a face already on the play surface (rule 18): the same shape
+    MIRRORED to the left (the shadow side), a second, DARKER inner step (Sh nested
+    inside ShSoft) so the shadow actually falls off instead of sitting as one flat
+    patch, and a real highlight streak (L) along the RIGHT cheekbone so the lit side
+    reads brighter, not just less-shadowed. The "slightly turned head" half of his
+    ask is read through the light alone here, not new anatomy -- the safer half for
+    one attempt; a literal 3/4 turn is a bigger change than a first pass should risk,
+    named honestly in the record rather than faked. */
+ const _3d = !!(opts && opts.threeD);
  poly([[cx-fw+2,Y0],[cx+fw-2,Y0],[cx+6,eyeL],[cx-6,eyeL]],L);
- poly([[cx+7,Y0+4],[cx+cw-1,chY],[cx+jw-1,jcY],[cx+chw-1,chin-3],[cx+6,chin-4],[cx+9,eyeL]],ShSoft);
+ if(_3d){
+   poly([[cx-7,Y0+4],[cx-cw+1,chY],[cx-jw+1,jcY],[cx-chw+1,chin-3],[cx-6,chin-4],[cx-9,eyeL]],ShSoft);
+   poly([[cx-cw+2,chY-1],[cx-jw+1,jcY],[cx-chw+2,chin-4],[cx-cw+4,jcY-2]],Ln);
+   poly([[cx+3,Y0+3],[cx+cw-1,chY-3],[cx+cw-3,jcY],[cx+4,eyeL+1]],L);
+ } else {
+   poly([[cx+7,Y0+4],[cx+cw-1,chY],[cx+jw-1,jcY],[cx+chw-1,chin-3],[cx+6,chin-4],[cx+9,eyeL]],ShSoft);
+ }
  P(cx-cw+1,chY,Sh);P(cx+cw-1,chY,Sh);
  line(cx+jw-1,jcY,cx+chw,chin-3,Sh);line(cx-jw+1,jcY,cx-chw,chin-3,Sh);
  P(cx-cw,chY,Mn);P(cx-cw,chY+1,Sh);P(cx+cw,chY,Mn);P(cx+cw,chY+1,Sh);
@@ -4267,7 +4288,8 @@ function renderFace(spec,opts){
      line(ex-(e.w>>1),ey+lidRows-1,ex+(e.w>>1),ey+lidRows-1,Ln); }
    if(e.hood){P(ex-(e.w>>1),ey-1,Sh);P(ex+(e.w>>1),ey-1,Sh);}P(ex-(e.w>>1),ey+e.h-1,Sh);P(ex+(e.w>>1),ey+e.h-1,Sh);}
  const n=spec.nose,ny1=f.noseY,nw=n.w;
- for(let yy=ey+3;yy<ny1-1;yy++)P(cx+1,yy,ShSoft);
+ /* the nose's own shadow falls AWAY from the light; right-lit means it falls left. */
+ for(let yy=ey+3;yy<ny1-1;yy++)P(_3d?cx-1:cx+1,yy,ShSoft);
  P(cx-1,ey+4,L);P(cx-1,ny1-3,L);P(cx-(nw>>1)-1,ny1-1,Sh);P(cx+(nw>>1)+1,ny1-1,Sh);
  P(cx-(nw>>1),ny1,Ln);P(cx+(nw>>1),ny1,Ln);P(cx,ny1-1,L);P(cx+1,ny1-1,L);
  /* ===== THE MOUTH TALKS =================================================

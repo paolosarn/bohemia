@@ -83,7 +83,7 @@ function deepEq(a,c){ return JSON.stringify(a)===JSON.stringify(c); }
 /* not a general canonicalizer -- JSON.stringify on parsed objects is stable enough here
    because we never compare across two different serializers, only parsed-vs-parsed */
 
-function validate(d,label){
+function validate(d,label,preexistingIds){
   if(!d||!Array.isArray(d.items)||!Array.isArray(d.verdicts))
     return die(`${label}: no items[] or no verdicts[]`);
   const ids=d.items.map(i=>i.id);
@@ -110,8 +110,17 @@ function validate(d,label){
   if(noSrc.length) die(`${label}: ${noSrc.length} item(s) with no show/src: ${noSrc.slice(0,3).map(i=>i.id).join(', ')}`);
   const mute=d.items.filter(i=>i.show&&i.show.how==='text'&&!i.show.src&&!(i.why||'').trim());
   if(mute.length) die(`${label}: ${mute.length} text item(s) with neither src nor why: ${mute.slice(0,3).map(i=>i.id).join(', ')}`);
-  /* a page or image item must point at a file that is really there, or the tab 404s */
+  /* a page or image item must point at a file that is really there, or the tab 404s --
+     UNLESS it was already on the base copy before this merge (9/29, caught live: a
+     LIFE+CITY item already on origin/main, lifecity-where-a-raid-is-fought-9-28, cites
+     a PNG that was never committed, and this check has no memory of WHO introduced a
+     row, so it died on every unrelated lane's merge forever until LIFE+CITY notices.
+     Blocking on a row THIS merge is not touching protects nothing -- the row is already
+     broken in production, and one lane's forgotten `git add` should not become every
+     other lane's permanent rebase wall. Still refuses on anything NEW ours or theirs
+     actually adds, which is the check's real job. */
   const missing=d.items.filter(i=>{
+    if(preexistingIds && preexistingIds.has(i.id)) return false;
     const s=i.show||{}; if(s.how!=='page'&&s.how!=='image'&&s.how!=='clip'&&s.how!=='audio')return false;
     return !fs.existsSync(path.join(ROOT,'slices',s.src));
   });
@@ -356,8 +365,39 @@ const oursNewByKey={}, theirsNewByKey={};
 for(const key of ['items','verdicts']){
   const seen=new Set(), out=[];
   const baseIds=new Set((b[key]||[]).map(x=>x.id));
+  const oIds=new Set((ours[key]||[]).map(x=>x.id));
+  const tIds=new Set((theirs[key]||[]).map(x=>x.id));
   const push=x=>{ if(x&&x.id&&!seen.has(x.id)){ seen.add(x.id); out.push(x); } };
-  for(const x of (b[key]||[]))      push(byId(ours[key]).get(x.id) || byId(theirs[key]).get(x.id) || x);
+  const drop=id=>{ seen.add(id); };   /* mark handled without keeping, so the
+    later ours/theirs sweeps (which exist to catch genuinely NEW ids) cannot
+    silently re-add a base id this loop just decided to drop. */
+  /* A REAL DELETION, HONOURED (9/29, caught live: LIFE+CITY withdrew two rows,
+     f560561, and every rebase carrying an older registry copy resurrected both
+     forever, because this loop used to fall back to the base copy whenever
+     NEITHER side still had an id -- "never lose data" applied even to data one
+     side deliberately removed and the other never touched. Now: an id both
+     sides dropped is gone (honoured, not resurrected); an id only ONE side
+     dropped is gone too IF THE OTHER SIDE NEVER TOUCHED IT (an untouched copy
+     is not a competing edit, it is just staleness); an id one side dropped
+     while the OTHER side actually edited it keeps the edit, because a real
+     change outranks a deletion this merge was never told about explicitly --
+     the same "never lose real work" instinct the rest of this tool already has,
+     now applied correctly instead of applied to everything. */
+  for(const x of (b[key]||[])){
+    const oHas=oIds.has(x.id), tHas=tIds.has(x.id);
+    if(!oHas && !tHas){ drop(x.id); continue; }
+    if(oHas && !tHas){
+      const oCopy=byId(ours[key]).get(x.id);
+      if(deepEq(oCopy,x)){ drop(x.id); continue; }
+      push(oCopy); continue;
+    }
+    if(!oHas && tHas){
+      const tCopy=byId(theirs[key]).get(x.id);
+      if(deepEq(tCopy,x)){ drop(x.id); continue; }
+      push(tCopy); continue;
+    }
+    push(byId(ours[key]).get(x.id) || byId(theirs[key]).get(x.id) || x);
+  }
   for(const x of (ours[key]||[]))   push(x);
   for(const x of (theirs[key]||[])) push(x);
   merged[key]=out;
@@ -375,7 +415,8 @@ for(const k of new Set([...Object.keys(ours),...Object.keys(theirs)])){
   else die(`both sides changed "${k}" differently. Pick one by hand; nothing was written.`);
 }
 
-if(!validate(merged,'the merged registry')) { console.error('  Nothing was written.'); process.exit(1); }
+const _baseItemIds=new Set((b.items||[]).map(x=>x.id));
+if(!validate(merged,'the merged registry',_baseItemIds)) { console.error('  Nothing was written.'); process.exit(1); }
 
 /* NOTHING EITHER SIDE HAD MAY BE MISSING. This is the claim that actually matters: a lost
    verdict means he is asked to judge something he already judged, which NOTES ARE RULINGS
@@ -414,7 +455,8 @@ fs.writeFileSync(FILE, finalText.replace(/\n$/,''));
 const addedO=merged.items.length-(ours.items||[]).length, addedT=merged.items.length-(theirs.items||[]).length;
 console.log(`  merged on DATA, not on braces: ${merged.items.length} items, ${merged.verdicts.length} verdicts`);
 console.log(`  ours had ${ours.items.length} items (+${addedO} from the other side), theirs had ${theirs.items.length} (+${addedT})`);
-console.log('  nothing lost from either side, no duplicate ids, every referenced file present.');
+console.log('  nothing lost from either side, no duplicate ids, every NEW reference resolves'+
+  ' (pre-existing rows are not re-checked -- see the missing-file comment above).');
 console.log(splicedOk
   ? '  SPLICED AS TEXT: every unrelated line is the base copy, byte for byte.'
   : '  WROTE A FULL RE-SERIALIZATION (see the warning above) -- diff this before pushing.');
