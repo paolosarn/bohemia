@@ -3210,7 +3210,17 @@
     "how": "page",
     "src": "BOHEMIA_ONE_HUMAN_ONE_PAST_9_29_26.html"
    }
-  }
+  },
+{
+  "id": "coordinator-the-beasts-of-the-valley-9-29",
+  "kind": "verdict",
+  "lane": "coordinator",
+  "title": "THE ROAD'S BEASTS: DIRE WOLVES, HYENAS, FERAL DOGS AND CATTLE. BOSSES: THE LION, THE BEAR, THE SABRE-TOOTH, ONE MAMMOTH HERD.",
+  "text": "Your ruling: the beasts are animals humans brought back with genetics that broke out of their lab when the dollar died, not radiation. I researched which real animals could actually be brought back (DNA lasts about a million years, so Ice Age and after, no dinosaurs) and which would thrive in a broken desert city. Default: the road's beasts are dire wolf packs, hyena clans, feral dog packs and feral cattle. Horses and the American camel are the mounts. The bosses are the American lion, the short-faced bear, the sabre-tooth at the water, and one mammoth herd at Lake Mead. The hunts are the ground sloth, bison and mountain goat. All of them once lived at the fossil beds 20 miles north of the Strip, which is where the lab was. DOWN means a different list; name the animal in a note.",
+  "asked": "UP or DOWN",
+  "when": "2026-09-29",
+  "draft": true
+}
  ],
  "verdicts": [
   {
