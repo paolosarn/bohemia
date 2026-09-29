@@ -28,3 +28,12 @@ against the floor).
 "When civilization dies, especially our first act will kinda feel like that." No power, no law, men with what
 they can carry, beasts on the road; the technology is the thing on the horizon, not in your hand. DIRECTION's
 bible and WORLD's act-1 read this.
+
+## 6. MECHANIC FIRST, SKIN SECOND (Paolo 9/29, the same night, LOCKED; records/BOHEMIA_PAOLO_THE_BEAST_ARCHETYPES_EXACTLY_AS_BATTLE_BROTHERS_9_29_26.md)
+"The first thing I want to do is create the beast archetypes exactly how they are in Battle Brothers." Each of the
+seventeen Battle Brothers beasts is copied as an EXACT RULE SET first (its turn, what it does when hit, what kills
+it, its lesson; the Ifrit splits into two or three when damaged and blasts you), as a data file COMBAT owns and
+verifies against the library (records/BOHEMIA_BATTLE_BROTHERS_SCHOOL_THE_SEVENTEEN_BEAST_MECHANICS_9_29_26.md). The animal skin (s2, s3, the seventeen animals) is laid over the rule where it
+fits; where no animal fits, the rule ships on a machine or a swarm. The mechanic is the floor; a beast with no rule
+of its own is a reskin and a defect.
+
