@@ -101,6 +101,18 @@
     return !!e && e.how === 'ruined';
   }
 
+  /* WHICH BASES A HOLDER HAS RIGHT NOW, for a rule that reads "a home base you own":
+     the flip that unlocks the second generation (rule 39c, default the first home
+     base) and building inside a settlement you own (rule 40b). A ruin is nobody's. */
+  function ownedBy(rec, seats, who, act) {
+    var a = clampAct(act == null ? (rec && rec.act) : act), out = [];
+    for (var i = 0; i < (seats || []).length; i++) {
+      var f = seats[i] && seats[i].faction;
+      if (f && !isRuin(rec, f, a) && heldBy(rec, f, a) === who) out.push(f);
+    }
+    return out;
+  }
+
   /* ---- writing --------------------------------------------------------------
      `from` is READ, never handed in: unlike a derived grid, the ledger IS the
      source of who holds a base, so a caller that says otherwise is wrong, not a
@@ -177,6 +189,12 @@
     }
     return (typeof root !== 'undefined' && root.BohemiaTowns) || null;
   }
+  function PARTIES() {
+    if (typeof module !== 'undefined' && module.exports) {
+      try { return require('./bohemia_parties.js'); } catch (_e) {}
+    }
+    return (typeof root !== 'undefined' && root.BohemiaParties) || null;
+  }
   function openAt(tier) {
     var T = TOWNS(); if (!T || !T.DEPTH) return null;
     var d = Object.prototype.hasOwnProperty.call(T.DEPTH, tier) ? T.DEPTH[tier] : T.DEPTH.camp;
@@ -231,24 +249,58 @@
     return { kept: kept, silenced: silenced };
   }
 
+  /* WHERE A PARTY IS WALKING TO RIGHT NOW: out to its destination, or home. */
+  function headingOf(p) {
+    if (!p || !p.from || !p.to) return null;
+    return p.arrived ? { x: p.from.x, y: p.from.y } : { x: p.to.x, y: p.to.y };
+  }
+
+  /* WHO IS COMING FOR A BASE. Battle Brothers shows a party's banner and its
+     destination line, so a player reads the danger before it arrives. Ours: a crew
+     that is out (not on its way home), heading at a base's own cell, and does not
+     belong to whoever holds that base. Ids only, sorted, derived from the parties
+     that still exist, never stored. This is the "warning on the map" that opens a
+     siege (QUESTS QR-R) and it changes nothing by itself. */
+  function threatsTo(baseList, keptParties) {
+    var out = {}, i, j;
+    for (i = 0; i < (baseList || []).length; i++) out[baseList[i].id] = [];
+    for (j = 0; j < (keptParties || []).length; j++) {
+      var p = keptParties[j];
+      if (!p || p.agenda !== 'crew' || p.arrived || !p.to || !p.from) continue;
+      for (i = 0; i < baseList.length; i++) {
+        var b = baseList[i];
+        if (b.state === 'ruined' || b.x !== p.to.x || b.y !== p.to.y) continue;
+        if (p.from.faction === b.holder) continue;
+        if (out[b.id].indexOf(p.from.faction) < 0) out[b.id].push(p.from.faction);
+      }
+    }
+    for (var k in out) if (Object.prototype.hasOwnProperty.call(out, k)) out[k].sort();
+    return out;
+  }
+
   /* THE MAP'S MARKER LIST. Ids, classes and numbers, never a sentence.
-       base   : where, whose, what kind of place, how big (tier), its state, and
-                whether it can be attacked yet
-       party  : where it is now, whose it is, what it is doing, how strong it looks
+       base   : where, whose, what kind of place, how big (tier), its state, whether
+                it can be attacked yet, and which crews are heading at it
+       party  : where it is now, whose, what it is doing, how strong it looks, where
+                it is walking to (the destination line) and which leg it is on
      Drawing is the map's (RUN [bb map], COOK [bb map art]); how big a tier draws is
      theirs. This says what is there. */
   function markers(seats, parties, rec, act, opts) {
     var bl = bases(seats, rec, act, opts), out = [], i;
+    var pl = partiesLeft(parties, bl);
+    var threats = threatsTo(bl, pl.kept);
+    var P = PARTIES();
     for (i = 0; i < bl.length; i++) {
       var b = bl[i];
       out.push({ kind: 'base', id: b.id, x: b.x, y: b.y, faction: b.faction, holder: b.holder,
-                 state: b.state, tier: b.tier, glyph: b.kind, raidable: b.raidable });
+                 state: b.state, tier: b.tier, glyph: b.kind, raidable: b.raidable,
+                 threat: threats[b.id] });
     }
-    var pl = partiesLeft(parties, bl);
     for (i = 0; i < pl.kept.length; i++) {
       var p = pl.kept[i];
       out.push({ kind: 'party', id: p.id, x: p.at.x, y: p.at.y, faction: p.from.faction,
-                 agenda: p.agenda, strength: (typeof p.from.power === 'number') ? p.from.power : null });
+                 agenda: p.agenda, strength: (typeof p.from.power === 'number') ? p.from.power : null,
+                 to: headingOf(p), leg: (P && P.legOf) ? P.legOf(p) : null });
     }
     return out;
   }
@@ -279,7 +331,7 @@
     heldBy: heldBy, isRuin: isRuin, took: took, ruined: ruined,
     netFor: netFor, ruinsThrough: ruinsThrough,
     openAt: openAt, raidable: raidable,
-    bases: bases, partiesLeft: partiesLeft, markers: markers,
+    ownedBy: ownedBy, bases: bases, partiesLeft: partiesLeft, threatsTo: threatsTo, markers: markers,
     toJSON: toJSON, load: load
   };
   if (typeof module !== 'undefined' && module.exports) module.exports = API;

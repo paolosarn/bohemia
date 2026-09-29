@@ -234,6 +234,80 @@ const stripComments = (s) => s.replace(/\/\*[\s\S]*?\*\//g, '').replace(/(^|[^:]
   ok('DERIVED, NEVER STORED: two builds of the same valley give the same marker list byte for byte', a === b && a.length > 100);
 }
 
+/* ---- 10b. A HOME BASE YOU OWN (rules 39c and 40b read it) ------------------ */
+{
+  const empty = H.make();
+  ok('nobody owns a base on an empty ledger but its own crew',
+     H.ownedBy(empty, seats, 'you').length === 0 && H.ownedBy(empty, seats, 'Mob').join() === 'Mob');
+  const r = H.make();
+  H.took(r, { base: 'Mob', to: 'you' }); H.took(r, { base: 'Cartel', to: 'you' });
+  H.ruined(r, { base: 'Church' }); H.took(r, { base: 'Blues', to: 'Church' });
+  ok('the bases you took are yours, in the seats\' own order',
+     H.ownedBy(r, seats, 'you').join() === 'Cartel,Mob', H.ownedBy(r, seats, 'you').join());
+  ok('A RUIN IS NOBODY\'S: not the Church\'s own, not yours',
+     !H.ownedBy(r, seats, 'Church').includes('Church') && !H.ownedBy(r, seats, 'you').includes('Church'));
+  ok('a base taken from its crew is the taker\'s, and only the taker\'s',
+     H.ownedBy(r, seats, 'Church').join() === 'Blues' && !H.ownedBy(r, seats, 'Blues').includes('Blues'));
+  const r2 = H.make(); H.setAct(r2, 2); H.took(r2, { base: 'Mob', to: 'you' });
+  ok('READ AT ACT 1 AND THE ACT-2 TAKING HAS NOT HAPPENED YET',
+     H.ownedBy(r2, seats, 'you', 1).length === 0 && H.ownedBy(r2, seats, 'you', 2).join() === 'Mob');
+}
+
+/* ---- 10c. A PARTY MARKER SAYS WHERE IT IS WALKING, AND WHO IS COMING FOR A BASE - */
+{
+  const cell = {}; seats.forEach(s => { cell[s.x + ',' + s.y] = s.faction; });
+  const mk = H.markers(seats, parties, H.make(), 1);
+  const pm = mk.filter(x => x.kind === 'party');
+  ok('every party marker carries the cell it is walking to and the leg it is on',
+     pm.every(x => x.to && typeof x.to.x === 'number' && typeof x.to.y === 'number' && typeof x.leg === 'string'));
+  ok('OUT IT WALKS TO ITS DESTINATION, and the leg says so (a patrol walks its beat and says it is holding)',
+     pm.every(x => { const p = parties.find(q => q.id === x.id); return x.to.x === p.to.x && x.to.y === p.to.y && x.leg === P.legOf(p); }));
+  const one = P.all(seats, { n: m.n }).find(p => p.agenda === 'caravan');
+  const before = H.markers(seats, [one], H.make(), 1).find(x => x.kind === 'party');
+  one.arrived = true;
+  const after = H.markers(seats, [one], H.make(), 1).find(x => x.kind === 'party');
+  ok('HOMEWARD IT WALKS TO ITS OWN BASE: the heading and the leg both turn round',
+     before.to.x === one.to.x && after.to.x === one.from.x && after.to.y === one.from.y
+     && before.leg === 'out' && after.leg === 'back', before.leg + ' then ' + after.leg);
+
+  /* who is coming for a base, worked out here from the parties by hand */
+  const crews = parties.filter(p => p.agenda === 'crew' && !p.arrived);
+  const want = {};
+  crews.forEach(p => { const b = cell[p.to.x + ',' + p.to.y]; if (b && b !== p.from.faction) { want[b] = want[b] || []; if (!want[b].includes(p.from.faction)) want[b].push(p.from.faction); } });
+  Object.keys(want).forEach(k => want[k].sort());
+  const canon = (o) => Object.keys(o).sort().map(k => k + ':' + o[k].join('+')).join(' ');
+  const got = {}; mk.filter(x => x.kind === 'base' && x.threat.length).forEach(b => { got[b.faction] = b.threat; });
+  ok('the valley has crews out, so this check has something to bite on: ' + crews.length + ' crews',
+     crews.length >= 2 && Object.keys(want).length >= 2);
+  ok('THE BASES A CREW IS HEADING AT SAY SO, AND ONLY THOSE, with who is coming: ' + JSON.stringify(got),
+     canon(got) === canon(want), canon(got) + ' vs ' + canon(want));
+  ok('every base marker has a threat list, and it is ids only, sorted',
+     mk.filter(x => x.kind === 'base').every(b => Array.isArray(b.threat) && b.threat.every(f => /^[A-Za-z]+$/.test(f))
+       && JSON.stringify(b.threat) === JSON.stringify(b.threat.slice().sort())));
+
+  const rev = {}; H.markers(seats, parties.slice().reverse(), H.make(), 1).filter(x => x.kind === 'base' && x.threat.length).forEach(b => { rev[b.faction] = b.threat; });
+  ok('THE ORDER THE PARTIES ARE HANDED IN CHANGES NOTHING: the same names, the same order', canon(rev) === canon(got)
+     && Object.keys(got).every(k => JSON.stringify(rev[k]) === JSON.stringify(got[k])), canon(rev));
+
+  const home = parties.map(p => Object.assign({}, p, { arrived: p.agenda === 'crew' ? true : p.arrived }));
+  ok('A CREW ON ITS WAY HOME IS NOT COMING FOR ANYBODY',
+     H.markers(seats, home, H.make(), 1).filter(x => x.kind === 'base').every(b => b.threat.length === 0));
+
+  const victim = Object.keys(want)[0], hunter = want[victim][0];
+  const rT = H.make(); H.took(rT, { base: victim, to: hunter });
+  const tk = H.markers(seats, parties, rT, 1).find(x => x.id === 'base:' + victim);
+  ok('A BASE THE HUNTER NOW HOLDS IS NOT THREATENED BY THE HUNTER\'S OWN CREW',
+     !tk.threat.includes(hunter), JSON.stringify(tk.threat));
+
+  const rR = H.make(); H.ruined(rR, { base: victim });
+  ok('NOBODY THREATENS A RUIN', H.markers(seats, parties, rR, 1).find(x => x.id === 'base:' + victim).threat.length === 0);
+
+  const rS = H.make(); H.ruined(rS, { base: hunter });
+  const ts = H.markers(seats, parties, rS, 1).find(x => x.id === 'base:' + victim);
+  ok('A CREW WHOSE OWN BASE FELL IS GONE, SO IT THREATENS NOBODY (its base holds it or it does not exist)',
+     !ts.threat.includes(hunter), JSON.stringify(ts.threat));
+}
+
 /* ---- 11. *** A DEAD SHAPE DOES NOT COME BACK UNDER A NEW NAME *** ---------- */
 {
   const logic = stripComments(fs.readFileSync(path.join(ROOT, 'engine/bohemia_homebases.js'), 'utf8'));

@@ -787,12 +787,16 @@ GATES = [
      'it; and A DEAD SHAPE DOES NOT COME BACK: the logic reads no cell, no grid, no per-lot ownership, and nothing but '
      'the named few files touch the superseded 9,216-cell ledger. The hard-ones-late cut is his own DEPTH thirds and moves '
      'with that table; how far through an act is the CALLER\'S and its absence answers null, never a guess. A marker is ids, '
-     'classes and numbers, never a sentence. Red twenty ways: run the act backwards -> 1; allow a change that changes '
+     'classes and numbers, never a sentence. Red twenty-nine ways: run the act backwards -> 1; allow a change that changes '
      'nothing -> 3; take `from` on the caller\'s word -> 1; let a ruin fall twice -> 1; move into a ruin in the act it fell '
      '-> 2; read ignoring the act -> 1; forget who lost a base -> 3; silence everybody on an empty ledger -> 3; type the '
      'fortress threshold -> 1; type every threshold -> 1; guess a missing clock -> 2; raid a ruin -> 2; put a label on a '
      'marker -> 2; put a sentence on a party -> 1; let a fallen base keep sending -> 4; read a cell -> 1; require the dead '
-     'ledger -> 1; shuffle the list -> 1; keep junk on load -> 1; mark a ruin as held -> 3.', True),
+     'ledger -> 1; shuffle the list -> 1; keep junk on load -> 1; mark a ruin as held -> 3; read who owns a base ignoring the act -> 1; let everybody own everything -> 4; ignore a party\'s homeward leg -> 1; '
+     'fix the leg at out -> 1; threaten a base from a crew going home -> 1; from the holder\'s own crew -> 1; threaten a ruin -> 1; keep a gone crew\'s '
+     'threat -> 1; leave the threat list unsorted -> 1. THE MARKER NOW SAYS WHERE A PARTY IS WALKING (its destination line and leg, the banner-and-line '
+     'Battle Brothers shows) AND WHO IS COMING FOR A BASE (a crew that is out, at a base\'s cell, not its holder\'s own): the warning on the map that '
+     'opens a siege in QUESTS QR-R, and it changes nothing by itself.', True),
     ('PLACES ARE BLOCKS', ['node', 'gates/places_are_blocks_gate.js'],
      'RULE 33h, the REVAMP LIST\'s rebuild line: "PLACES (WORLD, LIFE+CITY): a place is a '
      'block with its buildings as services; the shop, the shed, the pump, the fortress are the '
