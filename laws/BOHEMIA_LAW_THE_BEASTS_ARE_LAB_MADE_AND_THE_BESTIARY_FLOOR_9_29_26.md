@@ -11,7 +11,7 @@ permafrost, dry caves, museum skins and frozen tissue; a living relative of the 
 No dinosaurs, no giant reptiles of deep time. A beast that breaks this rule is a defect; a character who claims one
 exists is lying, which is a line. The research and the table: records/BOHEMIA_THE_BEASTS_OF_BOHEMIA_DE_EXTINCTION_ROUND_ZERO_9_29_26.md.
 
-## 3. THE VALLEY'S OWN DEAD
+## 3. THE VALLEY'S OWN DEAD (AMENDED THE SAME HOUR by Paolo: 'it didn't have to break out of a lab in Vegas, it could have been a state or two over'; records/BOHEMIA_PAOLO_THE_LAB_COULD_BE_A_STATE_OR_TWO_OVER_9_29_26.md). The Vegas lab is one source of many; labs a state or two over let their animals out the same week, and nature spread them along the real corridors (the I-15, the Colorado River to Lake Mead, the US-95). Nature's clock is the acts' clock: act 1 the local escapees and first arrivals, act 2 established populations, act 3 what the player's line let breed or hunted out, derived from the ledgers. WORLD's data file says which animal arrives when and from where; a beast's arrival is a road event and a rumour first.
 The lab was north of the city at the fossil beds (Tule Springs, real) and the cave (Gypsum Cave, real); what broke
 out is what once lived on this ground: dire wolf, camel, horse, lion, sabre-tooth, bear, sloth, bison, mammoth.
 Vegas's exotic escapees (show cats, pet-trade reptiles, feral dogs and cattle) walk the same roads.
