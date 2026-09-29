@@ -3157,7 +3157,21 @@
       "src": "vote/ANIMATION_TAKING_A_HIT.html"
     },
     "said": "just start making it"
-  }
+  },
+   {
+    "id": "cook-the-circles-become-places-9-29",
+    "kind": "tile",
+    "lane": "cook",
+    "sha": "PENDING",
+    "made": "9/29",
+    "floor": "map",
+    "title": "THE CIRCLES BECOME PLACES",
+    "why": "You said you should see yourself on the city screen and that all those little circles should be icons or people. Here they are, and they are going on the map this round. Six markers: you with a banner over you, a shop, a shed, a pump station, a fortress and a tower. AND YOU WERE RIGHT ABOUT THE LAST ONES, twice over. The marker I shipped for you was 9 pixels wide. Nine. You said you could count them on one hand and you could. Here is the number behind it: the map tile is 18 by 9 on the screen, your phone draws 3 pixels for every 1 the map paints, so a marker has about 54 real pixels to fill and I was giving it 9. These are 48 pixels each, which is one painted pixel for one real pixel on your phone, the same as Battle Brothers. That is 6 to 16 times the pixels of the ones you killed, counted, not stretched. NOTHING HERE IS THE OLD ONE BLOWN UP. A 9 pixel shape scaled to 48 is still 9 pixels of picture in a bigger box. Every one is drawn again as what the place actually is, a building with a roof, lit from the north-west like everything else in the game, out of your own approved colours. AND THEY TELL APART WITH THE COLOUR THROWN AWAY, which is the test that matters on a map: the shop is low and wide with an awning sticking out, the shed is square with one roof, the fortress is tall and narrow with a toothed top, the tower is the thinnest thing on the map, the pump is a frame with nothing solid in it, and you are the only person. Battle Brothers map icons sit still. Each of these has one moving part on a still body, half a second a frame, one beat: the pump's beam, the tower's lamp, your banner. The feet never move, so the valley reads like a place where machines are still running instead of a board with counters on it. There are 109 kinds of place on the city screen and six are done. The rest are next.",
+    "show": {
+     "how": "image",
+     "src": "vote/COOK_THE_CIRCLES_BECOME_PLACES.png"
+    }
+   }
  ],
  "verdicts": [
   {

@@ -1,0 +1,106 @@
+{
+ "bank": "THE MAP MARKERS AT DENSITY",
+ "date": "9/29/26",
+ "law": "rule 40(f)",
+ "his_words": "I should def be seeing the player character on this screen; all those little circles should be icons or people",
+ "from": "banks/BOHEMIA_STARTER_TILESET_ACT1_RECOOK_7_28_26.txt",
+ "marker_px": 48,
+ "map_tile_css": [
+  18,
+  9
+ ],
+ "device_ratio": 3,
+ "floor": {
+  "device_px_per_painted_unit_ceiling": 1.5,
+  "ours": 1.0,
+  "live_map_today": 3.46,
+  "source": "records/BOHEMIA_THE_MAP_PAINTS_ONE_PIXEL_IN_THIRTEEN_9_28_26.md"
+ },
+ "for_run": {
+  "sheet_b64": "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",
+  "order": [
+   "you",
+   "shop",
+   "shed",
+   "pump",
+   "fortress",
+   "tower"
+  ],
+  "cell": 48,
+  "anchor": "bottom centre of the cell, on the ground patch",
+  "draw_at": "MARK css px so one painted pixel lands on one device pixel at the opening zoom; never scale a marker up",
+  "note": "RUN [bb map]: these replace the vector circles in the city view"
+ },
+ "markers": [
+  {
+   "id": "you",
+   "name": "THE PARTY, WHICH IS YOU",
+   "lit": 963,
+   "was": [
+    9,
+    20
+   ],
+   "moves": "banner",
+   "b64": "iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAACaElEQVR4nO2XO0sDQRDHxwchgUiMhiCCICh2Ilj4gPSCn8BCLCxEBAMiCILYiZUIFhYWVhZ+AJuUguCjEOy1tQjRM3gQCQStLmz2Zm939pEckh8Ix3m7+//vzM5sALp0MaLH9QJ7Wyu/AADbIx557NhhSaqvX0OTFl6l1nz2643mczrRZzRvr9FoB7DmVGhbBFhku+7XG8qR6YiBKNKJPsjmUsrfx86AX28AMOdFRuzOAADtHHQkAkGKeMhOU6uSsz5wf1X85d8trp5ZX89JCmHio96bYN2ATKRtE1YNqIqzaSKWVYhC1wCLapWxWY2MJlqYm0Vz+bRYEI7ZObsLvXt4etbWoT1QJD4AM4GJr3xUm8+vb29kPdY7cSAIE+sCrTMg2/3ccEZ5LvbbyYkJcnm1XoVUxadTKUin1K/NImJRRnVyP4BsQJY+qvi1Gvi18G2UmkaxiIAJsTHAphElCqQyyqYP33yooTfJexZnv8gq3jcAAOSyA8L/8ThvZNSWTxGvi7MzgIl3gXEeinIfS4fBoTz67ddnWVuHszNwfbIeErt5dGN9HbIBXtjB+a2xCH7Old1L5YhIDWA7qUI+k9QZhq4ZZUhoABNuIioKbN5y9SekBTOCViFWfD6TbP61E2xdbFNDBoKPOiFaBKuFN9ESEla8KhvHJVhbnn40lxmmMDM6z78LUitIJ+NGdrG/hC5kg7uXd+nGWOvErkzIaDEQhIWtAJ2GjQKfPgCCqwRfhXQXtMnU+NA8QLiUChtEO/sABpYFWB+QtmxZJ7ZhSpayUZ2YfAvUvVpQoNyFrPysMzFFEfsv+QOEAN6RQNG70wAAAABJRU5ErkJggg=="
+  },
+  {
+   "id": "shop",
+   "name": "A SHOP",
+   "lit": 916,
+   "was": [
+    14,
+    14
+   ],
+   "moves": null,
+   "b64": "iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAB80lEQVR4nO2XP0jDQBTGX7RYC4VKh0ILQhEHJ93UQXQpOLg4dujUXRxExw4dlS66O3Xo6OIgOBWHKjiIUMVBOrUgWiwEaks1DuXCJb0k79LEqLzflFzuz/fdvXuPABAEQRAEQRAEQRAE8SdRMJ0uy0XNy0XbHVV/jseilv0yuYKjvpA3kuSwEy0LygC/Y5Z93lWIz3gnDAsqhFLJlKchhKXZajrqQxl4Pj8IxMDc1qE3d+Cm/opaMJ2MAQBAo9VB9bebBzvHWJe42xsAAEAkHIJubwAPjTf93S1sE7AEkoV4ur2BwbDs6ekxpmn9QOLcLYoypQBwJ3C/m0ENXC8/CturuQX04tHNVcO7elETtqn9z2H/qUnLuQIPITvshDMm/BTAdtBP9BNYPK5a5tzKUZ67H+IQuk2k0dlnWTB2w9RWn52H7P7p+HWgUspr8OUsSiZ1mutKJBwS1ppKabhx2T1rI5arssFYZIqPLHZGhM548YnYtOHb1V3z2mN9UhROzgzpasQAE28WzvObTBiyEEY8AMDaUmrFF2VI+AjxNY36xVOjrUeAawNBn0JxZ7sG4PIOBMVL5wMAjNlIOgsFARMOMJpKrauvoA78pBleNANdB3icCpoXpkRieewqMeqfmEe2QrvBTrAZaQMixjElI/Zf8g1SHqGnJQdt3AAAAABJRU5ErkJggg=="
+  },
+  {
+   "id": "shed",
+   "name": "A SHED",
+   "lit": 902,
+   "was": [
+    12,
+    10
+   ],
+   "moves": null,
+   "b64": "iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAABvklEQVR4nO2XvUsDMRjGH0Xw6nJUyoFSoTi4OnYRXAQH/wFnJzcHwck6iJPg7uQo7sXBUXCpmwoODlIQFKRUOumkDiUYc0kuby4XT81vOo5c8jx5v1ogEAgEAoFAIBAI/FdGqB887C5/mK596b0CAKq1ivH+MztnJE1jlMVUKMJtGXW5Gbtxnzg1AAxN+DTi1ACfMlkm6q026q127jPJNUC5XdXaaq2Cm40l6tFSnKeQKWKB2xZ8oV1IhS4yVH4sAjx52i05AsfXPevDioA8ie9Pt4wnsQ2zK/vFTuLL23JFoBQ1kAdnXWj78Fz6fm990dURUn59BEploDEVk78plQEbSmWg+zTAycEaqU1nFnFqw3eiKgvEM1c3j5SzQWlAdhNJHGEiGgcwvK0iSOIIAPA8eEtpkRmROuPFsw1lXFw9dqyVEphrTDbZs2giVQNMfBJHWvEAsDA/3dQucMRdt99hWsTM+GaAF2+KLxPAly7eRKm6kA5Vujox4CsKMhOpIrZJI1+wzsQXcq4u5Au+pYpdSDkgVHPAF7xohvEc4Mka7S5MycTy6CYx+S8l9beKDTrBImQDMvKYooj9k3wCAYuJeJM44S8AAAAASUVORK5CYII="
+  },
+  {
+   "id": "pump",
+   "name": "A PUMP STATION",
+   "lit": 792,
+   "was": [
+    16,
+    15
+   ],
+   "moves": "beam",
+   "b64": "iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAClElEQVR4nO2Yv2sTYRjHvxEDOTwbTUMsSqFwtS6i0KHp0MHBwSxitkKcxMlVcHRw9z8QJwNuEZd0cOjQQR0EoR0kBoQQbUqttEYidDiHy3Ne3nvvLu+PS6q8Hwj5de/7fp/3+b7P+94BBoPBYDAYDNJk0uz8zq0bbtI1rzY2lTScUmmsyhnLUu7jtAYdifQHx/5n28pOYkj9LDqOu+g4iZYSZSIWqlUrbvnaEgAvEJ19T3UN6OCfDyDVMgrwS+l2q4PP7baWsVOvQlQq290eAGD/+6HW/o2F4qhVK+6vwSD0+3arM/K9OJsHALx9/0FYz0QsRPYB+BZSsZVUAG9ePEms5TfvPvZn0x6ug/4wG8XZvC+aZl82CCkLPXqwnhhA95snaBwLETKVKXUL7R4cjWQgaqb3f/yU6v/EVKHi+bNS7ZQC+NLZ4/5O9qk3mpm5wgxsKwvbymKuMIOrl+cByM84i7KFKIiF+RL3/92DIwDeQo6zkCxKAfBEn7Nz6MITubqy7JJwFlnLsGjLAOAFtNPyan690cysriyHqhVbaeh4LXs2Em5Uq1bGPs+3uz3fOvTuXLoQ26beaAppEs5Ab+hpHmQVKpu897j2Mmgvo7bijfrLp/eE7tgS08V2+Oz1J1FNsdBNPt343799JXTN+sPnkTojLcSbiVI+JyFRDBpj7/B3SAsvEK6FguJL+Zz/SoP+4HjksUvcuLxJDUVEF40jeOvj13eCeqVYu36xDPzNSjATIxkQER/sOG1ookhXMBPKVWhSQURxYk6jSUTZVWkNjDOAbpYWCuXgGuDWV7YKTZtgSWVLaeQGMa19gAiKJnj7gPBOzKIjKJ7YIHE7sfBpVPSsIkOcYBYtD7ZUghIR+1/yB5mk9nVbE61CAAAAAElFTkSuQmCC"
+  },
+  {
+   "id": "fortress",
+   "name": "A FORTRESS",
+   "lit": 1157,
+   "was": [
+    18,
+    14
+   ],
+   "moves": null,
+   "b64": "iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAACT0lEQVR4nO2ZMUvDQBTHX8WhlEBChiIudSiujl0cnfwEDk4iIq6Cg6Kbi+AqTtLRD+Kim45Sil1EO4QUgnRSF+/6kl4uefeuaSP5Tc31Jfn/7969uyQAFRUVFfOkRgm+vTz6wceHZze1PO3B6AsAAE6vutp4E5aoJ/ieA8HoS4pK/ud7jjxWxajO4bBMCU4THosJI/nbdxsAANBuNaE3GE7asUkUbwJ5BKSIP3Hy2HNiIvOSZ5R0sOZAu7UCAAC9wYfs1SCMYu1p8ap2wdbuRW5dpBQSiF57eulPtSXbMdT2PJDngI4wGsvfnlM3U0TEaAR05BUuzHKNkiYx7mEVQkxWXDKeg3EVyiKMxlNGfLchq5etFCOlkOqmqlRQxQnh3LKZhD0HKD1pWzyAxYUsi6T4MBrLlKJeC8MaAd9tGPeq59StjIixgVmkgwkzq0JFURmYN6U3YH0vlIZuo8fZFxVmQCeOs61gGVD1XLvV1J5j8tSmw8oIhNFYmjg472pjT/a3bdxSQjaAe72ohxYdZANYtK2HEg6sFFqEESj9OlB6A5kpdH+9J98F9T+/Y//hfbzN3Sm+JwDAzvFd6nuiVAPJi6iY1Za66dZhOJqs3EKLyojSGRbfdNUT9eH5/ZErlML6mt8BmDYxZUCITxOOWQQTsUlMEQ8AsLmx2rGoLxOhC2dIqaqQasTZBooehde3IGaCNQeKRlQmPAeMq1CR4JKaWYUEqnWgSDNYtCD3OoDJWtBsmFKJxehWYvLnzTwrNBed4CTG32cxHFMUsf+SXwO28RsCHcwIAAAAAElFTkSuQmCC"
+  },
+  {
+   "id": "tower",
+   "name": "A TOWER",
+   "lit": 734,
+   "was": null,
+   "moves": "lamp",
+   "b64": "iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAABYklEQVR4nO2ZsQ4BQRCGlygUEqJQeAmlxnOIWquUeAClRKlVKUSrFZWGCo1OoVAohEShQnUx9tbezu0wJPN1zt3s/2Xdzt5RShCEvyZBVWjUa92x11QbHe/xk74FuGEROJ4uZLXYZoBKIkVSxREYOp/LkNQkFdAD6p+pQkPIViHIZNC+L9bb0PHlZqdG4ynpmLIKcSMC3IgANyLAjQhwIwLciAA3IsCNCHAjAtyQvJUYduvOrxX1c2vNvtdDPloAEzZuPYxUpEBU4EI2HTp2Q55/OF+tY9qE3gqYgpsGt3G6PIPlMu+vjZIKsphEjGYwPDa0zmy1n0edUykVy7bvoYwuERIIwvsGh1BIKPUUgRIvy+gnwruGcyHIBX8hP9MHXGbJxNcEXGYhjsRX7gEqTPfAx1chClCrUABFH/BBb25KIfoAJE4nxmIKC7F1YvRGinovZAKzFyL5u8dHync3+vc8ALGFiV/mA+cUAAAAAElFTkSuQmCC"
+  }
+ ],
+ "proved": [
+  "the map floor: one painted unit per device pixel, ceiling 1.5",
+  "not atari: six times the lit pixels of the ones he killed, counted",
+  "every pixel is his",
+  "no two markers share more than 62% of a silhouette",
+  "the feet do not move"
+ ]
+}

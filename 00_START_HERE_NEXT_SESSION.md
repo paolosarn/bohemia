@@ -1,3 +1,90 @@
+COOK (cook-mce6r5): 9/29 LATEST -- *** THE CIRCLES BECOME PLACES. HIS ASK 40(f) ANSWERED, AND
+THE MARKERS REDRAWN AT THE MAP FLOOR: HE KILLED A 9-PIXEL MARKER TWICE AND HE WAS RIGHT, SO
+THESE ARE 48 PX, ONE PAINTED PIXEL PER DEVICE PIXEL, 6 TO 16 TIMES THE LIT PIXELS, COUNTED. ***
+TAB: the VOTE tab in the alpha, item THE CIRCLES BECOME PLACES. Record
+records/COOK_THE_CIRCLES_BECOME_PLACES_9_29_26.md. Bank
+banks/BOHEMIA_THE_MAP_MARKERS_AT_DENSITY_9_29_26.txt.
+
+[bb map art] round 4. His words with a screenshot of the city view: "I should def be seeing the
+player character on this screen; all those little circles should be icons or people." The hold
+is lifted for the map by his own ask (rule 40f), so these go live with RUN [bb map].
+
+THE FLOOR, off PLUMBER's glass measurement and the live slice, never guessed: the map tile is
+18 x 9 CSS px at the opening zoom and the phone is 3x, so a tile is 54 x 27 DEVICE pixels, and
+the live map paints one unit across 3.46 of them -- ONE PIXEL IN THIRTEEN. DIRECTION's ceiling
+is 1.5 device px per painted unit. Every marker is 48 px now: ONE painted pixel per device
+pixel. And a VOTE picture that declares floor:'map' has to carry Battle Brothers' 2,073,600
+pixels; this card carries 2,215,200 and is the FIRST item in the registry to declare it, so
+PLUMBER's MAP DENSITY leg has something to judge.
+
+AND THEY ARE NOT SCALED UP. A 9 px silhouette blown to 48 is nine pixels of picture in a bigger
+box, which is the same Atari thing wearing a coat. Each is REDRAWN as what the place is -- a
+building with a roof, lit north-west, out of the 7/28 bank's own ramps. Counted: you 963 lit
+(10.6x the killed one), shop 916 (15.3x), shed 902 (16.7x), pump 792 (7.3x), fortress 1157
+(10.2x), tower 734 (new).
+
+GUARDS, EACH REFUSES THE RUN: the map floor; NOT ATARI (six times the lit pixels of the one it
+replaces, counted); every pixel on his family ramps; no two markers share more than 62% of the
+STANDING shape; nothing touches the top or sides of its own box; every one stands on ground;
+the feet do not move (this lane's own 9/24 rule kept).
+
+FOUR THINGS THE GUARDS AND THE LOOKING CAUGHT, AND WHAT EACH TAUGHT.
+ 1. THE PUMP WAS FOUR THIN LINES and the density guard refused it at 5.6x against a floor of 6.
+    The ruler was right and the DRAWING was wrong: a real pumpjack is a skid, a motor housing,
+    a counterweight, a ladder and a walking beam, and at 48 px there is room for all of it.
+    *** This cuts the OPPOSITE way to this lane's 9/24 lesson, where a share-of-the-body ruler
+    threw the same machine out for having a beam that is half of it. A count of lit pixels is
+    the right ruler for whether a thing is DRAWN. It was the drawing that was thin. ***
+ 2. THE SILHOUETTE RULER WAS COUNTING THE BASE. Every marker stands on the same scrap of ground
+    on purpose, like the base under a miniature. Counted as part of the shape it put the shed
+    and the shop at 67% and called them the same marker. They are not; the identical thing
+    under them is. The comparison is the standing building now, and the base is checked
+    separately for being there at all. The lane's running fault again: a clean measurement of
+    the wrong thing.
+ 3. THE SHED'S ROOF CAME OUT BLINDING WHITE. The lit roof plane was taking the TOP entry of the
+    terracotta ramp, which is its white ACCENT (255,255,250), kept for paint and dead glass. A
+    roof is the top of the MATERIAL, one below. Green guards, and the shed was a sticker.
+ 4. THE PARTY MARKER RAN OFF THE TOP OF ITS OWN BOX, so the map would have cut his banner and
+    half his head away. There is an edge guard now.
+Also redrawn on measurement rather than taste: shop and fortress shared 77% as two wide boxes
+(the shop is LOW AND WIDE with its awning the widest point, the fortress NARROW AND TALL with a
+toothed top), and YOU shared 62% with the tower, because a thin vertical thing with something on
+top IS a tower; he has shoulders, arms and a stance now.
+
+FOR RUN [bb map], ALL IN THE BANK: a sheet of all six in order, the cell size (48), the anchor
+(bottom centre, on the ground patch), and the one instruction that matters -- DRAW THEM AT 48
+CSS PX so one painted pixel lands on one device pixel at the opening zoom, and NEVER SCALE A
+MARKER UP. The land cut (round 2) and the parties (round 3) are in their own banks and go with
+these.
+
+WHAT IS STILL A CIRCLE: the city view draws 109 PLACE KINDS as canvas shapes. Six are cooked.
+The other 103 are the next rounds of this row, in order of how often a kind appears on the
+valley map.
+
+[bb the overworld is battle brothers] reference/library/overworld-map/INDEX.md BBM-02 THE PLACE
+ICON, and reference/library/battle_brothers/01_WORLDMAP.md, read first (33j). BB's map is read
+by SHAPE at a glance: a village, a castle and a mine each have a silhouette you learn once, and
+the map is dense enough that an icon is a little painting rather than a pip. That is why these
+are redrawn as buildings rather than scaled-up blobs, and why the silhouette guard exists.
+WHAT WE DO DIFFERENTLY (rule 39b, so nobody can call it a rip-off): BB's map icons are STILL.
+Ours each carry ONE moving part on a still body at 500 ms, one beat at 120 -- the pump's beam,
+the tower's lamp, your banner -- and the feet never move, so the valley reads as a place where
+machines are still running rather than a board with counters on it.
+
+RULE 39(a) NOTED AND TAKEN: "every lane decides its defaults and builds; a round that ends in a
+question to him instead of a thing is a failed round." My last two rounds both ended in "pick A,
+B or C". This one ends in six markers going on the map.
+
+NEXT IN THIS LANE: [bb map art] round 5, the next batch of place kinds by how often they appear,
+and the parties from round 3 redrawn at this same floor (they are 9 px people too).
+
+STILL OPEN, UNCHANGED: the boot's heel question on the WHICH WAY IS HE FACING card. Landmarks
+still undrawn: luxor, springs, robofactory. Flagged to PLUMBER: the pages publish gate fails on
+clean main, 283 MB against its own 260 MB cap; and deploys keep being cancelled by the push
+storm the workflow's own comment documents, so this lane has run the deploy by hand twice now.
+
+------------------------------------------------------------------------
+
 QUESTS (quests-dvybth): 9/29 LATEST -- *** ROUND FIVE: THE WHOLE SHELF NOW MATCHES RULES 38-40 (fights on house
 tiles, no flip at the start, the company inherits, building in the settlement screen), 170 DESIGNS, 23 PAGES. ***
 NOT IN A TAB (rule 35). Record: records/BOHEMIA_QUESTS_ROUND_FIVE_THE_SHELF_MATCHES_THE_GAME_9_29_26.md.
