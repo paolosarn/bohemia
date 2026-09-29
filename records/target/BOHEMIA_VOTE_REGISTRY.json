@@ -3240,6 +3240,16 @@
   "asked": "UP or DOWN",
   "when": "2026-09-29",
   "draft": true
+},
+{
+  "id": "coordinator-the-speed-pad-pause-1x-2x-3x-5x-9-29",
+  "kind": "verdict",
+  "lane": "coordinator",
+  "title": "THE PAD COMES BACK AS TRAVEL SPEED: PAUSE, 1x, 2x, 3x, 5x",
+  "text": "Your idea: the old pad comes back on the map as a speed control like Battle Brothers, 1x to 4x or 5x. Default: five buttons, PAUSE, 1x, 2x, 3x, 5x, in the pad's old spot. I skipped 4x so each step feels different. A road event drops it to pause on its own. DOWN means you want 4x in there too, or different steps; say them in a note.",
+  "asked": "UP or DOWN",
+  "when": "2026-09-29",
+  "draft": true
 }
  ],
  "verdicts": [
