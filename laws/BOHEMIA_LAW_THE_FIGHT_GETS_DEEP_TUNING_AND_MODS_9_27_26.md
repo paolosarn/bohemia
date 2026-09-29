@@ -107,3 +107,11 @@ city by act 3. Bosses, contracts and deeds hand you PARTS, unlock KINDS of build
 places you helped improve on their own, the Battle Brothers way. Nobody edits a block they do not hold: the
 Pocket City 2 'edit everything' route is not this game (that reference is the drop-in transition only, 7/1).
 
+## 12. THE SIX RESOURCES, AND THE GUNS DECIDED TOGETHER (Paolo 9/29, LOCKED; records/BOHEMIA_PAOLO_FIVE_RESOURCES_LIKE_BATTLE_BROTHERS_AND_GUNS_DECIDED_TOGETHER_9_29_26.md)
+(a) Battle Brothers' five resources are ours, translated: crowns = BATTERIES, provisions = FOOD, medicine = MEDS,
+ammo = ROUNDS, repair tools = TAPE; plus WATER, the desert's sixth. Each is consumed the Battle Brothers way
+(per man per day, per shot, per plate, per wound); the company ledger carries all six; TUNING numbers them; the
+data line holds them. (b) The weapon mapping is DECIDED TOGETHER: COMBAT researches every option (Battle Brothers'
+classes and rules, the real arsenal of a collapsed Vegas) and puts them in VOTE two or three options per class;
+his pick is canon; his 9/29 pistol-and-machine-gun lines are examples, not rulings.
+
