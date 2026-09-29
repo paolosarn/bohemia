@@ -457,7 +457,11 @@ ok('the aim readout shows which shot of the turn this is, against the cap the fi
     demo.includes('the wounded leave a TRAIL') && demo.includes('at 30 you are LEAKING'));
   ok('SMART CAM: frames the living, tightens on kills, pinch drives for 5s',
     demo.includes('V26 SMART CAM') && demo.includes('G._camTouchAt') &&
-    demo.includes('uzT=Math.max(0.20,Math.min(_ceil,fit));'));
+    /* RE-POINTED BY V232 (COMBAT 9/29): the floor is camFloor(ringF), which is still 0.20 on the body
+       board and, on the house board, where a house is as wide as the man (law s14, rule 37a); the men
+       past the glass are marked on its edge. Held live by gates/a_house_is_never_smaller_than_a_man_gate.js. */
+    demo.includes('uzT=Math.max(camFloor(ringF),Math.min(Math.max(_ceil,camFloor(ringF)),fit));')
+    && demo.includes('function camFloor(ringF){ return houseOn()?Math.max(0.20,(112*bodyRule())/Math.max(1,ringF)):0.20; }'));
   /* V167 RE-POINTED, AND THE OLD CHECK WAS PINNING THE BUG. "Defaults to 8" was
      written as a convenience for the playtest and quietly became the whole game:
      RF4-24 measured 8.0 per fight, min 8, max 8, across 40 arenas, which by RF4's
@@ -696,7 +700,11 @@ ok('V67 ONE ARMED MOVE AT A TIME (Paolo: "when I press Dash it like automaticall
   // v45: the real camera bug -- the fit floor, not the fit formula, was cutting enemies off-screen
   ok('V45 CAMERA FLOOR: the auto-frame zoom floor is 0.20, not 0.45 -- covers realistic spawn/sniper max range on a real phone canvas (V53 lifted the ceiling into _ceil per device)',
     demo.includes('V45 CAMERA FLOOR') &&
-    demo.includes('uzT=Math.max(0.20,Math.min(_ceil,fit));'));
+    /* RE-POINTED BY V232 (COMBAT 9/29): the floor is camFloor(ringF), which is still 0.20 on the body
+       board and, on the house board, where a house is as wide as the man (law s14, rule 37a); the men
+       past the glass are marked on its edge. Held live by gates/a_house_is_never_smaller_than_a_man_gate.js. */
+    demo.includes('uzT=Math.max(camFloor(ringF),Math.min(Math.max(_ceil,camFloor(ringF)),fit));')
+    && demo.includes('function camFloor(ringF){ return houseOn()?Math.max(0.20,(112*bodyRule())/Math.max(1,ringF)):0.20; }'));
   // v46: a live comment field at the top of the screen, feeding the existing export pipeline
   // (v51 removed the ADD button -- addLiveComment() still exists, now called by lccopy)
   ok('V46 LIVE COMMENT: a top-of-screen input that appends turn-tagged comments to the existing jnotes/export pipeline, not a new storage surface',

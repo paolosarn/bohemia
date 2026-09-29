@@ -3184,7 +3184,20 @@
       "how": "page",
       "src": "vote/FACTIONS_WHO_IS_COMING_FOR_WHOM_9_29.html"
     }
-  }
+  },
+   {
+    "id": "combat-a-house-is-never-smaller-than-a-man-9-29",
+    "kind": "tile",
+    "lane": "combat",
+    "sha": "PENDING",
+    "made": "9/29",
+    "title": "A HOUSE IS NEVER SMALLER THAN A MAN",
+    "why": "Same fight, same spot, before and after. BEFORE: the camera pulled way back to fit every enemy on screen, and your men never shrink, so a house came out a third the size of a man. That broke your own rule that the character is tiny next to buildings. AFTER: the camera stops pulling back once a house is as wide as a man. Enemies it cannot fit are shown as arrows on the edge of the screen with how many houses away they are. A red arrow means that one is aiming at you. Over 24 fights: a house was never smaller than a man, and all 99 enemies off screen had an arrow. You can still pinch to see wider. What I am not hiding: the blue-topped barrels are drawn house-sized and cover a lot of the street. That is next. Thumbs up and the camera stays like this. Thumbs down and tell me if you want to see more of the fight at once, even if the houses get small again.",
+    "show": {
+     "how": "image",
+     "src": "vote/COMBAT_A_HOUSE_IS_NEVER_SMALLER_THAN_A_MAN_9_29.png"
+    }
+   }
  ],
  "verdicts": [
   {

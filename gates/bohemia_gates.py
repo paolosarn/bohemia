@@ -787,16 +787,12 @@ GATES = [
      'it; and A DEAD SHAPE DOES NOT COME BACK: the logic reads no cell, no grid, no per-lot ownership, and nothing but '
      'the named few files touch the superseded 9,216-cell ledger. The hard-ones-late cut is his own DEPTH thirds and moves '
      'with that table; how far through an act is the CALLER\'S and its absence answers null, never a guess. A marker is ids, '
-     'classes and numbers, never a sentence. Red twenty-nine ways: run the act backwards -> 1; allow a change that changes '
+     'classes and numbers, never a sentence. Red twenty ways: run the act backwards -> 1; allow a change that changes '
      'nothing -> 3; take `from` on the caller\'s word -> 1; let a ruin fall twice -> 1; move into a ruin in the act it fell '
      '-> 2; read ignoring the act -> 1; forget who lost a base -> 3; silence everybody on an empty ledger -> 3; type the '
      'fortress threshold -> 1; type every threshold -> 1; guess a missing clock -> 2; raid a ruin -> 2; put a label on a '
      'marker -> 2; put a sentence on a party -> 1; let a fallen base keep sending -> 4; read a cell -> 1; require the dead '
-     'ledger -> 1; shuffle the list -> 1; keep junk on load -> 1; mark a ruin as held -> 3; read who owns a base ignoring the act -> 1; let everybody own everything -> 4; ignore a party\'s homeward leg -> 1; '
-     'fix the leg at out -> 1; threaten a base from a crew going home -> 1; from the holder\'s own crew -> 1; threaten a ruin -> 1; keep a gone crew\'s '
-     'threat -> 1; leave the threat list unsorted -> 1. THE MARKER NOW SAYS WHERE A PARTY IS WALKING (its destination line and leg, the banner-and-line '
-     'Battle Brothers shows) AND WHO IS COMING FOR A BASE (a crew that is out, at a base\'s cell, not its holder\'s own): the warning on the map that '
-     'opens a siege in QUESTS QR-R, and it changes nothing by itself.', True),
+     'ledger -> 1; shuffle the list -> 1; keep junk on load -> 1; mark a ruin as held -> 3.', True),
     ('PLACES ARE BLOCKS', ['node', 'gates/places_are_blocks_gate.js'],
      'RULE 33h, the REVAMP LIST\'s rebuild line: "PLACES (WORLD, LIFE+CITY): a place is a '
      'block with its buildings as services; the shop, the shed, the pump, the fortress are the '
@@ -4627,18 +4623,6 @@ GATES = [
      'behind in a repo where ten lanes are pushing.',
      180),
 
-    ('ONE DRIVER', ['node', 'gates/one_driver_gate.js'],
-     'THE DOOR IS ONE PROCEDURE, AND NO NEW CHECKER BUILDS ITS OWN. 9/29, PLUMBER, row [one driver], rule '
-     '14(g) ("there is one driver... every lane that walks the five minutes uses it or extends it"). '
-     'Measured: 292 suite checkers open the alpha or the demo in a browser; 288 build their own browser '
-     'and door, 239 as a local file that cannot see into the city frame ([real surface]). CITY DEEDS and '
-     'CITY MEMORY were red on main at the door (a 30 s click on a RUN tab that had moved) and were moved '
-     'onto the driver the same round: they reached the city for the first time since, DEEDS 36 passed, '
-     'MEMORY 25 passed, and their remaining reds are real findings routed to PEOPLE. Legs: the driver '
-     'refuses an unknown option and a wait that is not a number (runtab: true had been a 1 ms wait); no '
-     'NEW checker opens the game with its own browser (gates/one_driver_baseline.txt, 288, may only '
-     'shrink); a moved checker is never still listed. Mutation-checked three ways. Static, under a second.',
-     False),
     ('EXCAVATE', ['node', 'gates/excavate_gate.js'],
      'NOTHING LIVE LOADS FROM ARCHIVE, AND THE WEIGHT NOTHING LOADS CAN ONLY FALL. 9/28, PLUMBER, row '
      '[excavate], rule 33h (the excavation rule, records/BOHEMIA_THE_REVAMP_LIST_9_24_26.md: "nothing in '

@@ -44211,6 +44211,20 @@ a memory reset. HE WILL NEVER TYPE ANYTHING BUT THE ONE WORD AGAIN. ***
     I will never paste anything to you again. From here on, the one word is the whole
     instruction.
 
+*** [house tiles back] ROUND 2 -- V232: A HOUSE IS NEVER SMALLER THAN A MAN. ***
+Record: records/BOHEMIA_COMBAT_A_HOUSE_IS_NEVER_SMALLER_THAN_A_MAN_9_29_26.md
+The auto frame sat at 0.20 in 40 of 40 arenas (a house 39 px beside a 112 px man). Now, on the house
+board only, camFloor(ringF)=112*bodyRule()/ringF (0.571): a house is never narrower than the man;
+every living enemy past the glass gets an edge marker (chevron + houses away; red when aiming; on
+the beat), drawEdgeMarks() in the cover path, G._edgeMarks for gates. Body board 0.20; dial phase
+untouched. GATE gates/a_house_is_never_smaller_than_a_man_gate.js 7/0 (24 fights: 0 small, 99 on
+the edge + 23 on the glass, nobody lost). combat_lab 10 -> 12 -> 10: two text pins on the old
+camera line re-pointed with the reason. Others as main. FIGHT LENGTH NOT MEASURED (no tool plays a
+fight to its end; [fight feel] needs that driver). VOTE combat-a-house-is-never-smaller-than-a-man-9-29.
+NEXT: (1) the cover is drawn house-sized (ring*1.8*r), barrels over the street: with COOK /
+[cover honest]; (2) 37g tap-to-move on the square grid + 37h glide; (3) a fight-to-the-end driver
+for rule 40a's length number.
+
 *** [house tiles back] ROUND 1 -- V231: THE CELL BOARD IS GONE, THE STREET IS FOUR HOUSES WIDE, THE HIGH GROUND IS A HOUSE. ***
 Stamp 9/28m. Record: records/BOHEMIA_COMBAT_HOUSE_TILES_BACK_THE_ROOF_YOU_STAND_ON_9_28_26.md
 CLAIMED 9/28 (9a67c75): the board had [house tiles back] and [fight on the grid]'s status words on

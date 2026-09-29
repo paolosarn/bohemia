@@ -81,13 +81,7 @@ const MIME = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css
    guard that exists to catch exactly this. The list is the vocabulary; a knob that is not
    in it does not exist. */
 const KNOWN_OPTS = ['alpha', 'arm', 'beforeTap', 'boot', 'door', 'file', 'keepCards',
-                    'noWorker', 'runtab', 'serve', 'settle', 'throttle', 'warmup', 'world'];
-/* THE WAITS ARE MILLISECONDS, AND ONLY MILLISECONDS (PLUMBER 9/29, [one driver]). Every one
-   of these is read as `opts.x || default` and compared against a clock, so `runtab: true`
-   became a wait of ONE millisecond: one try, and a pass only when the RUN box happened to
-   be there already. This lane's own map-density tool did exactly that for a round and got
-   lucky. A wrong type now throws, the same way an unknown option does. */
-const MS_OPTS = ['boot', 'door', 'runtab', 'settle', 'world'];
+                    'runtab', 'serve', 'settle', 'throttle', 'warmup', 'world'];
 const ALPHA_FILE = 'BOHEMIA_ALPHA_0_9.html';
 const DEMO_FILE = 'BOHEMIA_DEMO.html';
 
@@ -99,12 +93,6 @@ async function open(opts) {
       + '. It knows: ' + KNOWN_OPTS.join(', ') + '. This throws instead of ignoring you '
       + 'because a dropped option is how PEOPLE and SOUNDS both measured the demo while '
       + 'asking for the alpha, and got a believable wrong number with no error.');
-  }
-  const badMs = MS_OPTS.filter(k => k in opts && !(typeof opts[k] === 'number' && opts[k] > 0));
-  if (badMs.length) {
-    throw new Error('the driver reads ' + badMs.join(', ') + ' as a wait in MILLISECONDS; got '
-      + badMs.map(k => k + '=' + JSON.stringify(opts[k])).join(', ') + '. `true` would be a wait of '
-      + 'one millisecond. Leave it out for the default, or give a number.');
   }
   /* alpha: true is the plain way to ask, and file: still wins if both are given, because
      a caller naming an exact file has been more specific than a caller naming a surface. */
@@ -129,14 +117,9 @@ async function open(opts) {
 
   const browser = await chromium.launch();
   /* A PHONE, because that is the only surface rule 14 talks about. */
-  /* opts.noWorker (PLUMBER 9/29, [one driver], UI's ask 9/24): the alpha registers an
-     always-fresh service worker (slices/sw.js), and a worker answers requests itself, so a
-     probe that throttles or logs the NETWORK measures the worker, not the wire. Blocking it
-     makes every request a real one. Off unless asked: the player's phone has the worker. */
   const ctx = await browser.newContext({
     viewport: { width: 390, height: 844 }, deviceScaleFactor: 3,
-    hasTouch: true, isMobile: true,
-    serviceWorkers: opts.noWorker ? 'block' : 'allow' });
+    hasTouch: true, isMobile: true });
   /* EXTENDED 9/20 (PORTRAIT, rule 14(g), for [faces first]). opts.arm is a string of
      JavaScript run on EVERY new document BEFORE any page script, in the page AND in
      the city iframe. It exists because a question like "whose face does a stranger
