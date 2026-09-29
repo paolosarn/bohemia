@@ -44221,6 +44221,10 @@ untouched. GATE gates/a_house_is_never_smaller_than_a_man_gate.js 7/0 (24 fights
 the edge + 23 on the glass, nobody lost). combat_lab 10 -> 12 -> 10: two text pins on the old
 camera line re-pointed with the reason. Others as main. FIGHT LENGTH NOT MEASURED (no tool plays a
 fight to its end; [fight feel] needs that driver). VOTE combat-a-house-is-never-smaller-than-a-man-9-29.
+MISTAKE, FIXED WITHIN MINUTES: my first V232 push (80ed2ce) carried stale copies of 14 files of
+PLUMBER's [one driver] round 1 and FACTIONS' round three (a retry loop that stashed an old tree and
+popped it onto a newer main). 4d9539c restored all 14 byte for byte from 80ed2ce^; main's net
+change from V232 is its own 9 files, checked. NEVER stash-and-pop to retry a push; rebase.
 NEXT: (1) the cover is drawn house-sized (ring*1.8*r), barrels over the street: with COOK /
 [cover honest]; (2) 37g tap-to-move on the square grid + 37h glide; (3) a fight-to-the-end driver
 for rule 40a's length number.
