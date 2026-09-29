@@ -92,3 +92,11 @@ TUNING measures real play and refines): a routine fight 2 to 4 minutes; a tough 
 A fight is tough for exactly three reasons, and those are TUNING's difficulty dials: enemy level, enemy gear,
 your mistake.
 
+## 10. SWAP A WEAPON MASTERY PAST LEVEL 11, AND THE MOD FEATURES ARE VANILLA (Paolo 9/29, LOCKED; records/BOHEMIA_PAOLO_SWAP_A_WEAPON_MASTERY_PAST_LEVEL_11_9_29_26.md)
+"In the end game, when you have your team, you should be able to switch out a weapon mastery after you've levelled
+up past level 11, instead of needing to use mods in Battle Brothers." (a) Past level 11 a veteran may swap one
+weapon mastery for another, at a settlement's training ground, for batteries and a few days (defaults, in VOTE;
+TUNING's rows). Below 11 the pick is permanent. (b) THE WIDER RULE: what Battle Brothers players install mods to
+get is vanilla here (his 'modded vanilla++'); MODS (22) researches the list (what the big mods fix, why players
+wanted them, what it cost the base game's balance) and the building lanes take what fits, one default at a time.
+

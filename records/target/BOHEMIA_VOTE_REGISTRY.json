@@ -3055,6 +3055,16 @@
   "asked": "UP or DOWN",
   "when": "2026-09-29",
   "draft": true
+},
+{
+  "id": "coordinator-swap-a-mastery-past-level-11-at-the-training-ground-9-29",
+  "kind": "verdict",
+  "lane": "coordinator",
+  "title": "PAST LEVEL 11 YOU CAN SWAP ONE WEAPON MASTERY AT A TRAINING GROUND, FOR BATTERIES AND A FEW DAYS",
+  "text": "Your ruling: in the endgame you can switch out a weapon mastery past level 11 without mods. Default: a veteran past level 11 swaps one mastery for another at a settlement that has a training ground. It costs batteries and a few days of the clock. Below level 11 the pick stays permanent like Battle Brothers, so the early choice still matters. DOWN means free swaps, or say your version in a note.",
+  "asked": "UP or DOWN",
+  "when": "2026-09-29",
+  "draft": true
 }
  ],
  "verdicts": [
