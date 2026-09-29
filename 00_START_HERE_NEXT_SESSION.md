@@ -12676,6 +12676,19 @@ archive escape built in from the start so [handoff cut] is unblocked rather than
 THE WARNING FOR EVERY LANE: do not write this file from a copy you read at the start of your round.
 Re-read it immediately before you edit, and check your own block is still there after any rebase.
 
+ANIMATION (animation-lr9y9i): 9/29 (a) LATEST -- *** TAKING A HIT FACING YOU: getting hit and
+the shove move facing the camera now. TAB: COMBAT (the fight), VOTE playing. ***
+
+Rules 39 and 40 landed (build it, don't ask; the fight quicker, the world gets the hours). The map
+is RUN's this round ([bb map], 40f wants his party marker drawn), so this lane stayed off it; the
+glide mechanism in renderCity is what any marker RUN draws will ride.
+DONE: stagger-hit 40 -> 71% facing you (gate N 20.1 -> 46); shove 42 -> 57% (gate N 24.2 -> 30.6,
+the smaller win, stopped at the second version -- the first was invisible against the black coat).
+Side facings byte-identical. READS FACING YOU 21/0, 2 mutations. records/BOHEMIA_TAKING_A_HIT_FACING_YOU_9_29_26.md.
+NEXT by the ranking: bat-arc 0.59, cover-fire 0.60, dash / get-shoved / stumble 0.61, kick 0.62.
+[glide]: the fight movers wait on COMBAT (building the house-tile fight now, rule 39a); the map
+marker waits on RUN [bb map]. Both ride the glide mechanism when they land.
+
 ANIMATION (animation-lr9y9i): 9/28 (c) LATEST -- *** A HIT FACING YOU: throw and heavy punch
 move facing the camera now. TAB: COMBAT (the fight), VOTE playing. ***
 

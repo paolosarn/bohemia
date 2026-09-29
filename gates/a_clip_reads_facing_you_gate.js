@@ -85,7 +85,12 @@ const HEADON = { point: { was: 3.1, min: 24 }, taunt: { was: 10.7, min: 28 },
                     term spF, zero facing you. Measured at full detail against the side:
                     throw 34% vs 85%, punch-heavy 38% vs 85% of the body. The floor sits
                     between the old value and the new one, so removing the fix fails. */
-                 throw: { was: 20.8, min: 30 }, 'punch-heavy': { was: 16.5, min: 34 } };
+                 throw: { was: 20.8, min: 30 }, 'punch-heavy': { was: 16.5, min: 34 },
+                 /* 9/29, the next two by the same ranking: getting hit (40% vs 92% of the
+                    body, the knock-back and the lurch both spF) and the two-hand shove.
+                    The shove's N gain is the small one, 24.2 -> 30.6, and it is said so
+                    rather than floored generously: 28 sits above the old value. */
+                 'stagger-hit': { was: 20.1, min: 38 }, shove: { was: 24.2, min: 28 } };
 /* *** AND THE MIRROR CASE, 9/24c. *** Asking the same question the other way round
    found clips dead IN PROFILE while alive head-on, which is worse when it happens
    because a head or a chest move is MOST visible from the side. nod was alive
@@ -135,7 +140,7 @@ const PROFILE = { nod: { wasWorst: 4.1, min: 12 } };
     /* the three off the killed list, every facing, so "not traded away" is asked
        of all eight rather than of the one I happened to check */
     const killed = {};
-    for (const c of ['point', 'taunt', 'chest-thump', 'spear-drive', 'shiv-jab', 'nod', 'throw', 'punch-heavy']) {
+    for (const c of ['point', 'taunt', 'chest-thump', 'spear-drive', 'shiv-jab', 'nod', 'throw', 'punch-heavy', 'stagger-hit', 'shove']) {
       killed[c] = {};
       /* THE PCT, NOT THE WHOLE READING. The first cut stored the object and every
          claim printed [object Object] while the drift check quietly compared an
@@ -206,13 +211,15 @@ const PROFILE = { nod: { wasWorst: 4.1, min: 12 } };
                      'spear-drive': { NE: 92.1, E: 102.1, SE: 89.2, SW: 90, W: 98, NW: 78.7 },
                      'shiv-jab': { NE: 66.6, E: 82.6, SE: 72, SW: 74.6, W: 84.6, NW: 59.2 },
                      throw: { NE: 75.7, E: 128.8, SE: 79.6, SW: 91.1, W: 113.1, NW: 70.1 },
-                     'punch-heavy': { NE: 67.4, E: 104.3, SE: 69.1, SW: 66.5, W: 83.2, NW: 52.7 } };
+                     'punch-heavy': { NE: 67.4, E: 104.3, SE: 69.1, SW: 66.5, W: 83.2, NW: 52.7 },
+                     'stagger-hit': { NE: 69.6, E: 104.5, SE: 82.3, SW: 85.4, W: 102.4, NW: 67.9 },
+                     shove: { NE: 64.3, E: 98.1, SE: 76.2, SW: 78.9, W: 102.6, NW: 63.7 } };
   const drift = [];
   for (const c of Object.keys(SIDE_WAS)) for (const d of Object.keys(SIDE_WAS[c])) {
     const now = R.killed[c][d], was = SIDE_WAS[c][d];
     if (Math.abs(now - was) > 0.05) drift.push(c + ' ' + d + ' ' + was + ' -> ' + now);
   }
-  ok('and the six side facings of all SEVEN are UNCHANGED, to a tenth of a point ' +
+  ok('and the six side facings of all NINE are UNCHANGED, to a tenth of a point ' +
      '(' + drift.length + ' drifted)' + (drift.length ? ': ' + drift.join(', ') : ''),
      drift.length === 0);
 

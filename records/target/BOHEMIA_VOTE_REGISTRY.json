@@ -3143,6 +3143,20 @@
     "src": "vote/WORLD_PICKED_CLEAN.png"
    },
    "sha": "fddfad0"
+  },
+  {
+    "id": "animation-taking-a-hit-9-29",
+    "kind": "animation",
+    "lane": "animation",
+    "sha": "PENDING",
+    "made": "9/29",
+    "title": "TAKING A HIT FACING YOU",
+    "why": "Same problem as the punch and the throw, two more moves. Facing you, the code only moved his body forward and back, which is into the screen, so he barely moved. GETTING HIT: 92 percent of him moves from the side, facing you it was 40. Now his head snaps back, his knees buckle so he drops, his arms come up, and he lurches to the side, the other side on the second hit, because nobody takes two hits the same (71 percent now). SHOVING: facing you it was 42; now both hands come together in front of his chest as his weight drops into it (57). The shove is the smaller win and I stopped at the second try. Side views did not change, pixel for pixel. Before beside after, on the beat.",
+    "show": {
+      "how": "page",
+      "src": "vote/ANIMATION_TAKING_A_HIT.html"
+    },
+    "said": "just start making it"
   }
  ],
  "verdicts": [
