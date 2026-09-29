@@ -100,3 +100,10 @@ TUNING's rows). Below 11 the pick is permanent. (b) THE WIDER RULE: what Battle 
 get is vanilla here (his 'modded vanilla++'); MODS (22) researches the list (what the big mods fix, why players
 wanted them, what it cost the base game's balance) and the building lanes take what fits, one default at a time.
 
+## 11. WHERE YOU BUILD: WHAT YOU HOLD, AND WHAT YOU HOLD GROWS (Paolo's question 9/29; manager's default A, in VOTE; records/BOHEMIA_PAOLO_WHERE_CAN_YOU_BUILD_BASE_SETTLEMENT_OR_EVERYTHING_9_29_26.md)
+You build on the lots of the parts of Vegas you HOLD (37e). Taking the next part (a raid, a contract, a boss's verb,
+a deal) makes it yours to build; losing it takes it back (37c). A base is every block you hold and can be half the
+city by act 3. Bosses, contracts and deeds hand you PARTS, unlock KINDS of building (the rungs), and make the
+places you helped improve on their own, the Battle Brothers way. Nobody edits a block they do not hold: the
+Pocket City 2 'edit everything' route is not this game (that reference is the drop-in transition only, 7/1).
+
