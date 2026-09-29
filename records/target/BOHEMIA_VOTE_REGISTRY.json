@@ -3066,6 +3066,19 @@
     "how": "page",
     "src": "BOHEMIA_TUNING_HOW_LONG_A_FIGHT_TAKES_9_29_26.html"
    }
+  },
+  {
+   "id": "lifecity-two-days-of-building-9-29",
+   "kind": "tile",
+   "lane": "life+city",
+   "sha": "3e9aeddf",
+   "made": "9/29",
+   "title": "TWO DAYS OF BUILDING ON YOUR LOT",
+   "why": "You said building is back, in your own home base. This is it running for real on the street you already approved. You start with 2 batteries. Day 0 you put up a solar panel: costs 1 battery and a day. Day 1 it's standing, it pays you a battery back, the windows it feeds come on, and you put up a stall. Day 2 both stand: the panel pays again and the stall makes your name known. The numbers under each picture are the game's own money, not mine. Everything you build carries into your kids' generation, and a raid can take it away. There are seven things on the list: shed, pump house, garden bed, solar panel, stall, a roof back on a dead house (that one houses a family and is high ground in a fight), and a wall that makes nothing but is there for the day they come. Two of them are drawn here; the other five get drawn next from your approved street. Thumbs up and that is the build list. Thumbs down and tell me what should be on it instead.",
+   "show": {
+    "how": "image",
+    "src": "vote/LIFECITY_TWO_DAYS_OF_BUILDING_9_29.png"
+   }
   }
  ],
  "verdicts": [
