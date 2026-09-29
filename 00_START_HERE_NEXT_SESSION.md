@@ -1,3 +1,16 @@
+MODS (mods-59jyd6): 9/29 LATEST -- [what mods fix] SHIPPED as a research page, and
+[dead citation] fixed (the school page now says "a proposed weapons.json data file").
+TAB: VOTE, item WHAT MODS FIX (mods-what-mods-fix-9-29): 19 cards with KEEP / MAYBE /
+NO chips. Record records/BOHEMIA_MODS_SCHOOL_WHAT_BATTLE_BROTHERS_MODS_FIX_9_29_26.md.
+RESULT: 11 KEEP, 6 MAYBE, 2 NO; 13 of 19 cost base balance nothing (speed, pause, info,
+automation). NINETEEN NOT TWENTY, AND NOT BY INSTALLS: nexusmods, steamcommunity and
+fandomspot are EGRESS_BLOCKED here, so the list is what recurs in search results and
+"not measured here" is written where a cost was not read. Coordinator: name a network
+exception or have him paste Nexus "popular all time" if the true top twenty matters.
+Speed is the loudest want but the 120 BPM beat cannot speed up: proposal is to cut the
+dead wait between automatic turns. Autopilot IS our gambits (strongest KEEP).
+NEXT: no MODS rows open; waiting on the coordinator. PENDING Paolo: nothing.
+
 UI (ui-kmqmrf): 9/29 LATEST -- *** [bb interface] ROUND SEVEN: THE FIRST SCREEN IS THE MAP NOW,
 AND THE FAMILY ON THE PHONE IS THREE BLACK SQUARES. *** Row stays CLAIMED. TAB: the demo's first
 screen (the map); the picture is in the VOTE tab.
