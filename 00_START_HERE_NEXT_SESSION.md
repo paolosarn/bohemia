@@ -48118,6 +48118,7 @@ THEN (gs) NO TWO BOARDS ALIKE, RECREATE BB WITH OUR SWAG (Paolo 9/29): rule 46; 
 THEN (gt) WEAPONS MECHANIC FIRST (Paolo 9/29: 'is the handgonne a bazooka now?'): the BB weapon classes and our arsenal records/BOHEMIA_BATTLE_BROTHERS_SCHOOL_THE_WEAPON_CLASSES_AND_OUR_ARSENAL_9_29_26.md (the handgonne is the shotgun, the mortar the bazooka); ammunition scarce in act 1 (TUNING [ammo]); rule 46d; COMBAT [weapon shapes] note. records/BOHEMIA_PAOLO_WHAT_GUN_IS_THE_HANDGONNE_WEAPONS_MECHANIC_FIRST_9_29_26.md.
 THEN (gu) MOSTLY CITY, A BLOCK WAR (Paolo 9/29): the cook order reversed to city gaps first; his weapon anchors pistol = dagger, machine gun = two-hander; rule 46e; notes on COOK, COMBAT x2, WORLD. records/BOHEMIA_PAOLO_MOSTLY_CITY_A_BLOCK_WAR_PISTOL_IS_A_DAGGER_9_29_26.md.
 THEN (gv) THE SIX RESOURCES AND THE GUNS DECIDED TOGETHER (Paolo 9/29): rule 47; fight-gets-deep law s12; ECONOMY [six resources] first line; UI note; COMBAT [weapon shapes] becomes research then VOTE items per class, his pick is canon; the weapon 'anchors' softened to examples. records/BOHEMIA_PAOLO_FIVE_RESOURCES_LIKE_BATTLE_BROTHERS_AND_GUNS_DECIDED_TOGETHER_9_29_26.md.
+THEN (gw) THE WEAK TIER (Paolo 9/29): crossbows and real melee as BB's weaker weapons, needed when the ammo is gone; into COMBAT [weapon shapes]' options and TUNING [ammo]; rule 47c. records/BOHEMIA_PAOLO_CROSSBOWS_AND_MELEE_ARE_THE_WEAK_TIER_9_29_26.md.
 
 
 
