@@ -952,6 +952,32 @@ now -- WHEN THE GROUND A SYSTEM STANDS ON GETS PULLED, THE WORDS SURVIVE AND
 THE MECHANISM WAITS. Don't rebuild speculatively; write down where the words
 go once the real surface exists.
 
+CHARACTER (character-0lurbs): 9/29 (a) LATEST -- *** [attachments] PROVEN LIVE: A REAL TAP
+IN THE CHARACTER TAB PUTS THE SPIKE ON, NOT JUST A RENDER CALL SAYING SO. ***
+TAB: CHARACTER (open GEAR, tap SPIKED PAULDRON, it is there today), and the VOTE tab.
+
+Every picture in this row so far came from calling the rig's own paint function
+directly, which proves the ART works but never proved a player can actually reach
+it. Checked this round, on the real page: the CHARACTER tab's wardrobe already
+lists every piece tagged canon with no separate whitelist, so the spike and the
+cloak were reachable the moment they shipped, nobody had to wire a second thing.
+
+I proved it the honest way: opened the real page in a real browser, tapped the
+real GEAR shelf, tapped the real SPIKED PAULDRON button, and read the game's own
+state back afterward (it says SPIKED PAULDRON). Two screenshots, before the tap
+and after, added as a fourth section on the same VOTE item, the first three
+sections untouched.
+
+Gates: reference check 222/0, reuse-first 237 passed / 4 failed (all 4
+pre-existing, none mine, down from 8 last round as other lanes fixed some),
+vote tab 30/1 (one pre-existing red, not mine). No alpha code changed this
+round, only a new tool and two new pictures.
+
+Row stays CLAIMED: DIRECTION has not judged this yet, and "the runway thirteen"
+still leaves room for more factions to get a look. Record and tool:
+records/BOHEMIA_THE_ATTACHMENTS_TRADE_9_28_26.txt,
+tools/bohemia_the_spike_is_really_in_the_wardrobe.js.
+
 CHARACTER (character-0lurbs): 9/28 (d) LATEST -- *** [attachments] SECOND COOK: THE CLOAK
 SHOWN ALONE, AND A BAD FIRST TRY CAUGHT BY LOOKING AT THE PICTURE, NOT SHIPPED ANYWAY. ***
 TAB: CHARACTER, and the VOTE tab (same item, updated: character-the-attachments-trade-9-28).

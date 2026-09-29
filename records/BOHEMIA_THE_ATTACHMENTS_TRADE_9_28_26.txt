@@ -41,3 +41,14 @@ padding adds protection at a cost in fatigue; a spike threatens (a called-shot
 deterrent or a morale read) without adding armour of its own; an aketon is comfort,
 not a stat, which is why it is invisible. No number is hard-coded on any of these
 garments -- rule 36d's own line, no felt number outside TUNING's one table.
+
+
+ADDED 9/29: THE SPIKE IS REALLY IN THE WARDROBE, PROVEN BY A CLICK NOT A
+RENDER CALL. Last round's pictures used the rig's own render function directly,
+which proves the art but not that a player can reach it. Checked this round on the
+real page: the CHARACTER tab's own GEAR shelf lists SPIKED PAULDRON because it
+reads every canon garment with no separate whitelist -- nothing needed wiring, it was
+already reachable the round the garment shipped. Proven by tapping the real button in
+a real browser (not by calling the paint function) and reading window.G_WORN.gear
+back afterward: it says SPIKED PAULDRON. Two screenshots, before and after the real
+tap, in the VOTE item below.
