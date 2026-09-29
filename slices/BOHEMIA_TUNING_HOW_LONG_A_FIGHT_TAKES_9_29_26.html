@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>How Long A Fight Takes</title>
+<!-- TUNING 9/29 [fight length], draft:true. A toy, never in the game. Battle Brothers: minutes = rounds x units x seconds a unit
+     (seconds are recall, calibrated to Paolo's 30-40 min tough fights). Ours: everyone acts on the beat, so minutes = rounds x seconds a round;
+     9.4 base rounds is measured (records/BOHEMIA_COMBAT_THE_ENCOUNTER_CURVE_8_19_26.md). Record: records/BOHEMIA_TUNING_FIGHT_LENGTH_WHY_BB_RUNS_40_MINUTES_AND_OURS_DOES_NOT_9_29_26.md -->
+<style>
+:root{--bg:#0d0b09;--ink:#d8cdb4;--dim:#7d715c;--hot:#e8593a;--ok:#8fe89a;--amb:#e8a04a;--line:#2a241c}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.4 ui-monospace,Menlo,monospace;padding:16px}
+h1{font-size:18px;letter-spacing:2px;margin:0 0 4px}p{color:var(--dim);margin:4px 0 12px}
+.row{border:1px solid var(--line);padding:8px 10px;margin:8px 0}input[type=range]{width:100%}
+.bar{height:22px;background:#15110d;position:relative;margin:4px 0}.f{height:100%}
+.n{position:absolute;right:6px;top:2px;font-size:13px}.ceil{position:absolute;top:0;bottom:0;width:2px;background:var(--hot)}
+.big{font-size:22px}
+</style></head><body>
+<h1>HOW LONG A FIGHT TAKES</h1>
+<p>Same three things make any fight long: the enemy is stronger, the enemy has better gear, or you messed up. Move them. The red line is your ceiling, 15 minutes.</p>
+<div class="row">ENEMY LEVEL <b id="lv">0</b> steps <input id="a" type="range" min="0" max="4" value="0"></div>
+<div class="row">ENEMY GEAR <b id="gr">0</b> steps <input id="b" type="range" min="0" max="4" value="0"></div>
+<div class="row">YOUR MISTAKES <b id="ms">0</b> <input id="c" type="range" min="0" max="4" value="0"></div>
+<div class="row"><div>BATTLE BROTHERS, sequential turns (12 of yours, 15 to 30 of theirs)</div>
+<div class="bar" id="b1"><div class="f" style="background:#5a4a30"></div><div class="ceil"></div><span class="n"></span></div>
+<div>OURS, everyone on the beat</div>
+<div class="bar" id="b2"><div class="f" style="background:#3f6b45"></div><div class="ceil"></div><span class="n"></span></div></div>
+<p id="t"></p>
+<script>
+var CEIL=15,SCALE=70;
+function set(id,min,txt){var e=document.getElementById(id);e.firstChild.style.width=Math.min(100,min/SCALE*100)+'%';
+ e.querySelector('.ceil').style.left=(CEIL/SCALE*100)+'%';e.querySelector('.n').textContent=txt||(min<1.5?Math.round(min*60)+' s':min.toFixed(1)+' min');}
+function go(){var l=+a.value,g=+b.value,m=+c.value;lv.textContent=l;gr.textContent=g;ms.textContent=m;
+ // BB: rounds 8 at routine, +2.2 per level step, +2.5 per gear step (armour is a second bar), +1.5 per mistake; foes 15 -> 27; s/unit 4 -> 5
+ var rb=8+2.2*l+2.5*g+1.5*m, foes=15+3*l, spa=4+0.25*(l+g+m>3?4:l+g+m), bb=rb*(12+foes)*spa/60;
+ // ours: 9.4 measured base rounds x level 1.2^l x gear 1.25^g x mistake 1.2^m; seconds a round 5 -> 8
+ var ro=9.4*Math.pow(1.2,l)*Math.pow(1.25,g)*Math.pow(1.2,m), spr=5+0.75*Math.min(4,l+g+m), us=ro*spr/60;
+ set('b1',bb);set('b2',us);
+ t.textContent='Battle Brothers about '+Math.round(bb)+' min ('+rb.toFixed(0)+' rounds). Ours about '+(us<1.5?Math.round(us*60)+' seconds':us.toFixed(1)+' min')+' ('+ro.toFixed(0)+' rounds). Your ceiling is '+CEIL+'.';}
+a.oninput=b.oninput=c.oninput=go;go();
+</script></body></html>

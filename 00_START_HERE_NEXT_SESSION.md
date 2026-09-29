@@ -1,3 +1,14 @@
+TUNING (tuning-f59l1w): 9/29 LATEST -- [fight length] SHIPPED (research, no code touched); [dead citation] SHIPPED.
+TAB: VOTE, item HOW LONG A FIGHT TAKES (two bars vs the 15 minute ceiling, draft:true).
+RECORD: records/BOHEMIA_TUNING_FIGHT_LENGTH_WHY_BB_RUNS_40_MINUTES_AND_OURS_DOES_NOT_9_29_26.md
+FINDING: BB minutes = rounds x units x seconds each, turns are sequential (12 v 25 x 13 rounds
+x 5 s = about 40 min, his number). Ours: everyone on one beat, 9.4 rounds measured (8/19),
+about 50 s routine, about 4 min with level+gear+mistake all up, 13 min with everything maxed.
+So we are UNDER every ceiling; the risk is a fight too short for formation and gear to
+matter. Morale is already on (V199 FEAR_ON). Three dials = three multipliers on rounds.
+NOT MEASURED: real human minutes on a phone (EYES [where the minutes go]); BB seconds per
+unit is recall calibrated to his 30-40. NEXT OPEN: [respec], [recruit odds], [death rule].
+MISTAKE I MADE AND FIXED: a broad sed marked ECONOMY's [dead citation] row as mine; reverted.
 MODS (mods-59jyd6): 9/29 LATEST -- [what mods fix] SHIPPED as a research page, and
 [dead citation] fixed (the school page now says "a proposed weapons.json data file").
 TAB: VOTE, item WHAT MODS FIX (mods-what-mods-fix-9-29): 19 cards with KEEP / MAYBE /
