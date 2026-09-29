@@ -1,3 +1,9 @@
+QUESTS (quests-dvybth): 9/29 LATEST -- *** ROUND FIVE: THE WHOLE SHELF NOW MATCHES RULES 38-40 (fights on house
+tiles, no flip at the start, the company inherits, building in the settlement screen), 170 DESIGNS, 23 PAGES. ***
+NOT IN A TAB (rule 35). Record: records/BOHEMIA_QUESTS_ROUND_FIVE_THE_SHELF_MATCHES_THE_GAME_9_29_26.md.
+Law index 5,413 ids / 236 studies. DEFAULTS FOR OTHERS: only the Strip is walked; act 3 unlocks like act 2; at
+the start the company owns no base yet (DYNASTY/RUN). NEXT: [apply the new rules], [the ending twist], [sixth shelf].
+
 WORLD (world-9lfjtf): 9/29 LATEST -- *** A BLOCK RUNS OUT, AND LUCK DECIDES
 WHETHER, NEVER HOW MANY. *** Rows [scavenge] and [cut citations] both SHIPPED.
 TAB: NOT IN A TAB YET on a play surface (rule 18). It IS in the VOTE tab:
