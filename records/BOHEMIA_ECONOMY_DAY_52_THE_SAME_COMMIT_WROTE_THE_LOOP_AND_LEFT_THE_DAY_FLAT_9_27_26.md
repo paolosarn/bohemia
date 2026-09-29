@@ -374,8 +374,9 @@ PLUMBER     gates/purse_gate.js is still red on the leg "ACT ONE ONLY (Paolo 7/2
             AGAINST A LANE OBEYING LIVE CANON. It is instance 41's shape again.
 PLUMBER     gates/canon_rot_gate.js is RED at 63 gone against a ceiling of 62, and the one
             new row is a ONE-WORD FILENAME MISMATCH, not missing work:
-              records/tileforms/TF-ART-019_grid_kit.md  cites  tools/tfcook/TF-ART-019_grid_cook.py
-              what exists is                                   tools/tfcook/TF-ART-019_cook.py
+              records/tileforms/TF-ART-019_grid_kit.md  cites the tfcook script named
+                TF-ART-019_grid_cook.py (no such file, in tools/tfcook or anywhere else)
+              what tools/tfcook/ actually has is  TF-ART-019_cook.py
             The sheet has been in the repo since 9/1 (bf3c1b3d, PEOPLE lane), 26 days before
             this commit, and this commit touches three text files. Fixing the citation costs
             one word and drops the count back under the ceiling.

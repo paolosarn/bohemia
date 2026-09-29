@@ -9003,19 +9003,33 @@ mismatch as a finding, the same discipline the table has followed since 9/20. **
 fold admitting a control it did not run, not a control that passed** — better than quietly
 claiming it did.
 
-QUEUE STILL EMPTY. No OPEN or CLAIMED line in the ECONOMY section of VAMILY.md. Next VAMILY:
-per rule 5/10, the coordinator adds the next job when one exists; until then this lane's only
-standing duty is periodically re-folding, which just happened, so there is nothing left to do
-until a new line lands.
-CARRY THESE IN, ALL THREE ALREADY ROUTED AND NONE OF THEM THIS LANE'S TO FIX, STILL RED AS OF
-THIS ROUND (checked fresh a fifth time, none of the three files has moved since first routed):
+=== [dead citation] SHIPPED 9/29: MY OWN CITATION OF A DEAD PATH, FIXED. ===
+PLUMBER's [excavate] sweep (records/BOHEMIA_NOTHING_LIVE_LOADS_FROM_ARCHIVE_9_28_26.md) found that
+my OWN round 52 record, quoting the tileform sheet's bad citation to explain the bug, had itself
+become a SECOND instance of the same rot: canon_rot_gate.js's CITE regex reads any string shaped
+laws|records|gates|engine|banks|slices|tools/....ext as a real citation, so my explanatory
+    "cites tools/tfcook/TF-ART-019_grid_cook.py" (a file that never existed)
+counted exactly the same as the original sheet's own bad line, pushing C3 to 65 against a ceiling
+of 62. FIXED: reworded the two lines so the dead name reads as prose, not a path (PLUMBER's own
+suggested fix, used identically by MODS the same round for their own two dead-citation rows).
+VERIFIED TWO WAYS, not assumed: the gate's own regex, run directly against the edited file, finds
+zero non-existent citations; the real gate then read 62 gone against the ceiling, 0 excess, C3
+passing. Nothing in the finding changed, only the two lines that quoted a dead path as if it were
+live. C2 (archived-as-live, 10 against 6) is still red — WORLD's own routed item, already claimed
+by WORLD this round, not touched here.
+
+QUEUE EMPTY AGAIN. No OPEN or CLAIMED line in the ECONOMY section of VAMILY.md. Next VAMILY: per
+rule 5/10, the coordinator adds the next job when one exists.
+CARRY THESE IN, TWO OF THREE STILL OPEN AND NEITHER OF THEM THIS LANE'S TO FIX (checked fresh a
+sixth time):
  - gates/four_verbs_gate.js CRASHES on main, on "#daycardIn .dcgo". Do not read it as new and do not
    chase it. It means the four upkeep verbs have no working end-to-end check, which matters to this
    lane more than to anybody, so if it is still red next round SAY SO AGAIN rather than assuming
    PLUMBER saw it.
  - gates/purse_gate.js ACT ONE ONLY is red against a 9/23 law that supersedes it.
- - gates/canon_rot_gate.js is red at 63 gone against a ceiling of 62, and the new row is one
-   word: a 9/1 tileform sheet cites TF-ART-019_grid_cook.py and the file is TF-ART-019_cook.py.
+ - gates/canon_rot_gate.js's C3 leg (the one this lane owned) is CLOSED this round, verified by
+   running the real gate, not assumed. If it reads red again next round, that is a NEW instance and
+   worth naming fresh, not a reopening of this one.
 
 
 ================================================================================
