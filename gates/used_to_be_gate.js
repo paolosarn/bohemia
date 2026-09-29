@@ -84,16 +84,36 @@ ok('different people are different', (function () {
   return Object.keys(seen).length >= 10;
 })());
 /* *** ONE HUMAN, ONE ANSWER, AND THE FIRST CUT FAILED THIS. *** wasOf used to
-   fall back to person.id when there was no key. That looks generous and is a
+   fall back to person.id when there was no key. That looked generous and was a
    SECOND IDENTITY: the walked city's roster object carries id '12:12:900' while
    the card's person carries key 'P:city:12:12:900', so the same human came back
-   with two different former trades depending on which object asked. Found by
-   this gate finding a water-plant worker in the roster and opening a card that
-   said something else entirely. No key, no answer -- exactly as nameOf refuses
-   to answer without one. */
-ok('*** WITHOUT A KEY IT REFUSES, SO ONE HUMAN CANNOT HAVE TWO PASTS ***',
-  P.wasOf({ id: '12:12:900' }) === null && P.wasOf({ id: 'anything' }) === null);
+   with two different former trades depending on which object asked, because
+   hashing the BARE id and hashing the PREFIXED key are different hash inputs.
+   Found by this gate finding a water-plant worker in the roster and opening a
+   card that said something else entirely. The fix at the time was to refuse
+   without a key -- correct, but not the only correct answer. */
 ok('and a key is all it ever reads', !!P.wasOf({ key: 'P:city:12:12:900' }));
+/* *** 9/29, [used to be]: A THIRD OBJECT MADE THE SAME MISTAKE THE OTHER WAY.
+   *** UI's new companion page hands wasOf a RAW CITY POPULATION RECORD
+   (bohemia_population.js personFields output: id, nx, ny, archetype...), which
+   carries id and never key -- one layer further back than the roster object
+   the 9/6 bug came from. Refusing was SAFE but left a real companion showing no
+   background at all. wasOf now derives the SAME PREFIXED KEY the wrapped
+   roster object would carry ('P:city:' + id) rather than hashing the bare id,
+   which is the specific thing that caused the 9/6 bug -- so this is not that
+   bug's fallback come back, it is the fix that bug's own fallback should have
+   been. THE INVARIANT THAT ACTUALLY MATTERS, PROVEN NOT ASSERTED: a raw record
+   and its properly wrapped twin must answer IDENTICALLY, for the same reason
+   the 9/6 fix mattered -- one human, one past, whichever object asked. */
+ok('*** A RAW POPULATION RECORD NOW ANSWERS, THE SAME WAY ITS WRAPPED TWIN DOES ***',
+  (function () {
+    var raw = { id: '12:12:900' }, wrapped = { key: 'P:city:12:12:900' };
+    var a = P.wasOf(raw), b = P.wasOf(wrapped);
+    return !!a && !!b && a.id === b.id;
+  })(), P.wasOf({ id: '12:12:900' }).id + ' both ways');
+ok('*** AND A HOUSEHOLD AGENT (A DIFFERENT ID SHAPE, NEEDING A blockSeed NO ***'
+  + ' LONE OBJECT CARRIES) IS STILL REFUSED, NOT GUESSED AT ***',
+  P.wasOf({ id: 'H3-1' }) === null);
 ok('*** NOBODY IN, NOTHING OUT ***', P.wasOf(null) === null && P.wasOf({}) === null);
 /* DERIVED MEANS NOTHING WRITES IT. If a `was` field ever gets stored on a
    person this claim goes red and the storage promise is broken. */

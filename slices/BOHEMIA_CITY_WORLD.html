@@ -7488,8 +7488,29 @@ if(typeof window!=='undefined') window.BohemiaLattice=BOH_LATTICE;
        a water-plant worker in the roster and opening a card that said something
        else.
        A person's key is the identity module's own answer to "who is this",
-       exactly as nameOf refuses to answer without one. No key, no answer. */
+       exactly as nameOf refuses to answer without one. No key, no answer.
+
+       *** AND THE SAME BUG CAME BACK, 9/29, THROUGH A THIRD OBJECT. *** UI's
+       new companion page reads the CITY POPULATION MODULE'S OWN RAW RECORD
+       (bohemia_population.js personFields: id, nx, ny, archetype, nightOut...)
+       straight off the roster, which carries `id` and never `key` -- it is not
+       the walked city's wrapped roster object either, it is one layer further
+       back. Handing THAT to this function returned null, not a wrong answer,
+       so the bug above never fired twice -- but a companion with a real
+       background showing none is still the same "which object did you ask"
+       failure one hop earlier. THE FIX IS NOT THE OLD FALLBACK: the old one
+       hashed the BARE id, which is what caused the original two-answers bug.
+       This hashes the SAME PREFIXED KEY the real wrapper would have built
+       ('P:city:' + id, this file's own documented convention, matching every
+       other place in the city that turns a population record into a person),
+       so a raw record and its properly wrapped twin now hash identically and
+       answer identically -- proven in the gate, not just claimed. Household
+       agents ('H<n>-<n>' ids, a different id shape needing a blockSeed no
+       lone object carries) are still refused rather than guessed at. */
     var key = person && person.key;
+    if (!key && person && person.id != null && !/^H\d+-\d+$/.test(String(person.id))) {
+      key = 'P:city:' + person.id;
+    }
     if (!key) return null;
     var h = 0, s = String(key);
     for (var i = 0; i < s.length; i++) h = (Math.imul(h, 31) + s.charCodeAt(i)) >>> 0;
