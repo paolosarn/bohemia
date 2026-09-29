@@ -10,7 +10,7 @@ STATUS: draft:true, research only, nothing built (rule 35)
 THE INJURED (rule 36), shaped as a road EVENT SCREEN: a member struck down who lived, with a debilitating injury of 30 to 40 map days and a permanent mark. Names are placeholders.
 
 ## THE SITUATION
-NENE was struck down and the 80% came up: he lives, with a shattered knee. He is out of fights for 30 to 40 map days and will limp forever (the mark: one less cell of movement per beat, and his portrait ages with it, `Q055.W4`). He has been riding in the truck bed, eating his ration, not in the formation, talking. The event fires only if the route passes near his mother's settlement during his injury term.
+NENE was struck down and the 80% came up: he lives, with a shattered knee. He is out of fights for 30 to 40 map days and will limp forever (the mark: a slower step on the fight board, one tile less every few beats, and his portrait ages with it, `Q055.W4`). He has been riding in the truck bed, eating his ration, not in the formation, talking. The event fires only if the route passes near his mother's settlement during his injury term.
 
 ## THE PERSON AND THE FIRST LINE
 The event screen. Nene's face, from above, lying in the truck bed on a folded tarp, a Rick Owens cargo leg cut open at the knee around the splint.
@@ -19,7 +19,7 @@ The event screen. Nene's face, from above, lying in the truck bed on a folded ta
 ## THE CHOICES
 A. LEAVE HIM AT HIS MOTHER'S. No cost now. He is off the roster for his injury term. When it ends, he is at his mother's settlement; if the company passes there, he rejoins with one line. If it never passes, he stays, and nothing counts against the player.
 B. KEEP HIM IN THE TRUCK. He stays: one ration a day, no fighting, road lines about the knee (a bounded set, on the cooldown). He heals on the road and stays in the company.
-C. LEAVE HIM WITH BATTERIES FOR THE DOCTOR. 4 batteries. He heals at his mother's at the short end (30 days) with a doctor, and the limp is lighter: the mark stays (it always does), but he loses half a cell, not one.
+C. LEAVE HIM WITH BATTERIES FOR THE DOCTOR. 4 batteries. He heals at his mother's at the short end (30 days) with a doctor, and the limp is lighter: the mark stays (it always does), but he loses half as much.
 
 ## WHAT THE LEDGERS REMEMBER
 No meter. Every branch writes one PEOPLE line: where he healed. A: if he rejoins, his first line is "Mom says hi. Mom says eat." If he never rejoins, the mother's settlement's feed later posts a photo of him fixing a fence. B: he knows every road line the company says for a month; later, in fights, he is the one who calls out an enemy's flank (he watched from the truck), a behaviour, `Q084.W2`. C: the doctor's settlement opens its clinic to the company (a place, not a reward screen). Nothing in any branch says the player chose wrong.

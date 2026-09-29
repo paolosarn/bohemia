@@ -31,7 +31,7 @@ The fee is fixed in that line, before anyone knows who lives in the yard (`Q148.
 
 ## THE CHOICES (in the yard, after the family is met)
 A. BUY IT. Pay the family 3 of the 8 batteries you will earn (you front them). They lose the light; they keep the filter on a hand pump you leave them. Cost: 3 batteries, no time.
-B. TAKE IT AT NIGHT. One map day waiting, then a Rogue Fable 4 fight on the yard's grid against the family's two cousins (a group, as always). Cost: 1 day, risk to the party, the family's standing with you gone. And the family scratched their name inside the lid: Nena reads it and pays 5, not 8 ("I don't pay full for a thing somebody cried over").
+B. TAKE IT AT NIGHT. One map day waiting, then a Rogue Fable 4 fight on the yard's fight board against the family's two cousins (a group, as always). Cost: 1 day, risk to the party, the family's standing with you gone. And the family scratched their name inside the lid: Nena reads it and pays 5, not 8 ("I don't pay full for a thing somebody cried over").
 C. BRING NENA THE TRUTH. Walk back with no part. Nena comes to the yard herself, and she and the father rig the two arrays to share one controller. The contract FINISHES (you did what she needed, not what she said); she pays 4, not 8. Cost: 4 batteries of fee, half a day.
 The refusal inside the job is choice C, priced and finishing, never a drop (`Q139.P2`).
 

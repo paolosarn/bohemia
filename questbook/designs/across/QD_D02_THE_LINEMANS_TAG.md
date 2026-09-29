@@ -13,12 +13,12 @@ Act 1. A lineman from the old utility is still keeping one substation alive with
 The lineman, sitting on a cable drum in a Rick Owens drop-crotch coverall gone grey with transformer oil. First line, without looking up: "You're standing where the arc goes if this blows. Move a little, mijo."
 
 ## THE FRONT DOOR AFTER 9/28
-(Added 9/28.) This is not a contract, so it has no offer screen. Under the third votes, on-foot play survives only in fights and SPECIAL PLACES; the substation is a special place reached from the map; walking past becomes not tapping the substation on the map stop's screen, still free and still leaving nothing. The person here speaks only when tapped or approached on that ground, never first, and never in the first 60 s. See questbook/research/QR_P_THE_FRONT_DOOR_MOVED_9_28_26.md.
+(Added 9/28.) This is not a contract, so it has no offer screen. Under the third votes and rule 38 (9/28: the walk is dead; the fight is on house-sized tiles), the substation is a place reached from the map with its own screen; walking past becomes not tapping the substation on the map stop's screen, still free and still leaving nothing. The person here speaks only when tapped or approached on that ground, never first, and never in the first 60 s. See questbook/research/QR_P_THE_FRONT_DOOR_MOVED_9_28_26.md.
 
 ## THE CHOICES
 1. TAKE THE TAG AND PROMISE. Costs nothing now. The promise is written to the family record with his name and number.
 2. TAKE THE TAG, SELL THE BRASS. Paid 1 battery at a scrap stall. The record keeps that too.
-3. HOLD THE SUBSTATION ONE MORE NIGHT WITH HIM. A fight on the close grid against a group stripping the fence; costs the night and the ammo. The street stays lit one more week in act 1; the promise is made either way.
+3. HOLD THE SUBSTATION ONE MORE NIGHT WITH HIM. A fight on the fight board against a group stripping the fence; costs the night and the ammo. The street stays lit one more week in act 1; the promise is made either way.
 Walking past is free and leaves nothing.
 
 ## WHAT THE LEDGERS REMEMBER

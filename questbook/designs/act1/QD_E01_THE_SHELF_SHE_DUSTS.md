@@ -7,7 +7,7 @@ PLACE: a corner bodega on a strip-mall street off Boulder Highway; one aisle, on
 STATUS: draft:true, research only, nothing built (rule 35)
 
 ## THE SITUATION
-Act 1, the anarchy decade. The player arrives on the strip from the map. The bodega's door cell is open.
+Act 1, the anarchy decade. The player arrives on the strip from the map; the settlement screen draws it. The bodega's door is open.
 Inside, every shelf holds something (bottled water, cans with hand-drawn labels, one battery in a glass
 case) except the end shelf, which is bare and clean. A woman in a long black Rick Owens drape coat is
 dusting it, on the beat, over and over. She does not look at the door. If the player never goes in, that
@@ -38,7 +38,7 @@ Tuesday." She does not say it was her nephew.
 
 ## THE CHOICES
 1. TAKE IT. Pays one battery on return, from her hand. Costs the trip: two map legs out and back, time
-   passes, and whatever is on the wash road is a group he fights on the close grid.
+   passes, and whatever is on the wash road is a group he fights on the fight board.
 2. TAKE IT, AND ASK FOR IT UP FRONT (the haggle's second kind). She pays the battery now. He walks off
    holding her battery; if he drops the contract, that battery is the deed. A third ask ("and a can
    too?") gets the spoken limit: "That's two. Ask me again and I find somebody else."
@@ -47,7 +47,7 @@ Tuesday." She does not say it was her nephew.
 
 ## WHAT THE LEDGERS REMEMBER
 Declining leaves nothing: no deed, no standing, no rumour, no feed post. TAKEN: a contract row. DONE:
-the shelf shows cans on its cells (the result is in the place); a feed post in the city view ("the
+the shelf shows cans on it (the result is in the place); a feed post in the city view ("the
 Argüello shelf has stock"); one battery moved. DROPPED: a deed ("took Lupe's truck job and didn't
 bring it"), and if he took the battery up front, the ledger says so. If the crate holds the nephew's
 jacket (the one rationed twist, most runs it holds cans), she says one line and pays anyway.

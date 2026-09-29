@@ -24,7 +24,7 @@ First line: "Watch them tres días. Tell me what they are. If it's what I think,
   - "Doce baterías. If it's what I think, I pay double."
 - PAY, SHOWN BEFORE ACCEPT: 12 batteries, and 6 more "if it's true"; the bonus is on the screen before the yes, which is the whole trap.
 - NEGOTIATION: ASK FOR MORE: "The more is the six." ADVANCE: none.
-- ACCEPT / DECLINE: ACCEPT opens the courtyard on the close grid for three nights. DECLINE, or closing the screen, or never tapping the building, writes nothing: no row, no line, no look, and the offer sits in the same building on the next visit while the job is still real.
+- ACCEPT / DECLINE: ACCEPT opens the courtyard as the job's place for three nights (the fight board if it comes to a fight). DECLINE, or closing the screen, or never tapping the building, writes nothing: no row, no line, no look, and the offer sits in the same building on the next visit while the job is still real.
 
 ## THE CHOICES
 - A. TELL THE TRUTH: "They're a couple. She talks to her dad." Cost: STANDING with Arce (he does not believe it and says the company is soft). Paid 12.

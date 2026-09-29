@@ -22,7 +22,7 @@ A week ago the wash above the lake ran and packed the intake's trash rack with h
 - ACCEPT / DECLINE. Declining writes nothing. The offer leaves the board when the rack is clear, whoever clears it.
 
 ## THE CHOICES
-A. CLEAR THE DECK. A fight on the close grid: the deck is three cells wide with a rail and the water below. The group of eight scatters when half go down. Full pay.
+A. CLEAR THE DECK. A fight on the fight board: the deck is one long house-sized tile with a rail and the water below. The group of eight scatters when half go down. Full pay.
 B. HIRE THEM. Ofelia pays the crew in hours of power out of the dam's own count if the family vouches for them. The crew works the rack as a night shift. Full pay, one more night on the deck to watch them.
 C. "I WON'T FIGHT HUNGRY MEN." Hold only the land end of the deck. The rack is cleared a week late. Half pay, stated by Ofelia before the second night.
 

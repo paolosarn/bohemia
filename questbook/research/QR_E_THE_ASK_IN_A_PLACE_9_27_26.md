@@ -260,7 +260,7 @@ THE FIRST VOTES). The flaw on the other side is the lore dump: long talky chunks
 
 ## 10. THE CATALOGUE OF PLACES THAT ASK (ids PL01 to PL14)
 
-A place that asks is a spot on the close grid whose DRAWING tells you something is wrong before any
+A place that asks is a spot on the fight board whose DRAWING tells you something is wrong before any
 person speaks. On our honest grid every one of these is cells: a shelf is a PROP, a window is part of a
 WALL, a queue is people standing on FLOOR, a door is a DOOR (laws/BOHEMIA_LAW_TWO_SCALES_ONE_GAME_9_27_26.md).
 The ones marked (asks.js) already exist as generator change ids in engine/bohemia_asks.js.

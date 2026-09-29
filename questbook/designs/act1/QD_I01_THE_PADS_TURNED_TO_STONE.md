@@ -4,7 +4,7 @@ ACT: 1
 KIND: contract
 CRISIS: none
 ECONOMY: bust
-PLACE: a motel turned cooling room on a co-op block off the old boulevard; the job is the cooler on its roof and the room under it, one block on the close grid
+PLACE: a motel turned cooling room on a co-op block off the old boulevard; the job is the cooler on its roof and the room under it, one block of the city (the fight board if it comes to a fight)
 STATUS: draft:true, research only, nothing built (rule 35)
 
 RE-CUT FROM: quests/bq/S22_THE_COLD_ROOM.bq
@@ -20,7 +20,7 @@ THE SCREEN (3 lines, 27 words): "It's on. It's wet. The room's at ninety-one." /
 PAY: 8 batteries on report, whichever road. NEGOTIATION: ask for more (she goes to 9, then 10; the third ask closes the screen for this visit, nothing written, the offer is back next visit); ask for an advance (2 now, 6 after). ACCEPT or DECLINE. Decline closes the screen; her line: "Bueno. Another time."
 
 ## THE PERSON AND THE FIRST LINE
-On the grid, Inés meets the party at the roof ladder. First spoken line on the job: "If you know coolers, say so. If you don't, say that too. I've had men up here this month tell me they knew."
+At the motel, Inés meets the party at the roof ladder. First spoken line on the job: "If you know coolers, say so. If you don't, say that too. I've had men up here this month tell me they knew."
 
 ## THE CHOICES
 A. READ THE PADS. Pull one: it does not bend. Soak the old ones, fit the spare set from the back room. Cost: half a map day of the party's time. The room is cold in four minutes.

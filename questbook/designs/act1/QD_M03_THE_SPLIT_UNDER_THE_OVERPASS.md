@@ -24,9 +24,9 @@ C. NOT MY CALL. The player walks away from the fire. They settle it between them
 
 ## WHAT THE LEDGERS REMEMBER
 No meter moves, because there is none (`Q083.W6`). Loyalty shows in the fight:
-A: for the next three fights ROMY will not take the cell beside Dez if the player's formation puts her there; she takes the next cell over, and the gap is visible on the grid (the tell, `Q137.X1` fixed). Dez's road line at the next settlement: "Sent it. Gracias." His portrait wears a kid's hair tie on his wrist from then on.
+A: for the next three fights ROMY will not take the tile beside Dez if the player's formation puts her there; she takes the next tile over, and the gap is visible on the fight board (the tell, `Q137.X1` fixed). Dez's road line at the next settlement: "Sent it. Gracias." His portrait wears a kid's hair tie on his wrist from then on.
 B: for the next three fights DEZ fights "careful": his gambit refuses any cover further forward than the second row, and he says so once: "I'm not dying for the pot." Romy's line: "Good call." (one voice for, one against, never a chorus, `Q126.X5`).
-C: both keep their cells in formation. One road line each, ten map days later, about the other, and they are funny, not bitter.
+C: both keep their tiles in formation. One road line each, ten map days later, about the other, and they are funny, not bitter.
 Nobody leaves over this. The quarrel is small because most are (`Q137.X9`: the human middle is where relationships live).
 
 ## THE ONE WRONG DETAIL

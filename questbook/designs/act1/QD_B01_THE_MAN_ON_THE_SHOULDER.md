@@ -21,7 +21,7 @@ First line: "Hermano. Just the leg. I'm not asking for the truck."
 ## THE CHOICES
 1. GET DOWN AND TREAT HIM. Costs one medicine (or 3 batteries at bust prices) and two hours of map time. Honest
    version: he joins the company as a cheap recruit, or leaves with a debt he remembers. Bait version: the party
-   is caught on foot, a fight on the close grid against a group of three, the companion first to the man.
+   is caught on foot, a fight on the fight board against a group of three, the companion first to the man.
 2. CALL OUT FROM THE TRUCK. Costs ten minutes. You ask him one question ("Who did the leg?"). Honest version: he
    names the party that robbed him, and their tracks light on the map. Bait version: he gets impatient, looks
    behind the shelter once, and the player can read it and leave.

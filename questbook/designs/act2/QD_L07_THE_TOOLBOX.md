@@ -30,7 +30,7 @@ Act 2, a boom: the toll road is busy, the reclaimed quarter is hiring, money mov
 A day and a half on the toll road. At the second toll a group works the carts that queue.
 1. **Pay the toll and queue.** The group eyes the toolbox and lets it pass with the paid line. Your batteries, your time. DONE.
 2. **Take the dirt around the toll.** Half a day longer, no toll, no group. DONE.
-3. **Fight at the toll.** The group moves on your cart; the fight is on the close grid at the booth (the booth's concrete island is the mound). DONE, and the toll collectors (a faction) remember the fight at their booth.
+3. **Fight at the toll.** The group moves on your cart; the fight is on the fight board at the booth (the booth's concrete island is the mound). DONE, and the toll collectors (a faction) remember the fight at their booth.
 At the shop, the grandson opens the box, finds his grandfather's name scratched in every handle, and says nothing for a while. Then he writes the company's name on the wall by the bench.
 
 ## WHAT THE LEDGERS REMEMBER

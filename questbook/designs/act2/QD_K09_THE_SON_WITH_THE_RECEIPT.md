@@ -33,7 +33,7 @@ before the truth, twenty years ago.)
 3. KEEP MOVING. Price: nothing. He does not follow, he does not curse, and nothing new is written. The old deed
    stays exactly what it was.
 
-A violent answer exists only on the close grid, never as an event button. If it happens there, rule 36 holds for
+A violent answer exists only on the fight board, never as an event button. If it happens there, rule 36 holds for
 anyone struck down (20% dead, else out 30 to 40 days), and a lost fight continues the story (`Q087.W1`).
 
 ## WHAT THE LEDGERS REMEMBER

@@ -14,7 +14,7 @@ The mother, on the depot bench, in an oversized Balenciaga parka zipped to the c
 
 ## THE CHOICES
 1. SEND IT BY RELAY. Costs 1 battery at the kiosk, paid 3. Instant. The Network records her voice and her words.
-2. CARRY IT BY HAND THROUGH THE TUNNELS. Two days, a fight on the close grid in a tunnel junction, paid 3 (the same pay). Nothing is recorded; the son gets it as the player's party tells it.
+2. CARRY IT BY HAND THROUGH THE TUNNELS. Two days, a fight on the fight board in a tunnel junction, paid 3 (the same pay). Nothing is recorded; the son gets it as the player's party tells it.
 3. CARRY IT BY HAND AND ALSO LEAVE A RECORDING WITH HER. Two days and the fight, paid 3, and 1 battery at the kiosk. The son gets it both ways.
 Declining is free and says nothing about the family. The world still moves: she sends it herself on the relay, and act 3 is the relay world with no family name in it.
 

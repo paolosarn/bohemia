@@ -349,7 +349,7 @@ choice meant (it surfaces later as a thing, `Q128.X2`); a second person approach
     t = 30 s on the default path, never captioned. (`Q091.W7`, `Q010.W7`, `Q133.W9`)
 14. THE FIRST MINUTE IS NOT THE LOUDEST. No fight, cutscene or set piece plays in the first 60 s unless
     the player walked into it. (`Q134.X3`, `Q134.X9`)
-15. AFTER A FLIP, THE CLOCK RESTARTS. Arriving on the close grid of another act starts a fresh 60 s
+15. AFTER A FLIP, THE CLOCK RESTARTS. Arriving on the fight board of another act starts a fresh 60 s
     silence (rules 1 to 14 apply again), and the first discovery there is a thing the earlier act left.
     (second life proves the first happened `Q144.W9`; see QD-F05 and QD-F06)
 
@@ -374,7 +374,7 @@ choice meant (it surfaces later as a thing, `Q128.X2`); a second person approach
 ## AFTER A FLIP (the first minute of act 2 and act 3)
 
 The flip lives on the phone, in the city view (rule 32c; three acts law s3), so a flip lands him on the
-map of the other era; the first squeeze in lands him on the close grid of the same street. The library's
+map of the other era; the first squeeze in lands him on the fight board of the same street. The library's
 generational studies give the shape. Sunless Sea: "the second life proves the first one happened", the
 heir's early game repriced by inherited geography and the player's own trained dread (`Q144.W9`); its
 inherited officers "speak in past tense" (`Q144.W7`), the cheapest reactivity carrying the heaviest

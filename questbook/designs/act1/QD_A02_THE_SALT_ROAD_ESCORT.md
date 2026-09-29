@@ -37,7 +37,7 @@ gun bolted on. We roll at first light. The horn goes twice before we move."
 2. **"Deal."** TAKEN. The window is stated: first light. The night before, the horn is tested once, loud, from the
    lot (the audible clock). At dawn it sounds twice. If the player is at the lot, the party marker joins the convoy on
    the map; time passes as it rolls; on the road an EVENT stops it (the gun truck across the lane, a face, two or
-   three choices) and the fight is on the close grid around the trucks. Win: twelve batteries at the salt camp.
+   three choices) and the fight is on the fight board around the trucks. Win: twelve batteries at the salt camp.
    COST: a map day each way, and real danger.
 3. **"Deal", then not being there at dawn.** The horn sounds twice from the lot and the convoy goes without him. That
    is a DROP, heard, never a pop-up. COST: no advance was paid, so no debt; Yesenia does not offer again; the

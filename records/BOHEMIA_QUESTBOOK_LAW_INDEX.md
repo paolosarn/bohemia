@@ -4,12 +4,12 @@ Every id here is CITABLE from a `.bq` quest and is machine-verified by
 `gates/quest_study_gate.js`. Regenerate with `python3 tools/bohemia_questbook_index.py`.
 
 - studies: 236
-- citable laws: 5356
+- citable laws: 5413
 
 - craft laws (W): 2367
 - flaws laws (X): 946
 - ports laws (P): 1613
-- convos laws (N): 430
+- convos laws (N): 487
 
 ### Q001  THE BLOODY BARON (The Witcher 3)
 - `Q001.N1` **NODE BARON_MEET** the hall, entry: quest start He has Ciri intel and says so immediately; he wants a "small favor": find his wife and daughter, who he says were kidnapped. > "Kidnapped by whom?" [ga
@@ -3708,6 +3708,11 @@ Every id here is CITABLE from a `.bq` quest and is machine-verified by
 - `Q138.X9` **DISTRACTION-AS-KEY GOES UNTAUGHT** That the music box draws Pamela out is discoverable only by observation; fair, elegant, and the single most missed step in the game's most missed quest.
 
 ### Q139  THE WHITE PHOSPHORUS MORTAR (THE GATE) (Spec Ops: The Line)
+- `Q139.N1` **NODE GATE-1 — the overlook** Adams speaks, squad at the ridge. Entry: stage 1 complete. Adams: sizes the force below, flat voice, professional. Says the thing about no choice — not as philosophy, as a supply r
+- `Q139.N2` **NODE GATE-2 — the mortar argument** Entry: squad at the WP crates. Lugo opens: names the weapon, names the last time they saw it used, names what was left. Refuses to be part of it. (Paraphrased tight; his refusal is
+- `Q139.N3` **NODE GATE-3 — THE TARGETING INTERFACE (the dialogue tree the game actually gives you)** Who speaks: the laptop. Where: the mortar. Entry: cutscene ends, control returns. The screen opens with dots. This is a conversation, and these are its options, and the game is pre
+- `Q139.N4` **NODE GATE-4 — the walk** Entry: stage 4. The burning soldier who crawls past and asks his one-word question gets no answer, because the game removed answering. > (no options. no verbs. walking speed. the o
+- `Q139.N5` **NODE GATE-5 — the pit** Entry: stage 5. The last conversation, and the fork that runs the rest of the game. Lugo: says it plainly. They killed these people. No hedging in the line; the hedging all lives i
 - `Q139.P1` **PORT 1 — THE EXCUSE MERCHANT [W8, F2 — the core port]** system: conscience-no-karma-bar / the fold / [READ] Bohemia must never do Branch A to its player (F2's law). What it CAN steal — the best thing in the scene — is the lie at the pit
 - `Q139.P2` **PORT 2 — THE PRICED REFUSAL [F2's law made mechanical]** system: the dial / survival accounting / 120 BPM combat The anti-Gate. Wherever Bohemia stages an overwhelming-force problem with a terrible tool nearby, the refusal EXISTS and is 
 - `Q139.P3` **PORT 3 — AGENCY OVER SEQUENCE AS A TELL, NEVER A CHEAT [W5]** system: .bq format / quest validation W5 is a scalpel with two edges. Used against the player (the Gate), it is F2 waiting to happen. Used diegetically it is gold: let NPCs offer t
@@ -3728,6 +3733,12 @@ Every id here is CITABLE from a `.bq` quest and is machine-verified by
 - `Q139.X3` **MEDIOCRE MOMENT-TO-MOMENT COMBAT** Broadly noted at launch and after: the shooting the game deconstructs is also just serviceable-at-best shooting. Some argued intentionality; intentional tedium is still tedium (sam
 
 ### Q140  THE LAST CORRIDOR (THE JUDGEMENT) (Undertale)
+- `Q140.N1` **NODE J-1 — the redefinition** Judge speaks, corridor center. Entry: any route, stage 2. He opens light, then flattens: asks if you know what EXP really stands for, and answers himself. Execution points. Then LO
+- `Q140.N2` **NODE J-2 — THE READ** Same speaker, immediately after. DIFFERENT TEXT BY LEDGER — the corridor's crown jewel. > BRANCH [gate: EXP == 0] -> the clean read: he admits the setup was a judgment and declines
+- `Q140.N3` **NODE J-3 — the true-mercy variant [gate: true-pacifist conditions]** He talks to you like the war is already over, because it is; the judgment is dissolved by the state of the ledger before a word is spent. > (options: none; the route's options were
+- `Q140.N4` **NODE J-4 — the threshold** Entry: stage 3, no-mercy only. The weather-report warning, then the plainest fork in the game: > keep walking forward [gate: none] -> NODE J-5. WRITES: the fight. LOCKS OUT: nothin
+- `Q140.N5` **NODE J-5 — THE MERCY TRAP** Mid-fight, after his fatigue shows. The most argued-about node in the game. He offers to spare you. The battle UI presents the real, functional choice: > SPARE [gate: none — always
+- `Q140.N6` **NODE J-6 — the special attack** The fight's terminal statement, non-verbal, included because it is the best SILENCE in the corpus. His final move is nothing: he stops. The turn never passes. The game sits in an o
 - `Q140.P1` **PORT 1 — THE READ IS A FUNCTION OF THE FOLD [W1, W2 — core port; fourth confirmation of the staged law]** system: the fold / [READ] / act boundaries / conscience-no-karma-bar THE FINALE IS A LEDGER-READ now has its fourth and cleanest data point (Q136 theater, Q137 arithmetic, Q102 roo
 - `Q140.P2` **PORT 2 — THE VERDICT ARRIVES REGARDLESS OF SKILL [F1's law, made testable]** system: the dial / quest validation Gate-rule for Bohemia's endgame: every terminal read must be reachable through defeat. If the finale involves a fight, losing it routes to the r
 - `Q140.P3` **PORT 3 — MERCY THAT REMEMBERS BEING TAUGHT [W6]** system: .bq TRAPs / faction memory / the 13 factions Bohemia already bans karma meters; what it can steal is the epistemically-clean trap: an NPC's offered mercy becomes a trap ONL
@@ -3748,6 +3759,11 @@ Every id here is CITABLE from a `.bq` quest and is machine-verified by
 - `Q140.X3` **THE CULTURAL ECHO FLATTENED THE CRAFT** A decade of memes turned the corridor's carefully-earned menace into a costume; the character's judgment scene now arrives pre-parodied for many players. Not the game's fault, but 
 
 ### Q141  THE BOOK OF THE DEAD (THE IDENTIFICATION LOOP) (Return of the Obra Dinn)
+- `Q141.N1` **NODE B-1 — a row of the book** Speaker: the book (by asking). Entry: the corpse witnessed. The book shows the face, the fates list, and the manifest. Its opening line is an empty row, which in this game is a dir
+- `Q141.N2` **NODE B-2 — THE CHIME** Speaker: the book. Entry: any commit that completes a set of three fully-correct rows. The page flashes, the three rows ink themselves closed, the chime plays. > (no options — this
+- `Q141.N3` **NODE B-3 — the hammock** Speaker: a numbered berth, below decks. Entry: the muster/sleep tableaus. Not a person — included as the model HARD CLUE: berth numbers correspond to manifest numbers; a man asleep
+- `Q141.N4` **NODE B-4 — the absence** Speaker: nobody, which is the testimony. Entry: comparing musters across chapters. A man present in chapter three's crowd scene is missing from chapter five's. No corpse, no line, 
+- `Q141.N5` **NODE B-5 — the letter-writer's own rows** Entry: late, when the chains reach the mutiny chapters. The man who mailed you the book appears in the memories, doing what he did. > write his rows honestly [gate: KNOWLEDGE, plus
 - `Q141.P1` **PORT 1 — THE MISSING-PERSONS ORGAN, WHOLE [the demanded engine, Q133/Q134/Q138 — core port]** system: settlement systems / the fold / [READ] / survival accounting This game is the missing-persons organ's design document. The Bohemia shape: the settlement keeps a BOOK — rows
 - `Q141.P2` **PORT 2 — CASES FROM THE FOLD, NOT FROM AUTHORS [F2's law made structural]** system: roguelite generation / generational persistence The organ's cases are the run's real absences: the fold already records every NPC's true fate (the world simulates deaths th
 - `Q141.P3` **PORT 3 — ABSENCE AS AN EVIDENCE CLASS [W6]** system: [READ] / muster mechanics / 120 BPM world Bohemia's beat-world takes musters natively: rolls, ration lines, watch rotations are all periodic events the fold logs. Port the 
@@ -3768,6 +3784,11 @@ Every id here is CITABLE from a `.bq` quest and is machine-verified by
 - `Q141.X3` **ACCESSIBILITY RIDES ON SENSORY CHANNELS** Accents carry nationalities, audio carries names, the 1-bit dither carries everything else; players with hearing or visual difficulties lose evidence CLASSES, not just polish. Docu
 
 ### Q142  THE WALL AND THE JUDGE (THE ARGUE-THE-GOD FINALE) (Neverwinter Nights 2: Mask of the Betrayer)
+- `Q142.N1` **NODE K-1 — the opening of the audience** Kelemvor, the courtroom. Entry: stage 3. He opens with process: your curse, its origin, its legal status. He concedes immediately — IMMEDIATELY, and this is the craft — that the cu
+- `Q142.N2` **NODE K-2 — the order defense** His case, in full, unhurried. Without the Wall, the compact frays: mortals drift from the gods, the gods starve and turn predatory, and the resulting war grinds mortal souls to not
+- `Q142.N3` **NODE K-3 — the hidden truth** Entry: insight gate or the Myrkul-facts line. The player names what they've read in him: he knows. He has always known. The Wall predates him, shames him, and he enforces it as the
+- `Q142.N4` **NODE K-4 — the petition** The narrow door. Release for the player's soul-line, argued case by case: the named soul from the Wall (witnessed = strong; unwitnessed = weak text and a refusal path), the compani
+- `Q142.N5` **NODE K-5 — the fights (4A/4B), as conversation.** The crusade and the combat both keep talking — mid-battle barks track the argument already had: if the player reached K-3, his battle lines grieve; if not, they judge. Even the war
 - `Q142.P1` **PORT 1 — THE AMALGAMATION AUDIENCE [W1-W5 — the finale's spine; cross-ref Q12, Q17, Q20, Q140]** system: the argue-the-Amalgamation finale / [READ] / the fold The structure, whole: the finale's opponent is the RECORDING ORDER itself, the Amalgamation its reluctant administrato
 - `Q142.P2` **PORT 2 — EVIDENCE BEATS PRINCIPLE, AS A GATE RULE [W7]** system: .bq gates / the missing-persons organ (Q141 PORT 1) Finale petition nodes gate on WITNESSED flags, not on lore stats: the player who found the named dead (the organ's cases
 - `Q142.P3` **PORT 3 — THE SMALLER DOOR, ALWAYS OPEN [W8]** system: quest structure / conscience-no-karma-bar Every systemic-injustice quest carries a personal-exit track priced only in tone (the epilogue reads relief differently than justi
@@ -3788,6 +3809,10 @@ Every id here is CITABLE from a `.bq` quest and is machine-verified by
 - `Q142.X3` **THE HUNGER CLOCK FIGHTS THE TALKING** The spirit-eater mechanic — the game's thematic spine — actively punishes the player for lingering in dialogue-heavy zones, and the finale is the most dialogue-heavy zone in the ga
 
 ### Q143  EDDIE AND THE VERDICT ENGINE (Silent Hill 2)
+- `Q143.N1` **NODE E-1 — the bowling alley** Eddie, mouth full, corpse adjacent. Entry: stage 1. He opens with denial so relaxed it loops back around to alarming — he was just here, stuff happens in this town, want some pizza
+- `Q143.N2` **NODE E-2 — the body** Entry: stage 2. The upgrade: from "not me" to "he had it coming." Eddie narrates the laughing, the years of it, the dog, the leg, the running. Halfway through, the register shifts 
+- `Q143.N3` **NODE E-3 — the meat locker** Entry: stage 3. The argument's terminal form. The monologue: the town gets it, the town says it's fine, everyone laughed, everyone dies, and James — James kills too, the town told 
+- `Q143.N4` **NODE V-1 — THE VERDICT ENGINE (the conversation with no scene)** The judge speaks exactly once, in the epilogue, and its options were the player's habits: > keep James healed, promptly, always [gate: none — unmarked] -> writes toward LEAVE: a ma
 - `Q143.P1` **PORT 1 — THE CONDUCT BOOK [W1, W3, F1 — the core port; fifth confirmation of the staged ledger-read law]** system: the fold / conscience-no-karma-bar / the dial The fold already records deeds; this port adds the CONDUCT CLASS: unmarked behavioral entries (how the player treats their own
 - `Q143.P2` **PORT 2 — THE FAILED TWIN, SCHEDULED [W2, F3's law]** system: the 13 factions / NPC arcs / singleton registry One Bohemia arc should run a failed twin: an NPC losing the player's own argument (whatever the act's central temptation is)
 - `Q143.P3` **PORT 3 — TEACH THE REGISTER, HIDE THE WEIGHTS [F2's law]** system: settlement NPCs / barks / [READ] Early and diegetically, once: an NPC reads the player's conduct aloud ("you've been walking on that leg for two days — who are you punishin
@@ -3808,6 +3833,10 @@ Every id here is CITABLE from a `.bq` quest and is machine-verified by
 - `Q143.X3` **THE FAILED TWIN IS UNDERBUILT** Eddie gets three scenes to Angela's five-plus and the fandom's least attention; critics have long noted his arc reads thinner — the bullying backstory arrives mostly in his final m
 
 ### Q144  THE CAPTAIN'S WILL (THE LEGACY FOLD) (Sunless Sea)
+- `Q144.N1` **NODE L-1 — the ambition pick** Speaker: the game's opening prose. Entry: stage 1. The candidate life-goals, each a different will-shape: > "Wealth: retire rich or die trying" [gate: none] -> a run that banks MON
+- `Q144.N2` **NODE L-2 — the scion** Speaker: a storylet at port, mid-life. Entry: wealth + a home established. Raise the heir in advance: recurring costs, small scenes, a child who exists in the world while the capta
+- `Q144.N3` **NODE L-3 — an officer's arc, at the line** Speaker: any officer with an unfinished story. Entry: their arc mid-stage as death approaches. The officers' hidden stories advance by voyages and choices; death can strand them. >
+- `Q144.N4` **NODE L-4 — THE READING** Speaker: the legacy screen, functioning as executor. Entry: stage 4. > "The scion inherits" [gate: raised] -> chart + lineage + the warm transfer profile > "The rival claims the sh
 - `Q144.P1` **PORT 1 — THE WILL AS A PLAYED SCENE [W1, W6 — the core port]** system: the fold / succession (GDD v4) / dying-generation play Bohemia's fold currently specifies WHAT persists; this port specifies the SCENE: when a dynast's death becomes legibl
 - `Q144.P2` **PORT 2 — THE ESTATE'S CURRENCY RULE [W2, F2's law — a compile-time gate rule]** system: the fold / survival accounting Machine-checkable compile rule: fold-heritable classes are KNOWLEDGE (map/case/testimony), BOND-STATES (resolved relationships), and RECORD e
 - `Q144.P3` **PORT 3 — PAST-TENSE VARIANTS FOR EVERY CROSSING NPC [W7, F1's law]** system: .bq roles / generational persistence Compile rule for the questbook's own build queue: any NPC flagged fold-crossing must ship previous-dynast dialogue variants (grief regi
@@ -3828,6 +3857,10 @@ Every id here is CITABLE from a `.bq` quest and is machine-verified by
 - `Q144.X3` **MERCIFUL MODE EXPOSED THE DESIGN'S DEPENDENCE ON DEATH** The later-added save-retention mode (and the permadeath debate around it) revealed how much of the game's meaning was load-bearing on loss being real; with death defanged, the lega
 
 ### Q145  THE CONQUEST (THE GAME BEFORE THE GAME) (Tyranny)
+- `Q145.N1` **NODE C-1 — a campaign's attachment** Speaker: the chronicle. Entry: each region, stage 2. The year advances; the armies move on a stronghold; the Fatebinder's authority must ride with someone. > "March with the Disfav
+- `Q145.N2` **NODE C-2 — the fall of a city** Entry: a stronghold resists. > "Counsel patience: siege it out" [gate: none] -> slow fall; the city survives diminished; survivors remember hunger, not fire > "Find the traitor ins
+- `Q145.N3` **NODE C-3 — the adjudications** Entry: interleaved; the personal scale. Named individuals surface — a rebel commander taken alive, a mayor who bargained, a deserter. > spare / conscript / execute / make an exampl
+- `Q145.N4` **NODE C-4 — the reading back (main game, distributed)** Speaker: survivors, armies, the weather. > "I did what the law required." [gate: none] -> the loyalist posture; the armies read it as reliability > "I was wrong at [the city]." [ga
 - `Q145.P1` **PORT 1 — THE SUCCESSION CHRONICLE [W1, W5, F2's law — the core port]** system: the fold / succession / generational persistence Bohemia's generation N+1 opens with a Conquest-shaped scene that is READ, not authored: the chronicle of the parent generat
 - `Q145.P2` **PORT 2 — STANDING EDICTS IN THE VALLEY [W4]** system: territory systems / the survival economy / quest generation The signed-thing-that-keeps-executing: dynast-level decisions (a water treaty, a quarantine, a bounty proclamati
 - `Q145.P3` **PORT 3 — THE FOUNDER STARTS THIN [F2's law, made structural]** system: run structure / world-seed Run one, generation one: the world-seed shapes TERRAIN and factions, never the founder's personal ledger. No pre-authored deeds, no inherited gui
@@ -3848,6 +3881,9 @@ Every id here is CITABLE from a `.bq` quest and is machine-verified by
 - `Q145.X3` **THE DUAL METER LEAKS INTO A SLIDER AT THE EDGES** Favor/wrath is the anti-morality-meter, but reviewers and players documented edge cases where content gates check only one axis, quietly collapsing the two-axis idea back into like
 
 ### Q146  THE SLAVE'S ESCAPE (THE UNAUTHORED QUEST) (Kenshi)
+- `Q146.N1` **NODE S-1 — the intake** Speaker: the institution, via state change. Entry: stage 2. The camp presents its standing offer, wordlessly, via mechanics: > comply: work when hauled, eat when fed [gate: none] -
+- `Q146.N2` **NODE S-2 — the rotation** Speaker: the guards' schedule. Entry: stage 3, ongoing. The camp's routine, read as a dialogue whose lines repeat daily: > observe the count and the shift-change [gate: attention o
+- `Q146.N3` **NODE S-3 — the break** Speaker: the alarm. Entry: stage 4. > the timed run through the learned gap [gate: KNOWLEDGE + trained stats] -> the desert, and stage 5 > the loud way: fight out with stolen tools
 - `Q146.P1` **PORT 1 — THE UNAUTHORED-QUEST CHECKLIST [W1-W6 — the core port; the emergent layer's spec]** system: the dial / factions / the world simulation The five portable properties, adopted as REQUIREMENTS for any Bohemia condition-state intended to generate stories (captivity, co
 - `Q146.P2` **PORT 2 — THE LEDGER AS THE MISSING WITNESS [F1's law]** system: the fold / settlement barks / the missing-persons organ (#141) Every emergent arc's completion writes fold entries the world can SEE: the settlement's bark tables react to 
 - `Q146.P3` **PORT 3 — ANTI-FARM DISCIPLINE FOR CONDITION-STATES [F2's law]** system: progression / the conduct book (#143 PORT 1) Training inside condition-states carries diminishing returns, and VOLUNTARY re-entry is itself a recorded conduct signal (three
@@ -3868,6 +3904,9 @@ Every id here is CITABLE from a `.bq` quest and is machine-verified by
 - `Q146.X3` **THE ARC IS BRUTAL BY DEFAULT AND INVISIBLE BY DESIGN** New players meet the slavery arc with no framing, no content signal, and no difficulty mediation — for some it is the moment Kenshi becomes beloved; for others it is a wall of mise
 
 ### Q147  SHARP AND FLAT (THE IKANA SUITE) (The Legend of Zelda: Majora's Mask)
+- `Q147.N1` **NODE F-1 — Flat, beneath the graveyard** Entry: the grave opened, stage 2. The dead composer's account: the kingdom fell; his brother went to the dark in its service; he himself lies here. Then the lesson — the song, taug
+- `Q147.N2` **NODE S-1 — Sharp's cave** Entry: stage 3. The conversation conducted entirely in music and damage. His requiem opens the exchange — the curse's position stated as a life-drain the player stands inside. > pl
+- `Q147.N3` **NODE S-2 — Sharp, uncursed** Immediately after. The weeping; the confession (what he served, what it cost, what he did in the fall); the spring's release. > (no options — the player's role in the reconciliatio
 - `Q147.P1` **PORT 1 — THE GRIEF RELAY [W1, W3, F2's law — the core port]** system: the fold / [READ] / the missing-persons organ (#141) The relay frame, Bohemia-shaped: a dead person's record (the fold holds it; the organ surfaces it) contains a message a
 - `Q147.P2` **PORT 2 — WOUNDS AS GEOGRAPHY, POINTERS AS TESTIMONY [W7, F1's law]** system: world generation / settlement talk / the organ Every standing unresolved quest-class problem renders as VISIBLE world state (the dry channel, the dark district, the sealed 
 - `Q147.P3` **PORT 3 — DELIVERY UNDER FIRE [W4]** system: the dial / 120 BPM / non-combat verbs One Bohemia confrontation class where the resolving verb is performed UNDER active harm on the beat — holding a broadcast, a song, a r
@@ -3888,6 +3927,10 @@ Every id here is CITABLE from a `.bq` quest and is machine-verified by
 - `Q147.X3` **THE RESET ECONOMY CHEAPENS THE REPAIR FOR SOME, DEEPENS IT FOR OTHERS** The three-day undo of every emotional repair is the game's thesis, but the criticism is real and old: players who experience the resets as futility disengage from exactly the scene
 
 ### Q148  DEADLY DELIGHTS (THE CONTRACT FORMULA) (The Witcher 3: Wild Hunt)
+- `Q148.N1` **NODE D-1 — the client** Entry: stage 2. The guard's outline: his men, the nights, the thing. Grief wearing procedure. > "Tell me everything about the victims." [gate: none] -> the detail that matters late
+- `Q148.N2` **NODE D-2 — the social lock at Crippled Kate's** Entry: stage 4. The madam and the women, closed like a fist around one of their own. > [Axii delusion] "You'll tell me about her." [gate: KNOWLEDGE/BUILD — the sign invested long a
+- `Q148.N3` **NODE D-3 — Salma** Entry: stage 5. The fork, run as a conversation with an unhurried person. She opens without fear: she knows why a witcher is in her doorway, and she tells her account — they came t
+- `Q148.N4` **NODE D-4 — the collection** Entry: stage 6. The trophy on the table; the fee counted out. > "It's done." [gate: trophy, either provenance] -> paid in full. The client's closure is total and identical in both 
 - `Q148.P1` **PORT 1 — THE BOHEMIA CONTRACT BOARD [W1, W2, W10 — the core port]** system: survival economy / settlement systems / the .bq format The job loop, whole: settlement boards post contracts (threats, retrievals, investigations — generated from the world
 - `Q148.P2` **PORT 2 — THE DISCOVERABLE LIE [F1's law]** system: the fold / faction memory / the conduct book (#143) Client-facing fictions write TWO fold entries: told and happened. Any later system may surface the gap (the spared thing
 - `Q148.P3` **PORT 3 — INVESTIGATIONS THAT CAN CONCLUDE WRONG [F2's law]** system: the missing-persons organ (#141) / contract generation Contract investigations resolve against the player's SUBMITTED conclusion, not the world's truth: name the wrong culp
@@ -3908,6 +3951,9 @@ Every id here is CITABLE from a `.bq` quest and is machine-verified by
 - `Q148.X3` **REPEATABLE FORMAT, DIMINISHING PERSONHOOD** Across dozens of contracts the formula's monster-is-somebody twist becomes the expected shape; late-game contracts telegraph their sympathy beats, and the class's power dilutes wit
 
 ### Q149  THE SAD SAINT (THE CITIZEN WEB) (Vampyr)
+- `Q149.N1` **NODE V-1 — the web, interviewed** Speakers: Sean's connections. Entry: stage 2, distributed. Every interview is dual-use by construction: > ask after Sean's habits [gate: none] -> trail data AND a hint: his blood q
+- `Q149.N2` **NODE V-2 — the adjudication** Speaker: Sean, at the shelter, turning. Entry: stage 4. He does not run. He asks, in effect, what the doctor intends for the monster — the patient conducting his own triage. > "Com
+- `Q149.N3` **NODE V-3 — the district, replying** Speaker: London, over following nights. Entry: stage 5. > (no options — the web speaks in state: health bars, locked doors, a newspaper, who is missing from their route) The verdic
 - `Q149.P1` **PORT 1 — THE SETTLEMENT WEB [W1, W3, W4 — the core port]** system: settlement systems / the 13 factions / survival accounting The citizen web, adopted whole for Bohemia's settlements: named citizens with schedules on the beat (F3's law — t
 - `Q149.P2` **PORT 2 — DUAL-USE INTIMACY [W2, W5]** system: [READ] / the conduct book (#143) / faction mechanics Learning a citizen (testimony, records, their web) unlocks BOTH care-verbs and harm-verbs for that citizen — the same k
 - `Q149.P3` **PORT 3 — CONSCIENCE IS NEVER THE DIFFICULTY SLIDER [F1's law — a balance gate]** system: the dial / progression Hard rule for the dial's economy: no conscience-path may change combat viability class. Mercy prices in texture — options, standing, the fold's read,
@@ -3928,6 +3974,10 @@ Every id here is CITABLE from a `.bq` quest and is machine-verified by
 - `Q149.X3` **THE WEB'S SCHEDULES ARE SHALLOW UNDER PRESSURE** Citizens keep static routes and conversation loops; outside their quests they idle, and the "living district" reads as a diorama between story beats — the criticism that the web is
 
 ### Q150  WAKING NIGHTMARE (THE GOD WHO LIES AT THE FINALE) (The Elder Scrolls V: Skyrim)
+- `Q150.N1` **NODE N-1 — the confession in installments** Speaker: Erandur, on the road and in the halls. Entry: stages 2-3, distributed. > "You were one of them." [gate: none] -> the admission, one beat before the evidence forces it. His
+- `Q150.N2` **NODE N-2 — the Dreamstride** Speaker: the past, worn. Entry: stage 4. > drink the Torpor [gate: the only way forward] -> Casimir's body, the assault night, the chain, the gas, the wake-up beyond the wall > (in
+- `Q150.N3` **NODE N-3 — THE VOICE AT THE ALTAR** Speaker: Vaermina, into the player's head, mid-ritual. Entry: stage 6. Her case, in full: he deceived you (true, in installments, already confessed); he serves her still (false); h
+- `Q150.N4` **NODE N-4 — after** Speaker: Erandur, alive, or the Skull, taken. Entry: epilogue. > [trusted] his companionship, permanent — the quest's reward is a PERSON, and specifically the person the player dec
 - `Q150.P1` **PORT 1 — THE PRIVATE CHANNEL AT THE FINALE [W1, W5, W6 — the core port]** system: the argue-the-Amalgamation finale (#142) / the Network / [READ] At Bohemia's endgame, the NETWORK gets Vaermina's move: a private channel to the player — untestable, unshar
 - `Q150.P2` **PORT 2 — THE DREAMSTRIDE IS [READ] AS TRAVERSAL [W4]** system: [READ] / the Amalgamation's data-portraits / level design The fold and the Amalgamation already hold recorded lives; the Dreamstride ports as [READ]'s deepest register: ent
 - `Q150.P3` **PORT 3 — VOLUNTEERED CONFESSION AS TRUST PACING [W3]** system: companion/NPC arcs / dialogue authoring law The Erandur pattern as an authoring rule for any Bohemia character built to be trusted against evidence: their damning history a
@@ -3948,6 +3998,9 @@ Every id here is CITABLE from a `.bq` quest and is machine-verified by
 - `Q150.X3` **THE TRUST BRANCH GOES UNREAD** Decline the god, gain a follower — and the world never remarks on any of it. No priest of Mara notes the reformed man's vindication; no record exists that a god personally lied and
 
 ### Q151  THE FIRST WALL (THE OUTPOST STORY) (Kenshi)
+- `Q151.N1` **NODE O-1 — the collector at the gate** Speaker: the local power. Entry: stage 2. The demand, flat and administrative: this land is theirs, the number is this, the schedule is this. > pay [gate: the money] -> protected-a
+- `Q151.N2` **NODE O-2 — the gate, daily** Speaker: whoever arrives. Entry: stage 3, standing. > open for traders [gate: none] -> the economy's oxygen, and intelligence leaking both ways (a trader who walked your streets ca
+- `Q151.N3` **NODE O-3 — the siege, as conversation** Speaker: the world, at the wall. Entry: stage 4. > stand on the walls [gate: everything built] -> the investment defends itself or doesn't; every casualty is a recruit the player l
 - `Q151.P1` **PORT 1 — THE FINDABLE FLAG [W1, W2 — the core port]** system: city-builder core / the 13 factions / CLUSTERED POWER / territory Bohemia's settlement mechanics adopt the address law: the moment the player's plot crosses visibility thre
 - `Q151.P2` **PORT 2 — THE LEDGER'S OTHER SIDE [F2's law]** system: faction graph / envoy verbs / the .bq format Ownership opens verbs: once billed, the settlement can SEND — envoys, terms, tribute renegotiation, raid redirection onto rival
 - `Q151.P3` **PORT 3 — SIEGES THAT LEARN [F1's law]** system: the dial / faction memory / the fold Siege-class attackers read the previous siege's fold entry (the breach point, the kill-box, the casualty ledger) and vary: composition,
@@ -3968,6 +4021,10 @@ Every id here is CITABLE from a `.bq` quest and is machine-verified by
 - `Q151.X3` **THE INTERIOR LIFE IS SILENT** The recruits the siege spends have no reaction to any of it — no one resents the defied tax, mourns the burned forge, or credits the held wall. The attachment is real (the investme
 
 ### Q152  THE GREYMARCH (INHERITING THE MAD GOD'S OFFICE) (The Elder Scrolls IV: Oblivion — The Shivering Isles)
+- `Q152.N1` **NODE G-1 — the accession briefing** Speaker: Sheogorath, at court. Entry: stage 3. He explains the promotion: a duke must fall for a duke to rise; the rite is lawful; pick a throne. > "Mania. Thadon." [gate: none] ->
+- `Q152.N2` **NODE G-2 — the rite performed** Speakers: the victims. Entry: stage 3, per throne. > [Mania] Thadon's last feast [gate: the dose placed] -> he speaks through the overdose — pleasure, confusion, a flicker of under
+- `Q152.N3` **NODE G-3 — the despair** Speaker: Sheogorath, breaking. Entry: stage 4. The jokes stop. He explains what the Greymarch is — and what he is — in the only register the character never used before: plainly. >
+- `Q152.N4` **NODE G-4 — the freed god** Speaker: Jyggalag, beaten. Entry: stage 5's end. > (no options — his monologue is the quest's true briefing, delivered by the only character who never lies: the curse, its authors,
 - `Q152.P1` **PORT 1 — THE OFFICE WITH VERBS [W9, F1's law — the core port]** system: the fold / succession / settlement institutions (#151) When Bohemia seats a player in an office (settlement head, faction seat, whatever canon builds), the seat ships with 
 - `Q152.P2` **PORT 2 — THE EMPLOYER'S OMITTED BRIEFING [W1, W2]** system: the Amalgamation arc / quest-giver design One Bohemia arc should run the Sheogorath shape: a patron whose recruitment is secretly onboarding for their own replacement, whos
 - `Q152.P3` **PORT 3 — LAWFUL ACCESSION RITES [W3, W4, F2's law]** system: the 13 factions / succession mechanics Faction leadership changes hands by each faction's own RITE — and where a rite requires the player's hands, the deed is lawful-and-st

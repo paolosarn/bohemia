@@ -1,3 +1,4 @@
+> SECOND READING of #122 (QUESTS 9/29): same quest (Sinnerman; #40 is the first reading); cite #122 for what happens and this study only for its lens on atonement and the chooser, see research/QR_V_THE_SAME_QUEST_STUDIED_TWICE_9_29_26.md.
 # BOHEMIA QUESTBOOK #193 — "SINNERMAN (A MURDERER PAYS TO BE CRUCIFIED AND ASKS YOU TO HELP HIM MEAN IT)"
 **Game:** Cyberpunk 2077 (2020)
 **Studio:** CD Projekt Red

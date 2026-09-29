@@ -3,7 +3,7 @@ ACT: 2
 KIND: contract
 CRISIS: the earth-side nuke
 ECONOMY: either
-PLACE: a faction's fortified casino garage (the settlement); the job is a chain-link fence line around a shared pump house, one block on the close grid
+PLACE: a faction's fortified casino garage (the settlement); the job is a chain-link fence line around a shared pump house, one block of the city (the fight board if it comes to a fight)
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 STAGE: THE RUNGS (QR-J): the canon ladder's "quietly accelerated faction conflict"
 LANDS THREE WAYS: yes (see UNDER LIBERATE, RESPECT, BECOME)
@@ -33,7 +33,7 @@ The captain, reading a folded order at his desk, before he looks up: "You ever g
 wrote it, and you didn't?"
 
 ## THE CHOICES (inside the taken contract)
-1. HOLD IT. Five nights of fighting on the grid (ways through: dig in at the pump house door, hold the high tank,
+1. HOLD IT. Five nights, each night's fight on the fight board and each under the 15-minute ceiling (ways through: dig in at the pump house door, hold the high tank,
    or cut the fence yourself and pull back to a shorter line). Company members struck down follow rule 36.
    Paid in full. The war moves one step: the feed posts the pump house changing hands somewhere else on the line.
 2. MEET THE OTHER CAPTAIN AT THE FENCE. On the second night, face to face, no radios. She has orders too, in the

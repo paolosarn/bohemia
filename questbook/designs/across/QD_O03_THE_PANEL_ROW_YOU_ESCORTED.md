@@ -20,7 +20,7 @@ panels. Act 3 reads it: whether that row stands decides whether the field's boar
 - PAY: 5 batteries. NEGOTIATION: advance of 2; ask for more to 6.
 
 ## THE CHOICES
-1. Escort by road: faster, a fight with a Destroyer party on the grid.
+1. Escort by road: faster, a fight with a Destroyer party on the fight board.
 2. Escort by the wash: slower, no fight if the tracks are read right.
 3. Leave the truck at the first sign and save the men: a finished contract at a price (2 batteries, twenty panels).
 

@@ -9,7 +9,7 @@ STATUS: draft:true, research only, nothing built (rule 35)
 ## THE SITUATION
 Act 2: the clinic is open again, which is new, and medicine moves through it on a number system. The
 player arrives at midday. A red LED counter over the door reads 9. Fourteen people stand in a line on
-the sidewalk cells. A clerk at a folding table calls numbers, bored, with a clipboard. Near the front a
+the sidewalk. A clerk at a folding table calls numbers, bored, with a clipboard. Near the front a
 young man in a cropped Bottega Veneta jacket holds a paper ticket and keeps looking up the street. When a
 number is called and nobody answers, that number goes to the back.
 
@@ -32,12 +32,12 @@ waits a week). He never says the word medicine.
   - "One battery, or you take nine and I go to the back."
 - PAY, SHOWN BEFORE ACCEPT: 1 battery, or ticket nine (one medicine, paid as one resources): both pays are on the screen before accept.
 - NEGOTIATION: The haggle IS the second pay option; ASK FOR MORE gets "That's all of it." ADVANCE: none.
-- ACCEPT / DECLINE: ACCEPT opens the walk to Lamb on the close grid. DECLINE, or closing the screen, or never tapping the building, writes nothing: no row, no line, no look, and the offer sits in the same building on the next visit while the job is still real.
+- ACCEPT / DECLINE: ACCEPT puts the way to Lamb on the map. DECLINE, or closing the screen, or never tapping the building, writes nothing: no row, no line, no look, and the offer sits in the same building on the next visit while the job is still real.
 
 ## THE CHOICES
-1. TAKE IT FOR THE BATTERY. One battery, on return, from his hand. The walk to Lamb is on the close
-   grid; his mother walks one cell every two beats, so the walk back is slow and the street is the test
-   (a group may be between the shelter and the clinic).
+1. TAKE IT FOR THE BATTERY. One battery, on return, from his hand. The way to Lamb is on the map;
+   his mother walks, so the way back is slow and the road is the test (a group may be between the
+   shelter and the clinic, a routine fight on the fight board).
 2. TAKE IT FOR NUMBER NINE (the haggle's first kind, a different one). The player gets the clinic slot:
    one medicine, paid as one resources, instead of the battery. Davi goes to the back of the line, and
    says nothing about it. Two asks land; asking for both gets the spoken limit: "It's one or the other,
@@ -46,7 +46,7 @@ waits a week). He never says the word medicine.
 
 ## WHAT THE LEDGERS REMEMBER
 Declining leaves nothing. DONE (battery): the mother is in the line, the counter moves to 10, the line
-shortens by the cells she takes. DONE (number nine): the player holds one medicine; Davi is fourteenth
+shortens by the place she takes. DONE (number nine): the player holds one medicine; Davi is fourteenth
 in line and his mother is beside him; the feed says nothing, because nothing happened that anyone posts
 about. DROPPED: a deed, and on the next pass the mother is still at the bus shelter.
 

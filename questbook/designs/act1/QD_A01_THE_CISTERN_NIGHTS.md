@@ -30,16 +30,16 @@ of them, one has a pipe."
   - "They come after midnight, three or four of them, one has a pipe."
 - PAY, SHOWN BEFORE ACCEPT: 3 batteries, paid at dawn after night two, counted into his hand.
 - NEGOTIATION: ASK FOR MORE once: she answers "Tres y la cena" (3 and a hot meal each night, the meal restores the companion); the fee then locks. ADVANCE: none; she has three batteries in the world and they are the pay.
-- ACCEPT / DECLINE: ACCEPT opens the roof on the close grid (a special place).  DECLINE, or closing the screen, or never tapping the building, writes nothing: no row, no line, no look, and the offer sits in the same building on the next visit while the job is still real.
+- ACCEPT / DECLINE: ACCEPT puts the roof on the map as the job's place; the night fight is on the fight board cut from the roof and its neighbours (house-sized tiles).  DECLINE, or closing the screen, or never tapping the building, writes nothing: no row, no line, no look, and the offer sits in the same building on the next visit while the job is still real.
 
 ## THE CHOICES
 1. **"No."** She nods once. "Bueno. Somebody will." She goes back to watching the road. COST: nothing. The player can
    open this settlement a hundred times and she will never mention it, and no companion comments (C6, C7).
 2. **"Four batteries."** (the one haggle, at the offer) She thinks. "Tres y la cena." Three and a hot meal each night
    (the meal restores the companion). Then the same take-or-leave. The fee locks here (C5).
-3. **"Deal."** TAKEN. Two nights on the close grid: the roof is many cells (cistern, parapet as cover, the hatch as
-   the door). Night one is quiet. Night two, four men come over the wall, a fight on the beat against a group with the
-   companion. COST: two map days, the risk of the fight. Win: three batteries, paid at dawn, counted into the player's
+3. **"Deal."** TAKEN. Two nights on the roof. On the fight board the roof is one raised house tile (the high ground), the
+   cistern and parapet its cover, the hatch its door, the street tiles around it the approach. Night one is quiet. Night two, four men come over the wall, a fight on the beat against a group with the
+   companion (a routine fight, 2 to 4 minutes). COST: two map days, the risk of the fight. Win: three batteries, paid at dawn, counted into the player's
    hand. Lose: the men take two cans and leave; she pays one battery "for the nights", FAILED, an attempt (C12).
 
 ## WHAT THE LEDGERS REMEMBER

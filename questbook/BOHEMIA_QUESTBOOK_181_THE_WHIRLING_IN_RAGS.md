@@ -1,3 +1,4 @@
+> SECOND READING of #112 (QUESTS 9/29): same murder case, different thread and NOT a duplicate: #112 reads the body, this reads Klaasje the witness; see research/QR_V_THE_SAME_QUEST_STUDIED_TWICE_9_29_26.md.
 # BOHEMIA QUESTBOOK #181 — "KLAASJE AND THE HANGED MAN (THE KILLER YOU CAN'T CHARGE AND THE WITNESS YOU CAN'T KEEP)"
 **Game:** Disco Elysium (2019)
 **Studio:** ZA/UM

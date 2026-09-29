@@ -24,18 +24,18 @@ Act 1, the anarchy decade, bust. The strip's owner rents five units for batterie
   4. "{fee} baterías. Half in beans if you want it, beans are worth more than cells this month."
 - PAY: K x 2 days + R1 (one danger step) + S (bust). In kind offered: half as canned food at Strip Five's price, shown in batteries.
 - NEGOTIATION: ASK FOR MORE: one step, then she says "That's the whole rent, mijo." (bust ceiling). ADVANCE: she refuses in words: "When it's quiet." A third push: "Okay. Somebody else." Nothing written.
-- ACCEPT / DECLINE: accept, and the job is the grid inside unit four. Decline: "Bueno." She goes back to her ledger. Nothing is written.
+- ACCEPT / DECLINE: accept, and the job is unit four itself, a building on the strip's screen. Decline: "Bueno." She goes back to her ledger. Nothing is written.
 
 ## THE CHOICES
-Inside unit four on the close grid: the back room holds a man, Beto, repairing phones by a dim lamp, and a car battery wired to the breaker box. The knocking is the breaker tripping every forty minutes and Beto slapping it back. Beto says it flat: "The unit has no share. None of them ever had share. The feed goes to units one to three." The four businesses did not fail. They ran out of power.
+Inside unit four: the back room holds a man, Beto, repairing phones by a dim lamp, and a car battery wired to the breaker box. The knocking is the breaker tripping every forty minutes and Beto slapping it back. Beto says it flat: "The unit has no share. None of them ever had share. The feed goes to units one to three." The four businesses did not fail. They ran out of power.
 1. **Put Beto out.** He goes without a fight. DONE; fee paid. Unit four is empty again.
-2. **Bring Doña Mirta the reason.** Walk her the three cells to the breaker box and let Beto show her. DONE; the same fee. She can buy a share for unit four or not; that is hers.
+2. **Bring Doña Mirta the reason.** Walk her back to the breaker box and let Beto show her. DONE; the same fee. She can buy a share for unit four or not; that is hers.
 3. **"I won't clear a man for a breaker."** Tell her so to her face. The priced refusal: the contract closes, you are paid nothing, and she does not offer you work again. Not a drop; no debt.
 COST: two nights of map time in every case. The fee is the same for 1 and 2 (rule P7).
 
 ## WHAT THE LEDGERS REMEMBER
 - Declined: nothing.
-- Done (1): "cleared unit four". Beto's cell on the strip is empty next visit.
+- Done (1): "cleared unit four". Beto's spot on the strip is empty next visit.
 - Done (2): "showed the owner the breaker". If she buys the share, unit four's window is lit next visit; if not, it is dark and Beto is still there.
 - Refused inside: "refused the unit four job, told her why". No debt.
 

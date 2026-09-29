@@ -33,7 +33,7 @@ in either answer.
 The printer, setting type by hand without looking up: "You read? Good. Nobody reads the price anymore. They just pay it."
 
 ## THE CHOICES (inside the taken contract)
-1. BRING IT ALL TO HIM. On the way back, on the mill's loading dock (one block of the close grid), a crew blocks
+1. BRING IT ALL TO HIM. On the way back, on the mill's loading dock (the fight board cut from the dock), a crew blocks
    the gate. Ways through: pay the mill's night watchman to open the back, carry the reams over the roof, or wait
    the crew out until the morning shift. Delivered: full pay. The reams go to people who carry things by hand.
    Heat does not rise: carrying paper is not looking.

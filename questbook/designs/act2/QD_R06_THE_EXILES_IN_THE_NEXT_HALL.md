@@ -20,7 +20,7 @@ THE RETAKE CONTRACT, inside the same act. QD-Q13 retakes a base a generation lat
 - ACCEPT / DECLINE. Declining writes nothing. The co-op stays TAKEN; if nobody retakes it this act, act 3 derives it as the party's base.
 
 ## THE CHOICES
-- A. TAKE IT BACK. One fight on the co-op's close grid (the three blocks and the courtyard; the second-floor walkways are the roofs). The nine workers are on the grid and fight for whoever is winning. Win: the laundry room hall held at the end.
+- A. TAKE IT BACK. One fight on the co-op's fight board (the three blocks and the courtyard; the second-floor walkways are the roofs). The nine workers are on the fight board and fight for whoever is winning. Win: the laundry room hall held at the end.
 - B. THE COLD STORE FIRST. At night, walk the nine out through the storm drain behind block C. No mandatory fight. The party keeps the blocks this act. Priced: 4 batteries, the food paid anyway.
 - C. BUY THEM OUT (the talk option). The party's leader will leave before the haulers return for 10 batteries of the family's own. Nobody fights; Betty still pays 6. Net cost to the family: 4 batteries.
 

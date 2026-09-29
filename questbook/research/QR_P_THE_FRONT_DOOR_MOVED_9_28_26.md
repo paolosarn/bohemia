@@ -21,7 +21,7 @@ nothing and forecloses nothing (`Q126.W3`, `Q126.N13`, `Q126.N12`), the world th
 `Q061.W2`), the exit that never closes once you take the job (`Q151.W7`, `Q140.W8`, `Q040.W2`) and the drop priced as
 a deed (`Q087.W9`, `Q086.W8`). All of that now lives inside the offer screen and on the map. What dies is the
 walk-up: QR-A rule C1's "never a board, list, card or pop-up", QR-E's whole "place that asks on the close street"
-apparatus, and QR-F's walked first minute on the close grid. The library itself already held the other door:
+apparatus, and QR-F's walked first minute on the fight board. The library itself already held the other door:
 `Q148.W2`, THE BOARD IS A DIGNIFIED FRONT DOOR ("a job system that never begs"), and `Q148.P1`, a settlement board
 port. Round one read those as the thing to avoid; Paolo's ruling makes them the thing to build, and they are the
 better fit for a phone. The one real loss is DISCOVERY BY WALKING (`Q013.W6`, `Q114.W2`, `Q114.N1`): the city no
@@ -134,7 +134,7 @@ the map clock and the tone plays on the settlement screen at its time.
 ### 3. What changes shape: QR-F, the first sixty seconds
 
 QR-F's fifteen rules were written for a figure standing on a close grid at second zero. Under the third votes the
-game's normal surface is the map and the settlement screen; the close grid is the fight and the special places. Rule
+game's normal surface is the map and the settlement screen; the fight board is the fight and the special places. Rule
 by rule:
 
 - QR-F 1 SILENCE GATE: survives exactly. `Q134.X3` and `Q134.X9` (spending the best beat in the first minute).
@@ -211,7 +211,7 @@ before, except the clock; the building's drawing does not change because of a de
 P8. THE WORLD REDRAWS THE SETTLEMENT. A job done, failed or done by someone else changes the settlement picture on
 the next visit, written without his id when he was not involved. (`Q149.W9`, `Q147.W7`, `Q055.W1`, `Q085.W3`)
 
-P9. THE JOB IS STILL PEOPLE, PLACES AND THINGS. After accept, the job is on the map and the close grid, with people
+P9. THE JOB IS STILL PEOPLE, PLACES AND THINGS. After accept, the job is on the map and the fight board, with people
 met there. (rule 20's surviving half; `Q095.W3`, `Q083.W1`, `Q023.W4`)
 
 P10. DISCOVERY LIVES ON THE ROAD AND IN SPECIAL PLACES. Chance encounters are road events (a face, 2 or 3 choices) or

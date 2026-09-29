@@ -3,7 +3,7 @@ ACT: 2
 KIND: contract
 CRISIS: the earth-side nuke
 ECONOMY: boom
-PLACE: a truck-stop town on the northern interstate at the valley's edge; the job is one motel block on the close grid
+PLACE: a truck-stop town on the northern interstate at the valley's edge; the job is one motel block (the fight board if it comes to a fight)
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 STAGE: THE RUNGS (QR-J): the canon ladder's out-of-state strangers, seen only by a player whose heat is already up
 CHECKLIST: passes all 28
@@ -35,7 +35,7 @@ The owner, from behind the office counter, before the screen's lines: "You're th
 Eat something. I made too much pozole for eight people who don't eat."
 
 ## THE CHOICES (inside the taken contract, on the motel block, three nights)
-1. WATCH AND REPORT. Three nights on the grid (cover behind the ice machine, the roof, the diner window). What you
+1. WATCH AND REPORT. Three nights at the motel, each a post he picks on its screen (cover behind the ice machine, the roof, the diner window). What you
    see: eight people standing in the dark lot at 3 a.m., facing the dam, not moving, for an hour. You tell her.
    She keeps them (the money is good). Costs three map days. Heat rises one step (you looked).
 2. ASK THEM TO LEAVE, FOR HER. On the third night you knock. All eight leave within the minute, without a word,

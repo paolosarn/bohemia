@@ -23,7 +23,7 @@ Accused (only if asked): "I paid for what we did on the road. You want it back, 
    with the accuser and falls with the accused. The accused may leave at the next town.
 2. HEAR THE ACCUSED OUT. Costs an hour. The truth comes out; both keep their places; the company as a whole loses
    2 batteries for good, and the widow's settlement remembers the company kindly.
-3. LET THEM SETTLE IT. Nothing from you. At dawn they either fight (a short grid fight between two of your own,
+3. LET THEM SETTLE IT. Nothing from you. At dawn they either fight (a short fight on the fight board between two of your own,
    nobody dies, one is hurt) or have made peace (a friendship pair, a small bonus when they stand together).
 
 ## WHAT THE LEDGERS REMEMBER

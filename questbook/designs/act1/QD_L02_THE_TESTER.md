@@ -28,7 +28,7 @@ A short boom inside the anarchy decade: somebody found a dead solar farm full of
 
 ## THE CHOICES
 The whole job is route and fight, stated on the screen:
-1. **The wash road.** Two days each way. The five with the truck are there, as said: a fight on the close grid in a dry wash (a group, with the companion; the mound at the bend is the one terrain effect). Or pay their toll from your own purse and pass.
+1. **The wash road.** Two days each way. The five with the truck are there, as said: a fight on the fight board in a dry wash (a group, with the companion; the mound at the bend is the one terrain effect). Or pay their toll from your own purse and pass.
 2. **The high road.** Three days each way, no fight. The keep for the extra days comes out of the same fee.
 3. **Either way, the tester comes back.** DONE; the fee. If a brother was struck down on the wash road (rule 36: 20 percent dead, else 30 to 40 days out), that is the price the danger step was paid for.
 The "I won't do this part" choice: at the wash, pay the toll instead of fighting. It finishes the contract at a stated price (your batteries), not a drop.

@@ -36,7 +36,7 @@ The chair, holding a dead lettuce up to the office window: "Look at that. It's l
 ## THE CHOICES (inside the taken contract)
 1. BUY A SHIFT FROM THE YARD. You pay the yard foreman 5 of your own batteries for two days of one mechanic. The
    crop lives. The feed posts, the next trip: the launch schedule slipped a day. Nobody blames anybody.
-2. BRING THE GRANDSON HOME. He is an apprentice at the yard and can do it. On the yard's close grid he is proud and
+2. BRING THE GRANDSON HOME. He is an apprentice at the yard and can do it. On the yard's fight board he is proud and
    does not want to leave the gantry. Ways through: ask his crew boss for two days, trade him your company's
    best hand for two days of yard work, or tell him plainly what his grandmother said. The crop lives; the rocket
    loses one apprentice's two days; he comes back to the yard after.

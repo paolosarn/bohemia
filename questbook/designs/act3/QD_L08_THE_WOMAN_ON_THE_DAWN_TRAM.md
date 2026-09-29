@@ -27,7 +27,7 @@ Act 3, cyberpunk healing, a boom. The valley is re-metering its grid house by ho
 - ACCEPT / DECLINE: accept, and the tram loop is on the map. Decline: "Of course." He files a letter. Nothing written.
 
 ## THE CHOICES
-On the map the tram loop is a ring of stops. People at the stops (on the close grid, one line each) all say the same thing in different words: she rides the first tram every morning and gets off at a different stop each day. The twist: the target keeps a schedule, and it is dawn only. Miss the first tram and it costs a full map day.
+On the map the tram loop is a ring of stops. People at the stops (on each stop's screen, one line each) all say the same thing in different words: she rides the first tram every morning and gets off at a different stop each day. The twist: the target keeps a schedule, and it is dawn only. Miss the first tram and it costs a full map day.
 1. **Ride the dawn tram.** Be at a stop before first light; she is in the last car, with a case of instruments. Talk. She comes to hear the guild. DONE; the fee.
 2. **Follow her off.** Ride with her and get off where she does: a stop at a dry school where she teaches three children to read a meter. She says, "Bring the guild here." DONE if you carry that back; the contract said "bring her to hear us", and she will hear them here. The same fee. The guild secretary rides out, not happily.
 3. **"I won't wait on a tram for three dawns."** Go back and tell him. The priced refusal: paid for the days you rode, per the guild's estimate line, not a drop.

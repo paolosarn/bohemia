@@ -25,7 +25,7 @@ First line: "One house. Rent or keys. Ocho baterías when you come back. Most cr
   - "Most crews don't come back the same."
 - PAY, SHOWN BEFORE ACCEPT: 8 batteries at the report, locked whatever the company does.
 - NEGOTIATION: ASK FOR MORE: "Ocho for everybody." (true: every new crew gets this door). ADVANCE: none.
-- ACCEPT / DECLINE: ACCEPT puts Orchard Street on the map; the house is a close-grid ground. DECLINE, or closing the screen, or never tapping the building, writes nothing: no row, no line, no look, and the offer sits in the same building on the next visit while the job is still real.
+- ACCEPT / DECLINE: ACCEPT puts Orchard Street on the map; the house is the job's place (the fight board if it comes to a fight). DECLINE, or closing the screen, or never tapping the building, writes nothing: no row, no line, no look, and the offer sits in the same building on the next visit while the job is still real.
 
 ## THE CHOICES
 At the door:

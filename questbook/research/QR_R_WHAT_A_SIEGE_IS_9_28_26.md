@@ -12,7 +12,7 @@ crisis is stages that rewrite the board and never expire a taken contract); QR-G
 
 QUESTION: a home base can be taken or ruined, and a raided base falls in later acts. The library has no siege study.
 From the nearest studies and the Battle Brothers reference, what IS a siege of one of our home bases as play: the
-warning, the build-up on the map, the contract to defend or to take, the fight on the close grid, the outcome written
+warning, the build-up on the map, the contract to defend or to take, the fight on the fight board, the outcome written
 into the ledgers and the later acts? How do defending and attacking differ? How does a player who was elsewhere learn
 of a fall? How does the loss stay content (retake, rescue, witness), never a dead end?
 
@@ -22,7 +22,7 @@ A siege in Bohemia is not a mode and not a set piece. It is a SHORT CHAIN OF ORD
 strung on one base: a build-up the player can SEE on the map (tracks converging, a camp that grows, prices that jump,
 people walking the other way), an OFFER in a hall (the defender's hall posts "hold us", the attacker's hall posts
 "take it"; either can be declined for free), a few MAP DAYS of preparation that the fight remembers, ONE fight on the
-base's own close grid (roofs are the high ground, the civilians are on it, a way out always stays open), and an
+base's own fight board (roofs are the high ground, the civilians are on it, a way out always stays open), and an
 OUTCOME with three states, HELD, TAKEN or RUINED, written into the base's board, its prices, the feed and the derive.
 Battle Brothers, Paolo's named reference for this layer, already has every piece: "protect a village from a raid
 (defend at night)", the noble war's "defend a stronghold" and "assault a fortified camp", and the settlement
@@ -48,7 +48,7 @@ off, a RETAKE contract in the exiles' new hall, and a later act that SHOWS it (`
   spent there.
 - THE SIEGE HAPPENS WHERE THE HOURS LIVE. `Q151.W6`: "the fight's arena is the player's own labor, so every breach
   costs biography." `Q116.W9` gives the mechanism: "the level remembers your preparation" (players rigged the hotel
-  on an earlier visit). For us: the close grid of a besieged base is the SAME drawn block the player has visited,
+  on an earlier visit). For us: the fight board of a besieged base is the SAME drawn block the player has visited,
   with the pump he escorted parts for and the wall he was paid to raise. A siege at a base the player never touched
   is weaker content, and the build-up should prefer bases with a family deed in them.
 - ATTACHMENT IS MANUFACTURED BY LABOR. `Q151.W9` and `Q055.W9`: unwritten people become devastating losses through
@@ -153,10 +153,10 @@ off, a RETAKE contract in the exiles' new hall, and a later act that SHOWS it (`
   degrades on the settlement clock). The stated day is real: if the company does not arrive, the base fights without
   it. But QR-J's rule holds: the TAKEN contract is not expired; it turns into its aftermath leg (see 7).
 
-### 5. The fight on the close grid
+### 5. The fight on the fight board
 
 - ONE BLOCK, ONE FIGHT. `Q060.W4`: a small grid "so you hold the WHOLE puzzle in your head". QR-G checklist 8: the
-  work fits one leg and one block. A siege is ONE fight on the base's own drawn block (third votes s2: the close grid is
+  work fits one leg and one block. A siege is ONE fight on the base's own drawn block (third votes s2: the fight board is
   the fight's ground), against a group, on the beat, with the companion, as every fight is. Waves are beats inside
   that fight, not extra fights.
 - THE CLOSED BOX. `Q007.W1` and `Q007.P1` ("a besieged shelter"): a sealed location with a fixed cast concentrates the
@@ -304,7 +304,7 @@ place or thing that shows it. For a fall, in the order the player will usually m
    never free. (`Q151.X2`, `Q151.P2`, `Q136.P5`)
 6. Before the fight, one formation screen with three posts: ROOF, GATE, WAY OUT. The member on WAY OUT cannot be struck
    down in that fight and walks the civilians out. (`Q006.P3`, `Q137.W4`, `Q137.P5`)
-7. The fight is on the base's own close grid, with the base's people as a side, a way-out edge that never closes, and a
+7. The fight is on the base's own fight board, with the base's people as a side, a way-out edge that never closes, and a
    win that is HOLD or HALL, never extermination. (`Q151.W6`, `Q151.W7`, `Q116.W6`, `Q030.W1`)
 8. Roofs are high ground and can collapse during a siege; the mound is still the only terrain EFFECT. (third votes s7,
    `Q099.W4`)

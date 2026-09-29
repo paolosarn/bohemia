@@ -8,7 +8,7 @@ STATUS: draft:true, research only, nothing built (rule 35)
 
 ## THE SITUATION
 Act 2, the world clawing back: brownouts, not darkness, and most blocks buy their breaker share. The
-player arrives at dusk. On the close grid one window cell in a lit row is black. On the step of the next
+player arrives at dusk. On the settlement screen one window in a lit row is black. On the step of the next
 door sits a neighbour in a Balenciaga puffer, smoking, with two phones on her knee. A note is taped to
 the dark door. She is not looking at the window. She is very much not looking at it.
 
@@ -32,18 +32,18 @@ WITHHELD: she stopped paying his share for him two weeks ago, when her own went 
   - "One electricity from me when his light's on."
 - PAY, SHOWN BEFORE ACCEPT: 1 electricity on return.
 - NEGOTIATION: ASK FOR MORE: "One. It's what I have this week." ADVANCE: none.
-- ACCEPT / DECLINE: ACCEPT opens his townhouse on the close grid. DECLINE, or closing the screen, or never tapping the building, writes nothing: no row, no line, no look, and the offer sits in the same building on the next visit while the job is still real.
+- ACCEPT / DECLINE: ACCEPT opens his townhouse (a building he taps). DECLINE, or closing the screen, or never tapping the building, writes nothing: no row, no line, no look, and the offer sits in the same building on the next visit while the job is still real.
 
 ## THE CHOICES
-1. TAKE IT. One electricity on return, from her hand. He enters the door cell (the squeeze into the
-   interior, same grid), throws the breaker, finds Mr. Okafor: most runs, asleep in his chair, cold and
+1. TAKE IT. One electricity on return, from her hand. He taps the door (the townhouse opens in one
+   view), throws the breaker, finds Mr. Okafor: most runs, asleep in his chair, cold and
    alive; he wakes, confused, and the light is on.
 2. TAKE IT, AND ASK FOR IT UP FRONT. She pays now, holding the note out with it. Two asks land.
 3. NO. "Okay, no worries." She goes back to her phones. The window stays dark. When he next passes it is
    still dark, and she is still on the step. Nothing is written.
 
 ## WHAT THE LEDGERS REMEMBER
-Declining leaves nothing. DONE: the window cell is lit (the result in the place); the feed carries a
+Declining leaves nothing. DONE: the window is lit (the result in the place); the feed carries a
 line from Marisol's account; the block's share ledger shows Okafor's share paid, by whom it does not
 say. DROPPED: a deed. THE ONE RATIONED TWIST (a minority of runs): the breaker is off and the TV inside
 is on anyway, showing a face talking with no sound, and Mr. Okafor is watching it. This is the whisper

@@ -1,3 +1,4 @@
+> SECOND READING of #154 (QUESTS 9/29): same quest (the Forsworn Conspiracy), a second angle at the same depth: #154 reads the city that frames you, this reads the dispossession under it; see research/QR_V_THE_SAME_QUEST_STUDIED_TWICE_9_29_26.md.
 # BOHEMIA QUESTBOOK #192 — "THE FORSWORN CONSPIRACY (PULL ONE THREAD IN A CLEAN CITY AND THE WHOLE FLOOR IS A MASS GRAVE)"
 **Game:** The Elder Scrolls V: Skyrim (2011)
 **Studio:** Bethesda Game Studios

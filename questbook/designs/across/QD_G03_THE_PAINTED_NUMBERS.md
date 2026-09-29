@@ -4,7 +4,7 @@ ACT: across (1->3)
 KIND: across-acts
 CRISIS: the Network crumbling (the Act 3 landing)
 ECONOMY: bust (Act 1) -> boom (Act 3)
-PLACE: the flood channel camp on the main road north of the Strip (a map stop the main quest crosses in Act 1); in Act 3 the same place is a reclaimed street of rebuilt houses on the close grid.
+PLACE: the flood channel camp on the main road north of the Strip (a map stop the main quest crosses in Act 1); in Act 3 the same place is a reclaimed street of rebuilt houses on its settlement screen.
 STATUS: draft:true, research only, nothing built (rule 35)
 
 REBUILT FROM: the thesis assembled from six scattered, missable pieces (`Q098.X1`), the best content in an unmarked hole in a rock (`Q104.X3`), and the best branch gated on bookkeeping across games (`Q096.X1`, `Q121.X1`). The phone version is ONE piece per act, on a road the main quest must travel, with a full read even if you did nothing.
@@ -18,10 +18,10 @@ First line: "Four hundred and twelve. You live here? Then you're a number. Stand
 ACT 3: his daughter ALBA, at the street's first door, holding the same can, now empty.
 
 ## THE FRONT DOOR AFTER 9/28
-(Added 9/28.) This is not a contract, so it has no offer screen. Under the third votes, on-foot play survives only in fights and SPECIAL PLACES; the flood channel camp is a map stop with a settlement screen; Iker is a face on that screen's main road (a building-slot) and 'walk past' becomes 'do not tap him', with the same ledger. The person here speaks only when tapped or approached on that ground, never first, and never in the first 60 s. See questbook/research/QR_P_THE_FRONT_DOOR_MOVED_9_28_26.md.
+(Added 9/28.) This is not a contract, so it has no offer screen. Under the third votes and rule 38 (9/28: the walk is dead), the flood channel camp is a map stop with a settlement screen; Iker is a face on that screen's main road (a building-slot) and 'walk past' becomes 'do not tap him', with the same ledger. The person here speaks only when tapped or approached on that ground, never first, and never in the first 60 s. See questbook/research/QR_P_THE_FRONT_DOOR_MOVED_9_28_26.md.
 
 ## THE CHOICES (Act 1)
-A. HELP HIM COUNT. One map day walking the camp with him, one cell at a time on the close grid. Cost: 1 day. Your family's shelter gets a number.
+A. HELP HIM COUNT. One map day going shelter to shelter with him on the camp's screen, one tap each. Cost: 1 day. Your family's shelter gets a number.
 B. PAY HIM TO SKIP YOUR BLOCK. 1 battery. "Nobody counts you, nobody finds you." Your family's shelter has no number.
 C. WALK PAST. Free. He counts your family anyway, because he counts everyone, and he gets one family wrong (he writes a number on an empty shelter).
 

@@ -3,7 +3,7 @@ ACT: 3
 KIND: contract
 CRISIS: none
 ECONOMY: boom
-PLACE: the cartel yards home base (by act 3 a licensed freight house, town tier); the job is the yards' back lot on the close grid, or the south road out of the valley
+PLACE: the cartel yards home base (by act 3 a licensed freight house, town tier); the job is the yards' back lot (the fight board if it comes to a fight), or the south road out of the valley
 SITUATION: the yards went legitimate under a new boss, the old gunmen will not leave the back lot, and council inspectors arrive in six days -> the back lot is clear, the yards pass inspection, and the yards' board changes for good from gunman jobs to haul jobs
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 TWIST: none
@@ -22,7 +22,7 @@ Act 3. The cartel yards became a freight house with a council licence and a new 
 - ACCEPT / DECLINE. Declining writes nothing.
 
 ## THE CHOICES
-A. MOVE THEM BY FORCE. A close-grid fight in the back lot among stacked crates. Lupe asked for them alive: struck-down old men get the law's injury, not a grave, unless the dice say otherwise, and she will know.
+A. MOVE THEM BY FORCE. A fight on the fight board in the back lot among stacked crates. Lupe asked for them alive: struck-down old men get the law's injury, not a grave, unless the dice say otherwise, and she will know.
 B. BUY THEM IN. Carry Lupe's offer: licensed night guards for the freight house, her wages, no guns but the licensed ones. The oldest says yes if the family's truck is the one he remembers from the tyre run (QD-S04); otherwise it takes one more night of talk.
 C. WALK THEM OUT. Escort the seven, with their guns, two legs south to the valley's edge. They leave the way they came in.
 Same pay on every road.

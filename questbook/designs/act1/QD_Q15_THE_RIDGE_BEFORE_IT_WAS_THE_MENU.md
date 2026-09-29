@@ -14,7 +14,7 @@ Shaped from the story master's act 1 opening: the raid, a sibling dies, the grie
 The surviving older sibling (QD-F04's companion, a role, not a name), at the top, already digging. After sixty seconds of only the shovel: "Aquí. He liked it up here. You can see the lights."
 
 ## THE CHOICES
-1. DIG. The player takes cells of ground on the close grid, one per beat, next to the sibling. It takes as long as it takes.
+1. DIG. The player taps the ground beside the sibling, one spadeful a beat, on the ridge's screen. It takes as long as it takes.
 2. SIT. The player sits on the rock. The sibling digs alone and does not complain.
 3. SAY SOMETHING. One line the player picks from three (a memory, a promise, nothing). The line is kept.
 

@@ -1,25 +1,29 @@
 # QD-F05: THE SAME KITCHEN, TWENTY YEARS ON
-ACT: 2 (the first minute after a flip from 1)
+ACT: 2 (the first minute of act 2, after the first hop from act 1, once act 2 has unlocked)
 KIND: main-beat
 CRISIS: none
 ECONOMY: either
-PLACE: the family house from QD-F01 and its block, derived from the act 1 ledgers, on the close grid
+PLACE: the family house from QD-F01 and its block, derived from the act 1 ledgers, a building on the family block's settlement screen
 STATUS: draft:true, research only, nothing built (rule 35)
 
 ## THE SITUATION
-He taps the Gen 2 face on the cracked phone in the city view (three acts law s3). The map is the same
-valley, a generation on. He squeezes in on the family block. The clock restarts: sixty seconds of
-silence (QR-F rule 15). He is a different person (the Gen 2 descendant), the same one-cell size. The
-house is derived, never authored (three acts law s2a), and never below the act 1 ruin (32b).
+(Swept 9/29 for VAMILY rules 38 to 40: no flip at the start, the walk is dead, the company inherits. See QR-W.)
+Act 2 is not open at the start. It unlocks mid-act 1 (default: when the company takes its first home
+base, rule 39c), and the first hop is a big transition. At that first hop he customizes the Gen 2 person,
+who starts GENERATED FROM the Gen 1 person he played (face, build, the family law; rule 39c). After that
+the Gen 2 face is on the cracked phone in the city view and the flip is his. The map is the same valley, a
+generation on. The company with him is the HEIRS of the act 1 company, prepared from the ledger, the
+family's gear still in the family (rule 39d). He taps the family block. The clock restarts: sixty seconds
+of silence (QR-F rule 15). The house is derived, never authored (three acts law s2a), and never below the
+act 1 ruin (32b).
 
-SECOND BY SECOND:
-- 0-10 s: he stands on the same kitchen cell act 1 started on. One cell per press. The counter is a
-  newer counter; pressing into it rocks nothing. Outside, a pump motor hums (reclaimed, or not, by the
-  ledger).
-- 10-30 s: THE THING THE PAST LEFT, on the path to the door, read from act 1's ledgers:
-  - if the power station was recovered: a rewired socket block where the empty cell was, and a solar
+SECOND BY SECOND (on the settlement screen; the kitchen is a building he taps):
+- 0-10 s: the block, then the kitchen he opened act 1 in. The counter is a newer counter; tapping it
+  rocks nothing. Outside, a pump motor hums (reclaimed, or not, by the ledger).
+- 10-30 s: THE THING THE PAST LEFT, drawn beside the door, read from act 1's ledgers:
+  - if the power station was recovered: a rewired socket block where the empty spot was, and a solar
     lead running out the window to the roof;
-  - if it was not: the cut cable, still there, painted over, the empty cell used as a shelf;
+  - if it was not: the cut cable, still there, painted over, the empty spot used as a shelf;
   - if QD-F01's last cell was LEFT for the relative: a lamp on the table, old, still working.
   The yard's drag marks are gone; a path of laid pavers runs where they were (if the block was
   reclaimed), or the dirt is the same dirt (if not).
@@ -31,18 +35,18 @@ SECOND BY SECOND:
   estuvo oscura.")
 
 ## THE PERSON AND THE FIRST LINE
-After 60 s, within two cells, the oldest person on the block, sitting where the relative sat on the step
+After 60 s, when tapped, the oldest person on the block, sitting where the relative sat on the step
 in act 1 (derived: if the relative lived, it is her, old; if not, a stranger), in the past tense: "The
 one before you stood right there, the morning after they took the box. Didn't say a word either."
 
 ## THE FRONT DOOR AFTER 9/28
-(Added 9/28.) This is not a contract, so it has no offer screen. Under the third votes, on-foot play survives only in fights and SPECIAL PLACES; the family house stays a special place in every act; the reclaimed block around it is the family home base's settlement screen. The person here speaks only when tapped or approached on that ground, never first, and never in the first 60 s. See questbook/research/QR_P_THE_FRONT_DOOR_MOVED_9_28_26.md.
+(Added 9/28, re-cut 9/29.) This is not a contract, so it has no offer screen. The family house is a building on the family block's settlement screen in every act; nothing is walked (rule 38). The person here speaks only when tapped, never first, and never in the first 60 s. See questbook/research/QR_P_THE_FRONT_DOOR_MOVED_9_28_26.md.
 
 ## THE CHOICES
 1. TAKE THE FRAME: a thing he carries in act 2. It costs nothing and later opens one past-tense line
    from anyone in the valley who knew the act 1 family by face.
 2. LEAVE THE FRAME: nothing. The frame stays on the wall.
-3. FLIP BACK: he may leave within the minute; nothing is forced, nothing speaks.
+3. FLIP BACK: once act 2 has unlocked the flip is his; he may leave within the minute; nothing is forced, nothing speaks.
 
 ## WHAT THE LEDGERS REMEMBER
 Act 2's own ledger, laid on top (three acts law s2c): frame taken or left. Nothing from act 1 is
@@ -56,7 +60,7 @@ old one.
 - `Q144.W9`: the second life proves the first one happened; inherited geography reprices the start.
 - `Q144.W7`: inherited people speak in past tense; the cheapest reactivity, the heaviest freight.
 - `Q050.W5`: actions in one era materially reshape another.
-- `Q012.W3`: the past is a place you visit; the kitchen is literally the same cells.
+- `Q012.W3`: the past is a place you visit; the kitchen is literally the same room.
 - `Q049.W8`: the family's progress has a physical form, a home that visibly changes.
 
 ## FLAWS IT AVOIDS

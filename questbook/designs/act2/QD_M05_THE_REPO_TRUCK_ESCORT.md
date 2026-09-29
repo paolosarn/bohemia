@@ -4,7 +4,7 @@ ACT: 2
 KIND: contract
 CRISIS: none
 ECONOMY: boom
-PLACE: a solar co-op settlement on the east bench (the hall is the co-op office in a former credit union); the job is eleven roofs in a subdivision one map stop west, one block of the close grid per roof cluster.
+PLACE: a solar co-op settlement on the east bench (the hall is the co-op office in a former credit union); the job is eleven roofs in a subdivision one map stop west, one roof cluster at a time (a fight board cut from each cluster if it comes to a fight).
 STATUS: draft:true, research only, nothing built (rule 35)
 
 A COMPANY MEMBER REACTING TO A TAKEN CONTRACT. The reaction exists only after the yes (QR-M rule 3). Names are placeholders.
@@ -26,8 +26,8 @@ The client on the offer screen (below). Coco speaks only after the contract is t
 ## THE CHOICES
 At camp, before the first roof (an event screen, Coco's face):
 A. SHE SITS IT OUT. She guards the truck. The formation is one short for the job's one fight (roof seven: the family's cousins, a group). Harder fight, no cost to her.
-B. SHE COMES. She comes and takes her cell. If the player's orders on roof seven send the company at the unarmed family, her red line fires: she walks at the next settlement, reason said aloud, gear left on the truck. If not, nothing fires.
-On roof seven (the close grid), whatever A or B:
+B. SHE COMES. She comes and takes her place in the formation. If the player's orders on roof seven send the company at the unarmed family, her red line fires: she walks at the next settlement, reason said aloud, gear left on the truck. If not, nothing fires.
+On roof seven, whatever A or B:
 C. LEAVE ROOF SEVEN. A grandmother's oxygen concentrator runs off that roof. The player tells the crew to skip it. The contract FINISHES short (the priced refusal, `Q139.P2`): Dolores pays 9 of 12 and says "I pay for eleven, I got ten."
 
 ## WHAT THE LEDGERS REMEMBER

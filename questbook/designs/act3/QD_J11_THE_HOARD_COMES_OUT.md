@@ -3,7 +3,7 @@ ACT: 3
 KIND: contract
 CRISIS: the Network crumbling
 ECONOMY: boom
-PLACE: a council town beside the dark data-fortress quarter (the settlement); the job is a school gymnasium and the queue outside it, one block of the close grid
+PLACE: a council town beside the dark data-fortress quarter (the settlement); the job is a school gymnasium and the queue outside it, one block of the city, cut as the fight board
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 STAGE: THE FALL (QR-J): the Network's buildings go dark; its hoards come out
 LANDS THREE WAYS: yes (see UNDER LIBERATE, RESPECT, BECOME)
@@ -34,7 +34,7 @@ and the queue outside the gym is already two blocks long.
 The clerk, tearing lottery tickets off a roll: "Do you know how to make a queue fair? Because I don't."
 
 ## THE CHOICES (inside the taken contract)
-1. KEEP THE LINE A LINE. Three days on the grid: the gym door, the queue, the loading bay. On the second night a
+1. KEEP THE LINE A LINE. Three days at the gym: the gym door, the queue, the loading bay (each night's trouble a fight on the fight board, under the 15-minute ceiling). On the second night a
    group tries to take the loading bay. Ways through: close the bay and move the draw inside, hold the bay (rule 36
    applies), or give the group tickets and a place at the back of the line, which some take. Full pay.
 2. PUT THE NETWORK'S FAMILIES IN THE DRAW. On day two, a dozen families from the Network's own quarter stand at the

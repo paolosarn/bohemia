@@ -20,7 +20,7 @@ THE TAKE CONTRACT, the other hall. In a boom, power is what everyone fights over
 - ACCEPT / DECLINE. Declining writes nothing. The yards post it again next refresh or hire someone the map can see.
 
 ## THE CHOICES
-- A. STORM IT. One fight on the tower's close grid: the lobby, the stair core, the roof. The roof is the high ground and the goal; a panel row can collapse under fire and stop being high ground. The families' floors are on the grid; a lane to the back street stays open for them the whole fight. Win: the roof held at the end.
+- A. STORM IT. One fight on the tower's fight board: the lobby, the stair core, the roof. The roof is the high ground and the goal; a panel row can collapse under fire and stop being high ground. The families' floors are tiles on the board; a lane to the back street stays open for them the whole fight. Win: the roof held at the end.
 - B. CUT THE WATER (the siege by waiting). Close the tower's water line at the pump for four map days. Nobody is fought. The tower opens its door on the fifth. Pays the same as A. The families were thirsty for four days, and the feed says so.
 - C. OPEN ON TERMS (the talk option). The Reds' roof keeper wants out. He opens the stair if his floor walks out with what they carry. Costs 3 of the fee, paid to him.
 At the end of any route: KEEP IT WORKING (TAKEN: the array powers the Cartel) or BREAK THE PANELS (RUINED). Same pay either way.
@@ -40,4 +40,4 @@ On the second floor the school timetable on the door has tomorrow's lessons fill
 - `Q061.W7`: capture-and-rule; TAKEN keeps the place working.
 
 ## FLAWS IT AVOIDS
-`Q130.X9` (the crueller route never pays more), `Q061.X6` (raiding villages left unexamined: the families are on the grid and in the feed), `Q017.X1` (a forced fight: route C has none).
+`Q130.X9` (the crueller route never pays more), `Q061.X6` (raiding villages left unexamined: the families are on the fight board and in the feed), `Q017.X1` (a forced fight: route C has none).

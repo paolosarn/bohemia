@@ -22,7 +22,7 @@ The squat sits in a building the tower says it owns since the tower said so. Tav
 - ACCEPT / DECLINE. Declining writes nothing. The offer leaves on auction day, as Nines says.
 
 ## THE CHOICES
-A. BREAK HIM OUT. The holding room is on the tower's second floor; a close-grid fight up one stairwell against the tower's guard.
+A. BREAK HIM OUT. The holding room is on the tower's second floor; a fight on the fight board up one stairwell against the tower's guard.
 B. BUY HIS DEBT. 40 batteries of the family's own at the auction. The paper is the family's. Tear it up, or keep it in the truck.
 C. CARRY THE SQUAT'S OFFER. Ten squatters' labour for a month on the tower's roof, instead of Tavo's year. Slower; the tower's clerk takes it.
 Same pay from the squat on every road.

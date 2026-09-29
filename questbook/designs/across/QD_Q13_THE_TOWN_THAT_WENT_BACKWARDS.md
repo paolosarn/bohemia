@@ -19,7 +19,7 @@ ACT 3: the landing is a contract offered in the OTHER base's hall (the one the f
 - ACCEPT / DECLINE. Declining writes nothing; the taken base stays taken this act.
 
 ## THE CHOICES
-A. TAKE IT BACK. The hardest fight of the contract board this act, on the close grid inside the walls. The mound is the roof.
+A. TAKE IT BACK. The hardest fight of the contract board this act, on the fight board inside the walls. The mound is the roof.
 B. GET THE PEOPLE OUT. At night, through the tunnels; the band keeps the base, the people walk to the held base.
 C. "I WON'T FIGHT INSIDE." Priced: the family escorts only those who come to the gate; pay 7; half the people stay.
 

@@ -3,7 +3,7 @@ ACT: 1
 KIND: contract
 CRISIS: none
 ECONOMY: bust
-PLACE: the Strip casino block home base (fortress tier, RAIDED shape: one offer left, pays in chips); the job is the casino's charge room on the close grid
+PLACE: the Strip casino block home base (fortress tier, RAIDED shape: one offer left, pays in chips); the job is the casino's charge room (the fight board if it comes to a fight)
 SITUATION: a raid last week: a roaming party hit the counting room, took 300 batteries and shot two guards, and word is they come back for the charge room the next night the power is up -> the charge room holds (or is empty when they come), the Strip's chips trade at face again, and a party beaten here counts toward its name
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 TWIST: none
@@ -22,7 +22,7 @@ Last week the Glass Dogs, a roaming party of eight, hit the casino's counting ro
 - ACCEPT / DECLINE. Declining writes nothing. The offer leaves on the third night, whatever happens.
 
 ## THE CHOICES
-A. HOLD THE ROOM. A close-grid fight against eight in a room of slot machines, which are cover and noise. The room holds or it does not.
+A. HOLD THE ROOM. A fight on the fight board against eight in a room of slot machines, which are cover and noise. The room holds or it does not.
 B. EMPTY THE ROOM. Move the charge cells to the cage vault before dark. The Dogs find nothing and leave angry. No fight; the house loses a night of power sales.
 C. RIDE OUT TO THE DOGS. Tell their camp the room is empty. Priced, and Lucero hears the price: they take the casino bar instead, a smaller loss.
 Same pay on every road.

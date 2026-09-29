@@ -99,7 +99,7 @@ The library's loudest verdict on late games is a complaint, repeated across a do
 8. NO BONUS DUNGEON. Every act 3 side contract touches the rocket, the Network's crumbling, or a family thread. (`Q069.X5`, `Q084.P9`)
 9. THE ROCKET LANDS ON SCREEN. Whatever the ending, the ground-side consequence is shown by people the player knows. (`Q079.X2`, `Q142.X2`)
 10. THE TWIST IS RATIONED IN ACT 3 TOO. At least two of every three act 3 contracts are plain jobs. (`Q148.X3`)
-11. NO COMBAT GAUNTLET CLIMAX. The last hours stay contracts, people and choices; fights are on the close grid as everywhere else, never a corridor of them. (`Q039.X4`, `Q017.P9`)
+11. NO COMBAT GAUNTLET CLIMAX. The last hours stay contracts, people and choices; fights are on the fight board as everywhere else, never a corridor of them. (`Q039.X4`, `Q017.P9`)
 12. THE MAIN CHARACTER NEVER DIES; OTHERS DO, LEGIBLY. Company deaths in late set pieces follow rule 36 (20% dead, else 30 to 40 days hurt) and are readable consequences of assignment. (`Q006.P4`)
 
 ## WHAT TO AVOID

@@ -4,7 +4,7 @@ ACT: 1
 KIND: contract
 CRISIS: none
 ECONOMY: bust
-PLACE: a hillside block of houses on one water main; the job is the street itself, top of the rise to the bottom, one block on the close grid
+PLACE: a hillside block of houses on one water main; the job is the street itself, top of the rise to the bottom, one block of the city (the fight board if it comes to a fight)
 STATUS: draft:true, research only, nothing built (rule 35)
 
 RE-CUT FROM: quests/bq/S25_THE_PRESSURE_GOES_BACKWARD.bq
@@ -20,7 +20,7 @@ THE SCREEN (3 lines, 31 words): "Nine houses, same water, and it isn't food." / 
 PAY: 7 batteries on report. NEGOTIATION: ask for more (8; the second ask closes the screen for this visit, nothing written); ask for an advance (she gives a jar of boiled water, not batteries). ACCEPT or DECLINE; decline: "Fine. I'll keep chalking."
 
 ## THE PERSON AND THE FIRST LINE
-On the grid the chalked doors are the evidence: marked houses sit at the top of the rise, clean ones at the bottom. The fitter at the standpipe, asked, says the rule once: "A main keeps muck out by pushing. Take the push off and every hose joined to it drinks backward." The pump man three doors down, asked about anything, volunteers: "My pump's been running rough since the water went funny."
+On the street the chalked doors are the evidence: marked houses sit at the top of the rise, clean ones at the bottom. The fitter at the standpipe, asked, says the rule once: "A main keeps muck out by pushing. Take the push off and every hose joined to it drinks backward." The pump man three doors down, asked about anything, volunteers: "My pump's been running rough since the water went funny."
 
 ## THE CHOICES
 A. PULL THE HOSE. Find the pump on the bathroom line, the garden hose off the same tee, sitting under water in a rain barrel. Pull it out. Cost: nothing but finding it. Clean in four map days.

@@ -20,8 +20,8 @@ THE DEFEND CONTRACT, QR-R's plain shape. The Destroyers are coalescing in act 1,
 - ACCEPT / DECLINE. Declining writes nothing. The Destroyers still come on the third night; the tower's fate is computed.
 
 ## THE CHOICES
-Before the fight: the formation screen, three posts: ROOF (the deck, the only high ground), GATE (the ramp), WAY OUT (the stair to the back lot). Three preparation days can be spent raising cover cells (cars pushed into the ramp), buying medicine, or moving people.
-- A. HOLD. One fight on the close grid, sixteen bars on the beat. The tower's militia hold the pay booth. Win is holding, or dropping their leader. Pay as agreed.
+Before the fight: the formation screen, three posts: ROOF (the deck, the only high ground), GATE (the ramp), WAY OUT (the stair to the back lot). Three preparation days can be spent raising cover (cars pushed into the ramp tile), buying medicine, or moving people.
+- A. HOLD. One fight on the fight board, a tough fight: 8 to 15 minutes, never past 15 (the hold is a set number of bars inside that ceiling). The tower's militia hold the pay booth. Win is holding, or dropping their leader. Pay as agreed.
 - B. MOVE THE KIDS AND THE SEED. Spend the three days walking the children and the seed trays to the solar field (one escort leg, no mandatory fight). The tower's militia fight alone; the tower is likely RUINED but the seed lives. Priced: 3 batteries, the seed sack kept by the tower.
 - C. PAY THEM (the talk option). Marisol's harvest goes to the Destroyers' camp as tribute; they move on. Nothing is fought. The tower lives hungry. Priced: 2 batteries, no seed.
 - In A, the way-out edge never closes: leaving mid-fight with the civilians finishes the contract at half pay.

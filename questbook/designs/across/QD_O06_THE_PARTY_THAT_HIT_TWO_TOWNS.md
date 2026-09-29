@@ -20,7 +20,7 @@ a named hunt on a third board. The depot posts it because the party took a truck
 - PAY: 9 batteries. NEGOTIATION: ask for more to 11; advance of 3.
 
 ## THE CHOICES
-1. Follow the tracks, fight the party on the grid at their camp.
+1. Follow the tracks, fight the party on the fight board at their camp.
 2. Buy the truck back from them (6 of your batteries): no fight, they keep roaming.
 3. Find they are the farm tower's own people, gone hungry: finish at a price, return the truck, let them go.
 

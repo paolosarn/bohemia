@@ -3,12 +3,12 @@ ACT: 1
 KIND: contract
 CRISIS: none
 ECONOMY: bust
-PLACE: a clinic run out of a tyre shop on a paved road, and a squatted apartment block three streets away on the close grid
+PLACE: a clinic run out of a tyre shop on a paved road, and a squatted apartment block three streets away (the job's place; one house tile if it comes to a fight)
 STATUS: draft:true, research only, nothing built (rule 35)
 TWIST: T23 THE THING YOU WERE SENT FOR IS A PERSON (bank: questbook/research/QR_C_THE_TWIST_BANK_9_27_26.md). Costs A PERSON. Lands MID-JOB.
 
 ## THE SITUATION
-A clinic had a medical fridge stolen: a small cold box on a trolley, battery-backed. The clinic's owner pays 10 batteries to get it back from the squat where it was seen. On the grid, the player finds the box on the fourth floor, plugged into a car battery. It is keeping insulin cold for a boy who is asleep next to it. The "stolen goods" are a child's next month.
+A clinic had a medical fridge stolen: a small cold box on a trolley, battery-backed. The clinic's owner pays 10 batteries to get it back from the squat where it was seen. At the squat, the player finds the box on the fourth floor, plugged into a car battery. It is keeping insulin cold for a boy who is asleep next to it. The "stolen goods" are a child's next month.
 
 ## THE PERSON AND THE FIRST LINE
 Dra. Ines Vela, fifties, a white sculpted coat with the hem burned, sitting on a stack of tyres with a ledger on her knee. She speaks when the player taps the clinic on the settlement screen.
@@ -24,7 +24,7 @@ First line: "Somebody took my cold box. Diez baterías if it comes back. I don't
   - "The squat three streets over. I don't need to know how."
 - PAY, SHOWN BEFORE ACCEPT: 10 batteries when the box comes back.
 - NEGOTIATION: ASK FOR MORE: "Diez. The box is worth twelve and I am not paying you twelve." ADVANCE: 1 battery if asked, "for the stairs".
-- ACCEPT / DECLINE: ACCEPT opens the squat on the close grid. DECLINE, or closing the screen, or never tapping the building, writes nothing: no row, no line, no look, and the offer sits in the same building on the next visit while the job is still real.
+- ACCEPT / DECLINE: ACCEPT puts the squat on the map as the job's place. DECLINE, or closing the screen, or never tapping the building, writes nothing: no row, no line, no look, and the offer sits in the same building on the next visit while the job is still real.
 
 ## THE CHOICES
 - A. TAKE THE BOX BACK. The fee is paid in full. Cost: A PERSON (the boy's mother cannot keep the insulin cold; the boy is not seen again in this act). The clinic's standing rises.

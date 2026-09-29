@@ -28,7 +28,7 @@ Usually."
   - "Write what the dial says. Nobody shoots at meter readers. Usually."
 - PAY, SHOWN BEFORE ACCEPT: 1 battery on the book's return.
 - NEGOTIATION: ASK FOR MORE: "Una. Y te doy the brownout schedule a day early" (a real thing, see choice 2). ADVANCE: none.
-- ACCEPT / DECLINE: ACCEPT opens the four streets on the close grid (the route is the job's ground). DECLINE, or closing the screen, or never tapping the building, writes nothing: no row, no line, no look, and the offer sits in the same building on the next visit while the job is still real.
+- ACCEPT / DECLINE: ACCEPT puts the four streets on the map (the route is the job's place). DECLINE, or closing the screen, or never tapping the building, writes nothing: no row, no line, no look, and the offer sits in the same building on the next visit while the job is still real.
 
 ## THE CHOICES
 1. **"Not worth my time."** She shrugs and slides the book to the next person in line. "Somebody's cousin will do
@@ -36,7 +36,7 @@ Usually."
    his company's opinion and the phone feed are untouched (C6, C7).
 2. **"Two batteries."** (the one haggle) "Una. Y te doy the brownout schedule a day early." One battery, plus a real
    thing: he learns where the lights will go out next, which matters for a company. Fee locks.
-3. **"Fine."** TAKEN. The player walks four streets on the close grid, cell by cell, and reads forty dials. That is
+3. **"Fine."** TAKEN. The party works four streets, door by door on each street's screen, and reads forty dials. That is
    the whole job; there is no twist (C15). What makes it a contract and not a fetch: at the doors are people. A man
    who asks the player to read his meter low (the player may; a lie to the clerk is written as told and happened,
    C16). A woman who wants her number read out loud because she cannot see it. A dog. Done: one battery and the

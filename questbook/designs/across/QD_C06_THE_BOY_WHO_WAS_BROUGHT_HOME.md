@@ -25,7 +25,7 @@ First line: "My sister's boy ran off. Tráemelo. He's small, he's stupid, he's f
   - "He's in the drains under the highway. Siete when he's through this gate."
 - PAY, SHOWN BEFORE ACCEPT: 7 batteries, paid when the boy is through the gate.
 - NEGOTIATION: ASK FOR MORE: "Ocho, and you feed him on the way" (the extra battery is the food). ADVANCE: none; Rafa pays for results.
-- ACCEPT / DECLINE: ACCEPT opens the drain on the close grid. DECLINE, or closing the screen, or never tapping the building, writes nothing: no row, no line, no look, and the offer sits in the same building on the next visit while the job is still real.
+- ACCEPT / DECLINE: ACCEPT opens the drain on the fight board. DECLINE, or closing the screen, or never tapping the building, writes nothing: no row, no line, no look, and the offer sits in the same building on the next visit while the job is still real.
 
 ## THE CHOICES (act 1)
 - A. BRING HIM HOME. Paid 7. Cost, acts later: A PERSON (the boy's adult life in act 2).

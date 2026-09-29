@@ -19,8 +19,8 @@ ACT 3 (the landing), by read:
 
 ## THE CHOICES
 Act 3:
-- A. HOLD THE OLD WALL. The attack comes where it held last time. The painted trucks are cover cells on the close grid; their roofs are the high ground. Fight as agreed.
-- B. MOVE THE MONUMENT. Spend two preparation days cutting the painted trucks loose to wall the other side too. The depot's people hate it (standing with the depot down); the grid has cover on both sides. Same pay.
+- A. HOLD THE OLD WALL. The attack comes where it held last time. The painted trucks are cover on the fight board; their roofs are the high ground. Fight as agreed.
+- B. MOVE THE MONUMENT. Spend two preparation days cutting the painted trucks loose to wall the other side too. The depot's people hate it (standing with the depot down); the fight board has cover on both sides. Same pay.
 - C. TALK TO THE GRANDCHILDREN. Their leader, TOÑO, will take a freight share for a year instead. No fight; the depot pays the share out of its rocket freight (the rocket build slows by a stage in the feed). Priced: 8 batteries.
 
 ## WHAT THE LEDGERS REMEMBER
@@ -38,4 +38,4 @@ The painted trucks' hazard lights still blink, sixty years on, and nobody at the
 - `Q049.P3`: the settlement is what the family visibly builds across generations.
 
 ## FLAWS IT AVOIDS
-`Q151.X1` (the siege that collapses into a pattern: the attacker changes because the last siege happened), `Q121.X1` (the cosmetic carry-over: the act 1 choice changes the act 3 grid), `Q096.X1` (the best branch gated on cross-act bookkeeping: the never-played read is a full job).
+`Q151.X1` (the siege that collapses into a pattern: the attacker changes because the last siege happened), `Q121.X1` (the cosmetic carry-over: the act 1 choice changes the act 3 fight board), `Q096.X1` (the best branch gated on cross-act bookkeeping: the never-played read is a full job).

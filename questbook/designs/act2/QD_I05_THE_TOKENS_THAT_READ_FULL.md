@@ -4,7 +4,7 @@ ACT: 2
 KIND: contract
 CRISIS: none
 ECONOMY: boom
-PLACE: a market settlement where charge tokens change hands; the job is a reconditioning bench in the east yards, one map stop away, one workshop on the close grid
+PLACE: a market settlement where charge tokens change hands; the job is a reconditioning bench in the east yards, one map stop away, one workshop (the fight board if it comes to a fight)
 STATUS: draft:true, research only, nothing built (rule 35)
 
 RE-CUT FROM: quests/bq/S20_THE_NAME_ON_THE_COUNTERFEIT.bq
@@ -20,7 +20,7 @@ THE SCREEN (3 lines, 33 words): "Eleven tokens yesterday read full and held noth
 PAY: 9 batteries, each tested on his meter in front of the player. NEGOTIATION: ask for more (10; the second ask closes the screen for this visit, nothing written); ask for an advance (3 now). ACCEPT or DECLINE; decline: "Claro. The counter's open."
 
 ## THE PERSON AND THE FIRST LINE
-On the grid, the forger's workshop in the east yards: dead cells on shelves, a stamp, a meter. He does not stop working. First line: "I recondition dead cells. A third come back good. I used to scrap the rest."
+At the job, the forger's workshop in the east yards: dead cells on shelves, a stamp, a meter. He does not stop working. First line: "I recondition dead cells. A third come back good. I used to scrap the rest."
 
 ## THE CHOICES
 A. HE WORKS EVERY HOLLOW ONE GOOD. He agrees to four months of nights, cell by cell. Cost: the party carries the hollow tokens back from the market to his bench (half a map day). Nobody in the market learns there was a reason to doubt a token.

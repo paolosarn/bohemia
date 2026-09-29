@@ -33,7 +33,7 @@ worth a lot, and people will look at you."
 
 ## THE CHOICES
 1. **"No."** "Ándale, next." COST: nothing; he carries it himself or finds another back.
-2. **"Deal."** TAKEN; two batteries in hand. Halfway, on the close grid, a girl of about ten stands on a porch and
+2. **"Deal."** TAKEN; two batteries in hand. Halfway, at a stop on the map, a girl of about ten stands on a porch and
    says plainly: "That's ours. That's from the school." Now the player is inside a taken contract, and the three
    ways out are all in the world:
    a. **Finish.** Deliver; the doctor signs; four more batteries. The school stays dark. The deed is "delivered

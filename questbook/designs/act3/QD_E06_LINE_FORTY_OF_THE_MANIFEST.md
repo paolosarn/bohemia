@@ -8,7 +8,7 @@ STATUS: draft:true, research only, nothing built (rule 35)
 
 ## THE SITUATION
 Act 3: the rocket is being built for the one-way trip to the Moon, and anyone who wants a seat registers
-a name. At the outer gate a line of people in the valley's best clothes waits on the sidewalk cells. A
+a name. At the outer gate a line of people in the valley's best clothes waits on the sidewalk. A
 posted rule on the fence (a label on a machine, not prose): ONE NAME, ONE LINE, SIGNED IN PERSON. A
 registrar at a folding table reads names aloud as people sign. Line forty on the printout has a name and
 no signature, and she has skipped it forty times today. The name is one the player's family ledger knows

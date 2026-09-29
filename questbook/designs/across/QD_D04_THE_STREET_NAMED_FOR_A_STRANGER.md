@@ -14,7 +14,7 @@ Flip to act 1. At the mouth of the wash, Teodora is a person in a place, offerin
 Teodora, in a floor-length black Rick Owens coat she wears because it hides what she is carrying (the youngest). First line: "You're the third one I asked. The first two wanted to walk in front."
 
 ## THE CHOICES
-1. TAKE IT AND WALK IN FRONT. Two days, a fight on the close grid against the Destroyer party. Paid 8. The family's standing with the builders rises. In the act 3 derive, the street is named for the player's grandparent. Teodora's granddaughter runs a stall on it and does not look up.
+1. TAKE IT AND WALK IN FRONT. Two days, a fight on the fight board against the Destroyer party. Paid 8. The family's standing with the builders rises. In the act 3 derive, the street is named for the player's grandparent. Teodora's granddaughter runs a stall on it and does not look up.
 2. TAKE IT AND WALK BEHIND HER. The same two days, the same fight, the same 8 (no reward difference). Nobody sees who held the rear. In act 3 the street is still Teodora's, and the woman on the corner now says "somebody walked behind her. Una familia. They never said."
 3. TAKE IT AND REFUSE THE PAY. Walk in front or behind, costs the fight and the days, paid 0. Written to the record either way.
 Declining is free and leaves nothing: the street stays Teodora's, and no one says you were asked.

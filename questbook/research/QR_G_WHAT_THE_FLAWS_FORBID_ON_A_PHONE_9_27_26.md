@@ -157,7 +157,7 @@ THE FIX: `Q012.W1` and `Q012.P2` (one question, whole game), `Q068.W1` (the pilg
 ### 15. BACK, backtracking and getting lost (6, bite 4)
 X IDS: `Q051.X3`, `Q113.X1`, `Q087.X3`, `Q099.X3`, `Q072.X2`, `Q130.X5`.
 IN BOHEMIA: TWO SCALES, ONE GAME. Far is the map (tap to travel, cheap); close is the honest grid (one cell per press, expensive). `Q113.X1` ("walking across town is the theme") warns that the walk must mean something every time or it is a tax.
-THE RULE: long distance is always the map's job; a contract's street part fits one block of the close grid; every close-grid walk longer than a short stretch has something on it (a person, a prop, a choice).
+THE RULE: long distance is always the map's job; a contract's street part fits one block of the city, cut as the fight board; every close-grid walk longer than a short stretch has something on it (a person, a prop, a choice).
 THE FIX: `Q139.P4` (the mandatory walk, on the beat, where every step is chosen), `Q013.W6` (the city snags you), `Q015.W3` (earned tools that solve traversal), `Q001.P6` (duration as an emotional instrument, used rarely).
 
 ### 16. METR, meters and reward framing (58, bite 3)
@@ -180,7 +180,7 @@ THE FIX: `Q148.P3` (investigations that can conclude wrong), `Q017.W8`, `Q014.W8
 
 ### 19. COMB, combat tax in front of the scene (33, bite 3)
 X IDS: `Q095.X3`, `Q098.X2`, `Q104.X2`, `Q118.X6`, `Q039.X4`, `Q017.X1`, `Q136.X3`, `Q080.X6`.
-IN BOHEMIA: every fight is always against a group, on the close grid, on the beat. `Q095.X3`: if the thematic climax has a fight in front of it, the fight is a tax. `Q017.X1`: preaching many paths then forcing one fight at the climax. On a phone a fight is the longest thing in a sitting.
+IN BOHEMIA: every fight is always against a group, on the fight board, on the beat. `Q095.X3`: if the thematic climax has a fight in front of it, the fight is a tax. `Q017.X1`: preaching many paths then forcing one fight at the climax. On a phone a fight is the longest thing in a sitting.
 THE RULE: no contract's emotional scene sits behind a mandatory fight unless the fight IS the scene; every contract with a fight has one route that avoids or shortens it; a lost fight routes to a result, never to a reload.
 THE FIX: `Q052.P6` and `Q060.P2` (telegraphed, fair fights), `Q095.P7` (make the dial earn its place), `Q140.P2` (the verdict arrives regardless of skill).
 
@@ -224,7 +224,7 @@ THE FIX: `Q149.P1` (the settlement web, named citizens with schedules), `Q144.P3
 
 1. SHOW IT OR IT DID NOT HAPPEN. Every fail, close, deadline and cross-act consequence has a diegetic tell the player meets within two map stops or one open of the city view. (Families 1, 2, 3, 17.)
 2. NO WALL-CLOCK TIME. The world moves on travel and on the beat, never while the app is closed, never while a person is talking unless the scene says so. (Family 2.)
-3. ONE SITTING, ONE LEG. A contract's work fits one place and one block of the close grid; a failure costs that leg only. (Families 5, 13, 15.)
+3. ONE SITTING, ONE LEG. A contract's work fits one place and one block of the city, cut as the fight board; a failure costs that leg only. (Families 5, 13, 15.)
 4. TWO POINTERS PER OBJECTIVE, NO OUTSIDE HELP. (Family 4.)
 5. THE NO IS FREE AT THE OFFER AND PRICED INSIDE. (Family 9.)
 6. THE THESIS IS ON THE ROAD. (Families 10, 14.)
@@ -242,7 +242,7 @@ A builder answers every line YES or the item does not ship. Each line cites the 
 5. Can every step be done in any act order, with a written default read for "that act not played yet"? (`Q023.X2`, `Q104.X6`, `Q112.X5`, `Q096.X1`)
 6. Does no exit depend on one consumable the player can spend elsewhere? (`Q101.X1`)
 7. Does every objective have at least two in-world pointers, and can a player with no guide finish it? (`Q071.X2`, `Q114.X3`, `Q137.X1`, `Q147.X1`)
-8. Does the work fit one leg and one block of the close grid? (`Q095.X2`, `Q079.X1`, `Q083.X1`, `Q051.X3`, `Q113.X1`)
+8. Does the work fit one leg and one block of the city, cut as the fight board? (`Q095.X2`, `Q079.X1`, `Q083.X1`, `Q051.X3`, `Q113.X1`)
 9. Does the leg offer at least three ways through? (`Q087.X4`, `Q084.X2`)
 10. Does the worst failure cost only this leg, in days, batteries or people, and never replay text already read? (`Q093.X2`, `Q111.X2`, `Q128.X10`, `Q144.X1`)
 11. Can the offer be walked past with nothing written anywhere? (`Q084.X5`, and DECLINING IS FREE)
@@ -272,7 +272,7 @@ The silent timer (`Q095.X1`, `Q106.X5`). The silent break (`Q071.X1`, `Q128.X2`)
 
 1. THE RESUME. No study measures a player coming back after two days. The library has the parts (`Q037.W3`, `Q021.W7`, `Q109.P6`) but never the moment. Is the resume a "first sixty seconds" under our law (nothing speaks)? RUN and UI own that call; this page only says the map must answer "what was I doing" without text.
 2. THE CAP ON TAKEN CONTRACTS. `Q037.X2` says focus; no study gives a number for a phone. PEOPLE/RUN pick it and measure.
-3. WHERE THE TELL LIVES WHEN THE PLAYER IS ON THE STREET. The feed is in the city view only (Paolo 9/23). A tell for a fail that happens while the player is on the close grid must be a person or a prop there, or it waits for the next city view. Which is better is a playtest question, not a library one.
+3. WHERE THE TELL LIVES WHEN THE PLAYER IS ON THE STREET. The feed is in the city view only (Paolo 9/23). A tell for a fail that happens while the player is on the fight board must be a person or a prop there, or it waits for the next city view. Which is better is a playtest question, not a library one.
 4. THE REFUSAL INSIDE vs "ONCE TAKEN YOU FINISH IT". Our law says a taken contract is finished or it is a deed. The library says an in-contract refusal must be a path (`Q139.P2`). This page reads them together: the priced refusal FINISHES the contract. If Paolo reads "finish" as "do what was asked", the refusal becomes the drop, and it is a deed. His call.
 5. `Q148.W2` praises the notice board as "a dignified front door". Our law says NEVER A CARD and the ask comes from a person, so this page takes `Q148.W1` (the fee locks before the truth) and leaves the board.
 

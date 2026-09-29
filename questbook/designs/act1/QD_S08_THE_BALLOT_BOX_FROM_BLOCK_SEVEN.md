@@ -22,7 +22,7 @@ A boom pocket in act 1: the Strip wants to open a charge counter in the co-op's 
 - ACCEPT / DECLINE. Declining writes nothing. The offer leaves at the count.
 
 ## THE CHOICES
-A. THROUGH THE WASH. The fast way. A small crew sits in the dry channel charging a toll; a close-grid fight in the culvert, or pay 2 of your own.
+A. THROUGH THE WASH. The fast way. A small crew sits in the dry channel charging a toll; a fight on the fight board in the culvert, or pay 2 of your own.
 B. THE LONG ROAD ROUND. A day slower. Arrives on count night, with the hall already full.
 C. BRING A WITNESS. Block seven's own oldest voter insists on walking beside the box. Slowest; arrives the morning of the count. Block seven trusts the count.
 Same pay on every road.

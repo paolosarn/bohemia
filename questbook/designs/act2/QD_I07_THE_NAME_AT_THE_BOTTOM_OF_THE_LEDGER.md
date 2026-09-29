@@ -4,7 +4,7 @@ ACT: 2
 KIND: contract
 CRISIS: none
 ECONOMY: bust
-PLACE: a gate post on the valley road where old soldiers keep order; the job is a camp or a house one to three map stops away, on the close grid
+PLACE: a gate post on the valley road where old soldiers keep order; the job is a camp or a house one to three map stops away (the fight board if it comes to a fight)
 STATUS: draft:true, research only, nothing built (rule 35)
 
 RE-CUT FROM: quests/bq/S05_THE_STANDING_BOUNTY.bq
@@ -20,7 +20,7 @@ THE SCREEN (2 to 3 lines per entry, each under 30 words): "Raider band, four of 
 PAY: 8 batteries per name, the same for a raider and a debtor. NEGOTIATION: ask for more (9; the second ask closes the entry for this visit, nothing written); no advances on bounties. ACCEPT or DECLINE; decline turns the page. Nothing is said.
 
 ## THE PERSON AND THE FIRST LINE
-A raider entry is a fight against the band on the grid (a group; rule 36 applies to any company member struck down: 20% dead, else 30 to 40 days injured, which the quartermaster says once, flatly, the first time the player takes a raider entry: "They fight back. You'll lose some. Everybody does."). A debtor entry is a house. The debtor's wife answers the door. First line: "He's in the back. He knows you're coming. He's been packed for a month."
+A raider entry is a fight against the band on the fight board (a group; rule 36 applies to any company member struck down: 20% dead, else 30 to 40 days injured, which the quartermaster says once, flatly, the first time the player takes a raider entry: "They fight back. You'll lose some. Everybody does."). A debtor entry is a house. The debtor's wife answers the door. First line: "He's in the back. He knows you're coming. He's been packed for a month."
 
 ## THE CHOICES (debtor entries)
 A. BRING HIM IN. He walks to the post. Full fee. He works the post's labour line until the debt is worked off.

@@ -27364,6 +27364,46 @@
    "studyTitle": "\"PAMELA'S FATHER\"",
    "title": "DISTRACTION-AS-KEY GOES UNTAUGHT"
   },
+  "Q139.N1": {
+   "body": "Adams speaks, squad at the ridge. Entry: stage 1 complete. Adams: sizes the force below, flat voice, professional. Says the thing about no choice \u2014 not as philosophy, as a supply report. Lugo: answers instantly. There is always a choice. (The one line in the scene doing the work: the game plants its own defense as a human being, in advance, so the player cannot later claim nobody said it.) Walker: silence. Then the order to set up. > (no player option exists \u2014 the player character is the one talking, and he is not asking you) NOVERB \"We hold this ridge and wait them out\" NOVERB \"We go around\" (there is no around; the level is a corridor wearing a city) NOVERB \"We turn back\" \u2014 THE verb. Removed from every scene in the game after Chapter 1, and its removal is the game's actual subject. WHAT THIS NODE COSTS: the squad's consensus model. Command is spent here and never refunds.",
+   "kind": "convos",
+   "source": "BOHEMIA_CONVERSATIONS_MASTER_7_16_26.txt",
+   "study": "Q139",
+   "studyTitle": "THE WHITE PHOSPHORUS MORTAR (THE GATE) (Spec Ops: The Line)",
+   "title": "NODE GATE-1 \u2014 the overlook"
+  },
+  "Q139.N2": {
+   "body": "Entry: squad at the WP crates. Lugo opens: names the weapon, names the last time they saw it used, names what was left. Refuses to be part of it. (Paraphrased tight; his refusal is specific and physical, not abstract.) Adams: asks for the alternative. Waits. There is none and everyone knows the shape of the pause. Walker: closes with rank. Not persuasion \u2014 arithmetic plus authority. One quote survives here because the exact words are the craft, Walker's whole self-defense in six words: **\"We don't have a choice.\"** > (no player option exists \u2014 and note WHO the game gave the objection to: the character who will hold the targeting camera. The witness and the instrument are the same man. Bohemia steals this.) NOVERB \"Lugo's right\" (agreement with the conscience is not on the sheet) NOVERB \"Then I'll do the camera and own it\" (ownership is not offered; it is assigned) LOCKS OUT: nothing mechanical. Locks out, narratively, every future scene in which Walker could claim he was following someone. WHAT THIS NODE COSTS: Lugo's belief that objecting means anything. Trace his lines for the",
+   "kind": "convos",
+   "source": "BOHEMIA_CONVERSATIONS_MASTER_7_16_26.txt",
+   "study": "Q139",
+   "studyTitle": "THE WHITE PHOSPHORUS MORTAR (THE GATE) (Spec Ops: The Line)",
+   "title": "NODE GATE-2 \u2014 the mortar argument"
+  },
+  "Q139.N3": {
+   "body": "Who speaks: the laptop. Where: the mortar. Entry: cutscene ends, control returns. The screen opens with dots. This is a conversation, and these are its options, and the game is precise about what each one writes: > AIM: the western emplacement [gate: none] -> fires; dots stop; loop reinforced; goes to next cluster > AIM: the patrol line [gate: none] -> fires; dots stop; the player is getting efficient; the interface praises nothing, which reads as neutrality, which is the trap > AIM: the vehicle park [gate: none] -> fires; secondary explosions; the most gamelike feedback in the scene, placed deliberately mid-sequence to keep the player's hands in shooter-grammar > AIM: the far checkpoint \u2014 the huddled cluster [gate: HARD-GATED REQUIRED: the exit does not unlock without it] -> fires. WRITES: the pit. WRITES: everything in section 4. > (TRAP-STRUCTURE NOTE: the huddled cluster is not a trap option among safe ones \u2014 it is a REQUIRED option disguised as one more target. The trap is the resolution: at dot-scale, shelter reads as formation. The game gates progress behind the exact misread",
+   "kind": "convos",
+   "source": "BOHEMIA_CONVERSATIONS_MASTER_7_16_26.txt",
+   "study": "Q139",
+   "studyTitle": "THE WHITE PHOSPHORUS MORTAR (THE GATE) (Spec Ops: The Line)",
+   "title": "NODE GATE-3 \u2014 THE TARGETING INTERFACE (the dialogue tree the game actually gives you)"
+  },
+  "Q139.N4": {
+   "body": "Entry: stage 4. The burning soldier who crawls past and asks his one-word question gets no answer, because the game removed answering. > (no options. no verbs. walking speed. the only input that does anything is the stick that moves you forward, which means the only thing the player can DO is continue, which is the thesis restated as a control scheme) WHAT THIS NODE COSTS: the last version of the story where this was a weapons decision and not a people decision.",
+   "kind": "convos",
+   "source": "BOHEMIA_CONVERSATIONS_MASTER_7_16_26.txt",
+   "study": "Q139",
+   "studyTitle": "THE WHITE PHOSPHORUS MORTAR (THE GATE) (Spec Ops: The Line)",
+   "title": "NODE GATE-4 \u2014 the walk"
+  },
+  "Q139.N5": {
+   "body": "Entry: stage 5. The last conversation, and the fork that runs the rest of the game. Lugo: says it plainly. They killed these people. No hedging in the line; the hedging all lives in the other two mouths. Adams: reaches for process \u2014 intel said, the screen showed, anyone would have. Walker: stares the longest, and then produces the sentence the whole machine was built to extract, paraphrased: this was HIM. Konrad. A dead man is assigned the authorship, live, on screen, while the player watches the character launder the player's own input. > (no player option exists. You do not get a vote on the lie because you already voted at the mortar.) NOVERB \"I did this\" \u2014 the removed verb of the entire back half. The game's remaining chapters are the price of this absence; the epilogue finally offers it back in four different shapes, hours too late. LOCKS OUT: the honest version of every subsequent scene. From here the radio answers. WHAT THIS NODE COSTS: Walker's mind, on installments.",
+   "kind": "convos",
+   "source": "BOHEMIA_CONVERSATIONS_MASTER_7_16_26.txt",
+   "study": "Q139",
+   "studyTitle": "THE WHITE PHOSPHORUS MORTAR (THE GATE) (Spec Ops: The Line)",
+   "title": "NODE GATE-5 \u2014 the pit"
+  },
   "Q139.P1": {
    "body": "system: conscience-no-karma-bar / the fold / [READ] Bohemia must never do Branch A to its player (F2's law). What it CAN steal \u2014 the best thing in the scene \u2014 is the lie at the pit. Not the atrocity: the authorship-laundering afterward. Port it as a conversation that happens AFTER any player deed the dial recorded as ugly-but-chosen: a witness offers to sell the player the excuse. The fold records the deed either way. What this conversation writes",
    "kind": "ports",
@@ -27507,6 +27547,54 @@
    "study": "Q139",
    "studyTitle": "THE WHITE PHOSPHORUS MORTAR (THE GATE) (Spec Ops: The Line)",
    "title": "MEDIOCRE MOMENT-TO-MOMENT COMBAT"
+  },
+  "Q140.N1": {
+   "body": "Judge speaks, corridor center. Entry: any route, stage 2. He opens light, then flattens: asks if you know what EXP really stands for, and answers himself. Execution points. Then LOVE: level of violence. Two acronyms the player has watched increment since the tutorial, re-translated in two sentences, retroactively converting the entire playthrough into testimony. (The one line doing the work is the second acronym \u2014 paraphrased here per discipline; the craft is that BOTH stats were confessions denominated in menu-language.) > (no options during the redefinition \u2014 the player's numbers already spoke; the judge is only providing the translation) NOVERB \"That's not what those meant\" \u2014 denial has no line, because the save file is in the room. WHAT THIS NODE COSTS: the player's frame. Every grind session is re-filed, in memory, as what it was.",
+   "kind": "convos",
+   "source": "BOHEMIA_CONVERSATIONS_MASTER_7_16_26.txt",
+   "study": "Q140",
+   "studyTitle": "THE LAST CORRIDOR (THE JUDGEMENT) (Undertale)",
+   "title": "NODE J-1 \u2014 the redefinition"
+  },
+  "Q140.N2": {
+   "body": "Same speaker, immediately after. DIFFERENT TEXT BY LEDGER \u2014 the corridor's crown jewel. > BRANCH [gate: EXP == 0] -> the clean read: he admits the setup was a judgment and declines to perform one; you never gained LOVE, but you gained love \u2014 the pun is the verdict, and it is an acquittal, warm and slightly embarrassed about it. TERMINATES into stage 2 exit; he steps aside. > BRANCH [gate: 0 < EXP, below the route threshold] -> the measured read: acknowledgment that you hurt people, that the number is small, that what you do with the throne room ahead matters more than what is behind. Conditional trust, on the record. TERMINATES; steps aside. > BRANCH [gate: no-mercy route condition] -> the read is replaced by NODE J-4. The ledger is past reading; the corridor changes genres. DIFFERENT TEXT BY KNOWLEDGE, layered on top: repeat visitors get altered lines (he knows about reloads); the speech acknowledges its own reruns. The highest-value reactivity pattern (Q125 W7) applied to the SAVE SYSTEM itself. WHAT THIS NODE COSTS: nothing material on mercy routes \u2014 which is itself the design: a",
+   "kind": "convos",
+   "source": "BOHEMIA_CONVERSATIONS_MASTER_7_16_26.txt",
+   "study": "Q140",
+   "studyTitle": "THE LAST CORRIDOR (THE JUDGEMENT) (Undertale)",
+   "title": "NODE J-2 \u2014 THE READ"
+  },
+  "Q140.N3": {
+   "body": "He talks to you like the war is already over, because it is; the judgment is dissolved by the state of the ledger before a word is spent. > (options: none; the route's options were every spared encounter for thirty hours \u2014 the conversation's real tree grew OUTSIDE it, which is the file's whole thesis)",
+   "kind": "convos",
+   "source": "BOHEMIA_CONVERSATIONS_MASTER_7_16_26.txt",
+   "study": "Q140",
+   "studyTitle": "THE LAST CORRIDOR (THE JUDGEMENT) (Undertale)",
+   "title": "NODE J-3 \u2014 the true-mercy variant [gate: true-pacifist conditions]"
+  },
+  "Q140.N4": {
+   "body": "Entry: stage 3, no-mercy only. The weather-report warning, then the plainest fork in the game: > keep walking forward [gate: none] -> NODE J-5. WRITES: the fight. LOCKS OUT: nothing \u2014 the route already burned every lock behind you. > turn around and leave the corridor [gate: none] -> he lets you. The fight simply does not start while you stand off the aisle. TRAP-INVERSION: the merciful option is real and free RIGHT NOW, but the ROUTE cannot be exited here \u2014 the kills are already banked; leaving only defers the read. An off-ramp to nowhere, offered sincerely, as the last data point about what you'll do with one. WHAT THIS NODE COSTS: the last plausible deniability. After the warning, everything is premeditated.",
+   "kind": "convos",
+   "source": "BOHEMIA_CONVERSATIONS_MASTER_7_16_26.txt",
+   "study": "Q140",
+   "studyTitle": "THE LAST CORRIDOR (THE JUDGEMENT) (Undertale)",
+   "title": "NODE J-4 \u2014 the threshold"
+  },
+  "Q140.N5": {
+   "body": "Mid-fight, after his fatigue shows. The most argued-about node in the game. He offers to spare you. The battle UI presents the real, functional choice: > SPARE [gate: none \u2014 always available, brightly lit by the route's own logic] -> he accepts. Then kills you during the acceptance animation, with a line about whether you really thought he'd... (cut per discipline; the sting is the point). TRAP, fully authored: the game's one weaponized MERCY, given to its one honest character, valid BECAUSE the player taught this world that offered mercy is a free hit. The trap does not lie about the world; it reports it. > FIGHT [gate: none] -> the fight continues into the endless-turn endgame. LOCKS OUT: nothing (death reloads to the fight), but the death is RECORDED \u2014 his post-trap openers reference it forever after. Even your gullibility goes in the file. WHAT THIS NODE COSTS: the player's last symmetrical read of mercy. On this route, mercy is a move in a fight, because the player spent a whole run proving exactly that.",
+   "kind": "convos",
+   "source": "BOHEMIA_CONVERSATIONS_MASTER_7_16_26.txt",
+   "study": "Q140",
+   "studyTitle": "THE LAST CORRIDOR (THE JUDGEMENT) (Undertale)",
+   "title": "NODE J-5 \u2014 THE MERCY TRAP"
+  },
+  "Q140.N6": {
+   "body": "The fight's terminal statement, non-verbal, included because it is the best SILENCE in the corpus. His final move is nothing: he stops. The turn never passes. The game sits in an open menu, forever, while his idle animation breathes. > wait [gate: none] -> nothing, eternally; the fight becomes a staring contest with a UI > push through the FIGHT option anyway [gate: KNOWLEDGE \u2014 nothing teaches this; the player must try breaking a rule, one last time, as the route's closing argument about who they are] -> the hit lands. TERMINATES. WHAT THIS NODE COSTS: the win arrives only via the exact instinct the whole route indicts. The game makes the player's rule-breaking the key to its final door, so the victory itself testifies.",
+   "kind": "convos",
+   "source": "BOHEMIA_CONVERSATIONS_MASTER_7_16_26.txt",
+   "study": "Q140",
+   "studyTitle": "THE LAST CORRIDOR (THE JUDGEMENT) (Undertale)",
+   "title": "NODE J-6 \u2014 the special attack"
   },
   "Q140.P1": {
    "body": "system: the fold / [READ] / act boundaries / conscience-no-karma-bar THE FINALE IS A LEDGER-READ now has its fourth and cleanest data point (Q136 theater, Q137 arithmetic, Q102 rooftop, Q140 corridor). The corridor adds the missing spec: **the read must be a FUNCTION of stored deeds, visibly, so the player can feel that a different life would have produced a different speech.** Not tiers of a meter \u2014 branches on actual entries. ``` @TALK ledger_read speaker=reader",
@@ -27652,6 +27740,46 @@
    "studyTitle": "THE LAST CORRIDOR (THE JUDGEMENT) (Undertale)",
    "title": "THE CULTURAL ECHO FLATTENED THE CRAFT"
   },
+  "Q141.N1": {
+   "body": "Speaker: the book (by asking). Entry: the corpse witnessed. The book shows the face, the fates list, and the manifest. Its opening line is an empty row, which in this game is a direct question. > ENTER FATE: \"shot by [killer]\" [gate: KNOWLEDGE \u2014 the tableau froze the musket, the shooter, the range] -> writes the row, no reply > ENTER FATE: \"torn apart by the beast\" [gate: KNOWLEDGE \u2014 but which beast, and the game's fate-list is precise about kinds] -> writes; a wrong KIND of monster fails silently later > ENTER NAME: [any of 60] [gate: none \u2014 every name is always selectable, which is the design's whole dare: the interface never gates, only the TRUTH does] -> writes > (TRAP-STRUCTURE: plausible-but-wrong is the default state of this interface. Two Chinese topmen, four Russian seamen, brothers with one face between them. The book accepts every wrong marriage of face and name with identical silence.) SILENCE option: leave the row blank and walk away. Costs nothing, forever. The book has no timer, no failure, no nagging \u2014 the emptiness itself is the pressure. WHAT THIS NODE COSTS:",
+   "kind": "convos",
+   "source": "BOHEMIA_CONVERSATIONS_MASTER_7_16_26.txt",
+   "study": "Q141",
+   "studyTitle": "THE BOOK OF THE DEAD (THE IDENTIFICATION LOOP) (Return of the Obra Dinn)",
+   "title": "NODE B-1 \u2014 a row of the book"
+  },
+  "Q141.N2": {
+   "body": "Speaker: the book. Entry: any commit that completes a set of three fully-correct rows. The page flashes, the three rows ink themselves closed, the chime plays. > (no options \u2014 this is the book's only spoken line, and the game's entire reward apparatus) DIFFERENT TEXT BY KNOWLEDGE, structural form: the chime's MEANING changes with the player's certainty. Sometimes it confirms three sure things. The advanced move: two certain rows plus ONE deliberate coin-flip between two candidates \u2014 the chime (or its absence) resolves the flip. The player learns to interrogate the judge by bundling testimony. The design KNOWS and allows it: the rule of three converts even gambling into structured inference. LOCKS OUT: nothing. Locked rows are truth; truth closes candidates elsewhere (every chime is a small lockout of wrong worlds, cast as a gift). WHAT THIS NODE COSTS: three rows of doubt, paid forward.",
+   "kind": "convos",
+   "source": "BOHEMIA_CONVERSATIONS_MASTER_7_16_26.txt",
+   "study": "Q141",
+   "studyTitle": "THE BOOK OF THE DEAD (THE IDENTIFICATION LOOP) (Return of the Obra Dinn)",
+   "title": "NODE B-2 \u2014 THE CHIME"
+  },
+  "Q141.N3": {
+   "body": "Speaker: a numbered berth, below decks. Entry: the muster/sleep tableaus. Not a person \u2014 included as the model HARD CLUE: berth numbers correspond to manifest numbers; a man asleep in hammock forty-two has confessed his row. > read the number and cross to the manifest [gate: KNOWLEDGE that the numbering convention exists \u2014 taught nowhere, discovered by one good stare] -> converts a nap into an identity WHAT THIS NODE COSTS: the player's assumption that clues will be announced. The best evidence in the game is furniture.",
+   "kind": "convos",
+   "source": "BOHEMIA_CONVERSATIONS_MASTER_7_16_26.txt",
+   "study": "Q141",
+   "studyTitle": "THE BOOK OF THE DEAD (THE IDENTIFICATION LOOP) (Return of the Obra Dinn)",
+   "title": "NODE B-3 \u2014 the hammock"
+  },
+  "Q141.N4": {
+   "body": "Speaker: nobody, which is the testimony. Entry: comparing musters across chapters. A man present in chapter three's crowd scene is missing from chapter five's. No corpse, no line, no marker. > infer the death window from presence/absence [gate: KNOWLEDGE across two scenes plus the manifest's disposition column] -> fates like \"fell overboard, unwitnessed\" become writable > (this is the game's boldest node: an entire class of correct answers whose only evidence is negative space. The tableau of his death does not exist. The book still expects his row filled.) WHAT THIS NODE COSTS: the last comfort that witnessing is required for knowing. The organ can close a file on inference alone \u2014 and the assessment pays out on it identically.",
+   "kind": "convos",
+   "source": "BOHEMIA_CONVERSATIONS_MASTER_7_16_26.txt",
+   "study": "Q141",
+   "studyTitle": "THE BOOK OF THE DEAD (THE IDENTIFICATION LOOP) (Return of the Obra Dinn)",
+   "title": "NODE B-4 \u2014 the absence"
+  },
+  "Q141.N5": {
+   "body": "Entry: late, when the chains reach the mutiny chapters. The man who mailed you the book appears in the memories, doing what he did. > write his rows honestly [gate: KNOWLEDGE, plus the small human flinch the game engineers by making him your benefactor] -> the assessment fines/clears him like anyone else NOVERB \"ask him about it\" \u2014 he is a return address, not a dialogue. The game refuses the confrontation scene on purpose: the book is the only tribunal, and it does not take statements, only evidence. WHAT THIS NODE COSTS: the player's neutrality fantasy. Filing truth about someone who did you a kindness is the quiet moral test the whole quest was quietly building.",
+   "kind": "convos",
+   "source": "BOHEMIA_CONVERSATIONS_MASTER_7_16_26.txt",
+   "study": "Q141",
+   "studyTitle": "THE BOOK OF THE DEAD (THE IDENTIFICATION LOOP) (Return of the Obra Dinn)",
+   "title": "NODE B-5 \u2014 the letter-writer's own rows"
+  },
   "Q141.P1": {
    "body": "system: settlement systems / the fold / [READ] / survival accounting This game is the missing-persons organ's design document. The Bohemia shape: the settlement keeps a BOOK \u2014 rows generated from the fold's real events (who left the walls and never returned, who was found, who was traded away). The player-as-inspector takes cases: evidence classes are testimonies (living NPCs' [READ]-able memories), effects (items with owner-tags \u2014 the record item class already exi",
    "kind": "ports",
@@ -27795,6 +27923,46 @@
    "study": "Q141",
    "studyTitle": "THE BOOK OF THE DEAD (THE IDENTIFICATION LOOP) (Return of the Obra Dinn)",
    "title": "ACCESSIBILITY RIDES ON SENSORY CHANNELS"
+  },
+  "Q142.N1": {
+   "body": "Kelemvor, the courtroom. Entry: stage 3. He opens with process: your curse, its origin, its legal status. He concedes immediately \u2014 IMMEDIATELY, and this is the craft \u2014 that the curse was unjust. The concession is the trap softener: a lesser design would make the god deny everything and the debate a war; here the first thing the enforcer does is agree with the plaintiff about the facts. > \"Then undo it. Undo the Wall.\" [gate: none] -> K-2, the order defense. He was waiting for it. > \"Then release MY soul-line. Just mine.\" [gate: none] -> K-4, the petition track. The narrow door, open from the first node. > \"Why does a decent man keep an indecent machine?\" [gate: WISDOM/INSIGHT threshold] -> K-3, the hidden-truth track. The line that changes the room. > (say nothing; let the silence sit) [gate: none] SILENCE -> he continues, and the continuation is DIFFERENT TEXT: uninterrupted, he volunteers more of the order defense than he does under questioning. Silence as extraction. The corpus's best demonstration that a SILENCE option can be a wisdom check the interface never names. NOVERB",
+   "kind": "convos",
+   "source": "BOHEMIA_CONVERSATIONS_MASTER_7_16_26.txt",
+   "study": "Q142",
+   "studyTitle": "THE WALL AND THE JUDGE (THE ARGUE-THE-GOD FINALE) (Neverwinter Nights 2: Mask of the Betrayer)",
+   "title": "NODE K-1 \u2014 the opening of the audience"
+  },
+  "Q142.N2": {
+   "body": "His case, in full, unhurried. Without the Wall, the compact frays: mortals drift from the gods, the gods starve and turn predatory, and the resulting war grinds mortal souls to nothing anyway \u2014 the Wall is cruelty at the edge that prevents cruelty at the center. It is a REASONED case, and the game commits the rarest act in RPG writing: it lets the antagonist's argument be genuinely good. > \"Cruel math is still cruelty. The units are people.\" [gate: none] -> he agrees. AGREES. And holds. The player learns that being right is insufficient \u2014 the debate's midpoint lesson. > \"Myrkul built this to farm fear. You inherited a harvester and call it a dam.\" [gate: KNOWLEDGE \u2014 requires the Myrkul confrontation earlier; the flag, not the stat] -> K-3. Facts about the architect crack the enforcer. > \"Then change the law. You're a god.\" [gate: none] -> his flattest line: even gods are bound. TRAP in the honest sense: it feels like the winning move and it is the argument's dead end \u2014 power is not the lock; legitimacy is. LOOPS BACK to K-1's option set, minus spent lines. The debate is a resource",
+   "kind": "convos",
+   "source": "BOHEMIA_CONVERSATIONS_MASTER_7_16_26.txt",
+   "study": "Q142",
+   "studyTitle": "THE WALL AND THE JUDGE (THE ARGUE-THE-GOD FINALE) (Neverwinter Nights 2: Mask of the Betrayer)",
+   "title": "NODE K-2 \u2014 the order defense"
+  },
+  "Q142.N3": {
+   "body": "Entry: insight gate or the Myrkul-facts line. The player names what they've read in him: he knows. He has always known. The Wall predates him, shames him, and he enforces it as the least-bad stewardship of a machine he cannot lawfully destroy. Under the insight gate, his text changes \u2014 not new facts, new POSTURE: the judge stops performing certainty at you. > \"Then help me within your law. Find the seam.\" [gate: reached via K-3 only] -> the petition track opens WIDER than the direct K-4 route: named companions' souls become negotiable, the curse's core soul becomes releasable. The mechanical reward for reading a person: the same door, opened further. > \"Your shame is not my remedy. Stand aside.\" [gate: none] -> posture hardens; routes toward 4B. THE ONE LINE DOING THE WORK is his, mid-node, half-sentence \u2014 the closest a bound god can come to saying the forbidden thing. Every insight point the build spent was buying the ability to HEAR a hint. WHAT THIS NODE COSTS: the comfortable version of the fight. After K-3, choosing the crusade or the combat means doing it to someone the player",
+   "kind": "convos",
+   "source": "BOHEMIA_CONVERSATIONS_MASTER_7_16_26.txt",
+   "study": "Q142",
+   "studyTitle": "THE WALL AND THE JUDGE (THE ARGUE-THE-GOD FINALE) (Neverwinter Nights 2: Mask of the Betrayer)",
+   "title": "NODE K-3 \u2014 the hidden truth"
+  },
+  "Q142.N4": {
+   "body": "The narrow door. Release for the player's soul-line, argued case by case: the named soul from the Wall (witnessed = strong; unwitnessed = weak text and a refusal path), the companions' dead, the player's own fate. > present the named soul, witnessed [gate: FLAG from stage 2] -> granted, in language that makes clear the grant is an exception being carved, not a precedent being set. The system survives every mercy it grants. That sentence is the port. > present the principle instead of the person [gate: none] -> declined. Principle loses in this courtroom every time; the game is unsubtle about the lesson and correct to be. > ask for the Wall itself [gate: none] -> LOOPS BACK to K-2. The big ask always routes to the order defense; there is no dialogue path to abolition. THE REMOVED VERB, placed on the LAW: the format can free anyone and cannot free everyone. Bohemia note: this is verbs-removed used morally correctly \u2014 removed from the SYSTEM's vocabulary, not the player's. WHAT THIS NODE COSTS: taking the personal exit in a quest about systemic injustice is priced in the epilogue's",
+   "kind": "convos",
+   "source": "BOHEMIA_CONVERSATIONS_MASTER_7_16_26.txt",
+   "study": "Q142",
+   "studyTitle": "THE WALL AND THE JUDGE (THE ARGUE-THE-GOD FINALE) (Neverwinter Nights 2: Mask of the Betrayer)",
+   "title": "NODE K-4 \u2014 the petition"
+  },
+  "Q142.N5": {
+   "body": "The crusade and the combat both keep talking \u2014 mid-battle barks track the argument already had: if the player reached K-3, his battle lines grieve; if not, they judge. Even the war remembers the debate. > (combat options; out of scope for the tree \u2014 the finding is that the DEBATE STATE flavors the violence, not the reverse)",
+   "kind": "convos",
+   "source": "BOHEMIA_CONVERSATIONS_MASTER_7_16_26.txt",
+   "study": "Q142",
+   "studyTitle": "THE WALL AND THE JUDGE (THE ARGUE-THE-GOD FINALE) (Neverwinter Nights 2: Mask of the Betrayer)",
+   "title": "NODE K-5 \u2014 the fights (4A/4B), as conversation."
   },
   "Q142.P1": {
    "body": "system: the argue-the-Amalgamation finale / [READ] / the fold The structure, whole: the finale's opponent is the RECORDING ORDER itself, the Amalgamation its reluctant administrator, the Network its architect-beneficiary (W2's split, made canon-shaped). The audience opens with the Amalgamation CONCEDING the case's facts (W3) \u2014 it is made of the recorded dead; it knows exactly what the order costs \u2014 and defending continuation with a genuinely good case (W4).",
@@ -27940,6 +28108,38 @@
    "studyTitle": "THE WALL AND THE JUDGE (THE ARGUE-THE-GOD FINALE) (Neverwinter Nights 2: Mask of the Betrayer)",
    "title": "THE HUNGER CLOCK FIGHTS THE TALKING"
   },
+  "Q143.N1": {
+   "body": "Eddie, mouth full, corpse adjacent. Entry: stage 1. He opens with denial so relaxed it loops back around to alarming \u2014 he was just here, stuff happens in this town, want some pizza? > \"There's a body in the next room.\" [gate: none] -> E-1a: the shrug. Not me. Guy probably deserved... I mean, guys like that. First slip, immediately papered over. > \"Why are you in Silent Hill, Eddie?\" [gate: none] -> E-1b: same as you, I guess. The town called both dockets; he says it without knowing what he's saying. > (let it go; leave) [gate: none] SILENCE -> exit. The scene permits total disengagement \u2014 and the disengagement is the point. Nothing here was ever going to be gradable. The town does not need James to interrogate Eddie; it needs James to WATCH him. NOVERB \"You did it\" \u2014 no direct accusation line exists in the first meeting. The game withholds the confrontation verb until the player has heard the full arc; premature judgment is simply not in James's mouth yet. WHAT THIS NODE COSTS: nothing. First consultations are free in every good trap.",
+   "kind": "convos",
+   "source": "BOHEMIA_CONVERSATIONS_MASTER_7_16_26.txt",
+   "study": "Q143",
+   "studyTitle": "EDDIE AND THE VERDICT ENGINE (Silent Hill 2)",
+   "title": "NODE E-1 \u2014 the bowling alley"
+  },
+  "Q143.N2": {
+   "body": "Entry: stage 2. The upgrade: from \"not me\" to \"he had it coming.\" Eddie narrates the laughing, the years of it, the dog, the leg, the running. Halfway through, the register shifts \u2014 he stops defending and starts REMINISCING, and the warmth in it is the scene's horror. > \"You killed him for laughing?\" [gate: none] -> E-2a: he flinches, resets to victimhood: you don't know what it's like. The excuse machinery's self-repair, on camera. > \"It's not that hard, right? \u2014 what do you mean?\" [gate: none] -> E-2b: THE ONE LINE DOING THE WORK. He assumes James knows. The failed twin extends professional courtesy, and James's denial is one beat too slow. The scene files it and moves on. > (say nothing) [gate: none] SILENCE -> he reads the silence as agreement. DIFFERENT TEXT downstream: the meat locker's opening line shifts if Eddie left this scene believing James understood him. The corpus's cleanest case of a SILENCE writing a flag the player never sees. WHAT THIS NODE COSTS: the ability to claim surprise. Everything terminal in stage 3 was quoted here first.",
+   "kind": "convos",
+   "source": "BOHEMIA_CONVERSATIONS_MASTER_7_16_26.txt",
+   "study": "Q143",
+   "studyTitle": "EDDIE AND THE VERDICT ENGINE (Silent Hill 2)",
+   "title": "NODE E-2 \u2014 the body"
+  },
+  "Q143.N3": {
+   "body": "Entry: stage 3. The argument's terminal form. The monologue: the town gets it, the town says it's fine, everyone laughed, everyone dies, and James \u2014 James kills too, the town told him so. Then the gun. > (no de-escalation option exists) \u2014 THE REMOVED VERB, and note WHOSE it is: it is EDDIE's. There is no line James can say that reaches him, because Eddie's conversation stopped being with James two scenes ago; he is finishing an argument with everyone who ever laughed. The game removes the verb from the HEARER's side \u2014 the locked Bohemia law, verbs-removed-for-the-hearer, in its source habitat: mercy is not on the table because the other party can no longer hear it. > fight [gate: none] -> the two-room fight, taunts between volleys tracking James's aim and hesitation. LOCKS OUT: every version of James that had never killed anyone. The verdict engine does not weigh this kill (it is authored, universal, and the algorithm scrupulously ignores it) \u2014 the LEDGER stays about conduct, the SCRIPT owns the culpability. The separation is the design's most disciplined act. WHAT THIS NODE COSTS:",
+   "kind": "convos",
+   "source": "BOHEMIA_CONVERSATIONS_MASTER_7_16_26.txt",
+   "study": "Q143",
+   "studyTitle": "EDDIE AND THE VERDICT ENGINE (Silent Hill 2)",
+   "title": "NODE E-3 \u2014 the meat locker"
+  },
+  "Q143.N4": {
+   "body": "The judge speaks exactly once, in the epilogue, and its options were the player's habits: > keep James healed, promptly, always [gate: none \u2014 unmarked] -> writes toward LEAVE: a man maintaining himself is a man planning to survive his grief > walk hurt, linger hurt, court damage [gate: none \u2014 unmarked] -> writes toward IN WATER: the town reads self-neglect as the sentence being drafted > orbit Maria, protect her, return to her fast when she calls [gate: none \u2014 unmarked] -> writes toward MARIA: choosing the flattering copy, one footstep at a time > re-read the letter, the photo, the corridor with Mary's voice [gate: none \u2014 unmarked] -> writes toward LEAVE (grief faced) against IN WATER (grief obeyed): the same verb, weighed by everything around it > (there is no fifth option, because there is no menu. The engine's entire option set is play itself.) WHAT THIS NODE COSTS: nothing at decision-time, everything at read-time. The player cannot perform virtue for a meter they don't know exists \u2014 which makes this the only verdict in the corpus guaranteed to be about who the player actually",
+   "kind": "convos",
+   "source": "BOHEMIA_CONVERSATIONS_MASTER_7_16_26.txt",
+   "study": "Q143",
+   "studyTitle": "EDDIE AND THE VERDICT ENGINE (Silent Hill 2)",
+   "title": "NODE V-1 \u2014 THE VERDICT ENGINE (the conversation with no scene)"
+  },
   "Q143.P1": {
    "body": "system: the fold / conscience-no-karma-bar / the dial The fold already records deeds; this port adds the CONDUCT CLASS: unmarked behavioral entries (how the player treats their own wounds, their dead, their tempting replicas \u2014 Bohemia has all three natively) logged without any UI acknowledgment, then read at the finale ONLY where three independent signals corroborate (F1's law). The staged law gains its radical register: part of Bohemia's final read",
    "kind": "ports",
@@ -28083,6 +28283,38 @@
    "study": "Q143",
    "studyTitle": "EDDIE AND THE VERDICT ENGINE (Silent Hill 2)",
    "title": "THE FAILED TWIN IS UNDERBUILT"
+  },
+  "Q144.N1": {
+   "body": "Speaker: the game's opening prose. Entry: stage 1. The candidate life-goals, each a different will-shape: > \"Wealth: retire rich or die trying\" [gate: none] -> a run that banks MONEY, the least heritable substance in the game. The trap-shaped ambition: the goal whose pursuit builds the worst estate. Authored irony, confirmed by the design's own inheritance math. > \"Your father's bones: a search\" [gate: none] -> a run that banks GEOGRAPHY and story-flags \u2014 high-heritability life. The sentimental goal builds the best estate; the game's values, stated in mechanics. > \"The song / the word: make something\" [gate: none] -> banks story-fragments; partially heritable; finishing it is one of the game's rare true endings \u2014 a life that can actually complete. > (later unlock ambitions gated on prior-life discoveries) [gate: KNOWLEDGE crossing generations] -> the fold feeding the fold: some life-goals can only be CONCEIVED by a dynasty, not a founder. WHAT THIS NODE COSTS: the run's shape. The ambition is the will's first clause, chosen before the player knows what wills are.",
+   "kind": "convos",
+   "source": "BOHEMIA_CONVERSATIONS_MASTER_7_16_26.txt",
+   "study": "Q144",
+   "studyTitle": "THE CAPTAIN'S WILL (THE LEGACY FOLD) (Sunless Sea)",
+   "title": "NODE L-1 \u2014 the ambition pick"
+  },
+  "Q144.N2": {
+   "body": "Speaker: a storylet at port, mid-life. Entry: wealth + a home established. Raise the heir in advance: recurring costs, small scenes, a child who exists in the world while the captain still sails. > \"Fund the upbringing\" [gate: money, repeatedly] -> the heir-premium accrues: the scion inherits MORE (lineage continuity, better transfer profile). Love as compounding paperwork. > \"Not this year\" [gate: none] -> the scion's profile stalls; the will's best beneficiary is optional and expensive, which is the point. > (never raise one) [gate: none] SILENCE -> death offers only the colder heir-shapes: the rival, the collector. A will with no loved one in it is still a will; it just reads that way. WHAT THIS NODE COSTS: present-tense strength. Every coin into the scion is fuel not bought. The game makes the player FEEL the actuarial tension between this life and the next one.",
+   "kind": "convos",
+   "source": "BOHEMIA_CONVERSATIONS_MASTER_7_16_26.txt",
+   "study": "Q144",
+   "studyTitle": "THE CAPTAIN'S WILL (THE LEGACY FOLD) (Sunless Sea)",
+   "title": "NODE L-2 \u2014 the scion"
+  },
+  "Q144.N3": {
+   "body": "Speaker: any officer with an unfinished story. Entry: their arc mid-stage as death approaches. The officers' hidden stories advance by voyages and choices; death can strand them. > finish the arc while the captain lives [gate: the arc's own conditions \u2014 voyages, items, choices] -> the officer's story resolves; bonded officers can cross to the heir with their resolution intact. > die mid-arc [gate: the zee decides] -> the arc FREEZES. The heir inherits the officer (maybe) but not the momentum; some story-states are simply lost between lives. THE DESIGN'S BOLDEST REFUSAL: narrative progress is mostly non-heritable, on purpose \u2014 stories belong to the life that lived them. > ask the officer about it later, as the heir [gate: inherited officer] -> DIFFERENT TEXT: they speak of the previous captain in past tense, and the arc's stranded state is VISIBLE in their lines. Grief as a dialogue variant. The corpus's cleanest inherited-NPC reactivity. WHAT THIS NODE COSTS: the illusion that the fold carries everything that matters. It carries what survives a death, which is less, and truer.",
+   "kind": "convos",
+   "source": "BOHEMIA_CONVERSATIONS_MASTER_7_16_26.txt",
+   "study": "Q144",
+   "studyTitle": "THE CAPTAIN'S WILL (THE LEGACY FOLD) (Sunless Sea)",
+   "title": "NODE L-3 \u2014 an officer's arc, at the line"
+  },
+  "Q144.N4": {
+   "body": "Speaker: the legacy screen, functioning as executor. Entry: stage 4. > \"The scion inherits\" [gate: raised] -> chart + lineage + the warm transfer profile > \"The rival claims the ship\" [gate: none] -> the vessel crosses; the warmth does not. Different asset, different sentence. > \"A collector settles the estate\" [gate: debts held] -> obligations cross WITH assets; the heir starts owed and owing. The game will let a bad life bequeath its shape. > \"Take the chart\" / \"let the chart burn\" [gate: none \u2014 the one always-offered clause] -> the knowledge inheritance, chosen affirmatively. Refusing it exists as an option because a TRUE will requires the possibility of writing a cruel one. > (unbanked secrets, unspent fortunes, open ambitions) \u2014 no option line exists. THE REMOVED VERB: the player cannot will forward what the life didn't finish converting into heritable form. The interface's silence about the burned remainder IS the reading's last clause. WHAT THIS NODE COSTS: the run. All of it. The screen itemizes what a life amounted to, and the itemization is shorter than the living was \u2014",
+   "kind": "convos",
+   "source": "BOHEMIA_CONVERSATIONS_MASTER_7_16_26.txt",
+   "study": "Q144",
+   "studyTitle": "THE CAPTAIN'S WILL (THE LEGACY FOLD) (Sunless Sea)",
+   "title": "NODE L-4 \u2014 THE READING"
   },
   "Q144.P1": {
    "body": "system: the fold / succession (GDD v4) / dying-generation play Bohemia's fold currently specifies WHAT persists; this port specifies the SCENE: when a dynast's death becomes legible in advance, the game enters testament play \u2014 the dying generation's remaining actions reframed (diegetically, not via UI mode) as estate work: bank testimony into the record, resolve bonds, place the heir. Then the READING: a fold-transfer scene that itemizes what crosses AND name",
@@ -28228,6 +28460,38 @@
    "studyTitle": "THE CAPTAIN'S WILL (THE LEGACY FOLD) (Sunless Sea)",
    "title": "MERCIFUL MODE EXPOSED THE DESIGN'S DEPENDENCE ON DEATH"
   },
+  "Q145.N1": {
+   "body": "Speaker: the chronicle. Entry: each region, stage 2. The year advances; the armies move on a stronghold; the Fatebinder's authority must ride with someone. > \"March with the Disfavored\" [gate: none] -> writes Disfavored favor, Chorus wrath, and the region remembers DISCIPLINE: occupation, order, resentment of the boot > \"Attach to the Scarlet Chorus\" [gate: none] -> the inverse writes, and the region remembers APPETITE: absorption, chaos, resentment of the maw > \"Hold your own line between them\" [gate: some regions only] -> both armies' wrath, independence flags \u2014 the costliest lane, priced honestly LOOPS: each region re-asks with the standings SO FAR visible in the chronicle's tone \u2014 early attachments make later neutrality read as betrayal, and the interface lets the player feel the compounding before the game ever starts. WHAT THIS NODE COSTS: the other army's war. Both cannot be yours; the civil war to come is being loaded, region by region.",
+   "kind": "convos",
+   "source": "BOHEMIA_CONVERSATIONS_MASTER_7_16_26.txt",
+   "study": "Q145",
+   "studyTitle": "THE CONQUEST (THE GAME BEFORE THE GAME) (Tyranny)",
+   "title": "NODE C-1 \u2014 a campaign's attachment"
+  },
+  "Q145.N2": {
+   "body": "Entry: a stronghold resists. > \"Counsel patience: siege it out\" [gate: none] -> slow fall; the city survives diminished; survivors remember hunger, not fire > \"Find the traitor inside\" [gate: prior flags in some regions] -> the gate is EARLIER CONQUEST ANSWERS \u2014 pre-play choices gating pre-play choices; the sequence has its own knowledge economy > \"Counsel the Edict\" [gate: none \u2014 and the interface makes it FEEL like the biggest button on the page] -> the proclamation falls; the region is TERRAIN-SCARRED for the whole game. TRAP in the honest register: maximally effective, permanently costly, and the game will make you visit. > \"Let it stand unconquered\" [gate: one region's specific path] -> the rarest state: a place the war never finished. The main game treats it as a wound in the winner's story \u2014 and yours. WHAT THIS NODE COSTS: the region's future content shape. The Conquest is openly a WORLD EDITOR wearing a chronicle's clothes, and the game trusts the player with it.",
+   "kind": "convos",
+   "source": "BOHEMIA_CONVERSATIONS_MASTER_7_16_26.txt",
+   "study": "Q145",
+   "studyTitle": "THE CONQUEST (THE GAME BEFORE THE GAME) (Tyranny)",
+   "title": "NODE C-2 \u2014 the fall of a city"
+  },
+  "Q145.N3": {
+   "body": "Entry: interleaved; the personal scale. Named individuals surface \u2014 a rebel commander taken alive, a mayor who bargained, a deserter. > spare / conscript / execute / make an example [gates: none] -> each writes a NAMED flag; several of these people appear in the main game with the memory, and one Conquest mercy is famously repaid forty hours later NOVERB \"It wasn't my decision\" \u2014 no such line exists in the Conquest, because the frame is judicial: the Fatebinder's presence IS jurisdiction. The sequence quietly removes the bystander verb from the player's past, which is the whole moral architecture: you were not a witness to the war; you were an officer of it. WHAT THIS NODE COSTS: innocence by construction. The game proper can be played toward rebellion or mercy, but never from a clean start \u2014 the Conquest guarantees dirty hands as the initial condition.",
+   "kind": "convos",
+   "source": "BOHEMIA_CONVERSATIONS_MASTER_7_16_26.txt",
+   "study": "Q145",
+   "studyTitle": "THE CONQUEST (THE GAME BEFORE THE GAME) (Tyranny)",
+   "title": "NODE C-3 \u2014 the adjudications"
+  },
+  "Q145.N4": {
+   "body": "Speaker: survivors, armies, the weather. > \"I did what the law required.\" [gate: none] -> the loyalist posture; the armies read it as reliability > \"I was wrong at [the city].\" [gate: the deed's flag] -> regret, priced: some listeners soften, the armies log weakness > \"I'd do it again.\" [gate: the deed's flag] -> the example-maker's posture; fear economy engaged > (say nothing when cited) [gate: none] SILENCE -> the accuser's text CONTINUES, and several such scenes read silence as confession \u2014 DIFFERENT TEXT downstream. The Conquest's deeds cannot be outrun by quiet. WHAT THIS NODE COSTS: nothing mechanical \u2014 everything tonal. History is fixed; the self who owns it is the remaining playable object.",
+   "kind": "convos",
+   "source": "BOHEMIA_CONVERSATIONS_MASTER_7_16_26.txt",
+   "study": "Q145",
+   "studyTitle": "THE CONQUEST (THE GAME BEFORE THE GAME) (Tyranny)",
+   "title": "NODE C-4 \u2014 the reading back (main game, distributed)"
+  },
   "Q145.P1": {
    "body": "system: the fold / succession / generational persistence Bohemia's generation N+1 opens with a Conquest-shaped scene that is READ, not authored: the chronicle of the parent generation's actual recorded play \u2014 attachments, adjudications, standing \"edicts\" (the deals and laws the dynast signed that still execute) \u2014 presented as the heir's briefing, with the POSTURE layer played live (claim / regret / disown each cited deed, writing the heir's opening stan",
    "kind": "ports",
@@ -28371,6 +28635,30 @@
    "study": "Q145",
    "studyTitle": "THE CONQUEST (THE GAME BEFORE THE GAME) (Tyranny)",
    "title": "THE DUAL METER LEAKS INTO A SLIDER AT THE EDGES"
+  },
+  "Q146.N1": {
+   "body": "Speaker: the institution, via state change. Entry: stage 2. The camp presents its standing offer, wordlessly, via mechanics: > comply: work when hauled, eat when fed [gate: none] -> hunger managed, suspicion low, stats crawl. The survivable default; the trap is its comfort \u2014 compliance compounds NOTHING except time > refuse work [gate: none] -> beatings (toughness XP), starvation risk, suspicion \u2014 defiance PRICED as tuition > slip the shackles, right now, untrained [gate: none \u2014 always available, near-certain failure] -> caught, beaten, re-caged. TRAP-SHAPED but secretly the curriculum's enrollment: the failure trains the exact skill that failed > (do nothing at all; wait) [gate: none] SILENCE -> the routine continues; other slaves' arcs advance around you; the world's indifference IS the reply text WHAT THIS NODE COSTS: time, always time. The camp's only fee is the calendar, and the player watches other characters' lives spending it.",
+   "kind": "convos",
+   "source": "BOHEMIA_CONVERSATIONS_MASTER_7_16_26.txt",
+   "study": "Q146",
+   "studyTitle": "THE SLAVE'S ESCAPE (THE UNAUTHORED QUEST) (Kenshi)",
+   "title": "NODE S-1 \u2014 the intake"
+  },
+  "Q146.N2": {
+   "body": "Speaker: the guards' schedule. Entry: stage 3, ongoing. The camp's routine, read as a dialogue whose lines repeat daily: > observe the count and the shift-change [gate: attention only] -> KNOWLEDGE: the gap exists at a time and place. The quest's central gate is unmarked, unlogged, and stored entirely in the player's head \u2014 the purest knowledge-gate in the corpus (harder than #141's book: there isn't even a book) > test the gap with a small defiance [gate: none] -> the schedule's response teaches its rigidity; suspicion rises; the experiment is priced > recruit the cage: coordinate with other slaves [gate: their sim-state permits] -> plural escape becomes possible; so does betrayal-by-panic when one bolts early \u2014 the systems supply the heist-movie beats without a writer WHAT THIS NODE COSTS: suspicion, the meter the player never sees but learns to feel.",
+   "kind": "convos",
+   "source": "BOHEMIA_CONVERSATIONS_MASTER_7_16_26.txt",
+   "study": "Q146",
+   "studyTitle": "THE SLAVE'S ESCAPE (THE UNAUTHORED QUEST) (Kenshi)",
+   "title": "NODE S-2 \u2014 the rotation"
+  },
+  "Q146.N3": {
+   "body": "Speaker: the alarm. Entry: stage 4. > the timed run through the learned gap [gate: KNOWLEDGE + trained stats] -> the desert, and stage 5 > the loud way: fight out with stolen tools [gate: trained combat] -> viable late; writes a body count the faction remembers > carry a fallen fellow slave out [gate: strength, and the choice] -> slower, plural, the unprompted moral verb the community's testimonies return to again and again \u2014 nothing in the code rewards it; everything in the player does > (fail) [gate: the dice] -> recapture, LOOPS to S-1 with interest: tighter watch, banked skills. The loop IS the difficulty curve of the unauthored quest NOVERB \"surrender your status\" \u2014 there is no line, lever, or petition by which the world un-slaves you; the state ends by DISTANCE or by the faction's destruction only. The removed verb is the institution's whole truth: it does not negotiate, it only loses custody. WHAT THIS NODE COSTS: the safety of the routine. The community testimonies are unanimous that the night of the break is the most frightened players ever are in this game \u2014 of losing a",
+   "kind": "convos",
+   "source": "BOHEMIA_CONVERSATIONS_MASTER_7_16_26.txt",
+   "study": "Q146",
+   "studyTitle": "THE SLAVE'S ESCAPE (THE UNAUTHORED QUEST) (Kenshi)",
+   "title": "NODE S-3 \u2014 the break"
   },
   "Q146.P1": {
    "body": "system: the dial / factions / the world simulation The five portable properties, adopted as REQUIREMENTS for any Bohemia condition-state intended to generate stories (captivity, conscription, debt-bondage, quarantine \u2014 whichever survive Paolo's canon): (1) defeat CONTINUES into the state, never ends the run at the dial's mercy tiers; (2) the institution runs a LEGIBLE ROUTINE (Bohemia's 120 BPM world makes schedules native \u2014 shifts on the beat); (",
@@ -28516,6 +28804,30 @@
    "studyTitle": "THE SLAVE'S ESCAPE (THE UNAUTHORED QUEST) (Kenshi)",
    "title": "THE ARC IS BRUTAL BY DEFAULT AND INVISIBLE BY DESIGN"
   },
+  "Q147.N1": {
+   "body": "Entry: the grave opened, stage 2. The dead composer's account: the kingdom fell; his brother went to the dark in its service; he himself lies here. Then the lesson \u2014 the song, taught phrase by phrase. > learn the song [gate: none \u2014 the scene's one verb] -> the Song of Storms enters the player permanently > (there are no other options. The dead man has one request and the format should be honest that the scene is a gift with a freight attached, not a negotiation) NOVERB \"Who was right, you or him?\" \u2014 the adjudication verb is absent by design. Flat does not ask the player to judge the brothers' history, and no line exists to volunteer for it. The delivery is clean of verdict: the corpus's model for how a messenger role should be written \u2014 carry the message, not the case. WHAT THIS NODE COSTS: nothing at the grave. The freight is paid in the cave.",
+   "kind": "convos",
+   "source": "BOHEMIA_CONVERSATIONS_MASTER_7_16_26.txt",
+   "study": "Q147",
+   "studyTitle": "SHARP AND FLAT (THE IKANA SUITE) (The Legend of Zelda: Majora's Mask)",
+   "title": "NODE F-1 \u2014 Flat, beneath the graveyard"
+  },
+  "Q147.N2": {
+   "body": "Entry: stage 3. The conversation conducted entirely in music and damage. His requiem opens the exchange \u2014 the curse's position stated as a life-drain the player stands inside. > play the Song of Storms [gate: KNOWLEDGE \u2014 stage 2 done; the game never marks the connection] -> the answer. The curse breaks mid-phrase; the drain stops; the confession flows > play anything else / nothing [gate: none] -> the drain continues to death or retreat. Wrong answers are priced in the only currency the cave takes: life > leave and return prepared [gate: none] SILENCE -> the cave permits retreat; the curse waits. Grief-as-obstacle has no timer except the world's own three days THE ONE LINE DOING THE WORK is not a line: it is the moment the player's song and the requiem overlap \u2014 two pieces of music from two brothers fighting for the same air, resolved when the older one wins. The scene's craft is that the \"dialogue\" is literally contrapuntal. WHAT THIS NODE COSTS: standing in the pain while answering it. The player takes real damage during the delivery \u2014 mercy priced in hearts, the game's way of",
+   "kind": "convos",
+   "source": "BOHEMIA_CONVERSATIONS_MASTER_7_16_26.txt",
+   "study": "Q147",
+   "studyTitle": "SHARP AND FLAT (THE IKANA SUITE) (The Legend of Zelda: Majora's Mask)",
+   "title": "NODE S-1 \u2014 Sharp's cave"
+  },
+  "Q147.N3": {
+   "body": "Immediately after. The weeping; the confession (what he served, what it cost, what he did in the fall); the spring's release. > (no options \u2014 the player's role in the reconciliation is COURIER, and the format records the humility: the brothers' scene belongs to the brothers) DIFFERENT TEXT BY WORLD-STATE: return in the same three days and Sharp keeps the spring, speaks as the restored musician; rewind, and none of it happened \u2014 the reset-variant text is the game's standing grief (Q128's paradox, the suite's version). WHAT THIS NODE COSTS: the player watches a repair they cannot keep. Three days of river, purchased with a permanent song \u2014 the exchange rate of the whole game, in one spring.",
+   "kind": "convos",
+   "source": "BOHEMIA_CONVERSATIONS_MASTER_7_16_26.txt",
+   "study": "Q147",
+   "studyTitle": "SHARP AND FLAT (THE IKANA SUITE) (The Legend of Zelda: Majora's Mask)",
+   "title": "NODE S-2 \u2014 Sharp, uncursed"
+  },
   "Q147.P1": {
    "body": "system: the fold / [READ] / the missing-persons organ (#141) The relay frame, Bohemia-shaped: a dead person's record (the fold holds it; the organ surfaces it) contains a message addressed to a living person the deceased could not face \u2014 and the player can carry it. F2's law applied: the player can [READ] enough of the account to be TEMPTED (withhold, edit, take a side), and carrying it clean is a chosen discipline the record notices. ``` @TALK relay_offer",
    "kind": "ports",
@@ -28659,6 +28971,38 @@
    "study": "Q147",
    "studyTitle": "SHARP AND FLAT (THE IKANA SUITE) (The Legend of Zelda: Majora's Mask)",
    "title": "THE RESET ECONOMY CHEAPENS THE REPAIR FOR SOME, DEEPENS IT FOR OTHERS"
+  },
+  "Q148.N1": {
+   "body": "Entry: stage 2. The guard's outline: his men, the nights, the thing. Grief wearing procedure. > \"Tell me everything about the victims.\" [gate: none] -> the detail that matters later: the dead were REPEAT visitors to the district. The fork's evidence enters disguised as victimology > \"Let's talk price.\" [gate: none] -> THE HAGGLE SUBTREE: offer, counter, walk-away threshold; a persuasion check can push the ceiling. The formula's only minigame, run at maximum ignorance > \"I'll take it at posted price.\" [gate: none] -> the softie's lane; identical quest, poorer witcher. The game's refusal to reward or punish the haggle is the job system's dignity WHAT THIS NODE COSTS: nothing visible. It LOCKS the fee before the truth \u2014 the design's cleanest separation of money from morality.",
+   "kind": "convos",
+   "source": "BOHEMIA_CONVERSATIONS_MASTER_7_16_26.txt",
+   "study": "Q148",
+   "studyTitle": "DEADLY DELIGHTS (THE CONTRACT FORMULA) (The Witcher 3: Wild Hunt)",
+   "title": "NODE D-1 \u2014 the client"
+  },
+  "Q148.N2": {
+   "body": "Entry: stage 4. The madam and the women, closed like a fist around one of their own. > [Axii delusion] \"You'll tell me about her.\" [gate: KNOWLEDGE/BUILD \u2014 the sign invested long ago] -> the shortcut: name, rooms, key. The prepared witcher's minutes > \"I'm not here to hurt anyone. Help me understand.\" [gate: none] -> partial truths, the vial, the legwork route \u2014 slower, and the women's fear is on the record. The honest route costs time and buys the same door > press with the contract's authority [gate: none] -> walls up; TRAP-shaped: authority is the one key this lock eats. The quest quietly teaches that the client's paper means nothing in Salma's parish WHAT THIS NODE COSTS: the Axii route costs a sliver of the women's dignity (they wake having said what they'd never say); the legwork costs none. The game does not price this anywhere except in the player.",
+   "kind": "convos",
+   "source": "BOHEMIA_CONVERSATIONS_MASTER_7_16_26.txt",
+   "study": "Q148",
+   "studyTitle": "DEADLY DELIGHTS (THE CONTRACT FORMULA) (The Witcher 3: Wild Hunt)",
+   "title": "NODE D-2 \u2014 the social lock at Crippled Kate's"
+  },
+  "Q148.N3": {
+   "body": "Entry: stage 5. The fork, run as a conversation with an unhurried person. She opens without fear: she knows why a witcher is in her doorway, and she tells her account \u2014 they came to her, they always came back, and what took them was the coming back. > \"The contract says you die.\" [gate: none] -> the fight. She defends her nature without apology, to the end > \"Give me a reason to walk away.\" [gate: none] -> her offer: the trophy, the token, the closure the client actually needs \u2014 plus the sword, the monster's severance payment to the profession. THE ONE LINE DOING THE WORK is hers, paraphrased: you need something to show him, not something to bury > \"Promise me it stops.\" [gate: none] -> she won't. The refusal is the design's spine: no reform is on sale, only her account and the arithmetic of whether her nature meets more willing dead. The player spares a FACT, not a redemption arc > (say nothing; look at the room instead) [gate: none] SILENCE -> her text continues into the account's saddest register \u2014 the names she knew. The silence buys the version of her the fight would never show",
+   "kind": "convos",
+   "source": "BOHEMIA_CONVERSATIONS_MASTER_7_16_26.txt",
+   "study": "Q148",
+   "studyTitle": "DEADLY DELIGHTS (THE CONTRACT FORMULA) (The Witcher 3: Wild Hunt)",
+   "title": "NODE D-3 \u2014 Salma"
+  },
+  "Q148.N4": {
+   "body": "Entry: stage 6. The trophy on the table; the fee counted out. > \"It's done.\" [gate: trophy, either provenance] -> paid in full. The client's closure is total and identical in both worlds \u2014 the design's last, coldest finding: the truth was never a deliverable > \"There's something you should know.\" \u2014 NOVERB. No confession line exists. The player cannot brief the client on the fork; the paperwork has one field and it is filled. The contract class keeps its white lies structural: not a choice to lie, an INTERFACE that only accepts the fiction WHAT THIS NODE COSTS: nothing. That is the point, and the discomfort of the nothing is the quest's aftertaste.",
+   "kind": "convos",
+   "source": "BOHEMIA_CONVERSATIONS_MASTER_7_16_26.txt",
+   "study": "Q148",
+   "studyTitle": "DEADLY DELIGHTS (THE CONTRACT FORMULA) (The Witcher 3: Wild Hunt)",
+   "title": "NODE D-4 \u2014 the collection"
   },
   "Q148.P1": {
    "body": "system: survival economy / settlement systems / the .bq format The job loop, whole: settlement boards post contracts (threats, retrievals, investigations \u2014 generated from the world sim's actual events, #146's emergent layer feeding the board); the player interviews the client and HAGGLES AT IGNORANCE (fee locked before the job's truth is knowable \u2014 W1 as a hard rule of the contract schema: no fee renegotiation node may exist after stage 2); investigation; res",
@@ -28804,6 +29148,30 @@
    "studyTitle": "DEADLY DELIGHTS (THE CONTRACT FORMULA) (The Witcher 3: Wild Hunt)",
    "title": "REPEATABLE FORMAT, DIMINISHING PERSONHOOD"
   },
+  "Q149.N1": {
+   "body": "Speakers: Sean's connections. Entry: stage 2, distributed. Every interview is dual-use by construction: > ask after Sean's habits [gate: none] -> trail data AND a hint: his blood quality ticks. The interface displays the appetite's gain alongside the investigation's \u2014 the game refuses to let care launder itself > press a connection's own secret [gate: their hints] -> deeper access, and THEIR blood quality ticks too. The web rewards thoroughness in both currencies at once; the player cannot investigate innocently > (leave people unstudied) [gate: none] SILENCE -> mercy's quiet form: an unlearned citizen is a worse meal and a locked door. Ignorance as a chosen kindness, priced in options WHAT THIS NODE COSTS: innocence of motive. Every fact learned is worth XP the moment resolve slips \u2014 the system holds the player's knowledge in escrow for their worst self.",
+   "kind": "convos",
+   "source": "BOHEMIA_CONVERSATIONS_MASTER_7_16_26.txt",
+   "study": "Q149",
+   "studyTitle": "THE SAD SAINT (THE CITIZEN WEB) (Vampyr)",
+   "title": "NODE V-1 \u2014 the web, interviewed"
+  },
+  "Q149.N2": {
+   "body": "Speaker: Sean, at the shelter, turning. Entry: stage 4. He does not run. He asks, in effect, what the doctor intends for the monster \u2014 the patient conducting his own triage. > \"Come here, Sean.\" (EMBRACE) [gate: none \u2014 always available, always enormous XP] -> the drink. The game shows the number. TRAP-shaped for the build-minded: the pillar is the district's richest vein, and the design WANTS the player to feel the pull (the whole game's thesis in one temptation) > \"Live with it. I won't touch you.\" (SPARE AS-IS) [gate: none] -> the sentiment option, and the system's cruelest lesson: unhelped, the hunger wins \u2014 the massacre at the shelter, the peaceful skals butchered. Mercy without treatment is abandonment wearing mercy's coat. THE ONE CHOICE DOING THE WORK: the game's deepest law is that GOOD INTENTIONS ARE NOT A VERB > \"Take my blood.\" (GIVE) [gate: KNOWLEDGE \u2014 his hints learned; and PRICE \u2014 the player's own progression spent] -> mastery: he remains a skal and remains HIMSELF. The redemption is gated on intimacy and paid in the predator's currency, reversed. The system's one",
+   "kind": "convos",
+   "source": "BOHEMIA_CONVERSATIONS_MASTER_7_16_26.txt",
+   "study": "Q149",
+   "studyTitle": "THE SAD SAINT (THE CITIZEN WEB) (Vampyr)",
+   "title": "NODE V-2 \u2014 the adjudication"
+  },
+  "Q149.N3": {
+   "body": "Speaker: London, over following nights. Entry: stage 5. > (no options \u2014 the web speaks in state: health bars, locked doors, a newspaper, who is missing from their route) The verdict arrives ambient: citizens comment, the paper prints, the district's meter moves. Judgment delivered entirely through world-reaction \u2014 no score, no alignment tick, no dialogue acknowledging a system at all. WHAT THIS NODE COSTS: nothing further. The bill was itemized at V-2; this node is the receipt arriving by post.",
+   "kind": "convos",
+   "source": "BOHEMIA_CONVERSATIONS_MASTER_7_16_26.txt",
+   "study": "Q149",
+   "studyTitle": "THE SAD SAINT (THE CITIZEN WEB) (Vampyr)",
+   "title": "NODE V-3 \u2014 the district, replying"
+  },
   "Q149.P1": {
    "body": "system: settlement systems / the 13 factions / survival accounting The citizen web, adopted whole for Bohemia's settlements: named citizens with schedules on the beat (F3's law \u2014 the patrol/routine machinery is already wired), relationship edges, wellness states aggregating to settlement health with tipping points, and PILLAR citizens whose fates move the aggregate hard. The dark twin (citizens as XP) does NOT port \u2014 Bohemia's player isn't a predator \u2014 but the PR",
    "kind": "ports",
@@ -28947,6 +29315,38 @@
    "study": "Q149",
    "studyTitle": "THE SAD SAINT (THE CITIZEN WEB) (Vampyr)",
    "title": "THE WEB'S SCHEDULES ARE SHALLOW UNDER PRESSURE"
+  },
+  "Q150.N1": {
+   "body": "Speaker: Erandur, on the road and in the halls. Entry: stages 2-3, distributed. > \"You were one of them.\" [gate: none] -> the admission, one beat before the evidence forces it. His pattern for the whole quest: volunteer the damning thing early, keep walking > \"Why come back?\" [gate: none] -> the penance frame \u2014 Mara's colors over Vaermina's r\u00e9sum\u00e9. THE ONE LINE DOING THE WORK is his early self-summary (paraphrased tight): the temple's evils are his to bury. Ownership language, not excuse language \u2014 the difference the finale will test > (press nothing; let him talk) [gate: none] SILENCE -> the installments arrive anyway, self-paced. The confession does not need extraction \u2014 a designed tell: liars need interrogating; penitents need only time WHAT THIS NODE COSTS: nothing yet. It BANKS: every volunteered installment is evidence the player holds at the altar, against the god's version.",
+   "kind": "convos",
+   "source": "BOHEMIA_CONVERSATIONS_MASTER_7_16_26.txt",
+   "study": "Q150",
+   "studyTitle": "WAKING NIGHTMARE (THE GOD WHO LIES AT THE FINALE) (The Elder Scrolls V: Skyrim)",
+   "title": "NODE N-1 \u2014 the confession in installments"
+  },
+  "Q150.N2": {
+   "body": "Speaker: the past, worn. Entry: stage 4. > drink the Torpor [gate: the only way forward] -> Casimir's body, the assault night, the chain, the gas, the wake-up beyond the wall > (inside the dream: no options at all \u2014 the past is already written; the player walks it, performs its one terrible act, and cannot deviate) \u2014 THE REMOVED VERB done perfectly: agency is absent because THIS ALREADY HAPPENED; the format's no-choice corridor is, for once, the honest shape of the content (contrast Q139, where no-choice was a live moral act; here it is testimony, and testimony doesn't branch) WHAT THIS NODE COSTS: distance. The player exits as a witness of the temple's fall \u2014 and armed, unknowingly, against the finale's lie.",
+   "kind": "convos",
+   "source": "BOHEMIA_CONVERSATIONS_MASTER_7_16_26.txt",
+   "study": "Q150",
+   "studyTitle": "WAKING NIGHTMARE (THE GOD WHO LIES AT THE FINALE) (The Elder Scrolls V: Skyrim)",
+   "title": "NODE N-2 \u2014 the Dreamstride"
+  },
+  "Q150.N3": {
+   "body": "Speaker: Vaermina, into the player's head, mid-ritual. Entry: stage 6. Her case, in full: he deceived you (true, in installments, already confessed); he serves her still (false); he will turn on you at the ritual's end (false); kill him now and take the Skull (the bribe, real). > strike Erandur down mid-ritual [gate: none \u2014 one swing, he cannot defend mid-cast] -> the Skull is yours; the god keeps her harvest engine off the fire; Dawnstar's nightmares end anyway (the quest is polite about the town either way \u2014 see F2). TRAP, fully authored, wearing the genre's own reflexes: the twist-expectation, the unique-artifact panic, and the achievement checkbox all argue for the murder > hold; let the ritual finish [gate: NOTHING BUT JUDGMENT \u2014 no speech check, no stat, no flag: the gate is the player's read of a man versus a god] -> the Skull burns; the lie evaporates unpunished and unacknowledged; Erandur turns around and offers his life's service > (there is no third path \u2014 no line exists to warn him mid-ritual, no way to ask him to pause and answer the accusation) \u2014 NOVERB \"she's speaking",
+   "kind": "convos",
+   "source": "BOHEMIA_CONVERSATIONS_MASTER_7_16_26.txt",
+   "study": "Q150",
+   "studyTitle": "WAKING NIGHTMARE (THE GOD WHO LIES AT THE FINALE) (The Elder Scrolls V: Skyrim)",
+   "title": "NODE N-3 \u2014 THE VOICE AT THE ALTAR"
+  },
+  "Q150.N4": {
+   "body": "Speaker: Erandur, alive, or the Skull, taken. Entry: epilogue. > [trusted] his companionship, permanent \u2014 the quest's reward is a PERSON, and specifically the person the player declined to murder on divine advice > [killed] the staff, its harvest hunger now the player's tool; a corpse in Mara's robes at Vaermina's altar; no narration, no judgment line, nothing \u2014 Skyrim's silence here is accidental minimalism (see F3), but the SHAPE is right: some verdicts should arrive only as what you're left holding WHAT THIS NODE COSTS: already paid at N-3. This node is the two different rooms the player wakes up in.",
+   "kind": "convos",
+   "source": "BOHEMIA_CONVERSATIONS_MASTER_7_16_26.txt",
+   "study": "Q150",
+   "studyTitle": "WAKING NIGHTMARE (THE GOD WHO LIES AT THE FINALE) (The Elder Scrolls V: Skyrim)",
+   "title": "NODE N-4 \u2014 after"
   },
   "Q150.P1": {
    "body": "system: the argue-the-Amalgamation finale (#142) / the Network / [READ] At Bohemia's endgame, the NETWORK gets Vaermina's move: a private channel to the player \u2014 untestable, unshareable, perfectly timed \u2014 asserting that the Amalgamation (or whoever the finale's trust object is) will betray them, with a REAL bribe attached. The claim's truth is authored per Paolo's canon; the MACHINE is the port: highest authority, private whisper, true payment, judgment-only gate (no",
@@ -29092,6 +29492,30 @@
    "studyTitle": "WAKING NIGHTMARE (THE GOD WHO LIES AT THE FINALE) (The Elder Scrolls V: Skyrim)",
    "title": "THE TRUST BRANCH GOES UNREAD"
   },
+  "Q151.N1": {
+   "body": "Speaker: the local power. Entry: stage 2. The demand, flat and administrative: this land is theirs, the number is this, the schedule is this. > pay [gate: the money] -> protected-and-subordinate: raids from THIS power stop; the tribute line recurs forever; the settlement is now a client > refuse [gate: none] -> the visit's polite version ends; the raid calendar begins. Defiance is priced openly and honestly \u2014 the collector explains the consequence like a utility company > stall / negotiate [gate: none, thin] -> Kenshi's dialogue is minimal by design; the stall buys days, not terms. (See F2 \u2014 the thinness is the flaw AND the finding) > (shut the gate and say nothing) [gate: none] SILENCE -> read as refusal, minus the dignity. The world's politics accept silence as an answer and bill accordingly WHAT THIS NODE COSTS: the illusion of neutrality. There is no rate at which the settlement stays nobody's business; the first visit forecloses unaffiliation forever.",
+   "kind": "convos",
+   "source": "BOHEMIA_CONVERSATIONS_MASTER_7_16_26.txt",
+   "study": "Q151",
+   "studyTitle": "THE FIRST WALL (THE OUTPOST STORY) (Kenshi)",
+   "title": "NODE O-1 \u2014 the collector at the gate"
+  },
+  "Q151.N2": {
+   "body": "Speaker: whoever arrives. Entry: stage 3, standing. > open for traders [gate: none] -> the economy's oxygen, and intelligence leaking both ways (a trader who walked your streets can describe them) > open for the starving [gate: food surplus] -> recruits, gratitude, mouths \u2014 the settlement as promise. The wanderers the player once was, at the gate the player now owns > shut against all [gate: none] -> safety's costume: no economy, no recruits, and the walls read as wealth-worth-hiding to every scout who passes WHAT THIS NODE COSTS: each policy is legible from outside. The gate's pattern IS the settlement's reputation \u2014 posture broadcast by architecture (the corpus's cheapest reputation system: no meter, just what people saw the door do).",
+   "kind": "convos",
+   "source": "BOHEMIA_CONVERSATIONS_MASTER_7_16_26.txt",
+   "study": "Q151",
+   "studyTitle": "THE FIRST WALL (THE OUTPOST STORY) (Kenshi)",
+   "title": "NODE O-2 \u2014 the gate, daily"
+  },
+  "Q151.N3": {
+   "body": "Speaker: the world, at the wall. Entry: stage 4. > stand on the walls [gate: everything built] -> the investment defends itself or doesn't; every casualty is a recruit the player leveled by hand > abandon the base mid-siege [gate: none \u2014 always available, and the arc's TRAP-shaped mercy] -> the squad survives, mobile again; the hours die in place. The option's existence is the design's honesty: freedom was always purchasable, at the price of everything static > (no surrender node exists) \u2014 NOVERB \"we yield, take a cut\": Kenshi's raiders and garrisons accept no mid-siege terms; the negotiation verb died when the deadline did. THE REMOVED VERB teaches the arc's timing lesson: terms exist BEFORE sieges, never during (O-1 was the negotiation; this is the collections department) WHAT THIS NODE COSTS: stood or fled, the settlement's people learn what the player values \u2014 and so does the player. The siege is the founder's conduct book (#143), written in one night.",
+   "kind": "convos",
+   "source": "BOHEMIA_CONVERSATIONS_MASTER_7_16_26.txt",
+   "study": "Q151",
+   "studyTitle": "THE FIRST WALL (THE OUTPOST STORY) (Kenshi)",
+   "title": "NODE O-3 \u2014 the siege, as conversation"
+  },
   "Q151.P1": {
    "body": "system: city-builder core / the 13 factions / CLUSTERED POWER / territory Bohemia's settlement mechanics adopt the address law: the moment the player's plot crosses visibility thresholds (walls, light, smoke, traffic \u2014 LIGHT=TERRITORY already makes light a broadcast), faction arithmetic acquires the address: collectors, scouts, the desperate, on schedules the faction sim prices from visible prosperity. The world's first acknowledgment arrives as a demand. Mechanism mine",
    "kind": "ports",
@@ -29235,6 +29659,38 @@
    "study": "Q151",
    "studyTitle": "THE FIRST WALL (THE OUTPOST STORY) (Kenshi)",
    "title": "THE INTERIOR LIFE IS SILENT"
+  },
+  "Q152.N1": {
+   "body": "Speaker: Sheogorath, at court. Entry: stage 3. He explains the promotion: a duke must fall for a duke to rise; the rite is lawful; pick a throne. > \"Mania. Thadon.\" [gate: none] -> the Greenmote path: infiltrate the source of his pleasure, dose his feast, watch the vice close over him. WRITES: duke of the bright half; Dementia's court remembers being passed over > \"Dementia. Syl.\" [gate: none] -> the heart path: penetrate a paranoiac's security (her fears were procedures), kill her close, carry the proof. WRITES: the dark half's throne; Mania's court unchosen > \"There has to be another way.\" [gate: none] -> there is not, and his answer is the realm's constitution recited as a joke. THE REMOVED VERB, lawful edition: no accession exists without the rite; the office is DEFINED by how it changes hands. (Bohemia note: this is verbs-removed used on an INSTITUTION's grammar \u2014 the system's vocabulary, not the player's conscience, and the difference from Q139 is the whole lesson) > (refuse both thrones) [gate: none] SILENCE -> the quest waits forever; the Greymarch does not. The realm's",
+   "kind": "convos",
+   "source": "BOHEMIA_CONVERSATIONS_MASTER_7_16_26.txt",
+   "study": "Q152",
+   "studyTitle": "THE GREYMARCH (INHERITING THE MAD GOD'S OFFICE) (The Elder Scrolls IV: Oblivion \u2014 The Shivering Isles)",
+   "title": "NODE G-1 \u2014 the accession briefing"
+  },
+  "Q152.N2": {
+   "body": "Speakers: the victims. Entry: stage 3, per throne. > [Mania] Thadon's last feast [gate: the dose placed] -> he speaks through the overdose \u2014 pleasure, confusion, a flicker of understanding, gone. THE ONE LINE DOING THE WORK is his mid-revel realization, paraphrased: the party has a guest of honor after all > [Dementia] Syl's last pursuit [gate: her defenses beaten] -> she runs, she fights, she NAMES it: she always knew someone would come. Her paranoia's vindication is the scene's cruelty \u2014 the realm made her right by making her killable NOVERB \"I'm doing this to save the realm\" \u2014 neither victim can be told the reason. No justification line exists in either rite; the player kills unexplained, and the office arrives without the comfort of a stated cause. The design keeps the murder MURDER even while the law calls it accession. WHAT THIS NODE COSTS: the clean version of the throne. Every petitioner the player later hears is ruled by the hand that did this.",
+   "kind": "convos",
+   "source": "BOHEMIA_CONVERSATIONS_MASTER_7_16_26.txt",
+   "study": "Q152",
+   "studyTitle": "THE GREYMARCH (INHERITING THE MAD GOD'S OFFICE) (The Elder Scrolls IV: Oblivion \u2014 The Shivering Isles)",
+   "title": "NODE G-2 \u2014 the rite performed"
+  },
+  "Q152.N3": {
+   "body": "Speaker: Sheogorath, breaking. Entry: stage 4. The jokes stop. He explains what the Greymarch is \u2014 and what he is \u2014 in the only register the character never used before: plainly. > \"Then fight it with me.\" [gate: none] -> the impossibility stated: he cannot fight what he becomes. The quest-giver resigns from his own quest > \"What am I supposed to do alone?\" [gate: none] -> the plan, finally visible: he was never recruiting a champion. He was recruiting a REPLACEMENT. Everything \u2014 the door, the errands, the duchy \u2014 was onboarding > (say nothing) [gate: none] SILENCE -> his last line lands unprompted; then the vanishing, mid-sentence, and Jyggalag's first word from the same spot. The scene change IS the reveal \u2014 no exposition, just substitution WHAT THIS NODE COSTS: the fiction that the enemy was ever external. The war's other side has been paying the player's wages all along.",
+   "kind": "convos",
+   "source": "BOHEMIA_CONVERSATIONS_MASTER_7_16_26.txt",
+   "study": "Q152",
+   "studyTitle": "THE GREYMARCH (INHERITING THE MAD GOD'S OFFICE) (The Elder Scrolls IV: Oblivion \u2014 The Shivering Isles)",
+   "title": "NODE G-3 \u2014 the despair"
+  },
+  "Q152.N4": {
+   "body": "Speaker: Jyggalag, beaten. Entry: stage 5's end. > (no options \u2014 his monologue is the quest's true briefing, delivered by the only character who never lies: the curse, its authors, the eras of burning, and the naming: the office is the player's now) DIFFERENT TEXT BY NOTHING: the speech is invariant, and its invariance is right \u2014 the cycle's history does not depend on how the player feels about it. The one scene in the corpus where a lore dump is EARNED: the player has already inherited its consequences before hearing its cause. WHAT THIS NODE COSTS: retroactive weight. Every joke Sheogorath told re-reads as a man describing his own recurring death sentence. The quest's whole script is a second playthrough of itself.",
+   "kind": "convos",
+   "source": "BOHEMIA_CONVERSATIONS_MASTER_7_16_26.txt",
+   "study": "Q152",
+   "studyTitle": "THE GREYMARCH (INHERITING THE MAD GOD'S OFFICE) (The Elder Scrolls IV: Oblivion \u2014 The Shivering Isles)",
+   "title": "NODE G-4 \u2014 the freed god"
   },
   "Q152.P1": {
    "body": "system: the fold / succession / settlement institutions (#151) When Bohemia seats a player in an office (settlement head, faction seat, whatever canon builds), the seat ships with its working ledger: petitions that spend real resources, policies with teeth, and \u2014 the fold's signature \u2014 the office's own succession paperwork, because the player's dynast will die holding it. The #144 will-reading and the #145 succession chronicle already handle the handoff; this",
@@ -44236,7 +44692,7 @@
   },
   "Q139": {
    "counts": {
-    "convos": 0,
+    "convos": 5,
     "craft": 10,
     "flaws": 3,
     "ports": 5
@@ -44246,7 +44702,7 @@
   },
   "Q140": {
    "counts": {
-    "convos": 0,
+    "convos": 6,
     "craft": 10,
     "flaws": 3,
     "ports": 5
@@ -44256,7 +44712,7 @@
   },
   "Q141": {
    "counts": {
-    "convos": 0,
+    "convos": 5,
     "craft": 10,
     "flaws": 3,
     "ports": 5
@@ -44266,7 +44722,7 @@
   },
   "Q142": {
    "counts": {
-    "convos": 0,
+    "convos": 5,
     "craft": 10,
     "flaws": 3,
     "ports": 5
@@ -44276,7 +44732,7 @@
   },
   "Q143": {
    "counts": {
-    "convos": 0,
+    "convos": 4,
     "craft": 10,
     "flaws": 3,
     "ports": 5
@@ -44286,7 +44742,7 @@
   },
   "Q144": {
    "counts": {
-    "convos": 0,
+    "convos": 4,
     "craft": 10,
     "flaws": 3,
     "ports": 5
@@ -44296,7 +44752,7 @@
   },
   "Q145": {
    "counts": {
-    "convos": 0,
+    "convos": 4,
     "craft": 10,
     "flaws": 3,
     "ports": 5
@@ -44306,7 +44762,7 @@
   },
   "Q146": {
    "counts": {
-    "convos": 0,
+    "convos": 3,
     "craft": 10,
     "flaws": 3,
     "ports": 5
@@ -44316,7 +44772,7 @@
   },
   "Q147": {
    "counts": {
-    "convos": 0,
+    "convos": 3,
     "craft": 10,
     "flaws": 3,
     "ports": 5
@@ -44326,7 +44782,7 @@
   },
   "Q148": {
    "counts": {
-    "convos": 0,
+    "convos": 4,
     "craft": 10,
     "flaws": 3,
     "ports": 5
@@ -44336,7 +44792,7 @@
   },
   "Q149": {
    "counts": {
-    "convos": 0,
+    "convos": 3,
     "craft": 10,
     "flaws": 3,
     "ports": 5
@@ -44346,7 +44802,7 @@
   },
   "Q150": {
    "counts": {
-    "convos": 0,
+    "convos": 4,
     "craft": 10,
     "flaws": 3,
     "ports": 5
@@ -44356,7 +44812,7 @@
   },
   "Q151": {
    "counts": {
-    "convos": 0,
+    "convos": 3,
     "craft": 10,
     "flaws": 3,
     "ports": 5
@@ -44366,7 +44822,7 @@
   },
   "Q152": {
    "counts": {
-    "convos": 0,
+    "convos": 4,
     "craft": 10,
     "flaws": 3,
     "ports": 5

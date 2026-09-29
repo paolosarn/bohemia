@@ -27,10 +27,10 @@ Act 3, a boom. The valley is laying a tram line north, and the survey runs strai
 - ACCEPT / DECLINE: accept, the siding is on the map. Decline: "Understood." She turns back to the gate. Nothing written.
 
 ## THE CHOICES
-The siding on the close grid: ten cars in a row, doors as the only entries, ladders to the roofs, a water tower (the mound). Eight to ten strippers, two rifles, as stated.
+The siding on the fight board (house-sized tiles): ten cars in a row, doors as the only entries, ladders to the roofs, a water tower (the mound). Eight to ten strippers, two rifles, as stated.
 1. **Go in the doors.** A close fight car by car, on the beat, with the companion. DONE; the fee.
 2. **Take the water tower first.** The mound gives the rifleman the accuracy; the crew breaks sooner. DONE; the same fee, fewer brothers struck down (rule 36 rolls for any who are).
-3. **Cut their power.** They run lights off a tap on the new line. Pull the tap (a prop on the grid) at dusk; half the crew leaves in the dark before the fight. DONE; the same fee.
+3. **Cut their power.** They run lights off a tap on the new line. Pull the tap (a thing on the siding's screen) at dusk; half the crew leaves in the dark before the fight. DONE; the same fee.
 The "I won't do this part" choice: clear the cars but refuse to burn them, which the authority wanted; she pays the fee less one day, as the screen's "we pay the day" line said the day was part of the price. Not a drop.
 
 ## WHAT THE LEDGERS REMEMBER

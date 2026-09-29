@@ -24,7 +24,7 @@ He says it plainly, so the clue is never too subtle (`Q038.X3`).
 
 ## THE CHOICES (price on the button)
 1. FOLLOW THE MARKS. Price: three hours. At the end, the yard's crew and a cut pylon line. What happens there is on
-   the close grid and at your pace: talk, watch, or leave. No fight is forced; the crew is not hostile unless the
+   the wash's screen and at your pace: talk, watch, or leave. No fight is forced; the crew is not hostile unless the
    company draws first (then rule 36 holds for anyone struck down: 20% dead, else out 30 to 40 days).
 2. MARK IT AND MOVE ON. Price: ten minutes. The wash goes on the map as a named place. The next time the player
    opens the menu of the settlement whose clinics run on that line, its HALL carries a contract offer screen about

@@ -24,7 +24,7 @@ Act 1 has pockets of boom, and this is one. A cartel convoy came up from the sou
 
 ## THE CHOICES
 A. THE PAVED ROAD. Fast. The Reds' checkpoint taxes ten tyres. The co-op gets seventy and says so.
-B. THE DIRT ROAD. Slower. The rival crew's tracks cross the dry wash; they wait at the crossing. A close-grid fight against six on a wash floor with two cars for cover.
+B. THE DIRT ROAD. Slower. The rival crew's tracks cross the dry wash; they wait at the crossing. A fight on the fight board against six on a wash floor with two cars for cover.
 C. "I'M NOT FIGHTING OVER TYRES." At the crossing, sell the rival crew twenty tyres at glut price. The co-op gets sixty. Salas pays 5, as he said he would if the count came short.
 
 ## WHAT THE LEDGERS REMEMBER

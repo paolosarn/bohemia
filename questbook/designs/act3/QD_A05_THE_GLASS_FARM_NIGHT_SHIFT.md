@@ -34,8 +34,9 @@ Tuesday. Keep the pumps wet and keep people off six. Some nights people come."
 1. **"Not this week."** "Okay. I'll ask downstairs." COST: nothing. The farm finds someone, or loses a floor; either way
    it is a world event, and the market's lettuce price the next week shows it without naming anybody (C8).
 2. **"Deal."** TAKEN. The window is spoken (Thursday), heard (the horn test Tuesday, the truck's horn Thursday), and
-   generous: three map nights for a job that needs one good hand each night. The work is on the close grid: the pump
-   room is many cells, valves are props the player works, the stairwell door is the squeeze. One night, a group comes
+   generous: three map nights for a job that needs one good hand each night. The work is in the pump room, a building on the farm's
+   screen: valves are things the player taps, the stairwell door the way in. If it comes to a fight, the
+   fight board is cut from the farm (house-sized tiles). One night, a group comes
    up the stairs: a fight on the beat with the companion.
    - **Win the nights:** five batteries on Thursday, and first pick of the harvest at cost.
    - **Lose the fight:** the scavengers cut the lines on one floor and leave. FAILED WHILE TRYING. Ines pays two

@@ -10,7 +10,7 @@ STATUS: draft:true, research only, nothing built (rule 35)
 HOW AN AUTOMATED COMPANION EARNS A PERSONALITY, shaped as a camp EVENT SCREEN. The fight runs on gambits (COMBAT [gambits], Final Fantasy XII, combat only). Names are placeholders.
 
 ## THE SITUATION
-TITO worked casino security before the crash. For the whole game his gambit has been "hold position", and he has held it through everything; the player has seen him hold while people fell around him. In the last fight the player's heir was struck down, and Tito did the one thing he never does: he left his cell, crossed three cells under fire, and dragged the heir out. The override fires at most once in a long while, only at a breaking point, only in a way his background explains (a guard protects the principal, `Q041.W2`, `Q041.W10`). The fight showed it plainly: his cell went empty and his line was heard, "¡Jefe!", with a picture of him moving (two channels, `Q141.X3`).
+TITO worked casino security before the crash. For the whole game his gambit has been "hold position", and he has held it through everything; the player has seen him hold while people fell around him. In the last fight the player's heir was struck down, and Tito did the one thing he never does: he left his tile, crossed three cells under fire, and dragged the heir out. The override fires at most once in a long while, only at a breaking point, only in a way his background explains (a guard protects the principal, `Q041.W2`, `Q041.W10`). The fight showed it plainly: his cell went empty and his line was heard, "¡Jefe!", with a picture of him moving (two channels, `Q141.X3`).
 
 ## THE PERSON AND THE FIRST LINE
 The event screen at camp. Tito's face, still breathing hard.
@@ -19,7 +19,7 @@ The event screen at camp. Tito's face, still breathing hard.
 ## THE CHOICES
 A. "HOLD NEXT TIME." He nods. His override never fires again. His road lines go a little flatter; he does exactly what he is told.
 B. "THANK YOU." Nothing on the sheet. He keeps the capacity: at another breaking point, maybe, once more. Ten map days later, one road line: "Old job. You protect the one who signs the check."
-C. "THEN COVER ME." The player makes it policy: his gambit becomes "cover the leader". He leaves the hold cell for good, and the formation has a hole where he used to stand (a real formation cost, rule 36's depth).
+C. "THEN COVER ME." The player makes it policy: his gambit becomes "cover the leader". He leaves the hold tile for good, and the formation has a hole where he used to stand (a real formation cost, rule 36's depth).
 
 ## WHAT THE LEDGERS REMEMBER
 Every branch: PEOPLE writes "carried the heir out, broke orders" into his attachment count (times he carried someone, QR-M rule 13). A: the company plays him as a tool from here, and he lets it. B: the next override, if it ever comes, is his, not scheduled. C: his portrait changes stance (turned toward the leader); a feed post in the city view: "Tito from the crew says he's got a new job."

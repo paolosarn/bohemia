@@ -191,7 +191,7 @@ the ids it comes from, and the flaws it must avoid on a phone. Every shape has "
   company roster.
 - FACE: one of them, then the other; two portraits, two mouths.
 - CHOICES: back one (standing inside the company, one may leave); split the difference (time, a small cost to
-  both); let them settle it (a fight on the close grid later, or nothing, or a friendship).
+  both); let them settle it (a fight on the fight board later, or nothing, or a friendship).
 - LEDGERS: people in the company, morale, sometimes batteries (the thing they fight over).
 - FROM: `Q043.W2`, `Q043.W3`, `Q041.W3`, `Q151.W9`, `Q055.W9`.
 - AVOID: `Q126.X5` (a unanimous chorus: one side must have a good point), `Q043.X2` (reactions out of character),
@@ -249,7 +249,7 @@ the ids it comes from, and the flaws it must avoid on a phone. Every shape has "
   hurt. A delayed payoff, often across acts.
 - FACE: the person the deed hurt, or someone sent.
 - CHOICES: pay (batteries or a person's service); talk (standing, maybe the debt is reduced, maybe raised); fight
-  (a fight on the close grid, and if you lose, the story continues: robbed, held, released).
+  (a fight on the fight board, and if you lose, the story continues: robbed, held, released).
 - LEDGERS: all four, depending on the deed.
 - FROM: `Q038.W9`, `Q004.W5`, `Q024.W8`, `Q087.W5`, `Q048.W2`, `Q107.W8`, `Q087.W1`, `Q146.W1`.
 - AVOID: `Q086.X7` (untelegraphed: the original event said out loud who saw), `Q118.X1` (an invisible counter),

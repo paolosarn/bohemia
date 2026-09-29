@@ -24,7 +24,7 @@ First line: "Mira, the tyre's gone. The bag has four hours of cold left."
 ## THE CHOICES (price on the button, before the pick)
 1. SWAP HIM A CELL AND PUMP THE TYRE. Price: 1 battery, 30 minutes. Real version: he rides on; the clinic in the
    next settlement gets its insulin. Bait version: the party is stopped on open paved road and the raiders come
-   out of the drainage cut: a fight on the close grid against a group of four, the companion beside you. Anyone
+   out of the drainage cut: a fight on the fight board against a group of four, the companion beside you. Anyone
    struck down: 20% dead, else out 30 to 40 days (rule 36). The button never says "safe"; it says "stop here".
 2. TAKE THE BAG YOURSELF. Price: half a map day of detour, shown on the map before the pick. You carry the bag to the
    clinic; he waits with the bike. Real version: delivered. Bait version: the bag is light, you notice at the first

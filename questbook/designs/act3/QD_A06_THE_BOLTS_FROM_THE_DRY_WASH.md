@@ -35,7 +35,7 @@ bucket. Take a light. Nobody's there. Mostly."
    player can see a stranger's truck leaving the wash with buckets, and the rocket's frame gains a ring. The world
    did it without him, and nobody says he could have (C8).
 2. **"Deal."** TAKEN; two batteries in hand. The party crosses the wash on the map (dirt, slow), and the data centre
-   is the close grid: rack aisles, cold floor, one door. Unscrewing is loud on the beat. A group of scrappers already
+   is the fight board: rack aisles as house-sized tiles, cold floor, one door. Unscrewing is loud on the beat. A group of scrappers already
    inside makes it a fight.
 3. **What happens when the player comes back, either way:** Abel is not at the bench. His neighbour, at the fence:
    "Se fue. The rocket works bought bolts from a crew with a truck. He closed the shop. He said keep the two, you

@@ -22,7 +22,7 @@ Act 3, the valley healing, and the council has done what healing economies somet
 - ACCEPT / DECLINE. Declining writes nothing.
 
 ## THE CHOICES
-A. RACE THEM ON THE PAVED ROAD. Fast. One collector crew waits at the second stop; a short close-grid fight in a courtyard, or show them the council stamp and watch them do the math.
+A. RACE THEM ON THE PAVED ROAD. Fast. One collector crew waits at the second stop; a short fight on the fight board in a courtyard, or show them the council stamp and watch them do the math.
 B. BLOCK BY BLOCK, THE BACK WAYS. No fight. Slower: two blocks are reached after the collectors, and those families paid a debt that no longer existed. Imelda writes their names down to refund them.
 C. HAND THE BOX TO THE CO-OP. Half the stops; the co-op carries the rest. The co-op gets the thanks and the family is less known in the outer blocks.
 Same pay on every road.

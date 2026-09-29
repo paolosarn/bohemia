@@ -1,3 +1,4 @@
+> SECOND READING of #123 (QUESTS 9/29): same quest (Come Fly With Me; #79 is the first reading); cite #123 for what happens and this study only for its lens on the unverifiable heaven, see research/QR_V_THE_SAME_QUEST_STUDIED_TWICE_9_29_26.md.
 # BOHEMIA QUESTBOOK #190 — "COME FLY WITH ME (A DEAD SPACE-CULT WORSHIPS A ROCKET THAT WILL NEVER FLY, AND YOU DECIDE WHERE THEIR FAITH GOES)"
 **Game:** Fallout: New Vegas (2010)
 **Studio:** Obsidian Entertainment

@@ -18,7 +18,7 @@ Act 3. The rocket needs more power, and the power needs a new solar field, and t
 - ACCEPT / DECLINE. Declining writes nothing; the co-op moves them, faster and rougher, and the feed shows it.
 
 ## THE CHOICES
-A. MOVE THEM CAREFULLY. Four map days. The company reads markers on the close grid. Some are names the player knows: a company member from act 1 buried by a road (QD-M04), the sibling's marker is NOT here (the ridge is its own place, QD-Q15).
+A. MOVE THEM CAREFULLY. Four map days. The company reads markers on the field's screen, one tap each. Some are names the player knows: a company member from act 1 buried by a road (QD-M04), the sibling's marker is NOT here (the ridge is its own place, QD-Q15).
 B. MOVE THEM FAST. Two days; markers get mixed up. Same pay.
 C. "NOT THAT ROW." Refuse to move one row the ledger names (the family's own dead). Priced: the field is one row smaller, the pay is 7, and the row stays in the middle of the panels forever.
 

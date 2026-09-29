@@ -23,7 +23,7 @@ Act 2, the world clawing back. The house has money again and wants to show it: a
 
 ## THE CHOICES
 A. THE PAVED ROAD. Fast. A Cartel checkpoint wants to look inside the car. Let them (they count the stake with their eyes and say nothing), or talk past them, or turn round to the dirt.
-B. THE DIRT ROAD. Half a day slower. A roaming party's fresh tracks cross it; the map shows them. Meet them on a dry-wash grid or wait them out.
+B. THE DIRT ROAD. Half a day slower. A roaming party's fresh tracks cross it; the map shows them. Meet them on a dry-wash fight board or wait them out.
 C. THE DECOY. The treasurer's own idea, and she hates it: the stake rides in the company's truck, she rides empty in front. Slower, safest for the money, worst for her nerves. Same pay.
 
 ## WHAT THE LEDGERS REMEMBER

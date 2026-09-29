@@ -3,7 +3,7 @@ ACT: 1
 KIND: contract
 CRISIS: the Destroyers
 ECONOMY: bust
-PLACE: a clinic town in an old strip-mall urgent care (the settlement); the job is one map day north, a burned residential block on the close grid
+PLACE: a clinic town in an old strip-mall urgent care (the settlement); the job is one map day north, a burned residential block (the fight board if it comes to a fight)
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 STAGE: GATHERING (QR-J): two or three bands, a road that is not safe
 CHECKLIST: passes all 28

@@ -4,13 +4,13 @@ ACT: 2
 KIND: contract
 CRISIS: none
 ECONOMY: boom
-PLACE: a reclaimed strip-mall settlement on the east side (settlement menu: the hall is the old tax-prep office, the market is the former dollar store); the job is a trailer park one map stop south, one block on the close grid.
+PLACE: a reclaimed strip-mall settlement on the east side (settlement menu: the hall is the old tax-prep office, the market is the former dollar store); the job is a trailer park one map stop south, one block of the city (the fight board if it comes to a fight).
 STATUS: draft:true, research only, nothing built (rule 35)
 
 A COMPANY MEMBER'S OWN ASK, shaped as a CONTRACT in a settlement's hall that the member points to (the 9/28 ruling). Names are placeholders.
 
 ## THE SITUATION
-Act 2, the world clawing back. TEO, a company member who kept the casino's slot floor running before the crash, has been in the company long enough to have hauled somebody off a grid at least twice (attachment by labour, `Q151.W9`). His father's tool roll, the one thing his father left, is in a pawnbroker's case in this settlement. The pawnbroker has a collections job in the hall. This is Teo's ask, and it is also a plain contract anybody could take.
+Act 2, the world clawing back. TEO, a company member who kept the casino's slot floor running before the crash, has been in the company long enough to have hauled somebody off a fight board at least twice (attachment by labour, `Q151.W9`). His father's tool roll, the one thing his father left, is in a pawnbroker's case in this settlement. The pawnbroker has a collections job in the hall. This is Teo's ask, and it is also a plain contract anybody could take.
 
 ## THE PERSON AND THE FIRST LINE
 On entering the settlement (the menu opens because the player tapped in, rule 32a), Teo gets one road line on the company bar, before any screen: "Pawn lady's got my pop's roll. Initials burned in the handles." That is his whole ask. He never repeats it.
@@ -27,7 +27,7 @@ On entering the settlement (the menu opens because the player tapped in, rule 32
 Trailer one pays. Trailer two pays in copper wire. Trailer three is a man with no batteries and a cracked charge controller he is trying to fix with a butter knife.
 A. COLLECT ALL THREE. Take his controller as goods. He has no light tonight. Full pay. Cost: nothing on the sheet.
 B. COVER HIM. The company pays his debt out of its own pot. Cost: 2 batteries.
-C. FIX IT AND TAKE THE FIX AS PAY. Teo, with the wrench from the advance, rebuilds the man's controller on the close grid (half a day), and Yoli accepts "one working controller, resold" in place of the debt. The priced refusal (`Q139.P2`): it finishes the contract, and costs Yoli's pay down by 1.
+C. FIX IT AND TAKE THE FIX AS PAY. Teo, with the wrench from the advance, rebuilds the man's controller at his trailer (half a day), and Yoli accepts "one working controller, resold" in place of the debt. The priced refusal (`Q139.P2`): it finishes the contract, and costs Yoli's pay down by 1.
 
 ## WHAT THE LEDGERS REMEMBER
 Teo carries the roll (if chosen) and his portrait shows it on his belt. In fights he now repairs a jammed weapon of the member next to him once per fight (a behaviour, never a stat). A: trailer three is dark on the map at night. B: the man is at the charge post in the settlement on your next visit and nods. C: a feed post in the city view: "south lot's got a guy who fixes controllers now." Dropping the taken contract is the only deed: Yoli's case is shuttered to the company.

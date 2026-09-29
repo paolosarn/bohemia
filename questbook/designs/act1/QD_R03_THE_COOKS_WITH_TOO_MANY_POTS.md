@@ -30,7 +30,7 @@ One pot in the stack is still warm, and nobody on the road has been cooking.
 ## CITED FROM
 - `Q107.W4`: the crisis arrives as inventory; forty pots is a supply number before it is a person.
 - `Q011.P12`: a timed window made generous and legible; A buys days, C moves the day for all.
-- `Q116.W9`: the level remembers your preparation; A's extra days become cover cells.
+- `Q116.W9`: the level remembers your preparation; A's extra days become cover on the fight board.
 - `Q148.W3`: evidence read once; B turns a guess into a count.
 - `Q055.P6`: the story pivots on system state; the road event exists because the camp exists.
 - `Q128.W8`: a working person reading the rules for permission to be afraid; Cuca keeps walking.

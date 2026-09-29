@@ -1,6 +1,6 @@
 # QR-I: HOW DO THE 42 BANK QUESTS SCORE ON THE CHECKLIST, AND WHICH ARE WORTH RE-CUTTING?
 
-QUESTION: row [bank against checklist]. Run QR-G's 28-line CHECKLIST (questbook/research/QR_G_WHAT_THE_FLAWS_FORBID_ON_A_PHONE_9_27_26.md, section THE CHECKLIST) over every quest in quests/bq/*.bq: the 5 main quests (M01 to M05), the 7 Act 1 openings (A01 to A07), the 27 side quests (S01 to S27) and the 3 designs-to-play (D001, D002, D013). For each: which lines pass and fail, and whether it is worth RE-CUTTING under rule 35c (one main quest; contracts taken or left; declining is free; the fee locked before the yes) and under Paolo's 9/28 ruling (a contract is a Battle Brothers settlement-menu OFFER SCREEN plus a job on the map and the close grid).
+QUESTION: row [bank against checklist]. Run QR-G's 28-line CHECKLIST (questbook/research/QR_G_WHAT_THE_FLAWS_FORBID_ON_A_PHONE_9_27_26.md, section THE CHECKLIST) over every quest in quests/bq/*.bq: the 5 main quests (M01 to M05), the 7 Act 1 openings (A01 to A07), the 27 side quests (S01 to S27) and the 3 designs-to-play (D001, D002, D013). For each: which lines pass and fail, and whether it is worth RE-CUTTING under rule 35c (one main quest; contracts taken or left; declining is free; the fee locked before the yes) and under Paolo's 9/28 ruling (a contract is a Battle Brothers settlement-menu OFFER SCREEN plus a job on the map and the fight board).
 
 STATUS: draft:true, research only, nothing built (rule 35). Author: QUESTS lane, writer I, round two (9/28). The .bq files were read in full and were NOT edited.
 
@@ -115,7 +115,7 @@ Lines 1, 6, 8, 10, 14, 20 and 24 fail nowhere. Concretely: every file keeps its 
 Paolo's 9/28 words: quests "aren't gonna be like traditional quest", they are the "settlement menu contract pop-up screen". Battle Brothers' own shape (reference/library/battle_brothers/08_CONTRACTS_EVENTS.md) is a client with a portrait in a settlement's hall, a pay offer, a negotiation (ask for more, ask for an advance), accept or decline, then the job on the map. A bank quest survives that shape when it has four things:
 
 1. A CLIENT: somebody with a reason and the means to pay, who can stand in a building and say it in a few lines.
-2. A JOB AWAY FROM THE HALL: a place on the map or a block on the close grid where the work happens (retrieve, repair, find, escort, clear, investigate).
+2. A JOB AWAY FROM THE HALL: a place on the map or a block on the fight board where the work happens (retrieve, repair, find, escort, clear, investigate).
 3. A FEE THAT CAN BE SAID BEFORE THE TRUTH (`Q148.W1`): the job has to be describable honestly without the reveal.
 4. A REPORT BACK: the job ends at the hall (or a place the client names), where the fee is paid whatever moral branch the player chose, so the choice stays about the people, not the coin (`Q148.W9`, the client's closure is outcome-invariant).
 

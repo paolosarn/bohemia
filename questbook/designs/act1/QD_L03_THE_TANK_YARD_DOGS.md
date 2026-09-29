@@ -24,10 +24,10 @@ Act 1, bust, the hungriest stretch. The kitchen feeds forty people a day from a 
   4. "No batteries. Food for your people, {days} days. That's {fee} baterías of food here."
 - PAY: K x 1 day + R1 + S (bust, high), paid entirely IN KIND as food days for the company at San Judas's price (rule P12). The screen shows both the days and their battery value.
 - NEGOTIATION: ASK FOR MORE: none; she says "That's what we can spare without shorting the line." ASK FOR IT IN BATTERIES: "I don't have them. Food, or nobody." ADVANCE: "Eat first if you're hungry. One bowl each." (one meal; not a debt if dropped). Third push: "Okay. Go with God." Nothing written.
-- ACCEPT / DECLINE: accept, and the yard is on the close grid one block away. Decline: "Bueno, go with God." She goes back to the pot. Nothing written.
+- ACCEPT / DECLINE: accept, and the yard is one block away; the fight is on the fight board cut from it. Decline: "Bueno, go with God." She goes back to the pot. Nothing written.
 
 ## THE CHOICES
-The yard on the close grid: a fence with two gaps, the tank on a concrete pad (the mound), a rusted pickup as cover, the dogs in a group. The fight is on the beat, with the companion.
+The yard on the fight board (house-sized tiles): a fence with two gaps, the tank on a concrete pad (the mound), a rusted pickup as cover, the dogs in a group. The fight is on the beat, with the companion.
 1. **Clear the yard.** Fight the pack. DONE; the food days go into the company's stores.
 2. **Drive them, don't kill them.** Close the two fence gaps (two props) with the pickup's tailgate and a pallet, then push the pack out through the third gap with noise and the dial for the one dog that holds. DONE; the same food. It takes longer on the grid.
 3. **"I won't fight nine dogs with what I have."** Tell her so. The priced refusal: nothing paid, she thanks you for saying it, and the offer stays in the kitchen for the next company. Not a drop.
@@ -42,7 +42,7 @@ The yard on the close grid: a fence with two gaps, the tank on a concrete pad (t
 Every dog wears a clean leather collar with a brass tag, and every tag says the same name.
 
 ## WHY A PLAIN JOB IS GOOD
-The pay is honest about what it is (food, not batteries), the danger is counted on the screen, and the two ways through feel different on the grid. A bust contract can be the best contract on the board because food is worth more than cells in a hungry month.
+The pay is honest about what it is (food, not batteries), the danger is counted on the screen, and the two ways through feel different on the fight board. A bust contract can be the best contract on the board because food is worth more than cells in a hungry month.
 
 ## CITED FROM
 - `Q113.N1`: aid has a grammar; the kitchen pays as an employer, not a beggar.

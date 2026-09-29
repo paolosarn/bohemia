@@ -7,7 +7,7 @@ PLACE: a torn-up parking structure on the Destroyers' line, act 1; a relay mast 
 STATUS: draft:true, research only, nothing built (rule 35)
 
 ## THE SITUATION
-Act 1's procedural climax, builders against the Destroyers. On the close grid in a parking structure, the group breaks and a boy of about sixteen drops his rifle and sits down against a pillar. This is a dial moment, the important shot, and it is not forced: the fight is over whether the player takes it or not.
+Act 1's procedural climax, builders against the Destroyers. On the fight board in a parking structure, the group breaks and a boy of about sixteen drops his rifle and sits down against a pillar. This is a dial moment, the important shot, and it is not forced: the fight is over whether the player takes it or not.
 Act 2's local reckoning needs the whisper broadcast held on the beat from a relay mast while a group tries to take the roof. Who turns up to help depends on act 1.
 
 ## THE PERSON AND THE FIRST LINE

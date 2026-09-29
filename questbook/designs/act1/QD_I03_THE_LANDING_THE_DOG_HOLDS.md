@@ -4,7 +4,7 @@ ACT: 1
 KIND: contract
 CRISIS: none
 ECONOMY: bust
-PLACE: a six-storey apartment block squatted from the ground floor up, on the north side of the valley; the job is its stairwell, one block on the close grid
+PLACE: a six-storey apartment block squatted from the ground floor up, on the north side of the valley; the job is its stairwell, one block of the city (the fight board if it comes to a fight)
 STATUS: draft:true, research only, nothing built (rule 35)
 
 RE-CUT FROM: quests/bq/S14_WHAT_THE_DOG_KNOWS.bq
@@ -20,7 +20,7 @@ THE SCREEN (3 lines, 28 words): "Something holds the landing on two. It doesn't 
 PAY: 6 batteries on report. NEGOTIATION: ask for more (7; the second ask closes the screen for this visit, nothing written); ask for an advance (a meal for the company). ACCEPT or DECLINE; decline: "Okay. It'll keep."
 
 ## THE PERSON AND THE FIRST LINE
-At the foot of the stairs on the grid, a sergeant from the post two streets away is already standing there. First line: "I know whose dog that is. I know who hasn't checked in." He lays out three ways, each one line, and will do whichever the player picks.
+At the foot of the stairs, a sergeant from the post two streets away is already standing there. First line: "I know whose dog that is. I know who hasn't checked in." He lays out three ways, each one line, and will do whichever the player picks.
 
 ## THE CHOICES
 A. SIT WITH IT. The player's character sits on the step and waits. Cost: the party loses the rest of the map day. The dog eats from a hand and lies down; the handler is buried behind the wall; the dog joins the company (a companion or a camp dog, PEOPLE's call).
@@ -29,7 +29,7 @@ C. REACH FOR THE KIT. Anybody who reaches for the handler's kit is struck down b
 The fee is paid on all three. There is no fight scene: this is one animal, not a group, and C is the dial's business.
 
 ## WHAT THE LEDGERS REMEMBER
-A: the dog walks with the party on the close grid from now on, and the elder's book lists the upper rooms taken. B: the dog is in the kennel yard at the post on later visits, working. C: a bowl sits on the second-floor landing, filled every day by a child from the ground floor. Declining writes nothing.
+A: the dog travels with the party from now on (and fights beside it on the fight board), and the elder's book lists the upper rooms taken. B: the dog is in the kennel yard at the post on later visits, working. C: a bowl sits on the second-floor landing, filled every day by a child from the ground floor. Declining writes nothing.
 
 ## THE ONE WRONG DETAIL
 The handler's radio on the landing still clicks every hour on the hour, and the dog lifts its head each time.

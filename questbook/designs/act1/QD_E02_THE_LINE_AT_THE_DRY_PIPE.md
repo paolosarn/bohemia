@@ -8,10 +8,10 @@ STATUS: draft:true, research only, nothing built (rule 35)
 
 ## THE SITUATION
 Act 1. The water share holds at the dam, but this block's valve, three blocks up the wash, has been
-turned off by somebody. On the close grid the player arrives to eleven people standing in a line on the
-sidewalk cells, each holding a jug, facing a dry standpipe. Nobody talks. The shed behind the pipe has a
+turned off by somebody. On the settlement screen the player arrives to eleven people standing in a line on the
+sidewalk, each holding a jug, facing a dry standpipe. Nobody talks. The shed behind the pipe has a
 barred window at head height, and a man sits behind it with a ledger, writing. The line does not move.
-The player can walk the whole length of it and nobody turns.
+The player can look the whole length of it and nobody turns.
 
 ## THE PERSON AND THE FIRST LINE
 TEODORO "TEO" VÁSQUEZ (name Paolo's), the pipe keeper, behind the window. He cannot leave the window; the
@@ -35,8 +35,9 @@ WITHHELD: that it has been turned off three times this month, and that the peopl
 - ACCEPT / DECLINE: ACCEPT puts the red wheel on the map. DECLINE, or closing the screen, or never tapping the building, writes nothing: no row, no line, no look, and the offer sits in the same building on the next visit while the job is still real.
 
 ## THE CHOICES
-1. TAKE IT. One resources on return (water share, paid from the ledger in his hand). The walk up the wash
-   is on the close grid; the valve cell has a group standing on it, and the fight is there.
+1. TAKE IT. One resources on return (water share, paid from the ledger in his hand). The way up the wash
+   is on the map; at the valve a group is standing on it, and the fight is there, on the fight board (a
+   routine fight, 2 to 4 minutes).
 2. TAKE IT, AND ASK FOR A DIFFERENT ONE (the haggle's first kind): one battery instead of resources.
    Teo: "Battery's harder. Fine." Two asks land; the third gets the spoken limit.
 3. NO. "Sure." He writes the next name in the ledger. Nothing else happens. The line keeps standing.
@@ -44,7 +45,7 @@ WITHHELD: that it has been turned off three times this month, and that the peopl
    if tapped.
 
 ## WHAT THE LEDGERS REMEMBER
-Declining leaves nothing. TAKEN: contract row. DONE: the pipe runs on its cell (water sprite, sound of
+Declining leaves nothing. TAKEN: contract row. DONE: the pipe runs (water sprite, sound of
 real water, never noise), the line moves and thins, and the Destroyers' ledger counts one reversal
 against them on this block (the Act 1 climax is procedural, builders vs Destroyers; this is one builder
 tick). DROPPED: a deed, and the line is still standing when he next passes, which is the only comment

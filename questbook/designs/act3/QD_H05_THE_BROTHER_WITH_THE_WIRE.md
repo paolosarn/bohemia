@@ -22,7 +22,7 @@ the foot of the mast until the family is close enough that no one else can hear.
 brother is on their list for tonight. He doesn't know he's on it. He thinks it's his idea."
 
 ## THE CHOICES
-1. TAKE HIM OFF THE MAST BY FORCE. Costs: a fight on the close grid against Network guards (and her
+1. TAKE HIM OFF THE MAST BY FORCE. Costs: a fight on the fight board against Network guards (and her
    brother among them), batteries for the medic after, and the Network's leaders learn the family
    guards the relay. Gain: the mast holds. Her brother lives, wired, and cannot be turned; she stays.
 2. TALK TO HER, NOT TO HIM. Costs: time; the family lets the attempt on the mast happen and meets it

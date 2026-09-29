@@ -4,7 +4,7 @@ ACT: 1
 KIND: event
 CRISIS: none
 ECONOMY: bust
-PLACE: a camp on the map one stop south of a dead hospital on the north side of the valley; the detour's street is the hospital's third floor on the close grid (one block: a ward, a nurses' station, a stairwell).
+PLACE: a camp on the map one stop south of a dead hospital on the north side of the valley; the detour's place is the hospital's third floor (a ward, a nurses' station, a stairwell; the fight board if it comes to a fight).
 STATUS: draft:true, research only, nothing built (rule 35)
 
 A COMPANY MEMBER'S OWN ASK, shaped as a camp EVENT SCREEN (the 9/28 ruling). Names are placeholders, Paolo's to change.
@@ -18,7 +18,7 @@ The event screen at camp, night. Lupe's portrait, the fire's light on one side o
 Second line, only if the player waits: "Una noche. That's all."
 
 ## THE CHOICES
-A. GO WITH HER. One map day off the route. The company walks the dead ward on the close grid. No fight is planned; squatters on the second floor may be met and talked past or fought (a group, as always). She finds the whiteboard. Cost: 1 day, 1 ration per member.
+A. GO WITH HER. One map day off the route. The company goes through the dead ward, room by room, a thing to tap in each. No fight is planned; squatters on the second floor may be met and talked past or fought (a group, as always, on the fight board). She finds the whiteboard. Cost: 1 day, 1 ration per member.
 B. NOT THIS TRIP. Nothing is spent. She says "Okay." and puts the fire out. The ask does not come back in act 1, and nobody mentions it again (rule 35's free no, held for asks too, `Q043.X1` fixed).
 C. GIVE HER THE NIGHT. She goes alone; the company waits at camp half a day. No fight. She comes back with nothing in her hands and says nothing about it. Cost: half a day, and she is out of the formation if the camp is found (the storyteller may send a probe party, never a set-piece).
 

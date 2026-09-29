@@ -96,7 +96,7 @@ What replaces it, in the library's own best cases:
   persuasion: "make your own choice" (`Q076.W5`).
 
 For Bohemia this lands as one sentence: a company member's loyalty is shown by where he stands, whom he covers, and
-what he will not do, all visible on the close grid and at the fire, and never by a number on his page.
+what he will not do, all visible on the fight board and at the fire, and never by a number on his page.
 
 ### 3. The quarrel: the company reacts to itself
 - The core innovation of the whole companion lineage is that companions react to EACH OTHER, independent of you
@@ -253,7 +253,7 @@ says about giving an automated fighter a personality:
 1. NO LOYALTY METER. No company member has a loyalty, approval or morale number visible anywhere, and none is written
    to a player-facing screen. PEOPLE may keep an internal gradient (`Q137.P4`) but it is never shown, and it is always
    expressed as behaviour: formation, gambits, camp position, one line. (`Q083.W6`, `Q076.X3`, `Q125.X9`, `Q137.X2`)
-2. LOYALTY LIVES IN THE FIGHT. A member's regard for the player changes what he DOES on the close grid, never his
+2. LOYALTY LIVES IN THE FIGHT. A member's regard for the player changes what he DOES on the fight board, never his
    damage number: whom he covers, whether he takes the flank you give him, whether he steps back to help a downed
    friend. Every such change has a tell a player can see in one fight (a line, a stance, a cell he will not enter).
    (`Q137.W3`, `Q006.W7`, with `Q137.X1` fixed by the tell)

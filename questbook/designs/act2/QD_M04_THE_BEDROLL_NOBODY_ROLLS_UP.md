@@ -24,11 +24,11 @@ B. CARRY HIM HOME. Only offered if his settlement is within three stops. One or 
 C. HAND HIS THINGS ON. The speaker asks for one thing of his by name ("his jacket"); the rest is buried with him by the road. No time spent. The speaker wears it from then on, visible on her portrait.
 
 ## WHAT THE LEDGERS REMEMBER
-Every branch: PEOPLE writes the receipt line, the fight, the formation cell, the date. Within two map stops or one city-view open, the world shows it (QR-G checklist line 1): a feed post from his settlement, or a person at his settlement who asks the company if it is true. Never a banner.
+Every branch: PEOPLE writes the receipt line, the fight, the formation tile, the date. Within two map stops or one city-view open, the world shows it (QR-G checklist line 1): a feed post from his settlement, or a person at his settlement who asks the company if it is true. Never a banner.
 A: his grave on the road; the company's road line when passing it, once per pass, never repeated in the same act.
 B: his settlement's hall offers the company nothing extra (no reward for grief, `Q125.X9`); his mother stands at the hall door on the next visit and says one line.
 C: the jacket is on the speaker in every fight after; if she is struck down later, her receipt names it.
-For ten map days after, the member who spoke fights one cell further back than her gambit says, and says why once: "Not today." (grief shown as behaviour, `Q041.W3`, bounded so it never spirals into busywork, `Q041.X2`).
+For ten map days after, the member who spoke fights one tile further back than her gambit says, and says why once: "Not today." (grief shown as behaviour, `Q041.W3`, bounded so it never spirals into busywork, `Q041.X2`).
 
 ## THE ONE WRONG DETAIL
 That night in the city view, the feed shows a new post from his account: a photo of the camp, taken from where his bedroll lies.
@@ -39,7 +39,7 @@ That night in the city view, the feed shows a new post from his account: a photo
 - `Q006.W5`: death with dignity, legible and earned; taken as the cause read from the fight.
 - `Q125.X8`: no loot in a scene with a named body; taken as the gear handed on or buried.
 - `Q001.W6`: duration as grief; taken as the carry home.
-- `Q045.W5`: specificity is the soul of emergence; taken as who speaks and which cell.
+- `Q045.W5`: specificity is the soul of emergence; taken as who speaks and which tile.
 
 ## FLAWS IT AVOIDS
 `Q105.X5` (the offscreen goodbye), `Q137.X5` (the plaque funeral), `Q129.X9` (the company says nothing), `Q125.X7` (loot in the grave), `Q144.X2` (death as lost progress: no stat talk on this screen at all).

@@ -18,7 +18,7 @@ Act 3, the Network is crumbling and its local halls are going dark one by one. T
 - ACCEPT / DECLINE. DECLINING writes nothing. Somebody else strips it next month and the feed says the hall went dark.
 
 ## THE CHOICES
-A. PULL AND DON'T LOOK. Close grid: the hall is many cells, racks are props, the loading door is the squeeze. A scavenger crew arrives on the second night: a group fight on the beat. Full pay.
+A. PULL AND DON'T LOOK. The fight board: the hall is a few house-sized tiles, the racks are cover, the loading door is the way in. A scavenger crew arrives on the second night: a group fight on the beat. Full pay.
 B. READ THE SCREENS. The screens show a queue of portraits of the dead, updating. Reading costs half a night and moves the family one step closer to the secret; a roaming party starts following on the map. Pay the same (`Q121.X2`: the crueller or riskier branch never pays more).
 C. "I WON'T PULL THE LAST RACK." One rack runs a grief app a whole street still uses (`Q071.X1` guard: the player hears it from a woman at the door). Leave it. Tomás pays 4, not 6, "for the rack you didn't pull". Finished, not dropped.
 

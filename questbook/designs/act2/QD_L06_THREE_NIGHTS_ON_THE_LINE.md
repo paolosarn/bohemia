@@ -27,7 +27,7 @@ Act 2, a bust year. The power share reaches the west side on one pole line. At n
 - ACCEPT / DECLINE: accept, and the line is on the map as a strip of poles. Decline: "Sure." She writes the next cut date. Nothing written.
 
 ## THE CHOICES
-Each night on the map the party walks the pole line; the clock runs; tracks show. On nights two and three a stripping crew is on the line, and the fight is on the close grid under a pole (the mound is the transformer pad).
+Each night on the map the party walks the pole line; the clock runs; tracks show. On nights two and three a stripping crew is on the line, and the fight is on the fight board under a pole (the mound is the transformer pad).
 1. **Walk all three nights.** DONE; three nights' pay, paid as they came. The line holds.
 2. **Stake one pole.** Read the tracks on the map after night one; wait at the pole where they all converge. You meet the crew once, on your ground. DONE; the same three nights' pay (the contract was nights, not kills).
 3. **Talk to the crew.** On night two the crew's leader offers to split the copper. Say no and fight, or say no and they leave, taking nothing. There is no yes: the contract said "stop them", and the screen said so. DONE; the same pay.

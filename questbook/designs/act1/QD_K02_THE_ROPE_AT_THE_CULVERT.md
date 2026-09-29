@@ -26,7 +26,7 @@ Her son holds the rope. First line: "Two cells, or the long way. The water's not
 3. KEEP MOVING (the long way). Price from the ledgers: nothing. The party turns off; the map shows the detour's
    length before the tap, and it is only road time. Nobody fires. Nobody remembers it.
 
-A fourth, violent answer (cut the rope and run it) exists only on the close grid, never as an event button, as QR-B
+A fourth, violent answer (cut the rope and run it) exists only on the fight board, never as an event button, as QR-B
 rules for E2.
 
 ## WHAT THE LEDGERS REMEMBER

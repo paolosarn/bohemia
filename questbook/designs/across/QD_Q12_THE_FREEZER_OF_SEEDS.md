@@ -18,7 +18,7 @@ ACT 1: SETTLEMENT the brownout block. BUILDING the hall (a church basement).
 - DECLINE is free (low pay, beneath you: nobody remembers).
 
 ## THE CHOICES
-Act 1: A. GUARD IT. A night fight on the close grid, the freezer door as the squeeze. B. MOVE IT. Haul the seeds to the family's base; a day of travel, one road event. C. "I'll guard four nights, not seven." Priced: half pay; she takes her chances; the freezer lives or dies by a roll the feed reports.
+Act 1: A. GUARD IT. A night fight on the fight board, the freezer door as the way in. B. MOVE IT. Haul the seeds to the family's base; a day of travel, one road event. C. "I'll guard four nights, not seven." Priced: half pay; she takes her chances; the freezer lives or dies by a roll the feed reports.
 Act 3 (the landing): the tower farm's hall. By read:
 - SAVED: the farm grows a squash the whole valley calls by her name. Its manager offers the family seeds at cost forever.
 - LOST: the farm grows three kinds of lettuce and nothing else. Its manager says "we lost the old seeds in the anarchy" and does not know how.

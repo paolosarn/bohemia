@@ -3,7 +3,7 @@ ACT: 1
 KIND: contract
 CRISIS: none
 ECONOMY: boom
-PLACE: the solar field home base (town tier); the job is rows four to nine of the panel yard, on the close grid
+PLACE: the solar field home base (town tier); the job is rows four to nine of the panel yard (the fight board if it comes to a fight)
 SITUATION: a dust storm buried six panel rows just as the dam road started buying the field's surplus, and thirty storm refugees are sleeping between the rows -> the rows are clean, the field's charge price falls one for a refresh, and the thirty either work, walk on to the wash camp, or are swept around
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 TWIST: none

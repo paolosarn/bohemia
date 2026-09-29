@@ -23,7 +23,7 @@ crisis client (the rocket stage adds one): this is the crisis client.
   ask for an advance (2 now, from the 8). DECLINE: the portrait stays on the board until the next refresh.
 
 ## THE CHOICES
-1. Hold the access road on the close grid: a group on the beat, the companion on the hall door. 8 batteries.
+1. Hold the access road on the fight board: a group on the beat, the companion on the hall door. 8 batteries.
 2. Cut the road lights and let them come to the hall, where the roof is high ground: safer, but the market loses a
    night's power (prices up one step for a map day). 8 batteries.
 3. "I won't shoot the second crew, they're kids": finish with a stated price, Marisol pays 6 and posts a guard.

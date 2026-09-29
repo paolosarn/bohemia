@@ -23,7 +23,7 @@ The wash camp lives in a flood channel because nobody else will. The old men say
 
 ## THE CHOICES
 A. PAY THE RENT. 4 batteries of the family's own buys the camp level two for a season. The landlord is polite.
-B. CLEAR LEVEL TWO. The Mob crew on the ramp: a close-grid fight on a slope with parked-car cover.
+B. CLEAR LEVEL TWO. The Mob crew on the ramp: a fight on the fight board on a slope with parked-car cover.
 C. THE CO-OP INSTEAD. One map leg further. The co-op takes the camp into its gym in return for work.
 Same pay on every road. The flood comes on the night the old men said. They were right.
 

@@ -3,7 +3,7 @@ ACT: 3
 KIND: contract
 CRISIS: the Network crumbling
 ECONOMY: boom
-PLACE: a council home base in a reclaimed school on the east side; the job is a block of apartment towers one map stop east, done on the close grid door to door
+PLACE: a council home base in a reclaimed school on the east side; the job is a block of apartment towers one map stop east, done door to door on each tower's screen (the fight board if it comes to a fight)
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 CHECKLIST: passes all 28. Line 12 met by choice C.
 

@@ -4,7 +4,7 @@ ACT: 2
 KIND: contract
 CRISIS: none
 ECONOMY: bust
-PLACE: a farm co-op at the valley's edge (fields and a hydroponic shed); the job is a caravan camped at a crossroads two map stops away, one yard on the close grid
+PLACE: a farm co-op at the valley's edge (fields and a hydroponic shed); the job is a caravan camped at a crossroads two map stops away, one yard (the fight board if it comes to a fight)
 STATUS: draft:true, research only, nothing built (rule 35)
 
 RE-CUT FROM: quests/bq/S17_THE_SEED_THAT_DOES_NOT_COME_BACK.bq
@@ -20,7 +20,7 @@ THE SCREEN (3 lines, 34 words): "We're a winter short. There's a caravan at the 
 PAY: 10 batteries on return with seed; 4 if the player comes back with none and a plan (the priced refusal, said on the screen when asked "and if I come back empty?"). NEGOTIATION: ask for more (11; the second ask closes the screen for this visit, nothing written); ask for an advance (a sack of dried beans for the road). ACCEPT or DECLINE; decline: "Vale. The field will wait a day."
 
 ## THE PERSON AND THE FIRST LINE
-At the crossroads on the grid, the trader, sixties, silk scarf over a dust mask. First line: "Twice the yield. I've never said otherwise. Its children make nothing. I've never hidden that either." Back at the co-op, the old woman who keeps the saved line (optional, one line): "Mine came off my mother's rows. It has never once asked me for anything."
+At the crossroads, the trader, sixties, silk scarf over a dust mask. First line: "Twice the yield. I've never said otherwise. Its children make nothing. I've never hidden that either." Back at the co-op, the old woman who keeps the saved line (optional, one line): "Mine came off my mother's rows. It has never once asked me for anything."
 
 ## THE CHOICES
 A. ONE SMALL SACK, PLANTED OVER THE RIDGE. Pollen cannot reach the saved line from the far side. Cost: 2 map days of the party carrying and planting; a thin winter. Full fee.

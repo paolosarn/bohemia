@@ -7,22 +7,22 @@ PLACE: a standpipe on a cracked lot between four houses, fed by the share (dam a
 STATUS: draft:true, research only, nothing built (rule 35)
 
 ## THE SITUATION
-(9/28: the walk below was the round-one front door. Under the settlement ruling the lot is a settlement screen; the tone and the forming line play on that screen, the valve man is tapped at the standpipe, and the close-grid lot is the ground of the watch after ACCEPT. The lamp in the open house becomes a SCAVENGE result on this screen with the same ledger. See QR-P.)
-He starts in a doorway cell of a house on the lot. At second 20 a tone sounds from a pole speaker: one
-long flat note, no voice. It is the water schedule: the standpipe runs for three minutes. Doors open.
-People come out with jugs and form a line on the floor cells, not talking. The world keeps its schedule
-and he is not part of it.
+(9/28: the walk was the round-one front door. Swept 9/29 for VAMILY rules 38 to 40: the walk is dead. The lot is a settlement screen; the tone and the forming line play on that screen, the valve man is tapped at the standpipe, and the watch after ACCEPT is a fight on the fight board, house-sized tiles cut from the lot (the four houses, the lot, the pipe). The lamp in the open house is a SCAVENGE result on this screen with the same ledger. See QR-P and QR-W.)
+The lot is drawn in one view: four houses around a standpipe. At second 20 a tone sounds from a pole
+speaker: one long flat note, no voice. It is the water schedule: the standpipe runs for three minutes.
+Doors open. People come out with jugs and form a line, not talking. The world keeps its schedule and he
+is not part of it.
 
-SECOND BY SECOND:
-- 0-10 s: one cell per press. A press into the doorframe (WALL) shows it. A dripping sound, dry.
+SECOND BY SECOND (on the settlement screen):
+- 0-10 s: the lot drawn. A dripping sound, dry.
 - 10-30 s: at 20 s, the tone. Nine people step out of four doors, each carrying something that holds
-  water, and walk to the standpipe. Nobody looks at him. Inside his own house, an empty jug on a PROP cell.
-- 30-60 s: the silent choice. JOIN the line with the jug (he stands at the end; the line moves one cell
-  a beat, on the 120 BPM clock). Or WALK INTO one of the houses whose door was left open by someone in the
-  line: the house is many cells, and on a table inside is a charged hand lamp.
+  water, and walk to the standpipe. Nobody looks at him. His own house on the lot shows an empty jug.
+- 30-60 s: the silent choice. Tap the line with the jug: he joins it at the end, and the line moves one
+  person a beat, on the 120 BPM clock. Or tap one of the houses whose door was left open by someone in
+  the line (SCAVENGE): on a table inside is a charged hand lamp.
 - 60-180 s: in the line, the two people ahead of him, to each other: "Mañana la cortan otra vez. Dicen que
   los del dam quieren más por el turno." (Overheard. It names the dam.) At the pipe, the pump-crew man
-  with the valve key speaks to him only if he reaches the front.
+  with the valve key speaks to him only if he taps the standpipe.
 
 ## THE PERSON AND THE FIRST LINE
 The valve man, at the standpipe on the settlement screen, only when tapped, after 60 s: "One jug. You're new on this lot. I need a second
@@ -38,11 +38,11 @@ pair of eyes on this pipe tomorrow when the tone goes. Pays a cell."
   - "I need a second pair of eyes on this pipe tomorrow when the tone goes. Pays a cell."
 - PAY, SHOWN BEFORE ACCEPT: 1 battery after the watch.
 - NEGOTIATION: ASK FOR MORE: "A cell is a cell." ADVANCE: none; the jug of water he gives on the screen either way is not pay, it is the line's share.
-- ACCEPT / DECLINE: ACCEPT sets the next tone as the job's clock; the pipe on the close grid is the job's ground. DECLINE, or closing the screen, or never tapping the building, writes nothing: no row, no line, no look, and the offer sits in the same building on the next visit while the job is still real.
+- ACCEPT / DECLINE: ACCEPT sets the next tone as the job's clock; the pipe on the fight board is the job's ground. DECLINE, or closing the screen, or never tapping the building, writes nothing: no row, no line, no look, and the offer sits in the same building on the next visit while the job is still real.
 
 ## THE CHOICES
 1. JOIN THE LINE AND TAKE THE JOB: one jug of water now; tomorrow at the tone he stands by the pipe for
-   the three minutes while someone tries to cut the line (a small group, on the grid, where he stands).
+   the three minutes while someone tries to cut the line (a small group, a routine fight on the fight board cut from the lot).
    Pays 1 battery. Once taken, he finishes it.
 2. JOIN THE LINE, DECLINE: one jug of water. Nothing else, ever. The valve man says nothing more.
 3. TAKE THE LAMP FROM THE OPEN HOUSE: +1 charged lamp, no water. The owner comes back to a dark house.

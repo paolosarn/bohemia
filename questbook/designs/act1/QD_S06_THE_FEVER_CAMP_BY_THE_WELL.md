@@ -24,7 +24,7 @@ Forty travellers came in on a salt caravan, and some of them brought a fever. Th
 ## THE CHOICES
 A. CARRY THEM UP. The sick ride in the truck. Two company members nurse them and may catch it: odds said by Sister Ines ("one in five"), five days in the clinic if they do.
 B. PAY THE CHIEF. The caravan's chief wants 3 batteries of the family's own for the lost trading days. They walk themselves up.
-C. MOVE THEM BY FORCE. The caravan's six guards fight on the lot grid, between the tents and the well house.
+C. MOVE THEM BY FORCE. The caravan's six guards fight on the fight board cut from the lot, between the tents and the well house.
 Same pay from the chapel on every road.
 
 ## WHAT THE LEDGERS REMEMBER

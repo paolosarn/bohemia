@@ -4,7 +4,7 @@ ACT: 3
 KIND: contract
 CRISIS: the rocket
 ECONOMY: boom
-PLACE: the launch yard on the old airfield (the giver); the welder's workshop in a quarter the Network still wires, one map stop away, one block on the close grid.
+PLACE: the launch yard on the old airfield (the giver); the welder's workshop in a quarter the Network still wires, one map stop away, one block of the city (the fight board if it comes to a fight).
 STATUS: draft:true, research only, nothing built (rule 35)
 
 REBUILT FROM: the refusal with no dignity path. `Q131.X7` (the strongest choice most players make, walking away, is invisible), `Q134.X2` (the stall has no content), `Q134.X10` (the only true refusal is quitting in the journal), `Q084.X5` (refusing is punished with deletion), `Q103.X1` (there is no refusal). The phone version is a contract where saying no FINISHES the job.
@@ -27,7 +27,7 @@ THE WELDER: DOÑA PILAR, seventies, in her workshop. When the player arrives she
   - "Six batteries if she's on my scaffold by the end of the week."
 - PAY, SHOWN BEFORE ACCEPT: 6 batteries; 2 if the answer he brings back is her no (choice C).
 - NEGOTIATION: ASK FOR MORE: "Six. She's worth it, you're not." ADVANCE: none.
-- ACCEPT / DECLINE: ACCEPT puts her workshop on the map (one stop; the workshop is a close-grid special place). DECLINE, or closing the screen, or never tapping the building, writes nothing: no row, no line, no look, and the offer sits in the same building on the next visit while the job is still real.
+- ACCEPT / DECLINE: ACCEPT puts her workshop on the map (one stop; the workshop is a building on that stop's screen). DECLINE, or closing the screen, or never tapping the building, writes nothing: no row, no line, no look, and the offer sits in the same building on the next visit while the job is still real.
 
 ## THE CHOICES
 A. PAY HER. Give her your 6-battery fee up front; she comes, welds, goes home. Cost: the whole fee. The rocket is on time.
@@ -36,7 +36,7 @@ C. BRING BACK HER NO. Go back to Tomás and tell him she will not come, and why.
 The off-ramp is real and banks nothing false (`Q140.W8`); the smaller door is always open and priced only in what it costs (`Q142.W8`).
 
 ## WHAT THE LEDGERS REMEMBER
-A: her name is on the fuel line (a prop you can read on the close grid at the yard). B: the section in the yard has a second weld mark, hers, in a different color. C: the yard log says "P. said no, the courier told us why," and in the city view the feed posts Tomás's line: "We did it without her. She was right to say no." Dropping the contract (never returning to Tomás) is the deed: Tomás stops offering. DECLINING the offer at the scaffold leaves nothing.
+A: her name is on the fuel line (a thing you can tap and read on the yard's screen). B: the section in the yard has a second weld mark, hers, in a different color. C: the yard log says "P. said no, the courier told us why," and in the city view the feed posts Tomás's line: "We did it without her. She was right to say no." Dropping the contract (never returning to Tomás) is the deed: Tomás stops offering. DECLINING the offer at the scaffold leaves nothing.
 
 ## THE ONE WRONG DETAIL
 Taped inside her welding mask is a name that is not hers, and when the player says it she answers to it.

@@ -3,7 +3,7 @@ ACT: 2
 KIND: contract
 CRISIS: the whisper broadcast
 ECONOMY: bust
-PLACE: a tunnel camp in the storm drains under the Strip (the settlement); the job is one length of drain tunnel, one block of the close grid
+PLACE: a tunnel camp in the storm drains under the Strip (the settlement); the job is one length of drain tunnel, one block of the city, cut as the fight board
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 STAGE: GATHERING (QR-J)
 LANDS THREE WAYS: yes (see UNDER LIBERATE, RESPECT, BECOME)

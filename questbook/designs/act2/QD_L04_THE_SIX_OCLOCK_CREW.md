@@ -29,7 +29,7 @@ Act 2, the world clawing back, and a boom in power work: every settlement wants 
 ## THE CHOICES
 On the mesa, a rival settlement's new line camp: tents, a solar trailer, better tools than Yard Nine has ever owned. The three are there, fed, working, and paid in charged cells daily. Ramiro says it plainly: "He's a good man. He can't pay us. They can." The twist: the people you were sent to bring home do not want to come.
 1. **Carry back their answer.** Ramiro gives you his helmet tag to hand to Aurelio. DONE (the contract said "or bring me why"); the full fee. Aurelio hears it and stops offering you work: the standing cost is his.
-2. **Bring them back anyway.** Three grown men will not walk; this is a fight on the close grid against the camp's crew who stand with them (a group). DONE; the same fee. The mesa camp's settlement closes its hall to you.
+2. **Bring them back anyway.** Three grown men will not walk; this is a fight on the fight board against the camp's crew who stand with them (a group). DONE; the same fee. The mesa camp's settlement closes its hall to you.
 3. **Offer them Aurelio's side.** Tell them what the job pays at Yard Nine and why he needs them: one of three (Kiki) comes back on his own. DONE; the same fee. Both sides keep talking to you; Aurelio gets one man, not three.
 The fee is identical across all three (rule P7); what moves is standing, and who stands at the time clock next visit.
 

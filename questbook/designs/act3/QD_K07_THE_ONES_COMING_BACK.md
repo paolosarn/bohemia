@@ -32,7 +32,7 @@ First line: "I was born off Flamingo. Is it true there's work?"
 ## WHAT THE LEDGERS REMEMBER
 - Water and batteries, or an hour and a line of standing.
 - The valley's population, a real number that moves either way.
-- The group does not dissolve (`Q107.X6`): she appears again, on the close grid of whichever settlement she reached,
+- The group does not dissolve (`Q107.X6`): she appears again, on the settlement screen of whichever settlement she reached,
   working, and she nods. If the company pointed her, the next time the player opens THAT settlement's menu she is a
   client portrait in its hall with one small contract; accept or decline, and declining writes nothing.
 - THE FLIP: if the player met QD-B06's families walking out in act 2, one face in this column is one of them,
