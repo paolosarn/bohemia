@@ -36,8 +36,10 @@ distance. Section 0's defaults (house 4x4, car 2x1) are dead at this scale.
 - THE MAP FLOOR (38a, records/BOHEMIA_BB_DENSITY_THE_MAP_FLOOR_9_28_26.md):
   ONE PAINTED PIXEL PER SCREEN PIXEL at default map zoom on the phone's own
   ratio, never fewer than Battle Brothers' 2,073,600 per screen; no
-  flat-colour cells; measured as a mean flat-colour run <= 1.5 device px on
-  both axes. Ours today: 3.8 x 3.5, about 7.5% of the floor. Every map cook
+  flat-colour cells; measured (AMENDED 9/29, [floor reading]) by TWO readings,
+  both required: the canvas's own-pixel run times device px <= 1.5 both axes,
+  AND the fine band off the glass >= 0.020 both axes (the glass run reading
+  is retired: blur passes it; records/BOHEMIA_RULING_THE_FLOOR_READS_THE_CANVAS_AND_THE_BAND_9_29_26.md). Ours today: 3.8 x 3.5, about 7.5% of the floor. Every map cook
   is judged against it.
 
 ## 0D. AMENDED 9/28 BY HIS CORRECTION: A COMBAT TILE IS A HOUSE (newest wins over 0B/0C)

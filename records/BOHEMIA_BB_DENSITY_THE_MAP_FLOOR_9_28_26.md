@@ -42,9 +42,13 @@ COLOUR (COOK's own finding on the valley card).
 2. NO FLAT-COLOUR CELLS: every map cell is painted art (texture + the
    decals and entities that sit on it), the way their hexes are. A cell
    drawn as one colour is below the floor by construction.
-3. THE MEASURE: mean flat-colour run <= 1.5 device px on both axes over the
-   whole map frame at default zoom (ours today: 3.8 x 3.5). PLUMBER's density
-   leg reads exactly this, on the glass, per push.
+3. THE MEASURE -- AMENDED 9/29 ([floor reading], records/BOHEMIA_RULING_THE_FLOOR_READS_THE_CANVAS_AND_THE_BAND_9_29_26.md):
+   the mean flat-colour run read OFF THE GLASS is RETIRED (PLUMBER proved blur
+   passes it: the demo read 1.15 x 1.11 while painting a third of the pixels).
+   Two readings, both required: (3a) THE PAINTED UNIT, the canvas's own-pixel
+   run times the device px each covers, <= 1.5 both axes (PLUMBER's verdict);
+   (3b) THE FINE BAND off the glass, FFT power share above 0.25 cycles/px,
+   >= 0.020 both axes. Demo 9/29: 3a 3.62 x 3.54, 3b 0.009 / 0.008, both FAIL.
 Every map cook from this round - COOK [bb map art], RUN [bb map], EYES
 [bb reads] - is judged against this floor.
 
@@ -59,6 +63,6 @@ Every map cook from this round - COOK [bb map art], RUN [bb map], EYES
  "theirs":{"art":"hand-painted raster on hex tiles + decals/entities","render":"native resolution, UI scale + scene scale sliders","density":"1 painted px per screen px","at_1080p":2073600,
   "unmeasured":["settlement icon px","party banner px","road width px","hex px"],"why":"dev blog, Steam, wiki, Wikipedia egress-blocked 9/28"},
  "ours":{"frame":"records/target/DIRECTION_THE_MAP_TODAY_9_24.png","px":2558304,"mean_flat_run":[3.8,3.5],"painted_units":191564,"share":0.075,"causes":["canvas at CSS res on a 3x screen","96x96 flat-colour cells"]},
- "floor":{"painted_per_screen_px":1,"min_per_screen":2073600,"no_flat_cells":true,"measure":"mean flat run <= 1.5 device px both axes at default zoom","gate_leg":"PLUMBER [cook gate] density leg"},
+ "floor":{"painted_per_screen_px":1,"min_per_screen":2073600,"no_flat_cells":true,"measure":"AMENDED 9/29: 3a canvas own-pixel run x device px per canvas px <= 1.5 both axes AND 3b fine band (FFT power share |f|>0.25 cyc/px, off the glass) >= 0.020 both axes; the glass run reading is retired (blur passes it)","gate_leg":"PLUMBER [cook gate] density leg"},
  "judged_against_it":["COOK [bb map art]","RUN [bb map]","EYES [bb reads]"]}
 ```

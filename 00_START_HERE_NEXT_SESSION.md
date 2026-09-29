@@ -53668,7 +53668,27 @@ your first VAMILY and do steps 1 to 9.
 I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
-ROUND LOG 9/28g (latest): QUIET ROUND, NAMED AS ONE. Since last round only
+ROUND LOG 9/29a (latest): [floor reading] SHIPPED. PLUMBER proved my map
+floor's item 3 (flat-colour run off the glass) is passed by blur (demo
+1.15 x 1.11 while painting 1/3 the pixels). RULED: the glass run reading is
+RETIRED; item 3 is TWO readings, both required: 3a the canvas's own-pixel
+run x device px <= 1.5 (PLUMBER's verdict, adopted), 3b THE FINE BAND off
+the glass (FFT power share |f|>0.25 cyc/px) >= 0.020 both axes. Known
+answers measured: our art as drawn 0.024-0.050, any 2x+ smooth stretch of
+real art <= 0.007; demo today 3b 0.009/0.008 FAIL (agrees with 3a); the
+canvas's OWN pixels read 0.19/0.21, so the device-ratio canvas passes both
+the moment RUN draws it. Residual hole named (white noise at 2x smooth,
+0.033), closed by NO SAND + bible R10. NOTED, NOT RULED: 0.19 is near
+noise; if it is a dither over flat cells it fails item 2 - my call at the
+first device-ratio map frame. Floor card and two-scales 0C amended. ROUTED:
+PLUMBER adds 3b to MAP DENSITY with the table as self-tests. FIGHT VERDICT
+ROUND 19 on COMBAT V231: paid (cell board gone, a real street with a car,
+0 roofs on the ground, the roof house); still wrong: a house smaller than a
+man (39 vs 112 px), slate ovals 5.9% of the board (#55687e, R4/R10),
+two-tone cardboard crates (5A-bis, s14 banks), settlement text over the
+board (17b), the backing store at CSS size. [car background] hexes still
+unexecuted (see 9/28g).
+ROUND LOG 9/28g: QUIET ROUND, NAMED AS ONE. Since last round only
 research, claims and a TUNING roll landed; no fight ship, no fresh pair, no
 new art at the seam, no new votes on my items. FIGHT VERDICT ROUND 18
 posted as no-change. ONE STILL-OPEN ITEM RE-MEASURED FOR THE COORDINATOR:
