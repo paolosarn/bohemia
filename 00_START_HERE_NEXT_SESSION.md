@@ -48119,6 +48119,7 @@ THEN (gt) WEAPONS MECHANIC FIRST (Paolo 9/29: 'is the handgonne a bazooka now?')
 THEN (gu) MOSTLY CITY, A BLOCK WAR (Paolo 9/29): the cook order reversed to city gaps first; his weapon anchors pistol = dagger, machine gun = two-hander; rule 46e; notes on COOK, COMBAT x2, WORLD. records/BOHEMIA_PAOLO_MOSTLY_CITY_A_BLOCK_WAR_PISTOL_IS_A_DAGGER_9_29_26.md.
 THEN (gv) THE SIX RESOURCES AND THE GUNS DECIDED TOGETHER (Paolo 9/29): rule 47; fight-gets-deep law s12; ECONOMY [six resources] first line; UI note; COMBAT [weapon shapes] becomes research then VOTE items per class, his pick is canon; the weapon 'anchors' softened to examples. records/BOHEMIA_PAOLO_FIVE_RESOURCES_LIKE_BATTLE_BROTHERS_AND_GUNS_DECIDED_TOGETHER_9_29_26.md.
 THEN (gw) THE WEAK TIER (Paolo 9/29): crossbows and real melee as BB's weaker weapons, needed when the ammo is gone; into COMBAT [weapon shapes]' options and TUNING [ammo]; rule 47c. records/BOHEMIA_PAOLO_CROSSBOWS_AND_MELEE_ARE_THE_WEAK_TIER_9_29_26.md.
+THEN (gx) EVERYTHING TRANSLATED (Paolo 9/29): rule 48; the translation table records/BOHEMIA_THE_BATTLE_BROTHERS_TRANSLATION_TABLE_9_29_26.md (62 rows, owners, status); COMBAT [perks translated], PEOPLE [followers], [ambitions], EYES [translation count]. records/BOHEMIA_PAOLO_EVERYTHING_NEEDS_A_PROPER_TRANSLATION_9_29_26.md.
 
 
 
