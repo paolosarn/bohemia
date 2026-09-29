@@ -1,0 +1,81 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>One Human, One Past</title>
+<style>
+  :root{ --ink:#e8e4da; --dim:#8a8479; --bg:#0d0d0c; --card:#161615; --edge:#2a2a27;
+         --warm:#c9a227; --cold:#8fb6c9; }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--ink);
+    font:15px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    -webkit-text-size-adjust:100%}
+  .wrap{max-width:660px;margin:0 auto;padding:18px 16px 60px}
+  h1{font-size:17px;letter-spacing:.14em;margin:0 0 4px;font-weight:600}
+  .sub{color:var(--dim);font-size:12.5px;letter-spacing:.06em;margin:0 0 18px}
+  .quote{border-left:2px solid var(--warm);padding:2px 0 2px 12px;margin:0 0 18px;font-size:14px}
+  .card{background:var(--card);border:1px solid var(--edge);border-radius:10px;
+        padding:14px;margin:0 0 14px}
+  .shot{width:100%;border:1px solid var(--edge);border-radius:8px;display:block}
+  figcaption{font-size:11px;letter-spacing:.08em;color:var(--dim);margin:8px 0 0;line-height:1.5}
+  .note{color:var(--dim);font-size:12.5px;margin:10px 0 0;padding-top:10px;
+        border-top:1px solid var(--edge)}
+  h2{font-size:12px;letter-spacing:.16em;color:var(--dim);margin:26px 0 10px;font-weight:600}
+  table{width:100%;border-collapse:collapse;font-size:12.5px}
+  td,th{padding:5px 6px;text-align:left;border:0;vertical-align:top}
+  th{color:var(--dim);font-weight:600;font-size:11px;letter-spacing:.12em}
+  tr+tr td{border-top:1px solid var(--edge)}
+  .big{color:var(--ink);font-size:14px}
+  @media (prefers-color-scheme:light){
+    :root:not([data-theme="dark"]){ --ink:#1b1b19; --dim:#6a655c; --bg:#efece5;
+      --card:#fff; --edge:#d8d3c8; --warm:#8a6d12; --cold:#2f6b86; }
+  }
+</style></head><body><div class="wrap">
+
+<h1>ONE HUMAN, ONE PAST</h1>
+<p class="sub">A real scavenger, real data, the same person asked two different ways.</p>
+
+<p class="quote">A companion's own page (UI's newest work) asked who this person used to
+be, and the answer came back empty &mdash; for a real person who has a real former
+trade. The picture shows exactly why, and exactly what changed.</p>
+
+<div class="card">
+  <img class="shot" src="vote/PEOPLE_USED_TO_BE_COMPARE_9_29.png" alt="Before and after: a scavenger's former trade, shown blank then real">
+  <figcaption>Same person, same day, same real data. Top: the old code, asked the
+  way a companion's own record actually looks. Bottom: the fixed code, asked the
+  exact same way.</figcaption>
+</div>
+
+<h2>WHY IT WAS BLANK</h2>
+<div class="card">
+  <p class="note">Every person in this game has two different objects that can
+  describe them: the RAW record the city generates them from, and the WRAPPED
+  card the street uses once it is ready to show you somebody. The street's card
+  always got the wrapped one, so it always worked. A companion's own page reaches
+  in one step earlier and grabs the raw one &mdash; and the question "what did you
+  used to be" only ever knew how to answer the wrapped kind. So it said nothing,
+  for a real person with a real answer sitting right there.</p>
+</div>
+
+<h2>WHAT CHANGED, MEASURED, NOT EYEBALLED</h2>
+<div class="card">
+  <table>
+    <tr><th>asked</th><th>before</th><th>after</th></tr>
+    <tr><td>a raw record, the way the new page asks</td><td class="big">nothing</td><td class="big">the real answer</td></tr>
+    <tr><td>the same person, the wrapped way the street asks</td><td class="big">the real answer</td><td class="big">the same real answer</td></tr>
+    <tr><td>24 real people, both ways compared</td><td colspan="2" class="big">0 disagreements</td></tr>
+  </table>
+  <p class="note">That last row is the one that matters. The old fear was one
+  person coming back with two different pasts depending on which object asked
+  &mdash; so the fix was checked against 24 real people, asked both ways, and every
+  single one agreed with itself before this shipped.</p>
+</div>
+
+<h2>WHAT STILL SAYS NOTHING, ON PURPOSE</h2>
+<div class="card">
+  <p class="note">A different kind of person &mdash; someone tracked by household
+  instead of by street address &mdash; still gets refused rather than guessed at,
+  because answering that one right needs a piece of information (which world seed)
+  that a lone record does not carry. Silence is the honest answer there; a guess
+  would not be.</p>
+</div>
+
+</div></body></html>

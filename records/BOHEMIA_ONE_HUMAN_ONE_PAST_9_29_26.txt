@@ -1,0 +1,109 @@
+BOHEMIA -- ONE HUMAN, ONE PAST (9/29/26, PEOPLE lane)
+No board row existed for this; found through a cross-lane flag, not invented.
+UI (00_START_HERE_NEXT_SESSION.md, [bb interface] round six, 9/28c): building a
+companion detail page ("her page"), they wrote up her real record straight off
+the alpha and named the gap themselves: "NOT on her record: her name (the speech
+system resolves it) or her background (wasOf returns null for 'watch', named for
+PEOPLE)."
+
+================================================================================
+MEASURED BEFORE A LINE WAS WRITTEN
+================================================================================
+wasOf(person) is engine/bohemia_people.js's answer to "what did this person used
+to be." It has one gate: `person.key`. No key, no answer. That gate exists for a
+real, documented reason -- its own comment describes a 9/6 bug where the walked
+city's roster object (carrying `id`) and the card's person object (carrying
+`key`) answered DIFFERENTLY for the identical human, because hashing the bare id
+and hashing the prefixed key are different hash inputs. The fix at the time was
+to refuse without a key. Correct, but not the only correct answer, and it left a
+new failure mode open.
+
+UI's companion page reads bohemia_population.js's personFields() output straight
+off the roster -- the RAW record the whole city is generated from, one layer
+further back than the wrapped roster object the 9/6 bug came from. That record
+carries `id` and never `key`. So the same defect class UI's own page just hit,
+one hop earlier: ask the same real person two different ways and get two
+different answers -- except this time one of the two answers was nothing.
+
+================================================================================
+WHAT WAS BUILT
+================================================================================
+wasOf() now derives a key from `person.id` when `person.key` is absent, but NOT
+by hashing the bare id (the exact thing that caused the 9/6 bug). It builds the
+SAME PREFIXED KEY the proper wrapper would have built: 'P:city:' + id, which is
+the documented, already-used convention for turning a city population record
+into a person everywhere else in this codebase (BOHEMIA_CITY_WORLD.html:
+{ key: 'P:city:' + list[i].id, __p: list[i] }, repeated at four other call
+sites). Hashing that prefixed key, not the bare id, is what keeps a raw record
+and its properly wrapped twin answering identically -- the actual invariant the
+9/6 fix existed to protect, now held one layer further back too.
+
+A second id shape exists in this codebase: household agents, formatted
+'H<house>-<n>', which need a blockSeed no lone object carries to build a correct
+key (a DIFFERENT keyOf() function entirely, engine/bohemia_people.js:1823). Those
+are matched by regex and still refused outright, not guessed at -- silence stays
+the honest answer where the real answer is genuinely unknowable from the object
+alone.
+
+Applied to both copies (engine/bohemia_people.js and the inlined twin in
+slices/BOHEMIA_CITY_WORLD.html), which were confirmed byte-identical in this
+function both before and after, per ENGINE SYNC LAW.
+
+================================================================================
+PROVEN, NOT ASSERTED
+================================================================================
+Pulled 24 real people from the live population generator (six neighbourhoods,
+four residents each), and for every one: called wasOf() on the raw record AND on
+that same record properly wrapped with its real key, and compared the answers.
+24 of 24 matched. Zero mismatches. That is the test that actually matters --
+"one human, one past" was never about whether an answer exists, it is about
+whether every object shape that can ask gives the SAME one.
+
+Also proven: a household-agent-shaped id ('H3-2') is still refused (null), not
+guessed at; an empty object and a null person are still refused, unchanged.
+
+================================================================================
+THE GATE
+================================================================================
+gates/used_to_be_gate.js, EXTENDED (REUSE-FIRST): this exact function already had
+a dedicated gate with a full real-demo run (section G). One assertion needed to
+change on purpose, not just pass: "without a key it refuses" (line 94-95 before
+this round) is now false for a raw population record, correctly, because refusing
+was never the goal -- answering CONSISTENTLY was. Replaced with the real
+invariant (raw and wrapped answer identically) and a new leg proving the
+household-agent shape is still refused. NEGATIVE-CONTROLLED: ran the new
+assertion against the pre-fix bohemia_people.js (extracted from git history, tree
+never touched) and it correctly failed there (raw -> null, wrapped -> a real
+answer, mismatch). 37/0 after the change, including the pre-existing section G
+walking the real demo end to end (47 real people, all 47 answered, nothing threw).
+Checked for collateral damage: people_gate.js 158/0, unaffected.
+
+================================================================================
+THE COOK: ONE HUMAN, ONE PAST
+================================================================================
+slices/BOHEMIA_ONE_HUMAN_ONE_PAST_9_29_26.html, registered in VOTE. One real
+scavenger, pulled live off the population generator, asked both ways: the old
+rule (still runs, right there in the picture, for comparison) says nothing; the
+new rule gives her real former trade. Not a mockup -- the real wasOf(), the real
+WAS_WORDS table, a real person, styled to match the game's own card so the words
+read the way they will on the real surface once UI's page ships.
+
+================================================================================
+MEASURED AND NOT FIXED
+================================================================================
+UI'S OWN PAGE IS STILL THEIRS TO BUILD. This fixes the function every future
+caller reads from; it does not touch BOHEMIA_CITY_WORLD.html's UI-specific
+companion-page code, which was never mine to edit mid-round on somebody else's
+claimed row. Their page should now show a real background the next time they
+pull it, with zero changes needed on their end.
+
+THE SAME BUG CLASS MAY STILL EXIST WHEREVER ELSE A RAW POPULATION RECORD REACHES
+A FUNCTION THAT EXPECTS A WRAPPED PERSON. Only wasOf() was named and only wasOf()
+was swept this round; nameOf, tradeOf and headingOf were checked and do not share
+this specific vulnerability (tradeOf reads .archetype directly; headingOf falls
+back to tradeOf). Not a general audit of every BohemiaPeople function against
+every object shape in the codebase -- that is a bigger job than one round and
+nothing named it.
+
+TAB: CHARACTER (the person card, once UI's companion page ships it there); VOTE,
+for the comparison.

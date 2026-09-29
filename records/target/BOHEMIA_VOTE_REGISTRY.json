@@ -3197,7 +3197,20 @@
      "how": "image",
      "src": "vote/COMBAT_A_HOUSE_IS_NEVER_SMALLER_THAN_A_MAN_9_29.png"
     }
+   },
+  {
+   "id": "people-one-human-one-past-9-29",
+   "kind": "tile",
+   "lane": "people",
+   "sha": "19ca5ab",
+   "made": "9/29",
+   "title": "ONE HUMAN, ONE PAST",
+   "why": "UI's new companion page asked a real person what they used to be and got nothing back, even though that person has a real former trade. The reason: their page asks one step earlier than the street does, with an object that never learned how to answer. Fixed so both ways of asking agree, checked against 24 real people with zero disagreements. Same fix, same shape, as the bug that made a stranger's card say two different pasts back in early September.",
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_ONE_HUMAN_ONE_PAST_9_29_26.html"
    }
+  }
  ],
  "verdicts": [
   {

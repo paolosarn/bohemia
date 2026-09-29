@@ -14951,6 +14951,72 @@ ALSO STILL OPEN, not draw order: on NE in his own frame
 the right of the shoulders with a visible gap. That is the pose too.
 
 Nothing [PENDING Paolo].
+PEOPLE (people-7h9sfy): 9/29 LATEST -- *** [used to be] SHIPPED, FOUND THROUGH A
+CROSS-LANE FLAG WITH NO BOARD ROW, NOT INVENTED. ***
+
+The board was genuinely empty this round: every PEOPLE row SHIPPED or HELD, no
+OPEN, no CLAIMED. Spent real effort confirming that before building anything
+(an Explore agent + my own greps: QUESTS' [company voices] page names PEOPLE but
+its one concrete ask depends on RUN's not-yet-built settlement screen; DYNASTY
+already owns rule 39c/d's heredity and heirs work; [honest crowd], the one HELD
+row, is walked-street crowd density on ground the map/settlement transition is
+actively retiring this exact round -- UI's own 9/29 handoff says "the first
+screen is the map now"). Rather than build on ground about to be cut twice in
+one session, found and fixed a small, real, UI-flagged bug instead: rule 39b
+housekeeping on the [bb company] row's BB citation (what we do differently) was
+the other small thing this round, see VAMILY.md.
+
+UI's own 9/28c handoff, building a companion detail page: "NOT on her record...
+her background (wasOf returns null for 'watch', named for PEOPLE)."
+
+wasOf() (engine/bohemia_people.js, [former jobs]'s own function) refuses to
+answer without a person's `key`. That gate is deliberate: its own comment
+documents a 9/6 bug where a raw roster object (carrying `id`) and a wrapped card
+object (carrying `key`) answered DIFFERENTLY for the identical human, because
+hashing a bare id and hashing a prefixed key are different hash inputs. UI's new
+page hit the SAME defect class one layer further back -- it reads
+bohemia_population.js's raw personFields() record directly, which carries `id`
+and never `key`, so it got silence instead of a wrong answer. A real companion
+showing no background is still the "which object asked" failure, just quieter.
+
+BUILT: wasOf() now derives a key when one is missing, but NOT by hashing the
+bare id (the actual cause of the 9/6 bug) -- it builds the SAME prefixed key
+('P:city:' + id) the real wrapper constructs everywhere else in this codebase
+(four other call sites in BOHEMIA_CITY_WORLD.html do exactly this). So a raw
+record and its properly wrapped twin now hash identically and answer
+identically. PROVEN, NOT ASSERTED: pulled 24 real people live off the
+population generator, asked both ways, compared -- 0 disagreements. A different
+id shape (household agents, 'H<n>-<n>', needing a blockSeed no lone object
+carries) is still correctly refused, not guessed at -- checked by regex, not
+skipped. Applied to engine/bohemia_people.js and its inlined twin in
+BOHEMIA_CITY_WORLD.html; confirmed byte-identical in this function both before
+and after, per ENGINE SYNC LAW.
+
+THE GATE: gates/used_to_be_gate.js EXTENDED, not duplicated (REUSE-FIRST) -- this
+exact function already had a dedicated gate with a full real-demo section. ONE
+ASSERTION HAD TO CHANGE ON PURPOSE: "without a key it refuses" was the old
+guard, and it is now false for a raw record, correctly, because refusing was
+never the real goal -- answering the SAME WAY every time was. Replaced with the
+actual invariant (raw and wrapped agree) plus a new leg proving the
+household-agent shape stays refused. NEGATIVE-CONTROLLED: ran the new assertion
+against the pre-fix file (extracted from git history, tree never touched) and
+it correctly failed there. 37/0 after, including the gate's own real-demo walk
+(47 real people near the spawn, all 47 answered, nothing threw). Checked for
+collateral: people_gate.js 158/0, clean.
+
+Cook: ONE HUMAN, ONE PAST, in VOTE. A real scavenger pulled live off the
+generator, asked both ways -- the old rule (still runs, shown for comparison)
+says nothing; the fixed rule gives her real former trade. Real function, real
+data, styled to the game's own card CSS so it reads the way it will once UI's
+page actually ships it.
+
+NOT TOUCHED, ON PURPOSE: UI's own new companion-page code -- their row, their
+claim, and it needed zero changes from me. Their page should show a real
+background the next time they pull this branch's history.
+
+Record records/BOHEMIA_ONE_HUMAN_ONE_PAST_9_29_26.txt. Nothing [PENDING Paolo]
+from this block.
+
 PEOPLE (people-7h9sfy): 9/28 (b) LATEST -- *** [family eyes] SHIPPED, AND FAMILY_GATE
 WAS ALREADY GREEN AT THE EXACT BUG IT WAS SUPPOSED TO CATCH. ***
 
