@@ -121,7 +121,7 @@ THE FIX: `Q045.W10` (accessibility is what lets depth reach people, "our #1 less
 ### 9. REFU, the no is punished, empty or missing (21, bite 4)
 X IDS: `Q131.X7`, `Q134.X2`, `Q134.X10`, `Q084.X5`, `Q103.X1`, `Q078.X1`, `Q075.X4`, `Q126.X10`, `Q130.X3`, `Q100.X1`, `Q106.X6`, `Q136.X10`.
 IN BOHEMIA: two different noes. At the OFFER: Paolo's law, declining is free, nobody remembers it. INSIDE a taken contract: the library says the refusal must still be a real path (`Q075.X4`, the destroy-path is a stub), must have script if it is a stall (`Q134.X2`), and must never read as a losing button (`Q084.X5`). `Q134.X10`: the only true refusal was quitting in the journal, which a phone makes into an itch.
-THE RULE: every contract has, inside it, at least one "I won't do this part" choice that ENDS the contract as finished (not dropped), with its price stated by the giver; every offer can be walked past with zero ledger write; a stall (waiting it out) has at least one line of script per wait.
+THE RULE: every contract has, inside it, at least one "I won't do this part" choice that ENDS the contract as finished (not dropped), with its price stated by the giver; every offer can be left untapped (was: walked past) with zero ledger write; a stall (waiting it out) has at least one line of script per wait.
 THE FIX: `Q139.P2` (the priced refusal), `Q140.W8` and `Q140.P4` (the off-ramp before the fight is real and banks nothing), `Q142.W8` and `Q142.P3` (the smaller door, always open), `Q072.W9` (walking away with nothing as the best ending), `Q028.W6` (mercy is earned by refusing).
 
 ### 10. OPTL, the point lives in the optional (31, bite 4)
@@ -245,7 +245,7 @@ A builder answers every line YES or the item does not ship. Each line cites the 
 8. Does the work fit one leg and one block of the city, cut as the fight board? (`Q095.X2`, `Q079.X1`, `Q083.X1`, `Q051.X3`, `Q113.X1`)
 9. Does the leg offer at least three ways through? (`Q087.X4`, `Q084.X2`)
 10. Does the worst failure cost only this leg, in days, batteries or people, and never replay text already read? (`Q093.X2`, `Q111.X2`, `Q128.X10`, `Q144.X1`)
-11. Can the offer be walked past with nothing written anywhere? (`Q084.X5`, and DECLINING IS FREE)
+11. Can the offer be left untapped (was: walked past; the walk is dead, rule 38) with nothing written anywhere? (`Q084.X5`, and DECLINING IS FREE)
 12. Is there an "I won't do this part" choice inside the taken contract that finishes it with a stated price, not a drop and not a deletion? (`Q131.X7`, `Q134.X2`, `Q134.X10`, `Q075.X4`, `Q103.X1`)
 13. Does the giver say no more than three short lines before the player acts? (`Q074.X5`, `Q068.X3`, `Q111.X6`)
 14. Is the point of the job in a spoken line, not in an item text? (`Q092.X2`, `Q120.X5`)

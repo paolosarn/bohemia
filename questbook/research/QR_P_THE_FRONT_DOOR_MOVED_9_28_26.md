@@ -157,7 +157,7 @@ by rule:
 - QR-F 9 NO NUMBERS, NO NAMES: survives, and is the hardest rule for a Battle Brothers screen, because BB's
   settlement screen is full of numbers. `Q081.X4`, `Q046.X2`, `Q065.X2` (the overwhelming first hour) argue that the
   FIRST settlement screen hides its prices until 60 s have passed and he has tapped something.
-- QR-F 10 THE MAP IS ONE SQUEEZE AWAY: survives as the map being the first screen, quiet.
+- QR-F 10 THE MAP IS ONE SQUEEZE AWAY (renamed ONE TAP AWAY in the 9/29 sweep): survives as the map being the first screen, quiet.
 - QR-F 11 OVERHEARD MEANS NOT TO HIM: survives (`Q043.W4`, `Q037.W2`), now as the settlement's sound.
 - QR-F 12 ONE NAME, ONE CONTRACT IN THREE MINUTES: survives; the one contract is an offer screen he opened.
 - QR-F 13 ONE WRONG DETAIL: survives and moves into the settlement picture. `Q091.W7`, `Q010.W7`, `Q133.W9`.

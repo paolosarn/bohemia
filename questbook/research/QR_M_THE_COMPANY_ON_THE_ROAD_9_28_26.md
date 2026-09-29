@@ -243,6 +243,12 @@ says about giving an automated fighter a personality:
 - The heir is a person, not a respawn (`Q144.W4`), and the line is made real by what it will NOT carry: "unbanked
   secrets burn... stranded arcs stay stranded" (`Q144.W3`). The heir must not re-read prose the player already read
   (`Q144.X1`).
+- OUR DEFAULT SINCE 9/29, THE COMPANY INHERITS (rule 39d, Paolo): each act starts with the HEIRS of the last act's
+  company, prepared from the ledger; gear stays in the family; about 12 men an act, 36 lives a game; recruiting stays
+  Battle Brothers-hard inside an act, so keeping killers alive is the pipeline. The library's warrant is this whole
+  section: the heir is a person, not a respawn (`Q144.W4`), the generations fight side by side (`Q069.W3`), prior
+  choices shape the heir's starting world (`Q025.W6`), and a lost man's line is a real loss because it does not
+  carry (`Q144.W3`, `Q116.W10`).
 - Warning: Crusader Kings' heirs "inherit hatred", which can feel arbitrary (`Q046.X5`). A companion's grandchild
   must not arrive pre-angry at the player for something the player could not see.
 - The accused's kin carry your choice for decades across acts (`Q026.W6`); prior generations' choices shape the
@@ -292,10 +298,13 @@ says about giving an automated fighter a personality:
 13. ATTACHMENT BY LABOUR IS TRACKED. PEOPLE records per member: days in the company, fights survived, times carried,
     times he carried someone. Those four numbers drive which road lines and asks unlock, and none is shown as a
     score; they show as lines ("that's four times you've dragged me"). (`Q151.W9`, `Q055.W9`, `Q045.W5`)
-14. THE COMPANY CROSSES ACTS AS PEOPLE, NOT STATS. A member alive at the end of an act may appear in the next as an
-    older person (never as a party member at full power); a member dead in act 1 appears in act 2 or 3 as a name, a
-    tool, a grandchild, or a place. Every act-2/3 landing has a written default read for "that act 1 member never
-    existed" (the player flipped first). (`Q067.W6`, `Q069.W3`, `Q116.W10`, `Q144.W3`, QR-G checklist 5 and 18)
+14. THE COMPANY CROSSES ACTS AS PEOPLE, NOT STATS, AND AS HEIRS (swept 9/29, rule 39d). Each act starts with the
+    heirs of the last act's company, prepared from the ledger: a member alive at the end of an act hands his place
+    to a child or grandchild who rides in the next (he himself may appear as an older person, never as a party
+    member at full power); the family's gear stays in the family; a member dead in act 1 with no heir appears in
+    act 2 or 3 as a name, a tool, a grandchild outside the roster, or a place. Every act-2/3 landing has a written
+    default read for "that act 1 member left no line" (act 1 is always played first, rule 39c, so there is always an
+    act 1 company; the default covers a member who died or left early). (`Q067.W6`, `Q069.W3`, `Q116.W10`, `Q144.W3`, QR-G checklist 5 and 18)
 15. NO INHERITED HATRED. A companion's descendant never arrives hostile to the player for a thing the player was not
     shown. (`Q046.X5`, `Q137.X1`)
 
@@ -333,7 +342,8 @@ What the library adds on top of that skeleton, which is what "with a better stor
    (`Q137.W1`) and a world that notices (`Q129.X9`).
 3. The quarrel with teeth, and without a chorus (`Q043.W3`, `Q126.X5`).
 4. The personal ask, which BB mostly does not have (`Q043.W7`, `Q108.W1`).
-5. The company across generations, which BB cannot have (`Q069.W3`, `Q116.W10`).
+5. The company across generations, which BB cannot have (`Q069.W3`, `Q116.W10`): the heirs of the last act's company
+   start the next act (rule 39d), so a BB company's losses become a family's.
 What we take from BB unchanged: morale as a fight stat (TUNING's), backgrounds as the cast-at-a-glance, cooldowns, and
 composition-driven events.
 
@@ -347,7 +357,7 @@ composition-driven events.
 3. THE GAMBIT OVERRIDE RATE. `Q041.W10` gives Darkest Dungeon's ~15% virtue rate as a thrill at a breaking point. No
    study gives the right rate for an override in a 120 BPM fight. TUNING measures.
 4. THE SAME PERSON IN TWO AGES. Because the acts are open together once unlocked (rule 31, rule 39c), and the company INHERITS (rule 39d: each act starts with the heirs of the last act's company, prepared from the ledger, the gear kept in the family), an act 1 member and his act 3 grandchild
-   can both be on screen in one session. The library's across-generations cases (`Q067.W6`, `Q069.W3`) are linear.
+   can both be on screen in one session (the grandchild usually IN the company, as an heir). The library's across-generations cases (`Q067.W6`, `Q069.W3`) are linear.
    DYNASTY owns how the flip reads a member who is alive in act 1 and a memory in act 3.
 5. DOES THE COMPANY SPEAK SPANGLISH? Rule: people speak Spanglish, the player does not. Company members are people;
    the default here is yes, lightly. WORDS owns it.

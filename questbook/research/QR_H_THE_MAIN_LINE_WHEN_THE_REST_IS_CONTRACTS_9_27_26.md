@@ -95,7 +95,8 @@ being cut before the door (`Q102.P8`, `Q136.X1`).
 - THE PULL WHEN THE PLAYER DRIFTS. `Q090.W7`: the story arrives by radio, "JUST WHEN YOU MIGHT BE
   LOST FOR THINGS TO DO, IT'LL START PINGING OFF." `Q101.W3`: an automated distress call receivable
   from three districts. `Q088.W8`: the world explains itself through its own dying media. The pull
-  is an offer placed in the world, never a nag: a thing you can hear, walk to, or walk past.
+  is an offer placed in the world, never a nag: a thing you can hear, travel to, or leave untapped (swept 9/29:
+  there is no walk through the city, rule 38).
 - SEED THE HOOK EARLY. `Q047.X3` ("seed enough EARLY intrigue that players invest before the
   drip-feed pays off"), `Q067.X4` (the first generation of the first generational saga "is a boring
   stroll through monotony"). With three acts open together once unlocked, act 1 cannot be the boring generation, and since every player lives act 1 first (rule 39c) it is also the one generation nobody skips.
@@ -159,7 +160,8 @@ being cut before the door (`Q102.P8`, `Q136.X1`).
   a set-piece"), `Q074.W5` ("seven factions must each personally NAME you... destiny is a political
   campaign"), `Q022.W5` ("even the interface is a person").
 - THE CITY SNAGS YOU. `Q013.W6` (substories start by walking past something), `Q114.W2` (not on the
-  map; found by walking the streets). A main beat is a person standing in a place, not a pop-up.
+  map; found by walking the streets). A main beat is a person standing in a place, not a pop-up. (Swept 9/29: the
+  walked street is dead, rule 38; the snag now lives on the road, as events, and in the settlement picture.)
 - PEOPLE REMEMBER ACROSS GENERATIONS. `Q144.W7` ("officers who cross remember the previous captain...
   the cheapest possible reactivity carrying the heaviest possible freight"), `Q089.W7` ("help arrives
   as objects, not messages"), `Q113.W1` ("the inheritance is a list of children").
@@ -247,7 +249,7 @@ the Amalgamation's ("a family that never ends, nothing is ever lost"). The three
 ### Cadence (a default for the builders, in VOTE if anyone wants it changed)
 
 - A main beat is never delivered; it is found. The world keeps exactly ONE main thread visible per
-  act at a time: one person in one place who can move the spine. Walk past them and they are still
+  act at a time: one person in one place who can move the spine. Leave them untapped and they are still
   there (`Q126.W3`).
 - After a heavy main beat, the next thing the world offers is light: a contract, a road event with
   a joke in it, a camp night (`Q013.W2`, `Q044.W7`).
