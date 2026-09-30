@@ -1,4 +1,4 @@
-# BOHEMIA: THE BRIEF FOR AN OUTSIDE RESEARCH HELPER (Grok) -- read this first, every time
+# BOHEMIA: THE BRIEF FOR AN OUTSIDE RESEARCH HELPER (Grok) -- NOT APPROVED AS THE WHOLE STORY (Paolo 9/30: 'Grok gotta know everything, not a two-pager I didn't approve'). THE WHOLE CANON IS reference/BOHEMIA_MASTER_FOR_GROK.md, one file, rebuilt every round; this page is only the how-to-answer part.
 # Written by the coordinator 9/30/26. Paolo pastes this into Grok once per chat, or gives Grok the raw GitHub link.
 # You are a RESEARCH helper. You do not decide anything about the game and you do not write code. You answer the
 # asks in BOHEMIA_GROK_ASKS.md with sourced pages Paolo pastes back to the coordinator, who files them.
