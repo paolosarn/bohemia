@@ -34007,6 +34007,65 @@ since 9/6, it also holds 19 QUESTS (BUILD). The front page's chat-19 line says a
 chat with an empty queue takes QUESTS, and DYNASTY's queue went empty at Q16. The
 lane and its first row were claimed and pushed BEFORE any work started. ***
 
+ROUND 58 [one then heirs] ONE FACE AT THE START. THE NEXT IS BORN FROM HIM. (BUILD)
+DYNASTY, BUILD. Claimed and pushed as its own commit BEFORE work (rule 5). TAB: the phone
+on the map in the alpha; the picture is in the VOTE tab (dynasty-one-then-heirs-9-29).
+  records/BOHEMIA_DYNASTY_ONE_THEN_HEIRS_9_29_26.md
+  engine/bohemia_acts.js · slices/BOHEMIA_CITY_WORLD.html (strip, offer row, save, inline
+  re-synced) · slices/BOHEMIA_ALPHA_0_9.html (face bridge, descendantSpec opts, build stamp
+  9/30a) · gates/one_then_heirs_gate.js 97/0 · the_flip 23/0 and three_names 31/0 RE-AIMED
+
+WHY THIS ROW AND NOT THE ONE ABOVE IT: the board now has four new DYNASTY rows on top of the
+Q-list ([the ending], [heirs], [one then heirs], [the frame]). Rule 5 says the first OPEN line
+([the ending]); but [one then heirs] says FIRST LINE and is a LIVE DEFECT (the alpha showed
+three faces at frame one, which his rule 39c kills), and rule 8 says his bugs beat the queue.
+Said in the commit and the record. THE NEXT VAMILY takes [the ending], then [heirs], then
+[the frame], then the Q-list from [old body] Q19.
+
+WHAT SHIPPED: a fresh game shows ONE face; unlock(2) grows a second born from the first;
+a real finger hops in and the offer row opens (name field, MALE, FEMALE, OK); the reshuffle
+glyph exists only while the window is open; the window closes on OK or on flipping away.
+faceKey makes a face follow the person, and act 3 is born from act 2. The city save carries
+the acts. A landing face repaints the strip (PORTRAIT's blank first paint, closed).
+
+THREE PREMISES MEASURED FIRST (rule 12): (1) NOTHING CAN HAND HIM A HOME BASE YET --
+bohemia_homebases is inlined nowhere and nothing calls took() -- so nothing calls unlock;
+FACTIONS/RUN make one call, BohemiaActs.unlock(2) (or ctActUnlock(2)), the moment a base is
+his; unlockFromBases(rec.entries) is proven against the REAL ledger. (2) THE ACTS WERE NEVER
+SAVED: a reload put him back at act 1 and rolled every name again. (3) THE FACE COULD NOT
+FOLLOW THE PERSON (keyed on 'act2').
+
+TWO THINGS NOT HIDDEN:
+- CHOOSING MALE OR FEMALE DOES NOT CHANGE THE FACE. descendantSpec with reads he vs she moved
+  0 of 4096 pixels in 8 of 8 variants (a reshuffle moves 761-1,513). faceFor uses reads only to
+  narrow the haircut pool and heredity copies the ancestor's hair 90% of the time. The wire
+  is shipped; the gate prints the pixel result and does not assert the defect (it would go
+  red the day PORTRAIT fixes it). ROUTED to PORTRAIT/DIRECTION. The M and F buttons do change
+  the person's sex on paper and a name that agrees; a control that promises more than it does
+  is the worst bug in this game (rule 14d), so this is said in the record and the vote item.
+- MY LAST ROUND'S CLAIM WAS FALSE. [three names]'s record said "registered as THREE NAMES".
+  It was never in gates/bohemia_gates.py, so the suite never ran it. FIXED: THREE NAMES and
+  ONE THEN HEIRS are both registered and both were run THROUGH THE RUNNER (green).
+
+GATE RESULTS: ONE THEN HEIRS 97/0, THE FLIP 23/0, THREE NAMES 31/0 (all through the runner);
+INLINED-FRESH 3/0. MUTATION-PROVED: five engine mutations (visible shows everyone, unlock may
+skip, leaving keeps the window open, save forgets unlocks, flip ignores LOCKED) each go red,
+and one on the glass (draw all three at frame one) goes red naming "3: Reyna, Ezekiel, Perla".
+Every mutation restored byte-for-byte (cmp). Canon rot is red on main too.
+
+DEFAULTS I DECIDED (draft, in the VOTE item): act 3 unlocks on a base held in act 2; the offer
+closes when he flips away or presses OK, and a closed person cannot be edited; act 1 has no
+offer (the face maker owns the start).
+
+ROUTED: PORTRAIT/DIRECTION (sex and the face); FACTIONS/RUN (the unlock call); UI/SOUNDS/
+DIRECTION (rule 37j, the flip as a BIG transition: not built, flip() returns first for it);
+WORDS/UI (slices/BOHEMIA_THE_THREE_BEFORE_ACT_ONE_9_28_26.html is dead as built and still
+loads roster(), which I left as all three so NAMING SCREEN stays green; retire when you choose).
+[PENDING Paolo]: none; nothing canon touched.
+
+QUESTS' TWO ORPHANED ROWS ([light the pump], [main quest live], CLAIMED under this session,
+un-buildable under rule 35) are STILL unresolved; not touched; re-flagged for the coordinator.
+
 ROUND 57 [return ritual] Q18 ABSENCE IS FREE. ONE LINE IS WAITING. NO STREAK.
 DYNASTY, RESEARCH (claimed and pushed as its own commit before work, rule 5).
   records/BOHEMIA_DYNASTY_DAY_20_THE_RETURN_RITUAL_9_28_26.md

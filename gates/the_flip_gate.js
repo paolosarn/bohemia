@@ -33,7 +33,11 @@ ok('a reshuffle gives a different family',
    A.prepare('2691674296', 1).map(a => a.name).join() !== three.map(a => a.name).join());
 ok('the same seed and salt give the same family, twice',
    A.prepare('2691674296', 0).map(a => a.name).join() === three.map(a => a.name).join());
-/* THE FLIP ITSELF */
+/* THE FLIP ITSELF. RE-AIMED 9/29 (rule 39c, [one then heirs]): the three are no longer
+   all there at frame one, so the acts this leg flips between are unlocked first, through
+   the same call the game will use. Every leg below is unchanged; ONE THEN HEIRS holds the
+   new start (one face) and the locked-act refusal. */
+A.resetAll(); A.unlock(2); A.unlock(3);
 A.setCurrent(1);
 ok('flipping moves him', A.flip(3).moved === true && A.current() === 3);
 ok('and a tap on the act he is already in is NOT an event',
@@ -69,6 +73,10 @@ ok('and it SAYS the ground does not differ yet rather than pretending it does',
   /* OUT TO THE CITY, because the phone is a city-view object (rule 32c) */
   for (let i = 0; i < 4; i++) { await d.pinchOut(); await pg.waitForTimeout(450); }
 
+  /* RE-AIMED 9/29 (rule 39c): the strip grows a face per unlock now, so both later acts
+     are opened with the game's own hook before the three-face legs read the glass. */
+  await d.fr.evaluate(() => { BohemiaActs.resetAll(); ctActUnlock(2); ctActUnlock(3); });
+  await pg.waitForTimeout(900);
   const st = await d.fr.evaluate(() => {
     const box = document.getElementById('actflip');
     return { mode: (typeof MODE !== 'undefined') ? MODE : null,
@@ -79,7 +87,7 @@ ok('and it SAYS the ground does not differ yet rather than pretending it does',
       cur: (typeof BohemiaActs !== 'undefined') ? BohemiaActs.current() : null };
   });
   ok('the phone is a CITY-VIEW object and we are in the city (rule 32c)', st.mode === 'city');
-  ok('*** THREE FACES ARE ON THE PHONE *** (' + st.tiles + ')', st.tiles === 3);
+  ok('*** THREE FACES ARE ON THE PHONE once both later acts are unlocked *** (' + st.tiles + ')', st.tiles === 3);
   ok('each one carries a name you can read (' + st.names.join(', ') + ')',
      st.names.length === 3 && st.names.every(n => n && n.length > 1 && n.indexOf('…') < 0));
   ok('and when each one is (' + st.years.join(', ') + ')', st.years.length === 3);

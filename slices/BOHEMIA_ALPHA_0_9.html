@@ -1513,7 +1513,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 9/30d - A GOAL THE COMPANY SETS ITSELF</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 9/30e - ONE FACE, THEN HEIRS</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -4848,10 +4848,25 @@ var DESCENDANT_H = { 2: 0.62, 3: 0.62 * 0.62 };      /* skull + minor colour. dr
    brow and lip colour on the lower, compounding weight to vary independently. */
 var DESCENDANT_LOOK_H = { 2: 0.90, 3: 0.90 };        /* hair + skin: the loud channel, both hops */
 var DESCENDANT_GREY_TRIES = { 2: 3, 3: 6 };          /* extra NPCFactory draws before giving up */
-function descendantSpec(actNum, ancestor){
-  var id = 'act' + actNum;
-  var h = DESCENDANT_H[actNum] || 0;
-  var sp = faceFor(id, { age: 'adult' });            /* an ordinary, fully-clamped adult */
+/* opts (DYNASTY [one then heirs], 9/29) -- all optional, and with none of them this is
+   byte-for-byte the function PORTRAIT shipped:
+     variant  a reshuffle count. 0 or absent keeps the id 'act<N>' exactly; a positive
+              one appends '~<variant>', so a reshuffled person is a different roll and
+              not the same face under a new name.
+     reads    'he' or 'she', handed to faceFor so the chosen sex steers the face (the
+              gap [three names] and [three faces] both named: a face and a chosen sex
+              could disagree).
+     hopAs    which entry of the heredity weights to use, so a third act born from the
+              SECOND person (rule 39c) takes one hop's weight against him and does not
+              compound twice on top of a face that is already a blend. */
+function descendantSpec(actNum, ancestor, opts){
+  opts = opts || {};
+  var id = 'act' + actNum + (opts.variant > 0 ? '~' + (opts.variant | 0) : '');
+  var hopN = opts.hopAs || actNum;
+  var h = DESCENDANT_H[hopN] || 0;
+  var fo = { age: 'adult' };
+  if (opts.reads === 'he' || opts.reads === 'she') fo.reads = opts.reads;
+  var sp = faceFor(id, fo);            /* an ordinary, fully-clamped adult */
   if (!h || !ancestor) return sp;
   sp = JSON.parse(JSON.stringify(sp));
   var f = sp.face, af = ancestor.face || {};
@@ -4886,7 +4901,7 @@ function descendantSpec(actNum, ancestor){
      eyes.gaze and details.stubble are deliberately NOT on this list: a gaze is "not yet
      hooked to anything true" (this file, 9/24) and stubble is a grooming choice, not a
      bloodline trait, so both stay whatever the fresh adult roll gave this person. */
-  var lookH = DESCENDANT_LOOK_H[actNum] || h;
+  var lookH = DESCENDANT_LOOK_H[hopN] || h;
   var coin = function (salt) { return faceRollHash(id, salt) < h; };
   var lookCoin = function (salt) { return faceRollHash(id, salt) < lookH; };
   /* HAIR AND SKIN ON THE LOUD WEIGHT (see the note above this function): the two
@@ -11652,10 +11667,23 @@ function combatMsgIn(d){
          built, so it takes that SAME branch rather than a third path; acts 2 and 3
          descend from it. Three rolled strangers were the honest placeholder this
          lane's own words named; this is what replaces them. */
-      var _actM=/^act([123])$/.exec(_who), _actN=_actM?(_actM[1]|0):0;
-      var _sp=(_who==='you'||_actN===1)&&typeof buildSpec==='function' ? buildSpec()
-              : _actN&&typeof descendantSpec==='function' ? descendantSpec(_actN, (typeof buildSpec==='function')?buildSpec():null)
-              : faceFor(_who,{reads:_rd});
+      var _actM=/^act([123])(?:~s(\d+)~(he|she)(?:~p(\d+)~(he|she))?)?$/.exec(_who), _actN=_actM?(_actM[1]|0):0;
+      /* THE KEY CARRIES WHAT A FACE IS MADE FROM (DYNASTY [one then heirs], 9/29):
+         'act2~s<reshuffles>~<he|she>', and for act 3 also '~p<act 2's reshuffles>~<act 2's
+         sex>'. A bare 'act2' is still what it always was. The third is born from the
+         SECOND person, so act 3's ancestor is act 2's own spec, rebuilt from the same key,
+         and it takes one hop's weight against him instead of compounding twice. */
+      var _own=(typeof buildSpec==='function')?buildSpec():null, _sp;
+      if((_who==='you'||_actN===1)&&_own){ _sp=_own; }
+      else if(_actN&&typeof descendantSpec==='function'){
+        if(_actM[2]===undefined){ _sp=descendantSpec(_actN,_own); }
+        else if(_actN===2){ _sp=descendantSpec(2,_own,{variant:_actM[2]|0,reads:_actM[3]}); }
+        else{
+          var _mid=descendantSpec(2,_own,{variant:(_actM[4]===undefined?0:_actM[4]|0),reads:_actM[5]});
+          _sp=descendantSpec(3,_mid,{variant:_actM[2]|0,reads:_actM[3],hopAs:2});
+        }
+      }
+      else _sp=faceFor(_who,{reads:_rd});
       var _rp=(_who==='you'||_actN===1)?portraitRamp()
              :((typeof faceRampFor==='function')?faceRampFor(_sp):portraitRamp());
       var _pk=packIdx(renderFace(_sp,{ramp:_rp}),64,64);

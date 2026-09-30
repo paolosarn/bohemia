@@ -117,7 +117,10 @@ ok('resetRoster() clears every override and salt back to the pure prepare()',
 
   /* reset the module's live state so this run starts from the pure prepare(),
      the same discipline the mechanism section above used */
-  await d.fr.evaluate(() => { try { BohemiaActs.resetRoster(); if (typeof ctActFlipPaint === 'function') { ACTFLIP_BUILT = ''; ctActFlipPaint(); } } catch (e) {} });
+  /* RE-AIMED 9/29 (rule 39c, [one then heirs]): the strip has one face at frame one, so
+     both later acts are unlocked with the game's own hook before the reshuffle legs
+     read the glass. Their customize windows are open, which is what makes the glyph exist. */
+  await d.fr.evaluate(() => { try { BohemiaActs.resetAll(); ctActUnlock(2); ctActUnlock(3); } catch (e) {} });
   await pg.waitForTimeout(300);
 
   const before3 = await d.fr.evaluate(() => {

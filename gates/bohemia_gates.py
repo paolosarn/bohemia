@@ -4977,6 +4977,30 @@ GATES = [
      # so from e7c2b13f onward NO LANE COULD RUN ANY GATE AT ALL -- and 73 commits went to
      # main in that window. A suite that cannot start is not a gate either.
      True),
+    ('THREE NAMES', ['node', 'gates/three_names_gate.js'],
+     'DYNASTY row [three names], 9/27, rule 32(d) (Paolo 9/23): "a generated name per slot, reshuffle, '
+     'or type your own; sex the same way." RESHUFFLE CHANGES ONE SLOT AND LEAVES THE OTHER TWO EXACTLY '
+     'WHERE THEY WERE, on the real glass with a real finger. 31 legs: nineteen without a browser (every '
+     'slot named and sexed; a prepared name agrees with its sex where the bank has one; a bad act, an '
+     'empty name and an oversized name are refused and the prior name survives; a typed name survives '
+     'another slot\'s reshuffle and a later sex choice) and twelve on the glass. CORRECTED 9/29: this '
+     'gate shipped 9/27 and was NEVER REGISTERED HERE, although that round\'s record said it was, so the '
+     'suite had never run it. RE-AIMED 9/29 for rule 39c (one face at the start): every leg kept, the '
+     'later acts are unlocked through the game\'s own hook before the glass legs read the strip.',
+     True),
+    ('ONE THEN HEIRS', ['node', 'gates/one_then_heirs_gate.js'],
+     'DYNASTY row [one then heirs], 9/29, rule 39c (Paolo 9/28): "you start the game you can\'t flip '
+     'between the three people... customize just one person, and when you hop into the second generation '
+     'you\'ll be given an option to customize the person and it will start off generated based on how you '
+     'made the first." A FRESH GAME SHOWS ONE FACE ON THE PHONE; unlocking act 2 grows a second, born of '
+     'the first; a real finger hops into it and is offered a name (a real keyboard), a sex and a reshuffle; '
+     'the offer closes for good when he leaves or presses OK; a typed name does not change the face and a '
+     'reshuffle does; the unlock, where he stands and who he made survive the city\'s own save and restore. '
+     'The default trigger (the first home base is yours) is proven against the REAL bohemia_homebases '
+     'ledger, because nothing in the walked game can hand him a base yet. STATES WHAT IT DOES NOT CLAIM: '
+     'the shell\'s face function ignores the chosen sex (0 of 4096 pixels moved, 8 of 8 variants), so the '
+     'gate asserts the wire and prints the pixel result rather than asserting a defect. 97 legs.',
+     True),
     ('STRIKE ASK', ['node', 'gates/strike_ask_gate.js'],
      'QUESTS row [strike ask], 9/22, harvested from ECONOMY Q35. Rule 12: the named blocker was MEASURED '
      'rather than waited on -- WORLD shipped engine/bohemia_strike.js on 9/21 (THE BLOCK HOLDS THE DOOR), '

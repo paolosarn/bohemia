@@ -596,6 +596,7 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font-family:var(--
            IT IS THIS LANE'S OWN BLOCK AND IT TOUCHES NOTHING UI WROTE: appended
            inside the screen, above the feed, with its own id and its own paint. -->
       <div id="cityfeedlist" role="log" aria-live="polite"></div>
+      <div id="actedit" role="group" aria-label="make this person yours"></div>
       <div id="actflip" role="group" aria-label="who you are"></div>
       <div id="cityfeedfade"></div>
       <!-- THE FRACTURE. Three full-length diagonals were the first cut and they read as
@@ -986,6 +987,33 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font-family:var(--
   color:var(--skin-dim,#c9bd9a);pointer-events:auto;cursor:pointer;
   -webkit-tap-highlight-color:transparent}
 #actflip .afr:active{background:rgba(216,180,90,.35)}
+/* THE OFFER TO CUSTOMIZE (rule 39c, [one then heirs]). NOT A POP-UP AND NOT A
+   SCREEN: one row of the phone, above the strip so the tiles keep the bottom-of-
+   glass geometry a real finger was measured to reach. It exists only while the act
+   he is standing in has its customize window open, and it is drawn in the phone's
+   own face and the skin's own colours. The input is 16px on purpose: anything
+   smaller makes iOS zoom the whole page when it takes focus. */
+#actedit{flex:0 0 auto;display:none;flex-wrap:wrap;gap:3px;padding:4px 5px 0;position:relative;z-index:2;
+  align-items:center}
+#actedit.on{display:flex}
+/* THE FIELD READS AT ABOUT NINE PIXELS BUT IS SIXTEEN. iOS zooms the whole page when a
+   field under 16px takes focus, so the input keeps a computed 16px and its wrapper is
+   scaled down: the phone's own pixel face at a size that fits a name on a 124px glass
+   (measured: on the same row as three buttons the field was 45px and showed "Ezek" of "Ezekiel Serrano", so it has its own row now: 114px, about a dozen characters). A transform scales
+   the touch target with the picture, so what he sees is what he taps. */
+#actedit .aef{flex:1 0 100%;min-width:0;height:24px;position:relative;overflow:hidden}
+#actedit input{position:absolute;left:0;top:0;width:182%;height:44px;box-sizing:border-box;margin:0;
+  transform:scale(.55);transform-origin:0 0;
+  font-family:inherit;font-size:16px;line-height:1;padding:0 6px;border-radius:5px;
+  color:var(--skin-lit,#e6d9ae);background:rgba(0,0,0,.5);
+  border:2px solid rgba(216,180,90,.4);outline:none;pointer-events:auto}
+#actedit .aeb{flex:1 1 0;min-width:20px;height:24px;box-sizing:border-box;padding:0 3px;
+  display:flex;align-items:center;justify-content:center;font-size:8px;letter-spacing:.3px;
+  color:var(--skin-dim,#c9bd9a);background:rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.2);
+  border-radius:3px;cursor:pointer;pointer-events:auto;-webkit-tap-highlight-color:transparent}
+#actedit .aeb.on{color:var(--skin-lit,#e6d9ae);background:rgba(216,180,90,.18);
+  border-color:rgba(216,180,90,.6)}
+#actedit .aeb:active{background:rgba(216,180,90,.35)}
 #cityfeedlist{flex:1 1 auto;min-height:0;overflow:hidden;padding:5px 7px 9px;position:relative;z-index:1}
 #cityfeed .fp{margin:0 0 7px;opacity:0;transform:translateY(7px);
   transition:opacity .28s linear,transform .28s linear}
@@ -13577,6 +13605,38 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
 // this file suggests, it does not correct him.
 //
 // ============================================================================
+// NO FLIP AT THE START; ONE PERSON, THEN THE NEXT IS BORN FROM HIM (rule 39c,
+// Paolo 9/28, laws/BOHEMIA_LAW_THE_THREE_ACTS_AT_ONCE_9_23_26.md s11)
+// ============================================================================
+// "You start the game, you can't flip between the three people... customize just
+// one person, and when you hop into the second generation you'll be given an
+// option to customize the person and it will start off generated based on how
+// you made the first." So THREE FACES FROM FRAME ONE IS DEAD, and so is naming all
+// three before act 1. What survives, and is kept here rather than thrown away:
+// the per-slot roster, the reshuffle, the typed name and the chosen sex -- all
+// re-timed. visible() is what the phone strip draws: ONE person until act 2
+// unlocks, a second when it does, a third after that. Nothing about the strip's
+// look changed; only WHEN a face exists.
+//
+// A DOOR THAT OPENED STAYS OPEN. unlock() is one-way and ordered (act 3 cannot
+// unlock before act 2), and it is saved (save()/load()), because an unlock that
+// a reload forgets is a feature that only works until he closes the tab.
+//
+// WHAT UNLOCKS IT is the manager's default until he rules, "the first home base is
+// yours": act n+1 unlocks when the player holds a base in act n. unlockFromBases()
+// reads bohemia_homebases' ledger entries for exactly that. AND NOTHING IN THE
+// WALKED GAME CAN HAND HIM A BASE YET (measured 9/29: that module is not inlined
+// in the city and nothing calls took()), so nothing calls unlock yet. It is one
+// call for FACTIONS/RUN to make the moment a base is his, and it is gated here
+// against the real ledger rather than against a stand-in.
+//
+// THE OFFER TO CUSTOMIZE is a window, not a screen: while an unlocked act's window
+// is open (customizable()), reshuffle / setName / setSex work on it. It closes when
+// he flips away from that act or confirm()s. Acts that are not unlocked yet are
+// NOT refused, because nothing can see them and WORDS' standalone screen still
+// prepares all three before it is retired.
+//
+// ============================================================================
 // EVERY NUMBER IN HERE IS EITHER HIS OR MARKED
 // ============================================================================
 // The ERA NAMES are canon (Paolo 9/7: Animal / Human / Angel are ERAS, never
@@ -13715,6 +13775,7 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
      the return value: a caller redraws one tile, not three. */
   function reshuffle(act) {
     if (!isAct(act)) return { changed: false, why: 'NOT_AN_ACT' };
+    if (!customizable(act)) return { changed: false, why: 'CLOSED' };
     SLOT_SALT[act] = (SLOT_SALT[act] || 0) + 1;
     delete OVERRIDE[act];
     return { changed: true, act: act | 0 };
@@ -13727,6 +13788,7 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
      at 36 px), and never rejected for what it reads as -- a typed name is his. */
   function setName(act, name) {
     if (!isAct(act)) return { ok: false, why: 'NOT_AN_ACT' };
+    if (!customizable(act)) return { ok: false, why: 'CLOSED' };
     var nm = String(name == null ? '' : name).trim();
     if (!nm) return { ok: false, why: 'EMPTY' };
     if (nm.length > 24) return { ok: false, why: 'TOO_LONG' };
@@ -13743,6 +13805,7 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
      mismatch sitting there because nothing asked for a new name explicitly. */
   function setSex(act, sex) {
     if (!isAct(act)) return { ok: false, why: 'NOT_AN_ACT' };
+    if (!customizable(act)) return { ok: false, why: 'CLOSED' };
     var s = String(sex || '').toLowerCase();
     if (s !== 'male' && s !== 'female') return { ok: false, why: 'NOT_A_SEX' };
     if (!OVERRIDE[act]) OVERRIDE[act] = {};
@@ -13758,23 +13821,175 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
     OVERRIDE = {};
   }
 
-  /* THE STATE. Which act he is standing in, and nothing else lives here. */
+  /* THE STATE. Which act he is standing in, which acts exist for him yet, which
+     of those he has ever stood in, and which are still open to be customized. */
   var CURRENT = 1;
+  var UNLOCKED = { 1: true };        /* act -> true; act 1 is where he starts */
+  var MET = { 1: true };             /* acts he has stood in at least once */
+  var OPEN = {};                     /* unlocked acts whose customize window is open */
   function current() { return CURRENT; }
   function isAct(n) { n = n | 0; return n === 1 || n === 2 || n === 3; }
+  function isUnlocked(n) { return isAct(n) && !!UNLOCKED[n | 0]; }
+  function unlocked() { return [1, 2, 3].filter(isUnlocked); }
+  /* CAN THIS ACT'S PERSON STILL BE CHANGED. Act 1 is the player and the face
+     maker's; an act that has not unlocked has nobody to see it and is left alone
+     (WORDS' standalone screen prepares all three before it is retired); an
+     unlocked act is changeable only while its window is open. */
+  function customizable(n) {
+    n = n | 0;
+    return n === 1 || !UNLOCKED[n] || !!OPEN[n];
+  }
+
+  /* UNLOCK, ONE WAY AND IN ORDER. The next act only, so a caller cannot skip a
+     generation; asking again is answered, not repeated. The new person's window
+     opens: he is offered to customize them, and they start GENERATED from the one
+     before (the strip asks faceKey() for that face; the name is the roster's). */
+  function unlock(n) {
+    if (!isAct(n)) return { ok: false, why: 'NOT_AN_ACT' };
+    n = n | 0;
+    if (UNLOCKED[n]) return { ok: false, why: 'ALREADY', act: n };
+    if (n > 1 && !UNLOCKED[n - 1]) return { ok: false, why: 'NOT_NEXT', act: n };
+    UNLOCKED[n] = true;
+    OPEN[n] = true;
+    return { ok: true, act: n, open: true };
+  }
+
+  /* THE DEFAULT TRIGGER, READ OFF THE REAL LEDGER: act n+1 unlocks when the player
+     took a home base in act n (bohemia_homebases entries: {act, how:'taken',
+     to:'you'}). Takes the entries, not the module, so it works on a save blob as
+     well as a live record. Returns the acts it just unlocked, in order. */
+  function unlockFromBases(entries, holder) {
+    var who = holder == null ? 'you' : holder, out = [];
+    if (Object.prototype.toString.call(entries) !== '[object Array]') return out;
+    for (var n = 1; n <= 2; n++) {
+      if (UNLOCKED[n + 1] || !UNLOCKED[n]) continue;
+      var got = entries.some(function (e) {
+        return e && (e.act | 0) === n && e.how === 'taken' && e.to === who;
+      });
+      if (got && unlock(n + 1).ok) out.push(n + 1);
+    }
+    return out;
+  }
+
+  /* CLOSE AN ACT'S CUSTOMIZE WINDOW ON PURPOSE (an OK button). */
+  function confirm(n) {
+    if (!isAct(n)) return { ok: false, why: 'NOT_AN_ACT' };
+    delete OPEN[n | 0];
+    return { ok: true, act: n | 0 };
+  }
 
   /* THE FLIP. Returns what changed, so a caller can redraw exactly what moved
      and a gate can assert it -- and returns `moved:false` for a tap on the act he
      is already in, because a flip to where you already are is not an event and
-     must not cost a redraw or a sound. */
+     must not cost a redraw or a sound. A LOCKED act is refused and said so: there
+     is nobody there to become yet. `first` is true the first time he ever stands
+     in an act, which is the "hop" the offer to customize belongs to. Leaving an
+     act closes its customize window. */
   function flip(n) {
     if (!isAct(n)) return { moved: false, why: 'NOT_AN_ACT' };
+    if (!UNLOCKED[n | 0]) return { moved: false, why: 'LOCKED', act: n | 0 };
     if (n === CURRENT) return { moved: false, why: 'ALREADY_THERE', act: CURRENT };
     var from = CURRENT;
+    delete OPEN[from];
     CURRENT = n | 0;
-    return { moved: true, from: from, to: CURRENT };
+    var first = !MET[CURRENT];
+    MET[CURRENT] = true;
+    return { moved: true, from: from, to: CURRENT, first: first };
   }
-  function setCurrent(n) { if (isAct(n)) CURRENT = n | 0; return CURRENT; }
+  function setCurrent(n) { if (isAct(n) && UNLOCKED[n | 0]) CURRENT = n | 0; return CURRENT; }
+
+  /* WHAT THE PHONE STRIP DRAWS: THE UNLOCKED ACTS ONLY, each with what it needs
+     to be a tile. roster() stays the full three (WORDS' standalone screen still
+     prepares all of them); this is the timed view. `open` is the customize window.
+     `bornOf` names the person before, so a screen can say who this one comes from
+     without asking the roster a second time. */
+  function visible(seed) {
+    var all = roster(seed), out = [];
+    for (var i = 0; i < all.length; i++) {
+      var a = all[i];
+      if (!UNLOCKED[a.act]) continue;
+      var row = {};
+      for (var k in a) row[k] = a[k];
+      row.open = a.act > 1 && !!OPEN[a.act];
+      row.met = !!MET[a.act];
+      row.bornOf = a.act > 1 ? { act: a.act - 1, name: all[a.act - 2].name, sex: all[a.act - 2].sex } : null;
+      out.push(row);
+    }
+    return out;
+  }
+
+  /* THE FACE ASK'S KEY, so a face follows the person and not the slot number.
+     [three names] found that ctFaceAsk keyed the cache on 'act2', a fixed string,
+     so a reshuffle or a chosen sex changed the name and left the face exactly
+     where it was. Now the key carries what a face is made from: this act's reshuffle
+     count and sex, and for the third act the second's too (the third is born from
+     the second, not from the first). A TYPED NAME IS NOT IN THE KEY: a name is not
+     a face. Act 1 is the face he built and its key never changes. Salt 0 with no
+     chosen sex still reads as a key the shell parses the same as the bare 'act2'. */
+  function reads(sex) { return sex === 'female' ? 'she' : 'he'; }
+  function faceKey(seed, n) {
+    if (!isAct(n)) return null;
+    n = n | 0;
+    if (n === 1) return 'act1';
+    var all = roster(seed);
+    var me = all[n - 1], key = 'act' + n + '~s' + (SLOT_SALT[n] || 0) + '~' + reads(me.sex);
+    if (n === 3) {
+      var mid = all[1];
+      key += '~p' + (SLOT_SALT[2] || 0) + '~' + reads(mid.sex);
+    }
+    return key;
+  }
+
+  /* THE SAVE. A door that opened has to stay open across a reload, and so does the
+     person he made: unlocks, which acts he has stood in, which windows are still
+     open, where he stands, every reshuffle count and every typed name or chosen
+     sex. Small, plain data, and load() treats anything broken as "nothing saved". */
+  function save() {
+    return {
+      V: 1,
+      current: CURRENT,
+      unlocked: unlocked(),
+      met: [1, 2, 3].filter(function (n) { return !!MET[n]; }),
+      open: [2, 3].filter(function (n) { return !!OPEN[n]; }),
+      salt: { 1: SLOT_SALT[1] | 0, 2: SLOT_SALT[2] | 0, 3: SLOT_SALT[3] | 0 },
+      override: JSON.parse(JSON.stringify(OVERRIDE))
+    };
+  }
+  function load(blob) {
+    if (!blob || typeof blob !== 'object' || blob.V !== 1) return { ok: false, why: 'NOTHING_SAVED' };
+    var u = { 1: true }, m = { 1: true }, o = {}, i, n;
+    var ul = Object.prototype.toString.call(blob.unlocked) === '[object Array]' ? blob.unlocked : [];
+    /* ordered, so a hand-edited blob cannot skip a generation */
+    for (n = 2; n <= 3; n++) if (ul.indexOf(n) >= 0 && u[n - 1]) u[n] = true;
+    var ml = Object.prototype.toString.call(blob.met) === '[object Array]' ? blob.met : [];
+    for (i = 0; i < ml.length; i++) if (isAct(ml[i]) && u[ml[i] | 0]) m[ml[i] | 0] = true;
+    var ol = Object.prototype.toString.call(blob.open) === '[object Array]' ? blob.open : [];
+    for (i = 0; i < ol.length; i++) if ((ol[i] | 0) > 1 && isAct(ol[i]) && u[ol[i] | 0]) o[ol[i] | 0] = true;
+    var salt = { 1: 0, 2: 0, 3: 0 };
+    if (blob.salt && typeof blob.salt === 'object')
+      for (n = 1; n <= 3; n++) { var sv = blob.salt[n] | 0; salt[n] = sv > 0 && sv < 1e6 ? sv : 0; }
+    var ov = {};
+    if (blob.override && typeof blob.override === 'object')
+      for (n = 1; n <= 3; n++) {
+        var r = blob.override[n]; if (!r || typeof r !== 'object') continue;
+        var one = {};
+        if (typeof r.name === 'string' && r.name.trim() && r.name.length <= 24) one.name = r.name.trim();
+        if (r.sex === 'male' || r.sex === 'female') one.sex = r.sex;
+        if (one.name || one.sex) ov[n] = one;
+      }
+    UNLOCKED = u; MET = m; OPEN = o; SLOT_SALT = salt; OVERRIDE = ov;
+    var c = blob.current | 0;
+    CURRENT = (isAct(c) && u[c]) ? c : 1;
+    return { ok: true, unlocked: unlocked(), current: CURRENT };
+  }
+
+  /* BACK TO A NEW GAME: one act, nothing customized. Testing hook, and the answer
+     to "start over". resetRoster() alone clears salts and overrides and leaves
+     the unlocks, which is what a name screen wants and a new game does not. */
+  function resetAll() {
+    UNLOCKED = { 1: true }; MET = { 1: true }; OPEN = {}; CURRENT = 1;
+    resetRoster();
+  }
 
   /* HOW FAR APART TWO ACTS ARE, in years. Reads the table; never re-typed at a
      call site, so his one ruling on the gap moves every surface at once. */
@@ -13795,6 +14010,9 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
     sexFor: sexFor, roster: roster, reshuffle: reshuffle,
     setName: setName, setSex: setSex, resetRoster: resetRoster,
     current: current, setCurrent: setCurrent, flip: flip, isAct: isAct,
+    unlock: unlock, unlocked: unlocked, isUnlocked: isUnlocked,
+    unlockFromBases: unlockFromBases, customizable: customizable, confirm: confirm,
+    visible: visible, faceKey: faceKey, save: save, load: load, resetAll: resetAll,
     yearsBetween: yearsBetween, groundDiffers: groundDiffers, draft: DRAFT
   };
   if (typeof module !== 'undefined' && module.exports) module.exports = API;
@@ -58677,7 +58895,12 @@ function citySnapshot(){
        exact four failure modes that module was written to kill. They appeared ZERO
        times here. So export did not carry the people, a restore gave yesterday's
        world with today's population, and the two-slot rollback DESYNCED. */
-    people:(function(){ try{ return ctPeopleSave(); }catch(_e){ return null; } })() };
+    people:(function(){ try{ return ctPeopleSave(); }catch(_e){ return null; } })(),
+    /* __ONE_THEN_HEIRS__ -- WHICH PEOPLE EXIST AND WHO HE MADE THEM. A door that opened
+       (act 2, act 3), where he stands, and every reshuffle, typed name and chosen sex,
+       so closing the tab does not give him one face again. Absent on any save written
+       before this, which is correct: that save has one person. */
+    acts:(function(){ try{ return BohemiaActs.save(); }catch(_e){ return null; } })() };
 }
 /* __THE_COLD_OPEN_CLEARS_THE_TOOLBAR__ -- THE CITY REPORTS ITS OWN CHROME.
    The shell floats the cold-open invite over this iframe and it was landing ON
@@ -63790,6 +64013,7 @@ function applyRestore(st){
   /* __THE_PEOPLE_RIDE_THE_SAVE__ -- AND THE PEOPLE COME WITH IT. Absent on any save written
      before today, which is correct: that save never had them. */
   if(st.people){ try{ ctPeopleLoad(st.people); }catch(_e){} }
+  if(st.acts){ try{ BohemiaActs.load(st.acts); ACTFLIP_BUILT=''; }catch(_e){} }
   if(st.loop&&DAY.restore(st.loop)){ daySync(); DAY_RESTORED=true;
     if(st.quest)DQ.restore(st.quest,DAY.day); else DQ.openDay(DAY.day);
     /* __CITY_ADDRESS__ -- WHO THE JOB IS ABOUT SURVIVES A RELOAD. Restored
@@ -64399,6 +64623,11 @@ window.addEventListener('message', function (ev) {
        happens to move -- on a still map, his own face would never appear. The
        faction-cast handler two blocks down already ends this way; same idiom. */
     if (c) { try { render(); } catch (_e2) {} }
+    /* AND REPAINT THE PHONE'S STRIP WHEN ONE OF ITS FACES LANDS. PORTRAIT measured the
+       first paint after pinching out showing every tile BLANK: the strip paints once,
+       the async face reply lands a beat later, and nothing painted again until some
+       other event happened to. Named for [the flip], closed here. */
+    if (c && /^act[123]/.test(String(m.who))) { try { ctActFlipPaint(); } catch (_e3) {} }
   } catch (_e) {}
 });
 try { window.ctFaceAsk = ctFaceAsk; window.FACE_CV = FACE_CV; } catch (_e) {}
@@ -64428,20 +64657,20 @@ function ctActSeed(){
   try { if (typeof seed !== 'undefined' && seed) return String(seed); } catch (_e) {}
   return 'bohemia';
 }
-/* *** THE LIST IS THE LIVE ROSTER NOW, NOT THE PURE PREPARE(). *** ([three names],
-   rule 32d.) A single shared ACTFLIP_SALT reshuffled all three at once, which was
-   never what "reshuffle" meant against a Battle Brothers tavern -- you reroll the
-   one recruit you are looking at. BohemiaActs.roster() carries per-slot salts and
-   any typed override as its OWN state now, so this file holds none: reading it
-   twice in a row without an edit between reads the same three, the same reason
-   CURRENT lives in the module and not here. */
+/* *** THE LIST IS THE TIMED VIEW OF THE LIVE ROSTER. *** ([three names], rule 32d,
+   re-timed by rule 39c, [one then heirs].) He starts with ONE person and the phone
+   shows one face. A second face is born the moment act 2 unlocks and a third after
+   that; nothing here decides when, BohemiaActs.unlock() does, and the strip only
+   draws who exists. Per-slot salts, typed names and chosen sex are that module's own
+   state, so this file holds none and reading it twice without an edit reads the
+   same people, the same reason CURRENT lives there and not here. */
 function ctActList(){
-  try { return BohemiaActs.roster(ctActSeed()) || []; }
+  try { return BohemiaActs.visible(ctActSeed()) || []; }
   catch (_e) { return []; }
 }
 /* PAINT. Rebuilt only when what it would say has actually changed, because this
-   is called from the phone's own tick and a strip that rewrites three canvases
-   every beat is sixty pointless bakes a second on the surface he is looking at. */
+   is called from the phone's own tick and a strip that rewrites its canvases every
+   beat is sixty pointless bakes a second on the surface he is looking at. */
 function ctActFlipPaint(){
   var box = null;
   try { box = document.getElementById('actflip'); } catch (_e) {}
@@ -64450,10 +64679,11 @@ function ctActFlipPaint(){
   if (!list.length) { box.style.display = 'none'; return false; }
   box.style.display = '';
   var cur = 1; try { cur = BohemiaActs.current(); } catch (_e) {}
-  /* the sig is the roster's own state now (name AND sex, since a sex change can
-     leave the name untouched -- see setSex's own comment), not a shared salt this
-     file no longer holds. */
-  var sig = cur + '|' + list.map(function(a){ return (a.name || '?') + ':' + a.sex; }).join(',');
+  /* the sig is the roster's own state (act, name, sex and whether the customize
+     window is open), not a salt this file no longer holds. */
+  var sig = cur + '|' + list.map(function(a){
+    return a.act + ':' + (a.name || '?') + ':' + a.sex + ':' + (a.open ? 1 : 0);
+  }).join(',');
   if (sig !== ACTFLIP_BUILT) {
     box.innerHTML = '';
     for (var i = 0; i < list.length; i++) {
@@ -64474,8 +64704,7 @@ function ctActFlipPaint(){
            Shot at real size first and the full names came back "Ezekie...",
            "Perla ...": a name he cannot read is a name that did not ship, which
            is the bubble's own lesson wearing a different hat. The full name stays
-           on the tile's label for a screen reader and for the round that gives
-           these three a proper screen ([three names]). */
+           on the tile's label for a screen reader. */
         nm.textContent = String(a.name || a.era).split(/\s+/)[0];   /* draft:true */
         var yr = document.createElement('div'); yr.className = 'afy';
         yr.textContent = a.later ? ('+' + a.later + 'Y') : 'NOW';  /* draft:true */
@@ -64500,36 +64729,40 @@ function ctActFlipPaint(){
           ctActFlipTo(a.act);
         };
         t.addEventListener('click', go);
-        /* THE RESHUFFLE GLYPH, ONE SLOT ([three names], rule 32d). Same door as
-           the tile's own click -- 'click' only, propagation stopped -- because
-           that is the ONE thing this round proved a real finger reaches on this
-           strip; a second, untested event pattern here would be reinventing the
-           exact trap [the flip] spent its round finding. */
-        var rs = document.createElement('div'); rs.className = 'afr';
-        /* '?' NOT '⟳' (RUN 9/28, for WORDS/DYNASTY [three names], one character). The
-           phone's own face (BohemiaROM) has NO circular arrow at all -- measured: ⟳ ↻ ↺ ⟲
-           ⇄ ⇆ ↔ all fall through to serif -- so this glyph drew in a second typeface on
-           the glass and THE SCREEN HAS ITS OWN FACE went red the moment the demo opened
-           on the map and put the phone on the first screen. '?' is in the face and is the
-           random-name mark most naming screens use. Whoever wants a real reroll arrow
-           adds it to the ROM face; UI [glass face]. */
-        rs.textContent = '?';
-        rs.setAttribute('role', 'button');
-        rs.setAttribute('aria-label', 'try another ' + a.era.toLowerCase() + ' descendant');
-        rs.addEventListener('click', function (ev) {
-          try { ev.stopPropagation(); } catch (_e) {}
-          ctActReshuffle(a.act);
-        });
-        t.appendChild(rs);
+        /* THE RESHUFFLE GLYPH, ONLY WHILE THE CUSTOMIZE WINDOW IS OPEN (rule 39c).
+           Same door as the tile's own click -- 'click' only, propagation stopped --
+           because that is the ONE thing this lane proved a real finger reaches on
+           this strip. A person whose window has closed is a person he has met, and
+           Battle Brothers does not let you reroll a man you already hired. */
+        if (a.open) {
+          var rs = document.createElement('div'); rs.className = 'afr';
+          /* '?' NOT a circular arrow (RUN 9/28, one character): the phone's own face
+             (BohemiaROM) has no reroll arrow, so an arrow drew in a second typeface
+             on the glass and THE SCREEN HAS ITS OWN FACE went red. '?' is in the
+             face and is the random-name mark most naming screens use. */
+          rs.textContent = '?';
+          rs.setAttribute('role', 'button');
+          rs.setAttribute('aria-label', 'try another ' + a.era.toLowerCase() + ' descendant');
+          rs.addEventListener('click', function (ev) {
+            try { ev.stopPropagation(); } catch (_e) {}
+            ctActReshuffle(a.act);
+          });
+          t.appendChild(rs);
+        }
         box.appendChild(t);
       })(list[i]);
     }
     ACTFLIP_BUILT = sig;
   }
-  /* the faces, every pass, because one arrives a message after it is asked */
+  /* the faces, every pass, because one arrives a message after it is asked. THE
+     KEY IS WHAT A FACE IS MADE FROM (BohemiaActs.faceKey), not the slot number:
+     [three names] found a reshuffle or a chosen sex changed the name and left the
+     face exactly where it was. A typed name is not in the key, a name is not a face. */
   var tiles = box.querySelectorAll('.af');
   for (var k = 0; k < tiles.length && k < list.length; k++) {
-    var who = 'act' + list[k].act, cvs = tiles[k].querySelector('canvas'), f = null;
+    var who = null, cvs = tiles[k].querySelector('canvas'), f = null;
+    try { who = BohemiaActs.faceKey(ctActSeed(), list[k].act); } catch (_e) { who = null; }
+    if (!who) continue;
     try { f = ctFaceAsk(who); } catch (_e) { f = null; }
     if (f && cvs) {
       try {
@@ -64540,25 +64773,101 @@ function ctActFlipPaint(){
       } catch (_e) {}
     }
   }
+  try { ctActEditPaint(list, cur); } catch (_e) {}
   return true;
 }
-/* RESHUFFLE ONE SLOT. Redraws only that tile's contents (the whole strip's
-   innerHTML is rebuilt because the sig changed, same path a flip takes -- this
-   file does not carry a second, cheaper repaint for one tile, and three tiny
-   canvases is not the cost that mattered last round). Never touches CURRENT: a
-   reshuffle changes who slot 2 IS, not which slot he is standing in. */
+/* THE OFFER TO CUSTOMIZE, ONE ROW OF THE PHONE (rule 39c: "when you hop into the
+   second generation you'll be given an option to customize the person"). Shown only
+   while the act he is standing in has its window open: a name field, MALE / FEMALE,
+   and OK. Never focused for him (a keyboard he did not ask for is a pop-up wearing a
+   different hat), never blocking, and gone the moment the window closes. The person
+   underneath already exists, named and sexed and faced from the one before, so
+   doing nothing is a complete answer. */
+var ACTEDIT_BUILT = '';
+function ctActEditPaint(list, cur){
+  var box = document.getElementById('actedit');
+  if (!box) return;
+  var me = null;
+  for (var i = 0; i < list.length; i++) if (list[i].act === cur) me = list[i];
+  if (!me || !me.open) { box.className = ''; box.innerHTML = ''; ACTEDIT_BUILT = ''; return; }
+  var key = String(cur);
+  if (ACTEDIT_BUILT !== key) {
+    box.innerHTML = '';
+    var inp = document.createElement('input');
+    inp.type = 'text'; inp.id = 'actname'; inp.maxLength = 24;
+    inp.autocomplete = 'off'; inp.spellcheck = false;
+    inp.setAttribute('autocapitalize', 'words');
+    inp.setAttribute('aria-label', 'their name');
+    inp.addEventListener('input', function () { inp.setAttribute('data-dirty', '1'); });
+    inp.addEventListener('keydown', function (ev) {
+      if (ev.key === 'Enter') { try { ev.preventDefault(); } catch (_e) {} ctActEditCommit(); }
+    });
+    inp.addEventListener('click', function (ev) { try { ev.stopPropagation(); } catch (_e) {} });
+    var wrap = document.createElement('div'); wrap.className = 'aef';
+    wrap.appendChild(inp);
+    box.appendChild(wrap);
+    [['M', 'male'], ['F', 'female']].forEach(function (pair) {
+      var b = document.createElement('div');
+      b.className = 'aeb'; b.textContent = pair[0]; b.setAttribute('data-sex', pair[1]);
+      b.setAttribute('role', 'button'); b.setAttribute('aria-label', pair[1]);
+      b.addEventListener('click', function (ev) {
+        try { ev.stopPropagation(); } catch (_e) {}
+        ctActSetSex(cur, pair[1]);
+      });
+      box.appendChild(b);
+    });
+    var ok = document.createElement('div');
+    ok.className = 'aeb'; ok.textContent = 'OK'; ok.setAttribute('role', 'button');
+    ok.setAttribute('aria-label', 'keep them');
+    ok.addEventListener('click', function (ev) {
+      try { ev.stopPropagation(); } catch (_e) {}
+      ctActEditCommit();
+    });
+    box.appendChild(ok);
+    box.className = 'on';
+    ACTEDIT_BUILT = key;
+    inp.removeAttribute('data-dirty');
+  }
+  var field = document.getElementById('actname');
+  /* THE FIELD FOLLOWS THE ROSTER unless he has typed in it: a reshuffle or a sex
+     change re-derives the prepared name and the field must say so, and what he
+     typed himself is never overwritten behind his back. */
+  if (field && !field.getAttribute('data-dirty')) field.value = me.name || '';
+  var bs = box.querySelectorAll('.aeb[data-sex]');
+  for (var j = 0; j < bs.length; j++)
+    bs[j].className = 'aeb' + (bs[j].getAttribute('data-sex') === me.sex ? ' on' : '');
+}
+/* OK: keep what the field says and close the window. An unchanged or empty field
+   keeps the generated name; a typed one is his, and BohemiaActs refuses garbage
+   and leaves the prior name standing. */
+function ctActEditCommit(){
+  var cur = 1; try { cur = BohemiaActs.current(); } catch (_e) {}
+  var field = document.getElementById('actname');
+  var typed = field ? String(field.value || '').trim() : '';
+  var now = ''; 
+  try { var v = BohemiaActs.visible(ctActSeed()); for (var i = 0; i < v.length; i++) if (v[i].act === cur) now = v[i].name || ''; } catch (_e) {}
+  if (typed && typed !== now) { try { BohemiaActs.setName(cur, typed); } catch (_e) {} }
+  try { BohemiaActs.confirm(cur); } catch (_e) {}
+  ACTFLIP_BUILT = ''; ACTEDIT_BUILT = '';
+  try { ctActFlipPaint(); } catch (_e) {}
+  return true;
+}
+/* RESHUFFLE ONE SLOT. Redraws only what changed (the strip's innerHTML is rebuilt
+   because the sig changed, same path a flip takes -- this file does not carry a
+   second, cheaper repaint for one tile). Never touches CURRENT: a reshuffle changes
+   who slot 2 IS, not which slot he is standing in. It also drops the field's
+   "he typed here" mark, because a reroll is a new person. */
 function ctActReshuffle(act){
   var r = null;
   try { r = BohemiaActs.reshuffle(act); } catch (_e) { return false; }
   if (!r || !r.changed) return false;
+  try { var f = document.getElementById('actname'); if (f) f.removeAttribute('data-dirty'); } catch (_e) {}
   ACTFLIP_BUILT = '';
   try { ctActFlipPaint(); } catch (_e) {}
   return true;
 }
-/* A TYPED NAME / A CHOSEN SEX, for the pre-game screen ([three names]'s sibling
-   UI row, WORDS/UI's) to call. Not wired to any control on THIS strip -- typing
-   needs a keyboard and that screen owns it -- but the capability is real and
-   gated now rather than promised for later. */
+/* A TYPED NAME / A CHOSEN SEX. Wired to the offer row above; both refuse once the
+   window has closed and say so through BohemiaActs. */
 function ctActSetName(act, name){
   var r = null;
   try { r = BohemiaActs.setName(act, name); } catch (_e) { return false; }
@@ -64575,14 +64884,27 @@ function ctActSetSex(act, sex){
   try { ctActFlipPaint(); } catch (_e) {}
   return true;
 }
-/* THE FLIP ITSELF. The module decides whether anything moved; this only redraws
-   and says so to the page, so a gate and the glass read one fact. */
+/* THE DOOR OPENING. The one call FACTIONS or RUN makes the moment the player holds a
+   home base (rule 39c's default trigger); BohemiaActs decides whether it is the next
+   act and this only redraws. A face is born on the phone. */
+function ctActUnlock(n){
+  var r = null;
+  try { r = BohemiaActs.unlock(n); } catch (_e) { return false; }
+  if (!r || !r.ok) return false;
+  ACTFLIP_BUILT = '';
+  try { window.__ACT_UNLOCK = { act: r.act, at: performance.now() }; } catch (_e) {}
+  try { ctActFlipPaint(); } catch (_e) {}
+  return true;
+}
+/* THE FLIP ITSELF. The module decides whether anything moved (and refuses an act
+   that is still locked); this only redraws and says so to the page, so a gate and
+   the glass read one fact. */
 function ctActFlipTo(n){
   var r = null;
   try { r = BohemiaActs.flip(n); } catch (_e) { return false; }
   if (!r || !r.moved) return false;
   ACTFLIP_BUILT = '';                      /* the lit one moved: repaint */
-  try { window.__ACT_FLIP = { to: r.to, from: r.from, at: performance.now() }; } catch (_e) {}
+  try { window.__ACT_FLIP = { to: r.to, from: r.from, first: !!r.first, at: performance.now() }; } catch (_e) {}
   try { ctActFlipPaint(); } catch (_e) {}
   /* THE GROUND DOES NOT MOVE YET AND THAT IS THE TRUTH, NOT A GAP. Rule 32(b):
      the base of act 2 and 3 is act 1's RUIN and the derive ADDS what was
@@ -64592,7 +64914,8 @@ function ctActFlipTo(n){
   return true;
 }
 try { window.ctActFlipPaint = ctActFlipPaint; window.ctActFlipTo = ctActFlipTo;
-      window.ctActReshuffle = ctActReshuffle;
+      window.ctActReshuffle = ctActReshuffle; window.ctActUnlock = ctActUnlock;
+      window.ctActEditCommit = ctActEditCommit;
       window.ctActSetName = ctActSetName; window.ctActSetSex = ctActSetSex; } catch (_e) {}
 
 var CAST_CV = null;

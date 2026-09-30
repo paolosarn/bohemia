@@ -47,6 +47,38 @@
 // this file suggests, it does not correct him.
 //
 // ============================================================================
+// NO FLIP AT THE START; ONE PERSON, THEN THE NEXT IS BORN FROM HIM (rule 39c,
+// Paolo 9/28, laws/BOHEMIA_LAW_THE_THREE_ACTS_AT_ONCE_9_23_26.md s11)
+// ============================================================================
+// "You start the game, you can't flip between the three people... customize just
+// one person, and when you hop into the second generation you'll be given an
+// option to customize the person and it will start off generated based on how
+// you made the first." So THREE FACES FROM FRAME ONE IS DEAD, and so is naming all
+// three before act 1. What survives, and is kept here rather than thrown away:
+// the per-slot roster, the reshuffle, the typed name and the chosen sex -- all
+// re-timed. visible() is what the phone strip draws: ONE person until act 2
+// unlocks, a second when it does, a third after that. Nothing about the strip's
+// look changed; only WHEN a face exists.
+//
+// A DOOR THAT OPENED STAYS OPEN. unlock() is one-way and ordered (act 3 cannot
+// unlock before act 2), and it is saved (save()/load()), because an unlock that
+// a reload forgets is a feature that only works until he closes the tab.
+//
+// WHAT UNLOCKS IT is the manager's default until he rules, "the first home base is
+// yours": act n+1 unlocks when the player holds a base in act n. unlockFromBases()
+// reads bohemia_homebases' ledger entries for exactly that. AND NOTHING IN THE
+// WALKED GAME CAN HAND HIM A BASE YET (measured 9/29: that module is not inlined
+// in the city and nothing calls took()), so nothing calls unlock yet. It is one
+// call for FACTIONS/RUN to make the moment a base is his, and it is gated here
+// against the real ledger rather than against a stand-in.
+//
+// THE OFFER TO CUSTOMIZE is a window, not a screen: while an unlocked act's window
+// is open (customizable()), reshuffle / setName / setSex work on it. It closes when
+// he flips away from that act or confirm()s. Acts that are not unlocked yet are
+// NOT refused, because nothing can see them and WORDS' standalone screen still
+// prepares all three before it is retired.
+//
+// ============================================================================
 // EVERY NUMBER IN HERE IS EITHER HIS OR MARKED
 // ============================================================================
 // The ERA NAMES are canon (Paolo 9/7: Animal / Human / Angel are ERAS, never
@@ -185,6 +217,7 @@
      the return value: a caller redraws one tile, not three. */
   function reshuffle(act) {
     if (!isAct(act)) return { changed: false, why: 'NOT_AN_ACT' };
+    if (!customizable(act)) return { changed: false, why: 'CLOSED' };
     SLOT_SALT[act] = (SLOT_SALT[act] || 0) + 1;
     delete OVERRIDE[act];
     return { changed: true, act: act | 0 };
@@ -197,6 +230,7 @@
      at 36 px), and never rejected for what it reads as -- a typed name is his. */
   function setName(act, name) {
     if (!isAct(act)) return { ok: false, why: 'NOT_AN_ACT' };
+    if (!customizable(act)) return { ok: false, why: 'CLOSED' };
     var nm = String(name == null ? '' : name).trim();
     if (!nm) return { ok: false, why: 'EMPTY' };
     if (nm.length > 24) return { ok: false, why: 'TOO_LONG' };
@@ -213,6 +247,7 @@
      mismatch sitting there because nothing asked for a new name explicitly. */
   function setSex(act, sex) {
     if (!isAct(act)) return { ok: false, why: 'NOT_AN_ACT' };
+    if (!customizable(act)) return { ok: false, why: 'CLOSED' };
     var s = String(sex || '').toLowerCase();
     if (s !== 'male' && s !== 'female') return { ok: false, why: 'NOT_A_SEX' };
     if (!OVERRIDE[act]) OVERRIDE[act] = {};
@@ -228,23 +263,175 @@
     OVERRIDE = {};
   }
 
-  /* THE STATE. Which act he is standing in, and nothing else lives here. */
+  /* THE STATE. Which act he is standing in, which acts exist for him yet, which
+     of those he has ever stood in, and which are still open to be customized. */
   var CURRENT = 1;
+  var UNLOCKED = { 1: true };        /* act -> true; act 1 is where he starts */
+  var MET = { 1: true };             /* acts he has stood in at least once */
+  var OPEN = {};                     /* unlocked acts whose customize window is open */
   function current() { return CURRENT; }
   function isAct(n) { n = n | 0; return n === 1 || n === 2 || n === 3; }
+  function isUnlocked(n) { return isAct(n) && !!UNLOCKED[n | 0]; }
+  function unlocked() { return [1, 2, 3].filter(isUnlocked); }
+  /* CAN THIS ACT'S PERSON STILL BE CHANGED. Act 1 is the player and the face
+     maker's; an act that has not unlocked has nobody to see it and is left alone
+     (WORDS' standalone screen prepares all three before it is retired); an
+     unlocked act is changeable only while its window is open. */
+  function customizable(n) {
+    n = n | 0;
+    return n === 1 || !UNLOCKED[n] || !!OPEN[n];
+  }
+
+  /* UNLOCK, ONE WAY AND IN ORDER. The next act only, so a caller cannot skip a
+     generation; asking again is answered, not repeated. The new person's window
+     opens: he is offered to customize them, and they start GENERATED from the one
+     before (the strip asks faceKey() for that face; the name is the roster's). */
+  function unlock(n) {
+    if (!isAct(n)) return { ok: false, why: 'NOT_AN_ACT' };
+    n = n | 0;
+    if (UNLOCKED[n]) return { ok: false, why: 'ALREADY', act: n };
+    if (n > 1 && !UNLOCKED[n - 1]) return { ok: false, why: 'NOT_NEXT', act: n };
+    UNLOCKED[n] = true;
+    OPEN[n] = true;
+    return { ok: true, act: n, open: true };
+  }
+
+  /* THE DEFAULT TRIGGER, READ OFF THE REAL LEDGER: act n+1 unlocks when the player
+     took a home base in act n (bohemia_homebases entries: {act, how:'taken',
+     to:'you'}). Takes the entries, not the module, so it works on a save blob as
+     well as a live record. Returns the acts it just unlocked, in order. */
+  function unlockFromBases(entries, holder) {
+    var who = holder == null ? 'you' : holder, out = [];
+    if (Object.prototype.toString.call(entries) !== '[object Array]') return out;
+    for (var n = 1; n <= 2; n++) {
+      if (UNLOCKED[n + 1] || !UNLOCKED[n]) continue;
+      var got = entries.some(function (e) {
+        return e && (e.act | 0) === n && e.how === 'taken' && e.to === who;
+      });
+      if (got && unlock(n + 1).ok) out.push(n + 1);
+    }
+    return out;
+  }
+
+  /* CLOSE AN ACT'S CUSTOMIZE WINDOW ON PURPOSE (an OK button). */
+  function confirm(n) {
+    if (!isAct(n)) return { ok: false, why: 'NOT_AN_ACT' };
+    delete OPEN[n | 0];
+    return { ok: true, act: n | 0 };
+  }
 
   /* THE FLIP. Returns what changed, so a caller can redraw exactly what moved
      and a gate can assert it -- and returns `moved:false` for a tap on the act he
      is already in, because a flip to where you already are is not an event and
-     must not cost a redraw or a sound. */
+     must not cost a redraw or a sound. A LOCKED act is refused and said so: there
+     is nobody there to become yet. `first` is true the first time he ever stands
+     in an act, which is the "hop" the offer to customize belongs to. Leaving an
+     act closes its customize window. */
   function flip(n) {
     if (!isAct(n)) return { moved: false, why: 'NOT_AN_ACT' };
+    if (!UNLOCKED[n | 0]) return { moved: false, why: 'LOCKED', act: n | 0 };
     if (n === CURRENT) return { moved: false, why: 'ALREADY_THERE', act: CURRENT };
     var from = CURRENT;
+    delete OPEN[from];
     CURRENT = n | 0;
-    return { moved: true, from: from, to: CURRENT };
+    var first = !MET[CURRENT];
+    MET[CURRENT] = true;
+    return { moved: true, from: from, to: CURRENT, first: first };
   }
-  function setCurrent(n) { if (isAct(n)) CURRENT = n | 0; return CURRENT; }
+  function setCurrent(n) { if (isAct(n) && UNLOCKED[n | 0]) CURRENT = n | 0; return CURRENT; }
+
+  /* WHAT THE PHONE STRIP DRAWS: THE UNLOCKED ACTS ONLY, each with what it needs
+     to be a tile. roster() stays the full three (WORDS' standalone screen still
+     prepares all of them); this is the timed view. `open` is the customize window.
+     `bornOf` names the person before, so a screen can say who this one comes from
+     without asking the roster a second time. */
+  function visible(seed) {
+    var all = roster(seed), out = [];
+    for (var i = 0; i < all.length; i++) {
+      var a = all[i];
+      if (!UNLOCKED[a.act]) continue;
+      var row = {};
+      for (var k in a) row[k] = a[k];
+      row.open = a.act > 1 && !!OPEN[a.act];
+      row.met = !!MET[a.act];
+      row.bornOf = a.act > 1 ? { act: a.act - 1, name: all[a.act - 2].name, sex: all[a.act - 2].sex } : null;
+      out.push(row);
+    }
+    return out;
+  }
+
+  /* THE FACE ASK'S KEY, so a face follows the person and not the slot number.
+     [three names] found that ctFaceAsk keyed the cache on 'act2', a fixed string,
+     so a reshuffle or a chosen sex changed the name and left the face exactly
+     where it was. Now the key carries what a face is made from: this act's reshuffle
+     count and sex, and for the third act the second's too (the third is born from
+     the second, not from the first). A TYPED NAME IS NOT IN THE KEY: a name is not
+     a face. Act 1 is the face he built and its key never changes. Salt 0 with no
+     chosen sex still reads as a key the shell parses the same as the bare 'act2'. */
+  function reads(sex) { return sex === 'female' ? 'she' : 'he'; }
+  function faceKey(seed, n) {
+    if (!isAct(n)) return null;
+    n = n | 0;
+    if (n === 1) return 'act1';
+    var all = roster(seed);
+    var me = all[n - 1], key = 'act' + n + '~s' + (SLOT_SALT[n] || 0) + '~' + reads(me.sex);
+    if (n === 3) {
+      var mid = all[1];
+      key += '~p' + (SLOT_SALT[2] || 0) + '~' + reads(mid.sex);
+    }
+    return key;
+  }
+
+  /* THE SAVE. A door that opened has to stay open across a reload, and so does the
+     person he made: unlocks, which acts he has stood in, which windows are still
+     open, where he stands, every reshuffle count and every typed name or chosen
+     sex. Small, plain data, and load() treats anything broken as "nothing saved". */
+  function save() {
+    return {
+      V: 1,
+      current: CURRENT,
+      unlocked: unlocked(),
+      met: [1, 2, 3].filter(function (n) { return !!MET[n]; }),
+      open: [2, 3].filter(function (n) { return !!OPEN[n]; }),
+      salt: { 1: SLOT_SALT[1] | 0, 2: SLOT_SALT[2] | 0, 3: SLOT_SALT[3] | 0 },
+      override: JSON.parse(JSON.stringify(OVERRIDE))
+    };
+  }
+  function load(blob) {
+    if (!blob || typeof blob !== 'object' || blob.V !== 1) return { ok: false, why: 'NOTHING_SAVED' };
+    var u = { 1: true }, m = { 1: true }, o = {}, i, n;
+    var ul = Object.prototype.toString.call(blob.unlocked) === '[object Array]' ? blob.unlocked : [];
+    /* ordered, so a hand-edited blob cannot skip a generation */
+    for (n = 2; n <= 3; n++) if (ul.indexOf(n) >= 0 && u[n - 1]) u[n] = true;
+    var ml = Object.prototype.toString.call(blob.met) === '[object Array]' ? blob.met : [];
+    for (i = 0; i < ml.length; i++) if (isAct(ml[i]) && u[ml[i] | 0]) m[ml[i] | 0] = true;
+    var ol = Object.prototype.toString.call(blob.open) === '[object Array]' ? blob.open : [];
+    for (i = 0; i < ol.length; i++) if ((ol[i] | 0) > 1 && isAct(ol[i]) && u[ol[i] | 0]) o[ol[i] | 0] = true;
+    var salt = { 1: 0, 2: 0, 3: 0 };
+    if (blob.salt && typeof blob.salt === 'object')
+      for (n = 1; n <= 3; n++) { var sv = blob.salt[n] | 0; salt[n] = sv > 0 && sv < 1e6 ? sv : 0; }
+    var ov = {};
+    if (blob.override && typeof blob.override === 'object')
+      for (n = 1; n <= 3; n++) {
+        var r = blob.override[n]; if (!r || typeof r !== 'object') continue;
+        var one = {};
+        if (typeof r.name === 'string' && r.name.trim() && r.name.length <= 24) one.name = r.name.trim();
+        if (r.sex === 'male' || r.sex === 'female') one.sex = r.sex;
+        if (one.name || one.sex) ov[n] = one;
+      }
+    UNLOCKED = u; MET = m; OPEN = o; SLOT_SALT = salt; OVERRIDE = ov;
+    var c = blob.current | 0;
+    CURRENT = (isAct(c) && u[c]) ? c : 1;
+    return { ok: true, unlocked: unlocked(), current: CURRENT };
+  }
+
+  /* BACK TO A NEW GAME: one act, nothing customized. Testing hook, and the answer
+     to "start over". resetRoster() alone clears salts and overrides and leaves
+     the unlocks, which is what a name screen wants and a new game does not. */
+  function resetAll() {
+    UNLOCKED = { 1: true }; MET = { 1: true }; OPEN = {}; CURRENT = 1;
+    resetRoster();
+  }
 
   /* HOW FAR APART TWO ACTS ARE, in years. Reads the table; never re-typed at a
      call site, so his one ruling on the gap moves every surface at once. */
@@ -265,6 +452,9 @@
     sexFor: sexFor, roster: roster, reshuffle: reshuffle,
     setName: setName, setSex: setSex, resetRoster: resetRoster,
     current: current, setCurrent: setCurrent, flip: flip, isAct: isAct,
+    unlock: unlock, unlocked: unlocked, isUnlocked: isUnlocked,
+    unlockFromBases: unlockFromBases, customizable: customizable, confirm: confirm,
+    visible: visible, faceKey: faceKey, save: save, load: load, resetAll: resetAll,
     yearsBetween: yearsBetween, groundDiffers: groundDiffers, draft: DRAFT
   };
   if (typeof module !== 'undefined' && module.exports) module.exports = API;

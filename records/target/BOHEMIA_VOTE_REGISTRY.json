@@ -3517,6 +3517,19 @@
     "how": "page",
     "src": "BOHEMIA_A_GOAL_THE_COMPANY_SETS_ITSELF_9_30_26.html"
    }
+  },
+  {
+   "id": "dynasty-one-then-heirs-9-29",
+   "kind": "tile",
+   "lane": "dynasty",
+   "sha": "pending",
+   "made": "9/29",
+   "title": "ONE FACE AT THE START. THE NEXT ONE IS BORN FROM HIM.",
+   "why": "You said you should not be able to flip between the three people at the start, and that when you reach the second generation you get to customize that person and they start off generated from how you made the first. Here it is, shot on the real phone with a real finger and keyboard. Left: a new game, one face. Middle: act 2 opens and a second face appears, made from the first (look at the hair and skin), and when I hop into him a row opens with his name, MALE or FEMALE, and OK. Right: I typed Marisol and pressed OK. Once you leave him, that row and the little reroll circle are gone for good. Two things I am not hiding. Picking MALE or FEMALE changes his name and who he is on paper, but it does not change his face yet, because the face maker ignores it (measured: zero pixels changed in eight tries). That is written up for the portrait lane. And nothing in the game can hand you a home base yet, so nothing opens act 2 on its own; the shot opens it with the same call the game will use. Thumbs up and this is how each generation starts. Thumbs down and tell me if it is the row, the words, or when it opens.",
+   "show": {
+    "how": "image",
+    "src": "vote/DYNASTY_ONE_THEN_HEIRS_9_29.png"
+   }
   }
  ],
  "verdicts": [
