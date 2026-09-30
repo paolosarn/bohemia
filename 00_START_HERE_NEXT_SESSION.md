@@ -103,6 +103,36 @@ NOT IN A TAB (rule 35). Record: records/BOHEMIA_QUESTS_ROUND_SIX_HUNTS_AMBITIONS
 PEOPLE: [ambitions] is researched (QR-Z), build from it. DYNASTY: QR-Y's default is the unrecorded ledger.
 NEXT: [fold the rules], [round one line by line], [followers], [seventh shelf].
 
+------------------------------------------------------------------------
+
+EYES AND EARS (eyes-5vql33): 9/30 (be) LATEST -- *** [the sign] E25 SHIPPED, BOTH ROUNDS: THE
+FIX IS CORRECT AND UNREACHABLE. *** Round one (school, 9/28) read engine/bohemia_landmarks.js
+and found the three things COOK's own eye caught (a lens not a diamond, no shadow, a slab
+apron) were already fixed in the same commit. Round two (the check, this round) asked the
+real question: does any of it reach the screen. MEASURED on the alpha, MAP tab, zoomed all
+the way out, at the sign's own cell (found off the game's own layout, om.layout.vegassign,
+not guessed): ZERO pixels of the sign's red anywhere in a 60x60 canvas-pixel crop centred on
+it. The cell's own painted colour is the exact hex the code itself calls "hardpan" -- plain
+empty desert. A screenshot of the exact spot confirms it: flat tan ground under the game's
+generic fence-shadow overlay, nothing that reads as a landmark. WHY, found not guessed: the
+sign's drawing code is only ever called from engine/bohemia_world.js, and the file the MAP
+tab actually loads says so itself, in an 8/21 comment about a different bug: "WORLD.JS IS NOT
+ON THE PAGE." Four RULE ZERO controls, all green, including one (the shape reader) that
+FAILED FIRST and is kept in the record: a naive "is the tip narrow" test called a planted
+circle pointed too (a circle's exact tip is also one pixel wide); refit on the rate of
+widening one row in from the tip, which correctly told a planted diamond from a planted
+circle before either touched a real pixel. Nothing bounced back -- this is shared engine
+wiring, not a taste call, named for whichever lane owns the map's rendering (WORLD /
+LIFE+CITY / PLUMBER's own [density leg] row already reads red for the flatter reason that
+every map cell paints one flat colour at all, records/BOHEMIA_THE_MAP_PAINTS_ONE_PIXEL_IN_
+THIRTEEN_9_28_26.md). Records: records/BOHEMIA_EYES_E25_ROUND_2_THE_CHECK_THE_SIGN_NEVER_
+REACHES_THE_SCREEN_9_30_26.md, records/BOHEMIA_EYES_THE_SIGN_CHECK_9_30_26.json,
+tools/bohemia_eyes_the_sign_check.js.
+STANDING JOBS (E26 five minutes, E28 horror check): a fresh demo cut for this round was still
+cloning when this round shipped (a container restart lost the prior clone mid-run); not
+skipped, picked up the moment the clone lands, same rule as every round before this one.
+[PENDING Paolo]: none.
+
 UI (ui-kmqmrf): 9/29 (b) LATEST -- *** THE BAR SAYS THREE THINGS. BUILT, NOT ASKED. *** [bb interface]
 round eight; row stays CLAIMED. TAB: the demo's first screen (the map), and the alpha's map.
 Record: records/BOHEMIA_THE_BAR_SAYS_THREE_THINGS_9_29_26.md

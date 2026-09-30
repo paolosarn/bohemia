@@ -1,0 +1,133 @@
+{
+  "what": "the drawn Welcome to Las Vegas sign against the real one, on the real map",
+  "row": "[the sign] E25 round two (the check)",
+  "when": "2026-09-30T04:25:10.744Z",
+  "surface": "the alpha (slices/BOHEMIA_ALPHA_0_9.html)",
+  "controls": [
+    {
+      "name": "C3 THE SHAPE READER KNOWS A POINT FROM A ROUND TOP",
+      "pass": true,
+      "detail": "planted true diamond read pointed=true (the row just in from each tip is under 45% of the widest row -- widens at a steady, linear rate, the tell for a straight-edged point); planted round-topped blob read pointed=false (the row just in from a tip is already over 45% of the widest row -- widens fast right away, the tell for a curved, rounded top)"
+    },
+    {
+      "name": "C0 THE DOOR IS BEHIND US",
+      "pass": true,
+      "detail": "the door held 19883 ms after the first knock"
+    },
+    {
+      "name": "C1 THE CAMERA IS ON THE MAP",
+      "pass": true,
+      "detail": "czoom 0.208"
+    },
+    {
+      "name": "C2 THE SIGN CELL IS REAL, NOT EVERY CELL SAYING SIGN",
+      "pass": true,
+      "detail": "cell (44,65) reads district=sign; a cell 30 away reads district=freeway"
+    }
+  ],
+  "geometry": {
+    "sign_cell": {
+      "x": 44,
+      "y": 65,
+      "w": 1,
+      "h": 1
+    },
+    "iso_canvas_px": {
+      "x": 149.625,
+      "y": 395.7112035411026
+    },
+    "canvas_backing_px": {
+      "w": 378,
+      "h": 773,
+      "id": "cv"
+    },
+    "canvas_css_box": {
+      "x": 6,
+      "y": 50,
+      "w": 378,
+      "h": 773
+    },
+    "scale_css_per_canvas_px": {
+      "x": 1,
+      "y": 1
+    },
+    "sign_page_px": {
+      "x": 156,
+      "y": 488
+    }
+  },
+  "raw_read": {
+    "canvas_crop_origin": {
+      "x0": 120,
+      "y0": 366
+    },
+    "crop_size": {
+      "w": 60,
+      "h": 60
+    },
+    "match_tolerance_rgb": 26
+  },
+  "footprints": {
+    "diamond": {
+      "pixels": 0
+    },
+    "shadow": {
+      "pixels": 406,
+      "w": 60,
+      "h": 44
+    },
+    "hardpan": {
+      "pixels": 2004,
+      "w": 60,
+      "h": 60
+    },
+    "bay": {
+      "pixels": 0
+    },
+    "apron": {
+      "pixels": 482,
+      "w": 60,
+      "h": 44
+    }
+  },
+  "silhouette": {
+    "footprint_px": {
+      "pixels": 0
+    },
+    "pointed": false,
+    "why": "no diamond-coloured pixels found at all -- there is nothing to be pointed"
+  },
+  "shadow": {
+    "footprint_px": {
+      "pixels": 406,
+      "w": 60,
+      "h": 44
+    },
+    "present_at_all": true,
+    "east_of_diamond": false
+  },
+  "apron": {
+    "bay_stripe_footprint_px": {
+      "pixels": 0
+    },
+    "apron_fill_footprint_px": {
+      "pixels": 482,
+      "w": 60,
+      "h": 44
+    },
+    "stripes_distinguishable_from_fill": false
+  },
+  "whole_landmark_footprint_canvas_px": {
+    "pixels": 2487,
+    "w": 60,
+    "h": 60
+  },
+  "numbers": {
+    "whole_landmark_smallest_side_canvas_px": 60,
+    "passes_11px_legibility_floor": true,
+    "silhouette_pointed": false,
+    "shadow_present": true,
+    "apron_stripes_read": false
+  },
+  "failing_controls": []
+}
