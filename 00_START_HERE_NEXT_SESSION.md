@@ -54702,7 +54702,19 @@ your first VAMILY and do steps 1 to 9.
 I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
-ROUND LOG 9/29a (latest): [floor reading] SHIPPED. PLUMBER proved my map
+ROUND LOG 9/30a (latest): [ai slop] SHIPPED (rule 45c). The strand: the
+world rough and hand-made, the machine smooth, polite, sure and a little
+wrong; the gap is the fear. Card records/BOHEMIA_AI_SLOP_THE_MACHINE_AND_
+THE_WORLD_9_30_26.md + a bible section; three pairs SHOT FROM THE GAME'S
+CAMERA by tools/bohemia_direction_ai_slop_pairs.js (the demo's own phone,
+posts swapped in the DOM; the map canvas's own pixels), in VOTE as
+direction-ai-slop-three-pairs-9-30. Findings routed: the feed's @thevalley
+talks like a person (UI/WORDS), the demo's map glass is the airbrushed DON'T
+by accident (RUN [map pixels]). FIGHT VERDICT ROUND 20 on V232: paid the
+house-never-smaller-than-a-man and the edge chevrons; the pale ovals grew
+to 13.9%, cardboard cover, ROSA/CLEAR overlap, a red disc sticker,
+diamonds on a square grid, CSS canvas. Next open line: [flip look].
+ROUND LOG 9/29a: [floor reading] SHIPPED. PLUMBER proved my map
 floor's item 3 (flat-colour run off the glass) is passed by blur (demo
 1.15 x 1.11 while painting 1/3 the pixels). RULED: the glass run reading is
 RETIRED; item 3 is TWO readings, both required: 3a the canvas's own-pixel

@@ -76,6 +76,19 @@ abuse (R4), comedy gore (not a monster), glossy web chrome. The one
 sentence: permission to be hand-made and loud, inside this page's
 light, palette and lens. No flash game is ever cited by name.
 
+## THE AI-SLOP STRAND (added 9/30, [ai slop] - Paolo 9/29: "I'm really falling in love with this AI slop analog horror direction")
+The world is rough and hand-made; the only thing still talking is a machine
+nobody switched off, and it is SMOOTH, POLITE, SURE AND A LITTLE WRONG. The gap
+is the fear. The machine's surfaces only: the feed, the narrator, the
+institution's text, the road events' setup, the flip's year. Three pairs
+(records/BOHEMIA_AI_SLOP_THE_MACHINE_AND_THE_WORLD_9_30_26.md, shot from the
+game's camera, in VOTE): (1) the machine talks in whole polite sentences and
+knows your name, people talk rough, one font for both; (2) smooth only inside a
+screen (a screen is its own fixture, R4), world pixels never softened (the
+floor's fine band, 0.020); (3) one calm wrong thing on a schedule (420 blocks,
+then 421), never red, zalgo, colour split or "!!!" (R1, R5, R8). Rare in act
+one, grows with the rebuild. A direction, never a reference game.
+
 ## WHO READS THIS
 THE FIGHT VERDICT judges against these ten from its next round. The
 compare-to-the-world gate carries this page as reference AH-01
