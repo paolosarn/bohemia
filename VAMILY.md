@@ -387,7 +387,7 @@ asphalt). FOOTSTEP GATE 24/0, VERDICT-FROZEN 6/0, MERGE DEBRIS 4/0, HANDOFF GATE
 re-run clean; bohemia_sfx.js untouched this round. STILL OPEN, THE SAME LIST MINUS THREE: block,
 boots_go, demolish, dirt_take, door_more, hit, melee_hit, parts_pass, pickup, set_down,
 seton_more, shot_more, tread_more, walk_more, wood_more -- combat and object-contact sounds,
-not footsteps, next in this row's own order. ***  *** >>> ROUND EIGHT IN (9/30), ROW STAYS
+not footsteps, next in this row's own order. ***  *** >>> ROUND EIGHT IN (9/30, 7e06088e), ROW STAYS
 CLAIMED. THE SAME FOOTSTEP NEVER LANDS THE SAME WAY TWICE, WHICH WAS NEVER TRUE UNTIL TODAY. ***
 Found before touching walk_more/wood_more/tread_more: footstepModelled (and its four
 surface wrappers) rendered byte-identical on every call, proved with two live calls compared
