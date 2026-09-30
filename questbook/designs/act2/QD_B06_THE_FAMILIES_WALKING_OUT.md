@@ -5,6 +5,7 @@ CRISIS: the earth-side nuke
 ECONOMY: either
 PLACE: the highway leaving the valley to the south, where the paved road crosses the dry wash
 STATUS: draft:true, research only, nothing built (rule 35)
+CHECKLIST: lines 29 and 30 pass (QR-X sweep, 9/30); a round-one design, not yet run line by line against lines 1 to 28 (QR-G).
 SHAPE: E7, THE PEOPLE WALKING THE OTHER WAY (QR-B)
 
 ## THE SITUATION
@@ -18,7 +19,7 @@ The woman who speaks for them, fifties, a runway overcoat worn inside out so the
 First line: "They say it's coming here. You're driving into it. Why?"
 
 ## THE CHOICES
-1. GIVE THEM WATER AND BATTERIES FOR THE ROAD. Costs 4 batteries and a water load. They keep walking. Some make it;
+1. GIVE THEM WATER AND BATTERIES FOR THE ROAD. Costs 4 batteries and 4 WATER (rule 47). They keep walking. Some make it;
    the feed later names how many.
 2. TELL THEM WHAT YOU KNOW. Costs an hour and depends on what the player really knows (a deed flag from the main
    line). If you know the nuke can be stopped, you can say so; half turn back, half do not believe you. If you do
@@ -31,6 +32,9 @@ First line: "They say it's coming here. You're driving into it. Why?"
 - Standing with the neighbourhood they left.
 - The echo: if the reckoning is stopped, some of them come back and the feed carries it; the woman's face appears
   on a street in act 3 (older), and remembers which way your truck was pointed.
+
+## THE NARRATOR
+Read over the event screen in the machine voice (rule 45: too even, tape and room, a little wrong; never in the first minute; people on the screen still speak in the squiggle): "Thirty people are walking toward safety. Safety is in the other direction."
 
 ## THE ONE WRONG DETAIL
 Every cart is loaded with the same thing, framed family photographs, and all of them face inward.

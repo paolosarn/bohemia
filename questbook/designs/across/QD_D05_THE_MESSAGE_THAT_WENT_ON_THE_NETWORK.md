@@ -5,6 +5,7 @@ CRISIS: the Network crumbling
 ECONOMY: either
 PLACE: a relay kiosk at a bus depot, act 2; a rooftop garden flat in the reclaimed quarter, act 3
 STATUS: draft:true, research only, nothing built (rule 35)
+CHECKLIST: lines 29 and 30 pass (QR-X sweep, 9/30); a round-one design, not yet run line by line against lines 1 to 28 (QR-G).
 
 ## THE SITUATION
 Act 2, the world clawing back. A woman with a short time left wants her last words to reach her son, who left for the reclaimed quarter and does not answer. She offers a contract: 3 batteries to carry a message to him. There are two ways to carry it. The relay kiosk sends it in a second and the Network keeps a copy forever. The tunnels take two days, on foot, and nothing records a word said face to face. She does not know which is safer. Nobody does.
@@ -20,7 +21,7 @@ Declining is free and says nothing about the family. The world still moves: she 
 
 ## WHAT THE LEDGERS REMEMBER
 One row: relay, hand, or both. Act 3's derive reads it during the Network crumbling:
-- RELAY: the son is an old man on a rooftop. The Amalgamation keeps a portrait of his mother made of that message, and it visits him on his screen every evening, word for word, never tired. Nothing is lost. The heir may leave it running or cut the line to his flat; cutting it is the true-family choice and he will not thank you for it.
+- RELAY: the son is an old man on a rooftop. The Amalgamation keeps a portrait of his mother made of that message, and it visits him on his screen every evening, word for word, never tired. Nothing is lost, and the son is happier with it than without it; he says so, plainly, and he is not wrong (QR-H rule 18: the counterfeit offer is genuinely good). The heir may leave it running or cut the line to his flat; cutting it is the true-family choice and he will not thank you for it.
 - HAND: the son has only what the family told him, and he remembers it slightly wrong, the way people do. No portrait exists. The Amalgamation's attention on this block is lower (its blind spot is the unrecorded).
 - BOTH: the portrait exists, and so does a man who knows it gets one word wrong.
 The pointer chain: the son names the depot. The depot is on the map in act 2.

@@ -5,6 +5,7 @@ CRISIS: none
 ECONOMY: bust
 PLACE: a pressure-set shed on a buried water main below a cul-de-sac in the east valley, with a grow tent behind a cinder-block wall
 STATUS: draft:true, research only, nothing built (rule 35)
+CHECKLIST: lines 29 and 30 pass (QR-X sweep, 9/30); a round-one design, not yet run line by line against lines 1 to 28 (QR-G).
 
 ## THE SITUATION
 Act 1, the anarchy decade. The crew that holds this main by share (their pumps, their pipe) has lost pressure uphill. They know why: somebody downhill has cut a tap into the line and runs it into a hydroponic tent. They offer a contract at their pump yard: cap the tap, 12 batteries. Declining is free and leaves nothing. If taken, the shed is a short walk off the dirt road, and the woman who cut the tap is inside it, rinsing lettuce for about twenty people on her block. Uphill, a half-built clinic needs that pressure for its sterilizer.
@@ -15,7 +16,7 @@ The woman at the tent, in a cut-down Balenciaga work jacket with the sleeves tap
 ## THE CHOICES
 1. CAP IT. Paid 12. Two hours. Her tent dies within a week. The crew's standing rises. The clinic uphill gets its pressure.
 2. LEAVE IT AND SAY IT IS CAPPED. Paid 12, the same (no reward difference). The tent lives. The crew's standing is unchanged until somebody checks; the clinic never gets its pressure.
-3. CAP IT AND BUILD HER A RAIN ROOF. Only if the family holds THE CISTERN's verb. Paid 12, costs a day and 4 batteries of pipe. Both blocks get something, and the crew loses a customer: their standing drops, and their district runs one step darker in the derive.
+3. CAP IT AND BUILD HER A RAIN ROOF. Only if the family holds THE CISTERN's verb. (QR-G line 29: the choice is shown on every read; without the verb she says why it is closed, "Somebody who knew cisterns could catch the rain for me", and choices 1 and 2 are full endings, so the best road is never behind a check nobody told him about.) Paid 12, costs a day and 4 batteries of pipe. Both blocks get something, and the crew loses a customer: their standing drops, and their district runs one step darker in the derive.
 
 ## WHAT THE LEDGERS REMEMBER
 Act 1 writes one row: tap_capped, tap_lied or tap_rained. Act 3's derive reads it:

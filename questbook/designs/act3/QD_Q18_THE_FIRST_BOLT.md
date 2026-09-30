@@ -5,10 +5,10 @@ CRISIS: the rocket
 ECONOMY: boom
 PLACE: the launch site on the dry lake bed, and the map of the fourteen home bases around it
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
-CHECKLIST: passes all 28. Line 7: every part has two pointers, the map pin and the chief engineer's line.
+CHECKLIST: passes all 30. Line 7: every part has two pointers, the map pin and the chief engineer's line.
 
 ## THE SITUATION
-Shaped from the story master: the crashed world has to BUILD the rocket, the act 3 city-builder puzzle. This beat opens it. The chief engineer lays out what the rocket needs and where it can come from: fourteen home bases, each able to give one thing (power, water, glass, metal, people, food). Which bases can give is DERIVED: bases that stood give; bases that fell (THE FUTURE GOES BOTH WAYS) cannot, until retaken (QD-Q09, QD-Q13). The rocket is not a menu: every part is a contract in a hall somewhere, and the map shows which halls.
+Shaped from the story master: the crashed world has to BUILD the rocket, the act 3 city-builder puzzle. This beat opens it. The chief engineer lays out what the rocket needs and where it can come from: fourteen home bases, each able to give one thing (power, water, glass, metal, people, food; of the six resources that is BATTERIES, WATER and FOOD, the rest are build parts, rule 47). Which bases can give is DERIVED: bases that stood give; bases that fell (THE FUTURE GOES BOTH WAYS) cannot, until retaken (QD-Q09, QD-Q13). The rocket is not a menu: every part is a contract in a hall somewhere, and the map shows which halls.
 
 ## THE PERSON AND THE FIRST LINE
 The chief engineer at the pad, a woman in a flight suit cut like a Rick Owens coat, one bolt in her hand: "This is the first one. We need about four million."

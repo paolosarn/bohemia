@@ -18,11 +18,14 @@ The event screen. Nene's face, from above, lying in the truck bed on a folded ta
 
 ## THE CHOICES
 A. LEAVE HIM AT HIS MOTHER'S. No cost now. He is off the roster for his injury term. When it ends, he is at his mother's settlement; if the company passes there, he rejoins with one line. If it never passes, he stays, and nothing counts against the player.
-B. KEEP HIM IN THE TRUCK. He stays: one ration a day, no fighting, road lines about the knee (a bounded set, on the cooldown). He heals on the road and stays in the company.
+B. KEEP HIM IN THE TRUCK. He stays: 1 FOOD a day, no fighting, road lines about the knee (a bounded set, on the cooldown). He heals on the road and stays in the company.
 C. LEAVE HIM WITH BATTERIES FOR THE DOCTOR. 4 batteries. He heals at his mother's at the short end (30 days) with a doctor, and the limp is lighter: the mark stays (it always does), but he loses half as much.
 
 ## WHAT THE LEDGERS REMEMBER
 No meter. Every branch writes one PEOPLE line: where he healed. A: if he rejoins, his first line is "Mom says hi. Mom says eat." If he never rejoins, the mother's settlement's feed later posts a photo of him fixing a fence. B: he knows every road line the company says for a month; later, in fights, he is the one who calls out an enemy's flank (he watched from the truck), a behaviour, `Q084.W2`. C: the doctor's settlement opens its clinic to the company (a place, not a reward screen). Nothing in any branch says the player chose wrong.
+
+## THE NARRATOR
+Read over the event screen in the machine voice (rule 45: too even, tape and room, a little wrong; never in the first minute; people on the screen still speak in the squiggle): "His mother has made up the bed. She makes it up every night."
 
 ## THE ONE WRONG DETAIL
 His mother's table has a place set for him, still warm, and she did not know he was coming.
@@ -38,4 +41,4 @@ His mother's table has a place set for him, still warm, and she did not know he 
 ## FLAWS IT AVOIDS
 `Q043.X1` (the bench that cries), `Q041.X2` (roster churn as busywork: one screen, one choice), `Q049.X4` (the injury handled with respect, never a joke at him), `Q041.X1` (the injury came from a struck-down roll the formation produced, not from nowhere).
 
-CHECKLIST: passes all 28. Line 12 is not applicable to an event; line 3 is met because his term counts in map days and his splint shows it.
+CHECKLIST: passes all 30. Line 12 is not applicable to an event; line 3 is met because his term counts in map days and his splint shows it.

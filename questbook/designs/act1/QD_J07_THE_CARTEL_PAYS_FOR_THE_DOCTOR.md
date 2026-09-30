@@ -6,7 +6,7 @@ ECONOMY: bust
 PLACE: a clinic town in an old strip-mall urgent care (the settlement); the job is one map day north, a burned residential block (the fight board if it comes to a fight)
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 STAGE: GATHERING (QR-J): two or three bands, a road that is not safe
-CHECKLIST: passes all 28
+CHECKLIST: passes all 30
 
 ## THE SITUATION
 Act 1, the anarchy decade, a bust. A Destroyer band burned a block north of the clinic town two days ago. People
@@ -36,8 +36,7 @@ The doctor, from the doorway behind him, pulling on gloves: "He's paying. I'm go
 1. KEEP HER ALIVE FOR THE DAY. On the burned block a Destroyer band comes back at dusk. Ways through: hold the
    pharmacy door while she works inside; move the hurt to the church two streets over by the back alley; or light
    the fuel pile at the block's end to pull the band away. Rule 36 applies to the company. Full pay.
-2. SHE WANTS A SECOND DAY. Not a twist, a choice: she asks to stay. Staying costs one map day and the company's
-   food; the lieutenant pays nothing more ("I paid for one day"). More of the hurt live; the feed says how many.
+2. SHE WANTS A SECOND DAY. Not a twist, a choice: she asks to stay. Staying costs one map day and 1 FOOD a head (rule 47); the lieutenant pays nothing more ("I paid for one day"). More of the hurt live; the feed says how many.
 3. I WON'T TAKE CARTEL MONEY (the priced refusal). You do the job and hand the pay to the clinic. Finished, not
    dropped. The lieutenant's standing drops a step: "You think my cells are dirty? They're the same cells."
 

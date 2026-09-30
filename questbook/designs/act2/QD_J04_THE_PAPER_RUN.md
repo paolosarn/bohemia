@@ -6,7 +6,7 @@ ECONOMY: boom
 PLACE: a trade town in a reclaimed outlet mall (the settlement); the job runs two map days up a dry wash to a salvage paper mill and back
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 STAGE: GATHERING (QR-J): whatever is offline gets dear
-CHECKLIST: passes all 28
+CHECKLIST: passes all 30
 
 ## THE SITUATION
 Act 2, a boom. In one trade town the price of plain paper has tripled this month. The printer has orders from
@@ -37,7 +37,9 @@ The printer, setting type by hand without looking up: "You read? Good. Nobody re
    the gate. Ways through: pay the mill's night watchman to open the back, carry the reams over the roof, or wait
    the crew out until the morning shift. Delivered: full pay. The reams go to people who carry things by hand.
    Heat does not rise: carrying paper is not looking.
-2. SELL THE LOAD TO THE STRANGERS. On the road a quiet, well-dressed pair offers double, in cells, politely. If
+2. SELL THE LOAD TO THE STRANGERS. On the road a quiet, well-dressed pair offers the same six, in cells, now, politely,
+   and the mill road stops being your problem (QR-G line 30 and QR-L P16: on a contract the pull is convenience, never a
+   bigger number). If
    you sell, the contract is DROPPED (the one deed): the printer stops offering, and the rumour follows you. A trip
    later the feed shows a burned pile of paper in a wash. Nobody says who burned it.
 3. I WON'T RUN THE MILL ROAD AT NIGHT (the priced refusal). You take the day road, one day late; the printer pays

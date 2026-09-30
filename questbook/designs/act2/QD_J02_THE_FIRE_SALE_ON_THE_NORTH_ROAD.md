@@ -7,7 +7,7 @@ PLACE: the paved northern highway, a wide shoulder where three loaded trucks hav
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 SHAPE: E5, THE TRADER WITH ONE GOOD THING, crossed with E7, THE PEOPLE WALKING THE OTHER WAY (QR-B)
 STAGE: THE RUNGS (QR-J)
-CHECKLIST: passes all 28 (lines 11 and 12 are read as the event's free KEEP MOVING)
+CHECKLIST: passes all 30 (lines 11 and 12 are read as the event's free KEEP MOVING)
 
 ## THE SITUATION
 Late act 2, a boom. On the northern highway a well-off household has pulled three trucks onto the shoulder and is
@@ -39,6 +39,9 @@ First line: "Everything's half. Cells too. We can't carry it and I won't leave i
   wife's portrait is in the market, buying. She remembers whether you bought, asked, or drove on, and says so
   once, flat, never as a debt.
 - Nothing is written for KEEP MOVING.
+
+## THE NARRATOR
+Read over the event screen in the machine voice (rule 45: too even, tape and room, a little wrong; never in the first minute; people on the screen still speak in the squiggle): "Everything must go. The family is going first."
 
 ## THE ONE WRONG DETAIL
 The children in the truck cab are already wearing their winter coats, in August, in the valley.

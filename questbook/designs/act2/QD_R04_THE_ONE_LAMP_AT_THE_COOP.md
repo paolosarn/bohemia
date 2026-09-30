@@ -5,7 +5,7 @@ CRISIS: none
 ECONOMY: bust
 PLACE: the co-op blocks home base (town, draft seat the Blues), fallen: three garden apartment blocks on Sahara, the hall a boarded laundry room; the event opens when the player taps the hall of the fallen base
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
-CHECKLIST: passes all 28. Line 1 is this design's whole purpose.
+CHECKLIST: passes all 30. Line 1 is this design's whole purpose.
 
 ## THE SITUATION
 THE AFTERMATH AT A FALLEN BASE. The co-op was TAKEN nine map days ago while the family was on the other side of the valley. The player has already seen the tells: its lights went out on the map but one, a feed post in the city view, water dearer at the neighbours. Now the party arrives. The settlement screen is drawn fallen: laundry lines cut, doors open, one lamp in the laundry room. The buildings are greyed except the hall and SCAVENGE.
@@ -18,10 +18,13 @@ THE AFTERMATH AT A FALLEN BASE. The co-op was TAKEN nine map days ago while the 
 ## THE CHOICES
 - A. READ THE BOOK WITH HIM (witness). An hour of map time. The page is the count: who is here, who was carried to the raiders' base, who is buried under the car park. Nico keeps the book. The next held base's hall (the chapel town) posts a rescue contract with those names on it. Costs: map time.
 - B. TAKE HIM TO THE CHAPEL. A short escort leg, no fight. He becomes the chapel town's newest face; the book goes with him, and the rescue contract appears there later, thinner (no names read). Costs: one map day.
-- C. SCAVENGE THE BATTLE. The SCAVENGE button with the recent-battle bonus (more ammunition, third votes s11). Nico watches and says nothing. Nothing is written about him. Costs: nothing; pays materials.
+- C. SCAVENGE THE BATTLE. The SCAVENGE button with the recent-battle bonus (more ROUNDS, third votes s11). Nico watches and says nothing. Nothing is written about him. Costs: nothing; pays ROUNDS and TAPE (rule 47). The one branch that pays is the cold one, and the price is on the screen: Nico watching (a stated temptation on an event, QR-L P16).
 
 ## WHAT THE LEDGERS REMEMBER
 An event, not a contract: the ledger writes what was chosen. A writes the count to the co-op's fold entry, so its later-act ruin is peopled by names (a squatter can say one of them). B moves Nico to the chapel's cast. C writes only the finds. In all three the co-op stays TAKEN until a retake (QD-R06); if nobody retakes it, act 3 derives it as a raider base that still keeps a ration book, in a different hand.
+
+## THE NARRATOR
+Read over the event screen in the machine voice (rule 45: too even, tape and room, a little wrong; never in the first minute; people on the screen still speak in the squiggle): "The co-op is under new management. The ration board has been updated for tomorrow."
 
 ## THE ONE WRONG DETAIL
 The ration board by the door shows tomorrow's portions, in fresh chalk.

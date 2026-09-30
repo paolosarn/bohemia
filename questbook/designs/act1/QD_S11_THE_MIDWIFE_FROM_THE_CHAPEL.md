@@ -3,11 +3,11 @@ ACT: 1
 KIND: contract
 CRISIS: none
 ECONOMY: bust
-PLACE: the custom settlement home base (the family's own, camp tier, one offer); the job is the road to the chapel town and back, twice
+PLACE: the custom settlement home base (the family's own, camp tier, one offer; rule 43: a base is the parts of the city the family holds, and this is its first); the job is the road to the chapel town and back, twice
 SITUATION: the first birth at the family's own base, due in two weeks, and nobody there has delivered a baby -> a midwife comes for three weeks, the base grows by one, the barber gets a new rumour line, and the base's next board has a second offer (a camp that grows)
 STATUS: draft:true, research only, nothing built (rule 35). Names, the base's kind and the family in it are Paolo's.
 TWIST: none
-CHECKLIST: passes all 28
+CHECKLIST: passes all 30
 
 ## THE SITUATION
 The custom settlement is whatever the player built it for, and people have come to live in it. One of them is having a baby. It is the first birth at the base. It is also a camp: one offer on the board, and today the offer is from its own people, which is how a camp that is becoming a town reads.
@@ -17,7 +17,7 @@ The custom settlement is whatever the player built it for, and people have come 
 - BUILDING: the hall. One portrait.
 - CLIENT PORTRAIT: Beto, the father, a mechanic, a gold chain, an oil-black Margiela apron.
 - THE SCREEN'S LINES: "Two weeks, maybe less. Nobody here has done this." / "The chapel has a midwife. Old, strong, hates trucks." / "Bring her, keep her three weeks, take her home. I pay what the base pays."
-- PAY: 3 batteries, and Beto fixes the truck for nothing, now. SKULLS: 1.
+- PAY: 3 batteries, and Beto fixes the truck for nothing, now (the TAPE the repair would have cost, rule 47). SKULLS: 1.
 - NEGOTIATION: none ("It's a baby, not a job. It's also a job."). The advance is the repair, from the yes.
 - ACCEPT / DECLINE. Declining writes nothing; Beto walks to the chapel himself and it takes him four days.
 

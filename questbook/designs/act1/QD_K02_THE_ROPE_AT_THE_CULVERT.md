@@ -6,7 +6,7 @@ ECONOMY: bust
 PLACE: the one dry crossing over a flood wash on the east side, a concrete culvert under a dead highway; a family's camp on the embankment
 STATUS: draft:true, research only, nothing built (rule 35)
 SHAPE: E2 THE TOLL (QR-B)
-CHECKLIST: passes all 28 (lines 3, 9 and 12 read as not applicable to a road event)
+CHECKLIST: passes all 30 (lines 3, 9 and 12 read as not applicable to a road event)
 NOT A REPEAT OF: QD-B04 (act 2, boom, a faction booth that prints receipts). This is the crude act 1 toll QR-B names: whoever has a rope and a rifle, and the price is partly labour.
 
 ## THE SITUATION
@@ -36,6 +36,9 @@ rules for E2.
   If nobody worked it, the act 3 bridge carries no name. Both reads are written; an unplayed act 1 reads "no name".
 - Keep moving writes nothing.
 - The feed, two trips later, from their side: "Somebody paid the rope today. Rice tonight."
+
+## THE NARRATOR
+Read over the event screen in the machine voice (rule 45: too even, tape and room, a little wrong; never in the first minute; people on the screen still speak in the squiggle): "The crossing is open. The rope is part of the crossing."
 
 ## THE ONE WRONG DETAIL
 The rope is hung with car licence plates, and every plate is from 2050.

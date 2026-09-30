@@ -7,7 +7,7 @@ PLACE: the frontage road below a block the Destroyers burned, two days after; bl
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 SHAPE: E5, THE TRADER WITH ONE GOOD THING (QR-B)
 STAGE: GATHERING (QR-J): the "raided" situation, seen from the road
-CHECKLIST: passes all 28 (lines 11 and 12 are read as the event's free KEEP MOVING; line 21 is met because the
+CHECKLIST: passes all 30 (lines 11 and 12 are read as the event's free KEEP MOVING; line 21 is met because the
 cheaper purchase is not cruel, only cheap, and the kinder buy costs more)
 
 ## THE SITUATION
@@ -37,6 +37,9 @@ twelve, doing the sums. First line: "Everything's cheap. Don't ask whose. Ask ho
   on the block shows it by the door. Kept, it is in the family house in act 2 and act 3 (the derive), and an heir
   can find the name tape.
 - Nothing is written for KEEP MOVING.
+
+## THE NARRATOR
+Read over the event screen in the machine voice (rule 45: too even, tape and room, a little wrong; never in the first minute; people on the screen still speak in the squiggle): "Everything here is at a fair price. The owners are not expected."
 
 ## THE ONE WRONG DETAIL
 There is a separate blanket of things taken off dead Destroyers. Nobody will touch it, and it is bigger than it

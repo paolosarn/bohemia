@@ -18,7 +18,7 @@ The event screen at camp, night. Lupe's portrait, the fire's light on one side o
 Second line, only if the player waits: "Una noche. That's all."
 
 ## THE CHOICES
-A. GO WITH HER. One map day off the route. The company goes through the dead ward, room by room, a thing to tap in each. No fight is planned; squatters on the second floor may be met and talked past or fought (a group, as always, on the fight board). She finds the whiteboard. Cost: 1 day, 1 ration per member.
+A. GO WITH HER. One map day off the route. The company goes through the dead ward, room by room, a thing to tap in each. No fight is planned; squatters on the second floor may be met and talked past or fought (a group, as always, on the fight board). She finds the whiteboard. Cost: 1 day, 1 FOOD per member (rule 47).
 B. NOT THIS TRIP. Nothing is spent. She says "Okay." and puts the fire out. The ask does not come back in act 1, and nobody mentions it again (rule 35's free no, held for asks too, `Q043.X1` fixed).
 C. GIVE HER THE NIGHT. She goes alone; the company waits at camp half a day. No fight. She comes back with nothing in her hands and says nothing about it. Cost: half a day, and she is out of the formation if the camp is found (the storyteller may send a probe party, never a set-piece).
 
@@ -26,6 +26,9 @@ C. GIVE HER THE NIGHT. She goes alone; the company waits at camp half a day. No 
 A: PEOPLE writes "went back to the ward, with the company". Lupe carries the board's marker from then on; her road lines unlock two new ones about the ward. Her gambit does not change (loyalty is behaviour, never a stat bump): what changes is that she now calls out a downed member's name in fights, which she never did before (a sound and a picture: the name and a pointing hand, `Q141.X3`).
 B: nothing is written. Not a flag, not a line.
 C: PEOPLE writes "went back to the ward, alone". Ten map days later, one road line: "I didn't erase it." Nothing else, ever. The unrecorded stays unrecorded.
+
+## THE NARRATOR
+Read over the event screen in the machine voice (rule 45: too even, tape and room, a little wrong; never in the first minute; people on the screen still speak in the squiggle): "She has not worked a shift in eleven years. She is still on the board."
 
 ## THE ONE WRONG DETAIL
 On the board, tonight's shift is written in, LUPE - 4B, in her handwriting, and the marker is still wet.
@@ -41,4 +44,4 @@ On the board, tonight's shift is written in, LUPE - 4B, in her handwriting, and 
 ## FLAWS IT AVOIDS
 `Q043.X1` (the bench that cries: B is flat), `Q125.X9` (no points for kindness), `Q084.X6` (the unlocked lines join the cooldown pool), `Q067.X2` (a member with no inner life).
 
-CHECKLIST: passes all 28. Line 12 (the priced refusal inside a taken contract) reads as choice B and C here, since an event is not a contract; line 18 is not triggered (it plants nothing for another act).
+CHECKLIST: passes all 30. Line 12 (the priced refusal inside a taken contract) reads as choice B and C here, since an event is not a contract; line 18 is not triggered (it plants nothing for another act).

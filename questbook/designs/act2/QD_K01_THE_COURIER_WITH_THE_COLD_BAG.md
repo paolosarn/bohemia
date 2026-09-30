@@ -6,7 +6,7 @@ ECONOMY: boom
 PLACE: the paved dam road between two charge posts, the stretch with no house in sight; a raiding party's tracks have followed the paved road for two map days
 STATUS: draft:true, research only, nothing built (rule 35)
 SHAPE: E1 THE ONE ON THE SHOULDER (QR-B)
-CHECKLIST: passes all 28 (lines 3, 9 and 12 are contract lines and read as not applicable to a road event; its three choices stand in for line 9)
+CHECKLIST: passes all 30 (lines 3, 9 and 12 are contract lines and read as not applicable to a road event; its three choices stand in for line 9)
 NOT A REPEAT OF: QD-B01 (act 1, bust, a wounded man on dirt). Here the lure is CARGO in a boom, not a wound, and the road is paved.
 
 ## THE SITUATION
@@ -38,6 +38,9 @@ First line: "Mira, the tyre's gone. The bag has four hours of cold left."
   writes nothing). That is the hand-off: an event can put a contract in a hall; it never forces one.
 - Bait version, survived: the raiding party becomes named on the map with a grudge (`Q087.W5`).
 - Keep moving writes nothing. In the real version, the feed later says the clinic ran short one night; it names no one.
+
+## THE NARRATOR
+Read over the event screen in the machine voice (rule 45: too even, tape and room, a little wrong; never in the first minute; people on the screen still speak in the squiggle): "Four hours of cold left. The bag does not say how many it started with."
 
 ## THE ONE WRONG DETAIL
 His phone plays the same ringtone every two minutes, and he never looks at it.

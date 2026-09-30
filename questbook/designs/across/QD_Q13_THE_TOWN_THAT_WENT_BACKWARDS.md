@@ -5,7 +5,7 @@ CRISIS: the earth-side nuke (act 2); the rocket (act 3)
 ECONOMY: either
 PLACE: two home bases on the east side, a reclaimed hospital and a water treatment plant; one of them is TAKEN by a raider band in the gap between acts
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
-CHECKLIST: passes all 28. Line 12 met by choice C in act 3.
+CHECKLIST: passes all 30. Line 12 met by choice C in act 3.
 
 ## THE SITUATION
 THE FUTURE GOES BOTH WAYS, the TAKEN version (QD-Q09 is the ruined version). In act 2, during the nuke scare, two bases ask the family for the same week of protection through two contracts in two halls. The family can take one (or neither). The one without the family is taken by a raider band. In act 3 the taken base is a raider home base: working, walled, and cruel. Its people did not leave. They work for the band.
@@ -14,7 +14,7 @@ THE FUTURE GOES BOTH WAYS, the TAKEN version (QD-Q09 is the ruined version). In 
 ACT 3: the landing is a contract offered in the OTHER base's hall (the one the family held).
 - CLIENT PORTRAIT: the base's elder, whose face the player met in act 2 as a young guard, older, same scar.
 - THE SCREEN'S LINES: "You stood with us. Nobody stood with them." / "Their people are still in there, working for the band." / "Get them out, or get the band out."
-- PAY: 15 batteries, and the retaken base returns to the map as a home base; its hospital or its water adds to the rocket build.
+- PAY: 15 batteries, and a PART (rule 43: a contract can hand a part): the retaken base's yard block becomes a part of the city the family holds, two lots to build on; the base itself returns to the map as a home base, and its hospital or its water adds to the rocket build.
 - NEGOTIATION: ask for more: 17. Advance: 5.
 - ACCEPT / DECLINE. Declining writes nothing; the taken base stays taken this act.
 

@@ -6,6 +6,7 @@ CRISIS: the rocket
 ECONOMY: boom
 PLACE: the launch yard on the old airfield (the giver); the welder's workshop in a quarter the Network still wires, one map stop away, one block of the city (the fight board if it comes to a fight).
 STATUS: draft:true, research only, nothing built (rule 35)
+CHECKLIST: lines 29 and 30 pass (QR-X sweep, 9/30); a round-one design, not yet run line by line against lines 1 to 28 (QR-G).
 
 REBUILT FROM: the refusal with no dignity path. `Q131.X7` (the strongest choice most players make, walking away, is invisible), `Q134.X2` (the stall has no content), `Q134.X10` (the only true refusal is quitting in the journal), `Q084.X5` (refusing is punished with deletion), `Q103.X1` (there is no refusal). The phone version is a contract where saying no FINISHES the job.
 

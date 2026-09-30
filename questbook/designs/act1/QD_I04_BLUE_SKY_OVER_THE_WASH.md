@@ -23,7 +23,10 @@ B. SEND YOUR FASTEST TO THE MARKET BELL. One company member runs to the nearest 
 C. KEEP MOVING. The party crosses and goes on. Nothing is written about the company. She limps down alone, early as always.
 
 ## WHAT THE LEDGERS REMEMBER
-The flood comes through after the event, whatever was chosen. A: a chalk mark on the company's banner stays for the rest of Act 1, and the camp, moved to high ground, is a place on the map where the party can rest for free. B: the market's feed post in the city view: "Bell at noon. The north wash flooded. Everybody out. Somebody took the bedrolls." C: the feed carries the flood as news with no names: "North wash flooded at noon. The camp got out." Nobody blames anybody; the woman was early, she always is. The storm smear on the map is visible for the rest of the day at every wash crossing, so the next time the player sees it, they know.
+The flood comes through after the event, whatever was chosen. A: a chalk mark on the company's banner stays for the rest of Act 1, and the camp, moved to high ground, is a place on the map where the party can rest (at its own FOOD and WATER, like anywhere: QR-G line 30, the kind stop buys no discount). B: the market's feed post in the city view: "Bell at noon. The north wash flooded. Everybody out. Somebody took the bedrolls." C: the feed carries the flood as news with no names: "North wash flooded at noon. The camp got out." Nobody blames anybody; the woman was early, she always is. The storm smear on the map is visible for the rest of the day at every wash crossing, so the next time the player sees it, they know.
+
+## THE NARRATOR
+Read over the event screen in the machine voice (rule 45: too even, tape and room, a little wrong; never in the first minute; people on the screen still speak in the squiggle): "The weather is clear. The weather is clear everywhere you can see."
 
 ## THE ONE WRONG DETAIL
 She is holding an open umbrella, and it is dry.
@@ -38,4 +41,4 @@ She is holding an open umbrella, and it is dry.
 ## FLAWS IT AVOIDS
 `Q142.X3` (the clock fights the talking), `Q095.X1` (the hard fail nobody signposted), `Q106.X5` (the missed appointment that silently deletes content), `Q084.X5` (the punished no: C writes nothing about the company), `Q141.X3` (the sound-only clue: the rain is a sound AND a grey smear in the picture).
 
-CHECKLIST: passes all 28 (line 11 read for an event: C is the free walk-past; line 3 has no deadline because the event resolves the clock in one screen).
+CHECKLIST: passes all 30 (line 11 read for an event: C is the free walk-past; line 3 has no deadline because the event resolves the clock in one screen).

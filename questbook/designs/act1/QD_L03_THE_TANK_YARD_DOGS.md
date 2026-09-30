@@ -8,7 +8,7 @@ STATUS: draft:true, research only, nothing built (rule 35). Names and lines are 
 PLACE-THAT-ASKS: PL05
 FIRST-LINE: FL11
 TWIST: none (the dogs are dogs)
-CHECKLIST: passes all 28 (line 2 read under the 9/28 ruling; lines 17 and 18 do not apply)
+CHECKLIST: passes all 30 (line 2 read under the 9/28 ruling; lines 17 and 18 do not apply)
 
 ## THE SITUATION
 Act 1, bust, the hungriest stretch. The kitchen feeds forty people a day from a tank yard behind the church: an old utility tank with a hand pump. A pack of feral dogs has taken the yard. Two volunteers were bitten filling jugs. The kitchen has no batteries to pay with. It has food.

@@ -5,6 +5,7 @@ CRISIS: none
 ECONOMY: bust
 PLACE: a corner bodega on a strip-mall street off Boulder Highway; one aisle, one shelf bare (PL01, THE EMPTY SHELF)
 STATUS: draft:true, research only, nothing built (rule 35)
+CHECKLIST: lines 29 and 30 pass (QR-X sweep, 9/30); a round-one design, not yet run line by line against lines 1 to 28 (QR-G).
 
 ## THE SITUATION
 Act 1, the anarchy decade. The player arrives on the strip from the map; the settlement screen draws it. The bodega's door is open.
@@ -51,6 +52,8 @@ the shelf shows cans on it (the result is in the place); a feed post in the city
 Argüello shelf has stock"); one battery moved. DROPPED: a deed ("took Lupe's truck job and didn't
 bring it"), and if he took the battery up front, the ledger says so. If the crate holds the nephew's
 jacket (the one rationed twist, most runs it holds cans), she says one line and pays anyway.
+
+THE FREE NO HAS A FLOOR (QR-A C19, rule 47): declining costs nothing on the treasury either; SCAVENGE on this settlement screen covers the company's keep in FOOD and WATER at a thin margin, so one declined offer never forces the next yes (`Q236.X4`).
 
 ## THE ONE WRONG DETAIL
 She dusts the empty shelf on every beat, and the dust cloth is clean every time.

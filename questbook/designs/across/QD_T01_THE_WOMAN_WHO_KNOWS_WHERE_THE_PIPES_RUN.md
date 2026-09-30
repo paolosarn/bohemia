@@ -7,7 +7,7 @@ PLACE: the wash camp home base (camp tier, one offer); the job runs on the map t
 SITUATION: an elder dying (QR-S situation 25): Tere Olmos, 81, ran a city water crew before the crash and is the only person alive who knows where the valley's old valves are; her kidneys are failing -> the knowledge passes to someone (her grandson, the dam, or a man in the company), or it goes into the ground with her
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 TWIST: none
-CHECKLIST: passes all 28
+CHECKLIST: passes all 30
 
 ## THE SITUATION
 The wash camp has no hall. It has a fire barrel under the overpass, and the one offer lives there. Tere lies on a cot under a blue tarp, in a runway coat somebody traded her for water. The camp digs for water every summer because nobody remembers where the city's buried valves are. Tere does. She has about four days, and she wants two things: her grandson Nico home, and one more look at the pump station she ran.
@@ -16,7 +16,7 @@ The wash camp has no hall. It has a fire barrel under the overpass, and the one 
 - SETTLEMENT: the wash camp. Buildings: the fire barrel (the asks), SCAVENGE, the tarp rows. A black cloth hangs on one tarp; that is the situation, drawn.
 - CLIENT PORTRAIT: Lidia Olmos, the daughter, hands wet from washing, a man's watch on her wrist.
 - THE SCREEN'S LINES: "Mamá wants Nico. He drives for the depot. Two stops." / "The nurse says four days. Maybe." / "It's what we have. Look around."
-- PAY: 6 batteries and a jar of clean salt (the camp pays in kind). SKULLS: 1.
+- PAY: 6 batteries and a jar of clean salt, counted as 1 FOOD (the camp pays in kind; rule 47). SKULLS: 1.
 - NEGOTIATION: ask for more and the ceiling comes at once: "That's all of it." No advance.
 - ACCEPT / DECLINE. Declining writes nothing. The offer leaves when Tere dies, whatever the player did.
 

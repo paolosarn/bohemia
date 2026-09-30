@@ -5,6 +5,7 @@ CRISIS: none
 ECONOMY: bust
 PLACE: act 1, a scrapyard compound on a dirt track and a storm drain under the highway; act 2, the same compound, rebuilt as a depot
 STATUS: draft:true, research only, nothing built (rule 35)
+CHECKLIST: lines 29 and 30 pass (QR-X sweep, 9/30); a round-one design, not yet run line by line against lines 1 to 28 (QR-G).
 TWIST: T26 THE RESCUE FRAME DELIVERS THE VICTIM (bank: questbook/research/QR_C_THE_TWIST_BANK_9_27_26.md). Costs A PERSON. Lands AT HAND-IN (a hint), fully ACTS LATER.
 
 ## THE SITUATION

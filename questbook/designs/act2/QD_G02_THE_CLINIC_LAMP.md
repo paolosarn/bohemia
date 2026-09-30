@@ -6,6 +6,7 @@ CRISIS: none
 ECONOMY: either
 PLACE: the map road below the dam, at the turn to the dam clinic (a lit point on the map); the event stops the party on the road.
 STATUS: draft:true, research only, nothing built (rule 35)
+CHECKLIST: lines 29 and 30 pass (QR-X sweep, 9/30); a round-one design, not yet run line by line against lines 1 to 28 (QR-G).
 
 REBUILT FROM: the silent appointment. `Q106.X5` (a missed 7pm appointment permanently kills the best content, no warning), `Q128.X2` (players lose the chain without learning they lost it), `Q129.X5` (the massacre fires on a hidden clock), `Q119.X3` (a timer so generous it is invisible). The phone version is the same schedule, shown on the map, counted in map days, and stopped when the app is closed.
 
@@ -24,6 +25,9 @@ C. KEEP GOING. Free. Ruben says one line ("Okay. Okay.") and keeps pushing. No l
 
 ## WHAT THE LEDGERS REMEMBER
 A or B: Hilda's session happens; the clinic lamp is steady on your next pass, and in the city view the feed posts a photo of the cart parked at the clinic door. C: the lamp goes dark for one session and then blinks again for someone else. On the next pass Ruben is at the clinic step, alone, and he nods at you (the tell, `Q128.X2`'s law, one diegetic tell per broken link). This is an event, not a contract, so C is not a deed; it is only what happened.
+
+## THE NARRATOR
+Read over the event screen in the machine voice (rule 45: too even, tape and room, a little wrong; never in the first minute; people on the screen still speak in the squiggle): "The lamp is blinking. It will stop blinking tonight, one way or another."
 
 ## THE ONE WRONG DETAIL
 The clinic lamp blinks at exactly 120 beats a minute, even on the nights the whole valley is in brownout.

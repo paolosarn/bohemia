@@ -6,7 +6,7 @@ ECONOMY: bust
 PLACE: the back lot of a dead off-Strip casino, its blank tower wall used as a screen; car seats in rows on the asphalt
 STATUS: draft:true, research only, nothing built (rule 35)
 SHAPE: E10 THE GOOD HOUR (QR-B)
-CHECKLIST: passes all 28 (lines 3, 9 and 12 read as not applicable to a road event)
+CHECKLIST: passes all 30 (lines 3, 9 and 12 read as not applicable to a road event)
 NOT A REPEAT OF: no E10 exists on the first shelf. This is relief in the ruin, the shape QR-B says the storyteller sends after a hard hit.
 
 ## THE SITUATION
@@ -34,6 +34,9 @@ First line: "It's free. If you sit, you pedal a turn."
 - THE FLIP: in act 3, the casino wall is a real outdoor screen with its own power, and a small plaque names the kids
   who pedalled. If the company left a cell, one of the names on the plaque is the company's. If the company never
   stopped at the wall in act 1, the plaque names only the kids.
+
+## THE NARRATOR
+Read over the event screen in the machine voice (rule 45: too even, tape and room, a little wrong; never in the first minute; people on the screen still speak in the squiggle): "Forty people are laughing at the same time. That is the correct number of people."
 
 ## THE ONE WRONG DETAIL
 The kid pedalling stopped ten minutes ago, and the projector is still running.

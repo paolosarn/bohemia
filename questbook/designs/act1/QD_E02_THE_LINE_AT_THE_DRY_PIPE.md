@@ -5,6 +5,7 @@ CRISIS: the Destroyers
 ECONOMY: bust
 PLACE: a standpipe and pump shed on a residential block below the dam road; a queue of people with jugs (PL03, THE QUEUE, and PL05, THE DRY TAP)
 STATUS: draft:true, research only, nothing built (rule 35)
+CHECKLIST: lines 29 and 30 pass (QR-X sweep, 9/30); a round-one design, not yet run line by line against lines 1 to 28 (QR-G).
 
 ## THE SITUATION
 Act 1. The water share holds at the dam, but this block's valve, three blocks up the wash, has been
@@ -18,7 +19,7 @@ TEODORO "TEO" VÁSQUEZ (name Paolo's), the pipe keeper, behind the window. He ca
 window is the job. Tapped, portrait up.
 FIRST LINE (FL06, the bid before you speak): "You're here about the valve. Everybody is."
 THE TERMS: "Valve's up the wash, the red wheel by the culvert. Somebody turned it. Turn it back and the
-pipe runs. One resources from the share when it does."
+pipe runs. One water from the share when it does."
 WITHHELD: that it has been turned off three times this month, and that the people who turn it wait near it.
 
 ## THE SETTLEMENT AND THE OFFER SCREEN
@@ -29,16 +30,16 @@ WITHHELD: that it has been turned off three times this month, and that the peopl
 - THE SCREEN'S LINES:
   - "You're here about the valve. Everybody is."
   - "Valve's up the wash, the red wheel by the culvert. Somebody turned it."
-  - "One resources from the share when it runs."
-- PAY, SHOWN BEFORE ACCEPT: 1 resources from the share (water), or 1 battery if asked.
+  - "One water from the share when it runs."
+- PAY, SHOWN BEFORE ACCEPT: 1 WATER from the share (rule 47), or 1 battery if asked.
 - NEGOTIATION: ASK FOR A DIFFERENT PAY (the haggle's first kind): one battery instead; two asks land, the third gets the spoken limit. ADVANCE: none; the share pays on flow.
 - ACCEPT / DECLINE: ACCEPT puts the red wheel on the map. DECLINE, or closing the screen, or never tapping the building, writes nothing: no row, no line, no look, and the offer sits in the same building on the next visit while the job is still real.
 
 ## THE CHOICES
-1. TAKE IT. One resources on return (water share, paid from the ledger in his hand). The way up the wash
+1. TAKE IT. One WATER on return (the share, paid from the ledger in his hand). The way up the wash
    is on the map; at the valve a group is standing on it, and the fight is there, on the fight board (a
    routine fight, 2 to 4 minutes).
-2. TAKE IT, AND ASK FOR A DIFFERENT ONE (the haggle's first kind): one battery instead of resources.
+2. TAKE IT, AND ASK FOR A DIFFERENT ONE (the haggle's first kind): one battery instead of water.
    Teo: "Battery's harder. Fine." Two asks land; the third gets the spoken limit.
 3. NO. "Sure." He writes the next name in the ledger. Nothing else happens. The line keeps standing.
    Next time the player passes, the line is still there, one person shorter or longer, and Teo still asks

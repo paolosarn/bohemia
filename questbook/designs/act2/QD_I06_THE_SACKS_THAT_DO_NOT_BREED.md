@@ -17,7 +17,7 @@ Act 2, a bust year. Food is the weak leg. The co-op is a winter short, a caravan
 SETTLEMENT: the farm co-op. BUILDING: the grain store office, sacks stacked to the ceiling, most of them empty.
 CLIENT PORTRAIT LINE: MARISOL, forties, the co-op's steward, a Bottega-knit cardigan over overalls, dirt to the elbows.
 THE SCREEN (3 lines, 34 words): "We're a winter short. There's a caravan at the crossroads with seed." / "Bring back enough to plant. The field closes in six days." / "Ten batteries. And ask the old woman before you sign anything."
-PAY: 10 batteries on return with seed; 4 if the player comes back with none and a plan (the priced refusal, said on the screen when asked "and if I come back empty?"). NEGOTIATION: ask for more (11; the second ask closes the screen for this visit, nothing written); ask for an advance (a sack of dried beans for the road). ACCEPT or DECLINE; decline: "Vale. The field will wait a day."
+PAY: 10 batteries on return with seed; 4 if the player comes back with none and a plan (the priced refusal, said on the screen when asked "and if I come back empty?"). NEGOTIATION: ask for more (11; the second ask closes the screen for this visit, nothing written); ask for an advance (a sack of dried beans for the road, 2 FOOD). ACCEPT or DECLINE; decline: "Vale. The field will wait a day."
 
 ## THE PERSON AND THE FIRST LINE
 At the crossroads, the trader, sixties, silk scarf over a dust mask. First line: "Twice the yield. I've never said otherwise. Its children make nothing. I've never hidden that either." Back at the co-op, the old woman who keeps the saved line (optional, one line): "Mine came off my mother's rows. It has never once asked me for anything."
@@ -43,4 +43,4 @@ The sacks leak seed onto the caravan's yard every day, and nothing ever comes up
 ## FLAWS IT AVOIDS
 `Q129.X5` (the opaque timer: the field's six days are on the screen and on the map), `Q142.X3` (the clock fights the talking: nothing closes during a conversation), `Q121.X1` (a choice cosmetic in its own game: Act 3 reads it), `Q134.X2` (a refusal with no content: C is a full ending).
 
-CHECKLIST: passes all 28 (line 2 read with the 9/28 amendment).
+CHECKLIST: passes all 30 (line 2 read with the 9/28 amendment).

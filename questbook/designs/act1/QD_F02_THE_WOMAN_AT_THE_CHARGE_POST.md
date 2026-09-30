@@ -5,6 +5,7 @@ CRISIS: none
 ECONOMY: bust
 PLACE: a ruined street corner: a street with its sidewalks, a crushed car, a public charge post with six sockets, a pump house down the road (on the fight board, about five house-sized tiles: the corner, the car, two street tiles, the pump house)
 STATUS: draft:true, research only, nothing built (rule 35)
+CHECKLIST: lines 29 and 30 pass (QR-X sweep, 9/30); a round-one design, not yet run line by line against lines 1 to 28 (QR-G).
 
 ## THE SITUATION
 (9/28: the second-by-second walk was the round-one front door. Swept 9/29 for VAMILY rules 38 to 40: the walk is dead; the first sixty seconds are the settlement screen, and the push after ACCEPT is played on the fight board, house-sized tiles cut from this corner. See QR-P and QR-W.)

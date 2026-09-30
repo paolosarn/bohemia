@@ -5,6 +5,7 @@ CRISIS: none
 ECONOMY: bust
 PLACE: a standpipe on a cracked lot between four houses, fed by the share (dam and pumps), opened by the pump crew for three minutes on a schedule
 STATUS: draft:true, research only, nothing built (rule 35)
+CHECKLIST: lines 29 and 30 pass (QR-X sweep, 9/30); a round-one design, not yet run line by line against lines 1 to 28 (QR-G).
 
 ## THE SITUATION
 (9/28: the walk was the round-one front door. Swept 9/29 for VAMILY rules 38 to 40: the walk is dead. The lot is a settlement screen; the tone and the forming line play on that screen, the valve man is tapped at the standpipe, and the watch after ACCEPT is a fight on the fight board, house-sized tiles cut from the lot (the four houses, the lot, the pipe). The lamp in the open house is a SCAVENGE result on this screen with the same ledger. See QR-P and QR-W.)
@@ -41,7 +42,7 @@ pair of eyes on this pipe tomorrow when the tone goes. Pays a cell."
 - ACCEPT / DECLINE: ACCEPT sets the next tone as the job's clock; the pipe on the fight board is the job's ground. DECLINE, or closing the screen, or never tapping the building, writes nothing: no row, no line, no look, and the offer sits in the same building on the next visit while the job is still real.
 
 ## THE CHOICES
-1. JOIN THE LINE AND TAKE THE JOB: one jug of water now; tomorrow at the tone he stands by the pipe for
+1. JOIN THE LINE AND TAKE THE JOB: one jug of water now (1 WATER, the line's share, not pay); tomorrow at the tone he stands by the pipe for
    the three minutes while someone tries to cut the line (a small group, a routine fight on the fight board cut from the lot).
    Pays 1 battery. Once taken, he finishes it.
 2. JOIN THE LINE, DECLINE: one jug of water. Nothing else, ever. The valve man says nothing more.

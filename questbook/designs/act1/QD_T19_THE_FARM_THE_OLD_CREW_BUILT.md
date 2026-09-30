@@ -7,7 +7,7 @@ PLACE: a small farm on the edge of the farm tower's ground, offered at the farm 
 SITUATION: a raid expected (QR-S situation 15), from the inside out: the farm is eleven ex-raiders who put their guns down two years ago and grow chiles. Their old crew, the Viboras, are coming to take them back or burn them out -> the farm holds or falls, and HOW it holds decides what the farm is afterwards
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 TWIST: none
-CHECKLIST: passes all 28
+CHECKLIST: passes all 30
 
 ## THE SITUATION
 The chile farm is the best harvest in the valley this year, which is how the Viboras heard of it. Nacho, who runs it, rode with them for six years. His people buried their rifles under the pepper beds. They can dig them up. That is the question.
@@ -16,7 +16,7 @@ The chile farm is the best harvest in the valley this year, which is how the Vib
 - SETTLEMENT: the farm tower. Buildings: the hall (a table by the pump), the racks, SCAVENGE.
 - CLIENT PORTRAIT: Nacho Reyes, 40, raider tattoos under a gardening apron, a Rick Owens cargo skirt.
 - THE SCREEN'S LINES: "Eleven of us. We used to be the thing you hunt." / "The Viboras want us back or gone. Night after next." / "We can dig up the guns. I'm asking you so we don't have to."
-- PAY: 24 batteries and chiles for the company for a month. SKULLS: 2.
+- PAY: 24 batteries and chiles for the company for a month (FOOD, rule 47). SKULLS: 2.
 - NEGOTIATION: one "more" (27) and the ceiling: "It's a good year, not a rich one." Advance: 6, shown as 6 less at the end.
 - ACCEPT / DECLINE. Declining writes nothing; the farm digs up its guns alone, and the board shows what it became.
 

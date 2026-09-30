@@ -5,6 +5,7 @@ CRISIS: none
 ECONOMY: boom
 PLACE: a metered main under a reclaimed laundry block in act 3; the valve pit on the same corner in act 1
 STATUS: draft:true, research only, nothing built (rule 35)
+CHECKLIST: lines 29 and 30 pass (QR-X sweep, 9/30); a round-one design, not yet run line by line against lines 1 to 28 (QR-G).
 
 ## THE SITUATION
 The verb crosses the ages. In act 1 the family beat THE TAP (boss 2) and holds its verb: draw from any main in the valley, whoever thinks they own it. In act 1 that is survival. By act 3 the valley has reclaimed its water: a cooperative meters it, reads it on a panel, and bills in batteries. The family's valve key, a hand-cut T-bar with the grandmother's mark filed into it, is still in the heir's kit. A contract in act 3: the man who runs a laundry that employs nine people has had his meter cut for arrears. He offers 6 batteries to get the water back on before the week's loads spoil.
@@ -15,7 +16,7 @@ The laundry owner, in a pressed Bottega Veneta-green work shirt he irons himself
 ## THE CHOICES
 1. USE THE GRANDMOTHER'S VERB. Open the main with the T-bar. Paid 6. Costs nothing else now; the cooperative's standing falls, and act 3's ledger writes the draw as THEFT under act 3's law, where act 1 wrote the same act as survival.
 2. PAY HIS ARREARS AT THE COOPERATIVE. Costs 18 batteries, paid 6. The meter comes back legally. No standing change.
-3. TEACH HIM THE DRAW. Only if the family holds THE SCHOOL's verb. Paid 6, costs a day. He can open it himself from now on, and so can anybody he tells; the cooperative's district runs one step darker in the derive for the rest of the act.
+3. TEACH HIM THE DRAW. Only if the family holds THE SCHOOL's verb. (QR-G line 29: shown on every read; without the verb he says it himself, "If somebody could teach me, I wouldn't need you", and 1 and 2 are full endings.) Paid 6, costs a day. He can open it himself from now on, and so can anybody he tells; the cooperative's district runs one step darker in the derive for the rest of the act.
 Declining is free and leaves nothing.
 
 ## WHAT THE LEDGERS REMEMBER

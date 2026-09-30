@@ -5,6 +5,7 @@ CRISIS: the Destroyers
 ECONOMY: bust
 PLACE: a motel office at the edge of a dead strip mall, on a dirt road off the map's main highway
 STATUS: draft:true, research only, nothing built (rule 35)
+CHECKLIST: lines 29 and 30 pass (QR-X sweep, 9/30); a round-one design, not yet run line by line against lines 1 to 28 (QR-G).
 TWIST: T11 THE REWARD IS GONE (bank: questbook/research/QR_C_THE_TWIST_BANK_9_27_26.md). Costs BATTERIES. Lands AT HAND-IN.
 
 ## THE SITUATION
@@ -29,7 +30,7 @@ First line: "Six cells, mijo. Filters to my sister, east. Dos días. You say no,
 ## THE CHOICES
 At the offer: take it or not. Declining leaves nothing.
 At hand-in (the twist), the party finds the office door open and Omar sitting on the floor next to an empty rack:
-- A. TAKE WHAT HE OFFERS INSTEAD. He gives the name of the man who stole the bank, and a room for the company for three nights. Cost: 6 batteries of expected pay, gained: shelter (saves 3 days of camp costs) and a lead. The contract closes as FINISHED.
+- A. TAKE WHAT HE OFFERS INSTEAD. He gives the name of the man who stole the bank, and a room for the company for three nights. Cost: 6 batteries of expected pay, gained: shelter (saves 3 days of the company's FOOD and WATER, about 4 batteries' worth, the same as B's generator; QR-G line 30) and a lead. The contract closes as FINISHED.
 - B. TAKE THE MOTEL'S GENERATOR. He will not stop you. Cost: STANDING with Omar and his sister's household (both remember); gained: a generator worth about 4 batteries at a trader. Closes as FINISHED.
 - C. WRITE IT OFF. Say nothing, leave. Cost: 6 batteries. Closes as FINISHED; Omar owes the company, and the debt stays in his ledger, not ours.
 

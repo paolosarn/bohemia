@@ -5,7 +5,7 @@ CRISIS: the rocket
 ECONOMY: boom
 PLACE: the dam home base (fortress tier), the turbine hall on the Nevada side
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
-CHECKLIST: passes all 28
+CHECKLIST: passes all 30
 
 ## THE SITUATION
 Act 3, a boom. The rocket yards draw power at night and the dam is running a turbine that was dead for twenty

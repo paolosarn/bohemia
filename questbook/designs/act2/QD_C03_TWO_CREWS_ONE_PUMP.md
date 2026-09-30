@@ -5,6 +5,7 @@ CRISIS: none
 ECONOMY: boom
 PLACE: a pump house on the dam road, fenced, with a paved approach (fast travel) and a dirt back track (slow)
 STATUS: draft:true, research only, nothing built (rule 35)
+CHECKLIST: lines 29 and 30 pass (QR-X sweep, 9/30); a round-one design, not yet run line by line against lines 1 to 28 (QR-G).
 TWIST: T18 A THIRD PARTY SHOWS UP (bank: questbook/research/QR_C_THE_TWIST_BANK_9_27_26.md). Costs STANDING. Lands MID-JOB.
 
 ## THE SITUATION
@@ -30,7 +31,7 @@ The rival crew's leader, met at the fence: Cano, a young man in a quilted coat t
 
 ## THE CHOICES
 - A. SPLIT IT WITH CANO. Clear the pump together, 7 batteries each. Cost: 7 batteries; gained: STANDING with Cano's crew, who can be hired later.
-- B. RUN CANO OFF. A fight on the fight board against his group. Cost: the fight (batteries in medicine, maybe a hurt companion); gained: the full 14. Cano's crew remembers the company as enemies.
+- B. RUN CANO OFF. A fight on the fight board against his group. Cost: the fight (MEDS and ROUNDS, maybe a hurt companion); gained: the full 14. Cano's crew remembers the company as enemies.
 - C. TALK TO THE SQUATTERS FIRST. They are the pump's old night shift, laid off when the committee changed. If the company hands their names to the committee, Solano loses face and pays anyway to keep it quiet. Cost: STANDING with Solano; gained: 14 batteries and the night shift's goodwill.
 
 ## WHAT THE LEDGERS REMEMBER

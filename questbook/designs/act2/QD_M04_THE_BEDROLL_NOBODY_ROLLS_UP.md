@@ -30,6 +30,9 @@ B: his settlement's hall offers the company nothing extra (no reward for grief, 
 C: the jacket is on the speaker in every fight after; if she is struck down later, her receipt names it.
 For ten map days after, the member who spoke fights one tile further back than her gambit says, and says why once: "Not today." (grief shown as behaviour, `Q041.W3`, bounded so it never spirals into busywork, `Q041.X2`).
 
+## THE NARRATOR
+Read over the event screen in the machine voice (rule 45: too even, tape and room, a little wrong; never in the first minute; people on the screen still speak in the squiggle): "His bedroll is where he left it. Nobody has asked it to move."
+
 ## THE ONE WRONG DETAIL
 That night in the city view, the feed shows a new post from his account: a photo of the camp, taken from where his bedroll lies.
 
@@ -44,4 +47,4 @@ That night in the city view, the feed shows a new post from his account: a photo
 ## FLAWS IT AVOIDS
 `Q105.X5` (the offscreen goodbye), `Q137.X5` (the plaque funeral), `Q129.X9` (the company says nothing), `Q125.X7` (loot in the grave), `Q144.X2` (death as lost progress: no stat talk on this screen at all).
 
-CHECKLIST: passes all 28. Line 26 (one warm or funny beat) is carried by choice C's jacket and the passing road line; line 12 is not applicable to an event.
+CHECKLIST: passes all 30. Line 26 (one warm or funny beat) is carried by choice C's jacket and the passing road line; line 12 is not applicable to an event.

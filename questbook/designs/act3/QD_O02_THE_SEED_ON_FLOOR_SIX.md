@@ -5,7 +5,7 @@ CRISIS: none
 ECONOMY: bust
 PLACE: the farm tower home base, RAIDED in act 1 (camp tier, reduced board)
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
-CHECKLIST: passes all 28
+CHECKLIST: passes all 30
 
 ## THE SITUATION
 The future goes both ways. If the player raided the farm tower in act 1, act 3's tower is a raided base: one

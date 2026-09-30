@@ -7,7 +7,7 @@ PLACE: the highway under the gantry lights at shift change, workers walking home
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 SHAPE: E1, THE ONE ON THE SHOULDER (QR-B)
 STAGE: THE BUILD (QR-J), in a bust stretch: batteries tight, medicine tighter
-CHECKLIST: passes all 28 (lines 11 and 12 are read as the event's free SAY NOTHING; line 21 is met because no
+CHECKLIST: passes all 30 (lines 11 and 12 are read as the event's free SAY NOTHING; line 21 is met because no
 branch pays the company)
 
 ## THE SITUATION
@@ -35,6 +35,9 @@ First line: "It was going to be in the rocket. It's one valve. They have a hundr
 - A person: the worker and his daughter. In choice 2 his name is on the build list; in choice 3 he is at the yard
   gate every shift after, asking for work, and nobody hires him; in choice 1 he is gone from the road.
 - Nothing about this is scored. No branch pays the company.
+
+## THE NARRATOR
+Read over the event screen in the machine voice (rule 45: too even, tape and room, a little wrong; never in the first minute; people on the screen still speak in the squiggle): "It is one valve. They have a hundred. They had a hundred and one."
 
 ## THE ONE WRONG DETAIL
 Every worker walking home is humming the same four notes, and none of them notice they are doing it.

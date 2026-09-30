@@ -5,7 +5,7 @@ CRISIS: the Network crumbling
 ECONOMY: boom
 PLACE: a council home base in a reclaimed school on the east side; the job is a block of apartment towers one map stop east, done door to door on each tower's screen (the fight board if it comes to a fight)
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
-CHECKLIST: passes all 28. Line 12 met by choice C.
+CHECKLIST: passes all 30. Line 12 met by choice C.
 
 ## THE SITUATION
 Act 3, the healing. The new council wants to count the valley: who lives where, for water shares and ration lines. For forty years the Network did the counting, and it is going dark. The council hires the company to count one block by hand. On the fourth floor lives a family that never appears in any record, anywhere: they were never on the Network. They are the Amalgamation's blind spot made flesh (the unrecorded). They are ordinary, and scared of being written down.
@@ -14,7 +14,7 @@ Act 3, the healing. The new council wants to count the valley: who lives where, 
 - SETTLEMENT: the school base. BUILDING: the hall (the old principal's office; a paper map with pins).
 - CLIENT PORTRAIT: COUNCILLOR DEV ANAND, clipboard, a sharp Balenciaga blazer with the sleeves rolled.
 - THE SCREEN'S LINES: "Count one block. Knock, ask, write it down." / "The machine used to know. Now we have to ask." / "Three days."
-- PAY: 7 batteries and one water share for the family's home base, which is the late scarcity. NEGOTIATION: ask for more: 8. Advance: 2.
+- PAY: 7 batteries and one WATER share for the family's home base (the parts it holds, rules 43 and 47), which is the late scarcity. NEGOTIATION: ask for more: 8. Advance: 2.
 - ACCEPT / DECLINE. Declining writes nothing.
 
 ## THE CHOICES

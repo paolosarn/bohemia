@@ -5,7 +5,7 @@ CRISIS: the rocket
 ECONOMY: boom
 PLACE: a solar co-op home base on the south flats; the job is at a crash-years cemetery on the land the co-op needs, one map stop out
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
-CHECKLIST: passes all 28. Line 12 met by choice C.
+CHECKLIST: passes all 30. Line 12 met by choice C.
 
 ## THE SITUATION
 Act 3. The rocket needs more power, and the power needs a new solar field, and the only flat land is a cemetery from the crash years: rough graves, handmade markers. The co-op wants the graves moved to a proper yard before the panels go in. Some of the people buried there were raided, killed or buried by the family's acts 1 and 2, and the ledgers know who.
@@ -14,7 +14,7 @@ Act 3. The rocket needs more power, and the power needs a new solar field, and t
 - SETTLEMENT: the solar co-op. BUILDING: the hall (the inverter room, warm and loud).
 - CLIENT PORTRAIT: ABUELA NIEVES, seventies, a white linen tunic, a solar-cell pendant.
 - THE SCREEN'S LINES: "Two hundred graves. Move them careful." / "Some have names, most don't." / "The rocket needs the sun, not the dead."
-- PAY: 9 batteries and the family's name on the new field's power share. NEGOTIATION: ask for more: 10. Advance: 3.
+- PAY: 9 batteries and the family's name on the new field's power share (paid in BATTERIES, a share of the field's charge each month, rule 47). NEGOTIATION: ask for more: 10. Advance: 3.
 - ACCEPT / DECLINE. Declining writes nothing; the co-op moves them, faster and rougher, and the feed shows it.
 
 ## THE CHOICES

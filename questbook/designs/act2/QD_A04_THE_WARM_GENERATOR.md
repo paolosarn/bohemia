@@ -5,6 +5,7 @@ CRISIS: none
 ECONOMY: boom
 PLACE: a night market in a gutted casino parking structure, level three; the delivery runs across town to a clinic
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
+CHECKLIST: lines 29 and 30 pass (QR-X sweep, 9/30); a round-one design, not yet run line by line against lines 1 to 28 (QR-G).
 SHOWS: TAKEN AND DROPPED, the one path that is a deed, priced honestly (C10, C13, C16). This is the minority twist.
 
 ## THE SITUATION

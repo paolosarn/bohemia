@@ -5,7 +5,7 @@ CRISIS: none
 ECONOMY: boom
 PLACE: the road between two reclaimed home bases on the east side, at a bus shelter with solar panels on the roof
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
-CHECKLIST: passes all 28.
+CHECKLIST: passes all 30.
 
 ## THE SITUATION
 Act 3. The party is stopped by a teenage boy at the shelter. He is wearing a Destroyer's welded mask from the act 1 climax, as fashion. He does not know what it was. He wants a ride to the next base for work. The event reads the act 1 ledger: how the builders-versus-Destroyers climax went. The kid's grandfather was one of them.
@@ -20,6 +20,9 @@ The event screen, his face, the mask pushed up on his forehead like sunglasses: 
 
 ## WHAT THE LEDGERS REMEMBER
 Reads: act 1 climax outcome. If the builders won hard (Destroyers scattered): the mask is a costume, kids wear them, and the one-line answer is a shrug. If the Destroyers were beaten by the family's own hand in a fight the ledger names: the company member says "I knew the man who wore that," and the kid takes the mask off and keeps it in his lap. DEFAULT (act 1 not played yet): the mask is a costume and nobody answers. Hired: he is in the roster; his portrait wears the mask until the barber.
+
+## THE NARRATOR
+Read over the event screen in the machine voice (rule 45: too even, tape and room, a little wrong; never in the first minute; people on the screen still speak in the squiggle): "A boy in a mask would like a ride. The mask would also like a ride."
 
 ## THE ONE WRONG DETAIL
 The mask has a fresh weld on it, and the Destroyers have been gone forty years.

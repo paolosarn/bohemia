@@ -5,6 +5,7 @@ CRISIS: none
 ECONOMY: boom
 PLACE: a reclaimed urgent-care clinic on East Charleston; a take-a-number counter on the wall and a queue on the sidewalk (PL03, THE QUEUE, and PL14, THE STATION THAT IS TOO NORMAL)
 STATUS: draft:true, research only, nothing built (rule 35)
+CHECKLIST: lines 29 and 30 pass (QR-X sweep, 9/30); a round-one design, not yet run line by line against lines 1 to 28 (QR-G).
 
 ## THE SITUATION
 Act 2: the clinic is open again, which is new, and medicine moves through it on a number system. The
@@ -30,7 +31,7 @@ waits a week). He never says the word medicine.
   - "I'm not asking for a favor. I'm hiring."
   - "My mother's at the bus shelter on Lamb. Walk her here before they call nine."
   - "One battery, or you take nine and I go to the back."
-- PAY, SHOWN BEFORE ACCEPT: 1 battery, or ticket nine (one medicine, paid as one resources): both pays are on the screen before accept.
+- PAY, SHOWN BEFORE ACCEPT: 1 battery, or ticket nine (1 MEDS, rule 47): both pays are on the screen before accept.
 - NEGOTIATION: The haggle IS the second pay option; ASK FOR MORE gets "That's all of it." ADVANCE: none.
 - ACCEPT / DECLINE: ACCEPT puts the way to Lamb on the map. DECLINE, or closing the screen, or never tapping the building, writes nothing: no row, no line, no look, and the offer sits in the same building on the next visit while the job is still real.
 
@@ -39,14 +40,14 @@ waits a week). He never says the word medicine.
    his mother walks, so the way back is slow and the road is the test (a group may be between the
    shelter and the clinic, a routine fight on the fight board).
 2. TAKE IT FOR NUMBER NINE (the haggle's first kind, a different one). The player gets the clinic slot:
-   one medicine, paid as one resources, instead of the battery. Davi goes to the back of the line, and
+   1 MEDS instead of the battery. Davi goes to the back of the line, and
    says nothing about it. Two asks land; asking for both gets the spoken limit: "It's one or the other,
    man."
 3. NO. "All good." He goes back to watching the street. The counter stays on 9.
 
 ## WHAT THE LEDGERS REMEMBER
 Declining leaves nothing. DONE (battery): the mother is in the line, the counter moves to 10, the line
-shortens by the place she takes. DONE (number nine): the player holds one medicine; Davi is fourteenth
+shortens by the place she takes. DONE (number nine): the player holds 1 MEDS; Davi is fourteenth
 in line and his mother is beside him; the feed says nothing, because nothing happened that anyone posts
 about. DROPPED: a deed, and on the next pass the mother is still at the bus shelter.
 

@@ -6,7 +6,7 @@ ECONOMY: bust
 PLACE: under a freeway overpass on a dirt service road, in a dust storm, where the radio is dead and no camera reaches
 STATUS: draft:true, research only, nothing built (rule 35)
 SHAPE: E8 THE ONE WHO KNOWS YOU (QR-B)
-CHECKLIST: passes all 28 (lines 3, 9 and 12 read as not applicable to a road event; line 5's default read: with no act 1 or act 2 history on the ledgers, this event does not fire)
+CHECKLIST: passes all 30 (lines 3, 9 and 12 read as not applicable to a road event; line 5's default read: with no act 1 or act 2 history on the ledgers, this event does not fire)
 NOT A REPEAT OF: QD-B08 (act 3, a woman who knows what the ancestor did in the PAST). This man knows the company's FUTURE on the map: where the player tapped to go, which nobody was told.
 
 ## THE SITUATION
@@ -35,6 +35,9 @@ faster, not safer, not a trap. Taking it or not is the player's business.
 - FORESHADOW IN HINDSIGHT (`Q010.W8`): if, much later, the company takes the low road on the day of the whisper
   broadcast, a line from someone else echoes his ("Low road's quiet."). It lands only in memory.
 - This face fires ONCE. If the shape fires again in act 2, it is a different person in a different unrecorded place.
+
+## THE NARRATOR
+Read over the event screen in the machine voice (rule 45: too even, tape and room, a little wrong; never in the first minute; people on the screen still speak in the squiggle): "The storm will pass in about an hour. The man will still be sitting there."
 
 ## THE ONE WRONG DETAIL
 He has been sitting in a dust storm, and there is no dust on him.

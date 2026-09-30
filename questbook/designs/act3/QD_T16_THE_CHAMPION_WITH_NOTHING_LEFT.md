@@ -7,7 +7,7 @@ PLACE: the map, the Strip road at the old pit arena's gate; the event screen sto
 SITUATION: the boom made the pits illegal. Hector "El Once", undefeated in the Strip's pits in act 1 (the ledger may hold the family's own loss to him, or a default), is 71 and has nothing left to win. He asks the family's act-3 heir for one real fight
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 TWIST: none
-CHECKLIST: passes all 28 (never in the first minute of an act)
+CHECKLIST: passes all 30 (never in the first minute of an act)
 DEFAULT READ (act 1 never met him): the barber's rumour line has carried his name since act 1; the heir knows him as a story.
 
 ## THE SITUATION
@@ -24,6 +24,9 @@ Each choice costs time and the heir's standing with the Strip crowd (up for A, d
 
 ## WHAT THE LEDGERS REMEMBER
 A, the last shot taken: the pit's planter gets a small plaque in the derived future. A, held: Hector turns up once as a trainer at the Strip's training ground (the mastery swap place, rule 40e), cheaper for the family. B: the empty chair on the settlement screen. C: nothing but a line on the phone's feed.
+
+## THE NARRATOR
+Read over the event screen in the machine voice (rule 45: too even, tape and room, a little wrong; never in the first minute; people on the screen still speak in the squiggle): "He has won eleven times. He would like to lose once, to someone who matters."
 
 ## THE ONE WRONG DETAIL
 He counts his kills out loud before the fight, and he counts twelve.

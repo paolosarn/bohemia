@@ -7,7 +7,7 @@ PLACE: the map, a dry lot beside the old interstate; the event screen stops the 
 SITUATION: a brownout night on the road: the party camped by a still, and woke up with three batteries missing, a new tattoo on one company member, and a goat. Nobody remembers. The road knows
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 TWIST: none
-CHECKLIST: passes all 28 (never in the first minute; the comedy has one thing in it that is not funny)
+CHECKLIST: passes all 30 (never in the first minute; the comedy has one thing in it that is not funny)
 
 ## THE SITUATION
 Dawn. The fire is out. The goat is tied to the truck. Paco has "LUPITA" on his forearm, still red. The batteries are three short. A man is standing at the edge of the lot with his hat in his hands, waiting for someone to wake up.
@@ -23,6 +23,9 @@ Priced in time, batteries, and one company member's mood.
 
 ## WHAT THE LEDGERS REMEMBER
 Most of it resets: the goat is eaten or returned, the batteries are gone. ONE grievance sticks, whichever road: Lupita. In A, if the player blamed her brother, the brother is a face at the co-op who will not work for the family. In B and C, Lupita is at the still whenever the party passes; if Paco dies later (rule 36), she is at his grave in act 2 with his tattoo on her own arm.
+
+## THE NARRATOR
+Read over the event screen in the machine voice (rule 45: too even, tape and room, a little wrong; never in the first minute; people on the screen still speak in the squiggle): "Nobody remembers the night. The night remembers everybody, in some detail."
 
 ## THE ONE WRONG DETAIL
 The goat is wearing Paco's watch, and it is set to a time zone nobody in the company has been to.

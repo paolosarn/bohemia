@@ -5,6 +5,7 @@ CRISIS: the rocket
 ECONOMY: either
 PLACE: the rocket yard's outer gate at the old Nellis fence line; a folding table, a printed manifest, a queue of people waiting to register (PL13, THE GATE WITH A RULE, and PL03, THE QUEUE)
 STATUS: draft:true, research only, nothing built (rule 35)
+CHECKLIST: lines 29 and 30 pass (QR-X sweep, 9/30); a round-one design, not yet run line by line against lines 1 to 28 (QR-G).
 
 ## THE SITUATION
 Act 3: the rocket is being built for the one-way trip to the Moon, and anyone who wants a seat registers

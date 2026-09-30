@@ -5,6 +5,7 @@ CRISIS: none
 ECONOMY: bust
 PLACE: a neighbourhood substation behind a chain-link fence; the route is forty houses on four streets
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
+CHECKLIST: lines 29 and 30 pass (QR-X sweep, 9/30); a round-one design, not yet run line by line against lines 1 to 28 (QR-G).
 SHOWS: the "BENEATH YOU / LOW PAY" no; and a contract that is EXACTLY WHAT IT SAYS (C7, C15)
 
 ## THE SITUATION
@@ -47,6 +48,8 @@ Usually."
 - Done honestly: a small deed, and the clerk's door stays open for better route work later.
 - Done with the man's meter read low: two entries (what the book says, what the dial said). If the district audits
   that street in a later round, the gap can surface. Nobody tells the player that now.
+
+THE FREE NO HAS A FLOOR (QR-A C19, rule 47): declining costs nothing on the treasury either; SCAVENGE on this settlement screen covers the company's keep in FOOD and WATER at a thin margin, so one declined offer never forces the next yes (`Q236.X4`).
 
 ## THE ONE WRONG DETAIL
 House thirty-one's meter reads the same number every time anyone checks, and no wire runs to the house.

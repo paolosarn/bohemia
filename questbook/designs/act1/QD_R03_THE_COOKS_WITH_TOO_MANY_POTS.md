@@ -5,7 +5,7 @@ CRISIS: the Destroyers
 ECONOMY: bust
 PLACE: the map, the frontage road under the 95 between the wash and the chapel town home base (town, draft seat the Church); the party is stopped on the road, never in the first minute
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
-CHECKLIST: passes all 28. Line 11 met: walking on writes nothing; line 27: a plain event, not a twist.
+CHECKLIST: passes all 30. Line 11 met: walking on writes nothing; line 27: a plain event, not a twist.
 
 ## THE SITUATION
 THE ROAD WARNING OF A BUILD-UP. A siege is coming to the chapel town in six map days. The map already shows it for a player who looks (tracks converging on a camp in the wash). This event is the warning with a face. It fires once, on the road, when the party passes within two stops of the camp.
@@ -23,6 +23,9 @@ THE ROAD WARNING OF A BUILD-UP. A siege is coming to the chapel town in six map 
 
 ## WHAT THE LEDGERS REMEMBER
 Walking on writes nothing. A writes "warned the chapel" to the chapel town's history (its act 2 board can remember the family that came before being asked). B writes the camp's size and the leader's name. C writes nothing about the family, only the camp's day. If the chapel falls anyway, Cuca appears in the next held base's market selling pots (the tell within two stops).
+
+## THE NARRATOR
+Read over the event screen in the machine voice (rule 45: too even, tape and room, a little wrong; never in the first minute; people on the screen still speak in the squiggle): "Forty pots, for one camp. They must be very hungry. They must be expecting guests."
 
 ## THE ONE WRONG DETAIL
 One pot in the stack is still warm, and nobody on the road has been cooking.

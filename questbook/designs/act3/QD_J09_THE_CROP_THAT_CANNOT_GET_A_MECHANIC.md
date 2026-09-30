@@ -7,7 +7,7 @@ PLACE: a hydroponics co-op town in a converted big-box store (the settlement); t
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 STAGE: THE BUILD (QR-J): the valley's skilled labour pulled toward the yard
 LANDS THREE WAYS: yes (see UNDER LIBERATE, RESPECT, BECOME)
-CHECKLIST: passes all 28 (line 3: the one deadline, six map days, is said aloud on the screen and shown on the
+CHECKLIST: passes all 30 (line 3: the one deadline, six map days, is said aloud on the screen and shown on the
 co-op's settlement screen as the grow room dimming)
 
 ## THE SITUATION
@@ -27,7 +27,7 @@ all. This is a real boom's shape: one project everyone is paid to build crowds o
   2. "Six days, then it's compost."
   3. "My grandson works at that yard. He's proud of it. Don't make him choose."
 - PAY: 8 batteries, locked at the offer. If half the crop is saved (choice 3), 4, and she says so here.
-- NEGOTIATION: ask for more (up to 10: "Fine. You eat free here forever."). Advance: 4 now.
+- NEGOTIATION: ask for more (up to 10: "Fine. You eat free here forever." FOOD at every visit, rule 47). Advance: 4 now.
 - ACCEPT / DECLINE.
 
 ## THE PERSON AND THE FIRST LINE

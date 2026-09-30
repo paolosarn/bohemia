@@ -5,6 +5,7 @@ CRISIS: none
 ECONOMY: either
 PLACE: a fenced substation at the end of a dead strip-mall road, act 1; the same corner, lit or not, act 3
 STATUS: draft:true, research only, nothing built (rule 35)
+CHECKLIST: lines 29 and 30 pass (QR-X sweep, 9/30); a round-one design, not yet run line by line against lines 1 to 28 (QR-G).
 
 ## THE SITUATION
 Act 1. A lineman from the old utility is still keeping one substation alive with parts he steals from his own employer's yard. He is sick and he knows it. This is not a contract: he asks, and the player may walk past. What he asks is a promise made by the grandparent and paid by the heir: "when the power's back on this street, tell my daughter I kept it on as long as I could." He hands over his brass tool-check tag, his number stamped on it. The tag is the thing that crosses the ages; batteries never do.
@@ -18,7 +19,7 @@ The lineman, sitting on a cable drum in a Rick Owens drop-crotch coverall gone g
 ## THE CHOICES
 1. TAKE THE TAG AND PROMISE. Costs nothing now. The promise is written to the family record with his name and number.
 2. TAKE THE TAG, SELL THE BRASS. Paid 1 battery at a scrap stall. The record keeps that too.
-3. HOLD THE SUBSTATION ONE MORE NIGHT WITH HIM. A fight on the fight board against a group stripping the fence; costs the night and the ammo. The street stays lit one more week in act 1; the promise is made either way.
+3. HOLD THE SUBSTATION ONE MORE NIGHT WITH HIM. A fight on the fight board against a group stripping the fence; costs the night and the ROUNDS the fight burns (rule 47). The street stays lit one more week in act 1; the promise is made either way.
 Walking past is free and leaves nothing.
 
 ## WHAT THE LEDGERS REMEMBER

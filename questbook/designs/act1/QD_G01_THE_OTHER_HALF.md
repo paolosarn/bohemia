@@ -6,6 +6,7 @@ CRISIS: none
 ECONOMY: bust
 PLACE: a battery-charging counter in a gutted gas station on the highway into Henderson (a settlement screen; the counter is a building he taps); the leg is a dead substation yard one map stop east.
 STATUS: draft:true, research only, nothing built (rule 35)
+CHECKLIST: lines 29 and 30 pass (QR-X sweep, 9/30); a round-one design, not yet run line by line against lines 1 to 28 (QR-G).
 
 REBUILT FROM: the fetch chain ("collect two halves of an item", `Q095.X2`; back and forth between towns, `Q079.X1`, `Q083.X1`). The phone version is one leg, one place, three ways in, and the job ends when you hand it over.
 

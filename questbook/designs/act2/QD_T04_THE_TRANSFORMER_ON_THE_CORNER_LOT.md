@@ -3,11 +3,11 @@ ACT: 2
 KIND: contract
 CRISIS: none
 ECONOMY: either
-PLACE: the co-op blocks, a home base the family owns in act 2; the corner lot where the old substation was; the lines run on the map to three neighbours
+PLACE: the co-op blocks, a part of the city the family holds in act 2 (rule 43); the corner lot where the old substation was; the lines run on the map to three neighbours
 SITUATION: a surplus of power, MADE BY A BUILD: the family rebuilt the corner transformer (20 batteries, 5 map days), and it can feed ONE outside line -> three neighbours bid for it at the co-op's hall; whoever gets it is lit, the other two stay in brownout, and everybody remembers who held the switch
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 TWIST: none
-CHECKLIST: passes all 28
+CHECKLIST: passes 29 of 30; BENDS LINE 30 ON PURPOSE (QR-X, 9/30): the Strip outbids the clinic (30 against 14) because this is the allocation switch (`Q169.W2`, QR-O rule 18), where the temptation is the dilemma; held for Paolo in QR-X. If he says no, the three offers pay 14 each.
 BUILD: the build WRITES THREE OFFERS AT ONCE. The contract is the line. The choice is which offer to accept.
 
 ## THE SITUATION

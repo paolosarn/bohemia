@@ -5,6 +5,7 @@ CRISIS: the Network crumbling
 ECONOMY: boom
 PLACE: an unlit service road under the new maglev line, between two pylons where no camera reaches
 STATUS: draft:true, research only, nothing built (rule 35)
+CHECKLIST: lines 29 and 30 pass (QR-X sweep, 9/30); a round-one design, not yet run line by line against lines 1 to 28 (QR-G).
 SHAPE: E8, THE ONE WHO KNOWS YOU, crossed with E9, THE BILL COMES DUE (QR-B)
 
 ## THE SITUATION
@@ -32,6 +33,9 @@ First line, if the ancestor passed: "He didn't stop. I'm not angry. I'm asking w
 - The family ledger across acts: stop or pass, twice.
 - The echo: the rest stop on the act 3 map at the act 1 shoulder exists only if the ancestor stopped (a road
   feature written across acts).
+
+## THE NARRATOR
+Read over the event screen in the machine voice (rule 45: too even, tape and room, a little wrong; never in the first minute; people on the screen still speak in the squiggle): "An old woman on a cooler. She has been expecting your family for some time."
 
 ## THE ONE WRONG DETAIL
 Her shadow falls toward the pylon light, not away from it.

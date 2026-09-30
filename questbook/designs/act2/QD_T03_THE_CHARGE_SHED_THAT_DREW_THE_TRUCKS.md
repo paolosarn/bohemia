@@ -3,11 +3,11 @@ ACT: 2
 KIND: contract
 CRISIS: none
 ECONOMY: boom
-PLACE: the solar field town, a home base the family owns in act 2; the shed stands on the lot by the pylons; the job runs on the map to the co-op blocks
+PLACE: the solar field town, a part of the city the family holds in act 2 (rule 43); the shed stands on the lot by the pylons; the job runs on the map to the co-op blocks
 SITUATION: a surplus of power (QR-S situation 9), MADE BY A BUILD: the family built a charge shed on the field's lot, and the depot's trucks now reroute to charge here -> the co-op gets cells at a fair price, the field's board grows by one offer while the shed stands, and the brightness pulls a party
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 TWIST: none
-CHECKLIST: passes all 28
+CHECKLIST: passes all 30
 BUILD: this contract was WRITTEN BY A BUILD. No shed, no offer. The shed costs 16 batteries and 4 map days; it was built before this offer could exist.
 
 ## THE SITUATION

@@ -5,6 +5,7 @@ CRISIS: the whisper broadcast
 ECONOMY: bust
 PLACE: a pump house on the dam road that feeds a hydroponic shed and a clinic on the same line
 STATUS: draft:true, research only, nothing built (rule 35)
+CHECKLIST: lines 29 and 30 pass (QR-X sweep, 9/30); a round-one design, not yet run line by line against lines 1 to 28 (QR-G).
 SHAPE: E6, THE LIGHTS GO DOWN WHILE YOU PASS (QR-B)
 
 ## THE SITUATION
@@ -32,6 +33,9 @@ First line: "Pick one. I've been picking all week, and I'm tired of it being me.
 - The grid ledger: which load held.
 - The valley's food price or a person's health, one trip later.
 - The broadcast's power ledger (choice 1), a small debt the reckoning reads.
+
+## THE NARRATOR
+Read over the event screen in the machine voice (rule 45: too even, tape and room, a little wrong; never in the first minute; people on the screen still speak in the squiggle): "The pump can hold one of two things. It has held both for as long as it could."
 
 ## THE ONE WRONG DETAIL
 When the lights go brown, the pump's hum keeps perfect time with the 120 beat, and it did not before.

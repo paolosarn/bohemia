@@ -7,7 +7,7 @@ PLACE: a public charge post at a dirt crossroads, below a relay mast visible fro
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 SHAPE: E1, THE ONE ON THE SHOULDER (QR-B), at a place the map already shows
 STAGE: QUIET (QR-J): the feed deletes one post; nobody notices but her
-CHECKLIST: passes all 28 (lines 11 and 12 are read as the event's free KEEP MOVING)
+CHECKLIST: passes all 30 (lines 11 and 12 are read as the event's free KEEP MOVING)
 
 ## THE SITUATION
 Act 2, a bust stretch. The party stops to charge at a crossroads post. A girl of fifteen sits on the post's
@@ -34,6 +34,9 @@ First line, not looking up: "Is your feed broken too, or is it just me?"
 - Choice 2 writes a small row: the girl is safe and on the feed later, posting about something else.
 - KEEP MOVING writes nothing. She is at the post the next time the party passes, still posting. After the
   broadcast night she is there once more, and her counter says 4,000.
+
+## THE NARRATOR
+Read over the event screen in the machine voice (rule 45: too even, tape and room, a little wrong; never in the first minute; people on the screen still speak in the squiggle): "One person has seen this. The number will not go higher."
 
 ## THE ONE WRONG DETAIL
 The view counter reaches 1 before the post has finished uploading.

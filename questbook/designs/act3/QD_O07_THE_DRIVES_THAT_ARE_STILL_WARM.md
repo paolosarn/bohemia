@@ -5,7 +5,7 @@ CRISIS: the Network crumbling
 ECONOMY: boom
 PLACE: the data centre home base (fortress falling to town), the loading dock
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
-CHECKLIST: passes all 28
+CHECKLIST: passes all 30
 
 ## THE SITUATION
 The Network's seat is losing its tier. Its board, under the fever rule, shows offers that pay too well. This one
@@ -22,7 +22,8 @@ is the only one a sane company takes.
 ## THE CHOICES
 1. Haul to the dam as asked.
 2. Drop them in the lake from the dam road: finished at a price, 6 batteries, she does not argue.
-3. Sell two drives at the Strip on the way: 12 plus 4, and the Strip's board gets a strange offer next visit.
+3. Sell two drives at the Strip on the way: the Strip pays 4, and Ines counts thirty-eight and pays 8, not 12 ("I pay for
+   what arrives"): the same 12 (QR-G line 30), and the Strip's board gets a strange offer next visit.
 
 ## WHAT THE LEDGERS REMEMBER
 Declining leaves nothing. Hauled: the dam's cold room is a SCAVENGE find later. Lake: nothing is ever found.

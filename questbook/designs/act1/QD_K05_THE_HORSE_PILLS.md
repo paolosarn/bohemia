@@ -6,7 +6,7 @@ ECONOMY: bust
 PLACE: the dirt road below the ranch town in the north valley, a trader's handcart stopped in the shade of a billboard
 STATUS: draft:true, research only, nothing built (rule 35)
 SHAPE: E5 THE TRADER WITH ONE GOOD THING (QR-B)
-CHECKLIST: passes all 28 (lines 3, 9 and 12 read as not applicable to a road event)
+CHECKLIST: passes all 30 (lines 3, 9 and 12 read as not applicable to a road event)
 NOT A REPEAT OF: QD-B07 (act 3, boom, a stolen rocket guidance board). This is act 1 and bust, the good thing is medicine, and the catch is the dose, not the provenance.
 
 ## THE SITUATION
@@ -22,7 +22,7 @@ The trader, sixties, a long black Rick Owens coat worn to the lining, a straw ha
 First line: "Horse medicine. Works on people. You just have to know how much."
 
 ## THE CHOICES (price on the button)
-1. BUY IT. Price: 5 batteries (bust price, shown). The company gains one course of antibiotics. If the roster has a
+1. BUY IT. Price: 5 batteries (bust price, shown). The company gains one course of antibiotics (1 MEDS, rule 47). If the roster has a
    farm or medic background, the button says so and the course cures one infection. If not, the button says "no one
    here can dose it" before the pick, and the course is half as sure. No surprise either way (`Q107.X1`).
 2. TRADE THE GOOD JACKET. Price: one company member's best clothing piece (named on the button), no batteries.
@@ -35,6 +35,9 @@ First line: "Horse medicine. Works on people. You just have to know how much."
   stop cannot be farmed (`Q114.X6`).
 - If the jacket was traded: in a later act, someone in the ranch town is wearing it. Nobody comments.
 - Keep moving writes nothing.
+
+## THE NARRATOR
+Read over the event screen in the machine voice (rule 45: too even, tape and room, a little wrong; never in the first minute; people on the screen still speak in the squiggle): "A full course of medicine. The dose is written for someone larger than you."
 
 ## THE ONE WRONG DETAIL
 Every bottle has the same horse's name written on the label by hand: PEPPER.

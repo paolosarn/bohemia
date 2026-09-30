@@ -7,7 +7,7 @@ PLACE: a faction's fortified casino garage (the settlement); the job is a chain-
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 STAGE: THE RUNGS (QR-J): the canon ladder's "quietly accelerated faction conflict"
 LANDS THREE WAYS: yes (see UNDER LIBERATE, RESPECT, BECOME)
-CHECKLIST: passes all 28
+CHECKLIST: passes all 30
 
 ## THE SITUATION
 Late act 2. Two factions that shared a water truck three months ago are suddenly shooting at each other over a
@@ -17,7 +17,7 @@ the boards in every settlement near the line, and it pays three times the usual.
 knows that. To the valley it is just a war that came from nowhere, and good money.
 
 ## THE SETTLEMENT AND THE OFFER SCREEN
-- SETTLEMENT: the faction's garage compound. Its screen: the motor pool (market, ammunition dear this stage),
+- SETTLEMENT: the faction's garage compound. Its screen: the motor pool (market, ROUNDS dear this stage),
   the canteen (rumours: "nobody remembers who fired first"), the motor pool office (the HALL).
 - CLIENT PORTRAIT: a faction captain, forties, tired eyes, a woven Bottega Veneta leather jacket over body armour.
 - THE SCREEN'S LINES:

@@ -5,7 +5,7 @@ CRISIS: none
 ECONOMY: boom
 PLACE: a truck stop settlement on the old interstate at the valley's southwest edge; the job runs three map days out along the road toward the coast and back
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
-CHECKLIST: bends line 8 (three map days, not one leg) on purpose: it is the one long road job in act 3, split into three stops each with its own end, so a sitting still ends clean. Line 12 met by choice C.
+CHECKLIST (30 lines; 29 and 30 pass, QR-X 9/30): bends line 8 (three map days, not one leg) on purpose: it is the one long road job in act 3, split into three stops each with its own end, so a sitting still ends clean. Line 12 met by choice C.
 
 ## THE SITUATION
 Act 3, the valley is healing and trade outward is starting again for the first time since the crash. A merchant family wants to run the first caravan west in thirty years. The road is not a level-up of act 1 roads: it is new places (the map extends past the valley edge for the first time), new parties that do not know the family's name, and the verb the escalation hands out is distance, not bigger enemies (`Q075.P7`).
@@ -18,7 +18,7 @@ Act 3, the valley is healing and trade outward is starting again for the first t
 - ACCEPT / DECLINE. Declining writes nothing; she waits a season and goes with someone else.
 
 ## THE CHOICES
-A. THE FAST ROAD. Pavement, faster, and a toll crew at the second stop who do not know the family: pay 3, talk, or fight.
+A. THE FAST ROAD. Pavement, faster, and a toll crew at the second stop who do not know the family: pay 3 batteries, talk, or fight.
 B. THE DIRT ROAD. A day slower, no toll, one road event (a stranded family, QR-B shape).
 C. "I TURN BACK AT THE SECOND STOP." Priced: half pay, the truck stop's trade line is not offered, Marisol says "we'll finish it" and does.
 

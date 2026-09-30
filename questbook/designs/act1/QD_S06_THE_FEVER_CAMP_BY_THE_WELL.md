@@ -7,7 +7,7 @@ PLACE: the chapel town and clinic home base (town tier, two offers); the job is 
 SITUATION: a fever came in with a caravan that is camped ten metres from the town's only well -> the caravan moves (or leaves), the well is kept clean (or not), the clinic's board turns from triage back to medicine runs, and the chapel market's water price falls back
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 TWIST: none
-CHECKLIST: passes all 28
+CHECKLIST: passes all 30
 
 ## THE SITUATION
 Forty travellers came in on a salt caravan, and some of them brought a fever. They camped in the chapel's lower lot beside the well because it is flat and there is water. Three chapel children are sick. The nurse does not want them gone. She wants them uphill of the water, not beside it.
@@ -17,7 +17,7 @@ Forty travellers came in on a salt caravan, and some of them brought a fever. Th
 - BUILDING: the vestry. Two portraits; the other is the priest, who asks for nothing today.
 - CLIENT PORTRAIT: Sister Ines, nurse, a black Rick Owens habit, gloves to the elbow.
 - THE SCREEN'S LINES: "The caravan came with the fever. They sleep ten metres from our well." / "I don't want them gone. I want them in the old school on the hill, where the water runs down, not in." / "They won't go for me. They might go for someone with a truck and a gun they don't use."
-- PAY: 6 batteries and a clinic bed: one struck-down company member is kept free for his whole 30 to 40 days. SKULLS: 1.
+- PAY: 6 batteries and a clinic bed: one struck-down company member is kept free for his whole 30 to 40 days (his FOOD and MEDS for the term, rule 47). SKULLS: 1.
 - NEGOTIATION: "The chapel has six." No more. The advance is the bed: it is yours from the yes.
 - ACCEPT / DECLINE. Declining writes nothing. The offer leaves when the fever passes.
 

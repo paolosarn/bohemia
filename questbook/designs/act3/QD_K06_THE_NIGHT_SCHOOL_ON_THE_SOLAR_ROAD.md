@@ -6,7 +6,7 @@ ECONOMY: boom
 PLACE: a converted gas station on the solar road, lit as a night school; the rocket yard's test stand two map stops away on the same feeder
 STATUS: draft:true, research only, nothing built (rule 35)
 SHAPE: E6 THE LIGHTS GO DOWN WHILE YOU PASS (QR-B)
-CHECKLIST: passes all 28 (lines 3, 9 and 12 read as not applicable to a road event)
+CHECKLIST: passes all 30 (lines 3, 9 and 12 read as not applicable to a road event)
 NOT A REPEAT OF: QD-B05 (act 2, bust, a pump that can feed a shed or a clinic) or QD-G02 (a clinic's schedule). This brownout is caused by a BOOM: the rocket's own test draws the feeder down, and the two good causes are a school and the rocket.
 
 ## THE SITUATION
@@ -34,6 +34,9 @@ First line: "Every test night. Twenty grown people learning to read, in the dark
   test "got cut again". Neither is graded. Keep moving: nothing about you.
 - NEVER WORSE THAN THE START: this act 3 brownout never costs more of any ledger than the act 1 version of the shape
   did (QR-B, how events differ by act).
+
+## THE NARRATOR
+Read over the event screen in the machine voice (rule 45: too even, tape and room, a little wrong; never in the first minute; people on the screen still speak in the squiggle): "The lights will come back when the test is over. The reading continues in the dark until then."
 
 ## THE ONE WRONG DETAIL
 In the dark the class keeps reciting, and one voice in it is a child's, though every student is an adult.

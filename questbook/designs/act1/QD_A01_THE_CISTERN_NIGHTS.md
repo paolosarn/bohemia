@@ -5,6 +5,7 @@ CRISIS: none
 ECONOMY: bust
 PLACE: a pump house on the dam road, the last one before the road turns to dirt; a rooftop cistern behind it
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
+CHECKLIST: lines 29 and 30 pass (QR-X sweep, 9/30); a round-one design, not yet run line by line against lines 1 to 28 (QR-G).
 SHOWS: the TAP-PAST (the old walk-past, moved to the settlement screen) and the PLAIN NO, both leaving nothing (QR-A rules C2, C6, C7, C8)
 
 ## THE SITUATION
@@ -29,7 +30,7 @@ of them, one has a pipe."
   - "Oye. You look like you sleep light. Two nights on my roof, tres baterías."
   - "They come after midnight, three or four of them, one has a pipe."
 - PAY, SHOWN BEFORE ACCEPT: 3 batteries, paid at dawn after night two, counted into his hand.
-- NEGOTIATION: ASK FOR MORE once: she answers "Tres y la cena" (3 and a hot meal each night, the meal restores the companion); the fee then locks. ADVANCE: none; she has three batteries in the world and they are the pay.
+- NEGOTIATION: ASK FOR MORE once: she answers "Tres y la cena" (3 batteries and a hot meal each night: 1 FOOD a night, rule 47; the meal restores the companion); the fee then locks. ADVANCE: none; she has three batteries in the world and they are the pay.
 - ACCEPT / DECLINE: ACCEPT puts the roof on the map as the job's place; the night fight is on the fight board cut from the roof and its neighbours (house-sized tiles).  DECLINE, or closing the screen, or never tapping the building, writes nothing: no row, no line, no look, and the offer sits in the same building on the next visit while the job is still real.
 
 ## THE CHOICES
@@ -40,7 +41,7 @@ of them, one has a pipe."
 3. **"Deal."** TAKEN. Two nights on the roof. On the fight board the roof is one raised house tile (the high ground), the
    cistern and parapet its cover, the hatch its door, the street tiles around it the approach. Night one is quiet. Night two, four men come over the wall, a fight on the beat against a group with the
    companion (a routine fight, 2 to 4 minutes). COST: two map days, the risk of the fight. Win: three batteries, paid at dawn, counted into the player's
-   hand. Lose: the men take two cans and leave; she pays one battery "for the nights", FAILED, an attempt (C12).
+   hand. Lose: the men take two cans (2 WATER) and leave; she pays one battery "for the nights", FAILED, an attempt (C12).
 
 ## WHAT THE LEDGERS REMEMBER
 - Declined or walked past: NOTHING about the player. The world still runs: if no one guards the roof, on the third
@@ -49,6 +50,8 @@ of them, one has a pipe."
 - Taken and done: a DEED, "guarded the Remedios roof", and she will offer again next time the road is bad.
 - Taken and walked away from mid-contract: a DEED, dropped; no advance was paid, so no debt; she stops offering to
   this player; the neighbours know by the next week.
+
+THE FREE NO HAS A FLOOR (QR-A C19, rule 47): declining costs nothing on the treasury either; SCAVENGE on this settlement screen covers the company's keep in FOOD and WATER at a thin margin, so one declined offer never forces the next yes (`Q236.X4`).
 
 ## THE ONE WRONG DETAIL
 The cistern is drawn from every day, and the water line painted on its side never moves.

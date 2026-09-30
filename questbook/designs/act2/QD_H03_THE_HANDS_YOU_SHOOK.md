@@ -6,6 +6,7 @@ CRISIS: none yet (the build-up to the whisper broadcast)
 ECONOMY: boom (the world clawing back; people have something to lose again)
 PLACE: the family's door, at the edge of a reclaimed street, at night during a brownout
 STATUS: draft:true, research only, nothing built (rule 35)
+CHECKLIST: lines 29 and 30 pass (QR-X sweep, 9/30); a round-one design, not yet run line by line against lines 1 to 28 (QR-G).
 
 ## THE SITUATION
 Shaped from the story master (act 2 ends with the whisper broadcast), GDD v2 (the whisper network

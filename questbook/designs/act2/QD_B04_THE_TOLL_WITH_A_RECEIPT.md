@@ -5,6 +5,7 @@ CRISIS: none
 ECONOMY: boom
 PLACE: the paved road along the dam approach, where the faction holding the largest share of the power has put a booth
 STATUS: draft:true, research only, nothing built (rule 35)
+CHECKLIST: lines 29 and 30 pass (QR-X sweep, 9/30); a round-one design, not yet run line by line against lines 1 to 28 (QR-G).
 SHAPE: E2, THE TOLL (QR-B)
 
 ## THE SITUATION
@@ -31,6 +32,9 @@ First line: "Five percent of the load, papi. It's on the paper. Everybody pays t
 - The echo: if the company's name is in the handwritten book, later in act 2 a street contract comes from someone
   who got that book and wants to know why you are in it. On the feed: a post about the booth, from a trader who
   also paid.
+
+## THE NARRATOR
+Read over the event screen in the machine voice (rule 45: too even, tape and room, a little wrong; never in the first minute; people on the screen still speak in the squiggle): "A small fee keeps the road in good repair. Please keep your receipt. It will be needed."
 
 ## THE ONE WRONG DETAIL
 The receipt is dated ten years ago, the week the dollar died, and the amount is in dollars.

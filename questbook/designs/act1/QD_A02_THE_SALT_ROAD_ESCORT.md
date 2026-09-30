@@ -5,6 +5,7 @@ CRISIS: none
 ECONOMY: boom
 PLACE: a truck stop on the old interstate at the valley's north edge; the escort runs on the map to a salt flat camp
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
+CHECKLIST: lines 29 and 30 pass (QR-X sweep, 9/30); a round-one design, not yet run line by line against lines 1 to 28 (QR-G).
 SHOWS: the "TOO STRONG FOR YOU" no, made safe by an honest offer; and a spoken, audible window (C3, C7, C11, C13)
 
 ## THE SITUATION
@@ -48,6 +49,8 @@ gun bolted on. We roll at first light. The horn goes twice before we move."
 - Declined: nothing. The convoy rolls with whoever else took the seat.
 - Done: a deed ("rode the salt road with Ochoa"), and a door that stays open: she offers the next run first.
 - Dropped by missing the horn: a deed, with the drivers' story travelling at walking speed.
+
+THE FREE NO HAS A FLOOR (QR-A C19, rule 47): declining costs nothing on the treasury either; SCAVENGE on this settlement screen covers the company's keep in FOOD and WATER at a thin margin, so one declined offer never forces the next yes (`Q236.X4`).
 
 ## THE ONE WRONG DETAIL
 Strapped to the roof of the lead truck is a child's car seat, buckled, facing backward, empty every trip.

@@ -5,16 +5,16 @@ CRISIS: the Destroyers (plant); the Network crumbling (landing)
 ECONOMY: bust (act 1) -> either (act 3)
 PLACE: a home base in a strip mall on Boulder Highway: act 1 the family helps found it; act 3 it stands or it is a ruin, depending on act 2
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
-CHECKLIST: passes all 28. Line 18 met by the three written reads.
+CHECKLIST: passes all 30. Line 18 met by the three written reads.
 
 ## THE SITUATION
-THE FUTURE GOES BOTH WAYS, as one place. In act 1 the family takes a contract to wall a strip mall into a home base (plant). In act 2 the base can be raided if the family is not there when a roaming party comes (the procedural raid, the base's own state). In act 3 the base is either a thriving market or a ruin with squatters. Both landings are a contract in the same hall.
+THE FUTURE GOES BOTH WAYS, as one place. In act 1 the family takes a contract to wall a strip mall into a home base (plant); walled with the family, its block becomes a part of the city the family holds beside Rita's people (rule 43: a contract can hand a part), its lots on the family's build screen. In act 2 the base can be raided if the family is not there when a roaming party comes (the procedural raid, the base's own state). In act 3 the base is either a thriving market or a ruin with squatters. Both landings are a contract in the same hall.
 
 ## THE SETTLEMENT AND THE OFFER SCREEN
 ACT 1 (the plant): SETTLEMENT the strip mall, BUILDING the hall (a laundromat). CLIENT: DOÑA RITA, thirties, a torn Balenciaga track jacket. LINES: "Help us wall it. Pallets, cars, anything." / "Four days." PAY: 5 batteries. Declining: nothing.
 ACT 3 (the landing), by read:
 - STOOD: CLIENT is Rita's grandson. "My abuela built this with your people. We're adding a floor." PAY: 8 batteries and a place to rest.
-- FELL (raided in act 2): CLIENT is a squatter, a woman in Rita's old jacket. "It fell before I was born. We live in the laundromat. Help us wall it again?" PAY: 6 batteries, and the base returns to the map as a home base if done.
+- FELL (raided in act 2): CLIENT is a squatter, a woman in Rita's old jacket. "It fell before I was born. We live in the laundromat. Help us wall it again?" PAY: 6 batteries, and the base returns to the map as a home base if done, its block a part the family holds again (rule 43).
 - DEFAULT (act 1 contract never taken, or the act 2 retake never reached before act 3 opened): the base is whatever the world generator made; the act 3 client says "Somebody walled this once. Help us?" Full job.
 
 ## THE CHOICES

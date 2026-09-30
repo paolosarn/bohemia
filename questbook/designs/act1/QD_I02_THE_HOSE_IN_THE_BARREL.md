@@ -17,7 +17,7 @@ Act 1. Nine houses on one main have the same bad water, and they are not next to
 SETTLEMENT: the hillside block. BUILDING: the clinic room, a front parlour with a folding table.
 CLIENT PORTRAIT LINE: ROSA, thirties, the block's nurse, Rick Owens-style long black layers with a clean white apron tied over them.
 THE SCREEN (3 lines, 31 words): "Nine houses, same water, and it isn't food." / "Every day it's another door. I chalk them." / "Find what's doing it and stop it. Seven batteries, and whatever the block can spare."
-PAY: 7 batteries on report. NEGOTIATION: ask for more (8; the second ask closes the screen for this visit, nothing written); ask for an advance (she gives a jar of boiled water, not batteries). ACCEPT or DECLINE; decline: "Fine. I'll keep chalking."
+PAY: 7 batteries on report. NEGOTIATION: ask for more (8; the second ask closes the screen for this visit, nothing written); ask for an advance (she gives a jar of boiled water, 1 WATER, not batteries). ACCEPT or DECLINE; decline: "Fine. I'll keep chalking."
 
 ## THE PERSON AND THE FIRST LINE
 On the street the chalked doors are the evidence: marked houses sit at the top of the rise, clean ones at the bottom. The fitter at the standpipe, asked, says the rule once: "A main keeps muck out by pushing. Take the push off and every hose joined to it drinks backward." The pump man three doors down, asked about anything, volunteers: "My pump's been running rough since the water went funny."
@@ -43,4 +43,4 @@ One door on the street carries a fresh chalk mark every morning, and nobody in t
 ## FLAWS IT AVOIDS
 `Q148.X2` (investigations that cannot fail: this one can), `Q128.X2` (silent failure: the chalk count is the tell), `Q081.X4` (a firehose of names: one client, two neighbours), `Q074.X5` (reading-required: the rule is said once, aloud).
 
-CHECKLIST: passes all 28 (line 2 read with the 9/28 amendment).
+CHECKLIST: passes all 30 (line 2 read with the 9/28 amendment).

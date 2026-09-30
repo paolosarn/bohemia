@@ -5,6 +5,7 @@ CRISIS: none
 ECONOMY: bust
 PLACE: a dirt road off the highway, east of the valley, beside a burned-out bus shelter; tracks of a small party end fifty metres back
 STATUS: draft:true, research only, nothing built (rule 35)
+CHECKLIST: lines 29 and 30 pass (QR-X sweep, 9/30); a round-one design, not yet run line by line against lines 1 to 28 (QR-G).
 SHAPE: E1, THE ONE ON THE SHOULDER (QR-B)
 
 ## THE SITUATION
@@ -19,8 +20,9 @@ The man on the shoulder, forties, a cracked Balenciaga runner jacket, a portrait
 First line: "Hermano. Just the leg. I'm not asking for the truck."
 
 ## THE CHOICES
-1. GET DOWN AND TREAT HIM. Costs one medicine (or 3 batteries at bust prices) and two hours of map time. Honest
-   version: he joins the company as a cheap recruit, or leaves with a debt he remembers. Bait version: the party
+1. GET DOWN AND TREAT HIM. Costs 1 MEDS (or 3 batteries at bust prices; rule 47) and two hours of map time. Honest
+   version: he asks to ride with the company at the full wage (a recruit paid like any other, never a prize for the
+   kind stop; QR-G line 30), or leaves with a debt he remembers. Bait version: the party
    is caught on foot, a fight on the fight board against a group of three, the companion first to the man.
 2. CALL OUT FROM THE TRUCK. Costs ten minutes. You ask him one question ("Who did the leg?"). Honest version: he
    names the party that robbed him, and their tracks light on the map. Bait version: he gets impatient, looks
@@ -35,6 +37,9 @@ First line: "Hermano. Just the leg. I'm not asking for the truck."
   stranger on the east road. Still happens." Honest and passed: nothing, ever. Bait and survived: the robbing party
   becomes a named party on the map with a grudge (`Q087.W5`).
 - Keep moving writes nothing.
+
+## THE NARRATOR
+Read over the event screen in the machine voice (rule 45: too even, tape and room, a little wrong; never in the first minute; people on the screen still speak in the squiggle): "A man is resting by the road. He has done a very good job with the belt."
 
 ## THE ONE WRONG DETAIL
 The tourniquet is tied perfectly, the way a medic ties it, and he says he has never had training.

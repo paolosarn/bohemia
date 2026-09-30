@@ -5,11 +5,12 @@ CRISIS: none
 ECONOMY: either
 PLACE: the family house from QD-F01 and its block, derived from the act 1 ledgers, a building on the family block's settlement screen
 STATUS: draft:true, research only, nothing built (rule 35)
+CHECKLIST: lines 29 and 30 pass (QR-X sweep, 9/30); a round-one design, not yet run line by line against lines 1 to 28 (QR-G).
 
 ## THE SITUATION
 (Swept 9/29 for VAMILY rules 38 to 40: no flip at the start, the walk is dead, the company inherits. See QR-W.)
 Act 2 is not open at the start. It unlocks mid-act 1 (default: when the company takes its first home
-base, rule 39c), and the first hop is a big transition. At that first hop he customizes the Gen 2 person,
+base, the first part of the city it holds, rules 39c and 43), and the first hop is a big transition. At that first hop he customizes the Gen 2 person,
 who starts GENERATED FROM the Gen 1 person he played (face, build, the family law; rule 39c). After that
 the Gen 2 face is on the cracked phone in the city view and the flip is his. The map is the same valley, a
 generation on. The company with him is the HEIRS of the act 1 company, prepared from the ledger, the

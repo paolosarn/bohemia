@@ -5,6 +5,7 @@ CRISIS: the rocket
 ECONOMY: boom
 PLACE: a rebuilt rest stop on the northern highway, solar canopy over the pumps, a trader's truck parked in the shade
 STATUS: draft:true, research only, nothing built (rule 35)
+CHECKLIST: lines 29 and 30 pass (QR-X sweep, 9/30); a round-one design, not yet run line by line against lines 1 to 28 (QR-G).
 SHAPE: E5, THE TRADER WITH ONE GOOD THING (QR-B)
 
 ## THE SITUATION
@@ -29,6 +30,9 @@ First line: "Genuine. Off a machine that didn't need it anymore. Mostly."
 - Standing with the clinic network.
 - A named person's health (choice 1), on the feed.
 - Where the board went (choice 3): the party that bought it is on the map.
+
+## THE NARRATOR
+Read over the event screen in the machine voice (rule 45: too even, tape and room, a little wrong; never in the first minute; people on the screen still speak in the squiggle): "Genuine parts, from a machine that no longer needs them. Nobody needs them, probably."
 
 ## THE ONE WRONG DETAIL
 The board's serial sticker has the family's surname printed on it, the same as the player's, and the trader does not

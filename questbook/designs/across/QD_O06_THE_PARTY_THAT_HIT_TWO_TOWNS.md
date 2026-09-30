@@ -5,7 +5,7 @@ CRISIS: none
 ECONOMY: either
 PLACE: the rail and truck depot home base (fortress tier), the dispatch office
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
-CHECKLIST: passes all 28
+CHECKLIST: passes all 30
 
 ## THE SITUATION
 A roaming party has hit two bases this season (generated; its tracks are on the map). By rule 8 of QR-O it becomes
@@ -22,7 +22,9 @@ a named hunt on a third board. The depot posts it because the party took a truck
 ## THE CHOICES
 1. Follow the tracks, fight the party on the fight board at their camp.
 2. Buy the truck back from them (6 of your batteries): no fight, they keep roaming.
-3. Find they are the farm tower's own people, gone hungry: finish at a price, return the truck, let them go.
+3. Find they are the farm tower's own people, gone hungry: return the truck and let them go. The job said "truck back,
+   or them gone", so this is DONE: paid the same 9 batteries (QR-L P7; QR-G line 30: mercy never pays less than the
+   fight). The priced refusal (line 12) is choice 2, bought with 6 of your own.
 
 ## WHAT THE LEDGERS REMEMBER
 Declining leaves nothing. Act 3 reads it: a party killed leaves nothing on the road; a party let go becomes, in act

@@ -6,7 +6,7 @@ ECONOMY: boom
 PLACE: a paved market road in act 2, at a family's roadside stall that the map marks with the client's family name
 STATUS: draft:true, research only, nothing built (rule 35)
 SHAPE: E9 THE BILL COMES DUE (QR-B)
-CHECKLIST: passes all 28 (lines 3, 9 and 12 read as not applicable to a road event; line 5's default read: with no act 1 contract taken and dropped, this event does not fire; line 18: the landing is the stall on the map)
+CHECKLIST: passes all 30 (lines 3, 9 and 12 read as not applicable to a road event; line 5's default read: with no act 1 contract taken and dropped, this event does not fire; line 18: the landing is the stall on the map)
 NOT A REPEAT OF: no E9 exists on the first shelf. The across-acts designs plant and pay through places and contracts; this is the road-event form of a delayed bill.
 
 ## THE SITUATION
@@ -42,6 +42,9 @@ anyone struck down (20% dead, else out 30 to 40 days), and a lost fight continue
   heir by name, in past tense about the grandmother (`Q144.W7`).
 - Keep moving: in act 3 the stall is a shop and nobody greets the heir. Nothing worse.
 - It fires ONCE per dropped contract. No hidden counter builds behind it (`Q118.X1`).
+
+## THE NARRATOR
+Read over the event screen in the machine voice (rule 45: too even, tape and room, a little wrong; never in the first minute; people on the screen still speak in the squiggle): "Twenty years is a long time to keep a receipt. It is exactly as long as it needed to be."
 
 ## THE ONE WRONG DETAIL
 He has kept the receipt in a plastic sleeve for twenty years, and the ink has not faded at all.

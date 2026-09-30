@@ -8,7 +8,7 @@ STATUS: draft:true, research only, nothing built (rule 35). Names and lines are 
 PLACE-THAT-ASKS: PL11
 FIRST-LINE: FL08
 TWIST: none (a favour that is exactly what it says)
-CHECKLIST: passes all 28 (line 2 read under the 9/28 ruling; lines 17 and 18 do not apply)
+CHECKLIST: passes all 30 (line 2 read under the 9/28 ruling; lines 17 and 18 do not apply)
 
 ## THE SITUATION
 Act 2, a boom: the toll road is busy, the reclaimed quarter is hiring, money moves. A widow who has fed every company that ever stopped at the truck stop has one thing to ask. Her husband's toolbox (sixty years of hand tools) should go to their grandson, who has opened a repair shop in the quarter. She cannot carry it and cannot pay anyone to. This is the favour contract: it pays nothing, and says so.
@@ -22,7 +22,7 @@ Act 2, a boom: the toll road is busy, the reclaimed quarter is hiring, money mov
   2. "Take Beto's toolbox to our grandson's shop on Charleston. It's heavy. The toll road's busy."
   3. "Gente jump carts at the second toll. Three, four of them."
   4. "No pay. A favour. And the boy fixes anything you bring him, at cost, for as long as he has the shop."
-- PAY: none in batteries. The favour's OPENS line: the grandson's shop repairs the company's gear at cost (rule P13). Clout, not cells.
+- PAY: none in batteries. The favour's OPENS line: the grandson's shop repairs the company's gear at cost (rule P13), which saves TAPE on every repair (rule 47). Clout, not cells.
 - NEGOTIATION: none. No ask-for-more, no advance, no buttons: a favour has no market.
 - ACCEPT / DECLINE: accept, and the toolbox goes in the company's carry (it weighs what it weighs). Decline: "Está bien, mijo." She sets the plate straight. Nothing written.
 

@@ -6,6 +6,7 @@ CRISIS: the Network crumbling
 ECONOMY: boom (the world healing; the reclaimed city is techier than the start)
 PLACE: a relay mast on a reclaimed rooftop that keeps the super-captcha running
 STATUS: draft:true, research only, nothing built (rule 35)
+CHECKLIST: lines 29 and 30 pass (QR-X sweep, 9/30); a round-one design, not yet run line by line against lines 1 to 28 (QR-G).
 
 ## THE SITUATION
 Shaped from the ACT3 MOONSHOT law: the Network's god has gone silent, its leaders want the
@@ -23,10 +24,10 @@ brother is on their list for tonight. He doesn't know he's on it. He thinks it's
 
 ## THE CHOICES
 1. TAKE HIM OFF THE MAST BY FORCE. Costs: a fight on the fight board against Network guards (and her
-   brother among them), batteries for the medic after, and the Network's leaders learn the family
+   brother among them), MEDS for the medic after, and the Network's leaders learn the family
    guards the relay. Gain: the mast holds. Her brother lives, wired, and cannot be turned; she stays.
 2. TALK TO HER, NOT TO HIM. Costs: time; the family lets the attempt on the mast happen and meets it
-   there, so the relay is damaged and must be repaired with batteries. Gain: she and the un-implanted
+   there, so the relay is damaged and must be repaired with TAPE and batteries (rule 47). Gain: she and the un-implanted
    people she knows come over; on the conversion path they later help build the rocket.
 3. LET HER TAKE HIM HOME HERSELF. Costs: the mast is guarded only by the family's own people that
    night, and one named companion is posted there instead of on rocket work. Gain: nobody in her

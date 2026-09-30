@@ -5,7 +5,7 @@ CRISIS: the Destroyers
 ECONOMY: bust
 PLACE: the farm tower home base (camp tier, draft seat the Volunteers): a hydroponics farm in a gutted five-storey parking structure off Charleston; the fight is on the structure's ground floor and its roof deck
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
-CHECKLIST: passes all 28. Line 12 met by choice B and by the way-out edge; line 23 met by choice B (no fight).
+CHECKLIST: passes all 30. Line 12 met by choice B and by the way-out edge; line 23 met by choice B (no fight).
 
 ## THE SITUATION
 THE DEFEND CONTRACT, QR-R's plain shape. The Destroyers are coalescing in act 1, and a party of them has camped two map stops from the farm tower for four days (tracks converging on the map, the tower's seed and water gone dear in its market, a family walking away on the road). The tower is a camp: one offer on its board. This is it.
@@ -16,11 +16,11 @@ THE DEFEND CONTRACT, QR-R's plain shape. The Destroyers are coalescing in act 1,
 - CLIENT PORTRAIT: MARISOL OKAFOR, forties, a grower, an oversized Rick Owens hoodie with the sleeves cut off, soil to the elbows.
 - THE SCREEN'S LINES: "They come in three nights. Sixteen of them, maybe more." / "The seed can't run. We can't run with it." / "Hold the ground floor till morning. The roof's yours to use."
 - DANGER: two skulls. THE DAY: three map days, said aloud and marked on the map.
-- PAY: 4 batteries and a sack of seed. NEGOTIATION: ask for more: 5 ("That's every battery in the building. Don't ask again."); a third ask ends the offer. ADVANCE: 1 battery, taken off the end.
+- PAY: 4 batteries and a sack of seed (counted as 2 FOOD at the tower's price, rule 47). NEGOTIATION: ask for more: 5 ("That's every battery in the building. Don't ask again."); a third ask ends the offer. ADVANCE: 1 battery, taken off the end.
 - ACCEPT / DECLINE. Declining writes nothing. The Destroyers still come on the third night; the tower's fate is computed.
 
 ## THE CHOICES
-Before the fight: the formation screen, three posts: ROOF (the deck, the only high ground), GATE (the ramp), WAY OUT (the stair to the back lot). Three preparation days can be spent raising cover (cars pushed into the ramp tile), buying medicine, or moving people.
+Before the fight: the formation screen, three posts: ROOF (the deck, the only high ground), GATE (the ramp), WAY OUT (the stair to the back lot). Three preparation days can be spent raising cover (cars pushed into the ramp tile), buying MEDS, or moving people.
 - A. HOLD. One fight on the fight board, a tough fight: 8 to 15 minutes, never past 15 (the hold is a set number of bars inside that ceiling). The tower's militia hold the pay booth. Win is holding, or dropping their leader. Pay as agreed.
 - B. MOVE THE KIDS AND THE SEED. Spend the three days walking the children and the seed trays to the solar field (one escort leg, no mandatory fight). The tower's militia fight alone; the tower is likely RUINED but the seed lives. Priced: 3 batteries, the seed sack kept by the tower.
 - C. PAY THEM (the talk option). Marisol's harvest goes to the Destroyers' camp as tribute; they move on. Nothing is fought. The tower lives hungry. Priced: 2 batteries, no seed.

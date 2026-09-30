@@ -7,7 +7,7 @@ PLACE: the Strip casino block home base (fortress tier) in act 2; the cashier's 
 SITUATION: THE COMPANY INHERITS (rule 39d): act 2's company are the heirs of act 1's, and gear stays in the family. Tavo, 19, carries his father Ruben's rifle; in act 1 Ruben shot a Strip collector named Lalo Vega with it, and cut a notch -> Lalo's sister, now the pit boss, wants to buy the rifle, and the heir decides what the family's gear is for
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 TWIST: none
-CHECKLIST: passes all 28
+CHECKLIST: passes all 30
 DEFAULT READ (act 1 never played, or Ruben never shot anyone): the rifle came to Ruben second-hand with the notch already in it, and the sister has the same claim on it; the pay and the choices do not change.
 
 ## THE SITUATION
@@ -26,7 +26,7 @@ Rosa, at the pits, when Tavo arrives: "You have his hands. Your father's. Not mi
 
 ## THE CHOICES
 A. HAND IT OVER AND SAY NOTHING. She pays; Tavo loses the rifle and its accuracy; the company re-arms at the market.
-B. HAND IT OVER AND SAY WHAT HAPPENED. Tavo tells her what the ledger says Ruben did, in his own words. She pays. She keeps the rifle on the wall of the pits.
+B. HAND IT OVER AND SAY WHAT HAPPENED. Tavo tells her what the ledger says Ruben did, in his own words. She pays. She keeps the rifle on the wall of the pits. The shoulder costs more than silence (QR-D rule 17 amended, `Q215.X3`): the pits hear it, and the family's standing on the Strip drops one step for the act; nobody made him say it.
 C. ASK HER TO BREAK IT. Tavo hands it over and asks her to break it in front of him. She pays. The rifle is gone from the world.
 Same pay on every road.
 

@@ -5,10 +5,11 @@ CRISIS: the rocket
 ECONOMY: boom
 PLACE: the same family block, reclaimed: rewired, lit, screens on old walls; above the rooftops, far off, the rocket's gantry
 STATUS: draft:true, research only, nothing built (rule 35)
+CHECKLIST: lines 29 and 30 pass (QR-X sweep, 9/30); a round-one design, not yet run line by line against lines 1 to 28 (QR-G).
 
 ## THE SITUATION
 (Swept 9/29 for VAMILY rules 38 to 40: no flip at the start, the walk is dead, the company inherits. See QR-W.)
-Act 3 unlocks mid-act 2 (the same default as act 2: a home base won in the act before, rule 39c). At the
+Act 3 unlocks mid-act 2 (the same default as act 2: a home base won in the act before, a part of the city the family holds, rules 39c and 43). At the
 first hop he customizes the Gen 3 person, generated from the Gen 2 person he played; the company with him
 is the heirs of act 2's company, the gear still in the family (rule 39d). After that the Gen 3 face is on
 the phone and he may flip to it. Act 3 is the Angel era: cyberpunk healing, the rocket being built. The

@@ -5,7 +5,7 @@ CRISIS: the Network crumbling
 ECONOMY: either
 PLACE: the chapel town and clinic home base (town tier), the clinic ward
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
-CHECKLIST: passes all 28
+CHECKLIST: passes all 30
 
 ## THE SITUATION
 The Network is failing. Implants that talked to it go quiet. The clinic holds the player's own struck-down man for
@@ -18,7 +18,7 @@ from the clinic building, not the hall: the clinic's board is where transport co
 - CLIENT PORTRAIT: Dr. Ana Belmonte, a black Owens smock, a stethoscope wrapped in tape.
 - THE SCREEN'S LINES: "Bed eleven needs the old techs at the data centre. Two days on the road, she can travel.
   I'll keep your man here gratis while you're gone."
-- PAY: 4 batteries and your injured man's care free. NEGOTIATION: advance of 1. Ask for more: she will not move.
+- PAY: 4 batteries and your injured man's care free (his FOOD and MEDS for the term, rule 47). NEGOTIATION: advance of 1. Ask for more: she will not move.
 
 ## THE CHOICES
 1. Carry her by road to the data centre; the techs switch the implant off.

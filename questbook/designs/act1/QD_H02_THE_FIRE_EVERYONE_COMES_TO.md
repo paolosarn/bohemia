@@ -6,6 +6,7 @@ CRISIS: the Destroyers (placeholder name, Paolo's)
 ECONOMY: either
 PLACE: the family's block, around one burning barrel in the street, with the map showing parties converging
 STATUS: draft:true, research only, nothing built (rule 35)
+CHECKLIST: lines 29 and 30 pass (QR-X sweep, 9/30); a round-one design, not yet run line by line against lines 1 to 28 (QR-G).
 
 ## THE SITUATION
 Shaped from the ACT1 PROCEDURAL ENDING law. Near the end of act 1 the scattered wreckers COALESCE
@@ -25,9 +26,9 @@ they hate them more. Say something."
 Before the choices, a ROLL CALL: one at a time, the people the family did contracts for step into
 the firelight and say which job brought them ("You found my brother's truck"). The count is the
 contracts the player TOOK and finished; a declined job never appears and nobody mentions it.
-1. LEAD THE STAND. Costs: a large share of the family's batteries to arm and feed every block,
+1. LEAD THE STAND. Costs: a large share of the family's BATTERIES, ROUNDS and FOOD (rule 47) to arm and feed every block,
    and the family's people are put at the front. Gain: the climax plays as the coalition's; if it
-   holds, this block becomes the seat (THE LONG NIGHT's canon line), and every faction remembers who
+   holds, this block becomes the seat (THE LONG NIGHT's canon line; a part of the city the family holds, rule 43), and every faction remembers who
    spoke.
 2. HOLD ONLY OUR OWN STREET. Costs: few batteries; the other blocks stand alone and some fall; the
    climax arrives in the family's street with fewer allies. Gain: the family keeps its strength.

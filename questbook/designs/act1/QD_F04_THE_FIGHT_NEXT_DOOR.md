@@ -5,6 +5,7 @@ CRISIS: none
 ECONOMY: bust
 PLACE: two neighbouring lots on a ruined block of the family's settlement: his yard (walled, one gate) and the next lot, an empty slab where a house burned, with a dead car and a mound; on the fight board the two lots and the street between them are house-sized tiles, the mound is one of them (the one terrain effect)
 STATUS: draft:true, research only, nothing built (rule 35)
+CHECKLIST: lines 29 and 30 pass (QR-X sweep, 9/30); a round-one design, not yet run line by line against lines 1 to 28 (QR-G).
 
 ## THE SITUATION
 (Swept 9/29 for VAMILY rules 38 to 40: the walked yard, one cell per press, is dead. The block is a settlement screen; the next lot is a building-slot he can tap, and tapping it into reach opens the fight board cut from these two lots. See QR-W.)

@@ -8,7 +8,7 @@ STATUS: draft:true, research only, nothing built (rule 35). Names and lines are 
 PLACE-THAT-ASKS: PL03
 FIRST-LINE: FL07
 TWIST: none (this is the plain job; it shows a no-twist contract that still plays)
-CHECKLIST: passes all 28 (line 2 read under the 9/28 ruling; lines 17 and 18 do not apply)
+CHECKLIST: passes all 30 (line 2 read under the 9/28 ruling; lines 17 and 18 do not apply)
 
 ## THE SITUATION
 A short boom inside the anarchy decade: somebody found a dead solar farm full of cells, and the drive-in swap meet is where they get traded. Every trade needs one thing: the swap's battery tester, the old voltmeter rig that says a cell is really charged. It broke. It went out for repair to the only man who can fix it, two days away. Nobody at the swap trusts a trade without it, so the swap has stopped. The job is to carry the tester home.
@@ -28,8 +28,8 @@ A short boom inside the anarchy decade: somebody found a dead solar farm full of
 
 ## THE CHOICES
 The whole job is route and fight, stated on the screen:
-1. **The wash road.** Two days each way. The five with the truck are there, as said: a fight on the fight board in a dry wash (a group, with the companion; the mound at the bend is the one terrain effect). Or pay their toll from your own purse and pass.
-2. **The high road.** Three days each way, no fight. The keep for the extra days comes out of the same fee.
+1. **The wash road.** Two days each way. The five with the truck are there, as said: a fight on the fight board in a dry wash (a group, with the companion; the mound at the bend is the one terrain effect). Or pay their toll in your own batteries and pass.
+2. **The high road.** Three days each way, no fight. The keep for the extra days (FOOD and WATER, rule 47) comes out of the same fee.
 3. **Either way, the tester comes back.** DONE; the fee. If a brother was struck down on the wash road (rule 36: 20 percent dead, else 30 to 40 days out), that is the price the danger step was paid for.
 The "I won't do this part" choice: at the wash, pay the toll instead of fighting. It finishes the contract at a stated price (your batteries), not a drop.
 

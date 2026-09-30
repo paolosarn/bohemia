@@ -5,7 +5,7 @@ CRISIS: none (act 1); the whisper broadcast (act 2); the rocket (act 3)
 ECONOMY: either
 PLACE: act 1, a street market under an overpass; act 2, a pump house on the dam road; act 3, the rocket yards' loudspeakers
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
-CHECKLIST: passes all 28. Line 15 is the point: the landing is sound AND a picture (the singer's face on a mural).
+CHECKLIST: passes all 30. Line 15 is the point: the landing is sound AND a picture (the singer's face on a mural).
 
 ## THE SITUATION
 A song passed across three acts. In act 1 a road event: a street singer at the overpass market is being robbed of her speaker by a crew. In act 2 her song is the pump crews' work song (or it is not). In act 3 it is what the rocket yards play at shift change (or something else is). Cheap to build: one tune, three reads.
@@ -20,6 +20,9 @@ Act 3 (landing two): the yards' shift-change song, by read: hers (with a mural o
 
 ## WHAT THE LEDGERS REMEMBER
 Act 1: a deed if 1 or 2. Act 2: the pump crew's song is a world line the whisper network uses as a signal (Paolo's call how; the design only says the tune is known). Act 3: the yard's sound. THE FUTURE GOES BOTH WAYS: if the pump house fell in act 2, the song survives only if act 1's deed was done, because the market people carried it.
+
+## THE NARRATOR
+Read over the event screen in the machine voice (rule 45: too even, tape and room, a little wrong; never in the first minute; people on the screen still speak in the squiggle): "It is just a speaker. The song does not need one."
 
 ## THE ONE WRONG DETAIL
 In act 3 the loudspeakers play her song with one note changed, and nobody alive remembers the original well enough to notice, except the player.

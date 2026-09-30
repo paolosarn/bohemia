@@ -3,11 +3,11 @@ ACT: 1
 KIND: contract
 CRISIS: the Destroyers
 ECONOMY: bust
-PLACE: the farm tower camp, a home base the family owns; the tower's roof; the hunt runs on the map to a dry wash two stops out
+PLACE: the farm tower camp, a part of the city the family holds (rule 43); the tower's roof; the hunt runs on the map to a dry wash two stops out
 SITUATION: a named party in the region (QR-S situation 16), SEEN BECAUSE OF A BUILD: the family put a lookout on the tower roof (8 batteries, 2 map days); from it, a watcher saw the party that burned the co-op's store -> the hall now posts a hunt it could not post before, and the roof is a high tile on every fight board cut from this block
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 TWIST: none
-CHECKLIST: passes all 28
+CHECKLIST: passes all 30
 BUILD: this contract was WRITTEN BY A BUILD. The lookout shows parties' tracks two stops further on the map, and the hall reads what it sees.
 
 ## THE SITUATION

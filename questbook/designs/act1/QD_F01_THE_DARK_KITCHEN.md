@@ -3,8 +3,9 @@ ACT: 1
 KIND: main-beat
 CRISIS: none
 ECONOMY: bust
-PLACE: the family house on a ruined residential block, the family's settlement (the family lives there; the company does not own it as a home base yet, since owning the first home base is what unlocks the second generation, rule 39c): kitchen, back room, one door to the yard, the yard's gate to the street (a building on the settlement screen; if a fight comes, one house tile of the fight board)
+PLACE: the family house on a ruined residential block, the family's settlement (the family lives there; the company does not hold it as a home base yet, since holding the first part of the city (the first home base, rule 43) is what unlocks the second generation, rule 39c): kitchen, back room, one door to the yard, the yard's gate to the street (a building on the settlement screen; if a fight comes, one house tile of the fight board)
 STATUS: draft:true, research only, nothing built (rule 35)
+CHECKLIST: lines 29 and 30 pass (QR-X sweep, 9/30); a round-one design, not yet run line by line against lines 1 to 28 (QR-G).
 
 ## THE SITUATION
 (Swept 9/29 for VAMILY rules 38 to 40: the walked first minute, one cell per press through the kitchen, is dead with the walk. The kitchen is now a building on the family block's settlement screen, drawn in one view, with things he taps. Same beats, same ledger. See questbook/research/QR_W_THE_SHELF_SWEPT_FOR_RULES_38_TO_40_9_29_26.md.)

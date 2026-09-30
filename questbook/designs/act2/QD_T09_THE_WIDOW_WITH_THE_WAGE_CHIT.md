@@ -7,7 +7,7 @@ PLACE: the map, the canal road between the co-op blocks and the dam; the event s
 SITUATION: THE COMPANY INHERITS, the debt side: in act 1 a company member, Lalo Paz, died owed four weeks' wages (the ledger holds the unpaid days). His widow Irma kept the chit. The heir of the family, leading the act-2 company, owes it by blood, not by memory
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 TWIST: none
-CHECKLIST: passes all 28
+CHECKLIST: passes all 30
 DEFAULT READ (act 1 never played, or no one died owed): Irma's husband is the act-1 default roster's first dead, and the chit is for the default four weeks. Never fires in the first minute of an act.
 
 ## THE SITUATION
@@ -24,6 +24,9 @@ Three choices, each priced in batteries, gear, or an open line; none is a karma 
 
 ## WHAT THE LEDGERS REMEMBER
 A: the chit closes. In act 3 Irma's grandchild is on the heirs' list with a clean name. B: the helmet leaves the family; in act 3 it is on Irma's grandchild at the co-op gate, and the heir there recognises it. C: the open chit is read in act 3: the grandchild's first line to the family is about it, and paying it then costs 12 at act-3 prices (cheaper, the future is better). Nothing forces it; walking past is road C.
+
+## THE NARRATOR
+Read over the event screen in the machine voice (rule 45: too even, tape and room, a little wrong; never in the first minute; people on the screen still speak in the squiggle): "Four weeks of wages, stamped and dated. The date is only a little wrong."
 
 ## THE ONE WRONG DETAIL
 The stamp on the chit is dated a week after the day the ledger says Lalo died.

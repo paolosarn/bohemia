@@ -6,7 +6,7 @@ ECONOMY: bust
 PLACE: the road past the dam clinic town, in camp at dusk, the truck parked one map stop short of the clinic
 STATUS: draft:true, research only, nothing built (rule 35)
 SHAPE: E4 THE QUARREL IN THE COMPANY (QR-B)
-CHECKLIST: passes all 28 (lines 3, 9 and 12 read as not applicable to a road event)
+CHECKLIST: passes all 30 (lines 3, 9 and 12 read as not applicable to a road event)
 NOT A REPEAT OF: QD-B03 (act 1, stolen batteries between a thief and a man robbed by thieves). This quarrel is about RULE 36's injury: what a company owes a man who cannot fight for a month.
 
 ## THE SITUATION
@@ -30,7 +30,7 @@ The injured man says nothing. He is awake.
    are done the company can pick him up there. If the company never comes back, he is still there; the clinic says
    so plainly when the menu opens.
 2. HE RIDES WITH US. Price: the truck is slower on dirt while he is aboard (the map shows the new travel time), and
-   his upkeep continues. The first speaker's morale drops; she says why, once.
+   his upkeep continues (1 FOOD a day and his MEDS, rule 47). The first speaker's morale drops; she says why, once.
 3. SAY NOTHING, DRIVE ON (keep moving). Price: nothing. Nothing changes: he stays aboard, as he was. The pair stops
    talking about it. This event does not fire again for this injury.
 
@@ -40,6 +40,9 @@ The injured man says nothing. He is awake.
   back."). If it never does, the clinic keeps him, and in act 3 (the flip) he is an old orderly at that clinic who
   does not bring it up. The result is always said out loud (`Q043.X3`).
 - No narration grades it. The pair's lines are the only verdict, and they disagree.
+
+## THE NARRATOR
+Read over the event screen in the machine voice (rule 45: too even, tape and room, a little wrong; never in the first minute; people on the screen still speak in the squiggle): "He counts his days out loud. He is one day ahead of everyone. He is usually right."
 
 ## THE ONE WRONG DETAIL
 The injured man counts his days out loud each night, and his count is always one day ahead of the map's.

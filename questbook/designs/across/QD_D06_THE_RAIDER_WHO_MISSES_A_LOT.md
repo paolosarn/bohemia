@@ -5,6 +5,7 @@ CRISIS: the Destroyers (plant); the whisper broadcast (landing)
 ECONOMY: bust
 PLACE: a torn-up parking structure on the Destroyers' line, act 1; a relay mast on a casino roof, act 2
 STATUS: draft:true, research only, nothing built (rule 35)
+CHECKLIST: lines 29 and 30 pass (QR-X sweep, 9/30); a round-one design, not yet run line by line against lines 1 to 28 (QR-G).
 
 ## THE SITUATION
 Act 1's procedural climax, builders against the Destroyers. On the fight board in a parking structure, the group breaks and a boy of about sixteen drops his rifle and sits down against a pillar. This is a dial moment, the important shot, and it is not forced: the fight is over whether the player takes it or not.
@@ -24,7 +25,7 @@ One row, shot, ran or handed. Act 2's derive reads it at the mast:
 - RAN: a middle-aged man climbs the service ladder in the middle of the broadcast fight. He is bad at this. He misses a lot. He holds the stair door for three beats longer than anyone else would, and says, past tense, "Your old man sat me down against a pillar once. I figured I owed him a stair."
 - HANDED: he is the builders' foreman now, and he sends a crew, competent and paid for, and does not come himself. "The builders owe you. I don't."
 - SHOT: nobody climbs the ladder.
-The pointer chain: the knuckle name, still there in act 2. A player who flips back after seeing act 2 cannot unshoot him; the answering deed is to find the name on his knuckles in act 1 (the brother it belonged to) and bring that man home, which puts a different person on the ladder.
+The pointer chain: the knuckle name, still there in act 2. A player who flips back after seeing act 2 cannot unshoot him; the answering deed is to find the name on his knuckles in act 1 (the brother it belonged to) and bring that man home, which puts a different person on the ladder. It costs two map days and a fight at the brother's camp (QR-D rule 5), and the SHOT row stays in the record beside it: the act 2 ladder read names both, the boy nobody climbed for and the brother who came instead (QR-D rule 4 amended: the answer moves the wound, never erases it).
 
 ## THE ONE WRONG DETAIL
 In act 2 the name on his knuckles has been re-inked fresh, though he says he has not been near a needle in twenty years.

@@ -8,7 +8,7 @@ STATUS: draft:true, research only, nothing built (rule 35). Names and lines are 
 PLACE-THAT-ASKS: PL08
 FIRST-LINE: FL03
 TWIST: T01 THE HAUNTING IS THE ECONOMY (costs nothing)
-CHECKLIST: passes all 28 (line 2 read under the 9/28 ruling: the offer screen is the contract's one sanctioned screen, and no other popup carries its news; lines 17 and 18 do not apply: no thesis, no plant)
+CHECKLIST: passes all 30 (line 2 read under the 9/28 ruling: the offer screen is the contract's one sanctioned screen, and no other popup carries its news; lines 17 and 18 do not apply: no thesis, no plant)
 
 ## THE SITUATION
 Act 1, the anarchy decade, bust. The strip's owner rents five units for batteries. Four businesses have opened in unit four since the crash and all four closed inside a month. The current tenant hears knocking at night and has not paid. The owner thinks squatters are working the back wall, or something worse, and wants it cleared before the fifth tenant runs.
@@ -22,7 +22,7 @@ Act 1, the anarchy decade, bust. The strip's owner rents five units for batterie
   2. "Something knocks in the back at night. Clear it out. Tonight and tomorrow night."
   3. "Could be nobody. Could be four with pipes."
   4. "{fee} baterías. Half in beans if you want it, beans are worth more than cells this month."
-- PAY: K x 2 days + R1 (one danger step) + S (bust). In kind offered: half as canned food at Strip Five's price, shown in batteries.
+- PAY: K x 2 days + R1 (one danger step) + S (bust). In kind offered: half as FOOD (canned beans) at Strip Five's price, shown in batteries (rule 47).
 - NEGOTIATION: ASK FOR MORE: one step, then she says "That's the whole rent, mijo." (bust ceiling). ADVANCE: she refuses in words: "When it's quiet." A third push: "Okay. Somebody else." Nothing written.
 - ACCEPT / DECLINE: accept, and the job is unit four itself, a building on the strip's screen. Decline: "Bueno." She goes back to her ledger. Nothing is written.
 

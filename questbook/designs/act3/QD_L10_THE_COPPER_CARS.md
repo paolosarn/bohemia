@@ -8,7 +8,7 @@ STATUS: draft:true, research only, nothing built (rule 35). Names and lines are 
 PLACE-THAT-ASKS: PL13
 FIRST-LINE: FL05
 TWIST: none (the crew in the cars is exactly who the screen says)
-CHECKLIST: passes all 28 (line 2 read under the 9/28 ruling; lines 17 and 18 do not apply)
+CHECKLIST: passes all 30 (line 2 read under the 9/28 ruling; lines 17 and 18 do not apply)
 
 ## THE SITUATION
 Act 3, a boom. The valley is laying a tram line north, and the survey runs straight through a siding of dead freight cars where a crew of copper strippers has lived for years, cutting the new line's wire as fast as it goes up. The tram authority has money, a schedule, and no one who fights. This is the clear-the-camp contract, played straight.

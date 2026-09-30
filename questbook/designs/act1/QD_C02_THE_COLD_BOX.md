@@ -5,6 +5,7 @@ CRISIS: none
 ECONOMY: bust
 PLACE: a clinic run out of a tyre shop on a paved road, and a squatted apartment block three streets away (the job's place; one house tile if it comes to a fight)
 STATUS: draft:true, research only, nothing built (rule 35)
+CHECKLIST: lines 29 and 30 pass (QR-X sweep, 9/30); a round-one design, not yet run line by line against lines 1 to 28 (QR-G).
 TWIST: T23 THE THING YOU WERE SENT FOR IS A PERSON (bank: questbook/research/QR_C_THE_TWIST_BANK_9_27_26.md). Costs A PERSON. Lands MID-JOB.
 
 ## THE SITUATION

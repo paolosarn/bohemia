@@ -5,6 +5,7 @@ CRISIS: the Network crumbling
 ECONOMY: boom
 PLACE: a glass tower apartment with working lifts in a rebuilt district, and the courtyard it overlooks
 STATUS: draft:true, research only, nothing built (rule 35)
+CHECKLIST: lines 29 and 30 pass after the QR-X fix (9/30: the lie is fined back to the same 12); a round-one design, not yet run line by line against lines 1 to 28 (QR-G).
 TWIST: T20 THE CLIENT'S FEAR IS THE JOB (bank: questbook/research/QR_C_THE_TWIST_BANK_9_27_26.md). Costs STANDING or A PERSON. Lands AT HAND-IN, pays out ACTS LATER.
 
 ## THE SITUATION
@@ -28,7 +29,7 @@ First line: "Watch them tres días. Tell me what they are. If it's what I think,
 
 ## THE CHOICES
 - A. TELL THE TRUTH: "They're a couple. She talks to her dad." Cost: STANDING with Arce (he does not believe it and says the company is soft). Paid 12.
-- B. CONFIRM IT. Paid 18. Cost: A PERSON, acts later: Arce reports the couple, and the wife is taken off the tower's roster. The report is written TOLD and HAPPENED.
+- B. CONFIRM IT. Paid 18. Cost: A PERSON, acts later: Arce reports the couple, and the wife is taken off the tower's roster. The report is written TOLD and HAPPENED. A week of map time later the tower's clerk finds the grief app, and fines the company 6 batteries for a false report (the feed says why): the lie nets the same 12 as the truth (QR-G line 30, QR-L P7). The six on the screen stays the trap; it never pays.
 - C. TELL HIM ABOUT THE SCREEN, AND WHAT IT IS. Arce is quiet, then asks where to buy one. Cost: nothing in the ledger; paid 12. It lands later: Arce buys a copy of his own dead wife and stops going to the window.
 
 ## WHAT THE LEDGERS REMEMBER

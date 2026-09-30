@@ -5,6 +5,7 @@ CRISIS: the whisper broadcast
 ECONOMY: boom
 PLACE: a reclaimed row of stucco townhouses in Paradise, every window lit but one (PL02, THE DARK WINDOW)
 STATUS: draft:true, research only, nothing built (rule 35)
+CHECKLIST: lines 29 and 30 pass (QR-X sweep, 9/30); a round-one design, not yet run line by line against lines 1 to 28 (QR-G).
 
 ## THE SITUATION
 Act 2, the world clawing back: brownouts, not darkness, and most blocks buy their breaker share. The
@@ -17,8 +18,8 @@ MARISOL DE LEÓN (name Paolo's), the neighbour. She speaks only when tapped; if 
 under the screen's sound, to her phone (not addressed): "Tres días, the light."
 FIRST LINE when tapped (FL10, the change in habit): "Mr. Okafor used to put his TV on at six. Every day.
 He stopped."
-THE TERMS: "Breaker box is inside the door, left side. Throw it, look in on him, come tell me. One
-electricity from me when his light's on."
+THE TERMS: "Breaker box is inside the door, left side. Throw it, look in on him, come tell me. Una
+batería from me when his light's on."
 WITHHELD: she stopped paying his share for him two weeks ago, when her own went up.
 
 ## THE SETTLEMENT AND THE OFFER SCREEN
@@ -29,13 +30,13 @@ WITHHELD: she stopped paying his share for him two weeks ago, when her own went 
 - THE SCREEN'S LINES:
   - "Mr. Okafor used to put his TV on at six. Every day. He stopped."
   - "Breaker box is inside the door, left side. Throw it, look in on him, come tell me."
-  - "One electricity from me when his light's on."
-- PAY, SHOWN BEFORE ACCEPT: 1 electricity on return.
+  - "Una batería from me when his light's on."
+- PAY, SHOWN BEFORE ACCEPT: 1 battery on return (rule 47: batteries are the money; there is no separate "electricity" pay).
 - NEGOTIATION: ASK FOR MORE: "One. It's what I have this week." ADVANCE: none.
 - ACCEPT / DECLINE: ACCEPT opens his townhouse (a building he taps). DECLINE, or closing the screen, or never tapping the building, writes nothing: no row, no line, no look, and the offer sits in the same building on the next visit while the job is still real.
 
 ## THE CHOICES
-1. TAKE IT. One electricity on return, from her hand. He taps the door (the townhouse opens in one
+1. TAKE IT. One battery on return, from her hand. He taps the door (the townhouse opens in one
    view), throws the breaker, finds Mr. Okafor: most runs, asleep in his chair, cold and
    alive; he wakes, confused, and the light is on.
 2. TAKE IT, AND ASK FOR IT UP FRONT. She pays now, holding the note out with it. Two asks land.

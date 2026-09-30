@@ -5,6 +5,7 @@ CRISIS: none
 ECONOMY: boom
 PLACE: a reclaimed office tower turned hydroponic farm, floors six to nine; the pump room is on six
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
+CHECKLIST: lines 29 and 30 pass (QR-X sweep, 9/30); a round-one design, not yet run line by line against lines 1 to 28 (QR-G).
 SHOWS: a contract WITH A WINDOW done right, and FAILED WHILE TRYING as an honest end, not a drop (C11, C12)
 
 ## THE SITUATION
@@ -26,7 +27,7 @@ Tuesday. Keep the pumps wet and keep people off six. Some nights people come."
   - "Cinco baterías. Three nights, hasta el camión."
   - "Keep the pumps wet and keep people off six."
   - "Some nights people come."
-- PAY, SHOWN BEFORE ACCEPT: 5 batteries on Thursday, plus first pick of the harvest at cost.
+- PAY, SHOWN BEFORE ACCEPT: 5 batteries on Thursday, plus first pick of the harvest at cost (FOOD, rule 47).
 - NEGOTIATION: ASK FOR MORE: "Cinco, and the pick." ADVANCE: none. The one other ask is the start day (choice 3).
 - ACCEPT / DECLINE: ACCEPT sets Thursday on the map's clock. DECLINE, or closing the screen, or never tapping the building, writes nothing: no row, no line, no look, and the offer sits in the same building on the next visit while the job is still real.
 

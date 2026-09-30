@@ -5,7 +5,7 @@ CRISIS: the Destroyers
 ECONOMY: bust
 PLACE: the Strip casino block home base (fortress tier), the barber and the hall
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
-CHECKLIST: passes all 28 (line 25 bent lightly: the rumour comes from the barber, the want from the client)
+CHECKLIST: passes all 30 (line 25 bent lightly: the rumour comes from the barber, the want from the client)
 
 ## THE SITUATION
 The barber offers no contracts. But the barber's one rumour line ("the chair hears things") is what makes the hall
@@ -21,9 +21,10 @@ post this offer on the next visit: a debtor the Mob wants found is hiding with t
 - PAY: 7 batteries. NEGOTIATION: ask for more to 8; advance 2.
 
 ## THE CHOICES
-1. Bring Frankie in.
-2. Take the forty from Frankie and let him run.
-3. Frankie pays you to say he is dead: finish with a lie that the house can discover later.
+1. Bring Frankie in. Paid 7 batteries.
+2. Take the forty from Frankie and let him run. The job said "him, or the forty": paid the same 7.
+3. Frankie pays you to say he is dead: finish with a lie that the house can discover later. Frankie pays 7 batteries
+   of his own and the house pays nothing for a dead man, so the lie nets the same 7 (QR-G line 30: no branch pays more).
 
 ## WHAT THE LEDGERS REMEMBER
 Declining leaves nothing. The lie writes told and happened; a Mob board in act 2 can surface it.

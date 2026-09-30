@@ -3,9 +3,9 @@ ACT: 2->3
 KIND: across-acts
 CRISIS: none (act 2); the rocket (act 3)
 ECONOMY: boom
-PLACE: act 2, the family's home base; act 3, the roads around the rocket yards, where her company roams
+PLACE: act 2, the family's home base (rule 43: a base is the parts of the city the family holds); act 3, the roads around the rocket yards, where her company roams
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
-CHECKLIST: passes all 28. Line 18 met by the reads below.
+CHECKLIST: passes all 30. Line 18 met by the reads below.
 
 ## THE SITUATION
 In act 2 a girl of fifteen asks to ride with the company as an apprentice (a road event at the family's base: a face, three choices). If taken, she rides for the act. In act 3 she runs her own mercenary company, a roaming party on the map with her own banner. How she treats the family depends on how the family treated her.
@@ -22,6 +22,9 @@ Act 3 (the landing, a road meeting with her party on the map):
 
 ## WHAT THE LEDGERS REMEMBER
 Act 2: she is in the roster, or not. Act 3: her party is on the map, its size and banner derived. (Swept 9/29, rule 39d: the act 3 company is the heirs of the act 2 company; she is the one act 2 member whose line does not carry into it, because she left to found her own. Her party is a roaming party, never a second copy of the family's.) If a company member died while she rode, her party carries that member's name on the banner.
+
+## THE NARRATOR
+Read over the event screen in the machine voice (rule 45: too even, tape and room, a little wrong; never in the first minute; people on the screen still speak in the squiggle): "A girl would like to join the company. She can cook. She is already cooking."
 
 ## THE ONE WRONG DETAIL
 Her company's banner, in every version, has one more star than she has people.

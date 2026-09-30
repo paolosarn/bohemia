@@ -6,7 +6,7 @@ ECONOMY: boom
 PLACE: the new solar road north of the rocket yard, where three sets of heavy tyre marks leave the paving and go down into a dry wash with nothing on the map at the end
 STATUS: draft:true, research only, nothing built (rule 35)
 SHAPE: E3 THE TRACKS AT THE FORK (QR-B)
-CHECKLIST: passes all 28 (lines 3, 9 and 12 read as not applicable to a road event)
+CHECKLIST: passes all 30 (lines 3, 9 and 12 read as not applicable to a road event)
 NOT A REPEAT OF: QD-B02 (act 1, a Destroyer band's footprints turning toward home). Here the tracks are TRUCKS in a boom, the danger is theft from the build, not a raid, and the reading is built to be wrong once.
 
 ## THE SITUATION
@@ -37,6 +37,9 @@ He says it plainly, so the clue is never too subtle (`Q038.X3`).
 - Mark: a place on the map and a contract in a hall, both optional from then on.
 - Keep moving writes nothing. The world still runs (`Q065.W6`): a week later the feed carries a post that the east
   clinics are on generator hours. It names no one and grades no one.
+
+## THE NARRATOR
+Read over the event screen in the machine voice (rule 45: too even, tape and room, a little wrong; never in the first minute; people on the screen still speak in the squiggle): "Three trucks went in. The tracks are clear about that. They are less clear about the rest."
 
 ## THE ONE WRONG DETAIL
 The tyre marks start in the middle of the sand, with no marks leading in.

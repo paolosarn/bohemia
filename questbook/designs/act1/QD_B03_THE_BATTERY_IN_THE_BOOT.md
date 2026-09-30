@@ -5,6 +5,7 @@ CRISIS: none
 ECONOMY: either
 PLACE: night camp under a highway overpass, on the map between two faction towns
 STATUS: draft:true, research only, nothing built (rule 35)
+CHECKLIST: lines 29 and 30 pass (QR-X sweep, 9/30); a round-one design, not yet run line by line against lines 1 to 28 (QR-G).
 SHAPE: E4, THE QUARREL IN THE COMPANY (QR-B)
 
 ## THE SITUATION
@@ -31,6 +32,9 @@ Accused (only if asked): "I paid for what we did on the road. You want it back, 
 - People: a possible departure, a possible friendship, a possible injury.
 - Standing with the widow's settlement (choice 2).
 - The echo: whichever pair forms, the two speak about this night once, later, in a different event.
+
+## THE NARRATOR
+Read over the event screen in the machine voice (rule 45: too even, tape and room, a little wrong; never in the first minute; people on the screen still speak in the squiggle): "The company counts to the same number twice. Only one of the counts is correct."
 
 ## THE ONE WRONG DETAIL
 When they count the batteries a second time, there is one more than there was, and nobody put it there.

@@ -5,7 +5,7 @@ CRISIS: the Network crumbling
 ECONOMY: either
 PLACE: a walled home base on the north edge (a reclaimed outlet mall); the target is a roaming party on the map that moves at night and leaves no camp tracks
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
-CHECKLIST: passes all 28. Line 12 met by choice C.
+CHECKLIST: passes all 30. Line 12 met by choice C.
 
 ## THE SITUATION
 Act 3. A roaming party has been hitting caravans for a season. It never camps: on the map its tracks go on through the night. It is Network loyalists, people without implants who lost their jobs when the halls went dark, and it is the hardest group fight the offer board holds this act. The offer screen says so plainly. Declining because it is too strong for you is free (the contract law).
@@ -14,7 +14,7 @@ Act 3. A roaming party has been hitting caravans for a season. It never camps: o
 - SETTLEMENT: the outlet mall base. BUILDING: the hall (a former shoe store, the security gate half up).
 - CLIENT PORTRAIT: CAPTAIN RUTH OYELARAN, forties, a Bottega woven vest over body armour.
 - THE SCREEN'S LINES: "They don't sleep. You'll have to." / "Twelve of them, maybe fourteen. Good gear." / "If that's too many, say so. Nobody here will think less."
-- PAY: 18 batteries, and the mall's walls count as the family's for one act (a place to rest the company). NEGOTIATION: ask for more: 20. Ask for an advance: 5.
+- PAY: 18 batteries, and a PART (rule 43: a contract can hand a part): the mall's east wing becomes a part of the city the family holds, a place to rest the company with lots on its build screen, until it is lost. NEGOTIATION: ask for more: 20. Ask for an advance: 5.
 - ACCEPT / DECLINE. Declining writes nothing.
 
 ## THE CHOICES

@@ -8,7 +8,7 @@ STATUS: draft:true, research only, nothing built (rule 35). Names and lines are 
 PLACE-THAT-ASKS: PL14
 FIRST-LINE: FL02
 TWIST: T15 MERCY COSTS YOUR OWN COIN (costs batteries)
-CHECKLIST: passes all 28 (line 2 read under the 9/28 ruling; lines 17 and 18 do not apply)
+CHECKLIST: passes all 30 (line 2 read under the 9/28 ruling; lines 17 and 18 do not apply)
 
 ## THE SITUATION
 Act 2, a bust year inside the clawing back. The depot runs the valley's parts exchange: every pump coupling, fuse and breaker is logged, lent and taken back. A brass pump coupling went out on loan to Arden Street and never came back. The depot wants it, or the man who signed for it.
@@ -23,7 +23,7 @@ Act 2, a bust year inside the clawing back. The depot runs the valley's parts ex
   3. "Bring the part, or bring the man and he can explain it to my boss."
   4. "Half up front if you want. It's policy."
 - PAY: K x 2 days + R1 (Julio's street has people who will stand with him) + S (bust). Batteries.
-- NEGOTIATION: ASK FOR MORE: one step, then "That's the schedule. I don't set it." (bust, low ceiling). ADVANCE: half, by policy, before you ask; a debt if you drop. ASK FOR IT IN KIND: a fuse of your choice from the shelf instead of batteries, at the depot's price. Third push: "Next company." Nothing written.
+- NEGOTIATION: ASK FOR MORE: one step, then "That's the schedule. I don't set it." (bust, low ceiling). ADVANCE: half, by policy, before you ask; a debt if you drop. ASK FOR IT IN KIND: TAPE (a fuse of your choice from the shelf, the depot's repair stock) instead of batteries, at the depot's price (rule 47). Third push: "Next company." Nothing written.
 - ACCEPT / DECLINE: accept, Arden Street is on the map. Decline: "Okay." She stamps the next slip. Nothing written.
 
 ## THE CHOICES

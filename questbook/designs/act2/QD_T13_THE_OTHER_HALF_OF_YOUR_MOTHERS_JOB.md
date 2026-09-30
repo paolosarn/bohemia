@@ -7,7 +7,7 @@ PLACE: the first home base's neighbour, the co-op blocks (town tier); the hall; 
 SITUATION: the second generation's first hall (the offer the flip lands on, QD-T12 A): Chayo Beltrán, who hired the first person in act 1 to move a strongbox halfway, posts the other half -> the box arrives, and the heir learns what the first person promised and what it cost
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 TWIST: none
-CHECKLIST: passes all 28
+CHECKLIST: passes all 30
 DEFAULT READ (act 1 had no such job): Chayo's box was carried halfway by "a woman in a long coat who said she'd be back"; the heir is told that was his mother, and the ledger does not argue.
 
 ## THE SITUATION
