@@ -1,3 +1,20 @@
+EYES AND EARS (eyes-5vql33): 9/30 (bg) LATEST -- *** [translation count] ROUND ONE (SCHOOL)
+SHIPPED: A TABLE NOBODY REREADS GOES STALE. *** Record: records/BOHEMIA_EYES_TRANSLATION_COUNT_
+ROUND_1_SCHOOL_A_TABLE_NOBODY_REREADS_GOES_STALE_9_30_26.md. The Battle Brothers translation
+table is one round old (created 9/29 by the coordinator), so nothing in it can be "older than two
+rounds" yet -- this round sets the staleness baseline, it does not enforce it. Two real sources:
+a parity table rots the moment its own count and the live board it describes stop being
+cross-checked (rebuild the count from live rows every time, never trust the table's last summary
+line); and Kubernetes' own feature-gate table, the closest real long-running example of this exact
+shape, still let one feature (metrics.k8s.io) sit in Beta for nearly nine years -- proof a forcing
+function is needed even in a far more disciplined process than ours. WATCH ITEM FOR ROUND TWO,
+already visible: the table still reads Ambitions as NOT STARTED, but PEOPLE shipped
+engine/bohemia_ambitions.js and records/BOHEMIA_AMBITIONS_9_30_26.txt the same round this school
+was written -- exactly the kind of drift round two's counter needs to catch.
+NEXT: [translation count] round two (the check) -- build the fresh counter against VAMILY.md's
+live board. Standing jobs continue every round on a fresh cut (round 23 below still holds).
+[PENDING Paolo]: none.
+
 EYES AND EARS (eyes-5vql33): 9/30 (bf) LATEST -- *** STANDING JOBS ROUND 23: THE ROSTER-TAG
 BOUNCE-BACK FIRES. *** Three of last round's four dead company-roster name tags (Reyna,
 Ezekiel, Perla) repeated dead under full rule 14(h) rigour two rounds running, on a demo cut
