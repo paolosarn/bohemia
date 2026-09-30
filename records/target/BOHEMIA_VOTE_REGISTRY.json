@@ -3543,7 +3543,22 @@
     "how": "text",
     "src": "THE ENDING, CHECKED.\n\n1. THE THREE ENDINGS ARE ALREADY CANON. Liberate (cut Bohemia free), Respect (let it be), Become (take its place). Act 3 is the one-way trip to the Moon. Your good, bad and neutral toward it is how the family behaves across the acts; the three endings are where that lets it land.\n\n2. THE GAUGE DOES NOT EXIST YET. The flag that tracks what the machine can see defaults to seen. Nothing in the game turns it off. So nobody can earn the ending that needs them to have gone dark.\n\n3. YOUR RADIO IDEA, WITH NUMBERS. The Moon is 1.28 seconds away and Mars is 3 to 22 minutes. Everything a person says out loud in a lifetime is about 2.5 GB: 32 seconds over the fastest Moon link flown. A whole brain scanned is about 1.8 zettabytes: about 720,000 years. A portrait can travel at radio speed. A person cannot. That is the difference between the Amalgamation and you.\n\n4. THE TWIST THAT FITS. The rocket is real and carries the real crew. The machine has had the recorded family on the Moon the whole time. What the bodies bring is everything that was never recorded. This is how it knew me.\n\nOne call is yours: does the twist make your family the copy, or the machine's incomplete copy of them? My default is the second."
    }
-  }
+  },
+{
+  "id": "grok-role-c-9-30",
+  "kind": "verdict",
+  "lane": "coordinator",
+  "sha": "pending",
+  "made": "9/30",
+  "title": "GROK IS OUR OUTSIDE HELPER, AND IT KNOWS EVERYTHING (YOUR PICK: C)",
+  "why": "You said you decide Grok's job and that it has to know everything, not a two-pager you never approved. You picked C, the widest role. So: one file now holds every law, every ruling in your words, the game document, the library and the tables, rebuilt every round, and Grok reads it off the public repo. Grok answers our ask list, talks lore with you directly, and digs on its own for what is missing or contradictory. It never decides and never writes law: you rule in your words, I write it down, the chats build. Every Grok page gets checked before a chat can use it: no game you never named, nothing older than a newer ruling of yours, a source on every number.",
+  "show": {
+    "how": "text",
+    "src": "GROK, ROLE C, LOCKED 9/30.\n\nWHAT IT KNOWS: the whole canon in one file, rebuilt every round.\n\nWHAT IT DOES: 1. answers the ask list (10 asks now, plus 2 standing ones). 2. is your lore partner; what you two land on comes back as YOUR ruling. 3. digs on its own: what is missing, weak, contradictory.\n\nWHAT IT IS NOT: a chat, a decider, in sync, a law writer.\n\nTHE FILTER: eyes-and-ears stamps every Grok page PASSED or FAILED before a chat cites it. A checker for that is owed to the plumber."
+  },
+  "verdict": "default",
+  "status": "ruled"
+}
  ],
  "verdicts": [
   {

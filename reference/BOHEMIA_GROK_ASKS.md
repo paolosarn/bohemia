@@ -1,5 +1,5 @@
 # THE ASKS FOR GROK (the coordinator rewrites this every VAMILY; Paolo pastes it to Grok and pastes the answers back)
-# 9/30/26, round one. The first asks are the ones our own machines cannot do: our sandboxes are blocked from the Battle
+# 9/30/26, round one. ROLE C GREENLIT 9/30 ('Lets do c'): besides these asks, Grok is his lore partner and digs on its own (asks 11-12). The first asks are the ones our own machines cannot do: our sandboxes are blocked from the Battle
 # Brothers wiki and dev blog, so every number in our library is from memory. Grok can read them.
 
 1. THE BEAST TABLE, EXACT. For each Battle Brothers beast (Direwolf, Frenzied Direwolf, Hyena, Nachzehrer, Webknecht,
@@ -23,3 +23,12 @@
    'situation' modifier and its effect on prices and recruits.
 9. THE FOLLOWERS (the retinue). Every follower, what they cost, what they change.
 10. THE ORIGINS. Every origin (base and DLC) and exactly what it changes.
+
+11. YOUR OWN DIGGING (standing, every round). Read the whole master file. Write a page headed WHAT I FOUND ON MY OWN:
+    what is missing from the design, what is weak, what contradicts what (cite the two files and their dates; the newer
+    date wins in our canon, so say which one should give). Then research whatever you think we need that nobody asked
+    for. Sources on everything.
+12. THE LORE HOLES (standing). Against the three acts at once, the Amalgamation as the villain, the box twist at the
+    ending, the Moon, the de-extinct beasts, the dollar's death by circular tech financing: where does the story break
+    against real science, real economics, real history? One hole per line, with the source that breaks it and one way
+    it could hold. Paolo talks these through with you; only what he then rules becomes canon.

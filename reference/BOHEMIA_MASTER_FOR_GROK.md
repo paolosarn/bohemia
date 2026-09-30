@@ -577,7 +577,7 @@ THE FIGHT VERDICT (DIRECTION posts it every round, coverage order). ROUND 20, 9/
 46. NO TWO COMBAT BOARDS ALIKE; RECREATE BATTLE BROTHERS WITH OUR WHOLE SWAG (PAOLO 9/29: 'think about all the assets you're gonna need for the combat board... they're gonna be used in different ways... no single combat map in Battle Brothers is exactly the same... different terrains, nature zones, tile blockers... let's just recreate Battle Brothers with our whole swag, and if you have any questions think about how did Battle Brothers do it'; records/BOHEMIA_PAOLO_NO_TWO_COMBAT_MAPS_ALIKE_RECREATE_BB_WITH_OUR_SWAG_9_29_26.md; the inventory records/BOHEMIA_THE_COMBAT_BOARD_ASSETS_WHAT_WE_HAVE_AND_WHAT_WE_NEED_9_29_26.md). (a) THE BOARD IS GENERATED: cut from the map cell's terrain kind and its district's layout, blockers and roofs, the edge from the neighbours, seeded, never the same twice, always readable as the place he tapped (COMBAT [board generator] with WORLD [board terrains]). (b) FIFTEEN TERRAINS x EIGHT KINDS (floor, blocker, cover, mound/roof, edge, dressing, light, weather) is the inventory sheet; the city half exists, the nature half barely; COOK [board assets] counts HAVE/NEED exactly and cooks the desert, the shore, the hills and the ruin first, house-sized, to DIRECTION's card. (c) THE META-RULE: any lane's question about how a system works is answered first by HOW DID BATTLE BROTHERS DO IT (the library), then our swag; nobody asks him what the library answers. *** (d) 9/29 WEAPONS, THE SAME RULE (Paolo: 'what type of guns would fit their type of melee weapons... Battle Brothers has a handgun, is that a bazooka now?'): every BB weapon CLASS is a rule and gets the Bohemia weapon that fits it (records/BOHEMIA_BATTLE_BROTHERS_SCHOOL_THE_WEAPON_CLASSES_AND_OUR_ARSENAL_9_29_26.md): the handgonne is the SHOTGUN (a cone, one shell), the mortar is the BAZOOKA, the greatsword is the machine gun (33i), the axe breaks cover, the spear is the bayonet's spearwall, the dagger is the ice pick that ignores plates; AMMUNITION IS SCARCE in act 1 (a bullet costs one; bows and blades are real weapons) and that is why act one feels medieval. COMBAT [weapon shapes] owns the table, TUNING [ammo] the scarcity, MODS' weapons file carries it. records/BOHEMIA_PAOLO_WHAT_GUN_IS_THE_HANDGONNE_WEAPONS_MECHANIC_FIRST_9_29_26.md *** *** (e) CORRECTED 9/29 (Paolo: 'most of it will be city-based terrain... every combat fight damn near like a block war... a pistol could be comparable to a dagger, a machine gun to a two-handed hammer or something'): MOST BOARDS ARE CITY, nature is the edge and the beasts' ground; COOK cooks the CITY gaps first (roofs as high ground, burnt variants, fences, barriers, trailers, containers, rubble), then desert, shore, hills; his weapon EXAMPLES (not rulings, 47b): pistol = dagger, machine gun = a two-hander; the real mapping is decided together in VOTE. records/BOHEMIA_PAOLO_MOSTLY_CITY_A_BLOCK_WAR_PISTOL_IS_A_DAGGER_9_29_26.md ***
 47. THE SIX RESOURCES, AND THE GUNS DECIDED TOGETHER (PAOLO 9/29: 'the Battle Brothers resource and currency situation fits ours perfectly: medicine, ammo, repair tools, food, gold... translates very nicely into what we've already built... when it comes to the guns we need to do big brain research and gather up all the options and then make decisions together; I'm just giving you examples'; fight-gets-deep law s12; records/BOHEMIA_PAOLO_FIVE_RESOURCES_LIKE_BATTLE_BROTHERS_AND_GUNS_DECIDED_TOGETHER_9_29_26.md). (a) BATTERIES = gold, FOOD = provisions, MEDS = medicine, ROUNDS = ammo, TAPE = repair tools, plus WATER; consumed the BB way (per man per day, per shot, per plate, per wound); ECONOMY [six resources] the ledger rules, UI [bb interface] the HUD's six, TUNING the numbers, MODS the file. (b) THE WEAPONS GO TO HIM: COMBAT [weapon shapes] is RESEARCH then VOTE ITEMS, two or three options per Battle Brothers class, one class at a time; his pick is canon; 'pistol = dagger, machine gun = two-hander' are his EXAMPLES (46d/e softened); nothing about the guns ships as canon before his pick. *** (c) 9/29: 'crossbows or actual melee weapons... comparable to one of the weaker weapons in Battle Brothers, but if you have no ammo you gotta do what you gotta do': the WEAK TIER is in the research and the VOTE options (bats, machetes, axes, pipes, knives, spears, crossbows, bows): cheap, everywhere, no ammo, each with one thing the gun cannot do (silence, no reload, breaking cover, the puncture); ammo scarcity is what makes them matter. records/BOHEMIA_PAOLO_CROSSBOWS_AND_MELEE_ARE_THE_WEAK_TIER_9_29_26.md ***
 48. EVERYTHING IN BATTLE BROTHERS HAS A PROPER TRANSLATION (PAOLO 9/29: 'the perks need to be translated, everything needs to be translated... I don't even have to write you this message'; records/BOHEMIA_PAOLO_EVERYTHING_NEEDS_A_PROPER_TRANSLATION_9_29_26.md). The table records/BOHEMIA_THE_BATTLE_BROTHERS_TRANSLATION_TABLE_9_29_26.md: 62 rows, one per BB system, mechanic kept and our skin, each with an owner and a status (12 done, 40 in hand, 8 researched, 3 not started: perks, ambitions, followers). COMBAT [perks translated] is created (a 23-perk tree exists against BB's ~50); PEOPLE [followers] and [ambitions] created; EYES [translation count] reads the table every round and a NOT STARTED older than two rounds is red.
-49. AN OUTSIDE RESEARCH HELPER (PAOLO 9/30: he pays for Grok and never uses its chat; 'there's extra shit I could be using to help'). Grok is a RESEARCH HELPER, never a lane, never a decider, never in sync: reference/BOHEMIA_GROK_BRIEF.md is the two-page brief he pastes once; reference/BOHEMIA_GROK_ASKS.md is the ask list the coordinator rewrites every VAMILY; he pastes the answers back to the coordinator, who files them under 'source: Grok, unverified' in reference/library/ and the lanes verify what they use. The first asks are the Battle Brothers numbers our machines are blocked from (the wiki and the dev blog): beasts, enemies, weapons, perks, resources, fight length, the map's density, settlements, followers, origins. Rule 33j's library gets its sources this way until the network setting changes. *** 9/30: the repo is PUBLIC (his words: 'I ain't scared'); Grok reads the brief and the asks off raw.githubusercontent.com and can read VAMILY.md, laws/ and reference/library/ itself; he pastes only the answers back. ***
+49. AN OUTSIDE RESEARCH HELPER (PAOLO 9/30: he pays for Grok and never uses its chat; 'there's extra shit I could be using to help'). Grok is a RESEARCH HELPER, never a lane, never a decider, never in sync: reference/BOHEMIA_GROK_BRIEF.md is the two-page brief he pastes once; reference/BOHEMIA_GROK_ASKS.md is the ask list the coordinator rewrites every VAMILY; he pastes the answers back to the coordinator, who files them under 'source: Grok, unverified' in reference/library/ and the lanes verify what they use. The first asks are the Battle Brothers numbers our machines are blocked from (the wiki and the dev blog): beasts, enemies, weapons, perks, resources, fight length, the map's density, settlements, followers, origins. Rule 33j's library gets its sources this way until the network setting changes. *** 9/30: the repo is PUBLIC (his words: 'I ain't scared'); Grok reads the brief and the asks off raw.githubusercontent.com and can read VAMILY.md, laws/ and reference/library/ itself; he pastes only the answers back. *** *** (b) 9/30, HIS GREENLIGHT, ROLE C ('u dont decide i do... grok gotta know everything everything, not a fucked up ai two pager that i didnt approve'; then, given A/B/C: 'Lets do c'; records/BOHEMIA_PAOLO_GROK_IS_C_IT_KNOWS_EVERYTHING_AND_DIGS_ON_ITS_OWN_9_30_26.md; laws/BOHEMIA_ADDENDUM_AN_OUTSIDE_HELPER_KNOWS_EVERYTHING_9_30_26.md). GROK KNOWS EVERYTHING: reference/BOHEMIA_MASTER_FOR_GROK.md is the whole canon in one file (this front page, CLAUDE.md, the GDD, the laws master, the canon index, every law, every ruling of his, the library, the tables), built by reference/build_grok_master.py, REBUILT BY THE COORDINATOR EVERY VAMILY; the two-pager is dead as the story and is only the how-to-answer page. GROK DOES THREE THINGS: answers the ask list; is HIS LORE PARTNER (he talks to it directly, what they land on comes back as a ruling in HIS words); DIGS ON ITS OWN (tells him what is missing, weak or contradictory, researches unasked; the coordinator turns what holds into jobs, rule 41). STILL NOT a lane, a decider, in sync, or a writer of law: Paolo decides, Grok informs, the coordinator writes, the lanes build. THE FILTER: every Grok page is filed in reference/library/grok/ as 'source: Grok, unverified'; EYES [grok filter] checks it against rule 6 (no unnamed game, each reference in its department), newest-date-wins, and sources on every number before any lane cites it; PLUMBER [grok filter gate] owed. ***
 50. THE ZOOM RANGE IS A PILLAR (PAOLO 9/30, five Pocket City 2 screenshots from his phone at reference/pocket_city_2/: 'once you understand the scale of how far you can zoom out and zoom in, that's really important to me'; records/BOHEMIA_PAOLO_POCKET_CITY_2_THE_ZOOM_RANGE_9_30_26.md). ONE CONTINUOUS PINCH from one person on a bench (full 112 art: the talker, the barber) through the settlement screen through the block to the whole valley on one screen, the same HUD at every level (24), no mode; the near end is looking, not walking (38b); the person does not grow with the zoom (21, 34: at the far end he is the marker); travel is the map (33). Pocket City 2's department widens to the drop-in transition AND the zoom range, nothing else. RUN [zoom range] owns the camera's ladder (the demo has two stops today and the second squeeze lies); EYES [zoom range measured] measures his five files and ours; UI: one HUD at every stop; PLUMBER [native map] + RUN [map pixels] are what make the far end readable. Every measurement in the fleet is taken at his phone's profile, 1170x2532 at 3x. *** (b) 9/30, his sixth shot ('how it looks in vertical and horizontal'): BOTH ORIENTATIONS. Portrait is the default; landscape is the same game with the HUD re-laid to the corners (Pocket City 2's way), the same buttons, the same stops; UI [landscape] lays it out; PLUMBER's driver gains the landscape profile (2532x1170 at 3x) beside the portrait one; EYES measures both; a screen that breaks when the phone turns is red. ***
 51. ONE MAIN QUEST, TWO CONTRACTS, THE PHONE ONLY SHOWS (PAOLO 9/30: 'only one main quest at a time and 2 contracts at a time; Battle Brothers only allows 1 at a time and that's wack, a caravan quest takes you to a city and near that city you can kill something; through the phone you shouldn't be able to accept contracts but you can see what settlements have certain contracts at that time'; quests addendum s9; records/BOHEMIA_PAOLO_ONE_MAIN_QUEST_TWO_CONTRACTS_THE_PHONE_ONLY_SHOWS_9_30_26.md). (a) one main quest thread; (b) TWO contract slots, once taken you finish, declining free, a third waits; (c) the cracked phone (city view) lists which settlement offers what right now, a board that ages, and cannot accept; accepting is a mouth at the place on the settlement screen's contract offer. RUN [settlement screen] carries the two slots and the offer; UI [phone contracts] the read-only board on the phone (a feed post kind); QUESTS pairs contracts that share a road (research); ECONOMY [contract pay] prices the pair; TUNING holds the slot count.
 
@@ -2991,6 +2991,56 @@ opening line. Each is the SOLE home of load-bearing canon. Never archive one.
 - `BOHEMIA_GDD_v4.md`
 - `BOHEMIA_GDD_v5.md`
 - `BOHEMIA_PAOLO_TASTE_CANON.md`
+
+
+====================================================================================================
+# LAW BOHEMIA_ADDENDUM_AN_OUTSIDE_HELPER_KNOWS_EVERYTHING_9_30_26.md
+# source: laws/BOHEMIA_ADDENDUM_AN_OUTSIDE_HELPER_KNOWS_EVERYTHING_9_30_26.md
+====================================================================================================
+# BOHEMIA ADDENDUM: AN OUTSIDE HELPER THAT KNOWS EVERYTHING (Grok, role C) -- 9/30/26, LOCKED
+Paolo 9/30, two messages: 'grok gotta know everything everything, not a fucked up ai two pager that i didnt approve'
+and, given three roles, 'Lets do c'. His words: records/BOHEMIA_PAOLO_GROK_IS_C_IT_KNOWS_EVERYTHING_AND_DIGS_ON_ITS_OWN_9_30_26.md
+and records/BOHEMIA_PAOLO_GROK_AS_A_RESEARCH_HELPER_9_30_26.md. Front page: rule 49 and 49b. Amends rule 49 and the
+'research helper' half of laws/BOHEMIA_ADDENDUM_RESEARCH_LANES_9_4_26.md: an outside model may hold the whole canon.
+
+## 1. WHO DECIDES GROK'S JOB
+Paolo. 'u dont decide i do.' The coordinator proposed a two-page brief and a narrow scope; that was not approved and is
+dead as the whole story. The role below is his pick, C, the widest of the three he was offered.
+
+## 2. WHAT GROK KNOWS
+Everything current. reference/BOHEMIA_MASTER_FOR_GROK.md is one file that holds CLAUDE.md, the front page of VAMILY.md,
+the GDD, the laws master, the canon index, every law newest first, every ruling of his verbatim, the Battle Brothers
+library, the translation table, the beast rounds, the weapons table, the board inventory and the ask list. It is built
+by reference/build_grok_master.py and rebuilt every VAMILY by the coordinator. The repo is public (his words 9/30: 'I
+ain't scared'); Grok reads the file at
+https://raw.githubusercontent.com/paolosarn/bohemia/main/reference/BOHEMIA_MASTER_FOR_GROK.md . If a piece of canon is
+not in the file, the builder is wrong and the coordinator fixes the builder, never the canon.
+
+## 3. WHAT GROK DOES (role C)
+(a) Answers the coordinator's ask list, reference/BOHEMIA_GROK_ASKS.md, with sourced pages. Paolo pastes the asks in and
+the answers back.
+(b) Is Paolo's lore partner. He talks to Grok directly about the story, the three acts, the ending, the beasts, whenever
+he wants. What they land on reaches the coordinator as a ruling IN HIS WORDS and becomes law the same turn, as every
+ruling does. Grok's own text is never pasted into a law.
+(c) Digs on its own. Grok reads the pack and tells him what is missing, weak or contradictory, and researches what it
+thinks we need without being asked. The coordinator reads those pages every VAMILY and turns what holds into jobs (rule
+41); what does not hold is filed with the reason.
+
+## 4. WHAT GROK IS NOT
+Not a lane, not a decider, not in sync, not a writer of law or code. Paolo decides; Grok informs; the coordinator writes;
+the lanes build. Nothing Grok says is canon until it is in his words in a ruling.
+
+## 5. THE FILTER (the machine gate this law owes)
+Every Grok page is filed under reference/library/grok/ with the header 'source: Grok, unverified, pasted by Paolo <date>'.
+Before any lane cites a Grok page, EYES [grok filter] checks it: (1) no reference game he has not named, and every named
+one inside its department (laws/BOHEMIA_ADDENDUM_A_REFERENCE_GAME_BELONGS_TO_ONE_DEPARTMENT_9_5_26.md); (2) nothing
+that contradicts a newer ruling in BOHEMIA_CANON_INDEX.md; (3) every number carries a source or is marked (recall).
+A page that fails is marked FAILED FILTER at its head with the reason and is not cited. GATE OWED: PLUMBER builds
+grok_filter_gate.js, which refuses a commit that cites a reference/library/grok/ page whose head is not PASSED FILTER.
+
+## 6. WHAT THIS SUPERSEDES
+Rule 49's 'two-page brief' as the whole story. reference/BOHEMIA_GROK_BRIEF.md stays as the how-to-answer page only.
+The 'never a lane, never a decider, never in sync' line of rule 49 STANDS.
 
 
 ====================================================================================================
@@ -48235,6 +48285,45 @@ File: `bohemia_combat_v12.html`. Engine: phase-lock baked into `bohemia_engine.m
 
 
 ====================================================================================================
+# HIS WORDS BOHEMIA_PAOLO_GROK_IS_C_IT_KNOWS_EVERYTHING_AND_DIGS_ON_ITS_OWN_9_30_26.md
+# source: records/BOHEMIA_PAOLO_GROK_IS_C_IT_KNOWS_EVERYTHING_AND_DIGS_ON_ITS_OWN_9_30_26.md
+====================================================================================================
+# PAOLO 9/30/26: GROK IS C. IT KNOWS EVERYTHING, IT HELPS HIM THINK, AND IT DIGS ON ITS OWN
+Recorded by the coordinator the turn it was said. His words verbatim, then my reading. Rule 49b.
+
+## HIS WORDS
+Message one: "Okay and the grok shit i need to give a greenlight to what groks gonna be doing for us bro u dont decide i do
+and from what I remember ur really insitent on it being some tiny ass scope shit like nah grok gotta know everything
+everything not afucked up ai two pager that i didnt approve"
+
+I put three roles to him. A: Grok answers the coordinator's ask list, a research arm only. B: A plus Grok is his lore
+partner, he talks to it directly and pastes rulings back. C: B plus Grok reads the whole pack and does its own digging,
+tells him what is missing, weak or contradictory, researches without being asked; every Grok page filtered against the
+reference law before a lane touches it. I recommended B.
+
+Message two: "Lets do c"
+
+## MY READING (rule 49b, LOCKED)
+1. GROK'S ROLE IS C, the widest one. He decides Grok's job, not the coordinator ('u dont decide i do'). The two-pager as
+   the whole story is dead; it never was approved. Grok's knowledge is reference/BOHEMIA_MASTER_FOR_GROK.md, every law,
+   every ruling of his, the GDD, the laws master, the canon index, the library, the tables, one file, rebuilt every VAMILY
+   by reference/build_grok_master.py. If it is canon and it is not in that file, the builder is wrong.
+2. THREE THINGS GROK DOES. (a) Answers the ask list (reference/BOHEMIA_GROK_ASKS.md) with sourced pages he pastes back.
+   (b) Is his lore partner: he talks to Grok about the story, the acts, the ending, the beasts whenever he wants; what
+   they land on comes to the coordinator as a ruling in his words and becomes law the same turn. (c) Digs on its own:
+   reads the pack, tells him what is missing, weak or contradictory, researches what it thinks we need.
+3. WHAT GROK IS NOT. Not a lane, not a decider, not in sync, not a writer of law. Paolo decides; Grok informs; the
+   coordinator writes. Nothing Grok says is canon until it is in his words in a ruling.
+4. THE FILTER. Every Grok page is filed under 'source: Grok, unverified' in reference/library/grok/. Before a lane cites
+   it, EYES [grok filter] checks it against the reference law (no game he has not named, and each reference inside its
+   department; rule 6 of the front page, laws/BOHEMIA_ADDENDUM_A_REFERENCE_GAME_BELONGS_TO_ONE_DEPARTMENT_9_5_26.md),
+   against newest-date-wins in the canon index, and against the analog horror bible; a page that fails is marked and
+   not cited. The lanes verify every number they use, as they do for every source.
+5. WHERE GROK'S 'WHAT IS MISSING' GOES. The coordinator reads it every VAMILY, turns what holds into jobs on the lanes
+   (rule 41, the manager adds what the words imply), and files what does not hold with why. He never has to sort it.
+
+
+====================================================================================================
 # HIS WORDS BOHEMIA_PAOLO_POCKET_CITY_2_THE_ZOOM_RANGE_9_30_26.md
 # source: records/BOHEMIA_PAOLO_POCKET_CITY_2_THE_ZOOM_RANGE_9_30_26.md
 ====================================================================================================
@@ -55048,7 +55137,7 @@ refused by the coordinator.
 # source: reference/BOHEMIA_GROK_ASKS.md
 ====================================================================================================
 # THE ASKS FOR GROK (the coordinator rewrites this every VAMILY; Paolo pastes it to Grok and pastes the answers back)
-# 9/30/26, round one. The first asks are the ones our own machines cannot do: our sandboxes are blocked from the Battle
+# 9/30/26, round one. ROLE C GREENLIT 9/30 ('Lets do c'): besides these asks, Grok is his lore partner and digs on its own (asks 11-12). The first asks are the ones our own machines cannot do: our sandboxes are blocked from the Battle
 # Brothers wiki and dev blog, so every number in our library is from memory. Grok can read them.
 
 1. THE BEAST TABLE, EXACT. For each Battle Brothers beast (Direwolf, Frenzied Direwolf, Hyena, Nachzehrer, Webknecht,
@@ -55072,3 +55161,12 @@ refused by the coordinator.
    'situation' modifier and its effect on prices and recruits.
 9. THE FOLLOWERS (the retinue). Every follower, what they cost, what they change.
 10. THE ORIGINS. Every origin (base and DLC) and exactly what it changes.
+
+11. YOUR OWN DIGGING (standing, every round). Read the whole master file. Write a page headed WHAT I FOUND ON MY OWN:
+    what is missing from the design, what is weak, what contradicts what (cite the two files and their dates; the newer
+    date wins in our canon, so say which one should give). Then research whatever you think we need that nobody asked
+    for. Sources on everything.
+12. THE LORE HOLES (standing). Against the three acts at once, the Amalgamation as the villain, the box twist at the
+    ending, the Moon, the de-extinct beasts, the dollar's death by circular tech financing: where does the story break
+    against real science, real economics, real history? One hole per line, with the source that breaks it and one way
+    it could hold. Paolo talks these through with you; only what he then rules becomes canon.
