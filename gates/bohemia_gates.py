@@ -4649,6 +4649,20 @@ GATES = [
      'behind in a repo where ten lanes are pushing.',
      180),
 
+    ('NO OVERLAP', ['node', 'gates/no_overlap_gate.js'],
+     'NO TWO TEXTS ON TOP OF EACH OTHER, NONE CUT OFF BY A PANEL. 9/30, PLUMBER, row [no overlap], rule 44c. '
+     'Paolo 9/29: "when texts are overlapping each other, I dont know why its so difficult for you to '
+     'understand." Through the one driver at phone size, on the demo and the alpha (loading screen, first '
+     'screen, map at opening zoom and far stop): every visible DOM text and every text drawn on an on-page '
+     'canvas; two that cross, or one PARTLY under something that paints, is red; a text wholly under a '
+     'whole-screen cover is not on screen and is not counted. Thirteen planted self-tests, both ways, '
+     'including the three traps the first cuts fell into: an outlined canvas label is drawn nine times, the '
+     'phone cracks are a line drawing, the phone glass is a faint gradient, and hit tests skip anything that '
+     'lets taps through (UI). LANDS RED ON PURPOSE on two planted real cases: the quest line when it wraps '
+     'runs under the settings button (his screenshot element), and the danger line runs under BUILD HERE '
+     '(UI [warning clipped], found the same way). OWED and printed: the fight, the settlement screen, the '
+     'phone opened out, text copied from a scratch canvas. About 220 s.',
+     600),
     ('ONE DRIVER', ['node', 'gates/one_driver_gate.js'],
      'THE DOOR IS ONE PROCEDURE, AND NO NEW CHECKER BUILDS ITS OWN. 9/29, PLUMBER, row [one driver], rule '
      '14(g) ("there is one driver... every lane that walks the five minutes uses it or extends it"). '
