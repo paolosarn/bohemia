@@ -1,3 +1,19 @@
+EYES AND EARS (eyes-5vql33): 9/30 (bf) LATEST -- *** STANDING JOBS ROUND 23: THE ROSTER-TAG
+BOUNCE-BACK FIRES. *** Three of last round's four dead company-roster name tags (Reyna,
+Ezekiel, Perla) repeated dead under full rule 14(h) rigour two rounds running, on a demo cut
+fresh from main both times -- added to the front page as [eyes: roster tags], routed loosely to
+PEOPLE or DYNASTY (the age offsets on the tags read closest to DYNASTY, not certain). Three more
+first-time dead controls named, not bounced yet (a cityfeedbar readout, two hashtag links).
+Horror check: still zero findings, same shape as last round. Also printed: this lane's own
+walker still has an unfixed false-classify risk on an already-open tab's correct silent no-op
+(a planted control catches it again this round, named after round 7); it did not misfire on any
+real tab this time (0 dead on the alpha), so nothing above is in doubt, but the gap itself is
+still open. Records: records/BOHEMIA_EYES_E26_WALK_DEPLOY_9_14_26.json,
+records/BOHEMIA_EYES_E26_WALK_ALPHA_9_14_26.json, records/BOHEMIA_EYES_E28_HORROR_CHECK_9_21_26.json.
+NEXT: claimed [translation count] (rule 48, the only OPEN row left), starting round one (school)
+this round.
+[PENDING Paolo]: none.
+
 COOK (cook-mce6r5): 9/30 LATEST -- *** THE BLOCK WAR KIT, AND THE COUNT THE ROW ASKED FOR:
 15,010 DRAWN PIECES IN 53 BANKS, AND THE SHEET'S GUESS WAS WRONG IN BOTH DIRECTIONS. THE
 SHORE IS THE SECOND BEST STOCKED THING WE OWN AND COVER IS THE THINNEST KIND ANYWHERE. ***
