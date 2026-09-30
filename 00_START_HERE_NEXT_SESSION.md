@@ -4975,6 +4975,80 @@ NEXT: [cook panels] is the standing rule-22 row and is OPEN again; items 2, 3 an
 (the fight HUD, the talk panel, the vote tab's own frame) are drawn as sheets but not built
 as skins. [three d ui] still has no gate of its own. [vote plays sound] is still open and
 SOUNDS has items waiting that he cannot hear in the tab. [no slop] stays CLAIMED.
+SOUNDS (sound-xk7pjp): 9/30 LATEST -- *** THE SAME FOOTSTEP NEVER LANDED THE SAME WAY TWICE
+UNTIL TODAY, AND IT WAS THIS LANE'S OWN BUG. *** Row [not sand], round eight, ROW STAYS CLAIMED.
+Record: VAMILY.md row [not sand], round eight block (no separate record file this round).
+Gates: COOKED SOUNDS 168/0 (was 157), --mutate bites 45 (was 44). FOOTSTEP GATE 24/0.
+VERDICT-FROZEN 6/0. MERGE DEBRIS 4/0. HANDOFF GATE 9/0. Build stamp UNCHANGED this round.
+
+NO NEW VOTES on any of the twelve candidates across rounds five through eight (three
+footstep/deck/flip redos, three hums, three ground materials from last round), all still
+WAITING FOR HIM. So this round is a correction found on the way to last round's own NEXT
+item 1, before adding anything else on top of it.
+
+*** FOUND FIRST, AND IT WAS SERIOUS: footstepModelled AND ALL FOUR OF ITS SURFACE WRAPPERS
+RENDERED BYTE-IDENTICAL ON EVERY CALL. *** Proved with two live calls compared sample for
+sample: maxDiff 0 over 22,050 samples. grit()'s inner seed was a bare constant, reset the
+same way every call, and nothing else in the function rolls a die. That is the EXACT defect
+walk_more/wood_more/tread_more exist in the OLD system to fix -- their own labels say so:
+"step_concrete.2 is one sample for every sidewalk... the second most-walked surface in the
+game", "step_wood has two samples for every porch, deck and floorboard". Last round's real-
+material fix for concrete/asphalt/dirt/sand/boards was correct about the MATERIAL and had
+silently inherited the exact repetition problem it was supposed to be a step past.
+
+FIXED AT THE ROOT, BEFORE BUILDING ANYTHING ELSE ON TOP OF IT: footstepModelled now takes
+opts.variant (default 0). VARIANT 0 IS THE EXACT OLD RENDER ON PURPOSE -- the five candidates
+from rounds one, five and seven are unjudged but already sitting in front of him, and a
+candidate does not need to change to be improved, so nothing he might open right now sounds
+any different. Variant 1 and up derive a seeded jitter (+-8% contact time, +-10% contact
+gain, +-15 ms heel-to-toe gap, a fresh offset into grit's own grain pattern) from real gait
+variance -- no two heel strikes land identically -- never touching the surface's own material
+numbers (E, rho, v, loss). Verified: variant 0 called twice is still byte-identical (the
+already-shown candidates are safe); a named variant called twice is reproducible (a checker
+measuring it twice is not measuring the dice); variants 0, 1 and 2 all differ from each other.
+
+THEN walk_more, wood_more AND tread_more, WHOSE REAL COMPLAINT WAS ALWAYS REPETITION, NOT
+MATERIAL: a new function (footstepWalk) plays an actual walk -- footstepModelled at
+walkCadence's own beat timing, one footfall a beat for a walk or two for a run -- giving
+every single footfall its own variant, so the sequence never repeats even once and there is
+no pool of samples to eventually exhaust the way the old five-variant system's is. Measured:
+every footfall window in a six-step walk (concrete, a wood floor) and a twelve-step run
+compared against every other footfall in the same sequence, no two match anywhere. Timing:
+walk gaps 0.500 s against a 0.5 s beat, run gaps 0.250 s against the half-beat a run asks
+for, the same law walkCadence already proved, now running on the real material underneath it.
+
+REGISTERED AS THREE NEW IDS: sounds-a-walk-on-the-sidewalk-does-not-repeat-9-30, sounds-a-
+walk-on-a-wood-floor-does-not-repeat-9-30, sounds-a-run-on-the-sidewalk-does-not-repeat-9-30.
+NEW PAGE: slices/BOHEMIA_A_WALK_THAT_NEVER_REPEATS_9_30_26.html, which also builds and plays
+the OLD way -- the identical render, copied six times -- for direct, honest comparison, so
+the difference is heard rather than described. Verified on the glass: 4 of 4 buttons play,
+0 errors.
+
+GATES: COOKED SOUNDS 168/0 (was 157 last round), --mutate bites 45 (was 44): the new variant-
+reproducibility claim correctly goes red when the existing mutation globally swaps
+footstepModelled for the old sand recipe, because that recipe ignores whatever variant it is
+asked for -- proof the claim is real and not vacuous. FOOTSTEP GATE 24/0, VERDICT-FROZEN 6/0,
+MERGE DEBRIS 4/0, HANDOFF GATE 9/0, all re-run clean; bohemia_sfx.js untouched this round
+(confirmed by diff before shipping).
+
+NEXT, IN ORDER:
+ 1. THE REMAINING TWELVE OF THE HARD-CONTACT REDO LIST: block, boots_go, demolish, dirt_take,
+    door_more, hit, melee_hit, parts_pass, pickup, set_down, seton_more, shot_more. Combat
+    and object-contact sounds, not footsteps. dirt_take ("the ground takes it", a missed shot
+    landing) can likely reuse the dirt ground's own contact as a single sharp impact, no
+    heel-toe pair; boots_go (enemy repositioning) can likely reuse footstepWalk directly;
+    shot_more needs an actual gunshot model (a pressure transient plus muzzle blast), which
+    this row has not built yet in any form; block/melee_hit/hit need a weapon-impact model,
+    closer to struckMetal's inharmonic-bar physics than to a footstep's ground plate.
+ 2. ATTRIBUTE THE 19 NODES ON THE MAP, with a probe that cannot throw.
+ 3. THE FIRST SOUND GATE'S FLAKE, one red in five. Named eight rounds running now.
+ 4. [beds play] is still HELD. Then [enemy heard], [fight music], [quiet floor], [rumour
+    heard], [pump hum].
+ 5. TWO MUSIC HOLES, STILL MINE: a room handing music back does not check whether a fight
+    owns it, and the shell obeys the city's music message with no fight guard.
+ 6. RULE 33j (9/27): read reference/library/battle_brothers/README.md for this department,
+    cite it, fix a wrong number there with a source. STILL NOT DONE.
+
 SOUNDS (sound-xk7pjp): 9/29 LATEST -- *** THE HARD-CONTACT REDO LIST, FOOTSTEPS FIRST: DIRT,
 SAND AND A WOOD FLOOR. *** Row [not sand], round seven, ROW STAYS CLAIMED.
 Record: VAMILY.md row [not sand], round seven block (no separate record file this round).

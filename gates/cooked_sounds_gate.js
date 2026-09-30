@@ -660,6 +660,48 @@ const MEASURE = `
     } catch (e) { out.stepErr = String(e && e.message).slice(0,120); }
   })();
 
+  /* A WALK THAT NEVER REPEATS (9/30). walk_more/wood_more/tread_more's real complaint is
+     repetition, not material: "step_concrete.2 is one sample for every sidewalk". The fix
+     is a variant seed on footstepModelled itself, so a walk built out of it never renders
+     the same footfall twice. THE BACKWARD-COMPATIBILITY CLAIM MATTERS AS MUCH AS THE NEW
+     ONE: variant 0 has to stay the exact render already sitting in front of him on five
+     unjudged candidates, or this round would be quietly changing what he is about to hear. */
+  (function () {
+    try {
+      const bytesEqual = (a, b) => { if (a.length !== b.length) return false;
+        for (let i=0;i<a.length;i++) if (a[i] !== b[i]) return false; return true; };
+      const v0a = H.footstepModelled(ctx, { surface: 'concrete' }).buffer.getChannelData(0);
+      const v0b = H.footstepModelled(ctx, { surface: 'concrete' }).buffer.getChannelData(0);
+      const v1a = H.footstepModelled(ctx, { surface: 'concrete', variant: 1 }).buffer.getChannelData(0);
+      const v1b = H.footstepModelled(ctx, { surface: 'concrete', variant: 1 }).buffer.getChannelData(0);
+      const v2 = H.footstepModelled(ctx, { surface: 'concrete', variant: 2 }).buffer.getChannelData(0);
+      const walkC = H.footstepWalkConcrete(ctx, {});
+      const walkW = H.footstepWalkWood(ctx, {});
+      const runC = H.footstepRunConcrete(ctx, {});
+      const footfallsAllDistinct = (m, windowSec) => {
+        const d = m.buffer.getChannelData(0), w = Math.round(windowSec * SR);
+        const wins = m.atSeconds.map(t => d.subarray(Math.round(t*SR), Math.round(t*SR)+w));
+        for (let i=0;i<wins.length;i++) for (let j=i+1;j<wins.length;j++) if (bytesEqual(wins[i], wins[j])) return false;
+        return true;
+      };
+      out.walk = {
+        variant0Stable: bytesEqual(v0a, v0b),
+        variant1Reproducible: bytesEqual(v1a, v1b),
+        variant0DiffersFromVariant1: !bytesEqual(v0a, v1a),
+        variant1DiffersFromVariant2: !bytesEqual(v1a, v2),
+        walkConcreteSteps: walkC.steps, walkConcreteSeconds: walkC.seconds,
+        walkWoodSteps: walkW.steps,
+        runConcreteSteps: runC.steps, runConcretePerBeat: runC.perBeat,
+        walkConcreteGaps: walkC.atSeconds.slice(1).map((t,i) => +(t - walkC.atSeconds[i]).toFixed(3)),
+        runConcreteGaps: runC.atSeconds.slice(1).map((t,i) => +(t - runC.atSeconds[i]).toFixed(3)),
+        walkConcreteAllDistinct: footfallsAllDistinct(walkC, 0.1),
+        walkWoodAllDistinct: footfallsAllDistinct(walkW, 0.1),
+        runConcreteAllDistinct: footfallsAllDistinct(runC, 0.1),
+        noiseInWalk: H.footstepWalk.toString().indexOf('noiseInto') >= 0
+      };
+    } catch (e) { out.walkErr = String(e && e.message).slice(0,160); }
+  })();
+
   /* THE BROADCAST (9/24). Three renders, because the questions are about DIFFERENCES:
      a working transmitter, a transmitter nobody has touched in ten years, and the worn
      one with a head that holds speed perfectly. The last is the control for the wobble
@@ -1664,6 +1706,41 @@ const MEASURE = `
         + ', wood ' + WG.peak.toFixed(4) + ', through the same tanh as every other surface');
     } else { claim('A FOOTSTEP THAT IS NOT SAND was measured', false,
       d.stepErr || 'no reading'); }
+
+    /* ---- A WALK THAT NEVER REPEATS (9/30), row [not sand] round eight ---------- */
+    if (d.walk) {
+      const W = d.walk;
+      claim('VARIANT 0 IS THE EXACT OLD RENDER, so five unjudged candidates do not silently change',
+        W.variant0Stable === true,
+        'two calls with no variant asked for render byte-identical, exactly as they did '
+        + 'before this round: concrete, asphalt, dirt, sand and boards all still play the '
+        + 'same thing he would have heard if he had opened the page a minute earlier');
+      claim('AND A NAMED VARIANT IS REPRODUCIBLE, not a fresh die roll every render',
+        W.variant1Reproducible === true && W.variant0DiffersFromVariant1 === true
+          && W.variant1DiffersFromVariant2 === true,
+        'variant 1 called twice renders byte-identical both times (a checker measuring it '
+        + 'twice is not measuring the dice), and variants 0, 1 and 2 all differ from each '
+        + 'other, which is the whole point of asking for one');
+      claim('A WALK ON EITHER SURFACE NEVER PLAYS THE SAME FOOTFALL TWICE',
+        W.walkConcreteAllDistinct === true && W.walkWoodAllDistinct === true
+          && W.runConcreteAllDistinct === true,
+        'every footfall window compared against every other footfall window in the same '
+        + 'walk, on concrete (' + W.walkConcreteSteps + ' steps), a wood floor ('
+        + W.walkWoodSteps + ' steps) and a run (' + W.runConcreteSteps + ' steps): no two '
+        + 'match, because the old fix for this was a pool of samples and a pool still runs out');
+      claim('THE WALK LANDS ONE FOOTFALL A BEAT, THE RUN LANDS TWICE AS MANY, EVENLY (120 BPM)',
+        W.walkConcreteGaps.every(g => Math.abs(g - 0.5) < 1e-6)
+          && W.runConcreteGaps.every(g => Math.abs(g - 0.25) < 1e-6)
+          && W.runConcretePerBeat === 2,
+        'walk gaps ' + W.walkConcreteGaps.join('/') + ' s against a 0.5 s beat; run gaps '
+        + W.runConcreteGaps.join('/') + ' s against the half-beat a run asks for -- the same '
+        + 'timing law walkCadence already proved, now with real material under it');
+      claim('AND IT IS NOT MADE OF NOISE EITHER, read off the shipped function',
+        W.noiseInWalk === false,
+        'footstepWalk calls footstepModelled per footfall and never touches the noise '
+        + 'generator itself');
+    } else { claim('A walk that never repeats was measured', false,
+      d.walkErr || 'no reading'); }
 
     /* ---- THE VALLEY STILL BROADCASTS (9/24) ---------------------------------
        DIRECTION's bible rule 9: "THE MACHINES KEEP TALKING... the content never

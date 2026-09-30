@@ -3359,6 +3359,57 @@
     "src": "vote/WORLD_FIFTEEN_GROUNDS.png"
    },
    "sha": "b2023e8"
+  },
+  {
+   "id": "sounds-a-walk-on-the-sidewalk-does-not-repeat-9-30",
+   "kind": "sound",
+   "lane": "sounds",
+   "sha": "PENDING",
+   "made": "9/30",
+   "title": "A WALK ON THE SIDEWALK DOES NOT REPEAT",
+   "why": "walk_more exists because one recorded sidewalk step plays for every step in the game. The real fix is not another sample, it is a footstep that never renders the same way twice: a heel never lands with exactly the same force, so each step here drifts a few percent in timing and loudness, forever, with no pool to run out of.",
+   "options": [
+    "A, this one",
+    "B, keep the one that is already in the game"
+   ],
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_A_WALK_THAT_NEVER_REPEATS_9_30_26.html"
+   }
+  },
+  {
+   "id": "sounds-a-walk-on-a-wood-floor-does-not-repeat-9-30",
+   "kind": "sound",
+   "lane": "sounds",
+   "sha": "PENDING",
+   "made": "9/30",
+   "title": "A WALK ON A WOOD FLOOR DOES NOT REPEAT",
+   "why": "wood_more is the same complaint on a wood floor: two samples for every porch, deck and floorboard in the game. Same fix, same page.",
+   "options": [
+    "A, this one",
+    "B, keep the one that is already in the game"
+   ],
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_A_WALK_THAT_NEVER_REPEATS_9_30_26.html"
+   }
+  },
+  {
+   "id": "sounds-a-run-on-the-sidewalk-does-not-repeat-9-30",
+   "kind": "sound",
+   "lane": "sounds",
+   "sha": "PENDING",
+   "made": "9/30",
+   "title": "A RUN ON THE SIDEWALK DOES NOT REPEAT",
+   "why": "tread_more is the running version: a boot on a hard floor on a two-beat pattern, currently one sample. Twice the footfalls of the walk, same variety fix, and a real run: two strides in the time of one walked stride, never two jammed into one instant.",
+   "options": [
+    "A, this one",
+    "B, keep the one that is already in the game"
+   ],
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_A_WALK_THAT_NEVER_REPEATS_9_30_26.html"
+   }
   }
  ],
  "verdicts": [

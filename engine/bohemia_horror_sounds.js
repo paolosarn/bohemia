@@ -1337,15 +1337,43 @@
     var which = opts.surface || 'concrete';
     var g = GROUND[which] || GROUND.concrete;
     var beat = opts.beat == null ? BEAT : opts.beat;
-    var heelToe = opts.heelToe == null ? 0.090 : opts.heelToe;   /* seconds, a real walk */
     var n = Math.round(sr * beat);
     var buf = ctx.createBuffer(1, n, sr);
     var d = buf.getChannelData(0);
     var modes = plateModes(g, 10);
     var i, k;
 
+    /* *** THE ONE FOOTSTEP EVERYONE HEARS FOREVER, FOUND BEFORE HE DID (9/30). *** Every
+       surface here rendered byte-identical on every call: grit()'s seed was the same
+       constant every time and nothing else in the function rolls a die, so a footstep on
+       concrete would have been the exact same sample on repeat -- the precise defect
+       walk_more/wood_more/tread_more exist in the OLD system to fix ("step_concrete.2 is
+       one sample for every sidewalk... the second most-walked surface in the game").
+       Proved with two live calls compared sample for sample: maxDiff 0 over 22,050
+       samples. A REAL WALK NEVER LANDS THE SAME TWICE, so opts.variant (default 0, so an
+       already-registered candidate's exact render is untouched unless asked for a
+       different one) derives a small seeded jitter: which grains fall where, and the
+       ordinary stride variation a real gait has -- tau, gain and the heel-toe gap all
+       move a few percent, never the surface's own material numbers. */
+    var variant = opts.variant || 0;
+    /* variant 0 IS THE EXACT OLD RENDER, on purpose: concrete/asphalt/dirt/sand/boards are
+       already registered candidates nobody has judged yet, and a candidate does not need
+       to change to be improved -- only variant 1+ turns the jitter on, so what he already
+       sees stays byte-for-byte what it was. */
+    var jitTau = 1, jitGain = 1, gritSeedOffset = 0;
+    var heelToe = opts.heelToe == null ? 0.090 : opts.heelToe;
+    if (variant !== 0) {
+      var vseed = 20260930 + variant * 7919;
+      var vrand = function () { vseed = (vseed * 1103515245 + 12345) & 0x7fffffff; return vseed / 0x7fffffff; };
+      jitTau = 1 + (vrand() * 2 - 1) * 0.08;      /* +-8%: no two heel strikes are identical */
+      jitGain = 1 + (vrand() * 2 - 1) * 0.10;     /* +-10% */
+      gritSeedOffset = Math.round(vrand() * 1e6);
+      heelToe += (vrand() * 2 - 1) * 0.015;       /* +-15 ms, ordinary gait variance */
+    }
+
     /* ONE CONTACT: the half-sine force pulse, its direct radiation, and the modes it
-       rings. Nothing random anywhere in here. */
+       rings. The only randomness anywhere in here is the seeded gait variance above;
+       every material number (E, rho, v, loss) is still exactly the table's own. */
     function contact(at, tau, gain, bright) {
       var t0 = Math.round(at * sr), w = Math.max(2, Math.round(tau * sr));
       /* THE DIRECT CLICK: a monopole radiates the RATE OF CHANGE of the force, so the
@@ -1401,7 +1429,7 @@
        twice gets the same buffer; what is being modelled is WHEN particles arrive, never
        a random waveform. */
     function grit(at, count, spread, amp) {
-      var seed = 20260924, q, j;
+      var seed = 20260924 + gritSeedOffset, q, j;
       for (q = 0; q < count; q++) {
         seed = (seed * 1103515245 + 12345) & 0x7fffffff;
         var frac = seed / 0x7fffffff;
@@ -1416,10 +1444,10 @@
       }
     }
 
-    contact(0.002, g.tau, 1.0, 1.0);                       /* the heel, on the beat */
+    contact(0.002, g.tau * jitTau, 1.0 * jitGain, 1.0);     /* the heel, on the beat */
     grit(0.002, g.grains, g.spread, g.grit);
     if (heelToe > 0) {
-      contact(0.002 + heelToe, g.tau * 2.2, 0.45, 0.6);     /* the foot going flat */
+      contact(0.002 + heelToe, g.tau * 2.2 * jitTau, 0.45 * jitGain, 0.6);   /* the foot going flat */
       grit(0.002 + heelToe, Math.round(g.grains * 0.6), g.spread, g.grit * 0.5);
     }
 
@@ -1432,15 +1460,16 @@
       buffer: buf, machine: MACHINE.EAR, seconds: beat, surface: which,
       noiseSources: 0,
       ground: { E: g.E, rho: g.rho, v: g.v, loss: g.loss, h: g.h, a: g.a, why: g.why },
-      contactMs: +(g.tau * 1000).toFixed(3),
-      contactCornerHz: Math.round(1 / g.tau),
+      contactMs: +(g.tau * jitTau * 1000).toFixed(3),
+      contactCornerHz: Math.round(1 / (g.tau * jitTau)),
       modesHz: modes.map(function (x) { return +x.hz.toFixed(1); }),
       firstModeHz: +modes[0].hz.toFixed(1),
       shoeHz: null, shoeIsAGuess: false, shoeRemoved: true,
       grains: g.grains, gritSpreadMs: +(g.spread * 1000).toFixed(1),
       heelToeMs: +(heelToe * 1000).toFixed(1),
       contacts: heelToe > 0 ? 2 : 1,
-      why: 'a heel on ' + g.why + ': a ' + (g.tau*1000).toFixed(2)
+      variant: variant,
+      why: 'a heel on ' + g.why + ': a ' + (g.tau * jitTau * 1000).toFixed(2)
         + ' ms contact radiating directly, ringing the slab\'s own modes from its '
         + 'published stiffness, and NOT ONE NOISE GENERATOR ANYWHERE IN IT'
     };
@@ -1452,6 +1481,51 @@
   function footstepDirt(ctx, opts) { return footstepModelled(ctx, Object.assign({}, opts || {}, { surface: 'dirt' })); }
   function footstepSand(ctx, opts) { return footstepModelled(ctx, Object.assign({}, opts || {}, { surface: 'sand' })); }
   function footstepWood(ctx, opts) { return footstepModelled(ctx, Object.assign({}, opts || {}, { surface: 'boards' })); }
+
+  /* ==== 13b. A WALK THAT NEVER REPEATS (9/30) ====================================
+     walk_more/wood_more/tread_more's real complaint, in the OLD system's own words:
+     "step_concrete.2 is one sample for every sidewalk... the second most-walked
+     surface in the game", "step_wood has two samples for every porch, deck and
+     floorboard", "a boot on a hard floor, on a two-beat pattern". The old fix was
+     MORE PRE-RENDERED SAMPLES, a fixed pool that eventually repeats too. THE NEW FIX
+     NEVER RUNS OUT: footstepModelled's own variant seed (above) makes every step a
+     little different forever, so a walk built out of it is not a sample on repeat at
+     all -- there is no pool to exhaust. Same timing convention as walkCadence
+     (perBeat 1 = walk, 2 = run), but every footfall calls footstepModelled with its
+     own step index as the variant, never variant 0 (the exact render already sitting
+     in front of him as a single candidate), so a sequence never repeats even once. */
+  function footstepWalk(ctx, opts) {
+    opts = opts || {};
+    var surface = opts.surface || 'concrete';
+    var perBeat = opts.perBeat == null ? 1 : opts.perBeat;
+    var beats = opts.beats == null ? 6 : opts.beats;
+    var sr = ctx.sampleRate;
+    var n = Math.round(sr * beats * BEAT);
+    var buf = ctx.createBuffer(1, n, sr), d = buf.getChannelData(0);
+    var at = [], step = 0, i;
+    for (var b = 0; b < beats; b++) {
+      for (var k = 0; k < perBeat; k++) {
+        step++;
+        var t = (b + k / perBeat) * BEAT;
+        var one = footstepModelled(ctx, { surface: surface, variant: step, beat: BEAT / perBeat });
+        var src = one.buffer.getChannelData(0);
+        var off = Math.round(t * sr);
+        at.push(+t.toFixed(3));
+        for (i = 0; i < src.length && off + i < n; i++) d[off + i] += src[i];
+      }
+    }
+    normalise(d, n, 0.85);
+    return {
+      buffer: buf, machine: MACHINE.EAR, seconds: beats * BEAT, surface: surface,
+      steps: step, perBeat: perBeat, atSeconds: at,
+      why: (perBeat === 1 ? 'walking' : 'running') + ' on ' + surface + ', ' + step
+        + ' footfalls, never the same variant twice, because footstepModelled\'s own '
+        + 'seed moves with every step it is asked for'
+    };
+  }
+  function footstepWalkConcrete(ctx, opts) { return footstepWalk(ctx, Object.assign({}, opts || {}, { surface: 'concrete', perBeat: 1 })); }
+  function footstepWalkWood(ctx, opts) { return footstepWalk(ctx, Object.assign({}, opts || {}, { surface: 'boards', perBeat: 1 })); }
+  function footstepRunConcrete(ctx, opts) { return footstepWalk(ctx, Object.assign({}, opts || {}, { surface: 'concrete', perBeat: 2 })); }
 
   /* ==== 14. THE DECK ITSELF, AND THE FLIP AS A TAPE CHANGING =======================
      *** RULE 32e, PAOLO 9/23, ON THE TAPE AND ON THE FLIP: "IT ALL SOUNDED LIKE SAND",
@@ -2057,6 +2131,10 @@
     footstepDirt: footstepDirt,
     footstepSand: footstepSand,
     footstepWood: footstepWood,
+    footstepWalk: footstepWalk,
+    footstepWalkConcrete: footstepWalkConcrete,
+    footstepWalkWood: footstepWalkWood,
+    footstepRunConcrete: footstepRunConcrete,
     struckMetal: struckMetal,
     STRIKE: STRIKE,
     theTapeDeck: theTapeDeck,
@@ -2154,7 +2232,16 @@
         { id: 'sounds-a-footstep-on-sand-9-29', make: 'footstepSand',
           title: 'A FOOTSTEP ON SAND' },
         { id: 'sounds-a-footstep-on-a-wood-floor-9-29', make: 'footstepWood',
-          title: 'A FOOTSTEP ON A WOOD FLOOR' }
+          title: 'A FOOTSTEP ON A WOOD FLOOR' },
+        /* A WALK THAT NEVER REPEATS (9/30): walk_more, wood_more and tread_more's real
+           complaint is repetition, not material, so this is the same footstep played as
+           a real sequence, never the same variant twice. */
+        { id: 'sounds-a-walk-on-the-sidewalk-does-not-repeat-9-30', make: 'footstepWalkConcrete',
+          title: 'A WALK ON THE SIDEWALK DOES NOT REPEAT' },
+        { id: 'sounds-a-walk-on-a-wood-floor-does-not-repeat-9-30', make: 'footstepWalkWood',
+          title: 'A WALK ON A WOOD FLOOR DOES NOT REPEAT' },
+        { id: 'sounds-a-run-on-the-sidewalk-does-not-repeat-9-30', make: 'footstepRunConcrete',
+          title: 'A RUN ON THE SIDEWALK DOES NOT REPEAT' }
       ];
     }
   };
