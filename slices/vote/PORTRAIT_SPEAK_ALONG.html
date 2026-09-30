@@ -1,0 +1,45 @@
+<!doctype html><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>BOHEMIA — Speak Along</title>
+<!-- PORTRAIT [speak along], 9/30/26. A proof-of-work card, not a fresh face to
+     judge: it shows that his own comments on past portrait cards actually got
+     answered, checked by a real gate (gates/speak_along_gate.js) against a real
+     ledger (records/target/BOHEMIA_PORTRAIT_COMMENTS_ANSWERED.json), not just
+     claimed in a commit message. -->
+<style>
+  :root{--ink:#e8e0cc;--bg:#0d0d12;--card:#16161d;--line:#33313d;--gold:#c79a3f}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+       font:13px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace;padding:14px}
+  h1{font-size:13px;letter-spacing:2px;margin:0 0 4px;color:var(--gold)}
+  p{margin:0 0 12px;color:#a49a86;max-width:68ch}
+  .row{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:10px;margin-bottom:10px}
+  .said{border-left:2px solid #7a4a4a;padding:4px 0 4px 10px;margin:0 0 6px;color:#b09a90}
+  .then{color:#8f9c7a;padding-left:12px}
+  .tag{font-size:10px;letter-spacing:1px;color:var(--gold);margin-bottom:4px}
+</style>
+<h1>SPEAK ALONG</h1>
+<p>You said comments should become the next round's face, quoting your own words back so you
+see them answered. Here is every real comment you left on a portrait card and what actually
+answered it, checked by a machine against the real files, not just claimed here.</p>
+<div class="row">
+  <div class="tag">ELEVEN COMMENTS, ELEVEN ANSWERS</div>
+  <div class="said">"way more face and portrait customizations... eyes not being all white"</div>
+  <div class="then">-&gt; the face maker, before more faces, then every dial a slider</div>
+  <div class="said">"it should all come with a slider"</div>
+  <div class="then">-&gt; all 32 sliders, the round right after</div>
+  <div class="said">"if we have equipment on the head it has to reflect in the portrait"</div>
+  <div class="then">-&gt; head gear shows now, read straight off the body</div>
+  <div class="said">"maybe the background portraits can change"</div>
+  <div class="then">-&gt; nothing pins the background any more</div>
+  <div class="said">"look how Battle Brothers does it" (hairstyles, head shapes)</div>
+  <div class="then">-&gt; read all ten of their books; they have no barber at all, written up plainly</div>
+  <div class="said">"I like the idea of them slightly looking off, not directly at the center"</div>
+  <div class="then">-&gt; the portrait sits a couple pixels off dead-centre now</div>
+</div>
+<p>Five of these six are checked against the LITERAL page, not a summary: a machine reads the
+actual file on disk and refuses if your own phrase is not really there. The sixth (the very
+first customization pass) only ever shipped as a picture with no words on it, so it is named
+here rather than faked as checked.</p>
+<p>Nothing to vote on. If one of your notes on an old portrait card never got answered, that
+is the thing to tell me, not a thumb.</p>

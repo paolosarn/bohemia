@@ -102,13 +102,24 @@ function validate(d,label,preexistingIds){
      main, and this check knew about neither shape when it was written. A merge tool that
      dies on a schema it has not seen yet is not safe, it is just an early opinion; the
      job here is to move data without corrupting it, not to gatekeep every future shape. */
+  /* BOTH of the next two checks catch a row with no real content -- and BOTH hit the exact
+     same "forever blocked by somebody else's old row" failure the missing-file check below
+     was fixed for on 9/29 (caught live, 9/30: 14 coordinator items already on origin/main,
+     'text' shows with neither src nor why, none of them touched by this merge on either
+     side). Same fix, same reasoning: a row already broken in production before this merge
+     started is not this merge's to refuse over, only a NEW empty row either side just added
+     is. */
   const noSrc=d.items.filter(i=>{
+    if(preexistingIds && preexistingIds.has(i.id)) return false;
     if(i.show && i.show.how) return i.show.how!=='text' && !i.show.src;
     if(!i.show && (i.text||'').trim()) return false;   /* the top-level text+asked verdict shape */
     return true;
   });
   if(noSrc.length) die(`${label}: ${noSrc.length} item(s) with no show/src: ${noSrc.slice(0,3).map(i=>i.id).join(', ')}`);
-  const mute=d.items.filter(i=>i.show&&i.show.how==='text'&&!i.show.src&&!(i.why||'').trim());
+  const mute=d.items.filter(i=>{
+    if(preexistingIds && preexistingIds.has(i.id)) return false;
+    return i.show&&i.show.how==='text'&&!i.show.src&&!(i.why||'').trim();
+  });
   if(mute.length) die(`${label}: ${mute.length} text item(s) with neither src nor why: ${mute.slice(0,3).map(i=>i.id).join(', ')}`);
   /* a page or image item must point at a file that is really there, or the tab 404s --
      UNLESS it was already on the base copy before this merge (9/29, caught live: a

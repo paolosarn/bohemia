@@ -1,0 +1,77 @@
+{
+ "_readme": "THE SPEAK ALONG LEDGER (PORTRAIT [speak along], 9/30/26). Rule 14 (coordinator 9/14): every face candidate carries his comment back to this chat; each comment becomes the next candidate for that face, quoting his words on the card so he sees his note answered. This file is the proof that happened: one row per non-trivial comment he left on a portrait VOTE item, the id of the LATER portrait item that answers it, and (where the answering item is a real HTML page) the exact phrase from his own words that gates/speak_along_gate.js finds literally present on that page, read off the file on disk, never off the registry's own short why-text (TALK TO HIM LIKE A PERSON deliberately paraphrases that field down to eighth-grade words, so it will never carry his sentence verbatim, and checking it would prove nothing). An answering item that only ever shipped as a flat image has no text surface to check at all; those rows say so plainly rather than faking a pass. A comment answered by the GENERAL uplift of several rounds rather than one exact reply says so honestly in its own note instead of forcing a fake single citation.",
+ "answers": [
+  {
+   "comment": "portrait-room-nina-9-21",
+   "said": "Dogshit work with portraits, more analog horror",
+   "answeredBy": "portrait-eight-dials-9-22",
+   "note": "One of four near-identical rejections in the same batch (room-nina/marco/ray/denise all say the same thing). The very next line this lane claimed was [customizations first], FIRST LINE, quoting this exact round's rulings: HE CAN BUILD HIS OWN FACE comes before more faces ship."
+  },
+  {
+   "comment": "portrait-room-marco-9-21",
+   "said": "Dog shit work with portraits more analog horror",
+   "answeredBy": "portrait-eight-dials-9-22",
+   "note": "Same batch as room-nina; same answer."
+  },
+  {
+   "comment": "portrait-room-ray-9-21",
+   "said": "Dogshit more analog horror",
+   "answeredBy": "portrait-eight-dials-9-22",
+   "note": "Same batch as room-nina; same answer."
+  },
+  {
+   "comment": "portrait-room-denise-9-21",
+   "said": "Dogshit more analog horror",
+   "answeredBy": "portrait-eight-dials-9-22",
+   "note": "Same batch as room-nina; same answer."
+  },
+  {
+   "comment": "portrait-light-nina-9-21",
+   "said": "Bro, we need like way more face and portrait customizations bro like before we start trying to hand me shit but I mean, I kinda like the direction of the eyes not being all white around it. You know everyone's looking less of a frog like that and I guess the eyes are going pretty good but have more analog horror",
+   "answeredBy": "portrait-eight-dials-9-22",
+   "quote": "way more face and portrait customizations",
+   "note": "Direct: [customizations first] row 1 is titled THE-FACE-MAKER-BEFORE-MORE-FACES and quotes this exact sentence as its reason for going first, and the eyes-not-all-white line in the same comment is kept as a locked ruling (NOTES ARE RULINGS). The quote is named honestly rather than checked mechanically here: portrait-eight-dials-9-22 shipped as a flat PNG (show.how:'image'), so there is no page text on disk for the gate to search -- the VAMILY.md board row is where the verbatim connection actually lives."
+  },
+  {
+   "comment": "portrait-face-nina-9-21",
+   "said": "We're not close to anything with the portrait or faces yet where I'm proud enough where you could show me, bro it's so fucking ugly more analog horror",
+   "answeredBy": "portrait-eight-dials-9-22",
+   "note": "Same batch and same answer as light-nina; the two comments landed the same round."
+  },
+  {
+   "comment": "portrait-eight-dials-9-22",
+   "said": "Fantastic progress it should all come with a slider",
+   "answeredBy": "portrait-every-dial-a-slider-9-24",
+   "quote": "it should all come with a slider",
+   "note": "Direct and exact: the row's own title is EVERY FACE DIAL A SLIDER, built the round after this comment landed, citing rule 32(g) which is this sentence written as a rule."
+  },
+  {
+   "comment": "portrait-pick-your-man-out-9-27",
+   "said": "maybe we don't move in that direction to save a lot of time you know cause that would essentially mean each top equipment... if we have equipment on the head it has to reflect in the portrait",
+   "answeredBy": "portrait-the-head-and-the-gear-9-28",
+   "quote": "equipment on the head it has to reflect in the portrait",
+   "note": "Direct: shipped the very next round. Head gear now reads straight off the body (ONE, HEAD GEAR SHOWS) and shoulders were dropped rather than built (his own 'save a lot of time' concern), matching this comment's own reasoning almost word for word."
+  },
+  {
+   "comment": "portrait-the-bust-9-24",
+   "said": "Yeah, maybe the background portraits can change. I talked about it with the other chat. We're still deciding if we're gonna be adding shoulders to that portrait or not because of it if we do then it has to reflect off the equipment",
+   "answeredBy": "portrait-the-head-and-the-gear-9-28",
+   "quote": "background portraits can change",
+   "note": "Direct: rule 37i (the tab verdict this comment fed into) says backgrounds may change and head gear must show; both shipped in [head and gear], which cites rule 37i by number."
+  },
+  {
+   "comment": "portrait-every-dial-a-slider-9-24",
+   "said": "you can only customize your face and portrait potentially at like barbers in the settlement menu... we need way more hairstyles and like head shaped and shit like look how battle Brothers does it",
+   "answeredBy": "portrait-the-head-and-the-gear-9-28",
+   "quote": "look how battle Brothers does it",
+   "note": "Direct: [head and gear]'s fourth part is the barber/Battle-Brothers hairstyle-count research this comment asked for by name, reading the reference library first per rule 33j."
+  },
+  {
+   "comment": "portrait-the-face-at-rest-9-24",
+   "said": "I like the idea of them slightly looking off, not directly at the center",
+   "answeredBy": "portrait-the-head-and-the-gear-9-28",
+   "quote": "slightly looking off, not directly at the center",
+   "note": "Direct and near-verbatim: rule 37i's own line is 'eyes rest slightly off-centre,' and [head and gear] built it as a camera nudge, explicitly distinguished from the older locked eyes.gaze dial this same comment is not asking to change."
+  }
+ ]
+}

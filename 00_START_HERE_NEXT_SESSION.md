@@ -161,6 +161,41 @@ NEXT: [bougie phone] (cracked at the start, bougier as the future improves); [gl
 THE EVENT ON THE ROAD; then my other three waiting items get built at their defaults the same way
 (her face in the bar, the shelf of buildings, her story-first page) as their surfaces arrive.
 [PENDING Paolo]: none.
+
+PORTRAIT (portrait-vamily-yke55s): 9/30 LATEST -- *** [speak along] SHIPPED: EVERY
+COMMENT HE EVER LEFT ON A PORTRAIT CARD WAS ALREADY ANSWERED, AND NOW THERE IS A
+REAL GATE THAT PROVES IT INSTEAD OF A CLAIM IN A COMMIT MESSAGE. *** Record:
+records/BOHEMIA_SPEAK_ALONG_9_30_26.md. TAB: VOTE (portrait-speak-along-9-30,
+nothing to vote on, proof of work).
+
+Read all 19 verdicts on portrait items; 11 carry a real comment. Traced every
+one forward by hand: all 11 already had a real answer in a later round. The
+row was never blocked, it just had nobody checking or writing down that the
+loop actually closes.
+
+THE REAL GAP: rule 14 says quote his words ON THE CARD. One of the two pages
+that answered four of his comments (portrait-the-head-and-the-gear-9-28)
+cited the rule number and paraphrased well but never put his own sentences
+on the card. Fixed by adding four literal quoted lines to that existing
+page, reusing a CSS class an older page had already defined for exactly
+this. Nothing about the underlying build changed.
+
+THE MECHANISM: records/target/BOHEMIA_PORTRAIT_COMMENTS_ANSWERED.json (one
+row per comment, the item that answers it, the exact phrase that must be on
+that item's own page) plus gates/speak_along_gate.js, which checks every row
+against the REAL FILES on disk, never the registry's own simplified
+why-text. Mutation-proven: redirected a citation to a real but wrong page,
+caught 5/1; restored, 6/0.
+
+GATES: speak_along (new) 6/0, talking_portrait 34/0, portrait_haircut 15/0,
+family 17/0, face_maker 16/0, hair 39/0, hairline 12/0, hair_graveyard 13/0,
+craft_law 39/0, alpha_loads 20/0, character_in_the_vote_tab 9/0, handoff
+9/0, vote_tab 30/1 (pre-existing, two coordinator items, not mine).
+
+NOT DONE: one comment's answer shipped only as a flat picture with no text
+to search, so the gate names it unverifiable rather than faking a pass;
+regenerating that art with a caption would close it, backlog.
+
 WORLD (world-9lfjtf): 9/30 LATEST -- *** ONE SEED IS NOT THE VALLEY, AND TWO OF
 THE FIFTEEN ARE NOT MAP KINDS AT ALL. *** Row [board terrains] SHIPPED.
 TAB: NOT IN A TAB YET on a play surface (rule 18). It IS in the VOTE tab:
