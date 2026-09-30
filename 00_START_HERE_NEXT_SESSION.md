@@ -1,3 +1,102 @@
+COOK (cook-mce6r5): 9/30 LATEST -- *** THE BLOCK WAR KIT, AND THE COUNT THE ROW ASKED FOR:
+15,010 DRAWN PIECES IN 53 BANKS, AND THE SHEET'S GUESS WAS WRONG IN BOTH DIRECTIONS. THE
+SHORE IS THE SECOND BEST STOCKED THING WE OWN AND COVER IS THE THINNEST KIND ANYWHERE. ***
+TAB: the VOTE tab in the alpha, item THE BLOCK WAR KIT. Record
+records/COOK_THE_BLOCK_WAR_KIT_9_30_26.md. Count
+records/BOHEMIA_THE_BOARD_ASSET_COUNT_9_30_26.txt. Bank
+banks/BOHEMIA_THE_BLOCK_WAR_KIT_9_30_26.txt.
+
+[board assets] round 1, claimed and pushed before the work (rule 5). Rule 46b, and his
+correction the same round: "most of it will be city-based terrain... every combat fight damn
+near like a block war", so the manager's order is reversed and the CITY GAPS COME FIRST.
+
+*** THE COUNT, DONE EXACTLY, AND NOBODY HAD DONE IT ***
+Every bank file opened, every drawn piece found, each filed by terrain and by kind off its own
+name and its bank's name: 15,010 DRAWN PIECES ACROSS 53 BANK FILES.
+  T1 SUBURB 2981 | T5 SHORE 1409 | T13 CASINO 673 | T6 HILLS 590 | T3 INDUSTRIAL 483
+  T11 RUIN 321 | T10 PARK 258 | T8 PARKING 188 | T2 STRIP 112 | T14 SOLAR 109
+  T7 FREEWAY 39 | T15 LANDFILL 37 | T9 TRAILER 35 | T12 AIRPORT 21 | T4 OPEN DESERT 11
+  BY KIND: floor 895, blocker 2899, COVER 389, mound 679, edge 3459, dressing 1006,
+           LIGHT 99, WEATHER 36.
+The full fifteen-by-eight grid is in the count file.
+
+AND THE SHEET GUESSED WRONG IN BOTH DIRECTIONS, which is exactly why counting beat guessing:
+ - T5 THE SHORE is the SECOND BEST STOCKED terrain we own (1,409) and the sheet listed it as a
+   gap. Water, edges and banks were built long ago for the city's pools and canals.
+ - T6 THE HILLS has 590, and 323 of them are MOUNDS, the one kind the whole fight rests on.
+ - THE REAL EMPTY ONES ARE CITY: freeway 39, landfill 37, trailer park 35, airport 21. Open
+   desert at 11 is the barest single thing we own, but it is ONE terrain, not half the board.
+ - *** COVER IS THE THINNEST KIND ANYWHERE: 389 against 2,899 BLOCKERS. *** A board with
+   blockers and no cover is a board with nowhere to stand, which is the opposite of a Battle
+   Brothers fight. That is the biggest single finding on this row.
+ - LIGHT is 99 and WEATHER is 36 across all fifteen terrains put together.
+
+COOKED THIS ROUND (his 46e list, city first), EVERY PIECE AT ITS REAL SIZE at 42.9 px a metre,
+his own street's density, never fitted to a box, so COMBAT can drop any of them on a house tile
+at any zoom without inventing detail:
+  jersey barrier 3.0 x 0.8, 0.81 tall   COVER
+  container      6.1 x 2.4, 2.59        BLOCKER, climbable
+  cart corral    6.0 x 2.5, 1.05        COVER that also stops you
+  trailer        9.0 x 3.0, 2.80        BLOCKER
+  propane tank   2.4 x 1.2, 1.20        COVER that also stops you
+  chain-link run 6.0 x 0.1, 1.83        BLOCKER, see-through
+  rubble mound   4.0 x 4.0, 1.40        MOUND, stand on it
+  STANDING ROOF  12 x 12 (a whole tile) MOUND, stand on it (rule 37g, his own up-vote)
+  BURNT HOUSE    12 x 12 (a whole tile) BLOCKER -- the T11 gap: 321 ruin pieces in the banks
+                                        and NOT ONE scorched variant of a house
+
+GUARDS, EACH REFUSES THE RUN: every piece its real size against a metre table; COVER IS NOT A
+BLOCKER and it is MEASURED at a man's chest (1.3 m); a mound carries a flat top; every pixel on
+his family ramps or his own tiles; nothing stamped.
+
+FOUR THINGS THE GUARDS AND THE LOOKING CAUGHT.
+ 1. I FILED TWO PIECES WRONG BY EYE AND THE TAPE CORRECTED ME. A cart corral is 1.05 m and a
+    propane tank is 1.20: both under a chest, so both are COVER. And it forced a better fact
+    into the bank: A PIECE CARRIES TWO THINGS, NOT ONE. Height decides what you can shoot over;
+    whether you can walk through is separate. "Cover that also stops a man" is a real board
+    piece, and COMBAT gets both facts per piece.
+ 2. THE CONTAINER AND THE TRAILER WERE THE SAME PICTURE. Both dressed in his wall tiles, both
+    came out tan brick boxes standing side by side. A container is painted steel (the asphalt
+    ramp, corrugations doing all the reading, rust where the rain sat); a single-wide is pale
+    ribbed metal with a seam down the middle, skirting and a step.
+ 3. THE ROOF DECK WAS A BLANK RECTANGLE. High ground has to read as somewhere you would stand:
+    gravel with a parapet round it, lit on the north-west lip.
+ 4. THE LABELS COLLIDED FOUR DEEP, because a jersey barrier is 3 m wide and its name is longer
+    than the piece. Numbered on the picture, named in a legend.
+AND THE RAMP GUARD HAS NOW BITTEN THIS LANE TWICE: a colour check against the BARE family ramps
+is STRICTER THAN HIS OWN APPROVED ART. The barrier failed on eight colours that are the concrete
+ramp PLUS TWO, which is his tiles' own sun offset, measured on this row on 9/28. The check reads
+his ramps AND his tiles now.
+
+HANDED OVER.
+- COMBAT [board generator]: nine pieces with real metres, height, climbable/standable and
+  blocks-move per piece, in the bank as PNG. And the finding that matters for a generator:
+  COVER IS THE THINNEST KIND WE OWN, so a board scattered from what exists today will be all
+  walls and no places to stand.
+- WORLD [board terrains]: the fifteen-by-eight grid with exact counts is the sheet filled in.
+
+[bb the overworld is battle brothers] reference/library/battle_brothers/02_COMBAT_RULES.md, the
+BOARD and TERRAIN lines: "a fight is generated from the map terrain where it happens", blockers
+scattered by rules, height the one bonus. BB's kit per terrain is SMALL on purpose, three or four
+blocker kinds, because a board reads when its vocabulary is short. Taken: nine pieces, not ninety.
+WHAT WE DO DIFFERENTLY (rule 39b): BB's blockers are nature's and its settlements are wood. Ours
+is a CITY THAT ALREADY FELL -- every blocker here is something a person put there for a reason
+that no longer exists, and half of them are climbable, so our board has a vertical layer BB's
+flat field never had.
+
+NEXT IN THIS LANE, IN THE ORDER THE COUNT SETS: the freeway, the landfill, the trailer park and
+the airport (the emptiest city terrains); then COVER everywhere, because it is the thinnest kind
+on the whole board; then LIGHT and WEATHER, which barely exist; then the desert, the shore and
+the hills, which the count says are in better shape than the sheet believed.
+
+STILL OPEN, UNCHANGED: the boot's heel question on the WHICH WAY IS HE FACING card. Landmarks
+still undrawn: luxor, springs, robofactory. 103 place kinds still drawn as canvas circles on the
+city screen. Flagged to PLUMBER: the pages publish gate fails on clean main, 283 MB against its
+own 260 MB cap; and deploys keep being cancelled by the push storm, so this lane has run the
+deploy by hand three rounds running.
+
+------------------------------------------------------------------------
+
 QUESTS (quests-dvybth): 9/30 LATEST -- *** ROUND SIX: A HUNT FOR EVERY LAB BEAST, 26 DRAFT AMBITIONS FOR PEOPLE,
 8 ENDING-TWIST SHAPES FOR DYNASTY, AND THE SHELF SWEPT TO RULES 41-48 (104 files). 190 designs, 27 pages. ***
 NOT IN A TAB (rule 35). Record: records/BOHEMIA_QUESTS_ROUND_SIX_HUNTS_AMBITIONS_AND_THE_TWIST_9_30_26.md.

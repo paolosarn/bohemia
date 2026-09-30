@@ -1,0 +1,23 @@
+THE BOARD ASSET COUNT (COOK [board assets] round 1, 9/30/26, rule 46b)
+Every bank file opened, every drawn piece found, each filed by terrain and kind off its own name and its bank's name.
+
+TOTAL DRAWN PIECES: 15019 across 54 bank files
+
+TERRAIN                FLOOR   BLOCKER COVER   MOUND   EDGE    DRESS   LIGHT   WEATH     TOTAL
+T1  SUBURB BLOCK       406     1827    83      246     1071    150     20      18        2983
+T2  THE STRIP          50      6       -       -       3       31      31      -         112
+T3  INDUSTRIAL         -       221     40      106     188     84      -       18        486
+T4  OPEN DESERT        6       -       -       5       -       -       -       -         11
+T5  WASH AND SHORE     127     270     89      -       1409    217     24      -         1409
+T6  HILLS              134     251     -       323     115     -       -       -         590
+T7  THE FREEWAY        3       -       37      -       36      -       -       -         40
+T8  PARKING/BIGBOX     3       21      1       -       23      38      -       -         189
+T9  TRAILER PARK       -       11      -       -       1       -       -       -         38
+T10 GOLF AND PARK      62      -       -       -       62      -       -       -         258
+T11 THE RUIN           32      112     107     1       88      155     -       -         323
+T12 THE AIRPORT        -       -       -       -       -       -       -       -         21
+T13 CASINO FLOOR       72      108     35      -       465     281     24      -         673
+T14 SOLAR AND PUMPS    -       55      -       -       -       33      -       -         109
+T15 LANDFILL/SCRAP     -       18      -       -       -       17      -       -         37
+
+BY KIND: FLOOR 895, BLOCKER 2900, COVER 392, MOUND 681, EDGE 3461, DRESS 1006, LIGHT 99, WEATH 36
