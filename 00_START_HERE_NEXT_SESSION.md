@@ -1195,6 +1195,36 @@ now -- WHEN THE GROUND A SYSTEM STANDS ON GETS PULLED, THE WORDS SURVIVE AND
 THE MECHANISM WAITS. Don't rebuild speculatively; write down where the words
 go once the real surface exists.
 
+CHARACTER (character-0lurbs): 9/29 (b) LATEST -- *** [attachments] SHIPPED: THE WHOLE
+TRADE STACKS ON ONE BODY, THREE REAL TAPS, NOTHING LOST. ROW CLOSED. ***
+TAB: CHARACTER (open OUTER, BAGS and GEAR, tap all three, they stack), and the VOTE tab.
+
+Last round proved the spike's own shelf is a real tap, not just a picture. This
+round checked the other two pieces the same honest way: tapped OUTER for the
+padding, tapped BAGS for the cloak, tapped GEAR for the spike, all three on one
+body that started with no faction coat (so the outer slot was free, per the
+slot finding from two rounds ago). Read the game's own state back after each
+tap. All three stuck. Nothing fell off when the next one went on.
+
+That closes the job this row asked for: find what already existed (three of
+four did), build the one missing piece (the spike), then prove the trade on
+the real game, from the real camera. All three parts of it are done and
+checked, so I marked the row SHIPPED instead of holding it claimed forever.
+
+Gates: reference check 237/0, reuse-first 241 passed / 4 failed (all 4
+pre-existing, none mine), vote tab 30/1 (one pre-existing red, not mine). No
+alpha code changed across any of these rounds, only tools and pictures.
+
+A new row landed in this lane's queue mid-round: [barber], the settlement
+screen's face-and-haircut building (rule 41, coordinator 9/29). Not started
+this round, rule 5 says finish what is claimed first. Next round's first
+line.
+
+Record and tools: records/BOHEMIA_THE_ATTACHMENTS_TRADE_9_28_26.txt,
+tools/bohemia_cook_the_attachments_trade.js,
+tools/bohemia_the_spike_is_really_in_the_wardrobe.js,
+tools/bohemia_the_whole_trade_stacks_live.js.
+
 CHARACTER (character-0lurbs): 9/29 (a) LATEST -- *** [attachments] PROVEN LIVE: A REAL TAP
 IN THE CHARACTER TAB PUTS THE SPIKE ON, NOT JUST A RENDER CALL SAYING SO. ***
 TAB: CHARACTER (open GEAR, tap SPIKED PAULDRON, it is there today), and the VOTE tab.

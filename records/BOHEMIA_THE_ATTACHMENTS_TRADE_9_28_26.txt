@@ -52,3 +52,14 @@ already reachable the round the garment shipped. Proven by tapping the real butt
 a real browser (not by calling the paint function) and reading window.G_WORN.gear
 back afterward: it says SPIKED PAULDRON. Two screenshots, before and after the real
 tap, in the VOTE item below.
+
+
+ADDED 9/29 (b): THE WHOLE TRADE STACKS, ON ONE BODY, THREE REAL TAPS.
+Last round proved the spike's own shelf is really tappable. This round checked the
+other two: OUTER/QUILTED VEST and BACK/ROAD CAPE tap the same way, and stacked with
+the spike on one body with no faction coat to start (so the outer slot is free),
+nothing was lost along the way -- window.G_WORN read back after each tap shows
+outer, then outer+back, then outer+back+gear. This is the ship test for the row:
+every piece of the trade is reachable by a real tap on the real page, together, not
+assumed from a picture. Two more screenshots, before any tap and after all three, in
+the VOTE item below.
