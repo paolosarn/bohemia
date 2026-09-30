@@ -71,6 +71,8 @@ async function measure(label) {
   ok('the speeds are PAUSE 1x 2x 3x 5x', /var TRAVEL_SPEEDS = \[0, 1, 2, 3, 5\];/.test(CITY));
   ok('PAUSE holds the journey without ending it (the route is not consulted)', /!\(TRAVEL && TRAVEL_SPEED===0\)\) \? travelNext\(\)/.test(CITY));
   ok('every extra block is a real stepOnce that pays its own clock', /const m2=stepOnce\(d2\); travelStepped\(m2\);/.test(CITY));
+  ok('  and the extra blocks are spread one every BEAT/N, never burst in one tick (the map glide snaps past 2.5 blocks)',
+     /setTimeout\(function\(\)\{\s*if\(!TRAVEL \|\| TRAVEL_SPEED!==N\) return;[\s\S]{0,300}const m2=stepOnce\(d2\)[\s\S]{0,1200}Math\.round\(k\*BEAT\/N\)/.test(CITY));
   ok('the one door every fight comes through drops it to PAUSE', /travelStop\(\); \}catch\(_e\)\{\}\n[\s\S]{0,300}travelInterrupt\('fight'\)/.test(CITY));
 
   /* THE OBJECT, on a fresh demo */

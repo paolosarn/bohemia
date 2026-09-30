@@ -41717,15 +41717,30 @@ setInterval(()=>{
      and make every walking footfall late. */
   if(running&&moved){ STEP_LOT=2; try{ stepOnce(di); } finally { STEP_LOT=1; } }
   /* __THE_PAD_IS_TRAVEL_SPEED__: the extra blocks of a 2x/3x/5x beat, each a real step that
-     pays its own clock and lands before the next is read; taken BEFORE the glide so the
-     marker slides across all of them in one beat, the way a run glides across two. */
+     pays its own clock. SPREAD EVENLY ACROSS THE BEAT, one every BEAT/N, not burst at once.
+     *** THE FIRST CUT BURST THEM, AND THAT BROKE TWO THINGS AT ONCE. *** (1) ANIMATION's map
+     glide ([glide] round two, dd55efa) was built for a step every BEAT/k and SNAPS when the
+     marker is more than 2.5 blocks ahead of the picture -- five blocks in one tick is exactly
+     that, the boom-boom he killed, back at the speeds he asked for. (2) five steps in one tick
+     cost ~318 ms of a 500 ms beat on the gate box (55 ms a step) and one beat in four dropped.
+     Spread, each piece is one step's cost, and the pin hops on the music's own subdivision.
+     A pending step does nothing if the journey ended, the speed changed, or he left the map. */
   let travDone=false;
   if(TRAV!==null && moved && TRAVEL_SPEED>1){
     travelStepped(moved); travDone=true;
-    for(let k=1;k<TRAVEL_SPEED && TRAVEL;k++){
-      const d2=travelNext(); if(d2===null) break;
-      const m2=stepOnce(d2); travelStepped(m2);
-      if(!m2) break;
+    const N=TRAVEL_SPEED;
+    for(let k=1;k<N;k++){
+      setTimeout(function(){
+        if(!TRAVEL || TRAVEL_SPEED!==N) return;
+        try{ if(typeof MODE==='undefined' || MODE!=='city') return; }catch(_e){ return; }
+        const d2=travelNext(); if(d2===null) return;
+        const m2=stepOnce(d2); travelStepped(m2);
+        /* NO FULL REDRAW HERE, AND THAT WAS MEASURED: redrawing after every spread block
+           tripled the draw work (a render is ~42 ms on the gate box) and 3x crossed 7 blocks
+           to 1x's 5. The map glide redraws itself every frame while it moves; it only has to
+           NOTICE the new block, which asking it where the picture is does, for free. */
+        try{ if(typeof cityGlidePos==='function') cityGlidePos(performance.now()); }catch(_e){}
+      }, Math.round(k*BEAT/N));
     }
   }
   if(moved) glideStart(_gfr[0], _gfr[1], _gsp);   /* __WALK_FEEL_SLIDE__ */

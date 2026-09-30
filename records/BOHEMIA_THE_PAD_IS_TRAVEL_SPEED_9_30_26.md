@@ -46,3 +46,21 @@ gates/the_pad_is_travel_speed_gate.js on the demo: the object (five plates, thum
 lit, nothing painted under it), a plate press sets and lights the speed without setting a journey, the
 interrupt lights II, PAUSE holds (0 blocks, 0 minutes, still set), 3x >= 2.5 x 1x and every block paid
 its clock, 5x reported not asserted, no page error.
+
+## AMENDED THE SAME ROUND: THE EXTRA BLOCKS ARE SPREAD, NOT BURST (and why the first cut was wrong)
+The first cut took all N blocks inside one metronome tick. It passed its own gate, and it was wrong
+against another lane's work that landed the same hour: ANIMATION [glide] round two (dd55efa) tuned the
+map glide for "a step every BEAT/k" and SNAPS when the marker is more than 2.5 blocks ahead of the
+picture. Five blocks in one tick is exactly that. So the extra blocks now land one every BEAT/N inside
+the beat (setTimeout at k*BEAT/N), each a real stepOnce that pays its clock; a pending block does
+nothing if the journey ended, the speed changed, or he left the map.
+AND THE FIRST SPREAD CUT WAS ALSO WRONG, CAUGHT BY THE GATE: it redrew the whole map after every spread
+block (a render is ~42 ms here), tripling the draw work, and 3x crossed 7 blocks to 1x's 5 -> RED on
+"3x crosses at least 2.5 times 1x". The map glide redraws itself every frame while it moves; it only
+has to notice the new block, which cityGlidePos(now) does without drawing. After: 1x 4, 3x 11.
+FRAME-RATE, SAID PLAINLY: on this container (no GPU) the map draws about 5 frames a second at 1x and 3
+at 3x/5x, because a map step is ~55 ms and a render ~42 ms on the main thread; per drawn frame the
+picture moves 0.8 blocks at 1x and 3.5-4.5 at 3x/5x. That is the machine, and it is the number PLUMBER
+[grid budget] owns: this box cannot show whether 5x glides on a phone, and I do not claim it does.
+ANIMATION's own glide gate (THE MAP GLIDES, which drives the clock synthetically) passes 14/0 on the
+spread build.
