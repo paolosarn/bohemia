@@ -2274,6 +2274,16 @@ GATES = [
      'AND ONE LEG NEARLY PASSED FOR THE WRONG REASON: forcing the strip visible gives a 0x0 box, so '
      'asking who owns a zero-width point answered "nothing" and ticked green; it asserts the LOCK now, '
      'which needs no layout, and reports the box instead of asserting on it.', True),
+    ('NO TWO TEXTS OVERLAP ON THE DEMO', ['node', 'gates/no_two_texts_overlap_on_the_demo_gate.js'],
+     'VAMILY [demo text], rule 44c (PAOLO 9/29, said again: "when texts are overlapping each other, I '
+     'do not know why it is so fucking difficult for you to understand"; his screenshot: the quest '
+     'line running under the phone). Every visible text box on the demo and the alpha map at phone '
+     'size, clipped to what its containers show, with the paint order read through pointer-events, '
+     'measured with a LONG quest line so the wrap is exercised: no two overlap, none sits under '
+     'something that paints, the quest line stops before the phone and starts past the demo gear, '
+     'and the street-only HOLD TO WALK lesson is not shown on the map where the pad is speed. The '
+     'phone\'s own cracked glass over its own feed is the ruled look and is named, not counted. '
+     'Mutations: line not fitted -> 4 red; lesson on the map -> 1 red; line under the gear -> 2 red.', True),
     ('THE MAP HAS ITS PEOPLE', ['node', 'gates/the_map_has_its_people_gate.js'],
      'VAMILY [bb map] + [map pixels], rule 40f (PAOLO 9/29 with a screenshot of the map: "I should '
      'def be seeing the player character on this screen bro all those little circles should be '

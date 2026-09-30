@@ -1065,6 +1065,10 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font-family:var(--
 <style id="dayloopCss">
 /* __DAY_LOOP__ -- the day loop's surface, in the app's own palette. No new
    art: this is the Dead Eye Dial language the whole city already speaks. */
+/* RUN 9/30, [demo text] (rule 44c): the alpha's #note is a street hint ("move on the streets...")
+   and on the map it covered a town's name plate. The walk is the street's; on the map the hint
+   steps aside. (The demo strips #note outright, 18g.) */
+body.onmap #note{display:none !important}
 #qline{position:absolute;left:6px;right:6px;top:6px;z-index:7;pointer-events:none;
   font-size:11px;font-weight:700;letter-spacing:var(--track-casing,.4px);color:var(--acc);
   text-shadow:0 1px 4px #000,0 0 10px #000;line-height:1.35}
@@ -57915,6 +57919,9 @@ function render(){ try{ dayDistrictCheck(); }catch(_e){}   /* __DAY_LOOP__ */
          && !window.__RESTORE_OK){ HOME_WAKE_DAY1=true; HOME_WAKE_PENDING=true; } }catch(_e){}
   try{ if(HOME_WAKE_PENDING&&MODE==='human') homeWake(); }catch(_e){}   /* __YOUR_HOUSE__ */
   try{ if(PHONE_ON)phonePush(false); }catch(_e){}   /* __PHONE_IN_POCKET__ */
+  /* __THE_QUEST_LINE_CLEARS_THE_PHONE__ (RUN 9/30): which view is up, said on the body, so a
+     street-only hint can step out of the map's way in CSS rather than by hand in each caller. */
+  try{ document.body.classList.toggle('onmap', MODE==='city'); }catch(_e){}
   if(MODE==='city'){ screenFilter('city'); renderCity(); } else { screenFilter('human'); renderHuman(); } }
 /* __THE_PAD_SAYS_WHAT_IT_WILL_DO__ (8/27) -- THE PAD LOOKS LIKE WHAT IT WILL DO.
    Paolo: "it's so confusing". The pad does not move or hide when he zooms out,
@@ -80647,6 +80654,12 @@ window.BOHEMIA_FEED = (function(){
 
   function place(){
     var st=STEPS[i]; if(!st){ retire(); return false; }
+    /* THE WALK LESSON IS THE STREET'S (RUN 9/30, [demo text], rule 44c + 37b). On the map the
+       eight buttons are not a walk pad any more -- they are the speed control (rule 44a) -- and
+       this lesson's caption, HOLD TO WALK, sat ON TOP OF the 3x and 5x buttons: measured on
+       the alpha, two of the speed labels under the ring and the caption. Teaching a control
+       that does not do that is worse than silence, so on the map it waits for the street. */
+    if(st.k==='walk' && typeof MODE!=='undefined' && MODE==='city') return false;
     var el=document.querySelector(st.sel);
     if(!el) return false;
     var r=el.getBoundingClientRect();
