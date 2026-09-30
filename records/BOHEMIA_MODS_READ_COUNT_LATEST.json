@@ -1,0 +1,64 @@
+{
+ "measuredAt": "ca7655c",
+ "note": "MODS [read count]. touch = live copies (found + hidden in a blob) + gates that pin the literal. The data line has to beat these numbers; the target is 1.",
+ "probes": [
+  {
+   "thing": "one weapon's damage (the pistol's lethal odds)",
+   "literal": "WEAPON_LETHAL",
+   "found": {
+    "LIVE": 0,
+    "GATE": 2,
+    "TOOL": 3,
+    "DOC": 5
+   },
+   "foundLive": [],
+   "foundGates": [
+    "gates/combat_lab_gate.js",
+    "gates/fight_moves_you_gate.js"
+   ],
+   "hidden": [
+    "slices/BOHEMIA_ALPHA_0_9.html [COMBAT_B64]",
+    "slices/BOHEMIA_DEMO.html [COMBAT_B64]"
+   ],
+   "touch": 4
+  },
+  {
+   "thing": "one background (the kitchen hand, a former trade)",
+   "literal": "RAN A KITCHEN",
+   "found": {
+    "LIVE": 3,
+    "GATE": 0,
+    "TOOL": 0,
+    "DOC": 1
+   },
+   "foundLive": [
+    "engine/bohemia_people.js",
+    "slices/BOHEMIA_CITY_WORLD.html",
+    "slices/BOHEMIA_RUN_CURRENT.html"
+   ],
+   "foundGates": [],
+   "hidden": [],
+   "touch": 3
+  },
+  {
+   "thing": "one sound (the gunshot)",
+   "literal": "shot: {",
+   "found": {
+    "LIVE": 3,
+    "GATE": 1,
+    "TOOL": 0,
+    "DOC": 0
+   },
+   "foundLive": [
+    "engine/bohemia_sfx.js",
+    "slices/BOHEMIA_ALPHA_0_9.html",
+    "slices/BOHEMIA_DEMO.html"
+   ],
+   "foundGates": [
+    "gates/lab_gate.js"
+   ],
+   "hidden": [],
+   "touch": 4
+  }
+ ]
+}

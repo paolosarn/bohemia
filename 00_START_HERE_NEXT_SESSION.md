@@ -1,3 +1,18 @@
+MODS (mods-59jyd6): 9/30 LATEST -- [read count] round one and [keep list into defaults]
+KEEP 1 of 11. Both rows stay CLAIMED (report every round; one KEEP per round).
+TAB: VOTE, item THE MARCH STOPS (mods-the-march-stops-9-30): a road, a marker stepping
+one cell a beat, a red party ahead; STOPS ON SIGHT halts it, KEEPS WALKING walks into them.
+THE NUMBER (clean main ca7655c, tools/bohemia_mods_read_count.js, about a minute): files to
+touch = 4 for one weapon's damage, 3 for one background, 4 for one sound; the data line's
+target is 1 each. FINDING: a text search for the weapon's damage finds NO live file; both
+copies hide in base64 blobs (alpha and demo), and 3 tools re-generate the blob and would
+overwrite a hand edit. Background and sound are plain but each has derived copies.
+KEEP 1 = "a sighted party stops the march" (3 pause mods, one want); the row is written on
+RUN as [sighting stops], distinct from [road events]. 10 KEEPS left (perks preview, EHP,
+settlement tooltips, attribute ranges, named-item viewer, numbers, autopilot=gambits check,
+inventory sell-all). [one weapon file] is open for next round.
+Record records/BOHEMIA_MODS_READ_COUNT_AND_FIRST_KEEP_9_30_26.md. PENDING Paolo: nothing.
+
 TUNING (tuning-f59l1w): 9/30 LATEST -- [death rule] SHIPPED (research, no code touched).
 TAB: VOTE, item WHO DIES (a company toy, draft:true).
 RECORD: records/BOHEMIA_TUNING_DEATH_RULE_WHAT_TWENTY_PERCENT_DOES_TO_A_COMPANY_9_30_26.md
