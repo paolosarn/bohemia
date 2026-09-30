@@ -80620,6 +80620,26 @@ window.BOHEMIA_BAR = (function(){
       +'#musbtn{flex:0 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}'
       +'#barmoney{display:flex;align-items:center;gap:9px}'
       +'#barmoney span{color:var(--acc)}'
+      /* __THE_BAR_SAYS_THREE_THINGS__ (UI 9/29, [bb interface] round eight, rule 39a
+         BUILD IT and 40f the hold lifted for the map). On the Battle Brothers map the top
+         bar IS the feedback of travel: you tap, the party moves, the day ticks in the bar.
+         Ours was 50 px of black with one button while the hour moved only on the phone's
+         few-pixel status clock. THREE READINGS, the default of his waiting vote item (B),
+         built rather than asked: batteries, the hour, where you are. Each is a lit plate
+         from the same chip language as NOTES, not a new look. Readouts, not buttons:
+         pointer-events:none, so nothing new takes a finger. */
+      +'#barread{display:none;align-items:center;gap:5px;pointer-events:none!important;white-space:nowrap}'
+      +'#barread.on{display:flex}'
+      +'#barread .rd{display:inline-flex;align-items:center;gap:5px;height:24px;padding:0 8px;border-radius:4px;'
+        +'font-size:10px;letter-spacing:.6px;color:var(--ink);'
+        +'background:linear-gradient(var(--skin-chiptop,#2a2318),var(--skin-chipbot,#15110a));'
+        +'box-shadow:inset 0 1px 0 rgba(231,216,187,.16),inset 0 -1px 0 var(--skin-chipbase,#0b0906),0 1px 0 rgba(0,0,0,.5)}'
+      +'#barread .rd b{font-weight:700;color:var(--acc)}'
+      +'#barread .cell{position:relative;display:inline-block;width:13px;height:7px;border:1px solid var(--acc);border-radius:1px}'
+      +'#barread .cell:after{content:"";position:absolute;right:-3px;top:1px;width:2px;height:3px;background:var(--acc)}'
+      /* while the three readings show, the old words for the same facts step aside, so the
+         bar never says the place or the hour twice (the alpha keeps them on the street). */
+      +'#menubar.reads #hmode,#menubar.reads #hslot,#menubar.reads #barmid{display:none!important}'
       /* the readouts the bar adopted keep their meaning and lose their own positioning */
       +'#menubar #hmode,#menubar #hclock,#menubar #hslot{position:static;'
         +'white-space:nowrap}'
@@ -80655,6 +80675,8 @@ window.BOHEMIA_BAR = (function(){
     if(hmode) L.appendChild(hmode);
     if(hslot) L.appendChild(hslot);
     L.appendChild(W);
+    var RD=document.createElement('div'); RD.id='barread'; RD.setAttribute('aria-live','off');
+    L.appendChild(RD);
     /* CENTRE: the day and the clock, which is where all four of his references put it. */
     if(hclock) M.appendChild(hclock);
     /* RIGHT: the menu. Every chip that was floating over the world, in the order it was
@@ -80675,7 +80697,38 @@ window.BOHEMIA_BAR = (function(){
   }
 
   /* THE MONEY SLOTS DRAW THEMSELVES OR THEY DO NOT DRAW. No placeholder, no zero. */
+  /* __THE_BAR_SAYS_THREE_THINGS__: every fact is the game's own, asked, never kept here.
+     batteries = the player's purse (purseBalances().electricity: batteries are the money,
+     9/4, and electricity is that currency's key); the hour = clockStr(); where = the
+     district under the party, the same lookup updHud writes into #hslot. The map only
+     (MODE==='city'): the walked street is dead as a surface (38b) and keeps its own bar. */
+  function readings(){
+    var b=null, hr=null, where=null;
+    try{ var pb=(typeof purseBalances==='function')?purseBalances():null;
+         if(pb && typeof pb.electricity==='number') b=pb.electricity; }catch(_e){}
+    try{ var full=(typeof clockStr==='function')?clockStr():'';
+         var bits=String(full).split('\u00b7'); hr=(bits.length>1?bits[bits.length-1]:full).trim()||null; }catch(_e){}
+    try{ var t=om.at(city.x,city.y); where=(t&&t.district)?String(t.district).toUpperCase():null; }catch(_e){}
+    return { batteries:b, hour:hr, where:where };
+  }
+  function paintRead(){
+    var RD=document.getElementById('barread'), bar=document.getElementById('menubar');
+    if(!RD||!bar) return;
+    var onMap=false; try{ onMap=(typeof MODE!=='undefined' && MODE==='city'); }catch(_e){}
+    var r=readings();
+    /* A READING DRAWS ITSELF OR IT DOES NOT DRAW. No placeholder, no invented zero. */
+    var parts=[];
+    if(typeof r.batteries==='number') parts.push('<span class="rd" data-k="batteries"><i class="cell"></i><b>'+r.batteries+'</b></span>');
+    if(r.hour) parts.push('<span class="rd" data-k="hour">'+r.hour+'</span>');
+    if(r.where) parts.push('<span class="rd" data-k="where">'+r.where+'</span>');
+    var show=onMap && parts.length>0;
+    RD.classList.toggle('on',show); bar.classList.toggle('reads',show);
+    var html=parts.join('');
+    if(show && RD.__was!==html){ RD.innerHTML=html; RD.__was=html; }
+    try{ window.__BAR_READ={ on:show, batteries:r.batteries, hour:r.hour, where:r.where }; }catch(_e){}
+  }
   function paint(){
+    try{ paintRead(); }catch(_e){}
     var W=document.getElementById('barmoney'); if(!W) return;
     var m=money();
     if(!m){ W.textContent=''; return; }
@@ -80694,6 +80747,9 @@ window.BOHEMIA_BAR = (function(){
       /* the readouts are rewritten by the game on its own beat; the money is the only
          thing the bar has to come back for, and it is cheap and rare. */
       try{ setInterval(paint, 1000); }catch(_e){}
+      /* the hour moves on the party's beat while it travels; half a second keeps the
+         bar within one step of the phone's own clock without touching the map's tick */
+      try{ setInterval(function(){ try{ paintRead(); }catch(_e){} }, 500); }catch(_e){}
     }
   }
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',boot);

@@ -2322,7 +2322,7 @@
    "sha": "871b1203",
    "made": "9/27",
    "title": "WHAT THE BAR SAYS",
-   "why": "The map is the first screen of the demo now, so the strip across its top is the first thing a friend reads, and it says NOTHING: one NOTES button on black. On the Battle Brothers map the top bar is how you feel time passing while you travel. Ours has no clock in it; the only clock is the tiny one on the phone. You also said less on screen. So this is the one question, asked once. All three are the same real shot of the demo's map from the game's own camera, and only the strip changes. A is what you have. B is three readings: batteries, the hour, where you are, and the hour ticks while the party travels. C is five, the Battle Brothers count: add the day and who is with you. The readings are already built and switched off, so B and C are a switch, not new work.",
+   "why": "B IS IN THE GAME NOW. You said build it and don't ask, so I did: on the map the top strip says your batteries, the hour and where you are, and the hour ticks while the party travels, the way Battle Brothers shows time passing. Before, it said nothing: one NOTES button on black, and the only clock was the tiny one on the phone. Every number is the game's own. A is what it was. C adds the day and who is with you, the Battle Brothers count of five. Tap A or C only if you want it changed.",
    "show": {
     "how": "image",
     "src": "vote/UI_WHAT_THE_BAR_SAYS_9_27.png"

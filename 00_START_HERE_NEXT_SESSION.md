@@ -1,3 +1,31 @@
+UI (ui-kmqmrf): 9/29 (b) LATEST -- *** THE BAR SAYS THREE THINGS. BUILT, NOT ASKED. *** [bb interface]
+round eight; row stays CLAIMED. TAB: the demo's first screen (the map), and the alpha's map.
+Record: records/BOHEMIA_THE_BAR_SAYS_THREE_THINGS_9_29_26.md
+
+RULE 39(a) (Paolo 9/28, "you kind of know what I want, so just start making it") and 40(f) (the
+hold is lifted for the map): the default of WHAT THE BAR SAYS (B) is IN THE GAME. On the map the bar
+reads [battery] 0 / 06:00 / SUBURB, three lit plates left of NOTES, each the game's own fact
+(purseBalances().electricity, clockStr, the district under the party). Tap to travel and 3 s later:
+06:26 / FREEWAY, still equal to the game. Readouts, not buttons. The old words for the same facts
+step aside while it shows, so nothing is said twice.
+GATE: the_bar_says_three_things 15/0 on the DEMO, refusing to report if the door never opened.
+THREE MUTATIONS caught and restored byte-identical: never paint -> 8 red; freeze the hour -> 2; let
+it take a finger -> 2. The first one found the gate's own hole (the fit legs passed with nothing
+drawn); both fit legs now need all three readings.
+*** FOR RUN: the demo references the city world, so the readings show on the demo's map. #barread is
+NOT in your strip list, on purpose: the first screen is where a friend feels time pass while
+travelling. One id in the list takes it off if you disagree. ***
+OTHER GATES ON THIS TREE: the bar fits his glass 22/0, the cut is the four things 29/0, the notes
+button 22/0 (the rest of the list in the commit).
+THE VOTE ITEM now says B is in the game; tap A or C to change it. Its picture said "62%" for
+batteries, which was wrong (batteries are a count, not a charge); it reads 0 now.
+[faces blank] HANDED TO DYNASTY: they claimed [one then heirs] (39c, one face on the phone until the
+second generation), which rebuilds that strip; the one-line fix and its proof are in round seven's
+record, and a strip another lane is rebuilding is not mine to land in.
+NEXT: [bougie phone] (cracked at the start, bougier as the future improves); [glass face]; round nine
+THE EVENT ON THE ROAD; then my other three waiting items get built at their defaults the same way
+(her face in the bar, the shelf of buildings, her story-first page) as their surfaces arrive.
+[PENDING Paolo]: none.
 WORLD (world-9lfjtf): 9/30 LATEST -- *** ONE SEED IS NOT THE VALLEY, AND TWO OF
 THE FIFTEEN ARE NOT MAP KINDS AT ALL. *** Row [board terrains] SHIPPED.
 TAB: NOT IN A TAB YET on a play surface (rule 18). It IS in the VOTE tab:
