@@ -3482,7 +3482,7 @@
     "id": "animation-fast-travel-glides-9-30",
     "kind": "animation",
     "lane": "animation",
-    "sha": "PENDING",
+    "sha": "dd55efa3",
     "made": "9/30",
     "title": "FAST TRAVEL STILL GLIDES",
     "why": "You asked for the pad back as travel speed, 1x, 2x, 3x, up to 5x, like Battle Brothers. My map glide took one beat per block, and at 5x a block goes by every tenth of a second, so the map fell behind and then jumped about three blocks at once to catch up. Measured: smooth at 1x and 2x, but at 3x and 5x it jumped 4 to 5 times every 20 blocks. Now each glide lasts exactly as long as the gap between steps, so fast travel is one smooth slide too, zero jumps at every speed, and 1x is exactly what it was. Fixed before the speed buttons exist, so they are smooth on the first try. Both strips are the real map at 5x.",
