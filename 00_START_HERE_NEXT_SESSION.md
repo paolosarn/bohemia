@@ -9797,18 +9797,58 @@ passing. Nothing in the finding changed, only the two lines that quoted a dead p
 live. C2 (archived-as-live, 10 against 6) is still red — WORLD's own routed item, already claimed
 by WORLD this round, not touched here.
 
-QUEUE EMPTY AGAIN. No OPEN or CLAIMED line in the ECONOMY section of VAMILY.md. Next VAMILY: per
-rule 5/10, the coordinator adds the next job when one exists.
-CARRY THESE IN, TWO OF THREE STILL OPEN AND NEITHER OF THEM THIS LANE'S TO FIX (checked fresh a
-sixth time):
+=== ROUND 55, [six resources] SHIPPED 9/30. ===
+records/BOHEMIA_ECONOMY_DAY_55_SIX_THINGS_TWO_LEDGERS_THAT_HAVE_NEVER_MET_9_30_26.md
+
+THE FINDING, ONE SENTENCE: FOUR OF THE SIX HAVE CODE, BUT AS TWO LEDGERS THAT HAVE NEVER MET --
+THE PURSE (WHAT THE PLAYER CAN AFFORD) AND THE SETTLEMENT SIM (WHAT THE VALLEY HAS) -- AND ROUNDS
+IS THE ONE TRUE ZERO, WITH A NAMED SOCKET WAITING IN A MODULE SHIPPED THE SAME DAY AS THE RULING.
+
+MEASURED, six resources, one at a time: BATTERIES is the currency itself (round 49/52 numbers
+cited, not re-run). FOOD is billed twice -- the purse's day:ate (flat, one debit, no headcount)
+and the economy sim's GOODS.food (need 1.0 ration/adult/day) are two different engines computing
+two different hungers that never read each other. WATER has the exact same double life (GOODS.
+water exists, round 47's "one battery every 4-6 days" is banked, nothing in the purse ever
+charges for it). MEDS is a population statistic (GOODS.meds) with zero connection to any wound --
+searched the whole engine, no wound/injury module exists anywhere; rule 36b's 30-40-day clock is
+a LAW, not a line of code. ROUNDS: zero purse verb, zero GOODS entry, zero reach mechanic
+anywhere -- but engine/bohemia_scavenge.js, shipped by WORLD the SAME DAY as this ruling (row
+[scavenge]), already carries KINDS = ['food','medicine','battery','tape','ammo'], five of our
+six names verbatim, YIELDS empty by design, zero live callers yet. TAPE is a flat yes/no switch
+(fight:plate) where Battle Brothers runs a real meter (1 tool per 15 durability).
+NEW RESEARCH THIS ROUND: BB's ammo is bundles of 50, 1 point per bow/bolt shot, 2 per handgonne,
+3 per thrown weapon, a 10-14 round quiver auto-refilling after battle from the company's own
+stockpile (never mid-fight), enemies given deliberately infinite ammo. Food spoils per TYPE (7
+to 16 days) and the company eats whatever is closest to expiring first. Real world: the
+recoverable, valuable part of a spent round is the brass CASING, not the powder or bullet --
+exactly why scavenge's own "a recent battle: more ammo" bonus is the realistic one, and its own
+bonus() function already returns UNREAD because nothing in the game records that a fight
+happened anywhere, already routed by WORLD to COMBAT (one publish call), confirmed independently
+by this round arriving at the same file.
+Eight numbers handed to TUNING, none invented: a battery/day of work =1, a battery/night's loan
+=1, food/mouth/day =1 (purse) or 1.0 ration (sim, unconnected), a household's water =1 battery
+every 4-6 days, BB's medicine/injury/day =1 (translation only), BB's tools/15 durability =1
+(translation only), BB's ammo/shot =1/2/3 by weapon class (translation only), a company of any
+size's own bill =1 (no headcount anywhere).
+
+BANK: 8 lines, SSSSSSSSSSSSSSS. A rifle with an unknown round count, a spent case worth keeping,
+two ledgers that have never compared notes. 602 role-place entries now, zero the player
+speaking, Spanish register 0 of 8, under the cap.
+
+GOOD NEWS, UNPROMPTED: gates/canon_rot_gate.js is FULLY GREEN now (13/13), both C2 and C3 closed
+by other lanes since last round (C2 was WORLD's, C3 dropped to 61 against the 62 ceiling -- the
+gate's own note suggests lowering the ceiling to lock the win in, PLUMBER's call, not this
+lane's). Drop it from the carry list below.
+
+NEXT IN THIS LANE: [what a beast is worth], the first OPEN line in the section, per rule 5.
+Four more OPEN lines sit after it in file order: [what grows], [prices per place], [contract
+pay], [build costs], and [the bubble] (older, 9/28).
+CARRY THESE IN, NOW ONLY TWO, NEITHER THIS LANE'S TO FIX (checked fresh a seventh time):
  - gates/four_verbs_gate.js CRASHES on main, on "#daycardIn .dcgo". Do not read it as new and do not
    chase it. It means the four upkeep verbs have no working end-to-end check, which matters to this
    lane more than to anybody, so if it is still red next round SAY SO AGAIN rather than assuming
    PLUMBER saw it.
  - gates/purse_gate.js ACT ONE ONLY is red against a 9/23 law that supersedes it.
- - gates/canon_rot_gate.js's C3 leg (the one this lane owned) is CLOSED this round, verified by
-   running the real gate, not assumed. If it reads red again next round, that is a NEW instance and
-   worth naming fresh, not a reopening of this one.
 
 
 ================================================================================

@@ -4451,3 +4451,50 @@ SSSSSSSSSSSSSS7  the woman, thinking about that                              dra
   round hands over is a doorway and a ladder.
 - Spanish register: 0 of 7 lines. Under the 15% cap; two plain domestic exchanges, and
   neither called for it.
+
+## SSSSSSSSSSSSSSS. THE GUN THAT NEVER TELLS YOU
+## (round 55, [six resources]. Two ledgers that never met, a gun with no number
+##  behind it, a spent case worth more than the bullet it held. Nobody says a
+##  number. Role, place, situation.)
+
+SSSSSSSSSSSSSSS1  a man checking his own count of things             draft:true
+    "I've got food for the week. I've got no idea about anything else."
+
+SSSSSSSSSSSSSSS2  his wife, at the same shelf                        draft:true
+    "Nobody knows about anything else. That's not just you."
+
+SSSSSSSSSSSSSSS3  a woman after a fight, walking the ground           draft:true
+    "Leave the bullets. Bring me back every case you see."
+
+SSSSSSSSSSSSSSS4  the man with her, confused                          draft:true
+    "The case is empty."
+
+SSSSSSSSSSSSSSS5  the woman, not looking up                           draft:true
+    "The case is the only part I can use twice."
+
+SSSSSSSSSSSSSSS6  a boy with a rifle, after a long day                draft:true
+    "I don't know how many I've got left in here."
+
+SSSSSSSSSSSSSSS7  the old hand who taught him                        draft:true
+    "Nobody does. That's the part that should scare you."
+
+SSSSSSSSSSSSSSS8  a settlement's own tally keeper, at the shelf       draft:true
+    "The valley knows how much water it has. You? Not a clue what you're carrying."
+
+## TTTTTTTTTTTTTTT. WHAT IS NOT HERE, ON PURPOSE (round 55)
+
+- No line says a resource name, a currency, a verb or a count. The whole finding is
+  said as a shelf, a spent case and a rifle nobody has counted.
+- No line says purse, ledger, scavenge, GOODS or any module name. The mechanism stays
+  out of every mouth.
+- No line claims the missing count is a bug being fixed. SSSSSSSSSSSSSSS1, 6 and 7 are
+  people living inside the gap, not people about to close it.
+- No line resolves whether medicine becomes a real currency icon. That is not ruled
+  here and section 5 said so.
+- No line names a town, a street or a faction. MAP LAW.
+- No line has the player speaking. Rule 27: 602 role-place entries in this file now,
+  zero of them him talking.
+- No line is written for a card, a tooltip or a readout: rule 19(a), rule 29. What
+  this round hands over is a shelf, a spent case, and a rifle with an unknown count.
+- Spanish register: 0 of 8 lines. Under the 15% cap; plain, blunt exchanges that did
+  not call for it.
