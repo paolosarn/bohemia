@@ -1,2 +1,3 @@
 # POCKET CITY 2, HIS OWN SCREENSHOTS (Paolo 9/30/26, his phone 1170x2532). Reference for THE ZOOM RANGE and the drop-in transition ONLY (CLAUDE.md reference line). Private study; never published (reference/ is excluded from the site). See records/BOHEMIA_PAOLO_POCKET_CITY_2_THE_ZOOM_RANGE_9_30_26.md
 01 closest: one person on a bench | 02 a bus stop | 03 a block | 04 the district | 05 the whole city (landscape)
+06 closest, landscape: a man walking; the HUD re-laid to the corners (both orientations, rule 50b)

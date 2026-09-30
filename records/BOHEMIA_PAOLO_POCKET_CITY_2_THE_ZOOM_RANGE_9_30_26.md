@@ -36,3 +36,14 @@ economy) is a reference; 43 already refused its edit-everything route.
 - The pixel floor (38a) is what makes the far end readable: Pocket City 2 draws its whole city at the phone's
   pixels; ours paints one in thirteen today (PLUMBER); RUN [map pixels] + PLUMBER [native map] are the same job.
 - His phone: 1170 x 2532, a 3x screen. Every measurement in the fleet is taken at that profile from now.
+
+## HIS SIXTH SCREENSHOT (the same minute): "How it looks in vertical and horizontal"
+06 LANDSCAPE, THE NEAR END: one man walking on a sidewalk, a bench-sized block beside him; the HUD re-laid for
+   landscape: the level and money across the top, the four tabs bottom-left, the big BUILD bottom-right, the
+   layers/map/pause/speed/settings top-right. The same game, the same buttons, the phone turned.
+THE RULING (LOCKED): BOHEMIA PLAYS IN BOTH ORIENTATIONS. Portrait is the default (his hand); landscape is the same
+game with the HUD re-laid to the corners the Pocket City 2 way, the same buttons, the same stops of the pinch.
+Today the alpha and the demo are measured at portrait only (390x844); every driver profile gains a landscape twin
+(2532x1170 at 3x), EYES measures both, UI lays the HUD out for both, and a screen that breaks when the phone turns
+is a red. Pocket City 2 stays the reference for this too (the zoom range and the drop-in; the layout's constancy).
+
