@@ -11620,6 +11620,28 @@ full suite unmeasured since 7efb22cf. Rule 14(a): demo untouched, RUN cuts it.
 
 Record: records/BOHEMIA_ONE_DOOR_9_14_26.md
 
+PLUMBER (plumber-ont6t5): 9/30 LATEST -- *** CHAT 18. ROUND 47. [no overlap] CONTINUING, ROUND 1. NO OVERLAP IS IN
+THE SUITE AND RED ON PURPOSE ON TWO REAL LAYOUT FAULTS, BOTH SEEN ON THE GLASS. ***
+Record: records/BOHEMIA_NO_TWO_TEXTS_ON_TOP_OF_EACH_OTHER_9_30_26.md. The coordinator made it this lane's first line
+(rule 44c, Paolo 9/29, said again); [one driver] stays claimed behind it.
+  BUILT: tools/bohemia_text_overlap.js (every visible DOM text, shell and frames, and every text drawn on an on-page
+  canvas via a fillText/strokeText wrap armed before page scripts; five points per text asked what paints on top)
+  and gates/no_overlap_gate.js, IN THE SUITE AS NO OVERLAP (600 s budget, about 220 s): 20 passed, 2 failed.
+  THE TWO REDS: (1) the quest line, at the length the game composes, wraps its second line under the settings
+  button (demo; RUN [quest line]; his screenshot's element, then under the phone). (2) the danger line runs under
+  BUILD HERE (alpha; UI [danger line] = UI's own [warning clipped]). Both PLANTED, stated: the demo's first 40 s never
+  write a quest line; the danger line goes through the game's own streetSay() with UI's quoted words.
+  CLEAN, MEASURED: loading screen, first screen, map at opening zoom and far stop, demo and alpha, 10 to 45 texts each.
+  THE TRAPS, each now a planted self-test (13): the map outlines 'HOME' by drawing it nine times; a loading screen
+  hides the game, it does not "cover" it; hit tests skip click-through labels and panels (every element takes the
+  finger for the question); the phone's cracks (an SVG of lines) and glass (a clear gradient) are see-through -- and
+  counting them solid hid all 24 feed lines from the checker TWICE, caught only because the count fell 26 -> 2.
+  A covered test that cannot run now fails the gate.
+  NOT YET READ (OWED, printed every run): the fight, the settlement screen (not built), the phone opened out.
+  ALSO: canon rot is fully green again on main (the lanes fixed their lines).
+  STILL [PENDING Paolo]: the 145-file move (32.3 MB); the two Battle Brothers hosts (000 again).
+  PROOF: NO OVERLAP 20/2 (the 2 = the two faults above, screenshots checked by eye); ONE DRIVER 3/0; EXCAVATE 8/0.
+
 PLUMBER (plumber-ont6t5): 9/29 LATEST -- *** CHAT 18. ROUND 46. [one driver] CONTINUING, ROUND 1 OF SEVERAL.
 292 CHECKERS OPEN THE GAME IN A BROWSER; 290 BUILT THEIR OWN DOOR. TWO WERE RED AT THE DOOR AND NOW REACH THE CITY. ***
 Record: records/BOHEMIA_THE_DOOR_IS_ONE_PROCEDURE_9_29_26.md. Both older claims ([excavate], [bb library]) still
