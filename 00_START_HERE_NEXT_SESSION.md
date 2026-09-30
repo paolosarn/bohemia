@@ -34007,6 +34007,53 @@ since 9/6, it also holds 19 QUESTS (BUILD). The front page's chat-19 line says a
 chat with an empty queue takes QUESTS, and DYNASTY's queue went empty at Q16. The
 lane and its first row were claimed and pushed BEFORE any work started. ***
 
+ROUND 59 [the ending] THE THREE ENDINGS WERE ALREADY CANON. THE GAUGE IS WHAT IS MISSING.
+DYNASTY, SCHOOL (rule 39e), no code, nothing in the alpha changed. Claimed and pushed as its own
+commit BEFORE work (rule 5): it was the first OPEN line. TAB: NOT IN A TAB YET (research); one
+text line in the VOTE tab (dynasty-the-ending-9-30).
+  records/BOHEMIA_DYNASTY_THE_ENDING_9_30_26.md
+
+WHAT I FOUND (the finding that proves the row wrong): the row treats the endings as a fresh question.
+Canon has had them since 7/18 (laws/BOHEMIA_STORY_MASTER_7_18_26.md: LIBERATE / RESPECT / BECOME) and
+Act 3 has been the one-way Moon trip since 7/19 (BOHEMIA_ADDENDUM_ACT3_MOONSHOT_STRUCTURE_7_19_26.md).
+The ONE line still floated there is "the exact mapping of the three stances across the Act 2 / Act 3
+boundary", so the round answers that. READ FIRST, in order: STORY MASTER (the three endings, the
+amalgamation, the family theme), the 7/19 Moonshot addendum, the 7/18 scope addendum, the 7/24 ghost
+addendum, and his 9/28 words (records/BOHEMIA_PAOLO_ENDINGS_THE_COMPANY_ACROSS_ACTS_...9_28_26.md).
+
+MEASURED ON THE REPO: (1) amalgamationModel, finaleLedger, monumentForm, districtTexture are in 0
+places in the walked city and the alpha. (2) The two-ledger flag `recorded` (engine/bohemia_engine.js,
+recordChoice) DEFAULTS TO SEEN, its only caller (bohemia_loop.js) is not in the walked game, and no
+quest sets it false. (3) S01_THE_METER_READER.bq line 158 says its trap option "sets the unrecorded
+flag the fold reads later"; the option sets ordinary flags (looked_under_the_rock, it_goes_down) and
+"unrecorded" appears nowhere in the quest parser or runtime: A NOTE IS NOT A GATE. So every player's
+blind spot is zero and the finale's win condition (blindSpot) cannot be reached by construction.
+
+HIS SIGNAL IDEA, WITH NUMBERS (recall tags in the record where I could not fetch): Moon 1.28 s, Mars
+3.0 to 22.3 min; everything one person says aloud in a life ~2.5 GB = 32 s over the best Moon link
+flown (~622 Mbps); a whole brain at synapse resolution ~1.8 ZB = ~720,000 years. A portrait travels at
+radio speed, a person does not, and that is exactly canon's Amalgamation (a simulation, not an upload).
+
+DEFAULTS I DECIDED (draft, in the VOTE line): his good/bad/neutral is how the dynasty behaves across the
+acts (recorded vs unrecorded share); LIBERATE needs an unrecorded self (canon: the humanity-gate tests
+it), BECOME needs a recorded one, RESPECT is always open. The twist that fits everything: the rocket is
+real and carries the real crew; the recorded ledger has been the signal all along; the bodies bring the
+unrecorded self; amalgamationModel is default A's machine already. ASSASSIN'S CREED studied for the
+ending's shape only (the interface you used was the machine; the frame costs when it interrupts).
+[PENDING Paolo], NONE BLOCKING: does the twist make the family the copy (default NO: the machine's
+incomplete copy of them, which keeps grief real) and is good/bad/neutral behaviour or the ending's name.
+
+ROUTED: QUESTS (research: which quests make you go dark, and the .bq language has no off-the-feed
+word), WORLD/FACTIONS (the severance's threshold on the unrecorded share; the Network split as a
+ledger row), PEOPLE, UI/DIRECTION (the reveal under the bible; Act 1 never says the word, 7/24 lock).
+
+PRE-PUSH PASS: school, no code. Handoff and reply contract run. Nothing in slices/ or engine/ touched.
+
+NEXT for DYNASTY, checked on the live board: [heirs] (BUILD, rule 39d, "build exactly that"), then
+[the frame] (school), then the Q-list from [old body] Q19. Two orphaned QUESTS rows ([light the pump],
+[main quest live]) are STILL CLAIMED under this session and un-buildable under rule 35: not touched,
+re-flagged for the coordinator.
+
 ROUND 58 [one then heirs] ONE FACE AT THE START. THE NEXT IS BORN FROM HIM. (BUILD)
 DYNASTY, BUILD. Claimed and pushed as its own commit BEFORE work (rule 5). TAB: the phone
 on the map in the alpha; the picture is in the VOTE tab (dynasty-one-then-heirs-9-29).
