@@ -57,3 +57,13 @@ one red that is not RUN's: its A2 reads a line in the shell that main does not c
 - **The crowd drawing** reads as a group at 2x but is COOK's first shape; COOK can redraw it and the
   gate proves the page picks the new bank up only if the embed is re-cut from it.
 - **The three faces on the phone** are DYNASTY's `[one then heirs]` (rule 39c).
+
+## A COST I SHIPPED AND TOOK BACK THE SAME ROUND
+
+The first cut redrew the whole map once a beat so the banner and the crowds moved while he stood
+still. Measured after the ship, idle on the demo's map for three seconds: **56.7 fps with a worst
+frame of 83 ms, against 60.3 fps and 17 ms without it** -- a whole-map render is one long task, so
+the beat redraw was a hitch twice a second. Removed. The figures take the beat's frame whenever the
+map is drawn (every travelled block, every pan and pinch) and hold still otherwise, which is COOK's
+own spec for the banner ("hangs dead when you stop"). Boot time is the same either way (about 145 s
+to the door on this box, a property of main's boot, not of this change).

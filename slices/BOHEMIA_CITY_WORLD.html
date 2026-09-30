@@ -42708,17 +42708,13 @@ function mapFaceNow(){
 /* WHAT THE MAP DREW THIS FRAME, said by the render itself (the gate reads it, it does
    not re-derive it): how many of each, and where he was drawn and how big. */
 var MAP_DREW = null;
-/* ONE REDRAW A BEAT WHILE THE MAP IS UP, so the moving parts move. The street already
-   pays this (THE VALLEY KEEPS BREATHING); the map did not, and a banner that only
-   stirs when a finger touches the glass is a still with extra steps. */
-setInterval(function(){
-  try {
-    if (typeof MODE === 'undefined' || MODE !== 'city') return;
-    if (document.hidden) return;
-    if (typeof transing !== 'undefined' && transing) return;
-    render();
-  } catch (_e) {}
-}, (typeof BEAT === 'number' ? BEAT : 500));
+/* *** NO REDRAW OF ITS OWN, AND THAT IS A MEASUREMENT. *** (RUN 9/30.) The first cut redrew the
+   whole map once a beat so the banner and the crowds would move while he stood still. MEASURED on
+   the demo, idle on the map for three seconds: 56.7 fps with a worst frame of 83 ms, against 60.3
+   fps and 17 ms without it -- a whole-map render is one long task, so a beat redraw was a hitch
+   twice a second on the screen he stares at. So the figures take the beat's frame WHENEVER the
+   map is drawn (every travelled block, every pan and pinch), and hold still when nothing moves:
+   COOK's own banner "hangs dead when you stop", and the long stillness is the bible's. */
 /* ==== /__THE_MAP_HAS_ITS_PEOPLE__ ==== */
 function renderCity(){
   MAP_DREW = { crowds: 0, places: {}, parties: 0, you: null };   /* __THE_MAP_HAS_ITS_PEOPLE__: what this frame drew */
