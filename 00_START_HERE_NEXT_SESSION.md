@@ -19340,6 +19340,54 @@ HOW TWENTY-TWO ROUNDS COMPOSE, written once now that Q1-Q22 are all shipped:
 NEXT IN THIS LANE: Q23 [who eats first].
 
 
+FACTIONS (factions-ovkjpf): 9/30 (round 49) LATEST -- *** [home bases] ROUND FOUR: THE LEDGER NAMES THE WAY A PART
+CHANGES HANDS AND ANSWERS FOR ANY BLOCK (RULE 43), AND A BASE GROWS IN JUMPS. *** Rule 43 (Paolo 9/29): taking a part
+(raid, contract, boss verb, deal) is how the base grows, losing one is how it shrinks, "you own the held-parts ledger
+LIFE+CITY builds on", and the base "can be half the city by act 3". PREMISE MEASURED FIRST (rule 12): round 47's ledger
+already wrote took and ruined and read heldBy, so whole parts existed; three things did not: the four ways, a read for
+"who holds THIS BLOCK", and a count for "a base is every block you hold". BUILT (engine only, commit 73aad0e8, on main):
+engine/bohemia_homebases.js has WAYS = raid, contract, boss, deal, frozen (a taking may carry `by`; any other value is
+refused by name, UNKNOWN_WAY; none records null; the save keeps it and load drops a bad one); blockHolder(partAt, rec,
+bx, by, act) answers {part, holder, state} DERIVED from the part a block lies in, never stored per block (partAt is
+handed in as a function, so the module takes data and not another module); heldBlocks(partAt, rec, who, n, act) counts.
+Gate HOME BASES 94 checks (was 75), red 37 ways by mutation (was 29): new legs 10d (the ways) and 10e (on the real
+valley, seed 12345: the empty ledger is a no-op for all 9,216 blocks; a taking flips a WHOLE part and not one block more;
+a ruin holds nothing; a taking in act 2 is not there in act 1). The dead per-cell shape stays dead: a gate leg
+comment-strips the logic and refuses turf, holderOf, grid, cell(s), 9216. LIFE+CITY [build a lot] round 2 (c4763f7,
+landed while I was cooking) ALREADY READS THIS LEDGER (heldBy, isRuin, ownedBy on the part); their BUILD A LOT gate is
+56/0 with my change in, so `by` being optional cost them nothing. MEASURED, off the game's own map: every block belongs to
+exactly one of the fourteen parts (331 blocks to 1,490), so a base grows in JUMPS: the five camps are 1,949 blocks =
+21.1% of Vegas, plus the four towns 4,057 = 44.0%, the five fortresses the other 56.0% and each one 5.9% to 16.2%. With
+the DEPTH thirds (camps open at the start of an act, towns a third in, fortresses two thirds in) the most a player could
+hold is 21%, then 44%, then it jumps to everything. "Half the city" needs NO Mob: all camps, all towns and the smallest
+fortress (Caravans) is 4,602 blocks = 49.9%. On five other valleys the fortresses were 47 to 53%. It is an upper bound:
+nothing can take a part yet, a player at boot holds 0. THE COOK, in VOTE: YOUR BASE GROWS PART BY PART
+(vote/FACTIONS_YOUR_BASE_GROWS_PART_BY_PART_9_30.html, id factions-your-base-grows-part-by-part-9-30): three real frames
+of the game's own map, gold ring = a part you would hold (camps, camps and towns, all fourteen), a bar each (21, 44,
+100 percent) and the table of the fourteen. MY DEFAULT, rule 39a, a thumb: a base is WHOLE PARTS, never a piece of one
+(the piece-by-piece version is the dead territory ledger under a new name); thumbs down means split a part, and that is
+his to say in words. WHAT WE DO DIFFERENTLY FROM BB (39b): BB's towns are never the player's, ours pass to him whole by four
+ways; ownership is a gold ring on the base and never ground colour. THE COORDINATOR'S 9/30 NOTE ON MY ROW says "nothing
+happens when they arrive" is the next row: a crew arriving at a base you HOLD is a RAID (LIFE+CITY's raid picture is in
+VOTE, COMBAT's board is cut from that block). That agrees with round three's default (a base falls only from what the
+player does): an arrival at a base you hold is an offer and ONE fight the player answers, never an automatic loss; a
+crew arriving at a base you do not hold still does nothing. NOT BUILT THIS ROUND, DESIGNED: an arrival is an EDGE (the
+parties module's `arrived` going false to true, at the base's own cell), so the read is arrivals(before, after) over two
+party lists and not a stored flag, and the base marker can carry `at`; I build it when the offer has a row (LIFE+CITY and
+COMBAT own its shape) rather than guess it. PROCESS NOTE: main moved three times mid-round; I pushed the module commit
+FIRST so its sha was final and registered the card in a second commit citing that landed sha (the coordinator's sweep
+found 18 vote items with no sha; the vote tab gate's first rule is that every item carries one). ROUTED (full list in the
+record): LIFE+CITY blockHolder is "a lot of a part you hold" and heldBlocks is the base's size; COMBAT calls took/ruined
+with `by`; DYNASTY [one then heirs] ownedBy; WORLD [future city] STILL reads the old per-cell ledger's netFor (point it at
+BohemiaHomebases.netFor / ruinsThrough, then the old ledger can go); WORLD/ECONOMY base jobs and the six dark pumps;
+RUN/COOK the gold ring from ownedBy, ground unpainted; PLUMBER BATTLE BROS H5 and the census file; [PENDING coordinator]
+COLOUR IS TERRITORY vs 37e, my default unchanged. NEXT IN THIS LANE: [home bases] and [territory ledger] stay CLAIMED.
+(1) the arrival read when the raid's offer has a row; (2) rule 42a, the human combat factions and rosters, WITH PEOPLE
+(COMBAT [bestiary] owns the data file); (3) a base's job facts on the marker once WORLD/ECONOMY resolve the dark pumps;
+(4) when RUN's map is up, cut my border and ground ink if it still draws; (5) when a raid exists, inline the module and wire
+the save. Three of my VOTE cards now wait on him (the fourteen bases, the crews heading at bases, this one).
+Record: records/BOHEMIA_HOME_BASES_ROUND_FOUR_THE_HELD_PARTS_LEDGER_9_30_26.md.
+
 FACTIONS (factions-ovkjpf): 9/29 (round 48) LATEST -- *** [home bases] ROUND THREE: THE WORLD ALREADY WANTS TO RAID
 AND NOTHING ANSWERS. [crews exist] WAS ALREADY TRUE AND IS CLOSED BY MEASUREMENT. *** The old first line of this lane
 (coordinator 9/16, "no crew has ever been on the map") measured false on the live alpha at a fresh boot: 4 of the 28

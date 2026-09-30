@@ -3464,7 +3464,20 @@
      "how": "image",
      "src": "vote/COMBAT_A_STREET_OF_HOUSES_9_30.png"
     }
+   },
+  {
+   "id": "factions-your-base-grows-part-by-part-9-30",
+   "kind": "tile",
+   "lane": "factions",
+   "sha": "73aad0e8",
+   "made": "9/30",
+   "title": "YOUR BASE GROWS PART BY PART",
+   "why": "You said your base is every block you hold and it can be half of Vegas by the end. Tap LOOK AT IT: the game's own map with a gold ring on every part you would hold, at the start of an act (the five camps, 21 percent of Vegas), a third in (add the four towns, 44 percent) and two thirds in (all fourteen). A part comes whole, so your base does not creep up, it jumps, and each fortress is 6 to 16 percent by itself. Nothing in the game can take a part yet, so this shows the most you could hold. Thumbs up if a base made of whole parts is the right shape. Thumbs down and tell me what is wrong.",
+   "show": {
+    "how": "page",
+    "src": "vote/FACTIONS_YOUR_BASE_GROWS_PART_BY_PART_9_30.html"
    }
+  }
  ],
  "verdicts": [
   {

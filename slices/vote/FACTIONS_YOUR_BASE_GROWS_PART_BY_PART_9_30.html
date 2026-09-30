@@ -1,0 +1,99 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>BOHEMIA - YOUR BASE GROWS PART BY PART</title>
+<style>
+ :root{ --ink:#141210; --paper:#f4efe6; --hot:#a8391d; --dim:#4a443c; --good:#2c6b35; --gold:#e0a91c }
+ *{ box-sizing:border-box }
+ body{ margin:0; background:var(--paper); color:var(--ink);
+       font:15px/1.5 ui-sans-serif,system-ui,-apple-system,Arial,sans-serif }
+ header{ padding:14px 14px 10px; border-bottom:3px solid var(--ink) }
+ h1{ margin:0 0 5px; font-size:19px; letter-spacing:.3px }
+ .sub{ font-size:14px; color:var(--dim) }
+ .said{ margin:10px 14px; padding:9px 12px; border-left:5px solid var(--good);
+        background:#fff; font-size:14px }
+ .said b{ color:var(--good) }
+ .quiet{ margin:10px 14px; padding:9px 12px; border-left:5px solid #6b6252;
+         background:#fff; font-size:13px; color:var(--dim) }
+ .quiet b{ color:var(--ink) }
+ .wrap{ padding:6px 14px 50px }
+ .shot{ background:#fff; border-bottom:3px solid var(--ink); padding:8px; margin-top:14px }
+ .tag{ display:inline-block; background:var(--ink); color:var(--paper); font:11px/1.6
+       ui-monospace,monospace; padding:1px 7px; letter-spacing:.5px; margin-bottom:6px }
+ .shot a{ display:block }
+ .shot img{ display:block; width:100%; height:auto; border:1px solid #cabfa8; image-rendering:pixelated }
+ .cap{ font-size:14px; color:var(--dim); margin:9px 0 0 }
+ .cap b{ color:var(--ink) }
+ .bar{ position:relative; height:22px; background:#e8dfcf; border:1px solid #cabfa8; margin:9px 0 0 }
+ .bar i{ position:absolute; left:0; top:0; bottom:0; background:var(--gold) }
+ .bar b{ position:absolute; left:8px; top:0; line-height:22px; font:12px/22px ui-monospace,monospace; color:var(--ink) }
+ table{ border-collapse:collapse; width:100%; background:#fff; margin-top:14px;
+        font:12px/1.4 ui-monospace,monospace }
+ th,td{ text-align:left; padding:5px 7px; border-bottom:1px solid #ddd5c4 }
+ th{ background:var(--ink); color:var(--paper) }
+ td.n{ text-align:right }
+</style></head><body>
+
+<header>
+ <h1>YOUR BASE GROWS PART BY PART</h1>
+ <div class="sub">You said your base is every block you hold, and it can be half the city by the end. Here is how big each part is. 9/30</div>
+</header>
+
+<div class="said">
+ <b>WHAT I FOUND.</b> Every block of Vegas belongs to one of the fourteen parts, so taking a part hands you all
+ its blocks at once. The five camps together are 21 percent of Vegas. Add the four towns and it is 44 percent.
+ The five fortresses are the other 56 percent, and each one is 6 to 16 percent by itself. The hard ones open late
+ in an act, so your base does not creep up. It jumps at the end.
+</div>
+
+<div class="wrap">
+
+ <div class="shot">
+  <span class="tag">START OF AN ACT: ONLY THE CAMPS ARE OPEN</span>
+  <a href="FACTIONS_YOUR_BASE_GROWS_1_CAMPS_9_30.png" target="_blank" rel="noopener"><img src="FACTIONS_YOUR_BASE_GROWS_1_CAMPS_9_30.png" alt="the map with the five camps held, marked with gold rings"></a>
+  <div class="bar"><i style="width:21.1%"></i><b>5 parts, 1,949 blocks, 21 percent</b></div>
+  <div class="cap"><b>The most you could hold at the start of an act: all 5 camps.</b> A gold ring is a part that is yours.
+  The real map, the real base positions, nothing painted on the ground.</div>
+ </div>
+
+ <div class="shot">
+  <span class="tag">A THIRD IN: THE TOWNS OPEN TOO</span>
+  <a href="FACTIONS_YOUR_BASE_GROWS_2_TOWNS_9_30.png" target="_blank" rel="noopener"><img src="FACTIONS_YOUR_BASE_GROWS_2_TOWNS_9_30.png" alt="the map with the camps and the four towns held"></a>
+  <div class="bar"><i style="width:44.0%"></i><b>9 parts, 4,057 blocks, 44 percent</b></div>
+  <div class="cap"><b>Camps and towns: 9 parts, 44 percent.</b> Just under half of Vegas, and the fortresses are still shut.</div>
+ </div>
+
+ <div class="shot">
+  <span class="tag">TWO THIRDS IN: THE FORTRESSES OPEN</span>
+  <a href="FACTIONS_YOUR_BASE_GROWS_3_FORTRESSES_9_30.png" target="_blank" rel="noopener"><img src="FACTIONS_YOUR_BASE_GROWS_3_FORTRESSES_9_30.png" alt="the map with all fourteen parts held"></a>
+  <div class="bar"><i style="width:100%"></i><b>14 parts, 9,216 blocks, all of it</b></div>
+  <div class="cap"><b>Every part.</b> Half of Vegas is all the camps, all the towns and one fortress. Nobody has to take
+  the biggest one to get there.</div>
+ </div>
+
+ <table id="tbl"></table>
+
+ <div class="quiet">
+  <b>WHAT THIS IS.</b> This shows the most you could hold at each point if you took everything that is open. It is
+  not a path anyone has to walk, and nothing in the game can take a part yet: the fight will, and so will a contract,
+  a boss or a deal. The rings are NOT IN A TAB YET on the live map; the picture above is the game's real map with the
+  list drawn on top. Thumbs up if a base that is whole parts, growing to about half of Vegas, is the right shape.
+  Thumbs down and tell me what is wrong.
+ </div>
+
+</div>
+
+<script>
+var ROWS = [
+ ['Mob','fortress',1490,16.2],['Network','fortress',1221,13.2],['Remnants','fortress',1028,11.2],
+ ['Cartel','fortress',875,9.5],['Reds','town',654,7.1],['Caravans','fortress',545,5.9],
+ ['Anarchists','town',528,5.7],['Blues','town',473,5.1],['Church','town',453,4.9],
+ ['Trades','camp',445,4.8],['Colorful','camp',432,4.7],['Homeless','camp',378,4.1],
+ ['Custom','camp',363,3.9],['Volunteers','camp',331,3.6]
+];
+var h = '<tr><th>PART</th><th>SIZE</th><th class="n">BLOCKS</th><th class="n">OF VEGAS</th></tr>';
+for (var i = 0; i < ROWS.length; i++)
+  h += '<tr><td>' + ROWS[i][0] + '</td><td>' + ROWS[i][1] + '</td><td class="n">' + ROWS[i][2].toLocaleString('en-US') + '</td><td class="n">' + ROWS[i][3].toFixed(1) + '%</td></tr>';
+h += '<tr><td colspan="4" style="color:#4a443c">Measured off the running game\'s own map. Different games roll different valleys: on five other valleys the fortresses were 47 to 53 percent.</td></tr>';
+document.getElementById('tbl').innerHTML = h;
+</script>
+</body></html>
