@@ -36,3 +36,9 @@
    only a contract taken and dropped is a deed. The quests produced before this rule "look like dogshit" as
    things; they stay a bank.
 8. THE BLIND SPOTS he asked for: records/BOHEMIA_THE_BLIND_SPOTS_9_27_26.md.
+
+## 9. AMENDED 9/30 BY PAOLO (records/BOHEMIA_PAOLO_ONE_MAIN_QUEST_TWO_CONTRACTS_THE_PHONE_ONLY_SHOWS_9_30_26.md): ONE MAIN QUEST AT A TIME; TWO CONTRACTS AT A TIME (Battle Brothers' one is
+'wack': a caravan to a city plus a hunt near it on one road); THE PHONE SHOWS WHICH SETTLEMENTS OFFER WHICH
+CONTRACTS RIGHT NOW AND CANNOT ACCEPT ONE; a contract is taken from a mouth at the place. Section 3 stands
+otherwise (take or leave, declining free, once taken you finish).
+
