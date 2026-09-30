@@ -33794,7 +33794,7 @@ function partiesCellsPerDay(){
    surface before this line was written: 6 to 10 of them a day once the first day
    settles, so this is a card line that actually fires rather than a branch that
    has never executed. */
-var PARTIES_TODAY=[], PARTIES_LEG={};
+var PARTIES_TODAY=[], PARTIES_LEG={}, PARTIES_CARRY=0;
 function partiesAdvance(mins){
   var ps=partiesAll(); if(!ps||!ps.length) return null;
   var waking=(DAY.NIGHT_MIN|0)-(DAY.WAKE_MIN|0);
@@ -33804,7 +33804,22 @@ function partiesAdvance(mins){
     if(!Object.prototype.hasOwnProperty.call(PARTIES_LEG,p.id))
       PARTIES_LEG[p.id]=BohemiaParties.legOf(p);
   }
-  try{ BohemiaParties.advance(ps, partiesCellsPerDay(), (mins||0)/waking); }catch(_e){}
+  /* *** THE FRACTION WAS THROWN AWAY EVERY CALL, SO NOBODY EVER LEFT HOME. *** (RUN 9/29,
+     found putting the parties on the map for rule 40f.) advance() floors cells-per-day x
+     days to whole steps. A block of the map is 10 minutes and a day is 89.3 blocks over
+     960 waking minutes, so one block of travel is 0.93 of a step -- floored to ZERO, every
+     time; a street step (0.084 min) is 0.008. MEASURED: five game hours of travel, 28
+     parties, 0 moved a single cell. They only moved on the big jumps (a night's sleep),
+     so on the map in the daytime the valley's business was 28 statues on their seats.
+     THE REMAINDER IS CARRIED, not rounded: the minutes pile up here and every whole step
+     is handed over as exactly that many steps. Same total distance per day as the
+     module's own number -- it is simply no longer lost between calls. */
+  PARTIES_CARRY += partiesCellsPerDay() * ((mins||0)/waking);
+  var __whole = Math.floor(PARTIES_CARRY);
+  if(__whole > 0){
+    PARTIES_CARRY -= __whole;
+    try{ BohemiaParties.advance(ps, 1, __whole); }catch(_e){}
+  }
   for(var j=0;j<ps.length;j++){
     var q=ps[j], leg=BohemiaParties.legOf(q);
     if(PARTIES_LEG[q.id]===leg) continue;
@@ -42560,7 +42575,149 @@ function cityGlidePos(now){
     try{ if(typeof MODE!=='undefined'&&MODE==='city') render(); }catch(_e){} }); }
   return p;
 }
+/* ==== __THE_MAP_HAS_ITS_PEOPLE__ (RUN, 9/29/26, VAMILY [bb map] + [map pixels], rule 40f) ====
+   PAOLO 9/29, with a screenshot of this screen: "I should def be seeing the player
+   character on this screen bro all those little circles should be icons or people and
+   shit man cmon." And 9/22, the same screen: "Why do I not see my person on this map?"
+   TWICE, SO THE PIN IS NOT AN ANSWER. It was the loudest mark on the glass by the
+   brightness ruler ([white rings], 86 bright px against a town's 74) and it still did
+   not read as a person, because a pin is a symbol and he asked for the CHARACTER.
+
+   WHAT WAS ON THE GLASS, MEASURED BEFORE THIS WAS WRITTEN (the demo, opening on the map):
+       13 white rings with a dark hole     = the people clusters (__PPL_MARKS)
+       14 hollow gold diamonds with a name = the factions' home bases
+       0 parties drawn                     = 28 exist, only their tracks were drawn
+       1 pin with a face in a white head   = him
+   THE CIRCLES WERE RIGHT ABOUT WHERE AND WRONG ABOUT WHAT: a ring says "something is
+   here" and nothing about what. So each one becomes WHAT IT IS:
+       a faction's home base -> COOK's place by its TIER (BohemiaTowns.tiers, act 1):
+                                fortress -> THE FORTRESS, town -> THE SHOP, camp -> THE SHED.
+                                That is COOK's "tier reads from three marks" (perimeter,
+                                the tall piece, attachments) landing on the tier the game
+                                already derives. The name plate stays.
+       a people cluster      -> PEOPLE: COOK's CROWD, "they shuffle, one body a beat".
+                                He said "icons or people"; a place where two hundred
+                                people are is people.
+       a party on the road   -> COOK's shape for its faction's alignment (PATROL,
+                                CARAVAN, CROWD, ON FOOT) under its faction's banner,
+                                standing where it is, on top of the track it left.
+       him                   -> HIS OWN BODY: the same baked rig the street and the fight
+                                draw (PLAYER_CV), facing the way he is travelling and
+                                walking while he travels, at half the street's size,
+                                pixel-true (the 56 rung is an exact 2:1 of the art). ONE
+                                ID, ONE WHOLE PERSON: it is his face and his clothes, not
+                                a symbol wearing them. Beside him COOK's banner on its
+                                pole, which "stirs while you travel, and hangs dead when
+                                you stop". Until the rig arrives, COOK's YOU stands in.
+   COOK'S ART IS USED AS COOK DREW IT: banks/BOHEMIA_THE_MAP_MARKERS_9_24_26.txt and
+   banks/BOHEMIA_THE_PARTIES_ON_THE_MAP_9_27_26.txt, embedded below byte for byte (the
+   site does not publish banks/, so the page cannot fetch them; the gate checks the
+   embed still equals the banks so the two can never drift).
+   ONE PIXEL SIZE: every marker is drawn at 2x its mask and never follows the zoom --
+   the ground may zoom, the marker may not (rule 21's shape, applied to the map).
+   THE MOVING PART IS ON THE BEAT: frame = which 500 ms beat it is, and the map is
+   redrawn once a beat while it is on screen, so the valley breathes on the same clock
+   the fight does (rule 33g, where BB is a still, we move).
+   ================================================================================ */
+var MAP_ART = {"pal":{"k":"#1b1813","d":"#2e2a22","l":"#4a4438","w":"#8f8672","a":"#d8b657","A":"#f3e2a6","s":"#12100c"},"mk":{"YOU":{"w":9,"h":20,"body":[".....k...",".....k...",".....k...",".....k...",".....k...",".....k...",".....k...","...kkk...","..kdddk..","..kdwdk..","..kdddk..","...kkk...","..kkkkk..",".kkkkkkk.",".kkkkkkk.","..kkkkk..","..kk.kk..","..kk.kk..",".skk.kks.","..s...s.."],"part":[[[1,2,["aaaa","aaaa",".aaa","..aa"]]],[[1,2,["aaaa",".aaa","aaaa","..aa"]]],[[1,2,[".aaa","aaaa","aaaa",".aaa"]]],[[1,2,["aaaa","aaaa",".aaa","...a"]]]]},"THE SHOP":{"w":14,"h":14,"body":["......kk......","......kk......","......kk......","......kk......","..dddddddddd..","..dllllllllk..","..dlkkkkkklk..","..dlkkkkkklk..","..dlkkkkkklk..","..dllllllllk..","..kkkkkkkkkk..","..kkk.kk.kkk..",".skkkkkkkkkks.","..ssssssssss.."],"part":[[[4,0,["AAAAAA","AAAAAA"]]],[[4,0,["aaaaaa","aaaaaa"]]],[[4,0,["wwwwww","kkkkkk"]]],[[4,0,["kkkkkk","kkkkkk"]]],[[4,0,["aaaaaa","kkkkkk"]]],[[4,0,["kkkkkk","kkkkkk"]]]]},"THE SHED":{"w":12,"h":10,"body":["....dddddd..","...dllllllk.","..dllllllllk","..dkkkkkkkkk","..dkkkkkkkkk","..dkkakkkkkk","..dkkakkkkkk","..kkkkkkkkkk",".skkkkkkkkks","..ssssssssss"],"part":[[[2,1,["wwww"]]],[[2,0,["wwww"]]],[[3,0,[".www"]]],[[2,1,["wwww"]]]]},"THE PUMP":{"w":16,"h":15,"body":["................","................","................","................","................",".......k........","......kkk.......","......k.k.......",".....kk.kk......",".....k...k......","....kk...kk.....","..kkkkkkkkkkk...","..kkkddddkkkk...",".skkkkkkkkkkkks.","..sssssssssss..."],"part":[[[2,2,["aawwww"]],[8,4,["wwwwkk"]],[7,3,["w"]]],[[2,3,["aawwwwwwwwkk"]]],[[2,4,["aawwww"]],[8,2,["wwwwkk"]],[7,3,["w"]]],[[2,3,["aawwwwwwwwkk"]]]]},"THE FORTRESS":{"w":18,"h":14,"body":["..kk..........kk..","..kk..........kk..","..kk..........kk..","..kkllllllllllkk..","..kkddddddddddkk..","..kk..........kk..","..kk..llllll..kk..","..kk..dddddd..kk..","..kk..dddddd..kk..","..kk..........kk..","..kkllll..llllkk..","..kkdddd..ddddkk..",".skkkkkk..kkkkkks.","..sssssss.ssssss.."],"part":[[[2,0,["AA"]]],[[2,0,["aa"]]],[[2,0,["ll"]]],[[2,0,["kk"]]],[[14,0,["kk"]]],[[14,0,["ll"]]],[[14,0,["aa"]]],[[14,0,["AA"]]]]}},"sh":{"ON FOOT":{"body":["..w....","..w....","..w....","..w....","..w....","..w....","..kk...",".kddk..",".kdwk..","..kk...",".kkkk..",".kkkk..","..k.k..",".sk.ks.","..s.s.."],"part":[[[3,0,["bbbb","bbbb","bbb.","bb.."]]],[[3,0,["bbbb","bbb.","bbbb","bb.."]]],[[3,0,["bbb.","bbbb","bbbb","b..."]]],[[3,0,["bbbb","bbbb","bb..","bb.."]]]]},"PATROL":{"body":[".w...w...w...w",".w...w...w...w",".w...w...w...w","kkk.kkk.kkk.kk","kdk.kdk.kdk.kd","kkk.kkk.kkk.kk","kkk.kkk.kkk.kk",".k...k...k...k",".k...k...k...k","skk.skk.skk.sk",".ss..ss..ss..s",".............."],"part":[[[0,0,["b"]],[1,7,["k"]],[9,8,["k"]]],[[0,0,["b"]],[1,8,["k"]],[9,7,["k"]]],[[0,0,["b"]],[1,7,["k"]],[9,8,["k"]]],[[0,0,["b"]],[1,8,["k"]],[9,7,["k"]]]]},"CARAVAN":{"body":["................","....wwwwwwww....","...wwwwwwwwww...","..kwwwwwwwwwwk..","..kkkkkkkkkkkk..","..kddddddddddk..",".kkkkkkkkkkkkkk.","..kk........kk..","..kk........kk..",".skks......skks.","..ss........ss..","................"],"part":[[[2,0,["bb"]],[2,7,["kw"]],[12,7,["kw"]]],[[2,0,["bb"]],[2,7,["wk"]],[12,7,["wk"]]],[[2,0,["bb"]],[2,8,["kw"]],[12,8,["kw"]]],[[2,0,["b."]],[2,8,["wk"]],[12,8,["wk"]]]]},"CROWD":{"body":["..w..........","..w.wwww.ww..",".kkkwkkkwkk..","kkkkkkkkkkkk.","kkkkkkkkkkkkk","kkkkkkkkkkkkk",".kkkkkkkkkkk.","..kkkkkkkkk..","..k.k.k.k.k..",".sk.k.k.k.ks.","..s.s.s.s.s.."],"part":[[[3,0,["bb","b."]],[2,8,["k"]],[8,8,["k"]]],[[3,0,["bb",".b"]],[2,8,["."]],[8,8,["k"]]],[[3,0,["b.","bb"]],[2,8,["k"]],[8,8,["."]]],[[3,0,["bb","b."]],[2,8,["k"]],[8,8,["k"]]]]}},"fac":{"Anarchists":{"shape":"ON FOOT","banner":"#573f2a"},"Blues":{"shape":"ON FOOT","banner":"#2d5fb3"},"Caravans":{"shape":"CARAVAN","banner":"#6c5b41"},"Cartel":{"shape":"PATROL","banner":"#434042"},"Church":{"shape":"CROWD","banner":"#826c3e"},"Colorful":{"shape":"CROWD","banner":"#61a136"},"Homeless":{"shape":"CROWD","banner":"#968b82"},"Mob":{"shape":"PATROL","banner":"#454142"},"Network":{"shape":"ON FOOT","banner":"#25a189"},"Reds":{"shape":"ON FOOT","banner":"#773229"},"Remnants":{"shape":"PATROL","banner":"#4c5238"},"Trades":{"shape":"CARAVAN","banner":"#674b34"},"Volunteers":{"shape":"CROWD","banner":"#c1bdb5"}}};
+var MAP_ART_X = 2;                         /* screen px per art px, at every zoom */
+var __mapArtBaked = {};
+function mapArtSprite(mask, frame, banner){
+  /* mask = {w,h,body,part}; frame indexes part; banner fills 'b'. Baked once per key. */
+  var key = (mask.__id || (mask.__id = 'm' + Math.random().toString(36).slice(2))) + '|' + frame + '|' + (banner || '');
+  if (__mapArtBaked[key]) return __mapArtBaked[key];
+  var w = mask.w || mask.body[0].length, h = mask.h || mask.body.length, X = MAP_ART_X;
+  /* ONE PIXEL OF RIM, all round (see the end of this function) */
+  var c = document.createElement('canvas'); c.width = w * X + 2; c.height = h * X + 2;
+  var cx = c.getContext('2d');
+  cx.translate(1, 1);
+  var ink = function(ch){ if (ch === '.') return null; if (ch === 'b') return banner || MAP_ART.pal.a; return MAP_ART.pal[ch] || null; };
+  var put = function(rows, ox2, oy2){
+    for (var y = 0; y < rows.length; y++) for (var x = 0; x < rows[y].length; x++) {
+      var col = ink(rows[y][x]); if (!col) continue;
+      cx.fillStyle = col; cx.fillRect((ox2 + x) * X, (oy2 + y) * X, X, X);
+    }
+  };
+  put(mask.body, 0, 0);
+  var parts = (mask.part && mask.part.length) ? mask.part[frame % mask.part.length] : [];
+  for (var i = 0; i < parts.length; i++) put(parts[i][2], parts[i][0], parts[i][1]);
+  /* *** A PALE RIM, ONE SCREEN PIXEL, BECAUSE ON THE GLASS THEY WERE BLOBS. ***
+     COOK built every marker as a dark body with one bright accent, and judged it on the
+     MAP tab's flat grounds. This screen's ground is the rendered valley -- dark roofs and
+     darker streets -- and measured on the demo, thirteen crowds at 2x read as black
+     smudges. A rim is how the street already separates a body from the ground it
+     stands on (outline1, the border drawn at display size), here in the map's own pale
+     ink so the silhouette COOK drew is what the eye gets. */
+  try {
+    var W2 = c.width, H2 = c.height, im = cx.getImageData(0, 0, W2, H2), D = im.data;
+    var solid = new Uint8Array(W2 * H2);
+    for (var q = 0; q < W2 * H2; q++) solid[q] = D[q * 4 + 3] > 0 ? 1 : 0;
+    for (var yy = 0; yy < H2; yy++) for (var xx = 0; xx < W2; xx++) {
+      var o = yy * W2 + xx; if (solid[o]) continue;
+      if ((xx > 0 && solid[o - 1]) || (xx < W2 - 1 && solid[o + 1]) ||
+          (yy > 0 && solid[o - W2]) || (yy < H2 - 1 && solid[o + W2])) {
+        D[o * 4] = 0xe4; D[o * 4 + 1] = 0xd8; D[o * 4 + 2] = 0xbc; D[o * 4 + 3] = 220;
+      }
+    }
+    cx.setTransform(1, 0, 0, 1, 0, 0);
+    cx.putImageData(im, 0, 0);
+  } catch (_e) {}
+  __mapArtBaked[key] = c;
+  return c;
+}
+/* the beat this frame is on; 'still' pins frame 0 (a banner that hangs dead) */
+function mapArtBeat(){ return Math.floor(performance.now() / (typeof BEAT === 'number' ? BEAT : 500)); }
+/* DRAW WITH THE FEET ON THE POINT, the way a body stands on a tile. */
+function mapArtDraw(mask, frame, banner, sx, footY){
+  var s = mapArtSprite(mask, frame, banner);
+  g.imageSmoothingEnabled = false;
+  g.drawImage(s, Math.round(sx - s.width / 2), Math.round(footY - s.height));
+  return s;
+}
+var MAP_TIER_MARK = { fortress: 'THE FORTRESS', town: 'THE SHOP', camp: 'THE SHED' };
+var __mapTiers = null;
+function mapTierOf(faction){
+  if (!__mapTiers) {
+    __mapTiers = {};
+    try {
+      var t = BohemiaTowns.tiers(BOHEMIA_FACTION_GRAPH, 1) || {};
+      for (var k in t) if (t[k]) __mapTiers[String(k).toUpperCase().replace(/[\s_]/g, '')] = String(t[k].tier || t[k]);
+    } catch (_e) {}
+  }
+  return __mapTiers[String(faction || '').toUpperCase().replace(/[\s_]/g, '')] || 'camp';
+}
+/* A PARTY'S LOOK: its faction's own entry in COOK's bank, else its agenda. */
+var MAP_AGENDA_SHAPE = { caravan: 'CARAVAN', patrol: 'PATROL', crew: 'ON FOOT' };
+function mapPartyLook(p){
+  var f = p && p.from && p.from.faction, hit = null;
+  if (f) for (var k in MAP_ART.fac) if (k.toUpperCase() === String(f).toUpperCase()) hit = MAP_ART.fac[k];
+  var shape = (hit && hit.shape) || MAP_AGENDA_SHAPE[p && p.agenda] || 'ON FOOT';
+  return { mask: MAP_ART.sh[shape] || MAP_ART.sh['ON FOOT'], banner: hit ? hit.banner : MAP_ART.pal.w, shape: shape };
+}
+/* HIS FACING ON THE MAP, from the last block he crossed (DIRS index -> screen compass). */
+var MAP_FACE_OF = { '1,0':'SE', '0,1':'SW', '1,1':'S', '1,-1':'E', '-1,0':'NW', '0,-1':'NE', '-1,-1':'N', '-1,1':'W' };
+function mapFaceNow(){
+  try { if (typeof ROAD_LASTDIR === 'number' && DIRS[ROAD_LASTDIR]) {
+    var d = DIRS[ROAD_LASTDIR]; return MAP_FACE_OF[d[0] + ',' + d[1]] || 'S'; } } catch (_e) {}
+  return 'S';
+}
+/* WHAT THE MAP DREW THIS FRAME, said by the render itself (the gate reads it, it does
+   not re-derive it): how many of each, and where he was drawn and how big. */
+var MAP_DREW = null;
+/* ONE REDRAW A BEAT WHILE THE MAP IS UP, so the moving parts move. The street already
+   pays this (THE VALLEY KEEPS BREATHING); the map did not, and a banner that only
+   stirs when a finger touches the glass is a still with extra steps. */
+setInterval(function(){
+  try {
+    if (typeof MODE === 'undefined' || MODE !== 'city') return;
+    if (document.hidden) return;
+    if (typeof transing !== 'undefined' && transing) return;
+    render();
+  } catch (_e) {}
+}, (typeof BEAT === 'number' ? BEAT : 500));
+/* ==== /__THE_MAP_HAS_ITS_PEOPLE__ ==== */
 function renderCity(){
+  MAP_DREW = { crowds: 0, places: {}, parties: 0, you: null };   /* __THE_MAP_HAS_ITS_PEOPLE__: what this frame drew */
   CITY_FRAME++;            /* __FRAME_CACHE__ -- one frame, one world snapshot */
   const N=om.n;
   const __G=cityGlidePos(performance.now());   /* __THE_MAP_GLIDES__: the DRAWN position */
@@ -43125,19 +43282,18 @@ function renderCity(){
         var __c = iso(__cx, __cy, ox, oy);
         if(__c.sx < -40 || __c.sx > cv.width + 40) continue;
         if(__c.sy < -40 || __c.sy > cv.height + 40) continue;
-        var __r = Math.max(4, TW * 0.34);
         var __my = __c.sy + TH / 2;
         g.globalAlpha = 1;
-        /* the rim first and wider, so the mark holds its edge over lit blocks and
-           over dark desert without a second colour */
-        g.beginPath(); g.arc(__c.sx, __my, __r + 1.5, 0, 7);
-        g.fillStyle = '#241d16'; g.fill();
-        g.beginPath(); g.arc(__c.sx, __my, __r, 0, 7);
-        g.fillStyle = '#f4ead2'; g.fill();
-        /* a hole in the middle: a ring is not one of the map's filled icons, and it
-           reads as a place rather than as a thing standing on the ground */
-        g.beginPath(); g.arc(__c.sx, __my, __r * 0.38, 0, 7);
-        g.fillStyle = '#241d16'; g.fill();
+        /* __THE_MAP_HAS_ITS_PEOPLE__ (RUN 9/29, rule 40f): "all those little circles should
+           be icons or people". This was a cream ring with a dark hole -- right about WHERE,
+           silent about WHAT. Where two hundred people are is PEOPLE: COOK's CROWD, who
+           shuffle one body a beat, planted on a dark footprint so they hold on lit blocks
+           and on dark desert alike. Each crowd is on its own beat so thirteen of them do
+           not shuffle in step. */
+        g.fillStyle = 'rgba(14,11,8,0.55)';
+        g.beginPath(); g.ellipse(__c.sx, __my + 1, 14, 4, 0, 0, 7); g.fill();
+        mapArtDraw(MAP_ART.sh.CROWD, mapArtBeat() + __px * 3 + __py, MAP_ART.pal.w, __c.sx, __my + 2);
+        try { MAP_DREW.crowds++; } catch (_e) {}
         __drew++;
       }
       g.restore();
@@ -43211,16 +43367,21 @@ function renderCity(){
            the first thing anybody looks for on a map of who holds what. */
         var __col = __is ? '#e8dcc0' : '#c8a558';
         var __cy = __p.sy + TH/2;
-        g.globalAlpha = 0.95;
-        g.strokeStyle = __col; g.lineWidth = __is ? 2.5 : 1.5;
-        g.beginPath();
-        g.moveTo(__p.sx, __cy - __r);
-        g.lineTo(__p.sx + __r, __cy);
-        g.lineTo(__p.sx, __cy + __r);
-        g.lineTo(__p.sx - __r, __cy);
-        g.closePath(); g.stroke();
-        g.globalAlpha = __is ? 0.42 : 0.28;
-        g.fillStyle = __col; g.fill();
+        /* __THE_MAP_HAS_ITS_PEOPLE__ (RUN 9/29, rule 40f): this was a hollow gold diamond,
+           one shape for every home base whatever it was. COOK's places read TIER by three
+           marks (the perimeter, the tall piece, what hangs off it), and the game already
+           derives a tier for every faction (BohemiaTowns.tiers, act 1: thirds by power), so
+           a base is drawn AS its tier: a FORTRESS is the only walled thing on the map, a
+           TOWN is a shop with its sign, a CAMP is a lean-to. His own ground keeps the pale
+           plate and gets a pale footprint, so it is still the one you find first. */
+        var __tier = mapTierOf(__n);
+        var __mk = MAP_ART.mk[MAP_TIER_MARK[__tier] || 'THE SHED'];
+        g.globalAlpha = 1;
+        g.fillStyle = __is ? 'rgba(232,220,192,0.35)' : 'rgba(14,11,8,0.55)';
+        g.beginPath(); g.ellipse(__p.sx, __cy + 1, 16, 5, 0, 0, 7); g.fill();
+        var __ps = mapArtDraw(__mk, mapArtBeat() + (__p.sx | 0), null, __p.sx, __cy + 2);
+        __r = Math.max(__r, __ps.height - 4);      /* the name plate sits above the building */
+        try { MAP_DREW.places[__tier] = (MAP_DREW.places[__tier] || 0) + 1; } catch (_e) {}
         if(__named || __is || __norm(__n) === __norm(__near)){
           g.globalAlpha = 1;
           var __t = String(__n).toUpperCase();
@@ -43279,6 +43440,32 @@ function renderCity(){
      cannot be confused with a hollow ring at any size. He keeps his own colour inside it.
      It scales with the tile like everything else on this map, and it is drawn LAST so
      nothing can cover him. */
+  /* __THE_MAP_HAS_ITS_PEOPLE__ (RUN 9/29, rule 40f) -- THE PARTIES, WHERE THEY ARE.
+     28 of them walked the valley with their own business and only the prints they left
+     were drawn, on purpose ("it is a trail, not a dot", 9/12): a dot says somebody is
+     there and nothing about who. His 9/29 answer is PEOPLE, and COOK drew who they are:
+     the SHAPE says what they are (PATROL, CARAVAN, CROWD, ON FOOT, by their faction's
+     alignment) and the BANNER says whose (engine/BOHEMIA_faction_graph.json, via COOK's
+     bank). So the trail stays, and at its bright end the party now stands, banner up,
+     stepping on its own beat. Volume 01: "parties within sight... you can see their banner." */
+  try {
+    var __pp = partiesAll() || [];
+    for (var __pi2 = 0; __pi2 < __pp.length; __pi2++) {
+      var __q = __pp[__pi2];
+      if (!__q || !__q.at) continue;
+      /* AT HOME A PARTY IS PART OF ITS TOWN: measured at 06:00, 19 of the 28 stood on their
+         own seat and piled onto the town's building. They are drawn once they are OUT. */
+      if (__q.from && !__q.arrived && (__q.at.x | 0) === (__q.from.x | 0) && (__q.at.y | 0) === (__q.from.y | 0)) continue;
+      var __qp = iso(__q.at.x | 0, __q.at.y | 0, ox, oy);
+      if (__qp.sx < -30 || __qp.sx > cv.width + 30 || __qp.sy < -30 || __qp.sy > cv.height + 40) continue;
+      var __look = mapPartyLook(__q);
+      var __qy = __qp.sy + TH / 2;
+      g.fillStyle = 'rgba(14,11,8,0.5)';
+      g.beginPath(); g.ellipse(__qp.sx, __qy + 1, 11, 3.5, 0, 0, 7); g.fill();
+      mapArtDraw(__look.mask, mapArtBeat() + __pi2, __look.banner, __qp.sx, __qy + 2);
+      MAP_DREW.parties++;
+    }
+  } catch (_e) {}
   /* __THE_MAP_IS_HOW_YOU_TRAVEL__ (9/28) -- WHERE HE IS GOING, DRAWN AHEAD OF HIM.
      Rule 33g, his words: Battle Brothers is a bunch of pictures and we put life in
      it. BB draws a static dotted line to the click; this SHORTENS as he crosses,
@@ -43313,87 +43500,58 @@ function renderCity(){
     }
     g.restore();
   }
-  { const p=iso(__G.x,__G.y,ox,oy);                  /* __THE_MAP_GLIDES__: the pin rides the glide */
-    const __gx=p.sx, __gy=p.sy+TH*0.4;                 /* where he is standing */
-    /* ONE HOP PER BEAT while he travels, and none standing still: sin over the
-       glide's own beat, so the hop lands exactly when the step does. */
-    const __lift=(__G.u<1)?Math.sin(Math.PI*__G.u)*Math.max(2,TW*0.07):0;
-    /* SIZED AGAINST THE THING IT WAS BEING CONFUSED WITH. A town mark is a disc of
-       2 x max(4, TW*0.34) of solid cream, so he is built to put MORE BRIGHT PIXELS on
-       the glass than that at every zoom. Two cuts of this got it wrong and the gate
-       caught both: 82% of a town's height, and then -- once the gate started counting
-       rendered pixels instead of trusting its own copy of this formula -- 106 bright
-       pixels against a town's 236, because a town is a FILLED disc and a pin is a thin
-       ring on a stem. Height is not loudness. The loudest mark on his screen is him. */
-    const __hr=Math.max(6, TW*0.36);                   /* the head, at the map's own scale */
-    const __st=Math.max(8, TW*0.50);                   /* how far the pin stands up */
+  /* __THE_MAP_HAS_ITS_PEOPLE__ (RUN 9/29, rule 40f) -- HIM, AS HIMSELF. The pin that
+     stood here (a white-headed marker carrying his face, [white rings] 9/11 and [see me]
+     9/22) was found by the eye and still not read as a person: "why do I not see my
+     person on this map" (9/22) and "I should def be seeing the player character on this
+     screen" (9/29). So the mark is the CHARACTER: his own baked rig, the one the street
+     and the fight draw, his face and his clothes in one body -- ONE ID, ONE WHOLE PERSON
+     by construction rather than by a face clipped into a symbol. He faces the way he is
+     travelling and his legs move while he travels (the rig's own walk frames); he stands
+     still when he stops. COOK's banner stands on its pole beside him and stirs on the
+     beat while he travels, hanging dead when he stops (cook-the-map-has-markers-9-24).
+     Drawn LAST, so nothing covers him, and at ONE size at every zoom. */
+  { const p=iso(__G.x,__G.y,ox,oy);                  /* __THE_MAP_GLIDES__: he rides the glide */
+    const __gx=p.sx, __gy=p.sy+TH*0.5;                 /* where his feet are */
+    const __lift=(__G.u<1)?Math.sin(Math.PI*__G.u)*2:0;   /* the glide's hop, one per beat */
+    const __moving=!!(TRAVEL || __G.u<1);
     g.save(); g.globalAlpha=1;
-    /* the foot: a dark ellipse on the ground, so the pin is planted rather than floating */
-    g.fillStyle='rgba(20,16,12,0.55)';
-    g.beginPath(); g.ellipse(__gx,__gy,__hr*0.62,__hr*0.30,0,0,7); g.fill();
-    g.translate(0,-__lift);   /* the foot stays on the ground; the pin hops off it */
-    /* the stem, rimmed dark so it holds on pale ground as well as dark */
-    g.strokeStyle='#241d16'; g.lineWidth=Math.max(3,__hr*0.42);
-    g.beginPath(); g.moveTo(__gx,__gy); g.lineTo(__gx,__gy-__st); g.stroke();
-    g.strokeStyle='#fff'; g.lineWidth=Math.max(1,__hr*0.18);
-    g.beginPath(); g.moveTo(__gx,__gy); g.lineTo(__gx,__gy-__st); g.stroke();
-    /* the head: his own colour, inside a white body, inside a dark rim */
-    const __hy=__gy-__st;
-    /* __THE_RING_KEEPS_ITS_PIXELS__ -- and this number is arithmetic, not taste.
-       [white rings] holds ONE rule on this mark: he is never fainter than a town on
-       the glass. What makes him bright is the WHITE ANNULUS, and putting a face in
-       the middle eats it. MEASURED, before and after, at the three zooms the gate
-       samples: 684 bright pixels became 533 at TW=48, a fifth of him gone. At TW=48
-       no town happens to be on screen so the gate still passed -- AND A PASS THAT
-       DEPENDS ON WHAT HAPPENS TO BE ON SCREEN IS NOT A PASS. At TW=30, where a town
-       IS on screen, the same loss puts him at about 100 against a town's 236.
-       SO THE HEAD GROWS BY EXACTLY WHAT THE FACE TAKES: a face of radius f*r leaves
-       an annulus of pi*r*r*(1-f*f), so scaling r by 1/sqrt(1-f*f) puts the white
-       area back where it was. Nothing is picked; change the face fraction and the
-       growth follows it. */
-    const __ff=0.66;
-    const __k=1/Math.sqrt(1-__ff*__ff);
-    /* AND A FACE TOO SMALL TO READ IS NOT A FACE. Under a 14 px face it is four
-       muddy pixels where a clean disc used to be, so far out he stays a disc and the
-       head does not grow either: the mark still means him, it just is not pretending
-       to be a portrait. */
-    const __frF=__hr*__k*__ff;
-    let __pf=null;
-    if(__frF>=7){ try{ __pf=ctFaceAsk('you'); }catch(_e){ __pf=null; } }
-    const __HR=__pf?(__hr*__k):__hr;
-    g.beginPath(); g.arc(__gx,__hy,__HR+1.5,0,7); g.fillStyle='#241d16'; g.fill();
-    g.beginPath(); g.arc(__gx,__hy,__HR,0,7);     g.fillStyle='#fff';    g.fill();
-    /* __IT_IS_HIS_OWN_FACE_ON_THE_MAP__ (9/22, LIFE + CITY, [see me]) ==========
-       PAOLO 9/22, looking at CITY mode: "why do I not see my person on this map?"
-       The pin was already the loudest mark on the glass -- that was [white rings],
-       and it worked -- but what it carried in the middle was A FLAT DISC OF SKIN
-       COLOUR. A brown dot is not a person. He could find the mark and still not
-       read it as himself, which is the whole of his sentence.
-
-       *** THE FACE IS HIS, NOT A ROLLED ONE. *** The row asked for faceFor on his
-       id; faceFor ROLLS a face out of a hash and the head the pad wears is
-       buildSpec(), the face he made. Drawing faceFor here would have put a stranger
-       on his map wearing his pin, which is exactly the ONE ID, ONE WHOLE PERSON
-       defect. He is asked for by the reserved id 'you' and the bridge upstairs
-       hands back his own spec.
-
-       NOTHING NEW DRAWS A FACE: same ctFaceAsk, same cache, same decoder, and the
-       same clip-and-do-not-smooth idiom the bark bubble already uses, because a
-       64x64 face scaled up smooth is a smudge instead of a person.
-
-       AND THE WHITE RING KEEPS ITS PIXELS, by the arithmetic above the rim: the head
-       grows by exactly what the face takes out of it. Until his face arrives (one
-       ask, one frame) the old disc is still drawn, so the mark is never a hole. */
-    if(__pf){
-      g.save();
-      g.beginPath(); g.arc(__gx,__hy,__frF,0,7); g.closePath(); g.clip();
+    /* PLANTED: a dark ellipse under the feet, so he stands on the map, not over it */
+    g.fillStyle='rgba(14,11,8,0.6)';
+    g.beginPath(); g.ellipse(__gx,__gy,11,4,0,0,7); g.fill();
+    let __body=null, __how='cook';
+    try{
+      const __face=mapFaceNow();
+      const __set=PLAYER_CV&&(PLAYER_CV[__face]||PLAYER_CV.S);
+      let __spr=__set&&__set.idle;
+      if(__set&&__moving&&__set.walk&&__set.walk.length)
+        __spr=__set.walk[Math.floor(performance.now()/125)%__set.walk.length];
+      if(__spr){ __body=spriteAt(__spr,24); __how='rig'; }
+    }catch(_e){ __body=null; }
+    /* THE BANNER FIRST, so his body stands in front of its pole */
+    const __flagH = 30;                                   /* the pole, screen px */
+    const __px = __gx + 10, __py = __gy - __lift;
+    g.fillStyle = MAP_ART.pal.k; g.fillRect(__px - 1, __py - __flagH, 2, __flagH);
+    g.fillStyle = MAP_ART.pal.s; g.fillRect(__px - 2, __py - 1, 4, 2);
+    { const __fr = __moving ? (mapArtBeat() % 4) : 0;
+      const __cloth = MAP_ART.mk.YOU.part[__fr][0][2];
+      g.fillStyle = MAP_ART.pal.a;
+      for(let __y=0; __y<__cloth.length; __y++) for(let __x=0; __x<__cloth[__y].length; __x++)
+        if(__cloth[__y][__x] !== '.') g.fillRect(__px + 1 + __x*MAP_ART_X, __py - __flagH + __y*MAP_ART_X, MAP_ART_X, MAP_ART_X); }
+    let __bw=0, __bh=0;
+    if(__body){
       g.imageSmoothingEnabled=false;
-      try{ g.drawImage(__pf,__gx-__frF,__hy-__frF,__frF*2,__frF*2); }catch(_e2){}
-      g.restore();
+      __bw=__body.width; __bh=__body.height;
+      /* the rig's box carries the body in its lower middle with the feet near the bottom */
+      g.drawImage(__body, Math.round(__gx-__bw/2), Math.round(__gy-__lift-__bh*0.93));
     } else {
-      g.beginPath(); g.arc(__gx,__hy,__HR*0.50,0,7);g.fillStyle='#BA8E78'; g.fill();
+      const __s=mapArtDraw(MAP_ART.mk.YOU, __moving?(mapArtBeat()%4):0, null, __gx, __gy-__lift);
+      __bw=__s.width; __bh=__s.height;
     }
-    g.restore(); }
+    g.restore();
+    try{ MAP_DREW = MAP_DREW || {}; MAP_DREW.you = { how: __how, x: Math.round(__gx), y: Math.round(__gy), w: __bw, h: __bh,
+                                                   moving: __moving, face: mapFaceNow() }; }catch(_e){}
+  }
   if(night){ g.fillStyle='rgba(10,18,40,0.25)'; g.fillRect(0,0,cv.width,cv.height); } if(window.__LAMPQ){ const ga2=g.globalAlpha; g.globalAlpha=1; for(const q of window.__LAMPQ){ g.fillStyle='rgba(255,170,60,0.25)'; g.beginPath(); g.ellipse(q.sx,q.sy+TH*0.5,TW*0.55,TH*0.55,0,0,7); g.fill(); g.fillStyle='rgba(255,205,100,0.95)'; g.fillRect(q.sx-1.5,q.sy+TH*0.35,3,3); } g.globalAlpha=ga2; window.__LAMPQ=null; }
 }
 
