@@ -42718,6 +42718,7 @@ setInterval(function(){
 /* ==== /__THE_MAP_HAS_ITS_PEOPLE__ ==== */
 function renderCity(){
   MAP_DREW = { crowds: 0, places: {}, parties: 0, you: null };   /* __THE_MAP_HAS_ITS_PEOPLE__: what this frame drew */
+  qlineFit();   /* __THE_QUEST_LINE_CLEARS_THE_PHONE__: the phone comes and goes with the map */
   CITY_FRAME++;            /* __FRAME_CACHE__ -- one frame, one world snapshot */
   const N=om.n;
   const __G=cityGlidePos(performance.now());   /* __THE_MAP_GLIDES__: the DRAWN position */
@@ -43513,12 +43514,16 @@ function renderCity(){
      Drawn LAST, so nothing covers him, and at ONE size at every zoom. */
   { const p=iso(__G.x,__G.y,ox,oy);                  /* __THE_MAP_GLIDES__: he rides the glide */
     const __gx=p.sx, __gy=p.sy+TH*0.5;                 /* where his feet are */
-    const __lift=(__G.u<1)?Math.sin(Math.PI*__G.u)*2:0;   /* the glide's hop, one per beat */
+    const __lift=(__G.u<1)?Math.sin(Math.PI*__G.u)*Math.max(2,TW*0.07):0;   /* the glide's hop, one per beat (ANIMATION's number) */
     const __moving=!!(TRAVEL || __G.u<1);
     g.save(); g.globalAlpha=1;
     /* PLANTED: a dark ellipse under the feet, so he stands on the map, not over it */
     g.fillStyle='rgba(14,11,8,0.6)';
     g.beginPath(); g.ellipse(__gx,__gy,11,4,0,0,7); g.fill();
+    /* THE HOP IS ANIMATION'S (__THE_MAP_GLIDES__, one per beat): the foot stays on the
+       ground and everything above it lifts, done as the same translate the pin used so
+       THE MAP GLIDES keeps measuring it off the draw. */
+    g.translate(0,-__lift);
     let __body=null, __how='cook';
     try{
       const __face=mapFaceNow();
@@ -43530,7 +43535,7 @@ function renderCity(){
     }catch(_e){ __body=null; }
     /* THE BANNER FIRST, so his body stands in front of its pole */
     const __flagH = 30;                                   /* the pole, screen px */
-    const __px = __gx + 10, __py = __gy - __lift;
+    const __px = __gx + 10, __py = __gy;
     g.fillStyle = MAP_ART.pal.k; g.fillRect(__px - 1, __py - __flagH, 2, __flagH);
     g.fillStyle = MAP_ART.pal.s; g.fillRect(__px - 2, __py - 1, 4, 2);
     { const __fr = __moving ? (mapArtBeat() % 4) : 0;
@@ -43543,9 +43548,9 @@ function renderCity(){
       g.imageSmoothingEnabled=false;
       __bw=__body.width; __bh=__body.height;
       /* the rig's box carries the body in its lower middle with the feet near the bottom */
-      g.drawImage(__body, Math.round(__gx-__bw/2), Math.round(__gy-__lift-__bh*0.93));
+      g.drawImage(__body, Math.round(__gx-__bw/2), Math.round(__gy-__bh*0.93));
     } else {
-      const __s=mapArtDraw(MAP_ART.mk.YOU, __moving?(mapArtBeat()%4):0, null, __gx, __gy-__lift);
+      const __s=mapArtDraw(MAP_ART.mk.YOU, __moving?(mapArtBeat()%4):0, null, __gx, __gy);
       __bw=__s.width; __bh=__s.height;
     }
     g.restore();
@@ -59570,8 +59575,37 @@ function dayAfterQuest(r){
   updQline();
   if(r&&r.card){ showChoice(r.card); }
 }
+/* __THE_QUEST_LINE_CLEARS_THE_PHONE__ (RUN 9/29, VAMILY [demo text], rule 44c). PAOLO 9/29,
+   said again: "when texts are overlapping each other, I don't know why it's so fucking
+   difficult for you to understand", with a screenshot where the quest line at the top ran
+   under the phone. MEASURED: #qline is absolute from 6px to 6px -- the whole width of the
+   frame -- and the drawn phone sits over its right side at z 26 from 92px down, so any line
+   long enough to wrap walks under the glass. The line is bounded by the phone's own box,
+   read off the page every time either one can move, never a copied width. */
+function qlineFit(){
+  try{
+    const q=document.getElementById('qline'), f=document.getElementById('cityfeed');
+    if(!q) return;
+    /* It lives in #tlstack, a flex column (__HUD_NEVER_OVERLAPS__, 8/24), so left/right do
+       nothing to it; the room it gives up is its own right MARGIN, measured against the
+       column's right edge and the phone's left edge. */
+    const on = !!(f && getComputedStyle(f).display!=='none' && f.getBoundingClientRect().width>0);
+    /* AND #tlstack>* forces margin:0 !important on its children, so the margin is set
+       !important inline, which is the one thing that outranks a stylesheet !important. */
+    let want = '';
+    if(on){
+      q.style.removeProperty('margin-right');
+      const qr = q.getBoundingClientRect(), fl = f.getBoundingClientRect().left;
+      const need = Math.ceil(qr.right - (fl - 6));
+      if(need > 0) want = need + 'px';
+    }
+    if(want) q.style.setProperty('margin-right', want, 'important');
+    else q.style.removeProperty('margin-right');
+  }catch(_e){}
+}
 function updQline(){
   const el=document.getElementById('qline'); if(!el)return;
+  qlineFit();
   let s=DQ.hudLine()||'';
   /* __CITY_ADDRESS__ -- AND WHICH WAY IT IS. Composed HERE and not in
      DQ.hudLine(), because where somebody is standing is the city's fact and the
