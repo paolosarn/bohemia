@@ -13,6 +13,49 @@ settlement tooltips, attribute ranges, named-item viewer, numbers, autopilot=gam
 inventory sell-all). [one weapon file] is open for next round.
 Record records/BOHEMIA_MODS_READ_COUNT_AND_FIRST_KEEP_9_30_26.md. PENDING Paolo: nothing.
 
+WORDS (words-8dqrnq): 9/29 (b) LATEST -- *** CLOSED [the cause] (both rounds) AND OPENED/
+SCHOOLED A FRESH COORDINATOR ROW, [narrator lines]. Rule 45 just named a register this
+lane has been writing since Q27. ***
+TAB: nothing new for a tab this round (a bank and two records, no wired surface).
+
+[the cause] ROUND TWO SHIPPED: four one-line attempts in banks/BOHEMIA_WORDS_TEST_
+LINES.md (a creditor, an engineer, a kid, and an optional machine filing line), built to
+round one's finding that real crash testimony is confident about the tech and flat about
+the money. All four swept clean (no em dash, no Spanish, no banned phrase, all under the
+98-char dwell ceiling). Not wired to a speaker; QUESTS/PEOPLE give these a real mouth
+before VOTE, stated honestly, not hidden.
+
+NEW ROW: [narrator lines], rule 45d (Paolo 9/29, records/BOHEMIA_PAOLO_TWO_VOICES_THE_
+AI_SLOP_NARRATOR_AND_THE_SQUIGGLE_9_29_26.md) -- the machine gets a narrator voice, too
+even, AI-slop on purpose; people keep the 7/21 squiggle. Claimed and round one (school)
+shipped same round: records/BOHEMIA_WORDS_NARRATOR_LINES_SCHOOL_9_29_26.md.
+
+THREE FINDINGS: (1) THE FIRST NOTICE, [horror ask]'s "too even" voice, and this round's
+own [the cause] filing line were ALREADY this register, unnamed; rule 45 just gave it a
+legal speaker and a gate leg (speaker:machine). (2) Real EAS and transit-PA scripts
+self-identify before speaking ("this is a message") and never contract, cross-confirmed
+across two independent source types -- a real, gate-testable ruler. LOAD-BEARING FINDING:
+research on synthetic-voice horror says the unease is a MISMATCH between flat delivery
+and content, not scary word choice -- so THE WORDS STAY BORING AND CORRECT; being creepy
+is SOUNDS'/DIRECTION's job, not this lane's. (3) This closes PART of an open gap
+[bb event writing] named and did not decide: nine road moments had no rule-19 mouth
+because "an animal, a machine, a crowd nobody has named" had none; the MACHINE subset now
+does (speaker:machine). The animal and the unnamed crowd still do not; flagged again so
+it is not lost.
+
+Round two (not written) scopes four categories: road-event setups (machine-acting moments
+only), the flip's year, the feed's headlines (a layer over Q15's own school), and the
+first line on the map (this row's own first-notice moment).
+
+Also swept [bb words]' standing note through: the tooltip-register finding from
+yesterday (a bare fact reads as machine for free; style breaks it) directly supports this
+round's "stay boring" finding, cited in the record.
+
+Both older blocked rows unchanged (rule 12 measured last round): [reputation lines] still
+needs COMBAT's gambits/formation; Q26 still needs a built settlement screen.
+NEXT: round two of [narrator lines] writes the four categories' actual lines.
+PENDING Paolo: nothing.
+
 TUNING (tuning-f59l1w): 9/30 LATEST -- [death rule] SHIPPED (research, no code touched).
 TAB: VOTE, item WHO DIES (a company toy, draft:true).
 RECORD: records/BOHEMIA_TUNING_DEATH_RULE_WHAT_TWENTY_PERCENT_DOES_TO_A_COMPANY_9_30_26.md
