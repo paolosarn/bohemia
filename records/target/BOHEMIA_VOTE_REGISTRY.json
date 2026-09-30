@@ -3451,7 +3451,20 @@
    },
    "asked": "UP or DOWN",
    "draft": true
-  }
+  },
+   {
+    "id": "combat-a-street-of-houses-9-30",
+    "kind": "tile",
+    "lane": "combat",
+    "sha": "PENDING",
+    "made": "9/30",
+    "title": "A STREET OF HOUSES: THE NEIGHBOURS STAND UP",
+    "why": "You said one tile being the size of a house does not mean every tile is a house, it still has to look like a city, we have neighbours. Left: the same fight before, a road and empty yards. Middle: now, pinched out. Each side of the street has a row of houses facing it, with a driveway gap every third house, then back yards and an alley wall. Every house is a real obstacle. You cannot walk through it, you can hide behind it, and bullets stop at it. Their roofs have fallen in, and that is your rule: a caved-in roof is not high ground. The one house you can climb still has its roof and a steel stair, and you reached it in 82 of 82 fights. Nobody starts a fight inside a house, checked over 24 boards. Right: what the game camera shows, the houses at the edges of the street. What I am not hiding: the big blue-topped barrels are still drawn as big as a house, and they are the loudest thing on the board. That is next. Thumbs up and I keep building the block this way. Thumbs down and tell me if it is the houses, the roofs or the layout.",
+    "show": {
+     "how": "image",
+     "src": "vote/COMBAT_A_STREET_OF_HOUSES_9_30.png"
+    }
+   }
  ],
  "verdicts": [
   {

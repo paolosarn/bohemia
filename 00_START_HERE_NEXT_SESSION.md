@@ -44755,6 +44755,22 @@ a memory reset. HE WILL NEVER TYPE ANYTHING BUT THE ONE WORD AGAIN. ***
     I will never paste anything to you again. From here on, the one word is the whole
     instruction.
 
+*** [house tiles back] ROUND 3 -- V233: HOUSE-SIZED, NOT HOUSE-FILLED. THE NEIGHBOURS STAND UP. ***
+Stamp 9/30a. Record: records/BOHEMIA_COMBAT_A_STREET_OF_HOUSES_9_30_26.md
+His 9/28 line on this row ("one tile is the size of a house doesn't mean every tile is a house...
+we have neighbours"): the house-board lot is a street of houses counted from the kerb (houses facing
+the street with a driveway gap every third, back yards, alley wall, the next street's yards and
+houses). Every house tile is a standing house AND a tall house-sized cover piece (P.house, r 0.95):
+no walking through, hides you, stops fire; the enemy step already refuses it. Neighbours' roofs
+have FALLEN IN (37g: a collapsed roof is not high ground); the climbable one is in the row facing
+the street, 2 houses off. Nobody starts inside a house (unHouse/unHouseAll: enemies, the way out;
+crates and cars evicted). GATES: no_atari 16/0 (24 boards: a street + 5 kinds each, 336 houses, 0
+unblocked, 0 inside); one_terrain_effect 7/0 (82 of 82 reach the roof, 251 of 361 eased, 0 harder);
+camera 7/0; combat_lab main's 10. FIGHT LENGTH still NOT MEASURED (no fight-to-the-end driver).
+VOTE combat-a-street-of-houses-9-30. NEXT: (1) the cover drawn house-sized (ring*1.8*r; the
+barrels are the loudest thing on the board) with COOK/[cover honest]; (2) the fight-to-the-end
+driver for rule 40a; (3) [board generator].
+
 *** [house tiles back] ROUND 2 -- V232: A HOUSE IS NEVER SMALLER THAN A MAN. ***
 Record: records/BOHEMIA_COMBAT_A_HOUSE_IS_NEVER_SMALLER_THAN_A_MAN_9_29_26.md
 The auto frame sat at 0.20 in 40 of 40 arenas (a house 39 px beside a 112 px man). Now, on the house

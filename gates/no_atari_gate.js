@@ -76,9 +76,26 @@ const ok = (n, c, note) => { c ? (pass++, console.log('  PASS ' + n + (note ? ' 
         if (k === 'lot') hg.onLot++; if (standingHouse()) hg.standing++;
         hg.dists.push(+Math.hypot(q[0], q[1]).toFixed(2)); }
       out.hg = hg;
+      /* THE BOARDS, 24 of them: the kinds of ground, the houses, the blockers, what is inside */
+      const hb = [];
+      for (let s = 1; s <= 24; s++) { try { BohemiaArena.set(s); setupCombat(); } catch (e) { continue; }
+        if (G.arenaKind !== 'street') continue;
+        const wox = G.worldOff.x || 0, woy = G.worldOff.y || 0, kinds = {}; let houses = 0, un = 0, inside = 0;
+        for (let ty = -5; ty <= 5; ty++) for (let tx = -5; tx <= 5; tx++) {
+          let k = streetKindAt(Math.round(wox + tx)); if (k === 'lot') k = lotSubKind(Math.round(wox + tx), Math.round(woy + ty));
+          kinds[k] = 1;
+          if (k === 'house') { houses++;
+            const blk = G.pillars.some(P => P.house && Math.abs(pXY(P)[0] - tx) < 0.5 && Math.abs(pXY(P)[1] - ty) < 0.5);
+            if (!blk && !deckTileAt(tx, ty) && !(G._walkOK && G._walkOK[tx + ',' + ty])) un++; } }
+        const inH = (x, y) => !!(G._houseSet && G._houseSet[Math.round(x) + ',' + Math.round(y)]);
+        for (const e of G.e) if (e && !e.dead && inH(Math.cos(e.ea) * e.edist, Math.sin(e.ea) * e.edist)) inside++;
+        for (const P of G.pillars) if (!P.house && inH(pXY(P)[0], pXY(P)[1])) inside++;
+        if (G.exit && inH(Math.cos(G.exit.ea) * G.exit.edist, Math.sin(G.exit.ea) * G.exit.edist)) inside++;
+        hb.push({ road: !!kinds.road, walk: !!kinds.walk, kinds: Object.keys(kinds).length, houses, housesUnblocked: un, inside }); }
+      out.hb = hb;
       return out;
     });
-    const D = R.def, B = R.back, HG = R.hg;
+    const D = R.def, B = R.back, HG = R.hg, HB = R.hb;
     console.log('  DEFAULT ' + JSON.stringify({ opt: D.opt, tileM: D.tileM, bodyPx: D.bodyPx, tilePx: D.tilePx, reach: D.reach }));
     console.log('  STREET  ' + D.bands.join(' '));
     console.log('  HIGH GROUND ' + JSON.stringify({ street: HG.street, withDeck: HG.withDeck, onLot: HG.onLot, standing: HG.standing,
@@ -117,11 +134,21 @@ const ok = (n, c, note) => { c ? (pass++, console.log('  PASS ' + n + (note ? ' 
        + 'each side, then the lots (it was 204 m of road on a glass 6.6 houses across) ***',
        road === 2 && walk === 2 && D.bands.filter(k => k === 'lot').length === D.bands.length - 4,
        D.bands.join(' '));
-    ok('*** NO ROOF LIES ON THE GROUND: the lot on the house board is yards and property walls, never '
-       + 'a flat roof where men walk (the 9/18 "checkerboard of orange roof tiles for a floor") ***',
-       D.lot.length > 0 && D.lot.every(k => k === 'yard' || k === 'wall'),
-       D.lot.filter(k => k !== 'yard' && k !== 'wall').length + ' roofs on the ground of ' + D.lot.length);
-
+    ok('*** NO ROOF LIES ON THE GROUND, AND THE NEIGHBOURS STAND UP (Paolo 9/28: "one tile is the size of '
+       + 'a house doesn\'t mean every tile is a house; it still has to look like a city; we have neighbours"): '
+       + 'the lot is houses, yards and walls, and every house on it is standing ***',
+       D.lot.includes('house') && D.lot.includes('yard') && D.lot.includes('wall') && D.lot.every(k => ['house', 'yard', 'wall'].includes(k)),
+       ['house', 'yard', 'wall'].map(k => k + ' ' + D.lot.filter(v => v === k).length).join(', '));
+    ok('*** HOUSE-SIZED, NOT HOUSE-FILLED: every board carries a street and more than one kind of ground '
+       + '(the owed gate on [house tiles back]) ***', HB.every(b => b.road && b.walk && b.kinds >= 4),
+       HB.filter(b => !(b.road && b.walk && b.kinds >= 4)).length + ' of ' + HB.length + ' boards short; kinds per board '
+       + Math.min(...HB.map(b => b.kinds)) + ' to ' + Math.max(...HB.map(b => b.kinds)));
+    ok('*** EVERY NEIGHBOUR\'S HOUSE IS A BLOCKER: a house-sized piece of tall cover on every house tile '
+       + 'but the one you climb and the walk to its stair; nobody walks through a house ***',
+       HB.every(b => b.housesUnblocked === 0) && HB.some(b => b.houses > 0),
+       HB.reduce((a, b) => a + b.houses, 0) + ' houses standing, ' + HB.reduce((a, b) => a + b.housesUnblocked, 0) + ' with no blocker');
+    ok('and nobody starts inside a house: no enemy, no crate, no car, no way out',
+       HB.every(b => b.inside === 0), HB.reduce((a, b) => a + b.inside, 0) + ' things inside a house');
     /* ===== THE HIGH GROUND IS A HOUSE WITH ITS ROOF ON (his UP, 9/27; s14e) ===== */
     ok('*** THE HIGH GROUND STANDS ON A LOT, NEVER IN THE ROAD (measured before: 80 of 80 in the '
        + 'carriageway) ***', HG.withDeck > 5 && HG.onLot === HG.withDeck, HG.onLot + ' of ' + HG.withDeck + ' street fights with one');

@@ -27,6 +27,7 @@ for t in \
   tools/bohemia_no_atari_patch.py \
   tools/bohemia_house_tiles_back_patch.py \
   tools/bohemia_a_house_is_never_smaller_than_a_man_patch.py \
+  tools/bohemia_house_sized_not_house_filled_patch.py \
 ; do
   [ -f "$t" ] || { echo "MISSING $t"; exit 1; }
   printf '%-58s ' "$t"
