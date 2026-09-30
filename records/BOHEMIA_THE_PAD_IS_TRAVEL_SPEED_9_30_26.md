@@ -79,3 +79,9 @@ complained about by name. Neither is the answer; a cheaper map step is.
 STOP PRODUCING: burst, spread, spread without the redraw, a wider window. Four versions of one thing is
 the tell. The row stays CLAIMED, the buttons, pause, the interrupt and the clock fix are live, and the
 number that finishes it belongs to PLUMBER [grid budget].
+
+## RE-MEASURED AFTER RUN'S d77d4c1 (the 83 ms beat redraw removed), on merged main, 4 s, fresh demos
+II 0 blocks / 0 min; 1x 9 / 73; 3x 20 / 143 (2.2x); 5x 20 / 144 (2.2x). Better than 2.1x, still under the
+2.5x bar. The leg stays RED and the row stays CLAIMED. 5x equal to 3x means the main thread is full at
+about 5 blocks a second on the gate box; a cheaper map step (PLUMBER [grid budget]) is the fix, not a
+fifth timing scheme. Deployed: pages run 2615 SUCCESS on 8480ae4.
