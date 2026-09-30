@@ -3022,3 +3022,32 @@ gated 19/0. Every word on the real screen; record
 Nothing invented past bohemia_acts.js's own comments: the era names, the eras'
 "of" phrases and the years-later attempt were already his file's canon; this
 round only gave them a screen and a real name field.
+
+## THE CAUSE -- THREE MOUTHS AND THE MACHINE'S OWN PAPER (9/29, draft:true)
+Row [the cause], round two. School: records/BOHEMIA_WORDS_THE_CAUSE_SCHOOL_9_28_26.md.
+Built to two findings: real crash testimony is confident and detailed about the
+technology, flat or silent about the financial mechanism (nobody at street level
+ever witnessed circular vendor financing); and hindsight bias makes "everyone saw
+it coming" a common, false, unexamined claim. NOT WIRED TO A SPEAKER YET: no
+creditor, engineer or kid character exists in the roster to carry these; QUESTS/
+PEOPLE attach a real mouth and portrait before any of this reaches VOTE (rule 19,
+rule 29). Governing: rules 19, 20h, 27, 29.
+
+    creditor   The company that lent him the money is gone. The debt is not.
+               I'm still here for it.
+    engineer   The scanner I built could read your palm and know your whole
+               file. My severance was two weeks.
+    kid        One billboard changed for your face. I'd make faces at it just
+               to watch it guess.
+
+**THE MACHINE'S OWN PAPER** -- optional fourth line, institutional register
+(rule 20h's "too even" voice, THE FIRST NOTICE's shape), finding 3 inverted: a
+document states a since-broken projection flatly, never flagged as wrong.
+
+    filing     PROJECTED RETURN ON INFRASTRUCTURE: 340% BY YEAR THREE. FILED.
+               NEVER REVISED.
+
+All four are one line each, English (rule 27), no em dash, no mechanism named in
+the person lines (the creditor, engineer and kid never say "vendor financing" or
+any equivalent); the filing line is the only place a number appears, and it is
+the wrong one.
