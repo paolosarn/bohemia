@@ -131,6 +131,10 @@ def night(c, k=0.42):
 # the picture he approved is byte-identical (checked with cmp the round this was split).
 ITEMS = ['patches', 'array1', 'topwin', 'farwin', 'swap', 'kerbs', 'array2', 'lamp2']
 ACT_ITEMS = {1: set(), 2: {'patches', 'array1', 'topwin', 'farwin'}, 3: set(ITEMS)}
+# THINGS BUILT ON A LOT (9/30, [build a lot] round 2): drawn ONLY when a panel names them in `has`,
+# never by an act number, so no act picture he approved changes by a byte. The first two a held part
+# builds (the invasive round): a block WALL across the front yards, and a lidded WATER TANK.
+LOT_ITEMS = ['wall', 'tank']
 
 
 def panel(P, act, has=None, torn=()):
@@ -266,6 +270,20 @@ def panel(P, act, has=None, torn=()):
         # and the line restrung from the pole to the array
         d.line([(40, 61), (ax + 27, 34)], fill=night(shade(P[4], 1.9)))
 
+    if 'tank' in has:
+        # A LIDDED WATER TANK BEHIND THE SECOND HOUSE, a round galvanised drum on its stand, fed off
+        # the roof by a downpipe. From above it is a disc with a rim, and the LID is the point of it
+        # (the pigeons foul open water), so the lid is a separate darker disc with a hatch on it.
+        tx, ty, r = homes[1] + 12, 7, 5
+        d.ellipse([tx - r + 1, ty - r + 3, tx + r + 1, ty + r + 3], fill=night(shade(P[0], 0.62)))  # shadow
+        d.ellipse([tx - r, ty - r, tx + r, ty + r], fill=night(shade(P[6], 2.40)))               # the rim
+        d.ellipse([tx - r + 1, ty - r + 1, tx + r - 1, ty + r - 1], fill=night(shade(P[6], 1.90)))
+        d.ellipse([tx - 3, ty - 3, tx + 3, ty + 3], fill=night(shade(P[6], 1.15)))               # the lid
+        d.rectangle([tx - 1, ty - 1, tx + 1, ty], fill=night(shade(P[6], 2.60)))                 # its hatch
+        for k in range(0, 4):                                                                    # ribs
+            d.point((tx - r + 1 + k * 3, ty + r - 1), fill=night(shade(P[6], 1.40)))
+        d.line([(tx + r, ty + 1), (tx + r + 3, 14)], fill=night(shade(P[4], 1.6)))             # downpipe
+
     # ---- AND THE OTHER SIDE OF THE STREET ----------------------------------
     # A STREET HAS TWO SIDES. The first cut drew four houses along the top and left
     # the bottom third of the frame as bare dirt, which does not read as a street at
@@ -371,6 +389,16 @@ def panel(P, act, has=None, torn=()):
         for fx in range(sx, sx + 21, 10):                                   # half the fence
             d.rectangle([fx, 58, fx, 59], fill=night(shade(P[4], 1.55)))
         d.rectangle([sx + 9, 48, sx + 10, 52], fill=night(shade(P[4], 1.9)))  # the post, no head
+    if 'tank' in torn:
+        # THE TANK KNOCKED OFF ITS STAND: it lies on its side, the lid is off and away from it, and
+        # the water it held is a dark stain run out across the yard. The stand is still there.
+        tx, ty = homes[1] + 12, 7
+        d.ellipse([tx - 9, ty - 1, tx + 8, ty + 5], fill=night(shade(P[0], 0.55)))            # the stain
+        d.rectangle([tx - 3, ty - 3, tx + 3, ty + 3], outline=night(shade(P[6], 0.80)))       # the stand
+        d.rectangle([tx + 4, ty - 2, tx + 14, ty + 2], fill=night(shade(P[6], 1.80)))          # on its side
+        d.rectangle([tx + 4, ty - 2, tx + 14, ty - 2], fill=night(shade(P[6], 2.40)))
+        d.ellipse([tx + 13, ty - 2, tx + 15, ty + 2], fill=(16, 16, 18))                        # open end
+        d.ellipse([tx - 8, ty - 5, tx - 4, ty - 2], fill=night(shade(P[6], 1.50)))             # the lid, off
     if 'lamp2' in torn:
         d.rectangle([127, 79, 129, 83], fill=night(shade(P[4], 1.2)))       # a stub, no head
 
@@ -392,6 +420,35 @@ def panel(P, act, has=None, torn=()):
         d.rectangle([lx - 1, ly - 4, lx + 1, ly + 1], fill=night(shade(P[4], 1.9)))
         d.rectangle([lx - 1, ly + 1, lx + 1, ly + 3], fill=(255, 224, 154))
 
+    if 'wall' in has:
+        # A BLOCK WALL ACROSS THE FRONT YARDS OF THE FIRST TWO HOUSES, joined to the side walls the
+        # block already has, with the driveway left open. Seen from above a wall is its TOP (lit,
+        # the light is from the north like every roof edge here) and one row of FACE, then the thin
+        # shadow it throws on the gravel. The joints are the only texture: a wall that is one flat
+        # stroke reads as a painted line, which is the Atari look he killed.
+        # DRAWN AFTER THE LAMP'S POOL, NOT BEFORE: the first cut sat under the pool and the light
+        # washed it into a rail. Light lands on ground; a wall stands in it (the swap stand's lesson).
+        for hx in homes[:2]:
+            x0, x1 = hx - 2, hx + 22
+            d.rectangle([x0, 55, x1, 56], fill=night(shade(P[4], 2.30)))     # the top
+            d.rectangle([x0, 57, x1, 57], fill=night(shade(P[4], 1.05)))     # the face
+            d.rectangle([x0, 58, x1, 58], fill=night(shade(P[11], 0.70)))    # its shadow
+            for jx in range(x0 + 3, x1, 4):
+                d.point((jx, 57), fill=night(shade(P[4], 0.55)))             # the block joints
+                d.point((jx + 2, 55), fill=night(shade(P[4], 1.60)))         # and the top course
+            d.rectangle([x0, 54, x0 + 1, 57], fill=night(shade(P[4], 2.60)))  # a pier at each end
+            d.rectangle([x1 - 1, 54, x1, 57], fill=night(shade(P[4], 2.60)))
+
+    if 'wall' in torn:
+        # A WALL PULLED DOWN: the footings stay, every other run of block is gone, and what came down
+        # lies on the gravel in front of it. Nothing that was not built is touched.
+        for hx in homes[:2]:
+            x0, x1 = hx - 2, hx + 22
+            for bx in range(x0, x1 + 1, 8):
+                d.rectangle([bx, 56, min(bx + 3, x1), 57], fill=night(shade(P[4], 2.10)))
+            d.rectangle([x0, 57, x1, 57], fill=night(shade(P[4], 0.70)))                       # the footing
+            for (rx, ry) in ((hx + 5, 58), (hx + 11, 59), (hx + 17, 58), (hx + 1, 59)):
+                d.rectangle([rx, ry, rx + 1, ry], fill=night(shade(P[4], 2.20)))              # the rubble
     # ---- *** THE ONE WRONG THING, IDENTICAL IN ALL THREE *** ---------------
     # The third house has its lights on. The census on this block says nobody lives
     # here. Nothing in the frame points at it; it is just on. THIS BLOCK IS OUTSIDE

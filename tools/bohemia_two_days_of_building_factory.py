@@ -63,17 +63,19 @@ HARVEST = r'''
 process.exit=function(){}; console.log=function(){};
 const path=require('path'), fs=require('fs'); const ROOT=process.argv[2], OUTF=process.argv[3];
 const R=p=>require(path.join(ROOT,p));
-const LB=R('engine/bohemia_lotbuild.js'), P=R('engine/bohemia_purse.js'), C=R('engine/bohemia_century.js'), F=R('engine/bohemia_future.js');
+const LB=R('engine/bohemia_lotbuild.js'), P=R('engine/bohemia_purse.js'), C=R('engine/bohemia_century.js'), F=R('engine/bohemia_future.js'), HB=R('engine/bohemia_homebases.js');
 const purse=P.create({}); P.credit(purse,'electricity',2,'start','home base',0);
-const s=LB.site({base:'yours'}), cen=C.make({act:1});
+/* 9/30 (rule 43): a lot is only built on a part you HOLD, asked of FACTIONS' ledger; this street is a part the company has taken */
+const hold={rec:HB.make({act:1}),act:1}; HB.took(hold.rec,{base:'mob',to:HB.YOU,day:0});
+const s=LB.site({base:'mob'}), cen=C.make({act:1});
 const bal=()=>({battery:P.balance(purse,'electricity'), material:P.balance(purse,'resources'), name:P.balance(purse,'clout')});
 const days=[];
 function standingIds(){ return Object.values(s.lots).filter(l=>l.done).map(l=>l.id); }
-const a=LB.start(s,purse,{x:1,y:1},'solar',0); LB.tick(s,purse,cen,0);
+const a=LB.start(s,purse,{x:1,y:1},'solar',0,hold); LB.tick(s,purse,cen,0,hold);
 days.push({day:0, did:'BUILD A SOLAR PANEL', ok:a.ok, standing:standingIds(), money:bal()});
-LB.tick(s,purse,cen,1); const b=LB.start(s,purse,{x:4,y:1},'stall',1);
+LB.tick(s,purse,cen,1,hold); const b=LB.start(s,purse,{x:4,y:1},'stall',1,hold);
 days.push({day:1, did:'IT STANDS; BUILD A STALL', ok:b.ok, standing:standingIds(), money:bal()});
-LB.tick(s,purse,cen,2);
+LB.tick(s,purse,cen,2,hold);
 days.push({day:2, did:'BOTH STAND', ok:true, standing:standingIds(), money:bal()});
 const L={cells:9216,lit:425,standing:0,people:215};
 fs.writeFileSync(OUTF, JSON.stringify({days:days, act3:F.derive(L,{century:cen},3).valley.standing}));

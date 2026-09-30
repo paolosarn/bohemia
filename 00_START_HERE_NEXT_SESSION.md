@@ -2992,6 +2992,29 @@ AND THE LESSON THAT STILL BINDS: NO TEXT-ONLY ITEM IN VOTE, and now a second one
 beside it -- A PICTURE IN THE VOTE TAB THAT SHOWS A SENTENCE THE GAME NO LONGER
 SAYS IS A LIE TO HIM. Re-shoot the frames in the same round the words change.
 
+LIFE + CITY (city-1eztay): 9/30 LATEST -- *** YOU BUILD WHAT YOU HOLD, AND WHAT YOU HOLD GROWS ([build a lot]
+round 2, rule 43 + the invasive round + rule 47). ***
+TAB: the new picture is in the VOTE tab (alpha). Record: records/BOHEMIA_YOU_BUILD_WHAT_YOU_HOLD_9_30_26.md
+engine/bohemia_lotbuild.js now READS FACTIONS' hold ledger (engine/bohemia_homebases.js) on every start and
+tick, handed as {rec, act}: no ledger NO_HOLD; somebody else's part NOT_HELD (names them, free); TAKEN from
+you = it stands, pays nobody you know, nothing finishes, retake and it pays again; RUINED = everything built
+there falls ONCE as century demolishes (derive act 3 standing 2 -> 0, people 217.2 -> 215), half-built lost,
+lots bare, RUIN refused until a generation later. holdings(book, hold, seats) opens a site per held part
+(taking a part IS how the base grows). Rungs lock KINDS (kind field, hold.kinds, KIND_LOCKED); none handed =
+all open until WORLD cuts the kinds table. The list now LEADS with WALL and WATER TANK (town:11, the water
+tower), first:true; wall guards gardens from hogs, tank lid guards water from pigeons; exposed(site) names
+open margins, said not charged (beasts read it, rule 42). Every entry names one of THE SIX or none; nothing
+makes meds or rounds (you buy those). Purse still pays in its three until ECONOMY [six resources].
+GATE BUILD A LOT 26 -> 56/0; hand mutations: hold always 'yours' -> 7 red, ruin rule off -> 5 red.
+COOK: slices/vote/LIFECITY_WHAT_YOU_HOLD_9_30.png on HIS APPROVED STREET: day 0 the Mob holds it, build
+refused, batteries 3; day 2 you took it, wall + lidded tank, batteries 1 water 1, act 3 keeps 2; day 3 raided
+and ruined, it all fell, act 3 keeps 0. Wall and tank added to the street's panel() as LOT_ITEMS drawn only
+when named: the four approved street pictures are byte-identical (md5). The first wall sat under the lamp
+pool and washed out; it draws after the light now.
+OWED BY OTHERS: RUN's settlement screen calls holdings/list/start/tick with FACTIONS' ledger; WORLD [rung
+unlocks] hands the open kinds; ECONOMY maps the six-name; COOK draws shed, pump house, garden bed, roof
+(wall and tank are drawn now); COMBAT fightTile(); beasts exposed().
+
 LIFE + CITY (city-1eztay): 9/29 LATEST -- *** BUILDING IS BACK, ON YOUR OWN LOT: WHAT YOU CAN BUILD AND
 WHAT IT DOES, RUNNING ON THE REAL PURSE, LEDGER AND DERIVE. ***
 TAB: the new picture is in the VOTE tab (alpha).
