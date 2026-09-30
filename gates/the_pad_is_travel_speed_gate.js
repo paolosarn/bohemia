@@ -10,8 +10,8 @@
    REPORT a speed it could not measure, and says which.
      - on the map: five plates PAUSE 1x 2x 3x 5x, each a thumb (44 x 44), bottom right, 1x lit
      - a tap on a plate sets the speed and lights it, and does NOT set a journey
-     - PAUSE holds a journey: over 2 s, 0 blocks and 0 game minutes, and the journey is still set
-     - 3x crosses at least 2.5 times the blocks of 1x in the same 2 s, and every block still pays
+     - PAUSE holds a journey: over 4 s, 0 blocks and 0 game minutes, and the journey is still set
+     - 3x crosses at least 2.5 times the blocks of 1x in the same 4 s, and every block still pays
        its own clock (game minutes go up with the blocks, never a skip)
      - 5x is REPORTED, not asserted: it is bound by how heavy one map step is on the machine
        running this (measured 55 ms a step on the gate box; one beat in four dropped at 5x)
@@ -47,7 +47,7 @@ async function fresh() {
   d.setOut = async () => {
     for (const [x, y] of [[60, 650], [60, 700], [195, 650], [330, 700], [60, 180]]) {
       await d.tapAt(x, y); await d.page.waitForTimeout(350);
-      const s = await d.st(); if (s.trav && s.left >= 14) return s;
+      const s = await d.st(); if (s.trav && s.left >= 28) return s;
       if (s.trav) await d.fr.evaluate(() => travelStop());
     }
     return null;
@@ -60,7 +60,12 @@ async function measure(label) {
     await d.plate('1x');
     if (!(await d.setOut())) return { label, refused: 'no long journey could be set by a tap' };
     await d.plate(label);
-    const a = await d.st(); await d.page.waitForTimeout(2000); const b = await d.st();
+    /* FOUR SECONDS, NOT TWO, AND THIS IS THE INSTRUMENT, NOT THE BAR: travel moves on whole beats
+       (500 ms), so a 2 s window catches 4 OR 5 beats depending on where it starts. Measured: 3x
+       crossed 12 blocks (exactly 3 a beat for 4 beats) while its 1x control caught a fifth beat
+       and crossed 5 -- 2.4x, red, for a pad doing precisely its job. Over 8 beats the edge error is
+       one beat in eight, and the 2.5x bar is unchanged. */
+    const a = await d.st(); await d.page.waitForTimeout(4000); const b = await d.st();
     errs = errs.concat(d.errs || []);
     return { label, speed: a.speed, lit: a.lit, blocks: a.left - b.left, minutes: b.t - a.t, stillSet: b.trav };
   } finally { await d.close(); }
@@ -118,7 +123,7 @@ async function measure(label) {
   for (const label of ['1x', '3x', 'II', '5x']) {
     r[label] = await measure(label);
     const m = r[label];
-    console.log('       ' + label.padEnd(3) + (m.refused ? 'NOT MEASURED: ' + m.refused : ('crossed ' + m.blocks + ' blocks, +' + m.minutes + ' game minutes in 2 s, journey still set ' + m.stillSet)));
+    console.log('       ' + label.padEnd(3) + (m.refused ? 'NOT MEASURED: ' + m.refused : ('crossed ' + m.blocks + ' blocks, +' + m.minutes + ' game minutes in 4 s, journey still set ' + m.stillSet)));
   }
   const measured = (l) => r[l] && !r[l].refused;
   ok('PAUSE HOLDS: 0 blocks and 0 game minutes, and the journey is still set', measured('II') && r.II.blocks === 0 && r.II.minutes === 0 && r.II.stillSet, measured('II') ? JSON.stringify(r.II) : 'not measured');

@@ -1,5 +1,5 @@
-UI (ui-kmqmrf): 9/30 LATEST -- *** [speed pad] SHIPPED: THE PAD IS TRAVEL SPEED, II 1x 2x 3x 5x ON THE
-MAP. *** TAB: the demo's first screen (the map), bottom right; same on the alpha's map.
+UI (ui-kmqmrf): 9/30 LATEST -- *** [speed pad] BUILT AND LIVE, NOT SHIPPED: II 1x 2x 3x 5x ON THE MAP,
+AND 3x ONLY DELIVERS ABOUT 2x ON THE GATE BOX. *** TAB: the demo's first screen (the map), bottom right; same on the alpha's map.
 Record: records/BOHEMIA_THE_PAD_IS_TRAVEL_SPEED_9_30_26.md
 
 Rule 44(a), Paolo 9/29. Five lit 44x44 plates where the pad sat, the current one gold. At Nx the
@@ -7,8 +7,12 @@ journey takes N blocks per beat of the one metronome and EVERY block is a real s
 its own clock, so a crossing costs the same game hours at any speed. PAUSE holds the journey (the
 route is not consulted; the hour does not move). travelInterrupt() is the one door for "a road event
 drops it to PAUSE"; cityHandOver (every fight) calls it. A plate press never sets a journey.
-MEASURED ON FRESH DEMOS, 2 s each: II 0 blocks / 0 min; 1x 4 / 21; 2x 8 / 79; 3x 12 / 100;
-5x 15 / 117 (ideal 20).
+FIRST MEASURED WITH THE BLOCKS BURST INTO ONE TICK (2 s): 1x 4, 2x 8, 3x 12, 5x 15. That burst SNAPPED
+ANIMATION's map glide (dd55efa: it expects a step every BEAT/k and snaps past 2.5 blocks), so the
+extra blocks are now SPREAD one every BEAT/N. Spread, over 4 s: II 0, 1x 8, 3x 17 (2.1x), 5x 20
+(2.5x). The gate's "3x >= 2.5 x 1x" leg is RED and left red: the glide's per-frame render (~42 ms)
+plus a map step (~55 ms) saturate the main thread here. I STOPPED at that instead of writing a fourth
+timing scheme. The row stays CLAIMED, not SHIPPED (rule 6).
 *** FOR PLUMBER [grid budget] AND RUN [bb map]: one map step (stepOnce) costs 55 ms median on the gate
 box and a render 42 ms, so a 5x beat is ~318 of 500 ms and one beat in four was dropped. A phone is
 slower. The pad cannot fix it; a cheaper map step can. ***

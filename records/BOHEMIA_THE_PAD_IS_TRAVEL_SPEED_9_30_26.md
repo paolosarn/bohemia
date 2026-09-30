@@ -64,3 +64,18 @@ picture moves 0.8 blocks at 1x and 3.5-4.5 at 3x/5x. That is the machine, and it
 [grid budget] owns: this box cannot show whether 5x glides on a phone, and I do not claim it does.
 ANIMATION's own glide gate (THE MAP GLIDES, which drives the clock synthetically) passes 14/0 on the
 spread build.
+
+## WHERE IT STANDS AT THE END OF THE ROUND, AND WHY I STOPPED
+Over 4 s on fresh demos with the spread build: II 0 blocks, 1x 8, 3x 17 (2.1x), 5x 20 (2.5x). The gate's
+"3x crosses at least 2.5 times 1x" leg is RED, and it is left red on purpose.
+MY OWN WRONG THEORY, CORRECTED: after one 2 s run gave 3x 12 against 1x 5, I blamed the window (a 2 s
+window catches 4 or 5 beats) and widened it to 4 s without touching the bar. The widened window is a
+better instrument, and it showed the theory was only part of it: 3x really delivers about 2x here.
+The spread blocks are delayed behind the map glide's per-frame render (~42 ms a frame, running the whole
+time the party moves) and each map step (~55 ms), on one main thread.
+THE TRADE, NAMED: burst delivers the speed (3x = 3.0x) but snaps the glide, which is the jump he killed;
+spread keeps the glide and loses speed on this box. I kept spread, because the jump is the thing he has
+complained about by name. Neither is the answer; a cheaper map step is.
+STOP PRODUCING: burst, spread, spread without the redraw, a wider window. Four versions of one thing is
+the tell. The row stays CLAIMED, the buttons, pause, the interrupt and the clock fix are live, and the
+number that finishes it belongs to PLUMBER [grid budget].
