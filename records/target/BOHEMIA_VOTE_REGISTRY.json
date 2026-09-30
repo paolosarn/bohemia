@@ -2440,6 +2440,8 @@
   },
   {
    "id": "coordinator-the-map-floor-is-the-phones-pixels-9-28",
+   "sha": "14029d67",
+   "show": {"how": "text"},
    "kind": "verdict",
    "lane": "coordinator",
    "title": "THE MAP DRAWS AT THE PHONE'S FULL PIXEL COUNT UNTIL BATTLE BROTHERS' NUMBER IS MEASURED",
@@ -2450,6 +2452,8 @@
   },
   {
    "id": "coordinator-the-strip-is-the-only-walked-place-9-28",
+   "sha": "14029d67",
+   "show": {"how": "text"},
    "kind": "verdict",
    "lane": "coordinator",
    "title": "THE STRIP IS THE ONLY SPECIAL PLACE YOU WALK, UNTIL YOU NAME ANOTHER",
@@ -2512,6 +2516,8 @@
   },
   {
    "id": "coordinator-tuning-and-mods-research-until-you-say-build-9-28",
+   "sha": "30766d9e",
+   "show": {"how": "text"},
    "kind": "verdict",
    "lane": "coordinator",
    "title": "TUNING AND MODS ONLY RESEARCH UNTIL YOU SAY BUILD",
@@ -2522,9 +2528,9 @@
   },
   {
    "id": "tuning-five-points-9-28",
+   "sha": "baa0ed9a",
    "kind": "tile",
    "lane": "tuning",
-   "sha": "",
    "made": "9/28",
    "draft": true,
    "title": "FIVE POINTS",
@@ -2749,6 +2755,8 @@
   },
   {
    "id": "coordinator-the-strip-on-foot-uses-the-112-walk-9-28",
+   "sha": "301d5619",
+   "show": {"how": "text"},
    "kind": "verdict",
    "lane": "coordinator",
    "title": "ON THE STRIP YOU WALK WITH THE ART WE ALREADY HAVE",
@@ -2759,9 +2767,9 @@
   },
   {
    "id": "tuning-how-long-they-live-9-28",
+   "sha": "d0f98c72",
    "kind": "tile",
    "lane": "tuning",
-   "sha": "",
    "made": "9/28",
    "draft": true,
    "title": "HOW LONG THEY LIVE",
@@ -2812,6 +2820,8 @@
   },
   {
    "id": "coordinator-the-phone-reads-the-machines-text-aloud-9-28",
+   "sha": "820ca7f5",
+   "show": {"how": "text"},
    "kind": "verdict",
    "lane": "coordinator",
    "title": "RULED: THE NARRATOR IS THE MACHINE'S VOICE, MADE CREEPY (NOTHING TO TAP)",
@@ -2848,9 +2858,9 @@
   },
   {
    "id": "tuning-every-number-9-28",
+   "sha": "11947f53",
    "kind": "tile",
    "lane": "tuning",
-   "sha": "",
    "made": "9/28",
    "draft": true,
    "title": "EVERY NUMBER YOU FEEL",
@@ -2888,6 +2898,8 @@
   },
   {
    "id": "coordinator-the-company-inherits-9-28",
+   "sha": "cc51a6e5",
+   "show": {"how": "text"},
    "kind": "verdict",
    "lane": "coordinator",
    "title": "YOUR COMPANY PASSES DOWN. EACH ACT STARTS WITH THE LAST CREW'S HEIRS.",
@@ -3002,6 +3014,8 @@
   },
   {
    "id": "coordinator-a-routine-fight-ends-inside-90-seconds-9-29",
+   "sha": "e1677659",
+   "show": {"how": "text"},
    "kind": "verdict",
    "lane": "coordinator",
    "title": "DEAD: THE 90-SECOND FIGHT (YOU CORRECTED IT, NOTHING TO TAP)",
@@ -3012,6 +3026,8 @@
   },
   {
    "id": "coordinator-you-build-inside-your-home-bases-screen-9-29",
+   "sha": "e1677659",
+   "show": {"how": "text"},
    "kind": "verdict",
    "lane": "coordinator",
    "title": "YOU BUILD YOUR HOME BASE FROM ITS OWN SETTLEMENT SCREEN, LOT BY LOT",
@@ -3022,6 +3038,8 @@
   },
   {
    "id": "coordinator-fights-shorter-than-battle-brothers-even-when-tough-9-29",
+   "sha": "4497f239",
+   "show": {"how": "text"},
    "kind": "verdict",
    "lane": "coordinator",
    "title": "A ROUTINE FIGHT 2 TO 4 MINUTES. A TOUGH ONE NEVER PAST 15. TOUGH MEANS LEVEL, GEAR, OR YOUR MISTAKE.",
@@ -3032,6 +3050,8 @@
   },
   {
    "id": "coordinator-swap-a-mastery-past-level-11-at-the-training-ground-9-29",
+   "sha": "8ce7f8c7",
+   "show": {"how": "text"},
    "kind": "verdict",
    "lane": "coordinator",
    "title": "PAST LEVEL 11 YOU CAN SWAP ONE WEAPON MASTERY AT A TRAINING GROUND, FOR BATTERIES AND A FEW DAYS",
@@ -3055,9 +3075,9 @@
   },
   {
    "id": "tuning-how-long-a-fight-takes-9-29",
+   "sha": "e31e7e64",
    "kind": "tile",
    "lane": "tuning",
-   "sha": "",
    "made": "9/29",
    "draft": true,
    "title": "HOW LONG A FIGHT TAKES",
@@ -3213,6 +3233,8 @@
   },
   {
    "id": "coordinator-the-beasts-of-the-valley-9-29",
+   "sha": "9c70fdfe",
+   "show": {"how": "text"},
    "kind": "verdict",
    "lane": "coordinator",
    "title": "THE ROAD'S BEASTS: DIRE WOLVES, HYENAS, FERAL DOGS AND CATTLE. BOSSES: THE LION, THE BEAR, THE SABRE-TOOTH, ONE MAMMOTH HERD.",
@@ -3223,6 +3245,8 @@
   },
   {
    "id": "coordinator-you-build-what-you-hold-and-it-grows-9-29",
+   "sha": "d524c7c5",
+   "show": {"how": "text"},
    "kind": "verdict",
    "lane": "coordinator",
    "title": "YOU BUILD ON WHAT YOU HOLD, AND WHAT YOU HOLD GROWS BLOCK BY BLOCK",
@@ -3233,6 +3257,8 @@
   },
   {
    "id": "coordinator-the-seventeen-beasts-9-29",
+   "sha": "3bb100f6",
+   "show": {"how": "text"},
    "kind": "verdict",
    "lane": "coordinator",
    "title": "THE SEVENTEEN: DOGS, DIRE WOLVES, HYENAS, HOGS, CAMELS, HORSES, CATTLE, THE LION, THE BEAR, THE SABRE-TOOTH, THE HIPPO, THE MAMMOTHS, THE DINO-BIRD, THE SWARM, THE EAGLE, THE LIZARDS, THE SLOTH",
@@ -3243,6 +3269,8 @@
   },
   {
    "id": "coordinator-the-speed-pad-pause-1x-2x-3x-5x-9-29",
+   "sha": "d15dea6f",
+   "show": {"how": "text"},
    "kind": "verdict",
    "lane": "coordinator",
    "title": "THE PAD COMES BACK AS TRAVEL SPEED: PAUSE, 1x, 2x, 3x, 5x",
