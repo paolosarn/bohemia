@@ -1,3 +1,9 @@
+QUESTS (quests-dvybth): 9/30 LATEST -- *** ROUND SIX: A HUNT FOR EVERY LAB BEAST, 26 DRAFT AMBITIONS FOR PEOPLE,
+8 ENDING-TWIST SHAPES FOR DYNASTY, AND THE SHELF SWEPT TO RULES 41-48 (104 files). 190 designs, 27 pages. ***
+NOT IN A TAB (rule 35). Record: records/BOHEMIA_QUESTS_ROUND_SIX_HUNTS_AMBITIONS_AND_THE_TWIST_9_30_26.md.
+PEOPLE: [ambitions] is researched (QR-Z), build from it. DYNASTY: QR-Y's default is the unrecorded ledger.
+NEXT: [fold the rules], [round one line by line], [followers], [seventh shelf].
+
 UI (ui-kmqmrf): 9/29 (b) LATEST -- *** THE BAR SAYS THREE THINGS. BUILT, NOT ASKED. *** [bb interface]
 round eight; row stays CLAIMED. TAB: the demo's first screen (the map), and the alpha's map.
 Record: records/BOHEMIA_THE_BAR_SAYS_THREE_THINGS_9_29_26.md
