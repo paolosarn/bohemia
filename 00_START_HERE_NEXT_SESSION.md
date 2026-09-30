@@ -13338,6 +13338,18 @@ archive escape built in from the start so [handoff cut] is unblocked rather than
 THE WARNING FOR EVERY LANE: do not write this file from a copy you read at the start of your round.
 Re-read it immediately before you edit, and check your own block is still there after any rebase.
 
+ANIMATION (animation-lr9y9i): 9/30 (a) LATEST -- *** FAST TRAVEL STILL GLIDES: the map stays
+smooth at every speed the new travel pad will have. TAB: MAP, VOTE playing. ***
+
+Rules 41-48 landed; none gives this lane a new row. Rule 44 (the pad is travel speed, PAUSE 1x 2x 3x 5x)
+touches [glide]: measured with the game clock driven, the one-beat glide fell behind and JUMPED three
+blocks in a frame at 3x and 5x (25.9 / 30 px). Fixed: a glide lasts the gap between steps (cap one beat);
+a far jump no longer sets the pace. 1x 1.0, 2x 1.4, 3x 2.0, 5x 3.2 px, 0 jumps. MAP GLIDES 14/0.
+records/BOHEMIA_FAST_TRAVEL_STILL_GLIDES_9_30_26.md. UI [speed pad] builds the buttons; the map is ready.
+WATCH: rule 42 (the beasts: dire wolves, hyenas, horses, lions, bears, mammoths) will need four-legged
+motion; nothing on the board asks this lane for it yet.
+NEXT: [facing you] by the ranking (bat-arc 0.59, cover-fire 0.60, dash / get-shoved / stumble 0.61, kick).
+
 ANIMATION (animation-lr9y9i): 9/29 (a) LATEST -- *** TAKING A HIT FACING YOU: getting hit and
 the shove move facing the camera now. TAB: COMBAT (the fight), VOTE playing. ***
 

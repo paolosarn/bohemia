@@ -17,6 +17,11 @@
    A far jump (landing, a ride, a load) SNAPS: gliding across half the valley would
    lie about how he got there.
 
+   *** 9/30: AND AT EVERY SPEED ON THE PAD. *** Rule 44 brings the pad back as travel
+   speed, 1x 2x 3x 5x. A glide that always lasted one beat fell behind at 3x and 5x and
+   snapped three blocks in one frame (25.9 and 30 px). A glide now lasts as long as the
+   gap between steps, capped at a beat, and a far jump no longer sets the pace.
+
    AND THIS LANE'S OWN EARLIER CALL WAS THE OPPOSITE. Round one of [bb marker] picked
    B, "one lot per beat", and MARKER ON BEAT still holds that the page's B stops at
    the beat. He voted the page up and said glide. That gate describes the two options
@@ -94,7 +99,34 @@ ok('the item PLAYS on a real clock and carries no control of its own',
     const far = step(3);
     const snap = Math.hypot(far[0].c[0] - b4[0], far[0].c[1] - b4[1]);
     const after = Math.hypot(far[2].c[0] - far[0].c[0], far[2].c[1] - far[0].c[1]);
-    return { ruleMovedAtOnce, moved, maxStep, total, arrived, maxLift, restLift, chainMax, snap, after };
+    /* THE SPEED PAD (rule 44: PAUSE 1x 2x 3x 5x). A step every BEAT/k along a straight
+       road, 20 steps; the largest camera move in any single frame, and how many frames
+       jumped two blocks or more. A glide that always lasts a beat falls behind at 3x
+       and SNAPS to catch up -- that is what this is here to refuse. */
+    const speed = {};
+    let run = null;
+    outer2: for (let y = 3; y < om.n - 3; y++) for (let x = 3; x < om.n - 3; x++) for (let d = 0; d < 8; d++) {
+      const [dx, dy] = DIRS[d]; let okr = true;
+      for (let k = 0; k <= 22; k++) if (!cityWalkable(x + k*dx, y + k*dy)) { okr = false; break; }
+      if (okr) { run = { x, y, d }; break outer2; } }
+    if (run) {
+      for (const k of [1, 2, 3, 5]) {
+        city.x = run.x; city.y = run.y; T += 5000; render(); render();
+        const every = 500 / k; let nextT = T, prevC = cams[cams.length - 1], worst = 0, jumps = 0, n = 0;
+        const endT = T + every * 20 + 700;
+        while (T < endT) {
+          if (T >= nextT && n < 20) { stepOnce(run.d); n++; nextT += every; }
+          T += 1000 / 60; render();
+          const c = cams[cams.length - 1], dd = Math.hypot(c[0] - prevC[0], c[1] - prevC[1]);
+          worst = Math.max(worst, dd); prevC = c;
+        }
+        speed[k + 'x'] = { worst: +worst.toFixed(1) };
+      }
+      city.x = run.x; city.y = run.y; T += 5000; render(); const a0 = cams[cams.length - 1];
+      city.x += DIRS[run.d][0]; city.y += DIRS[run.d][1]; T += 5000; render(); T += 5000; render();
+      const b0 = cams[cams.length - 1]; speed.cell = +Math.hypot(b0[0] - a0[0], b0[1] - a0[1]).toFixed(1);
+    }
+    return { ruleMovedAtOnce, moved, maxStep, total, arrived, maxLift, restLift, chainMax, snap, after, speed };
   });
   if (R.err) { ok('the map has open ground to walk (' + R.err + ')', false); await br.close(); return done(); }
   ok('the city loads with no page error (' + (errs.length ? errs[0] : 'none') + ')', errs.length === 0);
@@ -115,6 +147,17 @@ ok('the item PLAYS on a real clock and carries no control of its own',
      R.maxLift >= 1.5 && R.restLift < 0.01);
   ok('A FAR JUMP SNAPS: a landing twelve cells away moves the camera ' + R.snap.toFixed(0) +
      ' px on the first frame and ' + R.after.toFixed(1) + ' after', R.snap >= 60 && R.after < 0.5);
+  /* === THE SPEED PAD === */
+  const S = R.speed || {};
+  ok('CONTROL: a straight road long enough to travel twenty blocks at speed was found, and a block is ' +
+     (S.cell || 0) + ' px here', !!S.cell && S.cell >= 6);
+  const worstFast = Math.max(S['3x'] ? S['3x'].worst : 99, S['5x'] ? S['5x'].worst : 99);
+  ok('AT EVERY SPEED ON THE PAD IT STILL GLIDES: the largest single-frame move is ' +
+     ['1x','2x','3x','5x'].map(k => k + ' ' + (S[k] ? S[k].worst : '?') + ' px').join(', ') +
+     ' -- under half a block at every speed (it was 25.9 px at 3x and 30 at 5x: the map fell behind and jumped three blocks)',
+     !!S.cell && ['1x','2x','3x','5x'].every(k => S[k] && S[k].worst <= S.cell * 0.5));
+  ok('  and 1x is exactly what it was (' + (S['1x'] ? S['1x'].worst : '?') + ' px, it was 1.0)',
+     S['1x'] && S['1x'].worst <= 1.5);
   await br.close();
   done();
 })().catch(e => { console.log('  FAIL ' + e.message); fail++; done(); });

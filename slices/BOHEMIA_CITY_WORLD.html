@@ -42265,9 +42265,23 @@ function vistaBackdrop(plateTop){
    SNAPS, because gliding across half the valley would be a lie about how he got
    there. city.x/city.y are NOT touched: every rule that asks where he is still gets
    the whole cell; only the picture moves between cells. */
-var CITY_GLIDE={fx:null,fy:null,tx:null,ty:null,t0:0,raf:0};
+/* *** AND IT KEEPS UP WITH THE SPEED PAD (9/30). *** Rule 44 brings the pad back as
+   travel speed, PAUSE 1x 2x 3x 5x. A glide that always lasts one beat cannot keep up
+   with a step every tenth of a second: MEASURED, driving the game's clock with a
+   step every BEAT/k along a straight road, 20 steps --
+       1x  largest frame move 1.0 px   jumps of 20 px or more: 0
+       2x                     1.4 px                            0
+       3x                    25.9 px                            4
+       5x                    30.0 px                            5
+   (a block is 9.8 px at that zoom). Each new step started from a picture that had
+   fallen further behind, until the lag passed the far-snap line and the map JUMPED
+   three blocks in one frame: the boom boom boom he killed, back again at speed.
+   SO A GLIDE LASTS AS LONG AS THE GAP BETWEEN STEPS, capped at one beat: at 1x that
+   is exactly the beat it always was, and at 5x each glide ends as the next begins,
+   so fast travel is one constant slide too. The beat stays in the hop. */
+var CITY_GLIDE={fx:null,fy:null,tx:null,ty:null,t0:0,raf:0,dur:0,last:-1e9};
 function cityGlideAt(G,now){
-  const u=Math.max(0,Math.min(1,(now-G.t0)/BEAT));
+  const u=Math.max(0,Math.min(1,(now-G.t0)/(G.dur||BEAT)));
   return {x:G.fx+(G.tx-G.fx)*u, y:G.fy+(G.ty-G.fy)*u, u:u};
 }
 function cityGlidePos(now){
@@ -42278,6 +42292,8 @@ function cityGlidePos(now){
     const far=Math.abs(city.x-cur.x)+Math.abs(city.y-cur.y)>2.5;
     G.fx=far?city.x:cur.x; G.fy=far?city.y:cur.y;
     G.tx=city.x; G.ty=city.y; G.t0=now;
+    /* a far jump is a cut, not a step: it must not set the pace for the step after it */
+    G.dur=Math.max(50,Math.min(BEAT,now-G.last)); G.last=far?-1e9:now;
   }
   const p=cityGlideAt(G,now);
   /* keep drawing until it lands: the city otherwise redraws on the beat, and a

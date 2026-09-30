@@ -1,0 +1,61 @@
+<!doctype html><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>BOHEMIA — Fast Travel Still Glides</title>
+<!-- ANIMATION [glide] round two, 9/30. Rule 44: the pad is travel speed, PAUSE 1x 2x 3x 5x.
+     RULE 25: IT PLAYS. Both strips filmed off the game's own map at 5x (a step every tenth of
+     a second), the game's clock driven. No control in the page. -->
+<style>
+  :root{--ink:#e8e0cc;--bg:#0d0d12;--card:#16161d;--line:#33313d;--gold:#c79a3f}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+       font:13px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace;padding:14px}
+  h1{font-size:13px;letter-spacing:2px;margin:0 0 4px;color:var(--gold)}
+  p{margin:0 0 12px;color:#a49a86;max-width:60ch}
+  b{color:var(--ink)}
+  .said{border-left:2px solid #7a4a4a;padding:6px 0 6px 10px;margin:0 0 14px;color:#b09a90}
+  .clip{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:8px;margin-bottom:10px}
+  .pair{display:flex;gap:10px;flex-wrap:wrap}
+  .side{text-align:center}
+  .lab{font-size:10px;letter-spacing:1px;margin-bottom:3px}
+  .old{color:#9a6b6b}.new{color:#7fa06b}
+  .film{width:160px;height:160px;image-rendering:pixelated;background:#101319;border-radius:3px;
+        background-repeat:no-repeat}
+  .beat{height:3px;background:#2a2833;border-radius:2px;margin:12px 0 2px;overflow:hidden;max-width:330px}
+  .beat i{display:block;height:100%;width:50%;background:var(--gold)}
+  .note{margin-top:12px;color:#6f6862;max-width:60ch}
+</style>
+<h1>FAST TRAVEL STILL GLIDES</h1>
+<div class="said">You: bring the pad back as travel speed, 1x, 2x, 3x, up to 5x, like
+Battle Brothers.</div>
+<p>A couple of rounds ago I made the map glide instead of jumping. But the glide took one beat per
+block, and at 5x a block goes by every tenth of a second. So the map <b>fell behind,
+then jumped about three blocks at once</b> to catch up. Measured: at 1x and 2x it
+was smooth, at 3x and 5x it jumped 4 to 5 times every 20 blocks.</p>
+<p>Now each glide lasts exactly as long as the gap between steps. At 1x that is the
+same beat it always was. At 5x each glide ends right as the next one starts, so
+fast travel is <b>one smooth slide</b> too. Zero jumps at every speed.</p>
+<p>I fixed this before the speed pad even exists, so when it lands it is smooth on
+the first try.</p>
+<p>Both are the real map at 5x, one second each.</p>
+<div class="beat"><i id="beat"></i></div>
+<div class="clip"><div class="pair">
+  <div class="side"><div class="lab old">BEFORE</div><div class="film" id="a"></div></div>
+  <div class="side"><div class="lab new">NOW</div><div class="film" id="b"></div></div>
+</div></div>
+<p class="note">The speed buttons themselves are the UI chat's to build. This makes sure the map is ready for them.</p>
+<script>
+(function(){
+  var N=20,S=160,SHOW=160,LOOP=1000;   /* 20 frames over one second at 5x */
+  var A=document.getElementById('a'),B=document.getElementById('b');
+  A.style.backgroundImage='url(ANIMATION_FAST_TRAVEL_GLIDES_BEFORE.png)';
+  B.style.backgroundImage='url(ANIMATION_FAST_TRAVEL_GLIDES_AFTER.png)';
+  var k=SHOW/S; A.style.backgroundSize=B.style.backgroundSize=(N*S*k)+'px '+SHOW+'px';
+  var bar=document.getElementById('beat'), t0=performance.now();
+  (function tick(){
+    var ph=((performance.now()-t0)%LOOP)/LOOP, f=Math.floor(ph*N)%N;
+    A.style.backgroundPosition=B.style.backgroundPosition=(-f*S*k)+'px 0px';
+    bar.style.transform='translateX('+(ph<0.5?0:100)+'%)';
+    requestAnimationFrame(tick);
+  })();
+})();
+</script>
