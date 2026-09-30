@@ -34053,6 +34053,36 @@ skip, leaving keeps the window open, save forgets unlocks, flip ignores LOCKED) 
 and one on the glass (draw all three at frame one) goes red naming "3: Reyna, Ezekiel, Perla".
 Every mutation restored byte-for-byte (cmp). Canon rot is red on main too.
 
+AFTER THE REBASE (main moved by 41 commits) I RE-RAN THE SET ON THE MERGED TREE, and it said:
+- A MERGE DID NOT DELETE A SYSTEM is RED on BOHEMIA_CITY_WORLD.html and BOHEMIA_ALPHA_0_9.html,
+  and it is the false-positive class round 54 already documented (a lane rewriting its OWN
+  code reads as lost lines). CHECKED LINE BY LINE, NOT WAVED AWAY: `git diff origin/main..HEAD`
+  removes 57 city lines and 10 alpha lines, and every one is in a region I rewrote on purpose:
+  the acts engine's inline copy (the state block, flip), the strip's paint / glyph / faces /
+  reshuffle / typed-name / flip comments and code, the export line, the save snapshot's closing
+  line (now with a trailing comma for the new `acts` field), and in the alpha the build stamp,
+  descendantSpec's head and the face bridge's parse. Nothing of any other lane's is in it.
+  The city's inline copy of bohemia_acts.js is BYTE-IDENTICAL to engine/bohemia_acts.js (checked
+  by hand, below).
+- INLINED FRESH is RED on CLEAN origin/main, not mine: tools/bohemia_city_module_resync.py
+  REFUSES because engine/bohemia_ambitions.js (a new module from another lane) has no closing
+  banner in the city ("313629 bytes against a 7849 byte module"). It is the only ruler for the
+  inlined copies, so its red HIDES every module's freshness: I proved mine by comparing the two
+  byte for byte instead. OWNER: whoever inlined bohemia_ambitions.js (the city's closing banner
+  is missing or renamed). Worth PLUMBER's eye because a refusing ruler reads as "no news".
+- DERIVED FRESH, PAGES PUBLISH (303 MB against 260), VOTE TAB (another lane's item, TUNING's
+  who-dies / the coordinator's), PHONE READABLE (14 ok / 5 failed on clean main too; the
+  text-size leg flips between size 2 and size 3 run to run on main, it is the feed's arriving
+  posts), PHONE RINGS and FAMILY IN GAME / CAST / ANIM are all RED ON CLEAN MAIN with the same
+  failures; DERIVED FRESH lists the same five stale files on main and on mine once my work is
+  COMMITTED. NOTE FOR ANYBODY RUNNING IT: that gate resets its worktree to HEAD before each
+  maker, so it only judges COMMITTED work; an uncommitted edit to a file a maker touches (the
+  alpha and the city, via the tile bank) reads as drift. Commit first, then run it.
+- rule 8's "rebuild the derived slices when you touch engine/" was MEASURED, not skipped:
+  RUN_CURRENT, CURRENT_SLICE, MAP_CURRENT, the demo and the alpha contain zero bytes of
+  bohemia_acts (only the city does), so there is nothing of mine to rebuild in them; their
+  existing drift (+44/+22/+50 lines) is other lanes' and left alone.
+
 DEFAULTS I DECIDED (draft, in the VOTE item): act 3 unlocks on a base held in act 2; the offer
 closes when he flips away or presses OK, and a closed person cannot be edited; act 1 has no
 offer (the face maker owns the start).
