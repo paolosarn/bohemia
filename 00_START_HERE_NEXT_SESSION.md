@@ -10040,6 +10040,35 @@ it is player-facing at all is worth deciding before restyling it. The source cou
 now understood as dead-declaration debt and can be swept file-wide in one pass instead of
 being chased surface by surface.
 
+RUN (run-eak241): 9/30 LATEST -- *** [map pixels] (his 9/29 map ask) AND [demo text] SHIPPED: HE IS
+ON THE MAP AS HIMSELF, THE CIRCLES ARE PEOPLE AND BUILDINGS, THE PARTIES WALK THE ROADS, AND NO TWO
+TEXTS OVERLAP ON THE DEMO. TAB: the DEMO link (CITY in the alpha, the same map). Nothing to judge. ***
+
+PAOLO 9/29: "I should def be seeing the player character on this screen bro all those little circles
+should be icons or people." And: "when texts are overlapping each other, I don't know why it's so
+fucking difficult for you to understand."
+
+THE MAP: him = his own baked rig (PLAYER_CV, 56 box), facing his travel, walking while he travels, COOK's
+banner stirring on the beat; people clusters = COOK's CROWD; home bases = the building of their tier;
+parties = COOK's shape under their faction's banner. COOK's two banks are embedded byte for byte (the site
+does not publish banks/). A pale one-pixel rim on every map figure. THE PARTIES NEVER MOVED IN DAYLIGHT
+(0.93 of a step per map block, floored to zero every call): the remainder is carried now, 28 of 28 move.
+GATE: THE MAP HAS ITS PEOPLE 16/0 (3 mutations). THE FACE ON THE MAP IS HIS and THE ONE THAT IS YOU
+re-aimed from the pin to his body; ANIMATION's hop kept on its translate.
+
+THE TEXT: the quest line gives up the phone's room every render (inline !important margin; #tlstack
+forces margin:0 !important); the demo's line starts past the gear; street-only hints (HOLD TO WALK, the
+street prose line) step aside on the map. The demo 0 overlaps, the alpha map 0. GATE: NO TWO TEXTS
+OVERLAP ON THE DEMO 14/0 (3 mutations). Records: records/BOHEMIA_I_SHOULD_SEE_MYSELF_ON_THE_MAP_RUN_9_29_26.md,
+records/BOHEMIA_NO_TWO_TEXTS_OVERLAP_ON_THE_DEMO_RUN_9_30_26.md
+
+NOT DONE: [map pixels] G1 (the map canvas at the phone's pixel ratio, PLUMBER's 1-in-13 density) is the
+next line; COOK's land waits on it (flat tones would lower the density rule 38a holds); the pump has no
+place kind; the crowd drawing is COOK's first shape.
+
+NEXT: [map pixels] G1, measured first (every cv.width user in the city file is a layout reader), then
+[settlement screen].
+
 RUN (run-eak241): 9/28 LATEST -- *** [bb map] ROUND ONE AND [no city walk]'S DEMO HALF SHIPPED:
 THE DEMO OPENS ON THE MAP, AND A TAP IS HOW YOU TRAVEL. TAB: the DEMO link (and CITY in the
 alpha, the same map). Nothing to judge. ***
