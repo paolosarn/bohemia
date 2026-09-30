@@ -15562,6 +15562,94 @@ ALSO STILL OPEN, not draw order: on NE in his own frame
 the right of the shoulders with a visible gap. That is the pose too.
 
 Nothing [PENDING Paolo].
+PEOPLE (people-7h9sfy): 9/30 LATEST -- *** [ambitions] SHIPPED. THE COMPANY NOW SETS
+ITSELF A GOAL, ASKED AND ANSWERED THROUGH A MOUTH, NEVER A CARD. ***
+
+Row (rule 48's translation table, one of three it named NOT STARTED):
+A-GOAL-THE-COMPANY-SETS-ITSELF. Battle Brothers pays a chosen ambition ("hire 12
+men", "amass 5,000 crowns", "reach 1,000 renown") in RENOWN. This game's
+currencies are LOCKED AT EXACTLY THREE
+(laws/BOHEMIA_ADDENDUM_THREE_CURRENCIES_CENTURY_7_26_26.md) and none of them is
+a renown-shaped score, so renown was the one word this row was not allowed to
+translate literally, and the whole design question was what replaces it.
+
+THREE GOALS, each a REAL fact this game was already keeping, none invented:
+keep three people close (bohemia_company.js's own yours().length -- reads 0 on
+a fresh save, this game has no recruitment roster, so 3 not Battle Brothers' 12
+or the goal is decorative), bank ten batteries (bohemia_purse.js's real
+electricity balance), and earn one faction's trust (the belonging ladder's own
+rung, 'useful' or better with any one of the sixteen real factions -- the SAME
+organ [somebody hires you] already reads). The reward is 2 electricity, paid
+through the real purse credit() function, because batteries are the existing
+"you did something, here's a little something" channel every other moment in
+this game already pays through.
+
+THE PICK IS THE ASK ITSELF, not a second gesture. Rule 19/20 already killed
+cards as a surface, and a new button is a surface call for a settlement screen
+that does not exist yet, outside this lane's authority to build mid-round. So
+the companion already walking with you (rule 32a, [bb company]'s own proven
+"stay near me" grammar) proposes the goal; staying near them sets it. Ignoring
+it costs nothing -- an honest free no, matching rule 35c.
+
+BUILT: engine/bohemia_ambitions.js, a pure module (three GOALS, one REWARD, all
+tuned:false, four functions: progressOf/offerFor/askLine/doneLine). Wired into
+BOHEMIA_CITY_WORLD.html's own bark ladder, the SAME dispatch every mouth in
+this game already goes through, right beside [bb company]'s bark: gated on a
+real companion actually present; asks the next undone goal once; announces
+completion and pays the reward once when the real fact goes true; never
+repeats a paid goal.
+
+PROVEN, NOT ASSERTED, on the real city: a fresh save reads honestly at zero
+everywhere; the ask fires in the real words through the real bark; asking again
+while undone stays silent; fabricating the real fact (three people yours)
+fires the real completion line and moves the real purse 0 to 2 electricity in
+one step; the next goal is offered immediately, never a repeat; the reward
+never pays twice even though the condition still reads true; with nobody
+walking beside the player, it never speaks at all.
+
+THE GATE: gates/ambitions_gate.js, NEW (REUSE-FIRST: nothing existed for this
+mechanism to extend). 34/0: the mechanism never throws on bad input, every
+number is tuned:false, the reward currency is checked against the real locked
+list in bohemia_purse.js rather than asserted from memory, the city wiring
+never opens a card (checked structurally against the real function bodies, not
+by pattern-matching a comment), the reward is paid through the real credit()
+function. One self-inflicted gate bug found and fixed this round: the
+"never opens a card" leg's string-slice bound matched an internal closing
+brace early and truncated the check before it reached the real BARK.text line;
+fixed by bounding on a stable next-function marker instead. Checked for
+collateral: people_gate.js 158/0, clean.
+
+Cook: A GOAL THE COMPANY SETS ITSELF, in VOTE -- the real ask, the real
+completion line, the real next ask, in the game's own generated words, with
+the measured proof beside them.
+Record records/BOHEMIA_AMBITIONS_9_30_26.txt.
+
+MEASURED, NOT FIXED, named rather than built speculatively: no explicit
+accept/decline gesture beyond staying near the companion (a future round could
+add a real second-beat accept/decline, matching [bb company]'s own pattern, if
+that reading turns out wrong); no persistence of the active/asked/paid guards
+across a reload -- this is a PRE-EXISTING, SHARED gap across every bark-state
+tracker in this file (CT_ROAD_SAID, CT_HURT_SAID, CT_WAS_SAID none survive a
+reload either), not something this round introduced or is scoped to fix alone.
+
+ALSO NOTED, NOT FIXED, out of this round's scope: engine/bohemia_people.js IS
+one of the modules tools/build_run_slice.js inlines into
+slices/BOHEMIA_RUN_SLICE_7_26_26.html's SRC, so the 9/29 [used to be] round's
+fix to that file should have had slices/BOHEMIA_RUN_CURRENT.html rebuilt to
+carry it and did not. engine/bohemia_ambitions.js and engine/bohemia_company.js
+are NOT referenced by either tools/build_current_slice.js's or
+tools/build_run_slice.js's source files (checked directly, by grep, not
+assumed), so neither derived slice needed rebuilding for this round -- BOTH
+live only inlined in BOHEMIA_CITY_WORLD.html, which those two tools never
+read. Flagging the real gap for whichever round next touches
+bohemia_people.js or owns build hygiene, rather than running a rebuild here
+that would pull dozens of unrelated concurrent lanes' art-bank changes into a
+commit about a company goal mechanic.
+
+TAB: CITY, the walked street, until the settlement screen exists (RUN owns
+that migration for every mouth in this file). VOTE, for the cook. Nothing
+[PENDING Paolo] from this block.
+
 PEOPLE (people-7h9sfy): 9/29 LATEST -- *** [used to be] SHIPPED, FOUND THROUGH A
 CROSS-LANE FLAG WITH NO BOARD ROW, NOT INVENTED. ***
 

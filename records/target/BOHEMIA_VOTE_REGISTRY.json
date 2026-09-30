@@ -3504,6 +3504,19 @@
     "how": "page",
     "src": "vote/PORTRAIT_SPEAK_ALONG.html"
    }
+  },
+  {
+   "id": "people-a-goal-the-company-sets-itself-9-30",
+   "kind": "tile",
+   "lane": "people",
+   "sha": "544c044",
+   "made": "9/30",
+   "title": "A GOAL THE COMPANY SETS ITSELF",
+   "why": "Battle Brothers lets you pick a company goal and pays you renown for it. We don't have renown, our money is locked at exactly three kinds, so whoever is walking with you asks for a real goal (keep three people close, bank ten batteries, earn one faction's trust) and the company gets paid a couple of batteries when it happens, spoken, never a popup. Three goals for now; more are one line each to add.",
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_A_GOAL_THE_COMPANY_SETS_ITSELF_9_30_26.html"
+   }
   }
  ],
  "verdicts": [

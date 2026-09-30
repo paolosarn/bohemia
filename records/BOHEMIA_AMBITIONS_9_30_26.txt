@@ -1,0 +1,133 @@
+BOHEMIA -- A GOAL THE COMPANY SETS ITSELF (9/30/26, PEOPLE lane)
+VAMILY [ambitions], row A-GOAL-THE-COMPANY-SETS-ITSELF. Rule 48, from the
+translation table's own admission: "the perks need to be translated,
+everything needs to be translated." Ambitions was one of three rows the
+table itself listed NOT STARTED.
+
+================================================================================
+THE REAL SHAPE, READ FROM THE LIBRARY BEFORE A LINE WAS WRITTEN
+================================================================================
+reference/library/battle_brothers/07_ECONOMY.md: "AMBITIONS: chosen goals with
+renown rewards, a light spine ('hire 12 men', 'amass 5,000 crowns', 'win a
+contract with three skulls', 'defeat a champion', 'reach 1,000 renown', 'gain
+a legendary item')."
+
+THE ONE WORD THAT DOES NOT TRANSLATE: RENOWN. This game's currencies are
+LOCKED AT EXACTLY THREE (laws/BOHEMIA_ADDENDUM_THREE_CURRENCIES_CENTURY_7_26_26.md,
+resources / electricity / clout) and none of them is a renown-shaped
+accumulating score. Inventing a fourth is the one thing this row was not
+allowed to do, so the reward is paid in electricity (batteries), the same
+currency every other "you did something, here's a little something" moment in
+this game already pays in.
+
+================================================================================
+THREE GOALS, EACH A REAL FACT THIS GAME WAS ALREADY KEEPING
+================================================================================
+"hire 12 men"        -> bohemia_company.js's yours(snapshot).length. NAMED
+  HONESTLY: this counts who a bond or a witness already calls yours, not a
+  recruitment roster -- there is no recruitment roster in this codebase
+  (bohemia_company.js's own header: "THEY ARE PEOPLE WITH LEDGERS, NOT A
+  ROSTER"). The threshold is 3, not Battle Brothers' 12: measured on a fresh
+  save this reads 0, and 12 would make the goal decorative for a real game
+  that starts every playthrough at zero.
+"amass 5,000 crowns"  -> bohemia_purse.js's balance(purse,'electricity') >= 10.
+"reach 1,000 renown"  -> the belonging ladder's own rung, reused rather than
+  invented: 'useful' or better with ANY ONE of the sixteen real factions
+  (bohemia_belonging.js rungOf/gaveOf, the SAME organ PEOPLE's own
+  [somebody hires you] already reads through ctHiringWho).
+
+MEASURED, NOT GUESSED: a fresh save reads 0 people yours, 0 electricity,
+every one of 16 factions at 'stranger'. Three goals, not Battle Brothers'
+six -- a light spine stays light, and the mechanism is built so a fourth or
+fifth is one more table row in engine/bohemia_ambitions.js, never a new
+function.
+
+================================================================================
+THE PICK IS THE ASK ITSELF, NOT A SECOND GESTURE
+================================================================================
+The row says "the player picks from a mouth... never a card." Rule 19/20
+already killed the only surface a multi-option picker could live on (a
+card), and building a brand new button for this would be UI's call, not
+this lane's, mid-round, on a surface (the settlement screen) that does not
+exist yet. So the pick IS the ask: the person already walking beside you
+(rule 32a, [bb company]'s own proven "stay near me and this happens"
+grammar) proposes the company's next goal, deterministically, and it is the
+company's goal from that beat on. Ignoring it costs nothing -- the
+companion simply has nothing new to say until the real facts move, which is
+an honest "no" with no penalty, matching rule 35c's free no.
+
+================================================================================
+WHAT WAS BUILT
+================================================================================
+engine/bohemia_ambitions.js: a pure module, three GOALS (id, the ask,
+the done line, a threshold, two pure check functions reading only the facts
+object handed in), one REWARD (currency + amount, both tuned:false), and
+four functions (progressOf, offerFor, askLine, doneLine). No roster, no new
+save field for progress -- every check reads a fact another module already
+owns. offerFor is deterministic: the same facts always propose the same
+goal, and a done goal is never re-offered.
+
+The walked city (ctAmbitionBark, wired into the SAME bark ladder every mouth
+in this game already goes through, right beside [bb company]'s own barks):
+gated on a real companion actually walking with you (CT_WALKS_WITH); when no
+goal is active, the next undone one is asked, once; when the active goal's
+real condition becomes true, the companion says so and the reward is paid
+through the real purse credit() function, once, guarded against a second
+payment; then the company has no goal again until the next ask.
+
+================================================================================
+PROVEN, NOT ASSERTED
+================================================================================
+On the real city, driven end to end: a fresh save reads honestly at zero
+everywhere; the first goal is asked, through the real bark, in the real
+words; asking again while it is still active and undone stays silent;
+fabricating the real fact (three people yours) makes the companion announce
+completion in the real words and the purse move from 0 to 2 electricity in
+one measured step; the next goal is offered immediately after, never a
+repeat of the first; the first goal's reward is never paid twice even though
+its own condition still reads true; and with nobody walking beside the
+player, the mechanism never speaks at all.
+
+================================================================================
+THE GATE
+================================================================================
+gates/ambitions_gate.js, new (there was nothing to extend -- REUSE-FIRST
+means not building a second gate for a mechanism that never existed, not
+refusing to write the first one). 29 legs plus the real-city walk above,
+covering: the mechanism is pure and never throws on bad input; every number
+is tuned:false; the reward currency is checked against the actual locked
+list in bohemia_purse.js, not asserted from memory; the city wiring never
+opens a card (checked structurally, by pattern, against the real function
+bodies); the reward is paid through the real credit() function, never a
+bare balance write.
+
+================================================================================
+THE COOK: A GOAL THE COMPANY SETS ITSELF
+================================================================================
+slices/BOHEMIA_A_GOAL_THE_COMPANY_SETS_ITSELF_9_30_26.html, registered in
+VOTE. The real ask, the real completion line, the real next ask, in that
+order, in the game's own words, with the measured proof beside them.
+
+================================================================================
+MEASURED AND NOT FIXED
+================================================================================
+THE "PICK" HAS NO EXPLICIT ACCEPT OR DECLINE GESTURE. The row asks for the
+player to pick; this round reads that as "the mouth is how it enters the
+game, not a card," and lets the ask itself set the goal, on the reasoning
+that a companion already traveling with you has already thrown their lot in
+with the company. A future round could add a real accept/decline (a second
+beat of staying near them, matching [bb company]'s own proven pattern
+exactly) if that reading turns out to be wrong; named here rather than
+built speculatively on a surface (the settlement screen) that is still
+RUN's to finish.
+
+NO PERSISTENCE ACROSS A RELOAD. CT_AMBITION and its guards are plain
+in-memory variables, matching the EXISTING, ALREADY-SHIPPED pattern every
+other bark-state tracker in this file uses (CT_ROAD_SAID, CT_HURT_SAID,
+CT_WAS_SAID -- none of them survive a reload either). This is a shared,
+pre-existing gap across the whole bark-state family, not something this
+round introduced or is scoped to solve alone.
+
+TAB: CITY, the walked street, until the settlement screen exists (RUN owns
+that migration for every mouth in this file, not just this one). VOTE, for
+the cook.
