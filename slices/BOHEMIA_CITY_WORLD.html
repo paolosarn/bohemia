@@ -54513,6 +54513,92 @@ function ctRoadBark(now){
   return false;
 }
 
+/* ==== __A_GOAL_THE_COMPANY_SETS_ITSELF__ : ONE OF YOURS ASKS WHAT YOU ARE
+        BOTH FOR. (9/30, PEOPLE, [ambitions], rule 48.) =====================
+
+   Battle Brothers' ambitions: a chosen goal, a light reward in renown. This
+   game's currencies are LOCKED AT EXACTLY THREE and none of them is renown,
+   so the reward is paid in electricity (engine/bohemia_ambitions.js explains
+   why at length). THE PICK IS THE ASK ITSELF: the same person who already
+   fell in beside you (rule 32a, [bb company]) proposes the company's next
+   goal, and it is the company's goal from that beat on -- there is no second
+   gesture to press, because rule 19/20 already killed the only surface a
+   picker could have lived on (a card), and inventing a NEW button here would
+   be UI's call, not this file's. Ignoring the goal costs nothing; the
+   companion just has nothing new to say until the facts move.
+   ONE OF YOURS SPEAKING ABOUT YOUR SHARED GOAL SITS WITH THE OTHER THINGS
+   YOUR OWN COMPANY SAYS: above the ambient street, below the once-ever
+   reveals (a name, what they kept) that only ever fire once per person. */
+var CT_AMBITION = null;          /* the chosen goal's id, or null */
+var CT_AMBITION_ASKED = {};      /* id -> asked already, so the ask itself is once per goal */
+var CT_AMBITION_PAID = {};       /* id -> reward already paid, so a completed goal never pays twice */
+function ctAmbitionFacts(){
+  var facts = { company: 0, electricity: 0, usefulWith: [] };
+  try { facts.company = ctYours().length; } catch (_e) {}
+  try { facts.electricity = BohemiaPurse.balance(purseGet(), 'electricity'); } catch (_e) {}
+  try {
+    var keys = BohemiaBelonging.keys(), better = { useful: 1, counted: 1, inside: 1 };
+    for (var i = 0; i < keys.length; i++) {
+      var who = null; try { who = ctHiringWho(keys[i]); } catch (_e2) {}
+      if (who && who.rung && better[who.rung]) facts.usefulWith.push(keys[i]);
+    }
+  } catch (_e) {}
+  return facts;
+}
+function ctAmbitionBark(now){
+  if (typeof BohemiaAmbitions === 'undefined') return false;
+  if (CT_WALKS_WITH == null) return false;
+  var drew = (typeof BARK_DREW !== 'undefined' && BARK_DREW) ? BARK_DREW : [];
+  var d = null;
+  for (var i = 0; i < drew.length; i++)
+    if (drew[i] && drew[i].p && drew[i].p.id === CT_WALKS_WITH) { d = drew[i]; break; }
+  if (!d || !d.at) return false;
+  var facts = ctAmbitionFacts();
+
+  /* THE ACTIVE GOAL FINISHED: say so, pay the light reward once, then the
+     company has no goal again until the next ask. */
+  if (CT_AMBITION) {
+    var prog = BohemiaAmbitions.progressOf(CT_AMBITION, facts);
+    if (prog && prog.done) {
+      var line = BohemiaAmbitions.doneLine(CT_AMBITION);
+      if (line && !CT_AMBITION_PAID[CT_AMBITION]) {
+        CT_AMBITION_PAID[CT_AMBITION] = 1;
+        try {
+          var R = BohemiaAmbitions.REWARD;
+          BohemiaPurse.credit(purseGet(), R.currency, R.amount,
+            'ambition kept: ' + CT_AMBITION, 'ambition:' + CT_AMBITION,
+            (typeof DAY !== 'undefined' && DAY.day) ? DAY.day : 0);
+        } catch (_e) {}
+        BARK.p = d.p; BARK.at = d.at; BARK.text = line;
+        BARK.until = now + barkHold(line);
+        try { window.__AMBITION_DONE = { id: CT_AMBITION, reward: BohemiaAmbitions.REWARD }; } catch (_e) {}
+        CT_AMBITION = null;
+        return true;
+      }
+      CT_AMBITION = null;          /* paid on an earlier beat; just clear it */
+    }
+  }
+
+  /* NO GOAL YET: THE NEXT ONE, ASKED ONCE. offerFor is deterministic, so the
+     same facts always propose the same goal -- asking once per id, not once
+     ever, means a goal that already got skipped can come back around if it
+     is still the honest next one when a later goal is done. */
+  if (!CT_AMBITION) {
+    var offer = BohemiaAmbitions.offerFor(facts);
+    if (offer && !CT_AMBITION_ASKED[offer.id]) {
+      CT_AMBITION_ASKED[offer.id] = 1;
+      CT_AMBITION = offer.id;
+      var ask = BohemiaAmbitions.askLine(offer.id);
+      if (ask) {
+        BARK.p = d.p; BARK.at = d.at; BARK.text = ask;
+        BARK.until = now + barkHold(ask);
+        try { window.__AMBITION_ASKED = { id: offer.id }; } catch (_e) {}
+        return true;
+      }
+    }
+  }
+  return false;
+}
 
 /* ==== __THE_INJURED__ : A PERSON WHO WENT DOWN TALKS ABOUT IT, AND CARRIES
         THE MARK FOR EVER. (9/27, PEOPLE, [origins] / [the injured], rule 36b.) =
@@ -54663,6 +54749,7 @@ function barkTick(now){
      person per injury: once while he is out, once when he is back. */
   if (ctHurtBark(now)) return;     /* __THE_INJURED__ */
   if (ctRoadBark(now)) return;     /* __THE_COMPANY_IS_A_CAST__ */
+  if (ctAmbitionBark(now)) return; /* __A_GOAL_THE_COMPANY_SETS_ITSELF__ */
   if (ctWasBark(now)) return;      /* __THE_COMPANY_IS_A_CAST__ */
   var pick = barkPick();
   if (!pick) return;
@@ -75861,6 +75948,73 @@ try{ window.ctLadderWalk=ctLadderWalk; window.ctLadderReady=ctLadderReady;
   if (HASREQ) module.exports = API; else root.BohemiaCompany = API;
 })(typeof globalThis !== 'undefined' ? globalThis : this);
 /* ==== /engine/bohemia_company.js (COMPANY IN ASKS) ==== */
+
+/* ==== engine/bohemia_ambitions.js ==== */
+(function (root) {
+  'use strict';
+  var HASREQ = (typeof module !== 'undefined' && module.exports);
+
+  var GOALS = [
+    {
+      id: 'keep-company',
+      ask: "we should keep more people close. Three, at least.",     /* draft:true */
+      doneSays: "we kept three. That's a company now, not a couple of strangers walking together.", /* draft:true */
+      need: 3, tuned: false,
+      have: function (facts) { return (facts.company | 0); },
+      done: function (facts) { return (facts.company | 0) >= 3; }
+    },
+    {
+      id: 'bank-batteries',
+      ask: "we should bank ten batteries. Not spend them the second we have them.", /* draft:true */
+      doneSays: "ten batteries banked. First time this company has had a cushion.", /* draft:true */
+      need: 10, tuned: false,
+      have: function (facts) { return (facts.electricity | 0); },
+      done: function (facts) { return (facts.electricity | 0) >= 10; }
+    },
+    {
+      id: 'somebodys-word',
+      ask: "we should be more than strangers to somebody out here.", /* draft:true */
+      doneSays: "somebody's word is good for us now. That took doing.", /* draft:true */
+      need: 1, tuned: false,
+      have: function (facts) { return (facts.usefulWith && facts.usefulWith.length) ? 1 : 0; },
+      done: function (facts) { return !!(facts.usefulWith && facts.usefulWith.length); }
+    }
+  ];
+  var REWARD = { currency: 'electricity', amount: 2, tuned: false };
+
+  function byId(id) {
+    for (var i = 0; i < GOALS.length; i++) if (GOALS[i].id === id) return GOALS[i];
+    return null;
+  }
+  function progressOf(id, facts) {
+    var g = byId(id); if (!g) return null;
+    facts = facts || {};
+    var have = 0, done = false;
+    try { have = g.have(facts) | 0; } catch (_e) { have = 0; }
+    try { done = !!g.done(facts); } catch (_e) { done = false; }
+    return { id: g.id, have: have, need: g.need, done: done };
+  }
+  function offerFor(facts) {
+    facts = facts || {};
+    for (var i = 0; i < GOALS.length; i++) {
+      var p = progressOf(GOALS[i].id, facts);
+      if (p && !p.done) return GOALS[i];
+    }
+    return null;
+  }
+  function askLine(id) { var g = byId(id); return g ? g.ask : null; }
+  function doneLine(id) { var g = byId(id); return g ? g.doneSays : null; }
+
+  var API = {
+    GOALS: GOALS, REWARD: REWARD,
+    progressOf: progressOf, offerFor: offerFor,
+    askLine: askLine, doneLine: doneLine
+  };
+  if (HASREQ) module.exports = API;
+  root.BohemiaAmbitions = API;
+})(typeof window !== 'undefined' ? window
+   : (typeof globalThis !== 'undefined' ? globalThis : this));
+/* ==== /engine/bohemia_ambitions.js ==== */
 
 /* __THE_WORLD_DOES_THE_ASKING__ -- the seam between the running valley and the
    ask generator. (9/6, QUESTS [asks exist].)
