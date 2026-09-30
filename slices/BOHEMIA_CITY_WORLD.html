@@ -41680,7 +41680,9 @@ setInterval(()=>{
      finger is doing, for the same reason the latch is -- a real press always wins
      over a journey he set going. TRAV is non-null only while the route is driving
      this beat, so the bookkeeping below cannot fire on a pressed step. */
-  const TRAV = (di===null) ? travelNext() : null;
+  /* __THE_PAD_IS_TRAVEL_SPEED__: PAUSE holds a journey without ending it -- the route is not
+     even consulted, so no block, no clock, no party moves. A finger on the pad still wins. */
+  const TRAV = (di===null && !(TRAVEL && TRAVEL_SPEED===0)) ? travelNext() : null;
   if(TRAV!==null) di=TRAV;
   if(di===null)return;
   pend=null;
@@ -41695,11 +41697,23 @@ setInterval(()=>{
      beat later. try/finally so a throw inside the step cannot leave the label on
      and make every walking footfall late. */
   if(running&&moved){ STEP_LOT=2; try{ stepOnce(di); } finally { STEP_LOT=1; } }
+  /* __THE_PAD_IS_TRAVEL_SPEED__: the extra blocks of a 2x/3x/5x beat, each a real step that
+     pays its own clock and lands before the next is read; taken BEFORE the glide so the
+     marker slides across all of them in one beat, the way a run glides across two. */
+  let travDone=false;
+  if(TRAV!==null && moved && TRAVEL_SPEED>1){
+    travelStepped(moved); travDone=true;
+    for(let k=1;k<TRAVEL_SPEED && TRAVEL;k++){
+      const d2=travelNext(); if(d2===null) break;
+      const m2=stepOnce(d2); travelStepped(m2);
+      if(!m2) break;
+    }
+  }
   if(moved) glideStart(_gfr[0], _gfr[1], _gsp);   /* __WALK_FEEL_SLIDE__ */
   if(held!==null)heldBeats++;
   if(moved){ animate((running||RIDING)?'run':'walk'); reportState(); footingUpdate(); /* __FLOOR_DOES_SOMETHING__ */ }
   /* __THE_MAP_IS_HOW_YOU_TRAVEL__: only when the route drove this beat. */
-  if(TRAV!==null) travelStepped(moved);
+  if(TRAV!==null && !travDone) travelStepped(moved);
   /* __THE_TIME_NOT_THE_TAPS__: A WALL ENDS IT. Two beats with nothing to show for them and
      the latch lets go -- walking into a building forever is exactly the
      not-working-button feeling this game has been bitten by before. */
@@ -41822,6 +41836,32 @@ function endHold(){
      in the game. A tap with no way through writes one line and nothing moves.
    ============================================================================ */
 var TRAVEL = null;       /* {path:[[x,y],...], i, cells, mins, to:[x,y]} or null */
+/* __THE_PAD_IS_TRAVEL_SPEED__ (UI 9/30, VAMILY [speed pad], rule 44a). PAOLO 9/29: "bring the
+   trackpad back but instead of controlling your directions... how Battle Brothers does it when
+   you travel on the map, you control how fast: 1x, 2x, 3x, 4x, maybe 5x." Library vol 01: BB has
+   pause / play / fast on the map. OURS: PAUSE 1x 2x 3x 5x (the board's default; 4x if he says).
+   WHAT A SPEED IS, AND WHAT IT IS NOT: at Nx the journey takes N blocks on each beat of the one
+   metronome (120 BPM law), and EVERY block still pays its own clock through stepOnce, so a
+   crossing costs the same game hours at 5x as at 1x, only fewer real seconds. Not fast travel,
+   not a second mover, no second clock. PAUSE holds the journey where it is: nothing moves and
+   the hour does not move, because nothing in this valley moves until you do (7/5).
+   A ROAD EVENT DROPS IT TO PAUSE (44a): travelInterrupt() is the one door; the fight already
+   comes through cityHandOver and calls it there; RUN [road events] calls it the same way. */
+var TRAVEL_SPEEDS = [0, 1, 2, 3, 5];
+var TRAVEL_SPEED = 1;
+function travelSpeedSet(n){
+  n = +n; if (TRAVEL_SPEEDS.indexOf(n) < 0) return false;
+  TRAVEL_SPEED = n;
+  try{ window.__TRAVEL_SPEED = n; }catch(_e){}
+  try{ if (typeof speedPadPaint === 'function') speedPadPaint(); }catch(_e){}
+  return true;
+}
+function travelInterrupt(why){
+  TRAVEL_SPEED = 0;
+  try{ window.__TRAVEL_SPEED = 0; window.__TRAVEL_INTERRUPT = { why: String(why||''), at: performance.now() }; }catch(_e){}
+  try{ if (typeof speedPadPaint === 'function') speedPadPaint(); }catch(_e){}
+}
+try{ window.travelSpeedSet = travelSpeedSet; window.travelInterrupt = travelInterrupt; window.__TRAVEL_SPEED = TRAVEL_SPEED; }catch(_e){}
 
 /* WHICH GROUND IS A ROAD. cityWalkable admits ROAD districts and `wash`; of those,
    rail and wash are rough going (a rail bed and a dry wash are not a road surface,
@@ -58167,6 +58207,9 @@ function cityHandOver(msg, skin){
      behind the fight kept walking the marker away from the fight he was in. The door
      every fight comes through is the one place that cannot miss a way in. */
   try{ if(typeof travelStop==='function') travelStop(); }catch(_e){}
+  /* __THE_PAD_IS_TRAVEL_SPEED__: and the speed drops to PAUSE (44a), so the valley does not
+     run on at 5x the moment the fight hands him back to the map. BB pauses there too. */
+  try{ if(typeof travelInterrupt==='function') travelInterrupt('fight'); }catch(_e){}
   /* V207 __FIGHT_KNOWS_DAY__: THE WORLD IS STAMPED ON EVERY ENTRY, IN ONE PLACE.
      All four ways into a fight already come through this door (V205), so the
      hour, the weather and the shade ride with a street bump, a crew, a road
@@ -81219,6 +81262,11 @@ window.BOHEMIA_BAR = (function(){
     var html=parts.join('');
     if(show && RD.__was!==html){ RD.innerHTML=html; RD.__was=html; }
     try{ window.__BAR_READ={ on:show, batteries:r.batteries, hour:r.hour, where:r.where }; }catch(_e){}
+    /* ONE CLOCK ON ONE SCREEN (UI 9/30, measured on the demo's map: the bar said 06:32 while the
+       phone's status clock still said 06:26, because the phone rewrites its clock on its own,
+       slower tick). Both read clockStr(); the phone's is simply refreshed on this same half-second
+       so the two numbers on the glass can never disagree. */
+    try{ var PC=document.getElementById('cityfeedclock'); if(PC && r.hour && PC.textContent!==r.hour) PC.textContent=r.hour; }catch(_e){}
   }
   function paint(){
     try{ paintRead(); }catch(_e){}
@@ -81250,6 +81298,75 @@ window.BOHEMIA_BAR = (function(){
 
   return { build:build, paint:paint, money:money,
            on:function(){ return built && !!document.getElementById('menubar'); } };
+})();
+
+/* ============================================================================
+   __THE_PAD_IS_TRAVEL_SPEED__ -- THE CONTROL (UI lane 11, 9/30/26, VAMILY [speed pad])
+   Rule 44a, Paolo 9/29: the eight-button pad no longer moves him; it comes back ON THE MAP,
+   where it lived, as Battle Brothers' travel speed. PAUSE 1x 2x 3x 5x.
+   THE OBJECT: five lit plates in the bar's own chip language (rule 20, the UI is 3-D, light
+   from above, a base underneath), the one he is on lit gold -- the same gold that already
+   means "this one" on the phone -- never a new colour and never a tick. Each plate is a thumb
+   (44 x 44). It sits bottom right, where the pad sat and where his thumb already goes.
+   ON THE MAP ONLY (MODE==='city'); the fight keeps its own pad in its own frame.
+   A PRESS IS A PRESS, NOT A TAP ON THE MAP: pointer and click stop here, or tapping 3x would
+   also set a journey to wherever the plate happens to sit (the same trap [the flip] found).
+   ============================================================================ */
+var speedPadPaint = null;
+(function(){
+  var LABEL = { 0:'II', 1:'1x', 2:'2x', 3:'3x', 5:'5x' };
+  var NAME  = { 0:'pause', 1:'normal speed', 2:'double speed', 3:'triple speed', 5:'five times speed' };
+  function css(){
+    if(document.getElementById('speedpadcss')) return;
+    var st=document.createElement('style'); st.id='speedpadcss';
+    st.textContent=
+      '#speedpad{position:fixed;right:10px;bottom:12px;z-index:30;display:none;gap:5px;'
+        +'padding:5px;border-radius:9px;background:linear-gradient(#1c1710,#0e0b06);'
+        +'box-shadow:inset 0 1px 0 rgba(231,216,187,.10),0 2px 0 rgba(0,0,0,.6),0 6px 16px rgba(0,0,0,.55);'
+        +'font-family:var(--face-casing);-webkit-user-select:none;user-select:none;touch-action:manipulation}'
+      +'#speedpad.on{display:flex}'
+      +'#speedpad .sp{width:44px;height:44px;display:flex;align-items:center;justify-content:center;'
+        +'border-radius:6px;cursor:pointer;pointer-events:auto;font-size:12px;letter-spacing:.6px;color:var(--ink);'
+        +'background:linear-gradient(var(--skin-chiptop,#2e271b),var(--skin-chipbot,#15110a));'
+        +'box-shadow:inset 0 1px 0 rgba(231,216,187,.20),inset 0 -2px 0 var(--skin-chipbase,#0b0906),0 2px 0 rgba(0,0,0,.55);'
+        +'-webkit-tap-highlight-color:transparent}'
+      +'#speedpad .sp.now{color:#191308;background:linear-gradient(#e6c878,#b8923e);'
+        +'box-shadow:inset 0 1px 0 rgba(255,244,210,.7),inset 0 -2px 0 #6b5220,0 0 10px rgba(216,180,90,.45)}'
+      +'#speedpad .sp:active{transform:translateY(1px)}';
+    document.head.appendChild(st);
+  }
+  function build(){
+    var p=document.getElementById('speedpad'); if(p) return p;
+    if(!document.body) return null;
+    css();
+    p=document.createElement('div'); p.id='speedpad'; p.setAttribute('role','group');
+    p.setAttribute('aria-label','travel speed');
+    (typeof TRAVEL_SPEEDS!=='undefined'?TRAVEL_SPEEDS:[0,1,2,3,5]).forEach(function(n){
+      var b=document.createElement('div'); b.className='sp'; b.dataset.speed=String(n);
+      b.setAttribute('role','button'); b.setAttribute('tabindex','0');
+      b.setAttribute('aria-label',NAME[n]||(n+'x')); b.textContent=LABEL[n]||(n+'x');
+      var stop=function(ev){ try{ ev.stopPropagation(); }catch(_e){} };
+      ['pointerdown','pointerup','touchstart','touchend','mousedown','mouseup'].forEach(function(t){ b.addEventListener(t,stop,{passive:true}); });
+      b.addEventListener('click',function(ev){ stop(ev); try{ travelSpeedSet(n); }catch(_e){} });
+      p.appendChild(b);
+    });
+    document.body.appendChild(p);
+    return p;
+  }
+  function paint(){
+    var p=build(); if(!p) return;
+    var onMap=false; try{ onMap=(typeof MODE!=='undefined' && MODE==='city'); }catch(_e){}
+    p.classList.toggle('on',onMap);
+    var cur=(typeof TRAVEL_SPEED!=='undefined')?TRAVEL_SPEED:1;
+    Array.prototype.forEach.call(p.querySelectorAll('.sp'),function(b){
+      b.classList.toggle('now', +b.dataset.speed===cur);
+      b.setAttribute('aria-pressed', +b.dataset.speed===cur ? 'true':'false');
+    });
+  }
+  speedPadPaint=paint;
+  try{ window.speedPadPaint=paint; }catch(_e){}
+  function boot(){ paint(); try{ setInterval(paint, 500); }catch(_e){} }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',boot); else boot();
 })();
 
 /* ============================================================================

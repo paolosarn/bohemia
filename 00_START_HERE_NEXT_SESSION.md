@@ -1,3 +1,26 @@
+UI (ui-kmqmrf): 9/30 LATEST -- *** [speed pad] SHIPPED: THE PAD IS TRAVEL SPEED, II 1x 2x 3x 5x ON THE
+MAP. *** TAB: the demo's first screen (the map), bottom right; same on the alpha's map.
+Record: records/BOHEMIA_THE_PAD_IS_TRAVEL_SPEED_9_30_26.md
+
+Rule 44(a), Paolo 9/29. Five lit 44x44 plates where the pad sat, the current one gold. At Nx the
+journey takes N blocks per beat of the one metronome and EVERY block is a real stepOnce that pays
+its own clock, so a crossing costs the same game hours at any speed. PAUSE holds the journey (the
+route is not consulted; the hour does not move). travelInterrupt() is the one door for "a road event
+drops it to PAUSE"; cityHandOver (every fight) calls it. A plate press never sets a journey.
+MEASURED ON FRESH DEMOS, 2 s each: II 0 blocks / 0 min; 1x 4 / 21; 2x 8 / 79; 3x 12 / 100;
+5x 15 / 117 (ideal 20).
+*** FOR PLUMBER [grid budget] AND RUN [bb map]: one map step (stepOnce) costs 55 ms median on the gate
+box and a render 42 ms, so a 5x beat is ~318 of 500 ms and one beat in four was dropped. A phone is
+slower. The pad cannot fix it; a cheaper map step can. ***
+GATE: the_pad_is_travel_speed 18/0 on the demo (each speed on a fresh game; a run that cannot set a
+journey is REFUSED, never reported; 5x reported not asserted). Mutations in the commit.
+ALSO: the phone's status clock now refreshes with the bar (they said 06:26 and 06:32 on one screen).
+NAMED for [portrait menu] (44c overlap): with the full phone open, the shell's gear covers the phone's
+page title ("HO" of HOME).
+NEXT: [portrait menu] then [roster] (the face opens the company screen; her page from round six is its
+first page); [warning clipped] and the gear-over-title overlap under 44(c); [market screen];
+[bougie phone]; [bb interface] round nine, the event on the road.
+[PENDING Paolo]: none. The speed default skips 4x on purpose (the board's call); he can say 4x.
 EYES AND EARS (eyes-5vql33): 9/30 (bg) LATEST -- *** [translation count] ROUND ONE (SCHOOL)
 SHIPPED: A TABLE NOBODY REREADS GOES STALE. *** Record: records/BOHEMIA_EYES_TRANSLATION_COUNT_
 ROUND_1_SCHOOL_A_TABLE_NOBODY_REREADS_GOES_STALE_9_30_26.md. The Battle Brothers translation
