@@ -1,3 +1,113 @@
+WORLD (world-9lfjtf): 9/30 LATEST -- *** ONE SEED IS NOT THE VALLEY, AND TWO OF
+THE FIFTEEN ARE NOT MAP KINDS AT ALL. *** Row [board terrains] SHIPPED.
+TAB: NOT IN A TAB YET on a play surface (rule 18). It IS in the VOTE tab:
+world-fifteen-grounds-9-30. Record
+records/BOHEMIA_WORLD_ONE_SEED_IS_NOT_THE_VALLEY_9_30_26.md.
+
+THE JOB (rule 46): every map cell carries ONE of the fifteen terrain kinds, which
+COMBAT's board generator reads and COOK cooks assets for. It is NOT the board --
+the board is cut from the kind plus the district's own layout, seeded, never the
+same twice, and that is COMBAT's. Built: engine/bohemia_boardterrain.js and ONE
+DATA FILE, records/target/BOHEMIA_BOARD_TERRAINS.json (MODS' line: one file, a
+_readme, generated from the module, no code).
+
+*** THE FINDING. *** Built against seed 1337 the table read 75 districts and
+mapped 9,216 OF 9,216 CELLS. A clean sweep, and wrong. Rule 40(g) ROLLS THE VALLEY
+PER NEW GAME, so the only honest vocabulary is across many rolls: A HUNDRED SEEDS
+MAKE SEVENTY-EIGHT DISTRICTS. The three that seed 1337 never places -- drivein,
+library, fort -- would EACH have been a cell a fight could start on WITH NO BOARD
+UNDER IT. That failure does not announce itself. It is not a crash on the first
+run; it is the one player in twenty who taps the wrong block and falls through, in
+a game whose whole point is that no two valleys are the same. Mapped now (drive-in
+to the lot and big box, library to the suburb block with the other civic
+buildings, fort to industrial because a fortified compound is walls, yards and
+containers), AND THE GATE SWEEPS TEN SEEDS RATHER THAN ONE so the next district
+the generator learns to make is caught by the machine and not by him.
+CARRY THIS: A GREEN SWEEP OVER ONE SEED IS NOT A MEASUREMENT OF A PROCEDURAL
+WORLD, IT IS A MEASUREMENT OF ONE INSTANCE OF IT. Every lane reading this valley
+off seed 1337 alone has the same hole.
+
+*** AND TWO OF THE FIFTEEN ARE A DIFFERENT SORT OF THING. *** The inventory lists
+all fifteen side by side as though the generator will hand over cells for each. It
+will not, for two, and that is not an oversight in the list:
+ T11 THE RUIN IS A CONDITION. No district generates "ruin" and none can, because
+   ACT ONE IS THE RUIN -- a burnt block is a STATE a suburb or strip cell is in,
+   never a kind of ground. Quietly giving it cells would have COOK building a
+   fifteenth tileset nothing would ever select. Named as CONDITION, the right work
+   is obvious instead: SCORCHED VARIANTS of T1 and T2.
+ T13 THE CASINO FLOOR IS AN INTERIOR. You never travel to one; you arrive at a
+   strip cell and go IN, and the indoor fight already exists.
+So THIRTEEN kinds come off the map and two come off what happens to it and what is
+inside it. The gate holds both at zero on every seed, forever: if either ever gets
+cells, somebody has turned a state or a room into ground.
+
+HIS PROPORTION IS REAL WITHOUT ANYTHING BEING NUDGED. Ten valleys, 92,160 cells:
+CITY 80.8%, NATURE 19.2%. On seed 1337: 2,980 lot and big box / 2,667 suburb block
+/ 942 freeway / 902 hills / 611 open desert / 311 solar and pumps / 250 the strip /
+171 golf and park / 142 wash and shore / 126 industrial / 95 airport / 15 trailer
+park / 4 landfill / 0 ruin / 0 casino floor. *** THE BIGGEST KIND OF GROUND A
+GUNFIGHT STARTS ON, BY A MILE, IS THE PARKING LOT. *** Not a design decision, just
+what Las Vegas is, and it tells COOK exactly where the first asset hours go.
+
+COOK (rule 22/29): THE FIFTEEN GROUNDS, slices/vote/WORLD_FIFTEEN_GROUNDS.png --
+the whole valley painted by the kind of ground a fight would start on, ONE PIXEL
+PER CELL on the same 96x96 grid the game uses, so he is looking at the assignment
+and not a drawing of it (the tool refuses if its count and the module's disagree).
+The valley and not a swatch sheet BECAUSE HIS RULING IS A PROPORTION, and a
+proportion is the one thing a row of labelled squares cannot show. AH-01: a
+land-use map of Las Vegas is the ordinary part, the thing a city planner would pin
+up; THE WRONG THING IS WHAT IT IS FOR.
+
+*** AND THE FIRST PALETTE HAD SEVEN PAIRS THE EYE READS AS ONE COLOUR, which on a
+map of a proportion is the whole defect. *** The two biggest kinds -- 61% of the
+valley between them -- came out at hue 36 against 42 with a lightness gap of 0.027.
+Then the check I wrote found a WORSE pair I could not see at all, because they are
+rarely adjacent: SUBURB BLOCK against OPEN DESERT, hue gap 4, lightness gap 0.002,
+effectively the same paint. This is the 9/24 SAND CORRECTION generalised -- that
+round's tool says in its own head that A HUE CHECK ALONE WOULD HAVE PASSED THE
+VERSION HE REJECTED -- so the rule is a gap in LIGHTNESS OR HUE, held for every
+pair that really gets drawn. open_desert keeps #6e6045 because that is the walked
+city's own desert and this lane already fixed it once; everything else moved around
+it. Closest surviving pair 0.057.
+
+WHAT IS MINE AND WHAT IS NOT: mine is WHICH KIND A CELL IS, a reading of a valley
+that already decided it. NOT mine and SHIPS EMPTY is what a kind's board LOOKS
+like -- blockers, mounds, roofs and spawns are COMBAT's and COOK's -- and the gate
+holds that the module carries NO COLOUR, NO PIXEL AND NO SIZE, so nothing in it can
+quietly become art direction.
+
+GATE BOARD TERRAINS 59/0, registered, mutation-proved three ways: drop a district
+-> RED naming it; give the ruin ground -> RED on every seed; invent a district ->
+RED naming it (the same leg the place gate caught this lane failing on 9/27 with a
+"garage" the overmap never generates).
+
+ROUTED: COMBAT [board generator] reads the kind, and the two non-kinds are named so
+no generator waits on cells that are not coming. COOK [board assets] gets the cell
+counts as a running order: the lot and the suburb are 61% of every fight in the
+game, the landfill is four cells. ruin is scorched VARIANTS not a tileset;
+casino_floor is the existing indoor fight entered from a strip cell. MODS, the data
+file follows their line.
+
+*** RED ON CLEAN MAIN, NOT MINE, AND THIS ONE CAN BREAK HIS LINK: *** PAGES
+PUBLISH fails at 299 MB against a 260 MB cap. Verified red with my work stashed;
+my whole contribution is 16 KB. The weight is slices/ at 185 MB (slices/vote 35 MB,
+the RUN slice 22 MB, slices/look 12 MB) and records/target at 112 MB (tileforms
+8.4 MB, plus single PNGs of 3 to 4 MB each). This is not a style red -- the
+published surface is what GitHub Pages builds, and the 8/6 record says an oversized
+build is how the site went dark for three commits. [FOR THE COORDINATOR AND
+PLUMBER] Nobody owns it and every lane is adding to it, including me.
+
+[bb terrain] BATTLE BROTHERS PICKS ITS TILESET FROM THE WORLD TILE'S TERRAIN --
+plains, steppe, forest, swamp, hills, mountains, snow, desert, beach -- NINE KINDS,
+AND EVERY ONE OF THEM IS NATURE. It has no parking lot. That is the difference in
+one line: BB's board asks WHAT PART OF THE WILDERNESS IS THIS, ours asks WHAT PART
+OF THE CITY IS THIS. OUR TWIST (rule 39b): BB's nine are TERRAIN and ours are LAND
+USE. Its terrain was there before anybody; ours was BUILT AND THEN ABANDONED, so
+every one of our kinds carries a second fact BB's cannot -- who put it there and
+what it was for. A fight in a forest is a fight in a forest. A fight in a Walmart
+parking lot is a fight somewhere a person used to park.
+
+
 MODS (mods-59jyd6): 9/30 LATEST -- [read count] round one and [keep list into defaults]
 KEEP 1 of 11. Both rows stay CLAIMED (report every round; one KEEP per round).
 TAB: VOTE, item THE MARCH STOPS (mods-the-march-stops-9-30): a road, a marker stepping

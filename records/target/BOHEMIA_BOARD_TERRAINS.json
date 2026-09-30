@@ -1,0 +1,169 @@
+{
+ "_readme": "WORLD [board terrains] 9/30, rule 46: the terrain kind every map cell carries, which COMBAT's board generator reads and COOK cooks assets for. Written by tools/bohemia_board_terrains_cook_9_30_26.js from engine/bohemia_boardterrain.js -- do not hand edit, change the module and re-run. TWO OF THE FIFTEEN ARE NOT MAP KINDS: ruin is a CONDITION (act one IS the ruin, so a burnt block is a state a suburb or strip cell is in) and casino_floor is an INTERIOR (reached by going in from a strip cell). Thirteen kinds come off the map. WHAT A BOARD LOOKS LIKE IS NOT HERE and is not this lane's: the assets, blockers, mounds, roofs and spawns are COMBAT's and COOK's.",
+ "version": "BOHEMIA_BOARD_TERRAINS_v1",
+ "built": "2026-09-30",
+ "kinds": [
+  "suburb_block",
+  "the_strip",
+  "industrial",
+  "open_desert",
+  "wash_and_shore",
+  "hills",
+  "freeway",
+  "lot_and_bigbox",
+  "trailer_park",
+  "golf_and_park",
+  "ruin",
+  "airport",
+  "casino_floor",
+  "solar_and_pumps",
+  "landfill"
+ ],
+ "notOnTheMap": {
+  "ruin": "CONDITION",
+  "casino_floor": "INTERIOR"
+ },
+ "nature": [
+  "open_desert",
+  "wash_and_shore",
+  "hills",
+  "golf_and_park"
+ ],
+ "fromDistrict": {
+  "suburb_block": [
+   "suburb",
+   "estate",
+   "gated",
+   "town",
+   "school",
+   "chapel",
+   "medical",
+   "courthouse",
+   "cityhall",
+   "policestation",
+   "firestation",
+   "jail",
+   "prison",
+   "radio",
+   "library"
+  ],
+  "the_strip": [
+   "strip",
+   "resort",
+   "casino",
+   "sphere",
+   "luxor",
+   "highroller",
+   "strat",
+   "sign",
+   "convention",
+   "downtown"
+  ],
+  "industrial": [
+   "industrial",
+   "warehouse",
+   "railyard",
+   "rail",
+   "storage",
+   "boneyard",
+   "fueldepot",
+   "granary",
+   "robofactory",
+   "truckstop",
+   "quarry",
+   "arsenal",
+   "datafort",
+   "swapmeet",
+   "fort"
+  ],
+  "open_desert": [
+   "desert",
+   "gypsum",
+   "springs"
+  ],
+  "wash_and_shore": [
+   "wash",
+   "water",
+   "basin",
+   "reservoir",
+   "intake",
+   "dam",
+   "watertreat"
+  ],
+  "hills": [
+   "mountain"
+  ],
+  "freeway": [
+   "freeway",
+   "interchange",
+   "speedway",
+   "minigp"
+  ],
+  "lot_and_bigbox": [
+   "arterial",
+   "commercial",
+   "mall",
+   "apartment",
+   "drivein"
+  ],
+  "trailer_park": [
+   "trailer"
+  ],
+  "golf_and_park": [
+   "golf",
+   "park",
+   "ballpark",
+   "stadium",
+   "waterpark",
+   "campus",
+   "farm",
+   "cemetery"
+  ],
+  "ruin": [],
+  "airport": [
+   "airport",
+   "airbase",
+   "terminal"
+  ],
+  "casino_floor": [],
+  "solar_and_pumps": [
+   "solar",
+   "battery",
+   "substation",
+   "pumpstation",
+   "reclaim"
+  ],
+  "landfill": [
+   "landfill"
+  ]
+ },
+ "measured": {
+  "seedsSwept": 100,
+  "distinctDistricts": 78,
+  "unmappedDistricts": 0,
+  "cityPct": 80.8,
+  "naturePct": 19.2,
+  "onSeed1337": {
+   "cells": 9216,
+   "mapped": 9216,
+   "byKind": {
+    "suburb_block": 2667,
+    "the_strip": 250,
+    "industrial": 126,
+    "open_desert": 611,
+    "wash_and_shore": 142,
+    "hills": 902,
+    "freeway": 942,
+    "lot_and_bigbox": 2980,
+    "trailer_park": 15,
+    "golf_and_park": 171,
+    "ruin": 0,
+    "airport": 95,
+    "casino_floor": 0,
+    "solar_and_pumps": 311,
+    "landfill": 4
+   }
+  }
+ },
+ "oneSeedIsNotTheValley": "built against seed 1337 alone this table read 75 districts and mapped 9,216 of 9,216 cells -- clean, and wrong. Rule 40(g) rolls the valley per new game; a hundred seeds make 78 districts, and the three seed 1337 never places (drivein, library, fort) would each have been a cell a fight could start on with no board under it."
+}

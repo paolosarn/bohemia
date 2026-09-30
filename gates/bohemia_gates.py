@@ -823,6 +823,23 @@ GATES = [
      'the module when a cut note naming it is exactly right. Rule 22/29/32(f): the cook is '
      'DRAWN at game scale, slices/vote/WORLD_THE_ONLY_PUMP.png. '
      'records/BOHEMIA_WORLD_A_PLACE_IS_A_BLOCK_9_27_26.md', True),
+    ('BOARD TERRAINS', ['node', 'gates/board_terrains_gate.js'],
+     'ROW [board terrains], rule 46 (Paolo 9/29: "no single combat map in Battle Brothers is '
+     'exactly the same... different terrains, nature zones, tile blockers", and the correction '
+     'that most fights are BLOCK WARS so most cells are CITY kinds and nature is the EDGE). Every '
+     'map cell carries one of the fifteen terrain kinds, which COMBAT\'s board generator reads and '
+     'COOK cooks assets for. *** THE LOAD-BEARING LEG IS THAT IT SWEEPS TEN VALLEYS AND NEVER ONE: '
+     '*** built against seed 1337 alone the table read 75 districts and mapped 9,216 of 9,216 '
+     'cells, a clean sweep and wrong, because rule 40(g) rolls the valley per new game -- a hundred '
+     'seeds make SEVENTY-EIGHT districts and the three 1337 never places (drivein, library, fort) '
+     'would each have been a cell a fight could start on with no board under it, which does not '
+     'announce itself, it is the one seed in twenty where a player falls through. It also holds '
+     'that the table INVENTS NO DISTRICT (the same leg the place gate caught this lane failing on '
+     '9/27 with a "garage" the overmap never generates), that his proportion is real (city ~81%), '
+     'and that TWO OF THE FIFTEEN STAY AT ZERO FOREVER: ruin is a CONDITION (act one IS the ruin, '
+     'so a burnt block is a state a suburb cell is in) and casino_floor is an INTERIOR (reached by '
+     'going in from a strip cell). What a board LOOKS like is not this lane\'s: ASSETS ships empty '
+     'and the module carries no colour, no pixel and no size.', False),
     ('SCAVENGE', ['node', 'gates/scavenge_gate.js'],
      'ROW [scavenge], rule 37(k) (Paolo 9/27: a SCAVENGE button in the settlement screen -- '
      'spend time, test your luck, for materials, for when you are down bad on food, medicine '
