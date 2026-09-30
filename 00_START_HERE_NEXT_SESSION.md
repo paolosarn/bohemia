@@ -1,3 +1,14 @@
+TUNING (tuning-f59l1w): 9/30 LATEST -- [death rule] SHIPPED (research, no code touched).
+TAB: VOTE, item WHO DIES (a company toy, draft:true).
+RECORD: records/BOHEMIA_TUNING_DEATH_RULE_WHAT_TWENTY_PERCENT_DOES_TO_A_COMPANY_9_30_26.md
+FINDING: his 20%/10% is the SECOND half of the rule. The felt number is how often a man is
+STRUCK DOWN per fight (the missing row). At 20% struck, 54% die before their 20th fight and the
+veteran 10% never fires; at 5%, median life 122 fights. Men out at once = fights/day x fielded x
+p x 0.85 x days, so 30-40 days out is safe only with fights spaced or p near 5% (joint row with
+WORLD). A survivor collects about 8 scars: cap marks at 4, the fifth is a retirement (feeds heirs).
+Main character never dies: his 20% becomes THE SEVERE MARK. Losing a fight = 30%.
+Recall-grade: BB left-for-dead mechanic. NEXT OPEN: [respec], [recruit odds], [difficulty sliders],
+[origins difficulty], [ammo].
 COOK (cook-mce6r5): 9/29 LATEST -- *** THE CIRCLES BECOME PLACES. HIS ASK 40(f) ANSWERED, AND
 THE MARKERS REDRAWN AT THE MAP FLOOR: HE KILLED A 9-PIXEL MARKER TWICE AND HE WAS RIGHT, SO
 THESE ARE 48 PX, ONE PAINTED PIXEL PER DEVICE PIXEL, 6 TO 16 TIMES THE LIT PIXELS, COUNTED. ***

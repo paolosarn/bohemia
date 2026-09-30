@@ -300,7 +300,7 @@
     "src": "vote/ANIMATION_THE_IDLE_REDO.html"
    },
    "redoOf": "idle",
-   "said": "a lot of them are good, a lot of them aren\u2019t good... IF I KILLED IT I DON\u2019T WANT IT GONE. I just think it could be done better. Make a new one."
+   "said": "a lot of them are good, a lot of them aren’t good... IF I KILLED IT I DON’T WANT IT GONE. I just think it could be done better. Make a new one."
   },
   {
    "id": "factions-the-sign-still-lights-9-21",
@@ -465,7 +465,7 @@
    "sha": "534d87a",
    "made": "9/21",
    "title": "HOW A STEP IS DRAWN (I PICKED ONE FOR YOU)",
-   "why": "One press moves him a whole house, 275 pixels, in half a second, and his legs can only show one pace of it. What shipped was nobody\u2019s choice: an old number in the code made the whole street jump at once. I put in the tape skip: he stands still, the picture skips twice, he is there. Thumbs up keeps it. Thumbs down and say GRID (the street jumps at once) or SLIDE (the street slides the whole time) and I will switch it.",
+   "why": "One press moves him a whole house, 275 pixels, in half a second, and his legs can only show one pace of it. What shipped was nobody’s choice: an old number in the code made the whole street jump at once. I put in the tape skip: he stands still, the picture skips twice, he is there. Thumbs up keeps it. Thumbs down and say GRID (the street jumps at once) or SLIDE (the street slides the whole time) and I will switch it.",
    "show": {
     "how": "page",
     "src": "vote/ANIMATION_HOW_A_STEP_IS_DRAWN.html"
@@ -699,7 +699,7 @@
    "sha": "228818a1",
    "made": "9/21",
    "title": "THE BATTERY SHED, THE FIRST BUILDING THAT MAKES MONEY",
-   "why": "You build this on your own lot and a battery comes in. It is the small one, about the size of half a garage, not the big fenced battery yard the game already has. I drew it in that yard\u2019s own colours so they are the same world. One thing in the picture is on purpose and it is the whole idea: THE LITTLE AMBER LIGHT IS LIT. Nothing else on the lot has power, the meter needle is stuck, the door is chained, and this box is still working. Thumbs up and I put it in the game so you can place one. Thumbs down and tell me if it is the shape, the colour, or the light.",
+   "why": "You build this on your own lot and a battery comes in. It is the small one, about the size of half a garage, not the big fenced battery yard the game already has. I drew it in that yard’s own colours so they are the same world. One thing in the picture is on purpose and it is the whole idea: THE LITTLE AMBER LIGHT IS LIT. Nothing else on the lot has power, the meter needle is stuck, the door is chained, and this box is still working. Thumbs up and I put it in the game so you can place one. Thumbs down and tell me if it is the shape, the colour, or the light.",
    "show": {
     "how": "image",
     "src": "vote/LIFECITY_THE_BATTERY_SHED_9_21.png"
@@ -907,7 +907,7 @@
    "sha": "PENDING",
    "made": "9/22",
    "title": "FOUR WAYS THE GAME LOADS",
-   "why": "The screen that covers everything before you can touch anything, with a bar that cannot lie and the writing chat\u2019s words wired to real stages. A is built and handed to the play chat.",
+   "why": "The screen that covers everything before you can touch anything, with a bar that cannot lie and the writing chat’s words wired to real stages. A is built and handed to the play chat.",
    "show": {
     "how": "page",
     "src": "BOHEMIA_FOUR_WAYS_THE_GAME_LOADS_9_22_26.html"
@@ -1030,7 +1030,7 @@
     "src": "vote/ANIMATION_THE_HAND_REACHES_THE_FACE.html"
    },
    "redoOf": "eat, drink, smoke, cough and whistle",
-   "said": "a lot of them are good, a lot of them aren\u2019t good... some of the DIRECTIONS look like dog shit: when it\u2019s facing north-east the hand was behind the head even though it\u2019s supposed to be in front. IF I KILLED IT I DON\u2019T WANT IT GONE. Make a new one."
+   "said": "a lot of them are good, a lot of them aren’t good... some of the DIRECTIONS look like dog shit: when it’s facing north-east the hand was behind the head even though it’s supposed to be in front. IF I KILLED IT I DON’T WANT IT GONE. Make a new one."
   },
   {
    "id": "people-what-people-repeat-about-you-9-22",
@@ -1483,7 +1483,7 @@
     "src": "vote/ANIMATION_THE_HAND_IN_FRONT_PLAYS.html"
    },
    "redoOf": "animation-the-hand-at-the-face-plays-9-22",
-   "said": "when it\u2019s facing north-east the hand was behind the head even though it\u2019s supposed to be in front"
+   "said": "when it’s facing north-east the hand was behind the head even though it’s supposed to be in front"
   },
   {
    "id": "world-the-same-corner-9-23",
@@ -1679,7 +1679,7 @@
     "how": "page",
     "src": "vote/ANIMATION_FACING_YOU_HE_DID_NOTHING.html"
    },
-   "said": "a lot of them are good, a lot of them aren\u2019t good"
+   "said": "a lot of them are good, a lot of them aren’t good"
   },
   {
    "id": "sounds-a-footstep-that-is-not-sand-9-24",
@@ -3145,59 +3145,59 @@
    "sha": "fddfad0"
   },
   {
-    "id": "animation-taking-a-hit-9-29",
-    "kind": "animation",
-    "lane": "animation",
-    "sha": "bc0169f1",
-    "made": "9/29",
-    "title": "TAKING A HIT FACING YOU",
-    "why": "Same problem as the punch and the throw, two more moves. Facing you, the code only moved his body forward and back, which is into the screen, so he barely moved. GETTING HIT: 92 percent of him moves from the side, facing you it was 40. Now his head snaps back, his knees buckle so he drops, his arms come up, and he lurches to the side, the other side on the second hit, because nobody takes two hits the same (71 percent now). SHOVING: facing you it was 42; now both hands come together in front of his chest as his weight drops into it (57). The shove is the smaller win and I stopped at the second try. Side views did not change, pixel for pixel. Before beside after, on the beat.",
-    "show": {
-      "how": "page",
-      "src": "vote/ANIMATION_TAKING_A_HIT.html"
-    },
-    "said": "just start making it"
-  },
-   {
-    "id": "cook-the-circles-become-places-9-29",
-    "kind": "tile",
-    "lane": "cook",
-    "sha": "ac668ab5",
-    "made": "9/29",
-    "floor": "map",
-    "title": "THE CIRCLES BECOME PLACES",
-    "why": "You said you should see yourself on the city screen and that all those little circles should be icons or people. Here they are, and they are going on the map this round. Six markers: you with a banner over you, a shop, a shed, a pump station, a fortress and a tower. AND YOU WERE RIGHT ABOUT THE LAST ONES, twice over. The marker I shipped for you was 9 pixels wide. Nine. You said you could count them on one hand and you could. Here is the number behind it: the map tile is 18 by 9 on the screen, your phone draws 3 pixels for every 1 the map paints, so a marker has about 54 real pixels to fill and I was giving it 9. These are 48 pixels each, which is one painted pixel for one real pixel on your phone, the same as Battle Brothers. That is 6 to 16 times the pixels of the ones you killed, counted, not stretched. NOTHING HERE IS THE OLD ONE BLOWN UP. A 9 pixel shape scaled to 48 is still 9 pixels of picture in a bigger box. Every one is drawn again as what the place actually is, a building with a roof, lit from the north-west like everything else in the game, out of your own approved colours. AND THEY TELL APART WITH THE COLOUR THROWN AWAY, which is the test that matters on a map: the shop is low and wide with an awning sticking out, the shed is square with one roof, the fortress is tall and narrow with a toothed top, the tower is the thinnest thing on the map, the pump is a frame with nothing solid in it, and you are the only person. Battle Brothers map icons sit still. Each of these has one moving part on a still body, half a second a frame, one beat: the pump's beam, the tower's lamp, your banner. The feet never move, so the valley reads like a place where machines are still running instead of a board with counters on it. There are 109 kinds of place on the city screen and six are done. The rest are next.",
-    "show": {
-     "how": "image",
-     "src": "vote/COOK_THE_CIRCLES_BECOME_PLACES.png"
-    }
+   "id": "animation-taking-a-hit-9-29",
+   "kind": "animation",
+   "lane": "animation",
+   "sha": "bc0169f1",
+   "made": "9/29",
+   "title": "TAKING A HIT FACING YOU",
+   "why": "Same problem as the punch and the throw, two more moves. Facing you, the code only moved his body forward and back, which is into the screen, so he barely moved. GETTING HIT: 92 percent of him moves from the side, facing you it was 40. Now his head snaps back, his knees buckle so he drops, his arms come up, and he lurches to the side, the other side on the second hit, because nobody takes two hits the same (71 percent now). SHOVING: facing you it was 42; now both hands come together in front of his chest as his weight drops into it (57). The shove is the smaller win and I stopped at the second try. Side views did not change, pixel for pixel. Before beside after, on the beat.",
+   "show": {
+    "how": "page",
+    "src": "vote/ANIMATION_TAKING_A_HIT.html"
    },
+   "said": "just start making it"
+  },
   {
-    "id": "factions-crews-are-heading-at-bases-9-29",
-    "kind": "tile",
-    "lane": "factions",
-    "sha": "45c2a04b",
-    "made": "9/29",
-    "title": "FOUR CREWS ARE ALREADY WALKING AT SOMEBODY'S BASE",
-    "why": "Four of the game's 28 roaming crews are already walking at a rival's home base: the Caravans, the Cartel and the Remnants going at each other. When they arrive, nothing happens. The map can show it: every crew's path, and a red ring on a base a crew is heading at. Tap LOOK AT IT. My default is that a base only falls from what you do, until you say otherwise. Thumbs up keeps it that way. Thumbs down lets crews take bases while you are not looking.",
-    "show": {
-      "how": "page",
-      "src": "vote/FACTIONS_WHO_IS_COMING_FOR_WHOM_9_29.html"
-    }
+   "id": "cook-the-circles-become-places-9-29",
+   "kind": "tile",
+   "lane": "cook",
+   "sha": "ac668ab5",
+   "made": "9/29",
+   "floor": "map",
+   "title": "THE CIRCLES BECOME PLACES",
+   "why": "You said you should see yourself on the city screen and that all those little circles should be icons or people. Here they are, and they are going on the map this round. Six markers: you with a banner over you, a shop, a shed, a pump station, a fortress and a tower. AND YOU WERE RIGHT ABOUT THE LAST ONES, twice over. The marker I shipped for you was 9 pixels wide. Nine. You said you could count them on one hand and you could. Here is the number behind it: the map tile is 18 by 9 on the screen, your phone draws 3 pixels for every 1 the map paints, so a marker has about 54 real pixels to fill and I was giving it 9. These are 48 pixels each, which is one painted pixel for one real pixel on your phone, the same as Battle Brothers. That is 6 to 16 times the pixels of the ones you killed, counted, not stretched. NOTHING HERE IS THE OLD ONE BLOWN UP. A 9 pixel shape scaled to 48 is still 9 pixels of picture in a bigger box. Every one is drawn again as what the place actually is, a building with a roof, lit from the north-west like everything else in the game, out of your own approved colours. AND THEY TELL APART WITH THE COLOUR THROWN AWAY, which is the test that matters on a map: the shop is low and wide with an awning sticking out, the shed is square with one roof, the fortress is tall and narrow with a toothed top, the tower is the thinnest thing on the map, the pump is a frame with nothing solid in it, and you are the only person. Battle Brothers map icons sit still. Each of these has one moving part on a still body, half a second a frame, one beat: the pump's beam, the tower's lamp, your banner. The feet never move, so the valley reads like a place where machines are still running instead of a board with counters on it. There are 109 kinds of place on the city screen and six are done. The rest are next.",
+   "show": {
+    "how": "image",
+    "src": "vote/COOK_THE_CIRCLES_BECOME_PLACES.png"
+   }
   },
-   {
-    "id": "combat-a-house-is-never-smaller-than-a-man-9-29",
-    "kind": "tile",
-    "lane": "combat",
-    "sha": "PENDING",
-    "made": "9/29",
-    "title": "A HOUSE IS NEVER SMALLER THAN A MAN",
-    "why": "Same fight, same spot, before and after. BEFORE: the camera pulled way back to fit every enemy on screen, and your men never shrink, so a house came out a third the size of a man. That broke your own rule that the character is tiny next to buildings. AFTER: the camera stops pulling back once a house is as wide as a man. Enemies it cannot fit are shown as arrows on the edge of the screen with how many houses away they are. A red arrow means that one is aiming at you. Over 24 fights: a house was never smaller than a man, and all 99 enemies off screen had an arrow. You can still pinch to see wider. What I am not hiding: the blue-topped barrels are drawn house-sized and cover a lot of the street. That is next. Thumbs up and the camera stays like this. Thumbs down and tell me if you want to see more of the fight at once, even if the houses get small again.",
-    "show": {
-     "how": "image",
-     "src": "vote/COMBAT_A_HOUSE_IS_NEVER_SMALLER_THAN_A_MAN_9_29.png"
-    }
-   },
+  {
+   "id": "factions-crews-are-heading-at-bases-9-29",
+   "kind": "tile",
+   "lane": "factions",
+   "sha": "45c2a04b",
+   "made": "9/29",
+   "title": "FOUR CREWS ARE ALREADY WALKING AT SOMEBODY'S BASE",
+   "why": "Four of the game's 28 roaming crews are already walking at a rival's home base: the Caravans, the Cartel and the Remnants going at each other. When they arrive, nothing happens. The map can show it: every crew's path, and a red ring on a base a crew is heading at. Tap LOOK AT IT. My default is that a base only falls from what you do, until you say otherwise. Thumbs up keeps it that way. Thumbs down lets crews take bases while you are not looking.",
+   "show": {
+    "how": "page",
+    "src": "vote/FACTIONS_WHO_IS_COMING_FOR_WHOM_9_29.html"
+   }
+  },
+  {
+   "id": "combat-a-house-is-never-smaller-than-a-man-9-29",
+   "kind": "tile",
+   "lane": "combat",
+   "sha": "PENDING",
+   "made": "9/29",
+   "title": "A HOUSE IS NEVER SMALLER THAN A MAN",
+   "why": "Same fight, same spot, before and after. BEFORE: the camera pulled way back to fit every enemy on screen, and your men never shrink, so a house came out a third the size of a man. That broke your own rule that the character is tiny next to buildings. AFTER: the camera stops pulling back once a house is as wide as a man. Enemies it cannot fit are shown as arrows on the edge of the screen with how many houses away they are. A red arrow means that one is aiming at you. Over 24 fights: a house was never smaller than a man, and all 99 enemies off screen had an arrow. You can still pinch to see wider. What I am not hiding: the blue-topped barrels are drawn house-sized and cover a lot of the street. That is next. Thumbs up and the camera stays like this. Thumbs down and tell me if you want to see more of the fight at once, even if the houses get small again.",
+   "show": {
+    "how": "image",
+    "src": "vote/COMBAT_A_HOUSE_IS_NEVER_SMALLER_THAN_A_MAN_9_29.png"
+   }
+  },
   {
    "id": "people-one-human-one-past-9-29",
    "kind": "tile",
@@ -3211,46 +3211,60 @@
     "src": "BOHEMIA_ONE_HUMAN_ONE_PAST_9_29_26.html"
    }
   },
-{
-  "id": "coordinator-the-beasts-of-the-valley-9-29",
-  "kind": "verdict",
-  "lane": "coordinator",
-  "title": "THE ROAD'S BEASTS: DIRE WOLVES, HYENAS, FERAL DOGS AND CATTLE. BOSSES: THE LION, THE BEAR, THE SABRE-TOOTH, ONE MAMMOTH HERD.",
-  "text": "Your ruling: the beasts are animals humans brought back with genetics that broke out of their lab when the dollar died, not radiation. I researched which real animals could actually be brought back (DNA lasts about a million years, so Ice Age and after, no dinosaurs) and which would thrive in a broken desert city. Default: the road's beasts are dire wolf packs, hyena clans, feral dog packs and feral cattle. Horses and the American camel are the mounts. The bosses are the American lion, the short-faced bear, the sabre-tooth at the water, and one mammoth herd at Lake Mead. The hunts are the ground sloth, bison and mountain goat. All of them once lived at the fossil beds 20 miles north of the Strip, which is where the lab was. DOWN means a different list; name the animal in a note.",
-  "asked": "UP or DOWN",
-  "when": "2026-09-29",
-  "draft": true
-},
-{
-  "id": "coordinator-you-build-what-you-hold-and-it-grows-9-29",
-  "kind": "verdict",
-  "lane": "coordinator",
-  "title": "YOU BUILD ON WHAT YOU HOLD, AND WHAT YOU HOLD GROWS BLOCK BY BLOCK",
-  "text": "You asked: build only on your base, or a settlement of blocks, or the Pocket City route where you edit everything. Default: you build on the parts of Vegas you hold. Take the next part, by a raid, a contract, a boss or a deal, and it is yours to build too. Lose it and it goes back. By act 3 your base can be half the city. Bosses and contracts also unlock kinds of building and make the places you helped get better on their own, like Battle Brothers. Nobody edits a block they do not hold. DOWN means you want one big settlement from the start, or the edit-everything route; say which in a note.",
-  "asked": "UP or DOWN",
-  "when": "2026-09-29",
-  "draft": true
-},
-{
-  "id": "coordinator-the-seventeen-beasts-9-29",
-  "kind": "verdict",
-  "lane": "coordinator",
-  "title": "THE SEVENTEEN: DOGS, DIRE WOLVES, HYENAS, HOGS, CAMELS, HORSES, CATTLE, THE LION, THE BEAR, THE SABRE-TOOTH, THE HIPPO, THE MAMMOTHS, THE DINO-BIRD, THE SWARM, THE EAGLE, THE LIZARDS, THE SLOTH",
-  "text": "Four rounds of research, closed. The seventeen beasts, each with where it came from, which road it walked in on, which act it shows up in, the lesson it teaches in a fight, how big it is on the board, and what it is worth. Feral dogs are act 1's first fight. Hyenas own act 2. The hippo pod closes Lake Mead. The mammoths are act 3's landmark. The swarm cannot be shot. Haast's eagle strikes the roof. DOWN means swap one out; name it in a note.",
-  "asked": "UP or DOWN",
-  "when": "2026-09-29",
-  "draft": true
-},
-{
-  "id": "coordinator-the-speed-pad-pause-1x-2x-3x-5x-9-29",
-  "kind": "verdict",
-  "lane": "coordinator",
-  "title": "THE PAD COMES BACK AS TRAVEL SPEED: PAUSE, 1x, 2x, 3x, 5x",
-  "text": "Your idea: the old pad comes back on the map as a speed control like Battle Brothers, 1x to 4x or 5x. Default: five buttons, PAUSE, 1x, 2x, 3x, 5x, in the pad's old spot. I skipped 4x so each step feels different. A road event drops it to pause on its own. DOWN means you want 4x in there too, or different steps; say them in a note.",
-  "asked": "UP or DOWN",
-  "when": "2026-09-29",
-  "draft": true
-}
+  {
+   "id": "coordinator-the-beasts-of-the-valley-9-29",
+   "kind": "verdict",
+   "lane": "coordinator",
+   "title": "THE ROAD'S BEASTS: DIRE WOLVES, HYENAS, FERAL DOGS AND CATTLE. BOSSES: THE LION, THE BEAR, THE SABRE-TOOTH, ONE MAMMOTH HERD.",
+   "text": "Your ruling: the beasts are animals humans brought back with genetics that broke out of their lab when the dollar died, not radiation. I researched which real animals could actually be brought back (DNA lasts about a million years, so Ice Age and after, no dinosaurs) and which would thrive in a broken desert city. Default: the road's beasts are dire wolf packs, hyena clans, feral dog packs and feral cattle. Horses and the American camel are the mounts. The bosses are the American lion, the short-faced bear, the sabre-tooth at the water, and one mammoth herd at Lake Mead. The hunts are the ground sloth, bison and mountain goat. All of them once lived at the fossil beds 20 miles north of the Strip, which is where the lab was. DOWN means a different list; name the animal in a note.",
+   "asked": "UP or DOWN",
+   "when": "2026-09-29",
+   "draft": true
+  },
+  {
+   "id": "coordinator-you-build-what-you-hold-and-it-grows-9-29",
+   "kind": "verdict",
+   "lane": "coordinator",
+   "title": "YOU BUILD ON WHAT YOU HOLD, AND WHAT YOU HOLD GROWS BLOCK BY BLOCK",
+   "text": "You asked: build only on your base, or a settlement of blocks, or the Pocket City route where you edit everything. Default: you build on the parts of Vegas you hold. Take the next part, by a raid, a contract, a boss or a deal, and it is yours to build too. Lose it and it goes back. By act 3 your base can be half the city. Bosses and contracts also unlock kinds of building and make the places you helped get better on their own, like Battle Brothers. Nobody edits a block they do not hold. DOWN means you want one big settlement from the start, or the edit-everything route; say which in a note.",
+   "asked": "UP or DOWN",
+   "when": "2026-09-29",
+   "draft": true
+  },
+  {
+   "id": "coordinator-the-seventeen-beasts-9-29",
+   "kind": "verdict",
+   "lane": "coordinator",
+   "title": "THE SEVENTEEN: DOGS, DIRE WOLVES, HYENAS, HOGS, CAMELS, HORSES, CATTLE, THE LION, THE BEAR, THE SABRE-TOOTH, THE HIPPO, THE MAMMOTHS, THE DINO-BIRD, THE SWARM, THE EAGLE, THE LIZARDS, THE SLOTH",
+   "text": "Four rounds of research, closed. The seventeen beasts, each with where it came from, which road it walked in on, which act it shows up in, the lesson it teaches in a fight, how big it is on the board, and what it is worth. Feral dogs are act 1's first fight. Hyenas own act 2. The hippo pod closes Lake Mead. The mammoths are act 3's landmark. The swarm cannot be shot. Haast's eagle strikes the roof. DOWN means swap one out; name it in a note.",
+   "asked": "UP or DOWN",
+   "when": "2026-09-29",
+   "draft": true
+  },
+  {
+   "id": "coordinator-the-speed-pad-pause-1x-2x-3x-5x-9-29",
+   "kind": "verdict",
+   "lane": "coordinator",
+   "title": "THE PAD COMES BACK AS TRAVEL SPEED: PAUSE, 1x, 2x, 3x, 5x",
+   "text": "Your idea: the old pad comes back on the map as a speed control like Battle Brothers, 1x to 4x or 5x. Default: five buttons, PAUSE, 1x, 2x, 3x, 5x, in the pad's old spot. I skipped 4x so each step feels different. A road event drops it to pause on its own. DOWN means you want 4x in there too, or different steps; say them in a note.",
+   "asked": "UP or DOWN",
+   "when": "2026-09-29",
+   "draft": true
+  },
+  {
+   "id": "tuning-who-dies-9-30",
+   "kind": "tile",
+   "lane": "tuning",
+   "sha": "",
+   "made": "9/30",
+   "draft": true,
+   "title": "WHO DIES",
+   "why": "Your 20% death rule, played on a whole company. The 20% alone does nothing; how often a man is struck down per fight decides everything. Slide it and see how long a man lives, how many scars he collects, and how many of your twelve are laid up at once with 30 to 40 days out. At 5% a man lives about 120 fights. At 20% half of them die before they are veterans. Twelve men roll again on every tap.",
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_TUNING_WHO_DIES_9_30_26.html"
+   }
+  }
  ],
  "verdicts": [
   {
@@ -3424,7 +3438,7 @@
   {
    "id": "world-the-rules-run-with-the-dirt-9-21",
    "vote": "down",
-   "said": "Mfs charge batteries bro \ud83e\udd23\ud83e\udd23\ud83e\udd23 i knkw buildings can help in our game but jesus christ mfs can charge batteries",
+   "said": "Mfs charge batteries bro 🤣🤣🤣 i knkw buildings can help in our game but jesus christ mfs can charge batteries",
    "when": "9/21",
    "at": "2026-09-22"
   },
@@ -4201,7 +4215,7 @@
   {
    "id": "dynasty-three-on-the-phone-9-24",
    "vote": "up",
-   "said": "I like that yeah I mean but keep in mind you know flipping between ax is a big deal asking out of it like all of the UI has to change. There has to be like a filter cut Syn \ud83d\udef9 thing that impacts everything. The phones gonna look different. The world's gonna look different and we need to find a great way to do that to make that jump, but I mean, just clicking it and then it just cause I clicked it once already the alpha mean obviously you did implement so much a bit but bro, it's a big deal like visually there has to be audio. There's a lot that needs to pull this off. You know we can't just do this cheap shit and then I still haven't decided at what point like you unlock this mechanic in each of the action and shit so it's not like right off the beginning of the game that's for sure.",
+   "said": "I like that yeah I mean but keep in mind you know flipping between ax is a big deal asking out of it like all of the UI has to change. There has to be like a filter cut Syn 🛹 thing that impacts everything. The phones gonna look different. The world's gonna look different and we need to find a great way to do that to make that jump, but I mean, just clicking it and then it just cause I clicked it once already the alpha mean obviously you did implement so much a bit but bro, it's a big deal like visually there has to be audio. There's a lot that needs to pull this off. You know we can't just do this cheap shit and then I still haven't decided at what point like you unlock this mechanic in each of the action and shit so it's not like right off the beginning of the game that's for sure.",
    "when": "9/27",
    "at": "2026-09-28"
   },
