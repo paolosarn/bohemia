@@ -55,13 +55,19 @@ console.log('='.repeat(74));
 const world = fs.readFileSync(path.join(ROOT, 'slices/BOHEMIA_CITY_WORLD.html'), 'utf8');
 const alpha = fs.readFileSync(path.join(ROOT, 'slices/BOHEMIA_ALPHA_0_9.html'), 'utf8');
 
-ok('A1 the pin asks for the player by the reserved id, not by a rolled one',
-   /ctFaceAsk\('you'\)/.test(world));
+/* RE-AIMED 9/29 BY RUN (rule 40f, [bb map]). PAOLO 9/29 on this screen: "I should def be
+   seeing the player character on this screen." The pin with his face clipped into its head
+   did not read as him (his 9/22 and 9/29 words are the same complaint), so the map now draws
+   HIM: his own baked rig (PLAYER_CV), face and clothes in one body -- ONE ID, ONE WHOLE PERSON
+   by construction. These legs hold that, not the pin; the [see me] claim is unchanged: the
+   person on the map is his, and it is a person, not a disc. */
+ok('A1 the map draws the player from his OWN rig, not a rolled face or a symbol',
+   /__set=PLAYER_CV&&\(PLAYER_CV\[__face\]\|\|PLAYER_CV\.S\)/.test(world) && /spriteAt\(__spr,24\)/.test(world));
 ok('A2 *** the bridge hands the player his OWN spec and everybody else a rolled one ***',
    /_who==='you'&&typeof buildSpec==='function'\)\?buildSpec\(\):faceFor\(_who\)/.test(alpha));
-ok('A3 the face is drawn clipped and NOT smoothed, the way the bark bubble does it',
-   /imageSmoothingEnabled=false/.test(world.slice(world.indexOf('__IT_IS_HIS_OWN_FACE_ON_THE_MAP__'),
-     world.indexOf('__IT_IS_HIS_OWN_FACE_ON_THE_MAP__') + 2200)));
+{ const __i = world.indexOf('__THE_MAP_HAS_ITS_PEOPLE__ (RUN 9/29, rule 40f) -- HIM, AS HIMSELF');
+  ok('A3 his body is drawn pixel-true, NOT smoothed, the way the street draws it',
+     __i > 0 && /imageSmoothingEnabled=false/.test(world.slice(__i, __i + 4200))); }
 ok('A4 a face that arrives after the last paint asks for a repaint, or it is never seen',
    /if \(c\) \{ try \{ render\(\); \} catch \(_e2\) \{\} \}/.test(world));
 ok('A5 the lamp line reads the SAME two facts the render reads (the district, and '
@@ -249,19 +255,29 @@ ok('A6 a doused circuit still names its holder (the light went out, the claim di
           + z.townLit + '   inside his head: ' + z.headColours + ' colours over '
           + z.headPx + ' px (face radius ' + z.faceRadius + ')');
 
-      const withT = zooms.filter(z => z.townLit !== null && z.townLit > 0);
-      ok('B1 *** HE IS STILL NEVER FAINTER THAN A TOWN ***, which is the rule '
-         + '[white rings] shipped and the margin this change spends ('
-         + withT.map(z => 'TW' + z.TW + ' ' + z.playerLit + ' vs ' + z.townLit).join(', ') + ')',
-         withT.length > 0 && withT.every(z => z.playerLit >= z.townLit));
-      const close = zooms.filter(z => z.faceRadius >= 7);
-      ok('B2 *** THERE IS A FACE INSIDE THE MARK, NOT A DISC *** — colours inside his '
-         + 'head at the zooms that carry one: '
-         + close.map(z => 'TW' + z.TW + ' ' + z.headColours).join(', '),
-         close.length > 0 && close.every(z => z.headColours >= 5));
-      ok('B3 far out he stays a clean disc rather than four muddy pixels (TW18 face '
-         + 'radius ' + zooms[0].faceRadius + ' is under the 7 px floor)',
-         zooms[0].faceRadius < 7);
+      /* B, RE-AIMED 9/29 (see A1): HIM ON THE GLASS, measured in the box the render says it
+         drew him in. A person is many colours; a disc is one or two. */
+      const me = await fr.evaluate(() => {
+        MODE = 'city'; if (typeof setZoomAt === 'function') setZoomAt(1); render();
+        const y = MAP_DREW && MAP_DREW.you; if (!y) return null;
+        const gg = cv.getContext('2d', { willReadFrequently: true });
+        const x0 = Math.round(y.x - y.w / 2), y0 = Math.round(y.y - y.h);
+        let cols = {}, n = 0;
+        try { const d = gg.getImageData(x0, y0, y.w, y.h).data;
+              for (let i = 0; i < d.length; i += 4) { n++; cols[d[i] + ',' + d[i + 1] + ',' + d[i + 2]] = 1; } } catch (e) {}
+        let tallest = 0;
+        for (const k in MAP_ART.mk) if (k !== 'YOU') tallest = Math.max(tallest, mapArtSprite(MAP_ART.mk[k], 0, null).height);
+        for (const k in MAP_ART.sh) tallest = Math.max(tallest, mapArtSprite(MAP_ART.sh[k], 0, null).height);
+        return { how: y.how, w: y.w, h: y.h, colours: Object.keys(cols).length, px: n, tallest };
+      });
+      console.log('    HIM: ' + JSON.stringify(me));
+      ok('B1 *** HE IS THE BIGGEST FIGURE ON THE MAP *** (his ' + (me && me.h) + ' px against the tallest '
+         + 'marker\'s ' + (me && me.tallest) + '), which is the [white rings] rule -- never quieter than a town -- '
+         + 'kept by size and shape instead of by brightness', !!me && me.h >= me.tallest * 1.5);
+      ok('B2 *** IT IS A PERSON, NOT A DISC *** -- ' + (me && me.colours) + ' colours inside the box he was drawn in',
+         !!me && me.how === 'rig' && me.colours >= 20);
+      ok('B3 and he is drawn at one pixel-true size (' + (me && me.w + 'x' + me.h) + ', the rig\'s 56 box)',
+         !!me && me.w === 56 && me.h === 56);
 
       /* ---- D. THE PEACH DOTS ANSWER FOR THEMSELVES ---------------------- */
       const lamp = await fr.evaluate(() => {

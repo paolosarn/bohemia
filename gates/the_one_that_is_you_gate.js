@@ -49,14 +49,21 @@ const CITY = fs.readFileSync(path.join(ROOT, 'slices/BOHEMIA_CITY_WORLD.html'), 
 
 /* A1. THE SETTLEMENT RINGS ARE UNTOUCHED. The fix must not be "make the other marks
    quieter" -- round 3 built them to a measured contrast floor and that ruling stands. */
-ok('A1 the settlement rings keep their own colours and their contrast ruling',
-   /g\.fillStyle = '#f4ead2'; g\.fill\(\);/.test(CITY)
-   && /__THE_MAP_KNOWS_WHERE_PEOPLE_ARE__|NOT A\s*\n?\s*HUD PIN/.test(CITY));
+/* *** RE-AIMED 9/29 BY RUN, THIS GATE'S OWN LANE (rule 40f). *** PAOLO 9/29 on this screen:
+   "I should def be seeing the player character on this screen bro all those little circles
+   should be icons or people." The pin-against-rings answer this gate held (9/11) did not
+   survive his eye twice, so the rings are PEOPLE now (COOK's CROWD) and he is HIMSELF (his
+   rig). The claim this gate was born for is unchanged -- of all the marks, the one that is
+   YOU is unmistakable -- and it is now held by THE MAP HAS ITS PEOPLE, which measures him
+   against every marker on the map. The legs below that measured a PIN are retired with the
+   pin; the ones that still mean something are kept. */
+ok('A1 the settlement marks are PEOPLE now, not cream rings (rule 40f)',
+   /mapArtDraw\(MAP_ART\.sh\.CROWD/.test(CITY) && !/g\.fillStyle = '#f4ead2'; g\.fill\(\);/.test(CITY));
 
 /* A2. AND THE PLAYER'S MARK SCALES WITH THE MAP, like everything else on it. A fixed
    pixel size is what made zooming in make this worse. */
-ok('A2 the player\'s mark is sized off the tile, not a fixed 5 px',
-   /__hr=Math\.max\(6, TW\*0\.36\)/.test(CITY) && /__st=Math\.max\(8, TW\*0\.50\)/.test(CITY));
+ok('A2 the player is drawn as his own body at ONE size, never following the zoom (rule 21\'s shape)',
+   /spriteAt\(__spr,24\)/.test(CITY));
 
 (async () => {
   const server = http.createServer((req, res) => {
@@ -159,15 +166,14 @@ ok('A2 the player\'s mark is sized off the tile, not a fixed 5 px',
   /* B2. *** AND THE MIDDLE OF HIM DOES NOT LOOK LIKE THE MIDDLE OF A TOWN. *** Measured on
      the glass, because two marks can be written differently and still render the same. A
      ring carries a dark hole; he carries his own colour. */
-  ok('B2 *** ON THE GLASS, HIS CENTRE AND A TOWN\'S CENTRE ARE DIFFERENT COLOURS *** — '
-     + withRings.map(z => 'TW' + z.TW + ' ' + z.centreApart).join(', ') + ' apart in rgb',
-     withRings.length > 0 && withRings.every(z => z.centreApart >= 60));
+  /* B2 (a pin's head colour against a ring's hole) is RETIRED with the pin, 9/29. */
+  console.log('  B2 retired 9/29: centres ' + withRings.map(z => 'TW' + z.TW + ' ' + z.centreApart).join(', '));
 
   /* B3. AND HE SCALES. The old mark was a fixed 5 px, so every step of zoom made the town
      marks louder and him no bigger; that is the defect getting worse as he looks closer. */
-  ok('B3 his mark grows with the map, MEASURED ON THE GLASS, so zooming in never shrinks '
-     + 'him next to a town (' + zooms.map(z => z.playerLit).join(' -> ') + ' bright pixels)',
-     zooms.length === 3 && zooms[2].playerLit > zooms[0].playerLit * 1.5);
+  /* B3 (the pin grows with the zoom) is RETIRED and REVERSED, 9/29: he is one size at every
+     zoom now, held by THE MAP HAS ITS PEOPLE. */
+  console.log('  B3 retired 9/29: ' + zooms.map(z => z.playerLit).join(' -> ') + ' bright pixels');
 
   /* B4. AND THERE IS EXACTLY ONE OF HIM. */
   ok('B4 there is one mark for the player, however many towns are on screen ('

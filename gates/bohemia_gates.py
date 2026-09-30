@@ -2274,6 +2274,16 @@ GATES = [
      'AND ONE LEG NEARLY PASSED FOR THE WRONG REASON: forcing the strip visible gives a 0x0 box, so '
      'asking who owns a zero-width point answered "nothing" and ticked green; it asserts the LOCK now, '
      'which needs no layout, and reports the box instead of asserting on it.', True),
+    ('THE MAP HAS ITS PEOPLE', ['node', 'gates/the_map_has_its_people_gate.js'],
+     'VAMILY [bb map] + [map pixels], rule 40f (PAOLO 9/29 with a screenshot of the map: "I should '
+     'def be seeing the player character on this screen bro all those little circles should be '
+     'icons or people"). MEASURED FIRST: 13 cream rings, 14 hollow diamonds, 0 parties drawn, him '
+     'a pin; and the 28 parties NEVER MOVED IN DAYLIGHT (0.93 of a step per map block, floored to '
+     'zero every call). HOLDS on the demo: he is his own rig, once, the biggest figure, one size '
+     'at every zoom, walking while he travels; every people cluster is a crowd and every home '
+     'base the building of its tier; the parties move and are drawn on the road; COOK\'s art is '
+     'byte for byte his two banks. Mutations: symbol back -> 3 red; floor back -> 3 red; one '
+     'drifted pixel -> 1 red.', True),
     ('THE MAP IS HOW YOU TRAVEL', ['node', 'gates/the_map_is_how_you_travel_gate.js'],
      'VAMILY [bb map] + [no city walk], rules 33 and 38 (PAOLO 9/24: "a party marker, tap where to go, '
      'time passes, roads faster than dirt"; PAOLO 9/28: "your character moving tile to tile throughout '
