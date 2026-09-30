@@ -57,6 +57,11 @@
   var V = 1;
   var ACT_MIN = 1, ACT_MAX = 3;                 /* three generations, always (37d) */
   var YOU = 'you';                              /* the company: not a faction, and not a node */
+  /* THE WAYS A PART CHANGES HANDS, HIS WORDS (rule 43, Paolo 9/29): "raid, contract, boss verb, deal". A
+     frozen list, the way the parties module freezes its three agendas: an undeclared fifth way is a design
+     change and design changes are Paolo's. `by` is optional (a write with none records null), but a `by`
+     that is not one of these is refused by name. */
+  var WAYS = ['raid', 'contract', 'boss', 'deal'];
 
   function clampAct(a) {
     a = a | 0;
@@ -121,6 +126,7 @@
   function put(rec, how, r) {
     r = r || {};
     if (!rec || !r.base) return { applied: false, reason: 'NO_BASE' };
+    if (r.by != null && WAYS.indexOf(r.by) < 0) return { applied: false, reason: 'UNKNOWN_WAY' };
     var now = lastOf(rec, r.base, rec.act);
     var ruinAct = (now && now.how === 'ruined') ? now.act : 0;
     var holder = now ? now.to : r.base;
@@ -141,6 +147,7 @@
       how: how,
       from: holder,
       to: how === 'ruined' ? null : r.to,
+      by: r.by || null,
       why: r.why || null
     };
     rec.entries.push(e);
@@ -233,6 +240,32 @@
     return out;
   }
 
+  /* WHO HOLDS A BLOCK, DERIVED, NEVER STORED (rule 43: "you build on the lots of the parts you HOLD"). A block
+     belongs to a PART by geography, and a part is held by whoever the ledger says, so a block's holder is those
+     two answers laid together. The geography is handed in as `partAt(bx, by)`, which answers {faction} for the
+     part a block lies in (the city's turfAt, the node gate's turf grid): THIS MODULE TAKES DATA, NOT A MODULE,
+     and it stores nothing per block, so a taking flips a whole part at once and the fought-over painted lot of
+     the dead shape stays dead. With an empty ledger a block's holder is its part's own crew, every block. */
+  function blockHolder(partAt, rec, bx, by, act) {
+    var a = clampAct(act == null ? (rec && rec.act) : act);
+    var p = (typeof partAt === 'function') ? partAt(bx, by) : null;
+    if (!p || !p.faction) return null;
+    var ruin = isRuin(rec, p.faction, a);
+    var holder = ruin ? null : heldBy(rec, p.faction, a);
+    return { part: p.faction, holder: holder, state: stateOf(p.faction, holder, ruin) };
+  }
+
+  /* HOW MANY BLOCKS A HOLDER HOLDS ("a base is every block you hold and can be half the city by act 3"). A
+     count over the valley's n by n blocks, asked of the two answers above; nothing is kept. */
+  function heldBlocks(partAt, rec, who, n, act) {
+    var count = 0, gx, gy, b;
+    for (gy = 0; gy < (n | 0); gy++) for (gx = 0; gx < (n | 0); gx++) {
+      b = blockHolder(partAt, rec, gx, gy, act);
+      if (b && b.holder === who) count++;
+    }
+    return count;
+  }
+
   /* A PARTY EXISTS BECAUSE ITS BASE STILL HOLDS IT. A base that is a ruin, or held
      by anybody but its own people, sends nobody; what it had out is gone from the
      map. Everything else is untouched, so with an empty ledger this returns the
@@ -320,18 +353,19 @@
       if (!e || !e.base || (e.how !== 'taken' && e.how !== 'ruined')) continue;
       rec.entries.push({ n: rec.entries.length + 1, act: clampAct(e.act), day: (typeof e.day === 'number') ? e.day : null,
                          base: e.base, how: e.how, from: e.from == null ? null : e.from,
-                         to: e.how === 'ruined' ? null : (e.to == null ? null : e.to), why: e.why || null });
+                         to: e.how === 'ruined' ? null : (e.to == null ? null : e.to),
+                         by: (WAYS.indexOf(e.by) >= 0) ? e.by : null, why: e.why || null });
     }
     return rec;
   }
 
   var API = {
-    V: V, YOU: YOU, ACT_MIN: ACT_MIN, ACT_MAX: ACT_MAX,
+    V: V, YOU: YOU, WAYS: WAYS.slice(), ACT_MIN: ACT_MIN, ACT_MAX: ACT_MAX,
     clampAct: clampAct, make: make, setAct: setAct,
     heldBy: heldBy, isRuin: isRuin, took: took, ruined: ruined,
     netFor: netFor, ruinsThrough: ruinsThrough,
     openAt: openAt, raidable: raidable,
-    ownedBy: ownedBy, bases: bases, partiesLeft: partiesLeft, threatsTo: threatsTo, markers: markers,
+    ownedBy: ownedBy, blockHolder: blockHolder, heldBlocks: heldBlocks, bases: bases, partiesLeft: partiesLeft, threatsTo: threatsTo, markers: markers,
     toJSON: toJSON, load: load
   };
   if (typeof module !== 'undefined' && module.exports) module.exports = API;

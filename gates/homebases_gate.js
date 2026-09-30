@@ -34,6 +34,7 @@ const ok = (n, c, note) => {
 const m = OM.buildOvermap(12345);
 const seats = T.derive(G, T.districtsOf(m, CE.cat), 1);
 const parties = P.all(seats, { n: m.n });
+const grid = T.turf(m, CE.cat, seats);          /* the geography a block is asked of: which part it lies in */
 const stripComments = (s) => s.replace(/\/\*[\s\S]*?\*\//g, '').replace(/(^|[^:])\/\/.*$/gm, '$1');
 
 /* ---- 1. the record, taken from bohemia_century and not reinvented -------- */
@@ -306,6 +307,88 @@ const stripComments = (s) => s.replace(/\/\*[\s\S]*?\*\//g, '').replace(/(^|[^:]
   const ts = H.markers(seats, parties, rS, 1).find(x => x.id === 'base:' + victim);
   ok('A CREW WHOSE OWN BASE FELL IS GONE, SO IT THREATENS NOBODY (its base holds it or it does not exist)',
      !ts.threat.includes(hunter), JSON.stringify(ts.threat));
+}
+
+/* ---- 10d. THE WAYS A PART CHANGES HANDS, HIS WORDS (rule 43) ---------------- */
+{
+  ok('the ways are his four, frozen: raid, contract, boss, deal', H.WAYS.join() === 'raid,contract,boss,deal');
+  const r = H.make();
+  const a = H.took(r, { base: 'Mob', to: 'you', by: 'contract' });
+  ok('a taking records how it happened', a.applied === true && a.entry.by === 'contract');
+  ok('A WAY THAT IS NOT ONE OF HIS FOUR IS REFUSED BY NAME (an undeclared fifth is a design change, and his)',
+     H.took(r, { base: 'Blues', to: 'you', by: 'gift' }).reason === 'UNKNOWN_WAY' && r.entries.length === 1);
+  ok('a write with no way is allowed and records null', H.took(r, { base: 'Reds', to: 'you' }).entry.by === null);
+  ok('a fall records its way too, and refuses an unknown one',
+     H.ruined(r, { base: 'Church', by: 'boss' }).entry.by === 'boss' && H.ruined(r, { base: 'Trades', by: 'magic' }).reason === 'UNKNOWN_WAY');
+  const back = H.load(JSON.parse(JSON.stringify(H.toJSON(r))));
+  ok('the way survives a save', back.entries.map(e => e.by).join() === r.entries.map(e => e.by).join());
+  ok('and a save with a way that is not his loads with it dropped, not believed',
+     H.load({ act: 1, entries: [{ base: 'Mob', how: 'taken', to: 'you', act: 1, by: 'gift' }] }).entries[0].by === null);
+  const lose = H.make();
+  H.took(lose, { base: 'Mob', to: 'you', by: 'raid' });
+  H.took(lose, { base: 'Mob', to: 'Cartel', by: 'raid' });
+  ok('LOSING ONE IS HOW IT SHRINKS: taken back, it is nobody\'s of yours again',
+     H.ownedBy(lose, seats, 'you').length === 0 && H.heldBy(lose, 'Mob') === 'Cartel' && H.netFor(lose, 1).you === 0);
+}
+
+/* ---- 10e. WHO HOLDS A BLOCK: DERIVED, NEVER STORED (rule 43) ------------------ */
+{
+  const partAt = (x, y) => grid.at(x, y);
+  const N = m.n;
+  const sizes = {}; let total = 0;
+  for (let y = 0; y < N; y++) for (let x = 0; x < N; x++) { const t = partAt(x, y); if (t) { sizes[t.faction] = (sizes[t.faction] || 0) + 1; total++; } }
+  const empty = H.make();
+  let differed = 0;
+  for (let y = 0; y < N; y++) for (let x = 0; x < N; x++) {
+    const b = H.blockHolder(partAt, empty, x, y);
+    const t = partAt(x, y);
+    if (!b || b.holder !== t.faction || b.part !== t.faction || b.state !== 'held') differed++;
+  }
+  ok('*** THE EMPTY LEDGER IS A NO-OP FOR EVERY BLOCK OF THE REAL VALLEY *** (' + total + ' blocks, ' + differed + ' different)',
+     total > 9000 && differed === 0);
+  ok('every block lies in exactly one of the fourteen parts', Object.keys(sizes).length === 14
+     && Object.keys(sizes).reduce((n, k) => n + sizes[k], 0) === total);
+
+  const r = H.make(); H.took(r, { base: 'Mob', to: 'you', by: 'raid' });
+  let flipped = 0, moved = 0;
+  for (let y = 0; y < N; y++) for (let x = 0; x < N; x++) {
+    const b = H.blockHolder(partAt, r, x, y), t = partAt(x, y);
+    if (b.holder === 'you') { flipped++; if (t.faction !== 'Mob') moved++; }
+    else if (b.holder !== t.faction) moved++;
+  }
+  ok('A TAKING FLIPS A WHOLE PART AND NOTHING ELSE: the Mob\'s ' + sizes.Mob + ' blocks are yours, not one more, not one fewer',
+     flipped === sizes.Mob && moved === 0, flipped + ' flipped, ' + moved + ' moved');
+  ok('and it is held by count too: heldBlocks agrees with the walk', H.heldBlocks(partAt, r, 'you', N) === sizes.Mob);
+
+  const rr = H.make(); H.ruined(rr, { base: 'Cartel', by: 'raid' });
+  const some = (() => { for (let y = 0; y < N; y++) for (let x = 0; x < N; x++) if (partAt(x, y).faction === 'Cartel') return H.blockHolder(partAt, rr, x, y); })();
+  ok('a ruined part\'s blocks have no holder and say ruined',
+     some.holder === null && some.state === 'ruined' && H.heldBlocks(partAt, rr, null, N) === sizes.Cartel);
+
+  const r2 = H.make(); H.setAct(r2, 2); H.took(r2, { base: 'Mob', to: 'you' });
+  ok('READ AT ACT 1 AND THE ACT-2 TAKING HAS NOT HAPPENED YET, for every block',
+     H.heldBlocks(partAt, r2, 'you', N, 1) === 0 && H.heldBlocks(partAt, r2, 'you', N, 2) === sizes.Mob);
+
+  /* every block has exactly one answer: a holder, or a ruin */
+  const r3 = H.make(); H.took(r3, { base: 'Mob', to: 'you' }); H.took(r3, { base: 'Blues', to: 'Church' }); H.ruined(r3, { base: 'Reds' });
+  let holders = {}, ruins = 0;
+  for (let y = 0; y < N; y++) for (let x = 0; x < N; x++) { const b = H.blockHolder(partAt, r3, x, y); if (b.holder) holders[b.holder] = (holders[b.holder] || 0) + 1; else ruins++; }
+  ok('EVERY BLOCK HAS EXACTLY ONE HOLDER OR IS A RUIN: the counts add back to the valley',
+     Object.keys(holders).reduce((n, k) => n + holders[k], 0) + ruins === total && ruins === sizes.Reds
+     && holders.you === sizes.Mob && holders.Church === sizes.Church + sizes.Blues);
+
+  ok('a ruin elsewhere does not change how many blocks are yours: ' + H.heldBlocks(partAt, r3, 'you', N),
+     H.heldBlocks(partAt, r3, 'you', N) === sizes.Mob && H.heldBlocks(partAt, r3, null, N) === sizes.Reds);
+
+  ok('a block outside every part answers null, never a guess', H.blockHolder(() => null, empty, 3, 3) === null
+     && H.blockHolder(undefined, empty, 3, 3) === null);
+  ok('THE LEDGER STAYS FOURTEEN WHOLES, NOT ROWS OF BLOCKS: three changes are three entries, and the save is a few hundred bytes',
+     r3.entries.length === 3 && JSON.stringify(H.toJSON(r3)).length < 1200, JSON.stringify(H.toJSON(r3)).length + ' bytes');
+
+  /* the pacing his rule 43 asks about, measured, and never a rule: how much of Vegas each tier is */
+  const share = {}; seats.forEach(s => { share[s.tier] = (share[s.tier] || 0) + (sizes[s.faction] || 0); });
+  ok('the three tiers between them are the whole valley (' + ['camp', 'town', 'fortress'].map(k => k + ' ' + (100 * share[k] / total).toFixed(1) + '%').join(', ') + ')',
+     share.camp + share.town + share.fortress === total);
 }
 
 /* ---- 11. *** A DEAD SHAPE DOES NOT COME BACK UNDER A NEW NAME *** ---------- */
