@@ -4,6 +4,7 @@ source: Grok, unverified, written 2026-09-30
 
 Newest first.
 
+- 2026-09-30 | VAMILY | GROK_12_HIRING_2026_09_30.md | hire a person, batteries up front and every day
 - 2026-09-30 | VAMILY | GROK_11_DAY_LOOP_2026_09_30.md | food, medicine, and pay per day, wiki rates
 - 2026-09-30 | VAMILY | GROK_10_JOBS_PAY_2026_09_30.md | contracts pay batteries and clout, one job at a time
 - 2026-09-30 | VAMILY | GROK_09_ORC_GOBLIN_SKINS_2026_09_30.md | orc and goblin jobs skinned, mechanics unchanged
