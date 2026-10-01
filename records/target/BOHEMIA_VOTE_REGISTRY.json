@@ -3918,7 +3918,22 @@
      "how": "image",
      "src": "vote/COMBAT_THE_STREET_HAS_KERBS_10_1.png"
     }
-   }
+   },
+{
+  "id": "grok-first-fight-slice-10-1",
+  "kind": "verdict",
+  "lane": "coordinator",
+  "sha": "pending",
+  "made": "10/1",
+  "title": "VIA GROK: THE FIRST FIGHT, ONE SHEET A BUILDER CAN CODE",
+  "why": "Grok wrote the first fight as one sheet: a board eight houses wide and six deep with the street down the middle, you alone on the south row with a pistol, a pipe and the car, six road crew five tiles north with pipes, one shield and one pistol. Thumbs up and combat builds exactly this as the demo's first fight, with two fixes where Grok's page clashes with your locks: you are downed, never dead, and a step or a swing costs one, not Battle Brothers' nine points.",
+  "show": {
+    "how": "text",
+    "src": "THE SLICE: 8 by 6 house tiles. Street down the middle. You south, six road crew north, five tiles apart. You: pistol (1 tile, spends ammo, ignores armour), pipe (1 tile, stun, spends nothing), the car on the south edge (cone at 2 tiles, spends gas, reload eats the turn). Them: four pipes, one car door, one pistol. Win: all six down or fleeing; pay in batteries and a post to hire one person.\n\nFIXED TO YOUR LOCKS: you are downed, never dead. Everything costs one.\n\nSeen in: the fight (COMBAT), the demo's first fight."
+  },
+  "verdict": "default",
+  "status": "ruled"
+}
  ],
  "verdicts": [
   {
