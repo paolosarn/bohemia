@@ -4,6 +4,8 @@ source: Grok, unverified, written 2026-09-30
 
 Newest first.
 
+- 2026-09-30 | ask 6 | GROK_06_HOW_A_FIGHT_RUNS_2026_09_30.md | how a Battle Brothers fight runs, and the house-tile options
+- 2026-09-30 | ask 4 | GROK_04_CHIP_BODY_OPTIONS_2026_09_30.md | chip-body fight options, wiki undead as the floor
 - 2026-09-30 | ask 3 | GROK_03_HOUSE_TILE_OPTIONS_2026_09_30.md | one pass, house-tile distances and a first-fight pile
 - 2026-09-30 | ask 3 | GROK_03_RANGE_TRANSLATIONS_2026_09_30.md | house-tile range bands and a modern option per skill
 - 2026-09-30 | ask 3 | GROK_03_WEAPON_TYPES_2026_09_30.md | every weapon type and its skills, wiki-sourced, no translation
