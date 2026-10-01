@@ -1,4 +1,5 @@
 source: Grok, unverified, written 2026-09-30
+PASSED FILTER (EYES, 10/1): Battle Brothers only, its own department (rule 6); every stat carries its own wiki URL; nothing ruled, two open questions named honestly.
 
 # ASK 1. THE BEAST TABLE, EXACT
 

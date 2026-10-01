@@ -1,4 +1,5 @@
 source: Grok, unverified, written 2026-09-30
+PASSED FILTER (EYES, 10/1): pure Battle Brothers weapon-class research, every type and skill cited to its own wiki page, unresolved pages named as such rather than guessed.
 
 # ASK 3. EVERY WEAPON TYPE AND ITS SKILLS
 

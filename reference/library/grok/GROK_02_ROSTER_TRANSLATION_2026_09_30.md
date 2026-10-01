@@ -1,4 +1,5 @@
 source: Grok, unverified, written 2026-09-30
+PASSED FILTER (EYES, 10/1): Battle Brothers enemies translated to Bohemia skins, correctly marked LOCKED vs proposal, every class and trait sourced to the wiki, no foreign game cited.
 
 # ASK 2. THE ROSTER, TRANSLATED
 

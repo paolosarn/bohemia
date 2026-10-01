@@ -3905,6 +3905,19 @@
      "how": "image",
      "src": "vote/COMBAT_THE_FLOOR_ROUND_TWO_10_1.png"
     }
+   },
+   {
+    "id": "combat-the-street-has-kerbs-10-1",
+    "kind": "tile",
+    "lane": "combat",
+    "sha": "PENDING",
+    "made": "10/1",
+    "title": "THE STREET HAS KERBS",
+    "why": "The road and sidewalks under the fight are now built like a real street from the approved street tiles: gutters, two lanes and the yellow centre line, then kerb, sidewalk and a dirt strip before the yards. The centre line is faint because at true size it is only a few pixels wide, so say if you want it louder.",
+    "show": {
+     "how": "image",
+     "src": "vote/COMBAT_THE_STREET_HAS_KERBS_10_1.png"
+    }
    }
  ],
  "verdicts": [

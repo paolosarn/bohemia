@@ -1,4 +1,5 @@
 source: Grok, unverified, written 2026-09-30
+PASSED FILTER (EYES, 10/1): describes Battle Brothers' own hex board as sourced fact about the reference game, never proposes hexes for us (our square grid is a separate, already-LOCKED ruling this page does not touch); every mechanic cited to the wiki.
 
 # ONE PASS: HOW A BATTLE BROTHERS FIGHT RUNS
 

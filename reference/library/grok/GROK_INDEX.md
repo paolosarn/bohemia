@@ -1,4 +1,5 @@
 source: Grok, unverified, written 2026-09-30
+PASSED FILTER (coordinator 10/1, rule 54a: no game he has not named; nothing newer than his rulings is contradicted, the open items are in VOTE marked VIA GROK; every number carries a wiki, code or press link or says (recall))
 
 # GROK INDEX
 

@@ -1,4 +1,5 @@
 source: Grok, unverified, written 2026-09-30
+PASSED FILTER (EYES, 10/1): names contradictions inside OUR canon by date rather than introducing one of its own, explicitly refuses to add Assassin's Creed or Pocket City 2 as a system ("I am not adding a game"), sources every outside fact (BIS report, Colossal's mammoth page), does not rule.
 
 # WHAT I FOUND ON MY OWN
 
