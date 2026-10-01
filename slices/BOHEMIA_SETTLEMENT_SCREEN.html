@@ -201,7 +201,9 @@ function layout(){
   cv.style.width = W+'px'; cv.style.height = H+'px';
   /* Fit the run's height into the scene; on a phone it is wider than the screen, so it
      is centred on the hall and the edges crop, the art never squashes. */
-  var s = Math.min(H/616, W/(1408*0.62));
+  /* rule 62 (Paolo 10/1, the screen decides the layout): a phone sees one and a half
+     fronts, an iPad about the same taller, a computer more of the street, never one blown up */
+  var s = Math.min(H*0.6/616, W/(1408*0.62));
   view.s = s; view.W = W; view.oy = Math.round(H*0.30);
   pan(view.cx == null ? (B.hall.x + B.hall.w/2) : view.cx);
   hots(); draw();
