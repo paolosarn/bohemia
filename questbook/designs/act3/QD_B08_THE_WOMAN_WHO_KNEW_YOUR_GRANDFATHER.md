@@ -5,7 +5,7 @@ CRISIS: the Network crumbling
 ECONOMY: boom
 PLACE: an unlit service road under the new maglev line, between two pylons where no camera reaches
 STATUS: draft:true, research only, nothing built (rule 35)
-CHECKLIST: lines 29 and 30 pass (QR-X sweep, 9/30); a round-one design, not yet run line by line against lines 1 to 28 (QR-G).
+CHECKLIST: passes all 30 (QR-AC line-by-line run, 10/1; lines 3, 9 and 12 read as not applicable to a road event; 11 is the free KEEP MOVING). Fixed in place: 5 and 18 (the floor when act 1 holds no shoulder), 28 (flags and saves named).
 SHAPE: E8, THE ONE WHO KNOWS YOU, crossed with E9, THE BILL COMES DUE (QR-B)
 
 ## THE SITUATION
@@ -33,6 +33,10 @@ First line, if the ancestor passed: "He didn't stop. I'm not angry. I'm asking w
 - The family ledger across acts: stop or pass, twice.
 - The echo: the rest stop on the act 3 map at the act 1 shoulder exists only if the ancestor stopped (a road
   feature written across acts).
+
+- THE FLOOR (QR-AC, lines 5 and 18; `Q022.X2`, `Q121.X1`): the event fires only if the act 1 ledger holds an E1 row (QD-B01 or any shoulder). With none, she never sits on the cooler, nothing reads the absence, and the act 3 map has no rest stop at that shoulder.
+
+FLAGS AND SAVES (QR-AC, line 28; `Q123.X1`, `Q116.X1`, `Q040.X3`): writes b08 = asked | paid | passed; network_reach_private = yes | no. A play-forward test sets each value and walks to every place that reads it (the Network's endgame, the act 3 rest stop, the family ledger (stop or pass, twice)); the save lands only at clean states: before the event screen opens and after it closes; never mid-choice and never mid-fight.
 
 ## THE NARRATOR
 Read over the event screen in the machine voice (rule 45: too even, tape and room, a little wrong; never in the first minute; people on the screen still speak in the squiggle): "An old woman on a cooler. She has been expecting your family for some time."

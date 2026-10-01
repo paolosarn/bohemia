@@ -5,7 +5,7 @@ CRISIS: the rocket
 ECONOMY: bust
 PLACE: a machinist's yard at the edge of the rocket works; the job runs on the map across a dry wash to a dead data centre
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
-CHECKLIST: lines 29 and 30 pass (QR-X sweep, 9/30); a round-one design, not yet run line by line against lines 1 to 28 (QR-G).
+CHECKLIST: passes all 30 (QR-AC line-by-line run, 10/1). Fixed in place: 9 (fight, split, or noon), 10 and 23 (a lost fight still meets the void), 12 (hand the two back), 28 (flags and saves named).
 SHOWS: a contract the WORLD VOIDS, closing clean with no deed (C14); and a decline whose job still gets done by strangers (C8)
 
 ## THE SITUATION
@@ -43,10 +43,14 @@ bucket. Take a light. Nobody's there. Mostly."
    did the walk." VOIDED. The contract closes clean: no deed, no debt, the advance is his to keep, and the bucket of
    bolts can be sold to the works directly at the day's (bust) price.
 
+IN THE DATA CENTRE (QR-AC, lines 9, 10, 12 and 23; `Q087.X4`, `Q095.X3`, `Q139.P2`): three ways: fight the scrappers; split the racks with them (they want the copper, he wants the titanium; half a bucket a night, two nights); or go at noon, when they sleep in the cold aisle (a map day, a smaller group). A LOST FIGHT sends the party back across the wash with no bucket; the void still comes, and Abel's "keep the two" still stands. THE PRICED EXIT: before the void he may hand the two back and say he will not go in; the contract closes FINISHED, no deed, no debt.
+
 ## WHAT THE LEDGERS REMEMBER
 - Declined: nothing about the player; the rocket's progress is a world fact.
 - Voided: nothing against the player. If he brought the bolts and sold them himself, that is a sale, not a deed.
 - Only a drop (walking away with the advance before the void) would have been a deed, and a debt to Abel.
+
+FLAGS AND SAVES (QR-AC, line 28; `Q123.X1`, `Q116.X1`, `Q040.X3`): writes bolts = voided_with_bucket | voided_empty | handed_back | dropped. A play-forward test sets each value and walks to every place that reads it (the rocket frame's rings, the works' price, Abel's empty bench); the save lands only at clean states: the offer screen closed, the hand-in, and the map between legs; never mid-fight and never mid-screen.
 
 ## THE ONE WRONG DETAIL
 In the dead data centre, with no power for ten years, one server fan is still turning.

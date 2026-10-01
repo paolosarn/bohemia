@@ -5,7 +5,7 @@ CRISIS: none
 ECONOMY: bust
 PLACE: two neighbouring lots on a ruined block of the family's settlement: his yard (walled, one gate) and the next lot, an empty slab where a house burned, with a dead car and a mound; on the fight board the two lots and the street between them are house-sized tiles, the mound is one of them (the one terrain effect)
 STATUS: draft:true, research only, nothing built (rule 35)
-CHECKLIST: lines 29 and 30 pass (QR-X sweep, 9/30); a round-one design, not yet run line by line against lines 1 to 28 (QR-G).
+CHECKLIST: passes all 30 (QR-AC line-by-line run, 10/1; 3, 9 and 12 read as not applicable to a main beat). Fixed in place: 5 and 18 (the act 2 landing for the kept battery, and its floor), 23 (a fight gone badly still ends in a result), 28 (flags and saves named).
 
 ## THE SITUATION
 (Swept 9/29 for VAMILY rules 38 to 40: the walked yard, one cell per press, is dead. The block is a settlement screen; the next lot is a building-slot he can tap, and tapping it into reach opens the fight board cut from these two lots. See QR-W.)
@@ -44,9 +44,15 @@ battery out before they come back with more."
 3. TAKE THE BATTERY FOR HIMSELF (only if he fought): +2 batteries, his. The sibling does not stop him,
    says nothing now, and the ledger holds it for a later act.
 
+IF IT GOES BADLY (QR-AC, line 23; `Q095.X3`, `Q146.W1`): if he taps in and the fight goes badly, the sibling still wins it, slowly, as the picture already showed; he ends hurt (the main character never dies), and the sibling's line is "You tried. Help me get the battery out before they come back with more."
+
 ## WHAT THE LEDGERS REMEMBER
 fought_first_fight: yes | no. battery: shared | sibling | his. The sibling's first line variant. No
 standing number moves in the first minute.
+
+THE LANDING AND THE FLOOR (QR-AC, lines 5 and 18; `Q121.X1`, `Q022.X2`): battery = his lands in act 2 on the family block's settlement screen, where the sibling's heir, tapped, says one past-tense line about the battery that was never shared. Shared, sibling, or unset reads nothing.
+
+FLAGS AND SAVES (QR-AC, line 28; `Q123.X1`, `Q116.X1`, `Q040.X3`): writes fought_first_fight = yes | no; battery = shared | sibling | his. A play-forward test sets each value and walks to every place that reads it (the sibling's first line, the companion's join, the act 2 heir's line); the save lands only at clean states: before the beat and after its choice is written; never mid-fight and never mid-screen.
 
 ## THE ONE WRONG DETAIL
 The scavenger who goes down first lies still, and his wristwatch keeps chiming the hour every beat.

@@ -5,7 +5,7 @@ CRISIS: none
 ECONOMY: bust
 PLACE: act 1, a scrapyard compound on a dirt track and a storm drain under the highway; act 2, the same compound, rebuilt as a depot
 STATUS: draft:true, research only, nothing built (rule 35)
-CHECKLIST: lines 29 and 30 pass (QR-X sweep, 9/30); a round-one design, not yet run line by line against lines 1 to 28 (QR-G).
+CHECKLIST: passes all 30 (QR-AC line-by-line run, 10/1). Fixed in place: 1 (the lie has a tell), 5 and 18 (the floor if act 2 comes first), 12 (the truth, priced at 2), 28 (flags and saves named).
 TWIST: T26 THE RESCUE FRAME DELIVERS THE VICTIM (bank: questbook/research/QR_C_THE_TWIST_BANK_9_27_26.md). Costs A PERSON. Lands AT HAND-IN (a hint), fully ACTS LATER.
 
 ## THE SITUATION
@@ -33,8 +33,15 @@ First line: "My sister's boy ran off. Tráemelo. He's small, he's stupid, he's f
 - B. BRING HIM, BUT TELL HIM WHERE THE ROAD EAST GOES. Paid 7. The boy runs again in a year; in act 2 he is a trader on the east road, and he knows the company.
 - C. TELL RAFA HE COULD NOT BE FOUND. Paid nothing (the fee was for the boy). The lie is written TOLD and HAPPENED against the player. In act 2 the boy is gone from the valley's records, and Rafa's yard is poorer.
 
+- D. TELL RAFA THE TRUTH: HE WON'T COME (QR-AC, line 12; `Q139.P2`). Paid 2 "for finding him"; FINISHED. The boy stays in the drain, and act 2 derives that.
+THE LIE HAS A TELL (QR-AC, line 1; `Q128.X2`): if C's lie is ever found, the player meets it at the yard gate: Rafa, feeding the dog, does not look up.
+
 ## WHAT THE LEDGERS REMEMBER
 Act 1 writes the boy's state and Rafa's standing. Act 2 reads it, derived, not scripted: the depot, the trader, or the absence. In act 2, the adult boy (or Rafa) says one plain line about the day the company came. The contract closed as FINISHED in act 1 on every branch. DECLINING LEAVES NOTHING: nobody remembers the no; the boy stays in the drain and act 2 derives from that.
+
+THE FLOOR (QR-AC, lines 5 and 18; `Q022.X2`, `Q023.X2`): if act 2 is opened before this act 1 job was taken, act 2 reads 'stayed in the drain': the depot has no night worker, Rafa's yard is poorer, and nobody mentions a company. On a set row the landing is drawn on arrival at the depot's settlement screen, the man at the gate, before any talk.
+
+FLAGS AND SAVES (QR-AC, line 28; `Q123.X1`, `Q116.X1`, `Q040.X3`): writes nephew = home | home_told_road | lied_not_found | truth_wont_come. A play-forward test sets each value and walks to every place that reads it (the act 2 depot, the east-road trader, Rafa's yard, the act 2 line); the save lands only at clean states: the offer screen closed, the hand-in, and the map between legs; never mid-fight and never mid-screen.
 
 ## THE SIGN (the world testifies first)
 In the drain the boy has a sleeping mat and a padlock on the inside of his hatch. And at the yard, the other workers are all Rafa's relatives, and none of them looks up.

@@ -5,7 +5,7 @@ CRISIS: the whisper broadcast
 ECONOMY: bust
 PLACE: a pump house on the dam road that feeds a hydroponic shed and a clinic on the same line
 STATUS: draft:true, research only, nothing built (rule 35)
-CHECKLIST: lines 29 and 30 pass (QR-X sweep, 9/30); a round-one design, not yet run line by line against lines 1 to 28 (QR-G).
+CHECKLIST: passes all 30 (QR-AC line-by-line run, 10/1; lines 3, 9 and 12 read as not applicable to a road event; 11 is the free KEEP MOVING). Fixed in place: 26 (his one laugh), 28 (flags and saves named).
 SHAPE: E6, THE LIGHTS GO DOWN WHILE YOU PASS (QR-B)
 
 ## THE SITUATION
@@ -27,12 +27,16 @@ First line: "Pick one. I've been picking all week, and I'm tired of it being me.
    time you arrive.
 3. KEEP MOVING. He picks. The player never learns which until the feed says.
 
+One warm beat (QR-AC, line 26; `Q030.X2`): if the company lends the batteries, he laughs once, the first time all week, and turns his headlamp off to save it.
+
 ## WHAT THE LEDGERS REMEMBER
 - Batteries (choice 1).
 - Standing with the faction holding that line.
 - The grid ledger: which load held.
 - The valley's food price or a person's health, one trip later.
 - The broadcast's power ledger (choice 1), a small debt the reckoning reads.
+
+FLAGS AND SAVES (QR-AC, line 28; `Q123.X1`, `Q116.X1`, `Q040.X3`): writes brownout_pump = lent | clinic | shed | his_pick. A play-forward test sets each value and walks to every place that reads it (the feed's named patient or the town's food price one trip later, the broadcast power ledger); the save lands only at clean states: before the event screen opens and after it closes; never mid-choice and never mid-fight.
 
 ## THE NARRATOR
 Read over the event screen in the machine voice (rule 45: too even, tape and room, a little wrong; never in the first minute; people on the screen still speak in the squiggle): "The pump can hold one of two things. It has held both for as long as it could."

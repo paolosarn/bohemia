@@ -6,7 +6,7 @@ CRISIS: none (the ghost; the secret strand's first step)
 ECONOMY: either
 PLACE: a storm-tunnel mouth in the wash, where a tunnel camp lives above the dry dark
 STATUS: draft:true, research only, nothing built (rule 35)
-CHECKLIST: lines 29 and 30 pass (QR-X sweep, 9/30); a round-one design, not yet run line by line against lines 1 to 28 (QR-G).
+CHECKLIST: passes all 30 (QR-AC line-by-line run, 10/1; 3, 9 and 12 read as not applicable to a main beat). Fixed in place: 11 (she spoke when he stood still, a walk-era trigger; now when tapped), 28 (flags and saves named).
 
 ## THE SITUATION
 Shaped from the ACT1 AMALGAMATION IS A GHOST law: the tunnel people live directly above the thing
@@ -17,7 +17,7 @@ visible main thread of act 1 while it is open, and it waits forever (research ru
 
 ## THE PERSON AND THE FIRST LINE
 An old woman who runs the camp's water, phoneless, Spanglish, runway-dressed in scavenged layers
-(name and look: Paolo's). She does not speak until the player stands still near her fire. Her first
+(name and look: Paolo's). She does not speak until the player taps her fire on the tunnel camp's settlement screen (QR-AC, line 11, rule 38: the walk is dead; not tapping is the free no). Her first
 line: "You can sleep down here, mijo. Everybody sleeps down here. Nobody looks."
 
 ## THE CHOICES
@@ -36,6 +36,8 @@ line: "You can sleep down here, mijo. Everybody sleeps down here. Nobody looks."
 Proximity heat (choice 1 or 3). Unrecorded: who went down together. The camp's standing if the
 family slept there. A player who never looks is never hunted in act 1 (threat-logic addendum). This
 is a main beat, so "declining" here is choice 2, and it leaves no penalty either.
+
+FLAGS AND SAVES (QR-AC, line 28; `Q123.X1`, `Q116.X1`, `Q040.X3`): writes tunnel_look = looked | slept | looked_with_sibling; heat_step. A play-forward test sets each value and walks to every place that reads it (the road-home accident, the camp's small contracts, the sibling's 'I saw it too'); the save lands only at clean states: before the beat and after its choice is written; never mid-fight and never mid-screen.
 
 ## THE ONE WRONG DETAIL
 The tunnel is bone dry and the walls are warm to the touch, like a house with the heat on.

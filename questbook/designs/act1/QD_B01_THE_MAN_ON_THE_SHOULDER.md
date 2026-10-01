@@ -5,7 +5,7 @@ CRISIS: none
 ECONOMY: bust
 PLACE: a dirt road off the highway, east of the valley, beside a burned-out bus shelter; tracks of a small party end fifty metres back
 STATUS: draft:true, research only, nothing built (rule 35)
-CHECKLIST: lines 29 and 30 pass (QR-X sweep, 9/30); a round-one design, not yet run line by line against lines 1 to 28 (QR-G).
+CHECKLIST: passes all 30 (QR-AC line-by-line run, 10/1; lines 3, 9 and 12 read as not applicable to a road event; 11 is the free KEEP MOVING). Fixed in place: 15 (the bottle that rolls with the glance), 23 (the lost bait fight has a result), 28 (flags and saves named).
 SHAPE: E1, THE ONE ON THE SHOULDER (QR-B)
 
 ## THE SITUATION
@@ -29,6 +29,9 @@ First line: "Hermano. Just the leg. I'm not asking for the truck."
    behind the shelter once, and the player can read it and leave.
 3. KEEP MOVING. Costs nothing. Nobody curses you. The party rolls on.
 
+THE TELL IN TWO CHANNELS (QR-AC, line 15; `Q141.X3`): in the bait version the glance behind the shelter comes with a sound on the same beat, a bottle rolling on concrete back there.
+A LOST BAIT FIGHT (QR-AC, line 23; `Q095.X3`, `Q146.W1`): the three strip a quarter of the batteries carried and leave on foot, and the man goes with them; a struck-down brother takes the rule 36 roll (20% dead, else the long injury); the party rolls on. A result, never a reload.
+
 ## WHAT THE LEDGERS REMEMBER
 - Batteries or medicine spent (choice 1).
 - People: a recruit, or a wounded brother (choice 1, bait).
@@ -37,6 +40,8 @@ First line: "Hermano. Just the leg. I'm not asking for the truck."
   stranger on the east road. Still happens." Honest and passed: nothing, ever. Bait and survived: the robbing party
   becomes a named party on the map with a grudge (`Q087.W5`).
 - Keep moving writes nothing.
+
+FLAGS AND SAVES (QR-AC, line 28; `Q123.X1`, `Q116.X1`, `Q040.X3`): writes shoulder_e1 = treated_honest | treated_bait | called_out | passed. A play-forward test sets each value and walks to every place that reads it (the feed post two trips later, the named party on the map, QD-B08 in act 3); the save lands only at clean states: before the event screen opens and after it closes; never mid-choice and never mid-fight.
 
 ## THE NARRATOR
 Read over the event screen in the machine voice (rule 45: too even, tape and room, a little wrong; never in the first minute; people on the screen still speak in the squiggle): "A man is resting by the road. He has done a very good job with the belt."

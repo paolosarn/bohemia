@@ -5,7 +5,7 @@ CRISIS: none
 ECONOMY: either
 PLACE: a housing office in a reclaimed casino lobby, and a single-storey house on a residential grid street
 STATUS: draft:true, research only, nothing built (rule 35)
-CHECKLIST: line 29 passes; BENDS LINE 30 ON PURPOSE (QR-X, 9/30): the test twist (T04) rewards the kind doors with a standing contract, but the fee is locked at the offer and the reward is unknowable before the choice, so the fork is not bought; the refund of the 6 was cut so no branch nets a bonus in batteries. A round-one design, not yet run line by line against lines 1 to 28 (QR-G).
+CHECKLIST: passes 29 of 30 (QR-AC line-by-line run, 10/1); bends 30 on purpose, as QR-X set it: the test twist (T04) rewards the kind doors with a standing contract, but the fee is locked at the offer and the reward cannot be known before the choice, so the fork is not bought; the refund of the 6 stays cut. Lines 1 to 28 pass as written. Fixed in place: 28 (flags and saves named).
 TWIST: T04 THE JOB WAS A TEST, AND THE PASS WAS NO (bank: questbook/research/QR_C_THE_TWIST_BANK_9_27_26.md). Costs NOTHING. Lands AT HAND-IN.
 
 ## THE SITUATION
@@ -37,6 +37,8 @@ At the hand-in, Duarte pays all three the 8 batteries (the fee was locked). Then
 
 ## WHAT THE LEDGERS REMEMBER
 The office's opinion of the company (a standing contract or not). The family's fate on the map. The contract is FINISHED on every branch: the hand-in is the finish. DECLINING LEAVES NOTHING: nobody remembers the no, and the office does not treat a declined offer as a failed test.
+
+FLAGS AND SAVES (QR-AC, line 28; `Q123.X1`, `Q116.X1`, `Q040.X3`): writes orchard_door = put_out | paid_rent | came_back; office_standing_contract = yes | no. A play-forward test sets each value and walks to every place that reads it (the office's next offers, the family's camp on the map); the save lands only at clean states: the offer screen closed, the hand-in, and the map between legs; never mid-fight and never mid-screen.
 
 ## THE SIGN (the world testifies first)
 The rent ledger Duarte hands over has the Orchard Street address already written out, in several different crews' handwriting, each crossed out.

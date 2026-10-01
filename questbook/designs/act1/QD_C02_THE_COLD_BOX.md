@@ -5,7 +5,7 @@ CRISIS: none
 ECONOMY: bust
 PLACE: a clinic run out of a tyre shop on a paved road, and a squatted apartment block three streets away (the job's place; one house tile if it comes to a fight)
 STATUS: draft:true, research only, nothing built (rule 35)
-CHECKLIST: lines 29 and 30 pass (QR-X sweep, 9/30); a round-one design, not yet run line by line against lines 1 to 28 (QR-G).
+CHECKLIST: passes all 30 (QR-AC line-by-line run, 10/1). Fixed in place: 1 (the lie has a tell), 5 and 18 (the act 2 landing and its floor), 10 and 23 (a lost fight at the squat), 15 (the compressor hum), 28 (flags and saves named).
 TWIST: T23 THE THING YOU WERE SENT FOR IS A PERSON (bank: questbook/research/QR_C_THE_TWIST_BANK_9_27_26.md). Costs A PERSON. Lands MID-JOB.
 
 ## THE SITUATION
@@ -32,11 +32,20 @@ First line: "Somebody took my cold box. Diez baterías if it comes back. I don't
 - B. LEAVE THE BOX, REPORT IT LOST. Cost: 10 batteries of fee; the lie to Vela is written TOLD and HAPPENED (she may learn it later). The contract closes as FINISHED with a false report.
 - C. BRING THE MOTHER TO THE CLINIC. Tell Vela the truth and walk the mother over. Cost: TIME (a day on the map) and 4 batteries: Vela takes the boy on as a patient but charges for the cold. The fee is paid, minus the charge. Closes as FINISHED.
 
+A LOST FIGHT (QR-AC, lines 10 and 23; `Q095.X3`): if it comes to a fight at the squat and the company loses, it is put down the stairs; the box stays; Vela pays nothing and the contract closes FAILED WHILE TRYING.
+
 ## WHAT THE LEDGERS REMEMBER
 A: Vela's standing up, the boy's household gone from the block. B: a told/happened pair against the player, discoverable later with a small chance (a clinic worker sees the box in the squat). C: the boy is a clinic patient; in act 2 he is an adult with Vela's clinic, derived from this ledger. DECLINING LEAVES NOTHING: nobody remembers the no; the box stays where it is.
 
+THE LIE HAS A TELL (QR-AC, line 1; `Q128.X2`): if a clinic worker sees the box, the player meets it at the clinic: Vela turns one page back in her ledger and says the squat's address, nothing else.
+THE LANDING AND THE FLOOR (QR-AC, lines 5 and 18; `Q121.X1`, `Q022.X2`): the act 2 landing is drawn on arrival at Vela's clinic, the boy grown and at the counter. If the row is unset (act 1 never reached this job), or A or B, a different young clerk sits there and nothing reads it.
+
+FLAGS AND SAVES (QR-AC, line 28; `Q123.X1`, `Q116.X1`, `Q040.X3`): writes cold_box = returned | reported_lost | mother_brought | failed; told_happened pair on B. A play-forward test sets each value and walks to every place that reads it (the clinic worker's chance, Vela's ledger, the act 2 clinic counter); the save lands only at clean states: the offer screen closed, the hand-in, and the map between legs; never mid-fight and never mid-screen.
+
 ## THE SIGN (the world testifies first)
 In the squat's stairwell there are insulin pen caps on the landing, one per floor, all the way up.
+
+The cold box's compressor hums down the stairwell, louder each floor (QR-AC, line 15; `Q141.X3`: the sign is seen and heard).
 
 ## THE ONE WRONG DETAIL
 The boy is sleeping with his arm around the cold box like it is a dog.

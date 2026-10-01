@@ -6,7 +6,7 @@ CRISIS: none yet (the build-up to the whisper broadcast)
 ECONOMY: boom (the world clawing back; people have something to lose again)
 PLACE: the family's door, at the edge of a reclaimed street, at night during a brownout
 STATUS: draft:true, research only, nothing built (rule 35)
-CHECKLIST: lines 29 and 30 pass (QR-X sweep, 9/30); a round-one design, not yet run line by line against lines 1 to 28 (QR-G).
+CHECKLIST: passes all 30 (QR-AC line-by-line run, 10/1; 3, 9 and 12 read as not applicable to a main beat). Fixed in place: 28 (flags and saves named).
 
 ## THE SITUATION
 Shaped from the story master (act 2 ends with the whisper broadcast), GDD v2 (the whisper network
@@ -37,6 +37,8 @@ my people once, so I'm going to tell you something."
 ## WHAT THE LEDGERS REMEMBER
 Hands in the unrecorded ledger (the count the act 2 finale reads). Heat. The new offer. Declined
 contracts from any act are never a hand and never mentioned; only work done in person counts.
+
+FLAGS AND SAVES (QR-AC, line 28; `Q123.X1`, `Q116.X1`, `Q040.X3`): writes hands = n, unrecorded; visitor = derived_client | stranger; met = here | tunnels | sent_home. A play-forward test sets each value and walks to every place that reads it (the act 2 finale's count, the new offer in another faction's place, the heat); the save lands only at clean states: before the beat and after its choice is written; never mid-fight and never mid-screen.
 
 ## THE ONE WRONG DETAIL
 When the lights come back, the family's phone, face down on the table the whole time, shows a

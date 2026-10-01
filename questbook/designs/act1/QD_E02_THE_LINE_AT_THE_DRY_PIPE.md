@@ -5,7 +5,7 @@ CRISIS: the Destroyers
 ECONOMY: bust
 PLACE: a standpipe and pump shed on a residential block below the dam road; a queue of people with jugs (PL03, THE QUEUE, and PL05, THE DRY TAP)
 STATUS: draft:true, research only, nothing built (rule 35)
-CHECKLIST: lines 29 and 30 pass (QR-X sweep, 9/30); a round-one design, not yet run line by line against lines 1 to 28 (QR-G).
+CHECKLIST: passes all 30 (QR-AC line-by-line run, 10/1). Fixed in place: 9 (fight, half-share, or night), 10 and 23 (a lost fight has a result), 12 (name who is on the wheel), 28 (flags and saves named).
 
 ## THE SITUATION
 Act 1. The water share holds at the dam, but this block's valve, three blocks up the wash, has been
@@ -45,12 +45,16 @@ WITHHELD: that it has been turned off three times this month, and that the peopl
    Next time the player passes, the line is still there, one person shorter or longer, and Teo still asks
    if tapped.
 
+AT THE RED WHEEL (QR-AC, lines 9, 10, 12 and 23; `Q087.X4`, `Q095.X3`, `Q139.P2`): three ways: fight the group on the wheel; talk, because they are the block up the wash, which loses pressure when this valve runs, and the wheel can be chained at half (both blocks run slow; the same 1 WATER); or come back at night when two of the five are asleep (a smaller group, a map day later). A LOST FIGHT leaves the pipe dry, FAILED WHILE TRYING, and the line still standing. THE PRICED EXIT: he may come back and name who is on the wheel; Teo pays nothing, writes the names, and the contract closes FINISHED.
+
 ## WHAT THE LEDGERS REMEMBER
 Declining leaves nothing. TAKEN: contract row. DONE: the pipe runs (water sprite, sound of
 real water, never noise), the line moves and thins, and the Destroyers' ledger counts one reversal
 against them on this block (the Act 1 climax is procedural, builders vs Destroyers; this is one builder
 tick). DROPPED: a deed, and the line is still standing when he next passes, which is the only comment
 the world makes.
+
+FLAGS AND SAVES (QR-AC, line 28; `Q123.X1`, `Q116.X1`, `Q040.X3`): writes dry_pipe = fought | half_share | night | named | failed | dropped. A play-forward test sets each value and walks to every place that reads it (the queue on the settlement screen, the water sound, the Destroyers' ledger on this block); the save lands only at clean states: the offer screen closed, the hand-in, and the map between legs; never mid-fight and never mid-screen.
 
 ## THE ONE WRONG DETAIL
 The eleventh person in the line has no jug, and has been eleventh every time you pass.

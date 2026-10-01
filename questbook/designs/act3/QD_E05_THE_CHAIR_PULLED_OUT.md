@@ -5,7 +5,7 @@ CRISIS: the Network crumbling
 ECONOMY: boom
 PLACE: a reclaimed 24-hour diner on Fremont, clean and bright; one booth set for two, one chair pulled out, a screen on the wall of the booth (PL11, THE TABLE SET FOR SOMEONE)
 STATUS: draft:true, research only, nothing built (rule 35)
-CHECKLIST: lines 29 and 30 pass (QR-X sweep, 9/30); a round-one design, not yet run line by line against lines 1 to 28 (QR-G).
+CHECKLIST: passes all 30 (QR-AC line-by-line run, 10/1). Fixed in place: 5 and 18 (the earlier-act landing and its floor), 9 (road, tunnels, or the registrar first), 12 (bring the drive back), 23 (a lost fight costs the day), 28 (flags and saves named).
 
 ## THE SITUATION
 Act 3, cyberpunk healing: the valley is reclaimed and techy, and the Network is crumbling as the rocket
@@ -46,12 +46,18 @@ on it. She knows. She has not decided whether that is what she wants.
 3. NO. "Of course." She turns back to the screen. Nothing is written; the booth stays set, and on later
    passes she is still there, and the portrait flickers a little more each time the Network loses ground.
 
+THE ROAD TO THE YARD (QR-AC, lines 9, 12 and 23; `Q087.X4`, `Q139.P2`, `Q095.X3`): three ways: the paved road (fast; the drive draws the Network's attention, a fight on the fight board); the tunnels (a day slower; underground the pull drops, the blind spot of the unrecorded); or the registrar's gate first (the manifest side route). A LOST FIGHT turns the party back with the drive still in the pocket; nothing is lost but the day. THE PRICED EXIT: he may bring the drive back to her booth and say he will not carry him; she takes it, pays nothing, and the contract closes FINISHED.
+
 ## WHAT THE LEDGERS REMEMBER
 Declining leaves nothing. DONE: at the relay the loader scans the drive and it is either carried up
 (if the player got the name onto the manifest, a side route the loader says out loud at the relay: "Not on the manifest, it gets wiped. Registrar's at the gate." QR-G line 29: the better ending is reached by understanding, never by a guide) or wiped; either way the contract pays,
 because the job was carrying it. Back at the diner the screen is dark and the chair is pushed in. DROPPED:
 a deed, and the drive is in the player's pocket until he puts it somewhere. The fold records which, for
 the act 1 and act 2 descendants to find if the flip takes them to the same diner in an earlier era.
+
+THE LANDING AND THE FLOOR (QR-AC, lines 5 and 18; `Q121.X1`, `Q022.X2`): if the flip takes the family to this diner in an earlier act, the booth draws the man himself, alive, and the landing is one thing on the table: the deck-of-cards drive, new, still in its wrapper. With no fold row, the earlier diner is a diner and nothing reads it.
+
+FLAGS AND SAVES (QR-AC, line 28; `Q123.X1`, `Q116.X1`, `Q040.X3`): writes calloway_drive = carried_up | wiped | handed_back | dropped; pay = clout | battery. A play-forward test sets each value and walks to every place that reads it (the diner's screen and chair, the feed, the earlier-act booth); the save lands only at clean states: the offer screen closed, the hand-in, and the map between legs; never mid-fight and never mid-screen.
 
 ## THE ONE WRONG DETAIL
 When Inés blinks, the man on the screen blinks too, a beat late.

@@ -5,7 +5,7 @@ CRISIS: none
 ECONOMY: bust
 PLACE: a ruined street corner: a street with its sidewalks, a crushed car, a public charge post with six sockets, a pump house down the road (on the fight board, about five house-sized tiles: the corner, the car, two street tiles, the pump house)
 STATUS: draft:true, research only, nothing built (rule 35)
-CHECKLIST: lines 29 and 30 pass (QR-X sweep, 9/30); a round-one design, not yet run line by line against lines 1 to 28 (QR-G).
+CHECKLIST: passes all 30 (QR-AC line-by-line run, 10/1). Fixed in place: 1 (the cord has a tell), 10 and 23 (a lost push has a result), 12 (stop at the car), 22 and 26 (the full drum, the companion drinks first), 28 (flags and saves named).
 
 ## THE SITUATION
 (9/28: the second-by-second walk was the round-one front door. Swept 9/29 for VAMILY rules 38 to 40: the walk is dead; the first sixty seconds are the settlement screen, and the push after ACCEPT is played on the fight board, house-sized tiles cut from this corner. See QR-P and QR-W.)
@@ -51,10 +51,18 @@ that is has been charging for six hours. I don't have six hours. Can you push?"
    himself instead. Pays 1 battery and she stays; the man whose cord it was will notice later.
 3. DECLINE (walk on). Nothing. She is on her bucket the next time he opens the settlement, same building, same line.
 
+A LOST PUSH (QR-AC, lines 10 and 23; `Q095.X3`): the scavengers take her cart battery; she keeps the drum; nothing is paid; FAILED WHILE TRYING, and she is on her bucket at the post next visit.
+THE PRICED EXIT (QR-AC, line 12; `Q139.P2`): he may push her as far as the crushed car and stop; she pays nothing, pushes the rest herself, and the contract closes FINISHED.
+
 ## WHAT THE LEDGERS REMEMBER
 The cable (taken or left) and, if taken, whether it was used on the post. The contract: taken and
 finished, or taken and dropped (a deed: she is not at the post again). DECLINING LEAVES NOTHING: no row,
 no line, no look.
+
+THE CORD HAS A TELL (QR-AC, line 1; `Q128.X2`): if he used the cable, the next visit shows the man at the post holding his unplugged cord, asking the corner, out loud, who did it.
+DONE, SHOWN (QR-AC, lines 22 and 26; `Q078.X2`, `Q030.X2`): on the next visit her drum is full in the pump house line, and she lets the companion drink first.
+
+FLAGS AND SAVES (QR-AC, line 28; `Q123.X1`, `Q116.X1`, `Q040.X3`): writes corner_cable = taken | left; cable_used = yes | no; nina_push = done | jumped | half | failed | dropped. A play-forward test sets each value and walks to every place that reads it (the man with the cord, Nina at the post or in the pump line); the save lands only at clean states: the offer screen closed, the hand-in, and the map between legs; never mid-fight and never mid-screen.
 
 ## THE ONE WRONG DETAIL
 The charge post's little screen shows the full-charge icon on all six sockets, five of them with nothing

@@ -5,7 +5,7 @@ CRISIS: none
 ECONOMY: either
 PLACE: the family house from QD-F01 and its block, derived from the act 1 ledgers, a building on the family block's settlement screen
 STATUS: draft:true, research only, nothing built (rule 35)
-CHECKLIST: lines 29 and 30 pass (QR-X sweep, 9/30); a round-one design, not yet run line by line against lines 1 to 28 (QR-G).
+CHECKLIST: passes all 30 (QR-AC line-by-line run, 10/1; 3, 9 and 12 read as not applicable to a main beat). Fixed in place: 28 (flags and saves named).
 
 ## THE SITUATION
 (Swept 9/29 for VAMILY rules 38 to 40: no flip at the start, the walk is dead, the company inherits. See QR-W.)
@@ -52,6 +52,8 @@ one before you stood right there, the morning after they took the box. Didn't sa
 ## WHAT THE LEDGERS REMEMBER
 Act 2's own ledger, laid on top (three acts law s2c): frame taken or left. Nothing from act 1 is
 rewritten by this minute.
+
+FLAGS AND SAVES (QR-AC, line 28; `Q123.X1`, `Q116.X1`, `Q040.X3`): writes frame = taken | left. A play-forward test sets each value and walks to every place that reads it (the past-tense line from anyone who knew the act 1 family by face); the save lands only at clean states: before the beat and after its choice is written; never mid-fight and never mid-screen.
 
 ## THE ONE WRONG DETAIL
 The stove clock in the new kitchen is blinking 12:00, on a stove that was bought twenty years after the

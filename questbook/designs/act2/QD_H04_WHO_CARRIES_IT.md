@@ -6,7 +6,7 @@ CRISIS: the whisper broadcast, and the earth-side nuke behind it
 ECONOMY: either
 PLACE: a pump house on the dam road, the one place every faction's share of power and water meets
 STATUS: draft:true, research only, nothing built (rule 35)
-CHECKLIST: lines 29 and 30 pass (QR-X sweep, 9/30); a round-one design, not yet run line by line against lines 1 to 28 (QR-G).
+CHECKLIST: passes all 30 (QR-AC line-by-line run, 10/1; 3, 9 and 12 read as not applicable to a main beat). Fixed in place: 5 and 18 (the floor if act 3 comes first), 26 (the name written twice on the carton), 28 (flags and saves named).
 
 ## THE SITUATION
 Shaped from the story master's act 2 end: the whisper broadcast goes out, the family stops the
@@ -35,10 +35,16 @@ trusts and why (the contract that made them a hand). Then one final choice:
    the nuke; the companion goes there instead. Gain: the faction that trusts no one hears it from a
    face.
 
+One warm beat (QR-AC, line 26; `Q030.X2`): at the bottom of the carton the companion has written his own name, crossed it out, and written it again.
+
 ## WHAT THE LEDGERS REMEMBER
 Who carried what, who lived, which factions heard first. This roll call decides the act 3 path
 (conversion or war, per the moonshot law) and which stances stay reachable. Contracts that were
 declined in any act simply are not on the carton.
+
+THE FLOOR (QR-AC, lines 5 and 18; `Q022.X2`): if act 3 is opened before this night, the act 3 path reads as unset and takes the moonshot law's default; the carton is blank and nobody in act 3 names a carrier.
+
+FLAGS AND SAVES (QR-AC, line 28; `Q123.X1`, `Q116.X1`, `Q040.X3`): writes carriers = post by post; casting = all_at_once | one_home | heir_hardest; lost = names. A play-forward test sets each value and walks to every place that reads it (the act 3 path, which stances stay reachable, every faction's first hearing); the save lands only at clean states: before the beat and after its choice is written; never mid-fight and never mid-screen.
 
 ## THE ONE WRONG DETAIL
 The pump house's intake log, on paper, already lists tonight's visitors by name in the heir's own

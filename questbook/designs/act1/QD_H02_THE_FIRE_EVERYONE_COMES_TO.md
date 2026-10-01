@@ -6,7 +6,7 @@ CRISIS: the Destroyers (placeholder name, Paolo's)
 ECONOMY: either
 PLACE: the family's block, around one burning barrel in the street, with the map showing parties converging
 STATUS: draft:true, research only, nothing built (rule 35)
-CHECKLIST: lines 29 and 30 pass (QR-X sweep, 9/30); a round-one design, not yet run line by line against lines 1 to 28 (QR-G).
+CHECKLIST: passes 29 of 30 (QR-AC line-by-line run, 10/1; 3, 9 and 12 read as not applicable to a main beat); bends 13 on purpose: the roll call is more than three lines before the choice, because the count said aloud, one face and one job at a time, is the payoff (`Q136.W10`, `Q136.X5`); the neighbour himself says one line. Fixed in place: 5 and 18 (the floor if a later act comes first), 11 (the walk to the fire became a tap), 28 (flags and saves named).
 
 ## THE SITUATION
 Shaped from the ACT1 PROCEDURAL ENDING law. Near the end of act 1 the scattered wreckers COALESCE
@@ -14,7 +14,7 @@ into one recognizable force for the first time. Every faction hates them, even t
 is the DOOR to the procedural climax, not the climax: it is the night the rival factions come to one
 fire and decide whether to stand together. Which of the nine approved elements fires next is the
 generator's (from how the player built, raced for pseudo-mayor, and chose factions); this design
-picks none. The beat opens when the player walks to the fire; the force on the map moves by the
+picks none. The beat opens when the player taps the barrel on the family block's settlement screen (rule 38); the force on the map moves by the
 city strand's own rules, whether or not the player comes.
 
 ## THE PERSON AND THE FIRST LINE
@@ -40,6 +40,10 @@ contracts the player TOOK and finished; a declined job never appears and nobody 
 Which choice; who spoke at the fire (the roll call becomes rows of standing); what was spent. The
 act 2 and act 3 cities derive from it (a held block becomes a reclaimed district). Nothing about a
 declined contract is written anywhere.
+
+THE FLOOR (QR-AC, lines 5 and 18; `Q022.X2`, `Q096.X1`): if act 2 or 3 is opened before this night, they derive it as unset: the generator's own read of the act 1 climax with no coalition, the family's block neither the seat nor fallen, and nobody later names a speech at a fire.
+
+FLAGS AND SAVES (QR-AC, line 28; `Q123.X1`, `Q116.X1`, `Q040.X3`): writes fire_stand = lead | own_street | other_walls; roll_call = n rows. A play-forward test sets each value and walks to every place that reads it (the act 1 climax generator, the act 2 and act 3 city derives); the save lands only at clean states: before the beat and after its choice is written; never mid-fight and never mid-screen.
 
 ## THE ONE WRONG DETAIL
 One of the wreckers in the far firelight is wearing the family's dead sibling's jacket, and nobody

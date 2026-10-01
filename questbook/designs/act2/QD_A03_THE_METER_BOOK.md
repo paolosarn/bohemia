@@ -3,9 +3,9 @@ ACT: 2
 KIND: contract
 CRISIS: none
 ECONOMY: bust
-PLACE: a neighbourhood substation behind a chain-link fence; the route is forty houses on four streets
+PLACE: a neighbourhood substation behind a chain-link fence; the route is forty houses on the four sides of one block (QR-AC, line 8: one block, cut as the fight board)
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
-CHECKLIST: lines 29 and 30 pass (QR-X sweep, 9/30); a round-one design, not yet run line by line against lines 1 to 28 (QR-G).
+CHECKLIST: passes all 30 (QR-AC line-by-line run, 10/1). Fixed in place: 1 (the low reading has a tell), 8 (four sides of one block), 9 (three ways round), 12 (the half book), 22 (the chalked schedule), 28 (flags and saves named).
 SHOWS: the "BENEATH YOU / LOW PAY" no; and a contract that is EXACTLY WHAT IT SAYS (C7, C15)
 
 ## THE SITUATION
@@ -43,6 +43,9 @@ Usually."
    C16). A woman who wants her number read out loud because she cannot see it. A dog. Done: one battery and the
    schedule. COST: a map day.
 
+THREE WAYS ROUND THE BLOCK (QR-AC, line 9; `Q087.X4`, `Q079.W6`): door by door; the substation's old feeder log for the back side's ten houses (half a day saved, but the log is a year old and the clerk can tell, `Q148.P2`); or pay the block's kids 1 FOOD a side to shout the dials over the fences.
+THE PRICED EXIT (QR-AC, line 12; `Q139.P2`): he may hand the book back half done; she pays nothing for half a book and the contract closes FINISHED, not dropped.
+
 ## WHAT THE LEDGERS REMEMBER
 - Declined: nothing about the player. Somebody's cousin reads the route; the schedule is set either way.
 - Done honestly: a small deed, and the clerk's door stays open for better route work later.
@@ -50,6 +53,11 @@ Usually."
   that street in a later round, the gap can surface. Nobody tells the player that now.
 
 THE FREE NO HAS A FLOOR (QR-A C19, rule 47): declining costs nothing on the treasury either; SCAVENGE on this settlement screen covers the company's keep in FOOD and WATER at a thin margin, so one declined offer never forces the next yes (`Q236.X4`).
+
+THE LIE HAS A TELL (QR-AC, line 1; `Q128.X2`, `Q071.P9`): if the audit ever finds the low reading, the player meets it: Marisol at the gate with the book open at that page, saying the man's name, not the player's.
+DONE, SHOWN (QR-AC, line 22; `Q078.X2`): the next brownout schedule is chalked on the substation gate in her hand.
+
+FLAGS AND SAVES (QR-AC, line 28; `Q123.X1`, `Q116.X1`, `Q040.X3`): writes meter_route = done | half | dropped; meter_low_read = yes | no; feeder_log_used = yes | no. A play-forward test sets each value and walks to every place that reads it (the district audit, the chalk on the gate, her later route offers); the save lands only at clean states: the offer screen closed, the hand-in, and the map between legs; never mid-fight and never mid-screen.
 
 ## THE ONE WRONG DETAIL
 House thirty-one's meter reads the same number every time anyone checks, and no wire runs to the house.
