@@ -34604,6 +34604,61 @@ since 9/6, it also holds 19 QUESTS (BUILD). The front page's chat-19 line says a
 chat with an empty queue takes QUESTS, and DYNASTY's queue went empty at Q16. The
 lane and its first row were claimed and pushed BEFORE any work started. ***
 
+ROUND 60 [heirs] THE COMPANY INHERITS. YOUR PEOPLE HAVE KIDS AND THEY ARE THE NEXT ACT'S COMPANY. (BUILD)
+DYNASTY, BUILD, rule 39d. Claimed and pushed as its own commit BEFORE work (rule 5). TAB: the phone on
+the map in the alpha (standing in act 2 or 3, a row says HEIRS); the picture is in the VOTE tab
+(dynasty-heirs-10-1). RECORD: records/BOHEMIA_DYNASTY_HEIRS_10_1_26.md. BUILD 10/1c.
+
+WHY NOT THE FIRST OPEN LINE (said): [grok lore] was first. It is a standing trigger ("when a ruling arrives
+marked via Grok, run the lore-yap test"). 0 records or laws carry that mark; the one Grok page (branch grok,
+not on main, not through EYES' filter) is Grok's own findings, not a ruling, so nothing was cited. It stays
+OPEN and waits. If the coordinator wants it closed or reworded, that is the coordinator's row to change.
+
+WHAT SHIPPED: engine/bohemia_heirs.js (pure, no clock, no dice, inlined verbatim in the city).
+heirs(ledger, act), roster, line (SURVIVED / LONG_ENOUGH 60 days / FAMILY / DIED_TOO_SOON; the main man is
+never an heir), heirOf (key H2:parent; the parent's surname only if his name was earned; age 15 to 35;
+about half the traits; the family's gear; the parent's look to descend from; half the strength), the
+writers died / note / recruit, orphans (what stays done), save / load (what HAPPENED is kept, never the
+heirs). ROWS are TUNING [recruit odds]'s to replace (60 days, 15-35, half, 12 an act), draft:true.
+The city: ctHeirMembers (act 1's company LIVE from ctYours), ctHeirs, ctHeirRoster, ctHeirDied, ctHeirLedger,
+ctPersonByKey; the phone row #actheirs (acts 2 and 3 only, a readout not a button); the city's save carries
+`heirs` (events only). GATE gates/heirs_gate.js 83/0 registered as HEIRS, mutation-proved seven ways
+(--headless runs the controls in a second). The five rules of the three-acts law s12 are one leg each.
+
+MEASURED FIRST (rule 12): (1) the company has NO roster by design, so the heirs are a function and only the
+act's events are kept. (2) NOBODY CAN DIE in the walked game (bohemia_down.js, 9/11; his 9/27 twenty percent
+is unbuilt), so the death/day/family clauses are proved on the ledger input and idle on the street.
+(3) A person has no age, hire day, gear or family flag. (4) The ground does not move on a flip, so the heirs
+have no house and no body: names, ages, traits and a look. (5) A bonded person is usually six neighbourhoods
+away; ctEveryone() is the 3x3 around the player, so the first cut handed the derive nobody (the gate caught
+it). ctPersonName has the SAME blind spot (nothing for that man): QUESTS / PEOPLE's seam.
+
+DEFAULTS I DECIDED (draft, in the VOTE item): an heir of a survivor is an APPRENTICE, of a man who fell a
+KID (flavour); an heir starts with half the parent's strength; over 12 lines the strongest 12 get the room and
+the rest are CROWDED_OUT until a later derive; a parent never asked leaves no surname to carry; the row shows
+names and ages only.
+
+ROUTED: COMBAT / TUNING (call ctHeirDied the day somebody can fall for good; replace BohemiaHeirs.ROWS with
+[recruit odds]); QUESTS / PEOPLE (stamp the day a bond starts, the 60-day clause reads `since`; fix
+ctPersonName for a person away from you); UI [roster] (the heir line reads ctHeirRoster(act)); PORTRAIT
+(every heir carries lookFrom and lookSeed); WORLD (the heirs need houses in act 2 and 3's city, keys H2:...
+and H3:H2:...); FACTIONS / RUN (still owed: ctActUnlock(2) when the first base is his).
+[PENDING Paolo], NONE BLOCKING: are 60 days, 15 to 35 years old, half the traits and twelve an act right?
+
+NEXT for DYNASTY, checked on the live board: [the frame] (SCHOOL ONLY, three shapes of what the flip is in the
+story, default A), then the Q-list from [old body] Q19. [grok lore] stays OPEN (a trigger, nothing to test).
+Two orphaned QUESTS rows ([light the pump], [main quest live]) are STILL CLAIMED under this session and
+un-buildable under rule 35: not touched, re-flagged for the coordinator.
+
+PRE-PUSH PASS (rule 13, run on the committed and rebased tree, then compared with a clean worktree of main): GREEN: HEIRS 83/0,
+ONE THEN HEIRS 97/0, THE FLIP 23/0, THREE NAMES 31/0, VOTE TAB 31/0, MERGE DEBRIS, ENGINE SYNC, ENGINE CENSUS, ACT STAMP,
+THREE ACTS 28/0, REPLY CONTRACT, CANON ROT. RED, AND RED ON CLEAN MAIN WITH THE SAME NUMBERS, so not mine: INLINED FRESH (the resync
+tool refuses on bohemia_ambitions.js's missing closing banner; I proved bohemia_heirs.js and bohemia_acts.js byte-identical by hand and
+in the HEIRS gate), ONE ENGINE (page.click timeout), PHONE READABLE (colour collisions 14/12/10 against ratchets 13/11/9, identical on
+main; its text-size leg flakes), NO OVERLAP (alpha P2 the danger line, 21/1 both), HUD OVERLAP (9/6 both), DERIVED FRESH (38 of 43 re-derive
+on both: the same five stale files), PAGES PUBLISH (304 MB over 260, main's), REUSE FIRST (four tools files, main's). The suite itself
+is unmeasured since the last PLUMBER line.
+
 ROUND 59 [the ending] THE THREE ENDINGS WERE ALREADY CANON. THE GAUGE IS WHAT IS MISSING.
 DYNASTY, SCHOOL (rule 39e), no code, nothing in the alpha changed. Claimed and pushed as its own
 commit BEFORE work (rule 5): it was the first OPEN line. TAB: NOT IN A TAB YET (research); one
