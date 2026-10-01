@@ -4068,7 +4068,7 @@
     "floor": "fight",
     "ppm": 42.9,
     "title": "THE FIGHT'S FLOOR: THE TILES BELOW THE PEOPLE",
-    "why": "The ground under your fighters is cut from your own street bank now, one pixel to one pixel, with your wrecked car and a broken block wall instead of the cardboard. You see it in the VOTE tab: your old board, the same frame with the new floor, and the pixels up close.",
+    "why": "Two chats cut this floor the same round and the combat one is shaped right for the board, so judge this one only on the ground material: your own street bank, one pixel to one pixel, instead of a stretched smear. You see it in the VOTE tab, three panels: your old board, the same frame with the new floor, and the pixels up close.",
     "show": {
       "how": "image",
       "src": "vote/COOK_THE_FIGHTS_FLOOR.png"

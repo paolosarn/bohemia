@@ -132,3 +132,48 @@ patches because that is the smaller of the two, and a patch is cheap to repeat.
 WHOSE CALL IT IS: COMBAT's, with WORLD's number in front of them. It is flagged here rather
 than decided here, because picking it would change how far a man walks in a turn and how
 many tiles a board is, and neither of those is this lane's.
+
+================================================================================
+*** CORRECTION, WRITTEN AFTER THE PUSH: TWO CHATS COOKED THIS FLOOR THE SAME ROUND,
+*** AND THEIRS IS THE ONE THAT FITS THE BOARD.
+================================================================================
+Reading main's newest commits right after pushing, COMBAT 2 shipped
+banks/BOHEMIA_THE_FIGHT_FLOOR_SET_10_1_26.txt in the same round: the same job, out
+of the same 7/28 approved bank, with px_per_metre 42.9 and tile_metres 12.0, and a
+dead_car and a block_wall as its two cover pieces. That is the same density, the
+same source and the same two props this record describes.
+
+WHY IT HAPPENED: rule 55 (Paolo 10/1) moved the floor art to COMBAT 2 -- "COMBAT 2
+makes the floor art, COMBAT 1 drops it in" -- and rule 54 paused COOK, both while
+this round was already cooking. The board moved under the work. Nobody did anything
+wrong; the one-system-one-session rule was overtaken by two rules landing mid-round.
+
+AND THEIRS IS RIGHT WHERE MINE IS WRONG, WHICH IS THE PART THAT MATTERS:
+  their ground tiles are 515 x 364. Mine are 528 x 528.
+  364 / 515 = 0.707 = cos 45. They applied the 45 DEGREE ART LAW (rule 56): the
+  board's camera is pitched 45 degrees, so depth and height are foreshortened and a
+  ground tile is NOT square. Mine is drawn flat from straight above.
+SO THESE TILES, AS BAKED, DO NOT SIT ON THE FIGHT BOARD. That is a defect in this
+deliverable and it is named here rather than left for somebody to trip over.
+DO NOT FIX IT BY SQUASHING THE PNGs. Scaling a finished tile to 0.707 resamples
+every one of his pixels, which is the exact fault this whole round was about. The
+tiles have to be CUT at the foreshortened height from the start: in
+tools/bohemia_the_fights_floor_cook_10_1_26.py the five builders take px = TILE_PX
+for both axes, and cells() already lays any width by any height, so the change is
+passing a separate height of round(TILE_PX * 0.7071) = 373 and re-running. COOK is
+paused (rule 54), so that is COMBAT 2's to do or to ignore.
+
+WHAT SURVIVES AND IS WORTH TAKING, EVEN THOUGH THE TILES DO NOT:
+ 1 TWO LANES REACHED 42.9 px A METRE INDEPENDENTLY, off the same bank by different
+   routes. That is a real cross-check on the number the whole floor rests on, and
+   neither lane knew the other was measuring.
+ 2 THE METRE CONTRACT. Nothing in the repo said how many paving cells go in a house
+   tile. Both banks now carry the answer in a field a reader can find.
+ 3 THE DEAD CAR IS HIS OWN APPROVED WRECK, NOT ONE PIXEL TOUCHED. Theirs is 218x114
+   against his sprite's 192x92, so theirs has been rescaled; REUSE-FIRST says the
+   approved pixels win where they can be used as they are.
+ 4 A PIECE CARRIES TWO HEIGHTS. The car's cabin blocks at 1.45 m and its hood is
+   cover at 1.10. A board that files a car as one or the other gets it wrong twice.
+ 5 THE GUARD LESSONS in this file, which are about how to check art, not about this
+   art: a repeat ruler certifies nothing on a low-contrast field, a shadow that
+   lightens is not a shadow, and lighting by multiplying a colour invents colours.

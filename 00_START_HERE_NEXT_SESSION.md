@@ -510,6 +510,29 @@ The bank is banks/BOHEMIA_THE_FIGHTS_FLOOR_10_1_26.txt and it carries its own 'c
 field with the metre rule, so COMBAT does not have to read this file to use it. No further
 cooking until he names this chat.
 
+*** AND THE HARDEST THING IN THIS BLOCK, FOUND AFTER THE PUSH: COMBAT 2 COOKED THE SAME
+FLOOR THE SAME ROUND, AND THEIRS IS THE ONE THAT FITS THE BOARD. *** Their bank is
+banks/BOHEMIA_THE_FIGHT_FLOOR_SET_10_1_26.txt: same 7/28 approved bank, px_per_metre 42.9,
+tile_metres 12.0, a dead_car and a block_wall. Same job, same source, same two props. It
+happened because rule 55 moved the floor art to COMBAT 2 and rule 54 paused COOK, both while
+this round was already cooking; the board moved under the work.
+AND THEY ARE RIGHT WHERE I AM WRONG: their ground tiles are 515 x 364, mine are 528 x 528,
+and 364/515 is cos 45. They applied the 45 DEGREE ART LAW (rule 56) and I drew flat from
+straight above. THESE TILES AS BAKED DO NOT SIT ON THE FIGHT BOARD. That is a defect in this
+deliverable, said here rather than left for somebody to trip over. The fix is NOT to squash
+the images, which resamples every one of his pixels and is the exact fault this round was
+about; it is to cut them at a height of 373 from the start, which the tool already supports
+because cells() lays any width by any height. COOK is paused, so that is COMBAT 2's call.
+WHAT SURVIVES AND IS WORTH TAKING ANYWAY: two lanes reached 42.9 px a metre independently
+off the same bank, which is a real cross-check on the number the whole floor rests on; the
+metre contract, now in both banks; the dead car as HIS approved wreck with not one pixel
+touched, against their 218x114 rescale of his 192x92 sprite, which is what REUSE-FIRST is
+for; a piece carrying TWO heights, cabin 1.45 blocks and hood 1.10 is cover, which a board
+that files a car as one or the other gets wrong twice; and the guard lessons below, which
+are about how to check art rather than about this art.
+The VOTE item's two sentences now say this, so he is not asked to judge a floor as if it
+were going on the board.
+
 TWO THINGS THE REBASE ON TO MAIN CAUGHT, BOTH WORTH KNOWING:
  1 RULE 22f LANDED WHILE I WAS COOKING (Paolo 10/1, the fourth votes: "two sentences max").
    The VOTE tab now refuses any waiting item whose why is more than two sentences or whose
