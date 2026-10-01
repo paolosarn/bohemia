@@ -10660,6 +10660,12 @@ it is player-facing at all is worth deciding before restyling it. The source cou
 now understood as dead-declaration debt and can be swept file-wide in one pass instead of
 being chased surface by surface.
 
+RUN (run-eak241): 10/1 LATEST -- [fight returns] SHIPPED 4047aaf (rule 57) + [map pixels] G1 / [map pixels now] most of it. TAB: the DEMO link.
+FIGHT: reproduced his stuck fight (goon out of range and passive, SHOOT gone, only the WAY OUT ends it: COMBAT's, routed) AND every ended fight froze 10-11 s on the way home (the tab re-baked his body and cast): now 0.8 s. Gate EVERY FIGHT HANDS HIM BACK 9/0.
+MAP: canvas at the phone's pixels (1134x2490), MAP DENSITY 13/0 (was red), ground painted once and slid while travelling (10.8 fps vs main's 4.4). Gate THE MAP AT THE PHONE'S PIXELS 16/0; five map checkers re-aimed to CSS pixels.
+OPEN FOR COMBAT: a player who only shoots never ends a road fight (the gate prints it as a NOTE every run). A road fight cut once charged one block oddly (8 steps for a 6-block route); not reproduced twice.
+NEXT: JUMP 1, the whole loop (plug RUN 2's settlement screen into arrival, the contract, the fight, the pay), then [the sign fix] and the six #daycardIn checkers.
+
 RUN (run-eak241): 9/30 LATEST -- *** [map pixels] (his 9/29 map ask) AND [demo text] SHIPPED: HE IS
 ON THE MAP AS HIMSELF, THE CIRCLES ARE PEOPLE AND BUILDINGS, THE PARTIES WALK THE ROADS, AND NO TWO
 TEXTS OVERLAP ON THE DEMO. TAB: the DEMO link (CITY in the alpha, the same map). Nothing to judge. ***
