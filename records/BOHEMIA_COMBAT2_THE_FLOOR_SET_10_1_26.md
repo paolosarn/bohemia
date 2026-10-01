@@ -66,3 +66,19 @@ board and on legal surfaces (no wall in the road, no car in a house), no stamped
 NOT USED (measured): the desert pools 'boulder' list is lava spikes and blue coral; never Mojave.
 FOR COMBAT 1 (the cutter): map cell kind -> kinds[id]; draw tiles[r][c]; drop cover by placement.
 NEXT (rule 57): suburb block, strip lot, scrub, freeway.
+
+## ROUND FOUR (10/1, rules 57 and 59): SUBURB BLOCK, STRIP LOT, SCRUB, FREEWAY, AND EVERY TILE TRANSLATED
+
+tools/bohemia_combat2_four_more_board_kinds_cook_10_1_26.py (imports round three's helpers and guard)
+-> banks/BOHEMIA_THE_FIGHT_BOARD_KINDS_ROUND_4_10_1_26.txt, VOTE combat2-four-more-board-kinds-10-1.
+  suburb: street on the middle row (9.2 m + 1.4 m walks), 8 houses on whole tiles, drives, walls, sheds, 3 cars.
+  strip: five store roofs on the north row (one climbable, four 'blocked'), 2.4 m store walk, a parking
+    lot with two nose-to-nose stall rows (2.7 m stalls) and pole bases, cars in stalls, frontage road south.
+  scrub: hardpan, creosote dense in noise-field patches (rough), a two-rut track, a sagging fence, 7 rocks + outcrop.
+  freeway: the cut wall north (blocked row), eight lanes with dashes, shoulder lines, the yellow median
+    edges and a lit median top with its face seen, the south embankment face, a jam of ten dead cars.
+TERRAIN (rule 59): every kind carries terrain[5][5] from {flat, rough, debris, height, blocked}, read
+from the drawn masks (houses -> height only where a roof is drawn); round three's two kinds are
+translated in round_three_terrain. Key and source in the bank. No cover sits on a blocked tile (guard).
+NEXT: strip-mall store fronts deserve their own facade tile (they reuse the house roof); landfill,
+shore, the ruin variants (debris).
