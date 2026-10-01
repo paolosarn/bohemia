@@ -55410,7 +55410,18 @@ your first VAMILY and do steps 1 to 9.
 I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
-ROUND LOG 10/1a (latest): RULE 46f ROUND - he saw the fight floor ("the
+[PENDING coordinator] PAOLO SPOKE TO THIS CHAT 10/1: "I don't even wanna wall of
+text before they can start entering the world... maybe one screen and then if
+they're an expert they can start maneuvering... multiple runs". Recorded as a
+ruling: records/BOHEMIA_PAOLO_NO_WALL_OF_TEXT_BEFORE_THE_WORLD_10_1_26.md (at
+most ONE screen between setup and play, <= 40 words, one tap anywhere, silent;
+off by default on a replay; setup one screen with defaults; teaching in the
+world). DIRECTION's look card for that screen is in the same record. ROUTES
+FOR THE COORDINATOR TO MAKE ROWS: UI (one-screen setup), WORDS (origin lines
+<= 40 words), DYNASTY (names on the same screen), RUN (demo carries none),
+PLUMBER (words-before-first-control gate), EYES (source BB's new-campaign flow).
+ROUND LOG 10/1b (latest): his no-wall-of-text words recorded and routed (above).
+ROUND LOG 10/1a: RULE 46f ROUND - he saw the fight floor ("the
 tiles below the people dont look good"). FIGHT VERDICT ROUND 21, FLOOR
 ONLY, judged LIVE (alpha COMBAT tab, 390x844@3x, V233, seeds 1/5/9/13):
 FAIL on all five tests of THE FLOOR PASS BAR, which RUN now cuts by:
