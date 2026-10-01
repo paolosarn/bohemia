@@ -27,3 +27,22 @@ roof. Cover: replace the tan blocks with dead_car / block_wall. Nothing else pai
 KNOWN WEAK, NEXT ROUND ([cover pieces] row): the slab and sidewalk bands carry his tiles' heavy
 cracks and read busy at half zoom; the shed is not drawn yet; north-south street variants are
 a rotation, not their own sun pass.
+
+## ROUND TWO (10/1, his fifth votes, rule 56): REAL SIDEWALKS, SEEN AT 45
+
+His vote on round one: up, with "it's not a eagle Birdseye view 90... everything we do is 45 when
+it comes to the land underneath" and four NOs on the sidewalk width.
+  * SIDEWALK 1.4 m (4.6 ft) on a 9.2 m roadway: 0.15, about an eighth (Vegas 4-5 ft on 37 ft).
+    Round one was 1.8 on 8.4 (0.21). A ruler guard refuses anything over a sixth.
+  * 45 CAMERA: every tile is 515 x 364 (12 m wide, 12 m deep x cos45). The plan is baked square
+    and NEAREST-squashed (every pixel his), then the south-looking faces are drawn at cos45: the
+    north kerb's face, the roof's parapet (north inner face, south outer face, swamp cooler box),
+    the walls' and shed's faces, and the cars' south flanks (his paint in its own shadow, flat
+    tyres). Bank declares perspective; art_45_gate 16/0.
+  * NEW TILE street_small_ns: the north-south street, its plan turned BEFORE the tilt (a rotated
+    tilted tile would be wrong), so roads can cross.
+  * VOTE combat2-the-floor-set-r2-10-1 (redoOf the voted one), sheet COMBAT2_THE_FLOOR_SET_R2_10_1.png;
+    round one's sheet left as he voted it. The cover sheet (combat2-the-cover-pieces-10-1) re-cut
+    at 45 in place (not yet voted).
+FOR COMBAT 1: tiles are now 515 x 364 per house; the board's row pitch is 364 px at authored size.
+NEXT (rule 57): a sheet per board kind, CUL-DE-SAC and DESERT WASH first.

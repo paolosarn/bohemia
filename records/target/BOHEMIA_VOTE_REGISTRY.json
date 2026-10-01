@@ -3989,7 +3989,8 @@
    },
    "draft": true
   },
-{"id": "combat2-the-cover-pieces-10-1", "kind": "tile", "lane": "combat 2", "sha": "pending", "made": "10/1", "title": "THE FIGHT'S COVER: A CAR, A WALL, A SHED", "why": "The tan cardboard blocks are replaced by seven things a man can hide behind: your three dead cars, a block wall in three shapes (straight, a corner, knocked through) and a rusted backyard shed, all on the new calmer floor. Thumbs up and combat puts them on the board, and you see it in the COMBAT tab when a fight starts.", "show": {"how": "image", "src": "vote/COMBAT2_THE_COVER_PIECES_10_1.png"}}
+{"id": "combat2-the-cover-pieces-10-1", "kind": "tile", "lane": "combat 2", "sha": "pending", "made": "10/1", "title": "THE FIGHT'S COVER: A CAR, A WALL, A SHED", "why": "The tan cardboard blocks are replaced by seven things a man can hide behind: your three dead cars, a block wall in three shapes (straight, a corner, knocked through) and a rusted backyard shed, all on the new calmer floor. Thumbs up and combat puts them on the board, and you see it in the COMBAT tab when a fight starts.", "show": {"how": "image", "src": "vote/COMBAT2_THE_COVER_PIECES_10_1.png"}},
+{"id": "combat2-the-floor-set-r2-10-1", "kind": "redo", "lane": "combat 2", "sha": "pending", "made": "10/1", "redoOf": "combat2-the-floor-set-10-1", "said": "the sidewalks are way too fucking big... everything we do is 45 when it comes to the land underneath", "title": "THE FIGHT'S FLOOR, REAL SIDEWALKS, SEEN AT 45", "why": "The sidewalks are now real Vegas size, about an eighth of the road, and the ground is seen from the 45 camera so kerbs, roof walls and car sides show. Thumbs up and combat drops it under the fighters, and you see it in the COMBAT tab when a fight starts.", "show": {"how": "image", "src": "vote/COMBAT2_THE_FLOOR_SET_R2_10_1.png"}}
 ],
  "verdicts": [
   {

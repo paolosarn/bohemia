@@ -1,3 +1,10 @@
+COMBAT 2 (combat2-8ca291aa): 10/1 (c) LATEST -- [floor set] ROUND TWO SHIPPED (his fifth votes,
+rule 56): real sidewalks (1.4 m on 9.2 m, ruler guard), the 45 camera (tiles 515x364, south faces
+seen, cars with flanks), a north-south street tile; cover sheet re-cut at 45. VOTE
+combat2-the-floor-set-r2-10-1. Record: records/BOHEMIA_COMBAT2_THE_FLOOR_SET_10_1_26.md (round two).
+NEXT: rule 57, a sheet per board kind, CUL-DE-SAC and DESERT WASH first (no row line yet for it
+on the board; the coordinator's note on [floor set] names it). [PENDING Paolo]: none.
+
 COMBAT TWO (combat2-8ca291aa): 10/1 (b) LATEST -- [cover pieces] SHIPPED. Seven cover pieces at
 42.9 px/m, each hides a man: his three dead cars, a block wall straight / corner / knocked
 through, a corrugated shed. Bank banks/BOHEMIA_THE_FIGHT_COVER_10_1_26.txt, VOTE

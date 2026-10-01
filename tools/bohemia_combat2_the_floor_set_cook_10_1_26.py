@@ -50,7 +50,7 @@ REFERENCE CHECK (the 9/4 standing law):
 
     python3 tools/bohemia_combat2_the_floor_set_cook_10_1_26.py
       -> banks/BOHEMIA_THE_FIGHT_FLOOR_SET_10_1_26.txt
-      -> slices/vote/COMBAT2_THE_FLOOR_SET_10_1.png
+      -> slices/vote/COMBAT2_THE_FLOOR_SET_R2_10_1.png
 """
 import base64, importlib, io, json, os, sys
 from PIL import Image, ImageDraw, ImageFont
@@ -61,14 +61,43 @@ K = importlib.import_module('bohemia_the_block_war_kit_cook_9_30_26')
 os.chdir(REPO)
 
 OUT_BANK = 'banks/BOHEMIA_THE_FIGHT_FLOOR_SET_10_1_26.txt'
-OUT_CARD = 'slices/vote/COMBAT2_THE_FLOOR_SET_10_1.png'
+OUT_CARD = 'slices/vote/COMBAT2_THE_FLOOR_SET_R2_10_1.png'   # round two; round one's voted sheet stays as he saw it
 BEFORE = 'slices/vote/COMBAT_NOTHING_ON_THE_GROUND_10_1.png'
 
 m, dress, shade, RAMPS, TILES, load, die, R = K.m, K.dress, K.shade, K.RAMPS, K.TILES, K.load, K.die, K.R
 PX = m(K.TILE_M)                     # 515
 A, C, G, T, D = RAMPS['asphalt'], RAMPS['concrete'], RAMPS['ground'], RAMPS['terracotta'], RAMPS['deck']
 SPR = {s['id']: s for s in K._B['sprites']}
-SIDE, KERB, GUT = m(1.8), m(0.18), m(0.5)
+# ROUND TWO, HIS FIFTH VOTES (rule 56): (1) THE SIDEWALK IS REAL-SIZED: 'the sidewalks are way
+# too fucking big... this has to look real first.' A Vegas sidewalk is 4-5 ft against a 37 ft
+# roadway, about an eighth; round one drew 1.8 m against 8.4 m, a fifth. Now 1.4 m (4.6 ft)
+# against the 9.2 m roadway a 12 m tile leaves, 0.15, under the ruler's sixth.
+# (2) THE GROUND IS 45 DEGREES, NEVER A 90 BIRD'S EYE: 'everything we do is 45 when it comes
+# to the land underneath.' The camera is pitched 45, so a 12 m deep tile is drawn 12 x cos45
+# = 8.5 m tall on screen (515 x 364), and every vertical face that looks south -- the kerb, the
+# parapet -- is SEEN, its height also times cos45, in its own shadow.
+SIDE, KERB, GUT = m(1.4), m(0.15), m(0.45)
+TILT = 0.7071
+PY = int(round(PX * TILT))           # 364
+RULER = 1 / 6.0                      # the sidewalk is at most a sixth of its roadway
+
+
+def ty(y): return int(round(y * TILT))
+
+
+def tilt(im):
+    """The square plan, seen from the 45 camera. NEAREST so every pixel stays his."""
+    return im.resize((PX, PY), Image.NEAREST)
+
+
+def face(im, y, h_m, lit_top=True):
+    """A vertical face looking at the camera, h_m metres tall, drawn at cos45, shaded."""
+    d = ImageDraw.Draw(im)
+    h = max(2, ty(m(h_m)))
+    d.rectangle([0, y, PX, y + h], fill=C[2])
+    d.line([(0, y + h), (PX, y + h)], fill=C[1])
+    if lit_top: d.line([(0, y), (PX, y)], fill=C[6])
+    return im
 
 
 def quiet(im, k=0.45):
@@ -133,7 +162,7 @@ def dashes(img, y, seed, dash=3.0, gap=9.0, thick=0.15, col=None, solid=False):
     return img
 
 
-def street_small(seed=11, crossing=False):
+def street_small(seed=11, crossing=False, ns=False):
     im = Image.new('RGB', (PX, PX))
     band(im, ['walk_0', 'walk_1', 'walk_2'], 0, SIDE, seed)
     band(im, ['road_gutter'], SIDE, SIDE + GUT, seed + 1)
@@ -151,7 +180,9 @@ def street_small(seed=11, crossing=False):
     kerb(im, SIDE - KERB, True)
     kerb(im, PX - SIDE, False)
     shade(im, (0, SIDE, PX, SIDE + m(0.35)), 0.78)                 # the kerb's shadow, south
-    return seamless(im)
+    if ns:                                                         # NORTH-SOUTH: the plan turned
+        return tilt(seamless(im).transpose(Image.ROTATE_90))       # BEFORE the 45 tilt, not after
+    return face(tilt(seamless(im)), ty(SIDE), 0.15)                 # the north kerb's face, seen
 
 
 def street_big(seed=21, half='A'):
@@ -164,6 +195,7 @@ def street_big(seed=21, half='A'):
         shade(im, (0, SIDE, PX, SIDE + m(0.35)), 0.78)
         dashes(im, SIDE + (PX - SIDE) // 2, seed)
         dashes(im, PX - m(0.30), seed + 5, solid=True, col=T[5])   # half the double line
+        return face(tilt(seamless(im)), ty(SIDE), 0.15)
     else:
         band(im, ['road_0', 'road_1', 'road_2'], 0, PX - SIDE - GUT, seed + 2)
         band(im, ['road_gutter'], PX - SIDE - GUT, PX - SIDE, seed + 3, flip=True)
@@ -171,14 +203,14 @@ def street_big(seed=21, half='A'):
         kerb(im, PX - SIDE, False)
         dashes(im, (PX - SIDE) // 2, seed)
         dashes(im, m(0.18), seed + 6, solid=True, col=T[5])
-    return seamless(im)
+    return tilt(seamless(im))
 
 
 def freeway(seed=31):
     im = Image.new('RGB', (PX, PX))
     band(im, ['road_0', 'road_1', 'road_2'], 0, PX, seed)
     dashes(im, PX // 2, seed, dash=3.0, gap=9.0)
-    return seamless(im)
+    return tilt(seamless(im))
 
 
 def lot(seed=51):
@@ -195,7 +227,7 @@ def lot(seed=51):
     grain = grain.resize((PX, PX), Image.NEAREST)
     mask = Image.eval(Image.blend(field, grain, 0.25), lambda v: 255 if v > 150 else 0)
     im.paste(dirt, (0, 0), mask)
-    return im
+    return tilt(im)
 
 
 def slab(seed=61):
@@ -204,39 +236,50 @@ def slab(seed=61):
     for k in range(1, 4):                                          # joints every 3 m
         v = m(3.0 * k)
         d.line([(v, 0), (v, PX)], fill=C[1]); d.line([(v + 1, 0), (v + 1, PX)], fill=C[5])
+    d.line([(0, 0), (0, PX)], fill=C[1])
+    im = tilt(im); d = ImageDraw.Draw(im)                          # the cross joints after the tilt,
+    for k in range(0, 4):                                          # so no one-pixel line is dropped
+        v = ty(m(3.0 * k))
         d.line([(0, v), (PX, v)], fill=C[1]); d.line([(0, v + 1), (PX, v + 1)], fill=C[5])
-    d.line([(0, 0), (PX, 0)], fill=C[1]); d.line([(0, 0), (0, PX)], fill=C[1])
     return im
 
 
 def roof(seed=71):
     """THE ONE HIGH GROUND (rule 37g): a flat gravel deck inside a stucco parapet, the way every
-       flat Vegas roof is built. The parapet is his stucco, lit on its north and west tops, and
-       it throws its shadow onto the gravel inside; the hatch is the way up."""
+       flat Vegas roof is built, seen from the 45 camera: the north parapet shows its lit top
+       and its INNER face (it looks at you), the south parapet its top and its OUTER face, the
+       west and east ones their tops only. The hatch is the way up."""
     S = RAMPS['stucco']
-    im = dress(['roof_deck'], PX, PX, seed)
-    d, pw = ImageDraw.Draw(im), m(0.45)
-    for bx in ((0, 0, PX, pw), (0, PX - pw, PX, PX), (0, 0, pw, PX), (PX - pw, 0, PX, PX)):
-        d.rectangle(list(bx), fill=S[2])
-    d.rectangle([0, 0, PX, m(0.12)], fill=S[4]); d.rectangle([0, 0, m(0.12), PX], fill=S[4])
-    d.rectangle([pw - 2, pw - 2, PX - pw + 1, PX - pw + 1], outline=S[0])
-    shade(im, (pw, PX - pw, PX, PX), 0.78); shade(im, (PX - pw, pw, PX, PX), 0.84)
-    shade(im, (pw, pw, PX - pw, pw + m(0.7)), 0.80)               # the parapet's shadow inside
-    shade(im, (pw, pw + m(0.7), pw + m(0.7), PX - pw), 0.84)
-    hx, hy = m(8.4), m(8.0)
-    d.rectangle([hx, hy, hx + m(1.2), hy + m(1.2)], fill=D[0])     # the hatch, the way up
-    d.rectangle([hx, hy, hx + m(1.2), hy + 3], fill=D[5]); d.rectangle([hx, hy, hx + 3, hy + m(1.2)], fill=D[5])
-    d.rectangle([m(2.0), m(2.4), m(3.6), m(3.4)], fill=C[4])        # the dead swamp cooler
-    d.rectangle([m(2.0), m(2.4), m(3.6), m(2.4) + 3], fill=C[6])
-    for k in range(5): d.line([(m(2.1), m(2.6) + k * m(0.15)), (m(3.5), m(2.6) + k * m(0.15))], fill=C[2])
-    shade(im, (m(3.6), m(2.5), m(4.0), m(3.6)), 0.75)
+    im = tilt(dress(['roof_deck'], PX, PX, seed))
+    d = ImageDraw.Draw(im)
+    pw, ph = m(0.4), ty(m(0.9))                                    # parapet: 0.4 m thick, 0.9 m tall
+    pt = ty(pw)
+    shade(im, (0, pt + ph, PX, pt + ph + ty(m(0.8))), 0.80)        # its shadow on the gravel inside
+    shade(im, (pw, pt, pw + m(0.6), PY), 0.86)
+    d.rectangle([0, 0, PX, pt], fill=S[4])                         # north top, sun-lit
+    d.rectangle([pw, pt, PX - pw, pt + ph], fill=S[2])             # north inner face, seen
+    d.line([(pw, pt + ph), (PX - pw, pt + ph)], fill=S[0])
+    d.rectangle([0, 0, pw, PY], fill=S[4])                         # west top, lit
+    d.rectangle([PX - pw, 0, PX, PY], fill=S[3])                   # east top
+    d.rectangle([0, PY - ph - pt, PX, PY - ph], fill=S[3])         # south top
+    d.rectangle([0, PY - ph, PX, PY], fill=S[1])                   # south outer face, seen
+    d.line([(0, PY - ph), (PX, PY - ph)], fill=S[4])
+    for x in range(0, PX, m(0.8)): d.line([(x, PY - ph), (x, PY)], fill=S[0])   # the stucco's cracks
+    hx, hy, hw = m(8.4), ty(m(7.4)), m(1.2)
+    d.rectangle([hx, hy, hx + hw, hy + ty(hw)], fill=D[0])         # the hatch, the way up
+    d.rectangle([hx, hy, hx + hw, hy + 3], fill=D[5])
+    cx, cy = m(2.0), ty(m(3.2))                                    # the dead swamp cooler: a box,
+    d.rectangle([cx, cy, cx + m(1.6), cy + ty(m(1.0))], fill=C[5])  # its top lit,
+    d.rectangle([cx, cy + ty(m(1.0)), cx + m(1.6), cy + ty(m(1.0)) + ty(m(0.9))], fill=C[3])  # its face seen
+    for k in range(4): d.line([(cx + 4, cy + ty(m(1.0)) + 5 + k * 6), (cx + m(1.6) - 4, cy + ty(m(1.0)) + 5 + k * 6)], fill=C[1])
+    shade(im, (cx + m(1.6), cy + 6, cx + m(2.1), cy + ty(m(1.9)) + 6), 0.75)
     return im
 
 
 def block_wall(seed=81):
     """COVER THAT HIDES A MAN: 6 m of grey desert block, 1.8 m tall, cap lit north-west, the
        south face showing its courses, its shadow falling south-east."""
-    L, cap, face = m(6.0), m(0.25), m(0.9)
+    L, cap, face = m(6.0), ty(m(0.2)), ty(m(1.8))                  # at 45: depth and height x cos45
     im = Image.new('RGBA', (L + m(0.5), cap + face + m(0.7)), (0, 0, 0, 0))
     d = ImageDraw.Draw(im)
     d.polygon([(m(0.3), cap + face), (L + m(0.5), cap + face), (L + m(0.5), cap + face + m(0.6)),
@@ -253,14 +296,40 @@ def block_wall(seed=81):
     return im, dict(w=0.2, l=6.0, h=1.8, kind='COVER', name='BLOCK WALL', hides_a_man=True)
 
 
+def car45(sid):
+    """HIS WRECK, FROM THE 45 CAMERA. His 7/28 car is drawn straight down; at 45 its roof plan
+       shortens by cos45 and its south flank comes into view, 0.9 m of body at cos45, his own
+       paint in its own shadow (the sprite's bottom rows, shaded), and the hard shadow south-east.
+       Every pixel stays his: the plan is NEAREST-squashed and the flank is his paint darkened
+       along its own ramp."""
+    src = load(SPR[sid]).convert('RGBA')
+    w, h = src.size
+    top = src.resize((w, max(1, ty(h))), Image.NEAREST)
+    fh = ty(m(0.9))
+    hard = lambda im: im.getchannel('A').point(lambda a: 255 if a > 127 else 0)
+    out = Image.new('RGBA', (w + m(0.6), top.size[1] + fh + m(0.5)), (0, 0, 0, 0))
+    body = Image.new('RGBA', (w, top.size[1] + fh), (0, 0, 0, 0))
+    flank = top.crop((0, top.size[1] - fh if top.size[1] > fh else 0, w, top.size[1])).resize((w, fh), Image.NEAREST)
+    body.paste(flank, (0, top.size[1]), hard(flank))
+    body.paste(top, (0, 0), hard(top))
+    shade(body, (0, top.size[1], w, top.size[1] + fh), 0.62)
+    for wx in (int(w * 0.18), int(w * 0.72)):                      # the flat tyres, black
+        ImageDraw.Draw(body).rectangle([wx, top.size[1] + fh - ty(m(0.45)), wx + m(0.6), top.size[1] + fh - 1], fill=A[0] + (255,))
+    shadow = Image.new('RGBA', body.size, A[1] + (255,))
+    out.paste(shadow, (m(0.4), m(0.35)), hard(body))
+    out.paste(body.convert('RGB').convert('RGBA'), (0, 0), hard(body))
+    return out
+
+
 def dead_car():
     s = SPR['wreck_road']
-    return load(s).convert('RGBA'), dict(w=round(s['h'], 2), l=round(s['w'], 2), h=1.45, kind='COVER',
+    return car45('wreck_road'), dict(w=round(s['h'], 2), l=round(s['w'], 2), h=1.45, kind='COVER',
                                          name='DEAD CAR', hides_a_man=True, from_sprite='wreck_road')
 
 
 GROUND = [('street_small', 'STREET, SMALL', street_small),
           ('street_crossing', 'CROSSING', lambda: street_small(13, True)),
+          ('street_small_ns', 'STREET, NORTH-SOUTH', lambda: street_small(15, ns=True)),
           ('street_big_a', 'BIG STREET, NORTH', lambda: street_big(21, 'A')),
           ('street_big_b', 'BIG STREET, SOUTH', lambda: street_big(23, 'B')),
           ('freeway_lane', 'FREEWAY LANE', freeway),
@@ -270,12 +339,14 @@ GROUND = [('street_small', 'STREET, SMALL', street_small),
 def guard(tiles, cover):
     ok = set(K.ALL)
     for sp in K._B['sprites']: ok |= K.colours(load(sp))   # his own approved sprites are his art too
+    road = PX - 2 * SIDE
+    if SIDE / road > RULER: die('the sidewalk is %.2f of its road; real is about an eighth, never over a sixth' % (SIDE / road))
     seen = set()
     for key, im in tiles.items():
-        if im.size != (PX, PX): die('%s is %s, not %d px (12 m at 42.9)' % (key, im.size, PX))
+        if im.size != (PX, PY): die('%s is %s, not %dx%d px (12 m at 42.9, seen at 45)' % (key, im.size, PX, PY))
         bad = K.colours(im) - ok
         if bad: die('%s has %d colours off his ramps and tiles, e.g. %s' % (key, len(bad), list(bad)[:3]))
-        if key.startswith(('street', 'freeway')) and list(im.crop((0, 0, 1, PX)).tobytes()) != list(im.crop((PX - m(1.0), 0, PX - m(1.0) + 1, PX)).tobytes()):
+        if key.startswith(('street', 'freeway')) and not key.endswith('_ns') and list(im.crop((0, 0, 1, PY)).tobytes()) != list(im.crop((PX - m(1.0), 0, PX - m(1.0) + 1, PY)).tobytes()):
             die('%s does not tile east-west' % key)
         h = im.tobytes()
         if h in seen: die('%s is stamped: the same picture as another tile' % key)
@@ -296,41 +367,42 @@ def font(sz): return K.font(sz)
 def card(tiles, cover):
     """BEFORE beside AFTER, from the game's camera: the same block, the fighters on it."""
     sc = 0.5                                       # the board at half, a phone's 3x screen at 1.5x
-    t = {k: v.resize((int(PX * sc), int(PX * sc)), Image.NEAREST) for k, v in tiles.items()}
-    tp = int(PX * sc)
-    layout = [['roof', 'lot', 'slab', 'lot_b'],
-              ['lot_b', 'slab', 'lot', 'roof'],
+    tp, tq = int(PX * sc), int(PY * sc)            # a tile is wider than it is tall: the 45 camera
+    t = {k: v.resize((tp, tq), Image.NEAREST) for k, v in tiles.items()}
+    layout = [['roof', 'lot', 'street_small_ns', 'lot_b'],
+              ['lot_b', 'slab', 'street_small_ns', 'roof'],
               ['street_small', 'street_crossing', 'street_small', 'street_small'],
-              ['lot', 'slab', 'lot_b', 'lot']]
-    board = Image.new('RGB', (tp * 4, tp * 4))
+              ['lot', 'slab', 'street_small_ns', 'lot'],
+              ['lot_b', 'lot', 'street_small_ns', 'slab']]
+    board = Image.new('RGB', (tp * 4, tq * 5))
     for r_, row in enumerate(layout):
         for c_, k in enumerate(row):
-            board.paste(t[k], (c_ * tp, r_ * tp))
+            board.paste(t[k], (c_ * tp, r_ * tq))
     car, _ = cover['dead_car']; wall, _ = cover['block_wall']
     car = car.resize((int(car.size[0] * sc), int(car.size[1] * sc)), Image.NEAREST)
     wall = wall.resize((int(wall.size[0] * sc), int(wall.size[1] * sc)), Image.NEAREST)
-    board.paste(car, (int(tp * 2.35), int(tp * 2.30)), car)
-    board.paste(wall, (int(tp * 0.25), int(tp * 1.55)), wall)
+    board.paste(car, (int(tp * 0.9), int(tq * 2.30)), car)
+    board.paste(wall, (int(tp * 0.2), int(tq * 1.45)), wall)
     you = load(SPR['you']).convert('RGBA'); nb = load(SPR['the_neighbour']).convert('RGBA')
-    for (sp, x, y) in ((you, 1.1, 2.55), (nb, 2.8, 2.05), (nb, 3.2, 1.25), (nb, 0.55, 1.15)):
+    for (sp, x, y) in ((you, 1.3, 3.1), (nb, 3.0, 2.0), (nb, 3.3, 0.9), (nb, 0.5, 0.9)):
         s2 = sp.resize((sp.size[0] * 2, sp.size[1] * 2), Image.NEAREST)   # the 112 box at this zoom
-        board.paste(s2, (int(tp * x), int(tp * y)), s2)
+        board.paste(s2, (int(tp * x), int(tq * y)), s2)
     before = Image.open(BEFORE).convert('RGB').crop((20, 70, 488, 840))
     bh = board.size[1]
     before = before.resize((int(before.size[0] * bh / before.size[1]), bh), Image.NEAREST)
-    strip = Image.new('RGB', (tp * 9 // 2 + 40, tp + 60), (12, 11, 10))
+    strip = Image.new('RGB', (10, 190), (12, 11, 10))
     W = before.size[0] + board.size[0] + 60
     out = Image.new('RGB', (W, 60 + bh + 40 + strip.size[1]), (12, 11, 10))
     d = ImageDraw.Draw(out)
     d.text((20, 18), 'BEFORE: what the fight stood on', font=font(26), fill=(222, 181, 118))
-    d.text((before.size[0] + 40, 18), 'AFTER: his street, under the fighters (people at the fight\'s size)', font=font(26), fill=(222, 181, 118))
+    d.text((before.size[0] + 40, 18), 'AFTER: real sidewalks, seen at 45 (people at the fight\'s size)', font=font(26), fill=(222, 181, 118))
     out.paste(before, (20, 60)); out.paste(board, (before.size[0] + 40, 60))
     y = 60 + bh + 30
     x = 20
     for k, nm, _ in GROUND:
-        th = tiles[k].resize((170, 170), Image.LANCZOS)
-        if x + 170 > W: break
-        out.paste(th, (x, y + 30)); d.text((x, y), nm, font=font(16), fill=(222, 181, 118)); x += 182
+        th = tiles[k].resize((150, 106), Image.NEAREST)
+        if x + 150 > W: break
+        out.paste(th, (x, y + 30)); d.text((x, y), nm[:18], font=font(12), fill=(222, 181, 118)); x += 158
     return out
 
 
@@ -338,11 +410,13 @@ def main():
     tiles = {k: fn() for k, _, fn in GROUND}
     cover = {'dead_car': dead_car(), 'block_wall': block_wall()}
     guard(tiles, cover)
-    bank = dict(version='floor-set-10-1', built='10/1/26', lane='combat 2', row='[floor set]',
-                from_bank=K.BANK, px_per_metre=K.PPM, tile_metres=K.TILE_M, tile_px=PX,
-                runs='east-west: street tiles tile along x; rotate 90 for a north-south street',
+    bank = dict(version='floor-set-10-1-round-2', built='10/1/26', lane='combat 2', row='[floor set] round two',
+                from_bank=K.BANK, px_per_metre=K.PPM, tile_metres=K.TILE_M, tile_px=[PX, PY],
+                perspective='45 DEGREE ART LAW (laws/BOHEMIA_ADDENDUM_45_DEGREE_ART_LAW_7_17_26.md, rule 56): camera pitched 45, depth and heights x cos45, south-looking faces seen',
+                sidewalk_m=round(SIDE / K.PPM, 2), roadway_m=round((PX - 2 * SIDE) / K.PPM, 2),
+                runs='street_small/crossing/big/freeway run east-west and tile along x; street_small_ns runs north-south (its own bake, the plan turned before the tilt)',
                 widths={'small street': 1, 'big street': 2, 'freeway': 4},
-                ground=[dict(id=k, name=nm, px=[PX, PX], b64=b64(tiles[k])) for k, nm, _ in GROUND],
+                ground=[dict(id=k, name=nm, px=[PX, PY], b64=b64(tiles[k])) for k, nm, _ in GROUND],
                 cover=[dict(id=k, px=list(im.size), b64=b64(im), **meta) for k, (im, meta) in cover.items()])
     json.dump(bank, open(OUT_BANK, 'w'), indent=1)
     card(tiles, cover).save(OUT_CARD, optimize=True)

@@ -62,13 +62,7 @@ def drop_shadow(im, box, off=0.5, mult=0.62):
 
 def car(sid):
     s = SPR[sid]
-    im = load(s).convert('RGBA')
-    w, h = im.size
-    out = Image.new('RGBA', (w + m(0.5), h + m(0.5)), (0, 0, 0, 0))
-    sh = Image.new('RGBA', out.size, (0, 0, 0, 0))
-    hard = im.getchannel('A').point(lambda a: 255 if a > 127 else 0)   # no blended edge colours
-    out.paste(Image.new('RGBA', (w, h), A[1] + (255,)), (m(0.35), m(0.35)), hard)
-    out.paste(im.convert('RGB').convert('RGBA'), (0, 0), hard)
+    out = F.car45(sid)                                           # his wreck from the 45 camera
     names = {'wreck_road': 'DEAD CAR, IN THE LANE', 'wreck_kerb': 'DEAD CAR, AT THE KERB',
              'wreck_driveway': 'DEAD PATROL CAR, ON THE DRIVE'}
     return out, dict(w=round(min(s['w'], s['h']), 2), l=round(max(s['w'], s['h']), 2), h=1.45,
@@ -78,7 +72,7 @@ def car(sid):
 def wall_run(im, x, y, L, seed, vertical=False):
     """One run of block: cap lit north-west, the south face showing its courses."""
     d = ImageDraw.Draw(im)
-    cap, face = m(0.22), m(0.9)
+    cap, face = F.ty(m(0.2)), F.ty(m(1.8))                       # 45: depth and height x cos45
     if vertical:
         d.rectangle([x, y, x + cap, y + L], fill=C[5] + (255,))
         d.line([(x, y), (x, y + L)], fill=C[6] + (255,))
@@ -145,7 +139,7 @@ def wall_broken():
 def shed():
     """A corrugated backyard shed from 45 degrees: the roof plane first, then the face."""
     W, Dp, H = m(3.0), m(2.4), m(2.2)
-    top, face = int(Dp * 0.75), int(H * 0.55)
+    top, face = F.ty(Dp), F.ty(H)                                # 45: depth and height x cos45
     im = Image.new('RGBA', (W + m(0.8), top + face + m(0.8)), (0, 0, 0, 0))
     d = ImageDraw.Draw(im)
     d.polygon([(m(0.3), top + face), (W, top + face), (W + m(0.7), top + face + m(0.7)),
@@ -189,21 +183,21 @@ def guard(pieces):
 def card(pieces):
     fl = json.load(open(F.OUT_BANK))
     g = {t['id']: Image.open(__import__('io').BytesIO(__import__('base64').b64decode(t['b64']))).convert('RGB') for t in fl['ground']}
-    sc = 0.5; tp = int(PX * sc)
+    sc = 0.5; tp, tq = int(PX * sc), int(F.PY * sc)
     lay = [['lot', 'slab', 'lot_b', 'roof'], ['street_small', 'street_small', 'street_crossing', 'street_small'],
            ['lot_b', 'lot', 'slab', 'lot']]
-    board = Image.new('RGBA', (tp * 4, tp * 3))
+    board = Image.new('RGBA', (tp * 4, tq * 3))
     for r_, row in enumerate(lay):
-        for c_, k in enumerate(row): board.paste(g[k].resize((tp, tp), Image.NEAREST), (c_ * tp, r_ * tp))
-    put = [('shed', 0.25, 0.35), ('wall_corner', 1.25, 0.15), ('car_drive', 1.6, 0.25), ('car_lane', 0.4, 1.35),
+        for c_, k in enumerate(row): board.paste(g[k].resize((tp, tq), Image.NEAREST), (c_ * tp, r_ * tq))
+    put = [('shed', 0.25, 0.35), ('wall_corner', 1.1, 0.05), ('car_drive', 1.62, 0.1), ('car_lane', 0.4, 1.35),
            ('car_kerb', 2.9, 1.22), ('wall', 0.2, 2.15), ('wall_broken', 2.2, 2.2)]
     for k, x, y in put:
         im = pieces[k][0]; im = im.resize((int(im.size[0] * sc), int(im.size[1] * sc)), Image.NEAREST)
-        board.alpha_composite(im, (int(tp * x), int(tp * y)))
+        board.alpha_composite(im, (int(tp * x), int(tq * y)))
     you = load(SPR['you']).convert('RGBA'); nb = load(SPR['the_neighbour']).convert('RGBA')
-    for sp, x, y in ((you, 0.55, 2.4), (nb, 2.6, 2.35), (nb, 1.85, 0.45), (nb, 3.2, 1.0)):
+    for sp, x, y in ((you, 0.55, 1.9), (nb, 2.6, 1.85), (nb, 1.95, 0.1), (nb, 3.25, 0.75)):
         s2 = sp.resize((sp.size[0] * 2, sp.size[1] * 2), Image.NEAREST)
-        board.alpha_composite(s2, (int(tp * x), int(tp * y)))
+        board.alpha_composite(s2, (int(tp * x), int(tq * y)))
     before = Image.open(F.BEFORE).convert('RGB').crop((20, 70, 488, 840))
     bh = board.size[1]
     before = before.resize((int(before.size[0] * bh / before.size[1]), bh), Image.NEAREST)
@@ -217,11 +211,11 @@ def card(pieces):
     x, y = 20, 60 + bh + 30
     for k, _ in PIECES:
         im, meta = pieces[k]
-        f = min(1.0, 200 / im.size[0], 190 / im.size[1])
+        f = min(1.0, 180 / im.size[0], 190 / im.size[1])
         th = im.resize((max(1, int(im.size[0] * f)), max(1, int(im.size[1] * f))), Image.NEAREST)
-        bg = Image.new('RGB', (210, 200), (40, 36, 32)); bg.paste(th, (5, 5), th)
+        bg = Image.new('RGB', (190, 200), (40, 36, 32)); bg.paste(th, (5, 5), th)
         out.paste(bg, (x, y + 26)); d.text((x, y), meta['name'][:26], font=K.font(12), fill=(222, 181, 118))
-        x += 222
+        x += 198
     return out
 
 
