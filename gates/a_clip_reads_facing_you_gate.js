@@ -90,7 +90,15 @@ const HEADON = { point: { was: 3.1, min: 24 }, taunt: { was: 10.7, min: 28 },
                     body, the knock-back and the lurch both spF) and the two-hand shove.
                     The shove's N gain is the small one, 24.2 -> 30.6, and it is said so
                     rather than floored generously: 28 sits above the old value. */
-                 'stagger-hit': { was: 20.1, min: 38 }, shove: { was: 24.2, min: 28 } };
+                 'stagger-hit': { was: 20.1, min: 38 }, shove: { was: 24.2, min: 28 },
+                 /* 10/1: the fight is held behind its floor (rule 46f), so the next two came
+                    off the printed list below instead of the fight ranking: the two a person
+                    does TO YOUR FACE at the near end of the zoom (rule 50), the trader and the
+                    greeting. bow was 13.9 N / 20 S against 115 from the side, haggle 6.3 / 13
+                    against 66. Both floors sit over the old S as well as the old N, because the
+                    claim holds BOTH facings to it. The wins are smaller than the fight clips'
+                    and that is said, not floored generously. */
+                 bow: { was: 13.9, min: 24 }, haggle: { was: 6.3, min: 16 } };
 /* *** AND THE MIRROR CASE, 9/24c. *** Asking the same question the other way round
    found clips dead IN PROFILE while alive head-on, which is worse when it happens
    because a head or a chest move is MOST visible from the side. nod was alive
@@ -140,7 +148,7 @@ const PROFILE = { nod: { wasWorst: 4.1, min: 12 } };
     /* the three off the killed list, every facing, so "not traded away" is asked
        of all eight rather than of the one I happened to check */
     const killed = {};
-    for (const c of ['point', 'taunt', 'chest-thump', 'spear-drive', 'shiv-jab', 'nod', 'throw', 'punch-heavy', 'stagger-hit', 'shove']) {
+    for (const c of ['point', 'taunt', 'chest-thump', 'spear-drive', 'shiv-jab', 'nod', 'throw', 'punch-heavy', 'stagger-hit', 'shove', 'bow', 'haggle']) {
       killed[c] = {};
       /* THE PCT, NOT THE WHOLE READING. The first cut stored the object and every
          claim printed [object Object] while the drift check quietly compared an
@@ -213,13 +221,15 @@ const PROFILE = { nod: { wasWorst: 4.1, min: 12 } };
                      throw: { NE: 75.7, E: 128.8, SE: 79.6, SW: 91.1, W: 113.1, NW: 70.1 },
                      'punch-heavy': { NE: 67.4, E: 104.3, SE: 69.1, SW: 66.5, W: 83.2, NW: 52.7 },
                      'stagger-hit': { NE: 69.6, E: 104.5, SE: 82.3, SW: 85.4, W: 102.4, NW: 67.9 },
-                     shove: { NE: 64.3, E: 98.1, SE: 76.2, SW: 78.9, W: 102.6, NW: 63.7 } };
+                     shove: { NE: 64.3, E: 98.1, SE: 76.2, SW: 78.9, W: 102.6, NW: 63.7 },
+                     bow: { NE: 85.7, E: 115.3, SE: 93.3, SW: 90.6, W: 109.4, NW: 79.9 },
+                     haggle: { NE: 37, E: 65.7, SE: 38.6, SW: 39, W: 41.2, NW: 21.4 } };
   const drift = [];
   for (const c of Object.keys(SIDE_WAS)) for (const d of Object.keys(SIDE_WAS[c])) {
     const now = R.killed[c][d], was = SIDE_WAS[c][d];
     if (Math.abs(now - was) > 0.05) drift.push(c + ' ' + d + ' ' + was + ' -> ' + now);
   }
-  ok('and the six side facings of all NINE are UNCHANGED, to a tenth of a point ' +
+  ok('and the six side facings of all ELEVEN are UNCHANGED, to a tenth of a point ' +
      '(' + drift.length + ' drifted)' + (drift.length ? ': ' + drift.join(', ') : ''),
      drift.length === 0);
 

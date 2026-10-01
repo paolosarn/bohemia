@@ -1513,7 +1513,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 10/1e - THE STREET HAS KERBS</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 10/1f - A TRADER FACING YOU</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -7693,7 +7693,19 @@ const POSE={
 
  /* ===== PROMOTED 7/2/26 batch #5+#6 verdicts (12) ===== */
  whistle:(d,ph)=>{const br=Math.sin(ph*2*Math.PI);const g=gunT(d,2.2,1.4);return {ikR:[g[0][0],g[0][1]-6],bendR:'auto',head:-spF(d)*0.08+0.02*br,spine:-spF(d)*0.04,upL:gL(d)*(0.15+0.05*br),hipOff:[0,-0.4*Math.max(0,br)]};},
- bow:(d,ph)=>{const t=ph;const e=(a,b)=>Math.min(1,Math.max(0,(t-a)/(b-a)));const bw=e(0.1,0.35)*(1-e(0.65,0.9));const r=gR(d);return {spine:spF(d)*0.55*bw,head:spF(d)*0.2*bw,upR:r*0.5*bw,foreR:r*0.6*bw,upL:gL(d)*0.15*bw,hipOff:[0,1.2*bw],legCompressL:0.05*bw,legCompressR:0.05*bw};},
+ /* bow, FACING YOU (10/1): the bend is spF and spF is zero on N and S, so a man bowing
+    to your face moved 14-20% of himself against 115% from the side. Rule 50 makes the near
+    end of the zoom a person you LOOK at, and a bow is said to a face. Head-on it is the
+    courtly one: the near hand goes to the belly, the other arm sweeps out and low, and the
+    whole top of him sinks with the knees giving a little. Side views untouched. */
+ bow:(d,ph)=>{const t=ph;const e=(a,b)=>Math.min(1,Math.max(0,(t-a)/(b-a)));const bw=e(0.1,0.35)*(1-e(0.65,0.9));const r=gR(d);
+   if(headOn(d)){const oL=outL(d);/* the far arm sweeps OUT and low, where it reads against the
+     ground, not the coat: a hand folded across the belly draws as a dark smudge on the black coat
+     at every fold height tried (three), so the near hand only drifts in over the thigh */
+     return {upR:-r*0.22*bw,foreR:-r*0.25*bw,armCompressR:0.08*bw,
+     upL:oL*0.65*bw,foreL:oL*0.12*bw,
+     head:0.05*bw,hipOff:[0,3.5*bw],legCompressL:0.13*bw,legCompressR:0.13*bw};}
+   return {spine:spF(d)*0.55*bw,head:spF(d)*0.2*bw,upR:r*0.5*bw,foreR:r*0.6*bw,upL:gL(d)*0.15*bw,hipOff:[0,1.2*bw],legCompressL:0.05*bw,legCompressR:0.05*bw};},
  kick:(d,ph)=>{const t=(ph*2)%1;const e=(a,b)=>Math.min(1,Math.max(0,(t-a)/(b-a)));const wu=e(0.05,0.25)*(1-e(0.3,0.45));const kk=e(0.3,0.45)*(1-e(0.7,0.9));const lat=_lat(d);const m=(RUNMIR[d]?-1:1)*depthFlip(d);if(!lat)return {legCompressR:0.55*kk,thighR:0.1*wu,hipOff:[0,1.2*kk+0.5*wu],spine:0.06*kk,upL:gL(d)*0.3*kk,upR:gR(d)*0.3*kk};const f=-spF(d);return {thighR:f*(-0.35*wu+1.25*kk),shinR:f*(0.5*wu-0.25*kk),spine:spF(d)*(-0.1*wu+0.14*kk),hipOff:[0,0.8*kk],upL:gL(d)*(0.25*kk+0.1),upR:gR(d)*(0.3*kk+0.1),legCompressL:0.06*kk};},
  shadowbox:(d,ph)=>{const t=(ph*2)%1;const j1=Math.max(0,Math.sin(t*2*Math.PI));const j2=Math.max(0,Math.sin((t+0.5)*2*Math.PI));
    /* FACING YOU A JAB GOES INTO THE SCREEN. Measured at one cell: 20% of the body
@@ -7809,7 +7821,7 @@ const CANDIDATE_SRC={
     Arm-swipe family now dead (3 casualties), added to the banned list. */
  'punch-heavy':"(d,ph)=>{const t=ph;const e=(a,b)=>Math.min(1,Math.max(0,(t-a)/(b-a)));const wu=e(0.05,0.3)*(1-e(0.35,0.5));const px=e(0.35,0.5)*(1-e(0.75,0.95));/* FACING YOU A PUNCH GOES INTO THE SCREEN (9/28): 38% of the body facing you against 85% from the side, the body terms all spF. Head-on: the fist cocks back (elbow up, shoulder turned away), then drives AT the camera with the hip and the weight behind it. */if(headOn(d)){const r=gR(d);/* the forearm bends ONE way through the whole punch: a negative foreR at impact flipped the elbow mid-swing (AN ELBOW BENDS ONE WAY went 7 -> 9) */return {upR:r*(0.55*wu-0.75*px),foreR:r*(1.2*wu+0.08*px),armCompressR:0.12*wu+0.3*px,upL:gL(d)*(0.3+0.2*px),foreL:gL(d)*(0.5*wu+0.3),head:-0.04*wu+0.16*px,hipOff:[r*(-1.0*wu+2.2*px),0.4*wu+2.0*px],legCompressL:0.24*px,legCompressR:0.08*wu+0.06*px};}const lat=_lat(d);const dr=lat?fwdS(d):(-outR(d));return {upR:dr*(-0.5*wu+1.1*px),foreR:dr*(0.6*wu+0.5*px),upL:gL(d)*(0.3*wu+0.15),foreL:gL(d)*0.4*wu,spine:spF(d)*(-0.12*wu+0.28*px),head:spF(d)*0.1*px,hipOff:[0,0.5*wu+1.3*px],legCompressL:0.12*px,legCompressR:0.06*wu};}",
  duck:"(d,ph)=>{const t=(ph*2)%1;const e=(a,b)=>Math.min(1,Math.max(0,(t-a)/(b-a)));const dk=e(0.05,0.2)*(1-e(0.5,0.75));return {hipOff:[0,4.5*dk],legCompressL:0.35*dk,legCompressR:0.35*dk,spine:spF(d)*0.22*dk,head:spF(d)*0.16*dk,upL:gL(d)*0.3*dk,upR:gR(d)*0.3*dk,armCompressL:0.1*dk,armCompressR:0.1*dk};}",
- haggle:"(d,ph)=>{const t=ph;const e=(a,b)=>Math.min(1,Math.max(0,(t-a)/(b-a)));const out=e(0.05,0.25)*(1-e(0.45,0.6));const back=e(0.45,0.6)*(1-e(0.85,1));const lat=_lat(d);const dr=lat?fwdS(d):(-outR(d));return {upR:dr*(0.9*out-0.1*back),foreR:dr*(0.55*out+0.2*back),head:spF(d)*(0.06*out-0.05*back),spine:spF(d)*(0.08*out-0.04*back),upL:gL(d)*0.12,hipOff:[0,0.3*out]};}",
+ haggle:"(d,ph)=>{const t=ph;const e=(a,b)=>Math.min(1,Math.max(0,(t-a)/(b-a)));const out=e(0.05,0.25)*(1-e(0.45,0.6));const back=e(0.45,0.6)*(1-e(0.85,1));/* FACING YOU A HAGGLE WAS AN ARM DRIFTING (10/1): 13% of the body facing you, 6% from behind, against 66% from the side; the head and spine terms were spF. The near end of the zoom (rule 50) is a trader talking to your face, so head-on he OFFERS (the near hand comes up and out, palm up, head cocked to it) and then SHRUGS (both hands out low, shoulders up, head the other way): take it or leave it. Out, never across the black coat, where a hand draws as a smudge. One sign per forearm the whole clip, so no elbow flips. */if(headOn(d)){const r=gR(d),l=gL(d);return {upR:r*(0.5*out+0.25*back),foreR:r*(1.25*out+1.05*back),armCompressR:0.1*out+0.2*back,upL:l*(0.08+0.22*back),foreL:l*(0.2*out+1.05*back),armCompressL:0.2*back,head:0.1*out-0.09*back,hipOff:[0,0.6*out-1.1*back],legCompressL:0.06*out,legCompressR:0.06*out};}const lat=_lat(d);const dr=lat?fwdS(d):(-outR(d));return {upR:dr*(0.9*out-0.1*back),foreR:dr*(0.55*out+0.2*back),head:spF(d)*(0.06*out-0.05*back),spine:spF(d)*(0.08*out-0.04*back),upL:gL(d)*0.12,hipOff:[0,0.3*out]};}",
  'stagger-hit':"(d,ph)=>{const t=(ph*2)%1;const e=(a,b)=>Math.min(1,Math.max(0,(t-a)/(b-a)));const hit=e(0.02,0.1)*(1-e(0.3,0.6));/* FACING YOU A HIT KNOCKS HIM INTO THE SCREEN (9/29): 40% of the body facing you against 92% from the side; the knock-back was spF and the lurch was -(spF)*2.8, both zero on N and S. Head-on: the head snaps back, the knees buckle so he drops, the arms fly out for balance, and he lurches to one side -- the other side on the second hit of the bar, because nobody takes two hits the same way. Side views untouched. */if(headOn(d)){const l=gL(d),r=gR(d),lr=(ph<0.5)?1:-1;return {head:-0.2*hit,hipOff:[r*1.6*hit*lr,3.0*hit],upL:l*0.85*hit,foreL:l*0.4*hit,upR:r*0.9*hit,foreR:r*0.4*hit,legCompressL:0.28*hit,legCompressR:0.18*hit};}const lat=_lat(d);return {spine:-spF(d)*0.3*hit,head:-spF(d)*0.22*hit,hipOff:[-(spF(d)||0)*2.8*hit,1.0*hit],upL:gL(d)*0.5*hit,foreL:gL(d)*0.4*hit,upR:gR(d)*0.55*hit,foreR:gR(d)*0.4*hit,legCompressL:0.2*hit,legCompressR:0.12*hit};}",
  dash:"(d,ph)=>{const t=(ph*2)%1;const e=(a,b)=>Math.min(1,Math.max(0,(t-a)/(b-a)));const ds=e(0.05,0.18)*(1-e(0.45,0.7));const lat=_lat(d);const m=(RUNMIR[d]?-1:1)*depthFlip(d);return {spine:spF(d)*0.32*ds,head:spF(d)*0.1*ds,hipOff:[(spF(d)||0)*3.2*ds,1.4*ds],thighR:0.5*ds*m,thighL:-0.45*ds*m,shinR:m*0.4*ds,upL:-0.5*ds*m*(ARMSIDE[d]||1),upR:0.5*ds*m*(ARMSIDE[d]||1),foreL:-0.5*ds*m,foreR:-0.5*ds*m,legCompressL:0.1*ds};}",
  'inspect-ground':"(d,ph)=>{const t=ph;const e=(a,b)=>Math.min(1,Math.max(0,(t-a)/(b-a)));const lean=e(0.08,0.3)*(1-e(0.7,0.92));const peer=Math.sin(ph*4*Math.PI)*0.04*lean;const lat=_lat(d);const dn=lat?fwdS(d):(-outL(d));return {spine:spF(d)*0.42*lean,head:spF(d)*(0.2*lean)+peer,hipOff:[0,2.2*lean],legCompressL:0.15*lean,legCompressR:0.15*lean,upL:dn*0.5*lean,foreL:dn*0.3*lean,upR:gR(d)*0.35*lean,foreR:gR(d)*0.3*lean};}",
@@ -29673,7 +29685,12 @@ window.CLO=(function(){
     if(!vest&&!jacket)for(var y2=tb+1;y2<=hemLim;y2++){
       /* COCOON runs the flare BACKWARDS: it starts wider than the hip and closes
          toward the hem. Same one line that makes every other coat an A-line. */
-      var hw=cocoon?(halfW+3*S-Math.round((y2-tb)/span*4*S)):(halfW+Math.round((y2-tb)/span*3*S));
+      /* IN PROFILE THE HEM FLARES 2.5 CELLS, NOT 3 (10/1). The four-picture walk (59861c44, this
+         lane) gave the side view its first PASSING step, legs together, and the cone stayed cut for a
+         stride: on E the coat measured 25 px over a 19 px man, 1.32x, over the tent ceiling, and this
+         lane's own check sat red for three rounds while I read "red on main too" as "not mine". Main
+         was carrying my commit. Half a cell off the side flare is 1 px a side: 1.21x. */
+      var hw=cocoon?(halfW+3*S-Math.round((y2-tb)/span*4*S)):(halfW+Math.round((y2-tb)/span*((dir==='E'||dir==='W')?2.5:3)*S));
       if(hw<2*S)hw=2*S;
       /* IT DRAPES ON THE THIGH, IT DOES NOT RUN IN THE GAP BETWEEN TWO.
          The cone is hip-width plus three cells; a stride opens the legs wider

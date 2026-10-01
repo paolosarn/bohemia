@@ -149,6 +149,23 @@ const url = p => 'http://127.0.0.1:' + PORT + '/' + p;
      mean something: a lane cannot get a killed thing back by re-registering its id. */
   ok('no id is used twice', dupes.length === 0, dupes.join(', '));
 
+  /* TWO SENTENCES, AND THE SECOND SAYS WHERE YOU SEE IT. Rule 22f (Paolo 10/1, the
+     fourth votes: "two sentences max"). RUN 2 rewrote all 101 waiting items to it and
+     grandfathered nothing. Every item still WAITING (no verdict yet) must carry a why
+     of one or two sentences, and its last sentence must say "you see it" or "you hear
+     it" and name the tab or screen. A judged item is history and is never re-read. */
+  const judgedIds = new Set((reg.verdicts || []).map(v => v && v.id));
+  const longWhy = [];
+  (reg.items || []).forEach(it => {
+    if (!it || !it.id || judgedIds.has(it.id)) return;
+    const s = String(it.why || '').trim().split(/(?<=[.!?])\s+/).filter(Boolean);
+    if (!s.length) longWhy.push(it.id + ' (no why)');
+    else if (s.length > 2) longWhy.push(it.id + ' (' + s.length + ' sentences)');
+    else if (!/\byou (see|hear) it\b/i.test(s[s.length - 1])) longWhy.push(it.id + ' (no where)');
+  });
+  ok('every waiting why is two sentences at most and names where you see it',
+     longWhy.length === 0, longWhy.slice(0, 4).join(', '));
+
   /* A ROW HE TAPS AND NOTHING HAPPENS IS WORSE THAN NO ROW. Lanes register a path by
      hand, so a typo or a renamed file lands here as a dead LOOK AT IT button and he has
      no way to tell that from a thing that is simply broken. Paths are relative to

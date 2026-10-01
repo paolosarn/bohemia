@@ -1,0 +1,90 @@
+<!doctype html><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>BOHEMIA · A Trader Facing You</title>
+<!-- ANIMATION [facing you], 10/1. The fight is held behind its floor (rule 46f), so these two came
+     off the printed list instead: what a person does to your face at the near end of the zoom (rule 50).
+     RULE 25: IT PLAYS, on the 120 beat. No control. -->
+<style>
+  :root{--ink:#e8e0cc;--bg:#0d0d12;--card:#16161d;--line:#33313d;--gold:#c79a3f}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+       font:13px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace;padding:14px}
+  h1{font-size:13px;letter-spacing:2px;margin:0 0 4px;color:var(--gold)}
+  p{margin:0 0 12px;color:#a49a86;max-width:60ch}
+  b{color:var(--ink)}
+  .said{border-left:2px solid #7a4a4a;padding:6px 0 6px 10px;margin:0 0 14px;color:#b09a90}
+  .oops{border-left:2px solid #c79a3f;padding:6px 0 6px 10px;margin:0 0 14px;color:#cbb88f}
+  .clip{background:var(--card);border:1px solid var(--line);border-radius:6px;
+        padding:8px;margin-bottom:10px}
+  .name{font-size:11px;letter-spacing:2px;color:var(--gold);margin-bottom:6px;
+        display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+  .sub{color:#6f6862;font-size:10px;letter-spacing:0;text-align:right}
+  .pair{display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end}
+  .side{text-align:center}
+  .lab{font-size:10px;letter-spacing:1px;margin-bottom:3px}
+  .old{color:#9a6b6b}.new{color:#7fa06b}
+  .big{width:112px;height:112px;image-rendering:pixelated;background:#101319;border-radius:3px}
+  .real{width:28px;height:28px;image-rendering:pixelated;background:#101319;border-radius:2px}
+  .beat{height:3px;background:#2a2833;border-radius:2px;margin:12px 0 2px;overflow:hidden}
+  .beat i{display:block;height:100%;width:8.333%;background:var(--gold)}
+  .note{margin-top:12px;color:#6f6862;max-width:60ch}
+</style>
+<h1>A TRADER FACING YOU</h1>
+<div class="said">Your call: the zoom goes all the way in, to one person you look at.</div>
+<p>When you zoom all the way in, you are looking at a person's face. So the
+moves people make <b>to your face</b> have to work facing you. Two of them
+barely moved.</p>
+<p><b>Haggling</b>: from the side 66 percent of him moves. Facing you it was
+<b>13</b>, from behind <b>6</b>. Now he offers: one hand comes up and out, palm
+up, head cocked. Then he shrugs: both hands out low, shoulders up, head the
+other way. Take it or leave it. Facing you <b>25</b> now, from behind 19.</p>
+<p><b>Bowing</b>: from the side 115 percent of him moves. Facing you it was
+<b>20</b>. Now the whole top of him dips, one hand comes in over his leg and the
+other arm sweeps out low. <b>39</b> now, from behind 29.</p>
+<p>Both are smaller wins than the fight moves, and I stopped. A hand crossing
+the black coat draws as a dark smudge, so nothing crosses it. The side views
+did not change, pixel for pixel. The last two rows prove it.</p>
+<p>Left is what it was, right is now. Twelve poses a bar, on the beat.</p>
+<div class="beat"><i id="beat"></i></div>
+<div id="clips"></div>
+<p class="note">No new art. Same body; facing you he finally does what he does from the side.</p>
+<script>
+(function(){
+  var BEFORE='ANIMATION_A_TRADER_FACING_YOU_BEFORE.png', AFTER='ANIMATION_A_TRADER_FACING_YOU_AFTER.png';
+  var ROWS=[['HAGGLING, FACING YOU','was 13%, now 25%'],
+            ['HAGGLING, FROM BEHIND','was 6%, now 19%'],
+            ['BOWING, FACING YOU','was 20%, now 39%'],
+            ['BOWING, FROM BEHIND','was 14%, now 29%'],
+            ['HAGGLING, FROM THE SIDE','unchanged, pixel for pixel'],
+            ['BOWING, FROM THE SIDE','unchanged, pixel for pixel']];
+  var S=112,Z=1,N=12,BEAT=500,LOOP=BEAT*4;
+  var host=document.getElementById('clips'), cells=[];
+  ROWS.forEach(function(r,ri){
+    var box=document.createElement('div'); box.className='clip';
+    var n=document.createElement('div'); n.className='name';
+    n.innerHTML='<span>'+r[0]+'</span><span class="sub">'+r[1]+'</span>';
+    box.appendChild(n);
+    var pair=document.createElement('div'); pair.className='pair';
+    [['BEFORE','old',BEFORE],['NOW','new',AFTER]].forEach(function(spec){
+      var side=document.createElement('div'); side.className='side';
+      var l=document.createElement('div'); l.className='lab '+spec[1]; l.textContent=spec[0];
+      var c=document.createElement('div'); c.className='big';
+      c.style.backgroundImage='url('+spec[2]+')';
+      c.style.backgroundSize=(N*S*Z)+'px auto';
+      cells.push({el:c,row:ri,step:S*Z});
+      side.appendChild(l); side.appendChild(c); pair.appendChild(side);
+    });
+    box.appendChild(pair); host.appendChild(box);
+  });
+  var bar=document.getElementById('beat'), t0=performance.now();
+  (function tick(){
+    var ph=((performance.now()-t0)%LOOP)/LOOP, f=Math.floor(ph*N)%N;
+    for(var i=0;i<cells.length;i++){
+      var k=cells[i].step/S;
+      cells[i].el.style.backgroundPosition=(-f*cells[i].step)+'px '+(-cells[i].row*S*k)+'px';
+    }
+    bar.style.transform='translateX('+(f*100)+'%)';
+    requestAnimationFrame(tick);
+  })();
+})();
+</script>
