@@ -3752,6 +3752,19 @@
     "how": "page",
     "src": "vote/CHARACTER_THE_BARBER.html"
    }
+  },
+  {
+   "id": "people-the-retinue-10-1",
+   "kind": "tile",
+   "lane": "people",
+   "sha": "8e69c21",
+   "made": "10/1",
+   "title": "THE RETINUE",
+   "why": "Battle Brothers hires camp staff for a daily wage: a scout, a surgeon, a negotiator, a blacksmith. Ours are the driver, the medic, the fixer, the mechanic, offered one at a time by whoever is walking with you, hired by staying close, never a popup. A driver really makes the map faster to cross. A fixer really gets the rest of the crew paid less often. A medic and a mechanic are honestly not doing anything live yet, because this game doesn't have a wound clock or a repair meter for them to speed up, and faking one just to give them a job felt worse than saying so.",
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_THE_RETINUE_10_1_26.html"
+   }
   }
  ],
  "verdicts": [

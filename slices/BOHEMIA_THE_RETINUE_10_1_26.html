@@ -1,0 +1,138 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>The Retinue</title>
+<style>
+  :root{ --ink:#e8e4da; --dim:#8a8479; --bg:#0d0d0c; --card:#161615; --edge:#2a2a27;
+         --warm:#c9a227; --cold:#8fb6c9; --bad:#c9684f; }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--ink);
+    font:15px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    -webkit-text-size-adjust:100%}
+  .wrap{max-width:660px;margin:0 auto;padding:18px 16px 60px}
+  h1{font-size:17px;letter-spacing:.14em;margin:0 0 4px;font-weight:600}
+  .sub{color:var(--dim);font-size:12.5px;letter-spacing:.06em;margin:0 0 18px}
+  .quote{border-left:2px solid var(--warm);padding:2px 0 2px 12px;margin:0 0 18px;font-size:14px}
+  .card{background:var(--card);border:1px solid var(--edge);border-radius:10px;
+        padding:14px;margin:0 0 14px}
+  .beat{display:flex;gap:10px;align-items:flex-start;margin:0 0 14px}
+  .beat:last-child{margin-bottom:0}
+  .who{width:34px;height:34px;border-radius:50%;flex:0 0 auto;display:flex;
+       align-items:center;justify-content:center;font-size:11px;font-weight:700;
+       border:1px solid var(--edge)}
+  .who.co{background:#2a2418;color:var(--warm)}
+  .bubble{background:#1c1c1a;border:1px solid var(--edge);border-radius:8px;
+          padding:9px 11px;font-size:13px;flex:1 1 auto}
+  .tag{font-size:10px;letter-spacing:.12em;color:var(--dim);margin:0 0 4px;text-transform:uppercase}
+  .tag.hire{color:var(--warm)}
+  .tag.bad{color:var(--bad)}
+  .reward-line{font-size:11.5px;color:var(--warm);margin-top:6px}
+  .note{color:var(--dim);font-size:12.5px;margin:10px 0 0;padding-top:10px;
+        border-top:1px solid var(--edge)}
+  h2{font-size:12px;letter-spacing:.16em;color:var(--dim);margin:26px 0 10px;font-weight:600}
+  table{width:100%;border-collapse:collapse;font-size:12.5px}
+  td,th{padding:5px 6px;text-align:left;border:0;vertical-align:top}
+  th{color:var(--dim);font-weight:600;font-size:11px;letter-spacing:.12em}
+  tr+tr td{border-top:1px solid var(--edge)}
+  .big{color:var(--ink);font-size:14px}
+  .live{color:var(--warm)}
+  .notlive{color:var(--dim)}
+  @media (prefers-color-scheme:light){
+    :root:not([data-theme="dark"]){ --ink:#1b1b19; --dim:#6a655c; --bg:#efece5;
+      --card:#fff; --edge:#d8d3c8; --warm:#8a6d12; --cold:#2f6b86; --bad:#9c3f28; }
+  }
+</style></head><body><div class="wrap">
+
+<h1>THE RETINUE</h1>
+<p class="sub">The same real functions, the same real currency, walked start to finish.</p>
+
+<p class="quote">Battle Brothers hires camp staff for a daily wage: a scout, a surgeon, a
+negotiator, a blacksmith. This is ours, offered by whoever is walking with you, never a
+popup, and paid out of the same purse everything else in this game already uses.</p>
+
+<div class="card">
+  <div class="beat">
+    <div class="who co">CO</div>
+    <div class="bubble">
+      <div class="tag">the first offer</div>
+      "I used to keep machines running for a living. A mechanic, if you want one. A battery a night."
+    </div>
+  </div>
+  <div class="beat">
+    <div class="who co">CO</div>
+    <div class="bubble">
+      <div class="tag hire">stay close two beats, and</div>
+      "The mechanic falls in."
+    </div>
+  </div>
+  <div class="beat">
+    <div class="who co">CO</div>
+    <div class="bubble">
+      <div class="tag">the next one, asked once</div>
+      "I can talk a price down, for a cut. A fixer, if you want one. A battery a night."
+    </div>
+  </div>
+  <div class="beat">
+    <div class="who co">CO</div>
+    <div class="bubble">
+      <div class="tag hire">stay close two beats, and</div>
+      "The fixer falls in. The rest of the crew gets paid a little less often now."
+    </div>
+  </div>
+  <div class="beat">
+    <div class="who co">CO</div>
+    <div class="bubble">
+      <div class="tag bad">unpaid, overnight</div>
+      "The mechanic says the batteries dried up, and leaves."
+    </div>
+  </div>
+</div>
+
+<h2>WALKING OFF IS A FREE NO</h2>
+<div class="card">
+  <p class="note">Ask for a medic, then walk up to somebody else before two beats pass:
+  the offer is gone, no cost, and medic is never asked again this game. But the NEXT
+  role still gets offered the moment you ask again &mdash; a single decline used to block
+  every role after it forever, found and fixed this round (measured below).</p>
+</div>
+
+<h2>THE FOUR ROLES, AND WHAT EACH ONE ACTUALLY CHANGES</h2>
+<div class="card">
+  <table>
+    <tr><th>our name</th><th>Battle Brothers name</th><th>what it changes</th></tr>
+    <tr><td>The driver</td><td>scout</td><td class="live">LIVE: every block crossed on the map costs 15% less time</td></tr>
+    <tr><td>The fixer</td><td>negotiator</td><td class="live">LIVE: every other hired follower is only charged every second night</td></tr>
+    <tr><td>The medic</td><td>surgeon</td><td class="notlive">not yet live: this game has no wound clock to speed up yet</td></tr>
+    <tr><td>The mechanic</td><td>blacksmith</td><td class="notlive">not yet live: this game has a flat repair switch, not a meter to make cheaper</td></tr>
+  </table>
+  <p class="note">Every number here is a first attempt, not a final ruling (tuned:false).
+  The real Battle Brothers numbers are an open ask to Grok (reference/BOHEMIA_GROK_ASKS.md
+  #9); this ships the mechanism now rather than wait on an answer that has not come back.</p>
+</div>
+
+<h2>WHY TWO OF THE FOUR AREN'T LIVE YET</h2>
+<div class="card">
+  <p class="note">A medic who heals faster needs a wound to heal; this game only has a
+  ruling that a struck-down man is out 30 to 40 days (rule 36b), not code that tracks it.
+  A mechanic who repairs cheaper needs a repair meter; this game only has a flat
+  yes-or-no switch for a spent plate. Building a fake meter just to give these two
+  something to discount would be inventing a system nobody asked for. They are hired for
+  real, paid for real, and will do real work the day those two systems exist.</p>
+</div>
+
+<h2>MEASURED, NOT EYEBALLED</h2>
+<div class="card">
+  <table>
+    <tr><th>step</th><th>result</th></tr>
+    <tr><td>the ask fires once per role, through the real bark</td><td class="big">confirmed</td></tr>
+    <tr><td>stays quiet while an offer is live and under two beats</td><td class="big">confirmed</td></tr>
+    <tr><td>two beats with the same companion hires them</td><td class="big">confirmed</td></tr>
+    <tr><td>walking off to somebody else declines for free</td><td class="big">confirmed</td></tr>
+    <tr><td>a decline advances to the next role, never blocks it</td><td class="big">confirmed</td></tr>
+    <tr><td>a night with a fixer hired charges the fixer and skips the rest</td><td class="big">1 electricity, half of 2</td></tr>
+    <tr><td>the driver's real travel-time function runs 15% faster, hired</td><td class="big">confirmed, read off cityStepMins itself</td></tr>
+    <tr><td>a wage nobody can pay ends that hire the same night</td><td class="big">confirmed, no grace period</td></tr>
+    <tr><td>never speaks with nobody walking with you</td><td class="big">confirmed</td></tr>
+  </table>
+</div>
+
+</div></body></html>

@@ -1,0 +1,223 @@
+BOHEMIA -- THE RETINUE (10/1/26, PEOPLE lane)
+VAMILY [followers], row THE-RETINUE. Rule 48, from the translation table's own
+admission: Followers was one of the two rows the table itself listed NOT
+STARTED (the other was ambitions, shipped 9/30).
+
+================================================================================
+THE REAL SHAPE, AND THE REAL GAP IN THE LIBRARY
+================================================================================
+PEOPLE's own board row: "Battle Brothers' followers (scout, surgeon,
+negotiator, blacksmith, drill sergeant, paymaster) translated: the mechanic,
+the medic, the fixer, the driver, the handler with his beast ([keepers]);
+hired at a place, one slot each, a daily wage; what each changes (travel,
+healing, prices, repair)." The 62-row translation table gives the same shape.
+
+CHECKED FIRST, AND IT IS GENUINELY EMPTY: reference/library/battle_brothers/
+has no page on followers at all (grepped every file for "follower", "surgeon",
+"retinue", "blacksmith" alongside "camp" -- nothing). This is not an oversight;
+it is Grok ask #9 in reference/BOHEMIA_GROK_ASKS.md, word for word: "THE
+FOLLOWERS (the retinue). Every follower, what they cost, what they change,"
+unanswered as of this round, because our own sandboxes cannot reach the wiki
+(rule 49). Rather than invent precise Battle Brothers numbers from memory and
+call them researched, this round ships the MECHANISM against the real shape
+PEOPLE's own row and the 62-row table already agreed on, with every number
+marked tuned:false, exactly like ambitions did for its own reward.
+
+================================================================================
+FOUR ROLES, EACH TIED TO A REAL HOOK OR HONESTLY NOT
+================================================================================
+Checked before a line was written: engine/bohemia_economy.js's own 9/30
+research (records/BOHEMIA_ECONOMY_DAY_55_SIX_THINGS_TWO_LEDGERS_THAT_HAVE_NEVER_MET_9_30_26.md)
+found that MEDS is "a population statistic with zero connection to any
+wound -- no wound/injury module exists anywhere" and TAPE is "a flat yes/no
+switch (fight:plate)". So two of the four BB roles have nothing real to speed
+up yet:
+
+  THE MEDIC (surgeon)   -- would heal wounds faster. NOT LIVE: no wound clock
+                           exists in code; rule 36b (long injury) is still an
+                           OPEN board row, a ruling not a mechanism.
+  THE MECHANIC (blacksmith) -- would repair cheaper. NOT LIVE: the only repair
+                           fact in this codebase is a flat spent/not-spent
+                           switch, not a meter with a cost to discount.
+
+The other two had a real, already-shipped function to hook, found by reading
+the actual code rather than assuming:
+
+  THE DRIVER (scout)    -- cityStepMins(x,y), the real function the map's own
+                           travel system calls for every block crossed (shipped
+                           this stretch under rule 44, the travel-speed pad).
+                           Hiring a driver multiplies its result by 0.85.
+  THE FIXER (negotiator) -- the nightly wage collection itself. A fixer makes
+                           every OTHER hired follower's wage due only every
+                           second time wages are collected, never its own.
+
+NEITHER LIVE EFFECT NEEDED A NEW CURRENCY: this game's three currencies are
+LOCKED (laws/BOHEMIA_ADDENDUM_THREE_CURRENCIES_CENTURY_7_26_26.md) and the
+six-resource vision (rule 47) is RESEARCH ONLY, not code, confirmed by
+ECONOMY's own 9/30 row. Wages are paid in electricity, the same currency
+ambitions already pays its reward in.
+
+================================================================================
+THE WAGE IS A TRANSFER, NOT A FIFTH FROZEN VERB
+================================================================================
+The purse's own upkeep() function spends through exactly four named verbs
+(day:ate, fight:plate, night:power, ask:leaned) and refuses a fifth by name:
+"the four verbs are frozen; a fifth is a design change, and design changes
+are Paolo's." [block rent] (9/12) already solved this exact problem for a
+different cost (what you owe the faction whose block you stand on) by using a
+plain transfer instead of a new verb: "IT IS A TRANSFER, NOT A FIFTH VERB...
+rent MOVES, to somebody with a name." Follower wages are the same shape: a
+flat debit() call with its own reason string, called from the SAME nightfall
+sequence, right after loanNight() -- after your own debts, because what you
+owe somebody else comes before what you pay yourself for help.
+
+UNPAID LEAVES THE SAME NIGHT, NO INVENTED GRACE PERIOD. An unpaid circuit
+already goes dark immediately (nightPower()); an unpaid follower leaves the
+same way. A grace period is a real tuning question with no defensible default
+to guess at, so none was invented.
+
+================================================================================
+THE PICK IS THE ASK ITSELF, AND THIS TIME IT ALSO BUILDS THE PART AMBITIONS
+NAMED AS MISSING
+================================================================================
+Same reasoning as [ambitions]: rule 19/20 already killed a card as the
+surface, and a new button is UI's call on a settlement screen that does not
+exist yet, so this reuses the exact same companion mouth ambitions proved.
+UNLIKE ambitions, which named "no explicit accept/decline gesture" as
+unbuilt, this round builds a real one: an offer stays live and silent for two
+beats (120 BPM, 500 ms/beat -- the same window [bb company]'s own retired
+fall-in mechanic used) with the SAME companion still the one you are with,
+then they fall in. Walking off to a different companion before that is a
+free decline (rule 35c), never asked again this session for that role.
+
+================================================================================
+THE BUG THIS ROUND FOUND IN ITS OWN FIRST DRAFT, AND HOW IT WAS CAUGHT
+================================================================================
+*** A SINGLE DECLINE WOULD HAVE BLOCKED EVERY LATER ROLE, FOREVER. *** The
+first version of offerFor(hired) only skipped roles already HIRED. Since
+offerFor always returns the first unfilled slot, and a DECLINED role is
+never filled, declining the very first offer (the mechanic) would have made
+offerFor return 'mechanic' again on every future call -- and because the bark
+only asks a role once ever (CT_FOLLOWER_ASKED), the ask-guard would then
+refuse to speak it again, silencing the whole retinue mechanism for the rest
+of the session. Caught before this went anywhere near the gate's real-city
+section, by writing the gate's own decline-then-advance test first and
+watching it fail. FIXED: offerFor now takes BOTH hired and asked, and skips a
+role that is either. NEGATIVE-CONTROLLED in the gate itself: section B
+reconstructs the exact buggy function (skipping only `hired`) as a [self-test]
+and proves it reproduces the block, right beside the real function proving it
+does not.
+
+================================================================================
+WHAT WAS BUILT
+================================================================================
+engine/bohemia_followers.js: a pure module, four FOLLOWERS (id, the BB name,
+a flat wage of 1, an ask line, a hire line, an unpaid line, a declared
+`changes` fact, all tuned:false), and five functions: byId, offerFor,
+askLine/hireLine/unpaidLine, wageDueTonight, travelMultiplier. No roster
+array stored elsewhere; the same code is inlined verbatim into
+BOHEMIA_CITY_WORLD.html, matching [ambitions] and [bb company]'s own pattern.
+
+The walked city: ctFollowerBark, wired into the SAME bark ladder every mouth
+in this game goes through, right beside [ambitions]'s own bark. Gated on a
+real companion (CT_WALKS_WITH); announces an unpaid departure first if one is
+queued; holds a live offer silent for two beats then hires; declines for free
+on a change of companion; offers the next un-hired, un-declined role.
+followerWagesNight, called once a night from the real nightfall sequence,
+right after loanNight(): a plain purse debit per hired follower who is due
+tonight, skipping a relieved one, removing anyone who cannot be paid. The
+driver's effect is one extra multiply inside cityStepMins, defaulting to 1
+(a no-op) when no driver is hired.
+
+================================================================================
+PROVEN, NOT ASSERTED
+================================================================================
+On the real city, driven end to end: a fresh company is asked for a mechanic,
+through the real bark, in the real words; staying put under two beats stays
+silent; two beats later the mechanic falls in, in the real words; the second
+role offered is the medic, not the mechanic again; walking off to a different
+companion before two beats declines medic for free, and the NEXT offer skips
+straight to the fixer rather than re-asking medic or re-blocking on mechanic
+-- the exact bug this round fixed, proven on the real surface, not just the
+pure function; a night with both a mechanic and a fixer hired charges exactly
+2 electricity; the very next night, with the fixer's relief active, charges
+exactly 1 (the fixer only); the night after that, 2 again; a hired driver's
+effect read off the real cityStepMins function is exactly a 0.85 multiplier
+on the same inputs; draining the purse and running the nightly collection
+removes every follower who could not be paid, in the same beat, and the next
+real bark announces it in the real declared words; with nobody walking beside
+the player, the mechanism never speaks at all.
+
+================================================================================
+THE GATE
+================================================================================
+gates/followers_gate.js, new (REUSE-FIRST: nothing existed to extend). 42
+legs: the mechanism is pure and never throws; every number is tuned:false;
+the decline-advance fix is proven with a negative control reconstructing the
+exact pre-fix bug; the wage currency is checked against the real locked list;
+the frozen upkeep() verbs table is checked to still have exactly its original
+four entries; followerWagesNight is checked structurally to never call
+upkeep() or upkeepPost(); the city wiring never opens a card; the driver's
+multiplier is checked to be wired into the real cityStepMins function body;
+the full real-city walk above.
+
+================================================================================
+THE COOK: THE RETINUE
+================================================================================
+slices/BOHEMIA_THE_RETINUE_10_1_26.html, registered in VOTE. The real
+offer, the real hire, the real unpaid departure, in the game's own words; the
+four-role table with which two are live and which two are honestly not; the
+measured proof table.
+
+================================================================================
+MEASURED AND NOT FIXED
+================================================================================
+TWO OF THE FOUR EFFECTS ARE NOT YET LIVE, NAMED RATHER THAN FAKED. The medic
+and the mechanic are hired for real, paid for real, and occupy their slot for
+real; their declared `changes.mult` is `null` with a note naming exactly what
+system would have to exist first (a wound clock for 36b's long injury, a
+repair meter in place of the flat plate switch). Building a placeholder meter
+just to give them something to discount would be inventing a system nobody
+asked for, the exact trap rule 48's own count warns against for a NOT STARTED
+row.
+
+THE EXACT BATTLE BROTHERS NUMBERS ARE STILL UNKNOWN. Every wage (1 battery)
+and every effect size (0.85x travel, every-other-night relief) is a first
+attempt, not a ruling, pending Grok ask #9's answer and TUNING's table.
+
+NO PERSISTENCE ACROSS A RELOAD. CT_FOLLOWERS and its guards are plain
+in-memory variables, matching the EXISTING, ALREADY-SHIPPED pattern every
+other bark-state tracker in this file uses (CT_AMBITION, CT_WALKS_WITH
+itself included -- neither survives a reload either). A shared, pre-existing
+gap, not introduced or scoped to this round alone.
+
+"HIRED AT A PLACE" IS NOT YET A PLACE. The row asks for hiring at a building
+in a settlement screen that does not exist yet (RUN's to build). This reuses
+the walking-companion mouth exactly as [ambitions] did, for the identical
+reason: a new building-tap surface is a UI call on ground that is not there.
+When the settlement screen ships, moving the offer onto a specific building
+(a garage for the mechanic, a clinic for the medic) is one more surface for
+the SAME pure offerFor/askLine/hireLine functions to be called from, not a
+rewrite of the mechanism.
+
+FOUND WHILE SHIPPING, NOT ACTED ON: QUESTS' round seven landed the SAME round
+this built (records/BOHEMIA_QUESTS_ROUND_SEVEN_TWO_SLOTS_PAIRS_AND_FOLLOWERS_10_1_26.md,
+QR-AD), and its own research reads BB's retinue differently than the board
+row this round answered: "18 followers, one-off fee, deed unlocks, 5 slots by
+renown... no wage treadmill... a follower is the 'chamberlain class' that
+outlives the captain: followers age, raise an apprentice, and the apprentice
+is OFFERED to the heir," plus 24 draft follower characters. That is a bigger,
+more generational, name-and-personality shape than a mechanical dial-turner,
+and "no wage treadmill" sits in real tension with this round's nightly wage.
+NOT RECONCILED THIS ROUND: PEOPLE's own board row explicitly asked for "a
+daily wage" (rule 48, the coordinator's own words), which is what got built,
+honestly, with every number tuned:false; QUESTS' finding is itself unverified
+research, not a ruling, and folding in named characters, generational
+apprentice-to-heir handoff, and a renown-less slot-unlock design is a real
+round's worth of work on its own, not a last-minute rewrite. Flagged here for
+the next [followers] round, DYNASTY (the apprentice/heir thread), and TUNING
+(wage vs. one-off fee) to pick up, rather than guessed at or ignored.
+
+TAB: CITY, the walked street, until the settlement screen exists (RUN owns
+that migration for every mouth in this file, not just this one). VOTE, for
+the cook.

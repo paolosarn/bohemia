@@ -16016,6 +16016,136 @@ ALSO STILL OPEN, not draw order: on NE in his own frame
 the right of the shoulders with a visible gap. That is the pose too.
 
 Nothing [PENDING Paolo].
+PEOPLE (people-7h9sfy): 10/1 LATEST -- *** [followers] SHIPPED. THE RETINUE: FOUR
+NAMED HIRES, ONE A REAL CUT ON TRAVEL TIME, ONE A REAL CUT ON THE OTHER THREE'S
+WAGES, TWO HONESTLY NOT LIVE YET. ***
+
+Row (rule 48's translation table, the second of two it named NOT STARTED, the
+first being [ambitions] last round): THE-RETINUE. Battle Brothers hires camp
+staff (scout, surgeon, negotiator, blacksmith) for a daily wage. The board row's
+own translation: the mechanic, the medic, the fixer, the driver (the
+beast-handler is [keepers]'s own row).
+
+CHECKED FIRST: the reference library has nothing on followers at all -- it is
+Grok ask #9, unanswered (our own sandboxes cannot reach the wiki). Rather than
+guess precise Battle Brothers numbers from memory, this ships the MECHANISM
+against the row's own stated shape, every number tuned:false, same discipline
+as [ambitions].
+
+TWO EFFECTS ARE REAL TODAY, found by reading the actual code rather than
+assuming: the DRIVER's hire multiplies cityStepMins (the real function the
+map's own travel-speed system calls for every block) by 0.85. The FIXER's
+hire makes every OTHER hired follower's wage due only every second time wages
+are collected. TWO ARE HONESTLY NOT LIVE: the MEDIC would heal wounds faster,
+but no wound clock exists in code (rule 36b is a ruling, not a mechanism); the
+MECHANIC would repair cheaper, but the only repair fact in this codebase is a
+flat spent/not-spent switch, not a meter to discount. Building a fake meter
+just to give them a job would be inventing a system nobody asked for.
+
+THE WAGE IS A TRANSFER, NOT A FIFTH FROZEN VERB: the purse's upkeep() refuses
+a fifth verb by name ("a fifth is a design change, and design changes are
+Paolo's"), so wages debit directly -- the identical shape [block rent] already
+used for the same reason. An unpaid follower leaves the same night, no
+invented grace period, same immediate consequence an unpaid circuit already
+gets.
+
+THE PICK IS THE ASK ITSELF, reusing [ambitions]'s own proven companion mouth
+(rule 19/20 killed a card, a new button is UI's call on a settlement screen
+that doesn't exist yet). UNLIKE ambitions, this round BUILT the accept/decline
+gesture ambitions named as missing: an offer stays live and silent for two
+beats (120 BPM, 500 ms/beat, the same window [bb company]'s own retired
+fall-in mechanic used) with the same companion still the one you're with, then
+they fall in; walking off to somebody else declines for free, never asked
+again this session for that role.
+
+*** A BUG THIS ROUND FOUND IN ITS OWN FIRST DRAFT, BEFORE IT SHIPPED: *** a
+single decline on the very first role offered would have silenced the WHOLE
+mechanism forever. offerFor only skipped roles already HIRED, never ones
+ASKED-and-declined, so after a decline the first unfilled slot was still the
+same slot, offered again every time -- except the once-ever-ask guard would
+then refuse to speak it, so nothing further was ever offered. Caught by
+writing the gate's own decline-then-advance test BEFORE trusting the
+mechanism and watching it fail. FIXED: offerFor now skips a role that is
+EITHER hired or asked. NEGATIVE-CONTROLLED in the gate itself: the exact
+pre-fix function is reconstructed as a [self-test] and proven to still
+reproduce the block, right beside the real function proving it does not.
+
+BUILT: engine/bohemia_followers.js (four FOLLOWERS, all tuned:false),
+inlined into BOHEMIA_CITY_WORLD.html exactly like [ambitions] and
+[bb company]. ctFollowerBark wired into the SAME bark ladder, right beside
+[ambitions]'s own entry. followerWagesNight wired into the real nightfall
+sequence, right after loanNight(), using its OWN internal night counter for
+the fixer's relief parity (not the game's own day number -- a cleaner,
+self-contained design found while debugging the gate, see below). The
+driver's multiplier is one extra multiply inside cityStepMins, a no-op by
+default.
+
+ONE MORE THING THE GATE CAUGHT DURING BUILD, NAMED FOR THE RECORD: the first
+draft tried to key the fixer's "every other night" relief off the game's own
+DAY.day. The gate's own test proved this wrong immediately -- DAY.day turned
+out to already be 1 on a fresh boot (not settable the way a plain property
+assignment would suggest, likely derived rather than stored), so a test that
+set window.DAY.day=0 and expected that value back got silently overridden.
+Rather than fight another lane's clock semantics for a detail nobody but this
+mechanism cares about, [followers] now owns a tiny internal counter
+(CT_FOLLOWER_NIGHTS) for its own relief parity, while still passing the REAL
+day to the purse's ledger for honest history. Simpler, fully self-contained,
+fully testable on demand.
+
+PROVEN ON THE REAL CITY: ask fires once in the real words; two beats with the
+same companion hires through the real bark; the second role offered is the
+next one, never a repeat; walking off before two beats declines for free AND
+the next offer skips straight past the declined role (the exact bug above,
+proven fixed on the real surface, not just the pure function); a night with
+two hired followers charges 2 electricity; the very next night, relieved,
+charges 1; the night after, 2 again; the driver's real effect read off the
+real cityStepMins is exactly 0.85x; draining the purse removes everyone who
+can't be paid in the same beat and the next bark announces it in the real
+declared words; nobody walking beside the player, it never speaks at all.
+
+THE GATE: gates/followers_gate.js, new (REUSE-FIRST: nothing existed to
+extend). 44/0: pure mechanism never throws, every number tuned:false, the
+decline-fix negative-controlled, the wage currency checked against the real
+locked list, the frozen upkeep() verbs table checked to still hold exactly
+its original four, followerWagesNight checked structurally to never call
+upkeep()/upkeepPost(), the driver's hook checked to be wired into the real
+cityStepMins body, the full real-city walk above. Checked for collateral:
+ambitions_gate 34/0 unaffected, people_gate 158/0 unaffected (both reconfirmed
+after this round's edits, not assumed from an earlier run).
+
+Cook: THE RETINUE, in VOTE -- the real offer, the real hire, the real unpaid
+departure, in the game's own words, the four-role table naming which two are
+live and which two honestly are not, the measured proof table.
+Record records/BOHEMIA_THE_RETINUE_10_1_26.txt.
+
+FOUND WHILE SHIPPING, FLAGGED NOT CHASED: QUESTS' own research landed the
+SAME round (records/BOHEMIA_QUESTS_ROUND_SEVEN_TWO_SLOTS_PAIRS_AND_FOLLOWERS_10_1_26.md,
+QR-AD) and reads Battle Brothers' retinue differently -- "18 followers,
+one-off fee, deed unlocks, 5 slots by renown... no wage treadmill," a
+generational "chamberlain class" that raises an apprentice offered to the
+heir, plus 24 draft follower characters. That is a bigger, named,
+generational shape, and "no wage treadmill" sits in real tension with this
+round's nightly wage. NOT RECONCILED: the board row this round answered
+explicitly asked for "a daily wage" in the coordinator's own words, which is
+what got built, honestly and completely; QUESTS' finding is itself unverified
+research, not a ruling, and folding in named characters and an
+apprentice-to-heir handoff across generations is a real round of its own, for
+the next [followers] round, DYNASTY (the heir thread), and TUNING (wage vs.
+fee) to pick up.
+
+MEASURED, NOT FIXED, named rather than built speculatively: "hired at a
+place" is not yet an actual place -- reuses the companion mouth for the exact
+reason ambitions did (a settlement-screen building is RUN's surface to build,
+not there yet); when it ships, the same pure offerFor/askLine/hireLine
+functions get called from a building tap instead, not rewritten. No
+persistence of CT_FOLLOWERS/CT_FOLLOWER_OFFER/CT_FOLLOWER_NIGHTS across a
+reload -- the same pre-existing, shared gap every bark-state tracker in this
+file already has (CT_AMBITION and CT_WALKS_WITH itself included), not
+introduced or scoped to this round alone.
+
+TAB: CITY, the walked street, until the settlement screen exists. VOTE, for
+the cook. Nothing [PENDING Paolo] from this block.
+
 PEOPLE (people-7h9sfy): 9/30 LATEST -- *** [ambitions] SHIPPED. THE COMPANY NOW SETS
 ITSELF A GOAL, ASKED AND ANSWERED THROUGH A MOUTH, NEVER A CARD. ***
 
