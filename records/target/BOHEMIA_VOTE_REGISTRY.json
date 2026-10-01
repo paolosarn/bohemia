@@ -3219,7 +3219,7 @@
    "sha": "45c2a04b",
    "made": "9/29",
    "title": "FOUR CREWS ARE ALREADY WALKING AT SOMEBODY'S BASE",
-   "why": "Four of the game's 28 roaming crews are already walking at a rival's home base: the Caravans, the Cartel and the Remnants going at each other. When they arrive, nothing happens. The map can show it: every crew's path, and a red ring on a base a crew is heading at. Tap LOOK AT IT. My default is that a base only falls from what you do, until you say otherwise. Thumbs up keeps it that way. Thumbs down lets crews take bases while you are not looking.",
+   "why": "Four of the game's 28 roaming crews are already walking at a rival's home base: the Caravans, the Cartel and the Remnants going at each other. When they arrive, nothing happens. The map can show it: every crew's path, and a red ring on a base a crew is heading at. Tap LOOK AT IT. My default is that a base only falls from what you do, until you say otherwise. Thumbs up keeps it that way. Thumbs down lets crews take bases while you are not looking. (10/1: I changed this default. The thumb that counts now is on A CREW AT YOUR GATE.)",
    "show": {
     "how": "page",
     "src": "vote/FACTIONS_WHO_IS_COMING_FOR_WHOM_9_29.html"
@@ -3764,6 +3764,19 @@
    "show": {
     "how": "page",
     "src": "BOHEMIA_THE_RETINUE_10_1_26.html"
+   }
+  },
+  {
+   "id": "factions-a-crew-at-your-gate-10-1",
+   "kind": "tile",
+   "lane": "factions",
+   "sha": "756a2a94",
+   "made": "10/1",
+   "title": "A CREW AT YOUR GATE",
+   "why": "A crew walks up to a base you hold. Tap LOOK AT IT: the game's own map, two crews walking at two bases you would hold, then both at the gate with four days on the clock, then four days later with nobody there: the strong base holds and the weak one is taken. I changed my mind from last time: the world can take a base nobody came to, after four days of warning, and it never burns it. Thumbs up keeps that. Thumbs down puts it back: a crew at your gate does nothing until you fight.",
+   "show": {
+    "how": "page",
+    "src": "vote/FACTIONS_A_CREW_AT_YOUR_GATE_10_1.html"
    }
   }
  ],

@@ -1,0 +1,118 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>BOHEMIA - A CREW AT YOUR GATE</title>
+<style>
+ :root{ --ink:#141210; --paper:#f4efe6; --hot:#a8391d; --dim:#4a443c; --good:#2c6b35; --gold:#e0a91c }
+ *{ box-sizing:border-box }
+ body{ margin:0; background:var(--paper); color:var(--ink);
+       font:15px/1.5 ui-sans-serif,system-ui,-apple-system,Arial,sans-serif }
+ header{ padding:14px 14px 10px; border-bottom:3px solid var(--ink) }
+ h1{ margin:0 0 5px; font-size:19px; letter-spacing:.3px }
+ .sub{ font-size:14px; color:var(--dim) }
+ .said{ margin:10px 14px; padding:9px 12px; border-left:5px solid var(--good);
+        background:#fff; font-size:14px }
+ .said b{ color:var(--good) }
+ .fork{ margin:10px 14px; padding:9px 12px; border-left:5px solid var(--hot);
+        background:#fff; font-size:14px }
+ .fork b{ color:var(--hot) }
+ .quiet{ margin:10px 14px; padding:9px 12px; border-left:5px solid #6b6252;
+         background:#fff; font-size:13px; color:var(--dim) }
+ .quiet b{ color:var(--ink) }
+ .wrap{ padding:6px 14px 50px }
+ .shot{ background:#fff; border-bottom:3px solid var(--ink); padding:8px; margin-top:14px }
+ .tag{ display:inline-block; background:var(--ink); color:var(--paper); font:11px/1.6
+       ui-monospace,monospace; padding:1px 7px; letter-spacing:.5px; margin-bottom:6px }
+ .shot a{ display:block }
+ .shot img{ display:block; width:100%; height:auto; border:1px solid #cabfa8; image-rendering:pixelated }
+ .cap{ font-size:14px; color:var(--dim); margin:9px 0 0 }
+ .cap b{ color:var(--ink) }
+ .key{ display:flex; flex-wrap:wrap; gap:6px 14px; margin:8px 0 0; font:12px/1.4 ui-monospace,monospace }
+ .key span{ white-space:nowrap }
+ table{ border-collapse:collapse; width:100%; background:#fff; margin-top:14px;
+        font:12px/1.4 ui-monospace,monospace }
+ th,td{ text-align:left; padding:5px 7px; border-bottom:1px solid #ddd5c4 }
+ th{ background:var(--ink); color:var(--paper) }
+ td.n{ text-align:right }
+ td.fall{ color:var(--hot); font-weight:bold }
+ td.hold{ color:var(--good); font-weight:bold }
+</style></head><body>
+
+<header>
+ <h1>A CREW AT YOUR GATE</h1>
+ <div class="sub">A crew walks up to a base you hold. You get four days. If nobody comes, the world answers. 10/1</div>
+</header>
+
+<div class="said">
+ <b>WHAT I FOUND.</b> The game already sends four crews out "to take something." They are the same four on all
+ twelve valleys I tried, and all four walk at a fortress. Nobody sends a crew at a camp or a town. A crew walks
+ from its base to its target in under half a day, so it gets there, turns round and comes back again and again.
+ A raid has to count once, or a base would be raided every few hours.
+</div>
+
+<div class="said">
+ <b>WHAT I BUILT.</b> When a crew reaches a base you hold, a raid starts and a four day clock runs. If you come and
+ fight, the fight decides. If nobody comes, the world decides: a base at least as strong as the crew holds. A weaker
+ base is taken by the crew, never burned. Each base is raided once an act, and the hard bases only late in an act.
+</div>
+
+<div class="wrap">
+
+ <div class="shot">
+  <span class="tag">1. THE WARNING</span>
+  <a href="FACTIONS_A_CREW_AT_YOUR_GATE_1_WARNING_10_1.png" target="_blank" rel="noopener"><img src="FACTIONS_A_CREW_AT_YOUR_GATE_1_WARNING_10_1.png" alt="the map with two bases you hold, red dashed rings on both and two crews walking at them"></a>
+  <div class="cap"><b>Two Cartel crews are walking at two bases you hold.</b> The gold ring is a base that is yours. The red
+  dashed ring says a crew is coming. The pink triangles are the crews, and the dashed line is where each one is going.</div>
+  <div class="key">
+   <span>GOLD RING = yours</span><span>RED DASHED RING = a crew is coming</span><span>PINK TRIANGLE = a Cartel crew</span>
+  </div>
+ </div>
+
+ <div class="shot">
+  <span class="tag">2. AT THE GATE</span>
+  <a href="FACTIONS_A_CREW_AT_YOUR_GATE_2_AT_THE_GATE_10_1.png" target="_blank" rel="noopener"><img src="FACTIONS_A_CREW_AT_YOUR_GATE_2_AT_THE_GATE_10_1.png" alt="the same map with a red double ring, a camp and four red squares at each base"></a>
+  <div class="cap"><b>A crew has arrived at each one, and the clock starts.</b> The solid red rings and the pink camp say a crew
+  is at the gate. Four red squares are four days left.</div>
+ </div>
+
+ <div class="shot">
+  <span class="tag">3. FOUR DAYS LATER, NOBODY CAME</span>
+  <a href="FACTIONS_A_CREW_AT_YOUR_GATE_3_FOUR_DAYS_LATER_10_1.png" target="_blank" rel="noopener"><img src="FACTIONS_A_CREW_AT_YOUR_GATE_3_FOUR_DAYS_LATER_10_1.png" alt="the same map, the left base now ringed in the crew's pink and the right base still ringed in gold"></a>
+  <div class="cap"><b>The base on the right holds. The base on the left fell.</b> The Remnants are stronger than the Cartel
+  crew (14 against 12), so that base stays yours and the gold ring stays. The Caravans are weaker (10 against 12), so the
+  Cartel took that base and its ring turns pink. Nothing was burned.</div>
+ </div>
+
+ <table id="tbl"></table>
+
+ <div class="fork">
+  <b>I CHANGED MY MIND ON ONE THING, AND THIS IS THE THUMB.</b> Last time I said a base only falls from what you do.
+  Your own words point the other way: a base can be "taken or ruined," and losing one is how your base shrinks. The
+  research on sieges says the same thing: the world should be able to take a base nobody came to, but only after a long
+  warning with days on the clock. So the new default is four days, then the world answers.
+  <br><br>
+  Thumbs up keeps it. Thumbs down puts it back the old way: a crew at your gate does nothing until you fight.
+ </div>
+
+ <div class="quiet">
+  <b>WHAT THIS IS NOT.</b> The fight is not built here. When you do come, the fight will decide, and the offer to come is
+  the settlement screen's. Nothing in the live game starts a raid yet, so these rings are NOT IN A TAB YET on the live
+  map. The pictures are the game's real map with the list drawn on top. The four days, the once an act and the
+  stronger-wins rule are my starting numbers for the numbers chat to tune.
+ </div>
+
+</div>
+
+<script>
+var ROWS = [
+ ['Caravans crew (10)', 'the Cartel base (12)', 'holds'],
+ ['Cartel crew (12)', 'the Remnants base (14)', 'holds'],
+ ['Cartel crew (12)', 'the Caravans base (10)', 'falls'],
+ ['Remnants crew (14)', 'the Cartel base (12)', 'falls']
+];
+var h = '<tr><th>THE CREW</th><th>AT THE BASE</th><th>IF NOBODY COMES</th></tr>';
+for (var i = 0; i < ROWS.length; i++)
+  h += '<tr><td>' + ROWS[i][0] + '</td><td>' + ROWS[i][1] + '</td><td class="' + (ROWS[i][2] === 'falls' ? 'fall' : 'hold') + '">' + ROWS[i][2] + '</td></tr>';
+h += '<tr><td colspan="3" style="color:#4a443c">Half hold and half fall, on all twelve valleys. The numbers are the strength the game already gives each faction.</td></tr>';
+document.getElementById('tbl').innerHTML = h;
+</script>
+</body></html>

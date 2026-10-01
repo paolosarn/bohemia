@@ -20105,6 +20105,52 @@ HOW TWENTY-TWO ROUNDS COMPOSE, written once now that Q1-Q22 are all shipped:
 NEXT IN THIS LANE: Q23 [who eats first].
 
 
+FACTIONS (factions-ovkjpf): 10/1 (round 50) LATEST -- *** [home bases] ROUND FIVE: A CREW ARRIVING AT A BASE YOU HOLD IS A RAID,
+AND THE LEDGER HALF OF THE CHAIN IS BUILT. *** The coordinator's 9/30 note on my row: "'nothing happens when they arrive' is the
+next row: a crew arriving at a base you hold is a RAID." PREMISE MEASURED FIRST (rule 12): nothing in the game reads an arrival, and a
+before-and-after look at the parties' `arrived` flag cannot see one reliably (a crew's whole trip is 25 to 40 cells against 89 cells a
+waking day, and the module turns a crew round the step after it arrives, so a clock call that walks many steps, a night's sleep, can see a
+crew arrive AND leave inside one call; a gate leg builds that case). The research was already written: QUESTS QR-R found a siege is a short
+chain on one base (warning, offer, preparation days, one fight, outcome) and that the world may take a base nobody came to, but only after
+a warning with days on the clock. BUILT (engine only, commit 756a2a94, on main): engine/bohemia_homebases.js gains advanceWatching (the
+parties module's advance one step at a time, ending in EXACTLY its state, returning every arrival once, a drop-in for the clock's call),
+raidsFrom (which arrivals are raids: a crew, at a base you hold, not a ruin, whose own home stands, open yet by the DEPTH thirds, no clock
+given means the start of an act, not already raided this act), openRaid (due in four map days, against whoever held it), closeRaid (HELD
+closes and writes nothing; TAKEN and RUINED go through the same two writes the rest of the game uses, by 'raid'), settle (the world's answer
+on the due day when nobody came: a base at least as strong as the crew holds, a tie holds, a weaker one is TAKEN by the crew, NEVER burned,
+no number no fall, a moot raid closes held, idempotent), a `raid` {by, due} on the base marker, and the raids in the save (older saves load
+as no raid ever came). THE NUMBERS ARE DEFAULTS, NOT RULINGS: RAID_DEFAULTS {prepDays 4, perAct 1} (QR-R's suggestions) and the one
+comparison (the act power column the parties module already hands out); every function takes opts to replace them for TUNING, and
+opts.holds(seat, raid) is the seam for anything that should make a base stronger (LIFE+CITY's wall and tank). Gate HOME BASES 142 checks
+(was 94), red 69 ways by mutation (was 37); two first-draft mutations were silent and each found something real (a check that counted an
+arrival's step but not its repeats; three isRuin tests that heldBy already made redundant, which I deleted instead of testing). BUILD A LOT
+56 to 62 green, ONE THEN HEIRS 97/0, TURF LEDGER 30/0, THREE ACTS 28/0 with the change in. MEASURED on twelve valleys: THE FOUR CREWS ARE THE
+SAME FOUR ON EVERY VALLEY AND ALL FOUR ARE SENT AT FORTRESSES (Caravans 10 at the Cartel 12, Cartel 12 at the Remnants 14, Cartel 12 at the
+Caravans 10, Remnants 14 at the Cartel 12), no crew is ever sent at a camp or a town, and if nobody comes exactly half hold (24 of 48);
+a crew arrives at its target 4 to 18 times a waking day (median 6), which is why a base is raided once an act and not polish. SO TODAY A
+PLAYER WHO HOLDS ONLY CAMPS AND TOWNS CAN NEVER BE RAIDED, and the fortresses open two thirds into an act: a roster fact, WORLD's to change.
+I REVERSED MY ROUND-THREE DEFAULT (a base falls only from what you do): his own words say 'taken or ruined' and 'losing one is how it
+shrinks', QR-R says the world may take a base nobody came to after a warning with days on the clock, and the coordinator's note needs an
+end; the round-three card now carries a one-line pointer so a thumb on the old question is not read as a thumb on the new one. THE COOK, in
+VOTE: A CREW AT YOUR GATE (vote/FACTIONS_A_CREW_AT_YOUR_GATE_10_1.html, id factions-a-crew-at-your-gate-10-1): three real frames of the
+game's own map with RUN's new building art and rings over it: two Cartel crews walking at two bases you would hold (red dashed rings, dashed
+lines), a crew camped at each with four red squares for four days, then four days later the Remnants base (14 against 12) holds in gold and the
+Caravans base (10 against 12) is ringed in the Cartel's pink; a table of the four crews; the thumb. WHAT WE DO DIFFERENTLY FROM BB (39b): BB's
+'raided' is a temporary situation on a town you do not own and its crises burn settlements whether you watch or not; ours is a clock on YOUR
+base, takes only the weak ones after four days, never burns unattended, and MOVES (a line, a camp, squares that go down by day). HOW THE FRAME WAS
+MADE: toMap() lands on the SKY rung, so skyExit(); the camera is set from the three seats with the player's own body panned off the glass; the
+overlay wraps render(); positions go through the game's own iso(); the arrivals, raids and answers are the module run in the page on the live
+valley. ROUTED (full list in the record): RUN swaps BohemiaParties.advance for advanceWatching in partiesAdvance and calls raidsFrom, openRaid,
+settle once a map day; WORLD [parties move] BUY half sends crews at what is worth taking, the player's bases (ownedBy) included; COMBAT and
+LIFE+CITY [where a raid is fought] call closeRaid when the fight ends and read the marker's raid for the offer; LIFE+CITY could make a wall raise
+a base's strength through opts.holds; TUNING holds the three numbers; WORLD's feed reads settle() events; PEOPLE/WORDS one person and one line at the
+gate; [PENDING coordinator] COLOUR IS TERRITORY vs 37e unchanged. NEXT IN THIS LANE: [home bases] and [territory ledger] stay CLAIMED. (1) rule 42a,
+the human combat factions and rosters, WITH PEOPLE (COMBAT [bestiary] owns the data file); (2) a base's job facts on the marker once WORLD/ECONOMY
+resolve the dark pumps; (3) when RUN's clock calls advanceWatching, look at it on the glass; (4) cut my border and ground ink on the map when RUN's
+map is stable; (5) when a raid exists, inline the module and wire the save. Four of my VOTE cards now wait on him (the fourteen bases, the crews
+heading at bases, your base grows part by part, a crew at your gate).
+Record: records/BOHEMIA_HOME_BASES_ROUND_FIVE_THE_RAID_AT_YOUR_GATE_10_1_26.md.
+
 FACTIONS (factions-ovkjpf): 9/30 (round 49) LATEST -- *** [home bases] ROUND FOUR: THE LEDGER NAMES THE WAY A PART
 CHANGES HANDS AND ANSWERS FOR ANY BLOCK (RULE 43), AND A BASE GROWS IN JUMPS. *** Rule 43 (Paolo 9/29): taking a part
 (raid, contract, boss verb, deal) is how the base grows, losing one is how it shrinks, "you own the held-parts ledger
