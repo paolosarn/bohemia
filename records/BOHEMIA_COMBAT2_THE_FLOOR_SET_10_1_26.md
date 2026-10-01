@@ -82,3 +82,16 @@ from the drawn masks (houses -> height only where a roof is drawn); round three'
 translated in round_three_terrain. Key and source in the bank. No cover sits on a blocked tile (guard).
 NEXT: strip-mall store fronts deserve their own facade tile (they reuse the house roof); landfill,
 shore, the ruin variants (debris).
+
+## ROUND FIVE (10/1, rules 57, 59): THE SHORE, THE LANDFILL, THE RUIN
+
+tools/bohemia_combat2_shore_landfill_ruin_cook_10_1_26.py (imports round four) ->
+banks/BOHEMIA_THE_FIGHT_BOARD_KINDS_ROUND_5_10_1_26.txt, VOTE combat2-shore-landfill-ruin-10-1.
+  shore: deep water (water bank tiles 15-18, each colour snapped to the bank's own colour nearest its
+    60% self: a hole, not a pool) is 'blocked'; the pale wading band (tiles 26-27) is 'water'; mud flat
+    from the desert soils; the bathtub ring a bleached band with its 1.6 m face seen; rocks, a car, rubble.
+  landfill: haul road, trash heaps from a noise field ('height', faces seen), 260 tyres, rubble cover.
+  ruin: the suburb block soot-shaded, four of eight roofs burnt through (joists over black, 'blocked'),
+    yards a debris field ('debris'), rubble and broken walls.
+New tag 'water' (3 steps, defence malus). Extra pieces rubble_N in this bank.
+NEXT: store-front facades, the casino floor (an interior), night light as a tile property.

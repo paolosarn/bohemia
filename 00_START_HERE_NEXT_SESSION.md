@@ -1,3 +1,10 @@
+COMBAT TWO (combat2-8ca291aa): 10/1 (f) LATEST -- [floor set] ROUND FIVE SHIPPED (rules 57, 59): the
+shore, the landfill and the ruin as 5x5 boards with terrain tags (new tag 'water': wade, 3 steps,
+defence malus). Nine board kinds in three banks (round 3, 4, 5). Bank
+banks/BOHEMIA_THE_FIGHT_BOARD_KINDS_ROUND_5_10_1_26.txt, VOTE combat2-shore-landfill-ruin-10-1.
+NEXT: store-front facade tile, the casino floor interior, night light as a tile property.
+[PENDING Paolo]: none.
+
 COMBAT TWO (combat2-8ca291aa): 10/1 (e) LATEST -- [floor set] ROUND FOUR SHIPPED 7cbf69f (rules 57, 59):
 suburb block, strip lot, scrub, freeway boards (5x5, 45, cover placements) and a terrain[5][5] tag on
 all six kinds (flat/rough/height/blocked, read off the drawn masks, per the BB school table). Bank

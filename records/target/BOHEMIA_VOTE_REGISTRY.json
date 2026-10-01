@@ -4073,7 +4073,8 @@
       "how": "image",
       "src": "vote/COOK_THE_FIGHTS_FLOOR.png"
     }
-  }
+  },
+{"id": "combat2-shore-landfill-ruin-10-1", "kind": "tile", "lane": "combat 2", "sha": "pending", "made": "10/1", "title": "THREE MORE FIGHT BOARDS: THE SHORE, THE LANDFILL, THE RUIN", "why": "Three more places a fight can start: the dried-up lake shore where you wade at the edge of black water, the city dump with trash heaps as high ground, and a burnt-out block where half the roofs fell in. Thumbs up and combat cuts fights from these, and you see it in the COMBAT tab when a fight starts on that kind of map cell.", "show": {"how": "image", "src": "vote/COMBAT2_SHORE_LANDFILL_RUIN_10_1.png"}}
 ],
  "verdicts": [
   {
