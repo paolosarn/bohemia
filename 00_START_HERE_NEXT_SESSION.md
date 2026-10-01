@@ -10660,6 +10660,10 @@ it is player-facing at all is worth deciding before restyling it. The source cou
 now understood as dead-declaration debt and can be swept file-wide in one pass instead of
 being chased surface by surface.
 
+RUN (run-eak241): 10/1b LATEST -- PAOLO: "the icons fucking suck ass" -> THE MAP ICONS ARE THE GAME'S OWN ART (b4d70be). TAB: the DEMO link, first screen.
+Crowds = three of the street's 12 baked dressed people; crews = two of them walking their way under the faction's flag; bases = the tier's own building (FORT, TOWN, TRAILER camp) with a flag and a dark edge. People at 2/3 of him (2 phone px per pixel), names painted after crews, crews within a block of home hidden. Read as the MAP icons; if he meant the bar's six glyphs, that is next.
+GATE: THE MAP HAS ITS PEOPLE 19/0 (three new legs; blobs back -> 2 red, blocks back -> 1 red). VOTE before/after. records/BOHEMIA_THE_ICONS_ARE_THE_GAMES_OWN_ART_RUN_10_1_26.md
+NEXT: [fold the loop] (claimed): bring RUN TWO's loop systems (settlement screen, two contracts, the pay, wages) onto THIS map, not its placeholder canvas.
 RUN (run-eak241): 10/1 LATEST -- [fight returns] SHIPPED 4047aaf (rule 57) + [map pixels] G1 / [map pixels now] most of it. TAB: the DEMO link.
 FIGHT: reproduced his stuck fight (goon out of range and passive, SHOOT gone, only the WAY OUT ends it: COMBAT's, routed) AND every ended fight froze 10-11 s on the way home (the tab re-baked his body and cast): now 0.8 s. Gate EVERY FIGHT HANDS HIM BACK 9/0.
 MAP: canvas at the phone's pixels (1134x2490), MAP DENSITY 13/0 (was red), ground painted once and slid while travelling (10.8 fps vs main's 4.4). Gate THE MAP AT THE PHONE'S PIXELS 16/0; five map checkers re-aimed to CSS pixels.
