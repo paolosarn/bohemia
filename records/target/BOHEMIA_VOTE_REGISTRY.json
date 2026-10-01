@@ -3982,7 +3982,7 @@
    "sha": "pending",
    "made": "10/1",
    "title": "THE SETTLEMENT SCREEN: SEE THE PLACE, TAP A BUILDING",
-   "why": "You arrive and see the place: tap the hall to hire, the board for up to two contracts, the stall, the barber for one battery, or scavenge until the lot is picked clean, and every building talks through a face. You see it in the VOTE tab under LOOK, a working screen that is NOT IN A TAB YET until the run plugs it into arriving on the map.",
+   "why": "You arrive and tap a building: a camp has the hall, the job board, the stall and scavenge, a town adds the barber and the bar, a fortress adds the clinic and the training yard, and each one talks through a face. You see it in the VOTE tab under LOOK, a working screen you can drag, NOT IN A TAB YET until the run plugs it into arriving on the map.",
    "show": {
     "how": "page",
     "src": "BOHEMIA_SETTLEMENT_SCREEN.html"

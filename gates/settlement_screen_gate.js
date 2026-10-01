@@ -59,12 +59,20 @@ const srv = http.createServer((rq, rs) => {
   ok('the place is drawn, not a blank box', art.lit > 1000, art.lit + ' lit samples');
   ok('  at the phone\'s real pixels', art.w >= art.cssw * 3 - 1, art.w + ' for ' + art.cssw + ' css');
 
-  const keys = await p.evaluate(() => window.BohemiaSettlement.order.slice());
-  ok('five buildings: hall, board, stall, barber, scavenge', keys.join() === 'hall,board,stall,barber,lot', keys.join());
-  const sizes = await p.evaluate(() => [].slice.call(document.querySelectorAll('.hot,.pl,#leave')).map(e => {
+  const keys = await p.evaluate(() => window.BohemiaSettlement.order());
+  ok('a town has six: hall, board, stall, barber, bar, scavenge', keys.join() === 'hall,board,stall,barber,bar,lot', keys.join());
+  const sizes = await p.evaluate(() => [].slice.call(document.querySelectorAll('.hot,.pl,#leave')).filter(e => e.style.display !== 'none').map(e => {
     const r = e.getBoundingClientRect(); return [e.dataset.k || e.id, Math.round(r.width), Math.round(r.height)]; }));
   const small = sizes.filter(s => s[1] < 44 || s[2] < 44);
-  ok('every building is tappable on the picture AND on the shelf', sizes.filter(s => s[0] !== 'leave').length === 10, sizes.length + ' targets');
+  /* tap each plate: the street walks to that front and its button is there on the picture */
+  const onPic = [];
+  for (const k of keys) {
+    await p.click('.pl[data-k="' + k + '"]'); await p.waitForTimeout(80);
+    if (await p.evaluate(k => { const h = document.querySelector('.hot[data-k="' + k + '"]'); if (!h || h.style.display === 'none') return false;
+      const r = h.getBoundingClientRect(); return r.width >= 44 && r.left >= -1 && r.right <= innerWidth + 1; }, k)) onPic.push(k);
+    await p.click('#close'); await p.waitForTimeout(260);
+  }
+  ok('every building is tappable on the picture AND on the shelf', onPic.length === keys.length, onPic.join());
   ok('  and every target is 44', small.length === 0, JSON.stringify(small.slice(0, 3)));
   const inside = await p.evaluate(() => [].slice.call(document.querySelectorAll('.hot')).every(h => {
     const r = h.getBoundingClientRect(); return r.left >= -1 && r.right <= innerWidth + 1; }));
@@ -98,6 +106,14 @@ const srv = http.createServer((rq, rs) => {
   const broke = await p.evaluate(() => document.querySelector('#sbody .act').disabled);
   ok('  and refuses when you are broke', broke && (await bat()) === 0);
   await p.evaluate(() => BohemiaPurse.credit(BohemiaSettlement.state.purse, 'electricity', 3, 'gate', null, 0));
+
+  /* the bar: a round costs one battery and pays a rumour */
+  const bb = await bat();
+  await p.click('.pl[data-k="bar"]'); await p.waitForTimeout(200);
+  await p.click('#sbody .act'); await p.waitForTimeout(200);
+  const rum = await p.evaluate(() => (window.__settleLog.filter(m => m.act === 'round').pop() || {}).rumour || '');
+  ok('the bar: one battery for a round, and a rumour out of a mouth', bb - (await bat()) === 1 && rum.length > 20, rum.slice(0, 50));
+  await p.evaluate(() => BohemiaPurse.credit(BohemiaSettlement.state.purse, 'electricity', 1, 'gate', null, 0));
 
   /* the board: two contracts max, each told to the game */
   for (let i = 0; i < 3; i++) {
@@ -133,9 +149,39 @@ const srv = http.createServer((rq, rs) => {
   ok('scavenge finds one thing or nothing, never a pile', finds.every(f => f === 0 || f === 1), finds.join(''));
   ok('  and the lot runs out', clean === 'picked clean' && total === 6, total + ' found, shelf says ' + clean);
 
-  await p.click('.pl[data-k="stall"]'); await p.waitForTimeout(200);
+  /* the street pans with a drag */
   await p.click('#close'); await p.waitForTimeout(300);
+  const c0 = await p.evaluate(() => { BohemiaSettlement.open({}); return 0; });
+  const before = await p.evaluate(() => document.querySelector('.hot[data-k="hall"]').getBoundingClientRect().left);
+  await p.mouse.move(300, 300); await p.mouse.down(); await p.mouse.move(150, 300, { steps: 6 }); await p.mouse.up();
+  const after = await p.evaluate(() => document.querySelector('.hot[data-k="hall"]').getBoundingClientRect().left);
+  ok('drag the street and it pans', before - after > 60, Math.round(before) + ' -> ' + Math.round(after));
+
+  /* a camp has four and the rest are SHUT, not tappable */
+  const camp = await p.evaluate(() => { BohemiaSettlement.open({ place: { tier: 'camp', name: 'A CAMP' } });
+    return { o: BohemiaSettlement.order().join(), shut: !!document.querySelector('.hot[data-k="barber"]') }; });
+  ok('a camp: hall, board, stall, scavenge, and the barber is shut', camp.o === 'hall,board,stall,lot' && !camp.shut, camp.o);
+
+  /* a fortress has all eight; the clinic and the yard only work for a real reason */
+  const fort = await p.evaluate(() => { BohemiaSettlement.open({ place: { tier: 'fortress', name: 'A FORTRESS' } }); return BohemiaSettlement.order().length; });
+  ok('a fortress has all eight', fort === 8, fort);
+  await p.click('.pl[data-k="clinic"]'); await p.waitForTimeout(200);
+  const noHurt = await p.evaluate(() => document.querySelector('#sbody .act').disabled);
+  await p.evaluate(() => BohemiaSettlement.open({ wounded: ['rosa'], veterans: ['jonah'] }));
+  await p.click('.pl[data-k="clinic"]'); await p.waitForTimeout(200);
+  const cb = await bat(); await p.click('#sbody .act'); await p.waitForTimeout(150);
+  ok('the clinic refuses with nobody hurt, and takes one battery for a wound', noHurt && cb - (await bat()) === 1);
+  await p.click('.pl[data-k="train"]'); await p.waitForTimeout(200);
+  const tb = await bat(); await p.click('#sbody .act'); await p.waitForTimeout(150);
+  ok('the yard swaps a veteran\'s mastery for one battery', tb - (await bat()) === 1);
+  await p.click('#close'); await p.waitForTimeout(300);
+  await p.evaluate(() => BohemiaSettlement.open({ place: { tier: 'town', name: 'THE WASH, NORTH LAS VEGAS' } }));
+  await p.waitForTimeout(200);
   await p.screenshot({ path: SHOT });
+  await p.evaluate(() => BohemiaSettlement.open({ place: { tier: 'fortress', name: 'THE FORT, HENDERSON' } }));
+  await p.mouse.move(300, 300); await p.mouse.down(); await p.mouse.move(40, 300, { steps: 6 }); await p.mouse.up();
+  await p.waitForTimeout(200);
+  await p.screenshot({ path: SHOT.replace('_10_1', '_FORTRESS_10_1') });
   await p.click('#leave');
   const left = await p.evaluate(() => (window.__settleLog || []).some(m => m.act === 'leave'));
   ok('LEAVE tells the game you left', left);

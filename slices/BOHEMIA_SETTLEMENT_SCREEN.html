@@ -62,9 +62,9 @@ html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);
   color:var(--ink);font-size:11px;letter-spacing:1px;padding:3px 6px;border:1px solid var(--line);
   border-radius:3px;white-space:nowrap;pointer-events:none}
 .hot:active,.hot.on{border-color:var(--gold)}
-#shelf{display:flex;gap:6px;padding:8px 8px max(8px,env(safe-area-inset-bottom));background:var(--plate2);
+#shelf{display:flex;gap:6px;overflow-x:auto;padding:8px 8px max(8px,env(safe-area-inset-bottom));background:var(--plate2);
   border-top:1px solid var(--line)}
-.pl{flex:1;min-width:0;min-height:64px;background:linear-gradient(#33281e,#211a13);color:var(--ink);
+.pl{flex:1 0 70px;min-width:70px;min-height:64px;background:linear-gradient(#33281e,#211a13);color:var(--ink);
   border:1px solid var(--line);border-radius:6px;font:inherit;font-size:11px;letter-spacing:1px;padding:6px 2px;
   box-shadow:inset 0 1px 0 rgba(255,235,200,.12),0 2px 0 #000}
 .pl b{display:block;font-size:12px}
@@ -115,9 +115,22 @@ var B = {
   hall:   {x:616, y:88, w:264, h:262, name:'THE HALL',    short:'who wants work'},
   board:  {x:528, y:200, w:88, h:150, name:'THE BOARD',   short:'contracts'},
   barber: {x:968, y:88, w:352, h:270, name:'THE BARBER',  short:'1 battery'},
-  lot:    {x:0,   y:360, w:1408, h:160, name:'SCAVENGE',  short:'one thing or nothing'}
+  bar:    {x:1496, y:88, w:440, h:270, name:'THE BAR',    short:'a round, a rumour'},
+  clinic: {x:2024, y:88, w:264, h:262, name:'THE CLINIC', short:'cuts wound days'},
+  train:  {x:2376, y:88, w:352, h:270, name:'THE YARD',   short:'swap a mastery'},
+  lot:    {x:0,   y:360, w:2816, h:160, name:'SCAVENGE',  short:'one thing or nothing'}
 };
-var ORDER = ['hall','board','stall','barber','lot'];
+/* ROUND TWO (RUN 2, 10/1): A PLACE HAS THE BUILDINGS ITS SIZE CARRIES, like Battle Brothers,
+   where a hamlet has a market and recruits and a city has the temple and the training hall
+   (GROK_20/21, stamped). The street is the shop run twice, so the second three fronts are
+   real fronts; the ones a place does not have are drawn SHUT, never hidden. Translated
+   (rule 48): tavern -> THE BAR, temple -> THE CLINIC, training hall -> THE YARD. */
+var TIERS = {
+  camp:     ['hall','board','stall','lot'],
+  town:     ['hall','board','stall','barber','bar','lot'],
+  fortress: ['hall','board','stall','barber','bar','clinic','train','lot']
+};
+var ORDER = TIERS.town.slice();
 
 /* WHO STANDS IN EACH BUILDING. draft:true: names and lines are attempts (rule 8/11);
    they speak Spanglish, the player does not (the first votes). */
@@ -126,6 +139,9 @@ var KEEPERS = {
   board:  {who:'settle-board',  name:'THE ELDER',          draft:true},
   stall:  {who:'settle-stall',  name:'NENA, AT THE STALL', draft:true},
   barber: {who:'settle-barber', name:'CHUY, THE BARBER',   draft:true},
+  bar:    {who:'settle-bar',    name:'MANNY, BEHIND THE BAR', draft:true},
+  clinic: {who:'settle-clinic', name:'DOC ROSALES',        draft:true},
+  train:  {who:'settle-yard',   name:'SARGE, AT THE YARD', draft:true},
   lot:    {who:'you',           name:'YOU',                draft:true}
 };
 
@@ -144,6 +160,14 @@ var OFFERS = [
    says:'The dogs took the lot behind the wash. Not pets no more. Clear it and the lot is ours again.'}
 ];
 var TIER_OFFERS = {camp:1, town:2, fortress:3};
+/* THE BAR's rumours: draft:true attempts, each one a real thing the valley has (a pump, a
+   road crew, the lab's animals), never a quest card. Spanglish from his mouth. */
+var RUMOURS = [
+  'They say the pump on Lake Mead Boulevard still runs at night. Nobody admits to paying for it.',
+  'Road crew took the corner by the wash again. Six of them, one with a pistol, the rest pipes.',
+  'A trucker swore he saw a dog with a tag in its ear, big as a calf. From the lab, pues.',
+  'Somebody is buying copper by the Strip and paying in real batteries. Too good, if you ask me.'
+];
 var SLOTS = 2;
 /* THE STALL. What the shelf holds is ECONOMY's to rule (BohemiaPlace.STOCKS is empty on
    purpose); until then the stall sells the goods the economy already names, ONE battery
@@ -154,7 +178,7 @@ var STALL = [{good:'food', label:'A ration of food', counts:'resources'},
 
 var S = {
   place:{name:'THE WASH, NORTH LAS VEGAS', tier:'town', district:'commercial'},
-  purse:null, day:0, held:[], hired:{}, asked:{}, scav:null, faces:{}, open:null, standalone:(window.parent===window)
+  purse:null, day:0, rumour:0, wounded:[], veterans:[], held:[], hired:{}, asked:{}, scav:null, faces:{}, open:null, standalone:(window.parent===window)
 };
 var P = window.BohemiaPurse;
 function bats(){ return P ? P.balance(S.purse,'electricity') : 0; }
@@ -177,8 +201,16 @@ function layout(){
   /* Fit the run's height into the scene; on a phone it is wider than the screen, so it
      is centred on the hall and the edges crop, the art never squashes. */
   var s = Math.min(H/616, W/(1408*0.62));
-  view.s = s; view.ox = Math.round((W-1408*s)/2); view.oy = Math.round(H*0.30);
+  view.s = s; view.W = W; view.oy = Math.round(H*0.30);
+  pan(view.cx == null ? (B.hall.x + B.hall.w/2) : view.cx);
   hots(); draw();
+}
+/* THE STREET PANS: drag it, or tap a plate and it walks the camera to that front */
+function pan(cxArt){
+  var s = view.s, half = view.W/2/s;
+  cxArt = Math.max(half, Math.min(2816 - half, cxArt));
+  view.cx = cxArt; view.ox = Math.round(view.W/2 - cxArt*s);
+  if(document.querySelector('.hot')) placeHots();
 }
 function draw(){
   var dpr = window.devicePixelRatio||1, now = performance.now();
@@ -197,10 +229,18 @@ function draw(){
        the closer they get, never a new drawing */
     var ry = view.oy + 616*s, step = 90*s, n = 0;
     for(var y = ry; y < Hc; y += step, n++){
-      cx.drawImage(img, 0, 526, 1408, 90, view.ox, Math.floor(y), 1408*s, Math.ceil(step)+1);
+      for(var c=0;c<2;c++) cx.drawImage(img, 0, 526, 1408, 90, view.ox+c*1408*s, Math.floor(y), 1408*s, Math.ceil(step)+1);
       cx.fillStyle = 'rgba(0,0,0,'+Math.min(.6,.12+n*.08).toFixed(2)+')'; cx.fillRect(0,Math.floor(y),Wc,Math.ceil(step)+1);
     }
-    cx.drawImage(img, view.ox, view.oy, 1408*view.s, 616*view.s);
+    for(var c2=0;c2<2;c2++) cx.drawImage(img, view.ox+c2*1408*s, view.oy, 1408*s, 616*s);
+    /* SHUT: a front this place does not have is dark behind its shutter, and says so */
+    ['stall','barber','bar','clinic','train'].forEach(function(k){
+      if(ORDER.indexOf(k) >= 0) return;
+      var r = B[k]; cx.fillStyle = 'rgba(8,6,4,.72)';
+      cx.fillRect(view.ox+r.x*s, view.oy+r.y*s, r.w*s, r.h*s);
+      cx.fillStyle = '#6e5f4c'; cx.font = '11px ui-monospace,monospace'; cx.textAlign = 'center';
+      cx.fillText('SHUT', view.ox+(r.x+r.w/2)*s, view.oy+(r.y+r.h/2)*s);
+    });
     /* THE HUM: the shop light over the stall breathes on the 120 BPM beat and drops out
        for a beat every so often, on its own, at the source. */
     var beat = ((now-t0)/500)|0, out = (beat % 13 === 7);
@@ -221,14 +261,22 @@ function hots(){
   ORDER.forEach(function(k){
     var r = B[k], h = document.createElement('button');
     h.className = 'hot'; h.dataset.k = k; h.setAttribute('aria-label', r.name);
+    var lab = document.createElement('span'); lab.textContent = r.name; h.appendChild(lab);
+    h.addEventListener('click', function(){ if(!view.dragged) openB(k); });
+    sc.insertBefore(h, document.getElementById('sheet'));
+  });
+  placeHots();
+}
+/* a front off the edge of the screen has no button until you pan to it */
+function placeHots(){
+  var W = view.W;
+  [].slice.call(document.querySelectorAll('.hot')).forEach(function(h){
+    var r = B[h.dataset.k];
     var x = view.ox + r.x*view.s, y = view.oy + r.y*view.s, w = r.w*view.s, hh = r.h*view.s;
-    var W = sc.clientWidth;
     if(x < 0){ w += x; x = 0; } if(x + w > W) w = W - x;
+    h.style.display = w < 30 ? 'none' : '';
     if(w < 44){ x -= (44-w)/2; w = 44; }
     h.style.left = x+'px'; h.style.top = y+'px'; h.style.width = w+'px'; h.style.height = Math.max(44,hh)+'px';
-    var lab = document.createElement('span'); lab.textContent = r.name; h.appendChild(lab);
-    h.addEventListener('click', function(){ openB(k); });
-    sc.insertBefore(h, document.getElementById('sheet'));
   });
 }
 function shelf(){
@@ -237,7 +285,7 @@ function shelf(){
     var b = document.createElement('button'); b.className = 'pl'+(S.open===k?' on':''); b.dataset.k = k;
     var n = document.createElement('b'); n.textContent = B[k].name.replace('THE ',''); b.appendChild(n);
     var s = document.createElement('small'); s.textContent = sub(k); b.appendChild(s);
-    b.addEventListener('click', function(){ openB(k); });
+    b.addEventListener('click', function(){ if(k!=='lot') pan(B[k].x + B[k].w/2); openB(k); });
     sh.appendChild(b);
   });
   document.getElementById('bat').textContent = bats()+' BATTER'+(bats()===1?'Y':'IES');
@@ -340,6 +388,33 @@ function openB(k, line){
       sb.appendChild(act('Your haircut', '12 cuts', function(){ post('barber',{open:'hairBank'}); heard('The haircut shelf opens.'); }));
     }, bats()<1));
   }
+  else if(k==='bar'){
+    body.appendChild(speak(k, line || 'A round for the crew is one battery. Drink, and I tell you what I heard.'));
+    acts.appendChild(act('Buy the crew a round', '1 battery', function(){
+      if(bats()<1) return openB('bar','No battery, no round, compa.');
+      P.debit(S.purse,'electricity',1,'bar:round',S.place.name,S.day);
+      var rm = RUMOURS[S.rumour++ % RUMOURS.length];
+      post('round',{rumour:rm}); shelf(); openB('bar', rm);
+    }, bats()<1));
+  }
+  else if(k==='clinic'){
+    var hurt = (S.wounded||[]).length;
+    body.appendChild(speak(k, line || (hurt ? 'Leave them with me. One battery and a long wound heals in half the days.'
+      : 'Nobody in your crew is hurt right now, gracias a Dios. Come back when somebody is.')));
+    acts.appendChild(act('Pay to cut the wound days', '1 battery', function(){
+      P.debit(S.purse,'electricity',1,'clinic:wound',S.place.name,S.day);
+      post('clinic',{who:S.wounded.shift()}); shelf(); openB('clinic','Half the days. Bring them back in one piece next time.');
+    }, !hurt || bats()<1));
+  }
+  else if(k==='train'){
+    var vets = (S.veterans||[]).length;
+    body.appendChild(speak(k, line || (vets ? 'Past level eleven you can trade one mastery for another. Batteries and a few days.'
+      : 'Nobody in your crew is past level eleven yet. Then we talk.')));
+    acts.appendChild(act('Swap a veteran\'s mastery', '1 battery', function(){
+      P.debit(S.purse,'electricity',1,'yard:swap',S.place.name,S.day);
+      post('train',{who:S.veterans[0]}); shelf(); openB('train','Done. Three days on the yard and it sticks.');
+    }, !vets || bats()<1));
+  }
   else if(k==='lot'){
     var l = left();
     body.appendChild(speak(k, line || (l.left===0 ? 'Nothing left on this lot. You took it all.' : 'Four hours in the lot. It is luck whether I find anything.')));
@@ -390,10 +465,14 @@ function open(o){
   }
   if(o.contracts) S.held = o.contracts.slice(0,SLOTS);
   if(o.hired) S.hired = o.hired;
+  if(o.wounded) S.wounded = o.wounded.slice();
+  if(o.veterans) S.veterans = o.veterans.slice();
+  ORDER = (TIERS[S.place.tier] || TIERS.town).slice();
+  view.cx = null;
   S.scav = S.scav || BohemiaScavenge.create({id:S.place.name});
   hide(); shelf(); layout();
 }
-window.BohemiaSettlement = {open:open, state:S, buildings:B, order:ORDER, offers:OFFERS};
+window.BohemiaSettlement = {open:open, state:S, buildings:B, tiers:TIERS, offers:OFFERS, order:function(){ return ORDER.slice(); }};
 
 window.addEventListener('message', function(e){
   var d = e.data || {};
@@ -403,10 +482,21 @@ window.addEventListener('message', function(e){
 document.getElementById('close').addEventListener('click', hide);
 document.getElementById('leave').addEventListener('click', function(){ post('leave',{}); heard('You head back out to the map.'); });
 window.addEventListener('resize', layout);
+(function(){
+  var sc = document.getElementById('scene'), x0 = null, c0 = 0;
+  sc.addEventListener('pointerdown', function(e){ if(e.target.closest('#sheet')) return; x0 = e.clientX; c0 = view.cx; view.dragged = false; });
+  window.addEventListener('pointermove', function(e){
+    if(x0 === null) return; var d = e.clientX - x0;
+    if(Math.abs(d) > 8) view.dragged = true;
+    if(view.dragged) pan(c0 - d/view.s);
+  });
+  window.addEventListener('pointerup', function(){ x0 = null; setTimeout(function(){ view.dragged = false; }, 0); });
+})();
 img.onload = layout; img.src = ART;
 
 var q = new URLSearchParams(location.search);
 open({place:{name:q.get('place')||S.place.name, tier:q.get('tier')||S.place.tier}, batteries: S.standalone ? 3 : undefined});
+/* window.BohemiaSettlement.order() is the open buildings, in shelf order */
 requestAnimationFrame(loop);
 })();
 </script>
