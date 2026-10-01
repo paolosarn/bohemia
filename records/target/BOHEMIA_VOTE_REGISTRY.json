@@ -4089,7 +4089,8 @@
     "src": "vote/COMBAT_THE_GROUND_IS_45_10_1.png"
    }
   },
-  {"id": "run-map-icons-own-art-10-1", "kind": "tile", "lane": "run", "made": "10/1", "sha": "pending", "title": "THE MAP ICONS ARE THE GAME'S OWN PEOPLE AND BUILDINGS", "why": "You said the icons suck, so the blobs are gone: crowds are three real dressed people, crews are two people walking under their faction's flag, and home bases are a fort, a town or a trailer camp with a flag on it. You see it on the map, the first screen of the demo after loading.", "show": {"how": "image", "src": "vote/RUN_THE_MAP_ICONS_ARE_THE_GAMES_OWN_ART_10_1.png"}}
+  {"id": "run-map-icons-own-art-10-1", "kind": "tile", "lane": "run", "made": "10/1", "sha": "pending", "title": "THE MAP ICONS ARE THE GAME'S OWN PEOPLE AND BUILDINGS", "why": "You said the icons suck, so the blobs are gone: crowds are three real dressed people, crews are two people walking under their faction's flag, and home bases are a fort, a town or a trailer camp with a flag on it. You see it on the map, the first screen of the demo after loading.", "show": {"how": "image", "src": "vote/RUN_THE_MAP_ICONS_ARE_THE_GAMES_OWN_ART_10_1.png"}},
+{"id": "combat2-night-boards-10-1", "kind": "tile", "lane": "combat 2", "sha": "pending", "made": "10/1", "title": "FIGHTS AT NIGHT: THE ONLY LIGHT IS WHAT STILL WORKS", "why": "The suburb street and the strip lot after dark: black except where one street lamp in three still burns and where people keep fire barrels going, and only those lit squares let you shoot and see like daytime. Thumbs up and combat uses these for night fights, and you see it in the COMBAT tab when a fight starts after sundown.", "show": {"how": "image", "src": "vote/COMBAT2_NIGHT_BOARDS_10_1.png"}}
 ],
  "verdicts": [
   {

@@ -1,3 +1,10 @@
+COMBAT TWO (combat2-8ca291aa): 10/1 (g) LATEST -- [floor set] ROUND SIX SHIPPED (rule 59 night-lit):
+the suburb block and strip lot at night (snapped to his palette, his lamps and drums as the only
+light, a light[5][5] lit/dark tag from the drawn pools). Bank
+banks/BOHEMIA_THE_FIGHT_BOARDS_AT_NIGHT_10_1_26.txt, VOTE combat2-night-boards-10-1. The cook takes
+~4 min (palette snap over 250k allowed colours). NEXT: store-front facades, the casino floor.
+[PENDING Paolo]: none.
+
 COMBAT TWO (combat2-8ca291aa): 10/1 (f) LATEST -- [floor set] ROUND FIVE SHIPPED (rules 57, 59): the
 shore, the landfill and the ruin as 5x5 boards with terrain tags (new tag 'water': wade, 3 steps,
 defence malus). Nine board kinds in three banks (round 3, 4, 5). Bank

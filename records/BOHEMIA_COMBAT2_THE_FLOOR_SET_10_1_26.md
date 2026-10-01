@@ -95,3 +95,13 @@ banks/BOHEMIA_THE_FIGHT_BOARD_KINDS_ROUND_5_10_1_26.txt, VOTE combat2-shore-land
     yards a debris field ('debris'), rubble and broken walls.
 New tag 'water' (3 steps, defence malus). Extra pieces rubble_N in this bank.
 NEXT: store-front facades, the casino floor (an interior), night light as a tile property.
+
+## ROUND SIX (10/1, rule 59's night-lit row): THE BOARDS AT NIGHT
+
+tools/bohemia_combat2_night_boards_cook_10_1_26.py -> banks/BOHEMIA_THE_FIGHT_BOARDS_AT_NIGHT_10_1_26.txt,
+VOTE combat2-night-boards-10-1. Round four's suburb block and strip lot (cover composited in) taken
+to night: x(0.30, 0.31, 0.38), then the pools of his live lamps (7/28 lamp sprites every 12 m on the
+walks, 36% lit) and his burning oil drums restored warm in three hard rings (ellipses at cos45);
+every pixel snapped to the allowed palette (numpy nearest). light[5][5] = 'lit' where 40% of a tile
+is inside a pool. Guard: colours, size, not stamped, at least one lit tile.
+NEXT: store-front facades, the casino floor interior.
