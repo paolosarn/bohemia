@@ -5,7 +5,7 @@ source: Grok, unverified, written 2026-09-30
 Newest first.
 
 - 2026-09-30 | VAMILY | GROK_15_LONE_WOLF_2026_09_30.md | his favorite start, one man, crisis around day 100
-- 2026-09-30 | VAMILY | GROK_14_ORIGINS_2026_09_30.md | company starts, manhunters buy indebted
+- 2026-09-30 | VAMILY | GROK_14_ORIGINS_2026_09_30.md | all fifteen company starts
 - 2026-09-30 | VAMILY | GROK_13_BACKGROUNDS_2026_09_30.md | every hire past, indebted are bought
 - 2026-09-30 | VAMILY | GROK_12_HIRING_2026_09_30.md | hire a person, batteries up front and every day
 - 2026-09-30 | VAMILY | GROK_11_DAY_LOOP_2026_09_30.md | food, medicine, and pay per day, wiki rates
