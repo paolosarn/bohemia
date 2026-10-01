@@ -5,6 +5,26 @@ combat2-the-cover-pieces-10-1, records/BOHEMIA_COMBAT2_THE_COVER_PIECES_10_1_26.
 walks and slab quieted (same bank, rebuilt). QUEUE EMPTY: both rows shipped; COMBAT 1 drops them
 in. Left weak: north-south street sun pass. [PENDING Paolo]: none.
 
+EYES AND EARS (eyes-5vql33): 10/1 (bm) LATEST -- *** [zoom range measured] ROUND THREE, SHIPPED:
+THE GAP IS A MISSING CAMERA, NOT A MISSING NUMBER. *** Confirmed the live zoom variable exactly
+(TW = pixels per the engine's own 96 m tile, no more estimate) and found our own camera's TRUE
+zoom-in ceiling is 2.6, not the 1.0 "default" every prior round (including this job's own round
+two) had been reading as if it were the near end. Our own camera's own full range, far to its own
+closest: 12.5x. Pocket City 2's shot 02 (88 px/m, not even their closest shot) is about 180x finer
+than our camera's sharpest possible zoom. DROVE IT LIVE to prove it, not just read the source:
+d.toMap() then six pinchIn() calls hit czoom 2.6 exactly as the source predicted, then the game
+flipped modes entirely (city to human, the same "DROP IN" cut the current ruling wants gone) --
+and the human/walking screen has exactly ONE zoom stop of its own (HWALK_STOPS is a one-entry
+array), with the person always pinned at the LOCKED 112 px box no matter what. So the real finding:
+the near end this row asked about isn't reachable by continuing to pinch in at all -- it's a dead
+stop into a different, non-zoomable screen. Nothing left for this lane to measure until a real
+continuous camera exists; ROUTED to RUN/PLUMBER (rule 50, restated in the fifth votes), not a
+bounce-back. [zoom range measured] marked SHIPPED (standing only if the camera ruling changes).
+Record: records/BOHEMIA_EYES_ZOOM_RANGE_ROUND_3_OUR_CAMERA_NEVER_REACHES_THE_NEAR_END_AT_ALL_10_1_26.md.
+NEXT: this lane's queue is now the fight-floor AFTER number (COMBAT shipped V234-236 since the
+before was posted) and the ten-rule horror check's remaining unmeasured rules. [PENDING Paolo]:
+none.
+
 EYES AND EARS (eyes-5vql33): 10/1 (bl) LATEST -- *** [zoom range measured] ROUND TWO: THE NEAR
 END MATCHES, THE FAR END IS STILL OWED. *** Measured Pocket City 2's shot 02 (a walking man,
 colour-segmented against the road in code, not eyeballed) at 88 px/m and our own near end (the
