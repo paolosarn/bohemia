@@ -21,7 +21,7 @@
    shot; spoilage rules; the daily wage formula; what a recruit costs by background.
 6. FIGHT LENGTH. Any measured data on how long a Battle Brothers battle takes (player reports, videos with timestamps):
    routine fights and the long ones (30-40 minutes), and what makes them long.
-7. THE MAP. Its pixel density at 1080p (how many screen pixels a hex, a settlement icon, a party marker, a road are
+7. THE MAP. FIRST: with a stopwatch, how long a crossing of the whole map takes north to south and east to west at 2x on roads and off roads (Paolo's ask 10/1; our best reading is 2 to 4 in-game days, 1:45 per day at 1x). Then its pixel density at 1080p (how many screen pixels a hex, a settlement icon, a party marker, a road are
    at default zoom); how the world map is generated (settlement counts, terrain kinds, roads).
 8. THE SETTLEMENT SERVICES AND SITUATIONS. Every building a settlement can have and what it does; every
    'situation' modifier and its effect on prices and recruits.
