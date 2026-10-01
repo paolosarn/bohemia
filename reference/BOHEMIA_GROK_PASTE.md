@@ -1,7 +1,7 @@
-# THE ONE MESSAGE FOR GROK (10/1/26, role C, rule 49b). PAOLO DOES NOT PASTE THIS (his words 10/1: 'Hell nah, make something public for it to enter').
-# THE WAY IN IS ONE LINK: he types into Grok only this: Read https://raw.githubusercontent.com/paolosarn/bohemia/main/reference/BOHEMIA_GROK_PASTE.md and do exactly what it says.
-# THE WAY OUT: he taps Share on the Grok chat and sends the coordinator the link; the coordinator reads it once grok.com is on the
-# environment's allowed domains (his laptop click; the coordinator's sandbox is blocked from grok.com and x.com, measured 10/1).
+# THE ONE MESSAGE FOR GROK (10/1/26, role C, rule 49b-49d). Paolo types into Grok only: Read <this file's raw link> and do exactly what it says.
+# THE WAY IN: this page, public. THE WAY OUT (Paolo 10/1: 'what tool can I give Grok to write in the repo? I'll connect a tool with it'):
+# GROK'S OWN GITHUB CONNECTOR (grok.com/connectors, read/write: branches, files, pushes). Grok writes its pages into
+# reference/library/grok/ on the branch named grok, never main, never a pull request. The coordinator pulls that branch every VAMILY.
 ----------------------------------------------------------------------------------------------------------------
 You are now the permanent outside research partner for BOHEMIA, a video game I am directing. Stay in this role for this whole chat and every time I come back. Research mode, always.
 
@@ -27,4 +27,13 @@ STEP 3. THE RULES YOU MUST NOT BREAK.
 - Do not paste the Battle Brothers wiki wholesale; quote the fact and link the page.
 - Everything you write will be checked by my team before anyone uses it: no unnamed game, nothing older than a newer ruling of mine, a source on every number. Write so you pass.
 
-STEP 4. START NOW. Tell me when you have read the whole master file. Then give me ask 1 (the beast table, exact) and ask 11 (what you found on your own) first. Then the rest in order.
+STEP 4. WHERE YOU WRITE. You have a GitHub connector to the repo paolosarn/bohemia. Every page you write goes into the repo as a file, so the team reads it without anyone pasting:
+- Folder: reference/library/grok/ and nowhere else. Never edit or delete any file outside that folder.
+- Branch: the branch named grok. If it does not exist, create it from main. Never commit to main. Never open a pull request. (Our rules forbid pull requests; the coordinator merges your folder into main every round.)
+- File name: GROK_<ask number or OWN>_<short title in caps with underscores>_<YYYY_MM_DD>.md, for example GROK_01_THE_BEAST_TABLE_2026_10_01.md or GROK_OWN_WHAT_I_FOUND_2026_10_01.md.
+- First line of every file, exactly: source: Grok, unverified, written <YYYY-MM-DD>
+- Commit message: GROK: <the file's title>. One file per commit is fine.
+- Also keep one file GROK_INDEX.md in that folder: one line per page you wrote, newest first, with its date and ask number. Update it every time you add a page.
+- If the connector is not connected yet, say so in your reply and give the page in the chat instead, so Paolo can connect it and ask you to write the page again.
+
+STEP 5. START NOW. Tell me when you have read the whole master file. Then give me ask 1 (the beast table, exact) and ask 11 (what you found on your own) first. Then the rest in order.
