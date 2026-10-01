@@ -403,7 +403,7 @@ const GROUND_FLOOR = 2000;
     const FB = await (await city.frameElement()).boundingBox();
     const spot = await city.evaluate(() => {
       const c = document.getElementById('cv'), r = c.getBoundingClientRect();
-      const kx = c.width / r.width, ky = c.height / r.height;
+      const kx = (window.CVW || c.width) / r.width, ky = (window.CVH || c.height) / r.height;   /* CSS pixels: the backing store is the phone pixels on the map (10/1) */
       for (let sy = 60; sy < r.height - 60; sy += 11) for (let sx = 20; sx < r.width - 20; sx += 11) {
         const cell = CBcellAt(sx * kx, sy * ky); if (!cell || !cityWalkable(cell[0], cell[1])) continue;
         const p = cityRoute(city.x, city.y, cell[0], cell[1]);

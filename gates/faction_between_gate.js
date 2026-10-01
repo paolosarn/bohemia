@@ -1285,10 +1285,10 @@ async function onTheGround() {
         try { render(); } catch (_e) {}
         return window.__GROUNDLABELS !== undefined;
       })();
-      const ox = Math.round(cv.width / 2 - (city.x - city.y) * TW / 2 + panX);
-      const oy = Math.round(cv.height / 2 - (city.x + city.y) * TH / 2 + panY);
+      const ox = Math.round((window.CVW || cv.width) / 2 - (city.x - city.y) * TW / 2 + panX);
+      const oy = Math.round((window.CVH || cv.height) / 2 - (city.x + city.y) * TH / 2 + panY);
       const bases = ctBases() || {};
-      const ctx = cv.getContext('2d');
+      const ctx = ((() => { /* RUN 10/1: the map canvas is the phone's pixels now; read a CSS-size copy, the picture this was written against */ const D = window.CV_DPR || 1; if (D === 1) return cv.getContext('2d', { willReadFrequently: true }); const s = document.createElement('canvas'); s.width = window.CVW; s.height = window.CVH; const x = s.getContext('2d', { willReadFrequently: true }); x.imageSmoothingEnabled = false; x.drawImage(cv, 0, 0, s.width, s.height); return x; })());
       const out = { TW: TW, cityDrew: cityDrew, basesNull: !ctBases(),
                     marker: {}, label: {},
                     mine: null, nearest: null, count: 0 };
@@ -1325,7 +1325,7 @@ async function onTheGround() {
            valley (4,660 of 9,216 cells, measured 9/15 with the renderer's own
            origin), so some seats being off screen is the expected state, not a
            defect. Recorded per base so the claim can say which. */
-        const onScreen = p.sx >= 0 && p.sx <= cv.width && cy >= 0 && cy <= cv.height;
+        const onScreen = p.sx >= 0 && p.sx <= (window.CVW || cv.width) && cy >= 0 && cy <= (window.CVH || cv.height);
         out.marker[n] = { mine: mineHit, them: themHit, onScreen: onScreen };
         if (!onScreen) out.offScreen = (out.offScreen || 0) + 1;
         /* THE LABEL BAND above this marker, for the two that get named at this

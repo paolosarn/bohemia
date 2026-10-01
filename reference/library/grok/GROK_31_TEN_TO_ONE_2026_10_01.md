@@ -1,4 +1,5 @@
 source: Grok, unverified, written 2026-10-01
+PASSED FILTER (coordinator 10/1, rule 54a: no game he has not named; what it reports as his is in VOTE marked VIA GROK, his locks win where they clash; numbers carry a source or say (recall))
 
 # 10 CROWNS = 1 BATTERY
 

@@ -2313,6 +2313,28 @@ GATES = [
      'and the street-only HOLD TO WALK lesson is not shown on the map where the pad is speed. The '
      'phone\'s own cracked glass over its own feed is the ruled look and is named, not counted. '
      'Mutations: line not fitted -> 4 red; lesson on the map -> 1 red; line under the gear -> 2 red.', True),
+    ('EVERY FIGHT HANDS HIM BACK', ['node', 'gates/every_fight_hands_him_back_gate.js'],
+     'VAMILY [fight returns], rule 57 (PAOLO 10/1, having played the demo: "combat didn\'t end so I couldn\'t '
+     'get back into the overworld"). REPRODUCED: a road fight (the toll crew) ran 60 s of SHOOT and 60 s of '
+     'RUN with no end; the goon sits out of range, never closes, SHOOT leaves the ring, and with a way out on '
+     'the board only reaching it wins (COMBAT\'s, routed). AND THE WAY HOME FROZE 10 TO 11 S: the tab re-baked '
+     'his body and the whole cast on the one thread. HOLDS, driver-played on the demo: a road fight opens '
+     'from the map; walking to the way out with real taps on the ring ends it; he is back on the map on the '
+     'block he left in under 3 s of the fight\'s end; the result is written; a lost and a cleared fight hand '
+     'him back too; the next step can meet the next fight. Mutations: the re-bake back -> red; the shell '
+     'never takes him home -> red.', True),
+    ('THE MAP AT THE PHONES PIXELS', ['node', 'gates/the_map_at_the_phones_pixels_gate.js'],
+     'VAMILY [map pixels] G1, rule 38a (PAOLO 9/28: "how many pixels the Battle Brothers map is and we '
+     'need to have that exact same number at the bare minimum... that has to happen like now"). MEASURED '
+     'FIRST (PLUMBER 9/28): the map canvas was 378x830 on a 3x phone, every painted pixel a 3x3 block. '
+     'NOW 1134x2490, layout in CSS pixels (CVW x CVH), the ratio on the context; and the cost paid: the '
+     'ground is painted once into a picture a margin bigger than the screen and slid under him while he '
+     'moves. HOLDS on the demo: the canvas is the phone\'s pixels; a real touch on a block journeys to '
+     'that block; the street stays at one; a slid ground is the same picture as a fresh paint in exactly '
+     'its place (under 5% of pixels off, the float32 shimmer two fresh paints share; one pixel over is '
+     '66%) and its taps slide with it; slides beat paints while travelling and cost under half; standing '
+     'still paints fresh; a broken paint is never slid. Mutations, five, each caught: ratio pinned to '
+     'one -> 2 red; slide the wrong way -> 1; taps not slid -> 1; no cache -> 2; always moving -> 1.', True),
     ('THE MAP HAS ITS PEOPLE', ['node', 'gates/the_map_has_its_people_gate.js'],
      'VAMILY [bb map] + [map pixels], rule 40f (PAOLO 9/29 with a screenshot of the map: "I should '
      'def be seeing the player character on this screen bro all those little circles should be '
@@ -3678,6 +3700,15 @@ GATES = [
      'faction-tagged songs enter the combat pool with their voices', False),
     ('COMBAT LAB',     ['node', 'gates/combat_lab_gate.js'],
      'beat-tactics lab: dial-gated damage, occupancy, 120, verdict UI', False),
+    # 10/1 COMBAT: the floor (rule 46f), the house board (rule 39, 46g) and the end condition (rule 57)
+    ('NOTHING ON THE GROUND', ['node', 'gates/nothing_on_the_ground_gate.js'],
+     'rule 46f: the fight draws at the phone\'s real pixels; no ovals, discs, words, rings or bars on the street; cover is COMBAT 2\'s pieces; a car is one tile', False),
+    ('NO ATARI',       ['node', 'gates/no_atari_gate.js'],
+     'rule 39: the fight is on house tiles, a street is one tile (46g), houses yards and walls, the high ground a roof on a lot', False),
+    ('A HOUSE IS NEVER SMALLER THAN A MAN', ['node', 'gates/a_house_is_never_smaller_than_a_man_gate.js'],
+     'V232: the fight camera never draws a house narrower than the man; off-glass enemies get an edge mark', False),
+    ('EVERY FIGHT ENDS', ['node', 'gates/every_fight_ends_gate.js'],
+     'rule 57 (Paolo 10/1: "combat didn\'t end"): all down, all fled, the chase capped, his side down; each end sent through the one door', False),
     ('COMBAT RUNS',    ['node', 'gates/combat_runs_smoke.js'],
      'IT PARSES IS NOT IT RUNS (Paolo 8/2, black screen + one red line): 620 string checks and a node --check were all green while every frame threw ReferenceError, because a temporal dead zone is valid syntax. This boots the real alpha, opens the real combat tab and drives real frames through cover -> AIM -> killshot -> freeze, failing on ANY pageerror or console error', False),
     ('COMBAT ENTRY',  ['node', 'gates/combat_entry_gate.js'],

@@ -4044,7 +4044,83 @@
     "how": "image",
     "src": "vote/COMBAT_COVER_IS_A_THING_10_1.png"
    }
-  }
+  },
+{"id": "combat2-four-more-board-kinds-10-1", "kind": "tile", "lane": "combat 2", "sha": "pending", "made": "10/1", "title": "FOUR MORE FIGHT BOARDS: SUBURB, STRIP LOT, SCRUB, FREEWAY", "why": "Four more places a fight can start: a suburb street with houses both sides, a dead strip mall parking lot, open desert scrub, and eight lanes of jammed freeway, and every tile now says if it is rough ground, high ground or a wall, like Battle Brothers. Thumbs up and combat cuts fights from these, and you see it in the COMBAT tab when a fight starts on that kind of map cell.", "show": {"how": "image", "src": "vote/COMBAT2_FOUR_MORE_BOARD_KINDS_10_1.png"}},
+  {
+   "id": "combat-every-fight-ends-10-1",
+   "kind": "ui",
+   "lane": "combat",
+   "sha": "PENDING",
+   "made": "10/1",
+   "title": "EVERY FIGHT ENDS",
+   "why": "When the last man drops or the rest run off, the fight now ends and pays out, instead of waiting quietly for you to walk to the way out, which is why your fight never ended. You see it in the COMBAT tab: win a fight and the receipt comes up the moment nobody is left to shoot.",
+   "show": {
+    "how": "image",
+    "src": "vote/COMBAT_EVERY_FIGHT_ENDS_10_1.png"
+   }
+  },
+  {
+    "id": "cook-the-fights-floor-10-1",
+    "kind": "tile",
+    "lane": "cook",
+    "sha": "pending",
+    "made": "10/1",
+    "floor": "fight",
+    "ppm": 42.9,
+    "title": "THE FIGHT'S FLOOR: THE TILES BELOW THE PEOPLE",
+    "why": "Two chats cut this floor the same round and the combat one is shaped right for the board, so judge this one only on the ground material: your own street bank, one pixel to one pixel, instead of a stretched smear. You see it in the VOTE tab, three panels: your old board, the same frame with the new floor, and the pixels up close.",
+    "show": {
+      "how": "image",
+      "src": "vote/COOK_THE_FIGHTS_FLOOR.png"
+    }
+  },
+{"id": "combat2-shore-landfill-ruin-10-1", "kind": "tile", "lane": "combat 2", "sha": "pending", "made": "10/1", "title": "THREE MORE FIGHT BOARDS: THE SHORE, THE LANDFILL, THE RUIN", "why": "Three more places a fight can start: the dried-up lake shore where you wade at the edge of black water, the city dump with trash heaps as high ground, and a burnt-out block where half the roofs fell in. Thumbs up and combat cuts fights from these, and you see it in the COMBAT tab when a fight starts on that kind of map cell.", "show": {"how": "image", "src": "vote/COMBAT2_SHORE_LANDFILL_RUIN_10_1.png"}},
+  {"id": "run-map-at-your-pixels-10-1", "kind": "tile", "lane": "run", "made": "10/1", "sha": "pending", "title": "THE MAP NOW USES EVERY PIXEL OF YOUR PHONE", "why": "The map painted one dot for every nine pixels on your phone and now it paints every one, left is before and right is now, and travelling got smoother, not slower. You see it on the map, the first screen of the demo after loading.", "show": {"how": "image", "src": "vote/RUN_THE_MAP_AT_YOUR_PIXELS_10_1.png"}},
+  {
+   "id": "combat-the-ground-is-45-10-1",
+   "kind": "tile",
+   "lane": "combat",
+   "sha": "PENDING",
+   "made": "10/1",
+   "title": "THE GROUND IS 45 DEGREES",
+   "why": "The fight's ground is now seen at 45 degrees like you ruled, and the street is one tile with real thin sidewalks and kerbs instead of a sidewalk as wide as a house. You see it in the COMBAT tab, standing on the second combat chat's street and dirt lots.",
+   "show": {
+    "how": "image",
+    "src": "vote/COMBAT_THE_GROUND_IS_45_10_1.png"
+   }
+  },
+  {"id": "run-map-icons-own-art-10-1", "kind": "tile", "lane": "run", "made": "10/1", "sha": "pending", "title": "THE MAP ICONS ARE THE GAME'S OWN PEOPLE AND BUILDINGS", "why": "You said the icons suck, so the blobs are gone: crowds are three real dressed people, crews are two people walking under their faction's flag, and home bases are a fort, a town or a trailer camp with a flag on it. You see it on the map, the first screen of the demo after loading.", "show": {"how": "image", "src": "vote/RUN_THE_MAP_ICONS_ARE_THE_GAMES_OWN_ART_10_1.png"}},
+{"id": "combat2-night-boards-10-1", "kind": "tile", "lane": "combat 2", "sha": "pending", "made": "10/1", "title": "FIGHTS AT NIGHT: THE ONLY LIGHT IS WHAT STILL WORKS", "why": "The suburb street and the strip lot after dark: black except where one street lamp in three still burns and where people keep fire barrels going, and only those lit squares let you shoot and see like daytime. Thumbs up and combat uses these for night fights, and you see it in the COMBAT tab when a fight starts after sundown.", "show": {"how": "image", "src": "vote/COMBAT2_NIGHT_BOARDS_10_1.png"}},
+{
+  "id": "grok-ten-crowns-one-battery-10-1",
+  "kind": "verdict",
+  "lane": "coordinator",
+  "sha": "pending",
+  "made": "10/1",
+  "title": "VIA GROK: TEN WIKI CROWNS ARE ONE BATTERY, AND ONE BATTERY IS THE FLOOR",
+  "why": "Grok says you told it there are no crowns in the game, every Battle Brothers price gets divided by ten into batteries, and nothing sells for less than one battery. Thumbs up and the economy and tuning chats convert every wiki price that way; thumbs down and everything stays at one until you play it.",
+  "show": {
+    "how": "text",
+    "src": "VIA GROK, FROM YOUR CHAT: 10 crowns = 1 battery. The floor is 1 battery. The shop's town markup applies first, then divide by ten. A level's 2-crown raise adds up to 1 battery every five levels. A bought (indebted) man costs batteries up front and 0 a day.\n\nSeen in: the settlement screen's stall and posts (RUN TWO), the top bar."
+  },
+  "verdict": "default",
+  "status": "ruled"
+},
+{
+  "id": "grok-see-the-hire-10-1",
+  "kind": "verdict",
+  "lane": "coordinator",
+  "sha": "pending",
+  "made": "10/1",
+  "title": "VIA GROK: YOU SEE THE WHOLE PERSON BEFORE YOU PAY, AND THE GEAR COMES WITH THEM",
+  "why": "Grok says you told it the hidden hire in vanilla Battle Brothers was the worst part and you modded it, so our hire row shows the face, the past, the stats with their stars and the traits before you pay, no tryout fee, a hire runs 20 to 1,000 batteries, and the gear they stand in comes with them. Thumbs up and the posts in the settlement screen are built that way; thumbs down and the hire stays hidden like vanilla.",
+  "show": {
+    "how": "text",
+    "src": "VIA GROK, FROM YOUR CHAT: no tryout, no fee to look. The row shows face, past, stats, stars, traits. The button spends 20 to 1,000 batteries and buys the person and their kit. Daily pay from the wage table after; a bought man pays 0 a day.\n\nSeen in: the settlement screen's posts (RUN TWO)."
+  },
+  "verdict": "default",
+  "status": "ruled"
+}
 ],
  "verdicts": [
   {

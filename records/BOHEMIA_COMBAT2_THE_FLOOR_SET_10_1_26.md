@@ -66,3 +66,42 @@ board and on legal surfaces (no wall in the road, no car in a house), no stamped
 NOT USED (measured): the desert pools 'boulder' list is lava spikes and blue coral; never Mojave.
 FOR COMBAT 1 (the cutter): map cell kind -> kinds[id]; draw tiles[r][c]; drop cover by placement.
 NEXT (rule 57): suburb block, strip lot, scrub, freeway.
+
+## ROUND FOUR (10/1, rules 57 and 59): SUBURB BLOCK, STRIP LOT, SCRUB, FREEWAY, AND EVERY TILE TRANSLATED
+
+tools/bohemia_combat2_four_more_board_kinds_cook_10_1_26.py (imports round three's helpers and guard)
+-> banks/BOHEMIA_THE_FIGHT_BOARD_KINDS_ROUND_4_10_1_26.txt, VOTE combat2-four-more-board-kinds-10-1.
+  suburb: street on the middle row (9.2 m + 1.4 m walks), 8 houses on whole tiles, drives, walls, sheds, 3 cars.
+  strip: five store roofs on the north row (one climbable, four 'blocked'), 2.4 m store walk, a parking
+    lot with two nose-to-nose stall rows (2.7 m stalls) and pole bases, cars in stalls, frontage road south.
+  scrub: hardpan, creosote dense in noise-field patches (rough), a two-rut track, a sagging fence, 7 rocks + outcrop.
+  freeway: the cut wall north (blocked row), eight lanes with dashes, shoulder lines, the yellow median
+    edges and a lit median top with its face seen, the south embankment face, a jam of ten dead cars.
+TERRAIN (rule 59): every kind carries terrain[5][5] from {flat, rough, debris, height, blocked}, read
+from the drawn masks (houses -> height only where a roof is drawn); round three's two kinds are
+translated in round_three_terrain. Key and source in the bank. No cover sits on a blocked tile (guard).
+NEXT: strip-mall store fronts deserve their own facade tile (they reuse the house roof); landfill,
+shore, the ruin variants (debris).
+
+## ROUND FIVE (10/1, rules 57, 59): THE SHORE, THE LANDFILL, THE RUIN
+
+tools/bohemia_combat2_shore_landfill_ruin_cook_10_1_26.py (imports round four) ->
+banks/BOHEMIA_THE_FIGHT_BOARD_KINDS_ROUND_5_10_1_26.txt, VOTE combat2-shore-landfill-ruin-10-1.
+  shore: deep water (water bank tiles 15-18, each colour snapped to the bank's own colour nearest its
+    60% self: a hole, not a pool) is 'blocked'; the pale wading band (tiles 26-27) is 'water'; mud flat
+    from the desert soils; the bathtub ring a bleached band with its 1.6 m face seen; rocks, a car, rubble.
+  landfill: haul road, trash heaps from a noise field ('height', faces seen), 260 tyres, rubble cover.
+  ruin: the suburb block soot-shaded, four of eight roofs burnt through (joists over black, 'blocked'),
+    yards a debris field ('debris'), rubble and broken walls.
+New tag 'water' (3 steps, defence malus). Extra pieces rubble_N in this bank.
+NEXT: store-front facades, the casino floor (an interior), night light as a tile property.
+
+## ROUND SIX (10/1, rule 59's night-lit row): THE BOARDS AT NIGHT
+
+tools/bohemia_combat2_night_boards_cook_10_1_26.py -> banks/BOHEMIA_THE_FIGHT_BOARDS_AT_NIGHT_10_1_26.txt,
+VOTE combat2-night-boards-10-1. Round four's suburb block and strip lot (cover composited in) taken
+to night: x(0.30, 0.31, 0.38), then the pools of his live lamps (7/28 lamp sprites every 12 m on the
+walks, 36% lit) and his burning oil drums restored warm in three hard rings (ellipses at cos45);
+every pixel snapped to the allowed palette (numpy nearest). light[5][5] = 'lit' where 40% of a tile
+is inside a pool. Guard: colours, size, not stamped, at least one lit tile.
+NEXT: store-front facades, the casino floor interior.
