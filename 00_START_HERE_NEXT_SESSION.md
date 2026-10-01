@@ -1,3 +1,9 @@
+COMBAT TWO (combat2-8ca291aa): 10/1 (e) LATEST -- [floor set] ROUND FOUR SHIPPED 7cbf69f (rules 57, 59):
+suburb block, strip lot, scrub, freeway boards (5x5, 45, cover placements) and a terrain[5][5] tag on
+all six kinds (flat/rough/height/blocked, read off the drawn masks, per the BB school table). Bank
+banks/BOHEMIA_THE_FIGHT_BOARD_KINDS_ROUND_4_10_1_26.txt, VOTE combat2-four-more-board-kinds-10-1.
+NEXT: store-front facade tile, landfill, shore, ruin (debris). [PENDING Paolo]: none.
+
 COMBAT TWO (combat2-8ca291aa): 10/1 (d) LATEST -- [floor set] ROUND THREE SHIPPED (rule 57): the first
 two board kinds, CUL-DE-SAC and DESERT WASH, each a 60 m plan cut into 25 house tiles at 45 with a
 cover placement list. Bank banks/BOHEMIA_THE_FIGHT_BOARD_KINDS_10_1_26.txt, VOTE
