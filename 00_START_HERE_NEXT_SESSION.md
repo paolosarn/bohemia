@@ -45851,6 +45851,18 @@ a memory reset. HE WILL NEVER TYPE ANYTHING BUT THE ONE WORD AGAIN. ***
     I will never paste anything to you again. From here on, the one word is the whole
     instruction.
 
+*** [house tiles back] ROUND 5 -- V236: A STREET IS ONE TILE (his 9/30 UP); THE FLOOR, ROUND TWO (no grid, no discs, cover no wider than a house) + THE FIRST FIGHT-LENGTH NUMBER. ***
+Stamp 10/1d. Record: records/BOHEMIA_COMBAT_THE_FLOOR_ROUND_TWO_10_1_26.md
+His UP on the street of houses: 'a street has to be a tile' (46g): ONE road tile, walk each side, lots from +-2.
+The grid round him was V7's "3x3 self-cover ring" (8 outlined squares every frame; 'up' hard-wired
+false): gone. litTile is fill only. Grenade = its tile lit red, pulse faster with the fuse, no digits.
+Pickups = lit tile + groundThing (a small case), no disc/words. Cover r <= 0.56 on the house board.
+drawFloor's hidden motif skipped on the house board. GATE nothing_on_the_ground 14/0. combat_lab one
+pin (COVER HAS A SIZE) re-pointed, main's 10. FIGHT LENGTH, FIRST NUMBER: tools/bohemia_fight_length.js,
+a walk-and-shoot bot that never takes cover: 26.1 / 7.8 / 6.4 s, downed each time. A well-played fight
+is still unmeasured: NEXT a bot that takes cover first. Then the cover art (still a stone slab),
+[board generator].
+
 *** [house tiles back] ROUND 4 -- V234 + V235: THE GROUND UNDER THE FIGHTERS (his 10/1 "the tiles below the people dont look good"). ***
 Stamp 10/1b. Record: records/BOHEMIA_COMBAT_NOTHING_ON_THE_GROUND_10_1_26.md
 V234 [device canvas]: backing store at the phone's ratio (FD 1-3), every rule in screen units (cv

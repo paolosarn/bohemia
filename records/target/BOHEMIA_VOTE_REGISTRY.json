@@ -3892,7 +3892,20 @@
   },
   "verdict": "default",
   "status": "ruled"
-}
+},
+   {
+    "id": "combat-the-floor-round-two-10-1",
+    "kind": "tile",
+    "lane": "combat",
+    "sha": "PENDING",
+    "made": "10/1",
+    "title": "THE FLOOR, ROUND TWO: NO GRID",
+    "why": "You said a street has to be a tile, so it is: one tile of road, a sidewalk each side, then the houses, which now show at both edges of the screen. And more of what was under their feet is gone. The faint grid you could see around your guy was 8 outlined squares drawn around him every frame; the movement ring at the bottom already shows where you can step, so they are gone (right two pictures, up close). The lit squares have no outline anymore, so several lit at once no longer look like a grid. A grenade on the ground is its square lit red, pulsing faster as it is about to blow, with no big number printed on the street. Ammo, plates and keys on the ground are a small case on a lit square, not a green circle with a word. The stone-wall cover is never longer than one house now; before, one piece could be two houses long. Also, for the first time, I timed fights played to the end: a bot that only walks and shoots, never hides, gets dropped in 6 to 26 seconds. That is not how long a real fight is; it says cover matters. Thumbs up and I keep going. Thumbs down and tell me what still looks wrong on the ground.",
+    "show": {
+     "how": "image",
+     "src": "vote/COMBAT_THE_FLOOR_ROUND_TWO_10_1.png"
+    }
+   }
  ],
  "verdicts": [
   {

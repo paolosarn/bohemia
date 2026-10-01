@@ -47,9 +47,9 @@ const ok = (n, c, note) => { c ? (pass++, console.log('  PASS ' + n + (note ? ' 
       out.game = [cv.width, cv.height];
       out.real = realPx(cv);
       out.dpr = window.devicePixelRatio; out.FD = FD;
-      const BAD_WORDS = [ALLY_NAME, 'CLEAR', 'OUT', 'HOLD'];
+      const BAD_WORDS = [ALLY_NAME, 'CLEAR', 'OUT', 'HOLD', 'AMMO', 'PLATE', 'TAKE', 'KEY'];
       const proto = CanvasRenderingContext2D.prototype;
-      const orig = { ellipse: proto.ellipse, arc: proto.arc, fillText: proto.fillText, fill: proto.fill, stroke: proto.stroke };
+      const orig = { ellipse: proto.ellipse, arc: proto.arc, fillText: proto.fillText, fill: proto.fill, stroke: proto.stroke, strokeRect: proto.strokeRect };
       let pend = null;
       for (let s = 1; s <= 16; s++) {
         try { BohemiaArena.set(s); setupCombat(); } catch (e) { continue; }
@@ -63,16 +63,22 @@ const ok = (n, c, note) => { c ? (pass++, console.log('  PASS ' + n + (note ? ' 
             if (pend.k === 'ellipse' && (c === '#7a94a8' || c === '#94836a')) out.lids++; }
           if (pend && this === ctx) { const c = String(this.fillStyle).toLowerCase();
             if (/^rgba\((120,\s*170,\s*232|106,\s*168,\s*232)/.test(c)) out.blue++;
-            if (pend.k === 'arc' && /^rgba\(240,\s*70,\s*48/.test(c)) out.pipMax = Math.max(out.pipMax, pend.r * uz); }
+            if (pend.k === 'arc' && /^rgba\(240,\s*70,\s*48/.test(c)) out.pipMax = Math.max(out.pipMax, pend.r * uz);
+            if (pend.k === 'arc' && /^rgba\((95,\s*200,\s*110|232,\s*60,\s*40)/.test(c)) out.discs = (out.discs || 0) + 1; }
           pend = null; return orig.fill.apply(this, a); };
+        proto.strokeRect = function (...a) { if (this === ctx) out.frames_ = (out.frames_ || 0) + 1, out.rects = (out.rects || 0) + 1; return orig.strokeRect.apply(this, a); };
         proto.stroke = function (...a) {
+          if (this === ctx && String(this.strokeStyle).replace(/\s/g, '') === 'rgba(120,108,86,0.4)') out.grid = (out.grid || 0) + 1;
           if (pend && this === ctx && pend.k === 'ellipse' && /^rgba\(143,\s*232,\s*154/.test(String(this.strokeStyle))) out.allyOval++;
           pend = null; return orig.stroke.apply(this, a); };
         proto.fillText = function (t, ...a) { if (this === ctx && BAD_WORDS.includes(String(t))) out.words[t] = (out.words[t] || 0) + 1;
           return orig.fillText.call(this, t, ...a); };
         try { _COVER_SPR = {}; _COVER_SPRN = 0; } catch (e) {}
+        G.drops = [{ ea: 0, edist: 1, lvl: 0, n: 3 }, { ea: 2, edist: 1.4, lvl: 0, key: true }];
+        G.grenade = { ea: 1, edist: 1.5, fuse: 2, lvl: 0 };
+        for (const P of G.pillars) if (!P.house && !P.car) out.coverR = Math.max(out.coverR || 0, P.r || 0);
         try { G.phase = 'cover'; draw(); draw(); out.frames += 2; } catch (e) { out.err = String(e); }
-        Object.assign(proto, orig);
+        Object.assign(proto, orig); G.drops = []; G.grenade = null;
       }
       out.body = +(112 * bodyRule()).toFixed(2);
       out.valve = typeof fdWatch === 'function'; out.drop = G._fdDrop || [];
@@ -95,6 +101,12 @@ const ok = (n, c, note) => { c ? (pass++, console.log('  PASS ' + n + (note ? ' 
        Object.keys(R.words).length === 0, JSON.stringify(R.words));
     ok('the "he can reach you" dot is small and on the man, never a disc on the street (at most 8 px on the glass)',
        R.pipMax <= 8, R.pipMax.toFixed(1) + ' px');
+    ok('*** NO GRID: the eight outlined squares drawn round him every frame are gone, and a lit tile has no frame ***',
+       !R.grid && !R.rects, (R.grid || 0) + ' grid strokes, ' + (R.rects || 0) + ' outlined squares');
+    ok('*** NO DISCS FOR THE GRENADE OR THE PICKUPS, and no AMMO / PLATE / TAKE / KEY on the floor: each is its tile, lit, with the thing on it ***',
+       !R.discs, (R.discs || 0) + ' discs');
+    ok('*** COVER NO WIDER THAN A HOUSE: on the house board no piece rolls an r over 0.56 (half-width 0.9r) ***',
+       (R.coverR || 0) > 0 && R.coverR <= 0.56 + 1e-9, 'widest r ' + (R.coverR || 0).toFixed(3));
     ok('no oval painted under Rosa\'s feet', R.allyOval === 0, R.allyOval + ' painted');
     ok('no page errors', d.errs.length === 0, d.errs.slice(0, 2).join(' ; '));
   } finally {

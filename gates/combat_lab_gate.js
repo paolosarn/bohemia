@@ -2896,7 +2896,9 @@ ok('V140 AND THE DECK MAY NOT TELEPORT A MAN BACK INTO RANGE: V90B took shooters
     /function contentR\(\)\{ return 0\.85\/\(FIELD_PITCH\*/.test(demo) &&
     !gen.includes('d0=2.2+Math.random()*7.5;'));
   ok('COVER HAS A SIZE: r was 0.55 for EVERY piece ever placed. Now 0.45-1.15, so some is a crate you duck behind and some is a block you go around',
-    gen.includes('const r=Math.max(0.45,Math.min(1.15,bulk+(Math.random()-0.5)*0.30));') &&
+    /* RE-POINTED BY V236 (COMBAT 10/1, rule 46f): still 0.45-1.15 on the body board; on the house board capped
+       at 0.56 so no piece is wider than one house (it was a wall up to two houses long). Same dice. */
+    gen.includes('let r=Math.max(0.45,Math.min(1.15,bulk+(Math.random()-0.5)*0.30));') && gen.includes('if(houseOn())r=Math.min(r,0.56);') &&
     !demo.includes('edist:Math.hypot(nx2,ny2),r:0.55,tall:'));
   ok('AND THE EXISTING COVER MATHS ALREADY SCALED OFF P.r everywhere it is used, so nothing had to be rewritten -- the number was simply never allowed to vary',
     demo.includes('if(dA<Math.PI/2 && Math.sin(dA)*P.edist<P.r*0.9){') &&   /* V108 RE-POINTED: the same P.r geometry, now inside coverPillarAgainst, which myCoverAgainst is a boolean over */
