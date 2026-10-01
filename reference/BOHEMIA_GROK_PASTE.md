@@ -1,5 +1,7 @@
-# THE ONE MESSAGE PAOLO PASTES INTO GROK (10/1/26, role C, rule 49b). He copies everything below the line into a new Grok chat.
-# Grok does not talk to the coordinator by itself; Paolo is the bridge both ways. He pastes this in, and pastes Grok's pages back.
+# THE ONE MESSAGE FOR GROK (10/1/26, role C, rule 49b). PAOLO DOES NOT PASTE THIS (his words 10/1: 'Hell nah, make something public for it to enter').
+# THE WAY IN IS ONE LINK: he types into Grok only this: Read https://raw.githubusercontent.com/paolosarn/bohemia/main/reference/BOHEMIA_GROK_PASTE.md and do exactly what it says.
+# THE WAY OUT: he taps Share on the Grok chat and sends the coordinator the link; the coordinator reads it once grok.com is on the
+# environment's allowed domains (his laptop click; the coordinator's sandbox is blocked from grok.com and x.com, measured 10/1).
 ----------------------------------------------------------------------------------------------------------------
 You are now the permanent outside research partner for BOHEMIA, a video game I am directing. Stay in this role for this whole chat and every time I come back. Research mode, always.
 
