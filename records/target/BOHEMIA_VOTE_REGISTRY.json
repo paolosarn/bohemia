@@ -3778,6 +3778,19 @@
     "how": "page",
     "src": "vote/FACTIONS_A_CREW_AT_YOUR_GATE_10_1.html"
    }
+  },
+  {
+   "id": "ui-the-six-in-the-bar-10-1",
+   "kind": "ui",
+   "lane": "ui",
+   "sha": "pending",
+   "made": "10/1",
+   "title": "THE SIX IN THE BAR",
+   "why": "You said Battle Brothers' supplies fit ours: gold, food, medicine, ammo, tools. Ours are six: batteries, food, meds, rounds, tape, water. In Battle Brothers they sit in one row across the top of the map, so you always see what you are running low on while you travel. A is in the game now: all six in one plate next to the hour and the place. B gives them their own bigger row under the bar. C keeps only batteries in the bar and drops the six down when you tap it. All three are the real demo map. The game only counts batteries and food so far, so the other four show a dim dash instead of a made-up number, and they light up by themselves the moment the game starts counting them.",
+   "show": {
+    "how": "image",
+    "src": "vote/UI_THE_SIX_IN_THE_BAR_10_1.png"
+   }
   }
  ],
  "verdicts": [
