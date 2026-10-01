@@ -41908,7 +41908,14 @@ function cityStepMins(x,y){
   var f = 1;
   try{ var t=om.at(x,y);
        if(t && CITY_PAVED[t.district]) f = PAVED_SPEED.factor; }catch(_e){}
-  return base*f;
+  /* THE DRIVER (VAMILY [followers], 10/1/26): 1 with no driver hired, so this
+     is a no-op by default. The one real, live-wired effect of the four
+     followers; see engine/bohemia_followers.js for why the other three
+     (fixer excepted) are not. */
+  var dm = 1;
+  try{ if (typeof BohemiaFollowers!=='undefined' && typeof CT_FOLLOWERS!=='undefined')
+       dm = BohemiaFollowers.travelMultiplier(CT_FOLLOWERS); }catch(_e){}
+  return base*f*dm;
 }
 
 /* THE ONE PLACE A JOURNEY ENDS, for the same reason latchStop() is one place: a new
@@ -54968,6 +54975,13 @@ function ctRoadBark(now){
 var CT_AMBITION = null;          /* the chosen goal's id, or null */
 var CT_AMBITION_ASKED = {};      /* id -> asked already, so the ask itself is once per goal */
 var CT_AMBITION_PAID = {};       /* id -> reward already paid, so a completed goal never pays twice */
+var CT_FOLLOWERS = {};           /* role id -> true, who is currently hired */
+var CT_FOLLOWER_ASKED = {};      /* role id -> asked already, once ever, same economy as ambitions */
+var CT_FOLLOWER_OFFER = null;    /* role id of the offer currently waiting on an answer, or null */
+var CT_FOLLOWER_OFFER_AT = 0;    /* performance.now() the offer first appeared */
+var CT_FOLLOWER_OFFER_WITH = null; /* who made the offer, so walking off to somebody else is a free decline */
+var CT_FOLLOWER_LEFT = [];       /* role ids who left unpaid overnight, waiting for a mouth to say so */
+var CT_FOLLOWER_NIGHTS = 0;      /* how many times wages have been collected; the fixer's relief owns this, never the game's own day number */
 function ctAmbitionFacts(){
   var facts = { company: 0, electricity: 0, usefulWith: [] };
   try { facts.company = ctYours().length; } catch (_e) {}
@@ -55034,6 +55048,108 @@ function ctAmbitionBark(now){
     }
   }
   return false;
+}
+
+/* THE RETINUE (VAMILY [followers], rule 48, 10/1/26). Reuses the exact same
+   companion mouth and bark-ladder slot as ctAmbitionBark, for the same reason
+   ambitions did: rule 19/20 killed a card as the surface and a new button is
+   UI's call on a settlement screen that does not exist yet. UNLIKE ambitions,
+   this one DOES build the accept/decline gesture ambitions named as missing:
+   an offer stays live and silent for two beats (120 BPM, 500 ms/beat -- the
+   same "two beats" window [bb company]'s own retired fall-in mechanic used),
+   and walking off to a different companion before then is a free decline,
+   never asked again this session for that role (rule 35c). */
+function ctFollowerBark(now){
+  if (typeof BohemiaFollowers === 'undefined') return false;
+  if (CT_WALKS_WITH == null) return false;
+  if (CT_FOLLOWER_OFFER && CT_FOLLOWER_OFFER_WITH !== CT_WALKS_WITH) CT_FOLLOWER_OFFER = null;
+  var drew = (typeof BARK_DREW !== 'undefined' && BARK_DREW) ? BARK_DREW : [];
+  var d = null;
+  for (var i = 0; i < drew.length; i++)
+    if (drew[i] && drew[i].p && drew[i].p.id === CT_WALKS_WITH) { d = drew[i]; break; }
+  if (!d || !d.at) return false;
+
+  /* BREAKING NEWS FIRST: somebody left overnight unpaid. Said once, whenever a
+     mouth is next available, same deferred-announcement shape as every other
+     thing this file waits to say until somebody is actually there to say it. */
+  if (CT_FOLLOWER_LEFT.length) {
+    var leftId = CT_FOLLOWER_LEFT.shift();
+    var leftLine = BohemiaFollowers.unpaidLine(leftId);
+    if (leftLine) {
+      BARK.p = d.p; BARK.at = d.at; BARK.text = leftLine;
+      BARK.until = now + barkHold(leftLine);
+      try { window.__FOLLOWER_LEFT = { id: leftId }; } catch (_e) {}
+      return true;
+    }
+  }
+
+  /* AN OFFER IS LIVE: say nothing new until two beats have passed with the
+     same companion still the one you are with, then they fall in. */
+  if (CT_FOLLOWER_OFFER) {
+    if (now - CT_FOLLOWER_OFFER_AT >= 1000) {
+      var hired = BohemiaFollowers.hireLine(CT_FOLLOWER_OFFER);
+      if (hired) {
+        CT_FOLLOWERS[CT_FOLLOWER_OFFER] = true;
+        try { window.__FOLLOWER_HIRED = { id: CT_FOLLOWER_OFFER }; } catch (_e) {}
+        BARK.p = d.p; BARK.at = d.at; BARK.text = hired;
+        BARK.until = now + barkHold(hired);
+        CT_FOLLOWER_OFFER = null;
+        return true;
+      }
+      CT_FOLLOWER_OFFER = null;
+    }
+    return false;
+  }
+
+  /* NO OFFER LIVE: the next role neither hired nor already declined. */
+  var offer = BohemiaFollowers.offerFor(CT_FOLLOWERS, CT_FOLLOWER_ASKED);
+  if (offer && !CT_FOLLOWER_ASKED[offer]) {
+    CT_FOLLOWER_ASKED[offer] = 1;
+    var ask = BohemiaFollowers.askLine(offer);
+    if (ask) {
+      CT_FOLLOWER_OFFER = offer; CT_FOLLOWER_OFFER_AT = now; CT_FOLLOWER_OFFER_WITH = CT_WALKS_WITH;
+      BARK.p = d.p; BARK.at = d.at; BARK.text = ask;
+      BARK.until = now + barkHold(ask);
+      try { window.__FOLLOWER_ASKED = { id: offer }; } catch (_e) {}
+      return true;
+    }
+  }
+  return false;
+}
+
+/* THE RETINUE IS PAID, OR IT WALKS (VAMILY [followers], 10/1/26). Called once
+   a night, same cadence and the same place in the order as nightPower() and
+   blockRent() -- after your own debts are collected, because hired help you
+   pay yourself comes after what you owe somebody else. A plain debit per
+   hired follower, skipped on a night the fixer's relief makes not due
+   (wageDueTonight); NEVER posted through the frozen upkeep() verbs -- this is
+   a transfer with its own name, the identical shape block rent already uses
+   (63033: "a fifth is a design change, and design changes are Paolo's").
+   UNPAID LEAVES THAT SAME NIGHT: no invented grace period, the same immediate
+   consequence an unpaid circuit already gets from nightPower(). */
+function followerWagesNight(){
+  if (typeof BohemiaFollowers === 'undefined') return;
+  var ids = Object.keys(CT_FOLLOWERS); if (!ids.length) return;
+  /* THE LEDGER DAY IS THE REAL GAME DAY (for honest history); THE RELIEF TICK
+     IS THIS MECHANISM'S OWN COUNT (for a provable, self-contained parity) --
+     two different numbers on purpose, so the fixer's "every other time" never
+     depends on another lane's day-number semantics. */
+  var realDay = (typeof DAY !== 'undefined' && typeof DAY.day === 'number') ? DAY.day : 0;
+  var tick = CT_FOLLOWER_NIGHTS++;
+  for (var i = 0; i < ids.length; i++) {
+    var id = ids[i];
+    if (!CT_FOLLOWERS[id]) continue;
+    if (!BohemiaFollowers.wageDueTonight(id, CT_FOLLOWERS, tick)) continue;
+    var f = BohemiaFollowers.byId(id);
+    if (!f) continue;
+    var r = null;
+    try { r = BohemiaPurse.debit(purseGet(), 'electricity', f.wage,
+      'follower wage: ' + id, 'follower:' + id, realDay); } catch (_e) {}
+    if (!r || !r.applied) {
+      delete CT_FOLLOWERS[id];
+      CT_FOLLOWER_LEFT.push(id);
+    }
+  }
 }
 
 /* ==== __THE_INJURED__ : A PERSON WHO WENT DOWN TALKS ABOUT IT, AND CARRIES
@@ -55186,6 +55302,7 @@ function barkTick(now){
   if (ctHurtBark(now)) return;     /* __THE_INJURED__ */
   if (ctRoadBark(now)) return;     /* __THE_COMPANY_IS_A_CAST__ */
   if (ctAmbitionBark(now)) return; /* __A_GOAL_THE_COMPANY_SETS_ITSELF__ */
+  if (ctFollowerBark(now)) return; /* __THE_RETINUE__ */
   if (ctWasBark(now)) return;      /* __THE_COMPANY_IS_A_CAST__ */
   var pick = barkPick();
   if (!pick) return;
@@ -61364,6 +61481,15 @@ function onNightfall(){
      ground's owner, because rent on where you stand is collected before a
      handshake is. */
   try{ loanNight(); }catch(_e){}
+  /* __THE_RETINUE_IS_PAID__ (10/1, [followers]) -- AND THEN YOUR OWN HIRED HELP.
+     After your own debts, because the people you pay yourself come after what
+     you owe somebody else; before the valley's own market turns over, because
+     this is still a personal ledger line, not a valley-wide one. A TRANSFER,
+     NOT A FIFTH VERB (same shape as block rent, 63033): the four upkeep verbs
+     stay frozen, this is a plain debit with its own name. A follower who
+     cannot be paid leaves that same night -- no invented grace period, the
+     same immediate consequence an unpaid circuit already gets (nightPower). */
+  try{ followerWagesNight(); }catch(_e){}
   try{ VALLEY_TONIGHT=mktAdvanceDay()&&valleyRunsOut(); }catch(_e){ VALLEY_TONIGHT=null; }
   /* __THE_TRADING_HUB__ -- a day passes in the valley
      too: stock produced, eaten, shortfall logged. Water at four days does not cost
@@ -76591,6 +76717,75 @@ try{ window.ctLadderWalk=ctLadderWalk; window.ctLadderReady=ctLadderReady;
 })(typeof window !== 'undefined' ? window
    : (typeof globalThis !== 'undefined' ? globalThis : this));
 /* ==== /engine/bohemia_ambitions.js ==== */
+/* ==== engine/bohemia_followers.js ==== */
+(function (root) {
+  'use strict';
+  var HASREQ = (typeof module !== 'undefined' && module.exports);
+
+  var WAGE = 1; // batteries/night, flat, matching the house style (every upkeep verb debits exactly 1)
+
+  var FOLLOWERS = [
+    { id: 'mechanic', bb: 'blacksmith', wage: WAGE, tuned: false,
+      ask: "I used to keep machines running for a living. A mechanic, if you want one. A battery a night.",
+      hireSays: "The mechanic falls in.",
+      unpaidSays: "The mechanic says the batteries dried up, and leaves.",
+      changes: { kind: 'repair', mult: null, tuned: false,
+        note: "not yet live: this game has a flat plate-spent switch (fight:plate), not a repair meter, so there is nothing yet to make cheaper" } },
+    { id: 'medic', bb: 'surgeon', wage: WAGE, tuned: false,
+      ask: "I patched people up for a living. A medic, if you want one. A battery a night.",
+      hireSays: "The medic falls in.",
+      unpaidSays: "The medic says the batteries dried up, and leaves.",
+      changes: { kind: 'healing', mult: null, tuned: false,
+        note: "not yet live: this game has no wound/injury clock to speed up yet (rule 36b, long injury, is a ruling, not code)" } },
+    { id: 'fixer', bb: 'negotiator', wage: WAGE, tuned: false,
+      ask: "I can talk a price down, for a cut. A fixer, if you want one. A battery a night.",
+      hireSays: "The fixer falls in. The rest of the crew gets paid a little less often now.",
+      unpaidSays: "The fixer says the batteries dried up, and leaves.",
+      changes: { kind: 'wageRelief', everyNights: 2, tuned: false,
+        note: "every OTHER hired follower is only charged every second night instead of every night" } },
+    { id: 'driver', bb: 'scout', wage: WAGE, tuned: false,
+      ask: "I used to run routes before the roads got bad. A driver, if you want one. A battery a night.",
+      hireSays: "The driver falls in. The roads go by quicker now.",
+      unpaidSays: "The driver says the batteries dried up, and leaves.",
+      changes: { kind: 'travel', mult: 0.85, tuned: false,
+        note: "every block crossed on the map costs 15% less time" } }
+  ];
+
+  function byId(id) { for (var i = 0; i < FOLLOWERS.length; i++) if (FOLLOWERS[i].id === id) return FOLLOWERS[i]; return null; }
+
+  function offerFor(hired, asked) {
+    hired = hired || {}; asked = asked || {};
+    for (var i = 0; i < FOLLOWERS.length; i++) {
+      var f = FOLLOWERS[i];
+      if (!hired[f.id] && !asked[f.id]) return f.id;
+    }
+    return null;
+  }
+
+  function askLine(id) { var f = byId(id); return f ? f.ask : null; }
+  function hireLine(id) { var f = byId(id); return f ? f.hireSays : null; }
+  function unpaidLine(id) { var f = byId(id); return f ? f.unpaidSays : null; }
+
+  function wageDueTonight(id, hired, tick) {
+    hired = hired || {}; tick = tick | 0;
+    if (id === 'fixer' || !hired.fixer) return true;
+    var every = (byId('fixer').changes.everyNights) | 0 || 2;
+    return (tick % every) === 0;
+  }
+
+  function travelMultiplier(hired) {
+    if (hired && hired.driver) { var f = byId('driver'); return (f && typeof f.changes.mult === 'number') ? f.changes.mult : 1; }
+    return 1;
+  }
+
+  var API = { FOLLOWERS: FOLLOWERS, WAGE: WAGE, byId: byId, offerFor: offerFor,
+    askLine: askLine, hireLine: hireLine, unpaidLine: unpaidLine,
+    wageDueTonight: wageDueTonight, travelMultiplier: travelMultiplier };
+  if (HASREQ) module.exports = API;
+  root.BohemiaFollowers = API;
+})(typeof window !== 'undefined' ? window
+   : (typeof globalThis !== 'undefined' ? globalThis : this));
+/* ==== /engine/bohemia_followers.js ==== */
 
 /* __THE_WORLD_DOES_THE_ASKING__ -- the seam between the running valley and the
    ask generator. (9/6, QUESTS [asks exist].)
