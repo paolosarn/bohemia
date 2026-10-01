@@ -223,6 +223,12 @@ NEXT OPEN (board order): [what grows], [prices per place] (FIRST LINE, rule 40),
 [build costs], [the bubble].
 PENDING Paolo: none.
 
+UI (ui-kmqmrf): 10/1 LATEST -- *** [bb interface] ROUND NINE: THE SIX IN THE BAR, BUILT. *** TAB: the demo's map, top bar.
+BATTERIES FOOD MEDS ROUNDS TAPE WATER in one plate, pixel mark + the game's own count; meds/rounds/tape/water have no count
+anywhere (ECONOMY r55) so they draw a dim dash; BohemiaLedger.count(kind) is the one socket a company ledger plugs into.
+Gate the bar says three things 23/0 (2 mutations). VOTE ui-the-six-in-the-bar-10-1. Record ..._ROUND_NINE_THE_SIX_IN_THE_BAR_10_1_26.md.
+FOR TUNING: vote item tuning-who-dies-9-30 has no sha, so the vote tab gate is 30/1. NEXT: the road event; [speed pad] still waits on PLUMBER.
+
 UI (ui-kmqmrf): 9/30 LATEST -- *** [speed pad] BUILT AND LIVE, NOT SHIPPED: II 1x 2x 3x 5x ON THE MAP,
 AND 3x ONLY DELIVERS ABOUT 2x ON THE GATE BOX. *** TAB: the demo's first screen (the map), bottom right; same on the alpha's map.
 Record: records/BOHEMIA_THE_PAD_IS_TRAVEL_SPEED_9_30_26.md
