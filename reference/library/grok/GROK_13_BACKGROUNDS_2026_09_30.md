@@ -4,9 +4,9 @@ source: Grok, unverified, written 2026-09-30
 
 A background is the life before the company. It sets the stat range, the daily wage, the traits they can roll, and the events they spark. Stats are a range, not a fixed number. https://battlebrothers.fandom.com/wiki/Character_Backgrounds
 
-Indebted are the debt-slaves of the south. Hiring cost is about nothing. Daily wage is about nothing. Resolve is low. Melee is low. Fatigue is fine. They can be northern, southern, or barbarian indebted. They are people. https://battlebrothers.fandom.com/wiki/Indebted_(Background)
+Indebted are the debt-slaves of the south. You buy them. Hiring cost is about nothing. Daily wage is about nothing. Resolve is low. Melee is low. Fatigue is fine. They can be northern, southern, or barbarian indebted. They are people. Paolo, this chat: you do buy them. The earlier line that said you do not buy a person is wrong. https://battlebrothers.fandom.com/wiki/Indebted_(Background)
 
-Skin: a person who owes a compound. The block paid their bill, or their meds, or their rent, and now they work it off. You do not buy a person. You take on their debt. Batteries stay low until the debt is cleared. Then they are a normal hire, or they walk. That is the translation. Not a cage. A tab.
+Skin: a person a compound already owns on a tab. You pay batteries and they come with you. The wage stays tiny until the debt is cleared. Then they are a normal hire, or they walk. The buy is the mechanic. The tab is the skin.
 
 ## The pile, skinned
 
@@ -16,10 +16,10 @@ Mid: militia is neighborhood watch. Deserter is a cop who left. Retired soldier 
 
 High wage: hedge knight is a named fighter. Swordmaster is the old best. Gladiator is a pit fighter. Anatomist is a nurse who cuts. Beast slayer is a hunter. Assassin is a quiet killer. Orc slayer is a person who has killed the heavy machines.
 
-Southern and special: indebted, as above. Manhunter is the person who brings the indebted in. Nomad is a highway camp hand. Eunuch is a palace servant. Skin that one as a casino floor boss's aide, not a body joke.
+Southern and special: indebted, as above. Manhunter is the person who sells them to you. Nomad is a highway camp hand. Eunuch is a palace servant. Skin that one as a casino floor boss's aide, not a body joke.
 
-WHAT IS CERTAIN: Indebted are debt-labor, near-zero pay, low resolve. The list is the wiki set.
+WHAT IS CERTAIN: You buy the indebted. Near-zero daily pay. Low resolve. His correction, this chat.
 
-WHAT IS NOT: I did not paste every stat range. That is the next pull if he wants the sheet.
+WHAT IS NOT: I did not paste every stat range.
 
-WHAT WE SHOULD ASK NEXT: Nothing mechanic. The indebted skin is a proposal.
+WHAT WE SHOULD ASK NEXT: Nothing mechanic.
