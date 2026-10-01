@@ -5,6 +5,7 @@ PASSED FILTER (coordinator 10/1, rule 54a: no game he has not named; nothing new
 
 Newest first.
 
+- 2026-09-30 | BUILD | GROK_18_SLICE_SHEET_2026_09_30.md | coded first fight: 8 by 6 street, one man, six crew
 - 2026-09-30 | BUILD | GROK_17_DEMO_BUILD_2026_09_30.md | handoff slice: one man, six crew, pistol, pipe, car
 - 2026-09-30 | VAMILY | GROK_16_LATE_TROUBLE_2026_09_30.md | four crises, warning day 50, start day 80 to 100
 - 2026-09-30 | VAMILY | GROK_15_LONE_WOLF_2026_09_30.md | his favorite start, one man, crisis around day 100
