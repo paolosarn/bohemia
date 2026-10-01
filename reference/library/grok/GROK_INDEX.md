@@ -5,6 +5,18 @@ PASSED FILTER (coordinator 10/1, rule 54a: no game he has not named; nothing new
 
 Newest first.
 
+- 2026-09-30 | BUILD | GROK_18_SLICE_SHEET_2026_09_30.md | coded first fight: 8 by 6 street, one man, six crew
+- 2026-09-30 | BUILD | GROK_17_DEMO_BUILD_2026_09_30.md | handoff slice: one man, six crew, pistol, pipe, car
+- 2026-09-30 | VAMILY | GROK_16_LATE_TROUBLE_2026_09_30.md | four crises, warning day 50, start day 80 to 100
+- 2026-09-30 | VAMILY | GROK_15_LONE_WOLF_2026_09_30.md | his favorite start, one man, crisis around day 100
+- 2026-09-30 | VAMILY | GROK_14_ORIGINS_2026_09_30.md | all fifteen company starts
+- 2026-09-30 | VAMILY | GROK_13_BACKGROUNDS_2026_09_30.md | every hire past, indebted are bought
+- 2026-09-30 | VAMILY | GROK_12_HIRING_2026_09_30.md | hire a person, batteries up front and every day
+- 2026-09-30 | VAMILY | GROK_11_DAY_LOOP_2026_09_30.md | food, medicine, and pay per day, wiki rates
+- 2026-09-30 | VAMILY | GROK_10_JOBS_PAY_2026_09_30.md | contracts pay batteries and clout, one job at a time
+- 2026-09-30 | VAMILY | GROK_09_ORC_GOBLIN_SKINS_2026_09_30.md | orc and goblin jobs skinned, mechanics unchanged
+- 2026-09-30 | VAMILY | GROK_08_BEAST_SKINS_2026_09_30.md | beast jobs skinned as lab animals, non-animals named
+- 2026-09-30 | VAMILY | GROK_07_FIRST_FIGHT_2026_09_30.md | first fight is the wiki contract, skin only
 - 2026-09-30 | ask 6 | GROK_06_HOW_A_FIGHT_RUNS_2026_09_30.md | how a Battle Brothers fight runs, and the house-tile options
 - 2026-09-30 | ask 4 | GROK_04_CHIP_BODY_OPTIONS_2026_09_30.md | chip-body fight options, wiki undead as the floor
 - 2026-09-30 | ask 3 | GROK_03_HOUSE_TILE_OPTIONS_2026_09_30.md | one pass, house-tile distances and a first-fight pile
