@@ -64,6 +64,11 @@
 //   - the rungs unlock KINDS, never places (rule 43, WORLD [rung unlocks] re-read): each entry
 //     carries a `kind`, and a caller may hand the open kinds; with none handed, every kind is open,
 //     because WORLD's kinds table is not cut yet and a list that refuses everything is a dead screen.
+// ROUND 3 (10/1): A LOT LIES IN A REAL BLOCK. FACTIONS' round four (73aad0e8) answers who holds any of
+// the valley's 9,216 blocks, derived from the part it lies in (blockHolder, heldBlocks). So a lot may now
+// carry its block (bx, by) and the hold may carry the geography (partAt, the city's turf grid, and n):
+// a lot whose block lies in ANOTHER part is refused WRONG_PART on this part's screen, and holdings()
+// counts the blocks you hold, which is "a base is every block you hold" as a number. Asked, never kept.
 // THE FIRST TWO THINGS ON THE LIST ARE A WALL AND A LIDDED WATER TANK (the invasive round, 9/29:
 // "invaders do not attack cities, they eat the margins": hogs take the gardens, pigeons foul the
 // water). So the wall stops being "nothing": it GUARDS the gardens from hogs, and the tank's lid
@@ -188,7 +193,8 @@
     var act = hold.act == null ? hold.rec.act : hold.act;
     var held = B.ownedBy(hold.rec, seats, B.YOU, act);
     for (var i = 0; i < held.length; i++) if (!book[held[i]]) book[held[i]] = site({ base: held[i] });
-    return { held: held, book: book };
+    var blocks = (typeof hold.partAt === 'function' && hold.n) ? B.heldBlocks(hold.partAt, hold.rec, B.YOU, hold.n, act) : null;
+    return { held: held, book: book, blocks: blocks };
   }
 
   function kindOpen(e, hold) {
@@ -218,6 +224,11 @@
     if (h.state === 'unknown') return { ok: false, why: 'NO_HOLD' };
     if (h.state === 'ruined') return { ok: false, why: 'RUIN', base: s.base };
     if (h.state !== 'yours') return { ok: false, why: 'NOT_HELD', base: s.base, holder: h.holder };
+    if (lot.bx != null && hold && typeof hold.partAt === 'function') {
+      var B = BASES(), b = B && B.blockHolder(hold.partAt, hold.rec, lot.bx, lot.by, hold.act == null ? hold.rec.act : hold.act);
+      if (!b) return { ok: false, why: 'NO_BLOCK', bx: lot.bx, by: lot.by };
+      if (b.part !== s.base) return { ok: false, why: 'WRONG_PART', part: b.part, base: s.base };
+    }
     if (!kindOpen(e, hold)) return { ok: false, why: 'KIND_LOCKED', kind: e.kind };
     var key = lot.x + ',' + lot.y;
     if (s.lots[key]) return { ok: false, why: 'LOT_TAKEN', by: s.lots[key].id };
@@ -227,6 +238,7 @@
     if (!paid || !paid.applied) return { ok: false, why: 'PURSE_REFUSED', purse: paid };
     s.lots[key] = { id: id, x: lot.x | 0, y: lot.y | 0, w: lot.w || 1, h: lot.h || 1,
                     started: day | 0, ready: (day | 0) + DAYS, done: false };
+    if (lot.bx != null) { s.lots[key].bx = lot.bx | 0; s.lots[key].by = lot.by | 0; }
     return { ok: true, lot: s.lots[key] };
   }
 

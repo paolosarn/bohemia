@@ -134,7 +134,12 @@ ACT_ITEMS = {1: set(), 2: {'patches', 'array1', 'topwin', 'farwin'}, 3: set(ITEM
 # THINGS BUILT ON A LOT (9/30, [build a lot] round 2): drawn ONLY when a panel names them in `has`,
 # never by an act number, so no act picture he approved changes by a byte. The first two a held part
 # builds (the invasive round): a block WALL across the front yards, and a lidded WATER TANK.
-LOT_ITEMS = ['wall', 'tank']
+LOT_ITEMS = ['wall', 'tank', 'shed', 'pump', 'garden', 'roof']
+# 10/1: the rest of the build list, drawn the same way: a SHED behind the first house, a PUMP HOUSE in
+# the east margin, a GARDEN BED behind the fourth house, and a new ROOF on the first house (a dead
+# house roofed again is a home: its windows come on). The garden's olive is the school kit's own
+# garden-bed colour (code 13), the only green that piece has ever had; nothing else borrows a palette.
+GARDEN = '#4e5138'
 
 
 def panel(P, act, has=None, torn=()):
@@ -283,6 +288,65 @@ def panel(P, act, has=None, torn=()):
         for k in range(0, 4):                                                                    # ribs
             d.point((tx - r + 1 + k * 3, ty + r - 1), fill=night(shade(P[6], 1.40)))
         d.line([(tx + r, ty + 1), (tx + r + 3, 14)], fill=night(shade(P[4], 1.6)))             # downpipe
+
+    if 'roof' in has:
+        # A NEW ROOF ON THE FIRST HOUSE: fresh sheet metal laid over the old roof, lighter and cooler
+        # than the tract roofs beside it, its sheets running down the slope, a ridge cap along the top.
+        # A house with a roof back on it is a home, so its two windows come on in the panel-fed cold.
+        # A GABLE, NOT A SLAB: the first cut was one flat grey sheet and read as a second solar array.
+        # A roof has a ridge, a lit north slope and a shaded south one, like every roof on this street.
+        hx = homes[0]
+        d.rectangle([hx, 14, hx + 21, 28], fill=night(shade(P[11], 1.55)))               # north slope, lit
+        d.rectangle([hx, 29, hx + 21, 44], fill=night(shade(P[11], 1.05)))               # south slope
+        d.rectangle([hx, 28, hx + 21, 29], fill=night(shade(P[11], 2.10)))               # the ridge cap
+        for sx in range(hx + 3, hx + 21, 4):
+            d.line([(sx, 15), (sx, 27)], fill=night(shade(P[11], 1.30)))                 # sheet seams
+            d.line([(sx, 30), (sx, 43)], fill=night(shade(P[11], 0.85)))
+        for (fx, fy) in ((hx + 6, 20), (hx + 14, 36)):
+            d.point((fx, fy), fill=night(shade(P[11], 2.4)))                              # new fixings
+        d.rectangle([hx, 43, hx + 21, 44], fill=night(shade(P[11], 0.70)))               # the eave
+        for wx in (hx + 4, hx + 12):
+            for k in range(5):
+                d.rectangle([wx, 45 + k, wx + 6, 45 + k], fill=mix(COLD_DIM, COLD, max(0.18, 0.82 - k * 0.11)))
+            d.rectangle([wx, 45, wx + 6, 45], fill=night(shade(P[2], 0.22)))
+            d.rectangle([wx, 50, wx + 6, 51], fill=night(shade(P[2], 1.20)))
+
+    if 'shed' in has:
+        # A SHED BEHIND THE FIRST HOUSE: a corrugated lean-to, its lit north edge, its ribs, and the
+        # door on the south side with the dark of the inside showing, plus what was dragged home
+        # leaning on it. Its shadow falls south like the houses'.
+        x0, y0 = homes[0] + 6, 2
+        d.rectangle([x0 + 1, y0 + 9, x0 + 15, y0 + 10], fill=night(shade(P[0], 0.62)))   # shadow
+        d.rectangle([x0, y0, x0 + 14, y0 + 8], fill=night(shade(P[6], 1.45)))
+        d.rectangle([x0, y0, x0 + 14, y0], fill=night(shade(P[6], 2.20)))                # lit edge
+        for rx in range(x0 + 2, x0 + 14, 2):
+            d.line([(rx, y0 + 1), (rx, y0 + 8)], fill=night(shade(P[6], 1.10)))          # the ribs
+        d.rectangle([x0 + 9, y0 + 7, x0 + 12, y0 + 8], fill=(16, 16, 18))                 # door, open
+        d.rectangle([x0 - 3, y0 + 3, x0 - 2, y0 + 8], fill=night(shade(P[13], 1.40)))    # a board
+        d.rectangle([x0 - 5, y0 + 6, x0 - 3, y0 + 8], fill=night(shade(P[15], 1.30)))    # a barrel
+
+    if 'garden' in has:
+        # A GARDEN BED BEHIND THE FOURTH HOUSE: raised rows in a timber frame, dark worked soil between
+        # them, the rows in the school's own garden olive, a little lighter on the north side of each.
+        gx0, gy0 = homes[3] + 2, 1
+        d.rectangle([gx0, gy0, gx0 + 26, gy0 + 11], fill=night(shade(P[15], 1.20)))      # the frame
+        d.rectangle([gx0 + 1, gy0 + 1, gx0 + 25, gy0 + 10], fill=night(shade(P[0], 0.70)))  # soil
+        for ry in range(gy0 + 2, gy0 + 10, 3):
+            for cx in range(gx0 + 2, gx0 + 25, 2):
+                d.point((cx, ry), fill=night(shade(GARDEN, 2.30)))                         # leaves
+                d.point((cx + 1, ry + 1), fill=night(shade(GARDEN, 1.60)))
+
+    if 'pump' in has:
+        # A PUMP HOUSE IN THE EAST MARGIN: a block hut with a flat slab roof, a vent on it, and the
+        # rising main leaving its west wall low along the ground, where a pump house's pipe goes.
+        px0, py0 = 155, 2
+        d.rectangle([px0 + 1, py0 + 10, px0 + 12, py0 + 11], fill=night(shade(P[0], 0.62)))  # shadow
+        d.rectangle([px0, py0, px0 + 11, py0 + 9], fill=night(shade(P[9], 1.25)))
+        d.rectangle([px0, py0, px0 + 11, py0], fill=night(shade(P[9], 1.90)))
+        d.rectangle([px0 + 4, py0 + 3, px0 + 7, py0 + 5], fill=night(shade(P[9], 0.70)))     # the vent
+        d.rectangle([px0 + 5, py0 + 3, px0 + 6, py0 + 3], fill=night(shade(P[9], 1.60)))
+        d.rectangle([px0 - 3, py0 + 7, px0 - 1, py0 + 8], fill=night(shade(P[16], 1.60)))    # the main
+        d.point((px0 + 9, py0 + 8), fill=(190, 230, 190))                                     # it runs
 
     # ---- AND THE OTHER SIDE OF THE STREET ----------------------------------
     # A STREET HAS TWO SIDES. The first cut drew four houses along the top and left

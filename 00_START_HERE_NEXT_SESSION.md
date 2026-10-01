@@ -3275,6 +3275,20 @@ AND THE LESSON THAT STILL BINDS: NO TEXT-ONLY ITEM IN VOTE, and now a second one
 beside it -- A PICTURE IN THE VOTE TAB THAT SHOWS A SENTENCE THE GAME NO LONGER
 SAYS IS A LIE TO HIM. Re-shoot the frames in the same round the words change.
 
+LIFE + CITY (city-1eztay): 10/1 LATEST -- *** EVERYTHING YOU CAN BUILD, ALL EIGHT DRAWN; A LOT LIES IN A REAL
+BLOCK ([build a lot] round 3). ***
+TAB: the new picture is in the VOTE tab (alpha). Record: records/BOHEMIA_EVERYTHING_YOU_CAN_BUILD_10_1_26.md
+lotbuild now takes FACTIONS' blockHolder (73aad0e8): a lot may carry its block (bx,by), the hold its geography
+(partAt, n): another part's block on this part's screen = WRONG_PART (free), outside every part = NO_BLOCK;
+holdings() returns blocks. Real valley (overmap 12345): 0 blocks before a taking, Mob 1,415 of 9,216, + Cartel
+2,723, ruin the Mob and back to 1,308; "half the city by act 3" is about four parts. BUILD A LOT 56 -> 62/0.
+COOK: slices/vote/LIFECITY_EVERYTHING_YOU_CAN_BUILD_10_1.png, eight cards cut from HIS APPROVED STREET, words
+from the module (wall and tank in gold, first). New in the street's panel() this round: shed, pump house,
+garden bed, roof (LOT_ITEMS, approved pictures byte-identical by md5). The first roof read as a second solar
+array -> now a gable. COOK's round-1 route (draw five pieces) is CLOSED: all drawn here.
+STILL OWED: RUN [settlement screen] is OPEN and unbuilt; it calls holdings/list/start/tick with the ledger and
+partAt. WORLD kinds, ECONOMY six, COMBAT fightTile, beasts exposed.
+
 LIFE + CITY (city-1eztay): 9/30 LATEST -- *** YOU BUILD WHAT YOU HOLD, AND WHAT YOU HOLD GROWS ([build a lot]
 round 2, rule 43 + the invasive round + rule 47). ***
 TAB: the new picture is in the VOTE tab (alpha). Record: records/BOHEMIA_YOU_BUILD_WHAT_YOU_HOLD_9_30_26.md
