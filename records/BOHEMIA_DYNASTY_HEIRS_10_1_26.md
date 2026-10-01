@@ -35,7 +35,8 @@ claim on [heirs] was committed and pushed as its own commit before any work, and
   write a death behind `died`'s back), `recruit`. The save (`save`/`load`) keeps what HAPPENED and never the heirs.
 - `orphans(ledger, act)` -> what stays done: events keyed by somebody the past no longer has. Never deleted.
 - Every number is a row in `ROWS` and draft:true, TUNING [recruit odds]'s to replace: 60 days, 15 to 35,
-  35 years between acts, half the traits, 12 an act.
+  half the traits, 12 an act. (The 35 years between acts is the phone strip's and is not a row here: a row
+  nothing reads is a lie to whoever tunes it.)
 
 **The city** carries the module, an adapter, one phone row and the save.
 - `ctHeirMembers()` is act 1's company, LIVE, from `ctYours()` (bonds and witnesses; still no roster).

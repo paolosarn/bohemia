@@ -51,7 +51,7 @@
     daysWithCompany: 60,    /* a man dead after this long with the company had a life: he leaves a kid */
     heirAgeMin: 15,         /* heirs arrive 15 to 35 years old */
     heirAgeMax: 35,
-    yearsBetweenActs: 35,   /* act 2 is 35 years after act 1 (the strip says +35Y) */
+    /* the 35 years between acts is the phone strip's (bohemia_acts.js, +35Y); nothing here reads it */
     traitShare: 0.5,        /* an heir carries roughly half the parent's traits */
     perAct: 12              /* ~12 men an act, 36 lives a game */
   };
