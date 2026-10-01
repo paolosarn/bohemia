@@ -300,7 +300,7 @@
     "src": "vote/ANIMATION_THE_IDLE_REDO.html"
    },
    "redoOf": "idle",
-   "said": "a lot of them are good, a lot of them aren\u2019t good... IF I KILLED IT I DON\u2019T WANT IT GONE. I just think it could be done better. Make a new one."
+   "said": "a lot of them are good, a lot of them aren’t good... IF I KILLED IT I DON’T WANT IT GONE. I just think it could be done better. Make a new one."
   },
   {
    "id": "factions-the-sign-still-lights-9-21",
@@ -465,7 +465,7 @@
    "sha": "534d87a",
    "made": "9/21",
    "title": "HOW A STEP IS DRAWN (I PICKED ONE FOR YOU)",
-   "why": "One press moves him a whole house, 275 pixels, in half a second, and his legs can only show one pace of it. What shipped was nobody\u2019s choice: an old number in the code made the whole street jump at once. I put in the tape skip: he stands still, the picture skips twice, he is there. Thumbs up keeps it. Thumbs down and say GRID (the street jumps at once) or SLIDE (the street slides the whole time) and I will switch it.",
+   "why": "One press moves him a whole house, 275 pixels, in half a second, and his legs can only show one pace of it. What shipped was nobody’s choice: an old number in the code made the whole street jump at once. I put in the tape skip: he stands still, the picture skips twice, he is there. Thumbs up keeps it. Thumbs down and say GRID (the street jumps at once) or SLIDE (the street slides the whole time) and I will switch it.",
    "show": {
     "how": "page",
     "src": "vote/ANIMATION_HOW_A_STEP_IS_DRAWN.html"
@@ -699,7 +699,7 @@
    "sha": "228818a1",
    "made": "9/21",
    "title": "THE BATTERY SHED, THE FIRST BUILDING THAT MAKES MONEY",
-   "why": "You build this on your own lot and a battery comes in. It is the small one, about the size of half a garage, not the big fenced battery yard the game already has. I drew it in that yard\u2019s own colours so they are the same world. One thing in the picture is on purpose and it is the whole idea: THE LITTLE AMBER LIGHT IS LIT. Nothing else on the lot has power, the meter needle is stuck, the door is chained, and this box is still working. Thumbs up and I put it in the game so you can place one. Thumbs down and tell me if it is the shape, the colour, or the light.",
+   "why": "You build this on your own lot and a battery comes in. It is the small one, about the size of half a garage, not the big fenced battery yard the game already has. I drew it in that yard’s own colours so they are the same world. One thing in the picture is on purpose and it is the whole idea: THE LITTLE AMBER LIGHT IS LIT. Nothing else on the lot has power, the meter needle is stuck, the door is chained, and this box is still working. Thumbs up and I put it in the game so you can place one. Thumbs down and tell me if it is the shape, the colour, or the light.",
    "show": {
     "how": "image",
     "src": "vote/LIFECITY_THE_BATTERY_SHED_9_21.png"
@@ -907,7 +907,7 @@
    "sha": "PENDING",
    "made": "9/22",
    "title": "FOUR WAYS THE GAME LOADS",
-   "why": "The screen that covers everything before you can touch anything, with a bar that cannot lie and the writing chat\u2019s words wired to real stages. A is built and handed to the play chat.",
+   "why": "The screen that covers everything before you can touch anything, with a bar that cannot lie and the writing chat’s words wired to real stages. A is built and handed to the play chat.",
    "show": {
     "how": "page",
     "src": "BOHEMIA_FOUR_WAYS_THE_GAME_LOADS_9_22_26.html"
@@ -1030,7 +1030,7 @@
     "src": "vote/ANIMATION_THE_HAND_REACHES_THE_FACE.html"
    },
    "redoOf": "eat, drink, smoke, cough and whistle",
-   "said": "a lot of them are good, a lot of them aren\u2019t good... some of the DIRECTIONS look like dog shit: when it\u2019s facing north-east the hand was behind the head even though it\u2019s supposed to be in front. IF I KILLED IT I DON\u2019T WANT IT GONE. Make a new one."
+   "said": "a lot of them are good, a lot of them aren’t good... some of the DIRECTIONS look like dog shit: when it’s facing north-east the hand was behind the head even though it’s supposed to be in front. IF I KILLED IT I DON’T WANT IT GONE. Make a new one."
   },
   {
    "id": "people-what-people-repeat-about-you-9-22",
@@ -1483,7 +1483,7 @@
     "src": "vote/ANIMATION_THE_HAND_IN_FRONT_PLAYS.html"
    },
    "redoOf": "animation-the-hand-at-the-face-plays-9-22",
-   "said": "when it\u2019s facing north-east the hand was behind the head even though it\u2019s supposed to be in front"
+   "said": "when it’s facing north-east the hand was behind the head even though it’s supposed to be in front"
   },
   {
    "id": "world-the-same-corner-9-23",
@@ -1679,7 +1679,7 @@
     "how": "page",
     "src": "vote/ANIMATION_FACING_YOU_HE_DID_NOTHING.html"
    },
-   "said": "a lot of them are good, a lot of them aren\u2019t good"
+   "said": "a lot of them are good, a lot of them aren’t good"
   },
   {
    "id": "sounds-a-footstep-that-is-not-sand-9-24",
@@ -3452,19 +3452,19 @@
    "asked": "UP or DOWN",
    "draft": true
   },
-   {
-    "id": "combat-a-street-of-houses-9-30",
-    "kind": "tile",
-    "lane": "combat",
-    "sha": "PENDING",
-    "made": "9/30",
-    "title": "A STREET OF HOUSES: THE NEIGHBOURS STAND UP",
-    "why": "You said one tile being the size of a house does not mean every tile is a house, it still has to look like a city, we have neighbours. Left: the same fight before, a road and empty yards. Middle: now, pinched out. Each side of the street has a row of houses facing it, with a driveway gap every third house, then back yards and an alley wall. Every house is a real obstacle. You cannot walk through it, you can hide behind it, and bullets stop at it. Their roofs have fallen in, and that is your rule: a caved-in roof is not high ground. The one house you can climb still has its roof and a steel stair, and you reached it in 82 of 82 fights. Nobody starts a fight inside a house, checked over 24 boards. Right: what the game camera shows, the houses at the edges of the street. What I am not hiding: the big blue-topped barrels are still drawn as big as a house, and they are the loudest thing on the board. That is next. Thumbs up and I keep building the block this way. Thumbs down and tell me if it is the houses, the roofs or the layout.",
-    "show": {
-     "how": "image",
-     "src": "vote/COMBAT_A_STREET_OF_HOUSES_9_30.png"
-    }
-   },
+  {
+   "id": "combat-a-street-of-houses-9-30",
+   "kind": "tile",
+   "lane": "combat",
+   "sha": "PENDING",
+   "made": "9/30",
+   "title": "A STREET OF HOUSES: THE NEIGHBOURS STAND UP",
+   "why": "You said one tile being the size of a house does not mean every tile is a house, it still has to look like a city, we have neighbours. Left: the same fight before, a road and empty yards. Middle: now, pinched out. Each side of the street has a row of houses facing it, with a driveway gap every third house, then back yards and an alley wall. Every house is a real obstacle. You cannot walk through it, you can hide behind it, and bullets stop at it. Their roofs have fallen in, and that is your rule: a caved-in roof is not high ground. The one house you can climb still has its roof and a steel stair, and you reached it in 82 of 82 fights. Nobody starts a fight inside a house, checked over 24 boards. Right: what the game camera shows, the houses at the edges of the street. What I am not hiding: the big blue-topped barrels are still drawn as big as a house, and they are the loudest thing on the board. That is next. Thumbs up and I keep building the block this way. Thumbs down and tell me if it is the houses, the roofs or the layout.",
+   "show": {
+    "how": "image",
+    "src": "vote/COMBAT_A_STREET_OF_HOUSES_9_30.png"
+   }
+  },
   {
    "id": "factions-your-base-grows-part-by-part-9-30",
    "kind": "tile",
@@ -3544,36 +3544,36 @@
     "src": "THE ENDING, CHECKED.\n\n1. THE THREE ENDINGS ARE ALREADY CANON. Liberate (cut Bohemia free), Respect (let it be), Become (take its place). Act 3 is the one-way trip to the Moon. Your good, bad and neutral toward it is how the family behaves across the acts; the three endings are where that lets it land.\n\n2. THE GAUGE DOES NOT EXIST YET. The flag that tracks what the machine can see defaults to seen. Nothing in the game turns it off. So nobody can earn the ending that needs them to have gone dark.\n\n3. YOUR RADIO IDEA, WITH NUMBERS. The Moon is 1.28 seconds away and Mars is 3 to 22 minutes. Everything a person says out loud in a lifetime is about 2.5 GB: 32 seconds over the fastest Moon link flown. A whole brain scanned is about 1.8 zettabytes: about 720,000 years. A portrait can travel at radio speed. A person cannot. That is the difference between the Amalgamation and you.\n\n4. THE TWIST THAT FITS. The rocket is real and carries the real crew. The machine has had the recorded family on the Moon the whole time. What the bodies bring is everything that was never recorded. This is how it knew me.\n\nOne call is yours: does the twist make your family the copy, or the machine's incomplete copy of them? My default is the second."
    }
   },
-{
-  "id": "grok-role-c-9-30",
-  "kind": "verdict",
-  "lane": "coordinator",
-  "sha": "pending",
-  "made": "9/30",
-  "title": "GROK IS OUR OUTSIDE HELPER, AND IT KNOWS EVERYTHING (YOUR PICK: C)",
-  "why": "You said you decide Grok's job and that it has to know everything, not a two-pager you never approved. You picked C, the widest role. So: one file now holds every law, every ruling in your words, the game document, the library and the tables, rebuilt every round, and Grok reads it off the public repo. Grok answers our ask list, talks lore with you directly, and digs on its own for what is missing or contradictory. It never decides and never writes law: you rule in your words, I write it down, the chats build. Every Grok page gets checked before a chat can use it: no game you never named, nothing older than a newer ruling of yours, a source on every number.",
-  "show": {
+  {
+   "id": "grok-role-c-9-30",
+   "kind": "verdict",
+   "lane": "coordinator",
+   "sha": "pending",
+   "made": "9/30",
+   "title": "GROK IS OUR OUTSIDE HELPER, AND IT KNOWS EVERYTHING (YOUR PICK: C)",
+   "why": "You said you decide Grok's job and that it has to know everything, not a two-pager you never approved. You picked C, the widest role. So: one file now holds every law, every ruling in your words, the game document, the library and the tables, rebuilt every round, and Grok reads it off the public repo. Grok answers our ask list, talks lore with you directly, and digs on its own for what is missing or contradictory. It never decides and never writes law: you rule in your words, I write it down, the chats build. Every Grok page gets checked before a chat can use it: no game you never named, nothing older than a newer ruling of yours, a source on every number.",
+   "show": {
     "how": "text",
     "src": "GROK, ROLE C, LOCKED 9/30.\n\nWHAT IT KNOWS: the whole canon in one file, rebuilt every round.\n\nWHAT IT DOES: 1. answers the ask list (10 asks now, plus 2 standing ones). 2. is your lore partner; what you two land on comes back as YOUR ruling. 3. digs on its own: what is missing, weak, contradictory.\n\nWHAT IT IS NOT: a chat, a decider, in sync, a law writer.\n\nTHE FILTER: eyes-and-ears stamps every Grok page PASSED or FAILED before a chat cites it. A checker for that is owed to the plumber."
+   },
+   "verdict": "default",
+   "status": "ruled"
   },
-  "verdict": "default",
-  "status": "ruled"
-},
-{
-  "id": "fight-floor-first-10-1",
-  "kind": "verdict",
-  "lane": "coordinator",
-  "sha": "pending",
-  "made": "10/1",
-  "title": "THE GROUND UNDER THE FIGHTERS IS THE FIGHT'S FIRST JOB (YOU SAW IT)",
-  "why": "You said the tiles below the people in the fight look bad and the whole thing is fucked up. I looked at the same frame: big pale ovals under their feet, cardboard blocks for cover, diamonds, a red dot, two names drawn on top of each other, and every pixel three times too big. The art chat had already written all of it down; the combat chat worked around it. So the floor is now the only combat job until it reads: real road, sidewalk, yard, slab, roof and real cars for cover, drawn at your phone's real pixels, nothing painted on the ground that is not the ground. The demo will not carry a fight whose floor fails the judge.",
-  "show": {
+  {
+   "id": "fight-floor-first-10-1",
+   "kind": "verdict",
+   "lane": "coordinator",
+   "sha": "pending",
+   "made": "10/1",
+   "title": "THE GROUND UNDER THE FIGHTERS IS THE FIGHT'S FIRST JOB (YOU SAW IT)",
+   "why": "You said the tiles below the people in the fight look bad and the whole thing is fucked up. I looked at the same frame: big pale ovals under their feet, cardboard blocks for cover, diamonds, a red dot, two names drawn on top of each other, and every pixel three times too big. The art chat had already written all of it down; the combat chat worked around it. So the floor is now the only combat job until it reads: real road, sidewalk, yard, slab, roof and real cars for cover, drawn at your phone's real pixels, nothing painted on the ground that is not the ground. The demo will not carry a fight whose floor fails the judge.",
+   "show": {
     "how": "text",
     "src": "THE FIGHT'S FLOOR, LOCKED 10/1.\n\nDEAD ON THE GROUND: pale ovals, tan cover blocks, diamonds, the red disc, names on the board.\n\nTHE GROUND: road, sidewalk and kerb, yard, slab, roof, from the street's own art, 1:1 on your phone.\n\nORDER: combat draws at real pixels first; cook bakes the floor tiles; the art director judges only the floor; eyes posts how much of it is real ground, before and after; the demo waits for green."
+   },
+   "verdict": "default",
+   "status": "ruled"
   },
-  "verdict": "default",
-  "status": "ruled"
-},
   {
    "id": "mods-one-honest-number-10-1",
    "kind": "ui",
@@ -3585,6 +3585,20 @@
    "show": {
     "how": "page",
     "src": "BOHEMIA_ONE_HONEST_NUMBER_BESIDE_THE_ARMOUR_10_1_26.html"
+   }
+  },
+  {
+   "id": "tuning-the-difficulty-dials-10-1",
+   "kind": "tile",
+   "lane": "tuning",
+   "sha": "",
+   "made": "10/1",
+   "draft": true,
+   "title": "THE DIFFICULTY DIALS",
+   "why": "The five difficulty settings we have barely change anything: the hardest is only about 21% more enemy hits than normal, and a man lives 96 fights instead of 121. These are the dials that would actually change what you feel: enemy aim, enemy damage, how many enemies, and how often a struck-down man dies. Tap STEADY, STANDARD, HARD or IRON, or move the dials yourself, and watch how long your men live and how many are laid up at once. Your 20% and 10% rule is STANDARD.",
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_TUNING_THE_DIFFICULTY_DIALS_10_1_26.html"
    }
   }
  ],
@@ -3760,7 +3774,7 @@
   {
    "id": "world-the-rules-run-with-the-dirt-9-21",
    "vote": "down",
-   "said": "Mfs charge batteries bro \ud83e\udd23\ud83e\udd23\ud83e\udd23 i knkw buildings can help in our game but jesus christ mfs can charge batteries",
+   "said": "Mfs charge batteries bro 🤣🤣🤣 i knkw buildings can help in our game but jesus christ mfs can charge batteries",
    "when": "9/21",
    "at": "2026-09-22"
   },
@@ -4537,7 +4551,7 @@
   {
    "id": "dynasty-three-on-the-phone-9-24",
    "vote": "up",
-   "said": "I like that yeah I mean but keep in mind you know flipping between ax is a big deal asking out of it like all of the UI has to change. There has to be like a filter cut Syn \ud83d\udef9 thing that impacts everything. The phones gonna look different. The world's gonna look different and we need to find a great way to do that to make that jump, but I mean, just clicking it and then it just cause I clicked it once already the alpha mean obviously you did implement so much a bit but bro, it's a big deal like visually there has to be audio. There's a lot that needs to pull this off. You know we can't just do this cheap shit and then I still haven't decided at what point like you unlock this mechanic in each of the action and shit so it's not like right off the beginning of the game that's for sure.",
+   "said": "I like that yeah I mean but keep in mind you know flipping between ax is a big deal asking out of it like all of the UI has to change. There has to be like a filter cut Syn 🛹 thing that impacts everything. The phones gonna look different. The world's gonna look different and we need to find a great way to do that to make that jump, but I mean, just clicking it and then it just cause I clicked it once already the alpha mean obviously you did implement so much a bit but bro, it's a big deal like visually there has to be audio. There's a lot that needs to pull this off. You know we can't just do this cheap shit and then I still haven't decided at what point like you unlock this mechanic in each of the action and shit so it's not like right off the beginning of the game that's for sure.",
    "when": "9/27",
    "at": "2026-09-28"
   },

@@ -1,3 +1,15 @@
+TUNING (tuning-f59l1w): 10/1 LATEST -- [difficulty sliders] SHIPPED (research, no code touched). [grok sources] LEFT OPEN.
+TAB: VOTE, item THE DIFFICULTY DIALS (presets + four dials, draft:true).
+RECORD: records/BOHEMIA_TUNING_DIFFICULTY_SLIDERS_THE_FIVE_TIERS_BARELY_MOVE_ANYTHING_10_1_26.md
+FINDING: the five packages (EASY..BOHEMIAN) set the player's dial AND the enemy's aim from one number
+(THREAT_BY_PKG 1.00..1.60 divides the enemy MISS). Top tier = 21% more enemy hits than NORMAL, median life 96
+vs 121 fights: nobody can feel it. They never reach damage, count, level, gear, death odds or pay (the V121
+comment says damage; the code scales only the miss). Design: three kinds of slider kept apart: PRESSURE (the
+world), STAKES (death rule), ASSIST (dial and beat window, accessibility). Four presets, measured: STEADY
+median life 440, STANDARD 117 (his rule), HARD 72, IRON 29. Rules never move.
+[grok sources]: reference/library/grok/ has only its README, no page has passed EYES' filter, so nothing
+cites Grok and no table number was corrected; re-read my rows when the first page lands.
+NEXT OPEN: [respec], [recruit odds], [ammo], [origins difficulty].
 MODS (mods-59jyd6): 10/1 LATEST -- [read count] round two and [keep list into defaults]
 KEEP 2 of 11. Both rows stay CLAIMED. TAB: VOTE, item ONE HONEST NUMBER: two brothers
 dressed from body, helmet, extra slots; each shows the damage it takes to drop him AND the
