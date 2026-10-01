@@ -5428,6 +5428,75 @@ NEXT: [cook panels] is the standing rule-22 row and is OPEN again; items 2, 3 an
 (the fight HUD, the talk panel, the vote tab's own frame) are drawn as sheets but not built
 as skins. [three d ui] still has no gate of its own. [vote plays sound] is still open and
 SOUNDS has items waiting that he cannot hear in the tab. [no slop] stays CLAIMED.
+SOUNDS (sound-xk7pjp): 10/1 LATEST -- *** FOUR MORE OF THE REDO LIST, AND NONE OF THEM NEEDED
+A NEW IDEA. *** Row [not sand], round nine, ROW STAYS CLAIMED.
+Record: VAMILY.md row [not sand], round nine block (no separate record file this round).
+Gates: COOKED SOUNDS 181/0 (was 168), --mutate bites 51 (was 45). FOOTSTEP GATE 24/0.
+VERDICT-FROZEN 6/0. MERGE DEBRIS 4/0. HANDOFF GATE 9/0. Build stamp UNCHANGED this round.
+
+NO NEW VOTES on any of the sixteen candidates across rounds five through nine, all still
+WAITING FOR HIM. So this round continues last round's own NEXT item 1: the twelve remaining
+items on records/BOHEMIA_THE_KEEP_REDO_LIST_9_24_26.md 3b, taking the four that were free
+reuse of machinery this row already had before touching anything that needs new physics.
+
+dirt_take ("the shot that missed arrives somewhere... built out of HIS instruments, not
+synthesis") IS footstepModelled with the heel-toe stride switched off, on the dirt ground
+already built two rounds ago: one contact, no second step, its ring matching the dirt mode
+already in the table exactly. boots_go ("a gun leaves his rock to flank you") IS last round's
+walk-that-never-repeats function, just outdoors on dirt instead of a sidewalk. set_down ("the
+weight arriving and settling... NOT A CHIME") is the same single contact on the sidewalk's own
+concrete -- his own words already ruled out a struck-object chime, and the concrete slab a boot
+already rings was the honest answer sitting there. seton_more ("placing a thing, twice,
+forever") is set_down's own complaint: the variant seed from two rounds ago means a second
+placement is a different render by construction, so the fix was free.
+
+THREE NEW WRAPPER FUNCTIONS: groundTakesIt (footstepModelled, dirt, heelToe 0), bootsGoDirt
+(footstepWalk, dirt), objectSetDown + objectSetDownAgain (footstepModelled, concrete, heelToe 0,
+variant 0 and 1 respectively). Registered as four new ids: sounds-the-ground-takes-it-10-1,
+sounds-boots-going-somewhere-on-dirt-10-1, sounds-it-goes-down-10-1,
+sounds-set-it-down-again-10-1, on a new page
+(slices/BOHEMIA_THE_GROUND_TAKES_IT_AND_THINGS_GET_SET_DOWN_10_1_26.html). Verified on the
+glass: 4 of 4 buttons play, 0 errors.
+
+*** THE SAME CLOSURE TRAP, NAMED A THIRD TIME: THE FIRST CUT OF THE GATE CLAIMS DID NOT
+ACTUALLY BITE UNDER MUTATION. *** All four new wrappers call footstepModelled/footstepWalk BY
+CLOSURE, never through the exported H.footstepModelled, so the existing mutation (which swaps
+H.footstepModelled for the sand recipe) touched none of them, and all five new claims stayed
+green with the cook removed -- a pass that would also pass with the cook removed is not a
+pass. FIXED THE SAME WAY the hums were fixed last round: the falsifier now replaces
+H.groundTakesIt/H.objectSetDown/H.objectSetDownAgain/H.bootsGoDirt directly with the
+graveyarded sand recipe, and all five claims correctly go red. THIS IS NOW THE THIRD TIME this
+exact trap has bitten a fresh wrapper (wowFlutter, the three hums, now these four) -- IF YOU
+EVER WRAP A FUNCTION FOR H.list()'S GENERIC SWEEP, THE MUTATION TEST HAS TO REPLACE THE
+WRAPPER'S OWN EXPORTED NAME, NEVER THE THING IT CALLS BY CLOSURE. Read this before writing a
+fifth one.
+
+GATES: COOKED SOUNDS 181/0 (was 168 last round), --mutate bites 51 (was 45). FOOTSTEP GATE
+24/0, VERDICT-FROZEN 6/0, MERGE DEBRIS 4/0, HANDOFF GATE 9/0, all re-run clean; bohemia_sfx.js
+untouched this round (confirmed by diff before shipping).
+
+NEXT, IN ORDER:
+ 1. THE REMAINING EIGHT OF THE HARD-CONTACT REDO LIST: block, demolish, door_more, hit,
+    melee_hit, parts_pass, pickup, shot_more. None of these are footsteps or ground contact,
+    so none of them reuse what this row has built -- they need real new physics: block/hit/
+    melee_hit are a weapon-on-body or weapon-on-weapon impact (closer to struckMetal's
+    inharmonic-bar model than to a footstep's ground plate, but a body is not a bar either and
+    deserves its own research pass); demolish is destruction, which this row has never
+    modelled in any form; door_more can likely reuse theDoor directly, almost no new work;
+    parts_pass is metal changing hands, closer to struckMetal again but lighter and shorter;
+    pickup is the reverse motion of set_down (a lift, not a landing) and deserves its own
+    moment rather than being bundled in; shot_more needs an actual gunshot model (a pressure
+    transient plus muzzle blast), the one item on this whole list with zero existing
+    machinery to stand on.
+ 2. ATTRIBUTE THE 19 NODES ON THE MAP, with a probe that cannot throw.
+ 3. THE FIRST SOUND GATE'S FLAKE, one red in five. Named nine rounds running now.
+ 4. [beds play] is still HELD. Then [enemy heard], [fight music], [quiet floor], [rumour
+    heard], [pump hum].
+ 5. TWO MUSIC HOLES, STILL MINE: a room handing music back does not check whether a fight
+    owns it, and the shell obeys the city's music message with no fight guard.
+ 6. RULE 33j (9/27): read reference/library/battle_brothers/README.md for this department,
+    cite it, fix a wrong number there with a source. STILL NOT DONE.
+
 SOUNDS (sound-xk7pjp): 9/30 LATEST -- *** THE SAME FOOTSTEP NEVER LANDED THE SAME WAY TWICE
 UNTIL TODAY, AND IT WAS THIS LANE'S OWN BUG. *** Row [not sand], round eight, ROW STAYS CLAIMED.
 Record: VAMILY.md row [not sand], round eight block (no separate record file this round).

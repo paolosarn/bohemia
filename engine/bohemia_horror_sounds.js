@@ -1527,6 +1527,39 @@
   function footstepWalkWood(ctx, opts) { return footstepWalk(ctx, Object.assign({}, opts || {}, { surface: 'boards', perBeat: 1 })); }
   function footstepRunConcrete(ctx, opts) { return footstepWalk(ctx, Object.assign({}, opts || {}, { surface: 'concrete', perBeat: 2 })); }
 
+  /* ==== 13c. THE GROUND TAKES IT, AND BOOTS GOING SOMEWHERE (10/1) ===============
+     Continuing the keep/redo list (records/BOHEMIA_THE_KEEP_REDO_LIST_9_24_26.md 3b):
+     dirt_take ("the shot that missed arrives somewhere... built out of HIS instruments,
+     not synthesis") and boots_go ("a gun leaves his rock to flank you") are both already
+     solved by what this row built across the last two rounds. A missed shot hitting dirt
+     is ONE contact with no stride to follow it -- footstepModelled's own heel strike with
+     heelToe forced to zero, on the dirt material that already renders a dull, no-ring
+     impact rather than a ring. Boots going somewhere IS a walk, so footstepWalk already
+     plays it; the only question was which ground, and outdoors in a dead valley the
+     honest default is dirt, not a sidewalk. */
+  function groundTakesIt(ctx, opts) {
+    return footstepModelled(ctx, Object.assign({}, opts || {}, { surface: (opts && opts.surface) || 'dirt', heelToe: 0 }));
+  }
+  function bootsGoDirt(ctx, opts) { return footstepWalk(ctx, Object.assign({}, opts || {}, { surface: 'dirt', perBeat: 1 })); }
+
+  /* ==== 13d. IT GOES DOWN, AND SET IT DOWN AGAIN (10/1) ===========================
+     set_down ("the weight arriving and settling. a low landing with the grit of it, NOT
+     A CHIME") and seton_more ("placing a thing, twice, forever") are the same complaint
+     this whole row has been solving since round one: a dull, textured contact that is
+     never the same twice. set_down's own words rule out exactly what a bright plate mode
+     would give it, so this reuses the sidewalk's own concrete material (an object set
+     down on a real floor really does ring the floor, not itself, the same reasoning
+     already proven for a boot) with heelToe forced to zero -- one contact, one piece of
+     weight arriving, and the variant seed already built in means seton_more's "twice,
+     forever" is free: ask for a second variant and it is a different placement. */
+  function objectSetDown(ctx, opts) {
+    return footstepModelled(ctx, Object.assign({}, opts || {}, { surface: (opts && opts.surface) || 'concrete', heelToe: 0 }));
+  }
+  /* seton_more IS set_down's own complaint ("placing a thing, twice, forever"), so its
+     wrapper defaults to a different variant than set_down's own default -- the cheapest
+     possible proof that asking twice does not render the same placement twice. */
+  function objectSetDownAgain(ctx, opts) { return objectSetDown(ctx, Object.assign({ variant: 1 }, opts || {})); }
+
   /* ==== 14. THE DECK ITSELF, AND THE FLIP AS A TAPE CHANGING =======================
      *** RULE 32e, PAOLO 9/23, ON THE TAPE AND ON THE FLIP: "IT ALL SOUNDED LIKE SAND",
      "KINDA DOGSHIT". *** Both were band-limited noise wearing a mechanism's name, and the
@@ -2135,6 +2168,10 @@
     footstepWalkConcrete: footstepWalkConcrete,
     footstepWalkWood: footstepWalkWood,
     footstepRunConcrete: footstepRunConcrete,
+    groundTakesIt: groundTakesIt,
+    bootsGoDirt: bootsGoDirt,
+    objectSetDown: objectSetDown,
+    objectSetDownAgain: objectSetDownAgain,
     struckMetal: struckMetal,
     STRIKE: STRIKE,
     theTapeDeck: theTapeDeck,
@@ -2241,7 +2278,18 @@
         { id: 'sounds-a-walk-on-a-wood-floor-does-not-repeat-9-30', make: 'footstepWalkWood',
           title: 'A WALK ON A WOOD FLOOR DOES NOT REPEAT' },
         { id: 'sounds-a-run-on-the-sidewalk-does-not-repeat-9-30', make: 'footstepRunConcrete',
-          title: 'A RUN ON THE SIDEWALK DOES NOT REPEAT' }
+          title: 'A RUN ON THE SIDEWALK DOES NOT REPEAT' },
+        /* THE GROUND TAKES IT, AND THINGS GET SET DOWN (10/1): dirt_take, boots_go,
+           set_down and seton_more, four more of the keep/redo list, all solved by the
+           same two machines this row already built. */
+        { id: 'sounds-the-ground-takes-it-10-1', make: 'groundTakesIt',
+          title: 'THE GROUND TAKES IT' },
+        { id: 'sounds-boots-going-somewhere-on-dirt-10-1', make: 'bootsGoDirt',
+          title: 'BOOTS GOING SOMEWHERE, ON DIRT' },
+        { id: 'sounds-it-goes-down-10-1', make: 'objectSetDown',
+          title: 'IT GOES DOWN' },
+        { id: 'sounds-set-it-down-again-10-1', make: 'objectSetDownAgain',
+          title: 'SET IT DOWN AGAIN' }
       ];
     }
   };

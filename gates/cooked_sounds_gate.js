@@ -702,6 +702,35 @@ const MEASURE = `
     } catch (e) { out.walkErr = String(e && e.message).slice(0,160); }
   })();
 
+  /* THE GROUND TAKES IT, AND THINGS GET SET DOWN (10/1). Four more of the keep/redo list,
+     all claimed to be free reuse of the two machines already proven above -- so the
+     claims here are mostly about proving THAT, not inventing new physics. */
+  (function () {
+    try {
+      const bytesEqual = (a, b) => { if (a.length !== b.length) return false;
+        for (let i=0;i<a.length;i++) if (a[i] !== b[i]) return false; return true; };
+      const gt = H.groundTakesIt(ctx, {});
+      const bg = H.bootsGoDirt(ctx, {});
+      const down = H.objectSetDown(ctx, {});
+      const downAgain = H.objectSetDownAgain(ctx, {});
+      out.groundTakesIt = {
+        contacts: gt.contacts, heelToeMs: gt.heelToeMs, surface: gt.surface,
+        matchesDirtMode: gt.firstModeHz === +H.plateModes(H.GROUND.dirt, 1)[0].hz.toFixed(1),
+        noiseInIt: H.footstepModelled.toString().indexOf('noiseInto') >= 0
+      };
+      out.bootsGoDirt = {
+        steps: bg.steps, surface: bg.surface, perBeat: bg.perBeat,
+        gaps: bg.atSeconds.slice(1).map((t,i) => +(t - bg.atSeconds[i]).toFixed(3))
+      };
+      out.objectSetDown = {
+        downContacts: down.contacts, downHeelToeMs: down.heelToeMs, downSurface: down.surface,
+        downVariant: down.variant, downAgainVariant: downAgain.variant,
+        matchesConcreteMode: down.firstModeHz === +H.plateModes(H.GROUND.concrete, 1)[0].hz.toFixed(1),
+        downDiffersFromDownAgain: !bytesEqual(down.buffer.getChannelData(0), downAgain.buffer.getChannelData(0))
+      };
+    } catch (e) { out.groundTakesItErr = String(e && e.message).slice(0,160); }
+  })();
+
   /* THE BROADCAST (9/24). Three renders, because the questions are about DIFFERENCES:
      a working transmitter, a transmitter nobody has touched in ten years, and the worn
      one with a head that holds speed perfectly. The last is the control for the wobble
@@ -1076,6 +1105,20 @@ const MEASURE = `
         const realHarmonic = H.harmonicHum;
         const wrong = (ctx, o) => realHarmonic(ctx, Object.assign({}, o || {}, { hz: 90, riseFromHz: 90, parts: [[1,1]] }));
         H.generatorHum = wrong; H.powerOnHum = wrong; H.signAliveHum = wrong;
+        /* AND THE GROUND TAKES IT / BOOTS GO / SET IT DOWN (10/1): SAME TRAP, SAME FIX.
+           groundTakesIt, bootsGoDirt and objectSetDown all call the local footstepModelled
+           and footstepWalk BY CLOSURE, never through H, so swapping H.footstepModelled
+           above touches none of them. The falsifier has to replace these four exported
+           names directly, with the one thing he rejected twice: the graveyarded sand
+           recipe, which carries none of contacts/heelToeMs/surface/firstModeHz. */
+        const wrongContact = (ctx, o) => sandStep(ctx, o || {});
+        H.groundTakesIt = wrongContact;
+        H.objectSetDown = wrongContact;
+        H.objectSetDownAgain = wrongContact;
+        H.bootsGoDirt = (ctx, o) => {
+          const one = sandStep(ctx, {});
+          return { buffer: one.buffer, steps: 1, surface: 'mutated', perBeat: 1, atSeconds: [0] };
+        };
       });
     }
     d = await p.evaluate(MEASURE);
@@ -1741,6 +1784,37 @@ const MEASURE = `
         + 'generator itself');
     } else { claim('A walk that never repeats was measured', false,
       d.walkErr || 'no reading'); }
+
+    /* ---- THE GROUND TAKES IT, AND THINGS GET SET DOWN (10/1), round nine ------ */
+    if (d.groundTakesIt && d.bootsGoDirt && d.objectSetDown) {
+      const GT = d.groundTakesIt, BG = d.bootsGoDirt, OD = d.objectSetDown;
+      claim('A SHOT HITTING DIRT IS ONE CONTACT, NOT A STRIDE',
+        GT.contacts === 1 && GT.heelToeMs === 0 && GT.surface === 'dirt',
+        'dirt_take is footstepModelled with the heel-toe pair switched off: '
+        + GT.contacts + ' contact, ' + GT.heelToeMs + ' ms heel-to-toe, on dirt');
+      claim('AND IT RINGS THE SAME DIRT A FOOTSTEP ALREADY RINGS, not a second copy of the number',
+        GT.matchesDirtMode === true && GT.noiseInIt === false,
+        'its first mode matches H.plateModes(GROUND.dirt) exactly, read off the table rather '
+        + 'than a second constant pasted in; no noise generator anywhere in the shared function');
+      claim('BOOTS GOING SOMEWHERE IS THE SAME WALK, OUTDOORS',
+        BG.steps === 6 && BG.surface === 'dirt' && BG.perBeat === 1
+          && BG.gaps.every(g => Math.abs(g - 0.5) < 1e-6),
+        BG.steps + ' footfalls on ' + BG.surface + ', gaps ' + BG.gaps.join('/')
+        + ' s against a 0.5 s beat -- footstepWalk already proved never to repeat a '
+        + 'footfall, this is that same proof on a different ground');
+      claim('IT GOES DOWN IS ONE CONTACT ON THE SIDEWALK\'S OWN SLAB, NOT A CHIME',
+        OD.downContacts === 1 && OD.downHeelToeMs === 0 && OD.downSurface === 'concrete'
+          && OD.matchesConcreteMode === true,
+        'set_down is footstepModelled on concrete with the stride switched off: '
+        + OD.downContacts + ' contact, rings the same slab mode a boot already does, '
+        + 'never a struck-object chime');
+      claim('AND SET IT DOWN AGAIN IS A DIFFERENT PLACEMENT, NOT THE FIRST ONE COPIED',
+        OD.downVariant !== OD.downAgainVariant && OD.downDiffersFromDownAgain === true,
+        'set_down defaults to variant ' + OD.downVariant + ', seton_more to variant '
+        + OD.downAgainVariant + ', and the two renders differ -- "placing a thing, twice, '
+        + 'forever" is exactly what asking for a second variant already proves');
+    } else { claim('The ground takes it and things get set down were measured', false,
+      d.groundTakesItErr || 'no reading'); }
 
     /* ---- THE VALLEY STILL BROADCASTS (9/24) ---------------------------------
        DIRECTION's bible rule 9: "THE MACHINES KEEP TALKING... the content never
