@@ -11739,6 +11739,24 @@ full suite unmeasured since 7efb22cf. Rule 14(a): demo untouched, RUN cuts it.
 
 Record: records/BOHEMIA_ONE_DOOR_9_14_26.md
 
+PLUMBER (plumber-ont6t5): 10/1 LATEST -- *** CHAT 18. ROUND 48. [grok fence] AND [grok filter gate] SHIPPED. GROK STAYS IN
+ITS FOLDER, AND NOTHING CITES A GROK PAGE UNTIL IT IS STAMPED. ***
+Record: records/BOHEMIA_THE_FENCE_AND_THE_STAMP_FOR_GROK_10_1_26.md. The two rows sat above [no overlap] in this lane's
+section (rule 49d: Paolo connected Grok's GitHub connector), so they went first; [no overlap] round 2 (the fight,
+the phone opened out) is next.
+  GROK FENCE, in the suite, 5/0, about 1 s. MEASURED FIRST: the 3 Grok commits on the branch grok are signed with the
+  repo owner's own account (the connector pushes as him), so the row's "author says Grok" would find nothing, ever.
+  The mark is the GROK: message the paste page asks for, plus any author or committer that says grok. A coordinator
+  commit that only mentions Grok is not fenced (8 on main, none flagged). 0 Grok commits on main; 3 on the branch, all
+  inside reference/library/grok/. A Grok commit on the branch outside the folder is a WARN for the coordinator.
+  GROK FILTER, in the suite, 6/0, about 2 s: a file outside the folder may cite a Grok page only if the page is on the
+  branch and its line 2 starts PASSED FILTER (the folder README's own shape, stamped by EYES). 0 citations today,
+  printed as zero.
+  BOTH proven on planted repositories (fence 4 cases, filter 5). Two first cuts corrected: listing every commit's
+  files took 30 s (git pre-filters now); git refused a JavaScript-style pattern (it has its own now).
+  STILL [PENDING Paolo]: the 145-file move (32.3 MB); the two Battle Brothers hosts (Grok now covers part of that ask).
+  PROOF: GROK FENCE 5/0; GROK FILTER 6/0; both GREEN through the suite runner.
+
 PLUMBER (plumber-ont6t5): 9/30 LATEST -- *** CHAT 18. ROUND 47. [no overlap] CONTINUING, ROUND 1. NO OVERLAP IS IN
 THE SUITE AND RED ON PURPOSE ON TWO REAL LAYOUT FAULTS, BOTH SEEN ON THE GLASS. ***
 Record: records/BOHEMIA_NO_TWO_TEXTS_ON_TOP_OF_EACH_OTHER_9_30_26.md. The coordinator made it this lane's first line
