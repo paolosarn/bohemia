@@ -1,4 +1,5 @@
 source: Grok, unverified, written 2026-09-30
+PASSED FILTER (EYES, 10/1): real-world lot/street widths cited to the actual Las Vegas/Clark County codes, weapon effective ranges to a sourced article, Battle Brothers numbers to the wiki; three options offered, none decided.
 
 # ONE PASS: WHAT A HOUSE TILE DOES TO A WEAPON
 

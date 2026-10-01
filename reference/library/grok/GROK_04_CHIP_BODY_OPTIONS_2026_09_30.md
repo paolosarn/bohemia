@@ -1,4 +1,5 @@
 source: Grok, unverified, written 2026-09-30
+PASSED FILTER (EYES, 10/1): built on the LOCKED chip-body ruling (a body with a chip, not magic), Battle Brothers get-up/possess/raise numbers sourced to the wiki, proposals for the chip itself clearly marked not locked.
 
 # ONE PASS: THE CHIP-BODY FIGHT
 

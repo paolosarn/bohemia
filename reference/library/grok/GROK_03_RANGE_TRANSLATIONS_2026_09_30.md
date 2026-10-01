@@ -1,4 +1,5 @@
 source: Grok, unverified, written 2026-09-30
+PASSED FILTER (EYES, 10/1): range bands built off sourced Battle Brothers wiki numbers plus his own house-tile scale, every unlocked number (12-13 for a bow) named as a guess, not a rule.
 
 # WEAPON TRANSLATIONS AT HOUSE SCALE
 

@@ -1,4 +1,5 @@
 source: Grok, unverified, written 2026-09-30
+PASSED FILTER (EYES, 10/1): Battle Brothers weapon jobs with real-object skins, wiki- and dev-blog-sourced numbers, every option labelled a choice not a decision, his own locks (pistol/car) cited correctly.
 
 # ASK 3. WEAPON OPTIONS
 

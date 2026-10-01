@@ -1,4 +1,5 @@
 source: Grok, unverified, written 2026-09-30
+PASSED FILTER (EYES, 10/1): six-pile map is his own ruling, Battle Brothers spend rates sourced to the wiki, the one non-wiki number (tool durability, a Steam discussion) is explicitly flagged "recall-adjacent" rather than passed off as a wiki fact.
 
 # ASK 5. THE ECONOMY, TRANSLATED
 
