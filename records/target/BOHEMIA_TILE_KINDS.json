@@ -1,0 +1,80 @@
+{
+ "_readme": "WORLD [tile options] 10/1: what one square of a fight board can BE, at house size. Written by tools/bohemia_house_size_cook_10_1_26.js from engine/bohemia_tilekinds.js -- do not hand edit, change the module and re-run. HARVESTED, NOT INVENTED: the 52 district kits each carry a legend whose every entry names a kind; across them there are 19 distinct kinds over 922 entries, and none was invented. *** MOST OF WHAT THE CITY DRAWS IS NOT A TILE AT HOUSE SIZE: *** the kits were drawn for THE WALK at 0.75 m a cell, so at house size a painted lane line is paint, a sidewalk is not a tile (Paolo 9/28, 'never a fight where one tile is one sidewalk') and a parked car is the cover ON a tile. 10 of the 19 kinds are TILES; the rest are DRESSING, BLOCKERS, EDGES or OVERHEAD. Nothing is thrown away (rule 38e), it changes job. WHAT A TILE LOOKS LIKE IS NOT IN HERE and is not this lane's: the art is COOK's and what it does in a fight is COMBAT's.",
+ "version": "BOHEMIA_TILE_KINDS_v1",
+ "built": "2026-10-01",
+ "classes": [
+  "TILE",
+  "DRESSING",
+  "BLOCKER",
+  "EDGE",
+  "OVERHEAD"
+ ],
+ "kindClass": {
+  "ground": "TILE",
+  "drive": "TILE",
+  "building": "TILE",
+  "structure": "TILE",
+  "water": "TILE",
+  "water_dead": "TILE",
+  "turf_dead": "TILE",
+  "court": "TILE",
+  "play": "TILE",
+  "panel": "TILE",
+  "marking": "DRESSING",
+  "walk": "DRESSING",
+  "prop": "BLOCKER",
+  "vehicle": "BLOCKER",
+  "tree_dead": "BLOCKER",
+  "fence": "BLOCKER",
+  "gate": "EDGE",
+  "portal": "EDGE",
+  "overhead": "OVERHEAD"
+ },
+ "alias": {
+  "water-dead": "water_dead",
+  "turf-dead": "turf_dead",
+  "tree-dead": "tree_dead"
+ },
+ "tilesAtHouseSize": [
+  "ground",
+  "drive",
+  "building",
+  "structure",
+  "water",
+  "water_dead",
+  "turf_dead",
+  "court",
+  "play",
+  "panel"
+ ],
+ "measured": {
+  "kits": 52,
+  "legendEntries": 922,
+  "distinctKinds": 19,
+  "byClass": {
+   "TILE": 552,
+   "DRESSING": 71,
+   "BLOCKER": 213,
+   "EDGE": 70,
+   "OVERHEAD": 16
+  },
+  "tileKinds": 10,
+  "notTileKinds": 9,
+  "notATilePct": 40.1
+ },
+ "houseTileSize": {
+  "kitCell_m": 0.75,
+  "kitBlock_cells": 128,
+  "houseFootprint_cells": [
+   21,
+   12
+  ],
+  "lotPitch_cells": 26,
+  "lotPitch_m": 19.5,
+  "lotPitch_range_m": [
+   18,
+   21.8
+  ],
+  "source": "engine/bohemia_suburb.js at seed 1337, 20 houses in one block"
+ }
+}

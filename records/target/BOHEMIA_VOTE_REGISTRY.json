@@ -3628,6 +3628,18 @@
    },
    "asked": "UP or DOWN",
    "draft": true
+  },
+  {
+   "id": "world-what-a-tile-is-10-1",
+   "kind": "tile",
+   "lane": "world",
+   "made": "10/1",
+   "title": "WHAT A TILE IS",
+   "why": "The same block of Vegas twice. Left is what the city actually draws, every little piece the old walking version needed. Right is that same block cut into house-sized squares, which is what a fight board square is. The point is what disappears between them. A painted road line is just paint at that size. A sidewalk is not a square, you said that yourself. A parked car is not a square either, it is the cover ON one. I counted it: 40% of everything the city draws stops being a square you stand on and becomes something sitting on one. Nothing gets thrown away, it just changes job. I also did not pick the size, I measured it: a house in our own suburb is 15.8m by 9m, and the gap from one house to the next is 19.5m. So a tile is about twenty metres, and a city block is five tiles across. The bright mark at the bottom of both panels is the one way in.",
+   "show": {
+    "how": "image",
+    "src": "vote/WORLD_WHAT_A_TILE_IS.png"
+   }
   }
  ],
  "verdicts": [

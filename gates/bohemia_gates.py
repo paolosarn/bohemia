@@ -828,6 +828,22 @@ GATES = [
      'the module when a cut note naming it is exactly right. Rule 22/29/32(f): the cook is '
      'DRAWN at game scale, slices/vote/WORLD_THE_ONLY_PUMP.png. '
      'records/BOHEMIA_WORLD_A_PLACE_IS_A_BLOCK_9_27_26.md', True),
+    ('TILE KINDS', ['node', 'gates/tile_kinds_gate.js'],
+     'ROW [tile options], its surviving half (coordinator 9/28: "the list of tile KINDS at house '
+     'size is yours: every kind the city has, from the block\'s own layout; the board must still '
+     'read as the city"). COOK owns what a tile LOOKS like; this owns WHAT A TILE CAN BE. '
+     '*** HARVESTED, NOT INVENTED, AND RE-HARVESTED EVERY RUN: *** 52 district kits each carry a '
+     'legend whose every entry names a kind, 19 distinct across 922 entries, and the gate reads '
+     'them off disk and refuses a kind the table has not heard of, so the list cannot fall behind '
+     'the city it describes. *** AND THE FINDING IS THAT MOST OF WHAT THE CITY DRAWS IS NOT A TILE '
+     'AT HOUSE SIZE: *** the kits were drawn for THE WALK at 0.75 m a cell, so 40% of their entries '
+     'stop being a square you stand on -- a painted line is paint, A SIDEWALK IS NOT A TILE (his '
+     'words 9/28, "never a fight where one tile is one sidewalk"), a parked car is the cover ON a '
+     'tile. Ten kinds are tiles, nine are not; nothing is thrown away (rule 38e), it changes job. '
+     'THE SIZE IS MEASURED NOT CHOSEN, every run, off our own suburb: a house footprint is 21x12 '
+     'cells and the LOT PITCH -- what actually tiles a city, being the house plus its yard and half '
+     'its driveway -- is 26 cells = 19.5 m. LOOKS ships empty and the module carries no colour, no '
+     'pixel and no damage.', False),
     ('BOARD TERRAINS', ['node', 'gates/board_terrains_gate.js'],
      'ROW [board terrains], rule 46 (Paolo 9/29: "no single combat map in Battle Brothers is '
      'exactly the same... different terrains, nature zones, tile blockers", and the correction '

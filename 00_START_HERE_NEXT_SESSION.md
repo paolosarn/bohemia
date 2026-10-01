@@ -1,3 +1,112 @@
+WORLD (world-9lfjtf): 10/1 LATEST -- *** MOST OF WHAT THE CITY DRAWS IS NOT A
+TILE AT HOUSE SIZE, AND THE CITY ALREADY NAMED EVERY KIND ITSELF. ***
+Row [tile options] SHIPPED (the half that is mine, the KIND LIST; COOK owns the look).
+TAB: NOT IN A TAB YET on a play surface (rule 18). It IS in the VOTE tab:
+world-what-a-tile-is-10-1. Record records/BOHEMIA_WORLD_WHAT_A_TILE_IS_10_1_26.md.
+
+THE JOB (coordinator 9/28): "the list of tile KINDS at house size is yours: every
+kind the city has, from the block's own layout; the board must still read as the
+city." It sits straight on top of last round's [board terrains]: a TERRAIN kind
+says what kind of BOARD you get, a TILE kind says what the SQUARES on it are.
+Built: engine/bohemia_tilekinds.js + records/target/BOHEMIA_TILE_KINDS.json.
+
+HARVESTED, NOT INVENTED, and it is not close: the city already declares this
+vocabulary. FIFTY-TWO district kits each carry a legend whose every entry names a
+kind -- NINETEEN distinct across 922 entries, none invented here. The gate
+RE-HARVESTS THE KITS OFF DISK EVERY RUN and refuses a kind the table has not heard
+of, so the list cannot quietly fall behind the city it describes. Same shape as
+[board terrains]' own leg, for the same reason.
+
+*** THE FINDING, which is rule 38(e) turned into a count instead of a promise. ***
+The kits were drawn for THE WALK at 0.75 m a cell, so at HOUSE SIZE most of their
+kinds stop being a square you stand on and become something that happens ON one.
+A painted lane line is paint. A SIDEWALK IS NOT A TILE -- his words 9/28, "never a
+fight where one tile is one sidewalk". A parked car is not a tile, it is the cover
+ON one, which is exactly what makes it useful. All nineteen are classified and
+ONLY TEN ARE TILES:
+  TILE      552 entries  ground, drive, building, structure, water, water_dead,
+                         turf_dead, court, play, panel
+  DRESSING   71          marking, walk
+  BLOCKER   213          prop, vehicle, tree_dead, fence
+  EDGE       70          gate, portal (a door is a property of a BOUNDARY, not a square)
+  OVERHEAD   16
+*** 40.1% OF WHAT THE CITY DRAWS IS NOT A TILE AT HOUSE SIZE. *** Nothing is
+thrown away, it changes job.
+
+THE SIZE IS MEASURED, NOT CHOSEN, and re-measured every run. A COMBAT TILE IS A
+HOUSE is a ruling in HOUSES, so the metres came off our own suburb kit: a house
+footprint is 21x12 cells = 15.8 m x 9.0 m, and THE LOT PITCH, nearest house centre
+to nearest, is 26 cells = 19.5 m over a range of 18.0 to 21.8. The PITCH is the
+number that matters, because what tiles a city is not the house, it is the house
+plus its yard and half its driveway. So a house tile is about TWENTY METRES SQUARE
+and a 96 m block is FIVE TILES ACROSS. Faking it in the module turns the gate red.
+
+COOK (rule 22/29): WHAT A TILE IS, slices/vote/WORLD_WHAT_A_TILE_IS.png -- THE
+SAME BLOCK TWICE. Left is what the city really draws, every cell the walk ever
+needed. Right is the same block cut on the measured pitch: 5x5 house tiles of 676
+kit cells each, 15 of the 25 a building. The left panel is the inventory and the
+right panel is the board. AH-01: two site plans of a cul-de-sac is the ordinary
+part; THE WRONG THING IS THAT THE RIGHT ONE IS A GAME BOARD, the same houses
+squared off with the one way in marked.
+
+*** THREE THINGS I GOT WRONG, ALL CAUGHT BEFORE HE SAW THEM. ***
+ 1 THE CENSUS READ ONE KIT WHILE THE TEXT CLAIMED 52. The picture's own file said
+   "52 kits, 922 entries" beside a census built from the suburb's own fifteen
+   legend entries -- a number in a file that did not come from the thing it
+   described. It harvests all 52 now, the same way the gate does, so the claim and
+   the measurement are ONE number.
+ 2 HOUSES WERE LOSING THEIR OWN TILES TO THEIR YARDS. The first cut took the
+   commonest tile kind per square and only 2 OF 16 came out a building, in a block
+   with twenty houses in it, because a measured house is 252 of a tile's 676 cells
+   and the yard around it wins a headcount. That is not what A COMBAT TILE IS A
+   HOUSE means. The threshold came off the measurement rather than being picked: a
+   real house fills 37% of a tile, so a quarter is comfortably under a whole house
+   and comfortably over a neighbour's clipped corner. 15 of 25 now.
+ 3 THE FILE CLAIMED THE DOORS WERE MARKED AND NOT ONE DOOR PIXEL WAS DRAWN. The
+   suburb kit declares exactly one EDGE kind, `gate`, and PLACES IT ZERO TIMES IN
+   ITS CELLS -- the block's one gate lives in the kit's own `gates` list as
+   {edge,x,y}. My AH-01 line described a picture the picture did not contain. Read
+   from where it really lives now, marked on both panels, and the tool refuses if
+   not one door pixel lands. THE DATA WAS THERE, IN A PLACE I HAD NOT LOOKED.
+
+LOOKS SHIPS EMPTY: what a tile is DRAWN as is COOK's and what it DOES in a fight is
+COMBAT's. Asking answers NO_RULING and says whose it is, and the gate holds that
+the module carries NO COLOUR, NO PIXEL AND NO DAMAGE NUMBER.
+
+GATE TILE KINDS 37/0, registered, mutation-proved three ways: make the sidewalk a
+tile -> RED; drop a kind the city declares -> RED naming it in both directions;
+fake the pitch -> RED at 40 against 26.
+
+ROUTED: COMBAT [board generator] -- with [board terrains] this is now the full
+input, the terrain kind picks the board and the tile kinds fill it. COOK [board
+assets] -- the running order is the entry counts; ground, structure and building
+are 90% of everything the city draws. COMBAT/TUNING -- a door is an EDGE, so
+whatever it costs to go through is a rule about CROSSING BETWEEN two tiles, never
+about standing on one. PLUMBER -- the kit legends are the only place this
+vocabulary lives and nothing enforced a kind list before this round; a kit can
+still invent a kind, it just goes red now.
+
+HIS RULE 47 ANSWERED MY OWN [PENDING Paolo] FROM LAST ROUND: the resources are
+BATTERIES, FOOD, MEDS, ROUNDS, TAPE and WATER. My scavenge module's find kinds are
+food, medicine, battery, tape and ammo -- five of the six, MISSING WATER, and
+"medicine" should read as MEDS. Not fixed this round; it is a one-line correction
+next round and it is mine. [NOTE TO SELF]
+
+STILL RED ON CLEAN MAIN AND NOT MINE: PAGES PUBLISH at 299 MB against a 260 MB cap
+(verified red with my work stashed last round; my whole contribution is kilobytes).
+The weight is slices/ at 185 MB and records/target at 112 MB. The published surface
+is what builds his link. [FOR THE COORDINATOR AND PLUMBER]
+
+[bb tiles] BATTLE BROTHERS HAS ONE TILE KIND AND DRESSES IT: its board is a hex
+field of ground with props scattered on it, and whether a hex is forest or swamp
+changes your NUMBERS, not what the hex IS; everything else -- a rock, a tree, a
+wall -- is decoration or an obstacle placed on top. OUR TWIST (rule 39b): ours has
+TEN kinds of square because ours is a CITY, and a city is made of different THINGS,
+not different ground. A BB hex is somewhere to stand. ONE OF OUR TILES IS
+SOMEBODY'S HOUSE -- it has an inside, a door that is the only way in, and an owner
+who is either dead or watching you. That is the difference between fighting in a
+landscape and fighting in a place.
+
 TUNING (tuning-f59l1w): 10/1 LATEST -- [difficulty sliders] SHIPPED (research, no code touched). [grok sources] LEFT OPEN.
 TAB: VOTE, item THE DIFFICULTY DIALS (presets + four dials, draft:true).
 RECORD: records/BOHEMIA_TUNING_DIFFICULTY_SLIDERS_THE_FIVE_TIERS_BARELY_MOVE_ANYTHING_10_1_26.md
