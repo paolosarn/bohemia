@@ -3962,8 +3962,34 @@
    },
    "said": "once you understand the scale of how far you can zoom out and zoom in, that's really important to me"
   },
-{"id": "combat2-the-floor-set-10-1", "kind": "tile", "lane": "combat 2", "sha": "pending", "made": "10/1", "title": "THE FIGHT'S FLOOR: YOUR STREET UNDER THE FIGHTERS", "why": "The ground under the fight is now your own street art, house-sized: road with its kerbs and faded line, a crossing, a big street, a freeway lane, two gravel lots, a driveway slab and a flat roof you can stand on, plus a dead car and a block wall for cover. Thumbs up and combat drops them under the fighters, and you see it in the COMBAT tab when a fight starts.", "show": {"how": "image", "src": "vote/COMBAT2_THE_FLOOR_SET_10_1.png"}}
-],
+  {
+   "id": "combat2-the-floor-set-10-1",
+   "kind": "tile",
+   "lane": "combat 2",
+   "sha": "pending",
+   "made": "10/1",
+   "title": "THE FIGHT'S FLOOR: YOUR STREET UNDER THE FIGHTERS",
+   "why": "The ground under the fight is now your own street art, house-sized: road with its kerbs and faded line, a crossing, a big street, a freeway lane, two gravel lots, a driveway slab and a flat roof you can stand on, plus a dead car and a block wall for cover. Thumbs up and combat drops them under the fighters, and you see it in the COMBAT tab when a fight starts.",
+   "show": {
+    "how": "image",
+    "src": "vote/COMBAT2_THE_FLOOR_SET_10_1.png"
+   }
+  },
+  {
+   "id": "run2-the-settlement-screen-10-1",
+   "kind": "ui",
+   "lane": "run 2",
+   "sha": "pending",
+   "made": "10/1",
+   "title": "THE SETTLEMENT SCREEN: SEE THE PLACE, TAP A BUILDING",
+   "why": "You arrive and see the place: tap the hall to hire, the board for up to two contracts, the stall, the barber for one battery, or scavenge until the lot is picked clean, and every building talks through a face. You see it in the VOTE tab under LOOK, a working screen that is NOT IN A TAB YET until the run plugs it into arriving on the map.",
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_SETTLEMENT_SCREEN.html"
+   },
+   "draft": true
+  }
+ ],
  "verdicts": [
   {
    "id": "people-the-one-who-walks-with-you-9-21",

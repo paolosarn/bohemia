@@ -1,0 +1,414 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Settlement</title>
+<!-- ============================================================================
+     THE SETTLEMENT SCREEN  (RUN 2, row [settlement screen], 10/1/26)
+
+     Rule 37b (Paolo 9/27): "I like the settlement menu more... you see the settlement
+     but you just click the building." Rule 55: RUN 2 builds the screen as ONE FILE that
+     RUN 1 plugs into the arrival; RUN 2 never touches the map, travel or the cut.
+
+     THE LAYOUT IS B from UI's 9/28 card (UI_HOW_YOU_PICK_A_BUILDING_9_28): the place is
+     drawn and its buildings ARE the buttons (Battle Brothers straight), AND the same
+     buildings sit as a row of big plates along the bottom where the thumb is. Picked by
+     RUN 2 under EVERYTHING IS A THUMB: A puts every target up where the thumb is not, C
+     is a phone app list and the least like Battle Brothers. He corrects it if he hates it.
+
+     THE BUILDINGS are Battle Brothers' own list (GROK_20 / GROK_21, stamped), translated
+     (rule 48): RECRUITS -> THE HALL (who wants work, through a mouth), the CONTRACT BOARD
+     -> THE BOARD (one main quest, two contracts, rule 51), MARKETPLACE -> THE STALL,
+     BARBER -> THE BARBER (CHARACTER's cost, a00bb5cf), plus our SCAVENGE (rule 37k,
+     WORLD's engine). Every building speaks through a face (rule 32a: text comes from a
+     mouth with a portrait; nothing pops up).
+
+     THE ART is the approved storefront run (records/target/tileforms/TF-ART-008, our own
+     street's walls), drawn at its own pixels, never smoothed. Analog horror at the source:
+     the shop light hums and drops out on its own clock, the dark door stays dark.
+
+     HOW RUN 1 PLUGS IT IN: load this page in a frame and post
+       {type:'BOHEMIA_SETTLEMENT_OPEN', place:{name, tier:'camp'|'town'|'fortress',
+        district, block}, batteries, contracts:[ids already held], hired:{}}
+     The page posts back {type:'BOHEMIA_SETTLEMENT', act, ...} for every thing he does:
+       'contract' {contract}, 'hire' {role}, 'barber' {opens}, 'buy' {good},
+       'scavenge' {result}, 'leave', 'needFace' {who}.
+     A face arrives as {type:'BOHEMIA_SETTLEMENT_FACE', who, src(dataURL)}.
+     Standalone (no parent) it runs on its own purse with 3 batteries so it can be played.
+     Gate: gates/settlement_screen_gate.js
+     ============================================================================ -->
+<style>
+:root{
+  --bg:#120e0a; --plate:#2a2119; --plate2:#1c1611; --ink:#e9dcc4; --dim:#a8977c;
+  --gold:#d9a85a; --red:#c4553f; --line:#3a2f24;
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);
+  font:15px/1.35 ui-monospace,Menlo,Consolas,monospace;-webkit-tap-highlight-color:transparent;
+  overflow:hidden;user-select:none}
+#app{position:fixed;inset:0;display:flex;flex-direction:column}
+#bar{display:flex;align-items:center;gap:10px;padding:max(8px,env(safe-area-inset-top)) 12px 8px;
+  background:var(--plate2);border-bottom:1px solid var(--line)}
+#bar .name{font-weight:700;letter-spacing:1px;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#bar .bat{color:var(--gold)}
+#leave{min-width:76px;min-height:44px;background:var(--plate);color:var(--ink);border:1px solid var(--line);
+  border-radius:6px;font:inherit;font-weight:700}
+#scene{position:relative;flex:1;min-height:0;overflow:hidden;background:#0b0907}
+#cv{position:absolute;left:0;top:0;image-rendering:pixelated;image-rendering:crisp-edges}
+.hot{position:absolute;border:1px dashed rgba(217,168,90,0);border-radius:3px;background:transparent;padding:0;
+  min-width:44px;min-height:44px;cursor:pointer}
+.hot span{position:absolute;left:50%;top:6px;max-width:none;transform:translateX(-50%);background:rgba(18,14,10,.86);
+  color:var(--ink);font-size:11px;letter-spacing:1px;padding:3px 6px;border:1px solid var(--line);
+  border-radius:3px;white-space:nowrap;pointer-events:none}
+.hot:active,.hot.on{border-color:var(--gold)}
+#shelf{display:flex;gap:6px;padding:8px 8px max(8px,env(safe-area-inset-bottom));background:var(--plate2);
+  border-top:1px solid var(--line)}
+.pl{flex:1;min-width:0;min-height:64px;background:linear-gradient(#33281e,#211a13);color:var(--ink);
+  border:1px solid var(--line);border-radius:6px;font:inherit;font-size:11px;letter-spacing:1px;padding:6px 2px;
+  box-shadow:inset 0 1px 0 rgba(255,235,200,.12),0 2px 0 #000}
+.pl b{display:block;font-size:12px}
+.pl small{display:block;color:var(--dim);font-size:10px;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pl.on{border-color:var(--gold)}
+#sheet{position:absolute;left:0;right:0;bottom:0;max-height:72%;overflow:auto;background:rgba(22,17,12,.97);
+  border-top:2px solid var(--gold);padding:12px 12px 14px;transform:translateY(105%);transition:transform .25s ease}
+#sheet.on{transform:none}
+.who{display:flex;gap:10px;align-items:flex-start}
+.face{width:72px;height:72px;flex:0 0 72px;border:1px solid var(--line);border-radius:4px;background:#0b0907;
+  image-rendering:pixelated}
+.say .nm{color:var(--gold);font-size:12px;letter-spacing:1px}
+.say p{margin:4px 0 0}
+.acts{display:flex;flex-direction:column;gap:6px;margin-top:12px}
+.act{min-height:48px;text-align:left;background:var(--plate);color:var(--ink);border:1px solid var(--line);
+  border-radius:6px;font:inherit;padding:8px 10px;display:flex;justify-content:space-between;gap:8px;align-items:center}
+.act[disabled]{opacity:.45}
+.act em{font-style:normal;color:var(--gold);white-space:nowrap}
+.slots{margin-top:10px;color:var(--dim);font-size:12px}
+#close{position:absolute;right:8px;top:6px;min-width:44px;min-height:44px;background:none;border:0;color:var(--dim);font:inherit;font-size:20px}
+#heard{min-height:20px;padding:0 12px;color:var(--dim);font-size:12px;background:var(--plate2)}
+</style>
+</head>
+<body>
+<div id="app">
+  <div id="bar"><span class="name" id="pname">THE PLACE</span><span class="bat" id="bat">0 BATTERIES</span>
+    <button id="leave">LEAVE</button></div>
+  <div id="scene"><canvas id="cv"></canvas>
+    <div id="sheet" aria-live="polite"><button id="close" aria-label="close">&times;</button><div id="sbody"></div></div>
+  </div>
+  <div id="heard"></div>
+  <div id="shelf"></div>
+</div>
+<script src="../engine/bohemia_economy.js"></script>
+<script src="../engine/bohemia_purse.js"></script>
+<script src="../engine/bohemia_barber.js"></script>
+<script src="../engine/bohemia_followers.js"></script>
+<script src="../engine/bohemia_place.js"></script>
+<script src="../engine/bohemia_scavenge.js"></script>
+<script>
+(function(){
+'use strict';
+var ART = '../records/target/tileforms/TF-ART-008__SHOPRUN_IN_PLACE_2x.png';
+/* The storefront run is 1408x616. Each building is a rect in ITS pixels; the screen maps
+   them through the same transform it draws with, so a tap lands on the picture. */
+var B = {
+  stall:  {x:88,  y:88, w:440, h:270, name:'THE STALL',   short:'buy, sell'},
+  hall:   {x:616, y:88, w:264, h:262, name:'THE HALL',    short:'who wants work'},
+  board:  {x:528, y:200, w:88, h:150, name:'THE BOARD',   short:'contracts'},
+  barber: {x:968, y:88, w:352, h:270, name:'THE BARBER',  short:'1 battery'},
+  lot:    {x:0,   y:360, w:1408, h:160, name:'SCAVENGE',  short:'one thing or nothing'}
+};
+var ORDER = ['hall','board','stall','barber','lot'];
+
+/* WHO STANDS IN EACH BUILDING. draft:true: names and lines are attempts (rule 8/11);
+   they speak Spanglish, the player does not (the first votes). */
+var KEEPERS = {
+  hall:   {who:'settle-hall',   name:'LUPE, AT THE HALL',  draft:true},
+  board:  {who:'settle-board',  name:'THE ELDER',          draft:true},
+  stall:  {who:'settle-stall',  name:'NENA, AT THE STALL', draft:true},
+  barber: {who:'settle-barber', name:'CHUY, THE BARBER',   draft:true},
+  lot:    {who:'you',           name:'YOU',                draft:true}
+};
+
+/* CONTRACTS. Rule 51: one main quest and TWO contracts at a time; the phone only shows
+   them, the place offers them from a mouth. Offers per tier from QUESTS round three
+   (camp 1, town 2, fortress 3). Pay is ONE battery (EVERYTHING COSTS ONE) until TUNING
+   prices a contract. Words are draft:true attempts. */
+var OFFERS = [
+  {id:'ct-escort-water', title:'Walk the water cart to the pump', pay:1, draft:true,
+   says:'The cart goes to the pump at dawn, mijo. Two hands, one battery when it comes back full.'},
+  {id:'ct-road-crew',    title:'Run the road crew off the corner', pay:1, draft:true,
+   says:'Six of them on the corner, pipes and one pistol. They leave, you get paid. Simple.'},
+  {id:'ct-find-the-kid', title:'Find the Ortiz kid', pay:1, draft:true,
+   says:'The Ortiz boy went out for copper and did not come back. Bring him home, alive if you can.'},
+  {id:'ct-dogs',         title:'Clear the dog lot', pay:1, draft:true,
+   says:'The dogs took the lot behind the wash. Not pets no more. Clear it and the lot is ours again.'}
+];
+var TIER_OFFERS = {camp:1, town:2, fortress:3};
+var SLOTS = 2;
+/* THE STALL. What the shelf holds is ECONOMY's to rule (BohemiaPlace.STOCKS is empty on
+   purpose); until then the stall sells the goods the economy already names, ONE battery
+   each, and only FOOD is counted by the purse (the six in the bar). */
+var STALL = [{good:'food', label:'A ration of food', counts:'resources'},
+             {good:'water', label:'Water, four litres', counts:null},
+             {good:'meds', label:'A dose of meds', counts:null}];
+
+var S = {
+  place:{name:'THE WASH, NORTH LAS VEGAS', tier:'town', district:'commercial'},
+  purse:null, day:0, held:[], hired:{}, asked:{}, scav:null, faces:{}, open:null, standalone:(window.parent===window)
+};
+var P = window.BohemiaPurse;
+function bats(){ return P ? P.balance(S.purse,'electricity') : 0; }
+function post(act, o){
+  var m = {type:'BOHEMIA_SETTLEMENT', act:act, place:S.place.name};
+  for(var k in (o||{})) m[k]=o[k];
+  window.__settleLog = (window.__settleLog||[]); window.__settleLog.push(m);
+  if(!S.standalone) try{ window.parent.postMessage(m,'*'); }catch(e){}
+}
+function heard(t){ document.getElementById('heard').textContent = t; }
+
+/* ---------- THE PLACE, DRAWN ---------- */
+var img = new Image(), view = {s:1,ox:0,oy:0}, t0 = performance.now();
+var cv = document.getElementById('cv'), cx = cv.getContext('2d');
+function layout(){
+  var sc = document.getElementById('scene'), W = sc.clientWidth, H = sc.clientHeight;
+  var dpr = window.devicePixelRatio||1;
+  cv.width = Math.round(W*dpr); cv.height = Math.round(H*dpr);
+  cv.style.width = W+'px'; cv.style.height = H+'px';
+  /* Fit the run's height into the scene; on a phone it is wider than the screen, so it
+     is centred on the hall and the edges crop, the art never squashes. */
+  var s = Math.min(H/616, W/(1408*0.62));
+  view.s = s; view.ox = Math.round((W-1408*s)/2); view.oy = Math.round(H*0.30);
+  hots(); draw();
+}
+function draw(){
+  var dpr = window.devicePixelRatio||1, now = performance.now();
+  cx.setTransform(dpr,0,0,dpr,0,0); cx.imageSmoothingEnabled = false;
+  cx.fillStyle = '#0b0907'; cx.fillRect(0,0,cv.width,cv.height);
+  if(img.complete && img.naturalWidth){
+    var Wc = cv.width/dpr, Hc = cv.height/dpr, s = view.s;
+    /* THE SKY: act one's dusk, dead power line across it, no glow */
+    var sk = cx.createLinearGradient(0,0,0,view.oy);
+    sk.addColorStop(0,'#17120e'); sk.addColorStop(1,'#3a2c20');
+    cx.fillStyle = sk; cx.fillRect(0,0,Wc,view.oy+2);
+    cx.strokeStyle = 'rgba(10,8,6,.9)'; cx.lineWidth = 1;
+    for(var li=0;li<2;li++){ cx.beginPath(); cx.moveTo(0,view.oy*0.35+li*6);
+      cx.quadraticCurveTo(Wc/2,view.oy*0.55+li*6,Wc,view.oy*0.30+li*6); cx.stroke(); }
+    /* THE ROAD keeps going toward you: the run's own asphalt rows, repeated down, darker
+       the closer they get, never a new drawing */
+    var ry = view.oy + 616*s, step = 90*s, n = 0;
+    for(var y = ry; y < Hc; y += step, n++){
+      cx.drawImage(img, 0, 526, 1408, 90, view.ox, Math.floor(y), 1408*s, Math.ceil(step)+1);
+      cx.fillStyle = 'rgba(0,0,0,'+Math.min(.6,.12+n*.08).toFixed(2)+')'; cx.fillRect(0,Math.floor(y),Wc,Math.ceil(step)+1);
+    }
+    cx.drawImage(img, view.ox, view.oy, 1408*view.s, 616*view.s);
+    /* THE HUM: the shop light over the stall breathes on the 120 BPM beat and drops out
+       for a beat every so often, on its own, at the source. */
+    var beat = ((now-t0)/500)|0, out = (beat % 13 === 7);
+    var a = out ? 0 : 0.10 + 0.04*Math.sin((now-t0)/500*Math.PI);
+    cx.fillStyle = 'rgba(255,214,140,'+a.toFixed(3)+')';
+    cx.fillRect(view.ox+88*view.s, view.oy+88*view.s, 440*view.s, 90*view.s);
+  }
+  /* the dusk over everything: act one is the ruin */
+  var g = cx.createRadialGradient(cv.width/dpr/2, cv.height/dpr/2, 40, cv.width/dpr/2, cv.height/dpr/2, Math.max(cv.width,cv.height)/dpr*0.7);
+  g.addColorStop(0,'rgba(0,0,0,0)'); g.addColorStop(1,'rgba(0,0,0,.55)');
+  cx.fillStyle = g; cx.fillRect(0,0,cv.width/dpr,cv.height/dpr);
+}
+function loop(){ draw(); requestAnimationFrame(loop); }
+
+function hots(){
+  var sc = document.getElementById('scene');
+  [].slice.call(sc.querySelectorAll('.hot')).forEach(function(h){ h.remove(); });
+  ORDER.forEach(function(k){
+    var r = B[k], h = document.createElement('button');
+    h.className = 'hot'; h.dataset.k = k; h.setAttribute('aria-label', r.name);
+    var x = view.ox + r.x*view.s, y = view.oy + r.y*view.s, w = r.w*view.s, hh = r.h*view.s;
+    var W = sc.clientWidth;
+    if(x < 0){ w += x; x = 0; } if(x + w > W) w = W - x;
+    if(w < 44){ x -= (44-w)/2; w = 44; }
+    h.style.left = x+'px'; h.style.top = y+'px'; h.style.width = w+'px'; h.style.height = Math.max(44,hh)+'px';
+    var lab = document.createElement('span'); lab.textContent = r.name; h.appendChild(lab);
+    h.addEventListener('click', function(){ openB(k); });
+    sc.insertBefore(h, document.getElementById('sheet'));
+  });
+}
+function shelf(){
+  var sh = document.getElementById('shelf'); sh.textContent = '';
+  ORDER.forEach(function(k){
+    var b = document.createElement('button'); b.className = 'pl'+(S.open===k?' on':''); b.dataset.k = k;
+    var n = document.createElement('b'); n.textContent = B[k].name.replace('THE ',''); b.appendChild(n);
+    var s = document.createElement('small'); s.textContent = sub(k); b.appendChild(s);
+    b.addEventListener('click', function(){ openB(k); });
+    sh.appendChild(b);
+  });
+  document.getElementById('bat').textContent = bats()+' BATTER'+(bats()===1?'Y':'IES');
+  document.getElementById('pname').textContent = S.place.name;
+}
+function sub(k){
+  if(k==='board') return S.held.length+' of '+SLOTS+' held';
+  if(k==='lot'){ var l = left(); return l.left===0 ? 'picked clean' : l.left+' left'; }
+  if(k==='hall'){ var o = window.BohemiaFollowers && BohemiaFollowers.offerFor(S.hired,{}); return o ? o+' for hire' : 'nobody'; }
+  return B[k].short;
+}
+
+/* ---------- A MOUTH WITH A FACE ---------- */
+function face(k){
+  var c = document.createElement('canvas'); c.width = 36; c.height = 36; c.className = 'face';
+  var kp = KEEPERS[k], f = S.faces[kp.who];
+  var x = c.getContext('2d'); x.imageSmoothingEnabled = false;
+  if(f){ var im = new Image(); im.onload = function(){ x.drawImage(im,0,0,36,36); }; im.src = f; }
+  else {
+    /* no face handed over yet: ask the game for it (the same road the city uses) and
+       hold a dim head shape meanwhile, never a blank box */
+    post('needFace',{who:kp.who});
+    x.fillStyle='#1a1410'; x.fillRect(0,0,36,36);
+    x.fillStyle='#3b3026'; x.fillRect(11,7,14,16); x.fillRect(7,26,22,10);
+    x.fillStyle='#120e0a'; x.fillRect(14,13,2,2); x.fillRect(20,13,2,2);
+  }
+  return c;
+}
+function speak(k, line){
+  var w = document.createElement('div'); w.className = 'who';
+  w.appendChild(face(k));
+  var s = document.createElement('div'); s.className = 'say';
+  var n = document.createElement('div'); n.className = 'nm'; n.textContent = KEEPERS[k].name; s.appendChild(n);
+  var p = document.createElement('p'); p.textContent = line; s.appendChild(p);
+  w.appendChild(s); return w;
+}
+function act(label, right, fn, off){
+  var b = document.createElement('button'); b.className = 'act'; b.disabled = !!off;
+  var l = document.createElement('span'); l.textContent = label; b.appendChild(l);
+  if(right){ var e = document.createElement('em'); e.textContent = right; b.appendChild(e); }
+  b.addEventListener('click', fn); return b;
+}
+
+/* ---------- THE BUILDINGS ---------- */
+function openB(k, line){
+  S.open = k;
+  var body = document.getElementById('sbody'); body.textContent = '';
+  var acts = document.createElement('div'); acts.className = 'acts';
+  if(k==='hall'){
+    var F = window.BohemiaFollowers, id = F && F.offerFor(S.hired, S.asked);
+    body.appendChild(speak(k, line || (id ? F.askLine(id) : 'Nobody here wants work right now. Come back after the next job, ya sabes.')));
+    if(id){
+      acts.appendChild(act('Take the '+id+' on', '1 battery a night', function(){
+        S.hired[id] = true; post('hire',{role:id}); heard(F.hireLine(id)); shelf(); openB('hall');
+      }));
+      acts.appendChild(act('Not now', '', function(){ S.asked[id] = true; openB('hall','Bueno. I will be around.'); }));
+    }
+  }
+  else if(k==='board'){
+    var n = TIER_OFFERS[S.place.tier] || 1, shown = 0;
+    body.appendChild(speak(k, line || (S.held.length>=SLOTS ? 'You already carry two jobs. Finish one, then come talk to me.' : 'This is what the block needs. Pay is said now and it does not change.')));
+    for(var i=0;i<OFFERS.length && shown<n;i++){
+      (function(o){
+        if(S.held.indexOf(o.id)>=0) return; shown++;
+        acts.appendChild(act(o.title, o.pay+' battery', function(){
+          openB('board', o.says);
+          var sb = document.getElementById('sbody').querySelector('.acts');
+          sb.textContent = '';
+          sb.appendChild(act('Take it', '', function(){
+            S.held.push(o.id); post('contract',{contract:o}); heard('On your phone: '+o.title+'.'); shelf(); openB('board');
+          }, S.held.length>=SLOTS));
+          sb.appendChild(act('Leave it', '', function(){ openB('board','Nobody will hold it against you.'); }));
+        }, S.held.length>=SLOTS));
+      })(OFFERS[i]);
+    }
+    var sl = document.createElement('div'); sl.className = 'slots';
+    sl.textContent = 'Held: '+S.held.length+' of '+SLOTS+' contracts. They show on your phone.';
+    body.appendChild(acts); body.appendChild(sl); return show();
+  }
+  else if(k==='stall'){
+    body.appendChild(speak(k, line || 'Everything is one battery, mijo. No haggling at this stall.'));
+    STALL.forEach(function(g){
+      acts.appendChild(act(g.label, '1 battery', function(){
+        if(bats()<1) return openB('stall','You are out of batteries. Come back with one.');
+        P.debit(S.purse,'electricity',1,'stall:'+g.good,S.place.name,S.day);
+        if(g.counts) P.credit(S.purse,g.counts,1,'stall:'+g.good,S.place.name,S.day);
+        post('buy',{good:g.good}); shelf(); openB('stall','There you go. Gracias.');
+      }, bats()<1));
+    });
+  }
+  else if(k==='barber'){
+    body.appendChild(speak(k, line || 'Sit down. A new cut, a new face, one battery. Who are you becoming?'));
+    acts.appendChild(act('Sit in the chair', '1 battery', function(){
+      var r = window.BohemiaBarber ? BohemiaBarber.visit(S.purse, S.day, S.place.name) : {ok:false,why:'NO_BARBER'};
+      if(!r.ok) return openB('barber', r.why==='CANNOT_AFFORD' ? 'No battery, no chair. Sorry, mijo.' : 'The chair is broken today.');
+      post('barber',{opens:r.opens}); shelf();
+      openB('barber','Bueno. Tell me what you want.');
+      var sb = document.getElementById('sbody').querySelector('.acts'); sb.textContent='';
+      sb.appendChild(act('Your face', '', function(){ post('barber',{open:'faceEditor'}); heard('The face maker opens.'); }));
+      sb.appendChild(act('Your haircut', '12 cuts', function(){ post('barber',{open:'hairBank'}); heard('The haircut shelf opens.'); }));
+    }, bats()<1));
+  }
+  else if(k==='lot'){
+    var l = left();
+    body.appendChild(speak(k, line || (l.left===0 ? 'Nothing left on this lot. You took it all.' : 'Four hours in the lot. It is luck whether I find anything.')));
+    acts.appendChild(act('Search the lot', '4 hours', function(){
+      var r = scavenge(); post('scavenge',{result:r}); shelf();
+      openB('lot', r.why==='PICKED_CLEAN' ? 'Nothing left on this lot. You took it all.'
+                 : r.found ? 'Found something. One thing, '+r.left+' left on this lot.'
+                 : 'Four hours. Nothing.');
+    }, l.left===0));
+  }
+  body.appendChild(acts);
+  show();
+}
+function show(){
+  document.getElementById('sheet').classList.add('on');
+  [].slice.call(document.querySelectorAll('.hot,.pl')).forEach(function(h){ h.classList.toggle('on', h.dataset.k===S.open); });
+}
+function hide(){ S.open = null; document.getElementById('sheet').classList.remove('on'); shelf();
+  [].slice.call(document.querySelectorAll('.hot')).forEach(function(h){ h.classList.remove('on'); }); }
+
+/* ---------- SCAVENGE: WORLD's engine, on this place's own lot ---------- */
+var LOTN = 6;
+function lotWorld(){
+  var d = S.place.district || 'commercial', cells = [];
+  for(var i=0;i<LOTN;i++){ cells.push(i,0); }
+  var block = S.place.block && S.place.block.cells ? S.place.block : {i:0, cells:cells};
+  return {m:{at:function(){ return {district:d}; }}, blocks:{blocks:[block]}, block:block};
+}
+function left(){
+  var w = lotWorld(), Sc = window.BohemiaScavenge;
+  return Sc ? Sc.leftOn(S.scav, w.m, w.block) : {left:0,total:0};
+}
+function scavenge(){
+  var w = lotWorld();
+  S.day++;
+  return BohemiaScavenge.search({map:w.m, blocks:w.blocks, state:S.scav, block:w.block, day:S.day});
+}
+
+/* ---------- OPEN ---------- */
+function open(o){
+  o = o || {};
+  if(o.place) for(var k in o.place) S.place[k] = o.place[k];
+  S.purse = o.purse || S.purse || P.create({id:'player'});
+  if(typeof o.batteries === 'number'){
+    var d = o.batteries - bats();
+    if(d>0) P.credit(S.purse,'electricity',d,'settle:sync',null,0);
+    if(d<0) P.debit(S.purse,'electricity',-d,'settle:sync',null,0);
+  }
+  if(o.contracts) S.held = o.contracts.slice(0,SLOTS);
+  if(o.hired) S.hired = o.hired;
+  S.scav = S.scav || BohemiaScavenge.create({id:S.place.name});
+  hide(); shelf(); layout();
+}
+window.BohemiaSettlement = {open:open, state:S, buildings:B, order:ORDER, offers:OFFERS};
+
+window.addEventListener('message', function(e){
+  var d = e.data || {};
+  if(d.type==='BOHEMIA_SETTLEMENT_OPEN') open(d);
+  if(d.type==='BOHEMIA_SETTLEMENT_FACE' && d.who){ S.faces[d.who] = d.src; if(S.open) openB(S.open); }
+});
+document.getElementById('close').addEventListener('click', hide);
+document.getElementById('leave').addEventListener('click', function(){ post('leave',{}); heard('You head back out to the map.'); });
+window.addEventListener('resize', layout);
+img.onload = layout; img.src = ART;
+
+var q = new URLSearchParams(location.search);
+open({place:{name:q.get('place')||S.place.name, tier:q.get('tier')||S.place.tier}, batteries: S.standalone ? 3 : undefined});
+requestAnimationFrame(loop);
+})();
+</script>
+</body>
+</html>

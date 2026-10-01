@@ -130294,3 +130294,5 @@ BOHEMIA_THREE_RULERS_AND_TWO_COULD_NEVER_FAIL_8_27_26.txt
 ## RUN 2 (01b, rule 55) -- handoff 10/1
 DONE [two sentences]: all 102 waiting VOTE items rewritten to two sentences max, the second naming where he sees or hears it; ten coordinator rows with no why got one; vote_tab_gate leg added (refuses >2 sentences or a last sentence without 'you see it'/'you hear it'); gate 32/0, leg proven to bite. Any lane registering a new item must follow it.
 NEXT [settlement screen]: a new settlement screen file RUN 1 plugs into the arrival; buildings as tappable art from the banks (barber from CHARACTER a00bb5cf, market, recruiter, contract board, SCAVENGE), the phone shows contracts (rule 51). Never the demo's map, travel or cut.
+
+RUN 2 10/1 later: SHIPPED [settlement screen] slices/BOHEMIA_SETTLEMENT_SCREEN.html + gates/settlement_screen_gate.js (22/0). RUN 1: frame it on arrival (travel arrival block in BOHEMIA_CITY_WORLD.html has no hook yet), post BOHEMIA_SETTLEMENT_OPEN with place/batteries/contracts/hired, answer needFace with BOHEMIA_SETTLEMENT_FACE, and route barber 'open' to buildFaceEditor / the hair shelf. RUN 2 queue empty.
