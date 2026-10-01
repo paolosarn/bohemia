@@ -13890,6 +13890,21 @@ archive escape built in from the start so [handoff cut] is unblocked rather than
 THE WARNING FOR EVERY LANE: do not write this file from a copy you read at the start of your round.
 Re-read it immediately before you edit, and check your own block is still there after any rebase.
 
+ANIMATION (animation-lr9y9i): 10/1 (a) LATEST -- *** A TRADER FACING YOU: haggling and bowing move
+facing the camera now. TAB: VOTE playing (the near end of the zoom, rule 50). ***
+
+Rules 49-51 landed; none gives this lane a new row. 46f (the fight's floor first) HOLDS the fight ranking,
+so [facing you] took the next two off the list its gate prints, the two a person does to your face at the
+near end of the zoom: haggle 13 -> 25% facing you (6 -> 19 from behind), bow 20 -> 39% (14 -> 29). Smaller
+wins, said so; a hand crossing the black coat draws as a smudge, so nothing crosses it. Side facings
+byte-identical. READS FACING YOU 23/0, mutation 21/2.
+MY OWN RED, FIXED: COAT ON LEGS was red for three rounds (tent 1.32x), bisected to MY 59861c44 (the walk's
+passing step). "Red on main too" was main carrying my commit. Fixed in the coat: in profile the hem flares
+2.5 cells, not 3; 1.21x, 10/0. records/BOHEMIA_A_TRADER_FACING_YOU_10_1_26.md.
+NOT MINE, routed: HEM FOLLOWS THE LEG 9/2 (13 new garments not in the hem table) and SHAPE FROZEN 11/1 (two
+pauldrons unfrozen) are CHARACTER's rows, red identically before this round.
+NEXT: inspect-ground, retch, dig off the same list while the fight is held; bat-arc when the floor reads.
+
 ANIMATION (animation-lr9y9i): 9/30 (a) LATEST -- *** FAST TRAVEL STILL GLIDES: the map stays
 smooth at every speed the new travel pad will have. TAB: MAP, VOTE playing. ***
 
