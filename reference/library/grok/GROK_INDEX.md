@@ -5,6 +5,7 @@ PASSED FILTER (coordinator 10/1, rule 54a: no game he has not named; nothing new
 
 Newest first.
 
+- 2026-09-30 | WIKI | GROK_28_WIKI_BULK_4_2026_09_30.md | retinue effects and armor add-ons
 - 2026-09-30 | WIKI | GROK_27_WIKI_BULK_3_2026_09_30.md | southern units and the event buckets
 - 2026-09-30 | WIKI | GROK_26_WIKI_BULK_2_2026_09_30.md | noble troops, armor, ambitions
 - 2026-09-30 | WIKI | GROK_25_WIKI_BULK_2026_09_30.md | brigands, goblins, dead, beasts, weapon AP
