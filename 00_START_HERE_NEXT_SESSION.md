@@ -55301,7 +55301,18 @@ your first VAMILY and do steps 1 to 9.
 I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
-ROUND LOG 9/30a (latest): [ai slop] SHIPPED (rule 45c). The strand: the
+ROUND LOG 10/1a (latest): RULE 46f ROUND - he saw the fight floor ("the
+tiles below the people dont look good"). FIGHT VERDICT ROUND 21, FLOOR
+ONLY, judged LIVE (alpha COMBAT tab, 390x844@3x, V233, seeds 1/5/9/13):
+FAIL on all five tests of THE FLOOR PASS BAR, which RUN now cuts by:
+F1 painted unit <= 1.5 device px (today 3.0), F2 fine band >= 0.020
+(today 0.007-0.011), F3 no non-ground marks (today 3-10% by colour class,
+lower bound, plus ovals/disc/words/diamonds/ring by eye), F4 tiles from
+the banks at 5A, bank named per kind, F5 cover is a thing. Picture in VOTE
+(direction-the-floor-under-their-feet-10-1), tool tools/bohemia_direction_
+the_floor_verdict.js/.py re-shoots and re-measures any round. [flip look]
+still OPEN, not claimed this round (the floor was his words).
+ROUND LOG 9/30a: [ai slop] SHIPPED (rule 45c). The strand: the
 world rough and hand-made, the machine smooth, polite, sure and a little
 wrong; the gap is the fear. Card records/BOHEMIA_AI_SLOP_THE_MACHINE_AND_
 THE_WORLD_9_30_26.md + a bible section; three pairs SHOT FROM THE GAME'S
